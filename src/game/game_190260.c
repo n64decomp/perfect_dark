@@ -2298,222 +2298,82 @@ bool chrHasGround(struct chrdata *chr)
 	return chr->ground >= -20000;
 }
 
-GLOBAL_ASM(
-glabel func0f192a74
-.late_rodata
-glabel var7f1b8f3c
-.word 0x37800080
-glabel var7f1b8f40
-.word 0x3f79999a
-glabel var7f1b8f44
-.word 0x3cccccc0
-.text
-/*  f192a74:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f192a78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f192a7c:	8c8302d4 */ 	lw	$v1,0x2d4($a0)
-/*  f192a80:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f192a84:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f192a88:	8cb80038 */ 	lw	$t8,0x38($a1)
-/*  f192a8c:	8c6e0004 */ 	lw	$t6,0x4($v1)
-/*  f192a90:	8c6f01cc */ 	lw	$t7,0x1cc($v1)
-/*  f192a94:	91c70048 */ 	lbu	$a3,0x48($t6)
-/*  f192a98:	01f8c823 */ 	subu	$t9,$t7,$t8
-/*  f192a9c:	1f200012 */ 	bgtz	$t9,.L0f192ae8
-/*  f192aa0:	ac7901cc */ 	sw	$t9,0x1cc($v1)
-/*  f192aa4:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f192aa8:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f192aac:	0c004b70 */ 	jal	random
-/*  f192ab0:	afa70038 */ 	sw	$a3,0x38($sp)
-/*  f192ab4:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f192ab8:	0c004b70 */ 	jal	random
-/*  f192abc:	ac6201d0 */ 	sw	$v0,0x1d0($v1)
-/*  f192ac0:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f192ac4:	0041001b */ 	divu	$zero,$v0,$at
-/*  f192ac8:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f192acc:	00004810 */ 	mfhi	$t1
-/*  f192ad0:	252a0014 */ 	addiu	$t2,$t1,0x14
-/*  f192ad4:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f192ad8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f192adc:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f192ae0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f192ae4:	ac6a01cc */ 	sw	$t2,0x1cc($v1)
-.L0f192ae8:
-/*  f192ae8:	8cab0034 */ 	lw	$t3,0x34($a1)
-/*  f192aec:	59600025 */ 	blezl	$t3,.L0f192b84
-/*  f192af0:	8c78011c */ 	lw	$t8,0x11c($v1)
-/*  f192af4:	8c6c0128 */ 	lw	$t4,0x128($v1)
-/*  f192af8:	5180000a */ 	beqzl	$t4,.L0f192b24
-/*  f192afc:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f192b00:	8cad0000 */ 	lw	$t5,0x0($a1)
-/*  f192b04:	c46401d4 */ 	lwc1	$f4,0x1d4($v1)
-/*  f192b08:	448d3000 */ 	mtc1	$t5,$f6
-/*  f192b0c:	00000000 */ 	nop
-/*  f192b10:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f192b14:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f192b18:	10000008 */ 	b	.L0f192b3c
-/*  f192b1c:	e46a01d4 */ 	swc1	$f10,0x1d4($v1)
-/*  f192b20:	8cae0000 */ 	lw	$t6,0x0($a1)
-.L0f192b24:
-/*  f192b24:	c46601d4 */ 	lwc1	$f6,0x1d4($v1)
-/*  f192b28:	448e2000 */ 	mtc1	$t6,$f4
-/*  f192b2c:	00000000 */ 	nop
-/*  f192b30:	46802220 */ 	cvt.s.w	$f8,$f4
-/*  f192b34:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f192b38:	e46a01d4 */ 	swc1	$f10,0x1d4($v1)
-.L0f192b3c:
-/*  f192b3c:	c46400ac */ 	lwc1	$f4,0xac($v1)
-/*  f192b40:	c4a60044 */ 	lwc1	$f6,0x44($a1)
-/*  f192b44:	00077940 */ 	sll	$t7,$a3,0x5
-/*  f192b48:	3c018008 */ 	lui	$at,%hi(g_SimDifficulties+0x10)
-/*  f192b4c:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f192b50:	002f0821 */ 	addu	$at,$at,$t7
-/*  f192b54:	c42a7d24 */ 	lwc1	$f10,%lo(g_SimDifficulties+0x10)($at)
-/*  f192b58:	44809000 */ 	mtc1	$zero,$f18
-/*  f192b5c:	46085002 */ 	mul.s	$f0,$f10,$f8
-/*  f192b60:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f192b64:	00000000 */ 	nop
-/*  f192b68:	45020003 */ 	bc1fl	.L0f192b78
-/*  f192b6c:	c46401d4 */ 	lwc1	$f4,0x1d4($v1)
-/*  f192b70:	46000007 */ 	neg.s	$f0,$f0
-/*  f192b74:	c46401d4 */ 	lwc1	$f4,0x1d4($v1)
-.L0f192b78:
-/*  f192b78:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f192b7c:	e46601d4 */ 	swc1	$f6,0x1d4($v1)
-/*  f192b80:	8c78011c */ 	lw	$t8,0x11c($v1)
-.L0f192b84:
-/*  f192b84:	c46c01d4 */ 	lwc1	$f12,0x1d4($v1)
-/*  f192b88:	3c088008 */ 	lui	$t0,%hi(g_SimDifficulties)
-/*  f192b8c:	44985000 */ 	mtc1	$t8,$f10
-/*  f192b90:	44809000 */ 	mtc1	$zero,$f18
-/*  f192b94:	25087d14 */ 	addiu	$t0,$t0,%lo(g_SimDifficulties)
-/*  f192b98:	46805020 */ 	cvt.s.w	$f0,$f10
-/*  f192b9c:	0007c940 */ 	sll	$t9,$a3,0x5
-/*  f192ba0:	03283021 */ 	addu	$a2,$t9,$t0
-/*  f192ba4:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f192ba8:	00000000 */ 	nop
-/*  f192bac:	45020004 */ 	bc1fl	.L0f192bc0
-/*  f192bb0:	4612603c */ 	c.lt.s	$f12,$f18
-/*  f192bb4:	e46001d4 */ 	swc1	$f0,0x1d4($v1)
-/*  f192bb8:	c46c01d4 */ 	lwc1	$f12,0x1d4($v1)
-/*  f192bbc:	4612603c */ 	c.lt.s	$f12,$f18
-.L0f192bc0:
-/*  f192bc0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f192bc4:	45020004 */ 	bc1fl	.L0f192bd8
-/*  f192bc8:	94c9000c */ 	lhu	$t1,0xc($a2)
-/*  f192bcc:	e47201d4 */ 	swc1	$f18,0x1d4($v1)
-/*  f192bd0:	c46c01d4 */ 	lwc1	$f12,0x1d4($v1)
-/*  f192bd4:	94c9000c */ 	lhu	$t1,0xc($a2)
-.L0f192bd8:
-/*  f192bd8:	44894000 */ 	mtc1	$t1,$f8
-/*  f192bdc:	05210004 */ 	bgez	$t1,.L0f192bf0
-/*  f192be0:	468040a0 */ 	cvt.s.w	$f2,$f8
-/*  f192be4:	44812000 */ 	mtc1	$at,$f4
-/*  f192be8:	00000000 */ 	nop
-/*  f192bec:	46041080 */ 	add.s	$f2,$f2,$f4
-.L0f192bf0:
-/*  f192bf0:	460c103e */ 	c.le.s	$f2,$f12
-/*  f192bf4:	00000000 */ 	nop
-/*  f192bf8:	45020006 */ 	bc1fl	.L0f192c14
-/*  f192bfc:	460c1181 */ 	sub.s	$f6,$f2,$f12
-/*  f192c00:	e46201d4 */ 	swc1	$f2,0x1d4($v1)
-/*  f192c04:	46009406 */ 	mov.s	$f16,$f18
-/*  f192c08:	10000009 */ 	b	.L0f192c30
-/*  f192c0c:	46009386 */ 	mov.s	$f14,$f18
-/*  f192c10:	460c1181 */ 	sub.s	$f6,$f2,$f12
-.L0f192c14:
-/*  f192c14:	c4ca0004 */ 	lwc1	$f10,0x4($a2)
-/*  f192c18:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f192c1c:	46023003 */ 	div.s	$f0,$f6,$f2
-/*  f192c20:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f192c24:	00000000 */ 	nop
-/*  f192c28:	46004382 */ 	mul.s	$f14,$f8,$f0
-/*  f192c2c:	00000000 */ 	nop
-.L0f192c30:
-/*  f192c30:	848a017e */ 	lh	$t2,0x17e($a0)
-/*  f192c34:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f192c38:	51410017 */ 	beql	$t2,$at,.L0f192c98
-/*  f192c3c:	c4c00018 */ 	lwc1	$f0,0x18($a2)
-/*  f192c40:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f192c44:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f192c48:	e7ae002c */ 	swc1	$f14,0x2c($sp)
-/*  f192c4c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f192c50:	e7b00030 */ 	swc1	$f16,0x30($sp)
-/*  f192c54:	8c4b0004 */ 	lw	$t3,0x4($v0)
-/*  f192c58:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f192c5c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f192c60:	8d6c0014 */ 	lw	$t4,0x14($t3)
-/*  f192c64:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f192c68:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f192c6c:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f192c70:	c7ae002c */ 	lwc1	$f14,0x2c($sp)
-/*  f192c74:	05a10007 */ 	bgez	$t5,.L0f192c94
-/*  f192c78:	c7b00030 */ 	lwc1	$f16,0x30($sp)
-/*  f192c7c:	c4c00014 */ 	lwc1	$f0,0x14($a2)
-/*  f192c80:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f192c84:	00000000 */ 	nop
-/*  f192c88:	45020003 */ 	bc1fl	.L0f192c98
-/*  f192c8c:	c4c00018 */ 	lwc1	$f0,0x18($a2)
-/*  f192c90:	46000386 */ 	mov.s	$f14,$f0
-.L0f192c94:
-/*  f192c94:	c4c00018 */ 	lwc1	$f0,0x18($a2)
-.L0f192c98:
-/*  f192c98:	3c014f80 */ 	lui	$at,0x4f80
-/*  f192c9c:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f192ca0:	00000000 */ 	nop
-/*  f192ca4:	45020003 */ 	bc1fl	.L0f192cb4
-/*  f192ca8:	8c6201d0 */ 	lw	$v0,0x1d0($v1)
-/*  f192cac:	46000386 */ 	mov.s	$f14,$f0
-/*  f192cb0:	8c6201d0 */ 	lw	$v0,0x1d0($v1)
-.L0f192cb4:
-/*  f192cb4:	46107101 */ 	sub.s	$f4,$f14,$f16
-/*  f192cb8:	304effff */ 	andi	$t6,$v0,0xffff
-/*  f192cbc:	448e3000 */ 	mtc1	$t6,$f6
-/*  f192cc0:	05c10004 */ 	bgez	$t6,.L0f192cd4
-/*  f192cc4:	468032a0 */ 	cvt.s.w	$f10,$f6
-/*  f192cc8:	44814000 */ 	mtc1	$at,$f8
-/*  f192ccc:	00000000 */ 	nop
-/*  f192cd0:	46085280 */ 	add.s	$f10,$f10,$f8
-.L0f192cd4:
-/*  f192cd4:	460a2182 */ 	mul.s	$f6,$f4,$f10
-/*  f192cd8:	3c017f1c */ 	lui	$at,%hi(var7f1b8f3c)
-/*  f192cdc:	c4288f3c */ 	lwc1	$f8,%lo(var7f1b8f3c)($at)
-/*  f192ce0:	00027bc0 */ 	sll	$t7,$v0,0xf
-/*  f192ce4:	3c017f1c */ 	lui	$at,%hi(var7f1b8f40)
-/*  f192ce8:	46083102 */ 	mul.s	$f4,$f6,$f8
-/*  f192cec:	46102280 */ 	add.s	$f10,$f4,$f16
-/*  f192cf0:	05e10004 */ 	bgez	$t7,.L0f192d04
-/*  f192cf4:	e46a01c8 */ 	swc1	$f10,0x1c8($v1)
-/*  f192cf8:	c46601c8 */ 	lwc1	$f6,0x1c8($v1)
-/*  f192cfc:	46003207 */ 	neg.s	$f8,$f6
-/*  f192d00:	e46801c8 */ 	swc1	$f8,0x1c8($v1)
-.L0f192d04:
-/*  f192d04:	8cb80034 */ 	lw	$t8,0x34($a1)
-/*  f192d08:	00001025 */ 	or	$v0,$zero,$zero
-/*  f192d0c:	1b00000c */ 	blez	$t8,.L0f192d40
-/*  f192d10:	00000000 */ 	nop
-/*  f192d14:	c46201c8 */ 	lwc1	$f2,0x1c8($v1)
-/*  f192d18:	c4208f40 */ 	lwc1	$f0,%lo(var7f1b8f40)($at)
-/*  f192d1c:	c46401c4 */ 	lwc1	$f4,0x1c4($v1)
-.L0f192d20:
-/*  f192d20:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f192d24:	46002282 */ 	mul.s	$f10,$f4,$f0
-/*  f192d28:	46025180 */ 	add.s	$f6,$f10,$f2
-/*  f192d2c:	e46601c4 */ 	swc1	$f6,0x1c4($v1)
-/*  f192d30:	8cb90034 */ 	lw	$t9,0x34($a1)
-/*  f192d34:	0059082a */ 	slt	$at,$v0,$t9
-/*  f192d38:	5420fff9 */ 	bnezl	$at,.L0f192d20
-/*  f192d3c:	c46401c4 */ 	lwc1	$f4,0x1c4($v1)
-.L0f192d40:
-/*  f192d40:	3c017f1c */ 	lui	$at,%hi(var7f1b8f44)
-/*  f192d44:	c4248f44 */ 	lwc1	$f4,%lo(var7f1b8f44)($at)
-/*  f192d48:	c46801c4 */ 	lwc1	$f8,0x1c4($v1)
-/*  f192d4c:	46044282 */ 	mul.s	$f10,$f8,$f4
-/*  f192d50:	e46a01c0 */ 	swc1	$f10,0x1c0($v1)
-/*  f192d54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f192d58:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f192d5c:	03e00008 */ 	jr	$ra
-/*  f192d60:	00000000 */ 	nop
-);
+void func0f192a74(struct chrdata *chr)
+{
+	struct aibot *aibot = chr->aibot;
+	s32 diff = aibot->simulant->difficulty;
+	s32 i;
+	f32 fVar12;
+	f32 fVar11;
+	f32 tmp;
+
+	aibot->unk1cc -= g_Vars.lvupdate240_60;
+
+	if (aibot->unk1cc <= 0) {
+		aibot->unk1d0 = random();
+		aibot->unk1cc = 20 + random() % 20;
+	}
+
+	if (g_Vars.lvupdate240 > 0) {
+		if (aibot->unk128) {
+			aibot->unk1d4 += g_Vars.diffframe60;
+		} else {
+			aibot->unk1d4 -= g_Vars.diffframe60;
+		}
+
+		tmp = g_SimDifficulties[diff].unk10 * (aibot->unk0ac * g_Vars.lvupdate240f);
+
+		if (tmp < 0) {
+			tmp = -tmp;
+		}
+
+		aibot->unk1d4 -= tmp;
+	}
+
+	if (aibot->unk1d4 > aibot->unk11c) {
+		aibot->unk1d4 = aibot->unk11c;
+	}
+
+	if (aibot->unk1d4 < 0) {
+		aibot->unk1d4 = 0;
+	}
+
+	if (aibot->unk1d4 >= g_SimDifficulties[diff].unk0c) {
+		aibot->unk1d4 = g_SimDifficulties[diff].unk0c;
+		fVar12 = 0;
+		fVar11 = 0;
+	} else {
+		tmp = (g_SimDifficulties[diff].unk0c - aibot->unk1d4) / g_SimDifficulties[diff].unk0c;
+		fVar12 = g_SimDifficulties[diff].unk04 * tmp;
+		fVar11 = g_SimDifficulties[diff].unk08 * tmp;
+	}
+
+	if (chr->target != -1) {
+		struct prop *target = chrGetTargetProp(chr);
+
+		if (target->chr->hidden & CHRHFLAG_CLOAKED) {
+			if (fVar11 < g_SimDifficulties[diff].unk14) {
+				fVar11 = g_SimDifficulties[diff].unk14;
+			}
+		}
+	}
+
+	if (fVar11 < g_SimDifficulties[diff].unk18) {
+		fVar11 = g_SimDifficulties[diff].unk18;
+	}
+
+	aibot->unk1c8 = (fVar11 - fVar12) * (aibot->unk1d0 & 0xffff) * 0.000015259021893144f + fVar12;
+
+	if (aibot->unk1d0 & 0x10000) {
+		aibot->unk1c8 = -aibot->unk1c8;
+	}
+
+	for (i = 0; i < g_Vars.lvupdate240; i++) {
+		aibot->unk1c4 = aibot->unk1c4 * 0.97500002384186f + aibot->unk1c8;
+	}
+
+	aibot->unk1c0 = aibot->unk1c4 * 0.024999976158142f;
+}
 
 bool func0f192d64(struct chrdata *botchr, struct chrdata *otherchr)
 {
