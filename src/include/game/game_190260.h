@@ -19,7 +19,7 @@ bool aibotTick(struct prop *prop);
 f32 aibotCalculateMaxSpeed(struct chrdata *chr);
 u32 func0f1921f8(void);
 void func0f192628(struct chrdata *chr, struct prop *arg1);
-u32 func0f19277c(void);
+void func0f19277c(struct chrdata *chr, s32 propnum);
 bool func0f19294c(struct chrdata *botchr, struct chrdata *otherchr);
 bool chrHasGround(struct chrdata *chr);
 u32 func0f192a74(void);

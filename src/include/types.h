@@ -470,7 +470,7 @@ struct aibot {
 	/*0x110*/ f32 unk110;
 	/*0x114*/ s32 unk114;
 	/*0x118*/ u32 unk118;
-	/*0x11c*/ u32 unk11c;
+	/*0x11c*/ s32 unk11c;
 	/*0x120*/ s32 unk120;
 	/*0x124*/ s32 unk124;
 	/*0x128*/ u32 unk128;
