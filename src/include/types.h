@@ -498,7 +498,7 @@ struct aibot {
 	/*0x1fc*/ u32 unk1fc;
 	/*0x200*/ u32 unk200;
 	/*0x204*/ u32 unk204;
-	/*0x208*/ u32 unk208;
+	/*0x208*/ s32 unk208;
 	/*0x20c*/ s32 randttl60;
 	/*0x210*/ u32 rand;
 	/*0x214*/ f32 killsbygunfunc[6][2];
