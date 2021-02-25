@@ -2515,34 +2515,21 @@ glabel var7f1b8f44
 /*  f192d60:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f192d64
-/*  f192d64:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f192d68:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f192d6c:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f192d70:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f192d74:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f192d78:	8c4e0004 */ 	lw	$t6,0x4($v0)
-/*  f192d7c:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f192d80:	91cf0047 */ 	lbu	$t7,0x47($t6)
-/*  f192d84:	55e1000a */ 	bnel	$t7,$at,.L0f192db0
-/*  f192d88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f192d8c:	0fc6456d */ 	jal	mpchrGetWeaponNum
-/*  f192d90:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f192d94:	10400004 */ 	beqz	$v0,.L0f192da8
-/*  f192d98:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f192d9c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f192da0:	54410003 */ 	bnel	$v0,$at,.L0f192db0
-/*  f192da4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f192da8:
-/*  f192da8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f192dac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f192db0:
-/*  f192db0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f192db4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f192db8:	03e00008 */ 	jr	$ra
-/*  f192dbc:	00000000 */ 	nop
-);
+bool func0f192d64(struct chrdata *botchr, struct chrdata *otherchr)
+{
+	struct aibot *aibot = botchr->aibot;
+	bool result = true;
+
+	if (aibot->simulant->base.simtype == SIMTYPE_PEACE) {
+		s32 weaponnum = mpchrGetWeaponNum(otherchr);
+
+		if (weaponnum == WEAPON_NONE || weaponnum == WEAPON_UNARMED) {
+			result = false;
+		}
+	}
+
+	return result;
+}
 
 bool func0f192dc0(struct chrdata *botchr, struct chrdata *chr)
 {
