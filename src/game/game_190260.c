@@ -1246,114 +1246,46 @@ s32 chrGuessCrouchPos(struct chrdata *chr)
 	return crouchpos;
 }
 
-GLOBAL_ASM(
-glabel func0f191448
-.late_rodata
-glabel var7f1b8eac
-.word 0x40c907a9
-glabel var7f1b8eb0
-.word 0x40c907a9
-glabel var7f1b8eb4
-.word 0x40c907a9
-.text
-/*  f191448:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f19144c:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f191450:	00808825 */ 	or	$s1,$a0,$zero
-/*  f191454:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f191458:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f19145c:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*  f191460:	10800004 */ 	beqz	$a0,.L0f191474
-/*  f191464:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f191468:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f19146c:	14400003 */ 	bnez	$v0,.L0f19147c
-/*  f191470:	00408025 */ 	or	$s0,$v0,$zero
-.L0f191474:
-/*  f191474:	10000048 */ 	b	.L0f191598
-/*  f191478:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19147c:
-/*  f19147c:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f191480:	02202025 */ 	or	$a0,$s1,$zero
-/*  f191484:	46000506 */ 	mov.s	$f20,$f0
-/*  f191488:	0fc0f95e */ 	jal	func0f03e578
-/*  f19148c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f191490:	4600a03c */ 	c.lt.s	$f20,$f0
-/*  f191494:	4600a081 */ 	sub.s	$f2,$f20,$f0
-/*  f191498:	45000004 */ 	bc1f	.L0f1914ac
-/*  f19149c:	46001586 */ 	mov.s	$f22,$f2
-/*  f1914a0:	3c017f1c */ 	lui	$at,%hi(var7f1b8eac)
-/*  f1914a4:	c4248eac */ 	lwc1	$f4,%lo(var7f1b8eac)($at)
-/*  f1914a8:	46041580 */ 	add.s	$f22,$f2,$f4
-.L0f1914ac:
-/*  f1914ac:	0c0068f4 */ 	jal	cosf
-/*  f1914b0:	4600b306 */ 	mov.s	$f12,$f22
-/*  f1914b4:	46000506 */ 	mov.s	$f20,$f0
-/*  f1914b8:	0c0068f7 */ 	jal	sinf
-/*  f1914bc:	4600b306 */ 	mov.s	$f12,$f22
-/*  f1914c0:	c606006c */ 	lwc1	$f6,0x6c($s0)
-/*  f1914c4:	c60a0070 */ 	lwc1	$f10,0x70($s0)
-/*  f1914c8:	4600b306 */ 	mov.s	$f12,$f22
-/*  f1914cc:	46143202 */ 	mul.s	$f8,$f6,$f20
-/*  f1914d0:	00000000 */ 	nop
-/*  f1914d4:	460a0402 */ 	mul.s	$f16,$f0,$f10
-/*  f1914d8:	46104481 */ 	sub.s	$f18,$f8,$f16
-/*  f1914dc:	0c0068f7 */ 	jal	sinf
-/*  f1914e0:	e7b20044 */ 	swc1	$f18,0x44($sp)
-/*  f1914e4:	46000506 */ 	mov.s	$f20,$f0
-/*  f1914e8:	0c0068f4 */ 	jal	cosf
-/*  f1914ec:	4600b306 */ 	mov.s	$f12,$f22
-/*  f1914f0:	c6040070 */ 	lwc1	$f4,0x70($s0)
-/*  f1914f4:	c60a006c */ 	lwc1	$f10,0x6c($s0)
-/*  f1914f8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f1914fc:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f191500:	00000000 */ 	nop
-/*  f191504:	46145202 */ 	mul.s	$f8,$f10,$f20
-/*  f191508:	0fc644fe */ 	jal	chrGuessCrouchPos
-/*  f19150c:	46083580 */ 	add.s	$f22,$f6,$f8
-/*  f191510:	c61000ac */ 	lwc1	$f16,0xac($s0)
-/*  f191514:	4406b000 */ 	mfc1	$a2,$f22
-/*  f191518:	260e00a8 */ 	addiu	$t6,$s0,0xa8
-/*  f19151c:	260f0068 */ 	addiu	$t7,$s0,0x68
-/*  f191520:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f191524:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f191528:	02202025 */ 	or	$a0,$s1,$zero
-/*  f19152c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f191530:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f191534:	0fc30a96 */ 	jal	func0f0c2a58
-/*  f191538:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*  f19153c:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f191540:	02202025 */ 	or	$a0,$s1,$zero
-/*  f191544:	c61200a8 */ 	lwc1	$f18,0xa8($s0)
-/*  f191548:	44802000 */ 	mtc1	$zero,$f4
-/*  f19154c:	3c017f1c */ 	lui	$at,%hi(var7f1b8eb0)
-/*  f191550:	46120081 */ 	sub.s	$f2,$f0,$f18
-/*  f191554:	4604103c */ 	c.lt.s	$f2,$f4
-/*  f191558:	00000000 */ 	nop
-/*  f19155c:	45000003 */ 	bc1f	.L0f19156c
-/*  f191560:	00000000 */ 	nop
-/*  f191564:	c4208eb0 */ 	lwc1	$f0,%lo(var7f1b8eb0)($at)
-/*  f191568:	46001080 */ 	add.s	$f2,$f2,$f0
-.L0f19156c:
-/*  f19156c:	3c017f1c */ 	lui	$at,%hi(var7f1b8eb4)
-/*  f191570:	c4208eb4 */ 	lwc1	$f0,%lo(var7f1b8eb4)($at)
-/*  f191574:	4602003e */ 	c.le.s	$f0,$f2
-/*  f191578:	00000000 */ 	nop
-/*  f19157c:	45020003 */ 	bc1fl	.L0f19158c
-/*  f191580:	44051000 */ 	mfc1	$a1,$f2
-/*  f191584:	46001081 */ 	sub.s	$f2,$f2,$f0
-/*  f191588:	44051000 */ 	mfc1	$a1,$f2
-.L0f19158c:
-/*  f19158c:	0c006ba4 */ 	jal	func0001ae90
-/*  f191590:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f191594:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f191598:
-/*  f191598:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f19159c:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f1915a0:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*  f1915a4:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f1915a8:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f1915ac:	03e00008 */ 	jr	$ra
-/*  f1915b0:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+bool func0f191448(struct chrdata *chr)
+{
+	struct aibot *aibot;
+	u32 stack;
+	f32 a;
+	f32 b;
+	f32 angle;
+	f32 angle2;
+
+	if (!chr || !chr->aibot) {
+		return false;
+	}
+
+	aibot = chr->aibot;
+
+	angle = chrGetInverseTheta(chr) - func0f03e578(chr);
+
+	if (angle < 0) {
+		angle += M_BADTAU;
+	}
+
+	a = aibot->unk06c * cosf(angle) - sinf(angle) * aibot->unk070;
+	b = aibot->unk06c * sinf(angle) + cosf(angle) * aibot->unk070;
+
+	func0f0c2a58(chr, chrGuessCrouchPos(chr), b, a, aibot->unk0ac, &aibot->unk0a8, &aibot->unk068);
+
+	angle2 = chrGetInverseTheta(chr) - aibot->unk0a8;
+
+	if (angle2 < 0) {
+		angle2 += M_BADTAU;
+	}
+
+	if (angle2 >= M_BADTAU) {
+		angle2 -= M_BADTAU;
+	}
+
+	func0001ae90(chr->model, angle2);
+
+	return true;
+}
 
 s32 mpchrGetWeaponNum(struct chrdata *chr)
 {

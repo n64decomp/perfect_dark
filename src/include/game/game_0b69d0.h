@@ -77,7 +77,7 @@ void currentPlayerSetShieldFrac(f32 shield);
 s32 getMissionTime(void);
 s32 func0f0c228c(struct prop *prop);
 u32 func0f0c2364(void);
-u32 func0f0c2a58(void);
+void func0f0c2a58(struct chrdata *chr, s32 crouchpos, f32 arg2, f32 arg3, f32 arg4, f32 *arg5, struct act_attackamount_2c **arg6);
 Gfx *playerRender(struct prop *prop, Gfx *gdl, bool withalpha);
 Gfx *currentPlayerLoadMatrix(Gfx *gdl);
 u32 func0f0c3320(void);

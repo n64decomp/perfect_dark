@@ -13,7 +13,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr);
 u32 func0f190be4(void);
 void func0f19124c(struct chrdata *chr);
 s32 chrGuessCrouchPos(struct chrdata *chr);
-void func0f191448(struct chrdata *chr);
+bool func0f191448(struct chrdata *chr);
 bool func0f191638(struct chrdata *chr, bool arg1);
 bool aibotTick(struct prop *prop);
 f32 aibotCalculateMaxSpeed(struct chrdata *chr);
