@@ -376,7 +376,7 @@ struct aibot {
 	/*0x01c*/ s32 *ammoheld;
 	/*0x020*/ s32 weaponnum;
 	/*0x024*/ s32 loadedammo[2]; // amount of ammo in current clip
-	/*0x02c*/ u16 unk02c[2];
+	/*0x02c*/ s16 unk02c[2];
 	/*0x030*/ u32 unk030; // timer of some sort
 	/*0x034*/ u32 unk034;
 	/*0x038*/ u32 unk038;
@@ -6970,7 +6970,8 @@ struct aibotweaponpreference {
 	u16 unk08;
 	u16 unk0a;
 	u16 unk0c;
-	u16 unk0e;
+	u16 unk0e_00 : 3;
+	u16 unk0e_03 : 1;
 };
 
 #endif

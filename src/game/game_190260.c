@@ -3504,78 +3504,17 @@ s32 func0f193530(struct chrdata *chr, f32 range)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f19369c
-/*  f19369c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1936a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1936a4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1936a8:	8c8602d4 */ 	lw	$a2,0x2d4($a0)
-/*  f1936ac:	3c028008 */ 	lui	$v0,%hi(g_AibotWeaponPreferences)
-/*  f1936b0:	24427eb0 */ 	addiu	$v0,$v0,%lo(g_AibotWeaponPreferences)
-/*  f1936b4:	8ccf0020 */ 	lw	$t7,0x20($a2)
-/*  f1936b8:	00054040 */ 	sll	$t0,$a1,0x1
-/*  f1936bc:	00c86021 */ 	addu	$t4,$a2,$t0
-/*  f1936c0:	000fc100 */ 	sll	$t8,$t7,0x4
-/*  f1936c4:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f1936c8:	9729000e */ 	lhu	$t1,0xe($t9)
-/*  f1936cc:	00803825 */ 	or	$a3,$a0,$zero
-/*  f1936d0:	00095342 */ 	srl	$t2,$t1,0xd
-/*  f1936d4:	000a5900 */ 	sll	$t3,$t2,0x4
-/*  f1936d8:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f1936dc:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f1936e0:	a58b002c */ 	sh	$t3,0x2c($t4)
-/*  f1936e4:	8c8602d4 */ 	lw	$a2,0x2d4($a0)
-/*  f1936e8:	8ccd0020 */ 	lw	$t5,0x20($a2)
-/*  f1936ec:	000d7900 */ 	sll	$t7,$t5,0x4
-/*  f1936f0:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f1936f4:	9719000e */ 	lhu	$t9,0xe($t8)
-/*  f1936f8:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f1936fc:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f193700:	001954c0 */ 	sll	$t2,$t9,0x13
-/*  f193704:	05430024 */ 	bgezl	$t2,.L0f193798
-/*  f193708:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19370c:	8cc5004c */ 	lw	$a1,0x4c($a2)
-/*  f193710:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f193714:	afa70028 */ 	sw	$a3,0x28($sp)
-/*  f193718:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f19371c:	0fc6667e */ 	jal	weaponGetClipCapacityByFunction
-/*  f193720:	000b2fc2 */ 	srl	$a1,$t3,0x1f
-/*  f193724:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f193728:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f19372c:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f193730:	8ce602d4 */ 	lw	$a2,0x2d4($a3)
-/*  f193734:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f193738:	00d8c821 */ 	addu	$t9,$a2,$t8
-/*  f19373c:	8f290024 */ 	lw	$t1,0x24($t9)
-/*  f193740:	00c81821 */ 	addu	$v1,$a2,$t0
-/*  f193744:	846d002c */ 	lh	$t5,0x2c($v1)
-/*  f193748:	00495023 */ 	subu	$t2,$v0,$t1
-/*  f19374c:	01aa0019 */ 	multu	$t5,$t2
-/*  f193750:	00007012 */ 	mflo	$t6
-/*  f193754:	a46e002c */ 	sh	$t6,0x2c($v1)
-/*  f193758:	8ceb02d4 */ 	lw	$t3,0x2d4($a3)
-/*  f19375c:	01681821 */ 	addu	$v1,$t3,$t0
-/*  f193760:	846c002c */ 	lh	$t4,0x2c($v1)
-/*  f193764:	0182001a */ 	div	$zero,$t4,$v0
-/*  f193768:	00007812 */ 	mflo	$t7
-/*  f19376c:	a46f002c */ 	sh	$t7,0x2c($v1)
-/*  f193770:	14400002 */ 	bnez	$v0,.L0f19377c
-/*  f193774:	00000000 */ 	nop
-/*  f193778:	0007000d */ 	break	0x7
-.L0f19377c:
-/*  f19377c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f193780:	14410004 */ 	bne	$v0,$at,.L0f193794
-/*  f193784:	3c018000 */ 	lui	$at,0x8000
-/*  f193788:	15810002 */ 	bne	$t4,$at,.L0f193794
-/*  f19378c:	00000000 */ 	nop
-/*  f193790:	0006000d */ 	break	0x6
-.L0f193794:
-/*  f193794:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f193798:
-/*  f193798:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f19379c:	03e00008 */ 	jr	$ra
-/*  f1937a0:	00000000 */ 	nop
-);
+void func0f19369c(struct chrdata *chr, s32 arg1)
+{
+	chr->aibot->unk02c[arg1] = g_AibotWeaponPreferences[chr->aibot->weaponnum].unk0e_00 * 60;
+
+	if (g_AibotWeaponPreferences[chr->aibot->weaponnum].unk0e_03) {
+		s32 capacity = weaponGetClipCapacityByFunction(chr->aibot->weaponnum, chr->aibot->gunfunc);
+
+		chr->aibot->unk02c[arg1] *= capacity - chr->aibot->loadedammo[arg1];
+		chr->aibot->unk02c[arg1] /= capacity;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1937a4
