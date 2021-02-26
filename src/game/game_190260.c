@@ -703,7 +703,7 @@ glabel var7f1b8ea8
 /*  f190c50:	1000014b */ 	b	.L0f191180
 /*  f190c54:	00001025 */ 	or	$v0,$zero,$zero
 .L0f190c58:
-/*  f190c58:	0fc21465 */ 	jal	func0f085194
+/*  f190c58:	0fc21465 */ 	jal	objIsCollectableByDefault
 /*  f190c5c:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f190c60:	5040000d */ 	beqzl	$v0,.L0f190c98
 /*  f190c64:	8fa20084 */ 	lw	$v0,0x84($sp)
@@ -1068,6 +1068,195 @@ glabel var7f1b8ea8
 /*  f19118c:	03e00008 */ 	jr	$ra
 /*  f191190:	00000000 */ 	nop
 );
+
+// Mismatch: Uses too many callee-save registers
+//bool func0f190be4(struct prop *prop, struct chrdata *chr)
+//{
+//	struct defaultobj *obj = prop->obj; // 84
+//
+//	struct weaponobj *weaponobj; // 80
+//	s32 itemtype; // 7c
+//	struct weapon *weapon;
+//	bool singleonly;
+//	s32 cap;
+//	s32 qty;
+//
+//	struct ammocrateobj *crate;
+//
+//	s32 weaponnum; // 68
+//	bool ignore1; // 64
+//	struct multiammocrateobj *crate2;
+//
+//	struct shieldobj *shield; // 58
+//	bool ignore2;
+//
+//	struct prop *chrprop;
+//
+//	f32 xdist; // 4c
+//	f32 ydist; // 48
+//	f32 zdist; // 44
+//	f32 sqrange;
+//	bool sp3c;
+//	s32 i;
+//	f32 latdist;
+//	u32 stack;
+//
+//	if (!chr || !chr->aibot || !g_Vars.lvmpbotlevel || chrIsDead(chr)) {
+//		return false;
+//	}
+//
+//	dprint();
+//
+//	if (prop->timetoregen != 0) {
+//		return false;
+//	}
+//
+//	if (objIsCollectableByDefault(obj) && obj->type != OBJTYPE_HAT) {
+//		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
+//			return false;
+//		}
+//	} else {
+//		if ((obj->flags & OBJFLAG_COLLECTABLE) == 0) {
+//			return false;
+//		}
+//	}
+//
+//	dprint();
+//
+//	if ((obj->hidden & OBJHFLAG_00000004) || (obj->flags & OBJFLAG_00080000)) {
+//		return false;
+//	}
+//
+//	dprint();
+//
+//	if ((obj->hidden & OBJHFLAG_AIRBORNE)
+//			&& obj->projectile
+//			&& obj->projectile->unk0b4 > 0
+//			&& obj->projectile->unk090 == 0) {
+//		return false;
+//	}
+//
+//	dprint();
+//
+//	if (!func0f066640(obj)) {
+//		return false;
+//	}
+//
+//	dprint();
+//
+//	// d64
+//	if (obj->type == OBJTYPE_WEAPON) {
+//		weaponobj = prop->weapon; // 80
+//		itemtype = aibotGetInvItemType(chr, weaponobj->weaponnum); // 7c
+//		weapon = weaponFindById(weaponobj->weaponnum);
+//		singleonly = weapon && (weapon->flags & WEAPONFLAG_DUALWIELD) == 0;
+//
+//		if (weaponobj->weaponnum != WEAPON_BRIEFCASE2) {
+//			// If aibot is dual wielding, or single wielding and weapon doesn't support dual,
+//			// ignore the pickup if at max ammo already
+//			if (itemtype == INVITEMTYPE_DUAL || (itemtype == INVITEMTYPE_WEAP && singleonly)) {
+//				qty = aibotGetAmmoQuantityByWeapon(chr->aibot, weaponobj->weaponnum, weaponobj->gunfunc, false);
+//				cap = ammotypeGetMaxCapacity(weaponGetAmmoTypeByFunction(weaponobj->weaponnum, weaponobj->gunfunc));
+//
+//				if (qty >= cap) {
+//					return false;
+//				}
+//			}
+//
+//			// Ignore rockets that are in flight
+//			if ((weaponobj->weaponnum == WEAPON_ROCKET || weaponobj->weaponnum == WEAPON_HOMINGROCKET)
+//					&& (obj->hidden & OBJHFLAG_AIRBORNE)) {
+//				return false;
+//			}
+//		}
+//	} else /*e58*/ if (obj->type == OBJTYPE_AMMOCRATE) {
+//		crate = (struct ammocrateobj *)prop->obj;
+//
+//		// Ignore ammo crate if at max ammo already
+//		if (aibotGetAmmoQuantityByType(chr->aibot, crate->ammotype, false) >= ammotypeGetMaxCapacity(crate->ammotype)) {
+//			return false;
+//		}
+//	} else /*e9c*/ if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
+//		crate2 = (struct multiammocrateobj *)prop->obj;
+//		ignore1 = true;
+//
+//		if (func0f0687b8(obj)) {
+//			dprint();
+//			return false;
+//		}
+//
+//		for (i = 0; i < 0x13; i++) {
+//			weaponnum = ammotypeGetWeapon(i + 1);
+//
+//			if (crate2->quantities[i].unk02 > 0) {
+//				if (aibotGetAmmoQuantityByType(chr->aibot, i + 1, false) < ammotypeGetMaxCapacity(i + 1)) {
+//					ignore1 = false;
+//
+//					if (weaponnum && !aibotGetInvItemType(chr, weaponnum)) {
+//						dprint();
+//						aibotGiveProp(chr, prop);
+//					}
+//
+//					break;
+//				}
+//			}
+//		}
+//
+//		if (ignore1) {
+//			return false;
+//		}
+//	} else /*f9c*/ if (obj->type == OBJTYPE_SHIELD) {
+//		shield = (struct shieldobj *)prop->obj; // 58
+//		ignore2 = false;
+//
+//		if (shield->amount <= chrGetShield(chr) * 0.125f) {
+//			ignore2 = true;
+//		} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE && chr->aibot->unk09c_00) {
+//			ignore2 = true;
+//		}
+//
+//		if (ignore2) {
+//			return false;
+//		}
+//	}
+//
+//	// 024
+//	chrprop = chr->prop;
+//
+//	xdist = prop->pos.x - chrprop->pos.x;
+//	ydist = prop->pos.y - chrprop->pos.y;
+//	zdist = prop->pos.z - chrprop->pos.z;
+//
+//	latdist = xdist * xdist + zdist * zdist;
+//
+//	dprint();
+//
+//	if (chr->aibot->cheap) {
+//		sqrange = 250 * 250;
+//	} else {
+//		sqrange = 100 * 100;
+//	}
+//
+//	sp3c = latdist <= sqrange && ydist >= -200 && ydist <= 200;
+//
+//	// 108
+//	if (sp3c) {
+//		dprint();
+//
+//		if ((obj->flags2 & OBJFLAG2_00001000) == 0
+//				&& !func0002dcd0(&chrprop->pos, chrprop->rooms, &prop->pos, prop->rooms, 0x22)) {
+//			sp3c = false;
+//		}
+//	}
+//
+//	// 15c
+//	if (sp3c) {
+//		dprint();
+//		return propobjHandlePickupByAibot(prop, chr);
+//	}
+//
+//	return false;
+//}
 
 s32 mpObjIsSafe(struct defaultobj *obj)
 {

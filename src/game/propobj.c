@@ -35230,7 +35230,7 @@ bool func0f085158(struct defaultobj *obj)
 	return false;
 }
 
-bool func0f085194(struct defaultobj *obj)
+bool objIsCollectableByDefault(struct defaultobj *obj)
 {
 	switch (obj->type) {
 	case OBJTYPE_KEY:
@@ -35257,7 +35257,7 @@ glabel func0f0851ec
 /*  f085204:	10000016 */ 	b	.L0f085260
 /*  f085208:	00001025 */ 	or	$v0,$zero,$zero
 .L0f08520c:
-/*  f08520c:	0fc21465 */ 	jal	func0f085194
+/*  f08520c:	0fc21465 */ 	jal	objIsCollectableByDefault
 /*  f085210:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f085214:	1040000b */ 	beqz	$v0,.L0f085244
 /*  f085218:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -35354,7 +35354,7 @@ glabel var7f1aab30
 /*  f085338:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08533c:	55a0000c */ 	bnezl	$t5,.L0f085370
 /*  f085340:	8e030008 */ 	lw	$v1,0x8($s0)
-/*  f085344:	0fc21465 */ 	jal	func0f085194
+/*  f085344:	0fc21465 */ 	jal	objIsCollectableByDefault
 /*  f085348:	e7ac00c4 */ 	swc1	$f12,0xc4($sp)
 /*  f08534c:	1440018f */ 	bnez	$v0,.L0f08598c
 /*  f085350:	c7ac00c4 */ 	lwc1	$f12,0xc4($sp)
@@ -36832,7 +36832,7 @@ glabel func0f085eac
 /*  f086860:	1000002a */ 	b	.L0f08690c
 /*  f086864:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f086868:
-/*  f086868:	0fc21465 */ 	jal	func0f085194
+/*  f086868:	0fc21465 */ 	jal	objIsCollectableByDefault
 /*  f08686c:	afa00054 */ 	sw	$zero,0x54($sp)
 /*  f086870:	10400008 */ 	beqz	$v0,.L0f086894
 /*  f086874:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -39268,7 +39268,7 @@ glabel var7f1aae84
 /*  f08903c:	10000262 */ 	b	.L0f0899c8
 /*  f089040:	00001025 */ 	or	$v0,$zero,$zero
 .L0f089044:
-/*  f089044:	0fc21465 */ 	jal	func0f085194
+/*  f089044:	0fc21465 */ 	jal	objIsCollectableByDefault
 /*  f089048:	afa50084 */ 	sw	$a1,0x84($sp)
 /*  f08904c:	1040000b */ 	beqz	$v0,.L0f08907c
 /*  f089050:	8fa40084 */ 	lw	$a0,0x84($sp)
