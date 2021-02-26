@@ -9,7 +9,7 @@ Gfx *gfxGetMasterDisplayList(void);
 struct gfxvtx *gfxAllocateVertices(s32 count);
 void *gfxAllocateMatrix(void);
 void *gfxAllocate4Words(s32 count);
-u32 *gfxAllocateColours(s32 count);
+void *gfxAllocateColours(s32 count);
 void *gfxAllocate(u32 size);
 void gfxSwapBuffers(void);
 

@@ -30,6 +30,11 @@
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
 #define EYESPYINACTIVE()    (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 
+#define ERASERSQDIST(p) ( \
+		(p[0] - g_Vars.currentplayer->eraserpos.f[0]) * (p[0] - g_Vars.currentplayer->eraserpos.f[0]) + \
+		(p[1] - g_Vars.currentplayer->eraserpos.f[1]) * (p[1] - g_Vars.currentplayer->eraserpos.f[1]) + \
+		(p[2] - g_Vars.currentplayer->eraserpos.f[2]) * (p[2] - g_Vars.currentplayer->eraserpos.f[2]))
+
 // Macro to convert an ASCII character to N64 font code.
 // N64 font code uses 0x0f for space, 0x10-0x19 for 0-9 and 0x1a-0x33 for A-Z.
 #define N64CHAR(c)          (c == ' ' ? 0x0f : (c >= 'A' && c <= 'Z' ? c - 0x27 : c - 0x20))
@@ -2954,6 +2959,8 @@
 
 #define SCREENSPLIT_HORIZONTAL 0
 #define SCREENSPLIT_VERTICAL   1
+
+#define SHARDTYPE_WOOD 2
 
 #define SHOTREGION_TOTAL  0
 #define SHOTREGION_HEAD   1

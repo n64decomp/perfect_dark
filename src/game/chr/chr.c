@@ -6591,9 +6591,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		f32 fadedist;
-		f32 chrdist = sqrtf((prop->pos.z - g_Vars.currentplayer->eraserpos.z) * (prop->pos.z - g_Vars.currentplayer->eraserpos.z)
-				+ ((prop->pos.x - g_Vars.currentplayer->eraserpos.x) * (prop->pos.x - g_Vars.currentplayer->eraserpos.x)
-				+ (prop->pos.y - g_Vars.currentplayer->eraserpos.y) * (prop->pos.y - g_Vars.currentplayer->eraserpos.y)));
+		f32 chrdist = sqrtf(ERASERSQDIST(prop->pos.f));
 
 		if (chrdist > g_Vars.currentplayer->eraserpropdist) {
 			return gdl;

@@ -146,7 +146,7 @@ void *gfxAllocate4Words(s32 count)
 	return ptr;
 }
 
-u32 *gfxAllocateColours(s32 count)
+void *gfxAllocateColours(s32 count)
 {
 	void *ptr = g_GfxMemPos;
 	count = ALIGN16(count * sizeof(u32));

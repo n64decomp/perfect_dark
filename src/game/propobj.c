@@ -31096,9 +31096,7 @@ glabel var7f1aa82c
 //		}
 //	} else if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 //		fadedist;
-//		objdist = sqrtf((prop->pos.z - g_Vars.currentplayer->eraserpos.z) * (prop->pos.z - g_Vars.currentplayer->eraserpos.z)
-//				+ ((prop->pos.x - g_Vars.currentplayer->eraserpos.x) * (prop->pos.x - g_Vars.currentplayer->eraserpos.x)
-//				+ (prop->pos.y - g_Vars.currentplayer->eraserpos.y) * (prop->pos.y - g_Vars.currentplayer->eraserpos.y)));
+//		objdist = sqrtf(ERASERSQDIST(prop->pos.f));
 //
 //		if (objdist > g_Vars.currentplayer->eraserpropdist) {
 //			return gdl;

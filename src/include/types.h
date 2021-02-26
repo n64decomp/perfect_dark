@@ -6666,25 +6666,15 @@ struct gfxvtx {
 };
 
 struct shard {
-	/*0x00*/ u32 unk00;
+	/*0x00*/ s16 room;
 	/*0x04*/ s32 age60;
 	/*0x08*/ struct coord pos;
 	/*0x14*/ struct coord rot;
 	/*0x20*/ struct coord vel;
 	/*0x2c*/ struct coord rotspeed;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
+	/*0x38*/ struct gfxvtx vertices[3];
+	/*0x5c*/ u8 colours[3][4];
+	/*0x68*/ u8 type;
 };
 
 struct audiochannel {

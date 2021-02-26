@@ -2938,9 +2938,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			u32 alpha = 0x80;
 			u32 red;
 			u32 green;
-			f32 expdist = sqrtf((prop->pos.z - g_Vars.currentplayer->eraserpos.z) * (prop->pos.z - g_Vars.currentplayer->eraserpos.z)
-					+ ((prop->pos.x - g_Vars.currentplayer->eraserpos.x) * (prop->pos.x - g_Vars.currentplayer->eraserpos.x)
-					+ (prop->pos.y - g_Vars.currentplayer->eraserpos.y) * (prop->pos.y - g_Vars.currentplayer->eraserpos.y)));
+			f32 expdist = sqrtf(ERASERSQDIST(prop->pos.f));
 
 			if (g_Vars.currentplayer->eraserpropdist < expdist) {
 				return gdl;
