@@ -29,5 +29,5 @@ void shardsInit(void)
 		}
 	}
 
-	var8007fa80 = 0;
+	g_NextShardNum = 0;
 }

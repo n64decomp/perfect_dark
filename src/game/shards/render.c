@@ -102,7 +102,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 								colours[j][0] = xraydist * 255.0f;
 								colours[j][1] = (1.0f - xraydist) * 255.0f;
 								colours[j][2] = 0;
-								colours[j][3] = g_Shards[var8007fa80].colours[j][3] * alphamult;
+								colours[j][3] = g_Shards[g_NextShardNum].colours[j][3] * alphamult;
 							}
 
 							gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);
@@ -225,7 +225,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 								colours[j][0] = xraydist * 255.0f;
 								colours[j][1] = (1.0f - xraydist) * 255.0f;
 								colours[j][2] = 0;
-								colours[j][3] = g_Shards[var8007fa80].colours[j][3] * alphamult;
+								colours[j][3] = g_Shards[g_NextShardNum].colours[j][3] * alphamult;
 							}
 
 							gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 3);

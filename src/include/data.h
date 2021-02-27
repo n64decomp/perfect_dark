@@ -445,7 +445,7 @@ extern f32 var8007e4a8;
 extern struct sparktype g_SparkTypes[];
 extern s32 g_SparksAreActive;
 extern struct weatherdata *g_WeatherData;
-extern u32 var8007fa80;
+extern s32 g_NextShardNum;
 extern bool g_ShardsActive;
 extern s32 g_ScaleX;
 extern struct font *g_FontNumeric2;
