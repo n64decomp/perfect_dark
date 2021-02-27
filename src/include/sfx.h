@@ -1,5 +1,6 @@
 #define SFX_LAUNCH_ROCKET                       0x0001
 #define SFX_F_GASP_000D                         0x000d
+#define SFX_BOTTLE_BREAK                        0x0010
 #define SFX_MENU_CANCEL                         0x002b
 #define SFX_0037                                0x0037
 #define SFX_TITLE_RAREPRESENTS                  0x003e
@@ -349,6 +350,7 @@
 #define SFX_FR_ALARM                            0x05d4
 #define SFX_FR_LIGHTSON                         0x05d5
 #define SFX_FR_LIGHTSOFF                        0x05d6
+#define SFX_WOOD_BREAK                          0x05d8
 #define SFX_FR_CONVEYER                         0x05d9
 #define SFX_FR_CONVEYER_STOP                    0x05da
 #define SFX_TRAINING_FAIL                       0x05db
@@ -512,6 +514,7 @@
 #define SFX_FIRE_SHOTGUN                        0x8055
 #define SFX_DRUGSPY_FIREDART                    0x8057
 #define SFX_SLAYER_WHIR                         0x8068
+#define SFX_GLASS_SHATTER                       0x8078
 #define SFX_THUD_808D                           0x808d
 #define SFX_THUD_808E                           0x808e
 #define SFX_THUD_808F                           0x808f
