@@ -54,6 +54,7 @@
 #include "game/options.h"
 #include "game/propobj.h"
 #include "game/wallhit.h"
+#include "game/shards.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/dma.h"
@@ -34887,103 +34888,48 @@ u32 add43214321(u32 value)
 	return value + 0x43214321;
 }
 
-GLOBAL_ASM(
-glabel func0f084cf0
-/*  f084cf0:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f084cf4:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f084cf8:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f084cfc:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f084d00:	00808825 */ 	or	$s1,$a0,$zero
-/*  f084d04:	0fc1a2bd */ 	jal	func0f068af4
-/*  f084d08:	8c900014 */ 	lw	$s0,0x14($a0)
-/*  f084d0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f084d10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f084d14:	0fc4f903 */ 	jal	func0f13e40c
-/*  f084d18:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f084d1c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f084d20:	0fc4f903 */ 	jal	func0f13e40c
-/*  f084d24:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f084d28:	86220004 */ 	lh	$v0,0x4($s1)
-/*  f084d2c:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f084d30:	8fa30068 */ 	lw	$v1,0x68($sp)
-/*  f084d34:	10410005 */ 	beq	$v0,$at,.L0f084d4c
-/*  f084d38:	24010030 */ 	addiu	$at,$zero,0x30
-/*  f084d3c:	10410003 */ 	beq	$v0,$at,.L0f084d4c
-/*  f084d40:	24010031 */ 	addiu	$at,$zero,0x31
-/*  f084d44:	54410014 */ 	bnel	$v0,$at,.L0f084d98
-/*  f084d48:	c4700004 */ 	lwc1	$f16,0x4($v1)
-.L0f084d4c:
-/*  f084d4c:	c4640004 */ 	lwc1	$f4,0x4($v1)
-/*  f084d50:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f084d54:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f084d58:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f084d5c:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f084d60:	2625001c */ 	addiu	$a1,$s1,0x1c
-/*  f084d64:	26260028 */ 	addiu	$a2,$s1,0x28
-/*  f084d68:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f084d6c:	c468000c */ 	lwc1	$f8,0xc($v1)
-/*  f084d70:	26270034 */ 	addiu	$a3,$s1,0x34
-/*  f084d74:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f084d78:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f084d7c:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f084d80:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f084d84:	0fc54208 */ 	jal	shardsCreate
-/*  f084d88:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f084d8c:	10000011 */ 	b	.L0f084dd4
-/*  f084d90:	3c04bcde */ 	lui	$a0,0xbcde
-/*  f084d94:	c4700004 */ 	lwc1	$f16,0x4($v1)
-.L0f084d98:
-/*  f084d98:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f084d9c:	2625001c */ 	addiu	$a1,$s1,0x1c
-/*  f084da0:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*  f084da4:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f084da8:	26260028 */ 	addiu	$a2,$s1,0x28
-/*  f084dac:	26270034 */ 	addiu	$a3,$s1,0x34
-/*  f084db0:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f084db4:	c464000c */ 	lwc1	$f4,0xc($v1)
-/*  f084db8:	e7a40018 */ 	swc1	$f4,0x18($sp)
-/*  f084dbc:	c4660010 */ 	lwc1	$f6,0x10($v1)
-/*  f084dc0:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f084dc4:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f084dc8:	0fc54208 */ 	jal	shardsCreate
-/*  f084dcc:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*  f084dd0:	3c04bcde */ 	lui	$a0,0xbcde
-.L0f084dd4:
-/*  f084dd4:	0fc21338 */ 	jal	add43214321
-/*  f084dd8:	3484ca9f */ 	ori	$a0,$a0,0xca9f
-/*  f084ddc:	03a08025 */ 	or	$s0,$sp,$zero
-/*  f084de0:	26100057 */ 	addiu	$s0,$s0,0x57
-/*  f084de4:	360f000f */ 	ori	$t7,$s0,0xf
-/*  f084de8:	39e4000f */ 	xori	$a0,$t7,0xf
-/*  f084dec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f084df0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f084df4:	0c003504 */ 	jal	dmaExec
-/*  f084df8:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f084dfc:	3c04c757 */ 	lui	$a0,0xc757
-/*  f084e00:	0fc21338 */ 	jal	add43214321
-/*  f084e04:	3484aced */ 	ori	$a0,$a0,0xaced
-/*  f084e08:	8e190004 */ 	lw	$t9,0x4($s0)
-/*  f084e0c:	8e080000 */ 	lw	$t0,0x0($s0)
-/*  f084e10:	3c040001 */ 	lui	$a0,0x1
-/*  f084e14:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f084e18:	50490004 */ 	beql	$v0,$t1,.L0f084e2c
-/*  f084e1c:	8e2a0040 */ 	lw	$t2,0x40($s1)
-/*  f084e20:	0c01389c */ 	jal	osAiSetFrequency
-/*  f084e24:	34843880 */ 	ori	$a0,$a0,0x3880
-/*  f084e28:	8e2a0040 */ 	lw	$t2,0x40($s1)
-.L0f084e2c:
-/*  f084e2c:	922c0002 */ 	lbu	$t4,0x2($s1)
-/*  f084e30:	a620004c */ 	sh	$zero,0x4c($s1)
-/*  f084e34:	354b0004 */ 	ori	$t3,$t2,0x4
-/*  f084e38:	358d0040 */ 	ori	$t5,$t4,0x40
-/*  f084e3c:	ae2b0040 */ 	sw	$t3,0x40($s1)
-/*  f084e40:	a22d0002 */ 	sb	$t5,0x2($s1)
-/*  f084e44:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f084e48:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f084e4c:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f084e50:	03e00008 */ 	jr	$ra
-/*  f084e54:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+void func0f084cf0(struct defaultobj *obj)
+{
+	struct prop *prop = obj->prop;
+	struct model08thing *thing = func0f068af4(obj);
+
+	func0f13e40c(prop, 0);
+	func0f13e40c(prop, 1);
+
+	if (obj->modelnum == MODEL_AIVILLABOT1
+			|| obj->modelnum == MODEL_AIVILLABOT2
+			|| obj->modelnum == MODEL_AIVILLABOT3) {
+		shardsCreate(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
+				thing->unk04[0], thing->unk04[1], thing->unk04[2],
+				thing->unk04[3], SHARDTYPE_BOTTLE, prop);
+	} else {
+		shardsCreate(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
+				thing->unk04[0], thing->unk04[1], thing->unk04[2],
+				thing->unk04[3], SHARDTYPE_GLASS, prop);
+	}
+
+#if PIRACYCHECKS
+	{
+		/**
+		 * Check two words at 0xdc0 in the ROM. If they're not right, set the
+		 * audio frequency high so everyone sounds like chipmunks.
+		 */
+		u8 buffer[0x20];
+		u32 *ptr;
+		u32 romaddr = add43214321(0x00000dc0 - 0x43214321);
+		ptr = (u32 *) ALIGN16((u32)buffer);
+		dmaExec(ptr, (void *) romaddr, 0x10);
+
+		if (ptr[1] + ptr[0] != add43214321(0x10a78f00e - 0x43214321)) {
+			osAiSetFrequency(80000);
+		}
+	}
+#endif
+
+	obj->damage = 0;
+	obj->hidden |= OBJHFLAG_00000004;
+	obj->hidden2 |= OBJH2FLAG_40;
+}
 
 GLOBAL_ASM(
 glabel func0f084e58
