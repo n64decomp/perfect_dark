@@ -35103,25 +35103,12 @@ glabel func0f0851ec
 /*  f08526c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f085270
-/*  f085270:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f085274:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f085278:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f08527c:	44856000 */ 	mtc1	$a1,$f12
-/*  f085280:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f085284:	31cf4000 */ 	andi	$t7,$t6,0x4000
-/*  f085288:	55e00005 */ 	bnezl	$t7,.L0f0852a0
-/*  f08528c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f085290:	44056000 */ 	mfc1	$a1,$f12
-/*  f085294:	0fc214ab */ 	jal	func0f0852ac
-/*  f085298:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f08529c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0852a0:
-/*  f0852a0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0852a4:	03e00008 */ 	jr	$ra
-/*  f0852a8:	00000000 */ 	nop
-);
+void func0f085270(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum)
+{
+	if ((obj->flags2 & OBJFLAG2_00004000) == 0) {
+		func0f0852ac(obj, damage, pos, weaponnum, playernum);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0852ac

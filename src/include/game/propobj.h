@@ -234,7 +234,7 @@ void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s3
 bool objIsCollectableByDefault(struct defaultobj *obj);
 u32 func0f0851ec(void);
 void func0f085270(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum);
-void func0f0852ac(struct defaultobj *obj, f32 damage, struct coord *pos, s32 arg3, s32 arg4);
+void func0f0852ac(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum);
 u32 func0f0859a0(void);
 u32 func0f085e00(void);
 u32 func0f085eac(void);
