@@ -34991,81 +34991,31 @@ void func0f084f64(struct defaultobj *obj)
 	data->visible.u32 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f085050
-/*  f085050:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f085054:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f085058:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f08505c:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f085060:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f085064:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f085068:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f08506c:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f085070:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f085074:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f085078:	4485a000 */ 	mtc1	$a1,$f20
-/*  f08507c:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f085080:	904f0003 */ 	lbu	$t7,0x3($v0)
-/*  f085084:	00c09825 */ 	or	$s3,$a2,$zero
-/*  f085088:	00e0a025 */ 	or	$s4,$a3,$zero
-/*  f08508c:	15e10006 */ 	bne	$t7,$at,.L0f0850a8
-/*  f085090:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x318)
-/*  f085094:	8f18a2d8 */ 	lw	$t8,%lo(g_Vars+0x318)($t8)
-/*  f085098:	53000004 */ 	beqzl	$t8,.L0f0850ac
-/*  f08509c:	8c590040 */ 	lw	$t9,0x40($v0)
-/*  f0850a0:	1000000c */ 	b	.L0f0850d4
-/*  f0850a4:	8fb20050 */ 	lw	$s2,0x50($sp)
-.L0f0850a8:
-/*  f0850a8:	8c590040 */ 	lw	$t9,0x40($v0)
-.L0f0850ac:
-/*  f0850ac:	8fb20050 */ 	lw	$s2,0x50($sp)
-/*  f0850b0:	3c010fff */ 	lui	$at,0xfff
-/*  f0850b4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f0850b8:	03214024 */ 	and	$t0,$t9,$at
-/*  f0850bc:	3c01f000 */ 	lui	$at,0xf000
-/*  f0850c0:	00125700 */ 	sll	$t2,$s2,0x1c
-/*  f0850c4:	01415824 */ 	and	$t3,$t2,$at
-/*  f0850c8:	ac480040 */ 	sw	$t0,0x40($v0)
-/*  f0850cc:	010b6025 */ 	or	$t4,$t0,$t3
-/*  f0850d0:	ac4c0040 */ 	sw	$t4,0x40($v0)
-.L0f0850d4:
-/*  f0850d4:	8c4d0040 */ 	lw	$t5,0x40($v0)
-/*  f0850d8:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f0850dc:	000d7300 */ 	sll	$t6,$t5,0xc
-/*  f0850e0:	05c20015 */ 	bltzl	$t6,.L0f085138
-/*  f0850e4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0850e8:	8df0001c */ 	lw	$s0,0x1c($t7)
-/*  f0850ec:	5200000b */ 	beqzl	$s0,.L0f08511c
-/*  f0850f0:	8fb80040 */ 	lw	$t8,0x40($sp)
-.L0f0850f4:
-/*  f0850f4:	8e110020 */ 	lw	$s1,0x20($s0)
-/*  f0850f8:	4405a000 */ 	mfc1	$a1,$f20
-/*  f0850fc:	afb20010 */ 	sw	$s2,0x10($sp)
-/*  f085100:	02002025 */ 	or	$a0,$s0,$zero
-/*  f085104:	02603025 */ 	or	$a2,$s3,$zero
-/*  f085108:	0fc21414 */ 	jal	func0f085050
-/*  f08510c:	02803825 */ 	or	$a3,$s4,$zero
-/*  f085110:	1620fff8 */ 	bnez	$s1,.L0f0850f4
-/*  f085114:	02208025 */ 	or	$s0,$s1,$zero
-/*  f085118:	8fb80040 */ 	lw	$t8,0x40($sp)
-.L0f08511c:
-/*  f08511c:	4405a000 */ 	mfc1	$a1,$f20
-/*  f085120:	02603025 */ 	or	$a2,$s3,$zero
-/*  f085124:	8f040004 */ 	lw	$a0,0x4($t8)
-/*  f085128:	afb20010 */ 	sw	$s2,0x10($sp)
-/*  f08512c:	0fc214ab */ 	jal	func0f0852ac
-/*  f085130:	02803825 */ 	or	$a3,$s4,$zero
-/*  f085134:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f085138:
-/*  f085138:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f08513c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f085140:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f085144:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f085148:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f08514c:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f085150:	03e00008 */ 	jr	$ra
-/*  f085154:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s32 arg4)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if (obj->type == OBJTYPE_AUTOGUN && g_Vars.normmplayerisrunning) {
+		// do nothing
+	} else {
+		obj->hidden &= 0x0fffffff;
+		obj->hidden |= (arg4 << 28) & 0xf0000000;
+	}
+
+	if ((obj->hidden & OBJHFLAG_HASOWNER) == 0) {
+		struct prop *child = prop->child;
+
+		while (child) {
+			struct prop *next = child->next;
+
+			func0f085050(child, damage, pos, arg3, arg4);
+
+			child = next;
+		}
+
+		func0f0852ac(prop->obj, damage, pos, arg3, arg4);
+	}
+}
 
 bool func0f085158(struct defaultobj *obj)
 {
