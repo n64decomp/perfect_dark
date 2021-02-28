@@ -763,7 +763,7 @@ glabel var7f1b8ea8
 .L0f190d2c:
 /*  f190d2c:	0fc47bba */ 	jal	dprint
 /*  f190d30:	00000000 */ 	nop
-/*  f190d34:	0fc19990 */ 	jal	func0f066640
+/*  f190d34:	0fc19990 */ 	jal	objPassesSafePickupChecks
 /*  f190d38:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f190d3c:	14400003 */ 	bnez	$v0,.L0f190d4c
 /*  f190d40:	00000000 */ 	nop
@@ -1138,7 +1138,7 @@ glabel var7f1b8ea8
 //
 //	dprint();
 //
-//	if (!func0f066640(obj)) {
+//	if (!objPassesSafePickupChecks(obj)) {
 //		return false;
 //	}
 //

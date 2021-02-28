@@ -537,47 +537,26 @@ bool doorIsPadlockFree(struct doorobj *door)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f066640
-/*  f066640:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f066644:	3c028007 */ 	lui	$v0,%hi(g_SafeItems)
-/*  f066648:	31cf0400 */ 	andi	$t7,$t6,0x400
-/*  f06664c:	51e0001d */ 	beqzl	$t7,.L0f0666c4
-/*  f066650:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f066654:	8c429924 */ 	lw	$v0,%lo(g_SafeItems)($v0)
-/*  f066658:	3c013f00 */ 	lui	$at,0x3f00
-/*  f06665c:	50400019 */ 	beqzl	$v0,.L0f0666c4
-/*  f066660:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f066664:	44810000 */ 	mtc1	$at,$f0
-/*  f066668:	00000000 */ 	nop
-/*  f06666c:	8c580004 */ 	lw	$t8,0x4($v0)
-.L0f066670:
-/*  f066670:	54980011 */ 	bnel	$a0,$t8,.L0f0666b8
-/*  f066674:	8c420010 */ 	lw	$v0,0x10($v0)
-/*  f066678:	8c43000c */ 	lw	$v1,0xc($v0)
-/*  f06667c:	5060000e */ 	beqzl	$v1,.L0f0666b8
-/*  f066680:	8c420010 */ 	lw	$v0,0x10($v0)
-/*  f066684:	8c790014 */ 	lw	$t9,0x14($v1)
-/*  f066688:	5320000b */ 	beqzl	$t9,.L0f0666b8
-/*  f06668c:	8c420010 */ 	lw	$v0,0x10($v0)
-/*  f066690:	c464005c */ 	lwc1	$f4,0x5c($v1)
-/*  f066694:	c468007c */ 	lwc1	$f8,0x7c($v1)
-/*  f066698:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f06669c:	4606403e */ 	c.le.s	$f8,$f6
-/*  f0666a0:	00000000 */ 	nop
-/*  f0666a4:	45020004 */ 	bc1fl	.L0f0666b8
-/*  f0666a8:	8c420010 */ 	lw	$v0,0x10($v0)
-/*  f0666ac:	03e00008 */ 	jr	$ra
-/*  f0666b0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0666b4:	8c420010 */ 	lw	$v0,0x10($v0)
-.L0f0666b8:
-/*  f0666b8:	5440ffed */ 	bnezl	$v0,.L0f066670
-/*  f0666bc:	8c580004 */ 	lw	$t8,0x4($v0)
-/*  f0666c0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0666c4:
-/*  f0666c4:	03e00008 */ 	jr	$ra
-/*  f0666c8:	00000000 */ 	nop
-);
+bool objPassesSafePickupChecks(struct defaultobj *obj)
+{
+	if (obj->flags2 & OBJFLAG2_LINKEDTOSAFE) {
+		struct safeitemobj *link = g_SafeItems;
+
+		while (link) {
+			struct defaultobj *loopobj = link->item;
+
+			if (obj == link->item && link->door && link->door->base.prop) {
+				if (link->door->frac <= 0.5f * link->door->maxfrac) {
+					return false;
+				}
+			}
+
+			link = link->next;
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f0666cc
@@ -39121,7 +39100,7 @@ glabel var7f1aae84
 /*  f089100:	10000231 */ 	b	.L0f0899c8
 /*  f089104:	00001025 */ 	or	$v0,$zero,$zero
 .L0f089108:
-/*  f089108:	0fc19990 */ 	jal	func0f066640
+/*  f089108:	0fc19990 */ 	jal	objPassesSafePickupChecks
 /*  f08910c:	00000000 */ 	nop
 /*  f089110:	14400003 */ 	bnez	$v0,.L0f089120
 /*  f089114:	8fa50084 */ 	lw	$a1,0x84($sp)
