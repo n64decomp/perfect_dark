@@ -2402,7 +2402,7 @@ bool aiOpenDoor(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
-		if (!func0f066310(obj->prop, 0)) {
+		if (!doorCallLift(obj->prop, false)) {
 			struct doorobj *door = (struct doorobj *) obj;
 			doorActivate(door, DOORMODE_OPENING);
 		}

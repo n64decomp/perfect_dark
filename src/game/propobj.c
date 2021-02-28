@@ -324,198 +324,74 @@ u32 var80069cf8 = 0x00000000;
 u32 var80069cfc = 0x00000000;
 u32 var80069d00 = 0x00000000;
 
-GLOBAL_ASM(
-glabel func0f066310
-/*  f066310:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f066314:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f066318:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f06631c:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f066320:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f066324:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f066328:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f06632c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f066330:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f066334:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f066338:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f06633c:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f066340:	8c960004 */ 	lw	$s6,0x4($a0)
-/*  f066344:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f066348:	0000b825 */ 	or	$s7,$zero,$zero
-/*  f06634c:	8ecf0040 */ 	lw	$t7,0x40($s6)
-/*  f066350:	3c138007 */ 	lui	$s3,%hi(g_LiftDoors)
-/*  f066354:	31f80001 */ 	andi	$t8,$t7,0x1
-/*  f066358:	53000088 */ 	beqzl	$t8,.L0f06657c
-/*  f06635c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f066360:	8e73991c */ 	lw	$s3,%lo(g_LiftDoors)($s3)
-/*  f066364:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f066368:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f06636c:	12600082 */ 	beqz	$s3,.L0f066578
-/*  f066370:	24150001 */ 	addiu	$s5,$zero,0x1
-/*  f066374:	8fb90040 */ 	lw	$t9,0x40($sp)
-.L0f066378:
-/*  f066378:	8e6d0004 */ 	lw	$t5,0x4($s3)
-/*  f06637c:	572d007c */ 	bnel	$t9,$t5,.L0f066570
-/*  f066380:	8e73000c */ 	lw	$s3,0xc($s3)
-/*  f066384:	8e710008 */ 	lw	$s1,0x8($s3)
-/*  f066388:	52200079 */ 	beqzl	$s1,.L0f066570
-/*  f06638c:	8e73000c */ 	lw	$s3,0xc($s3)
-/*  f066390:	92220000 */ 	lbu	$v0,0x0($s1)
-/*  f066394:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f066398:	52a20004 */ 	beql	$s5,$v0,.L0f0663ac
-/*  f06639c:	8e2e0004 */ 	lw	$t6,0x4($s1)
-/*  f0663a0:	54410073 */ 	bnel	$v0,$at,.L0f066570
-/*  f0663a4:	8e73000c */ 	lw	$s3,0xc($s3)
-/*  f0663a8:	8e2e0004 */ 	lw	$t6,0x4($s1)
-.L0f0663ac:
-/*  f0663ac:	02a0b825 */ 	or	$s7,$s5,$zero
-/*  f0663b0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0663b4:	91c20003 */ 	lbu	$v0,0x3($t6)
-/*  f0663b8:	24010030 */ 	addiu	$at,$zero,0x30
-/*  f0663bc:	14550005 */ 	bne	$v0,$s5,.L0f0663d4
-/*  f0663c0:	00000000 */ 	nop
-/*  f0663c4:	0fc23fba */ 	jal	doorActivateWrapper
-/*  f0663c8:	03c02825 */ 	or	$a1,$s8,$zero
-/*  f0663cc:	10000068 */ 	b	.L0f066570
-/*  f0663d0:	8e73000c */ 	lw	$s3,0xc($s3)
-.L0f0663d4:
-/*  f0663d4:	54410066 */ 	bnel	$v0,$at,.L0f066570
-/*  f0663d8:	8e73000c */ 	lw	$s3,0xc($s3)
-/*  f0663dc:	53c0000b */ 	beqzl	$s8,.L0f06640c
-/*  f0663e0:	02a09025 */ 	or	$s2,$s5,$zero
-/*  f0663e4:	92cf0003 */ 	lbu	$t7,0x3($s6)
-/*  f0663e8:	56af0008 */ 	bnel	$s5,$t7,.L0f06640c
-/*  f0663ec:	02a09025 */ 	or	$s2,$s5,$zero
-/*  f0663f0:	0fc23948 */ 	jal	doorIsClosed
-/*  f0663f4:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f0663f8:	54400004 */ 	bnezl	$v0,.L0f06640c
-/*  f0663fc:	02a09025 */ 	or	$s2,$s5,$zero
-/*  f066400:	1000005a */ 	b	.L0f06656c
-/*  f066404:	0000b825 */ 	or	$s7,$zero,$zero
-/*  f066408:	02a09025 */ 	or	$s2,$s5,$zero
-.L0f06640c:
-/*  f06640c:	0fc07934 */ 	jal	getNumChrSlots
-/*  f066410:	00008025 */ 	or	$s0,$zero,$zero
-/*  f066414:	8e8a006c */ 	lw	$t2,0x6c($s4)
-/*  f066418:	00406025 */ 	or	$t4,$v0,$zero
-/*  f06641c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f066420:	11400003 */ 	beqz	$t2,.L0f066430
-/*  f066424:	00003025 */ 	or	$a2,$zero,$zero
-/*  f066428:	10000001 */ 	b	.L0f066430
-/*  f06642c:	02a03825 */ 	or	$a3,$s5,$zero
-.L0f066430:
-/*  f066430:	8e8b0068 */ 	lw	$t3,0x68($s4)
-/*  f066434:	00002025 */ 	or	$a0,$zero,$zero
-/*  f066438:	00001825 */ 	or	$v1,$zero,$zero
-/*  f06643c:	11600003 */ 	beqz	$t3,.L0f06644c
-/*  f066440:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f066444:	10000001 */ 	b	.L0f06644c
-/*  f066448:	02a03025 */ 	or	$a2,$s5,$zero
-.L0f06644c:
-/*  f06644c:	8e890064 */ 	lw	$t1,0x64($s4)
-/*  f066450:	028e2821 */ 	addu	$a1,$s4,$t6
-/*  f066454:	11200003 */ 	beqz	$t1,.L0f066464
-/*  f066458:	00000000 */ 	nop
-/*  f06645c:	10000001 */ 	b	.L0f066464
-/*  f066460:	02a02025 */ 	or	$a0,$s5,$zero
-.L0f066464:
-/*  f066464:	8e880070 */ 	lw	$t0,0x70($s4)
-/*  f066468:	11000003 */ 	beqz	$t0,.L0f066478
-/*  f06646c:	00000000 */ 	nop
-/*  f066470:	10000001 */ 	b	.L0f066478
-/*  f066474:	02a01825 */ 	or	$v1,$s5,$zero
-.L0f066478:
-/*  f066478:	0064c021 */ 	addu	$t8,$v1,$a0
-/*  f06647c:	0306c821 */ 	addu	$t9,$t8,$a2
-/*  f066480:	03276821 */ 	addu	$t5,$t9,$a3
-/*  f066484:	19a00021 */ 	blez	$t5,.L0f06650c
-/*  f066488:	00000000 */ 	nop
-/*  f06648c:	8e710008 */ 	lw	$s1,0x8($s3)
-/*  f066490:	8caf0064 */ 	lw	$t7,0x64($a1)
-.L0f066494:
-/*  f066494:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f066498:	00003825 */ 	or	$a3,$zero,$zero
-/*  f06649c:	8df80298 */ 	lw	$t8,0x298($t7)
-/*  f0664a0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0664a4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0664a8:	16380002 */ 	bne	$s1,$t8,.L0f0664b4
-/*  f0664ac:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0664b0:	00009025 */ 	or	$s2,$zero,$zero
-.L0f0664b4:
-/*  f0664b4:	11400003 */ 	beqz	$t2,.L0f0664c4
-/*  f0664b8:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f0664bc:	10000001 */ 	b	.L0f0664c4
-/*  f0664c0:	02a03825 */ 	or	$a3,$s5,$zero
-.L0f0664c4:
-/*  f0664c4:	11600003 */ 	beqz	$t3,.L0f0664d4
-/*  f0664c8:	00000000 */ 	nop
-/*  f0664cc:	10000001 */ 	b	.L0f0664d4
-/*  f0664d0:	02a03025 */ 	or	$a2,$s5,$zero
-.L0f0664d4:
-/*  f0664d4:	11200003 */ 	beqz	$t1,.L0f0664e4
-/*  f0664d8:	00000000 */ 	nop
-/*  f0664dc:	10000001 */ 	b	.L0f0664e4
-/*  f0664e0:	02a02025 */ 	or	$a0,$s5,$zero
-.L0f0664e4:
-/*  f0664e4:	11000003 */ 	beqz	$t0,.L0f0664f4
-/*  f0664e8:	00000000 */ 	nop
-/*  f0664ec:	10000001 */ 	b	.L0f0664f4
-/*  f0664f0:	02a01825 */ 	or	$v1,$s5,$zero
-.L0f0664f4:
-/*  f0664f4:	0064c821 */ 	addu	$t9,$v1,$a0
-/*  f0664f8:	03266821 */ 	addu	$t5,$t9,$a2
-/*  f0664fc:	01a77021 */ 	addu	$t6,$t5,$a3
-/*  f066500:	020e082a */ 	slt	$at,$s0,$t6
-/*  f066504:	5420ffe3 */ 	bnezl	$at,.L0f066494
-/*  f066508:	8caf0064 */ 	lw	$t7,0x64($a1)
-.L0f06650c:
-/*  f06650c:	12400011 */ 	beqz	$s2,.L0f066554
-/*  f066510:	00000000 */ 	nop
-/*  f066514:	1840000f */ 	blez	$v0,.L0f066554
-/*  f066518:	00008025 */ 	or	$s0,$zero,$zero
-/*  f06651c:	3c028006 */ 	lui	$v0,%hi(g_ChrSlots)
-/*  f066520:	8c422988 */ 	lw	$v0,%lo(g_ChrSlots)($v0)
-.L0f066524:
-/*  f066524:	8c4f001c */ 	lw	$t7,0x1c($v0)
-/*  f066528:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f06652c:	11e00007 */ 	beqz	$t7,.L0f06654c
-/*  f066530:	00000000 */ 	nop
-/*  f066534:	8e780008 */ 	lw	$t8,0x8($s3)
-/*  f066538:	8c590364 */ 	lw	$t9,0x364($v0)
-/*  f06653c:	17190003 */ 	bne	$t8,$t9,.L0f06654c
-/*  f066540:	00000000 */ 	nop
-/*  f066544:	10000003 */ 	b	.L0f066554
-/*  f066548:	00009025 */ 	or	$s2,$zero,$zero
-.L0f06654c:
-/*  f06654c:	160cfff5 */ 	bne	$s0,$t4,.L0f066524
-/*  f066550:	24420368 */ 	addiu	$v0,$v0,872
-.L0f066554:
-/*  f066554:	52400006 */ 	beqzl	$s2,.L0f066570
-/*  f066558:	8e73000c */ 	lw	$s3,0xc($s3)
-/*  f06655c:	8e6d0008 */ 	lw	$t5,0x8($s3)
-/*  f066560:	8e650010 */ 	lw	$a1,0x10($s3)
-/*  f066564:	0fc1c43b */ 	jal	liftGoToStop
-/*  f066568:	8da40004 */ 	lw	$a0,0x4($t5)
-.L0f06656c:
-/*  f06656c:	8e73000c */ 	lw	$s3,0xc($s3)
-.L0f066570:
-/*  f066570:	5660ff81 */ 	bnezl	$s3,.L0f066378
-/*  f066574:	8fb90040 */ 	lw	$t9,0x40($sp)
-.L0f066578:
-/*  f066578:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f06657c:
-/*  f06657c:	02e01025 */ 	or	$v0,$s7,$zero
-/*  f066580:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f066584:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f066588:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f06658c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f066590:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f066594:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f066598:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f06659c:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0665a0:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f0665a4:	03e00008 */ 	jr	$ra
-/*  f0665a8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+/**
+ * Attempt to call a lift from the given door.
+ *
+ * Returns true if the door activation was handled by this function, or false
+ * if the caller should proceed with opening or closing the door. A true return
+ * doesn't necessarily mean the lift was called.
+ *
+ * If onlyifclosed is false, the lift can be called even if the given door is
+ * open... which seems weird, because lift doors can't be open if the lift isn't
+ * already there.
+ *
+ * Lifts will not be called if it's occupied by anyone. This prevents chrs from
+ * from calling lifts back when players are in them.
+ */
+bool doorCallLift(struct prop *doorprop, bool onlyifclosed)
+{
+	struct doorobj *door = doorprop->door;
+	bool handled = false;
+
+	if (door->base.hidden & OBJHFLAG_LIFTDOOR) {
+		struct linkliftdoorobj *link = g_LiftDoors;
+
+		while (link) {
+			if (doorprop == link->door && link->lift
+					&& (link->lift->type == PROPTYPE_OBJ || link->lift->type == PROPTYPE_DOOR)) {
+				bool type = link->lift->obj->type;
+				handled = true;
+
+				if (type == OBJTYPE_DOOR) {
+					// Unsure if reachable... I don't think the link->lift
+					// property is ever set to a door obj.
+					doorActivateWrapper(link->lift, onlyifclosed);
+				} else if (type == OBJTYPE_LIFT) {
+					if (onlyifclosed && door->base.type == OBJTYPE_DOOR && !doorIsClosed(door)) {
+						handled = false;
+					} else {
+						bool vacant = true;
+						s32 numchrslots = getNumChrSlots();
+						s32 i;
+
+						for (i = 0; i < PLAYERCOUNT(); i++) {
+							if (g_Vars.players[i]->lift == link->lift) {
+								vacant = false;
+							}
+						}
+
+						if (vacant) {
+							for (i = 0; i < numchrslots; i++) {
+								if (g_ChrSlots[i].prop && g_ChrSlots[i].lift == link->lift) {
+									vacant = false;
+									break;
+								}
+							}
+						}
+
+						if (vacant) {
+							liftGoToStop((struct liftobj *) link->lift->obj, link->stopnum);
+						}
+					}
+				}
+			}
+
+			link = link->next;
+		}
+	}
+
+	return handled;
+}
 
 bool doorIsPadlockFree(struct doorobj *door)
 {
@@ -37123,7 +36999,7 @@ bool propobjInteract(struct prop *prop)
 		}
 	}
 
-	func0f066310(prop, 0);
+	doorCallLift(prop, false);
 
 	return result;
 }
@@ -46336,7 +46212,7 @@ void doorActivateWrapper(struct prop *doorprop, bool arg1)
 {
 	struct doorobj *door = doorprop->door;
 
-	if (func0f066310(doorprop, arg1) == 0) {
+	if (!doorCallLift(doorprop, arg1)) {
 		if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_WAITING) {
 			doorActivate(door, DOORMODE_CLOSING);
 		} else if (door->mode == DOORMODE_CLOSING) {

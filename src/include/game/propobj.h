@@ -27,7 +27,7 @@ void countdownTimerSetRunning(bool running);
 void countdownTimerSetValue(f32 frames);
 void countdownTimerSetVisible(u32 flag, bool show);
 void countdownTimerTick(void);
-bool func0f066310(struct prop *doorprop, bool arg1);
+bool doorCallLift(struct prop *doorprop, bool onlyifclosed);
 bool doorIsPadlockFree(struct doorobj *door);
 bool objPassesSafePickupChecks(struct defaultobj *obj);
 void objUpdateLinkedScenery(struct defaultobj *obj);

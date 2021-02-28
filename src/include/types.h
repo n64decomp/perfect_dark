@@ -1060,7 +1060,7 @@ struct chrdata {
 	/*0x361*/ u8 lastfootsample;
 	/*0x362*/ u8 drcarollimage_left : 4;
 	/*0x362*/ u8 drcarollimage_right : 4;
-	/*0x364*/ u32 unk364;
+	/*0x364*/ struct prop *lift;
 };
 
 // This appears to be misnamed. Not only is it projectiles such as grenades and
@@ -1378,7 +1378,7 @@ struct linkliftdoorobj {
 	struct prop *door;
 	struct prop *lift;
 	struct linkliftdoorobj *next;
-	u32 stopnum;
+	s32 stopnum;
 };
 
 struct multiammocrateslot {
