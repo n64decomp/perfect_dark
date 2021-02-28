@@ -136,7 +136,7 @@ extern u32 var80061360;
 extern u32 var80061380;
 extern u32 var800613a0;
 extern f32 var80061630;
-extern u32 var80061634;
+extern f32 var80061634;
 extern bool g_NbombsActive;
 extern s32 g_WeatherActive;
 extern u32 var80062410;

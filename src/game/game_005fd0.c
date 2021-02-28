@@ -3,8 +3,10 @@
 #include "game/debug.h"
 #include "game/game_005fd0.h"
 #include "game/game_092610.h"
+#include "game/room.h"
 #include "gvars/gvars.h"
 #include "lib/rng.h"
+#include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "data.h"
 #include "types.h"
@@ -35,7 +37,7 @@ u16 var800615a0[][2] = {
 
 u32 var8006162c = 0x00000000;
 f32 var80061630 = 0;
-u32 var80061634 = 0x00000000;
+f32 var80061634 = 0;
 u32 var80061638 = 0x00000000;
 u32 var8006163c = 0x00000000;
 
@@ -648,91 +650,45 @@ u32 colourBlend(u32 a, u32 b, u32 aweight)
 		| ((aweight * (a & 0xff) + bweight * (b & 0xff)) >> 8);
 }
 
-GLOBAL_ASM(
-glabel func0f0069dc
-/*  f0069dc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0069e0:	44811000 */ 	mtc1	$at,$f2
-/*  f0069e4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0069e8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0069ec:	3c014596 */ 	lui	$at,0x4596
-/*  f0069f0:	44816000 */ 	mtc1	$at,$f12
-/*  f0069f4:	c4640048 */ 	lwc1	$f4,0x48($v1)
-/*  f0069f8:	3c028006 */ 	lui	$v0,%hi(var80061630)
-/*  f0069fc:	24421630 */ 	addiu	$v0,$v0,%lo(var80061630)
-/*  f006a00:	460c2183 */ 	div.s	$f6,$f4,$f12
-/*  f006a04:	c4480000 */ 	lwc1	$f8,0x0($v0)
-/*  f006a08:	3c067001 */ 	lui	$a2,%hi(func00016054)
-/*  f006a0c:	24c46054 */ 	addiu	$a0,$a2,%lo(func00016054)
-/*  f006a10:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f006a14:	3c067f16 */ 	lui	$a2,%hi(bgInit)
-/*  f006a18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f006a1c:	3c057001 */ 	lui	$a1,%hi(func00015fd0)
-/*  f006a20:	24c6b534 */ 	addiu	$a2,$a2,%lo(bgInit)
-/*  f006a24:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f006a28:	e44a0000 */ 	swc1	$f10,0x0($v0)
-/*  f006a2c:	c4400000 */ 	lwc1	$f0,0x0($v0)
-/*  f006a30:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f006a34:	00000000 */ 	nop
-/*  f006a38:	45020004 */ 	bc1fl	.L0f006a4c
-/*  f006a3c:	c4720044 */ 	lwc1	$f18,0x44($v1)
-/*  f006a40:	46020401 */ 	sub.s	$f16,$f0,$f2
-/*  f006a44:	e4500000 */ 	swc1	$f16,0x0($v0)
-/*  f006a48:	c4720044 */ 	lwc1	$f18,0x44($v1)
-.L0f006a4c:
-/*  f006a4c:	3c028006 */ 	lui	$v0,%hi(var80061634)
-/*  f006a50:	24421634 */ 	addiu	$v0,$v0,%lo(var80061634)
-/*  f006a54:	460c9103 */ 	div.s	$f4,$f18,$f12
-/*  f006a58:	c4460000 */ 	lwc1	$f6,0x0($v0)
-/*  f006a5c:	24a35fd0 */ 	addiu	$v1,$a1,%lo(func00015fd0)
-/*  f006a60:	0064082b */ 	sltu	$at,$v1,$a0
-/*  f006a64:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f006a68:	e4480000 */ 	swc1	$f8,0x0($v0)
-/*  f006a6c:	c4400000 */ 	lwc1	$f0,0x0($v0)
-/*  f006a70:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f006a74:	00000000 */ 	nop
-/*  f006a78:	45000003 */ 	bc1f	.L0f006a88
-/*  f006a7c:	00000000 */ 	nop
-/*  f006a80:	46020281 */ 	sub.s	$f10,$f0,$f2
-/*  f006a84:	e44a0000 */ 	swc1	$f10,0x0($v0)
-.L0f006a88:
-/*  f006a88:	10200009 */ 	beqz	$at,.L0f006ab0
-/*  f006a8c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f006a90:
-/*  f006a90:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f006a94:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f006a98:	0064082b */ 	sltu	$at,$v1,$a0
-/*  f006a9c:	01c07827 */ 	nor	$t7,$t6,$zero
-/*  f006aa0:	004f1026 */ 	xor	$v0,$v0,$t7
-/*  f006aa4:	0002c040 */ 	sll	$t8,$v0,0x1
-/*  f006aa8:	1420fff9 */ 	bnez	$at,.L0f006a90
-/*  f006aac:	03001025 */ 	or	$v0,$t8,$zero
-.L0f006ab0:
-/*  f006ab0:	3c01bc2f */ 	lui	$at,0x99aa
-/*  f006ab4:	342139ea */ 	ori	$at,$at,0xbbcc
-/*  f006ab8:	50410010 */ 	beql	$v0,$at,.L0f006afc
-/*  f006abc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f006ac0:	0c004b70 */ 	jal	random
-/*  f006ac4:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f006ac8:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f006acc:	3059003f */ 	andi	$t9,$v0,0x3f
-/*  f006ad0:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f006ad4:	00c81821 */ 	addu	$v1,$a2,$t0
-/*  f006ad8:	24640010 */ 	addiu	$a0,$v1,0x10
-/*  f006adc:	0064082b */ 	sltu	$at,$v1,$a0
-/*  f006ae0:	10200005 */ 	beqz	$at,.L0f006af8
-/*  f006ae4:	24020012 */ 	addiu	$v0,$zero,0x12
-.L0f006ae8:
-/*  f006ae8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f006aec:	0064082b */ 	sltu	$at,$v1,$a0
-/*  f006af0:	1420fffd */ 	bnez	$at,.L0f006ae8
-/*  f006af4:	ac62fffc */ 	sw	$v0,-0x4($v1)
-.L0f006af8:
-/*  f006af8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f006afc:
-/*  f006afc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f006b00:	03e00008 */ 	jr	$ra
-/*  f006b04:	00000000 */ 	nop
-);
+void func0f0069dc(void)
+{
+	var80061630 = var80061630 + g_Vars.diffframe240f / 4800.0f;
+
+	if (var80061630 > 1.0f) {
+		var80061630 -= 1.0f;
+	}
+
+	var80061634 = var80061634 + g_Vars.lvupdate240f / 4800.0f;
+
+	if (var80061634 > 1.0f) {
+		var80061634 -= 1.0f;
+	}
+
+#if PIRACYCHECKS
+	{
+		u32 *ptr = (u32 *)&func00015fd0;
+		u32 *end = (u32 *)&func00016054;
+		u32 checksum = 0;
+
+		while (ptr < end) {
+			checksum ^= ~*ptr;
+			checksum <<= 1;
+			ptr++;
+		}
+
+		if (checksum != CHECKSUM_PLACEHOLDER) {
+			u32 *ptr = (u32 *)&bgInit;
+			ptr += random() % 0x40;
+			end = &ptr[4];
+
+			while (ptr < end) {
+				*ptr = 0x00000012;
+				ptr++;
+			}
+		}
+	}
+#endif
+}
 
 GLOBAL_ASM(
 glabel func0f006b08
