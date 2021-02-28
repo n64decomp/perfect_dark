@@ -558,70 +558,34 @@ bool objPassesSafePickupChecks(struct defaultobj *obj)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f0666cc
-/*  f0666cc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0666d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0666d4:	8c8e0040 */ 	lw	$t6,0x40($a0)
-/*  f0666d8:	000e79c0 */ 	sll	$t7,$t6,0x7
-/*  f0666dc:	05e30030 */ 	bgezl	$t7,.L0f0667a0
-/*  f0666e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0666e4:	8c980008 */ 	lw	$t8,0x8($a0)
-/*  f0666e8:	3c028007 */ 	lui	$v0,%hi(g_LinkedScenery)
-/*  f0666ec:	0018cb80 */ 	sll	$t9,$t8,0xe
-/*  f0666f0:	0722002b */ 	bltzl	$t9,.L0f0667a0
-/*  f0666f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0666f8:	8c429928 */ 	lw	$v0,%lo(g_LinkedScenery)($v0)
-/*  f0666fc:	50400028 */ 	beqzl	$v0,.L0f0667a0
-/*  f066700:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f066704:	8c480004 */ 	lw	$t0,0x4($v0)
-.L0f066708:
-/*  f066708:	54880022 */ 	bnel	$a0,$t0,.L0f066794
-/*  f06670c:	8c420010 */ 	lw	$v0,0x10($v0)
-/*  f066710:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f066714:	0fc1a85c */ 	jal	func0f06a170
-/*  f066718:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f06671c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f066720:	3c060008 */ 	lui	$a2,0x8
-/*  f066724:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f066728:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f06672c:	8c69000c */ 	lw	$t1,0xc($v1)
-/*  f066730:	01265025 */ 	or	$t2,$t1,$a2
-/*  f066734:	ac6a000c */ 	sw	$t2,0xc($v1)
-/*  f066738:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f06673c:	8c6b0040 */ 	lw	$t3,0x40($v1)
-/*  f066740:	356c0004 */ 	ori	$t4,$t3,0x4
-/*  f066744:	ac6c0040 */ 	sw	$t4,0x40($v1)
-/*  f066748:	8c450008 */ 	lw	$a1,0x8($v0)
-/*  f06674c:	50a00005 */ 	beqzl	$a1,.L0f066764
-/*  f066750:	8c43000c */ 	lw	$v1,0xc($v0)
-/*  f066754:	8cad000c */ 	lw	$t5,0xc($a1)
-/*  f066758:	01a67025 */ 	or	$t6,$t5,$a2
-/*  f06675c:	acae000c */ 	sw	$t6,0xc($a1)
-/*  f066760:	8c43000c */ 	lw	$v1,0xc($v0)
-.L0f066764:
-/*  f066764:	10600006 */ 	beqz	$v1,.L0f066780
-/*  f066768:	00000000 */ 	nop
-/*  f06676c:	8c6f000c */ 	lw	$t7,0xc($v1)
-/*  f066770:	3c01fff7 */ 	lui	$at,0xfff7
-/*  f066774:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f066778:	01e1c024 */ 	and	$t8,$t7,$at
-/*  f06677c:	ac78000c */ 	sw	$t8,0xc($v1)
-.L0f066780:
-/*  f066780:	0c006174 */ 	jal	func000185d0
-/*  f066784:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f066788:	10000005 */ 	b	.L0f0667a0
-/*  f06678c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f066790:	8c420010 */ 	lw	$v0,0x10($v0)
-.L0f066794:
-/*  f066794:	5440ffdc */ 	bnezl	$v0,.L0f066708
-/*  f066798:	8c480004 */ 	lw	$t0,0x4($v0)
-/*  f06679c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0667a0:
-/*  f0667a0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0667a4:	03e00008 */ 	jr	$ra
-/*  f0667a8:	00000000 */ 	nop
-);
+void objUpdateLinkedScenery(struct defaultobj *obj)
+{
+	if ((obj->hidden & OBJHFLAG_01000000) && (obj->flags & OBJFLAG_INVINCIBLE) == 0) {
+		struct linksceneryobj *link = g_LinkedScenery;
+
+		while (link) {
+			if (link->trigger == obj) {
+				func0f06a170();
+
+				link->trigger->flags2 |= OBJFLAG2_INVISIBLE;
+				link->trigger->hidden |= OBJHFLAG_00000004;
+
+				if (link->unexp) {
+					link->unexp->flags2 |= OBJFLAG2_INVISIBLE;
+				}
+
+				if (link->exp) {
+					link->exp->flags2 &= ~OBJFLAG2_INVISIBLE;
+				}
+
+				func000185d0(obj, 1);
+				return;
+			}
+
+			link = link->next;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0667ac

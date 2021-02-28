@@ -30,7 +30,7 @@ void countdownTimerTick(void);
 bool func0f066310(struct prop *doorprop, bool arg1);
 bool doorIsPadlockFree(struct doorobj *door);
 bool objPassesSafePickupChecks(struct defaultobj *obj);
-u32 func0f0666cc(void);
+void objUpdateLinkedScenery(struct defaultobj *obj);
 u32 func0f0667ac(void);
 u32 func0f0667b4(void);
 f32 func0f0667bc(u32 arg0);

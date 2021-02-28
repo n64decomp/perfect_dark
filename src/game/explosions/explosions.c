@@ -1766,7 +1766,7 @@ glabel var7f1b559c
 .L0f12b600:
 /*  f12b600:	11c00060 */ 	beqz	$t6,.L0f12b784
 /*  f12b604:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12b608:	0fc199b3 */ 	jal	func0f0666cc
+/*  f12b608:	0fc199b3 */ 	jal	objUpdateLinkedScenery
 /*  f12b60c:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f12b610:	8e220040 */ 	lw	$v0,0x40($s1)
 /*  f12b614:	30581000 */ 	andi	$t8,$v0,0x1000
