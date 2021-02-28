@@ -5511,7 +5511,7 @@ glabel var7f1a87d8
 /*  f024224:	260400f8 */ 	addiu	$a0,$s0,0xf8
 /*  f024228:	11a00003 */ 	beqz	$t5,.L0f024238
 /*  f02422c:	00000000 */ 	nop
-/*  f024230:	0fc1a5c4 */ 	jal	func0f069710
+/*  f024230:	0fc1a5c4 */ 	jal	colourTween
 /*  f024234:	260500fc */ 	addiu	$a1,$s0,0xfc
 .L0f024238:
 /*  f024238:	0c006a7a */ 	jal	func0001a9e8

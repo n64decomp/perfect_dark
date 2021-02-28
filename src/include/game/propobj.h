@@ -88,7 +88,7 @@ u32 func0f068c04(void);
 s32 func0f068fc8(struct prop *prop, bool arg1);
 void func0f069144(struct prop *prop, u8 *nextcol, u16 floorcol);
 void func0f069630(struct prop *prop, u8 *nextcol, u16 floorcol);
-void func0f069710(u8 *shadecol, u8 *nextcol);
+void colourTween(u8 *col, u8 *nextcol);
 void func0f069750(s32 *arg0, s32 arg1, f32 *arg2);
 void func0f069850(struct defaultobj *obj, struct coord *pos, f32 *realrot, struct tiletype3 *geo);
 void func0f069b4c(struct defaultobj *obj);

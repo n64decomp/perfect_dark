@@ -20653,7 +20653,7 @@ void currentPlayerTickInventory(bool triggeron)
 	} else {
 		u8 shadecol[4];
 		func0f069144(g_Vars.currentplayer->prop, shadecol, player->floorcol);
-		func0f069710(player->gunshadecol, shadecol);
+		colourTween(player->gunshadecol, shadecol);
 	}
 
 	invIncrementHeldTime(handGetWeaponNum(HAND_RIGHT), handGetWeaponNum(HAND_LEFT));

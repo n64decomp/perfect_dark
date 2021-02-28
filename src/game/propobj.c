@@ -3996,26 +3996,21 @@ glabel func0f069630
 /*  f06970c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f069710
-/*  f069710:	00001025 */ 	or	$v0,$zero,$zero
-/*  f069714:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f069718:	00803825 */ 	or	$a3,$a0,$zero
-/*  f06971c:	24080004 */ 	addiu	$t0,$zero,0x4
-.L0f069720:
-/*  f069720:	90e40000 */ 	lbu	$a0,0x0($a3)
-/*  f069724:	90ce0000 */ 	lbu	$t6,0x0($a2)
-/*  f069728:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f06972c:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f069730:	01c41823 */ 	subu	$v1,$t6,$a0
-/*  f069734:	00037843 */ 	sra	$t7,$v1,0x1
-/*  f069738:	008f2821 */ 	addu	$a1,$a0,$t7
-/*  f06973c:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f069740:	1448fff7 */ 	bne	$v0,$t0,.L0f069720
-/*  f069744:	a0e5ffff */ 	sb	$a1,-0x1($a3)
-/*  f069748:	03e00008 */ 	jr	$ra
-/*  f06974c:	00000000 */ 	nop
-);
+/**
+ * Shift shadecol to be closer to nextcol.
+ *
+ * It works by moving halfway towards the nextcol colour each time it's called.
+ */
+void colourTween(u8 *col, u8 *nextcol)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		s32 remaining = nextcol[i] - col[i];
+		s32 newcol = col[i] + (remaining >> 1);
+		col[i] = newcol;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f069750
@@ -27444,7 +27439,7 @@ s32 objTick(struct prop *prop)
 
 		if (sp572) {
 			if (prop->flags & PROPFLAG_80) {
-				func0f069710(obj->shadecol, obj->nextcol);
+				colourTween(obj->shadecol, obj->nextcol);
 			} else {
 				obj->shadecol[0] = obj->nextcol[0];
 				obj->shadecol[1] = obj->nextcol[1];
