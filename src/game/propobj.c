@@ -34931,79 +34931,40 @@ void func0f084cf0(struct defaultobj *obj)
 	obj->hidden2 |= OBJH2FLAG_40;
 }
 
-GLOBAL_ASM(
-glabel func0f084e58
-/*  f084e58:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f084e5c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f084e60:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f084e64:	00803025 */ 	or	$a2,$a0,$zero
-/*  f084e68:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f084e6c:	afae008c */ 	sw	$t6,0x8c($sp)
-/*  f084e70:	8c820018 */ 	lw	$v0,0x18($a0)
-/*  f084e74:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f084e78:	afa60098 */ 	sw	$a2,0x98($sp)
-/*  f084e7c:	0c006a6f */ 	jal	modelGetPartNodeData
-/*  f084e80:	afa20088 */ 	sw	$v0,0x88($sp)
-/*  f084e84:	8fa60098 */ 	lw	$a2,0x98($sp)
-/*  f084e88:	00404025 */ 	or	$t0,$v0,$zero
-/*  f084e8c:	3c0f800a */ 	lui	$t7,%hi(g_BgPortals)
-/*  f084e90:	84c400c4 */ 	lh	$a0,0xc4($a2)
-/*  f084e94:	04820010 */ 	bltzl	$a0,.L0f084ed8
-/*  f084e98:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f084e9c:	8def4cc8 */ 	lw	$t7,%lo(g_BgPortals)($t7)
-/*  f084ea0:	0004c0c0 */ 	sll	$t8,$a0,0x3
-/*  f084ea4:	01f82821 */ 	addu	$a1,$t7,$t8
-/*  f084ea8:	90a30006 */ 	lbu	$v1,0x6($a1)
-/*  f084eac:	30620001 */ 	andi	$v0,$v1,0x1
-/*  f084eb0:	0002c82b */ 	sltu	$t9,$zero,$v0
-/*  f084eb4:	13200004 */ 	beqz	$t9,.L0f084ec8
-/*  f084eb8:	03201025 */ 	or	$v0,$t9,$zero
-/*  f084ebc:	30620004 */ 	andi	$v0,$v1,0x4
-/*  f084ec0:	2c490001 */ 	sltiu	$t1,$v0,0x1
-/*  f084ec4:	01201025 */ 	or	$v0,$t1,$zero
-.L0f084ec8:
-/*  f084ec8:	346a0004 */ 	ori	$t2,$v1,0x4
-/*  f084ecc:	14400021 */ 	bnez	$v0,.L0f084f54
-/*  f084ed0:	a0aa0006 */ 	sb	$t2,0x6($a1)
-/*  f084ed4:	00c02025 */ 	or	$a0,$a2,$zero
-.L0f084ed8:
-/*  f084ed8:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f084edc:	0fc23109 */ 	jal	func0f08c424
-/*  f084ee0:	afa80084 */ 	sw	$t0,0x84($sp)
-/*  f084ee4:	8fa80084 */ 	lw	$t0,0x84($sp)
-/*  f084ee8:	8fab008c */ 	lw	$t3,0x8c($sp)
-/*  f084eec:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*  f084ef0:	c5040004 */ 	lwc1	$f4,0x4($t0)
-/*  f084ef4:	27a50040 */ 	addiu	$a1,$sp,0x40
-/*  f084ef8:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f084efc:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f084f00:	c5060008 */ 	lwc1	$f6,0x8($t0)
-/*  f084f04:	27a70060 */ 	addiu	$a3,$sp,0x60
-/*  f084f08:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f084f0c:	c508000c */ 	lwc1	$f8,0xc($t0)
-/*  f084f10:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f084f14:	c50a0010 */ 	lwc1	$f10,0x10($t0)
-/*  f084f18:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f084f1c:	afab0024 */ 	sw	$t3,0x24($sp)
-/*  f084f20:	0fc54208 */ 	jal	shardsCreate
-/*  f084f24:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f084f28:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f084f2c:	0fc4f903 */ 	jal	func0f13e40c
-/*  f084f30:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f084f34:	8fac0088 */ 	lw	$t4,0x88($sp)
-/*  f084f38:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f084f3c:	0c006a47 */ 	jal	modelGetPart
-/*  f084f40:	8d840008 */ 	lw	$a0,0x8($t4)
-/*  f084f44:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f084f48:	0c006a87 */ 	jal	modelGetNodeData
-/*  f084f4c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f084f50:	ac400000 */ 	sw	$zero,0x0($v0)
-.L0f084f54:
-/*  f084f54:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f084f58:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*  f084f5c:	03e00008 */ 	jr	$ra
-/*  f084f60:	00000000 */ 	nop
-);
+void doorDestroyGlass(struct doorobj *door)
+{
+	struct modelnode *node;
+	bool bail;
+	struct prop *prop = door->base.prop;
+	struct model *model = door->base.model;
+	struct model08thing *thing;
+	struct modeldata_partid *data;
+	f32 matrix[16];
+
+	// TODO: Remove cast
+	thing = (struct model08thing *) modelGetPartNodeData(model->filedata, 2);
+
+	if (door->portalnum >= 0) {
+		bail = (g_BgPortals[door->portalnum].flags & PORTALFLAG_ENABLED) != 0
+			&& (g_BgPortals[door->portalnum].flags & PORTALFLAG_04) == 0;
+
+		g_BgPortals[door->portalnum].flags |= PORTALFLAG_04;
+
+		if (bail) {
+			return;
+		}
+	}
+
+	func0f08c424(door, matrix);
+	shardsCreate((struct coord *) &matrix[12], &matrix[0], &matrix[4], &matrix[8],
+			thing->unk04[0], thing->unk04[1], thing->unk04[2], thing->unk04[3],
+			SHARDTYPE_GLASS, prop);
+	func0f13e40c(prop, 1);
+
+	node = modelGetPart(model->filedata, 1);
+	data = modelGetNodeData(model, node);
+	data->visible.u32 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f084f64
@@ -36711,7 +36672,7 @@ glabel func0f085eac
 /*  f086760:	2b210003 */ 	slti	$at,$t9,0x3
 /*  f086764:	54200004 */ 	bnezl	$at,.L0f086778
 /*  f086768:	8fa80124 */ 	lw	$t0,0x124($sp)
-/*  f08676c:	0fc21396 */ 	jal	func0f084e58
+/*  f08676c:	0fc21396 */ 	jal	doorDestroyGlass
 /*  f086770:	00000000 */ 	nop
 /*  f086774:	8fa80124 */ 	lw	$t0,0x124($sp)
 .L0f086778:

@@ -202,7 +202,7 @@ void explosionGetBboxAtFrame(struct coord *lower, struct coord *upper, s32 frame
 void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 {
 	u32 stack[2];
-	s32 *end = (s32 *)&func0f084e58;
+	s32 *end = (s32 *)&doorDestroyGlass;
 	s32 i;
 
 	for (i = 0; i < g_NumChrSlots; i++) {
