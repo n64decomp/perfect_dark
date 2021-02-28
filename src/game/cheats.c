@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "boot/sched.h"
 #include "game/camdraw.h"
 #include "game/cheats.h"
 #include "game/inventory/inventory.h"
@@ -461,120 +462,50 @@ char *cheatGetNameIfUnlocked(struct menuitem *item)
 	return langGet(L_MPWEAPONS(74)); // "----------"
 }
 
-GLOBAL_ASM(
-glabel cheatMenuHandleDialog
-/*  f107990:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f107994:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f107998:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10799c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1079a0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1079a4:	14810023 */ 	bne	$a0,$at,.L0f107a34
-/*  f1079a8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1079ac:	0fc5294b */ 	jal	func0f14a52c
-/*  f1079b0:	00000000 */ 	nop
-/*  f1079b4:	0fc479e3 */ 	jal	func0f11e78c
-/*  f1079b8:	00000000 */ 	nop
-/*  f1079bc:	10400003 */ 	beqz	$v0,.L0f1079cc
-/*  f1079c0:	00000000 */ 	nop
-/*  f1079c4:	0fc43c4f */ 	jal	savefileSetFlag
-/*  f1079c8:	24040023 */ 	addiu	$a0,$zero,0x23
-.L0f1079cc:
-/*  f1079cc:	3c067000 */ 	lui	$a2,%hi(__scHandleRetrace)
-/*  f1079d0:	3c057000 */ 	lui	$a1,%hi(__scHandleRSP)
-/*  f1079d4:	24c62148 */ 	addiu	$a2,$a2,%lo(__scHandleRetrace)
-/*  f1079d8:	24a422e0 */ 	addiu	$a0,$a1,%lo(__scHandleRSP)
-/*  f1079dc:	00c4082b */ 	sltu	$at,$a2,$a0
-/*  f1079e0:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f1079e4:	10200007 */ 	beqz	$at,.L0f107a04
-/*  f1079e8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f1079ec:
-/*  f1079ec:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f1079f0:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f1079f4:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f1079f8:	01e0c027 */ 	nor	$t8,$t7,$zero
-/*  f1079fc:	1420fffb */ 	bnez	$at,.L0f1079ec
-/*  f107a00:	00781826 */ 	xor	$v1,$v1,$t8
-.L0f107a04:
-/*  f107a04:	3c016f76 */ 	lui	$at,0x99aa
-/*  f107a08:	34214531 */ 	ori	$at,$at,0xbbcc
-/*  f107a0c:	10610009 */ 	beq	$v1,$at,.L0f107a34
-/*  f107a10:	24c20050 */ 	addiu	$v0,$a2,0x50
-/*  f107a14:	24440010 */ 	addiu	$a0,$v0,0x10
-/*  f107a18:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f107a1c:	10200005 */ 	beqz	$at,.L0f107a34
-/*  f107a20:	24030012 */ 	addiu	$v1,$zero,0x12
-.L0f107a24:
-/*  f107a24:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f107a28:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f107a2c:	1420fffd */ 	bnez	$at,.L0f107a24
-/*  f107a30:	ac43fffc */ 	sw	$v1,-0x4($v0)
-.L0f107a34:
-/*  f107a34:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*  f107a38:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f107a3c:	5721000a */ 	bnel	$t9,$at,.L0f107a68
-/*  f107a40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f107a44:	0fc479e3 */ 	jal	func0f11e78c
-/*  f107a48:	00000000 */ 	nop
-/*  f107a4c:	10400003 */ 	beqz	$v0,.L0f107a5c
-/*  f107a50:	00000000 */ 	nop
-/*  f107a54:	0fc43c4f */ 	jal	savefileSetFlag
-/*  f107a58:	24040023 */ 	addiu	$a0,$zero,0x23
-.L0f107a5c:
-/*  f107a5c:	0fc52958 */ 	jal	func0f14a560
-/*  f107a60:	00000000 */ 	nop
-/*  f107a64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f107a68:
-/*  f107a68:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f107a6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f107a70:	03e00008 */ 	jr	$ra
-/*  f107a74:	00000000 */ 	nop
-);
+s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
+{
+	if (operation == MENUOP_OPEN) {
+		func0f14a52c();
 
-// Mismatch because it optimises the `end = &ptr[4]` line.
-// It's calculating it as &__scHandleRetrace + 24 rather than ptr + 4.
-//bool cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, struct menu *menu)
-//{
-//	if (operation == MENUOP_OPEN) {
-//		func0f14a52c();
-//
-//		if (func0f11e78c()) {
-//			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
-//		}
-//
-//#if PIRACYCHECKS
-//		{
-//			u32 *ptr = (u32 *)&__scHandleRetrace;
-//			u32 *end = (u32 *)&__scHandleRSP;
-//			u32 checksum = 0;
-//
-//			while (ptr < end) {
-//				checksum ^= ~*ptr;
-//				ptr++;
-//			}
-//
-//			if (checksum != 0x6f764531) {
-//				ptr = (u32 *)&__scHandleRetrace + 20;
-//				end = &ptr[4];
-//
-//				while (ptr < end) {
-//					*ptr = 0x00000012;
-//					ptr++;
-//				}
-//			}
-//		}
-//#endif
-//	}
-//
-//	if (operation == MENUOP_CLOSE) {
-//		if (func0f11e78c()) {
-//			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
-//		}
-//
-//		func0f14a560();
-//	}
-//
-//	return 0;
-//}
+		if (func0f11e78c()) {
+			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
+		}
+
+#if PIRACYCHECKS
+		{
+			u32 *ptr = (u32 *)&__scHandleRetrace;
+			u32 *end = (u32 *)&__scHandleRSP;
+			u32 checksum = 0;
+
+			while (ptr < end) {
+				checksum ^= ~*ptr;
+				ptr++;
+			}
+
+			if (checksum != CHECKSUM_PLACEHOLDER) {
+				ptr = (u32 *)&__scHandleRetrace + 20;
+				if (1);
+				end = &ptr[4];
+
+				while (ptr < end) {
+					*ptr = 0x00000012;
+					ptr++;
+				}
+			}
+		}
+#endif
+	}
+
+	if (operation == MENUOP_CLOSE) {
+		if (func0f11e78c()) {
+			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
+		}
+
+		func0f14a560();
+	}
+
+	return 0;
+}
 
 char *cheatGetMarquee(struct menuitem *arg0)
 {
