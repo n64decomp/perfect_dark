@@ -44680,11 +44680,11 @@ void func0f08e2ac(struct doorobj *door)
 	}
 
 #if PIRACYCHECKS
-	if (osCicId != decodeXorAaaaaaaa(0xaaaabd73)) {
+	if (osCicId != decodeXorAaaaaaaa(6105 ^ 0xaaaaaaaa)) {
 		u32 *ptr = (u32 *)func0f08f968;
-		ptr[0] = 0x00001025;
-		ptr[1] = 0x03e00008;
-		ptr[2] = 0x00000000;
+		ptr[0] = 0x00001025; // li v0, 0
+		ptr[1] = 0x03e00008; // jr ra
+		ptr[2] = 0x00000000; // nop
 	}
 #endif
 }

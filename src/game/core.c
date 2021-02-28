@@ -1836,9 +1836,9 @@ glabel coreGetSlowMotionType
 //u32 coreGetSlowMotionType(void)
 //{
 //#if PIRACYCHECKS
-//	u32 addr = sub54321(0xb000de8d);
+//	u32 addr = sub54321(0xb0000a5c + 54321);
 //	u32 actual;
-//	u32 expected = sub54321(0x1741d42a);
+//	u32 expected = sub54321(0x1740fff9);
 //	osPiReadIo(addr, &actual);
 //
 //	if (actual != expected) {

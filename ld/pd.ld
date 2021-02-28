@@ -123,8 +123,6 @@ SECTIONS
 	_val7f11c378 = 0x11fe;
 #endif
 
-	_antipiracyUncloakWriteAddress = 0x7002a324;
-
 	rspbootTextStart = 0x80059fe0;
 	rspbootTextEnd = 0x8005a0b0;
 	aspMainTextStart = 0x8005b4d0;

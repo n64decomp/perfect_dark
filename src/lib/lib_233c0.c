@@ -7211,6 +7211,13 @@ f32 cdFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 	return ground;
 }
 
+/**
+ * This function must come immediately after cdFindGroundY.
+ *
+ * A piracy check looks for this function, then backtracks two instructions to
+ * nop the jr ra at the end of cdFindGroundY, causing it to flow into this
+ * function and return 0.
+ */
 f32 func0002a324(void)
 {
 	return 0;
