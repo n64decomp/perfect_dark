@@ -34966,69 +34966,30 @@ void doorDestroyGlass(struct doorobj *door)
 	data->visible.u32 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f084f64
-/*  f084f64:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f084f68:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f084f6c:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f084f70:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f084f74:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f084f78:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f084f7c:	afae008c */ 	sw	$t6,0x8c($sp)
-/*  f084f80:	91d80001 */ 	lbu	$t8,0x1($t6)
-/*  f084f84:	8c910018 */ 	lw	$s1,0x18($a0)
-/*  f084f88:	33190002 */ 	andi	$t9,$t8,0x2
-/*  f084f8c:	53200022 */ 	beqzl	$t9,.L0f085018
-/*  f084f90:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f084f94:	0c006a6f */ 	jal	modelGetPartNodeData
-/*  f084f98:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f084f9c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f084fa0:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f084fa4:	0c006a47 */ 	jal	modelGetPart
-/*  f084fa8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f084fac:	02202025 */ 	or	$a0,$s1,$zero
-/*  f084fb0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f084fb4:	0c006973 */ 	jal	func0001a5cc
-/*  f084fb8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f084fbc:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f084fc0:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f084fc4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f084fc8:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*  f084fcc:	0c0056f9 */ 	jal	func00015be4
-/*  f084fd0:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f084fd4:	c6040004 */ 	lwc1	$f4,0x4($s0)
-/*  f084fd8:	8fa8008c */ 	lw	$t0,0x8c($sp)
-/*  f084fdc:	27a4006c */ 	addiu	$a0,$sp,0x6c
-/*  f084fe0:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f084fe4:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f084fe8:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f084fec:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f084ff0:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f084ff4:	c608000c */ 	lwc1	$f8,0xc($s0)
-/*  f084ff8:	27a7005c */ 	addiu	$a3,$sp,0x5c
-/*  f084ffc:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f085000:	c60a0010 */ 	lwc1	$f10,0x10($s0)
-/*  f085004:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f085008:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f08500c:	0fc54208 */ 	jal	shardsCreate
-/*  f085010:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f085014:	8fa4008c */ 	lw	$a0,0x8c($sp)
-.L0f085018:
-/*  f085018:	0fc4f903 */ 	jal	func0f13e40c
-/*  f08501c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f085020:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f085024:	0c006a47 */ 	jal	modelGetPart
-/*  f085028:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f08502c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f085030:	0c006a87 */ 	jal	modelGetNodeData
-/*  f085034:	00402825 */ 	or	$a1,$v0,$zero
-/*  f085038:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f08503c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f085040:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f085044:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f085048:	03e00008 */ 	jr	$ra
-/*  f08504c:	27bd0090 */ 	addiu	$sp,$sp,0x90
-);
+void func0f084f64(struct defaultobj *obj)
+{
+	struct prop *prop = obj->prop;
+	struct model *model = obj->model;
+	struct model08thing *thing;
+	struct modeldata_partid *data;
+	Mtxf *sp7c;
+	Mtxf matrix;
+
+	if (prop->flags & PROPFLAG_02) {
+		// TODO: Remove cast
+		thing = (struct model08thing *) modelGetPartNodeData(model->filedata, 2);
+		sp7c = func0001a5cc(model, modelGetPart(model->filedata, 1), 0);
+		func00015be4(currentPlayerGetUnk174c(), sp7c, &matrix);
+
+		shardsCreate((struct coord *) matrix.m[3], matrix.m[0], matrix.m[1], matrix.m[2],
+				thing->unk04[0], thing->unk04[1], thing->unk04[2], thing->unk04[3],
+				SHARDTYPE_GLASS, prop);
+	}
+
+	func0f13e40c(prop, 1);
+	data = modelGetNodeData(model, modelGetPart(model->filedata, 3));
+	data->visible.u32 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f085050

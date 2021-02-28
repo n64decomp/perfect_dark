@@ -229,7 +229,7 @@ u32 func0f0849dc(void);
 u32 add43214321(u32 value);
 void func0f084cf0(struct defaultobj *obj);
 void doorDestroyGlass(struct doorobj *door);
-u32 func0f084f64(void);
+void func0f084f64(struct defaultobj *obj);
 u32 func0f085050(void);
 bool objIsCollectableByDefault(struct defaultobj *obj);
 u32 func0f0851ec(void);
