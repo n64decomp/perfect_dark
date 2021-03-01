@@ -331,14 +331,15 @@ u32 var80069d00 = 0x00000000;
  * if the caller should proceed with opening or closing the door. A true return
  * doesn't necessarily mean the lift was called.
  *
- * If onlyifclosed is false, the lift can be called even if the given door is
- * open... which seems weird, because lift doors can't be open if the lift isn't
- * already there.
+ * The allowclose argument determines whether the door should be closed if the
+ * lift is at the door. This is typically true when the player has activated the
+ * door, and false when NPCs have activated the door. If true, doorCallLift
+ * doesn't handle the activation which allows the caller to close the door.
  *
  * Lifts will not be called if it's occupied by anyone. This prevents chrs from
  * from calling lifts back when players are in them.
  */
-bool doorCallLift(struct prop *doorprop, bool onlyifclosed)
+bool doorCallLift(struct prop *doorprop, bool allowclose)
 {
 	struct doorobj *door = doorprop->door;
 	bool handled = false;
@@ -353,11 +354,15 @@ bool doorCallLift(struct prop *doorprop, bool onlyifclosed)
 				handled = true;
 
 				if (type == OBJTYPE_DOOR) {
-					// Unsure if reachable... I don't think the link->lift
-					// property is ever set to a door obj.
-					doorActivateWrapper(link->lift, onlyifclosed);
+					// This appears to be handling situations where the setup
+					// file specifies a door as the lift object. It activates
+					// that door, which then calls doorCallLift. This allows
+					// setup files to chain lift doors to other lift doors
+					// rather than directly to the lift, but this doesn't happen
+					// in practice so this branch is unused.
+					doorsActivate(link->lift, allowclose);
 				} else if (type == OBJTYPE_LIFT) {
-					if (onlyifclosed && door->base.type == OBJTYPE_DOOR && !doorIsClosed(door)) {
+					if (allowclose && door->base.type == OBJTYPE_DOOR && !doorIsClosed(door)) {
 						handled = false;
 					} else {
 						bool vacant = true;
@@ -372,6 +377,10 @@ bool doorCallLift(struct prop *doorprop, bool onlyifclosed)
 
 						if (vacant) {
 							for (i = 0; i < numchrslots; i++) {
+								/**
+								 * @bug: This is missing a chrIsDead check.
+								 * If a chr dies in a lift it can no longer be called.
+								 */
 								if (g_ChrSlots[i].prop && g_ChrSlots[i].lift == link->lift) {
 									vacant = false;
 									break;
@@ -19004,7 +19013,7 @@ glabel var7f1aa43c
 .L0f077054:
 /*  f077054:	14600005 */ 	bnez	$v1,.L0f07706c
 /*  f077058:	00000000 */ 	nop
-/*  f07705c:	0fc23922 */ 	jal	doorActivate
+/*  f07705c:	0fc23922 */ 	jal	doorsRequestMode
 /*  f077060:	02002025 */ 	or	$a0,$s0,$zero
 /*  f077064:	1000002e */ 	b	.L0f077120
 /*  f077068:	820a0084 */ 	lb	$t2,0x84($s0)
@@ -19056,7 +19065,7 @@ glabel var7f1aa43c
 /*  f07710c:	820a0084 */ 	lb	$t2,0x84($s0)
 .L0f077110:
 /*  f077110:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077114:	0fc23922 */ 	jal	doorActivate
+/*  f077114:	0fc23922 */ 	jal	doorsRequestMode
 /*  f077118:	24050002 */ 	addiu	$a1,$zero,0x2
 .L0f07711c:
 /*  f07711c:	820a0084 */ 	lb	$t2,0x84($s0)
@@ -19108,7 +19117,7 @@ glabel var7f1aa43c
 /*  f0771bc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0771c0:	10400003 */ 	beqz	$v0,.L0f0771d0
 /*  f0771c4:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f0771c8:	0fc23fba */ 	jal	doorActivateWrapper
+/*  f0771c8:	0fc23fba */ 	jal	doorsActivate
 /*  f0771cc:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0771d0:
 /*  f0771d0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x8)
@@ -19238,7 +19247,7 @@ glabel var7f1aa43c
 //		}
 //
 //		if (hasflag == false) {
-//			doorActivate(door, DOORMODE_CLOSING);
+//			doorsRequestMode(door, DOORMODE_CLOSING);
 //		} else if (door->doorflags & DOORFLAG_0010) {
 //			// Check if any sibling has a false return value
 //			s32 pass = func0f08c040(door) == false;
@@ -19259,7 +19268,7 @@ glabel var7f1aa43c
 //					loopdoor = loopdoor->sibling;
 //				}
 //			} else {
-//				doorActivate(door, DOORMODE_CLOSING);
+//				doorsRequestMode(door, DOORMODE_CLOSING);
 //			}
 //		}
 //	}
@@ -19286,7 +19295,7 @@ glabel var7f1aa43c
 //	if (door->doortype == DOORTYPE_8
 //			&& doorIsClosed(door)
 //			&& doorIsPadlockFree(door)) {
-//		doorActivateWrapper(doorprop, false);
+//		doorsActivate(doorprop, false);
 //	}
 //
 //	// Update frac
@@ -19932,7 +19941,7 @@ void liftTick(struct prop *prop)
 		if (obj->flags & OBJFLAG_DEACTIVATED) {
 			move = false;
 		} else if (lift->doors[lift->levelcur] && !doorIsClosed(lift->doors[lift->levelcur])) {
-			doorActivate(lift->doors[lift->levelcur], DOORMODE_CLOSING);
+			doorsRequestMode(lift->doors[lift->levelcur], DOORMODE_CLOSING);
 			move = false;
 		}
 
@@ -19996,7 +20005,7 @@ void liftTick(struct prop *prop)
 				door = lift->doors[lift->levelcur];
 
 				if (door && door->keyflags == 0) {
-					doorActivate(door, DOORMODE_OPENING);
+					doorsRequestMode(door, DOORMODE_OPENING);
 				}
 			}
 
@@ -25562,7 +25571,7 @@ glabel var7f1aa6e4
 /*  f07d704:	0fc24030 */ 	jal	func0f0900c0
 /*  f07d708:	e7ac0058 */ 	swc1	$f12,0x58($sp)
 /*  f07d70c:	8fa401a0 */ 	lw	$a0,0x1a0($sp)
-/*  f07d710:	0fc23922 */ 	jal	doorActivate
+/*  f07d710:	0fc23922 */ 	jal	doorsRequestMode
 /*  f07d714:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f07d718:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
 .L0f07d71c:
@@ -26320,7 +26329,7 @@ glabel var7f1aa6e4
 //
 //				if (dist < 200 * 200) {
 //					func0f0900c0(prop, door);
-//					doorActivate(door, DOORMODE_OPENING);
+//					doorsRequestMode(door, DOORMODE_OPENING);
 //				}
 //
 //				if (dist < 195 * 195) {
@@ -42615,7 +42624,7 @@ glabel func0f08c190
 .L0f08c3d0:
 /*  f08c3d0:	12400003 */ 	beqz	$s2,.L0f08c3e0
 /*  f08c3d4:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f08c3d8:	0fc23922 */ 	jal	doorActivate
+/*  f08c3d8:	0fc23922 */ 	jal	doorsRequestMode
 /*  f08c3dc:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08c3e0:
 /*  f08c3e0:	86e20002 */ 	lh	$v0,0x2($s7)
@@ -44255,7 +44264,11 @@ void func0f08df10(s32 soundtype, struct prop *prop)
 	}
 }
 
-void func0f08e0c4(struct doorobj *door)
+/**
+ * Play the door open sound, activate the door's portal,
+ * and configure the laser fade properties if it's a laser.
+ */
+void doorPrepareForOpen(struct doorobj *door)
 {
 	door->base.flags &= ~OBJFLAG_DOOR_KEEPOPEN;
 	door->base.hidden |= OBJHFLAG_00000200;
@@ -44281,17 +44294,17 @@ void func0f08e0c4(struct doorobj *door)
 	}
 }
 
-void func0f08e1a0(struct doorobj *door)
+/**
+ * Play the door close sound and configure the
+ * laser fade properties if it's a laser.
+ */
+void doorPrepareForClose(struct doorobj *door)
 {
 	door->base.flags &= ~OBJFLAG_DOOR_KEEPOPEN;
 
 	func0f08daa8(door->soundtype, door->base.prop);
 
-	if (door->doortype == DOORTYPE_LASER) {
-		door->fadetime60 = 60;
-	} else {
-		door->fadetime60 = 0;
-	}
+	door->fadetime60 = door->doortype == DOORTYPE_LASER ? 60 : 0;
 
 	if (door->doortype == DOORTYPE_LASER) {
 		door->laserfade = 0;
@@ -44362,17 +44375,22 @@ void func0f08e2ac(struct doorobj *door)
 #endif
 }
 
+/**
+ * Apply the given mode to an individual door (not its siblings).
+ *
+ * Handles playing door open/close sounds and activating the portal if opening.
+ */
 void doorSetMode(struct doorobj *door, s32 newmode)
 {
 	if (newmode == DOORMODE_OPENING) {
 		if (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) {
-			func0f08e0c4(door);
+			doorPrepareForOpen(door);
 		}
 
 		door->mode = newmode;
 	} else if (newmode == DOORMODE_CLOSING) {
 		if (door->mode == DOORMODE_IDLE && door->frac > 0) {
-			func0f08e1a0(door);
+			doorPrepareForClose(door);
 		}
 
 		if ((door->mode != DOORMODE_IDLE && door->mode != DOORMODE_WAITING) || door->frac > 0) {
@@ -44385,13 +44403,21 @@ void doorSetMode(struct doorobj *door, s32 newmode)
 	}
 }
 
-void doorActivate(struct doorobj *door, s32 newmode)
+/**
+ * Request that the door and its siblings be applied the given mode
+ * (opening or closing).
+ *
+ * When opening an airlock-style door (eg. GE Dam gate), the requested mode is
+ * modified so that the sibling begins closing instead, and the main door waits
+ * for the sibling before it opens.
+ */
+void doorsRequestMode(struct doorobj *door, s32 newmode)
 {
-	struct doorobj *loopdoor;
+	struct doorobj *sibling;
 
 	s32 siblingmode = newmode;
 
-	if ((door->base.flags2 & OBJFLAG2_40000000) && newmode == DOORMODE_OPENING) {
+	if ((door->base.flags2 & OBJFLAG2_AIRLOCKDOOR) && newmode == DOORMODE_OPENING) {
 		siblingmode = DOORMODE_CLOSING;
 
 		if (door->mode == DOORMODE_IDLE) {
@@ -44401,11 +44427,11 @@ void doorActivate(struct doorobj *door, s32 newmode)
 
 	doorSetMode(door, newmode);
 
-	loopdoor = door->sibling;
+	sibling = door->sibling;
 
-	while (loopdoor && loopdoor != door) {
-		doorSetMode(loopdoor, siblingmode);
-		loopdoor = loopdoor->sibling;
+	while (sibling && sibling != door) {
+		doorSetMode(sibling, siblingmode);
+		sibling = sibling->sibling;
 	}
 }
 
@@ -46208,20 +46234,30 @@ bool doorTestForInteract(struct prop *prop)
 	return checkmore;
 }
 
-void doorActivateWrapper(struct prop *doorprop, bool arg1)
+/**
+ * Activate the doors by calling the lift or requesting the new door mode
+ * (opening/closing) for the given door and its siblings.
+ *
+ * Assumes any lock checks have already been done and have passed.
+ *
+ * The allowliftclose argument determines whether the door should be closed if
+ * it's a lift door and the lift is at the door. This is typically true when the
+ * player has activated the door, and false when NPCs have activated the door.
+ */
+void doorsActivate(struct prop *doorprop, bool allowliftclose)
 {
 	struct doorobj *door = doorprop->door;
 
-	if (!doorCallLift(doorprop, arg1)) {
+	if (!doorCallLift(doorprop, allowliftclose)) {
 		if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_WAITING) {
-			doorActivate(door, DOORMODE_CLOSING);
+			doorsRequestMode(door, DOORMODE_CLOSING);
 		} else if (door->mode == DOORMODE_CLOSING) {
-			doorActivate(door, DOORMODE_OPENING);
+			doorsRequestMode(door, DOORMODE_OPENING);
 		} else if (door->mode == DOORMODE_IDLE) {
 			if (door->frac > 0.5f * door->maxfrac) {
-				doorActivate(door, DOORMODE_CLOSING);
+				doorsRequestMode(door, DOORMODE_CLOSING);
 			} else {
-				doorActivate(door, DOORMODE_OPENING);
+				doorsRequestMode(door, DOORMODE_OPENING);
 			}
 		}
 	}
@@ -46359,7 +46395,7 @@ bool propdoorInteract(struct prop *doorprop)
 
 	if (func0f08bd00(playerprop, doorprop)) {
 		func0f0900c0(playerprop, door);
-		doorActivateWrapper(doorprop, 1);
+		doorsActivate(doorprop, true);
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
 		if ((door->base.flags2 & OBJFLAG2_00000004) == 0) {
 			struct textoverride *override = invGetTextOverrideForObj(&door->base);

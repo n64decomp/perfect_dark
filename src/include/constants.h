@@ -2522,7 +2522,7 @@
 #define OBJFLAG2_LOCKEDFRONT  0x08000000 // One-way door lock
 #define OBJFLAG2_LOCKEDBACK   0x10000000 // One-way door lock
 #define OBJFLAG2_AICANNOTUSE  0x20000000
-#define OBJFLAG2_40000000     0x40000000 // Used by doors
+#define OBJFLAG2_AIRLOCKDOOR  0x40000000 // Door waits for sibling to close before it can open
 #define OBJFLAG2_80000000     0x80000000 // Attack Ship glass
 
 // obj->flags3

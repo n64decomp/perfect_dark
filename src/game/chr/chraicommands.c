@@ -2198,14 +2198,14 @@ bool aiIfChrActivatedObject(void)
 /**
  * @cmd 0065
  */
-bool ai0065(void)
+bool aiObjInteract(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
 		if (obj->prop->type == PROPTYPE_DOOR) {
-			doorActivateWrapper(obj->prop, 0);
+			doorsActivate(obj->prop, false);
 		} else if (obj->prop->type == PROPTYPE_OBJ || obj->prop->type == PROPTYPE_WEAPON) {
 			propobjInteract(obj->prop);
 		}
@@ -2404,7 +2404,7 @@ bool aiOpenDoor(void)
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		if (!doorCallLift(obj->prop, false)) {
 			struct doorobj *door = (struct doorobj *) obj;
-			doorActivate(door, DOORMODE_OPENING);
+			doorsRequestMode(door, DOORMODE_OPENING);
 		}
 	}
 
@@ -2423,7 +2423,7 @@ bool aiCloseDoor(void)
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
-		doorActivate(door, DOORMODE_CLOSING);
+		doorsRequestMode(door, DOORMODE_CLOSING);
 	}
 
 	g_Vars.aioffset += 3;

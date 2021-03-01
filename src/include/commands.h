@@ -945,8 +945,12 @@
 	object, \
 	label,
 
-// Unused, and no idea what it does.
-#define cmd0065(object) \
+/**
+ * Interacts with the given object, as if the player pressed B on it.
+ *
+ * If the object is a door, lock checks are skipped.
+ */
+#define obj_interact(object) \
 	mkshort(0x0065), \
 	object,
 

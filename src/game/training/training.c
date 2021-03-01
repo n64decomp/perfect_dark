@@ -1621,7 +1621,7 @@ void frCloseAndLockDoor(void)
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *)obj;
 		door->keyflags |= 0x40;
-		doorActivate(door, DOORMODE_CLOSING);
+		doorsRequestMode(door, DOORMODE_CLOSING);
 	}
 }
 

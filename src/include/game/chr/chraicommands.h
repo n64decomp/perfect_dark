@@ -104,7 +104,7 @@
 /*0x0061*/ bool aiIfGunUnclaimed(void);
 /*0x0062*/ bool aiIfObjectHealthy(void);
 /*0x0063*/ bool aiIfChrActivatedObject(void);
-/*0x0065*/ bool ai0065(void);
+/*0x0065*/ bool aiObjInteract(void);
 /*0x0066*/ bool aiDestroyObject(void);
 /*0x0067*/ bool ai0067(void);
 /*0x0068*/ bool aiChrDropItems(void);
