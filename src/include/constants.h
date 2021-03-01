@@ -651,7 +651,7 @@
 
 #define DOORFLAG_WINDOWED        0x0002
 #define DOORFLAG_0004            0x0004
-#define DOORFLAG_0008            0x0008 // Changes the angle at which one-way doors can be opened
+#define DOORFLAG_FLIP            0x0008
 #define DOORFLAG_AUTOMATIC       0x0010
 #define DOORFLAG_0040            0x0040
 #define DOORFLAG_0080            0x0080

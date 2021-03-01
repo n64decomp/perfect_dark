@@ -46303,61 +46303,36 @@ void doorsActivate(struct prop *doorprop, bool allowliftclose)
 	door->base.flags2 &= ~OBJFLAG2_00000008;
 }
 
-GLOBAL_ASM(
-glabel posIsInFrontOfDoor
-/*  f08fffc:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f090000:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f090004:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f090008:	00803825 */ 	or	$a3,$a0,$zero
-/*  f09000c:	84a40006 */ 	lh	$a0,0x6($a1)
-/*  f090010:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f090014:	24050012 */ 	addiu	$a1,$zero,0x12
-/*  f090018:	0fc456ac */ 	jal	padUnpack
-/*  f09001c:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f090020:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f090024:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*  f090028:	c7aa0020 */ 	lwc1	$f10,0x20($sp)
-/*  f09002c:	c4e40000 */ 	lwc1	$f4,0x0($a3)
-/*  f090030:	c4e80004 */ 	lwc1	$f8,0x4($a3)
-/*  f090034:	c4f20008 */ 	lwc1	$f18,0x8($a3)
-/*  f090038:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f09003c:	c7a60040 */ 	lwc1	$f6,0x40($sp)
-/*  f090040:	c7a40024 */ 	lwc1	$f4,0x24($sp)
-/*  f090044:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f090048:	46060202 */ 	mul.s	$f8,$f0,$f6
-/*  f09004c:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*  f090050:	46049301 */ 	sub.s	$f12,$f18,$f4
-/*  f090054:	c7a60048 */ 	lwc1	$f6,0x48($sp)
-/*  f090058:	460a1482 */ 	mul.s	$f18,$f2,$f10
-/*  f09005c:	8faf0084 */ 	lw	$t7,0x84($sp)
-/*  f090060:	44800000 */ 	mtc1	$zero,$f0
-/*  f090064:	460c3282 */ 	mul.s	$f10,$f6,$f12
-/*  f090068:	95f80070 */ 	lhu	$t8,0x70($t7)
-/*  f09006c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f090070:	33190008 */ 	andi	$t9,$t8,0x8
-/*  f090074:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f090078:	46045400 */ 	add.s	$f16,$f10,$f4
-/*  f09007c:	13200002 */ 	beqz	$t9,.L0f090088
-/*  f090080:	46008386 */ 	mov.s	$f14,$f16
-/*  f090084:	46008387 */ 	neg.s	$f14,$f16
-.L0f090088:
-/*  f090088:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f09008c:	00000000 */ 	nop
-/*  f090090:	45020004 */ 	bc1fl	.L0f0900a4
-/*  f090094:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f090098:	10000007 */ 	b	.L0f0900b8
-/*  f09009c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0900a0:	460e003c */ 	c.lt.s	$f0,$f14
-.L0f0900a4:
-/*  f0900a4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0900a8:	45000003 */ 	bc1f	.L0f0900b8
-/*  f0900ac:	00000000 */ 	nop
-/*  f0900b0:	10000001 */ 	b	.L0f0900b8
-/*  f0900b4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0900b8:
-/*  f0900b8:	03e00008 */ 	jr	$ra
-/*  f0900bc:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
+bool posIsInFrontOfDoor(struct coord *pos, struct doorobj *door)
+{
+	f32 x;
+	f32 y;
+	f32 z;
+	f32 value;
+	struct pad pad;
+
+	padUnpack(door->base.pad, PADFIELD_POS | PADFIELD_NORMAL, &pad);
+
+	x = pos->x - pad.pos.x;
+	y = pos->y - pad.pos.y;
+	z = pos->z - pad.pos.z;
+
+	value = x * pad.normal.f[0] + y * pad.normal.f[1] + z * pad.normal.f[2];
+
+	if (door->doorflags & DOORFLAG_FLIP) {
+		value = -value;
+	}
+
+	if (value < 0) {
+		return false;
+	}
+
+	if (value > 0) {
+		return true;
+	}
+
+	return true;
+}
 
 void doorsChooseSwingDirection(struct prop *playerprop, struct doorobj *door)
 {
@@ -46365,7 +46340,7 @@ void doorsChooseSwingDirection(struct prop *playerprop, struct doorobj *door)
 		bool infront = posIsInFrontOfDoor(&playerprop->pos, door);
 		u32 wantflag = 0;
 
-		if ((door->doorflags & DOORFLAG_0008) == 0) {
+		if ((door->doorflags & DOORFLAG_FLIP) == 0) {
 			if (!infront) {
 				wantflag = OBJFLAG_DOOR_OPENTOFRONT;
 			}
