@@ -670,9 +670,9 @@ void amApply(s32 slot)
 		}
 		break;
 	case 1: // Function
-		if (g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
-				&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
-				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7))) {
+		if (g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED
+				&& g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST
+				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7))) {
 			if (slot == 1) {
 				g_AmMenus[g_AmIndex].togglefunc = true;
 			}
@@ -766,9 +766,9 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 
 			if (slot == 1) {
 				if (!secfunc
-						|| g_Vars.currentplayer->weaponnum < WEAPON_UNARMED
-						|| g_Vars.currentplayer->weaponnum > WEAPON_COMBATBOOST
-						|| (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7))) == 0) {
+						|| g_Vars.currentplayer->gunctrl.weaponnum < WEAPON_UNARMED
+						|| g_Vars.currentplayer->gunctrl.weaponnum > WEAPON_COMBATBOOST
+						|| (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7))) == 0) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 
@@ -777,9 +777,9 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 				}
 			} else {
 				if (!prifunc || (
-						g_Vars.currentplayer->weaponnum >= WEAPON_UNARMED
-						&& g_Vars.currentplayer->weaponnum <= WEAPON_COMBATBOOST
-						&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->weaponnum - 1 & 7)))) {
+						g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED
+						&& g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST
+						&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)))) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 
@@ -1031,7 +1031,7 @@ void amAssignWeaponSlots(void)
 
 void amOpen(void)
 {
-	if (g_Vars.currentplayer->passivemode == false) {
+	if (g_Vars.currentplayer->gunctrl.passivemode == false) {
 		g_AmIndex = g_Vars.currentplayernum;
 		g_Vars.currentplayer->activemenumode = AMMODE_VIEW;
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;

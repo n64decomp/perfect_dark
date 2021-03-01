@@ -4082,7 +4082,7 @@ void chrUpdateCloak(struct chrdata *chr)
 
 		// If cloak is enabled via cloaking device or via RCP120
 		if ((g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE)
-				|| (g_Vars.currentplayer->weaponnum == WEAPON_RCP120
+				|| (g_Vars.currentplayer->gunctrl.weaponnum == WEAPON_RCP120
 					&& (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120))) {
 			if ((chr->hidden & CHRHFLAG_CLOAKED) == 0 && chr->cloakpause < 1) {
 				chrCloak(chr, true);

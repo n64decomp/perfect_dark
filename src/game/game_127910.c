@@ -399,25 +399,25 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->slayerrocket = NULL;
 	g_Vars.players[index]->badrockettime = 0;
 
-	g_Vars.players[index]->unk1588 = 0;
-	g_Vars.players[index]->unk158c = NULL;
-	g_Vars.players[index]->unk1590 = 0;
+	g_Vars.players[index]->gunctrl.gunmemtype = 0;
+	g_Vars.players[index]->gunctrl.unk158c = NULL;
+	g_Vars.players[index]->gunctrl.unk1590 = 0;
 
-	g_Vars.players[index]->weaponnum = WEAPON_NONE;
-	g_Vars.players[index]->prevweaponnum = -1;
-	g_Vars.players[index]->switchtoweaponnum = -1;
+	g_Vars.players[index]->gunctrl.weaponnum = WEAPON_NONE;
+	g_Vars.players[index]->gunctrl.prevweaponnum = -1;
+	g_Vars.players[index]->gunctrl.switchtoweaponnum = -1;
 
-	g_Vars.players[index]->unk15ea = 2;
-	g_Vars.players[index]->unk15eb = 0;
-	g_Vars.players[index]->unk15e6 = 0;
+	g_Vars.players[index]->gunctrl.unk15ea = 2;
+	g_Vars.players[index]->gunctrl.unk15eb = 0;
+	g_Vars.players[index]->gunctrl.unk15e6 = 0;
 
-	g_Vars.players[index]->passivemode = false;
+	g_Vars.players[index]->gunctrl.passivemode = false;
 
 	g_Vars.players[index]->hands[0] = hand;
 	g_Vars.players[index]->hands[1] = hand;
 
-	g_Vars.players[index]->unk15f8 = 1;
-	g_Vars.players[index]->unk15fc = 1;
+	g_Vars.players[index]->gunposamplitude = 1;
+	g_Vars.players[index]->gunxamplitude = 1;
 
 	g_Vars.players[index]->doautoselect = false;
 	g_Vars.players[index]->playertriggeron = false;

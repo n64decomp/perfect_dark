@@ -2223,6 +2223,55 @@ struct player0610 {
 	/*0x0e*/ u16 unk0e;
 };
 
+struct gunctrl {
+	/*0x1580*/ s8 weaponnum;
+	/*0x1581*/ s8 prevweaponnum; // previously drawn weapon, switched to when throwing Dragon/Laptop or when ammo depleted
+	/*0x1582*/ s8 switchtoweaponnum; // weaponnum to change to
+	/*0x1583*/ u8 unk1583_00 : 1;
+	/*0x1583*/ u8 unk1583_01 : 1;
+	/*0x1583*/ u8 invertgunfunc : 1;
+	/*0x1583*/ u8 unk1583_03 : 1;
+	/*0x1583*/ u8 unk1583_04 : 1;
+	/*0x1583*/ u8 unk1583_05 : 1;
+	/*0x1583*/ u8 unk1583_06 : 1;
+	/*0x1583*/ u8 passivemode : 1;
+	/*0x1584*/ s32 gunmemnew;
+	/*0x1588*/ u32 gunmemtype;
+	/*0x158c*/ void *unk158c;
+	/*0x1590*/ u32 unk1590;
+	/*0x1594*/ s32 unk1594;
+	/*0x1598*/ u32 unk1598;
+	/*0x159c*/ u16 unk159c;
+	/*0x15a0*/ s32 unk15a0;
+	/*0x15a4*/ s32 unk15a4;
+	/*0x15a8*/ u32 unk15a8;
+	/*0x15ac*/ u32 unk15ac;
+	/*0x15b0*/ u8 unk15b0;
+	/*0x15b1*/ u8 unk15b1;
+	/*0x15b4*/ u32 unk15b4;
+	/*0x15b8*/ u32 unk15b8;
+	/*0x15bc*/ u32 unk15bc;
+	/*0x15c0*/ u32 unk15c0;
+	/*0x15c4*/ u32 unk15c4;
+	/*0x15c8*/ u32 unk15c8;
+	/*0x15cc*/ u32 unk15cc;
+	/*0x15d0*/ u32 unk15d0;
+	/*0x15d4*/ u32 unk15d4;
+	/*0x15d8*/ u32 unk15d8;
+	/*0x15dc*/ u32 unk15dc;
+	/*0x15e0*/ u32 unk15e0;
+	/*0x15e4*/ s8 totalammo[2];
+	/*0x15e6*/ u8 unk15e6;
+	/*0x15e7*/ u8 unk15e7;
+	/*0x15e8*/ u16 unk15e8;
+	/*0x15ea*/ u8 unk15ea;
+	/*0x15eb*/ s8 unk15eb;
+	/*0x15ec*/ u32 unk15ec;
+	/*0x15f0*/ u16 unk15f0;
+	/*0x15f2*/ u16 unk15f2;
+	/*0x15f4*/ u32 unk15f4;
+};
+
 struct player {
 	/*0x0000*/ s32 cameramode;
 	/*0x0004*/ struct coord memcampos;
@@ -2479,54 +2528,9 @@ struct player {
 	/*0x0634*/ s16 viewleft; // 0
 	/*0x0636*/ s16 viewtop;  // 0
 	/*0x0638*/ struct hand hands[2];
-	/*0x1580*/ s8 weaponnum;
-	/*0x1581*/ s8 prevweaponnum; // previously drawn weapon, switched to when throwing Dragon/Laptop or when ammo depleted
-	/*0x1582*/ s8 switchtoweaponnum; // weaponnum to change to
-	/*0x1583*/ u8 unk1583_00 : 1;
-	/*0x1583*/ u8 unk1583_01 : 1;
-	/*0x1583*/ u8 invertgunfunc : 1;
-	/*0x1583*/ u8 unk1583_03 : 1;
-	/*0x1583*/ u8 unk1583_04 : 1;
-	/*0x1583*/ u8 unk1583_05 : 1;
-	/*0x1583*/ u8 unk1583_06 : 1;
-	/*0x1583*/ u8 passivemode : 1;
-	/*0x1584*/ s32 unk1584;
-	/*0x1588*/ u32 unk1588;
-	/*0x158c*/ void *unk158c;
-	/*0x1590*/ u32 unk1590;
-	/*0x1594*/ s32 unk1594;
-	/*0x1598*/ u32 unk1598;
-	/*0x159c*/ u16 unk159c;
-	/*0x15a0*/ s32 unk15a0;
-	/*0x15a4*/ s32 unk15a4;
-	/*0x15a8*/ u32 unk15a8;
-	/*0x15ac*/ u32 unk15ac;
-	/*0x15b0*/ u8 unk15b0;
-	/*0x15b1*/ u8 unk15b1;
-	/*0x15b4*/ u32 unk15b4;
-	/*0x15b8*/ u32 unk15b8;
-	/*0x15bc*/ u32 unk15bc;
-	/*0x15c0*/ u32 unk15c0;
-	/*0x15c4*/ u32 unk15c4;
-	/*0x15c8*/ u32 unk15c8;
-	/*0x15cc*/ u32 unk15cc;
-	/*0x15d0*/ u32 unk15d0;
-	/*0x15d4*/ u32 unk15d4;
-	/*0x15d8*/ u32 unk15d8;
-	/*0x15dc*/ u32 unk15dc;
-	/*0x15e0*/ u32 unk15e0;
-	/*0x15e4*/ s8 equippedammotypes[2];
-	/*0x15e6*/ u8 unk15e6;
-	/*0x15e7*/ u8 unk15e7;
-	/*0x15e8*/ u16 unk15e8;
-	/*0x15ea*/ u8 unk15ea;
-	/*0x15eb*/ s8 unk15eb;
-	/*0x15ec*/ u32 unk15ec;
-	/*0x15f0*/ u16 unk15f0;
-	/*0x15f2*/ u16 unk15f2;
-	/*0x15f4*/ u32 unk15f4;
-	/*0x15f8*/ f32 unk15f8;
-	/*0x15fc*/ f32 unk15fc;
+	struct gunctrl gunctrl;
+	/*0x15f8*/ f32 gunposamplitude;
+	/*0x15fc*/ f32 gunxamplitude;
 	/*0x1600*/ s32 doautoselect;
 	/*0x1604*/ u32 playertriggeron;
 	/*0x1608*/ u32 playertriggerprev;

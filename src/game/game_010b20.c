@@ -147,25 +147,25 @@ void func0f010bb0(void)
 		i = ALIGN16(func0f09ddfc());
 	}
 
-	g_Vars.currentplayer->unk158c = malloc(i, MEMPOOL_STAGE);
-	g_Vars.currentplayer->unk159c = 0;
-	g_Vars.currentplayer->unk15a0 = 0;
-	g_Vars.currentplayer->unk15a4 = 0;
-	g_Vars.currentplayer->unk15b0 = 0;
-	g_Vars.currentplayer->unk15b1 = 0;
-	g_Vars.currentplayer->unk1588 = 0;
-	g_Vars.currentplayer->unk1584 = -1;
-	g_Vars.currentplayer->unk15ea = 2;
-	g_Vars.currentplayer->unk15eb = 0;
+	g_Vars.currentplayer->gunctrl.unk158c = malloc(i, MEMPOOL_STAGE);
+	g_Vars.currentplayer->gunctrl.unk159c = 0;
+	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
+	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
+	g_Vars.currentplayer->gunctrl.unk15b0 = 0;
+	g_Vars.currentplayer->gunctrl.unk15b1 = 0;
+	g_Vars.currentplayer->gunctrl.gunmemtype = 0;
+	g_Vars.currentplayer->gunctrl.gunmemnew = -1;
+	g_Vars.currentplayer->gunctrl.unk15ea = 2;
+	g_Vars.currentplayer->gunctrl.unk15eb = 0;
 
-	g_Vars.currentplayer->unk1583_06 = true;
-	g_Vars.currentplayer->unk1583_00 = false;
-	g_Vars.currentplayer->unk1583_04 = false;
+	g_Vars.currentplayer->gunctrl.unk1583_06 = true;
+	g_Vars.currentplayer->gunctrl.unk1583_00 = false;
+	g_Vars.currentplayer->gunctrl.unk1583_04 = false;
 
-	g_Vars.currentplayer->switchtoweaponnum = -1;
-	g_Vars.currentplayer->unk15e7 = 0;
+	g_Vars.currentplayer->gunctrl.switchtoweaponnum = -1;
+	g_Vars.currentplayer->gunctrl.unk15e7 = 0;
 
-	g_Vars.currentplayer->invertgunfunc = false;
+	g_Vars.currentplayer->gunctrl.invertgunfunc = false;
 
 	g_Vars.currentplayer->hands[0] = hand;
 	g_Vars.currentplayer->hands[1] = hand;
@@ -176,7 +176,7 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->hands[1].audiohandle = NULL;
 	g_Vars.currentplayer->hands[0].audiohandle = NULL;
 
-	g_Vars.currentplayer->unk15f2 = 0;
+	g_Vars.currentplayer->gunctrl.unk15f2 = 0;
 
 	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->hands[1].unk0d74); i++) {
 		g_Vars.currentplayer->hands[1].unk0d74[i] = 0;
@@ -194,8 +194,8 @@ void func0f010bb0(void)
 	g_Vars.currentplayerstats->killcount = 0;
 	g_Vars.currentplayerstats->ggkillcount = 0;
 	g_Vars.currentplayer->deathcount = 0;
-	g_Vars.currentplayer->unk15f8 = 1;
-	g_Vars.currentplayer->unk15fc = 1;
+	g_Vars.currentplayer->gunposamplitude = 1;
+	g_Vars.currentplayer->gunxamplitude = 1;
 	g_Vars.currentplayer->doautoselect = false;
 	g_Vars.currentplayer->playertriggeron = false;
 	g_Vars.currentplayer->playertriggerprev = false;

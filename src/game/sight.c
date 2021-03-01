@@ -6122,7 +6122,7 @@ Gfx *sightRender(Gfx *gdl, bool sighton, s32 sight)
 		return gdl;
 	}
 
-	if (g_Vars.currentplayer->passivemode) {
+	if (g_Vars.currentplayer->gunctrl.passivemode) {
 		return gdl;
 	}
 

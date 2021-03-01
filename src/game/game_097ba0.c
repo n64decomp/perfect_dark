@@ -8004,20 +8004,20 @@ glabel var7f1ac6cc
 
 void func0f09df50(void)
 {
-	g_Vars.currentplayer->unk15ea = 11;
+	g_Vars.currentplayer->gunctrl.unk15ea = 11;
 }
 
 void func0f09df64(s32 arg0)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (player->unk15ea == 0) {
-		player->unk15b0 = 0;
-		player->unk15b1 = 0;
-		player->unk1584 = arg0;
-		player->unk15eb = -1;
+	if (player->gunctrl.unk15ea == 0) {
+		player->gunctrl.unk15b0 = 0;
+		player->gunctrl.unk15b1 = 0;
+		player->gunctrl.gunmemnew = arg0;
+		player->gunctrl.unk15eb = -1;
 	} else {
-		player->unk1584 = arg0;
+		player->gunctrl.gunmemnew = arg0;
 	}
 }
 
@@ -12100,12 +12100,12 @@ void currentPlayerEquipWeapon(s32 weaponnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (player->weaponnum == weaponnum && player->switchtoweaponnum == -1) {
+	if (player->gunctrl.weaponnum == weaponnum && player->gunctrl.switchtoweaponnum == -1) {
 		return;
 	}
 
-	player->switchtoweaponnum = weaponnum;
-	player->unk1583_05 = 0;
+	player->gunctrl.switchtoweaponnum = weaponnum;
+	player->gunctrl.unk1583_05 = 0;
 }
 
 s32 handGetWeaponNum(s32 handnum)
@@ -12114,7 +12114,7 @@ s32 handGetWeaponNum(s32 handnum)
 		return WEAPON_NONE;
 	}
 
-	return g_Vars.currentplayer->weaponnum;
+	return g_Vars.currentplayer->gunctrl.weaponnum;
 }
 
 s32 getCurrentPlayerWeaponIdWrapper(s32 handnum)
@@ -12136,13 +12136,13 @@ s32 func0f0a1a68(s32 arg0)
 {
 	s32 weaponnum;
 
-	if (g_Vars.currentplayer->switchtoweaponnum >= 0) {
-		weaponnum = g_Vars.currentplayer->switchtoweaponnum;
+	if (g_Vars.currentplayer->gunctrl.switchtoweaponnum >= 0) {
+		weaponnum = g_Vars.currentplayer->gunctrl.switchtoweaponnum;
 	} else {
-		weaponnum = g_Vars.currentplayer->weaponnum;
+		weaponnum = g_Vars.currentplayer->gunctrl.weaponnum;
 	}
 
-	if (!g_Vars.currentplayer->unk1583_00 && arg0 == 1) {
+	if (!g_Vars.currentplayer->gunctrl.unk1583_00 && arg0 == 1) {
 		weaponnum = WEAPON_NONE;
 	}
 
@@ -12155,10 +12155,11 @@ void func0f0a1ab0(void)
 		struct player *player = g_Vars.currentplayer;
 		s32 dualweaponnum;
 
-		if (invHasSingleWeaponIncAllGuns(player->prevweaponnum)) {
-			currentPlayerEquipWeaponWrapper(HAND_RIGHT, player->prevweaponnum);
+		if (invHasSingleWeaponIncAllGuns(player->gunctrl.prevweaponnum)) {
+			currentPlayerEquipWeaponWrapper(HAND_RIGHT, player->gunctrl.prevweaponnum);
 
-			dualweaponnum = invHasDoubleWeaponIncAllGuns(player->prevweaponnum, player->prevweaponnum) * player->prevweaponnum * player->unk1583_01;
+			dualweaponnum = invHasDoubleWeaponIncAllGuns(player->gunctrl.prevweaponnum, player->gunctrl.prevweaponnum)
+				* player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
 			currentPlayerEquipWeaponWrapper(HAND_LEFT, dualweaponnum);
 		} else {
 			func0f0a1df4();
@@ -12561,9 +12562,9 @@ void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
 {
 	if (arg0 == 1) {
 		if (weaponnum == WEAPON_NONE) {
-			g_Vars.currentplayer->unk1583_00 = false;
+			g_Vars.currentplayer->gunctrl.unk1583_00 = false;
 		} else {
-			g_Vars.currentplayer->unk1583_00 = true;
+			g_Vars.currentplayer->gunctrl.unk1583_00 = true;
 		}
 	} else {
 		if (weaponnum > WEAPON_SUICIDEPILL) {
@@ -13202,7 +13203,7 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 			return;
 		}
 
-		if (weaponnum <= WEAPON_UNARMED || player->switchtoweaponnum != -1) {
+		if (weaponnum <= WEAPON_UNARMED || player->gunctrl.switchtoweaponnum != -1) {
 			return;
 		}
 
@@ -20417,7 +20418,7 @@ glabel var7f1acb14
 void func0f0a8c50(void)
 {
 	if (g_Vars.currentplayer->hands[HAND_RIGHT].unk0d0f_03 == 0) {
-		g_Vars.currentplayer->invertgunfunc = false;
+		g_Vars.currentplayer->gunctrl.invertgunfunc = false;
 	}
 }
 
@@ -20507,7 +20508,7 @@ void currentPlayerTickInventory(bool triggeron)
 	s32 i;
 
 	// Remove weapons if in passive mode
-	if (g_Vars.currentplayer->passivemode) {
+	if (g_Vars.currentplayer->gunctrl.passivemode) {
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 		triggeron = false;
 
@@ -20516,13 +20517,14 @@ void currentPlayerTickInventory(bool triggeron)
 			invGiveSingleWeapon(WEAPON_UNARMED);
 		}
 
-		if (g_Vars.currentplayer->weaponnum != WEAPON_UNARMED
-				&& g_Vars.currentplayer->switchtoweaponnum != WEAPON_UNARMED) {
+		if (g_Vars.currentplayer->gunctrl.weaponnum != WEAPON_UNARMED
+				&& g_Vars.currentplayer->gunctrl.switchtoweaponnum != WEAPON_UNARMED) {
 			currentPlayerEquipWeapon(WEAPON_UNARMED);
 		}
 
-		g_Vars.currentplayer->unk1583_00 = 0;
+		g_Vars.currentplayer->gunctrl.unk1583_00 = 0;
 		g_Vars.currentplayer->devicesactive = 0;
+
 		chr->cloakpause = 0;
 		chr->cloakfadefrac = 0;
 		chr->cloakfadefinished = false;
@@ -20581,7 +20583,7 @@ void currentPlayerTickInventory(bool triggeron)
 
 		if (player->hands[HAND_LEFT].unk0640
 				&& player->hands[HAND_RIGHT].unk0640
-				&& player->weaponnum != WEAPON_REMOTEMINE) {
+				&& player->gunctrl.weaponnum != WEAPON_REMOTEMINE) {
 			if (player->playertrigtime240 > 80) {
 				gunsfiring[player->curguntofire] = 1;
 
@@ -20604,7 +20606,7 @@ void currentPlayerTickInventory(bool triggeron)
 				player->curguntofire = 1 - player->curguntofire;
 			}
 
-			if (player->weaponnum == WEAPON_REMOTEMINE) {
+			if (player->gunctrl.weaponnum == WEAPON_REMOTEMINE) {
 				player->curguntofire = 0;
 			}
 
@@ -20664,7 +20666,7 @@ void playersSetPassiveMode(bool enable)
 	s32 i;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
-		g_Vars.players[i]->passivemode = enable;
+		g_Vars.players[i]->gunctrl.passivemode = enable;
 	}
 }
 
@@ -20953,7 +20955,7 @@ s32 currentPlayerGetAmmoCount(s32 ammotype)
 	for (i = 0; i < 2; i++) {
 		if (player->hands[i].unk0640) {
 			for (j = 0; j < 2; j++) {
-				if (player->equippedammotypes[j] == ammotype) {
+				if (player->gunctrl.totalammo[j] == ammotype) {
 					total = player->hands[i].loadedammo[j] + total;
 				}
 			}
