@@ -19237,18 +19237,18 @@ glabel var7f1aa43c
 //			&& (door->base.flags & OBJFLAG_DOOR_KEEPOPEN) == 0
 //			&& door->lastopen60 < g_Vars.lvframe60 - door->autoclosetime) {
 //		// 004
-//		// Check if any sibling has DOORFLAG_0010
+//		// Check if any sibling has DOORFLAG_AUTOMATIC
 //		struct doorobj *loopdoor = door->sibling;
-//		s32 hasflag = door->doorflags & DOORFLAG_0010;
+//		s32 hasflag = door->doorflags & DOORFLAG_AUTOMATIC;
 //
 //		while (loopdoor && loopdoor != door && !hasflag) {
-//			hasflag = loopdoor->doorflags & DOORFLAG_0010;
+//			hasflag = loopdoor->doorflags & DOORFLAG_AUTOMATIC;
 //			loopdoor = loopdoor->sibling;
 //		}
 //
 //		if (hasflag == false) {
 //			doorsRequestMode(door, DOORMODE_CLOSING);
-//		} else if (door->doorflags & DOORFLAG_0010) {
+//		} else if (door->doorflags & DOORFLAG_AUTOMATIC) {
 //			// Check if any sibling has a false return value
 //			s32 pass = func0f08c040(door) == false;
 //			struct doorobj *loopdoor = door->sibling;
@@ -25568,7 +25568,7 @@ glabel var7f1aa6e4
 /*  f07d6f8:	00000000 */ 	nop
 /*  f07d6fc:	45000007 */ 	bc1f	.L0f07d71c
 /*  f07d700:	00000000 */ 	nop
-/*  f07d704:	0fc24030 */ 	jal	doorChooseSwingDirection
+/*  f07d704:	0fc24030 */ 	jal	doorsChooseSwingDirection
 /*  f07d708:	e7ac0058 */ 	swc1	$f12,0x58($sp)
 /*  f07d70c:	8fa401a0 */ 	lw	$a0,0x1a0($sp)
 /*  f07d710:	0fc23922 */ 	jal	doorsRequestMode
@@ -26328,7 +26328,7 @@ glabel var7f1aa6e4
 //					+ (doorprop->pos.z - prop->pos.z) * (doorprop->pos.z - prop->pos.z);
 //
 //				if (dist < 200 * 200) {
-//					doorChooseSwingDirection(prop, door);
+//					doorsChooseSwingDirection(prop, door);
 //					doorsRequestMode(door, DOORMODE_OPENING);
 //				}
 //
@@ -42433,7 +42433,7 @@ glabel func0f08c040
 );
 
 GLOBAL_ASM(
-glabel func0f08c190
+glabel doorsCheckAutomatic
 /*  f08c190:	27bdfd90 */ 	addiu	$sp,$sp,-624
 /*  f08c194:	afb50034 */ 	sw	$s5,0x34($sp)
 /*  f08c198:	3c15800a */ 	lui	$s5,%hi(g_Vars)
@@ -42614,6 +42614,71 @@ glabel func0f08c190
 /*  f08c41c:	03e00008 */ 	jr	$ra
 /*  f08c420:	27bd0270 */ 	addiu	$sp,$sp,0x270
 );
+
+/**
+ * Find automatic doors and open them if the player is close to them.
+ */
+// Mismatch: regalloc when preparing arguments for func0f08c190.
+//void doorsCheckAutomatic(void)
+//{
+//	s16 *propnumptr;
+//	s16 propnums[256];
+//
+//	roomGetProps(g_Vars.currentplayer->prop->rooms, propnums, 256);
+//	propnumptr = propnums;
+//
+//	while (*propnumptr >= 0) {
+//		struct prop *doorprop = &g_Vars.props[*propnumptr];
+//
+//		if (doorprop->type == PROPTYPE_DOOR) {
+//			struct doorobj *door = doorprop->door;
+//
+//			if ((door->doorflags & DOORFLAG_AUTOMATIC)
+//					&& doorIsUnlocked(g_Vars.currentplayer->prop, doorprop)
+//					&& (door->mode == DOORMODE_CLOSING || (door->mode == DOORMODE_IDLE && door->frac <= 0))) {
+//				bool canopen = false;
+//				struct defaultobj *obj = NULL;
+//				bool isbike = false;
+//				struct doorobj *sibling;
+//
+//				if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
+//					obj = bmoveGetGrabbedProp()->obj;
+//				} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
+//					obj = bmoveGetHoverbike()->obj;
+//					isbike = true;
+//				}
+//
+//				if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, door) != func0f08bf78(door, &g_Vars.currentplayer->bond2.unk00)) {
+//					canopen = func0f08bdd4(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
+//
+//					if (!canopen && obj) {
+//						canopen = func0f08be80(door, obj, isbike);
+//					}
+//				}
+//
+//				sibling = door->sibling;
+//
+//				while (sibling && sibling != door && !canopen) {
+//					if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, sibling) != func0f08bf78(sibling, &g_Vars.currentplayer->bond2.unk00)) {
+//						canopen = func0f08bdd4(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
+//
+//						if (!canopen && obj) {
+//							canopen = func0f08be80(door, obj, isbike);
+//						}
+//					}
+//
+//					sibling = sibling->sibling;
+//				}
+//
+//				if (canopen) {
+//					doorsRequestMode(door, DOORMODE_OPENING);
+//				}
+//			}
+//		}
+//
+//		propnumptr++;
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f08c424
@@ -46294,7 +46359,7 @@ glabel posIsInFrontOfDoor
 /*  f0900bc:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-void doorChooseSwingDirection(struct prop *playerprop, struct doorobj *door)
+void doorsChooseSwingDirection(struct prop *playerprop, struct doorobj *door)
 {
 	if ((door->base.flags & OBJFLAG_DOOR_TWOWAY) && door->mode == DOORMODE_IDLE && door->frac == 0) {
 		bool infront = posIsInFrontOfDoor(&playerprop->pos, door);
@@ -46330,7 +46395,7 @@ bool propdoorInteract(struct prop *doorprop)
 	struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
 
 	if (doorIsUnlocked(playerprop, doorprop)) {
-		doorChooseSwingDirection(playerprop, door);
+		doorsChooseSwingDirection(playerprop, door);
 		doorsActivate(doorprop, true);
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
 		if ((door->base.flags2 & OBJFLAG2_00000004) == 0) {

@@ -2129,7 +2129,7 @@ void bgrabTick(void)
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
 	bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 	currentPlayerUpdatePerimInfo();
-	func0f08c190();
+	doorsCheckAutomatic();
 
 	if (g_Vars.currentplayer->grabbedprop) {
 		// Determine if the grabbed prop should be force released

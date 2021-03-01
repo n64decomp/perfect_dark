@@ -22729,7 +22729,7 @@ glabel var7f1a9260
 /*  f045b44:	00000000 */ 	nop
 /*  f045b48:	8fab0030 */ 	lw	$t3,0x30($sp)
 /*  f045b4c:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f045b50:	0fc24030 */ 	jal	doorChooseSwingDirection
+/*  f045b50:	0fc24030 */ 	jal	doorsChooseSwingDirection
 /*  f045b54:	8d64001c */ 	lw	$a0,0x1c($t3)
 /*  f045b58:	02002025 */ 	or	$a0,$s0,$zero
 /*  f045b5c:	0fc198c4 */ 	jal	doorCallLift

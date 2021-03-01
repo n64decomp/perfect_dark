@@ -1396,5 +1396,5 @@ void bbikeTick(void)
 	currentPlayerUpdatePerimInfo();
 	bmove0f0cb8c4(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
-	func0f08c190();
+	doorsCheckAutomatic();
 }

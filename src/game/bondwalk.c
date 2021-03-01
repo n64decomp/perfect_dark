@@ -2757,5 +2757,5 @@ void bwalkTick(void)
 	}
 
 	currentPlayerUpdatePerimInfo();
-	func0f08c190();
+	doorsCheckAutomatic();
 }
