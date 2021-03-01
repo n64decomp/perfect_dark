@@ -42125,68 +42125,35 @@ glabel func0f08bcf4
 /*  f08bcfc:	2402ffff */ 	addiu	$v0,$zero,-1
 );
 
-GLOBAL_ASM(
-glabel func0f08bd00
-/*  f08bd00:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08bd04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08bd08:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f08bd0c:	8ca70004 */ 	lw	$a3,0x4($a1)
-/*  f08bd10:	00001825 */ 	or	$v1,$zero,$zero
-/*  f08bd14:	8ce60074 */ 	lw	$a2,0x74($a3)
-/*  f08bd18:	14c00003 */ 	bnez	$a2,.L0f08bd28
-/*  f08bd1c:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08bd20:	10000021 */ 	b	.L0f08bda8
-/*  f08bd24:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f08bd28:
-/*  f08bd28:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f08bd2c:	0fc449e4 */ 	jal	invHasKeyFlags
-/*  f08bd30:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f08bd34:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f08bd38:	10400003 */ 	beqz	$v0,.L0f08bd48
-/*  f08bd3c:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f08bd40:	10000019 */ 	b	.L0f08bda8
-/*  f08bd44:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f08bd48:
-/*  f08bd48:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f08bd4c:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f08bd50:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f08bd54:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f08bd58:	0fc23fff */ 	jal	func0f08fffc
-/*  f08bd5c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f08bd60:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f08bd64:	10400009 */ 	beqz	$v0,.L0f08bd8c
-/*  f08bd68:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f08bd6c:	8ce2000c */ 	lw	$v0,0xc($a3)
-/*  f08bd70:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f08bd74:	05c1000c */ 	bgez	$t6,.L0f08bda8
-/*  f08bd78:	00027900 */ 	sll	$t7,$v0,0x4
-/*  f08bd7c:	05e2000b */ 	bltzl	$t7,.L0f08bdac
-/*  f08bd80:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f08bd84:	10000008 */ 	b	.L0f08bda8
-/*  f08bd88:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f08bd8c:
-/*  f08bd8c:	8ce2000c */ 	lw	$v0,0xc($a3)
-/*  f08bd90:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f08bd94:	07000004 */ 	bltz	$t8,.L0f08bda8
-/*  f08bd98:	0002c900 */ 	sll	$t9,$v0,0x4
-/*  f08bd9c:	07230003 */ 	bgezl	$t9,.L0f08bdac
-/*  f08bda0:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f08bda4:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f08bda8:
-/*  f08bda8:	00e02025 */ 	or	$a0,$a3,$zero
-.L0f08bdac:
-/*  f08bdac:	0fc1996b */ 	jal	doorIsPadlockFree
-/*  f08bdb0:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f08bdb4:	14400002 */ 	bnez	$v0,.L0f08bdc0
-/*  f08bdb8:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f08bdbc:	00001825 */ 	or	$v1,$zero,$zero
-.L0f08bdc0:
-/*  f08bdc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08bdc4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08bdc8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f08bdcc:	03e00008 */ 	jr	$ra
-/*  f08bdd0:	00000000 */ 	nop
-);
+bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
+{
+	struct doorobj *door = doorprop->door;
+	bool canopen = false;
+
+	if (door->keyflags == 0) {
+		canopen = true;
+	} else if (invHasKeyFlags(door->keyflags)) {
+		canopen = true;
+	} else {
+		if (posIsInFrontOfDoor(&playerprop->pos, door)) {
+			if ((door->base.flags2 & OBJFLAG2_LOCKEDBACK)
+					&& (door->base.flags2 & OBJFLAG2_LOCKEDFRONT) == 0) {
+				canopen = true;
+			}
+		} else {
+			if ((door->base.flags2 & OBJFLAG2_LOCKEDBACK) == 0
+					&& (door->base.flags2 & OBJFLAG2_LOCKEDFRONT)) {
+				canopen = true;
+			}
+		}
+	}
+
+	if (!doorIsPadlockFree(door)) {
+		canopen = false;
+	}
+
+	return canopen;
+}
 
 GLOBAL_ASM(
 glabel func0f08bdd4
@@ -42510,7 +42477,7 @@ glabel func0f08c190
 /*  f08c22c:	5160006d */ 	beqzl	$t3,.L0f08c3e4
 /*  f08c230:	86e20002 */ 	lh	$v0,0x2($s7)
 /*  f08c234:	8eac0284 */ 	lw	$t4,0x284($s5)
-/*  f08c238:	0fc22f40 */ 	jal	func0f08bd00
+/*  f08c238:	0fc22f40 */ 	jal	doorIsUnlocked
 /*  f08c23c:	8d8400bc */ 	lw	$a0,0xbc($t4)
 /*  f08c240:	50400068 */ 	beqzl	$v0,.L0f08c3e4
 /*  f08c244:	86e20002 */ 	lh	$v0,0x2($s7)
@@ -42551,7 +42518,7 @@ glabel func0f08c190
 /*  f08c2c4:	8c6400bc */ 	lw	$a0,0xbc($v1)
 .L0f08c2c8:
 /*  f08c2c8:	02c02825 */ 	or	$a1,$s6,$zero
-/*  f08c2cc:	0fc23fff */ 	jal	func0f08fffc
+/*  f08c2cc:	0fc23fff */ 	jal	posIsInFrontOfDoor
 /*  f08c2d0:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f08c2d4:	8ea50284 */ 	lw	$a1,0x284($s5)
 /*  f08c2d8:	00408825 */ 	or	$s1,$v0,$zero
@@ -42588,7 +42555,7 @@ glabel func0f08c190
 .L0f08c34c:
 /*  f08c34c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f08c350:	8de400bc */ 	lw	$a0,0xbc($t7)
-/*  f08c354:	0fc23fff */ 	jal	func0f08fffc
+/*  f08c354:	0fc23fff */ 	jal	posIsInFrontOfDoor
 /*  f08c358:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f08c35c:	8ea50284 */ 	lw	$a1,0x284($s5)
 /*  f08c360:	00408825 */ 	or	$s1,$v0,$zero
@@ -46272,7 +46239,7 @@ void doorsActivate(struct prop *doorprop, bool allowliftclose)
 }
 
 GLOBAL_ASM(
-glabel func0f08fffc
+glabel posIsInFrontOfDoor
 /*  f08fffc:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f090000:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f090004:	afa50084 */ 	sw	$a1,0x84($sp)
@@ -46345,7 +46312,7 @@ glabel func0f0900c0
 /*  f0900f4:	00000000 */ 	nop
 /*  f0900f8:	45020021 */ 	bc1fl	.L0f090180
 /*  f0900fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f090100:	0fc23fff */ 	jal	func0f08fffc
+/*  f090100:	0fc23fff */ 	jal	posIsInFrontOfDoor
 /*  f090104:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f090108:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f09010c:	00002025 */ 	or	$a0,$zero,$zero
@@ -46393,7 +46360,7 @@ bool propdoorInteract(struct prop *doorprop)
 	bool usingeyespy = g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active;
 	struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
 
-	if (func0f08bd00(playerprop, doorprop)) {
+	if (doorIsUnlocked(playerprop, doorprop)) {
 		func0f0900c0(playerprop, door);
 		doorsActivate(doorprop, true);
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
