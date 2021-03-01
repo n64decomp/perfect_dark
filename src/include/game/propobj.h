@@ -298,7 +298,7 @@ u32 func0f08bcf4(void);
 bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop);
 bool func0f08bdd4(struct doorobj *door, struct coord *pos, f32 arg2, bool isbike);
 bool func0f08be80(struct doorobj *door, struct defaultobj *obj, bool isbike);
-bool func0f08bf78(struct doorobj *door, struct coord *pos);
+bool vectorIsInFrontOfDoor(struct doorobj *door, struct coord *vector);
 s32 func0f08c040(struct doorobj *door);
 void doorsCheckAutomatic(void);
 void func0f08c424(struct doorobj *door, void *arg1);

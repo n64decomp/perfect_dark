@@ -42280,62 +42280,25 @@ glabel func0f08be80
 /*  f08bf74:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08bf78
-/*  f08bf78:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f08bf7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08bf80:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f08bf84:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f08bf88:	84840006 */ 	lh	$a0,0x6($a0)
-/*  f08bf8c:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*  f08bf90:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f08bf94:	0fc456ac */ 	jal	padUnpack
-/*  f08bf98:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f08bf9c:	8fa7007c */ 	lw	$a3,0x7c($sp)
-/*  f08bfa0:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f08bfa4:	c7b00048 */ 	lwc1	$f16,0x48($sp)
-/*  f08bfa8:	c4e40000 */ 	lwc1	$f4,0x0($a3)
-/*  f08bfac:	c4ea0004 */ 	lwc1	$f10,0x4($a3)
-/*  f08bfb0:	00007825 */ 	or	$t7,$zero,$zero
-/*  f08bfb4:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f08bfb8:	c7a6004c */ 	lwc1	$f6,0x4c($sp)
-/*  f08bfbc:	8fb80078 */ 	lw	$t8,0x78($sp)
-/*  f08bfc0:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f08bfc4:	c4ea0008 */ 	lwc1	$f10,0x8($a3)
-/*  f08bfc8:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f08bfcc:	46124100 */ 	add.s	$f4,$f8,$f18
-/*  f08bfd0:	44809000 */ 	mtc1	$zero,$f18
-/*  f08bfd4:	46048200 */ 	add.s	$f8,$f16,$f4
-/*  f08bfd8:	4608903e */ 	c.le.s	$f18,$f8
-/*  f08bfdc:	00000000 */ 	nop
-/*  f08bfe0:	45020003 */ 	bc1fl	.L0f08bff0
-/*  f08bfe4:	97190070 */ 	lhu	$t9,0x70($t8)
-/*  f08bfe8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f08bfec:	97190070 */ 	lhu	$t9,0x70($t8)
-.L0f08bff0:
-/*  f08bff0:	448f3000 */ 	mtc1	$t7,$f6
-/*  f08bff4:	33280008 */ 	andi	$t0,$t9,0x8
-/*  f08bff8:	1100000b */ 	beqz	$t0,.L0f08c028
-/*  f08bffc:	46803020 */ 	cvt.s.w	$f0,$f6
-/*  f08c000:	44805000 */ 	mtc1	$zero,$f10
-/*  f08c004:	00004825 */ 	or	$t1,$zero,$zero
-/*  f08c008:	460a0032 */ 	c.eq.s	$f0,$f10
-/*  f08c00c:	00000000 */ 	nop
-/*  f08c010:	45020003 */ 	bc1fl	.L0f08c020
-/*  f08c014:	44898000 */ 	mtc1	$t1,$f16
-/*  f08c018:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f08c01c:	44898000 */ 	mtc1	$t1,$f16
-.L0f08c020:
-/*  f08c020:	00000000 */ 	nop
-/*  f08c024:	46808020 */ 	cvt.s.w	$f0,$f16
-.L0f08c028:
-/*  f08c028:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f08c02c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08c030:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f08c034:	44022000 */ 	mfc1	$v0,$f4
-/*  f08c038:	03e00008 */ 	jr	$ra
-/*  f08c03c:	00000000 */ 	nop
-);
+/**
+ * @bug: result should be an integer. Its value can only be 0.0f or 1.0f.
+ * Nothing bad comes from this, but it uses unnecessary float conversions.
+ */
+bool vectorIsInFrontOfDoor(struct doorobj *door, struct coord *vector)
+{
+	f32 result;
+	struct pad pad;
+
+	padUnpack(door->base.pad, PADFIELD_NORMAL, &pad);
+
+	result = vector->f[0] * pad.normal.f[0] + vector->f[1] * pad.normal.f[1] + vector->f[2] * pad.normal.f[2] >= 0.0f;
+
+	if (door->doorflags & DOORFLAG_FLIP) {
+		result = !result;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f08c040
@@ -42523,7 +42486,7 @@ glabel doorsCheckAutomatic
 /*  f08c2d4:	8ea50284 */ 	lw	$a1,0x284($s5)
 /*  f08c2d8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f08c2dc:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f08c2e0:	0fc22fde */ 	jal	func0f08bf78
+/*  f08c2e0:	0fc22fde */ 	jal	vectorIsInFrontOfDoor
 /*  f08c2e4:	24a5036c */ 	addiu	$a1,$a1,0x36c
 /*  f08c2e8:	50510011 */ 	beql	$v0,$s1,.L0f08c330
 /*  f08c2ec:	8ed000bc */ 	lw	$s0,0xbc($s6)
@@ -42560,7 +42523,7 @@ glabel doorsCheckAutomatic
 /*  f08c35c:	8ea50284 */ 	lw	$a1,0x284($s5)
 /*  f08c360:	00408825 */ 	or	$s1,$v0,$zero
 /*  f08c364:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08c368:	0fc22fde */ 	jal	func0f08bf78
+/*  f08c368:	0fc22fde */ 	jal	vectorIsInFrontOfDoor
 /*  f08c36c:	24a5036c */ 	addiu	$a1,$a1,0x36c
 /*  f08c370:	50510011 */ 	beql	$v0,$s1,.L0f08c3b8
 /*  f08c374:	8e1000bc */ 	lw	$s0,0xbc($s0)
@@ -42648,7 +42611,7 @@ glabel doorsCheckAutomatic
 //					isbike = true;
 //				}
 //
-//				if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, door) != func0f08bf78(door, &g_Vars.currentplayer->bond2.unk00)) {
+//				if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, door) != vectorIsInFrontOfDoor(door, &g_Vars.currentplayer->bond2.unk00)) {
 //					canopen = func0f08bdd4(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
 //
 //					if (!canopen && obj) {
@@ -42659,7 +42622,7 @@ glabel doorsCheckAutomatic
 //				sibling = door->sibling;
 //
 //				while (sibling && sibling != door && !canopen) {
-//					if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, sibling) != func0f08bf78(sibling, &g_Vars.currentplayer->bond2.unk00)) {
+//					if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, sibling) != vectorIsInFrontOfDoor(sibling, &g_Vars.currentplayer->bond2.unk00)) {
 //						canopen = func0f08bdd4(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
 //
 //						if (!canopen && obj) {
