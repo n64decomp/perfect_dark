@@ -42581,7 +42581,7 @@ glabel doorsCheckAutomatic
 /**
  * Find automatic doors and open them if the player is close to them.
  */
-// Mismatch: regalloc when preparing arguments for func0f08c190.
+// Mismatch: regalloc when preparing arguments for func0f08bdd4.
 //void doorsCheckAutomatic(void)
 //{
 //	s16 *propnumptr;
@@ -45618,73 +45618,29 @@ glabel doorDoCalc
 /*  f08f534:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f08f538
-.late_rodata
-glabel var7f1ab174
-.word 0x40c907a9
-glabel var7f1ab178
-.word 0x40c907a9
-glabel var7f1ab17c
-.word 0x404907a9
-.text
-/*  f08f538:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08f53c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08f540:	0fc259d4 */ 	jal	atan2f
-/*  f08f544:	00000000 */ 	nop
-/*  f08f548:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f08f54c:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f08f550:	46000086 */ 	mov.s	$f2,$f0
-/*  f08f554:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f08f558:	8c620480 */ 	lw	$v0,0x480($v1)
-/*  f08f55c:	50400012 */ 	beqzl	$v0,.L0f08f5a8
-/*  f08f560:	44816000 */ 	mtc1	$at,$f12
-/*  f08f564:	804e0037 */ 	lb	$t6,0x37($v0)
-/*  f08f568:	51c0000f */ 	beqzl	$t6,.L0f08f5a8
-/*  f08f56c:	44816000 */ 	mtc1	$at,$f12
-/*  f08f570:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f08f574:	5080000c */ 	beqzl	$a0,.L0f08f5a8
-/*  f08f578:	44816000 */ 	mtc1	$at,$f12
-/*  f08f57c:	8c850004 */ 	lw	$a1,0x4($a0)
-/*  f08f580:	10a00008 */ 	beqz	$a1,.L0f08f5a4
-/*  f08f584:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f08f588:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f08f58c:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f08f590:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f08f594:	3c017f1b */ 	lui	$at,%hi(var7f1ab174)
-/*  f08f598:	c42eb174 */ 	lwc1	$f14,%lo(var7f1ab174)($at)
-/*  f08f59c:	10000009 */ 	b	.L0f08f5c4
-/*  f08f5a0:	46001081 */ 	sub.s	$f2,$f2,$f0
-.L0f08f5a4:
-/*  f08f5a4:	44816000 */ 	mtc1	$at,$f12
-.L0f08f5a8:
-/*  f08f5a8:	c4640144 */ 	lwc1	$f4,0x144($v1)
-/*  f08f5ac:	3c017f1b */ 	lui	$at,%hi(var7f1ab178)
-/*  f08f5b0:	c42eb178 */ 	lwc1	$f14,%lo(var7f1ab178)($at)
-/*  f08f5b4:	46046181 */ 	sub.s	$f6,$f12,$f4
-/*  f08f5b8:	460e3202 */ 	mul.s	$f8,$f6,$f14
-/*  f08f5bc:	460c4283 */ 	div.s	$f10,$f8,$f12
-/*  f08f5c0:	460a0081 */ 	sub.s	$f2,$f0,$f10
-.L0f08f5c4:
-/*  f08f5c4:	44808000 */ 	mtc1	$zero,$f16
-/*  f08f5c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08f5cc:	3c017f1b */ 	lui	$at,%hi(var7f1ab17c)
-/*  f08f5d0:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f08f5d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08f5d8:	45000002 */ 	bc1f	.L0f08f5e4
-/*  f08f5dc:	00000000 */ 	nop
-/*  f08f5e0:	460e1080 */ 	add.s	$f2,$f2,$f14
-.L0f08f5e4:
-/*  f08f5e4:	c432b17c */ 	lwc1	$f18,%lo(var7f1ab17c)($at)
-/*  f08f5e8:	4602903c */ 	c.lt.s	$f18,$f2
-/*  f08f5ec:	00000000 */ 	nop
-/*  f08f5f0:	45000002 */ 	bc1f	.L0f08f5fc
-/*  f08f5f4:	00000000 */ 	nop
-/*  f08f5f8:	460e1081 */ 	sub.s	$f2,$f2,$f14
-.L0f08f5fc:
-/*  f08f5fc:	03e00008 */ 	jr	$ra
-/*  f08f600:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f08f538(f32 x, f32 y)
+{
+	f32 angle = atan2f(x, y);
+
+	if (g_Vars.currentplayer->eyespy
+			&& g_Vars.currentplayer->eyespy->active
+			&& g_Vars.currentplayer->eyespy->prop
+			&& g_Vars.currentplayer->eyespy->prop->chr) {
+		angle -= chrGetInverseTheta(g_Vars.currentplayer->eyespy->prop->chr);
+	} else {
+		angle -= (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
+	}
+
+	if (angle < 0) {
+		angle += M_BADTAU;
+	}
+
+	if (angle > M_BADPI) {
+		angle -= M_BADTAU;
+	}
+
+	return angle;
+}
 
 GLOBAL_ASM(
 glabel func0f08f604

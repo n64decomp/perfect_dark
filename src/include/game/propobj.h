@@ -331,7 +331,7 @@ bool posIsInDrawDistance(struct coord *arg);
 void func0f08ea50(struct doorobj *door);
 bool func0f08ed74(struct doorobj *door);
 void doorDoCalc(struct doorobj *door);
-u32 func0f08f538(void);
+f32 func0f08f538(f32 x, f32 y);
 u32 func0f08f604(void);
 bool func0f08f968(struct doorobj *door, bool arg1);
 bool doorTestForInteract(struct prop *prop);
