@@ -25568,7 +25568,7 @@ glabel var7f1aa6e4
 /*  f07d6f8:	00000000 */ 	nop
 /*  f07d6fc:	45000007 */ 	bc1f	.L0f07d71c
 /*  f07d700:	00000000 */ 	nop
-/*  f07d704:	0fc24030 */ 	jal	func0f0900c0
+/*  f07d704:	0fc24030 */ 	jal	doorChooseSwingDirection
 /*  f07d708:	e7ac0058 */ 	swc1	$f12,0x58($sp)
 /*  f07d70c:	8fa401a0 */ 	lw	$a0,0x1a0($sp)
 /*  f07d710:	0fc23922 */ 	jal	doorsRequestMode
@@ -26328,7 +26328,7 @@ glabel var7f1aa6e4
 //					+ (doorprop->pos.z - prop->pos.z) * (doorprop->pos.z - prop->pos.z);
 //
 //				if (dist < 200 * 200) {
-//					func0f0900c0(prop, door);
+//					doorChooseSwingDirection(prop, door);
 //					doorsRequestMode(door, DOORMODE_OPENING);
 //				}
 //
@@ -46294,65 +46294,34 @@ glabel posIsInFrontOfDoor
 /*  f0900bc:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
-GLOBAL_ASM(
-glabel func0f0900c0
-/*  f0900c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0900c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0900c8:	8cae0008 */ 	lw	$t6,0x8($a1)
-/*  f0900cc:	000e7800 */ 	sll	$t7,$t6,0x0
-/*  f0900d0:	05e3002b */ 	bgezl	$t7,.L0f090180
-/*  f0900d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0900d8:	80b80084 */ 	lb	$t8,0x84($a1)
-/*  f0900dc:	57000028 */ 	bnezl	$t8,.L0f090180
-/*  f0900e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0900e4:	44802000 */ 	mtc1	$zero,$f4
-/*  f0900e8:	c4a6007c */ 	lwc1	$f6,0x7c($a1)
-/*  f0900ec:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0900f0:	46062032 */ 	c.eq.s	$f4,$f6
-/*  f0900f4:	00000000 */ 	nop
-/*  f0900f8:	45020021 */ 	bc1fl	.L0f090180
-/*  f0900fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f090100:	0fc23fff */ 	jal	posIsInFrontOfDoor
-/*  f090104:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f090108:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f09010c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f090110:	94b90070 */ 	lhu	$t9,0x70($a1)
-/*  f090114:	33280008 */ 	andi	$t0,$t9,0x8
-/*  f090118:	15000006 */ 	bnez	$t0,.L0f090134
-/*  f09011c:	00000000 */ 	nop
-/*  f090120:	14400002 */ 	bnez	$v0,.L0f09012c
-/*  f090124:	00000000 */ 	nop
-/*  f090128:	3c042000 */ 	lui	$a0,0x2000
-.L0f09012c:
-/*  f09012c:	10000005 */ 	b	.L0f090144
-/*  f090130:	8ca90008 */ 	lw	$t1,0x8($a1)
-.L0f090134:
-/*  f090134:	50400003 */ 	beqzl	$v0,.L0f090144
-/*  f090138:	8ca90008 */ 	lw	$t1,0x8($a1)
-/*  f09013c:	3c042000 */ 	lui	$a0,0x2000
-/*  f090140:	8ca90008 */ 	lw	$t1,0x8($a1)
-.L0f090144:
-/*  f090144:	3c032000 */ 	lui	$v1,0x2000
-/*  f090148:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f09014c:	01245026 */ 	xor	$t2,$t1,$a0
-/*  f090150:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f090154:	0563000a */ 	bgezl	$t3,.L0f090180
-/*  f090158:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09015c:	8c4c0008 */ 	lw	$t4,0x8($v0)
-.L0f090160:
-/*  f090160:	01836826 */ 	xor	$t5,$t4,$v1
-/*  f090164:	ac4d0008 */ 	sw	$t5,0x8($v0)
-/*  f090168:	8c4200bc */ 	lw	$v0,0xbc($v0)
-/*  f09016c:	50400004 */ 	beqzl	$v0,.L0f090180
-/*  f090170:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f090174:	5445fffa */ 	bnel	$v0,$a1,.L0f090160
-/*  f090178:	8c4c0008 */ 	lw	$t4,0x8($v0)
-/*  f09017c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f090180:
-/*  f090180:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f090184:	03e00008 */ 	jr	$ra
-/*  f090188:	00000000 */ 	nop
-);
+void doorChooseSwingDirection(struct prop *playerprop, struct doorobj *door)
+{
+	if ((door->base.flags & OBJFLAG_DOOR_TWOWAY) && door->mode == DOORMODE_IDLE && door->frac == 0) {
+		bool infront = posIsInFrontOfDoor(&playerprop->pos, door);
+		u32 wantflag = 0;
+
+		if ((door->doorflags & DOORFLAG_0008) == 0) {
+			if (!infront) {
+				wantflag = OBJFLAG_DOOR_OPENTOFRONT;
+			}
+		} else {
+			if (infront) {
+				wantflag = OBJFLAG_DOOR_OPENTOFRONT;
+			}
+		}
+
+		// If flags are different
+		if ((s32)((door->base.flags ^ wantflag) << 2) < 0) {
+			// Toggle direction on door and siblings
+			struct doorobj *sibling = door;
+
+			do {
+				sibling->base.flags ^= OBJFLAG_DOOR_OPENTOFRONT;
+				sibling = sibling->sibling;
+			} while (sibling && sibling != door);
+		}
+	}
+}
 
 bool propdoorInteract(struct prop *doorprop)
 {
@@ -46361,7 +46330,7 @@ bool propdoorInteract(struct prop *doorprop)
 	struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
 
 	if (doorIsUnlocked(playerprop, doorprop)) {
-		func0f0900c0(playerprop, door);
+		doorChooseSwingDirection(playerprop, door);
 		doorsActivate(doorprop, true);
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
 		if ((door->base.flags2 & OBJFLAG2_00000004) == 0) {
