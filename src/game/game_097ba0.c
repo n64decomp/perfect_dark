@@ -18424,7 +18424,7 @@ glabel var7f1aca90
 /*  f0a73f0:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0a73f4:	51010005 */ 	beql	$t0,$at,.L0f0a740c
 /*  f0a73f8:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f0a73fc:	0fc2be93 */ 	jal	func0f0afa4c
+/*  f0a73fc:	0fc2be93 */ 	jal	lasersightRenderBeam
 /*  f0a7400:	8fa4014c */ 	lw	$a0,0x14c($sp)
 /*  f0a7404:	afa2014c */ 	sw	$v0,0x14c($sp)
 .L0f0a7408:

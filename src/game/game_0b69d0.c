@@ -9125,7 +9125,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		func0f0a6c30();
 		gdl = func0f0aeed8(gdl);
 		func0f0a7138(&gdl);
-		gdl = func0f0af158(gdl);
+		gdl = lasersightRenderDot(gdl);
 
 		if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 			gdl = func0f15b114(gdl);

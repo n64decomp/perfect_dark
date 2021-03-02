@@ -26,7 +26,7 @@ u32 func00015ea8(void);
 void func00015edc(f32 mult, f32 *matrix);
 void func00015f04(f32 scale, Mtxf *arg1);
 u32 func00015f4c(void);
-u32 func00015f88(void);
+void func00015f88(f32 arg0, Mtxf *arg1);
 u32 func00015fd0(void);
 void func00016054(Mtxf *matrix, Mtxf *arg1);
 

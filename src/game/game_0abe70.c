@@ -6,6 +6,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0c33f0.h"
+#include "game/gfxmemory.h"
 #include "game/file.h"
 #include "gvars/gvars.h"
 #include "lib/main.h"
@@ -3545,7 +3546,7 @@ bool lasersightExists(s32 id, s32 *index)
 }
 
 GLOBAL_ASM(
-glabel func0f0af158
+glabel lasersightRenderDot
 .late_rodata
 glabel var7f1acd70
 .word 0x3e4ccccd
@@ -4155,7 +4156,7 @@ glabel var7f1acd8c
 );
 
 GLOBAL_ASM(
-glabel func0f0afa4c
+glabel lasersightRenderBeam
 .late_rodata
 glabel var7f1acd90
 .word 0x3e4ccccd
@@ -4684,6 +4685,158 @@ glabel var7f1acd90
 /*  f0b0260:	03e00008 */ 	jr	$ra
 /*  f0b0264:	27bd01e8 */ 	addiu	$sp,$sp,0x1e8
 );
+
+// Mismatch: Two load instructions are swapped at afddc, and regalloc
+//Gfx *lasersightRenderBeam(Gfx *gdl)
+//{
+//	f32 tmp;
+//	struct player *player = g_Vars.currentplayer;
+//	Mtxf *mtx;
+//	s32 i;
+//	Mtxf sp198;
+//	struct coord campos; // 18c
+//	Mtxf sp14c;
+//	Mtxf sp10c;
+//
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//	gDPSetColorDither(gdl++, G_CD_DISABLE);
+//	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetTextureLOD(gdl++, G_TL_TILE);
+//	gDPSetTextureConvert(gdl++, G_TC_FILT);
+//	gDPSetTextureLUT(gdl++, G_TT_NONE);
+//	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
+//	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
+//
+//	func0f0b39c0(&gdl, &var800ab5a8[3], 4, 0, 2, 1, 0);
+//	func000159b0(&sp14c);
+//
+//	func00015be0(currentPlayerGetMatrix1740(), &sp14c);
+//	func000159b0(&sp10c);
+//	func00015be0(currentPlayerGetUnk174c(), &sp10c);
+//
+//	sp10c.m[3][1] = 0;
+//	sp10c.m[3][0] = 0;
+//	sp10c.m[3][2] = 0;
+//
+//	func000159b0(&sp198);
+//	func00015be0(currentPlayerGetMatrix1740(), &sp198);
+//
+//	campos.x = player->cam_pos.x;
+//	campos.y = player->cam_pos.y;
+//	campos.z = player->cam_pos.z;
+//
+//	sp198.m[3][0] = 0;
+//	sp198.m[3][1] = 0;
+//	sp198.m[3][2] = 0;
+//
+//	func00015f88(0.2f, &sp198);
+//	mtx = gfxAllocateMatrix();
+//	func00016054(&sp198, mtx);
+//
+//	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//
+//	for (i = 0; i < 4; i++) {
+//		if (g_LaserSights[i].id != -1) {
+//			u32 *colours;
+//			struct coord spcc;
+//			struct coord spc0;
+//			struct coord spb4;
+//			struct coord spa8;
+//			struct gfxvtx *vertices;
+//			struct coord sp98;
+//
+//			sp98.f[0] = g_LaserSights[i].beamnear.f[0];
+//			sp98.f[1] = g_LaserSights[i].beamnear.f[1];
+//			sp98.f[2] = g_LaserSights[i].beamnear.f[2];
+//
+//			func00015b64(&sp14c, &sp98);
+//
+//			spa8.f[0] = sp98.f[0] < 0.0f ? 1 : -1;
+//			spa8.f[1] = 2;
+//			spa8.f[2] = 0.0f;
+//
+//			guNormalize(&spa8.x, &spa8.y, &spa8.z);
+//
+//			func00015b10(&sp10c, &spa8);
+//
+//			spcc.f[0] = (g_LaserSights[i].beamnear.f[0] - campos.f[0]) * 5;
+//			spcc.f[1] = (g_LaserSights[i].beamnear.f[1] - campos.f[1]) * 5;
+//			spcc.f[2] = (g_LaserSights[i].beamnear.f[2] - campos.f[2]) * 5;
+//
+//			spc0.f[0] = (g_LaserSights[i].beamfar.f[0] - campos.f[0]) * 5;
+//			spc0.f[1] = (g_LaserSights[i].beamfar.f[1] - campos.f[1]) * 5;
+//			spc0.f[2] = (g_LaserSights[i].beamfar.f[2] - campos.f[2]) * 5;
+//
+//			spb4.f[0] = spc0.f[0] - spcc.f[0];
+//			spb4.f[1] = spc0.f[1] - spcc.f[1];
+//			spb4.f[2] = spc0.f[2] - spcc.f[2];
+//
+//			guNormalize(&spb4.x, &spb4.y, &spb4.z);
+//
+//			colours = gfxAllocateColours(2);
+//
+//			colours[0] = 0xff00005f;
+//			colours[1] = 0xff00000f;
+//
+//			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+//
+//			vertices = gfxAllocateVertices(6);
+//
+//			vertices[0].s = 0;
+//			vertices[1].s = 0;
+//			vertices[2].s = 0;
+//			vertices[3].s = 0;
+//			vertices[4].s = 4;
+//			vertices[5].s = 4;
+//
+//			vertices[0].unk08 = 0;
+//			vertices[0].unk0a = 0;
+//			vertices[1].unk08 = 0;
+//			vertices[1].unk0a = 256;
+//			vertices[2].unk08 = 32;
+//			vertices[2].unk0a = 0;
+//			vertices[3].unk08 = 32;
+//			vertices[3].unk0a = 256;
+//			vertices[4].unk08 = 0;
+//			vertices[4].unk0a = 0;
+//			vertices[5].unk08 = 0;
+//			vertices[5].unk0a = 256;
+//
+//			vertices[0].x = spcc.f[0] - spa8.f[0] * 15;
+//			vertices[0].y = spcc.f[1] - spa8.f[1] * 15;
+//			vertices[0].z = spcc.f[2] - spa8.f[2] * 15;
+//
+//			vertices[1].x = spcc.f[0] + spa8.f[0] * 15;
+//			vertices[1].y = spcc.f[1] + spa8.f[1] * 15;
+//			vertices[1].z = spcc.f[2] + spa8.f[2] * 15;
+//
+//			vertices[2].x = spcc.f[0] + (200 * spb4.f[0]) - (spa8.f[0] * 15);
+//			vertices[2].y = spcc.f[1] + (200 * spb4.f[1]) - (spa8.f[1] * 15);
+//			vertices[2].z = spcc.f[2] + (200 * spb4.f[2]) - (spa8.f[2] * 15);
+//
+//			vertices[3].x = spcc.f[0] + (200 * spb4.f[0]) + (spa8.f[0] * 15);
+//			vertices[3].y = spcc.f[1] + (200 * spb4.f[1]) + (spa8.f[1] * 15);
+//			vertices[3].z = spcc.f[2] + (200 * spb4.f[2]) + (spa8.f[2] * 15);
+//
+//			vertices[4].x = spcc.f[0] + (400 * spb4.f[0]) - (spa8.f[0] * 15);
+//			vertices[4].y = spcc.f[1] + (400 * spb4.f[1]) - (spa8.f[1] * 15);
+//			vertices[4].z = spcc.f[2] + (400 * spb4.f[2]) - (spa8.f[2] * 15);
+//
+//			vertices[5].x = spcc.f[0] + (400 * spb4.f[0]) + (spa8.f[0] * 15);
+//			vertices[5].y = spcc.f[1] + (400 * spb4.f[1]) + (spa8.f[1] * 15);
+//			vertices[5].z = spcc.f[2] + (400 * spb4.f[2]) + (spa8.f[2] * 15);
+//
+//			gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 6);
+//
+//			gDPTri4(gdl++, 0, 1, 2, 2, 3, 1, 2, 3, 5, 2, 5, 4);
+//		}
+//	}
+//
+//	return gdl;
+//}
 
 void func0f0b0268(s32 id, s32 arg1, struct coord *near, struct coord *far)
 {
