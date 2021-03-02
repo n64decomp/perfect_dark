@@ -17652,7 +17652,7 @@ glabel var7f1aca70
 /*  f0a6934:	10000004 */ 	b	.L0f0a6948
 /*  f0a6938:	ae000684 */ 	sw	$zero,0x684($s0)
 .L0f0a693c:
-/*  f0a693c:	0fc2c0f6 */ 	jal	func0f0b03d8
+/*  f0a693c:	0fc2c0f6 */ 	jal	laserdotFree
 /*  f0a6940:	8fa40308 */ 	lw	$a0,0x308($sp)
 /*  f0a6944:	ae000684 */ 	sw	$zero,0x684($s0)
 .L0f0a6948:

@@ -26,6 +26,6 @@ Gfx *func0f0af158(Gfx *gdl);
 u32 func0f0afa4c(void);
 u32 func0f0b0268(void);
 void laserdotSetPosition(s32 arg0, struct coord *pos, struct coord *rot);
-u32 func0f0b03d8(void);
+void laserdotFree(s32 arg0);
 
 #endif

@@ -4762,25 +4762,11 @@ void laserdotSetPosition(s32 arg0, struct coord *pos, struct coord *rot)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0b03d8
-/*  f0b03d8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b03dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b03e0:	0fc2bc35 */ 	jal	laserdotExists
-/*  f0b03e4:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f0b03e8:	10400008 */ 	beqz	$v0,.L0f0b040c
-/*  f0b03ec:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0b03f0:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f0b03f4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0b03f8:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f0b03fc:	3c01800a */ 	lui	$at,%hi(g_LaserDots)
-/*  f0b0400:	00380821 */ 	addu	$at,$at,$t8
-/*  f0b0404:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0b0408:	ac2edbe0 */ 	sw	$t6,%lo(g_LaserDots)($at)
-.L0f0b040c:
-/*  f0b040c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b0410:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b0414:	03e00008 */ 	jr	$ra
-/*  f0b0418:	00000000 */ 	nop
-/*  f0b041c:	00000000 */ 	nop
-);
+void laserdotFree(s32 arg0)
+{
+	s32 i;
+
+	if (laserdotExists(arg0, &i)) {
+		g_LaserDots[i].id = -1;
+	}
+}
