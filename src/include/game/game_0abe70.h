@@ -21,11 +21,11 @@ u32 func0f0aeda4(void);
 void func0f0aeea8(s32 index, f32 arg1);
 Gfx *func0f0aeed8(Gfx *gdl);
 void func0f0aefb8(void);
-u32 func0f0af0d4(void);
+bool func0f0af0d4(s32 arg0, s32 *arg1);
 Gfx *func0f0af158(Gfx *gdl);
 u32 func0f0afa4c(void);
 u32 func0f0b0268(void);
-void func0f0b0340(s32 arg0);
+void func0f0b0340(s32 arg0, struct coord *a, struct coord *b);
 u32 func0f0b03d8(void);
 
 #endif

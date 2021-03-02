@@ -20581,7 +20581,7 @@ void func0f0a94d0(u32 operation, struct coord *a, struct coord *b)
 		break;
 	case 1:
 	case 2:
-		func0f0b0340(operation - 1);
+		func0f0b0340(operation - 1, a, b);
 		break;
 	}
 }

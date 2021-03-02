@@ -6064,13 +6064,9 @@ struct var8009dbe0 {
 	u32 unk1c;
 	u32 unk20;
 	u32 unk24;
-	u32 unk28;
-	u32 unk2c;
-	u32 unk30;
-	u32 unk34;
-	u32 unk38;
-	u32 unk3c;
-	u32 unk40;
+	f32 unk28;
+	struct coord unk2c;
+	struct coord unk38;
 	u32 unk44;
 };
 

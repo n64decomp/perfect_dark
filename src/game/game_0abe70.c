@@ -4756,48 +4756,22 @@ glabel func0f0b0268
 /*  f0b033c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0b0340
-/*  f0b0340:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b0344:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b0348:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f0b034c:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0b0350:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f0b0354:	0fc2bc35 */ 	jal	func0f0af0d4
-/*  f0b0358:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0b035c:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f0b0360:	10400019 */ 	beqz	$v0,.L0f0b03c8
-/*  f0b0364:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f0b0368:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f0b036c:	3c18800a */ 	lui	$t8,%hi(var8009dbe0)
-/*  f0b0370:	2718dbe0 */ 	addiu	$t8,$t8,%lo(var8009dbe0)
-/*  f0b0374:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0b0378:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0b037c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0b0380:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f0b0384:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b0388:	44813000 */ 	mtc1	$at,$f6
-/*  f0b038c:	c4440028 */ 	lwc1	$f4,0x28($v0)
-/*  f0b0390:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0b0394:	e4480028 */ 	swc1	$f8,0x28($v0)
-/*  f0b0398:	c4ea0000 */ 	lwc1	$f10,0x0($a3)
-/*  f0b039c:	e44a002c */ 	swc1	$f10,0x2c($v0)
-/*  f0b03a0:	c4f00004 */ 	lwc1	$f16,0x4($a3)
-/*  f0b03a4:	e4500030 */ 	swc1	$f16,0x30($v0)
-/*  f0b03a8:	c4f20008 */ 	lwc1	$f18,0x8($a3)
-/*  f0b03ac:	e4520034 */ 	swc1	$f18,0x34($v0)
-/*  f0b03b0:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0b03b4:	e4440038 */ 	swc1	$f4,0x38($v0)
-/*  f0b03b8:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f0b03bc:	e446003c */ 	swc1	$f6,0x3c($v0)
-/*  f0b03c0:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f0b03c4:	e4480040 */ 	swc1	$f8,0x40($v0)
-.L0f0b03c8:
-/*  f0b03c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b03cc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b03d0:	03e00008 */ 	jr	$ra
-/*  f0b03d4:	00000000 */ 	nop
-);
+void func0f0b0340(s32 arg0, struct coord *a, struct coord *b)
+{
+	s32 i;
+
+	if (func0f0af0d4(arg0, &i)) {
+		var8009dbe0[i].unk28 += 1.0f;
+
+		var8009dbe0[i].unk2c.x = a->x;
+		var8009dbe0[i].unk2c.y = a->y;
+		var8009dbe0[i].unk2c.z = a->z;
+
+		var8009dbe0[i].unk38.x = b->x;
+		var8009dbe0[i].unk38.y = b->y;
+		var8009dbe0[i].unk38.z = b->z;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0b03d8
