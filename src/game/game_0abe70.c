@@ -43,7 +43,7 @@ const u32 var7f1acc6c[] = {0x3fb50481};
 struct fireslot g_Fireslots[NUM_FIRESLOTS];
 struct casing g_Casings[20];
 struct var8009da60 var8009da60[8];
-struct var8009dbe0 var8009dbe0[4];
+struct laserdot g_LaserDots[4];
 
 u32 var80070500 = 0x00000000;
 u32 var80070504 = 0x00000000;
@@ -3513,47 +3513,36 @@ glabel func0f0aefb8
 /*  f0af0d0:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f0af0d4
-/*  f0af0d4:	3c0f800a */ 	lui	$t7,%hi(var8009dbe0)
-/*  f0af0d8:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f0af0dc:	25efdbe0 */ 	addiu	$t7,$t7,%lo(var8009dbe0)
-/*  f0af0e0:	00007180 */ 	sll	$t6,$zero,0x6
-/*  f0af0e4:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0af0e8:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0af0ec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0af0f0:	01cf2821 */ 	addu	$a1,$t6,$t7
-/*  f0af0f4:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f0af0f8:	8ca70000 */ 	lw	$a3,0x0($a1)
-.L0f0af0fc:
-/*  f0af0fc:	14870002 */ 	bne	$a0,$a3,.L0f0af108
-/*  f0af100:	00000000 */ 	nop
-/*  f0af104:	00403025 */ 	or	$a2,$v0,$zero
-.L0f0af108:
-/*  f0af108:	55070003 */ 	bnel	$t0,$a3,.L0f0af118
-/*  f0af10c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0af110:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0af114:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f0af118:
-/*  f0af118:	28410004 */ 	slti	$at,$v0,0x4
-/*  f0af11c:	10200003 */ 	beqz	$at,.L0f0af12c
-/*  f0af120:	24a50048 */ 	addiu	$a1,$a1,0x48
-/*  f0af124:	50c8fff5 */ 	beql	$a2,$t0,.L0f0af0fc
-/*  f0af128:	8ca70000 */ 	lw	$a3,0x0($a1)
-.L0f0af12c:
-/*  f0af12c:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f0af130:	14c80005 */ 	bne	$a2,$t0,.L0f0af148
-/*  f0af134:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*  f0af138:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*  f0af13c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0af140:	03e00008 */ 	jr	$ra
-/*  f0af144:	af030000 */ 	sw	$v1,0x0($t8)
-.L0f0af148:
-/*  f0af148:	af260000 */ 	sw	$a2,0x0($t9)
-/*  f0af14c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0af150:	03e00008 */ 	jr	$ra
-/*  f0af154:	00000000 */ 	nop
-);
+/**
+ * Return true if a laserdot with the given ID exists, or false if not.
+ *
+ * Additionally, populate the index pointer with the index of the laserdot if it
+ * exists, or any free slot if it doesn't.
+ */
+bool laserdotExists(s32 id, s32 *index)
+{
+	s32 fallback = -1;
+	s32 exact = -1;
+	s32 i = 0;
+
+	for (; i < 4 && exact == -1; i++) {
+		if (g_LaserDots[i].id == id) {
+			exact = i;
+		}
+
+		if (g_LaserDots[i].id == -1) {
+			fallback = i;
+		}
+	}
+
+	if (exact == -1) {
+		*index = fallback;
+		return false;
+	}
+
+	*index = exact;
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f0af158
@@ -3754,8 +3743,8 @@ glabel var7f1acd8c
 /*  f0af418:	3c017f1b */ 	lui	$at,%hi(var7f1acd74)
 /*  f0af41c:	c43ccd74 */ 	lwc1	$f28,%lo(var7f1acd74)($at)
 /*  f0af420:	3c017f1b */ 	lui	$at,%hi(var7f1acd78)
-/*  f0af424:	3c10800a */ 	lui	$s0,%hi(var8009dbe0)
-/*  f0af428:	2610dbe0 */ 	addiu	$s0,$s0,%lo(var8009dbe0)
+/*  f0af424:	3c10800a */ 	lui	$s0,%hi(g_LaserDots)
+/*  f0af428:	2610dbe0 */ 	addiu	$s0,$s0,%lo(g_LaserDots)
 /*  f0af42c:	c43acd78 */ 	lwc1	$f26,%lo(var7f1acd78)($at)
 /*  f0af430:	24120200 */ 	addiu	$s2,$zero,0x200
 /*  f0af434:	8e0d0000 */ 	lw	$t5,0x0($s0)
@@ -4347,10 +4336,10 @@ glabel var7f1acd90
 /*  f0afd00:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f0afd04:	4481b000 */ 	mtc1	$at,$f22
 /*  f0afd08:	3c014170 */ 	lui	$at,0x4170
-/*  f0afd0c:	3c10800a */ 	lui	$s0,%hi(var8009dbe0)
+/*  f0afd0c:	3c10800a */ 	lui	$s0,%hi(g_LaserDots)
 /*  f0afd10:	4481a000 */ 	mtc1	$at,$f20
 /*  f0afd14:	ae220004 */ 	sw	$v0,0x4($s1)
-/*  f0afd18:	2610dbe0 */ 	addiu	$s0,$s0,%lo(var8009dbe0)
+/*  f0afd18:	2610dbe0 */ 	addiu	$s0,$s0,%lo(g_LaserDots)
 /*  f0afd1c:	27be00ac */ 	addiu	$s8,$sp,0xac
 /*  f0afd20:	27b70098 */ 	addiu	$s7,$sp,0x98
 /*  f0afd24:	2416ffff */ 	addiu	$s6,$zero,-1
@@ -4704,7 +4693,7 @@ glabel func0f0b0268
 /*  f0b0274:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f0b0278:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*  f0b027c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0b0280:	0fc2bc35 */ 	jal	func0f0af0d4
+/*  f0b0280:	0fc2bc35 */ 	jal	laserdotExists
 /*  f0b0284:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f0b0288:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f0b028c:	1440000b */ 	bnez	$v0,.L0f0b02bc
@@ -4716,17 +4705,17 @@ glabel func0f0b0268
 /*  f0b02a4:	000278c0 */ 	sll	$t7,$v0,0x3
 /*  f0b02a8:	01e27821 */ 	addu	$t7,$t7,$v0
 /*  f0b02ac:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0b02b0:	3c01800a */ 	lui	$at,%hi(var8009dbe0)
+/*  f0b02b0:	3c01800a */ 	lui	$at,%hi(g_LaserDots)
 /*  f0b02b4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0b02b8:	ac2edbe0 */ 	sw	$t6,%lo(var8009dbe0)($at)
+/*  f0b02b8:	ac2edbe0 */ 	sw	$t6,%lo(g_LaserDots)($at)
 .L0f0b02bc:
 /*  f0b02bc:	8fb8001c */ 	lw	$t8,0x1c($sp)
 /*  f0b02c0:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0b02c4:	3c08800a */ 	lui	$t0,%hi(var8009dbe0)
+/*  f0b02c4:	3c08800a */ 	lui	$t0,%hi(g_LaserDots)
 /*  f0b02c8:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f0b02cc:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f0b02d0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0b02d4:	2508dbe0 */ 	addiu	$t0,$t0,%lo(var8009dbe0)
+/*  f0b02d4:	2508dbe0 */ 	addiu	$t0,$t0,%lo(g_LaserDots)
 /*  f0b02d8:	03281021 */ 	addu	$v0,$t9,$t0
 /*  f0b02dc:	e4440004 */ 	swc1	$f4,0x4($v0)
 /*  f0b02e0:	c4c60004 */ 	lwc1	$f6,0x4($a2)
@@ -4756,20 +4745,20 @@ glabel func0f0b0268
 /*  f0b033c:	00000000 */ 	nop
 );
 
-void func0f0b0340(s32 arg0, struct coord *a, struct coord *b)
+void laserdotSetPosition(s32 arg0, struct coord *pos, struct coord *rot)
 {
 	s32 i;
 
-	if (func0f0af0d4(arg0, &i)) {
-		var8009dbe0[i].unk28 += 1.0f;
+	if (laserdotExists(arg0, &i)) {
+		g_LaserDots[i].unk28 += 1.0f;
 
-		var8009dbe0[i].unk2c.x = a->x;
-		var8009dbe0[i].unk2c.y = a->y;
-		var8009dbe0[i].unk2c.z = a->z;
+		g_LaserDots[i].pos.x = pos->x;
+		g_LaserDots[i].pos.y = pos->y;
+		g_LaserDots[i].pos.z = pos->z;
 
-		var8009dbe0[i].unk38.x = b->x;
-		var8009dbe0[i].unk38.y = b->y;
-		var8009dbe0[i].unk38.z = b->z;
+		g_LaserDots[i].rot.x = rot->x;
+		g_LaserDots[i].rot.y = rot->y;
+		g_LaserDots[i].rot.z = rot->z;
 	}
 }
 
@@ -4777,17 +4766,17 @@ GLOBAL_ASM(
 glabel func0f0b03d8
 /*  f0b03d8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0b03dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b03e0:	0fc2bc35 */ 	jal	func0f0af0d4
+/*  f0b03e0:	0fc2bc35 */ 	jal	laserdotExists
 /*  f0b03e4:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*  f0b03e8:	10400008 */ 	beqz	$v0,.L0f0b040c
 /*  f0b03ec:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*  f0b03f0:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f0b03f4:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f0b03f8:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f0b03fc:	3c01800a */ 	lui	$at,%hi(var8009dbe0)
+/*  f0b03fc:	3c01800a */ 	lui	$at,%hi(g_LaserDots)
 /*  f0b0400:	00380821 */ 	addu	$at,$at,$t8
 /*  f0b0404:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0b0408:	ac2edbe0 */ 	sw	$t6,%lo(var8009dbe0)($at)
+/*  f0b0408:	ac2edbe0 */ 	sw	$t6,%lo(g_LaserDots)($at)
 .L0f0b040c:
 /*  f0b040c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0b0410:	27bd0020 */ 	addiu	$sp,$sp,0x20

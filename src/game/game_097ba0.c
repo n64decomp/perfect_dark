@@ -14153,7 +14153,7 @@ glabel func0f0a37b4
 /*  f0a3a7c:	c61206c8 */ 	lwc1	$f18,0x6c8($s0)
 /*  f0a3a80:	e7b20074 */ 	swc1	$f18,0x74($sp)
 /*  f0a3a84:	c60406cc */ 	lwc1	$f4,0x6cc($s0)
-/*  f0a3a88:	0fc2c0d0 */ 	jal	func0f0b0340
+/*  f0a3a88:	0fc2c0d0 */ 	jal	laserdotSetPosition
 /*  f0a3a8c:	e7a40078 */ 	swc1	$f4,0x78($sp)
 .L0f0a3a90:
 /*  f0a3a90:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -20558,30 +20558,30 @@ void func0f0a9494(u32 operation)
 	}
 }
 
-void func0f0a94d0(u32 operation, struct coord *a, struct coord *b)
+void func0f0a94d0(u32 operation, struct coord *pos, struct coord *rot)
 {
 	struct player *player = g_Vars.currentplayer;
 
 	switch (operation) {
 	case 0:
-		if (a->x > -100000.0f && a->x < 100000.0f
-				&& a->y > -100000.0f && a->y < 100000.0f
-				&& a->z > -100000.0f && a->z < 100000.0f) {
+		if (pos->x > -100000.0f && pos->x < 100000.0f
+				&& pos->y > -100000.0f && pos->y < 100000.0f
+				&& pos->z > -100000.0f && pos->z < 100000.0f) {
 			player->hands[HAND_RIGHT].unk0cec = true;
 			player->hands[HAND_LEFT].unk0cec = true;
 
-			player->hands[HAND_LEFT].unk0cf0.x = player->hands[HAND_RIGHT].unk0cf0.x = a->x;
-			player->hands[HAND_LEFT].unk0cf0.y = player->hands[HAND_RIGHT].unk0cf0.y = a->y;
-			player->hands[HAND_LEFT].unk0cf0.z = player->hands[HAND_RIGHT].unk0cf0.z = a->z;
+			player->hands[HAND_LEFT].unk0cf0.x = player->hands[HAND_RIGHT].unk0cf0.x = pos->x;
+			player->hands[HAND_LEFT].unk0cf0.y = player->hands[HAND_RIGHT].unk0cf0.y = pos->y;
+			player->hands[HAND_LEFT].unk0cf0.z = player->hands[HAND_RIGHT].unk0cf0.z = pos->z;
 
-			player->hands[HAND_LEFT].unk0cfc.x = player->hands[HAND_RIGHT].unk0cfc.x = b->x;
-			player->hands[HAND_LEFT].unk0cfc.y = player->hands[HAND_RIGHT].unk0cfc.y = b->y;
-			player->hands[HAND_LEFT].unk0cfc.z = player->hands[HAND_RIGHT].unk0cfc.z = b->z;
+			player->hands[HAND_LEFT].unk0cfc.x = player->hands[HAND_RIGHT].unk0cfc.x = rot->x;
+			player->hands[HAND_LEFT].unk0cfc.y = player->hands[HAND_RIGHT].unk0cfc.y = rot->y;
+			player->hands[HAND_LEFT].unk0cfc.z = player->hands[HAND_RIGHT].unk0cfc.z = rot->z;
 		}
 		break;
 	case 1:
 	case 2:
-		func0f0b0340(operation - 1, a, b);
+		laserdotSetPosition(operation - 1, pos, rot);
 		break;
 	}
 }
