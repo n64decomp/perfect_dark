@@ -43,7 +43,7 @@ const u32 var7f1acc6c[] = {0x3fb50481};
 struct fireslot g_Fireslots[NUM_FIRESLOTS];
 struct casing g_Casings[20];
 struct var8009da60 var8009da60[8];
-struct laserdot g_LaserDots[4];
+struct lasersight g_LaserSights[4];
 
 u32 var80070500 = 0x00000000;
 u32 var80070504 = 0x00000000;
@@ -3514,23 +3514,23 @@ glabel func0f0aefb8
 );
 
 /**
- * Return true if a laserdot with the given ID exists, or false if not.
+ * Return true if a lasersight with the given ID exists, or false if not.
  *
- * Additionally, populate the index pointer with the index of the laserdot if it
- * exists, or any free slot if it doesn't.
+ * Additionally, populate the index pointer with the index of the lasersight
+ * if it exists, or any free slot if it doesn't.
  */
-bool laserdotExists(s32 id, s32 *index)
+bool lasersightExists(s32 id, s32 *index)
 {
 	s32 fallback = -1;
 	s32 exact = -1;
 	s32 i = 0;
 
 	for (; i < 4 && exact == -1; i++) {
-		if (g_LaserDots[i].id == id) {
+		if (g_LaserSights[i].id == id) {
 			exact = i;
 		}
 
-		if (g_LaserDots[i].id == -1) {
+		if (g_LaserSights[i].id == -1) {
 			fallback = i;
 		}
 	}
@@ -3743,8 +3743,8 @@ glabel var7f1acd8c
 /*  f0af418:	3c017f1b */ 	lui	$at,%hi(var7f1acd74)
 /*  f0af41c:	c43ccd74 */ 	lwc1	$f28,%lo(var7f1acd74)($at)
 /*  f0af420:	3c017f1b */ 	lui	$at,%hi(var7f1acd78)
-/*  f0af424:	3c10800a */ 	lui	$s0,%hi(g_LaserDots)
-/*  f0af428:	2610dbe0 */ 	addiu	$s0,$s0,%lo(g_LaserDots)
+/*  f0af424:	3c10800a */ 	lui	$s0,%hi(g_LaserSights)
+/*  f0af428:	2610dbe0 */ 	addiu	$s0,$s0,%lo(g_LaserSights)
 /*  f0af42c:	c43acd78 */ 	lwc1	$f26,%lo(var7f1acd78)($at)
 /*  f0af430:	24120200 */ 	addiu	$s2,$zero,0x200
 /*  f0af434:	8e0d0000 */ 	lw	$t5,0x0($s0)
@@ -4336,10 +4336,10 @@ glabel var7f1acd90
 /*  f0afd00:	3c0140a0 */ 	lui	$at,0x40a0
 /*  f0afd04:	4481b000 */ 	mtc1	$at,$f22
 /*  f0afd08:	3c014170 */ 	lui	$at,0x4170
-/*  f0afd0c:	3c10800a */ 	lui	$s0,%hi(g_LaserDots)
+/*  f0afd0c:	3c10800a */ 	lui	$s0,%hi(g_LaserSights)
 /*  f0afd10:	4481a000 */ 	mtc1	$at,$f20
 /*  f0afd14:	ae220004 */ 	sw	$v0,0x4($s1)
-/*  f0afd18:	2610dbe0 */ 	addiu	$s0,$s0,%lo(g_LaserDots)
+/*  f0afd18:	2610dbe0 */ 	addiu	$s0,$s0,%lo(g_LaserSights)
 /*  f0afd1c:	27be00ac */ 	addiu	$s8,$sp,0xac
 /*  f0afd20:	27b70098 */ 	addiu	$s7,$sp,0x98
 /*  f0afd24:	2416ffff */ 	addiu	$s6,$zero,-1
@@ -4685,88 +4685,56 @@ glabel var7f1acd90
 /*  f0b0264:	27bd01e8 */ 	addiu	$sp,$sp,0x1e8
 );
 
-GLOBAL_ASM(
-glabel func0f0b0268
-/*  f0b0268:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b026c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b0270:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0b0274:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0b0278:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f0b027c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0b0280:	0fc2bc35 */ 	jal	laserdotExists
-/*  f0b0284:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f0b0288:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f0b028c:	1440000b */ 	bnez	$v0,.L0f0b02bc
-/*  f0b0290:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f0b0294:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0b0298:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0b029c:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f0b02a0:	10410023 */ 	beq	$v0,$at,.L0f0b0330
-/*  f0b02a4:	000278c0 */ 	sll	$t7,$v0,0x3
-/*  f0b02a8:	01e27821 */ 	addu	$t7,$t7,$v0
-/*  f0b02ac:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0b02b0:	3c01800a */ 	lui	$at,%hi(g_LaserDots)
-/*  f0b02b4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0b02b8:	ac2edbe0 */ 	sw	$t6,%lo(g_LaserDots)($at)
-.L0f0b02bc:
-/*  f0b02bc:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0b02c0:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0b02c4:	3c08800a */ 	lui	$t0,%hi(g_LaserDots)
-/*  f0b02c8:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f0b02cc:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0b02d0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0b02d4:	2508dbe0 */ 	addiu	$t0,$t0,%lo(g_LaserDots)
-/*  f0b02d8:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f0b02dc:	e4440004 */ 	swc1	$f4,0x4($v0)
-/*  f0b02e0:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f0b02e4:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f0b02e8:	e4460008 */ 	swc1	$f6,0x8($v0)
-/*  f0b02ec:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f0b02f0:	e448000c */ 	swc1	$f8,0xc($v0)
-/*  f0b02f4:	c4ca0000 */ 	lwc1	$f10,0x0($a2)
-/*  f0b02f8:	e44a0010 */ 	swc1	$f10,0x10($v0)
-/*  f0b02fc:	c4d00004 */ 	lwc1	$f16,0x4($a2)
-/*  f0b0300:	44805000 */ 	mtc1	$zero,$f10
-/*  f0b0304:	e4500014 */ 	swc1	$f16,0x14($v0)
-/*  f0b0308:	c4d20008 */ 	lwc1	$f18,0x8($a2)
-/*  f0b030c:	e4520018 */ 	swc1	$f18,0x18($v0)
-/*  f0b0310:	c4e40000 */ 	lwc1	$f4,0x0($a3)
-/*  f0b0314:	e444001c */ 	swc1	$f4,0x1c($v0)
-/*  f0b0318:	c4e60004 */ 	lwc1	$f6,0x4($a3)
-/*  f0b031c:	e4460020 */ 	swc1	$f6,0x20($v0)
-/*  f0b0320:	c4e80008 */ 	lwc1	$f8,0x8($a3)
-/*  f0b0324:	ac490044 */ 	sw	$t1,0x44($v0)
-/*  f0b0328:	e44a0028 */ 	swc1	$f10,0x28($v0)
-/*  f0b032c:	e4480024 */ 	swc1	$f8,0x24($v0)
-.L0f0b0330:
-/*  f0b0330:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b0334:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b0338:	03e00008 */ 	jr	$ra
-/*  f0b033c:	00000000 */ 	nop
-);
-
-void laserdotSetPosition(s32 arg0, struct coord *pos, struct coord *rot)
+void func0f0b0268(s32 id, s32 arg1, struct coord *near, struct coord *far)
 {
 	s32 i;
 
-	if (laserdotExists(arg0, &i)) {
-		g_LaserDots[i].unk28 += 1.0f;
+	if (!lasersightExists(id, &i)) {
+		if (i == -1) {
+			return;
+		}
 
-		g_LaserDots[i].pos.x = pos->x;
-		g_LaserDots[i].pos.y = pos->y;
-		g_LaserDots[i].pos.z = pos->z;
+		g_LaserSights[i].id = id;
+	}
 
-		g_LaserDots[i].rot.x = rot->x;
-		g_LaserDots[i].rot.y = rot->y;
-		g_LaserDots[i].rot.z = rot->z;
+	g_LaserSights[i].unk04.x = near->x;
+	g_LaserSights[i].unk04.y = near->y;
+	g_LaserSights[i].unk04.z = near->z;
+
+	g_LaserSights[i].beamnear.x = near->x;
+	g_LaserSights[i].beamnear.y = near->y;
+	g_LaserSights[i].beamnear.z = near->z;
+
+	g_LaserSights[i].beamfar.x = far->x;
+	g_LaserSights[i].beamfar.y = far->y;
+	g_LaserSights[i].beamfar.z = far->z;
+
+	g_LaserSights[i].unk44 = arg1;
+	g_LaserSights[i].unk28 = 0;
+}
+
+void lasersightSetDot(s32 arg0, struct coord *pos, struct coord *rot)
+{
+	s32 i;
+
+	if (lasersightExists(arg0, &i)) {
+		g_LaserSights[i].unk28 += 1.0f;
+
+		g_LaserSights[i].dotpos.x = pos->x;
+		g_LaserSights[i].dotpos.y = pos->y;
+		g_LaserSights[i].dotpos.z = pos->z;
+
+		g_LaserSights[i].dotrot.x = rot->x;
+		g_LaserSights[i].dotrot.y = rot->y;
+		g_LaserSights[i].dotrot.z = rot->z;
 	}
 }
 
-void laserdotFree(s32 arg0)
+void lasersightFree(s32 arg0)
 {
 	s32 i;
 
-	if (laserdotExists(arg0, &i)) {
-		g_LaserDots[i].id = -1;
+	if (lasersightExists(arg0, &i)) {
+		g_LaserSights[i].id = -1;
 	}
 }

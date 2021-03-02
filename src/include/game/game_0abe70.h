@@ -21,11 +21,11 @@ u32 func0f0aeda4(void);
 void func0f0aeea8(s32 index, f32 arg1);
 Gfx *func0f0aeed8(Gfx *gdl);
 void func0f0aefb8(void);
-bool laserdotExists(s32 id, s32 *index);
+bool lasersightExists(s32 id, s32 *index);
 Gfx *func0f0af158(Gfx *gdl);
 u32 func0f0afa4c(void);
-u32 func0f0b0268(void);
-void laserdotSetPosition(s32 arg0, struct coord *pos, struct coord *rot);
-void laserdotFree(s32 arg0);
+void func0f0b0268(s32 id, s32 arg1, struct coord *near, struct coord *far);
+void lasersightSetDot(s32 arg0, struct coord *pos, struct coord *rot);
+void lasersightFree(s32 arg0);
 
 #endif

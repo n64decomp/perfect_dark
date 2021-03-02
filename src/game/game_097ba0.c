@@ -14153,7 +14153,7 @@ glabel func0f0a37b4
 /*  f0a3a7c:	c61206c8 */ 	lwc1	$f18,0x6c8($s0)
 /*  f0a3a80:	e7b20074 */ 	swc1	$f18,0x74($sp)
 /*  f0a3a84:	c60406cc */ 	lwc1	$f4,0x6cc($s0)
-/*  f0a3a88:	0fc2c0d0 */ 	jal	laserdotSetPosition
+/*  f0a3a88:	0fc2c0d0 */ 	jal	lasersightSetDot
 /*  f0a3a8c:	e7a40078 */ 	swc1	$f4,0x78($sp)
 .L0f0a3a90:
 /*  f0a3a90:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -17652,7 +17652,7 @@ glabel var7f1aca70
 /*  f0a6934:	10000004 */ 	b	.L0f0a6948
 /*  f0a6938:	ae000684 */ 	sw	$zero,0x684($s0)
 .L0f0a693c:
-/*  f0a693c:	0fc2c0f6 */ 	jal	laserdotFree
+/*  f0a693c:	0fc2c0f6 */ 	jal	lasersightFree
 /*  f0a6940:	8fa40308 */ 	lw	$a0,0x308($sp)
 /*  f0a6944:	ae000684 */ 	sw	$zero,0x684($s0)
 .L0f0a6948:
@@ -20581,7 +20581,7 @@ void func0f0a94d0(u32 operation, struct coord *pos, struct coord *rot)
 		break;
 	case 1:
 	case 2:
-		laserdotSetPosition(operation - 1, pos, rot);
+		lasersightSetDot(operation - 1, pos, rot);
 		break;
 	}
 }

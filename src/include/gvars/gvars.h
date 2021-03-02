@@ -574,7 +574,7 @@ extern u32 var8009d144;
 extern struct fireslot g_Fireslots[NUM_FIRESLOTS];
 extern struct casing g_Casings[20];
 extern struct var8009da60 var8009da60[8];
-extern struct laserdot g_LaserDots[4];
+extern struct lasersight g_LaserSights[4];
 extern u32 var8009dd00;
 extern u32 var8009dd04;
 extern u32 var8009dd10;

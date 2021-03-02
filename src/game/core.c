@@ -386,7 +386,7 @@ void coreLoadStage(s32 stagenum)
 
 	func0f0099a4();
 	func0f0147d0();
-	laserdotsReset();
+	lasersightsReset();
 	stub0f013540();
 	shardsInit();
 	frUnloadData();

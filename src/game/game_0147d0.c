@@ -23,12 +23,12 @@ void func0f0147d0(void)
 	}
 }
 
-void laserdotsReset(void)
+void lasersightsReset(void)
 {
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		g_LaserDots[i].id = -1;
+		g_LaserSights[i].id = -1;
 	}
 }
 

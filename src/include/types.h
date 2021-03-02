@@ -6053,20 +6053,14 @@ struct var80094ed8 {
 	/*0x104*/ u32 unk104;
 };
 
-struct laserdot {
+struct lasersight {
 	s32 id;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
+	struct coord unk04;
+	struct coord beamnear;
+	struct coord beamfar;
 	f32 unk28;
-	struct coord pos;
-	struct coord rot;
+	struct coord dotpos;
+	struct coord dotrot;
 	u32 unk44;
 };
 
