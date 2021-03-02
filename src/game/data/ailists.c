@@ -1065,7 +1065,7 @@ u8 func0007_alerted[] = {
 	yield
 	label(0x16)
 	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
-	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x01)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_UNTARGETABLE, /*goto*/ 0x01)
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ LABEL_TRACK)
 	dprint 'C','H','E','C','K','I','N','J','U','R','Y','E','N','D','\n',0,
@@ -2157,7 +2157,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x35)
 		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
-		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x01)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_UNTARGETABLE, /*goto*/ 0x01)
 		label(0x13)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
@@ -4726,11 +4726,11 @@ u8 func0014_coop_buddy[] = {
 
 	beginloop(0xf2)
 		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
-		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
+		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE)
 		goto_next(0x15)
 
 		label(0x13)
-		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x15)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE, /*goto*/ 0x15)
 		goto_next(LABEL_PLACE_BUDDY)
 
 		label(0x15)
@@ -4764,11 +4764,11 @@ u8 func0014_coop_buddy[] = {
 
 	beginloop(0x0c)
 		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
-		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
+		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE)
 		goto_next(0x15)
 
 		label(0x13)
-		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x15)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE, /*goto*/ 0x15)
 		goto_next(LABEL_PLACE_BUDDY)
 
 		label(0x15)
@@ -4799,11 +4799,11 @@ u8 func0014_coop_buddy[] = {
 
 	beginloop(0x04)
 		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
-		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
+		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE)
 		goto_next(0x15)
 
 		label(0x13)
-		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x15)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE, /*goto*/ 0x15)
 		goto_next(LABEL_PLACE_BUDDY)
 
 		label(0x15)
@@ -5333,7 +5333,7 @@ u8 func0020_place_coop_buddy[] = {
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	stop_chr
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE)
 	set_returnlist(CHR_SELF, GAILIST_COOP_BUDDY)
 	set_ailist(CHR_SELF, GAILIST_COOP_BUDDY)
 
@@ -5367,7 +5367,7 @@ u8 func0020_place_coop_buddy[] = {
 	label(0x13)
 	stop_chr
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00020000)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE)
 
 	// Wait until flag unset (timer is not checked)
 	restart_timer

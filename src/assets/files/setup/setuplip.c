@@ -4503,12 +4503,18 @@ u8 func1032_count_last_room_guards[] = {
 };
 
 /**
- * Not really sure what the point of this is.
+ * When the player uses the disguise the game sets CHRHFLAG_UNTARGETABLE on
+ * them. Guards check their targets for this flag periodically and unset their
+ * targets if found.
+ *
+ * This ailist disables the flag after 10 seconds. This causes guards to
+ * disengage combat and gives the player an opportunity to leave a combat
+ * situation before the guards can become savvy again and foil the disguise.
  */
-u8 func1033_update_buddy_placed_flag[] = {
+u8 func1033_unset_untargetable_flag[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
-		if_chr_has_hiddenflag(CHR_P1P2, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x2d)
+		if_chr_has_hiddenflag(CHR_P1P2, CHRHFLAG_UNTARGETABLE, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
@@ -4519,7 +4525,7 @@ u8 func1033_update_buddy_placed_flag[] = {
 	endloop(0x64)
 
 	label(0x2d)
-	unset_chr_hiddenflag(CHR_P1P2, CHRHFLAG_BUDDY_PLACED)
+	unset_chr_hiddenflag(CHR_P1P2, CHRHFLAG_UNTARGETABLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4762,7 +4768,7 @@ struct ailist ailists[] = {
 	{ func1030_lift_door_sounds,               0x1030 },
 	{ func1031_toggle_doorman,                 0x1031 },
 	{ func1032_count_last_room_guards,         0x1032 },
-	{ func1033_update_buddy_placed_flag,       0x1033 },
+	{ func1033_unset_untargetable_flag,        0x1033 },
 	{ func1034_setup_rtracker,                 0x1034 },
 	{ func1435_setup_environment,              0x1435 },
 	{ func1036_check_door_terminal_destroyed,  0x1036 },

@@ -266,6 +266,7 @@
 #define SFX_M2_WERE_GONNA_DIE                   0x0421
 #define SFX_DOOR_042B                           0x042b
 #define SFX_DOOR_042C                           0x042c
+#define SFX_DISGUISE_ON                         0x042e
 #define SFX_RELOAD_FARSIGHT                     0x0433
 #define SFX_MENU_SUBFOCUS                       0x043e
 #define SFX_MENU_FOCUS                          0x0441

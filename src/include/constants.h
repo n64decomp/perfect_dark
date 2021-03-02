@@ -454,7 +454,7 @@
 #define CHRHFLAG_00000200           0x00000200 // Not used in scripts
 #define CHRHFLAG_PASSIVE            0x00000400
 #define CHRHFLAG_KEEP_CORPSE        0x00000800 // Appears to be misnamed
-#define CHRHFLAG_BUDDY_PLACED       0x00001000
+#define CHRHFLAG_UNTARGETABLE       0x00001000
 #define CHRHFLAG_00002000           0x00002000 // Globals, Rescue guards once disguised
 #define CHRHFLAG_TRIGGER_BUDDY_WARP 0x00004000
 #define CHRHFLAG_00008000           0x00008000 // Duel only. Set on each opponent when they start combat.
