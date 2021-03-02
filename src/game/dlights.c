@@ -3160,7 +3160,7 @@ void func0f004314(void)
 
 	func0f005bb0();
 
-	if (hand1->torchon || hand2->torchon) {
+	if (hand1->flashon || hand2->flashon) {
 		roomAdjustLighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
 }

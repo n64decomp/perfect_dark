@@ -18781,10 +18781,10 @@ glabel func0f041a74
 /*  f041b78:	a058003f */ 	sb	$t8,0x3f($v0)
 .L0f041b7c:
 /*  f041b7c:	8e190348 */ 	lw	$t9,0x348($s0)
-/*  f041b80:	0fc2b6ef */ 	jal	bullettailTick
+/*  f041b80:	0fc2b6ef */ 	jal	beamTick
 /*  f041b84:	8f240004 */ 	lw	$a0,0x4($t9)
 /*  f041b88:	8e08034c */ 	lw	$t0,0x34c($s0)
-/*  f041b8c:	0fc2b6ef */ 	jal	bullettailTick
+/*  f041b8c:	0fc2b6ef */ 	jal	beamTick
 /*  f041b90:	8d040004 */ 	lw	$a0,0x4($t0)
 /*  f041b94:	10000027 */ 	b	.L0f041c34
 /*  f041b98:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -19562,7 +19562,7 @@ void robotAttack(struct chrdata *chr)
 	if (chr->unk348 && chr->unk34c) {
 		chr->actiontype = ACT_ROBOTATTACK;
 
-		chr->unk348->bullettail->age = -1;
+		chr->unk348->beam->age = -1;
 		chr->unk348->unk00 = random() % 3;
 		chr->unk348->unk01 = 0;
 		chr->unk348->unk08 = -1;
@@ -19585,7 +19585,7 @@ void robotAttack(struct chrdata *chr)
 		chr->act_robotattack.unk05c = 90;
 		chr->act_robotattack.unk06c = 0;
 
-		chr->unk34c->bullettail->age = -1;
+		chr->unk34c->beam->age = -1;
 		chr->unk34c->unk00 = random() % 3;
 		chr->unk34c->unk01 = 0;
 		chr->unk34c->unk08 = -1;

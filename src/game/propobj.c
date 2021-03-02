@@ -26920,12 +26920,12 @@ u32 func0f07e474(struct prop *prop)
 	if (obj->type == OBJTYPE_AUTOGUN) {
 		struct autogunobj *autogun = (struct autogunobj *)prop->obj;
 
-		if (autogun->bullettail) {
-			bullettailTick(autogun->bullettail);
+		if (autogun->beam) {
+			beamTick(autogun->beam);
 		}
 	} else if (obj->type == OBJTYPE_CHOPPER) {
 		struct chopperobj *chopper = (struct chopperobj *)prop->obj;
-		bullettailTick(chopper->fireslotthing->bullettail);
+		beamTick(chopper->fireslotthing->beam);
 	} else if (obj->type == OBJTYPE_LIFT) {
 		liftTick(prop);
 	} else if (obj->type == OBJTYPE_ESCASTEP) {
@@ -27327,7 +27327,7 @@ s32 objTick(struct prop *prop)
 	return result;
 }
 
-Gfx *propsRenderBulletTails(Gfx *gdl)
+Gfx *propsRenderBeams(Gfx *gdl)
 {
 	struct prop *prop = g_Vars.list1head;
 
@@ -27336,15 +27336,15 @@ Gfx *propsRenderBulletTails(Gfx *gdl)
 			struct chrdata *chr = prop->chr;
 
 			if (CHRRACE(chr) == RACE_ROBOT) {
-				gdl = func0f0acb90(gdl, chr->unk348->bullettail, true, true);
-				gdl = func0f0acb90(gdl, chr->unk34c->bullettail, true, true);
+				gdl = func0f0acb90(gdl, chr->unk348->beam, true, true);
+				gdl = func0f0acb90(gdl, chr->unk34c->beam, true, true);
 			} else {
 				if (chr->fireslot[0] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[0]].bullettail, true, false);
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[0]].beam, true, false);
 				}
 
 				if (chr->fireslot[1] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[1]].bullettail, true, false);
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[1]].beam, true, false);
 				}
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
@@ -27352,21 +27352,21 @@ Gfx *propsRenderBulletTails(Gfx *gdl)
 
 			if (obj->type == OBJTYPE_AUTOGUN) {
 				struct autogunobj *autogun = (struct autogunobj *)prop->obj;
-				gdl = func0f0acb90(gdl, autogun->bullettail, true, false);
+				gdl = func0f0acb90(gdl, autogun->beam, true, false);
 			} else if (obj->type == OBJTYPE_CHOPPER) {
 				struct chopperobj *chopper = (struct chopperobj *)prop->obj;
-				gdl = func0f0acb90(gdl, chopper->fireslotthing->bullettail, true, true);
+				gdl = func0f0acb90(gdl, chopper->fireslotthing->beam, true, true);
 			}
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			if (prop->chr && propGetPlayerNum(prop) != g_Vars.currentplayernum) {
 				struct chrdata *chr = prop->chr;
 
 				if (chr->fireslot[0] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[0]].bullettail, true, false);
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[0]].beam, true, false);
 				}
 
 				if (chr->fireslot[1] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[1]].bullettail, true, false);
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[1]].beam, true, false);
 				}
 			}
 		}

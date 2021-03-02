@@ -2078,7 +2078,7 @@ glabel var7f1ada2c
 /*  f0cee9c:	c424da2c */ 	lwc1	$f4,%lo(var7f1ada2c)($at)
 /*  f0ceea0:	c7280158 */ 	lwc1	$f8,0x158($t9)
 /*  f0ceea4:	46044302 */ 	mul.s	$f12,$f8,$f4
-/*  f0ceea8:	0fc288a4 */ 	jal	func0f0a2290
+/*  f0ceea8:	0fc288a4 */ 	jal	handSetAdjustPos
 /*  f0ceeac:	00000000 */ 	nop
 /*  f0ceeb0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f0ceeb4:

@@ -1392,7 +1392,7 @@ void bbikeTick(void)
 	}
 
 	func0f09d8dc(breathing, 0, sp70, 0.0f, g_Vars.currentplayer->speedsideways);
-	func0f0a2290(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
+	handSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 	currentPlayerUpdatePerimInfo();
 	bmove0f0cb8c4(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);

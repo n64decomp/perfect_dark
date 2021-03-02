@@ -24,7 +24,7 @@ void bcutsceneInit(void)
 				hand->audiohandle = NULL;
 			}
 
-			hand->unk063c = 0;
+			hand->firing = false;
 		}
 	}
 }

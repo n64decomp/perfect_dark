@@ -2909,22 +2909,22 @@ glabel var7f1ad8e4
 /*  f0ca944:	8e580324 */ 	lw	$t8,0x324($s2)
 /*  f0ca948:	5300002b */ 	beqzl	$t8,.L0f0ca9f8
 /*  f0ca94c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0ca950:	0fc2883f */ 	jal	handIsAttackingOnThisTick
+/*  f0ca950:	0fc2883f */ 	jal	handIsFiring
 /*  f0ca954:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ca958:	54400006 */ 	bnezl	$v0,.L0f0ca974
 /*  f0ca95c:	44805000 */ 	mtc1	$zero,$f10
-/*  f0ca960:	0fc2883f */ 	jal	handIsAttackingOnThisTick
+/*  f0ca960:	0fc2883f */ 	jal	handIsFiring
 /*  f0ca964:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0ca968:	50400023 */ 	beqzl	$v0,.L0f0ca9f8
 /*  f0ca96c:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0ca970:	44805000 */ 	mtc1	$zero,$f10
 .L0f0ca974:
 /*  f0ca974:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0ca978:	0fc2883f */ 	jal	handIsAttackingOnThisTick
+/*  f0ca978:	0fc2883f */ 	jal	handIsFiring
 /*  f0ca97c:	e7aa00b4 */ 	swc1	$f10,0xb4($sp)
 /*  f0ca980:	1040000c */ 	beqz	$v0,.L0f0ca9b4
 /*  f0ca984:	00000000 */ 	nop
-/*  f0ca988:	0fc273d6 */ 	jal	func0f09cf58
+/*  f0ca988:	0fc273d6 */ 	jal	handGetNoiseRadius
 /*  f0ca98c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ca990:	44803000 */ 	mtc1	$zero,$f6
 /*  f0ca994:	00000000 */ 	nop
@@ -2932,22 +2932,22 @@ glabel var7f1ad8e4
 /*  f0ca99c:	00000000 */ 	nop
 /*  f0ca9a0:	45000004 */ 	bc1f	.L0f0ca9b4
 /*  f0ca9a4:	00000000 */ 	nop
-/*  f0ca9a8:	0fc273d6 */ 	jal	func0f09cf58
+/*  f0ca9a8:	0fc273d6 */ 	jal	handGetNoiseRadius
 /*  f0ca9ac:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ca9b0:	e7a000b4 */ 	swc1	$f0,0xb4($sp)
 .L0f0ca9b4:
-/*  f0ca9b4:	0fc2883f */ 	jal	handIsAttackingOnThisTick
+/*  f0ca9b4:	0fc2883f */ 	jal	handIsFiring
 /*  f0ca9b8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0ca9bc:	1040000b */ 	beqz	$v0,.L0f0ca9ec
 /*  f0ca9c0:	00000000 */ 	nop
-/*  f0ca9c4:	0fc273d6 */ 	jal	func0f09cf58
+/*  f0ca9c4:	0fc273d6 */ 	jal	handGetNoiseRadius
 /*  f0ca9c8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0ca9cc:	c7a800b4 */ 	lwc1	$f8,0xb4($sp)
 /*  f0ca9d0:	4600403c */ 	c.lt.s	$f8,$f0
 /*  f0ca9d4:	00000000 */ 	nop
 /*  f0ca9d8:	45000004 */ 	bc1f	.L0f0ca9ec
 /*  f0ca9dc:	00000000 */ 	nop
-/*  f0ca9e0:	0fc273d6 */ 	jal	func0f09cf58
+/*  f0ca9e0:	0fc273d6 */ 	jal	handGetNoiseRadius
 /*  f0ca9e4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0ca9e8:	e7a000b4 */ 	swc1	$f0,0xb4($sp)
 .L0f0ca9ec:
@@ -4861,17 +4861,15 @@ glabel var7f1ad8e4
 //	currentPlayerTickInventory(movedata.triggeron);
 //
 //	// a944
-//	// I think this is checking which gun is making the loudest noise and is
-//	// alerting nearby chrs to it.
-//	if (g_Vars.bondvisible && (handIsAttackingOnThisTick(0) || handIsAttackingOnThisTick(1))) {
+//	if (g_Vars.bondvisible && (handIsFiring(0) || handIsFiring(1))) {
 //		spb4 = 0;
 //
-//		if (handIsAttackingOnThisTick(0) && func0f09cf58(0) > spb4) {
-//			spb4 = func0f09cf58(0);
+//		if (handIsFiring(0) && handGetNoiseRadius(0) > spb4) {
+//			spb4 = handGetNoiseRadius(0);
 //		}
 //
-//		if (handIsAttackingOnThisTick(1) && func0f09cf58(1) > spb4) {
-//			spb4 = func0f09cf58(1);
+//		if (handIsFiring(1) && handGetNoiseRadius(1) > spb4) {
+//			spb4 = handGetNoiseRadius(1);
 //		}
 //
 //		func0f028590(spb4);
@@ -5126,8 +5124,8 @@ glabel var7f1ad8e4
 //	bmoveUpdateSpeedTheta();
 //
 //	if (movedata.detonating) {
-//		g_Vars.currentplayer->hands[HAND_RIGHT].unk0658 = 0;
-//		g_Vars.currentplayer->hands[HAND_RIGHT].unk065c = 0;
+//		g_Vars.currentplayer->hands[HAND_RIGHT].mode = 0;
+//		g_Vars.currentplayer->hands[HAND_RIGHT].modenext = 0;
 //		playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
 //	}
 //

@@ -147,9 +147,9 @@ void currentPlayerSetWeaponSway(struct coord *sway)
 	}
 }
 
-f32 handGetXOffset(u32 hand)
+f32 handGetXShift(s32 handnum)
 {
-	return g_Vars.currentplayer->hands[hand].xoffset;
+	return g_Vars.currentplayer->hands[handnum].xshift;
 }
 
 f32 func0f0b131c(u32 hand)
@@ -496,7 +496,7 @@ glabel handPopulateFromCurrentPlayer
 //	hand->unk0639 = g_Vars.currentplayer->hands[handnum].unk0639;
 //
 //	if (hand->weaponnum == WEAPON_MAULER) {
-//		hand->unk063a = g_Vars.currentplayer->hands[handnum].unk0874 * 10.0f;
+//		hand->unk063a = g_Vars.currentplayer->hands[handnum].matmot1 * 10.0f;
 //	}
 //
 //	if (hand->weaponnum == WEAPON_LASER) {
@@ -583,7 +583,7 @@ f32 handGetDamage(struct shorthand *hand)
 		damage = (hand->unk063a / 3.0f + 1.0f) * damage;
 	}
 
-	if (handIsAttackingOnThisTick(HAND_LEFT) && handIsAttackingOnThisTick(HAND_RIGHT)) {
+	if (handIsFiring(HAND_LEFT) && handIsFiring(HAND_RIGHT)) {
 		damage += damage;
 	}
 

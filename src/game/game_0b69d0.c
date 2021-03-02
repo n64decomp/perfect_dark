@@ -10095,18 +10095,18 @@ s32 getMissionTime(void)
 
 s32 func0f0c228c(struct prop *prop)
 {
-	bullettailTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[0].bullettail);
-	bullettailTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[1].bullettail);
+	beamTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[0].beam);
+	beamTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[1].beam);
 
 	if (prop->chr && g_Vars.mplayerisrunning) {
 		struct chrdata *chr = prop->chr;
 
 		if (chr->fireslot[0] >= 0) {
-			bullettailTick(&g_Fireslots[chr->fireslot[0]].bullettail);
+			beamTick(&g_Fireslots[chr->fireslot[0]].beam);
 		}
 
 		if (chr->fireslot[1] >= 0) {
-			bullettailTick(&g_Fireslots[chr->fireslot[1]].bullettail);
+			beamTick(&g_Fireslots[chr->fireslot[1]].beam);
 		}
 	}
 

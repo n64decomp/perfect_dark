@@ -2122,26 +2122,26 @@ glabel var7f1accf4
 /*  f0adbb8:	27bd0190 */ 	addiu	$sp,$sp,0x190
 );
 
-void bullettailTick(struct bullettail *tail)
+void beamTick(struct beam *beam)
 {
-	if (tail->age >= 0) {
-		if (tail->unk01 == -2) {
-			tail->age++;
+	if (beam->age >= 0) {
+		if (beam->unk01 == -2) {
+			beam->age++;
 
-			if (tail->age > 1) {
-				tail->age = -1;
+			if (beam->age > 1) {
+				beam->age = -1;
 			}
 		} else {
 			if (g_Vars.lvupdate240 <= 8) {
 				// Not lagging
-				tail->dist += tail->speed * g_Vars.lvupdate240f;
+				beam->dist += beam->speed * g_Vars.lvupdate240f;
 			} else {
 				// Lagging
-				tail->dist += tail->speed * (2 + random() * (1.0f / U32_MAX) * 0.5f);
+				beam->dist += beam->speed * (2 + random() * (1.0f / U32_MAX) * 0.5f);
 			}
 
-			if (tail->dist >= tail->maxdist) {
-				tail->age = -1;
+			if (beam->dist >= beam->maxdist) {
+				beam->age = -1;
 			}
 		}
 	}

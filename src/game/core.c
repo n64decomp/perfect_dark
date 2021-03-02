@@ -1208,7 +1208,7 @@ Gfx *coreRender(Gfx *gdl)
 				func0f0641f4();
 				gdl = bgRender(gdl);
 				func0f028498(var80075d68 == 15 || var8005f020);
-				gdl = propsRenderBulletTails(gdl);
+				gdl = propsRenderBeams(gdl);
 				gdl = shardsRender(gdl);
 				gdl = sparksRender(gdl);
 				gdl = weatherRender(gdl);

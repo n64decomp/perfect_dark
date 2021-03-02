@@ -4259,11 +4259,11 @@ bool propchrDoFireslotThing(struct prop *prop)
 	struct chrdata *chr = prop->chr;
 
 	if (chr->fireslot[0] >= 0) {
-		bullettailTick(&g_Fireslots[chr->fireslot[0]].bullettail);
+		beamTick(&g_Fireslots[chr->fireslot[0]].beam);
 	}
 
 	if (chr->fireslot[1] >= 0) {
-		bullettailTick(&g_Fireslots[chr->fireslot[1]].bullettail);
+		beamTick(&g_Fireslots[chr->fireslot[1]].beam);
 	}
 
 	if (chr->aibot && chr->aibot->unk058 > 0) {

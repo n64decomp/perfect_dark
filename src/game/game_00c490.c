@@ -1127,8 +1127,8 @@ void setupAutogun(struct autogunobj *autogun, s32 cmdindex)
 	autogun->unk84 = *(s32 *)&autogun->unk84 * 100.0f / 65536.0f;
 	autogun->unk64 = *(s32 *)&autogun->unk64 * M_BADTAU / 65536.0f;
 	autogun->unk68 = *(s32 *)&autogun->unk68 * M_BADTAU / 65536.0f;
-	autogun->bullettail = malloc(ALIGN16(sizeof(struct bullettail)), MEMPOOL_STAGE);
-	autogun->bullettail->age = -1;
+	autogun->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
+	autogun->beam->age = -1;
 	autogun->unk5e = 0;
 	autogun->ammoquantity = 255;
 	autogun->unka0 = 0;
@@ -2607,8 +2607,8 @@ void setupParseObjects(s32 stagenum)
 						chopper->cw = 0;
 						chopper->weaponsarmed = true;
 						chopper->fireslotthing = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
-						chopper->fireslotthing->bullettail = malloc(ALIGN16(sizeof(struct bullettail)), MEMPOOL_STAGE);
-						chopper->fireslotthing->bullettail->age = -1;
+						chopper->fireslotthing->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
+						chopper->fireslotthing->beam->age = -1;
 						chopper->fireslotthing->unk08 = -1;
 						chopper->fireslotthing->unk00 = 0;
 						chopper->fireslotthing->unk01 = 0;

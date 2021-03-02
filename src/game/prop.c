@@ -2398,7 +2398,7 @@ void handTickAttack(s32 handnum)
 		g_Vars.currentplayer->hands[handnum].unk0d0f_02 = false;
 	}
 
-	if (handIsAttackingOnThisTick(handnum)) {
+	if (handIsFiring(handnum)) {
 		s32 type = handGetAttackType(handnum);
 		s32 weaponnum = handGetWeaponNum(handnum);
 		u8 stack1;
@@ -2416,7 +2416,7 @@ void handTickAttack(s32 handnum)
 		case HANDATTACKTYPE_SHOOT:
 			// Always execute if right hand, but if left hand then execute if
 			// right hand is not (ie. prevent firing both guns on the same tick)
-			if (handnum == HAND_RIGHT || !handIsAttackingOnThisTick(HAND_RIGHT)) {
+			if (handnum == HAND_RIGHT || !handIsFiring(HAND_RIGHT)) {
 				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
 				mpstatsIncrementPlayerShotCount2((struct shorthand *)&tmpweaponnum, 0);
 

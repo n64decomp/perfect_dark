@@ -1240,7 +1240,7 @@ bool func0f098884(struct remoteminething *arg0, struct shorthand *hand)
 		return true;
 	}
 
-	if (arg0->unk01 == 1 && g_Vars.currentplayer->hands[HAND_LEFT].unk0640 == 1) {
+	if (arg0->unk01 == 1 && g_Vars.currentplayer->hands[HAND_LEFT].inuse == true) {
 		result = true;
 	}
 
@@ -6790,9 +6790,9 @@ glabel func0f09ceac
 /*  f09cf54:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-f32 func0f09cf58(u32 hand)
+f32 handGetNoiseRadius(s32 handnum)
 {
-	return g_Vars.currentplayer->hands[hand].unk0840;
+	return g_Vars.currentplayer->hands[handnum].noiseradius;
 }
 
 GLOBAL_ASM(
@@ -6814,7 +6814,7 @@ glabel func0f09cf88
 /*  f09cfc0:	27a40050 */ 	addiu	$a0,$sp,0x50
 /*  f09cfc4:	0fc2c807 */ 	jal	func0f0b201c
 /*  f09cfc8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f09cfcc:	0fc2883f */ 	jal	handIsAttackingOnThisTick
+/*  f09cfcc:	0fc2883f */ 	jal	handIsFiring
 /*  f09cfd0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f09cfd4:	1040000c */ 	beqz	$v0,.L0f09d008
 /*  f09cfd8:	3c014270 */ 	lui	$at,0x4270
@@ -6862,7 +6862,7 @@ glabel func0f09cf88
 /*  f09d074:	00000000 */ 	nop
 /*  f09d078:	e6060840 */ 	swc1	$f6,0x840($s0)
 .L0f09d07c:
-/*  f09d07c:	0fc2883f */ 	jal	handIsAttackingOnThisTick
+/*  f09d07c:	0fc2883f */ 	jal	handIsFiring
 /*  f09d080:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f09d084:	3c014270 */ 	lui	$at,0x4270
 /*  f09d088:	44818000 */ 	mtc1	$at,$f16
@@ -7340,7 +7340,7 @@ glabel var7f1ac628
 /*  f09d73c:	e7aa005c */ 	swc1	$f10,0x5c($sp)
 /*  f09d740:	c61001a8 */ 	lwc1	$f16,0x1a8($s0)
 /*  f09d744:	46104100 */ 	add.s	$f4,$f8,$f16
-/*  f09d748:	0fc2c4bb */ 	jal	handGetXOffset
+/*  f09d748:	0fc2c4bb */ 	jal	handGetXShift
 /*  f09d74c:	e7a40060 */ 	swc1	$f4,0x60($sp)
 /*  f09d750:	c7b2005c */ 	lwc1	$f18,0x5c($sp)
 /*  f09d754:	8e2f0034 */ 	lw	$t7,0x34($s1)
@@ -11133,7 +11133,7 @@ glabel var7f1ac764
 /*  f0a0ad8:	3c06447a */ 	lui	$a2,0x447a
 /*  f0a0adc:	0fc2d30f */ 	jal	func0f0b4c3c
 /*  f0a0ae0:	e6aa1678 */ 	swc1	$f10,0x1678($s5)
-/*  f0a0ae4:	0fc2a4f8 */ 	jal	func0f0a93e0
+/*  f0a0ae4:	0fc2a4f8 */ 	jal	handSetAimPos
 /*  f0a0ae8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a0aec:	8fbf0064 */ 	lw	$ra,0x64($sp)
 /*  f0a0af0:	d7b40010 */ 	ldc1	$f20,0x10($sp)
@@ -11805,7 +11805,7 @@ void func0f0a1528(void)
 	if (ctrl->switchtoweaponnum >= 0) {
 		if (func0f09bec8(HAND_RIGHT) && func0f09bec8(HAND_LEFT)) {
 			s32 weaponnum = player->gunctrl.weaponnum;
-			s32 prev640 = player->hands[HAND_LEFT].unk0640;
+			s32 previnuse = player->hands[HAND_LEFT].inuse;
 			struct hand *lefthand;
 			struct hand *righthand;
 
@@ -11828,13 +11828,13 @@ void func0f0a1528(void)
 			}
 
 			if (weaponnum == WEAPON_RCP120) {
-				s32 amount = player->hands[HAND_RIGHT].unk0874;
+				s32 amount = player->hands[HAND_RIGHT].matmot1;
 
-				if (amount > player->ammoheldarr[ctrl->totalammo[0]]) {
-					amount = player->ammoheldarr[ctrl->totalammo[0]];
+				if (amount > player->ammoheldarr[ctrl->ammotypes[0]]) {
+					amount = player->ammoheldarr[ctrl->ammotypes[0]];
 				}
 
-				player->ammoheldarr[ctrl->totalammo[0]] -= amount;
+				player->ammoheldarr[ctrl->ammotypes[0]] -= amount;
 			}
 
 			if (weaponnum == WEAPON_HORIZONSCANNER) {
@@ -11848,14 +11848,14 @@ void func0f0a1528(void)
 			righthand = &player->hands[HAND_RIGHT];
 
 			if (ctrl->switchtoweaponnum == WEAPON_NONE) {
-				lefthand->unk0640 = 0;
-				righthand->unk0640 = 0;
+				lefthand->inuse = false;
+				righthand->inuse = false;
 				ctrl->weaponnum = WEAPON_NONE;
 			} else {
 				func0f09df64(ctrl->switchtoweaponnum);
 				ctrl->weaponnum = ctrl->switchtoweaponnum;
-				lefthand->unk0640 = 1;
-				righthand->unk0640 = 1;
+				lefthand->inuse = true;
+				righthand->inuse = true;
 			}
 
 			if (ctrl->weaponnum == WEAPON_REMOTEMINE) {
@@ -11863,14 +11863,14 @@ void func0f0a1528(void)
 			}
 
 			if (!ctrl->unk1583_00) {
-				lefthand->unk0640 = 0;
+				lefthand->inuse = false;
 			}
 
 			if (weaponnum <= WEAPON_PSYCHOSISGUN && weaponnum >= WEAPON_UNARMED) {
 				player->gunctrl.prevweaponnum = weaponnum;
 			}
 
-			if (prev640) {
+			if (previnuse) {
 				player->gunctrl.unk1583_01 = true;
 			} else {
 				player->gunctrl.unk1583_01 = false;
@@ -11880,21 +11880,20 @@ void func0f0a1528(void)
 			g_Vars.currentplayer->usedowntime = -1;
 
 			for (i = 0; i < 2; i++) {
-				player->hands[i].unk0874 = 0.0f;
-
 				player->hands[i].unk0d0e_00 = 0;
 				player->hands[i].unk0d0e_04 = 0;
 				player->hands[i].unk0d0f_02 = false;
 				player->hands[i].unk0d0f_03 = false;
 
-				player->hands[i].unk0878 = 0.0f;
-				player->hands[i].unk087c = 0.0f;
-				player->hands[i].unk0868 = 0.0f;
+				player->hands[i].matmot1 = 0.0f;
+				player->hands[i].matmot2 = 0.0f;
+				player->hands[i].matmot3 = 0.0f;
+				player->hands[i].angledamper = 0.0f;
 				player->hands[i].unk0db8 = 0.0f;
 				player->hands[i].unk0b90 = 0;
 				player->hands[i].unk0888 = 0.0f;
-				player->hands[i].unk080c = 0;
-				player->hands[i].unk0810 = 0;
+				player->hands[i].allowshootframe = 0;
+				player->hands[i].lastshootframe60 = 0;
 				player->hands[i].base.weaponfunc = FUNC_PRIMARY;
 
 				player->hands[i].base.weaponnum = ctrl->weaponnum;
@@ -11938,11 +11937,11 @@ void func0f0a1528(void)
 			ctrl->unk1583_04 = false;
 		}
 	} else {
-		if (((player->hands[HAND_LEFT].unk0640 && !player->gunctrl.unk1583_00)
-					|| (!player->hands[HAND_LEFT].unk0640 && player->gunctrl.unk1583_00))
+		if (((player->hands[HAND_LEFT].inuse && !player->gunctrl.unk1583_00)
+					|| (!player->hands[HAND_LEFT].inuse && player->gunctrl.unk1583_00))
 				&& func0f09bec8(HAND_LEFT)) {
 			func0f0a134c(HAND_LEFT);
-			player->hands[HAND_LEFT].unk0640 = player->gunctrl.unk1583_00;
+			player->hands[HAND_LEFT].inuse = player->gunctrl.unk1583_00;
 		}
 	}
 }
@@ -11961,7 +11960,7 @@ void currentPlayerEquipWeapon(s32 weaponnum)
 
 s32 handGetWeaponNum(s32 handnum)
 {
-	if (!g_Vars.currentplayer->hands[handnum].unk0640) {
+	if (!g_Vars.currentplayer->hands[handnum].inuse) {
 		return WEAPON_NONE;
 	}
 
@@ -12426,9 +12425,9 @@ void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
 	}
 }
 
-s32 handIsAttackingOnThisTick(s32 handnum)
+s32 handIsFiring(s32 handnum)
 {
-	return g_Vars.currentplayer->hands[handnum].unk063c;
+	return g_Vars.currentplayer->hands[handnum].firing;
 }
 
 s32 handGetAttackType(s32 handnum)
@@ -12479,17 +12478,17 @@ void currentPlayerReloadHandIfPossible(s32 handnum)
 	struct player *player = g_Vars.currentplayer;
 
 	if (weaponGetAmmoType(handGetWeaponNum(handnum), 0)
-			&& player->hands[handnum].unk065c == 0) {
-		player->hands[handnum].unk065c = 9;
+			&& player->hands[handnum].modenext == 0) {
+		player->hands[handnum].modenext = 9;
 	}
 }
 
-void func0f0a2290(f32 angle)
+void handSetAdjustPos(f32 angle)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->hands[0].unk07f0 = (1 - cosf(angle)) * 5;
-	player->hands[1].unk07f0 = (1 - cosf(angle)) * 5;
+	player->hands[0].adjustpos.z = (1 - cosf(angle)) * 5;
+	player->hands[1].adjustpos.z = (1 - cosf(angle)) * 5;
 }
 
 void func0f0a2308(s32 handnum)
@@ -19897,15 +19896,15 @@ glabel var7f1acaa0
 /*  f0a890c:	00000000 */ 	nop
 );
 
-void handSetFiring(s32 handnum, bool firing)
+void handSetTriggerOn(s32 handnum, bool on)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
-	hand->prevfiring = hand->firing;
-	hand->firing = firing;
+	hand->triggerprev = hand->triggeron;
+	hand->triggeron = on;
 
-	if (!firing) {
-		hand->unk064c = true;
+	if (!on) {
+		hand->triggerreleased = true;
 	}
 }
 
@@ -20415,8 +20414,8 @@ void currentPlayerTickInventory(bool triggeron)
 
 	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 		triggeron = false;
-		g_Vars.currentplayer->hands[HAND_LEFT].unk063c = 0;
-		g_Vars.currentplayer->hands[HAND_RIGHT].unk063c = 0;
+		g_Vars.currentplayer->hands[HAND_LEFT].firing = false;
+		g_Vars.currentplayer->hands[HAND_RIGHT].firing = false;
 	}
 
 	player->playertriggerprev = player->playertriggeron;
@@ -20432,14 +20431,14 @@ void currentPlayerTickInventory(bool triggeron)
 	if (player->playertriggeron) {
 		player->playertrigtime240 += g_Vars.lvupdate240;
 
-		if (player->hands[HAND_LEFT].unk0640
-				&& player->hands[HAND_RIGHT].unk0640
+		if (player->hands[HAND_LEFT].inuse
+				&& player->hands[HAND_RIGHT].inuse
 				&& player->gunctrl.weaponnum != WEAPON_REMOTEMINE) {
 			if (player->playertrigtime240 > 80) {
 				gunsfiring[player->curguntofire] = 1;
 
 				if (func0f099008(1 - player->curguntofire)
-						|| player->hands[1 - player->curguntofire].firing) {
+						|| player->hands[1 - player->curguntofire].triggeron) {
 					gunsfiring[1 - player->curguntofire] = 1;
 				}
 			} else {
@@ -20452,8 +20451,8 @@ void currentPlayerTickInventory(bool triggeron)
 				gunsfiring[1 - player->curguntofire] = 0;
 			}
 		} else {
-			if (player->hands[player->curguntofire].unk0640 == 0
-					&& player->hands[1 - player->curguntofire].unk0640) {
+			if (!player->hands[player->curguntofire].inuse
+					&& player->hands[1 - player->curguntofire].inuse) {
 				player->curguntofire = 1 - player->curguntofire;
 			}
 
@@ -20468,8 +20467,8 @@ void currentPlayerTickInventory(bool triggeron)
 		player->playertrigtime240 = 0;
 	}
 
-	handSetFiring(0, gunsfiring[0]);
-	handSetFiring(1, gunsfiring[1]);
+	handSetTriggerOn(0, gunsfiring[0]);
+	handSetTriggerOn(1, gunsfiring[1]);
 
 	if (g_Vars.tickmode == TICKMODE_NORMAL && g_Vars.lvupdate240 > 0) {
 		func0f09cdc4(0);
@@ -20526,17 +20525,17 @@ void currentPlayerSetAimType(u32 aimtype)
 	g_Vars.currentplayer->aimtype = aimtype;
 }
 
-void func0f0a93e0(struct coord *coord)
+void handSetAimPos(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->hands[HAND_RIGHT].unk07f8.x = handGetXOffset(HAND_RIGHT) + coord->x;
-	player->hands[HAND_RIGHT].unk07f8.y = coord->y;
-	player->hands[HAND_RIGHT].unk07f8.z = coord->z;
+	player->hands[HAND_RIGHT].aimpos.x = handGetXShift(HAND_RIGHT) + coord->x;
+	player->hands[HAND_RIGHT].aimpos.y = coord->y;
+	player->hands[HAND_RIGHT].aimpos.z = coord->z;
 
-	player->hands[HAND_LEFT].unk07f8.x = handGetXOffset(HAND_LEFT) + coord->x;
-	player->hands[HAND_LEFT].unk07f8.y = coord->y;
-	player->hands[HAND_LEFT].unk07f8.z = coord->z;
+	player->hands[HAND_LEFT].aimpos.x = handGetXShift(HAND_LEFT) + coord->x;
+	player->hands[HAND_LEFT].aimpos.y = coord->y;
+	player->hands[HAND_LEFT].aimpos.z = coord->z;
 }
 
 void func0f0a9464(struct coord *coord)
@@ -20804,9 +20803,9 @@ s32 currentPlayerGetAmmoCount(s32 ammotype)
 	struct player *player = g_Vars.currentplayer;
 
 	for (i = 0; i < 2; i++) {
-		if (player->hands[i].unk0640) {
+		if (player->hands[i].inuse) {
 			for (j = 0; j < 2; j++) {
-				if (player->gunctrl.totalammo[j] == ammotype) {
+				if (player->gunctrl.ammotypes[j] == ammotype) {
 					total = player->hands[i].loadedammo[j] + total;
 				}
 			}

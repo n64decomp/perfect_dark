@@ -1818,7 +1818,7 @@ void frBeginSession(s32 weapon)
 	frCloseAndLockDoor();
 
 	for (i = 0; i < 2; i++) {
-		if (g_Vars.currentplayer->gunctrl.totalammo[i] >= 0) {
+		if (g_Vars.currentplayer->gunctrl.ammotypes[i] >= 0) {
 			g_Vars.currentplayer->hands[0].loadedammo[i] = 0;
 			g_Vars.currentplayer->hands[1].loadedammo[i] = 0;
 		}
