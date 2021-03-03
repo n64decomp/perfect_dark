@@ -2132,7 +2132,7 @@ struct gunctrl {
 	/*0x158c*/ void *unk158c;
 	/*0x1590*/ u32 unk1590;
 	/*0x1594*/ s32 unk1594;
-	/*0x1598*/ u32 unk1598;
+	/*0x1598*/ s32 unk1598;
 	/*0x159c*/ u16 unk159c;
 	/*0x15a0*/ s32 unk15a0;
 	/*0x15a4*/ s32 unk15a4;

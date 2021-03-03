@@ -8766,13 +8766,10 @@ bool func0f09eae4(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f09ebbc
-/*  f09ebbc:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f09ebc0:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f09ebc4:	03e00008 */ 	jr	$ra
-/*  f09ebc8:	8dc21598 */ 	lw	$v0,0x1598($t6)
-);
+s32 func0f09ebbc(void)
+{
+	return g_Vars.currentplayer->gunctrl.unk1598;
+}
 
 GLOBAL_ASM(
 glabel func0f09ebcc

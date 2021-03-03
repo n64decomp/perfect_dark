@@ -68,7 +68,7 @@ u32 func0f09e144(void);
 void func0f09e4e0(void);
 u32 func0f09ea90(void);
 bool func0f09eae4(void);
-u32 func0f09ebbc(void);
+s32 func0f09ebbc(void);
 void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, f32 *arg4, Mtxf *matrix2, struct prop *prop, struct coord *pos);
 u32 func0f09ed2c(void);
 void func0f09ee18(struct chrdata *chr, u8 *arg1, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5);
