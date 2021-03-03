@@ -1738,7 +1738,7 @@ struct hand {
 	/*0x0644*/ bool triggeron;
 	/*0x0648*/ bool triggerprev;
 	/*0x064c*/ bool triggerreleased;
-	/*0x0650*/ u32 count;
+	/*0x0650*/ s32 count;
 	/*0x0654*/ u32 count60;
 	/*0x0658*/ u32 mode;
 	/*0x065c*/ u32 modenext; // 0 = idle, 9 = reloading

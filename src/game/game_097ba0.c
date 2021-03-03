@@ -5408,41 +5408,19 @@ glabel func0f09bd58
 /*  f09bec4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f09bec8
-/*  f09bec8:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f09becc:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f09bed0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09bed4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f09bed8:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f09bedc:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f09bee0:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f09bee4:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f09bee8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09beec:	004e1821 */ 	addu	$v1,$v0,$t6
-/*  f09bef0:	8c6f0c3c */ 	lw	$t7,0xc3c($v1)
-/*  f09bef4:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f09bef8:	55e10010 */ 	bnel	$t7,$at,.L0f09bf3c
-/*  f09befc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bf00:	8c780c40 */ 	lw	$t8,0xc40($v1)
-/*  f09bf04:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f09bf08:	5701000c */ 	bnel	$t8,$at,.L0f09bf3c
-/*  f09bf0c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bf10:	8c790650 */ 	lw	$t9,0x650($v1)
-/*  f09bf14:	2b210003 */ 	slti	$at,$t9,0x3
-/*  f09bf18:	54200008 */ 	bnezl	$at,.L0f09bf3c
-/*  f09bf1c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bf20:	8c481580 */ 	lw	$t0,0x1580($v0)
-/*  f09bf24:	00085700 */ 	sll	$t2,$t0,0x1c
-/*  f09bf28:	05420004 */ 	bltzl	$t2,.L0f09bf3c
-/*  f09bf2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bf30:	03e00008 */ 	jr	$ra
-/*  f09bf34:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09bf38:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09bf3c:
-/*  f09bf3c:	03e00008 */ 	jr	$ra
-/*  f09bf40:	00000000 */ 	nop
-);
+bool func0f09bec8(s32 handnum)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	if (player->hands[handnum].unk0c3c == 5
+			&& player->hands[handnum].unk0c40 == 2
+			&& player->hands[handnum].count >= 3
+			&& player->gunctrl.unk1583_04 == false) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f09bf44
