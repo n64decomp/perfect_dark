@@ -1421,25 +1421,17 @@ glabel func0f098bfc
 /*  f098c08:	01c01025 */ 	or	$v0,$t6,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f098c0c
-/*  f098c0c:	908f0690 */ 	lbu	$t7,0x690($a0)
-/*  f098c10:	908b06d6 */ 	lbu	$t3,0x6d6($a0)
-/*  f098c14:	240effff */ 	addiu	$t6,$zero,-1
-/*  f098c18:	31f9ff7f */ 	andi	$t9,$t7,0xff7f
-/*  f098c1c:	332900df */ 	andi	$t1,$t9,0xdf
-/*  f098c20:	a0990690 */ 	sb	$t9,0x690($a0)
-/*  f098c24:	a0890690 */ 	sb	$t1,0x690($a0)
-/*  f098c28:	312a00bf */ 	andi	$t2,$t1,0xbf
-/*  f098c2c:	316cfffe */ 	andi	$t4,$t3,0xfffe
-/*  f098c30:	ac8e0680 */ 	sw	$t6,0x680($a0)
-/*  f098c34:	ac80068c */ 	sw	$zero,0x68c($a0)
-/*  f098c38:	ac8006b0 */ 	sw	$zero,0x6b0($a0)
-/*  f098c3c:	a0800691 */ 	sb	$zero,0x691($a0)
-/*  f098c40:	a08a0690 */ 	sb	$t2,0x690($a0)
-/*  f098c44:	03e00008 */ 	jr	$ra
-/*  f098c48:	a08c06d6 */ 	sb	$t4,0x6d6($a0)
-);
+void func0f098c0c(struct hand *hand)
+{
+	hand->unk0cb8 = -1;
+	hand->unk0cc4 = 0;
+	hand->unk0cc8_01 = false;
+	hand->unk0cc8_03 = false;
+	hand->unk0ce8 = NULL;
+	hand->unk0cc9 = 0;
+	hand->unk0cc8_02 = false;
+	hand->unk0d0e_07 = false;
+}
 
 void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum)
 {

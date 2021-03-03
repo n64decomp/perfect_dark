@@ -2024,7 +2024,7 @@ struct hand {
 	/*0x0cac*/ u32 unk0cac;
 	/*0x0cb0*/ u32 unk0cb0;
 	/*0x0cb4*/ u32 unk0cb4;
-	/*0x0cb8*/ u32 unk0cb8;
+	/*0x0cb8*/ s32 unk0cb8;
 	/*0x0cbc*/ u32 unk0cbc;
 	/*0x0cc0*/ u32 unk0cc0;
 	/*0x0cc4*/ u32 unk0cc4;

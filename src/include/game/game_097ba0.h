@@ -17,7 +17,7 @@ bool func0f098884(struct remoteminething *arg0, struct shorthand *hand);
 void func0f0988e0(struct remoteminething *arg0, bool arg1, struct hand *hand);
 u32 func0f098a44(void);
 u32 func0f098bfc(void);
-u32 func0f098c0c(void);
+void func0f098c0c(struct hand *hand);
 void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum);
 s32 func0f098ca0(s32 arg0, struct handweaponinfo *info, struct hand *hand);
 u32 func0f098df8(void);
