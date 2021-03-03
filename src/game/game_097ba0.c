@@ -1712,53 +1712,22 @@ glabel func0f098f8c
 /*  f099004:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f099008
-/*  f099008:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f09900c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f099010:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f099014:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f099018:	0fc26313 */ 	jal	func0f098c4c
-/*  f09901c:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f099020:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f099024:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f099028:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f09902c:	00037100 */ 	sll	$t6,$v1,0x4
-/*  f099030:	01c37023 */ 	subu	$t6,$t6,$v1
-/*  f099034:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f099038:	01c37021 */ 	addu	$t6,$t6,$v1
-/*  f09903c:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f099040:	01c37021 */ 	addu	$t6,$t6,$v1
-/*  f099044:	000e1880 */ 	sll	$v1,$t6,0x2
-/*  f099048:	01e33021 */ 	addu	$a2,$t7,$v1
-/*  f09904c:	24c60638 */ 	addiu	$a2,$a2,0x638
-/*  f099050:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f099054:	00002025 */ 	or	$a0,$zero,$zero
-/*  f099058:	0fc26328 */ 	jal	func0f098ca0
-/*  f09905c:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f099060:	18400003 */ 	blez	$v0,.L0f099070
-/*  f099064:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f099068:	1000000d */ 	b	.L0f0990a0
-/*  f09906c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f099070:
-/*  f099070:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f099074:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f099078:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f09907c:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f099080:	03033021 */ 	addu	$a2,$t8,$v1
-/*  f099084:	0fc26328 */ 	jal	func0f098ca0
-/*  f099088:	24c60638 */ 	addiu	$a2,$a2,0x638
-/*  f09908c:	58400004 */ 	blezl	$v0,.L0f0990a0
-/*  f099090:	00001025 */ 	or	$v0,$zero,$zero
-/*  f099094:	10000002 */ 	b	.L0f0990a0
-/*  f099098:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09909c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0990a0:
-/*  f0990a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0990a4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0990a8:	03e00008 */ 	jr	$ra
-/*  f0990ac:	00000000 */ 	nop
-);
+bool func0f099008(s32 handnum)
+{
+	s32 sp1c[3];
+
+	func0f098c4c(sp1c, handnum);
+
+	if (func0f098ca0(0, sp1c, &g_Vars.currentplayer->hands[handnum]) > 0) {
+		return true;
+	}
+
+	if (func0f098ca0(1, sp1c, &g_Vars.currentplayer->hands[handnum]) > 0) {
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 {
