@@ -1881,7 +1881,7 @@ struct hand {
 	/*0x09d0*/ u32 unk09d0;
 	/*0x09d4*/ u32 unk09d4;
 	/*0x09d8*/ u32 unk09d8;
-	/*0x09dc*/ u32 unk09dc;
+	/*0x09dc*/ struct anim *unk09dc;
 	/*0x09e0*/ struct anim anim;
 	/*0x0a6c*/ u32 unk0a6c;
 	/*0x0a70*/ u32 unk0a70;
@@ -1955,7 +1955,7 @@ struct hand {
 	/*0x0b80*/ u32 unk0b80;
 	/*0x0b84*/ u32 unk0b84;
 	/*0x0b88*/ u32 unk0b88;
-	/*0x0b8c*/ u32 unk0b8c;
+	/*0x0b8c*/ struct anim *unk0b8c;
 	/*0x0b90*/ s32 unk0b90;
 	/*0x0b94*/ struct coord unk0b94;
 	/*0x0ba0*/ u32 unk0ba0;

@@ -6656,55 +6656,29 @@ void func0f09ce8c(void)
 	func0f0a1528();
 }
 
-GLOBAL_ASM(
-glabel func0f09ceac
-/*  f09ceac:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f09ceb0:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f09ceb4:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f09ceb8:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f09cebc:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f09cec0:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f09cec4:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f09cec8:	4480a000 */ 	mtc1	$zero,$f20
-/*  f09cecc:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f09ced0:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f09ced4:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f09ced8:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f09cedc:	00009025 */ 	or	$s2,$zero,$zero
-/*  f09cee0:	2414ffff */ 	addiu	$s4,$zero,-1
-/*  f09cee4:	24150002 */ 	addiu	$s5,$zero,0x2
-.L0f09cee8:
-/*  f09cee8:	56400005 */ 	bnezl	$s2,.L0f09cf00
-/*  f09ceec:	8e700284 */ 	lw	$s0,0x284($s3)
-/*  f09cef0:	8e700284 */ 	lw	$s0,0x284($s3)
-/*  f09cef4:	10000003 */ 	b	.L0f09cf04
-/*  f09cef8:	26100ddc */ 	addiu	$s0,$s0,0xddc
-/*  f09cefc:	8e700284 */ 	lw	$s0,0x284($s3)
-.L0f09cf00:
-/*  f09cf00:	26100638 */ 	addiu	$s0,$s0,0x638
-.L0f09cf04:
-/*  f09cf04:	261103a8 */ 	addiu	$s1,$s0,0x3a8
-/*  f09cf08:	e61406d0 */ 	swc1	$f20,0x6d0($s0)
-/*  f09cf0c:	ae000604 */ 	sw	$zero,0x604($s0)
-/*  f09cf10:	ae140680 */ 	sw	$s4,0x680($s0)
-/*  f09cf14:	ae00068c */ 	sw	$zero,0x68c($s0)
-/*  f09cf18:	0c008c28 */ 	jal	animInitialise
-/*  f09cf1c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09cf20:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f09cf24:	ae1103a4 */ 	sw	$s1,0x3a4($s0)
-/*  f09cf28:	1655ffef */ 	bne	$s2,$s5,.L0f09cee8
-/*  f09cf2c:	ae110554 */ 	sw	$s1,0x554($s0)
-/*  f09cf30:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f09cf34:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f09cf38:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f09cf3c:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f09cf40:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f09cf44:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f09cf48:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f09cf4c:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f09cf50:	03e00008 */ 	jr	$ra
-/*  f09cf54:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f09ceac(void)
+{
+	struct hand *hand;
+	s32 i;
+
+	for (i = 0; i < 2; i++) {
+		if (i == 0) {
+			hand = &g_Vars.currentplayer->hands[1];
+		} else {
+			hand = &g_Vars.currentplayer->hands[0];
+		}
+
+		hand->unk0d08 = 0;
+		hand->unk0c3c = 0;
+		hand->unk0cb8 = -1;
+		hand->unk0cc4 = 0;
+
+		animInitialise(&hand->anim);
+
+		hand->unk09dc = &hand->anim;
+		hand->unk0b8c = &hand->anim;
+	}
+}
 
 f32 handGetNoiseRadius(s32 handnum)
 {
