@@ -11646,22 +11646,12 @@ glabel func0f0a12b0
 /*  f0a1314:	e45205e8 */ 	swc1	$f18,0x5e8($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0a1318
-/*  f0a1318:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f0a131c:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0a1320:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a1324:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a1328:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a132c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a1330:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0a1334:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f0a1338:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a133c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0a1340:	24630638 */ 	addiu	$v1,$v1,0x638
-/*  f0a1344:	03e00008 */ 	jr	$ra
-/*  f0a1348:	8c6205f8 */ 	lw	$v0,0x5f8($v1)
-);
+u32 handGetUnk0c30(s32 handnum)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+
+	return hand->unk0c30;
+}
 
 GLOBAL_ASM(
 glabel func0f0a134c

@@ -2428,7 +2428,7 @@ void handTickAttack(s32 handnum)
 					handCreateBulletRaycast(handnum, true, true, 1, true);
 					handCreateBulletRaycast(handnum, true, true, 1, true);
 				} else {
-					handCreateBulletRaycast(handnum, true, true, func0f0a1318(handnum), g_Vars.mplayerisrunning);
+					handCreateBulletRaycast(handnum, true, true, handGetUnk0c30(handnum), g_Vars.mplayerisrunning);
 				}
 
 				mpstats0f0b0520();

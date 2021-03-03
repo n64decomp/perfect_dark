@@ -86,7 +86,7 @@ void func0f0a0c44(s32 handnum, struct coord *param_2, struct coord *arg2);
 void func0f0a0cb0(struct coord *arg0, struct coord *arg1, s32 handnum, bool arg3);
 u32 func0f0a0fac(void);
 void func0f0a12b0(struct coord *arg0, struct coord *arg1, s32 handnum);
-bool func0f0a1318(s32 handnum);
+u32 handGetUnk0c30(s32 handnum);
 void func0f0a134c(s32 handnum);
 void func0f0a1528(void);
 void currentPlayerEquipWeapon(s32 weaponnum);
