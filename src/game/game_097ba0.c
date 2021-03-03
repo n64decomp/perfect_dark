@@ -6595,61 +6595,34 @@ glabel func0f09cd18
 /*  f09cdc0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f09cdc4
-/*  f09cdc4:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f09cdc8:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f09cdcc:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f09cdd0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09cdd4:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f09cdd8:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f09cddc:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09cde0:	8cce0284 */ 	lw	$t6,0x284($a2)
-/*  f09cde4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f09cde8:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09cdec:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09cdf0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f09cdf4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f09cdf8:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f09cdfc:	00809825 */ 	or	$s3,$a0,$zero
-/*  f09ce00:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f09ce04:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f09ce08:	24630638 */ 	addiu	$v1,$v1,0x638
-/*  f09ce0c:	27b20030 */ 	addiu	$s2,$sp,0x30
-/*  f09ce10:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f09ce14:	24110014 */ 	addiu	$s1,$zero,0x14
-/*  f09ce18:	02402025 */ 	or	$a0,$s2,$zero
-/*  f09ce1c:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f09ce20:	0fc26313 */ 	jal	handGetWeaponInfo
-/*  f09ce24:	02602825 */ 	or	$a1,$s3,$zero
-/*  f09ce28:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f09ce2c:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f09ce30:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f09ce34:	8cd00038 */ 	lw	$s0,0x38($a2)
-/*  f09ce38:	8c780688 */ 	lw	$t8,0x688($v1)
-/*  f09ce3c:	ac700684 */ 	sw	$s0,0x684($v1)
-/*  f09ce40:	8cd90038 */ 	lw	$t9,0x38($a2)
-/*  f09ce44:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f09ce48:	ac680688 */ 	sw	$t0,0x688($v1)
-/*  f09ce4c:	02402025 */ 	or	$a0,$s2,$zero
-.L0f09ce50:
-/*  f09ce50:	02602825 */ 	or	$a1,$s3,$zero
-/*  f09ce54:	0fc272d7 */ 	jal	func0f09cb5c
-/*  f09ce58:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09ce5c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f09ce60:	18400003 */ 	blez	$v0,.L0f09ce70
-/*  f09ce64:	2631ffff */ 	addiu	$s1,$s1,-1
-/*  f09ce68:	0623fff9 */ 	bgezl	$s1,.L0f09ce50
-/*  f09ce6c:	02402025 */ 	or	$a0,$s2,$zero
-.L0f09ce70:
-/*  f09ce70:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f09ce74:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f09ce78:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f09ce7c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f09ce80:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f09ce84:	03e00008 */ 	jr	$ra
-/*  f09ce88:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void func0f09cdc4(s32 handnum)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+	struct handweaponinfo info;
+	s32 lvupdate;
+	s32 i = 20;
+
+	if (handnum);
+	if (handnum);
+	if (handnum);
+	if (handnum);
+
+	handGetWeaponInfo(&info, handnum);
+
+	lvupdate = g_Vars.lvupdate240_60;
+
+	hand->unk0cbc = g_Vars.lvupdate240_60;
+	hand->unk0cc0 += g_Vars.lvupdate240_60;
+
+	while (i >= 0) {
+		lvupdate = func0f09cb5c(&info, handnum, lvupdate);
+		i--;
+
+		if (lvupdate <= 0) {
+			break;
+		}
+	}
+}
 
 void func0f09ce8c(void)
 {
