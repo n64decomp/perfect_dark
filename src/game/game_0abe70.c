@@ -4155,6 +4155,214 @@ glabel var7f1acd8c
 /*  f0afa48:	27bd0200 */ 	addiu	$sp,$sp,0x200
 );
 
+// Mismatch: floating point callee-save register usage is different.
+// eg. the registers for 0.0000001f and -0.000001f should be f26 and f28
+// but the below loads them from rodata each time.
+// There is also something wrong with the dot rotation.
+//Gfx *lasersightRenderDot(Gfx *gdl)
+//{
+//	Mtxf *mtx;
+//	f32 fVar10;
+//	f32 f20;
+//	struct player *player = g_Vars.currentplayer;
+//	Mtxf sp1b0;
+//	struct coord campos; // 1a4
+//	Mtxf sp164;
+//	Mtxf sp124;
+//	s32 i;
+//
+//	static u32 sp1 = 800;
+//	static u32 sp2 = 7000;
+//	static u32 sp3 = 9000;
+//	static u32 spb = 24;
+//	static u32 spi = 6;
+//
+//	func0000db30("sp1", &sp1);
+//	func0000db30("sp2", &sp2);
+//	func0000db30("sp3", &sp3);
+//	func0000db30("spb", &spb);
+//	func0000db30("spi", &spi);
+//
+//	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//	gDPSetTextureFilter(gdl++, G_TF_BILERP);
+//	gDPSetTexturePersp(gdl++, G_TP_PERSP);
+//	gDPSetColorDither(gdl++, G_CD_DISABLE);
+//	gDPSetRenderMode(gdl++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
+//	gDPSetAlphaCompare(gdl++, G_AC_NONE);
+//	gDPSetTextureLOD(gdl++, G_TL_TILE);
+//	gDPSetTextureConvert(gdl++, G_TC_FILT);
+//	gDPSetTextureLUT(gdl++, G_TT_NONE);
+//	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
+//
+//	func000159b0(&sp164);
+//	func00015be0(currentPlayerGetMatrix1740(), &sp164);
+//	func000159b0(&sp124);
+//	func00015be0(currentPlayerGetUnk174c(), &sp124);
+//
+//	sp124.m[3][1] = 0;
+//	sp124.m[3][0] = 0;
+//	sp124.m[3][2] = 0;
+//
+//	func000159b0(&sp1b0);
+//	func00015be0(currentPlayerGetMatrix1740(), &sp1b0);
+//
+//	campos.x = player->cam_pos.x;
+//	campos.y = player->cam_pos.y;
+//	campos.z = player->cam_pos.z;
+//
+//	sp1b0.m[3][0] = 0.0f;
+//	sp1b0.m[3][1] = 0.0f;
+//	sp1b0.m[3][2] = 0.0f;
+//
+//	func00015f88(0.2f, &sp1b0);
+//
+//	mtx = gfxAllocateMatrix();
+//	func00016054(&sp1b0, mtx);
+//
+//	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//
+//	// 438
+//	for (i = 0; i < 4; i++) {
+//		if (g_LaserSights[i].id != -1) {
+//			struct coord pos; // e8
+//			struct coord rot; // dc
+//			u32 *colours;
+//			struct gfxvtx *vertices;
+//
+//			pos.x = g_LaserSights[i].dotpos.f[0];
+//			pos.y = g_LaserSights[i].dotpos.f[1];
+//			pos.z = g_LaserSights[i].dotpos.f[2];
+//
+//			rot.x = g_LaserSights[i].dotrot.f[0];
+//			rot.y = g_LaserSights[i].dotrot.f[1];
+//			rot.z = g_LaserSights[i].dotrot.f[2];
+//
+//			colours = gfxAllocateColours(2);
+//
+//			colours[0] = 0xff00005f;
+//			colours[1] = 0xff00000f;
+//
+//			gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 2);
+//
+//			// 4c4
+//			if (g_LaserSights[i].unk28 > 0.0f) {
+//				if (pos.f[0] < 0.0000001f || pos.f[0] > -0.000001f
+//						|| pos.f[1] < 0.0000001f || pos.f[1] > -0.000001f
+//						|| pos.f[2] < 0.0000001f || pos.f[2] > -0.000001f) {
+//					// 54c
+//					f32 f14;
+//					f32 f16;
+//					f32 f18;
+//					f32 f22;
+//					f32 f24;
+//					f32 f26;
+//					f32 f28;
+//					f32 f30;
+//					f32 f2;
+//					f32 sp1f;
+//					f32 sp2f;
+//					f32 sp3f;
+//
+//					f20 = spi; // = 6
+//
+//					pos.x = (pos.x - campos.x) * 5;
+//					pos.y = (pos.y - campos.y) * 5;
+//					pos.z = (pos.z - campos.z) * 5;
+//
+//					fVar10 = sqrtf(pos.f[0] * pos.f[0] + pos.f[1] * pos.f[1] + pos.f[2] * pos.f[2]);
+//
+//					sp1f = sp1;
+//
+//					// 600
+//					if (fVar10 > sp1f) { // > 800
+//						sp2f = sp2;
+//
+//						// 638
+//						if (fVar10 > sp2f) { // > 7000
+//							sp3f = sp3;
+//
+//							// 66c
+//							if (fVar10 > sp3f) { // > 9000
+//								f20 = 0.1f;
+//							} else {
+//								// 67c
+//								f32 tmp = spb + f20;
+//								f20 = tmp - tmp * ((fVar10 - sp2f) / (sp3f - sp2f));
+//							}
+//						} else {
+//							// 6c0
+//							f20 += (fVar10 - sp1f) * (spb / (sp2f - sp1f));
+//						}
+//					}
+//
+//					func0f0b39c0(&gdl, &var800ab5a8[4], 4, 0, 2, 1, 0);
+//
+//					// 724
+//					if (rot.f[0] == 0 && rot.f[2] == 0) {
+//						// 73c
+//						f18 = 1;
+//						f22 = 1;
+//						f24 = 0;
+//						f14 = 0;
+//						f16 = 0;
+//					} else {
+//						// 754
+//						f32 f0 = sqrtf(rot.f[0] * rot.f[0] + rot.f[1] * rot.f[1] + rot.f[2] * rot.f[2]);
+//						f26 = rot.x / f0;
+//						f30 = rot.y / f0;
+//						f28 = rot.z / f0;
+//
+//						f0 = sqrtf(f26 * f26 + f28 * f28);
+//						f2 = f26 / f0;
+//
+//						f22 = f28 / f0;
+//						f14 = f30 * f2;
+//						f16 = -f0;
+//						f18 = f30 * f22;
+//						f24 = -f2;
+//					}
+//
+//					// 7b8
+//					vertices = gfxAllocateVertices(4);
+//
+//					vertices[0].s = vertices[1].s = vertices[2].s = vertices[3].s = 0;
+//
+//					vertices[0].unk08 = 0;
+//					vertices[0].unk0a = 0;
+//					vertices[1].unk08 = 512;
+//					vertices[1].unk0a = 0;
+//					vertices[2].unk08 = 512;
+//					vertices[2].unk0a = 512;
+//					vertices[3].unk08 = 0;
+//					vertices[3].unk0a = 512;
+//
+//					vertices[0].x = pos.f[0] + ((-f20 * f22) + (f20 * f14));
+//					vertices[0].y = pos.f[1] + 0.0f + (f20 * f16);
+//					vertices[0].z = pos.f[2] + ((-f20 * f24) + (f20 * f18));
+//
+//					vertices[1].x = pos.f[0] + ((f20 * f22) + (f20 * f14));
+//					vertices[1].y = pos.f[1] + 0.0f + (f20 * f16);
+//					vertices[1].z = pos.f[2] + ((f20 * f24) + (f20 * f18));
+//
+//					vertices[2].x = pos.f[0] + ((f20 * f22) + (-f20 * f14));
+//					vertices[2].y = pos.f[1] + 0.0f + (-f20 * f16);
+//					vertices[2].z = pos.f[2] + ((f20 * f24) + (-f20 * f18));
+//
+//					vertices[3].x = pos.f[0] + ((-f20 * f22) + (-f20 * f14));
+//					vertices[3].y = pos.f[1] + 0.0f + (-f20 * f16);
+//					vertices[3].z = pos.f[2] + ((-f20 * f24) + (-f20 * f18));
+//
+//					gDPSetVerticeArray(gdl++, osVirtualToPhysical(vertices), 4);
+//
+//					gDPTri2(gdl++, 0, 1, 2, 2, 3, 0);
+//				}
+//			}
+//		}
+//	}
+//
+//	return gdl;
+//}
+
 GLOBAL_ASM(
 glabel lasersightRenderBeam
 .late_rodata
