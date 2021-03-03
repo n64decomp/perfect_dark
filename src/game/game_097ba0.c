@@ -11616,35 +11616,20 @@ glabel func0f0a0fac
 /*  f0a12ac:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0a12b0
-/*  f0a12b0:	00067900 */ 	sll	$t7,$a2,0x4
-/*  f0a12b4:	01e67823 */ 	subu	$t7,$t7,$a2
-/*  f0a12b8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a12bc:	01e67821 */ 	addu	$t7,$t7,$a2
-/*  f0a12c0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a12c4:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a12c8:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0a12cc:	01e67821 */ 	addu	$t7,$t7,$a2
-/*  f0a12d0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0a12d4:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0a12d8:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0a12dc:	a0580c14 */ 	sb	$t8,0xc14($v0)
-/*  f0a12e0:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0a12e4:	24420638 */ 	addiu	$v0,$v0,0x638
-/*  f0a12e8:	e44405ec */ 	swc1	$f4,0x5ec($v0)
-/*  f0a12ec:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f0a12f0:	e44605f0 */ 	swc1	$f6,0x5f0($v0)
-/*  f0a12f4:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f0a12f8:	e44805f4 */ 	swc1	$f8,0x5f4($v0)
-/*  f0a12fc:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f0a1300:	e44a05e0 */ 	swc1	$f10,0x5e0($v0)
-/*  f0a1304:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f0a1308:	e45005e4 */ 	swc1	$f16,0x5e4($v0)
-/*  f0a130c:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*  f0a1310:	03e00008 */ 	jr	$ra
-/*  f0a1314:	e45205e8 */ 	swc1	$f18,0x5e8($v0)
-);
+void func0f0a12b0(struct coord *arg0, struct coord *arg1, s32 handnum)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+
+	hand->unk0c14 = 1;
+
+	hand->unk0c24.x = arg0->x;
+	hand->unk0c24.y = arg0->y;
+	hand->unk0c24.z = arg0->z;
+
+	hand->unk0c18.x = arg1->x;
+	hand->unk0c18.y = arg1->y;
+	hand->unk0c18.z = arg1->z;
+}
 
 u32 handGetUnk0c30(s32 handnum)
 {

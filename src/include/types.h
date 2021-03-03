@@ -1987,13 +1987,9 @@ struct hand {
 	/*0x0c08*/ u32 unk0c08;
 	/*0x0c0c*/ u32 unk0c0c;
 	/*0x0c10*/ u32 unk0c10;
-	/*0x0c14*/ u32 unk0c14;
-	/*0x0c18*/ u32 unk0c18;
-	/*0x0c1c*/ u32 unk0c1c;
-	/*0x0c20*/ u32 unk0c20;
-	/*0x0c24*/ u32 unk0c24;
-	/*0x0c28*/ u32 unk0c28;
-	/*0x0c2c*/ u32 unk0c2c;
+	/*0x0c14*/ u8 unk0c14;
+	/*0x0c18*/ struct coord unk0c18;
+	/*0x0c24*/ struct coord unk0c24;
 	/*0x0c30*/ u32 unk0c30;
 	/*0x0c34*/ u32 unk0c34;
 	/*0x0c38*/ u32 unk0c38;
