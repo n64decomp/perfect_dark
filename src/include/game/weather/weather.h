@@ -15,8 +15,8 @@ void weatherTickSnow(struct weatherdata *weather);
 void weatherConfigureRain(u32 intensity);
 void weatherConfigureSnow(u32 intensity);
 bool weatherIsRoomWeatherProof(s32 room);
-u32 weatherRenderRain(void);
-u32 weatherRenderSnow(void);
+Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2);
+Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2);
 void weatherReset(void);
 
 #endif

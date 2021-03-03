@@ -47,176 +47,52 @@ u32 var8007f114 = 0x00000000;
 u32 var8007f118 = 0x00000000;
 u32 var8007f11c = 0x00000000;
 
-GLOBAL_ASM(
-glabel weatherRender
-/*  f131060:	3c058008 */ 	lui	$a1,%hi(g_WeatherData)
-/*  f131064:	8ca5f0c0 */ 	lw	$a1,%lo(g_WeatherData)($a1)
-/*  f131068:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f13106c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f131070:	14a00003 */ 	bnez	$a1,.L0f131080
-/*  f131074:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f131078:	10000093 */ 	b	.L0f1312c8
-/*  f13107c:	00801025 */ 	or	$v0,$a0,$zero
-.L0f131080:
-/*  f131080:	3c028008 */ 	lui	$v0,%hi(g_StageIndex)
-/*  f131084:	8c42fc00 */ 	lw	$v0,%lo(g_StageIndex)($v0)
-/*  f131088:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f13108c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f131090:	5441000c */ 	bnel	$v0,$at,.L0f1310c4
-/*  f131094:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f131098:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f13109c:	3c01c4fa */ 	lui	$at,0xc4fa
-/*  f1310a0:	44813000 */ 	mtc1	$at,$f6
-/*  f1310a4:	c5c41bb8 */ 	lwc1	$f4,0x1bb8($t6)
-/*  f1310a8:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f1310ac:	00000000 */ 	nop
-/*  f1310b0:	45020004 */ 	bc1fl	.L0f1310c4
-/*  f1310b4:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f1310b8:	10000083 */ 	b	.L0f1312c8
-/*  f1310bc:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*  f1310c0:	2401000a */ 	addiu	$at,$zero,0xa
-.L0f1310c4:
-/*  f1310c4:	14410007 */ 	bne	$v0,$at,.L0f1310e4
-/*  f1310c8:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x2ac)
-/*  f1310cc:	8defa26c */ 	lw	$t7,%lo(g_Vars+0x2ac)($t7)
-/*  f1310d0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1310d4:	51e10004 */ 	beql	$t7,$at,.L0f1310e8
-/*  f1310d8:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f1310dc:	1000007a */ 	b	.L0f1312c8
-/*  f1310e0:	8fa20030 */ 	lw	$v0,0x30($sp)
-.L0f1310e4:
-/*  f1310e4:	8fb80030 */ 	lw	$t8,0x30($sp)
-.L0f1310e8:
-/*  f1310e8:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1310ec:	3c088006 */ 	lui	$t0,%hi(var800613a0)
-/*  f1310f0:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f1310f4:	afb90030 */ 	sw	$t9,0x30($sp)
-/*  f1310f8:	3c040600 */ 	lui	$a0,0x600
-/*  f1310fc:	250813a0 */ 	addiu	$t0,$t0,%lo(var800613a0)
-/*  f131100:	af080004 */ 	sw	$t0,0x4($t8)
-/*  f131104:	af040000 */ 	sw	$a0,0x0($t8)
-/*  f131108:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f13110c:	3c0b8006 */ 	lui	$t3,%hi(var80061380)
-/*  f131110:	256b1380 */ 	addiu	$t3,$t3,%lo(var80061380)
-/*  f131114:	252a0008 */ 	addiu	$t2,$t1,0x8
-/*  f131118:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f13111c:	ad2b0004 */ 	sw	$t3,0x4($t1)
-/*  f131120:	ad240000 */ 	sw	$a0,0x0($t1)
-/*  f131124:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*  f131128:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f13112c:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f131130:	8d860020 */ 	lw	$a2,0x20($t4)
-/*  f131134:	3c05800b */ 	lui	$a1,%hi(var800ab5a8)
-/*  f131138:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f13113c:	14c10051 */ 	bne	$a2,$at,.L0f131284
-/*  f131140:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f131144:	8ca5b5a8 */ 	lw	$a1,%lo(var800ab5a8)($a1)
-/*  f131148:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f13114c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f131150:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f131154:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f131158:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f13115c:	0fc2ce70 */ 	jal	func0f0b39c0
-/*  f131160:	24a5000c */ 	addiu	$a1,$a1,0x000c
-/*  f131164:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*  f131168:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f13116c:	37391402 */ 	ori	$t9,$t9,0x1402
-/*  f131170:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f131174:	afb80030 */ 	sw	$t8,0x30($sp)
-/*  f131178:	ade00004 */ 	sw	$zero,0x4($t7)
-/*  f13117c:	adf90000 */ 	sw	$t9,0x0($t7)
-/*  f131180:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f131184:	3c0aba00 */ 	lui	$t2,0xba00
-/*  f131188:	354a0602 */ 	ori	$t2,$t2,0x602
-/*  f13118c:	25090008 */ 	addiu	$t1,$t0,0x8
-/*  f131190:	afa90030 */ 	sw	$t1,0x30($sp)
-/*  f131194:	240b0080 */ 	addiu	$t3,$zero,0x80
-/*  f131198:	ad0b0004 */ 	sw	$t3,0x4($t0)
-/*  f13119c:	ad0a0000 */ 	sw	$t2,0x0($t0)
-/*  f1311a0:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*  f1311a4:	3c0f0050 */ 	lui	$t7,0x50
-/*  f1311a8:	3c0eb900 */ 	lui	$t6,0xb900
-/*  f1311ac:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*  f1311b0:	afad0030 */ 	sw	$t5,0x30($sp)
-/*  f1311b4:	35ce031d */ 	ori	$t6,$t6,0x31d
-/*  f1311b8:	35ef49d8 */ 	ori	$t7,$t7,0x49d8
-/*  f1311bc:	ad8f0004 */ 	sw	$t7,0x4($t4)
-/*  f1311c0:	ad8e0000 */ 	sw	$t6,0x0($t4)
-/*  f1311c4:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f1311c8:	3c08b900 */ 	lui	$t0,0xb900
-/*  f1311cc:	35080002 */ 	ori	$t0,$t0,0x2
-/*  f1311d0:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f1311d4:	afb90030 */ 	sw	$t9,0x30($sp)
-/*  f1311d8:	af000004 */ 	sw	$zero,0x4($t8)
-/*  f1311dc:	af080000 */ 	sw	$t0,0x0($t8)
-/*  f1311e0:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f1311e4:	3c0bba00 */ 	lui	$t3,0xba00
-/*  f1311e8:	356b1001 */ 	ori	$t3,$t3,0x1001
-/*  f1311ec:	252a0008 */ 	addiu	$t2,$t1,0x8
-/*  f1311f0:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f1311f4:	ad200004 */ 	sw	$zero,0x4($t1)
-/*  f1311f8:	ad2b0000 */ 	sw	$t3,0x0($t1)
-/*  f1311fc:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*  f131200:	3c0eba00 */ 	lui	$t6,0xba00
-/*  f131204:	35ce0903 */ 	ori	$t6,$t6,0x903
-/*  f131208:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*  f13120c:	afad0030 */ 	sw	$t5,0x30($sp)
-/*  f131210:	240f0c00 */ 	addiu	$t7,$zero,0xc00
-/*  f131214:	ad8f0004 */ 	sw	$t7,0x4($t4)
-/*  f131218:	ad8e0000 */ 	sw	$t6,0x0($t4)
-/*  f13121c:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f131220:	3c09fffe */ 	lui	$t1,0xfffe
-/*  f131224:	3c08fcff */ 	lui	$t0,0xfcff
-/*  f131228:	27190008 */ 	addiu	$t9,$t8,0x8
-/*  f13122c:	afb90030 */ 	sw	$t9,0x30($sp)
-/*  f131230:	3508ffff */ 	ori	$t0,$t0,0xffff
-/*  f131234:	3529793c */ 	ori	$t1,$t1,0x793c
-/*  f131238:	af090004 */ 	sw	$t1,0x4($t8)
-/*  f13123c:	af080000 */ 	sw	$t0,0x0($t8)
-/*  f131240:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f131244:	3c0cb700 */ 	lui	$t4,0xb700
-/*  f131248:	240d0204 */ 	addiu	$t5,$zero,0x204
-/*  f13124c:	254b0008 */ 	addiu	$t3,$t2,0x8
-/*  f131250:	afab0030 */ 	sw	$t3,0x30($sp)
-/*  f131254:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f131258:	ad4c0000 */ 	sw	$t4,0x0($t2)
-/*  f13125c:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f131260:	3c18ba00 */ 	lui	$t8,0xba00
-/*  f131264:	37180402 */ 	ori	$t8,$t8,0x402
-/*  f131268:	25cf0008 */ 	addiu	$t7,$t6,0x8
-/*  f13126c:	afaf0030 */ 	sw	$t7,0x30($sp)
-/*  f131270:	24190020 */ 	addiu	$t9,$zero,0x20
-/*  f131274:	add90004 */ 	sw	$t9,0x4($t6)
-/*  f131278:	add80000 */ 	sw	$t8,0x0($t6)
-/*  f13127c:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f131280:	8d060020 */ 	lw	$a2,0x20($t0)
-.L0f131284:
-/*  f131284:	10c00006 */ 	beqz	$a2,.L0f1312a0
-/*  f131288:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f13128c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f131290:	10c10008 */ 	beq	$a2,$at,.L0f1312b4
-/*  f131294:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f131298:	1000000b */ 	b	.L0f1312c8
-/*  f13129c:	8fa20030 */ 	lw	$v0,0x30($sp)
-.L0f1312a0:
-/*  f1312a0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f1312a4:	0fc4cb8a */ 	jal	weatherRenderRain
-/*  f1312a8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1312ac:	10000005 */ 	b	.L0f1312c4
-/*  f1312b0:	afa20030 */ 	sw	$v0,0x30($sp)
-.L0f1312b4:
-/*  f1312b4:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f1312b8:	0fc4d1ac */ 	jal	weatherRenderSnow
-/*  f1312bc:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1312c0:	afa20030 */ 	sw	$v0,0x30($sp)
-.L0f1312c4:
-/*  f1312c4:	8fa20030 */ 	lw	$v0,0x30($sp)
-.L0f1312c8:
-/*  f1312c8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1312cc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1312d0:	03e00008 */ 	jr	$ra
-/*  f1312d4:	00000000 */ 	nop
-);
+Gfx *weatherRender(Gfx *gdl)
+{
+	struct weatherdata *weather;
+
+	if (!g_WeatherData) {
+		return gdl;
+	}
+
+	if (g_StageIndex == STAGEINDEX_AIRBASE && g_Vars.currentplayer->cam_pos.z < -2000.0f) {
+		return gdl;
+	}
+
+	if (g_StageIndex == STAGEINDEX_G5BUILDING && g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		return gdl;
+	}
+
+	weather = g_WeatherData;
+
+	gSPDisplayList(gdl++, &var800613a0);
+	gSPDisplayList(gdl++, &var80061380);
+
+	if (weather->type == WEATHERTYPE_SNOW) {
+		func0f0b39c0(&gdl, &var800ab5a8[1], 2, 1, 2, 1, 0);
+
+		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+		gDPSetColorDither(gdl++, G_CD_NOISE);
+		gDPSetRenderMode(gdl++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
+		gDPSetAlphaCompare(gdl++, G_AC_NONE);
+		gDPSetTextureLOD(gdl++, G_TL_TILE);
+		gDPSetTextureConvert(gdl++, G_TC_FILT);
+		gDPSetCombineMode(gdl++, G_CC_SHADE, G_CC_SHADE);
+		gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
+		gDPSetAlphaDither(gdl++, G_AD_NOISE);
+	}
+
+	switch (weather->type) {
+	case WEATHERTYPE_RAIN:
+		gdl = weatherRenderRain(gdl, weather, 0);
+		break;
+	case WEATHERTYPE_SNOW:
+		gdl = weatherRenderSnow(gdl, weather, 0);
+		break;
+	}
+
+	return gdl;
+}
 
 void weatherSetBoundaries(struct weatherparticledata *data, s32 index, f32 min, f32 max)
 {
