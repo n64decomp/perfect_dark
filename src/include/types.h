@@ -6851,4 +6851,10 @@ struct aibotweaponpreference {
 	u16 unk0e_03 : 1;
 };
 
+struct handweaponinfo {
+	s32 weaponnum;
+	struct weapon *definition;
+	struct gunctrl *gunctrl;
+};
+
 #endif

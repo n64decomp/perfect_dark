@@ -1441,30 +1441,14 @@ glabel func0f098c0c
 /*  f098c48:	a08c06d6 */ 	sb	$t4,0x6d6($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f098c4c
-/*  f098c4c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f098c50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f098c54:	00803025 */ 	or	$a2,$a0,$zero
-/*  f098c58:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f098c5c:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f098c60:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f098c64:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f098c68:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f098c6c:	3c0f8007 */ 	lui	$t7,%hi(g_Weapons)
-/*  f098c70:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f098c74:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f098c78:	8defff18 */ 	lw	$t7,%lo(g_Weapons)($t7)
-/*  f098c7c:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f098c80:	accf0004 */ 	sw	$t7,0x4($a2)
-/*  f098c84:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f098c88:	27191580 */ 	addiu	$t9,$t8,0x1580
-/*  f098c8c:	acd90008 */ 	sw	$t9,0x8($a2)
-/*  f098c90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f098c94:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f098c98:	03e00008 */ 	jr	$ra
-/*  f098c9c:	00000000 */ 	nop
-);
+void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum)
+{
+	s32 weaponnum = getCurrentPlayerWeaponIdWrapper(handnum);
+
+	info->weaponnum = weaponnum;
+	info->definition = g_Weapons[weaponnum];
+	info->gunctrl = &g_Vars.currentplayer->gunctrl;
+}
 
 GLOBAL_ASM(
 glabel func0f098ca0
@@ -1714,15 +1698,15 @@ glabel func0f098f8c
 
 bool func0f099008(s32 handnum)
 {
-	s32 sp1c[3];
+	struct handweaponinfo info;
 
-	func0f098c4c(sp1c, handnum);
+	handGetWeaponInfo(&info, handnum);
 
-	if (func0f098ca0(0, sp1c, &g_Vars.currentplayer->hands[handnum]) > 0) {
+	if (func0f098ca0(0, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
 		return true;
 	}
 
-	if (func0f098ca0(1, sp1c, &g_Vars.currentplayer->hands[handnum]) > 0) {
+	if (func0f098ca0(1, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
 		return true;
 	}
 
@@ -2410,7 +2394,7 @@ glabel var7f1ac1b4
 /*  f099a88:	24030001 */ 	addiu	$v1,$zero,0x1
 /*  f099a8c:	afaa004c */ 	sw	$t2,0x4c($sp)
 /*  f099a90:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f099a94:	0fc26313 */ 	jal	func0f098c4c
+/*  f099a94:	0fc26313 */ 	jal	handGetWeaponInfo
 /*  f099a98:	27a40040 */ 	addiu	$a0,$sp,0x40
 /*  f099a9c:	8fa6004c */ 	lw	$a2,0x4c($sp)
 /*  f099aa0:	8fa3003c */ 	lw	$v1,0x3c($sp)
@@ -6644,7 +6628,7 @@ glabel func0f09cdc4
 /*  f09ce14:	24110014 */ 	addiu	$s1,$zero,0x14
 /*  f09ce18:	02402025 */ 	or	$a0,$s2,$zero
 /*  f09ce1c:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f09ce20:	0fc26313 */ 	jal	func0f098c4c
+/*  f09ce20:	0fc26313 */ 	jal	handGetWeaponInfo
 /*  f09ce24:	02602825 */ 	or	$a1,$s3,$zero
 /*  f09ce28:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f09ce2c:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
@@ -21944,7 +21928,7 @@ glabel hudRenderAmmo
 /*  f0aaac4:	afa2005c */ 	sw	$v0,0x5c($sp)
 /*  f0aaac8:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f0aaacc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0aaad0:	0fc26313 */ 	jal	func0f098c4c
+/*  f0aaad0:	0fc26313 */ 	jal	handGetWeaponInfo
 /*  f0aaad4:	afb900f0 */ 	sw	$t9,0xf0($sp)
 /*  f0aaad8:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f0aaadc:	00000000 */ 	nop
