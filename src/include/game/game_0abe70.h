@@ -17,7 +17,7 @@ s32 func0f0aec54(s32 arg0);
 s32 func0f0aeca8(s32 arg0);
 void func0f0aed3c(s32 index, struct coord *coord);
 void func0f0aed70(s32 index, struct coord *coord);
-u32 func0f0aeda4(void);
+void func0f0aeda4(s32 arg0, f32 arg1, u32 arg2);
 void func0f0aeea8(s32 index, f32 arg1);
 Gfx *func0f0aeed8(Gfx *gdl);
 void func0f0aefb8(void);

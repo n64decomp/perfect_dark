@@ -3435,84 +3435,27 @@ Gfx *func0f0aeed8(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f0aefb8
-/*  f0aefb8:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0aefbc:	afb40034 */ 	sw	$s4,0x34($sp)
-/*  f0aefc0:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f0aefc4:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f0aefc8:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f0aefcc:	3c014270 */ 	lui	$at,0x4270
-/*  f0aefd0:	afb50038 */ 	sw	$s5,0x38($sp)
-/*  f0aefd4:	afb30030 */ 	sw	$s3,0x30($sp)
-/*  f0aefd8:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*  f0aefdc:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f0aefe0:	3c10800a */ 	lui	$s0,%hi(var8009da60)
-/*  f0aefe4:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f0aefe8:	4481a000 */ 	mtc1	$at,$f20
-/*  f0aefec:	4480b000 */ 	mtc1	$zero,$f22
-/*  f0aeff0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0aeff4:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f0aeff8:	2610da60 */ 	addiu	$s0,$s0,%lo(var8009da60)
-/*  f0aeffc:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0af000:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f0af004:	24130001 */ 	addiu	$s3,$zero,0x1
-/*  f0af008:	24150008 */ 	addiu	$s5,$zero,0x8
-.L0f0af00c:
-/*  f0af00c:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f0af010:	524e0023 */ 	beql	$s2,$t6,.L0f0af0a0
-/*  f0af014:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0af018:	920f0005 */ 	lbu	$t7,0x5($s0)
-/*  f0af01c:	566f0020 */ 	bnel	$s3,$t7,.L0f0af0a0
-/*  f0af020:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0af024:	c6080020 */ 	lwc1	$f8,0x20($s0)
-/*  f0af028:	c60a0014 */ 	lwc1	$f10,0x14($s0)
-/*  f0af02c:	c6040028 */ 	lwc1	$f4,0x28($s0)
-/*  f0af030:	c606001c */ 	lwc1	$f6,0x1c($s0)
-/*  f0af034:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f0af038:	c6100024 */ 	lwc1	$f16,0x24($s0)
-/*  f0af03c:	c6120018 */ 	lwc1	$f18,0x18($s0)
-/*  f0af040:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f0af044:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f0af048:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f0af04c:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f0af050:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0af054:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f0af058:	0c012974 */ 	jal	sqrtf
-/*  f0af05c:	46085300 */ 	add.s	$f12,$f10,$f8
-/*  f0af060:	c610002c */ 	lwc1	$f16,0x2c($s0)
-/*  f0af064:	c6920044 */ 	lwc1	$f18,0x44($s4)
-/*  f0af068:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0af06c:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f0af070:	46142183 */ 	div.s	$f6,$f4,$f20
-/*  f0af074:	46060081 */ 	sub.s	$f2,$f0,$f6
-/*  f0af078:	4616103c */ 	c.lt.s	$f2,$f22
-/*  f0af07c:	00000000 */ 	nop
-/*  f0af080:	45020004 */ 	bc1fl	.L0f0af094
-/*  f0af084:	44051000 */ 	mfc1	$a1,$f2
-/*  f0af088:	10000004 */ 	b	.L0f0af09c
-/*  f0af08c:	ae120000 */ 	sw	$s2,0x0($s0)
-/*  f0af090:	44051000 */ 	mfc1	$a1,$f2
-.L0f0af094:
-/*  f0af094:	0fc2bb69 */ 	jal	func0f0aeda4
-/*  f0af098:	00003025 */ 	or	$a2,$zero,$zero
-.L0f0af09c:
-/*  f0af09c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f0af0a0:
-/*  f0af0a0:	1635ffda */ 	bne	$s1,$s5,.L0f0af00c
-/*  f0af0a4:	26100030 */ 	addiu	$s0,$s0,0x30
-/*  f0af0a8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0af0ac:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f0af0b0:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f0af0b4:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f0af0b8:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f0af0bc:	8fb2002c */ 	lw	$s2,0x2c($sp)
-/*  f0af0c0:	8fb30030 */ 	lw	$s3,0x30($sp)
-/*  f0af0c4:	8fb40034 */ 	lw	$s4,0x34($sp)
-/*  f0af0c8:	8fb50038 */ 	lw	$s5,0x38($sp)
-/*  f0af0cc:	03e00008 */ 	jr	$ra
-/*  f0af0d0:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void func0f0aefb8(void)
+{
+	s32 i;
+
+	for (i = 0; i < 8; i++) {
+		if (var8009da60[i].unk00 != -1 && var8009da60[i].unk05 == 1) {
+			f32 value = sqrtf(
+					(var8009da60[i].unk20.f[0] - var8009da60[i].unk14.f[0]) * (var8009da60[i].unk20.f[0] - var8009da60[i].unk14.f[0]) +
+					(var8009da60[i].unk20.f[1] - var8009da60[i].unk14.f[1]) * (var8009da60[i].unk20.f[1] - var8009da60[i].unk14.f[1]) +
+					(var8009da60[i].unk20.f[2] - var8009da60[i].unk14.f[2]) * (var8009da60[i].unk20.f[2] - var8009da60[i].unk14.f[2]));
+
+			value -= var8009da60[i].unk2c * g_Vars.lvupdate240f / 60.0f;
+
+			if (value < 0) {
+				var8009da60[i].unk00 = -1;
+			} else {
+				func0f0aeda4(i, value, 0);
+			}
+		}
+	}
+}
 
 /**
  * Return true if a lasersight with the given ID exists, or false if not.
