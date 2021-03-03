@@ -515,6 +515,7 @@
 #define SFX_FIRE_SHOTGUN                        0x8055
 #define SFX_DRUGSPY_FIREDART                    0x8057
 #define SFX_SLAYER_WHIR                         0x8068
+#define SFX_PUNCH_GLASS                         0x8077
 #define SFX_GLASS_SHATTER                       0x8078
 #define SFX_THUD_808D                           0x808d
 #define SFX_THUD_808E                           0x808e

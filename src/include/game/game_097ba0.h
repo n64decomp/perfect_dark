@@ -136,7 +136,7 @@ u32 func0f0a695c(void);
 u32 func0f0a6c30(void);
 u32 func0f0a70f8(void);
 void func0f0a7138(Gfx **gdl);
-u32 func0f0a7d5c(void);
+struct audiohandle **func0f0a7d5c(void);
 void func0f0a7d98(struct shorthand *hand, struct prop *prop, s32 arg2);
 void func0f0a8404(struct coord *pos, s16 *rooms, s32 arg2);
 u32 func0f0a84c8(void);
