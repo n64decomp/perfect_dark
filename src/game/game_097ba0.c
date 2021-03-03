@@ -7707,13 +7707,10 @@ glabel func0f09ddcc
 /*  f09dde8:	8dc21590 */ 	lw	$v0,0x1590($t6)
 );
 
-GLOBAL_ASM(
-glabel func0f09ddec
-/*  f09ddec:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f09ddf0:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f09ddf4:	03e00008 */ 	jr	$ra
-/*  f09ddf8:	8dc2158c */ 	lw	$v0,0x158c($t6)
-);
+u8 *func0f09ddec(void)
+{
+	return g_Vars.currentplayer->gunctrl.unk158c;
+}
 
 GLOBAL_ASM(
 glabel func0f09ddfc

@@ -356,16 +356,16 @@ struct menudialog *func0f10d730(void)
 void func0f10d770(void)
 {
 	func0f0f8bb4(&g_Menus[0].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[0].unk844 = func0f09ddec() + func0f0e4fe0();
+	g_Menus[0].mpconfigbuffer = func0f09ddec() + func0f0e4fe0();
 
 	func0f0f8bb4(&g_Menus[1].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[1].unk844 = func0f09ddec() + func0f0e4fe0();
+	g_Menus[1].mpconfigbuffer = func0f09ddec() + func0f0e4fe0();
 
 	func0f0f8bb4(&g_Menus[2].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[2].unk844 = func0f09ddec() + func0f0e4fe0();
+	g_Menus[2].mpconfigbuffer = func0f09ddec() + func0f0e4fe0();
 
 	func0f0f8bb4(&g_Menus[3].unk840, func0f09ddfc() - func0f0e4fe0(), 0);
-	g_Menus[3].unk844 = func0f09ddec() + func0f0e4fe0();
+	g_Menus[3].mpconfigbuffer = func0f09ddec() + func0f0e4fe0();
 }
 
 s32 menuhandlerReplayLastLevel(s32 operation, struct menuitem *item, union handlerdata *data)

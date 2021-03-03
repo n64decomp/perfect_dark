@@ -58,7 +58,7 @@ u32 func0f09d550(void);
 void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
 bool func0f09dd7c(void);
 u32 func0f09ddcc(void);
-u32 func0f09ddec(void);
+u8 *func0f09ddec(void);
 u32 func0f09ddfc(void);
 void func0f09df50(void);
 void func0f09df64(s32 weaponnum);
