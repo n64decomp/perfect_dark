@@ -47,7 +47,7 @@ u32 func0f09bf44(void);
 u32 func0f09c01c(void);
 u32 func0f09cb44(void);
 s32 func0f09cb5c(struct handweaponinfo *info, s32 handnum, s32 lvupdate);
-u32 func0f09cd18(void);
+void func0f09cd18(s32 handnum, s32 arg1);
 void func0f09cdc4(s32 handnum);
 void func0f09ce8c(void);
 void func0f09ceac(void);
