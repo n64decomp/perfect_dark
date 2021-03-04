@@ -164,7 +164,7 @@ void currentPlayerGiveAmmoForWeapon(u32 weaponnum, u32 func, u32 quantity);
 u32 func0f0a9b10(void);
 u32 func0f0a9b68(void);
 u32 func0f0a9d2c(void);
-void func0f0a9d94(u32 *arg0);
+void abmagReset(struct abmag *abmag);
 u32 func0f0a9da8(void);
 u32 func0f0a9fc0(void);
 Gfx *hudRenderAmmo(Gfx *gdl);

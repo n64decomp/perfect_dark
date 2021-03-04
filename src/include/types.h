@@ -1719,6 +1719,14 @@ struct beam {
 	/*0x28*/ f32 dist;
 };
 
+struct abmag {
+	u16 unk00;
+	u16 unk02;
+	u8 unk04;
+	u8 unk05;
+	u16 alignment;
+};
+
 // The first 4 bytes of the hand struct
 struct shorthand {
 	u8 weaponnum;
@@ -2081,23 +2089,22 @@ struct hand {
 	/*0x0d7c*/ u32 unk0d7c;
 	/*0x0d80*/ struct remoteminething *unk0d80;
 	/*0x0d84*/ struct audiohandle *audiohandle;
-	/*0x0d88*/ u32 unk0d88;
-	/*0x0d8c*/ u32 unk0d8c;
-	/*0x0d90*/ u32 unk0d90;
-	/*0x0d94*/ u32 unk0d94;
-	/*0x0d98*/ u32 unk0d98;
-	/*0x0d9c*/ u32 unk0d9c;
-	/*0x0da0*/ u32 unk0da0;
-	/*0x0da4*/ u32 unk0da4;
-	/*0x0da8*/ u32 unk0da8;
-	/*0x0dac*/ u32 unk0dac;
-	/*0x0db0*/ u32 unk0db0;
-	/*0x0db4*/ u32 unk0db4;
-	/*0x0db8*/ f32 unk0db8;
-	/*0x0dbc*/ u32 unk0dbc;
-	/*0x0dc0*/ u32 unk0dc0;
-	/*0x0dc4*/ u32 unk0dc4;
-	/*0x0dc8*/ u32 unk0dc8;
+	/*0x0d88*/ u32 ispare4;
+	/*0x0d8c*/ u32 ispare5;
+	/*0x0d90*/ u32 ispare6;
+	/*0x0d94*/ u32 ispare7;
+	/*0x0d98*/ u32 ispare8;
+	/*0x0d9c*/ u32 ispare9;
+	/*0x0da0*/ u32 ispare10;
+	/*0x0da4*/ f32 fspare1;
+	/*0x0da8*/ f32 fspare2;
+	/*0x0dac*/ f32 fspare3;
+	/*0x0db0*/ f32 fspare4;
+	/*0x0db4*/ f32 fspare5;
+	/*0x0db8*/ f32 gunsmokepoint;
+	/*0x0dbc*/ u32 fspare7;
+	/*0x0dc0*/ u32 fspare8;
+	/*0x0dc4*/ struct abmag abmag;
 	/*0x0dcc*/ u32 unk0dcc;
 	/*0x0dd0*/ u32 unk0dd0;
 	/*0x0dd4*/ u32 unk0dd4;
@@ -2150,8 +2157,7 @@ struct gunctrl {
 	/*0x15d0*/ u32 unk15d0;
 	/*0x15d4*/ u32 unk15d4;
 	/*0x15d8*/ u32 unk15d8;
-	/*0x15dc*/ u32 unk15dc;
-	/*0x15e0*/ u32 unk15e0;
+	/*0x15dc*/ struct abmag abmag;
 	/*0x15e4*/ s8 ammotypes[2];
 	/*0x15e6*/ u8 unk15e6;
 	/*0x15e7*/ u8 unk15e7;

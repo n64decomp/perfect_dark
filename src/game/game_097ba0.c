@@ -11645,7 +11645,7 @@ void func0f0a1528(void)
 				player->hands[i].matmot2 = 0.0f;
 				player->hands[i].matmot3 = 0.0f;
 				player->hands[i].angledamper = 0.0f;
-				player->hands[i].unk0db8 = 0.0f;
+				player->hands[i].gunsmokepoint = 0.0f;
 				player->hands[i].unk0b90 = 0;
 				player->hands[i].unk0888 = 0.0f;
 				player->hands[i].allowshootframe = 0;
@@ -20620,14 +20620,13 @@ glabel func0f0a9d2c
 /*  f0a9d90:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0a9d94
-/*  f0a9d94:	a4800000 */ 	sh	$zero,0x0($a0)
-/*  f0a9d98:	a0800005 */ 	sb	$zero,0x5($a0)
-/*  f0a9d9c:	a0800004 */ 	sb	$zero,0x4($a0)
-/*  f0a9da0:	03e00008 */ 	jr	$ra
-/*  f0a9da4:	a4800002 */ 	sh	$zero,0x2($a0)
-);
+void abmagReset(struct abmag *abmag)
+{
+	abmag->unk00 = 0;
+	abmag->unk05 = 0;
+	abmag->unk04 = 0;
+	abmag->unk02 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0a9da8
@@ -22129,13 +22128,13 @@ glabel hudRenderAmmo
 /*  f0ab344:	8fa4012c */ 	lw	$a0,0x12c($sp)
 /*  f0ab348:	132f000d */ 	beq	$t9,$t7,.L0f0ab380
 /*  f0ab34c:	24841568 */ 	addiu	$a0,$a0,0x1568
-/*  f0ab350:	0fc2a765 */ 	jal	func0f0a9d94
+/*  f0ab350:	0fc2a765 */ 	jal	abmagReset
 /*  f0ab354:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab358:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f0ab35c:	0fc2a765 */ 	jal	func0f0a9d94
+/*  f0ab35c:	0fc2a765 */ 	jal	abmagReset
 /*  f0ab360:	2484078c */ 	addiu	$a0,$a0,0x78c
 /*  f0ab364:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*  f0ab368:	0fc2a765 */ 	jal	func0f0a9d94
+/*  f0ab368:	0fc2a765 */ 	jal	abmagReset
 /*  f0ab36c:	2544005c */ 	addiu	$a0,$t2,0x5c
 /*  f0ab370:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ab374:	8fae0110 */ 	lw	$t6,0x110($sp)
@@ -22758,10 +22757,10 @@ void func0f0abd30(s32 handnum)
 	hand->unk08c0 = 1;
 
 	if (gunctrl->ammotypes[0] >= 0) {
-		func0f0a9d94(&hand->unk0dc4);
+		abmagReset(&hand->abmag);
 
 		if (handnum == HAND_RIGHT) {
-			func0f0a9d94(&gunctrl->unk15dc);
+			abmagReset(&gunctrl->abmag);
 		}
 
 		gunctrl->unk15e9 = 0;
