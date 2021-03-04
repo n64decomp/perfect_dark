@@ -11800,74 +11800,36 @@ void func0f0a1b50(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0a1c2c
-/*  f0a1c2c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0a1c30:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0a1c34:	8c4e02ac */ 	lw	$t6,0x2ac($v0)
-/*  f0a1c38:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0a1c3c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0a1c40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a1c44:	11c1002f */ 	beq	$t6,$at,.L0f0a1d04
-/*  f0a1c48:	8c430284 */ 	lw	$v1,0x284($v0)
-/*  f0a1c4c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a1c50:	0fc2869a */ 	jal	func0f0a1a68
-/*  f0a1c54:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0a1c58:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0a1c5c:	0fc2869a */ 	jal	func0f0a1a68
-/*  f0a1c60:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a1c64:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f0a1c68:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0a1c6c:	14410002 */ 	bne	$v0,$at,.L0f0a1c78
-/*  f0a1c70:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0a1c74:	afa00020 */ 	sw	$zero,0x20($sp)
-.L0f0a1c78:
-/*  f0a1c78:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f0a1c7c:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f0a1c80:	29e1002d */ 	slti	$at,$t7,0x2d
-/*  f0a1c84:	10200003 */ 	beqz	$at,.L0f0a1c94
-/*  f0a1c88:	2b01002d */ 	slti	$at,$t8,0x2d
-/*  f0a1c8c:	1420000c */ 	bnez	$at,.L0f0a1cc0
-/*  f0a1c90:	27a40024 */ 	addiu	$a0,$sp,0x24
-.L0f0a1c94:
-/*  f0a1c94:	80791581 */ 	lb	$t9,0x1581($v1)
-/*  f0a1c98:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f0a1c9c:	8c691580 */ 	lw	$t1,0x1580($v1)
-/*  f0a1ca0:	80681581 */ 	lb	$t0,0x1581($v1)
-/*  f0a1ca4:	00095640 */ 	sll	$t2,$t1,0x19
-/*  f0a1ca8:	000a5fc2 */ 	srl	$t3,$t2,0x1f
-/*  f0a1cac:	010b0019 */ 	multu	$t0,$t3
-/*  f0a1cb0:	00006012 */ 	mflo	$t4
-/*  f0a1cb4:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f0a1cb8:	10000007 */ 	b	.L0f0a1cd8
-/*  f0a1cbc:	8fad0020 */ 	lw	$t5,0x20($sp)
-.L0f0a1cc0:
-/*  f0a1cc0:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f0a1cc4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0a1cc8:	0fc4494f */ 	jal	func0f11253c
-/*  f0a1ccc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0a1cd0:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0a1cd4:	8fad0020 */ 	lw	$t5,0x20($sp)
-.L0f0a1cd8:
-/*  f0a1cd8:	55a00006 */ 	bnezl	$t5,.L0f0a1cf4
-/*  f0a1cdc:	90791583 */ 	lbu	$t9,0x1583($v1)
-/*  f0a1ce0:	906e1583 */ 	lbu	$t6,0x1583($v1)
-/*  f0a1ce4:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f0a1ce8:	10000004 */ 	b	.L0f0a1cfc
-/*  f0a1cec:	a06f1583 */ 	sb	$t7,0x1583($v1)
-/*  f0a1cf0:	90791583 */ 	lbu	$t9,0x1583($v1)
-.L0f0a1cf4:
-/*  f0a1cf4:	37290080 */ 	ori	$t1,$t9,0x80
-/*  f0a1cf8:	a0691583 */ 	sb	$t1,0x1583($v1)
-.L0f0a1cfc:
-/*  f0a1cfc:	0fc2865b */ 	jal	currentPlayerEquipWeapon
-/*  f0a1d00:	8fa40024 */ 	lw	$a0,0x24($sp)
-.L0f0a1d04:
-/*  f0a1d04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a1d08:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0a1d0c:	03e00008 */ 	jr	$ra
-/*  f0a1d10:	00000000 */ 	nop
-);
+void func0f0a1c2c(void)
+{
+	s32 weaponnum1;
+	s32 weaponnum2;
+	struct player *player = g_Vars.currentplayer;
+
+	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		weaponnum1 = func0f0a1a68(0);
+		weaponnum2 = func0f0a1a68(1);
+
+		if (weaponnum2 == WEAPON_REMOTEMINE) {
+			weaponnum2 = WEAPON_NONE;
+		}
+
+		if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
+			weaponnum1 = player->gunctrl.prevweaponnum;
+			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
+		} else {
+			func0f11253c(&weaponnum1, &weaponnum2, 0);
+		}
+
+		if (weaponnum2 == WEAPON_NONE) {
+			player->gunctrl.unk1583_00 = false;
+		} else {
+			player->gunctrl.unk1583_00 = true;
+		}
+
+		currentPlayerEquipWeapon(weaponnum1);
+	}
+}
 
 /**
  * Return true if the player has ammo for the given weapon (for either function)
