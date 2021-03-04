@@ -62,9 +62,9 @@ struct weaponfunc *handGetWeaponFunction(struct shorthand *hand)
 	return NULL;
 }
 
-struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which)
+struct weaponfunc *weaponGetFunction(struct shorthand *hand, s32 which)
 {
-	struct weapon *weapon = g_Weapons[*arg0];
+	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
 	if (weapon) {
 		return weapon->functions[which];

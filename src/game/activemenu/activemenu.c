@@ -761,8 +761,8 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		if (slot == 4) {
 			strcpy(label, langGet(L_MISC(171))); // "Function"
 		} else if (slot == 1 || slot == 7) {
-			prifunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum, FUNC_PRIMARY);
-			secfunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum, FUNC_SECONDARY);
+			prifunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].base, FUNC_PRIMARY);
+			secfunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].base, FUNC_SECONDARY);
 
 			if (slot == 1) {
 				if (!secfunc

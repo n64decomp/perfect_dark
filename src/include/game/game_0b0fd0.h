@@ -8,7 +8,7 @@ struct weapon *weaponFindById(s32 itemid);
 struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which);
 struct weaponfunc *handGetWeaponFunction2(struct shorthand *hand);
 struct weaponfunc *handGetWeaponFunction(struct shorthand *hand);
-struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which);
+struct weaponfunc *weaponGetFunction(struct shorthand *hand, s32 which);
 struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand);
 struct inventory_typee *func0f0b11bc(struct shorthand *hand);
 struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum);
