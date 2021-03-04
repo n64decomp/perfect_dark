@@ -5963,7 +5963,11 @@ struct mplockinfo {
 };
 
 struct var8009da60 {
-	s32 unk00;
+	union {
+		s32 unk00;
+		struct prop *unk00_prop;
+	};
+
 	u8 unk04;
 	u8 unk05;
 	u32 unk08;

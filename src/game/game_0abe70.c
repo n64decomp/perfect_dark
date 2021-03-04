@@ -3282,13 +3282,13 @@ glabel func0f0aebe0
 /*  f0aec50:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-s32 func0f0aec54(s32 arg0)
+s32 func0f0aec54(struct prop *prop)
 {
 	s32 result = -1;
 	s32 i = 0;
 
 	for (; i < 8 && result == -1; i++) {
-		if (arg0 == var8009da60[i].unk00) {
+		if (var8009da60[i].unk00_prop == prop) {
 			result = i;
 		}
 	}
@@ -3296,21 +3296,21 @@ s32 func0f0aec54(s32 arg0)
 	return result;
 }
 
-s32 func0f0aeca8(s32 arg0)
+s32 func0f0aeca8(struct prop *prop)
 {
-	s32 index = func0f0aec54(-1);
+	s32 index = func0f0aec54((struct prop *) -1);
 
 	if (index >= 0) {
 		var8009da60[index].unk05 = 0;
-		var8009da60[index].unk00 = arg0;
+		var8009da60[index].unk00_prop = prop;
 	}
 
 	return index;
 }
 
-void func0f0aecfc(s32 arg0)
+void func0f0aecfc(struct prop *prop)
 {
-	s32 index = func0f0aec54(arg0);
+	s32 index = func0f0aec54(prop);
 
 	if (index != -1) {
 		var8009da60[index].unk00 = -1;

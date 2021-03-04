@@ -8722,100 +8722,46 @@ s32 func0f09ebbc(void)
 	return g_Vars.currentplayer->gunctrl.unk1598;
 }
 
-GLOBAL_ASM(
-glabel func0f09ebcc
-/*  f09ebcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f09ebd0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f09ebd4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f09ebd8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f09ebdc:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f09ebe0:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f09ebe4:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f09ebe8:	8c910014 */ 	lw	$s1,0x14($a0)
-/*  f09ebec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f09ebf0:	5220004a */ 	beqzl	$s1,.L0f09ed1c
-/*  f09ebf4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f09ebf8:	0fc1812f */ 	jal	propPrependToList1
-/*  f09ebfc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09ec00:	0fc180bc */ 	jal	propShow
-/*  f09ec04:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09ec08:	8e0e0018 */ 	lw	$t6,0x18($s0)
-/*  f09ec0c:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f09ec10:	0c0057c1 */ 	jal	func00015f04
-/*  f09ec14:	c5cc0014 */ 	lwc1	$f12,0x14($t6)
-/*  f09ec18:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09ec1c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f09ec20:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f09ec24:	0fc1a960 */ 	jal	func0f06a580
-/*  f09ec28:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f09ec2c:	920f0003 */ 	lbu	$t7,0x3($s0)
-/*  f09ec30:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f09ec34:	15e10015 */ 	bne	$t7,$at,.L0f09ec8c
-/*  f09ec38:	00000000 */ 	nop
-/*  f09ec3c:	9218005c */ 	lbu	$t8,0x5c($s0)
-/*  f09ec40:	24010056 */ 	addiu	$at,$zero,0x56
-/*  f09ec44:	17010011 */ 	bne	$t8,$at,.L0f09ec8c
-/*  f09ec48:	00000000 */ 	nop
-/*  f09ec4c:	0fc2bb15 */ 	jal	func0f0aec54
-/*  f09ec50:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09ec54:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f09ec58:	14410004 */ 	bne	$v0,$at,.L0f09ec6c
-/*  f09ec5c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f09ec60:	0fc2bb2a */ 	jal	func0f0aeca8
-/*  f09ec64:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09ec68:	00402025 */ 	or	$a0,$v0,$zero
-.L0f09ec6c:
-/*  f09ec6c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f09ec70:	10410006 */ 	beq	$v0,$at,.L0f09ec8c
-/*  f09ec74:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f09ec78:	0fc2bb4f */ 	jal	func0f0aed3c
-/*  f09ec7c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f09ec80:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f09ec84:	0fc2bb5c */ 	jal	func0f0aed70
-/*  f09ec88:	8fa50044 */ 	lw	$a1,0x44($sp)
-.L0f09ec8c:
-/*  f09ec8c:	0fc1a179 */ 	jal	func0f0685e4
-/*  f09ec90:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09ec94:	8e190040 */ 	lw	$t9,0x40($s0)
-/*  f09ec98:	33280080 */ 	andi	$t0,$t9,0x80
-/*  f09ec9c:	5100001f */ 	beqzl	$t0,.L0f09ed1c
-/*  f09eca0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f09eca4:	8e020048 */ 	lw	$v0,0x48($s0)
-/*  f09eca8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f09ecac:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f09ecb0:	352a0001 */ 	ori	$t2,$t1,0x1
-/*  f09ecb4:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f09ecb8:	8e0c0048 */ 	lw	$t4,0x48($s0)
-/*  f09ecbc:	8fab0040 */ 	lw	$t3,0x40($sp)
-/*  f09ecc0:	0fc1a1a5 */ 	jal	func0f068694
-/*  f09ecc4:	ad8b0088 */ 	sw	$t3,0x88($t4)
-/*  f09ecc8:	8e050048 */ 	lw	$a1,0x48($s0)
-/*  f09eccc:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f09ecd0:	0c005746 */ 	jal	func00015d18
-/*  f09ecd4:	24a50020 */ 	addiu	$a1,$a1,0x20
-/*  f09ecd8:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*  f09ecdc:	8e0d0048 */ 	lw	$t5,0x48($s0)
-/*  f09ece0:	3c19800a */ 	lui	$t9,%hi(g_Vars+0xc)
-/*  f09ece4:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*  f09ece8:	e5a40004 */ 	swc1	$f4,0x4($t5)
-/*  f09ecec:	8e0e0048 */ 	lw	$t6,0x48($s0)
-/*  f09ecf0:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f09ecf4:	e5c60008 */ 	swc1	$f6,0x8($t6)
-/*  f09ecf8:	8e0f0048 */ 	lw	$t7,0x48($s0)
-/*  f09ecfc:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f09ed00:	e5e8000c */ 	swc1	$f8,0xc($t7)
-/*  f09ed04:	8e180048 */ 	lw	$t8,0x48($s0)
-/*  f09ed08:	af1000d4 */ 	sw	$s0,0xd4($t8)
-/*  f09ed0c:	8e080048 */ 	lw	$t0,0x48($s0)
-/*  f09ed10:	8f399fcc */ 	lw	$t9,%lo(g_Vars+0xc)($t9)
-/*  f09ed14:	ad1900d8 */ 	sw	$t9,0xd8($t0)
-/*  f09ed18:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f09ed1c:
-/*  f09ed1c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f09ed20:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f09ed24:	03e00008 */ 	jr	$ra
-/*  f09ed28:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, f32 *arg4, Mtxf *matrix2, struct prop *prop, struct coord *pos)
+{
+	struct prop *objprop = obj->prop;
+
+	if (objprop) {
+		propPrependToList1(objprop);
+		propShow(objprop);
+		func00015f04(obj->model->unk14, matrix1);
+		func0f06a580(obj, coord, matrix1, rooms);
+
+		if (obj->type == OBJTYPE_WEAPON && ((struct weaponobj *) obj)->weaponnum == WEAPON_BOLT) {
+			s32 value = func0f0aec54(objprop);
+
+			if (value == -1) {
+				value = func0f0aeca8(objprop);
+			}
+
+			if (value != -1) {
+				func0f0aed3c(value, pos);
+				func0f0aed70(value, pos);
+			}
+		}
+
+		func0f0685e4(objprop);
+
+		if (obj->hidden & OBJHFLAG_AIRBORNE) {
+			obj->projectile->flags |= PROJECTILEFLAG_00000001;
+			obj->projectile->unk088 = prop;
+
+			func0f068694(objprop);
+			func00015d18(matrix2, &obj->projectile->unk020);
+
+			obj->projectile->unk004.x = arg4[0];
+			obj->projectile->unk004.y = arg4[1];
+			obj->projectile->unk004.z = arg4[2];
+			obj->projectile->obj = obj;
+			obj->projectile->unk0d8 = g_Vars.lvframenum;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f09ed2c
