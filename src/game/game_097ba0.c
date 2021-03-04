@@ -22724,94 +22724,46 @@ Gfx *func0f0abcb0(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f0abd30
-/*  f0abd30:	00041100 */ 	sll	$v0,$a0,0x4
-/*  f0abd34:	00441023 */ 	subu	$v0,$v0,$a0
-/*  f0abd38:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f0abd3c:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f0abd40:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f0abd44:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f0abd48:	000210c0 */ 	sll	$v0,$v0,0x3
-/*  f0abd4c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0abd50:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f0abd54:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0abd58:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f0abd5c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0abd60:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0abd64:	00622821 */ 	addu	$a1,$v1,$v0
-/*  f0abd68:	90a40638 */ 	lbu	$a0,0x638($a1)
-/*  f0abd6c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0abd70:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f0abd74:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0abd78:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f0abd7c:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f0abd80:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f0abd84:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0abd88:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f0abd8c:	240c0022 */ 	addiu	$t4,$zero,0x22
-/*  f0abd90:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0abd94:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0abd98:	24691580 */ 	addiu	$t1,$v1,0x1580
-/*  f0abd9c:	24a80638 */ 	addiu	$t0,$a1,0x638
-.L0f0abda0:
-/*  f0abda0:	16000002 */ 	bnez	$s0,.L0f0abdac
-/*  f0abda4:	01247021 */ 	addu	$t6,$t1,$a0
-/*  f0abda8:	a1ca0064 */ 	sb	$t2,0x64($t6)
-.L0f0abdac:
-/*  f0abdac:	10400013 */ 	beqz	$v0,.L0f0abdfc
-/*  f0abdb0:	00042880 */ 	sll	$a1,$a0,0x2
-/*  f0abdb4:	00453021 */ 	addu	$a2,$v0,$a1
-/*  f0abdb8:	8cc3001c */ 	lw	$v1,0x1c($a2)
-/*  f0abdbc:	50600010 */ 	beqzl	$v1,.L0f0abe00
-/*  f0abdc0:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0abdc4:	16000005 */ 	bnez	$s0,.L0f0abddc
-/*  f0abdc8:	01053821 */ 	addu	$a3,$t0,$a1
-/*  f0abdcc:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f0abdd0:	0124c021 */ 	addu	$t8,$t1,$a0
-/*  f0abdd4:	a30f0064 */ 	sb	$t7,0x64($t8)
-/*  f0abdd8:	8cc3001c */ 	lw	$v1,0x1c($a2)
-.L0f0abddc:
-/*  f0abddc:	84790008 */ 	lh	$t9,0x8($v1)
-/*  f0abde0:	160b0005 */ 	bne	$s0,$t3,.L0f0abdf8
-/*  f0abde4:	acf90228 */ 	sw	$t9,0x228($a3)
-/*  f0abde8:	910e0000 */ 	lbu	$t6,0x0($t0)
-/*  f0abdec:	558e0003 */ 	bnel	$t4,$t6,.L0f0abdfc
-/*  f0abdf0:	ace00220 */ 	sw	$zero,0x220($a3)
-/*  f0abdf4:	ace00228 */ 	sw	$zero,0x228($a3)
-.L0f0abdf8:
-/*  f0abdf8:	ace00220 */ 	sw	$zero,0x220($a3)
-.L0f0abdfc:
-/*  f0abdfc:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f0abe00:
-/*  f0abe00:	148dffe7 */ 	bne	$a0,$t5,.L0f0abda0
-/*  f0abe04:	00000000 */ 	nop
-/*  f0abe08:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0abe0c:	44810000 */ 	mtc1	$at,$f0
-/*  f0abe10:	2504078c */ 	addiu	$a0,$t0,0x78c
-/*  f0abe14:	e5000254 */ 	swc1	$f0,0x254($t0)
-/*  f0abe18:	e5000258 */ 	swc1	$f0,0x258($t0)
-/*  f0abe1c:	e5000284 */ 	swc1	$f0,0x284($t0)
-/*  f0abe20:	e5000288 */ 	swc1	$f0,0x288($t0)
-/*  f0abe24:	812f0064 */ 	lb	$t7,0x64($t1)
-/*  f0abe28:	05e2000c */ 	bltzl	$t7,.L0f0abe5c
-/*  f0abe2c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0abe30:	0fc2a765 */ 	jal	func0f0a9d94
-/*  f0abe34:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f0abe38:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*  f0abe3c:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f0abe40:	17000004 */ 	bnez	$t8,.L0f0abe54
-/*  f0abe44:	2524005c */ 	addiu	$a0,$t1,0x5c
-/*  f0abe48:	0fc2a765 */ 	jal	func0f0a9d94
-/*  f0abe4c:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f0abe50:	8fa90024 */ 	lw	$t1,0x24($sp)
-.L0f0abe54:
-/*  f0abe54:	a1200069 */ 	sb	$zero,0x69($t1)
-/*  f0abe58:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0abe5c:
-/*  f0abe5c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0abe60:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0abe64:	03e00008 */ 	jr	$ra
-/*  f0abe68:	00000000 */ 	nop
-/*  f0abe6c:	00000000 */ 	nop
-);
+void func0f0abd30(s32 handnum)
+{
+	struct player *player = g_Vars.currentplayer;
+	struct hand *hand = &player->hands[handnum];
+	struct gunctrl *gunctrl = &player->gunctrl;
+	struct weapon *weapon = weaponFindById(hand->base.weaponnum);
+	s32 i;
+
+	for (i = 0; i < 2; i++) {
+		if (handnum == HAND_RIGHT) {
+			gunctrl->ammotypes[i] = -1;
+		}
+
+		if (weapon && weapon->ammos[i]) {
+			if (handnum == HAND_RIGHT) {
+				gunctrl->ammotypes[i] = weapon->ammos[i]->type;
+			}
+
+			hand->clipsizes[i] = weapon->ammos[i]->clipsize;
+
+			if (handnum == HAND_LEFT && hand->base.weaponnum == WEAPON_REMOTEMINE) {
+				hand->clipsizes[i] = 0;
+			}
+
+			hand->loadedammo[i] = 0;
+		}
+	}
+
+	hand->unk088c = 1;
+	hand->unk0890 = 1;
+	hand->unk08bc = 1;
+	hand->unk08c0 = 1;
+
+	if (gunctrl->ammotypes[0] >= 0) {
+		func0f0a9d94(&hand->unk0dc4);
+
+		if (handnum == HAND_RIGHT) {
+			func0f0a9d94(&gunctrl->unk15dc);
+		}
+
+		gunctrl->unk15e9 = 0;
+	}
+}

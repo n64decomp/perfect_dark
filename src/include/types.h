@@ -1797,8 +1797,8 @@ struct hand {
 	/*0x0880*/ u32 unk0880;
 	/*0x0884*/ u32 unk0884;
 	/*0x0888*/ f32 unk0888;
-	/*0x088c*/ u32 unk088c;
-	/*0x0890*/ u32 unk0890;
+	/*0x088c*/ f32 unk088c;
+	/*0x0890*/ f32 unk0890;
 	/*0x0894*/ u32 unk0894;
 	/*0x0898*/ u32 unk0898;
 	/*0x089c*/ u32 unk089c;
@@ -1809,8 +1809,8 @@ struct hand {
 	/*0x08b0*/ u32 unk08b0;
 	/*0x08b4*/ u32 unk08b4;
 	/*0x08b8*/ u32 unk08b8;
-	/*0x08bc*/ u32 unk08bc;
-	/*0x08c0*/ u32 unk08c0;
+	/*0x08bc*/ f32 unk08bc;
+	/*0x08c0*/ f32 unk08c0;
 	/*0x08c4*/ u32 unk08c4;
 	/*0x08c8*/ u32 unk08c8;
 	/*0x08cc*/ u32 unk08cc;
