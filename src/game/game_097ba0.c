@@ -7669,31 +7669,15 @@ glabel var7f1ac66c
 /*  f09dd78:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f09dd7c
-/*  f09dd7c:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f09dd80:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f09dd84:	906e15ea */ 	lbu	$t6,0x15ea($v1)
-/*  f09dd88:	51c00004 */ 	beqzl	$t6,.L0f09dd9c
-/*  f09dd8c:	8c621588 */ 	lw	$v0,0x1588($v1)
-/*  f09dd90:	03e00008 */ 	jr	$ra
-/*  f09dd94:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09dd98:	8c621588 */ 	lw	$v0,0x1588($v1)
-.L0f09dd9c:
-/*  f09dd9c:	2c4f0001 */ 	sltiu	$t7,$v0,0x1
-/*  f09dda0:	15e00008 */ 	bnez	$t7,.L0f09ddc4
-/*  f09dda4:	01e01025 */ 	or	$v0,$t7,$zero
-/*  f09dda8:	8c621584 */ 	lw	$v0,0x1584($v1)
-/*  f09ddac:	28580000 */ 	slti	$t8,$v0,0x0
-/*  f09ddb0:	13000004 */ 	beqz	$t8,.L0f09ddc4
-/*  f09ddb4:	03001025 */ 	or	$v0,$t8,$zero
-/*  f09ddb8:	906215b0 */ 	lbu	$v0,0x15b0($v1)
-/*  f09ddbc:	38590004 */ 	xori	$t9,$v0,0x4
-/*  f09ddc0:	2f220001 */ 	sltiu	$v0,$t9,0x1
-.L0f09ddc4:
-/*  f09ddc4:	03e00008 */ 	jr	$ra
-/*  f09ddc8:	00000000 */ 	nop
-);
+bool func0f09dd7c(void)
+{
+	if (g_Vars.currentplayer->gunctrl.unk15ea) {
+		return false;
+	}
+
+	return g_Vars.currentplayer->gunctrl.gunmemtype == 0
+		|| (g_Vars.currentplayer->gunctrl.gunmemnew < 0 && g_Vars.currentplayer->gunctrl.unk15b0 == 4);
+}
 
 u32 func0f09ddcc(void)
 {
