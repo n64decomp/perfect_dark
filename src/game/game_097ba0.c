@@ -20303,76 +20303,25 @@ glabel currentPlayerSetAmmoQuantity
 /*  f0a976c:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel ammoGetQuantity
-/*  f0a9770:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0a9774:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0a9778:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a977c:	8c55a244 */ 	lw	$s5,%lo(g_Vars+0x284)($v0)
-/*  f0a9780:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0a9784:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f0a9788:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0a978c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0a9790:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0a9794:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0a9798:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0a979c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0a97a0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0a97a4:	02ae7821 */ 	addu	$t7,$s5,$t6
-/*  f0a97a8:	0080b825 */ 	or	$s7,$a0,$zero
-/*  f0a97ac:	8df217a8 */ 	lw	$s2,0x17a8($t7)
-/*  f0a97b0:	24130002 */ 	addiu	$s3,$zero,0x2
-/*  f0a97b4:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f0a97b8:	02a0b025 */ 	or	$s6,$s5,$zero
-.L0f0a97bc:
-/*  f0a97bc:	82b80640 */ 	lb	$t8,0x640($s5)
-/*  f0a97c0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0a97c4:	02c08825 */ 	or	$s1,$s6,$zero
-/*  f0a97c8:	53000019 */ 	beqzl	$t8,.L0f0a9830
-/*  f0a97cc:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f0a97d0:
-/*  f0a97d0:	823915e4 */ 	lb	$t9,0x15e4($s1)
-/*  f0a97d4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0a97d8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0a97dc:	56f90011 */ 	bnel	$s7,$t9,.L0f0a9824
-/*  f0a97e0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0a97e4:	0fc2c613 */ 	jal	func0f0b184c
-/*  f0a97e8:	92a40638 */ 	lbu	$a0,0x638($s5)
-/*  f0a97ec:	1040000c */ 	beqz	$v0,.L0f0a9820
-/*  f0a97f0:	00144100 */ 	sll	$t0,$s4,0x4
-/*  f0a97f4:	01144023 */ 	subu	$t0,$t0,$s4
-/*  f0a97f8:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0a97fc:	01144021 */ 	addu	$t0,$t0,$s4
-/*  f0a9800:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f0a9804:	01144021 */ 	addu	$t0,$t0,$s4
-/*  f0a9808:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0a980c:	02c84821 */ 	addu	$t1,$s6,$t0
-/*  f0a9810:	00105080 */ 	sll	$t2,$s0,0x2
-/*  f0a9814:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f0a9818:	8d6c0858 */ 	lw	$t4,0x858($t3)
-/*  f0a981c:	01929021 */ 	addu	$s2,$t4,$s2
-.L0f0a9820:
-/*  f0a9820:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f0a9824:
-/*  f0a9824:	1613ffea */ 	bne	$s0,$s3,.L0f0a97d0
-/*  f0a9828:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0a982c:	26940001 */ 	addiu	$s4,$s4,0x1
-.L0f0a9830:
-/*  f0a9830:	1693ffe2 */ 	bne	$s4,$s3,.L0f0a97bc
-/*  f0a9834:	26b507a4 */ 	addiu	$s5,$s5,0x7a4
-/*  f0a9838:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0a983c:	02401025 */ 	or	$v0,$s2,$zero
-/*  f0a9840:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0a9844:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0a9848:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0a984c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0a9850:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0a9854:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0a9858:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f0a985c:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f0a9860:	03e00008 */ 	jr	$ra
-/*  f0a9864:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+s32 currentPlayerGetAmmoCountWithCheck(s32 ammotype)
+{
+	s32 i;
+	s32 j;
+	s32 total = g_Vars.currentplayer->ammoheldarr[ammotype];
+	struct player *player = g_Vars.currentplayer;
+
+	for (i = 0; i < 2; i++) {
+		if (player->hands[i].inuse) {
+			for (j = 0; j < 2; j++) {
+				if (player->gunctrl.ammotypes[j] == ammotype && func0f0b184c(player->hands[i].base.weaponnum, j, 0x00000001)) {
+					total = total + player->hands[i].loadedammo[j];
+				}
+			}
+		}
+	}
+
+	return total;
+}
 
 s32 currentPlayerGetAmmoCount(s32 ammotype)
 {
@@ -20385,7 +20334,7 @@ s32 currentPlayerGetAmmoCount(s32 ammotype)
 		if (player->hands[i].inuse) {
 			for (j = 0; j < 2; j++) {
 				if (player->gunctrl.ammotypes[j] == ammotype) {
-					total = player->hands[i].loadedammo[j] + total;
+					total = total + player->hands[i].loadedammo[j];
 				}
 			}
 		}
@@ -20469,7 +20418,7 @@ s32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func)
 		struct inventory_ammo *ammo = weapon->ammos[func];
 
 		if (ammo) {
-			return ammoGetQuantity(ammo->type);
+			return currentPlayerGetAmmoCountWithCheck(ammo->type);
 		}
 	}
 

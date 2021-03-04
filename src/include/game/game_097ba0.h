@@ -153,7 +153,7 @@ void func0f0a9494(u32 operation);
 void func0f0a94d0(u32 operation, struct coord *pos, struct coord *rot);
 void func0f0a95ec(u32 arg0, bool enable);
 void currentPlayerSetAmmoQuantity(s32 ammotype, s32 quantity);
-s32 ammoGetQuantity(s32 type);
+s32 currentPlayerGetAmmoCountWithCheck(s32 type);
 s32 currentPlayerGetAmmoCount(s32 ammotype);
 s32 ammotypeGetMaxCapacity(u32 ammotype);
 bool ammotypeAllowsUnlimitedAmmo(u32 ammotype);

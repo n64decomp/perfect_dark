@@ -734,7 +734,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		} else {
 			if (invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
 				// Special case: "Cloak %d"
-				qty = ammoGetQuantity(AMMOTYPE_CLOAK);
+				qty = currentPlayerGetAmmoCountWithCheck(AMMOTYPE_CLOAK);
 				secs = qty / 60;
 				modulo = (qty - (secs * 60)) * 100 / 60;
 				sprintf(label, langGet(L_OPTIONS(491)), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"

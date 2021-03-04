@@ -2153,8 +2153,8 @@ bool frIsAmmoWasted(void)
 	// Check if player has ammo
 	ammoloaded[0] = hand0->loadedammo[0] + hand1->loadedammo[0];
 	ammoloaded[1] = hand0->loadedammo[1] + hand1->loadedammo[1];
-	ammototal[0] = ammoGetQuantity(priammotype) + ammoloaded[0];
-	ammototal[1] = ammoGetQuantity(secammotype) + ammoloaded[1];
+	ammototal[0] = currentPlayerGetAmmoCountWithCheck(priammotype) + ammoloaded[0];
+	ammototal[1] = currentPlayerGetAmmoCountWithCheck(secammotype) + ammoloaded[1];
 
 	if (ammototal[0] <= 0 && ammototal[1] <= 0) {
 		// Don't do any further checks if this is the first frame where we've
@@ -2231,7 +2231,7 @@ bool frIsAmmoWasted(void)
 							ammotype = weaponGetAmmoType(weaponnum, 0);
 							hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
-							if (ammoGetQuantity(ammotype) + hand->loadedammo[0] == 0) {
+							if (currentPlayerGetAmmoCountWithCheck(ammotype) + hand->loadedammo[0] == 0) {
 								g_FrData.proxyendtimer = 300;
 							}
 
@@ -2566,7 +2566,7 @@ glabel var7f1b94e4
 /*  f19fd88:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fd8c:	18400011 */ 	blez	$v0,.L0f19fdd4
 /*  f19fd90:	00000000 */ 	nop
-/*  f19fd94:	0fc2a5dc */ 	jal	ammoGetQuantity
+/*  f19fd94:	0fc2a5dc */ 	jal	currentPlayerGetAmmoCountWithCheck
 /*  f19fd98:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19fd9c:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fda0:	86ae0476 */ 	lh	$t6,0x476($s5)
@@ -2600,7 +2600,7 @@ glabel var7f1b94e4
 /*  f19fe00:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fe04:	18600011 */ 	blez	$v1,.L0f19fe4c
 /*  f19fe08:	00000000 */ 	nop
-/*  f19fe0c:	0fc2a5dc */ 	jal	ammoGetQuantity
+/*  f19fe0c:	0fc2a5dc */ 	jal	currentPlayerGetAmmoCountWithCheck
 /*  f19fe10:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19fe14:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fe18:	86b90478 */ 	lh	$t9,0x478($s5)
@@ -3519,7 +3519,7 @@ glabel var7f1b94e4
 //
 //		// d8c
 //		if (g_FrData.ammoextra > 0) {
-//			tmp = ammoGetQuantity(ammotype);
+//			tmp = currentPlayerGetAmmoCountWithCheck(ammotype);
 //			g_FrData.ammoextra -= g_FrData.numshotssincetopup;
 //
 //			if (g_FrData.ammoextra < 0) {
@@ -3538,7 +3538,7 @@ glabel var7f1b94e4
 //
 //			// e04
 //			if (g_FrData.sdgrenadeextra > 0) {
-//				tmp = ammoGetQuantity(AMMOTYPE_DEVASTATOR);
+//				tmp = currentPlayerGetAmmoCountWithCheck(AMMOTYPE_DEVASTATOR);
 //				g_FrData.sdgrenadeextra -= g_FrData.numshotssincetopup;
 //
 //				if (g_FrData.sdgrenadeextra < 0) {
