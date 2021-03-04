@@ -7701,11 +7701,12 @@ glabel func0f09ddcc
 /*  f09ddd0:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f09ddd4:	03e00008 */ 	jr	$ra
 /*  f09ddd8:	8dc21588 */ 	lw	$v0,0x1588($t6)
-/*  f09dddc:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f09dde0:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f09dde4:	03e00008 */ 	jr	$ra
-/*  f09dde8:	8dc21590 */ 	lw	$v0,0x1590($t6)
 );
+
+u32 func0f09dddc(void)
+{
+	return g_Vars.currentplayer->gunctrl.unk1590;
+}
 
 u8 *func0f09ddec(void)
 {
