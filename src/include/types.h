@@ -5520,7 +5520,7 @@ struct menudata {
 };
 
 struct ammotype {
-	u32 capacity;
+	s32 capacity;
 	u32 unk04;
 	f32 unk08;
 };

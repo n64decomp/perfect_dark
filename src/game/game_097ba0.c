@@ -20210,98 +20210,47 @@ struct ammotype g_AmmoTypes[] = {
 	{ 10,    0, 0  },
 };
 
-GLOBAL_ASM(
-glabel currentPlayerSetAmmoQuantity
-/*  f0a9628:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0a962c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0a9630:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0a9634:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0a9638:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0a963c:	3c11800a */ 	lui	$s1,%hi(g_Vars+0x284)
-/*  f0a9640:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0a9644:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0a9648:	8e31a244 */ 	lw	$s1,%lo(g_Vars+0x284)($s1)
-/*  f0a964c:	0fc2866a */ 	jal	handGetWeaponNum
-/*  f0a9650:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a9654:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f0a9658:	2410ffff */ 	addiu	$s0,$zero,-1
-/*  f0a965c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a9660:	0fc2a685 */ 	jal	weaponGetAmmoType
-/*  f0a9664:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a9668:	14520002 */ 	bne	$v0,$s2,.L0f0a9674
-/*  f0a966c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f0a9670:	00008025 */ 	or	$s0,$zero,$zero
-.L0f0a9674:
-/*  f0a9674:	0fc2a685 */ 	jal	weaponGetAmmoType
-/*  f0a9678:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0a967c:	14520002 */ 	bne	$v0,$s2,.L0f0a9688
-/*  f0a9680:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0a9684:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0a9688:
-/*  f0a9688:	12010013 */ 	beq	$s0,$at,.L0f0a96d8
-/*  f0a968c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f0a9690:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0a9694:	0fc2c613 */ 	jal	func0f0b184c
-/*  f0a9698:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0a969c:	1040000e */ 	beqz	$v0,.L0f0a96d8
-/*  f0a96a0:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f0a96a4:	022e1021 */ 	addu	$v0,$s1,$t6
-/*  f0a96a8:	8c4f0858 */ 	lw	$t7,0x858($v0)
-/*  f0a96ac:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*  f0a96b0:	8c430860 */ 	lw	$v1,0x860($v0)
-/*  f0a96b4:	00124880 */ 	sll	$t1,$s2,0x2
-/*  f0a96b8:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f0a96bc:	0079082a */ 	slt	$at,$v1,$t9
-/*  f0a96c0:	10200002 */ 	beqz	$at,.L0f0a96cc
-/*  f0a96c4:	ac590858 */ 	sw	$t9,0x858($v0)
-/*  f0a96c8:	ac430858 */ 	sw	$v1,0x858($v0)
-.L0f0a96cc:
-/*  f0a96cc:	02295021 */ 	addu	$t2,$s1,$t1
-/*  f0a96d0:	10000021 */ 	b	.L0f0a9758
-/*  f0a96d4:	ad4017a8 */ 	sw	$zero,0x17a8($t2)
-.L0f0a96d8:
-/*  f0a96d8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0a96dc:	1201000d */ 	beq	$s0,$at,.L0f0a9714
-/*  f0a96e0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0a96e4:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f0a96e8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0a96ec:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0a96f0:	0fc2c613 */ 	jal	func0f0b184c
-/*  f0a96f4:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0a96f8:	10400006 */ 	beqz	$v0,.L0f0a9714
-/*  f0a96fc:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f0a9700:	00105880 */ 	sll	$t3,$s0,0x2
-/*  f0a9704:	022b1021 */ 	addu	$v0,$s1,$t3
-/*  f0a9708:	8c4c0ffc */ 	lw	$t4,0xffc($v0)
-/*  f0a970c:	8c4d0858 */ 	lw	$t5,0x858($v0)
-/*  f0a9710:	018d1821 */ 	addu	$v1,$t4,$t5
-.L0f0a9714:
-/*  f0a9714:	00127080 */ 	sll	$t6,$s2,0x2
-/*  f0a9718:	01d27023 */ 	subu	$t6,$t6,$s2
-/*  f0a971c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a9720:	3c0f8007 */ 	lui	$t7,%hi(g_AmmoTypes)
-/*  f0a9724:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0a9728:	8def0368 */ 	lw	$t7,%lo(g_AmmoTypes)($t7)
-/*  f0a972c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0a9730:	00124080 */ 	sll	$t0,$s2,0x2
-/*  f0a9734:	01e31023 */ 	subu	$v0,$t7,$v1
-/*  f0a9738:	0044082a */ 	slt	$at,$v0,$a0
-/*  f0a973c:	10200005 */ 	beqz	$at,.L0f0a9754
-/*  f0a9740:	02284821 */ 	addu	$t1,$s1,$t0
-/*  f0a9744:	0012c080 */ 	sll	$t8,$s2,0x2
-/*  f0a9748:	0238c821 */ 	addu	$t9,$s1,$t8
-/*  f0a974c:	10000002 */ 	b	.L0f0a9758
-/*  f0a9750:	af2217a8 */ 	sw	$v0,0x17a8($t9)
-.L0f0a9754:
-/*  f0a9754:	ad2417a8 */ 	sw	$a0,0x17a8($t1)
-.L0f0a9758:
-/*  f0a9758:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0a975c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0a9760:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0a9764:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0a9768:	03e00008 */ 	jr	$ra
-/*  f0a976c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void currentPlayerSetAmmoQuantity(s32 ammotype, s32 quantity)
+{
+	struct player *player = g_Vars.currentplayer;
+	s32 weaponnum = handGetWeaponNum(HAND_RIGHT);
+	s32 funcnum = -1;
+	s32 magamount;
+
+	// Check if this ammo type applies to the player's equipped weapon
+	if (weaponGetAmmoType(weaponnum, FUNC_PRIMARY) == ammotype) {
+		funcnum = FUNC_PRIMARY;
+	}
+
+	if (weaponGetAmmoType(weaponnum, FUNC_SECONDARY) == ammotype) {
+		funcnum = FUNC_SECONDARY;
+	}
+
+	if (funcnum != -1 && func0f0b184c(weaponnum, funcnum, 1)) {
+		// This part seems a bit odd. It's adding the ammo rather than setting
+		// it, and it clears the held amount. Maybe this code isn't reachable.
+		player->hands[0].loadedammo[funcnum] += quantity;
+
+		if (player->hands[0].loadedammo[funcnum] > player->hands[0].clipsizes[funcnum]) {
+			player->hands[0].loadedammo[funcnum] = player->hands[0].clipsizes[funcnum];
+		}
+
+		player->ammoheldarr[ammotype] = 0;
+		return;
+	}
+
+	magamount = 0;
+
+	if (funcnum != -1 && func0f0b184c(weaponnum, funcnum, 2)) {
+		magamount = player->hands[0].loadedammo[funcnum] + player->hands[1].loadedammo[funcnum];
+	}
+
+	if (quantity > g_AmmoTypes[ammotype].capacity - magamount) {
+		player->ammoheldarr[ammotype] = g_AmmoTypes[ammotype].capacity - magamount;
+	} else {
+		player->ammoheldarr[ammotype] = quantity;
+	}
+}
 
 s32 currentPlayerGetAmmoCountWithCheck(s32 ammotype)
 {
