@@ -7695,13 +7695,10 @@ glabel func0f09dd7c
 /*  f09ddc8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f09ddcc
-/*  f09ddcc:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f09ddd0:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f09ddd4:	03e00008 */ 	jr	$ra
-/*  f09ddd8:	8dc21588 */ 	lw	$v0,0x1588($t6)
-);
+u32 func0f09ddcc(void)
+{
+	return g_Vars.currentplayer->gunctrl.gunmemtype;
+}
 
 u32 func0f09dddc(void)
 {
