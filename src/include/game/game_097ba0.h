@@ -96,7 +96,7 @@ s32 func0f0a1a68(s32 arg0);
 void func0f0a1ab0(void);
 void func0f0a1b50(void);
 void func0f0a1c2c(void);
-bool func0f0a1d14(u32 weaponnum);
+bool currentPlayerHasAmmoForWeapon(s32 weaponnum);
 void func0f0a1df4(void);
 void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum);
 s32 handIsFiring(s32 handnum);

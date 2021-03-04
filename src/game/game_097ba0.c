@@ -11869,71 +11869,49 @@ glabel func0f0a1c2c
 /*  f0a1d10:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0a1d14
-/*  f0a1d14:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0a1d18:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0a1d1c:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0a1d20:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0a1d24:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0a1d28:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0a1d2c:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0a1d30:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0a1d34:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0a1d38:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0a1d3c:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0a1d40:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f0a1d44:	14400003 */ 	bnez	$v0,.L0f0a1d54
-/*  f0a1d48:	0040a025 */ 	or	$s4,$v0,$zero
-/*  f0a1d4c:	10000020 */ 	b	.L0f0a1dd0
-/*  f0a1d50:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a1d54:
-/*  f0a1d54:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0a1d58:	24110002 */ 	addiu	$s1,$zero,0x2
-/*  f0a1d5c:	02602025 */ 	or	$a0,$s3,$zero
-.L0f0a1d60:
-/*  f0a1d60:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f0a1d64:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0a1d68:	5040000f */ 	beqzl	$v0,.L0f0a1da8
-/*  f0a1d6c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0a1d70:	80440007 */ 	lb	$a0,0x7($v0)
-/*  f0a1d74:	0480000b */ 	bltz	$a0,.L0f0a1da4
-/*  f0a1d78:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0a1d7c:	028e7821 */ 	addu	$t7,$s4,$t6
-/*  f0a1d80:	8de3001c */ 	lw	$v1,0x1c($t7)
-/*  f0a1d84:	50600008 */ 	beqzl	$v1,.L0f0a1da8
-/*  f0a1d88:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0a1d8c:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f0a1d90:	0fc2a61a */ 	jal	currentPlayerGetAmmoCount
-/*  f0a1d94:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f0a1d98:	58400003 */ 	blezl	$v0,.L0f0a1da8
-/*  f0a1d9c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0a1da0:	24150001 */ 	addiu	$s5,$zero,0x1
-.L0f0a1da4:
-/*  f0a1da4:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f0a1da8:
-/*  f0a1da8:	5611ffed */ 	bnel	$s0,$s1,.L0f0a1d60
-/*  f0a1dac:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0a1db0:	16400003 */ 	bnez	$s2,.L0f0a1dc0
-/*  f0a1db4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a1db8:	10000005 */ 	b	.L0f0a1dd0
-/*  f0a1dbc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a1dc0:
-/*  f0a1dc0:	16a10003 */ 	bne	$s5,$at,.L0f0a1dd0
-/*  f0a1dc4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a1dc8:	10000001 */ 	b	.L0f0a1dd0
-/*  f0a1dcc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a1dd0:
-/*  f0a1dd0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0a1dd4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0a1dd8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0a1ddc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0a1de0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0a1de4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0a1de8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0a1dec:	03e00008 */ 	jr	$ra
-/*  f0a1df0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+/**
+ * Return true if the player has ammo for the given weapon (for either function)
+ * or if the weapon doesn't support ammo.
+ *
+ * Used by the active menu to colour the slots.
+ */
+bool currentPlayerHasAmmoForWeapon(s32 weaponnum)
+{
+	bool ammodefexists = false;
+	bool hasammo = false;
+	struct weapon *weapon = weaponFindById(weaponnum);
+	s32 i;
+
+	if (weapon == NULL) {
+		return true;
+	}
+
+	for (i = 0; i < 2; i++) {
+		struct weaponfunc *func = weaponGetFunctionById(weaponnum, i);
+
+		if (func && func->ammoindex >= 0) {
+			struct inventory_ammo *ammo = weapon->ammos[func->ammoindex];
+
+			if (ammo) {
+				ammodefexists = true;
+
+				if (currentPlayerGetAmmoCount(ammo->type) > 0) {
+					hasammo = true;
+				}
+			}
+		}
+	}
+
+	if (!ammodefexists) {
+		return true;
+	}
+
+	if (hasammo == true) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0a1df4

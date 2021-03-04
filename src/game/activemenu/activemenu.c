@@ -751,7 +751,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 
 		weaponnum = invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
 
-		if (func0f0a1d14(weaponnum) == false) {
+		if (!currentPlayerHasAmmoForWeapon(weaponnum)) {
 			*flags |= AMSLOTFLAG_NOAMMO;
 		}
 		break;
