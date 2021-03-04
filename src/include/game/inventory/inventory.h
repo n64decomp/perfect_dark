@@ -26,7 +26,7 @@ void invRemoveItemByNum(s32 weaponnum);
 bool invGiveProp(struct prop *prop);
 void invRemoveProp(struct prop *prop);
 s32 invGiveWeaponsByProp(struct prop *prop);
-u32 func0f1122ec(void);
+void func0f1122ec(s32 *weaponnum1, s32 *weaponnum2, s32 arg2);
 u32 func0f11253c(void);
 bool invHasKeyFlags(u32 wantkeyflags);
 bool invHasBriefcase(void);
