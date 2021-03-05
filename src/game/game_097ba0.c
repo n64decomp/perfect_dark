@@ -145,9 +145,9 @@ u32 var800701f4 = 0x00000000;
 u32 var800701f8 = 0x00000000;
 u32 var800701fc = 0x00000000;
 
-struct remoteminething var80070200[2] = {
-	{ 0x0a, 0, 0x0434, 10000 },
-	{ 0 },
+struct guncmd var80070200[2] = {
+	{ GUNCMD_PLAYANIMATION, 0, 0x0434, 10000 },
+	{ GUNCMD_END },
 };
 
 u32 var80070210 = 0x00000000;
@@ -1232,57 +1232,57 @@ glabel var7f1ac1b0
 /*  f098880:	27bd0158 */ 	addiu	$sp,$sp,0x158
 );
 
-bool func0f098884(struct remoteminething *arg0, struct shorthand *hand)
+bool func0f098884(struct guncmd *cmd, struct shorthand *hand)
 {
 	s32 result = false;
 
-	if (arg0->unk01 == 0) {
+	if (cmd->unk01 == 0) {
 		return true;
 	}
 
-	if (arg0->unk01 == 1 && g_Vars.currentplayer->hands[HAND_LEFT].inuse == true) {
+	if (cmd->unk01 == 1 && g_Vars.currentplayer->hands[HAND_LEFT].inuse == true) {
 		result = true;
 	}
 
-	if (arg0->unk01 == 2 && hand->weaponfunc == FUNC_SECONDARY) {
+	if (cmd->unk01 == 2 && hand->weaponfunc == FUNC_SECONDARY) {
 		result = true;
 	}
 
 	return result;
 }
 
-void func0f0988e0(struct remoteminething *arg0, bool arg1, struct hand *hand)
+void func0f0988e0(struct guncmd *cmd, bool arg1, struct hand *hand)
 {
-	if (arg0->unk00 != 0x0a) {
-		struct remoteminething *loopthing = arg0;
+	if (cmd->type != GUNCMD_PLAYANIMATION) {
+		struct guncmd *loopcmd = cmd;
 		s32 done = false;
 		u32 rand = random() % 100;
 
-		while (loopthing->unk00) {
-			if (func0f098884(loopthing, &hand->base) && !done) {
-				if (loopthing->unk00 == 6) {
+		while (loopcmd->type != GUNCMD_END) {
+			if (func0f098884(loopcmd, &hand->base) && !done) {
+				if (loopcmd->type == GUNCMD_INCLUDE) {
 					done = true;
-					func0f0988e0(loopthing->next, arg1, hand);
-				} else if (loopthing->unk00 == 7) {
-					if (loopthing->next != hand->unk0d80 && loopthing->unk02 > rand) {
+					func0f0988e0((struct guncmd *)loopcmd->unk04, arg1, hand);
+				} else if (loopcmd->type == GUNCMD_RANDOM) {
+					if ((struct guncmd *)loopcmd->unk04 != hand->unk0d80 && loopcmd->unk02 > rand) {
 						done = true;
-						func0f0988e0(loopthing->next, arg1, hand);
+						func0f0988e0((struct guncmd *)loopcmd->unk04, arg1, hand);
 					}
 				}
 			}
 
-			loopthing++;
+			loopcmd++;
 		}
 	} else {
-		hand->unk0cb8 = arg0->unk02;
+		hand->unk0cb8 = cmd->unk02;
 		hand->unk0cc4 = 0;
 		hand->unk0cc8_01 = 0;
 		hand->unk0cc8_03 = 0;
-		hand->unk0ce8 = arg0;
+		hand->unk0ce8 = cmd;
 		hand->unk0cc9 = 0;
 		hand->unk0cc8_02 = 0;
 		hand->unk0d0e_07 = 0;
-		hand->unk0d80 = arg0;
+		hand->unk0d80 = cmd;
 	}
 }
 
@@ -3127,73 +3127,39 @@ glabel var7f1ac31c
 /*  f09a30c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f09a310
-/*  f09a310:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09a314:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09a318:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f09a31c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f09a320:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f09a324:	8cce0618 */ 	lw	$t6,0x618($a2)
-/*  f09a328:	00001825 */ 	or	$v1,$zero,$zero
-/*  f09a32c:	55c00021 */ 	bnezl	$t6,.L0f09a3b4
-/*  f09a330:	8cc9068c */ 	lw	$t1,0x68c($a2)
-/*  f09a334:	90cf0003 */ 	lbu	$t7,0x3($a2)
-/*  f09a338:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f09a33c:	55e0000c */ 	bnezl	$t7,.L0f09a370
-/*  f09a340:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f09a344:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f09a348:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f09a34c:	0fc2c83a */ 	jal	handGetPriToSecAnim
-/*  f09a350:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f09a354:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f09a358:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f09a35c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f09a360:	00402025 */ 	or	$a0,$v0,$zero
-/*  f09a364:	10000008 */ 	b	.L0f09a388
-/*  f09a368:	a0d80003 */ 	sb	$t8,0x3($a2)
-/*  f09a36c:	afa30018 */ 	sw	$v1,0x18($sp)
-.L0f09a370:
-/*  f09a370:	0fc2c846 */ 	jal	handGetSecToPriAnim
-/*  f09a374:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f09a378:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f09a37c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f09a380:	00402025 */ 	or	$a0,$v0,$zero
-/*  f09a384:	a0c00003 */ 	sb	$zero,0x3($a2)
-.L0f09a388:
-/*  f09a388:	1040000e */ 	beqz	$v0,.L0f09a3c4
-/*  f09a38c:	00000000 */ 	nop
-/*  f09a390:	0fc26238 */ 	jal	func0f0988e0
-/*  f09a394:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f09a398:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f09a39c:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f09a3a0:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f09a3a4:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f09a3a8:	10000006 */ 	b	.L0f09a3c4
-/*  f09a3ac:	ad190dd4 */ 	sw	$t9,0xdd4($t0)
-/*  f09a3b0:	8cc9068c */ 	lw	$t1,0x68c($a2)
-.L0f09a3b4:
-/*  f09a3b4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f09a3b8:	15210002 */ 	bne	$t1,$at,.L0f09a3c4
-/*  f09a3bc:	00000000 */ 	nop
-/*  f09a3c0:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f09a3c4:
-/*  f09a3c4:	14600007 */ 	bnez	$v1,.L0f09a3e4
-/*  f09a3c8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f09a3cc:	0fc27346 */ 	jal	func0f09cd18
-/*  f09a3d0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f09a3d4:	50400004 */ 	beqzl	$v0,.L0f09a3e8
-/*  f09a3d8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09a3dc:	10000002 */ 	b	.L0f09a3e8
-/*  f09a3e0:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0f09a3e4:
-/*  f09a3e4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09a3e8:
-/*  f09a3e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09a3ec:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f09a3f0:	03e00008 */ 	jr	$ra
-/*  f09a3f4:	00000000 */ 	nop
-);
+s32 func0f09a310(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+{
+	struct guncmd *cmd;
+	bool somebool = false;
+
+	if (hand->unk0c50 == 0) {
+		if (hand->base.weaponfunc == FUNC_PRIMARY) {
+			cmd = handGetPriToSecAnim(&hand->base);
+			hand->base.weaponfunc = FUNC_SECONDARY;
+		} else {
+			cmd = handGetSecToPriAnim(&hand->base);
+			hand->base.weaponfunc = FUNC_PRIMARY;
+		}
+
+		somebool = false;
+
+		if (cmd != NULL) {
+			func0f0988e0(cmd, handnum, hand);
+			somebool = true;
+			g_Vars.currentplayer->hands[HAND_RIGHT].unk0dd4 = -1;
+		}
+	} else {
+		if (hand->unk0cc4 == 2) {
+			somebool = true;
+		}
+	}
+
+	if (!somebool && func0f09cd18(handnum, 0)) {
+		return lvupdate;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f09a3f8

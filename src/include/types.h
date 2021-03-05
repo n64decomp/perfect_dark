@@ -2046,7 +2046,7 @@ struct hand {
 	/*0x0cdc*/ u32 unk0cdc;
 	/*0x0ce0*/ u32 unk0ce0;
 	/*0x0ce4*/ u32 attacktype;
-	/*0x0ce8*/ struct remoteminething *unk0ce8;
+	/*0x0ce8*/ struct guncmd *unk0ce8;
 	/*0x0cec*/ ubool unk0cec;
 	/*0x0cf0*/ struct coord unk0cf0;
 	/*0x0cfc*/ struct coord unk0cfc;
@@ -2087,7 +2087,7 @@ struct hand {
 	/*0x0d70*/ u32 unk0d70;
 	/*0x0d74*/ u16 unk0d74[4];
 	/*0x0d7c*/ u32 unk0d7c;
-	/*0x0d80*/ struct remoteminething *unk0d80;
+	/*0x0d80*/ struct guncmd *unk0d80;
 	/*0x0d84*/ struct audiohandle *audiohandle;
 	/*0x0d88*/ u32 ispare4;
 	/*0x0d8c*/ u32 ispare5;
@@ -2107,7 +2107,7 @@ struct hand {
 	/*0x0dc4*/ struct abmag abmag;
 	/*0x0dcc*/ u32 unk0dcc;
 	/*0x0dd0*/ u32 unk0dd0;
-	/*0x0dd4*/ u32 unk0dd4;
+	/*0x0dd4*/ s32 unk0dd4;
 	/*0x0dd8*/ u32 unk0dd8;
 };
 
@@ -2772,7 +2772,7 @@ struct weaponfunc {
 	/*0x06*/ u8 unk06;
 	/*0x07*/ s8 ammoindex; // -1 = no ammo, 0 or 1 = index into weapon->ammos[]
 	/*0x08*/ struct inventory_menupos *menupos;
-	/*0x0c*/ u32 *fire_animation;
+	/*0x0c*/ struct guncmd *fire_animation;
 	/*0x10*/ u32 flags;
 };
 
@@ -2893,7 +2893,7 @@ struct inventory_ammo {
 	u32 type;
 	u32 casingeject;
 	s16 clipsize;
-	u32 *reload_animation;
+	struct guncmd *reload_animation;
 	u32 style;
 };
 
@@ -2905,10 +2905,10 @@ struct modelpartvisibility {
 struct weapon {
 	/*0x00*/ u16 hi_model;
 	/*0x02*/ u16 lo_model;
-	/*0x04*/ u32 *equip_animation;
-	/*0x08*/ u32 *unequip_animation;
-	/*0x0c*/ u32 *pritosec_animation;
-	/*0x10*/ u32 *sectopri_animation;
+	/*0x04*/ struct guncmd *equip_animation;
+	/*0x08*/ struct guncmd *unequip_animation;
+	/*0x0c*/ struct guncmd *pritosec_animation;
+	/*0x10*/ struct guncmd *sectopri_animation;
 	/*0x14*/ void *functions[2];
 	/*0x1c*/ struct inventory_ammo *ammos[2];
 	/*0x24*/ struct inventory_typee *eptr;
@@ -6509,15 +6509,11 @@ struct var800a3180 {
 	/*0x64*/ u32 unk64;
 };
 
-struct remoteminething {
-	u8 unk00;
+struct guncmd {
+	u8 type;
 	u8 unk01;
 	u16 unk02;
-
-	union {
-		u32 unk04;
-		struct remoteminething *next;
-	};
+	u32 unk04;
 };
 
 struct pakthing {

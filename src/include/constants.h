@@ -867,6 +867,19 @@
 #define GOPOSFLAG_DUCK         0x40
 #define GOPOSFLAG_80           0x80
 
+#define GUNCMD_END               0
+#define GUNCMD_SHOWPART          1
+#define GUNCMD_HIDEPART          2
+#define GUNCMD_WAITFORZRELEASED  3
+#define GUNCMD_WAITTIME          4
+#define GUNCMD_PLAYSOUND         5
+#define GUNCMD_INCLUDE           6
+#define GUNCMD_RANDOM            7
+#define GUNCMD_REPEATUNTILFULL   8
+#define GUNCMD_POPOUTSACKOFPILLS 9
+#define GUNCMD_PLAYANIMATION     10
+#define GUNCMD_SETSOUNDSPEED     11
+
 #define GUNMEMOWNER_0  0
 #define GUNMEMOWNER_1  1
 #define GUNMEMOWNER_2  2

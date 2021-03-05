@@ -745,7 +745,7 @@ glabel func0f0b201c
 /*  f0b2084:	00000000 */ 	nop
 );
 
-u32 *handGetEquipAnim(struct shorthand *hand)
+struct guncmd *handGetEquipAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
@@ -756,7 +756,7 @@ u32 *handGetEquipAnim(struct shorthand *hand)
 	return NULL;
 }
 
-u32 *handGetUnequipAnim(struct shorthand *hand)
+struct guncmd *handGetUnequipAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
@@ -767,7 +767,7 @@ u32 *handGetUnequipAnim(struct shorthand *hand)
 	return NULL;
 }
 
-u32 *handGetPriToSecAnim(struct shorthand *hand)
+struct guncmd *handGetPriToSecAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
@@ -778,7 +778,7 @@ u32 *handGetPriToSecAnim(struct shorthand *hand)
 	return NULL;
 }
 
-u32 *handGetSecToPriAnim(struct shorthand *hand)
+struct guncmd *handGetSecToPriAnim(struct shorthand *hand)
 {
 	struct weapon *weapon = g_Weapons[hand->weaponnum];
 
