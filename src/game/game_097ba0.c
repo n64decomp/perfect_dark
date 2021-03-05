@@ -6344,15 +6344,10 @@ glabel var7f1ac5ec
 /*  f09cb40:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f09cb44
-/*  f09cb44:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f09cb48:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f09cb4c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f09cb50:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f09cb54:	03e00008 */ 	jr	$ra
-/*  f09cb58:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 func0f09cb44(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+{
+	return 0;
+}
 
 s32 func0f09cb5c(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 {
