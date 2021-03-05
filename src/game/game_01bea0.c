@@ -1935,7 +1935,7 @@ glabel var7f1a863c
 //			if (g_MenuData.unk015 == 0) {
 //				var8009dfc0 = false;
 //
-//				if (g_Vars.currentplayer->unk15ea) {
+//				if (g_Vars.currentplayer->gunmemowner) {
 //					g_Vars.currentplayer->unk1583_06 = true;
 //				}
 //			}
@@ -2510,7 +2510,7 @@ glabel var7f1a863c
 //		}
 //
 //		// d3f0
-//		if (g_Vars.currentplayer->unk15ea == 1 && g_Vars.stagenum != STAGE_CITRAINING) {
+//		if (g_Vars.currentplayer->gunmemowner == 1 && g_Vars.stagenum != STAGE_CITRAINING) {
 //			// d410
 //			g_MenuData.unk5d5_01 = true;
 //

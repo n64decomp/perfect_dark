@@ -867,6 +867,13 @@
 #define GOPOSFLAG_DUCK         0x40
 #define GOPOSFLAG_80           0x80
 
+#define GUNMEMOWNER_0  0
+#define GUNMEMOWNER_1  1
+#define GUNMEMOWNER_2  2
+#define GUNMEMOWNER_3  3
+#define GUNMEMOWNER_10 10
+#define GUNMEMOWNER_11 11
+
 #define GUNSIGHTREASON_1         1
 #define GUNSIGHTREASON_AIMING    2
 #define GUNSIGHTREASON_NOCONTROL 4

@@ -7590,7 +7590,7 @@ glabel var7f1ac66c
 
 bool func0f09dd7c(void)
 {
-	if (g_Vars.currentplayer->gunctrl.unk15ea) {
+	if (g_Vars.currentplayer->gunctrl.gunmemowner) {
 		return false;
 	}
 
@@ -7765,18 +7765,18 @@ glabel var7f1ac6cc
 
 void func0f09df50(void)
 {
-	g_Vars.currentplayer->gunctrl.unk15ea = 11;
+	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_11;
 }
 
 void func0f09df64(s32 arg0)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (player->gunctrl.unk15ea == 0) {
+	if (player->gunctrl.gunmemowner == GUNMEMOWNER_0) {
 		player->gunctrl.unk15b0 = 0;
 		player->gunctrl.unk15b1 = 0;
 		player->gunctrl.gunmemnew = arg0;
-		player->gunctrl.unk15eb = -1;
+		player->gunctrl.gunlocktimer = -1;
 	} else {
 		player->gunctrl.gunmemnew = arg0;
 	}
@@ -7831,123 +7831,67 @@ glabel func0f09df9c
 //	g_CasingsActive = 0;
 //}
 
-GLOBAL_ASM(
-glabel func0f09e004
-.late_rodata
-glabel var7f1ac6d0
-.word func0f09e004+0x7c # f09e080
-glabel var7f1ac6d4
-.word func0f09e004+0x118 # f09e11c
-glabel var7f1ac6d8
-.word func0f09e004+0xb4 # f09e0b8
-glabel var7f1ac6dc
-.word func0f09e004+0x10c # f09e110
-glabel var7f1ac6e0
-.word func0f09e004+0x118 # f09e11c
-glabel var7f1ac6e4
-.word func0f09e004+0x118 # f09e11c
-glabel var7f1ac6e8
-.word func0f09e004+0x118 # f09e11c
-glabel var7f1ac6ec
-.word func0f09e004+0x118 # f09e11c
-glabel var7f1ac6f0
-.word func0f09e004+0x118 # f09e11c
-glabel var7f1ac6f4
-.word func0f09e004+0x118 # f09e11c
-glabel var7f1ac6f8
-.word func0f09e004+0x114 # f09e118
-glabel var7f1ac6fc
-.word func0f09e004+0x114 # f09e118
-.text
-/*  f09e004:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f09e008:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f09e00c:	8cc30284 */ 	lw	$v1,0x284($a2)
-/*  f09e010:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09e014:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09e018:	906515ea */ 	lbu	$a1,0x15ea($v1)
-/*  f09e01c:	54850004 */ 	bnel	$a0,$a1,.L0f09e030
-/*  f09e020:	806215eb */ 	lb	$v0,0x15eb($v1)
-/*  f09e024:	10000043 */ 	b	.L0f09e134
-/*  f09e028:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09e02c:	806215eb */ 	lb	$v0,0x15eb($v1)
-.L0f09e030:
-/*  f09e030:	2ca1000c */ 	sltiu	$at,$a1,0xc
-/*  f09e034:	0441000a */ 	bgez	$v0,.L0f09e060
-/*  f09e038:	244effff */ 	addiu	$t6,$v0,-1
-/*  f09e03c:	a06e15eb */ 	sb	$t6,0x15eb($v1)
-/*  f09e040:	806f15eb */ 	lb	$t7,0x15eb($v1)
-/*  f09e044:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09e048:	29e1fffe */ 	slti	$at,$t7,-2
-/*  f09e04c:	50200039 */ 	beqzl	$at,.L0f09e134
-/*  f09e050:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09e054:	a06015eb */ 	sb	$zero,0x15eb($v1)
-/*  f09e058:	10000036 */ 	b	.L0f09e134
-/*  f09e05c:	a06415ea */ 	sb	$a0,0x15ea($v1)
-.L0f09e060:
-/*  f09e060:	1020002e */ 	beqz	$at,.L0f09e11c
-/*  f09e064:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09e068:	0005c080 */ 	sll	$t8,$a1,0x2
-/*  f09e06c:	3c017f1b */ 	lui	$at,%hi(var7f1ac6d0)
-/*  f09e070:	00380821 */ 	addu	$at,$at,$t8
-/*  f09e074:	8c38c6d0 */ 	lw	$t8,%lo(var7f1ac6d0)($at)
-/*  f09e078:	03000008 */ 	jr	$t8
-/*  f09e07c:	00000000 */ 	nop
-/*  f09e080:	8c621588 */ 	lw	$v0,0x1588($v1)
-/*  f09e084:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f09e088:	50820003 */ 	beql	$a0,$v0,.L0f09e098
-/*  f09e08c:	ac641588 */ 	sw	$a0,0x1588($v1)
-/*  f09e090:	ac621584 */ 	sw	$v0,0x1584($v1)
-/*  f09e094:	ac641588 */ 	sw	$a0,0x1588($v1)
-.L0f09e098:
-/*  f09e098:	0fc277e7 */ 	jal	func0f09df9c
-/*  f09e09c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f09e0a0:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f09e0a4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09e0a8:	90681583 */ 	lbu	$t0,0x1583($v1)
-/*  f09e0ac:	35090002 */ 	ori	$t1,$t0,0x2
-/*  f09e0b0:	1000001a */ 	b	.L0f09e11c
-/*  f09e0b4:	a0691583 */ 	sb	$t1,0x1583($v1)
-/*  f09e0b8:	8cca0314 */ 	lw	$t2,0x314($a2)
-/*  f09e0bc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f09e0c0:	3c0c800a */ 	lui	$t4,%hi(var8009dfc0)
-/*  f09e0c4:	51400003 */ 	beqzl	$t2,.L0f09e0d4
-/*  f09e0c8:	8c6b19c8 */ 	lw	$t3,0x19c8($v1)
-/*  f09e0cc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09e0d0:	8c6b19c8 */ 	lw	$t3,0x19c8($v1)
-.L0f09e0d4:
-/*  f09e0d4:	15600002 */ 	bnez	$t3,.L0f09e0e0
-/*  f09e0d8:	00000000 */ 	nop
-/*  f09e0dc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f09e0e0:
-/*  f09e0e0:	1481000e */ 	bne	$a0,$at,.L0f09e11c
-/*  f09e0e4:	00000000 */ 	nop
-/*  f09e0e8:	8d8cdfc0 */ 	lw	$t4,%lo(var8009dfc0)($t4)
-/*  f09e0ec:	1180000b */ 	beqz	$t4,.L0f09e11c
-/*  f09e0f0:	00000000 */ 	nop
-/*  f09e0f4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09e0f8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f09e0fc:	0fc2e54e */ 	jal	func0f0b9538
-/*  f09e100:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f09e104:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f09e108:	10000004 */ 	b	.L0f09e11c
-/*  f09e10c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f09e110:	10000002 */ 	b	.L0f09e11c
-/*  f09e114:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09e118:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f09e11c:
-/*  f09e11c:	10400004 */ 	beqz	$v0,.L0f09e130
-/*  f09e120:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f09e124:	240e000a */ 	addiu	$t6,$zero,0xa
-/*  f09e128:	a06d15eb */ 	sb	$t5,0x15eb($v1)
-/*  f09e12c:	a06e15ea */ 	sb	$t6,0x15ea($v1)
-.L0f09e130:
-/*  f09e130:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09e134:
-/*  f09e134:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09e138:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f09e13c:	03e00008 */ 	jr	$ra
-/*  f09e140:	00000000 */ 	nop
-);
+bool func0f09e004(s32 newowner)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	if (player->gunctrl.gunmemowner == newowner) {
+		return true;
+	}
+
+	if (player->gunctrl.gunlocktimer < 0) {
+		player->gunctrl.gunlocktimer--;
+
+		if (player->gunctrl.gunlocktimer < -2) {
+			player->gunctrl.gunlocktimer = 0;
+			player->gunctrl.gunmemowner = newowner;
+			return true;
+		}
+	} else {
+		bool unlock = false;
+
+		switch (player->gunctrl.gunmemowner) {
+		case GUNMEMOWNER_0:
+			if (player->gunctrl.gunmemtype != -1) {
+				player->gunctrl.gunmemnew = player->gunctrl.gunmemtype;
+			}
+
+			player->gunctrl.gunmemtype = -1;
+			func0f09df9c();
+			player->gunctrl.unk1583_06 = true;
+			unlock = true;
+			break;
+		case GUNMEMOWNER_2:
+			if (g_Vars.mplayerisrunning) {
+				unlock = true;
+			}
+
+			if (!player->haschrbody) {
+				unlock = true;
+			}
+
+			if (newowner == GUNMEMOWNER_1 && var8009dfc0 != 0) {
+				unlock = true;
+				func0f0b9538();
+			}
+			break;
+		case GUNMEMOWNER_3:
+			unlock = true;
+			break;
+		case GUNMEMOWNER_10:
+		case GUNMEMOWNER_11:
+			unlock = true;
+			break;
+		}
+
+		if (unlock) {
+			player->gunctrl.gunlocktimer = -1;
+			player->gunctrl.gunmemowner = GUNMEMOWNER_10;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f09e144
@@ -8644,10 +8588,10 @@ bool func0f09eae4(void)
 		return false;
 	}
 
-	if (g_Vars.currentplayer->gunctrl.unk15ea) {
-		func0f09e004(0);
+	if (g_Vars.currentplayer->gunctrl.gunmemowner) {
+		func0f09e004(GUNMEMOWNER_0);
 
-		if (g_Vars.currentplayer->gunctrl.unk15ea) {
+		if (g_Vars.currentplayer->gunctrl.gunmemowner) {
 			g_Vars.lockscreen = true;
 			return true;
 		}
@@ -11547,7 +11491,7 @@ void func0f0a1528(void)
 
 				player->hands[i].base.weaponnum = ctrl->weaponnum;
 
-				player->hands[i].base.unk0639 = (ctrl->unk15e8 >> (i * 4)) & 0xf;
+				player->hands[i].base.unk0639 = (ctrl->upgradewant >> (i * 4)) & 0xf;
 				player->hands[i].unk0d08 = 0.0f;
 
 				func0f0abd30(i);
@@ -11562,7 +11506,7 @@ void func0f0a1528(void)
 			invCalculateCurrentIndex();
 
 			ctrl->switchtoweaponnum = -1;
-			ctrl->unk15e7 = 0;
+			ctrl->fnfader = 0;
 
 			if (ctrl->weaponnum == WEAPON_DISGUISE40 || ctrl->weaponnum == WEAPON_DISGUISE41) {
 				struct chrdata *chr = player->prop->chr;
@@ -11581,8 +11525,8 @@ void func0f0a1528(void)
 				func0f0a1c2c();
 			}
 
-			ctrl->unk15ec = 0;
-			ctrl->unk15ee = 0;
+			ctrl->curfnstr = 0;
+			ctrl->fnstrtimer = 0;
 			ctrl->unk1583_04 = false;
 		}
 	} else {
@@ -22605,6 +22549,6 @@ void func0f0abd30(s32 handnum)
 			abmagReset(&gunctrl->abmag);
 		}
 
-		gunctrl->unk15e9 = 0;
+		gunctrl->lastmag = false;
 	}
 }

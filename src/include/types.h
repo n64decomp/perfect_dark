@@ -2135,7 +2135,7 @@ struct gunctrl {
 	/*0x1583*/ u8 unk1583_06 : 1;
 	/*0x1583*/ u8 passivemode : 1;
 	/*0x1584*/ s32 gunmemnew;
-	/*0x1588*/ u32 gunmemtype;
+	/*0x1588*/ s32 gunmemtype;
 	/*0x158c*/ void *unk158c;
 	/*0x1590*/ u32 unk1590;
 	/*0x1594*/ s32 unk1594;
@@ -2159,17 +2159,18 @@ struct gunctrl {
 	/*0x15d8*/ u32 unk15d8;
 	/*0x15dc*/ struct abmag abmag;
 	/*0x15e4*/ s8 ammotypes[2];
-	/*0x15e6*/ u8 unk15e6;
-	/*0x15e7*/ u8 unk15e7;
-	/*0x15e8*/ u8 unk15e8;
-	/*0x15e9*/ u8 unk15e9;
-	/*0x15ea*/ u8 unk15ea;
-	/*0x15eb*/ s8 unk15eb;
-	/*0x15ec*/ u16 unk15ec;
-	/*0x15ee*/ u8 unk15ee;
-	/*0x15f0*/ u16 unk15f0;
-	/*0x15f2*/ u16 unk15f2;
-	/*0x15f4*/ u32 unk15f4;
+	/*0x15e6*/ u8 action;
+	/*0x15e7*/ u8 fnfader;
+	/*0x15e8*/ u8 upgradewant;
+	/*0x15e9*/ u8 lastmag;
+	/*0x15ea*/ u8 gunmemowner;
+	/*0x15eb*/ s8 gunlocktimer;
+	/*0x15ec*/ u16 curfnstr;
+	/*0x15ee*/ s8 fnstrtimer;
+	/*0x15ef*/ u8 guntypetimer;
+	/*0x15f0*/ u8 guntypefader;
+	/*0x15f2*/ u16 curgunstr;
+	/*0x15f4*/ u8 paddingashdown;
 };
 
 struct player {

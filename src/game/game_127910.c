@@ -407,9 +407,9 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->gunctrl.prevweaponnum = -1;
 	g_Vars.players[index]->gunctrl.switchtoweaponnum = -1;
 
-	g_Vars.players[index]->gunctrl.unk15ea = 2;
-	g_Vars.players[index]->gunctrl.unk15eb = 0;
-	g_Vars.players[index]->gunctrl.unk15e6 = 0;
+	g_Vars.players[index]->gunctrl.gunmemowner = GUNMEMOWNER_2;
+	g_Vars.players[index]->gunctrl.gunlocktimer = 0;
+	g_Vars.players[index]->gunctrl.action = 0;
 
 	g_Vars.players[index]->gunctrl.passivemode = false;
 

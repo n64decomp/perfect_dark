@@ -155,15 +155,15 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->gunctrl.unk15b1 = 0;
 	g_Vars.currentplayer->gunctrl.gunmemtype = 0;
 	g_Vars.currentplayer->gunctrl.gunmemnew = -1;
-	g_Vars.currentplayer->gunctrl.unk15ea = 2;
-	g_Vars.currentplayer->gunctrl.unk15eb = 0;
+	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_2;
+	g_Vars.currentplayer->gunctrl.gunlocktimer = 0;
 
 	g_Vars.currentplayer->gunctrl.unk1583_06 = true;
 	g_Vars.currentplayer->gunctrl.unk1583_00 = false;
 	g_Vars.currentplayer->gunctrl.unk1583_04 = false;
 
 	g_Vars.currentplayer->gunctrl.switchtoweaponnum = -1;
-	g_Vars.currentplayer->gunctrl.unk15e7 = 0;
+	g_Vars.currentplayer->gunctrl.fnfader = 0;
 
 	g_Vars.currentplayer->gunctrl.invertgunfunc = false;
 
@@ -176,7 +176,7 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->hands[1].audiohandle = NULL;
 	g_Vars.currentplayer->hands[0].audiohandle = NULL;
 
-	g_Vars.currentplayer->gunctrl.unk15f2 = 0;
+	g_Vars.currentplayer->gunctrl.curgunstr = 0;
 
 	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->hands[1].unk0d74); i++) {
 		g_Vars.currentplayer->hands[1].unk0d74[i] = 0;
