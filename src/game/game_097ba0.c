@@ -1442,103 +1442,56 @@ void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum)
 	info->gunctrl = &g_Vars.currentplayer->gunctrl;
 }
 
-GLOBAL_ASM(
-glabel func0f098ca0
-/*  f098ca0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f098ca4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f098ca8:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f098cac:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f098cb0:	24030003 */ 	addiu	$v1,$zero,0x3
-/*  f098cb4:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f098cb8:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f098cbc:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f098cc0:	0fc2c42e */ 	jal	weaponGetFunction
-/*  f098cc4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f098cc8:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f098ccc:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*  f098cd0:	14400003 */ 	bnez	$v0,.L0f098ce0
-/*  f098cd4:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f098cd8:	10000043 */ 	b	.L0f098de8
-/*  f098cdc:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f098ce0:
-/*  f098ce0:	80440007 */ 	lb	$a0,0x7($v0)
-/*  f098ce4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f098ce8:	5081003f */ 	beql	$a0,$at,.L0f098de8
-/*  f098cec:	00601025 */ 	or	$v0,$v1,$zero
-/*  f098cf0:	8d2e0008 */ 	lw	$t6,0x8($t1)
-/*  f098cf4:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*  f098cf8:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f098cfc:	01c47821 */ 	addu	$t7,$t6,$a0
-/*  f098d00:	81e80064 */ 	lb	$t0,0x64($t7)
-/*  f098d04:	00803025 */ 	or	$a2,$a0,$zero
-/*  f098d08:	03193821 */ 	addu	$a3,$t8,$t9
-/*  f098d0c:	05020036 */ 	bltzl	$t0,.L0f098de8
-/*  f098d10:	00601025 */ 	or	$v0,$v1,$zero
-/*  f098d14:	8ce40220 */ 	lw	$a0,0x220($a3)
-/*  f098d18:	8ceb0228 */ 	lw	$t3,0x228($a3)
-/*  f098d1c:	008b082a */ 	slt	$at,$a0,$t3
-/*  f098d20:	50200031 */ 	beqzl	$at,.L0f098de8
-/*  f098d24:	00601025 */ 	or	$v0,$v1,$zero
-/*  f098d28:	8d220000 */ 	lw	$v0,0x0($t1)
-/*  f098d2c:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f098d30:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f098d34:	14410004 */ 	bne	$v0,$at,.L0f098d48
-/*  f098d38:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f098d3c:	55410003 */ 	bnel	$t2,$at,.L0f098d4c
-/*  f098d40:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f098d44:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f098d48:
-/*  f098d48:	2401001c */ 	addiu	$at,$zero,0x1c
-.L0f098d4c:
-/*  f098d4c:	14410010 */ 	bne	$v0,$at,.L0f098d90
-/*  f098d50:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f098d54:	5541000f */ 	bnel	$t2,$at,.L0f098d94
-/*  f098d58:	0085082a */ 	slt	$at,$a0,$a1
-/*  f098d5c:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*  f098d60:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f098d64:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f098d68:	0fc26d36 */ 	jal	func0f09b4d8
-/*  f098d6c:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f098d70:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*  f098d74:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f098d78:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f098d7c:	8d2c0008 */ 	lw	$t4,0x8($t1)
-/*  f098d80:	00402825 */ 	or	$a1,$v0,$zero
-/*  f098d84:	8ce40220 */ 	lw	$a0,0x220($a3)
-/*  f098d88:	01866821 */ 	addu	$t5,$t4,$a2
-/*  f098d8c:	81a80064 */ 	lb	$t0,0x64($t5)
-.L0f098d90:
-/*  f098d90:	0085082a */ 	slt	$at,$a0,$a1
-.L0f098d94:
-/*  f098d94:	1020000b */ 	beqz	$at,.L0f098dc4
-/*  f098d98:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f098d9c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f098da0:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f098da4:	00087880 */ 	sll	$t7,$t0,0x2
-/*  f098da8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f098dac:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f098db0:	8f1917a8 */ 	lw	$t9,0x17a8($t8)
-/*  f098db4:	5720000c */ 	bnezl	$t9,.L0f098de8
-/*  f098db8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f098dbc:	10000009 */ 	b	.L0f098de4
-/*  f098dc0:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0f098dc4:
-/*  f098dc4:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x284)
-/*  f098dc8:	8d6ba244 */ 	lw	$t3,%lo(g_Vars+0x284)($t3)
-/*  f098dcc:	00086080 */ 	sll	$t4,$t0,0x2
-/*  f098dd0:	016c6821 */ 	addu	$t5,$t3,$t4
-/*  f098dd4:	8dae17a8 */ 	lw	$t6,0x17a8($t5)
-/*  f098dd8:	55c00003 */ 	bnezl	$t6,.L0f098de8
-/*  f098ddc:	00601025 */ 	or	$v0,$v1,$zero
-/*  f098de0:	24030002 */ 	addiu	$v1,$zero,0x2
-.L0f098de4:
-/*  f098de4:	00601025 */ 	or	$v0,$v1,$zero
-.L0f098de8:
-/*  f098de8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f098dec:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f098df0:	03e00008 */ 	jr	$ra
-/*  f098df4:	00000000 */ 	nop
-);
+/**
+ * Return values:
+ * -1 = gun function doesn't exist or ammo fully depleted
+ * 0 = trigger reload
+ * 1 = has ammo in clip and ammo in reserve
+ * 2 = has ammo in clip but none in reserve
+ * 3 = gun doesn't use ammo or clip is full
+ */
+s32 func0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
+{
+	s32 result = 3;
+	struct weaponfunc *func = weaponGetFunction(&hand->base, funcnum);
+
+	if (!func) {
+		return -1;
+	}
+
+	if (func->ammoindex != -1) {
+		s32 ammoindex = func->ammoindex;
+
+		if (info->gunctrl->ammotypes[ammoindex] >= 0
+				&& hand->loadedammo[ammoindex] < hand->clipsizes[ammoindex]) {
+			s32 minqty = 1;
+
+			if (info->weaponnum == WEAPON_SHOTGUN && funcnum == FUNC_SECONDARY) {
+				minqty = 2;
+			}
+
+			if (info->weaponnum == WEAPON_TRANQUILIZER && funcnum == FUNC_SECONDARY) {
+				minqty = weaponGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
+			}
+
+			result = 1;
+
+			if (hand->loadedammo[ammoindex] < minqty) {
+				result = 0;
+
+				if (g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] == 0) {
+					result = -1;
+				}
+			} else {
+				if (g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] == 0) {
+					result = 2;
+				}
+			}
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f098df8
@@ -4459,7 +4412,7 @@ glabel func0f09b260
 );
 
 GLOBAL_ASM(
-glabel func0f09b4d8
+glabel weaponGetMinClipQty
 /*  f09b4d8:	2401001c */ 	addiu	$at,$zero,0x1c
 /*  f09b4dc:	14810006 */ 	bne	$a0,$at,.L0f09b4f8
 /*  f09b4e0:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -4620,7 +4573,7 @@ glabel var7f1ac33c
 /*  f09b6f0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f09b6f4:	05820019 */ 	bltzl	$t4,.L0f09b75c
 /*  f09b6f8:	8ce2000c */ 	lw	$v0,0xc($a3)
-/*  f09b6fc:	0fc26d36 */ 	jal	func0f09b4d8
+/*  f09b6fc:	0fc26d36 */ 	jal	weaponGetMinClipQty
 /*  f09b700:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f09b704:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*  f09b708:	2404001c */ 	addiu	$a0,$zero,0x1c
@@ -4632,7 +4585,7 @@ glabel var7f1ac33c
 /*  f09b720:	004f082a */ 	slt	$at,$v0,$t7
 /*  f09b724:	5020000c */ 	beqzl	$at,.L0f09b758
 /*  f09b728:	ac600220 */ 	sw	$zero,0x220($v1)
-/*  f09b72c:	0fc26d36 */ 	jal	func0f09b4d8
+/*  f09b72c:	0fc26d36 */ 	jal	weaponGetMinClipQty
 /*  f09b730:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f09b734:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*  f09b738:	80f80007 */ 	lb	$t8,0x7($a3)
