@@ -1792,7 +1792,7 @@ struct hand {
 	/*0x0844*/ u32 unk0844;
 	/*0x0848*/ u32 unk0848;
 	/*0x084c*/ u32 unk084c;
-	/*0x0850*/ u32 unk0850;
+	/*0x0850*/ void *unk0850;
 	/*0x0854*/ u32 unk0854;
 	/*0x0858*/ s32 loadedammo[2];
 	/*0x0860*/ s32 clipsizes[2];

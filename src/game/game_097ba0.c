@@ -9515,35 +9515,15 @@ glabel func0f09f974
 /*  f09fa1c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f09fa20
-/*  f09fa20:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f09fa24:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f09fa28:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09fa2c:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09fa30:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f09fa34:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f09fa38:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f09fa3c:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09fa40:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09fa44:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09fa48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09fa4c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f09fa50:	8c460850 */ 	lw	$a2,0x850($v0)
-/*  f09fa54:	24420638 */ 	addiu	$v0,$v0,0x638
-/*  f09fa58:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f09fa5c:	10c00005 */ 	beqz	$a2,.L0f09fa74
-/*  f09fa60:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f09fa64:	0fc1acd3 */ 	jal	func0f06b34c
-/*  f09fa68:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f09fa6c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f09fa70:	ac400218 */ 	sw	$zero,0x218($v0)
-.L0f09fa74:
-/*  f09fa74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09fa78:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f09fa7c:	03e00008 */ 	jr	$ra
-/*  f09fa80:	00000000 */ 	nop
-);
+void func0f09fa20(s32 handnum)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+
+	if (hand->unk0850) {
+		func0f06b34c(hand->unk0850, 1);
+		hand->unk0850 = NULL;
+	}
+}
 
 GLOBAL_ASM(
 glabel handCreateFiredProjectile
