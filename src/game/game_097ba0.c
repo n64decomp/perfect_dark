@@ -6577,126 +6577,66 @@ f32 handGetNoiseRadius(s32 handnum)
 	return g_Vars.currentplayer->hands[handnum].noiseradius;
 }
 
-GLOBAL_ASM(
-glabel func0f09cf88
-/*  f09cf88:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f09cf8c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f09cf90:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f09cf94:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
-/*  f09cf98:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
-/*  f09cf9c:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*  f09cfa0:	0fc2c6bc */ 	jal	handPopulateFromCurrentPlayer
-/*  f09cfa4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f09cfa8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f09cfac:	0fc2c6bc */ 	jal	handPopulateFromCurrentPlayer
-/*  f09cfb0:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*  f09cfb4:	27a40054 */ 	addiu	$a0,$sp,0x54
-/*  f09cfb8:	0fc2c807 */ 	jal	func0f0b201c
-/*  f09cfbc:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f09cfc0:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f09cfc4:	0fc2c807 */ 	jal	func0f0b201c
-/*  f09cfc8:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f09cfcc:	0fc2883f */ 	jal	handIsFiring
-/*  f09cfd0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f09cfd4:	1040000c */ 	beqz	$v0,.L0f09d008
-/*  f09cfd8:	3c014270 */ 	lui	$at,0x4270
-/*  f09cfdc:	c6040840 */ 	lwc1	$f4,0x840($s0)
-/*  f09cfe0:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*  f09cfe4:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f09cfe8:	e6080840 */ 	swc1	$f8,0x840($s0)
-/*  f09cfec:	c6120840 */ 	lwc1	$f18,0x840($s0)
-/*  f09cff0:	c7aa002c */ 	lwc1	$f10,0x2c($sp)
-/*  f09cff4:	4612503c */ 	c.lt.s	$f10,$f18
-/*  f09cff8:	00000000 */ 	nop
-/*  f09cffc:	45020003 */ 	bc1fl	.L0f09d00c
-/*  f09d000:	44818000 */ 	mtc1	$at,$f16
-/*  f09d004:	e60a0840 */ 	swc1	$f10,0x840($s0)
-.L0f09d008:
-/*  f09d008:	44818000 */ 	mtc1	$at,$f16
-.L0f09d00c:
-/*  f09d00c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4c)
-/*  f09d010:	c420a00c */ 	lwc1	$f0,%lo(g_Vars+0x4c)($at)
-/*  f09d014:	c7a40030 */ 	lwc1	$f4,0x30($sp)
-/*  f09d018:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f09d01c:	c60e0840 */ 	lwc1	$f14,0x840($s0)
-/*  f09d020:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f09d024:	c7aa0028 */ 	lwc1	$f10,0x28($sp)
-/*  f09d028:	46104482 */ 	mul.s	$f18,$f8,$f16
-/*  f09d02c:	460a7101 */ 	sub.s	$f4,$f14,$f10
-/*  f09d030:	46002202 */ 	mul.s	$f8,$f4,$f0
-/*  f09d034:	46123303 */ 	div.s	$f12,$f6,$f18
-/*  f09d038:	c7a60038 */ 	lwc1	$f6,0x38($sp)
-/*  f09d03c:	46103482 */ 	mul.s	$f18,$f6,$f16
-/*  f09d040:	46124083 */ 	div.s	$f2,$f8,$f18
-/*  f09d044:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f09d048:	00000000 */ 	nop
-/*  f09d04c:	45020003 */ 	bc1fl	.L0f09d05c
-/*  f09d050:	460c7281 */ 	sub.s	$f10,$f14,$f12
-/*  f09d054:	46001306 */ 	mov.s	$f12,$f2
-/*  f09d058:	460c7281 */ 	sub.s	$f10,$f14,$f12
-.L0f09d05c:
-/*  f09d05c:	e60a0840 */ 	swc1	$f10,0x840($s0)
-/*  f09d060:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*  f09d064:	c6040840 */ 	lwc1	$f4,0x840($s0)
-/*  f09d068:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f09d06c:	00000000 */ 	nop
-/*  f09d070:	45000002 */ 	bc1f	.L0f09d07c
-/*  f09d074:	00000000 */ 	nop
-/*  f09d078:	e6060840 */ 	swc1	$f6,0x840($s0)
-.L0f09d07c:
-/*  f09d07c:	0fc2883f */ 	jal	handIsFiring
-/*  f09d080:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f09d084:	3c014270 */ 	lui	$at,0x4270
-/*  f09d088:	44818000 */ 	mtc1	$at,$f16
-/*  f09d08c:	1040000c */ 	beqz	$v0,.L0f09d0c0
-/*  f09d090:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4c)
-/*  f09d094:	c6080fe4 */ 	lwc1	$f8,0xfe4($s0)
-/*  f09d098:	c7b20044 */ 	lwc1	$f18,0x44($sp)
-/*  f09d09c:	46124280 */ 	add.s	$f10,$f8,$f18
-/*  f09d0a0:	e60a0fe4 */ 	swc1	$f10,0xfe4($s0)
-/*  f09d0a4:	c6060fe4 */ 	lwc1	$f6,0xfe4($s0)
-/*  f09d0a8:	c7a40040 */ 	lwc1	$f4,0x40($sp)
-/*  f09d0ac:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f09d0b0:	00000000 */ 	nop
-/*  f09d0b4:	45000002 */ 	bc1f	.L0f09d0c0
-/*  f09d0b8:	00000000 */ 	nop
-/*  f09d0bc:	e6040fe4 */ 	swc1	$f4,0xfe4($s0)
-.L0f09d0c0:
-/*  f09d0c0:	c420a00c */ 	lwc1	$f0,%lo(g_Vars+0x4c)($at)
-/*  f09d0c4:	c7a80044 */ 	lwc1	$f8,0x44($sp)
-/*  f09d0c8:	c7aa0048 */ 	lwc1	$f10,0x48($sp)
-/*  f09d0cc:	c60e0fe4 */ 	lwc1	$f14,0xfe4($s0)
-/*  f09d0d0:	46080482 */ 	mul.s	$f18,$f0,$f8
-/*  f09d0d4:	c7a4003c */ 	lwc1	$f4,0x3c($sp)
-/*  f09d0d8:	46105182 */ 	mul.s	$f6,$f10,$f16
-/*  f09d0dc:	46047201 */ 	sub.s	$f8,$f14,$f4
-/*  f09d0e0:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f09d0e4:	46069303 */ 	div.s	$f12,$f18,$f6
-/*  f09d0e8:	c7b2004c */ 	lwc1	$f18,0x4c($sp)
-/*  f09d0ec:	46109182 */ 	mul.s	$f6,$f18,$f16
-/*  f09d0f0:	46065083 */ 	div.s	$f2,$f10,$f6
-/*  f09d0f4:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f09d0f8:	00000000 */ 	nop
-/*  f09d0fc:	45020003 */ 	bc1fl	.L0f09d10c
-/*  f09d100:	460c7101 */ 	sub.s	$f4,$f14,$f12
-/*  f09d104:	46001306 */ 	mov.s	$f12,$f2
-/*  f09d108:	460c7101 */ 	sub.s	$f4,$f14,$f12
-.L0f09d10c:
-/*  f09d10c:	e6040fe4 */ 	swc1	$f4,0xfe4($s0)
-/*  f09d110:	c7b2003c */ 	lwc1	$f18,0x3c($sp)
-/*  f09d114:	c6080fe4 */ 	lwc1	$f8,0xfe4($s0)
-/*  f09d118:	4612403c */ 	c.lt.s	$f8,$f18
-/*  f09d11c:	00000000 */ 	nop
-/*  f09d120:	45020003 */ 	bc1fl	.L0f09d130
-/*  f09d124:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f09d128:	e6120fe4 */ 	swc1	$f18,0xfe4($s0)
-/*  f09d12c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f09d130:
-/*  f09d130:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f09d134:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*  f09d138:	03e00008 */ 	jr	$ra
-/*  f09d13c:	00000000 */ 	nop
-);
+void currentPlayerDecreaseNoiseRadius(void)
+{
+	struct player *player = g_Vars.currentplayer;
+	f32 consideramount;
+	struct shorthand shortleft;
+	struct shorthand shortright;
+	f32 sp3c[5];
+	f32 sp28[5];
+	f32 subamount;
+
+	handPopulateFromCurrentPlayer(HAND_LEFT, &shortleft);
+	handPopulateFromCurrentPlayer(HAND_RIGHT, &shortright);
+
+	func0f0b201c(&shortleft, sp3c);
+	func0f0b201c(&shortright, sp28);
+
+	// Right hand
+	if (handIsFiring(HAND_RIGHT)) {
+		player->hands[HAND_RIGHT].noiseradius += sp28[2];
+
+		if (player->hands[HAND_RIGHT].noiseradius > sp28[1]) {
+			player->hands[HAND_RIGHT].noiseradius = sp28[1];
+		}
+	}
+
+	subamount = g_Vars.lvupdate240freal * sp28[2] / (sp28[3] * 60.0f);
+	consideramount = (player->hands[HAND_RIGHT].noiseradius - sp28[0]) * g_Vars.lvupdate240freal / (sp28[4] * 60.0f);
+
+	if (consideramount > subamount) {
+		subamount = consideramount;
+	}
+
+	player->hands[HAND_RIGHT].noiseradius -= subamount;
+
+	if (player->hands[HAND_RIGHT].noiseradius < sp28[0]) {
+		player->hands[HAND_RIGHT].noiseradius = sp28[0];
+	}
+
+	// Left hand
+	if (handIsFiring(HAND_LEFT)) {
+		player->hands[HAND_LEFT].noiseradius += sp3c[2];
+
+		if (player->hands[HAND_LEFT].noiseradius > sp3c[1]) {
+			player->hands[HAND_LEFT].noiseradius = sp3c[1];
+		}
+	}
+
+	subamount = g_Vars.lvupdate240freal * sp3c[2] / (sp3c[3] * 60.0f);
+	consideramount = (player->hands[HAND_LEFT].noiseradius - sp3c[0]) * g_Vars.lvupdate240freal / (sp3c[4] * 60.0f);
+
+	if (consideramount > subamount) {
+		subamount = consideramount;
+	}
+
+	player->hands[HAND_LEFT].noiseradius -= subamount;
+
+	if (player->hands[HAND_LEFT].noiseradius < sp3c[0]) {
+		player->hands[HAND_LEFT].noiseradius = sp3c[0];
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f09d140
@@ -19913,7 +19853,7 @@ void currentPlayerTickInventory(bool triggeron)
 		}
 	}
 
-	func0f09cf88();
+	currentPlayerDecreaseNoiseRadius();
 
 	if (player->resetshadecol) {
 		func0f069144(g_Vars.currentplayer->prop, player->gunshadecol, player->floorcol);

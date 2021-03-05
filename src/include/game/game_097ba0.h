@@ -52,7 +52,7 @@ void func0f09cdc4(s32 handnum);
 void func0f09ce8c(void);
 void func0f09ceac(void);
 f32 handGetNoiseRadius(s32 handnum);
-void func0f09cf88(void);
+void currentPlayerDecreaseNoiseRadius(void);
 void func0f09d140(s32 hand);
 u32 func0f09d550(void);
 void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4);

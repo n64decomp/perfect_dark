@@ -34,7 +34,7 @@ u16 handGetSingleShootSound(struct shorthand *hand);
 bool handHasFunctionFlags(struct shorthand *hand, u32 flags);
 s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex);
 u32 currentPlayerGetSight(void);
-u32 func0f0b201c(void);
+void func0f0b201c(struct shorthand *hand, f32 *arg1);
 u32 *handGetPriToSecAnim(struct shorthand *hand);
 u32 *handGetSecToPriAnim(struct shorthand *hand);
 
