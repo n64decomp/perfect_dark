@@ -36,7 +36,7 @@ u32 func0f09a6f8(void);
 u32 func0f09aba4(void);
 u32 func0f09afe4(void);
 u32 func0f09b260(void);
-s32 weaponGetMinClipQty(s32 weaponnum, s32 arg1);
+s32 weaponGetMinClipQty(s32 weaponnum, s32 funcnum);
 u32 func0f09b500(void);
 u32 func0f09b828(void);
 u32 func0f09b8e0(void);

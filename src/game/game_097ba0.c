@@ -4411,20 +4411,14 @@ glabel func0f09b260
 /*  f09b4d4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel weaponGetMinClipQty
-/*  f09b4d8:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f09b4dc:	14810006 */ 	bne	$a0,$at,.L0f09b4f8
-/*  f09b4e0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09b4e4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f09b4e8:	14a10003 */ 	bne	$a1,$at,.L0f09b4f8
-/*  f09b4ec:	00000000 */ 	nop
-/*  f09b4f0:	03e00008 */ 	jr	$ra
-/*  f09b4f4:	24020004 */ 	addiu	$v0,$zero,0x4
-.L0f09b4f8:
-/*  f09b4f8:	03e00008 */ 	jr	$ra
-/*  f09b4fc:	00000000 */ 	nop
-);
+s32 weaponGetMinClipQty(s32 weaponnum, s32 funcnum)
+{
+	if (weaponnum == WEAPON_TRANQUILIZER && funcnum == FUNC_SECONDARY) {
+		return 4;
+	}
+
+	return 1;
+}
 
 GLOBAL_ASM(
 glabel func0f09b500
