@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 func0f097ba0(void);
-s32 func0f097d0c(s32 value);
+s32 func0f097d0c(s32 weaponnum);
 u32 func0f097d64(void);
 u32 func0f097df0(void);
 u32 func0f097e74(void);
@@ -75,7 +75,7 @@ void func0f09ee18(struct chrdata *chr, u8 *arg1, struct coord *pos, s16 *rooms, 
 void handCreateThrownProjectile(s32 handnum, struct shorthand *hand);
 u32 func0f09f848(void);
 u32 func0f09f974(void);
-u32 func0f09fa20(void);
+void func0f09fa20(s32 handnum);
 void handCreateFiredProjectile(s32 handnum);
 void func0f0a0394(f32 autoaimx, f32 autoaimy, f32 damp, f32 arg3);
 void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp);

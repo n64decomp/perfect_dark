@@ -395,21 +395,21 @@ glabel func0f097ba0
 /*  f097d08:	00000000 */ 	nop
 );
 
-s32 func0f097d0c(s32 value)
+s32 func0f097d0c(s32 weaponnum)
 {
-	if (value == 0x1b) {
+	if (weaponnum == WEAPON_CROSSBOW) {
 		return 0;
 	}
 
-	if (value == 0x13) {
+	if (weaponnum == WEAPON_SHOTGUN) {
 		return 1;
 	}
 
-	if (value == 0x08) {
+	if (weaponnum == WEAPON_DY357MAGNUM) {
 		return 2;
 	}
 
-	if (value == 0x09) {
+	if (weaponnum == WEAPON_DY357LX) {
 		return 3;
 	}
 
@@ -11196,138 +11196,39 @@ u32 handGetUnk0c30(s32 handnum)
 	return hand->unk0c30;
 }
 
-GLOBAL_ASM(
-glabel func0f0a134c
-/*  f0a134c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0a1350:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f0a1354:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0a1358:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f0a135c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a1360:	3c15800a */ 	lui	$s5,%hi(g_Vars+0x284)
-/*  f0a1364:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f0a1368:	8eb5a244 */ 	lw	$s5,%lo(g_Vars+0x284)($s5)
-/*  f0a136c:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0a1370:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f0a1374:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a1378:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0a137c:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f0a1380:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f0a1384:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f0a1388:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0a138c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0a1390:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0a1394:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0a1398:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0a139c:	02ae7821 */ 	addu	$t7,$s5,$t6
-/*  f0a13a0:	81f80640 */ 	lb	$t8,0x640($t7)
-/*  f0a13a4:	0080f025 */ 	or	$s8,$a0,$zero
-/*  f0a13a8:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0a13ac:	13000027 */ 	beqz	$t8,.L0f0a144c
-/*  f0a13b0:	02a09825 */ 	or	$s3,$s5,$zero
-/*  f0a13b4:	24170002 */ 	addiu	$s7,$zero,0x2
-/*  f0a13b8:	2416ffff */ 	addiu	$s6,$zero,-1
-.L0f0a13bc:
-/*  f0a13bc:	827915e4 */ 	lb	$t9,0x15e4($s3)
-/*  f0a13c0:	001e4100 */ 	sll	$t0,$s8,0x4
-/*  f0a13c4:	011e4023 */ 	subu	$t0,$t0,$s8
-/*  f0a13c8:	0720001d */ 	bltz	$t9,.L0f0a1440
-/*  f0a13cc:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0a13d0:	011e4021 */ 	addu	$t0,$t0,$s8
-/*  f0a13d4:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f0a13d8:	011e4021 */ 	addu	$t0,$t0,$s8
-/*  f0a13dc:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0a13e0:	02a88821 */ 	addu	$s1,$s5,$t0
-/*  f0a13e4:	00124880 */ 	sll	$t1,$s2,0x2
-/*  f0a13e8:	02298021 */ 	addu	$s0,$s1,$t1
-/*  f0a13ec:	8e0a0860 */ 	lw	$t2,0x860($s0)
-/*  f0a13f0:	8e0b0858 */ 	lw	$t3,0x858($s0)
-/*  f0a13f4:	82a41580 */ 	lb	$a0,0x1580($s5)
-/*  f0a13f8:	0fc25f43 */ 	jal	func0f097d0c
-/*  f0a13fc:	014ba023 */ 	subu	$s4,$t2,$t3
-/*  f0a1400:	10560005 */ 	beq	$v0,$s6,.L0f0a1418
-/*  f0a1404:	00146200 */ 	sll	$t4,$s4,0x8
-/*  f0a1408:	00027040 */ 	sll	$t6,$v0,0x1
-/*  f0a140c:	022e7821 */ 	addu	$t7,$s1,$t6
-/*  f0a1410:	358d00ff */ 	ori	$t5,$t4,0xff
-/*  f0a1414:	a5ed0d74 */ 	sh	$t5,0xd74($t7)
-.L0f0a1418:
-/*  f0a1418:	8e030858 */ 	lw	$v1,0x858($s0)
-/*  f0a141c:	58600008 */ 	blezl	$v1,.L0f0a1440
-/*  f0a1420:	ae000858 */ 	sw	$zero,0x858($s0)
-/*  f0a1424:	827815e4 */ 	lb	$t8,0x15e4($s3)
-/*  f0a1428:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0a142c:	02b91021 */ 	addu	$v0,$s5,$t9
-/*  f0a1430:	8c4817a8 */ 	lw	$t0,0x17a8($v0)
-/*  f0a1434:	01034821 */ 	addu	$t1,$t0,$v1
-/*  f0a1438:	ac4917a8 */ 	sw	$t1,0x17a8($v0)
-/*  f0a143c:	ae000858 */ 	sw	$zero,0x858($s0)
-.L0f0a1440:
-/*  f0a1440:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f0a1444:	1657ffdd */ 	bne	$s2,$s7,.L0f0a13bc
-/*  f0a1448:	26730001 */ 	addiu	$s3,$s3,0x1
-.L0f0a144c:
-/*  f0a144c:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x314)
-/*  f0a1450:	8d4aa2d4 */ 	lw	$t2,%lo(g_Vars+0x314)($t2)
-/*  f0a1454:	3c0b8009 */ 	lui	$t3,%hi(g_Is4Mb)
-/*  f0a1458:	11400025 */ 	beqz	$t2,.L0f0a14f0
-/*  f0a145c:	00000000 */ 	nop
-/*  f0a1460:	916b0af0 */ 	lbu	$t3,%lo(g_Is4Mb)($t3)
-/*  f0a1464:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0a1468:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x6c)
-/*  f0a146c:	14cb001e */ 	bne	$a2,$t3,.L0f0a14e8
-/*  f0a1470:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x68)
-/*  f0a1474:	8d8ca02c */ 	lw	$t4,%lo(g_Vars+0x6c)($t4)
-/*  f0a1478:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x64)
-/*  f0a147c:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x70)
-/*  f0a1480:	11800003 */ 	beqz	$t4,.L0f0a1490
-/*  f0a1484:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a1488:	10000001 */ 	b	.L0f0a1490
-/*  f0a148c:	00c02825 */ 	or	$a1,$a2,$zero
-.L0f0a1490:
-/*  f0a1490:	8dcea028 */ 	lw	$t6,%lo(g_Vars+0x68)($t6)
-/*  f0a1494:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0a1498:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a149c:	11c00003 */ 	beqz	$t6,.L0f0a14ac
-/*  f0a14a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a14a4:	10000001 */ 	b	.L0f0a14ac
-/*  f0a14a8:	00c01825 */ 	or	$v1,$a2,$zero
-.L0f0a14ac:
-/*  f0a14ac:	8dada024 */ 	lw	$t5,%lo(g_Vars+0x64)($t5)
-/*  f0a14b0:	11a00003 */ 	beqz	$t5,.L0f0a14c0
-/*  f0a14b4:	00000000 */ 	nop
-/*  f0a14b8:	10000001 */ 	b	.L0f0a14c0
-/*  f0a14bc:	00c02025 */ 	or	$a0,$a2,$zero
-.L0f0a14c0:
-/*  f0a14c0:	8defa030 */ 	lw	$t7,%lo(g_Vars+0x70)($t7)
-/*  f0a14c4:	11e00003 */ 	beqz	$t7,.L0f0a14d4
-/*  f0a14c8:	00000000 */ 	nop
-/*  f0a14cc:	10000001 */ 	b	.L0f0a14d4
-/*  f0a14d0:	00c01025 */ 	or	$v0,$a2,$zero
-.L0f0a14d4:
-/*  f0a14d4:	0044c021 */ 	addu	$t8,$v0,$a0
-/*  f0a14d8:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f0a14dc:	03254021 */ 	addu	$t0,$t9,$a1
-/*  f0a14e0:	10c80003 */ 	beq	$a2,$t0,.L0f0a14f0
-/*  f0a14e4:	00000000 */ 	nop
-.L0f0a14e8:
-/*  f0a14e8:	0fc4a33c */ 	jal	currentPlayerSetWeaponFlag4
-/*  f0a14ec:	03c02025 */ 	or	$a0,$s8,$zero
-.L0f0a14f0:
-/*  f0a14f0:	0fc27e88 */ 	jal	func0f09fa20
-/*  f0a14f4:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f0a14f8:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0a14fc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0a1500:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0a1504:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0a1508:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0a150c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0a1510:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f0a1514:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f0a1518:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f0a151c:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f0a1520:	03e00008 */ 	jr	$ra
-/*  f0a1524:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void func0f0a134c(s32 handnum)
+{
+	struct player *player = g_Vars.currentplayer;
+	s32 i;
+
+	if (player->hands[handnum].inuse) {
+		for (i = 0; i < 2; i++) {
+			if (player->gunctrl.ammotypes[i] >= 0) {
+				s32 spaceinclip = player->hands[handnum].clipsizes[i] - player->hands[handnum].loadedammo[i];
+				s32 specialnum = func0f097d0c(player->gunctrl.weaponnum);
+
+				if (specialnum != -1) {
+					player->hands[handnum].unk0d74[specialnum] = (spaceinclip << 8) | 0xff;
+				}
+
+				if (player->hands[handnum].loadedammo[i] > 0) {
+					player->ammoheldarr[player->gunctrl.ammotypes[i]] += player->hands[handnum].loadedammo[i];
+				}
+
+				player->hands[handnum].loadedammo[i] = 0;
+			}
+		}
+	}
+
+	// @bug? Presence of 8MB check suggests the flag 4 feature requires a bit of
+	// memory, but if the system has 4MB then shouldn't the playercount check be
+	// inverted?
+	if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
+		currentPlayerSetWeaponFlag4(handnum);
+	}
+
+	func0f09fa20(handnum);
+}
 
 void func0f0a1528(void)
 {
