@@ -6354,144 +6354,61 @@ glabel func0f09cb44
 /*  f09cb58:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f09cb5c
-.late_rodata
-glabel var7f1ac5f0
-.word func0f09cb5c+0xb4 # f09cc10
-glabel var7f1ac5f4
-.word func0f09cb5c+0xcc # f09cc28
-glabel var7f1ac5f8
-.word func0f09cb5c+0xfc # f09cc58
-glabel var7f1ac5fc
-.word func0f09cb5c+0x12c # f09cc88
-glabel var7f1ac600
-.word func0f09cb5c+0xe4 # f09cc40
-glabel var7f1ac604
-.word func0f09cb5c+0x114 # f09cc70
-glabel var7f1ac608
-.word func0f09cb5c+0x170 # f09cccc
-glabel var7f1ac60c
-.word func0f09cb5c+0x15c # f09ccb8
-glabel var7f1ac610
-.word func0f09cb5c+0x144 # f09cca0
-.text
-/*  f09cb5c:	00057900 */ 	sll	$t7,$a1,0x4
-/*  f09cb60:	01e57823 */ 	subu	$t7,$t7,$a1
-/*  f09cb64:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f09cb68:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09cb6c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f09cb70:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f09cb74:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f09cb78:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f09cb7c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f09cb80:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f09cb84:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f09cb88:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09cb8c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f09cb90:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f09cb94:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f09cb98:	8e030c3c */ 	lw	$v1,0xc3c($s0)
-/*  f09cb9c:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f09cba0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f09cba4:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f09cba8:	8e180c4c */ 	lw	$t8,0xc4c($s0)
-/*  f09cbac:	a200063c */ 	sb	$zero,0x63c($s0)
-/*  f09cbb0:	a200063d */ 	sb	$zero,0x63d($s0)
-/*  f09cbb4:	0306c821 */ 	addu	$t9,$t8,$a2
-/*  f09cbb8:	ae190c4c */ 	sw	$t9,0xc4c($s0)
-/*  f09cbbc:	8c480034 */ 	lw	$t0,0x34($v0)
-/*  f09cbc0:	26100638 */ 	addiu	$s0,$s0,0x638
-/*  f09cbc4:	5900000a */ 	blezl	$t0,.L0f09cbf0
-/*  f09cbc8:	2c610009 */ 	sltiu	$at,$v1,0x9
-/*  f09cbcc:	8e09001c */ 	lw	$t1,0x1c($s0)
-/*  f09cbd0:	8c4a0038 */ 	lw	$t2,0x38($v0)
-/*  f09cbd4:	8e0c0018 */ 	lw	$t4,0x18($s0)
-/*  f09cbd8:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09cbdc:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f09cbe0:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f09cbe4:	ae0b001c */ 	sw	$t3,0x1c($s0)
-/*  f09cbe8:	ae0d0018 */ 	sw	$t5,0x18($s0)
-/*  f09cbec:	2c610009 */ 	sltiu	$at,$v1,0x9
-.L0f09cbf0:
-/*  f09cbf0:	10200036 */ 	beqz	$at,.L0f09cccc
-/*  f09cbf4:	ae0000b4 */ 	sw	$zero,0xb4($s0)
-/*  f09cbf8:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f09cbfc:	3c017f1b */ 	lui	$at,%hi(var7f1ac5f0)
-/*  f09cc00:	002e0821 */ 	addu	$at,$at,$t6
-/*  f09cc04:	8c2ec5f0 */ 	lw	$t6,%lo(var7f1ac5f0)($at)
-/*  f09cc08:	01c00008 */ 	jr	$t6
-/*  f09cc0c:	00000000 */ 	nop
-/*  f09cc10:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09cc14:	0fc26479 */ 	jal	func0f0991e4
-/*  f09cc18:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09cc1c:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09cc20:	1000002a */ 	b	.L0f09cccc
-/*  f09cc24:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09cc28:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09cc2c:	0fc26712 */ 	jal	func0f099c48
-/*  f09cc30:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09cc34:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09cc38:	10000024 */ 	b	.L0f09cccc
-/*  f09cc3c:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09cc40:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09cc44:	0fc26f0b */ 	jal	func0f09bc2c
-/*  f09cc48:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09cc4c:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09cc50:	1000001e */ 	b	.L0f09cccc
-/*  f09cc54:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09cc58:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09cc5c:	0fc272d1 */ 	jal	func0f09cb44
-/*  f09cc60:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09cc64:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09cc68:	10000018 */ 	b	.L0f09cccc
-/*  f09cc6c:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09cc70:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09cc74:	0fc27007 */ 	jal	func0f09c01c
-/*  f09cc78:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09cc7c:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09cc80:	10000012 */ 	b	.L0f09cccc
-/*  f09cc84:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09cc88:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09cc8c:	0fc26e38 */ 	jal	func0f09b8e0
-/*  f09cc90:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09cc94:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09cc98:	1000000c */ 	b	.L0f09cccc
-/*  f09cc9c:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09cca0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09cca4:	0fc26602 */ 	jal	func0f099808
-/*  f09cca8:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09ccac:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09ccb0:	10000006 */ 	b	.L0f09cccc
-/*  f09ccb4:	8e030604 */ 	lw	$v1,0x604($s0)
-/*  f09ccb8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09ccbc:	0fc268c4 */ 	jal	func0f09a310
-/*  f09ccc0:	02203825 */ 	or	$a3,$s1,$zero
-/*  f09ccc4:	00403825 */ 	or	$a3,$v0,$zero
-/*  f09ccc8:	8e030604 */ 	lw	$v1,0x604($s0)
-.L0f09cccc:
-/*  f09cccc:	8e020614 */ 	lw	$v0,0x614($s0)
-/*  f09ccd0:	0007c023 */ 	negu	$t8,$a3
-/*  f09ccd4:	ae02061c */ 	sw	$v0,0x61c($s0)
-/*  f09ccd8:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f09ccdc:	51e30004 */ 	beql	$t7,$v1,.L0f09ccf0
-/*  f09cce0:	8e080618 */ 	lw	$t0,0x618($s0)
-/*  f09cce4:	10000006 */ 	b	.L0f09cd00
-/*  f09cce8:	ae18061c */ 	sw	$t8,0x61c($s0)
-/*  f09ccec:	8e080618 */ 	lw	$t0,0x618($s0)
-.L0f09ccf0:
-/*  f09ccf0:	0047c823 */ 	subu	$t9,$v0,$a3
-/*  f09ccf4:	ae190614 */ 	sw	$t9,0x614($s0)
-/*  f09ccf8:	25090001 */ 	addiu	$t1,$t0,0x1
-/*  f09ccfc:	ae090618 */ 	sw	$t1,0x618($s0)
-.L0f09cd00:
-/*  f09cd00:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f09cd04:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f09cd08:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f09cd0c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f09cd10:	03e00008 */ 	jr	$ra
-/*  f09cd14:	00e01025 */ 	or	$v0,$a3,$zero
-);
+s32 func0f09cb5c(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
+{
+	s32 result = 0;
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+	s32 prevvalue = hand->unk0c3c;
+
+	hand->firing = false;
+	hand->flashon = false;
+	hand->unk0c4c += lvupdate;
+
+	if (g_Vars.lvupdate240 > 0) {
+		hand->count60 += g_Vars.lvupdate240_60;
+		hand->count++;
+	}
+
+	hand->useposrot = false;
+
+	switch (hand->unk0c3c) {
+	case 0:
+		result = func0f0991e4(info, handnum, hand, lvupdate);
+		break;
+	case 1:
+		result = func0f099c48(info, handnum, hand, lvupdate);
+		break;
+	case 4:
+		result = func0f09bc2c(info, handnum, hand, lvupdate);
+		break;
+	case 2:
+		result = func0f09cb44(info, handnum, hand, lvupdate);
+		break;
+	case 5:
+		result = func0f09c01c(info, handnum, hand, lvupdate);
+		break;
+	case 3:
+		result = func0f09b8e0(info, handnum, hand, lvupdate);
+		break;
+	case 8:
+		result = func0f099808(info, handnum, hand, lvupdate);
+		break;
+	case 7:
+		result = func0f09a310(info, handnum, hand, lvupdate);
+		break;
+	}
+
+	hand->unk0c54 = hand->unk0c4c;
+
+	if (hand->unk0c3c != prevvalue) {
+		hand->unk0c54 = -result;
+	} else {
+		hand->unk0c4c -= result;
+		hand->unk0c50++;
+	}
+
+	return result;
+}
 
 bool func0f09cd18(s32 handnum, s32 arg1)
 {
