@@ -6,7 +6,7 @@
 
 u32 func0f006c80(void);
 Gfx *func0f008558(Gfx *gdl, s32 arg1);
-void nbombResetAge(struct nbomb *nbomb);
+void nbombReset(struct nbomb *nbomb);
 s32 nbombCalculateAlpha(struct nbomb *nbomb);
 Gfx *nbombCreateGdl(void);
 Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl);

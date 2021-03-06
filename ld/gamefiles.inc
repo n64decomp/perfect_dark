@@ -21,6 +21,7 @@
 	build/ROMID/game/stubs/game_00b200.o (section); \
 	build/ROMID/game/game_00b210.o (section); \
 	build/ROMID/game/game_00b320.o (section); \
+	build/ROMID/game/game_00b420.o (section); \
 	build/ROMID/game/game_00b480.o (section); \
 	build/ROMID/game/game_00b820.o (section); \
 	build/ROMID/game/game_00c240.o (section); \

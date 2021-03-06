@@ -2298,16 +2298,28 @@ void chrRunPosChooseAnimation(struct chrdata *chr)
 	if (race == RACE_HUMAN) {
 		if (heavy) {
 			f32 mult = 0.5;
+#if PAL
+			chr->act_runpos.unk03c = (1.0f / (func0f02dff0(0x2a) * mult * 0.83333331346512f)) * distance;
+#else
 			chr->act_runpos.unk03c = (1.0f / (func0f02dff0(0x2a) * mult)) * distance;
+#endif
 			modelSetAnimation(chr->model, 0x2a, flip, 0, mult, 16);
 		} else {
 			f32 mult = 0.5;
+#if PAL
+			chr->act_runpos.unk03c = (1.0f / (func0f02dff0(0x59) * mult * 0.83333331346512f)) * distance;
+#else
 			chr->act_runpos.unk03c = (1.0f / (func0f02dff0(0x59) * mult)) * distance;
+#endif
 			modelSetAnimation(chr->model, 0x59, flip, 0, mult, 16);
 		}
 	} else if (race == RACE_SKEDAR) {
 		f32 mult = 0.5;
+#if PAL
+		chr->act_runpos.unk03c = (1.0f / (func0f02dff0(0x394) * mult * 0.83333331346512f)) * distance;
+#else
 		chr->act_runpos.unk03c = (1.0f / (func0f02dff0(0x394) * mult)) * distance;
+#endif
 		modelSetAnimation(chr->model, 0x394, flip, 0, mult, 16);
 	}
 }
@@ -6169,44 +6181,29 @@ glabel func0f033654
 /*  f0336a4:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0336a8
-/*  f0336a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0336ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0336b0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0336b4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0336b8:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0336bc:	80820007 */ 	lb	$v0,0x7($a0)
-/*  f0336c0:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f0336c4:	10410014 */ 	beq	$v0,$at,.L0f033718
-/*  f0336c8:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f0336cc:	10410012 */ 	beq	$v0,$at,.L0f033718
-/*  f0336d0:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f0336d4:	50410011 */ 	beql	$v0,$at,.L0f03371c
-/*  f0336d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0336dc:	0fc2c163 */ 	jal	mpstatsGetTotalKnockoutCount
-/*  f0336e0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0336e4:	28410002 */ 	slti	$at,$v0,0x2
-/*  f0336e8:	10200005 */ 	beqz	$at,.L0f033700
-/*  f0336ec:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0336f0:	8c8e0018 */ 	lw	$t6,0x18($a0)
-/*  f0336f4:	3c010400 */ 	lui	$at,0x400
-/*  f0336f8:	01c17825 */ 	or	$t7,$t6,$at
-/*  f0336fc:	ac8f0018 */ 	sw	$t7,0x18($a0)
-.L0f033700:
-/*  f033700:	0fc2c157 */ 	jal	mpstatsIncrementTotalKnockoutCount
-/*  f033704:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f033708:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03370c:	24180020 */ 	addiu	$t8,$zero,0x20
-/*  f033710:	a0980007 */ 	sb	$t8,0x7($a0)
-/*  f033714:	a480002c */ 	sh	$zero,0x2c($a0)
-.L0f033718:
-/*  f033718:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03371c:
-/*  f03371c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f033720:	03e00008 */ 	jr	$ra
-/*  f033724:	00000000 */ 	nop
-);
+void func0f0336a8(struct chrdata *chr, u32 arg1, u32 arg2, u32 arg3)
+{
+	if (chr->actiontype != ACT_DRUGGEDCOMINGUP
+			&& chr->actiontype != ACT_DRUGGEDDROP
+			&& chr->actiontype != ACT_DRUGGEDKO) {
+		if (mpstatsGetTotalKnockoutCount() < 2) {
+			chr->chrflags |= CHRCFLAG_KEEPCORPSEKO;
+
+#if VERSION >= VERSION_PAL_FINAL
+			if (mainGetStageNum() == STAGE_VILLA) {
+				// I'm guessing this flag is reused and prevents anti from
+				// killing the KO'd chr, which could uncomplete the objective.
+				chr->hidden |= CHRHFLAG_ANTICANNOTPUSH;
+			}
+#endif
+		}
+
+		mpstatsIncrementTotalKnockoutCount();
+
+		chr->actiontype = ACT_DRUGGEDCOMINGUP;
+		chr->act_druggedcomingup.unk02c = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f033728

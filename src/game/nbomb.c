@@ -2757,9 +2757,12 @@ glabel var7f1a7f18
 /*  f0094b0:	00000000 */ 	nop
 );
 
-void nbombResetAge(struct nbomb *nbomb)
+void nbombReset(struct nbomb *nbomb)
 {
 	nbomb->age240 = 0;
+#if VERSION >= VERSION_PAL_FINAL
+	nbomb->radius = 0;
+#endif
 }
 
 /**
@@ -3250,7 +3253,12 @@ void nbombTick(struct nbomb *nbomb)
 			age60 = 40;
 		}
 
+#if PAL
+		nbomb->unk14 += increment * age60 * 60 / 50;
+#else
 		nbomb->unk14 += increment * age60;
+#endif
+
 		nbomb->unk14 %= 0x800;
 
 		if (nbomb->age240 > 370) {
@@ -3372,7 +3380,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 		}
 	}
 
-	nbombResetAge(&g_Nbombs[index]);
+	nbombReset(&g_Nbombs[index]);
 
 	g_Nbombs[index].pos.x = pos->x;
 	g_Nbombs[index].pos.y = pos->y;
