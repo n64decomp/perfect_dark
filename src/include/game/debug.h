@@ -21,7 +21,7 @@ bool debug0f11ee90(void);
 bool debug0f11eea8(void);
 bool debug0f11eeb0(void);
 s32 debugGetMotionBlur(void);
-bool debug0f11eef8(void);
+bool debugEnableFootsteps(void);
 bool debugAllowEndLevel(void);
 bool debug0f11ef78(void);
 bool debug0f11ef80(void);

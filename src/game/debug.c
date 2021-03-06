@@ -333,7 +333,7 @@ bool debug0f11eef0(void)
 	return false;
 }
 
-bool debug0f11eef8(void)
+bool debugEnableFootsteps(void)
 {
 	return true;
 }

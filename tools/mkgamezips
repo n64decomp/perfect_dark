@@ -51,6 +51,8 @@ def main():
             checksum = checksumsmaybe[os.environ['ROMID']][index]
         except IndexError:
             checksum = 0
+        except KeyError:
+            checksum = 0
         fd.write(checksum.to_bytes(2, 'big'))
 
         fd.write(zip)
@@ -59,6 +61,8 @@ def main():
     try:
         checksum = checksumsmaybe[os.environ['ROMID']][index + 1]
     except IndexError:
+        checksum = 0
+    except KeyError:
         checksum = 0
     fd.write(checksum.to_bytes(2, 'big'))
 
@@ -258,7 +262,8 @@ padding = {
         0x2c, 0xe5, 0xff, 0xeb, 0x37, 0xde, 0xd0, 0x6e,
         0x96, 0xfa, 0xbe, 0x79, 0xe3, 0x1e, 0x7f, 0xff,
         0x67, 0x86, 0x86, 0x86, 0x15, 0x6e,
-    ]
+    ],
+    'pal-final': [],
 }
 
 main()
