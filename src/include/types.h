@@ -2033,8 +2033,12 @@ struct hand {
 	/*0x0cb0*/ u32 unk0cb0;
 	/*0x0cb4*/ u32 unk0cb4;
 	/*0x0cb8*/ s32 unk0cb8;
-	/*0x0cbc*/ u32 unk0cbc;
+	/*0x0cbc*/ s32 unk0cbc;
+#if VERSION >= VERSION_PAL_FINAL
+	/*0x0cc0*/ f32 unk0cc0;
+#else
 	/*0x0cc0*/ u32 unk0cc0;
+#endif
 	/*0x0cc4*/ u32 unk0cc4;
 	/*0x0cc8*/ u8 unk0cc8_01 : 1;
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
