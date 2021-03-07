@@ -35,6 +35,14 @@
 		(p[1] - g_Vars.currentplayer->eraserpos.f[1]) * (p[1] - g_Vars.currentplayer->eraserpos.f[1]) + \
 		(p[2] - g_Vars.currentplayer->eraserpos.f[2]) * (p[2] - g_Vars.currentplayer->eraserpos.f[2]))
 
+#if PAL
+#define TIME60TOFRAMES(val) (val * 50 / 60)
+#define FRAMESTOTIME60(val) (val * 1.2f)
+#else
+#define TIME60TOFRAMES(val) (val)
+#define FRAMESTOTIME60(val) (val)
+#endif
+
 // Macro to convert an ASCII character to N64 font code.
 // N64 font code uses 0x0f for space, 0x10-0x19 for 0-9 and 0x1a-0x33 for A-Z.
 #define N64CHAR(c)          (c == ' ' ? 0x0f : (c >= 'A' && c <= 'Z' ? c - 0x27 : c - 0x20))

@@ -2744,11 +2744,7 @@ void func0f0211a8(f32 arg0)
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		if (g_ChrSlots[i].model) {
-#if PAL
-			modelSetAnimPlaySpeed(g_ChrSlots[i].model, var80062968 * 1.2f, 600);
-#else
-			modelSetAnimPlaySpeed(g_ChrSlots[i].model, var80062968, 600);
-#endif
+			modelSetAnimPlaySpeed(g_ChrSlots[i].model, FRAMESTOTIME60(var80062968), 600);
 		}
 	}
 }

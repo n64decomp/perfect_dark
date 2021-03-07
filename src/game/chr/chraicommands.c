@@ -5994,11 +5994,7 @@ bool aiSetLights(void)
 			roomSetLightsOn(roomnum, true);
 			break;
 		default:
-#if VERSION >= VERSION_PAL_FINAL
-			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], cmd[7] * 50 / 60);
-#else
-			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], cmd[7]);
-#endif
+			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], TIME60TOFRAMES(cmd[7]));
 		}
 	}
 
@@ -9735,19 +9731,11 @@ bool aiChrAdjustMotionBlur(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-#if PAL
 		if (cmd[4] == 0) {
-			chr->blurdrugamount -= cmd[3] * 50 / 60;
+			chr->blurdrugamount -= TIME60TOFRAMES(cmd[3]);
 		} else {
-			chr->blurdrugamount += cmd[3] * 50 / 60;
+			chr->blurdrugamount += TIME60TOFRAMES(cmd[3]);
 		}
-#else
-		if (cmd[4] == 0) {
-			chr->blurdrugamount -= cmd[3];
-		} else {
-			chr->blurdrugamount += cmd[3];
-		}
-#endif
 	}
 
 	g_Vars.aioffset += 5;
@@ -10088,12 +10076,7 @@ bool ai0184(void)
 bool aiIfSoundTimer(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-
-#if PAL
-	s32 value = (cmd[3] | (cmd[2] << 8)) * 50 / 60;
-#else
-	s32 value = cmd[3] | (cmd[2] << 8);
-#endif
+	s32 value = TIME60TOFRAMES(cmd[3] | (cmd[2] << 8));
 
 	if ((g_Vars.chrdata->soundtimer > value && cmd[4] == 0) ||
 			(g_Vars.chrdata->soundtimer < value && cmd[4] == 1)) {

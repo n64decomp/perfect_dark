@@ -38,7 +38,7 @@ u32 func0f09afe4(void);
 u32 func0f09b260(void);
 s32 weaponGetMinClipQty(s32 weaponnum, s32 funcnum);
 u32 func0f09b500(void);
-u32 func0f09b828(void);
+bool func0f09b828(struct hand *hand);
 s32 func0f09b8e0(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 func0f09bc2c(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 u32 func0f09bd58(void);

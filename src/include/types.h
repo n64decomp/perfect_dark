@@ -2002,10 +2002,10 @@ struct hand {
 	/*0x0c34*/ u32 unk0c34;
 	/*0x0c38*/ u32 unk0c38;
 	/*0x0c3c*/ u32 unk0c3c;
-	/*0x0c40*/ u32 unk0c40;
+	/*0x0c40*/ s32 unk0c40;
 	/*0x0c44*/ u32 unk0c44;
 	/*0x0c48*/ u32 unk0c48;
-	/*0x0c4c*/ u32 unk0c4c;
+	/*0x0c4c*/ s32 unk0c4c;
 	/*0x0c50*/ u32 unk0c50;
 	/*0x0c54*/ u32 unk0c54;
 	/*0x0c58*/ u32 unk0c58;
@@ -2883,8 +2883,8 @@ struct weaponfunc_close {
 
 struct weaponfunc_special {
 	struct weaponfunc base;
-	/*0x14*/ u32 specialfunc;
-	/*0x18*/ u32 unk18;
+	/*0x14*/ s32 specialfunc;
+	/*0x18*/ s32 unk18;
 	/*0x1c*/ u32 unk1c;
 };
 
