@@ -46,8 +46,5 @@ u32 func0f156a24(void);
 Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text, struct font2a4 *font1, struct font *font2, u32 arg6, u32 colour, s16 arg8, s16 arg9, u32 arg10, u32 arg11);
 void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct font2a4 *font1, struct font *font2, s32 lineheight);
 void textWrap(s32 width, char *in, char *out, struct font2a4 *font1, struct font *font2);
-u32 func0f1577f0(void);
-u32 func0f1578c8(void);
-u32 func0f1579cc(void);
 
 #endif

@@ -36,6 +36,6 @@ void coreSetMpTimeLimit60(u32 limit);
 void coreSetMpScoreLimit(u32 limit);
 void coreSetMpTeamScoreLimit(u32 limit);
 f32 coreGetStageTimeInSeconds(void);
-u32 coreGetStageTime60(void);
+s32 coreGetStageTime60(void);
 
 #endif

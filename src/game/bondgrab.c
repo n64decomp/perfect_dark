@@ -1573,13 +1573,13 @@ void bgrabHandleActivate(void)
 void bgrabUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (targetspeed < g_Vars.currentplayer->speedstrafe) {
-		g_Vars.currentplayer->speedstrafe -= accelspeed * mult;
+		g_Vars.currentplayer->speedstrafe -= FRAMESTOTIME60(accelspeed * mult);
 
 		if (g_Vars.currentplayer->speedstrafe < targetspeed) {
 			g_Vars.currentplayer->speedstrafe = targetspeed;
 		}
 	} else if (g_Vars.currentplayer->speedstrafe < targetspeed) {
-		g_Vars.currentplayer->speedstrafe += accelspeed * mult;
+		g_Vars.currentplayer->speedstrafe += FRAMESTOTIME60(accelspeed * mult);
 
 		if (g_Vars.currentplayer->speedstrafe > targetspeed) {
 			g_Vars.currentplayer->speedstrafe = targetspeed;

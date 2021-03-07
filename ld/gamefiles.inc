@@ -124,6 +124,7 @@
 	build/ROMID/game/game_10c9c0.o (section); \
 	build/ROMID/game/endscreen.o (section); \
 	build/ROMID/game/gamefile.o (section); \
+	build/ROMID/game/game_110680.o (section); \
 	build/ROMID/game/inventory/inventory.o (section); \
 	build/ROMID/game/bondhead.o (section); \
 	build/ROMID/game/padhalllv.o (section); \
@@ -154,6 +155,7 @@
 	build/ROMID/game/options.o (section); \
 	build/ROMID/game/game_152fa0.o (section); \
 	build/ROMID/game/game_1531a0.o (section); \
+	build/ROMID/game/game_1577f0.o (section); \
 	build/ROMID/game/room.o (section); \
 	build/ROMID/game/roombss.o (section); \
 	build/ROMID/game/game_165360.o (section); \

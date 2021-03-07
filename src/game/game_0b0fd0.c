@@ -592,6 +592,21 @@ f32 handGetDamage(struct shorthand *hand)
 
 u8 handGetSingleUnk38(struct shorthand *hand)
 {
+#if VERSION >= VERSION_PAL_FINAL
+	struct weaponfunc *func = handGetWeaponFunction(hand);
+	u8 result = 0;
+
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
+		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+		result = funcshoot->unk38;
+	}
+
+	if (result >= 4) {
+		result = TIME60TOFRAMES(result);
+	}
+
+	return result;
+#else
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
@@ -600,6 +615,7 @@ u8 handGetSingleUnk38(struct shorthand *hand)
 	}
 
 	return 0;
+#endif
 }
 
 u16 handGetSingleShootSound(struct shorthand *hand)
@@ -788,3 +804,22 @@ struct guncmd *handGetSecToPriAnim(struct shorthand *hand)
 
 	return NULL;
 }
+
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel func0f0b2640pf
+/*  f0b2640:	908e0000 */ 	lbu	$t6,0x0($a0)
+/*  f0b2644:	3c038007 */ 	lui	$v1,0x8007
+/*  f0b2648:	00001025 */ 	move	$v0,$zero
+/*  f0b264c:	000e7880 */ 	sll	$t7,$t6,0x2
+/*  f0b2650:	006f1821 */ 	addu	$v1,$v1,$t7
+/*  f0b2654:	8c6302a8 */ 	lw	$v1,0x2a8($v1)
+/*  f0b2658:	10600003 */ 	beqz	$v1,.PF0f0b2668
+/*  f0b265c:	00000000 */ 	nop
+/*  f0b2660:	03e00008 */ 	jr	$ra
+/*  f0b2664:	8c620010 */ 	lw	$v0,0x10($v1)
+.PF0f0b2668:
+/*  f0b2668:	03e00008 */ 	jr	$ra
+/*  f0b266c:	00000000 */ 	nop
+);
+#endif

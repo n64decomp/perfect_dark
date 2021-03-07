@@ -604,7 +604,7 @@ extern u32 var8009de04;
 extern u32 var8009de08;
 extern u32 var8009de0c;
 extern s32 g_CameraAnimCurFrame;
-extern u32 var8009de14;
+extern s32 var8009de14;
 extern s16 g_CameraAnimNum;
 extern f32 g_CutsceneBlurFrac;
 extern s32 var8009de20;

@@ -6126,11 +6126,15 @@ Gfx *sightRender(Gfx *gdl, bool sighton, s32 sight)
 		return gdl;
 	}
 
+#if PAL
+	g_ScaleX = 1;
+#else
 	if (g_ViMode == VIMODE_HIRES) {
 		g_ScaleX = 2;
 	} else {
 		g_ScaleX = 1;
 	}
+#endif
 
 	if (PLAYERCOUNT() >= 2 && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 		sight = SIGHT_DEFAULT;

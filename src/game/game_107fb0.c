@@ -45,6 +45,31 @@ struct menudialog g_PakGameNotesMenuDialog;
 struct menudialog g_PakNotOriginalMenuDialog;
 struct pakdata *g_EditingPak;
 
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel func0f1088d0pf
+/*  f1088d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f1088d4:	24010006 */ 	li	$at,0x6
+/*  f1088d8:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f1088dc:	14810009 */ 	bne	$a0,$at,.PF0f108904
+/*  f1088e0:	afa60020 */ 	sw	$a2,0x20($sp)
+/*  f1088e4:	90ae0001 */ 	lbu	$t6,0x1($a1)
+/*  f1088e8:	3c02800a */ 	lui	$v0,0x800a
+/*  f1088ec:	2442a510 */ 	addiu	$v0,$v0,-23280
+/*  f1088f0:	a44e0482 */ 	sh	$t6,0x482($v0)
+/*  f1088f4:	0fc5bdd7 */ 	jal	0xf16f75c
+/*  f1088f8:	31c4ffff */ 	andi	$a0,$t6,0xffff
+/*  f1088fc:	0fc3cf8c */ 	jal	0xf0f3e30
+/*  f108900:	00000000 */ 	nop
+.PF0f108904:
+/*  f108904:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f108908:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f10890c:	00001025 */ 	move	$v0,$zero
+/*  f108910:	03e00008 */ 	jr	$ra
+/*  f108914:	00000000 */ 	nop
+);
+#endif
+
 char *filemgrGetDeviceName(s32 index)
 {
 	u16 names[] = {
@@ -2233,6 +2258,50 @@ s32 filemgrMainMenuDialog(s32 operation, struct menudialog *dialog, union handle
 	return 0;
 }
 
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel filemgrConsiderPushingFileSelectDialog
+/*  f10d268:	3c0e8007 */ 	lui	$t6,0x8007
+/*  f10d26c:	8dce1728 */ 	lw	$t6,0x1728($t6)
+/*  f10d270:	3c18800a */ 	lui	$t8,0x800a
+/*  f10d274:	2718e5a0 */ 	addiu	$t8,$t8,-6752
+/*  f10d278:	000e78c0 */ 	sll	$t7,$t6,0x3
+/*  f10d27c:	01ee7823 */ 	subu	$t7,$t7,$t6
+/*  f10d280:	000f7880 */ 	sll	$t7,$t7,0x2
+/*  f10d284:	01ee7821 */ 	addu	$t7,$t7,$t6
+/*  f10d288:	000f78c0 */ 	sll	$t7,$t7,0x3
+/*  f10d28c:	01ee7823 */ 	subu	$t7,$t7,$t6
+/*  f10d290:	000f7900 */ 	sll	$t7,$t7,0x4
+/*  f10d294:	01f81021 */ 	addu	$v0,$t7,$t8
+/*  f10d298:	9059083c */ 	lbu	$t9,0x83c($v0)
+/*  f10d29c:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f10d2a0:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f10d2a4:	1720000f */ 	bnez	$t9,.PF0f10d2e4
+/*  f10d2a8:	3c048007 */ 	lui	$a0,0x8007
+/*  f10d2ac:	a040083b */ 	sb	$zero,0x83b($v0)
+/*  f10d2b0:	2484527c */ 	addiu	$a0,$a0,0x527c
+/*  f10d2b4:	0fc3e29d */ 	jal	0xf0f8a74
+/*  f10d2b8:	24050006 */ 	li	$a1,0x6
+/*  f10d2bc:	3c08800a */ 	lui	$t0,0x800a
+/*  f10d2c0:	9508a992 */ 	lhu	$t0,-0x566e($t0)
+/*  f10d2c4:	3c048007 */ 	lui	$a0,0x8007
+/*  f10d2c8:	29010006 */ 	slti	$at,$t0,0x6
+/*  f10d2cc:	14200003 */ 	bnez	$at,.PF0f10d2dc
+/*  f10d2d0:	00000000 */ 	nop
+/*  f10d2d4:	0fc3cda8 */ 	jal	0xf0f36a0
+/*  f10d2d8:	24844810 */ 	addiu	$a0,$a0,0x4810
+.PF0f10d2dc:
+/*  f10d2dc:	10000002 */ 	b	.PF0f10d2e8
+/*  f10d2e0:	24020001 */ 	li	$v0,0x1
+.PF0f10d2e4:
+/*  f10d2e4:	00001025 */ 	move	$v0,$zero
+.PF0f10d2e8:
+/*  f10d2e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f10d2ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f10d2f0:	03e00008 */ 	jr	$ra
+/*  f10d2f4:	00000000 */ 	nop
+);
+#else
 bool filemgrConsiderPushingFileSelectDialog(void)
 {
 	if (g_Menus[g_MpPlayerNum].unk83c == 0) {
@@ -2243,6 +2312,7 @@ bool filemgrConsiderPushingFileSelectDialog(void)
 
 	return false;
 }
+#endif
 
 void pakPushPakMenuDialog(void)
 {

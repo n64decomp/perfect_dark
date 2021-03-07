@@ -621,7 +621,7 @@ char *frMenuTextDifficultyName(struct menuitem *item)
 char *frMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct frdata *frdata = frGetData();
-	f32 secs = frdata->timetaken / 60.0f;
+	f32 secs = frdata->timetaken / (PAL ? 50.0f : 60.0f);
 
 	if (secs > frdata->timelimit) {
 		secs = frdata->timelimit;
@@ -2657,6 +2657,10 @@ struct menudialog g_NowSafeMenuDialog = {
 	NULL,
 };
 
+#if VERSION >= VERSION_PAL_FINAL
+s32 g_SomePalValue = 0;
+#endif
+
 s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	u32 bodynum = ciGetChrBioBodynumBySlot(g_ChrBioSlot);
@@ -2676,14 +2680,30 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union
 			scale = 1.0f;
 		}
 
-		g_Menus[g_MpPlayerNum].unkdb4 = 120;
+		g_Menus[g_MpPlayerNum].unkdb4 = (PAL ? 100 : 120);
 		g_Menus[g_MpPlayerNum].unkdc0 = 0;
 
+#if VERSION >= VERSION_PAL_FINAL
+		if (g_SomePalValue != 1) {
+			x = -117;
+
+			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+				x = -87;
+			}
+		} else {
+			x = -177;
+
+			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+				x = -127;
+			}
+		}
+#else
 		x = -130;
 
 		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 			x = -100;
 		}
+#endif
 
 		y = -15;
 
@@ -2702,7 +2722,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union
 		g_Menus[g_MpPlayerNum].unkd5c = 0.00393f;
 		g_Menus[g_MpPlayerNum].unkd64 = 0;
 		g_Menus[g_MpPlayerNum].unkd8c = 0;
-		g_Menus[g_MpPlayerNum].unkdb8 = 60;
+		g_Menus[g_MpPlayerNum].unkdb8 = (PAL ? 50 : 60);
 		break;
 	case MENUOP_CLOSE:
 		break;
@@ -2923,6 +2943,25 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialog *dialog, union 
 		g_Menus[g_MpPlayerNum].data.train.weaponnum = weaponnum;
 		func0f105948(weaponnum);
 
+#if VERSION >= VERSION_PAL_FINAL
+		if (g_SomePalValue == 1) {
+			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+				g_Menus[g_MpPlayerNum].unkd78 = 84;
+				g_Menus[g_MpPlayerNum].unkd50 = 84;
+			} else {
+				g_Menus[g_MpPlayerNum].unkd78 = 104;
+				g_Menus[g_MpPlayerNum].unkd50 = 104;
+			}
+		} else {
+			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+				g_Menus[g_MpPlayerNum].unkd78 = 64;
+				g_Menus[g_MpPlayerNum].unkd50 = 64;
+			} else {
+				g_Menus[g_MpPlayerNum].unkd78 = 84;
+				g_Menus[g_MpPlayerNum].unkd50 = 84;
+			}
+		}
+#else
 		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 			g_Menus[g_MpPlayerNum].unkd78 = 70;
 			g_Menus[g_MpPlayerNum].unkd50 = 70;
@@ -2930,6 +2969,7 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialog *dialog, union 
 			g_Menus[g_MpPlayerNum].unkd78 = 90;
 			g_Menus[g_MpPlayerNum].unkd50 = 90;
 		}
+#endif
 
 		g_Menus[g_MpPlayerNum].unkd84 /= 2.5f;
 		}
@@ -2982,7 +3022,7 @@ char *dtMenuTextCancelOrAbort(struct menuitem *item)
 char *dtMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct trainingdata *data = dtGetData();
-	f32 secs = data->timetaken / 60.0f;
+	f32 secs = data->timetaken / (PAL ? 50.0f : 60.0f);
 
 	if (secs >= 60.0f) {
 		s32 mins = 0;
@@ -3100,7 +3140,7 @@ char *htMenuTextCancelOrAbort(struct menuitem *item)
 char *htMenuTextTimeTakenValue(struct menuitem *item)
 {
 	struct trainingdata *data = getHoloTrainingData();
-	f32 secs = data->timetaken / 60.0f;
+	f32 secs = data->timetaken / (PAL ? 50.0f : 60.0f);
 
 	if (secs >= 60.0f) {
 		s32 mins = 0;

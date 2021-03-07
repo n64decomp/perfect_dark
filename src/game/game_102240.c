@@ -246,6 +246,134 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 	return 0;
 }
 
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel func0f10302cpf
+/*  f10302c:	27bdffe0 */ 	addiu	$sp,$sp,-32
+/*  f103030:	3c0e8007 */ 	lui	$t6,0x8007
+/*  f103034:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f103038:	afa50024 */ 	sw	$a1,0x24($sp)
+/*  f10303c:	25ce1cdc */ 	addiu	$t6,$t6,0x1cdc
+/*  f103040:	8dc10000 */ 	lw	$at,0x0($t6)
+/*  f103044:	27a2001c */ 	addiu	$v0,$sp,0x1c
+/*  f103048:	24080002 */ 	li	$t0,0x2
+/*  f10304c:	ac410000 */ 	sw	$at,0x0($v0)
+/*  f103050:	24010001 */ 	li	$at,0x1
+/*  f103054:	10810009 */ 	beq	$a0,$at,.PF0f10307c
+/*  f103058:	24010003 */ 	li	$at,0x3
+/*  f10305c:	10810009 */ 	beq	$a0,$at,.PF0f103084
+/*  f103060:	24010006 */ 	li	$at,0x6
+/*  f103064:	1081000e */ 	beq	$a0,$at,.PF0f1030a0
+/*  f103068:	24010007 */ 	li	$at,0x7
+/*  f10306c:	10810014 */ 	beq	$a0,$at,.PF0f1030c0
+/*  f103070:	00000000 */ 	nop
+/*  f103074:	10000017 */ 	b	.PF0f1030d4
+/*  f103078:	00001025 */ 	move	$v0,$zero
+.PF0f10307c:
+/*  f10307c:	10000014 */ 	b	.PF0f1030d0
+/*  f103080:	acc80000 */ 	sw	$t0,0x0($a2)
+.PF0f103084:
+/*  f103084:	8cc90000 */ 	lw	$t1,0x0($a2)
+/*  f103088:	00095040 */ 	sll	$t2,$t1,0x1
+/*  f10308c:	004a5821 */ 	addu	$t3,$v0,$t2
+/*  f103090:	0fc5bdaa */ 	jal	0xf16f6a8
+/*  f103094:	95640000 */ 	lhu	$a0,0x0($t3)
+/*  f103098:	1000000f */ 	b	.PF0f1030d8
+/*  f10309c:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.PF0f1030a0:
+/*  f1030a0:	0fc54ef6 */ 	jal	0xf153bd8
+/*  f1030a4:	8cc40000 */ 	lw	$a0,0x0($a2)
+/*  f1030a8:	3c02800a */ 	lui	$v0,0x800a
+/*  f1030ac:	2442a510 */ 	addiu	$v0,$v0,-23280
+/*  f1030b0:	8c4c0458 */ 	lw	$t4,0x458($v0)
+/*  f1030b4:	358d0001 */ 	ori	$t5,$t4,0x1
+/*  f1030b8:	10000005 */ 	b	.PF0f1030d0
+/*  f1030bc:	ac4d0458 */ 	sw	$t5,0x458($v0)
+.PF0f1030c0:
+/*  f1030c0:	0fc54ef3 */ 	jal	0xf153bcc
+/*  f1030c4:	afa60028 */ 	sw	$a2,0x28($sp)
+/*  f1030c8:	8fa60028 */ 	lw	$a2,0x28($sp)
+/*  f1030cc:	acc20000 */ 	sw	$v0,0x0($a2)
+.PF0f1030d0:
+/*  f1030d0:	00001025 */ 	move	$v0,$zero
+.PF0f1030d4:
+/*  f1030d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.PF0f1030d8:
+/*  f1030d8:	27bd0020 */ 	addiu	$sp,$sp,0x20
+/*  f1030dc:	03e00008 */ 	jr	$ra
+/*  f1030e0:	00000000 */ 	nop
+);
+#endif
+
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel func0f1030e4pf
+/*  f1030e4:	27bdffd8 */ 	addiu	$sp,$sp,-40
+/*  f1030e8:	3c0e8007 */ 	lui	$t6,0x8007
+/*  f1030ec:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f1030f0:	afa5002c */ 	sw	$a1,0x2c($sp)
+/*  f1030f4:	25ce1ce0 */ 	addiu	$t6,$t6,0x1ce0
+/*  f1030f8:	8dc10000 */ 	lw	$at,0x0($t6)
+/*  f1030fc:	27a2001c */ 	addiu	$v0,$sp,0x1c
+/*  f103100:	24080005 */ 	li	$t0,0x5
+/*  f103104:	ac410000 */ 	sw	$at,0x0($v0)
+/*  f103108:	8dd90004 */ 	lw	$t9,0x4($t6)
+/*  f10310c:	ac590004 */ 	sw	$t9,0x4($v0)
+/*  f103110:	95c10008 */ 	lhu	$at,0x8($t6)
+/*  f103114:	a4410008 */ 	sh	$at,0x8($v0)
+/*  f103118:	24010001 */ 	li	$at,0x1
+/*  f10311c:	10810009 */ 	beq	$a0,$at,.PF0f103144
+/*  f103120:	24010003 */ 	li	$at,0x3
+/*  f103124:	10810009 */ 	beq	$a0,$at,.PF0f10314c
+/*  f103128:	24010006 */ 	li	$at,0x6
+/*  f10312c:	1081000e */ 	beq	$a0,$at,.PF0f103168
+/*  f103130:	24010007 */ 	li	$at,0x7
+/*  f103134:	10810018 */ 	beq	$a0,$at,.PF0f103198
+/*  f103138:	3c02800a */ 	lui	$v0,0x800a
+/*  f10313c:	1000001d */ 	b	.PF0f1031b4
+/*  f103140:	00001025 */ 	move	$v0,$zero
+.PF0f103144:
+/*  f103144:	1000001a */ 	b	.PF0f1031b0
+/*  f103148:	acc80000 */ 	sw	$t0,0x0($a2)
+.PF0f10314c:
+/*  f10314c:	8cc90000 */ 	lw	$t1,0x0($a2)
+/*  f103150:	00095040 */ 	sll	$t2,$t1,0x1
+/*  f103154:	004a5821 */ 	addu	$t3,$v0,$t2
+/*  f103158:	0fc5bdaa */ 	jal	0xf16f6a8
+/*  f10315c:	95640000 */ 	lhu	$a0,0x0($t3)
+/*  f103160:	10000015 */ 	b	.PF0f1031b8
+/*  f103164:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.PF0f103168:
+/*  f103168:	8ccc0000 */ 	lw	$t4,0x0($a2)
+/*  f10316c:	3c02800a */ 	lui	$v0,0x800a
+/*  f103170:	2442a510 */ 	addiu	$v0,$v0,-23280
+/*  f103174:	a44c0482 */ 	sh	$t4,0x482($v0)
+/*  f103178:	0fc5bdd7 */ 	jal	0xf16f75c
+/*  f10317c:	3184ffff */ 	andi	$a0,$t4,0xffff
+/*  f103180:	3c02800a */ 	lui	$v0,0x800a
+/*  f103184:	2442a510 */ 	addiu	$v0,$v0,-23280
+/*  f103188:	8c4d0458 */ 	lw	$t5,0x458($v0)
+/*  f10318c:	35b80005 */ 	ori	$t8,$t5,0x5
+/*  f103190:	10000007 */ 	b	.PF0f1031b0
+/*  f103194:	ac580458 */ 	sw	$t8,0x458($v0)
+.PF0f103198:
+/*  f103198:	2442a510 */ 	addiu	$v0,$v0,-23280
+/*  f10319c:	944f0482 */ 	lhu	$t7,0x482($v0)
+/*  f1031a0:	2de10005 */ 	sltiu	$at,$t7,0x5
+/*  f1031a4:	14200002 */ 	bnez	$at,.PF0f1031b0
+/*  f1031a8:	accf0000 */ 	sw	$t7,0x0($a2)
+/*  f1031ac:	acc00000 */ 	sw	$zero,0x0($a2)
+.PF0f1031b0:
+/*  f1031b0:	00001025 */ 	move	$v0,$zero
+.PF0f1031b4:
+/*  f1031b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.PF0f1031b8:
+/*  f1031b8:	27bd0028 */ 	addiu	$sp,$sp,0x28
+/*  f1031bc:	03e00008 */ 	jr	$ra
+/*  f1031c0:	00000000 */ 	nop
+);
+#endif
+
 s32 menuhandlerScreenSplit(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 options[] = {

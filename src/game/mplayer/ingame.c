@@ -191,7 +191,12 @@ char *menutextPauseOrUnpause(s32 arg0)
 
 char *menutextMatchTime(s32 arg0)
 {
+#if PAL
+	formatTime(g_StringPointer, coreGetStageTime60() * 60 / 50, 3);
+#else
 	formatTime(g_StringPointer, coreGetStageTime60(), 3);
+#endif
+
 	return g_StringPointer;
 }
 

@@ -17,12 +17,14 @@ void frametimeApply(s32 diffframe60, s32 diffframe240, s32 frametime)
 	g_Vars.thisframetime = frametime;
 
 	g_Vars.diffframe60 = diffframe60;
-	g_Vars.diffframe60freal = g_Vars.diffframe60f = diffframe60;
+	g_Vars.diffframe60f = diffframe60;
+	g_Vars.diffframe60freal = FRAMESTOTIME60(g_Vars.diffframe60f);
 
 	g_Vars.lastframe240 = g_Vars.thisframe240;
 	g_Vars.thisframe240 += diffframe240;
 	g_Vars.diffframe240 = diffframe240;
-	g_Vars.diffframe240freal = g_Vars.diffframe240f = diffframe240;
+	g_Vars.diffframe240f = diffframe240;
+	g_Vars.diffframe240freal = FRAMESTOTIME60(g_Vars.diffframe240f);
 }
 
 void frametimeCalculate(void)

@@ -1881,15 +1881,7 @@ struct hand {
 	/*0x09b0*/ u32 unk09b0;
 	/*0x09b4*/ u32 unk09b4;
 	/*0x09b8*/ u32 unk09b8;
-	/*0x09bc*/ u32 unk09bc;
-	/*0x09c0*/ u32 unk09c0;
-	/*0x09c4*/ u32 unk09c4;
-	/*0x09c8*/ u32 unk09c8;
-	/*0x09cc*/ u32 unk09cc;
-	/*0x09d0*/ u32 unk09d0;
-	/*0x09d4*/ u32 unk09d4;
-	/*0x09d8*/ u32 unk09d8;
-	/*0x09dc*/ struct anim *unk09dc;
+	/*0x09bc*/ struct model unk09bc;
 	/*0x09e0*/ struct anim anim;
 	/*0x0a6c*/ u32 unk0a6c;
 	/*0x0a70*/ u32 unk0a70;
@@ -3168,6 +3160,7 @@ struct menuitemdata_scrollable {
 	s16 unk02;
 	s16 unk04;
 	s16 unk06;
+	s16 unk08;
 };
 
 struct menuitemdata_slider {
@@ -4207,7 +4200,7 @@ struct menu {
 	/*0xda8*/ u32 unkda8;
 	/*0xdac*/ u32 unkdac;
 	/*0xdb0*/ u32 unkdb0;
-	/*0xdb4*/ u32 unkdb4;
+	/*0xdb4*/ s32 unkdb4;
 	/*0xdb8*/ s32 unkdb8;
 	/*0xdbc*/ u32 unkdbc;
 	/*0xdc0*/ u32 unkdc0;

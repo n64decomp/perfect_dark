@@ -5417,7 +5417,11 @@ bool menuTickItemSlider(struct menuitem *item, struct menuframe *frame, struct m
 			} else {
 				f0 = data->slider.unk00 / 1000.0f;
 				f0 = (f0 * 100.0f) / item->param3;
+#if VERSION >= VERSION_PAL_FINAL
+				f0 = f0 + inputs->unk08 * g_Vars.diffframe60f;
+#else
 				f0 = f0 + inputs->unk08 * g_Vars.diffframe60;
+#endif
 				f0 = (item->param3 * f0) / 100.0f;
 
 				tmp = f0;
@@ -6277,11 +6281,19 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurendercontext *context)
 	return func0f153780(gdl);
 }
 
+#if PAL
+u32 g_SomePalVar = 0; // temporary placeholder variable
+#endif
+
 bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, struct menuinputs *inputs, u32 arg3, union menuitemdata *data)
 {
 	u32 stack;
 
+#if PAL
+	if ((s16)frame->height != data->scrollable.unk06 || data->scrollable.unk08 != g_SomePalVar) {
+#else
 	if ((s16)frame->height != data->scrollable.unk06) {
+#endif
 		char wrapped[8000] = "";
 		char *rawtext;
 		s32 width;
@@ -6290,6 +6302,10 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 		u32 index2;
 		s16 wvalue;
 		s16 hvalue;
+
+#if PAL
+		data->scrollable.unk08 = g_SomePalVar;
+#endif
 
 		func0f0f2354(frame, item, &index1, &index2);
 
@@ -6342,7 +6358,11 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 			}
 		}
 
+#if PAL
+		intval = intval + (s32)(((f32)inputs->unk09 + (f32)inputs->unk09) * g_Vars.diffframe60f);
+#else
 		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+#endif
 		data->scrollable.unk00 += intval;
 
 		if (data->scrollable.unk00 < -10) {
@@ -7218,7 +7238,11 @@ bool menuTickItemRanking(struct menuinputs *inputs, u32 arg1, union menuitemdata
 			intval = inputs->yaxis < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
+#if PAL
+		intval = intval + (s32)(((f32)inputs->unk09 + (f32)inputs->unk09) * g_Vars.diffframe60f);
+#else
 		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+#endif
 		data->ranking.scrolloffset += intval;
 
 		if (data->ranking.scrolloffset < 0) {
@@ -7464,7 +7488,11 @@ bool menuTickItemPlayerStats(struct menuitem *item, struct menuframe *frame, str
 			intval = inputs->yaxis < 0 ? (s32)floatval : -(s32)floatval;
 		}
 
+#if PAL
+		intval = intval + (s32)(((f32)inputs->unk09 + (f32)inputs->unk09) * g_Vars.diffframe60f);
+#else
 		intval += inputs->unk09 * 2 * g_Vars.diffframe60;
+#endif
 		data->dropdown.scrolloffset += intval;
 
 		if (data->dropdown.scrolloffset < 0) {
@@ -7892,7 +7920,11 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 	gdl = func0f153628(gdl);
 
 	for (i = 0; i < ARRAYCOUNT(labels); i++) {
+#if VERSION >= VERSION_PAL_FINAL
+		ry = i * 7 + context->y + y - 4;
+#else
 		ry = i * 7 + context->y + y;
+#endif
 
 		// For the 2.x styles, only labels 4-7 are shown
 		if (curmode < CONTROLMODE_21 || (i >= 4 && i <= 7)) {
