@@ -1,12 +1,12 @@
-#include "gamefiles.inc"
-#include "libfiles.inc"
-
 #define VERSION_NTSC_BETA  0
 #define VERSION_NTSC_1_0   1
 #define VERSION_NTSC_FINAL 2
 #define VERSION_PAL_BETA   3
 #define VERSION_PAL_FINAL  4
 #define VERSION_JPN_FINAL  5
+
+#include "gamefiles.inc"
+#include "libfiles.inc"
 
 #define BEGIN_SEG(name) \
 	_##name##SegmentStart = ADDR(.name); \
@@ -189,7 +189,7 @@ SECTIONS
 
 	PLACEHOLDER_SEGMENT(libzip)
 
-	__rompos = 0x02000000;
+	__rompos = 0x04000000;
 	__rampos = 0x70001000;
 
 	BEGIN_SEG(lib)

@@ -3,7 +3,7 @@
 #include "game/game_015470.h"
 #include "game/game_01afc0.h"
 #include "gvars/gvars.h"
-#include "lib/lib_09660.h"
+#include "lib/lib_09a80.h"
 #include "lib/dma.h"
 #include "lib/lib_317f0.h"
 #include "data.h"

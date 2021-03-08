@@ -23,7 +23,7 @@
 #include "game/options.h"
 #include "game/mpstats.h"
 #include "gvars/gvars.h"
-#include "lib/lib_09660.h"
+#include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "data.h"
 #include "types.h"

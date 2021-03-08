@@ -19,7 +19,7 @@
 #include "game/propobj.h"
 #include "gvars/gvars.h"
 #include "lib/controller.h"
-#include "lib/lib_09660.h"
+#include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "lib/model.h"
 #include "lib/lib_0e9d0.h"

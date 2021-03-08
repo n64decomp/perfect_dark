@@ -191,9 +191,11 @@ void contCheckPfs(s32 arg0)
 		doingit = false;
 	}
 
+#if !PAL
 	if (arg0) {
 		// empty
 	}
+#endif
 }
 
 /**

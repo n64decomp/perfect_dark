@@ -28,7 +28,7 @@
 #include "game/wallhit.h"
 #include "gvars/gvars.h"
 #include "lib/lib_074f0.h"
-#include "lib/lib_09660.h"
+#include "lib/lib_09a80.h"
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/memory.h"

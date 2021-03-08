@@ -5,7 +5,7 @@
 #include "game/sky.h"
 #include "game/game_1531a0.h"
 #include "gvars/gvars.h"
-#include "lib/lib_09660.h"
+#include "lib/lib_09a80.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

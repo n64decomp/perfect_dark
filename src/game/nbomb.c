@@ -15,7 +15,7 @@
 #include "game/file.h"
 #include "game/gfxmemory.h"
 #include "gvars/gvars.h"
-#include "lib/lib_09660.h"
+#include "lib/lib_09a80.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
