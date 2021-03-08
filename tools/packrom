@@ -68,9 +68,10 @@ def get_segment(fd, locations, segname):
     fd.seek(start)
     return fd.read(end - start)
 
+# lib is compressed from offset 0x2050 onwards
 def pack_lib(fd, locations):
     lib = get_segment(fd, locations, 'lib')
-    zipped = zip(lib)
+    zipped = lib[0:0x2050] + zip(lib[0x2050:])
     attempt(fd, locations, 'lib', zipped, 'ROMALLOCATION_LIB')
 
 def pack_data(fd, locations):
@@ -105,7 +106,7 @@ def write_garbage_part(fd, addr, filename):
     fd.seek(addr)
     fd.write(binary)
 
-def write_garbage(fd, locations):
+def write_garbage(fd):
     if os.environ['ROMID'] == 'ntsc-final':
         write_garbage_part(fd, 0x2ea6c, 'garbage1.bin')
         write_garbage_part(fd, 0x157800, 'garbage2.bin')
@@ -132,7 +133,7 @@ def main():
 
     fd = open(sys.argv[1], 'rb+')
 
-    write_garbage(fd, locations)
+    write_garbage(fd)
 
     pack_lib(fd, locations)
     pack_data(fd, locations)

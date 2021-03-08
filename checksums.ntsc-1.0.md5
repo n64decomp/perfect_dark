@@ -2012,12 +2012,11 @@ f0068491f441172310f2b6868c03739d  build/ntsc-1.0/assets/files/bgdata/bg_wax_pads
 ea5a2ff4e5e0a68822f62feff2c40af4  build/ntsc-1.0/assets/files/bgdata/bg_wax_tilesZ
 d41d8cd98f00b204e9800998ecf8427e  build/ntsc-1.0/assets/files/ob/ob_mid.seg
 7f4171b0c8d17815be37913f535e4e93  build/ntsc-1.0/pd.z64
-402561223a33f48461e302e1cca12129  build/ntsc-1.0/segments/boot.bin
 cb373c94109322d081a57b142fdd9999  build/ntsc-1.0/segments/firingrange.bin
 5181a0d11cf8f24370a3f2d3b29e522e  build/ntsc-1.0/segments/game.bin
 b21679a1b2dabd721bc4afee11bf5266  build/ntsc-1.0/segments/data.bin
 843285fdc0e80a77576eeb73940d2fd3  build/ntsc-1.0/segments/inflate.bin
-3155eece856e9fbd9bc47d03463cfc1b  build/ntsc-1.0/segments/lib.bin
+0ee07d5d8e890e264e775e4034e3b900  build/ntsc-1.0/segments/lib.bin
 fe4034c01c91bd10e488fe93389b4104  build/ntsc-1.0/segments/mpconfigs.bin
 529b54a03375af2ff74eb3367cbac294  build/ntsc-1.0/segments/mpstringsE.bin
 e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-1.0/segments/mpstringsF.bin

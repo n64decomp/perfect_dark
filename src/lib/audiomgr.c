@@ -1,6 +1,6 @@
 #include <ultra64.h>
-#include "boot/init.h"
-#include "boot/sched.h"
+#include "lib/init.h"
+#include "lib/sched.h"
 #include "constants.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"

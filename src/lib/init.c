@@ -1,8 +1,8 @@
 #include <ultra64.h>
-#include "boot/entry.h"
-#include "boot/init.h"
-#include "boot/reset.h"
-#include "boot/segments.h"
+#include "lib/entry.h"
+#include "lib/init.h"
+#include "lib/reset.h"
+#include "lib/segments.h"
 #include "constants.h"
 #include "game/game_0e0770.h"
 #include "gvars/gvars.h"

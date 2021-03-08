@@ -1,4 +1,3 @@
-#include "bootfiles.inc"
 #include "gamefiles.inc"
 #include "libfiles.inc"
 
@@ -77,7 +76,7 @@
  * increased.
  */
 
-#define ROMALLOCATION_LIB   0x036800
+#define ROMALLOCATION_LIB   0x038850
 #define ROMALLOCATION_DATA  0x015000
 #define ROMALLOCATION_GAME  0x151980
 
@@ -181,44 +180,26 @@ SECTIONS
 	END_SEG(bootloader)
 
 	/***************************************************************************
-	 * boot
-	 * -------------------------------------------------------------------------
-	 * ROM range: 0x00001000 - 0x00003050
-	 * RAM range: 0x70001000 - 0x70003050
-	 * -------------------------------------------------------------------------
-	 */
-
-	__rampos = 0x70001000;
-
-	BEGIN_SEG(boot)
-	{
-		BOOTFILES(.text)
-	}
-	END_SEG(boot)
-
-	_bootSegmentStart = 0x70001050;
-
-	/***************************************************************************
 	 * lib
 	 * -------------------------------------------------------------------------
-	 * ROM range: 0x00003050 - 0x00039850 (compressed)
-	 * RAM range: 0x70003050 - 0x70059fe0
+	 * ROM range: 0x00001000 - 0x00039850 (compressed from 0x3050 onwards)
+	 * RAM range: 0x70001000 - 0x70059fe0
 	 * -------------------------------------------------------------------------
-	 * This compressed segment must be placed immediately after boot, because
-	 * the boot code calculates the lib address as boot start + boot length.
 	 */
 
 	PLACEHOLDER_SEGMENT(libzip)
 
 	__rompos = 0x02000000;
+	__rampos = 0x70001000;
 
 	BEGIN_SEG(lib)
 	{
 		LIBFILES(.text)
-		BOOTFILES(.rodata)
 		LIBFILES(.rodata)
 	}
 	END_SEG(lib)
+
+	_libSegmentStart = 0x70001050;
 
 	/***************************************************************************
 	 * data
@@ -235,7 +216,7 @@ SECTIONS
 	PLACEHOLDER_SEGMENT(datazip)
 
 	__rompos = __savedrompos;
-	__rampos = 0x80001000 + SIZEOF(.boot) + SIZEOF(.lib);
+	__rampos = 0x80001000 + SIZEOF(.lib);
 
 	BEGIN_SEG(data)
 	{

@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "boot/entry.h"
+#include "lib/entry.h"
 #include "constants.h"
 #include "game/game_0e0770.h"
 #include "gvars/gvars.h"

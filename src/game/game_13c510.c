@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "boot/sched.h"
+#include "lib/sched.h"
 #include "constants.h"
 #include "game/dlights.h"
 #include "game/game_0b2150.h"

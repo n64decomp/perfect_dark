@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "boot/sched.h"
+#include "lib/sched.h"
 #include "game/game_0b69d0.h"
 #include "game/game_176080.h"
 #include "game/mplayer/mplayer.h"

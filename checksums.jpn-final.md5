@@ -2014,12 +2014,11 @@ f0068491f441172310f2b6868c03739d  build/jpn-final/assets/files/bgdata/bg_wax_pad
 ea5a2ff4e5e0a68822f62feff2c40af4  build/jpn-final/assets/files/bgdata/bg_wax_tilesZ
 d41d8cd98f00b204e9800998ecf8427e  build/jpn-final/assets/files/ob/ob_mid.seg
 538d2b75945eae069b29c46193e74790  build/jpn-final/pd.z64
-39ef58f5babf5d619bec8b2629c26bc8  build/jpn-final/segments/boot.bin
 333e8b4f6fe9dc9b59cf3e61b4e0c224  build/jpn-final/segments/firingrange.bin
 bd6e5fc360d5e0c35ea3605e2514f205  build/jpn-final/segments/game.bin
 22d5e92bffcc67b222cf3697e96106f6  build/jpn-final/segments/data.bin
 843285fdc0e80a77576eeb73940d2fd3  build/jpn-final/segments/inflate.bin
-c550660ff4ba024113ddb38103bf79f8  build/jpn-final/segments/lib.bin
+dd3b5fe7696544bb41e97cfae67fd431  build/jpn-final/segments/lib.bin
 c47d9377956666bc0e77d6cba3dc68fb  build/jpn-final/segments/mpconfigs.bin
 529b54a03375af2ff74eb3367cbac294  build/jpn-final/segments/mpstringsE.bin
 4d1eb9e58e090aa91301917c518b5b5f  build/jpn-final/segments/mpstringsF.bin

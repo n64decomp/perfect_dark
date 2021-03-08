@@ -126,8 +126,8 @@ CFLAGS = -DVERSION=$(VERSION) \
 	$(OPT_LVL) \
 	$(MIPSISET)
 
-C_FILES := $(shell find src/gvars src/boot src/lib src/game src/inflate -name '*.c')
-S_FILES := $(shell find src/boot src/lib src/game -name '*.s')
+C_FILES := $(shell find src/gvars src/lib src/game src/inflate -name '*.c')
+S_FILES := $(shell find src/lib src/game -name '*.s')
 
 # Create names such as $(B_DIR)/assets/files/PfooZ
 # These names (with .o added) will be dependenices for LD
@@ -232,7 +232,6 @@ $(B_DIR)/pd.z64: $(B_DIR)/stage3.bin
 # stage 2, then extract-segment is used to slice out the segments.
 
 CHECK_FILES := \
-	$(B_DIR)/segments/boot.bin \
 	$(B_DIR)/segments/filenames.bin \
 	$(B_DIR)/segments/firingrange.bin \
 	$(B_DIR)/segments/game.bin \
@@ -449,11 +448,6 @@ $(B_DIR)/assets/animations/list.o: src/assets/animations/list.c
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
-$(B_DIR)/boot/%.o: src/boot/%.c
-	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
 $(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
@@ -519,4 +513,4 @@ assetsclean:
 
 codeclean:
 	rm -f $(B_DIR)/segments/*.bin
-	find $(B_DIR)/{boot,game,gvars,inflate,lib} -name '*.o' -delete
+	find $(B_DIR)/{game,gvars,inflate,lib} -name '*.o' -delete

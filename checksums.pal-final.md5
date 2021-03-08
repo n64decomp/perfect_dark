@@ -2012,12 +2012,11 @@ f0068491f441172310f2b6868c03739d  build/pal-final/assets/files/bgdata/bg_wax_pad
 ea5a2ff4e5e0a68822f62feff2c40af4  build/pal-final/assets/files/bgdata/bg_wax_tilesZ
 d41d8cd98f00b204e9800998ecf8427e  build/pal-final/assets/files/ob/ob_mid.seg
 d9b5cd305d228424891ce38e71bc9213  build/pal-final/pd.z64
-7c4233976802db99f90c6c0fede1080b  build/pal-final/segments/boot.bin
 333e8b4f6fe9dc9b59cf3e61b4e0c224  build/pal-final/segments/firingrange.bin
 4e506821044251aecc10ec332389c576  build/pal-final/segments/game.bin
 1c49c171e829a5407f0ae5fd28a123cd  build/pal-final/segments/data.bin
 843285fdc0e80a77576eeb73940d2fd3  build/pal-final/segments/inflate.bin
-b83973db626573e024608444e5d74461  build/pal-final/segments/lib.bin
+ba4edc92cda812aaddff2810be77dbf7  build/pal-final/segments/lib.bin
 7f5540dd6fff2039b2ce05bf57ac5611  build/pal-final/segments/mpconfigs.bin
 529b54a03375af2ff74eb3367cbac294  build/pal-final/segments/mpstringsE.bin
 4d1eb9e58e090aa91301917c518b5b5f  build/pal-final/segments/mpstringsF.bin

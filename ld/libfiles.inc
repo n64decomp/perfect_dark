@@ -1,4 +1,10 @@
 #define LIBFILES(section) \
+	build/ROMID/lib/entry.o (section); \
+	build/ROMID/lib/segments.o (section); \
+	build/ROMID/lib/init.o (section); \
+	build/ROMID/lib/sched.o (section); \
+	build/ROMID/lib/reset.o (section); \
+	build/ROMID/lib/ultra/os/maptlbrdb.o (section); \
 	build/ROMID/game/data/data_000000.o (section); \
 	build/ROMID/lib/ultra/io/vimgr.o (section); \
 	build/ROMID/lib/ultra/io/pimgr.o (section); \

@@ -19,7 +19,6 @@ class Extractor:
         self.extract_accessingpak()
         self.extract_animations()
         self.extract_audio()
-        self.extract_boot()
         self.extract_bootloader()
         self.extract_copyright()
         self.extract_data()
@@ -88,9 +87,6 @@ class Extractor:
         pos = 4 + index * 8
         offset = int.from_bytes(sequences[pos:pos+4], 'big')
         return self.decompress(sequences[offset:])
-
-    def extract_boot(self):
-        self.write_extracted('segments/boot.bin', self.rom[0x1000:0x3050])
 
     def extract_copyright(self):
         addr = self.val('copyright')
@@ -201,8 +197,11 @@ class Extractor:
         end = self.val('animations')
         self.write_asset('garbage/%s/garbage2.bin' % self.romid, self.rom[start:end])
 
+    # In all versions, lib starts at 0x1000 and is compressed from 0x3050 onwards
     def extract_lib(self):
-        self.write_extracted('segments/lib.bin', self.decompress(self.rom[0x3050:]))
+        part1 = self.rom[0x1000:0x3050]
+        part2 = self.decompress(self.rom[0x3050:])
+        self.write_extracted('segments/lib.bin', part1 + part2)
 
     def extract_mpconfigs(self):
         addr = self.val('mpconfigs')
