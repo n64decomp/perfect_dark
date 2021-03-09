@@ -479,6 +479,8 @@ void savefileApplyOptions(struct savefile_solo *file)
 #endif
 
 #if VERSION >= VERSION_PAL_FINAL
+const char var7f1b4bd0pf[] = "Dark";
+
 GLOBAL_ASM(
 glabel savefileLoadDefaults
 /*  f1100ac:	27bdffd8 */ 	addiu	$sp,$sp,-40

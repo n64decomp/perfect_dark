@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
@@ -60,6 +60,36 @@ void menuCountDialogs(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel menuTickAll
+.late_rodata
+glabel var7f1a8608
+.word 0x3ca3d70a
+glabel var7f1a860c
+.word menuTickAll+0x166c
+glabel var7f1a8610
+.word menuTickAll+0x166c
+glabel var7f1a8614
+.word menuTickAll+0x166c
+glabel var7f1a8618
+.word menuTickAll+0x16a0
+glabel var7f1a861c
+.word menuTickAll+0x166c
+glabel var7f1a8620
+.word menuTickAll+0x166c
+glabel var7f1a8624
+.word menuTickAll+0x166c
+glabel var7f1a8628
+.word menuTickAll+0x16a0
+glabel var7f1a862c
+.word menuTickAll+0x16a0
+glabel var7f1a8630
+.word menuTickAll+0x166c
+glabel var7f1a8634
+.word menuTickAll+0x166c
+glabel var7f1a8638
+.word menuTickAll+0x16a0
+glabel var7f1a863c
+.word menuTickAll+0x166c
+.text
 /*  f01c018:	27bdfe98 */ 	addiu	$sp,$sp,-360
 /*  f01c01c:	afb60040 */ 	sw	$s6,0x40($sp)
 /*  f01c020:	24160001 */ 	li	$s6,0x1

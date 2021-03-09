@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chr/chraction.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"

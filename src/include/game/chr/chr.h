@@ -17,7 +17,7 @@ void func0f020d44(struct prop *prop, bool removechr);
 void chrUpdateAimProperties(struct chrdata *chr);
 void func0f02133c(struct chrdata *chr);
 void chrDoFlinchcntThing(struct chrdata *chr, f32 arg1);
-u32 func0f02143c(void);
+f32 func0f02143c(struct chrdata *chr);
 void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *rooms);
 void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2);
 u32 func0f022214(void);

@@ -6,6 +6,8 @@
 #include "types.h"
 
 #if VERSION >= VERSION_PAL_FINAL
+const char var7f1a9880pf[] = "language";
+
 GLOBAL_ASM(
 glabel func0f01d860
 /*  f01d930:	27bdffe8 */ 	addiu	$sp,$sp,-24

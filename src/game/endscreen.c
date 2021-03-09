@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_095320.h"

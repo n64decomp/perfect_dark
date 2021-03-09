@@ -329,7 +329,7 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->unk03a8 = true;
 
 	g_Vars.players[index]->headanim = 0;
-	g_Vars.players[index]->headdamp = 0.93f;
+	g_Vars.players[index]->headdamp = (PAL ? 0.9166f : 0.93f);
 	g_Vars.players[index]->headwalkingtime60 = 0;
 	g_Vars.players[index]->headamplitude = 1;
 	g_Vars.players[index]->sideamplitude = 1;
@@ -347,9 +347,9 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->headpossum.z = 0;
 	g_Vars.players[index]->headlooksum.x = 0;
 	g_Vars.players[index]->headlooksum.y = 0;
-	g_Vars.players[index]->headlooksum.z = 14.285716056824f;
+	g_Vars.players[index]->headlooksum.z = (PAL ? 11.990406036377f : 14.285716056824f);
 	g_Vars.players[index]->headupsum.x = 0;
-	g_Vars.players[index]->headupsum.y = 14.285716056824f;
+	g_Vars.players[index]->headupsum.y = (PAL ? 11.990406036377f  : 14.285716056824f);
 	g_Vars.players[index]->headupsum.z = 0;
 	g_Vars.players[index]->headbodyoffset.x = 0;
 	g_Vars.players[index]->headbodyoffset.y = 0;
@@ -381,12 +381,12 @@ void playerAllocate(s32 index)
 
 	for (i = 0; i < 2; i++) {
 		g_Vars.players[index]->unk0610[i].unk00 = 640;
-		g_Vars.players[index]->unk0610[i].unk02 = 480;
+		g_Vars.players[index]->unk0610[i].unk02 = (PAL ? 544 : 480);
 		g_Vars.players[index]->unk0610[i].unk04 = 511;
 		g_Vars.players[index]->unk0610[i].unk06 = 0;
 
 		g_Vars.players[index]->unk0610[i].unk08 = 640;
-		g_Vars.players[index]->unk0610[i].unk0a = 480;
+		g_Vars.players[index]->unk0610[i].unk0a = (PAL ? 544 : 480);
 		g_Vars.players[index]->unk0610[i].unk0c = 511;
 		g_Vars.players[index]->unk0610[i].unk0e = 0;
 	}
@@ -528,7 +528,7 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->zoominfovyold = 60;
 	g_Vars.players[index]->zoominfovynew = 60;
 	g_Vars.players[index]->fovy = 60;
-	g_Vars.players[index]->aspect = 4.0f / 3.0f;
+	g_Vars.players[index]->aspect = 640.0f / (PAL ? 544.0f : 480.0f);
 	g_Vars.players[index]->flags = 0;
 	g_Vars.players[index]->unk1860 = -1;
 

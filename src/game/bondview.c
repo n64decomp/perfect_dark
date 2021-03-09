@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/dlights.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/atan2f.h"
 #include "game/game_0d4690.h"
 #include "game/game_11f000.h"
@@ -712,6 +712,14 @@ f32 bview0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel bviewRenderFisheye
+.late_rodata
+glabel var7f1b5f40
+.word 0x3f83d70a
+glabel var7f1b5f44
+.word 0x3bcccccd
+glabel var7f1b5f48
+.word 0x3c23d70a
+.text
 /*  f143970:	27bdfec8 */ 	addiu	$sp,$sp,-312
 /*  f143974:	afbf0064 */ 	sw	$ra,0x64($sp)
 /*  f143978:	afbe0060 */ 	sw	$s8,0x60($sp)
@@ -2027,6 +2035,18 @@ const char var7f1b5e4c[] = "%s";
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel bviewRenderEyespyDecorations
+.late_rodata
+glabel var7f1b726cpf
+.word 0x3fb33333
+glabel var7f1b5f4c
+.word 0x3a83126f
+glabel var7f1b5f50
+.word 0x3f19999a
+glabel var7f1b5f54
+.word 0x3c23d70a
+glabel var7f1b5f58
+.word 0x3bcccccd
+.text
 /*  f14454c:	27bdfbf0 */ 	addiu	$sp,$sp,-1040
 /*  f144550:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f144554:	afb40048 */ 	sw	$s4,0x48($sp)

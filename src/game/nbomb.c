@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/chr/chraction.h"
 #include "game/dlights.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/nbomb.h"
 #include "game/chr/chr.h"
 #include "game/chr/chraction.h"
@@ -3235,12 +3235,12 @@ void nbombTick(struct nbomb *nbomb)
 			nbomb->radius = sqrtf(sqrtf(nbomb->radius));
 			nbomb->unk18 = 0;
 		} else {
-			nbomb->radius = sinf((nbomb->age240 - 80) * 0.0523333363235f) * 0.05f + 1.0f;
+			nbomb->radius = sinf((nbomb->age240 - 80) * (PAL ? 0.062800005078316f : 0.0523333363235f)) * 0.05f + 1.0f;
 
 			// Return value is not used - could have been printed
-			sinf((nbomb->age240 - 80) * 0.0523333363235f);
+			sinf((nbomb->age240 - 80) * (PAL ? 0.062800005078316f : 0.0523333363235f));
 
-			nbomb->unk18 = ((nbomb->age240 - 80) / 270.0f) * 3.0f;
+			nbomb->unk18 = ((nbomb->age240 - 80) / (PAL ? 225.0f : 270.0f)) * 3.0f;
 		}
 
 		nbomb->radius *= 500.0f;

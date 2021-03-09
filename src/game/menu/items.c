@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/game_095320.h"
 #include "game/game_0b3350.h"
 #include "game/game_0e0770.h"
@@ -1774,7 +1774,7 @@ bool menuTickItemList(struct menuitem *item, struct menuinputs *inputs, u32 arg2
 		prev = data->list.unk00;
 
 		for (i = 0; i < g_Vars.diffframe60; i++) {
-			f0 = data->list.unk04 * 0.35f + 0.65f * f0;
+			f0 = data->list.unk04 * (PAL ? 0.404f : 0.35f) + (PAL ? 0.59599995613098f : 0.65f) * f0;
 		}
 
 		data->list.unk00 = f0;

@@ -311,6 +311,12 @@ glabel func0f092b7c
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f092c04
+.late_rodata
+glabel var7f1ab73c
+.word 0x392ec33e
+glabel var7f1ab740
+.word 0x3c23d70a
+.text
 /*  f092b04:	3c188007 */ 	lui	$t8,0x8007
 /*  f092b08:	8f18b1a0 */ 	lw	$t8,-0x4e60($t8)
 /*  f092b0c:	27bdffa8 */ 	addiu	$sp,$sp,-88
@@ -3523,8 +3529,6 @@ glabel func0f09505c
 .late_rodata
 glabel var7f1ab788
 .word 0x4b18967f
-glabel var7f1ab78c
-.word 0x00000000
 .text
 /*  f09505c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f095060:	afb00030 */ 	sw	$s0,0x30($sp)

@@ -19,7 +19,6 @@
 #define ALIGN64(val)        ((((u32)val) + 0x3f | 0x3f) ^ 0x3f)
 #define ARRAYCOUNT(a)       (s32)(sizeof(a) / sizeof(a[0]))
 #define CHRRACE(chr)        (chr ? chr->race : RACE_HUMAN)
-#define FRAMEDURATION       (1 / 60.0f)
 #define IS4MB()             (g_Is4Mb == true)
 #define IS8MB()             (g_Is4Mb != true)
 #define PLAYERCOUNT()       ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
@@ -36,11 +35,13 @@
 		(p[2] - g_Vars.currentplayer->eraserpos.f[2]) * (p[2] - g_Vars.currentplayer->eraserpos.f[2]))
 
 #if PAL
-#define TIME60TOFRAMES(val) (val * 50 / 60)
-#define FRAMESTOTIME60(val) (val * 1.2f)
+#define TIME60TOFRAMES(val) ((val) * 50 / 60)
+#define FRAMESTOTIME60(val) ((val) * 1.2f)
+#define FRAMEDURATION       (1 / 50.0f)
 #else
 #define TIME60TOFRAMES(val) (val)
 #define FRAMESTOTIME60(val) (val)
+#define FRAMEDURATION       (1 / 60.0f)
 #endif
 
 // Macro to convert an ASCII character to N64 font code.

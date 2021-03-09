@@ -8,7 +8,7 @@
 #include "game/chr/chraction.h"
 #include "game/debug.h"
 #include "game/dlights.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/nbomb.h"
 #include "game/game_00b480.h"
 #include "game/game_00b820.h"
@@ -875,6 +875,22 @@ void coreFindThreats(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel coreRender
+.late_rodata
+glabel var7f1b8e64pf
+.word 0x3f866666
+glabel var7f1b8e68pf
+.word 0x3cbd0bd1
+glabel var7f1b8e6cpf
+.word 0x3f8ccccd
+glabel var7f1b8e70pf
+.word 0x3bfc0fc1
+glabel var7f1b8e74pf
+.word 0x3cbd0bd1
+glabel var7f1b8e78pf
+.word 0x3f8ccccd
+glabel var7f1b8e7cpf
+.word 0x3bfc0fc1
+.text
 /*  f16a2f8:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f16a2fc:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f16a300:	afb3003c */ 	sw	$s3,0x3c($sp)
@@ -3776,6 +3792,10 @@ glabel coreGetSlowMotionType
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel coreTick
+.late_rodata
+glabel var7f1b8ed0pf
+.word 0x3f99999a
+.text
 /*  f16c718:	27bdfd70 */ 	addiu	$sp,$sp,-656
 /*  f16c71c:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f16c720:	afb50040 */ 	sw	$s5,0x40($sp)

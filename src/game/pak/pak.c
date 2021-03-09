@@ -1978,7 +1978,9 @@ void func0f1189d8(void)
 	}
 
 	for (i = 0; i < 5; i++) {
-#if VERSION >= VERSION_NTSC_FINAL
+#if VERSION >= VERSION_PAL_FINAL
+		func0f11a32c(i, 7, 2049, "pak.c");
+#elif VERSION >= VERSION_NTSC_FINAL
 		func0f11a32c(i, 7, 2049, "pak/pak.c");
 #else
 		func0f11a32c(i, 7, 2016, "pak.c");

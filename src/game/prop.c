@@ -2792,6 +2792,16 @@ u32 var800698cc = 0x00000000;
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f06302c
+.late_rodata
+glabel var7f1ab184pf
+.word 0x3f99999a
+glabel var7f1ab188pf
+.word 0x3f99999a
+glabel var7f1ab18cpf
+.word 0x3f99999a
+glabel var7f1ab190pf
+.word 0x3f99999a
+.text
 /*  f06328c:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f063290:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f063294:	3c11800a */ 	lui	$s1,0x800a

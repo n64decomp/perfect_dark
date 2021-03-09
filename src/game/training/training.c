@@ -1180,6 +1180,32 @@ void frExecuteHelpScript(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel frExecuteTargetScript
+.late_rodata
+glabel var7f1baa50pf
+.word 0x7f19f23c
+glabel var7f1baa54pf
+.word 0x7f19f3f0
+glabel var7f1baa58pf
+.word 0x7f19f3fc
+glabel var7f1baa5cpf
+.word 0x7f19f434
+glabel var7f1baa60pf
+.word 0x7f19f4e0
+glabel var7f1baa64pf
+.word 0x7f19f4e0
+glabel var7f1baa68pf
+.word 0x7f19f4e0
+glabel var7f1baa6cpf
+.word 0x7f19f220
+glabel var7f1b9410
+.word 0xbfc90fdb
+glabel var7f1b9414
+.word 0xc0490fdb
+glabel var7f1b9418
+.word 0x3fc90fdb
+glabel var7f1b941c
+.word 0x40490fdb
+.text
 /*  f19f198:	00047900 */ 	sll	$t7,$a0,0x4
 /*  f19f19c:	01e47823 */ 	subu	$t7,$t7,$a0
 /*  f19f1a0:	3c18800b */ 	lui	$t8,0x800b
@@ -2502,6 +2528,28 @@ bool frIsAmmoWasted(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel frTick
+.late_rodata
+glabel var7f1b94c0
+.word 0x4012a974
+glabel var7f1b94c4
+.word 0x407f7642
+glabel var7f1b94c8
+.word 0x40490fdb
+glabel var7f1b94cc
+.word 0xc59c4000
+glabel var7f1b94d0
+.word 0x40c907a9
+glabel var7f1b94d4
+.word 0x40490fdb
+glabel var7f1b94d8
+.word 0xbd0efa35
+glabel var7f1b94dc
+.word 0x40490fdb
+glabel var7f1b94e0
+.word 0x3d0efa35
+glabel var7f1b94e4
+.word 0x40490fdb
+.text
 /*  f1a0aa8:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f1a0aac:	3c0e8009 */ 	lui	$t6,0x8009
 /*  f1a0ab0:	91ce8d54 */ 	lbu	$t6,-0x72ac($t6)

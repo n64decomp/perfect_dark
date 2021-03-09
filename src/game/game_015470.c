@@ -10,9 +10,6 @@
 #include "types.h"
 
 const u32 var7f1a83b0[] = {0x459c4000};
-const u32 var7f1a83b4[] = {0x00000000};
-const u32 var7f1a83b8[] = {0x00000000};
-const u32 var7f1a83bc[] = {0x00000000};
 
 Mtx *var8009cc80;
 Mtx *var8009cc84;
@@ -715,7 +712,7 @@ Gfx *getitleRender(Gfx *gdl)
 
 		var80062498 += g_Vars.lvupdate240;
 
-		sp30 = (var80062498 * 255) / 280;
+		sp30 = (var80062498 * 255) / (PAL ? 233 : 280);
 
 		if (sp30 > 255) {
 			sp30 = 255;
@@ -725,7 +722,7 @@ Gfx *getitleRender(Gfx *gdl)
 			sp30 = 0;
 		}
 
-		sp2c = 255 - (var80062498 * 255 - 163200) / 280;
+		sp2c = 255 - (var80062498 * 255 - 163200) / (PAL ? 233 : 280);
 
 		if (sp2c > 255) {
 			sp2c = 255;
@@ -735,7 +732,11 @@ Gfx *getitleRender(Gfx *gdl)
 			sp2c = 0;
 		}
 
+#if PAL
+		var80062484 += 2.4f * g_Vars.lvupdate240f;
+#else
 		var80062484 += g_Vars.lvupdate240f + g_Vars.lvupdate240f;
+#endif
 
 		guRotate(&var8009cc88[var80062410], var80062484, 0, 1, 0);
 

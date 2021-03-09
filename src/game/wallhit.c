@@ -349,7 +349,7 @@ void func0f13e5c8(struct prop *prop)
 	}
 }
 
-void func0f13e640(struct var800a41b0 *thing, s32 arg1)
+void func0f13e640(struct var800a41b0 *thing, u32 arg1)
 {
 	if (thing->unk6f_02 == 0) {
 		if (thing->unk60) {
@@ -3648,7 +3648,7 @@ void func0f14159c(struct prop *prop)
 				&& thing->prop == prop
 				&& var8007f75c[thing->unk6a].unk08 == 3) {
 			if ((thing->unk6a >= 0xc && thing->unk6a <= 0xc) || (random() % 100) < 35) {
-				func0f13e640(thing, 120);
+				func0f13e640(thing, (PAL ? 100 : 120));
 			} else {
 				thing->unk70_00 = g_Vars.lvframenum;
 			}

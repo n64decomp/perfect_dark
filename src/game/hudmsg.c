@@ -2374,6 +2374,30 @@ glabel func0f0de160
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0de7fc
+.late_rodata
+glabel var7f1af190
+.word 0x7f0df2e0
+glabel var7f1af194
+.word 0x7f0df2e8
+glabel var7f1af198
+.word 0x7f0df2fc
+glabel var7f1af19c
+.word 0x7f0df498
+glabel var7f1af1a0
+.word 0x7f0df4c8
+glabel var7f1af1a4
+.word 0x7f0e0040
+glabel var7f1af1a8
+.word 0x7f0dfba4
+glabel var7f1af1ac
+.word 0x7f0dfd5c
+glabel var7f1af1b0
+.word 0x7f0dfd9c
+glabel var7f1af1b4
+.word 0x7f0dff24
+glabel var7f1af1b8
+.word 0x7f0dffc4
+.text
 /*  f0dee30:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0dee34:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0dee38:	afa40038 */ 	sw	$a0,0x38($sp)
@@ -4206,6 +4230,28 @@ glabel hudmsgCreate
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel hudmsgsTick
+.late_rodata
+glabel var7f1af1bc
+.word 0x41066667
+glabel var7f1af1c0
+.word 0x41066667
+glabel var7f1af1c4
+.word 0x41066667
+glabel var7f1af1c8
+.word 0x40490fdb
+glabel var7f1af1cc
+.word 0x7f0e0b40
+glabel var7f1af1d0
+.word 0x7f0e0b40
+glabel var7f1af1d4
+.word 0x7f0e0b40
+glabel var7f1af1d8
+.word 0x7f0e04f8
+glabel var7f1af1dc
+.word 0x7f0e0750
+glabel var7f1af1e0
+.word 0x7f0e08d4
+.text
 /*  f0df9dc:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0df9e0:	3c018007 */ 	lui	$at,0x8007
 /*  f0df9e4:	3c088007 */ 	lui	$t0,0x8007

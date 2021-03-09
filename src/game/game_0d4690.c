@@ -12,16 +12,20 @@
 #include "data.h"
 #include "types.h"
 
-const u32 var7f1adba0[] = {0x74786d75};
-const u32 var7f1adba4[] = {0x6c000000};
-
+const char var7f1adba0[] = "txmul";
 const char var7f1adba8[] = "depthsub";
 const char var7f1adbb4[] = "rsub";
 const char var7f1adbbc[] = ":%02d";
 const char var7f1adbc4[] = "%d";
 
 const u32 var7f1adbc8[] = {0xc31fc000};
+
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var7f1adbcc[] = {0x43084000};
+#else
 const u32 var7f1adbcc[] = {0x42f08000};
+#endif
+
 const u32 var7f1adbd0[] = {0x3dcccccd};
 const u32 var7f1adbd4[] = {0x3dcccccd};
 const u32 var7f1adbd8[] = {0x461c4000};

@@ -12,12 +12,22 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var7f1ab800[] = {0x40f13c65};
+const u32 var7f1ab804[] = {0x3cf13c65};
+const u32 var7f1ab808[] = {0x40f13c65};
+const u32 var7f1ab80c[] = {0x3cf13c65};
+const u32 var7f1ab810[] = {0x40f13c65};
+const u32 var7f1ab814[] = {0x3cf13c65};
+#else
 const u32 var7f1ab800[] = {0x40c907a9};
 const u32 var7f1ab804[] = {0x3cc907a9};
 const u32 var7f1ab808[] = {0x40c907a9};
 const u32 var7f1ab80c[] = {0x3cc907a9};
 const u32 var7f1ab810[] = {0x40c907a9};
 const u32 var7f1ab814[] = {0x3cc907a9};
+#endif
+
 const u32 var7f1ab818[] = {0x3fd55555};
 const u32 var7f1ab81c[] = {0x40555555};
 const u32 var7f1ab820[] = {0x3fd55555};

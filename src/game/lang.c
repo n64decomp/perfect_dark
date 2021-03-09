@@ -530,6 +530,20 @@ glabel func0f16f6ecpf
 #if PAL
 GLOBAL_ASM(
 glabel func0f16f75c
+.late_rodata
+glabel var7f1b9080pf
+.word 0x7f16f7b4
+glabel var7f1b9084pf
+.word 0x7f16f7c0
+glabel var7f1b9088pf
+.word 0x7f16f7d0
+glabel var7f1b908cpf
+.word 0x7f16f7e0
+glabel var7f1b9090pf
+.word 0x7f16f7f0
+glabel var7f1b9094pf
+.word 0x7f16f800
+.text
 /*  f16f75c:	3c0e800b */ 	lui	$t6,0x800b
 /*  f16f760:	8dceb0ec */ 	lw	$t6,-0x4f14($t6)
 /*  f16f764:	27bdffe0 */ 	addiu	$sp,$sp,-32

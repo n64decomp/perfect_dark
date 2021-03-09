@@ -7227,6 +7227,10 @@ s16 g_MaianQuipBank[][4] = {
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel aiSayQuip
+.late_rodata
+glabel var7f1a9d64
+.word 0x45dac000
+.text
 /*  f05a454:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f05a458:	afb00048 */ 	sw	$s0,0x48($sp)
 /*  f05a45c:	3c10800a */ 	lui	$s0,0x800a
@@ -7885,11 +7889,11 @@ glabel aiSayQuip
 );
 #else
 GLOBAL_ASM(
+glabel aiSayQuip
 .late_rodata
 glabel var7f1a9d64
 .word 0x45dac000
 .text
-glabel aiSayQuip
 /*  f05a258:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f05a25c:	afb00048 */ 	sw	$s0,0x48($sp)
 /*  f05a260:	3c10800a */ 	lui	$s0,%hi(g_Vars)

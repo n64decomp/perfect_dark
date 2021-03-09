@@ -508,6 +508,12 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handle
 }
 
 #if VERSION >= VERSION_PAL_FINAL
+const char var7f1b41a0pf[] = "%s: %s";
+const char var7f1b41a8pf[] = "%s: %s\n";
+const char var7f1b41b0pf[] = "%s %s: %s %s %s";
+const char var7f1b41c0pf[] = "%s %s: %s %s %s %s %d:%02d %s %s";
+const char var7f1b41e0pf[] = "\n";
+
 GLOBAL_ASM(
 glabel cheatGetMarquee
 /*  f108368:	3c0e8007 */ 	lui	$t6,0x8007

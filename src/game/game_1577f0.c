@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/game_0d4690.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"

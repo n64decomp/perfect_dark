@@ -857,7 +857,7 @@ void aibotScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3,
 		f32 float2;
 
 		if (g_Vars.lvframe60 > 0) {
-			killrate = g_Vars.totalkills * 3600.0f / (f32)(g_Vars.lvframe60 * g_MpNumPlayers);
+			killrate = g_Vars.totalkills * (PAL ? 3000.0f : 3600.0f) / (f32)(g_Vars.lvframe60 * g_MpNumPlayers);
 
 			if (killrate < 1) {
 				killrate = 1;
@@ -867,7 +867,7 @@ void aibotScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3,
 		weaponindex = mpGetWeaponIndexByWeaponNum(weaponnum);
 
 		if (weaponindex >= 0) {
-			float2 = ceilf(chr->aibot->equipdurations60[weaponindex][funcnum] * (1.0f / 3600.0f));
+			float2 = ceilf(chr->aibot->equipdurations60[weaponindex][funcnum] * (1.0f / (PAL ? 3000.0f : 3600.0f)));
 
 			if (float2 > 0) {
 				float1 = chr->aibot->killsbygunfunc[weaponindex][funcnum];

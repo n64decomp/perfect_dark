@@ -149,17 +149,34 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 	u32 playernum = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 		? g_Vars.currentplayerstats->mpindex : item->param3;
 
+#if PAL
+	u16 options[2][2] = {
+		L_OPTIONS(201), // "Hold"
+		L_OPTIONS(202), // "Toggle"
+	};
+
+	s32 index = 0;
+
+	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
+		index = 1;
+	}
+#else
 	u16 options[] = {
 		L_OPTIONS(201), // "Hold"
 		L_OPTIONS(202), // "Toggle"
 	};
+#endif
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		data->dropdown.value = 2;
 		break;
 	case MENUOP_GETOPTIONTEXT:
+#if PAL
+		return (s32) langGet(options[index][data->dropdown.value]);
+#else
 		return (s32) langGet(options[data->dropdown.value]);
+#endif
 	case MENUOP_SET:
 		optionsSetAimControl(playernum, data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_SOLO;
@@ -245,65 +262,6 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 
 	return 0;
 }
-
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0f10302cpf
-/*  f10302c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f103030:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f103034:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103038:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f10303c:	25ce1cdc */ 	addiu	$t6,$t6,0x1cdc
-/*  f103040:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f103044:	27a2001c */ 	addiu	$v0,$sp,0x1c
-/*  f103048:	24080002 */ 	li	$t0,0x2
-/*  f10304c:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f103050:	24010001 */ 	li	$at,0x1
-/*  f103054:	10810009 */ 	beq	$a0,$at,.PF0f10307c
-/*  f103058:	24010003 */ 	li	$at,0x3
-/*  f10305c:	10810009 */ 	beq	$a0,$at,.PF0f103084
-/*  f103060:	24010006 */ 	li	$at,0x6
-/*  f103064:	1081000e */ 	beq	$a0,$at,.PF0f1030a0
-/*  f103068:	24010007 */ 	li	$at,0x7
-/*  f10306c:	10810014 */ 	beq	$a0,$at,.PF0f1030c0
-/*  f103070:	00000000 */ 	nop
-/*  f103074:	10000017 */ 	b	.PF0f1030d4
-/*  f103078:	00001025 */ 	move	$v0,$zero
-.PF0f10307c:
-/*  f10307c:	10000014 */ 	b	.PF0f1030d0
-/*  f103080:	acc80000 */ 	sw	$t0,0x0($a2)
-.PF0f103084:
-/*  f103084:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f103088:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f10308c:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f103090:	0fc5bdaa */ 	jal	0xf16f6a8
-/*  f103094:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f103098:	1000000f */ 	b	.PF0f1030d8
-/*  f10309c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PF0f1030a0:
-/*  f1030a0:	0fc54ef6 */ 	jal	0xf153bd8
-/*  f1030a4:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f1030a8:	3c02800a */ 	lui	$v0,0x800a
-/*  f1030ac:	2442a510 */ 	addiu	$v0,$v0,-23280
-/*  f1030b0:	8c4c0458 */ 	lw	$t4,0x458($v0)
-/*  f1030b4:	358d0001 */ 	ori	$t5,$t4,0x1
-/*  f1030b8:	10000005 */ 	b	.PF0f1030d0
-/*  f1030bc:	ac4d0458 */ 	sw	$t5,0x458($v0)
-.PF0f1030c0:
-/*  f1030c0:	0fc54ef3 */ 	jal	0xf153bcc
-/*  f1030c4:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f1030c8:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f1030cc:	acc20000 */ 	sw	$v0,0x0($a2)
-.PF0f1030d0:
-/*  f1030d0:	00001025 */ 	move	$v0,$zero
-.PF0f1030d4:
-/*  f1030d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.PF0f1030d8:
-/*  f1030d8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1030dc:	03e00008 */ 	jr	$ra
-/*  f1030e0:	00000000 */ 	nop
-);
-#endif
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(

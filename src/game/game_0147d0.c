@@ -163,7 +163,9 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk059 = 0;
 					aibot->unk05c = 0;
 					aibot->unk060 = 0;
+#if !PAL
 					aibot->unk030 = 301;
+#endif
 					aibot->unk038 = 0;
 					aibot->unk03e = -1;
 					aibot->unk03c = 0;
@@ -290,19 +292,5 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 				aibotAllocateInventory(chr, 10);
 			}
 		}
-	}
-}
-
-void aibotAllocateInventory(struct chrdata *chr, s32 maxitems)
-{
-	if (chr && chr->aibot && maxitems > 0) {
-		if (maxitems > 255) {
-			maxitems = 255;
-		}
-
-		chr->aibot->maxitems = maxitems;
-		chr->aibot->items = malloc(ALIGN16(maxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
-
-		aibotClearInventory(chr);
 	}
 }

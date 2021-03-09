@@ -14,6 +14,7 @@
 	build/ROMID/game/stubs/game_000910.o (section); \
 	build/ROMID/game/dlights.o (section); \
 	build/ROMID/game/game_005fd0.o (section); \
+	build/ROMID/game/game_006900.o (section); \
 	build/ROMID/game/game_006bd0.o (section); \
 	build/ROMID/game/nbomb.o (section); \
 	build/ROMID/game/stubs/game_00b180.o (section); \
@@ -33,6 +34,7 @@
 	build/ROMID/game/game_011110.o (section); \
 	build/ROMID/game/inventory/init.o (section); \
 	build/ROMID/game/game_0125a0.o (section); \
+	build/ROMID/game/game_012aa0.o (section); \
 	build/ROMID/game/game_012d50.o (section); \
 	build/ROMID/game/explosions/init.o (section); \
 	build/ROMID/game/smoke/init.o (section); \
@@ -46,6 +48,7 @@
 	build/ROMID/game/game_013ee0.o (section); \
 	build/ROMID/game/game_0147a0.o (section); \
 	build/ROMID/game/game_0147d0.o (section); \
+	build/ROMID/game/game_014e90.o (section); \
 	build/ROMID/game/game_014f10.o (section); \
 	build/ROMID/game/game_015010.o (section); \
 	build/ROMID/game/game_0150a0.o (section); \
@@ -150,8 +153,7 @@
 	build/ROMID/game/bondview.o (section); \
 	build/ROMID/game/splat.o (section); \
 	build/ROMID/game/camdraw.o (section); \
-	build/ROMID/game/shards/create.o (section); \
-	build/ROMID/game/shards/render.o (section); \
+	build/ROMID/game/shards/shards.o (section); \
 	build/ROMID/game/options.o (section); \
 	build/ROMID/game/game_152fa0.o (section); \
 	build/ROMID/game/game_1531a0.o (section); \

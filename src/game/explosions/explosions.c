@@ -1404,6 +1404,20 @@ bool func0f12af5c(struct explosion *exp, struct prop *prop, struct coord *pos1, 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f12b0e0
+.late_rodata
+glabel var7f1b688cpf
+.word 0x3f555555
+glabel var7f1b6890pf
+.word 0x3f555555
+glabel var7f1b6894pf
+.word 0x3f333333
+glabel var7f1b6898pf
+.word 0x3e99999a
+glabel var7f1b689cpf
+.word 0x3d4ccccd
+glabel var7f1b68a0pf
+.word 0x3d4ccccd
+.text
 /*  f12bbc8:	27bdfc58 */ 	addiu	$sp,$sp,-936
 /*  f12bbcc:	afbf0074 */ 	sw	$ra,0x74($sp)
 /*  f12bbd0:	afbe0070 */ 	sw	$s8,0x70($sp)
@@ -2938,6 +2952,16 @@ glabel var7f1b559c
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f12bbdc
+.late_rodata
+glabel var7f1b68a4pf
+.word 0x40c907a9
+glabel var7f1b68a8pf
+.word 0x3e4ccccd
+glabel var7f1b68acpf
+.word 0x3f4ccccd
+glabel var7f1b68b0pf
+.word 0x3f555555
+.text
 /*  f12c6e0:	27bdfe98 */ 	addiu	$sp,$sp,-360
 /*  f12c6e4:	afbf0084 */ 	sw	$ra,0x84($sp)
 /*  f12c6e8:	afb70080 */ 	sw	$s7,0x80($sp)
@@ -4443,16 +4467,26 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 			for (j = 0; j < ARRAYCOUNT(exp->parts); j++) {
 				if (exp->parts[j].frame > 0) {
-					if (i == (s32)((f32)(exp->parts[j].frame - 1) / FRAMESTOTIME60(g_ExplosionTypes[exp->type].flarespeed))) {
+#if PAL
+					if (i == (s32)((f32)(exp->parts[j].frame - 1) / (g_ExplosionTypes[exp->type].flarespeed * 0.83333331346512f))) {
 						gdl = explosionRenderPart(exp, &exp->parts[j], gdl, coord, i);
 					}
+#else
+					if (i == (s32)((f32)(exp->parts[j].frame - 1) / g_ExplosionTypes[exp->type].flarespeed)) {
+						gdl = explosionRenderPart(exp, &exp->parts[j], gdl, coord, i);
+					}
+#endif
 				}
 			}
 		}
 
 		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		tmp = FRAMESTOTIME60(g_ExplosionTypes[exp->type].flarespeed) * 15.0f;
+#if PAL
+		tmp = (g_ExplosionTypes[exp->type].flarespeed * 0.83333331346512f) * 15.0f;
+#else
+		tmp = g_ExplosionTypes[exp->type].flarespeed *15.0f;
+#endif
 
 		for (j = 0; j < ARRAYCOUNT(exp->parts); j++) {
 			if (exp->parts[j].frame > tmp) {

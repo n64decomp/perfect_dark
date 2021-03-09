@@ -380,7 +380,7 @@ void weatherTickRain(struct weatherdata *weather)
 		rand = random() * (1.0f / U32_MAX);
 
 		weather->unk0c = (rand + rand) * M_PI;
-		weather->unk10 = (weather->unk0c - weather->windanglerad) / 0.01f;
+		weather->unk10 = (weather->unk0c - weather->windanglerad) / (PAL ? 0.012f : 0.01f);
 
 		if (weather->unk10 < 0) {
 			weather->unk10 = -weather->unk10;
@@ -472,7 +472,7 @@ void weatherTickSnow(struct weatherdata *weather)
 		rand = random() * (1.0f / U32_MAX);
 
 		weather->unk0c = (rand + rand) * M_PI;
-		weather->unk10 = (weather->unk0c - weather->windanglerad) / 0.01f;
+		weather->unk10 = (weather->unk0c - weather->windanglerad) / (PAL ? 0.012f : 0.01f);
 
 		if (weather->unk10 < 0) {
 			weather->unk10 = -weather->unk10;

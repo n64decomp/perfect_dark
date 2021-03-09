@@ -5,7 +5,7 @@
 #include "game/cheats.h"
 #include "game/chr/chraction.h"
 #include "game/debug.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/chr/chr.h"
 #include "game/prop.h"
 #include "game/game_092610.h"
@@ -1116,7 +1116,7 @@ void bwalkUpdateVertical(void)
 							|| bwalkTryMoveUpwards(moveamount) == CDRESULT_NOCOLLISION) {
 						// Going up
 						g_Vars.currentplayer->vv_manground += moveamount;
-						g_Vars.currentplayer->sumground = g_Vars.currentplayer->vv_manground / 0.045499980449677f;
+						g_Vars.currentplayer->sumground = g_Vars.currentplayer->vv_manground / (PAL ? 0.054400026798248f : 0.045499980449677f);
 					}
 				}
 			}
@@ -1166,16 +1166,16 @@ void bwalkUpdateVertical(void)
 	// In other words, not falling
 	if (g_Vars.currentplayer->bdeltapos.y >= 0.0f
 			|| g_Vars.currentplayer->vv_ground > g_Vars.currentplayer->vv_manground) {
-		g_Vars.currentplayer->sumground = g_Vars.currentplayer->vv_manground / 0.045499980449677f;
+		g_Vars.currentplayer->sumground = g_Vars.currentplayer->vv_manground / (PAL ? 0.054400026798248f : 0.045499980449677f);
 
 		for (i = 0; i < g_Vars.lvupdate240; i++) {
 			g_Vars.currentplayer->sumground =
-				g_Vars.currentplayer->sumground * 0.9545f + g_Vars.currentplayer->vv_ground;
+				g_Vars.currentplayer->sumground * (PAL ? 0.94559997320175f : 0.9545f) + g_Vars.currentplayer->vv_ground;
 		}
 
 		if (g_Vars.currentplayer->vv_manground < g_Vars.currentplayer->vv_ground) {
 			// Feet are lower than the ground
-			sumground = g_Vars.currentplayer->sumground * 0.045499980449677f;
+			sumground = g_Vars.currentplayer->sumground * (PAL ? 0.054400026798248f : 0.045499980449677f);
 			limit = g_Vars.currentplayer->vv_ground - 50;
 
 			if (sumground < limit) {
@@ -1369,11 +1369,11 @@ void bwalkUpdateVertical(void)
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
 		if (g_Vars.currentplayer->crouchtime240 > 0) {
 			g_Vars.currentplayer->sumcrouch =
-				g_Vars.currentplayer->sumcrouch * 0.9456f + g_Vars.currentplayer->crouchfall;
+				g_Vars.currentplayer->sumcrouch * (PAL ? 0.93540000915527f : 0.9456f) + g_Vars.currentplayer->crouchfall;
 			g_Vars.currentplayer->crouchtime240--;
 		} else {
 			if (g_Vars.currentplayer->crouchfall < 0) {
-				g_Vars.currentplayer->crouchfall -= -1.125f;
+				g_Vars.currentplayer->crouchfall -= (PAL ? -1.3636363744736f : -1.125f);
 
 				if (g_Vars.currentplayer->crouchfall >= 0) {
 					g_Vars.currentplayer->crouchfall = 0;
@@ -1381,13 +1381,13 @@ void bwalkUpdateVertical(void)
 			}
 
 			g_Vars.currentplayer->sumcrouch =
-				g_Vars.currentplayer->sumcrouch * 0.9456f + g_Vars.currentplayer->crouchfall;
+				g_Vars.currentplayer->sumcrouch * (PAL ? 0.93540000915527f : 0.9456f) + g_Vars.currentplayer->crouchfall;
 		}
 	}
 
 	{
 		f32 eyeheight;
-		g_Vars.currentplayer->crouchheight = g_Vars.currentplayer->sumcrouch * 0.054400026798248f;
+		g_Vars.currentplayer->crouchheight = g_Vars.currentplayer->sumcrouch * (PAL ? 0.064599990844727f : 0.054400026798248f);
 		g_Vars.currentplayer->vv_height =
 			(g_Vars.currentplayer->headpos.y / g_Vars.currentplayer->standheight)
 			* g_Vars.currentplayer->vv_eyeheight;
@@ -1472,7 +1472,7 @@ void bwalkUpdateCrouchOffset(void)
 
 		// f32 *frac, f32 maxfrac, f32 *fracspeed, f32 accel, f32 decel, f32 maxspeed
 		func0f06d90c(&g_Vars.currentplayer->crouchoffset, targetoffset,
-				&g_Vars.currentplayer->crouchspeed, 0.5, 0.5, 5);
+				&g_Vars.currentplayer->crouchspeed, FRAMESTOTIME60(0.5f), FRAMESTOTIME60(0.5f), FRAMESTOTIME60(5.0f));
 
 		bwalkUpdateCrouchOffsetReal();
 
@@ -1670,6 +1670,54 @@ void bwalkUpdateSpeedTheta(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel bwalk0f0c69b8
+.late_rodata
+glabel var7f1ad7fc
+.word 0xc27e6668
+glabel var7f1ad800
+.word 0x43b0aaaa
+glabel var7f1ad804
+.word 0x3ecccccd
+glabel var7f1ad808
+.word 0x3c888889
+glabel var7f1ad80c
+.word 0x404907a9
+glabel var7f1ad810
+.word 0x3eb33333
+glabel var7f1ad814
+.word 0x3eb33333
+glabel var7f1ad818
+.word 0x4099999a
+glabel var7f1ad81c
+.word 0x3df5c290
+glabel var7f1ad820
+.word 0x3eb33333
+glabel var7f1ad824
+.word 0x3f4ccccd
+glabel var7f1ad828
+.word 0x3dcccccd
+glabel var7f1ad82c
+.word 0x3f4ccccd
+glabel var7f1ad830
+.word 0x4528c000
+glabel var7f1ad834
+.word 0x3ecccccd
+glabel var7f1ad838
+.word 0x3ecccccd
+glabel var7f1ad83c
+.word 0x3e99999a
+glabel var7f1ad840
+.word 0x3f8ccccd
+glabel var7f1ad844
+.word 0x3e99999a
+glabel var7f1ad848
+.word 0x3e99999a
+glabel var7f1ad84c
+.word 0x3f333333
+glabel var7f1ad850
+.word 0x3f99999a
+glabel var7f1ad854
+.word 0x3c8ef461
+.text
 /*  f0c6f60:	27bdff18 */ 	addiu	$sp,$sp,-232
 /*  f0c6f64:	3c0f8007 */ 	lui	$t7,0x8007
 /*  f0c6f68:	afbf0024 */ 	sw	$ra,0x24($sp)

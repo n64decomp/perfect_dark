@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/camdraw.h"
-#include "game/game_005fd0.h"
+#include "game/game_006900.h"
 #include "game/game_006bd0.h"
 #include "game/game_02cde0.h"
 #include "game/game_095320.h"
@@ -1255,12 +1255,17 @@ void func0f0f15a4(u8 *arg0, u32 *arg1)
 	case 24:
 		*arg1 = 1;
 		break;
+#if VERSION < VERSION_PAL_FINAL
 	case 5:
+#endif
 	case 23:
 	case 25:
 		*arg1 = 2;
 		break;
 	case 2:
+#if VERSION >= VERSION_PAL_FINAL
+	case 5:
+#endif
 		*arg1 = 3;
 		break;
 	case 12:
@@ -1280,6 +1285,58 @@ void func0f0f15a4(u8 *arg0, u32 *arg1)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0f1618
+.late_rodata
+glabel var7f1b35b0pf
+.word 0x7f0f2148
+glabel var7f1b35b4pf
+.word 0x7f0f1e5c
+glabel var7f1b35b8pf
+.word 0x7f0f2498
+glabel var7f1b35bcpf
+.word 0x7f0f2148
+glabel var7f1b35c0pf
+.word 0x7f0f2308
+glabel var7f1b35c4pf
+.word 0x7f0f2344
+glabel var7f1b35c8pf
+.word 0x7f0f2410
+glabel var7f1b35ccpf
+.word 0x7f0f1fe8
+glabel var7f1b35d0pf
+.word 0x7f0f2040
+glabel var7f1b35d4pf
+.word 0x7f0f2498
+glabel var7f1b35d8pf
+.word 0x7f0f20f4
+glabel var7f1b35dcpf
+.word 0x7f0f1eb0
+glabel var7f1b35e0pf
+.word 0x7f0f1e48
+glabel var7f1b35e4pf
+.word 0x7f0f2434
+glabel var7f1b35e8pf
+.word 0x7f0f2420
+glabel var7f1b35ecpf
+.word 0x7f0f2448
+glabel var7f1b35f0pf
+.word 0x7f0f2484
+glabel var7f1b35f4pf
+.word 0x7f0f20e0
+glabel var7f1b35f8pf
+.word 0x7f0f1fd4
+glabel var7f1b35fcpf
+.word 0x7f0f1e20
+glabel var7f1b3600pf
+.word 0x7f0f1e34
+glabel var7f1b3604pf
+.word 0x7f0f2470
+glabel var7f1b3608pf
+.word 0x7f0f2118
+glabel var7f1b360cpf
+.word 0x7f0f1df4
+glabel var7f1b3610pf
+.word 0x7f0f1de0
+.text
 /*  f0f1d44:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f0f1d48:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f0f1d4c:	3c0f8008 */ 	lui	$t7,0x8008
@@ -4095,6 +4152,28 @@ u32 var800714c4 = 0x0000012c;
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0f38b0
+.late_rodata
+glabel var7f1b3c1cpf
+.word 0x40f33333
+glabel var7f1b3c20pf
+.word 0x3b1d4952
+glabel var7f1b3c24pf
+.word 0x3f7f62b7
+glabel var7f1b3c28pf
+.word 0x3f7f62b7
+glabel var7f1b3c2cpf
+.word 0x3b1d4952
+glabel var7f1b3c30pf
+.word 0x3b1d4952
+glabel var7f1b3c34pf
+.word 0x3b1d4952
+glabel var7f1b3c38pf
+.word 0x40490fdb
+glabel var7f1b3c3cpf
+.word 0xbf19999a
+glabel var7f1b3c40pf
+.word 0x3f19999a
+.text
 /*  f0f4004:	27bdfbc0 */ 	addiu	$sp,$sp,-1088
 /*  f0f4008:	3c02800a */ 	lui	$v0,0x800a
 /*  f0f400c:	8c42a9c4 */ 	lw	$v0,-0x563c($v0)
@@ -11990,6 +12069,52 @@ glabel func0f0f9030
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0f935c
+.late_rodata
+glabel var7f1b3d08pf
+.word 0x3c23d70a
+glabel var7f1b3d0cpf
+.word 0x3d2c0831
+glabel var7f1b3d10pf
+.word 0x3d4ccccd
+glabel var7f1b3d14pf
+.word 0x3e70a3d7
+glabel var7f1b3d18pf
+.word 0x3f43d70a
+glabel var7f1b3d1cpf
+.word 0x3f43d70a
+glabel var7f1b3d20pf
+.word 0x3f43d70a
+glabel var7f1b3d24pf
+.word 0x3dcccccd
+glabel var7f1b3d28pf
+.word 0x3d23d70a
+glabel var7f1b3d2cpf
+.word 0x3f43d70a
+glabel var7f1b3d30pf
+.word 0x3f43d70a
+glabel var7f1b3d34pf
+.word 0x3f43d70a
+glabel var7f1b3d38pf
+.word 0x3f26e979
+glabel var7f1b3d3cpf
+.word 0x3eb22d0e
+glabel var7f1b3d40pf
+.word 0x3f26e979
+glabel var7f1b3d44pf
+.word 0x3f26e979
+glabel var7f1b3d48pf
+.word 0x3f26e979
+glabel var7f1b3d4cpf
+.word 0x3eb22d0e
+glabel var7f1b3d50pf
+.word 0x3eb22d0e
+glabel var7f1b3d54pf
+.word 0x3eb22d0e
+glabel var7f1b3d58pf
+.word 0x3e70a3d7
+glabel var7f1b3d5cpf
+.word 0x3f43d70a
+.text
 /*  f0f9aa0:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f0f9aa4:	8dce1728 */ 	lw	$t6,0x1728($t6)
 /*  f0f9aa8:	27bdfee0 */ 	addiu	$sp,$sp,-288
@@ -14666,6 +14791,34 @@ void func0f0fa6ac(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0fa704
+.late_rodata
+glabel var7f1b2a98
+.word func0f0fa704+0xd64
+glabel var7f1b2a9c
+.word func0f0fa704+0xd64
+glabel var7f1b2aa0
+.word func0f0fa704+0xc8c
+glabel var7f1b2aa4
+.word func0f0fa704+0xd14
+glabel var7f1b2aa8
+.word func0f0fa704+0xd64
+glabel var7f1b2aac
+.word func0f0fa704+0xda8
+glabel var7f1b2ab0
+.word func0f0fa704+0xda8
+glabel var7f1b2ab4
+.word func0f0fa704+0xda8
+glabel var7f1b2ab8
+.word func0f0fa704+0xda8
+glabel var7f1b2abc
+.word func0f0fa704+0xda8
+glabel var7f1b2ac0
+.word func0f0fa704+0xc8c
+glabel var7f1b2ac4
+.word func0f0fa704+0xda8
+glabel var7f1b2ac8
+.word func0f0fa704+0xd64
+.text
 /*  f0fae40:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0fae44:	afb70034 */ 	sw	$s7,0x34($sp)
 /*  f0fae48:	3c178007 */ 	lui	$s7,0x8007
@@ -17242,6 +17395,12 @@ u32 var800714f4 = 0x00000001;
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0fbc30
+.late_rodata
+glabel var7f1b2af8
+.word 0xc34d8000
+glabel var7f1b2afc
+.word 0x4374b333
+.text
 /*  f0fc3c0:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f0fc3c4:	afb10038 */ 	sw	$s1,0x38($sp)
 /*  f0fc3c8:	3c118007 */ 	lui	$s1,0x8007

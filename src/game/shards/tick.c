@@ -25,7 +25,7 @@ void shardsTick(void)
 
 				for (j = 0; j < (s32)lvupdate; j++) {
 					g_Shards[i].pos.y += g_Shards[i].vel.y;
-					g_Shards[i].vel.y -= 0.1f;
+					g_Shards[i].vel.y -= FRAMESTOTIME60(0.1f);
 				}
 
 				if (g_Shards[i].age60 >= 150) {

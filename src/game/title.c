@@ -542,6 +542,22 @@ glabel func0f0165f0
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel titleRenderLegal
+.late_rodata
+glabel var7f1a83cc
+.word titleRenderLegal+0xe8
+glabel var7f1a83d0
+.word titleRenderLegal+0xfc
+glabel var7f1a83d4
+.word titleRenderLegal+0x110
+glabel var7f1a83d8
+.word titleRenderLegal+0x188
+glabel var7f1a83dc
+.word titleRenderLegal+0x188
+glabel var7f1a83e0
+.word titleRenderLegal+0x11c
+glabel var7f1a83e4
+.word titleRenderLegal+0x170
+.text
 /*  f01670c:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f016710:	3c0f8006 */ 	lui	$t7,0x8006
 /*  f016714:	afb60050 */ 	sw	$s6,0x50($sp)
@@ -2420,6 +2436,62 @@ void func0f017980(void)
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel titleRenderPdLogo
+.late_rodata
+glabel var7f1a8400
+.word 0x456a6000
+glabel var7f1a8404
+.word 0x3dcccccd
+glabel var7f1a8408
+.word 0x4087b1f9
+glabel var7f1a840c
+.word 0x3cb944e9
+glabel var7f1a8410
+.word 0x3ef13c64
+glabel var7f1a8414
+.word 0x3eb33333
+glabel var7f1a8418
+.word 0x3fc907a9
+glabel var7f1a841c
+.word 0x396d2501
+glabel var7f1a8420
+.word 0x3cb944e9
+glabel var7f1a8424
+.word 0x40c907a9
+glabel var7f1a8428
+.word 0x40c907a9
+glabel var7f1a842c
+.word 0x40c907a9
+glabel var7f1a8430
+.word 0x40c907a9
+glabel var7f1a8434
+.word 0x3b83126f
+glabel var7f1a8438
+.word 0x3f4ccccd
+glabel var7f1a843c
+.word 0x390e4967
+glabel var7f1a8440
+.word 0x3c5e52b2
+glabel var7f1a8444
+.word 0x40c907a9
+glabel var7f1a8448
+.word 0x3bf5c28f
+glabel var7f1a844c
+.word 0x3ccccccd
+glabel var7f1a8450
+.word 0x3db851ec
+glabel var7f1a8454
+.word 0x3dcccccd
+glabel var7f1a8458
+.word 0x3bcddaca
+glabel var7f1a845c
+.word 0x3c8b4396
+glabel var7f1a8460
+.word 0x40490fdb
+glabel var7f1a8464
+.word 0x3e19999a
+glabel var7f1a8468
+.word 0x3e9db22d
+.text
 /*  f017b9c:	27bdfcd0 */ 	addiu	$sp,$sp,-816
 /*  f017ba0:	3c0f8006 */ 	lui	$t7,0x8006
 /*  f017ba4:	3c028006 */ 	lui	$v0,0x8006
@@ -6190,7 +6262,7 @@ void titleInitSkip(void)
 
 	if (IS4MB()) {
 		g_TitleNextStage = STAGE_4MBMENU;
-		viSetAspect(1.4545454978943f);
+		viSetAspect(PAL ? 1.7316017150879f : 1.4545454978943f);
 		viSetXY(320, 220);
 		viSetBuf(320, 220);
 		currentPlayerSetViewSize(320, 220);

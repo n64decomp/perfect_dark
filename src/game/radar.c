@@ -142,7 +142,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 	}
 
 	x = g_RadarX + (s32)(sinf(spcc * 0.017453292384744f) * sqdist);
-	y = g_RadarY + (s32)(cosf(spcc * 0.017453292384744f) * sqdist);
+	y = g_RadarY + (s32)FRAMESTOTIME60(cosf(spcc * 0.017453292384744f) * sqdist);
 
 	if (swapcolours) {
 		if (prop == g_Vars.currentplayer->prop) {
@@ -274,11 +274,15 @@ Gfx *radarRender(Gfx *gdl)
 		return gdl;
 	}
 
+#if PAL
+	g_ScaleX = 1;
+#else
 	if (g_ViMode == VIMODE_HIRES) {
 		g_ScaleX = 2;
 	} else {
 		g_ScaleX = 1;
 	}
+#endif
 
 	g_RadarX = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - 41;
 
