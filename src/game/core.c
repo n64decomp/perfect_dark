@@ -873,6 +873,9 @@ void coreFindThreats(void)
 }
 
 #if VERSION >= VERSION_PAL_FINAL
+struct coord coreRender_spd4 = {0, 0, 0};
+s8 coreRender_spd0[] = {30, 0, 0, 0};
+
 GLOBAL_ASM(
 glabel coreRender
 .late_rodata
@@ -3478,7 +3481,7 @@ Gfx *coreRender(Gfx *gdl)
 #endif
 
 u32 g_CutsceneTime240_60 = 0;
-u32 var800840a8 = 0x00000000;
+u32 var800840a8 = PAL ? 100 : 0;
 u32 var800840ac = 0x00000000;
 u32 var800840b0 = 0x00000000;
 u32 var800840b4 = 0x00000000;

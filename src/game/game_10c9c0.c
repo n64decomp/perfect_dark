@@ -227,6 +227,9 @@ struct menuitem g_AudioVideo4MbMenuItems[] = {
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS_310, 0x00000000, menuhandlerSoundMode }, // "Sound Mode"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS_311, 0x00000000, menuhandlerScreenRatio }, // "Ratio"
+#if PAL
+	{ MENUITEMTYPE_DROPDOWN,  0, 0x00000000, L_MPWEAPONS_269, 0x00000000, func0f1030e4pf }, // "Language"
+#endif
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS_312, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -281,7 +284,7 @@ struct menudialog g_MpQuickGo4MbMenuDialog = {
 };
 
 struct menuitem g_MpConfirmChallenge4MbMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   0x00000037, NULL                },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   PAL ? 65 : 55, NULL                },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,   0x00000000, NULL                },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000000, L_MPMENU_057, 0x00000000, menuhandler0010cabc }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000008, L_MPMENU_058, 0x00000000, NULL                }, // "Cancel"

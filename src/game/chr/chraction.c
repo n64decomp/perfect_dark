@@ -4325,7 +4325,12 @@ void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 arg3
 	chr->act_attackamount.unk037 = 0;
 }
 
+#if PAL
+s32 g_DrCarollDyingTimer = 8;
+#else
 s32 g_DrCarollDyingTimer = 10;
+#endif
+
 u8 var80068080 = 50;
 u32 var80068084 = 0x005b0000;
 u32 var80068088 = 0x00000000;

@@ -1,6 +1,10 @@
 #include "lang.h"
 
 enum l_misc {
+#if VERSION >= VERSION_PAL_BETA
+	// PAL beta removes the GE cheat names
+	L_MISC_041 = LANG_FIRST(LANGBANK_MISC),
+#else
 	L_MISC_000 = LANG_FIRST(LANGBANK_MISC),
 	L_MISC_001,
 	L_MISC_002,
@@ -43,12 +47,16 @@ enum l_misc {
 	L_MISC_039,
 	L_MISC_040,
 	L_MISC_041,
+#endif
 	L_MISC_042,
 	L_MISC_043,
 	L_MISC_044,
 	L_MISC_045,
 	L_MISC_046,
 	L_MISC_047,
+
+#if VERSION < VERSION_PAL_BETA
+	// More GE cheats
 	L_MISC_048,
 	L_MISC_049,
 	L_MISC_050,
@@ -69,6 +77,8 @@ enum l_misc {
 	L_MISC_065,
 	L_MISC_066,
 	L_MISC_067,
+#endif
+
 	L_MISC_068,
 	L_MISC_069,
 	L_MISC_070,
@@ -220,6 +230,9 @@ enum l_misc {
 	L_MISC_216,
 	L_MISC_217,
 	L_MISC_218,
+
+#if VERSION < VERSION_PAL_BETA
+	// PAL beta moves bio stuff to another file
 	L_MISC_219,
 	L_MISC_220,
 	L_MISC_221,
@@ -418,6 +431,8 @@ enum l_misc {
 	L_MISC_414,
 	L_MISC_415,
 	L_MISC_416,
+#endif
+
 	L_MISC_417,
 	L_MISC_418,
 	L_MISC_419,

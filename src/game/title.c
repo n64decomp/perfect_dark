@@ -155,10 +155,22 @@ u32 var80062670 = 0x00030000;
 u32 var80062674 = 0x0045012b;
 u32 var80062678 = 0x00000001;
 u32 var8006267c = 0x0005564c;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var80062680 = 0xffff0128;
+#else
 u32 var80062680 = 0x010a0128;
+#endif
+
 u32 var80062684 = 0x00000001;
 u32 var80062688 = 0x0006564b;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8006268c = 0xffff012b;
+#else
 u32 var8006268c = 0x011e012b;
+#endif
+
 u32 var80062690 = 0x00000001;
 u32 var80062694 = 0x0005564a;
 u32 var80062698 = 0x00450140;
@@ -6521,7 +6533,7 @@ glabel titleRenderNoController
 //	x = 288 - (textwidth >> 1);
 //	y = ((var800624a0 / 2) - (textheight >> 1)) - 12;
 //
-//	if (g_LanguageId != LANGUAGE_ENGLISH) {
+//	if (g_LanguageId != LANGUAGE_NTSC_EN) {
 //		gdl = textRender(gdl, &x, &y, text, g_FontHandelGothicLg1, g_FontHandelGothicLg2,
 //				-1, 0x008000ff, viGetWidth(), viGetHeight(), 0, 0);
 //	} else {
@@ -6536,7 +6548,7 @@ glabel titleRenderNoController
 //	x = 288 - (textwidth >> 1);
 //	y = ((var800624a0 / 2) - (textheight >> 1)) + 12;
 //
-//	if (g_LanguageId != LANGUAGE_ENGLISH) {
+//	if (g_LanguageId != LANGUAGE_NTSC_EN) {
 //		gdl = textRender(gdl, &x, &y, text, g_FontHandelGothicLg1, g_FontHandelGothicLg2,
 //				-1, 0x008000ff, viGetWidth(), viGetHeight(), 0, 0);
 //	} else {

@@ -9,7 +9,7 @@ void func0f000000(void)
 {
 	s32 i;
 
-	if (g_LanguageId != LANGUAGE_ENGLISH) {
+	if (g_LanguageId != LANGUAGE_NTSC_EN) {
 		var800aabb4 = malloc(0x2e80, MEMPOOL_PERMANENT);
 		var800aabb8 = malloc(0x100, MEMPOOL_PERMANENT);
 

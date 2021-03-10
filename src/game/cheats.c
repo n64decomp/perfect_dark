@@ -960,6 +960,11 @@ struct menudialog g_CheatsWarningMenuDialog = {
 	NULL,
 };
 
+#if VERSION >= VERSION_PAL_FINAL
+u32 var80074020pf = 0;
+u32 var80074024pf = 0;
+#endif
+
 struct menuitem g_CheatsFunMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_DKMODE,          0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_SMALLJO,         0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },

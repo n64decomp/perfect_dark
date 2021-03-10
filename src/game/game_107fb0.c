@@ -46,6 +46,8 @@ struct menudialog g_PakNotOriginalMenuDialog;
 struct pakdata *g_EditingPak;
 
 #if VERSION >= VERSION_PAL_FINAL
+s32 func0f1088d0pf(s32 operation, struct menuitem *item, union handlerdata *data);
+
 GLOBAL_ASM(
 glabel func0f1088d0pf
 /*  f1088d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -68,6 +70,26 @@ glabel func0f1088d0pf
 /*  f108910:	03e00008 */ 	jr	$ra
 /*  f108914:	00000000 */ 	nop
 );
+
+struct menuitem g_ChooseLanguageMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,      0,               0x00004010, L_MPWEAPONS_261, 0x00000000, 0x00000000     }, // "Choose your language:"
+	{ MENUITEMTYPE_SEPARATOR,  0,               0x00000000, 0x00000000, 0x00000000, 0x00000000     },
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_EN, 0x00000020, L_MPWEAPONS_262, 0x00000000, func0f1088d0pf }, // "English"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_FR, 0x00000020, L_MPWEAPONS_263, 0x00000000, func0f1088d0pf }, // "French"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_DE, 0x00000020, L_MPWEAPONS_264, 0x00000000, func0f1088d0pf }, // "German"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_IT, 0x00000020, L_MPWEAPONS_265, 0x00000000, func0f1088d0pf }, // "Italian"
+	{ MENUITEMTYPE_SELECTABLE, LANGUAGE_PAL_ES, 0x00000020, L_MPWEAPONS_266, 0x00000000, func0f1088d0pf }, // "Spanish"
+	{ MENUITEMTYPE_END,        0,               0x00000000, 0x00000000, 0x00000000, 0x00000000     },
+};
+
+struct menudialog g_ChooseLanguageMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS_095,
+	g_ChooseLanguageMenuItems,
+	NULL,
+	0x00000020,
+	NULL,
+};
 #endif
 
 char *filemgrGetDeviceName(s32 index)

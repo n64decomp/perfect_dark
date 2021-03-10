@@ -32,7 +32,7 @@ s32 var800840e8 = 0;
 u16 var800840ec = 0x5000;
 u32 var800840f0 = 0x00000000;
 u32 var800840f4 = 0x00000000;
-u32 var800840f8 = 0x00000078;
+u32 var800840f8 = PAL ? 100 : 120;
 u32 var800840fc = 0x00000000;
 
 char *var80084100[] = {
@@ -44,6 +44,11 @@ char *var80084100[] = {
 	"playing",
 	"paused",
 };
+
+#if PAL
+u32 var8008465cpf = 0;
+u32 var80084660pf = 0;
+#endif
 
 const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
 

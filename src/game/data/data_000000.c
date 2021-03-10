@@ -80,14 +80,21 @@ u32 var8005cf54 = 0x00000000;
 u32 var8005cf58 = 0x00000000;
 u32 var8005cf5c = 0x00000000;
 OSTime osClockRate = 62500000;
+
+#if !PAL
 s32 osViClock = VI_NTSC_CLOCK;
-u32 var8005cf6c = 0x00000000;
-u32 __osGlobalIntMask = 0x003fff01;
+#endif
+
+u32 _osShutdown = 0;
+u32 __osGlobalIntMask = OS_IM_ALL;
+
+#if VERSION < VERSION_PAL_FINAL
 u32 var8005cf74 = 0x00000000;
 u32 var8005cf78 = 0x00000000;
 u32 var8005cf7c = 0x00000000;
 u32 var8005cf80 = 0x00000000;
+#endif
+
 u32 var8005cf84 = 0x00000000;
 u32 var8005cf88 = 0x00000000;
 u32 var8005cf8c = 0x00000000;
-

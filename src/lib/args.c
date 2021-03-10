@@ -89,7 +89,7 @@ bool argsParseDebugArgs(void)
 	}
 
 	if (argFindByPrefix(1, "-j")) {
-		g_LanguageId = LANGUAGE_JAPANESE;
+		g_LanguageId = LANGUAGE_NTSC_JP;
 	}
 
 	return ret;

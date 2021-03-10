@@ -24,7 +24,7 @@ char var800a41c0[990];
 s32 var8007f840 = 0x00000000;
 u8 var8007f844 = 0;
 u8 var8007f848 = 0;
-u32 g_IrBinocularRadius = 90;
+u32 g_IrBinocularRadius = PAL ? 102 : 90;
 u32 var8007f850 = 0x00000003;
 u32 var8007f854 = 0x00000000;
 u32 var8007f858 = 0xb8000000;

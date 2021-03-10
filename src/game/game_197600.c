@@ -78,7 +78,11 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x2e*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_EYESPY
 	/*0x2f*/ { 4,   4,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_XRAYSCANNER
 	/*0x30*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_IRSCANNER
+#if PAL
+	/*0x31*/ { 218, 218, 0,   0,   0, 0, 2, 2, 1000, 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
+#else
 	/*0x31*/ { 218, 218, 0,   0,   0, 0, 2, 2, 1200, 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
+#endif
 	/*0x32*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_HORIZONSCANNER
 	/*0x33*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_TESTER
 	/*0x34*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_ROCKETLAUNCHER_34

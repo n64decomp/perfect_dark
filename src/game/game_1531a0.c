@@ -100,6 +100,11 @@ u32 var8007fbbc = 0x0000003c;
 u32 var8007fbc0 = 0x44444400;
 u32 var8007fbc4 = 0xffffff00;
 u32 var8007fbc8 = 0xffffff00;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var80080130pf[4] = {0};
+u32 var8007fbd8 = 0x00000000;
+#else
 u32 var8007fbcc = 0x00000c0b;
 u32 var8007fbd0 = 0x00000000;
 u32 var8007fbd4 = 0x00000000;
@@ -113,6 +118,7 @@ u32 var8007fbf0 = 0x00000000;
 u32 var8007fbf4 = 0x00000000;
 u32 var8007fbf8 = 0x00000000;
 u32 var8007fbfc = 0x00000000;
+#endif
 
 void func0f1531a0(void)
 {
@@ -6710,7 +6716,7 @@ glabel textMeasure
 //
 //	// 344
 //	// Force minimum height for non-English languages
-//	if (g_LanguageId != LANGUAGE_ENGLISH && lineheight < 14) {
+//	if (g_LanguageId != LANGUAGE_NTSC_EN && lineheight < 14) {
 //		lineheight = 14;
 //	}
 //

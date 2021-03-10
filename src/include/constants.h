@@ -600,9 +600,12 @@
 #define CREDITSTYLE_R_BIG_R_MED 1
 #define CREDITSTYLE_C_BIG       2
 #define CREDITSTYLE_C_MED       3
+#define CREDITSTYLE_04          4
 #define CREDITSTYLE_C_SML       5
 #define CREDITSTYLE_L_BIG       7
 #define CREDITSTYLE_R_MED       9
+#define CREDITSTYLE_11          11
+#define CREDITSTYLE_12          12
 #define CREDITSTYLE_C_BIG_C_BIG 10
 #define CREDITSTYLE_TERMINATOR  20
 
@@ -1020,8 +1023,14 @@
 #define LA_1 1 // either waiting for lift or in lift
 #define LA_3 3 // either waiting for lift or in lift
 
-#define LANGUAGE_ENGLISH  0
-#define LANGUAGE_JAPANESE 1
+#define LANGUAGE_NTSC_EN 0
+#define LANGUAGE_NTSC_JP 1
+
+#define LANGUAGE_PAL_EN  0
+#define LANGUAGE_PAL_FR  1
+#define LANGUAGE_PAL_DE  2
+#define LANGUAGE_PAL_IT  3
+#define LANGUAGE_PAL_ES  4
 
 #define LIGHTOP_1       1
 #define LIGHTOP_2       2

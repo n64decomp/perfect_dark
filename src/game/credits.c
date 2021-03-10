@@ -494,6 +494,39 @@ struct credit g_Credits[] = {
 	{ 1, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE_131, L_TITLE_132 }, // "armond williams junior", "henry sterchi"
 	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE_133, L_TITLE_000   }, // "ed ridgeway", ""
 
+#if PAL
+	{ 1, 0, 1, 0, CREDITSTYLE_L_BIG, L_TITLE_151, L_TITLE_000 }, // "testing (noe)"
+	{ 1, 0, 0, 0, CREDITSTYLE_11,    L_TITLE_152, L_TITLE_153 }, // "supervisor", "kai 'jellybean' neumann"
+	{ 0, 0, 0, 0, CREDITSTYLE_11,    L_TITLE_154, L_TITLE_155 }, // "deputy supervisor", "maurice 'pathfinder' tisdale"
+
+	{ 1, 1, 0, 0, CREDITSTYLE_L_BIG, L_TITLE_151, L_TITLE_000 }, // "testing (noe)"
+	{ 1, 0, 0, 0, CREDITSTYLE_11,    L_TITLE_156, L_TITLE_157 }, // "coordinators", "patrick 'capricorn' thieret"
+	{ 0, 0, 0, 0, CREDITSTYLE_R_MED, L_TITLE_158, L_TITLE_001 }, // "andreas 'brennero' dietz", "\n"
+
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG, L_TITLE_162, L_TITLE_000 }, // "localization (french)"
+	{ 1, 0, 0, 0, CREDITSTYLE_12,    L_TITLE_159, L_TITLE_163 }, // "editor", "julien 'sexy boy' bardakoff"
+	{ 1, 0, 0, 0, CREDITSTYLE_04,    L_TITLE_161, L_TITLE_164 }, // "assistant editors", "jean-baptiste 'ours noir' fleury"
+	{ 0, 0, 0, 0, CREDITSTYLE_04,    L_TITLE_165, L_TITLE_166 }, // "nicolas 'darth lapinou' gourio", "nicolas 'el betal' robert"
+
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG, L_TITLE_167, L_TITLE_000 }, // "localization (german)"
+	{ 1, 0, 0, 0, CREDITSTYLE_12,    L_TITLE_159, L_TITLE_168 }, // "editor", "micky 'scorpio's movement' auer"
+	{ 0, 0, 0, 0, CREDITSTYLE_04,    L_TITLE_160, L_TITLE_169 }, // "assistant editor", "jan 'ian' peitzmeier"
+
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG, L_TITLE_170, L_TITLE_000 }, // "localization (italian)"
+	{ 1, 0, 0, 0, CREDITSTYLE_12,    L_TITLE_159, L_TITLE_171 }, // "editor", "elenor isbitish"
+	{ 0, 0, 0, 0, CREDITSTYLE_04,    L_TITLE_160, L_TITLE_172 }, // "assistant editor", "calimero tiiiun"
+
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG, L_TITLE_173, L_TITLE_000 }, // "localization (spanish)"
+	{ 1, 0, 0, 0, CREDITSTYLE_12,    L_TITLE_159, L_TITLE_174 }, // "editor", "antonio 'toro' greppi"
+	{ 1, 0, 0, 0, CREDITSTYLE_04,    L_TITLE_161, L_TITLE_175 }, // "assistant editors", "carlos 'yoshio' montilla"
+	{ 0, 0, 0, 0, CREDITSTYLE_04,    L_TITLE_176, L_TITLE_000 }, // "susa & natalia"
+
+	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG, L_TITLE_177, L_TITLE_000 }, // "localization"
+	{ 1, 0, 0, 0, CREDITSTYLE_12,    L_TITLE_178, L_TITLE_179 }, // "product coordinator", "andy 'fiedl' fey"
+	{ 1, 0, 0, 0, CREDITSTYLE_12,    L_TITLE_180, L_TITLE_181 }, // "product supervisor", "tanja 'personalized sarcasm' baar"
+	{ 1, 0, 0, 0, CREDITSTYLE_04,    L_TITLE_182, L_TITLE_183 }, // "product localization manager", "kai '0 to 100' zeh"
+#endif
+
 	{ 1, 0, 0, 0, CREDITSTYLE_L_BIG,       L_TITLE_134, L_TITLE_000   }, // "perfect spelling", ""
 	{ 0, 0, 0, 0, CREDITSTYLE_R_MED,       L_TITLE_135, L_TITLE_000   }, // "teresa lillygren", ""
 

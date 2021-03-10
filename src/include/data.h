@@ -30,7 +30,7 @@ extern u32 __osCurrentHandle;
 extern u32 var8005cf30;
 extern OSTime osClockRate;
 extern s32 osViClock;
-extern u32 var8005cf6c;
+extern u32 _osShutdown;
 extern u32 __osGlobalIntMask;
 extern u32 var8005cf84;
 extern u8 g_LoadType;

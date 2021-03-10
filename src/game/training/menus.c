@@ -2487,7 +2487,7 @@ struct menuitem g_FrTrainingInfoInGameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextTimeLimitLabel,            (u32)&frMenuTextTimeLimitValue,            NULL                   },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextAmmoLimitLabel,            (u32)&frMenuTextAmmoLimitValue,            NULL                   },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                0x0000005f,                                NULL                   },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                PAL ? 0x69 : 0x5f,                                NULL                   },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_428,                             frDetailsOkMenuHandler }, // "", "Resume"
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_430,                             frAbortMenuHandler    }, // "", "Abort"
@@ -2510,7 +2510,7 @@ struct menuitem g_FrTrainingInfoPreGameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextTimeLimitLabel,            (u32)&frMenuTextTimeLimitValue,            NULL                   },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, (u32)&frMenuTextAmmoLimitLabel,            (u32)&frMenuTextAmmoLimitValue,            NULL                   },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                0x0000005f,                                NULL                   },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_FRWEAPON, 0x00004000, 0x0000010e,                                PAL ? 0x69 : 0x5f,                                NULL                   },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,                                0x00000000,                                NULL                   },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_427,                             frDetailsOkMenuHandler }, // "", "Ok"
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_OPTIONS_003,                              L_MPMENU_429,                             frAbortMenuHandler    }, // "", "Cancel"
@@ -2657,10 +2657,6 @@ struct menudialog g_NowSafeMenuDialog = {
 	NULL,
 };
 
-#if VERSION >= VERSION_PAL_FINAL
-s32 g_SomePalValue = 0;
-#endif
-
 s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	u32 bodynum = ciGetChrBioBodynumBySlot(g_ChrBioSlot);
@@ -2684,7 +2680,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union
 		g_Menus[g_MpPlayerNum].unkdc0 = 0;
 
 #if VERSION >= VERSION_PAL_FINAL
-		if (g_SomePalValue != 1) {
+		if (g_ViMode != VIMODE_HIRES) {
 			x = -117;
 
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
@@ -2944,7 +2940,7 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialog *dialog, union 
 		func0f105948(weaponnum);
 
 #if VERSION >= VERSION_PAL_FINAL
-		if (g_SomePalValue == 1) {
+		if (g_ViMode == VIMODE_HIRES) {
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 				g_Menus[g_MpPlayerNum].unkd78 = 84;
 				g_Menus[g_MpPlayerNum].unkd50 = 84;
@@ -3195,8 +3191,8 @@ char *ciMenuTextHangarBioSubheading(struct menuitem *item)
 }
 
 struct menuitem g_DtDetailsMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETRAINING, 0x00000000, 0x000000aa,                    0x000000be, NULL                    },
-	{ MENUITEMTYPE_MODEL,      0,                          0x00000003, 0x0000008c,                    0x0000009c, NULL                    },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETRAINING, 0x00000000, 0x000000aa,                    PAL ? 0xd6 : 0xbe, NULL                    },
+	{ MENUITEMTYPE_MODEL,      0,                          0x00000003, 0x0000008c,                    PAL ? 0xb4 : 0x9c, NULL                    },
 	{ MENUITEMTYPE_SEPARATOR,  0,                          0x00000002, 0x00000000,                    0x00000000, NULL                    },
 	{ MENUITEMTYPE_SELECTABLE, 0,                          0x00000008, (u32)&dtMenuTextOkOrResume,    0x00000000, menuhandlerDtOkOrResume },
 	{ MENUITEMTYPE_SELECTABLE, 0,                          0x00000008, (u32)&dtMenuTextCancelOrAbort, 0x00000000, menuhandler001a6514     },
@@ -3217,7 +3213,7 @@ struct menuitem g_DtFailedMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU_424, (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP1, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP1, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
 	{ MENUITEMTYPE_END,        0,                      0x00000000, 0x00000000,    0x00000000,                     NULL },
 };
 
@@ -3235,7 +3231,7 @@ struct menuitem g_DtCompletedMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                      0x00000002, L_MPMENU_424, (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,  0,                      0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP2, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_DEVICETIP2, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
 	{ MENUITEMTYPE_END,        0,                      0x00000000, 0x00000000,    0x00000000,                     NULL },
 };
 
@@ -3285,7 +3281,7 @@ struct menuitem g_HtFailedMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_424, (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP1, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,    0x00000000,                     NULL },
 };
 
@@ -3303,7 +3299,7 @@ struct menuitem g_HtCompletedMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
 	{ MENUITEMTYPE_LABEL,      0,                    0x00000002, L_MPMENU_424, (u32)&htMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000002, 0x00000000,    0x00000000,                     NULL },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,    0x00000064,                     NULL },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_HOLOTIP2, 0x00000000, 0x00000082,    PAL ? 110 : 100,                     NULL },
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,    0x00000000,                     NULL },
 };
 

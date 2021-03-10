@@ -372,10 +372,10 @@ s32 langGetLanguageId(void)
 	s32 ret = g_LanguageId;
 	return ret + 2;
 #else
-	s32 ret = LANGUAGE_ENGLISH;
+	s32 ret = LANGUAGE_NTSC_EN;
 
-	if (g_LanguageId != LANGUAGE_ENGLISH) {
-		ret = LANGUAGE_JAPANESE;
+	if (g_LanguageId != LANGUAGE_NTSC_EN) {
+		ret = LANGUAGE_NTSC_JP;
 	}
 
 	return ret;

@@ -463,8 +463,13 @@ s32 menuhandlerMpControlCheckbox(s32 operation, struct menuitem *item, union han
 s32 menuhandlerMpAimControl(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 labels[] = {
+#if PAL
+		L_MPWEAPONS_276, // "Hold"
+		L_MPWEAPONS_277, // "Toggle"
+#else
 		L_MPMENU_213, // "Hold"
 		L_MPMENU_214, // "Toggle"
+#endif
 	};
 
 	switch (operation) {
@@ -3860,20 +3865,20 @@ struct menudialog g_MpAutoTeamMenuDialog = {
 
 struct menuitem g_MpTeamsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,     0, 0x00020000, L_MPMENU_071, 0x00000002, menuhandlerMpTeamsEnabled }, // "Teams Enabled"
-	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, PAL ? 0x85 : 0, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,        0, 0x00000010, L_MPMENU_072, 0x00000000, menuhandlerMpTeamsLabel }, // "Teams:"
-	{ MENUITEMTYPE_DROPDOWN,     0, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     1, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     2, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     3, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     4, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     5, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     6, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     7, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     8, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,     9, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,    10, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
-	{ MENUITEMTYPE_DROPDOWN,    11, 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     0, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     1, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     2, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     3, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     4, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     5, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     6, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     7, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     8, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     9, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,    10, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,    11, PAL ? 0x00021000 : 0x00020000, (u32)&mpMenuTextChrNameForTeamSetup, 0x00000000, menuhandlerMpTeamSlot },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000004, L_MPMENU_073, 0x00000000, (void *)&g_MpAutoTeamMenuDialog }, // "Auto Team..."
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000008, L_MPMENU_074, 0x00000000, NULL }, // "Back"
@@ -4801,7 +4806,7 @@ struct menudialog g_MpTeamNamesMenuDialog = {
 };
 
 struct menuitem g_MpConfirmChallengeViaListOrDetailsMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   0x00000037, NULL                },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   PAL ? 0x41 : 0x37, NULL                },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,   0x00000000, NULL                },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00060000, L_MPMENU_057, 0x00000000, menuhandler0017e38c }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000008, L_MPMENU_058, 0x00000000, NULL                }, // "Cancel"
@@ -4819,7 +4824,7 @@ struct menudialog g_MpConfirmChallengeViaListOrDetailsMenuDialog = {
 
 struct menuitem g_MpChallengesListOrDetailsMenuItems[] = {
 	{ MENUITEMTYPE_LIST,       0,                       0x00200000, 0x00000078,       0x0000004d, menuhandler0017e4d4         },
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCHALLENGE, 0x00000000, 0x0000007c,       0x00000037, menuhandler0017e9d8         },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCHALLENGE, 0x00000000, 0x0000007c,       PAL ? 0x41 : 0x37, menuhandler0017e9d8         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                       0x00000000, 0x00000000,       0x00000000, menuhandler0017e9d8         },
 	{ MENUITEMTYPE_SELECTABLE, 0,                       0x00000000, L_MPWEAPONS_171, 0x00000000, menuhandlerMpStartChallenge }, // "Start Challenge"
 	{ MENUITEMTYPE_SELECTABLE, 0,                       0x00000000, L_MPMENU_051,     0x00000000, menuhandlerMpAbortChallenge }, // "Abort Challenge"
@@ -4847,7 +4852,7 @@ struct menudialog g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog = {
 };
 
 struct menuitem g_MpConfirmChallengeMenuItems[] = {
-	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   0x00000037, NULL                },
+	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCONFIG, 0x00000000, 0x0000007c,   PAL ? 0x41 : 0x37, NULL                },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000000,   0x00000000, NULL                },
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000000, L_MPMENU_057, 0x00000000, menuhandler0017ec64 }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000008, L_MPMENU_058, 0x00000000, NULL                }, // "Cancel"

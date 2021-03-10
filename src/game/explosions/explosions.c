@@ -4485,7 +4485,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 #if PAL
 		tmp = (g_ExplosionTypes[exp->type].flarespeed * 0.83333331346512f) * 15.0f;
 #else
-		tmp = g_ExplosionTypes[exp->type].flarespeed *15.0f;
+		tmp = g_ExplosionTypes[exp->type].flarespeed * 15.0f;
 #endif
 
 		for (j = 0; j < ARRAYCOUNT(exp->parts); j++) {

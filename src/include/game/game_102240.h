@@ -68,6 +68,9 @@ s32 menuhandlerPdMode(s32 operation, struct menuitem *item, union handlerdata *d
 s32 menuhandlerPdModeSetting(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerReversePitch(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerdata *data);
+#if PAL
+s32 func0f1030e4pf(s32 operation, struct menuitem *item, union handlerdata *data);
+#endif
 s32 menuhandlerScreenSize(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerScreenSplit(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerSfxVolume(s32 operation, struct menuitem *item, union handlerdata *data);

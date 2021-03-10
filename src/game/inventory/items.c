@@ -2349,7 +2349,7 @@ struct weapon invitem_laptopgun = {
 	1, // unk38
 	invf_00012fc8, // fptr
 	invpartvisibility_laptopgun, // part visibility
-	L_GUN_024, // short name
+	PAL ? 0x4cfb : L_GUN_024, // short name
 	L_GUN_024, // name
 	L_GUN_150, // manufacturer
 	L_GUN_172, // description
@@ -2462,7 +2462,7 @@ struct weapon invitem_shotgun = {
 	1, // unk38
 	invf_000131dc, // fptr
 	invpartvisibility_shotgun, // part visibility
-	L_GUN_025, // short name
+	PAL ? 0x4cfd : L_GUN_025, // short name
 	L_GUN_025, // name
 	L_GUN_149, // manufacturer
 	L_GUN_173, // description
@@ -3029,7 +3029,7 @@ struct weapon invitem_timedmine = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_038, // short name
+	PAL ? 0x4cff : L_GUN_038, // short name
 	L_GUN_038, // name
 	L_GUN_000, // manufacturer
 	L_GUN_185, // description
@@ -3119,7 +3119,7 @@ struct weapon invitem_remotemine = {
 	1, // unk38
 	invf_00013b40, // fptr
 	invpartvisibility_remotemine, // part visibility
-	L_GUN_040, // short name
+	PAL ? 0x4cfc : L_GUN_040, // short name
 	L_GUN_040, // name
 	L_GUN_000, // manufacturer
 	L_GUN_187, // description
@@ -3776,7 +3776,7 @@ struct weapon invitem_tranquilizer = {
 	1, // unk38
 	invf_00014314, // fptr
 	invpartvisibility_tranquilizer, // part visibility
-	L_GUN_034, // short name
+	PAL ? 0x4cf7 : L_GUN_034, // short name
 	L_GUN_034, // name
 	L_GUN_000, // manufacturer
 	L_GUN_181, // description
@@ -3939,7 +3939,7 @@ struct weapon invitem_sniperrifle = {
 	1, // unk38
 	invf_00014590, // fptr
 	invpartvisibility_sniperrifle, // part visibility
-	L_GUN_032, // short name
+	PAL ? 0x4cfe : L_GUN_032, // short name
 	L_GUN_032, // name
 	L_GUN_000, // manufacturer
 	L_GUN_179, // description
@@ -4940,7 +4940,7 @@ struct weapon invitem_nightvision = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_059, // short name
+	PAL ? 0x4cf4 : L_GUN_059, // short name
 	L_GUN_059, // name
 	L_GUN_000, // manufacturer
 	L_GUN_191, // description
@@ -5125,7 +5125,7 @@ struct weapon invitem_suicidepill = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_072, // short name
+	PAL ? 0x4cf6 : L_GUN_072, // short name
 	L_GUN_072, // name
 	L_GUN_000, // manufacturer
 	L_GUN_000, // description
@@ -5196,7 +5196,7 @@ struct weapon invitem_disguise40 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_043, // short name
+	PAL ? 0x4cfa : L_GUN_043, // short name
 	L_GUN_043, // name
 	L_GUN_000, // manufacturer
 	L_GUN_211, // description
@@ -5221,7 +5221,7 @@ struct weapon invitem_disguise41 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_043, // short name
+	PAL ? 0x4cfa : L_GUN_043, // short name
 	L_GUN_043, // name
 	L_GUN_000, // manufacturer
 	L_GUN_211, // description
@@ -5382,7 +5382,7 @@ struct weapon invitem_datauplink = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_075, // short name
+	PAL ? 0x4cf3 : L_GUN_075, // short name
 	L_GUN_075, // name
 	L_GUN_000, // manufacturer
 	L_GUN_197, // description
@@ -5408,7 +5408,7 @@ struct weapon invitem_doordecoder = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_063, // short name
+	PAL ? 0x4cf5 : L_GUN_063, // short name
 	L_GUN_063, // name
 	L_GUN_000, // manufacturer
 	L_GUN_200, // description
@@ -5637,7 +5637,7 @@ struct weapon invitem_autosurgeon = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_220, // short name
+	PAL ? 0x4cf8 : L_GUN_220, // short name
 	L_GUN_220, // name
 	L_GUN_000, // manufacturer
 	L_GUN_201, // description
@@ -5715,7 +5715,7 @@ struct weapon invitem_backupdisk = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN_227, // short name
+	PAL ? 0x4cf9 : L_GUN_227, // short name
 	L_GUN_227, // name
 	L_GUN_000, // manufacturer
 	L_GUN_209, // description

@@ -2093,6 +2093,41 @@ char *frGetWeaponDescription(void)
 	u32 weapon = frGetWeaponBySlot(g_FrData.slot);
 
 	switch (weapon) {
+#if PAL
+	case WEAPON_FALCON2:          return langGet(L_DISH_285);
+	case WEAPON_FALCON2_SCOPE:    return langGet(L_DISH_286);
+	case WEAPON_FALCON2_SILENCER: return langGet(L_DISH_287);
+	case WEAPON_MAGSEC4:          return langGet(L_DISH_288);
+	case WEAPON_MAULER:           return langGet(L_DISH_289);
+	case WEAPON_PHOENIX:          return langGet(L_DISH_290);
+	case WEAPON_DY357MAGNUM:      return langGet(L_DISH_291);
+	case WEAPON_DY357LX:          return langGet(L_DISH_292);
+	case WEAPON_CMP150:           return langGet(L_DISH_293);
+	case WEAPON_CYCLONE:          return langGet(L_DISH_294);
+	case WEAPON_CALLISTONTG:      return langGet(L_DISH_295);
+	case WEAPON_RCP120:           return langGet(L_DISH_296);
+	case WEAPON_LAPTOPGUN:        return langGet(L_DISH_297);
+	case WEAPON_DRAGON:           return langGet(L_DISH_298);
+	case WEAPON_K7AVENGER:        return langGet(L_DISH_299);
+	case WEAPON_AR34:             return langGet(L_DISH_300);
+	case WEAPON_SUPERDRAGON:      return langGet(L_DISH_301);
+	case WEAPON_SHOTGUN:          return langGet(L_DISH_302);
+	case WEAPON_SNIPERRIFLE:      return langGet(L_DISH_303);
+	case WEAPON_FARSIGHTXR20:     return langGet(L_DISH_304);
+	case WEAPON_CROSSBOW:         return langGet(L_DISH_305);
+	case WEAPON_TRANQUILIZER:     return langGet(L_DISH_306);
+	case WEAPON_REAPER:           return langGet(L_DISH_307);
+	case WEAPON_DEVASTATOR:       return langGet(L_DISH_308);
+	case WEAPON_ROCKETLAUNCHER:   return langGet(L_DISH_309);
+	case WEAPON_SLAYER:           return langGet(L_DISH_310);
+	case WEAPON_COMBATKNIFE:      return langGet(L_DISH_311);
+	case WEAPON_LASER:            return langGet(L_DISH_312);
+	case WEAPON_GRENADE:          return langGet(L_DISH_313);
+	case WEAPON_NBOMB:            return langGet(L_DISH_314);
+	case WEAPON_TIMEDMINE:        return langGet(L_DISH_315);
+	case WEAPON_PROXIMITYMINE:    return langGet(L_DISH_316);
+	case WEAPON_REMOTEMINE:       return langGet(L_DISH_317);
+#else
 	case WEAPON_FALCON2:          return langGet(L_MISC_377);
 	case WEAPON_FALCON2_SCOPE:    return langGet(L_MISC_378);
 	case WEAPON_FALCON2_SILENCER: return langGet(L_MISC_379);
@@ -2126,6 +2161,7 @@ char *frGetWeaponDescription(void)
 	case WEAPON_TIMEDMINE:        return langGet(L_MISC_407);
 	case WEAPON_PROXIMITYMINE:    return langGet(L_MISC_408);
 	case WEAPON_REMOTEMINE:       return langGet(L_MISC_409);
+#endif
 	}
 
 	return NULL;
@@ -5566,6 +5602,18 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
 	struct chrbio bios[] = {
 		// name, race, age, profile
+#if VERSION >= VERSION_PAL_FINAL
+		/*0*/ { L_DISH_125, L_DISH_126, L_DISH_127, L_DISH_128 }, // Joanna Dark
+		/*1*/ { L_DISH_129, L_DISH_130, L_DISH_131, L_DISH_132 }, // Jonathan
+		/*2*/ { L_DISH_133, L_DISH_134, L_DISH_135, L_DISH_136 }, // Daniel Carrington
+		/*3*/ { L_DISH_137, L_DISH_138, L_DISH_139, L_DISH_140 }, // Cassandra De Vries
+		/*4*/ { L_DISH_141, L_DISH_142, L_DISH_143, L_DISH_144 }, // Trent Easton
+		/*5*/ { L_DISH_145, L_DISH_146, L_DISH_147, L_DISH_148 }, // Dr. Caroll
+		/*6*/ { L_DISH_149, L_DISH_150, L_DISH_151, L_DISH_152 }, // Elvis
+		/*7*/ { L_DISH_153, L_DISH_154, L_DISH_155, L_DISH_156 }, // Mr. Blonde
+		/*8*/ { L_DISH_157, L_DISH_158, L_DISH_159, L_DISH_160 }, // Mr. Blonde (repeat)
+		/*9*/ { L_DISH_161, L_DISH_162, L_DISH_163, L_DISH_164 }, // The U.S. President
+#else
 		/*0*/ { L_MISC_219, L_MISC_220, L_MISC_221, L_MISC_222 }, // Joanna Dark
 		/*1*/ { L_MISC_223, L_MISC_224, L_MISC_225, L_MISC_226 }, // Jonathan
 		/*2*/ { L_MISC_227, L_MISC_228, L_MISC_229, L_MISC_230 }, // Daniel Carrington
@@ -5576,6 +5624,7 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 		/*7*/ { L_MISC_247, L_MISC_248, L_MISC_249, L_MISC_250 }, // Mr. Blonde
 		/*8*/ { L_MISC_251, L_MISC_252, L_MISC_253, L_MISC_254 }, // Mr. Blonde (repeat)
 		/*9*/ { L_MISC_255, L_MISC_256, L_MISC_257, L_MISC_258 }, // The U.S. President
+#endif
 	};
 
 	switch (bodynum) {
@@ -5647,10 +5696,17 @@ struct miscbio *ciGetMiscBio(s32 index)
 {
 	struct miscbio bios[] = {
 		// name, description
+#if VERSION >= VERSION_PAL_FINAL
+		{ L_DISH_165, L_DISH_166 },
+		{ L_DISH_167, L_DISH_168 },
+		{ L_DISH_169, L_DISH_170 },
+		{ L_DISH_171, L_DISH_172 },
+#else
 		{ L_MISC_259, L_MISC_260 },
 		{ L_MISC_261, L_MISC_262 },
 		{ L_MISC_263, L_MISC_264 },
 		{ L_MISC_265, L_MISC_266 },
+#endif
 	};
 
 	switch (index) {
@@ -5729,6 +5785,31 @@ struct hangarbio *ciGetHangarBio(s32 index)
 {
 	struct hangarbio bios[] = {
 		// name, description
+#if VERSION >= VERSION_PAL_FINAL
+		{ L_DISH_196, L_DISH_219 }, // Carrington Institute
+		{ L_DISH_197, L_DISH_220 }, // Lucerne Tower
+		{ L_DISH_198, L_DISH_221 }, // Laboratory Basement
+		{ L_DISH_199, L_DISH_222 }, // Carrington Villa
+		{ L_DISH_200, L_DISH_223 }, // Chicago
+		{ L_DISH_201, L_DISH_224 }, // G5 Building
+		{ L_DISH_202, L_DISH_225 }, // Area 51
+		{ L_DISH_203, L_DISH_226 }, // Alaskan Air Base
+		{ L_DISH_204, L_DISH_227 }, // Air Force One
+		{ L_DISH_205, L_DISH_228 }, // Crash Site
+		{ L_DISH_206, L_DISH_229 }, // Pelagic II
+		{ L_DISH_207, L_DISH_230 }, // Cetan Ship
+		{ L_DISH_208, L_DISH_231 }, // Skedar Assault Ship
+		{ L_DISH_209, L_DISH_232 }, // Skedar Homeworld
+		{ L_DISH_210, L_DISH_233 }, // Jumpship
+		{ L_DISH_211, L_DISH_234 }, // HoverCrate
+		{ L_DISH_212, L_DISH_235 }, // HoverBike
+		{ L_DISH_213, L_DISH_236 }, // Cleaning Hovbot
+		{ L_DISH_214, L_DISH_237 }, // Hovercopter
+		{ L_DISH_215, L_DISH_238 }, // G5 Robot
+		{ L_DISH_216, L_DISH_239 }, // A51 Interceptor
+		{ L_DISH_217, L_DISH_240 }, // Maian Vessel
+		{ L_DISH_218, L_DISH_241 }, // Skedar Shuttle
+#else
 		{ L_MISC_290, L_MISC_313 }, // Carrington Institute
 		{ L_MISC_291, L_MISC_314 }, // Lucerne Tower
 		{ L_MISC_292, L_MISC_315 }, // Laboratory Basement
@@ -5752,6 +5833,7 @@ struct hangarbio *ciGetHangarBio(s32 index)
 		{ L_MISC_310, L_MISC_333 }, // A51 Interceptor
 		{ L_MISC_311, L_MISC_334 }, // Maian Vessel
 		{ L_MISC_312, L_MISC_335 }, // Skedar Shuttle
+#endif
 	};
 
 	switch (index) {
@@ -6129,6 +6211,18 @@ u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 char *dtGetDescription(void)
 {
 	u32 texts[] = {
+#if VERSION >= VERSION_PAL_FINAL
+		/*0*/ L_DISH_186, // Data uplink
+		/*1*/ L_DISH_185, // ECM mine
+		/*2*/ L_DISH_177, // CamSpy
+		/*3*/ L_DISH_178, // Night vision
+		/*4*/ L_DISH_179, // Door decoder
+		/*5*/ L_DISH_183, // R-tracker
+		/*6*/ L_DISH_182, // IR scanner
+		/*7*/ L_DISH_180, // X-ray scanner
+		/*8*/ L_DISH_181, // Disguise
+		/*9*/ L_DISH_184, // Cloak
+#else
 		/*0*/ L_MISC_280, // Data uplink
 		/*1*/ L_MISC_279, // ECM mine
 		/*2*/ L_MISC_271, // CamSpy
@@ -6139,6 +6233,7 @@ char *dtGetDescription(void)
 		/*7*/ L_MISC_274, // X-ray scanner
 		/*8*/ L_MISC_275, // Disguise
 		/*9*/ L_MISC_278, // Cloak
+#endif
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -6147,6 +6242,18 @@ char *dtGetDescription(void)
 char *dtGetTip1(void)
 {
 	u32 texts[] = {
+#if VERSION >= VERSION_PAL_FINAL
+		/*0*/ L_DISH_263,
+		/*1*/ L_DISH_264,
+		/*2*/ L_DISH_265,
+		/*3*/ L_DISH_266,
+		/*4*/ L_DISH_267,
+		/*5*/ L_DISH_268,
+		/*6*/ L_DISH_269,
+		/*7*/ L_DISH_270,
+		/*8*/ L_DISH_271,
+		/*9*/ L_DISH_272,
+#else
 		/*0*/ L_MISC_357,
 		/*1*/ L_MISC_358,
 		/*2*/ L_MISC_359,
@@ -6157,6 +6264,7 @@ char *dtGetTip1(void)
 		/*7*/ L_MISC_364,
 		/*8*/ L_MISC_365,
 		/*9*/ L_MISC_366,
+#endif
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -6165,6 +6273,18 @@ char *dtGetTip1(void)
 char *dtGetTip2(void)
 {
 	u32 texts[] = {
+#if VERSION >= VERSION_PAL_FINAL
+		/*0*/ L_DISH_273,
+		/*1*/ L_DISH_274,
+		/*2*/ L_DISH_275,
+		/*3*/ L_DISH_276,
+		/*4*/ L_DISH_277,
+		/*5*/ L_DISH_278,
+		/*6*/ L_DISH_279,
+		/*7*/ L_DISH_280,
+		/*8*/ L_DISH_281,
+		/*9*/ L_DISH_282,
+#else
 		/*0*/ L_MISC_367,
 		/*1*/ L_MISC_368,
 		/*2*/ L_MISC_369,
@@ -6175,6 +6295,7 @@ char *dtGetTip2(void)
 		/*7*/ L_MISC_374,
 		/*8*/ L_MISC_375,
 		/*9*/ L_MISC_376,
+#endif
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -6360,6 +6481,15 @@ s32 htGetIndexBySlot(s32 slot)
 char *htGetName(s32 index)
 {
 	u32 texts[] = {
+#if VERSION >= VERSION_PAL_FINAL
+		L_DISH_316, // "Holo 1 - Looking Around"
+		L_DISH_317, // "Holo 2 - Movement 1"
+		L_DISH_318, // "Holo 3 - Movement 2"
+		L_DISH_319, // "Holo 4 - Unarmed Combat 1"
+		L_DISH_320, // "Holo 5 - Unarmed Combat 2"
+		L_DISH_321, // "Holo 6 - Live Combat 1"
+		L_DISH_322, // "Holo 7 - Live Combat 2"
+#else
 		L_MISC_410, // "Holo 1 - Looking Around"
 		L_MISC_411, // "Holo 2 - Movement 1"
 		L_MISC_412, // "Holo 3 - Movement 2"
@@ -6367,6 +6497,7 @@ char *htGetName(s32 index)
 		L_MISC_414, // "Holo 5 - Unarmed Combat 2"
 		L_MISC_415, // "Holo 6 - Live Combat 1"
 		L_MISC_416, // "Holo 7 - Live Combat 2"
+#endif
 	};
 
 	return langGet(texts[index]);
@@ -6391,6 +6522,15 @@ u32 func0f1a25c0(s32 index)
 char *htGetDescription(void)
 {
 	u32 texts[] = {
+#if VERSION >= VERSION_PAL_FINAL
+		L_DISH_242,
+		L_DISH_243,
+		L_DISH_244,
+		L_DISH_245,
+		L_DISH_246,
+		L_DISH_247,
+		L_DISH_248,
+#else
 		L_MISC_336,
 		L_MISC_337,
 		L_MISC_338,
@@ -6398,6 +6538,7 @@ char *htGetDescription(void)
 		L_MISC_340,
 		L_MISC_341,
 		L_MISC_342,
+#endif
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
@@ -6406,6 +6547,15 @@ char *htGetDescription(void)
 char *htGetTip1(void)
 {
 	u32 texts[] = {
+#if VERSION >= VERSION_PAL_FINAL
+		L_DISH_249, // "For greater precision..."
+		L_DISH_250, // "Think about where you want to go..."
+		L_DISH_251, // "Ducking enables you to..."
+		L_DISH_252, // "Attacking opponents from behind..."
+		L_DISH_253, // "Only stay close long enough..."
+		L_DISH_254, // "Don't hang around and wait..."
+		L_DISH_255, // "Go for the armed opponents..."
+#else
 		L_MISC_343, // "For greater precision..."
 		L_MISC_344, // "Think about where you want to go..."
 		L_MISC_345, // "Ducking enables you to..."
@@ -6413,6 +6563,7 @@ char *htGetTip1(void)
 		L_MISC_347, // "Only stay close long enough..."
 		L_MISC_348, // "Don't hang around and wait..."
 		L_MISC_349, // "Go for the armed opponents..."
+#endif
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
@@ -6421,6 +6572,15 @@ char *htGetTip1(void)
 char *htGetTip2(void)
 {
 	u32 texts[] = {
+#if VERSION >= VERSION_PAL_FINAL
+		L_DISH_256, // "For greater precision..."
+		L_DISH_257, // "Sidestepping and strafing..."
+		L_DISH_258, // "Ducking enables you to..."
+		L_DISH_259, // "Attacking opponents from behind..."
+		L_DISH_260, // "Only stay close long enough..."
+		L_DISH_261, // "Don't hang around and wait..."
+		L_DISH_262, // "Go for the armed opponents..."
+#else
 		L_MISC_350, // "For greater precision..."
 		L_MISC_351, // "Sidestepping and strafing..."
 		L_MISC_352, // "Ducking enables you to..."
@@ -6428,6 +6588,7 @@ char *htGetTip2(void)
 		L_MISC_354, // "Only stay close long enough..."
 		L_MISC_355, // "Don't hang around and wait..."
 		L_MISC_356, // "Go for the armed opponents..."
+#endif
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);

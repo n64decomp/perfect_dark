@@ -57,10 +57,18 @@ u8 g_FileState = 0;
 u8 var80062944 = 0;
 u8 var80062948 = 0;
 u8 var8006294c = 0;
-u32 var80062950 = 0x00000064;
+u32 var80062950 = 100;
 bool g_WeatherTickEnabled = true;
 u32 var80062958 = 0x00000000;
 u32 var8006295c = 0x00000000;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var80062640pf = 99;
+u32 var80062644pf = 0;
+u32 var80062648pf = 0;
+u32 var8006264cpf = 0;
+#endif
+
 void *var80062960 = NULL;
 u32 var80062964 = 0x00000000;
 f32 var80062968 = 0;

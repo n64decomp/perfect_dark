@@ -12,7 +12,7 @@ void osSetEventMesg(OSEvent event, OSMesgQueue *mq, OSMesg msg)
 	es->message = msg;
 
 	if (event == OS_EVENT_PRENMI) {
-		if (var8005cf6c != 0 && var80060890 == 0) {
+		if (_osShutdown != 0 && var80060890 == 0) {
 			osSendMesg(mq, msg, OS_MESG_NOBLOCK);
 		}
 

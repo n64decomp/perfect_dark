@@ -31,6 +31,22 @@ u32 var8005ef4c = 0x00000000;
 u32 var8005ef50 = 0x00001400;
 u32 var8005ef54 = 0x0018001c;
 u32 var8005ef58 = 0x00000000;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005ef5c = 0x70019304;
+u32 var8005ef60 = 0x70018e4c;
+u32 var8005ef64 = 0x700187b8;
+u32 var8005ef68 = 0x70018da0;
+u32 var8005ef6c = 0x700192dc;
+u32 var8005ef70 = 0x700192e4;
+u32 var8005ef74 = 0x70019270;
+u32 var8005ef78 = 0x70019234;
+u32 var8005ef7c = 0x00000000;
+u32 var8005ef80 = 0x700199f4;
+u32 var8005ef84 = 0x70019a00;
+u32 var8005ef88 = 0x70019a18;
+u32 var8005ef8c = 0x70019a3c;
+#else
 u32 var8005ef5c = 0x70019574;
 u32 var8005ef60 = 0x700190bc;
 u32 var8005ef64 = 0x70018a28;
@@ -44,6 +60,8 @@ u32 var8005ef80 = 0x70019c64;
 u32 var8005ef84 = 0x70019c70;
 u32 var8005ef88 = 0x70019c88;
 u32 var8005ef8c = 0x70019cac;
+#endif
+
 u32 var8005ef90 = 0xff08ffff;
 u32 var8005ef94 = 0xffffffff;
 u32 var8005ef98 = 0x0c22ff44;
@@ -53,6 +71,11 @@ u32 var8005efa4 = 0xffffff00;
 u32 var8005efa8 = 0x14000000;
 u32 var8005efac = 0x00000000;
 u32 var8005efb0 = 0x00000000;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005efb0_2 = 0;
+#endif
+
 u32 var8005efb4 = 0x00000000;
 u32 var8005efb8 = 0x3f800000;
 bool var8005efbc = false;
@@ -63,6 +86,11 @@ u32 var8005efcc = 0x00000000;
 u32 var8005efd0 = 0x00000000;
 u32 var8005efd4 = 0x00000000;
 u32 var8005efd8 = 0x00000000;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005efd8_2 = 0;
+#endif
+
 u32 var8005efdc = 0x00000001;
 u32 var8005efe0 = 0x00000000;
 u32 var8005efe4 = 0x00000000;
@@ -78,6 +106,12 @@ s16 g_NumAnimations = 0x00000000;
 struct animheader *g_Anims = NULL;
 u32 var8005f010 = 0x00000000;
 u32 var8005f014 = 0x00000000;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005f014_2 = 0;
+u32 var8005f014_3 = 0;
+#endif
+
 u32 var8005f018 = 0x000000b0;
 u32 var8005f01c = 0x00000260;
 u32 var8005f020 = 0x00000000;
@@ -2965,6 +2999,17 @@ OSViMode osViModeNtscLan1 = {
 			BURST(4, 2, 14, 0),  // vBurst
 			VINTR(2),            // vIntr
 		}}};
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var80060fe0pf = 0;
+u32 var80060fe4pf = 62500000;
+s32 osViClock = VI_NTSC_CLOCK;
+u32 var80060fecpf = 0;
+u32 var80060ff0pf = OS_IM_ALL;
+u32 var80060ff4pf = 0;
+u32 var80060ff8pf = 0;
+u32 var80060ffcpf = 0;
+#endif
 
 char ldigs[] = "0123456789abcdef";
 char udigs[] = "0123456789ABCDEF";
