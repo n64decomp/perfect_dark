@@ -821,7 +821,7 @@ u8 func1002_devicetraining_camspy[] = {
 
 	label(0x8c)
 		remove_hudmsgs
-		show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(20)) // "Collect CamSpy from table to begin."
+		show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_020) // "Collect CamSpy from table to begin."
 		restart_timer
 
 		beginloop(0x86)
@@ -844,7 +844,7 @@ u8 func1002_devicetraining_camspy[] = {
 	label(0x8d)
 		remove_hudmsgs
 		if_chr_weapon_equipped(CHR_BOND, WEAPON_EYESPY, /*goto*/ 0x2f)
-		show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(57)) // "Select the CamSpy. - Hold A Button. - Use Control Stick to change selection. - Highlight CamSpy and release A Button."
+		show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_057) // "Select the CamSpy. - Hold A Button. - Use Control Stick to change selection. - Highlight CamSpy and release A Button."
 		restart_timer
 
 		beginloop(0x8e)
@@ -858,7 +858,7 @@ u8 func1002_devicetraining_camspy[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(21)) // "Locate Info Room PC and holograph it."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_021) // "Locate Info Room PC and holograph it."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -870,7 +870,7 @@ u8 func1002_devicetraining_camspy[] = {
 
 	label(0x09)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(22)) // "Info Room PC successfully holographed."
+	show_hudmsg(CHR_BOND, L_DISH_022) // "Info Room PC successfully holographed."
 	restart_timer
 
 	beginloop(0x0c)
@@ -933,7 +933,7 @@ u8 func1003_devicetraining_nightvision[] = {
 
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(8)) // "Collect Night Vision from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_008) // "Collect Night Vision from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -957,7 +957,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(58)) // "Select the Night Vision. - Hold A Button. - Use Control Stick to change selection. - Highlight Night Vision and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_058) // "Select the Night Vision. - Hold A Button. - Use Control Stick to change selection. - Highlight Night Vision and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -971,7 +971,7 @@ u8 func1003_devicetraining_nightvision[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(9)) // "Activate the Night Vision. Locate the light switch. Turn the lights back on."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_009) // "Activate the Night Vision. Locate the light switch. Turn the lights back on."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -997,7 +997,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	set_lights_state(0x0026, LIGHTOP_1, 0xff, 0x00, 0x00)
 	set_lights_state(0x0022, LIGHTOP_1, 0xff, 0x00, 0x00)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(23)) // "Lights have been reactivated."
+	show_hudmsg(CHR_BOND, L_DISH_023) // "Lights have been reactivated."
 	restart_timer
 
 	beginloop(0x0d)
@@ -1066,7 +1066,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	close_door(0x89)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(24)) // "Collect Door Decoder from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_024) // "Collect Door Decoder from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -1090,7 +1090,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_DOORDECODER, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(59)) // "Select the Door Decoder. - Hold A Button. - Use Control Stick to change selection. - Highlight Door Decoder and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_059) // "Select the Door Decoder. - Hold A Button. - Use Control Stick to change selection. - Highlight Door Decoder and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -1106,7 +1106,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	if_chr_activated_object(CHR_BOND, 0x35, /*goto*/ 0x2f)
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(25)) // "Use Decoder on door pad to unlock it."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_025) // "Use Decoder on door pad to unlock it."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -1119,7 +1119,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	label(0x09)
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_DOORDECODER, /*goto*/ 0x06)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(26)) // "You need to be holding the Door Decoder."
+	show_hudmsg(CHR_BOND, L_DISH_026) // "You need to be holding the Door Decoder."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1140,7 +1140,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 
 	label(0x06)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(27)) // "Decoder attached. Initiating cracking routines..."
+	show_hudmsg(CHR_BOND, L_DISH_027) // "Decoder attached. Initiating cracking routines..."
 	unset_object_flag2(0x88, OBJFLAG2_INVISIBLE)
 	assign_sound(0x8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, 0x35, 0x012c, 0x0190)
@@ -1164,7 +1164,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	assign_sound(0x8145, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, 0x35, TRUE)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(28)) // "Decoding complete. Door has been unlocked."
+	show_hudmsg(CHR_BOND, L_DISH_028) // "Decoding complete. Door has been unlocked."
 	unlock_door(0x41, 0x40)
 	restart_timer
 
@@ -1239,7 +1239,7 @@ u8 func1005_devicetraining_xray[] = {
 	label(0x59)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(35)) // "Collect X-Ray Scanner from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_035) // "Collect X-Ray Scanner from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -1271,7 +1271,7 @@ u8 func1005_devicetraining_xray[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(60)) // "Select the X-Ray Scanner. - Hold A Button. - Use Control Stick to change selection. - Highlight X-Ray Scanner and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_060) // "Select the X-Ray Scanner. - Hold A Button. - Use Control Stick to change selection. - Highlight X-Ray Scanner and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -1285,7 +1285,7 @@ u8 func1005_devicetraining_xray[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(36)) // "Find hidden switches to shut down laser grid."
+	show_hudmsg(CHR_BOND, L_DISH_036) // "Find hidden switches to shut down laser grid."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -1313,7 +1313,7 @@ u8 func1005_devicetraining_xray[] = {
 	label(0x5b)
 	if_object_flag2(0x38, OBJFLAG2_00000001, /*goto*/ 0x87)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(41)) // "Laser Grid 1 has been deactivated."
+	show_hudmsg(CHR_BOND, L_DISH_041) // "Laser Grid 1 has been deactivated."
 	set_object_image(0x38, 0x00, 0x12)
 	set_object_flag2(0x38, OBJFLAG2_00000001)
 	open_door(0x3a)
@@ -1332,7 +1332,7 @@ u8 func1005_devicetraining_xray[] = {
 	if_object_flag2(0x39, OBJFLAG2_00000001, /*goto*/ 0x88)
 	set_object_image(0x39, 0x00, 0x12)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(42)) // "Laser Grid 2 has been deactivated."
+	show_hudmsg(CHR_BOND, L_DISH_042) // "Laser Grid 2 has been deactivated."
 	set_object_flag2(0x39, OBJFLAG2_00000001)
 	open_door(0x3b)
 	label(0x88)
@@ -1376,7 +1376,7 @@ u8 func1005_devicetraining_xray[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(37)) // "All laser grids have been deactivated."
+	show_hudmsg(CHR_BOND, L_DISH_037) // "All laser grids have been deactivated."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1450,7 +1450,7 @@ u8 func1006_devicetraining_disguise[] = {
 	label(0x59)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(38)) // "Collect Disguise from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_038) // "Collect Disguise from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -1474,7 +1474,7 @@ u8 func1006_devicetraining_disguise[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(61)) // "Select the Disguise. - Hold A Button. - Use Control Stick to change selection. - Highlight Disguise and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_061) // "Select the Disguise. - Hold A Button. - Use Control Stick to change selection. - Highlight Disguise and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -1489,7 +1489,7 @@ u8 func1006_devicetraining_disguise[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(39)) // "Fool someone into giving you Cloaking Device."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_039) // "Fool someone into giving you Cloaking Device."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -1502,7 +1502,7 @@ u8 func1006_devicetraining_disguise[] = {
 
 	label(0x09)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(40)) // "Cloaking Device successfully retrieved."
+	show_hudmsg(CHR_BOND, L_DISH_040) // "Cloaking Device successfully retrieved."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1520,7 +1520,7 @@ u8 func1006_devicetraining_disguise[] = {
 
 	label(0x0a)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(47)) // "You're meant to use the Disguise, remember?"
+	show_hudmsg(CHR_BOND, L_DISH_047) // "You're meant to use the Disguise, remember?"
 	restart_timer
 
 	beginloop(0x0f)
@@ -1592,7 +1592,7 @@ u8 func1007_devicetrainign_ir[] = {
 	label(0x59)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(32)) // "Collect IR Scanner from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_032) // "Collect IR Scanner from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -1621,7 +1621,7 @@ u8 func1007_devicetrainign_ir[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_player_using_device(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(62)) // "Select the IR Scanner. - Hold A Button. - Use Control Stick to change selection. - Highlight IR Scanner and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_062) // "Select the IR Scanner. - Hold A Button. - Use Control Stick to change selection. - Highlight IR Scanner and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -1642,7 +1642,7 @@ u8 func1007_devicetrainign_ir[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(33)) // "Locate secret door using IR Scanner."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_033) // "Locate secret door using IR Scanner."
 
 	beginloop(0x82)
 		if_player_using_device(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
@@ -1660,7 +1660,7 @@ u8 func1007_devicetrainign_ir[] = {
 
 	label(0x09)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(34)) // "Secret door has been successfully located."
+	show_hudmsg(CHR_BOND, L_DISH_034) // "Secret door has been successfully located."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1730,7 +1730,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	label(0x59)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(29)) // "Collect Tracker from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_029) // "Collect Tracker from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -1754,7 +1754,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_player_using_device(CHR_BOND, WEAPON_RTRACKER, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(63)) // "Select the Tracker. - Hold A Button. - Use Control Stick to change selection. - Highlight Tracker and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_063) // "Select the Tracker. - Hold A Button. - Use Control Stick to change selection. - Highlight Tracker and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -1773,7 +1773,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	move_object_to_pad(0x36, 0x011e)
 	set_object_flag3(0x36, OBJFLAG3_RTRACKED_YELLOW)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(30)) // "Locate IR Scanner using Tracker."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_030) // "Locate IR Scanner using Tracker."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -1785,7 +1785,7 @@ u8 func1008_devicetraining_rtracker[] = {
 
 	label(0x09)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(31)) // "IR Scanner has been successfully located."
+	show_hudmsg(CHR_BOND, L_DISH_031) // "IR Scanner has been successfully located."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1861,7 +1861,7 @@ u8 func1009_devicetraining_cloak[] = {
 	label(0x59)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(51)) // "Collect Cloaking Device from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_051) // "Collect Cloaking Device from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -1888,7 +1888,7 @@ u8 func1009_devicetraining_cloak[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_player_using_device(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(64)) // "Select the Cloaking Device. - Hold A Button. - Use Control Stick to change selection. - Highlight Device and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_064) // "Select the Cloaking Device. - Hold A Button. - Use Control Stick to change selection. - Highlight Device and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -1904,7 +1904,7 @@ u8 func1009_devicetraining_cloak[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(52)) // "Use Cloaking Device and locate Carrington."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_052) // "Use Cloaking Device and locate Carrington."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -1917,7 +1917,7 @@ u8 func1009_devicetraining_cloak[] = {
 
 	label(0x09)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(54)) // "Mission complete - Device Training passed!"
+	show_hudmsg(CHR_BOND, L_DISH_054) // "Mission complete - Device Training passed!"
 	restart_timer
 
 	beginloop(0x0e)
@@ -1934,7 +1934,7 @@ u8 func1009_devicetraining_cloak[] = {
 
 	label(0x0a)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(55)) // "Mission failed - you have been detected."
+	show_hudmsg(CHR_BOND, L_DISH_055) // "Mission failed - you have been detected."
 	restart_timer
 
 	beginloop(0x0f)
@@ -2010,7 +2010,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 	label(0x59)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(16)) // "Collect ECM Mine from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_016) // "Collect ECM Mine from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -2034,7 +2034,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_ECMMINE, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(65)) // "Select the ECM Mine. - Hold A Button. - Use Control Stick to change selection. - Highlight ECM Mine and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_065) // "Select the ECM Mine. - Hold A Button. - Use Control Stick to change selection. - Highlight ECM Mine and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -2048,7 +2048,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(17)) // "Locate Hub and throw ECM Mine onto Hub."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_017) // "Locate Hub and throw ECM Mine onto Hub."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -2083,7 +2083,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 
 	label(0x09)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(19)) // "ECM Mine has been placed correctly."
+	show_hudmsg(CHR_BOND, L_DISH_019) // "ECM Mine has been placed correctly."
 	restart_timer
 
 	beginloop(0x0c)
@@ -2093,7 +2093,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 
 	label(0x0a)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(18)) // "ECM Mine has been placed incorrectly."
+	show_hudmsg(CHR_BOND, L_DISH_018) // "ECM Mine has been placed incorrectly."
 	restart_timer
 
 	beginloop(0x0d)
@@ -2153,7 +2153,7 @@ u8 func100b_devicetraining_uplink[] = {
 	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x8c)
 	label(0x8c)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(10)) // "Collect Data Uplink from table to begin."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_010) // "Collect Data Uplink from table to begin."
 	restart_timer
 
 	beginloop(0x86)
@@ -2176,7 +2176,7 @@ u8 func100b_devicetraining_uplink[] = {
 	label(0x8d)
 	remove_hudmsgs
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(56)) // "Select the Uplink. - Hold A Button. - Use Control Stick to change selection. - Highlight Data Uplink and release A Button."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_056) // "Select the Uplink. - Hold A Button. - Use Control Stick to change selection. - Highlight Data Uplink and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
@@ -2199,7 +2199,7 @@ u8 func100b_devicetraining_uplink[] = {
 	if_chr_activated_object(CHR_BOND, 0x30, /*goto*/ 0x2f)
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(11)) // "Stand next to the terminal and use the Uplink."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_011) // "Stand next to the terminal and use the Uplink."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -2218,12 +2218,12 @@ u8 func100b_devicetraining_uplink[] = {
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 	play_sound(0x8116, -1)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(12)) // "You need to be holding the Data Uplink."
+	show_hudmsg(CHR_BOND, L_DISH_012) // "You need to be holding the Data Uplink."
 	goto_first(0x82)
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(13)) // "Connection established..."
+	show_hudmsg(CHR_BOND, L_DISH_013) // "Connection established..."
 	restart_timer
 
 	label(0x08)
@@ -2264,7 +2264,7 @@ u8 func100b_devicetraining_uplink[] = {
 	assign_sound(0x01c1, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x30, TRUE)
 	remove_hudmsgs
-	show_hudmsg(CHR_TARGET, L_DISH(14)) // "Terminal has been successfully hacked."
+	show_hudmsg(CHR_TARGET, L_DISH_014) // "Terminal has been successfully hacked."
 
 	beginloop(0x15)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -2284,7 +2284,7 @@ u8 func100b_devicetraining_uplink[] = {
 
 	label(0x09)
 	remove_hudmsgs
-	show_hudmsg(CHR_BOND, L_DISH(15)) // "Connection broken - too far from PC."
+	show_hudmsg(CHR_BOND, L_DISH_015) // "Connection broken - too far from PC."
 	mute_channel(CHANNEL_5)
 	assign_sound(0x01c0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, 0x30, TRUE)
@@ -2493,7 +2493,7 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x58)
 
 	label(0x06)
-	speak(CHR_BOND, L_DISH(43), 0x1517, CHANNEL_6, COLOR_09_BLUE) // "I'm here to pick up the equipment."
+	speak(CHR_BOND, L_DISH_043, 0x1517, CHANNEL_6, COLOR_09_BLUE) // "I'm here to pick up the equipment."
 
 	beginloop(0x59)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2511,7 +2511,7 @@ u8 func0429_grimshaw_disguise[] = {
 	label(0x06)
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(44), 0x1518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
+	speak(CHR_TARGET, L_DISH_044, 0x1518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
 
 	beginloop(0x5c)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2524,7 +2524,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(45), 0x1519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
+	speak(CHR_TARGET, L_DISH_045, 0x1519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
 
 	beginloop(0x5d)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2584,8 +2584,8 @@ u8 func100c_cloak_detection[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
-	speak(CHR_TARGET, L_DISH(48), 0x151a, CHANNEL_6, COLOR_05_GREEN) // "You'll have to do better than that, Joanna."
-	show_hudmsg(CHR_BOND, L_DISH(50)) // "You have been detected by the camera."
+	speak(CHR_TARGET, L_DISH_048, 0x151a, CHANNEL_6, COLOR_05_GREEN) // "You'll have to do better than that, Joanna."
+	show_hudmsg(CHR_BOND, L_DISH_050) // "You have been detected by the camera."
 	restart_timer
 
 	beginloop(0x0a)
@@ -2675,7 +2675,7 @@ u8 func042a_carrington_cloak[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_BOND, L_DISH(49), 0x151b, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
+	speak(CHR_BOND, L_DISH_049, 0x151b, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
 
 	beginloop(0x59)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -2690,7 +2690,7 @@ u8 func042a_carrington_cloak[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(53), 0x151c, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
+	speak(CHR_TARGET, L_DISH_053, 0x151c, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
 
 	beginloop(0x5c)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -2951,7 +2951,7 @@ u8 func042c_carrington_tour[] = {
 	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_STARTED)
 	do_preset_animation(-1)
 	remove_hudmsgs
-	speak(CHR_TARGET, L_DISH(66), 0x8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
+	speak(CHR_TARGET, L_DISH_066, 0x8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
 	restart_timer
 
 	beginloop(0x57)
@@ -2960,7 +2960,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(67), 0x151d, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
+	speak(CHR_TARGET, L_DISH_067, 0x151d, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
 	restart_timer
 
 	beginloop(0x59)
@@ -2992,7 +2992,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x2f)
 	do_preset_animation(-1)
 	remove_hudmsgs
-	speak(CHR_TARGET, L_DISH(68), 0x1520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
+	speak(CHR_TARGET, L_DISH_068, 0x1520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
 	restart_timer
 
 	beginloop(0x5d)
@@ -3020,7 +3020,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x2f)
 	set_ailist(0x01, GAILIST_IDLE)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(69), 0x151f, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
+	speak(CHR_TARGET, L_DISH_069, 0x151f, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
 	restart_timer
 
 	beginloop(0x64)
@@ -3076,7 +3076,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(70), 0x1521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
+	speak(CHR_TARGET, L_DISH_070, 0x1521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
 	restart_timer
 
 	beginloop(0x6b)
@@ -3112,7 +3112,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(71), 0x151e, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
+	speak(CHR_TARGET, L_DISH_071, 0x151e, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
 	restart_timer
 
 	beginloop(0x6f)
@@ -3164,7 +3164,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(72), 0x1522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
+	speak(CHR_TARGET, L_DISH_072, 0x1522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
 	restart_timer
 
 	beginloop(0x75)
@@ -3182,7 +3182,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH(124), 0x17dc, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
+	speak(CHR_TARGET, L_DISH_124, 0x17dc, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
 
 	beginloop(0x7a)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2f)
@@ -3291,7 +3291,7 @@ u8 func1013_msg_hovercrate[] = {
 	set_savefile_flag(SAVEFILEFLAG_HOWTO_HOVERCRATE)
 #endif
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(73)) // "HOVERCRATE Press B Button next to Hovcrate to grab it..."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_073) // "HOVERCRATE Press B Button next to Hovcrate to grab it..."
 	restart_timer
 
 	beginloop(0x08)
@@ -3300,7 +3300,7 @@ u8 func1013_msg_hovercrate[] = {
 
 	label(0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(74)) // "Press B Button when crate grabbed to release it."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_074) // "Press B Button when crate grabbed to release it."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3333,7 +3333,7 @@ u8 func1014_msg_hoverbike[] = {
 	set_savefile_flag(SAVEFILEFLAG_HOWTO_HOVERBIKE)
 #endif
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(75)) // "HOVERBIKE Double tap B Button next to Hovbike to ride it..."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_075) // "HOVERBIKE Double tap B Button next to Hovbike to ride it..."
 	restart_timer
 
 	beginloop(0x08)
@@ -3342,7 +3342,7 @@ u8 func1014_msg_hoverbike[] = {
 
 	label(0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(76)) // "Double tap B Button when on Hovbike to dismount."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_076) // "Double tap B Button when on Hovbike to dismount."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3373,7 +3373,7 @@ u8 func1015_msg_doors[] = {
 	set_savefile_flag(SAVEFILEFLAG_HOWTO_DOORS)
 #endif
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(77)) // "OPENING DOORS Press B Button next to door to open it."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_077) // "OPENING DOORS Press B Button next to door to open it."
 	restart_timer
 
 	beginloop(0x08)
@@ -3382,7 +3382,7 @@ u8 func1015_msg_doors[] = {
 
 	label(0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(78)) // "B Button will also activate any object nearby."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_078) // "B Button will also activate any object nearby."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3414,7 +3414,7 @@ u8 func1016_msg_elevators[] = {
 	set_savefile_flag(SAVEFILEFLAG_HOWTO_ELEVATORS)
 #endif
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(79)) // "ELEVATORS Press B Button next to door to call elevator."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_079) // "ELEVATORS Press B Button next to door to call elevator."
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3457,7 +3457,7 @@ u8 func1017_msg_terminals[] = {
 	set_savefile_flag(SAVEFILEFLAG_HOWTO_TERMINALS)
 #endif
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(114)) // "TERMINALS - Press B Button next to terminal to use it."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_114) // "TERMINALS - Press B Button next to terminal to use it."
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3548,12 +3548,12 @@ u8 func101c_holo1_main[] = {
 	if_object_flag2(0x4f, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	label(0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(100)) // "Get the access codes by examining terminals. - Use the codes on the wall terminals."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_100) // "Get the access codes by examining terminals. - Use the codes on the wall terminals."
 	goto_next(0x06)
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(115)) // "Now activate the red terminals on the wall."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_115) // "Now activate the red terminals on the wall."
 	label(0x06)
 	restart_timer
 
@@ -3829,7 +3829,7 @@ u8 func0430_holo1_check_done[] = {
 	label(0x2f)
 	dprint 'D','O','H','4',0,
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(106)) // "Holoprogram 1 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_106) // "Holoprogram 1 has been completed successfully."
 	restart_timer
 
 	beginloop(0x08)
@@ -3901,7 +3901,7 @@ u8 func1022_holo2_main[] = {
 	label(0x2f)
 	label(0x91)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(99)) // "Activate all of the wall switches. - Be quick, as they will quickly reset."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_099) // "Activate all of the wall switches. - Be quick, as they will quickly reset."
 	restart_timer
 
 	beginloop(0x82)
@@ -4032,7 +4032,7 @@ u8 func041b_holo2_part1[] = {
 
 	label(0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(87)) // "Holoprogram 2 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_087) // "Holoprogram 2 has been completed successfully."
 	restart_timer
 
 	beginloop(0x08)
@@ -4064,7 +4064,7 @@ u8 func042f_holo2_part2[] = {
 	set_stage_flag(STAGEFLAG_HOLO_FAILED)
 	restart_timer
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(105)) // "Training failed - you must face forward."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_105) // "Training failed - you must face forward."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	set_object_image(0x54, 0x00, 0x12)
 	set_object_image(0x55, 0x00, 0x12)
@@ -4208,7 +4208,7 @@ u8 func1027_holo3_main[] = {
 	label(0x2f)
 	label(0x91)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(98)) // "Activate all the switches."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_098) // "Activate all the switches."
 	restart_timer
 
 	beginloop(0x82)
@@ -4307,7 +4307,7 @@ u8 func102a_holo3_part1[] = {
 	label(0x09)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(95)) // "DUCK - Hold R Button, then press Down C Button to duck."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_095) // "DUCK - Hold R Button, then press Down C Button to duck."
 	restart_timer
 
 	beginloop(0x0a)
@@ -4333,7 +4333,7 @@ u8 func102b_holo3_part2[] = {
 	label(0x09)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(96)) // "CROUCH - When ducking, hold R Button, then press Down C Button to duck."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_096) // "CROUCH - When ducking, hold R Button, then press Down C Button to duck."
 	restart_timer
 
 	beginloop(0x0a)
@@ -4391,7 +4391,7 @@ u8 func041c_holo3_check_done[] = {
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x06)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(97)) // "Holoprogram 3 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_097) // "Holoprogram 3 has been completed successfully."
 	restart_timer
 
 	beginloop(0x08)
@@ -4435,18 +4435,18 @@ u8 func1028_holo4_main[] = {
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
 	if_chr_has_chrflag(0x0d, CHRCFLAG_00000040, /*goto*/ 0x61)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(107)) // "Unarmed combat - knock out the target. - Press Z Button repeatedly to punch."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_107) // "Unarmed combat - knock out the target. - Press Z Button repeatedly to punch."
 	goto_next(0x2f)
 
 	label(0x61)
 	if_chr_has_chrflag(0x0e, CHRCFLAG_00000040, /*goto*/ 0x62)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(108)) // "Now try against a moving target..."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_108) // "Now try against a moving target..."
 	goto_next(0x2f)
 
 	label(0x62)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(109)) // "And finally against a target that fights back."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_109) // "And finally against a target that fights back."
 	goto_next(0x2f)
 
 	label(0x2f)
@@ -4523,7 +4523,7 @@ u8 func0403_holo4_guard1[] = {
 	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0277, AILIST_HOLO4_GUARD2, 0x00002210, /*goto*/ 0x08)
 	label(0x08)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(108)) // "Now try against a moving target..."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_108) // "Now try against a moving target..."
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -4544,7 +4544,7 @@ u8 func0404_holo4_guard2[] = {
 	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x027a, AILIST_HOLO4_GUARD3, 0x00002210, /*goto*/ 0x0a)
 	label(0x0a)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(109)) // "And finally against a target that fights back."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_109) // "And finally against a target that fights back."
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x06)
@@ -4626,7 +4626,7 @@ u8 func1033_holo4_part1[] = {
 	restart_timer
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(88)) // "Holoprogram 4 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_088) // "Holoprogram 4 has been completed successfully."
 
 	beginloop(0x08)
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x57)
@@ -4677,16 +4677,16 @@ u8 func1029_holo5_main[] = {
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
 	if_chr_has_chrflag(0x10, CHRCFLAG_00000040, /*goto*/ 0x61)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(92)) // "Disarm this live target if you can."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_092) // "Disarm this live target if you can."
 	goto_next(0x2f)
 
 	label(0x61)
 	if_chr_has_chrflag(0x11, CHRCFLAG_00000040, /*goto*/ 0x62)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(93)) // "Knock out this target - stealth is the key."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_093) // "Knock out this target - stealth is the key."
 	goto_next(0x2f)
 
 	label(0x62)
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(94)) // "And the final guard..."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_094) // "And the final guard..."
 	goto_next(0x2f)
 
 	label(0x2f)
@@ -4795,7 +4795,7 @@ u8 func0407_holo5_guard1[] = {
 	set_self_chrflag(CHRCFLAG_00000040)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	surrender
-	show_hudmsg(CHR_BOND, L_DISH(90)) // "Guard has been successfully disarmed."
+	show_hudmsg(CHR_BOND, L_DISH_090) // "Guard has been successfully disarmed."
 
 	beginloop(0x59)
 		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0272, AILIST_HOLO5_INIT_GUARD2, 0x00002210, /*goto*/ 0x2f)
@@ -4836,7 +4836,7 @@ u8 func0408_holo5_init_guard2[] = {
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
 	label(0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(93)) // "Knock out this target - stealth is the key."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_093) // "Knock out this target - stealth is the key."
 	set_ailist(CHR_SELF, AILIST_HOLO5_GUARD2)
 	endlist
 };
@@ -4895,7 +4895,7 @@ u8 func040a_holo5_init_guard3[] = {
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
 	label(0x06)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(94)) // "And the final guard..."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_094) // "And the final guard..."
 	set_alertness(100)
 	set_ailist(CHR_SELF, AILIST_HOLO5_GUARD3)
 	endlist
@@ -4922,7 +4922,7 @@ u8 func040b_holo5_guard3[] = {
 	label(0x2f)
 	restart_timer
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(89)) // "Holoprogram 5 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_089) // "Holoprogram 5 has been completed successfully."
 
 	beginloop(0x08)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -4983,7 +4983,7 @@ u8 func1034_holo5_part1[] = {
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(89)) // "Holoprogram 5 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_089) // "Holoprogram 5 has been completed successfully."
 
 	beginloop(0x08)
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -5049,7 +5049,7 @@ u8 func102e_holo6_main[] = {
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(110)) // "Defeat all enemies without getting hit."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_110) // "Defeat all enemies without getting hit."
 	label(0x2f)
 	restart_timer
 
@@ -5194,7 +5194,7 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	set_stage_flag(STAGEFLAG_HOLO_FAILED)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(111)) // "Training failed - you have been hit."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_111) // "Training failed - you have been hit."
 	restart_timer
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -5289,7 +5289,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	set_stage_flag(STAGEFLAG_HOLO_FAILED)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(111)) // "Training failed - you have been hit."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_111) // "Training failed - you have been hit."
 	restart_timer
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -5392,7 +5392,7 @@ u8 func102f_holo1_part1[] = {
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(112)) // "Holoprogram 6 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_112) // "Holoprogram 6 has been completed successfully."
 	restart_timer
 
 	beginloop(0x08)
@@ -5462,7 +5462,7 @@ u8 func1030_holo7_main[] = {
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(110)) // "Defeat all enemies without getting hit."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_110) // "Defeat all enemies without getting hit."
 	label(0x2f)
 	restart_timer
 
@@ -5628,7 +5628,7 @@ u8 func0419_holo_guard_armed_alert[] = {
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	set_stage_flag(STAGEFLAG_HOLO_FAILED)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(111)) // "Training failed - you have been hit."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_111) // "Training failed - you have been hit."
 	restart_timer
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -5717,7 +5717,7 @@ u8 func1031_holo7_part1[] = {
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	remove_hudmsgs
-	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(113)) // "Holoprogram 7 has been completed successfully."
+	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_113) // "Holoprogram 7 has been completed successfully."
 	restart_timer
 
 	beginloop(0x08)
@@ -5777,42 +5777,42 @@ u8 func1035_manage_music[] = {
 
 
 u8 func1038_msg_pp7[] = {
-	do_gun_msg(0x1e, L_DISH(116)) // "PP7"
+	do_gun_msg(0x1e, L_DISH_116) // "PP7"
 	endlist
 };
 
 u8 func1039_msg_tt33[] = {
-	do_gun_msg(0x1f, L_DISH(117)) // "TT33"
+	do_gun_msg(0x1f, L_DISH_117) // "TT33"
 	endlist
 };
 
 u8 func103a_msg_skorpion[] = {
-	do_gun_msg(0x20, L_DISH(118)) // "Skorpion"
+	do_gun_msg(0x20, L_DISH_118) // "Skorpion"
 	endlist
 };
 
 u8 func103b_msg_ak47[] = {
-	do_gun_msg(0x21, L_DISH(119)) // "AK47"
+	do_gun_msg(0x21, L_DISH_119) // "AK47"
 	endlist
 };
 
 u8 func103c_msg_uzi9mm[] = {
-	do_gun_msg(0x22, L_DISH(120)) // "Uzi 9mm"
+	do_gun_msg(0x22, L_DISH_120) // "Uzi 9mm"
 	endlist
 };
 
 u8 func103d_msg_mp5k[] = {
-	do_gun_msg(0x23, L_DISH(121)) // "MP5K"
+	do_gun_msg(0x23, L_DISH_121) // "MP5K"
 	endlist
 };
 
 u8 func103e_msg_m16[] = {
-	do_gun_msg(0x24, L_DISH(122)) // "M-16"
+	do_gun_msg(0x24, L_DISH_122) // "M-16"
 	endlist
 };
 
 u8 func103f_msg_fnp90[] = {
-	do_gun_msg(0x25, L_DISH(123)) // "FNP90"
+	do_gun_msg(0x25, L_DISH_123) // "FNP90"
 	endlist
 };
 

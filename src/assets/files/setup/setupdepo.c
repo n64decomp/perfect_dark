@@ -115,17 +115,17 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_DEPO(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_DEPO(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_DEPO(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_DEPO(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_DEPO_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_DEPO_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_DEPO_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_DEPO_003)
 
-	beginobjective(0, L_DEPO(9), (DIFFBIT_PA | DIFFBIT_PD)) // "Disable damping field generator"
+	beginobjective(0, L_DEPO_009, (DIFFBIT_PA | DIFFBIT_PD)) // "Disable damping field generator"
 		complete_flags(STAGEFLAG_GENERATOR_SHUT_DOWN)
 		fail_flags(STAGEFLAG_GENERATOR_DESTROYED)
 	endobjective
 
-	beginobjective(1, L_DEPO(10), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate laser grid systems"
+	beginobjective(1, L_DEPO_010, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate laser grid systems"
 		complete_flags(STAGEFLAG_ALL_LASERS_DISABLED)
 		complete_flags(STAGEFLAG_LASERSET1_DISABLED)
 		complete_flags(STAGEFLAG_LASERSET2_DISABLED)
@@ -137,19 +137,19 @@ u32 props[] = {
 		fail_flags(STAGEFLAG_LASERSWITCH4_DESTROYED)
 	endobjective
 
-	beginobjective(2, L_DEPO(11), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Holograph meeting conspirators"
+	beginobjective(2, L_DEPO_011, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Holograph meeting conspirators"
 		complete_flags(STAGEFLAG_MEETING_HOLOGRAPHED)
 		fail_flags(STAGEFLAG_20000000)
 		fail_flags(STAGEFLAG_CONSPIRATORS_ALERTED)
 		fail_flags(STAGEFLAG_00002000)
 	endobjective
 
-	beginobjective(3, L_DEPO(12), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve Dr. Caroll backup from safe"
+	beginobjective(3, L_DEPO_012, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve Dr. Caroll backup from safe"
 		complete_flags(STAGEFLAG_BACKUP_COLLECTED)
 		fail_flags(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 	endobjective
 
-	beginobjective(4, L_DEPO(13), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Exit building"
+	beginobjective(4, L_DEPO_013, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Exit building"
 		complete_flags(STAGEFLAG_EXITED_BUILDING)
 	endobjective
 
@@ -164,7 +164,7 @@ u32 props[] = {
 
 	tag(OBJ_KEYCARD1, 1)
 	key(0x0080, MODEL_KEYCARD, CHR_CLOAK_1A, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000004)
-	rename_object(-1, 0x0045, L_DEPO(14), L_DEPO(15), L_DEPO(16), L_DEPO(17), L_DEPO(18), 0x0000, 0x0000) // "Obtain alpha key card."
+	rename_object(-1, 0x0045, L_DEPO_014, L_DEPO_015, L_DEPO_016, L_DEPO_017, L_DEPO_018, 0x0000, 0x0000) // "Obtain alpha key card."
 
 	// Between cloak rooms
 	chr(0x00004a00, 0x02, 0x005f, BODY_G5_GUARD, HEAD_RANDOM, GAILIST_UNALERTED, 0x0080, -1, 2000, 100, 0x80028204, 0x00000100, TEAM_NONCOMBAT, SQUADRON_04, -1, 0, 0x00010000)
@@ -185,7 +185,7 @@ u32 props[] = {
 
 	tag(OBJ_KEYCARD2, 1)
 	key(0x0080, MODEL_KEYCARD, 0x0003, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000010)
-	rename_object(-1, 0x0046, L_DEPO(19), L_DEPO(20), L_DEPO(21), L_DEPO(22), L_DEPO(23), 0x0000, 0x0000) // "Obtain alpha key card."
+	rename_object(-1, 0x0046, L_DEPO_019, L_DEPO_020, L_DEPO_021, L_DEPO_022, L_DEPO_023, 0x0000, 0x0000) // "Obtain alpha key card."
 
 	// Rest of stage
 	chr(0x00000200, 0x08, 0x002f, BODY_G5_GUARD, HEAD_RANDOM, AILIST_INIT_TYPE1_GUARD, 0x007b, -1, 200, 100, 0x800a8204, 0x00000000, TEAM_NONCOMBAT, SQUADRON_04, -1, 0, 0x00000000)
@@ -314,7 +314,7 @@ u32 props[] = {
 
 	tag(OBJ_BACKUPDISK, 1)
 	stdobject(0x0100, MODEL_ZIGGYCARD, 0x004c, 0x012404e8, 0x00004000, 0x20000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x0044, L_DEPO(30), L_DEPO(31), L_DEPO(32), L_DEPO(33), L_DEPO(34), 0x0000, 0x0000) // "Obtain DAT tape."
+	rename_object(-1, 0x0044, L_DEPO_030, L_DEPO_031, L_DEPO_032, L_DEPO_033, L_DEPO_034, 0x0000, 0x0000) // "Obtain DAT tape."
 
 	tag(OBJ_DECODER, 1)
 	stdobject(0x0200, MODEL_CHRDOORDECODER, 0x0050, 0x00420408, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
@@ -340,11 +340,11 @@ u32 props[] = {
 
 	tag(OBJ_CMP150_BOND, 1)
 	weapon(0x0100, MODEL_CHRCMP150, 0xffff, 0x40000000, 0x00000000, 0x00400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_REMOTEMINE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0022, L_DEPO(66), L_DEPO(67), L_DEPO(68), L_DEPO(69), L_DEPO(70), 0x0000, 0x0000) // ""
+	rename_object(-1, 0x0022, L_DEPO_066, L_DEPO_067, L_DEPO_068, L_DEPO_069, L_DEPO_070, 0x0000, 0x0000) // ""
 
 	tag(OBJ_CMP150_COOP, 1)
 	weapon(0x0100, MODEL_CHRCMP150, 0xffff, 0x40000000, 0x00000000, 0x00400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_REMOTEMINE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0022, L_DEPO(66), L_DEPO(67), L_DEPO(68), L_DEPO(69), L_DEPO(70), 0x0000, 0x0000) // ""
+	rename_object(-1, 0x0022, L_DEPO_066, L_DEPO_067, L_DEPO_068, L_DEPO_069, L_DEPO_070, 0x0000, 0x0000) // ""
 
 	glass(0x0100, MODEL_WINDOW, 0x00c0, 0x00000f62, 0x00100000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
 	glass(0x0100, MODEL_WINDOW, 0x00c1, 0x00000f62, 0x00100000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
@@ -562,7 +562,7 @@ u8 func1008_check_generator[] = {
 		// Destroyed
 		mute_channel(CHANNEL_4)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
-		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_GENERATOR_DESTROYED)
 		label(0x06)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -578,13 +578,13 @@ u8 func1008_check_generator[] = {
 		mute_channel(CHANNEL_0)
 		assign_sound(0x8147, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_GENERATOR, TRUE)
-		show_hudmsg(CHR_P1P2, L_DEPO(25)) // "Damping field generator shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO_025) // "Damping field generator shut down."
 		set_stage_flag(STAGEFLAG_GENERATOR_SHUT_DOWN2)
 		set_stage_flag(STAGEFLAG_GENERATOR_SHUT_DOWN)
 		reloop(0x04)
 
 		label(0x09)
-		show_hudmsg(CHR_P1P2, L_DEPO(26)) // "Generator cannot be restarted."
+		show_hudmsg(CHR_P1P2, L_DEPO_026) // "Generator cannot be restarted."
 	endloop(0x04)
 
 	endlist
@@ -599,7 +599,7 @@ u8 func1003_laser_switch_1[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH1, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH1, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, TRUE, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH1_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -611,7 +611,7 @@ u8 func1003_laser_switch_1[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH1, 0x00, 0x14)
-		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET1_DISABLED)
 		open_door(OBJ_LASER_1A)
 		open_door(OBJ_LASER_1B)
@@ -631,7 +631,7 @@ u8 func1003_laser_switch_1[] = {
 
 		// Activated
 		label(0x09)
-		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET1_DISABLED)
 		set_object_image(OBJ_LASERSWITCH1, 0x00, 0x13)
 		close_door(OBJ_LASER_1A)
@@ -665,7 +665,7 @@ u8 func1004_laser_switch_2[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH2, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH2, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, TRUE, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH2_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -678,7 +678,7 @@ u8 func1004_laser_switch_2[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH2, 0x00, 0x14)
-		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET2_DISABLED)
 		open_door(OBJ_LASER_2A)
 		open_door(OBJ_LASER_2B)
@@ -699,7 +699,7 @@ u8 func1004_laser_switch_2[] = {
 		// Activated
 		label(0x09)
 		set_object_image(OBJ_LASERSWITCH2, 0x00, 0x13)
-		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET2_DISABLED)
 		close_door(OBJ_LASER_2A)
 		close_door(OBJ_LASER_2B)
@@ -732,7 +732,7 @@ u8 func1005_laser_switch_3[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH3, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH3, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, TRUE, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH3_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -744,7 +744,7 @@ u8 func1005_laser_switch_3[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH3, 0x00, 0x14)
-		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET3_DISABLED)
 		open_door(OBJ_LASER_3A)
 		open_door(OBJ_LASER_3B)
@@ -765,7 +765,7 @@ u8 func1005_laser_switch_3[] = {
 		// Activated
 		label(0x09)
 		set_object_image(OBJ_LASERSWITCH3, 0x00, 0x13)
-		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET3_DISABLED)
 		close_door(OBJ_LASER_3A)
 		close_door(OBJ_LASER_3B)
@@ -798,7 +798,7 @@ u8 func1006_laser_switch_4[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH4, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH4, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, TRUE, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO_024) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH4_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -810,7 +810,7 @@ u8 func1006_laser_switch_4[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH4, 0x00, 0x14)
-		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET4_DISABLED)
 		open_door(OBJ_LASER_4A)
 		open_door(OBJ_LASER_4B)
@@ -831,7 +831,7 @@ u8 func1006_laser_switch_4[] = {
 		// Activated
 		label(0x09)
 		set_object_image(OBJ_LASERSWITCH4, 0x00, 0x13)
-		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET4_DISABLED)
 		close_door(OBJ_LASER_4A)
 		close_door(OBJ_LASER_4B)
@@ -893,7 +893,7 @@ u8 func1007_init_lasers[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_ALL_LASERS_DISABLED, TRUE, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_DEPO(29)) // "All laser grid systems shut down."
+		show_hudmsg(CHR_BOND, L_DEPO_029) // "All laser grid systems shut down."
 		set_stage_flag(STAGEFLAG_ALL_LASERS_DISABLED)
 		label(0x2c)
 	endloop(0x04)
@@ -1288,7 +1288,7 @@ u8 func100e_check_conspirators_alerted[] = {
 		set_ailist(CHR_CASS, AILIST_RUN_FROM_MEETING)
 		set_ailist(0x1c, AILIST_RUN_FROM_MEETING) // chr doesn't exist
 		set_ailist(CHR_BLONDE, AILIST_RUN_FROM_MEETING)
-		show_hudmsg(CHR_BOND, L_DEPO(41)) // "Conspirators have been alerted."
+		show_hudmsg(CHR_BOND, L_DEPO_041) // "Conspirators have been alerted."
 
 		// Wait until alarm not active
 		label(0x06)
@@ -1317,13 +1317,13 @@ u8 func100f_alarm_switches[] = {
 
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_ALARM_SOUNDING, TRUE, /*goto*/ 0x06)
-		show_hudmsg(CHR_P1P2, L_DEPO(42)) // "Alarm activated."
+		show_hudmsg(CHR_P1P2, L_DEPO_042) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM_SOUNDING)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		show_hudmsg(CHR_P1P2, L_DEPO(43)) // "Alarm deactivated."
+		show_hudmsg(CHR_P1P2, L_DEPO_043) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM_SOUNDING)
 		deactivate_alarm
 	endloop(0x04)
@@ -1336,7 +1336,7 @@ u8 func1010_safe_cracking[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_DEPO(64)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO_064) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1345,11 +1345,11 @@ u8 func1010_safe_cracking[] = {
 
 		label(0x2c)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DOORDECODER, /*goto*/ 0x2c)
-		show_hudmsg(CHR_P1P2, L_DEPO(44)) // "Safe door is locked."
+		show_hudmsg(CHR_P1P2, L_DEPO_044) // "Safe door is locked."
 	endloop(0x04)
 
 	label(0x2c)
-	show_hudmsg(CHR_P1P2, L_DEPO(45)) // "Door Decoder attached."
+	show_hudmsg(CHR_P1P2, L_DEPO_045) // "Door Decoder attached."
 	remove_weapon_from_inventory(WEAPON_DOORDECODER)
 	move_object_to_pad(OBJ_DECODER, 0x0075)
 	set_stage_flag(STAGEFLAG_DECODER_ATTACHED)
@@ -1362,11 +1362,11 @@ u8 func1010_safe_cracking[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_BOND, L_DEPO(38), 0x7754, CHANNEL_5, COLOR_00_GREEN) // "INTRUDER ALERT - all security to the vault."
+	speak(CHR_BOND, L_DEPO_038, 0x7754, CHANNEL_5, COLOR_00_GREEN) // "INTRUDER ALERT - all security to the vault."
 	play_x_track(XREASON_DEFAULT, 10, 180)
 	yield
 	set_countdown_timer(60)
-	show_hudmsg(CHR_P1P2, L_DEPO(36)) // "Initiating cracking routines."
+	show_hudmsg(CHR_P1P2, L_DEPO_036) // "Initiating cracking routines."
 	yield
 	show_countdown_timer
 	start_countdown_timer
@@ -1381,7 +1381,7 @@ u8 func1010_safe_cracking[] = {
 
 	beginloop(0x08)
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_DEPO(64)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO_064) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 		hide_countdown_timer
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1394,7 +1394,7 @@ u8 func1010_safe_cracking[] = {
 	mute_channel(CHANNEL_1)
 	assign_sound(0x8145, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, OBJ_SAFEKEYPAD, TRUE)
-	show_hudmsg(CHR_P1P2, L_DEPO(37)) // "Door Decoder finished - door unlocked."
+	show_hudmsg(CHR_P1P2, L_DEPO_037) // "Door Decoder finished - door unlocked."
 	unlock_door(OBJ_SAFEDOOR, 0x40)
 	unset_object_flag2(OBJ_SAFEDOOR, OBJFLAG2_AICANNOTUSE)
 	open_door(OBJ_SAFEDOOR)
@@ -1429,7 +1429,7 @@ u8 func1012_check_for_end[] = {
 	hide_countdown_timer
 	stop_countdown_timer
 	if_all_objectives_complete(/*goto*/ 0x53)
-	show_hudmsg(CHR_BOND, L_DEPO(51)) // "Objectives incomplete - MISSION FAILED."
+	show_hudmsg(CHR_BOND, L_DEPO_051) // "Objectives incomplete - MISSION FAILED."
 	label(0x2c)
 	restart_timer
 
@@ -1859,13 +1859,13 @@ u8 func040e_meeting_cutscene[] = {
 	endloop(0x55)
 
 	label(0x06)
-	speak(CHR_BOND, L_DEPO(72), 0x740c, CHANNEL_5, COLOR_04_ORANGE) // "We've recovered the sapient from Carrington and al..."
+	speak(CHR_BOND, L_DEPO_072, 0x740c, CHANNEL_5, COLOR_04_ORANGE) // "We've recovered the sapient from Carrington and al..."
 
 	wait_until(752, 0x56)
 	play_sound(0x0161, CHANNEL_6)
 
 	wait_until(760, 0x57)
-	speak(CHR_BOND, L_DEPO(73), 0x740d, CHANNEL_7, COLOR_03_RED) // "This will reduce its efficiency. My team will have..."
+	speak(CHR_BOND, L_DEPO_073, 0x740d, CHANNEL_7, COLOR_03_RED) // "This will reduce its efficiency. My team will have..."
 
 	wait_until(813, 0x58)
 	play_sound(0x0162, CHANNEL_6)
@@ -1892,7 +1892,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0593, CHANNEL_6)
 
 	wait_until(1684, 0x5d)
-	speak(CHR_BOND, L_DEPO(74), 0x740e, CHANNEL_5, COLOR_04_ORANGE) // "No one could have predicted that! And I resent bei..."
+	speak(CHR_BOND, L_DEPO_074, 0x740e, CHANNEL_5, COLOR_04_ORANGE) // "No one could have predicted that! And I resent bei..."
 
 	wait_until(1780, 0x5e)
 	play_sound_from_object2(CHANNEL_6, 0x3a, 0x01d5, 0x00, 0x00)
@@ -1917,7 +1917,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0161, CHANNEL_7)
 
 	wait_until(2316, 0x65)
-	speak(CHR_BOND, L_DEPO(75), 0x740f, CHANNEL_7, COLOR_03_RED) // "The President turned down your request for the loa..."
+	speak(CHR_BOND, L_DEPO_075, 0x740f, CHANNEL_7, COLOR_03_RED) // "The President turned down your request for the loa..."
 
 	wait_until(2342, 0x67)
 	play_sound(0x0162, CHANNEL_6)
@@ -1951,7 +1951,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0161, CHANNEL_5)
 
 	wait_until(2692, 0x6f)
-	speak(CHR_BOND, L_DEPO(76), 0x7410, CHANNEL_7, COLOR_03_RED) // "Could it be you overestimated your influence over ..."
+	speak(CHR_BOND, L_DEPO_076, 0x7410, CHANNEL_7, COLOR_03_RED) // "Could it be you overestimated your influence over ..."
 
 	wait_until(2705, 0x72)
 	play_sound(0x0161, CHANNEL_6)
@@ -1975,7 +1975,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0163, CHANNEL_5)
 
 	wait_until(3048, 0x79)
-	speak(CHR_BOND, L_DEPO(77), 0x7411, CHANNEL_7, COLOR_05_GREEN) // "No! Perhaps I underestimated his resolve. We have ..."
+	speak(CHR_BOND, L_DEPO_077, 0x7411, CHANNEL_7, COLOR_05_GREEN) // "No! Perhaps I underestimated his resolve. We have ..."
 
 	wait_until(3186, 0x7a)
 	play_sound(0x0164, CHANNEL_6)
@@ -2002,7 +2002,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0162, CHANNEL_6)
 
 	wait_until(4070, 0x82)
-	speak(CHR_BOND, L_DEPO(78), 0x7412, CHANNEL_7, COLOR_04_ORANGE) // "Ha! Assuming you don't get any interference. If Ca..."
+	speak(CHR_BOND, L_DEPO_078, 0x7412, CHANNEL_7, COLOR_04_ORANGE) // "Ha! Assuming you don't get any interference. If Ca..."
 
 	wait_until(4312, 0x84)
 	play_sound(0x0163, CHANNEL_6)
@@ -2020,7 +2020,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0161, CHANNEL_7)
 
 	wait_until(4560, 0x83)
-	speak(CHR_BOND, L_DEPO(79), 0x7413, CHANNEL_5, COLOR_05_GREEN) // "There will be no outside help for Mr. Carrington. ..."
+	speak(CHR_BOND, L_DEPO_079, 0x7413, CHANNEL_5, COLOR_05_GREEN) // "There will be no outside help for Mr. Carrington. ..."
 
 	wait_until(4636, 0x89)
 	play_sound(0x0163, CHANNEL_7)
@@ -2029,7 +2029,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0164, CHANNEL_7)
 
 	wait_until(5272, 0x8b)
-	speak(CHR_BOND, L_DEPO(80), 0x7414, CHANNEL_5, COLOR_03_RED) // "Then the devices we gave you are working correctly..."
+	speak(CHR_BOND, L_DEPO_080, 0x7414, CHANNEL_5, COLOR_03_RED) // "Then the devices we gave you are working correctly..."
 
 	wait_until(5360, 0x8c)
 	play_sound(0x0163, CHANNEL_6)
@@ -2180,12 +2180,12 @@ u8 func040f_outro[] = {
 	wait_until(728, 0x56)
 
 	wait_until(768, 0x73)
-	speak(CHR_P1P2, L_DEPO(81), 0x7415, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark reporting in! Prepare to receive a down..."
+	speak(CHR_P1P2, L_DEPO_081, 0x7415, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark reporting in! Prepare to receive a down..."
 
 	wait_until(1280, 0x59)
 
 	wait_until(1310, 0x75)
-	speak(CHR_P1P2, L_DEPO(82), 0x7416, CHANNEL_7, COLOR_06_WHITE) // "No time for that now, Agent Dark. There's been a d..."
+	speak(CHR_P1P2, L_DEPO_082, 0x7416, CHANNEL_7, COLOR_06_WHITE) // "No time for that now, Agent Dark. There's been a d..."
 
 	wait_until(1780, 0x76)
 	play_sound(0x0162, CHANNEL_6)
@@ -2199,7 +2199,7 @@ u8 func040f_outro[] = {
 	wait_until(2600, 0x5d)
 
 	wait_until(2630, 0x79)
-	speak(CHR_P1P2, L_DEPO(83), 0x7417, CHANNEL_7, COLOR_09_BLUE) // "Area 51? But what about the President?"
+	speak(CHR_P1P2, L_DEPO_083, 0x7417, CHANNEL_7, COLOR_09_BLUE) // "Area 51? But what about the President?"
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -2621,7 +2621,7 @@ u8 func101e_msg_nowaythrough[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_P1P2, L_DEPO(60), 0x73b4, CHANNEL_6, COLOR_09_BLUE) // "There's no way through while those lasers are acti..."
+	speak(CHR_P1P2, L_DEPO_060, 0x73b4, CHANNEL_6, COLOR_09_BLUE) // "There's no way through while those lasers are acti..."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2643,7 +2643,7 @@ u8 func101f_msg_meetingroomahead[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_P1P2, L_DEPO(61), 0x73b5, CHANNEL_6, COLOR_09_BLUE) // "That must be the meeting room up ahead. Time to us..."
+	speak(CHR_P1P2, L_DEPO_061, 0x73b5, CHANNEL_6, COLOR_09_BLUE) // "That must be the meeting room up ahead. Time to us..."
 
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2657,7 +2657,7 @@ u8 func1020_msg_heavilyencrypted[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_P1P2, L_DEPO(62), 0x817c, CHANNEL_6, COLOR_09_BLUE) // "The safe's heavily encrypted. The decoder's gonna ..."
+	speak(CHR_P1P2, L_DEPO_062, 0x817c, CHANNEL_6, COLOR_09_BLUE) // "The safe's heavily encrypted. The decoder's gonna ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2679,7 +2679,7 @@ u8 func1021_blow_mines[] = {
 
 	label(0x2c)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2c)
-	speak(CHR_P1P2, L_DEPO(63), 0x73b7, CHANNEL_6, COLOR_09_BLUE) // "Time to leave! Let's get to the door I set up earl..."
+	speak(CHR_P1P2, L_DEPO_063, 0x73b7, CHANNEL_6, COLOR_09_BLUE) // "Time to leave! Let's get to the door I set up earl..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Agent
@@ -2692,7 +2692,7 @@ u8 func1021_blow_mines[] = {
 	goto_next(0x0d)
 
 	label(0x2c)
-	speak(CHR_P1P2, L_DEPO(65), 0x81a2, CHANNEL_6, COLOR_09_BLUE) // "Stand back, Joanna. We'll create your escape route..."
+	speak(CHR_P1P2, L_DEPO_065, 0x81a2, CHANNEL_6, COLOR_09_BLUE) // "Stand back, Joanna. We'll create your escape route..."
 	restart_timer
 
 	beginloop(0x09)

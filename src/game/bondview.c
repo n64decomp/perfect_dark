@@ -10098,7 +10098,7 @@ glabel var7f1b5f58
 //
 //	// "S/MPS"
 //	// 437c
-//	sprintf(text, "%s %s%5.2f", langGet(L_MISC(73)), "", movedist * 0.6f);
+//	sprintf(text, "%s %s%5.2f", langGet(L_MISC_073), "", movedist * 0.6f);
 //	savedy = viewtop + 14;
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //	x = viewleft + 25 * scale;
@@ -10111,7 +10111,7 @@ glabel var7f1b5f58
 //
 //	// "H/M"
 //	// 44b4
-//	sprintf(text, "%s %s%4.2f", langGet(L_MISC(74)), "", g_Vars.currentplayer->eyespy->height * 0.01f);
+//	sprintf(text, "%s %s%4.2f", langGet(L_MISC_074), "", g_Vars.currentplayer->eyespy->height * 0.01f);
 //	savedy += 9;
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //	x = viewleft + 25 * scale;
@@ -10124,7 +10124,7 @@ glabel var7f1b5f58
 //
 //	// "Y/D"
 //	// 45c8
-//	sprintf(text, "%s %d", langGet(L_MISC(75)), (s32)g_Vars.currentplayer->eyespy->theta);
+//	sprintf(text, "%s %d", langGet(L_MISC_075), (s32)g_Vars.currentplayer->eyespy->theta);
 //	savedy += 9;
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //	y = savedy;
@@ -10137,7 +10137,7 @@ glabel var7f1b5f58
 //
 //	// "P/D"
 //	// 46cc
-//	sprintf(text, "%s %d", langGet(L_MISC(76)), (s32)g_Vars.currentplayer->eyespy->verta);
+//	sprintf(text, "%s %d", langGet(L_MISC_076), (s32)g_Vars.currentplayer->eyespy->verta);
 //	savedy += 9;
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //	y = savedy;
@@ -10150,7 +10150,7 @@ glabel var7f1b5f58
 //
 //	// "CI 2023"
 //	// 47d0
-//	sprintf(text, "%s", langGet(L_MISC(77)));
+//	sprintf(text, "%s", langGet(L_MISC_077));
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //
 //	x = (vsplit ? -3 : 0) + viewleft + 25 * scale + 5;
@@ -10163,11 +10163,11 @@ glabel var7f1b5f58
 //
 //	// 48f8
 //	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-//		sprintf(text, "%s", langGet(L_MISC(78))); // "YKK: 95935"
+//		sprintf(text, "%s", langGet(L_MISC_078)); // "YKK: 95935"
 //	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
-//		sprintf(text, "%s", langGet(L_MISC(208))); // "JM: 201172"
+//		sprintf(text, "%s", langGet(L_MISC_208)); // "JM: 201172"
 //	} else {
-//		sprintf(text, "%s", langGet(L_MISC(217))); // "BNC: 15877"
+//		sprintf(text, "%s", langGet(L_MISC_217)); // "BNC: 15877"
 //	}
 //
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
@@ -10184,7 +10184,7 @@ glabel var7f1b5f58
 //	// 4a8c
 //	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 //		// "CAMSPY"
-//		sprintf(text, "   %s", langGet(L_MISC(79)));
+//		sprintf(text, "   %s", langGet(L_MISC_079));
 //		textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //
 //		x = viewright - scale * 53 - 25;
@@ -10197,7 +10197,7 @@ glabel var7f1b5f58
 //	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 //		// "DRUGSPY"
 //		// 4be4
-//		sprintf(text, "   %s", langGet(L_MISC(468)));
+//		sprintf(text, "   %s", langGet(L_MISC_468));
 //		textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //
 //		x = viewright - scale * 53 - 25;
@@ -10210,7 +10210,7 @@ glabel var7f1b5f58
 //	} else {
 //		// "BOMBSPY"
 //		// 4d18
-//		sprintf(text, "   %s", langGet(L_MISC(469)));
+//		sprintf(text, "   %s", langGet(L_MISC_469));
 //		textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //
 //		x = viewright - scale * 59 - 25;
@@ -10225,11 +10225,11 @@ glabel var7f1b5f58
 //	// 4e3c
 //	// Model number
 //	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-//		sprintf(text, "%s", langGet(L_MISC(80))); // "MODEL 1.2"
+//		sprintf(text, "%s", langGet(L_MISC_080)); // "MODEL 1.2"
 //	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
-//		sprintf(text, "%s", langGet(L_MISC(207))); // "MODEL 1.4"
+//		sprintf(text, "%s", langGet(L_MISC_207)); // "MODEL 1.4"
 //	} else {
-//		sprintf(text, "%s", langGet(L_MISC(216))); // "MODEL 1.3"
+//		sprintf(text, "%s", langGet(L_MISC_216)); // "MODEL 1.3"
 //	}
 //
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
@@ -10245,9 +10245,9 @@ glabel var7f1b5f58
 //	// Gyrostat/dartammo text
 //	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY
 //			|| g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
-//		sprintf(text, "%s", langGet(L_MISC(81))); // "GYROSTAT"
+//		sprintf(text, "%s", langGet(L_MISC_081)); // "GYROSTAT"
 //	} else {
-//		sprintf(text, "%s", langGet(L_MISC(206))); // "DARTAMMO"
+//		sprintf(text, "%s", langGet(L_MISC_206)); // "DARTAMMO"
 //	}
 //
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);

@@ -47,20 +47,20 @@ struct simdifficulty g_SimDifficulties[] = {
 };
 
 u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
-	L_MISC(175), // "Follow"
-	L_MISC(176), // "Attack"
-	L_MISC(177), // "Defend"
-	L_MISC(178), // "Hold"
-	L_MISC(179), // "Normal"
-	L_MISC(180), // "Download"
-	L_MISC(181), // "Get Case"
-	L_MISC(182), // "Tag Box"
-	L_MISC(209), // "Save Case"
-	L_MISC(210), // "Def Hill"
-	L_MISC(211), // "Hold Hill"
-	L_MISC(212), // "Get Case"
-	L_MISC(213), // "Pop Cap"
-	L_MISC(214), // "Protect"
+	L_MISC_175, // "Follow"
+	L_MISC_176, // "Attack"
+	L_MISC_177, // "Defend"
+	L_MISC_178, // "Hold"
+	L_MISC_179, // "Normal"
+	L_MISC_180, // "Download"
+	L_MISC_181, // "Get Case"
+	L_MISC_182, // "Tag Box"
+	L_MISC_209, // "Save Case"
+	L_MISC_210, // "Def Hill"
+	L_MISC_211, // "Hold Hill"
+	L_MISC_212, // "Get Case"
+	L_MISC_213, // "Pop Cap"
+	L_MISC_214, // "Protect"
 };
 
 bool func0f190260(struct chrdata *chr)
@@ -3036,7 +3036,7 @@ void func0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
 char *mpGetBotCommandName(s32 command)
 {
 	if (command < 0 || command >= NUM_MPBOTCOMMANDS) {
-		return langGet(L_MISC(179)); // "Normal"
+		return langGet(L_MISC_179); // "Normal"
 	}
 
 	return langGet(g_MpBotCommands[command]);

@@ -2703,7 +2703,7 @@ void setupParseObjects(s32 stagenum)
 		g_Briefing.objectivedifficulties[j] = 0;
 	}
 
-	g_Briefing.briefingtextnum = L_MISC(42); // "No briefing for this mission"
+	g_Briefing.briefingtextnum = L_MISC_042; // "No briefing for this mission"
 
 	if (stagenum < STAGE_TITLE) {
 		if (g_StageSetup.padfiledata) {

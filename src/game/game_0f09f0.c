@@ -19645,15 +19645,15 @@ glabel func0f0fce8c
 );
 
 struct menuitem g_PakRemovedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(174), 0x00000000, NULL }, // "The Controller Pak has been removed."
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_174, 0x00000000, NULL }, // "The Controller Pak has been removed."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(73), 0x00000000, menuhandler000fcc34 }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_073, 0x00000000, menuhandler000fcc34 }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_PakRemovedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	L_MPWEAPONS(173), // "Error"
+	L_MPWEAPONS_173, // "Error"
 	g_PakRemovedMenuItems,
 	NULL,
 	0x00000000,
@@ -19669,7 +19669,7 @@ struct menuitem g_PakRepairSuccessMenuItems[] = {
 
 struct menudialog g_PakRepairSuccessMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
-	L_MPWEAPONS(180), // "Repair Successful"
+	L_MPWEAPONS_180, // "Repair Successful"
 	g_PakRepairSuccessMenuItems,
 	menudialog000fcd48,
 	0x00000000,
@@ -19677,15 +19677,15 @@ struct menudialog g_PakRepairSuccessMenuDialog = {
 };
 
 struct menuitem g_PakRepairFailedMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(183), 0x00000000, NULL }, // "The Controller Pak cannot be repaired. You will not be able to load from or save to this Controller Pak."
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_183, 0x00000000, NULL }, // "The Controller Pak cannot be repaired. You will not be able to load from or save to this Controller Pak."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(73), 0x00000000, NULL }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_PakRepairFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	L_MPWEAPONS(182), // "Repair Failed"
+	L_MPWEAPONS_182, // "Repair Failed"
 	g_PakRepairFailedMenuItems,
 	menudialog000fcd48,
 	0x00000000,
@@ -19693,17 +19693,17 @@ struct menudialog g_PakRepairFailedMenuDialog = {
 };
 
 struct menuitem g_PakAttemptRepairMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(176), 0x00000000, NULL }, // "Are you sure you want to attempt repair of this Controller Pak?"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(177), 0x00000000, NULL }, // "Data may be lost!"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_176, 0x00000000, NULL }, // "Are you sure you want to attempt repair of this Controller Pak?"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_177, 0x00000000, NULL }, // "Data may be lost!"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(178), 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(179), 0x00000000, menuhandlerRepairPak }, // "Repair"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_178, 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_179, 0x00000000, menuhandlerRepairPak }, // "Repair"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_PakAttemptRepairMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	L_MPWEAPONS(175), // "Attempt Repair"
+	L_MPWEAPONS_175, // "Attempt Repair"
 	g_PakAttemptRepairMenuItems,
 	menudialog000fcd48,
 	0x00000000,
@@ -19713,11 +19713,11 @@ struct menudialog g_PakAttemptRepairMenuDialog = {
 char *menuTextSaveDeviceName(struct menuitem *item)
 {
 	u16 devices[] = {
-		L_OPTIONS(112), // "Controller Pak 1"
-		L_OPTIONS(113), // "Controller Pak 2"
-		L_OPTIONS(114), // "Controller Pak 3"
-		L_OPTIONS(115), // "Controller Pak 4"
-		L_OPTIONS(111), // "Game Pak"
+		L_OPTIONS_112, // "Controller Pak 1"
+		L_OPTIONS_113, // "Controller Pak 2"
+		L_OPTIONS_114, // "Controller Pak 3"
+		L_OPTIONS_115, // "Controller Pak 4"
+		L_OPTIONS_111, // "Game Pak"
 	};
 
 	if ((u8)g_Menus[g_MpPlayerNum].savedevice < 5) {
@@ -20014,18 +20014,18 @@ struct chrdata *currentPlayerGetCommandingAibot(void)
 
 struct menuitem g_PakDamagedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(65), 0x00000000, NULL }, // "is damaged or"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(66), 0x00000000, NULL }, // "inserted incorrectly"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_065, 0x00000000, NULL }, // "is damaged or"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_066, 0x00000000, NULL }, // "inserted incorrectly"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(67), 0x00000000, menuhandlerWarnRepairPak }, // "Attempt Repair"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(68), 0x00000000, menuhandlerRetrySavePak }, // "Retry"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(69), 0x00000000, NULL }, // "Continue without using the Controller Pak"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_067, 0x00000000, menuhandlerWarnRepairPak }, // "Attempt Repair"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS_068, 0x00000000, menuhandlerRetrySavePak }, // "Retry"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS_069, 0x00000000, NULL }, // "Continue without using the Controller Pak"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_PakDamagedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	L_MPWEAPONS(64), // "Damaged Controller Pak"
+	L_MPWEAPONS_064, // "Damaged Controller Pak"
 	g_PakDamagedMenuItems,
 	menudialog000fcd48,
 	0x00000020,
@@ -20034,17 +20034,17 @@ struct menudialog g_PakDamagedMenuDialog = {
 
 struct menuitem g_PakFullMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(71), 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS(3), 0x00000000, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(72), 0x00000000, NULL }, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS_071, 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS_003, 0x00000000, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS_072, 0x00000000, NULL }, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(73), 0x00000000, NULL }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_PakFullMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	L_MPWEAPONS(70), // "Full Controller Pak"
+	L_MPWEAPONS_070, // "Full Controller Pak"
 	g_PakFullMenuItems,
 	menudialog000fcd48,
 	0x00000020,
@@ -20052,15 +20052,15 @@ struct menudialog g_PakFullMenuDialog = {
 };
 
 struct menuitem g_PakCannotReadGameBoyMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(254), 0x00000000, NULL }, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_254, 0x00000000, NULL }, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(255), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS_255, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_PakCannotReadGameBoyMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	L_MPWEAPONS(253), // "Error"
+	L_MPWEAPONS_253, // "Error"
 	g_PakCannotReadGameBoyMenuItems,
 	NULL,
 	0x00000020,
@@ -20069,17 +20069,17 @@ struct menudialog g_PakCannotReadGameBoyMenuDialog = {
 
 struct menuitem g_PakDataLostMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(257), 0x00000000, NULL }, // "The saved data has"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(258), 0x00000000, NULL }, // "been erased due to"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(259), 0x00000000, NULL }, // "corruption or damage."
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_257, 0x00000000, NULL }, // "The saved data has"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_258, 0x00000000, NULL }, // "been erased due to"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS_259, 0x00000000, NULL }, // "corruption or damage."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(260), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS_260, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_PakDataLostMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	L_MPWEAPONS(256), // "Error"
+	L_MPWEAPONS_256, // "Error"
 	g_PakDataLostMenuItems,
 	NULL,
 	0x00000020,

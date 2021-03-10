@@ -3,6 +3,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gbiex.h"
+#include "lang.h"
 
 #define bool s32
 #define ubool u32

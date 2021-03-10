@@ -112,7 +112,7 @@ struct inventory_typee inve_00011140 = {
 
 struct weaponfunc_shootsingle invfunc_00011160 = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -159,10 +159,10 @@ struct weapon invitem_hammer = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(0), // short name
-	L_GUN(0), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_000, // short name
+	L_GUN_000, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00001258, // flags
 };
 
@@ -185,10 +185,10 @@ struct weapon invitem_nothing = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(0), // short name
-	L_GUN(0), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_000, // short name
+	L_GUN_000, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00001000, // flags
 };
 
@@ -227,7 +227,7 @@ struct guncmd invanim_punch[] = {
 
 struct weaponfunc_close invfunc_unarmed_punch = {
 	INVENTORYFUNCTYPE_CLOSE,
-	L_GUN(100), // name
+	L_GUN_100, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -251,7 +251,7 @@ struct weaponfunc_close invfunc_unarmed_punch = {
 
 struct weaponfunc_close invfunc_unarmed_disarm = {
 	INVENTORYFUNCTYPE_CLOSE,
-	L_GUN(101), // name
+	L_GUN_101, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -291,10 +291,10 @@ struct weapon invitem_unarmed = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(6), // short name
-	L_GUN(6), // name
-	L_GUN(0), // manufacturer
-	L_GUN(155), // description
+	L_GUN_006, // short name
+	L_GUN_006, // name
+	L_GUN_000, // manufacturer
+	L_GUN_155, // description
 	0x08042258, // flags
 };
 
@@ -435,7 +435,7 @@ struct guncmd invanim_falcon2_shoot[] = {
 
 struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -457,7 +457,7 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 
 struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
@@ -479,7 +479,7 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 
 struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 	INVENTORYFUNCTYPE_CLOSE,
-	L_GUN(94), // name
+	L_GUN_094, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -535,10 +535,10 @@ struct weapon invitem_falcon2 = {
 	1, // unk38
 	invf_000113f4, // fptr
 	invpartvisibility_falcon2, // part visibility
-	L_GUN(7), // short name
-	L_GUN(7), // name
-	L_GUN(150), // manufacturer
-	L_GUN(156), // description
+	L_GUN_007, // short name
+	L_GUN_007, // name
+	L_GUN_150, // manufacturer
+	L_GUN_156, // description
 	0x000ab67c, // flags
 };
 
@@ -560,10 +560,10 @@ struct weapon invitem_falcon2scope = {
 	1, // unk38
 	invf_00011444, // fptr
 	invpartvisibility_falcon2scope, // part visibility
-	L_GUN(77), // short name
-	L_GUN(9), // name
-	L_GUN(150), // manufacturer
-	L_GUN(158), // description
+	L_GUN_077, // short name
+	L_GUN_009, // name
+	L_GUN_150, // manufacturer
+	L_GUN_158, // description
 	0x0002b67c, // flags
 };
 
@@ -585,10 +585,10 @@ struct weapon invitem_falcon2silencer = {
 	1, // unk38
 	invf_0001148c, // fptr
 	invpartvisibility_falcon2silencer, // part visibility
-	L_GUN(78), // short name
-	L_GUN(8), // name
-	L_GUN(150), // manufacturer
-	L_GUN(157), // description
+	L_GUN_078, // short name
+	L_GUN_008, // name
+	L_GUN_150, // manufacturer
+	L_GUN_157, // description
 	0x000ab67c, // flags
 };
 
@@ -664,7 +664,7 @@ struct inventory_typee inve_00011970 = {
 
 struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -686,7 +686,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 
 struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(128), // name
+	L_GUN_128, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -732,10 +732,10 @@ struct weapon invitem_magsec = {
 	1, // unk38
 	invf_00011840, // fptr
 	invpartvisibility_magsec, // part visibility
-	L_GUN(10), // short name
-	L_GUN(10), // name
-	L_GUN(151), // manufacturer
-	L_GUN(159), // description
+	L_GUN_010, // short name
+	L_GUN_010, // name
+	L_GUN_151, // manufacturer
+	L_GUN_159, // description
 	0x000a767c, // flags
 };
 
@@ -831,7 +831,7 @@ struct guncmd invanim_dy357_pistolwhip[] = {
 
 struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
@@ -853,7 +853,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 
 struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
@@ -875,7 +875,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 
 struct weaponfunc_close invfunc_dy357_pistolwhip = {
 	INVENTORYFUNCTYPE_CLOSE,
-	L_GUN(94), // name
+	L_GUN_094, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -923,10 +923,10 @@ struct weapon invitem_dy357 = {
 	1, // unk38
 	invf_00011a84, // fptr
 	invpartvisibility_dy357, // part visibility
-	L_GUN(84), // short name
-	L_GUN(12), // name
-	L_GUN(149), // manufacturer
-	L_GUN(161), // description
+	L_GUN_084, // short name
+	L_GUN_012, // name
+	L_GUN_149, // manufacturer
+	L_GUN_161, // description
 	0x0002f67c, // flags
 };
 
@@ -948,10 +948,10 @@ struct weapon invitem_dy357lx = {
 	1, // unk38
 	invf_00011a84, // fptr
 	invpartvisibility_dy357, // part visibility
-	L_GUN(13), // short name
-	L_GUN(13), // name
-	L_GUN(149), // manufacturer
-	L_GUN(162), // description
+	L_GUN_013, // short name
+	L_GUN_013, // name
+	L_GUN_149, // manufacturer
+	L_GUN_162, // description
 	0x0002f67c, // flags
 };
 
@@ -1000,7 +1000,7 @@ struct guncmd invanim_phoenix_shoot[] = {
 
 struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -1022,7 +1022,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 
 struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(95), // name
+	L_GUN_095, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -1068,10 +1068,10 @@ struct weapon invitem_phoenix = {
 	1, // unk38
 	invf_00011e00, // fptr
 	invpartvisibility_phoenix, // part visibility
-	L_GUN(14), // short name
-	L_GUN(14), // name
-	L_GUN(153), // manufacturer
-	L_GUN(163), // description
+	L_GUN_014, // short name
+	L_GUN_014, // name
+	L_GUN_153, // manufacturer
+	L_GUN_163, // description
 	0x000af67c, // flags
 };
 
@@ -1140,7 +1140,7 @@ struct guncmd invanim_unused_8007c0bc[] = {
 
 struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
@@ -1162,7 +1162,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 
 struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(129), // name
+	L_GUN_129, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
@@ -1208,10 +1208,10 @@ struct weapon invitem_mauler = {
 	1, // unk38
 	invf_00011fac, // fptr
 	invpartvisibility_mauler, // part visibility
-	L_GUN(11), // short name
-	L_GUN(11), // name
-	L_GUN(152), // manufacturer
-	L_GUN(160), // description
+	L_GUN_011, // short name
+	L_GUN_011, // name
+	L_GUN_152, // manufacturer
+	L_GUN_160, // description
 	0x00027678, // flags
 };
 
@@ -1286,7 +1286,7 @@ struct inventory_typee inve_00012308 = {
 
 struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
@@ -1312,7 +1312,7 @@ struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 
 struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(102), // name
+	L_GUN_102, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
@@ -1362,10 +1362,10 @@ struct weapon invitem_cmp150 = {
 	1, // unk38
 	invf_000121d8, // fptr
 	invpartvisibility_cmp150, // part visibility
-	L_GUN(15), // short name
-	L_GUN(15), // name
-	L_GUN(149), // manufacturer
-	L_GUN(164), // description
+	L_GUN_015, // short name
+	L_GUN_015, // name
+	L_GUN_149, // manufacturer
+	L_GUN_164, // description
 	0x4402f678, // flags
 };
 
@@ -1410,7 +1410,7 @@ struct guncmd invanim_cyclone_shoot[] = {
 
 struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -1436,7 +1436,7 @@ struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
 
 struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(97), // name
+	L_GUN_097, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -1486,10 +1486,10 @@ struct weapon invitem_cyclone = {
 	1, // unk38
 	invf_0001243c, // fptr
 	invpartvisibility_cyclone, // part visibility
-	L_GUN(20), // short name
-	L_GUN(20), // name
-	L_GUN(151), // manufacturer
-	L_GUN(169), // description
+	L_GUN_020, // short name
+	L_GUN_020, // name
+	L_GUN_151, // manufacturer
+	L_GUN_169, // description
 	0x00027678, // flags
 };
 
@@ -1526,7 +1526,7 @@ struct inventory_typef invf_00012658[] = {
 
 struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -1552,7 +1552,7 @@ struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 
 struct weaponfunc_special invfunc_rcp120_cloak = {
 	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN(116), // name
+	L_GUN_116, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -1589,10 +1589,10 @@ struct weapon invitem_rcp120 = {
 	1, // unk38
 	invf_00012658, // fptr
 	invpartvisibility_rcp120, // part visibility
-	L_GUN(22), // short name
-	L_GUN(22), // name
-	L_GUN(151), // manufacturer
-	L_GUN(170), // description
+	L_GUN_022, // short name
+	L_GUN_022, // name
+	L_GUN_151, // manufacturer
+	L_GUN_170, // description
 	0x0062e670, // flags
 };
 
@@ -1624,7 +1624,7 @@ struct inventory_typef invf_00012798[] = {
 
 struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -1650,7 +1650,7 @@ struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
 
 struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(115), // name
+	L_GUN_115, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -1700,10 +1700,10 @@ struct weapon invitem_callisto = {
 	1, // unk38
 	invf_00012798, // fptr
 	invpartvisibility_callisto, // part visibility
-	L_GUN(23), // short name
-	L_GUN(23), // name
-	L_GUN(153), // manufacturer
-	L_GUN(171), // description
+	L_GUN_023, // short name
+	L_GUN_023, // name
+	L_GUN_153, // manufacturer
+	L_GUN_171, // description
 	0x0002e670, // flags
 };
 
@@ -1737,7 +1737,7 @@ struct guncmd invanim_dragon_reload[] = {
 
 struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -1763,7 +1763,7 @@ struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 
 struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(118), // name
+	L_GUN_118, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -1801,10 +1801,10 @@ struct weapon invitem_dragon = {
 	1, // unk38
 	invf_000128b8, // fptr
 	invpartvisibility_dragon, // part visibility
-	L_GUN(17), // short name
-	L_GUN(17), // name
-	L_GUN(149), // manufacturer
-	L_GUN(166), // description
+	L_GUN_017, // short name
+	L_GUN_017, // name
+	L_GUN_149, // manufacturer
+	L_GUN_166, // description
 	0x04026650, // flags
 };
 
@@ -1869,7 +1869,7 @@ struct guncmd invanim_superdragon_sectopri[] = {
 
 struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -1895,7 +1895,7 @@ struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 
 struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(98), // name
+	L_GUN_098, // name
 	0x00, // unk06
 	1, // unk07
 	&invmenupos_00011048, // menupos
@@ -1957,10 +1957,10 @@ struct weapon invitem_superdragon = {
 	1, // unk38
 	invf_00012a08, // fptr
 	invpartvisibility_superdragon, // part visibility
-	L_GUN(18), // short name
-	L_GUN(18), // name
-	L_GUN(149), // manufacturer
-	L_GUN(167), // description
+	L_GUN_018, // short name
+	L_GUN_018, // name
+	L_GUN_149, // manufacturer
+	L_GUN_167, // description
 	0x00026650, // flags
 };
 
@@ -2004,7 +2004,7 @@ struct inventory_typee inve_00012cc4 = {
 
 struct weaponfunc_shootauto invfunc_ar34_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(87), // name
+	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -2030,7 +2030,7 @@ struct weaponfunc_shootauto invfunc_ar34_burstfire = {
 
 struct weaponfunc_shootauto invfunc_ar34_usescope = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(103), // name
+	L_GUN_103, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -2080,10 +2080,10 @@ struct weapon invitem_ar34 = {
 	1, // unk38
 	invf_00012c40, // fptr
 	invpartvisibility_ar34, // part visibility
-	L_GUN(16), // short name
-	L_GUN(16), // name
-	L_GUN(0), // manufacturer
-	L_GUN(165), // description
+	L_GUN_016, // short name
+	L_GUN_016, // name
+	L_GUN_000, // manufacturer
+	L_GUN_165, // description
 	0x04626650, // flags
 };
 
@@ -2141,7 +2141,7 @@ struct inventory_typee inve_00012e9c = {
 
 struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(87), // name
+	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -2167,7 +2167,7 @@ struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
 
 struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(119), // name
+	L_GUN_119, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -2217,10 +2217,10 @@ struct weapon invitem_k7avenger = {
 	1, // unk38
 	invf_00012df0, // fptr
 	invpartvisibility_k7avenger, // part visibility
-	L_GUN(19), // short name
-	L_GUN(19), // name
-	L_GUN(149), // manufacturer
-	L_GUN(168), // description
+	L_GUN_019, // short name
+	L_GUN_019, // name
+	L_GUN_149, // manufacturer
+	L_GUN_168, // description
 	0x00022650, // flags
 };
 
@@ -2285,7 +2285,7 @@ struct guncmd invanim_laptopgun_unequip[] = {
 
 struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(87), // name
+	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
@@ -2311,7 +2311,7 @@ struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
 
 struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(117), // name
+	L_GUN_117, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -2349,10 +2349,10 @@ struct weapon invitem_laptopgun = {
 	1, // unk38
 	invf_00012fc8, // fptr
 	invpartvisibility_laptopgun, // part visibility
-	L_GUN(24), // short name
-	L_GUN(24), // name
-	L_GUN(150), // manufacturer
-	L_GUN(172), // description
+	L_GUN_024, // short name
+	L_GUN_024, // name
+	L_GUN_150, // manufacturer
+	L_GUN_172, // description
 	0x0402a650, // flags
 };
 
@@ -2394,7 +2394,7 @@ struct guncmd invanim_shotgun_doubleshot[] = {
 
 struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(89), // name
+	L_GUN_089, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2416,7 +2416,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 
 struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(105), // name
+	L_GUN_105, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2462,10 +2462,10 @@ struct weapon invitem_shotgun = {
 	1, // unk38
 	invf_000131dc, // fptr
 	invpartvisibility_shotgun, // part visibility
-	L_GUN(25), // short name
-	L_GUN(25), // name
-	L_GUN(149), // manufacturer
-	L_GUN(173), // description
+	L_GUN_025, // short name
+	L_GUN_025, // name
+	L_GUN_149, // manufacturer
+	L_GUN_173, // description
 	0x00026650, // flags
 };
 
@@ -2515,7 +2515,7 @@ struct guncmd invanim_reaper_unequip[] = {
 
 struct weaponfunc_shootauto invfunc_reaper_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(88), // name
+	L_GUN_088, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001105c, // menupos
@@ -2541,7 +2541,7 @@ struct weaponfunc_shootauto invfunc_reaper_shoot = {
 
 struct weaponfunc_close invfunc_reaper_grind = {
 	INVENTORYFUNCTYPE_CLOSE,
-	L_GUN(106), // name
+	L_GUN_106, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_0001100c, // menupos
@@ -2589,10 +2589,10 @@ struct weapon invitem_reaper = {
 	1, // unk38
 	invf_000133c8, // fptr
 	invpartvisibility_reaper, // part visibility
-	L_GUN(26), // short name
-	L_GUN(26), // name
-	L_GUN(152), // manufacturer
-	L_GUN(174), // description
+	L_GUN_026, // short name
+	L_GUN_026, // name
+	L_GUN_152, // manufacturer
+	L_GUN_174, // description
 	0x00022650, // flags
 };
 
@@ -2640,7 +2640,7 @@ struct inventory_typee inve_000135f0 = {
 
 struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(91), // name
+	L_GUN_091, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2670,7 +2670,7 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 
 struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(92), // name
+	L_GUN_092, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2724,10 +2724,10 @@ struct weapon invitem_rocketlauncher = {
 	1, // unk38
 	invf_00013564, // fptr
 	invpartvisibility_rocketlauncher, // part visibility
-	L_GUN(80), // short name
-	L_GUN(27), // name
-	L_GUN(149), // manufacturer
-	L_GUN(175), // description
+	L_GUN_080, // short name
+	L_GUN_027, // name
+	L_GUN_149, // manufacturer
+	L_GUN_175, // description
 	0x40026270, // flags
 };
 
@@ -2748,7 +2748,7 @@ struct guncmd invanim_slayer_reload[] = {
 
 struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(91), // name
+	L_GUN_091, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2778,7 +2778,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 
 struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(93), // name
+	L_GUN_093, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2832,10 +2832,10 @@ struct weapon invitem_slayer = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(29), // short name
-	L_GUN(29), // name
-	L_GUN(152), // manufacturer
-	L_GUN(177), // description
+	L_GUN_029, // short name
+	L_GUN_029, // name
+	L_GUN_152, // manufacturer
+	L_GUN_177, // description
 	0x02026270, // flags
 };
 
@@ -2866,7 +2866,7 @@ struct guncmd invanim_devastator_reload[] = {
 
 struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(98), // name
+	L_GUN_098, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2896,7 +2896,7 @@ struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 
 struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(99), // name
+	L_GUN_099, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -2955,16 +2955,16 @@ struct weapon invitem_devastator = {
 	1, // unk38
 	NULL, // fptr
 	invpartvisibility_devastator, // part visibility
-	L_GUN(28), // short name
-	L_GUN(28), // name
-	L_GUN(149), // manufacturer
-	L_GUN(176), // description
+	L_GUN_028, // short name
+	L_GUN_028, // name
+	L_GUN_149, // manufacturer
+	L_GUN_176, // description
 	0x00026270, // flags
 };
 
 struct weaponfunc invfunc_mine_threatdetector = {
 	INVENTORYFUNCTYPE_NONE,
-	L_GUN(119), // name
+	L_GUN_119, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -2991,7 +2991,7 @@ struct guncmd invanim_mine_throw[] = {
 
 struct weaponfunc_throw invfunc_timedmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(120), // name
+	L_GUN_120, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3029,10 +3029,10 @@ struct weapon invitem_timedmine = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(38), // short name
-	L_GUN(38), // name
-	L_GUN(0), // manufacturer
-	L_GUN(185), // description
+	L_GUN_038, // short name
+	L_GUN_038, // name
+	L_GUN_000, // manufacturer
+	L_GUN_185, // description
 	0x00022259, // flags
 };
 
@@ -3063,7 +3063,7 @@ struct guncmd invanim_remotemine_throw[] = {
 
 struct weaponfunc_throw invfunc_remotemine_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(122), // name
+	L_GUN_122, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3077,7 +3077,7 @@ struct weaponfunc_throw invfunc_remotemine_throw = {
 
 struct weaponfunc_special invfunc_remotemine_detonate = {
 	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN(123), // name
+	L_GUN_123, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3119,16 +3119,16 @@ struct weapon invitem_remotemine = {
 	1, // unk38
 	invf_00013b40, // fptr
 	invpartvisibility_remotemine, // part visibility
-	L_GUN(40), // short name
-	L_GUN(40), // name
-	L_GUN(0), // manufacturer
-	L_GUN(187), // description
+	L_GUN_040, // short name
+	L_GUN_040, // name
+	L_GUN_000, // manufacturer
+	L_GUN_187, // description
 	0x00022259, // flags
 };
 
 struct weaponfunc_throw invfunc_proxymine_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(121), // name
+	L_GUN_121, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3166,10 +3166,10 @@ struct weapon invitem_proximitymine = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(81), // short name
-	L_GUN(39), // name
-	L_GUN(0), // manufacturer
-	L_GUN(186), // description
+	L_GUN_081, // short name
+	L_GUN_039, // name
+	L_GUN_000, // manufacturer
+	L_GUN_186, // description
 	0x00022259, // flags
 };
 
@@ -3191,7 +3191,7 @@ struct guncmd invanim_ecmmine_throw[] = {
 
 struct weaponfunc_throw invfunc_ecmmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(140), // name
+	L_GUN_140, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3229,10 +3229,10 @@ struct weapon invitem_ecmmine = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(41), // short name
-	L_GUN(41), // name
-	L_GUN(0), // manufacturer
-	L_GUN(188), // description
+	L_GUN_041, // short name
+	L_GUN_041, // name
+	L_GUN_000, // manufacturer
+	L_GUN_188, // description
 	0x08622059, // flags
 };
 
@@ -3256,10 +3256,10 @@ struct weapon invitem_unused_8007dd88 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(38), // short name
-	L_GUN(38), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_038, // short name
+	L_GUN_038, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x08000048, // flags
 };
 
@@ -3284,7 +3284,7 @@ struct guncmd invanim_grenade_equiporreload[] = {
 
 struct weaponfunc_throw invfunc_grenade_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(124), // name
+	L_GUN_124, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3298,7 +3298,7 @@ struct weaponfunc_throw invfunc_grenade_throw = {
 
 struct weaponfunc_throw invfunc_grenade_pinball = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(125), // name
+	L_GUN_125, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3336,16 +3336,16 @@ struct weapon invitem_grenade = {
 	1, // unk38
 	invf_00013df8, // fptr
 	NULL, // part visibility
-	L_GUN(36), // short name
-	L_GUN(36), // name
-	L_GUN(0), // manufacturer
-	L_GUN(183), // description
+	L_GUN_036, // short name
+	L_GUN_036, // name
+	L_GUN_000, // manufacturer
+	L_GUN_183, // description
 	0x0002a67d, // flags
 };
 
 struct weaponfunc_throw invfunc_nbomb_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(134), // name
+	L_GUN_134, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3359,7 +3359,7 @@ struct weaponfunc_throw invfunc_nbomb_throw = {
 
 struct weaponfunc_throw invfunc_nbomb_proxy = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(127), // name
+	L_GUN_127, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3397,10 +3397,10 @@ struct weapon invitem_nbomb = {
 	1, // unk38
 	invf_00013df8, // fptr
 	NULL, // part visibility
-	L_GUN(37), // short name
-	L_GUN(37), // name
-	L_GUN(0), // manufacturer
-	L_GUN(184), // description
+	L_GUN_037, // short name
+	L_GUN_037, // name
+	L_GUN_000, // manufacturer
+	L_GUN_184, // description
 	0x0062a67d, // flags
 };
 
@@ -3436,7 +3436,7 @@ struct inventory_typee inve_00013ff8 = {
 
 struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(90), // name
+	L_GUN_090, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -3458,7 +3458,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 
 struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(111), // name
+	L_GUN_111, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
@@ -3509,10 +3509,10 @@ struct weapon invitem_farsight = {
 	1, // unk38
 	invf_00013fa4, // fptr
 	invpartvisibility_farsight, // part visibility
-	L_GUN(79), // short name
-	L_GUN(31), // name
-	L_GUN(0), // manufacturer
-	L_GUN(178), // description
+	L_GUN_079, // short name
+	L_GUN_031, // name
+	L_GUN_000, // manufacturer
+	L_GUN_178, // description
 	0x00026650, // flags
 };
 
@@ -3560,7 +3560,7 @@ struct guncmd invanim_crosbow_equip[] = {
 
 struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(112), // name
+	L_GUN_112, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
@@ -3590,7 +3590,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 
 struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(107), // name
+	L_GUN_107, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
@@ -3651,10 +3651,10 @@ struct weapon invitem_crossbow = {
 	1, // unk38
 	invf_00014100, // fptr
 	invpartvisibility_crossbow, // part visibility
-	L_GUN(33), // short name
-	L_GUN(33), // name
-	L_GUN(0), // manufacturer
-	L_GUN(180), // description
+	L_GUN_033, // short name
+	L_GUN_033, // name
+	L_GUN_000, // manufacturer
+	L_GUN_180, // description
 	0x00022658, // flags
 };
 
@@ -3699,7 +3699,7 @@ struct guncmd invanim_tranquilizer_reload[] = {
 
 struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(107), // name
+	L_GUN_107, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
@@ -3721,7 +3721,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 
 struct weaponfunc_close invfunc_tranquilizer_lethal = {
 	INVENTORYFUNCTYPE_CLOSE,
-	L_GUN(108), // name
+	L_GUN_108, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
@@ -3776,10 +3776,10 @@ struct weapon invitem_tranquilizer = {
 	1, // unk38
 	invf_00014314, // fptr
 	invpartvisibility_tranquilizer, // part visibility
-	L_GUN(34), // short name
-	L_GUN(34), // name
-	L_GUN(0), // manufacturer
-	L_GUN(181), // description
+	L_GUN_034, // short name
+	L_GUN_034, // name
+	L_GUN_000, // manufacturer
+	L_GUN_181, // description
 	0x0002e65c, // flags
 };
 
@@ -3793,7 +3793,7 @@ struct inventory_ammo invammo_psychosisgun = {
 
 struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(131), // name
+	L_GUN_131, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
@@ -3831,10 +3831,10 @@ struct weapon invitem_psychosisgun = {
 	1, // unk38
 	invf_00014314, // fptr
 	invpartvisibility_tranquilizer, // part visibility
-	L_GUN(82), // short name
-	L_GUN(49), // name
-	L_GUN(0), // manufacturer
-	L_GUN(210), // description
+	L_GUN_082, // short name
+	L_GUN_049, // name
+	L_GUN_000, // manufacturer
+	L_GUN_210, // description
 	0x0002e65c, // flags
 };
 
@@ -3875,7 +3875,7 @@ struct inventory_typee inve_0001460c = {
 
 struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010ff8, // menupos
@@ -3897,7 +3897,7 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 
 struct weaponfunc_special invfunc_sniperrifle_crouch = {
 	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN(130), // name
+	L_GUN_130, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -3939,10 +3939,10 @@ struct weapon invitem_sniperrifle = {
 	1, // unk38
 	invf_00014590, // fptr
 	invpartvisibility_sniperrifle, // part visibility
-	L_GUN(32), // short name
-	L_GUN(32), // name
-	L_GUN(0), // manufacturer
-	L_GUN(179), // description
+	L_GUN_032, // short name
+	L_GUN_032, // name
+	L_GUN_000, // manufacturer
+	L_GUN_179, // description
 	0x00026650, // flags
 };
 
@@ -3958,7 +3958,7 @@ struct guncmd invanim_laser_unequip[] = {
 
 struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(132), // name
+	L_GUN_132, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_0001100c, // menupos
@@ -3980,7 +3980,7 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 
 struct weaponfunc_shootauto invfunc_laser_stream = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(133), // name
+	L_GUN_133, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4022,10 +4022,10 @@ struct weapon invitem_laser = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(47), // short name
-	L_GUN(47), // name
-	L_GUN(150), // manufacturer
-	L_GUN(189), // description
+	L_GUN_047, // short name
+	L_GUN_047, // name
+	L_GUN_150, // manufacturer
+	L_GUN_189, // description
 	0x0412a678, // flags
 };
 
@@ -4047,7 +4047,7 @@ struct guncmd invanim_pp9i_equiporshoot[] = {
 
 struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4093,10 +4093,10 @@ struct weapon invitem_pp9i = {
 	1, // unk38
 	invf_000147fc, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(50), // short name
-	L_GUN(50), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_050, // short name
+	L_GUN_050, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x000af67c, // flags
 };
 
@@ -4108,7 +4108,7 @@ struct guncmd invanim_cc13_equiporshoot[] = {
 
 struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(85), // name
+	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4154,16 +4154,16 @@ struct weapon invitem_cc13 = {
 	1, // unk38
 	invf_000147fc, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(51), // short name
-	L_GUN(51), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_051, // short name
+	L_GUN_051, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x000af67c, // flags
 };
 
 struct weaponfunc_shootauto invfunc_kl01313_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4213,16 +4213,16 @@ struct weapon invitem_kl01313 = {
 	1, // unk38
 	NULL, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(52), // short name
-	L_GUN(52), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_052, // short name
+	L_GUN_052, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x0000967c, // flags
 };
 
 struct weaponfunc_shootauto invfunc_kf7special_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(87), // name
+	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4272,16 +4272,16 @@ struct weapon invitem_kf7special = {
 	1, // unk38
 	NULL, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(53), // short name
-	L_GUN(53), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_053, // short name
+	L_GUN_053, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x0000967c, // flags
 };
 
 struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4331,16 +4331,16 @@ struct weapon invitem_zzt9mm = {
 	1, // unk38
 	NULL, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(54), // short name
-	L_GUN(54), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_054, // short name
+	L_GUN_054, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x0000967c, // flags
 };
 
 struct weaponfunc_shootauto invfunc_dmc_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4390,16 +4390,16 @@ struct weapon invitem_dmc = {
 	1, // unk38
 	NULL, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(55), // short name
-	L_GUN(55), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_055, // short name
+	L_GUN_055, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x0000967c, // flags
 };
 
 struct weaponfunc_shootauto invfunc_ar53_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(87), // name
+	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4449,16 +4449,16 @@ struct weapon invitem_ar53 = {
 	1, // unk38
 	NULL, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(56), // short name
-	L_GUN(56), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_056, // short name
+	L_GUN_056, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x0060967c, // flags
 };
 
 struct weaponfunc_shootauto invfunc_rcp45_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4508,16 +4508,16 @@ struct weapon invitem_rcp45 = {
 	1, // unk38
 	NULL, // fptr
 	invpartvisibility_classic, // part visibility
-	L_GUN(57), // short name
-	L_GUN(57), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_057, // short name
+	L_GUN_057, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x0060967c, // flags
 };
 
 struct weaponfunc invfunc_briefcase_use = {
 	INVENTORYFUNCTYPE_NONE,
-	L_GUN(0), // name
+	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4548,16 +4548,16 @@ struct weapon invitem_briefcase2 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(71), // short name
-	L_GUN(71), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_071, // short name
+	L_GUN_071, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x01940808, // flags
 };
 
 struct weaponfunc_shootauto invfunc_59_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4607,16 +4607,16 @@ struct weapon invitem_59 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(0), // short name
-	L_GUN(0), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_000, // short name
+	L_GUN_000, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00001250, // flags
 };
 
 struct weaponfunc_shootauto invfunc_5a_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
-	L_GUN(86), // name
+	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -4666,10 +4666,10 @@ struct weapon invitem_5a = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(0), // short name
-	L_GUN(0), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_000, // short name
+	L_GUN_000, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00001250, // flags
 };
 
@@ -4731,7 +4731,7 @@ struct guncmd invanim_combatknife_reload[] = {
 
 struct weaponfunc_close invfunc_combatknife_slash = {
 	INVENTORYFUNCTYPE_CLOSE,
-	L_GUN(109), // name
+	L_GUN_109, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4755,7 +4755,7 @@ struct weaponfunc_close invfunc_combatknife_slash = {
 
 struct weaponfunc_throw invfunc_combatknife_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(110), // name
+	L_GUN_110, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4793,16 +4793,16 @@ struct weapon invitem_combatknife = {
 	1, // unk38
 	invf_00014fc0, // fptr
 	NULL, // part visibility
-	L_GUN(83), // short name
-	L_GUN(35), // name
-	L_GUN(0), // manufacturer
-	L_GUN(182), // description
+	L_GUN_083, // short name
+	L_GUN_035, // name
+	L_GUN_000, // manufacturer
+	L_GUN_182, // description
 	0x0402f679, // flags
 };
 
 struct weaponfunc_throw invfunc_bug_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(0), // name
+	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4816,7 +4816,7 @@ struct weaponfunc_throw invfunc_bug_throw = {
 
 struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	INVENTORYFUNCTYPE_THROW,
-	L_GUN(0), // name
+	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4854,10 +4854,10 @@ struct weapon invitem_commsrider = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(222), // short name
-	L_GUN(222), // name
-	L_GUN(0), // manufacturer
-	L_GUN(204), // description
+	L_GUN_222, // short name
+	L_GUN_222, // name
+	L_GUN_000, // manufacturer
+	L_GUN_204, // description
 	0x08000018, // flags
 };
 
@@ -4879,10 +4879,10 @@ struct weapon invitem_tracerbug = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(223), // short name
-	L_GUN(223), // name
-	L_GUN(0), // manufacturer
-	L_GUN(205), // description
+	L_GUN_223, // short name
+	L_GUN_223, // name
+	L_GUN_000, // manufacturer
+	L_GUN_205, // description
 	0x08000018, // flags
 };
 
@@ -4904,16 +4904,16 @@ struct weapon invitem_targetamplifier = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(235), // short name
-	L_GUN(224), // name
-	L_GUN(0), // manufacturer
-	L_GUN(206), // description
+	L_GUN_235, // short name
+	L_GUN_224, // name
+	L_GUN_000, // manufacturer
+	L_GUN_206, // description
 	0x08000018, // flags
 };
 
 struct weaponfunc_device invfunc_nightvision_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(135), // name
+	L_GUN_135, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4940,16 +4940,16 @@ struct weapon invitem_nightvision = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(59), // short name
-	L_GUN(59), // name
-	L_GUN(0), // manufacturer
-	L_GUN(191), // description
+	L_GUN_059, // short name
+	L_GUN_059, // name
+	L_GUN_000, // manufacturer
+	L_GUN_191, // description
 	0x08001098, // flags
 };
 
 struct weaponfunc invfunc_horizonscanner_primary = {
 	INVENTORYFUNCTYPE_NONE,
-	L_GUN(139), // name
+	L_GUN_139, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -4986,16 +4986,16 @@ struct weapon invitem_horizonscanner = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(234), // short name
-	L_GUN(76), // name
-	L_GUN(0), // manufacturer
-	L_GUN(196), // description
+	L_GUN_234, // short name
+	L_GUN_076, // name
+	L_GUN_000, // manufacturer
+	L_GUN_196, // description
 	0x08600058, // flags
 };
 
 struct weaponfunc_device invfunc_cloak_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(116), // name
+	L_GUN_116, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5030,16 +5030,16 @@ struct weapon invitem_cloakingdevice = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(73), // short name
-	L_GUN(73), // name
-	L_GUN(0), // manufacturer
-	L_GUN(195), // description
+	L_GUN_073, // short name
+	L_GUN_073, // name
+	L_GUN_000, // manufacturer
+	L_GUN_195, // description
 	0x04000018, // flags
 };
 
 struct weaponfunc_special invfunc_combatboost_boost = {
 	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN(113), // name
+	L_GUN_113, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5052,7 +5052,7 @@ struct weaponfunc_special invfunc_combatboost_boost = {
 
 struct weaponfunc_special invfunc_combatboost_revert = {
 	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN(114), // name
+	L_GUN_114, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5089,16 +5089,16 @@ struct weapon invitem_combatboost = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(232), // short name
-	L_GUN(74), // name
-	L_GUN(0), // manufacturer
-	L_GUN(190), // description
+	L_GUN_232, // short name
+	L_GUN_074, // name
+	L_GUN_000, // manufacturer
+	L_GUN_190, // description
 	0x34000018, // flags
 };
 
 struct weaponfunc_device invfunc_suicidepill_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(0), // name
+	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5125,16 +5125,16 @@ struct weapon invitem_suicidepill = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(72), // short name
-	L_GUN(72), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_072, // short name
+	L_GUN_072, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x08000010, // flags
 };
 
 struct weaponfunc_device invfunc_irscanner_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(138), // name
+	L_GUN_138, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5161,16 +5161,16 @@ struct weapon invitem_irscanner = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(69), // short name
-	L_GUN(69), // name
-	L_GUN(0), // manufacturer
-	L_GUN(194), // description
+	L_GUN_069, // short name
+	L_GUN_069, // name
+	L_GUN_000, // manufacturer
+	L_GUN_194, // description
 	0x08001058, // flags
 };
 
 struct weaponfunc invfunc_disguise_primary = {
 	INVENTORYFUNCTYPE_NONE,
-	L_GUN(143), // name
+	L_GUN_143, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5196,10 +5196,10 @@ struct weapon invitem_disguise40 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(43), // short name
-	L_GUN(43), // name
-	L_GUN(0), // manufacturer
-	L_GUN(211), // description
+	L_GUN_043, // short name
+	L_GUN_043, // name
+	L_GUN_000, // manufacturer
+	L_GUN_211, // description
 	0x88000018, // flags
 };
 
@@ -5221,16 +5221,16 @@ struct weapon invitem_disguise41 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(43), // short name
-	L_GUN(43), // name
-	L_GUN(0), // manufacturer
-	L_GUN(211), // description
+	L_GUN_043, // short name
+	L_GUN_043, // name
+	L_GUN_000, // manufacturer
+	L_GUN_211, // description
 	0x88000018, // flags
 };
 
 struct weaponfunc_device invfunc_camspy_deploy = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(136), // name
+	L_GUN_136, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5257,16 +5257,16 @@ struct weapon invitem_camspy = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(60), // short name
-	L_GUN(60), // name
-	L_GUN(0), // manufacturer
-	L_GUN(192), // description
+	L_GUN_060, // short name
+	L_GUN_060, // name
+	L_GUN_000, // manufacturer
+	L_GUN_192, // description
 	0x08001018, // flags
 };
 
 struct weaponfunc_device invfunc_rtracker_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(142), // name
+	L_GUN_142, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5293,16 +5293,16 @@ struct weapon invitem_rtracker = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(70), // short name
-	L_GUN(70), // name
-	L_GUN(0), // manufacturer
-	L_GUN(198), // description
+	L_GUN_070, // short name
+	L_GUN_070, // name
+	L_GUN_000, // manufacturer
+	L_GUN_198, // description
 	0x08001018, // flags
 };
 
 struct weaponfunc_device invfunc_xray_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(137), // name
+	L_GUN_137, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5329,10 +5329,10 @@ struct weapon invitem_xrayscanner = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(233), // short name
-	L_GUN(65), // name
-	L_GUN(0), // manufacturer
-	L_GUN(193), // description
+	L_GUN_233, // short name
+	L_GUN_065, // name
+	L_GUN_000, // manufacturer
+	L_GUN_193, // description
 	0x08600058, // flags
 };
 
@@ -5353,7 +5353,7 @@ struct guncmd invanim_unused_8007f794[] = {
 
 struct weaponfunc_special invfunc_datauplink_primary = {
 	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN(141), // name
+	L_GUN_141, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5382,10 +5382,10 @@ struct weapon invitem_datauplink = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(75), // short name
-	L_GUN(75), // name
-	L_GUN(0), // manufacturer
-	L_GUN(197), // description
+	L_GUN_075, // short name
+	L_GUN_075, // name
+	L_GUN_000, // manufacturer
+	L_GUN_197, // description
 	0x88022048, // flags
 };
 
@@ -5408,10 +5408,10 @@ struct weapon invitem_doordecoder = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(63), // short name
-	L_GUN(63), // name
-	L_GUN(0), // manufacturer
-	L_GUN(200), // description
+	L_GUN_063, // short name
+	L_GUN_063, // name
+	L_GUN_000, // manufacturer
+	L_GUN_200, // description
 	0x88000008, // flags
 };
 
@@ -5434,10 +5434,10 @@ struct weapon invitem_rocket = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(44), // short name
-	L_GUN(44), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_044, // short name
+	L_GUN_044, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00000000, // flags
 };
 
@@ -5460,10 +5460,10 @@ struct weapon invitem_homingrocket = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(45), // short name
-	L_GUN(45), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_045, // short name
+	L_GUN_045, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00000000, // flags
 };
 
@@ -5485,10 +5485,10 @@ struct weapon invitem_grenaderound = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(46), // short name
-	L_GUN(46), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_046, // short name
+	L_GUN_046, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00000000, // flags
 };
 
@@ -5510,16 +5510,16 @@ struct weapon invitem_bolt = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(48), // short name
-	L_GUN(48), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_048, // short name
+	L_GUN_048, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x00000000, // flags
 };
 
 struct weaponfunc_special invfunc_unused_8006f9a4 = {
 	INVENTORYFUNCTYPE_SPECIAL,
-	L_GUN(144), // "Place Explosives"
+	L_GUN_144, // "Place Explosives"
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5549,10 +5549,10 @@ struct weapon invitem_skedarbomb = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(221), // short name
-	L_GUN(221), // name
-	L_GUN(0), // manufacturer
-	L_GUN(203), // description
+	L_GUN_221, // short name
+	L_GUN_221, // name
+	L_GUN_000, // manufacturer
+	L_GUN_203, // description
 	0x80000000, // flags
 };
 
@@ -5575,16 +5575,16 @@ struct weapon invitem_explosives = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(64), // short name
-	L_GUN(64), // name
-	L_GUN(0), // manufacturer
-	L_GUN(202), // description
+	L_GUN_064, // short name
+	L_GUN_064, // name
+	L_GUN_000, // manufacturer
+	L_GUN_202, // description
 	0x80000000, // flags
 };
 
 struct weaponfunc_device invfunc_presidentscanner_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
-	L_GUN(142), // name
+	L_GUN_142, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
@@ -5611,10 +5611,10 @@ struct weapon invitem_presidentscanner = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(231), // short name
-	L_GUN(219), // name
-	L_GUN(0), // manufacturer
-	L_GUN(199), // description
+	L_GUN_231, // short name
+	L_GUN_219, // name
+	L_GUN_000, // manufacturer
+	L_GUN_199, // description
 	0x08001018, // flags
 };
 
@@ -5637,10 +5637,10 @@ struct weapon invitem_autosurgeon = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(220), // short name
-	L_GUN(220), // name
-	L_GUN(0), // manufacturer
-	L_GUN(201), // description
+	L_GUN_220, // short name
+	L_GUN_220, // name
+	L_GUN_000, // manufacturer
+	L_GUN_201, // description
 	0x88000000, // flags
 };
 
@@ -5663,10 +5663,10 @@ struct weapon invitem_flightplans = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(225), // short name
-	L_GUN(225), // name
-	L_GUN(0), // manufacturer
-	L_GUN(207), // description
+	L_GUN_225, // short name
+	L_GUN_225, // name
+	L_GUN_000, // manufacturer
+	L_GUN_207, // description
 	0x08000000, // flags
 };
 
@@ -5689,10 +5689,10 @@ struct weapon invitem_researchtape = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(226), // short name
-	L_GUN(226), // name
-	L_GUN(0), // manufacturer
-	L_GUN(208), // description
+	L_GUN_226, // short name
+	L_GUN_226, // name
+	L_GUN_000, // manufacturer
+	L_GUN_208, // description
 	0x08000000, // flags
 };
 
@@ -5715,10 +5715,10 @@ struct weapon invitem_backupdisk = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(227), // short name
-	L_GUN(227), // name
-	L_GUN(0), // manufacturer
-	L_GUN(209), // description
+	L_GUN_227, // short name
+	L_GUN_227, // name
+	L_GUN_000, // manufacturer
+	L_GUN_209, // description
 	0x08000000, // flags
 };
 
@@ -5741,10 +5741,10 @@ struct weapon invitem_briefcase = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(229), // short name
-	L_GUN(229), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_229, // short name
+	L_GUN_229, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x08040000, // flags
 };
 
@@ -5767,10 +5767,10 @@ struct weapon invitem_suitcase = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(67), // short name
-	L_GUN(67), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_067, // short name
+	L_GUN_067, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x88000000, // flags
 };
 
@@ -5793,10 +5793,10 @@ struct weapon invitem_necklace = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(230), // short name
-	L_GUN(230), // name
-	L_GUN(0), // manufacturer
-	L_GUN(238), // description
+	L_GUN_230, // short name
+	L_GUN_230, // name
+	L_GUN_000, // manufacturer
+	L_GUN_238, // description
 	0x08000000, // flags
 };
 
@@ -5819,10 +5819,10 @@ struct weapon invitem_shield = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(240), // short name
-	L_GUN(240), // name
-	L_GUN(0), // manufacturer
-	L_GUN(241), // description
+	L_GUN_240, // short name
+	L_GUN_240, // name
+	L_GUN_000, // manufacturer
+	L_GUN_241, // description
 	0x08000000, // flags
 };
 
@@ -5845,16 +5845,16 @@ struct weapon invitem_keycard = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(228), // short name
-	L_GUN(228), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_228, // short name
+	L_GUN_228, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x08000000, // flags
 };
 
 struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
-	L_GUN(0), // name
+	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
@@ -5908,10 +5908,10 @@ struct weapon invitem_rocketlauncher_34 = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(80), // short name
-	L_GUN(27), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_080, // short name
+	L_GUN_027, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x40026070, // flags
 };
 
@@ -5922,7 +5922,7 @@ struct guncmd invanim_tester_shoot[] = {
 
 struct weaponfunc_shootsingle invfunc_tester_primary = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
-	L_GUN(0), // name
+	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
@@ -5968,10 +5968,10 @@ struct weapon invitem_tester = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
-	L_GUN(58), // short name
-	L_GUN(58), // name
-	L_GUN(0), // manufacturer
-	L_GUN(0), // description
+	L_GUN_058, // short name
+	L_GUN_058, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
 	0x0000a47c, // flags
 };
 

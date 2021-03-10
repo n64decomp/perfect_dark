@@ -118,31 +118,31 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_SHO(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_SHO(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_SHO(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_SHO(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_SHO_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_SHO_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_SHO_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_SHO_003)
 
-	beginobjective(0, L_SHO(5), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Identify temple targets"
+	beginobjective(0, L_SHO_005, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Identify temple targets"
 		complete_flags(STAGEFLAG_PILLAR1_MARKED)
 		complete_flags(STAGEFLAG_PILLAR2_MARKED)
 		complete_flags(STAGEFLAG_PILLAR3_MARKED)
 		fail_flags(STAGEFLAG_BUG_WASTED)
 	endobjective
 
-	beginobjective(1, L_SHO(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate bridge"
+	beginobjective(1, L_SHO_006, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate bridge"
 		complete_flags(STAGEFLAG_BRIDGE_EXTENDED)
 	endobjective
 
-	beginobjective(2, L_SHO(7), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain access to Inner Sanctum"
+	beginobjective(2, L_SHO_007, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain access to Inner Sanctum"
 		complete_flags(STAGEFLAG_ACCESSED_SANCTUM)
 	endobjective
 
-	beginobjective(3, L_SHO(8), (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy secret Skedar army"
+	beginobjective(3, L_SHO_008, (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy secret Skedar army"
 		complete_flags(STAGEFLAG_ARMY_DEFEATED)
 	endobjective
 
-	beginobjective(4, L_SHO(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Assassinate Skedar leader"
+	beginobjective(4, L_SHO_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Assassinate Skedar leader"
 		complete_flags(STAGEFLAG_SPIKE1_DESTROYED)
 		complete_flags(STAGEFLAG_SPIKE2_DESTROYED)
 		complete_flags(STAGEFLAG_SPIKE3_DESTROYED)
@@ -347,10 +347,10 @@ u32 props[] = {
 	lift(0x0100, MODEL_SKEDARBRIDGE, 0x0135, 0x035204e8, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0135, 0x0134, 0xffffffff, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000471c, 0x00a6aaaa, 0x00000000, 0x00000000, 0x00000000, 0x00000000)
 	tag(0x08, 1)
 	stdobject(0x0100, MODEL_TARGETAMP, 0x0001, 0x012405e1, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x3f, L_SHO(20), L_SHO(21), L_SHO(22), L_SHO(23), L_SHO(24), 0x0000, 0x0000) // "Obtain Target Amplifier."
+	rename_object(-1, 0x3f, L_SHO_020, L_SHO_021, L_SHO_022, L_SHO_023, L_SHO_024, 0x0000, 0x0000) // "Obtain Target Amplifier."
 	tag(0x35, 1)
 	stdobject(0x0100, MODEL_TARGETAMP, 0x0001, 0x012405e1, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x3f, L_SHO(20), L_SHO(21), L_SHO(22), L_SHO(23), L_SHO(24), 0x0000, 0x0000) // "Obtain Target Amplifier."
+	rename_object(-1, 0x3f, L_SHO_020, L_SHO_021, L_SHO_022, L_SHO_023, L_SHO_024, 0x0000, 0x0000) // "Obtain Target Amplifier."
 	tag(0x0b, 1)
 	multimonitor(0x0019, MODEL_COMHUB, 0x0137, 0x00420002, 0x00000000, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x03030300)
 	tag(0x13, 1)
@@ -1047,7 +1047,7 @@ u8 func100c_check_army_defeated[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	show_hudmsg(CHR_BOND, L_SHO(29)) // "Skedar secret army has been defeated."
+	show_hudmsg(CHR_BOND, L_SHO_029) // "Skedar secret army has been defeated."
 	set_stage_flag(STAGEFLAG_ARMY_DEFEATED)
 
 	beginloop(0x91)
@@ -1260,7 +1260,7 @@ u8 func1007_bug_throws_bond[] = {
 	dprint '1',' ','P','L','A','C','E','D','\n',0,
 	if_stage_flag_eq(STAGEFLAG_PILLAR1_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR1_MARKED)
-	show_hudmsg(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_BOND, L_SHO_025) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1268,7 +1268,7 @@ u8 func1007_bug_throws_bond[] = {
 	dprint '2',' ','P','L','A','C','E','D','\n',0,
 	if_stage_flag_eq(STAGEFLAG_PILLAR2_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR2_MARKED)
-	show_hudmsg(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_BOND, L_SHO_025) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1276,7 +1276,7 @@ u8 func1007_bug_throws_bond[] = {
 	dprint '3',' ','P','L','A','C','E','D','\n',0,
 	if_stage_flag_eq(STAGEFLAG_PILLAR3_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR3_MARKED)
-	show_hudmsg(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_BOND, L_SHO_025) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1300,7 +1300,7 @@ u8 func1007_bug_throws_bond[] = {
 	set_stage_flag(STAGEFLAG_BOND_BUGS_WASTED)
 	if_stage_flag_eq(STAGEFLAG_COOP_BUGS_WASTED, FALSE, /*goto*/ 0x0f)
 	set_stage_flag(STAGEFLAG_BUG_WASTED)
-	show_hudmsg(CHR_BOND, L_SHO(26)) // "Target Amplifier placed incorrectly."
+	show_hudmsg(CHR_BOND, L_SHO_026) // "Target Amplifier placed incorrectly."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1378,7 +1378,7 @@ u8 func101b_bug_throws_coop[] = {
 	unset_object_flag3(OBJ_PILLAR1, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR1_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR1_MARKED)
-	show_hudmsg(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_COOP, L_SHO_025) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1387,7 +1387,7 @@ u8 func101b_bug_throws_coop[] = {
 	unset_object_flag3(OBJ_PILLAR2, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR2_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR2_MARKED)
-	show_hudmsg(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_COOP, L_SHO_025) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1396,7 +1396,7 @@ u8 func101b_bug_throws_coop[] = {
 	unset_object_flag3(OBJ_PILLAR3, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR3_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR3_MARKED)
-	show_hudmsg(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_COOP, L_SHO_025) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1419,7 +1419,7 @@ u8 func101b_bug_throws_coop[] = {
 	set_stage_flag(STAGEFLAG_COOP_BUGS_WASTED)
 	if_self_flag_bankx_eq(CHRFLAG0_00000010, FALSE, BANK_0, /*goto*/ 0x0f)
 	set_stage_flag(STAGEFLAG_BUG_WASTED)
-	show_hudmsg(CHR_COOP, L_SHO(26)) // "Target Amplifier placed incorrectly."
+	show_hudmsg(CHR_COOP, L_SHO_026) // "Target Amplifier placed incorrectly."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1471,7 +1471,7 @@ u8 func1009_altar[] = {
 	// At pad, or invalid weapon equipped
 	label(0x2e)
 	set_object_flag2(OBJ_ALTAR, OBJFLAG2_00002000)
-	show_hudmsg(CHR_P1P2, L_SHO(51)) // "Make your sacrifice to the God of War."
+	show_hudmsg(CHR_P1P2, L_SHO_051) // "Make your sacrifice to the God of War."
 	restart_timer
 
 	beginloop(0x91)
@@ -1550,7 +1550,7 @@ u8 func1009_altar[] = {
 
 	label(0x2d)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2d)
-	show_hudmsg(CHR_P1P2, L_SHO(27)) // "Generator has been reactivated."
+	show_hudmsg(CHR_P1P2, L_SHO_027) // "Generator has been reactivated."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1866,7 +1866,7 @@ u8 func100b_check_sanctum_accessed[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	show_hudmsg(CHR_P1P2, L_SHO(28)) // "Skedar Inner Sanctum has been reached."
+	show_hudmsg(CHR_P1P2, L_SHO_028) // "Skedar Inner Sanctum has been reached."
 	set_stage_flag(STAGEFLAG_ACCESSED_SANCTUM)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3040,7 +3040,7 @@ u8 func1015_msg_specialpillars[] = {
 	goto_first(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO(30), 0x73e0, CHANNEL_6, COLOR_09_BLUE) // "This seems to be one of the special pillars."
+	speak(CHR_P1P2, L_SHO_030, 0x73e0, CHANNEL_6, COLOR_09_BLUE) // "This seems to be one of the special pillars."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3054,7 +3054,7 @@ u8 func1016_msg_powersmoreconstant[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO(31), 0x73e1, CHANNEL_6, COLOR_09_BLUE) // "The power's more constant in this area. The Inner ..."
+	speak(CHR_P1P2, L_SHO_031, 0x73e1, CHANNEL_6, COLOR_09_BLUE) // "The power's more constant in this area. The Inner ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3066,7 +3066,7 @@ u8 func1017_msg_skedararmy[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO(32), 0x73e2, CHANNEL_6, COLOR_09_BLUE) // "OH, NO!!! A Skedar army in suspended animation!"
+	speak(CHR_P1P2, L_SHO_032, 0x73e2, CHANNEL_6, COLOR_09_BLUE) // "OH, NO!!! A Skedar army in suspended animation!"
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3085,7 +3085,7 @@ u8 func1018_msg_cutoffthehead[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO(33), 0x73e3, CHANNEL_6, COLOR_09_BLUE) // "Okay, this is it... Cut off the head and the body ..."
+	speak(CHR_P1P2, L_SHO_033, 0x73e3, CHANNEL_6, COLOR_09_BLUE) // "Okay, this is it... Cut off the head and the body ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3230,13 +3230,13 @@ u8 func0c00_intro_sounds[] = {
 	restart_timer
 
 	wait_until_with_stageflag(100, 0x91)
-	speak(CHR_BOND, L_SHO(34), 0x748d, CHANNEL_10, COLOR_04_ORANGE) // "This is the Skedar fanatics' most holy place. They..."
+	speak(CHR_BOND, L_SHO_034, 0x748d, CHANNEL_10, COLOR_04_ORANGE) // "This is the Skedar fanatics' most holy place. They..."
 
 	wait_until_with_stageflag(770, 0xa4)
 	play_sound(0x0433, CHANNEL_10)
 
 	wait_until_with_stageflag(800, 0x92)
-	speak(CHR_BOND, L_SHO(35), 0x748e, CHANNEL_10, COLOR_09_BLUE) // "So let me get this straight - it's holy. But there..."
+	speak(CHR_BOND, L_SHO_035, 0x748e, CHANNEL_10, COLOR_09_BLUE) // "So let me get this straight - it's holy. But there..."
 
 	wait_until_with_stageflag(1018, 0xa5)
 	play_sound(0x05a0, CHANNEL_10)
@@ -3248,7 +3248,7 @@ u8 func0c00_intro_sounds[] = {
 	play_sound(0x05a0, CHANNEL_10)
 
 	wait_until_with_stageflag(1210, 0x93)
-	speak(CHR_BOND, L_SHO(36), 0x748f, CHANNEL_10, COLOR_04_ORANGE) // "Yes. In all of the time that we Maians fought the ..."
+	speak(CHR_BOND, L_SHO_036, 0x748f, CHANNEL_10, COLOR_04_ORANGE) // "Yes. In all of the time that we Maians fought the ..."
 
 	wait_until_with_stageflag(1230, 0xa8)
 	play_sound(0x05a1, CHANNEL_10)
@@ -3317,10 +3317,10 @@ u8 func0c00_intro_sounds[] = {
 	play_sound(0x05a0, CHANNEL_10)
 
 	wait_until_with_stageflag(2650, 0x94)
-	speak(CHR_BOND, L_SHO(37), 0x7490, CHANNEL_10, COLOR_09_BLUE) // "Then we have to be certain that no fanatics surviv..."
+	speak(CHR_BOND, L_SHO_037, 0x7490, CHANNEL_10, COLOR_09_BLUE) // "Then we have to be certain that no fanatics surviv..."
 
 	wait_until_with_stageflag(3250, 0x95)
-	speak(CHR_BOND, L_SHO(38), 0x7491, CHANNEL_10, COLOR_04_ORANGE) // "If you're caught on the ground when the fleet gets..."
+	speak(CHR_BOND, L_SHO_038, 0x7491, CHANNEL_10, COLOR_04_ORANGE) // "If you're caught on the ground when the fleet gets..."
 
 	wait_until(3330, 0xc3)
 	play_sound(0x0530, CHANNEL_10)
@@ -3330,7 +3330,7 @@ u8 func0c00_intro_sounds[] = {
 
 	wait_until_with_stageflag(3600, 0x96)
 	mute_channel(CHANNEL_7)
-	speak(CHR_BOND, L_SHO(39), 0x7492, CHANNEL_10, COLOR_09_BLUE) // "That's a mistake I don't intend to make."
+	speak(CHR_BOND, L_SHO_039, 0x7492, CHANNEL_10, COLOR_09_BLUE) // "That's a mistake I don't intend to make."
 
 	wait_until(4040, 0xc0)
 	play_sound(0x05a0, CHANNEL_10)
@@ -3432,7 +3432,7 @@ u8 func0414_outro_sounds[] = {
 	play_sound(0x052d, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(230, 0x9b)
-	speak(CHR_BOND, L_SHO(40), 0x74de, CHANNEL_10, COLOR_09_BLUE) // "Yesss..."
+	speak(CHR_BOND, L_SHO_040, 0x74de, CHANNEL_10, COLOR_09_BLUE) // "Yesss..."
 
 	outro_wait_until_with_stageflag(470, 0xa9)
 	play_sound(0x8099, CHANNEL_10)
@@ -3493,22 +3493,22 @@ u8 func0414_outro_sounds[] = {
 
 	outro_wait_until_with_stageflag(1680, 0x91)
 	mute_channel(CHANNEL_10)
-	speak(CHR_BOND, L_SHO(41), 0x7493, CHANNEL_10, COLOR_04_ORANGE) // "Joanna! Joanna!"
+	speak(CHR_BOND, L_SHO_041, 0x7493, CHANNEL_10, COLOR_04_ORANGE) // "Joanna! Joanna!"
 
 	outro_wait_until_with_stageflag(2020, 0x9c)
-	speak(CHR_BOND, L_SHO(54), 0x7755, CHANNEL_10, COLOR_04_ORANGE) // "Where are you? Are you hurt?"
+	speak(CHR_BOND, L_SHO_054, 0x7755, CHANNEL_10, COLOR_04_ORANGE) // "Where are you? Are you hurt?"
 
 	outro_wait_until_with_stageflag(2206, 0x92)
-	speak(CHR_BOND, L_SHO(42), 0x7494, CHANNEL_10, COLOR_09_BLUE) // "Elvis! Elvis! Over here."
+	speak(CHR_BOND, L_SHO_042, 0x7494, CHANNEL_10, COLOR_09_BLUE) // "Elvis! Elvis! Over here."
 
 	outro_wait_until_with_stageflag(2625, 0x93)
-	speak(CHR_BOND, L_SHO(43), 0x7495, CHANNEL_10, COLOR_04_ORANGE) // "No problem. Grab my arms - we'll get you out in no..."
+	speak(CHR_BOND, L_SHO_043, 0x7495, CHANNEL_10, COLOR_04_ORANGE) // "No problem. Grab my arms - we'll get you out in no..."
 
 	outro_wait_until_with_stageflag(2810, 0xd4)
 	play_sound(0x0531, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(2895, 0x94)
-	speak(CHR_BOND, L_SHO(44), 0x7496, CHANNEL_10, COLOR_09_BLUE) // "No, quick! Give me your gun!"
+	speak(CHR_BOND, L_SHO_044, 0x7496, CHANNEL_10, COLOR_09_BLUE) // "No, quick! Give me your gun!"
 
 	outro_wait_until_with_stageflag(3160, 0xca)
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
@@ -3520,7 +3520,7 @@ u8 func0414_outro_sounds[] = {
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
 
 	outro_wait_until_with_stageflag(3290, 0x95)
-	speak(CHR_BOND, L_SHO(45), 0x7497, CHANNEL_10, COLOR_09_BLUE) // "Will! You! Just! Let! Go!"
+	speak(CHR_BOND, L_SHO_045, 0x7497, CHANNEL_10, COLOR_09_BLUE) // "Will! You! Just! Let! Go!"
 
 	outro_wait_until_with_stageflag(3420, 0xcf)
 	set_chr_shooting_in_cutscene(CHR_TARGET, TRUE)
@@ -3561,19 +3561,19 @@ u8 func0414_outro_sounds[] = {
 	play_sound(0x0427, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(3990, 0x96)
-	speak(CHR_BOND, L_SHO(46), 0x7498, CHANNEL_10, COLOR_04_ORANGE) // "I managed to get the fleet to stop the bombardment..."
+	speak(CHR_BOND, L_SHO_046, 0x7498, CHANNEL_10, COLOR_04_ORANGE) // "I managed to get the fleet to stop the bombardment..."
 
 	outro_wait_until_with_stageflag(4425, 0x97)
-	speak(CHR_BOND, L_SHO(47), 0x7499, CHANNEL_10, COLOR_09_BLUE) // "I'd have got out in time if that one hadn't grabbe..."
+	speak(CHR_BOND, L_SHO_047, 0x7499, CHANNEL_10, COLOR_09_BLUE) // "I'd have got out in time if that one hadn't grabbe..."
 
 	outro_wait_until_with_stageflag(4650, 0x98)
-	speak(CHR_BOND, L_SHO(48), 0x749a, CHANNEL_10, COLOR_04_ORANGE) // "Of course, Joanna, of course."
+	speak(CHR_BOND, L_SHO_048, 0x749a, CHANNEL_10, COLOR_04_ORANGE) // "Of course, Joanna, of course."
 
 	outro_wait_until_with_stageflag(4825, 0x99)
-	speak(CHR_BOND, L_SHO(49), 0x749b, CHANNEL_10, COLOR_09_BLUE) // "No, I would have."
+	speak(CHR_BOND, L_SHO_049, 0x749b, CHANNEL_10, COLOR_09_BLUE) // "No, I would have."
 
 	outro_wait_until_with_stageflag(4960, 0x9a)
-	speak(CHR_BOND, L_SHO(50), 0x749c, CHANNEL_10, COLOR_04_ORANGE) // "I believe you."
+	speak(CHR_BOND, L_SHO_050, 0x749c, CHANNEL_10, COLOR_04_ORANGE) // "I believe you."
 
 	outro_wait_until_with_stageflag(5560, 0x9d)
 	play_sound(0x0161, CHANNEL_7)
@@ -3653,7 +3653,7 @@ u8 unregistered_function1[] = {
 
 	label(0x2d)
 	chr_drop_weapon(CHR_BOND)
-	show_hudmsg(CHR_BOND, L_SHO(26)) // "Target Amplifier placed incorrectly."
+	show_hudmsg(CHR_BOND, L_SHO_026) // "Target Amplifier placed incorrectly."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3708,12 +3708,12 @@ u8 func1024_check_grenades_wasted[] = {
 
 		// Blown up using other means (eg. Phoenix or all guns cheat)
 		unset_stage_flag(STAGEFLAG_GRENADES_WASTED)
-		show_hudmsg(CHR_BOND, L_SHO(53)) // "Alternative entrance to Shrine created."
+		show_hudmsg(CHR_BOND, L_SHO_053) // "Alternative entrance to Shrine created."
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_GRENADES_WASTED, TRUE, /*goto*/ 0x2d)
-		show_hudmsg(CHR_BOND, L_SHO(52)) // "Grenade ammo used up - can't enter Shrine."
+		show_hudmsg(CHR_BOND, L_SHO_052) // "Grenade ammo used up - can't enter Shrine."
 		set_stage_flag(STAGEFLAG_GRENADES_WASTED)
 		label(0x2d)
 	endloop(0x09)

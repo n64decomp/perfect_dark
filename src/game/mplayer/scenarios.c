@@ -277,9 +277,9 @@ s32 menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handler
 }
 
 u16 mpslowmotionoptions[] = {
-	L_MPMENU(240), // "Off"
-	L_MPMENU(241), // "On"
-	L_MPMENU(242), // "Smart"
+	L_MPMENU_240, // "Off"
+	L_MPMENU_241, // "On"
+	L_MPMENU_242, // "Smart"
 };
 
 GLOBAL_ASM(
@@ -496,23 +496,23 @@ void func0f180078(void)
 }
 
 struct menuitem g_MpCombatOptionsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222), MPOPTION_ONEHITKILLS,       menuhandlerMpOneHitKills    }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223), 0x00000000,                 menuhandlerMpSlowMotion     }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224), MPOPTION_FASTMOVEMENT,      menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225), MPOPTION_DISPLAYTEAM,       menuhandlerMpDisplayTeam    }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226), MPOPTION_NORADAR,           menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227), MPOPTION_NOAUTOAIM,         menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_222, MPOPTION_ONEHITKILLS,       menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU_223, 0x00000000,                 menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_224, MPOPTION_FASTMOVEMENT,      menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_225, MPOPTION_DISPLAYTEAM,       menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_226, MPOPTION_NORADAR,           menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_227, MPOPTION_NOAUTOAIM,         menuhandlerMpCheckboxOption }, // "No Auto-Aim"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,    0x00000000,                 NULL                        },
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(228), MPOPTION_NOPLAYERHIGHLIGHT, menuhandlerMpCheckboxOption }, // "No Player Highlight"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(229), MPOPTION_NOPICKUPHIGHLIGHT, menuhandlerMpCheckboxOption }, // "No Pickup Highlight"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_228, MPOPTION_NOPLAYERHIGHLIGHT, menuhandlerMpCheckboxOption }, // "No Player Highlight"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_229, MPOPTION_NOPICKUPHIGHLIGHT, menuhandlerMpCheckboxOption }, // "No Pickup Highlight"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,    0x00000000,                 NULL                        },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239), 0x00000000,                 NULL                        }, // "Back"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU_239, 0x00000000,                 NULL                        }, // "Back"
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,                 NULL                        },
 };
 
 struct menudialog g_MpCombatOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(215), // "Combat Options"
+	L_MPMENU_215, // "Combat Options"
 	g_MpCombatOptionsMenuItems,
 	mpOptionsMenuDialog,
 	0x00000010,
@@ -520,24 +520,24 @@ struct menudialog g_MpCombatOptionsMenuDialog = {
 };
 
 struct menuitem g_MpBriefcaseOptionsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,            menuhandlerMpOneHitKills    }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,                      menuhandlerMpSlowMotion     }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,           menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,            menuhandlerMpDisplayTeam    }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,                menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,              menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,             menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_222,  MPOPTION_ONEHITKILLS,            menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU_223,  0x00000000,                      menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_224,  MPOPTION_FASTMOVEMENT,           menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_225,  MPOPTION_DISPLAYTEAM,            menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_226,  MPOPTION_NORADAR,                menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_227,  MPOPTION_NOAUTOAIM,              menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS_493, MPOPTION_KILLSSCORE,             menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                      NULL                        },
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(237),  MPOPTION_HTB_HIGHLIGHTBRIEFCASE, menuhandlerMpCheckboxOption }, // "Highlight Briefcase"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(238),  MPOPTION_HTB_SHOWONRADAR,        menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_237,  MPOPTION_HTB_HIGHLIGHTBRIEFCASE, menuhandlerMpCheckboxOption }, // "Highlight Briefcase"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_238,  MPOPTION_HTB_SHOWONRADAR,        menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                      NULL                        },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,                      NULL                        }, // "Back"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU_239,  0x00000000,                      NULL                        }, // "Back"
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,                      NULL                        },
 };
 
 struct menudialog g_MpBriefcaseOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(216), // "Briefcase Options"
+	L_MPMENU_216, // "Briefcase Options"
 	g_MpBriefcaseOptionsMenuItems,
 	mpOptionsMenuDialog,
 	0x00000010,
@@ -818,7 +818,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOTIME240(30)) {
 				audioStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
-				func0f0ddfa4(langGet(L_MPWEAPONS(24)), 9, 1); // "1 Point!"
+				func0f0ddfa4(langGet(L_MPWEAPONS_024), 9, 1); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
 		} else {
@@ -1197,23 +1197,23 @@ void scenarioCtcCallback14(struct chrdata *chr)
 }
 
 struct menuitem g_MpCaptureOptionsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,     menuhandlerMpOneHitKills    }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,               menuhandlerMpSlowMotion     }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,    menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,     menuhandlerMpDisplayTeam    }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,         menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,       menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,      menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_222,  MPOPTION_ONEHITKILLS,     menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU_223,  0x00000000,               menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_224,  MPOPTION_FASTMOVEMENT,    menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_225,  MPOPTION_DISPLAYTEAM,     menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_226,  MPOPTION_NORADAR,         menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_227,  MPOPTION_NOAUTOAIM,       menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS_493, MPOPTION_KILLSSCORE,      menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(236),  MPOPTION_CTC_SHOWONRADAR, menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_236,  MPOPTION_CTC_SHOWONRADAR, menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,               NULL                        }, // "Back"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU_239,  0x00000000,               NULL                        }, // "Back"
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
 };
 
 struct menudialog g_MpCaptureOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(220), // "Capture Options"
+	L_MPMENU_220, // "Capture Options"
 	g_MpCaptureOptionsMenuItems,
 	mpOptionsMenuDialog,
 	0x00000010,
@@ -1908,7 +1908,7 @@ s32 menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdat
 		g_Vars.mphilltime = (u8)data->slider.value;
 		break;
 	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, langGet(L_MPWEAPONS(23)), data->slider.value + 10); // "%ds/Point"
+		sprintf(data->slider.label, langGet(L_MPWEAPONS_023), data->slider.value + 10); // "%ds/Point"
 		break;
 	}
 
@@ -3875,25 +3875,25 @@ void func0f182bf4(void)
 }
 
 struct menuitem g_MpHillOptionsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,     menuhandlerMpOneHitKills    }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,               menuhandlerMpSlowMotion     }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,    menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,     menuhandlerMpDisplayTeam    }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,         menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,       menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,      menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_222,  MPOPTION_ONEHITKILLS,     menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU_223,  0x00000000,               menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_224,  MPOPTION_FASTMOVEMENT,    menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_225,  MPOPTION_DISPLAYTEAM,     menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_226,  MPOPTION_NORADAR,         menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_227,  MPOPTION_NOAUTOAIM,       menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS_493, MPOPTION_KILLSSCORE,      menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(233),  MPOPTION_KOH_HILLONRADAR, menuhandlerMpCheckboxOption }, // "Hill on Radar"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(234),  MPOPTION_KOH_MOBILEHILL,  menuhandlerMpCheckboxOption }, // "Mobile Hill"
-	{ MENUITEMTYPE_SLIDER,     0, 0x00020000, L_MPMENU(235),  0x0000006e,               menuhandlerMpHillTime       }, // "Time"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_233,  MPOPTION_KOH_HILLONRADAR, menuhandlerMpCheckboxOption }, // "Hill on Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_234,  MPOPTION_KOH_MOBILEHILL,  menuhandlerMpCheckboxOption }, // "Mobile Hill"
+	{ MENUITEMTYPE_SLIDER,     0, 0x00020000, L_MPMENU_235,  0x0000006e,               menuhandlerMpHillTime       }, // "Time"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,               NULL                        }, // "Back"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU_239,  0x00000000,               NULL                        }, // "Back"
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
 };
 
 struct menudialog g_MpHillOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(219), // "Hill Options"
+	L_MPMENU_219, // "Hill Options"
 	g_MpHillOptionsMenuItems,
 	mpOptionsMenuDialog,
 	0x00000010,
@@ -3901,24 +3901,24 @@ struct menudialog g_MpHillOptionsMenuDialog = {
 };
 
 struct menuitem g_MpHackerOptionsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,           menuhandlerMpOneHitKills    }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,                     menuhandlerMpSlowMotion     }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,          menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,           menuhandlerMpDisplayTeam    }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,               menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,             menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,            menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_222,  MPOPTION_ONEHITKILLS,           menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU_223,  0x00000000,                     menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_224,  MPOPTION_FASTMOVEMENT,          menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_225,  MPOPTION_DISPLAYTEAM,           menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_226,  MPOPTION_NORADAR,               menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_227,  MPOPTION_NOAUTOAIM,             menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS_493, MPOPTION_KILLSSCORE,            menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                     NULL                        },
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(231),  MPOPTION_HTM_HIGHLIGHTTERMINAL, menuhandlerMpCheckboxOption }, // "Highlight Terminal"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(238),  MPOPTION_HTM_SHOWONRADAR,       menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_231,  MPOPTION_HTM_HIGHLIGHTTERMINAL, menuhandlerMpCheckboxOption }, // "Highlight Terminal"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_238,  MPOPTION_HTM_SHOWONRADAR,       menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                     NULL                        },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,                     NULL                        }, // "Back"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU_239,  0x00000000,                     NULL                        }, // "Back"
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,                     NULL                        },
 };
 
 struct menudialog g_MpHackerOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(217), // "Hacker Options"
+	L_MPMENU_217, // "Hacker Options"
 	g_MpHackerOptionsMenuItems,
 	mpOptionsMenuDialog,
 	0x00000010,
@@ -5847,7 +5847,7 @@ glabel scenarioPacTick
 //			if (g_ScenarioData.pac.age240 > SECSTOTIME240(60)) {
 //				g_ScenarioData.pac.age240 = 0;
 //				g_ScenarioData.pac.wincounts[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]++;
-//				mpCreateScenarioHudmsg(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(L_MPWEAPONS(7))); // "Have a point for living!"
+//				mpCreateScenarioHudmsg(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(L_MPWEAPONS_007)); // "Have a point for living!"
 //			}
 //		}
 //	}
@@ -6188,24 +6188,24 @@ char *mpMenuTextScenarioName(struct menuitem *item)
 }
 
 struct menuitem g_MpPopacapOptionsMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,         menuhandlerMpOneHitKills    }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,                   menuhandlerMpSlowMotion     }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,        menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,         menuhandlerMpDisplayTeam    }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,             menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,           menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,          menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_222,  MPOPTION_ONEHITKILLS,         menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU_223,  0x00000000,                   menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_224,  MPOPTION_FASTMOVEMENT,        menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_225,  MPOPTION_DISPLAYTEAM,         menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_226,  MPOPTION_NORADAR,             menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_227,  MPOPTION_NOAUTOAIM,           menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS_493, MPOPTION_KILLSSCORE,          menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                   NULL                        },
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(230),  MPOPTION_PAC_HIGHLIGHTTARGET, menuhandlerMpCheckboxOption }, // "Highlight Target"
-	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(238),  MPOPTION_PAC_SHOWONRADAR,     menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_230,  MPOPTION_PAC_HIGHLIGHTTARGET, menuhandlerMpCheckboxOption }, // "Highlight Target"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU_238,  MPOPTION_PAC_SHOWONRADAR,     menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                   NULL                        },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,                   NULL                        }, // "Back"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU_239,  0x00000000,                   NULL                        }, // "Back"
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,                   NULL                        },
 };
 
 struct menudialog g_MpPopacapOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(218), // "Pop a Cap Options"
+	L_MPMENU_218, // "Pop a Cap Options"
 	g_MpPopacapOptionsMenuItems,
 	mpOptionsMenuDialog,
 	0x00000010,
@@ -6291,12 +6291,12 @@ struct mpscenario g_MpScenarios[6] = {
 
 struct mpscenariooverview g_MpScenarioOverviews[] = {
 	// Full name, short name, unlock flags?
-	{ L_MPMENU(246), L_MPMENU(253), 0x00, false }, // "Combat", "Combat"
-	{ L_MPMENU(247), L_MPMENU(254), 0x20, false }, // "Hold the Briefcase", "Briefcase"
-	{ L_MPMENU(248), L_MPMENU(255), 0x4e, false }, // "Hacker Central", "Hacker"
-	{ L_MPMENU(249), L_MPMENU(256), 0x4d, false }, // "Pop a Cap", "Pop"
-	{ L_MPMENU(250), L_MPMENU(257), 0x1f, true  }, // "King of the Hill", "Hill"
-	{ L_MPMENU(251), L_MPMENU(258), 0x21, true  }, // "Capture the Case", "Capture"
+	{ L_MPMENU_246, L_MPMENU_253, 0x00, false }, // "Combat", "Combat"
+	{ L_MPMENU_247, L_MPMENU_254, 0x20, false }, // "Hold the Briefcase", "Briefcase"
+	{ L_MPMENU_248, L_MPMENU_255, 0x4e, false }, // "Hacker Central", "Hacker"
+	{ L_MPMENU_249, L_MPMENU_256, 0x4d, false }, // "Pop a Cap", "Pop"
+	{ L_MPMENU_250, L_MPMENU_257, 0x1f, true  }, // "King of the Hill", "Hill"
+	{ L_MPMENU_251, L_MPMENU_258, 0x21, true  }, // "Capture the Case", "Capture"
 };
 
 u32 var8008716c = 0x00000000;
@@ -7471,7 +7471,7 @@ struct menuitem g_MpScenarioMenuItems[] = {
 
 struct menudialog g_MpScenarioMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(243), // "Scenario"
+	L_MPMENU_243, // "Scenario"
 	g_MpScenarioMenuItems,
 	NULL,
 	0x00000011,
@@ -7485,7 +7485,7 @@ struct menuitem g_MpQuickTeamScenarioMenuItems[] = {
 
 struct menudialog g_MpQuickTeamScenarioMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(243), // "Scenario"
+	L_MPMENU_243, // "Scenario"
 	g_MpQuickTeamScenarioMenuItems,
 	NULL,
 	0x00000011,
@@ -9204,10 +9204,10 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop)
 
 #if PAL
 		// "%shas the\nData Uplink%s"
-		sprintf(message, langGet(L_MPWEAPONS(0)), mpchr->name);
+		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name);
 #else
 		// "%shas the\n%s"
-		sprintf(message, langGet(L_MPWEAPONS(0)), mpchr->name, weaponGetShortName(WEAPON_DATAUPLINK));
+		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name, weaponGetShortName(WEAPON_DATAUPLINK));
 #endif
 		playernum = g_Vars.currentplayernum;
 

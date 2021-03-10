@@ -5275,15 +5275,15 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 	var80062868 = 0;
 
 	if (g_TitleMode == TITLEMODE_RAREPRESENTS1) {
-		gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS(5), g_TitleTimer, &sp76); // "earth:"
+		gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS_005, g_TitleTimer, &sp76); // "earth:"
 
 		if (g_TitleTimer > 70) {
 			sp84 = viGetViewLeft() + 50;
 			sp80 = viGetViewTop() + viGetViewHeight() - 60;
-			gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS(6), g_TitleTimer - 100, &sp76); // "   prehistory"
+			gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS_006, g_TitleTimer - 100, &sp76); // "   prehistory"
 		}
 	} else {
-		gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS(7), g_TitleTimer - 35, &sp76); // "rare presents"
+		gdl = func0f018ebc(gdl, &sp84, &sp80, L_OPTIONS_007, g_TitleTimer - 35, &sp76); // "rare presents"
 	}
 
 	gdl = func0f153780(gdl);
@@ -6515,7 +6515,7 @@ glabel titleRenderNoController
 //	gdl = func0f153628(gdl);
 //
 //	// First line
-//	text = langGet(L_OPTIONS(71)); // "- no controller in controller socket 1 -"
+//	text = langGet(L_OPTIONS_071); // "- no controller in controller socket 1 -"
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicLg1, g_FontHandelGothicLg2, 0);
 //
 //	x = 288 - (textwidth >> 1);
@@ -6530,7 +6530,7 @@ glabel titleRenderNoController
 //	}
 //
 //	// Second line
-//	text = langGet(L_OPTIONS(72)); // "please power off and attach a controller"
+//	text = langGet(L_OPTIONS_072); // "please power off and attach a controller"
 //	textMeasure(&textheight, &textwidth, text, g_FontHandelGothicLg1, g_FontHandelGothicLg2, 0);
 //
 //	x = 288 - (textwidth >> 1);

@@ -5284,7 +5284,7 @@ void coreTick(void)
 
 				for (i = 0; i < PLAYERCOUNT(); i++) {
 					setCurrentPlayerNum(i);
-					hudmsgCreateViaPreset(langGet(L_MISC(68)), 0); // "One minute left."
+					hudmsgCreateViaPreset(langGet(L_MISC_068), 0); // "One minute left."
 				}
 			}
 

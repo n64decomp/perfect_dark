@@ -2093,39 +2093,39 @@ char *frGetWeaponDescription(void)
 	u32 weapon = frGetWeaponBySlot(g_FrData.slot);
 
 	switch (weapon) {
-	case WEAPON_FALCON2:          return langGet(L_MISC(377));
-	case WEAPON_FALCON2_SCOPE:    return langGet(L_MISC(378));
-	case WEAPON_FALCON2_SILENCER: return langGet(L_MISC(379));
-	case WEAPON_MAGSEC4:          return langGet(L_MISC(380));
-	case WEAPON_MAULER:           return langGet(L_MISC(381));
-	case WEAPON_PHOENIX:          return langGet(L_MISC(382));
-	case WEAPON_DY357MAGNUM:      return langGet(L_MISC(383));
-	case WEAPON_DY357LX:          return langGet(L_MISC(384));
-	case WEAPON_CMP150:           return langGet(L_MISC(385));
-	case WEAPON_CYCLONE:          return langGet(L_MISC(386));
-	case WEAPON_CALLISTONTG:      return langGet(L_MISC(387));
-	case WEAPON_RCP120:           return langGet(L_MISC(388));
-	case WEAPON_LAPTOPGUN:        return langGet(L_MISC(389));
-	case WEAPON_DRAGON:           return langGet(L_MISC(390));
-	case WEAPON_K7AVENGER:        return langGet(L_MISC(391));
-	case WEAPON_AR34:             return langGet(L_MISC(392));
-	case WEAPON_SUPERDRAGON:      return langGet(L_MISC(393));
-	case WEAPON_SHOTGUN:          return langGet(L_MISC(394));
-	case WEAPON_SNIPERRIFLE:      return langGet(L_MISC(395));
-	case WEAPON_FARSIGHTXR20:     return langGet(L_MISC(396));
-	case WEAPON_CROSSBOW:         return langGet(L_MISC(397));
-	case WEAPON_TRANQUILIZER:     return langGet(L_MISC(398));
-	case WEAPON_REAPER:           return langGet(L_MISC(399));
-	case WEAPON_DEVASTATOR:       return langGet(L_MISC(400));
-	case WEAPON_ROCKETLAUNCHER:   return langGet(L_MISC(401));
-	case WEAPON_SLAYER:           return langGet(L_MISC(402));
-	case WEAPON_COMBATKNIFE:      return langGet(L_MISC(403));
-	case WEAPON_LASER:            return langGet(L_MISC(404));
-	case WEAPON_GRENADE:          return langGet(L_MISC(405));
-	case WEAPON_NBOMB:            return langGet(L_MISC(406));
-	case WEAPON_TIMEDMINE:        return langGet(L_MISC(407));
-	case WEAPON_PROXIMITYMINE:    return langGet(L_MISC(408));
-	case WEAPON_REMOTEMINE:       return langGet(L_MISC(409));
+	case WEAPON_FALCON2:          return langGet(L_MISC_377);
+	case WEAPON_FALCON2_SCOPE:    return langGet(L_MISC_378);
+	case WEAPON_FALCON2_SILENCER: return langGet(L_MISC_379);
+	case WEAPON_MAGSEC4:          return langGet(L_MISC_380);
+	case WEAPON_MAULER:           return langGet(L_MISC_381);
+	case WEAPON_PHOENIX:          return langGet(L_MISC_382);
+	case WEAPON_DY357MAGNUM:      return langGet(L_MISC_383);
+	case WEAPON_DY357LX:          return langGet(L_MISC_384);
+	case WEAPON_CMP150:           return langGet(L_MISC_385);
+	case WEAPON_CYCLONE:          return langGet(L_MISC_386);
+	case WEAPON_CALLISTONTG:      return langGet(L_MISC_387);
+	case WEAPON_RCP120:           return langGet(L_MISC_388);
+	case WEAPON_LAPTOPGUN:        return langGet(L_MISC_389);
+	case WEAPON_DRAGON:           return langGet(L_MISC_390);
+	case WEAPON_K7AVENGER:        return langGet(L_MISC_391);
+	case WEAPON_AR34:             return langGet(L_MISC_392);
+	case WEAPON_SUPERDRAGON:      return langGet(L_MISC_393);
+	case WEAPON_SHOTGUN:          return langGet(L_MISC_394);
+	case WEAPON_SNIPERRIFLE:      return langGet(L_MISC_395);
+	case WEAPON_FARSIGHTXR20:     return langGet(L_MISC_396);
+	case WEAPON_CROSSBOW:         return langGet(L_MISC_397);
+	case WEAPON_TRANQUILIZER:     return langGet(L_MISC_398);
+	case WEAPON_REAPER:           return langGet(L_MISC_399);
+	case WEAPON_DEVASTATOR:       return langGet(L_MISC_400);
+	case WEAPON_ROCKETLAUNCHER:   return langGet(L_MISC_401);
+	case WEAPON_SLAYER:           return langGet(L_MISC_402);
+	case WEAPON_COMBATKNIFE:      return langGet(L_MISC_403);
+	case WEAPON_LASER:            return langGet(L_MISC_404);
+	case WEAPON_GRENADE:          return langGet(L_MISC_405);
+	case WEAPON_NBOMB:            return langGet(L_MISC_406);
+	case WEAPON_TIMEDMINE:        return langGet(L_MISC_407);
+	case WEAPON_PROXIMITYMINE:    return langGet(L_MISC_408);
+	case WEAPON_REMOTEMINE:       return langGet(L_MISC_409);
 	}
 
 	return NULL;
@@ -5566,16 +5566,16 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
 	struct chrbio bios[] = {
 		// name, race, age, profile
-		/*0*/ { L_MISC(219), L_MISC(220), L_MISC(221), L_MISC(222) }, // Joanna Dark
-		/*1*/ { L_MISC(223), L_MISC(224), L_MISC(225), L_MISC(226) }, // Jonathan
-		/*2*/ { L_MISC(227), L_MISC(228), L_MISC(229), L_MISC(230) }, // Daniel Carrington
-		/*3*/ { L_MISC(231), L_MISC(232), L_MISC(233), L_MISC(234) }, // Cassandra De Vries
-		/*4*/ { L_MISC(235), L_MISC(236), L_MISC(237), L_MISC(238) }, // Trent Easton
-		/*5*/ { L_MISC(239), L_MISC(240), L_MISC(241), L_MISC(242) }, // Dr. Caroll
-		/*6*/ { L_MISC(243), L_MISC(244), L_MISC(245), L_MISC(246) }, // Elvis
-		/*7*/ { L_MISC(247), L_MISC(248), L_MISC(249), L_MISC(250) }, // Mr. Blonde
-		/*8*/ { L_MISC(251), L_MISC(252), L_MISC(253), L_MISC(254) }, // Mr. Blonde (repeat)
-		/*9*/ { L_MISC(255), L_MISC(256), L_MISC(257), L_MISC(258) }, // The U.S. President
+		/*0*/ { L_MISC_219, L_MISC_220, L_MISC_221, L_MISC_222 }, // Joanna Dark
+		/*1*/ { L_MISC_223, L_MISC_224, L_MISC_225, L_MISC_226 }, // Jonathan
+		/*2*/ { L_MISC_227, L_MISC_228, L_MISC_229, L_MISC_230 }, // Daniel Carrington
+		/*3*/ { L_MISC_231, L_MISC_232, L_MISC_233, L_MISC_234 }, // Cassandra De Vries
+		/*4*/ { L_MISC_235, L_MISC_236, L_MISC_237, L_MISC_238 }, // Trent Easton
+		/*5*/ { L_MISC_239, L_MISC_240, L_MISC_241, L_MISC_242 }, // Dr. Caroll
+		/*6*/ { L_MISC_243, L_MISC_244, L_MISC_245, L_MISC_246 }, // Elvis
+		/*7*/ { L_MISC_247, L_MISC_248, L_MISC_249, L_MISC_250 }, // Mr. Blonde
+		/*8*/ { L_MISC_251, L_MISC_252, L_MISC_253, L_MISC_254 }, // Mr. Blonde (repeat)
+		/*9*/ { L_MISC_255, L_MISC_256, L_MISC_257, L_MISC_258 }, // The U.S. President
 	};
 
 	switch (bodynum) {
@@ -5647,10 +5647,10 @@ struct miscbio *ciGetMiscBio(s32 index)
 {
 	struct miscbio bios[] = {
 		// name, description
-		{ L_MISC(259), L_MISC(260) },
-		{ L_MISC(261), L_MISC(262) },
-		{ L_MISC(263), L_MISC(264) },
-		{ L_MISC(265), L_MISC(266) },
+		{ L_MISC_259, L_MISC_260 },
+		{ L_MISC_261, L_MISC_262 },
+		{ L_MISC_263, L_MISC_264 },
+		{ L_MISC_265, L_MISC_266 },
 	};
 
 	switch (index) {
@@ -5729,29 +5729,29 @@ struct hangarbio *ciGetHangarBio(s32 index)
 {
 	struct hangarbio bios[] = {
 		// name, description
-		{ L_MISC(290), L_MISC(313) }, // Carrington Institute
-		{ L_MISC(291), L_MISC(314) }, // Lucerne Tower
-		{ L_MISC(292), L_MISC(315) }, // Laboratory Basement
-		{ L_MISC(293), L_MISC(316) }, // Carrington Villa
-		{ L_MISC(294), L_MISC(317) }, // Chicago
-		{ L_MISC(295), L_MISC(318) }, // G5 Building
-		{ L_MISC(296), L_MISC(319) }, // Area 51
-		{ L_MISC(297), L_MISC(320) }, // Alaskan Air Base
-		{ L_MISC(298), L_MISC(321) }, // Air Force One
-		{ L_MISC(299), L_MISC(322) }, // Crash Site
-		{ L_MISC(300), L_MISC(323) }, // Pelagic II
-		{ L_MISC(301), L_MISC(324) }, // Cetan Ship
-		{ L_MISC(302), L_MISC(325) }, // Skedar Assault Ship
-		{ L_MISC(303), L_MISC(326) }, // Skedar Homeworld
-		{ L_MISC(304), L_MISC(327) }, // Jumpship
-		{ L_MISC(305), L_MISC(328) }, // HoverCrate
-		{ L_MISC(306), L_MISC(329) }, // HoverBike
-		{ L_MISC(307), L_MISC(330) }, // Cleaning Hovbot
-		{ L_MISC(308), L_MISC(331) }, // Hovercopter
-		{ L_MISC(309), L_MISC(332) }, // G5 Robot
-		{ L_MISC(310), L_MISC(333) }, // A51 Interceptor
-		{ L_MISC(311), L_MISC(334) }, // Maian Vessel
-		{ L_MISC(312), L_MISC(335) }, // Skedar Shuttle
+		{ L_MISC_290, L_MISC_313 }, // Carrington Institute
+		{ L_MISC_291, L_MISC_314 }, // Lucerne Tower
+		{ L_MISC_292, L_MISC_315 }, // Laboratory Basement
+		{ L_MISC_293, L_MISC_316 }, // Carrington Villa
+		{ L_MISC_294, L_MISC_317 }, // Chicago
+		{ L_MISC_295, L_MISC_318 }, // G5 Building
+		{ L_MISC_296, L_MISC_319 }, // Area 51
+		{ L_MISC_297, L_MISC_320 }, // Alaskan Air Base
+		{ L_MISC_298, L_MISC_321 }, // Air Force One
+		{ L_MISC_299, L_MISC_322 }, // Crash Site
+		{ L_MISC_300, L_MISC_323 }, // Pelagic II
+		{ L_MISC_301, L_MISC_324 }, // Cetan Ship
+		{ L_MISC_302, L_MISC_325 }, // Skedar Assault Ship
+		{ L_MISC_303, L_MISC_326 }, // Skedar Homeworld
+		{ L_MISC_304, L_MISC_327 }, // Jumpship
+		{ L_MISC_305, L_MISC_328 }, // HoverCrate
+		{ L_MISC_306, L_MISC_329 }, // HoverBike
+		{ L_MISC_307, L_MISC_330 }, // Cleaning Hovbot
+		{ L_MISC_308, L_MISC_331 }, // Hovercopter
+		{ L_MISC_309, L_MISC_332 }, // G5 Robot
+		{ L_MISC_310, L_MISC_333 }, // A51 Interceptor
+		{ L_MISC_311, L_MISC_334 }, // Maian Vessel
+		{ L_MISC_312, L_MISC_335 }, // Skedar Shuttle
 	};
 
 	switch (index) {
@@ -6129,16 +6129,16 @@ u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 char *dtGetDescription(void)
 {
 	u32 texts[] = {
-		/*0*/ L_MISC(280), // Data uplink
-		/*1*/ L_MISC(279), // ECM mine
-		/*2*/ L_MISC(271), // CamSpy
-		/*3*/ L_MISC(272), // Night vision
-		/*4*/ L_MISC(273), // Door decoder
-		/*5*/ L_MISC(277), // R-tracker
-		/*6*/ L_MISC(276), // IR scanner
-		/*7*/ L_MISC(274), // X-ray scanner
-		/*8*/ L_MISC(275), // Disguise
-		/*9*/ L_MISC(278), // Cloak
+		/*0*/ L_MISC_280, // Data uplink
+		/*1*/ L_MISC_279, // ECM mine
+		/*2*/ L_MISC_271, // CamSpy
+		/*3*/ L_MISC_272, // Night vision
+		/*4*/ L_MISC_273, // Door decoder
+		/*5*/ L_MISC_277, // R-tracker
+		/*6*/ L_MISC_276, // IR scanner
+		/*7*/ L_MISC_274, // X-ray scanner
+		/*8*/ L_MISC_275, // Disguise
+		/*9*/ L_MISC_278, // Cloak
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -6147,16 +6147,16 @@ char *dtGetDescription(void)
 char *dtGetTip1(void)
 {
 	u32 texts[] = {
-		/*0*/ L_MISC(357),
-		/*1*/ L_MISC(358),
-		/*2*/ L_MISC(359),
-		/*3*/ L_MISC(360),
-		/*4*/ L_MISC(361),
-		/*5*/ L_MISC(362),
-		/*6*/ L_MISC(363),
-		/*7*/ L_MISC(364),
-		/*8*/ L_MISC(365),
-		/*9*/ L_MISC(366),
+		/*0*/ L_MISC_357,
+		/*1*/ L_MISC_358,
+		/*2*/ L_MISC_359,
+		/*3*/ L_MISC_360,
+		/*4*/ L_MISC_361,
+		/*5*/ L_MISC_362,
+		/*6*/ L_MISC_363,
+		/*7*/ L_MISC_364,
+		/*8*/ L_MISC_365,
+		/*9*/ L_MISC_366,
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -6165,16 +6165,16 @@ char *dtGetTip1(void)
 char *dtGetTip2(void)
 {
 	u32 texts[] = {
-		/*0*/ L_MISC(367),
-		/*1*/ L_MISC(368),
-		/*2*/ L_MISC(369),
-		/*3*/ L_MISC(370),
-		/*4*/ L_MISC(371),
-		/*5*/ L_MISC(372),
-		/*6*/ L_MISC(373),
-		/*7*/ L_MISC(374),
-		/*8*/ L_MISC(375),
-		/*9*/ L_MISC(376),
+		/*0*/ L_MISC_367,
+		/*1*/ L_MISC_368,
+		/*2*/ L_MISC_369,
+		/*3*/ L_MISC_370,
+		/*4*/ L_MISC_371,
+		/*5*/ L_MISC_372,
+		/*6*/ L_MISC_373,
+		/*7*/ L_MISC_374,
+		/*8*/ L_MISC_375,
+		/*9*/ L_MISC_376,
 	};
 
 	return langGet(texts[dtGetIndexBySlot(g_DtSlot)]);
@@ -6360,13 +6360,13 @@ s32 htGetIndexBySlot(s32 slot)
 char *htGetName(s32 index)
 {
 	u32 texts[] = {
-		L_MISC(410), // "Holo 1 - Looking Around"
-		L_MISC(411), // "Holo 2 - Movement 1"
-		L_MISC(412), // "Holo 3 - Movement 2"
-		L_MISC(413), // "Holo 4 - Unarmed Combat 1"
-		L_MISC(414), // "Holo 5 - Unarmed Combat 2"
-		L_MISC(415), // "Holo 6 - Live Combat 1"
-		L_MISC(416), // "Holo 7 - Live Combat 2"
+		L_MISC_410, // "Holo 1 - Looking Around"
+		L_MISC_411, // "Holo 2 - Movement 1"
+		L_MISC_412, // "Holo 3 - Movement 2"
+		L_MISC_413, // "Holo 4 - Unarmed Combat 1"
+		L_MISC_414, // "Holo 5 - Unarmed Combat 2"
+		L_MISC_415, // "Holo 6 - Live Combat 1"
+		L_MISC_416, // "Holo 7 - Live Combat 2"
 	};
 
 	return langGet(texts[index]);
@@ -6391,13 +6391,13 @@ u32 func0f1a25c0(s32 index)
 char *htGetDescription(void)
 {
 	u32 texts[] = {
-		L_MISC(336),
-		L_MISC(337),
-		L_MISC(338),
-		L_MISC(339),
-		L_MISC(340),
-		L_MISC(341),
-		L_MISC(342),
+		L_MISC_336,
+		L_MISC_337,
+		L_MISC_338,
+		L_MISC_339,
+		L_MISC_340,
+		L_MISC_341,
+		L_MISC_342,
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
@@ -6406,13 +6406,13 @@ char *htGetDescription(void)
 char *htGetTip1(void)
 {
 	u32 texts[] = {
-		L_MISC(343), // "For greater precision..."
-		L_MISC(344), // "Think about where you want to go..."
-		L_MISC(345), // "Ducking enables you to..."
-		L_MISC(346), // "Attacking opponents from behind..."
-		L_MISC(347), // "Only stay close long enough..."
-		L_MISC(348), // "Don't hang around and wait..."
-		L_MISC(349), // "Go for the armed opponents..."
+		L_MISC_343, // "For greater precision..."
+		L_MISC_344, // "Think about where you want to go..."
+		L_MISC_345, // "Ducking enables you to..."
+		L_MISC_346, // "Attacking opponents from behind..."
+		L_MISC_347, // "Only stay close long enough..."
+		L_MISC_348, // "Don't hang around and wait..."
+		L_MISC_349, // "Go for the armed opponents..."
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
@@ -6421,13 +6421,13 @@ char *htGetTip1(void)
 char *htGetTip2(void)
 {
 	u32 texts[] = {
-		L_MISC(350), // "For greater precision..."
-		L_MISC(351), // "Sidestepping and strafing..."
-		L_MISC(352), // "Ducking enables you to..."
-		L_MISC(353), // "Attacking opponents from behind..."
-		L_MISC(354), // "Only stay close long enough..."
-		L_MISC(355), // "Don't hang around and wait..."
-		L_MISC(356), // "Go for the armed opponents..."
+		L_MISC_350, // "For greater precision..."
+		L_MISC_351, // "Sidestepping and strafing..."
+		L_MISC_352, // "Ducking enables you to..."
+		L_MISC_353, // "Attacking opponents from behind..."
+		L_MISC_354, // "Only stay close long enough..."
+		L_MISC_355, // "Don't hang around and wait..."
+		L_MISC_356, // "Go for the armed opponents..."
 	};
 
 	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
@@ -6436,7 +6436,7 @@ char *htGetTip2(void)
 void frGetGoalTargetsText(char *buffer)
 {
 	// "GOAL TARGETS:"
-	sprintf(buffer, "%s %d\n", langGet(L_MISC(417)), g_FrData.goaltargets);
+	sprintf(buffer, "%s %d\n", langGet(L_MISC_417), g_FrData.goaltargets);
 }
 
 void frGetTargetsDestroyedValue(char *buffer)
@@ -6453,7 +6453,7 @@ void frGetGoalScoreText(char *buffer)
 {
 	if (g_FrData.goalscore) {
 		// "GOAL SCORE:"
-		sprintf(buffer, "%s %d\n", langGet(L_MISC(418)), g_FrData.goalscore);
+		sprintf(buffer, "%s %d\n", langGet(L_MISC_418), g_FrData.goalscore);
 	} else {
 		sprintf(buffer, "");
 	}
@@ -6483,7 +6483,7 @@ f32 frGetAccuracy(char *buffer)
 bool frGetMinAccuracy(char *buffer, f32 accuracy)
 {
 	// "MIN ACCURACY:"
-	sprintf(buffer, "%s %d%%\n", langGet(L_MISC(419)), g_FrData.goalaccuracy);
+	sprintf(buffer, "%s %d%%\n", langGet(L_MISC_419), g_FrData.goalaccuracy);
 
 	return accuracy < g_FrData.goalaccuracy;
 }
@@ -6535,12 +6535,12 @@ bool frGetHudMiddleSubtext(char *buffer)
 	s32 mins;
 
 	if (g_FrData.timetaken < -180) {
-		sprintf(buffer, "%s", langGet(L_MISC(420))); // "FIRE TO START"
+		sprintf(buffer, "%s", langGet(L_MISC_420)); // "FIRE TO START"
 		return false;
 	}
 
 	if (g_FrData.timetaken < 0) {
-		sprintf(buffer, "%s", langGet(L_MISC(421))); // "GET READY!"
+		sprintf(buffer, "%s", langGet(L_MISC_421)); // "GET READY!"
 		return true;
 	}
 
@@ -6558,18 +6558,18 @@ bool frGetHudMiddleSubtext(char *buffer)
 		}
 	}
 
-	sprintf(buffer, "%s %02d:%02d\n", langGet(L_MISC(422)), mins, secs); // "LIMIT:"
+	sprintf(buffer, "%s %02d:%02d\n", langGet(L_MISC_422), mins, secs); // "LIMIT:"
 	return true;
 }
 
 bool frGetFeedback(char *scorebuffer, char *zonebuffer)
 {
 	u32 texts[] = {
-		L_MISC(423), // "ZONE 3"
-		L_MISC(424), // "ZONE 2"
-		L_MISC(425), // "ZONE 1"
-		L_MISC(426), // "BULL'S-EYE"
-		L_MISC(427), // "EXPLODED"
+		L_MISC_423, // "ZONE 3"
+		L_MISC_424, // "ZONE 2"
+		L_MISC_425, // "ZONE 1"
+		L_MISC_426, // "BULL'S-EYE"
+		L_MISC_427, // "EXPLODED"
 	};
 
 	if (g_FrData.feedbackzone) {

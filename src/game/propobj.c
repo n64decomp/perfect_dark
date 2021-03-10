@@ -49887,7 +49887,7 @@ glabel func0f087888pf
 #if VERSION < VERSION_PAL_FINAL
 void ammotypeGetPickedUpText(char *dst)
 {
-	strcat(dst, langGet(L_PROPOBJ(0))); // "Picked up"
+	strcat(dst, langGet(L_PROPOBJ_000)); // "Picked up"
 }
 #endif
 
@@ -50270,33 +50270,33 @@ void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty)
 
 	if (determiner_a) {
 		if (full) {
-			strcat(dst, langGet(L_PROPOBJ(4))); // "a"
+			strcat(dst, langGet(L_PROPOBJ_004)); // "a"
 		} else {
-			strcat(dst, langGet(L_PROPOBJ(5))); // "A"
+			strcat(dst, langGet(L_PROPOBJ_005)); // "A"
 		}
 	}
 
 	if (determiner_an) {
 		if (full) {
-			strcat(dst, langGet(L_PROPOBJ(6))); // "an"
+			strcat(dst, langGet(L_PROPOBJ_006)); // "an"
 		} else {
-			strcat(dst, langGet(L_PROPOBJ(7))); // "An"
+			strcat(dst, langGet(L_PROPOBJ_007)); // "An"
 		}
 	}
 
 	if (determiner_some) {
 		if (full) {
-			strcat(dst, langGet(L_PROPOBJ(2))); // "some"
+			strcat(dst, langGet(L_PROPOBJ_002)); // "some"
 		} else {
-			strcat(dst, langGet(L_PROPOBJ(3))); // "Some"
+			strcat(dst, langGet(L_PROPOBJ_003)); // "Some"
 		}
 	}
 
 	if (determiner_the) {
 		if (full) {
-			strcat(dst, langGet(L_PROPOBJ(8))); // "the"
+			strcat(dst, langGet(L_PROPOBJ_008)); // "the"
 		} else {
-			strcat(dst, langGet(L_PROPOBJ(9))); // "The"
+			strcat(dst, langGet(L_PROPOBJ_009)); // "The"
 		}
 	}
 }
@@ -50506,17 +50506,17 @@ glabel var7f1aac40
 //	case AMMOTYPE_PISTOL:
 //	case AMMOTYPE_SMG:
 //	case AMMOTYPE_RIFLE:
-//		strcat(dst, langGet(L_PROPOBJ(10))); // "ammo"
+//		strcat(dst, langGet(L_PROPOBJ_010)); // "ammo"
 //		return;
 //	}
 //
 //	if (ammotype == AMMOTYPE_KNIFE) {
-//		strcat(dst, langGet(L_PROPOBJ(21))); // "combat"
+//		strcat(dst, langGet(L_PROPOBJ_021)); // "combat"
 //
 //		if (qty == 1) {
-//			strcat(dst, langGet(L_PROPOBJ(22))); // "knife"
+//			strcat(dst, langGet(L_PROPOBJ_022)); // "knife"
 //		} else {
-//			strcat(dst, langGet(L_PROPOBJ(23))); // "knives"
+//			strcat(dst, langGet(L_PROPOBJ_023)); // "knives"
 //		}
 //
 //		return;
@@ -50525,28 +50525,28 @@ glabel var7f1aac40
 //	text_id = -1;
 //
 //	switch (ammotype) {
-//	case AMMOTYPE_CROSSBOW:     text_id = L_PROPOBJ(45); break; // "bolt"
-//	case AMMOTYPE_SHOTGUN:      text_id = L_PROPOBJ(11); break; // "cartridge"
-//	case AMMOTYPE_FARSIGHT:     text_id = L_PROPOBJ(46); break; // "orb"
-//	case AMMOTYPE_GRENADE:      text_id = L_PROPOBJ(14); break; // "grenade"
-//	case AMMOTYPE_ROCKET:       text_id = L_PROPOBJ(16); break; // "rocket"
-//	case AMMOTYPE_MAGNUM:       text_id = L_PROPOBJ(12); break; // "magnum bullet"
-//	case AMMOTYPE_DEVASTATOR:   text_id = L_PROPOBJ(15); break; // "grenade round"
-//	case AMMOTYPE_REMOTE_MINE:  text_id = L_PROPOBJ(18); break; // "remote mine"
-//	case AMMOTYPE_PROXY_MINE:   text_id = L_PROPOBJ(19); break; // "proximity mine"
-//	case AMMOTYPE_TIMED_MINE:   text_id = L_PROPOBJ(20); break; // "timed mine"
-//	case AMMOTYPE_REAPER:       text_id = L_PROPOBJ(47); break; // "Reaper ammo"
-//	case AMMOTYPE_HOMINGROCKET: text_id = L_PROPOBJ(17); break; // "homing rocket"
-//	case AMMOTYPE_DART:         text_id = L_PROPOBJ(25); break; // "dart"
-//	case AMMOTYPE_NBOMB:        text_id = L_PROPOBJ(26); break; // "N-Bomb"
-//	case AMMOTYPE_SEDATIVE:     text_id = L_PROPOBJ(27); break; // "sedatives"
-//	case AMMOTYPE_PSYCHOSIS:    text_id = L_PROPOBJ(27); break; // "sedatives"
-//	case AMMOTYPE_BUG:          text_id = L_PROPOBJ(35); break; // "bug"
-//	case AMMOTYPE_MICROCAMERA:  text_id = L_PROPOBJ(36); break; // "micro camera"
-//	case AMMOTYPE_TOKEN:        text_id = L_PROPOBJ(38); break; // "token"
-//	case AMMOTYPE_PLASTIQUE:    text_id = L_PROPOBJ(39); break; // "plastique"
-//	case AMMOTYPE_CLOAK:        text_id = L_PROPOBJ(48); break; // "cloaking device"
-//	case AMMOTYPE_BOOST:        text_id = L_PROPOBJ(49); break; // "boost pill"
+//	case AMMOTYPE_CROSSBOW:     text_id = L_PROPOBJ_045; break; // "bolt"
+//	case AMMOTYPE_SHOTGUN:      text_id = L_PROPOBJ_011; break; // "cartridge"
+//	case AMMOTYPE_FARSIGHT:     text_id = L_PROPOBJ_046; break; // "orb"
+//	case AMMOTYPE_GRENADE:      text_id = L_PROPOBJ_014; break; // "grenade"
+//	case AMMOTYPE_ROCKET:       text_id = L_PROPOBJ_016; break; // "rocket"
+//	case AMMOTYPE_MAGNUM:       text_id = L_PROPOBJ_012; break; // "magnum bullet"
+//	case AMMOTYPE_DEVASTATOR:   text_id = L_PROPOBJ_015; break; // "grenade round"
+//	case AMMOTYPE_REMOTE_MINE:  text_id = L_PROPOBJ_018; break; // "remote mine"
+//	case AMMOTYPE_PROXY_MINE:   text_id = L_PROPOBJ_019; break; // "proximity mine"
+//	case AMMOTYPE_TIMED_MINE:   text_id = L_PROPOBJ_020; break; // "timed mine"
+//	case AMMOTYPE_REAPER:       text_id = L_PROPOBJ_047; break; // "Reaper ammo"
+//	case AMMOTYPE_HOMINGROCKET: text_id = L_PROPOBJ_017; break; // "homing rocket"
+//	case AMMOTYPE_DART:         text_id = L_PROPOBJ_025; break; // "dart"
+//	case AMMOTYPE_NBOMB:        text_id = L_PROPOBJ_026; break; // "N-Bomb"
+//	case AMMOTYPE_SEDATIVE:     text_id = L_PROPOBJ_027; break; // "sedatives"
+//	case AMMOTYPE_PSYCHOSIS:    text_id = L_PROPOBJ_027; break; // "sedatives"
+//	case AMMOTYPE_BUG:          text_id = L_PROPOBJ_035; break; // "bug"
+//	case AMMOTYPE_MICROCAMERA:  text_id = L_PROPOBJ_036; break; // "micro camera"
+//	case AMMOTYPE_TOKEN:        text_id = L_PROPOBJ_038; break; // "token"
+//	case AMMOTYPE_PLASTIQUE:    text_id = L_PROPOBJ_039; break; // "plastique"
+//	case AMMOTYPE_CLOAK:        text_id = L_PROPOBJ_048; break; // "cloaking device"
+//	case AMMOTYPE_BOOST:        text_id = L_PROPOBJ_049; break; // "boost pill"
 //	}
 //
 //	if (text_id >= 0) {
@@ -50557,7 +50557,7 @@ glabel var7f1aac40
 //			&& ammotype != AMMOTYPE_REAPER
 //			&& ammotype != AMMOTYPE_SEDATIVE
 //			&& ammotype != AMMOTYPE_CLOAK) {
-//		strcat(dst, langGet(L_PROPOBJ(24))); // "s"
+//		strcat(dst, langGet(L_PROPOBJ_024)); // "s"
 //	}
 //}
 #endif
@@ -51024,36 +51024,36 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 	bool plural = false;
 
 	if (dual) {
-		strcat(buffer, langGet(L_PROPOBJ(1))); // "Double"
+		strcat(buffer, langGet(L_PROPOBJ_001)); // "Double"
 	} else {
 		if (g_LanguageId == LANGUAGE_ENGLISH) {
 			if (full) {
-				strcat(buffer, langGet(L_PROPOBJ(0))); // "Picked up"
+				strcat(buffer, langGet(L_PROPOBJ_000)); // "Picked up"
 
 				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
-					textid = L_PROPOBJ(50); // "your"
+					textid = L_PROPOBJ_050; // "your"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
-					textid = L_PROPOBJ(2); // "some"
+					textid = L_PROPOBJ_002; // "some"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_AN)) {
-					textid = L_PROPOBJ(6); // "an"
+					textid = L_PROPOBJ_006; // "an"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_F_THE)) {
-					textid = L_PROPOBJ(8); // "the"
+					textid = L_PROPOBJ_008; // "the"
 				} else {
-					textid = L_PROPOBJ(4); // "a"
+					textid = L_PROPOBJ_004; // "a"
 				}
 
 				strcat(buffer, langGet(textid));
 			} else {
 				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
-					textid = L_PROPOBJ(51); // "Your"
+					textid = L_PROPOBJ_051; // "Your"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
-					textid = L_PROPOBJ(3); // "Some"
+					textid = L_PROPOBJ_003; // "Some"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_AN)) {
-					textid = L_PROPOBJ(7); // "An"
+					textid = L_PROPOBJ_007; // "An"
 				} else if (weaponHasFlag(weaponnum, WEAPONFLAG_DETERMINER_S_THE)) {
-					textid = L_PROPOBJ(9); // "The"
+					textid = L_PROPOBJ_009; // "The"
 				} else {
-					textid = L_PROPOBJ(5); // "A"
+					textid = L_PROPOBJ_005; // "A"
 				}
 
 				strcat(buffer, langGet(textid));
@@ -51087,7 +51087,7 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 			buffer[strlen(buffer) - 1] = '\0';
 		}
 
-		strcat(buffer, langGet(L_PROPOBJ(0))); // "Picked up"
+		strcat(buffer, langGet(L_PROPOBJ_000)); // "Picked up"
 		strcat(buffer, "\n"); // This just gets removed immediately below
 	}
 
@@ -51791,7 +51791,7 @@ glabel var7f1aae70
 //			char *text = invGetActivatedTextByObj(obj);
 //
 //			if (text == NULL) {
-//				text = langGet(L_PROPOBJ(40)); // "Picked up a key."
+//				text = langGet(L_PROPOBJ_040); // "Picked up a key."
 //			}
 //
 //			func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
@@ -51985,9 +51985,9 @@ glabel var7f1aae70
 //
 //					if (playercount < 3 &&
 //							(playercount != 2 || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && g_Is4Mb != true))) {
-//						text = langGet(L_PROPOBJ(41)); // "Picked up a shield."
+//						text = langGet(L_PROPOBJ_041); // "Picked up a shield."
 //					} else {
-//						text = langGet(L_PROPOBJ(42)); // "A shield."
+//						text = langGet(L_PROPOBJ_042); // "A shield."
 //					}
 //				}
 //
@@ -52047,7 +52047,7 @@ glabel var7f1aae70
 //			char *text = invGetActivatedTextByObj(obj);
 //
 //			if (text == NULL) {
-//				text = langGet(L_PROPOBJ(43)); // "Picked up something."
+//				text = langGet(L_PROPOBJ_043); // "Picked up something."
 //			}
 //
 //			func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
@@ -59796,9 +59796,9 @@ bool propdoorInteract(struct prop *doorprop)
 			if (override && override->activatetextid) {
 				func0f0ddfa4(langGet(override->activatetextid), 0, 1);
 			} else if (intraining) {
-				func0f0ddfa4(langGet(L_DISH(80)), 0, 1); // "Cannot exit while training is in progress."
+				func0f0ddfa4(langGet(L_DISH_080), 0, 1); // "Cannot exit while training is in progress."
 			} else {
-				func0f0ddfa4(langGet(L_PROPOBJ(44)), 0, 1); // "This door is locked."
+				func0f0ddfa4(langGet(L_PROPOBJ_044), 0, 1); // "This door is locked."
 			}
 		}
 

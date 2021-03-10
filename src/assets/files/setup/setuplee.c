@@ -124,31 +124,31 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_LEE(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_LEE(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_LEE(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_LEE(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_LEE_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_LEE_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_LEE_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_LEE_003)
 
-	beginobjective(0, L_LEE(5), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable shield system"
+	beginobjective(0, L_LEE_005, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable shield system"
 		complete_flags(STAGEFLAG_SHIELDS_DISABLED)
 		fail_flags(STAGEFLAG_AMMO_WASTED)
 	endobjective
 
-	beginobjective(1, L_LEE(6), (DIFFBIT_PA | DIFFBIT_PD)) // "Open hangar doors"
+	beginobjective(1, L_LEE_006, (DIFFBIT_PA | DIFFBIT_PD)) // "Open hangar doors"
 		complete_flags(STAGEFLAG_HANGAR_DOORS_OPEN)
 		fail_flags(STAGEFLAG_HANGAR_DOOR_CONSOLE_DESTROYED)
 	endobjective
 
-	beginobjective(2, L_LEE(7), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Access navigational systems"
+	beginobjective(2, L_LEE_007, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Access navigational systems"
 		complete_flags(STAGEFLAG_NAVIGATION_ROOM_DONE)
 		fail_flags(STAGEFLAG_ELVIS_DEAD)
 	endobjective
 
-	beginobjective(3, L_LEE(8), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Sabotage engine systems"
+	beginobjective(3, L_LEE_008, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Sabotage engine systems"
 		complete_flags(STAGEFLAG_ENGINES_DESTROYED)
 	endobjective
 
-	beginobjective(4, L_LEE(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain control of bridge"
+	beginobjective(4, L_LEE_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain control of bridge"
 		complete_flags(STAGEFLAG_BRIDGE_CAPTURED)
 	endobjective
 
@@ -271,7 +271,7 @@ u32 props[] = {
 	weapon(0x0100, MODEL_CHRMAULER, 0x002c, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_MAULER, 0x00ffffff, 0x00000000)
 	tag(0x4a, 1)
 	key(0x0100, MODEL_CHRCHAIN, 0x0033, 0x01244000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000008)
-	rename_object(-1, 0x50, L_LEE(50), L_LEE(51), L_LEE(52), L_LEE(53), L_LEE(54), 0x0000, 0x0000) // "Obtain De Vries' necklace."
+	rename_object(-1, 0x50, L_LEE_050, L_LEE_051, L_LEE_052, L_LEE_053, L_LEE_054, 0x0000, 0x0000) // "Obtain De Vries' necklace."
 	tag(0x3f, 2)
 	tag(0x40, 2)
 	door(0x0100, MODEL_SK_SHIP_DOOR2, 0x016a, 0x10000400, 0x28000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00010000, 0x00010000, 0x00320000, 0x0001aaaa, 0x00008000, 0x00000000, 0x00000080, 0x0000012c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001, 0x00000000, 0x00001d00, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
@@ -561,7 +561,7 @@ u8 func1019_check_shields_lowered[] = {
 		if_object_in_good_condition(OBJ_SHIELDCONSOLE1, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_SHIELDCONSOLE2, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_SHIELDCONSOLE3, /*goto*/ 0x06)
-		show_hudmsg(CHR_BOND, L_LEE(10)) // "Ship's shields have been lowered."
+		show_hudmsg(CHR_BOND, L_LEE_010) // "Ship's shields have been lowered."
 		set_stage_flag(STAGEFLAG_SHIELDS_DISABLED)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x09)
 		restart_timer
@@ -571,7 +571,7 @@ u8 func1019_check_shields_lowered[] = {
 		endloop(0x08)
 
 		label(0x2c)
-		speak(CHR_BOND, L_LEE(17), 0x81a1, CHANNEL_6, COLOR_04_ORANGE) // "You've got to open the hangar doors so we can dock..."
+		speak(CHR_BOND, L_LEE_017, 0x81a1, CHANNEL_6, COLOR_04_ORANGE) // "You've got to open the hangar doors so we can dock..."
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x06)
@@ -596,7 +596,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 		if_object_in_good_condition(OBJ_HANGARDOORCONSOLE, /*goto*/ 0x2d)
 
 		// Console destroyed
-		show_hudmsg(CHR_BOND, L_LEE(48)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_LEE_048) // "Critical mission object destroyed."
 		set_stage_flag(STAGEFLAG_HANGAR_DOOR_CONSOLE_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -612,7 +612,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 		// Console activated
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_SHIELDS_DISABLED, TRUE, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_LEE(47)) // "Hangar doors locked - shields still active."
+		show_hudmsg(CHR_BOND, L_LEE_047) // "Hangar doors locked - shields still active."
 		restart_timer
 
 		beginloop(0x65)
@@ -624,7 +624,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 
 	// PA - console activated after shields disabled
 	label(0x2c)
-	show_hudmsg(CHR_P1P2, L_LEE(11)) // "Hangar doors have been opened."
+	show_hudmsg(CHR_P1P2, L_LEE_011) // "Hangar doors have been opened."
 	set_stage_flag(STAGEFLAG_HANGAR_DOORS_OPEN)
 
 	// A and SA once shields disabled, or follow through from above
@@ -756,7 +756,7 @@ u8 func040e_elvis_give_ar34[] = {
 	rebuild_teams
 	rebuild_squadrons
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
-	speak(CHR_P1P2, L_LEE(19), 0x12e1, CHANNEL_6, COLOR_04_ORANGE) // "Good to see you, Joanna."
+	speak(CHR_P1P2, L_LEE_019, 0x12e1, CHANNEL_6, COLOR_04_ORANGE) // "Good to see you, Joanna."
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0c)
@@ -764,9 +764,9 @@ u8 func040e_elvis_give_ar34[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	speak(CHR_P1P2, L_LEE(20), 0x12e2, CHANNEL_6, COLOR_04_ORANGE) // "Take this - you should find it useful..."
+	speak(CHR_P1P2, L_LEE_020, 0x12e2, CHANNEL_6, COLOR_04_ORANGE) // "Take this - you should find it useful..."
 	give_object_to_chr(OBJ_AR34, CHR_PRESET)
-	show_hudmsg(CHR_PRESET, L_LEE(21)) // "Received AR34 assault rifle."
+	show_hudmsg(CHR_PRESET, L_LEE_021) // "Received AR34 assault rifle."
 	restart_timer
 
 	beginloop(0x0d)
@@ -923,8 +923,8 @@ u8 func0409_elvis_follow[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	show_hudmsg(CHR_BOND, L_LEE(13)) // "Navigational information has been retrieved."
-	speak(CHR_PRESET, L_LEE(31), 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards..."
+	show_hudmsg(CHR_BOND, L_LEE_013) // "Navigational information has been retrieved."
+	speak(CHR_PRESET, L_LEE_031, 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards..."
 	restart_timer
 	set_stage_flag(STAGEFLAG_NAVIGATION_ROOM_DONE)
 
@@ -966,7 +966,7 @@ u8 func041c_elvis_outside_prebridgelift[] = {
 	set_target_chr(CHR_PRESET)
 	set_stage_flag(STAGEFLAG_SAID_GO_ON_AHEAD)
 	if_stage_flag_eq(STAGEFLAG_ENTERED_BRIDGELIFT, TRUE, /*goto*/ 0x2c)
-	speak(CHR_PRESET, L_LEE(26), 0x14dc, CHANNEL_6, COLOR_04_ORANGE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
+	speak(CHR_PRESET, L_LEE_026, 0x14dc, CHANNEL_6, COLOR_04_ORANGE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
 	label(0x2c)
 	run_to_pad(0x0063)
 
@@ -1022,7 +1022,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 
 	// At player
 	label(0x06)
-	speak(CHR_BOND, L_LEE(22), 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards. I'll take this lift; you tak..."
+	speak(CHR_BOND, L_LEE_022, 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards. I'll take this lift; you tak..."
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	set_morale(50)
 
@@ -1084,7 +1084,7 @@ u8 func041b_elvis_at_bridge[] = {
 		reloop(0x09)
 
 		label(0x2c)
-		speak(CHR_TARGET, L_LEE(24), 0x12e3, CHANNEL_6, COLOR_04_ORANGE) // "Look out, Joanna! I think we've made them angry..."
+		speak(CHR_TARGET, L_LEE_024, 0x12e3, CHANNEL_6, COLOR_04_ORANGE) // "Look out, Joanna! I think we've made them angry..."
 		set_stage_flag(STAGEFLAG_SAID_LOOKOUT)
 	endloop(0x09)
 
@@ -1112,7 +1112,7 @@ u8 func1005_check_elvis_dead[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	show_hudmsg(CHR_BOND, L_LEE(12)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_LEE_012) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1810,7 +1810,7 @@ u8 func0419_hangar_maian[] = {
 	endloop(0x10)
 
 	label(0x06)
-	show_hudmsg(CHR_BOND, L_LEE(13)) // "Navigational information has been retrieved."
+	show_hudmsg(CHR_BOND, L_LEE_013) // "Navigational information has been retrieved."
 	set_stage_flag(STAGEFLAG_NAVIGATION_ROOM_DONE)
 	goto_first(0x03)
 
@@ -1894,7 +1894,7 @@ u8 func100b_msg_getshieldsdown[] = {
 	endloop(0xc2)
 
 	label(0x06)
-	speak(CHR_BOND, L_LEE(16), 0x81a0, CHANNEL_6, COLOR_04_ORANGE) // "Outside, Joanna. Get the shields down and we can h..."
+	speak(CHR_BOND, L_LEE_016, 0x81a0, CHANNEL_6, COLOR_04_ORANGE) // "Outside, Joanna. Get the shields down and we can h..."
 	set_stage_flag(STAGEFLAG_SAID_GETSHIELDSDOWN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1918,7 +1918,7 @@ u8 func100c_engineroom[] = {
 	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_RUN_FROM_ENGINEROOM)
 	play_x_track(XREASON_DEFAULT, 10, 10)
-	speak(CHR_BOND, L_LEE(46), 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
+	speak(CHR_BOND, L_LEE_046, 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
 	label(0x2c)
 	set_countdown_timer(10)
 	show_countdown_timer
@@ -1952,7 +1952,7 @@ u8 func100c_engineroom[] = {
 	destroy_object(0x1e)
 	destroy_object(0x1f)
 	destroy_object(0x20)
-	show_hudmsg(CHR_BOND, L_LEE(23)) // "Engines have been disabled."
+	show_hudmsg(CHR_BOND, L_LEE_023) // "Engines have been disabled."
 	set_stage_flag(STAGEFLAG_ENGINES_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2478,7 +2478,7 @@ u8 func1010_check_bridge_captured[] = {
 	goto_first(0x09)
 
 	label(0x2c)
-	show_hudmsg(CHR_BOND, L_LEE(25)) // "Bridge has been captured."
+	show_hudmsg(CHR_BOND, L_LEE_025) // "Bridge has been captured."
 	set_stage_flag(STAGEFLAG_BRIDGE_CAPTURED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2580,16 +2580,16 @@ u8 func1003_intro[] = {
 	play_sound(0x0174, CHANNEL_10)
 
 	wait_until(320, 0x9e)
-	speak(CHR_BOND, L_LEE(32), 0x747f, CHANNEL_10, COLOR_09_BLUE) // "Oohhh... I'd better not be where I think I am."
+	speak(CHR_BOND, L_LEE_032, 0x747f, CHANNEL_10, COLOR_09_BLUE) // "Oohhh... I'd better not be where I think I am."
 
 	wait_until(505, 0x9f)
 	play_sound(0x0427, CHANNEL_10)
 
 	wait_until(600, 0xa0)
-	speak(CHR_BOND, L_LEE(33), 0x7480, CHANNEL_10, COLOR_04_ORANGE) // "And it's worse than that, my dear. Just look who y..."
+	speak(CHR_BOND, L_LEE_033, 0x7480, CHANNEL_10, COLOR_04_ORANGE) // "And it's worse than that, my dear. Just look who y..."
 
 	wait_until(1000, 0xa1)
-	speak(CHR_BOND, L_LEE(34), 0x7481, CHANNEL_10, COLOR_09_BLUE) // "You! I thought you'd managed to escape. We found n..."
+	speak(CHR_BOND, L_LEE_034, 0x7481, CHANNEL_10, COLOR_09_BLUE) // "You! I thought you'd managed to escape. We found n..."
 
 	wait_until(1018, 0xa2)
 	play_sound(0x0175, CHANNEL_10)
@@ -2616,7 +2616,7 @@ u8 func1003_intro[] = {
 	play_sound(0x0172, CHANNEL_10)
 
 	wait_until(1400, 0xa8)
-	speak(CHR_BOND, L_LEE(35), 0x7482, CHANNEL_10, COLOR_04_ORANGE) // "You couldn't find me. But there was no hiding from..."
+	speak(CHR_BOND, L_LEE_035, 0x7482, CHANNEL_10, COLOR_04_ORANGE) // "You couldn't find me. But there was no hiding from..."
 
 	wait_until(1520, 0x67)
 	play_sound(0x0176, CHANNEL_10)
@@ -2645,7 +2645,7 @@ u8 func1003_intro[] = {
 	play_sound(0x0530, CHANNEL_10)
 
 	wait_until(1870, 0x6f)
-	speak(CHR_BOND, L_LEE(36), 0x7483, CHANNEL_10, COLOR_04_ORANGE) // "This is it. Wait there! I'll make a distraction; i..."
+	speak(CHR_BOND, L_LEE_036, 0x7483, CHANNEL_10, COLOR_04_ORANGE) // "This is it. Wait there! I'll make a distraction; i..."
 
 	wait_until(1874, 0x70)
 	play_sound(0x0174, CHANNEL_10)
@@ -2692,7 +2692,7 @@ u8 func1003_intro[] = {
 	play_sound(0x0177, CHANNEL_10)
 
 	wait_until(2581, 0x7e)
-	speak(CHR_BOND, L_LEE(37), 0x7484, CHANNEL_10, COLOR_09_BLUE) // "Why are you doing this, Cassandra?"
+	speak(CHR_BOND, L_LEE_037, 0x7484, CHANNEL_10, COLOR_09_BLUE) // "Why are you doing this, Cassandra?"
 
 	wait_until(2614, 0x7f)
 	play_sound(0x0171, CHANNEL_10)
@@ -2713,7 +2713,7 @@ u8 func1003_intro[] = {
 	play_sound(0x0175, CHANNEL_10)
 
 	wait_until(2790, 0x85)
-	speak(CHR_BOND, L_LEE(38), 0x7485, CHANNEL_10, COLOR_04_ORANGE) // "The Skedar used me, Joanna. You are my best chance..."
+	speak(CHR_BOND, L_LEE_038, 0x7485, CHANNEL_10, COLOR_04_ORANGE) // "The Skedar used me, Joanna. You are my best chance..."
 
 	wait_until(2792, 0x86)
 	play_sound(0x0172, CHANNEL_10)
@@ -2743,7 +2743,7 @@ u8 func1003_intro[] = {
 
 	wait_until(3313, 0x8d)
 	play_sound(0x052a, CHANNEL_10)
-	speak(CHR_BOND, L_LEE(39), 0x7c86, CHANNEL_10, COLOR_04_ORANGE) // "Eeeeaaarrrrggghhh!!!"
+	speak(CHR_BOND, L_LEE_039, 0x7c86, CHANNEL_10, COLOR_04_ORANGE) // "Eeeeaaarrrrggghhh!!!"
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -2837,7 +2837,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x00fd, CHANNEL_10)
 
 	wait_until(150, 0xa9)
-	speak(CHR_BOND, L_LEE(40), 0x7487, CHANNEL_10, COLOR_09_BLUE) // "Wow. That's the first time I've seen another plane..."
+	speak(CHR_BOND, L_LEE_040, 0x7487, CHANNEL_10, COLOR_09_BLUE) // "Wow. That's the first time I've seen another plane..."
 
 	wait_until(368, 0x67)
 	play_sound(0x00fa, CHANNEL_10)
@@ -2854,10 +2854,10 @@ u8 func0c01_outro[] = {
 	play_sound(0x00fb, CHANNEL_10)
 
 	wait_until(690, 0x6e)
-	speak(CHR_BOND, L_LEE(41), 0x7488, CHANNEL_10, COLOR_04_ORANGE) // "Hmmmm?"
+	speak(CHR_BOND, L_LEE_041, 0x7488, CHANNEL_10, COLOR_04_ORANGE) // "Hmmmm?"
 
 	wait_until(850, 0x6f)
-	speak(CHR_BOND, L_LEE(42), 0x7489, CHANNEL_10, COLOR_04_ORANGE) // "I don't... I don't believe it!"
+	speak(CHR_BOND, L_LEE_042, 0x7489, CHANNEL_10, COLOR_04_ORANGE) // "I don't... I don't believe it!"
 
 	wait_until(963, 0x70)
 	play_sound(0x80d4, CHANNEL_10)
@@ -2869,7 +2869,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x80db, CHANNEL_10)
 
 	wait_until(1000, 0x72)
-	speak(CHR_BOND, L_LEE(43), 0x748a, CHANNEL_10, COLOR_09_BLUE) // "Elvis? What is it?"
+	speak(CHR_BOND, L_LEE_043, 0x748a, CHANNEL_10, COLOR_09_BLUE) // "Elvis? What is it?"
 
 	wait_until(1030, 0x73)
 	play_sound(0x80da, CHANNEL_10)
@@ -2884,7 +2884,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x80da, CHANNEL_10)
 
 	wait_until(1200, 0x77)
-	speak(CHR_BOND, L_LEE(44), 0x748b, CHANNEL_10, COLOR_09_BLUE) // "Where are you going?"
+	speak(CHR_BOND, L_LEE_044, 0x748b, CHANNEL_10, COLOR_09_BLUE) // "Where are you going?"
 
 	wait_until(1237, 0x78)
 	play_sound(0x80db, CHANNEL_10)
@@ -2899,7 +2899,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x80da, CHANNEL_10)
 
 	wait_until(1301, 0x62)
-	speak(CHR_BOND, L_LEE(45), 0x748c, CHANNEL_10, COLOR_04_ORANGE) // "We have to get down to the surface! Follow me!"
+	speak(CHR_BOND, L_LEE_045, 0x748c, CHANNEL_10, COLOR_04_ORANGE) // "We have to get down to the surface! Follow me!"
 	open_door(OBJ_HANGARDOOR1)
 	open_door(OBJ_HANGARDOOR2)
 	open_door(OBJ_HANGARDOOR3)
@@ -3116,7 +3116,7 @@ u8 func1013_msg_gottogetshieldsdown[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	speak(CHR_BOND, L_LEE(27), 0x73dc, CHANNEL_6, COLOR_09_BLUE) // "I've got to get those shields down to let Elvis in..."
+	speak(CHR_BOND, L_LEE_027, 0x73dc, CHANNEL_6, COLOR_09_BLUE) // "I've got to get those shields down to let Elvis in..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3137,7 +3137,7 @@ u8 func1014_msg_hangarbaydoors[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	speak(CHR_BOND, L_LEE(28), 0x73dd, CHANNEL_6, COLOR_09_BLUE) // "Now only the hangar bay doors are in the way."
+	speak(CHR_BOND, L_LEE_028, 0x73dd, CHANNEL_6, COLOR_09_BLUE) // "Now only the hangar bay doors are in the way."
 
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3151,7 +3151,7 @@ u8 func1015_msg_starmaps[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_P1P2, L_LEE(29), 0x73de, CHANNEL_6, COLOR_09_BLUE) // "This machine contains the Skedar star maps."
+	speak(CHR_P1P2, L_LEE_029, 0x73de, CHANNEL_6, COLOR_09_BLUE) // "This machine contains the Skedar star maps."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3167,7 +3167,7 @@ u8 func1016_msg_ifwecontrolthebridge[] = {
 	unset_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	speak(CHR_P1P2, L_LEE(30), 0x73df, CHANNEL_6, COLOR_09_BLUE) // "If we control the bridge, then the ship is ours."
+	speak(CHR_P1P2, L_LEE_030, 0x73df, CHANNEL_6, COLOR_09_BLUE) // "If we control the bridge, then the ship is ours."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3556,7 +3556,7 @@ u8 func1021_check_ammo_wasted[] = {
 	// Ammo wasted
 	label(0x2c)
 	set_stage_flag(STAGEFLAG_AMMO_WASTED)
-	show_hudmsg(CHR_BOND, L_LEE(49)) // "Ammo depleted - consoles can't be destroyed."
+	show_hudmsg(CHR_BOND, L_LEE_049) // "Ammo depleted - consoles can't be destroyed."
 
 	beginloop(0x66)
 		if_stage_flag_eq(STAGEFLAG_SHIELDS_DISABLED, TRUE, /*goto*/ 0x2c)

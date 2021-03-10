@@ -1,30 +1,32 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "firingrange/frcommands.h"
+#include "gvars/gvars.h"
+#include "types.h"
 
 #if NTSC
 u16 texts[] = {
-	/*0*/ L_MISC(281), // "FIRING\n Press Z Button to fire gun.\n"
-	/*1*/ L_MISC(282), // "AUTO RELOAD\n Release Z Button when out of ammo.\n"
-	/*2*/ L_MISC(283), // "MANUAL RELOAD\n Press B Button to reload early if magazine not full.\n"
-	/*3*/ L_MISC(284), // "Aiming: Hold down R Button to enter Aim mode.\n"
-	/*4*/ L_MISC(285), // "Use Control Stick to move aiming sight.\n"
-	/*5*/ L_MISC(286), // "AUTO FIRE\n Hold Z Button to repeatedly fire automatically.\n"
-	/*6*/ L_MISC(287), // "ALTER AIM\n Press Up C Button or Down C Button to move sight up/down.\n"
-	/*7*/ L_MISC(288), // "ZOOM\n Hold R Button to enter Zoom mode.\n"
-	/*8*/ L_MISC(289), // "FAST FIRE\n Press Z Button quickly to fire faster.\n"
+	/*0*/ L_MISC_281, // "FIRING\n Press Z Button to fire gun.\n"
+	/*1*/ L_MISC_282, // "AUTO RELOAD\n Release Z Button when out of ammo.\n"
+	/*2*/ L_MISC_283, // "MANUAL RELOAD\n Press B Button to reload early if magazine not full.\n"
+	/*3*/ L_MISC_284, // "Aiming: Hold down R Button to enter Aim mode.\n"
+	/*4*/ L_MISC_285, // "Use Control Stick to move aiming sight.\n"
+	/*5*/ L_MISC_286, // "AUTO FIRE\n Hold Z Button to repeatedly fire automatically.\n"
+	/*6*/ L_MISC_287, // "ALTER AIM\n Press Up C Button or Down C Button to move sight up/down.\n"
+	/*7*/ L_MISC_288, // "ZOOM\n Hold R Button to enter Zoom mode.\n"
+	/*8*/ L_MISC_289, // "FAST FIRE\n Press Z Button quickly to fire faster.\n"
 };
 #else
 u16 texts[] = {
-	/*0*/ L_DISH(187),
-	/*1*/ L_DISH(188),
-	/*2*/ L_DISH(189),
-	/*3*/ L_DISH(190),
-	/*4*/ L_DISH(191),
-	/*5*/ L_DISH(192),
-	/*6*/ L_DISH(193),
-	/*7*/ L_DISH(194),
-	/*8*/ L_DISH(195),
+	/*0*/ L_DISH_187,
+	/*1*/ L_DISH_188,
+	/*2*/ L_DISH_189,
+	/*3*/ L_DISH_190,
+	/*4*/ L_DISH_191,
+	/*5*/ L_DISH_192,
+	/*6*/ L_DISH_193,
+	/*7*/ L_DISH_194,
+	/*8*/ L_DISH_195,
 };
 #endif
 

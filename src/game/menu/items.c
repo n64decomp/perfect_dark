@@ -2855,10 +2855,10 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 
 			if (row == 4) {
 				u16 labels[] = {
-					L_OPTIONS(314), // "DEL"
-					L_OPTIONS(315), // "CAPS"
-					L_OPTIONS(316), // "CANCEL"
-					L_OPTIONS(317), // "OK"
+					L_OPTIONS_314, // "DEL"
+					L_OPTIONS_315, // "CAPS"
+					L_OPTIONS_316, // "CANCEL"
+					L_OPTIONS_317, // "OK"
 				};
 
 				s32 index = -1;
@@ -7074,18 +7074,18 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 
 	if (!team) {
 		// "Deaths"
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU(277)), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_277), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 		x = (context->x - textwidth) + 91;
 		y = context->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU(277)), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_277), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
 				textcolour, context->width, context->height, 0, 0);
 	}
 
 	// "Score"
-	textMeasure(&textheight, &textwidth, langGet(L_MPMENU(278)), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_278), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 	x = (context->x - textwidth) + 120;
 	y = context->y + 1;
-	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU(278)), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_278), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
 			textcolour, context->width, context->height, 0, 0);
 	gdl = func0f153780(gdl);
 
@@ -7317,11 +7317,11 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 		maincolour = colourBlend(maincolour, 0x00000000, 127) & 0xffffff00 | maincolour & 0xff;
 	}
 
-	textMeasure(&textheight, &textwidth, langGet(L_MPMENU(281)), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_281), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 	x = context->x - textwidth + 121;
 	y = context->y + 1;
 
-	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU(281)), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_281), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
 			maincolour, context->width, context->height, 0, 0);
 
 	// Num suicides
@@ -7351,17 +7351,17 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		// "Deaths" heading
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU(282)), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_282), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 		x = context->x - textwidth + 120;
 		y = context->y + ypos;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU(282)), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_282), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
 				maincolour, context->width, context->height, 0, 0);
 
 		// "Kills" heading
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU(283)), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_283), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 		x = context->x - textwidth + 25;
 		y = context->y + ypos;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU(283)),  g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_283),  g_FontHandelGothicXs1, g_FontHandelGothicXs2,
 				maincolour, context->width, context->height, 0, 0);
 
 		// Move ypos past heading row
@@ -7851,37 +7851,37 @@ glabel menuRenderControllerLines
 
 // These are the action names, like "AIM", and "LOOK UP"
 u16 var80071354[][9] = {
-	/*0*/  { L_MPWEAPONS(194), L_MPWEAPONS(196), L_MPWEAPONS(202), L_MPWEAPONS(197), L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(205), L_MPWEAPONS(210) },
-	/*1*/  { L_MPWEAPONS(194), L_MPWEAPONS(200), L_MPWEAPONS(202), L_MPWEAPONS(201), L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(205), L_MPWEAPONS(210) },
-	/*2*/  { L_MPWEAPONS(203), L_MPWEAPONS(196), L_MPWEAPONS(202), L_MPWEAPONS(197), L_MPWEAPONS(205), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(194), L_MPWEAPONS(210) },
-	/*3*/  { L_MPWEAPONS(203), L_MPWEAPONS(200), L_MPWEAPONS(202), L_MPWEAPONS(201), L_MPWEAPONS(205), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(194), L_MPWEAPONS(210) },
-	/*4*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(205), L_OPTIONS(3)     },
-	/*5*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(205), L_OPTIONS(3)     },
-	/*6*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(206), L_MPWEAPONS(194), L_OPTIONS(3)     },
-	/*7*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(211), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(207), L_MPWEAPONS(194), L_OPTIONS(3)     },
-	/*8*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(209), L_MPWEAPONS(194), L_OPTIONS(3)     },
-	/*9*/  { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(208), L_MPWEAPONS(194), L_OPTIONS(3)     },
-	/*10*/ { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(209), L_MPWEAPONS(205), L_OPTIONS(3)     },
-	/*11*/ { L_OPTIONS(3),     L_OPTIONS(3),     L_MPWEAPONS(212), L_OPTIONS(3),     L_MPWEAPONS(203), L_MPWEAPONS(204), L_MPWEAPONS(208), L_MPWEAPONS(205), L_OPTIONS(3)     },
+	/*0*/  { L_MPWEAPONS_194, L_MPWEAPONS_196, L_MPWEAPONS_202, L_MPWEAPONS_197, L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_206, L_MPWEAPONS_205, L_MPWEAPONS_210 },
+	/*1*/  { L_MPWEAPONS_194, L_MPWEAPONS_200, L_MPWEAPONS_202, L_MPWEAPONS_201, L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_207, L_MPWEAPONS_205, L_MPWEAPONS_210 },
+	/*2*/  { L_MPWEAPONS_203, L_MPWEAPONS_196, L_MPWEAPONS_202, L_MPWEAPONS_197, L_MPWEAPONS_205, L_MPWEAPONS_204, L_MPWEAPONS_206, L_MPWEAPONS_194, L_MPWEAPONS_210 },
+	/*3*/  { L_MPWEAPONS_203, L_MPWEAPONS_200, L_MPWEAPONS_202, L_MPWEAPONS_201, L_MPWEAPONS_205, L_MPWEAPONS_204, L_MPWEAPONS_207, L_MPWEAPONS_194, L_MPWEAPONS_210 },
+	/*4*/  { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_211, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_206, L_MPWEAPONS_205, L_OPTIONS_003     },
+	/*5*/  { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_211, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_207, L_MPWEAPONS_205, L_OPTIONS_003     },
+	/*6*/  { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_211, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_206, L_MPWEAPONS_194, L_OPTIONS_003     },
+	/*7*/  { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_211, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_207, L_MPWEAPONS_194, L_OPTIONS_003     },
+	/*8*/  { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_212, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_209, L_MPWEAPONS_194, L_OPTIONS_003     },
+	/*9*/  { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_212, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_208, L_MPWEAPONS_194, L_OPTIONS_003     },
+	/*10*/ { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_212, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_209, L_MPWEAPONS_205, L_OPTIONS_003     },
+	/*11*/ { L_OPTIONS_003,     L_OPTIONS_003,     L_MPWEAPONS_212, L_OPTIONS_003,     L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_208, L_MPWEAPONS_205, L_OPTIONS_003     },
 };
 
 u16 menuControllerGetButtonAction(s32 mode, s32 buttonnum)
 {
 	u32 textid = var80071354[mode][buttonnum];
 
-	if (textid == L_MPWEAPONS(194) // "AIM"
+	if (textid == L_MPWEAPONS_194 // "AIM"
 			&& optionsGetAimControl(g_Menus[g_MpPlayerNum].data.main.mpindex) == AIMCONTROL_TOGGLE) {
-		textid = L_MPWEAPONS(195); // "AIM TOGGLE"
+		textid = L_MPWEAPONS_195; // "AIM TOGGLE"
 	}
 
-	if (textid == L_MPWEAPONS(196) // "LOOK UP"
+	if (textid == L_MPWEAPONS_196 // "LOOK UP"
 			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].data.main.mpindex) == false) {
-		textid = L_MPWEAPONS(198); // "LOOK DOWN"
+		textid = L_MPWEAPONS_198; // "LOOK DOWN"
 	}
 
-	if (textid == L_MPWEAPONS(197) // "LOOK DOWN"
+	if (textid == L_MPWEAPONS_197 // "LOOK DOWN"
 			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].data.main.mpindex) == false) {
-		textid = L_MPWEAPONS(199); // "LOOK UP"
+		textid = L_MPWEAPONS_199; // "LOOK UP"
 	}
 
 	return textid;
@@ -7904,15 +7904,15 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 	u32 colour;
 
 	u16 labels[] = {
-		/*0*/ L_MPWEAPONS(185), // "L/R BUTTONS:"
-		/*1*/ L_MPWEAPONS(186), // "UP C BUTTON:"
-		/*2*/ L_MPWEAPONS(187), // "LEFT/RIGHT C BUTTONS:"
-		/*3*/ L_MPWEAPONS(188), // "DOWN C BUTTON:"
-		/*4*/ L_MPWEAPONS(189), // "A BUTTON:"
-		/*5*/ L_MPWEAPONS(190), // "B BUTTON:"
-		/*6*/ L_MPWEAPONS(191), // "CONTROL STICK:"
-		/*7*/ L_MPWEAPONS(192), // "Z BUTTON:"
-		/*8*/ L_MPWEAPONS(193), // "+ CONTROL PAD:"
+		/*0*/ L_MPWEAPONS_185, // "L/R BUTTONS:"
+		/*1*/ L_MPWEAPONS_186, // "UP C BUTTON:"
+		/*2*/ L_MPWEAPONS_187, // "LEFT/RIGHT C BUTTONS:"
+		/*3*/ L_MPWEAPONS_188, // "DOWN C BUTTON:"
+		/*4*/ L_MPWEAPONS_189, // "A BUTTON:"
+		/*5*/ L_MPWEAPONS_190, // "B BUTTON:"
+		/*6*/ L_MPWEAPONS_191, // "CONTROL STICK:"
+		/*7*/ L_MPWEAPONS_192, // "Z BUTTON:"
+		/*8*/ L_MPWEAPONS_193, // "+ CONTROL PAD:"
 	};
 
 	s32 i;
@@ -8072,13 +8072,13 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 			g_MenuColourPalettes2[frame->type].unfocused);
 
 	if (g_Menus[g_MpPlayerNum].data.main.controlmode >= CONTROLMODE_21) {
-		sprintf(text, langGet(L_MPWEAPONS(213)), // "Control Style %s %s"
+		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
 				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].data.main.controlmode]),
-				langGet(L_MPWEAPONS(215))); // "(Two-Handed)"
+				langGet(L_MPWEAPONS_215)); // "(Two-Handed)"
 	} else {
-		sprintf(text, langGet(L_MPWEAPONS(213)), // "Control Style %s %s"
+		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
 				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].data.main.controlmode]),
-				langGet(L_MPWEAPONS(214))); // "(One-Handed)"
+				langGet(L_MPWEAPONS_214)); // "(One-Handed)"
 	}
 
 	x = context->x + 2;
@@ -8105,7 +8105,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 		x = context->x;
 		y = context->y + 92;
 		gdl = func0f153628(gdl);
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPWEAPONS(216)), // "Hold weapon button for ..."
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPWEAPONS_216), // "Hold weapon button for ..."
 				g_FontHandelGothicSm1, g_FontHandelGothicSm2, colour, viGetWidth(), viGetHeight(), 0, 0);
 		gdl = func0f153780(gdl);
 	}

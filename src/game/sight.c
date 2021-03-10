@@ -2930,7 +2930,7 @@ glabel var7f1ade50
 //
 //			if (var80070f98 & 0x80) {
 //				// "Identify"
-//				gdl = textRender(gdl, &textx, &texty, langGet(L_MISC(439)),
+//				gdl = textRender(gdl, &textx, &texty, langGet(L_MISC_439),
 //						g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0x00ff00a0, 0x000000a0,
 //						viGetWidth(), viGetHeight(), 0, 0);
 //			}
@@ -2984,7 +2984,7 @@ glabel var7f1ade50
 //					// probably OK.
 //					if (obj && obj->type == OBJTYPE_AUTOGUN
 //							&& (obj->flags2 & (OBJFLAG2_AICANNOTUSE | OBJFLAG2_80000000)) == 0) {
-//						textid = L_GUN(215); // "AUTOGUN"
+//						textid = L_GUN_215; // "AUTOGUN"
 //					}
 //
 //					weapon = prop->weapon;
@@ -2993,30 +2993,30 @@ glabel var7f1ade50
 //						switch (weapon->weaponnum) {
 //						case WEAPON_GRENADE:
 //							if (weapon->gunfunc == FUNC_SECONDARY) {
-//								textid = L_GUN(212); // "PROXY"
+//								textid = L_GUN_212; // "PROXY"
 //							} else {
-//								textid = L_GUN(213); // "TIMED"
+//								textid = L_GUN_213; // "TIMED"
 //							}
 //							break;
 //						case WEAPON_NBOMB:
 //							if (weapon->gunfunc == FUNC_SECONDARY) {
-//								textid = L_GUN(212); // "PROXY"
+//								textid = L_GUN_212; // "PROXY"
 //							} else {
-//								textid = L_GUN(216); // "IMPACT"
+//								textid = L_GUN_216; // "IMPACT"
 //							}
 //							break;
 //						case WEAPON_TIMEDMINE:
-//							textid = L_GUN(213); // "TIMED"
+//							textid = L_GUN_213; // "TIMED"
 //							break;
 //						case WEAPON_PROXIMITYMINE:
-//							textid = L_GUN(212); // "PROXY"
+//							textid = L_GUN_212; // "PROXY"
 //							break;
 //						case WEAPON_REMOTEMINE:
-//							textid = L_GUN(214); // "REMOTE"
+//							textid = L_GUN_214; // "REMOTE"
 //							break;
 //						case WEAPON_DRAGON:
 //							if (weapon->gunfunc == FUNC_SECONDARY) {
-//								textid = L_GUN(212); // "PROXY"
+//								textid = L_GUN_212; // "PROXY"
 //							}
 //							break;
 //						}

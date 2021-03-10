@@ -110,17 +110,17 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_PETE(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_PETE(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_PETE(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_PETE(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_PETE_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_PETE_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_PETE_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_PETE_003)
 
-	beginobjective(0, L_PETE(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve drop point equipment"
+	beginobjective(0, L_PETE_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve drop point equipment"
 		require_object_collected(OBJ_BRIEFCASE1)
 		require_object_collected(OBJ_BRIEFCASE2)
 	endobjective
 
-	beginobjective(1, L_PETE(10), (DIFFBIT_PA | DIFFBIT_PD)) // "Attach tracer to limousine"
+	beginobjective(1, L_PETE_010, (DIFFBIT_PA | DIFFBIT_PD)) // "Attach tracer to limousine"
 		complete_flags(STAGEFLAG_TRACERBUG_PLACED)
 		fail_flags(STAGEFLAG_TRACERBUG_WASTED)
 		fail_flags(STAGEFLAG_LIMO_DESTROYED)
@@ -128,18 +128,18 @@ u32 props[] = {
 		fail_flags(STAGEFLAG_TRACERBUG_SPOTTED)
 	endobjective
 
-	beginobjective(2, L_PETE(11), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Prepare escape route"
+	beginobjective(2, L_PETE_011, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Prepare escape route"
 		complete_flags(STAGEFLAG_MINE_PLACED)
 		fail_flags(STAGEFLAG_MINE_WASTED)
 	endobjective
 
-	beginobjective(3, L_PETE(13), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Create vehicular diversion"
+	beginobjective(3, L_PETE_013, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Create vehicular diversion"
 		complete_flags(STAGEFLAG_DIVERSION_CREATED)
 		fail_flags(STAGEFLAG_TAXI_DESTROYED)
 		fail_flags(STAGEFLAG_ROBOT_DESTROYED)
 	endobjective
 
-	beginobjective(4, L_PETE(14), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain entry to G5 building"
+	beginobjective(4, L_PETE_014, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain entry to G5 building"
 		complete_flags(STAGEFLAG_IN_ELEVATOR)
 		fail_flags(STAGEFLAG_CIVILIAN_DEAD)
 		fail_flags(STAGEFLAG_ELEVATOR_SEALED)
@@ -212,24 +212,24 @@ u32 props[] = {
 	stdobject(0x0100, MODEL_POLICECAR, 0xffff, 0x00021501, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x06, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0x00a6, 0x00422001, 0x00000001, 0x20400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_REMOTEMINE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x22, L_PETE(38), L_PETE(39), L_PETE(40), L_PETE(41), L_PETE(42), 0x0000, 0x0000) // "Obtain Remote Mine."
+	rename_object(-1, 0x22, L_PETE_038, L_PETE_039, L_PETE_040, L_PETE_041, L_PETE_042, 0x0000, 0x0000) // "Obtain Remote Mine."
 	tag(0x0f, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0xffff, 0x00000001, 0x00000001, 0x20000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_TRACERBUG, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x3e, L_PETE(43), L_PETE(44), L_PETE(45), L_PETE(46), L_PETE(47), 0x0000, 0x0000) // "Obtain Tracer Bug."
+	rename_object(-1, 0x3e, L_PETE_043, L_PETE_044, L_PETE_045, L_PETE_046, L_PETE_047, 0x0000, 0x0000) // "Obtain Tracer Bug."
 	tag(0x1d, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0xffff, 0x00000001, 0x00000001, 0x20000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_TRACERBUG, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x3e, L_PETE(43), L_PETE(44), L_PETE(45), L_PETE(46), L_PETE(47), 0x0000, 0x0000) // "Obtain Tracer Bug."
+	rename_object(-1, 0x3e, L_PETE_043, L_PETE_044, L_PETE_045, L_PETE_046, L_PETE_047, 0x0000, 0x0000) // "Obtain Tracer Bug."
 	tag(0x0e, 1)
 	singlemonitor(0x0019, MODEL_G5_LASER_SWITCH, 0x00eb, 0x00000002, 0x00002301, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff13)
 	tag(0x07, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0x00a6, 0x00462001, 0x00000001, 0x20400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DATAUPLINK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x36, L_PETE(49), L_PETE(50), L_PETE(51), L_PETE(52), L_PETE(53), 0x0000, 0x0000) // "Obtain Reprogrammer."
+	rename_object(-1, 0x36, L_PETE_049, L_PETE_050, L_PETE_051, L_PETE_052, L_PETE_053, 0x0000, 0x0000) // "Obtain Reprogrammer."
 	tag(0x1b, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0x001c, 0x00000001, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_FALCON2_SCOPE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x04, L_PETE(55), L_PETE(56), L_PETE(57), L_PETE(58), L_PETE(59), 0x0000, 0x0000) // "Obtain Remote Mine."
+	rename_object(-1, 0x04, L_PETE_055, L_PETE_056, L_PETE_057, L_PETE_058, L_PETE_059, 0x0000, 0x0000) // "Obtain Remote Mine."
 	tag(0x1e, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0x001c, 0x00000001, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_FALCON2_SCOPE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x04, L_PETE(55), L_PETE(56), L_PETE(57), L_PETE(58), L_PETE(59), 0x0000, 0x0000) // "Obtain Remote Mine."
+	rename_object(-1, 0x04, L_PETE_055, L_PETE_056, L_PETE_057, L_PETE_058, L_PETE_059, 0x0000, 0x0000) // "Obtain Remote Mine."
 	tag(0x1f, 1)
 	stdobject(0x0100, MODEL_CHRBRIEFCASE, 0x009c, 0x012004e1, 0x00086000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x0a, 1)
@@ -774,7 +774,7 @@ u8 func100f_check_mine[] = {
 
 	label(0x03)
 	set_stage_flag(STAGEFLAG_MINE_PLACED)
-	show_hudmsg(CHR_P1P2, L_PETE(15)) // "Mine placed correctly."
+	show_hudmsg(CHR_P1P2, L_PETE_015) // "Mine placed correctly."
 
 	// Check that the player hasn't detonated the mine
 	beginloop(0x2d)
@@ -786,12 +786,12 @@ u8 func100f_check_mine[] = {
 
 	label(0x04)
 	set_stage_flag(STAGEFLAG_MINE_WASTED)
-	show_hudmsg(CHR_P1P2, L_PETE(72)) // "Remote Mine has been wasted."
+	show_hudmsg(CHR_P1P2, L_PETE_072) // "Remote Mine has been wasted."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x07)
 	set_stage_flag(STAGEFLAG_MINE_WASTED)
-	show_hudmsg(CHR_P1P2, L_PETE(16)) // "Mine placed incorrectly."
+	show_hudmsg(CHR_P1P2, L_PETE_016) // "Mine placed incorrectly."
 
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -806,17 +806,17 @@ u8 func1026_uplink[] = {
 
 		label(0x03)
 		if_stage_flag_eq(STAGEFLAG_TAXI_REPROGRAMMED, FALSE, /*goto*/ 0x04)
-		show_hudmsg(CHR_P1P2, L_PETE(17)) // "Virus already downloaded into NavComp."
+		show_hudmsg(CHR_P1P2, L_PETE_017) // "Virus already downloaded into NavComp."
 		reloop(0x10)
 
 		label(0x04)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x03)
-		show_hudmsg(CHR_P1P2, L_PETE(18)) // "Hovcab is unresponsive - need Reprogrammer."
+		show_hudmsg(CHR_P1P2, L_PETE_018) // "Hovcab is unresponsive - need Reprogrammer."
 		reloop(0x10)
 
 		// Uplinking
 		label(0x03)
-		show_hudmsg(CHR_P1P2, L_PETE(19)) // "Accessing hovercab navigation systems."
+		show_hudmsg(CHR_P1P2, L_PETE_019) // "Accessing hovercab navigation systems."
 		assign_sound(0x0456, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_TAXI, TRUE)
 		restart_timer
@@ -827,9 +827,9 @@ u8 func1026_uplink[] = {
 		endloop(0x05)
 
 		label(0x04)
-		show_hudmsg(CHR_P1P2, L_PETE(20)) // "Virus downloaded successfully."
+		show_hudmsg(CHR_P1P2, L_PETE_020) // "Virus downloaded successfully."
 		yield
-		show_hudmsg(CHR_P1P2, L_PETE(21)) // "Hovercab navigation systems reprogrammed."
+		show_hudmsg(CHR_P1P2, L_PETE_021) // "Hovercab navigation systems reprogrammed."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c1, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_TAXI, TRUE)
@@ -839,7 +839,7 @@ u8 func1026_uplink[] = {
 
 		// Moved away while uplinking
 		label(0x06)
-		show_hudmsg(CHR_P1P2, L_PETE(22)) // "Connection to hovercab broken."
+		show_hudmsg(CHR_P1P2, L_PETE_022) // "Connection to hovercab broken."
 		mute_channel(CHANNEL_7)
 		yield
 		yield
@@ -906,7 +906,7 @@ u8 func040d_limo[] = {
 	if_stage_flag_eq(STAGEFLAG_TRACERBUG_PLACED, TRUE, /*goto*/ 0x03)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x03)
 	set_stage_flag(STAGEFLAG_LIMO_ESCAPED)
-	show_hudmsg(CHR_BOND, L_PETE(28)) // "DataDyne limo has escaped."
+	show_hudmsg(CHR_BOND, L_PETE_028) // "DataDyne limo has escaped."
 	label(0x03)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1095,7 +1095,7 @@ u8 func1005_check_things_destroyed[] = {
 		set_stage_flag(STAGEFLAG_LIMO_DESTROYED)
 		mute_channel(CHANNEL_1)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x03)
-		show_hudmsg(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
+		show_hudmsg(CHR_BOND, L_PETE_025) // "Mission critical vehicle destroyed."
 
 		// Check taxi
 		label(0x03)
@@ -1104,7 +1104,7 @@ u8 func1005_check_things_destroyed[] = {
 		if_object_in_good_condition(OBJ_TAXI, /*goto*/ 0x03)
 		mute_channel(CHANNEL_0)
 		set_stage_flag(STAGEFLAG_TAXI_DESTROYED)
-		show_hudmsg(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
+		show_hudmsg(CHR_BOND, L_PETE_025) // "Mission critical vehicle destroyed."
 
 		// Check robot
 		label(0x03)
@@ -1122,7 +1122,7 @@ u8 func1005_check_things_destroyed[] = {
 
 		label(0x04)
 		set_stage_flag(STAGEFLAG_ROBOT_DESTROYED)
-		show_hudmsg(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
+		show_hudmsg(CHR_BOND, L_PETE_025) // "Mission critical vehicle destroyed."
 		label(0x03)
 	endloop(0x10)
 
@@ -1169,7 +1169,7 @@ u8 func1006_check_for_end[] = {
 	if_all_objectives_complete(/*goto*/ 0x05)
 
 	// Objectives failed
-	show_hudmsg(CHR_P1P2, L_PETE(26)) // "MISSION FAILED"
+	show_hudmsg(CHR_P1P2, L_PETE_026) // "MISSION FAILED"
 	label(0x03)
 	restart_timer
 
@@ -1637,7 +1637,7 @@ u8 func0413_bugspotter[] = {
 	assign_sound(0x044a, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_stage_flag(STAGEFLAG_TRACERBUG_SPOTTED)
-	show_hudmsg(CHR_BOND, L_PETE(67)) // "Tracer Bug has been spotted."
+	show_hudmsg(CHR_BOND, L_PETE_067) // "Tracer Bug has been spotted."
 
 	// Wait for talking animation to finish
 	beginloop(0x05)
@@ -1934,7 +1934,7 @@ u8 func100a_check_cia2_dead[] = {
 
 	label(0x05)
 	set_stage_flag(STAGEFLAG_CIVILIAN_DEAD)
-	show_hudmsg(CHR_BOND, L_PETE(29)) // "Mission failed - unacceptable civilian casualties."
+	show_hudmsg(CHR_BOND, L_PETE_029) // "Mission failed - unacceptable civilian casualties."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2209,7 +2209,7 @@ u8 func041e_sealer1[] = {
 	set_stage_flag(STAGEFLAG_ELEVATOR_SEALED)
 	assign_sound(0x0469, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
-	show_hudmsg(CHR_BOND, L_PETE(33)) // "Elevator access sealed."
+	show_hudmsg(CHR_BOND, L_PETE_033) // "Elevator access sealed."
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x06)
@@ -2229,7 +2229,7 @@ u8 func100d_spawn_alarm_responders[] = {
 
 	label(0x03)
 	restart_timer
-	play_sound(L_MP13(240), -1) // "Attention all personnel"
+	play_sound(0x7af0, -1) // "Attention all personnel"
 
 	beginloop(0x1d)
 		if_timer_gt(200, /*goto*/ 0x03)
@@ -2237,7 +2237,7 @@ u8 func100d_spawn_alarm_responders[] = {
 
 	label(0x03)
 	restart_timer
-	play_sound(L_MP13(241), -1) // "Locate and apprehend fugitive"
+	play_sound(0x7af1, -1) // "Locate and apprehend fugitive"
 
 	beginloop(0x1e)
 		if_timer_gt(120, /*goto*/ 0x03)
@@ -2472,12 +2472,12 @@ u8 func1010_elevator_switch[] = {
 	lock_door(0x10, 0x02)
 	lock_door(0x11, 0x02)
 	if_stage_flag_eq(STAGEFLAG_ELEVATOR_SEALED, TRUE, /*goto*/ 0x04)
-	show_hudmsg(CHR_P1P2, L_PETE(33)) // "Elevator access sealed."
+	show_hudmsg(CHR_P1P2, L_PETE_033) // "Elevator access sealed."
 	set_stage_flag(STAGEFLAG_ELEVATOR_SEALED)
 	goto_first(0x10)
 
 	label(0x04)
-	show_hudmsg(CHR_P1P2, L_PETE(48)) // "Elevator door cannot be reopened."
+	show_hudmsg(CHR_P1P2, L_PETE_048) // "Elevator door cannot be reopened."
 	goto_first(0x10)
 
 	endlist
@@ -2509,7 +2509,7 @@ u8 func1014_crash[] = {
 	move_object_to_pad(OBJ_MINE1, 0x0029)
 	destroy_object(OBJ_MINE1)
 	set_stage_flag(STAGEFLAG_DIVERSION_CREATED)
-	show_hudmsg(CHR_BOND, L_PETE(54)) // "Diversion has been created."
+	show_hudmsg(CHR_BOND, L_PETE_054) // "Diversion has been created."
 	destroy_object(OBJ_TAXI)
 	restart_timer
 
@@ -2552,16 +2552,16 @@ u8 func040a_intro_sfx[] = {
 
 
 	wait_until(30, 0x55)
-	speak(CHR_BOND, L_PETE(68), 0x7408, CHANNEL_7, COLOR_05_GREEN) // "We suspect the G5 Corporation is just a front for ..."
+	speak(CHR_BOND, L_PETE_068, 0x7408, CHANNEL_7, COLOR_05_GREEN) // "We suspect the G5 Corporation is just a front for ..."
 
 	wait_until(1060, 0x56)
-	speak(CHR_BOND, L_PETE(69), 0x7409, CHANNEL_7, COLOR_09_BLUE) // "Just who is this help you keep referring to?"
+	speak(CHR_BOND, L_PETE_069, 0x7409, CHANNEL_7, COLOR_09_BLUE) // "Just who is this help you keep referring to?"
 
 	wait_until(1260, 0x57)
-	speak(CHR_BOND, L_PETE(70), 0x740a, CHANNEL_7, COLOR_05_GREEN) // "Not now, Joanna. Time for radio silence. Good luck..."
+	speak(CHR_BOND, L_PETE_070, 0x740a, CHANNEL_7, COLOR_05_GREEN) // "Not now, Joanna. Time for radio silence. Good luck..."
 
 	wait_until(1488, 0x58)
-	speak(CHR_BOND, L_PETE(71), 0x740b, CHANNEL_7, COLOR_09_BLUE) // "Thanks a lot."
+	speak(CHR_BOND, L_PETE_071, 0x740b, CHANNEL_7, COLOR_09_BLUE) // "Thanks a lot."
 
 	label(0x2d)
 	yield
@@ -2955,7 +2955,7 @@ u8 func101a_msg_onlyplace[] = {
 	endloop(0x10)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE(60), 0x8179, CHANNEL_6, COLOR_09_BLUE) // "The only place we could secure the equipment was a..."
+	speak(CHR_P1P2, L_PETE_060, 0x8179, CHANNEL_6, COLOR_09_BLUE) // "The only place we could secure the equipment was a..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2975,7 +2975,7 @@ u8 func101b_msg_blockedupdoors[] = {
 	endloop(0x05)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE(61), 0x73b1, CHANNEL_6, COLOR_09_BLUE) // "Either of those blocked-up doors will do as an esc..."
+	speak(CHR_P1P2, L_PETE_061, 0x73b1, CHANNEL_6, COLOR_09_BLUE) // "Either of those blocked-up doors will do as an esc..."
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2998,7 +2998,7 @@ u8 func101c_msg_reprogramthattaxi[] = {
 	endloop(0x05)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE(62), 0x817a, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that taxi - it's a Mark 2 and should be ..."
+	speak(CHR_P1P2, L_PETE_062, 0x817a, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that taxi - it's a Mark 2 and should be ..."
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3011,7 +3011,7 @@ u8 func101d_msg_pointofingress[] = {
 	endloop(0x10)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE(63), 0x817b, CHANNEL_6, COLOR_09_BLUE) // "That car park lift is your only point of ingress."
+	speak(CHR_P1P2, L_PETE_063, 0x817b, CHANNEL_6, COLOR_09_BLUE) // "That car park lift is your only point of ingress."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3040,7 +3040,7 @@ u8 func101e_check_sealer_guards_dead[] = {
 
 	label(0x03)
 	if_stage_flag_eq(STAGEFLAG_DIVERSION_CREATED, TRUE, /*goto*/ 0x03)
-	show_hudmsg(CHR_BOND, L_PETE(66)) // "An alternative diversion has been created!"
+	show_hudmsg(CHR_BOND, L_PETE_066) // "An alternative diversion has been created!"
 	unset_stage_flag(STAGEFLAG_TAXI_DESTROYED)
 	unset_stage_flag(STAGEFLAG_ROBOT_DESTROYED)
 	set_stage_flag(STAGEFLAG_DIVERSION_CREATED)

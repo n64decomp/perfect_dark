@@ -60,22 +60,22 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_WAX(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_WAX(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_WAX(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_WAX(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_WAX_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_WAX_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_WAX_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_WAX_003)
 
-	beginobjective(0, L_WAX(5), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Plant explosive device in lab lift"
+	beginobjective(0, L_WAX_005, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Plant explosive device in lab lift"
 		complete_flags(STAGEFLAG_BOMB_PLANTED)
 		fail_flags(STAGEFLAG_BOMB_EXPIRED)
 		fail_flags(STAGEFLAG_BOMB_UNPLANTABLE)
 	endobjective
 
-	beginobjective(1, L_WAX(6), (DIFFBIT_PA | DIFFBIT_PD)) // "Eliminate dataDyne Captain"
+	beginobjective(1, L_WAX_006, (DIFFBIT_PA | DIFFBIT_PD)) // "Eliminate dataDyne Captain"
 		complete_flags(STAGEFLAG_CHIEF_DEAD)
 	endobjective
 
-	beginobjective(2, L_WAX(4), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate and escort Cassandra to helipad"
+	beginobjective(2, L_WAX_004, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate and escort Cassandra to helipad"
 		complete_flags(STAGEFLAG_CASS_CAPTURED)
 		fail_flags(STAGEFLAG_CASS_DEAD)
 	endobjective
@@ -521,10 +521,10 @@ u32 props[] = {
 	tinted_glass(0x0100, MODEL_DD_WINDOW, 0x0120, 0x14000b63, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x04b007d0, 0x0000ffff, 0x00000000)
 	tag(0x52, 1)
 	stdobject(0x0100, MODEL_SKEDARBOMB, 0x0011, 0x013004e1, 0x00084000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x3c, L_WAX(17), L_WAX(18), L_WAX(19), L_WAX(20), L_WAX(21), 0x0000, 0x0000) // ""
+	rename_object(-1, 0x3c, L_WAX_017, L_WAX_018, L_WAX_019, L_WAX_020, L_WAX_021, 0x0000, 0x0000) // ""
 	tag(0x53, 1)
 	stdobject(0x0100, MODEL_SKEDARBOMB, 0x0011, 0x013004e1, 0x00084000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x3c, L_WAX(17), L_WAX(18), L_WAX(19), L_WAX(20), L_WAX(21), 0x0000, 0x0000) // ""
+	rename_object(-1, 0x3c, L_WAX_017, L_WAX_018, L_WAX_019, L_WAX_020, L_WAX_021, 0x0000, 0x0000) // ""
 	tag(0x54, 1)
 	stdobject(0x0100, MODEL_SKEDARBOMB, 0x0257, 0x000200e3, 0x00080001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x41, 1)
@@ -1280,7 +1280,7 @@ u8 func0411_cass_in_office[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_YWSM)
 	set_shotlist(AILIST_CASS_RUNNING)
 	restart_timer
-	speak(CHR_TARGET, L_WAX(8), 0x0d23, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
+	speak(CHR_TARGET, L_WAX_008, 0x0d23, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
 	chr_do_animation(0x0226, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 	yield
 
@@ -1329,7 +1329,7 @@ u8 func0411_cass_in_office[] = {
 	chr_do_animation(0x0245, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x2c)
 	label(0x2c)
-	speak(CHR_TARGET, L_WAX(7), 0x81a3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
+	speak(CHR_TARGET, L_WAX_007, 0x81a3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
 
 	beginloop(0x58)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2c)
@@ -1468,7 +1468,7 @@ u8 func1004_check_cass_dead[] = {
 	endloop(0x03)
 
 	label(0x2c)
-	show_hudmsg(CHR_BOND, L_WAX(14)) // "Cassandra has been immobilized."
+	show_hudmsg(CHR_BOND, L_WAX_014) // "Cassandra has been immobilized."
 	set_stage_flag(STAGEFLAG_CASS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1481,7 +1481,7 @@ u8 func1005_check_cass_captured[] = {
 		if_chr_dead(CHR_CASS, /*goto*/ 0x0d)
 		if_chr_knockedout(CHR_CASS, /*goto*/ 0x0d)
 		if_chr_y(CHR_CASS, 0, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_WAX(15)) // "Cassandra has been captured successfully."
+		show_hudmsg(CHR_BOND, L_WAX_015) // "Cassandra has been captured successfully."
 		set_stage_flag(STAGEFLAG_CASS_CAPTURED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1524,7 +1524,7 @@ u8 func1006_lift_disabling[] = {
 	unset_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
 	unset_chr_chrflag(CHR_CHIEF, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_CHIEF, AILIST_CHIEF)
-	show_hudmsg(CHR_BOND, L_WAX(25)) // "Lift has been disabled."
+	show_hudmsg(CHR_BOND, L_WAX_025) // "Lift has been disabled."
 
 	// Wait until chief dead
 	beginloop(0x08)
@@ -1534,7 +1534,7 @@ u8 func1006_lift_disabling[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	show_hudmsg(CHR_BOND, L_WAX(16)) // "Security chief has been eliminated."
+	show_hudmsg(CHR_BOND, L_WAX_016) // "Security chief has been eliminated."
 	set_stage_flag(STAGEFLAG_CHIEF_DEAD)
 	restart_timer
 
@@ -1650,7 +1650,7 @@ u8 func1007_bomb_logic[] = {
 
 	// Plant bomb
 	label(0x2c)
-	show_hudmsg(CHR_BOND, L_WAX(22)) // "Skedar bomb has been placed successfully."
+	show_hudmsg(CHR_BOND, L_WAX_022) // "Skedar bomb has been placed successfully."
 	remove_weapon_from_inventory(WEAPON_SKEDARBOMB)
 	set_stage_flag(STAGEFLAG_BOMB_PLANTED)
 	hide_object(OBJ_BOND_BOMB)
@@ -1682,7 +1682,7 @@ u8 func1007_bomb_logic[] = {
 	set_countdown_timer(0)
 	stop_countdown_timer
 	set_stage_flag(STAGEFLAG_BOMB_EXPIRED)
-	show_hudmsg(CHR_BOND, L_WAX(23)) // "Skedar bomb has detonated."
+	show_hudmsg(CHR_BOND, L_WAX_023) // "Skedar bomb has detonated."
 
 	// Wait 2 seconds
 	restart_timer
@@ -1745,7 +1745,7 @@ u8 func1008_check_bomb_unplantable[] = {
 
 		// Fail mission
 		label(0x2c)
-		show_hudmsg(CHR_BOND, L_WAX(24)) // "Lift doors locked - bomb cannot be placed."
+		show_hudmsg(CHR_BOND, L_WAX_024) // "Lift doors locked - bomb cannot be placed."
 		set_stage_flag(STAGEFLAG_BOMB_UNPLANTABLE)
 
 		// Difficulty is agent or bomb has been planted - return
@@ -2065,7 +2065,7 @@ u8 func100e_cass_speech[] = {
 	// Speak
 	label(0x2c)
 	restart_timer
-	speak(CHR_CASS, L_WAX(13), 0x6af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
+	speak(CHR_CASS, L_WAX_013, 0x6af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
 	chr_do_animation(0x00a0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x09)

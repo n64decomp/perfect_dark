@@ -133,34 +133,34 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_LIP(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_LIP(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_LIP(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_LIP(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_LIP_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_LIP_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_LIP_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_LIP_003)
 
-	beginobjective(0, L_LIP(10), (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy computer records"
+	beginobjective(0, L_LIP_010, (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy computer records"
 		complete_flags(STAGEFLAG_RECORDS_DESTROYED)
 		fail_flags(STAGEFLAG_UPLINK_TERMINAL_DESTROYED)
 	endobjective
 
-	beginobjective(1, L_LIP(11), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate conspiracy evidence"
+	beginobjective(1, L_LIP_011, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate conspiracy evidence"
 		complete_flags(STAGEFLAG_XRAY_DONE)
 		fail_flags(STAGEFLAG_CHAMBER_SWITCH_DESTROYED)
 	endobjective
 
-	beginobjective(2, L_LIP(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Obtain and use lab technician disguise"
+	beginobjective(2, L_LIP_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Obtain and use lab technician disguise"
 		complete_flags(STAGEFLAG_USED_DISGUISE)
 		fail_flags(STAGEFLAG_DISGUISE_UNCOVERED)
 	endobjective
 
-	beginobjective(3, L_LIP(12), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain access to autopsy lab"
+	beginobjective(3, L_LIP_012, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain access to autopsy lab"
 		complete_flags(STAGEFLAG_ENTERED_LAB)
 		require_object_collected(OBJ_KEYCARD)
 		fail_flags(STAGEFLAG_DOORMAN_REJECTED)
 		fail_flags(STAGEFLAG_DOORMAN_DEAD)
 	endobjective
 
-	beginobjective(4, L_LIP(13), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rescue the crash Survivor"
+	beginobjective(4, L_LIP_013, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rescue the crash Survivor"
 		complete_flags(STAGEFLAG_RESCUED_ELVIS)
 		fail_flags(STAGEFLAG_ELVIS_DEAD)
 		fail_flags(STAGEFLAG_CRATE_DESTROYED)
@@ -304,19 +304,19 @@ u32 props[] = {
 	door_scale(0x00010000)
 	tag(0x00, 1)
 	weapon(0x0180, MODEL_LABCOAT, 0x042b, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DISGUISE40, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x40, L_LIP(15), L_LIP(16), L_LIP(17), L_LIP(18), L_LIP(19), 0x0000, 0x0000) // "Obtain lab clothes."
+	rename_object(-1, 0x40, L_LIP_015, L_LIP_016, L_LIP_017, L_LIP_018, L_LIP_019, 0x0000, 0x0000) // "Obtain lab clothes."
 	tag(0x3e, 1)
 	weapon(0x0180, MODEL_LABCOAT, 0x042c, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DISGUISE40, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x40, L_LIP(15), L_LIP(16), L_LIP(17), L_LIP(18), L_LIP(19), 0x0000, 0x0000) // "Obtain lab clothes."
+	rename_object(-1, 0x40, L_LIP_015, L_LIP_016, L_LIP_017, L_LIP_018, L_LIP_019, 0x0000, 0x0000) // "Obtain lab clothes."
 	tag(0x3f, 1)
 	weapon(0x0180, MODEL_LABCOAT, 0x042d, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DISGUISE40, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x40, L_LIP(15), L_LIP(16), L_LIP(17), L_LIP(18), L_LIP(19), 0x0000, 0x0000) // "Obtain lab clothes."
+	rename_object(-1, 0x40, L_LIP_015, L_LIP_016, L_LIP_017, L_LIP_018, L_LIP_019, 0x0000, 0x0000) // "Obtain lab clothes."
 	tag(0x40, 1)
 	weapon(0x0180, MODEL_LABCOAT, 0x042e, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DISGUISE40, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x40, L_LIP(15), L_LIP(16), L_LIP(17), L_LIP(18), L_LIP(19), 0x0000, 0x0000) // "Obtain lab clothes."
+	rename_object(-1, 0x40, L_LIP_015, L_LIP_016, L_LIP_017, L_LIP_018, L_LIP_019, 0x0000, 0x0000) // "Obtain lab clothes."
 	tag(0x41, 1)
 	weapon(0x0180, MODEL_LABCOAT, 0x042f, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DISGUISE40, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x40, L_LIP(15), L_LIP(16), L_LIP(17), L_LIP(18), L_LIP(19), 0x0000, 0x0000) // "Obtain lab clothes."
+	rename_object(-1, 0x40, L_LIP_015, L_LIP_016, L_LIP_017, L_LIP_018, L_LIP_019, 0x0000, 0x0000) // "Obtain lab clothes."
 	tag(0x03, 1)
 	singlemonitor(0x0033, MODEL_SINISTERSTATION, 0x0428, 0x000005e1, 0x00000001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff03)
 	tag(0x02, 1)
@@ -327,10 +327,10 @@ u32 props[] = {
 	singlemonitor(0x0033, MODEL_SINISTERSTATION, 0x0426, 0x000005e1, 0x00000001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff03)
 	tag(0x05, 1)
 	weapon(0x0180, MODEL_CHRDATATHIEF, 0x00da, 0x00100001, 0x00080000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DATAUPLINK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x36, L_LIP(24), L_LIP(25), L_LIP(26), L_LIP(27), L_LIP(28), 0x0000, 0x0000) // "Obtain Data Uplink."
+	rename_object(-1, 0x36, L_LIP_024, L_LIP_025, L_LIP_026, L_LIP_027, L_LIP_028, 0x0000, 0x0000) // "Obtain Data Uplink."
 	tag(0x3a, 1)
 	weapon(0x0180, MODEL_CHRDATATHIEF, 0x00da, 0x00100001, 0x00080000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DATAUPLINK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x36, L_LIP(24), L_LIP(25), L_LIP(26), L_LIP(27), L_LIP(28), 0x0000, 0x0000) // "Obtain Data Uplink."
+	rename_object(-1, 0x36, L_LIP_024, L_LIP_025, L_LIP_026, L_LIP_027, L_LIP_028, 0x0000, 0x0000) // "Obtain Data Uplink."
 	tag(0x3c, 2)
 	tag(0x3d, 2)
 	singlemonitor(0x0033, MODEL_SINISTERSTATION, 0x03c6, 0x000005e1, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff03)
@@ -489,7 +489,7 @@ u32 props[] = {
 	hover_prop(0x00eb, MODEL_HOVERCRATE1, 0x01c7, 0x35100101, 0x80102301, 0x00000003, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x02010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000)
 	tag(0x06, 1)
 	key(0x0080, MODEL_KEYCARD, 0x003f, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000020)
-	rename_object(-1, 0x47, L_LIP(32), L_LIP(33), L_LIP(34), L_LIP(35), L_LIP(36), 0x0000, 0x0000) // "Obtain medlab 2 key card."
+	rename_object(-1, 0x47, L_LIP_032, L_LIP_033, L_LIP_034, L_LIP_035, L_LIP_036, 0x0000, 0x0000) // "Obtain medlab 2 key card."
 
 	// @bug: This keycard is given to guard 0x26 rather than being left
 	// unassigned. This breaks the keycard hot potato which is supposed to
@@ -497,7 +497,7 @@ u32 props[] = {
 	// there's one guard left, and you can just kill guard 0x26 for it.
 	tag(0x10, 1)
 	key(0x0080, MODEL_KEYCARD, 0x0026, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000080)
-	rename_object(-1, 0x48, L_LIP(59), L_LIP(60), L_LIP(61), L_LIP(62), L_LIP(63), 0x0000, 0x0000) // "Obtain op room key card."
+	rename_object(-1, 0x48, L_LIP_059, L_LIP_060, L_LIP_061, L_LIP_062, L_LIP_063, 0x0000, 0x0000) // "Obtain op room key card."
 
 	stdobject(0x0100, MODEL_A51BOARD, 0x03c4, 0x05120101, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	door(0x0100, MODEL_A51_HORIZ_DOOR_BOT, 0x02bd, 0x10000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000f333, 0x0000f333, 0x00085555, 0x00085555, 0x00001999, 0x00000004, 0x00000000, 0x0000003c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001, 0x00000000, 0x00000100, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
@@ -882,7 +882,7 @@ u8 func1007_check_disguise_collected[] = {
 u8 func1026_check_records_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x04, /*goto*/ 0x06)
-		show_hudmsg(CHR_BOND, L_LIP(14)) // "Research records destroyed."
+		show_hudmsg(CHR_BOND, L_LIP_014) // "Research records destroyed."
 		set_stage_flag(STAGEFLAG_RECORDS_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x06)
@@ -900,17 +900,17 @@ u8 func1003_uplink_doors[] = {
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_DOOR_VIRUS_DOWNLOADED, FALSE, /*goto*/ 0x06)
 		play_sound(0x8116, -1)
-		show_hudmsg(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
+		show_hudmsg(CHR_P1P2, L_LIP_048) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x2d)
 		play_sound(0x8116, -1)
-		show_hudmsg(CHR_P1P2, L_LIP(20)) // "Access to door control systems denied."
+		show_hudmsg(CHR_P1P2, L_LIP_020) // "Access to door control systems denied."
 		reloop(0x04)
 
 		label(0x2d)
-		show_hudmsg(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
+		show_hudmsg(CHR_P1P2, L_LIP_030) // "Data Uplink connected."
 		restart_timer
 
 		beginloop(0x08)
@@ -923,7 +923,7 @@ u8 func1003_uplink_doors[] = {
 		endloop(0x08)
 
 		label(0x06)
-		show_hudmsg(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
+		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x02, TRUE)
@@ -945,13 +945,13 @@ u8 func1003_uplink_doors[] = {
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x02, TRUE)
-		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
 		set_stage_flag(STAGEFLAG_DOOR_VIRUS_DOWNLOADED)
 		reloop(0x04)
 
 		label(0x09)
-		show_hudmsg(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
+		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, 0x02, TRUE)
@@ -977,17 +977,17 @@ u8 func1004_uplink_lights[] = {
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_LIGHT_VIRUS_DONE, FALSE, /*goto*/ 0x06)
 		play_sound(0x8116, -1)
-		show_hudmsg(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
+		show_hudmsg(CHR_P1P2, L_LIP_048) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x2d)
 		play_sound(0x8116, -1)
-		show_hudmsg(CHR_P1P2, L_LIP(21)) // "Access to light control systems denied."
+		show_hudmsg(CHR_P1P2, L_LIP_021) // "Access to light control systems denied."
 		reloop(0x04)
 
 		label(0x2d)
-		show_hudmsg(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
+		show_hudmsg(CHR_P1P2, L_LIP_030) // "Data Uplink connected."
 		restart_timer
 
 		beginloop(0x08)
@@ -1000,7 +1000,7 @@ u8 func1004_uplink_lights[] = {
 		endloop(0x08)
 
 		label(0x06)
-		show_hudmsg(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
+		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x01, TRUE)
@@ -1022,9 +1022,9 @@ u8 func1004_uplink_lights[] = {
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x01, TRUE)
-		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
-		show_hudmsg(CHR_P1P2, L_LIP(88)) // "Lighting systems overloaded."
+		show_hudmsg(CHR_P1P2, L_LIP_088) // "Lighting systems overloaded."
 		configure_environment(0x00c4, AIENVCMD_ROOM_SETFAULTYLIGHTS, 110)
 		configure_environment(0x00c3, AIENVCMD_ROOM_SETFAULTYLIGHTS, 110)
 		configure_environment(0x00c8, AIENVCMD_ROOM_SETFAULTYLIGHTS, 110)
@@ -1042,7 +1042,7 @@ u8 func1004_uplink_lights[] = {
 		reloop(0x04)
 
 		label(0x09)
-		show_hudmsg(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
+		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, 0x01, TRUE)
@@ -1068,17 +1068,17 @@ u8 func1005_uplink_autoguns[] = {
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_LIGHT_VIRUS_DONE, FALSE, /*goto*/ 0x06)
 		play_sound(0x8116, -1)
-		show_hudmsg(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
+		show_hudmsg(CHR_P1P2, L_LIP_048) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x2d)
 		play_sound(0x8116, -1)
-		show_hudmsg(CHR_P1P2, L_LIP(22)) // "Access to security control systems denied."
+		show_hudmsg(CHR_P1P2, L_LIP_022) // "Access to security control systems denied."
 		reloop(0x04)
 
 		label(0x2d)
-		show_hudmsg(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
+		show_hudmsg(CHR_P1P2, L_LIP_030) // "Data Uplink connected."
 		restart_timer
 
 		beginloop(0x08)
@@ -1091,7 +1091,7 @@ u8 func1005_uplink_autoguns[] = {
 		endloop(0x08)
 
 		label(0x06)
-		show_hudmsg(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
+		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x03, TRUE)
@@ -1112,14 +1112,14 @@ u8 func1005_uplink_autoguns[] = {
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x00, TRUE)
-		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
-		show_hudmsg(CHR_P1P2, L_LIP(105)) // "Automatic Defenses Disabled."
+		show_hudmsg(CHR_P1P2, L_LIP_105) // "Automatic Defenses Disabled."
 		set_stage_flag(STAGEFLAG_AUTOGUN_VIRUS_DONE)
 		reloop(0x04)
 
 		label(0x09)
-		show_hudmsg(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
+		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, 0x03, TRUE)
@@ -1133,7 +1133,7 @@ u8 func1005_uplink_autoguns[] = {
 		mute_channel(CHANNEL_6)
 		reloop(0x04)
 
-		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		set_stage_flag(STAGEFLAG_AUTOGUN_VIRUS_DONE)
 	endloop(0x04)
 
@@ -1147,7 +1147,7 @@ u8 func1006_check_lab_accessed[] = {
 	endloop(0x04)
 
 	label(0x06)
-	show_hudmsg(CHR_P1P2, L_LIP(29)) // "Laboratory accessed successfully."
+	show_hudmsg(CHR_P1P2, L_LIP_029) // "Laboratory accessed successfully."
 	set_stage_flag(STAGEFLAG_ENTERED_LAB)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1363,7 +1363,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 
 	label(0x06)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP(37), 0x1b2d, CHANNEL_4, COLOR_08_RED) // "Who are you?"
+	speak(CHR_TARGET, L_LIP_037, 0x1b2d, CHANNEL_4, COLOR_08_RED) // "Who are you?"
 	restart_timer
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x64)
 
@@ -1383,7 +1383,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 
 	// Jo has clothes
 	label(0x0d)
-	speak(CHR_TARGET, L_LIP(38), 0x1b2e, CHANNEL_4, COLOR_08_RED) // "Hey - you've got my clothes."
+	speak(CHR_TARGET, L_LIP_038, 0x1b2e, CHANNEL_4, COLOR_08_RED) // "Hey - you've got my clothes."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1396,7 +1396,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP(43), 0x1b32, CHANNEL_4, COLOR_08_RED) // "Give me back my clothes - or else!"
+	speak(CHR_TARGET, L_LIP_043, 0x1b32, CHANNEL_4, COLOR_08_RED) // "Give me back my clothes - or else!"
 	restart_timer
 
 	beginloop(0x0f)
@@ -1442,14 +1442,14 @@ u8 func0410_labtech_showers_sa_pa[] = {
 		// Jo is in one of many rooms with nothing equipped - attack her
 		label(0x2d)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x2d)
-		speak(CHR_TARGET, L_LIP(44), 0x1b33, CHANNEL_4, COLOR_08_RED) // "Right - you've asked for it!"
+		speak(CHR_TARGET, L_LIP_044, 0x1b33, CHANNEL_4, COLOR_08_RED) // "Right - you've asked for it!"
 		set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 		goto_next(0x06)
 
 		label(0x2d)
 		call_rng
 		if_rand_gt(25, /*goto*/ 0x06)
-		speak(CHR_TARGET, L_LIP(45), 0x1b34, CHANNEL_4, COLOR_08_RED) // "Give me my clothes."
+		speak(CHR_TARGET, L_LIP_045, 0x1b34, CHANNEL_4, COLOR_08_RED) // "Give me my clothes."
 		label(0x06)
 		try_run_to_target(/*goto*/ 0x6f)
 		restart_timer
@@ -1476,7 +1476,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	label(0x53)
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP(41), 0x8156, CHANNEL_4, COLOR_08_RED) // "Oh, my God - a gun!"
+	speak(CHR_TARGET, L_LIP_041, 0x8156, CHANNEL_4, COLOR_08_RED) // "Oh, my God - a gun!"
 	restart_timer
 
 	beginloop(0x0a)
@@ -1486,7 +1486,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	// Jo in an unknown room, or follow through from seeing weapon
 	label(0x06)
 	restart_timer
-	speak(CHR_TARGET, L_LIP(39), 0x1b2f, CHANNEL_4, COLOR_08_RED) // "Help - help!"
+	speak(CHR_TARGET, L_LIP_039, 0x1b2f, CHANNEL_4, COLOR_08_RED) // "Help - help!"
 	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x06)
 
 	// No chr in same group - run to pad instead
@@ -1504,7 +1504,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	endloop(0x0b)
 
 	label(0x61)
-	speak(CHR_TARGET, L_LIP(42), 0x1b31, CHANNEL_4, COLOR_08_RED) // "There's an intruder in the complex."
+	speak(CHR_TARGET, L_LIP_042, 0x1b31, CHANNEL_4, COLOR_08_RED) // "There's an intruder in the complex."
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	increase_squadron_alertness(100)
 	stop_chr
@@ -1541,7 +1541,7 @@ u8 func1009_disguise_timer[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_BOND, L_LIP(46), 0x72ab, CHANNEL_4, COLOR_09_BLUE) // "I don't have much time!!!"
+	speak(CHR_BOND, L_LIP_046, 0x72ab, CHANNEL_4, COLOR_09_BLUE) // "I don't have much time!!!"
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x5d)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x5f)
 	set_countdown_timer(90)
@@ -1584,7 +1584,7 @@ u8 func1009_disguise_timer[] = {
 	activate_alarm
 	yield
 	label(0x2d)
-	show_hudmsg(CHR_BOND, L_LIP(47)) // "The enemy has discovered the disguise."
+	show_hudmsg(CHR_BOND, L_LIP_047) // "The enemy has discovered the disguise."
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	hide_countdown_timer
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1733,7 +1733,7 @@ u8 func0418_doorman[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP(50), 0x8157, CHANNEL_4, COLOR_08_RED) // "So, you got here at last."
+	speak(CHR_TARGET, L_LIP_050, 0x8157, CHANNEL_4, COLOR_08_RED) // "So, you got here at last."
 
 	beginloop(0x0a)
 		if_timer_gt(240, /*goto*/ 0x06)
@@ -1746,7 +1746,7 @@ u8 func0418_doorman[] = {
 	// Disguise not used, or uncovered
 	label(0x2d)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP(51), 0x8158, CHANNEL_4, COLOR_08_RED) // "Hey, you're not... SECURITY ALERT!"
+	speak(CHR_TARGET, L_LIP_051, 0x8158, CHANNEL_4, COLOR_08_RED) // "Hey, you're not... SECURITY ALERT!"
 	restart_timer
 	stop_chr
 
@@ -1756,7 +1756,7 @@ u8 func0418_doorman[] = {
 
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_DOORMAN_REJECTED)
-	show_hudmsg(CHR_TARGET, L_LIP(57)) // "Cannot gain access to autopsy lab."
+	show_hudmsg(CHR_TARGET, L_LIP_057) // "Cannot gain access to autopsy lab."
 	goto_next(0x64)
 
 	// Disguised
@@ -1766,7 +1766,7 @@ u8 func0418_doorman[] = {
 
 	// Jo has gun equipped
 	label(0x2d)
-	speak(CHR_TARGET, L_LIP(52), 0x8159, CHANNEL_4, COLOR_08_RED) // "No guns allowed in here - put your weapon away."
+	speak(CHR_TARGET, L_LIP_052, 0x8159, CHANNEL_4, COLOR_08_RED) // "No guns allowed in here - put your weapon away."
 	restart_timer
 
 	beginloop(0x0c)
@@ -1776,7 +1776,7 @@ u8 func0418_doorman[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP(53), 0x815a, CHANNEL_4, COLOR_08_RED) // "I won't tell you again - lose the weapon."
+	speak(CHR_TARGET, L_LIP_053, 0x815a, CHANNEL_4, COLOR_08_RED) // "I won't tell you again - lose the weapon."
 	restart_timer
 
 	beginloop(0x0d)
@@ -1787,16 +1787,16 @@ u8 func0418_doorman[] = {
 
 	label(0x1b)
 	label(0x06)
-	speak(CHR_TARGET, L_LIP(54), 0x815b, CHANNEL_4, COLOR_08_RED) // "Right - I'm calling security."
+	speak(CHR_TARGET, L_LIP_054, 0x815b, CHANNEL_4, COLOR_08_RED) // "Right - I'm calling security."
 	restart_timer
 	label(0x10)
 	set_stage_flag(STAGEFLAG_DOORMAN_REJECTED)
-	show_hudmsg(CHR_TARGET, L_LIP(57)) // "Cannot gain access to autopsy lab."
+	show_hudmsg(CHR_TARGET, L_LIP_057) // "Cannot gain access to autopsy lab."
 	goto_next(0x64)
 
 	// Jo disguised and unarmed
 	label(0x59)
-	speak(CHR_TARGET, L_LIP(55), 0x815c, CHANNEL_4, COLOR_08_RED) // "Everyone's been waiting for you..."
+	speak(CHR_TARGET, L_LIP_055, 0x815c, CHANNEL_4, COLOR_08_RED) // "Everyone's been waiting for you..."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1871,7 +1871,7 @@ u8 func100b_check_doorman_dead[] = {
 		if_chr_in_room(CHR_BOND, 0x00, 0x0088, /*goto*/ 0x06)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0089, /*goto*/ 0x06)
 		if_chr_in_room(CHR_BOND, 0x00, 0x008a, /*goto*/ 0x06)
-		show_hudmsg(CHR_P1P2, L_LIP(56)) // "Critical mission personnel killed."
+		show_hudmsg(CHR_P1P2, L_LIP_056) // "Critical mission personnel killed."
 		restart_timer
 
 		beginloop(0x08)
@@ -1879,7 +1879,7 @@ u8 func100b_check_doorman_dead[] = {
 		endloop(0x08)
 
 		label(0x2d)
-		show_hudmsg(CHR_P1P2, L_LIP(57)) // "Cannot gain access to autopsy lab."
+		show_hudmsg(CHR_P1P2, L_LIP_057) // "Cannot gain access to autopsy lab."
 		restart_timer
 		set_stage_flag(STAGEFLAG_DOORMAN_DEAD)
 
@@ -1966,7 +1966,7 @@ u8 func041a_labtech_harrysmate[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP(58), 0x1abb, CHANNEL_4, COLOR_08_RED) // "Hey, that's not Harry. It's an intruder."
+	speak(CHR_TARGET, L_LIP_058, 0x1abb, CHANNEL_4, COLOR_08_RED) // "Hey, that's not Harry. It's an intruder."
 	increase_squadron_alertness(120)
 	restart_timer
 	chr_do_animation(0x002e, 0, -1, 0x18, 0x10, CHR_SELF, 2)
@@ -2141,7 +2141,7 @@ u8 func100e_elvis_timer[] = {
 	stop_countdown_timer
 	hide_countdown_timer
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
-	show_hudmsg(CHR_BOND, L_LIP(64)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_LIP_064) // "Elvis has been killed."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2d)
@@ -2337,7 +2337,7 @@ u8 func0413_mechanic[] = {
 
 	label(0x06)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_BOND, L_LIP(65), 0x80fb, CHANNEL_4, COLOR_08_RED) // "Get the hell out of here!"
+	speak(CHR_BOND, L_LIP_065, 0x80fb, CHANNEL_4, COLOR_08_RED) // "Get the hell out of here!"
 	restart_timer
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, 0x18, 0x10, CHR_SELF, 2)
 
@@ -2449,7 +2449,7 @@ u8 func1013_check_chamber_switch_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_CHAMBER1_SWITCH, /*goto*/ 0x06)
 		if_stage_flag_eq(STAGEFLAG_CHAMBER1_RAISED, TRUE, /*goto*/ 0x2d)
-		show_hudmsg(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
+		show_hudmsg(CHR_BOND, L_LIP_068) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_CHAMBER_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2485,7 +2485,7 @@ u8 func1014_check_crate_destroyed[] = {
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
-		show_hudmsg(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
+		show_hudmsg(CHR_BOND, L_LIP_068) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_CRATE_DESTROYED)
 
 		beginloop(0x08)
@@ -2497,7 +2497,7 @@ u8 func1014_check_crate_destroyed[] = {
 
 		label(0x2e)
 		unset_stage_flag(STAGEFLAG_CRATE_DESTROYED)
-		show_hudmsg(CHR_BOND, L_LIP(89)) // "Alternative entrance to medlabs created."
+		show_hudmsg(CHR_BOND, L_LIP_089) // "Alternative entrance to medlabs created."
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x06)
@@ -2645,7 +2645,7 @@ u8 func041f_labtech_lights[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x2d)
 	label(0x06)
 	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
-	speak(CHR_TARGET, L_LIP(37), 0x8103, CHANNEL_4, COLOR_08_RED) // "Who are you?"
+	speak(CHR_TARGET, L_LIP_037, 0x8103, CHANNEL_4, COLOR_08_RED) // "Who are you?"
 
 #if VERSION >= VERSION_JPN_FINAL
 	label(0x68)
@@ -2659,7 +2659,7 @@ u8 func041f_labtech_lights[] = {
 	goto_next(0x06)
 
 	label(0x2d)
-	speak(CHR_TARGET, L_LIP(83), 0x127f, CHANNEL_4, COLOR_08_RED) // "Should you be in here?"
+	speak(CHR_TARGET, L_LIP_083, 0x127f, CHANNEL_4, COLOR_08_RED) // "Should you be in here?"
 	restart_timer
 	do_preset_animation(-1)
 
@@ -2675,7 +2675,7 @@ u8 func041f_labtech_lights[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISE_UNCOVERED, /*goto*/ 0x06)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x0c)
 	label(0x06)
-	speak(CHR_TARGET, L_LIP(82), 0x1286, CHANNEL_4, COLOR_08_RED) // "Leave this area now."
+	speak(CHR_TARGET, L_LIP_082, 0x1286, CHANNEL_4, COLOR_08_RED) // "Leave this area now."
 	restart_timer
 	do_preset_animation(-1)
 
@@ -2766,7 +2766,7 @@ u8 func041f_labtech_lights[] = {
 	endloop(0x0e)
 
 	label(0x0f)
-	speak(CHR_TARGET, L_LIP(84), 0x8124, CHANNEL_4, COLOR_08_RED) // "Holy..."
+	speak(CHR_TARGET, L_LIP_084, 0x8124, CHANNEL_4, COLOR_08_RED) // "Holy..."
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	chr_do_animation(ANIM_SURPRISED_0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 	restart_timer
@@ -2909,11 +2909,11 @@ u8 func0420_labtech_doors[] = {
 
 	label(0x2d)
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, TRUE, BANK_0, /*goto*/ 0x2e)
-	speak(CHR_BOND, L_LIP(85), 0x1aa6, CHANNEL_4, COLOR_08_RED) // "It's a spy!"
+	speak(CHR_BOND, L_LIP_085, 0x1aa6, CHANNEL_4, COLOR_08_RED) // "It's a spy!"
 	goto_next(0x2d)
 
 	label(0x2e)
-	speak(CHR_BOND, L_LIP(87), 0x1aa5, CHANNEL_4, COLOR_08_RED) // "Imposter!"
+	speak(CHR_BOND, L_LIP_087, 0x1aa5, CHANNEL_4, COLOR_08_RED) // "Imposter!"
 	label(0x2d)
 	label(0x06)
 	go_to_target_pad(SPEED_JOG)
@@ -3105,7 +3105,7 @@ u8 func0422_labtech_records[] = {
 	label(0x06)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
 	increase_squadron_alertness(100)
-	speak(CHR_TARGET, L_LIP(87), 0x1aa5, CHANNEL_4, COLOR_08_RED) // "Imposter!"
+	speak(CHR_TARGET, L_LIP_087, 0x1aa5, CHANNEL_4, COLOR_08_RED) // "Imposter!"
 	chr_do_animation(0x0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 	restart_timer
 	label(0x79)
@@ -3115,7 +3115,7 @@ u8 func0422_labtech_records[] = {
 
 	label(0x2d)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP(86), 0x04ce, CHANNEL_4, COLOR_08_RED) // "Warn the others..."
+	speak(CHR_TARGET, L_LIP_086, 0x04ce, CHANNEL_4, COLOR_08_RED) // "Warn the others..."
 	label(0x2d)
 	label(0x06)
 	run_to_pad(0x0108)
@@ -3238,7 +3238,7 @@ u8 func1019_chamber1[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x13)
-		show_hudmsg(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
+		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
 		restart_timer
@@ -3274,7 +3274,7 @@ u8 func1019_chamber1[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x12)
-		show_hudmsg(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
+		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
 		restart_timer
@@ -3309,7 +3309,7 @@ u8 func101a_chamber2[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x13)
-		show_hudmsg(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
+		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
 		restart_timer
@@ -3334,7 +3334,7 @@ u8 func101a_chamber2[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x12)
-		show_hudmsg(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
+		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
 		restart_timer
@@ -3395,7 +3395,7 @@ u8 func1020_chamber8[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
-		show_hudmsg(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
+		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x13)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
@@ -3421,7 +3421,7 @@ u8 func1020_chamber8[] = {
 
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
-		show_hudmsg(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
+		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x12)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
@@ -3507,7 +3507,7 @@ u8 func1021_xray_scanning[] = {
 		reloop(0x04)
 
 		label(0x06)
-		show_hudmsg(CHR_P1P2, L_LIP(74)) // "Scanner target acquired."
+		show_hudmsg(CHR_P1P2, L_LIP_074) // "Scanner target acquired."
 		restart_timer
 
 		beginloop(0x08)
@@ -3516,12 +3516,12 @@ u8 func1021_xray_scanning[] = {
 		endloop(0x08)
 
 		label(0x06)
-		show_hudmsg(CHR_P1P2, L_LIP(75)) // "Target ID confirmed - XT origin."
+		show_hudmsg(CHR_P1P2, L_LIP_075) // "Target ID confirmed - XT origin."
 		set_stage_flag(STAGEFLAG_XRAY_DONE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
-		show_hudmsg(CHR_P1P2, L_LIP(76)) // "Scanner lock lost."
+		show_hudmsg(CHR_P1P2, L_LIP_076) // "Scanner lock lost."
 	endloop(0x04)
 
 	endlist
@@ -3695,7 +3695,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x0161, CHANNEL_10)
 
 	wait_until(380, 0x66)
-	speak(CHR_P1P2, L_LIP(100), 0x7433, CHANNEL_7, COLOR_09_BLUE) // "Put your hands up and step away from the alien."
+	speak(CHR_P1P2, L_LIP_100, 0x7433, CHANNEL_7, COLOR_09_BLUE) // "Put your hands up and step away from the alien."
 
 	wait_until(390, 0x68)
 	play_sound(0x0162, CHANNEL_10)
@@ -3709,7 +3709,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x0164, CHANNEL_10)
 
 	wait_until(580, 0x6c)
-	speak(CHR_P1P2, L_LIP(102), 0x7435, CHANNEL_7, COLOR_09_BLUE) // "Don't make me tell you again, Doctor. And turn tha..."
+	speak(CHR_P1P2, L_LIP_102, 0x7435, CHANNEL_7, COLOR_09_BLUE) // "Don't make me tell you again, Doctor. And turn tha..."
 
 	wait_until(588, 0x6b)
 	play_sound(0x0161, CHANNEL_10)
@@ -3786,7 +3786,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0161, CHANNEL_10)
 
 	wait_until(90, 0x64)
-	speak(CHR_BOND, L_LIP(90), 0x7429, CHANNEL_5, COLOR_03_RED) // "The problem you have is that there is no way to sn..."
+	speak(CHR_BOND, L_LIP_090, 0x7429, CHANNEL_5, COLOR_03_RED) // "The problem you have is that there is no way to sn..."
 
 	wait_until(108, 0x66)
 	play_sound(0x0162, CHANNEL_10)
@@ -3801,10 +3801,10 @@ u8 func1002_intro[] = {
 	play_sound(0x0161, CHANNEL_10)
 
 	wait_until(810, 0x6b)
-	speak(CHR_BOND, L_LIP(91), 0x742a, CHANNEL_5, COLOR_09_BLUE) // "Doesn't sound like a problem to me. Where are thes..."
+	speak(CHR_BOND, L_LIP_091, 0x742a, CHANNEL_5, COLOR_09_BLUE) // "Doesn't sound like a problem to me. Where are thes..."
 
 	wait_until(1104, 0x6c)
-	speak(CHR_BOND, L_LIP(92), 0x742b, CHANNEL_5, COLOR_03_RED) // "In that crate."
+	speak(CHR_BOND, L_LIP_092, 0x742b, CHANNEL_5, COLOR_03_RED) // "In that crate."
 
 	wait_until(1186, 0x6d)
 	play_sound(0x0162, CHANNEL_10)
@@ -3823,7 +3823,7 @@ u8 func1002_intro[] = {
 	control_sound_from_object(CHANNEL_1, OBJ_CRATE, TRUE)
 
 	wait_until(1390, 0x72)
-	speak(CHR_BOND, L_LIP(93), 0x742c, CHANNEL_5, COLOR_09_BLUE) // "Cute. Very cute."
+	speak(CHR_BOND, L_LIP_093, 0x742c, CHANNEL_5, COLOR_09_BLUE) // "Cute. Very cute."
 
 	wait_until(1440, 0x73)
 	play_sound(0x0161, CHANNEL_10)
@@ -3835,7 +3835,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0163, CHANNEL_10)
 
 	wait_until(1597, 0x76)
-	speak(CHR_BOND, L_LIP(94), 0x742d, CHANNEL_5, COLOR_03_RED) // "By the way, the stores are crawling with guards. I..."
+	speak(CHR_BOND, L_LIP_094, 0x742d, CHANNEL_5, COLOR_03_RED) // "By the way, the stores are crawling with guards. I..."
 
 	wait_until(1628, 0x77)
 	play_sound(0x0161, CHANNEL_10)
@@ -3859,16 +3859,16 @@ u8 func1002_intro[] = {
 	play_sound(0x0162, CHANNEL_10)
 
 	wait_until(2017, 0x7e)
-	speak(CHR_BOND, L_LIP(95), 0x742e, CHANNEL_5, COLOR_09_BLUE) // "Certainly. Any other pearls of wisdom?"
+	speak(CHR_BOND, L_LIP_095, 0x742e, CHANNEL_5, COLOR_09_BLUE) // "Certainly. Any other pearls of wisdom?"
 
 	wait_until(2275, 0x7f)
-	speak(CHR_BOND, L_LIP(96), 0x742f, CHANNEL_5, COLOR_03_RED) // "That crate..."
+	speak(CHR_BOND, L_LIP_096, 0x742f, CHANNEL_5, COLOR_03_RED) // "That crate..."
 
 	wait_until(2338, 0x80)
-	speak(CHR_BOND, L_LIP(97), 0x7430, CHANNEL_5, COLOR_09_BLUE) // "Yes?"
+	speak(CHR_BOND, L_LIP_097, 0x7430, CHANNEL_5, COLOR_09_BLUE) // "Yes?"
 
 	wait_until(2409, 0x81)
-	speak(CHR_BOND, L_LIP(98), 0x7431, CHANNEL_5, COLOR_03_RED) // "It really doesn't like being shot."
+	speak(CHR_BOND, L_LIP_098, 0x7431, CHANNEL_5, COLOR_03_RED) // "It really doesn't like being shot."
 
 	wait_until(2440, 0x65)
 	open_door(0x33)
@@ -3878,7 +3878,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0172, CHANNEL_10)
 
 	wait_until(2680, 0x83)
-	speak(CHR_BOND, L_LIP(99), 0x7432, CHANNEL_5, COLOR_09_BLUE) // "Great. Now, if I can just fight the urge to report..."
+	speak(CHR_BOND, L_LIP_099, 0x7432, CHANNEL_5, COLOR_09_BLUE) // "Great. Now, if I can just fight the urge to report..."
 
 	wait_until(2690, 0x84)
 	play_sound(0x0173, CHANNEL_10)
@@ -4161,7 +4161,7 @@ u8 func1027_check_disguise_worn[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	show_hudmsg(CHR_BOND, L_LIP(77)) // "Disguise has been worn."
+	show_hudmsg(CHR_BOND, L_LIP_077) // "Disguise has been worn."
 	set_returnlist(0x00, 0x0401)
 	set_returnlist(0x01, 0x0402)
 	set_returnlist(0x02, 0x0403)
@@ -4264,7 +4264,7 @@ u8 func1029_msg_showers[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_BOND, L_LIP(78), 0x73bc, CHANNEL_6, COLOR_09_BLUE) // "The showers... Now, if I can convince someone to p..."
+	speak(CHR_BOND, L_LIP_078, 0x73bc, CHANNEL_6, COLOR_09_BLUE) // "The showers... Now, if I can convince someone to p..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4277,7 +4277,7 @@ u8 func102a_msg_temperaturedropping[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_BOND, L_LIP(79), 0x8180, CHANNEL_6, COLOR_09_BLUE) // "The temperature's dropping... You must be close to..."
+	speak(CHR_BOND, L_LIP_079, 0x8180, CHANNEL_6, COLOR_09_BLUE) // "The temperature's dropping... You must be close to..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4288,7 +4288,7 @@ u8 func102b_msg_airrecycled[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_BOND, L_LIP(80), 0x73be, CHANNEL_6, COLOR_09_BLUE) // "The air's heavily recycled around here - must be n..."
+	speak(CHR_BOND, L_LIP_080, 0x73be, CHANNEL_6, COLOR_09_BLUE) // "The air's heavily recycled around here - must be n..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4299,7 +4299,7 @@ u8 func102c_msg_hurry[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_BOND, L_LIP(81), 0x8181, CHANNEL_6, COLOR_09_BLUE) // "There he is, Jo! Hurry or you'll be too late!"
+	speak(CHR_BOND, L_LIP_081, 0x8181, CHANNEL_6, COLOR_09_BLUE) // "There he is, Jo! Hurry or you'll be too late!"
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4710,7 +4710,7 @@ u8 func1036_check_door_terminal_destroyed[] = {
 	beginloop(0x0b)
 		if_object_in_good_condition(OBJ_DOOR_TERMINAL, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_DOOR_VIRUS_DOWNLOADED, TRUE, /*goto*/ 0x2e)
-		show_hudmsg(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
+		show_hudmsg(CHR_BOND, L_LIP_068) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_UPLINK_TERMINAL_DESTROYED)
 		label(0x2e)
 		set_ailist(CHR_SELF, GAILIST_IDLE)

@@ -244,17 +244,17 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->gunzoomfovs[2] = 30;
 
 	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
-		g_Weapons[WEAPON_EYESPY]->name = L_GUN(61); // "DrugSpy"
-		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN(61); // "DrugSpy"
+		g_Weapons[WEAPON_EYESPY]->name = L_GUN_061; // "DrugSpy"
+		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_061; // "DrugSpy"
 		g_Weapons[WEAPON_EYESPY]->flags &= ~(WEAPONFLAG_00200000 | WEAPONFLAG_00400000);
 	} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO
 			|| (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR)) {
-		g_Weapons[WEAPON_EYESPY]->name = L_GUN(62); // "BombSpy"
-		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN(62); // "BombSpy"
+		g_Weapons[WEAPON_EYESPY]->name = L_GUN_062; // "BombSpy"
+		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_062; // "BombSpy"
 		g_Weapons[WEAPON_EYESPY]->flags &= ~(WEAPONFLAG_00200000 | WEAPONFLAG_00400000);
 	} else {
-		g_Weapons[WEAPON_EYESPY]->name = L_GUN(60); // "CamSpy"
-		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN(60); // "CamSpy"
+		g_Weapons[WEAPON_EYESPY]->name = L_GUN_060; // "CamSpy"
+		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_060; // "CamSpy"
 		g_Weapons[WEAPON_EYESPY]->flags |= (WEAPONFLAG_00200000 | WEAPONFLAG_00400000);
 	}
 

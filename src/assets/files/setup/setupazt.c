@@ -74,29 +74,29 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_AZT(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_AZT(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_AZT(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_AZT(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_AZT_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_AZT_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_AZT_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_AZT_003)
 
-	beginobjective(0, L_AZT(5), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve Presidential medical scanner"
+	beginobjective(0, L_AZT_005, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve Presidential medical scanner"
 		require_object_collected(OBJ_MEDICALSCANNER)
 	endobjective
 
-	beginobjective(1, L_AZT(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate distress beacon"
+	beginobjective(1, L_AZT_006, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate distress beacon"
 		complete_flags(STAGEFLAG_BEACON_ACTIVATED)
 		fail_flags(STAGEFLAG_ESCAPEPOD_DESTROYED)
 	endobjective
 
-	beginobjective(2, L_AZT(7), (DIFFBIT_PA | DIFFBIT_PD)) // "Shut down enemy jamming device"
+	beginobjective(2, L_AZT_007, (DIFFBIT_PA | DIFFBIT_PD)) // "Shut down enemy jamming device"
 		complete_flags(STAGEFLAG_SKEDAR_SHUTTLE_DESTROYED)
 	endobjective
 
-	beginobjective(3, L_AZT(8), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retire Presidential clone"
+	beginobjective(3, L_AZT_008, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retire Presidential clone"
 		complete_flags(STAGEFLAG_CLONE_DEAD)
 	endobjective
 
-	beginobjective(4, L_AZT(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate and rescue President"
+	beginobjective(4, L_AZT_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate and rescue President"
 		complete_flags(STAGEFLAG_PRESIDENT_RESCUED)
 		fail_flags(STAGEFLAG_PRESIDENT_DEAD)
 	endobjective
@@ -429,25 +429,25 @@ u8 func1002_intro[] = {
 
 
 	wait_until(724, 0x69)
-	speak(CHR_BOND, L_AZT(32), 0x7759, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uuhhhh..."
+	speak(CHR_BOND, L_AZT_032, 0x7759, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uuhhhh..."
 
 	wait_until(830, 0x6a)
-	speak(CHR_BOND, L_AZT(34), 0x7457, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please report!"
+	speak(CHR_BOND, L_AZT_034, 0x7457, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please report!"
 
 	wait_until(980, 0x6b)
-	speak(CHR_BOND, L_AZT(33), 0x775a, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uhh... owww..."
+	speak(CHR_BOND, L_AZT_033, 0x775a, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uhh... owww..."
 
 	wait_until(1030, 0x6c)
-	speak(CHR_BOND, L_AZT(35), 0x7458, CHANNEL_10, COLOR_06_WHITE) // "Perfect Dark, come in!"
+	speak(CHR_BOND, L_AZT_035, 0x7458, CHANNEL_10, COLOR_06_WHITE) // "Perfect Dark, come in!"
 
 	wait_until(1152, 0x6e)
-	speak(CHR_BOND, L_AZT(36), 0x7459, CHANNEL_10, COLOR_09_BLUE) // "A-agent Dark reporting in..."
+	speak(CHR_BOND, L_AZT_036, 0x7459, CHANNEL_10, COLOR_09_BLUE) // "A-agent Dark reporting in..."
 
 	wait_until(1372, 0x6f)
-	speak(CHR_BOND, L_AZT(37), 0x745a, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please reply!"
+	speak(CHR_BOND, L_AZT_037, 0x745a, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please reply!"
 
 	wait_until(1610, 0x6d)
-	speak(CHR_BOND, L_AZT(38), 0x745b, CHANNEL_10, COLOR_09_BLUE) // "Something's jamming my transmissions... It's comin..."
+	speak(CHR_BOND, L_AZT_038, 0x745b, CHANNEL_10, COLOR_09_BLUE) // "Something's jamming my transmissions... It's comin..."
 
 	wait_until(1875, 0x70)
 	speak(CHR_BOND, -1, 0x8189, CHANNEL_10, COLOR_00_GREEN)
@@ -462,7 +462,7 @@ u8 func1002_intro[] = {
 	speak(CHR_BOND, -1, 0x8189, CHANNEL_10, COLOR_00_GREEN)
 
 	wait_until(2000, 0x74)
-	speak(CHR_BOND, L_AZT(39), 0x745c, CHANNEL_10, COLOR_09_BLUE) // "I'd better find the jamming device and check that ..."
+	speak(CHR_BOND, L_AZT_039, 0x745c, CHANNEL_10, COLOR_09_BLUE) // "I'd better find the jamming device and check that ..."
 
 	wait_until(2116, 0x75)
 	speak(CHR_BOND, -1, 0x8188, CHANNEL_7, COLOR_00_GREEN)
@@ -618,10 +618,10 @@ u8 func0402_outro[] = {
 	play_sound(0x0595, CHANNEL_6)
 
 	wait_until(248, 0x6b)
-	speak(CHR_BOND, L_AZT(40), 0x745d, CHANNEL_10, COLOR_09_BLUE) // "How are you feeling, Mr. President?"
+	speak(CHR_BOND, L_AZT_040, 0x745d, CHANNEL_10, COLOR_09_BLUE) // "How are you feeling, Mr. President?"
 
 	wait_until(414, 0x6c)
-	speak(CHR_BOND, L_AZT(41), 0x745e, CHANNEL_10, COLOR_08_RED) // "Better now, young lady. Today, I think, will take ..."
+	speak(CHR_BOND, L_AZT_041, 0x745e, CHANNEL_10, COLOR_08_RED) // "Better now, young lady. Today, I think, will take ..."
 
 	wait_until(490, 0x6e)
 	play_sound(0x0596, CHANNEL_5)
@@ -639,7 +639,7 @@ u8 func0402_outro[] = {
 	play_sound(0x0597, CHANNEL_7)
 
 	wait_until(1200, 0x70)
-	speak(CHR_BOND, L_AZT(42), 0x745f, CHANNEL_10, COLOR_09_BLUE) // "Just one thing, sir? What is the Pelagic II that T..."
+	speak(CHR_BOND, L_AZT_042, 0x745f, CHANNEL_10, COLOR_09_BLUE) // "Just one thing, sir? What is the Pelagic II that T..."
 
 	wait_until(1474, 0x74)
 	play_sound(0x0525, CHANNEL_5)
@@ -655,7 +655,7 @@ u8 func0402_outro[] = {
 	play_sound(0x00f8, CHANNEL_10)
 
 	wait_until(1626, 0x73)
-	speak(CHR_BOND, L_AZT(43), 0x7460, CHANNEL_10, COLOR_08_RED) // "It's a U.S. government deep sea research vessel, o..."
+	speak(CHR_BOND, L_AZT_043, 0x7460, CHANNEL_10, COLOR_08_RED) // "It's a U.S. government deep sea research vessel, o..."
 
 	wait_until(1807, 0x79)
 	play_sound(0x0595, CHANNEL_7)
@@ -685,16 +685,16 @@ u8 func0402_outro[] = {
 	play_sound(0x8188, CHANNEL_7)
 
 	wait_until(2450, 0x7b)
-	speak(CHR_BOND, L_AZT(44), 0x7461, CHANNEL_10, COLOR_09_BLUE) // "Trent has a lot to answer for, but I don't think w..."
+	speak(CHR_BOND, L_AZT_044, 0x7461, CHANNEL_10, COLOR_09_BLUE) // "Trent has a lot to answer for, but I don't think w..."
 
 	wait_until(3150, 0x83)
-	speak(CHR_BOND, L_AZT(45), 0x7462, CHANNEL_10, COLOR_03_RED) // "You have failed, Easton. You are a flawed device, ..."
+	speak(CHR_BOND, L_AZT_045, 0x7462, CHANNEL_10, COLOR_03_RED) // "You have failed, Easton. You are a flawed device, ..."
 
 	wait_until(3380, 0x88)
 	play_sound(0x818a, CHANNEL_7)
 
 	wait_until(3580, 0x87)
-	speak(CHR_BOND, L_AZT(46), 0x7463, CHANNEL_10, COLOR_05_GREEN) // "Just try it, you Scandinavian freak!"
+	speak(CHR_BOND, L_AZT_046, 0x7463, CHANNEL_10, COLOR_05_GREEN) // "Just try it, you Scandinavian freak!"
 
 	wait_until(3747, 0x84)
 	play_sound(0x8189, CHANNEL_5)
@@ -713,7 +713,7 @@ u8 func0402_outro[] = {
 	play_sound(0x052a, CHANNEL_10)
 
 	wait_until(4200, 0x78)
-	speak(CHR_BOND, L_AZT(47), 0x7464, CHANNEL_10, COLOR_05_GREEN) // "Noooooooo!!!"
+	speak(CHR_BOND, L_AZT_047, 0x7464, CHANNEL_10, COLOR_05_GREEN) // "Noooooooo!!!"
 
 	wait_until(4240, 0x93)
 	play_sound(0x05c0, CHANNEL_10)
@@ -791,7 +791,7 @@ u8 func1003_msg_therestheescapepod[] = {
 	endloop(0x06)
 
 	label(0x31)
-	speak(CHR_P1P2, L_AZT(10), 0x73cc, CHANNEL_6, COLOR_09_BLUE) // "There's the escape pod."
+	speak(CHR_P1P2, L_AZT_010, 0x73cc, CHANNEL_6, COLOR_09_BLUE) // "There's the escape pod."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -803,7 +803,7 @@ u8 func1004_msg_maybetheresabeacon[] = {
 
 	// Unreachable
 	label(0x31)
-	speak(CHR_BOND, L_AZT(11), 0x73cd, CHANNEL_6, COLOR_09_BLUE) // "Maybe there's a beacon in there."
+	speak(CHR_BOND, L_AZT_011, 0x73cd, CHANNEL_6, COLOR_09_BLUE) // "Maybe there's a beacon in there."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -818,7 +818,7 @@ u8 func1005_msg_thejamming[] = {
 	endloop(0x06)
 
 	label(0x31)
-	speak(CHR_P1P2, L_AZT(12), 0x73ce, CHANNEL_6, COLOR_09_BLUE) // "The jamming... It's coming from that ship."
+	speak(CHR_P1P2, L_AZT_012, 0x73ce, CHANNEL_6, COLOR_09_BLUE) // "The jamming... It's coming from that ship."
 	label(0x0f)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -831,7 +831,7 @@ u8 func1006_msg_elvisbeable[] = {
 	endloop(0x06)
 
 	label(0x31)
-	speak(CHR_P1P2, L_AZT(13), 0x73cf, CHANNEL_6, COLOR_09_BLUE) // "Elvis... He'll be able to protect the President."
+	speak(CHR_P1P2, L_AZT_013, 0x73cf, CHANNEL_6, COLOR_09_BLUE) // "Elvis... He'll be able to protect the President."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1056,7 +1056,7 @@ u8 func1008_escapepod[] = {
 
 		// Pod destroyed
 		mute_channel(CHANNEL_0)
-		show_hudmsg(CHR_BOND, L_AZT(15)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_BOND, L_AZT_015) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_ESCAPEPOD_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1070,7 +1070,7 @@ u8 func1008_escapepod[] = {
 		label(0x31)
 		assign_sound(0x8115, CHANNEL_0)
 		play_sound_from_object(CHANNEL_0, OBJ_ESCAPEPOD, 0x0320, 0x0640)
-		show_hudmsg(CHR_P1P2, L_AZT(14)) // "Distress beacon has been activated."
+		show_hudmsg(CHR_P1P2, L_AZT_014) // "Distress beacon has been activated."
 		set_stage_flag(STAGEFLAG_BEACON_ACTIVATED)
 	endloop(0x06)
 
@@ -1087,7 +1087,7 @@ u8 func1009_check_shuttle_destroyed[] = {
 
 	beginloop(0x06)
 		if_object_in_good_condition(OBJ_SKEDAR_SHUTTLE, /*goto*/ 0x31)
-		show_hudmsg(CHR_BOND, L_AZT(21)) // "Jamming device has been shut down."
+		show_hudmsg(CHR_BOND, L_AZT_021) // "Jamming device has been shut down."
 		set_stage_flag(STAGEFLAG_SKEDAR_SHUTTLE_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x31)
@@ -1104,7 +1104,7 @@ u8 func100a_check_president_dead[] = {
 	endloop(0x06)
 
 	label(0x31)
-	show_hudmsg(CHR_BOND, L_AZT(22)) // "President has been killed."
+	show_hudmsg(CHR_BOND, L_AZT_022) // "President has been killed."
 	set_stage_flag(STAGEFLAG_PRESIDENT_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1118,7 +1118,7 @@ u8 func100b_check_clone_dead[] = {
 	endloop(0x06)
 
 	label(0x31)
-	show_hudmsg(CHR_BOND, L_AZT(23)) // "Presidential clone has been eliminated."
+	show_hudmsg(CHR_BOND, L_AZT_023) // "Presidential clone has been eliminated."
 	set_stage_flag(STAGEFLAG_CLONE_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1226,7 +1226,7 @@ u8 func0404_elvis[] = {
 	// Close to player
 	label(0x13)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_AZT(31), 0x12e2, CHANNEL_6, COLOR_04_ORANGE) // "Take this; you should find it useful!"
+	speak(CHR_TARGET, L_AZT_031, 0x12e2, CHANNEL_6, COLOR_04_ORANGE) // "Take this; you should find it useful!"
 	give_object_to_chr(OBJ_PROXYMINE, CHR_TARGET)
 
 	beginloop(0x14)
@@ -1640,7 +1640,7 @@ u8 func041d_president_running[] = {
 	rebuild_teams
 	rebuild_squadrons
 	if_stage_flag_eq(STAGEFLAG_PRESIDENT_RESCUED, TRUE, /*goto*/ 0x31)
-	show_hudmsg(CHR_TARGET, L_AZT(25)) // "President has been rescued."
+	show_hudmsg(CHR_TARGET, L_AZT_025) // "President has been rescued."
 	set_stage_flag(STAGEFLAG_PRESIDENT_RESCUED)
 	label(0x31)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1720,7 +1720,7 @@ u8 func041e_trent_waiting[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_P1P2, L_AZT(24), 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now!"
+	speak(CHR_P1P2, L_AZT_024, 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now!"
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)

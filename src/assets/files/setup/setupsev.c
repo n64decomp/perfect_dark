@@ -57,20 +57,20 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_SEV(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_SEV(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_SEV(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_SEV(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_SEV_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_SEV_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_SEV_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_SEV_003)
 
-	beginobjective(0, L_SEV(4), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Sabotage enemy medical experiment"
+	beginobjective(0, L_SEV_004, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Sabotage enemy medical experiment"
 		complete_flags(STAGEFLAG_EXPERIMENT_DESTROYED)
 	endobjective
 
-	beginobjective(1, L_SEV(5), (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy captured Maian saucer"
+	beginobjective(1, L_SEV_005, (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy captured Maian saucer"
 		complete_flags(STAGEFLAG_SAUCER_DESTROYED)
 	endobjective
 
-	beginobjective(2, L_SEV(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate distress signal"
+	beginobjective(2, L_SEV_006, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate distress signal"
 		complete_flags(STAGEFLAG_CONSOLE_ACTIVATED)
 		fail_flags(STAGEFLAG_CONSOLE_DESTROYED)
 		fail_flags(STAGEFLAG_TRAPPED_AT_START)
@@ -1136,7 +1136,7 @@ u8 func100d_start_lifts[] = {
 u8 func1003_check_experiment_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_EXPERIMENT, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_SEV(7)) // "Medical experiment has been sabotaged."
+		show_hudmsg(CHR_BOND, L_SEV_007) // "Medical experiment has been sabotaged."
 		set_stage_flag(STAGEFLAG_EXPERIMENT_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1148,7 +1148,7 @@ u8 func1003_check_experiment_destroyed[] = {
 u8 func1004_check_saucer_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x3e, /*goto*/ 0x2c)
-		show_hudmsg(CHR_BOND, L_SEV(8)) // "Captured Maian saucer has been destroyed."
+		show_hudmsg(CHR_BOND, L_SEV_008) // "Captured Maian saucer has been destroyed."
 		set_stage_flag(STAGEFLAG_SAUCER_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1332,13 +1332,13 @@ u8 func1008_check_console[] = {
 	label(0x2c)
 	assign_sound(0x8111, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 0x012c, 0x0190)
-	show_hudmsg(CHR_BOND, L_SEV(9)) // "Distress signal has been sent."
+	show_hudmsg(CHR_BOND, L_SEV_009) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Console destroyed
 	label(0x08)
-	show_hudmsg(CHR_BOND, L_SEV(10)) // "Critical mission object has been destroyed."
+	show_hudmsg(CHR_BOND, L_SEV_010) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1491,7 +1491,7 @@ u8 func100b_check_medlab_escapable[] = {
 
 		// Player has psychosis gun but ammo depleted
 		label(0x2c)
-		show_hudmsg(CHR_BOND, L_SEV(11)) // "Mission failed - cannot escape from medlab."
+		show_hudmsg(CHR_BOND, L_SEV_011) // "Mission failed - cannot escape from medlab."
 		set_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 		goto_next(0x0e)
 
@@ -1510,7 +1510,7 @@ u8 func100b_check_medlab_escapable[] = {
 		endloop(0x0e)
 
 		label(0x06)
-		show_hudmsg(CHR_BOND, L_SEV(12)) // "Alternative escape route found."
+		show_hudmsg(CHR_BOND, L_SEV_012) // "Alternative escape route found."
 		unset_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 	goto_first(0x04)
 

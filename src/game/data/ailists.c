@@ -3561,7 +3561,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Show message first time
 	label(0x13)
-	show_hudmsg(CHR_BOND, L_MISC(69)) // "OBJECTIVES FAILED - abort mission."
+	show_hudmsg(CHR_BOND, L_MISC_069) // "OBJECTIVES FAILED - abort mission."
 
 	// Wait 60 seconds
 	restart_timer
@@ -3581,7 +3581,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Show message second time
 	label(0x13)
-	show_hudmsg(CHR_BOND, L_MISC(69)) // "OBJECTIVES FAILED - abort mission."
+	show_hudmsg(CHR_BOND, L_MISC_069) // "OBJECTIVES FAILED - abort mission."
 	restart_timer
 
 	// Wait 2 minutes
@@ -3600,7 +3600,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Show message third time
 	label(0x13)
-	show_hudmsg(CHR_BOND, L_MISC(69)) // "OBJECTIVES FAILED - abort mission."
+	show_hudmsg(CHR_BOND, L_MISC_069) // "OBJECTIVES FAILED - abort mission."
 	restart_timer
 
 	// Wait 5 minutes

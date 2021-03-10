@@ -130,34 +130,34 @@ struct stagesetup setup = {
 };
 
 u32 props[] = {
-	briefing(BRIEFINGTYPE_LOCATION, L_RIT(1))
-	briefing(BRIEFINGTYPE_TEXT_PA,  L_RIT(0))
-	briefing(BRIEFINGTYPE_TEXT_SA,  L_RIT(2))
-	briefing(BRIEFINGTYPE_TEXT_A,   L_RIT(3))
+	briefing(BRIEFINGTYPE_LOCATION, L_RIT_001)
+	briefing(BRIEFINGTYPE_TEXT_PA,  L_RIT_000)
+	briefing(BRIEFINGTYPE_TEXT_SA,  L_RIT_002)
+	briefing(BRIEFINGTYPE_TEXT_A,   L_RIT_003)
 
-	beginobjective(0, L_RIT(5), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate and retrieve equipment"
+	beginobjective(0, L_RIT_005, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate and retrieve equipment"
 		require_object_collected(OBJ_EQUIPMENT)
 		fail_flags(STAGEFLAG_EQUIPMENT_SWITCH_DESTROYED)
 	endobjective
 
-	beginobjective(1, L_RIT(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate President"
+	beginobjective(1, L_RIT_006, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Locate President"
 		complete_flags(STAGEFLAG_PRESIDENT_STARTED_RUNNING)
 		fail_flags(STAGEFLAG_PRESIDENT_CALLED_SECURITY)
 	endobjective
 
-	beginobjective(2, L_RIT(7), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Get President to escape capsule"
+	beginobjective(2, L_RIT_007, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Get President to escape capsule"
 		complete_flags(STAGEFLAG_PRESIDENT_AT_POD)
 		fail_flags(STAGEFLAG_PRESIDENT_DEAD)
 		fail_flags(STAGEFLAG_KILLED_NEUTRALS)
 		fail_flags(STAGEFLAG_POD_DESTROYED)
 	endobjective
 
-	beginobjective(3, L_RIT(8), (DIFFBIT_PA | DIFFBIT_PD)) // "Secure Air Force One flight path"
+	beginobjective(3, L_RIT_008, (DIFFBIT_PA | DIFFBIT_PD)) // "Secure Air Force One flight path"
 		complete_flags(STAGEFLAG_PLANE_STABILIZED)
 		fail_flags(STAGEFLAG_AUTOPILOT_DESTROYED)
 	endobjective
 
-	beginobjective(4, L_RIT(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Detach UFO from Air Force One"
+	beginobjective(4, L_RIT_009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Detach UFO from Air Force One"
 		complete_flags(STAGEFLAG_UFO_ATTACHMENT_DAMAGED)
 		fail_flags(STAGEFLAG_BOTH_MINES_WASTED)
 		fail_flags(STAGEFLAG_PLANE_CRASHED)
@@ -256,12 +256,12 @@ u32 props[] = {
 	door(0x0100, MODEL_AF1_DOORBIG2, 0x0102, 0x10000400, 0x20000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000e666, 0x00010000, 0x00007fff, 0x00014000, 0x00000666, 0x00040000, 0x00000020, 0x0000012c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001, 0x00000000, 0x00000800, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	door(0x0100, MODEL_AF1_DOORBIG2, 0x0103, 0x10000400, 0x20000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000e666, 0x00010000, 0x00007fff, 0x00014000, 0x00000666, 0x00040000, 0x00000020, 0x0000012c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffffff, 0x00000000, 0x00000000, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	key(0x0080, MODEL_KEYCARD, 0x000e, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000004)
-	rename_object(-1, 0x49, L_RIT(55), L_RIT(56), L_RIT(57), L_RIT(58), L_RIT(59), 0x0000, 0x0000) // ""
+	rename_object(-1, 0x49, L_RIT_055, L_RIT_056, L_RIT_057, L_RIT_058, L_RIT_059, 0x0000, 0x0000) // ""
 	key(0x0080, MODEL_KEYCARD, 0x000f, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000020)
-	rename_object(-1, 0x49, L_RIT(55), L_RIT(56), L_RIT(57), L_RIT(58), L_RIT(59), 0x0000, 0x0000) // ""
+	rename_object(-1, 0x49, L_RIT_055, L_RIT_056, L_RIT_057, L_RIT_058, L_RIT_059, 0x0000, 0x0000) // ""
 	tag(0x22, 1)
 	key(0x0080, MODEL_KEYCARD, 0x0001, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
-	rename_object(-1, 0x49, L_RIT(55), L_RIT(56), L_RIT(57), L_RIT(58), L_RIT(59), 0x0000, 0x0000) // ""
+	rename_object(-1, 0x49, L_RIT_055, L_RIT_056, L_RIT_057, L_RIT_058, L_RIT_059, 0x0000, 0x0000) // ""
 	door(0x0100, MODEL_DD_DR_NONREF, 0x00f5, 0x10000400, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000e666, 0x00010000, 0x00007fff, 0x00014000, 0x00000666, 0x00040000, 0x00000000, 0x0000012c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000800, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	door(0x0100, MODEL_DD_DR_NONREF, 0x00f6, 0x10000400, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000e666, 0x00010000, 0x00007fff, 0x00014000, 0x00000666, 0x00040000, 0x00000000, 0x0000012c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000800, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	door(0x0100, MODEL_DD_DR_NONREF, 0x00f7, 0x10000400, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000e666, 0x00010000, 0x00007fff, 0x00014000, 0x00000666, 0x00040000, 0x00000000, 0x0000012c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000800, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
@@ -432,10 +432,10 @@ u32 props[] = {
 	singlemonitor(0x0100, MODEL_GOODSTATION, 0x0167, 0x000004e1, 0x00000001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff03)
 	tag(0x00, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0x00b3, 0x00000101, 0x00000000, 0x00400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_SUITCASE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x4d, L_RIT(10), L_RIT(11), L_RIT(12), L_RIT(13), L_RIT(14), 0x0000, 0x0000) // "Obtain Suitcase."
+	rename_object(-1, 0x4d, L_RIT_010, L_RIT_011, L_RIT_012, L_RIT_013, L_RIT_014, 0x0000, 0x0000) // "Obtain Suitcase."
 	tag(0x3a, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0xffff, 0x00000101, 0x00000000, 0x00400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_SUITCASE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x4d, L_RIT(10), L_RIT(11), L_RIT(12), L_RIT(13), L_RIT(14), 0x0000, 0x0000) // "Obtain Suitcase."
+	rename_object(-1, 0x4d, L_RIT_010, L_RIT_011, L_RIT_012, L_RIT_013, L_RIT_014, 0x0000, 0x0000) // "Obtain Suitcase."
 	tag(0x24, 1)
 	stdobject(0x0100, MODEL_PRESCAPSULE, 0x0171, 0x000001e1, 0x00004101, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00007d00, 0x00000000, 0x00000000, 0x0fff0000)
 	glass(0x0100, MODEL_WINDOW, 0x016d, 0x04000262, 0x00304000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
@@ -672,7 +672,7 @@ u8 func1005_check_neutrals_killed[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	show_hudmsg(CHR_BOND, L_RIT(20)) // "Too many neutral casualties inflicted."
+	show_hudmsg(CHR_BOND, L_RIT_020) // "Too many neutral casualties inflicted."
 	set_stage_flag(STAGEFLAG_KILLED_NEUTRALS)
 
 	label(0x06)
@@ -1151,8 +1151,8 @@ u8 func100a_autopilot_switch[] = {
 	set_object_image(OBJ_AUTOPILOT_SWITCH, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	yield
-	show_hudmsg(CHR_P1P2, L_RIT(24)) // "Air Force One has been stabilized."
-	show_hudmsg(CHR_P1P2, L_RIT(23)) // "Autopilot has been activated."
+	show_hudmsg(CHR_P1P2, L_RIT_024) // "Air Force One has been stabilized."
+	show_hudmsg(CHR_P1P2, L_RIT_023) // "Autopilot has been activated."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1165,7 +1165,7 @@ u8 func100a_autopilot_switch[] = {
 
 	// Switch destroyed
 	label(0x08)
-	show_hudmsg(CHR_P1P2, L_RIT(25)) // "Autopilot systems have been destroyed."
+	show_hudmsg(CHR_P1P2, L_RIT_025) // "Autopilot systems have been destroyed."
 	set_stage_flag(STAGEFLAG_AUTOPILOT_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1224,7 +1224,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(0)
-	speak(CHR_TARGET, L_RIT(35), 0x12c5, CHANNEL_6, COLOR_08_RED) // "Who are you, young lady?"
+	speak(CHR_TARGET, L_RIT_035, 0x12c5, CHANNEL_6, COLOR_08_RED) // "Who are you, young lady?"
 	restart_timer
 
 	beginloop(0x60)
@@ -1243,7 +1243,7 @@ u8 func0405_president_in_room[] = {
 	endloop(0x60)
 
 	label(0x06)
-	speak(CHR_TARGET, L_RIT(37), 0x72bc, CHANNEL_7, COLOR_09_BLUE) // "Mr. President, you're in danger. Trent is trying t..."
+	speak(CHR_TARGET, L_RIT_037, 0x72bc, CHANNEL_7, COLOR_09_BLUE) // "Mr. President, you're in danger. Trent is trying t..."
 	restart_timer
 	stop_chr
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x78)
@@ -1267,7 +1267,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(1)
-	speak(CHR_TARGET, L_RIT(40), 0x12c6, CHANNEL_6, COLOR_08_RED) // "You can't make accusations like that without evide..."
+	speak(CHR_TARGET, L_RIT_040, 0x12c6, CHANNEL_6, COLOR_08_RED) // "You can't make accusations like that without evide..."
 	restart_timer
 
 	beginloop(0x79)
@@ -1294,7 +1294,7 @@ u8 func0405_president_in_room[] = {
 	label(0x85)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISE_UNCOVERED)
 	set_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISE_UNCOVERED)
-	speak(CHR_TARGET, L_RIT(36), 0x12c4, CHANNEL_6, COLOR_08_RED) // "Security, SECURITY!!"
+	speak(CHR_TARGET, L_RIT_036, 0x12c4, CHANNEL_6, COLOR_08_RED) // "Security, SECURITY!!"
 	restart_timer
 	chr_do_animation(0x0231, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
@@ -1337,7 +1337,7 @@ u8 func0405_president_in_room[] = {
 	// Has equipment
 	label(0x10)
 	stop_chr
-	speak(CHR_TARGET, L_RIT(41), 0x72bd, CHANNEL_6, COLOR_09_BLUE) // "This is a recording of a meeting between Trent and..."
+	speak(CHR_TARGET, L_RIT_041, 0x72bd, CHANNEL_6, COLOR_09_BLUE) // "This is a recording of a meeting between Trent and..."
 	restart_timer
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
 
@@ -1358,7 +1358,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(2)
-	speak(CHR_TARGET, L_RIT(42), 0x12c7, CHANNEL_6, COLOR_08_RED) // "Seems overwhelming... I'm in your hands. What do w..."
+	speak(CHR_TARGET, L_RIT_042, 0x12c7, CHANNEL_6, COLOR_08_RED) // "Seems overwhelming... I'm in your hands. What do w..."
 	restart_timer
 
 	beginloop(0x7a)
@@ -1401,7 +1401,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_RIT(38), 0x816e, CHANNEL_6, COLOR_08_RED) // "What the hell was that!"
+	speak(CHR_TARGET, L_RIT_038, 0x816e, CHANNEL_6, COLOR_08_RED) // "What the hell was that!"
 	restart_timer
 
 	beginloop(0x0c)
@@ -1411,7 +1411,7 @@ u8 func0405_president_in_room[] = {
 	label(0x06)
 	stop_chr
 	set_stage_flag(STAGEFLAG_PRESIDENT_STARTED_RUNNING)
-	speak(CHR_TARGET, L_RIT(39), 0x72be, CHANNEL_6, COLOR_09_BLUE) // "We have to get you to the escape pod. Follow me."
+	speak(CHR_TARGET, L_RIT_039, 0x72be, CHANNEL_6, COLOR_09_BLUE) // "We have to get you to the escape pod. Follow me."
 	restart_timer
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0e)
 
@@ -1468,7 +1468,7 @@ u8 func0404_president_running[] = {
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	if_stage_flag_eq(STAGEFLAG_PRESIDENT_INJURED, TRUE, /*goto*/ 0x56)
 	set_stage_flag(STAGEFLAG_PRESIDENT_INJURED)
-	show_hudmsg(CHR_BOND, L_RIT(72)) // "The President is under attack."
+	show_hudmsg(CHR_BOND, L_RIT_072) // "The President is under attack."
 
 	beginloop(0x56)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
@@ -1638,7 +1638,7 @@ u8 func100b_check_president_dead[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_PRESIDENT_DEAD)
-	show_hudmsg(CHR_BOND, L_RIT(26)) // "The President has been incapacitated."
+	show_hudmsg(CHR_BOND, L_RIT_026) // "The President has been incapacitated."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1870,7 +1870,7 @@ u8 func100c_cockpit[] = {
 	damage_chr(CHR_PILOT2, 18)
 	yield
 	set_stage_flag(STAGEFLAG_PILOTS_DEAD)
-	show_hudmsg(CHR_BOND, L_RIT(27)) // "Pilots have been killed."
+	show_hudmsg(CHR_BOND, L_RIT_027) // "Pilots have been killed."
 	goto_next(0x06)
 
 	// Both takers dead
@@ -1904,7 +1904,7 @@ u8 func100c_cockpit[] = {
 
 	label(0x0b)
 	if_stage_flag_eq(STAGEFLAG_ALL_OBJECTIVES_COMPLETE, TRUE, /*goto*/ 0x11)
-	show_hudmsg(CHR_BOND, L_RIT(29)) // "Air Force One is about to crash."
+	show_hudmsg(CHR_BOND, L_RIT_029) // "Air Force One is about to crash."
 
 	// Wait until the 50 second mark
 	beginloop(0x0c)
@@ -1932,7 +1932,7 @@ u8 func100c_cockpit[] = {
 	label(0x2d)
 	set_object_image(0x03, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
-	show_hudmsg(CHR_BOND, L_RIT(28)) // "Pilots have been saved."
+	show_hudmsg(CHR_BOND, L_RIT_028) // "Pilots have been saved."
 	stop_ambient_track
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2055,14 +2055,14 @@ u8 func1002_intro[] = {
 	wait_until(140, 0x94)
 
 	wait_until(180, 0x60)
-	speak(CHR_BOND, L_RIT(73), 0x744c, CHANNEL_7, COLOR_05_GREEN) // "Have you thought any more about that proposal I ga..."
+	speak(CHR_BOND, L_RIT_073, 0x744c, CHANNEL_7, COLOR_05_GREEN) // "Have you thought any more about that proposal I ga..."
 
 	wait_until(330, 0x95)
 
 	wait_until(360, 0x96)
 
 	wait_until(438, 0x77)
-	speak(CHR_BOND, L_RIT(74), 0x744d, CHANNEL_7, COLOR_08_RED) // "My answer remains the same... I'm sorry Trent, but..."
+	speak(CHR_BOND, L_RIT_074, 0x744d, CHANNEL_7, COLOR_08_RED) // "My answer remains the same... I'm sorry Trent, but..."
 
 	wait_until(486, 0x97)
 
@@ -2071,13 +2071,13 @@ u8 func1002_intro[] = {
 	wait_until(850, 0x99)
 
 	wait_until(1020, 0x78)
-	speak(CHR_BOND, L_RIT(75), 0x744e, CHANNEL_7, COLOR_05_GREEN) // "But this is a golden opportunity to show that Amer..."
+	speak(CHR_BOND, L_RIT_075, 0x744e, CHANNEL_7, COLOR_05_GREEN) // "But this is a golden opportunity to show that Amer..."
 
 	wait_until(1402, 0x79)
-	speak(CHR_BOND, L_RIT(76), 0x81bb, CHANNEL_7, COLOR_08_RED) // "Damn it, man! I say no and I mean no! I'm not gonn..."
+	speak(CHR_BOND, L_RIT_076, 0x81bb, CHANNEL_7, COLOR_08_RED) // "Damn it, man! I say no and I mean no! I'm not gonn..."
 
 	wait_until(2348, 0x7a)
-	speak(CHR_BOND, L_RIT(77), 0x7450, CHANNEL_7, COLOR_05_GREEN) // "As you wish, sir."
+	speak(CHR_BOND, L_RIT_077, 0x7450, CHANNEL_7, COLOR_05_GREEN) // "As you wish, sir."
 
 	wait_until(2406, 0x9a)
 
@@ -2093,7 +2093,7 @@ u8 func1002_intro[] = {
 	wait_until(2616, 0x9e)
 
 	wait_until(2654, 0x7b)
-	speak(CHR_BOND, L_RIT(78), 0x7451, CHANNEL_7, COLOR_05_GREEN) // "My last chance? Ha! You fool. That was yours."
+	speak(CHR_BOND, L_RIT_078, 0x7451, CHANNEL_7, COLOR_05_GREEN) // "My last chance? Ha! You fool. That was yours."
 	close_door(0x15)
 	play_sound(0x8008, CHANNEL_10)
 
@@ -2881,7 +2881,7 @@ u8 func0421_trent_waiting[] = {
 
 	label(0x06)
 	restart_timer
-	speak(CHR_TARGET, L_RIT(45), 0x816f, CHANNEL_6, COLOR_05_GREEN) // "How the hell did you get on board?"
+	speak(CHR_TARGET, L_RIT_045, 0x816f, CHANNEL_6, COLOR_05_GREEN) // "How the hell did you get on board?"
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x08)
@@ -2910,7 +2910,7 @@ u8 func0420_trent_attacking[] = {
 	label(0x2d)
 	set_shield(500)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
-	speak(CHR_P1P2, L_RIT(70), 0x12cb, CHANNEL_6, COLOR_05_GREEN) // "Ha, Ha, Ha, Ha, Ha."
+	speak(CHR_P1P2, L_RIT_070, 0x12cb, CHANNEL_6, COLOR_05_GREEN) // "Ha, Ha, Ha, Ha, Ha."
 	set_ailist(CHR_SELF, AILIST_TRENT_RUNNING)
 
 	// President in sight
@@ -2938,7 +2938,7 @@ u8 func0420_trent_attacking[] = {
 	label(0x09)
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
-	speak(CHR_P1P2, L_RIT(71), 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now."
+	speak(CHR_P1P2, L_RIT_071, 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now."
 
 	beginloop(0x0a)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -3251,7 +3251,7 @@ u8 func0407_steward[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISE_UNCOVERED)
 	do_preset_animation(-1)
 	restart_timer
-	speak(CHR_P1P2, L_RIT(43), 0x1abb, CHANNEL_4, COLOR_04_ORANGE) // "Hey, that's not..."
+	speak(CHR_P1P2, L_RIT_043, 0x1abb, CHANNEL_4, COLOR_04_ORANGE) // "Hey, that's not..."
 
 	beginloop(0x08)
 		if_timer_gt(35, /*goto*/ 0x2d)
@@ -3356,7 +3356,7 @@ u8 func1015_msg_retrievetheevidence[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_BOND, L_RIT(46), 0x73c8, CHANNEL_6, COLOR_09_BLUE) // "Now, let's retrieve the evidence."
+	speak(CHR_BOND, L_RIT_046, 0x73c8, CHANNEL_6, COLOR_09_BLUE) // "Now, let's retrieve the evidence."
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3375,7 +3375,7 @@ u8 func1016_msg_onthislevel[] = {
 
 	label(0x2d)
 	set_target_chr(CHR_PRESET)
-	speak(CHR_TARGET, L_RIT(47), 0x8185, CHANNEL_6, COLOR_09_BLUE) // "The President's room is on this level, Joanna."
+	speak(CHR_TARGET, L_RIT_047, 0x8185, CHANNEL_6, COLOR_09_BLUE) // "The President's room is on this level, Joanna."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3399,7 +3399,7 @@ u8 func1017_msg_gettothecockpit[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_BOND, L_RIT(48), 0x8186, CHANNEL_5, COLOR_09_BLUE) // "Something's wrong... You have to get to the cockpi..."
+	speak(CHR_BOND, L_RIT_048, 0x8186, CHANNEL_5, COLOR_09_BLUE) // "Something's wrong... You have to get to the cockpi..."
 
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3418,7 +3418,7 @@ u8 func1018_msg_maybeamine[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_RIT(49), 0x73cb, CHANNEL_6, COLOR_09_BLUE) // "Maybe a mine will detach the UFO."
+	speak(CHR_P1P2, L_RIT_049, 0x73cb, CHANNEL_6, COLOR_09_BLUE) // "Maybe a mine will detach the UFO."
 
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3483,7 +3483,7 @@ u8 func0423_outro[] = {
 	goto_first(0x60)
 
 	label(0x06)
-	speak(CHR_BOND, L_RIT(79), 0x7452, CHANNEL_7, COLOR_09_BLUE) // "Elvis! Elvis! I can't detach that tube from the fu..."
+	speak(CHR_BOND, L_RIT_079, 0x7452, CHANNEL_7, COLOR_09_BLUE) // "Elvis! Elvis! I can't detach that tube from the fu..."
 
 	#define outro_wait_until(time, loopid) \
 		beginloop(loopid) \
@@ -3495,20 +3495,20 @@ u8 func0423_outro[] = {
 
 
 	outro_wait_until(426, 0x77)
-	speak(CHR_BOND, L_RIT(80), 0x7453, CHANNEL_7, COLOR_06_WHITE) // "Piece of cake, Joanna. Watch this!"
+	speak(CHR_BOND, L_RIT_080, 0x7453, CHANNEL_7, COLOR_06_WHITE) // "Piece of cake, Joanna. Watch this!"
 
 	outro_wait_until(1045, 0x65)
 	play_sound(0x0063, CHANNEL_10)
 
 	outro_wait_until(1050, 0x78)
-	speak(CHR_BOND, L_RIT(81), 0x7454, CHANNEL_7, COLOR_06_WHITE) // "Uh-oh."
+	speak(CHR_BOND, L_RIT_081, 0x7454, CHANNEL_7, COLOR_06_WHITE) // "Uh-oh."
 	emit_sparks(0x23)
 
 	outro_wait_until(1112, 0x79)
-	speak(CHR_BOND, L_RIT(82), 0x7455, CHANNEL_7, COLOR_09_BLUE) // "Watch what? Will you stop playing around and shoot..."
+	speak(CHR_BOND, L_RIT_082, 0x7455, CHANNEL_7, COLOR_09_BLUE) // "Watch what? Will you stop playing around and shoot..."
 
 	outro_wait_until(1380, 0x7a)
-	speak(CHR_BOND, L_RIT(83), 0x7456, CHANNEL_7, COLOR_06_WHITE) // "Out of options... Joanna, brace yourself for impac..."
+	speak(CHR_BOND, L_RIT_083, 0x7456, CHANNEL_7, COLOR_06_WHITE) // "Out of options... Joanna, brace yourself for impac..."
 
 	outro_wait_until(1950, 0x7b)
 
@@ -3634,7 +3634,7 @@ u8 func101a_equipment_switch[] = {
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2d)
 
 		restart_timer
-		show_hudmsg(CHR_P1P2, L_RIT(63)) // "Access denied - lift key card required."
+		show_hudmsg(CHR_P1P2, L_RIT_063) // "Access denied - lift key card required."
 
 		beginloop(0x77)
 			if_timer_gt(120, /*goto*/ 0x06)
@@ -3648,7 +3648,7 @@ u8 func101a_equipment_switch[] = {
 	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_EQUIPMENT_RAISED)
 	open_door(0x1c)
-	show_hudmsg(CHR_P1P2, L_RIT(61)) // "Cargo bay has been raised."
+	show_hudmsg(CHR_P1P2, L_RIT_061) // "Cargo bay has been raised."
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
 	unset_object_flag(0x1b, OBJFLAG_DEACTIVATED)
@@ -3699,7 +3699,7 @@ u8 func101b_hoverbike_switch[] = {
 		label(0x0a)
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2d)
 		restart_timer
-		show_hudmsg(CHR_P1P2, L_RIT(63)) // "Access denied - lift key card required."
+		show_hudmsg(CHR_P1P2, L_RIT_063) // "Access denied - lift key card required."
 
 		beginloop(0x77)
 			if_timer_gt(120, /*goto*/ 0x06)
@@ -3711,7 +3711,7 @@ u8 func101b_hoverbike_switch[] = {
 	// Activated with keycard
 	label(0x2d)
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x13)
-	show_hudmsg(CHR_P1P2, L_RIT(60)) // "Cargo bay has been lowered."
+	show_hudmsg(CHR_P1P2, L_RIT_060) // "Cargo bay has been lowered."
 	set_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
@@ -3747,7 +3747,7 @@ u8 func101c_check_equipment_switch_destroyed[] = {
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_EQUIPMENT_RAISED, TRUE, /*goto*/ 0x2d)
 	set_stage_flag(STAGEFLAG_EQUIPMENT_SWITCH_DESTROYED)
-	show_hudmsg(CHR_BOND, L_RIT(62)) // "Mission critical object has been destroyed."
+	show_hudmsg(CHR_BOND, L_RIT_062) // "Mission critical object has been destroyed."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3842,7 +3842,7 @@ u8 func101d_handle_early_president_death[] = {
 u8 func1007_check_pod_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_ESCAPE_POD, /*goto*/ 0x2d)
-		show_hudmsg(CHR_BOND, L_RIT(62)) // "Mission critical object has been destroyed."
+		show_hudmsg(CHR_BOND, L_RIT_062) // "Mission critical object has been destroyed."
 		set_stage_flag(STAGEFLAG_POD_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2d)
@@ -3917,7 +3917,7 @@ u8 func1022_pilots_stabilizing[] = {
 	endloop(0x93)
 
 	label(0x06)
-	show_hudmsg(CHR_BOND, L_RIT(84)) // "The pilots have stabilized Air Force One."
+	show_hudmsg(CHR_BOND, L_RIT_084) // "The pilots have stabilized Air Force One."
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 
 	label(0x0e)

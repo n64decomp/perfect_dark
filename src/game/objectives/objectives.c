@@ -414,16 +414,16 @@ void objectivesCheckAll(void)
 				g_ObjectiveStatuses[i] = status;
 
 				if (objectiveGetDifficultyBits(i) & (1 << coreGetDifficulty())) {
-					sprintf(buffer, "%s %d: ", langGet(L_MISC(44)), availableindex + 1); // "Objective"
+					sprintf(buffer, "%s %d: ", langGet(L_MISC_044), availableindex + 1); // "Objective"
 
 					if (status == OBJECTIVE_COMPLETE) {
-						strcat(buffer, langGet(L_MISC(45))); // "Completed"
+						strcat(buffer, langGet(L_MISC_045)); // "Completed"
 						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
 					} else if (status == OBJECTIVE_INCOMPLETE) {
-						strcat(buffer, langGet(L_MISC(46))); // "Incomplete"
+						strcat(buffer, langGet(L_MISC_046)); // "Incomplete"
 						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
 					} else if (status == OBJECTIVE_FAILED) {
-						strcat(buffer, langGet(L_MISC(47))); // "Failed"
+						strcat(buffer, langGet(L_MISC_047)); // "Failed"
 						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVEFAILED);
 					}
 				}

@@ -22,48 +22,48 @@ struct menuitem g_CheatsBuddiesMenuItems[];
 struct menudialog g_CheatsBuddiesMenuDialog;
 
 struct cheat g_Cheats[NUM_CHEATS] = {
-	{ L_MPWEAPONS(75),  123,               SOLOSTAGEINDEX_EXTRACTION,     DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Hurricane Fists
-	{ L_MPWEAPONS(76),  100,               SOLOSTAGEINDEX_G5BUILDING,     DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Cloaking Device
-	{ L_MPWEAPONS(77),  230,               SOLOSTAGEINDEX_ESCAPE,         DIFF_A,  CHEATFLAG_TIMED                              }, // Invincible
-	{ L_MPWEAPONS(78),  331,               SOLOSTAGEINDEX_SKEDARRUINS,    DIFF_PA, CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // All Guns in Solo
-	{ L_MPWEAPONS(79),  427,               SOLOSTAGEINDEX_PELAGIC,        DIFF_SA, CHEATFLAG_TIMED                              }, // Unlimited Ammo
-	{ L_MPWEAPONS(80),  191,               SOLOSTAGEINDEX_AIRBASE,        DIFF_SA, CHEATFLAG_TIMED                              }, // Unlimited Ammo, No Reloads
-	{ L_MPWEAPONS(81),  0,                 SOLOSTAGEINDEX_INVESTIGATION,  DIFF_A,  CHEATFLAG_COMPLETION                         }, // Slo-mo Single Player
-	{ L_MPWEAPONS(82),  0,                 SOLOSTAGEINDEX_CHICAGO,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // DK Mode
-	{ L_MPWEAPONS(83),  170,               SOLOSTAGEINDEX_CRASHSITE,      DIFF_A,  CHEATFLAG_TIMED                              }, // Trent's Magnum
-	{ L_MPWEAPONS(84),  447,               SOLOSTAGEINDEX_DEEPSEA,        DIFF_PA, CHEATFLAG_TIMED                              }, // FarSight
-	{ L_MPWEAPONS(85),  0,                 SOLOSTAGEINDEX_G5BUILDING,     DIFF_A,  CHEATFLAG_COMPLETION                         }, // Small Jo
-	{ L_MPWEAPONS(86),  0,                 SOLOSTAGEINDEX_INFILTRATION,   DIFF_A,  CHEATFLAG_COMPLETION                         }, // Small Characters
-	{ L_MPWEAPONS(87),  0,                 SOLOSTAGEINDEX_DEFENSE,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Enemy Shields
-	{ L_MPWEAPONS(88),  0,                 SOLOSTAGEINDEX_DEEPSEA,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Jo Shield
-	{ L_MPWEAPONS(89),  105,               SOLOSTAGEINDEX_DEFENSE,        DIFF_A,  CHEATFLAG_TIMED                              }, // Super Shield
-	{ L_MPWEAPONS(90),  0,                 SOLOSTAGEINDEX_DEFECTION,      DIFF_A,  CHEATFLAG_COMPLETION                         }, // Classic Sight
-	{ L_MPWEAPONS(91),  0,                 SOLOSTAGEINDEX_AIRBASE,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Team Heads Only
-	{ L_MPWEAPONS(92),  479,               SOLOSTAGEINDEX_RESCUE,         DIFF_PA, CHEATFLAG_TIMED                              }, // Play as Elvis
-	{ L_MPWEAPONS(93),  0,                 SOLOSTAGEINDEX_PELAGIC,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Enemy Rockets
-	{ L_MPWEAPONS(94),  235,               SOLOSTAGEINDEX_AIRFORCEONE,    DIFF_PA, CHEATFLAG_TIMED                              }, // Unlimited Ammo - Laptop Sentry Gun
-	{ L_MPWEAPONS(95),  90,                SOLOSTAGEINDEX_DEFECTION,      DIFF_SA, CHEATFLAG_TIMED                              }, // Marquis of Queensbury Rules
-	{ L_MPWEAPONS(96),  0,                 SOLOSTAGEINDEX_CRASHSITE,      DIFF_A,  CHEATFLAG_COMPLETION                         }, // Perfect Darkness
-	{ L_MPWEAPONS(97),  390,               SOLOSTAGEINDEX_INVESTIGATION,  DIFF_PA, CHEATFLAG_TIMED                              }, // Pugilist
-	{ L_MPWEAPONS(98),  300,               SOLOSTAGEINDEX_INFILTRATION,   DIFF_SA, CHEATFLAG_TIMED                              }, // Hotshot
-	{ L_MPWEAPONS(99),  150,               SOLOSTAGEINDEX_VILLA,          DIFF_SA, CHEATFLAG_TIMED                              }, // Hit and Run
-	{ L_MPWEAPONS(100), 317,               SOLOSTAGEINDEX_ATTACKSHIP,     DIFF_SA, CHEATFLAG_TIMED                              }, // Alien
-	{ L_MPWEAPONS(101), 0,                 SOLOSTAGEINDEX_SKEDARRUINS,    DIFF_A,  CHEATFLAG_COMPLETION | CHEATFLAG_TRANSFERPAK }, // R-Tracker/Weapon Cache Locations
-	{ L_MPWEAPONS(102), 0,                 SOLOSTAGEINDEX_EXTRACTION,     DIFF_A,  CHEATFLAG_COMPLETION                         }, // Rocket Launcher
-	{ L_MPWEAPONS(103), 0,                 SOLOSTAGEINDEX_VILLA,          DIFF_A,  CHEATFLAG_COMPLETION                         }, // Sniper Rifle
-	{ L_MPWEAPONS(104), 0,                 SOLOSTAGEINDEX_RESCUE,         DIFF_A,  CHEATFLAG_COMPLETION                         }, // X-Ray Scanner
-	{ L_MPWEAPONS(105), 0,                 SOLOSTAGEINDEX_ESCAPE,         DIFF_A,  CHEATFLAG_COMPLETION                         }, // SuperDragon
-	{ L_MPWEAPONS(106), 0,                 SOLOSTAGEINDEX_AIRFORCEONE,    DIFF_A,  CHEATFLAG_COMPLETION                         }, // Laptop Gun
-	{ L_MPWEAPONS(107), 0,                 SOLOSTAGEINDEX_ATTACKSHIP,     DIFF_A,  CHEATFLAG_COMPLETION                         }, // Phoenix
-	{ L_MPWEAPONS(108), 120,               SOLOSTAGEINDEX_CHICAGO,        DIFF_PA, CHEATFLAG_TIMED                              }, // Psychosis Gun
-	{ L_MPWEAPONS(109), WEAPON_PP9I,       0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // PP9i
-	{ L_MPWEAPONS(110), WEAPON_CC13,       0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // CC13
-	{ L_MPWEAPONS(111), WEAPON_KL01313,    0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // KL01313
-	{ L_MPWEAPONS(112), WEAPON_KF7SPECIAL, 0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // KF7 Special
-	{ L_MPWEAPONS(113), WEAPON_ZZT,        0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // ZZT (9mm)
-	{ L_MPWEAPONS(114), WEAPON_DMC,        0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // DMC
-	{ L_MPWEAPONS(115), WEAPON_AR53,       0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // AR53
-	{ L_MPWEAPONS(116), WEAPON_RCP45,      0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // RC-P45
+	{ L_MPWEAPONS_075,  123,               SOLOSTAGEINDEX_EXTRACTION,     DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Hurricane Fists
+	{ L_MPWEAPONS_076,  100,               SOLOSTAGEINDEX_G5BUILDING,     DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Cloaking Device
+	{ L_MPWEAPONS_077,  230,               SOLOSTAGEINDEX_ESCAPE,         DIFF_A,  CHEATFLAG_TIMED                              }, // Invincible
+	{ L_MPWEAPONS_078,  331,               SOLOSTAGEINDEX_SKEDARRUINS,    DIFF_PA, CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // All Guns in Solo
+	{ L_MPWEAPONS_079,  427,               SOLOSTAGEINDEX_PELAGIC,        DIFF_SA, CHEATFLAG_TIMED                              }, // Unlimited Ammo
+	{ L_MPWEAPONS_080,  191,               SOLOSTAGEINDEX_AIRBASE,        DIFF_SA, CHEATFLAG_TIMED                              }, // Unlimited Ammo, No Reloads
+	{ L_MPWEAPONS_081,  0,                 SOLOSTAGEINDEX_INVESTIGATION,  DIFF_A,  CHEATFLAG_COMPLETION                         }, // Slo-mo Single Player
+	{ L_MPWEAPONS_082,  0,                 SOLOSTAGEINDEX_CHICAGO,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // DK Mode
+	{ L_MPWEAPONS_083,  170,               SOLOSTAGEINDEX_CRASHSITE,      DIFF_A,  CHEATFLAG_TIMED                              }, // Trent's Magnum
+	{ L_MPWEAPONS_084,  447,               SOLOSTAGEINDEX_DEEPSEA,        DIFF_PA, CHEATFLAG_TIMED                              }, // FarSight
+	{ L_MPWEAPONS_085,  0,                 SOLOSTAGEINDEX_G5BUILDING,     DIFF_A,  CHEATFLAG_COMPLETION                         }, // Small Jo
+	{ L_MPWEAPONS_086,  0,                 SOLOSTAGEINDEX_INFILTRATION,   DIFF_A,  CHEATFLAG_COMPLETION                         }, // Small Characters
+	{ L_MPWEAPONS_087,  0,                 SOLOSTAGEINDEX_DEFENSE,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Enemy Shields
+	{ L_MPWEAPONS_088,  0,                 SOLOSTAGEINDEX_DEEPSEA,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Jo Shield
+	{ L_MPWEAPONS_089,  105,               SOLOSTAGEINDEX_DEFENSE,        DIFF_A,  CHEATFLAG_TIMED                              }, // Super Shield
+	{ L_MPWEAPONS_090,  0,                 SOLOSTAGEINDEX_DEFECTION,      DIFF_A,  CHEATFLAG_COMPLETION                         }, // Classic Sight
+	{ L_MPWEAPONS_091,  0,                 SOLOSTAGEINDEX_AIRBASE,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Team Heads Only
+	{ L_MPWEAPONS_092,  479,               SOLOSTAGEINDEX_RESCUE,         DIFF_PA, CHEATFLAG_TIMED                              }, // Play as Elvis
+	{ L_MPWEAPONS_093,  0,                 SOLOSTAGEINDEX_PELAGIC,        DIFF_A,  CHEATFLAG_COMPLETION                         }, // Enemy Rockets
+	{ L_MPWEAPONS_094,  235,               SOLOSTAGEINDEX_AIRFORCEONE,    DIFF_PA, CHEATFLAG_TIMED                              }, // Unlimited Ammo - Laptop Sentry Gun
+	{ L_MPWEAPONS_095,  90,                SOLOSTAGEINDEX_DEFECTION,      DIFF_SA, CHEATFLAG_TIMED                              }, // Marquis of Queensbury Rules
+	{ L_MPWEAPONS_096,  0,                 SOLOSTAGEINDEX_CRASHSITE,      DIFF_A,  CHEATFLAG_COMPLETION                         }, // Perfect Darkness
+	{ L_MPWEAPONS_097,  390,               SOLOSTAGEINDEX_INVESTIGATION,  DIFF_PA, CHEATFLAG_TIMED                              }, // Pugilist
+	{ L_MPWEAPONS_098,  300,               SOLOSTAGEINDEX_INFILTRATION,   DIFF_SA, CHEATFLAG_TIMED                              }, // Hotshot
+	{ L_MPWEAPONS_099,  150,               SOLOSTAGEINDEX_VILLA,          DIFF_SA, CHEATFLAG_TIMED                              }, // Hit and Run
+	{ L_MPWEAPONS_100, 317,               SOLOSTAGEINDEX_ATTACKSHIP,     DIFF_SA, CHEATFLAG_TIMED                              }, // Alien
+	{ L_MPWEAPONS_101, 0,                 SOLOSTAGEINDEX_SKEDARRUINS,    DIFF_A,  CHEATFLAG_COMPLETION | CHEATFLAG_TRANSFERPAK }, // R-Tracker/Weapon Cache Locations
+	{ L_MPWEAPONS_102, 0,                 SOLOSTAGEINDEX_EXTRACTION,     DIFF_A,  CHEATFLAG_COMPLETION                         }, // Rocket Launcher
+	{ L_MPWEAPONS_103, 0,                 SOLOSTAGEINDEX_VILLA,          DIFF_A,  CHEATFLAG_COMPLETION                         }, // Sniper Rifle
+	{ L_MPWEAPONS_104, 0,                 SOLOSTAGEINDEX_RESCUE,         DIFF_A,  CHEATFLAG_COMPLETION                         }, // X-Ray Scanner
+	{ L_MPWEAPONS_105, 0,                 SOLOSTAGEINDEX_ESCAPE,         DIFF_A,  CHEATFLAG_COMPLETION                         }, // SuperDragon
+	{ L_MPWEAPONS_106, 0,                 SOLOSTAGEINDEX_AIRFORCEONE,    DIFF_A,  CHEATFLAG_COMPLETION                         }, // Laptop Gun
+	{ L_MPWEAPONS_107, 0,                 SOLOSTAGEINDEX_ATTACKSHIP,     DIFF_A,  CHEATFLAG_COMPLETION                         }, // Phoenix
+	{ L_MPWEAPONS_108, 120,               SOLOSTAGEINDEX_CHICAGO,        DIFF_PA, CHEATFLAG_TIMED                              }, // Psychosis Gun
+	{ L_MPWEAPONS_109, WEAPON_PP9I,       0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // PP9i
+	{ L_MPWEAPONS_110, WEAPON_CC13,       0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // CC13
+	{ L_MPWEAPONS_111, WEAPON_KL01313,    0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // KL01313
+	{ L_MPWEAPONS_112, WEAPON_KF7SPECIAL, 0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // KF7 Special
+	{ L_MPWEAPONS_113, WEAPON_ZZT,        0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // ZZT (9mm)
+	{ L_MPWEAPONS_114, WEAPON_DMC,        0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // DMC
+	{ L_MPWEAPONS_115, WEAPON_AR53,       0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // AR53
+	{ L_MPWEAPONS_116, WEAPON_RCP45,      0,                             0,       CHEATFLAG_FIRINGRANGE                        }, // RC-P45
 };
 
 u32 cheatIsUnlocked(s32 cheat_id)
@@ -459,7 +459,7 @@ char *cheatGetNameIfUnlocked(struct menuitem *item)
 		return langGet(g_Cheats[item->param].nametextid);
 	}
 
-	return langGet(L_MPWEAPONS(74)); // "----------"
+	return langGet(L_MPWEAPONS_074); // "----------"
 }
 
 s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
@@ -825,14 +825,14 @@ char *cheatGetMarquee(struct menuitem *arg0)
 		if (g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog
 				&& g_Menus[g_MpPlayerNum].curframe->focuseditem == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
-			sprintf(g_CheatMarqueeString, "%s: %s", langGet(L_MPWEAPONS(143)), langGet(L_MPWEAPONS(117))); // "Buddy Available", "Velvet Dark"
+			sprintf(g_CheatMarqueeString, "%s: %s", langGet(L_MPWEAPONS_143), langGet(L_MPWEAPONS_117)); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
 		}
 
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
 			sprintf(g_CheatMarqueeString, "%s: %s\n",
-					g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS(143)) : langGet(L_MPWEAPONS(136)), // "Buddy Available", "Cheat available"
+					g_Menus[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS_143) : langGet(L_MPWEAPONS_136), // "Buddy Available", "Cheat available"
 					langGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;
@@ -850,15 +850,15 @@ char *cheatGetMarquee(struct menuitem *arg0)
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
 			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s",
-					langGet(L_MPWEAPONS(137)), // "Complete"
+					langGet(L_MPWEAPONS_137), // "Complete"
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
-					langGet(L_MPWEAPONS(138)), // "for cheat:"
+					langGet(L_MPWEAPONS_138), // "for cheat:"
 					&cheatname
 			);
 		} else {
 			// Timed
-			strcpy(difficultyname, langGet(L_OPTIONS(251) + g_Cheats[cheat_id].difficulty));
+			strcpy(difficultyname, langGet(L_OPTIONS_251 + g_Cheats[cheat_id].difficulty));
 			ptr = difficultyname;
 
 			while (*ptr != '\n') {
@@ -868,21 +868,21 @@ char *cheatGetMarquee(struct menuitem *arg0)
 			*ptr = '\0';
 
 			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
-					langGet(L_MPWEAPONS(137)), // "Complete"
+					langGet(L_MPWEAPONS_137), // "Complete"
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
-					langGet(L_MPWEAPONS(139)), // "on"
+					langGet(L_MPWEAPONS_139), // "on"
 					&difficultyname,
-					langGet(L_MPWEAPONS(140)), // "in under"
+					langGet(L_MPWEAPONS_140), // "in under"
 					g_Cheats[cheat_id].time / 60,
 					g_Cheats[cheat_id].time % 60,
-					langGet(L_MPWEAPONS(138)), // "for cheat:"
+					langGet(L_MPWEAPONS_138), // "for cheat:"
 					&cheatname
 			);
 		}
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_TRANSFERPAK) {
-			strcat(g_CheatMarqueeString, langGet(L_MPWEAPONS(141))); // " or insert Game Boy ..."
+			strcat(g_CheatMarqueeString, langGet(L_MPWEAPONS_141)); // " or insert Game Boy ..."
 		}
 
 		strcat(g_CheatMarqueeString, "\n");
@@ -891,7 +891,7 @@ char *cheatGetMarquee(struct menuitem *arg0)
 	}
 
 	// No cheat selected
-	return langGet(L_MPWEAPONS(142)); // "Select cheat for information"
+	return langGet(L_MPWEAPONS_142); // "Select cheat for information"
 }
 #endif
 
@@ -945,15 +945,15 @@ char *cheatGetName(s32 cheat_id)
 }
 
 struct menuitem g_CheatsWarningMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(479), 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(480), 0x00000000, NULL }, // "OK"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(481), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU_479, 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU_480, 0x00000000, NULL }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU_481, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menudialog g_CheatsWarningMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
-	L_MPMENU(478), // "Warning"
+	L_MPMENU_478, // "Warning"
 	g_CheatsWarningMenuItems,
 	NULL,
 	0x00000000,
@@ -970,13 +970,13 @@ struct menuitem g_CheatsFunMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                     0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                     0x00000028, L_MPMENU(477),                0x00000000, NULL                         }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE, 0,                     0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
 	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
 struct menudialog g_CheatsFunMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(118), // "Fun"
+	L_MPWEAPONS_118, // "Fun"
 	g_CheatsFunMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -995,13 +995,13 @@ struct menuitem g_CheatsGameplayMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                     0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                     0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                     0x00000028, L_MPMENU(477),                0x00000000, NULL                         }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE, 0,                     0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
 	{ MENUITEMTYPE_END,        0,                     0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
 struct menudialog g_CheatsGameplayMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(119), // "Gameplay"
+	L_MPWEAPONS_119, // "Gameplay"
 	g_CheatsGameplayMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -1020,13 +1020,13 @@ struct menuitem g_CheatsSoloWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                    0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                    0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_MPMENU(477),                0x00000000, NULL                         }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE, 0,                    0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
 	{ MENUITEMTYPE_END,        0,                    0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
 struct menudialog g_CheatsSoloWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(122), // "Weapons for Jo in Solo"
+	L_MPWEAPONS_122, // "Weapons for Jo in Solo"
 	g_CheatsSoloWeaponsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -1043,15 +1043,15 @@ struct menuitem g_CheatsClassicWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_AR53,       0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_RCP45,      0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_SEPARATOR,  0,                0x00000000, 0x000000c8,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_MARQUEE,    0,                0x00000a00, L_MPWEAPONS(144),             0x00000000, NULL                         }, // "Win Golds on the firing range to enable classic guns."
+	{ MENUITEMTYPE_MARQUEE,    0,                0x00000a00, L_MPWEAPONS_144,             0x00000000, NULL                         }, // "Win Golds on the firing range to enable classic guns."
 	{ MENUITEMTYPE_SEPARATOR,  0,                0x00000000, 0x000000c8,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                0x00000028, L_MPMENU(477),                0x00000000, NULL                         }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE, 0,                0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
 	{ MENUITEMTYPE_END,        0,                0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
 struct menudialog g_CheatsClassicWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(123), // "Classic Weapons for Jo in Solo"
+	L_MPWEAPONS_123, // "Classic Weapons for Jo in Solo"
 	g_CheatsClassicWeaponsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -1070,13 +1070,13 @@ struct menuitem g_CheatsWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,                            0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,                            0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                            0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,                            0x00000028, L_MPMENU(477),                0x00000000, NULL                         }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE, 0,                            0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
 	{ MENUITEMTYPE_END,        0,                            0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
 struct menudialog g_CheatsWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(120), // "Weapons"
+	L_MPWEAPONS_120, // "Weapons"
 	g_CheatsWeaponsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -1084,7 +1084,7 @@ struct menudialog g_CheatsWeaponsMenuDialog = {
 };
 
 struct menuitem g_CheatsBuddiesMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,   0,               0x00000000, L_MPWEAPONS(117),             0x00000000, cheatMenuHandleBuddyCheckbox }, // "Velvet Dark"
+	{ MENUITEMTYPE_CHECKBOX,   0,               0x00000000, L_MPWEAPONS_117,             0x00000000, cheatMenuHandleBuddyCheckbox }, // "Velvet Dark"
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_PUGILIST,  0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HOTSHOT,   0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,   CHEAT_HITANDRUN, 0x00000000, (u32)&cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
@@ -1092,13 +1092,13 @@ struct menuitem g_CheatsBuddiesMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,  0,               0x00000000, 0x00000096,                   0x00000000, NULL                         },
 	{ MENUITEMTYPE_MARQUEE,    0,               0x00000a00, (u32)&cheatGetMarquee,        0x00000000, NULL                         },
 	{ MENUITEMTYPE_SEPARATOR,  0,               0x00000000, 0x00000096,                   0x00000000, NULL                         },
-	{ MENUITEMTYPE_SELECTABLE, 0,               0x00000028, L_MPMENU(477),                0x00000000, NULL                         }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE, 0,               0x00000028, L_MPMENU_477,                0x00000000, NULL                         }, // "Done"
 	{ MENUITEMTYPE_END,        0,               0x00000000, 0x00000000,                   0x00000000, NULL                         },
 };
 
 struct menudialog g_CheatsBuddiesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPWEAPONS(121), // "Buddies"
+	L_MPWEAPONS_121, // "Buddies"
 	g_CheatsBuddiesMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -1106,22 +1106,22 @@ struct menudialog g_CheatsBuddiesMenuDialog = {
 };
 
 struct menuitem g_CheatsMenuItems[] = {
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(118), 0x00000000, (void *)&g_CheatsFunMenuDialog            }, // "Fun"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(119), 0x00000000, (void *)&g_CheatsGameplayMenuDialog       }, // "Gameplay"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(122), 0x00000000, (void *)&g_CheatsSoloWeaponsMenuDialog    }, // "Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(123), 0x00000000, (void *)&g_CheatsClassicWeaponsMenuDialog }, // "Classic Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(120), 0x00000000, (void *)&g_CheatsWeaponsMenuDialog        }, // "Weapons"
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS(121), 0x00000000, (void *)&g_CheatsBuddiesMenuDialog        }, // "Buddies"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_118, 0x00000000, (void *)&g_CheatsFunMenuDialog            }, // "Fun"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_119, 0x00000000, (void *)&g_CheatsGameplayMenuDialog       }, // "Gameplay"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_122, 0x00000000, (void *)&g_CheatsSoloWeaponsMenuDialog    }, // "Weapons for Jo in Solo"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_123, 0x00000000, (void *)&g_CheatsClassicWeaponsMenuDialog }, // "Classic Weapons for Jo in Solo"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_120, 0x00000000, (void *)&g_CheatsWeaponsMenuDialog        }, // "Weapons"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000004, L_MPWEAPONS_121, 0x00000000, (void *)&g_CheatsBuddiesMenuDialog        }, // "Buddies"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000096,       0x00000000, NULL                              },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000000, L_MPWEAPONS(217), 0x00000000, cheatMenuHandleTurnOffAllCheats   }, // "Turn off all Cheats"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000000, L_MPWEAPONS_217, 0x00000000, cheatMenuHandleTurnOffAllCheats   }, // "Turn off all Cheats"
 	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000096,       0x00000000, NULL                              },
-	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000028, L_MPMENU(477),    0x00000000, NULL                              }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000028, L_MPMENU_477,    0x00000000, NULL                              }, // "Done"
 	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,       0x00000000, NULL                              },
 };
 
 struct menudialog g_CheatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	L_MPMENU(476), // "Cheats"
+	L_MPMENU_476, // "Cheats"
 	g_CheatsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
