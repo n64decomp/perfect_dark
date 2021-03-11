@@ -15,6 +15,25 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var70054af0[] = {0x7003e8f8};
+const u32 var70054af4[] = {0x7003e9d0};
+const u32 var70054af8[] = {0x7003e9d0};
+const u32 var70054afc[] = {0x7003e9d0};
+const u32 var70054b00[] = {0x7003e9d0};
+const u32 var70054b04[] = {0x7003e990};
+const u32 var70054b08[] = {0x7003e9d0};
+const u32 var70054b0c[] = {0x7003e924};
+const u32 var70054b10[] = {0x7003e95c};
+const u32 var70054b14[] = {0x7003e9d0};
+const u32 var70054b18[] = {0x7003e9d0};
+const u32 var70054b1c[] = {0x7003e52c};
+const u32 var70054b20[] = {0x7003e52c};
+const u32 var70054b24[] = {0x7003e2b8};
+const u32 var70054b28[] = {0x7003e870};
+const u32 var70054b2c[] = {0x7003e8c0};
+const u32 var70054b30[] = {0x7003e52c};
+#else
 const u32 var70054af0[] = {0x7003eff8};
 const u32 var70054af4[] = {0x7003f0d0};
 const u32 var70054af8[] = {0x7003f0d0};
@@ -32,9 +51,12 @@ const u32 var70054b24[] = {0x7003e9b8};
 const u32 var70054b28[] = {0x7003ef70};
 const u32 var70054b2c[] = {0x7003efc0};
 const u32 var70054b30[] = {0x7003ec2c};
+#endif
+
 const u32 var70054b34[] = {0x477fff00};
 const u32 var70054b38[] = {0x00000000};
 const u32 var70054b3c[] = {0x00000000};
+
 const u32 var70054b40[] = {0x00000100};
 const u32 var70054b44[] = {0x00000001};
 const u32 var70054b48[] = {0x00010300};
@@ -5375,6 +5397,16 @@ const u32 var70059ea0[] = {0x0a950a96};
 const u32 var70059ea4[] = {0x0a990a9a};
 const u32 var70059ea8[] = {0x0aa50aa6};
 const u32 var70059eac[] = {0x0aa90aaa};
+
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var70059eb0[] = {0x70049a7c};
+const u32 var70059eb4[] = {0x70049994};
+const u32 var70059eb8[] = {0x700499c8};
+const u32 var70059ebc[] = {0x70049a98};
+const u32 var70059ec0[] = {0x70049a98};
+const u32 var70059ec4[] = {0x700499fc};
+const u32 var70059ec8[] = {0x70049a3c};
+#else
 const u32 var70059eb0[] = {0x7004a17c};
 const u32 var70059eb4[] = {0x7004a094};
 const u32 var70059eb8[] = {0x7004a0c8};
@@ -5382,7 +5414,10 @@ const u32 var70059ebc[] = {0x7004a198};
 const u32 var70059ec0[] = {0x7004a198};
 const u32 var70059ec4[] = {0x7004a0fc};
 const u32 var70059ec8[] = {0x7004a13c};
+#endif
+
 const u32 var70059ecc[] = {0x00000000};
+
 const u32 var70059ed0[] = {0x686c4c00};
 const u32 var70059ed4[] = {0x202b2d23};
 const u32 var70059ed8[] = {0x30000000};
@@ -5392,6 +5427,61 @@ const u32 var70059ee4[] = {0x00000004};
 const u32 var70059ee8[] = {0x00000008};
 const u32 var70059eec[] = {0x00000010};
 const u32 var70059ef0[] = {0x00000000};
+
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var70059ef4[] = {0x7004e2f8};
+const u32 var70059ef8[] = {0x7004e5d8};
+const u32 var70059efc[] = {0x7004e2f8};
+const u32 var70059f00[] = {0x7004e5d8};
+const u32 var70059f04[] = {0x7004e5d8};
+const u32 var70059f08[] = {0x7004e5d8};
+const u32 var70059f0c[] = {0x7004e5d8};
+const u32 var70059f10[] = {0x7004e5d8};
+const u32 var70059f14[] = {0x7004e5d8};
+const u32 var70059f18[] = {0x7004e5d8};
+const u32 var70059f1c[] = {0x7004e5d8};
+const u32 var70059f20[] = {0x7004e5d8};
+const u32 var70059f24[] = {0x7004e5d8};
+const u32 var70059f28[] = {0x7004e5d8};
+const u32 var70059f2c[] = {0x7004e5d8};
+const u32 var70059f30[] = {0x7004e5d8};
+const u32 var70059f34[] = {0x7004e5d8};
+const u32 var70059f38[] = {0x7004e5d8};
+const u32 var70059f3c[] = {0x7004e5d8};
+const u32 var70059f40[] = {0x7004e1a8};
+const u32 var70059f44[] = {0x7004e5d8};
+const u32 var70059f48[] = {0x7004e5d8};
+const u32 var70059f4c[] = {0x7004e5d8};
+const u32 var70059f50[] = {0x7004e5d8};
+const u32 var70059f54[] = {0x7004e5d8};
+const u32 var70059f58[] = {0x7004e5d8};
+const u32 var70059f5c[] = {0x7004e5d8};
+const u32 var70059f60[] = {0x7004e5d8};
+const u32 var70059f64[] = {0x7004e5d8};
+const u32 var70059f68[] = {0x7004e5d8};
+const u32 var70059f6c[] = {0x7004e000};
+const u32 var70059f70[] = {0x7004e038};
+const u32 var70059f74[] = {0x7004e2f8};
+const u32 var70059f78[] = {0x7004e2f8};
+const u32 var70059f7c[] = {0x7004e2f8};
+const u32 var70059f80[] = {0x7004e5d8};
+const u32 var70059f84[] = {0x7004e038};
+const u32 var70059f88[] = {0x7004e5d8};
+const u32 var70059f8c[] = {0x7004e5d8};
+const u32 var70059f90[] = {0x7004e5d8};
+const u32 var70059f94[] = {0x7004e5d8};
+const u32 var70059f98[] = {0x7004e45c};
+const u32 var70059f9c[] = {0x7004e1a8};
+const u32 var70059fa0[] = {0x7004e52c};
+const u32 var70059fa4[] = {0x7004e5d8};
+const u32 var70059fa8[] = {0x7004e5d8};
+const u32 var70059fac[] = {0x7004e574};
+const u32 var70059fb0[] = {0x7004e5d8};
+const u32 var70059fb4[] = {0x7004e1a8};
+const u32 var70059fb8[] = {0x7004e5d8};
+const u32 var70059fbc[] = {0x7004e5d8};
+const u32 var70059fc0[] = {0x7004e1a8};
+#else
 const u32 var70059ef4[] = {0x7004e9f8};
 const u32 var70059ef8[] = {0x7004ecd8};
 const u32 var70059efc[] = {0x7004e9f8};
@@ -5444,9 +5534,12 @@ const u32 var70059fb4[] = {0x7004e8a8};
 const u32 var70059fb8[] = {0x7004ecd8};
 const u32 var70059fbc[] = {0x7004ecd8};
 const u32 var70059fc0[] = {0x7004e8a8};
+#endif
+
 const u32 var70059fc4[] = {0x00000000};
 const u32 var70059fc8[] = {0x00000000};
 const u32 var70059fcc[] = {0x00000000};
+
 const u32 var70059fd0[] = {0x3c8efa35};
 const u32 var70059fd4[] = {0x00000000};
 const u32 var70059fd8[] = {0x00000000};
@@ -6677,8 +6770,8 @@ glabel func0003f8a0
 /*    3f8dc:	3c013f00 */ 	lui	$at,0x3f00
 /*    3f8e0:	44814000 */ 	mtc1	$at,$f8
 /*    3f8e4:	44892000 */ 	mtc1	$t1,$f4
-/*    3f8e8:	3c017006 */ 	lui	$at,0x7006
-/*    3f8ec:	c4309c54 */ 	lwc1	$f16,-0x63ac($at)
+/*    3f8e8:	3c017006 */ 	lui	$at,%hi(var70059c54)
+/*    3f8ec:	c4309c54 */ 	lwc1	$f16,%lo(var70059c54)($at)
 /*    3f8f0:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*    3f8f4:	46083280 */ 	add.s	$f10,$f6,$f8
 /*    3f8f8:	46105302 */ 	mul.s	$f12,$f10,$f16
@@ -6700,8 +6793,8 @@ glabel func0003f8a0
 /*    3f934:	3c013f00 */ 	lui	$at,0x3f00
 /*    3f938:	44813000 */ 	mtc1	$at,$f6
 /*    3f93c:	448e9000 */ 	mtc1	$t6,$f18
-/*    3f940:	3c017006 */ 	lui	$at,0x7006
-/*    3f944:	c42a9c58 */ 	lwc1	$f10,-0x63a8($at)
+/*    3f940:	3c017006 */ 	lui	$at,%hi(var70059c58)
+/*    3f944:	c42a9c58 */ 	lwc1	$f10,%lo(var70059c58)($at)
 /*    3f948:	46809120 */ 	cvt.s.w	$f4,$f18
 /*    3f94c:	46062200 */ 	add.s	$f8,$f4,$f6
 /*    3f950:	460a4302 */ 	mul.s	$f12,$f8,$f10
@@ -6742,8 +6835,8 @@ glabel func0003f8a0
 /*    3f9d4:	3c014190 */ 	lui	$at,0x4190
 /*    3f9d8:	44815000 */ 	mtc1	$at,$f10
 /*    3f9dc:	46809120 */ 	cvt.s.w	$f4,$f18
-/*    3f9e0:	3c017006 */ 	lui	$at,0x7006
-/*    3f9e4:	c4329c5c */ 	lwc1	$f18,-0x63a4($at)
+/*    3f9e0:	3c017006 */ 	lui	$at,%hi(var70059c5c)
+/*    3f9e4:	c4329c5c */ 	lwc1	$f18,%lo(var70059c5c)($at)
 /*    3f9e8:	46062200 */ 	add.s	$f8,$f4,$f6
 /*    3f9ec:	460a4401 */ 	sub.s	$f16,$f8,$f10
 /*    3f9f0:	46128302 */ 	mul.s	$f12,$f16,$f18
@@ -6796,8 +6889,8 @@ glabel func0003f8a0
 /*    3faa0:	3c0140c0 */ 	lui	$at,0x40c0
 /*    3faa4:	44812000 */ 	mtc1	$at,$f4
 /*    3faa8:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    3faac:	3c017006 */ 	lui	$at,0x7006
-/*    3fab0:	c4289c60 */ 	lwc1	$f8,-0x63a0($at)
+/*    3faac:	3c017006 */ 	lui	$at,%hi(var70059c60)
+/*    3fab0:	c4289c60 */ 	lwc1	$f8,%lo(var70059c60)($at)
 /*    3fab4:	46105480 */ 	add.s	$f18,$f10,$f16
 /*    3fab8:	46049181 */ 	sub.s	$f6,$f18,$f4
 /*    3fabc:	46083302 */ 	mul.s	$f12,$f6,$f8
@@ -6835,8 +6928,8 @@ glabel func0003f8a0
 /*    3fb34:	3c013f00 */ 	lui	$at,0x3f00
 /*    3fb38:	44812000 */ 	mtc1	$at,$f4
 /*    3fb3c:	448b8000 */ 	mtc1	$t3,$f16
-/*    3fb40:	3c017006 */ 	lui	$at,0x7006
-/*    3fb44:	c4289c64 */ 	lwc1	$f8,-0x639c($at)
+/*    3fb40:	3c017006 */ 	lui	$at,%hi(var70059c64)
+/*    3fb44:	c4289c64 */ 	lwc1	$f8,%lo(var70059c64)($at)
 /*    3fb48:	468084a0 */ 	cvt.s.w	$f18,$f16
 /*    3fb4c:	46049180 */ 	add.s	$f6,$f18,$f4
 /*    3fb50:	46083302 */ 	mul.s	$f12,$f6,$f8
@@ -7192,8 +7285,8 @@ glabel func0003f8a0
 /*    40060:	afa0026c */ 	sw	$zero,0x26c($sp)
 .L00040064:
 /*    40064:	8fac026c */ 	lw	$t4,0x26c($sp)
-/*    40068:	3c017006 */ 	lui	$at,0x7006
-/*    4006c:	c42e9c68 */ 	lwc1	$f14,-0x6398($at)
+/*    40068:	3c017006 */ 	lui	$at,%hi(var70059c68)
+/*    4006c:	c42e9c68 */ 	lwc1	$f14,%lo(var70059c68)($at)
 /*    40070:	448c5000 */ 	mtc1	$t4,$f10
 /*    40074:	0c0117b4 */ 	jal	func00045ed0
 /*    40078:	46805320 */ 	cvt.s.w	$f12,$f10

@@ -9,6 +9,18 @@ const u32 var70052460[] = {0x00040808};
 const u32 var70052464[] = {0x0c0c0c0c};
 const u32 var70052468[] = {0x10101010};
 const u32 var7005246c[] = {0x10101010};
+
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var70052470[] = {0x70003a0c};
+const u32 var70052474[] = {0x70003998};
+const u32 var70052478[] = {0x70003978};
+const u32 var7005247c[] = {0x700037dc};
+const u32 var70052480[] = {0x70003798};
+const u32 var70052484[] = {0x7000391c};
+const u32 var70052488[] = {0x70003760};
+const u32 var7005248c[] = {0x7000376c};
+const u32 var70052490[] = {0x70003778};
+#else
 const u32 var70052470[] = {0x70003a3c};
 const u32 var70052474[] = {0x700039c8};
 const u32 var70052478[] = {0x700039a8};
@@ -18,9 +30,7 @@ const u32 var70052484[] = {0x7000394c};
 const u32 var70052488[] = {0x70003790};
 const u32 var7005248c[] = {0x7000379c};
 const u32 var70052490[] = {0x700037a8};
-const u32 var70052494[] = {0x00000000};
-const u32 var70052498[] = {0x00000000};
-const u32 var7005249c[] = {0x00000000};
+#endif
 
 GLOBAL_ASM(
 glabel __osExceptionPreamble
@@ -367,7 +377,7 @@ glabel __osException
 /*     39f0:	10000012 */ 	b	.L00003a3c
 /*     39f4:	00000000 */ 	nop
 .L000039f8:
-/*     39f8:	08000ea2 */ 	j	0x3a88
+/*     39f8:	08000ea2 */ 	j	.L00003a88
 /*     39fc:	00000000 */ 	nop
 /*     3a00:	24090001 */ 	addiu	$t1,$zero,0x1
 .L00003a04:
@@ -397,14 +407,14 @@ glabel __osException
 /*     3a5c:	03402825 */ 	or	$a1,$k0,$zero
 /*     3a60:	0c000f2e */ 	jal	__osEnqueueThread
 /*     3a64:	24840938 */ 	addiu	$a0,$a0,%lo(__osRunQueue)
-/*     3a68:	08000f44 */ 	j	0x3d10
+/*     3a68:	08000f44 */ 	j	.L00003d10
 /*     3a6c:	00000000 */ 	nop
 .L00003a70:
 /*     3a70:	3c098006 */ 	lui	$t1,%hi(__osRunQueue)
 /*     3a74:	25290938 */ 	addiu	$t1,$t1,%lo(__osRunQueue)
 /*     3a78:	8d2a0000 */ 	lw	$t2,0x0($t1)
 /*     3a7c:	af4a0000 */ 	sw	$t2,0x0($k0)
-/*     3a80:	08000f44 */ 	j	0x3d10
+/*     3a80:	08000f44 */ 	j	.L00003d10
 /*     3a84:	ad3a0000 */ 	sw	$k0,0x0($t1)
 .L00003a88:
 /*     3a88:	3c018006 */ 	lui	$at,%hi(__osFaultedThread)
@@ -417,7 +427,7 @@ glabel __osException
 /*     3aa4:	af4a0124 */ 	sw	$t2,0x124($k0)
 /*     3aa8:	0c000eae */ 	jal	send_mesg
 /*     3aac:	24040060 */ 	addiu	$a0,$zero,0x60
-/*     3ab0:	08000f44 */ 	j	0x3d10
+/*     3ab0:	08000f44 */ 	j	.L00003d10
 /*     3ab4:	00000000 */ 	nop
 );
 
@@ -561,7 +571,7 @@ glabel __osEnqueueAndYield
 /*     3ca8:	0c000f2e */ 	jal	__osEnqueueThread
 /*     3cac:	00000000 */ 	nop
 .L00003cb0:
-/*     3cb0:	08000f44 */ 	j	0x3d10
+/*     3cb0:	08000f44 */ 	j	.L00003d10
 /*     3cb4:	00000000 */ 	nop
 );
 
@@ -599,6 +609,7 @@ glabel __osPopThread
 
 GLOBAL_ASM(
 glabel __osDispatchThread
+.L00003d10:
 /*     3d10:	3c048006 */ 	lui	$a0,%hi(__osRunQueue)
 /*     3d14:	0c000f40 */ 	jal	__osPopThread
 /*     3d18:	24840938 */ 	addiu	$a0,$a0,%lo(__osRunQueue)

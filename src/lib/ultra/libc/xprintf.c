@@ -20,9 +20,9 @@ glabel func0004e690
 /*    4e6cc:	2de10034 */ 	sltiu	$at,$t7,0x34
 /*    4e6d0:	10200181 */ 	beqz	$at,.L0004ecd8
 /*    4e6d4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    4e6d8:	3c017006 */ 	lui	$at,0x7006
+/*    4e6d8:	3c017006 */ 	lui	$at,%hi(var70059ef4)
 /*    4e6dc:	002f0821 */ 	addu	$at,$at,$t7
-/*    4e6e0:	8c2f9ef4 */ 	lw	$t7,-0x610c($at)
+/*    4e6e0:	8c2f9ef4 */ 	lw	$t7,%lo(var70059ef4)($at)
 /*    4e6e4:	01e00008 */ 	jr	$t7
 /*    4e6e8:	00000000 */ 	nop
 .L0004e6ec:

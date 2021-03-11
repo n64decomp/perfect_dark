@@ -1447,9 +1447,15 @@ void mainLoop(void)
 			switch (*(s16 *)msg) {
 			case 1:
 				tmp = osGetCount() - g_Vars.thisframetime;
+#if PAL
+				if (tmp >= g_Vars.mininc60 * 937500 - 937500 / 2) {
+					mainTick();
+				}
+#else
 				if (tmp >= g_Vars.mininc60 * 781250 - 781250 / 2) {
 					mainTick();
 				}
+#endif
 				break;
 			case 2:
 				var8005d9cc--;

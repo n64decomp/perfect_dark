@@ -30022,7 +30022,7 @@ void func0f0482cc(u32 ailistid)
 	struct prop *prop;
 
 #if VERSION >= VERSION_PAL_FINAL
-	*(f32 *)&var8009de20 = 0;
+	var8009e388pf = 0;
 #else
 	var8009de20 = 0;
 #endif

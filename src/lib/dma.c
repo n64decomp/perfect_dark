@@ -79,7 +79,7 @@ void dmaCheckPiracy(void *memaddr, u32 len)
 {
 	if (g_LoadType != LOADTYPE_NONE && len > 128) {
 #if PIRACYCHECKS
-		u32 value = xorDeadbeef(0x0330c820 ^ 0xdeadbeef);
+		u32 value = xorDeadbeef((PAL ? 0x0109082b : 0x0330c820) ^ 0xdeadbeef);
 		u32 *ptr = (u32 *)memaddr;
 		u32 data;
 		u32 devaddr;
@@ -89,7 +89,7 @@ void dmaCheckPiracy(void *memaddr, u32 len)
 			ptr[i] ^= value;
 		}
 
-		devaddr = xorDeadbabe(0xb0000340 ^ 0xdeadbabe);
+		devaddr = xorDeadbabe((PAL ? 0xb0000454 : 0xb0000340) ^ 0xdeadbabe);
 
 		osPiReadIo(devaddr, &data);
 

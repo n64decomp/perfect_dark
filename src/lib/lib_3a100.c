@@ -9,6 +9,17 @@
 #include "types.h"
 
 const u32 var70054a90[] = {0x3fb50481};
+
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var70054a94[] = {0x7003a2c8};
+const u32 var70054a98[] = {0x7003a324};
+const u32 var70054a9c[] = {0x7003a380};
+const u32 var70054aa0[] = {0x7003a3ac};
+const u32 var70054aa4[] = {0x7003a3d8};
+const u32 var70054aa8[] = {0x7003a404};
+const u32 var70054aac[] = {0x7003a468};
+const u32 var70054ab0[] = {0x7003a484};
+#else
 const u32 var70054a94[] = {0x7003a9c8};
 const u32 var70054a98[] = {0x7003aa24};
 const u32 var70054a9c[] = {0x7003aa80};
@@ -17,6 +28,8 @@ const u32 var70054aa4[] = {0x7003aad8};
 const u32 var70054aa8[] = {0x7003ab04};
 const u32 var70054aac[] = {0x7003ab68};
 const u32 var70054ab0[] = {0x7003ab84};
+#endif
+
 const u32 var70054ab4[] = {0x482910da};
 const u32 var70054ab8[] = {0x482910da};
 const u32 var70054abc[] = {0x00000000};
@@ -27,7 +40,6 @@ const u32 var70054acc[] = {0x3f71a1bf};
 const u32 var70054ad0[] = {0x46d12000};
 const u32 var70054ad4[] = {0x46d12000};
 const u32 var70054ad8[] = {0x482910da};
-const u32 var70054adc[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0003a100

@@ -21,6 +21,10 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_PAL_FINAL
+u8 fill3[0x30];
+#endif
+
 u8 g_MpSelectedPlayersForStats[4];
 
 const char var7f1adfa0[] = "brcol";

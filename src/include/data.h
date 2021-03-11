@@ -477,6 +477,9 @@ extern u32 var800840f0;
 extern u32 var800840f4;
 extern u32 var800840f8;
 extern u32 var800840fc;
+#if VERSION >= VERSION_PAL_FINAL
+extern u32 var80084660pf;
+#endif
 extern u32 g_LanguageId;
 extern struct something *somethings[];
 extern void *var800844f0;

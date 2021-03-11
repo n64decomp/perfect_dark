@@ -91,14 +91,25 @@ f32 var8009de00;
 u32 var8009de04;
 u32 var8009de08;
 u32 var8009de0c;
-s32 g_CameraAnimCurFrame;
+s32 g_CameraAnimCurFrame; // e380 (good)
+
+#if VERSION >= VERSION_PAL_FINAL
+f32 var8009de14; // e384
+f32 var8009e388pf; // e388
+#else
 s32 var8009de14;
-s16 g_CameraAnimNum;
-f32 g_CutsceneBlurFrac;
+#endif
+
+s16 g_CameraAnimNum; // e388 -> e38c
+f32 g_CutsceneBlurFrac; // e38c -> e390
+
+#if VERSION < VERSION_PAL_FINAL
 s32 var8009de20;
+#endif
+
 s32 var8009de24;
 f32 var8009de28;
-s32 var8009de2c;
+s32 var8009de2c; // e3a0 -> e39c
 f32 var8009de30;
 u32 var8009de34;
 s16 g_SpawnPoints[MAX_SPAWNPOINTS];
@@ -2893,9 +2904,8 @@ void func0f0ba010(void)
 	allPlayersClearMemCamRoom();
 
 #if VERSION >= VERSION_PAL_FINAL
-	// Variables here are likely wrong
-	*(f32 *)&var8009de14 = *(f32 *)&var8009de20;
-	g_CameraAnimCurFrame = floorf(*(f32 *)&var8009de14 + 0.01f);
+	var8009de14 = var8009e388pf;
+	g_CameraAnimCurFrame = floorf(var8009de14 + 0.01f);
 #else
 	var8009de14 = var8009de20;
 	g_CameraAnimCurFrame = var8009de20 >> 2;

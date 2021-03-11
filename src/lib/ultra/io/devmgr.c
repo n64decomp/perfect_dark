@@ -174,9 +174,9 @@ glabel __osDevMgrMain
 /*    4a074:	2d410007 */ 	sltiu	$at,$t2,0x7
 /*    4a078:	10200047 */ 	beqz	$at,.L0004a198
 /*    4a07c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*    4a080:	3c017006 */ 	lui	$at,0x7006
+/*    4a080:	3c017006 */ 	lui	$at,%hi(var70059eb0)
 /*    4a084:	002a0821 */ 	addu	$at,$at,$t2
-/*    4a088:	8c2a9eb0 */ 	lw	$t2,-0x6150($at)
+/*    4a088:	8c2a9eb0 */ 	lw	$t2,%lo(var70059eb0)($at)
 /*    4a08c:	01400008 */ 	jr	$t2
 /*    4a090:	00000000 */ 	nop
 /*    4a094:	8e840010 */ 	lw	$a0,0x10($s4)

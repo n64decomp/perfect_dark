@@ -323,8 +323,8 @@ glabel func000237e8
 /*    23820:	8fa20018 */ 	lw	$v0,0x18($sp)
 .L00023824:
 /*    23824:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    23828:	3c08001a */ 	lui	$t0,0x1a
-/*    2382c:	250815c0 */ 	addiu	$t0,$t0,0x15c0
+/*    23828:	3c08001a */ 	lui	$t0,%hi(_animationsSegmentRomStart)
+/*    2382c:	250815c0 */ 	addiu $t0,$t0,%lo(_animationsSegmentRomStart)
 /*    23830:	00e02025 */ 	or	$a0,$a3,$zero
 /*    23834:	0c003522 */ 	jal	dmaExecWithAutoAlign
 /*    23838:	03282821 */ 	addu	$a1,$t9,$t0

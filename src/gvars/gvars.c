@@ -14018,5 +14018,10 @@ u32 var8009cab0 = 0;
 u32 var8009cab4 = 0;
 u32 var8009cab8 = 0;
 u32 var8009cabc = 0;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8009d010pf[4] = {0};
+#endif
+
 void *var8009cac0 = NULL;
 void *var8009cac4 = NULL;

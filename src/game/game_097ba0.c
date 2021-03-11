@@ -49,8 +49,37 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009d140;
-u32 var8009d144;
+u32 var8009d0d0[2];
+s32 var8009d0d8; // correct
+u32 var8009d0dc; // d63c -> d650
+u32 var8009d0e0[4]; // d640 (correct)
+u32 var8009d0f0; // d650 (correct)
+u32 var8009d0f4;
+u32 var8009d0f8;
+u32 var8009d0fc;
+u32 var8009d100;
+u32 var8009d104;
+u32 var8009d108;
+u32 var8009d10c;
+u32 var8009d110;
+u32 var8009d114;
+u32 var8009d118;
+u32 var8009d11c;
+u32 var8009d120;
+u32 var8009d124;
+u32 var8009d128;
+u32 var8009d12c;
+u32 var8009d130;
+u32 var8009d134;
+u32 var8009d138;
+u32 var8009d13c;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 fill2[2];
+#endif
+
+u32 var8009d140; // d6a0 -> d6a8
+u32 var8009d144; // d5a4 -> d6ac
 u32 var8009d148;
 
 u32 var80070090 = 0x96969600;

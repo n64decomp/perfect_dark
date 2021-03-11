@@ -7,6 +7,13 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_PAL_FINAL
+u32 var80084660pf = 0;
+u32 var80084664pf = 0;
+u32 var80084668pf = 0;
+u32 var8008466cpf = 0;
+#endif
+
 u32 *g_LangBanks[69];
 void *var800aabb4;
 struct var800aabb8 *var800aabb8;

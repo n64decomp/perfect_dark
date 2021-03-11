@@ -385,7 +385,7 @@ bool aiKneel(void)
 }
 
 #if VERSION >= VERSION_PAL_FINAL
-f32 g_SomePalFloat;
+extern f32 g_SomePalFloat;
 #endif
 
 /**

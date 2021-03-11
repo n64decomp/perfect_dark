@@ -45,9 +45,8 @@ char *var80084100[] = {
 	"paused",
 };
 
-#if PAL
+#if VERSION >= VERSION_PAL_FINAL
 u32 var8008465cpf = 0;
-u32 var80084660pf = 0;
 #endif
 
 const char var7f1b7918[] = "MUSIC : activedeath=%d\n";

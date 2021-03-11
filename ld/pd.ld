@@ -76,9 +76,15 @@
  * increased.
  */
 
+#if VERSION >= VERSION_PAL_FINAL
+#define ROMALLOCATION_LIB   0x038850
+#define ROMALLOCATION_DATA  0x015000
+#define ROMALLOCATION_GAME  0x13d180
+#else
 #define ROMALLOCATION_LIB   0x038850
 #define ROMALLOCATION_DATA  0x015000
 #define ROMALLOCATION_GAME  0x151980
+#endif
 
 OUTPUT_ARCH (mips)
 
@@ -122,12 +128,21 @@ SECTIONS
 	_val7f11c378 = 0x11fe;
 #endif
 
+#if VERSION >= VERSION_PAL_FINAL
+	rspbootTextStart = 0x80059fe0;
+	rspbootTextEnd = 0x8005a0b0;
+	aspMainTextStart = 0x8005b180;
+	aspMainTextEnd = 0x8005c180;
+	aspMainDataStart = 0x8008a2d0;
+	aspMainDataEnd = 0x8008aad0;
+#else
 	rspbootTextStart = 0x80059fe0;
 	rspbootTextEnd = 0x8005a0b0;
 	aspMainTextStart = 0x8005b4d0;
 	aspMainTextEnd = 0x8005c4d0;
 	aspMainDataStart = 0x8008a2d0;
 	aspMainDataEnd = 0x8008aad0;
+#endif
 
 	osTvType = 0x80000300;
 	osRomType = 0x80000304;
@@ -189,7 +204,7 @@ SECTIONS
 
 	PLACEHOLDER_SEGMENT(libzip)
 
-	__rompos = 0x04000000;
+	__rompos = 0x02000000;
 	__rampos = 0x70001000;
 
 	BEGIN_SEG(lib)

@@ -81,15 +81,16 @@ u32 var8005efb8 = 0x3f800000;
 bool var8005efbc = false;
 u32 var8005efc0 = 0x00000000;
 void *var8005efc4 = NULL; // pointer to a function
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005efd8_2 = 0;
+#endif
+
 void *var8005efc8 = NULL; // pointer to a function
 u32 var8005efcc = 0x00000000;
 u32 var8005efd0 = 0x00000000;
 u32 var8005efd4 = 0x00000000;
 u32 var8005efd8 = 0x00000000;
-
-#if VERSION >= VERSION_PAL_FINAL
-u32 var8005efd8_2 = 0;
-#endif
 
 u32 var8005efdc = 0x00000001;
 u32 var8005efe0 = 0x00000000;
@@ -100,18 +101,18 @@ u32 var8005eff0 = 0x00000000;
 u32 var8005eff4 = 0x00000000;
 u32 var8005eff8 = 0xffffffff;
 u32 var8005effc = 0x00000000;
-u32 var8005f000 = 0x00000000;
-u32 var8005f004 = 0x00000000;
-s16 g_NumAnimations = 0x00000000;
-struct animheader *g_Anims = NULL;
-u32 var8005f010 = 0x00000000;
-u32 var8005f014 = 0x00000000;
 
 #if VERSION >= VERSION_PAL_FINAL
 u32 var8005f014_2 = 0;
 u32 var8005f014_3 = 0;
 #endif
 
+u32 var8005f000 = 0x00000000;
+u32 var8005f004 = 0x00000000;
+s16 g_NumAnimations = 0x00000000;
+struct animheader *g_Anims = NULL;
+u32 var8005f010 = 0x00000000;
+u32 var8005f014 = 0x00000000;
 u32 var8005f018 = 0x000000b0;
 u32 var8005f01c = 0x00000260;
 u32 var8005f020 = 0x00000000;

@@ -287,8 +287,8 @@ glabel func0004f854
 GLOBAL_ASM(
 glabel func0004f9b0
 /*    4f9b0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    4f9b4:	3c017006 */ 	lui	$at,0x7006
-/*    4f9b8:	c4249fd0 */ 	lwc1	$f4,-0x6030($at)
+/*    4f9b4:	3c017006 */ 	lui	$at,%hi(var70059fd0)
+/*    4f9b8:	c4249fd0 */ 	lwc1	$f4,%lo(var70059fd0)($at)
 /*    4f9bc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    4f9c0:	00808025 */ 	or	$s0,$a0,$zero
 /*    4f9c4:	3c01800a */ 	lui	$at,%hi(var8009ca70)

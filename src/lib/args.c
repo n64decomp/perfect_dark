@@ -89,7 +89,11 @@ bool argsParseDebugArgs(void)
 	}
 
 	if (argFindByPrefix(1, "-j")) {
+#if VERSION >= VERSION_PAL_FINAL
+		var80084660pf = LANGUAGE_NTSC_JP;
+#else
 		g_LanguageId = LANGUAGE_NTSC_JP;
+#endif
 	}
 
 	return ret;
