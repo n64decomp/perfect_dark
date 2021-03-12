@@ -11,7 +11,7 @@ void shardsTick(void)
 	s32 j;
 
 	if (g_ShardsActive) {
-		lvupdate = (g_Vars.lvupdate240_60 < 15) ? g_Vars.lvupdate240_60 : 15;
+		lvupdate = (g_Vars.lvupdate240_60 < PALDOWN(15)) ? g_Vars.lvupdate240_60 : PALDOWN(15);
 
 		for (i = 0; i < g_MaxShards; i++) {
 			if (g_Shards[i].age60 > 0) {
@@ -25,10 +25,10 @@ void shardsTick(void)
 
 				for (j = 0; j < (s32)lvupdate; j++) {
 					g_Shards[i].pos.y += g_Shards[i].vel.y;
-					g_Shards[i].vel.y -= FRAMESTOTIME60(0.1f);
+					g_Shards[i].vel.y -= PALUPF(0.1f);
 				}
 
-				if (g_Shards[i].age60 >= 150) {
+				if (g_Shards[i].age60 >= PALDOWN(150)) {
 					g_Shards[i].age60 = 0;
 				}
 

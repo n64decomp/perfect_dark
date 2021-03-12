@@ -220,7 +220,11 @@ void currentPlayerZoomOut(f32 fovpersec)
 	}
 
 	if (index >= 0) {
+#if VERSION >= VERSION_PAL_FINAL
+		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240freal;
+#else
 		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
+#endif
 
 		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHTXR20) {
 			amount *= 0.5f;
@@ -245,7 +249,11 @@ void currentPlayerZoomIn(f32 fovpersec)
 	}
 
 	if (index >= 0) {
+#if VERSION >= VERSION_PAL_FINAL
+		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240freal;
+#else
 		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
+#endif
 
 		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHTXR20) {
 			amount *= 0.5f;
@@ -569,7 +577,11 @@ f32 handGetDamage(struct shorthand *hand)
 			damage = fullfunc->damage;
 
 			if (hand->weaponnum == WEAPON_REAPER) {
+#if VERSION >= VERSION_PAL_FINAL
+				damage *= g_Vars.lvupdate240freal;
+#else
 				damage *= g_Vars.lvupdate240f;
+#endif
 			}
 		}
 
@@ -602,7 +614,7 @@ u8 handGetSingleUnk38(struct shorthand *hand)
 	}
 
 	if (result >= 4) {
-		result = TIME60TOFRAMES(result);
+		result = PALDOWN(result);
 	}
 
 	return result;
@@ -655,7 +667,7 @@ s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
 	}
 
 	if (result > 3) {
-		result = TIME60TOFRAMES(result);
+		result = PALDOWN(result);
 	}
 
 	return result;

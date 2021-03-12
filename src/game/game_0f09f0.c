@@ -1149,7 +1149,11 @@ void func0f0f1418(void)
 
 	for (i = 0; i < 4; i++) {
 		if (g_Menus[g_MpPlayerNum].unkdfc[i].item) {
+#if VERSION >= VERSION_PAL_FINAL
+			g_Menus[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60freal / 60.0f;
+#else
 			g_Menus[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60f / 60.0f;
+#endif
 		}
 	}
 }

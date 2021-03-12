@@ -313,10 +313,10 @@ u32 aibotGetProjectileThrowInterval(u32 weapon)
 {
 	switch (weapon) {
 	case WEAPON_COMBATKNIFE:
-		return 120;
+		return PALDOWN(120);
 	case WEAPON_GRENADE:
 	case WEAPON_NBOMB:
-		return 90;
+		return PALDOWN(90);
 	case WEAPON_CROSSBOW:
 	case WEAPON_TRANQUILIZER:
 	case WEAPON_LASER:
@@ -324,7 +324,7 @@ u32 aibotGetProjectileThrowInterval(u32 weapon)
 	case WEAPON_PROXIMITYMINE:
 	case WEAPON_REMOTEMINE:
 	default:
-		return 60;
+		return PALDOWN(60);
 	}
 }
 

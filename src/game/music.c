@@ -438,7 +438,7 @@ void func0f16dd14(void)
 	}
 
 	musicStartMpDeath(0);
-	var800840f0 = 1200;
+	var800840f0 = PALDOWN(1200);
 	var800840dc = 1;
 	func0f16d44c();
 }
@@ -535,8 +535,8 @@ void musicSetXReason(s32 reason, u32 arg1, u32 duration)
 {
 	if (g_AudioXReasonsActive[reason] == false) {
 		g_AudioXReasonsActive[reason] = true;
-		var800aaa78[reason] = arg1 * 240;
-		g_AudioXReasonDurations[reason] = duration * 240;
+		var800aaa78[reason] = arg1 * PALDOWN(240);
+		g_AudioXReasonDurations[reason] = duration * PALDOWN(240);
 	}
 }
 

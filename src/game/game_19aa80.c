@@ -704,7 +704,7 @@ glabel mpLoadConfig
 /*  f19b918:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f19b91c:	afa401c8 */ 	sw	$a0,0x1c8($sp)
 /*  f19b920:	afa501cc */ 	sw	$a1,0x1cc($sp)
-/*  f19b924:	0fc5b9b5 */ 	jal	langGetLanguageId
+/*  f19b924:	0fc5b9b5 */ 	jal	langGetFileNumOffset
 /*  f19b928:	afa601d0 */ 	sw	$a2,0x1d0($sp)
 /*  f19b92c:	3c0f8009 */ 	lui	$t7,%hi(var800887c4)
 /*  f19b930:	25ef87c4 */ 	addiu	$t7,$t7,%lo(var800887c4)
@@ -793,7 +793,7 @@ glabel mpLoadConfig
 //	u8 buffer2[sizeof(struct mpstrings) + 40];
 //	struct mpstrings *loadedstrings;
 //	struct mpstrings *bank;
-//	u32 language_id = langGetLanguageId();
+//	u32 language_id = langGetFileNumOffset();
 //	extern struct mpconfig _mpconfigsSegmentRomStart[];
 //	extern struct mpstrings _mpstringsESegmentRomStart;
 //	extern struct mpstrings _mpstringsJSegmentRomStart;

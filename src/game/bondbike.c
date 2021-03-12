@@ -167,7 +167,7 @@ void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
 void bbikeHandleActivate(void)
 {
 	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_RUNNING
-			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < 25) {
+			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < PALDOWN(25)) {
 		struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 		struct model08thing *thing = func0f068af4(&bike->base);
 

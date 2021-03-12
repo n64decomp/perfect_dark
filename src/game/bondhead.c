@@ -198,7 +198,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 
 			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate240_60;
 
-			if (g_Vars.currentplayer->headwalkingtime60 > 60) {
+			if (g_Vars.currentplayer->headwalkingtime60 > PALDOWN(60)) {
 				bheadSetdamp(PAL ? 0.9785f : 0.982f);
 			} else {
 				bheadSetdamp(PAL ? 0.99699f : 0.99748998880386f);

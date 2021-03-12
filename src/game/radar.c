@@ -142,7 +142,7 @@ Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour1, 
 	}
 
 	x = g_RadarX + (s32)(sinf(spcc * 0.017453292384744f) * sqdist);
-	y = g_RadarY + (s32)FRAMESTOTIME60(cosf(spcc * 0.017453292384744f) * sqdist);
+	y = g_RadarY + (s32)PALUPF(cosf(spcc * 0.017453292384744f) * sqdist);
 
 	if (swapcolours) {
 		if (prop == g_Vars.currentplayer->prop) {
@@ -306,7 +306,7 @@ Gfx *radarRender(Gfx *gdl)
 		}
 	}
 
-	g_RadarY = viGetViewTop() + 26;
+	g_RadarY = viGetViewTop() + (PAL ? 29 : 26);
 
 	if (playercount == 2) {
 		if (IS4MB()) {

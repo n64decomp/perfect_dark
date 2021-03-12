@@ -377,10 +377,10 @@ void frInitLighting(void)
 		s32 roomnum;
 
 		for (roomnum = 7; roomnum < 10; roomnum++) {
-			roomSetLighting(roomnum, LIGHTOP_3, 50, 100, 32);
+			roomSetLighting(roomnum, LIGHTOP_3, 50, 100, PALDOWN(32));
 		}
 
-		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 25, 100, 32);
+		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 25, 100, PALDOWN(32));
 
 		g_FrData.donelighting = true;
 
@@ -396,10 +396,10 @@ void frRestoreLighting(void)
 		s32 roomnum;
 
 		for (roomnum = 7; roomnum < 10; roomnum++) {
-			roomSetLighting(roomnum, LIGHTOP_3, 100, 50, 8);
+			roomSetLighting(roomnum, LIGHTOP_3, 100, 50, PALDOWN(8));
 		}
 
-		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 100, 25, 8);
+		roomSetLighting(CIROOM_FIRINGRANGE, LIGHTOP_3, 100, 25, PALDOWN(8));
 
 		g_FrData.donelighting = false;
 
@@ -508,7 +508,7 @@ void frInitDefaults(void)
 		func0f13e40c(g_FrData.targets[i].prop, true);
 	}
 
-	g_FrData.timetaken = -240;
+	g_FrData.timetaken = PALDOWN(-240);
 	g_FrData.score = 0;
 	g_FrData.numtargets = 0;
 	g_FrData.targetsdestroyed = 0;
@@ -2094,39 +2094,39 @@ char *frGetWeaponDescription(void)
 
 	switch (weapon) {
 #if PAL
-	case WEAPON_FALCON2:          return langGet(L_DISH_285);
-	case WEAPON_FALCON2_SCOPE:    return langGet(L_DISH_286);
-	case WEAPON_FALCON2_SILENCER: return langGet(L_DISH_287);
-	case WEAPON_MAGSEC4:          return langGet(L_DISH_288);
-	case WEAPON_MAULER:           return langGet(L_DISH_289);
-	case WEAPON_PHOENIX:          return langGet(L_DISH_290);
-	case WEAPON_DY357MAGNUM:      return langGet(L_DISH_291);
-	case WEAPON_DY357LX:          return langGet(L_DISH_292);
-	case WEAPON_CMP150:           return langGet(L_DISH_293);
-	case WEAPON_CYCLONE:          return langGet(L_DISH_294);
-	case WEAPON_CALLISTONTG:      return langGet(L_DISH_295);
-	case WEAPON_RCP120:           return langGet(L_DISH_296);
-	case WEAPON_LAPTOPGUN:        return langGet(L_DISH_297);
-	case WEAPON_DRAGON:           return langGet(L_DISH_298);
-	case WEAPON_K7AVENGER:        return langGet(L_DISH_299);
-	case WEAPON_AR34:             return langGet(L_DISH_300);
-	case WEAPON_SUPERDRAGON:      return langGet(L_DISH_301);
-	case WEAPON_SHOTGUN:          return langGet(L_DISH_302);
-	case WEAPON_SNIPERRIFLE:      return langGet(L_DISH_303);
-	case WEAPON_FARSIGHTXR20:     return langGet(L_DISH_304);
-	case WEAPON_CROSSBOW:         return langGet(L_DISH_305);
-	case WEAPON_TRANQUILIZER:     return langGet(L_DISH_306);
-	case WEAPON_REAPER:           return langGet(L_DISH_307);
-	case WEAPON_DEVASTATOR:       return langGet(L_DISH_308);
-	case WEAPON_ROCKETLAUNCHER:   return langGet(L_DISH_309);
-	case WEAPON_SLAYER:           return langGet(L_DISH_310);
-	case WEAPON_COMBATKNIFE:      return langGet(L_DISH_311);
-	case WEAPON_LASER:            return langGet(L_DISH_312);
-	case WEAPON_GRENADE:          return langGet(L_DISH_313);
-	case WEAPON_NBOMB:            return langGet(L_DISH_314);
-	case WEAPON_TIMEDMINE:        return langGet(L_DISH_315);
-	case WEAPON_PROXIMITYMINE:    return langGet(L_DISH_316);
-	case WEAPON_REMOTEMINE:       return langGet(L_DISH_317);
+	case WEAPON_FALCON2:          return langGet(L_DISH_283);
+	case WEAPON_FALCON2_SCOPE:    return langGet(L_DISH_284);
+	case WEAPON_FALCON2_SILENCER: return langGet(L_DISH_285);
+	case WEAPON_MAGSEC4:          return langGet(L_DISH_286);
+	case WEAPON_MAULER:           return langGet(L_DISH_287);
+	case WEAPON_PHOENIX:          return langGet(L_DISH_288);
+	case WEAPON_DY357MAGNUM:      return langGet(L_DISH_289);
+	case WEAPON_DY357LX:          return langGet(L_DISH_290);
+	case WEAPON_CMP150:           return langGet(L_DISH_291);
+	case WEAPON_CYCLONE:          return langGet(L_DISH_292);
+	case WEAPON_CALLISTONTG:      return langGet(L_DISH_293);
+	case WEAPON_RCP120:           return langGet(L_DISH_294);
+	case WEAPON_LAPTOPGUN:        return langGet(L_DISH_295);
+	case WEAPON_DRAGON:           return langGet(L_DISH_296);
+	case WEAPON_K7AVENGER:        return langGet(L_DISH_297);
+	case WEAPON_AR34:             return langGet(L_DISH_298);
+	case WEAPON_SUPERDRAGON:      return langGet(L_DISH_299);
+	case WEAPON_SHOTGUN:          return langGet(L_DISH_300);
+	case WEAPON_SNIPERRIFLE:      return langGet(L_DISH_301);
+	case WEAPON_FARSIGHTXR20:     return langGet(L_DISH_302);
+	case WEAPON_CROSSBOW:         return langGet(L_DISH_303);
+	case WEAPON_TRANQUILIZER:     return langGet(L_DISH_304);
+	case WEAPON_REAPER:           return langGet(L_DISH_305);
+	case WEAPON_DEVASTATOR:       return langGet(L_DISH_306);
+	case WEAPON_ROCKETLAUNCHER:   return langGet(L_DISH_307);
+	case WEAPON_SLAYER:           return langGet(L_DISH_308);
+	case WEAPON_COMBATKNIFE:      return langGet(L_DISH_309);
+	case WEAPON_LASER:            return langGet(L_DISH_310);
+	case WEAPON_GRENADE:          return langGet(L_DISH_311);
+	case WEAPON_NBOMB:            return langGet(L_DISH_312);
+	case WEAPON_TIMEDMINE:        return langGet(L_DISH_313);
+	case WEAPON_PROXIMITYMINE:    return langGet(L_DISH_314);
+	case WEAPON_REMOTEMINE:       return langGet(L_DISH_315);
 #else
 	case WEAPON_FALCON2:          return langGet(L_MISC_377);
 	case WEAPON_FALCON2_SCOPE:    return langGet(L_MISC_378);
@@ -2301,7 +2301,7 @@ void frSetFailReason(s32 failreason)
 
 	g_FrData.failreason = frWasTooInaccurate() ? FRFAILREASON_INACCURATE : failreason;
 	g_FrData.menutype = FRMENUTYPE_FAILED;
-	g_FrData.menucountdown = 60;
+	g_FrData.menucountdown = PALDOWN(60);
 }
 
 void frSetCompleted(void)
@@ -2317,7 +2317,7 @@ void frSetCompleted(void)
 		g_FrData.menutype = FRMENUTYPE_COMPLETED;
 	}
 
-	g_FrData.menucountdown = 60;
+	g_FrData.menucountdown = PALDOWN(60);
 }
 
 bool frIsTargetOneHitExplodable(struct prop *prop)
@@ -2527,7 +2527,7 @@ bool frIsAmmoWasted(void)
 							hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
 							if (currentPlayerGetAmmoCountWithCheck(ammotype) + hand->loadedammo[0] == 0) {
-								g_FrData.proxyendtimer = 300;
+								g_FrData.proxyendtimer = PALDOWN(300);
 							}
 
 							return false;
@@ -2536,7 +2536,7 @@ bool frIsAmmoWasted(void)
 						g_FrData.proxyendtimer -= g_Vars.lvupdate240_60;
 
 						if (g_FrData.proxyendtimer <= 0) {
-							// Timer has just hit zero - deactivate (or explode?) all mines
+							// Timer has just hit zero - remove all mines
 							for (i = 0; i < ARRAYCOUNT(g_ProxyMines); i++) {
 								if (g_ProxyMines[i]) {
 									g_ProxyMines[i]->unk62 = 0;
@@ -5541,7 +5541,7 @@ void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulerchar
 			} else if (frGetWeaponBySlot(g_FrData.slot) == WEAPON_MAULER) {
 				g_FrData.targets[i].damage += (f32)((s32)(maulercharge * 0.1f) + 1);
 			} else if ((g_FrData.targets[i].flags & FRTARGETFLAG_TMPINVINCIBLE) == 0
-					|| g_FrData.targets[i].invincibletimer >= 300) {
+					|| g_FrData.targets[i].invincibletimer >= PALDOWN(300)) {
 				g_FrData.targets[i].damage++;
 			}
 
@@ -5559,7 +5559,7 @@ void frCalculateHit(struct defaultobj *obj, struct coord *hitpos, f32 maulerchar
 				g_FrData.numhitsring3++;
 			}
 
-			g_FrData.feedbackttl = 60;
+			g_FrData.feedbackttl = PALDOWN(60);
 			g_FrData.score += g_FrData.feedbackzone;
 		}
 	}
@@ -6663,7 +6663,7 @@ bool frFormatTime(char *buffer)
 {
 	s32 mins = 0;
 	s32 mult = 1;
-	f32 secs = g_FrData.timetaken / 60.0f;
+	f32 secs = g_FrData.timetaken / PALDOWN(60.0f);
 	u8 failed = false;
 
 	if (g_FrData.timelimit != 255 && secs >= g_FrData.timelimit) {
@@ -6695,7 +6695,7 @@ bool frGetHudMiddleSubtext(char *buffer)
 	s32 secs;
 	s32 mins;
 
-	if (g_FrData.timetaken < -180) {
+	if (g_FrData.timetaken < PALDOWN(-180)) {
 		sprintf(buffer, "%s", langGet(L_MISC_420)); // "FIRE TO START"
 		return false;
 	}
@@ -6815,8 +6815,8 @@ Gfx *frRenderHud(Gfx *gdl)
 	s32 alpha = 0xa0;
 	f32 mult;
 
-	if (viGetViewWidth() > 400) {
-		mult = 2;
+	if (viGetViewWidth() > (PAL ? 330 : 400)) {
+		mult = PAL ? 1.5f : 2;
 	} else {
 		mult = 1;
 	}
@@ -6826,7 +6826,7 @@ Gfx *frRenderHud(Gfx *gdl)
 	}
 
 	if (g_FrData.menucountdown != 0) {
-		alpha = (f32)(g_FrData.menucountdown * 160) / 60.0f;
+		alpha = (f32)(g_FrData.menucountdown * 160) / PALDOWN(60.0f);
 	}
 
 	gdl = func0f153628(gdl);

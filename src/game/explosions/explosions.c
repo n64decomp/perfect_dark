@@ -148,11 +148,11 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
 {
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
-	f32 changerate = FRAMESTOTIME60(type->changerateh);
+	f32 changerate = PALUPF(type->changerateh);
 	f32 result;
 
-	if (exp->type == EXPLOSIONTYPE_14 && frame > TIME60TOFRAMES(32)) {
-		result = frame * FRAMESTOTIME60(3.0f) + 40.0f;
+	if (exp->type == EXPLOSIONTYPE_14 && frame > PALDOWN(32)) {
+		result = frame * PALUPF(3.0f) + 40.0f;
 
 		if (result > 300) {
 			result = 300;
@@ -167,10 +167,10 @@ f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
 f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
 {
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
-	f32 changerate = FRAMESTOTIME60(type->changeratev);
+	f32 changerate = PALUPF(type->changeratev);
 	f32 result;
 
-	if (exp->type == EXPLOSIONTYPE_14 && frame > TIME60TOFRAMES(32)) {
+	if (exp->type == EXPLOSIONTYPE_14 && frame > PALDOWN(32)) {
 		result = 20;
 	} else {
 		result = type->rangev + changerate * frame;
@@ -4483,7 +4483,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 #if PAL
-		tmp = (g_ExplosionTypes[exp->type].flarespeed * 0.83333331346512f) * 15.0f;
+		tmp = (g_ExplosionTypes[exp->type].flarespeed * 15.0f) * 0.83333331346512f;
 #else
 		tmp = g_ExplosionTypes[exp->type].flarespeed * 15.0f;
 #endif

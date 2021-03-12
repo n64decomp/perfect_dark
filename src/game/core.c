@@ -264,7 +264,7 @@ void coreLoadStage(s32 stagenum)
 	g_Vars.lvupdate240 = 4;
 
 	g_Vars.lvupdate240f = 1;
-	g_Vars.lvupdate240frealprev = FRAMESTOTIME60(1.0f);
+	g_Vars.lvupdate240frealprev = PALUPF(1.0f);
 	g_Vars.lvupdate240freal = g_Vars.lvupdate240frealprev;
 
 	g_StageTimeElapsed60 = 0;
@@ -511,7 +511,11 @@ Gfx *coreRenderFade(Gfx *gdl)
 		if (g_FadeDelay > 0) {
 			g_FadeDelay--;
 		} else {
+#if VERSION >= VERSION_PAL_FINAL
+			g_FadeFrac += g_Vars.diffframe60freal / g_FadeNumFrames;
+#else
 			g_FadeFrac += g_Vars.diffframe60f / g_FadeNumFrames;
+#endif
 
 			if (g_FadeFrac >= 1) {
 				g_FadeFrac = -1;
@@ -581,11 +585,11 @@ bool coreCheckCmpFollowThreat(struct threat *threat, s32 index)
 			if (chrIsDead(threat->prop->chr)) {
 				if (index >= 0) {
 					// Existing threat
-					if (g_Vars.currentplayer->targetset[index] < 129) {
-						g_Vars.currentplayer->targetset[index] = 129;
+					if (g_Vars.currentplayer->targetset[index] < PALDOWN(129)) {
+						g_Vars.currentplayer->targetset[index] = PALDOWN(129);
 					}
 
-					if (g_Vars.currentplayer->targetset[index] >= 175) {
+					if (g_Vars.currentplayer->targetset[index] >= (PAL ? 146 : 175)) {
 						threat->prop = NULL;
 						return false;
 					}
@@ -3480,13 +3484,21 @@ Gfx *coreRender(Gfx *gdl)
 }
 #endif
 
+#if VERSION >= VERSION_PAL_FINAL
+u32 var800840a4 = 0;
+u32 var800840a8 = 100;
+u32 var800840ac = 0;
 u32 g_CutsceneTime240_60 = 0;
-u32 var800840a8 = PAL ? 100 : 0;
-u32 var800840ac = 0x00000000;
-u32 var800840b0 = 0x00000000;
-u32 var800840b4 = 0x00000000;
-u32 var800840b8 = 0x00000000;
-u32 var800840bc = 0x00000000;
+#else
+u32 g_CutsceneTime240_60 = 0;
+u32 var800840a8 = 0;
+u32 var800840ac = 0;
+u32 var800840b0 = 0;
+#endif
+
+u32 var800840b4 = 0;
+u32 var800840b8 = 0;
+u32 var800840bc = 0;
 
 void coreUpdateSoloHandicaps(void)
 {
@@ -3555,7 +3567,7 @@ void coreUpdateSoloHandicaps(void)
 			var80062ca4 = 1;
 			var80062ca8 = 1;
 			var8007e4a8 = 1;
-			var80069880 = g_LanguageId ? 1.1f : 0.75f;
+			var80069880 = g_Jpn ? 1.1f : 0.75f;
 			g_AmmoMultiplier = 1.5f;
 			var80062cac = 0.5f;
 		} else {
@@ -3568,7 +3580,7 @@ void coreUpdateSoloHandicaps(void)
 			var80062ca4 = 1.5f;
 			var80062ca8 = 1;
 			var8007e4a8 = 1.5f;
-			var80069880 = g_LanguageId ? 0.75f : 0.2f;
+			var80069880 = g_Jpn ? 0.75f : 0.2f;
 			g_AmmoMultiplier = 1;
 			var80062cac = 1;
 		}
@@ -3613,7 +3625,7 @@ void coreUpdateSoloHandicaps(void)
 			var80062ca4 = 0.6f;
 			var80062ca8 = 1;
 			var8007e4a8 = 0.75f;
-			var80069880 = g_LanguageId ? 1.1f : 0.75f;
+			var80069880 = g_Jpn ? 1.1f : 0.75f;
 			g_AmmoMultiplier = 1.5f;
 			var80062cac = 0.5f;
 		} else if (g_Difficulty == DIFF_PA) {
@@ -3626,7 +3638,7 @@ void coreUpdateSoloHandicaps(void)
 			var80062ca4 = 1;
 			var80062ca8 = 1;
 			var8007e4a8 = 1;
-			var80069880 = g_LanguageId ? 0.75f : 0.2f;
+			var80069880 = g_Jpn ? 0.75f : 0.2f;
 			g_AmmoMultiplier = 1;
 			var80062cac = 1;
 		} else if (g_Difficulty == DIFF_PD) {
@@ -3665,6 +3677,88 @@ void coreUpdateCutsceneTime(void)
 	g_CutsceneTime240_60 = 0;
 }
 
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel coreGetSlowMotionType
+/*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
+/*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
+/*  f16b860:	0fc5ae00 */ 	jal	sub54321
+/*  f16b864:	3484de8d */ 	ori	$a0,$a0,0x1d45
+/*  f16b868:	3c041741 */ 	lui	$a0,0x330
+/*  f16b86c:	afa2002c */ 	sw	$v0,0x2c($sp)
+/*  f16b870:	0fc5ae00 */ 	jal	sub54321
+/*  f16b874:	3484d42a */ 	ori	$a0,$a0,0xe225
+/*  f16b878:	afa20024 */ 	sw	$v0,0x24($sp)
+/*  f16b87c:	8fa4002c */ 	lw	$a0,0x2c($sp)
+/*  f16b880:	0c013994 */ 	jal	osPiReadIo
+/*  f16b884:	27a50028 */ 	addiu	$a1,$sp,0x28
+/*  f16b888:	8fae0028 */ 	lw	$t6,0x28($sp)
+/*  f16b88c:	8faf0024 */ 	lw	$t7,0x24($sp)
+/*  f16b890:	3c058006 */ 	lui	$a1,%hi(rspbootTextStart)
+/*  f16b894:	24a29fe0 */ 	addiu	$v0,$a1,%lo(rspbootTextStart)
+/*  f16b898:	11cf000d */ 	beq	$t6,$t7,.L0f16b8d0
+/*  f16b89c:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x318)
+/*  f16b8a0:	3c188006 */ 	lui	$t8,%hi(rspbootTextStart+0x1)
+/*  f16b8a4:	24431000 */ 	addiu	$v1,$v0,0x1000
+/*  f16b8a8:	27189fe1 */ 	addiu	$t8,$t8,%lo(rspbootTextStart+0x1)
+/*  f16b8ac:	0078082b */ 	sltu	$at,$v1,$t8
+/*  f16b8b0:	14200007 */ 	bnez	$at,.L0f16b8d0
+/*  f16b8b4:	00000000 */ 	nop
+.L0f16b8b8:
+/*  f16b8b8:	8c590000 */ 	lw	$t9,0x0($v0)
+/*  f16b8bc:	24420004 */ 	addiu	$v0,$v0,0x4
+/*  f16b8c0:	0043082b */ 	sltu	$at,$v0,$v1
+/*  f16b8c4:	27280008 */ 	addiu	$t0,$t9,0x8
+/*  f16b8c8:	1420fffb */ 	bnez	$at,.L0f16b8b8
+/*  f16b8cc:	ac48fffc */ 	sw	$t0,-0x4($v0)
+.L0f16b8d0:
+/*  f16b8d0:	8d29a2d8 */ 	lw	$t1,%lo(g_Vars+0x318)($t1)
+/*  f16b8d4:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0xc)
+/*  f16b8d8:	1120000b */ 	beqz	$t1,.L0f16b908
+/*  f16b8dc:	00000000 */ 	nop
+/*  f16b8e0:	8c42cb94 */ 	lw	$v0,%lo(g_MpSetup+0xc)($v0)
+/*  f16b8e4:	304a0040 */ 	andi	$t2,$v0,0x40
+/*  f16b8e8:	11400003 */ 	beqz	$t2,.L0f16b8f8
+/*  f16b8ec:	304b0080 */ 	andi	$t3,$v0,0x80
+/*  f16b8f0:	1000001a */ 	b	.L0f16b95c
+/*  f16b8f4:	24020001 */ 	addiu	$v0,$zero,0x1
+.L0f16b8f8:
+/*  f16b8f8:	51600018 */ 	beqzl	$t3,.L0f16b95c
+/*  f16b8fc:	00001025 */ 	or	$v0,$zero,$zero
+/*  f16b900:	10000016 */ 	b	.L0f16b95c
+/*  f16b904:	24020002 */ 	addiu	$v0,$zero,0x2
+.L0f16b908:
+/*  f16b908:	0fc41b99 */ 	jal	cheatIsActive
+/*  f16b90c:	24040006 */ 	addiu	$a0,$zero,0x6
+/*  f16b910:	10400003 */ 	beqz	$v0,.L0f16b920
+/*  f16b914:	00000000 */ 	nop
+/*  f16b918:	10000010 */ 	b	.L0f16b95c
+/*  f16b91c:	24020001 */ 	addiu	$v0,$zero,0x1
+.L0f16b920:
+/*  f16b920:	0fc47b9c */ 	jal	debugGetSlowMotion
+/*  f16b924:	00000000 */ 	nop
+/*  f16b928:	24010001 */ 	addiu	$at,$zero,0x1
+/*  f16b92c:	14410003 */ 	bne	$v0,$at,.L0f16b93c
+/*  f16b930:	00000000 */ 	nop
+/*  f16b934:	10000009 */ 	b	.L0f16b95c
+/*  f16b938:	24020001 */ 	addiu	$v0,$zero,0x1
+.L0f16b93c:
+/*  f16b93c:	0fc47b9c */ 	jal	debugGetSlowMotion
+/*  f16b940:	00000000 */ 	nop
+/*  f16b944:	24010002 */ 	addiu	$at,$zero,0x2
+/*  f16b948:	54410004 */ 	bnel	$v0,$at,.L0f16b95c
+/*  f16b94c:	00001025 */ 	or	$v0,$zero,$zero
+/*  f16b950:	10000002 */ 	b	.L0f16b95c
+/*  f16b954:	24020002 */ 	addiu	$v0,$zero,0x2
+/*  f16b958:	00001025 */ 	or	$v0,$zero,$zero
+.L0f16b95c:
+/*  f16b95c:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f16b960:	27bd0030 */ 	addiu	$sp,$sp,0x30
+/*  f16b964:	03e00008 */ 	jr	$ra
+/*  f16b968:	00000000 */ 	nop
+);
+#else
 GLOBAL_ASM(
 glabel coreGetSlowMotionType
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -3745,6 +3839,7 @@ glabel coreGetSlowMotionType
 /*  f16b964:	03e00008 */ 	jr	$ra
 /*  f16b968:	00000000 */ 	nop
 );
+#endif
 
 // Can't match the antipiracy part
 //u32 coreGetSlowMotionType(void)
@@ -5210,7 +5305,7 @@ void coreTick(void)
 	g_Vars.lvframe60 += g_Vars.lvupdate240_60;
 	g_Vars.lvframe240 += g_Vars.lvupdate240;
 	g_Vars.lvupdate240frealprev = g_Vars.lvupdate240freal;
-	g_Vars.lvupdate240freal = FRAMESTOTIME60(g_Vars.lvupdate240f);
+	g_Vars.lvupdate240freal = PALUPF(g_Vars.lvupdate240f);
 
 	speedpillTick();
 	hudmsgsTick();

@@ -477,14 +477,14 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->lastroomforoffset = -1;
 
 	g_Vars.players[index]->c_screenwidth = 320;
-	g_Vars.players[index]->c_screenheight = 240;
+	g_Vars.players[index]->c_screenheight = PAL ? 272 : 240;
 	g_Vars.players[index]->c_screenleft = 0;
 	g_Vars.players[index]->c_screentop = 0;
 	g_Vars.players[index]->c_perspnear = 10;
 	g_Vars.players[index]->c_perspfovy = 46;
 	g_Vars.players[index]->c_perspaspect = 1;
 	g_Vars.players[index]->c_halfwidth = 160;
-	g_Vars.players[index]->c_halfheight = 120;
+	g_Vars.players[index]->c_halfheight = PAL ? 136 : 120;
 	g_Vars.players[index]->c_scalex = 1;
 	g_Vars.players[index]->c_scaley = 1;
 	g_Vars.players[index]->c_recipscalex = 1;
@@ -515,7 +515,7 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->screenxminf = 0;
 	g_Vars.players[index]->screenyminf = 0;
 	g_Vars.players[index]->screenxmaxf = 320;
-	g_Vars.players[index]->screenymaxf = 240;
+	g_Vars.players[index]->screenymaxf = PAL ? 272 : 240;
 
 	g_Vars.players[index]->gunsightoff = 0;
 	g_Vars.players[index]->unk1834 = 0;

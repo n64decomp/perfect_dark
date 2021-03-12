@@ -41,10 +41,9 @@ const u32 var7f1acc64[] = {0x461c4000};
 const u32 var7f1acc68[] = {0xc61c4000};
 const u32 var7f1acc6c[] = {0x3fb50481};
 
-struct fireslot g_Fireslots[NUM_FIRESLOTS];
-struct casing g_Casings[20];
-struct var8009da60 var8009da60[8];
-struct lasersight g_LaserSights[4];
+struct casing g_Casings[20]; // da80 (correct)
+struct var8009da60 var8009da60[8]; // dfd0 (correct)
+struct lasersight g_LaserSights[4]; // correct
 
 u32 var80070500 = 0x00000000;
 u32 var80070504 = 0x00000000;
@@ -4265,7 +4264,11 @@ void func0f0aefb8(void)
 					(var8009da60[i].unk20.f[1] - var8009da60[i].unk14.f[1]) * (var8009da60[i].unk20.f[1] - var8009da60[i].unk14.f[1]) +
 					(var8009da60[i].unk20.f[2] - var8009da60[i].unk14.f[2]) * (var8009da60[i].unk20.f[2] - var8009da60[i].unk14.f[2]));
 
+#if VERSION >= VERSION_PAL_FINAL
+			value -= var8009da60[i].unk2c * g_Vars.lvupdate240freal / 60.0f;
+#else
 			value -= var8009da60[i].unk2c * g_Vars.lvupdate240f / 60.0f;
+#endif
 
 			if (value < 0) {
 				var8009da60[i].unk00 = -1;

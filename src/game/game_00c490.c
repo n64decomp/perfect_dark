@@ -2376,6 +2376,142 @@ void setupHov(struct defaultobj *obj, struct hov *hov)
 	hov->unk3c = -1;
 }
 
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel func0f00e980
+/*  f00e980:	27bdffc8 */ 	addiu	$sp,$sp,-56
+/*  f00e984:	afb5002c */ 	sw	$s5,0x2c($sp)
+/*  f00e988:	afb30024 */ 	sw	$s3,0x24($sp)
+/*  f00e98c:	afb20020 */ 	sw	$s2,0x20($sp)
+/*  f00e990:	afb1001c */ 	sw	$s1,0x1c($sp)
+/*  f00e994:	2881005a */ 	slti	$at,$a0,0x5a
+/*  f00e998:	00e08825 */ 	or	$s1,$a3,$zero
+/*  f00e99c:	00a09025 */ 	or	$s2,$a1,$zero
+/*  f00e9a0:	00809825 */ 	or	$s3,$a0,$zero
+/*  f00e9a4:	00c0a825 */ 	or	$s5,$a2,$zero
+/*  f00e9a8:	afbf0034 */ 	sw	$ra,0x34($sp)
+/*  f00e9ac:	afb60030 */ 	sw	$s6,0x30($sp)
+/*  f00e9b0:	afb40028 */ 	sw	$s4,0x28($sp)
+/*  f00e9b4:	10200061 */ 	beqz	$at,.L0f00eb3c
+/*  f00e9b8:	afb00018 */ 	sw	$s0,0x18($sp)
+/*  f00e9bc:	0fc59585 */ 	jal	stageGetIndex
+/*  f00e9c0:	00000000 */ 	nop
+/*  f00e9c4:	04410002 */ 	bgez	$v0,.L0f00e9d0
+/*  f00e9c8:	00401825 */ 	or	$v1,$v0,$zero
+/*  f00e9cc:	00001825 */ 	or	$v1,$zero,$zero
+.L0f00e9d0:
+/*  f00e9d0:	000370c0 */ 	sll	$t6,$v1,0x3
+/*  f00e9d4:	01c37023 */ 	subu	$t6,$t6,$v1
+/*  f00e9d8:	000e70c0 */ 	sll	$t6,$t6,0x3
+/*  f00e9dc:	3c028008 */ 	lui	$v0,%hi(g_Stages+0xe)
+/*  f00e9e0:	004e1021 */ 	addu	$v0,$v0,$t6
+/*  f00e9e4:	9444fcce */ 	lhu	$a0,%lo(g_Stages+0xe)($v0)
+/*  f00e9e8:	240f0003 */ 	addiu	$t7,$zero,0x3
+/*  f00e9ec:	3c018006 */ 	lui	$at,%hi(g_LoadType)
+/*  f00e9f0:	a02fd9a0 */ 	sb	$t7,%lo(g_LoadType)($at)
+/*  f00e9f4:	24050022 */ 	addiu	$a1,$zero,0x22
+/*  f00e9f8:	02403025 */ 	or	$a2,$s2,$zero
+/*  f00e9fc:	02a03825 */ 	or	$a3,$s5,$zero
+/*  f00ea00:	0fc59c80 */ 	jal	func0f167200
+/*  f00ea04:	00808025 */ 	or	$s0,$a0,$zero
+/*  f00ea08:	0fc59ca0 */ 	jal	fileGetSize
+/*  f00ea0c:	02002025 */ 	or	$a0,$s0,$zero
+/*  f00ea10:	02428021 */ 	addu	$s0,$s2,$v0
+/*  f00ea14:	02a2a023 */ 	subu	$s4,$s5,$v0
+/*  f00ea18:	0fc5b878 */ 	jal	langGetLangBankIndexFromStagenum
+/*  f00ea1c:	02602025 */ 	or	$a0,$s3,$zero
+/*  f00ea20:	a622001a */ 	sh	$v0,0x1a($s1)
+/*  f00ea24:	3044ffff */ 	andi	$a0,$v0,0xffff
+/*  f00ea28:	02002825 */ 	or	$a1,$s0,$zero
+/*  f00ea2c:	0fc5b9d9 */ 	jal	langSetBank
+/*  f00ea30:	02803025 */ 	or	$a2,$s4,$zero
+/*  f00ea34:	8e580010 */ 	lw	$t8,0x10($s2)
+/*  f00ea38:	02589821 */ 	addu	$s3,$s2,$t8
+/*  f00ea3c:	52600040 */ 	beqzl	$s3,.L0f00eb40
+/*  f00ea40:	8fbf0034 */ 	lw	$ra,0x34($sp)
+/*  f00ea44:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f00ea48:	24160001 */ 	addiu	$s6,$zero,0x1
+/*  f00ea4c:	14400002 */ 	bnez	$v0,.L0f00ea58
+/*  f00ea50:	00000000 */ 	nop
+/*  f00ea54:	24160003 */ 	addiu	$s6,$zero,0x3
+.L0f00ea58:
+/*  f00ea58:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f00ea5c:	00000000 */ 	nop
+/*  f00ea60:	24010001 */ 	addiu	$at,$zero,0x1
+/*  f00ea64:	14410002 */ 	bne	$v0,$at,.L0f00ea70
+/*  f00ea68:	02201825 */ 	or	$v1,$s1,$zero
+/*  f00ea6c:	24160002 */ 	addiu	$s6,$zero,0x2
+.L0f00ea70:
+/*  f00ea70:	00001025 */ 	or	$v0,$zero,$zero
+.L0f00ea74:
+/*  f00ea74:	24420001 */ 	addiu	$v0,$v0,0x1
+/*  f00ea78:	28410006 */ 	slti	$at,$v0,0x6
+/*  f00ea7c:	24630002 */ 	addiu	$v1,$v1,0x2
+/*  f00ea80:	1420fffc */ 	bnez	$at,.L0f00ea74
+/*  f00ea84:	a4600000 */ 	sh	$zero,0x0($v1)
+/*  f00ea88:	2419582a */ 	addiu	$t9,$zero,0x5801
+/*  f00ea8c:	a6390000 */ 	sh	$t9,0x0($s1)
+/*  f00ea90:	92680003 */ 	lbu	$t0,0x3($s3)
+/*  f00ea94:	24120034 */ 	addiu	$s2,$zero,0x34
+/*  f00ea98:	02608025 */ 	or	$s0,$s3,$zero
+/*  f00ea9c:	12480027 */ 	beq	$s2,$t0,.L0f00eb3c
+/*  f00eaa0:	310300ff */ 	andi	$v1,$t0,0xff
+/*  f00eaa4:	24150001 */ 	addiu	$s5,$zero,0x1
+/*  f00eaa8:	24140023 */ 	addiu	$s4,$zero,0x23
+/*  f00eaac:	24130017 */ 	addiu	$s3,$zero,0x17
+.L0f00eab0:
+/*  f00eab0:	5073000f */ 	beql	$v1,$s3,.L0f00eaf0
+/*  f00eab4:	8e020004 */ 	lw	$v0,0x4($s0)
+/*  f00eab8:	14740019 */ 	bne	$v1,$s4,.L0f00eb20
+/*  f00eabc:	00000000 */ 	nop
+/*  f00eac0:	8e020004 */ 	lw	$v0,0x4($s0)
+/*  f00eac4:	16a20004 */ 	bne	$s5,$v0,.L0f00ead8
+/*  f00eac8:	00000000 */ 	nop
+/*  f00eacc:	8e090008 */ 	lw	$t1,0x8($s0)
+/*  f00ead0:	a6290000 */ 	sh	$t1,0x0($s1)
+/*  f00ead4:	8e020004 */ 	lw	$v0,0x4($s0)
+.L0f00ead8:
+/*  f00ead8:	16c20011 */ 	bne	$s6,$v0,.L0f00eb20
+/*  f00eadc:	00000000 */ 	nop
+/*  f00eae0:	8e0a0008 */ 	lw	$t2,0x8($s0)
+/*  f00eae4:	1000000e */ 	b	.L0f00eb20
+/*  f00eae8:	a62a0000 */ 	sh	$t2,0x0($s1)
+/*  f00eaec:	8e020004 */ 	lw	$v0,0x4($s0)
+.L0f00eaf0:
+/*  f00eaf0:	2c410007 */ 	sltiu	$at,$v0,0x7
+/*  f00eaf4:	1020000a */ 	beqz	$at,.L0f00eb20
+/*  f00eaf8:	00000000 */ 	nop
+/*  f00eafc:	8e0b0008 */ 	lw	$t3,0x8($s0)
+/*  f00eb00:	00026040 */ 	sll	$t4,$v0,0x1
+/*  f00eb04:	022c6821 */ 	addu	$t5,$s1,$t4
+/*  f00eb08:	a5ab0002 */ 	sh	$t3,0x2($t5)
+/*  f00eb0c:	8e0f0004 */ 	lw	$t7,0x4($s0)
+/*  f00eb10:	820e000f */ 	lb	$t6,0xf($s0)
+/*  f00eb14:	000fc040 */ 	sll	$t8,$t7,0x1
+/*  f00eb18:	0238c821 */ 	addu	$t9,$s1,$t8
+/*  f00eb1c:	a72e000e */ 	sh	$t6,0xe($t9)
+.L0f00eb20:
+/*  f00eb20:	0fc24784 */ 	jal	setupGetCommandLength
+/*  f00eb24:	02002025 */ 	or	$a0,$s0,$zero
+/*  f00eb28:	00024080 */ 	sll	$t0,$v0,0x2
+/*  f00eb2c:	01108021 */ 	addu	$s0,$t0,$s0
+/*  f00eb30:	92030003 */ 	lbu	$v1,0x3($s0)
+/*  f00eb34:	1643ffde */ 	bne	$s2,$v1,.L0f00eab0
+/*  f00eb38:	00000000 */ 	nop
+.L0f00eb3c:
+/*  f00eb3c:	8fbf0034 */ 	lw	$ra,0x34($sp)
+.L0f00eb40:
+/*  f00eb40:	8fb00018 */ 	lw	$s0,0x18($sp)
+/*  f00eb44:	8fb1001c */ 	lw	$s1,0x1c($sp)
+/*  f00eb48:	8fb20020 */ 	lw	$s2,0x20($sp)
+/*  f00eb4c:	8fb30024 */ 	lw	$s3,0x24($sp)
+/*  f00eb50:	8fb40028 */ 	lw	$s4,0x28($sp)
+/*  f00eb54:	8fb5002c */ 	lw	$s5,0x2c($sp)
+/*  f00eb58:	8fb60030 */ 	lw	$s6,0x30($sp)
+/*  f00eb5c:	03e00008 */ 	jr	$ra
+/*  f00eb60:	27bd0038 */ 	addiu	$sp,$sp,0x38
+);
+#else
 GLOBAL_ASM(
 glabel func0f00e980
 /*  f00e980:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -2510,6 +2646,7 @@ glabel func0f00e980
 /*  f00eb5c:	03e00008 */ 	jr	$ra
 /*  f00eb60:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
+#endif
 
 void setupLoadFiles(s32 stagenum)
 {
@@ -2825,7 +2962,7 @@ void setupParseObjects(s32 stagenum)
 					break;
 				case OBJTYPE_SHIELD:
 					if (withobjs) {
-						if ((obj->flags2 & diffflag) == 0 || g_LanguageId != LANGUAGE_NTSC_EN) {
+						if ((obj->flags2 & diffflag) == 0 || g_Jpn) {
 							struct shieldobj *shield = (struct shieldobj *)obj;
 							shield->initialamount = *(s32 *)&shield->initialamount / 65536.0f;
 							shield->amount = shield->initialamount;
@@ -2852,8 +2989,8 @@ void setupParseObjects(s32 stagenum)
 						struct prop *prop;
 						s32 i;
 
-						lift->accel = FRAMESTOTIME60(*(s32 *)&lift->accel) / 65536.0f;
-						lift->maxspeed = FRAMESTOTIME60(*(s32 *)&lift->maxspeed) / 65536.0f;
+						lift->accel = PALUPF(*(s32 *)&lift->accel) / 65536.0f;
+						lift->maxspeed = PALUPF(*(s32 *)&lift->maxspeed) / 65536.0f;
 						lift->dist = 0;
 						lift->speed = 0;
 						lift->levelcur = 0;
@@ -2939,8 +3076,8 @@ void setupParseObjects(s32 stagenum)
 						struct fanobj *fan = (struct fanobj *)obj;
 
 						fan->yrot = 0;
-						fan->ymaxspeed = FRAMESTOTIME60(*(s32 *)&fan->ymaxspeed) / 65536.0f;
-						fan->yaccel = FRAMESTOTIME60(*(s32 *)&fan->yaccel) / 65536.0f;
+						fan->ymaxspeed = PALUPF(*(s32 *)&fan->ymaxspeed) / 65536.0f;
+						fan->yaccel = PALUPF(*(s32 *)&fan->yaccel) / 65536.0f;
 
 						setupGenericObject(obj, index);
 					}

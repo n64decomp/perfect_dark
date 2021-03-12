@@ -57,13 +57,13 @@ void splatTick(struct prop *prop)
 
 			if (thudframe != -1.0f && modelGetCurAnimFrame(chr->model) < thudframe) {
 				osSyncPrintf("SPLAT : Not Dead Enough %s%s%f", "", "", modelGetCurAnimFrame(chr->model));
-			} else if (chr->tickssincesplat > 30 && chr->deaddropsplatsadded < 6) {
-				chr->deaddropsplatsadded += func0f148f18(1, 1.1f, prop, NULL, 0, 0, isskedar, 1, 150, unk350, random() & 8);
+			} else if (chr->tickssincesplat > PALDOWN(30) && chr->deaddropsplatsadded < 6) {
+				chr->deaddropsplatsadded += func0f148f18(1, 1.1f, prop, NULL, 0, 0, isskedar, 1, PALDOWN(150), unk350, random() & 8);
 			}
 		} else {
 			u32 value = chr->bulletstaken * chr->tickssincesplat;
 
-			if (value > 240) {
+			if (value > PALDOWN(240)) {
 				f32 dist = coordsGetDistance(&chr->lastdroppos, &prop->pos);
 				s32 addmore = false;
 
@@ -76,7 +76,7 @@ void splatTick(struct prop *prop)
 				}
 
 				if (addmore) {
-					chr->woundedsplatsadded += func0f148f18(1, 0.3f, prop, NULL, 0, 0, isskedar, 2, 80, unk350, 0);
+					chr->woundedsplatsadded += func0f148f18(1, 0.3f, prop, NULL, 0, 0, isskedar, 2, PALDOWN(80), unk350, 0);
 				}
 			}
 
@@ -104,7 +104,7 @@ void func0f148e54(struct prop *prop, struct splat *arg1, struct coord *arg2, str
 		u32 rand = random() % 3;
 
 		if (rand) {
-			chr->stdsplatsadded += func0f148f18(rand, 0.8f, prop, arg1, arg2, arg3, arg4, arg5, 50, arg6, 0);
+			chr->stdsplatsadded += func0f148f18(rand, 0.8f, prop, arg1, arg2, arg3, arg4, arg5, PALDOWN(50), arg6, 0);
 		}
 	}
 }

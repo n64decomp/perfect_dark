@@ -384,10 +384,6 @@ bool aiKneel(void)
 	return false;
 }
 
-#if VERSION >= VERSION_PAL_FINAL
-extern f32 g_SomePalFloat;
-#endif
-
 /**
  * @cmd 000b
  */
@@ -425,7 +421,7 @@ bool aiChrDoAnimation(void)
 		if (g_Vars.in_cutscene) {
 			if (startframe != 0xfffe) {
 #if VERSION >= VERSION_PAL_FINAL
-				fstartframe += g_SomePalFloat * result;
+				fstartframe += var8009e388pf * result;
 #else
 				fstartframe += var8009de20 * result * 0.25f;
 #endif
@@ -5145,7 +5141,7 @@ bool aiObjectDoAnimation(void)
 
 			if (g_Vars.in_cutscene && startframe != 0xfffe) {
 #if VERSION >= VERSION_PAL_FINAL
-				fstartframe += g_SomePalFloat * thing;
+				fstartframe += var8009e388pf * thing;
 #else
 				fstartframe += var8009de20 * thing * 0.25f;
 #endif
@@ -5994,7 +5990,7 @@ bool aiSetLights(void)
 			roomSetLightsOn(roomnum, true);
 			break;
 		default:
-			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], TIME60TOFRAMES(cmd[7]));
+			roomSetLighting(roomnum, cmd[4], cmd[5], cmd[6], PALDOWN(cmd[7]));
 		}
 	}
 
@@ -9141,7 +9137,7 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
-	if (g_Vars.chrdata->talktimer > 480 && g_Vars.chrdata->listening) {
+	if (g_Vars.chrdata->talktimer > PALDOWN(480) && g_Vars.chrdata->listening) {
 		g_Vars.chrdata->listening = 0;
 	}
 
@@ -9736,9 +9732,9 @@ bool aiChrAdjustMotionBlur(void)
 
 	if (chr) {
 		if (cmd[4] == 0) {
-			chr->blurdrugamount -= TIME60TOFRAMES(cmd[3]);
+			chr->blurdrugamount -= PALDOWN(cmd[3]);
 		} else {
-			chr->blurdrugamount += TIME60TOFRAMES(cmd[3]);
+			chr->blurdrugamount += PALDOWN(cmd[3]);
 		}
 	}
 
@@ -10080,7 +10076,7 @@ bool ai0184(void)
 bool aiIfSoundTimer(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	s32 value = TIME60TOFRAMES(cmd[3] | (cmd[2] << 8));
+	s32 value = PALDOWN(cmd[3] | (cmd[2] << 8));
 
 	if ((g_Vars.chrdata->soundtimer > value && cmd[4] == 0) ||
 			(g_Vars.chrdata->soundtimer < value && cmd[4] == 1)) {

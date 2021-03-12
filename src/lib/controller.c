@@ -263,7 +263,7 @@ void contDisableTemporarily(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		g_ContDisableCooldown[i] = TIME60TOFRAMES(60);
+		g_ContDisableCooldown[i] = PALDOWN(60);
 	}
 }
 

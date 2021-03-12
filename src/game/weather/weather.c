@@ -392,9 +392,15 @@ void weatherTickRain(struct weatherdata *weather)
 	for (i = 0; i != ARRAYCOUNT(data->particles); i++) {
 		struct weatherparticle *particle = &data->particles[i];
 
+#if VERSION >= VERSION_PAL_FINAL
+		particle->pos.x += particle->inc.x * g_Vars.lvupdate240freal;
+		particle->pos.y += particle->inc.y * g_Vars.lvupdate240freal;
+		particle->pos.z += particle->inc.z * g_Vars.lvupdate240freal;
+#else
 		particle->pos.x += particle->inc.x * g_Vars.lvupdate240f;
 		particle->pos.y += particle->inc.y * g_Vars.lvupdate240f;
 		particle->pos.z += particle->inc.z * g_Vars.lvupdate240f;
+#endif
 
 		if (particle->pos.y < data->boundarymin.y) {
 			lVar6 = 2;
@@ -482,7 +488,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	data = g_WeatherData->particledata;
 
 	// 0
-	data->unk3ec8[0] += 0.04f * g_Vars.lvupdate240f;
+	data->unk3ec8[0] += 0.04f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[0] < 0) {
 		data->unk3ec8[0] += M_TAU;
@@ -493,7 +499,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 1
-	data->unk3ec8[1] += -0.03f * g_Vars.lvupdate240f;
+	data->unk3ec8[1] += -0.03f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[1] < 0) {
 		data->unk3ec8[1] += M_TAU;
@@ -504,7 +510,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 2
-	data->unk3ec8[2] += 0.04f * g_Vars.lvupdate240f;
+	data->unk3ec8[2] += 0.04f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[2] < 0) {
 		data->unk3ec8[2] += M_TAU;
@@ -515,7 +521,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 3
-	data->unk3ec8[3] += 0.03f * g_Vars.lvupdate240f;
+	data->unk3ec8[3] += 0.03f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[3] < 0) {
 		data->unk3ec8[3] += M_TAU;
@@ -526,7 +532,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 4
-	data->unk3ec8[4] += 0.02f * g_Vars.lvupdate240f;
+	data->unk3ec8[4] += 0.02f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[4] < 0) {
 		data->unk3ec8[4] += M_TAU;
@@ -537,7 +543,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 5
-	data->unk3ec8[5] += 0.01f * g_Vars.lvupdate240f;
+	data->unk3ec8[5] += 0.01f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[5] < 0) {
 		data->unk3ec8[5] += M_TAU;
@@ -548,7 +554,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 6
-	data->unk3ec8[6] += -0.01f * g_Vars.lvupdate240f;
+	data->unk3ec8[6] += -0.01f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[6] < 0) {
 		data->unk3ec8[6] += M_TAU;
@@ -559,7 +565,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 
 	// 7
-	data->unk3ec8[7] += -0.02f * g_Vars.lvupdate240f;
+	data->unk3ec8[7] += -0.02f * (VERSION >= VERSION_PAL_FINAL ? g_Vars.lvupdate240freal : g_Vars.lvupdate240f);
 
 	if (data->unk3ec8[7] < 0) {
 		data->unk3ec8[7] += M_TAU;
@@ -572,9 +578,15 @@ void weatherTickSnow(struct weatherdata *weather)
 	for (i = 0; i < ARRAYCOUNT(data->particles); i++) {
 		struct weatherparticle *particle = &data->particles[i];
 
-		particle->pos.x += particle->inc.f[0] * g_Vars.lvupdate240f;
-		particle->pos.y += particle->inc.f[1] * g_Vars.lvupdate240f;
-		particle->pos.z += particle->inc.f[2] * g_Vars.lvupdate240f;
+#if VERSION >= VERSION_PAL_FINAL
+		particle->pos.x += particle->inc.x * g_Vars.lvupdate240freal;
+		particle->pos.y += particle->inc.y * g_Vars.lvupdate240freal;
+		particle->pos.z += particle->inc.z * g_Vars.lvupdate240freal;
+#else
+		particle->pos.x += particle->inc.x * g_Vars.lvupdate240f;
+		particle->pos.y += particle->inc.y * g_Vars.lvupdate240f;
+		particle->pos.z += particle->inc.z * g_Vars.lvupdate240f;
+#endif
 
 		if (particle->pos.y < data->boundarymin.y) {
 			lVar7 = 2;

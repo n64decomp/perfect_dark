@@ -102,8 +102,8 @@ u32 var8007fbc4 = 0xffffff00;
 u32 var8007fbc8 = 0xffffff00;
 
 #if VERSION >= VERSION_PAL_FINAL
-u32 var80080130pf[4] = {0};
 u32 var8007fbd8 = 0x00000000;
+u32 var80080130pf[4] = {0};
 #else
 u32 var8007fbcc = 0x00000c0b;
 u32 var8007fbd0 = 0x00000000;
@@ -2933,8 +2933,8 @@ glabel func0f1552d4
 /*  f155314:	afa500dc */ 	sw	$a1,0xdc($sp)
 /*  f155318:	afa600e0 */ 	sw	$a2,0xe0($sp)
 /*  f15531c:	afa000c0 */ 	sw	$zero,0xc0($sp)
-/*  f155320:	3c188008 */ 	lui	$t8,%hi(g_LanguageId)
-/*  f155324:	8f184120 */ 	lw	$t8,%lo(g_LanguageId)($t8)
+/*  f155320:	3c188008 */ 	lui	$t8,%hi(g_Jpn)
+/*  f155324:	8f184120 */ 	lw	$t8,%lo(g_Jpn)($t8)
 /*  f155328:	92af0446 */ 	lbu	$t7,0x446($s5)
 /*  f15532c:	82ae0445 */ 	lb	$t6,0x445($s5)
 /*  f155330:	4487d000 */ 	mtc1	$a3,$f26
@@ -5067,8 +5067,8 @@ glabel textRenderProjected
 /*  f156310:	01696021 */ 	addu	$t4,$t3,$t1
 /*  f156314:	afac00e8 */ 	sw	$t4,0xe8($sp)
 .L0f156318:
-/*  f156318:	3c0d8008 */ 	lui	$t5,%hi(g_LanguageId)
-/*  f15631c:	8dad4120 */ 	lw	$t5,%lo(g_LanguageId)($t5)
+/*  f156318:	3c0d8008 */ 	lui	$t5,%hi(g_Jpn)
+/*  f15631c:	8dad4120 */ 	lw	$t5,%lo(g_Jpn)($t5)
 /*  f156320:	02a01025 */ 	or	$v0,$s5,$zero
 /*  f156324:	3c17e700 */ 	lui	$s7,0xe700
 /*  f156328:	11a00007 */ 	beqz	$t5,.L0f156348
@@ -6094,7 +6094,7 @@ glabel textRender
 /*  f156ea0:	00a09025 */ 	or	$s2,$a1,$zero
 /*  f156ea4:	00c0a825 */ 	or	$s5,$a2,$zero
 /*  f156ea8:	24160048 */ 	addiu	$s6,$zero,0x48
-/*  f156eac:	3c188008 */ 	lui	$t8,%hi(g_LanguageId)
+/*  f156eac:	3c188008 */ 	lui	$t8,%hi(g_Jpn)
 /*  f156eb0:	0000b812 */ 	mflo	$s7
 /*  f156eb4:	acb70000 */ 	sw	$s7,0x0($a1)
 /*  f156eb8:	8fab00f4 */ 	lw	$t3,0xf4($sp)
@@ -6108,7 +6108,7 @@ glabel textRender
 /*  f156ed8:	01ae7821 */ 	addu	$t7,$t5,$t6
 /*  f156edc:	afaf00f4 */ 	sw	$t7,0xf4($sp)
 .L0f156ee0:
-/*  f156ee0:	8f184120 */ 	lw	$t8,%lo(g_LanguageId)($t8)
+/*  f156ee0:	8f184120 */ 	lw	$t8,%lo(g_Jpn)($t8)
 /*  f156ee4:	3c0dba00 */ 	lui	$t5,0xba00
 /*  f156ee8:	3c0ce700 */ 	lui	$t4,0xe700
 /*  f156eec:	13000007 */ 	beqz	$t8,.L0f156f0c
@@ -6557,8 +6557,8 @@ glabel textMeasure
 /*  f157330:	80ef0445 */ 	lb	$t7,0x445($a3)
 /*  f157334:	01cf8821 */ 	addu	$s1,$t6,$t7
 .L0f157338:
-/*  f157338:	3c188008 */ 	lui	$t8,%hi(g_LanguageId)
-/*  f15733c:	8f184120 */ 	lw	$t8,%lo(g_LanguageId)($t8)
+/*  f157338:	3c188008 */ 	lui	$t8,%hi(g_Jpn)
+/*  f15733c:	8f184120 */ 	lw	$t8,%lo(g_Jpn)($t8)
 /*  f157340:	2a21000e */ 	slti	$at,$s1,0xe
 /*  f157344:	13000004 */ 	beqz	$t8,.L0f157358
 /*  f157348:	00000000 */ 	nop
@@ -6716,7 +6716,7 @@ glabel textMeasure
 //
 //	// 344
 //	// Force minimum height for non-English languages
-//	if (g_LanguageId != LANGUAGE_NTSC_EN && lineheight < 14) {
+//	if (g_Jpn && lineheight < 14) {
 //		lineheight = 14;
 //	}
 //

@@ -32,13 +32,21 @@ u32 colourBlend(u32 a, u32 b, u32 aweight)
 
 void func0f0069dc(void)
 {
+#if VERSION >= VERSION_PAL_FINAL
+	var80061630 = var80061630 + g_Vars.diffframe240freal / 4800.0f;
+#else
 	var80061630 = var80061630 + g_Vars.diffframe240f / 4800.0f;
+#endif
 
 	if (var80061630 > 1.0f) {
 		var80061630 -= 1.0f;
 	}
 
+#if VERSION >= VERSION_PAL_FINAL
+	var80061634 = var80061634 + g_Vars.lvupdate240freal / 4800.0f;
+#else
 	var80061634 = var80061634 + g_Vars.lvupdate240f / 4800.0f;
+#endif
 
 	if (var80061634 > 1.0f) {
 		var80061634 -= 1.0f;

@@ -64,7 +64,7 @@ void func0f01d860(void)
 {
 	s32 i;
 
-	if (g_LanguageId != LANGUAGE_NTSC_EN) {
+	if (g_Jpn) {
 		for (i = 0; i != 124; i++) {
 			if (var800aabb8[i].unk00_00) {
 				var800aabb8[i].unk00_00--;

@@ -91,17 +91,17 @@ f32 var8009de00;
 u32 var8009de04;
 u32 var8009de08;
 u32 var8009de0c;
-s32 g_CameraAnimCurFrame; // e380 (good)
+s32 g_CameraAnimCurFrame;
 
 #if VERSION >= VERSION_PAL_FINAL
-f32 var8009de14; // e384
-f32 var8009e388pf; // e388
+f32 var8009de14;
+f32 var8009e388pf;
 #else
 s32 var8009de14;
 #endif
 
-s16 g_CameraAnimNum; // e388 -> e38c
-f32 g_CutsceneBlurFrac; // e38c -> e390
+s16 g_CameraAnimNum;
+f32 g_CutsceneBlurFrac;
 
 #if VERSION < VERSION_PAL_FINAL
 s32 var8009de20;
@@ -109,7 +109,7 @@ s32 var8009de20;
 
 s32 var8009de24;
 f32 var8009de28;
-s32 var8009de2c; // e3a0 -> e39c
+s32 var8009de2c;
 f32 var8009de30;
 u32 var8009de34;
 s16 g_SpawnPoints[MAX_SPAWNPOINTS];
@@ -1283,8 +1283,8 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 			currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_UNARMED);
 		}
 
-		g_Vars.currentplayer->invdowntime = -40;
-		g_Vars.currentplayer->usedowntime = -40;
+		g_Vars.currentplayer->invdowntime = PALDOWN(-40);
+		g_Vars.currentplayer->usedowntime = PALDOWN(-40);
 
 		currentPlayerGiveUnlimitedAmmo(true);
 
@@ -3950,7 +3950,7 @@ Gfx *func0f0baf84(Gfx *gdl)
 		u16 b;
 
 		guPerspective(a, &b, g_Vars.currentplayer->zoominfovy,
-				1.4545454978943f, 10, 300, 1);
+				PAL ? 1.7316017150879f : 1.4545454978943f, 10, 300, 1);
 
 		gSPMatrix(gdl++, 0x80000000 + (u32)a, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 		gSPPerspNormalize(gdl++, b);
@@ -4679,7 +4679,7 @@ void currentPlayerTickExplode(void)
 
 		explosionCreateSimple(NULL, &pos, g_Vars.currentplayer->prop->rooms, EXPLOSIONTYPE_18, g_Vars.currentplayernum);
 
-		g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + 15 + (random() % 15);
+		g_Vars.currentplayer->bondnextexplode = g_Vars.lvframe60 + PALDOWN(15) + (random() % PALDOWN(15));
 	}
 }
 
@@ -12192,7 +12192,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 
 						if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
 							if (g_Vars.currentplayer->deadtimer < 0) {
-								g_Vars.currentplayer->deadtimer = 600;
+								g_Vars.currentplayer->deadtimer = PALDOWN(600);
 							}
 
 							if (g_Vars.currentplayer->deadtimer >= 0) {
@@ -12237,21 +12237,21 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		gdl = func0f15b114(gdl);
 
 		if (g_Vars.currentplayer->eyespy) {
-			if (g_Vars.currentplayer->eyespy->startuptimer60 < 50) {
+			if (g_Vars.currentplayer->eyespy->startuptimer60 < PALDOWN(50)) {
 				gdl = bviewRenderFisheye(gdl, -1, 255, 0, g_Vars.currentplayer->eyespy->startuptimer60, g_Vars.currentplayer->eyespy->hit);
 			} else {
 				s32 time = g_Vars.currentplayer->eyespy->camerashuttertime;
 
 				if (time > 0) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-						gdl = bviewRenderFisheye(gdl, -1, 255, time, 50, g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewRenderFisheye(gdl, -1, 255, time, PALDOWN(50), g_Vars.currentplayer->eyespy->hit);
 					} else {
-						gdl = bviewRenderFisheye(gdl, -1, 255, 0, 50, g_Vars.currentplayer->eyespy->hit);
+						gdl = bviewRenderFisheye(gdl, -1, 255, 0, PALDOWN(50), g_Vars.currentplayer->eyespy->hit);
 					}
 
 					g_Vars.currentplayer->eyespy->camerashuttertime -= g_Vars.lvupdate240_60;
 				} else {
-					gdl = bviewRenderFisheye(gdl, -1, 255, 0, 50, g_Vars.currentplayer->eyespy->hit);
+					gdl = bviewRenderFisheye(gdl, -1, 255, 0, PALDOWN(50), g_Vars.currentplayer->eyespy->hit);
 				}
 			}
 

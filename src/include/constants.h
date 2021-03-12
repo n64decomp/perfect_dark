@@ -34,13 +34,15 @@
 		(p[2] - g_Vars.currentplayer->eraserpos.f[2]) * (p[2] - g_Vars.currentplayer->eraserpos.f[2]))
 
 #if PAL
-#define TIME60TOFRAMES(val) ((val) * 50 / 60)
-#define FRAMESTOTIME60(val) ((val) * 1.2f)
-#define FRAMEDURATION       (1 / 50.0f)
+#define PALDOWN(val)  ((val) * 50 / 60)
+#define PALUP(val)    ((val) * 60 / 50)
+#define PALUPF(val)   ((val) * 1.2f)
+#define FRAMEDURATION (1 / 50.0f)
 #else
-#define TIME60TOFRAMES(val) (val)
-#define FRAMESTOTIME60(val) (val)
-#define FRAMEDURATION       (1 / 60.0f)
+#define PALUP(val)    (val)
+#define PALDOWN(val)  (val)
+#define PALUPF(val)   (val)
+#define FRAMEDURATION (1 / 60.0f)
 #endif
 
 // Macro to convert an ASCII character to N64 font code.
@@ -48,7 +50,12 @@
 #define N64CHAR(c)          (c == ' ' ? 0x0f : (c >= 'A' && c <= 'Z' ? c - 0x27 : c - 0x20))
 
 #define ROM_COMPANYCODE 0x3459
-#define ROM_GAMECODE    0x4e504445 // "NPDE" in ASCII
+
+#if PAL
+#define ROM_GAMECODE    'NPDP' // "NPDE" in ASCII
+#else
+#define ROM_GAMECODE    'NPDE' // "NPDE" in ASCII
+#endif
 
 // These actions are assigned to chr->actiontype
 #define ACT_INIT             0

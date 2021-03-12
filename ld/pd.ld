@@ -90,7 +90,35 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-#if VERSION >= VERSION_NTSC_FINAL
+#if VERSION >= VERSION_PAL_FINAL
+	_gamecode = 0x4450;
+	_jpndata1 = 0x17fc40;
+	_jpndata2 = 0x18b340;
+#else
+	_gamecode = 0x4445;
+	_jpndata1 = 0x194440;
+	_jpndata2 = 0x19fb40;
+#endif
+
+#if VERSION >= VERSION_PAL_FINAL
+	_val7f116f34 = 0x0339;
+	_val7f117634 = 0x0422;
+	_val7f1183f8 = 0x070a;
+	_val7f118a44 = 0x0801;
+	_val7f11a650 = 0x0da5;
+	_val7f11a6c8 = 0x0dae;
+	_val7f11a88c = 0x0e16;
+	_val7f11aa14 = 0x0e4d;
+	_val7f11aae4 = 0x0e5b;
+	_val7f11ad0c = 0x0efc;
+	_val7f11ae0c = 0x0f20;
+	_val7f11aef4 = 0x0f38;
+	_val7f11b124 = 0x0f73;
+	_val7f11b6c0 = 0x1033;
+	_val7f11bb48 = 0x1131;
+	_val7f11c1d0 = 0x128d;
+	_val7f11c378 = 0x12c8;
+#elif VERSION >= VERSION_NTSC_FINAL
 	_val7f116f34 = 0x0339;
 	_val7f117634 = 0x0422;
 	_val7f1183f8 = 0x070a;

@@ -7,18 +7,25 @@
 #include "data.h"
 #include "types.h"
 
+/**
+ * NTSC appears to use a boolean for Japanese support.
+ * PAL ignores this mostly and introduces g_LanguageId.
+ */
 #if VERSION >= VERSION_PAL_FINAL
-u32 var80084660pf = 0;
+bool g_Jpn = false;
 u32 var80084664pf = 0;
 u32 var80084668pf = 0;
 u32 var8008466cpf = 0;
-#endif
-
 u32 *g_LangBanks[69];
 void *var800aabb4;
 struct var800aabb8 *var800aabb8;
-
-u32 g_LanguageId = 0;
+s32 g_LanguageId = LANGUAGE_NTSC_EN;
+#else
+u32 *g_LangBanks[69];
+void *var800aabb4;
+struct var800aabb8 *var800aabb8;
+bool g_Jpn = false;
+#endif
 
 u16 g_LangFiles[] = {
 	/* 0*/ 0,
@@ -294,8 +301,8 @@ glabel func0f16e3fc
 /*  f16e5b4:	a46e0000 */ 	sh	$t6,0x0($v1)
 /*  f16e5b8:	3c0f800b */ 	lui	$t7,%hi(var800aabb4)
 /*  f16e5bc:	8defabb4 */ 	lw	$t7,%lo(var800aabb4)($t7)
-/*  f16e5c0:	3c190019 */ 	lui	$t9,0x19
-/*  f16e5c4:	27394440 */ 	addiu	$t9,$t9,0x4440
+/*  f16e5c0:	3c190019 */ 	lui	$t9,%hi(_jpndata1)
+/*  f16e5c4:	27394440 */ 	addiu	$t9,$t9,%lo(_jpndata1)
 /*  f16e5c8:	0000c012 */ 	mflo	$t8
 /*  f16e5cc:	03192821 */ 	addu	$a1,$t8,$t9
 /*  f16e5d0:	afa80024 */ 	sw	$t0,0x24($sp)
@@ -347,8 +354,8 @@ glabel func0f16e3fc
 /*  f16e684:	32191fff */ 	andi	$t9,$s0,0x1fff
 /*  f16e688:	00197043 */ 	sra	$t6,$t9,0x1
 /*  f16e68c:	01182021 */ 	addu	$a0,$t0,$t8
-/*  f16e690:	3c18001a */ 	lui	$t8,0x1a
-/*  f16e694:	2718fb40 */ 	addiu	$t8,$t8,-1216
+/*  f16e690:	3c18001a */ 	lui	$t8,%hi(_jpndata2)
+/*  f16e694:	2718fb40 */ 	addiu	$t8,$t8,%lo(_jpndata2)
 /*  f16e698:	000e79c0 */ 	sll	$t7,$t6,0x7
 /*  f16e69c:	01f82821 */ 	addu	$a1,$t7,$t8
 /*  f16e6a0:	0c003504 */ 	jal	dmaExec
@@ -373,25 +380,25 @@ glabel func0f16e3fc
  * NTSC only supports English, while PAL supports 4 languages and JPN has its
  * own. Each English file is followed immediately by the other translations.
  */
-s32 langGetLanguageId(void)
+s32 langGetFileNumOffset(void)
 {
 #if PAL
-	s32 ret = g_LanguageId;
-	return ret + 2;
+	s32 offset = g_LanguageId;
+	return offset + 2;
 #else
-	s32 ret = LANGUAGE_NTSC_EN;
+	s32 offset = 0;
 
-	if (g_LanguageId != LANGUAGE_NTSC_EN) {
-		ret = LANGUAGE_NTSC_JP;
+	if (g_Jpn) {
+		offset = 1;
 	}
 
-	return ret;
+	return offset;
 #endif
 }
 
 s32 langGetFileId(s32 bank)
 {
-	return g_LangFiles[bank] + langGetLanguageId();
+	return g_LangFiles[bank] + langGetFileNumOffset();
 }
 
 #if VERSION >= VERSION_PAL_FINAL

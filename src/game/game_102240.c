@@ -150,12 +150,12 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 		? g_Vars.currentplayerstats->mpindex : item->param3;
 
 #if PAL
+	s32 index = 0;
+
 	u16 options[2][2] = {
 		{ L_OPTIONS_201,   L_OPTIONS_202   }, // "Hold", "Toggle"
 		{ L_MPWEAPONS_276, L_MPWEAPONS_277 }, // "Hold", "Toggle"
 	};
-
-	s32 index = 0;
 
 	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL && PLAYERCOUNT() >= 2) {
 		index = 1;
@@ -3455,8 +3455,8 @@ void func0f105948(s32 weaponnum)
 
 			func0f0f372c(&g_Menus[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, 1, 1);
 
-			g_Menus[g_MpPlayerNum].unkdb8 = 60;
-			g_Menus[g_MpPlayerNum].unkdb4 = 120;
+			g_Menus[g_MpPlayerNum].unkdb8 = PALDOWN(60);
+			g_Menus[g_MpPlayerNum].unkdb4 = PALDOWN(120);
 			g_Menus[g_MpPlayerNum].unkd8c = -0.2f;
 			g_Menus[g_MpPlayerNum].unkd64 = -0.2f;
 		}
@@ -3484,8 +3484,8 @@ s32 inventoryMenuDialog(s32 operation, struct menudialog *dialog, union handlerd
 
 			if (g_InventoryWeapon == WEAPON_DISGUISE40 || g_InventoryWeapon == WEAPON_DISGUISE41) {
 				g_Menus[g_MpPlayerNum].unk89c = 0x6a;
-				g_Menus[g_MpPlayerNum].unkdb8 = 60;
-				g_Menus[g_MpPlayerNum].unkdb4 = 120;
+				g_Menus[g_MpPlayerNum].unkdb8 = PALDOWN(60);
+				g_Menus[g_MpPlayerNum].unkdb4 = PALDOWN(120);
 			}
 		} else {
 			var80072d88 = 255;

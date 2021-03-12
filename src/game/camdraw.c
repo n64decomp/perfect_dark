@@ -862,6 +862,19 @@ glabel func0f14a16c
 /*  f14a1c8:	314200ff */ 	andi	$v0,$t2,0xff
 );
 
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel func0f14a1cc
+/*  f14a1cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f14a1d0:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f14a1d4:	0fc5b9f1 */ 	jal	langGet
+/*  f14a1d8:	248459ad */ 	addiu	$a0,$a0,0x58aa
+/*  f14a1dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f14a1e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f14a1e4:	03e00008 */ 	jr	$ra
+/*  f14a1e8:	00000000 */ 	nop
+);
+#else
 GLOBAL_ASM(
 glabel func0f14a1cc
 /*  f14a1cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -873,7 +886,21 @@ glabel func0f14a1cc
 /*  f14a1e4:	03e00008 */ 	jr	$ra
 /*  f14a1e8:	00000000 */ 	nop
 );
+#endif
 
+#if VERSION >= VERSION_PAL_FINAL
+GLOBAL_ASM(
+glabel func0f14a1ec
+/*  f14a1ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*  f14a1f0:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f14a1f4:	0fc5b9f1 */ 	jal	langGet
+/*  f14a1f8:	248459b1 */ 	addiu	$a0,$a0,0x58ae
+/*  f14a1fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f14a200:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*  f14a204:	03e00008 */ 	jr	$ra
+/*  f14a208:	00000000 */ 	nop
+);
+#else
 GLOBAL_ASM(
 glabel func0f14a1ec
 /*  f14a1ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -885,6 +912,7 @@ glabel func0f14a1ec
 /*  f14a204:	03e00008 */ 	jr	$ra
 /*  f14a208:	00000000 */ 	nop
 );
+#endif
 
 GLOBAL_ASM(
 glabel func0f14a20c

@@ -722,7 +722,7 @@ Gfx *getitleRender(Gfx *gdl)
 			sp30 = 0;
 		}
 
-		sp2c = 255 - (var80062498 * 255 - 163200) / (PAL ? 233 : 280);
+		sp2c = 255 - (var80062498 * 255 - (PAL ? 135915 : 163200)) / (PAL ? 233 : 280);
 
 		if (sp2c > 255) {
 			sp2c = 255;
@@ -742,7 +742,7 @@ Gfx *getitleRender(Gfx *gdl)
 
 		gdl = func0f0155f0(gdl, var8009cc8c, (sp30 * sp2c) / 255);
 
-		if (var80062498 >= 1040 && var80062498 >= 1160) {
+		if (var80062498 >= PALDOWN(1040) && var80062498 >= PALDOWN(1160)) {
 			var80062498 = 0;
 			var80062414++;
 			var80062414++;

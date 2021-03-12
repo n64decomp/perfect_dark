@@ -477,10 +477,10 @@ extern u32 var800840f0;
 extern u32 var800840f4;
 extern u32 var800840f8;
 extern u32 var800840fc;
+extern bool g_Jpn;
 #if VERSION >= VERSION_PAL_FINAL
-extern u32 var80084660pf;
+extern s32 g_LanguageId;
 #endif
-extern u32 g_LanguageId;
 extern struct something *somethings[];
 extern void *var800844f0;
 extern f32 var800845d4;

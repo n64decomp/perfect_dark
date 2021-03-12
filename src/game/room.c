@@ -3864,9 +3864,9 @@ void bgInit(s32 stagenum)
 
 #if PIRACYCHECKS
 	{
-		u32 addr = not(~0xb0000454);
+		u32 addr = not(PAL ? ~0xb0000340 : ~0xb0000454);
 		u32 actualvalue;
-		u32 expectedvalue = xorBabebabe(0x0109082b ^ 0xbabebabe);
+		u32 expectedvalue = xorBabebabe((PAL ? 0x0330c820 : 0x0109082b) ^ 0xbabebabe);
 
 		osPiReadIo(addr, &actualvalue);
 

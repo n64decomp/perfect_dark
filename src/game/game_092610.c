@@ -2751,7 +2751,7 @@ void audioPlayFromProp2(s32 channelnum, s32 soundnum, s16 padnum, struct prop *p
 			}
 
 			if (a1) {
-				channel->unk1c = TIME60TOFRAMES(arg4);
+				channel->unk1c = PALDOWN(arg4);
 			}
 
 			if (padnum != -1) {

@@ -6,7 +6,7 @@
 
 u32 langGetLangBankIndexFromStagenum(s32 stagenum);
 u32 func0f16e3fc(void);
-s32 langGetLanguageId(void);
+s32 langGetFileNumOffset(void);
 s32 langGetFileId(s32 bank);
 void langSetBankSimple(s32 bank);
 void langSetBank(s32 bank, u8 *arg1, s32 arg2);
