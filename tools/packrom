@@ -107,7 +107,9 @@ def write_garbage_part(fd, addr, filename):
     fd.write(binary)
 
 def write_garbage(fd):
-    if os.environ['ROMID'] == 'ntsc-final':
+    if os.environ['ROMID'] == 'pal-final':
+        write_garbage_part(fd, 0x2eb21, 'garbage1.bin')
+    elif os.environ['ROMID'] == 'ntsc-final':
         write_garbage_part(fd, 0x2ea6c, 'garbage1.bin')
         write_garbage_part(fd, 0x157800, 'garbage2.bin')
     else:

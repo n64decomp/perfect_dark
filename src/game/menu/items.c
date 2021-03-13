@@ -23,10 +23,6 @@
 
 u8 g_MpSelectedPlayersForStats[4];
 
-#if VERSION >= VERSION_PAL_FINAL
-u8 fill3[0x30];
-#endif
-
 const char var7f1adfa0[] = "brcol";
 const char var7f1adfa8[] = "%d: ";
 const char var7f1adfb0[] = "%s";

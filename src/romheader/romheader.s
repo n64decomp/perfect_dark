@@ -7,7 +7,6 @@
 .set VERSION_PAL_FINAL,  4
 .set VERSION_JPN_FINAL,  5
 
-
 .word 0x80371240 # Identifier
 .word 0x0000000F # Clock rate
 .word 0x80001000 # Program counter
@@ -22,9 +21,18 @@
 .byte 0x00
 .byte 0x00
 .byte 0x00
-.ascii "NPDE"
 
-# Version
+.if VERSION == VERSION_JPN_FINAL
+.ascii "NPDJ"
+.elseif VERSION == VERSION_PAL_BETA
+.ascii "NPDP"
+.elseif VERSION == VERSION_PAL_FINAL
+.ascii "NPDP"
+.else
+.ascii "NPDE"
+.endif
+
+# ROM version byte
 .if VERSION == VERSION_NTSC_BETA
 	.byte 0x01
 .elseif VERSION == VERSION_NTSC_FINAL
@@ -32,4 +40,3 @@
 .else
 	.byte 0x00
 .endif
-
