@@ -557,40 +557,23 @@ u32 func0000c2b8(u32 arg0, s32 tid)
 	return (arg0 & 0xf0000000) | (end - start);
 }
 
-const char var700529bc[] = "Bad tid\n";
+u32 func0000c334(u32 arg0, s32 tid)
+{
+	u32 start;
 
-GLOBAL_ASM(
-glabel func0000c334
-/*     c334:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     c338:	18a00004 */ 	blez	$a1,.L0000c34c
-/*     c33c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c340:	2ca10007 */ 	sltiu	$at,$a1,0x7
-/*     c344:	14200006 */ 	bnez	$at,.L0000c360
-/*     c348:	00057080 */ 	sll	$t6,$a1,0x2
-.L0000c34c:
-/*     c34c:	3c047005 */ 	lui	$a0,%hi(var700529bc)
-/*     c350:	0c00bea9 */ 	jal	func0002faa4
-/*     c354:	248429bc */ 	addiu	$a0,$a0,%lo(var700529bc)
-/*     c358:	1000000b */ 	b	.L0000c388
-/*     c35c:	00001025 */ 	or	$v0,$zero,$zero
-.L0000c360:
-/*     c360:	3c038006 */ 	lui	$v1,%hi(g_StackStartAddrs)
-/*     c364:	3c018000 */ 	lui	$at,0x8000
-/*     c368:	006e1821 */ 	addu	$v1,$v1,$t6
-/*     c36c:	0081082b */ 	sltu	$at,$a0,$at
-/*     c370:	14200003 */ 	bnez	$at,.L0000c380
-/*     c374:	8c63ce10 */ 	lw	$v1,%lo(g_StackStartAddrs)($v1)
-/*     c378:	10000003 */ 	b	.L0000c388
-/*     c37c:	00601025 */ 	or	$v0,$v1,$zero
-.L0000c380:
-/*     c380:	3c01f000 */ 	lui	$at,0xf000
-/*     c384:	00811024 */ 	and	$v0,$a0,$at
-.L0000c388:
-/*     c388:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     c38c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     c390:	03e00008 */ 	jr	$ra
-/*     c394:	00000000 */ 	nop
-);
+	if (tid <= 0 || tid > 6U) {
+		func0002faa4("Bad tid\n");
+		return 0;
+	}
+
+	start = (u32)g_StackStartAddrs[tid];
+
+	if (arg0 >= 0x80000000) {
+		return start;
+	}
+
+	return arg0 & 0xf0000000;
+}
 
 GLOBAL_ASM(
 glabel func0000c398
