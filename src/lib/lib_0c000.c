@@ -597,6 +597,15 @@ glabel rmonIsDouble
 /*     c3d8:	00000000 */ 	nop
 );
 
+//bool rmonIsDouble(f32 value)
+//{
+//	u32 bits = *(u32 *)&value;
+//
+//	return (bits & 0x7fffff) != 0
+//		&& ((bits >> 23) & 0xff) != 0
+//		&& ((bits >> 23) & 0xff) != 0xff;
+//}
+
 void rmonPrintFloatOrDouble(u32 arg0, f32 value)
 {
 	if (rmonIsDouble(value)) {
