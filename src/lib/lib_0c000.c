@@ -606,43 +606,24 @@ glabel rmonIsDouble
 //		&& ((bits >> 23) & 0xff) != 0xff;
 //}
 
-void rmonPrintFloatOrDouble(u32 arg0, f32 value)
+void rmonPrintFloat(s32 index, f32 value)
 {
 	if (rmonIsDouble(value)) {
-		rmonPrint("%s%s%02d: % .7e ", "", "", arg0, (double)value);
+		rmonPrint("%s%s%02d: % .7e ", "", "", index, (double)value);
 	} else {
 		u32 bits = *(u32 *)&value;
-		rmonPrint("%02d: I%d.%03d.%07d ", arg0, (bits & 0x80000000) >> 31, (bits & 0x7f800000) >> 23, bits & 0x7fffff);
+		rmonPrint("%02d: I%d.%03d.%07d ", index, (bits & 0x80000000) >> 31, (bits & 0x7f800000) >> 23, bits & 0x7fffff);
 	}
 }
 
-const char var700529fc[] = " ";
-const char var70052a00[] = "\n";
+void rmonPrintFloatPair(s32 index, f32 value1, f32 value2)
+{
+	rmonPrintFloat(index, value1);
+	rmonPrint(" ");
 
-GLOBAL_ASM(
-glabel func0000c480
-/*     c480:	44856000 */ 	mtc1	$a1,$f12
-/*     c484:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     c488:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c48c:	44056000 */ 	mfc1	$a1,$f12
-/*     c490:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     c494:	0c0030f7 */ 	jal	rmonPrintFloatOrDouble
-/*     c498:	afa60020 */ 	sw	$a2,0x20($sp)
-/*     c49c:	3c047005 */ 	lui	$a0,%hi(var700529fc)
-/*     c4a0:	0c00bea9 */ 	jal	rmonPrint
-/*     c4a4:	248429fc */ 	addiu	$a0,$a0,%lo(var700529fc)
-/*     c4a8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*     c4ac:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*     c4b0:	0c0030f7 */ 	jal	rmonPrintFloatOrDouble
-/*     c4b4:	24840001 */ 	addiu	$a0,$a0,0x1
-/*     c4b8:	3c047005 */ 	lui	$a0,%hi(var70052a00)
-/*     c4bc:	0c00bea9 */ 	jal	rmonPrint
-/*     c4c0:	24842a00 */ 	addiu	$a0,$a0,%lo(var70052a00)
-/*     c4c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     c4c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     c4cc:	03e00008 */ 	jr	$ra
-/*     c4d0:	00000000 */ 	nop
-);
+	rmonPrintFloat(index + 1, value2);
+	rmonPrint("\n");
+}
 
 const char var70052a04[] = " ";
 const char var70052a08[] = " ";
@@ -656,21 +637,21 @@ glabel func0000c4d4
 /*     c4e0:	44056000 */ 	mfc1	$a1,$f12
 /*     c4e4:	afa40018 */ 	sw	$a0,0x18($sp)
 /*     c4e8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*     c4ec:	0c0030f7 */ 	jal	rmonPrintFloatOrDouble
+/*     c4ec:	0c0030f7 */ 	jal	rmonPrintFloat
 /*     c4f0:	afa70024 */ 	sw	$a3,0x24($sp)
 /*     c4f4:	3c047005 */ 	lui	$a0,%hi(var70052a04)
 /*     c4f8:	0c00bea9 */ 	jal	rmonPrint
 /*     c4fc:	24842a04 */ 	addiu	$a0,$a0,%lo(var70052a04)
 /*     c500:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*     c504:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*     c508:	0c0030f7 */ 	jal	rmonPrintFloatOrDouble
+/*     c508:	0c0030f7 */ 	jal	rmonPrintFloat
 /*     c50c:	24840001 */ 	addiu	$a0,$a0,0x1
 /*     c510:	3c047005 */ 	lui	$a0,%hi(var70052a08)
 /*     c514:	0c00bea9 */ 	jal	rmonPrint
 /*     c518:	24842a08 */ 	addiu	$a0,$a0,%lo(var70052a08)
 /*     c51c:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*     c520:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*     c524:	0c0030f7 */ 	jal	rmonPrintFloatOrDouble
+/*     c524:	0c0030f7 */ 	jal	rmonPrintFloat
 /*     c528:	24840002 */ 	addiu	$a0,$a0,0x2
 /*     c52c:	3c047005 */ 	lui	$a0,%hi(var70052a0c)
 /*     c530:	0c00bea9 */ 	jal	rmonPrint
@@ -775,7 +756,7 @@ glabel rmonDrawCrashScreen
 /*     c630:	15e00036 */ 	bnez	$t7,.L0000c70c
 /*     c634:	00002025 */ 	or	$a0,$zero,$zero
 /*     c638:	8e450114 */ 	lw	$a1,0x114($s2)
-/*     c63c:	0c003120 */ 	jal	func0000c480
+/*     c63c:	0c003120 */ 	jal	rmonPrintFloatPair
 /*     c640:	8e46011c */ 	lw	$a2,0x11c($s2)
 /*     c644:	24040002 */ 	addiu	$a0,$zero,0x2
 /*     c648:	8e450124 */ 	lw	$a1,0x124($s2)
