@@ -89,7 +89,7 @@ extern const char var700529ac[];
 
 void faultCreateThread2(void);
 u32 func0000c118(void);
-u32 func0000c240(void);
+bool crashIsInstrTwoAfterJalInLib(u32 *instruction);
 u32 func0000c2b8(void);
 u32 func0000c334(void);
 u32 func0000c398(void);

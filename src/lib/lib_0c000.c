@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gvars/gvars.h"
+#include "lib/entry.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0c000.h"
 #include "lib/lib_2fa00.h"
@@ -559,42 +560,26 @@ glabel func0000c118
 /*     c23c:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel func0000c240
-/*     c240:	308e0003 */ 	andi	$t6,$a0,0x3
-/*     c244:	15c00019 */ 	bnez	$t6,.L0000c2ac
-/*     c248:	3c0f7000 */ 	lui	$t7,%hi(boot)
-/*     c24c:	25ef1050 */ 	addiu	$t7,$t7,%lo(boot)
-/*     c250:	008f082b */ 	sltu	$at,$a0,$t7
-/*     c254:	14200015 */ 	bnez	$at,.L0000c2ac
-/*     c258:	3c187006 */ 	lui	$t8,%hi(_libSegmentEnd)
-/*     c25c:	27189fe0 */ 	addiu	$t8,$t8,%lo(_libSegmentEnd)
-/*     c260:	0304082b */ 	sltu	$at,$t8,$a0
-/*     c264:	54200012 */ 	bnezl	$at,.L0000c2b0
-/*     c268:	00001025 */ 	or	$v0,$zero,$zero
-/*     c26c:	8c82fff8 */ 	lw	$v0,-0x8($a0)
-/*     c270:	3c01fc00 */ 	lui	$at,0xfc00
-/*     c274:	3421003c */ 	ori	$at,$at,0x3c
-/*     c278:	0041c824 */ 	and	$t9,$v0,$at
-/*     c27c:	24010009 */ 	addiu	$at,$zero,0x9
-/*     c280:	57210004 */ 	bnel	$t9,$at,.L0000c294
-/*     c284:	3c01fc00 */ 	lui	$at,0xfc00
-/*     c288:	03e00008 */ 	jr	$ra
-/*     c28c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*     c290:	3c01fc00 */ 	lui	$at,0xfc00
-.L0000c294:
-/*     c294:	00414024 */ 	and	$t0,$v0,$at
-/*     c298:	3c010c00 */ 	lui	$at,0xc00
-/*     c29c:	55010004 */ 	bnel	$t0,$at,.L0000c2b0
-/*     c2a0:	00001025 */ 	or	$v0,$zero,$zero
-/*     c2a4:	03e00008 */ 	jr	$ra
-/*     c2a8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0000c2ac:
-/*     c2ac:	00001025 */ 	or	$v0,$zero,$zero
-.L0000c2b0:
-/*     c2b0:	03e00008 */ 	jr	$ra
-/*     c2b4:	00000000 */ 	nop
-);
+extern u32 _libSegmentEnd;
+
+bool crashIsInstrTwoAfterJalInLib(u32 *instruction)
+{
+	if (((u32)instruction % 4) == 0
+			&& (u32)instruction >= (u32)boot
+			&& (u32)instruction <= (u32)&_libSegmentEnd) {
+		// This condition can never pass because 9 is masked out
+		if ((instruction[-2] & 0xfc00003c) == 9) {
+			return true;
+		}
+
+		// If 2 instructions earlier was a jal
+		if ((instruction[-2] & 0xfc000000) == 0x0c000000) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0000c2b8
@@ -837,7 +822,7 @@ glabel rmonDrawCrashScreen
 /*     c5dc:	1020000b */ 	beqz	$at,.L0000c60c
 /*     c5e0:	00000000 */ 	nop
 .L0000c5e4:
-/*     c5e4:	0c003090 */ 	jal	func0000c240
+/*     c5e4:	0c003090 */ 	jal	crashIsInstrTwoAfterJalInLib
 /*     c5e8:	8e040000 */ 	lw	$a0,0x0($s0)
 /*     c5ec:	10400003 */ 	beqz	$v0,.L0000c5fc
 /*     c5f0:	02202025 */ 	or	$a0,$s1,$zero

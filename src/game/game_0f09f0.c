@@ -132,7 +132,7 @@ const struct menucolourpalette g_MenuColourPalettes3[] = {
 
 const u32 var7f1b23e8[] = {0x544d0000};
 char *g_StringPointer = g_CheatMarqueeString;
-char *g_StringPointer2 = &g_CheatMarqueeString[150];
+char *g_StringPointer2 = &g_CheatMarqueeString[PAL ? 150 : 125];
 s32 g_MpPlayerNum = 0;
 
 void menuPlaySound(s32 menusound)
