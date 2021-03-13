@@ -6,6 +6,6 @@
 
 void rmonproc();
 bool rmonIsDisabled(void);
-void func0002faa4(char *format, ...);
+void rmonPrint(char *format, ...);
 
 #endif

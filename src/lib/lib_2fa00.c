@@ -80,7 +80,7 @@ glabel func0002fa48
 );
 
 GLOBAL_ASM(
-glabel func0002faa4
+glabel rmonPrint
 /*    2faa4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    2faa8:	afa40020 */ 	sw	$a0,0x20($sp)
 /*    2faac:	afbf0014 */ 	sw	$ra,0x14($sp)
