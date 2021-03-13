@@ -91,50 +91,6 @@ const char var700529a4[] = "RP";
 const char var700529a8[] = "RM";
 const char var700529ac[] = "";
 
-const char var700529b0[] = "Bad tid\n";
-const char var700529bc[] = "Bad tid\n";
-const char var700529c8[] = "%s%s%02d: % .7e ";
-const char var700529dc[] = "";
-const char var700529e0[] = "";
-const char var700529e4[] = "%02d: I%d.%03d.%07d ";
-const char var700529fc[] = " ";
-const char var70052a00[] = "\n";
-const char var70052a04[] = " ";
-const char var70052a08[] = " ";
-const char var70052a0c[] = "\n";
-const char var70052a10[] = "\n\nFAULT-\n";
-const char var70052a1c[] = "DodgyStackTrace: %08llx ";
-const char var70052a38[] = "%08x ";
-const char var70052a40[] = ".\n";
-const char var70052a44[] = "%H#@! Another Perfect Crash (tm)\n";
-const char var70052a68[] = "at 0x%016llx v0 0x%016llx v1 0x%016llx\n";
-const char var70052a90[] = "a0 0x%016llx a1 0x%016llx a2 0x%016llx\n";
-const char var70052ab8[] = "a3 0x%016llx t0 0x%016llx t1 0x%016llx\n";
-const char var70052ae0[] = "t2 0x%016llx t3 0x%016llx t4 0x%016llx\n";
-const char var70052b08[] = "t5 0x%016llx t6 0x%016llx t7 0x%016llx\n";
-const char var70052b30[] = "s0 0x%016llx s1 0x%016llx s2 0x%016llx\n";
-const char var70052b58[] = "s3 0x%016llx s4 0x%016llx s5 0x%016llx\n";
-const char var70052b80[] = "s6 0x%016llx s7 0x%016llx t8 0x%016llx\n";
-const char var70052ba8[] = "t9 0x%016llx gp 0x%016llx sp 0x%016llx\n";
-const char var70052bd0[] = "s8 0x%016llx ra 0x%016llx\n";
-const char var70052bec[] = "TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n";
-const char var70052c24[] = "dshex -a %08x %08x %08x %08x %08x\n";
-const char var70052c48[] = "cause";
-const char var70052c50[] = " : ";
-const char var70052c54[] = "fpcsr";
-const char var70052c5c[] = "\n";
-const char var70052c60[] = "nearl: ";
-const char var70052c68[] = " %08x ";
-const char var70052c70[] = "\n       ";
-const char var70052c7c[] = "\n";
-const char var70052c80[] = "\n";
-const char var70052c84[] = "%s <";
-const char var70052c8c[] = ",";
-const char var70052c90[] = "%s";
-const char var70052c94[] = ">";
-const char var70052c98[] = "";
-const char var70052c9c[] = "";
-
 u32 var8005d5b0 = 0x00000000;
 u32 var8005d5b4 = 0x00000000;
 u32 var8005d5b8 = 0x00000000;
@@ -581,44 +537,27 @@ bool crashIsInstrTwoAfterJalInLib(u32 *instruction)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0000c2b8
-/*     c2b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     c2bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     c2c0:	18a00004 */ 	blez	$a1,.L0000c2d4
-/*     c2c4:	00803025 */ 	or	$a2,$a0,$zero
-/*     c2c8:	2ca10007 */ 	sltiu	$at,$a1,0x7
-/*     c2cc:	14200006 */ 	bnez	$at,.L0000c2e8
-/*     c2d0:	00051080 */ 	sll	$v0,$a1,0x2
-.L0000c2d4:
-/*     c2d4:	3c047005 */ 	lui	$a0,%hi(var700529b0)
-/*     c2d8:	0c00bea9 */ 	jal	func0002faa4
-/*     c2dc:	248429b0 */ 	addiu	$a0,$a0,%lo(var700529b0)
-/*     c2e0:	10000010 */ 	b	.L0000c324
-/*     c2e4:	00001025 */ 	or	$v0,$zero,$zero
-.L0000c2e8:
-/*     c2e8:	3c048006 */ 	lui	$a0,%hi(g_StackStartAddrs)
-/*     c2ec:	3c038006 */ 	lui	$v1,%hi(g_StackEndAddrs)
-/*     c2f0:	3c018000 */ 	lui	$at,0x8000
-/*     c2f4:	00822021 */ 	addu	$a0,$a0,$v0
-/*     c2f8:	00621821 */ 	addu	$v1,$v1,$v0
-/*     c2fc:	00c1082b */ 	sltu	$at,$a2,$at
-/*     c300:	8c84ce10 */ 	lw	$a0,%lo(g_StackStartAddrs)($a0)
-/*     c304:	14200003 */ 	bnez	$at,.L0000c314
-/*     c308:	8c63ce2c */ 	lw	$v1,%lo(g_StackEndAddrs)($v1)
-/*     c30c:	10000005 */ 	b	.L0000c324
-/*     c310:	00601025 */ 	or	$v0,$v1,$zero
-.L0000c314:
-/*     c314:	3c01f000 */ 	lui	$at,0xf000
-/*     c318:	00c17024 */ 	and	$t6,$a2,$at
-/*     c31c:	00647823 */ 	subu	$t7,$v1,$a0
-/*     c320:	01cf1025 */ 	or	$v0,$t6,$t7
-.L0000c324:
-/*     c324:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     c328:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     c32c:	03e00008 */ 	jr	$ra
-/*     c330:	00000000 */ 	nop
-);
+u32 func0000c2b8(u32 arg0, s32 tid)
+{
+	u32 start;
+	u32 end;
+
+	if (tid <= 0 || tid > 6U) {
+		func0002faa4("Bad tid\n");
+		return 0;
+	}
+
+	start = (u32)g_StackStartAddrs[tid];
+	end = (u32)g_StackEndAddrs[tid];
+
+	if (arg0 >= 0x80000000) {
+		return end;
+	}
+
+	return (arg0 & 0xf0000000) | (end - start);
+}
+
+const char var700529bc[] = "Bad tid\n";
 
 GLOBAL_ASM(
 glabel func0000c334
@@ -675,6 +614,11 @@ glabel func0000c398
 /*     c3d8:	00000000 */ 	nop
 );
 
+const char var700529c8[] = "%s%s%02d: % .7e ";
+const char var700529dc[] = "";
+const char var700529e0[] = "";
+const char var700529e4[] = "%02d: I%d.%03d.%07d ";
+
 GLOBAL_ASM(
 glabel func0000c3dc
 /*     c3dc:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -722,6 +666,9 @@ glabel func0000c3dc
 /*     c47c:	00000000 */ 	nop
 );
 
+const char var700529fc[] = " ";
+const char var70052a00[] = "\n";
+
 GLOBAL_ASM(
 glabel func0000c480
 /*     c480:	44856000 */ 	mtc1	$a1,$f12
@@ -746,6 +693,10 @@ glabel func0000c480
 /*     c4cc:	03e00008 */ 	jr	$ra
 /*     c4d0:	00000000 */ 	nop
 );
+
+const char var70052a04[] = " ";
+const char var70052a08[] = " ";
+const char var70052a0c[] = "\n";
 
 GLOBAL_ASM(
 glabel func0000c4d4
@@ -779,6 +730,33 @@ glabel func0000c4d4
 /*     c540:	03e00008 */ 	jr	$ra
 /*     c544:	00000000 */ 	nop
 );
+
+const char var70052a10[] = "\n\nFAULT-\n";
+const char var70052a1c[] = "DodgyStackTrace: %08llx ";
+const char var70052a38[] = "%08x ";
+const char var70052a40[] = ".\n";
+const char var70052a44[] = "%H#@! Another Perfect Crash (tm)\n";
+const char var70052a68[] = "at 0x%016llx v0 0x%016llx v1 0x%016llx\n";
+const char var70052a90[] = "a0 0x%016llx a1 0x%016llx a2 0x%016llx\n";
+const char var70052ab8[] = "a3 0x%016llx t0 0x%016llx t1 0x%016llx\n";
+const char var70052ae0[] = "t2 0x%016llx t3 0x%016llx t4 0x%016llx\n";
+const char var70052b08[] = "t5 0x%016llx t6 0x%016llx t7 0x%016llx\n";
+const char var70052b30[] = "s0 0x%016llx s1 0x%016llx s2 0x%016llx\n";
+const char var70052b58[] = "s3 0x%016llx s4 0x%016llx s5 0x%016llx\n";
+const char var70052b80[] = "s6 0x%016llx s7 0x%016llx t8 0x%016llx\n";
+const char var70052ba8[] = "t9 0x%016llx gp 0x%016llx sp 0x%016llx\n";
+const char var70052bd0[] = "s8 0x%016llx ra 0x%016llx\n";
+const char var70052bec[] = "TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n";
+const char var70052c24[] = "dshex -a %08x %08x %08x %08x %08x\n";
+const char var70052c48[] = "cause";
+const char var70052c50[] = " : ";
+const char var70052c54[] = "fpcsr";
+const char var70052c5c[] = "\n";
+const char var70052c60[] = "nearl: ";
+const char var70052c68[] = " %08x ";
+const char var70052c70[] = "\n       ";
+const char var70052c7c[] = "\n";
+const char var70052c80[] = "\n";
 
 GLOBAL_ASM(
 glabel rmonDrawCrashScreen
@@ -1153,6 +1131,11 @@ glabel rmonDrawCrashScreen
 /*     cadc:	03e00008 */ 	jr	$ra
 /*     cae0:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+const char var70052c84[] = "%s <";
+const char var70052c8c[] = ",";
+const char var70052c90[] = "%s";
+const char var70052c94[] = ">";
 
 GLOBAL_ASM(
 glabel func0000cae4
