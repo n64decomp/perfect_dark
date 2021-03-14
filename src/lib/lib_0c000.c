@@ -9,8 +9,8 @@
 #include "types.h"
 
 u32 var8005d5b0 = 0x00000000;
-u32 var8005d5b4 = 0x00000000;
-u32 var8005d5b8 = 0x00000000;
+s16 g_CrashCurX = 0;
+s16 g_CrashCurY = 0;
 
 struct crashdescription {
 	u32 mask;
@@ -566,85 +566,40 @@ void crashPutChar(s32 x, s32 y, char c)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0000cc34
-/*     cc34:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     cc38:	308600ff */ 	andi	$a2,$a0,0xff
-/*     cc3c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     cc40:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     cc44:	afa40028 */ 	sw	$a0,0x28($sp)
-/*     cc48:	10c0003b */ 	beqz	$a2,.L0000cd38
-/*     cc4c:	00c01025 */ 	or	$v0,$a2,$zero
-/*     cc50:	24010009 */ 	addiu	$at,$zero,0x9
-/*     cc54:	14c1000a */ 	bne	$a2,$at,.L0000cc80
-/*     cc58:	3c108006 */ 	lui	$s0,%hi(var8005d5b4)
-/*     cc5c:	2610d5b4 */ 	addiu	$s0,$s0,%lo(var8005d5b4)
-.L0000cc60:
-/*     cc60:	0c00330d */ 	jal	func0000cc34
-/*     cc64:	24040020 */ 	addiu	$a0,$zero,0x20
-/*     cc68:	860e0000 */ 	lh	$t6,0x0($s0)
-/*     cc6c:	31cf0007 */ 	andi	$t7,$t6,0x7
-/*     cc70:	15e0fffb */ 	bnez	$t7,.L0000cc60
-/*     cc74:	00000000 */ 	nop
-/*     cc78:	10000030 */ 	b	.L0000cd3c
-/*     cc7c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0000cc80:
-/*     cc80:	2401000a */ 	addiu	$at,$zero,0xa
-/*     cc84:	14410008 */ 	bne	$v0,$at,.L0000cca8
-/*     cc88:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
-/*     cc8c:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
-/*     cc90:	84780000 */ 	lh	$t8,0x0($v1)
-/*     cc94:	3c108006 */ 	lui	$s0,%hi(var8005d5b4)
-/*     cc98:	2610d5b4 */ 	addiu	$s0,$s0,%lo(var8005d5b4)
-/*     cc9c:	27190001 */ 	addiu	$t9,$t8,0x1
-/*     cca0:	a4790000 */ 	sh	$t9,0x0($v1)
-/*     cca4:	a6000000 */ 	sh	$zero,0x0($s0)
-.L0000cca8:
-/*     cca8:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
-/*     ccac:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
-/*     ccb0:	84650000 */ 	lh	$a1,0x0($v1)
-/*     ccb4:	3c108006 */ 	lui	$s0,%hi(var8005d5b4)
-/*     ccb8:	2610d5b4 */ 	addiu	$s0,$s0,%lo(var8005d5b4)
-/*     ccbc:	28a1001d */ 	slti	$at,$a1,0x1d
-/*     ccc0:	1420000a */ 	bnez	$at,.L0000ccec
-/*     ccc4:	24a4ffe4 */ 	addiu	$a0,$a1,-28
-/*     ccc8:	afa20024 */ 	sw	$v0,0x24($sp)
-/*     cccc:	0c003353 */ 	jal	crashScroll
-/*     ccd0:	a3a6002b */ 	sb	$a2,0x2b($sp)
-/*     ccd4:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
-/*     ccd8:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
-/*     ccdc:	2408001c */ 	addiu	$t0,$zero,0x1c
-/*     cce0:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*     cce4:	93a6002b */ 	lbu	$a2,0x2b($sp)
-/*     cce8:	a4680000 */ 	sh	$t0,0x0($v1)
-.L0000ccec:
-/*     ccec:	2401000a */ 	addiu	$at,$zero,0xa
-/*     ccf0:	50410012 */ 	beql	$v0,$at,.L0000cd3c
-/*     ccf4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     ccf8:	86040000 */ 	lh	$a0,0x0($s0)
-/*     ccfc:	0c0032e8 */ 	jal	crashPutChar
-/*     cd00:	84650000 */ 	lh	$a1,0x0($v1)
-/*     cd04:	86090000 */ 	lh	$t1,0x0($s0)
-/*     cd08:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
-/*     cd0c:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
-/*     cd10:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*     cd14:	a60a0000 */ 	sh	$t2,0x0($s0)
-/*     cd18:	860b0000 */ 	lh	$t3,0x0($s0)
-/*     cd1c:	29610047 */ 	slti	$at,$t3,0x47
-/*     cd20:	54200006 */ 	bnezl	$at,.L0000cd3c
-/*     cd24:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     cd28:	846c0000 */ 	lh	$t4,0x0($v1)
-/*     cd2c:	a6000000 */ 	sh	$zero,0x0($s0)
-/*     cd30:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*     cd34:	a46d0000 */ 	sh	$t5,0x0($v1)
-.L0000cd38:
-/*     cd38:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0000cd3c:
-/*     cd3c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     cd40:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*     cd44:	03e00008 */ 	jr	$ra
-/*     cd48:	00000000 */ 	nop
-);
+void crashAppendChar(char c)
+{
+	if (c == '\0') {
+		return;
+	}
+
+	if (c == '\t') {
+		do {
+			crashAppendChar(' ');
+		} while (g_CrashCurX & 7);
+
+		return;
+	}
+
+	if (c == '\n') {
+		g_CrashCurY++;
+		g_CrashCurX = 0;
+	}
+
+	if (g_CrashCurY > 28) {
+		crashScroll(g_CrashCurY - 28);
+		g_CrashCurY = 28;
+	}
+
+	if (c != '\n') {
+		crashPutChar(g_CrashCurX, g_CrashCurY, c);
+		g_CrashCurX++;
+
+		if (g_CrashCurX >= 71) {
+			g_CrashCurX = 0;
+			g_CrashCurY++;
+		}
+	}
+}
 
 void crashScroll(s32 numlines)
 {

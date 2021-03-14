@@ -65,7 +65,7 @@ glabel func0002fa48
 /*    2fa70:	92240000 */ 	lbu	$a0,0x0($s1)
 .L0002fa74:
 /*    2fa74:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    2fa78:	0c00330d */ 	jal	func0000cc34
+/*    2fa78:	0c00330d */ 	jal	crashAppendChar
 /*    2fa7c:	26310001 */ 	addiu	$s1,$s1,0x1
 /*    2fa80:	5612fffc */ 	bnel	$s0,$s2,.L0002fa74
 /*    2fa84:	92240000 */ 	lbu	$a0,0x0($s1)
