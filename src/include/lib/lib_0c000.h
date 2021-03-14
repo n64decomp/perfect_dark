@@ -96,7 +96,6 @@ bool crashIsDouble(f32 value);
 void rmonPrintFloat(s32 index, f32 arg1);
 void rmonPrint2Floats(s32 index, f32 value1, f32 value2);
 void rmonPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3);
-void func0000cae4(u32 arg0, char *arg1, void *arg2);
 u32 func0000cba0(void);
 u32 func0000cc34(void);
 u32 func0000cd4c(void);

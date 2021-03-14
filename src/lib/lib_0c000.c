@@ -8,345 +8,111 @@
 #include "data.h"
 #include "types.h"
 
-const char var70052700[] = "BD";
-const char var70052704[] = "IP8";
-const char var70052708[] = "IP7";
-const char var7005270c[] = "IP6";
-const char var70052710[] = "IP5";
-const char var70052714[] = "IP4";
-const char var70052718[] = "IP3";
-const char var7005271c[] = "IP2";
-const char var70052720[] = "IP1";
-const char var70052724[] = "Int";
-const char var70052728[] = "TLBmod";
-const char var70052730[] = "TLBload";
-const char var70052738[] = "TLBstore";
-const char var70052744[] = "Address error on load or instruction fetch";
-const char var70052770[] = "Address error on store";
-const char var70052788[] = "Bus error exception on instruction fetch";
-const char var700527b4[] = "Bus error exception on data reference";
-const char var700527dc[] = "Syscall";
-const char var700527e4[] = "Brk";
-const char var700527e8[] = "Reserved instruction";
-const char var70052800[] = "Cop unusable";
-const char var70052810[] = "Overflow";
-const char var7005281c[] = "Trap";
-const char var70052824[] = "Virtual coherency exception on intruction fetch";
-const char var70052854[] = "Fp exception";
-const char var70052864[] = "Watchpoint";
-const char var70052870[] = "Virtual coherency exception on data reference";
-const char var700528a0[] = "";
-const char var700528a4[] = "CU3";
-const char var700528a8[] = "CU2";
-const char var700528ac[] = "CU1";
-const char var700528b0[] = "CU0";
-const char var700528b4[] = "RP";
-const char var700528b8[] = "FR";
-const char var700528bc[] = "RE";
-const char var700528c0[] = "BEV";
-const char var700528c4[] = "TS";
-const char var700528c8[] = "SR";
-const char var700528cc[] = "CH";
-const char var700528d0[] = "CE";
-const char var700528d4[] = "DE";
-const char var700528d8[] = "IM8";
-const char var700528dc[] = "IM7";
-const char var700528e0[] = "IM6";
-const char var700528e4[] = "IM5";
-const char var700528e8[] = "IM4";
-const char var700528ec[] = "IM3";
-const char var700528f0[] = "IM2";
-const char var700528f4[] = "IM1";
-const char var700528f8[] = "KX";
-const char var700528fc[] = "SX";
-const char var70052900[] = "UX";
-const char var70052904[] = "USR";
-const char var70052908[] = "SUP";
-const char var7005290c[] = "KER";
-const char var70052910[] = "ERL";
-const char var70052914[] = "EXL";
-const char var70052918[] = "IE";
-const char var7005291c[] = "";
-const char var70052920[] = "FS";
-const char var70052924[] = "C";
-const char var70052928[] = "Unimplemented";
-const char var70052938[] = "Invalid op";
-const char var70052944[] = "/ by 0.0";
-const char var70052950[] = "Overflow";
-const char var7005295c[] = "Underflow";
-const char var70052968[] = "Inexact op";
-const char var70052974[] = "EV";
-const char var70052978[] = "EZ";
-const char var7005297c[] = "EO";
-const char var70052980[] = "EU";
-const char var70052984[] = "EI";
-const char var70052988[] = "FV";
-const char var7005298c[] = "FZ";
-const char var70052990[] = "FO";
-const char var70052994[] = "FU";
-const char var70052998[] = "FI";
-const char var7005299c[] = "RN";
-const char var700529a0[] = "RZ";
-const char var700529a4[] = "RP";
-const char var700529a8[] = "RM";
-const char var700529ac[] = "";
-
 u32 var8005d5b0 = 0x00000000;
 u32 var8005d5b4 = 0x00000000;
 u32 var8005d5b8 = 0x00000000;
-u32 var8005d5bc = 0x80000000;
-u32 var8005d5c0 = 0x80000000;
-u32 var8005d5c4 = (u32) &var70052700;
-u32 var8005d5c8 = 0x00008000;
-u32 var8005d5cc = 0x00008000;
-u32 var8005d5d0 = (u32) &var70052704;
-u32 var8005d5d4 = 0x00004000;
-u32 var8005d5d8 = 0x00004000;
-u32 var8005d5dc = (u32) &var70052708;
-u32 var8005d5e0 = 0x00002000;
-u32 var8005d5e4 = 0x00002000;
-u32 var8005d5e8 = (u32) &var7005270c;
-u32 var8005d5ec = 0x00001000;
-u32 var8005d5f0 = 0x00001000;
-u32 var8005d5f4 = (u32) &var70052710;
-u32 var8005d5f8 = 0x00000800;
-u32 var8005d5fc = 0x00000800;
-u32 var8005d600 = (u32) &var70052714;
-u32 var8005d604 = 0x00000400;
-u32 var8005d608 = 0x00000400;
-u32 var8005d60c = (u32) &var70052718;
-u32 var8005d610 = 0x00000200;
-u32 var8005d614 = 0x00000200;
-u32 var8005d618 = (u32) &var7005271c;
-u32 var8005d61c = 0x00000100;
-u32 var8005d620 = 0x00000100;
-u32 var8005d624 = (u32) &var70052720;
-u32 var8005d628 = 0x0000007c;
-u32 var8005d62c = 0x00000000;
-u32 var8005d630 = (u32) &var70052724;
-u32 var8005d634 = 0x0000007c;
-u32 var8005d638 = 0x00000004;
-u32 var8005d63c = (u32) &var70052728;
-u32 var8005d640 = 0x0000007c;
-u32 var8005d644 = 0x00000008;
-u32 var8005d648 = (u32) &var70052730;
-u32 var8005d64c = 0x0000007c;
-u32 var8005d650 = 0x0000000c;
-u32 var8005d654 = (u32) &var70052738;
-u32 var8005d658 = 0x0000007c;
-u32 var8005d65c = 0x00000010;
-u32 var8005d660 = (u32) &var70052744;
-u32 var8005d664 = 0x0000007c;
-u32 var8005d668 = 0x00000014;
-u32 var8005d66c = (u32) &var70052770;
-u32 var8005d670 = 0x0000007c;
-u32 var8005d674 = 0x00000018;
-u32 var8005d678 = (u32) &var70052788;
-u32 var8005d67c = 0x0000007c;
-u32 var8005d680 = 0x0000001c;
-u32 var8005d684 = (u32) &var700527b4;
-u32 var8005d688 = 0x0000007c;
-u32 var8005d68c = 0x00000020;
-u32 var8005d690 = (u32) &var700527dc;
-u32 var8005d694 = 0x0000007c;
-u32 var8005d698 = 0x00000024;
-u32 var8005d69c = (u32) &var700527e4;
-u32 var8005d6a0 = 0x0000007c;
-u32 var8005d6a4 = 0x00000028;
-u32 var8005d6a8 = (u32) &var700527e8;
-u32 var8005d6ac = 0x0000007c;
-u32 var8005d6b0 = 0x0000002c;
-u32 var8005d6b4 = (u32) &var70052800;
-u32 var8005d6b8 = 0x0000007c;
-u32 var8005d6bc = 0x00000030;
-u32 var8005d6c0 = (u32) &var70052810;
-u32 var8005d6c4 = 0x0000007c;
-u32 var8005d6c8 = 0x00000034;
-u32 var8005d6cc = (u32) &var7005281c;
-u32 var8005d6d0 = 0x0000007c;
-u32 var8005d6d4 = 0x00000038;
-u32 var8005d6d8 = (u32) &var70052824;
-u32 var8005d6dc = 0x0000007c;
-u32 var8005d6e0 = 0x0000003c;
-u32 var8005d6e4 = (u32) &var70052854;
-u32 var8005d6e8 = 0x0000007c;
-u32 var8005d6ec = 0x0000005c;
-u32 var8005d6f0 = (u32) &var70052864;
-u32 var8005d6f4 = 0x0000007c;
-u32 var8005d6f8 = 0x0000007c;
-u32 var8005d6fc = (u32) &var70052870;
-u32 var8005d700 = 0x00000000;
-u32 var8005d704 = 0x00000000;
-u32 var8005d708 = (u32) &var700528a0;
-u32 var8005d70c = 0x80000000;
-u32 var8005d710 = 0x80000000;
-u32 var8005d714 = (u32) &var700528a4;
-u32 var8005d718 = 0x40000000;
-u32 var8005d71c = 0x40000000;
-u32 var8005d720 = (u32) &var700528a8;
-u32 var8005d724 = 0x20000000;
-u32 var8005d728 = 0x20000000;
-u32 var8005d72c = (u32) &var700528ac;
-u32 var8005d730 = 0x10000000;
-u32 var8005d734 = 0x10000000;
-u32 var8005d738 = (u32) &var700528b0;
-u32 var8005d73c = 0x08000000;
-u32 var8005d740 = 0x08000000;
-u32 var8005d744 = (u32) &var700528b4;
-u32 var8005d748 = 0x04000000;
-u32 var8005d74c = 0x04000000;
-u32 var8005d750 = (u32) &var700528b8;
-u32 var8005d754 = 0x02000000;
-u32 var8005d758 = 0x02000000;
-u32 var8005d75c = (u32) &var700528bc;
-u32 var8005d760 = 0x00400000;
-u32 var8005d764 = 0x00400000;
-u32 var8005d768 = (u32) &var700528c0;
-u32 var8005d76c = 0x00200000;
-u32 var8005d770 = 0x00200000;
-u32 var8005d774 = (u32) &var700528c4;
-u32 var8005d778 = 0x00100000;
-u32 var8005d77c = 0x00100000;
-u32 var8005d780 = (u32) &var700528c8;
-u32 var8005d784 = 0x00040000;
-u32 var8005d788 = 0x00040000;
-u32 var8005d78c = (u32) &var700528cc;
-u32 var8005d790 = 0x00020000;
-u32 var8005d794 = 0x00020000;
-u32 var8005d798 = (u32) &var700528d0;
-u32 var8005d79c = 0x00010000;
-u32 var8005d7a0 = 0x00010000;
-u32 var8005d7a4 = (u32) &var700528d4;
-u32 var8005d7a8 = 0x00008000;
-u32 var8005d7ac = 0x00008000;
-u32 var8005d7b0 = (u32) &var700528d8;
-u32 var8005d7b4 = 0x00004000;
-u32 var8005d7b8 = 0x00004000;
-u32 var8005d7bc = (u32) &var700528dc;
-u32 var8005d7c0 = 0x00002000;
-u32 var8005d7c4 = 0x00002000;
-u32 var8005d7c8 = (u32) &var700528e0;
-u32 var8005d7cc = 0x00001000;
-u32 var8005d7d0 = 0x00001000;
-u32 var8005d7d4 = (u32) &var700528e4;
-u32 var8005d7d8 = 0x00000800;
-u32 var8005d7dc = 0x00000800;
-u32 var8005d7e0 = (u32) &var700528e8;
-u32 var8005d7e4 = 0x00000400;
-u32 var8005d7e8 = 0x00000400;
-u32 var8005d7ec = (u32) &var700528ec;
-u32 var8005d7f0 = 0x00000200;
-u32 var8005d7f4 = 0x00000200;
-u32 var8005d7f8 = (u32) &var700528f0;
-u32 var8005d7fc = 0x00000100;
-u32 var8005d800 = 0x00000100;
-u32 var8005d804 = (u32) &var700528f4;
-u32 var8005d808 = 0x00000080;
-u32 var8005d80c = 0x00000080;
-u32 var8005d810 = (u32) &var700528f8;
-u32 var8005d814 = 0x00000040;
-u32 var8005d818 = 0x00000040;
-u32 var8005d81c = (u32) &var700528fc;
-u32 var8005d820 = 0x00000020;
-u32 var8005d824 = 0x00000020;
-u32 var8005d828 = (u32) &var70052900;
-u32 var8005d82c = 0x00000018;
-u32 var8005d830 = 0x00000010;
-u32 var8005d834 = (u32) &var70052904;
-u32 var8005d838 = 0x00000018;
-u32 var8005d83c = 0x00000008;
-u32 var8005d840 = (u32) &var70052908;
-u32 var8005d844 = 0x00000018;
-u32 var8005d848 = 0x00000000;
-u32 var8005d84c = (u32) &var7005290c;
-u32 var8005d850 = 0x00000004;
-u32 var8005d854 = 0x00000004;
-u32 var8005d858 = (u32) &var70052910;
-u32 var8005d85c = 0x00000002;
-u32 var8005d860 = 0x00000002;
-u32 var8005d864 = (u32) &var70052914;
-u32 var8005d868 = 0x00000001;
-u32 var8005d86c = 0x00000001;
-u32 var8005d870 = (u32) &var70052918;
-u32 var8005d874 = 0x00000000;
-u32 var8005d878 = 0x00000000;
-u32 var8005d87c = (u32) &var7005291c;
-u32 var8005d880 = 0x01000000;
-u32 var8005d884 = 0x01000000;
-u32 var8005d888 = (u32) &var70052920;
-u32 var8005d88c = 0x00800000;
-u32 var8005d890 = 0x00800000;
-u32 var8005d894 = (u32) &var70052924;
-u32 var8005d898 = 0x00020000;
-u32 var8005d89c = 0x00020000;
-u32 var8005d8a0 = (u32) &var70052928;
-u32 var8005d8a4 = 0x00010000;
-u32 var8005d8a8 = 0x00010000;
-u32 var8005d8ac = (u32) &var70052938;
-u32 var8005d8b0 = 0x00008000;
-u32 var8005d8b4 = 0x00008000;
-u32 var8005d8b8 = (u32) &var70052944;
-u32 var8005d8bc = 0x00004000;
-u32 var8005d8c0 = 0x00004000;
-u32 var8005d8c4 = (u32) &var70052950;
-u32 var8005d8c8 = 0x00002000;
-u32 var8005d8cc = 0x00002000;
-u32 var8005d8d0 = (u32) &var7005295c;
-u32 var8005d8d4 = 0x00001000;
-u32 var8005d8d8 = 0x00001000;
-u32 var8005d8dc = (u32) &var70052968;
-u32 var8005d8e0 = 0x00000800;
-u32 var8005d8e4 = 0x00000800;
-u32 var8005d8e8 = (u32) &var70052974;
-u32 var8005d8ec = 0x00000400;
-u32 var8005d8f0 = 0x00000400;
-u32 var8005d8f4 = (u32) &var70052978;
-u32 var8005d8f8 = 0x00000200;
-u32 var8005d8fc = 0x00000200;
-u32 var8005d900 = (u32) &var7005297c;
-u32 var8005d904 = 0x00000100;
-u32 var8005d908 = 0x00000100;
-u32 var8005d90c = (u32) &var70052980;
-u32 var8005d910 = 0x00000080;
-u32 var8005d914 = 0x00000080;
-u32 var8005d918 = (u32) &var70052984;
-u32 var8005d91c = 0x00000040;
-u32 var8005d920 = 0x00000040;
-u32 var8005d924 = (u32) &var70052988;
-u32 var8005d928 = 0x00000020;
-u32 var8005d92c = 0x00000020;
-u32 var8005d930 = (u32) &var7005298c;
-u32 var8005d934 = 0x00000010;
-u32 var8005d938 = 0x00000010;
-u32 var8005d93c = (u32) &var70052990;
-u32 var8005d940 = 0x00000008;
-u32 var8005d944 = 0x00000008;
-u32 var8005d948 = (u32) &var70052994;
-u32 var8005d94c = 0x00000004;
-u32 var8005d950 = 0x00000004;
-u32 var8005d954 = (u32) &var70052998;
-u32 var8005d958 = 0x00000003;
-u32 var8005d95c = 0x00000000;
-u32 var8005d960 = (u32) &var7005299c;
-u32 var8005d964 = 0x00000003;
-u32 var8005d968 = 0x00000001;
-u32 var8005d96c = (u32) &var700529a0;
-u32 var8005d970 = 0x00000003;
-u32 var8005d974 = 0x00000002;
-u32 var8005d978 = (u32) &var700529a4;
-u32 var8005d97c = 0x00000003;
-u32 var8005d980 = 0x00000003;
-u32 var8005d984 = (u32) &var700529a8;
-u32 var8005d988 = 0x00000000;
-u32 var8005d98c = 0x00000000;
-u32 var8005d990 = (u32) &var700529ac;
-u32 var8005d994 = 0x00000000;
-u32 var8005d998 = 0x00000000;
-u32 var8005d99c = 0x00000000;
+
+struct crashdescription {
+	u32 mask;
+	u32 value;
+	const char *text;
+};
+
+struct crashdescription g_CrashCauseDescriptions[] = {
+	{ 0x80000000, 0x80000000, "BD"                                              },
+	{ 0x00008000, 0x00008000, "IP8"                                             },
+	{ 0x00004000, 0x00004000, "IP7"                                             },
+	{ 0x00002000, 0x00002000, "IP6"                                             },
+	{ 0x00001000, 0x00001000, "IP5"                                             },
+	{ 0x00000800, 0x00000800, "IP4"                                             },
+	{ 0x00000400, 0x00000400, "IP3"                                             },
+	{ 0x00000200, 0x00000200, "IP2"                                             },
+	{ 0x00000100, 0x00000100, "IP1"                                             },
+	{ 0x0000007c, 0x00000000, "Int"                                             },
+	{ 0x0000007c, 0x00000004, "TLBmod"                                          },
+	{ 0x0000007c, 0x00000008, "TLBload"                                         },
+	{ 0x0000007c, 0x0000000c, "TLBstore"                                        },
+	{ 0x0000007c, 0x00000010, "Address error on load or instruction fetch"      },
+	{ 0x0000007c, 0x00000014, "Address error on store"                          },
+	{ 0x0000007c, 0x00000018, "Bus error exception on instruction fetch"        },
+	{ 0x0000007c, 0x0000001c, "Bus error exception on data reference"           },
+	{ 0x0000007c, 0x00000020, "Syscall"                                         },
+	{ 0x0000007c, 0x00000024, "Brk"                                             },
+	{ 0x0000007c, 0x00000028, "Reserved instruction"                            },
+	{ 0x0000007c, 0x0000002c, "Cop unusable"                                    },
+	{ 0x0000007c, 0x00000030, "Overflow"                                        },
+	{ 0x0000007c, 0x00000034, "Trap"                                            },
+	{ 0x0000007c, 0x00000038, "Virtual coherency exception on intruction fetch" },
+	{ 0x0000007c, 0x0000003c, "Fp exception"                                    },
+	{ 0x0000007c, 0x0000005c, "Watchpoint"                                      },
+	{ 0x0000007c, 0x0000007c, "Virtual coherency exception on data reference"   },
+	{ 0x00000000, 0x00000000, ""                                                },
+	{ 0x80000000, 0x80000000, "CU3"                                             },
+	{ 0x40000000, 0x40000000, "CU2"                                             },
+	{ 0x20000000, 0x20000000, "CU1"                                             },
+	{ 0x10000000, 0x10000000, "CU0"                                             },
+	{ 0x08000000, 0x08000000, "RP"                                              },
+	{ 0x04000000, 0x04000000, "FR"                                              },
+	{ 0x02000000, 0x02000000, "RE"                                              },
+	{ 0x00400000, 0x00400000, "BEV"                                             },
+	{ 0x00200000, 0x00200000, "TS"                                              },
+	{ 0x00100000, 0x00100000, "SR"                                              },
+	{ 0x00040000, 0x00040000, "CH"                                              },
+	{ 0x00020000, 0x00020000, "CE"                                              },
+	{ 0x00010000, 0x00010000, "DE"                                              },
+	{ 0x00008000, 0x00008000, "IM8"                                             },
+	{ 0x00004000, 0x00004000, "IM7"                                             },
+	{ 0x00002000, 0x00002000, "IM6"                                             },
+	{ 0x00001000, 0x00001000, "IM5"                                             },
+	{ 0x00000800, 0x00000800, "IM4"                                             },
+	{ 0x00000400, 0x00000400, "IM3"                                             },
+	{ 0x00000200, 0x00000200, "IM2"                                             },
+	{ 0x00000100, 0x00000100, "IM1"                                             },
+	{ 0x00000080, 0x00000080, "KX"                                              },
+	{ 0x00000040, 0x00000040, "SX"                                              },
+	{ 0x00000020, 0x00000020, "UX"                                              },
+	{ 0x00000018, 0x00000010, "USR"                                             },
+	{ 0x00000018, 0x00000008, "SUP"                                             },
+	{ 0x00000018, 0x00000000, "KER"                                             },
+	{ 0x00000004, 0x00000004, "ERL"                                             },
+	{ 0x00000002, 0x00000002, "EXL"                                             },
+	{ 0x00000001, 0x00000001, "IE"                                              },
+	{ 0x00000000, 0x00000000, ""                                                },
+};
+
+struct crashdescription g_CrashFpcsrDescriptions[] = {
+	{ 0x01000000, 0x01000000, "FS"            },
+	{ 0x00800000, 0x00800000, "C"             },
+	{ 0x00020000, 0x00020000, "Unimplemented" },
+	{ 0x00010000, 0x00010000, "Invalid op"    },
+	{ 0x00008000, 0x00008000, "/ by 0.0"      },
+	{ 0x00004000, 0x00004000, "Overflow"      },
+	{ 0x00002000, 0x00002000, "Underflow"     },
+	{ 0x00001000, 0x00001000, "Inexact op"    },
+	{ 0x00000800, 0x00000800, "EV"            },
+	{ 0x00000400, 0x00000400, "EZ"            },
+	{ 0x00000200, 0x00000200, "EO"            },
+	{ 0x00000100, 0x00000100, "EU"            },
+	{ 0x00000080, 0x00000080, "EI"            },
+	{ 0x00000040, 0x00000040, "FV"            },
+	{ 0x00000020, 0x00000020, "FZ"            },
+	{ 0x00000010, 0x00000010, "FO"            },
+	{ 0x00000008, 0x00000008, "FU"            },
+	{ 0x00000004, 0x00000004, "FI"            },
+	{ 0x00000003, 0x00000000, "RN"            },
+	{ 0x00000003, 0x00000001, "RZ"            },
+	{ 0x00000003, 0x00000002, "RP"            },
+	{ 0x00000003, 0x00000003, "RM"            },
+	{ 0x00000000, 0x00000000, ""              },
+};
+
+u32 var8005d994 = 0;
+u32 var8005d998 = 0;
 
 extern u32 _libSegmentStart;
 
 void faultproc(void *arg0);
+void crashPrintDescription(u32 mask, char *label, struct crashdescription *descriptions);
 
 void faultCreateThread2(void)
 {
@@ -712,9 +478,9 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 			((u32 *)ctx->pc)[2],
 			((u32 *)ctx->pc)[3]);
 
-	func0000cae4(ctx->cause, "cause", &var8005d5bc);
+	crashPrintDescription(ctx->cause, "cause", g_CrashCauseDescriptions);
 	crashPrint(" : ");
-	func0000cae4(ctx->fpcsr, "fpcsr", &var8005d880);
+	crashPrintDescription(ctx->fpcsr, "fpcsr", g_CrashFpcsrDescriptions);
 	crashPrint("\n");
 
 	// Print a proper stack trace
@@ -762,66 +528,29 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 	return 0;
 }
 
-const char var70052c84[] = "%s <";
-const char var70052c8c[] = ",";
-const char var70052c90[] = "%s";
-const char var70052c94[] = ">";
+void crashPrintDescription(u32 mask, char *label, struct crashdescription *description)
+{
+	bool first = true;
+	s32 i;
 
-GLOBAL_ASM(
-glabel func0000cae4
-/*     cae4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     cae8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*     caec:	0080a025 */ 	or	$s4,$a0,$zero
-/*     caf0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     caf4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     caf8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     cafc:	3c047005 */ 	lui	$a0,%hi(var70052c84)
-/*     cb00:	00c08025 */ 	or	$s0,$a2,$zero
-/*     cb04:	afb30024 */ 	sw	$s3,0x24($sp)
-/*     cb08:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     cb0c:	24110001 */ 	addiu	$s1,$zero,0x1
-/*     cb10:	0c00bea9 */ 	jal	crashPrint
-/*     cb14:	24842c84 */ 	addiu	$a0,$a0,%lo(var70052c84)
-/*     cb18:	8e020000 */ 	lw	$v0,0x0($s0)
-/*     cb1c:	3c137005 */ 	lui	$s3,%hi(var70052c8c)
-/*     cb20:	26732c8c */ 	addiu	$s3,$s3,%lo(var70052c8c)
-/*     cb24:	10400013 */ 	beqz	$v0,.L0000cb74
-/*     cb28:	3c127005 */ 	lui	$s2,%hi(var70052c90)
-/*     cb2c:	26522c90 */ 	addiu	$s2,$s2,%lo(var70052c90)
-/*     cb30:	8e0e0004 */ 	lw	$t6,0x4($s0)
-.L0000cb34:
-/*     cb34:	00547824 */ 	and	$t7,$v0,$s4
-/*     cb38:	55cf000b */ 	bnel	$t6,$t7,.L0000cb68
-/*     cb3c:	8e02000c */ 	lw	$v0,0xc($s0)
-/*     cb40:	12200003 */ 	beqz	$s1,.L0000cb50
-/*     cb44:	00000000 */ 	nop
-/*     cb48:	10000003 */ 	b	.L0000cb58
-/*     cb4c:	00008825 */ 	or	$s1,$zero,$zero
-.L0000cb50:
-/*     cb50:	0c00bea9 */ 	jal	crashPrint
-/*     cb54:	02602025 */ 	or	$a0,$s3,$zero
-.L0000cb58:
-/*     cb58:	02402025 */ 	or	$a0,$s2,$zero
-/*     cb5c:	0c00bea9 */ 	jal	crashPrint
-/*     cb60:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     cb64:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0000cb68:
-/*     cb68:	2610000c */ 	addiu	$s0,$s0,0xc
-/*     cb6c:	5440fff1 */ 	bnezl	$v0,.L0000cb34
-/*     cb70:	8e0e0004 */ 	lw	$t6,0x4($s0)
-.L0000cb74:
-/*     cb74:	3c047005 */ 	lui	$a0,%hi(var70052c94)
-/*     cb78:	0c00bea9 */ 	jal	crashPrint
-/*     cb7c:	24842c94 */ 	addiu	$a0,$a0,%lo(var70052c94)
-/*     cb80:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     cb84:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     cb88:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     cb8c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     cb90:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*     cb94:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*     cb98:	03e00008 */ 	jr	$ra
-/*     cb9c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+	crashPrint("%s <", label);
+
+	while (description->mask != 0) {
+		if ((description->mask & mask) == description->value) {
+			if (first) {
+				first = false;
+			} else {
+				crashPrint(",");
+			}
+
+			crashPrint("%s", description->text);
+		}
+
+		description++;
+	}
+
+	crashPrint(">");
+}
 
 GLOBAL_ASM(
 glabel func0000cba0
