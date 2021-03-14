@@ -646,7 +646,7 @@ glabel func0000cc34
 /*     ccc0:	1420000a */ 	bnez	$at,.L0000ccec
 /*     ccc4:	24a4ffe4 */ 	addiu	$a0,$a1,-28
 /*     ccc8:	afa20024 */ 	sw	$v0,0x24($sp)
-/*     cccc:	0c003353 */ 	jal	func0000cd4c
+/*     cccc:	0c003353 */ 	jal	crashScroll
 /*     ccd0:	a3a6002b */ 	sb	$a2,0x2b($sp)
 /*     ccd4:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
 /*     ccd8:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
@@ -683,43 +683,24 @@ glabel func0000cc34
 /*     cd48:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0000cd4c
-/*     cd4c:	3c068006 */ 	lui	$a2,%hi(var8005d994)
-/*     cd50:	24c6d994 */ 	addiu	$a2,$a2,%lo(var8005d994)
-/*     cd54:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*     cd58:	0004102a */ 	slt	$v0,$zero,$a0
-/*     cd5c:	11c00018 */ 	beqz	$t6,.L0000cdc0
-/*     cd60:	00000000 */ 	nop
-/*     cd64:	10400016 */ 	beqz	$v0,.L0000cdc0
-/*     cd68:	2484ffff */ 	addiu	$a0,$a0,-1
-/*     cd6c:	2408001d */ 	addiu	$t0,$zero,0x1d
-/*     cd70:	24070047 */ 	addiu	$a3,$zero,0x47
-.L0000cd74:
-/*     cd74:	00001025 */ 	or	$v0,$zero,$zero
-/*     cd78:	00001825 */ 	or	$v1,$zero,$zero
-.L0000cd7c:
-/*     cd7c:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*     cd80:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*     cd84:	0302c021 */ 	addu	$t8,$t8,$v0
-/*     cd88:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*     cd8c:	0302c023 */ 	subu	$t8,$t8,$v0
-/*     cd90:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*     cd94:	03232821 */ 	addu	$a1,$t9,$v1
-/*     cd98:	90a90047 */ 	lbu	$t1,0x47($a1)
-/*     cd9c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     cda0:	1467fff6 */ 	bne	$v1,$a3,.L0000cd7c
-/*     cda4:	a0a90000 */ 	sb	$t1,0x0($a1)
-/*     cda8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     cdac:	5448fff3 */ 	bnel	$v0,$t0,.L0000cd7c
-/*     cdb0:	00001825 */ 	or	$v1,$zero,$zero
-/*     cdb4:	0004102a */ 	slt	$v0,$zero,$a0
-/*     cdb8:	1440ffee */ 	bnez	$v0,.L0000cd74
-/*     cdbc:	2484ffff */ 	addiu	$a0,$a0,-1
-.L0000cdc0:
-/*     cdc0:	03e00008 */ 	jr	$ra
-/*     cdc4:	00000000 */ 	nop
-);
+void crashScroll(s32 numlines)
+{
+	s32 i;
+	s32 y;
+	s32 x;
+
+	if (var8005d994 == NULL) {
+		return;
+	}
+
+	while (numlines-- > 0) {
+		for (y = 0; y < 29; y++) {
+			for (x = 0; x < 71; x++) {
+				var8005d994->unk00[y][x] = var8005d994->unk00[y + 1][x];
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0000cdc8
