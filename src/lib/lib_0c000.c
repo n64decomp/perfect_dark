@@ -344,6 +344,8 @@ u32 var8005d994 = 0x00000000;
 u32 var8005d998 = 0x00000000;
 u32 var8005d99c = 0x00000000;
 
+extern u32 _libSegmentStart;
+
 void faultproc(void *arg0);
 
 void faultCreateThread2(void)
@@ -424,7 +426,7 @@ glabel faultproc
 //		osSetIntMask(mask);
 //
 //		// Beta versions have something like this here:
-//		//rmonDrawCrashScreen(result, stack1, stack2);
+//		//crashRender(result, stack1, stack2);
 //		//func00001b1c(true);
 //	}
 //}
@@ -518,7 +520,7 @@ glabel func0000c118
 
 extern u32 _libSegmentEnd;
 
-bool crashIsInstrTwoAfterJalInLib(u32 *instruction)
+bool crashIsReturnAddress(u32 *instruction)
 {
 	if (((u32)instruction % 4) == 0
 			&& (u32)instruction >= (u32)boot
@@ -537,46 +539,46 @@ bool crashIsInstrTwoAfterJalInLib(u32 *instruction)
 	return false;
 }
 
-u32 func0000c2b8(u32 arg0, s32 tid)
+u32 crashGetStackEnd(u32 sp, s32 tid)
 {
 	u32 start;
 	u32 end;
 
 	if (tid <= 0 || tid > 6U) {
-		rmonPrint("Bad tid\n");
+		crashPrint("Bad tid\n");
 		return 0;
 	}
 
 	start = (u32)g_StackStartAddrs[tid];
 	end = (u32)g_StackEndAddrs[tid];
 
-	if (arg0 >= 0x80000000) {
+	if (sp >= 0x80000000) {
 		return end;
 	}
 
-	return (arg0 & 0xf0000000) | (end - start);
+	return (sp & 0xf0000000) | (end - start);
 }
 
-u32 func0000c334(u32 arg0, s32 tid)
+u32 crashGetStackStart(u32 sp, s32 tid)
 {
 	u32 start;
 
 	if (tid <= 0 || tid > 6U) {
-		rmonPrint("Bad tid\n");
+		crashPrint("Bad tid\n");
 		return 0;
 	}
 
 	start = (u32)g_StackStartAddrs[tid];
 
-	if (arg0 >= 0x80000000) {
+	if (sp >= 0x80000000) {
 		return start;
 	}
 
-	return arg0 & 0xf0000000;
+	return sp & 0xf0000000;
 }
 
 GLOBAL_ASM(
-glabel rmonIsDouble
+glabel crashIsDouble
 /*     c398:	e7ac0000 */ 	swc1	$f12,0x0($sp)
 /*     c39c:	8fa40000 */ 	lw	$a0,0x0($sp)
 /*     c3a0:	3c01007f */ 	lui	$at,0x7f
@@ -597,7 +599,7 @@ glabel rmonIsDouble
 /*     c3d8:	00000000 */ 	nop
 );
 
-//bool rmonIsDouble(f32 value)
+//bool crashIsDouble(f32 value)
 //{
 //	u32 bits = *(u32 *)&value;
 //
@@ -606,437 +608,159 @@ glabel rmonIsDouble
 //		&& ((bits >> 23) & 0xff) != 0xff;
 //}
 
-void rmonPrintFloat(s32 index, f32 value)
+void crashPrintFloat(s32 index, f32 value)
 {
-	if (rmonIsDouble(value)) {
-		rmonPrint("%s%s%02d: % .7e ", "", "", index, (double)value);
+	if (crashIsDouble(value)) {
+		crashPrint("%s%s%02d: % .7e ", "", "", index, (f64)value);
 	} else {
 		u32 bits = *(u32 *)&value;
-		rmonPrint("%02d: I%d.%03d.%07d ", index, (bits & 0x80000000) >> 31, (bits & 0x7f800000) >> 23, bits & 0x7fffff);
+		crashPrint("%02d: I%d.%03d.%07d ", index, (bits & 0x80000000) >> 31, (bits & 0x7f800000) >> 23, bits & 0x7fffff);
 	}
 }
 
-void rmonPrint2Floats(s32 index, f32 value1, f32 value2)
+void crashPrint2Floats(s32 index, f32 value1, f32 value2)
 {
-	rmonPrintFloat(index, value1);
-	rmonPrint(" ");
+	crashPrintFloat(index, value1);
+	crashPrint(" ");
 
-	rmonPrintFloat(index + 1, value2);
-	rmonPrint("\n");
+	crashPrintFloat(index + 1, value2);
+	crashPrint("\n");
 }
 
-void rmonPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3)
+void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3)
 {
-	rmonPrintFloat(index, value1);
-	rmonPrint(" ");
+	crashPrintFloat(index, value1);
+	crashPrint(" ");
 
-	rmonPrintFloat(index + 1, value2);
-	rmonPrint(" ");
+	crashPrintFloat(index + 1, value2);
+	crashPrint(" ");
 
-	rmonPrintFloat(index + 2, value3);
-	rmonPrint("\n");
+	crashPrintFloat(index + 2, value3);
+	crashPrint("\n");
 }
 
-const char var70052a10[] = "\n\nFAULT-\n";
-const char var70052a1c[] = "DodgyStackTrace: %08llx ";
-const char var70052a38[] = "%08x ";
-const char var70052a40[] = ".\n";
-const char var70052a44[] = "%H#@! Another Perfect Crash (tm)\n";
-const char var70052a68[] = "at 0x%016llx v0 0x%016llx v1 0x%016llx\n";
-const char var70052a90[] = "a0 0x%016llx a1 0x%016llx a2 0x%016llx\n";
-const char var70052ab8[] = "a3 0x%016llx t0 0x%016llx t1 0x%016llx\n";
-const char var70052ae0[] = "t2 0x%016llx t3 0x%016llx t4 0x%016llx\n";
-const char var70052b08[] = "t5 0x%016llx t6 0x%016llx t7 0x%016llx\n";
-const char var70052b30[] = "s0 0x%016llx s1 0x%016llx s2 0x%016llx\n";
-const char var70052b58[] = "s3 0x%016llx s4 0x%016llx s5 0x%016llx\n";
-const char var70052b80[] = "s6 0x%016llx s7 0x%016llx t8 0x%016llx\n";
-const char var70052ba8[] = "t9 0x%016llx gp 0x%016llx sp 0x%016llx\n";
-const char var70052bd0[] = "s8 0x%016llx ra 0x%016llx\n";
-const char var70052bec[] = "TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n";
-const char var70052c24[] = "dshex -a %08x %08x %08x %08x %08x\n";
-const char var70052c48[] = "cause";
-const char var70052c50[] = " : ";
-const char var70052c54[] = "fpcsr";
-const char var70052c5c[] = "\n";
-const char var70052c60[] = "nearl: ";
-const char var70052c68[] = " %08x ";
-const char var70052c70[] = "\n       ";
-const char var70052c7c[] = "\n";
-const char var70052c80[] = "\n";
+u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
+{
+	s32 i;
+	u32 ptr;
+	u32 *sp;
+	u32 sp64[32];
+	u32 *stackend;
+	u32 *stackstart;
+	__OSThreadContext *ctx = &thread->context;
+	bool done;
 
-GLOBAL_ASM(
-glabel rmonDrawCrashScreen
-/*     c548:	27bdff10 */ 	addiu	$sp,$sp,-240
-/*     c54c:	afa400f0 */ 	sw	$a0,0xf0($sp)
-/*     c550:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*     c554:	afb50038 */ 	sw	$s5,0x38($sp)
-/*     c558:	3c047005 */ 	lui	$a0,%hi(var70052a10)
-/*     c55c:	00c0a825 */ 	or	$s5,$a2,$zero
-/*     c560:	afb40034 */ 	sw	$s4,0x34($sp)
-/*     c564:	afb30030 */ 	sw	$s3,0x30($sp)
-/*     c568:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*     c56c:	afb10028 */ 	sw	$s1,0x28($sp)
-/*     c570:	afb00024 */ 	sw	$s0,0x24($sp)
-/*     c574:	afa500f4 */ 	sw	$a1,0xf4($sp)
-/*     c578:	0c00bea9 */ 	jal	rmonPrint
-/*     c57c:	24842a10 */ 	addiu	$a0,$a0,%lo(var70052a10)
-/*     c580:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*     c584:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*     c588:	928e04e0 */ 	lbu	$t6,0x4e0($s4)
-/*     c58c:	55c00023 */ 	bnezl	$t6,.L0000c61c
-/*     c590:	8fb200f0 */ 	lw	$s2,0xf0($sp)
-/*     c594:	8fa200f0 */ 	lw	$v0,0xf0($sp)
-/*     c598:	24520020 */ 	addiu	$s2,$v0,0x20
-/*     c59c:	8e4400d4 */ 	lw	$a0,0xd4($s2)
-/*     c5a0:	0c0030ae */ 	jal	func0000c2b8
-/*     c5a4:	8c450014 */ 	lw	$a1,0x14($v0)
-/*     c5a8:	8e4700e4 */ 	lw	$a3,0xe4($s2)
-/*     c5ac:	2401ffff */ 	addiu	$at,$zero,-1
-/*     c5b0:	3c047005 */ 	lui	$a0,%hi(var70052a1c)
-/*     c5b4:	00e14824 */ 	and	$t1,$a3,$at
-/*     c5b8:	00409825 */ 	or	$s3,$v0,$zero
-/*     c5bc:	01203825 */ 	or	$a3,$t1,$zero
-/*     c5c0:	24842a1c */ 	addiu	$a0,$a0,%lo(var70052a1c)
-/*     c5c4:	0c00bea9 */ 	jal	rmonPrint
-/*     c5c8:	00003025 */ 	or	$a2,$zero,$zero
-/*     c5cc:	8e5000d4 */ 	lw	$s0,0xd4($s2)
-/*     c5d0:	3c117005 */ 	lui	$s1,%hi(var70052a38)
-/*     c5d4:	26312a38 */ 	addiu	$s1,$s1,%lo(var70052a38)
-/*     c5d8:	0213082b */ 	sltu	$at,$s0,$s3
-/*     c5dc:	1020000b */ 	beqz	$at,.L0000c60c
-/*     c5e0:	00000000 */ 	nop
-.L0000c5e4:
-/*     c5e4:	0c003090 */ 	jal	crashIsInstrTwoAfterJalInLib
-/*     c5e8:	8e040000 */ 	lw	$a0,0x0($s0)
-/*     c5ec:	10400003 */ 	beqz	$v0,.L0000c5fc
-/*     c5f0:	02202025 */ 	or	$a0,$s1,$zero
-/*     c5f4:	0c00bea9 */ 	jal	rmonPrint
-/*     c5f8:	8e050000 */ 	lw	$a1,0x0($s0)
-.L0000c5fc:
-/*     c5fc:	26100004 */ 	addiu	$s0,$s0,0x4
-/*     c600:	0213082b */ 	sltu	$at,$s0,$s3
-/*     c604:	1420fff7 */ 	bnez	$at,.L0000c5e4
-/*     c608:	00000000 */ 	nop
-.L0000c60c:
-/*     c60c:	3c047005 */ 	lui	$a0,%hi(var70052a40)
-/*     c610:	0c00bea9 */ 	jal	rmonPrint
-/*     c614:	24842a40 */ 	addiu	$a0,$a0,%lo(var70052a40)
-/*     c618:	8fb200f0 */ 	lw	$s2,0xf0($sp)
-.L0000c61c:
-/*     c61c:	3c047005 */ 	lui	$a0,%hi(var70052a44)
-/*     c620:	24842a44 */ 	addiu	$a0,$a0,%lo(var70052a44)
-/*     c624:	0c00bea9 */ 	jal	rmonPrint
-/*     c628:	26520020 */ 	addiu	$s2,$s2,0x20
-/*     c62c:	928f04e0 */ 	lbu	$t7,0x4e0($s4)
-/*     c630:	15e00036 */ 	bnez	$t7,.L0000c70c
-/*     c634:	00002025 */ 	or	$a0,$zero,$zero
-/*     c638:	8e450114 */ 	lw	$a1,0x114($s2)
-/*     c63c:	0c003120 */ 	jal	rmonPrint2Floats
-/*     c640:	8e46011c */ 	lw	$a2,0x11c($s2)
-/*     c644:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     c648:	8e450124 */ 	lw	$a1,0x124($s2)
-/*     c64c:	8e46012c */ 	lw	$a2,0x12c($s2)
-/*     c650:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c654:	8e470134 */ 	lw	$a3,0x134($s2)
-/*     c658:	24040005 */ 	addiu	$a0,$zero,0x5
-/*     c65c:	8e45013c */ 	lw	$a1,0x13c($s2)
-/*     c660:	8e460144 */ 	lw	$a2,0x144($s2)
-/*     c664:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c668:	8e47014c */ 	lw	$a3,0x14c($s2)
-/*     c66c:	24040008 */ 	addiu	$a0,$zero,0x8
-/*     c670:	8e450154 */ 	lw	$a1,0x154($s2)
-/*     c674:	8e46015c */ 	lw	$a2,0x15c($s2)
-/*     c678:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c67c:	8e470164 */ 	lw	$a3,0x164($s2)
-/*     c680:	2404000b */ 	addiu	$a0,$zero,0xb
-/*     c684:	8e45016c */ 	lw	$a1,0x16c($s2)
-/*     c688:	8e460174 */ 	lw	$a2,0x174($s2)
-/*     c68c:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c690:	8e47017c */ 	lw	$a3,0x17c($s2)
-/*     c694:	2404000e */ 	addiu	$a0,$zero,0xe
-/*     c698:	8e450184 */ 	lw	$a1,0x184($s2)
-/*     c69c:	8e46018c */ 	lw	$a2,0x18c($s2)
-/*     c6a0:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c6a4:	8e470194 */ 	lw	$a3,0x194($s2)
-/*     c6a8:	24040011 */ 	addiu	$a0,$zero,0x11
-/*     c6ac:	8e45019c */ 	lw	$a1,0x19c($s2)
-/*     c6b0:	8e4601a4 */ 	lw	$a2,0x1a4($s2)
-/*     c6b4:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c6b8:	8e4701ac */ 	lw	$a3,0x1ac($s2)
-/*     c6bc:	24040014 */ 	addiu	$a0,$zero,0x14
-/*     c6c0:	8e4501b4 */ 	lw	$a1,0x1b4($s2)
-/*     c6c4:	8e4601bc */ 	lw	$a2,0x1bc($s2)
-/*     c6c8:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c6cc:	8e4701c4 */ 	lw	$a3,0x1c4($s2)
-/*     c6d0:	24040017 */ 	addiu	$a0,$zero,0x17
-/*     c6d4:	8e4501cc */ 	lw	$a1,0x1cc($s2)
-/*     c6d8:	8e4601d4 */ 	lw	$a2,0x1d4($s2)
-/*     c6dc:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c6e0:	8e4701dc */ 	lw	$a3,0x1dc($s2)
-/*     c6e4:	2404001a */ 	addiu	$a0,$zero,0x1a
-/*     c6e8:	8e4501e4 */ 	lw	$a1,0x1e4($s2)
-/*     c6ec:	8e4601ec */ 	lw	$a2,0x1ec($s2)
-/*     c6f0:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c6f4:	8e4701f4 */ 	lw	$a3,0x1f4($s2)
-/*     c6f8:	2404001d */ 	addiu	$a0,$zero,0x1d
-/*     c6fc:	8e4501fc */ 	lw	$a1,0x1fc($s2)
-/*     c700:	8e460204 */ 	lw	$a2,0x204($s2)
-/*     c704:	0c003135 */ 	jal	rmonPrint3Floats
-/*     c708:	8e47020c */ 	lw	$a3,0x20c($s2)
-.L0000c70c:
-/*     c70c:	8e4c0008 */ 	lw	$t4,0x8($s2)
-/*     c710:	8e4d000c */ 	lw	$t5,0xc($s2)
-/*     c714:	8e460000 */ 	lw	$a2,0x0($s2)
-/*     c718:	8e470004 */ 	lw	$a3,0x4($s2)
-/*     c71c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*     c720:	afad0014 */ 	sw	$t5,0x14($sp)
-/*     c724:	8e4f0014 */ 	lw	$t7,0x14($s2)
-/*     c728:	8e4e0010 */ 	lw	$t6,0x10($s2)
-/*     c72c:	3c047005 */ 	lui	$a0,%hi(var70052a68)
-/*     c730:	24842a68 */ 	addiu	$a0,$a0,%lo(var70052a68)
-/*     c734:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*     c738:	0c00bea9 */ 	jal	rmonPrint
-/*     c73c:	afae0018 */ 	sw	$t6,0x18($sp)
-/*     c740:	8e580020 */ 	lw	$t8,0x20($s2)
-/*     c744:	8e590024 */ 	lw	$t9,0x24($s2)
-/*     c748:	8e460018 */ 	lw	$a2,0x18($s2)
-/*     c74c:	8e47001c */ 	lw	$a3,0x1c($s2)
-/*     c750:	afb80010 */ 	sw	$t8,0x10($sp)
-/*     c754:	afb90014 */ 	sw	$t9,0x14($sp)
-/*     c758:	8e49002c */ 	lw	$t1,0x2c($s2)
-/*     c75c:	8e480028 */ 	lw	$t0,0x28($s2)
-/*     c760:	3c047005 */ 	lui	$a0,%hi(var70052a90)
-/*     c764:	24842a90 */ 	addiu	$a0,$a0,%lo(var70052a90)
-/*     c768:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*     c76c:	0c00bea9 */ 	jal	rmonPrint
-/*     c770:	afa80018 */ 	sw	$t0,0x18($sp)
-/*     c774:	8e4a0038 */ 	lw	$t2,0x38($s2)
-/*     c778:	8e4b003c */ 	lw	$t3,0x3c($s2)
-/*     c77c:	8e460030 */ 	lw	$a2,0x30($s2)
-/*     c780:	8e470034 */ 	lw	$a3,0x34($s2)
-/*     c784:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*     c788:	afab0014 */ 	sw	$t3,0x14($sp)
-/*     c78c:	8e4d0044 */ 	lw	$t5,0x44($s2)
-/*     c790:	8e4c0040 */ 	lw	$t4,0x40($s2)
-/*     c794:	3c047005 */ 	lui	$a0,%hi(var70052ab8)
-/*     c798:	24842ab8 */ 	addiu	$a0,$a0,%lo(var70052ab8)
-/*     c79c:	afad001c */ 	sw	$t5,0x1c($sp)
-/*     c7a0:	0c00bea9 */ 	jal	rmonPrint
-/*     c7a4:	afac0018 */ 	sw	$t4,0x18($sp)
-/*     c7a8:	8e4e0050 */ 	lw	$t6,0x50($s2)
-/*     c7ac:	8e4f0054 */ 	lw	$t7,0x54($s2)
-/*     c7b0:	8e460048 */ 	lw	$a2,0x48($s2)
-/*     c7b4:	8e47004c */ 	lw	$a3,0x4c($s2)
-/*     c7b8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     c7bc:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     c7c0:	8e59005c */ 	lw	$t9,0x5c($s2)
-/*     c7c4:	8e580058 */ 	lw	$t8,0x58($s2)
-/*     c7c8:	3c047005 */ 	lui	$a0,%hi(var70052ae0)
-/*     c7cc:	24842ae0 */ 	addiu	$a0,$a0,%lo(var70052ae0)
-/*     c7d0:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*     c7d4:	0c00bea9 */ 	jal	rmonPrint
-/*     c7d8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*     c7dc:	8e480068 */ 	lw	$t0,0x68($s2)
-/*     c7e0:	8e49006c */ 	lw	$t1,0x6c($s2)
-/*     c7e4:	8e460060 */ 	lw	$a2,0x60($s2)
-/*     c7e8:	8e470064 */ 	lw	$a3,0x64($s2)
-/*     c7ec:	afa80010 */ 	sw	$t0,0x10($sp)
-/*     c7f0:	afa90014 */ 	sw	$t1,0x14($sp)
-/*     c7f4:	8e4b0074 */ 	lw	$t3,0x74($s2)
-/*     c7f8:	8e4a0070 */ 	lw	$t2,0x70($s2)
-/*     c7fc:	3c047005 */ 	lui	$a0,%hi(var70052b08)
-/*     c800:	24842b08 */ 	addiu	$a0,$a0,%lo(var70052b08)
-/*     c804:	afab001c */ 	sw	$t3,0x1c($sp)
-/*     c808:	0c00bea9 */ 	jal	rmonPrint
-/*     c80c:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*     c810:	8e4c0080 */ 	lw	$t4,0x80($s2)
-/*     c814:	8e4d0084 */ 	lw	$t5,0x84($s2)
-/*     c818:	8e460078 */ 	lw	$a2,0x78($s2)
-/*     c81c:	8e47007c */ 	lw	$a3,0x7c($s2)
-/*     c820:	afac0010 */ 	sw	$t4,0x10($sp)
-/*     c824:	afad0014 */ 	sw	$t5,0x14($sp)
-/*     c828:	8e4f008c */ 	lw	$t7,0x8c($s2)
-/*     c82c:	8e4e0088 */ 	lw	$t6,0x88($s2)
-/*     c830:	3c047005 */ 	lui	$a0,%hi(var70052b30)
-/*     c834:	24842b30 */ 	addiu	$a0,$a0,%lo(var70052b30)
-/*     c838:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*     c83c:	0c00bea9 */ 	jal	rmonPrint
-/*     c840:	afae0018 */ 	sw	$t6,0x18($sp)
-/*     c844:	8e580098 */ 	lw	$t8,0x98($s2)
-/*     c848:	8e59009c */ 	lw	$t9,0x9c($s2)
-/*     c84c:	8e460090 */ 	lw	$a2,0x90($s2)
-/*     c850:	8e470094 */ 	lw	$a3,0x94($s2)
-/*     c854:	afb80010 */ 	sw	$t8,0x10($sp)
-/*     c858:	afb90014 */ 	sw	$t9,0x14($sp)
-/*     c85c:	8e4900a4 */ 	lw	$t1,0xa4($s2)
-/*     c860:	8e4800a0 */ 	lw	$t0,0xa0($s2)
-/*     c864:	3c047005 */ 	lui	$a0,%hi(var70052b58)
-/*     c868:	24842b58 */ 	addiu	$a0,$a0,%lo(var70052b58)
-/*     c86c:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*     c870:	0c00bea9 */ 	jal	rmonPrint
-/*     c874:	afa80018 */ 	sw	$t0,0x18($sp)
-/*     c878:	8e4a00b0 */ 	lw	$t2,0xb0($s2)
-/*     c87c:	8e4b00b4 */ 	lw	$t3,0xb4($s2)
-/*     c880:	8e4600a8 */ 	lw	$a2,0xa8($s2)
-/*     c884:	8e4700ac */ 	lw	$a3,0xac($s2)
-/*     c888:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*     c88c:	afab0014 */ 	sw	$t3,0x14($sp)
-/*     c890:	8e4d00bc */ 	lw	$t5,0xbc($s2)
-/*     c894:	8e4c00b8 */ 	lw	$t4,0xb8($s2)
-/*     c898:	3c047005 */ 	lui	$a0,%hi(var70052b80)
-/*     c89c:	24842b80 */ 	addiu	$a0,$a0,%lo(var70052b80)
-/*     c8a0:	afad001c */ 	sw	$t5,0x1c($sp)
-/*     c8a4:	0c00bea9 */ 	jal	rmonPrint
-/*     c8a8:	afac0018 */ 	sw	$t4,0x18($sp)
-/*     c8ac:	8e4e00c8 */ 	lw	$t6,0xc8($s2)
-/*     c8b0:	8e4f00cc */ 	lw	$t7,0xcc($s2)
-/*     c8b4:	8e4600c0 */ 	lw	$a2,0xc0($s2)
-/*     c8b8:	8e4700c4 */ 	lw	$a3,0xc4($s2)
-/*     c8bc:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     c8c0:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     c8c4:	8e5900d4 */ 	lw	$t9,0xd4($s2)
-/*     c8c8:	8e5800d0 */ 	lw	$t8,0xd0($s2)
-/*     c8cc:	3c047005 */ 	lui	$a0,%hi(var70052ba8)
-/*     c8d0:	24842ba8 */ 	addiu	$a0,$a0,%lo(var70052ba8)
-/*     c8d4:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*     c8d8:	0c00bea9 */ 	jal	rmonPrint
-/*     c8dc:	afb80018 */ 	sw	$t8,0x18($sp)
-/*     c8e0:	8e4800e0 */ 	lw	$t0,0xe0($s2)
-/*     c8e4:	8e4900e4 */ 	lw	$t1,0xe4($s2)
-/*     c8e8:	3c047005 */ 	lui	$a0,%hi(var70052bd0)
-/*     c8ec:	8e4600d8 */ 	lw	$a2,0xd8($s2)
-/*     c8f0:	8e4700dc */ 	lw	$a3,0xdc($s2)
-/*     c8f4:	24842bd0 */ 	addiu	$a0,$a0,%lo(var70052bd0)
-/*     c8f8:	afa80010 */ 	sw	$t0,0x10($sp)
-/*     c8fc:	0c00bea9 */ 	jal	rmonPrint
-/*     c900:	afa90014 */ 	sw	$t1,0x14($sp)
-/*     c904:	8faa00f0 */ 	lw	$t2,0xf0($sp)
-/*     c908:	8e4b010c */ 	lw	$t3,0x10c($s2)
-/*     c90c:	8e4600fc */ 	lw	$a2,0xfc($s2)
-/*     c910:	8e470100 */ 	lw	$a3,0x100($s2)
-/*     c914:	8d450014 */ 	lw	$a1,0x14($t2)
-/*     c918:	afab0010 */ 	sw	$t3,0x10($sp)
-/*     c91c:	8e4c0104 */ 	lw	$t4,0x104($s2)
-/*     c920:	3c047005 */ 	lui	$a0,%hi(var70052bec)
-/*     c924:	24842bec */ 	addiu	$a0,$a0,%lo(var70052bec)
-/*     c928:	afac0014 */ 	sw	$t4,0x14($sp)
-/*     c92c:	8e4d00f8 */ 	lw	$t5,0xf8($s2)
-/*     c930:	0c00bea9 */ 	jal	rmonPrint
-/*     c934:	afad0018 */ 	sw	$t5,0x18($sp)
-/*     c938:	8e4500fc */ 	lw	$a1,0xfc($s2)
-/*     c93c:	3c047005 */ 	lui	$a0,%hi(var70052c24)
-/*     c940:	24842c24 */ 	addiu	$a0,$a0,%lo(var70052c24)
-/*     c944:	8cae0008 */ 	lw	$t6,0x8($a1)
-/*     c948:	8ca60000 */ 	lw	$a2,0x0($a1)
-/*     c94c:	8ca70004 */ 	lw	$a3,0x4($a1)
-/*     c950:	afae0010 */ 	sw	$t6,0x10($sp)
-/*     c954:	8caf000c */ 	lw	$t7,0xc($a1)
-/*     c958:	00a01025 */ 	or	$v0,$a1,$zero
-/*     c95c:	0c00bea9 */ 	jal	rmonPrint
-/*     c960:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     c964:	3c057005 */ 	lui	$a1,%hi(var70052c48)
-/*     c968:	3c068006 */ 	lui	$a2,%hi(var8005d5bc)
-/*     c96c:	24c6d5bc */ 	addiu	$a2,$a2,%lo(var8005d5bc)
-/*     c970:	24a52c48 */ 	addiu	$a1,$a1,%lo(var70052c48)
-/*     c974:	0c0032b9 */ 	jal	func0000cae4
-/*     c978:	8e440100 */ 	lw	$a0,0x100($s2)
-/*     c97c:	3c047005 */ 	lui	$a0,%hi(var70052c50)
-/*     c980:	0c00bea9 */ 	jal	rmonPrint
-/*     c984:	24842c50 */ 	addiu	$a0,$a0,%lo(var70052c50)
-/*     c988:	3c057005 */ 	lui	$a1,%hi(var70052c54)
-/*     c98c:	3c068006 */ 	lui	$a2,%hi(var8005d880)
-/*     c990:	24c6d880 */ 	addiu	$a2,$a2,%lo(var8005d880)
-/*     c994:	24a52c54 */ 	addiu	$a1,$a1,%lo(var70052c54)
-/*     c998:	0c0032b9 */ 	jal	func0000cae4
-/*     c99c:	8e44010c */ 	lw	$a0,0x10c($s2)
-/*     c9a0:	3c047005 */ 	lui	$a0,%hi(var70052c5c)
-/*     c9a4:	0c00bea9 */ 	jal	rmonPrint
-/*     c9a8:	24842c5c */ 	addiu	$a0,$a0,%lo(var70052c5c)
-/*     c9ac:	8e4400d4 */ 	lw	$a0,0xd4($s2)
-/*     c9b0:	8fa800f0 */ 	lw	$t0,0xf0($sp)
-/*     c9b4:	00009825 */ 	or	$s3,$zero,$zero
-/*     c9b8:	00808825 */ 	or	$s1,$a0,$zero
-/*     c9bc:	0c0030ae */ 	jal	func0000c2b8
-/*     c9c0:	8d050014 */ 	lw	$a1,0x14($t0)
-/*     c9c4:	8fa900f0 */ 	lw	$t1,0xf0($sp)
-/*     c9c8:	0040a025 */ 	or	$s4,$v0,$zero
-/*     c9cc:	02202025 */ 	or	$a0,$s1,$zero
-/*     c9d0:	0c0030cd */ 	jal	func0000c334
-/*     c9d4:	8d250014 */ 	lw	$a1,0x14($t1)
-/*     c9d8:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*     c9dc:	8e5000fc */ 	lw	$s0,0xfc($s2)
-/*     c9e0:	3c047005 */ 	lui	$a0,%hi(var70052c60)
-/*     c9e4:	aea00000 */ 	sw	$zero,0x0($s5)
-/*     c9e8:	0c00bea9 */ 	jal	rmonPrint
-/*     c9ec:	24842c60 */ 	addiu	$a0,$a0,%lo(var70052c60)
-.L0000c9f0:
-/*     c9f0:	3c057000 */ 	lui	$a1,%hi(boot)
-/*     c9f4:	24a51050 */ 	addiu	$a1,$a1,%lo(boot)
-/*     c9f8:	02002025 */ 	or	$a0,$s0,$zero
-/*     c9fc:	02203025 */ 	or	$a2,$s1,$zero
-/*     ca00:	0c003046 */ 	jal	func0000c118
-/*     ca04:	27a70064 */ 	addiu	$a3,$sp,0x64
-/*     ca08:	3c047005 */ 	lui	$a0,%hi(var70052c68)
-/*     ca0c:	00408825 */ 	or	$s1,$v0,$zero
-/*     ca10:	24842c68 */ 	addiu	$a0,$a0,%lo(var70052c68)
-/*     ca14:	0c00bea9 */ 	jal	rmonPrint
-/*     ca18:	02002825 */ 	or	$a1,$s0,$zero
-/*     ca1c:	8eab0000 */ 	lw	$t3,0x0($s5)
-/*     ca20:	8faa00f4 */ 	lw	$t2,0xf4($sp)
-/*     ca24:	24010004 */ 	addiu	$at,$zero,0x4
-/*     ca28:	000b6080 */ 	sll	$t4,$t3,0x2
-/*     ca2c:	014c6821 */ 	addu	$t5,$t2,$t4
-/*     ca30:	adb00000 */ 	sw	$s0,0x0($t5)
-/*     ca34:	8eae0000 */ 	lw	$t6,0x0($s5)
-/*     ca38:	3c047005 */ 	lui	$a0,%hi(var70052c70)
-/*     ca3c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*     ca40:	16610003 */ 	bne	$s3,$at,.L0000ca50
-/*     ca44:	aeaf0000 */ 	sw	$t7,0x0($s5)
-/*     ca48:	0c00bea9 */ 	jal	rmonPrint
-/*     ca4c:	24842c70 */ 	addiu	$a0,$a0,%lo(var70052c70)
-.L0000ca50:
-/*     ca50:	16200002 */ 	bnez	$s1,.L0000ca5c
-/*     ca54:	8fa800e0 */ 	lw	$t0,0xe0($sp)
-/*     ca58:	8e5100d4 */ 	lw	$s1,0xd4($s2)
-.L0000ca5c:
-/*     ca5c:	15000003 */ 	bnez	$t0,.L0000ca6c
-/*     ca60:	8fac005c */ 	lw	$t4,0x5c($sp)
-/*     ca64:	10000003 */ 	b	.L0000ca74
-/*     ca68:	8e5000e4 */ 	lw	$s0,0xe4($s2)
-.L0000ca6c:
-/*     ca6c:	8fa900e0 */ 	lw	$t1,0xe0($sp)
-/*     ca70:	8d300000 */ 	lw	$s0,0x0($t1)
-.L0000ca74:
-/*     ca74:	022c082b */ 	sltu	$at,$s1,$t4
-/*     ca78:	1420000a */ 	bnez	$at,.L0000caa4
-/*     ca7c:	262d0010 */ 	addiu	$t5,$s1,0x10
-/*     ca80:	0234082b */ 	sltu	$at,$s1,$s4
-/*     ca84:	10200007 */ 	beqz	$at,.L0000caa4
-/*     ca88:	2a620009 */ 	slti	$v0,$s3,0x9
-/*     ca8c:	11b40005 */ 	beq	$t5,$s4,.L0000caa4
-/*     ca90:	00000000 */ 	nop
-/*     ca94:	12000003 */ 	beqz	$s0,.L0000caa4
-/*     ca98:	00000000 */ 	nop
-/*     ca9c:	1440ffd4 */ 	bnez	$v0,.L0000c9f0
-/*     caa0:	26730001 */ 	addiu	$s3,$s3,0x1
-.L0000caa4:
-/*     caa4:	3c047005 */ 	lui	$a0,%hi(var70052c7c)
-/*     caa8:	0c00bea9 */ 	jal	rmonPrint
-/*     caac:	24842c7c */ 	addiu	$a0,$a0,%lo(var70052c7c)
-/*     cab0:	3c047005 */ 	lui	$a0,%hi(var70052c80)
-/*     cab4:	0c00bea9 */ 	jal	rmonPrint
-/*     cab8:	24842c80 */ 	addiu	$a0,$a0,%lo(var70052c80)
-/*     cabc:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*     cac0:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*     cac4:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*     cac8:	8fb2002c */ 	lw	$s2,0x2c($sp)
-/*     cacc:	8fb30030 */ 	lw	$s3,0x30($sp)
-/*     cad0:	8fb40034 */ 	lw	$s4,0x34($sp)
-/*     cad4:	8fb50038 */ 	lw	$s5,0x38($sp)
-/*     cad8:	27bd00f0 */ 	addiu	$sp,$sp,0xf0
-/*     cadc:	03e00008 */ 	jr	$ra
-/*     cae0:	00001025 */ 	or	$v0,$zero,$zero
-);
+	crashPrint("\n\nFAULT-\n");
+
+	if (g_Vars.unk0004e0 == 0) {
+		// Print a stack trace in a dodgy way.
+		// It works by iterating through the stack allocation, looking for any
+		// values which could potentially be a return address, and prints them.
+		u32 *stackend = (u32 *) crashGetStackEnd(ctx->sp, thread->id);
+		u32 *sp;
+		crashPrint("DodgyStackTrace: %08llx ", ctx->ra & 0xffffffff);
+		sp = (u32 *) ctx->sp;
+
+		while (sp < stackend) {
+			if (crashIsReturnAddress((u32 *)*sp)) {
+				crashPrint("%08x ", *sp);
+			}
+
+			sp++;
+		}
+
+		crashPrint(".\n");
+	}
+
+	crashPrint("%H#@! Another Perfect Crash (tm)\n");
+
+	if (g_Vars.unk0004e0 == 0) {
+		// Print floating point registers
+		crashPrint2Floats(0, ctx->fp0.f.f_odd, ctx->fp0.f.f_even);
+		crashPrint3Floats(2, ctx->fp2.f.f_odd, ctx->fp2.f.f_even, ctx->fp4.f.f_odd);
+		crashPrint3Floats(5, ctx->fp4.f.f_even, ctx->fp6.f.f_odd, ctx->fp6.f.f_even);
+		crashPrint3Floats(8, ctx->fp8.f.f_odd, ctx->fp8.f.f_even, ctx->fp10.f.f_odd);
+		crashPrint3Floats(11, ctx->fp10.f.f_even, ctx->fp12.f.f_odd, ctx->fp12.f.f_even);
+		crashPrint3Floats(14, ctx->fp14.f.f_odd, ctx->fp14.f.f_even, ctx->fp16.f.f_odd);
+		crashPrint3Floats(17, ctx->fp16.f.f_even, ctx->fp18.f.f_odd, ctx->fp18.f.f_even);
+		crashPrint3Floats(20, ctx->fp20.f.f_odd, ctx->fp20.f.f_even, ctx->fp22.f.f_odd);
+		crashPrint3Floats(23, ctx->fp22.f.f_even, ctx->fp24.f.f_odd, ctx->fp24.f.f_even);
+		crashPrint3Floats(26, ctx->fp26.f.f_odd, ctx->fp26.f.f_even, ctx->fp28.f.f_odd);
+		crashPrint3Floats(29, ctx->fp28.f.f_even, ctx->fp30.f.f_odd, ctx->fp30.f.f_even);
+	}
+
+	// Print integer registers
+	crashPrint("at 0x%016llx v0 0x%016llx v1 0x%016llx\n", ctx->at, ctx->v0, ctx->v1);
+	crashPrint("a0 0x%016llx a1 0x%016llx a2 0x%016llx\n", ctx->a0, ctx->a1, ctx->a2);
+	crashPrint("a3 0x%016llx t0 0x%016llx t1 0x%016llx\n", ctx->a3, ctx->t0, ctx->t1);
+	crashPrint("t2 0x%016llx t3 0x%016llx t4 0x%016llx\n", ctx->t2, ctx->t3, ctx->t4);
+	crashPrint("t5 0x%016llx t6 0x%016llx t7 0x%016llx\n", ctx->t5, ctx->t6, ctx->t7);
+	crashPrint("s0 0x%016llx s1 0x%016llx s2 0x%016llx\n", ctx->s0, ctx->s1, ctx->s2);
+	crashPrint("s3 0x%016llx s4 0x%016llx s5 0x%016llx\n", ctx->s3, ctx->s4, ctx->s5);
+	crashPrint("s6 0x%016llx s7 0x%016llx t8 0x%016llx\n", ctx->s6, ctx->s7, ctx->t8);
+	crashPrint("t9 0x%016llx gp 0x%016llx sp 0x%016llx\n", ctx->t9, ctx->gp, ctx->sp);
+	crashPrint("s8 0x%016llx ra 0x%016llx\n", ctx->s8, ctx->ra);
+
+	crashPrint("TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n",
+			thread->id, ctx->pc, ctx->cause, ctx->fpcsr, ctx->badvaddr, ctx->sr);
+
+	// Print the address of the faulted instruction, along with the instruction
+	// itself and the next three - presumably to help the developer locate it.
+	crashPrint("dshex -a %08x %08x %08x %08x %08x\n", ctx->pc,
+			((u32 *)ctx->pc)[0],
+			((u32 *)ctx->pc)[1],
+			((u32 *)ctx->pc)[2],
+			((u32 *)ctx->pc)[3]);
+
+	func0000cae4(ctx->cause, "cause", &var8005d5bc);
+	crashPrint(" : ");
+	func0000cae4(ctx->fpcsr, "fpcsr", &var8005d880);
+	crashPrint("\n");
+
+	// Print a proper stack trace
+	i = 0;
+	done = false;
+	sp = (u32 *)ctx->sp;
+	stackend = (u32 *) crashGetStackEnd((u32)sp, thread->id);
+	stackstart = (u32 *) crashGetStackStart((u32)sp, thread->id);
+	ptr = ctx->pc;
+	*tracelen = 0;
+	crashPrint("nearl: ");
+
+	while (!done) {
+		sp = (u32 *) func0000c118(ptr, &_libSegmentStart, (u32)sp, sp64);
+		crashPrint(" %08x ", ptr);
+
+		callstack[*tracelen] = ptr;
+		*tracelen = *tracelen + 1;
+
+		if (i == 4) {
+			crashPrint("\n       ");
+		}
+
+		if (sp == NULL) {
+			sp = (u32 *)ctx->sp;
+		}
+
+		if (sp64[31] == 0) {
+			ptr = ctx->ra;
+		} else {
+			ptr = *(u32 *)(sp64[31]);
+		}
+
+		if (sp < stackstart || sp >= stackend || stackend == &sp[4] || ptr == 0) {
+			break;
+		}
+
+		done = i >= 9;
+		i++;
+	}
+
+	crashPrint("\n");
+	crashPrint("\n");
+
+	return 0;
+}
 
 const char var70052c84[] = "%s <";
 const char var70052c8c[] = ",";
@@ -1056,7 +780,7 @@ glabel func0000cae4
 /*     cb04:	afb30024 */ 	sw	$s3,0x24($sp)
 /*     cb08:	afb20020 */ 	sw	$s2,0x20($sp)
 /*     cb0c:	24110001 */ 	addiu	$s1,$zero,0x1
-/*     cb10:	0c00bea9 */ 	jal	rmonPrint
+/*     cb10:	0c00bea9 */ 	jal	crashPrint
 /*     cb14:	24842c84 */ 	addiu	$a0,$a0,%lo(var70052c84)
 /*     cb18:	8e020000 */ 	lw	$v0,0x0($s0)
 /*     cb1c:	3c137005 */ 	lui	$s3,%hi(var70052c8c)
@@ -1074,11 +798,11 @@ glabel func0000cae4
 /*     cb48:	10000003 */ 	b	.L0000cb58
 /*     cb4c:	00008825 */ 	or	$s1,$zero,$zero
 .L0000cb50:
-/*     cb50:	0c00bea9 */ 	jal	rmonPrint
+/*     cb50:	0c00bea9 */ 	jal	crashPrint
 /*     cb54:	02602025 */ 	or	$a0,$s3,$zero
 .L0000cb58:
 /*     cb58:	02402025 */ 	or	$a0,$s2,$zero
-/*     cb5c:	0c00bea9 */ 	jal	rmonPrint
+/*     cb5c:	0c00bea9 */ 	jal	crashPrint
 /*     cb60:	8e050008 */ 	lw	$a1,0x8($s0)
 /*     cb64:	8e02000c */ 	lw	$v0,0xc($s0)
 .L0000cb68:
@@ -1087,7 +811,7 @@ glabel func0000cae4
 /*     cb70:	8e0e0004 */ 	lw	$t6,0x4($s0)
 .L0000cb74:
 /*     cb74:	3c047005 */ 	lui	$a0,%hi(var70052c94)
-/*     cb78:	0c00bea9 */ 	jal	rmonPrint
+/*     cb78:	0c00bea9 */ 	jal	crashPrint
 /*     cb7c:	24842c94 */ 	addiu	$a0,$a0,%lo(var70052c94)
 /*     cb80:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*     cb84:	8fb00018 */ 	lw	$s0,0x18($sp)

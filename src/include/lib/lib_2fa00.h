@@ -6,6 +6,6 @@
 
 void rmonproc();
 bool rmonIsDisabled(void);
-void rmonPrint(char *format, ...);
+void crashPrint(char *format, ...);
 
 #endif

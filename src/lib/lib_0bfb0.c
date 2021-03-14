@@ -13,5 +13,5 @@ void faultCreateThread(void)
 
 void func0000bfd0(char *arg0, char *arg1, s32 arg2)
 {
-	rmonPrint("ASSERTION : %s, %d: (\"%s\")\n", arg1, arg2, arg0);
+	crashPrint("ASSERTION : %s, %d: (\"%s\")\n", arg1, arg2, arg0);
 }
