@@ -910,7 +910,7 @@ glabel mainInit
 /*     d9ac:	24040008 */ 	addiu	$a0,$zero,0x8
 /*     d9b0:	0c00494a */ 	jal	memResetPool
 /*     d9b4:	24040006 */ 	addiu	$a0,$zero,0x6
-/*     d9b8:	0c0033be */ 	jal	func0000cef8
+/*     d9b8:	0c0033be */ 	jal	crashReset
 /*     d9bc:	00000000 */ 	nop
 /*     d9c0:	0fc02c84 */ 	jal	mpInitPresetFeatures
 /*     d9c4:	00000000 */ 	nop
@@ -1162,7 +1162,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //	memResetPool(MEMPOOL_8);
 //	memResetPool(MEMPOOL_PERMANENT);
-//	func0000cef8();
+//	crashReset();
 //	mpInitPresetFeatures();
 //	func0f176ddc();
 //	func000034d0();

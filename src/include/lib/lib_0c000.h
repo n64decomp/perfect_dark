@@ -96,11 +96,11 @@ bool crashIsDouble(f32 value);
 void rmonPrintFloat(s32 index, f32 arg1);
 void rmonPrint2Floats(s32 index, f32 value1, f32 value2);
 void rmonPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3);
-u32 func0000cba0(void);
+void crashPutChar(s32 x, s32 y, char c);
 u32 func0000cc34(void);
 void crashScroll(s32 numlines);
 void func0000cdc8(s32 x, s32 y, bool on);
-void func0000cef8(void);
+void crashReset(void);
 void func0000cf54(u16 *fb);
 
 #endif

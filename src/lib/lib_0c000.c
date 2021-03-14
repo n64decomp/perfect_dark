@@ -18,10 +18,6 @@ struct crashdescription {
 	const char *text;
 };
 
-struct var8005d994 {
-	u8 unk00[30][71];
-};
-
 struct crashdescription g_CrashCauseDescriptions[] = {
 	{ 0x80000000, 0x80000000, "BD"                                              },
 	{ 0x00008000, 0x00008000, "IP8"                                             },
@@ -110,10 +106,11 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 	{ 0x00000000, 0x00000000, ""              },
 };
 
-struct var8005d994 *var8005d994 = NULL;
+char (*g_CrashCharBuffer)[71] = NULL;
 u32 var8005d998 = 0;
 
 extern u32 _libSegmentStart;
+extern u32 _libSegmentEnd;
 
 void faultproc(void *arg0);
 void crashPrintDescription(u32 mask, char *label, struct crashdescription *descriptions);
@@ -287,8 +284,6 @@ glabel func0000c118
 /*     c238:	03e00008 */ 	jr	$ra
 /*     c23c:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
-
-extern u32 _libSegmentEnd;
 
 bool crashIsReturnAddress(u32 *instruction)
 {
@@ -556,52 +551,20 @@ void crashPrintDescription(u32 mask, char *label, struct crashdescription *descr
 	crashPrint(">");
 }
 
-GLOBAL_ASM(
-glabel func0000cba0
-/*     cba0:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*     cba4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*     cba8:	24010009 */ 	addiu	$at,$zero,0x9
-/*     cbac:	01c03025 */ 	or	$a2,$t6,$zero
-/*     cbb0:	11c10004 */ 	beq	$t6,$at,.L0000cbc4
-/*     cbb4:	01c01025 */ 	or	$v0,$t6,$zero
-/*     cbb8:	2401000a */ 	addiu	$at,$zero,0xa
-/*     cbbc:	15c10003 */ 	bne	$t6,$at,.L0000cbcc
-/*     cbc0:	00000000 */ 	nop
-.L0000cbc4:
-/*     cbc4:	00003025 */ 	or	$a2,$zero,$zero
-/*     cbc8:	00001025 */ 	or	$v0,$zero,$zero
-.L0000cbcc:
-/*     cbcc:	18400002 */ 	blez	$v0,.L0000cbd8
-/*     cbd0:	28410020 */ 	slti	$at,$v0,0x20
-/*     cbd4:	14200003 */ 	bnez	$at,.L0000cbe4
-.L0000cbd8:
-/*     cbd8:	2841007f */ 	slti	$at,$v0,0x7f
-/*     cbdc:	14200002 */ 	bnez	$at,.L0000cbe8
-/*     cbe0:	00000000 */ 	nop
-.L0000cbe4:
-/*     cbe4:	2406003f */ 	addiu	$a2,$zero,0x3f
-.L0000cbe8:
-/*     cbe8:	04800010 */ 	bltz	$a0,.L0000cc2c
-/*     cbec:	28810048 */ 	slti	$at,$a0,0x48
-/*     cbf0:	1020000e */ 	beqz	$at,.L0000cc2c
-/*     cbf4:	00000000 */ 	nop
-/*     cbf8:	04a0000c */ 	bltz	$a1,.L0000cc2c
-/*     cbfc:	28a1001e */ 	slti	$at,$a1,0x1e
-/*     cc00:	1020000a */ 	beqz	$at,.L0000cc2c
-/*     cc04:	3c028006 */ 	lui	$v0,%hi(var8005d994)
-/*     cc08:	8c42d994 */ 	lw	$v0,%lo(var8005d994)($v0)
-/*     cc0c:	000578c0 */ 	sll	$t7,$a1,0x3
-/*     cc10:	01e57821 */ 	addu	$t7,$t7,$a1
-/*     cc14:	10400005 */ 	beqz	$v0,.L0000cc2c
-/*     cc18:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*     cc1c:	01e57823 */ 	subu	$t7,$t7,$a1
-/*     cc20:	004fc021 */ 	addu	$t8,$v0,$t7
-/*     cc24:	0304c821 */ 	addu	$t9,$t8,$a0
-/*     cc28:	a3260000 */ 	sb	$a2,0x0($t9)
-.L0000cc2c:
-/*     cc2c:	03e00008 */ 	jr	$ra
-/*     cc30:	00000000 */ 	nop
-);
+void crashPutChar(s32 x, s32 y, char c)
+{
+	if (c == '\t' || c == '\n') {
+		c = '\0';
+	}
+
+	if ((c > '\0' && c < ' ') || c > '~') {
+		c = '?';
+	}
+
+	if (x >= 0 && x < 72 && y >= 0 && y < 30 && g_CrashCharBuffer != NULL) {
+		g_CrashCharBuffer[y][x] = c;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0000cc34
@@ -659,7 +622,7 @@ glabel func0000cc34
 /*     ccf0:	50410012 */ 	beql	$v0,$at,.L0000cd3c
 /*     ccf4:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*     ccf8:	86040000 */ 	lh	$a0,0x0($s0)
-/*     ccfc:	0c0032e8 */ 	jal	func0000cba0
+/*     ccfc:	0c0032e8 */ 	jal	crashPutChar
 /*     cd00:	84650000 */ 	lh	$a1,0x0($v1)
 /*     cd04:	86090000 */ 	lh	$t1,0x0($s0)
 /*     cd08:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
@@ -689,14 +652,14 @@ void crashScroll(s32 numlines)
 	s32 y;
 	s32 x;
 
-	if (var8005d994 == NULL) {
+	if (g_CrashCharBuffer == NULL) {
 		return;
 	}
 
 	while (numlines-- > 0) {
 		for (y = 0; y < 29; y++) {
 			for (x = 0; x < 71; x++) {
-				var8005d994->unk00[y][x] = var8005d994->unk00[y + 1][x];
+				g_CrashCharBuffer[y][x] = g_CrashCharBuffer[y + 1][x];
 			}
 		}
 	}
@@ -793,18 +756,18 @@ glabel func0000cdc8
 /*     cef4:	00000000 */ 	nop
 );
 
-void func0000cef8(void)
+void crashReset(void)
 {
-	var8005d994 = NULL;
+	g_CrashCharBuffer = NULL;
 
-	if (var8005d994) {
+	if (g_CrashCharBuffer) {
 		// Unreachable
-		s32 i;
-		s32 j;
+		s32 x;
+		s32 y;
 
-		for (i = 0; i < 30; i++) {
-			for (j = 0; j < 71; j++) {
-				var8005d994->unk00[i][j] = 0;
+		for (y = 0; y < 30; y++) {
+			for (x = 0; x < 71; x++) {
+				g_CrashCharBuffer[y][x] = '\0';
 			}
 		}
 	}
@@ -822,10 +785,10 @@ void func0000cf54(u16 *fb)
 	width = (viGetWidth() - 13) / 4;
 	height = (viGetHeight() - 10) / 7 - 1;
 
-	if (var8005d994 != NULL) {
+	if (g_CrashCharBuffer != NULL) {
 		for (y = 0; y < height && y < 29; y++) {
 			for (x = 0; x < width - 5 && x < 71; x++) {
-				func0000cdc8(20 + x * 4, 7 + y * 7, var8005d994->unk00[y][x]);
+				func0000cdc8(20 + x * 4, 7 + y * 7, g_CrashCharBuffer[y][x]);
 			}
 		}
 	}
