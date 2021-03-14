@@ -107,7 +107,7 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 };
 
 char (*g_CrashCharBuffer)[71] = NULL;
-u32 var8005d998 = 0;
+u16 *g_CrashFrameBuffer = NULL;
 
 extern u32 _libSegmentStart;
 extern u32 _libSegmentEnd;
@@ -620,96 +620,73 @@ void crashScroll(s32 numlines)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0000cdc8
-/*     cdc8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     cdcc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     cdd0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     cdd4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*     cdd8:	0c002f02 */ 	jal	viGetWidth
-/*     cddc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*     cde0:	93a30023 */ 	lbu	$v1,0x23($sp)
-/*     cde4:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*     cde8:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*     cdec:	54600003 */ 	bnezl	$v1,.L0000cdfc
-/*     cdf0:	28610020 */ 	slti	$at,$v1,0x20
-/*     cdf4:	24030020 */ 	addiu	$v1,$zero,0x20
-/*     cdf8:	28610020 */ 	slti	$at,$v1,0x20
-.L0000cdfc:
-/*     cdfc:	1420003a */ 	bnez	$at,.L0000cee8
-/*     ce00:	2861007f */ 	slti	$at,$v1,0x7f
-/*     ce04:	10200038 */ 	beqz	$at,.L0000cee8
-/*     ce08:	38490280 */ 	xori	$t1,$v0,0x280
-/*     ce0c:	2d290001 */ 	sltiu	$t1,$t1,0x1
-/*     ce10:	1120000a */ 	beqz	$t1,.L0000ce3c
-/*     ce14:	00006025 */ 	or	$t4,$zero,$zero
-/*     ce18:	00c20019 */ 	multu	$a2,$v0
-/*     ce1c:	3c188006 */ 	lui	$t8,%hi(var8005d998)
-/*     ce20:	8f18d998 */ 	lw	$t8,%lo(var8005d998)($t8)
-/*     ce24:	00057880 */ 	sll	$t7,$a1,0x2
-/*     ce28:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*     ce2c:	00007012 */ 	mflo	$t6
-/*     ce30:	000e7840 */ 	sll	$t7,$t6,0x1
-/*     ce34:	10000009 */ 	b	.L0000ce5c
-/*     ce38:	032f2021 */ 	addu	$a0,$t9,$t7
-.L0000ce3c:
-/*     ce3c:	00c20019 */ 	multu	$a2,$v0
-/*     ce40:	3c0e8006 */ 	lui	$t6,%hi(var8005d998)
-/*     ce44:	8dced998 */ 	lw	$t6,%lo(var8005d998)($t6)
-/*     ce48:	0005c040 */ 	sll	$t8,$a1,0x1
-/*     ce4c:	030ec821 */ 	addu	$t9,$t8,$t6
-/*     ce50:	00007812 */ 	mflo	$t7
-/*     ce54:	000fc040 */ 	sll	$t8,$t7,0x1
-/*     ce58:	03382021 */ 	addu	$a0,$t9,$t8
-.L0000ce5c:
-/*     ce5c:	00003025 */ 	or	$a2,$zero,$zero
-/*     ce60:	00026840 */ 	sll	$t5,$v0,0x1
-/*     ce64:	241f0007 */ 	addiu	$ra,$zero,0x7
-/*     ce68:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*     ce6c:	3c0a8000 */ 	lui	$t2,0x8000
-/*     ce70:	24080001 */ 	addiu	$t0,$zero,0x1
-/*     ce74:	24077bdf */ 	addiu	$a3,$zero,0x7bdf
-/*     ce78:	00002825 */ 	or	$a1,$zero,$zero
-.L0000ce7c:
-/*     ce7c:	00ca1824 */ 	and	$v1,$a2,$t2
-/*     ce80:	10600003 */ 	beqz	$v1,.L0000ce90
-/*     ce84:	00067040 */ 	sll	$t6,$a2,0x1
-/*     ce88:	10000002 */ 	b	.L0000ce94
-/*     ce8c:	a4870000 */ 	sh	$a3,0x0($a0)
-.L0000ce90:
-/*     ce90:	a4880000 */ 	sh	$t0,0x0($a0)
-.L0000ce94:
-/*     ce94:	11200006 */ 	beqz	$t1,.L0000ceb0
-/*     ce98:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*     ce9c:	50600004 */ 	beqzl	$v1,.L0000ceb0
-/*     cea0:	a4880002 */ 	sh	$t0,0x2($a0)
-/*     cea4:	10000002 */ 	b	.L0000ceb0
-/*     cea8:	a4870002 */ 	sh	$a3,0x2($a0)
-/*     ceac:	a4880002 */ 	sh	$t0,0x2($a0)
-.L0000ceb0:
-/*     ceb0:	11200002 */ 	beqz	$t1,.L0000cebc
-/*     ceb4:	24840002 */ 	addiu	$a0,$a0,0x2
-/*     ceb8:	24840002 */ 	addiu	$a0,$a0,0x2
-.L0000cebc:
-/*     cebc:	14abffef */ 	bne	$a1,$t3,.L0000ce7c
-/*     cec0:	01c03025 */ 	or	$a2,$t6,$zero
-/*     cec4:	11200004 */ 	beqz	$t1,.L0000ced8
-/*     cec8:	258c0001 */ 	addiu	$t4,$t4,0x1
-/*     cecc:	008d2021 */ 	addu	$a0,$a0,$t5
-/*     ced0:	10000003 */ 	b	.L0000cee0
-/*     ced4:	2484fff0 */ 	addiu	$a0,$a0,-16
-.L0000ced8:
-/*     ced8:	008d2021 */ 	addu	$a0,$a0,$t5
-/*     cedc:	2484fff8 */ 	addiu	$a0,$a0,-8
-.L0000cee0:
-/*     cee0:	559fffe6 */ 	bnel	$t4,$ra,.L0000ce7c
-/*     cee4:	00002825 */ 	or	$a1,$zero,$zero
-.L0000cee8:
-/*     cee8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     ceec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     cef0:	03e00008 */ 	jr	$ra
-/*     cef4:	00000000 */ 	nop
-);
+void func0000cdc8(s32 x, s32 y, char c)
+{
+	s32 i;
+	s32 j;
+	s32 width;
+	u16 *fbpos;
+	bool hires;
+	s32 tmp;
+	u32 a2;
+
+	width = viGetWidth();
+
+	if (c == '\0') {
+		c = ' ';
+	}
+
+	if (c < ' ' || c > '~') {
+		return;
+	}
+
+	hires = (width == 640);
+
+	if (hires) {
+		fbpos = g_CrashFrameBuffer + x * 2 + y * width;
+	} else {
+		fbpos = g_CrashFrameBuffer + x + y * width;
+	}
+
+	a2 = 0;
+
+	for (i = 0; i < 7; i++) {
+		for (j = 0; j < 4; j++) {
+			// "special" occurs every 32nd pixel
+			u32 special = a2 & 0x80000000;
+
+			if (special) {
+				fbpos[0] = 0x7bdf;
+			} else {
+				fbpos[0] = 1;
+			}
+
+			if (hires) {
+				if (special) {
+					fbpos[1] = 0x7bdf;
+				} else {
+					fbpos[1] = 1;
+				}
+			}
+
+			fbpos++;
+
+			if (hires) {
+				fbpos++;
+			}
+
+			a2 *= 2;
+		}
+
+		if (hires) {
+			fbpos += width;
+			fbpos -= 8;
+		} else {
+			fbpos += width;
+			fbpos -= 4;
+		}
+	}
+}
 
 void crashReset(void)
 {
@@ -735,7 +712,7 @@ void func0000cf54(u16 *fb)
 	s32 x;
 	s32 y;
 
-	var8005d998 = (u32)fb | 0xa0000000;
+	g_CrashFrameBuffer = (u16 *) PHYS_TO_K1(fb);
 
 	width = (viGetWidth() - 13) / 4;
 	height = (viGetHeight() - 10) / 7 - 1;

@@ -99,7 +99,7 @@ void rmonPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3);
 void crashPutChar(s32 x, s32 y, char c);
 void crashAppendChar(char c);
 void crashScroll(s32 numlines);
-void func0000cdc8(s32 x, s32 y, bool on);
+void func0000cdc8(s32 x, s32 y, char c);
 void crashReset(void);
 void func0000cf54(u16 *fb);
 
