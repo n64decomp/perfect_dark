@@ -18,6 +18,10 @@ struct crashdescription {
 	const char *text;
 };
 
+struct var8005d994 {
+	u8 unk00[30][71];
+};
+
 struct crashdescription g_CrashCauseDescriptions[] = {
 	{ 0x80000000, 0x80000000, "BD"                                              },
 	{ 0x00008000, 0x00008000, "IP8"                                             },
@@ -106,7 +110,7 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 	{ 0x00000000, 0x00000000, ""              },
 };
 
-u32 var8005d994 = 0;
+struct var8005d994 *var8005d994 = NULL;
 u32 var8005d998 = 0;
 
 extern u32 _libSegmentStart;
@@ -808,34 +812,22 @@ glabel func0000cdc8
 /*     cef4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0000cef8
-/*     cef8:	3c048006 */ 	lui	$a0,%hi(var8005d994)
-/*     cefc:	2484d994 */ 	addiu	$a0,$a0,%lo(var8005d994)
-/*     cf00:	10000012 */ 	b	.L0000cf4c
-/*     cf04:	ac800000 */ 	sw	$zero,0x0($a0)
-/*     cf08:	00001025 */ 	or	$v0,$zero,$zero
-/*     cf0c:	2406001e */ 	addiu	$a2,$zero,0x1e
-/*     cf10:	24050047 */ 	addiu	$a1,$zero,0x47
-/*     cf14:	00001825 */ 	or	$v1,$zero,$zero
-.L0000cf18:
-/*     cf18:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*     cf1c:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*     cf20:	0302c021 */ 	addu	$t8,$t8,$v0
-/*     cf24:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*     cf28:	0302c023 */ 	subu	$t8,$t8,$v0
-/*     cf2c:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*     cf30:	03234021 */ 	addu	$t0,$t9,$v1
-/*     cf34:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     cf38:	1465fff7 */ 	bne	$v1,$a1,.L0000cf18
-/*     cf3c:	a1000000 */ 	sb	$zero,0x0($t0)
-/*     cf40:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     cf44:	5446fff4 */ 	bnel	$v0,$a2,.L0000cf18
-/*     cf48:	00001825 */ 	or	$v1,$zero,$zero
-.L0000cf4c:
-/*     cf4c:	03e00008 */ 	jr	$ra
-/*     cf50:	00000000 */ 	nop
-);
+void func0000cef8(void)
+{
+	var8005d994 = NULL;
+
+	if (var8005d994) {
+		// Unreachable
+		s32 i;
+		s32 j;
+
+		for (i = 0; i < 30; i++) {
+			for (j = 0; j < 71; j++) {
+				var8005d994->unk00[i][j] = 0;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0000cf54
