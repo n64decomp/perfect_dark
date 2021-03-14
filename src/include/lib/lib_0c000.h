@@ -99,8 +99,8 @@ void rmonPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3);
 u32 func0000cba0(void);
 u32 func0000cc34(void);
 u32 func0000cd4c(void);
-u32 func0000cdc8(void);
+void func0000cdc8(s32 x, s32 y, bool on);
 void func0000cef8(void);
-void func0000cf54(void *framebuffer);
+void func0000cf54(u16 *fb);
 
 #endif

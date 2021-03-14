@@ -829,95 +829,23 @@ void func0000cef8(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0000cf54
-/*     cf54:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*     cf58:	3c01a000 */ 	lui	$at,0xa000
-/*     cf5c:	00817025 */ 	or	$t6,$a0,$at
-/*     cf60:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*     cf64:	3c018006 */ 	lui	$at,%hi(var8005d998)
-/*     cf68:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*     cf6c:	afb70034 */ 	sw	$s7,0x34($sp)
-/*     cf70:	afb60030 */ 	sw	$s6,0x30($sp)
-/*     cf74:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*     cf78:	afb40028 */ 	sw	$s4,0x28($sp)
-/*     cf7c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*     cf80:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     cf84:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     cf88:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     cf8c:	0c002f02 */ 	jal	viGetWidth
-/*     cf90:	ac2ed998 */ 	sw	$t6,%lo(var8005d998)($at)
-/*     cf94:	2450fff3 */ 	addiu	$s0,$v0,-13
-/*     cf98:	06010003 */ 	bgez	$s0,.L0000cfa8
-/*     cf9c:	00107883 */ 	sra	$t7,$s0,0x2
-/*     cfa0:	26010003 */ 	addiu	$at,$s0,0x3
-/*     cfa4:	00017883 */ 	sra	$t7,$at,0x2
-.L0000cfa8:
-/*     cfa8:	0c002f06 */ 	jal	viGetHeight
-/*     cfac:	01e08025 */ 	or	$s0,$t7,$zero
-/*     cfb0:	2443fff6 */ 	addiu	$v1,$v0,-10
-/*     cfb4:	24010007 */ 	addiu	$at,$zero,0x7
-/*     cfb8:	0061001a */ 	div	$zero,$v1,$at
-/*     cfbc:	3c168006 */ 	lui	$s6,%hi(var8005d994)
-/*     cfc0:	26d6d994 */ 	addiu	$s6,$s6,%lo(var8005d994)
-/*     cfc4:	8ed90000 */ 	lw	$t9,0x0($s6)
-/*     cfc8:	0000c012 */ 	mflo	$t8
-/*     cfcc:	2703ffff */ 	addiu	$v1,$t8,-1
-/*     cfd0:	13200024 */ 	beqz	$t9,.L0000d064
-/*     cfd4:	0060f025 */ 	or	$s8,$v1,$zero
-/*     cfd8:	18600022 */ 	blez	$v1,.L0000d064
-/*     cfdc:	00009825 */ 	or	$s3,$zero,$zero
-/*     cfe0:	2615fffb */ 	addiu	$s5,$s0,-5
-/*     cfe4:	2417001d */ 	addiu	$s7,$zero,0x1d
-/*     cfe8:	24140047 */ 	addiu	$s4,$zero,0x47
-.L0000cfec:
-/*     cfec:	1aa00017 */ 	blez	$s5,.L0000d04c
-/*     cff0:	00008025 */ 	or	$s0,$zero,$zero
-/*     cff4:	001390c0 */ 	sll	$s2,$s3,0x3
-/*     cff8:	02539023 */ 	subu	$s2,$s2,$s3
-/*     cffc:	00008880 */ 	sll	$s1,$zero,0x2
-/*     d000:	26310014 */ 	addiu	$s1,$s1,0x14
-/*     d004:	26520007 */ 	addiu	$s2,$s2,0x7
-/*     d008:	001348c0 */ 	sll	$t1,$s3,0x3
-.L0000d00c:
-/*     d00c:	8ec80000 */ 	lw	$t0,0x0($s6)
-/*     d010:	01334821 */ 	addu	$t1,$t1,$s3
-/*     d014:	000948c0 */ 	sll	$t1,$t1,0x3
-/*     d018:	01334823 */ 	subu	$t1,$t1,$s3
-/*     d01c:	01095021 */ 	addu	$t2,$t0,$t1
-/*     d020:	01505821 */ 	addu	$t3,$t2,$s0
-/*     d024:	91660000 */ 	lbu	$a2,0x0($t3)
-/*     d028:	02202025 */ 	or	$a0,$s1,$zero
-/*     d02c:	0c003372 */ 	jal	func0000cdc8
-/*     d030:	02402825 */ 	or	$a1,$s2,$zero
-/*     d034:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d038:	0215082a */ 	slt	$at,$s0,$s5
-/*     d03c:	10200003 */ 	beqz	$at,.L0000d04c
-/*     d040:	26310004 */ 	addiu	$s1,$s1,0x4
-/*     d044:	5614fff1 */ 	bnel	$s0,$s4,.L0000d00c
-/*     d048:	001348c0 */ 	sll	$t1,$s3,0x3
-.L0000d04c:
-/*     d04c:	26730001 */ 	addiu	$s3,$s3,0x1
-/*     d050:	027e082a */ 	slt	$at,$s3,$s8
-/*     d054:	50200004 */ 	beqzl	$at,.L0000d068
-/*     d058:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*     d05c:	1677ffe3 */ 	bne	$s3,$s7,.L0000cfec
-/*     d060:	00000000 */ 	nop
-.L0000d064:
-/*     d064:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0000d068:
-/*     d068:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     d06c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     d070:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     d074:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*     d078:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*     d07c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*     d080:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*     d084:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*     d088:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*     d08c:	03e00008 */ 	jr	$ra
-/*     d090:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*     d094:	00000000 */ 	nop
-/*     d098:	00000000 */ 	nop
-/*     d09c:	00000000 */ 	nop
-);
+void func0000cf54(u16 *fb)
+{
+	s32 width;
+	s32 height;
+	s32 x;
+	s32 y;
+
+	var8005d998 = (u32)fb | 0xa0000000;
+
+	width = (viGetWidth() - 13) / 4;
+	height = (viGetHeight() - 10) / 7 - 1;
+
+	if (var8005d994 != NULL) {
+		for (y = 0; y < height && y < 29; y++) {
+			for (x = 0; x < width - 5 && x < 71; x++) {
+				func0000cdc8(20 + x * 4, 7 + y * 7, var8005d994->unk00[y][x]);
+			}
+		}
+	}
+}
