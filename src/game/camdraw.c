@@ -9,7 +9,7 @@
 #include "game/pak/pak.h"
 #include "game/splat.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "lib/memory.h"
 #include "lib/lib_126b0.h"

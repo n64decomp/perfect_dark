@@ -9,7 +9,7 @@
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/pak/pak.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 

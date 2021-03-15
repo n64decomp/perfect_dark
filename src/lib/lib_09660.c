@@ -5,7 +5,7 @@
 #include "game/file.h"
 #include "game/game_176080.h"
 #include "game/options.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09660.h"
 #include "lib/memory.h"
 #include "lib/lib_159b0.h"
@@ -16,6 +16,13 @@
 #include "types.h"
 
 u32 var8005d520 = 0;
+
+u32 var80091900[4];
+u32 var80091910[400];
+u32 var80091f50[480];
+OSMesgQueue var800926d0;
+u32 var800926e8[80];
+u32 var80092828;
 
 GLOBAL_ASM(
 glabel func00009660
@@ -246,10 +253,10 @@ glabel func00009844
 /*     98a0:	1a600018 */ 	blez	$s3,.L00009904
 /*     98a4:	ac780008 */ 	sw	$t8,0x8($v1)
 /*     98a8:	3c108009 */ 	lui	$s0,%hi(var80091910)
-/*     98ac:	3c128009 */ 	lui	$s2,%hi(var80091924)
+/*     98ac:	3c128009 */ 	lui	$s2,%hi(var80091910+0x14)
 /*     98b0:	3c148009 */ 	lui	$s4,%hi(var800951f0)
 /*     98b4:	269451f0 */ 	addiu	$s4,$s4,%lo(var800951f0)
-/*     98b8:	26521924 */ 	addiu	$s2,$s2,%lo(var80091924)
+/*     98b8:	26521924 */ 	addiu	$s2,$s2,%lo(var80091910+0x14)
 /*     98bc:	26101910 */ 	addiu	$s0,$s0,%lo(var80091910)
 .L000098c0:
 /*     98c0:	02402025 */ 	or	$a0,$s2,$zero

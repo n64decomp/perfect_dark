@@ -1,9 +1,24 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "lib/reset.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
+
+OSMesg g_ResetMesg;
+u32 var8008fa84;
+u32 var8008fa88;
+u32 var8008fa8c;
+u32 var8008fa90;
+u32 var8008fa94;
+u32 var8008fa98;
+u32 var8008fa9c;
+u32 var8008faa0;
+u32 var8008faa4;
+OSMesgQueue g_ResetMesgQueue;
+OSThread g_ResetThread;
+u8 g_ResetStack[STACKSIZE_RESET+1];
+u32 var8008fdf4;
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(

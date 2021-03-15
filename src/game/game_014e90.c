@@ -6,7 +6,7 @@
 #include "game/prop.h"
 #include "game/game_197600.h"
 #include "game/mplayer/mplayer.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "lib/model.h"
 #include "lib/rng.h"

@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/casing.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"

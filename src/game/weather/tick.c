@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/weather/weather.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "data.h"
 #include "types.h"

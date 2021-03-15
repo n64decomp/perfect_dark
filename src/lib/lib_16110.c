@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/atan2f.h"
 #include "game/padhalllv.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_4f5e0.h"

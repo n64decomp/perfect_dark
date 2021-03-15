@@ -126,7 +126,7 @@ CFLAGS = -DVERSION=$(VERSION) \
 	$(OPT_LVL) \
 	$(MIPSISET)
 
-C_FILES := $(shell find src/gvars src/lib src/game src/inflate -name '*.c')
+C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game -name '*.s')
 
 # Create names such as $(B_DIR)/assets/files/PfooZ
@@ -236,7 +236,6 @@ CHECK_FILES := \
 	$(B_DIR)/segments/firingrange.bin \
 	$(B_DIR)/segments/game.bin \
 	$(B_DIR)/segments/data.bin \
-	$(B_DIR)/segments/gvars.bin \
 	$(B_DIR)/segments/lib.bin \
 	$(B_DIR)/segments/inflate.bin \
 	$(B_DIR)/segments/mpconfigs.bin \
@@ -513,4 +512,4 @@ assetsclean:
 
 codeclean:
 	rm -f $(B_DIR)/segments/*.bin
-	find $(B_DIR)/{game,gvars,inflate,lib} -name '*.o' -delete
+	find $(B_DIR)/{game,inflate,lib} -name '*.o' -delete

@@ -5,7 +5,7 @@
 #include "game/game_0b3350.h"
 #include "game/training/training.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"

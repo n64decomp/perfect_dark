@@ -5,7 +5,7 @@
 #include "game/game_0b69d0.h"
 #include "game/game_127910.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "data.h"

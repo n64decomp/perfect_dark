@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "firingrange/frcommands.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "types.h"
 
 #if NTSC

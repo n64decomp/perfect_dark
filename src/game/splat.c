@@ -6,7 +6,7 @@
 #include "game/splat.h"
 #include "game/utils.h"
 #include "game/wallhit.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

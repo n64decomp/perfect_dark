@@ -13,7 +13,7 @@
 #include "game/pak/pak.h"
 #include "game/options.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_0bfb0.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_126b0.h"
@@ -43,7 +43,7 @@ u32 var800a2318;
 u32 var800a231c;
 u32 var800a2320;
 u32 var800a2324;
-u8 var800a2328[];
+u8 var800a2328[4];
 u8 g_AltTitle;
 u32 var800a2330;
 u32 var800a2334;

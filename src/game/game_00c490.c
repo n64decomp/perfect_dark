@@ -27,7 +27,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "lib/model.h"
 #include "lib/rng.h"

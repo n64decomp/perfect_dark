@@ -6,7 +6,7 @@
 #include "game/room.h"
 #include "game/game_1a7560.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 

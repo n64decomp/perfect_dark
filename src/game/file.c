@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/file.h"
 #include "game/stubs/game_175f50.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_074f0.h"
 #include "lib/dma.h"
 #include "lib/memory.h"

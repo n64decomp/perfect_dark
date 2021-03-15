@@ -3,7 +3,7 @@
 #include "game/game_013cf0.h"
 #include "game/room.h"
 #include "game/file.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 

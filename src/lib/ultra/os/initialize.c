@@ -1,6 +1,6 @@
 #include <libultra_internal.h>
 #include "data.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 
 typedef struct {
 	unsigned int inst1;
@@ -11,6 +11,8 @@ typedef struct {
 
 extern __osExceptionVector __osExceptionPreamble;
 extern u32 osAppNMIBuffer;
+
+u32 __osFinalRom;
 
 void osInitialize(void)
 {

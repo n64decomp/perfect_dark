@@ -19,16 +19,6 @@
 	_##name##SegmentEnd = ADDR(.name) + SIZEOF(.name); \
 	_##name##SegmentRomEnd = __rompos;
 
-#define BEGIN_NOLOAD(name) \
-	_##name##SegmentStart = ADDR(.name); \
-	_##name##SegmentRomStart = __rompos; \
-	.name (NOLOAD) : AT(__rompos)
-
-#define END_NOLOAD(name) \
-	__rompos += SIZEOF(.name); \
-	_##name##SegmentEnd = ADDR(.name) + SIZEOF(.name); \
-	_##name##SegmentRomEnd = __rompos;
-
 #define MPSTRINGS(lang) \
 	BEGIN_SEG(mpstrings##lang) \
 	{ \
@@ -293,23 +283,14 @@ SECTIONS
 	 * ROM range: N/A
 	 * RAM range: 0x8008ae20 - 0x800ad1c0
 	 * -------------------------------------------------------------------------
-	 * BSS is currently implemented using data instead of BSS, because having
-	 * all BSS in one file causes the linker to choose the addresses
-	 * non-linearly. Eventually this file will be spread out into the code files
-	 * and it can become BSS at that point.
-	 *
-	 * For now, place it past the end of the ROM, where it'll be truncated.
-	 * We can do this because we only memory addresses for this segment, not
-	 * ROM addresses.
 	 */
 
-	BEGIN_NOLOAD(gvars)
+	BEGIN_SEG(bss)
 	{
 		LIBFILES(.bss)
-		build/ROMID/gvars/gvars.o (.data);
 		GAMEFILES(.bss)
 	}
-	END_NOLOAD(gvars)
+	END_SEG(bss)
 
 	/***************************************************************************
 	 * inflate

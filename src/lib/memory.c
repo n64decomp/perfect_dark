@@ -1,9 +1,14 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "data.h"
 #include "types.h"
+
+struct memorypool g_OnboardMemoryPools[9];
+u32 var800993b4;
+struct memorypool g_ExpansionMemoryPools[9];
+u32 var8009946c;
 
 void func000121e0(void)
 {

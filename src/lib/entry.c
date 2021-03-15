@@ -2,7 +2,7 @@
 #include "lib/entry.h"
 #include "constants.h"
 #include "game/game_0e0770.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/args.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_09660.h"
@@ -16,6 +16,29 @@
 #include "data.h"
 #include "types.h"
 
+u32 var8008ae20;
+u32 var8008ae24;
+u32 var8008ae28;
+u32 var8008ae2c;
+u32 var8008ae30;
+u32 var8008ae34;
+u8 var8008ae38[0x1000];
+u8 var8008be38[0x1400];
+u32 var8008d238;
+u32 var8008d23c;
+u32 var8008d240;
+u32 var8008d244;
+u32 var8008d248;
+u32 var8008d24c;
+u32 var8008d250;
+u32 var8008d254;
+u32 var8008d258;
+u32 var8008d25c;
+u32 var8008d260;
+u32 var8008d264;
+u32 var8008d268;
+u32 var8008d26c;
+
 /**
  * This function is generated automatically by makerom. It clears the BSS
  * segment, sets the stack pointer to 0x80000f10 and then calls boot.
@@ -23,9 +46,9 @@
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel preamble
-/*     1000:	3c088009 */ 	lui	$t0,%hi(_gvarsSegmentStart)
+/*     1000:	3c088009 */ 	lui	$t0,%hi(_bssSegmentStart)
 /*     1004:	3c090002 */ 	lui	$t1,0x2
-/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(_gvarsSegmentStart)
+/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(_bssSegmentStart)
 /*     100c:	352923a0 */ 	ori	$t1,$t1,0x23f0
 .L00001010:
 /*     1010:	2129fff8 */ 	addi	$t1,$t1,-8
@@ -48,9 +71,9 @@ glabel preamble
 #else
 GLOBAL_ASM(
 glabel preamble
-/*     1000:	3c088009 */ 	lui	$t0,%hi(_gvarsSegmentStart)
+/*     1000:	3c088009 */ 	lui	$t0,%hi(_bssSegmentStart)
 /*     1004:	3c090002 */ 	lui	$t1,0x2
-/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(_gvarsSegmentStart)
+/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(_bssSegmentStart)
 /*     100c:	352923a0 */ 	ori	$t1,$t1,0x23a0
 .L00001010:
 /*     1010:	2129fff8 */ 	addi	$t1,$t1,-8

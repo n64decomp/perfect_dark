@@ -2,6 +2,23 @@
 #include "libultra_internal.h"
 #include "data.h"
 
+u32 var80090a70;
+u32 var80090a74;
+u32 var80090a78;
+u32 var80090a7c;
+u32 var80090a80;
+u32 var80090a84;
+u32 var80090a88;
+u32 var80090a8c;
+u32 var80090a90;
+u32 var80090a94;
+u32 var80090a98;
+u32 var80090a9c;
+u32 var80090aa0;
+u32 var80090aa4;
+u32 var80090aa8;
+u32 var80090aac;
+
 OSTask *_VirtualToPhysicalTask(OSTask *intp);
 
 GLOBAL_ASM(

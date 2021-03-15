@@ -13,7 +13,7 @@
 #include "game/pak/pak.h"
 #include "game/options.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_0bfb0.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_126b0.h"

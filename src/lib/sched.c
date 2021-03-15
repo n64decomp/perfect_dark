@@ -3,7 +3,7 @@
 #include "lib/sched.h"
 #include "constants.h"
 #include "game/game_0e0770.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/args.h"
 #include "lib/audiomgr.h"
 #include "lib/lib_074f0.h"
@@ -17,6 +17,24 @@
 #include "lib/lib_48150.h"
 #include "data.h"
 #include "types.h"
+
+OSViMode var8008dcc0[2];
+OSViMode *var8008dd60[2];
+OSViMode var8008dd68[2];
+u32 var8008de08;
+u32 var8008de0c;
+u32 var8008de10;
+u32 var8008de14;
+OSTimer var8008de18;
+u32 var8008de38;
+u32 var8008de3c;
+u32 var8008de40;
+u32 var8008de44;
+struct bootbufferthing g_BootBuffers[3];
+u8 g_BootBufferDirtyIndexes[3];
+s32 g_BootBufferIndex0;
+s32 g_BootBufferIndex1;
+s32 g_BootBufferIndex2;
 
 void func00001b10(u32 value)
 {

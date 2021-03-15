@@ -24,7 +24,7 @@
 #include "game/padhalllv.h"
 #include "game/propobj.h"
 #include "game/wallhit.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/dma.h"
 #include "lib/main.h"

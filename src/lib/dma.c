@@ -1,9 +1,47 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/dma.h"
 #include "data.h"
 #include "types.h"
+
+volatile u32 g_DmaNumSlotsBusy;
+u32 var80094ae4;
+OSIoMesg g_DmaIoMsgs[32];
+volatile u8 g_DmaSlotsBusy[32];
+OSMesg var80094e08;
+u32 var80094e0c;
+u32 var80094e10;
+u32 var80094e14;
+u32 var80094e18;
+u32 var80094e1c;
+u32 var80094e20;
+u32 var80094e24;
+u32 var80094e28;
+u32 var80094e2c;
+u32 var80094e30;
+u32 var80094e34;
+u32 var80094e38;
+u32 var80094e3c;
+u32 var80094e40;
+u32 var80094e44;
+u32 var80094e48;
+u32 var80094e4c;
+u32 var80094e50;
+u32 var80094e54;
+u32 var80094e58;
+u32 var80094e5c;
+u32 var80094e60;
+u32 var80094e64;
+u32 var80094e68;
+u32 var80094e6c;
+u32 var80094e70;
+u32 var80094e74;
+u32 var80094e78;
+u32 var80094e7c;
+u32 var80094e80;
+u32 var80094e84;
+OSMesgQueue g_DmaMesgQueue;
 
 u8 g_LoadType = 0;
 

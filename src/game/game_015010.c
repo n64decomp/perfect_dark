@@ -3,7 +3,7 @@
 #include "game/game_015010.h"
 #include "game/game_091e10.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 

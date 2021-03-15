@@ -10,7 +10,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/lib_126b0.h"
 #include "data.h"

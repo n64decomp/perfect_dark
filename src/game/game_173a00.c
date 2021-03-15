@@ -3,7 +3,7 @@
 #include "game/game_13b670.h"
 #include "game/texture.h"
 #include "game/game_173a00.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 

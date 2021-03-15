@@ -3,7 +3,7 @@
 #include "game/game_013ee0.h"
 #include "game/room.h"
 #include "game/pad.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "lib/lib_233c0.h"
 #include "data.h"

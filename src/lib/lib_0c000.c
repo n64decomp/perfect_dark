@@ -1,12 +1,19 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/entry.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0c000.h"
 #include "lib/lib_2fa00.h"
 #include "data.h"
 #include "types.h"
+
+OSThread g_FaultThread;
+u8 g_FaultStack[STACKSIZE_FAULT];
+OSMesgQueue g_FaultMesgQueue;
+OSMesg g_FaultMesg;
+u32 var80094acc;
+u32 var80094ad0;
 
 u32 var8005d5b0 = 0;
 s16 g_CrashCurX = 0;

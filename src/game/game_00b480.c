@@ -3,7 +3,7 @@
 #include "game/game_00b320.h"
 #include "game/game_00b820.h"
 #include "game/title.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "data.h"
 #include "types.h"

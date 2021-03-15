@@ -7,7 +7,7 @@
 #include "game/game_152fa0.h"
 #include "game/game_165670.h"
 #include "game/pad.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"

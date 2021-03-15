@@ -1,3 +1,5 @@
+#ifndef _IN_CONSTANTS_H
+#define _IN_CONSTANTS_H
 #include "files.h"
 #include "sfx.h"
 
@@ -3554,3 +3556,5 @@
 #define BODY_ELVISWAISTCOAT   0x94
 #define BODY_DARK_LEATHER     0x95
 #define BODY_DARK_NEGOTIATOR  0x96
+
+#endif

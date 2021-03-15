@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/pak/pak.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "lib/controller.h"
 #include "lib/lib_4f5e0.h"
@@ -31,6 +31,36 @@
  * If all 20 samples are in use, the cont system will overwrite the most recent
  * sample in the next partition.
  */
+
+struct contdata g_ContData[2];
+s32 g_ContDisableCooldown[4];
+OSMesgQueue var80099e78;
+OSMesg var80099e90;
+u32 var80099e94;
+u32 var80099e98;
+u32 var80099e9c;
+u32 var80099ea0;
+u32 var80099ea4;
+u32 var80099ea8;
+u32 var80099eac;
+u32 var80099eb0;
+u32 var80099eb4;
+OSMesg var80099eb8;
+u32 var80099ebc;
+OSMesgQueue var80099ec0;
+OSMesg var80099ed8;
+u32 var80099edc;
+OSMesgQueue var80099ee0;
+OSMesg var80099ef8;
+u32 var80099efc;
+OSMesgQueue var80099f00;
+OSMesg var80099f18;
+u32 var80099f1c;
+OSMesgQueue var80099f20;
+OSContStatus var80099f38[4];
+u8 g_ContPfsStates[100];
+u32 var80099fac;
+u32 var80099fb0;
 
 const char var70054080[] = "joyReset\n";
 const char var7005408c[] = "joyReset: doing nothing\n";

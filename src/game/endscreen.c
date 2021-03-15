@@ -22,7 +22,7 @@
 #include "game/lang.h"
 #include "game/options.h"
 #include "game/mpstats.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "data.h"

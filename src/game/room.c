@@ -26,7 +26,7 @@
 #include "game/texture.h"
 #include "game/game_173a00.h"
 #include "game/wallhit.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_09a80.h"
 #include "lib/dma.h"

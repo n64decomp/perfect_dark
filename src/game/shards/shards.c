@@ -7,7 +7,7 @@
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
 #include "game/gfxmemory.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/rng.h"

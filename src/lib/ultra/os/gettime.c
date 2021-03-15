@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "gvars/gvars.h"
+#include "bss.h"
 
 OSTime osGetTime()
 {

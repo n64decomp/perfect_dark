@@ -3,7 +3,7 @@
 #include "game/file.h"
 #include "game/core.h"
 #include "game/music.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_074f0.h"
 #include "lib/dma.h"
 #include "lib/lib_0e9d0.h"
@@ -19,6 +19,28 @@
 #include "lib/lib_39c80.h"
 #include "data.h"
 #include "types.h"
+
+u32 var80094ea0;
+u32 var80094ea4;
+u32 var80094ea8;
+u32 var80094eac;
+u32 var80094eb0;
+u32 var80094eb4;
+u32 var80094eb8;
+u32 var80094ebc;
+u32 var80094ec0;
+u32 var80094ec4;
+u32 var80094ec8;
+u32 var80094ecc;
+u32 var80094ed0;
+u32 var80094ed4;
+struct var80094ed8 var80094ed8[3];
+u32 var800951f0[4];
+u32 var80095200;
+u32 var80095204;
+u32 var80095208;
+u32 var8009520c;
+u8 var80095210[0x40f0];
 
 const char var70053b20[] = "RUSSES SOUND GUARD STRING";
 const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";
@@ -870,8 +892,8 @@ glabel func0000eb2c
 .L0000ecc8:
 /*     ecc8:	3c188009 */ 	lui	$t8,%hi(var80095210)
 /*     eccc:	27025210 */ 	addiu	$v0,$t8,%lo(var80095210)
-/*     ecd0:	3c058009 */ 	lui	$a1,%hi(var8009523c+0x1)
-/*     ecd4:	24a5523d */ 	addiu	$a1,$a1,%lo(var8009523c+0x1)
+/*     ecd0:	3c058009 */ 	lui	$a1,%hi(var80095210+0x2d)
+/*     ecd4:	24a5523d */ 	addiu	$a1,$a1,%lo(var80095210+0x2d)
 /*     ecd8:	00401825 */ 	or	$v1,$v0,$zero
 /*     ecdc:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0000ece0:
@@ -1633,12 +1655,12 @@ glabel func0000f67c
 
 GLOBAL_ASM(
 glabel func0000f76c
-/*     f76c:	3c0e800a */ 	lui	$t6,%hi(var80099024)
-/*     f770:	25ce9024 */ 	addiu	$t6,$t6,%lo(var80099024)
+/*     f76c:	3c0e800a */ 	lui	$t6,%hi(var80095210+0x3e14)
+/*     f770:	25ce9024 */ 	addiu	$t6,$t6,%lo(var80095210+0x3e14)
 /*     f774:	008e082b */ 	sltu	$at,$a0,$t6
 /*     f778:	1420000d */ 	bnez	$at,.L0000f7b0
-/*     f77c:	3c0f800a */ 	lui	$t7,%hi(var800992e4)
-/*     f780:	25ef92e4 */ 	addiu	$t7,$t7,%lo(var800992e4)
+/*     f77c:	3c0f800a */ 	lui	$t7,%hi(var80095210+0x40d4)
+/*     f780:	25ef92e4 */ 	addiu	$t7,$t7,%lo(var80095210+0x40d4)
 /*     f784:	01e4082b */ 	sltu	$at,$t7,$a0
 /*     f788:	14200009 */ 	bnez	$at,.L0000f7b0
 /*     f78c:	3c038009 */ 	lui	$v1,%hi(var80095210)
@@ -1657,12 +1679,12 @@ glabel func0000f76c
 
 GLOBAL_ASM(
 glabel func0000f7b8
-/*     f7b8:	3c0e800a */ 	lui	$t6,%hi(var80099024)
-/*     f7bc:	25ce9024 */ 	addiu	$t6,$t6,%lo(var80099024)
+/*     f7b8:	3c0e800a */ 	lui	$t6,%hi(var80095210+0x3e14)
+/*     f7bc:	25ce9024 */ 	addiu	$t6,$t6,%lo(var80095210+0x3e14)
 /*     f7c0:	008e082b */ 	sltu	$at,$a0,$t6
 /*     f7c4:	1420000d */ 	bnez	$at,.L0000f7fc
-/*     f7c8:	3c0f800a */ 	lui	$t7,%hi(var800992e4)
-/*     f7cc:	25ef92e4 */ 	addiu	$t7,$t7,%lo(var800992e4)
+/*     f7c8:	3c0f800a */ 	lui	$t7,%hi(var80095210+0x40d4)
+/*     f7cc:	25ef92e4 */ 	addiu	$t7,$t7,%lo(var80095210+0x40d4)
 /*     f7d0:	01e4082b */ 	sltu	$at,$t7,$a0
 /*     f7d4:	14200009 */ 	bnez	$at,.L0000f7fc
 /*     f7d8:	3c038009 */ 	lui	$v1,%hi(var80095210)

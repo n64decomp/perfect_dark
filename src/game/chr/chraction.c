@@ -37,7 +37,7 @@
 #include "game/propobj.h"
 #include "game/wallhit.h"
 #include "game/mpstats.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "lib/model.h"
 #include "lib/lib_0e9d0.h"

@@ -1,13 +1,22 @@
 #include <ultra64.h>
 #include "lib/entry.h"
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_074f0.h"
 #include "lib/dma.h"
 #include "lib/lib_48150.h"
 #include "lib/lib_4d6f0.h"
 #include "data.h"
 #include "types.h"
+
+u8 g_Is4Mb;
+u32 var80090af4;
+u32 var80090af8;
+u32 var80090afc;
+u32 var80090b00;
+u32 var80090b04;
+u32 var80090b08;
+u32 var80090b0c;
 
 GLOBAL_ASM(
 glabel func000070d0

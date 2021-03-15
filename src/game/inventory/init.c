@@ -4,7 +4,7 @@
 #include "game/cheats.h"
 #include "game/inventory/init.h"
 #include "game/inventory/inventory.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "data.h"
 #include "types.h"

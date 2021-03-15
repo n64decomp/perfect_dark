@@ -19,7 +19,7 @@
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pak/pak.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/args.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"

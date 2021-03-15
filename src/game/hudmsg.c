@@ -13,7 +13,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/memory.h"

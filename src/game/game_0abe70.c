@@ -8,7 +8,7 @@
 #include "game/game_0c33f0.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

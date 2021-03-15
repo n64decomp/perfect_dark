@@ -5,7 +5,7 @@
 #include "game/file.h"
 #include "game/game_176080.h"
 #include "game/options.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09660.h"
 #include "lib/memory.h"
 #include "lib/lib_159b0.h"
@@ -14,6 +14,25 @@
 #include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
+
+u32 var80092830;
+u32 var80092834;
+u32 var80092838;
+u32 var8009283c;
+u32 var80092840;
+u32 var80092844;
+u32 var80092848;
+u32 var8009284c;
+u32 var80092850;
+u32 var80092854;
+u32 var80092858;
+u32 var8009285c;
+u32 var80092860;
+u32 var80092864;
+u32 var80092868;
+u32 var8009286c;
+u32 var80092870;
+u32 var80092874;
 
 const u32 var700526d0[] = {0x01400140};
 const u32 var700526d4[] = {0x02800000};

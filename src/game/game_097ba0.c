@@ -36,7 +36,7 @@
 #include "game/pak/pak.h"
 #include "game/options.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "lib/model.h"

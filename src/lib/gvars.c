@@ -1,8 +1,10 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
+
+struct g_vars g_Vars;
 
 void gvarsInit(void)
 {

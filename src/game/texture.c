@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_0b3350.h"
 #include "game/texture.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_074f0.h"
 #include "lib/dma.h"
 #include "lib/main.h"

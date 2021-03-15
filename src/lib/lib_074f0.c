@@ -1,10 +1,14 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_2fa00.h"
 #include "data.h"
 #include "types.h"
+
+u8 var80090b10[2504];
+u32 var800914d8[32];
+u32 var80091558;
 
 const u32 var70052530[] = {0x00000001};
 const u32 var70052534[] = {0x00030007};
@@ -869,8 +873,8 @@ glabel func00008024
 /*     8028:	afb60a74 */ 	sw	$s6,0xa74($sp)
 /*     802c:	3c168009 */ 	lui	$s6,%hi(var80090b10)
 /*     8030:	26d60b10 */ 	addiu	$s6,$s6,%lo(var80090b10)
-/*     8034:	3c048009 */ 	lui	$a0,%hi(var80090b14)
-/*     8038:	24840b14 */ 	addiu	$a0,$a0,%lo(var80090b14)
+/*     8034:	3c048009 */ 	lui	$a0,%hi(var80090b10+0x4)
+/*     8038:	24840b14 */ 	addiu	$a0,$a0,%lo(var80090b10+0x4)
 /*     803c:	3c058009 */ 	lui	$a1,%hi(var800914d8)
 /*     8040:	24a514d8 */ 	addiu	$a1,$a1,%lo(var800914d8)
 /*     8044:	24060007 */ 	addiu	$a2,$zero,0x7

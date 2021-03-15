@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_0969d0.h"
 #include "game/game_096ca0.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_16110.h"
 #include "data.h"
 #include "types.h"

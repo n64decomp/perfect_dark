@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/atan2f.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_3a100.h"
 #include "lib/lib_446d0.h"

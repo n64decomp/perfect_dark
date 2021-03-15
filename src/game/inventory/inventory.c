@@ -6,7 +6,7 @@
 #include "game/inventory/inventory.h"
 #include "game/training/training.h"
 #include "game/lang.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "data.h"
 #include "types.h"

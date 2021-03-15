@@ -2,7 +2,7 @@
 #include "lib/init.h"
 #include "lib/sched.h"
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_2fba0.h"
@@ -11,6 +11,38 @@
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
+
+u32 var80091560;
+u32 var80091564;
+u64 var80091568;
+u64 var80091570;
+u64 var80091578;
+u64 var80091580;
+u64 var80091588;
+u64 var80091590;
+u32 var80091598;
+u32 var8009159c;
+u32 var800915a0;
+u32 var800915a4;
+u32 var800915a8;
+u32 var800915ac;
+u32 var800915b0;
+u32 var800915b4;
+u32 var800915b8;
+u32 var800915bc;
+u32 var800915c0;
+u32 var800915c4;
+AMAudioMgr g_AudioManager;
+u32 var800918d0;
+u32 var800918d4;
+u32 var800918d8;
+u32 var800918dc;
+u32 var800918e0;
+u32 var800918e4;
+s32 var800918e8;
+u32 var800918ec;
+void *g_AudioSp;
+OSScTask *g_AmgrCurrentCmdList;
 
 u32 var8005cf90 = 0x00000000;
 u8 var8005cf94 = 1;

@@ -10,7 +10,7 @@
 #include "game/options.h"
 #include "game/utils.h"
 #include "game/wallhit.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

@@ -1,8 +1,11 @@
 #ifndef _IN_DATA_H
 #define _IN_DATA_H
 #include <ultra64.h>
-#include "data.h"
+#include "constants.h"
 #include "types.h"
+
+#define bool s32
+#define ubool u32
 
 extern u8 *g_StackStartAddrs[7];
 extern u8 *g_StackEndAddrs[7];

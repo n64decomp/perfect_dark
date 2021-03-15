@@ -5,7 +5,7 @@
 #include "lib/segments.h"
 #include "constants.h"
 #include "game/game_0e0770.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/args.h"
 #include "lib/lib_074f0.h"
 #include "lib/lib_09660.h"
@@ -19,12 +19,188 @@
 #include "data.h"
 #include "types.h"
 
-#if VERSION >= VERSION_NTSC_1_0
-s32 osGetMemSize(void)
-{
-	return g_OsMemSize;
-}
-#endif
+OSThread g_RmonThread;
+OSThread g_IdleThread;
+OSThread g_MainThread;
+u32 var8008d900;
+u32 var8008d904;
+u32 var8008d908;
+u32 var8008d90c;
+u32 var8008d910;
+u32 var8008d914;
+u32 var8008d918;
+u32 var8008d91c;
+u32 var8008d920;
+u32 var8008d924;
+u32 var8008d928;
+u32 var8008d92c;
+u32 var8008d930;
+u32 var8008d934;
+u32 var8008d938;
+u32 var8008d93c;
+u32 var8008d940;
+u32 var8008d944;
+u32 var8008d948;
+u32 var8008d94c;
+u32 var8008d950;
+u32 var8008d954;
+u32 var8008d958;
+u32 var8008d95c;
+u32 var8008d960;
+u32 var8008d964;
+u32 var8008d968;
+u32 var8008d96c;
+u32 var8008d970;
+u32 var8008d974;
+u32 var8008d978;
+u32 var8008d97c;
+u32 var8008d980;
+u32 var8008d984;
+u32 var8008d988;
+u32 var8008d98c;
+u32 var8008d990;
+u32 var8008d994;
+u32 var8008d998;
+u32 var8008d99c;
+u32 var8008d9a0;
+u32 var8008d9a4;
+u32 var8008d9a8;
+u32 var8008d9ac;
+u32 var8008d9b0;
+u32 var8008d9b4;
+u32 var8008d9b8;
+u32 var8008d9bc;
+u32 var8008d9c0;
+u32 var8008d9c4;
+u32 var8008d9c8;
+u32 var8008d9cc;
+u32 var8008d9d0;
+u32 var8008d9d4;
+u32 var8008d9d8;
+u32 var8008d9dc;
+u32 var8008d9e0;
+u32 var8008d9e4;
+u32 var8008d9e8;
+u32 var8008d9ec;
+u32 var8008d9f0;
+u32 var8008d9f4;
+u32 var8008d9f8;
+u32 var8008d9fc;
+u32 var8008da00;
+u32 var8008da04;
+u32 var8008da08;
+u32 var8008da0c;
+u32 var8008da10;
+u32 var8008da14;
+u32 var8008da18;
+u32 var8008da1c;
+u32 var8008da20;
+u32 var8008da24;
+u32 var8008da28;
+u32 var8008da2c;
+u32 var8008da30;
+u32 var8008da34;
+u32 var8008da38;
+u32 var8008da3c;
+u32 var8008da40;
+u32 var8008da44;
+u32 var8008da48;
+u32 var8008da4c;
+u32 var8008da50;
+u32 var8008da54;
+u32 var8008da58;
+u32 var8008da5c;
+u32 var8008da60;
+u32 var8008da64;
+u32 var8008da68;
+u32 var8008da6c;
+u32 var8008da70;
+u32 var8008da74;
+u32 var8008da78;
+u32 var8008da7c;
+u32 var8008da80;
+u32 var8008da84;
+u32 var8008da88;
+u32 var8008da8c;
+u32 var8008da90;
+u32 var8008da94;
+u32 var8008da98;
+u32 var8008da9c;
+u32 var8008daa0;
+u32 var8008daa4;
+u32 var8008daa8;
+u32 var8008daac;
+u32 var8008dab0;
+u32 var8008dab4;
+u32 var8008dab8;
+u32 var8008dabc;
+u32 var8008dac0;
+u32 var8008dac4;
+u32 var8008dac8;
+u32 var8008dacc;
+u32 var8008dad0;
+u32 var8008dad4;
+u32 var8008dad8;
+u32 var8008dadc;
+u32 var8008dae0;
+u32 var8008dae4;
+u32 var8008dae8;
+u32 var8008daec;
+u32 var8008daf0;
+u32 var8008daf4;
+u32 var8008daf8;
+u32 var8008dafc;
+u32 var8008db00;
+u32 var8008db04;
+u32 var8008db08;
+u32 var8008db0c;
+u32 var8008db10;
+u32 var8008db14;
+u32 var8008db18;
+u32 var8008db1c;
+u32 var8008db20;
+u32 var8008db24;
+u32 var8008db28;
+u32 var8008db2c;
+OSMesgQueue var8008db30;
+OSMesg var8008db48;
+u32 var8008db4c;
+u32 var8008db50;
+u32 var8008db54;
+u32 var8008db58;
+u32 var8008db5c;
+u32 var8008db60;
+u32 var8008db64;
+u32 var8008db68;
+u32 var8008db6c;
+u32 var8008db70;
+u32 var8008db74;
+u32 var8008db78;
+u32 var8008db7c;
+u32 var8008db80;
+u32 var8008db84;
+u32 var8008db88;
+u32 var8008db8c;
+u32 var8008db90;
+u32 var8008db94;
+u32 var8008db98;
+u32 var8008db9c;
+u32 var8008dba0;
+u32 var8008dba4;
+u32 var8008dba8;
+u32 var8008dbac;
+u32 var8008dbb0;
+u32 var8008dbb4;
+u32 var8008dbb8;
+u32 var8008dbbc;
+u32 var8008dbc0;
+u32 var8008dbc4;
+OSMesgQueue *g_SchedCmdQ;
+u32 var8008dbcc;
+OSSched g_SchedThread;
+OSScClient var8008dca8;
+u32 var8008dcb0;
+u32 g_OsMemSize;
 
 extern u8 *_bootSegmentStart;
 extern u8 *_datazipSegmentRomStart;
@@ -37,6 +213,13 @@ extern u32 vara00002e8;
 extern u16 varbc000c02;
 extern u16 *var800902e4;
 extern s16 var800902e8;
+
+#if VERSION >= VERSION_NTSC_1_0
+s32 osGetMemSize(void)
+{
+	return g_OsMemSize;
+}
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

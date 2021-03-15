@@ -3,7 +3,7 @@
 #include "game/inventory/items.h"
 #include "game/game_097ba0.h"
 #include "game/game_1655c0.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "data.h"
 #include "types.h"

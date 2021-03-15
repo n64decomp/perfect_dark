@@ -5,7 +5,7 @@
 #include "game/bondhead.h"
 #include "game/room.h"
 #include "game/pad.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_233c0.h"
 #include "lib/model.h"

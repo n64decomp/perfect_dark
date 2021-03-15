@@ -24,7 +24,7 @@
 #include "game/padhalllv.h"
 #include "game/propobj.h"
 #include "game/splat.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"

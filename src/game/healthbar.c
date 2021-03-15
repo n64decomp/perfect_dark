@@ -4,7 +4,7 @@
 #include "game/healthbar.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "data.h"
 #include "types.h"

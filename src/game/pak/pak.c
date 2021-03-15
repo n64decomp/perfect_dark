@@ -6,7 +6,7 @@
 #include "game/gamefile.h"
 #include "game/pak/pak.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/controller.h"
 #include "lib/lib_06100.h"
 #include "lib/lib_06330.h"

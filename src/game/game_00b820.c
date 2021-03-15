@@ -6,7 +6,7 @@
 #include "game/game_011110.h"
 #include "game/game_02cde0.h"
 #include "game/game_091e10.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "data.h"

@@ -1,6 +1,10 @@
 #include <libultra_internal.h>
 #include "data.h"
-#include "gvars/gvars.h"
+#include "bss.h"
+
+OSMesg piAccessBuf;
+u32 var8009c7a4;
+OSMesgQueue __osPiAccessQueue;
 
 void __osPiCreateAccessQueue(void)
 {

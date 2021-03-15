@@ -4,7 +4,7 @@
 #include "game/chr/chr.h"
 #include "game/game_129210.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_126b0.h"
 #include "lib/rng.h"
 #include "data.h"

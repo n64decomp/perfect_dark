@@ -15,7 +15,7 @@
 #include "game/propobj.h"
 #include "game/utils.h"
 #include "game/wallhit.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/memory.h"
 #include "lib/rng.h"

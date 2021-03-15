@@ -1,6 +1,6 @@
 #include <libultra_internal.h>
 #include "data.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 
 void __osPfsRequestOneChannel(int channel, int cmd);
 void __osPfsGetOneChannelData(int channel, OSContStatus *data);

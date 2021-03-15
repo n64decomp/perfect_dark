@@ -3,7 +3,7 @@
 #include "game/chr/chraction.h"
 #include "game/chr/chrai.h"
 #include "game/chr/chraicommands.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
 #include "data.h"

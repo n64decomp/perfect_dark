@@ -12,7 +12,7 @@
 #include "game/game_1999b0.h"
 #include "game/mplayer/mplayer.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/rng.h"
 #include "data.h"
 #include "types.h"

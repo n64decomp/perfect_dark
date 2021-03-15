@@ -1,9 +1,11 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
-#include "lib/memory.h"
-#include "data.h"
 #include "types.h"
+#include "data.h"
+#include "bss.h"
+#include "lib/memory.h"
+
+u8 var8009ad70[0xb00];
 
 GLOBAL_ASM(
 glabel func0002f490

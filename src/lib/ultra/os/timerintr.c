@@ -1,6 +1,12 @@
 #include <libultra_internal.h>
 #include "data.h"
-#include "gvars/gvars.h"
+#include "bss.h"
+
+OSTimer var8009c760;
+OSTime __osCurrentTime;
+u32 __osBaseCounter;
+u32 __osViIntrCount;
+u32 __osTimerCounter;
 
 GLOBAL_ASM(
 glabel __osTimerServicesInit

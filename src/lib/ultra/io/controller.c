@@ -1,6 +1,40 @@
 #include <libultra_internal.h>
 #include "data.h"
 
+u32 __osContPifRam;
+u32 var8009c7e4;
+u32 var8009c7e8;
+u32 var8009c7ec;
+u32 var8009c7f0;
+u32 var8009c7f4;
+u32 var8009c7f8;
+u32 var8009c7fc;
+u32 var8009c800;
+u32 var8009c804;
+u32 var8009c808;
+u32 var8009c80c;
+u32 var8009c810;
+u32 var8009c814;
+u32 var8009c818;
+u32 var8009c81c;
+u8 __osContLastCmd;
+u32 var8009c824;
+u32 __osEepromTimer;
+u32 var8009c82c;
+u32 var8009c830;
+u32 var8009c834;
+u32 var8009c838;
+u32 var8009c83c;
+u32 var8009c840;
+u32 var8009c844;
+u32 __osEepromTimerQ;
+u32 var8009c84c;
+u32 var8009c850;
+u32 var8009c854;
+u32 var8009c858;
+u32 var8009c85c;
+u32 __osEepromTimerMsg;
+
 GLOBAL_ASM(
 glabel osContInit
 /*    4a980:	27bdff90 */ 	addiu	$sp,$sp,-112

@@ -7,7 +7,7 @@
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
 #include "game/options.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/controller.h"
 #include "data.h"
 #include "types.h"

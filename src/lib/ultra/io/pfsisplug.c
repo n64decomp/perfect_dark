@@ -1,6 +1,23 @@
 #include <libultra_internal.h>
 #include "data.h"
 
+u32 __osPfsPifRam;
+u32 var80090a24;
+u32 var80090a28;
+u32 var80090a2c;
+u32 var80090a30;
+u32 var80090a34;
+u32 var80090a38;
+u32 var80090a3c;
+u32 var80090a40;
+u32 var80090a44;
+u32 var80090a48;
+u32 var80090a4c;
+u32 var80090a50;
+u32 var80090a54;
+u32 var80090a58;
+u32 var80090a5c;
+
 GLOBAL_ASM(
 glabel osPfsIsPlug
 /*     5770:	27bdff90 */ 	addiu	$sp,$sp,-112

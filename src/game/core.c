@@ -90,7 +90,7 @@
 #include "game/splat.h"
 #include "game/utils.h"
 #include "game/wallhit.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/args.h"
 #include "lib/controller.h"
 #include "lib/lib_06440.h"

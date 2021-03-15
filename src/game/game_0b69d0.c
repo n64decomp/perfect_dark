@@ -51,7 +51,7 @@
 #include "game/propobj.h"
 #include "game/splat.h"
 #include "game/mpstats.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/controller.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"

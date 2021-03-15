@@ -4,7 +4,7 @@
 #include "game/game_0d4690.h"
 #include "game/file.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "lib/lib_159b0.h"

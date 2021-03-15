@@ -8,7 +8,7 @@
 #include "game/game_1668e0.h"
 #include "game/file.h"
 #include "game/propobj.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
 #include "data.h"

@@ -5,7 +5,7 @@
 #include "game/game_0b3350.h"
 #include "game/sparks/sparks.h"
 #include "game/file.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

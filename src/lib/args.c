@@ -1,10 +1,12 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/args.h"
 #include "lib/lib_2fa00.h"
 #include "data.h"
 #include "types.h"
+
+u32 g_ArgBuffer[30];
 
 s32 argc = 1;
 

@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_1668e0.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_159b0.h"
 #include "data.h"
 #include "types.h"

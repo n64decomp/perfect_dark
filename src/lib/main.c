@@ -39,7 +39,7 @@
 #include "game/pak/pak.h"
 #include "game/splat.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/args.h"
 #include "lib/lib_070d0.h"
 #include "lib/lib_074f0.h"
@@ -897,9 +897,9 @@ glabel mainInit
 /*     d97c:	0c004bbf */ 	jal	argSetString
 /*     d980:	24843aa0 */ 	addiu	$a0,$a0,%lo(var70053aa0)
 .L0000d984:
-/*     d984:	3c04800b */ 	lui	$a0,%hi(_gvarsSegmentEnd)
+/*     d984:	3c04800b */ 	lui	$a0,%hi(_bssSegmentEnd)
 /*     d988:	0c012d20 */ 	jal	osVirtualToPhysical
-/*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,%lo(_gvarsSegmentEnd)
+/*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,%lo(_bssSegmentEnd)
 /*     d990:	3c038009 */ 	lui	$v1,%hi(var80090b00)
 /*     d994:	8c630b00 */ 	lw	$v1,%lo(var80090b00)($v1)
 /*     d998:	3c018000 */ 	lui	$at,0x8000
@@ -996,7 +996,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //extern u8 _accessingpakSegmentRomEnd;
 //extern u8 _copyrightSegmentRomStart;
 //extern u8 _copyrightSegmentRomEnd;
-//extern u8 _gvarsSegmentEnd;
+//extern u8 _bssSegmentEnd;
 
 // Mismatch: goal saves j to stack in its loop and puts &sp1450 in s0, while the
 // below puts j in s0 and calculates &sp1450 each time. The key to solving this
@@ -1156,7 +1156,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
 //	}
 //
-//	uVar2 = osVirtualToPhysical(&_gvarsSegmentEnd) | 0x80000000;
+//	uVar2 = osVirtualToPhysical(&_bssSegmentEnd) | 0x80000000;
 //	tmp = var80090b00;
 //	memInit(uVar2, tmp - uVar2);
 //

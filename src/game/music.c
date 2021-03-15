@@ -4,7 +4,7 @@
 #include "game/core.h"
 #include "game/music.h"
 #include "game/game_176080.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_11420.h"
 #include "data.h"

@@ -12,7 +12,7 @@
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 

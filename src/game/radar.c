@@ -10,7 +10,7 @@
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
 #include "game/options.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/lib_16110.h"
 #include "data.h"

@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_3a100.h"
 #include "lib/lib_44f60.h"
 #include "lib/lib_47a90.h"

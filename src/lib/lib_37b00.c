@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_37b00.h"
 #include "lib/lib_3e730.h"
@@ -9,6 +9,35 @@
 #include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
+
+u32 var8009c390;
+u32 var8009c394;
+u32 var8009c398;
+u32 var8009c39c;
+u32 var8009c3a0;
+u32 var8009c3a4;
+u32 var8009c3a8;
+u32 var8009c3ac;
+u32 var8009c3b0;
+u32 var8009c3b4;
+u32 var8009c3b8;
+u32 var8009c3bc;
+u32 var8009c3c0;
+u32 var8009c3c4;
+u32 var8009c3c8;
+u32 var8009c3cc;
+u32 var8009c3d0;
+u32 var8009c3d4;
+u32 var8009c3d8;
+u32 var8009c3dc;
+u32 var8009c3e0;
+u32 var8009c3e4;
+u32 var8009c3e8;
+u32 var8009c3ec;
+u32 var8009c3f0;
+u32 var8009c3f4;
+u32 var8009c3f8;
+u32 var8009c3fc;
 
 GLOBAL_ASM(
 glabel func00037b00

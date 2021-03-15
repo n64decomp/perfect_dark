@@ -1,9 +1,19 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_126b0.h"
 #include "data.h"
 #include "types.h"
+
+u32 var80099470;
+u32 var80099474;
+u32 var80099478[249];
+u32 var8009985c;
+u32 var80099860;
+u32 var80099864;
+u32 var80099868;
+u32 var8009986c;
+u32 var80099870;
 
 GLOBAL_ASM(
 glabel func000126b0
@@ -282,14 +292,14 @@ glabel func00012a14
 /*    12a24:	ac6603f4 */ 	sw	$a2,0x3f4($v1)
 /*    12a28:	240effff */ 	addiu	$t6,$zero,-1
 /*    12a2c:	3c06800a */ 	lui	$a2,%hi(var8009985c)
-/*    12a30:	3c02800a */ 	lui	$v0,%hi(var80099484)
+/*    12a30:	3c02800a */ 	lui	$v0,%hi(var80099478+0xc)
 /*    12a34:	24a508e0 */ 	addiu	$a1,$a1,0x8e0
 /*    12a38:	ac600000 */ 	sw	$zero,0x0($v1)
 /*    12a3c:	ac600004 */ 	sw	$zero,0x4($v1)
 /*    12a40:	ac600008 */ 	sw	$zero,0x8($v1)
 /*    12a44:	ac6003f0 */ 	sw	$zero,0x3f0($v1)
 /*    12a48:	ac6e03f8 */ 	sw	$t6,0x3f8($v1)
-/*    12a4c:	24429484 */ 	addiu	$v0,$v0,%lo(var80099484)
+/*    12a4c:	24429484 */ 	addiu	$v0,$v0,%lo(var80099478+0xc)
 /*    12a50:	24c6985c */ 	addiu	$a2,$a2,%lo(var8009985c)
 .L00012a54:
 /*    12a54:	24420008 */ 	addiu	$v0,$v0,0x8
@@ -329,12 +339,12 @@ glabel func00012ab0
 /*    12abc:	00809025 */ 	or	$s2,$a0,$zero
 /*    12ac0:	afb50028 */ 	sw	$s5,0x28($sp)
 /*    12ac4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    12ac8:	3c11800a */ 	lui	$s1,%hi(var80099484)
+/*    12ac8:	3c11800a */ 	lui	$s1,%hi(var80099478+0xc)
 /*    12acc:	3c078009 */ 	lui	$a3,%hi(g_Is4Mb)
 /*    12ad0:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    12ad4:	afb40024 */ 	sw	$s4,0x24($sp)
 /*    12ad8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    12adc:	26319484 */ 	addiu	$s1,$s1,%lo(var80099484)
+/*    12adc:	26319484 */ 	addiu	$s1,$s1,%lo(var80099478+0xc)
 /*    12ae0:	2404ffff */ 	addiu	$a0,$zero,-1
 /*    12ae4:	00004025 */ 	or	$t0,$zero,$zero
 /*    12ae8:	24e70af0 */ 	addiu	$a3,$a3,%lo(g_Is4Mb)
@@ -387,8 +397,8 @@ glabel func00012ab0
 /*    12b90:	26739478 */ 	addiu	$s3,$s3,%lo(var80099478)
 /*    12b94:	56aa0017 */ 	bnel	$s5,$t2,.L00012bf4
 /*    12b98:	02204025 */ 	or	$t0,$s1,$zero
-/*    12b9c:	3c11800a */ 	lui	$s1,%hi(var80099484)
-/*    12ba0:	26319484 */ 	addiu	$s1,$s1,%lo(var80099484)
+/*    12b9c:	3c11800a */ 	lui	$s1,%hi(var80099478+0xc)
+/*    12ba0:	26319484 */ 	addiu	$s1,$s1,%lo(var80099478+0xc)
 .L00012ba4:
 /*    12ba4:	0c0049bc */ 	jal	func000126f0
 /*    12ba8:	02602025 */ 	or	$a0,$s3,$zero
@@ -438,11 +448,11 @@ glabel func00012ab0
 
 GLOBAL_ASM(
 glabel func00012c3c
-/*    12c3c:	3c0f800a */ 	lui	$t7,%hi(var80099484)
-/*    12c40:	8def9484 */ 	lw	$t7,%lo(var80099484)($t7)
-/*    12c44:	3c0e800a */ 	lui	$t6,%hi(var80099484)
+/*    12c3c:	3c0f800a */ 	lui	$t7,%hi(var80099478+0xc)
+/*    12c40:	8def9484 */ 	lw	$t7,%lo(var80099478+0xc)($t7)
+/*    12c44:	3c0e800a */ 	lui	$t6,%hi(var80099478+0xc)
 /*    12c48:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,%lo(var80099484)
+/*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,%lo(var80099478+0xc)
 /*    12c50:	00a03025 */ 	or	$a2,$a1,$zero
 /*    12c54:	10ef000c */ 	beq	$a3,$t7,.L00012c88
 /*    12c58:	01c01025 */ 	or	$v0,$t6,$zero
@@ -495,13 +505,13 @@ glabel func00012cdc
 /*    12ce0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12ce4:	0c0049ee */ 	jal	func000127b8
 /*    12ce8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    12cec:	3c0e800a */ 	lui	$t6,%hi(var80099484)
-/*    12cf0:	8dce9484 */ 	lw	$t6,%lo(var80099484)($t6)
+/*    12cec:	3c0e800a */ 	lui	$t6,%hi(var80099478+0xc)
+/*    12cf0:	8dce9484 */ 	lw	$t6,%lo(var80099478+0xc)($t6)
 /*    12cf4:	2405ffff */ 	addiu	$a1,$zero,-1
-/*    12cf8:	3c02800a */ 	lui	$v0,%hi(var80099484)
+/*    12cf8:	3c02800a */ 	lui	$v0,%hi(var80099478+0xc)
 /*    12cfc:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    12d00:	10ae000a */ 	beq	$a1,$t6,.L00012d2c
-/*    12d04:	24429484 */ 	addiu	$v0,$v0,%lo(var80099484)
+/*    12d04:	24429484 */ 	addiu	$v0,$v0,%lo(var80099478+0xc)
 /*    12d08:	8c430004 */ 	lw	$v1,0x4($v0)
 .L00012d0c:
 /*    12d0c:	0083082b */ 	sltu	$at,$a0,$v1

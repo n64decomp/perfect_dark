@@ -1,6 +1,30 @@
 #include <libultra_internal.h>
 #include "data.h"
 
+u32 __osEepPifRam;
+u32 var8009ca84;
+u32 var8009ca88;
+u32 var8009ca8c;
+u32 var8009ca90;
+u32 var8009ca94;
+u32 var8009ca98;
+u32 var8009ca9c;
+u32 var8009caa0;
+u32 var8009caa4;
+u32 var8009caa8;
+u32 var8009caac;
+u32 var8009cab0;
+u32 var8009cab4;
+u32 var8009cab8;
+u32 var8009cabc;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8009d010pf[4];
+#endif
+
+void *var8009cac0;
+void *var8009cac4;
+
 GLOBAL_ASM(
 glabel osEepromRead
 /*    501a0:	27bdffb0 */ 	addiu	$sp,$sp,-80

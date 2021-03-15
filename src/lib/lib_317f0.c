@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_2fc60.h"
@@ -19,6 +19,9 @@
 #include "lib/lib_3e730.h"
 #include "data.h"
 #include "types.h"
+
+u32 var8009c330;
+u32 var8009c334;
 
 #if VERSION >= VERSION_PAL_FINAL
 const u32 var70054740[] = {0x700315e0};

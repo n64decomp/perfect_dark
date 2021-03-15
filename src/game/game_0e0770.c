@@ -8,7 +8,7 @@
 #include "game/game_1531a0.h"
 #include "game/file.h"
 #include "game/utils.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "lib/rng.h"

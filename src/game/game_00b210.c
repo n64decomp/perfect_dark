@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_19aa80.h"
 #include "game/mplayer/mplayer.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "data.h"
 #include "types.h"
 

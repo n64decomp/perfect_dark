@@ -4,7 +4,7 @@
 #include "game/game_006900.h"
 #include "game/game_092610.h"
 #include "game/room.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"

@@ -3,7 +3,7 @@
 #include "game/prop.h"
 #include "game/game_1531a0.h"
 #include "game/room.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/dma.h"
 #include "lib/memory.h"
 #include "lib/lib_16110.h"
@@ -13,6 +13,71 @@
 #include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
+
+u32 var8009a870;
+u32 var8009a874;
+u32 var8009a878;
+u32 var8009a87c;
+u32 var8009a880;
+u32 var8009a884;
+u32 var8009a888;
+u32 var8009a88c;
+u32 var8009a890;
+s16 var8009a894;
+struct animheader *var8009a898;
+u32 var8009a89c;
+union filedataptr g_TileFileData;
+s32 g_TileNumRooms;
+u32 *g_TileRooms;
+u32 var8009a8ac;
+u32 var8009a8b0;
+u32 var8009a8b4;
+struct coord var8009a8b8;
+u32 var8009a8c4;
+struct coord var8009a8c8;
+struct prop *g_CdObstacle;
+u32 var8009a8d8;
+u32 var8009a8dc;
+u32 var8009a8e0;
+u32 var8009a8e4;
+u32 var8009a8e8;
+u32 var8009a8ec;
+u32 var8009a8f0;
+u32 var8009a8f4;
+u32 var8009a8f8;
+u32 var8009a8fc;
+u32 var8009a900;
+u32 var8009a904;
+u32 var8009a908;
+u32 var8009a90c;
+u32 var8009a910;
+u32 var8009a914;
+
+u32 var8009a918;
+u32 var8009a91c;
+u32 var8009a920;
+u32 var8009a924;
+u32 var8009a928;
+u32 var8009a92c;
+u32 var8009a930;
+u32 var8009a934;
+u32 var8009a938;
+u32 var8009a93c;
+u32 var8009a940;
+u32 var8009a944;
+u32 var8009a948;
+u32 var8009a94c;
+u32 var8009a950;
+u32 var8009a954;
+u32 var8009a958;
+u32 var8009a95c;
+u32 var8009a960;
+
+u32 var8009a964;
+u32 var8009a968;
+u32 var8009a96c;
+
+u32 var8009a970[256];
 
 const u32 var70054690[] = {0x3a83126f};
 const u32 var70054694[] = {0x3a83126f};

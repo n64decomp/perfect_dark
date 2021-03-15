@@ -15,7 +15,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/mplayer/setup.h"
 #include "game/options.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/main.h"
 #include "data.h"
 #include "types.h"

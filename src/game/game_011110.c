@@ -16,7 +16,7 @@
 #include "game/mplayer/scenarios.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "lib/memory.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"

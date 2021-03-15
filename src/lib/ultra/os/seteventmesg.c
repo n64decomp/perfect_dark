@@ -1,6 +1,8 @@
 #include <libultra_internal.h>
 #include "data.h"
-#include "gvars/gvars.h"
+#include "bss.h"
+
+__OSEventState __osEventStateTab[15];
 
 void osSetEventMesg(OSEvent event, OSMesgQueue *mq, OSMesg msg)
 {

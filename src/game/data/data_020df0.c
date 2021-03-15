@@ -13,7 +13,7 @@
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/training/training.h"
-#include "gvars/gvars.h"
+#include "bss.h"
 #include "stagesetup.h"
 #include "data.h"
 #include "types.h"
