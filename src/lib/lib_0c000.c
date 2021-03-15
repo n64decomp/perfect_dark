@@ -12,8 +12,6 @@ OSThread g_FaultThread;
 u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
-u32 var80094acc;
-u32 var80094ad0;
 
 u32 var8005d5b0 = 0;
 s16 g_CrashCurX = 0;
@@ -132,81 +130,32 @@ void faultCreateThread2(void)
 	osStartThread(&g_FaultThread);
 }
 
-GLOBAL_ASM(
-glabel faultproc
-/*     c06c:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*     c070:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     c074:	3c118009 */ 	lui	$s1,%hi(g_FaultMesgQueue)
-/*     c078:	26314ab0 */ 	addiu	$s1,$s1,%lo(g_FaultMesgQueue)
-/*     c07c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     c080:	afa40060 */ 	sw	$a0,0x60($sp)
-/*     c084:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     c088:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     c08c:	afa0005c */ 	sw	$zero,0x5c($sp)
-/*     c090:	2404000c */ 	addiu	$a0,$zero,0xc
-/*     c094:	02202825 */ 	or	$a1,$s1,$zero
-/*     c098:	0c012148 */ 	jal	osSetEventMesg
-/*     c09c:	24060010 */ 	addiu	$a2,$zero,0x10
-/*     c0a0:	3c018009 */ 	lui	$at,%hi(var80094ad0)
-/*     c0a4:	ac204ad0 */ 	sw	$zero,%lo(var80094ad0)($at)
-/*     c0a8:	27b2005c */ 	addiu	$s2,$sp,0x5c
-.L0000c0ac:
-/*     c0ac:	02202025 */ 	or	$a0,$s1,$zero
-.L0000c0b0:
-/*     c0b0:	02402825 */ 	or	$a1,$s2,$zero
-/*     c0b4:	0c0121bc */ 	jal	osRecvMesg
-/*     c0b8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     c0bc:	0c012194 */ 	jal	osSetIntMask
-/*     c0c0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     c0c4:	0c013990 */ 	jal	__osGetCurrFaultedThread
-/*     c0c8:	00408025 */ 	or	$s0,$v0,$zero
-/*     c0cc:	3c018009 */ 	lui	$at,%hi(var80094acc)
-/*     c0d0:	1040fff6 */ 	beqz	$v0,.L0000c0ac
-/*     c0d4:	ac224acc */ 	sw	$v0,%lo(var80094acc)($at)
-/*     c0d8:	0c012194 */ 	jal	osSetIntMask
-/*     c0dc:	02002025 */ 	or	$a0,$s0,$zero
-/*     c0e0:	1000fff3 */ 	b	.L0000c0b0
-/*     c0e4:	02202025 */ 	or	$a0,$s1,$zero
-/*     c0e8:	00000000 */ 	nop
-/*     c0ec:	00000000 */ 	nop
-/*     c0f0:	00000000 */ 	nop
-/*     c0f4:	00000000 */ 	nop
-/*     c0f8:	00000000 */ 	nop
-/*     c0fc:	00000000 */ 	nop
-/*     c100:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     c104:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     c108:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     c10c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     c110:	03e00008 */ 	jr	$ra
-/*     c114:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+void faultproc(void *arg0)
+{
+	OSMesg msg = 0;
+	OSIntMask mask;
+	u8 stack2[4];
+	u8 stack1[44];
+	static OSThread *thread;
+	static u32 var80094ad0;
 
-// Mismatch because bss needs to be sprinkled around various files first
-//void faultproc(void *arg0)
-//{
-//	OSMesg msg = 0;
-//	OSIntMask mask;
-//	u8 stack2[4];
-//	u8 stack1[44];
-//	static u32 result; // var80094acc
-//
-//	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) 16);
-//	var80094ad0 = 0;
-//
-//	while (true) {
-//		do {
-//			osRecvMesg(&g_FaultMesgQueue, &msg, 1);
-//			mask = osSetIntMask(1);
-//			result = __osGetCurrFaultedThread();
-//		} while (!result);
-//
-//		osSetIntMask(mask);
-//
-//		// Beta versions have something like this here:
-//		//crashRender(result, stack1, stack2);
-//		//func00001b1c(true);
-//	}
-//}
+	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) 16);
+	var80094ad0 = 0;
+
+	while (true) {
+		do {
+			osRecvMesg(&g_FaultMesgQueue, &msg, 1);
+			mask = osSetIntMask(1);
+			thread = __osGetCurrFaultedThread();
+		} while (!thread);
+
+		osSetIntMask(mask);
+
+		// Beta versions have something like this here:
+		//crashRender(thread, stack1, stack2);
+		//func00001b1c(true);
+	}
+}
 
 /**
  * Given a pointer to an instruction and a stack frame pointer, attempt to find
