@@ -137,15 +137,15 @@ glabel resetproc
 /*     2e84:	24040001 */ 	addiu	$a0,$zero,0x1
 /*     2e88:	0c012448 */ 	jal	osGetTime
 /*     2e8c:	00000000 */ 	nop
-/*     2e90:	3c018009 */ 	lui	$at,%hi(g_ResetSp)
-/*     2e94:	ac22fdf0 */ 	sw	$v0,%lo(g_ResetSp)($at)
+/*     2e90:	3c018009 */ 	lui	$at,%hi(g_ResetStack+0x100)
+/*     2e94:	ac22fdf0 */ 	sw	$v0,%lo(g_ResetStack+0x100)($at)
 /*     2e98:	0c012448 */ 	jal	osGetTime
 /*     2e9c:	ac23fdf4 */ 	sw	$v1,-0x20c($at)
 /*     2ea0:	3c198009 */ 	lui	$t9,%hi(var8008fdf4)
 /*     2ea4:	8f39fdf4 */ 	lw	$t9,%lo(var8008fdf4)($t9)
-/*     2ea8:	3c188009 */ 	lui	$t8,%hi(g_ResetSp)
+/*     2ea8:	3c188009 */ 	lui	$t8,%hi(g_ResetStack+0x100)
 /*     2eac:	3c010022 */ 	lui	$at,0x22
-/*     2eb0:	8f18fdf0 */ 	lw	$t8,%lo(g_ResetSp)($t8)
+/*     2eb0:	8f18fdf0 */ 	lw	$t8,%lo(g_ResetStack+0x100)($t8)
 /*     2eb4:	3421add7 */ 	ori	$at,$at,0xadd7
 /*     2eb8:	03214821 */ 	addu	$t1,$t9,$at
 /*     2ebc:	0121082b */ 	sltu	$at,$t1,$at
@@ -163,9 +163,9 @@ glabel resetproc
 /*     2ee8:	00000000 */ 	nop
 /*     2eec:	3c0b8009 */ 	lui	$t3,%hi(var8008fdf4)
 /*     2ef0:	8d6bfdf4 */ 	lw	$t3,%lo(var8008fdf4)($t3)
-/*     2ef4:	3c0a8009 */ 	lui	$t2,%hi(g_ResetSp)
+/*     2ef4:	3c0a8009 */ 	lui	$t2,%hi(g_ResetStack+0x100)
 /*     2ef8:	3c010022 */ 	lui	$at,0x22
-/*     2efc:	8d4afdf0 */ 	lw	$t2,%lo(g_ResetSp)($t2)
+/*     2efc:	8d4afdf0 */ 	lw	$t2,%lo(g_ResetStack+0x100)($t2)
 /*     2f00:	3421add7 */ 	ori	$at,$at,0xadd7
 /*     2f04:	01616821 */ 	addu	$t5,$t3,$at
 /*     2f08:	01a1082b */ 	sltu	$at,$t5,$at
@@ -203,6 +203,6 @@ void resetThreadCreate(void)
 {
 	osCreateMesgQueue(&g_ResetMesgQueue, &g_ResetMesg, 10);
 	osSetEventMesg(OS_EVENT_PRENMI, &g_ResetMesgQueue, (OSMesg) 669);
-	osCreateThread(&g_ResetThread, THREAD_RESET, resetproc, 0, &g_ResetSp, THREADPRI_RESET);
+	osCreateThread(&g_ResetThread, THREAD_RESET, resetproc, 0, &g_ResetStack[STACKSIZE_RESET], THREADPRI_RESET);
 	osStartThread(&g_ResetThread);
 }

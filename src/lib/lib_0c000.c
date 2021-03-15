@@ -121,7 +121,7 @@ void crashPrintDescription(u32 mask, char *label, struct crashdescription *descr
 void faultCreateThread2(void)
 {
 	osCreateMesgQueue(&g_FaultMesgQueue, &g_FaultMesg, 1);
-	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultSp, THREADPRI_FAULT);
+	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultStack[1024], THREADPRI_FAULT);
 	osStartThread(&g_FaultThread);
 }
 
@@ -371,36 +371,14 @@ u32 crashGetStackStart(u32 sp, s32 tid)
 	return sp & 0xf0000000;
 }
 
-GLOBAL_ASM(
-glabel crashIsDouble
-/*     c398:	e7ac0000 */ 	swc1	$f12,0x0($sp)
-/*     c39c:	8fa40000 */ 	lw	$a0,0x0($sp)
-/*     c3a0:	3c01007f */ 	lui	$at,0x7f
-/*     c3a4:	3421ffff */ 	ori	$at,$at,0xffff
-/*     c3a8:	00811024 */ 	and	$v0,$a0,$at
-/*     c3ac:	2c4e0001 */ 	sltiu	$t6,$v0,0x1
-/*     c3b0:	15c00008 */ 	bnez	$t6,.L0000c3d4
-/*     c3b4:	01c01025 */ 	or	$v0,$t6,$zero
-/*     c3b8:	00041dc2 */ 	srl	$v1,$a0,0x17
-/*     c3bc:	306f00ff */ 	andi	$t7,$v1,0xff
-/*     c3c0:	000f102b */ 	sltu	$v0,$zero,$t7
-/*     c3c4:	10400003 */ 	beqz	$v0,.L0000c3d4
-/*     c3c8:	00000000 */ 	nop
-/*     c3cc:	39e200ff */ 	xori	$v0,$t7,0xff
-/*     c3d0:	0002102b */ 	sltu	$v0,$zero,$v0
-.L0000c3d4:
-/*     c3d4:	03e00008 */ 	jr	$ra
-/*     c3d8:	00000000 */ 	nop
-);
+bool crashIsDouble(f32 value)
+{
+	u32 bits = *(u32*)&value;
+	u32 fraction = bits & 0x7fffff;
+	u8 exponent = (u8)(bits >> 23);
 
-//bool crashIsDouble(f32 value)
-//{
-//	u32 bits = *(u32 *)&value;
-//
-//	return (bits & 0x7fffff) != 0
-//		&& ((bits >> 23) & 0xff) != 0
-//		&& ((bits >> 23) & 0xff) != 0xff;
-//}
+	return fraction == 0 || (exponent != 0 && exponent != 0xff);
+}
 
 void crashPrintFloat(s32 index, f32 value)
 {
