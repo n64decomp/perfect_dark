@@ -8,7 +8,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8005d5b0 = 0x00000000;
+u32 var8005d5b0 = 0;
 s16 g_CrashCurX = 0;
 s16 g_CrashCurY = 0;
 
@@ -19,91 +19,94 @@ struct crashdescription {
 };
 
 struct crashdescription g_CrashCauseDescriptions[] = {
-	{ 0x80000000, 0x80000000, "BD"                                              },
-	{ 0x00008000, 0x00008000, "IP8"                                             },
-	{ 0x00004000, 0x00004000, "IP7"                                             },
-	{ 0x00002000, 0x00002000, "IP6"                                             },
-	{ 0x00001000, 0x00001000, "IP5"                                             },
-	{ 0x00000800, 0x00000800, "IP4"                                             },
-	{ 0x00000400, 0x00000400, "IP3"                                             },
-	{ 0x00000200, 0x00000200, "IP2"                                             },
-	{ 0x00000100, 0x00000100, "IP1"                                             },
-	{ 0x0000007c, 0x00000000, "Int"                                             },
-	{ 0x0000007c, 0x00000004, "TLBmod"                                          },
-	{ 0x0000007c, 0x00000008, "TLBload"                                         },
-	{ 0x0000007c, 0x0000000c, "TLBstore"                                        },
-	{ 0x0000007c, 0x00000010, "Address error on load or instruction fetch"      },
-	{ 0x0000007c, 0x00000014, "Address error on store"                          },
-	{ 0x0000007c, 0x00000018, "Bus error exception on instruction fetch"        },
-	{ 0x0000007c, 0x0000001c, "Bus error exception on data reference"           },
-	{ 0x0000007c, 0x00000020, "Syscall"                                         },
-	{ 0x0000007c, 0x00000024, "Brk"                                             },
-	{ 0x0000007c, 0x00000028, "Reserved instruction"                            },
-	{ 0x0000007c, 0x0000002c, "Cop unusable"                                    },
-	{ 0x0000007c, 0x00000030, "Overflow"                                        },
-	{ 0x0000007c, 0x00000034, "Trap"                                            },
-	{ 0x0000007c, 0x00000038, "Virtual coherency exception on intruction fetch" },
-	{ 0x0000007c, 0x0000003c, "Fp exception"                                    },
-	{ 0x0000007c, 0x0000005c, "Watchpoint"                                      },
-	{ 0x0000007c, 0x0000007c, "Virtual coherency exception on data reference"   },
-	{ 0x00000000, 0x00000000, ""                                                },
-	{ 0x80000000, 0x80000000, "CU3"                                             },
-	{ 0x40000000, 0x40000000, "CU2"                                             },
-	{ 0x20000000, 0x20000000, "CU1"                                             },
-	{ 0x10000000, 0x10000000, "CU0"                                             },
-	{ 0x08000000, 0x08000000, "RP"                                              },
-	{ 0x04000000, 0x04000000, "FR"                                              },
-	{ 0x02000000, 0x02000000, "RE"                                              },
-	{ 0x00400000, 0x00400000, "BEV"                                             },
-	{ 0x00200000, 0x00200000, "TS"                                              },
-	{ 0x00100000, 0x00100000, "SR"                                              },
-	{ 0x00040000, 0x00040000, "CH"                                              },
-	{ 0x00020000, 0x00020000, "CE"                                              },
-	{ 0x00010000, 0x00010000, "DE"                                              },
-	{ 0x00008000, 0x00008000, "IM8"                                             },
-	{ 0x00004000, 0x00004000, "IM7"                                             },
-	{ 0x00002000, 0x00002000, "IM6"                                             },
-	{ 0x00001000, 0x00001000, "IM5"                                             },
-	{ 0x00000800, 0x00000800, "IM4"                                             },
-	{ 0x00000400, 0x00000400, "IM3"                                             },
-	{ 0x00000200, 0x00000200, "IM2"                                             },
-	{ 0x00000100, 0x00000100, "IM1"                                             },
-	{ 0x00000080, 0x00000080, "KX"                                              },
-	{ 0x00000040, 0x00000040, "SX"                                              },
-	{ 0x00000020, 0x00000020, "UX"                                              },
-	{ 0x00000018, 0x00000010, "USR"                                             },
-	{ 0x00000018, 0x00000008, "SUP"                                             },
-	{ 0x00000018, 0x00000000, "KER"                                             },
-	{ 0x00000004, 0x00000004, "ERL"                                             },
-	{ 0x00000002, 0x00000002, "EXL"                                             },
-	{ 0x00000001, 0x00000001, "IE"                                              },
-	{ 0x00000000, 0x00000000, ""                                                },
+	{ CAUSE_BD,      CAUSE_BD,    "BD"                                              },
+    { CAUSE_IP8,     CAUSE_IP8,   "IP8"                                             },
+    { CAUSE_IP7,     CAUSE_IP7,   "IP7"                                             },
+    { CAUSE_IP6,     CAUSE_IP6,   "IP6"                                             },
+    { CAUSE_IP5,     CAUSE_IP5,   "IP5"                                             },
+    { CAUSE_IP4,     CAUSE_IP4,   "IP4"                                             },
+    { CAUSE_IP3,     CAUSE_IP3,   "IP3"                                             },
+    { CAUSE_SW2,     CAUSE_SW2,   "IP2"                                             },
+    { CAUSE_SW1,     CAUSE_SW1,   "IP1"                                             },
+    { CAUSE_EXCMASK, EXC_INT,     "Int"                                             },
+    { CAUSE_EXCMASK, EXC_MOD,     "TLBmod"                                          },
+    { CAUSE_EXCMASK, EXC_RMISS,   "TLBload"                                         },
+    { CAUSE_EXCMASK, EXC_WMISS,   "TLBstore"                                        },
+    { CAUSE_EXCMASK, EXC_RADE,    "Address error on load or instruction fetch"      },
+    { CAUSE_EXCMASK, EXC_WADE,    "Address error on store"                          },
+    { CAUSE_EXCMASK, EXC_IBE,     "Bus error exception on instruction fetch"        },
+    { CAUSE_EXCMASK, EXC_DBE,     "Bus error exception on data reference"           },
+    { CAUSE_EXCMASK, EXC_SYSCALL, "Syscall"                                         },
+    { CAUSE_EXCMASK, EXC_BREAK,   "Brk"                                             },
+    { CAUSE_EXCMASK, EXC_II,      "Reserved instruction"                            },
+    { CAUSE_EXCMASK, EXC_CPU,     "Cop unusable"                                    },
+    { CAUSE_EXCMASK, EXC_OV,      "Overflow"                                        },
+    { CAUSE_EXCMASK, EXC_TRAP,    "Trap"                                            },
+    { CAUSE_EXCMASK, EXC_VCEI,    "Virtual coherency exception on intruction fetch" },
+    { CAUSE_EXCMASK, EXC_FPE,     "Fp exception"                                    },
+    { CAUSE_EXCMASK, EXC_WATCH,   "Watchpoint"                                      },
+    { CAUSE_EXCMASK, EXC_VCED,    "Virtual coherency exception on data reference"   },
+    { 0,             0,           ""                                                },
+};
+
+struct crashdescription g_CrashSrDescriptions[] = {
+	{ SR_CU3,      SR_CU3,     "CU3" },
+	{ SR_CU2,      SR_CU2,     "CU2" },
+	{ SR_CU1,      SR_CU1,     "CU1" },
+	{ SR_CU0,      SR_CU0,     "CU0" },
+	{ SR_RP,       SR_RP,      "RP"  },
+	{ SR_FR,       SR_FR,      "FR"  },
+	{ SR_RE,       SR_RE,      "RE"  },
+	{ SR_BEV,      SR_BEV,     "BEV" },
+	{ SR_TS,       SR_TS,      "TS"  },
+	{ SR_SR,       SR_SR,      "SR"  },
+	{ SR_CH,       SR_CH,      "CH"  },
+	{ SR_CE,       SR_CE,      "CE"  },
+	{ SR_DE,       SR_DE,      "DE"  },
+	{ SR_IBIT8,    SR_IBIT8,   "IM8" },
+	{ SR_IBIT7,    SR_IBIT7,   "IM7" },
+	{ SR_IBIT6,    SR_IBIT6,   "IM6" },
+	{ SR_IBIT5,    SR_IBIT5,   "IM5" },
+	{ SR_IBIT4,    SR_IBIT4,   "IM4" },
+	{ SR_IBIT3,    SR_IBIT3,   "IM3" },
+	{ SR_IBIT2,    SR_IBIT2,   "IM2" },
+	{ SR_IBIT1,    SR_IBIT1,   "IM1" },
+	{ SR_KX,       SR_KX,      "KX"  },
+	{ SR_SX,       SR_SX,      "SX"  },
+	{ SR_UX,       SR_UX,      "UX"  },
+	{ SR_KSU_MASK, SR_KSU_USR, "USR" },
+	{ SR_KSU_MASK, SR_KSU_SUP, "SUP" },
+	{ SR_KSU_MASK, SR_KSU_KER, "KER" },
+	{ SR_ERL,      SR_ERL,     "ERL" },
+	{ SR_EXL,      SR_EXL,     "EXL" },
+	{ SR_IE,       SR_IE,      "IE"  },
+	{ 0,           0,          ""    },
 };
 
 struct crashdescription g_CrashFpcsrDescriptions[] = {
-	{ 0x01000000, 0x01000000, "FS"            },
-	{ 0x00800000, 0x00800000, "C"             },
-	{ 0x00020000, 0x00020000, "Unimplemented" },
-	{ 0x00010000, 0x00010000, "Invalid op"    },
-	{ 0x00008000, 0x00008000, "/ by 0.0"      },
-	{ 0x00004000, 0x00004000, "Overflow"      },
-	{ 0x00002000, 0x00002000, "Underflow"     },
-	{ 0x00001000, 0x00001000, "Inexact op"    },
-	{ 0x00000800, 0x00000800, "EV"            },
-	{ 0x00000400, 0x00000400, "EZ"            },
-	{ 0x00000200, 0x00000200, "EO"            },
-	{ 0x00000100, 0x00000100, "EU"            },
-	{ 0x00000080, 0x00000080, "EI"            },
-	{ 0x00000040, 0x00000040, "FV"            },
-	{ 0x00000020, 0x00000020, "FZ"            },
-	{ 0x00000010, 0x00000010, "FO"            },
-	{ 0x00000008, 0x00000008, "FU"            },
-	{ 0x00000004, 0x00000004, "FI"            },
-	{ 0x00000003, 0x00000000, "RN"            },
-	{ 0x00000003, 0x00000001, "RZ"            },
-	{ 0x00000003, 0x00000002, "RP"            },
-	{ 0x00000003, 0x00000003, "RM"            },
-	{ 0x00000000, 0x00000000, ""              },
+	{ FPCSR_FS,      FPCSR_FS,    "FS"            },
+	{ FPCSR_C,       FPCSR_C,     "C"             },
+	{ FPCSR_CE,      FPCSR_CE,    "Unimplemented" },
+	{ FPCSR_CV,      FPCSR_CV,    "Invalid op"    },
+	{ FPCSR_CZ,      FPCSR_CZ,    "/ by 0.0"      },
+	{ FPCSR_CO,      FPCSR_CO,    "Overflow"      },
+	{ FPCSR_CU,      FPCSR_CU,    "Underflow"     },
+	{ FPCSR_CI,      FPCSR_CI,    "Inexact op"    },
+	{ FPCSR_EV,      FPCSR_EV,    "EV"            },
+	{ FPCSR_EZ,      FPCSR_EZ,    "EZ"            },
+	{ FPCSR_EO,      FPCSR_EO,    "EO"            },
+	{ FPCSR_EU,      FPCSR_EU,    "EU"            },
+	{ FPCSR_EI,      FPCSR_EI,    "EI"            },
+	{ FPCSR_FV,      FPCSR_FV,    "FV"            },
+	{ FPCSR_FZ,      FPCSR_FZ,    "FZ"            },
+	{ FPCSR_FO,      FPCSR_FO,    "FO"            },
+	{ FPCSR_FU,      FPCSR_FU,    "FU"            },
+	{ FPCSR_FI,      FPCSR_FI,    "FI"            },
+	{ FPCSR_RM_MASK, FPCSR_RM_RN, "RN"            },
+	{ FPCSR_RM_MASK, FPCSR_RM_RZ, "RZ"            },
+	{ FPCSR_RM_MASK, FPCSR_RM_RP, "RP"            },
+	{ FPCSR_RM_MASK, FPCSR_RM_RM, "RM"            },
+	{ 0,             0,           ""              },
 };
 
 char (*g_CrashCharBuffer)[71] = NULL;
@@ -198,92 +201,118 @@ glabel faultproc
 //	}
 //}
 
-GLOBAL_ASM(
-glabel func0000c118
-/*     c118:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*     c11c:	afa40010 */ 	sw	$a0,0x10($sp)
-/*     c120:	afb1000c */ 	sw	$s1,0xc($sp)
-/*     c124:	afb00008 */ 	sw	$s0,0x8($sp)
-/*     c128:	00c01825 */ 	or	$v1,$a2,$zero
-/*     c12c:	00001025 */ 	or	$v0,$zero,$zero
-/*     c130:	00004025 */ 	or	$t0,$zero,$zero
-/*     c134:	24040020 */ 	addiu	$a0,$zero,0x20
-/*     c138:	00004825 */ 	or	$t1,$zero,$zero
-/*     c13c:	00e05025 */ 	or	$t2,$a3,$zero
-.L0000c140:
-/*     c140:	25290001 */ 	addiu	$t1,$t1,0x1
-/*     c144:	ad400000 */ 	sw	$zero,0x0($t2)
-/*     c148:	1524fffd */ 	bne	$t1,$a0,.L0000c140
-/*     c14c:	254a0004 */ 	addiu	$t2,$t2,0x4
-/*     c150:	8fa40010 */ 	lw	$a0,0x10($sp)
-/*     c154:	3c1103e0 */ 	lui	$s1,0x3e0
-/*     c158:	36310008 */ 	ori	$s1,$s1,0x8
-/*     c15c:	0085082b */ 	sltu	$at,$a0,$a1
-/*     c160:	1420002d */ 	bnez	$at,.L0000c218
-/*     c164:	2410001f */ 	addiu	$s0,$zero,0x1f
-/*     c168:	3c0dffe0 */ 	lui	$t5,0xffe0
-/*     c16c:	3c0cafa0 */ 	lui	$t4,0xafa0
-/*     c170:	3c0bffff */ 	lui	$t3,0xffff
-/*     c174:	3c0a27bd */ 	lui	$t2,0x27bd
-/*     c178:	8c890000 */ 	lw	$t1,0x0($a0)
-.L0000c17c:
-/*     c17c:	2484fffc */ 	addiu	$a0,$a0,-4
-/*     c180:	0085082b */ 	sltu	$at,$a0,$a1
-/*     c184:	012b7824 */ 	and	$t7,$t1,$t3
-/*     c188:	154f000b */ 	bne	$t2,$t7,.L0000c1b8
-/*     c18c:	012dc024 */ 	and	$t8,$t1,$t5
-/*     c190:	0009c400 */ 	sll	$t8,$t1,0x10
-/*     c194:	0018cc03 */ 	sra	$t9,$t8,0x10
-/*     c198:	1f20001f */ 	bgtz	$t9,.L0000c218
-/*     c19c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*     c1a0:	00197083 */ 	sra	$t6,$t9,0x2
-/*     c1a4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*     c1a8:	11000019 */ 	beqz	$t0,.L0000c210
-/*     c1ac:	006f1823 */ 	subu	$v1,$v1,$t7
-/*     c1b0:	10000019 */ 	b	.L0000c218
-/*     c1b4:	00000000 */ 	nop
-.L0000c1b8:
-/*     c1b8:	15980013 */ 	bne	$t4,$t8,.L0000c208
-/*     c1bc:	00093402 */ 	srl	$a2,$t1,0x10
-/*     c1c0:	30d9001f */ 	andi	$t9,$a2,0x1f
-/*     c1c4:	00097c00 */ 	sll	$t7,$t1,0x10
-/*     c1c8:	000fc403 */ 	sra	$t8,$t7,0x10
-/*     c1cc:	03203025 */ 	or	$a2,$t9,$zero
-/*     c1d0:	0018c883 */ 	sra	$t9,$t8,0x2
-/*     c1d4:	00197080 */ 	sll	$t6,$t9,0x2
-/*     c1d8:	0006c080 */ 	sll	$t8,$a2,0x2
-/*     c1dc:	00f8c821 */ 	addu	$t9,$a3,$t8
-/*     c1e0:	01c37821 */ 	addu	$t7,$t6,$v1
-/*     c1e4:	16060002 */ 	bne	$s0,$a2,.L0000c1f0
-/*     c1e8:	af2f0000 */ 	sw	$t7,0x0($t9)
-/*     c1ec:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0000c1f0:
-/*     c1f0:	10400007 */ 	beqz	$v0,.L0000c210
-/*     c1f4:	00000000 */ 	nop
-/*     c1f8:	11000005 */ 	beqz	$t0,.L0000c210
-/*     c1fc:	00000000 */ 	nop
-/*     c200:	10000005 */ 	b	.L0000c218
-/*     c204:	00000000 */ 	nop
-.L0000c208:
-/*     c208:	11310003 */ 	beq	$t1,$s1,.L0000c218
-/*     c20c:	00000000 */ 	nop
-.L0000c210:
-/*     c210:	5020ffda */ 	beqzl	$at,.L0000c17c
-/*     c214:	8c890000 */ 	lw	$t1,0x0($a0)
-.L0000c218:
-/*     c218:	10400005 */ 	beqz	$v0,.L0000c230
-/*     c21c:	8fb00008 */ 	lw	$s0,0x8($sp)
-/*     c220:	51000004 */ 	beqzl	$t0,.L0000c234
-/*     c224:	00001025 */ 	or	$v0,$zero,$zero
-/*     c228:	10000002 */ 	b	.L0000c234
-/*     c22c:	00601025 */ 	or	$v0,$v1,$zero
-.L0000c230:
-/*     c230:	00001025 */ 	or	$v0,$zero,$zero
-.L0000c234:
-/*     c234:	8fb1000c */ 	lw	$s1,0xc($sp)
-/*     c238:	03e00008 */ 	jr	$ra
-/*     c23c:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+/**
+ * Given a pointer to an instruction and a stack frame pointer, attempt to find
+ * the calling function. Return the address of the caller's stack frame and
+ * populate regs with stack addresses where that register was saved. This can be
+ * used to retrieve the RA value and invoke crashGetParentStackFrame again to
+ * build a backtrace.
+ *
+ * origptr is a pointer to an instruction. This should be either the value of
+ *     the PC register of the faulted thread, or an RA register if searching a
+ *     parent.
+ * minaddr is the memory address of the start of the code segment,
+ *     ie. 0x70001050. This is used to prevent the function from walking out of
+ *     the code segment.
+ * origsp is the address of the stack frame for the given origptr.
+ * regs is a pointer to an array of 32 words.
+ *
+ * The function works by walking backwards one instruction at a time, looking
+ * for stack frame adjustments and stores of $ra to the stack. Once both of
+ * these are are found, the function returns with this information.
+ *
+ * The function will return 0 if it can't reliably find the caller. This will
+ * happen if the function being analysed didn't adjust the stack pointer or
+ * store $ra in the stack. It can also fail if the function being analysed uses
+ * returns within branches.
+ */
+u32 crashGetParentStackFrame(u32 *origptr, u32 *minaddr, u32 origsp, u32 *regs)
+{
+	u32 sp = origsp;
+	u32 *ptr;
+	bool foundaddsp = false;
+	bool foundra = false;
+	s32 regid;
+	u32 instruction;
+	s16 value;
+
+	// Clear the regs array (note: reusing the instruction variable here)
+	for (instruction = 0; instruction < 32; instruction++) regs[instruction] = 0;
+
+	// Walk backwards through the instructions
+	for (ptr = origptr; ptr >= minaddr; ptr--) {
+		instruction = *ptr;
+		value = instruction & 0xffff;
+
+		if ((instruction & 0xffff0000) == 0x27bd0000) {
+			// Found an addiu $sp, $sp, <amount> instruction, which adjusts the
+			// stack pointer. These can exist near the start and end of any
+			// function. The "add" at the start is done with a negative value
+			// which increases the size of the stack, as the stack expands to
+			// the left. This function is interested in these negative adds,
+			// because it needs to reverse it and move the sp variable forward
+			// to the next stack frame (the frame of the caller).
+
+			foundaddsp = true;
+
+			if (value > 0) {
+				// Found the addiu sp at the end of the function. It's pretty
+				// rare to crash (or jump elsewhere) after restoring the sp,
+				// so this situation is not supported by this function.
+				break;
+			}
+
+			// Change sp to point to the caller's stack frame
+			sp -= (value >> 2) * 4;
+
+			if (foundra) {
+				break;
+			}
+		} else if ((instruction & 0xffe00000) == 0xafa00000) {
+			// Found a store word instruction that stores to the stack.
+			// The encoding of this instruction is:
+			//
+			//     oooooodd dddsssss iiiiiiii iiiiiiii
+			//
+			// Where:
+			//     o is the opcode (already known to be sw).
+			//     d is the destination register (already known to be $sp)
+			//     s is the source register
+			//     i is the offset to store to
+			//
+			// This looks for a store from $ra to the stack, so the value can
+			// be read from the stack and used to find the caller's address.
+
+			regid = (instruction >> 16) & 0x1f;
+			regs[regid] = sp + (value >> 2) * 4;
+
+			if (regid == 31) {
+				foundra = true;
+			}
+
+			if (foundaddsp && foundra) {
+				break;
+			}
+		} else if (instruction == 0x03e00008) {
+			// Found a jr $ra statement, which is a return. This will happen if
+			// this loop has walked out of the current function and into the one
+			// prior to it, so bail.
+
+			// It can also happen if the function has return statements within
+			// branches, but handling these correctly would involve a lot of
+			// complexity so that's unsupported. Because of this, this function
+			// can end the backtrace prematurely if it encounters a function
+			// that does this.
+			break;
+		}
+	}
+
+	if (foundaddsp && foundra) {
+		return sp;
+	}
+
+	return 0;
+}
 
 bool crashIsReturnAddress(u32 *instruction)
 {
@@ -409,7 +438,7 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 	s32 i;
 	u32 ptr;
 	u32 *sp;
-	u32 sp64[32];
+	u32 regs[32];
 	u32 *stackend;
 	u32 *stackstart;
 	__OSThreadContext *ctx = &thread->context;
@@ -493,7 +522,7 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 	crashPrint("nearl: ");
 
 	while (!done) {
-		sp = (u32 *) func0000c118(ptr, &_libSegmentStart, (u32)sp, sp64);
+		sp = (u32 *) crashGetParentStackFrame((u32 *) ptr, &_libSegmentStart, (u32)sp, regs);
 		crashPrint(" %08x ", ptr);
 
 		callstack[*tracelen] = ptr;
@@ -507,10 +536,10 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 			sp = (u32 *)ctx->sp;
 		}
 
-		if (sp64[31] == 0) {
+		if (regs[31] == 0) {
 			ptr = ctx->ra;
 		} else {
-			ptr = *(u32 *)(sp64[31]);
+			ptr = *(u32 *)(regs[31]);
 		}
 
 		if (sp < stackstart || sp >= stackend || stackend == &sp[4] || ptr == 0) {

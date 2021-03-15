@@ -88,7 +88,7 @@ extern const char var700529a8[];
 extern const char var700529ac[];
 
 void faultCreateThread2(void);
-s32 func0000c118(u32 ptr, void *arg1, u32 sp, u32 *arg3);
+u32 crashGetParentStackFrame(u32 *ptr, u32 *start, u32 sp, u32 *regs);
 bool crashIsReturnAddress(u32 *instruction);
 u32 crashGetStackEnd(u32 sp, s32 tid);
 u32 crashGetStackStart(u32 arg0, s32 tid);
