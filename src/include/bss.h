@@ -66,7 +66,6 @@ extern u32 __osBaseCounter;
 extern u32 __osViIntrCount;
 extern OSMesgQueue __osPiAccessQueue;
 extern u32 __osContPifRam;
-extern u32 var8009c81c;
 extern u8 __osContLastCmd;
 extern u32 __osEepromTimer;
 extern u32 __osEepromTimerQ;

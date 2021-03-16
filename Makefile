@@ -75,6 +75,7 @@ $(B_DIR)/lib/ultra/io/ai.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/aisetnextbuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/conteeplongread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/contquery.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/io/controller.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/pigetcmdq.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/pidma.o: OPT_LVL := -O1

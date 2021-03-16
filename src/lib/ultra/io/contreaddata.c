@@ -72,10 +72,10 @@ glabel __osPackReadData
 /*    4f510:	3c05800a */ 	lui	$a1,%hi(__osContPifRam)
 /*    4f514:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(__osContPifRam)
 /*    4f518:	3c04800a */ 	lui	$a0,%hi(__osContPifRam)
-/*    4f51c:	3c03800a */ 	lui	$v1,%hi(var8009c81c)
+/*    4f51c:	3c03800a */ 	lui	$v1,%hi(__osContPifRam+0x3c)
 /*    4f520:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4f524:	00a01025 */ 	or	$v0,$a1,$zero
-/*    4f528:	2463c81c */ 	addiu	$v1,$v1,%lo(var8009c81c)
+/*    4f528:	2463c81c */ 	addiu	$v1,$v1,%lo(__osContPifRam+0x3c)
 /*    4f52c:	2484c7e0 */ 	addiu	$a0,$a0,%lo(__osContPifRam)
 .L0004f530:
 /*    4f530:	24840004 */ 	addiu	$a0,$a0,0x4

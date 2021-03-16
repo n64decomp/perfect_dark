@@ -1,23 +1,9 @@
 #include <libultra_internal.h>
 #include "data.h"
 
-u32 __osContPifRam;
-u32 var8009c7e4;
-u32 var8009c7e8;
-u32 var8009c7ec;
-u32 var8009c7f0;
-u32 var8009c7f4;
-u32 var8009c7f8;
-u32 var8009c7fc;
-u32 var8009c800;
-u32 var8009c804;
-u32 var8009c808;
-u32 var8009c80c;
-u32 var8009c810;
-u32 var8009c814;
-u32 var8009c818;
-u32 var8009c81c;
+OSPifRam __osContPifRam;
 u8 __osContLastCmd;
+u8 __osMaxControllers;
 u32 var8009c824;
 u32 __osEepromTimer;
 u32 var8009c82c;
@@ -195,70 +181,33 @@ glabel __osContGetInitData
 /*    4abbc:	a08b0000 */ 	sb	$t3,0x0($a0)
 );
 
-GLOBAL_ASM(
-glabel __osPackRequestData
-/*    4abc0:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    4abc4:	308400ff */ 	andi	$a0,$a0,0xff
-/*    4abc8:	afa00000 */ 	sw	$zero,0x0($sp)
-.L0004abcc:
-/*    4abcc:	8fae0000 */ 	lw	$t6,0x0($sp)
-/*    4abd0:	8fb80000 */ 	lw	$t8,0x0($sp)
-/*    4abd4:	3c01800a */ 	lui	$at,%hi(__osContPifRam)
-/*    4abd8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    4abdc:	002f0821 */ 	addu	$at,$at,$t7
-/*    4abe0:	ac20c7e0 */ 	sw	$zero,%lo(__osContPifRam)($at)
-/*    4abe4:	27190001 */ 	addiu	$t9,$t8,0x1
-/*    4abe8:	2b21000f */ 	slti	$at,$t9,0xf
-/*    4abec:	1420fff7 */ 	bnez	$at,.L0004abcc
-/*    4abf0:	afb90000 */ 	sw	$t9,0x0($sp)
-/*    4abf4:	3c19800a */ 	lui	$t9,%hi(__osContLastCmd+0x1)
-/*    4abf8:	9339c821 */ 	lbu	$t9,%lo(__osContLastCmd+0x1)($t9)
-/*    4abfc:	3c09800a */ 	lui	$t1,%hi(__osContPifRam)
-/*    4ac00:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    4ac04:	3c01800a */ 	lui	$at,%hi(var8009c81c)
-/*    4ac08:	2529c7e0 */ 	addiu	$t1,$t1,%lo(__osContPifRam)
-/*    4ac0c:	240a00ff */ 	addiu	$t2,$zero,0xff
-/*    4ac10:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    4ac14:	240c0003 */ 	addiu	$t4,$zero,0x3
-/*    4ac18:	240d00ff */ 	addiu	$t5,$zero,0xff
-/*    4ac1c:	240e00ff */ 	addiu	$t6,$zero,0xff
-/*    4ac20:	240f00ff */ 	addiu	$t7,$zero,0xff
-/*    4ac24:	241800ff */ 	addiu	$t8,$zero,0xff
-/*    4ac28:	ac28c81c */ 	sw	$t0,%lo(var8009c81c)($at)
-/*    4ac2c:	afa9000c */ 	sw	$t1,0xc($sp)
-/*    4ac30:	a3aa0004 */ 	sb	$t2,0x4($sp)
-/*    4ac34:	a3ab0005 */ 	sb	$t3,0x5($sp)
-/*    4ac38:	a3ac0006 */ 	sb	$t4,0x6($sp)
-/*    4ac3c:	a3a40007 */ 	sb	$a0,0x7($sp)
-/*    4ac40:	a3ad0008 */ 	sb	$t5,0x8($sp)
-/*    4ac44:	a3ae0009 */ 	sb	$t6,0x9($sp)
-/*    4ac48:	a3af000a */ 	sb	$t7,0xa($sp)
-/*    4ac4c:	a3b8000b */ 	sb	$t8,0xb($sp)
-/*    4ac50:	1b200013 */ 	blez	$t9,.L0004aca0
-/*    4ac54:	afa00000 */ 	sw	$zero,0x0($sp)
-.L0004ac58:
-/*    4ac58:	27a90004 */ 	addiu	$t1,$sp,0x4
-/*    4ac5c:	8d210000 */ 	lw	$at,0x0($t1)
-/*    4ac60:	8fa8000c */ 	lw	$t0,0xc($sp)
-/*    4ac64:	3c18800a */ 	lui	$t8,%hi(__osContLastCmd+0x1)
-/*    4ac68:	a9010000 */ 	swl	$at,0x0($t0)
-/*    4ac6c:	b9010003 */ 	swr	$at,0x3($t0)
-/*    4ac70:	8d2b0004 */ 	lw	$t3,0x4($t1)
-/*    4ac74:	a90b0004 */ 	swl	$t3,0x4($t0)
-/*    4ac78:	b90b0007 */ 	swr	$t3,0x7($t0)
-/*    4ac7c:	8fae0000 */ 	lw	$t6,0x0($sp)
-/*    4ac80:	9318c821 */ 	lbu	$t8,%lo(__osContLastCmd+0x1)($t8)
-/*    4ac84:	8fac000c */ 	lw	$t4,0xc($sp)
-/*    4ac88:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*    4ac8c:	01f8082a */ 	slt	$at,$t7,$t8
-/*    4ac90:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*    4ac94:	afaf0000 */ 	sw	$t7,0x0($sp)
-/*    4ac98:	1420ffef */ 	bnez	$at,.L0004ac58
-/*    4ac9c:	afad000c */ 	sw	$t5,0xc($sp)
-.L0004aca0:
-/*    4aca0:	8faa000c */ 	lw	$t2,0xc($sp)
-/*    4aca4:	241900fe */ 	addiu	$t9,$zero,0xfe
-/*    4aca8:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*    4acac:	03e00008 */ 	jr	$ra
-/*    4acb0:	a1590000 */ 	sb	$t9,0x0($t2)
-);
+void __osPackRequestData(u8 cmd)
+{
+	u8 *ptr;
+	__OSContRequestFormat requestformat;
+	int i;
+
+	for (i = 0; i < ARRLEN(__osContPifRam.ramarray); i++) {
+		__osContPifRam.ramarray[i] = 0;
+	}
+
+	__osContPifRam.pifstatus = CONT_CMD_EXE;
+
+	ptr = (u8 *)&__osContPifRam.ramarray;
+
+	requestformat.dummy = CONT_CMD_NOP;
+	requestformat.txsize = CONT_CMD_REQUEST_STATUS_TX;
+	requestformat.rxsize = CONT_CMD_REQUEST_STATUS_RX;
+	requestformat.cmd = cmd;
+	requestformat.typeh = CONT_CMD_NOP;
+	requestformat.typel = CONT_CMD_NOP;
+	requestformat.status = CONT_CMD_NOP;
+	requestformat.dummy1 = CONT_CMD_NOP;
+
+	for (i = 0; i < __osMaxControllers; i++) {
+		*(__OSContRequestFormat *)ptr = requestformat;
+		ptr += sizeof(__OSContRequestFormat);
+	}
+
+	ptr[0] = CONT_CMD_END;
+}
