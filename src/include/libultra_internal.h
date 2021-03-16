@@ -39,7 +39,7 @@ s32 __osSpDeviceBusy();
 s32 __osSiDeviceBusy();
 s32 __osSpRawStartDma(s32 direction, u32 devAddr, void *dramAddr, u32 size);
 void __osViInit();
-OSViContext * __osViGetCurrentContext();
+__OSViContext * __osViGetCurrentContext();
 void __osViSwapContext();
 void __osSetTimerIntr(u64);
 u64 __osInsertTimer(OSTimer *);

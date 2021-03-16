@@ -1,5 +1,8 @@
 #include <libultra_internal.h>
-#include "data.h"
+#include "bss.h"
+
+OSDevMgr __osViDevMgr = {0};
+u32 var8005cefc = 0;
 
 OSThread viThread;
 char viThreadStack[512];
@@ -9,9 +12,6 @@ u32 var8009025c;
 OSIoMesg viRetraceMsg;
 OSIoMesg viCounterMsg;
 u32 var80090290;
-
-OSDevMgr __osViDevMgr = {0};
-u32 var8005cefc = 0;
 
 void viMgrMain(void *args);
 
@@ -174,3 +174,63 @@ glabel viMgrMain
 /*     3354:	03e00008 */ 	jr	$ra
 /*     3358:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
+
+// This matches, but the infinite loop causes ld to add 0x10 bytes of fill
+// to the start of this file's .text section.
+//void viMgrMain(void *args)
+//{
+//	__OSViContext *vc;
+//	OSDevMgr *dm;
+//	OSIoMesg *mb;
+//	static u16 retrace; // var80090290
+//	s32 first;
+//	u32 count;
+//
+//	mb = NULL;
+//	first = 0;
+//	vc = __osViGetCurrentContext();
+//	retrace = vc->retraceCount;
+//
+//	if (retrace == 0) {
+//		retrace = 1;
+//	}
+//
+//	dm = (OSDevMgr *)args;
+//
+//	while (true) {
+//		osRecvMesg(dm->evtQueue, (OSMesg) &mb, OS_MESG_BLOCK);
+//
+//		switch (mb->hdr.type) {
+//		case OS_MESG_TYPE_VRETRACE:
+//			__osViSwapContext();
+//			retrace--;
+//
+//			if (retrace == 0) {
+//				vc = __osViGetCurrentContext();
+//
+//				if (vc->msgq != NULL) {
+//					osSendMesg(vc->msgq, vc->msg, OS_MESG_NOBLOCK);
+//				}
+//
+//				retrace = vc->retraceCount;
+//			}
+//
+//			__osViIntrCount++;
+//
+//			if (first) {
+//				count = osGetCount();
+//				__osCurrentTime = count;
+//				first = 0;
+//			}
+//
+//			count = __osBaseCounter;
+//			__osBaseCounter = osGetCount();
+//			count = __osBaseCounter - count;
+//			__osCurrentTime = __osCurrentTime + count;
+//			break;
+//		case OS_MESG_TYPE_COUNTER:
+//			__osTimerInterrupt();
+//			break;
+//		}
+//	}
+//}
