@@ -29,8 +29,6 @@ glabel sprintf
 /*    136fc:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    13700:	03e00008 */ 	jr	$ra
 /*    13704:	00000000 */ 	nop
-/*    13708:	00000000 */ 	nop
-/*    1370c:	00000000 */ 	nop
 );
 
 // Mismatch:

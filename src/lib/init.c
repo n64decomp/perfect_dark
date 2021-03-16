@@ -872,8 +872,5 @@ glabel func00001bf4nb
 /*     1cc8:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*     1ccc:	03e00008 */ 	jr	$ra
 /*     1cd0:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-/*     1cd4:	00000000 */ 	nop
-/*     1cd8:	00000000 */ 	nop
-/*     1cdc:	00000000 */ 	nop
 );
 #endif

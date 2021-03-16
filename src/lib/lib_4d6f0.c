@@ -802,5 +802,4 @@ glabel func0004e090
 .L0004e1a4:
 /*    4e1a4:	03e00008 */ 	jr	$ra
 /*    4e1a8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    4e1ac:	00000000 */ 	nop
 );

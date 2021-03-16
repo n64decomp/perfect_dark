@@ -10,6 +10,7 @@
 #include "game/ceil.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/game_0b69d0.h"
 #include "game/game_11f000.h"
 #include "game/sky.h"
@@ -19,7 +20,7 @@
 #include "game/room.h"
 #include "game/game_165360.h"
 #include "game/game_1655c0.h"
-#include "game/game_165670.h"
+#include "game/game_1657c0.h"
 #include "game/game_1668e0.h"
 #include "game/file.h"
 #include "game/core.h"
@@ -15321,5 +15322,4 @@ glabel func0f1650d0
 /*  f165350:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*  f165354:	03e00008 */ 	jr	$ra
 /*  f165358:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-/*  f16535c:	00000000 */ 	nop
 );

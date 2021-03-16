@@ -5050,5 +5050,4 @@ glabel func0f005bb0
 /*  f005fc0:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*  f005fc4:	03e00008 */ 	jr	$ra
 /*  f005fc8:	00000000 */ 	nop
-/*  f005fcc:	00000000 */ 	nop
 );

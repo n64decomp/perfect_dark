@@ -7,6 +7,7 @@
 #include "game/game_091e10.h"
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
 #include "game/room.h"

@@ -102,5 +102,4 @@ glabel osEPiRawReadIo
 /*    51bb0:	8d8d0000 */ 	lw	$t5,0x0($t4)
 /*    51bb4:	03e00008 */ 	jr	$ra
 /*    51bb8:	accd0000 */ 	sw	$t5,0x0($a2)
-/*    51bbc:	00000000 */ 	nop
 );

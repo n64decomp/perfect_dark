@@ -1916,6 +1916,4 @@ glabel func0f13d568
 /*  f13e0cc:	8fbe0080 */ 	lw	$s8,0x80($sp)
 /*  f13e0d0:	03e00008 */ 	jr	$ra
 /*  f13e0d4:	27bd0160 */ 	addiu	$sp,$sp,0x160
-/*  f13e0d8:	00000000 */ 	nop
-/*  f13e0dc:	00000000 */ 	nop
 );

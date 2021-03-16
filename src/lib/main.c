@@ -55,6 +55,7 @@
 #include "lib/lib_13750.h"
 #include "lib/lib_13790.h"
 #include "lib/lib_233c0.h"
+#include "lib/lib_2f8a0.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_2fa00.h"
 #include "data.h"

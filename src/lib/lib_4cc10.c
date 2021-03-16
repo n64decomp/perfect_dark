@@ -135,7 +135,4 @@ glabel func0004cc10
 /*    4cdc8:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*    4cdcc:	03e00008 */ 	jr	$ra
 /*    4cdd0:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*    4cdd4:	00000000 */ 	nop
-/*    4cdd8:	00000000 */ 	nop
-/*    4cddc:	00000000 */ 	nop
 );

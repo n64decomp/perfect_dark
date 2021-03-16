@@ -261,7 +261,4 @@ glabel __osPackRequestData
 /*    4aca8:	27bd0010 */ 	addiu	$sp,$sp,0x10
 /*    4acac:	03e00008 */ 	jr	$ra
 /*    4acb0:	a1590000 */ 	sb	$t9,0x0($t2)
-/*    4acb4:	00000000 */ 	nop
-/*    4acb8:	00000000 */ 	nop
-/*    4acbc:	00000000 */ 	nop
 );

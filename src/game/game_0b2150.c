@@ -541,7 +541,4 @@ glabel func0f0b278c
 /*  f0b28b8:	27bd0038 */ 	addiu	$sp,$sp,0x38
 /*  f0b28bc:	03e00008 */ 	jr	$ra
 /*  f0b28c0:	00000000 */ 	nop
-/*  f0b28c4:	00000000 */ 	nop
-/*  f0b28c8:	00000000 */ 	nop
-/*  f0b28cc:	00000000 */ 	nop
 );

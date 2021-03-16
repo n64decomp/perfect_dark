@@ -50,9 +50,6 @@ glabel osAiSetNextBuffer
 /*    4e458:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    4e45c:	03e00008 */ 	jr	$ra
 /*    4e460:	00000000 */ 	nop
-/*    4e464:	00000000 */ 	nop
-/*    4e468:	00000000 */ 	nop
-/*    4e46c:	00000000 */ 	nop
 );
 
 // Mismatch: Needs data relocation

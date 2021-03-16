@@ -54,6 +54,4 @@ glabel func0002fb14
 .L0002fb90:
 /*    2fb90:	03e00008 */ 	jr	$ra
 /*    2fb94:	27bd0008 */ 	addiu	$sp,$sp,0x8
-/*    2fb98:	00000000 */ 	nop
-/*    2fb9c:	00000000 */ 	nop
 );

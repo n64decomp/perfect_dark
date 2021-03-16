@@ -6,6 +6,7 @@
 #include "game/game_091e10.h"
 #include "game/game_095320.h"
 #include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"

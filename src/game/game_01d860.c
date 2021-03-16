@@ -57,7 +57,6 @@ glabel func0f01d860
 /*  f01d9d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f01d9d4:	03e00008 */ 	jr	$ra
 /*  f01d9d8:	00000000 */ 	nop
-/*  f01d9dc:	00000000 */ 	nop
 );
 #else
 void func0f01d860(void)
@@ -73,18 +72,3 @@ void func0f01d860(void)
 	}
 }
 #endif
-
-void func0f01d8c0(void)
-{
-	s32 i;
-
-	for (i = 0; i < var80082050; i++) {
-		if (var800a6668[i] >= 0) {
-			var800a6660[i]++;
-
-			if (var800a6660[i] > 1) {
-				func0f16696c(i);
-			}
-		}
-	}
-}

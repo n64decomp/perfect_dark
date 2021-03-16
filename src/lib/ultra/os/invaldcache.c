@@ -51,5 +51,4 @@ glabel osInvalDCache
 /*    4e520:	25080010 */ 	addiu	$t0,$t0,0x10
 /*    4e524:	03e00008 */ 	jr	$ra
 /*    4e528:	00000000 */ 	nop
-/*    4e52c:	00000000 */ 	nop
 );

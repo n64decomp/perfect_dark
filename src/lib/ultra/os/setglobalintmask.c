@@ -22,5 +22,4 @@ glabel __osSetGlobalIntMask
 /*    51c00:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*    51c04:	03e00008 */ 	jr	$ra
 /*    51c08:	00000000 */ 	nop
-/*    51c0c:	00000000 */ 	nop
 );

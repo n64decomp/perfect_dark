@@ -68,6 +68,7 @@
 	build/ROMID/game/game_01bea0.o (section); \
 	build/ROMID/game/weather/tick.o (section); \
 	build/ROMID/game/game_01d860.o (section); \
+	build/ROMID/game/game_01d8c0.o (section); \
 	build/ROMID/game/game_01d990.o (section); \
 	build/ROMID/game/casing/tick.o (section); \
 	build/ROMID/game/shards/tick.o (section); \
@@ -102,6 +103,7 @@
 	build/ROMID/game/game_0b2150.o (section); \
 	build/ROMID/game/game_0b28d0.o (section); \
 	build/ROMID/game/game_0b3350.o (section); \
+	build/ROMID/game/game_0b4950.o (section); \
 	build/ROMID/game/game_0b63b0.o (section); \
 	build/ROMID/game/game_0b69d0.o (section); \
 	build/ROMID/game/game_0c33f0.o (section); \
@@ -162,6 +164,7 @@
 	build/ROMID/game/game_165360.o (section); \
 	build/ROMID/game/game_1655c0.o (section); \
 	build/ROMID/game/game_165670.o (section); \
+	build/ROMID/game/game_1657c0.o (section); \
 	build/ROMID/game/game_1668e0.o (section); \
 	build/ROMID/game/file.o (section); \
 	build/ROMID/game/gfxmemory.o (section); \

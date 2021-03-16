@@ -939,6 +939,4 @@ glabel _Printf
 /*    4f33c:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*    4f340:	03e00008 */ 	jr	$ra
 /*    4f344:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-/*    4f348:	00000000 */ 	nop
-/*    4f34c:	00000000 */ 	nop
 );

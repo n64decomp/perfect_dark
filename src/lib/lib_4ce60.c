@@ -126,6 +126,4 @@ glabel func0004ce60
 /*    4cfec:	8fb50028 */ 	lw	$s5,0x28($sp)
 /*    4cff0:	03e00008 */ 	jr	$ra
 /*    4cff4:	27bd0150 */ 	addiu	$sp,$sp,0x150
-/*    4cff8:	00000000 */ 	nop
-/*    4cffc:	00000000 */ 	nop
 );

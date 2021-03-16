@@ -438,5 +438,4 @@ glabel viMgrMain
 /*     3350:	8fb70030 */ 	lw	$s7,0x30($sp)
 /*     3354:	03e00008 */ 	jr	$ra
 /*     3358:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*     335c:	00000000 */ 	nop
 );

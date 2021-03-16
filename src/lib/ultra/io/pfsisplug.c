@@ -229,5 +229,4 @@ glabel __osPfsGetInitData
 /*     5a50:	a0820000 */ 	sb	$v0,0x0($a0)
 /*     5a54:	03e00008 */ 	jr	$ra
 /*     5a58:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     5a5c:	00000000 */ 	nop
 );

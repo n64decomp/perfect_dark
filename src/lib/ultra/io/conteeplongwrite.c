@@ -72,7 +72,4 @@ glabel osEepromLongWrite
 /*     6538:	8fb70040 */ 	lw	$s7,0x40($sp)
 /*     653c:	03e00008 */ 	jr	$ra
 /*     6540:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*     6544:	00000000 */ 	nop
-/*     6548:	00000000 */ 	nop
-/*     654c:	00000000 */ 	nop
 );

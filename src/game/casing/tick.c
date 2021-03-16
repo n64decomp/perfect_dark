@@ -552,8 +552,6 @@ glabel casingsTick
 /*  f01de1c:	8fb30020 */ 	lw	$s3,0x20($sp)
 /*  f01de20:	03e00008 */ 	jr	$ra
 /*  f01de24:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f01de28:	00000000 */ 	nop
-/*  f01de2c:	00000000 */ 	nop
 );
 
 // Mismatch: g_Casings needs to be moved into this file.

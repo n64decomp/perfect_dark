@@ -13,6 +13,4 @@ glabel osWritebackDCacheAll
 /*    4813c:	25080010 */ 	addiu	$t0,$t0,0x10
 /*    48140:	03e00008 */ 	jr	$ra
 /*    48144:	00000000 */ 	nop
-/*    48148:	00000000 */ 	nop
-/*    4814c:	00000000 */ 	nop
 );

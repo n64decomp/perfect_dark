@@ -6192,9 +6192,6 @@ glabel texturesLoadConfigs
 /*  f1739e8:	8fb20020 */ 	lw	$s2,0x20($sp)
 /*  f1739ec:	03e00008 */ 	jr	$ra
 /*  f1739f0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1739f4:	00000000 */ 	nop
-/*  f1739f8:	00000000 */ 	nop
-/*  f1739fc:	00000000 */ 	nop
 );
 
 //extern u8 *_textureconfigSegmentRomStart;

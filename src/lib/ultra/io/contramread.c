@@ -153,7 +153,4 @@ glabel __osContRamRead
 /*    4ba78:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*    4ba7c:	03e00008 */ 	jr	$ra
 /*    4ba80:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*    4ba84:	00000000 */ 	nop
-/*    4ba88:	00000000 */ 	nop
-/*    4ba8c:	00000000 */ 	nop
 );

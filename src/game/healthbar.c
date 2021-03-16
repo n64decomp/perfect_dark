@@ -1558,5 +1558,4 @@ glabel healthbarRender
 /*  f0d7060:	27bd0428 */ 	addiu	$sp,$sp,0x428
 /*  f0d7064:	03e00008 */ 	jr	$ra
 /*  f0d7068:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f0d706c:	00000000 */ 	nop
 );

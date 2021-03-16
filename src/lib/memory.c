@@ -345,5 +345,4 @@ glabel mallocFromRight
 /*    126a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    126a4:	03e00008 */ 	jr	$ra
 /*    126a8:	00000000 */ 	nop
-/*    126ac:	00000000 */ 	nop
 );

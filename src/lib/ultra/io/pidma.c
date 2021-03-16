@@ -76,5 +76,4 @@ glabel osPiStartDma
 /*    4e630:	8fb10018 */ 	lw	$s1,0x18($sp)
 /*    4e634:	03e00008 */ 	jr	$ra
 /*    4e638:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    4e63c:	00000000 */ 	nop
 );

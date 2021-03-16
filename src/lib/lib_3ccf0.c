@@ -60,7 +60,4 @@ glabel func0003ccf0
 /*    3cda8:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    3cdac:	03e00008 */ 	jr	$ra
 /*    3cdb0:	00000000 */ 	nop
-/*    3cdb4:	00000000 */ 	nop
-/*    3cdb8:	00000000 */ 	nop
-/*    3cdbc:	00000000 */ 	nop
 );

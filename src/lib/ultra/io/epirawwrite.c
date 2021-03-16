@@ -101,6 +101,4 @@ glabel osEPiRawWriteIo
 /*    51a4c:	01616025 */ 	or	$t4,$t3,$at
 /*    51a50:	03e00008 */ 	jr	$ra
 /*    51a54:	ad860000 */ 	sw	$a2,0x0($t4)
-/*    51a58:	00000000 */ 	nop
-/*    51a5c:	00000000 */ 	nop
 );

@@ -67,6 +67,4 @@ glabel alClose
 /*    2fc4c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    2fc50:	03e00008 */ 	jr	$ra
 /*    2fc54:	00000000 */ 	nop
-/*    2fc58:	00000000 */ 	nop
-/*    2fc5c:	00000000 */ 	nop
 );

@@ -147,7 +147,6 @@ glabel sparksTick
 /*  f01e240:	8fb5001c */ 	lw	$s5,0x1c($sp)
 /*  f01e244:	03e00008 */ 	jr	$ra
 /*  f01e248:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f01e24c:	00000000 */ 	nop
 );
 
 // Mismatch due to regalloc near group->startindex

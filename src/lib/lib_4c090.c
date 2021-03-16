@@ -913,6 +913,4 @@ glabel func0004c934
 /*    4cbfc:	8fb40030 */ 	lw	$s4,0x30($sp)
 /*    4cc00:	03e00008 */ 	jr	$ra
 /*    4cc04:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*    4cc08:	00000000 */ 	nop
-/*    4cc0c:	00000000 */ 	nop
 );

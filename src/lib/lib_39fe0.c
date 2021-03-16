@@ -93,6 +93,4 @@ glabel func0003a070
 /*    3a0ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    3a0f0:	03e00008 */ 	jr	$ra
 /*    3a0f4:	00000000 */ 	nop
-/*    3a0f8:	00000000 */ 	nop
-/*    3a0fc:	00000000 */ 	nop
 );

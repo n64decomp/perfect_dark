@@ -329,7 +329,6 @@ glabel strtol
 /*    13680:	8fb40028 */ 	lw	$s4,0x28($sp)
 /*    13684:	03e00008 */ 	jr	$ra
 /*    13688:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*    1368c:	00000000 */ 	nop
 );
 
 // Mismatch: The below moves c from s0 to v1 near 590 for the compare with

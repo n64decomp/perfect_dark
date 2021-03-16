@@ -89,5 +89,4 @@ glabel func0004a518
 /*    4a5c0:	25080010 */ 	addiu	$t0,$t0,0x10
 /*    4a5c4:	03e00008 */ 	jr	$ra
 /*    4a5c8:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*    4a5cc:	00000000 */ 	nop
 );

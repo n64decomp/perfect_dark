@@ -1491,6 +1491,4 @@ glabel func0f0d5a7c
 /*  f0d5a7c:	3c018007 */ 	lui	$at,%hi(var80070f10)
 /*  f0d5a80:	03e00008 */ 	jr	$ra
 /*  f0d5a84:	ac200f10 */ 	sw	$zero,%lo(var80070f10)($at)
-/*  f0d5a88:	00000000 */ 	nop
-/*  f0d5a8c:	00000000 */ 	nop
 );

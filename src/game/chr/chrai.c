@@ -5,7 +5,7 @@
 #include "game/chr/chraicommands.h"
 #include "bss.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/lib_184d0.h"
 #include "data.h"
 #include "types.h"
 

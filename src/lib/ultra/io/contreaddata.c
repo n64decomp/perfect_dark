@@ -122,6 +122,4 @@ glabel __osPackReadData
 /*    4f5cc:	a0580000 */ 	sb	$t8,0x0($v0)
 /*    4f5d0:	03e00008 */ 	jr	$ra
 /*    4f5d4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    4f5d8:	00000000 */ 	nop
-/*    4f5dc:	00000000 */ 	nop
 );

@@ -213,5 +213,4 @@ glabel func0f1291f8
 /*  f129200:	fc24e3c0 */ 	sd	$a0,%lo(var8007e3c0)($at)
 /*  f129204:	03e00008 */ 	jr	$ra
 /*  f129208:	24040000 */ 	addiu	$a0,$zero,0x0
-/*  f12920c:	00000000 */ 	nop
 );

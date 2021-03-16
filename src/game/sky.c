@@ -1369,6 +1369,4 @@ glabel var7f1b57bc
 /*  f13719c:	8fbe0068 */ 	lw	$s8,0x68($sp)
 /*  f1371a0:	03e00008 */ 	jr	$ra
 /*  f1371a4:	27bd01b0 */ 	addiu	$sp,$sp,0x1b0
-/*  f1371a8:	00000000 */ 	nop
-/*  f1371ac:	00000000 */ 	nop
 );

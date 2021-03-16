@@ -19,6 +19,7 @@
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
+#include "lib/lib_24e40.h"
 #include "data.h"
 #include "types.h"
 
@@ -2283,8 +2284,6 @@ glabel var7f1adb00
 /*  f0d256c:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
 /*  f0d2570:	03e00008 */ 	jr	$ra
 /*  f0d2574:	00000000 */ 	nop
-/*  f0d2578:	00000000 */ 	nop
-/*  f0d257c:	00000000 */ 	nop
 );
 #else
 GLOBAL_ASM(

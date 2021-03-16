@@ -54,9 +54,12 @@
 	build/ROMID/lib/gvars.o (section); \
 	build/ROMID/lib/lib_159b0.o (section); \
 	build/ROMID/lib/lib_16110.o (section); \
+	build/ROMID/lib/lib_184d0.o (section); \
 	build/ROMID/lib/model.o (section); \
 	build/ROMID/lib/lib_233c0.o (section); \
+	build/ROMID/lib/lib_24e40.o (section); \
 	build/ROMID/lib/lib_2f490.o (section); \
+	build/ROMID/lib/lib_2f8a0.o (section); \
 	build/ROMID/lib/lib_2fa00.o (section); \
 	build/ROMID/lib/lib_2faf0.o (section); \
 	build/ROMID/lib/lib_2fba0.o (section); \
@@ -64,6 +67,7 @@
 	build/ROMID/lib/lib_30ce0.o (section); \
 	build/ROMID/lib/lib_317f0.o (section); \
 	build/ROMID/lib/lib_34030.o (section); \
+	build/ROMID/lib/lib_34240.o (section); \
 	build/ROMID/lib/lib_37650.o (section); \
 	build/ROMID/lib/lib_37b00.o (section); \
 	build/ROMID/lib/lib_38d10.o (section); \
@@ -81,6 +85,7 @@
 	build/ROMID/lib/lib_3d280.o (section); \
 	build/ROMID/lib/lib_3e3e0.o (section); \
 	build/ROMID/lib/lib_3e730.o (section); \
+	build/ROMID/lib/lib_3e8c0.o (section); \
 	build/ROMID/lib/lib_43dd0.o (section); \
 	build/ROMID/lib/lib_446d0.o (section); \
 	build/ROMID/lib/lib_44bc0.o (section); \
@@ -189,7 +194,10 @@
 	build/ROMID/lib/ultra/io/conteepread.o (section); \
 	build/ROMID/lib/ultra/io/conteeplongread.o (section); \
 	build/ROMID/lib/lib_50480.o (section); \
+	build/ROMID/lib/lib_508d0.o (section); \
 	build/ROMID/lib/lib_50a00.o (section); \
+	build/ROMID/lib/lib_50be0.o (section); \
+	build/ROMID/lib/lib_50d60.o (section); \
 	build/ROMID/lib/lib_50f20.o (section); \
 	build/ROMID/lib/lib_513b0.o (section); \
 	build/ROMID/lib/ultra/io/vimodepallan1.o (section); \

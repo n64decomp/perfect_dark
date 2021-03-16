@@ -36,7 +36,4 @@ glabel osWritebackDCache
 /*    4ade8:	25080010 */ 	addiu	$t0,$t0,0x10
 /*    4adec:	03e00008 */ 	jr	$ra
 /*    4adf0:	00000000 */ 	nop
-/*    4adf4:	00000000 */ 	nop
-/*    4adf8:	00000000 */ 	nop
-/*    4adfc:	00000000 */ 	nop
 );

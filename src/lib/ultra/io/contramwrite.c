@@ -162,5 +162,4 @@ glabel __osContRamWrite
 /*    4b850:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*    4b854:	03e00008 */ 	jr	$ra
 /*    4b858:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*    4b85c:	00000000 */ 	nop
 );

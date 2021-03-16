@@ -21,6 +21,7 @@
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "lib/lib_16110.h"
+#include "lib/lib_184d0.h"
 #include "data.h"
 #include "types.h"
 
@@ -4547,7 +4548,6 @@ glabel amRender
 /*  f102220:	ac2ffac0 */ 	sw	$t7,%lo(g_ScaleX)($at)
 /*  f102224:	03e00008 */ 	jr	$ra
 /*  f102228:	27bd01d8 */ 	addiu	$sp,$sp,0x1d8
-/*  f10222c:	00000000 */ 	nop
 );
 #endif
 

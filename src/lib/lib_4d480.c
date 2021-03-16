@@ -184,6 +184,4 @@ glabel func0004d658
 /*    4d6dc:	00001025 */ 	or	$v0,$zero,$zero
 /*    4d6e0:	03e00008 */ 	jr	$ra
 /*    4d6e4:	a5e10000 */ 	sh	$at,0x0($t7)
-/*    4d6e8:	00000000 */ 	nop
-/*    4d6ec:	00000000 */ 	nop
 );

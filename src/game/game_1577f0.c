@@ -413,5 +413,4 @@ glabel func0f1579cc
 /*  f157da0:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 /*  f157da4:	03e00008 */ 	jr	$ra
 /*  f157da8:	00000000 */ 	nop
-/*  f157dac:	00000000 */ 	nop
 );

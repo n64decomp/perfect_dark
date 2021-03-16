@@ -904,6 +904,4 @@ glabel func0f177c8c
 /*  f177dec:	8fb30020 */ 	lw	$s3,0x20($sp)
 /*  f177df0:	03e00008 */ 	jr	$ra
 /*  f177df4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f177df8:	00000000 */ 	nop
-/*  f177dfc:	00000000 */ 	nop
 );

@@ -32,6 +32,7 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
+#include "lib/lib_24e40.h"
 #include "data.h"
 #include "types.h"
 
