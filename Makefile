@@ -77,6 +77,7 @@ $(B_DIR)/lib/ultra/io/conteeplongread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/contquery.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/pigetcmdq.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/io/pidma.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/si.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/sp.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/spsetpc.o: OPT_LVL := -O1
