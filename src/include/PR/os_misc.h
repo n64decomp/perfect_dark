@@ -97,6 +97,12 @@ typedef char *va_list;
 #define EEP16K_MAXBLOCKS	256
 #define EEPROM_BLOCK_SIZE	8
 
+/*
+ * PI/EPI
+ */
+#define PI_DOMAIN1      0
+#define PI_DOMAIN2      1
+
 /* Miscellaneous OS functions */
 
 void osInitialize(void);

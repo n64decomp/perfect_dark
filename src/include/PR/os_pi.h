@@ -88,6 +88,10 @@ typedef struct {
     while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) \
         stat = IO_READ(PI_STATUS_REG);
 
+#define UPDATE_REG(reg, var)           \
+    if (cHandle->var != pihandle->var) \
+        IO_WRITE(reg, pihandle->var);
+
 /* Functions */
 
 s32 osPiStartDma(OSIoMesg *mb, s32 priority, s32 direction,
