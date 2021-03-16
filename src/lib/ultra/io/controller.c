@@ -122,64 +122,28 @@ glabel osContInit
 /*    4aaec:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __osContGetInitData
-/*    4aaf0:	3c0f800a */ 	lui	$t7,%hi(__osContLastCmd+0x1)
-/*    4aaf4:	91efc821 */ 	lbu	$t7,%lo(__osContLastCmd+0x1)($t7)
-/*    4aaf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4aafc:	3c0e800a */ 	lui	$t6,%hi(__osContPifRam)
-/*    4ab00:	25cec7e0 */ 	addiu	$t6,$t6,%lo(__osContPifRam)
-/*    4ab04:	a3a00007 */ 	sb	$zero,0x7($sp)
-/*    4ab08:	afae0014 */ 	sw	$t6,0x14($sp)
-/*    4ab0c:	19e00028 */ 	blez	$t7,.L0004abb0
-/*    4ab10:	afa00008 */ 	sw	$zero,0x8($sp)
-.L0004ab14:
-/*    4ab14:	8fb90014 */ 	lw	$t9,0x14($sp)
-/*    4ab18:	27b8000c */ 	addiu	$t8,$sp,0xc
-/*    4ab1c:	8b210000 */ 	lwl	$at,0x0($t9)
-/*    4ab20:	9b210003 */ 	lwr	$at,0x3($t9)
-/*    4ab24:	af010000 */ 	sw	$at,0x0($t8)
-/*    4ab28:	8b290004 */ 	lwl	$t1,0x4($t9)
-/*    4ab2c:	9b290007 */ 	lwr	$t1,0x7($t9)
-/*    4ab30:	af090004 */ 	sw	$t1,0x4($t8)
-/*    4ab34:	93aa000e */ 	lbu	$t2,0xe($sp)
-/*    4ab38:	314b00c0 */ 	andi	$t3,$t2,0xc0
-/*    4ab3c:	000b6103 */ 	sra	$t4,$t3,0x4
-/*    4ab40:	a0ac0003 */ 	sb	$t4,0x3($a1)
-/*    4ab44:	90ad0003 */ 	lbu	$t5,0x3($a1)
-/*    4ab48:	15a0000e */ 	bnez	$t5,.L0004ab84
-/*    4ab4c:	00000000 */ 	nop
-/*    4ab50:	93ae0011 */ 	lbu	$t6,0x11($sp)
-/*    4ab54:	93a80010 */ 	lbu	$t0,0x10($sp)
-/*    4ab58:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    4ab5c:	000e7a00 */ 	sll	$t7,$t6,0x8
-/*    4ab60:	01e8c025 */ 	or	$t8,$t7,$t0
-/*    4ab64:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    4ab68:	93b90012 */ 	lbu	$t9,0x12($sp)
-/*    4ab6c:	a0b90002 */ 	sb	$t9,0x2($a1)
-/*    4ab70:	8faa0008 */ 	lw	$t2,0x8($sp)
-/*    4ab74:	93a90007 */ 	lbu	$t1,0x7($sp)
-/*    4ab78:	014b6004 */ 	sllv	$t4,$t3,$t2
-/*    4ab7c:	012c6825 */ 	or	$t5,$t1,$t4
-/*    4ab80:	a3ad0007 */ 	sb	$t5,0x7($sp)
-.L0004ab84:
-/*    4ab84:	8fae0008 */ 	lw	$t6,0x8($sp)
-/*    4ab88:	3c19800a */ 	lui	$t9,%hi(__osContLastCmd+0x1)
-/*    4ab8c:	9339c821 */ 	lbu	$t9,%lo(__osContLastCmd+0x1)($t9)
-/*    4ab90:	8fa80014 */ 	lw	$t0,0x14($sp)
-/*    4ab94:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*    4ab98:	01f9082a */ 	slt	$at,$t7,$t9
-/*    4ab9c:	25180008 */ 	addiu	$t8,$t0,0x8
-/*    4aba0:	afb80014 */ 	sw	$t8,0x14($sp)
-/*    4aba4:	afaf0008 */ 	sw	$t7,0x8($sp)
-/*    4aba8:	1420ffda */ 	bnez	$at,.L0004ab14
-/*    4abac:	24a50004 */ 	addiu	$a1,$a1,0x4
-.L0004abb0:
-/*    4abb0:	93ab0007 */ 	lbu	$t3,0x7($sp)
-/*    4abb4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    4abb8:	03e00008 */ 	jr	$ra
-/*    4abbc:	a08b0000 */ 	sb	$t3,0x0($a0)
-);
+void __osContGetInitData(u8 *pattern, OSContStatus *data)
+{
+	u8 *ptr;
+	__OSContRequestFormat requestformat;
+	int i;
+	u8 bits;
+	bits = 0;
+	ptr = (u8 *)&__osContPifRam;
+
+	for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContRequestFormat), data++) {
+		requestformat = *(__OSContRequestFormat *)ptr;
+		data->errno = CHNL_ERR(requestformat);
+
+		if (data->errno == 0) {
+			data->type = (requestformat.typel << 8) | requestformat.typeh;
+			data->status = requestformat.status;
+			bits |= 1 << i;
+		}
+	}
+
+	*pattern = bits;
+}
 
 void __osPackRequestData(u8 cmd)
 {
