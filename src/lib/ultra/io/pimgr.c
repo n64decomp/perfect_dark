@@ -2,6 +2,8 @@
 #include "bss.h"
 #include "data.h"
 
+OSPiHandle CartRomHandle;
+OSPiHandle LeoDiskHandle;
 OSThread piThread;
 char piThreadStack[512];
 OSMesgQueue piEventQueue;

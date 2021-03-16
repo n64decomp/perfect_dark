@@ -26,7 +26,7 @@ extern u32 var8005ce9c;
 extern OSMesg var8005cea8;
 extern u32 var8005cec8;
 extern s8 var8005ced0;
-extern u32 __osViDevMgr;
+extern OSDevMgr __osViDevMgr;
 extern u32 var8005cefc;
 extern OSDevMgr __osPiDevMgr;
 extern OSPiHandle *__osCurrentHandle[2];

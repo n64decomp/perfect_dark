@@ -2,275 +2,68 @@
 #include "data.h"
 
 OSThread viThread;
-u32 var80090030;
-u32 var80090034;
-u32 var80090038;
-u32 var8009003c;
-u32 var80090040;
-u32 var80090044;
-u32 var80090048;
-u32 var8009004c;
-u32 var80090050;
-u32 var80090054;
-u32 var80090058;
-u32 var8009005c;
-u32 var80090060;
-u32 var80090064;
-u32 var80090068;
-u32 var8009006c;
-u32 var80090070;
-u32 var80090074;
-u32 var80090078;
-u32 var8009007c;
-u32 var80090080;
-u32 var80090084;
-u32 var80090088;
-u32 var8009008c;
-u32 var80090090;
-u32 var80090094;
-u32 var80090098;
-u32 var8009009c;
-u32 var800900a0;
-u32 var800900a4;
-u32 var800900a8;
-u32 var800900ac;
-u32 var800900b0;
-u32 var800900b4;
-u32 var800900b8;
-u32 var800900bc;
-u32 var800900c0;
-u32 var800900c4;
-u32 var800900c8;
-u32 var800900cc;
-u32 var800900d0;
-u32 var800900d4;
-u32 var800900d8;
-u32 var800900dc;
-u32 var800900e0;
-u32 var800900e4;
-u32 var800900e8;
-u32 var800900ec;
-u32 var800900f0;
-u32 var800900f4;
-u32 var800900f8;
-u32 var800900fc;
-u32 var80090100;
-u32 var80090104;
-u32 var80090108;
-u32 var8009010c;
-u32 var80090110;
-u32 var80090114;
-u32 var80090118;
-u32 var8009011c;
-u32 var80090120;
-u32 var80090124;
-u32 var80090128;
-u32 var8009012c;
-u32 var80090130;
-u32 var80090134;
-u32 var80090138;
-u32 var8009013c;
-u32 var80090140;
-u32 var80090144;
-u32 var80090148;
-u32 var8009014c;
-u32 var80090150;
-u32 var80090154;
-u32 var80090158;
-u32 var8009015c;
-u32 var80090160;
-u32 var80090164;
-u32 var80090168;
-u32 var8009016c;
-u32 var80090170;
-u32 var80090174;
-u32 var80090178;
-u32 var8009017c;
-u32 var80090180;
-u32 var80090184;
-u32 var80090188;
-u32 var8009018c;
-u32 var80090190;
-u32 var80090194;
-u32 var80090198;
-u32 var8009019c;
-u32 var800901a0;
-u32 var800901a4;
-u32 var800901a8;
-u32 var800901ac;
-u32 var800901b0;
-u32 var800901b4;
-u32 var800901b8;
-u32 var800901bc;
-u32 var800901c0;
-u32 var800901c4;
-u32 var800901c8;
-u32 var800901cc;
-u32 var800901d0;
-u32 var800901d4;
-u32 var800901d8;
-u32 var800901dc;
-u32 var800901e0;
-u32 var800901e4;
-u32 var800901e8;
-u32 var800901ec;
-u32 var800901f0;
-u32 var800901f4;
-u32 var800901f8;
-u32 var800901fc;
-u32 var80090200;
-u32 var80090204;
-u32 var80090208;
-u32 var8009020c;
-u32 var80090210;
-u32 var80090214;
-u32 var80090218;
-u32 var8009021c;
-u32 var80090220;
-u32 var80090224;
-u32 var80090228;
-u32 var8009022c;
-u32 __viEventQueue;
-u32 var80090234;
-u32 var80090238;
-u32 var8009023c;
-u32 var80090240;
-u32 var80090244;
-u32 viEventBuf;
-u32 var8009024c;
-u32 var80090250;
-u32 var80090254;
-u32 var80090258;
+char viThreadStack[512];
+OSMesgQueue viEventQueue;
+OSMesg viEventBuf[5];
 u32 var8009025c;
-u32 viRetraceMsg;
-u32 var80090264;
-u32 var80090268;
-u32 var8009026c;
-u32 var80090270;
-u32 var80090274;
-u32 viCounterMsg;
-u32 var8009027c;
-u32 var80090280;
-u32 var80090284;
-u32 var80090288;
-u32 var8009028c;
+OSIoMesg viRetraceMsg;
+OSIoMesg viCounterMsg;
 u32 var80090290;
-u32 var80090294;
-u32 var80090298;
-u32 var8009029c;
-OSPiHandle CartRomHandle;
-OSPiHandle LeoDiskHandle;
 
-u32 __osViDevMgr = 0x00000000;
-u32 var8005cee4 = 0x00000000;
-u32 var8005cee8 = 0x00000000;
-u32 var8005ceec = 0x00000000;
-u32 var8005cef0 = 0x00000000;
-u32 var8005cef4 = 0x00000000;
-u32 var8005cef8 = 0x00000000;
-u32 var8005cefc = 0x00000000;
+OSDevMgr __osViDevMgr = {0};
+u32 var8005cefc = 0;
 
-GLOBAL_ASM(
-glabel osCreateViManager
-/*     3050:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     3054:	afb00020 */ 	sw	$s0,0x20($sp)
-/*     3058:	3c108006 */ 	lui	$s0,%hi(__osViDevMgr)
-/*     305c:	2610cee0 */ 	addiu	$s0,$s0,%lo(__osViDevMgr)
-/*     3060:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*     3064:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     3068:	afa40030 */ 	sw	$a0,0x30($sp)
-/*     306c:	55c00054 */ 	bnezl	$t6,.L000031c0
-/*     3070:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     3074:	0c01246c */ 	jal	__osTimerServicesInit
-/*     3078:	00000000 */ 	nop
-/*     307c:	3c018006 */ 	lui	$at,%hi(var8005cefc)
-/*     3080:	3c048009 */ 	lui	$a0,%hi(__viEventQueue)
-/*     3084:	3c058009 */ 	lui	$a1,%hi(viEventBuf)
-/*     3088:	ac20cefc */ 	sw	$zero,%lo(var8005cefc)($at)
-/*     308c:	24a50248 */ 	addiu	$a1,$a1,%lo(viEventBuf)
-/*     3090:	24840230 */ 	addiu	$a0,$a0,%lo(__viEventQueue)
-/*     3094:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     3098:	24060005 */ 	addiu	$a2,$zero,0x5
-/*     309c:	3c068009 */ 	lui	$a2,%hi(viRetraceMsg)
-/*     30a0:	3c078009 */ 	lui	$a3,%hi(viCounterMsg)
-/*     30a4:	24e70278 */ 	addiu	$a3,$a3,%lo(viCounterMsg)
-/*     30a8:	24c60260 */ 	addiu	$a2,$a2,%lo(viRetraceMsg)
-/*     30ac:	240f000d */ 	addiu	$t7,$zero,0xd
-/*     30b0:	2418000e */ 	addiu	$t8,$zero,0xe
-/*     30b4:	3c058009 */ 	lui	$a1,%hi(__viEventQueue)
-/*     30b8:	a4cf0000 */ 	sh	$t7,0x0($a2)
-/*     30bc:	a0c00002 */ 	sb	$zero,0x2($a2)
-/*     30c0:	acc00004 */ 	sw	$zero,0x4($a2)
-/*     30c4:	a4f80000 */ 	sh	$t8,0x0($a3)
-/*     30c8:	a0e00002 */ 	sb	$zero,0x2($a3)
-/*     30cc:	ace00004 */ 	sw	$zero,0x4($a3)
-/*     30d0:	24a50230 */ 	addiu	$a1,$a1,%lo(__viEventQueue)
-/*     30d4:	0c012148 */ 	jal	osSetEventMesg
-/*     30d8:	24040007 */ 	addiu	$a0,$zero,0x7
-/*     30dc:	3c078009 */ 	lui	$a3,%hi(viCounterMsg)
-/*     30e0:	3c058009 */ 	lui	$a1,%hi(__viEventQueue)
-/*     30e4:	24e60278 */ 	addiu	$a2,$a3,%lo(viCounterMsg)
-/*     30e8:	24a50230 */ 	addiu	$a1,$a1,%lo(__viEventQueue)
-/*     30ec:	0c012148 */ 	jal	osSetEventMesg
-/*     30f0:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     30f4:	2419ffff */ 	addiu	$t9,$zero,-1
-/*     30f8:	afb90028 */ 	sw	$t9,0x28($sp)
-/*     30fc:	0c012230 */ 	jal	osGetThreadPri
-/*     3100:	00002025 */ 	or	$a0,$zero,$zero
-/*     3104:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*     3108:	00002025 */ 	or	$a0,$zero,$zero
-/*     310c:	0048082a */ 	slt	$at,$v0,$t0
-/*     3110:	10200003 */ 	beqz	$at,.L00003120
-/*     3114:	01002825 */ 	or	$a1,$t0,$zero
-/*     3118:	0c01210c */ 	jal	osSetThreadPri
-/*     311c:	afa20028 */ 	sw	$v0,0x28($sp)
-.L00003120:
-/*     3120:	0c01256c */ 	jal	__osDisableInt
-/*     3124:	00000000 */ 	nop
-/*     3128:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*     312c:	3c038009 */ 	lui	$v1,%hi(__viEventQueue)
-/*     3130:	3c048009 */ 	lui	$a0,%hi(viThread)
-/*     3134:	3c0a8009 */ 	lui	$t2,%hi(__viEventQueue)
-/*     3138:	2484fe00 */ 	addiu	$a0,$a0,%lo(viThread)
-/*     313c:	24630230 */ 	addiu	$v1,$v1,%lo(__viEventQueue)
-/*     3140:	24090001 */ 	addiu	$t1,$zero,0x1
-/*     3144:	254a0230 */ 	addiu	$t2,$t2,%lo(__viEventQueue)
-/*     3148:	3c067000 */ 	lui	$a2,%hi(viMgrMain)
-/*     314c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*     3150:	ae090000 */ 	sw	$t1,0x0($s0)
-/*     3154:	ae040004 */ 	sw	$a0,0x4($s0)
-/*     3158:	ae030008 */ 	sw	$v1,0x8($s0)
-/*     315c:	ae03000c */ 	sw	$v1,0xc($s0)
-/*     3160:	ae000010 */ 	sw	$zero,0x10($s0)
-/*     3164:	ae000014 */ 	sw	$zero,0x14($s0)
-/*     3168:	ae000018 */ 	sw	$zero,0x18($s0)
-/*     316c:	24c631d0 */ 	addiu	$a2,$a2,%lo(viMgrMain)
-/*     3170:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*     3174:	00002825 */ 	or	$a1,$zero,$zero
-/*     3178:	02003825 */ 	or	$a3,$s0,$zero
-/*     317c:	0c000fb8 */ 	jal	osCreateThread
-/*     3180:	afab0014 */ 	sw	$t3,0x14($sp)
-/*     3184:	0c012590 */ 	jal	__osViInit
-/*     3188:	00000000 */ 	nop
-/*     318c:	3c048009 */ 	lui	$a0,%hi(viThread)
-/*     3190:	0c01207c */ 	jal	osStartThread
-/*     3194:	2484fe00 */ 	addiu	$a0,$a0,%lo(viThread)
-/*     3198:	0c012588 */ 	jal	__osRestoreInt
-/*     319c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*     31a0:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*     31a4:	2401ffff */ 	addiu	$at,$zero,-1
-/*     31a8:	00002025 */ 	or	$a0,$zero,$zero
-/*     31ac:	51810004 */ 	beql	$t4,$at,.L000031c0
-/*     31b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     31b4:	0c01210c */ 	jal	osSetThreadPri
-/*     31b8:	01802825 */ 	or	$a1,$t4,$zero
-/*     31bc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L000031c0:
-/*     31c0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*     31c4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*     31c8:	03e00008 */ 	jr	$ra
-/*     31cc:	00000000 */ 	nop
-);
+void viMgrMain(void *args);
+
+void osCreateViManager(OSPri pri)
+{
+	u32 savedMask;
+	OSPri oldPri;
+	OSPri myPri;
+
+	if (__osViDevMgr.active == 0) {
+		__osTimerServicesInit();
+		var8005cefc = 0;
+		osCreateMesgQueue(&viEventQueue, viEventBuf, 5);
+
+		viRetraceMsg.hdr.type = OS_MESG_TYPE_VRETRACE;
+		viRetraceMsg.hdr.pri = OS_MESG_PRI_NORMAL;
+		viRetraceMsg.hdr.retQueue = NULL;
+		viCounterMsg.hdr.type = OS_MESG_TYPE_COUNTER;
+		viCounterMsg.hdr.pri = OS_MESG_PRI_NORMAL;
+		viCounterMsg.hdr.retQueue = NULL;
+
+		osSetEventMesg(OS_EVENT_VI, &viEventQueue, &viRetraceMsg);
+		osSetEventMesg(OS_EVENT_COUNTER, &viEventQueue, &viCounterMsg);
+
+		oldPri = -1;
+		myPri = osGetThreadPri(NULL);
+
+		if (myPri < pri) {
+			oldPri = myPri;
+			osSetThreadPri(NULL, pri);
+		}
+
+		savedMask = __osDisableInt();
+
+		__osViDevMgr.active = 1;
+		__osViDevMgr.thread = &viThread;
+		__osViDevMgr.cmdQueue = &viEventQueue;
+		__osViDevMgr.evtQueue = &viEventQueue;
+		__osViDevMgr.acsQueue = NULL;
+		__osViDevMgr.dma = NULL;
+		__osViDevMgr.edma = NULL;
+
+		osCreateThread(&viThread, 0, viMgrMain, &__osViDevMgr, &viThreadStack[512], pri);
+		__osViInit();
+		osStartThread(&viThread);
+		__osRestoreInt(savedMask);
+
+		if (oldPri != -1) {
+			osSetThreadPri(0, oldPri);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel viMgrMain
