@@ -6,6 +6,8 @@ OSMesg piAccessBuf;
 u32 var8009c7a4;
 OSMesgQueue __osPiAccessQueue;
 
+u32 __osPiAccessQueueEnabled = 0;
+
 void __osPiCreateAccessQueue(void)
 {
 	__osPiAccessQueueEnabled = 1;

@@ -142,6 +142,19 @@ u32 var80090a14;
 u32 var80090a18;
 u32 var80090a1c;
 
+u32 var8005cf30 = 0;
+u32 var8005cf34 = 0;
+u32 var8005cf38 = 0;
+u32 var8005cf3c = 0;
+u32 var8005cf40 = 0;
+u32 var8005cf44 = 0;
+u32 var8005cf48 = 0;
+u32 var8005cf4c = 0;
+u32 var8005cf50 = 0;
+u32 var8005cf54 = 0;
+u32 var8005cf58 = 0;
+u32 var8005cf5c = 0;
+
 const u32 var70052450[] = {0x00141818};
 const u32 var70052454[] = {0x1c1c1c1c};
 const u32 var70052458[] = {0x20202020};

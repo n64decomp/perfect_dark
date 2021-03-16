@@ -1,6 +1,10 @@
 #include <libultra_internal.h>
 #include "data.h"
 
+__OSViContext var800608b0[2] = {0};
+__OSViContext *__osViCurr = &var800608b0[0];
+__OSViContext *__osViNext = &var800608b0[1];
+
 void __osViInit(void)
 {
 	bzero(&var800608b0, sizeof(var800608b0));

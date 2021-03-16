@@ -9,6 +9,90 @@
 #include "data.h"
 #include "types.h"
 
+u32 var8005ef20 = 0xfe000000;
+u32 var8005ef24 = 0x00000000;
+u32 var8005ef28 = 0x00000000;
+u32 var8005ef2c = 0x00000000;
+s32 g_NumGlobalAilists = 0;
+s32 g_NumLvAilists = 0;
+u32 var8005ef38 = 0x00000000;
+u32 var8005ef3c = 0x00000000;
+u32 var8005ef40 = 0x00040800;
+u32 var8005ef44 = 0x00000000;
+u32 var8005ef48 = 0x0c100000;
+u32 var8005ef4c = 0x00000000;
+u32 var8005ef50 = 0x00001400;
+u32 var8005ef54 = 0x0018001c;
+u32 var8005ef58 = 0x00000000;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005ef5c = 0x70019304;
+u32 var8005ef60 = 0x70018e4c;
+u32 var8005ef64 = 0x700187b8;
+u32 var8005ef68 = 0x70018da0;
+u32 var8005ef6c = 0x700192dc;
+u32 var8005ef70 = 0x700192e4;
+u32 var8005ef74 = 0x70019270;
+u32 var8005ef78 = 0x70019234;
+u32 var8005ef7c = 0x00000000;
+u32 var8005ef80 = 0x700199f4;
+u32 var8005ef84 = 0x70019a00;
+u32 var8005ef88 = 0x70019a18;
+u32 var8005ef8c = 0x70019a3c;
+#else
+u32 var8005ef5c = 0x70019574;
+u32 var8005ef60 = 0x700190bc;
+u32 var8005ef64 = 0x70018a28;
+u32 var8005ef68 = 0x70019010;
+u32 var8005ef6c = 0x7001954c;
+u32 var8005ef70 = 0x70019554;
+u32 var8005ef74 = 0x700194e0;
+u32 var8005ef78 = 0x700194a4;
+u32 var8005ef7c = 0x00000000;
+u32 var8005ef80 = 0x70019c64;
+u32 var8005ef84 = 0x70019c70;
+u32 var8005ef88 = 0x70019c88;
+u32 var8005ef8c = 0x70019cac;
+#endif
+
+u32 var8005ef90 = 0xff08ffff;
+u32 var8005ef94 = 0xffffffff;
+u32 var8005ef98 = 0x0c22ff44;
+u32 var8005ef9c = 0x20ffffff;
+u32 var8005efa0 = 0xffff04ff;
+u32 var8005efa4 = 0xffffff00;
+u32 var8005efa8 = 0x14000000;
+u32 var8005efac = 0x00000000;
+u32 var8005efb0 = 0x00000000;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005efb0_2 = 0;
+#endif
+
+u32 var8005efb4 = 0x00000000;
+u32 var8005efb8 = 0x3f800000;
+bool var8005efbc = false;
+u32 var8005efc0 = 0x00000000;
+void *var8005efc4 = NULL; // pointer to a function
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005efd8_2 = 0;
+#endif
+
+void *var8005efc8 = NULL; // pointer to a function
+u32 var8005efcc = 0x00000000;
+u32 var8005efd0 = 0x00000000;
+u32 var8005efd4 = 0x00000000;
+u32 var8005efd8 = 0x00000000;
+u32 var8005efdc = 0x00000001;
+u32 var8005efe0 = 0x00000000;
+u32 var8005efe4 = 0x00000000;
+u32 var8005efe8 = 0x00000000;
+u32 var8005efec = 0x00000000;
+u32 var8005eff0 = 0x00000000;
+u32 var8005eff4 = 0x00000000;
+u32 var8005eff8 = 0xffffffff;
+
 const u32 var70054200[] = {0x42652ee0};
 const u32 var70054204[] = {0x00000000};
 const u32 var70054208[] = {0x00000000};

@@ -202,6 +202,16 @@ OSScClient var8008dca8;
 u32 var8008dcb0;
 u32 g_OsMemSize;
 
+u32 var8005ce00 = 0;
+u32 var8005ce04 = 0;
+u32 var8005ce08 = 0;
+u32 var8005ce0c = 0;
+u8 *g_StackStartAddrs[7] = {0};
+u8 *g_StackEndAddrs[7] = {0};
+u8 *g_StackAllocatedPos = (u8 *)0x80400000;
+u32 var8005ce4c = 0x00000002;
+u32 var8005ce50 = 0x10000000;
+
 extern u8 *_bootSegmentStart;
 extern u8 *_datazipSegmentRomStart;
 extern u8 *_datazipSegmentRomEnd;

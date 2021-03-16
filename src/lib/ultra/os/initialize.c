@@ -14,6 +14,21 @@ extern u32 osAppNMIBuffer;
 
 u32 __osFinalRom;
 
+OSTime osClockRate = 62500000;
+
+#if !PAL
+s32 osViClock = VI_NTSC_CLOCK;
+#endif
+
+u32 _osShutdown = 0;
+u32 __osGlobalIntMask = OS_IM_ALL;
+
+#if VERSION < VERSION_PAL_FINAL
+u32 var8005cf74 = 0;
+u32 var8005cf78 = 0;
+u32 var8005cf7c = 0;
+#endif
+
 void osInitialize(void)
 {
 	u32 pifdata;

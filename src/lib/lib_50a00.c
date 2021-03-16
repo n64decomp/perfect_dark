@@ -11,6 +11,25 @@
 #include "data.h"
 #include "types.h"
 
+u32 var800611f0 = 0xceed6666;
+u32 var800611f4 = 0xcc0d000b;
+u32 var800611f8 = 0x03730083;
+u32 var800611fc = 0x000c000d;
+u32 var80061200 = 0x0008111f;
+u32 var80061204 = 0x8889000e;
+u32 var80061208 = 0xdccc6ee6;
+u32 var8006120c = 0xddddd999;
+u32 var80061210 = 0xbbbb6763;
+u32 var80061214 = 0x6e0eeccc;
+u32 var80061218 = 0xdddc999f;
+u32 var8006121c = 0xbbb9333e;
+
+u32 var80061220 = 0x00010101;
+u32 var80061224 = 0xff0202ff;
+u32 var80061228 = 0x0000ffff;
+u32 var8006122c = 0xffffff03;
+u32 var80061230 = 0x03030303;
+
 GLOBAL_ASM(
 glabel func00050a00
 /*    50a00:	27bdfea0 */ 	addiu	$sp,$sp,-352

@@ -23,6 +23,16 @@
 u32 var8009c330;
 u32 var8009c334;
 
+u32 var8005f120 = 0;
+u32 var8005f124 = 0;
+u32 var8005f128 = 0;
+u32 var8005f12c = (u32) &var8009c2d0;
+u32 var8005f130 = 0;
+u32 var8005f134 = 0;
+u32 var8005f138 = 0;
+u32 var8005f13c = 0;
+u32 var8005f140 = 0;
+
 #if VERSION >= VERSION_PAL_FINAL
 const u32 var70054740[] = {0x700315e0};
 const u32 var70054744[] = {0x70031eac};

@@ -4,6 +4,8 @@
 
 __OSEventState __osEventStateTab[15];
 
+u32 var80060890 = 0;
+
 void osSetEventMesg(OSEvent event, OSMesgQueue *mq, OSMesg msg)
 {
 	register u32 saveMask = __osDisableInt();

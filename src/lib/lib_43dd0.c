@@ -10,6 +10,9 @@
 #include "data.h"
 #include "types.h"
 
+u32 var8005f700 = 0;
+u32 var8005f704 = 0;
+
 GLOBAL_ASM(
 glabel func00043dd0
 /*    43dd0:	27bdffe0 */ 	addiu	$sp,$sp,-32

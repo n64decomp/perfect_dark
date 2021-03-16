@@ -4,6 +4,9 @@
 
 #define BUFF_LEN 0x18
 
+char ldigs[] = "0123456789abcdef";
+char udigs[] = "0123456789ABCDEF";
+
 void _Litob(printf_struct *args, char type)
 {
 	char buff[BUFF_LEN];

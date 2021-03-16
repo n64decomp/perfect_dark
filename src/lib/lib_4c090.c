@@ -72,6 +72,9 @@ u32 var8009c964;
 u32 var8009c968;
 u32 var8009c96c;
 
+u32 var80060980 = 0xffffffff;
+u8 var80060984 = 0xfa;
+
 GLOBAL_ASM(
 glabel func0004c090
 /*    4c090:	00001825 */ 	or	$v1,$zero,$zero

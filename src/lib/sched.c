@@ -36,6 +36,32 @@ s32 g_BootBufferIndex0;
 s32 g_BootBufferIndex1;
 s32 g_BootBufferIndex2;
 
+u32 var8005ce60 = 0x00000000;
+u32 var8005ce64 = 0x00000000;
+u32 var8005ce68 = 0x00000000;
+u32 var8005ce6c = 0x02aea540;
+u32 var8005ce70 = 0x00000000;
+s32 var8005ce74 = 0;
+f32 var8005ce78[2] = {1, 1};
+f32 var8005ce80[2] = {1, 1};
+u32 var8005ce88[2] = {0};
+s32 var8005ce90 = 3;
+u32 var8005ce94 = 0x00000001;
+u32 var8005ce98 = 0x00000000;
+u32 var8005ce9c = 0x00000000;
+u32 var8005cea0 = 0x00000000;
+u32 var8005cea4 = 0x00000000;
+OSMesg var8005cea8 = (OSMesg)0x00040000;
+u32 var8005ceac = 0x00000000;
+u32 var8005ceb0 = 0x00000000;
+u32 var8005ceb4 = 0x00000000;
+u32 var8005ceb8 = 0x00000000;
+u32 var8005cebc = 0x00000000;
+u32 var8005cec0 = 0x00000000;
+u32 var8005cec4 = 0x00000000;
+u32 var8005cec8 = 0x00000001;
+u32 var8005cecc = 0x00000000;
+
 void func00001b10(u32 value)
 {
 	var8005ce64 = value;

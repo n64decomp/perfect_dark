@@ -20,6 +20,8 @@ OSThread g_ResetThread;
 u8 g_ResetStack[STACKSIZE_RESET+1];
 u32 var8008fdf4;
 
+s8 var8005ced0 = 0;
+
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel resetproc

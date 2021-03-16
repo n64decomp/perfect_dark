@@ -9,7 +9,6 @@
 	build/ROMID/lib/sched.o (section); \
 	build/ROMID/lib/reset.o (section); \
 	build/ROMID/lib/ultra/os/maptlbrdb.o (section); \
-	build/ROMID/game/data/data_000000.o (section); \
 	build/ROMID/lib/ultra/io/vimgr.o (section); \
 	build/ROMID/lib/ultra/io/pimgr.o (section); \
 	build/ROMID/lib/lib_034d0.o (section); \
@@ -92,6 +91,7 @@
 	build/ROMID/lib/lib_47550.o (section); \
 	build/ROMID/lib/lib_47a90.o (section); \
 	build/ROMID/lib/lib_47d20.o (section); \
+	build/ROMID/lib/ultra/io/vitbl.o (section); \
 	build/ROMID/lib/ultra/os/writebackdcacheall.o (section); \
 	build/ROMID/lib/ultra/os/invalicache.o (section); \
 	build/ROMID/lib/ultra/os/getfpccsr.o (section); \
@@ -192,6 +192,9 @@
 	build/ROMID/lib/lib_50a00.o (section); \
 	build/ROMID/lib/lib_50f20.o (section); \
 	build/ROMID/lib/lib_513b0.o (section); \
+	build/ROMID/lib/ultra/io/vimodepallan1.o (section); \
+	build/ROMID/lib/ultra/io/vimodempallan1.o (section); \
+	build/ROMID/lib/ultra/io/vimodentsclan1.o (section); \
 	build/ROMID/lib/ultra/os/setcompare.o (section); \
 	build/ROMID/lib/ultra/io/spgetstat.o (section); \
 	build/ROMID/lib/ultra/os/resetglobalintmask.o (section); \

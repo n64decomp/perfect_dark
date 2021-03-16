@@ -8,6 +8,8 @@ u32 __osBaseCounter;
 u32 __osViIntrCount;
 u32 __osTimerCounter;
 
+OSTimer *__osTimerList = &var8009c760;
+
 void __osTimerServicesInit(void)
 {
 	__osCurrentTime = 0;

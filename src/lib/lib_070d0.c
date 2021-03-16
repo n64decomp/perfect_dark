@@ -18,6 +18,10 @@ u32 var80090b04;
 u32 var80090b08;
 u32 var80090b0c;
 
+u32 var8005cf80 = 0;
+u32 var8005cf84 = 0;
+u32 var8005cf88 = 0;
+
 GLOBAL_ASM(
 glabel func000070d0
 /*     70d0:	27bdeb58 */ 	addiu	$sp,$sp,-5288

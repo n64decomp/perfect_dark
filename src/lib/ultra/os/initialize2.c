@@ -2,6 +2,10 @@
 #include "data.h"
 #include "bss.h"
 
+/**
+ * Note: This file is included in PAL only.
+ */
+
 typedef struct {
 	unsigned int inst1;
 	unsigned int inst2;
@@ -11,6 +15,12 @@ typedef struct {
 
 extern __osExceptionVector __osExceptionPreamble;
 extern u32 osAppNMIBuffer;
+
+u32 var80060fe0pf = 0;
+u32 var80060fe4pf = 62500000;
+s32 osViClock = VI_NTSC_CLOCK;
+u32 var80060fecpf = 0;
+u32 var80060ff0pf = OS_IM_ALL;
 
 GLOBAL_ASM(
 glabel osInitialize2

@@ -219,6 +219,15 @@ u32 var80090384;
 u32 var80090388;
 u32 var8009038c;
 
+u32 __osViDevMgr = 0x00000000;
+u32 var8005cee4 = 0x00000000;
+u32 var8005cee8 = 0x00000000;
+u32 var8005ceec = 0x00000000;
+u32 var8005cef0 = 0x00000000;
+u32 var8005cef4 = 0x00000000;
+u32 var8005cef8 = 0x00000000;
+u32 var8005cefc = 0x00000000;
+
 GLOBAL_ASM(
 glabel osCreateViManager
 /*     3050:	27bdffd0 */ 	addiu	$sp,$sp,-48

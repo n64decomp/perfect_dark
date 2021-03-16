@@ -35,6 +35,8 @@ u32 var8009c858;
 u32 var8009c85c;
 u32 __osEepromTimerMsg;
 
+u32 __osContInitialized = 0;
+
 GLOBAL_ASM(
 glabel osContInit
 /*    4a980:	27bdff90 */ 	addiu	$sp,$sp,-112

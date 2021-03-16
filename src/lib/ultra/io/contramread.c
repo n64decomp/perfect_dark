@@ -1,6 +1,8 @@
 #include <libultra_internal.h>
 #include "data.h"
 
+u32 var80060970 = 0xffffffff;
+
 GLOBAL_ASM(
 glabel __osContRamRead
 /*    4b860:	27bdffa0 */ 	addiu	$sp,$sp,-96

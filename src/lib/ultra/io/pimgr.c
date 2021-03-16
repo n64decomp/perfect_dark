@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "bss.h"
 #include "data.h"
 
 OSThread piThread;
@@ -142,6 +143,11 @@ u32 var800907e0;
 u32 var800907e4;
 u32 var800907e8;
 u32 var800907ec;
+
+OSDevMgr __osPiDevMgr = {0};
+u32 var8005cf1c = 0;
+u32 __osCurrentHandle = (u32) &var800902a0;
+u32 var8005cf24 = (u32) &var80090318;
 
 GLOBAL_ASM(
 glabel osCreatePiPanager

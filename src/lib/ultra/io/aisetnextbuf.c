@@ -1,5 +1,7 @@
 #include <ultra64.h>
 
+u32 var80060990 = 0;
+
 GLOBAL_ASM(
 glabel osAiSetNextBuffer
 /*    4e3c0:	27bdffe0 */ 	addiu	$sp,$sp,-32
