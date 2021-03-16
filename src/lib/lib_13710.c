@@ -10,5 +10,5 @@ OSMesgQueue var80099a00;
 
 void func00013710(void)
 {
-	osCreatePiPanager(150, &var80099a00, var80099900, 64);
+	osCreatePiManager(150, &var80099a00, var80099900, 64);
 }

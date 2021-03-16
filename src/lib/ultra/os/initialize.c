@@ -80,8 +80,8 @@ void osInitialize(void)
 
 GLOBAL_ASM(
 glabel func00005dc0
-/*     5dc0:	3c028009 */ 	lui	$v0,%hi(var800902a0)
-/*     5dc4:	244202a0 */ 	addiu	$v0,$v0,%lo(var800902a0)
+/*     5dc0:	3c028009 */ 	lui	$v0,%hi(CartRomHandle)
+/*     5dc4:	244202a0 */ 	addiu	$v0,$v0,%lo(CartRomHandle)
 /*     5dc8:	24030007 */ 	addiu	$v1,$zero,0x7
 /*     5dcc:	a0430004 */ 	sb	$v1,0x4($v0)
 /*     5dd0:	3c0ea460 */ 	lui	$t6,0xa460
@@ -91,10 +91,10 @@ glabel func00005dc0
 /*     5de0:	a04f0005 */ 	sb	$t7,0x5($v0)
 /*     5de4:	8f190018 */ 	lw	$t9,0x18($t8)
 /*     5de8:	3c0aa460 */ 	lui	$t2,0xa460
-/*     5dec:	3c048009 */ 	lui	$a0,%hi(var80090318)
+/*     5dec:	3c048009 */ 	lui	$a0,%hi(LeoDiskHandle)
 /*     5df0:	a0590008 */ 	sb	$t9,0x8($v0)
 /*     5df4:	8d09001c */ 	lw	$t1,0x1c($t0)
-/*     5df8:	24840318 */ 	addiu	$a0,$a0,%lo(var80090318)
+/*     5df8:	24840318 */ 	addiu	$a0,$a0,%lo(LeoDiskHandle)
 /*     5dfc:	3c0ca460 */ 	lui	$t4,0xa460
 /*     5e00:	a0490006 */ 	sb	$t1,0x6($v0)
 /*     5e04:	8d4b0020 */ 	lw	$t3,0x20($t2)

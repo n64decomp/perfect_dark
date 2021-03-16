@@ -97,5 +97,9 @@ void osCreatePiManager(OSPri pri, OSMesgQueue *cmdQ, OSMesg *cmdBuf,
 OSMesgQueue *osPiGetCmdQueue(void);
 s32 osPiWriteIo(u32 devAddr, u32 data);
 s32 osPiReadIo(u32 devAddr, u32 *data);
+s32 osPiRawStartDma(s32 direction, u32 devAddr, void *dramAddr, u32 size);
+s32 osEPiRawStartDma(OSPiHandle *pihandle, s32 direction, u32 devAddr, void *dramAddr, u32 size);
+void __osDevMgrMain(void *args);
+
 
 #endif

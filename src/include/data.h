@@ -29,7 +29,7 @@ extern s8 var8005ced0;
 extern u32 __osViDevMgr;
 extern u32 var8005cefc;
 extern OSDevMgr __osPiDevMgr;
-extern u32 __osCurrentHandle;
+extern OSPiHandle *__osCurrentHandle[2];
 extern u32 var8005cf30;
 extern OSTime osClockRate;
 extern s32 osViClock;
