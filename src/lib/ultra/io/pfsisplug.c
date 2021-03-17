@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "bss.h"
 #include "data.h"
 
 u32 __osPfsPifRam;
@@ -181,52 +182,27 @@ glabel __osPfsRequestData
 /*     59ac:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel __osPfsGetInitData
-/*     59b0:	3c07800a */ 	lui	$a3,%hi(__osContLastCmd+0x1)
-/*     59b4:	24e7c821 */ 	addiu	$a3,$a3,%lo(__osContLastCmd+0x1)
-/*     59b8:	90ee0000 */ 	lbu	$t6,0x0($a3)
-/*     59bc:	3c038009 */ 	lui	$v1,%hi(__osPfsPifRam)
-/*     59c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     59c4:	00001025 */ 	or	$v0,$zero,$zero
-/*     59c8:	24630a20 */ 	addiu	$v1,$v1,%lo(__osPfsPifRam)
-/*     59cc:	19c00020 */ 	blez	$t6,.L00005a50
-/*     59d0:	00003025 */ 	or	$a2,$zero,$zero
-/*     59d4:	27a8000c */ 	addiu	$t0,$sp,0xc
-.L000059d8:
-/*     59d8:	88610000 */ 	lwl	$at,0x0($v1)
-/*     59dc:	98610003 */ 	lwr	$at,0x3($v1)
-/*     59e0:	ad010000 */ 	sw	$at,0x0($t0)
-/*     59e4:	88780004 */ 	lwl	$t8,0x4($v1)
-/*     59e8:	98780007 */ 	lwr	$t8,0x7($v1)
-/*     59ec:	ad180004 */ 	sw	$t8,0x4($t0)
-/*     59f0:	93b9000e */ 	lbu	$t9,0xe($sp)
-/*     59f4:	332900c0 */ 	andi	$t1,$t9,0xc0
-/*     59f8:	00095103 */ 	sra	$t2,$t1,0x4
-/*     59fc:	314b00ff */ 	andi	$t3,$t2,0xff
-/*     5a00:	1560000d */ 	bnez	$t3,.L00005a38
-/*     5a04:	a0aa0003 */ 	sb	$t2,0x3($a1)
-/*     5a08:	93ac0011 */ 	lbu	$t4,0x11($sp)
-/*     5a0c:	93ae0010 */ 	lbu	$t6,0x10($sp)
-/*     5a10:	24190001 */ 	addiu	$t9,$zero,0x1
-/*     5a14:	000c6a00 */ 	sll	$t5,$t4,0x8
-/*     5a18:	01ae7825 */ 	or	$t7,$t5,$t6
-/*     5a1c:	a4af0000 */ 	sh	$t7,0x0($a1)
-/*     5a20:	93b80012 */ 	lbu	$t8,0x12($sp)
-/*     5a24:	00d94804 */ 	sllv	$t1,$t9,$a2
-/*     5a28:	00491025 */ 	or	$v0,$v0,$t1
-/*     5a2c:	304a00ff */ 	andi	$t2,$v0,0xff
-/*     5a30:	01401025 */ 	or	$v0,$t2,$zero
-/*     5a34:	a0b80002 */ 	sb	$t8,0x2($a1)
-.L00005a38:
-/*     5a38:	90eb0000 */ 	lbu	$t3,0x0($a3)
-/*     5a3c:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*     5a40:	24630008 */ 	addiu	$v1,$v1,0x8
-/*     5a44:	00cb082a */ 	slt	$at,$a2,$t3
-/*     5a48:	1420ffe3 */ 	bnez	$at,.L000059d8
-/*     5a4c:	24a50004 */ 	addiu	$a1,$a1,0x4
-.L00005a50:
-/*     5a50:	a0820000 */ 	sb	$v0,0x0($a0)
-/*     5a54:	03e00008 */ 	jr	$ra
-/*     5a58:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void __osPfsGetInitData(u8 *pattern, OSContStatus *data)
+{
+    u8 *ptr;
+    __OSContRequestFormat requestformat;
+    int i;
+    u8 bits;
+    bits = 0;
+    ptr = (u8 *)&__osPfsPifRam;
+
+    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContRequestFormat)) {
+        requestformat = *(__OSContRequestFormat *)ptr;
+        data->errno = CHNL_ERR(requestformat);
+
+        if (data->errno == 0) {
+            data->type = (requestformat.typel << 8) | (requestformat.typeh);
+            data->status = requestformat.status;
+            bits |= 1 << i;
+        }
+
+        data++;
+    }
+
+    *pattern = bits;
+}
