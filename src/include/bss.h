@@ -71,7 +71,7 @@ extern u8 __osMaxControllers;
 extern u32 __osEepromTimer;
 extern OSMesgQueue __osEepromTimerQ;
 extern OSMesg __osEepromTimerMsg;
-extern u32 __osEepPifRam;
+extern OSPifRam __osEepPifRam;
 extern u32 var8009ca84;
 extern void *var8009cac0;
 extern void *var8009cac4;
