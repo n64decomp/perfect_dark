@@ -212,7 +212,7 @@
 	build/ROMID/lib/ultra/os/yieldthread.o (section); \
 	build/ROMID/lib/ultra/io/si.o (section); \
 	build/ROMID/lib/ultra/os/probetlb.o (section); \
-	build/ROMID/lib/lib_51d50.o (section);
+	build/ROMID/lib/ultra/io/crc.o (section);
 
 #if VERSION >= VERSION_PAL_FINAL
 #define LIBFILES(section) \
