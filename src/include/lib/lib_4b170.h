@@ -4,6 +4,4 @@
 #include "data.h"
 #include "types.h"
 
-void *func0004b170(void *src, void *dst, u32 len);
-
 #endif

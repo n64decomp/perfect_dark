@@ -8983,7 +8983,7 @@ glabel func00041600
 /*    41b34:	27ab0070 */ 	addiu	$t3,$sp,0x70
 /*    41b38:	012b2021 */ 	addu	$a0,$t1,$t3
 /*    41b3c:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*    41b40:	0c012c5c */ 	jal	func0004b170
+/*    41b40:	0c012c5c */ 	jal	bcopy
 /*    41b44:	24060010 */ 	addiu	$a2,$zero,0x10
 /*    41b48:	1000000f */ 	b	.L00041b88
 /*    41b4c:	00000000 */ 	nop
@@ -9000,7 +9000,7 @@ glabel func00041600
 /*    41b74:	010fc021 */ 	addu	$t8,$t0,$t7
 /*    41b78:	030e2021 */ 	addu	$a0,$t8,$t6
 /*    41b7c:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*    41b80:	0c012c5c */ 	jal	func0004b170
+/*    41b80:	0c012c5c */ 	jal	bcopy
 /*    41b84:	24060010 */ 	addiu	$a2,$zero,0x10
 .L00041b88:
 /*    41b88:	afa00024 */ 	sw	$zero,0x24($sp)
@@ -11211,7 +11211,7 @@ glabel func0004371c
 /*    43bc4:	27a80034 */ 	addiu	$t0,$sp,0x34
 /*    43bc8:	01e82821 */ 	addu	$a1,$t7,$t0
 /*    43bcc:	24846a64 */ 	addiu	$a0,$a0,0x6a64
-/*    43bd0:	0c012c5c */ 	jal	func0004b170
+/*    43bd0:	0c012c5c */ 	jal	bcopy
 /*    43bd4:	24060048 */ 	addiu	$a2,$zero,0x48
 /*    43bd8:	8fa9094c */ 	lw	$t1,0x94c($sp)
 /*    43bdc:	8fae093c */ 	lw	$t6,0x93c($sp)

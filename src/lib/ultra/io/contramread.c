@@ -125,7 +125,7 @@ glabel __osContRamRead
 /*    4ba18:	10000006 */ 	b	.L0004ba34
 /*    4ba1c:	24130004 */ 	addiu	$s3,$zero,0x4
 .L0004ba20:
-/*    4ba20:	0c012c5c */ 	jal	func0004b170
+/*    4ba20:	0c012c5c */ 	jal	bcopy
 /*    4ba24:	24060020 */ 	addiu	$a2,$zero,0x20
 /*    4ba28:	10000003 */ 	b	.L0004ba38
 /*    4ba2c:	24010004 */ 	addiu	$at,$zero,0x4

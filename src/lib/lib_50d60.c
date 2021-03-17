@@ -130,7 +130,7 @@ glabel func00050d60
 .L00050ebc:
 /*    50ebc:	8fa50094 */ 	lw	$a1,0x94($sp)
 /*    50ec0:	24060050 */ 	addiu	$a2,$zero,0x50
-/*    50ec4:	0c012c5c */ 	jal	func0004b170
+/*    50ec4:	0c012c5c */ 	jal	bcopy
 /*    50ec8:	afa70088 */ 	sw	$a3,0x88($sp)
 /*    50ecc:	8faa0094 */ 	lw	$t2,0x94($sp)
 /*    50ed0:	3c0b8006 */ 	lui	$t3,%hi(var80061220)

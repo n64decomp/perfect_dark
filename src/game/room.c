@@ -3552,7 +3552,7 @@ Gfx *func0f15b114(Gfx *gdl)
 void bgLoadFile(void *memaddr, u32 offset, u32 len)
 {
 	if (var8007fc04) {
-		func0004b170(var8007fc08 + offset, memaddr, len);
+		bcopy(var8007fc08 + offset, memaddr, len);
 	} else {
 		func0f166ff0(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
 	}
@@ -7158,7 +7158,7 @@ u32 bgInflate(void *src, void *dst, u32 len)
 		result = rzipInflate(src, dst, tmpbuffer);
 	} else {
 		result = len;
-		func0004b170(src, dst, len);
+		bcopy(src, dst, len);
 	}
 
 	return result;
