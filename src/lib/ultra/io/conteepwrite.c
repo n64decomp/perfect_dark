@@ -2,110 +2,71 @@
 #include "bss.h"
 #include "data.h"
 
-GLOBAL_ASM(
-glabel osEepromWrite
-/*    4bcc0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    4bcc4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    4bcc8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    4bccc:	00808825 */ 	or	$s1,$a0,$zero
-/*    4bcd0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    4bcd4:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*    4bcd8:	0c012a18 */ 	jal	__osSiGetAccess
-/*    4bcdc:	afa60050 */ 	sw	$a2,0x50($sp)
-/*    4bce0:	27b0002c */ 	addiu	$s0,$sp,0x2c
-/*    4bce4:	02002825 */ 	or	$a1,$s0,$zero
-/*    4bce8:	0c012fb9 */ 	jal	__osEepStatus
-/*    4bcec:	02202025 */ 	or	$a0,$s1,$zero
-/*    4bcf0:	14400015 */ 	bnez	$v0,.L0004bd48
-/*    4bcf4:	00401825 */ 	or	$v1,$v0,$zero
-/*    4bcf8:	97ae002c */ 	lhu	$t6,0x2c($sp)
-/*    4bcfc:	34018000 */ 	dli	$at,0x8000
-/*    4bd00:	93b8004f */ 	lbu	$t8,0x4f($sp)
-/*    4bd04:	31cfc000 */ 	andi	$t7,$t6,0xc000
-/*    4bd08:	11e10005 */ 	beq	$t7,$at,.L0004bd20
-/*    4bd0c:	3401c000 */ 	dli	$at,0xc000
-/*    4bd10:	11e10008 */ 	beq	$t7,$at,.L0004bd34
-/*    4bd14:	93b9004f */ 	lbu	$t9,0x4f($sp)
-/*    4bd18:	1000000b */ 	b	.L0004bd48
-/*    4bd1c:	24030008 */ 	addiu	$v1,$zero,0x8
-.L0004bd20:
-/*    4bd20:	2b010040 */ 	slti	$at,$t8,0x40
-/*    4bd24:	14200008 */ 	bnez	$at,.L0004bd48
-/*    4bd28:	00000000 */ 	nop
-/*    4bd2c:	10000006 */ 	b	.L0004bd48
-/*    4bd30:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0004bd34:
-/*    4bd34:	2b210100 */ 	slti	$at,$t9,0x100
-/*    4bd38:	14200003 */ 	bnez	$at,.L0004bd48
-/*    4bd3c:	00000000 */ 	nop
-/*    4bd40:	10000001 */ 	b	.L0004bd48
-/*    4bd44:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0004bd48:
-/*    4bd48:	10600005 */ 	beqz	$v1,.L0004bd60
-/*    4bd4c:	93a8002e */ 	lbu	$t0,0x2e($sp)
-/*    4bd50:	0c012a29 */ 	jal	__osSiRelAccess
-/*    4bd54:	afa30044 */ 	sw	$v1,0x44($sp)
-/*    4bd58:	10000032 */ 	b	.L0004be24
-/*    4bd5c:	8fa20044 */ 	lw	$v0,0x44($sp)
-.L0004bd60:
-/*    4bd60:	31090080 */ 	andi	$t1,$t0,0x80
-/*    4bd64:	11200007 */ 	beqz	$t1,.L0004bd84
-/*    4bd68:	02202025 */ 	or	$a0,$s1,$zero
-.L0004bd6c:
-/*    4bd6c:	0c012fb9 */ 	jal	__osEepStatus
-/*    4bd70:	02002825 */ 	or	$a1,$s0,$zero
-/*    4bd74:	93aa002e */ 	lbu	$t2,0x2e($sp)
-/*    4bd78:	314b0080 */ 	andi	$t3,$t2,0x80
-/*    4bd7c:	5560fffb */ 	bnezl	$t3,.L0004bd6c
-/*    4bd80:	02202025 */ 	or	$a0,$s1,$zero
-.L0004bd84:
-/*    4bd84:	93a4004f */ 	lbu	$a0,0x4f($sp)
-/*    4bd88:	0c012f8e */ 	jal	__osPackEepWriteData
-/*    4bd8c:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*    4bd90:	3c05800a */ 	lui	$a1,%hi(__osEepPifRam)
-/*    4bd94:	24a5ca80 */ 	addiu	$a1,$a1,%lo(__osEepPifRam)
-/*    4bd98:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4bd9c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    4bda0:	02202025 */ 	or	$a0,$s1,$zero
-/*    4bda4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4bda8:	0c0121bc */ 	jal	osRecvMesg
-/*    4bdac:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bdb0:	3c05800a */ 	lui	$a1,%hi(__osEepPifRam)
-/*    4bdb4:	24a5ca80 */ 	addiu	$a1,$a1,%lo(__osEepPifRam)
-/*    4bdb8:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4bdbc:	00002025 */ 	or	$a0,$zero,$zero
-/*    4bdc0:	240c0005 */ 	addiu	$t4,$zero,0x5
-/*    4bdc4:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)
-/*    4bdc8:	a02cc820 */ 	sb	$t4,%lo(__osContLastCmd)($at)
-/*    4bdcc:	02202025 */ 	or	$a0,$s1,$zero
-/*    4bdd0:	00002825 */ 	or	$a1,$zero,$zero
-/*    4bdd4:	0c0121bc */ 	jal	osRecvMesg
-/*    4bdd8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bddc:	3c07800a */ 	lui	$a3,%hi(__osEepPifRam+0x4)
-/*    4bde0:	24e7ca84 */ 	addiu	$a3,$a3,%lo(__osEepPifRam+0x4)
-/*    4bde4:	88e10000 */ 	lwl	$at,0x0($a3)
-/*    4bde8:	98e10003 */ 	lwr	$at,0x3($a3)
-/*    4bdec:	27ad0030 */ 	addiu	$t5,$sp,0x30
-/*    4bdf0:	ada10000 */ 	sw	$at,0x0($t5)
-/*    4bdf4:	88f80004 */ 	lwl	$t8,0x4($a3)
-/*    4bdf8:	98f80007 */ 	lwr	$t8,0x7($a3)
-/*    4bdfc:	adb80004 */ 	sw	$t8,0x4($t5)
-/*    4be00:	88e10008 */ 	lwl	$at,0x8($a3)
-/*    4be04:	98e1000b */ 	lwr	$at,0xb($a3)
-/*    4be08:	ada10008 */ 	sw	$at,0x8($t5)
-/*    4be0c:	93a30031 */ 	lbu	$v1,0x31($sp)
-/*    4be10:	307900c0 */ 	andi	$t9,$v1,0xc0
-/*    4be14:	00194103 */ 	sra	$t0,$t9,0x4
-/*    4be18:	0c012a29 */ 	jal	__osSiRelAccess
-/*    4be1c:	afa80044 */ 	sw	$t0,0x44($sp)
-/*    4be20:	8fa20044 */ 	lw	$v0,0x44($sp)
-.L0004be24:
-/*    4be24:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    4be28:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    4be2c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    4be30:	03e00008 */ 	jr	$ra
-/*    4be34:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void __osPackEepWriteData(u8 address, u8 *buffer);
+
+s32 osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer)
+{
+	s32 ret;
+	u16 type;
+	u8 *ptr;
+	__OSContEepromFormat eepromformat;
+	OSContStatus sdata;
+
+	ret = 0;
+	ptr = (u8 *)&__osEepPifRam.ramarray;
+	__osSiGetAccess();
+	ret = __osEepStatus(mq, &sdata);
+
+	type = sdata.type & (CONT_EEPROM | CONT_EEP16K);
+
+	if (ret == 0) {
+		switch (type) {
+		case CONT_EEPROM:
+			// @bug: Should be > EEPROM_MAXBLOCKS
+			if (address >= EEPROM_MAXBLOCKS) {
+				ret = -1;
+			}
+			break;
+		case CONT_EEPROM | CONT_EEP16K:
+			// @bug: Should be > EEP16K_MAXBLOCKS
+			if (address >= EEP16K_MAXBLOCKS) {
+				ret = -1;
+			}
+			break;
+		default:
+			if (1);
+			ret = CONT_NO_RESPONSE_ERROR;
+			break;
+		}
+	}
+
+	if (ret != 0) {
+		__osSiRelAccess();
+		return ret;
+	}
+
+	while (sdata.status & CONT_EEPROM_BUSY) {
+		__osEepStatus(mq, &sdata);
+	}
+
+	__osPackEepWriteData(address, buffer);
+
+	ret = __osSiRawStartDma(OS_WRITE, &__osEepPifRam);
+	osRecvMesg(mq, NULL, OS_MESG_BLOCK);
+
+	ret = __osSiRawStartDma(OS_READ, &__osEepPifRam);
+	__osContLastCmd = CONT_CMD_WRITE_EEPROM;
+	osRecvMesg(mq, NULL, OS_MESG_BLOCK);
+
+	ptr += 4;
+
+	eepromformat = *(__OSContEepromFormat *)ptr;
+
+	ret = CHNL_ERR(eepromformat);
+
+	__osSiRelAccess();
+	return ret;
+}
 
 void __osPackEepWriteData(u8 address, u8 *buffer)
 {
