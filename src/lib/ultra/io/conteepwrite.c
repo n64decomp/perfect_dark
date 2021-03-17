@@ -1,4 +1,5 @@
 #include <libultra_internal.h>
+#include "bss.h"
 #include "data.h"
 
 GLOBAL_ASM(
@@ -106,53 +107,31 @@ glabel osEepromWrite
 /*    4be34:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel __osPackEepWriteData
-/*    4be38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4be3c:	3c07800a */ 	lui	$a3,%hi(__osEepPifRam)
-/*    4be40:	24e7ca80 */ 	addiu	$a3,$a3,%lo(__osEepPifRam)
-/*    4be44:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4be48:	2418000a */ 	addiu	$t8,$zero,0xa
-/*    4be4c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    4be50:	24080005 */ 	addiu	$t0,$zero,0x5
-/*    4be54:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    4be58:	acef003c */ 	sw	$t7,0x3c($a3)
-/*    4be5c:	a3b80008 */ 	sb	$t8,0x8($sp)
-/*    4be60:	a3b90009 */ 	sb	$t9,0x9($sp)
-/*    4be64:	a3a8000a */ 	sb	$t0,0xa($sp)
-/*    4be68:	a3a4000b */ 	sb	$a0,0xb($sp)
-/*    4be6c:	27a60008 */ 	addiu	$a2,$sp,0x8
-/*    4be70:	27a20010 */ 	addiu	$v0,$sp,0x10
-.L0004be74:
-/*    4be74:	90a90000 */ 	lbu	$t1,0x0($a1)
-/*    4be78:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*    4be7c:	00c2082b */ 	sltu	$at,$a2,$v0
-/*    4be80:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*    4be84:	1420fffb */ 	bnez	$at,.L0004be74
-/*    4be88:	a0c90003 */ 	sb	$t1,0x3($a2)
-/*    4be8c:	3c01800a */ 	lui	$at,%hi(__osEepPifRam)
-/*    4be90:	3c02800a */ 	lui	$v0,%hi(__osEepPifRam+0x1)
-/*    4be94:	2442ca81 */ 	addiu	$v0,$v0,%lo(__osEepPifRam+0x1)
-/*    4be98:	a020ca80 */ 	sb	$zero,%lo(__osEepPifRam)($at)
-/*    4be9c:	a0400002 */ 	sb	$zero,0x2($v0)
-/*    4bea0:	a0400001 */ 	sb	$zero,0x1($v0)
-/*    4bea4:	a0400000 */ 	sb	$zero,0x0($v0)
-/*    4bea8:	27aa0008 */ 	addiu	$t2,$sp,0x8
-/*    4beac:	8d410000 */ 	lw	$at,0x0($t2)
-/*    4beb0:	240d00fe */ 	addiu	$t5,$zero,0xfe
-/*    4beb4:	2442000f */ 	addiu	$v0,$v0,0xf
-/*    4beb8:	a841fff4 */ 	swl	$at,-0xc($v0)
-/*    4bebc:	b841fff7 */ 	swr	$at,-0x9($v0)
-/*    4bec0:	8d4c0004 */ 	lw	$t4,0x4($t2)
-/*    4bec4:	a84cfff8 */ 	swl	$t4,-0x8($v0)
-/*    4bec8:	b84cfffb */ 	swr	$t4,-0x5($v0)
-/*    4becc:	8d410008 */ 	lw	$at,0x8($t2)
-/*    4bed0:	a04d0000 */ 	sb	$t5,0x0($v0)
-/*    4bed4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    4bed8:	a841fffc */ 	swl	$at,-0x4($v0)
-/*    4bedc:	03e00008 */ 	jr	$ra
-/*    4bee0:	b841ffff */ 	swr	$at,-0x1($v0)
-);
+void __osPackEepWriteData(u8 address, u8 *buffer)
+{
+	u8 *ptr;
+	__OSContEepromFormat eepromformat;
+	int i;
+	ptr = (u8 *)&__osEepPifRam.ramarray;
+	__osEepPifRam.pifstatus = CONT_CMD_EXE;
+
+	eepromformat.txsize = CONT_CMD_WRITE_EEPROM_TX;
+	eepromformat.rxsize = CONT_CMD_WRITE_EEPROM_RX;
+	eepromformat.cmd = CONT_CMD_WRITE_EEPROM;
+	eepromformat.address = address;
+
+	for (i = 0; i < ARRLEN(eepromformat.data); i++) {
+		eepromformat.data[i] = *buffer++;
+	}
+
+	for (i = 0; i < 4; i++) {
+		*ptr++ = 0;
+	}
+
+	*(__OSContEepromFormat *)(ptr) = eepromformat;
+	ptr += sizeof(__OSContEepromFormat);
+	ptr[0] = CONT_CMD_END;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
