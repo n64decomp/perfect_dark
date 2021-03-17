@@ -589,6 +589,8 @@ u32 var800611e4 = 0x7ffe7ffe;
 u32 var800611e8 = 0x7ffe7ffe;
 u32 var800611ec = 0x7ffe7fff;
 
+const u32 var70059fd0[] = {0x3c8efa35};
+
 GLOBAL_ASM(
 glabel func0004f5e0
 /*    4f5e0:	27bdffd0 */ 	addiu	$sp,$sp,-48

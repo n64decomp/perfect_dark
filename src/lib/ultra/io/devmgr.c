@@ -1,6 +1,24 @@
 #include <libultra_internal.h>
 #include "data.h"
 
+#if VERSION >= VERSION_PAL_FINAL
+const u32 var70059eb0[] = {0x70049a7c};
+const u32 var70059eb4[] = {0x70049994};
+const u32 var70059eb8[] = {0x700499c8};
+const u32 var70059ebc[] = {0x70049a98};
+const u32 var70059ec0[] = {0x70049a98};
+const u32 var70059ec4[] = {0x700499fc};
+const u32 var70059ec8[] = {0x70049a3c};
+#else
+const u32 var70059eb0[] = {0x7004a17c};
+const u32 var70059eb4[] = {0x7004a094};
+const u32 var70059eb8[] = {0x7004a0c8};
+const u32 var70059ebc[] = {0x7004a198};
+const u32 var70059ec0[] = {0x7004a198};
+const u32 var70059ec4[] = {0x7004a0fc};
+const u32 var70059ec8[] = {0x7004a13c};
+#endif
+
 GLOBAL_ASM(
 glabel __osDevMgrMain
 /*    49e00:	27bdff88 */ 	addiu	$sp,$sp,-120

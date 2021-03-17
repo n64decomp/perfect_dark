@@ -5,6 +5,8 @@
 #include "data.h"
 #include "types.h"
 
+const u32 var70059c70[] = {0x46d10600};
+
 GLOBAL_ASM(
 glabel func000446d0
 /*    446d0:	27bdffb8 */ 	addiu	$sp,$sp,-72

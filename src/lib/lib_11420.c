@@ -38,32 +38,6 @@ const char var70053f38[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to s
 const char var70053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
 const char var70053fa8[] = "MUSIC TICK : Job Guid = %u\n";
 
-#if VERSION >= VERSION_PAL_FINAL
-const u32 var70053fc4[] = {0x70011200};
-const u32 var70053fc8[] = {0x70011200};
-const u32 var70053fcc[] = {0x70011200};
-const u32 var70053fd0[] = {0x70011200};
-const u32 var70053fd4[] = {0x70011200};
-const u32 var70053fd8[] = {0x70011200};
-const u32 var70053fdc[] = {0x700119c0};
-const u32 var70053fe0[] = {0x700119d4};
-const u32 var70053fe4[] = {0x700119e8};
-const u32 var70053fe8[] = {0x700119fc};
-const u32 var70053fec[] = {0x70011a0c};
-#else
-const u32 var70053fc4[] = {0x70011470};
-const u32 var70053fc8[] = {0x70011470};
-const u32 var70053fcc[] = {0x70011470};
-const u32 var70053fd0[] = {0x70011470};
-const u32 var70053fd4[] = {0x70011470};
-const u32 var70053fd8[] = {0x70011470};
-const u32 var70053fdc[] = {0x70011c30};
-const u32 var70053fe0[] = {0x70011c44};
-const u32 var70053fe4[] = {0x70011c58};
-const u32 var70053fe8[] = {0x70011c6c};
-const u32 var70053fec[] = {0x70011c7c};
-#endif
-
 u32 var8005edf0 = 0xffffffff;
 u32 var8005edf4 = 0x00000000;
 u32 var8005edf8 = 0x00000000;
@@ -71,6 +45,20 @@ u32 var8005edfc = 0x00000000;
 
 GLOBAL_ASM(
 glabel func00011420
+.late_rodata
+glabel var70053fc4
+.word func00011420+0x50
+glabel var70053fc8
+.word func00011420+0x50
+glabel var70053fcc
+.word func00011420+0x50
+glabel var70053fd0
+.word func00011420+0x50
+glabel var70053fd4
+.word func00011420+0x50
+glabel var70053fd8
+.word func00011420+0x50
+.text
 /*    11420:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    11424:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*    11428:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -434,6 +422,18 @@ glabel func000118f4
 
 GLOBAL_ASM(
 glabel func0001190c
+.late_rodata
+glabel var70053fdc
+.word func0001190c+0x324
+glabel var70053fe0
+.word func0001190c+0x338
+glabel var70053fe4
+.word func0001190c+0x34c
+glabel var70053fe8
+.word func0001190c+0x360
+glabel var70053fec
+.word func0001190c+0x370
+.text
 /*    1190c:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    11910:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
 /*    11914:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)

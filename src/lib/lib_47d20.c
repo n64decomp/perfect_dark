@@ -4,6 +4,13 @@
 #include "data.h"
 #include "types.h"
 
+const u32 var70059e10[] = {0x3f317218};
+const u32 var70059e14[] = {0x7f7fffff};
+const u32 var70059e18[] = {0x3f317218};
+const u32 var70059e1c[] = {0x00000000};
+const u32 var70059e20[] = {0x3f317218};
+const u32 var70059e24[] = {0x3f317218};
+
 GLOBAL_ASM(
 glabel func00047d20
 /*    47d20:	27bdffe0 */ 	addiu	$sp,$sp,-32

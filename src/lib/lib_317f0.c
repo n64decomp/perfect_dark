@@ -34,42 +34,6 @@ u32 var8005f13c = 0;
 u32 var8005f140 = 0;
 
 #if VERSION >= VERSION_PAL_FINAL
-const u32 var70054740[] = {0x700315e0};
-const u32 var70054744[] = {0x70031eac};
-const u32 var70054748[] = {0x70032910};
-const u32 var7005474c[] = {0x70032030};
-const u32 var70054750[] = {0x70032910};
-const u32 var70054754[] = {0x70032910};
-const u32 var70054758[] = {0x70032910};
-const u32 var7005475c[] = {0x7003233c};
-const u32 var70054760[] = {0x70032910};
-const u32 var70054764[] = {0x70032910};
-const u32 var70054768[] = {0x70032910};
-const u32 var7005476c[] = {0x70032910};
-const u32 var70054770[] = {0x70032910};
-const u32 var70054774[] = {0x70032910};
-const u32 var70054778[] = {0x70032910};
-const u32 var7005477c[] = {0x700320d4};
-#else
-const u32 var70054740[] = {0x70031ce0};
-const u32 var70054744[] = {0x700325ac};
-const u32 var70054748[] = {0x70033010};
-const u32 var7005474c[] = {0x70032730};
-const u32 var70054750[] = {0x70033010};
-const u32 var70054754[] = {0x70033010};
-const u32 var70054758[] = {0x70033010};
-const u32 var7005475c[] = {0x70032a3c};
-const u32 var70054760[] = {0x70033010};
-const u32 var70054764[] = {0x70033010};
-const u32 var70054768[] = {0x70033010};
-const u32 var7005476c[] = {0x70033010};
-const u32 var70054770[] = {0x70033010};
-const u32 var70054774[] = {0x70033010};
-const u32 var70054778[] = {0x70033010};
-const u32 var7005477c[] = {0x700327d4};
-#endif
-
-#if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func000317f0
 /*    317f0:	27bdffc0 */ 	addiu	$sp,$sp,-64
@@ -467,6 +431,40 @@ glabel func00031a68
 
 GLOBAL_ASM(
 glabel func00031b34
+.late_rodata
+glabel var70054740
+.word func00031b34+0x01ac
+glabel var70054744
+.word func00031b34+0x0a78
+glabel var70054748
+.word func00031b34+0x14dc
+glabel var7005474c
+.word func00031b34+0x0bfc
+glabel var70054750
+.word func00031b34+0x14dc
+glabel var70054754
+.word func00031b34+0x14dc
+glabel var70054758
+.word func00031b34+0x14dc
+glabel var7005475c
+.word func00031b34+0x0f08
+glabel var70054760
+.word func00031b34+0x14dc
+glabel var70054764
+.word func00031b34+0x14dc
+glabel var70054768
+.word func00031b34+0x14dc
+glabel var7005476c
+.word func00031b34+0x14dc
+glabel var70054770
+.word func00031b34+0x14dc
+glabel var70054774
+.word func00031b34+0x14dc
+glabel var70054778
+.word func00031b34+0x14dc
+glabel var7005477c
+.word func00031b34+0x0ca0
+.text
 /*    31b34:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*    31b38:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*    31b3c:	afa400b8 */ 	sw	$a0,0xb8($sp)

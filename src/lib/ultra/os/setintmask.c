@@ -1,6 +1,39 @@
 #include <libultra_internal.h>
 #include "data.h"
 
+const u32 var70059e30[] = {0x05550556};
+const u32 var70059e34[] = {0x0559055a};
+const u32 var70059e38[] = {0x05650566};
+const u32 var70059e3c[] = {0x0569056a};
+const u32 var70059e40[] = {0x05950596};
+const u32 var70059e44[] = {0x0599059a};
+const u32 var70059e48[] = {0x05a505a6};
+const u32 var70059e4c[] = {0x05a905aa};
+const u32 var70059e50[] = {0x06550656};
+const u32 var70059e54[] = {0x0659065a};
+const u32 var70059e58[] = {0x06650666};
+const u32 var70059e5c[] = {0x0669066a};
+const u32 var70059e60[] = {0x06950696};
+const u32 var70059e64[] = {0x0699069a};
+const u32 var70059e68[] = {0x06a506a6};
+const u32 var70059e6c[] = {0x06a906aa};
+const u32 var70059e70[] = {0x09550956};
+const u32 var70059e74[] = {0x0959095a};
+const u32 var70059e78[] = {0x09650966};
+const u32 var70059e7c[] = {0x0969096a};
+const u32 var70059e80[] = {0x09950996};
+const u32 var70059e84[] = {0x0999099a};
+const u32 var70059e88[] = {0x09a509a6};
+const u32 var70059e8c[] = {0x09a909aa};
+const u32 var70059e90[] = {0x0a550a56};
+const u32 var70059e94[] = {0x0a590a5a};
+const u32 var70059e98[] = {0x0a650a66};
+const u32 var70059e9c[] = {0x0a690a6a};
+const u32 var70059ea0[] = {0x0a950a96};
+const u32 var70059ea4[] = {0x0a990a9a};
+const u32 var70059ea8[] = {0x0aa50aa6};
+const u32 var70059eac[] = {0x0aa90aaa};
+
 GLOBAL_ASM(
 glabel osSetIntMask
 /*    48650:	400c6000 */ 	mfc0	$t4,$12
