@@ -35,7 +35,7 @@ extern u32 var80090b08;
 extern AMAudioMgr g_AudioManager;
 extern u32 var80092828;
 extern u32 var80092870;
-extern u32 var80094ea8;
+extern s32 var80094ea8;
 extern struct var80094ed8 var80094ed8[3];
 extern u32 var800951f0[4];
 extern u32 var80095200;

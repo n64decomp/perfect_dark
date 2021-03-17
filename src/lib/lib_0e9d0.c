@@ -22,7 +22,7 @@
 
 u32 var80094ea0;
 u32 var80094ea4;
-u32 var80094ea8;
+s32 var80094ea8;
 u32 var80094eac;
 u32 var80094eb0;
 u32 var80094eb4;
@@ -1373,87 +1373,39 @@ glabel func0000f228
 /*     f388:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-GLOBAL_ASM(
-glabel audioSetSoundMode
-/*     f38c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     f390:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     f394:	3c018006 */ 	lui	$at,%hi(g_SoundMode)
-/*     f398:	00808825 */ 	or	$s1,$a0,$zero
-/*     f39c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     f3a0:	afb40028 */ 	sw	$s4,0x28($sp)
-/*     f3a4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*     f3a8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*     f3ac:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     f3b0:	1080000a */ 	beqz	$a0,.L0000f3dc
-/*     f3b4:	ac24ddcc */ 	sw	$a0,%lo(g_SoundMode)($at)
-/*     f3b8:	24140001 */ 	addiu	$s4,$zero,0x1
-/*     f3bc:	1094000d */ 	beq	$a0,$s4,.L0000f3f4
-/*     f3c0:	24130002 */ 	addiu	$s3,$zero,0x2
-/*     f3c4:	10930010 */ 	beq	$a0,$s3,.L0000f408
-/*     f3c8:	24120003 */ 	addiu	$s2,$zero,0x3
-/*     f3cc:	10920012 */ 	beq	$a0,$s2,.L0000f418
-/*     f3d0:	00000000 */ 	nop
-/*     f3d4:	10000013 */ 	b	.L0000f424
-/*     f3d8:	00002025 */ 	or	$a0,$zero,$zero
-.L0000f3dc:
-/*     f3dc:	0c00d00c */ 	jal	func00034030
-/*     f3e0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     f3e4:	24140001 */ 	addiu	$s4,$zero,0x1
-/*     f3e8:	24130002 */ 	addiu	$s3,$zero,0x2
-/*     f3ec:	1000000c */ 	b	.L0000f420
-/*     f3f0:	24120003 */ 	addiu	$s2,$zero,0x3
-.L0000f3f4:
-/*     f3f4:	0c00d00c */ 	jal	func00034030
-/*     f3f8:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     f3fc:	24130002 */ 	addiu	$s3,$zero,0x2
-/*     f400:	10000007 */ 	b	.L0000f420
-/*     f404:	24120003 */ 	addiu	$s2,$zero,0x3
-.L0000f408:
-/*     f408:	0c00d00c */ 	jal	func00034030
-/*     f40c:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     f410:	10000003 */ 	b	.L0000f420
-/*     f414:	24120003 */ 	addiu	$s2,$zero,0x3
-.L0000f418:
-/*     f418:	0c00d00c */ 	jal	func00034030
-/*     f41c:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0000f420:
-/*     f420:	00002025 */ 	or	$a0,$zero,$zero
-.L0000f424:
-/*     f424:	0c00d041 */ 	jal	func00034104
-/*     f428:	24050004 */ 	addiu	$a1,$zero,0x4
-/*     f42c:	3c028009 */ 	lui	$v0,%hi(var80094ea8)
-/*     f430:	8c424ea8 */ 	lw	$v0,%lo(var80094ea8)($v0)
-/*     f434:	02808025 */ 	or	$s0,$s4,$zero
-/*     f438:	28410002 */ 	slti	$at,$v0,0x2
-/*     f43c:	54200010 */ 	bnezl	$at,.L0000f480
-/*     f440:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0000f444:
-/*     f444:	12340005 */ 	beq	$s1,$s4,.L0000f45c
-/*     f448:	02002025 */ 	or	$a0,$s0,$zero
-/*     f44c:	12330003 */ 	beq	$s1,$s3,.L0000f45c
-/*     f450:	00000000 */ 	nop
-/*     f454:	56320006 */ 	bnel	$s1,$s2,.L0000f470
-/*     f458:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0000f45c:
-/*     f45c:	0c00d041 */ 	jal	func00034104
-/*     f460:	24050004 */ 	addiu	$a1,$zero,0x4
-/*     f464:	3c028009 */ 	lui	$v0,%hi(var80094ea8)
-/*     f468:	8c424ea8 */ 	lw	$v0,%lo(var80094ea8)($v0)
-/*     f46c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0000f470:
-/*     f470:	0202082a */ 	slt	$at,$s0,$v0
-/*     f474:	1420fff3 */ 	bnez	$at,.L0000f444
-/*     f478:	00000000 */ 	nop
-/*     f47c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0000f480:
-/*     f480:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     f484:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*     f488:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*     f48c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*     f490:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*     f494:	03e00008 */ 	jr	$ra
-/*     f498:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void audioSetSoundMode(s32 mode)
+{
+	s32 i;
+
+	g_SoundMode = mode;
+
+	switch (mode) {
+	case SOUNDMODE_MONO:
+		func00034030(1);
+		break;
+	case SOUNDMODE_STEREO:
+		func00034030(2);
+		break;
+	case SOUNDMODE_HEADPHONE:
+		func00034030(3);
+		break;
+	case SOUNDMODE_SURROUND:
+		func00034030(4);
+		break;
+	}
+
+	func00034104(0, 4);
+
+	for (i = 1; i < var80094ea8; i++) {
+		switch (mode) {
+		case SOUNDMODE_STEREO:
+		case SOUNDMODE_HEADPHONE:
+		case SOUNDMODE_SURROUND:
+			func00034104(i, 4);
+			break;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0000f49c

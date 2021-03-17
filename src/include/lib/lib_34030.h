@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00034030(void);
-u32 func00034104(void);
+void func00034030(s32 arg0);
+void func00034104(s32 index, s32 arg1);
 
 #endif
