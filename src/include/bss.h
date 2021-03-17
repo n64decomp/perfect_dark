@@ -21,7 +21,7 @@ extern u8 g_BootBufferDirtyIndexes[3];
 extern s32 g_BootBufferIndex0;
 extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;
-extern u32 __osPfsPifRam;
+extern OSPifRam __osPfsPifRam;
 extern u32 var80090ab0;
 extern u32 var80090ad0;
 extern u32 var80090ae8;

@@ -2,22 +2,7 @@
 #include "bss.h"
 #include "data.h"
 
-u32 __osPfsPifRam;
-u32 var80090a24;
-u32 var80090a28;
-u32 var80090a2c;
-u32 var80090a30;
-u32 var80090a34;
-u32 var80090a38;
-u32 var80090a3c;
-u32 var80090a40;
-u32 var80090a44;
-u32 var80090a48;
-u32 var80090a4c;
-u32 var80090a50;
-u32 var80090a54;
-u32 var80090a58;
-u32 var80090a5c;
+OSPifRam __osPfsPifRam;
 
 GLOBAL_ASM(
 glabel osPfsIsPlug
@@ -131,78 +116,53 @@ glabel osPfsIsPlug
 /*     58f8:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel __osPfsRequestData
-/*     58fc:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*     5900:	3c058009 */ 	lui	$a1,%hi(__osPfsPifRam)
-/*     5904:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)
-/*     5908:	24a20a20 */ 	addiu	$v0,$a1,%lo(__osPfsPifRam)
-/*     590c:	afa40010 */ 	sw	$a0,0x10($sp)
-/*     5910:	a024c820 */ 	sb	$a0,%lo(__osContLastCmd)($at)
-/*     5914:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*     5918:	ac4f003c */ 	sw	$t7,0x3c($v0)
-/*     591c:	3c06800a */ 	lui	$a2,%hi(__osContLastCmd+0x1)
-/*     5920:	24c6c821 */ 	addiu	$a2,$a2,%lo(__osContLastCmd+0x1)
-/*     5924:	90cd0000 */ 	lbu	$t5,0x0($a2)
-/*     5928:	241800ff */ 	addiu	$t8,$zero,0xff
-/*     592c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*     5930:	24080003 */ 	addiu	$t0,$zero,0x3
-/*     5934:	240900ff */ 	addiu	$t1,$zero,0xff
-/*     5938:	240a00ff */ 	addiu	$t2,$zero,0xff
-/*     593c:	240b00ff */ 	addiu	$t3,$zero,0xff
-/*     5940:	240c00ff */ 	addiu	$t4,$zero,0xff
-/*     5944:	a3b80004 */ 	sb	$t8,0x4($sp)
-/*     5948:	a3b90005 */ 	sb	$t9,0x5($sp)
-/*     594c:	a3a80006 */ 	sb	$t0,0x6($sp)
-/*     5950:	a3a40007 */ 	sb	$a0,0x7($sp)
-/*     5954:	a3a90008 */ 	sb	$t1,0x8($sp)
-/*     5958:	a3aa0009 */ 	sb	$t2,0x9($sp)
-/*     595c:	a3ab000a */ 	sb	$t3,0xa($sp)
-/*     5960:	a3ac000b */ 	sb	$t4,0xb($sp)
-/*     5964:	19a0000e */ 	blez	$t5,.L000059a0
-/*     5968:	00001825 */ 	or	$v1,$zero,$zero
-/*     596c:	27a40004 */ 	addiu	$a0,$sp,0x4
-/*     5970:	8c810000 */ 	lw	$at,0x0($a0)
-.L00005974:
-/*     5974:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     5978:	24420008 */ 	addiu	$v0,$v0,0x8
-/*     597c:	a841fff8 */ 	swl	$at,-0x8($v0)
-/*     5980:	b841fffb */ 	swr	$at,-0x5($v0)
-/*     5984:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*     5988:	a84ffffc */ 	swl	$t7,-0x4($v0)
-/*     598c:	b84fffff */ 	swr	$t7,-0x1($v0)
-/*     5990:	90d80000 */ 	lbu	$t8,0x0($a2)
-/*     5994:	0078082a */ 	slt	$at,$v1,$t8
-/*     5998:	5420fff6 */ 	bnezl	$at,.L00005974
-/*     599c:	8c810000 */ 	lw	$at,0x0($a0)
-.L000059a0:
-/*     59a0:	241900fe */ 	addiu	$t9,$zero,0xfe
-/*     59a4:	a0590000 */ 	sb	$t9,0x0($v0)
-/*     59a8:	03e00008 */ 	jr	$ra
-/*     59ac:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+void __osPfsRequestData(u8 cmd)
+{
+	u8 *ptr;
+	__OSContRequestFormat requestformat;
+	int i;
+	ptr = (u8 *)&__osPfsPifRam;
+	__osContLastCmd = cmd;
+	__osPfsPifRam.pifstatus = CONT_CMD_EXE;
+
+	requestformat.dummy = CONT_CMD_NOP;
+	requestformat.txsize = CONT_CMD_REQUEST_STATUS_TX;
+	requestformat.rxsize = CONT_CMD_REQUEST_STATUS_RX;
+	requestformat.cmd = cmd;
+	requestformat.typeh = CONT_CMD_NOP;
+	requestformat.typel = CONT_CMD_NOP;
+	requestformat.status = CONT_CMD_NOP;
+	requestformat.dummy1 = CONT_CMD_NOP;
+
+	for (i = 0; i < __osMaxControllers; i++) {
+		*(__OSContRequestFormat *)ptr = requestformat;
+		ptr += sizeof(__OSContRequestFormat);
+	}
+
+	*ptr = CONT_CMD_END;
+}
 
 void __osPfsGetInitData(u8 *pattern, OSContStatus *data)
 {
-    u8 *ptr;
-    __OSContRequestFormat requestformat;
-    int i;
-    u8 bits;
-    bits = 0;
-    ptr = (u8 *)&__osPfsPifRam;
+	u8 *ptr;
+	__OSContRequestFormat requestformat;
+	int i;
+	u8 bits;
+	bits = 0;
+	ptr = (u8 *)&__osPfsPifRam;
 
-    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContRequestFormat)) {
-        requestformat = *(__OSContRequestFormat *)ptr;
-        data->errno = CHNL_ERR(requestformat);
+	for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContRequestFormat)) {
+		requestformat = *(__OSContRequestFormat *)ptr;
+		data->errno = CHNL_ERR(requestformat);
 
-        if (data->errno == 0) {
-            data->type = (requestformat.typel << 8) | (requestformat.typeh);
-            data->status = requestformat.status;
-            bits |= 1 << i;
-        }
+		if (data->errno == 0) {
+			data->type = (requestformat.typel << 8) | (requestformat.typeh);
+			data->status = requestformat.status;
+			bits |= 1 << i;
+		}
 
-        data++;
-    }
+		data++;
+	}
 
-    *pattern = bits;
+	*pattern = bits;
 }
