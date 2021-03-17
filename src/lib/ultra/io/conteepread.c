@@ -1,22 +1,7 @@
 #include <libultra_internal.h>
 #include "data.h"
 
-u32 __osEepPifRam;
-u32 var8009ca84;
-u32 var8009ca88;
-u32 var8009ca8c;
-u32 var8009ca90;
-u32 var8009ca94;
-u32 var8009ca98;
-u32 var8009ca9c;
-u32 var8009caa0;
-u32 var8009caa4;
-u32 var8009caa8;
-u32 var8009caac;
-u32 var8009cab0;
-u32 var8009cab4;
-u32 var8009cab8;
-u32 var8009cabc;
+OSPifRam __osEepPifRam;
 
 #if VERSION >= VERSION_PAL_FINAL
 u32 var8009d010pf[4];
@@ -152,41 +137,25 @@ glabel osEepromRead
 /*    50360:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel __osPackEepReadData
-/*    50364:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    50368:	3c03800a */ 	lui	$v1,%hi(__osEepPifRam)
-/*    5036c:	2463ca80 */ 	addiu	$v1,$v1,%lo(__osEepPifRam)
-/*    50370:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    50374:	ac6f003c */ 	sw	$t7,0x3c($v1)
-/*    50378:	24180002 */ 	addiu	$t8,$zero,0x2
-/*    5037c:	24190008 */ 	addiu	$t9,$zero,0x8
-/*    50380:	24080004 */ 	addiu	$t0,$zero,0x4
-/*    50384:	3c01800a */ 	lui	$at,%hi(__osEepPifRam)
-/*    50388:	3c02800a */ 	lui	$v0,%hi(__osEepPifRam+0x1)
-/*    5038c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    50390:	a3b80008 */ 	sb	$t8,0x8($sp)
-/*    50394:	a3b90009 */ 	sb	$t9,0x9($sp)
-/*    50398:	a3a8000a */ 	sb	$t0,0xa($sp)
-/*    5039c:	a3a4000b */ 	sb	$a0,0xb($sp)
-/*    503a0:	2442ca81 */ 	addiu	$v0,$v0,%lo(__osEepPifRam+0x1)
-/*    503a4:	a020ca80 */ 	sb	$zero,%lo(__osEepPifRam)($at)
-/*    503a8:	a0400002 */ 	sb	$zero,0x2($v0)
-/*    503ac:	a0400001 */ 	sb	$zero,0x1($v0)
-/*    503b0:	a0400000 */ 	sb	$zero,0x0($v0)
-/*    503b4:	27a90008 */ 	addiu	$t1,$sp,0x8
-/*    503b8:	8d210000 */ 	lw	$at,0x0($t1)
-/*    503bc:	240c00fe */ 	addiu	$t4,$zero,0xfe
-/*    503c0:	2442000f */ 	addiu	$v0,$v0,0xf
-/*    503c4:	a841fff4 */ 	swl	$at,-0xc($v0)
-/*    503c8:	b841fff7 */ 	swr	$at,-0x9($v0)
-/*    503cc:	8d2b0004 */ 	lw	$t3,0x4($t1)
-/*    503d0:	a84bfff8 */ 	swl	$t3,-0x8($v0)
-/*    503d4:	b84bfffb */ 	swr	$t3,-0x5($v0)
-/*    503d8:	8d210008 */ 	lw	$at,0x8($t1)
-/*    503dc:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*    503e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    503e4:	a841fffc */ 	swl	$at,-0x4($v0)
-/*    503e8:	03e00008 */ 	jr	$ra
-/*    503ec:	b841ffff */ 	swr	$at,-0x1($v0)
-);
+void __osPackEepReadData(u8 address)
+{
+	u8 *ptr;
+	__OSContEepromFormat eepromformat;
+	int i;
+	ptr = (u8 *)&__osEepPifRam.ramarray;
+
+	__osEepPifRam.pifstatus = CONT_CMD_EXE;
+
+	eepromformat.txsize = CONT_CMD_READ_EEPROM_TX;
+	eepromformat.rxsize = CONT_CMD_READ_EEPROM_RX;
+	eepromformat.cmd = CONT_CMD_READ_EEPROM;
+	eepromformat.address = address;
+
+	for (i = 0; i < 4; i++) {
+		*ptr++ = 0;
+	}
+
+	*(__OSContEepromFormat *)(ptr) = eepromformat;
+	ptr += sizeof(__OSContEepromFormat);
+	ptr[0] = CONT_CMD_END;
+}
