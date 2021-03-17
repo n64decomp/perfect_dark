@@ -164,57 +164,26 @@ u8 *ailistFindById(s32 ailistid)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func000185d0
-/*    185d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    185d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    185d8:	8c8e0040 */ 	lw	$t6,0x40($a0)
-/*    185dc:	3c028007 */ 	lui	$v0,%hi(g_BlockedPaths)
-/*    185e0:	000e7980 */ 	sll	$t7,$t6,0x6
-/*    185e4:	05e30023 */ 	bgezl	$t7,.L00018674
-/*    185e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    185ec:	8c42992c */ 	lw	$v0,%lo(g_BlockedPaths)($v0)
-/*    185f0:	3c03800a */ 	lui	$v1,%hi(g_StageSetup)
-/*    185f4:	5040001f */ 	beqzl	$v0,.L00018674
-/*    185f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    185fc:	8c580004 */ 	lw	$t8,0x4($v0)
-.L00018600:
-/*    18600:	54980019 */ 	bnel	$a0,$t8,.L00018668
-/*    18604:	8c42000c */ 	lw	$v0,0xc($v0)
-/*    18608:	50a0000d */ 	beqzl	$a1,.L00018640
-/*    1860c:	844b0008 */ 	lh	$t3,0x8($v0)
-/*    18610:	84590008 */ 	lh	$t9,0x8($v0)
-/*    18614:	8449000a */ 	lh	$t1,0xa($v0)
-/*    18618:	3c03800a */ 	lui	$v1,%hi(g_StageSetup)
-/*    1861c:	8c63d030 */ 	lw	$v1,%lo(g_StageSetup)($v1)
-/*    18620:	00194100 */ 	sll	$t0,$t9,0x4
-/*    18624:	00095100 */ 	sll	$t2,$t1,0x4
-/*    18628:	01432821 */ 	addu	$a1,$t2,$v1
-/*    1862c:	0fc4569e */ 	jal	waypointEnableSegment
-/*    18630:	01032021 */ 	addu	$a0,$t0,$v1
-/*    18634:	1000000f */ 	b	.L00018674
-/*    18638:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1863c:	844b0008 */ 	lh	$t3,0x8($v0)
-.L00018640:
-/*    18640:	844d000a */ 	lh	$t5,0xa($v0)
-/*    18644:	8c63d030 */ 	lw	$v1,%lo(g_StageSetup)($v1)
-/*    18648:	000b6100 */ 	sll	$t4,$t3,0x4
-/*    1864c:	000d7100 */ 	sll	$t6,$t5,0x4
-/*    18650:	01c32821 */ 	addu	$a1,$t6,$v1
-/*    18654:	0fc45692 */ 	jal	waypointDisableSegment
-/*    18658:	01832021 */ 	addu	$a0,$t4,$v1
-/*    1865c:	10000005 */ 	b	.L00018674
-/*    18660:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    18664:	8c42000c */ 	lw	$v0,0xc($v0)
-.L00018668:
-/*    18668:	5440ffe5 */ 	bnezl	$v0,.L00018600
-/*    1866c:	8c580004 */ 	lw	$t8,0x4($v0)
-/*    18670:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00018674:
-/*    18674:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    18678:	03e00008 */ 	jr	$ra
-/*    1867c:	00000000 */ 	nop
-);
+void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked)
+{
+	if (blocker->hidden & OBJHFLAG_02000000) {
+		struct blockedpathobj *bp = g_BlockedPaths;
+
+		while (bp) {
+			if (bp->blocker == blocker) {
+				if (unblocked) {
+					waypointEnableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
+					break;
+				} else {
+					waypointDisableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
+					break;
+				}
+			}
+
+			bp = bp->next;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func00018680

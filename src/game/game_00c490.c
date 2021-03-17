@@ -3586,7 +3586,7 @@ void setupParseObjects(s32 stagenum)
 							}
 
 							if (trigger->hidden & OBJHFLAG_02000000) {
-								func000185d0(trigger, false);
+								objSetBlockedPathUnblocked(trigger, false);
 							}
 						}
 					}
@@ -3605,7 +3605,7 @@ void setupParseObjects(s32 stagenum)
 							blocker->hidden |= OBJHFLAG_02000000;
 
 							if (blocker->hidden & OBJHFLAG_01000000) {
-								func000185d0(blocker, false);
+								objSetBlockedPathUnblocked(blocker, false);
 							}
 						}
 					}

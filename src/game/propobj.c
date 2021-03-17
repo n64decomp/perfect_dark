@@ -554,7 +554,7 @@ void objUpdateLinkedScenery(struct defaultobj *obj)
 					link->exp->flags2 &= ~OBJFLAG2_INVISIBLE;
 				}
 
-				func000185d0(obj, 1);
+				objSetBlockedPathUnblocked(obj, true);
 				return;
 			}
 
