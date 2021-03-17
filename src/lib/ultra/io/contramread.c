@@ -85,7 +85,7 @@ glabel __osContRamRead
 .L0004b97c:
 /*    4b97c:	8fb80044 */ 	lw	$t8,0x44($sp)
 /*    4b980:	30a4ffff */ 	andi	$a0,$a1,0xffff
-/*    4b984:	0c014754 */ 	jal	func00051d50
+/*    4b984:	0c014754 */ 	jal	__osContAddressCrc
 /*    4b988:	a2180004 */ 	sb	$t8,0x4($s0)
 /*    4b98c:	8fb90040 */ 	lw	$t9,0x40($sp)
 /*    4b990:	24040001 */ 	addiu	$a0,$zero,0x1

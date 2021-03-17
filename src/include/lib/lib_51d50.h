@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00051d50(void);
+u32 __osContAddressCrc(void);
 u32 func00051e20(void);
 
 #endif

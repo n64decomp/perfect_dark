@@ -96,7 +96,7 @@ glabel __osContRamWrite
 .L0004b75c:
 /*    4b75c:	8fb80044 */ 	lw	$t8,0x44($sp)
 /*    4b760:	a2180004 */ 	sb	$t8,0x4($s0)
-/*    4b764:	0c014754 */ 	jal	func00051d50
+/*    4b764:	0c014754 */ 	jal	__osContAddressCrc
 /*    4b768:	97a40072 */ 	lhu	$a0,0x72($sp)
 /*    4b76c:	8fb90040 */ 	lw	$t9,0x40($sp)
 /*    4b770:	26050006 */ 	addiu	$a1,$s0,0x6
