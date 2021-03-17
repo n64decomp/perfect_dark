@@ -1,27 +1,13 @@
 #include <ultra64.h>
+#include "lib/libc/xprintf.h"
 #include "constants.h"
 
-u32 var800609a0 = 0x20202020;
-u32 var800609a4 = 0x20202020;
-u32 var800609a8 = 0x20202020;
-u32 var800609ac = 0x20202020;
-u32 var800609b0 = 0x20202020;
-u32 var800609b4 = 0x20202020;
-u32 var800609b8 = 0x20202020;
-u32 var800609bc = 0x20202020;
-u32 var800609c0 = 0x00000000;
-u32 var800609c4 = 0x30303030;
-u32 var800609c8 = 0x30303030;
-u32 var800609cc = 0x30303030;
-u32 var800609d0 = 0x30303030;
-u32 var800609d4 = 0x30303030;
-u32 var800609d8 = 0x30303030;
-u32 var800609dc = 0x30303030;
-u32 var800609e0 = 0x30303030;
+char spaces[] = "                                ";
+char zeroes[] = "00000000000000000000000000000000";
 
-const u32 var70059ed0[] = {0x686c4c00};
-const u32 var70059ed4[] = {0x202b2d23};
-const u32 var70059ed8[] = {0x30000000};
+const char var70059ed0[] = "hlL";
+const char var70059ed4[] = " +-#0";
+
 const u32 var70059edc[] = {0x00000001};
 const u32 var70059ee0[] = {0x00000002};
 const u32 var70059ee4[] = {0x00000004};
@@ -137,8 +123,39 @@ const u32 var70059fbc[] = {0x7004ecd8};
 const u32 var70059fc0[] = {0x7004e8a8};
 #endif
 
+#define ISDIGIT(x) ((x >= '0' && x <= '9'))
+
+#define ATOI(dst, src)				   \
+	for (dst = 0; ISDIGIT(*src); ++src)  \
+	{									\
+		if (dst < 999)				   \
+			dst = dst * 10 + *src - '0'; \
+	}
+
+#define MAX_PAD ((sizeof(spaces) - 1))
+
+#define PAD(s, n)											 \
+	if (0 < (n))											  \
+	{														 \
+		int i, j = (n);									   \
+		for (; 0 < j; j -= i)								 \
+		{													 \
+			i = MAX_PAD < (unsigned int)j ? (int)MAX_PAD : j; \
+			PUT(s, i);										\
+		}													 \
+	}
+
+#define PUT(s, n)								\
+	if (0 < (n))								 \
+	{											\
+		if ((arg = (*prout)(arg, s, n)) != NULL) \
+			x.size += (n);					   \
+		else									 \
+			return x.size;					   \
+	}
+
 GLOBAL_ASM(
-glabel func0004e690
+glabel _Putfld
 /*    4e690:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4e694:	afa50020 */ 	sw	$a1,0x20($sp)
 /*    4e698:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -593,6 +610,121 @@ glabel func0004e690
 /*    4ecfc:	00000000 */ 	nop
 );
 
+// Mismatch: regalloc. Note this file is O3.
+//static void _Putfld(printf_struct *x, va_list *args, char type, char *buff)
+//{
+//	x->n0 = x->num_leading_zeros = x->part2_len = x->num_mid_zeros = x->part3_len = x->num_trailing_zeros = 0;
+//
+//	switch (type) {
+//	case 'c':
+//		buff[x->n0++] = va_arg(*args, int);
+//		break;
+//	case 'd':
+//	case 'i':
+//		if (x->length == 'l') {
+//			x->value.s64 = va_arg(*args, int);
+//		} else if (x->length == 'L') {
+//			x->value.s64 = va_arg(*args, s64);
+//		} else {
+//			x->value.s64 = va_arg(*args, int);
+//		}
+//
+//		if (x->length == 'h') {
+//			x->value.s64 = (s16)x->value.s64;
+//		}
+//
+//		if (x->value.s64 < 0) {
+//			buff[x->n0++] = '-';
+//		} else if (x->flags & FLAGS_PLUS) {
+//			buff[x->n0++] = '+';
+//		} else if (x->flags & FLAGS_SPACE) {
+//			buff[x->n0++] = ' ';
+//		}
+//
+//		x->buff = (char *)&buff[x->n0];
+//
+//		_Litob(x, type);
+//		break;
+//	case 'x':
+//	case 'X':
+//	case 'u':
+//	case 'o':
+//		if (x->length == 'l') {
+//			x->value.s64 = va_arg(*args, int);
+//		} else if (x->length == 'L') {
+//			x->value.s64 = va_arg(*args, s64);
+//		} else {
+//			x->value.s64 = va_arg(*args, int);
+//		}
+//
+//		if (x->length == 'h') {
+//			x->value.s64 = (u16)x->value.s64;
+//		} else if (x->length == 0) {
+//			x->value.s64 = (unsigned int)x->value.s64;
+//		}
+//
+//		if (x->flags & FLAGS_HASH) {
+//			buff[x->n0++] = '0';
+//
+//			if (type == 'x' || type == 'X') {
+//				buff[x->n0++] = type;
+//			}
+//		}
+//
+//		x->buff = (char *)&buff[x->n0];
+//		_Litob(x, type);
+//		break;
+//	case 'e':
+//	case 'f':
+//	case 'g':
+//	case 'E':
+//	case 'G':
+//		x->value.f64 = x->length == 'L' ? va_arg(*args, f64) : va_arg(*args, f64);
+//
+//		if (*(u16 *)&x->value.f64 & 0x8000) {
+//			buff[x->n0++] = '-';
+//		} else if (x->flags & FLAGS_PLUS) {
+//			buff[x->n0++] = '+';
+//		} else if (x->flags & FLAGS_SPACE) {
+//			buff[x->n0++] = ' ';
+//		}
+//
+//		x->buff = (char *)&buff[x->n0];
+//		_Ldtob(x, type);
+//		break;
+//	case 'n':
+//		if (x->length == 'h') {
+//			*(va_arg(*args, u16 *)) = x->size;
+//		} else if (x->length == 'l') {
+//			*va_arg(*args, unsigned int *) = x->size;
+//		} else if (x->length == 'L') {
+//			*va_arg(*args, u64 *) = x->size;
+//		} else {
+//			*va_arg(*args, unsigned int *) = x->size;
+//		}
+//		break;
+//	case 'p':
+//		x->value.s64 = (long)va_arg(*args, void *);
+//		x->buff = (char *)&buff[x->n0];
+//		_Litob(x, 'x');
+//		break;
+//	case 's':
+//		x->buff = va_arg(*args, char *);
+//		x->part2_len = strlen(x->buff);
+//
+//		if (x->precision >= 0 && x->part2_len > x->precision) {
+//			x->part2_len = x->precision;
+//		}
+//		break;
+//	case '%':
+//		buff[x->n0++] = '%';
+//		break;
+//	default:
+//		buff[x->n0++] = type;
+//		break;
+//	}
+//}
+
 GLOBAL_ASM(
 glabel _Printf
 /*    4ed00:	27bdff28 */ 	addiu	$sp,$sp,-216
@@ -603,9 +735,9 @@ glabel _Printf
 /*    4ed14:	afb40028 */ 	sw	$s4,0x28($sp)
 /*    4ed18:	afb30024 */ 	sw	$s3,0x24($sp)
 /*    4ed1c:	afa700e4 */ 	sw	$a3,0xe4($sp)
-/*    4ed20:	3c158006 */ 	lui	$s5,%hi(var800609c4)
+/*    4ed20:	3c158006 */ 	lui	$s5,%hi(zeroes)
 /*    4ed24:	3c167006 */ 	lui	$s6,%hi(var70059ed4)
-/*    4ed28:	3c178006 */ 	lui	$s7,%hi(var800609a0)
+/*    4ed28:	3c178006 */ 	lui	$s7,%hi(spaces)
 /*    4ed2c:	00c03825 */ 	or	$a3,$a2,$zero
 /*    4ed30:	00a09825 */ 	or	$s3,$a1,$zero
 /*    4ed34:	0080a025 */ 	or	$s4,$a0,$zero
@@ -615,9 +747,9 @@ glabel _Printf
 /*    4ed44:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    4ed48:	afa600e0 */ 	sw	$a2,0xe0($sp)
 /*    4ed4c:	afa000cc */ 	sw	$zero,0xcc($sp)
-/*    4ed50:	26f709a0 */ 	addiu	$s7,$s7,%lo(var800609a0)
+/*    4ed50:	26f709a0 */ 	addiu	$s7,$s7,%lo(spaces)
 /*    4ed54:	26d69ed4 */ 	addiu	$s6,$s6,%lo(var70059ed4)
-/*    4ed58:	26b509c4 */ 	addiu	$s5,$s5,%lo(var800609c4)
+/*    4ed58:	26b509c4 */ 	addiu	$s5,$s5,%lo(zeroes)
 /*    4ed5c:	241e000a */ 	addiu	$s8,$zero,0xa
 .L0004ed60:
 /*    4ed60:	90e20000 */ 	lbu	$v0,0x0($a3)
@@ -801,7 +933,7 @@ glabel _Printf
 /*    4efd4:	a3ae00d4 */ 	sb	$t6,0xd4($sp)
 /*    4efd8:	26520001 */ 	addiu	$s2,$s2,0x1
 .L0004efdc:
-/*    4efdc:	0c0139a4 */ 	jal	func0004e690
+/*    4efdc:	0c0139a4 */ 	jal	_Putfld
 /*    4efe0:	92450000 */ 	lbu	$a1,0x0($s2)
 /*    4efe4:	8fb900c8 */ 	lw	$t9,0xc8($sp)
 /*    4efe8:	8faf00ac */ 	lw	$t7,0xac($sp)
@@ -1059,3 +1191,87 @@ glabel _Printf
 /*    4f340:	03e00008 */ 	jr	$ra
 /*    4f344:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
 );
+
+//int _Printf(outfun prout, char *arg, const char *fmt, va_list args)
+//{
+//	printf_struct x;
+//	const char *s;
+//	char c;
+//	const char *t;
+//	static const char fchar[6] = " +-#0";
+//	static const int fbit[6] = {FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS, FLAGS_HASH, FLAGS_ZERO, 0};
+//	char ac[32];
+//	x.size = 0;
+//
+//	for (;;) {
+//		s = fmt;
+//
+//		for (c = *s; c != 0 && c != '%';) {
+//			c = *++s;
+//		}
+//
+//		PUT(fmt, s - fmt);
+//
+//		if (c == 0) {
+//			return x.size;
+//		}
+//
+//		fmt = ++s;
+//
+//		for (x.flags = 0; (t = strchr(fchar, *s)) != NULL; s++) {
+//			x.flags |= fbit[t - fchar];
+//		}
+//
+//		if (*s == '*') {
+//			x.width = va_arg(args, int);
+//
+//			if (x.width < 0) {
+//				x.width = -x.width;
+//				x.flags |= FLAGS_MINUS;
+//			}
+//
+//			s++;
+//		} else {
+//			ATOI(x.width, s);
+//		}
+//
+//		if (*s != '.') {
+//			x.precision = -1;
+//		} else if (*++s == '*') {
+//			x.precision = va_arg(args, int);
+//			++s;
+//		} else {
+//			ATOI(x.precision, s);
+//		}
+//
+//		x.length = strchr("hlL", *s) ? *s++ : '\0';
+//
+//		if (x.length == 'l' && *s == 'l') {
+//			x.length = 'L';
+//			++s;
+//		}
+//
+//		_Putfld(&x, &args, *s, ac);
+//
+//		x.width -= x.n0 + x.num_leading_zeros + x.part2_len + x.num_mid_zeros + x.part3_len + x.num_trailing_zeros;
+//
+//		if (!(x.flags & FLAGS_MINUS)) {
+//			PAD(spaces, x.width);
+//		}
+//
+//		PUT(ac, x.n0);
+//		PAD(zeroes, x.num_leading_zeros);
+//		PUT(x.buff, x.part2_len);
+//		PAD(zeroes, x.num_mid_zeros);
+//		PUT(x.buff + x.part2_len, x.part3_len);
+//		PAD(zeroes, x.num_trailing_zeros);
+//
+//		if (x.flags & FLAGS_MINUS) {
+//			PAD(spaces, x.width);
+//		}
+//
+//		fmt = s + 1;
+//	}
+//
+//	return 0;
+//}
