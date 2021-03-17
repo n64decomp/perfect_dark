@@ -103,3 +103,48 @@ glabel osEPiRawReadIo
 /*    51bb4:	03e00008 */ 	jr	$ra
 /*    51bb8:	accd0000 */ 	sw	$t5,0x0($a2)
 );
+
+//#define WAIT_ON_IOBUSY(stat)                                \
+//    stat = IO_READ(PI_STATUS_REG);                          \
+//    while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) \
+//        stat = IO_READ(PI_STATUS_REG);
+//
+//#define UPDATE_REG(reg, var)           \
+//    if (cHandle->var != pihandle->var) \
+//        IO_WRITE(reg, pihandle->var);
+//
+// Mismatch: branch/branch-likely
+//s32 osEPiRawReadIo(OSPiHandle *pihandle, u32 devAddr, u32 *data)
+//{
+//	u32 stat;
+//	u32 domain;
+//
+//    WAIT_ON_IOBUSY(stat)
+//
+//    domain = pihandle->domain;
+//
+//    if (__osCurrentHandle[domain]->type != pihandle->type) {
+//        OSPiHandle *cHandle = __osCurrentHandle[domain];
+//
+//        if (domain == PI_DOMAIN1) {
+//            UPDATE_REG(PI_BSD_DOM1_LAT_REG, latency);
+//            UPDATE_REG(PI_BSD_DOM1_PGS_REG, pageSize);
+//            UPDATE_REG(PI_BSD_DOM1_RLS_REG, relDuration);
+//            UPDATE_REG(PI_BSD_DOM1_PWD_REG, pulse);
+//        } else {
+//            UPDATE_REG(PI_BSD_DOM2_LAT_REG, latency);
+//            UPDATE_REG(PI_BSD_DOM2_PGS_REG, pageSize);
+//            UPDATE_REG(PI_BSD_DOM2_RLS_REG, relDuration);
+//            UPDATE_REG(PI_BSD_DOM2_PWD_REG, pulse);
+//        }
+//
+//		cHandle->type = pihandle->type;
+//		cHandle->latency = pihandle->latency;
+//		cHandle->pageSize = pihandle->pageSize;
+//		cHandle->relDuration = pihandle->relDuration;
+//		cHandle->pulse = pihandle->pulse;
+//	}
+//
+//	*data = IO_READ(pihandle->baseAddress | devAddr);
+//	return 0;
+//}
