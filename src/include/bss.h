@@ -68,7 +68,7 @@ extern OSMesgQueue __osPiAccessQueue;
 extern OSPifRam __osContPifRam;
 extern u8 __osContLastCmd;
 extern u8 __osMaxControllers;
-extern u32 __osEepromTimer;
+extern OSTimer __osEepromTimer;
 extern OSMesgQueue __osEepromTimerQ;
 extern OSMesg __osEepromTimerMsg;
 extern OSPifRam __osEepPifRam;
