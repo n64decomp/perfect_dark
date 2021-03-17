@@ -164,28 +164,6 @@ const u32 var70052464[] = {0x0c0c0c0c};
 const u32 var70052468[] = {0x10101010};
 const u32 var7005246c[] = {0x10101010};
 
-#if VERSION >= VERSION_PAL_FINAL
-const u32 var70052470[] = {0x70003a0c};
-const u32 var70052474[] = {0x70003998};
-const u32 var70052478[] = {0x70003978};
-const u32 var7005247c[] = {0x700037dc};
-const u32 var70052480[] = {0x70003798};
-const u32 var70052484[] = {0x7000391c};
-const u32 var70052488[] = {0x70003760};
-const u32 var7005248c[] = {0x7000376c};
-const u32 var70052490[] = {0x70003778};
-#else
-const u32 var70052470[] = {0x70003a3c};
-const u32 var70052474[] = {0x700039c8};
-const u32 var70052478[] = {0x700039a8};
-const u32 var7005247c[] = {0x7000380c};
-const u32 var70052480[] = {0x700037c8};
-const u32 var70052484[] = {0x7000394c};
-const u32 var70052488[] = {0x70003790};
-const u32 var7005248c[] = {0x7000379c};
-const u32 var70052490[] = {0x700037a8};
-#endif
-
 GLOBAL_ASM(
 glabel __osExceptionPreamble
 /*     34f0:	3c1a7000 */ 	lui	$k0,%hi(__osException)
@@ -196,6 +174,26 @@ glabel __osExceptionPreamble
 
 GLOBAL_ASM(
 glabel __osException
+.late_rodata
+glabel var70052470
+.word __osException+0x53c
+glabel var70052474
+.word __osException+0x4c8
+glabel var70052478
+.word __osException+0x4a8
+glabel var7005247c
+.word __osException+0x30c
+glabel var70052480
+.word __osException+0x2c8
+glabel var70052484
+.word __osException+0x44c
+glabel var70052488
+.word __osException+0x290
+glabel var7005248c
+.word __osException+0x29c
+glabel var70052490
+.word __osException+0x2a8
+.text
 /*     3500:	3c1a8009 */ 	lui	$k0,%hi(var800907f0)
 /*     3504:	275a07f0 */ 	addiu	$k0,$k0,%lo(var800907f0)
 /*     3508:	ff410020 */ 	sd	$at,0x20($k0)

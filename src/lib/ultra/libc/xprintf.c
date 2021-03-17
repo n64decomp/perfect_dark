@@ -15,114 +15,6 @@ const u32 var70059ee8[] = {0x00000008};
 const u32 var70059eec[] = {0x00000010};
 const u32 var70059ef0[] = {0x00000000};
 
-#if VERSION >= VERSION_PAL_FINAL
-const u32 var70059ef4[] = {0x7004e2f8};
-const u32 var70059ef8[] = {0x7004e5d8};
-const u32 var70059efc[] = {0x7004e2f8};
-const u32 var70059f00[] = {0x7004e5d8};
-const u32 var70059f04[] = {0x7004e5d8};
-const u32 var70059f08[] = {0x7004e5d8};
-const u32 var70059f0c[] = {0x7004e5d8};
-const u32 var70059f10[] = {0x7004e5d8};
-const u32 var70059f14[] = {0x7004e5d8};
-const u32 var70059f18[] = {0x7004e5d8};
-const u32 var70059f1c[] = {0x7004e5d8};
-const u32 var70059f20[] = {0x7004e5d8};
-const u32 var70059f24[] = {0x7004e5d8};
-const u32 var70059f28[] = {0x7004e5d8};
-const u32 var70059f2c[] = {0x7004e5d8};
-const u32 var70059f30[] = {0x7004e5d8};
-const u32 var70059f34[] = {0x7004e5d8};
-const u32 var70059f38[] = {0x7004e5d8};
-const u32 var70059f3c[] = {0x7004e5d8};
-const u32 var70059f40[] = {0x7004e1a8};
-const u32 var70059f44[] = {0x7004e5d8};
-const u32 var70059f48[] = {0x7004e5d8};
-const u32 var70059f4c[] = {0x7004e5d8};
-const u32 var70059f50[] = {0x7004e5d8};
-const u32 var70059f54[] = {0x7004e5d8};
-const u32 var70059f58[] = {0x7004e5d8};
-const u32 var70059f5c[] = {0x7004e5d8};
-const u32 var70059f60[] = {0x7004e5d8};
-const u32 var70059f64[] = {0x7004e5d8};
-const u32 var70059f68[] = {0x7004e5d8};
-const u32 var70059f6c[] = {0x7004e000};
-const u32 var70059f70[] = {0x7004e038};
-const u32 var70059f74[] = {0x7004e2f8};
-const u32 var70059f78[] = {0x7004e2f8};
-const u32 var70059f7c[] = {0x7004e2f8};
-const u32 var70059f80[] = {0x7004e5d8};
-const u32 var70059f84[] = {0x7004e038};
-const u32 var70059f88[] = {0x7004e5d8};
-const u32 var70059f8c[] = {0x7004e5d8};
-const u32 var70059f90[] = {0x7004e5d8};
-const u32 var70059f94[] = {0x7004e5d8};
-const u32 var70059f98[] = {0x7004e45c};
-const u32 var70059f9c[] = {0x7004e1a8};
-const u32 var70059fa0[] = {0x7004e52c};
-const u32 var70059fa4[] = {0x7004e5d8};
-const u32 var70059fa8[] = {0x7004e5d8};
-const u32 var70059fac[] = {0x7004e574};
-const u32 var70059fb0[] = {0x7004e5d8};
-const u32 var70059fb4[] = {0x7004e1a8};
-const u32 var70059fb8[] = {0x7004e5d8};
-const u32 var70059fbc[] = {0x7004e5d8};
-const u32 var70059fc0[] = {0x7004e1a8};
-#else
-const u32 var70059ef4[] = {0x7004e9f8};
-const u32 var70059ef8[] = {0x7004ecd8};
-const u32 var70059efc[] = {0x7004e9f8};
-const u32 var70059f00[] = {0x7004ecd8};
-const u32 var70059f04[] = {0x7004ecd8};
-const u32 var70059f08[] = {0x7004ecd8};
-const u32 var70059f0c[] = {0x7004ecd8};
-const u32 var70059f10[] = {0x7004ecd8};
-const u32 var70059f14[] = {0x7004ecd8};
-const u32 var70059f18[] = {0x7004ecd8};
-const u32 var70059f1c[] = {0x7004ecd8};
-const u32 var70059f20[] = {0x7004ecd8};
-const u32 var70059f24[] = {0x7004ecd8};
-const u32 var70059f28[] = {0x7004ecd8};
-const u32 var70059f2c[] = {0x7004ecd8};
-const u32 var70059f30[] = {0x7004ecd8};
-const u32 var70059f34[] = {0x7004ecd8};
-const u32 var70059f38[] = {0x7004ecd8};
-const u32 var70059f3c[] = {0x7004ecd8};
-const u32 var70059f40[] = {0x7004e8a8};
-const u32 var70059f44[] = {0x7004ecd8};
-const u32 var70059f48[] = {0x7004ecd8};
-const u32 var70059f4c[] = {0x7004ecd8};
-const u32 var70059f50[] = {0x7004ecd8};
-const u32 var70059f54[] = {0x7004ecd8};
-const u32 var70059f58[] = {0x7004ecd8};
-const u32 var70059f5c[] = {0x7004ecd8};
-const u32 var70059f60[] = {0x7004ecd8};
-const u32 var70059f64[] = {0x7004ecd8};
-const u32 var70059f68[] = {0x7004ecd8};
-const u32 var70059f6c[] = {0x7004e700};
-const u32 var70059f70[] = {0x7004e738};
-const u32 var70059f74[] = {0x7004e9f8};
-const u32 var70059f78[] = {0x7004e9f8};
-const u32 var70059f7c[] = {0x7004e9f8};
-const u32 var70059f80[] = {0x7004ecd8};
-const u32 var70059f84[] = {0x7004e738};
-const u32 var70059f88[] = {0x7004ecd8};
-const u32 var70059f8c[] = {0x7004ecd8};
-const u32 var70059f90[] = {0x7004ecd8};
-const u32 var70059f94[] = {0x7004ecd8};
-const u32 var70059f98[] = {0x7004eb5c};
-const u32 var70059f9c[] = {0x7004e8a8};
-const u32 var70059fa0[] = {0x7004ec2c};
-const u32 var70059fa4[] = {0x7004ecd8};
-const u32 var70059fa8[] = {0x7004ecd8};
-const u32 var70059fac[] = {0x7004ec74};
-const u32 var70059fb0[] = {0x7004ecd8};
-const u32 var70059fb4[] = {0x7004e8a8};
-const u32 var70059fb8[] = {0x7004ecd8};
-const u32 var70059fbc[] = {0x7004ecd8};
-const u32 var70059fc0[] = {0x7004e8a8};
-#endif
-
 #define ISDIGIT(x) ((x >= '0' && x <= '9'))
 
 #define ATOI(dst, src)				   \
@@ -156,6 +48,112 @@ const u32 var70059fc0[] = {0x7004e8a8};
 
 GLOBAL_ASM(
 glabel _Putfld
+.late_rodata
+glabel var70059ef4
+.word _Putfld+0x368
+glabel var70059ef8
+.word _Putfld+0x648
+glabel var70059efc
+.word _Putfld+0x368
+glabel var70059f00
+.word _Putfld+0x648
+glabel var70059f04
+.word _Putfld+0x648
+glabel var70059f08
+.word _Putfld+0x648
+glabel var70059f0c
+.word _Putfld+0x648
+glabel var70059f10
+.word _Putfld+0x648
+glabel var70059f14
+.word _Putfld+0x648
+glabel var70059f18
+.word _Putfld+0x648
+glabel var70059f1c
+.word _Putfld+0x648
+glabel var70059f20
+.word _Putfld+0x648
+glabel var70059f24
+.word _Putfld+0x648
+glabel var70059f28
+.word _Putfld+0x648
+glabel var70059f2c
+.word _Putfld+0x648
+glabel var70059f30
+.word _Putfld+0x648
+glabel var70059f34
+.word _Putfld+0x648
+glabel var70059f38
+.word _Putfld+0x648
+glabel var70059f3c
+.word _Putfld+0x648
+glabel var70059f40
+.word _Putfld+0x218
+glabel var70059f44
+.word _Putfld+0x648
+glabel var70059f48
+.word _Putfld+0x648
+glabel var70059f4c
+.word _Putfld+0x648
+glabel var70059f50
+.word _Putfld+0x648
+glabel var70059f54
+.word _Putfld+0x648
+glabel var70059f58
+.word _Putfld+0x648
+glabel var70059f5c
+.word _Putfld+0x648
+glabel var70059f60
+.word _Putfld+0x648
+glabel var70059f64
+.word _Putfld+0x648
+glabel var70059f68
+.word _Putfld+0x648
+glabel var70059f6c
+.word _Putfld+0x070
+glabel var70059f70
+.word _Putfld+0x0a8
+glabel var70059f74
+.word _Putfld+0x368
+glabel var70059f78
+.word _Putfld+0x368
+glabel var70059f7c
+.word _Putfld+0x368
+glabel var70059f80
+.word _Putfld+0x648
+glabel var70059f84
+.word _Putfld+0x0a8
+glabel var70059f88
+.word _Putfld+0x648
+glabel var70059f8c
+.word _Putfld+0x648
+glabel var70059f90
+.word _Putfld+0x648
+glabel var70059f94
+.word _Putfld+0x648
+glabel var70059f98
+.word _Putfld+0x4cc
+glabel var70059f9c
+.word _Putfld+0x218
+glabel var70059fa0
+.word _Putfld+0x59c
+glabel var70059fa4
+.word _Putfld+0x648
+glabel var70059fa8
+.word _Putfld+0x648
+glabel var70059fac
+.word _Putfld+0x5e4
+glabel var70059fb0
+.word _Putfld+0x648
+glabel var70059fb4
+.word _Putfld+0x218
+glabel var70059fb8
+.word _Putfld+0x648
+glabel var70059fbc
+.word _Putfld+0x648
+glabel var70059fc0
+.word _Putfld+0x218
+.text
 /*    4e690:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4e694:	afa50020 */ 	sw	$a1,0x20($sp)
 /*    4e698:	afbf0014 */ 	sw	$ra,0x14($sp)
