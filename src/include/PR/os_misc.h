@@ -110,6 +110,9 @@ typedef char *va_list;
 #define OS_CYCLES_TO_NSEC(c)	(((u64)(c)*(1000000000LL/15625000LL))/(OS_CPU_COUNTER/15625000LL))
 #define OS_CYCLES_TO_USEC(c)	(((u64)(c)*(1000000LL/15625LL))/(OS_CPU_COUNTER/15625LL))
 
+#define LEO_BLOCK_MODE	1
+#define LEO_TRACK_MODE	2
+#define LEO_SECTOR_MODE	3
 
 /* Miscellaneous OS functions */
 
