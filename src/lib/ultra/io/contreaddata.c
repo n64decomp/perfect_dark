@@ -67,59 +67,31 @@ glabel osContGetReadData
 /*    4f50c:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel __osPackReadData
-/*    4f510:	3c05800a */ 	lui	$a1,%hi(__osContPifRam)
-/*    4f514:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(__osContPifRam)
-/*    4f518:	3c04800a */ 	lui	$a0,%hi(__osContPifRam)
-/*    4f51c:	3c03800a */ 	lui	$v1,%hi(__osContPifRam+0x3c)
-/*    4f520:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4f524:	00a01025 */ 	or	$v0,$a1,$zero
-/*    4f528:	2463c81c */ 	addiu	$v1,$v1,%lo(__osContPifRam+0x3c)
-/*    4f52c:	2484c7e0 */ 	addiu	$a0,$a0,%lo(__osContPifRam)
-.L0004f530:
-/*    4f530:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    4f534:	0083082b */ 	sltu	$at,$a0,$v1
-/*    4f538:	1420fffd */ 	bnez	$at,.L0004f530
-/*    4f53c:	ac80fffc */ 	sw	$zero,-0x4($a0)
-/*    4f540:	3c04800a */ 	lui	$a0,%hi(__osContLastCmd+0x1)
-/*    4f544:	2484c821 */ 	addiu	$a0,$a0,%lo(__osContLastCmd+0x1)
-/*    4f548:	908c0000 */ 	lbu	$t4,0x0($a0)
-/*    4f54c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    4f550:	240f00ff */ 	addiu	$t7,$zero,0xff
-/*    4f554:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    4f558:	24190004 */ 	addiu	$t9,$zero,0x4
-/*    4f55c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    4f560:	3409ffff */ 	dli	$t1,0xffff
-/*    4f564:	240affff */ 	addiu	$t2,$zero,-1
-/*    4f568:	240bffff */ 	addiu	$t3,$zero,-1
-/*    4f56c:	acae003c */ 	sw	$t6,0x3c($a1)
-/*    4f570:	a3af000c */ 	sb	$t7,0xc($sp)
-/*    4f574:	a3b8000d */ 	sb	$t8,0xd($sp)
-/*    4f578:	a3b9000e */ 	sb	$t9,0xe($sp)
-/*    4f57c:	a3a8000f */ 	sb	$t0,0xf($sp)
-/*    4f580:	a7a90010 */ 	sh	$t1,0x10($sp)
-/*    4f584:	a3aa0012 */ 	sb	$t2,0x12($sp)
-/*    4f588:	a3ab0013 */ 	sb	$t3,0x13($sp)
-/*    4f58c:	1980000e */ 	blez	$t4,.L0004f5c8
-/*    4f590:	00001825 */ 	or	$v1,$zero,$zero
-/*    4f594:	27a5000c */ 	addiu	$a1,$sp,0xc
-/*    4f598:	8ca10000 */ 	lw	$at,0x0($a1)
-.L0004f59c:
-/*    4f59c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    4f5a0:	24420008 */ 	addiu	$v0,$v0,0x8
-/*    4f5a4:	a841fff8 */ 	swl	$at,-0x8($v0)
-/*    4f5a8:	b841fffb */ 	swr	$at,-0x5($v0)
-/*    4f5ac:	8cae0004 */ 	lw	$t6,0x4($a1)
-/*    4f5b0:	a84efffc */ 	swl	$t6,-0x4($v0)
-/*    4f5b4:	b84effff */ 	swr	$t6,-0x1($v0)
-/*    4f5b8:	908f0000 */ 	lbu	$t7,0x0($a0)
-/*    4f5bc:	006f082a */ 	slt	$at,$v1,$t7
-/*    4f5c0:	5420fff6 */ 	bnezl	$at,.L0004f59c
-/*    4f5c4:	8ca10000 */ 	lw	$at,0x0($a1)
-.L0004f5c8:
-/*    4f5c8:	241800fe */ 	addiu	$t8,$zero,0xfe
-/*    4f5cc:	a0580000 */ 	sb	$t8,0x0($v0)
-/*    4f5d0:	03e00008 */ 	jr	$ra
-/*    4f5d4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void __osPackReadData(void)
+{
+	u8 *ptr;
+	__OSContReadFormat readformat;
+	int i;
+
+	ptr = (u8*)&__osContPifRam.ramarray;
+
+	for (i = 0; i < ARRLEN(__osContPifRam.ramarray); i++) {
+		__osContPifRam.ramarray[i] = 0;
+	}
+
+	__osContPifRam.pifstatus = CONT_CMD_EXE;
+	readformat.dummy = CONT_CMD_NOP;
+	readformat.txsize = CONT_CMD_READ_BUTTON_TX;
+	readformat.rxsize = CONT_CMD_READ_BUTTON_RX;
+	readformat.cmd = CONT_CMD_READ_BUTTON;
+	readformat.button = -1;
+	readformat.stick_x = -1;
+	readformat.stick_y = -1;
+
+	for(i=0; i < __osMaxControllers; i++) {
+		*(__OSContReadFormat*)ptr = readformat;
+		ptr += sizeof(__OSContReadFormat);
+	}
+
+	*ptr = CONT_CMD_END;
+}
