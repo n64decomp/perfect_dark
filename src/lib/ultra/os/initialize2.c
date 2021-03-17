@@ -30,25 +30,25 @@ glabel osInitialize2
 /*    517cc:	3c018009 */ 	lui	$at,0x8009
 /*    517d0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    517d4:	afa00030 */ 	sw	$zero,0x30($sp)
-/*    517d8:	0c012974 */ 	jal	0x4a5d0
+/*    517d8:	0c012974 */ 	jal	__osGetSR
 /*    517dc:	ac2e0fb0 */ 	sw	$t6,0xfb0($at)
 /*    517e0:	00408025 */ 	move	$s0,$v0
 /*    517e4:	3c012000 */ 	lui	$at,0x2000
-/*    517e8:	0c012970 */ 	jal	0x4a5c0
+/*    517e8:	0c012970 */ 	jal	__osSetSR
 /*    517ec:	02012025 */ 	or	$a0,$s0,$at
 /*    517f0:	3c040100 */ 	lui	$a0,0x100
-/*    517f4:	0c011eb8 */ 	jal	0x47ae0
+/*    517f4:	0c011eb8 */ 	jal	__osSetFpcCsr
 /*    517f8:	34840800 */ 	ori	$a0,$a0,0x800
 /*    517fc:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*    51800:	348407fc */ 	ori	$a0,$a0,0x7fc
-/*    51804:	0c012978 */ 	jal	0x4a5e0
+/*    51804:	0c012978 */ 	jal	__osSiRawReadIo
 /*    51808:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    5180c:	10400007 */ 	beqz	$v0,.PF0005182c
 /*    51810:	00000000 */ 	nop
 .PF00051814:
 /*    51814:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*    51818:	348407fc */ 	ori	$a0,$a0,0x7fc
-/*    5181c:	0c012978 */ 	jal	0x4a5e0
+/*    5181c:	0c012978 */ 	jal	__osSiRawReadIo
 /*    51820:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    51824:	1440fffb */ 	bnez	$v0,.PF00051814
 /*    51828:	00000000 */ 	nop
@@ -57,7 +57,7 @@ glabel osInitialize2
 /*    51830:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*    51834:	348407fc */ 	ori	$a0,$a0,0x7fc
 /*    51838:	34af0008 */ 	ori	$t7,$a1,0x8
-/*    5183c:	0c01298c */ 	jal	0x4a630
+/*    5183c:	0c01298c */ 	jal	__osSiRawWriteIo
 /*    51840:	01e02825 */ 	move	$a1,$t7
 /*    51844:	10400009 */ 	beqz	$v0,.PF0005186c
 /*    51848:	00000000 */ 	nop
@@ -66,7 +66,7 @@ glabel osInitialize2
 /*    51850:	3c041fc0 */ 	lui	$a0,0x1fc0
 /*    51854:	348407fc */ 	ori	$a0,$a0,0x7fc
 /*    51858:	34b80008 */ 	ori	$t8,$a1,0x8
-/*    5185c:	0c01298c */ 	jal	0x4a630
+/*    5185c:	0c01298c */ 	jal	__osSiRawWriteIo
 /*    51860:	03002825 */ 	move	$a1,$t8
 /*    51864:	1440fff9 */ 	bnez	$v0,.PF0005184c
 /*    51868:	00000000 */ 	nop
@@ -119,30 +119,30 @@ glabel osInitialize2
 /*    51920:	8dc10008 */ 	lw	$at,0x8($t6)
 /*    51924:	ade10008 */ 	sw	$at,0x8($t7)
 /*    51928:	8dd8000c */ 	lw	$t8,0xc($t6)
-/*    5192c:	0c0129a0 */ 	jal	0x4a680
+/*    5192c:	0c0129a0 */ 	jal	osWritebackDCache
 /*    51930:	adf8000c */ 	sw	$t8,0xc($t7)
 /*    51934:	3c048000 */ 	lui	$a0,0x8000
-/*    51938:	0c011e94 */ 	jal	0x47a50
+/*    51938:	0c011e94 */ 	jal	osInvalICache
 /*    5193c:	24050190 */ 	li	$a1,0x190
-/*    51940:	0c01469a */ 	jal	0x51a68
+/*    51940:	0c01469a */ 	jal	func00051a68pf
 /*    51944:	00000000 */ 	nop
-/*    51948:	0c014820 */ 	jal	0x52080
+/*    51948:	0c014820 */ 	jal	osUnmapTLBAll
 /*    5194c:	00000000 */ 	nop
-/*    51950:	0c000bf0 */ 	jal	0x2fc0
+/*    51950:	0c000bf0 */ 	jal	osMapTLBRdb
 /*    51954:	00000000 */ 	nop
 /*    51958:	3c048006 */ 	lui	$a0,0x8006
 /*    5195c:	3c058006 */ 	lui	$a1,0x8006
 /*    51960:	8ca5cc14 */ 	lw	$a1,-0x33ec($a1)
 /*    51964:	8c84cc10 */ 	lw	$a0,-0x33f0($a0)
 /*    51968:	24060000 */ 	li	$a2,0x0
-/*    5196c:	0c0136da */ 	jal	0x4db68
+/*    5196c:	0c0136da */ 	jal	__ll_mul
 /*    51970:	24070003 */ 	li	$a3,0x3
 /*    51974:	afa20020 */ 	sw	$v0,0x20($sp)
 /*    51978:	afa30024 */ 	sw	$v1,0x24($sp)
 /*    5197c:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*    51980:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*    51984:	24060000 */ 	li	$a2,0x0
-/*    51988:	0c01369a */ 	jal	0x4da68
+/*    51988:	0c01369a */ 	jal	__ull_div
 /*    5198c:	24070004 */ 	li	$a3,0x4
 /*    51990:	3c088000 */ 	lui	$t0,0x8000
 /*    51994:	8d08030c */ 	lw	$t0,0x30c($t0)
@@ -152,7 +152,7 @@ glabel osInitialize2
 /*    519a4:	ac23cc14 */ 	sw	$v1,-0x33ec($at)
 /*    519a8:	3c048000 */ 	lui	$a0,0x8000
 /*    519ac:	2484031c */ 	addiu	$a0,$a0,0x31c
-/*    519b0:	0c0129c0 */ 	jal	0x4a700
+/*    519b0:	0c0129c0 */ 	jal	bzero
 /*    519b4:	24050040 */ 	li	$a1,0x40
 .PF000519b8:
 /*    519b8:	3c198000 */ 	lui	$t9,0x8000
@@ -181,7 +181,7 @@ glabel osInitialize2
 /*    51a0c:	3c018006 */ 	lui	$at,0x8006
 /*    51a10:	ac2d0fe8 */ 	sw	$t5,0xfe8($at)
 .PF00051a14:
-/*    51a14:	0c0129e8 */ 	jal	0x4a7a0
+/*    51a14:	0c0129e8 */ 	jal	__osGetCause
 /*    51a18:	00000000 */ 	nop
 /*    51a1c:	304c1000 */ 	andi	$t4,$v0,0x1000
 /*    51a20:	11800003 */ 	beqz	$t4,.PF00051a30

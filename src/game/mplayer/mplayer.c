@@ -537,10 +537,10 @@ glabel func0f1892fcpf
 /*  f189324:	00008025 */ 	move	$s0,$zero
 /*  f189328:	24130008 */ 	li	$s3,0x8
 .PF0f18932c:
-/*  f18932c:	0fc5bdaa */ 	jal	0xf16f6a8
+/*  f18932c:	0fc5bdaa */ 	jal	langGet
 /*  f189330:	26045608 */ 	addiu	$a0,$s0,0x5608
 /*  f189334:	02202025 */ 	move	$a0,$s1
-/*  f189338:	0c004c01 */ 	jal	0x13004
+/*  f189338:	0c004c01 */ 	jal	strcmp
 /*  f18933c:	00402825 */ 	move	$a1,$v0
 /*  f189340:	54400007 */ 	bnezl	$v0,.PF0f189360
 /*  f189344:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -587,10 +587,10 @@ glabel func0f189384pf
 /*  f1893c8:	3c09800b */ 	lui	$t1,0x800b
 /*  f1893cc:	2529d150 */ 	addiu	$t1,$t1,-11952
 /*  f1893d0:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1893d4:	0fc5bdaa */ 	jal	0xf16f6a8
+/*  f1893d4:	0fc5bdaa */ 	jal	langGet
 /*  f1893d8:	01098821 */ 	addu	$s1,$t0,$t1
 /*  f1893dc:	02202025 */ 	move	$a0,$s1
-/*  f1893e0:	0c004bb0 */ 	jal	0x12ec0
+/*  f1893e0:	0c004bb0 */ 	jal	strcpy
 /*  f1893e4:	00402825 */ 	move	$a1,$v0
 .PF0f1893e8:
 /*  f1893e8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5203,18 +5203,18 @@ glabel func0f18c4c0
 /*  f18d578:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f18d57c:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f18d580:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18d584:	0fc634d2 */ 	jal	0xf18d348
+/*  f18d584:	0fc634d2 */ 	jal	mpGetUsingMultipleTunes
 /*  f18d588:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f18d58c:	1040006f */ 	beqz	$v0,.PF0f18d74c
 /*  f18d590:	00000000 */ 	nop
-/*  f18d594:	0fc634a9 */ 	jal	0xf18d2a4
+/*  f18d594:	0fc634a9 */ 	jal	mpGetNumUnlockedTracks
 /*  f18d598:	00000000 */ 	nop
 /*  f18d59c:	0040a025 */ 	move	$s4,$v0
 /*  f18d5a0:	0000a825 */ 	move	$s5,$zero
 /*  f18d5a4:	18400009 */ 	blez	$v0,.PF0f18d5cc
 /*  f18d5a8:	00008025 */ 	move	$s0,$zero
 .PF0f18d5ac:
-/*  f18d5ac:	0fc634d5 */ 	jal	0xf18d354
+/*  f18d5ac:	0fc634d5 */ 	jal	mpIsMultiTrackSlotEnabled
 /*  f18d5b0:	02002025 */ 	move	$a0,$s0
 /*  f18d5b4:	10400002 */ 	beqz	$v0,.PF0f18d5c0
 /*  f18d5b8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5228,7 +5228,7 @@ glabel func0f18c4c0
 /*  f18d5d0:	3c16800b */ 	lui	$s6,0x800b
 /*  f18d5d4:	26d6d1c0 */ 	addiu	$s6,$s6,-11840
 .PF0f18d5d8:
-/*  f18d5d8:	0c004ad4 */ 	jal	0x12b50
+/*  f18d5d8:	0c004ad4 */ 	jal	random
 /*  f18d5dc:	00000000 */ 	nop
 /*  f18d5e0:	0054001b */ 	divu	$zero,$v0,$s4
 /*  f18d5e4:	00002010 */ 	mfhi	$a0
@@ -5236,7 +5236,7 @@ glabel func0f18c4c0
 /*  f18d5ec:	00000000 */ 	nop
 /*  f18d5f0:	0007000d */ 	break	0x7
 .PF0f18d5f4:
-/*  f18d5f4:	0fc6348e */ 	jal	0xf18d238
+/*  f18d5f4:	0fc6348e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18d5f8:	00000000 */ 	nop
 /*  f18d5fc:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18d600:	00409825 */ 	move	$s3,$v0
@@ -5264,7 +5264,7 @@ glabel func0f18c4c0
 /*  f18d654:	26d6d1c0 */ 	addiu	$s6,$s6,-11840
 /*  f18d658:	00008025 */ 	move	$s0,$zero
 .PF0f18d65c:
-/*  f18d65c:	0c004ad4 */ 	jal	0x12b50
+/*  f18d65c:	0c004ad4 */ 	jal	random
 /*  f18d660:	00008825 */ 	move	$s1,$zero
 /*  f18d664:	0055001b */ 	divu	$zero,$v0,$s5
 /*  f18d668:	00009010 */ 	mfhi	$s2
@@ -5276,7 +5276,7 @@ glabel func0f18c4c0
 /*  f18d67c:	5a80000d */ 	blezl	$s4,.PF0f18d6b4
 /*  f18d680:	2401ffff */ 	li	$at,-1
 .PF0f18d684:
-/*  f18d684:	0fc634d5 */ 	jal	0xf18d354
+/*  f18d684:	0fc634d5 */ 	jal	mpIsMultiTrackSlotEnabled
 /*  f18d688:	02002025 */ 	move	$a0,$s0
 /*  f18d68c:	50400006 */ 	beqzl	$v0,.PF0f18d6a8
 /*  f18d690:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5305,7 +5305,7 @@ glabel func0f18c4c0
 /*  f18d6e0:	10000055 */ 	b	.PF0f18d838
 /*  f18d6e4:	00031242 */ 	srl	$v0,$v1,0x9
 .PF0f18d6e8:
-/*  f18d6e8:	0fc6348e */ 	jal	0xf18d238
+/*  f18d6e8:	0fc6348e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18d6ec:	02602025 */ 	move	$a0,$s3
 /*  f18d6f0:	2aa10002 */ 	slti	$at,$s5,0x2
 /*  f18d6f4:	14200004 */ 	bnez	$at,.PF0f18d708
@@ -5332,17 +5332,17 @@ glabel func0f18c4c0
 /*  f18d744:	1000003c */ 	b	.PF0f18d838
 /*  f18d748:	00031242 */ 	srl	$v0,$v1,0x9
 .PF0f18d74c:
-/*  f18d74c:	0fc6354b */ 	jal	0xf18d52c
+/*  f18d74c:	0fc6354b */ 	jal	mpGetCurrentTrackSlotNum
 /*  f18d750:	00000000 */ 	nop
 /*  f18d754:	04410024 */ 	bgez	$v0,.PF0f18d7e8
 /*  f18d758:	00409825 */ 	move	$s3,$v0
-/*  f18d75c:	0fc634a9 */ 	jal	0xf18d2a4
+/*  f18d75c:	0fc634a9 */ 	jal	mpGetNumUnlockedTracks
 /*  f18d760:	00000000 */ 	nop
 /*  f18d764:	3c16800b */ 	lui	$s6,0x800b
 /*  f18d768:	00408025 */ 	move	$s0,$v0
 /*  f18d76c:	26d6d1c0 */ 	addiu	$s6,$s6,-11840
 .PF0f18d770:
-/*  f18d770:	0c004ad4 */ 	jal	0x12b50
+/*  f18d770:	0c004ad4 */ 	jal	random
 /*  f18d774:	00000000 */ 	nop
 /*  f18d778:	0050001b */ 	divu	$zero,$v0,$s0
 /*  f18d77c:	00002010 */ 	mfhi	$a0
@@ -5350,7 +5350,7 @@ glabel func0f18c4c0
 /*  f18d784:	00000000 */ 	nop
 /*  f18d788:	0007000d */ 	break	0x7
 .PF0f18d78c:
-/*  f18d78c:	0fc6348e */ 	jal	0xf18d238
+/*  f18d78c:	0fc6348e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18d790:	00000000 */ 	nop
 /*  f18d794:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18d798:	00409825 */ 	move	$s3,$v0
@@ -5374,7 +5374,7 @@ glabel func0f18c4c0
 /*  f18d7e0:	10000015 */ 	b	.PF0f18d838
 /*  f18d7e4:	00031242 */ 	srl	$v0,$v1,0x9
 .PF0f18d7e8:
-/*  f18d7e8:	0fc6348e */ 	jal	0xf18d238
+/*  f18d7e8:	0fc6348e */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18d7ec:	02602025 */ 	move	$a0,$s3
 /*  f18d7f0:	00024080 */ 	sll	$t0,$v0,0x2
 /*  f18d7f4:	3c16800b */ 	lui	$s6,0x800b
@@ -7085,7 +7085,7 @@ glabel func0f18dcec
 /*  f18edec:	2610d128 */ 	addiu	$s0,$s0,-11992
 /*  f18edf0:	0080f025 */ 	move	$s8,$a0
 /*  f18edf4:	96120016 */ 	lhu	$s2,0x16($s0)
-/*  f18edf8:	0fc61922 */ 	jal	0xf186488
+/*  f18edf8:	0fc61922 */ 	jal	scenarioInit
 /*  f18edfc:	a20e0010 */ 	sb	$t6,0x10($s0)
 /*  f18ee00:	03c0c825 */ 	move	$t9,$s8
 /*  f18ee04:	02004025 */ 	move	$t0,$s0
@@ -7134,18 +7134,18 @@ glabel func0f18dcec
 /*  f18eea4:	01d37023 */ 	subu	$t6,$t6,$s3
 /*  f18eea8:	15a1000a */ 	bne	$t5,$at,.PF0f18eed4
 /*  f18eeac:	02202025 */ 	move	$a0,$s1
-/*  f18eeb0:	0fc5bdaa */ 	jal	0xf16f6a8
+/*  f18eeb0:	0fc5bdaa */ 	jal	langGet
 /*  f18eeb4:	240454f2 */ 	li	$a0,0x54f2
 /*  f18eeb8:	26720001 */ 	addiu	$s2,$s3,0x1
 /*  f18eebc:	02403025 */ 	move	$a2,$s2
 /*  f18eec0:	02202025 */ 	move	$a0,$s1
-/*  f18eec4:	0c004d11 */ 	jal	0x13444
+/*  f18eec4:	0c004d11 */ 	jal	sprintf
 /*  f18eec8:	00402825 */ 	move	$a1,$v0
 /*  f18eecc:	10000006 */ 	b	.PF0f18eee8
 /*  f18eed0:	928f0029 */ 	lbu	$t7,0x29($s4)
 .PF0f18eed4:
 /*  f18eed4:	03ce2821 */ 	addu	$a1,$s8,$t6
-/*  f18eed8:	0c004bb0 */ 	jal	0x12ec0
+/*  f18eed8:	0c004bb0 */ 	jal	strcpy
 /*  f18eedc:	24a50130 */ 	addiu	$a1,$a1,0x130
 /*  f18eee0:	26720001 */ 	addiu	$s2,$s3,0x1
 /*  f18eee4:	928f0029 */ 	lbu	$t7,0x29($s4)
@@ -7163,7 +7163,7 @@ glabel func0f18dcec
 /*  f18ef10:	26f70004 */ 	addiu	$s7,$s7,0x4
 /*  f18ef14:	1420ffd2 */ 	bnez	$at,.PF0f18ee60
 /*  f18ef18:	a239ffc5 */ 	sb	$t9,-0x3b($s1)
-/*  f18ef1c:	0fc67684 */ 	jal	0xf19da10
+/*  f18ef1c:	0fc67684 */ 	jal	mpIsFeatureUnlocked
 /*  f18ef20:	24040016 */ 	li	$a0,0x16
 /*  f18ef24:	1440000c */ 	bnez	$v0,.PF0f18ef58
 /*  f18ef28:	3c04800b */ 	lui	$a0,0x800b
@@ -7181,9 +7181,9 @@ glabel func0f18dcec
 /*  f18ef50:	5444fffb */ 	bnel	$v0,$a0,.PF0f18ef40
 /*  f18ef54:	90480018 */ 	lbu	$t0,0x18($v0)
 .PF0f18ef58:
-/*  f18ef58:	0fc62878 */ 	jal	0xf18a1e0
+/*  f18ef58:	0fc62878 */ 	jal	func0f18913c
 /*  f18ef5c:	00000000 */ 	nop
-/*  f18ef60:	0fc674a4 */ 	jal	0xf19d290
+/*  f18ef60:	0fc674a4 */ 	jal	func0f19c190
 /*  f18ef64:	00000000 */ 	nop
 /*  f18ef68:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*  f18ef6c:	8fb00018 */ 	lw	$s0,0x18($sp)

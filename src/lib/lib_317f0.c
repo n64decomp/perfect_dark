@@ -2762,7 +2762,7 @@ glabel audioStop
 /*    33b38:	31f80002 */ 	andi	$t8,$t7,0x2
 /*    33b3c:	13000005 */ 	beqz	$t8,.L00033b54
 /*    33b40:	00000000 */ 	nop
-/*    33b44:	0c00ceee */ 	jal	0x33bb8
+/*    33b44:	0c00ceee */ 	jal	func00033bc0
 /*    33b48:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    33b4c:	10000014 */ 	b	.L00033ba0
 /*    33b50:	00000000 */ 	nop
@@ -2784,7 +2784,7 @@ glabel audioStop
 /*    33b8c:	27a50018 */ 	addiu	$a1,$sp,0x18
 /*    33b90:	00003025 */ 	or	$a2,$zero,$zero
 /*    33b94:	00003825 */ 	or	$a3,$zero,$zero
-/*    33b98:	0c00f184 */ 	jal	0x3c610
+/*    33b98:	0c00f184 */ 	jal	alEvtqPostEvent
 /*    33b9c:	24840014 */ 	addiu	$a0,$a0,0x14
 .L00033ba0:
 /*    33ba0:	10000001 */ 	b	.L00033ba8

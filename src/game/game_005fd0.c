@@ -154,7 +154,7 @@ glabel func0f0061dc
 /*  f0061e0:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f0061e4:	afb10048 */ 	sw	$s1,0x48($sp)
 /*  f0061e8:	00808825 */ 	move	$s1,$a0
-/*  f0061ec:	0fc47e7e */ 	jal	0xf11f9f8
+/*  f0061ec:	0fc47e7e */ 	jal	debugEnableFootsteps
 /*  f0061f0:	afb00044 */ 	sw	$s0,0x44($sp)
 /*  f0061f4:	104000c2 */ 	beqz	$v0,.PF0f006500
 /*  f0061f8:	24010001 */ 	li	$at,0x1
@@ -213,7 +213,7 @@ glabel func0f0061dc
 /*  f0062bc:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 .PF0f0062c0:
 /*  f0062c0:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f0062c4:	0c0073c3 */ 	jal	0x1cf0c
+/*  f0062c4:	0c0073c3 */ 	jal	modelGetAnimNum
 /*  f0062c8:	afa30050 */ 	sw	$v1,0x50($sp)
 /*  f0062cc:	8fa30050 */ 	lw	$v1,0x50($sp)
 /*  f0062d0:	24010023 */ 	li	$at,0x23
@@ -329,7 +329,7 @@ glabel func0f0061dc
 /*  f006458:	00000000 */ 	nop
 /*  f00645c:	a2390190 */ 	sb	$t9,0x190($s1)
 .PF0f006460:
-/*  f006460:	0fc0181d */ 	jal	0xf006074
+/*  f006460:	0fc0181d */ 	jal	chrChooseFootstepSound
 /*  f006464:	02202025 */ 	move	$a0,$s1
 /*  f006468:	2401ffff */ 	li	$at,-1
 /*  f00646c:	5041001c */ 	beql	$v0,$at,.PF0f0064e0
@@ -358,7 +358,7 @@ glabel func0f0061dc
 /*  f0064c8:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f0064cc:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f0064d0:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0064d4:	0fc24e3a */ 	jal	0xf0938e8
+/*  f0064d4:	0fc24e3a */ 	jal	func0f0939f8
 /*  f0064d8:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .PF0f0064dc:
 /*  f0064dc:	8e2e0020 */ 	lw	$t6,0x20($s1)
@@ -686,7 +686,7 @@ glabel var7f1a7e6c
 /*  f006528:	afb00048 */ 	sw	$s0,0x48($sp)
 /*  f00652c:	8dc700bc */ 	lw	$a3,0xbc($t6)
 /*  f006530:	00808025 */ 	move	$s0,$a0
-/*  f006534:	0fc47e7e */ 	jal	0xf11f9f8
+/*  f006534:	0fc47e7e */ 	jal	debugEnableFootsteps
 /*  f006538:	afa70050 */ 	sw	$a3,0x50($sp)
 /*  f00653c:	3c05800a */ 	lui	$a1,0x800a
 /*  f006540:	24a5a510 */ 	addiu	$a1,$a1,-23280
@@ -878,7 +878,7 @@ glabel var7f1a7e6c
 /*  f0067ec:	00000000 */ 	nop
 /*  f0067f0:	a20c0190 */ 	sb	$t4,0x190($s0)
 .PF0f0067f4:
-/*  f0067f4:	0fc0181d */ 	jal	0xf006074
+/*  f0067f4:	0fc0181d */ 	jal	chrChooseFootstepSound
 /*  f0067f8:	afa5005c */ 	sw	$a1,0x5c($sp)
 /*  f0067fc:	2401ffff */ 	li	$at,-1
 /*  f006800:	5041001c */ 	beql	$v0,$at,.PF0f006874
@@ -907,7 +907,7 @@ glabel var7f1a7e6c
 /*  f00685c:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f006860:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f006864:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f006868:	0fc24e3a */ 	jal	0xf0938e8
+/*  f006868:	0fc24e3a */ 	jal	func0f0939f8
 /*  f00686c:	e7a00038 */ 	swc1	$f0,0x38($sp)
 .PF0f006870:
 /*  f006870:	8fa5005c */ 	lw	$a1,0x5c($sp)
@@ -915,7 +915,7 @@ glabel var7f1a7e6c
 /*  f006874:	3c048006 */ 	lui	$a0,0x8006
 /*  f006878:	00055080 */ 	sll	$t2,$a1,0x2
 /*  f00687c:	008a2021 */ 	addu	$a0,$a0,$t2
-/*  f006880:	0fc017f4 */ 	jal	0xf005fd0
+/*  f006880:	0fc017f4 */ 	jal	func0f005fd0
 /*  f006884:	94841270 */ 	lhu	$a0,0x1270($a0)
 /*  f006888:	1040000b */ 	beqz	$v0,.PF0f0068b8
 /*  f00688c:	3c014208 */ 	lui	$at,0x4208

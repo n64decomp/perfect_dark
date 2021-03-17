@@ -82,10 +82,10 @@ GLOBAL_ASM(
 glabel func0f1106c8
 /*  f111198:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f11119c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1111a0:	0fc444ba */ 	jal	0xf1112e8
+/*  f1111a0:	0fc444ba */ 	jal	func0f11080c
 /*  f1111a4:	00000000 */ 	nop
 /*  f1111a8:	3c04800a */ 	lui	$a0,0x800a
-/*  f1111ac:	0fc5bdd7 */ 	jal	0xf16f75c
+/*  f1111ac:	0fc5bdd7 */ 	jal	func0f16f75c
 /*  f1111b0:	9484a992 */ 	lhu	$a0,-0x566e($a0)
 /*  f1111b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1111b8:	27bd0018 */ 	addiu	$sp,$sp,0x18

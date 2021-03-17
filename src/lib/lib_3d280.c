@@ -117,11 +117,11 @@ glabel func0003d340
 /*    3cce8:	018e7821 */ 	addu	$t7,$t4,$t6
 /*    3ccec:	ad6f0008 */ 	sw	$t7,0x8($t3)
 .PF0003ccf0:
-/*    3ccf0:	0c00c429 */ 	jal	0x310a4
+/*    3ccf0:	0c00c429 */ 	jal	alUnlink
 /*    3ccf4:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    3ccf8:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*    3ccfc:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    3cd00:	0c00c41c */ 	jal	0x31070
+/*    3cd00:	0c00c41c */ 	jal	alLink
 /*    3cd04:	24a50048 */ 	addiu	$a1,$a1,0x48
 .PF0003cd08:
 /*    3cd08:	8fb80024 */ 	lw	$t8,0x24($sp)
@@ -144,11 +144,11 @@ glabel func0003d340
 /*    3cd48:	01cf5821 */ 	addu	$t3,$t6,$t7
 /*    3cd4c:	af0b0024 */ 	sw	$t3,0x24($t8)
 /*    3cd50:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*    3cd54:	0c011210 */ 	jal	0x44840
+/*    3cd54:	0c011210 */ 	jal	func00044f40
 /*    3cd58:	00002825 */ 	move	$a1,$zero
 /*    3cd5c:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*    3cd60:	00002825 */ 	move	$a1,$zero
-/*    3cd64:	0c00f17c */ 	jal	0x3c5f0
+/*    3cd64:	0c00f17c */ 	jal	func0003ccf0
 /*    3cd68:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*    3cd6c:	24190005 */ 	li	$t9,0x5
 /*    3cd70:	a7b90030 */ 	sh	$t9,0x30($sp)
@@ -162,7 +162,7 @@ glabel func0003d340
 /*    3cd90:	27a50030 */ 	addiu	$a1,$sp,0x30
 /*    3cd94:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*    3cd98:	00003825 */ 	move	$a3,$zero
-/*    3cd9c:	0c00efc4 */ 	jal	0x3bf10
+/*    3cd9c:	0c00efc4 */ 	jal	alEvtqPostEvent
 /*    3cda0:	24840048 */ 	addiu	$a0,$a0,0x48
 /*    3cda4:	10000001 */ 	b	.PF0003cdac
 /*    3cda8:	00000000 */ 	nop

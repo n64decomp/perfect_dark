@@ -852,7 +852,7 @@ glabel var700546f4
 /*    2fd78:	00000000 */ 	nop
 .PF0002fd7c:
 /*    2fd7c:	44cdf800 */ 	ctc1	$t5,$31
-/*    2fd80:	0c00bd58 */ 	jal	0x2f560
+/*    2fd80:	0c00bd58 */ 	jal	func0002fc60
 /*    2fd84:	00000000 */ 	nop
 /*    2fd88:	e7a00018 */ 	swc1	$f0,0x18($sp)
 .PF0002fd8c:
@@ -952,7 +952,7 @@ glabel var700546f4
 /*    2fef0:	c7300010 */ 	lwc1	$f16,0x10($t9)
 /*    2fef4:	4600818d */ 	trunc.w.s	$f6,$f16
 /*    2fef8:	44043000 */ 	mfc1	$a0,$f6
-/*    2fefc:	0c00e638 */ 	jal	0x398e0
+/*    2fefc:	0c00e638 */ 	jal	func00039fe0
 /*    2ff00:	00000000 */ 	nop
 /*    2ff04:	8fa90024 */ 	lw	$t1,0x24($sp)
 /*    2ff08:	10000008 */ 	b	.PF0002ff2c

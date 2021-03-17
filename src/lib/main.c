@@ -195,30 +195,30 @@ GLOBAL_ASM(
 glabel mainInit
 /*     d260:	27bdeb20 */ 	addiu	$sp,$sp,-5344
 /*     d264:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     d268:	0c002f3c */ 	jal	0xbcf0
+/*     d268:	0c002f3c */ 	jal	faultCreateThread
 /*     d26c:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     d270:	0c003378 */ 	jal	0xcde0
+/*     d270:	0c003378 */ 	jal	dmaInit
 /*     d274:	00000000 */ 	nop
-/*     d278:	0c002258 */ 	jal	0x8960
+/*     d278:	0c002258 */ 	jal	amgrAllocateStack
 /*     d27c:	00000000 */ 	nop
-/*     d280:	0c00557c */ 	jal	0x155f0
+/*     d280:	0c00557c */ 	jal	gvarsInit
 /*     d284:	00000000 */ 	nop
-/*     d288:	0c0047dc */ 	jal	0x11f70
+/*     d288:	0c0047dc */ 	jal	func000121e0
 /*     d28c:	00000000 */ 	nop
-/*     d290:	0c0049e7 */ 	jal	0x1279c
+/*     d290:	0c0049e7 */ 	jal	func00012a0c
 /*     d294:	00000000 */ 	nop
-/*     d298:	0c004d3a */ 	jal	0x134e8
+/*     d298:	0c004d3a */ 	jal	func00013758
 /*     d29c:	00000000 */ 	nop
-/*     d2a0:	0c002668 */ 	jal	0x99a0
+/*     d2a0:	0c002668 */ 	jal	func00009ab0
 /*     d2a4:	00000000 */ 	nop
-/*     d2a8:	0c00bcc2 */ 	jal	0x2f308
+/*     d2a8:	0c00bcc2 */ 	jal	rmonIsDisabled
 /*     d2ac:	00000000 */ 	nop
 /*     d2b0:	3c018006 */ 	lui	$at,0x8006
-/*     d2b4:	0c004e87 */ 	jal	0x13a1c
+/*     d2b4:	0c004e87 */ 	jal	contSystemInit
 /*     d2b8:	ac22d650 */ 	sw	$v0,-0x29b0($at)
 /*     d2bc:	27a41498 */ 	addiu	$a0,$sp,0x1498
 /*     d2c0:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*     d2c4:	0c011f10 */ 	jal	0x47c40
+/*     d2c4:	0c011f10 */ 	jal	osCreateMesgQueue
 /*     d2c8:	24060001 */ 	li	$a2,0x1
 /*     d2cc:	00008025 */ 	move	$s0,$zero
 /*     d2d0:	3c070047 */ 	lui	$a3,0x47
@@ -233,16 +233,16 @@ glabel mainInit
 /*     d2f0:	afae0010 */ 	sw	$t6,0x10($sp)
 /*     d2f4:	34e7868c */ 	ori	$a3,$a3,0x868c
 /*     d2f8:	27a414b0 */ 	addiu	$a0,$sp,0x14b0
-/*     d2fc:	0c012108 */ 	jal	0x48420
+/*     d2fc:	0c012108 */ 	jal	osSetTimer
 /*     d300:	24060000 */ 	li	$a2,0x0
 /*     d304:	27a41498 */ 	addiu	$a0,$sp,0x1498
 /*     d308:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
-/*     d30c:	0c011ffc */ 	jal	0x47ff0
+/*     d30c:	0c011ffc */ 	jal	osRecvMesg
 /*     d310:	24060001 */ 	li	$a2,0x1
 /*     d314:	24010001 */ 	li	$at,0x1
 /*     d318:	56010006 */ 	bnel	$s0,$at,.PF0000d334
 /*     d31c:	2a010002 */ 	slti	$at,$s0,0x2
-/*     d320:	0c004ee1 */ 	jal	0x13b84
+/*     d320:	0c004ee1 */ 	jal	func00013dfc
 /*     d324:	00000000 */ 	nop
 /*     d328:	10000007 */ 	b	.PF0000d348
 /*     d32c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -250,7 +250,7 @@ glabel mainInit
 .PF0000d334:
 /*     d334:	54200004 */ 	bnezl	$at,.PF0000d348
 /*     d338:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d33c:	0c00501e */ 	jal	0x14078
+/*     d33c:	0c00501e */ 	jal	contDebugJoy
 /*     d340:	00000000 */ 	nop
 /*     d344:	26100001 */ 	addiu	$s0,$s0,0x1
 .PF0000d348:
@@ -259,7 +259,7 @@ glabel mainInit
 /*     d350:	3c070047 */ 	lui	$a3,0x47
 /*     d354:	3c057005 */ 	lui	$a1,0x7005
 /*     d358:	24a53738 */ 	addiu	$a1,$a1,0x3738
-/*     d35c:	0c004b68 */ 	jal	0x12da0
+/*     d35c:	0c004b68 */ 	jal	argFindByPrefix
 /*     d360:	24040001 */ 	li	$a0,0x1
 /*     d364:	14400004 */ 	bnez	$v0,.PF0000d378
 /*     d368:	00002025 */ 	move	$a0,$zero
@@ -267,19 +267,19 @@ glabel mainInit
 /*     d370:	3c018006 */ 	lui	$at,0x8006
 /*     d374:	ac2bd650 */ 	sw	$t3,-0x29b0($at)
 .PF0000d378:
-/*     d378:	0c00533a */ 	jal	0x14ce8
+/*     d378:	0c00533a */ 	jal	contGetButtons
 /*     d37c:	24051000 */ 	li	$a1,0x1000
 /*     d380:	1440000f */ 	bnez	$v0,.PF0000d3c0
 /*     d384:	24040001 */ 	li	$a0,0x1
-/*     d388:	0c00533a */ 	jal	0x14ce8
+/*     d388:	0c00533a */ 	jal	contGetButtons
 /*     d38c:	24051000 */ 	li	$a1,0x1000
 /*     d390:	1440000b */ 	bnez	$v0,.PF0000d3c0
 /*     d394:	24040002 */ 	li	$a0,0x2
-/*     d398:	0c00533a */ 	jal	0x14ce8
+/*     d398:	0c00533a */ 	jal	contGetButtons
 /*     d39c:	24051000 */ 	li	$a1,0x1000
 /*     d3a0:	14400007 */ 	bnez	$v0,.PF0000d3c0
 /*     d3a4:	24040003 */ 	li	$a0,0x3
-/*     d3a8:	0c00533a */ 	jal	0x14ce8
+/*     d3a8:	0c00533a */ 	jal	contGetButtons
 /*     d3ac:	24051000 */ 	li	$a1,0x1000
 /*     d3b0:	14400003 */ 	bnez	$v0,.PF0000d3c0
 /*     d3b4:	3c018006 */ 	lui	$at,0x8006
@@ -309,7 +309,7 @@ glabel mainInit
 /*     d40c:	8dd9001c */ 	lw	$t9,0x1c($t6)
 /*     d410:	8dc10018 */ 	lw	$at,0x18($t6)
 /*     d414:	adb9001c */ 	sw	$t9,0x1c($t5)
-/*     d418:	0c0005b0 */ 	jal	0x16c0
+/*     d418:	0c0005b0 */ 	jal	osGetMemSize
 /*     d41c:	ada10018 */ 	sw	$at,0x18($t5)
 /*     d420:	3c010040 */ 	lui	$at,0x40
 /*     d424:	34210001 */ 	ori	$at,$at,0x1
@@ -348,7 +348,7 @@ glabel mainInit
 /*     d4a0:	256b68e0 */ 	addiu	$t3,$t3,0x68e0
 /*     d4a4:	39c4003f */ 	xori	$a0,$t6,0x3f
 /*     d4a8:	00808025 */ 	move	$s0,$a0
-/*     d4ac:	0c003454 */ 	jal	0xd150
+/*     d4ac:	0c003454 */ 	jal	dmaExec
 /*     d4b0:	01653023 */ 	subu	$a2,$t3,$a1
 /*     d4b4:	1000000e */ 	b	.PF0000d4f0
 /*     d4b8:	3c01ffff */ 	lui	$at,0xffff
@@ -363,7 +363,7 @@ glabel mainInit
 /*     d4d8:	25ef6030 */ 	addiu	$t7,$t7,0x6030
 /*     d4dc:	3b04003f */ 	xori	$a0,$t8,0x3f
 /*     d4e0:	00808025 */ 	move	$s0,$a0
-/*     d4e4:	0c003454 */ 	jal	0xd150
+/*     d4e4:	0c003454 */ 	jal	dmaExec
 /*     d4e8:	01e53023 */ 	subu	$a2,$t7,$a1
 /*     d4ec:	3c01ffff */ 	lui	$at,0xffff
 .PF0000d4f0:
@@ -371,7 +371,7 @@ glabel mainInit
 /*     d4f4:	02012821 */ 	addu	$a1,$s0,$at
 /*     d4f8:	afa50048 */ 	sw	$a1,0x48($sp)
 /*     d4fc:	02002025 */ 	move	$a0,$s0
-/*     d500:	0c001d0c */ 	jal	0x7430
+/*     d500:	0c001d0c */ 	jal	rzipInflate
 /*     d504:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*     d508:	3c050004 */ 	lui	$a1,0x4
 /*     d50c:	8faa0048 */ 	lw	$t2,0x48($sp)
@@ -415,9 +415,9 @@ glabel mainInit
 /*     d594:	14c9fff3 */ 	bne	$a2,$t1,.PF0000d564
 /*     d598:	24e70240 */ 	addiu	$a3,$a3,0x240
 .PF0000d59c:
-/*     d59c:	0c0029fd */ 	jal	0xa7f4
+/*     d59c:	0c0029fd */ 	jal	func0000aab0
 /*     d5a0:	24040002 */ 	li	$a0,0x2
-/*     d5a4:	0c002696 */ 	jal	0x9a58
+/*     d5a4:	0c002696 */ 	jal	func00009b50
 /*     d5a8:	02002025 */ 	move	$a0,$s0
 /*     d5ac:	8faa0048 */ 	lw	$t2,0x48($sp)
 /*     d5b0:	3c018006 */ 	lui	$at,0x8006
@@ -428,14 +428,14 @@ glabel mainInit
 /*     d5c4:	ac2eecf0 */ 	sw	$t6,-0x1310($at)
 /*     d5c8:	2484e080 */ 	addiu	$a0,$a0,-8064
 /*     d5cc:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     d5d0:	0c011ffc */ 	jal	0x47ff0
+/*     d5d0:	0c011ffc */ 	jal	osRecvMesg
 /*     d5d4:	00003025 */ 	move	$a2,$zero
 /*     d5d8:	14400007 */ 	bnez	$v0,.PF0000d5f8
 .PF0000d5dc:
 /*     d5dc:	3c048009 */ 	lui	$a0,0x8009
 /*     d5e0:	2484e080 */ 	addiu	$a0,$a0,-8064
 /*     d5e4:	27a51478 */ 	addiu	$a1,$sp,0x1478
-/*     d5e8:	0c011ffc */ 	jal	0x47ff0
+/*     d5e8:	0c011ffc */ 	jal	osRecvMesg
 /*     d5ec:	00003025 */ 	move	$a2,$zero
 /*     d5f0:	1040fffa */ 	beqz	$v0,.PF0000d5dc
 /*     d5f4:	00000000 */ 	nop
@@ -446,7 +446,7 @@ glabel mainInit
 /*     d600:	2484e080 */ 	addiu	$a0,$a0,-8064
 /*     d604:	27a51478 */ 	addiu	$a1,$sp,0x1478
 /*     d608:	24060001 */ 	li	$a2,0x1
-/*     d60c:	0c011ffc */ 	jal	0x47ff0
+/*     d60c:	0c011ffc */ 	jal	osRecvMesg
 /*     d610:	afa31490 */ 	sw	$v1,0x1490($sp)
 /*     d614:	8fb91478 */ 	lw	$t9,0x1478($sp)
 /*     d618:	24010001 */ 	li	$at,0x1
@@ -455,14 +455,14 @@ glabel mainInit
 /*     d624:	27b01458 */ 	addiu	$s0,$sp,0x1458
 /*     d628:	5561000d */ 	bnel	$t3,$at,.PF0000d660
 /*     d62c:	28610006 */ 	slti	$at,$v1,0x6
-/*     d630:	0c0027d9 */ 	jal	0x9f64
+/*     d630:	0c0027d9 */ 	jal	func0000a044
 /*     d634:	afa31490 */ 	sw	$v1,0x1490($sp)
 /*     d638:	3c048006 */ 	lui	$a0,0x8006
 /*     d63c:	3c058006 */ 	lui	$a1,0x8006
 /*     d640:	24a5d990 */ 	addiu	$a1,$a1,-9840
 /*     d644:	2484d968 */ 	addiu	$a0,$a0,-9880
 /*     d648:	00003025 */ 	move	$a2,$zero
-/*     d64c:	0c00bc7d */ 	jal	0x2f1f4
+/*     d64c:	0c00bc7d */ 	jal	func0002f8f4
 /*     d650:	02003825 */ 	move	$a3,$s0
 /*     d654:	8fa31490 */ 	lw	$v1,0x1490($sp)
 /*     d658:	24630001 */ 	addiu	$v1,$v1,0x1
@@ -478,105 +478,105 @@ glabel mainInit
 /*     d678:	1000ffff */ 	b	.PF0000d678
 /*     d67c:	00000000 */ 	nop
 .PF0000d680:
-/*     d680:	0c001c04 */ 	jal	0x7010
+/*     d680:	0c001c04 */ 	jal	func000070d0
 /*     d684:	00000000 */ 	nop
-/*     d688:	0fc6a2ac */ 	jal	0xf1a8ab0
+/*     d688:	0fc6a2ac */ 	jal	func0f1a78b0
 /*     d68c:	00000000 */ 	nop
-/*     d690:	0fc59fbd */ 	jal	0xf167ef4
+/*     d690:	0fc59fbd */ 	jal	func0f166f74
 /*     d694:	00000000 */ 	nop
-/*     d698:	0fc5dbe0 */ 	jal	0xf176f80
+/*     d698:	0fc5dbe0 */ 	jal	stub0f175f50
 /*     d69c:	00000000 */ 	nop
-/*     d6a0:	0fc5dbf0 */ 	jal	0xf176fc0
+/*     d6a0:	0fc5dbf0 */ 	jal	func0f175f90
 /*     d6a4:	00000000 */ 	nop
 /*     d6a8:	3c0c8006 */ 	lui	$t4,0x8006
 /*     d6ac:	8d8cd650 */ 	lw	$t4,-0x29b0($t4)
 /*     d6b0:	11800003 */ 	beqz	$t4,.PF0000d6c0
 /*     d6b4:	3c047005 */ 	lui	$a0,0x7005
-/*     d6b8:	0c004b23 */ 	jal	0x12c8c
+/*     d6b8:	0c004b23 */ 	jal	argSetString
 /*     d6bc:	24843740 */ 	addiu	$a0,$a0,0x3740
 .PF0000d6c0:
 /*     d6c0:	3c04800b */ 	lui	$a0,0x800b
-/*     d6c4:	0c012ab0 */ 	jal	0x4aac0
+/*     d6c4:	0c012ab0 */ 	jal	osVirtualToPhysical
 /*     d6c8:	2484d760 */ 	addiu	$a0,$a0,-10400
 /*     d6cc:	3c038009 */ 	lui	$v1,0x8009
 /*     d6d0:	8c631050 */ 	lw	$v1,0x1050($v1)
 /*     d6d4:	3c018000 */ 	lui	$at,0x8000
 /*     d6d8:	00412025 */ 	or	$a0,$v0,$at
-/*     d6dc:	0c0047de */ 	jal	0x11f78
+/*     d6dc:	0c0047de */ 	jal	memInit
 /*     d6e0:	00642823 */ 	subu	$a1,$v1,$a0
-/*     d6e4:	0c0048ae */ 	jal	0x122b8
+/*     d6e4:	0c0048ae */ 	jal	memResetPool
 /*     d6e8:	24040008 */ 	li	$a0,0x8
-/*     d6ec:	0c0048ae */ 	jal	0x122b8
+/*     d6ec:	0c0048ae */ 	jal	memResetPool
 /*     d6f0:	24040006 */ 	li	$a0,0x6
-/*     d6f4:	0c00330e */ 	jal	0xcc38
+/*     d6f4:	0c00330e */ 	jal	crashReset
 /*     d6f8:	00000000 */ 	nop
-/*     d6fc:	0fc02c88 */ 	jal	0xf00b220
+/*     d6fc:	0fc02c88 */ 	jal	mpInitPresetFeatures
 /*     d700:	00000000 */ 	nop
-/*     d704:	0fc5df83 */ 	jal	0xf177e0c
+/*     d704:	0fc5df83 */ 	jal	func0f176ddc
 /*     d708:	00000000 */ 	nop
-/*     d70c:	0c000d28 */ 	jal	0x34a0
+/*     d70c:	0c000d28 */ 	jal	func000034d0
 /*     d710:	00000000 */ 	nop
-/*     d714:	0fc02c68 */ 	jal	0xf00b1a0
+/*     d714:	0fc02c68 */ 	jal	loadTextureList
 /*     d718:	00000000 */ 	nop
-/*     d71c:	0fc00000 */ 	jal	0xf000000
+/*     d71c:	0fc00000 */ 	jal	func0f000000
 /*     d720:	00000000 */ 	nop
-/*     d724:	0fc5a29e */ 	jal	0xf168a78
+/*     d724:	0fc5a29e */ 	jal	func0f167af8
 /*     d728:	00000000 */ 	nop
-/*     d72c:	0fc41f77 */ 	jal	0xf107ddc
+/*     d72c:	0fc41f77 */ 	jal	cheatsDisableAll
 /*     d730:	00000000 */ 	nop
-/*     d734:	0c0039c8 */ 	jal	0xe720
+/*     d734:	0c0039c8 */ 	jal	func0000e9c0
 /*     d738:	00000000 */ 	nop
-/*     d73c:	0fc54f94 */ 	jal	0xf153e50
+/*     d73c:	0fc54f94 */ 	jal	func0f1531a0
 /*     d740:	00000000 */ 	nop
-/*     d744:	0c004d48 */ 	jal	0x13520
+/*     d744:	0c004d48 */ 	jal	func00013790
 /*     d748:	00000000 */ 	nop
-/*     d74c:	0fc4a0f8 */ 	jal	0xf1283e0
+/*     d74c:	0fc4a0f8 */ 	jal	func0f127910
 /*     d750:	00000000 */ 	nop
-/*     d754:	0fc5b718 */ 	jal	0xf16dc60
+/*     d754:	0fc5b718 */ 	jal	frametimeInit
 /*     d758:	00000000 */ 	nop
-/*     d75c:	0fc02c84 */ 	jal	0xf00b210
+/*     d75c:	0fc02c84 */ 	jal	stub0f00b200
 /*     d760:	00000000 */ 	nop
-/*     d764:	0c00265c */ 	jal	0x9970
+/*     d764:	0c00265c */ 	jal	func00009a80
 /*     d768:	00000000 */ 	nop
-/*     d76c:	0fc0021c */ 	jal	0xf000870
+/*     d76c:	0fc0021c */ 	jal	stub0f000870
 /*     d770:	00000000 */ 	nop
-/*     d774:	0fc00220 */ 	jal	0xf000880
+/*     d774:	0fc00220 */ 	jal	func0f000880
 /*     d778:	00000000 */ 	nop
-/*     d77c:	0fc00238 */ 	jal	0xf0008e0
+/*     d77c:	0fc00238 */ 	jal	stub0f0008e0
 /*     d780:	00000000 */ 	nop
-/*     d784:	0fc0023c */ 	jal	0xf0008f0
+/*     d784:	0fc0023c */ 	jal	stub0f0008f0
 /*     d788:	00000000 */ 	nop
-/*     d78c:	0fc00240 */ 	jal	0xf000900
+/*     d78c:	0fc00240 */ 	jal	stub0f000900
 /*     d790:	00000000 */ 	nop
-/*     d794:	0fc02c64 */ 	jal	0xf00b190
+/*     d794:	0fc02c64 */ 	jal	stub0f00b180
 /*     d798:	00000000 */ 	nop
-/*     d79c:	0fc00244 */ 	jal	0xf000910
+/*     d79c:	0fc00244 */ 	jal	stub0f000910
 /*     d7a0:	00000000 */ 	nop
-/*     d7a4:	0fc00210 */ 	jal	0xf000840
+/*     d7a4:	0fc00210 */ 	jal	stub0f000840
 /*     d7a8:	00000000 */ 	nop
-/*     d7ac:	0fc62468 */ 	jal	0xf1891a0
+/*     d7ac:	0fc62468 */ 	jal	mpSetDefaultSetup
 /*     d7b0:	00000000 */ 	nop
-/*     d7b4:	0fc52bf6 */ 	jal	0xf14afd8
+/*     d7b4:	0fc52bf6 */ 	jal	func0f14a328
 /*     d7b8:	00000000 */ 	nop
-/*     d7bc:	0fc4652e */ 	jal	0xf1194b8
+/*     d7bc:	0fc4652e */ 	jal	func0f1189d8
 /*     d7c0:	00000000 */ 	nop
-/*     d7c4:	0fc52c1b */ 	jal	0xf14b06c
+/*     d7c4:	0fc52c1b */ 	jal	func0f14a3bc
 /*     d7c8:	00000000 */ 	nop
-/*     d7cc:	0c008b30 */ 	jal	0x22cc0
+/*     d7cc:	0c008b30 */ 	jal	func000233c0
 /*     d7d0:	00000000 */ 	nop
-/*     d7d4:	0fc00040 */ 	jal	0xf000100
+/*     d7d4:	0fc00040 */ 	jal	func0f000100
 /*     d7d8:	00000000 */ 	nop
-/*     d7dc:	0fc0004c */ 	jal	0xf000130
+/*     d7dc:	0fc0004c */ 	jal	func0f000130
 /*     d7e0:	00000000 */ 	nop
-/*     d7e4:	0fc00214 */ 	jal	0xf000850
+/*     d7e4:	0fc00214 */ 	jal	stub0f000850
 /*     d7e8:	00000000 */ 	nop
-/*     d7ec:	0fc00218 */ 	jal	0xf000860
+/*     d7ec:	0fc00218 */ 	jal	stub0f000860
 /*     d7f0:	00000000 */ 	nop
-/*     d7f4:	0fc00024 */ 	jal	0xf000090
+/*     d7f4:	0fc00024 */ 	jal	func0f000090
 /*     d7f8:	00000000 */ 	nop
-/*     d7fc:	0c0026c0 */ 	jal	0x9b00
+/*     d7fc:	0c0026c0 */ 	jal	func00009bf8
 /*     d800:	00000000 */ 	nop
-/*     d804:	0c002779 */ 	jal	0x9de4
+/*     d804:	0c002779 */ 	jal	func00009ec4
 /*     d808:	24040001 */ 	li	$a0,0x1
 /*     d80c:	3c0f8006 */ 	lui	$t7,0x8006
 /*     d810:	8defd674 */ 	lw	$t7,-0x298c($t7)
@@ -584,7 +584,7 @@ glabel mainInit
 /*     d818:	ac20d9b8 */ 	sw	$zero,-0x2648($at)
 /*     d81c:	51e00004 */ 	beqzl	$t7,.PF0000d830
 /*     d820:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     d824:	0c011f84 */ 	jal	0x47e10
+/*     d824:	0c011f84 */ 	jal	osGetCount
 /*     d828:	00000000 */ 	nop
 /*     d82c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .PF0000d830:

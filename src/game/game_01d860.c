@@ -15,14 +15,14 @@ glabel func0f01d860
 /*  f01d938:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f01d93c:	3c058006 */ 	lui	$a1,0x8006
 /*  f01d940:	24a52630 */ 	addiu	$a1,$a1,0x2630
-/*  f01d944:	0c003624 */ 	jal	0xd890
+/*  f01d944:	0c003624 */ 	jal	func0000db30
 /*  f01d948:	24849880 */ 	addiu	$a0,$a0,-26496
 /*  f01d94c:	3c048006 */ 	lui	$a0,0x8006
 /*  f01d950:	8c842630 */ 	lw	$a0,0x2630($a0)
 /*  f01d954:	2c810005 */ 	sltiu	$at,$a0,0x5
 /*  f01d958:	10200006 */ 	beqz	$at,.PF0f01d974
 /*  f01d95c:	00000000 */ 	nop
-/*  f01d960:	0fc5bdd7 */ 	jal	0xf16f75c
+/*  f01d960:	0fc5bdd7 */ 	jal	func0f16f75c
 /*  f01d964:	00000000 */ 	nop
 /*  f01d968:	240e0063 */ 	li	$t6,0x63
 /*  f01d96c:	3c018006 */ 	lui	$at,0x8006

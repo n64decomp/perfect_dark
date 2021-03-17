@@ -59,9 +59,9 @@ glabel func0f1088d0pf
 /*  f1088e8:	3c02800a */ 	lui	$v0,0x800a
 /*  f1088ec:	2442a510 */ 	addiu	$v0,$v0,-23280
 /*  f1088f0:	a44e0482 */ 	sh	$t6,0x482($v0)
-/*  f1088f4:	0fc5bdd7 */ 	jal	0xf16f75c
+/*  f1088f4:	0fc5bdd7 */ 	jal	func0f16f75c
 /*  f1088f8:	31c4ffff */ 	andi	$a0,$t6,0xffff
-/*  f1088fc:	0fc3cf8c */ 	jal	0xf0f3e30
+/*  f1088fc:	0fc3cf8c */ 	jal	menuPopDialog
 /*  f108900:	00000000 */ 	nop
 .PF0f108904:
 /*  f108904:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2302,7 +2302,7 @@ glabel filemgrConsiderPushingFileSelectDialog
 /*  f10d2a8:	3c048007 */ 	lui	$a0,0x8007
 /*  f10d2ac:	a040083b */ 	sb	$zero,0x83b($v0)
 /*  f10d2b0:	2484527c */ 	addiu	$a0,$a0,0x527c
-/*  f10d2b4:	0fc3e29d */ 	jal	0xf0f8a74
+/*  f10d2b4:	0fc3e29d */ 	jal	menuPushRootDialog
 /*  f10d2b8:	24050006 */ 	li	$a1,0x6
 /*  f10d2bc:	3c08800a */ 	lui	$t0,0x800a
 /*  f10d2c0:	9508a992 */ 	lhu	$t0,-0x566e($t0)
@@ -2310,7 +2310,7 @@ glabel filemgrConsiderPushingFileSelectDialog
 /*  f10d2c8:	29010006 */ 	slti	$at,$t0,0x6
 /*  f10d2cc:	14200003 */ 	bnez	$at,.PF0f10d2dc
 /*  f10d2d0:	00000000 */ 	nop
-/*  f10d2d4:	0fc3cda8 */ 	jal	0xf0f36a0
+/*  f10d2d4:	0fc3cda8 */ 	jal	menuPushDialog
 /*  f10d2d8:	24844810 */ 	addiu	$a0,$a0,0x4810
 .PF0f10d2dc:
 /*  f10d2dc:	10000002 */ 	b	.PF0f10d2e8

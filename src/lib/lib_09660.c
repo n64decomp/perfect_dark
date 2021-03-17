@@ -190,14 +190,14 @@ glabel func00009844
 /*     97b0:	2453ffff */ 	addiu	$s3,$v0,-1
 .PF000097b4:
 /*     97b4:	02402025 */ 	move	$a0,$s2
-/*     97b8:	0c00c41c */ 	jal	0x31070
+/*     97b8:	0c00c41c */ 	jal	alLink
 /*     97bc:	02002825 */ 	move	$a1,$s0
 /*     97c0:	24180400 */ 	li	$t8,0x400
 /*     97c4:	afb80010 */ 	sw	$t8,0x10($sp)
 /*     97c8:	00002025 */ 	move	$a0,$zero
 /*     97cc:	00002825 */ 	move	$a1,$zero
 /*     97d0:	02803025 */ 	move	$a2,$s4
-/*     97d4:	0c00bd05 */ 	jal	0x2f414
+/*     97d4:	0c00bd05 */ 	jal	func0002fb14
 /*     97d8:	24070001 */ 	li	$a3,0x1
 /*     97dc:	26310001 */ 	addiu	$s1,$s1,0x1
 /*     97e0:	26100014 */ 	addiu	$s0,$s0,0x14

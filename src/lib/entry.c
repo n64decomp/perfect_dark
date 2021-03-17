@@ -1043,7 +1043,7 @@ glabel boot00001180
 /*     1434:	afbc0070 */ 	sw	$gp,0x70($sp)
 /*     1438:	afbd0074 */ 	sw	$sp,0x74($sp)
 /*     143c:	afbe0078 */ 	sw	$s8,0x78($sp)
-/*     1440:	0c001da4 */ 	jal	0x7690
+/*     1440:	0c001da4 */ 	jal	rzipInflate
 /*     1444:	00000000 */ 	nop
 /*     1448:	8fbf0000 */ 	lw	$ra,0x0($sp)
 /*     144c:	8fa10004 */ 	lw	$at,0x4($sp)

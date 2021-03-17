@@ -32,17 +32,17 @@ glabel resetproc
 /*     2e00:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*     2e04:	2484fff8 */ 	addiu	$a0,$a0,-8
 /*     2e08:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*     2e0c:	0c011ffc */ 	jal	0x47ff0
+/*     2e0c:	0c011ffc */ 	jal	osRecvMesg
 /*     2e10:	24060001 */ 	li	$a2,0x1
 /*     2e14:	240e0001 */ 	li	$t6,0x1
 /*     2e18:	3c018006 */ 	lui	$at,0x8006
-/*     2e1c:	0c002413 */ 	jal	0x904c
+/*     2e1c:	0c002413 */ 	jal	amgrStopThread
 /*     2e20:	a02ecb80 */ 	sb	$t6,-0x3480($at)
 /*     2e24:	3c048009 */ 	lui	$a0,0x8009
-/*     2e28:	0c011f1c */ 	jal	0x47c70
+/*     2e28:	0c011f1c */ 	jal	osStopThread
 /*     2e2c:	2484dc20 */ 	addiu	$a0,$a0,-9184
 /*     2e30:	00002025 */ 	move	$a0,$zero
-/*     2e34:	0c011f4c */ 	jal	0x47d30
+/*     2e34:	0c011f4c */ 	jal	osSetThreadPri
 /*     2e38:	2405000b */ 	li	$a1,0xb
 /*     2e3c:	3c028006 */ 	lui	$v0,0x8006
 /*     2e40:	2442f3c0 */ 	addiu	$v0,$v0,-3136
@@ -50,15 +50,15 @@ glabel resetproc
 /*     2e48:	3c048006 */ 	lui	$a0,0x8006
 /*     2e4c:	ac43052c */ 	sw	$v1,0x52c($v0)
 /*     2e50:	ac430540 */ 	sw	$v1,0x540($v0)
-/*     2e54:	0c012194 */ 	jal	0x48650
+/*     2e54:	0c012194 */ 	jal	osViSetMode
 /*     2e58:	2484f8c0 */ 	addiu	$a0,$a0,-1856
-/*     2e5c:	0c012178 */ 	jal	0x485e0
+/*     2e5c:	0c012178 */ 	jal	osViBlack
 /*     2e60:	24040001 */ 	li	$a0,0x1
-/*     2e64:	0c012288 */ 	jal	0x48a20
+/*     2e64:	0c012288 */ 	jal	osGetTime
 /*     2e68:	00000000 */ 	nop
 /*     2e6c:	3c018009 */ 	lui	$at,0x8009
 /*     2e70:	ac220340 */ 	sw	$v0,0x340($at)
-/*     2e74:	0c012288 */ 	jal	0x48a20
+/*     2e74:	0c012288 */ 	jal	osGetTime
 /*     2e78:	ac230344 */ 	sw	$v1,0x344($at)
 /*     2e7c:	3c198009 */ 	lui	$t9,0x8009
 /*     2e80:	8f390344 */ 	lw	$t9,0x344($t9)
@@ -78,7 +78,7 @@ glabel resetproc
 /*     2eb8:	10200015 */ 	beqz	$at,.PF00002f10
 /*     2ebc:	00000000 */ 	nop
 .PF00002ec0:
-/*     2ec0:	0c012288 */ 	jal	0x48a20
+/*     2ec0:	0c012288 */ 	jal	osGetTime
 /*     2ec4:	00000000 */ 	nop
 /*     2ec8:	3c0b8009 */ 	lui	$t3,0x8009
 /*     2ecc:	8d6b0344 */ 	lw	$t3,0x344($t3)
@@ -99,7 +99,7 @@ glabel resetproc
 /*     2f08:	1420ffed */ 	bnez	$at,.PF00002ec0
 /*     2f0c:	00000000 */ 	nop
 .PF00002f10:
-/*     2f10:	0c0053c9 */ 	jal	0x14f24
+/*     2f10:	0c0053c9 */ 	jal	func0001519c
 /*     2f14:	00000000 */ 	nop
 .PF00002f18:
 /*     2f18:	1000ffff */ 	b	.PF00002f18
