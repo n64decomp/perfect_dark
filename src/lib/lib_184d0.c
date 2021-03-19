@@ -1802,6 +1802,57 @@ glabel func00019d1c
 /*    19dd8:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
+#if VERSION == VERSION_NTSC_BETA
+GLOBAL_ASM(
+glabel modelGetNodeData
+/*    1aeac:	27bdfff0 */ 	addiu	$sp,$sp,-16
+/*    1aeb0:	afa80000 */ 	sw	$t0,0x0($sp)
+/*    1aeb4:	afa90004 */ 	sw	$t1,0x4($sp)
+/*    1aeb8:	afab0008 */ 	sw	$t3,0x8($sp)
+/*    1aebc:	afbf000c */ 	sw	$ra,0xc($sp)
+/*    1aec0:	8cac0004 */ 	lw	$t4,0x4($a1)
+/*    1aec4:	3c0a8006 */ 	lui	$t2,0x8006
+/*    1aec8:	254a1360 */ 	addiu	$t2,$t2,0x1360
+/*    1aecc:	94a90000 */ 	lhu	$t1,0x0($a1)
+/*    1aed0:	312900ff */ 	andi	$t1,$t1,0xff
+/*    1aed4:	00004025 */ 	or	$t0,$zero,$zero
+/*    1aed8:	2921001a */ 	slti	$at,$t1,0x1a
+/*    1aedc:	10200007 */ 	beqz	$at,.NB0001aefc
+/*    1aee0:	8c8b0010 */ 	lw	$t3,0x10($a0)
+/*    1aee4:	01495020 */ 	add	$t2,$t2,$t1
+/*    1aee8:	914a0000 */ 	lbu	$t2,0x0($t2)
+/*    1aeec:	240100ff */ 	addiu	$at,$zero,0xff
+/*    1aef0:	11410002 */ 	beq	$t2,$at,.NB0001aefc
+/*    1aef4:	018a5020 */ 	add	$t2,$t4,$t2
+/*    1aef8:	95480000 */ 	lhu	$t0,0x0($t2)
+.NB0001aefc:
+/*    1aefc:	90890000 */ 	lbu	$t1,0x0($a0)
+/*    1af00:	1120000c */ 	beqz	$t1,.NB0001af34
+/*    1af04:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0001af08:
+/*    1af08:	8ca90008 */ 	lw	$t1,0x8($a1)
+/*    1af0c:	11200009 */ 	beqz	$t1,.NB0001af34
+/*    1af10:	01202825 */ 	or	$a1,$t1,$zero
+/*    1af14:	94a90000 */ 	lhu	$t1,0x0($a1)
+/*    1af18:	312900ff */ 	andi	$t1,$t1,0xff
+/*    1af1c:	24010017 */ 	addiu	$at,$zero,0x17
+/*    1af20:	1521fff9 */ 	bne	$t1,$at,.NB0001af08
+/*    1af24:	00000000 */ 	sll	$zero,$zero,0x0
+/*    1af28:	0c006bab */ 	jal	modelGetNodeData
+/*    1af2c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    1af30:	8c4b0004 */ 	lw	$t3,0x4($v0)
+.NB0001af34:
+/*    1af34:	00084080 */ 	sll	$t0,$t0,0x2
+/*    1af38:	01681020 */ 	add	$v0,$t3,$t0
+/*    1af3c:	8fa80000 */ 	lw	$t0,0x0($sp)
+/*    1af40:	8fa90004 */ 	lw	$t1,0x4($sp)
+/*    1af44:	8fab0008 */ 	lw	$t3,0x8($sp)
+/*    1af48:	8fbf000c */ 	lw	$ra,0xc($sp)
+/*    1af4c:	03e00008 */ 	jr	$ra
+/*    1af50:	27bd0010 */ 	addiu	$sp,$sp,0x10
+);
+#endif
+
 GLOBAL_ASM(
 glabel func00019ddc
 /*    19ddc:	afbf07ac */ 	sw	$ra,0x7ac($sp)

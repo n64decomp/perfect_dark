@@ -289,8 +289,6 @@ void func00002078(OSSched *sc)
 	func00001b98(sc->frameCount);
 }
 
-//#if VERSION >= VERSION_NTSC_1_0
-#if VERSION >= 0
 void __scHandleRetrace(OSSched *sc)
 {
 	s32         state;
@@ -343,7 +341,6 @@ void __scHandleRetrace(OSSched *sc)
 	}
 #endif
 }
-#endif
 
 void __scHandleRSP(OSSched *sc)
 {

@@ -1,8 +1,4 @@
-/**
- * The order of files differ slightly between ROM versions, so there's a bit of
- * macro concatenation here to avoid having to print the list twice.
- */
-#define LIBFILES1(section) \
+#define LIBFILES(section) \
 	build/ROMID/lib/entry.o (section); \
 	build/ROMID/lib/segments.o (section); \
 	build/ROMID/lib/init.o (section); \
@@ -54,6 +50,7 @@
 	build/ROMID/lib/gvars.o (section); \
 	build/ROMID/lib/lib_159b0.o (section); \
 	build/ROMID/lib/lib_16110.o (section); \
+	build/ROMID/lib/lib_17ce0.o (section); \
 	build/ROMID/lib/lib_184d0.o (section); \
 	build/ROMID/lib/model.o (section); \
 	build/ROMID/lib/lib_233c0.o (section); \
@@ -150,9 +147,8 @@
 	build/ROMID/lib/ultra/os/getsr.o (section); \
 	build/ROMID/lib/ultra/io/sirawread.o (section); \
 	build/ROMID/lib/ultra/io/sirawwrite.o (section); \
-	build/ROMID/lib/ultra/os/writebackdcache.o (section);
-
-#define LIBFILES2(section) \
+	build/ROMID/lib/ultra/os/writebackdcache.o (section); \
+	build/ROMID/lib/ultra/libc/ll.o (section); \
 	build/ROMID/lib/ultra/libc/bzero.o (section); \
 	build/ROMID/lib/ultra/os/getcause.o (section); \
 	build/ROMID/lib/lib_4b170.o (section); \
@@ -173,9 +169,7 @@
 	build/ROMID/lib/lib_4d480.o (section); \
 	build/ROMID/lib/lib_4d6f0.o (section); \
 	build/ROMID/lib/ultra/os/maptlb.o (section); \
-	build/ROMID/lib/ultra/io/aisetfreq.o (section);
-
-#define LIBFILES3(section) \
+	build/ROMID/lib/ultra/io/aisetfreq.o (section); \
 	build/ROMID/lib/ultra/io/aisetnextbuf.o (section); \
 	build/ROMID/lib/ultra/io/aigetlen.o (section); \
 	build/ROMID/lib/ultra/os/invaldcache.o (section); \
@@ -200,6 +194,7 @@
 	build/ROMID/lib/lib_50d60.o (section); \
 	build/ROMID/lib/lib_50f20.o (section); \
 	build/ROMID/lib/lib_513b0.o (section); \
+	build/ROMID/lib/lib_51570.o (section); \
 	build/ROMID/lib/ultra/io/vimodepallan1.o (section); \
 	build/ROMID/lib/ultra/io/vimodempallan1.o (section); \
 	build/ROMID/lib/ultra/io/vimodentsclan1.o (section); \
@@ -212,32 +207,10 @@
 	build/ROMID/lib/ultra/os/yieldthread.o (section); \
 	build/ROMID/lib/ultra/io/si.o (section); \
 	build/ROMID/lib/ultra/os/probetlb.o (section); \
-	build/ROMID/lib/ultra/io/crc.o (section);
-
-#if VERSION >= VERSION_PAL_FINAL
-#define LIBFILES(section) \
-	LIBFILES1(section) \
-	LIBFILES2(section) \
-	build/ROMID/lib/ultra/libc/ll.o (section); \
-	LIBFILES3(section) \
-	build/ROMID/lib/ultra/os/initialize2.o (section); \
-	build/ROMID/lib/ultra/io/ai.o (section); \
-	build/ROMID/lib/ultra/os/jammesg.o (section); \
-	build/ROMID/lib/ultra/io/pigetcmdq.o (section); \
-	build/ROMID/lib/ultra/io/pirawread.o (section); \
-	build/ROMID/lib/ultra/libc/xlitob.o (section); \
-	build/ROMID/lib/lib_52360.o (section); \
-	build/ROMID/lib/ultra/os/unmaptlball.o (section);
-#else
-#define LIBFILES(section) \
-	LIBFILES1(section) \
-	build/ROMID/lib/ultra/libc/ll.o (section); \
-	LIBFILES2(section) \
-	LIBFILES3(section) \
+	build/ROMID/lib/ultra/io/crc.o (section); \
 	build/ROMID/lib/ultra/io/ai.o (section); \
 	build/ROMID/lib/ultra/os/jammesg.o (section); \
 	build/ROMID/lib/ultra/io/pigetcmdq.o (section); \
 	build/ROMID/lib/ultra/io/pirawread.o (section); \
 	build/ROMID/lib/ultra/libc/xlitob.o (section); \
 	build/ROMID/lib/lib_52360.o (section);
-#endif

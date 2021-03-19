@@ -38,8 +38,15 @@ s8 contGetStickY(s8 contpadnum);
 u16 contGetButtons(s8 contpadnum, u16 mask);
 u16 contGetButtonsPressedThisFrame(s8 contpadnum, u16 mask);
 s32 func000150c4(void);
+
+#if VERSION >= VERSION_NTSC_1_0
 void func000150e8(void);
 void func00015144(void);
+#else
+void func000150e8(s32 line, char *file);
+void func00015144(s32 line, char *file);
+#endif
+
 void func0001519c(void);
 void func000152d0(s8 playernum, s32 *arg1, s32 *arg2);
 void func000153c4(s8 arg0, s32 arg1);

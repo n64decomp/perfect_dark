@@ -200,7 +200,7 @@ glabel func000317f0
 /*    31a60:	03e00008 */ 	jr	$ra
 /*    31a64:	00000000 */ 	nop
 );
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func000317f0
 /*    317f0:	27bdffc0 */ 	addiu	$sp,$sp,-64
@@ -367,6 +367,169 @@ glabel func000317f0
 /*    31a60:	03e00008 */ 	jr	$ra
 /*    31a64:	00000000 */ 	nop
 );
+#else
+GLOBAL_ASM(
+glabel func000317f0
+/*    32f40:	27bdffc0 */ 	addiu	$sp,$sp,-64
+/*    32f44:	afbf001c */ 	sw	$ra,0x1c($sp)
+/*    32f48:	afa40040 */ 	sw	$a0,0x40($sp)
+/*    32f4c:	8fae0040 */ 	lw	$t6,0x40($sp)
+/*    32f50:	3c188006 */ 	lui	$t8,0x8006
+/*    32f54:	8f18163c */ 	lw	$t8,0x163c($t8)
+/*    32f58:	8dcf0008 */ 	lw	$t7,0x8($t6)
+/*    32f5c:	af0f0044 */ 	sw	$t7,0x44($t8)
+/*    32f60:	3c198006 */ 	lui	$t9,0x8006
+/*    32f64:	8f39163c */ 	lw	$t9,0x163c($t9)
+/*    32f68:	af20003c */ 	sw	$zero,0x3c($t9)
+/*    32f6c:	3c098006 */ 	lui	$t1,0x8006
+/*    32f70:	8d29163c */ 	lw	$t1,0x163c($t1)
+/*    32f74:	24083e80 */ 	addiu	$t0,$zero,0x3e80
+/*    32f78:	ad280048 */ 	sw	$t0,0x48($t1)
+/*    32f7c:	8faa0040 */ 	lw	$t2,0x40($sp)
+/*    32f80:	00002025 */ 	or	$a0,$zero,$zero
+/*    32f84:	00002825 */ 	or	$a1,$zero,$zero
+/*    32f88:	8d4b0000 */ 	lw	$t3,0x0($t2)
+/*    32f8c:	8d46000c */ 	lw	$a2,0xc($t2)
+/*    32f90:	24070001 */ 	addiu	$a3,$zero,0x1
+/*    32f94:	000b60c0 */ 	sll	$t4,$t3,0x3
+/*    32f98:	018b6021 */ 	addu	$t4,$t4,$t3
+/*    32f9c:	000c60c0 */ 	sll	$t4,$t4,0x3
+/*    32fa0:	0c00c499 */ 	jal	0x31264
+/*    32fa4:	afac0010 */ 	sw	$t4,0x10($sp)
+/*    32fa8:	afa20038 */ 	sw	$v0,0x38($sp)
+/*    32fac:	3c0e8006 */ 	lui	$t6,0x8006
+/*    32fb0:	8dce163c */ 	lw	$t6,0x163c($t6)
+/*    32fb4:	8fad0038 */ 	lw	$t5,0x38($sp)
+/*    32fb8:	adcd0040 */ 	sw	$t5,0x40($t6)
+/*    32fbc:	8faf0040 */ 	lw	$t7,0x40($sp)
+/*    32fc0:	00002025 */ 	or	$a0,$zero,$zero
+/*    32fc4:	00002825 */ 	or	$a1,$zero,$zero
+/*    32fc8:	8df80004 */ 	lw	$t8,0x4($t7)
+/*    32fcc:	8de6000c */ 	lw	$a2,0xc($t7)
+/*    32fd0:	24070001 */ 	addiu	$a3,$zero,0x1
+/*    32fd4:	0018c8c0 */ 	sll	$t9,$t8,0x3
+/*    32fd8:	0338c823 */ 	subu	$t9,$t9,$t8
+/*    32fdc:	0019c880 */ 	sll	$t9,$t9,0x2
+/*    32fe0:	0c00c499 */ 	jal	0x31264
+/*    32fe4:	afb90010 */ 	sw	$t9,0x10($sp)
+/*    32fe8:	afa20038 */ 	sw	$v0,0x38($sp)
+/*    32fec:	3c048006 */ 	lui	$a0,0x8006
+/*    32ff0:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    32ff4:	8fa80040 */ 	lw	$t0,0x40($sp)
+/*    32ff8:	8fa50038 */ 	lw	$a1,0x38($sp)
+/*    32ffc:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33000:	0c00f628 */ 	jal	0x3d8a0
+/*    33004:	8d060004 */ 	lw	$a2,0x4($t0)
+/*    33008:	3c098006 */ 	lui	$t1,0x8006
+/*    3300c:	8d29163c */ 	lw	$t1,0x163c($t1)
+/*    33010:	3c018006 */ 	lui	$at,0x8006
+/*    33014:	8d2a0040 */ 	lw	$t2,0x40($t1)
+/*    33018:	ac2a1638 */ 	sw	$t2,0x1638($at)
+/*    3301c:	8fac0040 */ 	lw	$t4,0x40($sp)
+/*    33020:	240b0001 */ 	addiu	$t3,$zero,0x1
+/*    33024:	afab003c */ 	sw	$t3,0x3c($sp)
+/*    33028:	8d8d0000 */ 	lw	$t5,0x0($t4)
+/*    3302c:	2da10002 */ 	sltiu	$at,$t5,0x2
+/*    33030:	14200016 */ 	bnez	$at,.NB0003308c
+/*    33034:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033038:
+/*    33038:	3c0e8006 */ 	lui	$t6,0x8006
+/*    3303c:	8dce163c */ 	lw	$t6,0x163c($t6)
+/*    33040:	8dcf0040 */ 	lw	$t7,0x40($t6)
+/*    33044:	afaf0024 */ 	sw	$t7,0x24($sp)
+/*    33048:	8fb8003c */ 	lw	$t8,0x3c($sp)
+/*    3304c:	8fa80024 */ 	lw	$t0,0x24($sp)
+/*    33050:	0018c8c0 */ 	sll	$t9,$t8,0x3
+/*    33054:	0338c821 */ 	addu	$t9,$t9,$t8
+/*    33058:	0019c8c0 */ 	sll	$t9,$t9,0x3
+/*    3305c:	03284821 */ 	addu	$t1,$t9,$t0
+/*    33060:	01202025 */ 	or	$a0,$t1,$zero
+/*    33064:	0c00cbb0 */ 	jal	0x32ec0
+/*    33068:	2525ffb8 */ 	addiu	$a1,$t1,-72
+/*    3306c:	8faa003c */ 	lw	$t2,0x3c($sp)
+/*    33070:	8fac0040 */ 	lw	$t4,0x40($sp)
+/*    33074:	254b0001 */ 	addiu	$t3,$t2,0x1
+/*    33078:	afab003c */ 	sw	$t3,0x3c($sp)
+/*    3307c:	8d8d0000 */ 	lw	$t5,0x0($t4)
+/*    33080:	016d082b */ 	sltu	$at,$t3,$t5
+/*    33084:	1420ffec */ 	bnez	$at,.NB00033038
+/*    33088:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003308c:
+/*    3308c:	0c00d242 */ 	jal	0x34908
+/*    33090:	00002025 */ 	or	$a0,$zero,$zero
+/*    33094:	0c00d2f1 */ 	jal	0x34bc4
+/*    33098:	00002025 */ 	or	$a0,$zero,$zero
+/*    3309c:	8fae0040 */ 	lw	$t6,0x40($sp)
+/*    330a0:	00002025 */ 	or	$a0,$zero,$zero
+/*    330a4:	00002825 */ 	or	$a1,$zero,$zero
+/*    330a8:	95cf0010 */ 	lhu	$t7,0x10($t6)
+/*    330ac:	8dc6000c */ 	lw	$a2,0xc($t6)
+/*    330b0:	24070002 */ 	addiu	$a3,$zero,0x2
+/*    330b4:	0c00c499 */ 	jal	0x31264
+/*    330b8:	afaf0010 */ 	sw	$t7,0x10($sp)
+/*    330bc:	3c01800a */ 	lui	$at,0x800a
+/*    330c0:	ac220a34 */ 	sw	$v0,0xa34($at)
+/*    330c4:	8fb80040 */ 	lw	$t8,0x40($sp)
+/*    330c8:	afa0003c */ 	sw	$zero,0x3c($sp)
+/*    330cc:	97190010 */ 	lhu	$t9,0x10($t8)
+/*    330d0:	13200010 */ 	beqz	$t9,.NB00033114
+/*    330d4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000330d8:
+/*    330d8:	8faa003c */ 	lw	$t2,0x3c($sp)
+/*    330dc:	3c09800a */ 	lui	$t1,0x800a
+/*    330e0:	8d290a34 */ 	lw	$t1,0xa34($t1)
+/*    330e4:	000a6040 */ 	sll	$t4,$t2,0x1
+/*    330e8:	24087fff */ 	addiu	$t0,$zero,0x7fff
+/*    330ec:	012c5821 */ 	addu	$t3,$t1,$t4
+/*    330f0:	a5680000 */ 	sh	$t0,0x0($t3)
+/*    330f4:	8fad003c */ 	lw	$t5,0x3c($sp)
+/*    330f8:	8faf0040 */ 	lw	$t7,0x40($sp)
+/*    330fc:	25ae0001 */ 	addiu	$t6,$t5,0x1
+/*    33100:	afae003c */ 	sw	$t6,0x3c($sp)
+/*    33104:	95f80010 */ 	lhu	$t8,0x10($t7)
+/*    33108:	01d8082b */ 	sltu	$at,$t6,$t8
+/*    3310c:	1420fff2 */ 	bnez	$at,.NB000330d8
+/*    33110:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033114:
+/*    33114:	3c198006 */ 	lui	$t9,0x8006
+/*    33118:	8f39163c */ 	lw	$t9,0x163c($t9)
+/*    3311c:	af200000 */ 	sw	$zero,0x0($t9)
+/*    33120:	3c098006 */ 	lui	$t1,0x8006
+/*    33124:	8d29163c */ 	lw	$t1,0x163c($t1)
+/*    33128:	3c0a7003 */ 	lui	$t2,0x7003
+/*    3312c:	254a31a8 */ 	addiu	$t2,$t2,0x31a8
+/*    33130:	ad2a0008 */ 	sw	$t2,0x8($t1)
+/*    33134:	3c0c8006 */ 	lui	$t4,0x8006
+/*    33138:	8d8c163c */ 	lw	$t4,0x163c($t4)
+/*    3313c:	ad8c0004 */ 	sw	$t4,0x4($t4)
+/*    33140:	3c048006 */ 	lui	$a0,0x8006
+/*    33144:	0c00f734 */ 	jal	0x3dcd0
+/*    33148:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    3314c:	24080020 */ 	addiu	$t0,$zero,0x20
+/*    33150:	a7a80028 */ 	sh	$t0,0x28($sp)
+/*    33154:	3c0b8006 */ 	lui	$t3,0x8006
+/*    33158:	8d6b163c */ 	lw	$t3,0x163c($t3)
+/*    3315c:	27a50028 */ 	addiu	$a1,$sp,0x28
+/*    33160:	24070001 */ 	addiu	$a3,$zero,0x1
+/*    33164:	25640014 */ 	addiu	$a0,$t3,0x14
+/*    33168:	0c00f678 */ 	jal	0x3d9e0
+/*    3316c:	8d660048 */ 	lw	$a2,0x48($t3)
+/*    33170:	3c0d8006 */ 	lui	$t5,0x8006
+/*    33174:	8dad163c */ 	lw	$t5,0x163c($t5)
+/*    33178:	25a40014 */ 	addiu	$a0,$t5,0x14
+/*    3317c:	0c00f64f */ 	jal	0x3d93c
+/*    33180:	25a50028 */ 	addiu	$a1,$t5,0x28
+/*    33184:	3c0f8006 */ 	lui	$t7,0x8006
+/*    33188:	8def163c */ 	lw	$t7,0x163c($t7)
+/*    3318c:	ade2004c */ 	sw	$v0,0x4c($t7)
+/*    33190:	10000001 */ 	beqz	$zero,.NB00033198
+/*    33194:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033198:
+/*    33198:	8fbf001c */ 	lw	$ra,0x1c($sp)
+/*    3319c:	27bd0040 */ 	addiu	$sp,$sp,0x40
+/*    331a0:	03e00008 */ 	jr	$ra
+/*    331a4:	00000000 */ 	sll	$zero,$zero,0x0
+);
 #endif
 
 GLOBAL_ASM(
@@ -429,6 +592,7 @@ glabel func00031a68
 /*    31b30:	00000000 */ 	nop
 );
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00031b34
 .late_rodata
@@ -1939,6 +2103,1401 @@ glabel var7005477c
 /*    33088:	03e00008 */ 	jr	$ra
 /*    3308c:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
+#else
+GLOBAL_ASM(
+glabel func00031b34
+.late_rodata
+glabel var70054740
+.word func00031b34+0x01ac
+glabel var70054744
+.word func00031b34+0x0a78
+glabel var70054748
+.word func00031b34+0x14dc
+glabel var7005474c
+.word func00031b34+0x0bfc
+glabel var70054750
+.word func00031b34+0x14dc
+glabel var70054754
+.word func00031b34+0x14dc
+glabel var70054758
+.word func00031b34+0x14dc
+glabel var7005475c
+.word func00031b34+0x0f08
+glabel var70054760
+.word func00031b34+0x14dc
+glabel var70054764
+.word func00031b34+0x14dc
+glabel var70054768
+.word func00031b34+0x14dc
+glabel var7005476c
+.word func00031b34+0x14dc
+glabel var70054770
+.word func00031b34+0x14dc
+glabel var70054774
+.word func00031b34+0x14dc
+glabel var70054778
+.word func00031b34+0x14dc
+glabel var7005477c
+.word func00031b34+0x0ca0
+.text
+/*    33274:	27bdff48 */ 	addiu	$sp,$sp,-184
+/*    33278:	afbf0034 */ 	sw	$ra,0x34($sp)
+/*    3327c:	afa400b8 */ 	sw	$a0,0xb8($sp)
+/*    33280:	afb10030 */ 	sw	$s1,0x30($sp)
+/*    33284:	afb0002c */ 	sw	$s0,0x2c($sp)
+/*    33288:	240e0001 */ 	addiu	$t6,$zero,0x1
+/*    3328c:	afae0068 */ 	sw	$t6,0x68($sp)
+/*    33290:	afa00064 */ 	sw	$zero,0x64($sp)
+/*    33294:	afa00060 */ 	sw	$zero,0x60($sp)
+/*    33298:	afa0005c */ 	sw	$zero,0x5c($sp)
+.NB0003329c:
+/*    3329c:	8faf005c */ 	lw	$t7,0x5c($sp)
+/*    332a0:	11e0000b */ 	beqz	$t7,.NB000332d0
+/*    332a4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    332a8:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    332ac:	afb80088 */ 	sw	$t8,0x88($sp)
+/*    332b0:	8fb900b8 */ 	lw	$t9,0xb8($sp)
+/*    332b4:	97280000 */ 	lhu	$t0,0x0($t9)
+/*    332b8:	a7a80084 */ 	sh	$t0,0x84($sp)
+/*    332bc:	8fa900b8 */ 	lw	$t1,0xb8($sp)
+/*    332c0:	8d2a0008 */ 	lw	$t2,0x8($t1)
+/*    332c4:	afaa008c */ 	sw	$t2,0x8c($sp)
+/*    332c8:	27ab0084 */ 	addiu	$t3,$sp,0x84
+/*    332cc:	afab00b8 */ 	sw	$t3,0xb8($sp)
+.NB000332d0:
+/*    332d0:	8fac00b8 */ 	lw	$t4,0xb8($sp)
+/*    332d4:	8d8d0004 */ 	lw	$t5,0x4($t4)
+/*    332d8:	afad0060 */ 	sw	$t5,0x60($sp)
+/*    332dc:	8fae0060 */ 	lw	$t6,0x60($sp)
+/*    332e0:	3c018000 */ 	lui	$at,0x8000
+/*    332e4:	01c17824 */ 	and	$t7,$t6,$at
+/*    332e8:	15e00001 */ 	bnez	$t7,.NB000332f0
+/*    332ec:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000332f0:
+/*    332f0:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    332f4:	8f190008 */ 	lw	$t9,0x8($t8)
+/*    332f8:	afb900ac */ 	sw	$t9,0xac($sp)
+/*    332fc:	8fa800ac */ 	lw	$t0,0xac($sp)
+/*    33300:	15000006 */ 	bnez	$t0,.NB0003331c
+/*    33304:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33308:	27a4005a */ 	addiu	$a0,$sp,0x5a
+/*    3330c:	0c00d201 */ 	jal	0x34804
+/*    33310:	27a50058 */ 	addiu	$a1,$sp,0x58
+/*    33314:	100004bd */ 	beqz	$zero,.NB0003460c
+/*    33318:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003331c:
+/*    3331c:	8fa900ac */ 	lw	$t1,0xac($sp)
+/*    33320:	8d2a0004 */ 	lw	$t2,0x4($t1)
+/*    33324:	afaa00a8 */ 	sw	$t2,0xa8($sp)
+/*    33328:	8fab0060 */ 	lw	$t3,0x60($sp)
+/*    3332c:	8d6c0000 */ 	lw	$t4,0x0($t3)
+/*    33330:	afac005c */ 	sw	$t4,0x5c($sp)
+/*    33334:	8fad00b8 */ 	lw	$t5,0xb8($sp)
+/*    33338:	95b00000 */ 	lhu	$s0,0x0($t5)
+/*    3333c:	2a010201 */ 	slti	$at,$s0,0x201
+/*    33340:	14200012 */ 	bnez	$at,.NB0003338c
+/*    33344:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33348:	24010400 */ 	addiu	$at,$zero,0x400
+/*    3334c:	12010219 */ 	beq	$s0,$at,.NB00033bb4
+/*    33350:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33354:	24010800 */ 	addiu	$at,$zero,0x800
+/*    33358:	12010397 */ 	beq	$s0,$at,.NB000341b8
+/*    3335c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33360:	24011000 */ 	addiu	$at,$zero,0x1000
+/*    33364:	12010213 */ 	beq	$s0,$at,.NB00033bb4
+/*    33368:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3336c:	24012000 */ 	addiu	$at,$zero,0x2000
+/*    33370:	12010312 */ 	beq	$s0,$at,.NB00033fbc
+/*    33374:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33378:	24014000 */ 	addiu	$at,$zero,0x4000
+/*    3337c:	120102d8 */ 	beq	$s0,$at,.NB00033ee0
+/*    33380:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33384:	10000486 */ 	beqz	$zero,.NB000345a0
+/*    33388:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003338c:
+/*    3338c:	2a010081 */ 	slti	$at,$s0,0x81
+/*    33390:	14200009 */ 	bnez	$at,.NB000333b8
+/*    33394:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33398:	24010100 */ 	addiu	$at,$zero,0x100
+/*    3339c:	1201029f */ 	beq	$s0,$at,.NB00033e1c
+/*    333a0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    333a4:	24010200 */ 	addiu	$at,$zero,0x200
+/*    333a8:	12010467 */ 	beq	$s0,$at,.NB00034548
+/*    333ac:	00000000 */ 	sll	$zero,$zero,0x0
+/*    333b0:	1000047b */ 	beqz	$zero,.NB000345a0
+/*    333b4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000333b8:
+/*    333b8:	2a010041 */ 	slti	$at,$s0,0x41
+/*    333bc:	14200006 */ 	bnez	$at,.NB000333d8
+/*    333c0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    333c4:	24010080 */ 	addiu	$at,$zero,0x80
+/*    333c8:	1201045b */ 	beq	$s0,$at,.NB00034538
+/*    333cc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    333d0:	10000473 */ 	beqz	$zero,.NB000345a0
+/*    333d4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000333d8:
+/*    333d8:	2a010011 */ 	slti	$at,$s0,0x11
+/*    333dc:	14200006 */ 	bnez	$at,.NB000333f8
+/*    333e0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    333e4:	24010040 */ 	addiu	$at,$zero,0x40
+/*    333e8:	120103d4 */ 	beq	$s0,$at,.NB0003433c
+/*    333ec:	00000000 */ 	sll	$zero,$zero,0x0
+/*    333f0:	1000046b */ 	beqz	$zero,.NB000345a0
+/*    333f4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000333f8:
+/*    333f8:	260effff */ 	addiu	$t6,$s0,-1
+/*    333fc:	2dc10010 */ 	sltiu	$at,$t6,0x10
+/*    33400:	10200467 */ 	beqz	$at,.NB000345a0
+/*    33404:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33408:	000e7080 */ 	sll	$t6,$t6,0x2
+/*    3340c:	3c017005 */ 	lui	$at,0x7005
+/*    33410:	002e0821 */ 	addu	$at,$at,$t6
+/*    33414:	8c2e5e70 */ 	lw	$t6,0x5e70($at)
+/*    33418:	01c00008 */ 	jr	$t6
+/*    3341c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33420:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    33424:	24010005 */ 	addiu	$at,$zero,0x5
+/*    33428:	91f80045 */ 	lbu	$t8,0x45($t7)
+/*    3342c:	13010006 */ 	beq	$t8,$at,.NB00033448
+/*    33430:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33434:	24010004 */ 	addiu	$at,$zero,0x4
+/*    33438:	13010003 */ 	beq	$t8,$at,.NB00033448
+/*    3343c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33440:	10000472 */ 	beqz	$zero,.NB0003460c
+/*    33444:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033448:
+/*    33448:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    3344c:	93280043 */ 	lbu	$t0,0x43($t9)
+/*    33450:	a7a800b2 */ 	sh	$t0,0xb2($sp)
+/*    33454:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    33458:	912a0040 */ 	lbu	$t2,0x40($t1)
+/*    3345c:	a7aa00b0 */ 	sh	$t2,0xb0($sp)
+/*    33460:	a3a000b4 */ 	sb	$zero,0xb4($sp)
+/*    33464:	3c0c8006 */ 	lui	$t4,0x8006
+/*    33468:	8d8c163c */ 	lw	$t4,0x163c($t4)
+/*    3346c:	3c0b8006 */ 	lui	$t3,0x8006
+/*    33470:	856b1640 */ 	lh	$t3,0x1640($t3)
+/*    33474:	8d8d0044 */ 	lw	$t5,0x44($t4)
+/*    33478:	016d702a */ 	slt	$t6,$t3,$t5
+/*    3347c:	39ce0001 */ 	xori	$t6,$t6,0x1
+/*    33480:	afae0070 */ 	sw	$t6,0x70($sp)
+/*    33484:	8faf0070 */ 	lw	$t7,0x70($sp)
+/*    33488:	11e00006 */ 	beqz	$t7,.NB000334a4
+/*    3348c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33490:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    33494:	93190044 */ 	lbu	$t9,0x44($t8)
+/*    33498:	33280010 */ 	andi	$t0,$t9,0x10
+/*    3349c:	11000006 */ 	beqz	$t0,.NB000334b8
+/*    334a0:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000334a4:
+/*    334a4:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    334a8:	27a500b0 */ 	addiu	$a1,$sp,0xb0
+/*    334ac:	0c00f76c */ 	jal	0x3ddb0
+/*    334b0:	2484000c */ 	addiu	$a0,$a0,0xc
+/*    334b4:	afa20064 */ 	sw	$v0,0x64($sp)
+.NB000334b8:
+/*    334b8:	8fa90064 */ 	lw	$t1,0x64($sp)
+/*    334bc:	1520005f */ 	bnez	$t1,.NB0003363c
+/*    334c0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    334c4:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    334c8:	914c0044 */ 	lbu	$t4,0x44($t2)
+/*    334cc:	318b0012 */ 	andi	$t3,$t4,0x12
+/*    334d0:	15600004 */ 	bnez	$t3,.NB000334e4
+/*    334d4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    334d8:	8d4d0034 */ 	lw	$t5,0x34($t2)
+/*    334dc:	19a00011 */ 	blez	$t5,.NB00033524
+/*    334e0:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000334e4:
+/*    334e4:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    334e8:	240e0004 */ 	addiu	$t6,$zero,0x4
+/*    334ec:	a1ee0045 */ 	sb	$t6,0x45($t7)
+/*    334f0:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    334f4:	8f190034 */ 	lw	$t9,0x34($t8)
+/*    334f8:	2728ffff */ 	addiu	$t0,$t9,-1
+/*    334fc:	af080034 */ 	sw	$t0,0x34($t8)
+/*    33500:	3c048006 */ 	lui	$a0,0x8006
+/*    33504:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    33508:	8fa500b8 */ 	lw	$a1,0xb8($sp)
+/*    3350c:	34068235 */ 	dli	$a2,0x8235
+/*    33510:	00003825 */ 	or	$a3,$zero,$zero
+/*    33514:	0c00f678 */ 	jal	0x3d9e0
+/*    33518:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    3351c:	10000045 */ 	beqz	$zero,.NB00033634
+/*    33520:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033524:
+/*    33524:	8fa90070 */ 	lw	$t1,0x70($sp)
+/*    33528:	11200040 */ 	beqz	$t1,.NB0003362c
+/*    3352c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33530:	3c0c8006 */ 	lui	$t4,0x8006
+/*    33534:	8d8c1634 */ 	lw	$t4,0x1634($t4)
+/*    33538:	afac0054 */ 	sw	$t4,0x54($sp)
+.NB0003353c:
+/*    3353c:	8fab0054 */ 	lw	$t3,0x54($sp)
+/*    33540:	916a0044 */ 	lbu	$t2,0x44($t3)
+/*    33544:	314d0012 */ 	andi	$t5,$t2,0x12
+/*    33548:	15a0001c */ 	bnez	$t5,.NB000335bc
+/*    3354c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33550:	314e0004 */ 	andi	$t6,$t2,0x4
+/*    33554:	11c00019 */ 	beqz	$t6,.NB000335bc
+/*    33558:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3355c:	916f0045 */ 	lbu	$t7,0x45($t3)
+/*    33560:	24010003 */ 	addiu	$at,$zero,0x3
+/*    33564:	11e10015 */ 	beq	$t7,$at,.NB000335bc
+/*    33568:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3356c:	afa00070 */ 	sw	$zero,0x70($sp)
+/*    33570:	24190080 */ 	addiu	$t9,$zero,0x80
+/*    33574:	a7b90044 */ 	sh	$t9,0x44($sp)
+/*    33578:	8fa80054 */ 	lw	$t0,0x54($sp)
+/*    3357c:	afa80048 */ 	sw	$t0,0x48($sp)
+/*    33580:	8fa90054 */ 	lw	$t1,0x54($sp)
+/*    33584:	24180003 */ 	addiu	$t8,$zero,0x3
+/*    33588:	a1380045 */ 	sb	$t8,0x45($t1)
+/*    3358c:	3c048006 */ 	lui	$a0,0x8006
+/*    33590:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    33594:	27a50044 */ 	addiu	$a1,$sp,0x44
+/*    33598:	240603e8 */ 	addiu	$a2,$zero,0x3e8
+/*    3359c:	00003825 */ 	or	$a3,$zero,$zero
+/*    335a0:	0c00f678 */ 	jal	0x3d9e0
+/*    335a4:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    335a8:	8fa40054 */ 	lw	$a0,0x54($sp)
+/*    335ac:	00002825 */ 	or	$a1,$zero,$zero
+/*    335b0:	240603e8 */ 	addiu	$a2,$zero,0x3e8
+/*    335b4:	0c00f830 */ 	jal	0x3e0c0
+/*    335b8:	2484000c */ 	addiu	$a0,$a0,0xc
+.NB000335bc:
+/*    335bc:	8fac0054 */ 	lw	$t4,0x54($sp)
+/*    335c0:	8d8d0004 */ 	lw	$t5,0x4($t4)
+/*    335c4:	afad0054 */ 	sw	$t5,0x54($sp)
+/*    335c8:	8faa0070 */ 	lw	$t2,0x70($sp)
+/*    335cc:	11400004 */ 	beqz	$t2,.NB000335e0
+/*    335d0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    335d4:	8fae0054 */ 	lw	$t6,0x54($sp)
+/*    335d8:	15c0ffd8 */ 	bnez	$t6,.NB0003353c
+/*    335dc:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000335e0:
+/*    335e0:	8fab0070 */ 	lw	$t3,0x70($sp)
+/*    335e4:	1560000d */ 	bnez	$t3,.NB0003361c
+/*    335e8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    335ec:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    335f0:	240f0002 */ 	addiu	$t7,$zero,0x2
+/*    335f4:	af2f0034 */ 	sw	$t7,0x34($t9)
+/*    335f8:	3c048006 */ 	lui	$a0,0x8006
+/*    335fc:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    33600:	8fa500b8 */ 	lw	$a1,0xb8($sp)
+/*    33604:	240603e9 */ 	addiu	$a2,$zero,0x3e9
+/*    33608:	00003825 */ 	or	$a3,$zero,$zero
+/*    3360c:	0c00f678 */ 	jal	0x3d9e0
+/*    33610:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33614:	10000003 */ 	beqz	$zero,.NB00033624
+/*    33618:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003361c:
+/*    3361c:	0c00d188 */ 	jal	0x34620
+/*    33620:	8fa40060 */ 	lw	$a0,0x60($sp)
+.NB00033624:
+/*    33624:	10000003 */ 	beqz	$zero,.NB00033634
+/*    33628:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003362c:
+/*    3362c:	0c00d188 */ 	jal	0x34620
+/*    33630:	8fa40060 */ 	lw	$a0,0x60($sp)
+.NB00033634:
+/*    33634:	100003f5 */ 	beqz	$zero,.NB0003460c
+/*    33638:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003363c:
+/*    3363c:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    33640:	91180044 */ 	lbu	$t8,0x44($t0)
+/*    33644:	37090004 */ 	ori	$t1,$t8,0x4
+/*    33648:	a1090044 */ 	sb	$t1,0x44($t0)
+/*    3364c:	8fac00ac */ 	lw	$t4,0xac($sp)
+/*    33650:	8fae0060 */ 	lw	$t6,0x60($sp)
+/*    33654:	8d8d0000 */ 	lw	$t5,0x0($t4)
+/*    33658:	91aa000c */ 	lbu	$t2,0xc($t5)
+/*    3365c:	a5ca003a */ 	sh	$t2,0x3a($t6)
+/*    33660:	87ab00b2 */ 	lh	$t3,0xb2($sp)
+/*    33664:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    33668:	a1eb0043 */ 	sb	$t3,0x43($t7)
+/*    3366c:	8fb900ac */ 	lw	$t9,0xac($sp)
+/*    33670:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    33674:	8f380000 */ 	lw	$t8,0x0($t9)
+/*    33678:	c508002c */ 	lwc1	$f8,0x2c($t0)
+/*    3367c:	c5100028 */ 	lwc1	$f16,0x28($t0)
+/*    33680:	8f090000 */ 	lw	$t1,0x0($t8)
+/*    33684:	44892000 */ 	mtc1	$t1,$f4
+/*    33688:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3368c:	468021a0 */ 	cvt.s.w	$f6,$f4
+/*    33690:	46083283 */ 	div.s	$f10,$f6,$f8
+/*    33694:	46105483 */ 	div.s	$f18,$f10,$f16
+/*    33698:	4600910d */ 	trunc.w.s	$f4,$f18
+/*    3369c:	440d2000 */ 	mfc1	$t5,$f4
+/*    336a0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    336a4:	afad0080 */ 	sw	$t5,0x80($sp)
+/*    336a8:	3c0a8006 */ 	lui	$t2,0x8006
+/*    336ac:	8d4a163c */ 	lw	$t2,0x163c($t2)
+/*    336b0:	8fab0080 */ 	lw	$t3,0x80($sp)
+/*    336b4:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    336b8:	8d4e0050 */ 	lw	$t6,0x50($t2)
+/*    336bc:	01cb7821 */ 	addu	$t7,$t6,$t3
+/*    336c0:	af2f003c */ 	sw	$t7,0x3c($t9)
+/*    336c4:	8fab0060 */ 	lw	$t3,0x60($sp)
+/*    336c8:	8fa900a8 */ 	lw	$t1,0xa8($sp)
+/*    336cc:	3c18800a */ 	lui	$t8,0x800a
+/*    336d0:	856f003a */ 	lh	$t7,0x3a($t3)
+/*    336d4:	85790038 */ 	lh	$t9,0x38($t3)
+/*    336d8:	91280002 */ 	lbu	$t0,0x2($t1)
+/*    336dc:	8f180a34 */ 	lw	$t8,0xa34($t8)
+/*    336e0:	01f90019 */ 	multu	$t7,$t9
+/*    336e4:	310c001f */ 	andi	$t4,$t0,0x1f
+/*    336e8:	8fa800ac */ 	lw	$t0,0xac($sp)
+/*    336ec:	000c6840 */ 	sll	$t5,$t4,0x1
+/*    336f0:	030d5021 */ 	addu	$t2,$t8,$t5
+/*    336f4:	910c000d */ 	lbu	$t4,0xd($t0)
+/*    336f8:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    336fc:	854e0000 */ 	lh	$t6,0x0($t2)
+/*    33700:	00004812 */ 	mflo	$t1
+/*    33704:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33708:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3370c:	012c0019 */ 	multu	$t1,$t4
+/*    33710:	0000c012 */ 	mflo	$t8
+/*    33714:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33718:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3371c:	0301001a */ 	div	$zero,$t8,$at
+/*    33720:	00006812 */ 	mflo	$t5
+/*    33724:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    33728:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3372c:	01cd0019 */ 	multu	$t6,$t5
+/*    33730:	00005012 */ 	mflo	$t2
+/*    33734:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33738:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3373c:	0141001a */ 	div	$zero,$t2,$at
+/*    33740:	00005812 */ 	mflo	$t3
+/*    33744:	1d600003 */ 	bgtz	$t3,.NB00033754
+/*    33748:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3374c:	10000023 */ 	beqz	$zero,.NB000337dc
+/*    33750:	afa00078 */ 	sw	$zero,0x78($sp)
+.NB00033754:
+/*    33754:	8fad0060 */ 	lw	$t5,0x60($sp)
+/*    33758:	8fb900a8 */ 	lw	$t9,0xa8($sp)
+/*    3375c:	3c0f800a */ 	lui	$t7,0x800a
+/*    33760:	85aa003a */ 	lh	$t2,0x3a($t5)
+/*    33764:	85ab0038 */ 	lh	$t3,0x38($t5)
+/*    33768:	93280002 */ 	lbu	$t0,0x2($t9)
+/*    3376c:	8def0a34 */ 	lw	$t7,0xa34($t7)
+/*    33770:	014b0019 */ 	multu	$t2,$t3
+/*    33774:	3109001f */ 	andi	$t1,$t0,0x1f
+/*    33778:	8fa800ac */ 	lw	$t0,0xac($sp)
+/*    3377c:	00096040 */ 	sll	$t4,$t1,0x1
+/*    33780:	01ecc021 */ 	addu	$t8,$t7,$t4
+/*    33784:	9109000d */ 	lbu	$t1,0xd($t0)
+/*    33788:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    3378c:	870e0000 */ 	lh	$t6,0x0($t8)
+/*    33790:	0000c812 */ 	mflo	$t9
+/*    33794:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33798:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3379c:	03290019 */ 	multu	$t9,$t1
+/*    337a0:	00007812 */ 	mflo	$t7
+/*    337a4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    337a8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    337ac:	01e1001a */ 	div	$zero,$t7,$at
+/*    337b0:	00006012 */ 	mflo	$t4
+/*    337b4:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    337b8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    337bc:	01cc0019 */ 	multu	$t6,$t4
+/*    337c0:	0000c012 */ 	mflo	$t8
+/*    337c4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    337c8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    337cc:	0301001a */ 	div	$zero,$t8,$at
+/*    337d0:	00006812 */ 	mflo	$t5
+/*    337d4:	25aaffff */ 	addiu	$t2,$t5,-1
+/*    337d8:	afaa0078 */ 	sw	$t2,0x78($sp)
+.NB000337dc:
+/*    337dc:	8fab0060 */ 	lw	$t3,0x60($sp)
+/*    337e0:	8fb900ac */ 	lw	$t9,0xac($sp)
+/*    337e4:	91680041 */ 	lbu	$t0,0x41($t3)
+/*    337e8:	9329000c */ 	lbu	$t1,0xc($t9)
+/*    337ec:	01097821 */ 	addu	$t7,$t0,$t1
+/*    337f0:	25eeffc0 */ 	addiu	$t6,$t7,-64
+/*    337f4:	afae0074 */ 	sw	$t6,0x74($sp)
+/*    337f8:	8fac0074 */ 	lw	$t4,0x74($sp)
+/*    337fc:	19800003 */ 	blez	$t4,.NB0003380c
+/*    33800:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33804:	10000002 */ 	beqz	$zero,.NB00033810
+/*    33808:	01808025 */ 	or	$s0,$t4,$zero
+.NB0003380c:
+/*    3380c:	00008025 */ 	or	$s0,$zero,$zero
+.NB00033810:
+/*    33810:	2a01007f */ 	slti	$at,$s0,0x7f
+/*    33814:	10200009 */ 	beqz	$at,.NB0003383c
+/*    33818:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3381c:	8fb80074 */ 	lw	$t8,0x74($sp)
+/*    33820:	1b000003 */ 	blez	$t8,.NB00033830
+/*    33824:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33828:	10000002 */ 	beqz	$zero,.NB00033834
+/*    3382c:	03008825 */ 	or	$s1,$t8,$zero
+.NB00033830:
+/*    33830:	00008825 */ 	or	$s1,$zero,$zero
+.NB00033834:
+/*    33834:	10000003 */ 	beqz	$zero,.NB00033844
+/*    33838:	a3b100a7 */ 	sb	$s1,0xa7($sp)
+.NB0003383c:
+/*    3383c:	240d007f */ 	addiu	$t5,$zero,0x7f
+/*    33840:	a3ad00a7 */ 	sb	$t5,0xa7($sp)
+.NB00033844:
+/*    33844:	8fa800a8 */ 	lw	$t0,0xa8($sp)
+/*    33848:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    3384c:	91090003 */ 	lbu	$t1,0x3($t0)
+/*    33850:	914b0042 */ 	lbu	$t3,0x42($t2)
+/*    33854:	312f000f */ 	andi	$t7,$t1,0xf
+/*    33858:	000f70c0 */ 	sll	$t6,$t7,0x3
+/*    3385c:	3179007f */ 	andi	$t9,$t3,0x7f
+/*    33860:	032e6021 */ 	addu	$t4,$t9,$t6
+/*    33864:	afac007c */ 	sw	$t4,0x7c($sp)
+/*    33868:	8fb8007c */ 	lw	$t8,0x7c($sp)
+/*    3386c:	07010003 */ 	bgez	$t8,.NB0003387c
+/*    33870:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33874:	10000002 */ 	beqz	$zero,.NB00033880
+/*    33878:	00008025 */ 	or	$s0,$zero,$zero
+.NB0003387c:
+/*    3387c:	8fb0007c */ 	lw	$s0,0x7c($sp)
+.NB00033880:
+/*    33880:	2a010080 */ 	slti	$at,$s0,0x80
+/*    33884:	14200004 */ 	bnez	$at,.NB00033898
+/*    33888:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3388c:	240d007f */ 	addiu	$t5,$zero,0x7f
+/*    33890:	10000008 */ 	beqz	$zero,.NB000338b4
+/*    33894:	afad007c */ 	sw	$t5,0x7c($sp)
+.NB00033898:
+/*    33898:	8faa007c */ 	lw	$t2,0x7c($sp)
+/*    3389c:	05410003 */ 	bgez	$t2,.NB000338ac
+/*    338a0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    338a4:	10000002 */ 	beqz	$zero,.NB000338b0
+/*    338a8:	00008825 */ 	or	$s1,$zero,$zero
+.NB000338ac:
+/*    338ac:	8fb1007c */ 	lw	$s1,0x7c($sp)
+.NB000338b0:
+/*    338b0:	afb1007c */ 	sw	$s1,0x7c($sp)
+.NB000338b4:
+/*    338b4:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    338b8:	8fab007c */ 	lw	$t3,0x7c($sp)
+/*    338bc:	91090042 */ 	lbu	$t1,0x42($t0)
+/*    338c0:	312f0080 */ 	andi	$t7,$t1,0x80
+/*    338c4:	016fc825 */ 	or	$t9,$t3,$t7
+/*    338c8:	afb9007c */ 	sw	$t9,0x7c($sp)
+/*    338cc:	8fae0060 */ 	lw	$t6,0x60($sp)
+/*    338d0:	8fac00ac */ 	lw	$t4,0xac($sp)
+/*    338d4:	93b800a7 */ 	lbu	$t8,0xa7($sp)
+/*    338d8:	c5c6002c */ 	lwc1	$f6,0x2c($t6)
+/*    338dc:	c5c80028 */ 	lwc1	$f8,0x28($t6)
+/*    338e0:	8d850008 */ 	lw	$a1,0x8($t4)
+/*    338e4:	8fad007c */ 	lw	$t5,0x7c($sp)
+/*    338e8:	46083282 */ 	mul.s	$f10,$f6,$f8
+/*    338ec:	44808000 */ 	mtc1	$zero,$f16
+/*    338f0:	8faa0080 */ 	lw	$t2,0x80($sp)
+/*    338f4:	afa00020 */ 	sw	$zero,0x20($sp)
+/*    338f8:	afa00018 */ 	sw	$zero,0x18($sp)
+/*    338fc:	8fa70078 */ 	lw	$a3,0x78($sp)
+/*    33900:	25c4000c */ 	addiu	$a0,$t6,0xc
+/*    33904:	44065000 */ 	mfc1	$a2,$f10
+/*    33908:	afb80010 */ 	sw	$t8,0x10($sp)
+/*    3390c:	afad0014 */ 	sw	$t5,0x14($sp)
+/*    33910:	afaa0024 */ 	sw	$t2,0x24($sp)
+/*    33914:	0c00f864 */ 	jal	0x3e190
+/*    33918:	e7b0001c */ 	swc1	$f16,0x1c($sp)
+/*    3391c:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    33920:	24080001 */ 	addiu	$t0,$zero,0x1
+/*    33924:	a1280045 */ 	sb	$t0,0x45($t1)
+/*    33928:	3c0b8006 */ 	lui	$t3,0x8006
+/*    3392c:	856b1640 */ 	lh	$t3,0x1640($t3)
+/*    33930:	3c018006 */ 	lui	$at,0x8006
+/*    33934:	256f0001 */ 	addiu	$t7,$t3,0x1
+/*    33938:	a42f1640 */ 	sh	$t7,0x1640($at)
+/*    3393c:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    33940:	932c0044 */ 	lbu	$t4,0x44($t9)
+/*    33944:	318e0002 */ 	andi	$t6,$t4,0x2
+/*    33948:	15c00098 */ 	bnez	$t6,.NB00033bac
+/*    3394c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33950:	8fb80080 */ 	lw	$t8,0x80($sp)
+/*    33954:	1700007b */ 	bnez	$t8,.NB00033b44
+/*    33958:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3395c:	8fad00ac */ 	lw	$t5,0xac($sp)
+/*    33960:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    33964:	8daa0000 */ 	lw	$t2,0x0($t5)
+/*    33968:	9148000d */ 	lbu	$t0,0xd($t2)
+/*    3396c:	a528003a */ 	sh	$t0,0x3a($t1)
+/*    33970:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    33974:	8faf00a8 */ 	lw	$t7,0xa8($sp)
+/*    33978:	3c0b800a */ 	lui	$t3,0x800a
+/*    3397c:	8548003a */ 	lh	$t0,0x3a($t2)
+/*    33980:	85490038 */ 	lh	$t1,0x38($t2)
+/*    33984:	91f90002 */ 	lbu	$t9,0x2($t7)
+/*    33988:	8d6b0a34 */ 	lw	$t3,0xa34($t3)
+/*    3398c:	01090019 */ 	multu	$t0,$t1
+/*    33990:	332c001f */ 	andi	$t4,$t9,0x1f
+/*    33994:	8fb900ac */ 	lw	$t9,0xac($sp)
+/*    33998:	000c7040 */ 	sll	$t6,$t4,0x1
+/*    3399c:	016ec021 */ 	addu	$t8,$t3,$t6
+/*    339a0:	932c000d */ 	lbu	$t4,0xd($t9)
+/*    339a4:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    339a8:	870d0000 */ 	lh	$t5,0x0($t8)
+/*    339ac:	00007812 */ 	mflo	$t7
+/*    339b0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339b4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339b8:	01ec0019 */ 	multu	$t7,$t4
+/*    339bc:	00005812 */ 	mflo	$t3
+/*    339c0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339c4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339c8:	0161001a */ 	div	$zero,$t3,$at
+/*    339cc:	00007012 */ 	mflo	$t6
+/*    339d0:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    339d4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339d8:	01ae0019 */ 	multu	$t5,$t6
+/*    339dc:	0000c012 */ 	mflo	$t8
+/*    339e0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339e4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339e8:	0301001a */ 	div	$zero,$t8,$at
+/*    339ec:	00005012 */ 	mflo	$t2
+/*    339f0:	1d400003 */ 	bgtz	$t2,.NB00033a00
+/*    339f4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    339f8:	10000023 */ 	beqz	$zero,.NB00033a88
+/*    339fc:	afa00078 */ 	sw	$zero,0x78($sp)
+.NB00033a00:
+/*    33a00:	8fae0060 */ 	lw	$t6,0x60($sp)
+/*    33a04:	8fa900a8 */ 	lw	$t1,0xa8($sp)
+/*    33a08:	3c08800a */ 	lui	$t0,0x800a
+/*    33a0c:	85d8003a */ 	lh	$t8,0x3a($t6)
+/*    33a10:	85ca0038 */ 	lh	$t2,0x38($t6)
+/*    33a14:	91390002 */ 	lbu	$t9,0x2($t1)
+/*    33a18:	8d080a34 */ 	lw	$t0,0xa34($t0)
+/*    33a1c:	030a0019 */ 	multu	$t8,$t2
+/*    33a20:	332f001f */ 	andi	$t7,$t9,0x1f
+/*    33a24:	8fb900ac */ 	lw	$t9,0xac($sp)
+/*    33a28:	000f6040 */ 	sll	$t4,$t7,0x1
+/*    33a2c:	010c5821 */ 	addu	$t3,$t0,$t4
+/*    33a30:	932f000d */ 	lbu	$t7,0xd($t9)
+/*    33a34:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    33a38:	856d0000 */ 	lh	$t5,0x0($t3)
+/*    33a3c:	00004812 */ 	mflo	$t1
+/*    33a40:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33a44:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33a48:	012f0019 */ 	multu	$t1,$t7
+/*    33a4c:	00004012 */ 	mflo	$t0
+/*    33a50:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33a54:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33a58:	0101001a */ 	div	$zero,$t0,$at
+/*    33a5c:	00006012 */ 	mflo	$t4
+/*    33a60:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    33a64:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33a68:	01ac0019 */ 	multu	$t5,$t4
+/*    33a6c:	00005812 */ 	mflo	$t3
+/*    33a70:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33a74:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33a78:	0161001a */ 	div	$zero,$t3,$at
+/*    33a7c:	00007012 */ 	mflo	$t6
+/*    33a80:	25d8ffff */ 	addiu	$t8,$t6,-1
+/*    33a84:	afb80078 */ 	sw	$t8,0x78($sp)
+.NB00033a88:
+/*    33a88:	8faa00ac */ 	lw	$t2,0xac($sp)
+/*    33a8c:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    33a90:	8d590000 */ 	lw	$t9,0x0($t2)
+/*    33a94:	c5e60028 */ 	lwc1	$f6,0x28($t7)
+/*    33a98:	c5ea002c */ 	lwc1	$f10,0x2c($t7)
+/*    33a9c:	8f290004 */ 	lw	$t1,0x4($t9)
+/*    33aa0:	44899000 */ 	mtc1	$t1,$f18
+/*    33aa4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33aa8:	46809120 */ 	cvt.s.w	$f4,$f18
+/*    33aac:	46062203 */ 	div.s	$f8,$f4,$f6
+/*    33ab0:	460a4403 */ 	div.s	$f16,$f8,$f10
+/*    33ab4:	4600848d */ 	trunc.w.s	$f18,$f16
+/*    33ab8:	440d9000 */ 	mfc1	$t5,$f18
+/*    33abc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33ac0:	afad0080 */ 	sw	$t5,0x80($sp)
+/*    33ac4:	3c0c8006 */ 	lui	$t4,0x8006
+/*    33ac8:	8d8c163c */ 	lw	$t4,0x163c($t4)
+/*    33acc:	8fae0080 */ 	lw	$t6,0x80($sp)
+/*    33ad0:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    33ad4:	8d8b0050 */ 	lw	$t3,0x50($t4)
+/*    33ad8:	016ec021 */ 	addu	$t8,$t3,$t6
+/*    33adc:	ad58003c */ 	sw	$t8,0x3c($t2)
+/*    33ae0:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    33ae4:	8fa50078 */ 	lw	$a1,0x78($sp)
+/*    33ae8:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    33aec:	0c00f830 */ 	jal	0x3e0c0
+/*    33af0:	2484000c */ 	addiu	$a0,$a0,0xc
+/*    33af4:	24190002 */ 	addiu	$t9,$zero,0x2
+/*    33af8:	a7b90094 */ 	sh	$t9,0x94($sp)
+/*    33afc:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    33b00:	afa90098 */ 	sw	$t1,0x98($sp)
+/*    33b04:	3c048006 */ 	lui	$a0,0x8006
+/*    33b08:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    33b0c:	27a50094 */ 	addiu	$a1,$sp,0x94
+/*    33b10:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    33b14:	00003825 */ 	or	$a3,$zero,$zero
+/*    33b18:	0c00f678 */ 	jal	0x3d9e0
+/*    33b1c:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33b20:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    33b24:	91e80044 */ 	lbu	$t0,0x44($t7)
+/*    33b28:	310d0020 */ 	andi	$t5,$t0,0x20
+/*    33b2c:	11a00003 */ 	beqz	$t5,.NB00033b3c
+/*    33b30:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33b34:	0c00d1a4 */ 	jal	0x34690
+/*    33b38:	8fa40060 */ 	lw	$a0,0x60($sp)
+.NB00033b3c:
+/*    33b3c:	1000001b */ 	beqz	$zero,.NB00033bac
+/*    33b40:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033b44:
+/*    33b44:	240c0040 */ 	addiu	$t4,$zero,0x40
+/*    33b48:	a7ac0094 */ 	sh	$t4,0x94($sp)
+/*    33b4c:	8fab0060 */ 	lw	$t3,0x60($sp)
+/*    33b50:	afab0098 */ 	sw	$t3,0x98($sp)
+/*    33b54:	8fae00ac */ 	lw	$t6,0xac($sp)
+/*    33b58:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    33b5c:	8dd80000 */ 	lw	$t8,0x0($t6)
+/*    33b60:	c728002c */ 	lwc1	$f8,0x2c($t9)
+/*    33b64:	c7300028 */ 	lwc1	$f16,0x28($t9)
+/*    33b68:	8f0a0000 */ 	lw	$t2,0x0($t8)
+/*    33b6c:	448a2000 */ 	mtc1	$t2,$f4
+/*    33b70:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33b74:	468021a0 */ 	cvt.s.w	$f6,$f4
+/*    33b78:	46083283 */ 	div.s	$f10,$f6,$f8
+/*    33b7c:	46105483 */ 	div.s	$f18,$f10,$f16
+/*    33b80:	4600910d */ 	trunc.w.s	$f4,$f18
+/*    33b84:	440f2000 */ 	mfc1	$t7,$f4
+/*    33b88:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33b8c:	afaf0080 */ 	sw	$t7,0x80($sp)
+/*    33b90:	3c048006 */ 	lui	$a0,0x8006
+/*    33b94:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    33b98:	27a50094 */ 	addiu	$a1,$sp,0x94
+/*    33b9c:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    33ba0:	00003825 */ 	or	$a3,$zero,$zero
+/*    33ba4:	0c00f678 */ 	jal	0x3d9e0
+/*    33ba8:	24840014 */ 	addiu	$a0,$a0,0x14
+.NB00033bac:
+/*    33bac:	1000027e */ 	beqz	$zero,.NB000345a8
+/*    33bb0:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033bb4:
+/*    33bb4:	8fa800b8 */ 	lw	$t0,0xb8($sp)
+/*    33bb8:	24011000 */ 	addiu	$at,$zero,0x1000
+/*    33bbc:	950d0000 */ 	lhu	$t5,0x0($t0)
+/*    33bc0:	15a10006 */ 	bne	$t5,$at,.NB00033bdc
+/*    33bc4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33bc8:	8fac0060 */ 	lw	$t4,0x60($sp)
+/*    33bcc:	918b0044 */ 	lbu	$t3,0x44($t4)
+/*    33bd0:	316e0002 */ 	andi	$t6,$t3,0x2
+/*    33bd4:	11c0004c */ 	beqz	$t6,.NB00033d08
+/*    33bd8:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033bdc:
+/*    33bdc:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    33be0:	24010001 */ 	addiu	$at,$zero,0x1
+/*    33be4:	93100045 */ 	lbu	$s0,0x45($t8)
+/*    33be8:	12010009 */ 	beq	$s0,$at,.NB00033c10
+/*    33bec:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33bf0:	24010004 */ 	addiu	$at,$zero,0x4
+/*    33bf4:	12010036 */ 	beq	$s0,$at,.NB00033cd0
+/*    33bf8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33bfc:	24010005 */ 	addiu	$at,$zero,0x5
+/*    33c00:	12010033 */ 	beq	$s0,$at,.NB00033cd0
+/*    33c04:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33c08:	10000035 */ 	beqz	$zero,.NB00033ce0
+/*    33c0c:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033c10:
+/*    33c10:	3c048006 */ 	lui	$a0,0x8006
+/*    33c14:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    33c18:	8fa50060 */ 	lw	$a1,0x60($sp)
+/*    33c1c:	24060040 */ 	addiu	$a2,$zero,0x40
+/*    33c20:	0c00d1c4 */ 	jal	0x34710
+/*    33c24:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33c28:	8faa00ac */ 	lw	$t2,0xac($sp)
+/*    33c2c:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    33c30:	8d590000 */ 	lw	$t9,0x0($t2)
+/*    33c34:	c5ea0028 */ 	lwc1	$f10,0x28($t7)
+/*    33c38:	c5f2002c */ 	lwc1	$f18,0x2c($t7)
+/*    33c3c:	8f290008 */ 	lw	$t1,0x8($t9)
+/*    33c40:	44893000 */ 	mtc1	$t1,$f6
+/*    33c44:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33c48:	46803220 */ 	cvt.s.w	$f8,$f6
+/*    33c4c:	460a4403 */ 	div.s	$f16,$f8,$f10
+/*    33c50:	46128103 */ 	div.s	$f4,$f16,$f18
+/*    33c54:	4600218d */ 	trunc.w.s	$f6,$f4
+/*    33c58:	440d3000 */ 	mfc1	$t5,$f6
+/*    33c5c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33c60:	afad0080 */ 	sw	$t5,0x80($sp)
+/*    33c64:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    33c68:	00002825 */ 	or	$a1,$zero,$zero
+/*    33c6c:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    33c70:	0c00f830 */ 	jal	0x3e0c0
+/*    33c74:	2484000c */ 	addiu	$a0,$a0,0xc
+/*    33c78:	8fac0080 */ 	lw	$t4,0x80($sp)
+/*    33c7c:	11800010 */ 	beqz	$t4,.NB00033cc0
+/*    33c80:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33c84:	240b0080 */ 	addiu	$t3,$zero,0x80
+/*    33c88:	a7ab0094 */ 	sh	$t3,0x94($sp)
+/*    33c8c:	8fae0060 */ 	lw	$t6,0x60($sp)
+/*    33c90:	afae0098 */ 	sw	$t6,0x98($sp)
+/*    33c94:	3c048006 */ 	lui	$a0,0x8006
+/*    33c98:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    33c9c:	27a50094 */ 	addiu	$a1,$sp,0x94
+/*    33ca0:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    33ca4:	00003825 */ 	or	$a3,$zero,$zero
+/*    33ca8:	0c00f678 */ 	jal	0x3d9e0
+/*    33cac:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33cb0:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    33cb4:	24180002 */ 	addiu	$t8,$zero,0x2
+/*    33cb8:	10000003 */ 	beqz	$zero,.NB00033cc8
+/*    33cbc:	a1580045 */ 	sb	$t8,0x45($t2)
+.NB00033cc0:
+/*    33cc0:	0c00d188 */ 	jal	0x34620
+/*    33cc4:	8fa40060 */ 	lw	$a0,0x60($sp)
+.NB00033cc8:
+/*    33cc8:	10000007 */ 	beqz	$zero,.NB00033ce8
+/*    33ccc:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033cd0:
+/*    33cd0:	0c00d188 */ 	jal	0x34620
+/*    33cd4:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    33cd8:	10000003 */ 	beqz	$zero,.NB00033ce8
+/*    33cdc:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033ce0:
+/*    33ce0:	10000001 */ 	beqz	$zero,.NB00033ce8
+/*    33ce4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033ce8:
+/*    33ce8:	8fb900b8 */ 	lw	$t9,0xb8($sp)
+/*    33cec:	24010002 */ 	addiu	$at,$zero,0x2
+/*    33cf0:	97290000 */ 	lhu	$t1,0x0($t9)
+/*    33cf4:	15210004 */ 	bne	$t1,$at,.NB00033d08
+/*    33cf8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33cfc:	8fa800b8 */ 	lw	$t0,0xb8($sp)
+/*    33d00:	240f1000 */ 	addiu	$t7,$zero,0x1000
+/*    33d04:	a50f0000 */ 	sh	$t7,0x0($t0)
+.NB00033d08:
+/*    33d08:	10000227 */ 	beqz	$zero,.NB000345a8
+/*    33d0c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33d10:	8fad00b8 */ 	lw	$t5,0xb8($sp)
+/*    33d14:	8fab0060 */ 	lw	$t3,0x60($sp)
+/*    33d18:	8dac0008 */ 	lw	$t4,0x8($t5)
+/*    33d1c:	a16c0041 */ 	sb	$t4,0x41($t3)
+/*    33d20:	8fae0060 */ 	lw	$t6,0x60($sp)
+/*    33d24:	24010001 */ 	addiu	$at,$zero,0x1
+/*    33d28:	91d80045 */ 	lbu	$t8,0x45($t6)
+/*    33d2c:	1701001f */ 	bne	$t8,$at,.NB00033dac
+/*    33d30:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33d34:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    33d38:	8fa900ac */ 	lw	$t1,0xac($sp)
+/*    33d3c:	91590041 */ 	lbu	$t9,0x41($t2)
+/*    33d40:	912f000c */ 	lbu	$t7,0xc($t1)
+/*    33d44:	032f4021 */ 	addu	$t0,$t9,$t7
+/*    33d48:	250dffc0 */ 	addiu	$t5,$t0,-64
+/*    33d4c:	afad0074 */ 	sw	$t5,0x74($sp)
+/*    33d50:	8fac0074 */ 	lw	$t4,0x74($sp)
+/*    33d54:	19800003 */ 	blez	$t4,.NB00033d64
+/*    33d58:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33d5c:	10000002 */ 	beqz	$zero,.NB00033d68
+/*    33d60:	01808025 */ 	or	$s0,$t4,$zero
+.NB00033d64:
+/*    33d64:	00008025 */ 	or	$s0,$zero,$zero
+.NB00033d68:
+/*    33d68:	2a01007f */ 	slti	$at,$s0,0x7f
+/*    33d6c:	10200009 */ 	beqz	$at,.NB00033d94
+/*    33d70:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33d74:	8fab0074 */ 	lw	$t3,0x74($sp)
+/*    33d78:	19600003 */ 	blez	$t3,.NB00033d88
+/*    33d7c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33d80:	10000002 */ 	beqz	$zero,.NB00033d8c
+/*    33d84:	01608825 */ 	or	$s1,$t3,$zero
+.NB00033d88:
+/*    33d88:	00008825 */ 	or	$s1,$zero,$zero
+.NB00033d8c:
+/*    33d8c:	10000003 */ 	beqz	$zero,.NB00033d9c
+/*    33d90:	a3b100a7 */ 	sb	$s1,0xa7($sp)
+.NB00033d94:
+/*    33d94:	240e007f */ 	addiu	$t6,$zero,0x7f
+/*    33d98:	a3ae00a7 */ 	sb	$t6,0xa7($sp)
+.NB00033d9c:
+/*    33d9c:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    33da0:	93a500a7 */ 	lbu	$a1,0xa7($sp)
+/*    33da4:	0c00f8b0 */ 	jal	0x3e2c0
+/*    33da8:	2484000c */ 	addiu	$a0,$a0,0xc
+.NB00033dac:
+/*    33dac:	100001fe */ 	beqz	$zero,.NB000345a8
+/*    33db0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33db4:	8fb800b8 */ 	lw	$t8,0xb8($sp)
+/*    33db8:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    33dbc:	c7080008 */ 	lwc1	$f8,0x8($t8)
+/*    33dc0:	e548002c */ 	swc1	$f8,0x2c($t2)
+/*    33dc4:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    33dc8:	24010001 */ 	addiu	$at,$zero,0x1
+/*    33dcc:	91390045 */ 	lbu	$t9,0x45($t1)
+/*    33dd0:	17210010 */ 	bne	$t9,$at,.NB00033e14
+/*    33dd4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33dd8:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    33ddc:	c5ea002c */ 	lwc1	$f10,0x2c($t7)
+/*    33de0:	c5f00028 */ 	lwc1	$f16,0x28($t7)
+/*    33de4:	25e4000c */ 	addiu	$a0,$t7,0xc
+/*    33de8:	46105482 */ 	mul.s	$f18,$f10,$f16
+/*    33dec:	44059000 */ 	mfc1	$a1,$f18
+/*    33df0:	0c00f8dc */ 	jal	0x3e370
+/*    33df4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33df8:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    33dfc:	910d0044 */ 	lbu	$t5,0x44($t0)
+/*    33e00:	31ac0020 */ 	andi	$t4,$t5,0x20
+/*    33e04:	11800003 */ 	beqz	$t4,.NB00033e14
+/*    33e08:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33e0c:	0c00d1a4 */ 	jal	0x34690
+/*    33e10:	8fa40060 */ 	lw	$a0,0x60($sp)
+.NB00033e14:
+/*    33e14:	100001e4 */ 	beqz	$zero,.NB000345a8
+/*    33e18:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033e1c:
+/*    33e1c:	8fab00b8 */ 	lw	$t3,0xb8($sp)
+/*    33e20:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    33e24:	8d6e0008 */ 	lw	$t6,0x8($t3)
+/*    33e28:	a30e0042 */ 	sb	$t6,0x42($t8)
+/*    33e2c:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    33e30:	24010001 */ 	addiu	$at,$zero,0x1
+/*    33e34:	91490045 */ 	lbu	$t1,0x45($t2)
+/*    33e38:	15210027 */ 	bne	$t1,$at,.NB00033ed8
+/*    33e3c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33e40:	8fad00a8 */ 	lw	$t5,0xa8($sp)
+/*    33e44:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    33e48:	91ac0003 */ 	lbu	$t4,0x3($t5)
+/*    33e4c:	932f0042 */ 	lbu	$t7,0x42($t9)
+/*    33e50:	318b000f */ 	andi	$t3,$t4,0xf
+/*    33e54:	000b70c0 */ 	sll	$t6,$t3,0x3
+/*    33e58:	31e8007f */ 	andi	$t0,$t7,0x7f
+/*    33e5c:	010ec021 */ 	addu	$t8,$t0,$t6
+/*    33e60:	afb8007c */ 	sw	$t8,0x7c($sp)
+/*    33e64:	8faa007c */ 	lw	$t2,0x7c($sp)
+/*    33e68:	05410003 */ 	bgez	$t2,.NB00033e78
+/*    33e6c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33e70:	10000002 */ 	beqz	$zero,.NB00033e7c
+/*    33e74:	00008025 */ 	or	$s0,$zero,$zero
+.NB00033e78:
+/*    33e78:	8fb0007c */ 	lw	$s0,0x7c($sp)
+.NB00033e7c:
+/*    33e7c:	2a010080 */ 	slti	$at,$s0,0x80
+/*    33e80:	14200004 */ 	bnez	$at,.NB00033e94
+/*    33e84:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33e88:	2409007f */ 	addiu	$t1,$zero,0x7f
+/*    33e8c:	10000008 */ 	beqz	$zero,.NB00033eb0
+/*    33e90:	afa9007c */ 	sw	$t1,0x7c($sp)
+.NB00033e94:
+/*    33e94:	8fb9007c */ 	lw	$t9,0x7c($sp)
+/*    33e98:	07210003 */ 	bgez	$t9,.NB00033ea8
+/*    33e9c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33ea0:	10000002 */ 	beqz	$zero,.NB00033eac
+/*    33ea4:	00008825 */ 	or	$s1,$zero,$zero
+.NB00033ea8:
+/*    33ea8:	8fb1007c */ 	lw	$s1,0x7c($sp)
+.NB00033eac:
+/*    33eac:	afb1007c */ 	sw	$s1,0x7c($sp)
+.NB00033eb0:
+/*    33eb0:	8fad0060 */ 	lw	$t5,0x60($sp)
+/*    33eb4:	8faf007c */ 	lw	$t7,0x7c($sp)
+/*    33eb8:	91ac0042 */ 	lbu	$t4,0x42($t5)
+/*    33ebc:	318b0080 */ 	andi	$t3,$t4,0x80
+/*    33ec0:	01eb4025 */ 	or	$t0,$t7,$t3
+/*    33ec4:	afa8007c */ 	sw	$t0,0x7c($sp)
+/*    33ec8:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    33ecc:	8fa5007c */ 	lw	$a1,0x7c($sp)
+/*    33ed0:	0c00f908 */ 	jal	0x3e420
+/*    33ed4:	2484000c */ 	addiu	$a0,$a0,0xc
+.NB00033ed8:
+/*    33ed8:	100001b3 */ 	beqz	$zero,.NB000345a8
+/*    33edc:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033ee0:
+/*    33ee0:	8fae0060 */ 	lw	$t6,0x60($sp)
+/*    33ee4:	8fb900b8 */ 	lw	$t9,0xb8($sp)
+/*    33ee8:	91d80042 */ 	lbu	$t8,0x42($t6)
+/*    33eec:	8f2d0008 */ 	lw	$t5,0x8($t9)
+/*    33ef0:	330a007f */ 	andi	$t2,$t8,0x7f
+/*    33ef4:	31ac0080 */ 	andi	$t4,$t5,0x80
+/*    33ef8:	318f00ff */ 	andi	$t7,$t4,0xff
+/*    33efc:	314900ff */ 	andi	$t1,$t2,0xff
+/*    33f00:	012f5825 */ 	or	$t3,$t1,$t7
+/*    33f04:	a1cb0042 */ 	sb	$t3,0x42($t6)
+/*    33f08:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    33f0c:	24010001 */ 	addiu	$at,$zero,0x1
+/*    33f10:	91180045 */ 	lbu	$t8,0x45($t0)
+/*    33f14:	17010027 */ 	bne	$t8,$at,.NB00033fb4
+/*    33f18:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33f1c:	8fac00a8 */ 	lw	$t4,0xa8($sp)
+/*    33f20:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    33f24:	91890003 */ 	lbu	$t1,0x3($t4)
+/*    33f28:	91590042 */ 	lbu	$t9,0x42($t2)
+/*    33f2c:	312f000f */ 	andi	$t7,$t1,0xf
+/*    33f30:	000f58c0 */ 	sll	$t3,$t7,0x3
+/*    33f34:	332d007f */ 	andi	$t5,$t9,0x7f
+/*    33f38:	01ab7021 */ 	addu	$t6,$t5,$t3
+/*    33f3c:	afae007c */ 	sw	$t6,0x7c($sp)
+/*    33f40:	8fa8007c */ 	lw	$t0,0x7c($sp)
+/*    33f44:	05010003 */ 	bgez	$t0,.NB00033f54
+/*    33f48:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33f4c:	10000002 */ 	beqz	$zero,.NB00033f58
+/*    33f50:	00008025 */ 	or	$s0,$zero,$zero
+.NB00033f54:
+/*    33f54:	8fb0007c */ 	lw	$s0,0x7c($sp)
+.NB00033f58:
+/*    33f58:	2a010080 */ 	slti	$at,$s0,0x80
+/*    33f5c:	14200004 */ 	bnez	$at,.NB00033f70
+/*    33f60:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33f64:	2418007f */ 	addiu	$t8,$zero,0x7f
+/*    33f68:	10000008 */ 	beqz	$zero,.NB00033f8c
+/*    33f6c:	afb8007c */ 	sw	$t8,0x7c($sp)
+.NB00033f70:
+/*    33f70:	8faa007c */ 	lw	$t2,0x7c($sp)
+/*    33f74:	05410003 */ 	bgez	$t2,.NB00033f84
+/*    33f78:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33f7c:	10000002 */ 	beqz	$zero,.NB00033f88
+/*    33f80:	00008825 */ 	or	$s1,$zero,$zero
+.NB00033f84:
+/*    33f84:	8fb1007c */ 	lw	$s1,0x7c($sp)
+.NB00033f88:
+/*    33f88:	afb1007c */ 	sw	$s1,0x7c($sp)
+.NB00033f8c:
+/*    33f8c:	8fac0060 */ 	lw	$t4,0x60($sp)
+/*    33f90:	8fb9007c */ 	lw	$t9,0x7c($sp)
+/*    33f94:	91890042 */ 	lbu	$t1,0x42($t4)
+/*    33f98:	312f0080 */ 	andi	$t7,$t1,0x80
+/*    33f9c:	032f6825 */ 	or	$t5,$t9,$t7
+/*    33fa0:	afad007c */ 	sw	$t5,0x7c($sp)
+/*    33fa4:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    33fa8:	8fa5007c */ 	lw	$a1,0x7c($sp)
+/*    33fac:	0c00f908 */ 	jal	0x3e420
+/*    33fb0:	2484000c */ 	addiu	$a0,$a0,0xc
+.NB00033fb4:
+/*    33fb4:	1000017c */ 	beqz	$zero,.NB000345a8
+/*    33fb8:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00033fbc:
+/*    33fbc:	8fab00b8 */ 	lw	$t3,0xb8($sp)
+/*    33fc0:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    33fc4:	8d6e0008 */ 	lw	$t6,0x8($t3)
+/*    33fc8:	a10e0043 */ 	sb	$t6,0x43($t0)
+/*    33fcc:	3c0c8006 */ 	lui	$t4,0x8006
+/*    33fd0:	8d8c1624 */ 	lw	$t4,0x1624($t4)
+/*    33fd4:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    33fd8:	8d89003c */ 	lw	$t1,0x3c($t4)
+/*    33fdc:	930a0043 */ 	lbu	$t2,0x43($t8)
+/*    33fe0:	0149082a */ 	slt	$at,$t2,$t1
+/*    33fe4:	14200003 */ 	bnez	$at,.NB00033ff4
+/*    33fe8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    33fec:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    33ff0:	a3200043 */ 	sb	$zero,0x43($t9)
+.NB00033ff4:
+/*    33ff4:	8faf0060 */ 	lw	$t7,0x60($sp)
+/*    33ff8:	24010001 */ 	addiu	$at,$zero,0x1
+/*    33ffc:	91ed0045 */ 	lbu	$t5,0x45($t7)
+/*    34000:	15a10004 */ 	bne	$t5,$at,.NB00034014
+/*    34004:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34008:	8fab0060 */ 	lw	$t3,0x60($sp)
+/*    3400c:	916e0043 */ 	lbu	$t6,0x43($t3)
+/*    34010:	a56e0024 */ 	sh	$t6,0x24($t3)
+.NB00034014:
+/*    34014:	10000164 */ 	beqz	$zero,.NB000345a8
+/*    34018:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3401c:	8fa800b8 */ 	lw	$t0,0xb8($sp)
+/*    34020:	8fac0060 */ 	lw	$t4,0x60($sp)
+/*    34024:	8d180008 */ 	lw	$t8,0x8($t0)
+/*    34028:	a5980038 */ 	sh	$t8,0x38($t4)
+/*    3402c:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    34030:	24010001 */ 	addiu	$at,$zero,0x1
+/*    34034:	91490045 */ 	lbu	$t1,0x45($t2)
+/*    34038:	1521005d */ 	bne	$t1,$at,.NB000341b0
+/*    3403c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34040:	8fac0060 */ 	lw	$t4,0x60($sp)
+/*    34044:	8faf00a8 */ 	lw	$t7,0xa8($sp)
+/*    34048:	3c19800a */ 	lui	$t9,0x800a
+/*    3404c:	858a003a */ 	lh	$t2,0x3a($t4)
+/*    34050:	85890038 */ 	lh	$t1,0x38($t4)
+/*    34054:	91ed0002 */ 	lbu	$t5,0x2($t7)
+/*    34058:	8f390a34 */ 	lw	$t9,0xa34($t9)
+/*    3405c:	01490019 */ 	multu	$t2,$t1
+/*    34060:	31ae001f */ 	andi	$t6,$t5,0x1f
+/*    34064:	8fad00ac */ 	lw	$t5,0xac($sp)
+/*    34068:	000e5840 */ 	sll	$t3,$t6,0x1
+/*    3406c:	032b4021 */ 	addu	$t0,$t9,$t3
+/*    34070:	91ae000d */ 	lbu	$t6,0xd($t5)
+/*    34074:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    34078:	85180000 */ 	lh	$t8,0x0($t0)
+/*    3407c:	00007812 */ 	mflo	$t7
+/*    34080:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34084:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34088:	01ee0019 */ 	multu	$t7,$t6
+/*    3408c:	0000c812 */ 	mflo	$t9
+/*    34090:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34094:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34098:	0321001a */ 	div	$zero,$t9,$at
+/*    3409c:	00005812 */ 	mflo	$t3
+/*    340a0:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    340a4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    340a8:	030b0019 */ 	multu	$t8,$t3
+/*    340ac:	00004012 */ 	mflo	$t0
+/*    340b0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    340b4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    340b8:	0101001a */ 	div	$zero,$t0,$at
+/*    340bc:	00006012 */ 	mflo	$t4
+/*    340c0:	1d800003 */ 	bgtz	$t4,.NB000340d0
+/*    340c4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    340c8:	10000023 */ 	beqz	$zero,.NB00034158
+/*    340cc:	afa00078 */ 	sw	$zero,0x78($sp)
+.NB000340d0:
+/*    340d0:	8fab0060 */ 	lw	$t3,0x60($sp)
+/*    340d4:	8fa900a8 */ 	lw	$t1,0xa8($sp)
+/*    340d8:	3c0a800a */ 	lui	$t2,0x800a
+/*    340dc:	8568003a */ 	lh	$t0,0x3a($t3)
+/*    340e0:	856c0038 */ 	lh	$t4,0x38($t3)
+/*    340e4:	912d0002 */ 	lbu	$t5,0x2($t1)
+/*    340e8:	8d4a0a34 */ 	lw	$t2,0xa34($t2)
+/*    340ec:	010c0019 */ 	multu	$t0,$t4
+/*    340f0:	31af001f */ 	andi	$t7,$t5,0x1f
+/*    340f4:	8fad00ac */ 	lw	$t5,0xac($sp)
+/*    340f8:	000f7040 */ 	sll	$t6,$t7,0x1
+/*    340fc:	014ec821 */ 	addu	$t9,$t2,$t6
+/*    34100:	91af000d */ 	lbu	$t7,0xd($t5)
+/*    34104:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    34108:	87380000 */ 	lh	$t8,0x0($t9)
+/*    3410c:	00004812 */ 	mflo	$t1
+/*    34110:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34114:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34118:	012f0019 */ 	multu	$t1,$t7
+/*    3411c:	00005012 */ 	mflo	$t2
+/*    34120:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34124:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34128:	0141001a */ 	div	$zero,$t2,$at
+/*    3412c:	00007012 */ 	mflo	$t6
+/*    34130:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    34134:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34138:	030e0019 */ 	multu	$t8,$t6
+/*    3413c:	0000c812 */ 	mflo	$t9
+/*    34140:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34144:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34148:	0321001a */ 	div	$zero,$t9,$at
+/*    3414c:	00005812 */ 	mflo	$t3
+/*    34150:	2568ffff */ 	addiu	$t0,$t3,-1
+/*    34154:	afa80078 */ 	sw	$t0,0x78($sp)
+.NB00034158:
+/*    34158:	3c098006 */ 	lui	$t1,0x8006
+/*    3415c:	8d29163c */ 	lw	$t1,0x163c($t1)
+/*    34160:	8fac0060 */ 	lw	$t4,0x60($sp)
+/*    34164:	8d2f0050 */ 	lw	$t7,0x50($t1)
+/*    34168:	8d8d003c */ 	lw	$t5,0x3c($t4)
+/*    3416c:	01af5023 */ 	subu	$t2,$t5,$t7
+/*    34170:	294103e8 */ 	slti	$at,$t2,0x3e8
+/*    34174:	10200003 */ 	beqz	$at,.NB00034184
+/*    34178:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3417c:	10000007 */ 	beqz	$zero,.NB0003419c
+/*    34180:	241003e8 */ 	addiu	$s0,$zero,0x3e8
+.NB00034184:
+/*    34184:	3c198006 */ 	lui	$t9,0x8006
+/*    34188:	8f39163c */ 	lw	$t9,0x163c($t9)
+/*    3418c:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    34190:	8f2b0050 */ 	lw	$t3,0x50($t9)
+/*    34194:	8f0e003c */ 	lw	$t6,0x3c($t8)
+/*    34198:	01cb8023 */ 	subu	$s0,$t6,$t3
+.NB0003419c:
+/*    3419c:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    341a0:	8fa50078 */ 	lw	$a1,0x78($sp)
+/*    341a4:	02003025 */ 	or	$a2,$s0,$zero
+/*    341a8:	0c00f830 */ 	jal	0x3e0c0
+/*    341ac:	2484000c */ 	addiu	$a0,$a0,0xc
+.NB000341b0:
+/*    341b0:	100000fd */ 	beqz	$zero,.NB000345a8
+/*    341b4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000341b8:
+/*    341b8:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    341bc:	24010001 */ 	addiu	$at,$zero,0x1
+/*    341c0:	910c0045 */ 	lbu	$t4,0x45($t0)
+/*    341c4:	1581005b */ 	bne	$t4,$at,.NB00034334
+/*    341c8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    341cc:	8fa900ac */ 	lw	$t1,0xac($sp)
+/*    341d0:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    341d4:	8d2d0000 */ 	lw	$t5,0x0($t1)
+/*    341d8:	c5480028 */ 	lwc1	$f8,0x28($t2)
+/*    341dc:	c550002c */ 	lwc1	$f16,0x2c($t2)
+/*    341e0:	8daf0008 */ 	lw	$t7,0x8($t5)
+/*    341e4:	448f2000 */ 	mtc1	$t7,$f4
+/*    341e8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    341ec:	468021a0 */ 	cvt.s.w	$f6,$f4
+/*    341f0:	46083283 */ 	div.s	$f10,$f6,$f8
+/*    341f4:	46105483 */ 	div.s	$f18,$f10,$f16
+/*    341f8:	4600910d */ 	trunc.w.s	$f4,$f18
+/*    341fc:	44192000 */ 	mfc1	$t9,$f4
+/*    34200:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34204:	afb90080 */ 	sw	$t9,0x80($sp)
+/*    34208:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    3420c:	8fab00a8 */ 	lw	$t3,0xa8($sp)
+/*    34210:	3c0e800a */ 	lui	$t6,0x800a
+/*    34214:	8558003a */ 	lh	$t8,0x3a($t2)
+/*    34218:	85590038 */ 	lh	$t9,0x38($t2)
+/*    3421c:	91680002 */ 	lbu	$t0,0x2($t3)
+/*    34220:	8dce0a34 */ 	lw	$t6,0xa34($t6)
+/*    34224:	03190019 */ 	multu	$t8,$t9
+/*    34228:	310c001f */ 	andi	$t4,$t0,0x1f
+/*    3422c:	8fa800ac */ 	lw	$t0,0xac($sp)
+/*    34230:	000c4840 */ 	sll	$t1,$t4,0x1
+/*    34234:	01c96821 */ 	addu	$t5,$t6,$t1
+/*    34238:	910c000d */ 	lbu	$t4,0xd($t0)
+/*    3423c:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    34240:	85af0000 */ 	lh	$t7,0x0($t5)
+/*    34244:	00005812 */ 	mflo	$t3
+/*    34248:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3424c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34250:	016c0019 */ 	multu	$t3,$t4
+/*    34254:	00007012 */ 	mflo	$t6
+/*    34258:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3425c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34260:	01c1001a */ 	div	$zero,$t6,$at
+/*    34264:	00004812 */ 	mflo	$t1
+/*    34268:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    3426c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34270:	01e90019 */ 	multu	$t7,$t1
+/*    34274:	00006812 */ 	mflo	$t5
+/*    34278:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3427c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34280:	01a1001a */ 	div	$zero,$t5,$at
+/*    34284:	00005012 */ 	mflo	$t2
+/*    34288:	1d400003 */ 	bgtz	$t2,.NB00034298
+/*    3428c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34290:	10000023 */ 	beqz	$zero,.NB00034320
+/*    34294:	afa00078 */ 	sw	$zero,0x78($sp)
+.NB00034298:
+/*    34298:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    3429c:	8fb900a8 */ 	lw	$t9,0xa8($sp)
+/*    342a0:	3c18800a */ 	lui	$t8,0x800a
+/*    342a4:	852d003a */ 	lh	$t5,0x3a($t1)
+/*    342a8:	852a0038 */ 	lh	$t2,0x38($t1)
+/*    342ac:	93280002 */ 	lbu	$t0,0x2($t9)
+/*    342b0:	8f180a34 */ 	lw	$t8,0xa34($t8)
+/*    342b4:	01aa0019 */ 	multu	$t5,$t2
+/*    342b8:	310b001f */ 	andi	$t3,$t0,0x1f
+/*    342bc:	8fa800ac */ 	lw	$t0,0xac($sp)
+/*    342c0:	000b6040 */ 	sll	$t4,$t3,0x1
+/*    342c4:	030c7021 */ 	addu	$t6,$t8,$t4
+/*    342c8:	910b000d */ 	lbu	$t3,0xd($t0)
+/*    342cc:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    342d0:	85cf0000 */ 	lh	$t7,0x0($t6)
+/*    342d4:	0000c812 */ 	mflo	$t9
+/*    342d8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    342dc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    342e0:	032b0019 */ 	multu	$t9,$t3
+/*    342e4:	0000c012 */ 	mflo	$t8
+/*    342e8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    342ec:	00000000 */ 	sll	$zero,$zero,0x0
+/*    342f0:	0301001a */ 	div	$zero,$t8,$at
+/*    342f4:	00006012 */ 	mflo	$t4
+/*    342f8:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    342fc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34300:	01ec0019 */ 	multu	$t7,$t4
+/*    34304:	00007012 */ 	mflo	$t6
+/*    34308:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3430c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34310:	01c1001a */ 	div	$zero,$t6,$at
+/*    34314:	00004812 */ 	mflo	$t1
+/*    34318:	252dffff */ 	addiu	$t5,$t1,-1
+/*    3431c:	afad0078 */ 	sw	$t5,0x78($sp)
+.NB00034320:
+/*    34320:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    34324:	8fa50078 */ 	lw	$a1,0x78($sp)
+/*    34328:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    3432c:	0c00f830 */ 	jal	0x3e0c0
+/*    34330:	2484000c */ 	addiu	$a0,$a0,0xc
+.NB00034334:
+/*    34334:	1000009c */ 	beqz	$zero,.NB000345a8
+/*    34338:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003433c:
+/*    3433c:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    34340:	91480044 */ 	lbu	$t0,0x44($t2)
+/*    34344:	31190002 */ 	andi	$t9,$t0,0x2
+/*    34348:	17200079 */ 	bnez	$t9,.NB00034530
+/*    3434c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34350:	8fab00ac */ 	lw	$t3,0xac($sp)
+/*    34354:	8fac0060 */ 	lw	$t4,0x60($sp)
+/*    34358:	8d780000 */ 	lw	$t8,0x0($t3)
+/*    3435c:	930f000d */ 	lbu	$t7,0xd($t8)
+/*    34360:	a58f003a */ 	sh	$t7,0x3a($t4)
+/*    34364:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    34368:	8fa900a8 */ 	lw	$t1,0xa8($sp)
+/*    3436c:	3c0e800a */ 	lui	$t6,0x800a
+/*    34370:	870f003a */ 	lh	$t7,0x3a($t8)
+/*    34374:	870c0038 */ 	lh	$t4,0x38($t8)
+/*    34378:	912d0002 */ 	lbu	$t5,0x2($t1)
+/*    3437c:	8dce0a34 */ 	lw	$t6,0xa34($t6)
+/*    34380:	01ec0019 */ 	multu	$t7,$t4
+/*    34384:	31aa001f */ 	andi	$t2,$t5,0x1f
+/*    34388:	8fad00ac */ 	lw	$t5,0xac($sp)
+/*    3438c:	000a4040 */ 	sll	$t0,$t2,0x1
+/*    34390:	01c8c821 */ 	addu	$t9,$t6,$t0
+/*    34394:	91aa000d */ 	lbu	$t2,0xd($t5)
+/*    34398:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    3439c:	872b0000 */ 	lh	$t3,0x0($t9)
+/*    343a0:	00004812 */ 	mflo	$t1
+/*    343a4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343a8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343ac:	012a0019 */ 	multu	$t1,$t2
+/*    343b0:	00007012 */ 	mflo	$t6
+/*    343b4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343b8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343bc:	01c1001a */ 	div	$zero,$t6,$at
+/*    343c0:	00004012 */ 	mflo	$t0
+/*    343c4:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    343c8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343cc:	01680019 */ 	multu	$t3,$t0
+/*    343d0:	0000c812 */ 	mflo	$t9
+/*    343d4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343d8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343dc:	0321001a */ 	div	$zero,$t9,$at
+/*    343e0:	0000c012 */ 	mflo	$t8
+/*    343e4:	1f000003 */ 	bgtz	$t8,.NB000343f4
+/*    343e8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    343ec:	10000023 */ 	beqz	$zero,.NB0003447c
+/*    343f0:	afa00078 */ 	sw	$zero,0x78($sp)
+.NB000343f4:
+/*    343f4:	8fa80060 */ 	lw	$t0,0x60($sp)
+/*    343f8:	8fac00a8 */ 	lw	$t4,0xa8($sp)
+/*    343fc:	3c0f800a */ 	lui	$t7,0x800a
+/*    34400:	8519003a */ 	lh	$t9,0x3a($t0)
+/*    34404:	85180038 */ 	lh	$t8,0x38($t0)
+/*    34408:	918d0002 */ 	lbu	$t5,0x2($t4)
+/*    3440c:	8def0a34 */ 	lw	$t7,0xa34($t7)
+/*    34410:	03380019 */ 	multu	$t9,$t8
+/*    34414:	31a9001f */ 	andi	$t1,$t5,0x1f
+/*    34418:	8fad00ac */ 	lw	$t5,0xac($sp)
+/*    3441c:	00095040 */ 	sll	$t2,$t1,0x1
+/*    34420:	01ea7021 */ 	addu	$t6,$t7,$t2
+/*    34424:	91a9000d */ 	lbu	$t1,0xd($t5)
+/*    34428:	24013f01 */ 	addiu	$at,$zero,0x3f01
+/*    3442c:	85cb0000 */ 	lh	$t3,0x0($t6)
+/*    34430:	00006012 */ 	mflo	$t4
+/*    34434:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34438:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3443c:	01890019 */ 	multu	$t4,$t1
+/*    34440:	00007812 */ 	mflo	$t7
+/*    34444:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34448:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3444c:	01e1001a */ 	div	$zero,$t7,$at
+/*    34450:	00005012 */ 	mflo	$t2
+/*    34454:	24017fff */ 	addiu	$at,$zero,0x7fff
+/*    34458:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3445c:	016a0019 */ 	multu	$t3,$t2
+/*    34460:	00007012 */ 	mflo	$t6
+/*    34464:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34468:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3446c:	01c1001a */ 	div	$zero,$t6,$at
+/*    34470:	00004012 */ 	mflo	$t0
+/*    34474:	2519ffff */ 	addiu	$t9,$t0,-1
+/*    34478:	afb90078 */ 	sw	$t9,0x78($sp)
+.NB0003447c:
+/*    3447c:	8fb800ac */ 	lw	$t8,0xac($sp)
+/*    34480:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    34484:	8f0d0000 */ 	lw	$t5,0x0($t8)
+/*    34488:	c52a0028 */ 	lwc1	$f10,0x28($t1)
+/*    3448c:	c532002c */ 	lwc1	$f18,0x2c($t1)
+/*    34490:	8dac0004 */ 	lw	$t4,0x4($t5)
+/*    34494:	448c3000 */ 	mtc1	$t4,$f6
+/*    34498:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3449c:	46803220 */ 	cvt.s.w	$f8,$f6
+/*    344a0:	460a4403 */ 	div.s	$f16,$f8,$f10
+/*    344a4:	46128103 */ 	div.s	$f4,$f16,$f18
+/*    344a8:	4600218d */ 	trunc.w.s	$f6,$f4
+/*    344ac:	440b3000 */ 	mfc1	$t3,$f6
+/*    344b0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    344b4:	afab0080 */ 	sw	$t3,0x80($sp)
+/*    344b8:	3c0a8006 */ 	lui	$t2,0x8006
+/*    344bc:	8d4a163c */ 	lw	$t2,0x163c($t2)
+/*    344c0:	8fa80080 */ 	lw	$t0,0x80($sp)
+/*    344c4:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    344c8:	8d4e0050 */ 	lw	$t6,0x50($t2)
+/*    344cc:	01c8c821 */ 	addu	$t9,$t6,$t0
+/*    344d0:	af19003c */ 	sw	$t9,0x3c($t8)
+/*    344d4:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    344d8:	8fa50078 */ 	lw	$a1,0x78($sp)
+/*    344dc:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    344e0:	0c00f830 */ 	jal	0x3e0c0
+/*    344e4:	2484000c */ 	addiu	$a0,$a0,0xc
+/*    344e8:	240d0002 */ 	addiu	$t5,$zero,0x2
+/*    344ec:	a7ad0094 */ 	sh	$t5,0x94($sp)
+/*    344f0:	8fac0060 */ 	lw	$t4,0x60($sp)
+/*    344f4:	afac0098 */ 	sw	$t4,0x98($sp)
+/*    344f8:	3c048006 */ 	lui	$a0,0x8006
+/*    344fc:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    34500:	27a50094 */ 	addiu	$a1,$sp,0x94
+/*    34504:	8fa60080 */ 	lw	$a2,0x80($sp)
+/*    34508:	00003825 */ 	or	$a3,$zero,$zero
+/*    3450c:	0c00f678 */ 	jal	0x3d9e0
+/*    34510:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    34514:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    34518:	912f0044 */ 	lbu	$t7,0x44($t1)
+/*    3451c:	31eb0020 */ 	andi	$t3,$t7,0x20
+/*    34520:	11600003 */ 	beqz	$t3,.NB00034530
+/*    34524:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34528:	0c00d1a4 */ 	jal	0x34690
+/*    3452c:	8fa40060 */ 	lw	$a0,0x60($sp)
+.NB00034530:
+/*    34530:	1000001d */ 	beqz	$zero,.NB000345a8
+/*    34534:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00034538:
+/*    34538:	0c00d188 */ 	jal	0x34620
+/*    3453c:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    34540:	10000019 */ 	beqz	$zero,.NB000345a8
+/*    34544:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00034548:
+/*    34548:	8faa0060 */ 	lw	$t2,0x60($sp)
+/*    3454c:	914e0044 */ 	lbu	$t6,0x44($t2)
+/*    34550:	31c80010 */ 	andi	$t0,$t6,0x10
+/*    34554:	11000010 */ 	beqz	$t0,.NB00034598
+/*    34558:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3455c:	8fb80060 */ 	lw	$t8,0x60($sp)
+/*    34560:	8fb900b8 */ 	lw	$t9,0xb8($sp)
+/*    34564:	c708002c */ 	lwc1	$f8,0x2c($t8)
+/*    34568:	87060038 */ 	lh	$a2,0x38($t8)
+/*    3456c:	93070041 */ 	lbu	$a3,0x41($t8)
+/*    34570:	8f24000c */ 	lw	$a0,0xc($t9)
+/*    34574:	8f250008 */ 	lw	$a1,0x8($t9)
+/*    34578:	e7a80010 */ 	swc1	$f8,0x10($sp)
+/*    3457c:	930d0042 */ 	lbu	$t5,0x42($t8)
+/*    34580:	afad0014 */ 	sw	$t5,0x14($sp)
+/*    34584:	930c0043 */ 	lbu	$t4,0x43($t8)
+/*    34588:	afac0018 */ 	sw	$t4,0x18($sp)
+/*    3458c:	8f090030 */ 	lw	$t1,0x30($t8)
+/*    34590:	0c00d36c */ 	jal	0x34db0
+/*    34594:	afa9001c */ 	sw	$t1,0x1c($sp)
+.NB00034598:
+/*    34598:	10000003 */ 	beqz	$zero,.NB000345a8
+/*    3459c:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000345a0:
+/*    345a0:	10000001 */ 	beqz	$zero,.NB000345a8
+/*    345a4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000345a8:
+/*    345a8:	8faf00b8 */ 	lw	$t7,0xb8($sp)
+/*    345ac:	95eb0000 */ 	lhu	$t3,0x0($t7)
+/*    345b0:	316a02d1 */ 	andi	$t2,$t3,0x2d1
+/*    345b4:	afaa006c */ 	sw	$t2,0x6c($sp)
+/*    345b8:	8fae005c */ 	lw	$t6,0x5c($sp)
+/*    345bc:	11c00008 */ 	beqz	$t6,.NB000345e0
+/*    345c0:	afae0060 */ 	sw	$t6,0x60($sp)
+/*    345c4:	8fa8006c */ 	lw	$t0,0x6c($sp)
+/*    345c8:	15000005 */ 	bnez	$t0,.NB000345e0
+/*    345cc:	00000000 */ 	sll	$zero,$zero,0x0
+/*    345d0:	8fb90060 */ 	lw	$t9,0x60($sp)
+/*    345d4:	932d0044 */ 	lbu	$t5,0x44($t9)
+/*    345d8:	31ac0001 */ 	andi	$t4,$t5,0x1
+/*    345dc:	afac0068 */ 	sw	$t4,0x68($sp)
+.NB000345e0:
+/*    345e0:	8fb80068 */ 	lw	$t8,0x68($sp)
+/*    345e4:	17000007 */ 	bnez	$t8,.NB00034604
+/*    345e8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    345ec:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    345f0:	11200004 */ 	beqz	$t1,.NB00034604
+/*    345f4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    345f8:	8faf006c */ 	lw	$t7,0x6c($sp)
+/*    345fc:	11e0fb27 */ 	beqz	$t7,.NB0003329c
+/*    34600:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00034604:
+/*    34604:	10000001 */ 	beqz	$zero,.NB0003460c
+/*    34608:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0003460c:
+/*    3460c:	8fbf0034 */ 	lw	$ra,0x34($sp)
+/*    34610:	8fb0002c */ 	lw	$s0,0x2c($sp)
+/*    34614:	8fb10030 */ 	lw	$s1,0x30($sp)
+/*    34618:	03e00008 */ 	jr	$ra
+/*    3461c:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
+);
+#endif
 
 GLOBAL_ASM(
 glabel func00033090
@@ -2497,6 +4056,7 @@ glabel audioIsPlaying
 /*    3381c:	00000000 */ 	nop
 );
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00033820
 /*    33820:	27bdffa0 */ 	addiu	$sp,$sp,-96
@@ -2704,6 +4264,210 @@ glabel func00033820
 /*    33b1c:	03e00008 */ 	jr	$ra
 /*    33b20:	00000000 */ 	nop
 );
+#else
+GLOBAL_ASM(
+glabel func00033820
+/*    34db0:	27bdffa0 */ 	addiu	$sp,$sp,-96
+/*    34db4:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*    34db8:	afa40060 */ 	sw	$a0,0x60($sp)
+/*    34dbc:	afa50064 */ 	sw	$a1,0x64($sp)
+/*    34dc0:	afa60068 */ 	sw	$a2,0x68($sp)
+/*    34dc4:	afa7006c */ 	sw	$a3,0x6c($sp)
+/*    34dc8:	afa00058 */ 	sw	$zero,0x58($sp)
+/*    34dcc:	a7a0004e */ 	sh	$zero,0x4e($sp)
+/*    34dd0:	afa00040 */ 	sw	$zero,0x40($sp)
+/*    34dd4:	0c0041df */ 	jal	0x1077c
+/*    34dd8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34ddc:	10400003 */ 	beqz	$v0,.NB00034dec
+/*    34de0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34de4:	100000aa */ 	beqz	$zero,.NB00035090
+/*    34de8:	00001025 */ 	or	$v0,$zero,$zero
+.NB00034dec:
+/*    34dec:	87ae0066 */ 	lh	$t6,0x66($sp)
+/*    34df0:	11c0009d */ 	beqz	$t6,.NB00035068
+/*    34df4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00034df8:
+/*    34df8:	0c003e46 */ 	jal	0xf918
+/*    34dfc:	87a40066 */ 	lh	$a0,0x66($sp)
+/*    34e00:	afa20050 */ 	sw	$v0,0x50($sp)
+/*    34e04:	8fa40060 */ 	lw	$a0,0x60($sp)
+/*    34e08:	0c00d248 */ 	jal	0x34920
+/*    34e0c:	8fa50050 */ 	lw	$a1,0x50($sp)
+/*    34e10:	afa2005c */ 	sw	$v0,0x5c($sp)
+/*    34e14:	8faf005c */ 	lw	$t7,0x5c($sp)
+/*    34e18:	11e0005f */ 	beqz	$t7,.NB00034f98
+/*    34e1c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34e20:	3c198006 */ 	lui	$t9,0x8006
+/*    34e24:	8f39163c */ 	lw	$t9,0x163c($t9)
+/*    34e28:	8fb8005c */ 	lw	$t8,0x5c($sp)
+/*    34e2c:	af38003c */ 	sw	$t8,0x3c($t9)
+/*    34e30:	24080001 */ 	addiu	$t0,$zero,0x1
+/*    34e34:	a7a8002c */ 	sh	$t0,0x2c($sp)
+/*    34e38:	8fa9005c */ 	lw	$t1,0x5c($sp)
+/*    34e3c:	afa90030 */ 	sw	$t1,0x30($sp)
+/*    34e40:	8fab005c */ 	lw	$t3,0x5c($sp)
+/*    34e44:	93aa006f */ 	lbu	$t2,0x6f($sp)
+/*    34e48:	916c0041 */ 	lbu	$t4,0x41($t3)
+/*    34e4c:	014c6821 */ 	addu	$t5,$t2,$t4
+/*    34e50:	25aeffc0 */ 	addiu	$t6,$t5,-64
+/*    34e54:	afae003c */ 	sw	$t6,0x3c($sp)
+/*    34e58:	8faf003c */ 	lw	$t7,0x3c($sp)
+/*    34e5c:	29e10080 */ 	slti	$at,$t7,0x80
+/*    34e60:	14200004 */ 	bnez	$at,.NB00034e74
+/*    34e64:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34e68:	2418007f */ 	addiu	$t8,$zero,0x7f
+/*    34e6c:	10000005 */ 	beqz	$zero,.NB00034e84
+/*    34e70:	afb8003c */ 	sw	$t8,0x3c($sp)
+.NB00034e74:
+/*    34e74:	8fb9003c */ 	lw	$t9,0x3c($sp)
+/*    34e78:	07210002 */ 	bgez	$t9,.NB00034e84
+/*    34e7c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34e80:	afa0003c */ 	sw	$zero,0x3c($sp)
+.NB00034e84:
+/*    34e84:	8fa8003c */ 	lw	$t0,0x3c($sp)
+/*    34e88:	8fa9005c */ 	lw	$t1,0x5c($sp)
+/*    34e8c:	a1280041 */ 	sb	$t0,0x41($t1)
+/*    34e90:	8faa005c */ 	lw	$t2,0x5c($sp)
+/*    34e94:	97ab006a */ 	lhu	$t3,0x6a($sp)
+/*    34e98:	854c0038 */ 	lh	$t4,0x38($t2)
+/*    34e9c:	016c0019 */ 	multu	$t3,$t4
+/*    34ea0:	00006812 */ 	mflo	$t5
+/*    34ea4:	000d73c2 */ 	srl	$t6,$t5,0xf
+/*    34ea8:	a54e0038 */ 	sh	$t6,0x38($t2)
+/*    34eac:	8faf005c */ 	lw	$t7,0x5c($sp)
+/*    34eb0:	c7a60070 */ 	lwc1	$f6,0x70($sp)
+/*    34eb4:	c5e4002c */ 	lwc1	$f4,0x2c($t7)
+/*    34eb8:	46062202 */ 	mul.s	$f8,$f4,$f6
+/*    34ebc:	e5e8002c */ 	swc1	$f8,0x2c($t7)
+/*    34ec0:	93b80077 */ 	lbu	$t8,0x77($sp)
+/*    34ec4:	8fb9005c */ 	lw	$t9,0x5c($sp)
+/*    34ec8:	a3380042 */ 	sb	$t8,0x42($t9)
+/*    34ecc:	93a8007b */ 	lbu	$t0,0x7b($sp)
+/*    34ed0:	8fa9005c */ 	lw	$t1,0x5c($sp)
+/*    34ed4:	a1280043 */ 	sb	$t0,0x43($t1)
+/*    34ed8:	8fab0050 */ 	lw	$t3,0x50($sp)
+/*    34edc:	8d6c0004 */ 	lw	$t4,0x4($t3)
+/*    34ee0:	918d0001 */ 	lbu	$t5,0x1($t4)
+/*    34ee4:	000d7180 */ 	sll	$t6,$t5,0x6
+/*    34ee8:	01cd7021 */ 	addu	$t6,$t6,$t5
+/*    34eec:	000e70c0 */ 	sll	$t6,$t6,0x3
+/*    34ef0:	01cd7021 */ 	addu	$t6,$t6,$t5
+/*    34ef4:	000e7080 */ 	sll	$t6,$t6,0x2
+/*    34ef8:	01cd7023 */ 	subu	$t6,$t6,$t5
+/*    34efc:	000e7080 */ 	sll	$t6,$t6,0x2
+/*    34f00:	01cd7021 */ 	addu	$t6,$t6,$t5
+/*    34f04:	000e7080 */ 	sll	$t6,$t6,0x2
+/*    34f08:	01cd7021 */ 	addu	$t6,$t6,$t5
+/*    34f0c:	afae0044 */ 	sw	$t6,0x44($sp)
+/*    34f10:	8faa005c */ 	lw	$t2,0x5c($sp)
+/*    34f14:	914f0044 */ 	lbu	$t7,0x44($t2)
+/*    34f18:	31f80010 */ 	andi	$t8,$t7,0x10
+/*    34f1c:	13000014 */ 	beqz	$t8,.NB00034f70
+/*    34f20:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34f24:	8fb9005c */ 	lw	$t9,0x5c($sp)
+/*    34f28:	2401ffef */ 	addiu	$at,$zero,-17
+/*    34f2c:	93280044 */ 	lbu	$t0,0x44($t9)
+/*    34f30:	01014824 */ 	and	$t1,$t0,$at
+/*    34f34:	a3290044 */ 	sb	$t1,0x44($t9)
+/*    34f38:	3c048006 */ 	lui	$a0,0x8006
+/*    34f3c:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    34f40:	8fa60040 */ 	lw	$a2,0x40($sp)
+/*    34f44:	27a5002c */ 	addiu	$a1,$sp,0x2c
+/*    34f48:	00003825 */ 	or	$a3,$zero,$zero
+/*    34f4c:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    34f50:	0c00f678 */ 	jal	0x3d9e0
+/*    34f54:	24c60001 */ 	addiu	$a2,$a2,0x1
+/*    34f58:	8fab0044 */ 	lw	$t3,0x44($sp)
+/*    34f5c:	256c0001 */ 	addiu	$t4,$t3,0x1
+/*    34f60:	afac0048 */ 	sw	$t4,0x48($sp)
+/*    34f64:	87ad0066 */ 	lh	$t5,0x66($sp)
+/*    34f68:	10000009 */ 	beqz	$zero,.NB00034f90
+/*    34f6c:	a7ad004e */ 	sh	$t5,0x4e($sp)
+.NB00034f70:
+/*    34f70:	3c048006 */ 	lui	$a0,0x8006
+/*    34f74:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    34f78:	8fa60044 */ 	lw	$a2,0x44($sp)
+/*    34f7c:	27a5002c */ 	addiu	$a1,$sp,0x2c
+/*    34f80:	00003825 */ 	or	$a3,$zero,$zero
+/*    34f84:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    34f88:	0c00f678 */ 	jal	0x3d9e0
+/*    34f8c:	24c60001 */ 	addiu	$a2,$a2,0x1
+.NB00034f90:
+/*    34f90:	8fae005c */ 	lw	$t6,0x5c($sp)
+/*    34f94:	afae0058 */ 	sw	$t6,0x58($sp)
+.NB00034f98:
+/*    34f98:	8faa0040 */ 	lw	$t2,0x40($sp)
+/*    34f9c:	8faf0044 */ 	lw	$t7,0x44($sp)
+/*    34fa0:	014fc021 */ 	addu	$t8,$t2,$t7
+/*    34fa4:	afb80040 */ 	sw	$t8,0x40($sp)
+/*    34fa8:	8fa80050 */ 	lw	$t0,0x50($sp)
+/*    34fac:	8d090004 */ 	lw	$t1,0x4($t0)
+/*    34fb0:	afa90054 */ 	sw	$t1,0x54($sp)
+/*    34fb4:	8fb90054 */ 	lw	$t9,0x54($sp)
+/*    34fb8:	932c0002 */ 	lbu	$t4,0x2($t9)
+/*    34fbc:	932b0000 */ 	lbu	$t3,0x0($t9)
+/*    34fc0:	318d00c0 */ 	andi	$t5,$t4,0xc0
+/*    34fc4:	000d7080 */ 	sll	$t6,$t5,0x2
+/*    34fc8:	016e5021 */ 	addu	$t2,$t3,$t6
+/*    34fcc:	a7aa0066 */ 	sh	$t2,0x66($sp)
+/*    34fd0:	87af0066 */ 	lh	$t7,0x66($sp)
+/*    34fd4:	11e00004 */ 	beqz	$t7,.NB00034fe8
+/*    34fd8:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34fdc:	8fb8005c */ 	lw	$t8,0x5c($sp)
+/*    34fe0:	1700ff85 */ 	bnez	$t8,.NB00034df8
+/*    34fe4:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00034fe8:
+/*    34fe8:	8fa80058 */ 	lw	$t0,0x58($sp)
+/*    34fec:	1100001e */ 	beqz	$t0,.NB00035068
+/*    34ff0:	00000000 */ 	sll	$zero,$zero,0x0
+/*    34ff4:	8fa90058 */ 	lw	$t1,0x58($sp)
+/*    34ff8:	91390044 */ 	lbu	$t9,0x44($t1)
+/*    34ffc:	372c0001 */ 	ori	$t4,$t9,0x1
+/*    35000:	a12c0044 */ 	sb	$t4,0x44($t1)
+/*    35004:	8fad007c */ 	lw	$t5,0x7c($sp)
+/*    35008:	8fab0058 */ 	lw	$t3,0x58($sp)
+/*    3500c:	ad6d0030 */ 	sw	$t5,0x30($t3)
+/*    35010:	87ae004e */ 	lh	$t6,0x4e($sp)
+/*    35014:	11c00014 */ 	beqz	$t6,.NB00035068
+/*    35018:	00000000 */ 	sll	$zero,$zero,0x0
+/*    3501c:	8faa0058 */ 	lw	$t2,0x58($sp)
+/*    35020:	914f0044 */ 	lbu	$t7,0x44($t2)
+/*    35024:	35f80010 */ 	ori	$t8,$t7,0x10
+/*    35028:	a1580044 */ 	sb	$t8,0x44($t2)
+/*    3502c:	24080200 */ 	addiu	$t0,$zero,0x200
+/*    35030:	a7a8001c */ 	sh	$t0,0x1c($sp)
+/*    35034:	8fb90058 */ 	lw	$t9,0x58($sp)
+/*    35038:	afb90020 */ 	sw	$t9,0x20($sp)
+/*    3503c:	87ac004e */ 	lh	$t4,0x4e($sp)
+/*    35040:	afac0024 */ 	sw	$t4,0x24($sp)
+/*    35044:	8fa90060 */ 	lw	$t1,0x60($sp)
+/*    35048:	afa90028 */ 	sw	$t1,0x28($sp)
+/*    3504c:	3c048006 */ 	lui	$a0,0x8006
+/*    35050:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    35054:	27a5001c */ 	addiu	$a1,$sp,0x1c
+/*    35058:	8fa60048 */ 	lw	$a2,0x48($sp)
+/*    3505c:	00003825 */ 	or	$a3,$zero,$zero
+/*    35060:	0c00f678 */ 	jal	0x3d9e0
+/*    35064:	24840014 */ 	addiu	$a0,$a0,0x14
+.NB00035068:
+/*    35068:	8fad007c */ 	lw	$t5,0x7c($sp)
+/*    3506c:	11a00004 */ 	beqz	$t5,.NB00035080
+/*    35070:	00000000 */ 	sll	$zero,$zero,0x0
+/*    35074:	8fab0058 */ 	lw	$t3,0x58($sp)
+/*    35078:	8fae007c */ 	lw	$t6,0x7c($sp)
+/*    3507c:	adcb0000 */ 	sw	$t3,0x0($t6)
+.NB00035080:
+/*    35080:	10000003 */ 	beqz	$zero,.NB00035090
+/*    35084:	8fa20058 */ 	lw	$v0,0x58($sp)
+/*    35088:	10000001 */ 	beqz	$zero,.NB00035090
+/*    3508c:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00035090:
+/*    35090:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*    35094:	27bd0060 */ 	addiu	$sp,$sp,0x60
+/*    35098:	03e00008 */ 	jr	$ra
+/*    3509c:	00000000 */ 	sll	$zero,$zero,0x0
+);
+#endif
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
@@ -2751,7 +4515,7 @@ glabel audioStop
 /*    33bb8:	03e00008 */ 	jr	$ra
 /*    33bbc:	00000000 */ 	nop
 );
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel audioStop
 /*    33b24:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -2795,8 +4559,43 @@ glabel audioStop
 /*    33bb0:	03e00008 */ 	jr	$ra
 /*    33bb4:	00000000 */ 	nop
 );
+#else
+GLOBAL_ASM(
+glabel audioStop
+/*    350a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
+/*    350a4:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*    350a8:	afa40028 */ 	sw	$a0,0x28($sp)
+/*    350ac:	240e0400 */ 	addiu	$t6,$zero,0x400
+/*    350b0:	a7ae0018 */ 	sh	$t6,0x18($sp)
+/*    350b4:	8faf0028 */ 	lw	$t7,0x28($sp)
+/*    350b8:	afaf001c */ 	sw	$t7,0x1c($sp)
+/*    350bc:	8fb80028 */ 	lw	$t8,0x28($sp)
+/*    350c0:	1300000d */ 	beqz	$t8,.NB000350f8
+/*    350c4:	00000000 */ 	sll	$zero,$zero,0x0
+/*    350c8:	8fb9001c */ 	lw	$t9,0x1c($sp)
+/*    350cc:	2401ffef */ 	addiu	$at,$zero,-17
+/*    350d0:	93280044 */ 	lbu	$t0,0x44($t9)
+/*    350d4:	01014824 */ 	and	$t1,$t0,$at
+/*    350d8:	a3290044 */ 	sb	$t1,0x44($t9)
+/*    350dc:	3c048006 */ 	lui	$a0,0x8006
+/*    350e0:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    350e4:	27a50018 */ 	addiu	$a1,$sp,0x18
+/*    350e8:	00003025 */ 	or	$a2,$zero,$zero
+/*    350ec:	00003825 */ 	or	$a3,$zero,$zero
+/*    350f0:	0c00f678 */ 	jal	0x3d9e0
+/*    350f4:	24840014 */ 	addiu	$a0,$a0,0x14
+.NB000350f8:
+/*    350f8:	10000001 */ 	beqz	$zero,.NB00035100
+/*    350fc:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00035100:
+/*    35100:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*    35104:	27bd0028 */ 	addiu	$sp,$sp,0x28
+/*    35108:	03e00008 */ 	jr	$ra
+/*    3510c:	00000000 */ 	sll	$zero,$zero,0x0
+);
 #endif
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00033bc0
 /*    33bc0:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -2830,6 +4629,7 @@ glabel func00033bc0
 /*    33c28:	03e00008 */ 	jr	$ra
 /*    33c2c:	00000000 */ 	nop
 );
+#endif
 
 GLOBAL_ASM(
 glabel func00033c30
@@ -2887,6 +4687,7 @@ glabel func00033c30
 /*    33cec:	00000000 */ 	nop
 );
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00033cf0
 /*    33cf0:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -2942,7 +4743,9 @@ glabel func00033cf0
 /*    33da8:	03e00008 */ 	jr	$ra
 /*    33dac:	00000000 */ 	nop
 );
+#endif
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00033db0
 /*    33db0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -2957,6 +4760,7 @@ glabel func00033db0
 /*    33dd0:	03e00008 */ 	jr	$ra
 /*    33dd4:	00000000 */ 	nop
 );
+#endif
 
 GLOBAL_ASM(
 glabel func00033dd8
@@ -3054,6 +4858,7 @@ glabel func00033ec4
 /*    33f04:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00033f08
 /*    33f08:	3c028006 */ 	lui	$v0,%hi(var8005f120)
@@ -3064,7 +4869,9 @@ glabel func00033f08
 /*    33f1c:	03e00008 */ 	jr	$ra
 /*    33f20:	00000000 */ 	nop
 );
+#endif
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00033f24
 /*    33f24:	3c0e8006 */ 	lui	$t6,%hi(var8005f12c)
@@ -3076,7 +4883,9 @@ glabel func00033f24
 /*    33f3c:	03e00008 */ 	jr	$ra
 /*    33f40:	00000000 */ 	nop
 );
+#endif
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00033f44
 /*    33f44:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -3144,3 +4953,74 @@ glabel func00033f44
 /*    34028:	03e00008 */ 	jr	$ra
 /*    3402c:	00000000 */ 	nop
 );
+#endif
+
+#if VERSION == VERSION_NTSC_BETA
+GLOBAL_ASM(
+glabel func00035300nb
+/*    35300:	27bdffc8 */ 	addiu	$sp,$sp,-56
+/*    35304:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*    35308:	afa40038 */ 	sw	$a0,0x38($sp)
+/*    3530c:	afa5003c */ 	sw	$a1,0x3c($sp)
+/*    35310:	3c0e800a */ 	lui	$t6,0x800a
+/*    35314:	8dce0a34 */ 	lw	$t6,0xa34($t6)
+/*    35318:	11c0002e */ 	beqz	$t6,.NB000353d4
+/*    3531c:	00000000 */ 	sll	$zero,$zero,0x0
+/*    35320:	0c012688 */ 	jal	0x49a20
+/*    35324:	24040001 */ 	addiu	$a0,$zero,0x1
+/*    35328:	afa20034 */ 	sw	$v0,0x34($sp)
+/*    3532c:	3c0f8006 */ 	lui	$t7,0x8006
+/*    35330:	8def1630 */ 	lw	$t7,0x1630($t7)
+/*    35334:	afaf0030 */ 	sw	$t7,0x30($sp)
+/*    35338:	93a8003b */ 	lbu	$t0,0x3b($sp)
+/*    3533c:	3c19800a */ 	lui	$t9,0x800a
+/*    35340:	8f390a34 */ 	lw	$t9,0xa34($t9)
+/*    35344:	97b8003e */ 	lhu	$t8,0x3e($sp)
+/*    35348:	00084840 */ 	sll	$t1,$t0,0x1
+/*    3534c:	03295021 */ 	addu	$t2,$t9,$t1
+/*    35350:	a5580000 */ 	sh	$t8,0x0($t2)
+/*    35354:	8fab0030 */ 	lw	$t3,0x30($sp)
+/*    35358:	afa0002c */ 	sw	$zero,0x2c($sp)
+/*    3535c:	1160001b */ 	beqz	$t3,.NB000353cc
+/*    35360:	00000000 */ 	sll	$zero,$zero,0x0
+.NB00035364:
+/*    35364:	8fac0030 */ 	lw	$t4,0x30($sp)
+/*    35368:	93b9003b */ 	lbu	$t9,0x3b($sp)
+/*    3536c:	8d8d0008 */ 	lw	$t5,0x8($t4)
+/*    35370:	8dae0004 */ 	lw	$t6,0x4($t5)
+/*    35374:	91cf0002 */ 	lbu	$t7,0x2($t6)
+/*    35378:	31e8001f */ 	andi	$t0,$t7,0x1f
+/*    3537c:	1519000c */ 	bne	$t0,$t9,.NB000353b0
+/*    35380:	00000000 */ 	sll	$zero,$zero,0x0
+/*    35384:	24090800 */ 	addiu	$t1,$zero,0x800
+/*    35388:	a7a9001c */ 	sh	$t1,0x1c($sp)
+/*    3538c:	8fb80030 */ 	lw	$t8,0x30($sp)
+/*    35390:	afb80020 */ 	sw	$t8,0x20($sp)
+/*    35394:	3c048006 */ 	lui	$a0,0x8006
+/*    35398:	8c84163c */ 	lw	$a0,0x163c($a0)
+/*    3539c:	27a5001c */ 	addiu	$a1,$sp,0x1c
+/*    353a0:	00003025 */ 	or	$a2,$zero,$zero
+/*    353a4:	00003825 */ 	or	$a3,$zero,$zero
+/*    353a8:	0c00f678 */ 	jal	0x3d9e0
+/*    353ac:	24840014 */ 	addiu	$a0,$a0,0x14
+.NB000353b0:
+/*    353b0:	8faa002c */ 	lw	$t2,0x2c($sp)
+/*    353b4:	8fac0030 */ 	lw	$t4,0x30($sp)
+/*    353b8:	254b0001 */ 	addiu	$t3,$t2,0x1
+/*    353bc:	afab002c */ 	sw	$t3,0x2c($sp)
+/*    353c0:	8d8d0000 */ 	lw	$t5,0x0($t4)
+/*    353c4:	15a0ffe7 */ 	bnez	$t5,.NB00035364
+/*    353c8:	afad0030 */ 	sw	$t5,0x30($sp)
+.NB000353cc:
+/*    353cc:	0c012688 */ 	jal	0x49a20
+/*    353d0:	8fa40034 */ 	lw	$a0,0x34($sp)
+.NB000353d4:
+/*    353d4:	10000001 */ 	beqz	$zero,.NB000353dc
+/*    353d8:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000353dc:
+/*    353dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*    353e0:	27bd0038 */ 	addiu	$sp,$sp,0x38
+/*    353e4:	03e00008 */ 	jr	$ra
+/*    353e8:	00000000 */ 	sll	$zero,$zero,0x0
+);
+#endif

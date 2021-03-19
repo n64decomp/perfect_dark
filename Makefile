@@ -20,6 +20,7 @@ JPN=0
 ifeq ($(ROMID),ntsc-beta)
 	NTSC=1
 	VERSION=0
+	PIRACYCHECKS=0
 endif
 ifeq ($(ROMID),ntsc-1.0)
 	NTSC=1
@@ -115,6 +116,10 @@ $(B_DIR)/lib/ultra/os/timerintr.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/virtualtophysical.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/yieldthread.o: OPT_LVL := -O1
 
+ifeq ($(ROMID), ntsc-beta)
+$(B_DIR)/lib/ultra/io/pfsisplug.o: OPT_LVL := -O1
+endif
+
 CFLAGS = -DVERSION=$(VERSION) \
 	-DNTSC=$(NTSC) \
 	-DPAL=$(PAL) \
@@ -158,7 +163,6 @@ O_FILES := \
 	$(patsubst %, %.o, $(ASSET_FILES)) \
 	$(patsubst src/%.bin, $(B_DIR)/%.o, $(ANIM_FILES)) \
 	$(B_DIR)/assets/animations/list.o \
-	$(B_DIR)/assets/accessingpakZ.o \
 	$(B_DIR)/assets/bootloader/bootloader.o \
 	$(B_DIR)/assets/copyrightZ.o \
 	$(B_DIR)/assets/files/list.o \
@@ -196,6 +200,11 @@ O_FILES := \
 	$(B_DIR)/assets/textureslist.o \
 	$(B_DIR)/assets/textures/config.o \
 	$(B_DIR)/romheader.o
+
+# ntsc-beta doesn't have this segment
+ifneq ($(ROMID), ntsc-beta)
+	O_FILES := $(O_FILES) $(B_DIR)/assets/accessingpakZ.o
+endif
 
 default: rom
 

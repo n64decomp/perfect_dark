@@ -5121,7 +5121,9 @@ struct var800a2380 {
 	/*0x2be*/ u8 unk2be;
 	/*0x2c0*/ void *unk2c0; // pointer to something with len 0x708
 	/*0x2c4*/ u8 *unk2c4; // len 4096
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x2c8*/ u32 unk2c8;
+#endif
 };
 
 struct gecreditsdata {

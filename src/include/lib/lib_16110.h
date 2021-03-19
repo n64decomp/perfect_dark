@@ -38,9 +38,5 @@ u32 func00017614(void);
 u32 func00017a78(void);
 u32 func00017c2c(void);
 u32 func00017cbc(void);
-u32 func00017ce0(void);
-u32 func00017dc4(void);
-bool func00017e30(s32 portalnum, struct coord *arg1, struct coord *arg2);
-u32 func00018148(void);
 
 #endif

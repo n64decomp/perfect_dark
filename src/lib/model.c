@@ -429,6 +429,8 @@ glabel func0001a9e8
 /*    1aa18:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
+#if VERSION >= VERSION_NTSC_1_0
+// ntsc-beta has this function in another file
 void *modelGetNodeData(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
@@ -473,6 +475,7 @@ void *modelGetNodeData(struct model *model, struct modelnode *node)
 
 	return &datas[index];
 }
+#endif
 
 void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
@@ -4913,6 +4916,15 @@ void modelSetAnimFlipFunction(struct model *model, void *callback)
 		model->anim->flipfunc = callback;
 	}
 }
+
+#if VERSION == VERSION_NTSC_BETA
+void modelSetAnimUnk6c(struct model *model, s32 value)
+{
+	if (model->anim) {
+		model->anim->unk6c = value;
+	}
+}
+#endif
 
 void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
 {

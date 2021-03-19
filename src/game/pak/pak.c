@@ -161,7 +161,11 @@ u32 func0f11668c(s8 device)
 		return 0xbaa;
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	value = var800a2380[device].unk2c8;
+#else
+	value = 0;
+#endif
 	rand = (random() % 496) + 16; // range 16-511
 	count = osGetCount();
 
@@ -368,10 +372,18 @@ s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, ch
 	s32 result;
 
 	if (func0f116b5c(device)) {
+#if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
+#else
+		func000150e8(123, "pak.c");
+#endif
 		result = func0f117e00(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
 				company_code, game_code, game_name, ext_name);
+#if VERSION >= VERSION_NTSC_1_0
 		func00015144();
+#else
+		func00015144(123, "pak.c");
+#endif
 
 		if (func0f11c39c(result, device, 1, VERSION >= VERSION_NTSC_FINAL ? 825 : 822)) {
 			var800a2380[device].unk2b8_02 = 1;
@@ -768,9 +780,17 @@ void pakDumpEeprom(void)
 {
 	u8 buffer[2048];
 
+#if VERSION >= VERSION_NTSC_1_0
 	func000150e8();
+#else
+	func000150e8(123, "pak.c");
+#endif
 	osEepromLongRead(&var80099e78, 0, buffer, 2048);
+#if VERSION >= VERSION_NTSC_1_0
 	func00015144();
+#else
+	func00015144(123, "pak.c");
+#endif
 
 	pakDumpBuffer(buffer, 2048, "EEPROM DUMP");
 }
@@ -1009,9 +1029,17 @@ s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
 	if (arg0) {
 		s32 result;
 
+#if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
+#else
+		func000150e8(123, "pak.c");
+#endif
 		result = func000508d0(arg0, arg1, arg2);
+#if VERSION >= VERSION_NTSC_1_0
 		func00015144();
+#else
+		func00015144(123, "pak.c");
+#endif
 
 		return result;
 	}
@@ -1031,9 +1059,17 @@ s32 func0f117c80(struct var800a3180 *arg0, s32 *arg1)
 	if (arg0) {
 		s32 result;
 
+#if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
+#else
+		func000150e8(123, "pak.c");
+#endif
 		result = func0004ce60(arg0, arg1);
+#if VERSION >= VERSION_NTSC_1_0
 		func00015144();
+#else
+		func00015144(123, "pak.c");
+#endif
 
 		return result;
 	}
@@ -1052,9 +1088,17 @@ s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
 	if (arg0) {
 		s32 result;
 
+#if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
+#else
+		func000150e8(123, "pak.c");
+#endif
 		result = func00050a00(arg0, arg1, note);
+#if VERSION >= VERSION_NTSC_1_0
 		func00015144();
+#else
+		func00015144(123, "pak.c");
+#endif
 
 		return result;
 	}
@@ -1145,9 +1189,17 @@ s32 func0f117ec0(struct var800a3180 *arg0, u16 company_code, u32 game_code, u8 *
 	if (arg0) {
 		s32 result;
 
+#if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
+#else
+		func000150e8(123, "pak.c");
+#endif
 		result = func00006550(arg0, company_code, game_code, game_name, ext_name, numbytes);
+#if VERSION >= VERSION_NTSC_1_0
 		func00015144();
+#else
+		func00015144(123, "pak.c");
+#endif
 
 		return result;
 	}
@@ -4881,9 +4933,17 @@ s32 func0f11a504(s8 arg0, s32 arg1, s32 arg2, u8 operation, u32 address, u32 len
 	s32 result;
 	len = func0f1165f8(arg0, len);
 
+#if VERSION >= VERSION_NTSC_1_0
 	func000150e8();
+#else
+	func000150e8(123, "pak.c");
+#endif
 	result = func0f117b4c(arg1, arg2, operation, address, len, buffer);
+#if VERSION >= VERSION_NTSC_1_0
 	func00015144();
+#else
+	func00015144(123, "pak.c");
+#endif
 
 	return result;
 }
@@ -7631,10 +7691,18 @@ void pakExecuteDebugOperations(void)
 
 	if (g_PakDebugPakInit) {
 		s32 device = g_PakDebugPakInit - 1;
+#if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
+#else
+		func000150e8(123, "pak.c");
+#endif
 
 		func0f117b04(&var80099e78, (device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device]), device, 0);
+#if VERSION >= VERSION_NTSC_1_0
 		func00015144();
+#else
+		func00015144(123, "pak.c");
+#endif
 		g_PakDebugPakInit = false;
 	}
 
@@ -9964,9 +10032,17 @@ void pakProbeEeprom(void)
 {
 	s32 type;
 
+#if VERSION >= VERSION_NTSC_1_0
 	func000150e8();
+#else
+	func000150e8(123, "pak.c");
+#endif
 	type = osEepromProbe(&var80099e78);
+#if VERSION >= VERSION_NTSC_1_0
 	func00015144();
+#else
+	func00015144(123, "pak.c");
+#endif
 
 	if (type == EEPROM_TYPE_16K) {
 		g_PakHasEeprom = true;
@@ -9985,9 +10061,17 @@ s32 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 {
 	s32 result;
 
+#if VERSION >= VERSION_NTSC_1_0
 	func000150e8();
+#else
+	func000150e8(123, "pak.c");
+#endif
 	result = osEepromLongRead(&var80099e78, address, buffer, len);
+#if VERSION >= VERSION_NTSC_1_0
 	func00015144();
+#else
+	func00015144(123, "pak.c");
+#endif
 
 	return result == 0 ? 0 : 0x81;
 }
@@ -9996,9 +10080,17 @@ s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
 {
 	s32 result;
 
+#if VERSION >= VERSION_NTSC_1_0
 	func000150e8();
+#else
+	func000150e8(123, "pak.c");
+#endif
 	result = osEepromLongWrite(&var80099e78, address, buffer, len);
+#if VERSION >= VERSION_NTSC_1_0
 	func00015144();
+#else
+	func00015144(123, "pak.c");
+#endif
 
 	return result == 0 ? 0 : 0x82;
 }
@@ -10181,7 +10273,11 @@ s32 func0f11e844(s8 device)
 		return 0;
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	func000150e8();
+#else
+	func000150e8(123, "pak.c");
+#endif
 
 	value = func00050d60(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device], sp38, &sp37);
 
@@ -10230,7 +10326,11 @@ s32 func0f11e844(s8 device)
 		}
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	func00015144();
+#else
+	func00015144(123, "pak.c");
+#endif
 
 	if (sp24) {
 		return sp2c;

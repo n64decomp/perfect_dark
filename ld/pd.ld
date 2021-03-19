@@ -5,8 +5,16 @@
 #define VERSION_PAL_FINAL  4
 #define VERSION_JPN_FINAL  5
 
-#include "gamefiles.inc"
-#include "libfiles.inc"
+#if VERSION == VERSION_NTSC_BETA
+#include "gamefiles.ntsc-beta.inc"
+#include "libfiles.ntsc-beta.inc"
+#elif VERSION == VERSION_PAL_FINAL
+#include "gamefiles.pal-final.inc"
+#include "libfiles.pal-final.inc"
+#else
+#include "gamefiles.ntsc-final.inc"
+#include "libfiles.ntsc-final.inc"
+#endif
 
 #define BEGIN_SEG(name) \
 	_##name##SegmentStart = ADDR(.name); \
@@ -225,7 +233,7 @@ SECTIONS
 	__rompos = 0x02000000;
 	__rampos = 0x70001000;
 
-	BEGIN_SEG(lib)
+	BEGIN_SEG(lib) SUBALIGN(16)
 	{
 		LIBFILES(.text)
 		LIBFILES(.rodata)

@@ -67,9 +67,9 @@ void memInit(u32 heapstart, u32 heaplen)
 	g_OnboardMemoryPools[MEMPOOL_STAGE].rightpos = heapstart + heaplen;
 
 	// If 8MB, reserve the entire expansion pak for additional mempool 4
-	extraend = 0x80000000 + osGetMemSize();
+	extraend = 0x80000000 + initGetMemSize();
 
-	if (osGetMemSize() > 4 * 1024 * 1024) {
+	if (initGetMemSize() > 4 * 1024 * 1024) {
 		g_ExpansionMemoryPools[MEMPOOL_STAGE].start = 0x80400000;
 		g_ExpansionMemoryPools[MEMPOOL_STAGE].rightpos = extraend;
 	}
@@ -171,6 +171,7 @@ glabel memAllocFromBank
 //	return allocation;
 //}
 
+#if VERSION >= VERSION_NTSC_1_0
 void *malloc(u32 len, u8 pool)
 {
 	void *allocation = (void *)memAllocFromBank(g_OnboardMemoryPools, len, pool);
@@ -187,6 +188,86 @@ void *malloc(u32 len, u8 pool)
 
 	return allocation;
 }
+#else
+GLOBAL_ASM(
+glabel malloc
+/*    12838:	27bdff78 */ 	addiu	$sp,$sp,-136
+/*    1283c:	afa40088 */ 	sw	$a0,0x88($sp)
+/*    12840:	afbf001c */ 	sw	$ra,0x1c($sp)
+/*    12844:	afa5008c */ 	sw	$a1,0x8c($sp)
+/*    12848:	3c04800a */ 	lui	$a0,0x800a
+/*    1284c:	2484c280 */ 	addiu	$a0,$a0,-15744
+/*    12850:	93a6008f */ 	lbu	$a2,0x8f($sp)
+/*    12854:	0c0049f1 */ 	jal	0x127c4
+/*    12858:	8fa50088 */ 	lw	$a1,0x88($sp)
+/*    1285c:	10400003 */ 	beqz	$v0,.NB0001286c
+/*    12860:	3c04800a */ 	lui	$a0,0x800a
+/*    12864:	10000036 */ 	beqz	$zero,.NB00012940
+/*    12868:	8fbf001c */ 	lw	$ra,0x1c($sp)
+.NB0001286c:
+/*    1286c:	2484c338 */ 	addiu	$a0,$a0,-15560
+/*    12870:	8fa50088 */ 	lw	$a1,0x88($sp)
+/*    12874:	0c0049f1 */ 	jal	0x127c4
+/*    12878:	93a6008f */ 	lbu	$a2,0x8f($sp)
+/*    1287c:	10400003 */ 	beqz	$v0,.NB0001288c
+/*    12880:	afa20084 */ 	sw	$v0,0x84($sp)
+/*    12884:	1000002e */ 	beqz	$zero,.NB00012940
+/*    12888:	8fbf001c */ 	lw	$ra,0x1c($sp)
+.NB0001288c:
+/*    1288c:	93a2008f */ 	lbu	$v0,0x8f($sp)
+/*    12890:	24010008 */ 	addiu	$at,$zero,0x8
+/*    12894:	10410028 */ 	beq	$v0,$at,.NB00012938
+/*    12898:	24010007 */ 	addiu	$at,$zero,0x7
+/*    1289c:	10410026 */ 	beq	$v0,$at,.NB00012938
+/*    128a0:	8fae0088 */ 	lw	$t6,0x88($sp)
+/*    128a4:	11c00024 */ 	beqz	$t6,.NB00012938
+/*    128a8:	24010004 */ 	addiu	$at,$zero,0x4
+/*    128ac:	14410011 */ 	bne	$v0,$at,.NB000128f4
+/*    128b0:	24040006 */ 	addiu	$a0,$zero,0x6
+/*    128b4:	24040004 */ 	addiu	$a0,$zero,0x4
+/*    128b8:	0c004a7c */ 	jal	0x129f0
+/*    128bc:	00002825 */ 	or	$a1,$zero,$zero
+/*    128c0:	afa20028 */ 	sw	$v0,0x28($sp)
+/*    128c4:	24040004 */ 	addiu	$a0,$zero,0x4
+/*    128c8:	0c004a91 */ 	jal	0x12a44
+/*    128cc:	00002825 */ 	or	$a1,$zero,$zero
+/*    128d0:	3c057005 */ 	lui	$a1,0x7005
+/*    128d4:	24a556f0 */ 	addiu	$a1,$a1,0x56f0
+/*    128d8:	27a40034 */ 	addiu	$a0,$sp,0x34
+/*    128dc:	8fa60088 */ 	lw	$a2,0x88($sp)
+/*    128e0:	8fa70028 */ 	lw	$a3,0x28($sp)
+/*    128e4:	0c004fc1 */ 	jal	0x13f04
+/*    128e8:	afa20010 */ 	sw	$v0,0x10($sp)
+/*    128ec:	1000000e */ 	beqz	$zero,.NB00012928
+/*    128f0:	00000000 */ 	sll	$zero,$zero,0x0
+.NB000128f4:
+/*    128f4:	0c004a7c */ 	jal	0x129f0
+/*    128f8:	00002825 */ 	or	$a1,$zero,$zero
+/*    128fc:	afa20028 */ 	sw	$v0,0x28($sp)
+/*    12900:	24040006 */ 	addiu	$a0,$zero,0x6
+/*    12904:	0c004a91 */ 	jal	0x12a44
+/*    12908:	00002825 */ 	or	$a1,$zero,$zero
+/*    1290c:	3c057005 */ 	lui	$a1,0x7005
+/*    12910:	24a55710 */ 	addiu	$a1,$a1,0x5710
+/*    12914:	27a40034 */ 	addiu	$a0,$sp,0x34
+/*    12918:	8fa60088 */ 	lw	$a2,0x88($sp)
+/*    1291c:	8fa70028 */ 	lw	$a3,0x28($sp)
+/*    12920:	0c004fc1 */ 	jal	0x13f04
+/*    12924:	afa20010 */ 	sw	$v0,0x10($sp)
+.NB00012928:
+/*    12928:	0c003074 */ 	jal	0xc1d0
+/*    1292c:	27a40034 */ 	addiu	$a0,$sp,0x34
+/*    12930:	240f0045 */ 	addiu	$t7,$zero,0x45
+/*    12934:	a00f0000 */ 	sb	$t7,0x0($zero)
+.NB00012938:
+/*    12938:	8fa20084 */ 	lw	$v0,0x84($sp)
+/*    1293c:	8fbf001c */ 	lw	$ra,0x1c($sp)
+.NB00012940:
+/*    12940:	27bd0088 */ 	addiu	$sp,$sp,0x88
+/*    12944:	03e00008 */ 	jr	$ra
+/*    12948:	00000000 */ 	sll	$zero,$zero,0x0
+);
+#endif
 
 /**
  * Reallocate the given allocation in the given pool.
@@ -241,6 +322,52 @@ u32 memGetFree(u8 poolnum, u32 bank)
 
 	return pool->rightpos - pool->leftpos;
 }
+
+#if VERSION == VERSION_NTSC_BETA
+GLOBAL_ASM(
+glabel func00012a44nb
+/*    12a44:	afa40000 */ 	sw	$a0,0x0($sp)
+/*    12a48:	308e00ff */ 	andi	$t6,$a0,0xff
+/*    12a4c:	14a00008 */ 	bnez	$a1,.NB00012a70
+/*    12a50:	01c02025 */ 	or	$a0,$t6,$zero
+/*    12a54:	000e7880 */ 	sll	$t7,$t6,0x2
+/*    12a58:	01ee7821 */ 	addu	$t7,$t7,$t6
+/*    12a5c:	3c18800a */ 	lui	$t8,0x800a
+/*    12a60:	2718c280 */ 	addiu	$t8,$t8,-15744
+/*    12a64:	000f7880 */ 	sll	$t7,$t7,0x2
+/*    12a68:	10000007 */ 	beqz	$zero,.NB00012a88
+/*    12a6c:	01f81821 */ 	addu	$v1,$t7,$t8
+.NB00012a70:
+/*    12a70:	0004c880 */ 	sll	$t9,$a0,0x2
+/*    12a74:	0324c821 */ 	addu	$t9,$t9,$a0
+/*    12a78:	3c08800a */ 	lui	$t0,0x800a
+/*    12a7c:	2508c338 */ 	addiu	$t0,$t0,-15560
+/*    12a80:	0019c880 */ 	sll	$t9,$t9,0x2
+/*    12a84:	03281821 */ 	addu	$v1,$t9,$t0
+.NB00012a88:
+/*    12a88:	8c690008 */ 	lw	$t1,0x8($v1)
+/*    12a8c:	8c6a0000 */ 	lw	$t2,0x0($v1)
+/*    12a90:	03e00008 */ 	jr	$ra
+/*    12a94:	012a1023 */ 	subu	$v0,$t1,$t2
+);
+#endif
+
+#if VERSION == VERSION_NTSC_BETA
+GLOBAL_ASM(
+glabel func00012a98nb
+/*    12a98:	27bdffe8 */ 	addiu	$sp,$sp,-24
+/*    12a9c:	00802825 */ 	or	$a1,$a0,$zero
+/*    12aa0:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*    12aa4:	30ae000f */ 	andi	$t6,$a1,0xf
+/*    12aa8:	01c02825 */ 	or	$a1,$t6,$zero
+/*    12aac:	0c004a0e */ 	jal	0x12838
+/*    12ab0:	00042102 */ 	srl	$a0,$a0,0x4
+/*    12ab4:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*    12ab8:	27bd0018 */ 	addiu	$sp,$sp,0x18
+/*    12abc:	03e00008 */ 	jr	$ra
+/*    12ac0:	00000000 */ 	sll	$zero,$zero,0x0
+);
+#endif
 
 /**
  * Reset the pool's left side to its start address, effectively freeing the left
