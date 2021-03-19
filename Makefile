@@ -97,6 +97,7 @@ $(B_DIR)/lib/ultra/io/visetyscale.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/io/viswapbuf.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/libc/ll.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/libc/llcvt.o: OPT_LVL := -O1
+$(B_DIR)/lib/ultra/os/atomic.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/createmesgqueue.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/destroythread.o: OPT_LVL := -O1
 $(B_DIR)/lib/ultra/os/gettime.o: OPT_LVL := -O1
