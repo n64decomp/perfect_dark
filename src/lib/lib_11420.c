@@ -2002,7 +2002,7 @@ glabel func00011d84
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00012574nb
 /*    12574:	308e00ff */ 	andi	$t6,$a0,0xff

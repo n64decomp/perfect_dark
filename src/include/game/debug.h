@@ -6,8 +6,8 @@
 
 u32 dprint();
 s32 debug0f11ed70(void);
-bool debug0f11ed78(void);
-bool debug0f11ed80(void);
+bool debugEnableBgRendering(void);
+bool debugEnablePropRendering(void);
 bool debug0f11edb0(void);
 bool debug0f11edb8(void);
 bool debugIsRoomStateDebugEnabled(void);
@@ -19,7 +19,7 @@ u32 debugGetSlowMotion(void);
 bool debug0f11ee88(void);
 bool debug0f11ee90(void);
 bool debug0f11eea8(void);
-bool debug0f11eeb0(void);
+bool debugDangerousProps(void);
 s32 debugGetMotionBlur(void);
 bool debugEnableFootsteps(void);
 bool debugAllowEndLevel(void);

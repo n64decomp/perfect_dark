@@ -36,6 +36,7 @@ u32 var8009d0cc;
 s32 g_ObjectiveLastIndex = -1;
 bool g_ObjectiveChecksDisabled = false;
 
+#if PIRACYCHECKS
 u32 xorBaffbeff(u32 value)
 {
 	return value ^ 0xbaffbeff;
@@ -51,10 +52,6 @@ u32 xorBoobless(u32 value)
 	return value ^ 0xb00b1e55;
 }
 
-/**
- * This is very likely to be an unused piracy check.
- * This function is never called.
- */
 void func0f095350(u32 arg0, u32 *arg1)
 {
 	volatile u32 *ptr;
@@ -74,6 +71,7 @@ void func0f095350(u32 arg0, u32 *arg1)
 
 	__osPiRelAccess();
 }
+#endif
 
 void tagsAllocatePtrs(void)
 {
@@ -361,6 +359,7 @@ void objectivesDisableChecking(void)
 	g_ObjectiveChecksDisabled = true;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
@@ -376,6 +375,7 @@ void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
 
 	setCurrentPlayerNum(prevplayernum);
 }
+#endif
 
 void objectivesCheckAll(void)
 {
@@ -393,6 +393,9 @@ void objectivesCheckAll(void)
 				if (objectiveGetDifficultyBits(i) & (1 << coreGetDifficulty())) {
 					sprintf(buffer, "%s %d: ", langGet(L_MISC_044), availableindex + 1); // "Objective"
 
+#if VERSION >= VERSION_NTSC_1_0
+					// NTSC 1.0 and above shows objective messages to everyone,
+					// while beta only shows them to the current player.
 					if (status == OBJECTIVE_COMPLETE) {
 						strcat(buffer, langGet(L_MISC_045)); // "Completed"
 						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
@@ -403,6 +406,18 @@ void objectivesCheckAll(void)
 						strcat(buffer, langGet(L_MISC_047)); // "Failed"
 						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVEFAILED);
 					}
+#else
+					if (status == OBJECTIVE_COMPLETE) {
+						strcat(buffer, langGet(L_MISC_045)); // "Completed"
+						func0f0ddfa4(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, 24);
+					} else if (status == OBJECTIVE_INCOMPLETE) {
+						strcat(buffer, langGet(L_MISC_046)); // "Incomplete"
+						func0f0ddfa4(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, 24);
+					} else if (status == OBJECTIVE_FAILED) {
+						strcat(buffer, langGet(L_MISC_047)); // "Failed"
+						func0f0ddfa4(buffer, HUDMSGTYPE_OBJECTIVEFAILED, 24);
+					}
+#endif
 				}
 			}
 

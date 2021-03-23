@@ -134,7 +134,9 @@
 	build/ROMID/game/padhalllv.o (section); \
 	build/ROMID/game/pad.o (section); \
 	build/ROMID/game/pak/pak.o (section); \
-	build/ROMID/game/debug.o (section); \
+	build/ROMID/game/debug1.o (section); \
+	build/ROMID/game/debug2.o (section); \
+	build/ROMID/game/debug3.o (section); \
 	build/ROMID/game/stubs/game_11eff0.o (section); \
 	build/ROMID/game/data/ailists.o (section); \
 	build/ROMID/game/data/data_020df0.o (section); \
@@ -173,6 +175,7 @@
 	build/ROMID/game/music.o (section); \
 	build/ROMID/game/lang.o (section); \
 	build/ROMID/game/texture.o (section); \
+	build/ROMID/game/game_173520.o (section); \
 	build/ROMID/game/game_173a00.o (section); \
 	build/ROMID/game/stubs/game_175f50.o (section); \
 	build/ROMID/game/game_175f90.o (section); \
@@ -186,6 +189,7 @@
 	build/ROMID/game/radar.o (section); \
 	build/ROMID/game/game_190260.o (section); \
 	build/ROMID/game/game_197600.o (section); \
+	build/ROMID/game/game_197c00.o (section); \
 	build/ROMID/game/game_1999b0.o (section); \
 	build/ROMID/game/game_19aa80.o (section); \
 	build/ROMID/game/training/training.o (section); \

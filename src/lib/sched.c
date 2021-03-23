@@ -159,7 +159,7 @@ void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, OSScClient *ne
 	osSetIntMask(mask);
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel osScRemoveClient
 /*     205c:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -622,7 +622,7 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 	}
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00002d68nb
 /*     2d68:	8c8300c8 */ 	lw	$v1,0xc8($a0)

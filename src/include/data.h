@@ -307,8 +307,13 @@ extern s32 g_ScissorX2;
 extern s32 g_ScissorY1;
 extern s32 g_ScissorY2;
 extern u32 var800711f0;
+#if VERSION >= VERSION_NTSC_1_0
 extern char *g_StringPointer;
 extern char *g_StringPointer2;
+#else
+extern char g_StringPointer[125];
+extern char g_StringPointer2[125];
+#endif
 extern s32 g_MpPlayerNum;
 extern u32 var800714d8;
 extern u16 g_ControlStyleOptions[];

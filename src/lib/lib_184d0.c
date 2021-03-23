@@ -1802,7 +1802,7 @@ glabel func00019d1c
 /*    19dd8:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel modelGetNodeData
 /*    1aeac:	27bdfff0 */ 	addiu	$sp,$sp,-16

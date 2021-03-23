@@ -280,10 +280,12 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk2cc = 0;
 					aibot->unk2d0 = random();
 					aibot->unk2d4 = random() * (1.0f / U32_MAX);
-					aibot->unk078 = 0;
 					aibot->cheap = false;
+#if VERSION >= VERSION_NTSC_1_0
+					aibot->unk078 = 0;
 					aibot->unk050 = 0;
 					aibot->unk09d = 0;
+#endif
 				} else {
 					g_MpSimulantChrs[--g_NumMpSimulantChrs] = NULL;
 					return;

@@ -497,6 +497,7 @@ char *mpMenuTextPlayerTitle(s32 arg0)
 	return langGet(L_MISC_185 + g_MpPlayers[g_MpPlayerNum].title);
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel menuhandler00178bf4
 /*  f178bf4:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -626,12 +627,16 @@ glabel menuhandler00178bf4
 /*  f178db4:	03e00008 */ 	jr	$ra
 /*  f178db8:	00000000 */ 	nop
 );
+#endif
 
 void mpPushPauseDialog(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
-	if (g_MpSetup.paused != MPPAUSEMODE_GAMEOVER && var8005d9d0 == 0) {
+#if VERSION >= VERSION_NTSC_1_0
+	if (g_MpSetup.paused != MPPAUSEMODE_GAMEOVER && var8005d9d0 == 0)
+#endif
+	{
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
 		if (g_Menus[g_MpPlayerNum].unk83c == 0) {
@@ -679,12 +684,14 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 		menuPushRootDialog(&g_MpEndscreenIndGameOverMenuDialog, MENUROOT_MPENDSCREEN);
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	if ((g_MpPlayers[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
 			&& g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false
 			&& g_MpPlayers[g_MpPlayerNum].unk4c.unk04 == 0) {
 		g_MpPlayers[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
 		menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
 	}
+#endif
 
 	g_MpPlayerNum = prevplayernum;
 }
@@ -749,7 +756,9 @@ struct menudialog g_MpEndscreenChallengeFailedMenuDialog = {
 
 struct menuitem g_MpEndscreenConfirmNameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_250, 0x00000000, NULL }, // "Confirm player name:"
+#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandler00178bf4 },
+#endif
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

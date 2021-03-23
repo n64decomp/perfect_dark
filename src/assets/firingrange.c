@@ -640,7 +640,7 @@ u8 weapon_crossbow[] = {
 	set_max_active_targets(3, 3, 1),
 	set_score_multiplier(0, 0, 1),
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 	set_goal_score(72, 90, 200),
 #else
 	set_goal_score(72, 90, 150),

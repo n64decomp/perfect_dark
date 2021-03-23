@@ -148,7 +148,7 @@ void func000139c8(void)
 #endif
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 // Same function as the one a couple above, just relocated
 u32 func00013980(void)
 {
@@ -436,7 +436,7 @@ u32 contGetConnectedControllers(void)
 	return g_ConnectedControllers;
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00014e9cnb
 /*    14e9c:	3c018006 */ 	lui	$at,0x8006
@@ -447,7 +447,7 @@ glabel func00014e9cnb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00014eb0nb
 /*    14eb0:	3c018006 */ 	lui	$at,0x8006
@@ -500,7 +500,7 @@ void contConsumeSamples(struct contdata *contdata)
 	}
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0001509cnb
 /*    1509c:	3c0e8006 */ 	lui	$t6,0x8006
@@ -1176,7 +1176,7 @@ u16 contGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
 	return g_ContDataPtr->buttonspressed[contpadnum] & mask;
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00015fa4nb
 /*    15fa4:	3c038006 */ 	lui	$v1,0x8006
@@ -1266,7 +1266,7 @@ void func00015144(
 	}
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00016130nb
 /*    16130:	000471c0 */ 	sll	$t6,$a0,0x7

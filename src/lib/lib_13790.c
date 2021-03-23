@@ -29,7 +29,7 @@ void func000137a8(void)
 }
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00013fe0nb
 /*    13fe0:	afa40000 */ 	sw	$a0,0x0($sp)
@@ -39,7 +39,7 @@ glabel func00013fe0nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00013ff0nb
 /*    13ff0:	afa40000 */ 	sw	$a0,0x0($sp)
@@ -49,7 +49,7 @@ glabel func00013ff0nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00014000nb
 /*    14000:	03e00008 */ 	jr	$ra
@@ -57,7 +57,7 @@ glabel func00014000nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00014008nb
 /*    14008:	3c0e8006 */ 	lui	$t6,0x8006
@@ -136,7 +136,7 @@ glabel func00014008nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00014124nb
 /*    14124:	3c0e8006 */ 	lui	$t6,0x8006
@@ -155,7 +155,7 @@ glabel func00014124nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00014154nb
 /*    14154:	3c078006 */ 	lui	$a3,0x8006
@@ -248,7 +248,7 @@ glabel func00014154nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0001429cnb
 /*    1429c:	3c0e8006 */ 	lui	$t6,0x8006
@@ -269,7 +269,7 @@ glabel func0001429cnb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func000142d4nb
 /*    142d4:	27bdffd8 */ 	addiu	$sp,$sp,-40

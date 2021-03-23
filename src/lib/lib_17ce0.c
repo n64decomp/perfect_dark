@@ -75,7 +75,7 @@ glabel func00017ce0
 /*    17dc0:	e4b00008 */ 	swc1	$f16,0x8($a1)
 );
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00018e34nb
 /*    18e34:	3c0e800b */ 	lui	$t6,0x800b

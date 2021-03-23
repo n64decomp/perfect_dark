@@ -907,10 +907,27 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 
 		if (chr && chr->prop && chr->model) {
 			if (cheatIsActive(CHEAT_MARQUIS)) {
+				// NTSC 1.0 and newer simplifies the Marqis logic
+#if VERSION >= VERSION_NTSC_1_0
 				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
 				weapon->base.flags |= OBJFLAG_20000000;
 				weaponLoadProjectileModels(weapon->weaponnum);
 				func0f08b25c(weapon, chr);
+#else
+				if (g_Vars.stagenum == STAGE_INVESTIGATION
+						&& coreGetDifficulty() == DIFF_PA
+						&& weapon->weaponnum == WEAPON_K7AVENGER) {
+					weaponLoadProjectileModels(weapon->weaponnum);
+					func0f08b25c(weapon, chr);
+				} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
+					weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
+					weapon->base.flags |= OBJFLAG_20000000;
+					weaponLoadProjectileModels(weapon->weaponnum);
+					func0f08b25c(weapon, chr);
+				} else {
+					weapon->weaponnum = WEAPON_NONE;
+				}
+#endif
 			} else {
 				if (cheatIsActive(CHEAT_ENEMYROCKETS)) {
 					switch (weapon->weaponnum) {
@@ -951,7 +968,8 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 						break;
 					case WEAPON_K7AVENGER:
 						// Don't replace the K7 guard's weapon in Investigation
-						// because it would make an objective impossible
+						// because it would make an objective impossible.
+						// @bug: It's still replaced on PD mode difficulty.
 						if (g_Vars.stagenum != STAGE_INVESTIGATION || coreGetDifficulty() != DIFF_PA) {
 							weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
 							weapon->base.modelnum = MODEL_CHRDYROCKET;

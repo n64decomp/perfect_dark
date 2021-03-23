@@ -323,7 +323,7 @@ u32 memGetFree(u8 poolnum, u32 bank)
 	return pool->rightpos - pool->leftpos;
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00012a44nb
 /*    12a44:	afa40000 */ 	sw	$a0,0x0($sp)
@@ -352,7 +352,7 @@ glabel func00012a44nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00012a98nb
 /*    12a98:	27bdffe8 */ 	addiu	$sp,$sp,-24

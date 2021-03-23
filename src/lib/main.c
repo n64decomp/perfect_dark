@@ -1595,7 +1595,7 @@ u32 var8005dd50 = 0x00000000;
 s32 g_MainStageNum = -1;
 u32 var8005dd58 = 0x00000000;
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000e000nb
 /*     e000:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -1605,7 +1605,7 @@ glabel func0000e000nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000e010nb
 /*     e010:	3c028006 */ 	lui	$v0,0x8006

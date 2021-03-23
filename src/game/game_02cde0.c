@@ -1106,7 +1106,12 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 			chr->chrheight = 200;
 			func0f02e9a0(chr, 0);
 			chr->chrflags |= CHRCFLAG_HIDDEN;
+
+#if VERSION >= VERSION_NTSC_1_0
 			chr->hidden2 |= CHRH2FLAG_0040;
+#else
+			chr->hidden |= CHRHFLAG_00000200;
+#endif
 
 			return prop;
 		}

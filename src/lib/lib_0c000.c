@@ -124,7 +124,7 @@ void faultproc(void *arg0);
 u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen);
 void crashPrintDescription(u32 mask, char *label, struct crashdescription *descriptions);
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c1d0nb
 /*     c1d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -171,7 +171,7 @@ void faultproc(void *arg0)
 
 		osSetIntMask(mask);
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 		crashRender(thread, callstack, &tracelen);
 		func00001b1c(true);
 #endif
@@ -310,7 +310,7 @@ bool crashIsReturnAddress(u32 *instruction)
 	return false;
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c4f0nb
 /*     c4f0:	90820000 */ 	lbu	$v0,0x0($a0)
@@ -333,7 +333,7 @@ glabel func0000c4f0nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c52cnb
 /*     c52c:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -383,7 +383,7 @@ glabel func0000c52cnb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c5d8nb
 /*     c5d8:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -427,7 +427,7 @@ glabel func0000c5d8nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c660nb
 /*     c660:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -446,7 +446,7 @@ glabel func0000c660nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c694nb
 /*     c694:	3c078009 */ 	lui	$a3,0x8009
@@ -488,7 +488,7 @@ glabel func0000c694nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c714nb
 /*     c714:	3c078009 */ 	lui	$a3,0x8009
@@ -530,7 +530,7 @@ glabel func0000c714nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c794nb
 /*     c794:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -547,7 +547,7 @@ glabel func0000c794nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000c7c0nb
 /*     c7c0:	3c028009 */ 	lui	$v0,0x8009
@@ -1512,7 +1512,7 @@ void func0000cf54(u16 *fb)
 	}
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000d678nb
 /*     d678:	00000000 */ 	sll	$zero,$zero,0x0

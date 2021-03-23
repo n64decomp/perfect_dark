@@ -147,3 +147,25 @@ glabel func0f006ba0
 /*  f006bc8:	03e00008 */ 	jr	$ra
 /*  f006bcc:	46001006 */ 	mov.s	$f0,$f2
 );
+
+#if VERSION < VERSION_NTSC_1_0
+f32 func0f006bd0(f32 arg0)
+{
+	s32 ival = arg0 * 4.0f;
+	f32 fval = arg0 * 4.0f - (f32)(ival / 4) * 4.0f;
+
+	if (fval < 1.0f) {
+		return fval;
+	}
+
+	if (fval < 2.0f) {
+		return 1.0f;
+	}
+
+	if (fval < 3.0f) {
+		return 1.0f - (fval - 2.0f);
+	}
+
+	return 0.0f;
+}
+#endif

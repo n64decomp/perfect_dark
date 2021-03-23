@@ -28,107 +28,7 @@ f32 var80087e50[][3] = {
 	{ 450,  700,  4500  },
 };
 
-struct aibotweaponpreference g_AibotWeaponPreferences[] = {
-	/*0x00*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  0, 0 }, // WEAPON_NONE
-	/*0x01*/ { 13,  13,  13,  13,  1, 1, 0, 0, 0,    0,   0,  0,  0, 0 }, // WEAPON_UNARMED
-	/*0x02*/ { 56,  60,  84,  88,  1, 1, 1, 0, 30,   0,   10, 0,  1, 0 }, // WEAPON_FALCON2
-	/*0x03*/ { 52,  60,  80,  88,  1, 1, 1, 0, 30,   0,   10, 0,  1, 0 }, // WEAPON_FALCON2_SILENCER
-	/*0x04*/ { 60,  60,  88,  88,  1, 1, 1, 0, 30,   0,   10, 0,  1, 0 }, // WEAPON_FALCON2_SCOPE
-	/*0x05*/ { 76,  88,  104, 120, 1, 1, 1, 2, 30,   30,  10, 10, 1, 0 }, // WEAPON_MAGSEC4
-	/*0x06*/ { 64,  88,  92,  120, 1, 1, 1, 2, 30,   30,  10, 10, 1, 0 }, // WEAPON_MAULER
-	/*0x07*/ { 72,  76,  100, 120, 1, 1, 1, 2, 30,   30,  10, 10, 2, 0 }, // WEAPON_PHOENIX
-	/*0x08*/ { 68,  76,  96,  120, 1, 1, 1, 0, 30,   0,   8,  0,  3, 0 }, // WEAPON_DY357MAGNUM
-	/*0x09*/ { 180, 188, 184, 188, 1, 1, 1, 0, 20,   0,   6,  0,  3, 0 }, // WEAPON_DY357LX
-	/*0x0a*/ { 116, 128, 136, 152, 1, 1, 2, 2, 100,  100, 30, 30, 2, 0 }, // WEAPON_CMP150
-	/*0x0b*/ { 120, 128, 132, 140, 1, 1, 2, 2, 150,  150, 50, 50, 2, 0 }, // WEAPON_CYCLONE
-	/*0x0c*/ { 152, 176, 0,   0,   1, 1, 2, 2, 100,  70,  25, 15, 2, 0 }, // WEAPON_CALLISTONTG
-	/*0x0d*/ { 172, 188, 0,   0,   1, 0, 2, 2, 300,  0,   40, 0,  2, 0 }, // WEAPON_RCP120
-	/*0x0e*/ { 128, 140, 0,   0,   1, 1, 2, 2, 100,  0,   30, 0,  3, 0 }, // WEAPON_LAPTOPGUN
-	/*0x0f*/ { 124, 148, 0,   0,   1, 1, 2, 2, 90,   0,   30, 0,  1, 0 }, // WEAPON_DRAGON
-	/*0x10*/ { 156, 180, 0,   0,   1, 0, 2, 2, 150,  0,   40, 0,  2, 0 }, // WEAPON_K7AVENGER
-	/*0x11*/ { 148, 176, 0,   0,   1, 0, 2, 2, 120,  0,   40, 0,  2, 0 }, // WEAPON_AR34
-	/*0x12*/ { 164, 188, 0,   0,   1, 1, 2, 3, 120,  20,  30, 6,  1, 0 }, // WEAPON_SUPERDRAGON
-	/*0x13*/ { 140, 156, 0,   0,   1, 1, 1, 1, 18,   18,  8,  8,  6, 1 }, // WEAPON_SHOTGUN
-	/*0x14*/ { 144, 176, 0,   0,   1, 1, 2, 0, 400,  0,   80, 0,  3, 0 }, // WEAPON_REAPER
-	/*0x15*/ { 28,  40,  0,   0,   1, 0, 2, 2, 30,   30,  10, 10, 2, 0 }, // WEAPON_SNIPERRIFLE
-	/*0x16*/ { 188, 188, 0,   0,   1, 0, 3, 5, 16,   0,   4,  0,  2, 0 }, // WEAPON_FARSIGHTXR20
-	/*0x17*/ { 176, 188, 0,   0,   1, 1, 3, 3, 20,   20,  4,  4,  2, 0 }, // WEAPON_DEVASTATOR
-	/*0x18*/ { 160, 188, 0,   0,   1, 1, 3, 3, 2,    2,   1,  1,  2, 0 }, // WEAPON_ROCKETLAUNCHER
-	/*0x19*/ { 168, 188, 0,   0,   1, 1, 3, 3, 2,    2,   1,  1,  3, 0 }, // WEAPON_SLAYER
-	/*0x1a*/ { 20,  40,  24,  40,  1, 1, 0, 2, 0,    5,   0,  1,  1, 0 }, // WEAPON_COMBATKNIFE
-	/*0x1b*/ { 108, 176, 0,   0,   1, 1, 2, 2, 15,   15,  5,  5,  4, 1 }, // WEAPON_CROSSBOW
-	/*0x1c*/ { 48,  188, 0,   0,   1, 1, 2, 0, 20,   24,  6,  8,  1, 0 }, // WEAPON_TRANQUILIZER
-	/*0x1d*/ { 112, 112, 0,   0,   1, 1, 2, 0, 0,    0,   0,  0,  1, 0 }, // WEAPON_LASER
-	/*0x1e*/ { 36,  172, 0,   0,   1, 1, 7, 7, 6,    6,   2,  2,  1, 0 }, // WEAPON_GRENADE
-	/*0x1f*/ { 32,  188, 0,   0,   1, 1, 7, 7, 3,    3,   1,  1,  1, 0 }, // WEAPON_NBOMB
-	/*0x20*/ { 12,  12,  0,   0,   0, 0, 7, 2, 5,    5,   1,  1,  1, 0 }, // WEAPON_TIMEDMINE
-	/*0x21*/ { 40,  176, 0,   0,   0, 0, 7, 2, 5,    5,   1,  1,  1, 0 }, // WEAPON_PROXIMITYMINE
-	/*0x22*/ { 44,  156, 0,   0,   1, 0, 2, 2, 5,    5,   2,  2,  1, 0 }, // WEAPON_REMOTEMINE
-	/*0x23*/ { 8,   8,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_COMBATBOOST
-	/*0x24*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_PP9I
-	/*0x25*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_CC13
-	/*0x26*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KL01313
-	/*0x27*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KF7SPECIAL
-	/*0x28*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_ZZT
-	/*0x29*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_DMC
-	/*0x2a*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_AR53
-	/*0x2b*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_RCP45
-	/*0x2c*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_PSYCHOSISGUN
-	/*0x2d*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_NIGHTVISION
-	/*0x2e*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_EYESPY
-	/*0x2f*/ { 4,   4,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_XRAYSCANNER
-	/*0x30*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_IRSCANNER
-#if PAL
-	/*0x31*/ { 218, 218, 0,   0,   0, 0, 2, 2, 1000, 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
-#else
-	/*0x31*/ { 218, 218, 0,   0,   0, 0, 2, 2, 1200, 0,   0,  0,  1, 0 }, // WEAPON_CLOAKINGDEVICE
-#endif
-	/*0x32*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_HORIZONSCANNER
-	/*0x33*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_TESTER
-	/*0x34*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_ROCKETLAUNCHER_34
-	/*0x35*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_ECMMINE
-	/*0x36*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_DATAUPLINK
-	/*0x37*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_RTRACKER
-	/*0x38*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_PRESIDENTSCANNER
-	/*0x39*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_DOORDECODER
-	/*0x3a*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_AUTOSURGEON
-	/*0x3b*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_EXPLOSIVES
-	/*0x3c*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SKEDARBOMB
-	/*0x3d*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_COMMSRIDER
-	/*0x3e*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_TRACERBUG
-	/*0x3f*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_TARGETAMPLIFIER
-	/*0x40*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_DISGUISE40
-	/*0x41*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_DISGUISE41
-	/*0x42*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_FLIGHTPLANS
-	/*0x43*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_RESEARCHTAPE
-	/*0x44*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BACKUPDISK
-	/*0x45*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD45
-	/*0x46*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD46
-	/*0x47*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD47
-	/*0x48*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD48
-	/*0x49*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD49
-	/*0x4a*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4A
-	/*0x4b*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4B
-	/*0x4c*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4C
-	/*0x4d*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SUITCASE
-	/*0x4e*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE
-	/*0x4f*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SHIELD
-	/*0x50*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_NECKLACE
-	/*0x51*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_HAMMER
-	/*0x52*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_52
-	/*0x53*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_ROCKET
-	/*0x54*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_HOMINGROCKET
-	/*0x55*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_GRENADEROUND
-	/*0x56*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BOLT
-	/*0x57*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE2
-	/*0x58*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_ROCKET2
-	/*0x59*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_59
-	/*0x5a*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_5A
-	/*0x5b*/ { 220, 220, 0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_MPSHIELD
-	/*0x5c*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_DISABLED
-	/*0x5d*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SUICIDEPILL
-};
-
+#if VERSION >= VERSION_NTSC_1_0
 void func0f197600(struct chrdata *chr)
 {
 	s32 index;
@@ -264,6 +164,312 @@ void func0f197600(struct chrdata *chr)
 		aibot->unk0d0 = PALDOWN(60);
 	}
 }
+#else
+GLOBAL_ASM(
+glabel func0f197600
+/*  f191680:	27bdff98 */ 	addiu	$sp,$sp,-104
+/*  f191684:	afbf0014 */ 	sw	$ra,0x14($sp)
+/*  f191688:	afa40068 */ 	sw	$a0,0x68($sp)
+/*  f19168c:	8c8802d4 */ 	lw	$t0,0x2d4($a0)
+/*  f191690:	24010004 */ 	addiu	$at,$zero,0x4
+/*  f191694:	00003825 */ 	or	$a3,$zero,$zero
+/*  f191698:	810f0074 */ 	lb	$t7,0x74($t0)
+/*  f19169c:	00004825 */ 	or	$t1,$zero,$zero
+/*  f1916a0:	afaf0050 */ 	sw	$t7,0x50($sp)
+/*  f1916a4:	8d180004 */ 	lw	$t8,0x4($t0)
+/*  f1916a8:	93190047 */ 	lbu	$t9,0x47($t8)
+/*  f1916ac:	57210004 */ 	bnel	$t9,$at,.NB0f1916c0
+/*  f1916b0:	8d05004c */ 	lw	$a1,0x4c($t0)
+/*  f1916b4:	1000000d */ 	beqz	$zero,.NB0f1916ec
+/*  f1916b8:	24030004 */ 	addiu	$v1,$zero,0x4
+/*  f1916bc:	8d05004c */ 	lw	$a1,0x4c($t0)
+.NB0f1916c0:
+/*  f1916c0:	8d040020 */ 	lw	$a0,0x20($t0)
+/*  f1916c4:	afa90048 */ 	sw	$t1,0x48($sp)
+/*  f1916c8:	00055080 */ 	sll	$t2,$a1,0x2
+/*  f1916cc:	000a2fc2 */ 	srl	$a1,$t2,0x1f
+/*  f1916d0:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f1916d4:	0fc64b86 */ 	jal	0xf192e18
+/*  f1916d8:	afa7004c */ 	sw	$a3,0x4c($sp)
+/*  f1916dc:	8fa7004c */ 	lw	$a3,0x4c($sp)
+/*  f1916e0:	8fa80054 */ 	lw	$t0,0x54($sp)
+/*  f1916e4:	8fa90048 */ 	lw	$t1,0x48($sp)
+/*  f1916e8:	00401825 */ 	or	$v1,$v0,$zero
+.NB0f1916ec:
+/*  f1916ec:	8fac0068 */ 	lw	$t4,0x68($sp)
+/*  f1916f0:	00035880 */ 	sll	$t3,$v1,0x2
+/*  f1916f4:	24010032 */ 	addiu	$at,$zero,0x32
+/*  f1916f8:	918402a0 */ 	lbu	$a0,0x2a0($t4)
+/*  f1916fc:	01635823 */ 	subu	$t3,$t3,$v1
+/*  f191700:	000b5880 */ 	sll	$t3,$t3,0x2
+/*  f191704:	1481003c */ 	bne	$a0,$at,.NB0f1917f8
+/*  f191708:	3c0d8009 */ 	lui	$t5,0x8009
+/*  f19170c:	8502000a */ 	lh	$v0,0xa($t0)
+/*  f191710:	3c068009 */ 	lui	$a2,0x8009
+/*  f191714:	24c6a618 */ 	addiu	$a2,$a2,-23016
+/*  f191718:	04400037 */ 	bltz	$v0,.NB0f1917f8
+/*  f19171c:	3c0e800b */ 	lui	$t6,0x800b
+/*  f191720:	00026880 */ 	sll	$t5,$v0,0x2
+/*  f191724:	8598017e */ 	lh	$t8,0x17e($t4)
+/*  f191728:	01cd7021 */ 	addu	$t6,$t6,$t5
+/*  f19172c:	8dce0d80 */ 	lw	$t6,0xd80($t6)
+/*  f191730:	01027821 */ 	addu	$t7,$t0,$v0
+/*  f191734:	2401ffff */ 	addiu	$at,$zero,-1
+/*  f191738:	91e9016c */ 	lbu	$t1,0x16c($t7)
+/*  f19173c:	13010049 */ 	beq	$t8,$at,.NB0f191864
+/*  f191740:	8dc7001c */ 	lw	$a3,0x1c($t6)
+/*  f191744:	10600003 */ 	beqz	$v1,.NB0f191754
+/*  f191748:	24010004 */ 	addiu	$at,$zero,0x4
+/*  f19174c:	14610045 */ 	bne	$v1,$at,.NB0f191864
+/*  f191750:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0f191754:
+/*  f191754:	8fa40068 */ 	lw	$a0,0x68($sp)
+/*  f191758:	afa30064 */ 	sw	$v1,0x64($sp)
+/*  f19175c:	afa60060 */ 	sw	$a2,0x60($sp)
+/*  f191760:	afa7004c */ 	sw	$a3,0x4c($sp)
+/*  f191764:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f191768:	0fc0a08c */ 	jal	0xf028230
+/*  f19176c:	afa90048 */ 	sw	$t1,0x48($sp)
+/*  f191770:	8fa7004c */ 	lw	$a3,0x4c($sp)
+/*  f191774:	c4460008 */ 	lwc1	$f6,0x8($v0)
+/*  f191778:	c44a000c */ 	lwc1	$f10,0xc($v0)
+/*  f19177c:	c4e40008 */ 	lwc1	$f4,0x8($a3)
+/*  f191780:	c4e8000c */ 	lwc1	$f8,0xc($a3)
+/*  f191784:	c4520010 */ 	lwc1	$f18,0x10($v0)
+/*  f191788:	46062001 */ 	sub.s	$f0,$f4,$f6
+/*  f19178c:	c4f00010 */ 	lwc1	$f16,0x10($a3)
+/*  f191790:	3c017f1b */ 	lui	$at,0x7f1b
+/*  f191794:	460a4081 */ 	sub.s	$f2,$f8,$f10
+/*  f191798:	46000102 */ 	mul.s	$f4,$f0,$f0
+/*  f19179c:	8fa30064 */ 	lw	$v1,0x64($sp)
+/*  f1917a0:	46128301 */ 	sub.s	$f12,$f16,$f18
+/*  f1917a4:	46021182 */ 	mul.s	$f6,$f2,$f2
+/*  f1917a8:	c43235b0 */ 	lwc1	$f18,0x35b0($at)
+/*  f1917ac:	0003c880 */ 	sll	$t9,$v1,0x2
+/*  f1917b0:	460c6282 */ 	mul.s	$f10,$f12,$f12
+/*  f1917b4:	3c0a8009 */ 	lui	$t2,0x8009
+/*  f1917b8:	0323c823 */ 	subu	$t9,$t9,$v1
+/*  f1917bc:	8fa60060 */ 	lw	$a2,0x60($sp)
+/*  f1917c0:	8fa80054 */ 	lw	$t0,0x54($sp)
+/*  f1917c4:	46062200 */ 	add.s	$f8,$f4,$f6
+/*  f1917c8:	8fa90048 */ 	lw	$t1,0x48($sp)
+/*  f1917cc:	0019c880 */ 	sll	$t9,$t9,0x2
+/*  f1917d0:	254aa5d0 */ 	addiu	$t2,$t2,-23088
+/*  f1917d4:	460a4400 */ 	add.s	$f16,$f8,$f10
+/*  f1917d8:	4612803c */ 	c.lt.s	$f16,$f18
+/*  f1917dc:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1917e0:	45000020 */ 	bc1f	.NB0f191864
+/*  f1917e4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1917e8:	032a3021 */ 	addu	$a2,$t9,$t2
+/*  f1917ec:	00403825 */ 	or	$a3,$v0,$zero
+/*  f1917f0:	1000001c */ 	beqz	$zero,.NB0f191864
+/*  f1917f4:	8d090128 */ 	lw	$t1,0x128($t0)
+.NB0f1917f8:
+/*  f1917f8:	25ada5d0 */ 	addiu	$t5,$t5,-23088
+/*  f1917fc:	2401002f */ 	addiu	$at,$zero,0x2f
+/*  f191800:	1481000b */ 	bne	$a0,$at,.NB0f191830
+/*  f191804:	016d3021 */ 	addu	$a2,$t3,$t5
+/*  f191808:	85020008 */ 	lh	$v0,0x8($t0)
+/*  f19180c:	3c0f800b */ 	lui	$t7,0x800b
+/*  f191810:	04400007 */ 	bltz	$v0,.NB0f191830
+/*  f191814:	00027080 */ 	sll	$t6,$v0,0x2
+/*  f191818:	01ee7821 */ 	addu	$t7,$t7,$t6
+/*  f19181c:	8def0d80 */ 	lw	$t7,0xd80($t7)
+/*  f191820:	01026021 */ 	addu	$t4,$t0,$v0
+/*  f191824:	9189016c */ 	lbu	$t1,0x16c($t4)
+/*  f191828:	1000000e */ 	beqz	$zero,.NB0f191864
+/*  f19182c:	8de7001c */ 	lw	$a3,0x1c($t7)
+.NB0f191830:
+/*  f191830:	8fb80068 */ 	lw	$t8,0x68($sp)
+/*  f191834:	2401ffff */ 	addiu	$at,$zero,-1
+/*  f191838:	8719017e */ 	lh	$t9,0x17e($t8)
+/*  f19183c:	03002025 */ 	or	$a0,$t8,$zero
+/*  f191840:	13210008 */ 	beq	$t9,$at,.NB0f191864
+/*  f191844:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191848:	afa60060 */ 	sw	$a2,0x60($sp)
+/*  f19184c:	0fc0a08c */ 	jal	0xf028230
+/*  f191850:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f191854:	8fa80054 */ 	lw	$t0,0x54($sp)
+/*  f191858:	8fa60060 */ 	lw	$a2,0x60($sp)
+/*  f19185c:	00403825 */ 	or	$a3,$v0,$zero
+/*  f191860:	8d090128 */ 	lw	$t1,0x128($t0)
+.NB0f191864:
+/*  f191864:	50e00095 */ 	beqzl	$a3,.NB0f191abc
+/*  f191868:	8fbf0014 */ 	lw	$ra,0x14($sp)
+/*  f19186c:	8ce40004 */ 	lw	$a0,0x4($a3)
+/*  f191870:	afa90048 */ 	sw	$t1,0x48($sp)
+/*  f191874:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f191878:	afa7004c */ 	sw	$a3,0x4c($sp)
+/*  f19187c:	0fc632b2 */ 	jal	0xf18cac8
+/*  f191880:	afa60060 */ 	sw	$a2,0x60($sp)
+/*  f191884:	8fa60060 */ 	lw	$a2,0x60($sp)
+/*  f191888:	8fa7004c */ 	lw	$a3,0x4c($sp)
+/*  f19188c:	8fa80054 */ 	lw	$t0,0x54($sp)
+/*  f191890:	10400089 */ 	beqz	$v0,.NB0f191ab8
+/*  f191894:	8fa90048 */ 	lw	$t1,0x48($sp)
+/*  f191898:	24e50008 */ 	addiu	$a1,$a3,0x8
+/*  f19189c:	afa5001c */ 	sw	$a1,0x1c($sp)
+/*  f1918a0:	8fa40068 */ 	lw	$a0,0x68($sp)
+/*  f1918a4:	afa60060 */ 	sw	$a2,0x60($sp)
+/*  f1918a8:	afa7004c */ 	sw	$a3,0x4c($sp)
+/*  f1918ac:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f1918b0:	0fc1221c */ 	jal	0xf048870
+/*  f1918b4:	afa90048 */ 	sw	$t1,0x48($sp)
+/*  f1918b8:	8faa0068 */ 	lw	$t2,0x68($sp)
+/*  f1918bc:	8fa60060 */ 	lw	$a2,0x60($sp)
+/*  f1918c0:	8fa7004c */ 	lw	$a3,0x4c($sp)
+/*  f1918c4:	8d4b02d4 */ 	lw	$t3,0x2d4($t2)
+/*  f1918c8:	8fa80054 */ 	lw	$t0,0x54($sp)
+/*  f1918cc:	8fa90048 */ 	lw	$t1,0x48($sp)
+/*  f1918d0:	8d6d0004 */ 	lw	$t5,0x4($t3)
+/*  f1918d4:	24050001 */ 	addiu	$a1,$zero,0x1
+/*  f1918d8:	24040002 */ 	addiu	$a0,$zero,0x2
+/*  f1918dc:	91a20048 */ 	lbu	$v0,0x48($t5)
+/*  f1918e0:	c4c20000 */ 	lwc1	$f2,0x0($a2)
+/*  f1918e4:	c4cc0004 */ 	lwc1	$f12,0x4($a2)
+/*  f1918e8:	14400007 */ 	bnez	$v0,.NB0f191908
+/*  f1918ec:	c4ce0008 */ 	lwc1	$f14,0x8($a2)
+/*  f1918f0:	3c017f1b */ 	lui	$at,0x7f1b
+/*  f1918f4:	c42435b4 */ 	lwc1	$f4,0x35b4($at)
+/*  f1918f8:	24050001 */ 	addiu	$a1,$zero,0x1
+/*  f1918fc:	46041082 */ 	mul.s	$f2,$f2,$f4
+/*  f191900:	10000008 */ 	beqz	$zero,.NB0f191924
+/*  f191904:	81020074 */ 	lb	$v0,0x74($t0)
+.NB0f191908:
+/*  f191908:	14a20005 */ 	bne	$a1,$v0,.NB0f191920
+/*  f19190c:	3c013f00 */ 	lui	$at,0x3f00
+/*  f191910:	44813000 */ 	mtc1	$at,$f6
+/*  f191914:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191918:	46061082 */ 	mul.s	$f2,$f2,$f6
+/*  f19191c:	00000000 */ 	sll	$zero,$zero,0x0
+.NB0f191920:
+/*  f191920:	81020074 */ 	lb	$v0,0x74($t0)
+.NB0f191924:
+/*  f191924:	24010003 */ 	addiu	$at,$zero,0x3
+/*  f191928:	3c0e800a */ 	lui	$t6,0x800a
+/*  f19192c:	14a20005 */ 	bne	$a1,$v0,.NB0f191944
+/*  f191930:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191934:	3c0141c8 */ 	lui	$at,0x41c8
+/*  f191938:	44814000 */ 	mtc1	$at,$f8
+/*  f19193c:	10000008 */ 	beqz	$zero,.NB0f191960
+/*  f191940:	46081080 */ 	add.s	$f2,$f2,$f8
+.NB0f191944:
+/*  f191944:	10410002 */ 	beq	$v0,$at,.NB0f191950
+/*  f191948:	24010004 */ 	addiu	$at,$zero,0x4
+/*  f19194c:	14410004 */ 	bne	$v0,$at,.NB0f191960
+.NB0f191950:
+/*  f191950:	3c0141c8 */ 	lui	$at,0x41c8
+/*  f191954:	44815000 */ 	mtc1	$at,$f10
+/*  f191958:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f19195c:	460a6301 */ 	sub.s	$f12,$f12,$f10
+.NB0f191960:
+/*  f191960:	4602003c */ 	c.lt.s	$f0,$f2
+/*  f191964:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191968:	45020004 */ 	bc1fl	.NB0f19197c
+/*  f19196c:	4600103e */ 	c.le.s	$f2,$f0
+/*  f191970:	10000015 */ 	beqz	$zero,.NB0f1919c8
+/*  f191974:	24020001 */ 	addiu	$v0,$zero,0x1
+/*  f191978:	4600103e */ 	c.le.s	$f2,$f0
+.NB0f19197c:
+/*  f19197c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191980:	45020008 */ 	bc1fl	.NB0f1919a4
+/*  f191984:	4600603e */ 	c.le.s	$f12,$f0
+/*  f191988:	460c003c */ 	c.lt.s	$f0,$f12
+/*  f19198c:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191990:	45020004 */ 	bc1fl	.NB0f1919a4
+/*  f191994:	4600603e */ 	c.le.s	$f12,$f0
+/*  f191998:	1000000b */ 	beqz	$zero,.NB0f1919c8
+/*  f19199c:	24020002 */ 	addiu	$v0,$zero,0x2
+/*  f1919a0:	4600603e */ 	c.le.s	$f12,$f0
+.NB0f1919a4:
+/*  f1919a4:	24020004 */ 	addiu	$v0,$zero,0x4
+/*  f1919a8:	45000007 */ 	bc1f	.NB0f1919c8
+/*  f1919ac:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1919b0:	460e003c */ 	c.lt.s	$f0,$f14
+/*  f1919b4:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1919b8:	45000003 */ 	bc1f	.NB0f1919c8
+/*  f1919bc:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f1919c0:	10000001 */ 	beqz	$zero,.NB0f1919c8
+/*  f1919c4:	24020003 */ 	addiu	$v0,$zero,0x3
+.NB0f1919c8:
+/*  f1919c8:	14820004 */ 	bne	$a0,$v0,.NB0f1919dc
+/*  f1919cc:	00401825 */ 	or	$v1,$v0,$zero
+/*  f1919d0:	55200003 */ 	bnezl	$t1,.NB0f1919e0
+/*  f1919d4:	8d0200d0 */ 	lw	$v0,0xd0($t0)
+/*  f1919d8:	24030003 */ 	addiu	$v1,$zero,0x3
+.NB0f1919dc:
+/*  f1919dc:	8d0200d0 */ 	lw	$v0,0xd0($t0)
+.NB0f1919e0:
+/*  f1919e0:	a1030074 */ 	sb	$v1,0x74($t0)
+/*  f1919e4:	04420005 */ 	bltzl	$v0,.NB0f1919fc
+/*  f1919e8:	8fac0050 */ 	lw	$t4,0x50($sp)
+/*  f1919ec:	8dcee6f8 */ 	lw	$t6,-0x1908($t6)
+/*  f1919f0:	004e7823 */ 	subu	$t7,$v0,$t6
+/*  f1919f4:	ad0f00d0 */ 	sw	$t7,0xd0($t0)
+/*  f1919f8:	8fac0050 */ 	lw	$t4,0x50($sp)
+.NB0f1919fc:
+/*  f1919fc:	15830009 */ 	bne	$t4,$v1,.NB0f191a24
+/*  f191a00:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191a04:	1083002c */ 	beq	$a0,$v1,.NB0f191ab8
+/*  f191a08:	8fb90068 */ 	lw	$t9,0x68($sp)
+/*  f191a0c:	83380007 */ 	lb	$t8,0x7($t9)
+/*  f191a10:	10b80004 */ 	beq	$a1,$t8,.NB0f191a24
+/*  f191a14:	00000000 */ 	sll	$zero,$zero,0x0
+/*  f191a18:	8d0a00d0 */ 	lw	$t2,0xd0($t0)
+/*  f191a1c:	5d400027 */ 	bgtzl	$t2,.NB0f191abc
+/*  f191a20:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.NB0f191a24:
+/*  f191a24:	10a3000a */ 	beq	$a1,$v1,.NB0f191a50
+/*  f191a28:	3c06461c */ 	lui	$a2,0x461c
+/*  f191a2c:	10640010 */ 	beq	$v1,$a0,.NB0f191a70
+/*  f191a30:	24010003 */ 	addiu	$at,$zero,0x3
+/*  f191a34:	10610013 */ 	beq	$v1,$at,.NB0f191a84
+/*  f191a38:	8fa40068 */ 	lw	$a0,0x68($sp)
+/*  f191a3c:	24010004 */ 	addiu	$at,$zero,0x4
+/*  f191a40:	10610016 */ 	beq	$v1,$at,.NB0f191a9c
+/*  f191a44:	8fa40068 */ 	lw	$a0,0x68($sp)
+/*  f191a48:	1000001a */ 	beqz	$zero,.NB0f191ab4
+/*  f191a4c:	240b003c */ 	addiu	$t3,$zero,0x3c
+.NB0f191a50:
+/*  f191a50:	8fa40068 */ 	lw	$a0,0x68($sp)
+/*  f191a54:	24050002 */ 	addiu	$a1,$zero,0x2
+/*  f191a58:	34c64000 */ 	ori	$a2,$a2,0x4000
+/*  f191a5c:	8fa7001c */ 	lw	$a3,0x1c($sp)
+/*  f191a60:	0fc12d53 */ 	jal	0xf04b54c
+/*  f191a64:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f191a68:	10000011 */ 	beqz	$zero,.NB0f191ab0
+/*  f191a6c:	8fa80054 */ 	lw	$t0,0x54($sp)
+.NB0f191a70:
+/*  f191a70:	8fa40068 */ 	lw	$a0,0x68($sp)
+/*  f191a74:	0fc0e985 */ 	jal	0xf03a614
+/*  f191a78:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f191a7c:	1000000c */ 	beqz	$zero,.NB0f191ab0
+/*  f191a80:	8fa80054 */ 	lw	$t0,0x54($sp)
+.NB0f191a84:
+/*  f191a84:	00e02825 */ 	or	$a1,$a3,$zero
+/*  f191a88:	24060002 */ 	addiu	$a2,$zero,0x2
+/*  f191a8c:	0fc0e907 */ 	jal	0xf03a41c
+/*  f191a90:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f191a94:	10000006 */ 	beqz	$zero,.NB0f191ab0
+/*  f191a98:	8fa80054 */ 	lw	$t0,0x54($sp)
+.NB0f191a9c:
+/*  f191a9c:	00e02825 */ 	or	$a1,$a3,$zero
+/*  f191aa0:	24060002 */ 	addiu	$a2,$zero,0x2
+/*  f191aa4:	0fc0e907 */ 	jal	0xf03a41c
+/*  f191aa8:	afa80054 */ 	sw	$t0,0x54($sp)
+/*  f191aac:	8fa80054 */ 	lw	$t0,0x54($sp)
+.NB0f191ab0:
+/*  f191ab0:	240b003c */ 	addiu	$t3,$zero,0x3c
+.NB0f191ab4:
+/*  f191ab4:	ad0b00d0 */ 	sw	$t3,0xd0($t0)
+.NB0f191ab8:
+/*  f191ab8:	8fbf0014 */ 	lw	$ra,0x14($sp)
+.NB0f191abc:
+/*  f191abc:	27bd0068 */ 	addiu	$sp,$sp,0x68
+/*  f191ac0:	03e00008 */ 	jr	$ra
+/*  f191ac4:	00000000 */ 	sll	$zero,$zero,0x0
+);
+#endif
 
 void mpAibotApplyCommand(struct chrdata *chr, u32 command)
 {
@@ -291,959 +497,4 @@ void mpAibotApplyCommand(struct chrdata *chr, u32 command)
 		mpAibotApplyScenarioCommand(chr, command);
 		break;
 	}
-}
-
-void aibotClearInventory(struct chrdata *chr)
-{
-	if (chr && chr->aibot) {
-		s32 i = 0;
-
-		for (i = 0; i < chr->aibot->maxitems; i++) {
-			chr->aibot->items[i].type = -1;
-		}
-
-		dprint();
-	}
-}
-
-struct invitem *aibotGetFreeInvSlot(struct chrdata *chr)
-{
-	s32 i;
-
-	if (!chr || !chr->aibot) {
-		return NULL;
-	}
-
-	for (i = 0; i < chr->aibot->maxitems; i++) {
-		if (chr->aibot->items[i].type == -1) {
-			return &chr->aibot->items[i];
-		}
-	}
-
-	dprint();
-
-	return NULL;
-}
-
-struct invitem *aibotGetInvItem(struct chrdata *chr, u32 weaponnum)
-{
-	s32 i;
-
-	if (!chr || !chr->aibot) {
-		return NULL;
-	}
-
-	for (i = 0; i < chr->aibot->maxitems; i++) {
-		struct invitem *item = &chr->aibot->items[i];
-
-		if (item->type == -1) {
-			continue;
-		}
-
-		if (item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL) {
-			if (item->type_weap.weapon1 == weaponnum) {
-				return item;
-			}
-		}
-	}
-
-	return NULL;
-}
-
-void aibotRemoveInvItem(struct chrdata *chr, s32 weaponnum)
-{
-	s32 i;
-
-	if (!chr || !chr->aibot) {
-		return;
-	}
-
-	for (i = 0; i < chr->aibot->maxitems; i++) {
-		struct invitem *item = &chr->aibot->items[i];
-
-		if (item->type == -1) {
-			continue;
-		}
-
-		if (item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL) {
-			if (item->type_weap.weapon1 == weaponnum) {
-				chr->aibot->items[i].type = -1;
-				return;
-			}
-		}
-	}
-}
-
-u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum)
-{
-	struct invitem *item;
-
-	if (!chr || !chr->aibot) {
-		return 0;
-	}
-
-	item = aibotGetInvItem(chr, weaponnum);
-
-	if (item) {
-		return item->type;
-	}
-
-	return 0;
-}
-
-bool aibotGiveSingleWeapon(struct chrdata *chr, u32 weaponnum)
-{
-	if (!chr || !chr->aibot) {
-		return false;
-	}
-
-	if (!aibotGetInvItemType(chr, weaponnum)) {
-		struct invitem *item = aibotGetFreeInvSlot(chr);
-
-		if (item) {
-			item->type = INVITEMTYPE_WEAP;
-			item->type_weap.weapon1 = weaponnum;
-			item->type_weap.pickuppad = -1;
-		}
-
-		return true;
-	}
-
-	return false;
-}
-
-void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum)
-{
-	struct invitem *item = aibotGetInvItem(chr, weaponnum);
-
-	if (item) {
-		item->type = INVITEMTYPE_DUAL;
-	}
-}
-
-s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum)
-{
-	struct invitem *item = aibotGetInvItem(chr, weaponnum);
-
-	if (item && item->type == INVITEMTYPE_WEAP) {
-		return item->type_weap.pickuppad;
-	}
-
-	return -1;
-}
-
-bool aibotGiveProp(struct chrdata *chr, struct prop *prop)
-{
-	bool result = false;
-	struct defaultobj *obj;
-	s32 i;
-
-	if (!chr || !chr->aibot) {
-		return false;
-	}
-
-	obj = prop->obj;
-
-	if (prop->type == PROPTYPE_WEAPON) {
-		if (obj->type == OBJTYPE_WEAPON) {
-			struct weaponobj *weapon = prop->weapon;
-			s32 weaponnum = weapon->weaponnum;
-			result = aibotGiveSingleWeapon(chr, weaponnum);
-
-			if (result) {
-				struct invitem *item = aibotGetInvItem(chr, weaponnum);
-				item->type_weap.pickuppad = obj->pad;
-			}
-		}
-	} else if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
-		struct multiammocrateobj *multi = (struct multiammocrateobj *)prop->obj;
-
-		for (i = 0; i < 0x13; i++) {
-			if (multi->quantities[i].unk02 > 0) {
-				s32 weaponnum = ammotypeGetWeapon(i + 1);
-
-				if (weaponnum > 0) {
-					aibotGiveSingleWeapon(chr, weaponnum);
-				}
-			}
-		}
-	}
-
-	return result;
-}
-
-void func0f198060(u32 arg0)
-{
-	// empty
-}
-
-void func0f198068(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s32 *scores2)
-{
-	s32 i;
-	s32 pri1;
-	s32 pri2;
-	s32 sec1;
-	s32 sec2;
-
-	// Gather scores for each weapon in the setup,
-	// taking the higher score out of both gun functions
-	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-		s32 weaponnum = g_MpWeapons[g_MpSetup.weapons[i]].weaponnum;
-		weaponnums[i] = weaponnum;
-
-		func0f198df8(chr, weaponnum, FUNC_PRIMARY, -1, false, &pri1, &pri2);
-		func0f198df8(chr, weaponnum, FUNC_SECONDARY, -1, false, &sec1, &sec2);
-
-		scores1[i] = pri1 >= sec1 ? pri1 : sec1;
-		scores2[i] = pri2 >= sec2 ? pri2 : sec2;
-	}
-
-	// Sort all three arrays by score1 descending
-	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-		s32 swapindex = i;
-		s32 tmp;
-		s32 j;
-
-		for (j = i + 1; j < ARRAYCOUNT(g_MpSetup.weapons); j++) {
-			if (scores1[j] > scores1[swapindex]) {
-				swapindex = j;
-			}
-		}
-
-		if (swapindex != i) {
-			tmp = scores1[swapindex];
-			scores1[swapindex] = scores1[i];
-			scores1[i] = tmp;
-
-			tmp = scores2[swapindex];
-			scores2[swapindex] = scores2[i];
-			scores2[i] = tmp;
-
-			tmp = weaponnums[swapindex];
-			weaponnums[swapindex] = weaponnums[i];
-			weaponnums[i] = tmp;
-		}
-	}
-}
-
-bool mpHasShield(void)
-{
-	s32 i;
-
-	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-		s32 weaponnum = g_MpWeapons[g_MpSetup.weapons[i]].weaponnum;
-
-		if (weaponnum == WEAPON_MPSHIELD) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-s32 mpGetWeaponIndexByWeaponNum(s32 weaponnum)
-{
-	s32 result = -1;
-	s32 i;
-
-	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-		if (g_MpWeapons[g_MpSetup.weapons[i]].weaponnum == weaponnum && i < 6) {
-			result = i;
-			break;
-		}
-	}
-
-	return result;
-}
-
-void aibotScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2, bool arg7, bool arg8)
-{
-	s32 score1 = 0;
-	s32 score2 = 0;
-	s32 extra = 0;
-
-	// @dangerous: Array overflow can occur if more weapons are added to the
-	// game without extending the preferences table
-	if (arg3 < 0
-			|| (!funcnum && arg3 == g_AibotWeaponPreferences[weaponnum].unk04_00)
-			|| (funcnum && arg3 == g_AibotWeaponPreferences[weaponnum].unk04_01)) {
-		if (arg4) {
-			score1 = g_AibotWeaponPreferences[weaponnum].unk02;
-			score2 = g_AibotWeaponPreferences[weaponnum].unk03;
-		} else {
-			score1 = g_AibotWeaponPreferences[weaponnum].unk00;
-			score2 = g_AibotWeaponPreferences[weaponnum].unk01;
-		}
-
-		if (chr && chr->aibot) {
-			// Add weighting for explosive weapons for rocket sims
-			// and weighting for shields for shield sims, with extra
-			// weighting if the sim is meat or easy.
-			if (chr->aibot->simulant->difficulty == SIMDIFF_MEAT) {
-				extra = 100;
-			} else if (chr->aibot->simulant->difficulty == SIMDIFF_EASY) {
-				extra = 50;
-			}
-
-			if (chr->aibot->simulant->base.simtype == SIMTYPE_ROCKET) {
-				if (weaponnum == WEAPON_ROCKETLAUNCHER) {
-					score1 = extra + 300;
-				} else if (weaponnum == WEAPON_SLAYER) {
-					score1 = extra + 299;
-				} else if (weaponnum == WEAPON_DEVASTATOR) {
-					score1 = extra + 280;
-				} else if (weaponnum == WEAPON_SUPERDRAGON && funcnum != FUNC_PRIMARY) {
-					score1 = extra + 279;
-				} else if (weaponnum == WEAPON_PHOENIX && funcnum != FUNC_PRIMARY) {
-					score1 = extra + 260;
-				} else if (weaponnum == WEAPON_GRENADE) {
-					score1 = extra + 240;
-				}
-			} else if (chr->aibot->simulant->base.simtype == SIMTYPE_SHIELD) {
-				if (weaponnum == WEAPON_MPSHIELD) {
-					score1 = extra + 300;
-				}
-			}
-		}
-	}
-
-	// Missing from this list:
-	// Mauler, K7 Avenger, AR34, sniper rifle, Farsight, laser, grenade
-	switch (weaponnum) {
-	case WEAPON_UNARMED:
-		if (arg7 && funcnum != FUNC_PRIMARY) {
-			if (chr->target != -1
-					&& mpchrGetTargetsWeaponNum(chr) > WEAPON_UNARMED
-					&& chr->aibot->simulant->difficulty > SIMDIFF_MEAT) {
-				score1 = 26;
-				score2 = 26;
-			} else {
-				score1 = 0;
-				score2 = 0;
-			}
-		}
-		break;
-	case WEAPON_FALCON2:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 15;
-			score2 = 15;
-		}
-		break;
-	case WEAPON_FALCON2_SILENCER:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 14;
-			score2 = 14;
-		}
-		break;
-	case WEAPON_FALCON2_SCOPE:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 16;
-			score2 = 16;
-		}
-		break;
-	case WEAPON_MAGSEC4:
-		if (funcnum == FUNC_PRIMARY) {
-			score1 = arg4 ? 91 : 63;
-		}
-		break;
-	case WEAPON_PHOENIX:
-		if (chr->aibot->simulant->base.simtype != SIMDIFF_HARD) {
-			if (funcnum != FUNC_PRIMARY) {
-				if ((g_MpSetup.options & MPOPTION_ONEHITKILLS)
-						&& chr->aibot->simulant->difficulty >= SIMDIFF_NORMAL) {
-					score1 = 110;
-					score2 = 150;
-				}
-			} else {
-				score1 = arg4 ? 90 : 62;
-			}
-		}
-		break;
-	case WEAPON_DY357MAGNUM:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 17;
-			score2 = 17;
-		}
-		break;
-	case WEAPON_DY357LX:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 18;
-			score2 = 18;
-		}
-		break;
-	case WEAPON_CYCLONE:
-		if (funcnum == (chr->aibot->rand % 2)) {
-			score1--;
-		}
-		break;
-	case WEAPON_CALLISTONTG:
-		if (funcnum == (chr->aibot->rand % 2)) {
-			score1--;
-		}
-		break;
-	case WEAPON_RCP120:
-		if (chr->aibot->cloakdeviceenabled == false
-				&& aibotGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, FUNC_PRIMARY, true) > 500
-				&& chr->aibot->simulant->difficulty > SIMDIFF_MEAT) {
-			score1 += chr->aibot->rand % 10;
-			score2 += chr->aibot->rand % 10;
-		}
-		break;
-	case WEAPON_LAPTOPGUN:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 0;
-			score2 = 0;
-		}
-		break;
-	case WEAPON_DRAGON:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 0;
-			score2 = 0;
-		}
-		break;
-	case WEAPON_SUPERDRAGON:
-		if (chr->aibot->simulant->base.simtype != SIMDIFF_HARD
-				&& (chr->aibot->rand % 2) == funcnum) {
-			score1 -= 15;
-		}
-		break;
-	case WEAPON_SHOTGUN:
-		if (funcnum == (chr->aibot->rand % 2)) {
-			score1--;
-		}
-		break;
-	case WEAPON_REAPER:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 19;
-			score2 = 80;
-		}
-		break;
-	case WEAPON_DEVASTATOR:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 0;
-			score2 = 0;
-		}
-		break;
-	case WEAPON_ROCKETLAUNCHER:
-		if (funcnum == (chr->aibot->rand % 2)) {
-			score1--;
-		}
-		break;
-	case WEAPON_SLAYER:
-		if (chr->aibot->simulant->base.simtype == SIMDIFF_HARD) {
-			if (funcnum != FUNC_PRIMARY) {
-				if (chr->aibot->simulant->difficulty > SIMDIFF_MEAT) {
-					if (arg7) {
-						if (chr->target != -1
-								&& chr->aibot->unk16c[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] == 0
-								&& (chr->aibot->rand % 2) == 0) {
-							score1 += 10;
-						} else {
-							score1 -= 10;
-						}
-					}
-				} else {
-					score1 = 0;
-					score2 = 0;
-				}
-			}
-		} else {
-			if (funcnum != FUNC_PRIMARY) {
-				if (chr->aibot->simulant->difficulty >= SIMDIFF_NORMAL) {
-					if (arg7) {
-						if (chr->target != -1
-								&& chr->aibot->unk16c[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] == 0
-								&& (chr->aibot->rand % 2) == 0) {
-							score1 = 178;
-							score2 = 188;
-						} else {
-							score1 -= 15;
-							score2 -= 15;
-						}
-					}
-				} else {
-					score1 = 0;
-					score2 = 0;
-				}
-			}
-		}
-		break;
-	case WEAPON_COMBATKNIFE:
-		if (funcnum != FUNC_PRIMARY) {
-			score1 = 0;
-			score2 = 0;
-		}
-		break;
-	case WEAPON_CROSSBOW:
-		if (funcnum != FUNC_PRIMARY) {
-			if (chr->aibot->simulant->difficulty > SIMDIFF_MEAT) {
-				score1 = 158;
-				score2 = 176;
-			} else {
-				score1 = 0;
-				score2 = 0;
-			}
-		} else {
-			if (arg7 && chr->target != -1 && chrGetTargetProp(chr)->chr->blurdrugamount > PALDOWN(3500)) {
-				score1 = 0;
-				score2 = 0;
-			} else {
-				score1 = 49;
-				score2 = 188;
-			}
-		}
-		break;
-	case WEAPON_TRANQUILIZER:
-		if (arg7) {
-			s32 bluramount = 0;
-
-			if (chr->target != -1) {
-				bluramount = chrGetTargetProp(chr)->chr->blurdrugamount;
-			}
-
-			if (funcnum != FUNC_PRIMARY) {
-				if (chr->aibot->simulant->difficulty <= SIMDIFF_MEAT) {
-					score1 = 0;
-					score2 = 0;
-				} else if (bluramount > PALDOWN(3500) && (chr->aibot->rand % 2) == 0) {
-					score1 = chr->aibot->rand % 140 + 48;
-					score2 = 188;
-				} else if (chr->aibot->rand % 10 == 0) {
-					score1 = chr->aibot->rand % 140 + 48;
-					score2 = 188;
-				} else {
-					score1 = 0;
-					score2 = 0;
-				}
-			} else {
-				if (bluramount >= PALDOWN(5000)) {
-					score2 = 48;
-
-					if (chr->aibot->rand % 2) {
-						score1 = 0;
-						score2 = 0;
-					}
-				} else if (bluramount > PALDOWN(3500)) {
-					u32 value = (-bluramount * 16 + (PAL ? 66656 : 80000)) / PALDOWN(1500);
-
-					if (value > 15) {
-						value = 15;
-					}
-
-					value *= value;
-					value *= value;
-					value *= value;
-
-					if (value < chr->aibot->rand) {
-						score2 = 48;
-
-						if (chr->aibot->rand % 2) {
-							score1 = 0;
-							score2 = 0;
-						}
-					}
-				}
-			}
-		}
-		break;
-	case WEAPON_NBOMB:
-		if (arg7 && chr->target != -1) {
-			mpchrGetTargetsWeaponNum(chr);
-		}
-		break;
-	}
-
-	if (arg8) {
-		s32 weaponindex;
-		s32 extra = 0;
-		f32 float1;
-		f32 killrate = 1;
-		f32 float2;
-
-		if (g_Vars.lvframe60 > 0) {
-			killrate = g_Vars.totalkills * PALDOWN(3600.0f) / (f32)(g_Vars.lvframe60 * g_MpNumPlayers);
-
-			if (killrate < 1) {
-				killrate = 1;
-			}
-		}
-
-		weaponindex = mpGetWeaponIndexByWeaponNum(weaponnum);
-
-		if (weaponindex >= 0) {
-			float2 = ceilf(chr->aibot->equipdurations60[weaponindex][funcnum] * (1.0f / PALDOWN(3600.0f)));
-
-			if (float2 > 0) {
-				float1 = chr->aibot->killsbygunfunc[weaponindex][funcnum];
-
-				if (chr->aibot->simulant->difficulty >= SIMDIFF_NORMAL) {
-					float1 -= 3.0f * chr->aibot->suicidesbygunfunc[weaponindex][funcnum];
-				}
-
-				float1 = float1 / float2;
-
-				extra = float1 * 10.0f / killrate;
-			}
-
-			if (extra > 30) {
-				extra = 30;
-			}
-
-			extra += chr->aibot->unk2a8[weaponindex];
-
-			score1 += extra;
-			score2 += extra;
-
-			if (score1 < 0) {
-				score1 = 0;
-			}
-
-			if (score2 < 0) {
-				score2 = 0;
-			}
-		}
-	}
-
-	*dst1 = score1;
-	*dst2 = score2;
-}
-
-void func0f198db4(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
-{
-	aibotScoreWeapon(chr, weaponnum, funcnum, arg3, arg4, dst1, dst2, true, true);
-}
-
-void func0f198df8(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3, bool arg4, s32 *dst1, s32 *dst2)
-{
-	aibotScoreWeapon(chr, weaponnum, funcnum, arg3, arg4, dst1, dst2, false, true);
-}
-
-s32 func0f198e38(s32 weaponnum, s32 funcnum)
-{
-	if (funcnum != FUNC_PRIMARY) {
-		return g_AibotWeaponPreferences[weaponnum].unk04_06;
-	}
-
-	return g_AibotWeaponPreferences[weaponnum].unk04_02;
-}
-
-bool func0f198e78(struct chrdata *chr, s32 weaponnum, s32 funcnum)
-{
-	bool result = true;
-
-	if (chr->aibot->simulant->base.simtype == SIMTYPE_FIST) {
-		if (funcnum != FUNC_PRIMARY) {
-			if (g_AibotWeaponPreferences[weaponnum].unk04_06) {
-				result = false;
-			}
-		} else {
-			if (g_AibotWeaponPreferences[weaponnum].unk04_02) {
-				result = false;
-			}
-		}
-	}
-
-	return result;
-}
-
-void aibotTickInventory(struct chrdata *chr)
-{
-	s32 newweaponnum = WEAPON_UNARMED;
-	s32 newfuncnum = FUNC_PRIMARY;
-	s32 weaponindex;
-	struct aibot *aibot;
-	bool keepcurrentweapon = false;
-	s32 i;
-
-	if (!chr || !chr->aibot) {
-		return;
-	}
-
-	aibot = chr->aibot;
-	weaponindex = mpGetWeaponIndexByWeaponNum(aibot->weaponnum);
-
-	if (weaponindex >= 0) {
-		aibot->equipdurations60[weaponindex][aibot->gunfunc] += g_Vars.lvupdate240_60;
-	}
-
-	// Every 60-61 seconds, decrease suicide values. These values are used when
-	// determining which gun to use. The more suicides with a particular gun and
-	// function, the less likely the aibot is to use it. This value cools off.
-	aibot->dampensuicidesttl60 -= g_Vars.lvupdate240_60;
-
-	if (aibot->dampensuicidesttl60 < 0) {
-		aibot->dampensuicidesttl60 = PALDOWN(3600) + random() % PALDOWN(60);
-
-		for (i = 0; i < 6; i++) {
-			aibot->suicidesbygunfunc[i][0] *= 0.9f;
-			aibot->suicidesbygunfunc[i][1] *= 0.9f;
-		}
-	}
-
-	// Every 10-60 seconds, generate new unk2a8 values
-	aibot->unk2a4 -= g_Vars.lvupdate240_60;
-
-	if (aibot->unk2a4 < 0) {
-		aibot->unk2a4 = PALDOWN(600) + random() % PALDOWN(3000);
-
-		for (i = 0; i < 6; i++) {
-			if (aibot->simulant->difficulty == SIMDIFF_MEAT) {
-				aibot->unk2a8[i] = random() % 200 - 100; // -100 to +100
-			} else if (aibot->simulant->difficulty == SIMDIFF_EASY) {
-				aibot->unk2a8[i] = random() % 100 - 50; // -50 to +50
-			} else {
-				aibot->unk2a8[i] = random() % 30 - 15; // -15 to +15
-			}
-		}
-	}
-
-	// Every 2-12 seconds, generate a new random value which is used as a factor
-	// in various aibot logic.
-	aibot->randttl60 -= g_Vars.lvupdate240_60;
-
-	if (aibot->randttl60 < 0) {
-		aibot->randttl60 = PALDOWN(120) + random() % PALDOWN(600);
-		aibot->rand = random();
-	}
-
-	if (aibot->unk0c4[1] == 0
-			&& aibot->unk0c4[0] == 0
-			&& aibot->unk04d[1] <= 0
-			&& aibot->unk04d[0] <= 0
-			&& aibot->unk0e0[1] <= 0
-			&& aibot->unk0e0[0] <= 0
-			&& aibot->unk044 == NULL) {
-		if (chr->myaction == MA_AIBOTDOWNLOAD) {
-			keepcurrentweapon = true;
-		}
-
-		if (!keepcurrentweapon && aibot->simulant->base.simtype == SIMTYPE_PEACE) {
-			newfuncnum = FUNC_SECONDARY;
-			keepcurrentweapon = true;
-		}
-
-		if (!keepcurrentweapon) {
-			s32 bestscore = 0;
-			s32 score1;
-			s32 score2;
-			s32 uVar10;
-			s32 j;
-
-			for (i = -1; i < aibot->maxitems; i++) {
-				s32 weaponnum = -1;
-				struct invitem *item = NULL;
-
-				if (i < 0) {
-					weaponnum = WEAPON_UNARMED;
-				} else {
-					item = &aibot->items[i];
-
-					if (item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL) {
-						weaponnum = item->type_weap.weapon1;
-					}
-				}
-
-				if (weaponnum >= 0) {
-					for (j = 1; j >= 0; j--) {
-						if (j != FUNC_PRIMARY) {
-							uVar10 = g_AibotWeaponPreferences[weaponnum].unk04_01;
-						} else {
-							uVar10 = g_AibotWeaponPreferences[weaponnum].unk04_00;
-						}
-
-						if (uVar10 != 0 && func0f198e78(chr, weaponnum, j)) {
-							func0f198db4(chr, weaponnum, j, 1, item && item->type == INVITEMTYPE_DUAL, &score1, &score2);
-
-							if (score1 >= bestscore) {
-								if (!weaponGetAmmoTypeByFunction(weaponnum, j)
-										|| aibotGetAmmoQuantityByWeapon(aibot, weaponnum, j, true) > 0) {
-									bestscore = score1;
-									newweaponnum = weaponnum;
-									newfuncnum = j;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		// Consider setting knives to secondary function (throw)
-		if (newweaponnum == WEAPON_COMBATKNIFE
-				&& aibotGetAmmoQuantityByWeapon(aibot, WEAPON_COMBATKNIFE, FUNC_SECONDARY, true) >= 2
-				&& chr->target != -1
-				&& chr->aibot->playerdistances[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] > 200
-				&& chr->aibot->playerdistances[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] < 1500) {
-			newfuncnum = FUNC_SECONDARY;
-		}
-
-		// Consider setting Phoenix and SuperDragon to their explosive functions
-		if (aibot->simulant->base.simtype == SIMTYPE_ROCKET) {
-			if (newweaponnum == WEAPON_PHOENIX && aibotGetAmmoQuantityByWeapon(aibot, WEAPON_PHOENIX, FUNC_SECONDARY, true) > 0) {
-				newfuncnum = FUNC_SECONDARY;
-			} else if (newweaponnum == WEAPON_SUPERDRAGON && aibotGetAmmoQuantityByWeapon(aibot, WEAPON_SUPERDRAGON, FUNC_SECONDARY, true) > 0) {
-				newfuncnum = FUNC_SECONDARY;
-			}
-		}
-
-		aibotSwitchToWeapon(chr, newweaponnum, newfuncnum);
-	}
-}
-
-bool aibotSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
-{
-	struct invitem *item;
-	struct weaponfunc *func;
-	struct aibot *aibot;
-	s32 i;
-	s32 modelnum;
-	bool changinggun;
-	bool changingfunc;
-
-	if (!chr || !chr->aibot) {
-		return false;
-	}
-
-	aibot = chr->aibot;
-
-	if (weaponnum == WEAPON_BRIEFCASE2) {
-		return true;
-	}
-
-	// If changing to anything other than unarmed, make sure the aibot has the
-	// weapon in their inventory. Otherwise make them switch to unarmed.
-	if (weaponnum != WEAPON_UNARMED) {
-		item = aibotGetInvItem(chr, weaponnum);
-
-		if (!item) {
-			weaponnum = WEAPON_UNARMED;
-			funcnum = FUNC_PRIMARY;
-		}
-	}
-
-	changinggun = weaponnum != aibot->weaponnum;
-	changingfunc = funcnum != aibot->gunfunc;
-
-	if (changinggun) {
-		aibot->unk0cc = PALDOWN(60);
-
-		for (i = 0; i < 2; i++) {
-			aibot->unk0c4[i] = 0;
-			aibot->unk04d[i] = 0;
-			aibot->unk0e0[i] = 0;
-
-			if (chr->weapons_held[i]) {
-				chr->weapons_held[i]->obj->hidden |= OBJHFLAG_00000004;
-				chr->weapons_held[i] = NULL;
-			}
-		}
-	}
-
-	// Return any loaded ammo to reserve
-	if (changingfunc || changinggun) {
-		for (i = 0; i < 2; i++) {
-			if (aibot->loadedammo[i] > 0) {
-				aibotGiveAmmoByWeapon(aibot, aibot->weaponnum, aibot->gunfunc, aibot->loadedammo[i]);
-				aibot->loadedammo[i] = 0;
-			}
-		}
-	}
-
-	// Assign new weapon and function
-	aibot->gunfunc = funcnum;
-	aibot->weaponnum = weaponnum;
-
-	// Load ammo from reserve into new weapon
-	if (changingfunc && !changinggun) {
-		for (i = 0; i < 2; i++) {
-			if (chr->weapons_held[i]) {
-				aibotReloadWeapon(chr, i, false);
-			}
-		}
-	}
-
-	if (!changinggun) {
-		modelnum = weaponGetModel(weaponnum);
-
-		// @dangerous: item is uninitialised if weaponnum is WEAPON_UNARMED.
-		// This function assumes weaponGetModel returns a negative value for
-		// WEAPON_UNARMED which is a dangerous assumption to make, but correct.
-		if (modelnum >= 0 && item && item->type == INVITEMTYPE_DUAL && chr->weapons_held[1] == NULL) {
-			chrGiveWeapon(chr, modelnum, weaponnum, 0x10000000);
-			aibotReloadWeapon(chr, HAND_LEFT, false);
-		}
-	}
-
-	func = weaponGetFunctionById(weaponnum, funcnum);
-
-	aibot->iscloserangeweapon = func && func->type == INVENTORYFUNCTYPE_CLOSE;
-
-	for (i = 0; i < 2; i++) {
-		if (chr->weapons_held[i]) {
-			chr->weapons_held[i]->weapon->gunfunc = chr->aibot->gunfunc;
-		}
-	}
-
-	return true;
-}
-
-void func0f19978c(struct chrdata *chr, s32 weaponnum, u8 arg2)
-{
-	s32 i;
-
-	if (!chr || !chr->aibot) {
-		return;
-	}
-
-	for (i = 0; i < chr->aibot->maxitems; i++) {
-		struct invitem *item = &chr->aibot->items[i];
-
-		if (item->type == -1) {
-			continue;
-		}
-
-		if ((item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL)
-				&& (arg2 || weaponnum == item->type_weap.weapon1)) {
-			if (weaponHasFlag(item->type_weap.weapon1, WEAPONFLAG_08000000) == 0
-					|| (g_Vars.normmplayerisrunning
-						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
-						&& item->type_weap.weapon1 == WEAPON_DATAUPLINK)) {
-				s32 modelnum = weaponGetModel(item->type_weap.weapon1);
-
-				if (modelnum > 0) {
-					struct prop *prop = func0f08b8e8(chr, modelnum, item->type_weap.weapon1, 0x20000000, 0, 0);
-
-					if (prop) {
-						propobjSetDropped(prop, DROPREASON_1);
-						func0f08307c(prop, true);
-
-						if (item->type_weap.weapon1 == WEAPON_BRIEFCASE2) {
-							func0f187288(chr, prop);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	if ((arg2 && weaponnum >= WEAPON_FALCON2)
-			|| (!arg2 && weaponnum == chr->aibot->weaponnum)) {
-		aibotSwitchToWeapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
-	}
-
-	chr->hidden |= CHRHFLAG_00000001;
-
-	if (!arg2) {
-		aibotRemoveInvItem(chr, weaponnum);
-	}
-}
-
-void func0f199964(struct chrdata *chr, u32 weaponnum)
-{
-	func0f19978c(chr, weaponnum, true);
-}
-
-void func0f199984(struct chrdata *chr, u32 weaponnum)
-{
-	func0f19978c(chr, weaponnum, false);
 }

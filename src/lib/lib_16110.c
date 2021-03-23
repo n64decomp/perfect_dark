@@ -107,7 +107,7 @@ void func00016248(struct coord *coord, f32 angle, f32 *matrix)
 	matrix[15] = 1;
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func000171d8nb
 /*    171d8:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -1018,7 +1018,7 @@ glabel func00017028
 /*    1706c:	00000000 */ 	nop
 );
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00018000nb
 /*    18000:	27bdffb8 */ 	addiu	$sp,$sp,-72

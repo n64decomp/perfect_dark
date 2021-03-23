@@ -3,6 +3,13 @@
 #include "files.h"
 #include "sfx.h"
 
+#define VERSION_NTSC_BETA  0
+#define VERSION_NTSC_1_0   1
+#define VERSION_NTSC_FINAL 2
+#define VERSION_PAL_BETA   3
+#define VERSION_PAL_FINAL  4
+#define VERSION_JPN_FINAL  5
+
 #define FALSE 0
 #define TRUE  1
 
@@ -27,7 +34,13 @@
 #define PLAYERCOUNT3012()   ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
 #define SECSTOTIME240(secs) (secs * 240)
 #define SECSTOTIME60(secs)  (secs * 60)
+
+#if VERSION >= VERSION_NTSC_1_0
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)
+#else
+#define VOLUME(volume)      (volume)
+#endif
+
 #define EYESPYINACTIVE()    (!g_Vars.currentplayer->eyespy || (g_Vars.currentplayer->eyespy && !g_Vars.currentplayer->eyespy->active))
 
 #define ERASERSQDIST(p) ( \
@@ -3253,13 +3266,6 @@
 #define VEHICLEMODE_OFF         0
 #define VEHICLEMODE_ENGINESTART 1
 #define VEHICLEMODE_RUNNING     2
-
-#define VERSION_NTSC_BETA  0
-#define VERSION_NTSC_1_0   1
-#define VERSION_NTSC_FINAL 2
-#define VERSION_PAL_BETA   3
-#define VERSION_PAL_FINAL  4
-#define VERSION_JPN_FINAL  5
 
 #define VIMODE_DEFAULT 0
 #define VIMODE_HIRES   1

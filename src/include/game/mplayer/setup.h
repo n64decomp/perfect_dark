@@ -114,7 +114,7 @@ void mpCreateScenarioHudmsg(s32 playernum, char *message);
 bool mpChrsAreSameTeam(s32 arg0, s32 arg1);
 u32 chrGiveBriefcase(struct chrdata *chr, struct prop *prop);
 void func0f187288(struct chrdata *chr, struct prop *prop);
-bool chrGiveUplink(struct chrdata *chr, struct prop *prop);
+s32 chrGiveUplink(struct chrdata *chr, struct prop *prop);
 void scenarioHtmActivateUplink(struct chrdata *chr, struct prop *prop);
 s32 menuhandlerMpDropOut(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpTeamsLabel(s32 operation, struct menuitem *item, union handlerdata *data);

@@ -905,6 +905,7 @@ s32 cheatMenuHandleTurnOffAllCheats(s32 operation, struct menuitem *item, union 
 	return false;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty)
 {
 	s32 cheat_id;
@@ -920,7 +921,9 @@ s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty)
 
 	return -1;
 }
+#endif
 
+#if VERSION >= VERSION_NTSC_1_0
 s32 cheatGetByCompletedStageIndex(s32 stage_index)
 {
 	s32 cheat_id;
@@ -933,16 +936,21 @@ s32 cheatGetByCompletedStageIndex(s32 stage_index)
 
 	return -1;
 }
+#endif
 
+#if VERSION >= VERSION_NTSC_1_0
 s32 cheatGetTime(s32 cheat_id)
 {
 	return g_Cheats[cheat_id].time;
 }
+#endif
 
+#if VERSION >= VERSION_NTSC_1_0
 char *cheatGetName(s32 cheat_id)
 {
 	return langGet(g_Cheats[cheat_id].nametextid);
 }
+#endif
 
 struct menuitem g_CheatsWarningMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU_479, 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."

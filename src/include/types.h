@@ -1300,8 +1300,12 @@ struct chrdata {
 	/*0x192*/ u16 hidden2; // First 3 bits are a number
 	/*0x194*/ f32 magicframe;
 	/*0x198*/ f32 magicspeed;
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x19c*/ s16 magicanim;
 	/*0x19e*/ s16 goposforce;
+#else
+	/*0x19c*/ s32 magicanim;
+#endif
 	/*0x1a0*/ s32 bdlist[60];
 	/*0x290*/ u8 bdstart;
 	/*0x291*/ u8 goposhitcount;
@@ -6895,7 +6899,9 @@ struct audiochannel {
 	/*0x54*/ struct coord *posptr;
 	/*0x58*/ struct coord pos;
 	/*0x64*/ s16 rooms[8];
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x74*/ u32 uuid;
+#endif
 };
 
 struct var8007e3d0_data {

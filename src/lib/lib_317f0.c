@@ -4955,7 +4955,7 @@ glabel func00033f44
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00035300nb
 /*    35300:	27bdffc8 */ 	addiu	$sp,$sp,-56

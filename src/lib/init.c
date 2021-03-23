@@ -202,7 +202,7 @@ OSScClient var8008dca8;
 u32 var8008dcb0;
 u32 g_OsMemSize;
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 u32 var8005e5ccnb = 1;
 u32 var8005e5d0nb = 0x10000000;
 #endif
@@ -565,7 +565,7 @@ glabel init
 //	osInvalICache((void *) 0x80000000, 0x4000);
 //	__osSetFpcCsr(__osGetFpcCsr() | 0xe80);
 //
-//#if VERSION == VERSION_NTSC_BETA
+//#if VERSION < VERSION_NTSC_1_0
 //	var800902e4 = &varbc000c02;
 //	var800902e8 = 0x4040;
 //	varbc000c02 = 0x4040;
@@ -654,7 +654,7 @@ glabel allocateStack
 //		ptr8[i] = ((0xf - (threadid & 0xf)) << 4) | (threadid & 0xf);
 //	}
 //
-//#if VERSION == VERSION_NTSC_BETA
+//#if VERSION < VERSION_NTSC_1_0
 //	// Mark the first 8 words specially
 //	ptr32 = (u32 *)g_StackStartAddrs[threadid];
 //
@@ -717,14 +717,14 @@ glabel allocateStack
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 s32 initGetMemSize(void)
 {
 	return g_OsMemSize;
 }
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 void func00001978(void)
 {
 	var8005e5ccnb = 1;
@@ -779,7 +779,7 @@ void mainproc(void *arg)
 	mainEntry();
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00001b70nb
 /*     1b70:	3c048006 */ 	lui	$a0,0x8006
@@ -822,7 +822,7 @@ glabel func00001b70nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00001bf4nb
 /*     1bf4:	27bdff28 */ 	addiu	$sp,$sp,-216

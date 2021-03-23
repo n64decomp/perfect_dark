@@ -4020,7 +4020,7 @@ glabel func0000b330
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000bd44nb
 /*     bd44:	3c018006 */ 	lui	$at,0x8006

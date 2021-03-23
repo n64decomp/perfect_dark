@@ -4917,7 +4917,7 @@ void modelSetAnimFlipFunction(struct model *model, void *callback)
 	}
 }
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 void modelSetAnimUnk6c(struct model *model, s32 value)
 {
 	if (model->anim) {

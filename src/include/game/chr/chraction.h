@@ -204,7 +204,13 @@ bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distanc
 bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, s16 *room);
 bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr);
 u32 func0f04aeb0(void);
+
+#if VERSION >= VERSION_NTSC_1_0
 bool func0f04af84(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);
+#else
+bool func0f04af84(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5);
+#endif
+
 struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 arg4, u8 *ailist, u32 flags);
 bool func0f04b658(struct chrdata *chr);
 bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle, bool allowonscreen);

@@ -23,14 +23,12 @@ Perfect Dark has six known versions:
 
 | ROM ID     | Description                                                   |
 |------------|---------------------------------------------------------------|
-| ntsc-final | NTSC 8.7 final - fully supported                              |
+| ntsc-beta  | NTSC 6.4 beta - supported but mismatching                     |
 | ntsc-1.0   | NTSC 8.7 final (the initial, buggy release) - fully supported |
-| ntsc-beta  | NTSC 6.4 beta - can extract assets only                       |
-| pal-final  | PAL 8.7 final - can extract assets only                       |
+| ntsc-final | NTSC 8.7 final - fully supported                              |
 | pal-beta   | PAL 28.7 beta - can extract assets only                       |
+| pal-final  | PAL 8.7 final - supported but mismatching                     |
 | jpn-final  | Japanese 8.7 final - can extract assets only                  |
-
-Currently only the ntsc-final and ntsc-1.0 versions are fully supported. The NTSC beta, PAL and JPN versions can have their assets extracted from the base ROM but no effort has been made to build those versions back into a ROM.
 
 The project uses the `$ROMID` environment variable to know which version to work with. If not set, it defaults to `ntsc-final`. You can change it by running something like `export ROMID=ntsc-1.0`.
 

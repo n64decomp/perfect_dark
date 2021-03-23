@@ -450,6 +450,7 @@ Gfx *func0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 	return gdl;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 {
 	gdl = gfxSetPrimColour(gdl, 0x00000000);
@@ -460,6 +461,7 @@ Gfx *func0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 
 	return gdl;
 }
+#endif
 
 Gfx *func0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
 {

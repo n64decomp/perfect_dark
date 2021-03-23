@@ -1223,7 +1223,7 @@ glabel bootUnmapTLBRange
 /*     166c:	00000000 */ 	nop
 );
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func000016acnb
 /*     16ac:	3c088000 */ 	lui	$t0,0x8000

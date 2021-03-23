@@ -446,7 +446,11 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01b1*/ aiShuffleRuinsPillars,
 	/*0x01b2*/ ai01b2,
 	/*0x01b3*/ aiToggleP1P2,
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x01b4*/ ai01b4,
+#else
+	/*0x01b4*/ NULL,
+#endif
 	/*0x01b5*/ aiChrSetP1P2,
 	/*0x01b6*/ aiConfigureSnow,
 	/*0x01b7*/ aiChrSetCloaked,
@@ -489,8 +493,10 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01dc*/ aiRemoveWeaponFromInventory,
 	/*0x01dd*/ ai01dd,
 	/*0x01de*/ aiIfCoopMode,
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x01df*/ aiIfChrSameFloorDistanceToPadLessThan,
 	/*0x01e0*/ aiRemoveReferencesToChr,
+#endif
 };
 
 u16 g_CommandLengths[] = {
@@ -613,8 +619,11 @@ u16 g_CommandLengths[] = {
 	/*0x01d0*/ 0x0005, /*0x01d1*/ 0x0005, /*0x01d2*/ 0x0003, /*0x01d3*/ 0x0005,
 	/*0x01d4*/ 0x0006, /*0x01d5*/ 0x0003, /*0x01d6*/ 0x0006, /*0x01d7*/ 0x0005,
 	/*0x01d8*/ 0x0005, /*0x01d9*/ 0x000b, /*0x01da*/ 0x0003, /*0x01db*/ 0x0003,
-	/*0x01dc*/ 0x0003, /*0x01dd*/ 0x0004, /*0x01de*/ 0x0003, /*0x01df*/ 0x0008,
+	/*0x01dc*/ 0x0003, /*0x01dd*/ 0x0004, /*0x01de*/ 0x0003,
+#if VERSION >= VERSION_NTSC_1_0
+	/*0x01df*/ 0x0008,
 	/*0x01e0*/ 0x0002,
+#endif
 };
 
 s32 chraiGetListIdByList(u8 *ailist, bool *is_global)

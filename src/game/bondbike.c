@@ -1218,6 +1218,21 @@ void bbikeUpdateVertical(struct coord *arg0)
 	angle = hoverpropGetTurnAngle(bike);
 
 	func0f065e74(&bike->prop->pos, bike->prop->rooms, arg0, newrooms);
+
+#if VERSION < VERSION_NTSC_1_0
+	{
+		s32 i;
+
+		for (i = 0; newrooms[i] != -1; i++) {
+			if (g_Vars.currentplayer->floorroom == newrooms[i]) {
+				newrooms[0] = g_Vars.currentplayer->floorroom;
+				newrooms[1] = -1;
+				break;
+			}
+		}
+	}
+#endif
+
 	bmove0f0cb79c(g_Vars.currentplayer, arg0, newrooms);
 	func0f065c44(g_Vars.currentplayer->prop);
 	roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
@@ -1648,6 +1663,7 @@ void bbikeTick(void)
 
 		prop = g_Vars.currentplayer->prop;
 
+#if VERSION >= VERSION_NTSC_1_0
 		for (i = 0; prop->rooms[i] != -1; i++) {
 			if (prop->rooms[i] == g_Vars.currentplayer->floorroom) {
 				func0f065c44(prop);
@@ -1656,6 +1672,7 @@ void bbikeTick(void)
 				break;
 			}
 		}
+#endif
 	}
 
 	bheadAdjustAnimation(0);

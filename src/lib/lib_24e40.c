@@ -1301,7 +1301,7 @@ glabel func00025c74
 /*    25f8c:	00000000 */ 	nop
 );
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00027370nb
 /*    27370:	44856000 */ 	mtc1	$a1,$f12
@@ -2073,7 +2073,7 @@ glabel platformGetRidingProps
 /*    26a00:	27bd0278 */ 	addiu	$sp,$sp,0x278
 );
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00027e18nb
 /*    27e14:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -11625,7 +11625,7 @@ glabel func0002f02c
 /*    2f2e4:	01201025 */ 	or	$v0,$t1,$zero
 );
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func000306f0nb
 /*    306f0:	27bdff78 */ 	addiu	$sp,$sp,-136
@@ -11765,7 +11765,7 @@ glabel func000306f0nb
 );
 #endif
 
-#if VERSION == VERSION_NTSC_BETA
+#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func000308e8nb
 /*    308e8:	27bdff78 */ 	addiu	$sp,$sp,-136
