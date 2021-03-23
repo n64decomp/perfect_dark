@@ -2108,37 +2108,37 @@ GLOBAL_ASM(
 glabel func00031b34
 .late_rodata
 glabel var70054740
-.word func00031b34+0x01ac
+.word func00031b34+0x1ac
 glabel var70054744
-.word func00031b34+0x0a78
+.word func00031b34+0x940
 glabel var70054748
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var7005474c
-.word func00031b34+0x0bfc
+.word func00031b34+0xa9c
 glabel var70054750
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var70054754
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var70054758
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var7005475c
-.word func00031b34+0x0f08
+.word func00031b34+0xda8
 glabel var70054760
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var70054764
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var70054768
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var7005476c
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var70054770
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var70054774
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var70054778
-.word func00031b34+0x14dc
+.word func00031b34+0x132c
 glabel var7005477c
-.word func00031b34+0x0ca0
+.word func00031b34+0xb40
 .text
 /*    33274:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*    33278:	afbf0034 */ 	sw	$ra,0x34($sp)

@@ -319,7 +319,7 @@ const u32 var70054b24[] = {0x7003e2b8};
 const u32 var70054b28[] = {0x7003e870};
 const u32 var70054b2c[] = {0x7003e8c0};
 const u32 var70054b30[] = {0x7003e52c};
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 const u32 var70054af0[] = {0x7003eff8};
 const u32 var70054af4[] = {0x7003f0d0};
 const u32 var70054af8[] = {0x7003f0d0};
@@ -337,6 +337,24 @@ const u32 var70054b24[] = {0x7003e9b8};
 const u32 var70054b28[] = {0x7003ef70};
 const u32 var70054b2c[] = {0x7003efc0};
 const u32 var70054b30[] = {0x7003ec2c};
+#else
+const u32 var70054af0[] = {0x700403c8};
+const u32 var70054af4[] = {0x700404a0};
+const u32 var70054af8[] = {0x700404a0};
+const u32 var70054afc[] = {0x700404a0};
+const u32 var70054b00[] = {0x700404a0};
+const u32 var70054b04[] = {0x70040460};
+const u32 var70054b08[] = {0x700404a0};
+const u32 var70054b0c[] = {0x700403f4};
+const u32 var70054b10[] = {0x7004042c};
+const u32 var70054b14[] = {0x700404a0};
+const u32 var70054b18[] = {0x700404a0};
+const u32 var70054b1c[] = {0x7003fffc};
+const u32 var70054b20[] = {0x7003fffc};
+const u32 var70054b24[] = {0x7003fd88};
+const u32 var70054b28[] = {0x70040340};
+const u32 var70054b2c[] = {0x70040390};
+const u32 var70054b30[] = {0x7003fffc};
 #endif
 
 const u32 var70054b34[] = {0x477fff00};

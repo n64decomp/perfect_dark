@@ -757,6 +757,8 @@ glabel func00006d60
 /*     6f94:	00000000 */ 	nop
 );
 #else
+const char var70053ad0nb[] = "pfsinitpak.c -> ret = %d\n";
+
 GLOBAL_ASM(
 glabel func00006d60
 /*     6ea0:	27bdff90 */ 	addiu	$sp,$sp,-112

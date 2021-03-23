@@ -572,7 +572,11 @@ u32 var8005ef08 = 0;
 
 void contDebugJoy(void)
 {
+#if VERSION >= VERSION_NTSC_1_0
 	func0000db30("debugjoy", &var8005ef08);
+#else
+	func0000db30("joyforce", &var8005ef08);
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.paksconnected) {
@@ -623,6 +627,11 @@ const char var70054130[] = "osContStartReadData -> Failed - CONT_NO_RESPONSE_ERR
 const char var70054168[] = "osContStartReadData -> Failed - CONT_OVERRUN_ERROR\n";
 const char var7005419c[] = "joyTickRetrace:joy%derrno%d->%d\n";
 const char var700541c0[] = "joyTickRetrace:joy%derrno%d->%d\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var70055958nb[] = "joy.c";
+const char var70055960nb[] = "joy.c";
+#endif
 
 s32 contStartReadData(OSMesgQueue *mq)
 {

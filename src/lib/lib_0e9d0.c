@@ -49,7 +49,19 @@ const char var70053b60[] = "RWI : Initialising the new and improved MP3 player\n
 const char var70053b94[] = "RWI : MP3 player Initialising Done\n";
 const char var70053bb8[] = "gsSndpNew\n";
 const char var70053bc4[] = "Set the sample callbacks\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var70055250nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+const char var700552a8nb[] = "snd.c";
+const char var700552b0nb[] = "Snd Heap Check FAILED";
+#endif
+
 const char var70053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var700552f0nb[] = "Snd_Play_Mpeg : sndId=%d, vol=%d, pan=%d\n";
+#endif
+
 const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
 const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
 const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
@@ -60,7 +72,6 @@ const u32 var70053c8c[] = {0x3e99999a};
 const u32 var70053c90[] = {0x3f333333};
 const u32 var70053c94[] = {0x3eb33333};
 const u32 var70053c98[] = {0x3f4ccccd};
-const u32 var70053c9c[] = {0x00000000};
 
 bool g_Silent = false;
 u32 var8005dda4 = 0x00000000;

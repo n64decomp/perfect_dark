@@ -447,6 +447,9 @@ glabel func0000c660nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
+const char var70053fd0nb[] = "%.49s";
+const char var70053fd8nb[] = "???";
+
 GLOBAL_ASM(
 glabel func0000c694nb
 /*     c694:	3c078009 */ 	lui	$a3,0x8009
@@ -489,6 +492,9 @@ glabel func0000c694nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
+const char var70053fdcnb[] = "%.41s";
+const char var70053fe4nb[] = "???";
+
 GLOBAL_ASM(
 glabel func0000c714nb
 /*     c714:	3c078009 */ 	lui	$a3,0x8009
@@ -531,6 +537,8 @@ glabel func0000c714nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
+const char var70053fe8nb[] = "%08x";
+
 GLOBAL_ASM(
 glabel func0000c794nb
 /*     c794:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -758,6 +766,33 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 	return 0;
 }
 #else
+const char crashrodata00[] = "\n\nFAULT-\n";
+const char crashrodata01[] = "DodgyStackTrace: %08llx ";
+const char crashrodata02[] = "%08x ";
+const char crashrodata03[] = ".\n";
+const char crashrodata04[] = "\nPerfect Crash (tm)\n\n";
+const char crashrodata05[] = "at 0x%016llx v0 0x%016llx v1 0x%016llx\n";
+const char crashrodata06[] = "a0 0x%016llx a1 0x%016llx a2 0x%016llx\n";
+const char crashrodata07[] = "a3 0x%016llx t0 0x%016llx t1 0x%016llx\n";
+const char crashrodata08[] = "t2 0x%016llx t3 0x%016llx t4 0x%016llx\n";
+const char crashrodata09[] = "t5 0x%016llx t6 0x%016llx t7 0x%016llx\n";
+const char crashrodata10[] = "s0 0x%016llx s1 0x%016llx s2 0x%016llx\n";
+const char crashrodata11[] = "s3 0x%016llx s4 0x%016llx s5 0x%016llx\n";
+const char crashrodata12[] = "s6 0x%016llx s7 0x%016llx t8 0x%016llx\n";
+const char crashrodata13[] = "t9 0x%016llx gp 0x%016llx sp 0x%016llx\n";
+const char crashrodata14[] = "s8 0x%016llx ra 0x%016llx\n";
+const char crashrodata15[] = "TID %d epc %08x cause %08x fp %08x badv %08x sr %08x\n";
+const char crashrodata16[] = "dshex -a %08x %08x %08x %08x %08x\n";
+const char crashrodata17[] = "cause";
+const char crashrodata18[] = " : ";
+const char crashrodata19[] = "fpcsr";
+const char crashrodata20[] = "\n";
+const char crashrodata21[] = "nearl: ";
+const char crashrodata22[] = " %08x ";
+const char crashrodata23[] = "\n       ";
+const char crashrodata24[] = "\n";
+const char crashrodata25[] = "\n";
+
 GLOBAL_ASM(
 glabel crashRender
 /*     ca5c:	27bdff08 */ 	addiu	$sp,$sp,-248

@@ -823,6 +823,8 @@ glabel func00001b70nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
+const char var700539b0nb[] = "Stack overflow thread %d";
+
 GLOBAL_ASM(
 glabel func00001bf4nb
 /*     1bf4:	27bdff28 */ 	addiu	$sp,$sp,-216

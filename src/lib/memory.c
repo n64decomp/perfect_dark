@@ -10,6 +10,23 @@ u32 var800993b4;
 struct memorypool g_ExpansionMemoryPools[9];
 u32 var8009946c;
 
+#if VERSION < VERSION_NTSC_1_0
+const char memrodata00[] = "Out of mem - LEV: %d f %d s %d";
+const char memrodata01[] = "Out of mem - ETR: %d f %d s %d";
+const char memrodata02[] = "Mem Info";
+const char memrodata03[] = "memp: MP_LF_LEV";
+const char memrodata04[] = "F: %d %d";
+const char memrodata05[] = "S: %d %d";
+const char memrodata06[] = "Over: %d";
+const char memrodata07[] = "Free: %d";
+const char memrodata08[] = "memp: MP_LF_ETER";
+const char memrodata09[] = "F: %d %d";
+const char memrodata10[] = "S: %d %d";
+const char memrodata11[] = "mema:";
+const char memrodata12[] = "LF: %d";
+const char memrodata13[] = "Audio Free: %d";
+#endif
+
 void func000121e0(void)
 {
 	// empty

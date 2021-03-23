@@ -9,6 +9,14 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+const char var70055980nb[] = "(";
+const char var70055984nb[] = "%s%s %9f";
+const char var70055990nb[] = "";
+const char var70055994nb[] = "";
+const char var70055998nb[] = " )\n";
+#endif
+
 const u32 var70054200[] = {0x42652ee0};
 
 GLOBAL_ASM(

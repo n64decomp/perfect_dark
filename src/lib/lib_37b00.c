@@ -10,6 +10,10 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+const char var700561b0nb[] = "MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n";
+#endif
+
 u32 var8009c390;
 u32 var8009c394;
 u32 var8009c398;

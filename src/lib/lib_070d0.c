@@ -303,6 +303,8 @@ glabel func000070d0
 /*     74e0:	27bd14a8 */ 	addiu	$sp,$sp,0x14a8
 );
 #else
+const char var70053af0nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+const char var70053b48nb[] = "vm_m.c";
 GLOBAL_ASM(
 glabel func000070d0
 /*     71b0:	27bdea98 */ 	addiu	$sp,$sp,-5480

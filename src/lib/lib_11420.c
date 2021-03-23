@@ -757,18 +757,6 @@ glabel var70053fec
 #else
 GLOBAL_ASM(
 glabel func0001190c
-.late_rodata
-glabel var70053fdc
-.word func0001190c+0x324
-glabel var70053fe0
-.word func0001190c+0x338
-glabel var70053fe4
-.word func0001190c+0x34c
-glabel var70053fe8
-.word func0001190c+0x360
-glabel var70053fec
-.word func0001190c+0x370
-.text
 /*    11cb4:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*    11cb8:	3c0e8006 */ 	lui	$t6,0x8006
 /*    11cbc:	8dcef6c0 */ 	lw	$t6,-0x940($t6)
