@@ -28,29 +28,29 @@ glabel __osSyncPutChars
 .NB00004154:
 /*     4154:	3c108006 */ 	lui	$s0,0x8006
 /*     4158:	2610e6e4 */ 	addiu	$s0,$s0,-6428
-/*     415c:	0c012dcc */ 	jal	0x4b730
+/*     415c:	0c012dcc */ 	jal	__osAtomicDec
 /*     4160:	02002025 */ 	or	$a0,$s0,$zero
 /*     4164:	14400005 */ 	bnez	$v0,.NB0000417c
 /*     4168:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0000416c:
-/*     416c:	0c012dcc */ 	jal	0x4b730
+/*     416c:	0c012dcc */ 	jal	__osAtomicDec
 /*     4170:	02002025 */ 	or	$a0,$s0,$zero
 /*     4174:	1040fffd */ 	beqz	$v0,.NB0000416c
 /*     4178:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0000417c:
-/*     417c:	0c012a60 */ 	jal	0x4a980
+/*     417c:	0c012a60 */ 	jal	__osDisableInt
 /*     4180:	00000000 */ 	sll	$zero,$zero,0x0
 /*     4184:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*     4188:	27ae0034 */ 	addiu	$t6,$sp,0x34
 /*     418c:	8dcf0000 */ 	lw	$t7,0x0($t6)
 /*     4190:	3c18c000 */ 	lui	$t8,0xc000
-/*     4194:	0c012de4 */ 	jal	0x4b790
+/*     4194:	0c012de4 */ 	jal	__osGetCause
 /*     4198:	af0f0000 */ 	sw	$t7,0x0($t8)
 /*     419c:	30592000 */ 	andi	$t9,$v0,0x2000
 /*     41a0:	57200007 */ 	bnezl	$t9,.NB000041c0
 /*     41a4:	3c09c000 */ 	lui	$t1,0xc000
 .NB000041a8:
-/*     41a8:	0c012de4 */ 	jal	0x4b790
+/*     41a8:	0c012de4 */ 	jal	__osGetCause
 /*     41ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*     41b0:	30482000 */ 	andi	$t0,$v0,0x2000
 /*     41b4:	1100fffc */ 	beqz	$t0,.NB000041a8
@@ -61,7 +61,7 @@ glabel __osSyncPutChars
 /*     41c4:	8e0a0000 */ 	lw	$t2,0x0($s0)
 /*     41c8:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*     41cc:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*     41d0:	0c012a7c */ 	jal	0x4a9f0
+/*     41d0:	0c012a7c */ 	jal	__osRestoreInt
 /*     41d4:	ae0b0000 */ 	sw	$t3,0x0($s0)
 /*     41d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*     41dc:	8fb00018 */ 	lw	$s0,0x18($sp)

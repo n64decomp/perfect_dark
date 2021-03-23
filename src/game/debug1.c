@@ -120,7 +120,7 @@ glabel debug0f118cf4nb
 /*  f118d80:	2694812c */ 	addiu	$s4,$s4,-32468
 /*  f118d84:	24150007 */ 	addiu	$s5,$zero,0x7
 .NB0f118d88:
-/*  f118d88:	0fc46320 */ 	jal	0xf118c80
+/*  f118d88:	0fc46320 */ 	jal	debug0f118c80nb
 /*  f118d8c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118d90:	8e790000 */ 	lw	$t9,0x0($s3)
 /*  f118d94:	240400c0 */ 	addiu	$a0,$zero,0xc0
@@ -129,7 +129,7 @@ glabel debug0f118cf4nb
 /*  f118da0:	240600c0 */ 	addiu	$a2,$zero,0xc0
 /*  f118da4:	240700c0 */ 	addiu	$a3,$zero,0xc0
 /*  f118da8:	001088c0 */ 	sll	$s1,$s0,0x3
-/*  f118dac:	0c005106 */ 	jal	0x14418
+/*  f118dac:	0c005106 */ 	jal	func000137bc
 /*  f118db0:	00109080 */ 	sll	$s2,$s0,0x2
 /*  f118db4:	8e880000 */ 	lw	$t0,0x0($s4)
 /*  f118db8:	01111021 */ 	addu	$v0,$t0,$s1
@@ -161,11 +161,11 @@ glabel debug0f118cf4nb
 /*  f118e18:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118e1c:	0006000d */ 	break	0x6
 .NB0f118e20:
-/*  f118e20:	0c0050df */ 	jal	0x1437c
+/*  f118e20:	0c0050df */ 	jal	func000137b0
 /*  f118e24:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118e28:	8ece0000 */ 	lw	$t6,0x0($s6)
 /*  f118e2c:	01d27821 */ 	addu	$t7,$t6,$s2
-/*  f118e30:	0c005175 */ 	jal	0x145d4
+/*  f118e30:	0c005175 */ 	jal	func000137fc
 /*  f118e34:	8de40000 */ 	lw	$a0,0x0($t7)
 .NB0f118e38:
 /*  f118e38:	3c028008 */ 	lui	$v0,0x8008
@@ -185,7 +185,7 @@ glabel debug0f118cf4nb
 /*  f118e6c:	18400033 */ 	blez	$v0,.NB0f118f3c
 /*  f118e70:	24150007 */ 	addiu	$s5,$zero,0x7
 .NB0f118e74:
-/*  f118e74:	0fc46320 */ 	jal	0xf118c80
+/*  f118e74:	0fc46320 */ 	jal	debug0f118c80nb
 /*  f118e78:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118e7c:	8e780000 */ 	lw	$t8,0x0($s3)
 /*  f118e80:	240400c0 */ 	addiu	$a0,$zero,0xc0
@@ -194,7 +194,7 @@ glabel debug0f118cf4nb
 /*  f118e8c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f118e90:	240700c0 */ 	addiu	$a3,$zero,0xc0
 /*  f118e94:	001088c0 */ 	sll	$s1,$s0,0x3
-/*  f118e98:	0c005106 */ 	jal	0x14418
+/*  f118e98:	0c005106 */ 	jal	func000137bc
 /*  f118e9c:	00109080 */ 	sll	$s2,$s0,0x2
 /*  f118ea0:	8e990000 */ 	lw	$t9,0x0($s4)
 /*  f118ea4:	03311021 */ 	addu	$v0,$t9,$s1
@@ -226,11 +226,11 @@ glabel debug0f118cf4nb
 /*  f118f04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118f08:	0006000d */ 	break	0x6
 .NB0f118f0c:
-/*  f118f0c:	0c0050df */ 	jal	0x1437c
+/*  f118f0c:	0c0050df */ 	jal	func000137b0
 /*  f118f10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118f14:	8ecd0000 */ 	lw	$t5,0x0($s6)
 /*  f118f18:	01b27021 */ 	addu	$t6,$t5,$s2
-/*  f118f1c:	0c005175 */ 	jal	0x145d4
+/*  f118f1c:	0c005175 */ 	jal	func000137fc
 /*  f118f20:	8dc40000 */ 	lw	$a0,0x0($t6)
 .NB0f118f24:
 /*  f118f24:	3c0f8008 */ 	lui	$t7,0x8008

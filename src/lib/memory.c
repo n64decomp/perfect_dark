@@ -67,9 +67,18 @@ void memInit(u32 heapstart, u32 heaplen)
 	g_OnboardMemoryPools[MEMPOOL_STAGE].rightpos = heapstart + heaplen;
 
 	// If 8MB, reserve the entire expansion pak for additional mempool 4
+#if VERSION >= VERSION_NTSC_1_0
 	extraend = 0x80000000 + initGetMemSize();
+#else
+	extraend = 0x80000000 + osGetMemSize();
+#endif
 
-	if (initGetMemSize() > 4 * 1024 * 1024) {
+#if VERSION >= VERSION_NTSC_1_0
+	if (initGetMemSize() > 4 * 1024 * 1024)
+#else
+	if (osGetMemSize() > 4 * 1024 * 1024)
+#endif
+	{
 		g_ExpansionMemoryPools[MEMPOOL_STAGE].start = 0x80400000;
 		g_ExpansionMemoryPools[MEMPOOL_STAGE].rightpos = extraend;
 	}
@@ -198,7 +207,7 @@ glabel malloc
 /*    12848:	3c04800a */ 	lui	$a0,0x800a
 /*    1284c:	2484c280 */ 	addiu	$a0,$a0,-15744
 /*    12850:	93a6008f */ 	lbu	$a2,0x8f($sp)
-/*    12854:	0c0049f1 */ 	jal	0x127c4
+/*    12854:	0c0049f1 */ 	jal	memAllocFromBank
 /*    12858:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*    1285c:	10400003 */ 	beqz	$v0,.NB0001286c
 /*    12860:	3c04800a */ 	lui	$a0,0x800a
@@ -207,7 +216,7 @@ glabel malloc
 .NB0001286c:
 /*    1286c:	2484c338 */ 	addiu	$a0,$a0,-15560
 /*    12870:	8fa50088 */ 	lw	$a1,0x88($sp)
-/*    12874:	0c0049f1 */ 	jal	0x127c4
+/*    12874:	0c0049f1 */ 	jal	memAllocFromBank
 /*    12878:	93a6008f */ 	lbu	$a2,0x8f($sp)
 /*    1287c:	10400003 */ 	beqz	$v0,.NB0001288c
 /*    12880:	afa20084 */ 	sw	$v0,0x84($sp)
@@ -225,37 +234,37 @@ glabel malloc
 /*    128ac:	14410011 */ 	bne	$v0,$at,.NB000128f4
 /*    128b0:	24040006 */ 	addiu	$a0,$zero,0x6
 /*    128b4:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    128b8:	0c004a7c */ 	jal	0x129f0
+/*    128b8:	0c004a7c */ 	jal	memGetFree
 /*    128bc:	00002825 */ 	or	$a1,$zero,$zero
 /*    128c0:	afa20028 */ 	sw	$v0,0x28($sp)
 /*    128c4:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    128c8:	0c004a91 */ 	jal	0x12a44
+/*    128c8:	0c004a91 */ 	jal	func00012a44nb
 /*    128cc:	00002825 */ 	or	$a1,$zero,$zero
 /*    128d0:	3c057005 */ 	lui	$a1,0x7005
 /*    128d4:	24a556f0 */ 	addiu	$a1,$a1,0x56f0
 /*    128d8:	27a40034 */ 	addiu	$a0,$sp,0x34
 /*    128dc:	8fa60088 */ 	lw	$a2,0x88($sp)
 /*    128e0:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*    128e4:	0c004fc1 */ 	jal	0x13f04
+/*    128e4:	0c004fc1 */ 	jal	sprintf
 /*    128e8:	afa20010 */ 	sw	$v0,0x10($sp)
 /*    128ec:	1000000e */ 	beqz	$zero,.NB00012928
 /*    128f0:	00000000 */ 	sll	$zero,$zero,0x0
 .NB000128f4:
-/*    128f4:	0c004a7c */ 	jal	0x129f0
+/*    128f4:	0c004a7c */ 	jal	memGetFree
 /*    128f8:	00002825 */ 	or	$a1,$zero,$zero
 /*    128fc:	afa20028 */ 	sw	$v0,0x28($sp)
 /*    12900:	24040006 */ 	addiu	$a0,$zero,0x6
-/*    12904:	0c004a91 */ 	jal	0x12a44
+/*    12904:	0c004a91 */ 	jal	func00012a44nb
 /*    12908:	00002825 */ 	or	$a1,$zero,$zero
 /*    1290c:	3c057005 */ 	lui	$a1,0x7005
 /*    12910:	24a55710 */ 	addiu	$a1,$a1,0x5710
 /*    12914:	27a40034 */ 	addiu	$a0,$sp,0x34
 /*    12918:	8fa60088 */ 	lw	$a2,0x88($sp)
 /*    1291c:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*    12920:	0c004fc1 */ 	jal	0x13f04
+/*    12920:	0c004fc1 */ 	jal	sprintf
 /*    12924:	afa20010 */ 	sw	$v0,0x10($sp)
 .NB00012928:
-/*    12928:	0c003074 */ 	jal	0xc1d0
+/*    12928:	0c003074 */ 	jal	func0000c1d0nb
 /*    1292c:	27a40034 */ 	addiu	$a0,$sp,0x34
 /*    12930:	240f0045 */ 	addiu	$t7,$zero,0x45
 /*    12934:	a00f0000 */ 	sb	$t7,0x0($zero)
@@ -360,7 +369,7 @@ glabel func00012a98nb
 /*    12aa0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12aa4:	30ae000f */ 	andi	$t6,$a1,0xf
 /*    12aa8:	01c02825 */ 	or	$a1,$t6,$zero
-/*    12aac:	0c004a0e */ 	jal	0x12838
+/*    12aac:	0c004a0e */ 	jal	malloc
 /*    12ab0:	00042102 */ 	srl	$a0,$a0,0x4
 /*    12ab4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    12ab8:	27bd0018 */ 	addiu	$sp,$sp,0x18

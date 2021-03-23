@@ -545,7 +545,7 @@ glabel func0f092484
 /*  f090b90:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f090b94:	12200005 */ 	beqz	$s1,.NB0f090bac
 /*  f090b98:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f090b9c:	0fc2c18c */ 	jal	0xf0b0630
+/*  f090b9c:	0fc2c18c */ 	jal	func0f0b28d0
 /*  f090ba0:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f090ba4:	1040000c */ 	beqz	$v0,.NB0f090bd8
 /*  f090ba8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -563,7 +563,7 @@ glabel func0f092484
 /*  f090bd0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f090bd4:	02009825 */ 	or	$s3,$s0,$zero
 .NB0f090bd8:
-/*  f090bd8:	0fc24104 */ 	jal	0xf090410
+/*  f090bd8:	0fc24104 */ 	jal	setupGetCommandLength
 /*  f090bdc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f090be0:	00026080 */ 	sll	$t4,$v0,0x2
 /*  f090be4:	01908021 */ 	addu	$s0,$t4,$s0
