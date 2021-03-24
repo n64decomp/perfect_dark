@@ -12,7 +12,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
 #include "game/bondhead.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/objectives.h"
 #include "game/options.h"
 #include "game/propobj.h"
@@ -256,19 +256,19 @@ glabel var7f1adb74
 /*  f0d2738:	14400011 */ 	bnez	$v0,.L0f0d2780
 /*  f0d273c:	8fa70060 */ 	lw	$a3,0x60($sp)
 .L0f0d2740:
-/*  f0d2740:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0d2740:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0d2744:	00000000 */ 	nop
 /*  f0d2748:	1440000d */ 	bnez	$v0,.L0f0d2780
 /*  f0d274c:	8fa70060 */ 	lw	$a3,0x60($sp)
 /*  f0d2750:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d2754:	83a5005b */ 	lb	$a1,0x5b($sp)
-/*  f0d2758:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0d2758:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0d275c:	24060202 */ 	addiu	$a2,$zero,0x202
 /*  f0d2760:	8fac0060 */ 	lw	$t4,0x60($sp)
 /*  f0d2764:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d2768:	24060101 */ 	addiu	$a2,$zero,0x101
 /*  f0d276c:	ad820028 */ 	sw	$v0,0x28($t4)
-/*  f0d2770:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0d2770:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0d2774:	83a5005b */ 	lb	$a1,0x5b($sp)
 /*  f0d2778:	8fa70060 */ 	lw	$a3,0x60($sp)
 /*  f0d277c:	ace2002c */ 	sw	$v0,0x2c($a3)
@@ -596,19 +596,19 @@ glabel var7f1adb74
 /*  f0d2738:	14400011 */ 	bnez	$v0,.L0f0d2780
 /*  f0d273c:	8fa70060 */ 	lw	$a3,0x60($sp)
 .L0f0d2740:
-/*  f0d2740:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0d2740:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0d2744:	00000000 */ 	nop
 /*  f0d2748:	1440000d */ 	bnez	$v0,.L0f0d2780
 /*  f0d274c:	8fa70060 */ 	lw	$a3,0x60($sp)
 /*  f0d2750:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d2754:	83a5005b */ 	lb	$a1,0x5b($sp)
-/*  f0d2758:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0d2758:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0d275c:	24060202 */ 	addiu	$a2,$zero,0x202
 /*  f0d2760:	8fac0060 */ 	lw	$t4,0x60($sp)
 /*  f0d2764:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d2768:	24060101 */ 	addiu	$a2,$zero,0x101
 /*  f0d276c:	ad820028 */ 	sw	$v0,0x28($t4)
-/*  f0d2770:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0d2770:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0d2774:	83a5005b */ 	lb	$a1,0x5b($sp)
 /*  f0d2778:	8fa70060 */ 	lw	$a3,0x60($sp)
 /*  f0d277c:	ace2002c */ 	sw	$v0,0x2c($a3)
@@ -889,9 +889,9 @@ glabel var7f1adb74
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_14
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_13
 //				|| optionsGetControlMode(g_Vars.currentplayerstats->mpindex) == CONTROLMODE_11)
-//			&& !coreIsPaused()) {
-//		data->digitalstepleft = contCountButtonsOnSpecificSamples(0, contnum, L_JPAD | L_CBUTTONS);
-//		data->digitalstepright = contCountButtonsOnSpecificSamples(0, contnum, R_JPAD | R_CBUTTONS);
+//			&& !lvIsPaused()) {
+//		data->digitalstepleft = joyCountButtonsOnSpecificSamples(0, contnum, L_JPAD | L_CBUTTONS);
+//		data->digitalstepright = joyCountButtonsOnSpecificSamples(0, contnum, R_JPAD | R_CBUTTONS);
 //	}
 //
 //	// Forward/back

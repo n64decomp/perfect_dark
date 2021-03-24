@@ -5,7 +5,7 @@
 #include "game/cheats.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_19aa80.h"
 #include "game/training/training.h"
 #include "game/gamefile.h"
@@ -15,7 +15,7 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/lib_0bfb0.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_126b0.h"
 #include "lib/lib_4b170.h"
 #include "data.h"
@@ -522,11 +522,11 @@ glabel savefileLoadDefaults
 /*  f11012c:	3308ff07 */ 	andi	$t0,$t8,0xff07
 /*  f110130:	310900f8 */ 	andi	$t1,$t0,0xf8
 /*  f110134:	a048000b */ 	sb	$t0,0xb($v0)
-/*  f110138:	0c0039df */ 	jal	audioSetSfxVolume
+/*  f110138:	0c0039df */ 	jal	sndSetSfxVolume
 /*  f11013c:	a049000b */ 	sb	$t1,0xb($v0)
 /*  f110140:	0fc54f08 */ 	jal	optionsSetMusicVolume
 /*  f110144:	24045000 */ 	li	$a0,0x5000
-/*  f110148:	0c003c3b */ 	jal	audioSetSoundMode
+/*  f110148:	0c003c3b */ 	jal	sndSetSoundMode
 /*  f11014c:	24040001 */ 	li	$a0,0x1
 /*  f110150:	02202025 */ 	move	$a0,$s1
 /*  f110154:	0fc54cf7 */ 	jal	optionsSetControlMode
@@ -799,9 +799,9 @@ void savefileLoadDefaults(struct savefile_solo *file)
 	file->autodifficulty = 0;
 	file->autostageindex = 0;
 	file->totaltime = 0;
-	audioSetSfxVolume(0x5000);
+	sndSetSfxVolume(0x5000);
 	optionsSetMusicVolume(0x5000);
-	audioSetSoundMode(SOUNDMODE_STEREO);
+	sndSetSoundMode(SOUNDMODE_STEREO);
 	optionsSetControlMode(player1, CONTROLMODE_11);
 	optionsSetControlMode(player2, CONTROLMODE_11);
 	savefileClearAllFlags(&file->flags);
@@ -1007,7 +1007,7 @@ glabel func0f10fac8
 /*  f10fc20:	00a02025 */ 	or	$a0,$a1,$zero
 .L0f10fc24:
 /*  f10fc24:	000441c0 */ 	sll	$t0,$a0,0x7
-/*  f10fc28:	0c003a87 */ 	jal	audioSetSfxVolume
+/*  f10fc28:	0c003a87 */ 	jal	sndSetSfxVolume
 /*  f10fc2c:	3104ffff */ 	andi	$a0,$t0,0xffff
 /*  f10fc30:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fc34:	0fc354fe */ 	jal	savefileGetInteger
@@ -1025,7 +1025,7 @@ glabel func0f10fac8
 /*  f10fc60:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fc64:	0fc354fe */ 	jal	savefileGetInteger
 /*  f10fc68:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f10fc6c:	0c003ce3 */ 	jal	audioSetSoundMode
+/*  f10fc6c:	0c003ce3 */ 	jal	sndSetSoundMode
 /*  f10fc70:	00402025 */ 	or	$a0,$v0,$zero
 /*  f10fc74:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fc78:	0fc354fe */ 	jal	savefileGetInteger
@@ -1280,7 +1280,7 @@ glabel func0f10fac8
 /*  f10a150:	00a02025 */ 	or	$a0,$a1,$zero
 .NB0f10a154:
 /*  f10a154:	000441c0 */ 	sll	$t0,$a0,0x7
-/*  f10a158:	0c003c77 */ 	jal	audioSetSfxVolume
+/*  f10a158:	0c003c77 */ 	jal	sndSetSfxVolume
 /*  f10a15c:	3104ffff */ 	andi	$a0,$t0,0xffff
 /*  f10a160:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a164:	0fc34ab8 */ 	jal	savefileGetInteger
@@ -1298,7 +1298,7 @@ glabel func0f10fac8
 /*  f10a190:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a194:	0fc34ab8 */ 	jal	savefileGetInteger
 /*  f10a198:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f10a19c:	0c003e02 */ 	jal	audioSetSoundMode
+/*  f10a19c:	0c003e02 */ 	jal	sndSetSoundMode
 /*  f10a1a0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f10a1a4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a1a8:	0fc34ab8 */ 	jal	savefileGetInteger

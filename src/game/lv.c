@@ -72,11 +72,11 @@
 #include "game/game_13c510.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_165670.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/music.h"
-#include "game/texture.h"
+#include "game/texdecompress.h"
 #include "game/game_176080.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
@@ -92,12 +92,12 @@
 #include "game/wallhit.h"
 #include "bss.h"
 #include "lib/args.h"
-#include "lib/controller.h"
+#include "lib/joy.h"
 #include "lib/lib_06440.h"
 #include "lib/lib_09a80.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_11420.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
@@ -177,13 +177,13 @@ void setVar80084040(u32 value)
 	var80084040 = value;
 }
 
-void func0f167af8(void)
+void lv0f167af8(void)
 {
 	g_Vars.lockscreen = 0;
 	g_Vars.unk0004d8 = -1;
 }
 
-void coreStopAllMiscSfx(void)
+void lvStopAllMiscSfx(void)
 {
 	s32 i;
 
@@ -193,7 +193,7 @@ void coreStopAllMiscSfx(void)
 	}
 }
 
-s32 coreGetMiscSfxIndex(u32 type)
+s32 lvGetMiscSfxIndex(u32 type)
 {
 	s32 i;
 
@@ -207,20 +207,20 @@ s32 coreGetMiscSfxIndex(u32 type)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void coreSetMiscSfxState(u32 type, bool play)
+void lvSetMiscSfxState(u32 type, bool play)
 {
 	if (play) {
-		if (coreGetMiscSfxIndex(type) == -1) {
-			s32 index = coreGetMiscSfxIndex(-1);
+		if (lvGetMiscSfxIndex(type) == -1) {
+			s32 index = lvGetMiscSfxIndex(-1);
 
 			if (index != -1 && g_MiscSfxAudioHandles[index] == NULL) {
-				audioStart(var80095200, g_MiscSfxSounds[type], &g_MiscSfxAudioHandles[index], -1, -1, -1, -1, -1);
+				sndStart(var80095200, g_MiscSfxSounds[type], &g_MiscSfxAudioHandles[index], -1, -1, -1, -1, -1);
 				g_MiscSfxActiveTypes[index] = type;
 			}
 		}
 	} else {
 		u32 stack;
-		s32 index = coreGetMiscSfxIndex(type);
+		s32 index = lvGetMiscSfxIndex(type);
 
 		if (index != -1) {
 			audioStop(g_MiscSfxAudioHandles[index]);
@@ -230,16 +230,16 @@ void coreSetMiscSfxState(u32 type, bool play)
 }
 #else
 GLOBAL_ASM(
-glabel coreSetMiscSfxState
+glabel lvSetMiscSfxState
 /*  f1624c4:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f1624c8:	10a00027 */ 	beqz	$a1,.NB0f162568
 /*  f1624cc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1624d0:	0fc58922 */ 	jal	coreGetMiscSfxIndex
+/*  f1624d0:	0fc58922 */ 	jal	lvGetMiscSfxIndex
 /*  f1624d4:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f1624d8:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f1624dc:	54410036 */ 	bnel	$v0,$at,.NB0f1625b8
 /*  f1624e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1624e4:	0fc58922 */ 	jal	coreGetMiscSfxIndex
+/*  f1624e4:	0fc58922 */ 	jal	lvGetMiscSfxIndex
 /*  f1624e8:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f1624ec:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f1624f0:	10410030 */ 	beq	$v0,$at,.NB0f1625b4
@@ -264,7 +264,7 @@ glabel coreSetMiscSfxState
 /*  f16253c:	84a568a6 */ 	lh	$a1,0x68a6($a1)
 /*  f162540:	8c848180 */ 	lw	$a0,-0x7e80($a0)
 /*  f162544:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f162548:	0c004338 */ 	jal	audioStart
+/*  f162548:	0c004338 */ 	jal	sndStart
 /*  f16254c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f162550:	8fa30030 */ 	lw	$v1,0x30($sp)
 /*  f162554:	8fab0040 */ 	lw	$t3,0x40($sp)
@@ -273,7 +273,7 @@ glabel coreSetMiscSfxState
 /*  f162560:	10000014 */ 	beqz	$zero,.NB0f1625b4
 /*  f162564:	ac2bee70 */ 	sw	$t3,-0x1190($at)
 .NB0f162568:
-/*  f162568:	0fc58922 */ 	jal	coreGetMiscSfxIndex
+/*  f162568:	0fc58922 */ 	jal	lvGetMiscSfxIndex
 /*  f16256c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162570:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f162574:	1041000f */ 	beq	$v0,$at,.NB0f1625b4
@@ -301,21 +301,21 @@ glabel coreSetMiscSfxState
 );
 #endif
 
-void coreUpdateMiscSfx(void)
+void lvUpdateMiscSfx(void)
 {
 	s32 i;
 
 	if (g_Vars.lvupdate240 == 0) {
 		for (i = 0; i != ARRAYCOUNT(g_MiscSfxActiveTypes); i++) {
-			coreSetMiscSfxState(i, false);
+			lvSetMiscSfxState(i, false);
 		}
 	} else {
 		bool usingboost = g_Vars.speedpillon
-			&& coreGetSlowMotionType() == SLOWMOTION_OFF
+			&& lvGetSlowMotionType() == SLOWMOTION_OFF
 			&& g_Vars.in_cutscene == false;
 		bool usingrocket;
 
-		coreSetMiscSfxState(MISCSFX_BOOSTHEARTBEAT, usingboost);
+		lvSetMiscSfxState(MISCSFX_BOOSTHEARTBEAT, usingboost);
 
 		usingrocket = false;
 
@@ -325,8 +325,8 @@ void coreUpdateMiscSfx(void)
 			}
 		}
 
-		coreSetMiscSfxState(MISCSFX_SLAYERROCKETHUM, usingrocket);
-		coreSetMiscSfxState(MISCSFX_SLAYERROCKETBEEP, usingrocket);
+		lvSetMiscSfxState(MISCSFX_SLAYERROCKETHUM, usingrocket);
+		lvSetMiscSfxState(MISCSFX_SLAYERROCKETBEEP, usingrocket);
 	}
 
 	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
@@ -335,14 +335,14 @@ void coreUpdateMiscSfx(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void coreLoadStage(s32 stagenum)
+void lvInit(s32 stagenum)
 {
-	coreCancelFade();
+	lvCancelFade();
 
 	var80084014 = false;
 	var80084010 = 0;
 
-	func00013900();
+	joy00013900();
 
 	g_Vars.unk0004d8 = 10;
 	g_Vars.unk0004d1 = 0;
@@ -467,7 +467,7 @@ void coreLoadStage(s32 stagenum)
 	smokeInit();
 	sparksInit();
 	weatherInit();
-	coreStopAllMiscSfx();
+	lvStopAllMiscSfx();
 
 	switch (g_Vars.stagenum) {
 	case STAGE_ESCAPE:
@@ -533,7 +533,7 @@ void coreLoadStage(s32 stagenum)
 	}
 
 	func0f11a2e4();
-	func0000eadc();
+	snd0000eadc();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
 		pakPushPakMenuDialog();
@@ -550,13 +550,13 @@ void coreLoadStage(s32 stagenum)
 	func0f011124(false);
 	var80084018 = 1;
 	bbufResetIndexes();
-	coreSetPaused(0);
+	lvSetPaused(0);
 
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *i = (s32 *)&coreGetSlowMotionType;
-		s32 *end = (s32 *)&coreTick;
+		s32 *i = (s32 *)&lvGetSlowMotionType;
+		s32 *end = (s32 *)&lvTick;
 
 		while (i < end) {
 			checksum += *i;
@@ -578,80 +578,80 @@ void coreLoadStage(s32 stagenum)
 }
 #else
 GLOBAL_ASM(
-glabel coreLoadStage
+glabel lvInit
 .late_rodata
 glabel var7f1b1ed8nc
-.word coreLoadStage+0x38c
+.word lvInit+0x38c
 glabel var7f1b1edcnc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1ee0nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1ee4nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1ee8nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1eecnc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1ef0nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1ef4nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1ef8nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1efcnc
-.word coreLoadStage+0x38c
+.word lvInit+0x38c
 glabel var7f1b1f00nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f04nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f08nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f0cnc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f10nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f14nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f18nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f1cnc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f20nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f24nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f28nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f2cnc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f30nc
-.word coreLoadStage+0x38c
+.word lvInit+0x38c
 glabel var7f1b1f34nc
-.word coreLoadStage+0x38c
+.word lvInit+0x38c
 glabel var7f1b1f38nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f3cnc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f40nc
-.word coreLoadStage+0x394
+.word lvInit+0x394
 glabel var7f1b1f44nc
-.word coreLoadStage+0x38c
+.word lvInit+0x38c
 .text
 /*  f1627b8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f1627bc:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f1627c0:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f1627c4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1627c8:	0fc58c64 */ 	jal	coreCancelFade
+/*  f1627c8:	0fc58c64 */ 	jal	lvCancelFade
 /*  f1627cc:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f1627d0:	3c018008 */ 	lui	$at,0x8008
 /*  f1627d4:	ac206874 */ 	sw	$zero,0x6874($at)
 /*  f1627d8:	3c018008 */ 	lui	$at,0x8008
-/*  f1627dc:	0c005812 */ 	jal	func000150c4
+/*  f1627dc:	0c005812 */ 	jal	joy000150c4
 /*  f1627e0:	ac206870 */ 	sw	$zero,0x6870($at)
 /*  f1627e4:	10400008 */ 	beqz	$v0,.NB0f162808
 /*  f1627e8:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f1627ec:	24a51e20 */ 	addiu	$a1,$a1,0x1e20
-/*  f1627f0:	0c00581b */ 	jal	func000150e8
+/*  f1627f0:	0c00581b */ 	jal	joy000150e8
 /*  f1627f4:	240402f8 */ 	addiu	$a0,$zero,0x2f8
 /*  f1627f8:	3c11800a */ 	lui	$s1,0x800a
 /*  f1627fc:	2631e6c0 */ 	addiu	$s1,$s1,-6464
@@ -858,7 +858,7 @@ glabel var7f1b1f44nc
 /*  f162aec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162af0:	0fc04bf0 */ 	jal	weatherInit
 /*  f162af4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162af8:	0fc58914 */ 	jal	coreStopAllMiscSfx
+/*  f162af8:	0fc58914 */ 	jal	lvStopAllMiscSfx
 /*  f162afc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162b00:	8e2204b4 */ 	lw	$v0,0x4b4($s1)
 /*  f162b04:	28410035 */ 	slti	$at,$v0,0x35
@@ -1050,7 +1050,7 @@ glabel var7f1b1f44nc
 .NB0f162da0:
 /*  f162da0:	0fc4506d */ 	jal	func0f11a2e4
 /*  f162da4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162da8:	0c003ca1 */ 	jal	func0000eadc
+/*  f162da8:	0c003ca1 */ 	jal	snd0000eadc
 /*  f162dac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162db0:	8fab0020 */ 	lw	$t3,0x20($sp)
 /*  f162db4:	2401005b */ 	addiu	$at,$zero,0x5b
@@ -1081,7 +1081,7 @@ glabel var7f1b1f44nc
 /*  f162e0c:	3c018008 */ 	lui	$at,0x8008
 /*  f162e10:	0c0009d6 */ 	jal	bbufResetIndexes
 /*  f162e14:	e42a6878 */ 	swc1	$f10,0x6878($at)
-/*  f162e18:	0fc59ebc */ 	jal	coreSetPaused
+/*  f162e18:	0fc59ebc */ 	jal	lvSetPaused
 /*  f162e1c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f162e20:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f162e24:	8fb00014 */ 	lw	$s0,0x14($sp)
@@ -1091,7 +1091,7 @@ glabel var7f1b1f44nc
 );
 #endif
 
-void coreConfigureFade(u32 color, s16 num_frames)
+void lvConfigureFade(u32 color, s16 num_frames)
 {
 	g_FadeNumFrames = num_frames;
 	g_FadePrevColour = g_FadeColour;
@@ -1107,7 +1107,7 @@ void coreConfigureFade(u32 color, s16 num_frames)
 	g_FadeDelay = 2;
 }
 
-Gfx *coreRenderFade(Gfx *gdl)
+Gfx *lvRenderFade(Gfx *gdl)
 {
 	u32 colour = g_FadeColour;
 	u32 inset = 0;
@@ -1158,12 +1158,12 @@ Gfx *coreRenderFade(Gfx *gdl)
 	return func0f153838(gdl);
 }
 
-bool coreIsFadeActive(void)
+bool lvIsFadeActive(void)
 {
 	return g_FadeFrac >= 0;
 }
 
-void coreCancelFade(void)
+void lvCancelFade(void)
 {
 	g_FadeNumFrames = 0;
 	g_FadeFrac = -1;
@@ -1172,7 +1172,7 @@ void coreCancelFade(void)
 	g_FadeDelay = 0;
 }
 
-bool coreCheckCmpFollowThreat(struct threat *threat, s32 index)
+bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 {
 	f32 sp76;
 	f32 sp72;
@@ -1526,7 +1526,7 @@ glabel var7f1b1f68
 );
 #endif
 
-void coreFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
+void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
 {
 	bool condition = true;
 	struct defaultobj *obj;
@@ -1646,11 +1646,11 @@ void coreFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playe
 	}
 
 	if (prop->child) {
-		coreFindThreatsForProp(prop->child, true, playerpos, activeslots, distances);
+		lvFindThreatsForProp(prop->child, true, playerpos, activeslots, distances);
 	}
 
 	if (inchild && prop->next) {
-		coreFindThreatsForProp(prop->next, inchild, playerpos, activeslots, distances);
+		lvFindThreatsForProp(prop->next, inchild, playerpos, activeslots, distances);
 	}
 }
 
@@ -1711,7 +1711,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 	}
 }
 
-void coreFindThreats(void)
+void lvFindThreats(void)
 {
 	s32 i;
 	struct prop *prop;
@@ -1748,7 +1748,7 @@ void coreFindThreats(void)
 		prop = *propptr;
 
 		if (prop) {
-			coreFindThreatsForProp(prop, false, &campos, activeslots, distances);
+			lvFindThreatsForProp(prop, false, &campos, activeslots, distances);
 		}
 
 		propptr--;
@@ -1760,7 +1760,7 @@ struct coord coreRender_spd4 = {0, 0, 0};
 s8 coreRender_spd0[] = {30, 0, 0, 0};
 
 GLOBAL_ASM(
-glabel coreRender
+glabel lvRender
 .late_rodata
 glabel var7f1b8e64pf
 .word 0x3f866666
@@ -1895,7 +1895,7 @@ glabel var7f1b8e7cpf
 /*  f16a4b8:	016e6025 */ 	or	$t4,$t3,$t6
 /*  f16a4bc:	0fc06bf9 */ 	jal	titleRender
 /*  f16a4c0:	ae2c0004 */ 	sw	$t4,0x4($s1)
-/*  f16a4c4:	0fc5a557 */ 	jal	coreRenderFade
+/*  f16a4c4:	0fc5a557 */ 	jal	lvRenderFade
 /*  f16a4c8:	00402025 */ 	move	$a0,$v0
 /*  f16a4cc:	100005e8 */ 	b	.PF0f16bc70
 /*  f16a4d0:	00409825 */ 	move	$s3,$v0
@@ -2622,7 +2622,7 @@ glabel var7f1b8e7cpf
 /*  f16af5c:	3c050008 */ 	lui	$a1,0x8
 /*  f16af60:	10400005 */ 	beqz	$v0,.PF0f16af78
 /*  f16af64:	00000000 */ 	nop
-/*  f16af68:	0fc5a851 */ 	jal	coreFindThreats
+/*  f16af68:	0fc5a851 */ 	jal	lvFindThreats
 /*  f16af6c:	00000000 */ 	nop
 /*  f16af70:	10000033 */ 	b	.PF0f16b040
 /*  f16af74:	8e500284 */ 	lw	$s0,0x284($s2)
@@ -2654,7 +2654,7 @@ glabel var7f1b8e7cpf
 /*  f16afd8:	8e440284 */ 	lw	$a0,0x284($s2)
 .PF0f16afdc:
 /*  f16afdc:	02e02825 */ 	move	$a1,$s7
-/*  f16afe0:	0fc5a620 */ 	jal	coreCheckCmpFollowThreat
+/*  f16afe0:	0fc5a620 */ 	jal	lvCheckCmpFollowThreat
 /*  f16afe4:	24841624 */ 	addiu	$a0,$a0,0x1624
 /*  f16afe8:	54400004 */ 	bnezl	$v0,.PF0f16affc
 /*  f16afec:	00008825 */ 	move	$s1,$zero
@@ -2667,7 +2667,7 @@ glabel var7f1b8e7cpf
 /*  f16b000:	8e4a0284 */ 	lw	$t2,0x284($s2)
 /*  f16b004:	02202825 */ 	move	$a1,$s1
 /*  f16b008:	01502021 */ 	addu	$a0,$t2,$s0
-/*  f16b00c:	0fc5a620 */ 	jal	coreCheckCmpFollowThreat
+/*  f16b00c:	0fc5a620 */ 	jal	lvCheckCmpFollowThreat
 /*  f16b010:	24841630 */ 	addiu	$a0,$a0,0x1630
 /*  f16b014:	14400007 */ 	bnez	$v0,.PF0f16b034
 /*  f16b018:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -2710,7 +2710,7 @@ glabel var7f1b8e7cpf
 /*  f16b0a4:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16b0a8:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16b0ac:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16b0b0:	0c0041a0 */ 	jal	audioStart
+/*  f16b0b0:	0c0041a0 */ 	jal	sndStart
 /*  f16b0b4:	afb7001c */ 	sw	$s7,0x1c($sp)
 /*  f16b0b8:	10000053 */ 	b	.PF0f16b208
 /*  f16b0bc:	8e500284 */ 	lw	$s0,0x284($s2)
@@ -2730,7 +2730,7 @@ glabel var7f1b8e7cpf
 /*  f16b0f0:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16b0f4:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16b0f8:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16b0fc:	0c0041a0 */ 	jal	audioStart
+/*  f16b0fc:	0c0041a0 */ 	jal	sndStart
 /*  f16b100:	afb7001c */ 	sw	$s7,0x1c($sp)
 /*  f16b104:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f16b108:	240b001c */ 	li	$t3,0x1c
@@ -2763,7 +2763,7 @@ glabel var7f1b8e7cpf
 /*  f16b170:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16b174:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16b178:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16b17c:	0c0041a0 */ 	jal	audioStart
+/*  f16b17c:	0c0041a0 */ 	jal	sndStart
 /*  f16b180:	afb7001c */ 	sw	$s7,0x1c($sp)
 .PF0f16b184:
 /*  f16b184:	10000020 */ 	b	.PF0f16b208
@@ -2928,7 +2928,7 @@ glabel var7f1b8e7cpf
 /*  f16b3d8:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16b3dc:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16b3e0:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16b3e4:	0c0041a0 */ 	jal	audioStart
+/*  f16b3e4:	0c0041a0 */ 	jal	sndStart
 /*  f16b3e8:	afb7001c */ 	sw	$s7,0x1c($sp)
 .PF0f16b3ec:
 /*  f16b3ec:	3c188008 */ 	lui	$t8,0x8008
@@ -2973,7 +2973,7 @@ glabel var7f1b8e7cpf
 /*  f16b484:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16b488:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16b48c:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16b490:	0c0041a0 */ 	jal	audioStart
+/*  f16b490:	0c0041a0 */ 	jal	sndStart
 /*  f16b494:	afb7001c */ 	sw	$s7,0x1c($sp)
 .PF0f16b498:
 /*  f16b498:	3c188008 */ 	lui	$t8,0x8008
@@ -3000,7 +3000,7 @@ glabel var7f1b8e7cpf
 /*  f16b4e8:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16b4ec:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16b4f0:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16b4f4:	0c0041a0 */ 	jal	audioStart
+/*  f16b4f4:	0c0041a0 */ 	jal	sndStart
 /*  f16b4f8:	afb7001c */ 	sw	$s7,0x1c($sp)
 .PF0f16b4fc:
 /*  f16b4fc:	12000005 */ 	beqz	$s0,.PF0f16b514
@@ -3124,7 +3124,7 @@ glabel var7f1b8e7cpf
 /*  f16b6a8:	8e4a0464 */ 	lw	$t2,0x464($s2)
 /*  f16b6ac:	55400015 */ 	bnezl	$t2,.PF0f16b704
 /*  f16b6b0:	2861000d */ 	slti	$at,$v1,0xd
-/*  f16b6b4:	0fc5b180 */ 	jal	coreGetSlowMotionType
+/*  f16b6b4:	0fc5b180 */ 	jal	lvGetSlowMotionType
 /*  f16b6b8:	00000000 */ 	nop
 /*  f16b6bc:	10400003 */ 	beqz	$v0,.PF0f16b6cc
 /*  f16b6c0:	3c048009 */ 	lui	$a0,0x8009
@@ -3142,7 +3142,7 @@ glabel var7f1b8e7cpf
 /*  f16b6e8:	afb70010 */ 	sw	$s7,0x10($sp)
 /*  f16b6ec:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16b6f0:	afb70018 */ 	sw	$s7,0x18($sp)
-/*  f16b6f4:	0c0041a0 */ 	jal	audioStart
+/*  f16b6f4:	0c0041a0 */ 	jal	sndStart
 /*  f16b6f8:	afb7001c */ 	sw	$s7,0x1c($sp)
 /*  f16b6fc:	8e430460 */ 	lw	$v1,0x460($s2)
 /*  f16b700:	2861000d */ 	slti	$at,$v1,0xd
@@ -3433,7 +3433,7 @@ glabel var7f1b8e7cpf
 .PF0f16bb1c:
 /*  f16bb1c:	0fc619de */ 	jal	func0f185774
 /*  f16bb20:	02602025 */ 	move	$a0,$s3
-/*  f16bb24:	0fc5a557 */ 	jal	coreRenderFade
+/*  f16bb24:	0fc5a557 */ 	jal	lvRenderFade
 /*  f16bb28:	00402025 */ 	move	$a0,$v0
 /*  f16bb2c:	3c0f8009 */ 	lui	$t7,0x8009
 /*  f16bb30:	91ef8d54 */ 	lbu	$t7,-0x72ac($t7)
@@ -3590,7 +3590,7 @@ glabel var7f1b8e7cpf
 /*  f16bd5c:	920b0000 */ 	lbu	$t3,0x0($s0)
 /*  f16bd60:	00002025 */ 	move	$a0,$zero
 /*  f16bd64:	316cff01 */ 	andi	$t4,$t3,0xff01
-/*  f16bd68:	0fc5b6fd */ 	jal	coreSetDifficulty
+/*  f16bd68:	0fc5b6fd */ 	jal	lvSetDifficulty
 /*  f16bd6c:	a20c0000 */ 	sb	$t4,0x0($s0)
 /*  f16bd70:	825904d4 */ 	lb	$t9,0x4d4($s2)
 /*  f16bd74:	00197080 */ 	sll	$t6,$t9,0x2
@@ -3693,7 +3693,7 @@ glabel var7f1b8e7cpf
  * - random static in the Infiltration intro cutscene
  * - combat boost activation and reverting
  */
-Gfx *coreRender(Gfx *gdl)
+Gfx *lvRender(Gfx *gdl)
 {
 	gSPSegment(gdl++, 0x00, 0x00000000);
 
@@ -3718,7 +3718,7 @@ Gfx *coreRender(Gfx *gdl)
 				(viGetViewTop() + viGetViewHeight()) * 4.0f);
 
 		gdl = titleRender(gdl);
-		gdl = coreRenderFade(gdl);
+		gdl = lvRenderFade(gdl);
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
 		gSPDisplayList(gdl++, &var800613a0);
@@ -3930,7 +3930,7 @@ Gfx *coreRender(Gfx *gdl)
 				}
 
 				if (handHasFunctionFlags(&g_Vars.currentplayer->hands[0].base, FUNCFLAG_00080000)) {
-					coreFindThreats();
+					lvFindThreats();
 				} else if (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
 
@@ -3938,12 +3938,12 @@ Gfx *coreRender(Gfx *gdl)
 							&& g_Vars.currentplayer->lookingatprop.prop
 							&& bmoveIsInSightAimMode()) {
 						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
-					} else if (coreCheckCmpFollowThreat(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
+					} else if (lvCheckCmpFollowThreat(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
 					}
 
 					for (j = 0; j < ARRAYCOUNT(g_Vars.currentplayer->cmpfollowprops); j++) {
-						if (!coreCheckCmpFollowThreat(&g_Vars.currentplayer->cmpfollowprops[j], j)) {
+						if (!lvCheckCmpFollowThreat(&g_Vars.currentplayer->cmpfollowprops[j], j)) {
 							g_Vars.currentplayer->cmpfollowprops[j].unk04 = -1;
 							g_Vars.currentplayer->cmpfollowprops[j].unk08 = -2;
 						}
@@ -3956,12 +3956,12 @@ Gfx *coreRender(Gfx *gdl)
 						&& g_Vars.currentplayer->eyespy->camerabuttonheld) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 						objectiveCheckHolograph(400);
-						audioStart(var80095200, SFX_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
+						sndStart(var80095200, SFX_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
 					} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 						if (g_Vars.currentplayer->eyespydarts) {
 							// Fire dart
 							struct coord direction;
-							audioStart(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
+							sndStart(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
 							g_Vars.currentplayer->eyespydarts--;
 
 							direction.x = g_Vars.currentplayer->eyespy->look.x;
@@ -3972,7 +3972,7 @@ Gfx *coreRender(Gfx *gdl)
 									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);
 						} else {
 							// No dart ammo
-							audioStart(var80095200, SFX_DRUGSPY_FIREEMPTY, 0, -1, -1, -1, -1, -1);
+							sndStart(var80095200, SFX_DRUGSPY_FIREEMPTY, 0, -1, -1, -1, -1, -1);
 						}
 					} else { // EYESPYMODE_BOMBSPY
 						struct coord spd4 = {0, 0, 0};
@@ -4086,7 +4086,7 @@ Gfx *coreRender(Gfx *gdl)
 								cutscenehasstatic = true;
 
 								if (g_CutsceneStaticAudioHandle == NULL) {
-									audioStart(var80095200, SFX_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
+									sndStart(var80095200, SFX_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
 								}
 
 								g_CutsceneStaticTimer -= g_Vars.diffframe60;
@@ -4101,7 +4101,7 @@ Gfx *coreRender(Gfx *gdl)
 								if (g_CutsceneStaticTimer < 15) {
 									if (g_CutsceneStaticActive == false) {
 										g_CutsceneStaticActive = true;
-										audioStart(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
+										sndStart(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
 									}
 
 									cutscenestatic = 225 - g_CutsceneStaticTimer * 10;
@@ -4111,7 +4111,7 @@ Gfx *coreRender(Gfx *gdl)
 								// to the main static above
 								if (random() % 60 == 1) {
 									cutscenestatic = 255;
-									audioStart(var80095200, SFX_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
+									sndStart(var80095200, SFX_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
 								}
 
 								if (cutscenestatic) {
@@ -4163,7 +4163,7 @@ Gfx *coreRender(Gfx *gdl)
 							|| (g_Vars.speedpillwant && !g_Vars.speedpillon)
 							|| (!g_Vars.speedpillwant && g_Vars.speedpillon)) {
 						if (g_Vars.speedpillchange == 30 && !g_Vars.speedpillwant) {
-							audioStart(var80095200, coreGetSlowMotionType() ? SFX_JO_BOOST_ACTIVATE : SFX_JO_BOOST_REVERT, 0, -1, -1, -1, -1, -1);
+							sndStart(var80095200, lvGetSlowMotionType() ? SFX_JO_BOOST_ACTIVATE : SFX_JO_BOOST_REVERT, 0, -1, -1, -1, -1, -1);
 						}
 
 						if (g_Vars.speedpillchange < 15) {
@@ -4269,7 +4269,7 @@ Gfx *coreRender(Gfx *gdl)
 				}
 
 				gdl = func0f185774(gdl);
-				gdl = coreRenderFade(gdl);
+				gdl = lvRenderFade(gdl);
 
 				if (g_FrIsValidWeapon) {
 					gdl = frRenderHud(gdl);
@@ -4342,7 +4342,7 @@ Gfx *coreRender(Gfx *gdl)
 		setNumPlayers(1);
 		titleSetNextMode(TITLEMODE_SKIP);
 		g_MissionConfig.difficulty = DIFF_A;
-		coreSetDifficulty(DIFF_A);
+		lvSetDifficulty(DIFF_A);
 		g_MissionConfig.stageindex = g_Cutscenes[g_Vars.unk0004d4].mission;
 		g_MissionConfig.stagenum = g_Cutscenes[g_Vars.unk0004d4].stage;
 		titleSetNextStage(g_Cutscenes[g_Vars.unk0004d4].stage);
@@ -4363,7 +4363,7 @@ Gfx *coreRender(Gfx *gdl)
 }
 #else
 GLOBAL_ASM(
-glabel coreRender
+glabel lvRender
 .late_rodata
 glabel var7f1b1fbcnb
 .word 0x3f866666
@@ -4498,7 +4498,7 @@ glabel var7f1b1fd4nb
 /*  f164208:	032b6025 */ 	or	$t4,$t9,$t3
 /*  f16420c:	0fc06b08 */ 	jal	titleRender
 /*  f164210:	ae8c0004 */ 	sw	$t4,0x4($s4)
-/*  f164214:	0fc58ba8 */ 	jal	coreRenderFade
+/*  f164214:	0fc58ba8 */ 	jal	lvRenderFade
 /*  f164218:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16421c:	1000069c */ 	beqz	$zero,.NB0f165c90
 /*  f164220:	00409825 */ 	or	$s3,$v0,$zero
@@ -5210,7 +5210,7 @@ glabel var7f1b1fd4nb
 /*  f164c6c:	3c050008 */ 	lui	$a1,0x8
 /*  f164c70:	10400005 */ 	beqz	$v0,.NB0f164c88
 /*  f164c74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164c78:	0fc58fa5 */ 	jal	coreFindThreats
+/*  f164c78:	0fc58fa5 */ 	jal	lvFindThreats
 /*  f164c7c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f164c80:	10000034 */ 	beqz	$zero,.NB0f164d54
 /*  f164c84:	8e500284 */ 	lw	$s0,0x284($s2)
@@ -5242,7 +5242,7 @@ glabel var7f1b1fd4nb
 /*  f164ce8:	8e440284 */ 	lw	$a0,0x284($s2)
 .NB0f164cec:
 /*  f164cec:	02802825 */ 	or	$a1,$s4,$zero
-/*  f164cf0:	0fc58c71 */ 	jal	coreCheckCmpFollowThreat
+/*  f164cf0:	0fc58c71 */ 	jal	lvCheckCmpFollowThreat
 /*  f164cf4:	24841624 */ 	addiu	$a0,$a0,0x1624
 /*  f164cf8:	54400004 */ 	bnezl	$v0,.NB0f164d0c
 /*  f164cfc:	00008825 */ 	or	$s1,$zero,$zero
@@ -5255,7 +5255,7 @@ glabel var7f1b1fd4nb
 /*  f164d10:	8e4a0284 */ 	lw	$t2,0x284($s2)
 /*  f164d14:	02202825 */ 	or	$a1,$s1,$zero
 /*  f164d18:	01502021 */ 	addu	$a0,$t2,$s0
-/*  f164d1c:	0fc58c71 */ 	jal	coreCheckCmpFollowThreat
+/*  f164d1c:	0fc58c71 */ 	jal	lvCheckCmpFollowThreat
 /*  f164d20:	24841630 */ 	addiu	$a0,$a0,0x1630
 /*  f164d24:	14400008 */ 	bnez	$v0,.NB0f164d48
 /*  f164d28:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -5300,7 +5300,7 @@ glabel var7f1b1fd4nb
 /*  f164dbc:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f164dc0:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f164dc4:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f164dc8:	0c004338 */ 	jal	audioStart
+/*  f164dc8:	0c004338 */ 	jal	sndStart
 /*  f164dcc:	afb4001c */ 	sw	$s4,0x1c($sp)
 /*  f164dd0:	10000053 */ 	beqz	$zero,.NB0f164f20
 /*  f164dd4:	8e500284 */ 	lw	$s0,0x284($s2)
@@ -5320,7 +5320,7 @@ glabel var7f1b1fd4nb
 /*  f164e08:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f164e0c:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f164e10:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f164e14:	0c004338 */ 	jal	audioStart
+/*  f164e14:	0c004338 */ 	jal	sndStart
 /*  f164e18:	afb4001c */ 	sw	$s4,0x1c($sp)
 /*  f164e1c:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f164e20:	240b001c */ 	addiu	$t3,$zero,0x1c
@@ -5353,7 +5353,7 @@ glabel var7f1b1fd4nb
 /*  f164e88:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f164e8c:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f164e90:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f164e94:	0c004338 */ 	jal	audioStart
+/*  f164e94:	0c004338 */ 	jal	sndStart
 /*  f164e98:	afb4001c */ 	sw	$s4,0x1c($sp)
 .NB0f164e9c:
 /*  f164e9c:	10000020 */ 	beqz	$zero,.NB0f164f20
@@ -5683,7 +5683,7 @@ glabel var7f1b1fd4nb
 /*  f165368:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f16536c:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f165370:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f165374:	0c004338 */ 	jal	audioStart
+/*  f165374:	0c004338 */ 	jal	sndStart
 /*  f165378:	afb4001c */ 	sw	$s4,0x1c($sp)
 .NB0f16537c:
 /*  f16537c:	3c0c8008 */ 	lui	$t4,0x8008
@@ -5728,7 +5728,7 @@ glabel var7f1b1fd4nb
 /*  f165414:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f165418:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f16541c:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f165420:	0c004338 */ 	jal	audioStart
+/*  f165420:	0c004338 */ 	jal	sndStart
 /*  f165424:	afb4001c */ 	sw	$s4,0x1c($sp)
 .NB0f165428:
 /*  f165428:	3c0c8008 */ 	lui	$t4,0x8008
@@ -5755,7 +5755,7 @@ glabel var7f1b1fd4nb
 /*  f165478:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f16547c:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f165480:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f165484:	0c004338 */ 	jal	audioStart
+/*  f165484:	0c004338 */ 	jal	sndStart
 /*  f165488:	afb4001c */ 	sw	$s4,0x1c($sp)
 .NB0f16548c:
 /*  f16548c:	12000005 */ 	beqz	$s0,.NB0f1654a4
@@ -5860,7 +5860,7 @@ glabel var7f1b1fd4nb
 /*  f1655f0:	8e4d0464 */ 	lw	$t5,0x464($s2)
 /*  f1655f4:	55a00015 */ 	bnezl	$t5,.NB0f16564c
 /*  f1655f8:	2861000f */ 	slti	$at,$v1,0xf
-/*  f1655fc:	0fc599a0 */ 	jal	coreGetSlowMotionType
+/*  f1655fc:	0fc599a0 */ 	jal	lvGetSlowMotionType
 /*  f165600:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165604:	10400003 */ 	beqz	$v0,.NB0f165614
 /*  f165608:	3c04800a */ 	lui	$a0,0x800a
@@ -5878,7 +5878,7 @@ glabel var7f1b1fd4nb
 /*  f165630:	afb40010 */ 	sw	$s4,0x10($sp)
 /*  f165634:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f165638:	afb40018 */ 	sw	$s4,0x18($sp)
-/*  f16563c:	0c004338 */ 	jal	audioStart
+/*  f16563c:	0c004338 */ 	jal	sndStart
 /*  f165640:	afb4001c */ 	sw	$s4,0x1c($sp)
 /*  f165644:	8e430460 */ 	lw	$v1,0x460($s2)
 /*  f165648:	2861000f */ 	slti	$at,$v1,0xf
@@ -6168,7 +6168,7 @@ glabel var7f1b1fd4nb
 /*  f165a5c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f165a60:	00409825 */ 	or	$s3,$v0,$zero
 .NB0f165a64:
-/*  f165a64:	0fc58ba8 */ 	jal	coreRenderFade
+/*  f165a64:	0fc58ba8 */ 	jal	lvRenderFade
 /*  f165a68:	02602025 */ 	or	$a0,$s3,$zero
 /*  f165a6c:	0fc5ff45 */ 	jal	func0f185774
 /*  f165a70:	00402025 */ 	or	$a0,$v0,$zero
@@ -6396,7 +6396,7 @@ glabel var7f1b1fd4nb
 /*  f165d9c:	920c0000 */ 	lbu	$t4,0x0($s0)
 /*  f165da0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f165da4:	318bff01 */ 	andi	$t3,$t4,0xff01
-/*  f165da8:	0fc59ed6 */ 	jal	coreSetDifficulty
+/*  f165da8:	0fc59ed6 */ 	jal	lvSetDifficulty
 /*  f165dac:	a20b0000 */ 	sb	$t3,0x0($s0)
 /*  f165db0:	825804d4 */ 	lb	$t8,0x4d4($s2)
 /*  f165db4:	03150019 */ 	multu	$t8,$s5
@@ -6507,7 +6507,7 @@ u32 var800840b4 = 0;
 u32 var800840b8 = 0;
 u32 var800840bc = 0;
 
-void coreUpdateSoloHandicaps(void)
+void lvUpdateSoloHandicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
@@ -6676,7 +6676,7 @@ s32 sub54321(s32 value)
 }
 #endif
 
-void coreUpdateCutsceneTime(void)
+void lvUpdateCutsceneTime(void)
 {
 	if (g_Vars.in_cutscene) {
 		g_CutsceneTime240_60 += g_Vars.lvupdate240_60;
@@ -6688,7 +6688,7 @@ void coreUpdateCutsceneTime(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel coreGetSlowMotionType
+glabel lvGetSlowMotionType
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
@@ -6769,7 +6769,7 @@ glabel coreGetSlowMotionType
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel coreGetSlowMotionType
+glabel lvGetSlowMotionType
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
@@ -6850,7 +6850,7 @@ glabel coreGetSlowMotionType
 );
 #else
 // Can't match the antipiracy part (used in ntsc-1.0 and above)
-s32 coreGetSlowMotionType(void)
+s32 lvGetSlowMotionType(void)
 {
 #if PIRACYCHECKS
 	u32 addr = sub54321(0xb0000a5c + 54321);
@@ -6898,7 +6898,7 @@ s32 coreGetSlowMotionType(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel coreTick
+glabel lvTick
 .late_rodata
 glabel var7f1b8ed0pf
 .word 0x3f99999a
@@ -6910,7 +6910,7 @@ glabel var7f1b8ed0pf
 /*  f16c728:	afb30038 */ 	sw	$s3,0x38($sp)
 /*  f16c72c:	afb20034 */ 	sw	$s2,0x34($sp)
 /*  f16c730:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f16c734:	0fc5b6cc */ 	jal	coreCheckPauseStateChanged
+/*  f16c734:	0fc5b6cc */ 	jal	lvCheckPauseStateChanged
 /*  f16c738:	afb0002c */ 	sw	$s0,0x2c($sp)
 /*  f16c73c:	3c14800a */ 	lui	$s4,0x800a
 /*  f16c740:	2694a510 */ 	addiu	$s4,$s4,-23280
@@ -6928,7 +6928,7 @@ glabel var7f1b8ed0pf
 .PF0f16c76c:
 /*  f16c76c:	14400013 */ 	bnez	$v0,.PF0f16c7bc
 /*  f16c770:	00000000 */ 	nop
-/*  f16c774:	0c004db2 */ 	jal	func00013938
+/*  f16c774:	0c004db2 */ 	jal	joy00013938
 /*  f16c778:	00000000 */ 	nop
 /*  f16c77c:	8e8204b4 */ 	lw	$v0,0x4b4($s4)
 /*  f16c780:	2401005a */ 	li	$at,0x5a
@@ -7036,7 +7036,7 @@ glabel var7f1b8ed0pf
 /*  f16c8e0:	5420ffde */ 	bnezl	$at,.PF0f16c85c
 /*  f16c8e4:	8cce0064 */ 	lw	$t6,0x64($a2)
 .PF0f16c8e8:
-/*  f16c8e8:	0fc5b6f7 */ 	jal	coreIsPaused
+/*  f16c8e8:	0fc5b6f7 */ 	jal	lvIsPaused
 /*  f16c8ec:	00000000 */ 	nop
 /*  f16c8f0:	10400003 */ 	beqz	$v0,.PF0f16c900
 /*  f16c8f4:	00000000 */ 	nop
@@ -7124,7 +7124,7 @@ glabel var7f1b8ed0pf
 /*  f16ca14:	100000d4 */ 	b	.PF0f16cd68
 /*  f16ca18:	8e830034 */ 	lw	$v1,0x34($s4)
 .PF0f16ca1c:
-/*  f16ca1c:	0fc5b180 */ 	jal	coreGetSlowMotionType
+/*  f16ca1c:	0fc5b180 */ 	jal	lvGetSlowMotionType
 /*  f16ca20:	00000000 */ 	nop
 /*  f16ca24:	8e8f0040 */ 	lw	$t7,0x40($s4)
 /*  f16ca28:	24010002 */ 	li	$at,0x2
@@ -7411,98 +7411,98 @@ glabel var7f1b8ed0pf
 /*  f16cdec:	0fc37e77 */ 	jal	hudmsgsTick
 /*  f16cdf0:	00000000 */ 	nop
 /*  f16cdf4:	00002025 */ 	move	$a0,$zero
-/*  f16cdf8:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f16cdf8:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f16cdfc:	3405ffff */ 	li	$a1,0xffff
 /*  f16ce00:	1440005c */ 	bnez	$v0,.PF0f16cf74
 /*  f16ce04:	00000000 */ 	nop
-/*  f16ce08:	0c0052e6 */ 	jal	contGetStickX
+/*  f16ce08:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16ce0c:	00002025 */ 	move	$a0,$zero
 /*  f16ce10:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16ce14:	10200057 */ 	beqz	$at,.PF0f16cf74
 /*  f16ce18:	00000000 */ 	nop
-/*  f16ce1c:	0c0052e6 */ 	jal	contGetStickX
+/*  f16ce1c:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16ce20:	00002025 */ 	move	$a0,$zero
 /*  f16ce24:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16ce28:	14200052 */ 	bnez	$at,.PF0f16cf74
 /*  f16ce2c:	00000000 */ 	nop
-/*  f16ce30:	0c005310 */ 	jal	contGetStickY
+/*  f16ce30:	0c005310 */ 	jal	joyGetStickY
 /*  f16ce34:	00002025 */ 	move	$a0,$zero
 /*  f16ce38:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16ce3c:	1020004d */ 	beqz	$at,.PF0f16cf74
 /*  f16ce40:	00000000 */ 	nop
-/*  f16ce44:	0c005310 */ 	jal	contGetStickY
+/*  f16ce44:	0c005310 */ 	jal	joyGetStickY
 /*  f16ce48:	00002025 */ 	move	$a0,$zero
 /*  f16ce4c:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16ce50:	14200048 */ 	bnez	$at,.PF0f16cf74
 /*  f16ce54:	24040001 */ 	li	$a0,0x1
-/*  f16ce58:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f16ce58:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f16ce5c:	3405ffff */ 	li	$a1,0xffff
 /*  f16ce60:	14400044 */ 	bnez	$v0,.PF0f16cf74
 /*  f16ce64:	00000000 */ 	nop
-/*  f16ce68:	0c0052e6 */ 	jal	contGetStickX
+/*  f16ce68:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16ce6c:	24040001 */ 	li	$a0,0x1
 /*  f16ce70:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16ce74:	1020003f */ 	beqz	$at,.PF0f16cf74
 /*  f16ce78:	00000000 */ 	nop
-/*  f16ce7c:	0c0052e6 */ 	jal	contGetStickX
+/*  f16ce7c:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16ce80:	24040001 */ 	li	$a0,0x1
 /*  f16ce84:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16ce88:	1420003a */ 	bnez	$at,.PF0f16cf74
 /*  f16ce8c:	00000000 */ 	nop
-/*  f16ce90:	0c005310 */ 	jal	contGetStickY
+/*  f16ce90:	0c005310 */ 	jal	joyGetStickY
 /*  f16ce94:	24040001 */ 	li	$a0,0x1
 /*  f16ce98:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16ce9c:	10200035 */ 	beqz	$at,.PF0f16cf74
 /*  f16cea0:	00000000 */ 	nop
-/*  f16cea4:	0c005310 */ 	jal	contGetStickY
+/*  f16cea4:	0c005310 */ 	jal	joyGetStickY
 /*  f16cea8:	24040001 */ 	li	$a0,0x1
 /*  f16ceac:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16ceb0:	14200030 */ 	bnez	$at,.PF0f16cf74
 /*  f16ceb4:	24040002 */ 	li	$a0,0x2
-/*  f16ceb8:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f16ceb8:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f16cebc:	3405ffff */ 	li	$a1,0xffff
 /*  f16cec0:	1440002c */ 	bnez	$v0,.PF0f16cf74
 /*  f16cec4:	00000000 */ 	nop
-/*  f16cec8:	0c0052e6 */ 	jal	contGetStickX
+/*  f16cec8:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16cecc:	24040002 */ 	li	$a0,0x2
 /*  f16ced0:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16ced4:	10200027 */ 	beqz	$at,.PF0f16cf74
 /*  f16ced8:	00000000 */ 	nop
-/*  f16cedc:	0c0052e6 */ 	jal	contGetStickX
+/*  f16cedc:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16cee0:	24040002 */ 	li	$a0,0x2
 /*  f16cee4:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16cee8:	14200022 */ 	bnez	$at,.PF0f16cf74
 /*  f16ceec:	00000000 */ 	nop
-/*  f16cef0:	0c005310 */ 	jal	contGetStickY
+/*  f16cef0:	0c005310 */ 	jal	joyGetStickY
 /*  f16cef4:	24040002 */ 	li	$a0,0x2
 /*  f16cef8:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16cefc:	1020001d */ 	beqz	$at,.PF0f16cf74
 /*  f16cf00:	00000000 */ 	nop
-/*  f16cf04:	0c005310 */ 	jal	contGetStickY
+/*  f16cf04:	0c005310 */ 	jal	joyGetStickY
 /*  f16cf08:	24040002 */ 	li	$a0,0x2
 /*  f16cf0c:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16cf10:	14200018 */ 	bnez	$at,.PF0f16cf74
 /*  f16cf14:	24040003 */ 	li	$a0,0x3
-/*  f16cf18:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f16cf18:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f16cf1c:	3405ffff */ 	li	$a1,0xffff
 /*  f16cf20:	14400014 */ 	bnez	$v0,.PF0f16cf74
 /*  f16cf24:	00000000 */ 	nop
-/*  f16cf28:	0c0052e6 */ 	jal	contGetStickX
+/*  f16cf28:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16cf2c:	24040003 */ 	li	$a0,0x3
 /*  f16cf30:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16cf34:	1020000f */ 	beqz	$at,.PF0f16cf74
 /*  f16cf38:	00000000 */ 	nop
-/*  f16cf3c:	0c0052e6 */ 	jal	contGetStickX
+/*  f16cf3c:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16cf40:	24040003 */ 	li	$a0,0x3
 /*  f16cf44:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16cf48:	1420000a */ 	bnez	$at,.PF0f16cf74
 /*  f16cf4c:	00000000 */ 	nop
-/*  f16cf50:	0c005310 */ 	jal	contGetStickY
+/*  f16cf50:	0c005310 */ 	jal	joyGetStickY
 /*  f16cf54:	24040003 */ 	li	$a0,0x3
 /*  f16cf58:	2841000b */ 	slti	$at,$v0,0xb
 /*  f16cf5c:	10200005 */ 	beqz	$at,.PF0f16cf74
 /*  f16cf60:	00000000 */ 	nop
-/*  f16cf64:	0c005310 */ 	jal	contGetStickY
+/*  f16cf64:	0c005310 */ 	jal	joyGetStickY
 /*  f16cf68:	24040003 */ 	li	$a0,0x3
 /*  f16cf6c:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f16cf70:	1020000e */ 	beqz	$at,.PF0f16cfac
@@ -7536,98 +7536,98 @@ glabel var7f1b8ed0pf
 /*  f16cfd4:	00002025 */ 	move	$a0,$zero
 /*  f16cfd8:	15e0006b */ 	bnez	$t7,.PF0f16d188
 /*  f16cfdc:	00000000 */ 	nop
-/*  f16cfe0:	0c00533a */ 	jal	contGetButtons
+/*  f16cfe0:	0c00533a */ 	jal	joyGetButtons
 /*  f16cfe4:	3405ffff */ 	li	$a1,0xffff
 /*  f16cfe8:	14400063 */ 	bnez	$v0,.PF0f16d178
 /*  f16cfec:	00000000 */ 	nop
-/*  f16cff0:	0c0052e6 */ 	jal	contGetStickX
+/*  f16cff0:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16cff4:	00002025 */ 	move	$a0,$zero
 /*  f16cff8:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16cffc:	1020005e */ 	beqz	$at,.PF0f16d178
 /*  f16d000:	00000000 */ 	nop
-/*  f16d004:	0c0052e6 */ 	jal	contGetStickX
+/*  f16d004:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16d008:	00002025 */ 	move	$a0,$zero
 /*  f16d00c:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d010:	14200059 */ 	bnez	$at,.PF0f16d178
 /*  f16d014:	00000000 */ 	nop
-/*  f16d018:	0c005310 */ 	jal	contGetStickY
+/*  f16d018:	0c005310 */ 	jal	joyGetStickY
 /*  f16d01c:	00002025 */ 	move	$a0,$zero
 /*  f16d020:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16d024:	10200054 */ 	beqz	$at,.PF0f16d178
 /*  f16d028:	00000000 */ 	nop
-/*  f16d02c:	0c005310 */ 	jal	contGetStickY
+/*  f16d02c:	0c005310 */ 	jal	joyGetStickY
 /*  f16d030:	00002025 */ 	move	$a0,$zero
 /*  f16d034:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d038:	1420004f */ 	bnez	$at,.PF0f16d178
 /*  f16d03c:	24040001 */ 	li	$a0,0x1
-/*  f16d040:	0c00533a */ 	jal	contGetButtons
+/*  f16d040:	0c00533a */ 	jal	joyGetButtons
 /*  f16d044:	3405ffff */ 	li	$a1,0xffff
 /*  f16d048:	1440004b */ 	bnez	$v0,.PF0f16d178
 /*  f16d04c:	00000000 */ 	nop
-/*  f16d050:	0c0052e6 */ 	jal	contGetStickX
+/*  f16d050:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16d054:	24040001 */ 	li	$a0,0x1
 /*  f16d058:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16d05c:	10200046 */ 	beqz	$at,.PF0f16d178
 /*  f16d060:	00000000 */ 	nop
-/*  f16d064:	0c0052e6 */ 	jal	contGetStickX
+/*  f16d064:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16d068:	24040001 */ 	li	$a0,0x1
 /*  f16d06c:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d070:	14200041 */ 	bnez	$at,.PF0f16d178
 /*  f16d074:	00000000 */ 	nop
-/*  f16d078:	0c005310 */ 	jal	contGetStickY
+/*  f16d078:	0c005310 */ 	jal	joyGetStickY
 /*  f16d07c:	24040001 */ 	li	$a0,0x1
 /*  f16d080:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16d084:	1020003c */ 	beqz	$at,.PF0f16d178
 /*  f16d088:	00000000 */ 	nop
-/*  f16d08c:	0c005310 */ 	jal	contGetStickY
+/*  f16d08c:	0c005310 */ 	jal	joyGetStickY
 /*  f16d090:	24040001 */ 	li	$a0,0x1
 /*  f16d094:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d098:	14200037 */ 	bnez	$at,.PF0f16d178
 /*  f16d09c:	24040002 */ 	li	$a0,0x2
-/*  f16d0a0:	0c00533a */ 	jal	contGetButtons
+/*  f16d0a0:	0c00533a */ 	jal	joyGetButtons
 /*  f16d0a4:	3405ffff */ 	li	$a1,0xffff
 /*  f16d0a8:	14400033 */ 	bnez	$v0,.PF0f16d178
 /*  f16d0ac:	00000000 */ 	nop
-/*  f16d0b0:	0c0052e6 */ 	jal	contGetStickX
+/*  f16d0b0:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16d0b4:	24040002 */ 	li	$a0,0x2
 /*  f16d0b8:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16d0bc:	1020002e */ 	beqz	$at,.PF0f16d178
 /*  f16d0c0:	00000000 */ 	nop
-/*  f16d0c4:	0c0052e6 */ 	jal	contGetStickX
+/*  f16d0c4:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16d0c8:	24040002 */ 	li	$a0,0x2
 /*  f16d0cc:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d0d0:	14200029 */ 	bnez	$at,.PF0f16d178
 /*  f16d0d4:	00000000 */ 	nop
-/*  f16d0d8:	0c005310 */ 	jal	contGetStickY
+/*  f16d0d8:	0c005310 */ 	jal	joyGetStickY
 /*  f16d0dc:	24040002 */ 	li	$a0,0x2
 /*  f16d0e0:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16d0e4:	10200024 */ 	beqz	$at,.PF0f16d178
 /*  f16d0e8:	00000000 */ 	nop
-/*  f16d0ec:	0c005310 */ 	jal	contGetStickY
+/*  f16d0ec:	0c005310 */ 	jal	joyGetStickY
 /*  f16d0f0:	24040002 */ 	li	$a0,0x2
 /*  f16d0f4:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d0f8:	1420001f */ 	bnez	$at,.PF0f16d178
 /*  f16d0fc:	24040003 */ 	li	$a0,0x3
-/*  f16d100:	0c00533a */ 	jal	contGetButtons
+/*  f16d100:	0c00533a */ 	jal	joyGetButtons
 /*  f16d104:	3405ffff */ 	li	$a1,0xffff
 /*  f16d108:	1440001b */ 	bnez	$v0,.PF0f16d178
 /*  f16d10c:	00000000 */ 	nop
-/*  f16d110:	0c0052e6 */ 	jal	contGetStickX
+/*  f16d110:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16d114:	24040003 */ 	li	$a0,0x3
 /*  f16d118:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16d11c:	10200016 */ 	beqz	$at,.PF0f16d178
 /*  f16d120:	00000000 */ 	nop
-/*  f16d124:	0c0052e6 */ 	jal	contGetStickX
+/*  f16d124:	0c0052e6 */ 	jal	joyGetStickX
 /*  f16d128:	24040003 */ 	li	$a0,0x3
 /*  f16d12c:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d130:	14200011 */ 	bnez	$at,.PF0f16d178
 /*  f16d134:	00000000 */ 	nop
-/*  f16d138:	0c005310 */ 	jal	contGetStickY
+/*  f16d138:	0c005310 */ 	jal	joyGetStickY
 /*  f16d13c:	24040003 */ 	li	$a0,0x3
 /*  f16d140:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16d144:	1020000c */ 	beqz	$at,.PF0f16d178
 /*  f16d148:	00000000 */ 	nop
-/*  f16d14c:	0c005310 */ 	jal	contGetStickY
+/*  f16d14c:	0c005310 */ 	jal	joyGetStickY
 /*  f16d150:	24040003 */ 	li	$a0,0x3
 /*  f16d154:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f16d158:	14200007 */ 	bnez	$at,.PF0f16d178
@@ -7795,7 +7795,7 @@ glabel var7f1b8ed0pf
 /*  f16d3a0:	8e0c0000 */ 	lw	$t4,0x0($s0)
 /*  f16d3a4:	55800021 */ 	bnezl	$t4,.PF0f16d42c
 /*  f16d3a8:	8e8e0034 */ 	lw	$t6,0x34($s4)
-/*  f16d3ac:	0fc5b6f7 */ 	jal	coreIsPaused
+/*  f16d3ac:	0fc5b6f7 */ 	jal	lvIsPaused
 /*  f16d3b0:	00000000 */ 	nop
 /*  f16d3b4:	1440001c */ 	bnez	$v0,.PF0f16d428
 /*  f16d3b8:	3c0d8008 */ 	lui	$t5,0x8008
@@ -7824,7 +7824,7 @@ glabel var7f1b8ed0pf
 /*  f16d414:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f16d418:	24067fff */ 	li	$a2,0x7fff
 /*  f16d41c:	24070040 */ 	li	$a3,0x40
-/*  f16d420:	0c004125 */ 	jal	func00010718
+/*  f16d420:	0c004125 */ 	jal	snd00010718
 /*  f16d424:	e7a80014 */ 	swc1	$f8,0x14($sp)
 .PF0f16d428:
 /*  f16d428:	8e8e0034 */ 	lw	$t6,0x34($s4)
@@ -8081,11 +8081,11 @@ glabel var7f1b8ed0pf
 /*  f16d7a4:	10000062 */ 	b	.PF0f16d930
 /*  f16d7a8:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .PF0f16d7ac:
-/*  f16d7ac:	0fc5b16f */ 	jal	coreUpdateCutsceneTime
+/*  f16d7ac:	0fc5b16f */ 	jal	lvUpdateCutsceneTime
 /*  f16d7b0:	00000000 */ 	nop
 /*  f16d7b4:	0fc4a79b */ 	jal	func0f12939c
 /*  f16d7b8:	00000000 */ 	nop
-/*  f16d7bc:	0fc5af9f */ 	jal	coreUpdateSoloHandicaps
+/*  f16d7bc:	0fc5af9f */ 	jal	lvUpdateSoloHandicaps
 /*  f16d7c0:	00000000 */ 	nop
 /*  f16d7c4:	0fc07678 */ 	jal	func0f01d8c0
 /*  f16d7c8:	00000000 */ 	nop
@@ -8115,9 +8115,9 @@ glabel var7f1b8ed0pf
 /*  f16d824:	0fc027af */ 	jal	nbombsTick
 /*  f16d828:	00000000 */ 	nop
 .PF0f16d82c:
-/*  f16d82c:	0fc5a302 */ 	jal	coreUpdateMiscSfx
+/*  f16d82c:	0fc5a302 */ 	jal	lvUpdateMiscSfx
 /*  f16d830:	00000000 */ 	nop
-/*  f16d834:	0c003f01 */ 	jal	func0000fe88
+/*  f16d834:	0c003f01 */ 	jal	snd0000fe88
 /*  f16d838:	00000000 */ 	nop
 /*  f16d83c:	0fc474a7 */ 	jal	pakExecuteDebugOperations
 /*  f16d840:	00000000 */ 	nop
@@ -8195,12 +8195,12 @@ glabel var7f1b8ed0pf
 /*  f16d94c:	27bd0290 */ 	addiu	$sp,$sp,0x290
 );
 #elif VERSION >= VERSION_NTSC_1_0
-void coreTick(void)
+void lvTick(void)
 {
 	s32 j;
 	s32 i;
 
-	coreCheckPauseStateChanged();
+	lvCheckPauseStateChanged();
 
 	if (g_Vars.unk0004e4) {
 		func0f11c54c();
@@ -8209,7 +8209,7 @@ void coreTick(void)
 	if (g_Vars.unk0004d8 > 0) {
 		g_Vars.unk0004d8--;
 	} else if (g_Vars.unk0004d8 == 0) {
-		func00013938();
+		joy00013938();
 
 		if (g_Vars.stagenum == STAGE_TITLE
 				|| g_Vars.stagenum == STAGE_BOOTPAKMENU
@@ -8233,7 +8233,7 @@ void coreTick(void)
 		g_Vars.players[j]->hands[HAND_RIGHT].unk0cec = 0;
 	}
 
-	if (coreIsPaused()) {
+	if (lvIsPaused()) {
 		g_Vars.lvupdate240 = 0;
 	} else if (mpIsPaused()) {
 		g_Vars.lvupdate240 = 0;
@@ -8242,7 +8242,7 @@ void coreTick(void)
 			g_Vars.players[j]->joybutinhibit = 0xefffefff;
 		}
 	} else {
-		s32 slowmo = coreGetSlowMotionType();
+		s32 slowmo = lvGetSlowMotionType();
 		g_Vars.lvupdate240 = g_Vars.diffframe240;
 
 		if (slowmo == SLOWMOTION_ON) {
@@ -8319,26 +8319,26 @@ void coreTick(void)
 	speedpillTick();
 	hudmsgsTick();
 
-	if ((contGetButtonsPressedThisFrame(0, 0xffff) != 0
-				|| contGetStickX(0) > 10
-				|| contGetStickX(0) < -10
-				|| contGetStickY(0) > 10
-				|| contGetStickY(0) < -10
-				|| contGetButtonsPressedThisFrame(1, 0xffff) != 0
-				|| contGetStickX(1) > 10
-				|| contGetStickX(1) < -10
-				|| contGetStickY(1) > 10
-				|| contGetStickY(1) < -10
-				|| contGetButtonsPressedThisFrame(2, 0xffff) != 0
-				|| contGetStickX(2) > 10
-				|| contGetStickX(2) < -10
-				|| contGetStickY(2) > 10
-				|| contGetStickY(2) < -10
-				|| contGetButtonsPressedThisFrame(3, 0xffff) != 0
-				|| contGetStickX(3) > 10
-				|| contGetStickX(3) < -10
-				|| contGetStickY(3) > 10
-				|| contGetStickY(3) < -10) && var800624a4) {
+	if ((joyGetButtonsPressedThisFrame(0, 0xffff) != 0
+				|| joyGetStickX(0) > 10
+				|| joyGetStickX(0) < -10
+				|| joyGetStickY(0) > 10
+				|| joyGetStickY(0) < -10
+				|| joyGetButtonsPressedThisFrame(1, 0xffff) != 0
+				|| joyGetStickX(1) > 10
+				|| joyGetStickX(1) < -10
+				|| joyGetStickY(1) > 10
+				|| joyGetStickY(1) < -10
+				|| joyGetButtonsPressedThisFrame(2, 0xffff) != 0
+				|| joyGetStickX(2) > 10
+				|| joyGetStickX(2) < -10
+				|| joyGetStickY(2) > 10
+				|| joyGetStickY(2) < -10
+				|| joyGetButtonsPressedThisFrame(3, 0xffff) != 0
+				|| joyGetStickX(3) > 10
+				|| joyGetStickX(3) < -10
+				|| joyGetStickY(3) > 10
+				|| joyGetStickY(3) < -10) && var800624a4) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
 			titleSetNextMode(TITLEMODE_SKIP);
 			mainSetStageNum(STAGE_TITLE);
@@ -8348,26 +8348,26 @@ void coreTick(void)
 	}
 
 	if (g_Vars.stagenum < STAGE_TITLE && !var800624a4 && !g_Vars.in_cutscene) {
-		if (contGetButtons(0, 0xffff) == 0
-				&& contGetStickX(0) < 10
-				&& contGetStickX(0) > -10
-				&& contGetStickY(0) < 10
-				&& contGetStickY(0) > -10
-				&& contGetButtons(1, 0xffff) == 0
-				&& contGetStickX(1) < 10
-				&& contGetStickX(1) > -10
-				&& contGetStickY(1) < 10
-				&& contGetStickY(1) > -10
-				&& contGetButtons(2, 0xffff) == 0
-				&& contGetStickX(2) < 10
-				&& contGetStickX(2) > -10
-				&& contGetStickY(2) < 10
-				&& contGetStickY(2) > -10
-				&& contGetButtons(3, 0xffff) == 0
-				&& contGetStickX(3) < 10
-				&& contGetStickX(3) > -10
-				&& contGetStickY(3) < 10
-				&& contGetStickY(3) > -10) {
+		if (joyGetButtons(0, 0xffff) == 0
+				&& joyGetStickX(0) < 10
+				&& joyGetStickX(0) > -10
+				&& joyGetStickY(0) < 10
+				&& joyGetStickY(0) > -10
+				&& joyGetButtons(1, 0xffff) == 0
+				&& joyGetStickX(1) < 10
+				&& joyGetStickX(1) > -10
+				&& joyGetStickY(1) < 10
+				&& joyGetStickY(1) > -10
+				&& joyGetButtons(2, 0xffff) == 0
+				&& joyGetStickX(2) < 10
+				&& joyGetStickX(2) > -10
+				&& joyGetStickY(2) < 10
+				&& joyGetStickY(2) > -10
+				&& joyGetButtons(3, 0xffff) == 0
+				&& joyGetStickX(3) < 10
+				&& joyGetStickX(3) > -10
+				&& joyGetStickY(3) < 10
+				&& joyGetStickY(3) > -10) {
 			var800624b0 += g_Vars.diffframe60;
 		} else {
 			var800624b0 = 0;
@@ -8403,9 +8403,9 @@ void coreTick(void)
 			// Sound alarm at 10 seconds remaining
 			if (nexttime >= g_MpTimeLimit60 - 600
 					&& g_MiscAudioHandle == NULL
-					&& !coreIsPaused()
+					&& !lvIsPaused()
 					&& nexttime < g_MpTimeLimit60) {
-				func00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
+				snd00010718(&g_MiscAudioHandle, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
 			}
 		}
 
@@ -8485,9 +8485,9 @@ void coreTick(void)
 		func00011d84();
 		func0f01d860();
 	} else {
-		coreUpdateCutsceneTime();
+		lvUpdateCutsceneTime();
 		func0f12939c();
-		coreUpdateSoloHandicaps();
+		lvUpdateSoloHandicaps();
 		func0f01d8c0();
 		func0f01d990();
 		casingsTick();
@@ -8504,8 +8504,8 @@ void coreTick(void)
 			nbombsTick();
 		}
 
-		coreUpdateMiscSfx();
-		func0000fe88();
+		lvUpdateMiscSfx();
+		snd0000fe88();
 		pakExecuteDebugOperations();
 		lightingTick();
 		func0f0b2904();
@@ -8542,7 +8542,7 @@ void coreTick(void)
 }
 #else
 GLOBAL_ASM(
-glabel coreTick
+glabel lvTick
 /*  f166724:	27bdfd70 */ 	addiu	$sp,$sp,-656
 /*  f166728:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f16672c:	afb50040 */ 	sw	$s5,0x40($sp)
@@ -8550,7 +8550,7 @@ glabel coreTick
 /*  f166734:	afb30038 */ 	sw	$s3,0x38($sp)
 /*  f166738:	afb20034 */ 	sw	$s2,0x34($sp)
 /*  f16673c:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f166740:	0fc59ea5 */ 	jal	coreCheckPauseStateChanged
+/*  f166740:	0fc59ea5 */ 	jal	lvCheckPauseStateChanged
 /*  f166744:	afb0002c */ 	sw	$s0,0x2c($sp)
 /*  f166748:	3c14800a */ 	lui	$s4,0x800a
 /*  f16674c:	2694e6c0 */ 	addiu	$s4,$s4,-6464
@@ -8562,12 +8562,12 @@ glabel coreTick
 .NB0f166764:
 /*  f166764:	14400018 */ 	bnez	$v0,.NB0f1667c8
 /*  f166768:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16676c:	0c005812 */ 	jal	func000150c4
+/*  f16676c:	0c005812 */ 	jal	joy000150c4
 /*  f166770:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f166774:	14400004 */ 	bnez	$v0,.NB0f166788
 /*  f166778:	24040cce */ 	addiu	$a0,$zero,0xcce
 /*  f16677c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f166780:	0c005834 */ 	jal	func00015144
+/*  f166780:	0c005834 */ 	jal	joy00015144
 /*  f166784:	24a51e98 */ 	addiu	$a1,$a1,0x1e98
 .NB0f166788:
 /*  f166788:	8e8204b4 */ 	lw	$v0,0x4b4($s4)
@@ -8676,7 +8676,7 @@ glabel coreTick
 /*  f1668ec:	5420ffde */ 	bnezl	$at,.NB0f166868
 /*  f1668f0:	8ccd0064 */ 	lw	$t5,0x64($a2)
 .NB0f1668f4:
-/*  f1668f4:	0fc59ed0 */ 	jal	coreIsPaused
+/*  f1668f4:	0fc59ed0 */ 	jal	lvIsPaused
 /*  f1668f8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1668fc:	10400003 */ 	beqz	$v0,.NB0f16690c
 /*  f166900:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8764,7 +8764,7 @@ glabel coreTick
 /*  f166a20:	100000d4 */ 	beqz	$zero,.NB0f166d74
 /*  f166a24:	8e830034 */ 	lw	$v1,0x34($s4)
 .NB0f166a28:
-/*  f166a28:	0fc599a0 */ 	jal	coreGetSlowMotionType
+/*  f166a28:	0fc599a0 */ 	jal	lvGetSlowMotionType
 /*  f166a2c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f166a30:	8e8e0040 */ 	lw	$t6,0x40($s4)
 /*  f166a34:	24010002 */ 	addiu	$at,$zero,0x2
@@ -9048,98 +9048,98 @@ glabel coreTick
 /*  f166dec:	0fc37207 */ 	jal	hudmsgsTick
 /*  f166df0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f166df4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f166df8:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f166df8:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f166dfc:	3405ffff */ 	dli	$a1,0xffff
 /*  f166e00:	1440005c */ 	bnez	$v0,.NB0f166f74
 /*  f166e04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166e08:	0c00573c */ 	jal	contGetStickX
+/*  f166e08:	0c00573c */ 	jal	joyGetStickX
 /*  f166e0c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f166e10:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166e14:	10200057 */ 	beqz	$at,.NB0f166f74
 /*  f166e18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166e1c:	0c00573c */ 	jal	contGetStickX
+/*  f166e1c:	0c00573c */ 	jal	joyGetStickX
 /*  f166e20:	00002025 */ 	or	$a0,$zero,$zero
 /*  f166e24:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166e28:	14200052 */ 	bnez	$at,.NB0f166f74
 /*  f166e2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166e30:	0c005766 */ 	jal	contGetStickY
+/*  f166e30:	0c005766 */ 	jal	joyGetStickY
 /*  f166e34:	00002025 */ 	or	$a0,$zero,$zero
 /*  f166e38:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166e3c:	1020004d */ 	beqz	$at,.NB0f166f74
 /*  f166e40:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166e44:	0c005766 */ 	jal	contGetStickY
+/*  f166e44:	0c005766 */ 	jal	joyGetStickY
 /*  f166e48:	00002025 */ 	or	$a0,$zero,$zero
 /*  f166e4c:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166e50:	14200048 */ 	bnez	$at,.NB0f166f74
 /*  f166e54:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f166e58:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f166e58:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f166e5c:	3405ffff */ 	dli	$a1,0xffff
 /*  f166e60:	14400044 */ 	bnez	$v0,.NB0f166f74
 /*  f166e64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166e68:	0c00573c */ 	jal	contGetStickX
+/*  f166e68:	0c00573c */ 	jal	joyGetStickX
 /*  f166e6c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f166e70:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166e74:	1020003f */ 	beqz	$at,.NB0f166f74
 /*  f166e78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166e7c:	0c00573c */ 	jal	contGetStickX
+/*  f166e7c:	0c00573c */ 	jal	joyGetStickX
 /*  f166e80:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f166e84:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166e88:	1420003a */ 	bnez	$at,.NB0f166f74
 /*  f166e8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166e90:	0c005766 */ 	jal	contGetStickY
+/*  f166e90:	0c005766 */ 	jal	joyGetStickY
 /*  f166e94:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f166e98:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166e9c:	10200035 */ 	beqz	$at,.NB0f166f74
 /*  f166ea0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166ea4:	0c005766 */ 	jal	contGetStickY
+/*  f166ea4:	0c005766 */ 	jal	joyGetStickY
 /*  f166ea8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f166eac:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166eb0:	14200030 */ 	bnez	$at,.NB0f166f74
 /*  f166eb4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f166eb8:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f166eb8:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f166ebc:	3405ffff */ 	dli	$a1,0xffff
 /*  f166ec0:	1440002c */ 	bnez	$v0,.NB0f166f74
 /*  f166ec4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166ec8:	0c00573c */ 	jal	contGetStickX
+/*  f166ec8:	0c00573c */ 	jal	joyGetStickX
 /*  f166ecc:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f166ed0:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166ed4:	10200027 */ 	beqz	$at,.NB0f166f74
 /*  f166ed8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166edc:	0c00573c */ 	jal	contGetStickX
+/*  f166edc:	0c00573c */ 	jal	joyGetStickX
 /*  f166ee0:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f166ee4:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166ee8:	14200022 */ 	bnez	$at,.NB0f166f74
 /*  f166eec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166ef0:	0c005766 */ 	jal	contGetStickY
+/*  f166ef0:	0c005766 */ 	jal	joyGetStickY
 /*  f166ef4:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f166ef8:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166efc:	1020001d */ 	beqz	$at,.NB0f166f74
 /*  f166f00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166f04:	0c005766 */ 	jal	contGetStickY
+/*  f166f04:	0c005766 */ 	jal	joyGetStickY
 /*  f166f08:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f166f0c:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166f10:	14200018 */ 	bnez	$at,.NB0f166f74
 /*  f166f14:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f166f18:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f166f18:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f166f1c:	3405ffff */ 	dli	$a1,0xffff
 /*  f166f20:	14400014 */ 	bnez	$v0,.NB0f166f74
 /*  f166f24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166f28:	0c00573c */ 	jal	contGetStickX
+/*  f166f28:	0c00573c */ 	jal	joyGetStickX
 /*  f166f2c:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f166f30:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166f34:	1020000f */ 	beqz	$at,.NB0f166f74
 /*  f166f38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166f3c:	0c00573c */ 	jal	contGetStickX
+/*  f166f3c:	0c00573c */ 	jal	joyGetStickX
 /*  f166f40:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f166f44:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166f48:	1420000a */ 	bnez	$at,.NB0f166f74
 /*  f166f4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166f50:	0c005766 */ 	jal	contGetStickY
+/*  f166f50:	0c005766 */ 	jal	joyGetStickY
 /*  f166f54:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f166f58:	2841000b */ 	slti	$at,$v0,0xb
 /*  f166f5c:	10200005 */ 	beqz	$at,.NB0f166f74
 /*  f166f60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166f64:	0c005766 */ 	jal	contGetStickY
+/*  f166f64:	0c005766 */ 	jal	joyGetStickY
 /*  f166f68:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f166f6c:	2841fff6 */ 	slti	$at,$v0,-10
 /*  f166f70:	1020000e */ 	beqz	$at,.NB0f166fac
@@ -9173,98 +9173,98 @@ glabel coreTick
 /*  f166fd4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f166fd8:	15c0006b */ 	bnez	$t6,.NB0f167188
 /*  f166fdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166fe0:	0c005790 */ 	jal	contGetButtons
+/*  f166fe0:	0c005790 */ 	jal	joyGetButtons
 /*  f166fe4:	3405ffff */ 	dli	$a1,0xffff
 /*  f166fe8:	14400063 */ 	bnez	$v0,.NB0f167178
 /*  f166fec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f166ff0:	0c00573c */ 	jal	contGetStickX
+/*  f166ff0:	0c00573c */ 	jal	joyGetStickX
 /*  f166ff4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f166ff8:	2841000a */ 	slti	$at,$v0,0xa
 /*  f166ffc:	1020005e */ 	beqz	$at,.NB0f167178
 /*  f167000:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167004:	0c00573c */ 	jal	contGetStickX
+/*  f167004:	0c00573c */ 	jal	joyGetStickX
 /*  f167008:	00002025 */ 	or	$a0,$zero,$zero
 /*  f16700c:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f167010:	14200059 */ 	bnez	$at,.NB0f167178
 /*  f167014:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167018:	0c005766 */ 	jal	contGetStickY
+/*  f167018:	0c005766 */ 	jal	joyGetStickY
 /*  f16701c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f167020:	2841000a */ 	slti	$at,$v0,0xa
 /*  f167024:	10200054 */ 	beqz	$at,.NB0f167178
 /*  f167028:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16702c:	0c005766 */ 	jal	contGetStickY
+/*  f16702c:	0c005766 */ 	jal	joyGetStickY
 /*  f167030:	00002025 */ 	or	$a0,$zero,$zero
 /*  f167034:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f167038:	1420004f */ 	bnez	$at,.NB0f167178
 /*  f16703c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f167040:	0c005790 */ 	jal	contGetButtons
+/*  f167040:	0c005790 */ 	jal	joyGetButtons
 /*  f167044:	3405ffff */ 	dli	$a1,0xffff
 /*  f167048:	1440004b */ 	bnez	$v0,.NB0f167178
 /*  f16704c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167050:	0c00573c */ 	jal	contGetStickX
+/*  f167050:	0c00573c */ 	jal	joyGetStickX
 /*  f167054:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f167058:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16705c:	10200046 */ 	beqz	$at,.NB0f167178
 /*  f167060:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167064:	0c00573c */ 	jal	contGetStickX
+/*  f167064:	0c00573c */ 	jal	joyGetStickX
 /*  f167068:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f16706c:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f167070:	14200041 */ 	bnez	$at,.NB0f167178
 /*  f167074:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167078:	0c005766 */ 	jal	contGetStickY
+/*  f167078:	0c005766 */ 	jal	joyGetStickY
 /*  f16707c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f167080:	2841000a */ 	slti	$at,$v0,0xa
 /*  f167084:	1020003c */ 	beqz	$at,.NB0f167178
 /*  f167088:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16708c:	0c005766 */ 	jal	contGetStickY
+/*  f16708c:	0c005766 */ 	jal	joyGetStickY
 /*  f167090:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f167094:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f167098:	14200037 */ 	bnez	$at,.NB0f167178
 /*  f16709c:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f1670a0:	0c005790 */ 	jal	contGetButtons
+/*  f1670a0:	0c005790 */ 	jal	joyGetButtons
 /*  f1670a4:	3405ffff */ 	dli	$a1,0xffff
 /*  f1670a8:	14400033 */ 	bnez	$v0,.NB0f167178
 /*  f1670ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1670b0:	0c00573c */ 	jal	contGetStickX
+/*  f1670b0:	0c00573c */ 	jal	joyGetStickX
 /*  f1670b4:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f1670b8:	2841000a */ 	slti	$at,$v0,0xa
 /*  f1670bc:	1020002e */ 	beqz	$at,.NB0f167178
 /*  f1670c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1670c4:	0c00573c */ 	jal	contGetStickX
+/*  f1670c4:	0c00573c */ 	jal	joyGetStickX
 /*  f1670c8:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f1670cc:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f1670d0:	14200029 */ 	bnez	$at,.NB0f167178
 /*  f1670d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1670d8:	0c005766 */ 	jal	contGetStickY
+/*  f1670d8:	0c005766 */ 	jal	joyGetStickY
 /*  f1670dc:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f1670e0:	2841000a */ 	slti	$at,$v0,0xa
 /*  f1670e4:	10200024 */ 	beqz	$at,.NB0f167178
 /*  f1670e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1670ec:	0c005766 */ 	jal	contGetStickY
+/*  f1670ec:	0c005766 */ 	jal	joyGetStickY
 /*  f1670f0:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f1670f4:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f1670f8:	1420001f */ 	bnez	$at,.NB0f167178
 /*  f1670fc:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f167100:	0c005790 */ 	jal	contGetButtons
+/*  f167100:	0c005790 */ 	jal	joyGetButtons
 /*  f167104:	3405ffff */ 	dli	$a1,0xffff
 /*  f167108:	1440001b */ 	bnez	$v0,.NB0f167178
 /*  f16710c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167110:	0c00573c */ 	jal	contGetStickX
+/*  f167110:	0c00573c */ 	jal	joyGetStickX
 /*  f167114:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f167118:	2841000a */ 	slti	$at,$v0,0xa
 /*  f16711c:	10200016 */ 	beqz	$at,.NB0f167178
 /*  f167120:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167124:	0c00573c */ 	jal	contGetStickX
+/*  f167124:	0c00573c */ 	jal	joyGetStickX
 /*  f167128:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f16712c:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f167130:	14200011 */ 	bnez	$at,.NB0f167178
 /*  f167134:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167138:	0c005766 */ 	jal	contGetStickY
+/*  f167138:	0c005766 */ 	jal	joyGetStickY
 /*  f16713c:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f167140:	2841000a */ 	slti	$at,$v0,0xa
 /*  f167144:	1020000c */ 	beqz	$at,.NB0f167178
 /*  f167148:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16714c:	0c005766 */ 	jal	contGetStickY
+/*  f16714c:	0c005766 */ 	jal	joyGetStickY
 /*  f167150:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f167154:	2841fff7 */ 	slti	$at,$v0,-9
 /*  f167158:	14200007 */ 	bnez	$at,.NB0f167178
@@ -9405,7 +9405,7 @@ glabel coreTick
 /*  f167334:	8e0c0000 */ 	lw	$t4,0x0($s0)
 /*  f167338:	55800019 */ 	bnezl	$t4,.NB0f1673a0
 /*  f16733c:	8e8c0034 */ 	lw	$t4,0x34($s4)
-/*  f167340:	0fc59ed0 */ 	jal	coreIsPaused
+/*  f167340:	0fc59ed0 */ 	jal	lvIsPaused
 /*  f167344:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167348:	14400014 */ 	bnez	$v0,.NB0f16739c
 /*  f16734c:	3c0d8008 */ 	lui	$t5,0x8008
@@ -9426,7 +9426,7 @@ glabel coreTick
 /*  f167388:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f16738c:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f167390:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f167394:	0c0042bf */ 	jal	func00010718
+/*  f167394:	0c0042bf */ 	jal	snd00010718
 /*  f167398:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .NB0f16739c:
 /*  f16739c:	8e8c0034 */ 	lw	$t4,0x34($s4)
@@ -9681,11 +9681,11 @@ glabel coreTick
 /*  f167710:	10000062 */ 	beqz	$zero,.NB0f16789c
 /*  f167714:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .NB0f167718:
-/*  f167718:	0fc5998f */ 	jal	coreUpdateCutsceneTime
+/*  f167718:	0fc5998f */ 	jal	lvUpdateCutsceneTime
 /*  f16771c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167720:	0fc48ff7 */ 	jal	func0f12939c
 /*  f167724:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167728:	0fc597c1 */ 	jal	coreUpdateSoloHandicaps
+/*  f167728:	0fc597c1 */ 	jal	lvUpdateSoloHandicaps
 /*  f16772c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167730:	0fc07568 */ 	jal	func0f01d8c0
 /*  f167734:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9715,9 +9715,9 @@ glabel coreTick
 /*  f167790:	0fc026dd */ 	jal	nbombsTick
 /*  f167794:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f167798:
-/*  f167798:	0fc58971 */ 	jal	coreUpdateMiscSfx
+/*  f167798:	0fc58971 */ 	jal	lvUpdateMiscSfx
 /*  f16779c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1677a0:	0c0040f6 */ 	jal	func0000fe88
+/*  f1677a0:	0c0040f6 */ 	jal	snd0000fe88
 /*  f1677a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1677a8:	0fc45920 */ 	jal	pakExecuteDebugOperations
 /*  f1677ac:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9796,7 +9796,7 @@ glabel coreTick
 );
 #endif
 
-void coreRecordDistanceMoved(void)
+void lvRecordDistanceMoved(void)
 {
 	f32 xdiff;
 	f32 zdiff;
@@ -9815,7 +9815,7 @@ void coreRecordDistanceMoved(void)
 	g_Vars.currentplayerstats->distance += sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-void coreUnloadStage(void)
+void lvReset(void)
 {
 	func0f11dcb0(1);
 
@@ -9862,7 +9862,7 @@ void coreUnloadStage(void)
 #endif
 }
 
-void coreCheckPauseStateChanged(void)
+void lvCheckPauseStateChanged(void)
 {
 	u32 paused = mpIsPaused();
 
@@ -9877,30 +9877,30 @@ void coreCheckPauseStateChanged(void)
 	var80084010 = paused;
 }
 
-void coreSetPaused(bool paused)
+void lvSetPaused(bool paused)
 {
 	if (paused) {
 		func0f11deb8();
-		func0000fe20();
+		snd0000fe20();
 	} else {
-		func0000fe50();
+		snd0000fe50();
 		func0f11df38();
 	}
 
 	var80084014 = paused;
 }
 
-bool coreIsPaused(void)
+bool lvIsPaused(void)
 {
 	return var80084014;
 }
 
-s32 coreGetDifficulty(void)
+s32 lvGetDifficulty(void)
 {
 	return g_Difficulty;
 }
 
-void coreSetDifficulty(s32 difficulty)
+void lvSetDifficulty(s32 difficulty)
 {
 	if (difficulty < DIFF_A || difficulty > DIFF_PD) {
 		difficulty = DIFF_A;
@@ -9909,27 +9909,27 @@ void coreSetDifficulty(s32 difficulty)
 	g_Difficulty = difficulty;
 }
 
-void coreSetMpTimeLimit60(u32 limit)
+void lvSetMpTimeLimit60(u32 limit)
 {
 	g_MpTimeLimit60 = limit;
 }
 
-void coreSetMpScoreLimit(u32 limit)
+void lvSetMpScoreLimit(u32 limit)
 {
 	g_MpScoreLimit = limit;
 }
 
-void coreSetMpTeamScoreLimit(u32 limit)
+void lvSetMpTeamScoreLimit(u32 limit)
 {
 	g_MpTeamScoreLimit = limit;
 }
 
-f32 coreGetStageTimeInSeconds(void)
+f32 lvGetStageTimeInSeconds(void)
 {
 	return g_StageTimeElapsed1f;
 }
 
-s32 coreGetStageTime60(void)
+s32 lvGetStageTime60(void)
 {
 	return g_StageTimeElapsed60;
 }

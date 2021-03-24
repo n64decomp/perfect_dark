@@ -1,5 +1,5 @@
-#ifndef IN_GAME_ROOM_H
-#define IN_GAME_ROOM_H
+#ifndef IN_GAME_BG_H
+#define IN_GAME_BG_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

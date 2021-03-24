@@ -7,16 +7,16 @@
 #include "game/game_0b69d0.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/file.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/game_176080.h"
 #include "game/mplayer/scenarios.h"
 #include "game/propobj.h"
 #include "game/utils.h"
 #include "game/wallhit.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
@@ -6093,7 +6093,7 @@ glabel func0f005bb0
 /*  f005e5c:	31ae0001 */ 	andi	$t6,$t5,0x1
 /*  f005e60:	11c0003c */ 	beqz	$t6,.L0f005f54
 /*  f005e64:	00000000 */ 	nop
-/*  f005e68:	0fc5b364 */ 	jal	coreIsPaused
+/*  f005e68:	0fc5b364 */ 	jal	lvIsPaused
 /*  f005e6c:	00000000 */ 	nop
 /*  f005e70:	14400038 */ 	bnez	$v0,.L0f005f54
 /*  f005e74:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
@@ -6113,7 +6113,7 @@ glabel func0f005bb0
 /*  f005eac:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f005eb0:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f005eb4:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f005eb8:	0c004241 */ 	jal	audioStart
+/*  f005eb8:	0c004241 */ 	jal	sndStart
 /*  f005ebc:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f005ec0:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
 /*  f005ec4:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
@@ -6137,7 +6137,7 @@ glabel func0f005bb0
 /*  f005f08:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f005f0c:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f005f10:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f005f14:	0c004241 */ 	jal	audioStart
+/*  f005f14:	0c004241 */ 	jal	sndStart
 /*  f005f18:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f005f1c:	10000028 */ 	b	.L0f005fc0
 /*  f005f20:	8fbf0024 */ 	lw	$ra,0x24($sp)

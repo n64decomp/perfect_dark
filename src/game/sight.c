@@ -16,7 +16,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "data.h"
 #include "types.h"
 
@@ -248,7 +248,7 @@ void sightTick(bool sighton)
 				if (g_Vars.currentplayer->lookingatprop.prop != g_Vars.currentplayer->cmpfollowprops[0].prop) {
 					struct audiohandle *handle;
 
-					handle = func00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
+					handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
 					threat = &g_Vars.currentplayer->cmpfollowprops[0];
 
@@ -274,7 +274,7 @@ void sightTick(bool sighton)
 			if (index >= 0) {
 				struct audiohandle *handle;
 
-				handle = func00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
+				handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
 				threat = &g_Vars.currentplayer->cmpfollowprops[index];
 
@@ -297,7 +297,7 @@ void sightTick(bool sighton)
 			if (index >= 0) {
 				struct audiohandle *handle;
 
-				handle = func00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
+				handle = snd00010718(&handle, 0, 0x7fff, 0x40, 7, 1, 1, -1, 1);
 
 				threat = &g_Vars.currentplayer->cmpfollowprops[index];
 

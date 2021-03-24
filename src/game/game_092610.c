@@ -6,11 +6,11 @@
 #include "game/atan2f.h"
 #include "game/hudmsg.h"
 #include "game/file.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/mplayer/mplayer.h"
 #include "game/pad.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
@@ -373,7 +373,7 @@ void func0f092a98(s32 channelnum)
 	}
 
 	if ((channel->flags & AUDIOCHANNELFLAG_0010)) {
-		func0000fbc4(channel->soundnum26);
+		snd0000fbc4(channel->soundnum26);
 	} else if (channel->audiohandle && audioIsPlaying(channel->audiohandle)) {
 		audioStop(channel->audiohandle);
 	}
@@ -536,7 +536,7 @@ glabel var7f1ab740
 /*  f092b88:	306e0010 */ 	andi	$t6,$v1,0x10
 /*  f092b8c:	51c001e2 */ 	beqzl	$t6,.PF0f093318
 /*  f092b90:	860e0028 */ 	lh	$t6,0x28($s0)
-/*  f092b94:	0c0039cc */ 	jal	func0000e9d0
+/*  f092b94:	0c0039cc */ 	jal	snd0000e9d0
 /*  f092b98:	00000000 */ 	nop
 /*  f092b9c:	504001de */ 	beqzl	$v0,.PF0f093318
 /*  f092ba0:	860e0028 */ 	lh	$t6,0x28($s0)
@@ -792,7 +792,7 @@ glabel var7f1ab740
 /*  f092f24:	afa50048 */ 	sw	$a1,0x48($sp)
 .PF0f092f28:
 /*  f092f28:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f092f2c:	0fc5b6f7 */ 	jal	coreIsPaused
+/*  f092f2c:	0fc5b6f7 */ 	jal	lvIsPaused
 /*  f092f30:	e7b2003c */ 	swc1	$f18,0x3c($sp)
 /*  f092f34:	3c09800a */ 	lui	$t1,0x800a
 /*  f092f38:	2529a510 */ 	addiu	$t1,$t1,-23280
@@ -1018,7 +1018,7 @@ glabel var7f1ab740
 /*  f093238:	10000001 */ 	b	.PF0f093240
 /*  f09323c:	24070001 */ 	li	$a3,0x1
 .PF0f093240:
-/*  f093240:	0c004218 */ 	jal	func00010ae4
+/*  f093240:	0c004218 */ 	jal	snd00010ae4
 /*  f093244:	86040026 */ 	lh	$a0,0x26($s0)
 /*  f093248:	10000021 */ 	b	.PF0f0932d0
 /*  f09324c:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -1037,7 +1037,7 @@ glabel var7f1ab740
 /*  f09327c:	920d001a */ 	lbu	$t5,0x1a($s0)
 /*  f093280:	afac0020 */ 	sw	$t4,0x20($sp)
 /*  f093284:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f093288:	0c004125 */ 	jal	func00010718
+/*  f093288:	0c004125 */ 	jal	snd00010718
 /*  f09328c:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f093290:	1000000f */ 	b	.PF0f0932d0
 /*  f093294:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -1053,7 +1053,7 @@ glabel var7f1ab740
 /*  f0932b8:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0932bc:	01c03025 */ 	move	$a2,$t6
 /*  f0932c0:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0932c4:	0c004125 */ 	jal	func00010718
+/*  f0932c4:	0c004125 */ 	jal	snd00010718
 /*  f0932c8:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f0932cc:	96030030 */ 	lhu	$v1,0x30($s0)
 .PF0f0932d0:
@@ -1071,7 +1071,7 @@ glabel var7f1ab740
 /*  f0932f8:	30650010 */ 	andi	$a1,$v1,0x10
 /*  f0932fc:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f093300:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f093304:	0c004087 */ 	jal	audioAdjust
+/*  f093304:	0c004087 */ 	jal	sndAdjust
 /*  f093308:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f09330c:	10000026 */ 	b	.PF0f0933a8
 /*  f093310:	00000000 */ 	nop
@@ -1084,7 +1084,7 @@ glabel var7f1ab740
 /*  f093328:	306f0010 */ 	andi	$t7,$v1,0x10
 /*  f09332c:	51e00015 */ 	beqzl	$t7,.PF0f093384
 /*  f093330:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*  f093334:	0c0039cc */ 	jal	func0000e9d0
+/*  f093334:	0c0039cc */ 	jal	snd0000e9d0
 /*  f093338:	00000000 */ 	nop
 /*  f09333c:	5440000e */ 	bnezl	$v0,.PF0f093378
 /*  f093340:	240a0001 */ 	li	$t2,0x1
@@ -1187,7 +1187,7 @@ glabel var7f1ab740
 /*  f092c88:	306e0010 */ 	andi	$t6,$v1,0x10
 /*  f092c8c:	51c001e6 */ 	beqzl	$t6,.L0f093428
 /*  f092c90:	860f0028 */ 	lh	$t7,0x28($s0)
-/*  f092c94:	0c003a74 */ 	jal	func0000e9d0
+/*  f092c94:	0c003a74 */ 	jal	snd0000e9d0
 /*  f092c98:	00000000 */ 	nop
 /*  f092c9c:	504001e2 */ 	beqzl	$v0,.L0f093428
 /*  f092ca0:	860f0028 */ 	lh	$t7,0x28($s0)
@@ -1446,7 +1446,7 @@ glabel var7f1ab740
 /*  f093034:	afa50048 */ 	sw	$a1,0x48($sp)
 .L0f093038:
 /*  f093038:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f09303c:	0fc5b364 */ 	jal	coreIsPaused
+/*  f09303c:	0fc5b364 */ 	jal	lvIsPaused
 /*  f093040:	e7b2003c */ 	swc1	$f18,0x3c($sp)
 /*  f093044:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f093048:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -1672,7 +1672,7 @@ glabel var7f1ab740
 /*  f093348:	10000001 */ 	b	.L0f093350
 /*  f09334c:	24070001 */ 	addiu	$a3,$zero,0x1
 .L0f093350:
-/*  f093350:	0c0042b9 */ 	jal	func00010ae4
+/*  f093350:	0c0042b9 */ 	jal	snd00010ae4
 /*  f093354:	86040026 */ 	lh	$a0,0x26($s0)
 /*  f093358:	10000021 */ 	b	.L0f0933e0
 /*  f09335c:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -1691,7 +1691,7 @@ glabel var7f1ab740
 /*  f09338c:	920e001a */ 	lbu	$t6,0x1a($s0)
 /*  f093390:	afad0020 */ 	sw	$t5,0x20($sp)
 /*  f093394:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f093398:	0c0041c6 */ 	jal	func00010718
+/*  f093398:	0c0041c6 */ 	jal	snd00010718
 /*  f09339c:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f0933a0:	1000000f */ 	b	.L0f0933e0
 /*  f0933a4:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -1707,7 +1707,7 @@ glabel var7f1ab740
 /*  f0933c8:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0933cc:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0933d0:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0933d4:	0c0041c6 */ 	jal	func00010718
+/*  f0933d4:	0c0041c6 */ 	jal	snd00010718
 /*  f0933d8:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0933dc:	96030030 */ 	lhu	$v1,0x30($s0)
 .L0f0933e0:
@@ -1725,7 +1725,7 @@ glabel var7f1ab740
 /*  f093408:	30650010 */ 	andi	$a1,$v1,0x10
 /*  f09340c:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f093410:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f093414:	0c004128 */ 	jal	audioAdjust
+/*  f093414:	0c004128 */ 	jal	sndAdjust
 /*  f093418:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f09341c:	10000026 */ 	b	.L0f0934b8
 /*  f093420:	00000000 */ 	nop
@@ -1738,7 +1738,7 @@ glabel var7f1ab740
 /*  f093438:	30780010 */ 	andi	$t8,$v1,0x10
 /*  f09343c:	53000015 */ 	beqzl	$t8,.L0f093494
 /*  f093440:	8e0c0000 */ 	lw	$t4,0x0($s0)
-/*  f093444:	0c003a74 */ 	jal	func0000e9d0
+/*  f093444:	0c003a74 */ 	jal	snd0000e9d0
 /*  f093448:	00000000 */ 	nop
 /*  f09344c:	5440000e */ 	bnezl	$v0,.L0f093488
 /*  f093450:	240b0001 */ 	addiu	$t3,$zero,0x1
@@ -1832,7 +1832,7 @@ glabel var7f1ab740
 /*  f0912b4:	306b0010 */ 	andi	$t3,$v1,0x10
 /*  f0912b8:	516001af */ 	beqzl	$t3,.NB0f091978
 /*  f0912bc:	96030030 */ 	lhu	$v1,0x30($s0)
-/*  f0912c0:	0c003c6c */ 	jal	func0000e9d0
+/*  f0912c0:	0c003c6c */ 	jal	snd0000e9d0
 /*  f0912c4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0912c8:	504001ab */ 	beqzl	$v0,.NB0f091978
 /*  f0912cc:	96030030 */ 	lhu	$v1,0x30($s0)
@@ -2096,7 +2096,7 @@ glabel var7f1ab740
 /*  f09166c:	afa50048 */ 	sw	$a1,0x48($sp)
 .NB0f091670:
 /*  f091670:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f091674:	0fc59ed0 */ 	jal	coreIsPaused
+/*  f091674:	0fc59ed0 */ 	jal	lvIsPaused
 /*  f091678:	e7b2003c */ 	swc1	$f18,0x3c($sp)
 /*  f09167c:	8fa80040 */ 	lw	$t0,0x40($sp)
 /*  f091680:	1440002f */ 	bnez	$v0,.NB0f091740
@@ -2277,7 +2277,7 @@ glabel var7f1ab740
 /*  f0918e8:	10000001 */ 	beqz	$zero,.NB0f0918f0
 /*  f0918ec:	24070001 */ 	addiu	$a3,$zero,0x1
 .NB0f0918f0:
-/*  f0918f0:	0c0043a9 */ 	jal	func00010ae4
+/*  f0918f0:	0c0043a9 */ 	jal	snd00010ae4
 /*  f0918f4:	86040026 */ 	lh	$a0,0x26($s0)
 /*  f0918f8:	1000000d */ 	beqz	$zero,.NB0f091930
 /*  f0918fc:	960f0030 */ 	lhu	$t7,0x30($s0)
@@ -2291,7 +2291,7 @@ glabel var7f1ab740
 /*  f091918:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f09191c:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f091920:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f091924:	0c0042bf */ 	jal	func00010718
+/*  f091924:	0c0042bf */ 	jal	snd00010718
 /*  f091928:	afae0018 */ 	sw	$t6,0x18($sp)
 /*  f09192c:	960f0030 */ 	lhu	$t7,0x30($s0)
 .NB0f091930:
@@ -2309,7 +2309,7 @@ glabel var7f1ab740
 /*  f091958:	30650010 */ 	andi	$a1,$v1,0x10
 /*  f09195c:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*  f091960:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f091964:	0c004224 */ 	jal	audioAdjust
+/*  f091964:	0c004224 */ 	jal	sndAdjust
 /*  f091968:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*  f09196c:	10000021 */ 	beqz	$zero,.NB0f0919f4
 /*  f091970:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2318,7 +2318,7 @@ glabel var7f1ab740
 /*  f091978:	306c0010 */ 	andi	$t4,$v1,0x10
 /*  f09197c:	51800014 */ 	beqzl	$t4,.NB0f0919d0
 /*  f091980:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f091984:	0c003c6c */ 	jal	func0000e9d0
+/*  f091984:	0c003c6c */ 	jal	snd0000e9d0
 /*  f091988:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09198c:	54400018 */ 	bnezl	$v0,.NB0f0919f0
 /*  f091990:	24190001 */ 	addiu	$t9,$zero,0x1
@@ -3312,7 +3312,7 @@ glabel var7f1ab748
 /*  f093e34:	331907ff */ 	andi	$t9,$t8,0x7ff
 /*  f093e38:	a619002c */ 	sh	$t9,0x2c($s0)
 /*  f093e3c:	8604002c */ 	lh	$a0,0x2c($s0)
-/*  f093e40:	0c004103 */ 	jal	audioIsFiltered
+/*  f093e40:	0c004103 */ 	jal	sndIsFiltered
 /*  f093e44:	afa900d0 */ 	sw	$t1,0xd0($sp)
 /*  f093e48:	8fa300dc */ 	lw	$v1,0xdc($sp)
 /*  f093e4c:	2407ffff */ 	addiu	$a3,$zero,-1
@@ -3395,7 +3395,7 @@ glabel var7f1ab748
 .L0f093f60:
 /*  f093f60:	358d1000 */ 	ori	$t5,$t4,0x1000
 /*  f093f64:	a60d0030 */ 	sh	$t5,0x30($s0)
-/*  f093f68:	0c003ee8 */ 	jal	func0000fba0
+/*  f093f68:	0c003ee8 */ 	jal	snd0000fba0
 /*  f093f6c:	87a400ba */ 	lh	$a0,0xba($sp)
 /*  f093f70:	10400014 */ 	beqz	$v0,.L0f093fc4
 /*  f093f74:	00000000 */ 	nop
@@ -3830,7 +3830,7 @@ glabel var7f1a5a9cnb
 /*  f092290:	96180030 */ 	lhu	$t8,0x30($s0)
 /*  f092294:	37191000 */ 	ori	$t9,$t8,0x1000
 /*  f092298:	a6190030 */ 	sh	$t9,0x30($s0)
-/*  f09229c:	0c00400e */ 	jal	func0000fba0
+/*  f09229c:	0c00400e */ 	jal	snd0000fba0
 /*  f0922a0:	87a400c2 */ 	lh	$a0,0xc2($sp)
 /*  f0922a4:	10400008 */ 	beqz	$v0,.NB0f0922c8
 /*  f0922a8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4031,7 +4031,7 @@ glabel var7f1a5a9cnb
 //	channel->soundnum26 = spac.packed;
 //	channel->unk2c = spac.bits3.id;
 //
-//	if (audioIsFiltered(channel->unk2c)) {
+//	if (sndIsFiltered(channel->unk2c)) {
 //		channel->flags2 |= AUDIOCHANNELFLAG2_0020;
 //	}
 //
@@ -4072,7 +4072,7 @@ glabel var7f1a5a9cnb
 //
 //	channel->flags |= AUDIOCHANNELFLAG_1000;
 //
-//	if (func0000fba0(soundnum)) {
+//	if (snd0000fba0(soundnum)) {
 //		channel->flags |= AUDIOCHANNELFLAG_0010;
 //
 //		prevpri = osGetThreadPri(0);
@@ -5473,7 +5473,7 @@ glabel var7f1ab788
 /*  f095198:	0fc2535e */ 	jal	func0f094d78
 /*  f09519c:	e7a80010 */ 	swc1	$f8,0x10($sp)
 /*  f0951a0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0951a4:	0c003ee8 */ 	jal	func0000fba0
+/*  f0951a4:	0c003ee8 */ 	jal	snd0000fba0
 /*  f0951a8:	87a4007a */ 	lh	$a0,0x7a($sp)
 /*  f0951ac:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0951b0:	44815000 */ 	mtc1	$at,$f10
@@ -5489,7 +5489,7 @@ glabel var7f1ab788
 /*  f0951d8:	8fa6004c */ 	lw	$a2,0x4c($sp)
 /*  f0951dc:	02003825 */ 	or	$a3,$s0,$zero
 /*  f0951e0:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0951e4:	0c004128 */ 	jal	audioAdjust
+/*  f0951e4:	0c004128 */ 	jal	sndAdjust
 /*  f0951e8:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f0951ec:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f0951f0:	8fb00030 */ 	lw	$s0,0x30($sp)

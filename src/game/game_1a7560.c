@@ -11,7 +11,7 @@
 #include "game/inventory/inventory.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
-#include "game/texture.h"
+#include "game/texdecompress.h"
 #include "game/game_173a00.h"
 #include "game/game_1a7560.h"
 #include "game/lang.h"

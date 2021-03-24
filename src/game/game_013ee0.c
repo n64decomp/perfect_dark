@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_013ee0.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/pad.h"
 #include "bss.h"
 #include "lib/memory.h"

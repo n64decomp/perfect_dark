@@ -9,7 +9,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
 #include "game/game_1531a0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/game_19aa80.h"
 #include "game/training/training.h"
 #include "game/lang.h"
@@ -5959,7 +5959,7 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
 
 	for (i = 0; i < 6; i++) {
 		if (g_Briefing.objectivenames[i]
-				&& g_Briefing.objectivedifficulties[i] & (1 << coreGetDifficulty())) {
+				&& g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty())) {
 			gdl = menuRenderObjective(gdl,
 					context->frame,
 					i, position, context->x, y, context->width, context->height,

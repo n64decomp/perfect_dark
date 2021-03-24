@@ -15,7 +15,7 @@
 #include "game/game_107fb0.h"
 #include "game/endscreen.h"
 #include "game/game_1655c0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/mplayer/ingame.h"
 #include "game/game_19aa80.h"
 #include "game/gamefile.h"
@@ -378,7 +378,7 @@ glabel func0f10d730
 /*  f108798:	31e400ff */ 	andi	$a0,$t7,0xff
 /*  f10879c:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f1087a0:	0004c642 */ 	srl	$t8,$a0,0x19
-/*  f1087a4:	0fc59ed6 */ 	jal	coreSetDifficulty
+/*  f1087a4:	0fc59ed6 */ 	jal	lvSetDifficulty
 /*  f1087a8:	03002025 */ 	or	$a0,$t8,$zero
 /*  f1087ac:	0fc06945 */ 	jal	titleSetNextMode
 /*  f1087b0:	24040005 */ 	addiu	$a0,$zero,0x5
@@ -565,7 +565,7 @@ void endscreenHandleContinue(s32 context)
 							setNumPlayers(1);
 						}
 
-						coreSetDifficulty(g_MissionConfig.difficulty);
+						lvSetDifficulty(g_MissionConfig.difficulty);
 						titleSetNextMode(TITLEMODE_SKIP);
 						mainSetStageNum(g_MissionConfig.stagenum);
 						func00009ec4(true);
@@ -574,7 +574,7 @@ void endscreenHandleContinue(s32 context)
 					// Commit to starting credits
 					g_MissionConfig.stagenum = STAGE_CREDITS;
 					titleSetNextStage(g_MissionConfig.stagenum);
-					coreSetDifficulty(g_MissionConfig.difficulty);
+					lvSetDifficulty(g_MissionConfig.difficulty);
 					titleSetNextMode(TITLEMODE_SKIP);
 					mainSetStageNum(g_MissionConfig.stagenum);
 					func00009ec4(true);
@@ -798,7 +798,7 @@ glabel menudialogSolo2PEndscreenCompleted
 /*  f108b10:	246327a8 */ 	addiu	$v1,$v1,0x27a8
 /*  f108b14:	8c640000 */ 	lw	$a0,0x0($v1)
 /*  f108b18:	00045642 */ 	srl	$t2,$a0,0x19
-/*  f108b1c:	0fc59ed6 */ 	jal	coreSetDifficulty
+/*  f108b1c:	0fc59ed6 */ 	jal	lvSetDifficulty
 /*  f108b20:	01402025 */ 	or	$a0,$t2,$zero
 /*  f108b24:	0fc06945 */ 	jal	titleSetNextMode
 /*  f108b28:	24040005 */ 	addiu	$a0,$zero,0x5
@@ -1648,7 +1648,7 @@ glabel endscreenPrepare
 .L0f10ec84:
 /*  f10ec84:	54610008 */ 	bnel	$v1,$at,.L0f10eca8
 /*  f10ec88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ec8c:	0fc5b350 */ 	jal	coreSetPaused
+/*  f10ec8c:	0fc5b350 */ 	jal	lvSetPaused
 /*  f10ec90:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f10ec94:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
 /*  f10ec98:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
@@ -1865,7 +1865,7 @@ glabel endscreenPrepare
 .NB0f1091e8:
 /*  f1091e8:	54610008 */ 	bnel	$v1,$at,.NB0f10920c
 /*  f1091ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1091f0:	0fc59ebc */ 	jal	coreSetPaused
+/*  f1091f0:	0fc59ebc */ 	jal	lvSetPaused
 /*  f1091f4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1091f8:	3c0f800a */ 	lui	$t7,0x800a
 /*  f1091fc:	8defe944 */ 	lw	$t7,-0x16bc($t7)
@@ -2039,7 +2039,7 @@ glabel endscreenPrepare
 //	}
 //
 //	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
-//		coreSetPaused(true);
+//		lvSetPaused(true);
 //		g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 //	}
 //}
@@ -2084,7 +2084,7 @@ void soloPushCoopModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
-	coreSetPaused(true);
+	lvSetPaused(true);
 
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
@@ -2228,7 +2228,7 @@ void soloPushAntiModeEndscreen(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
-	coreSetPaused(true);
+	lvSetPaused(true);
 
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 

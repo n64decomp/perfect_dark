@@ -3760,25 +3760,25 @@ glabel var7f1b5f58
 /*  f145e68:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f145e6c:	01c08025 */ 	move	$s0,$t6
 /*  f145e70:	01e02025 */ 	move	$a0,$t7
-/*  f145e74:	0c00533a */ 	jal	contGetButtons
+/*  f145e74:	0c00533a */ 	jal	joyGetButtons
 /*  f145e78:	3405ffff */ 	li	$a1,0xffff
 /*  f145e7c:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f145e80:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f145e84:	03002025 */ 	move	$a0,$t8
 /*  f145e88:	3051ffff */ 	andi	$s1,$v0,0xffff
-/*  f145e8c:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f145e8c:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f145e90:	3405ffff */ 	li	$a1,0xffff
 /*  f145e94:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f145e98:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f145e9c:	3053ffff */ 	andi	$s3,$v0,0xffff
-/*  f145ea0:	0c0052e6 */ 	jal	contGetStickX
+/*  f145ea0:	0c0052e6 */ 	jal	joyGetStickX
 /*  f145ea4:	03202025 */ 	move	$a0,$t9
 /*  f145ea8:	0002ae00 */ 	sll	$s5,$v0,0x18
 /*  f145eac:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f145eb0:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f145eb4:	00157603 */ 	sra	$t6,$s5,0x18
 /*  f145eb8:	01c0a825 */ 	move	$s5,$t6
-/*  f145ebc:	0c005310 */ 	jal	contGetStickY
+/*  f145ebc:	0c005310 */ 	jal	joyGetStickY
 /*  f145ec0:	01e02025 */ 	move	$a0,$t7
 /*  f145ec4:	02801825 */ 	move	$v1,$s4
 /*  f145ec8:	26940008 */ 	addiu	$s4,$s4,0x8
@@ -7742,23 +7742,23 @@ glabel var7f1b5f58
 /*  f1451ac:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f1451b0:	01c08025 */ 	or	$s0,$t6,$zero
 /*  f1451b4:	03002025 */ 	or	$a0,$t8,$zero
-/*  f1451b8:	0c0053d8 */ 	jal	contGetButtons
+/*  f1451b8:	0c0053d8 */ 	jal	joyGetButtons
 /*  f1451bc:	3405ffff */ 	dli	$a1,0xffff
 /*  f1451c0:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f1451c4:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f1451c8:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f1451cc:	3051ffff */ 	andi	$s1,$v0,0xffff
-/*  f1451d0:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f1451d0:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f1451d4:	3405ffff */ 	dli	$a1,0xffff
 /*  f1451d8:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f1451dc:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f1451e0:	3052ffff */ 	andi	$s2,$v0,0xffff
-/*  f1451e4:	0c005384 */ 	jal	contGetStickX
+/*  f1451e4:	0c005384 */ 	jal	joyGetStickX
 /*  f1451e8:	03202025 */ 	or	$a0,$t9,$zero
 /*  f1451ec:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f1451f0:	00047603 */ 	sra	$t6,$a0,0x18
 /*  f1451f4:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f1451f8:	0c0053ae */ 	jal	contGetStickY
+/*  f1451f8:	0c0053ae */ 	jal	joyGetStickY
 /*  f1451fc:	a3a20251 */ 	sb	$v0,0x251($sp)
 /*  f145200:	02a01825 */ 	or	$v1,$s5,$zero
 /*  f145204:	26b50008 */ 	addiu	$s5,$s5,0x8
@@ -11538,23 +11538,23 @@ glabel var7f1b5f58
 /*  f13fad0:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f13fad4:	03208025 */ 	or	$s0,$t9,$zero
 /*  f13fad8:	03002025 */ 	or	$a0,$t8,$zero
-/*  f13fadc:	0c005790 */ 	jal	contGetButtons
+/*  f13fadc:	0c005790 */ 	jal	joyGetButtons
 /*  f13fae0:	3405ffff */ 	dli	$a1,0xffff
 /*  f13fae4:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f13fae8:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f13faec:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f13faf0:	3051ffff */ 	andi	$s1,$v0,0xffff
-/*  f13faf4:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f13faf4:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f13faf8:	3405ffff */ 	dli	$a1,0xffff
 /*  f13fafc:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f13fb00:	00047603 */ 	sra	$t6,$a0,0x18
 /*  f13fb04:	3052ffff */ 	andi	$s2,$v0,0xffff
-/*  f13fb08:	0c00573c */ 	jal	contGetStickX
+/*  f13fb08:	0c00573c */ 	jal	joyGetStickX
 /*  f13fb0c:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f13fb10:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f13fb14:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f13fb18:	03202025 */ 	or	$a0,$t9,$zero
-/*  f13fb1c:	0c005766 */ 	jal	contGetStickY
+/*  f13fb1c:	0c005766 */ 	jal	joyGetStickY
 /*  f13fb20:	a3a2023d */ 	sb	$v0,0x23d($sp)
 /*  f13fb24:	02a01825 */ 	or	$v1,$s5,$zero
 /*  f13fb28:	26b50008 */ 	addiu	$s5,$s5,0x8
@@ -14045,10 +14045,10 @@ glabel var7f1b5f58
 //	// 5190
 //	{
 //		s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-//		u16 buttonsdown = contGetButtons(contpadnum, 0xffff);
-//		u16 buttonsthisframe = contGetButtonsPressedThisFrame(contpadnum, 0xffff);
-//		s8 cstickx = contGetStickX(contpadnum); // 251
-//		s8 csticky = contGetStickY(contpadnum);
+//		u16 buttonsdown = joyGetButtons(contpadnum, 0xffff);
+//		u16 buttonsthisframe = joyGetButtonsPressedThisFrame(contpadnum, 0xffff);
+//		s8 cstickx = joyGetStickX(contpadnum); // 251
+//		s8 csticky = joyGetStickY(contpadnum);
 //		s32 xpos;
 //		s32 tmpval;
 //		u8 brightness;

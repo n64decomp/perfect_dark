@@ -15,7 +15,7 @@
 #include "game/game_107fb0.h"
 #include "game/inventory/inventory.h"
 #include "game/game_1531a0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/mplayer/ingame.h"
 #include "game/game_19aa80.h"
 #include "game/training/training.h"
@@ -26,7 +26,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "data.h"
 #include "types.h"
 
@@ -206,7 +206,7 @@ s32 menuhandlerSoundMode(s32 operation, struct menuitem *item, union handlerdata
 	case MENUOP_GETOPTIONTEXT:
 		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
-		audioSetSoundMode(data->dropdown.value);
+		sndSetSoundMode(data->dropdown.value);
 		g_Vars.modifiedfiles |= MODFILE_SOLO;
 		break;
 	case MENUOP_GETOPTIONVALUE:
@@ -686,7 +686,7 @@ s32 menuhandlerSfxVolume(s32 operation, struct menuitem *item, union handlerdata
 		data->slider.value = VOLUME(g_SfxVolume);
 		break;
 	case MENUOP_SET:
-		audioSetSfxVolume(data->slider.value);
+		sndSetSfxVolume(data->slider.value);
 		g_Vars.modifiedfiles |= MODFILE_SOLO;
 	}
 
@@ -769,7 +769,7 @@ s32 menuhandlerAcceptMission(s32 operation, struct menuitem *item, union handler
 			setNumPlayers(1);
 		}
 
-		coreSetDifficulty(g_MissionConfig.difficulty);
+		lvSetDifficulty(g_MissionConfig.difficulty);
 		titleSetNextMode(TITLEMODE_SKIP);
 		mainSetStageNum(g_MissionConfig.stagenum);
 
@@ -877,7 +877,7 @@ s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menuitem *item, union 
 		g_MissionConfig.pdmodedamagef = func0f1036ac(g_MissionConfig.pdmodedamage, PDMODEPROP_DAMAGE);
 		g_MissionConfig.pdmodeaccuracyf = func0f1036ac(g_MissionConfig.pdmodeaccuracy, PDMODEPROP_ACCURACY);
 		g_MissionConfig.difficulty = DIFF_PA;
-		coreSetDifficulty(g_MissionConfig.difficulty);
+		lvSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPopDialog();
 		menuPushDialog(&g_AcceptMissionMenuDialog);
@@ -1513,7 +1513,7 @@ s32 menuhandlerSoloDifficulty(s32 operation, struct menuitem *item, union handle
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
-		coreSetDifficulty(g_MissionConfig.difficulty);
+		lvSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPushDialog(&g_AcceptMissionMenuDialog);
 		break;
@@ -1717,7 +1717,7 @@ glabel menuhandlerCoopBuddy
 /*  f104304:	0fc41023 */ 	jal	getMaxAiBuddies
 /*  f104308:	00000000 */ 	nop
 /*  f10430c:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f104310:	0c005013 */ 	jal	contGetConnectedControllers
+/*  f104310:	0c005013 */ 	jal	joyGetConnectedControllers
 /*  f104314:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f104318:	30490002 */ 	andi	$t1,$v0,0x2
 /*  f10431c:	11200002 */ 	beqz	$t1,.L0f104328
@@ -1730,7 +1730,7 @@ glabel menuhandlerCoopBuddy
 /*  f104334:	10000035 */ 	b	.L0f10440c
 /*  f104338:	ad8b0000 */ 	sw	$t3,0x0($t4)
 .L0f10433c:
-/*  f10433c:	0c005013 */ 	jal	contGetConnectedControllers
+/*  f10433c:	0c005013 */ 	jal	joyGetConnectedControllers
 /*  f104340:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f104344:	304d0002 */ 	andi	$t5,$v0,0x2
 /*  f104348:	11a00002 */ 	beqz	$t5,.L0f104354
@@ -1748,7 +1748,7 @@ glabel menuhandlerCoopBuddy
 /*  f104374:	10000027 */ 	b	.L0f104414
 /*  f104378:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f10437c:
-/*  f10437c:	0c005013 */ 	jal	contGetConnectedControllers
+/*  f10437c:	0c005013 */ 	jal	joyGetConnectedControllers
 /*  f104380:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f104384:	30490002 */ 	andi	$t1,$v0,0x2
 /*  f104388:	11200002 */ 	beqz	$t1,.L0f104394
@@ -1766,7 +1766,7 @@ glabel menuhandlerCoopBuddy
 /*  f1043b4:	10000015 */ 	b	.L0f10440c
 /*  f1043b8:	ac590458 */ 	sw	$t9,0x458($v0)
 .L0f1043bc:
-/*  f1043bc:	0c005013 */ 	jal	contGetConnectedControllers
+/*  f1043bc:	0c005013 */ 	jal	joyGetConnectedControllers
 /*  f1043c0:	afa50020 */ 	sw	$a1,0x20($sp)
 /*  f1043c4:	30580002 */ 	andi	$t8,$v0,0x2
 /*  f1043c8:	8fa30020 */ 	lw	$v1,0x20($sp)
@@ -1835,7 +1835,7 @@ glabel menuhandlerCoopBuddy
 /*  f100090:	afa00038 */ 	sw	$zero,0x38($sp)
 /*  f100094:	000b6642 */ 	srl	$t4,$t3,0x19
 /*  f100098:	012c4023 */ 	subu	$t0,$t1,$t4
-/*  f10009c:	0c0053a4 */ 	jal	contGetConnectedControllers
+/*  f10009c:	0c0053a4 */ 	jal	joyGetConnectedControllers
 /*  f1000a0:	afa80030 */ 	sw	$t0,0x30($sp)
 /*  f1000a4:	304d0002 */ 	andi	$t5,$v0,0x2
 /*  f1000a8:	8fa70038 */ 	lw	$a3,0x38($sp)
@@ -1882,7 +1882,7 @@ glabel menuhandlerCoopBuddy
 /*  f100134:	10000035 */ 	beqz	$zero,.NB0f10020c
 /*  f100138:	ad6a0000 */ 	sw	$t2,0x0($t3)
 .NB0f10013c:
-/*  f10013c:	0c0053a4 */ 	jal	contGetConnectedControllers
+/*  f10013c:	0c0053a4 */ 	jal	joyGetConnectedControllers
 /*  f100140:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f100144:	304c0002 */ 	andi	$t4,$v0,0x2
 /*  f100148:	11800002 */ 	beqz	$t4,.NB0f100154
@@ -1900,7 +1900,7 @@ glabel menuhandlerCoopBuddy
 /*  f100174:	10000027 */ 	beqz	$zero,.NB0f100214
 /*  f100178:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .NB0f10017c:
-/*  f10017c:	0c0053a4 */ 	jal	contGetConnectedControllers
+/*  f10017c:	0c0053a4 */ 	jal	joyGetConnectedControllers
 /*  f100180:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f100184:	304a0002 */ 	andi	$t2,$v0,0x2
 /*  f100188:	11400002 */ 	beqz	$t2,.NB0f100194
@@ -1918,7 +1918,7 @@ glabel menuhandlerCoopBuddy
 /*  f1001b4:	10000015 */ 	beqz	$zero,.NB0f10020c
 /*  f1001b8:	ac580458 */ 	sw	$t8,0x458($v0)
 .NB0f1001bc:
-/*  f1001bc:	0c0053a4 */ 	jal	contGetConnectedControllers
+/*  f1001bc:	0c0053a4 */ 	jal	joyGetConnectedControllers
 /*  f1001c0:	afa90020 */ 	sw	$t1,0x20($sp)
 /*  f1001c4:	304e0002 */ 	andi	$t6,$v0,0x2
 /*  f1001c8:	8fa30020 */ 	lw	$v1,0x20($sp)
@@ -2031,7 +2031,7 @@ s32 menuhandlerCoopDifficulty(s32 operation, struct menuitem *item, union handle
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
-		coreSetDifficulty(g_MissionConfig.difficulty);
+		lvSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPushDialog(&g_CoopOptionsMenuDialog);
 		break;
@@ -2068,7 +2068,7 @@ s32 menuhandlerAntiDifficulty(s32 operation, struct menuitem *item, union handle
 	case MENUOP_SET:
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
-		coreSetDifficulty(g_MissionConfig.difficulty);
+		lvSetDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
 		menuPushDialog(&g_AntiOptionsMenuDialog);
 	}
@@ -4969,7 +4969,7 @@ char *invMenuTextWeaponDescription(struct menuitem *item)
 
 		if (g_InventoryWeapon == WEAPON_NECKLACE
 				&& g_Vars.stagenum == STAGE_ATTACKSHIP
-				&& coreGetDifficulty() >= DIFF_PA) {
+				&& lvGetDifficulty() >= DIFF_PA) {
 #if VERSION >= VERSION_NTSC_1_0
 			// Phrases included here to assist people searching the code for them:
 			// CDV780322
@@ -5444,11 +5444,11 @@ s32 soloMenuDialogPauseStatus(s32 operation, struct menudialog *dialog, union ha
 		s32 wanttype = BRIEFINGTYPE_TEXT_PA;
 		s32 i;
 
-		if (coreGetDifficulty() == DIFF_A) {
+		if (lvGetDifficulty() == DIFF_A) {
 			wanttype = BRIEFINGTYPE_TEXT_A;
 		}
 
-		if (coreGetDifficulty() == DIFF_SA) {
+		if (lvGetDifficulty() == DIFF_SA) {
 			wanttype = BRIEFINGTYPE_TEXT_SA;
 		}
 
@@ -5765,7 +5765,7 @@ s32 menuhandlerMainMenuCooperative(s32 operation, struct menuitem *item, union h
 s32 menuhandlerMainMenuCounterOperative(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if ((contGetConnectedControllers() & 2) == 0) {
+		if ((joyGetConnectedControllers() & 2) == 0) {
 			return true;
 		}
 	}

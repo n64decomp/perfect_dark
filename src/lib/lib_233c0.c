@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/prop.h"
 #include "game/game_1531a0.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "bss.h"
 #include "lib/dma.h"
 #include "lib/memory.h"

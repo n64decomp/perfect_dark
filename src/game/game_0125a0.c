@@ -3,7 +3,7 @@
 #include "game/game_0125a0.h"
 #include "game/game_013ee0.h"
 #include "game/bondhead.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/pad.h"
 #include "bss.h"
 #include "lib/lib_159b0.h"

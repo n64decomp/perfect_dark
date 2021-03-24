@@ -38,11 +38,11 @@
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
 #include "game/game_1531a0.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
 #include "game/gfxmemory.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/mpstats.h"
@@ -60,7 +60,7 @@
 #include "lib/lib_09a80.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/model.h"
 #include "lib/rng.h"
@@ -11944,7 +11944,7 @@ glabel func0f06e87c
 /*  f06e924:	3406ffff */ 	dli	$a2,0xffff
 /*  f06e928:	0fc249af */ 	jal	func0f0926bc
 /*  f06e92c:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f06e930:	0fc5b364 */ 	jal	coreIsPaused
+/*  f06e930:	0fc5b364 */ 	jal	lvIsPaused
 /*  f06e934:	00000000 */ 	nop
 /*  f06e938:	1440001f */ 	bnez	$v0,.L0f06e9b8
 /*  f06e93c:	3c01bf80 */ 	lui	$at,0xbf80
@@ -12036,7 +12036,7 @@ glabel func0f06e87c
 /*  f06e924:	3406ffff */ 	dli	$a2,0xffff
 /*  f06e928:	0fc249af */ 	jal	func0f0926bc
 /*  f06e92c:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f06e930:	0fc5b364 */ 	jal	coreIsPaused
+/*  f06e930:	0fc5b364 */ 	jal	lvIsPaused
 /*  f06e934:	00000000 */ 	nop
 /*  f06e938:	1440001f */ 	bnez	$v0,.L0f06e9b8
 /*  f06e93c:	3c01bf80 */ 	lui	$at,0xbf80
@@ -37829,7 +37829,7 @@ glabel var7f1aa5a8
 .text
 /*  f079f1c:	27bdfe68 */ 	addiu	$sp,$sp,-408
 /*  f079f20:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f079f24:	0fc5b364 */ 	jal	coreIsPaused
+/*  f079f24:	0fc5b364 */ 	jal	lvIsPaused
 /*  f079f28:	afa40198 */ 	sw	$a0,0x198($sp)
 /*  f079f2c:	14400363 */ 	bnez	$v0,.L0f07acbc
 /*  f079f30:	8fae0198 */ 	lw	$t6,0x198($sp)
@@ -38791,7 +38791,7 @@ glabel var7f1aa5a8
 .text
 /*  f079f1c:	27bdfe68 */ 	addiu	$sp,$sp,-408
 /*  f079f20:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f079f24:	0fc5b364 */ 	jal	coreIsPaused
+/*  f079f24:	0fc5b364 */ 	jal	lvIsPaused
 /*  f079f28:	afa40198 */ 	sw	$a0,0x198($sp)
 /*  f079f2c:	14400363 */ 	bnez	$v0,.L0f07acbc
 /*  f079f30:	8fae0198 */ 	lw	$t6,0x198($sp)
@@ -47982,7 +47982,7 @@ s32 objTick(struct prop *prop)
 			struct chopperobj *chopper = (struct chopperobj *)obj;
 
 			if (!chopper->dead) {
-				if (!coreIsPaused()) {
+				if (!lvIsPaused()) {
 					if (chopper->attackmode == 3) {
 						// empty
 					} else if (chopper->attackmode == 2) {
@@ -62635,13 +62635,13 @@ bool propobjInteract(struct prop *prop)
 
 		if (handled) {
 			// Typing sound
-			audioStart(var80095200, SFX_TYPING_8118, NULL, -1, -1, -1, -1, -1);
+			sndStart(var80095200, SFX_TYPING_8118, NULL, -1, -1, -1, -1, -1);
 		}
 
 		func0f0fd494(&prop->pos);
 	} else if (obj->type == OBJTYPE_ALARM) {
 		// Button press sound
-		audioStart(var80095200, SFX_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);
 
 		if (alarmIsActive()) {
 			alarmDeactivate();
@@ -63640,7 +63640,7 @@ void ammotypePlayPickupSound(u32 ammotype)
 	case AMMOTYPE_CLOAK:
 	case AMMOTYPE_BOOST:
 	case AMMOTYPE_TOKEN:
-		audioStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_REMOTE_MINE:
 	case AMMOTYPE_PROXY_MINE:
@@ -63649,10 +63649,10 @@ void ammotypePlayPickupSound(u32 ammotype)
 	case AMMOTYPE_MICROCAMERA:
 	case AMMOTYPE_PLASTIQUE:
 	case AMMOTYPE_ECM_MINE:
-		audioStart(var80095200, SFX_PICKUP_MINE, NULL, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_PICKUP_MINE, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_KNIFE:
-		audioStart(var80095200, SFX_PICKUP_KNIFE, NULL, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_PICKUP_KNIFE, NULL, -1, -1, -1, -1, -1);
 		break;
 	}
 }
@@ -63717,7 +63717,7 @@ void func0f087d10(s32 weaponnum)
 		sound = SFX_PICKUP_GUN;
 	}
 
-	audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
+	sndStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 }
 
 void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty)
@@ -64321,7 +64321,7 @@ glabel var7f1aae70
 /*  f0888e4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0888e8:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f0888ec:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0888f0:	0c004241 */ 	jal	audioStart
+/*  f0888f0:	0c004241 */ 	jal	sndStart
 /*  f0888f4:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f0888f8:
 /*  f0888f8:	8faf00a4 */ 	lw	$t7,0xa4($sp)
@@ -64401,7 +64401,7 @@ glabel var7f1aae70
 /*  f088a10:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f088a14:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088a18:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088a1c:	0c004241 */ 	jal	audioStart
+/*  f088a1c:	0c004241 */ 	jal	sndStart
 /*  f088a20:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f088a24:
 /*  f088a24:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -64680,7 +64680,7 @@ glabel var7f1aae70
 /*  f088e0c:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f088e10:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088e14:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088e18:	0c004241 */ 	jal	audioStart
+/*  f088e18:	0c004241 */ 	jal	sndStart
 /*  f088e1c:	e7a60014 */ 	swc1	$f6,0x14($sp)
 .L0f088e20:
 /*  f088e20:	8faf00a4 */ 	lw	$t7,0xa4($sp)
@@ -64772,7 +64772,7 @@ glabel var7f1aae70
 /*  f088f50:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f088f54:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088f58:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088f5c:	0c004241 */ 	jal	audioStart
+/*  f088f5c:	0c004241 */ 	jal	sndStart
 /*  f088f60:	e7a80014 */ 	swc1	$f8,0x14($sp)
 .L0f088f64:
 /*  f088f64:	8faa00a4 */ 	lw	$t2,0xa4($sp)
@@ -64968,7 +64968,7 @@ glabel var7f1aae70
 /*  f0888e4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0888e8:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f0888ec:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0888f0:	0c004241 */ 	jal	audioStart
+/*  f0888f0:	0c004241 */ 	jal	sndStart
 /*  f0888f4:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f0888f8:
 /*  f0888f8:	8faf00a4 */ 	lw	$t7,0xa4($sp)
@@ -65048,7 +65048,7 @@ glabel var7f1aae70
 /*  f088a10:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f088a14:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088a18:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088a1c:	0c004241 */ 	jal	audioStart
+/*  f088a1c:	0c004241 */ 	jal	sndStart
 /*  f088a20:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f088a24:
 /*  f088a24:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -65327,7 +65327,7 @@ glabel var7f1aae70
 /*  f088e0c:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f088e10:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088e14:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088e18:	0c004241 */ 	jal	audioStart
+/*  f088e18:	0c004241 */ 	jal	sndStart
 /*  f088e1c:	e7a60014 */ 	swc1	$f6,0x14($sp)
 .L0f088e20:
 /*  f088e20:	8faf00a4 */ 	lw	$t7,0xa4($sp)
@@ -65419,7 +65419,7 @@ glabel var7f1aae70
 /*  f088f50:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f088f54:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f088f58:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f088f5c:	0c004241 */ 	jal	audioStart
+/*  f088f5c:	0c004241 */ 	jal	sndStart
 /*  f088f60:	e7a80014 */ 	swc1	$f8,0x14($sp)
 .L0f088f64:
 /*  f088f64:	8faa00a4 */ 	lw	$t2,0xa4($sp)
@@ -65492,7 +65492,7 @@ glabel var7f1aae70
 //	switch (obj->type) {
 //	case 0x04: // f0888b4 - key
 //		if (g_Vars.in_cutscene == false) {
-//			audioStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
+//			sndStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 //		}
 //
 //		if (showhudmsg) {
@@ -65531,7 +65531,7 @@ glabel var7f1aae70
 //			}
 //
 //			if (g_Vars.in_cutscene == false) {
-//				audioStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
+//				sndStart(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			sp148[1] = 1;
@@ -65682,7 +65682,7 @@ glabel var7f1aae70
 //			currentPlayerSetShieldFrac(shield->amount);
 //
 //			if (g_Vars.in_cutscene == false) {
-//				audioStart(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
+//				sndStart(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			if (showhudmsg) {
@@ -65748,7 +65748,7 @@ glabel var7f1aae70
 //	case 0x2f: // f088f20
 //	default:
 //		if (g_Vars.in_cutscene == false) {
-//			audioStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
+//			sndStart(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 //		}
 //
 //		if (showhudmsg) {
@@ -67939,7 +67939,7 @@ void playerActivateRemoteMineDetonator(s32 playernum)
 {
 	var80069910 |= 1 << playernum;
 
-	audioStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
+	sndStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
 
 	playerDetonateRemoteMines(playernum);
 }
@@ -75067,7 +75067,7 @@ glabel var7f1ab19c
 /*  f090658:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*  f09065c:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f090660:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f090664:	0c004241 */ 	jal	audioStart
+/*  f090664:	0c004241 */ 	jal	sndStart
 /*  f090668:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f09066c:	3c018007 */ 	lui	$at,%hi(var800698e4)
 /*  f090670:	c42098e4 */ 	lwc1	$f0,%lo(var800698e4)($at)
@@ -75116,7 +75116,7 @@ glabel var7f1ab19c
 /*  f090714:	8d089900 */ 	lw	$t0,%lo(var80069900)($t0)
 /*  f090718:	15000016 */ 	bnez	$t0,.L0f090774
 /*  f09071c:	00000000 */ 	nop
-/*  f090720:	0fc5b364 */ 	jal	coreIsPaused
+/*  f090720:	0fc5b364 */ 	jal	lvIsPaused
 /*  f090724:	00000000 */ 	nop
 /*  f090728:	14400012 */ 	bnez	$v0,.L0f090774
 /*  f09072c:	24090037 */ 	addiu	$t1,$zero,0x37
@@ -75135,7 +75135,7 @@ glabel var7f1ab19c
 /*  f090760:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f090764:	24050037 */ 	addiu	$a1,$zero,0x37
 /*  f090768:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f09076c:	0c004241 */ 	jal	audioStart
+/*  f09076c:	0c004241 */ 	jal	sndStart
 /*  f090770:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f090774:
 /*  f090774:	3c048007 */ 	lui	$a0,%hi(var80069900)
@@ -75257,7 +75257,7 @@ glabel var7f1ab19c
 /*  f090658:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*  f09065c:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f090660:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f090664:	0c004241 */ 	jal	audioStart
+/*  f090664:	0c004241 */ 	jal	sndStart
 /*  f090668:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f09066c:	3c018007 */ 	lui	$at,%hi(var800698e4)
 /*  f090670:	c42098e4 */ 	lwc1	$f0,%lo(var800698e4)($at)
@@ -75306,7 +75306,7 @@ glabel var7f1ab19c
 /*  f090714:	8d089900 */ 	lw	$t0,%lo(var80069900)($t0)
 /*  f090718:	15000016 */ 	bnez	$t0,.L0f090774
 /*  f09071c:	00000000 */ 	nop
-/*  f090720:	0fc5b364 */ 	jal	coreIsPaused
+/*  f090720:	0fc5b364 */ 	jal	lvIsPaused
 /*  f090724:	00000000 */ 	nop
 /*  f090728:	14400012 */ 	bnez	$v0,.L0f090774
 /*  f09072c:	24090037 */ 	addiu	$t1,$zero,0x37
@@ -75325,7 +75325,7 @@ glabel var7f1ab19c
 /*  f090760:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f090764:	24050037 */ 	addiu	$a1,$zero,0x37
 /*  f090768:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f09076c:	0c004241 */ 	jal	audioStart
+/*  f09076c:	0c004241 */ 	jal	sndStart
 /*  f090770:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f090774:
 /*  f090774:	3c048007 */ 	lui	$a0,%hi(var80069900)
@@ -76089,7 +76089,7 @@ void alarmTick(void)
 		default:                 sound = SFX_ALARM_DEFAULT; break;
 		}
 
-		if (!coreIsPaused()) {
+		if (!lvIsPaused()) {
 			if (g_AlarmAudioHandle) {
 				// The sound is currently playing. Cycle between the left/right
 				// speaker for stereo or headphone mode.
@@ -76109,11 +76109,11 @@ void alarmTick(void)
 					g_AlarmSpeakerDirection *= -1;
 				}
 
-				audioAdjust(&g_AlarmAudioHandle, 0, 0x7fff, g_AlarmSpeakerWeight, -1, -1, 0, -1, 1);
+				sndAdjust(&g_AlarmAudioHandle, 0, 0x7fff, g_AlarmSpeakerWeight, -1, -1, 0, -1, 1);
 			} else {
 				// The alarm finished, or this is the first one.
 				// Start the sound again.
-				audioStart(var80095200, sound, &g_AlarmAudioHandle, -1, -1, -1, -1, -1);
+				sndStart(var80095200, sound, &g_AlarmAudioHandle, -1, -1, -1, -1, -1);
 			}
 		}
 
@@ -76460,7 +76460,7 @@ glabel var7f1ab214
 /*  f0912e4:	afa40200 */ 	sw	$a0,0x200($sp)
 /*  f0912e8:	afa50204 */ 	sw	$a1,0x204($sp)
 /*  f0912ec:	afa60208 */ 	sw	$a2,0x208($sp)
-/*  f0912f0:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0912f0:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0912f4:	afa7020c */ 	sw	$a3,0x20c($sp)
 /*  f0912f8:	1440029e */ 	bnez	$v0,.L0f091d74
 /*  f0912fc:	8fa30208 */ 	lw	$v1,0x208($sp)
@@ -77189,7 +77189,7 @@ glabel var7f1ab214
 /*  f0912e4:	afa40200 */ 	sw	$a0,0x200($sp)
 /*  f0912e8:	afa50204 */ 	sw	$a1,0x204($sp)
 /*  f0912ec:	afa60208 */ 	sw	$a2,0x208($sp)
-/*  f0912f0:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0912f0:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0912f4:	afa7020c */ 	sw	$a3,0x20c($sp)
 /*  f0912f8:	1440029e */ 	bnez	$v0,.L0f091d74
 /*  f0912fc:	8fa30208 */ 	lw	$v1,0x208($sp)

@@ -17,10 +17,10 @@
 #include "game/atan2f.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_1655c0.h"
 #include "game/file.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/mplayer/scenarios.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
@@ -915,7 +915,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 				func0f08b25c(weapon, chr);
 #else
 				if (g_Vars.stagenum == STAGE_INVESTIGATION
-						&& coreGetDifficulty() == DIFF_PA
+						&& lvGetDifficulty() == DIFF_PA
 						&& weapon->weaponnum == WEAPON_K7AVENGER) {
 					weaponLoadProjectileModels(weapon->weaponnum);
 					func0f08b25c(weapon, chr);
@@ -970,7 +970,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 						// Don't replace the K7 guard's weapon in Investigation
 						// because it would make an objective impossible.
 						// @bug: It's still replaced on PD mode difficulty.
-						if (g_Vars.stagenum != STAGE_INVESTIGATION || coreGetDifficulty() != DIFF_PA) {
+						if (g_Vars.stagenum != STAGE_INVESTIGATION || lvGetDifficulty() != DIFF_PA) {
 							weapon->weaponnum = WEAPON_ROCKETLAUNCHER;
 							weapon->base.modelnum = MODEL_CHRDYROCKET;
 							weapon->base.extrascale = 256;
@@ -2449,13 +2449,13 @@ glabel func0f00e980
 /*  f00ea38:	02589821 */ 	addu	$s3,$s2,$t8
 /*  f00ea3c:	52600040 */ 	beqzl	$s3,.L0f00eb40
 /*  f00ea40:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f00ea44:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f00ea44:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f00ea48:	24160001 */ 	addiu	$s6,$zero,0x1
 /*  f00ea4c:	14400002 */ 	bnez	$v0,.L0f00ea58
 /*  f00ea50:	00000000 */ 	nop
 /*  f00ea54:	24160003 */ 	addiu	$s6,$zero,0x3
 .L0f00ea58:
-/*  f00ea58:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f00ea58:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f00ea5c:	00000000 */ 	nop
 /*  f00ea60:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f00ea64:	14410002 */ 	bne	$v0,$at,.L0f00ea70
@@ -2584,13 +2584,13 @@ glabel func0f00e980
 /*  f00ea38:	02589821 */ 	addu	$s3,$s2,$t8
 /*  f00ea3c:	52600040 */ 	beqzl	$s3,.L0f00eb40
 /*  f00ea40:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f00ea44:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f00ea44:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f00ea48:	24160001 */ 	addiu	$s6,$zero,0x1
 /*  f00ea4c:	14400002 */ 	bnez	$v0,.L0f00ea58
 /*  f00ea50:	00000000 */ 	nop
 /*  f00ea54:	24160003 */ 	addiu	$s6,$zero,0x3
 .L0f00ea58:
-/*  f00ea58:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f00ea58:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f00ea5c:	00000000 */ 	nop
 /*  f00ea60:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f00ea64:	14410002 */ 	bne	$v0,$at,.L0f00ea70
@@ -2894,7 +2894,7 @@ void setupParseObjects(s32 stagenum)
 			u32 diffflag = 0;
 			s32 index;
 
-			diffflag |= 1 << (coreGetDifficulty() + 4);
+			diffflag |= 1 << (lvGetDifficulty() + 4);
 
 			if (g_Vars.mplayerisrunning) {
 				if (PLAYERCOUNT() == 2) {
@@ -3349,11 +3349,11 @@ void setupParseObjects(s32 stagenum)
 
 						briefingInsert(briefing);
 
-						if (coreGetDifficulty() == DIFF_A) {
+						if (lvGetDifficulty() == DIFF_A) {
 							wanttype = BRIEFINGTYPE_TEXT_A;
 						}
 
-						if (coreGetDifficulty() == DIFF_SA) {
+						if (lvGetDifficulty() == DIFF_SA) {
 							wanttype = BRIEFINGTYPE_TEXT_SA;
 						}
 

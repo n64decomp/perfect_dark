@@ -2472,7 +2472,7 @@ s32 pakChoosePakMenuDialog(s32 operation, struct menudialog *dialog, union handl
 {
 	switch (operation) {
 	case MENUOP_OPEN:
-		func0001398c(3);
+		joy0001398c(3);
 		g_Menus[g_MpPlayerNum].data.pak.unke24 = 0;
 		break;
 	case MENUOP_TICK:
@@ -2490,7 +2490,7 @@ s32 pakChoosePakMenuDialog(s32 operation, struct menudialog *dialog, union handl
 				}
 			}
 		}
-		func000139c8();
+		joy000139c8();
 		break;
 	}
 
@@ -2521,9 +2521,9 @@ glabel pakChoosePakMenuDialog
 /*  f106b44:	10000036 */ 	beqz	$zero,.NB0f106c20
 /*  f106b48:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .NB0f106b4c:
-/*  f106b4c:	0c00529c */ 	jal	func0001398c
+/*  f106b4c:	0c00529c */ 	jal	joy0001398c
 /*  f106b50:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f106b54:	0c00529c */ 	jal	func0001398c
+/*  f106b54:	0c00529c */ 	jal	joy0001398c
 /*  f106b58:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f106b5c:	3c128007 */ 	lui	$s2,0x8007
 /*  f106b60:	26523af0 */ 	addiu	$s2,$s2,0x3af0
@@ -2573,7 +2573,7 @@ glabel pakChoosePakMenuDialog
 .NB0f106c04:
 /*  f106c04:	5616ffee */ 	bnel	$s0,$s6,.NB0f106bc0
 /*  f106c08:	8e480000 */ 	lw	$t0,0x0($s2)
-/*  f106c0c:	0c00529f */ 	jal	func000139c8
+/*  f106c0c:	0c00529f */ 	jal	joy000139c8
 /*  f106c10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f106c14:	0fc44b4a */ 	jal	func0f1189d0
 /*  f106c18:	00000000 */ 	sll	$zero,$zero,0x0

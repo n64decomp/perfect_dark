@@ -3,7 +3,7 @@
 #include "game/pak/pak.h"
 #include "bss.h"
 #include "lib/main.h"
-#include "lib/controller.h"
+#include "lib/joy.h"
 #include "lib/lib_4f5e0.h"
 #include "data.h"
 #include "types.h"
@@ -11,7 +11,7 @@
 /**
  * PD uses use a separate thread (than the main game) for controller polling.
  * This thread polls the controllers as frequently as possible and stores its
- * results inside g_ContData->samples. This allows the main thread to access a
+ * results inside g_JoyData->samples. This allows the main thread to access a
  * history of controller states since the last rendered frame. For example,
  * under laggy conditions the player might press and release a button between
  * two frames and the main thread can tell that this has happened even if the
@@ -32,8 +32,8 @@
  * sample in the next partition.
  */
 
-struct contdata g_ContData[2];
-s32 g_ContDisableCooldown[4];
+struct joydata g_JoyData[2];
+s32 g_JoyDisableCooldown[4];
 OSMesgQueue var80099e78;
 OSMesg var80099e90;
 u32 var80099e94;
@@ -58,33 +58,33 @@ OSMesg var80099f18;
 u32 var80099f1c;
 OSMesgQueue var80099f20;
 OSContStatus var80099f38[4];
-u8 g_ContPfsStates[100];
+u8 g_JoyPfsStates[100];
 u32 var80099fac;
 u32 var80099fb0;
 
 const char var70054080[] = "joyReset\n";
 const char var7005408c[] = "joyReset: doing nothing\n";
 
-struct contdata *g_ContDataPtr = &g_ContData[0];
-bool g_ContBusy = false;
+struct joydata *g_JoyDataPtr = &g_JoyData[0];
+bool g_JoyBusy = false;
 u32 var8005ee68 = 0;
 
 // Number of times per pad that different inputs were attempted to be read
 // when controller was disconnected or not ready.
-u32 g_ContBadReadsStickX[4] = {0};
-u32 g_ContBadReadsStickY[4] = {0};
-u32 g_ContBadReadsButtons[4] = {0};
-u32 g_ContBadReadsButtonsPressed[4] = {0};
+u32 g_JoyBadReadsStickX[4] = {0};
+u32 g_JoyBadReadsStickY[4] = {0};
+u32 g_JoyBadReadsButtons[4] = {0};
+u32 g_JoyBadReadsButtonsPressed[4] = {0};
 
-u8 g_ConnectedControllers = 0;
-bool g_ContQueuesCreated = false;
-bool g_ContInitDone = false;
-bool g_ContNeedsInit = true;
+u8 g_JoyConnectedControllers = 0;
+bool g_JoyQueuesCreated = false;
+bool g_JoyInitDone = false;
+bool g_JoyNeedsInit = true;
 u32 var8005eebc = 0;
 u32 var8005eec0 = 1;
 s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
 void (*var8005eec8)(struct contsample *samples, s32 samplenum, s32 samplenum2) = NULL;
-s32 g_ContNextPfsStateIndex = 0;
+s32 g_JoyNextPfsStateIndex = 0;
 u32 var8005eed0 = 0;
 u32 var8005eed4 = 0;
 u8 var8005eed8 = 0;
@@ -96,61 +96,61 @@ u32 var8005eeec = 0;
 u32 var8005eef0 = 1;
 
 #if VERSION >= VERSION_NTSC_1_0
-void func00013900(void)
+void joy00013900(void)
 {
 	if (var8005eef0) {
-		func000150e8();
+		joy000150e8();
 		var8005eef0 = false;
 	}
 }
 
-void func00013938(void)
+void joy00013938(void)
 {
 	if (!var8005eef0) {
-		func00015144();
+		joy00015144();
 		var8005eef0 = true;
 	}
 }
 
-void func00013974(u32 value)
+void joy00013974(u32 value)
 {
 	var8005eeec = value;
 }
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-u32 func00013980(void)
+u32 joy00013980(void)
 {
 	return var8005eeec;
 }
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0001398c(s32 value)
+void joy0001398c(s32 value)
 {
 	var8005eee4 = var8005eee0 = value * 11000;
 }
 #else
 GLOBAL_ASM(
-glabel func0001398c
+glabel joy0001398c
 /*    14a70:	3c018006 */ 	lui	$at,0x8006
 /*    14a74:	03e00008 */ 	jr	$ra
 /*    14a78:	ac2412bc */ 	sw	$a0,0x12bc($at)
 );
 #endif
 
-void func000139c8(void)
+void joy000139c8(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	func0001398c(10);
+	joy0001398c(10);
 #else
-	func0001398c(30);
+	joy0001398c(30);
 #endif
 }
 
 #if VERSION < VERSION_NTSC_1_0
 // Same function as the one a couple above, just relocated
-u32 func00013980(void)
+u32 joy00013980(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	return var8005eeec;
@@ -162,23 +162,23 @@ u32 func00013980(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
- * Remove an item from the beginning of the g_ContPfsStates array,
+ * Remove an item from the beginning of the g_JoyPfsStates array,
  * shift the rest of the array back and return the removed item.
  */
-s32 contShiftPfsStates(void)
+s32 joyShiftPfsStates(void)
 {
 	s32 pfsstate = 0;
 	s32 i;
 
-	if (g_ContNextPfsStateIndex) {
-		pfsstate = g_ContPfsStates[0];
+	if (g_JoyNextPfsStateIndex) {
+		pfsstate = g_JoyPfsStates[0];
 
-		if (g_ContNextPfsStateIndex > 1) {
-			for (i = 0; i < g_ContNextPfsStateIndex; i++) {
-				g_ContPfsStates[i] = g_ContPfsStates[i + 1];
+		if (g_JoyNextPfsStateIndex > 1) {
+			for (i = 0; i < g_JoyNextPfsStateIndex; i++) {
+				g_JoyPfsStates[i] = g_JoyPfsStates[i + 1];
 			}
 
-			g_ContNextPfsStateIndex--;
+			g_JoyNextPfsStateIndex--;
 		}
 	}
 
@@ -187,15 +187,15 @@ s32 contShiftPfsStates(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void contRecordPfsState(u8 pfsstate)
+void joyRecordPfsState(u8 pfsstate)
 {
-	if (g_ContNextPfsStateIndex + 1 >= 100) {
-		contShiftPfsStates();
+	if (g_JoyNextPfsStateIndex + 1 >= 100) {
+		joyShiftPfsStates();
 	}
 
-	if (g_ContNextPfsStateIndex == 0 || pfsstate != g_ContPfsStates[g_ContNextPfsStateIndex - 1]) {
-		g_ContPfsStates[g_ContNextPfsStateIndex] = pfsstate;
-		g_ContNextPfsStateIndex++;
+	if (g_JoyNextPfsStateIndex == 0 || pfsstate != g_JoyPfsStates[g_JoyNextPfsStateIndex - 1]) {
+		g_JoyPfsStates[g_JoyNextPfsStateIndex] = pfsstate;
+		g_JoyNextPfsStateIndex++;
 	}
 }
 #endif
@@ -205,7 +205,7 @@ void contRecordPfsState(u8 pfsstate)
  * Scan controllers for controller paks, but only under certain conditions.
  * Seems to be timer based, or can be forced by passing 2 as arg0.
  */
-void contCheckPfs(s32 arg0)
+void joyCheckPfs(s32 arg0)
 {
 	static u32 thiscount = 0; // 8005eef4
 	static u32 prevcount = 0; // 8005eef8
@@ -236,18 +236,18 @@ void contCheckPfs(s32 arg0)
 			var8005eee8++;
 
 			if (arg0) {
-				func000150e8();
+				joy000150e8();
 			}
 
 			osPfsIsPlug(&var80099e78, &bitpattern);
 
 			if (arg0) {
-				func00015144();
+				joy00015144();
 			}
 
 			bitpattern |= 0x10;
 
-			contRecordPfsState(bitpattern);
+			joyRecordPfsState(bitpattern);
 
 			var8005eee4 = var8005eee0;
 		}
@@ -265,21 +265,21 @@ void contCheckPfs(s32 arg0)
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
- * "Temporarily" because the next time contCheckPfs runs, the true state will be
+ * "Temporarily" because the next time joyCheckPfs runs, the true state will be
  * recorded.
  *
  * Note that var8005eed8 is always zero, so this record will suggest that this
  * pak is the only one connected.
  */
-void contSetPfsTemporarilyPlugged(s8 index)
+void joySetPfsTemporarilyPlugged(s8 index)
 {
 	u8 bitpattern = var8005eed8 & ~(1 << index);
 
-	contRecordPfsState(bitpattern);
+	joyRecordPfsState(bitpattern);
 }
 #else
 GLOBAL_ASM(
-glabel contSetPfsTemporarilyPlugged
+glabel joySetPfsTemporarilyPlugged
 /*    14aa8:	3c028006 */ 	lui	$v0,0x8006
 /*    14aac:	244212c4 */ 	addiu	$v0,$v0,0x12c4
 /*    14ab0:	00047600 */ 	sll	$t6,$a0,0x18
@@ -295,7 +295,7 @@ glabel contSetPfsTemporarilyPlugged
 );
 #endif
 
-void contSystemInit(void)
+void joySystemInit(void)
 {
 	s32 i;
 	s32 j;
@@ -308,28 +308,28 @@ void contSystemInit(void)
 
 	osSetEventMesg(OS_EVENT_SI, &var80099e78, NULL);
 
-	g_ContQueuesCreated = true;
+	g_JoyQueuesCreated = true;
 
 	var8005eec4 = NULL;
 	var8005eec8 = NULL;
 
 	for (i = 0; i < 2; i++) {
-		g_ContData[i].curlast = 0;
-		g_ContData[i].curstart = 0;
-		g_ContData[i].nextlast = 0;
-		g_ContData[i].nextsecondlast = 0;
-		g_ContData[i].unk200 = -1;
+		g_JoyData[i].curlast = 0;
+		g_JoyData[i].curstart = 0;
+		g_JoyData[i].nextlast = 0;
+		g_JoyData[i].nextsecondlast = 0;
+		g_JoyData[i].unk200 = -1;
 
 		for (j = 0; j < 4; j++) {
-			g_ContData[i].samples[0].pads[j].button = 0;
-			g_ContData[i].samples[0].pads[j].stick_x = 0;
-			g_ContData[i].samples[0].pads[j].stick_y = 0;
-			g_ContData[i].samples[0].pads[j].errno = 0;
+			g_JoyData[i].samples[0].pads[j].button = 0;
+			g_JoyData[i].samples[0].pads[j].stick_x = 0;
+			g_JoyData[i].samples[0].pads[j].stick_y = 0;
+			g_JoyData[i].samples[0].pads[j].errno = 0;
 		}
 	}
 
 	for (i = 0; i < 4; i++) {
-		g_ContDisableCooldown[i] = 0;
+		g_JoyDisableCooldown[i] = 0;
 	}
 }
 
@@ -341,24 +341,24 @@ void contSystemInit(void)
  * progressing past endscreens if they are holding buttons when they are
  * started.
  */
-void contDisableTemporarily(void)
+void joyDisableTemporarily(void)
 {
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		g_ContDisableCooldown[i] = PALDOWN(60);
+		g_JoyDisableCooldown[i] = PALDOWN(60);
 	}
 }
 
-void func00013dfc(void)
+void joy00013dfc(void)
 {
 	OSMesg msg;
 
-	if (g_ContQueuesCreated) {
+	if (g_JoyQueuesCreated) {
 		osSendMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK);
 		osRecvMesg(&var80099ee0, &msg, OS_MESG_BLOCK);
 
-		func00013e84();
+		joy00013e84();
 
 		osSendMesg(&var80099f00, &msg, OS_MESG_NOBLOCK);
 		osRecvMesg(&var80099f20, &msg, OS_MESG_BLOCK);
@@ -367,21 +367,21 @@ void func00013dfc(void)
 	}
 }
 
-void func00013e84(void)
+void joy00013e84(void)
 {
 	static u8 var8005ef00 = 0xff;
 
 	// osContInit should be called only once. The first time this function is
 	// called it'll take the first branch here, and all subsequent calls will
 	// take the second branch.
-	if (g_ContNeedsInit) {
+	if (g_JoyNeedsInit) {
 		s32 i;
-		g_ContNeedsInit = false;
-		osContInit(&var80099e78, &g_ConnectedControllers, var80099f38);
-		g_ContInitDone = true;
+		g_JoyNeedsInit = false;
+		osContInit(&var80099e78, &g_JoyConnectedControllers, var80099f38);
+		g_JoyInitDone = true;
 
 		for (i = 0; i < 4; i++) {
-			func000153c4(i, 0);
+			joy000153c4(i, 0);
 		}
 	} else {
 		u32 slots = 0xf;
@@ -397,20 +397,20 @@ void func00013e84(void)
 			}
 		}
 
-		g_ConnectedControllers = slots;
+		g_JoyConnectedControllers = slots;
 	}
 
-	if (var8005ef00 != g_ConnectedControllers) {
+	if (var8005ef00 != g_JoyConnectedControllers) {
 		s32 i = 0;
 		s32 index = 0;
 
 		for (; i < 4; i++) {
-			if (g_ConnectedControllers & (1 << i)) {
+			if (g_JoyConnectedControllers & (1 << i)) {
 				g_Vars.playertojoymap[index++] = i;
 			}
 		}
 
-		var8005ef00 = g_ConnectedControllers;
+		var8005ef00 = g_JoyConnectedControllers;
 	}
 }
 
@@ -418,12 +418,12 @@ s8 contGetFreeSlot(void)
 {
 	s32 i;
 
-	if (g_ContDataPtr->unk200 >= 0) {
-		return g_ContDataPtr->unk200;
+	if (g_JoyDataPtr->unk200 >= 0) {
+		return g_JoyDataPtr->unk200;
 	}
 
 	for (i = 0; i < 4; i++) {
-		if ((g_ConnectedControllers & (1 << i)) == 0) {
+		if ((g_JoyConnectedControllers & (1 << i)) == 0) {
 			return i;
 		}
 	}
@@ -431,9 +431,9 @@ s8 contGetFreeSlot(void)
 	return 4;
 }
 
-u32 contGetConnectedControllers(void)
+u32 joyGetConnectedControllers(void)
 {
-	return g_ConnectedControllers;
+	return g_JoyConnectedControllers;
 }
 
 #if VERSION < VERSION_NTSC_1_0
@@ -456,41 +456,41 @@ glabel func00014eb0nb
 );
 #endif
 
-void contConsumeSamples(struct contdata *contdata)
+void joyConsumeSamples(struct joydata *joydata)
 {
 	s8 i;
 	s32 samplenum;
 	u16 buttons1;
 	u16 buttons2;
 
-	contdata->curstart = contdata->curlast;
-	contdata->curlast = contdata->nextlast;
+	joydata->curstart = joydata->curlast;
+	joydata->curlast = joydata->nextlast;
 
 	for (i = 0; i < 4; i++) {
-		contdata->buttonspressed[i] = 0;
-		contdata->buttonsreleased[i] = 0;
+		joydata->buttonspressed[i] = 0;
+		joydata->buttonsreleased[i] = 0;
 
-		if (contdata->curlast != contdata->curstart) {
-			samplenum = (contdata->curstart + 1) % 20; while (true) {
-				buttons1 = contdata->samples[samplenum].pads[i].button;
-				buttons2 = contdata->samples[(samplenum + 19) % 20].pads[i].button;
+		if (joydata->curlast != joydata->curstart) {
+			samplenum = (joydata->curstart + 1) % 20; while (true) {
+				buttons1 = joydata->samples[samplenum].pads[i].button;
+				buttons2 = joydata->samples[(samplenum + 19) % 20].pads[i].button;
 
-				contdata->buttonspressed[i] |= buttons1 & ~buttons2;
-				contdata->buttonsreleased[i] |= ~buttons1 & buttons2;
+				joydata->buttonspressed[i] |= buttons1 & ~buttons2;
+				joydata->buttonsreleased[i] |= ~buttons1 & buttons2;
 
-				if (g_ContDisableCooldown[i] > 0) {
-					if (contdata->samples[samplenum].pads[i].button == 0
-							&& contdata->samples[samplenum].pads[i].stick_x < 15
-							&& contdata->samples[samplenum].pads[i].stick_x > -15
-							&& contdata->samples[samplenum].pads[i].stick_y < 15
-							&& contdata->samples[samplenum].pads[i].stick_y > -15) {
-						g_ContDisableCooldown[i] = 0;
+				if (g_JoyDisableCooldown[i] > 0) {
+					if (joydata->samples[samplenum].pads[i].button == 0
+							&& joydata->samples[samplenum].pads[i].stick_x < 15
+							&& joydata->samples[samplenum].pads[i].stick_x > -15
+							&& joydata->samples[samplenum].pads[i].stick_y < 15
+							&& joydata->samples[samplenum].pads[i].stick_y > -15) {
+						g_JoyDisableCooldown[i] = 0;
 					} else {
-						g_ContDisableCooldown[i]--;
+						g_JoyDisableCooldown[i]--;
 					}
 				}
 
-				if (samplenum == contdata->curlast) {
+				if (samplenum == joydata->curlast) {
 					break;
 				}
 
@@ -519,7 +519,7 @@ glabel func0001509cnb
 /*    150d0:	0319082a */ 	slt	$at,$t8,$t9
 /*    150d4:	1020000d */ 	beqz	$at,.NB0001510c
 /*    150d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    150dc:	0c005332 */ 	jal	func00013e84
+/*    150dc:	0c005332 */ 	jal	joy00013e84
 /*    150e0:	ac400000 */ 	sw	$zero,0x0($v0)
 /*    150e4:	3c04800a */ 	lui	$a0,0x800a
 /*    150e8:	3c058006 */ 	lui	$a1,0x8006
@@ -546,7 +546,7 @@ glabel func0001509cnb
  * The use of the static variable suggests that the function is able to be
  * called recursively, but its behaviour should not be run when recursing.
  */
-void func00014238(void)
+void joy00014238(void)
 {
 	static bool doingit = false;
 	s32 i;
@@ -555,13 +555,13 @@ void func00014238(void)
 		doingit = true;
 
 		for (i = 0; i < 4; i++) {
-			if (func000155f4(i) == 13) {
+			if (joy000155f4(i) == 13) {
 				func0f116db0(i, 11);
 			}
 		}
 
 		if (var8005eec4 == NULL) {
-			func0001561c();
+			joy0001561c();
 		}
 
 		doingit = false;
@@ -570,7 +570,7 @@ void func00014238(void)
 
 u32 var8005ef08 = 0;
 
-void contDebugJoy(void)
+void joyDebugJoy(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	func0000db30("debugjoy", &var8005ef08);
@@ -580,38 +580,38 @@ void contDebugJoy(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.paksconnected) {
-		contCheckPfs(1);
+		joyCheckPfs(1);
 	}
 #endif
 
 	if (var8005eec4) {
-		g_ContData[1].nextlast = var8005eec4(g_ContData[1].samples, g_ContData[1].curlast);
-		contConsumeSamples(&g_ContData[1]);
+		g_JoyData[1].nextlast = var8005eec4(g_JoyData[1].samples, g_JoyData[1].curlast);
+		joyConsumeSamples(&g_JoyData[1]);
 	}
 
-	contConsumeSamples(&g_ContData[0]);
+	joyConsumeSamples(&g_JoyData[0]);
 
 	if (var8005eec8) {
-		var8005eec8(g_ContData[0].samples, g_ContData[0].curstart, g_ContData[0].curlast);
+		var8005eec8(g_JoyData[0].samples, g_JoyData[0].curstart, g_JoyData[0].curlast);
 	}
 
-	if (func000150c4() && var8005eec0 && contGetNumSamples() <= 0) {
+	if (joy000150c4() && var8005eec0 && joyGetNumSamples() <= 0) {
 #if VERSION >= VERSION_NTSC_FINAL
-		func000150e8();
-		func00014238();
-		func00015144();
-		contConsumeSamples(&g_ContData[0]);
+		joy000150e8();
+		joy00014238();
+		joy00015144();
+		joyConsumeSamples(&g_JoyData[0]);
 #elif VERSION >= VERSION_NTSC_1_0
-		func000150e8();
-		func00015144();
-		contConsumeSamples(&g_ContData[0]);
-		func00014238();
+		joy000150e8();
+		joy00015144();
+		joyConsumeSamples(&g_JoyData[0]);
+		joy00014238();
 #else
-		func000150e8(500, "joy.c");
-		func00014238();
+		joy000150e8(500, "joy.c");
+		joy00014238();
 		func0001509cnb();
-		func00015144(507, "joy.c");
-		contConsumeSamples(&g_ContData[0]);
+		joy00015144(507, "joy.c");
+		joyConsumeSamples(&g_JoyData[0]);
 #endif
 	}
 }
@@ -633,45 +633,45 @@ const char var70055958nb[] = "joy.c";
 const char var70055960nb[] = "joy.c";
 #endif
 
-s32 contStartReadData(OSMesgQueue *mq)
+s32 joyStartReadData(OSMesgQueue *mq)
 {
 	return osContStartReadData(mq);
 }
 
-void contReadData(void)
+void joyReadData(void)
 {
-	s32 index = (g_ContData[0].nextlast + 1) % 20;
+	s32 index = (g_JoyData[0].nextlast + 1) % 20;
 
-	if (index == g_ContData[0].curstart) {
+	if (index == g_JoyData[0].curstart) {
 		// If the sample queue is full, don't overwrite the oldest sample.
 		// Instead, overwrite the most recent.
-		index = g_ContData[0].nextlast;
+		index = g_JoyData[0].nextlast;
 	}
 
-	osContGetReadData(g_ContData[0].samples[index].pads);
+	osContGetReadData(g_JoyData[0].samples[index].pads);
 
-	g_ContData[0].nextlast = index;
-	g_ContData[0].nextsecondlast = (g_ContData[0].nextlast + 19) % 20;
+	g_JoyData[0].nextlast = index;
+	g_JoyData[0].nextsecondlast = (g_JoyData[0].nextlast + 19) % 20;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void contPoll(void)
+void joyPoll(void)
 {
 	OSMesg msg;
 	s8 i;
 
 	if (osRecvMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK) == 0) {
-		if (g_ContBusy) {
+		if (g_JoyBusy) {
 			osRecvMesg(&var80099e78, &msg, OS_MESG_BLOCK);
 
-			g_ContBusy = false;
-			contReadData();
+			g_JoyBusy = false;
+			joyReadData();
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno == 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno != 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno == 0)) {
-					func00013e84();
+				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
+						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+					joy00013e84();
 					break;
 				}
 			}
@@ -681,7 +681,7 @@ void contPoll(void)
 
 		var8005ee68++;
 
-		contCheckPfs(0);
+		joyCheckPfs(0);
 		return;
 	}
 
@@ -689,40 +689,40 @@ void contPoll(void)
 		var8005ee68--;
 
 		if (var8005ee68 == 0) {
-			contStartReadData(&var80099e78);
-			g_ContBusy = true;
+			joyStartReadData(&var80099e78);
+			g_JoyBusy = true;
 		}
 
 		osSendMesg(&var80099f20, &msg, OS_MESG_NOBLOCK);
 		return;
 	}
 
-	if (g_ContInitDone) {
+	if (g_JoyInitDone) {
 		if (var8005ee68) {
-			contCheckPfs(0);
+			joyCheckPfs(0);
 			return;
 		}
 
 		if (osRecvMesg(&var80099e78, &msg, OS_MESG_NOBLOCK) == 0) {
 			static s32 count = 0;
 
-			g_ContBusy = false;
-			contReadData();
+			g_JoyBusy = false;
+			joyReadData();
 
 			// Check if error state has changed for any controller
 			for (i = 0; i < 4; i++) {
-				if ((g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno == 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno != 0)
-						|| (g_ContData[0].samples[g_ContData[0].nextlast].pads[i].errno != 0 && g_ContData[0].samples[g_ContData[0].nextsecondlast].pads[i].errno == 0)) {
-					func00013e84();
+				if ((g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno == 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno != 0)
+						|| (g_JoyData[0].samples[g_JoyData[0].nextlast].pads[i].errno != 0 && g_JoyData[0].samples[g_JoyData[0].nextsecondlast].pads[i].errno == 0)) {
+					joy00013e84();
 					break;
 				}
 			}
 
-			func00014238();
-			contCheckPfs(0);
+			joy00014238();
+			joyCheckPfs(0);
 
-			contStartReadData(&var80099e78);
-			g_ContBusy = true;
+			joyStartReadData(&var80099e78);
+			g_JoyBusy = true;
 
 			count++;
 
@@ -730,11 +730,11 @@ void contPoll(void)
 				s32 i;
 
 				for (i = 0; i < 4; i++) {
-					if (g_ContBadReadsStickX[i] || g_ContBadReadsStickY[i] || g_ContBadReadsButtons[i] || g_ContBadReadsButtonsPressed[i]) {
-						g_ContBadReadsStickX[i] = 0;
-						g_ContBadReadsStickY[i] = 0;
-						g_ContBadReadsButtons[i] = 0;
-						g_ContBadReadsButtonsPressed[i] = 0;
+					if (g_JoyBadReadsStickX[i] || g_JoyBadReadsStickY[i] || g_JoyBadReadsButtons[i] || g_JoyBadReadsButtonsPressed[i]) {
+						g_JoyBadReadsStickX[i] = 0;
+						g_JoyBadReadsStickY[i] = 0;
+						g_JoyBadReadsButtons[i] = 0;
+						g_JoyBadReadsButtonsPressed[i] = 0;
 					}
 				}
 
@@ -745,7 +745,7 @@ void contPoll(void)
 }
 #else
 GLOBAL_ASM(
-glabel contPoll
+glabel joyPoll
 /*    1536c:	3c028006 */ 	lui	$v0,0x8006
 /*    15370:	244212c0 */ 	addiu	$v0,$v0,0x12c0
 /*    15374:	8c4e0000 */ 	lw	$t6,0x0($v0)
@@ -768,7 +768,7 @@ glabel contPoll
 /*    153b8:	0c0126b0 */ 	jal	osRecvMesg
 /*    153bc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    153c0:	3c018006 */ 	lui	$at,0x8006
-/*    153c4:	0c0054bc */ 	jal	contReadData
+/*    153c4:	0c0054bc */ 	jal	joyReadData
 /*    153c8:	ac201254 */ 	sw	$zero,0x1254($at)
 /*    153cc:	3c19800a */ 	lui	$t9,0x800a
 /*    153d0:	8f39e3a8 */ 	lw	$t9,-0x1c58($t9)
@@ -811,7 +811,7 @@ glabel contPoll
 /*    1545c:	55400006 */ 	bnezl	$t2,.NB00015478
 /*    15460:	00055e00 */ 	sll	$t3,$a1,0x18
 .NB00015464:
-/*    15464:	0c005332 */ 	jal	func00013e84
+/*    15464:	0c005332 */ 	jal	joy00013e84
 /*    15468:	00000000 */ 	sll	$zero,$zero,0x0
 /*    1546c:	10000006 */ 	beqz	$zero,.NB00015488
 /*    15470:	00000000 */ 	sll	$zero,$zero,0x0
@@ -848,7 +848,7 @@ glabel contPoll
 /*    154dc:	25f8ffff */ 	addiu	$t8,$t7,-1
 /*    154e0:	17000006 */ 	bnez	$t8,.NB000154fc
 /*    154e4:	ac780000 */ 	sw	$t8,0x0($v1)
-/*    154e8:	0c0054b4 */ 	jal	contStartReadData
+/*    154e8:	0c0054b4 */ 	jal	joyStartReadData
 /*    154ec:	2484e5d8 */ 	addiu	$a0,$a0,-6696
 /*    154f0:	24080001 */ 	addiu	$t0,$zero,0x1
 /*    154f4:	3c018006 */ 	lui	$at,0x8006
@@ -877,7 +877,7 @@ glabel contPoll
 /*    15548:	00003025 */ 	or	$a2,$zero,$zero
 /*    1554c:	14400064 */ 	bnez	$v0,.NB000156e0
 /*    15550:	3c018006 */ 	lui	$at,0x8006
-/*    15554:	0c0054bc */ 	jal	contReadData
+/*    15554:	0c0054bc */ 	jal	joyReadData
 /*    15558:	ac201254 */ 	sw	$zero,0x1254($at)
 /*    1555c:	3c0b800a */ 	lui	$t3,0x800a
 /*    15560:	8d6be3a8 */ 	lw	$t3,-0x1c58($t3)
@@ -920,7 +920,7 @@ glabel contPoll
 /*    155ec:	55c00006 */ 	bnezl	$t6,.NB00015608
 /*    155f0:	00057e00 */ 	sll	$t7,$a1,0x18
 .NB000155f4:
-/*    155f4:	0c005332 */ 	jal	func00013e84
+/*    155f4:	0c005332 */ 	jal	joy00013e84
 /*    155f8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    155fc:	10000006 */ 	beqz	$zero,.NB00015618
 /*    15600:	00000000 */ 	sll	$zero,$zero,0x0
@@ -932,12 +932,12 @@ glabel contPoll
 /*    15610:	1420ffde */ 	bnez	$at,.NB0001558c
 /*    15614:	00000000 */ 	sll	$zero,$zero,0x0
 .NB00015618:
-/*    15618:	0c005449 */ 	jal	func00014238
+/*    15618:	0c005449 */ 	jal	joy00014238
 /*    1561c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    15620:	0c005427 */ 	jal	func0001509cnb
 /*    15624:	00000000 */ 	sll	$zero,$zero,0x0
 /*    15628:	3c04800a */ 	lui	$a0,0x800a
-/*    1562c:	0c0054b4 */ 	jal	contStartReadData
+/*    1562c:	0c0054b4 */ 	jal	joyStartReadData
 /*    15630:	2484e5d8 */ 	addiu	$a0,$a0,-6696
 /*    15634:	3c038006 */ 	lui	$v1,0x8006
 /*    15638:	8c6312dc */ 	lw	$v1,0x12dc($v1)
@@ -994,92 +994,92 @@ glabel contPoll
 );
 #endif
 
-void func00014810(bool value)
+void joy00014810(bool value)
 {
 	var8005eec0 = value;
 }
 
-s32 contGetNumSamples(void)
+s32 joyGetNumSamples(void)
 {
-	return (g_ContDataPtr->curlast - g_ContDataPtr->curstart + 20) % 20;
+	return (g_JoyDataPtr->curlast - g_JoyDataPtr->curstart + 20) % 20;
 }
 
-s32 contGetStickXOnSample(s32 samplenum, s8 contpadnum)
+s32 joyGetStickXOnSample(s32 samplenum, s8 contpadnum)
 {
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsStickX[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsStickX[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_x;
+	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_x;
 }
 
-s32 contGetStickYOnSample(s32 samplenum, s8 contpadnum)
+s32 joyGetStickYOnSample(s32 samplenum, s8 contpadnum)
 {
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsStickY[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsStickY[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_y;
+	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].stick_y;
 }
 
-s32 contGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
+s32 joyGetStickYOnSampleIndex(s32 samplenum, s8 contpadnum)
 {
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsStickY[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsStickY[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum) % 20].pads[contpadnum].stick_y;
+	return g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % 20].pads[contpadnum].stick_y;
 }
 
-u16 contGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
+u16 joyGetButtonsOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button;
 
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsButtons[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsButtons[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	button = g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
+	button = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
 
 	return button & mask;
 }
 
-u16 contGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
+u16 joyGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
 {
 	u16 button1;
 	u16 button2;
 
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsButtonsPressed[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsButtonsPressed[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	button1 = g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
-	button2 = g_ContDataPtr->samples[(g_ContDataPtr->curstart + samplenum) % 20].pads[contpadnum].button;
+	button1 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum + 1) % 20].pads[contpadnum].button;
+	button2 = g_JoyDataPtr->samples[(g_JoyDataPtr->curstart + samplenum) % 20].pads[contpadnum].button;
 
 	return (button1 & ~button2) & mask;
 }
@@ -1091,34 +1091,34 @@ u16 contGetButtonsPressedOnSample(s32 samplenum, s8 contpadnum, u16 mask)
  * For example, if checksamples[5] is nonzero and a button was pressed on
  * samplenum 5 which matches the mask, count is incremented.
  */
-s32 contCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
+s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 {
 	s32 count = 0;
 	s32 index = 0;
 	s32 i;
 	u16 button;
 
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsButtons[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsButtons[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	i = (g_ContDataPtr->curstart + 1) % 20;
+	i = (g_JoyDataPtr->curstart + 1) % 20;
 
 	while (true) {
 		if (checksamples == NULL || checksamples[index]) {
-			button = g_ContDataPtr->samples[i].pads[contpadnum].button;
+			button = g_JoyDataPtr->samples[i].pads[contpadnum].button;
 
 			if (button & mask) {
 				count++;
 			}
 		}
 
-		if (i == g_ContDataPtr->curlast) {
+		if (i == g_JoyDataPtr->curlast) {
 			break;
 		}
 
@@ -1129,60 +1129,60 @@ s32 contCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask
 	return count;
 }
 
-s8 contGetStickX(s8 contpadnum)
+s8 joyGetStickX(s8 contpadnum)
 {
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsStickX[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsStickX[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return g_ContDataPtr->samples[g_ContDataPtr->curlast].pads[contpadnum].stick_x;
+	return g_JoyDataPtr->samples[g_JoyDataPtr->curlast].pads[contpadnum].stick_x;
 }
 
-s8 contGetStickY(s8 contpadnum)
+s8 joyGetStickY(s8 contpadnum)
 {
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsStickY[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsStickY[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return g_ContDataPtr->samples[g_ContDataPtr->curlast].pads[contpadnum].stick_y;
+	return g_JoyDataPtr->samples[g_JoyDataPtr->curlast].pads[contpadnum].stick_y;
 }
 
-u16 contGetButtons(s8 contpadnum, u16 mask)
+u16 joyGetButtons(s8 contpadnum, u16 mask)
 {
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsButtons[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsButtons[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return g_ContDataPtr->samples[g_ContDataPtr->curlast].pads[contpadnum].button & mask;
+	return g_JoyDataPtr->samples[g_JoyDataPtr->curlast].pads[contpadnum].button & mask;
 }
 
-u16 contGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
+u16 joyGetButtonsPressedThisFrame(s8 contpadnum, u16 mask)
 {
-	if (g_ContDataPtr->unk200 < 0 && (g_ConnectedControllers >> contpadnum & 1) == 0) {
-		g_ContBadReadsButtonsPressed[contpadnum]++;
+	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
+		g_JoyBadReadsButtonsPressed[contpadnum]++;
 		return 0;
 	}
 
-	if (g_ContDisableCooldown[contpadnum] > 0) {
+	if (g_JoyDisableCooldown[contpadnum] > 0) {
 		return 0;
 	}
 
-	return g_ContDataPtr->buttonspressed[contpadnum] & mask;
+	return g_JoyDataPtr->buttonspressed[contpadnum] & mask;
 }
 
 #if VERSION < VERSION_NTSC_1_0
@@ -1234,12 +1234,12 @@ glabel func00015fa4nb
 );
 #endif
 
-s32 func000150c4(void)
+s32 joy000150c4(void)
 {
 	return var8005eebc ? false : true;
 }
 
-void func000150e8(
+void joy000150e8(
 #if VERSION >= VERSION_NTSC_1_0
 		void
 #else
@@ -1257,7 +1257,7 @@ void func000150e8(
 	var8005eebc++;
 }
 
-void func00015144(
+void joy00015144(
 #if VERSION >= VERSION_NTSC_1_0
 		void
 #else
@@ -1304,7 +1304,7 @@ glabel func00016154nb
 );
 #endif
 
-void func0001519c(void)
+void joy0001519c(void)
 {
 	s32 i;
 
@@ -1321,7 +1321,7 @@ void func0001519c(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func000152d0(s8 playernum, s32 *arg1, s32 *arg2)
+void joy000152d0(s8 playernum, s32 *arg1, s32 *arg2)
 {
 	if (g_Vars.normmplayerisrunning) {
 		*arg1 = g_Vars.playerstats[playernum].mpindex;
@@ -1341,14 +1341,14 @@ void func000152d0(s8 playernum, s32 *arg1, s32 *arg2)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void func000153c4(s8 arg0, s32 arg1)
+void joy000153c4(s8 arg0, s32 arg1)
 {
 	u32 stack;
 
 	if (arg0 != 4) {
 		if (var800a2380[arg0].unk000 != 2 && var800a2380[arg0].unk000 != 3) {
 			if (arg1) {
-				func000150e8();
+				joy000150e8();
 			}
 
 			if (func0004f854(&var80099e78, arg0 == 4 ? NULL : &var800a3180[arg0], arg0) == 0) {
@@ -1358,7 +1358,7 @@ void func000153c4(s8 arg0, s32 arg1)
 			}
 
 			if (arg1) {
-				func00015144();
+				joy00015144();
 			}
 
 			if (var800a2380[arg0].unk004 != 6 && var800a2380[arg0].unk004 != 7) {
@@ -1375,7 +1375,7 @@ void func000153c4(s8 arg0, s32 arg1)
 }
 #else
 GLOBAL_ASM(
-glabel func000153c4
+glabel joy000153c4
 /*    162b0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    162b4:	00047600 */ 	sll	$t6,$a0,0x18
 /*    162b8:	000e7e03 */ 	sra	$t7,$t6,0x18
@@ -1408,7 +1408,7 @@ glabel func000153c4
 /*    16324:	2404041e */ 	addiu	$a0,$zero,0x41e
 /*    16328:	3c057005 */ 	lui	$a1,0x7005
 /*    1632c:	24a55958 */ 	addiu	$a1,$a1,0x5958
-/*    16330:	0c00581b */ 	jal	func000150e8
+/*    16330:	0c00581b */ 	jal	joy000150e8
 /*    16334:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    16338:	8fa60024 */ 	lw	$a2,0x24($sp)
 .NB0001633c:
@@ -1494,7 +1494,7 @@ glabel func000153c4
 /*    16454:	3c057005 */ 	lui	$a1,0x7005
 /*    16458:	51000004 */ 	beqzl	$t0,.NB0001646c
 /*    1645c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    16460:	0c005834 */ 	jal	func00015144
+/*    16460:	0c005834 */ 	jal	joy00015144
 /*    16464:	24a55960 */ 	addiu	$a1,$a1,0x5960
 /*    16468:	8fa3001c */ 	lw	$v1,0x1c($sp)
 .NB0001646c:
@@ -1519,17 +1519,17 @@ glabel func000153c4
 );
 #endif
 
-s32 func000155b4(s8 index)
+s32 joy000155b4(s8 index)
 {
 	return var800a2380[index].unk010;
 }
 
-s32 func000155f4(s8 index)
+s32 joy000155f4(s8 index)
 {
-	return func000155b4(index);
+	return joy000155b4(index);
 }
 
-void func0001561c(void)
+void joy0001561c(void)
 {
 	s32 i;
 

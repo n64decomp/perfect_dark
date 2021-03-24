@@ -6,7 +6,7 @@
 #include "game/floor.h"
 #include "game/ceil.h"
 #include "game/game_0b3350.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/file.h"
 #include "bss.h"
 #include "lib/rng.h"

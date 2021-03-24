@@ -8,7 +8,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_102240.h"
 #include "game/game_107fb0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/mplayer/ingame.h"
 #include "game/game_19aa80.h"
 #include "game/lang.h"
@@ -192,9 +192,9 @@ char *menutextPauseOrUnpause(s32 arg0)
 char *menutextMatchTime(s32 arg0)
 {
 #if PAL
-	formatTime(g_StringPointer, coreGetStageTime60() * 60 / 50, 3);
+	formatTime(g_StringPointer, lvGetStageTime60() * 60 / 50, 3);
 #else
-	formatTime(g_StringPointer, coreGetStageTime60(), 3);
+	formatTime(g_StringPointer, lvGetStageTime60(), 3);
 #endif
 
 	return g_StringPointer;

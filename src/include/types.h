@@ -6762,7 +6762,7 @@ struct contsample {
 	OSContPad pads[4];
 };
 
-struct contdata {
+struct joydata {
 	struct contsample samples[20];
 	s32 curlast;
 	s32 curstart;

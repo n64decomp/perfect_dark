@@ -10,7 +10,7 @@
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_127910.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"

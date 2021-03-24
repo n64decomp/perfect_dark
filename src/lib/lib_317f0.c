@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_30ce0.h"
@@ -4068,7 +4068,7 @@ glabel func00033820
 /*    33838:	afa00058 */ 	sw	$zero,0x58($sp)
 /*    3383c:	a7a0004e */ 	sh	$zero,0x4e($sp)
 /*    33840:	afa00040 */ 	sw	$zero,0x40($sp)
-/*    33844:	0c0040d8 */ 	jal	func00010360
+/*    33844:	0c0040d8 */ 	jal	snd00010360
 /*    33848:	00000000 */ 	nop
 /*    3384c:	10400003 */ 	beqz	$v0,.L0003385c
 /*    33850:	00000000 */ 	nop
@@ -4079,7 +4079,7 @@ glabel func00033820
 /*    33860:	11c000a2 */ 	beqz	$t6,.L00033aec
 /*    33864:	00000000 */ 	nop
 .L00033868:
-/*    33868:	0c003d27 */ 	jal	func0000f49c
+/*    33868:	0c003d27 */ 	jal	snd0000f49c
 /*    3386c:	87a40066 */ 	lh	$a0,0x66($sp)
 /*    33870:	afa20050 */ 	sw	$v0,0x50($sp)
 /*    33874:	8fa40060 */ 	lw	$a0,0x60($sp)
@@ -4276,7 +4276,7 @@ glabel func00033820
 /*    34dc8:	afa00058 */ 	sw	$zero,0x58($sp)
 /*    34dcc:	a7a0004e */ 	sh	$zero,0x4e($sp)
 /*    34dd0:	afa00040 */ 	sw	$zero,0x40($sp)
-/*    34dd4:	0c0041df */ 	jal	func00010360
+/*    34dd4:	0c0041df */ 	jal	snd00010360
 /*    34dd8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    34ddc:	10400003 */ 	beqz	$v0,.NB00034dec
 /*    34de0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4287,7 +4287,7 @@ glabel func00033820
 /*    34df0:	11c0009d */ 	beqz	$t6,.NB00035068
 /*    34df4:	00000000 */ 	sll	$zero,$zero,0x0
 .NB00034df8:
-/*    34df8:	0c003e46 */ 	jal	func0000f49c
+/*    34df8:	0c003e46 */ 	jal	snd0000f49c
 /*    34dfc:	87a40066 */ 	lh	$a0,0x66($sp)
 /*    34e00:	afa20050 */ 	sw	$v0,0x50($sp)
 /*    34e04:	8fa40060 */ 	lw	$a0,0x60($sp)

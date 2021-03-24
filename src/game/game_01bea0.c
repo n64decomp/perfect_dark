@@ -11,7 +11,7 @@
 #include "game/game_102240.h"
 #include "game/endscreen.h"
 #include "game/game_127910.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/music.h"
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/setup.h"
@@ -22,7 +22,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "data.h"
 #include "types.h"
 
@@ -40,7 +40,7 @@ void func0f01bea0(void)
 	if (var80062944) {
 		var80062944 = 0;
 		var80062948 = 0;
-		func000139c8();
+		joy000139c8();
 		func0f110bf8();
 	}
 }
@@ -441,7 +441,7 @@ glabel var7f1a863c
 /*  f01c4e4:	24058098 */ 	li	$a1,-32616
 /*  f01c4e8:	00003025 */ 	move	$a2,$zero
 /*  f01c4ec:	2407ffff */ 	li	$a3,-1
-/*  f01c4f0:	0c0041a0 */ 	jal	audioStart
+/*  f01c4f0:	0c0041a0 */ 	jal	sndStart
 /*  f01c4f4:	e7b00014 */ 	swc1	$f16,0x14($sp)
 /*  f01c4f8:	3c0e8009 */ 	lui	$t6,0x8009
 /*  f01c4fc:	91ce1040 */ 	lbu	$t6,0x1040($t6)
@@ -648,7 +648,7 @@ glabel var7f1a863c
 /*  f01c7c8:	02717821 */ 	addu	$t7,$s3,$s1
 .PF0f01c7cc:
 /*  f01c7cc:	03202025 */ 	move	$a0,$t9
-/*  f01c7d0:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f01c7d0:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f01c7d4:	3405ffff */ 	li	$a1,0xffff
 /*  f01c7d8:	8eae0004 */ 	lw	$t6,0x4($s5)
 /*  f01c7dc:	2401000b */ 	li	$at,0xb
@@ -721,7 +721,7 @@ glabel var7f1a863c
 /*  f01c8d0:	8c845750 */ 	lw	$a0,0x5750($a0)
 /*  f01c8d4:	2407ffff */ 	li	$a3,-1
 /*  f01c8d8:	afa80058 */ 	sw	$t0,0x58($sp)
-/*  f01c8dc:	0c0041a0 */ 	jal	audioStart
+/*  f01c8dc:	0c0041a0 */ 	jal	sndStart
 /*  f01c8e0:	e7b20014 */ 	swc1	$f18,0x14($sp)
 /*  f01c8e4:	8fa80058 */ 	lw	$t0,0x58($sp)
 .PF0f01c8e8:
@@ -820,7 +820,7 @@ glabel var7f1a863c
 /*  f01ca2c:	3c04800b */ 	lui	$a0,0x800b
 /*  f01ca30:	00982021 */ 	addu	$a0,$a0,$t8
 /*  f01ca34:	8084cd9d */ 	lb	$a0,-0x3263($a0)
-/*  f01ca38:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f01ca38:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f01ca3c:	3405ffff */ 	li	$a1,0xffff
 /*  f01ca40:	304d4000 */ 	andi	$t5,$v0,0x4000
 /*  f01ca44:	51a0005c */ 	beqzl	$t5,.PF0f01cbb8
@@ -1135,7 +1135,7 @@ glabel var7f1a863c
 /*  f01ce8c:	330400ff */ 	andi	$a0,$t8,0xff
 /*  f01ce90:	8e440000 */ 	lw	$a0,0x0($s2)
 /*  f01ce94:	00047e42 */ 	srl	$t7,$a0,0x19
-/*  f01ce98:	0fc5b6fd */ 	jal	coreSetDifficulty
+/*  f01ce98:	0fc5b6fd */ 	jal	lvSetDifficulty
 /*  f01ce9c:	01e02025 */ 	move	$a0,$t7
 /*  f01cea0:	0fc06a32 */ 	jal	titleSetNextMode
 /*  f01cea4:	24040005 */ 	li	$a0,0x5
@@ -1252,7 +1252,7 @@ glabel var7f1a863c
 /*  f01d03c:	8c845750 */ 	lw	$a0,0x5750($a0)
 /*  f01d040:	00003025 */ 	move	$a2,$zero
 /*  f01d044:	2407ffff */ 	li	$a3,-1
-/*  f01d048:	0c0041a0 */ 	jal	audioStart
+/*  f01d048:	0c0041a0 */ 	jal	sndStart
 /*  f01d04c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f01d050:	8ea30004 */ 	lw	$v1,0x4($s5)
 .PF0f01d054:
@@ -2218,7 +2218,7 @@ glabel var7f1a863c
 /*  f01c414:	24058098 */ 	addiu	$a1,$zero,-32616
 /*  f01c418:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01c41c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f01c420:	0c004241 */ 	jal	audioStart
+/*  f01c420:	0c004241 */ 	jal	sndStart
 /*  f01c424:	e7b00014 */ 	swc1	$f16,0x14($sp)
 /*  f01c428:	3c188009 */ 	lui	$t8,%hi(g_Is4Mb)
 /*  f01c42c:	93180af0 */ 	lbu	$t8,%lo(g_Is4Mb)($t8)
@@ -2425,7 +2425,7 @@ glabel var7f1a863c
 /*  f01c6f8:	0271c821 */ 	addu	$t9,$s3,$s1
 .L0f01c6fc:
 /*  f01c6fc:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f01c700:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f01c700:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f01c704:	3405ffff */ 	dli	$a1,0xffff
 /*  f01c708:	8eb80004 */ 	lw	$t8,0x4($s5)
 /*  f01c70c:	2401000b */ 	addiu	$at,$zero,0xb
@@ -2498,7 +2498,7 @@ glabel var7f1a863c
 /*  f01c800:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f01c804:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f01c808:	afa80058 */ 	sw	$t0,0x58($sp)
-/*  f01c80c:	0c004241 */ 	jal	audioStart
+/*  f01c80c:	0c004241 */ 	jal	sndStart
 /*  f01c810:	e7b20014 */ 	swc1	$f18,0x14($sp)
 /*  f01c814:	8fa80058 */ 	lw	$t0,0x58($sp)
 .L0f01c818:
@@ -2597,7 +2597,7 @@ glabel var7f1a863c
 /*  f01c95c:	3c04800b */ 	lui	$a0,%hi(g_MpPlayers+0x45)
 /*  f01c960:	008d2021 */ 	addu	$a0,$a0,$t5
 /*  f01c964:	8084c7fd */ 	lb	$a0,%lo(g_MpPlayers+0x45)($a0)
-/*  f01c968:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f01c968:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f01c96c:	3405ffff */ 	dli	$a1,0xffff
 /*  f01c970:	304f4000 */ 	andi	$t7,$v0,0x4000
 /*  f01c974:	51e0005c */ 	beqzl	$t7,.L0f01cae8
@@ -2912,7 +2912,7 @@ glabel var7f1a863c
 /*  f01cdbc:	31a400ff */ 	andi	$a0,$t5,0xff
 /*  f01cdc0:	8e440000 */ 	lw	$a0,0x0($s2)
 /*  f01cdc4:	0004ce42 */ 	srl	$t9,$a0,0x19
-/*  f01cdc8:	0fc5b36a */ 	jal	coreSetDifficulty
+/*  f01cdc8:	0fc5b36a */ 	jal	lvSetDifficulty
 /*  f01cdcc:	03202025 */ 	or	$a0,$t9,$zero
 /*  f01cdd0:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01cdd4:	24040005 */ 	addiu	$a0,$zero,0x5
@@ -3029,7 +3029,7 @@ glabel var7f1a863c
 /*  f01cf6c:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f01cf70:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01cf74:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f01cf78:	0c004241 */ 	jal	audioStart
+/*  f01cf78:	0c004241 */ 	jal	sndStart
 /*  f01cf7c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f01cf80:	8ea30004 */ 	lw	$v1,0x4($s5)
 .L0f01cf84:
@@ -3990,7 +3990,7 @@ glabel var7f1a863c
 /*  f01c100:	24058098 */ 	addiu	$a1,$zero,-32616
 /*  f01c104:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01c108:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f01c10c:	0c004338 */ 	jal	audioStart
+/*  f01c10c:	0c004338 */ 	jal	sndStart
 /*  f01c110:	e7b00014 */ 	swc1	$f16,0x14($sp)
 /*  f01c114:	3c188009 */ 	lui	$t8,0x8009
 /*  f01c118:	931830e0 */ 	lbu	$t8,0x30e0($t8)
@@ -4197,7 +4197,7 @@ glabel var7f1a863c
 /*  f01c3e4:	0271c821 */ 	addu	$t9,$s3,$s1
 .NB0f01c3e8:
 /*  f01c3e8:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f01c3ec:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f01c3ec:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f01c3f0:	3405ffff */ 	dli	$a1,0xffff
 /*  f01c3f4:	8eb80004 */ 	lw	$t8,0x4($s5)
 /*  f01c3f8:	2401000b */ 	addiu	$at,$zero,0xb
@@ -4267,7 +4267,7 @@ glabel var7f1a863c
 /*  f01c4e0:	2405809a */ 	addiu	$a1,$zero,-32614
 /*  f01c4e4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01c4e8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f01c4ec:	0c004338 */ 	jal	audioStart
+/*  f01c4ec:	0c004338 */ 	jal	sndStart
 /*  f01c4f0:	e7b20014 */ 	swc1	$f18,0x14($sp)
 /*  f01c4f4:	1000001a */ 	beqz	$zero,.NB0f01c560
 /*  f01c4f8:	32191000 */ 	andi	$t9,$s0,0x1000
@@ -4364,7 +4364,7 @@ glabel var7f1a863c
 /*  f01c638:	3c04800b */ 	lui	$a0,0x800b
 /*  f01c63c:	008d2021 */ 	addu	$a0,$a0,$t5
 /*  f01c640:	808410ad */ 	lb	$a0,0x10ad($a0)
-/*  f01c644:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f01c644:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f01c648:	3405ffff */ 	dli	$a1,0xffff
 /*  f01c64c:	304f4000 */ 	andi	$t7,$v0,0x4000
 /*  f01c650:	51e0005c */ 	beqzl	$t7,.NB0f01c7c4
@@ -4680,7 +4680,7 @@ glabel var7f1a863c
 /*  f01ca9c:	31a400ff */ 	andi	$a0,$t5,0xff
 /*  f01caa0:	8e440000 */ 	lw	$a0,0x0($s2)
 /*  f01caa4:	0004ce42 */ 	srl	$t9,$a0,0x19
-/*  f01caa8:	0fc59ed6 */ 	jal	coreSetDifficulty
+/*  f01caa8:	0fc59ed6 */ 	jal	lvSetDifficulty
 /*  f01caac:	03202025 */ 	or	$a0,$t9,$zero
 /*  f01cab0:	0fc06945 */ 	jal	titleSetNextMode
 /*  f01cab4:	24040005 */ 	addiu	$a0,$zero,0x5
@@ -4797,7 +4797,7 @@ glabel var7f1a863c
 /*  f01cc4c:	8c848180 */ 	lw	$a0,-0x7e80($a0)
 /*  f01cc50:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01cc54:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f01cc58:	0c004338 */ 	jal	audioStart
+/*  f01cc58:	0c004338 */ 	jal	sndStart
 /*  f01cc5c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f01cc60:	8ea30004 */ 	lw	$v1,0x4($s5)
 .NB0f01cc64:
@@ -5588,7 +5588,7 @@ glabel var7f1a863c
 //
 //				if (g_MpSetup.chrslots & 0xf) {
 //					// Explosion sound
-//					audioStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
+//					sndStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
 //
 //					// c444
 //					currentPlayerPause(IS4MB() ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
@@ -5678,7 +5678,7 @@ glabel var7f1a863c
 //				// c6dc
 //				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 //					s32 pass2;
-//					u16 buttons = contGetButtonsPressedThisFrame(i, 0xffff);
+//					u16 buttons = joyGetButtonsPressedThisFrame(i, 0xffff);
 //
 //					// c714
 //					if (g_MenuData.root == MENUROOT_4MBMAINMENU) {
@@ -5710,7 +5710,7 @@ glabel var7f1a863c
 //						if (g_Vars.unk000490 == 2) {
 //							if (g_Vars.unk000494[i] == 0) {
 //								// Explosion sound
-//								audioStart(var80095200, SFX_EXPLOSION_809A, 0, -1, -1, -1, -1, -1);
+//								sndStart(var80095200, SFX_EXPLOSION_809A, 0, -1, -1, -1, -1, -1);
 //							}
 //
 //							g_Vars.unk000494[i] = 1;
@@ -5758,7 +5758,7 @@ glabel var7f1a863c
 //				}
 //
 //				if (g_MenuData.root == MENUROOT_MPENDSCREEN) {
-//					u16 buttons2 = contGetButtonsPressedThisFrame(g_MpPlayers[i].base.unk45, 0xffff);
+//					u16 buttons2 = joyGetButtonsPressedThisFrame(g_MpPlayers[i].base.unk45, 0xffff);
 //
 //					if (buttons2 & B_BUTTON) {
 //						s32 playernum = -1;
@@ -5880,7 +5880,7 @@ glabel var7f1a863c
 //								g_MissionConfig.stageindex++;
 //								g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stagenum;
 //								titleSetNextStage(g_MissionConfig.stagenum);
-//								coreSetDifficulty(g_MissionConfig.difficulty);
+//								lvSetDifficulty(g_MissionConfig.difficulty);
 //								titleSetNextMode(TITLEMODE_SKIP);
 //								mainSetStageNum(g_MissionConfig.stagenum);
 //							} else {
@@ -5926,7 +5926,7 @@ glabel var7f1a863c
 //				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 //					pass = true;
 //					// Explosion sound
-//					audioStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
+//					sndStart(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
 //				}
 //
 //				if (g_MenuData.root == MENUROOT_MAINMENU || g_MenuData.root == MENUROOT_TRAINING) {

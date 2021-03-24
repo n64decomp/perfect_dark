@@ -5,7 +5,7 @@
 #include "game/cheats.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_19aa80.h"
 #include "game/training/training.h"
 #include "game/gamefile.h"
@@ -15,7 +15,7 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/lib_0bfb0.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_126b0.h"
 #include "lib/lib_4b170.h"
 #include "data.h"
@@ -620,7 +620,7 @@ void func0f110c5c(s32 listnum, u8 filetype)
 	g_FileLists[listnum]->filetype = filetype;
 
 	if (var80062944 == 0) {
-		func0001398c(3);
+		joy0001398c(3);
 	}
 
 	var80062944 = 1;

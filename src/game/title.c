@@ -11,18 +11,18 @@
 #include "game/bondview.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/music.h"
 #include "game/training/training.h"
 #include "game/game_1a7560.h"
 #include "game/lang.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/controller.h"
+#include "lib/joy.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "lib/model.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
@@ -465,7 +465,7 @@ void titleTickCheckControllers(void)
 	viSetUseZBuf(false);
 
 	if (g_TitleTimer > 6) {
-		if ((contGetConnectedControllers() & 1) == 0) {
+		if ((joyGetConnectedControllers() & 1) == 0) {
 			titleSetNextMode(TITLEMODE_NOCONTROLLER);
 		} else {
 			titleSetNextMode(TITLEMODE_RARELOGO);
@@ -1672,7 +1672,7 @@ glabel titleInitPdLogo
 /*  f01701c:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f017020:	3c018006 */ 	lui	$at,%hi(var800624f4)
 /*  f017024:	ac3024f4 */ 	sw	$s0,%lo(var800624f4)($at)
-/*  f017028:	0c005204 */ 	jal	func00014810
+/*  f017028:	0c005204 */ 	jal	joy00014810
 /*  f01702c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f017030:	3c188006 */ 	lui	$t8,%hi(var800624a8)
 /*  f017034:	8f1824a8 */ 	lw	$t8,%lo(var800624a8)($t8)
@@ -1778,7 +1778,7 @@ glabel titleInitPdLogo
 //		var8009ccb8 = 0;
 //		var800624f4 = 1;
 //
-//		func00014810(false);
+//		joy00014810(false);
 //
 //		var80062730 = 1;
 //		var80062734 = 0;
@@ -1796,7 +1796,7 @@ void titleExitPdLogo(void)
 	modelFree(var80062508);
 	modelFree(var8006250c);
 
-	func00014810(true);
+	joy00014810(true);
 }
 
 void titleTickPdLogo(void)
@@ -1821,7 +1821,7 @@ void titleTickPdLogo(void)
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
 
-			coreSetDifficulty(DIFF_A);
+			lvSetDifficulty(DIFF_A);
 			func00009ec4(true);
 		} else {
 			titleSetNextMode(TITLEMODE_SKIP);
@@ -1831,7 +1831,7 @@ void titleTickPdLogo(void)
 		titleSetNextMode(TITLEMODE_SKIP);
 	}
 
-	if (contGetButtonsPressedThisFrame(0, 0xffff)) {
+	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 		var800624a8 = var800624ac = 1;
 
 		if (g_TitleTimer < PALDOWN(549)) {
@@ -5113,7 +5113,7 @@ glabel var7f1a8468
 void titleInitRarePresents(void)
 {
 	g_TitleTimer = 0;
-	func00014810(false);
+	joy00014810(false);
 	g_TitleAudioHandle = NULL;
 }
 
@@ -5124,7 +5124,7 @@ void titleExitRarePresents(void)
 	}
 
 	g_TitleAudioHandle = NULL;
-	func00014810(true);
+	joy00014810(true);
 }
 
 void titleTickRarePresents(void)
@@ -5138,7 +5138,7 @@ void titleTickRarePresents(void)
 
 	if (g_TitleTimer > PALDOWN(300)) {
 		titleSetNextMode(TITLEMODE_PDLOGO);
-	} else if (contGetButtonsPressedThisFrame(0, 0xffff)) {
+	} else if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 		titleSetNextMode(TITLEMODE_SKIP);
 	}
 }
@@ -5301,7 +5301,7 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 
 	if (var80062868) {
 		if (g_TitleAudioHandle == NULL) {
-			audioStart(var80095200, SFX_TITLE_RAREPRESENTS, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
+			sndStart(var80095200, SFX_TITLE_RAREPRESENTS, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
 		}
 	} else {
 		if (g_TitleAudioHandle) {
@@ -5353,14 +5353,14 @@ void titleInitNintendoLogo(void)
 		modelSetUnk14(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 		var800624f4 = 1;
-		func00014810(false);
+		joy00014810(false);
 	}
 }
 
 void titleExitNintendoLogo(void)
 {
 	modelFree(g_TitleModel);
-	func00014810(true);
+	joy00014810(true);
 }
 
 u32 var8006287c = 0x00000000;
@@ -5396,7 +5396,7 @@ void titleTickNintendoLogo(void)
 		g_TitleTimer += g_Vars.lvupdate240_60;
 	}
 
-	if (contGetButtonsPressedThisFrame(0, 0xffff)) {
+	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 		if (osResetType == RESET_TYPE_NMI) {
 			var800624a8 = 1;
 			titleSetNextMode(TITLEMODE_PDLOGO);
@@ -6037,7 +6037,7 @@ void titleInitRareLogo(void)
 		var800624f4 = 1;
 
 		func0f16d3d0();
-		func00014810(false);
+		joy00014810(false);
 
 		if (var800624a4 == false && g_Is4Mb != true) {
 			var800624a4 = true;
@@ -6048,7 +6048,7 @@ void titleInitRareLogo(void)
 void titleExitRareLogo(void)
 {
 	modelFree(g_TitleModel);
-	func00014810(true);
+	joy00014810(true);
 }
 
 u32 var800628d4 = 0x00000000;
@@ -6095,7 +6095,7 @@ void titleTickRareLogo(void)
 
 		g_TitleTimer += g_Vars.lvupdate240_60;
 
-		if (contGetButtonsPressedThisFrame(0, 0xffff)) {
+		if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
 			if (osResetType == RESET_TYPE_NMI) {
 				var800624a8 = 1;
 				titleSetNextMode(TITLEMODE_PDLOGO);
@@ -7010,7 +7010,7 @@ void titleInitSkip(void)
 	g_Vars.coopplayernum = -1;
 	g_Vars.antiplayernum = -1;
 
-	coreSetDifficulty(DIFF_A);
+	lvSetDifficulty(DIFF_A);
 	func00009ec4(true);
 }
 
@@ -7039,7 +7039,7 @@ glabel titleRenderNoController
 /*  f01a510:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f01a514:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f01a518:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f01a51c:	0c005013 */ 	jal	contGetConnectedControllers
+/*  f01a51c:	0c005013 */ 	jal	joyGetConnectedControllers
 /*  f01a520:	00808025 */ 	or	$s0,$a0,$zero
 /*  f01a524:	0fc06bf0 */ 	jal	func0f01afc0
 /*  f01a528:	02002025 */ 	or	$a0,$s0,$zero
@@ -7244,7 +7244,7 @@ glabel titleRenderNoController
 //	u16 stack[6];
 //
 //	// This was likely printed to console
-//	contGetConnectedControllers();
+//	joyGetConnectedControllers();
 //
 //	gdl = func0f01afc0(gdl);
 //	gdl = func0f153628(gdl);
@@ -7528,7 +7528,7 @@ void func0f01adb8(void)
 void titleTickOld(void)
 {
 	if (titleIsKeepingMode()) {
-		func00014810(false);
+		joy00014810(false);
 
 		if (g_TitleDelayedTimer == 0) {
 			switch (g_TitleMode) {

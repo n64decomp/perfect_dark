@@ -18,9 +18,9 @@
 #include "game/credits.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/music.h"
-#include "game/texture.h"
+#include "game/texdecompress.h"
 #include "game/mplayer/setup.h"
 #include "game/game_19aa80.h"
 #include "game/training/training.h"
@@ -34,7 +34,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
@@ -200,7 +200,7 @@ void menuPlaySound(s32 menusound)
 		osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 #endif
 
-		handle = audioStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
+		handle = sndStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 
 		if (handle && flag1) {
 			func00033e50(handle, 16, *(s32 *)&speed);
@@ -2139,7 +2139,7 @@ glabel var7f1b3610pf
 /*  f0f235c:	1140000d */ 	beqz	$t2,.PF0f0f2394
 /*  f0f2360:	00000000 */ 	nop
 /*  f0f2364:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0f2368:	0fc5b6fa */ 	jal	coreGetDifficulty
+/*  f0f2368:	0fc5b6fa */ 	jal	lvGetDifficulty
 /*  f0f236c:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f0f2370:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f0f2374:	240b0001 */ 	li	$t3,0x1
@@ -2701,7 +2701,7 @@ glabel var7f1b28c0
 /*  f0f1c08:	11a0000d */ 	beqz	$t5,.L0f0f1c40
 /*  f0f1c0c:	00000000 */ 	nop
 /*  f0f1c10:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0f1c14:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f0f1c14:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f0f1c18:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f0f1c1c:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f0f1c20:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -3267,7 +3267,7 @@ glabel var7f1acbecnb
 /*  f0ee824:	1180000d */ 	beqz	$t4,.NB0f0ee85c
 /*  f0ee828:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ee82c:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f0ee830:	0fc59ed3 */ 	jal	coreGetDifficulty
+/*  f0ee830:	0fc59ed3 */ 	jal	lvGetDifficulty
 /*  f0ee834:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f0ee838:	8fa30030 */ 	lw	$v1,0x30($sp)
 /*  f0ee83c:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -9351,7 +9351,7 @@ glabel var7f1b2948
 /*  f0f11c4:	0c006f63 */ 	jal	modelGetRootPosition
 /*  f0f11c8:	27a502a0 */ 	addiu	$a1,$sp,0x2a0
 /*  f0f11cc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f11d0:	0c005790 */ 	jal	contGetButtons
+/*  f0f11d0:	0c005790 */ 	jal	joyGetButtons
 /*  f0f11d4:	24050020 */ 	addiu	$a1,$zero,0x20
 /*  f0f11d8:	10400003 */ 	beqz	$v0,.NB0f0f11e8
 /*  f0f11dc:	8fa40040 */ 	lw	$a0,0x40($sp)
@@ -16605,7 +16605,7 @@ void func0f0f85e0(struct menudialog *dialog, s32 root)
 	}
 
 	menuPushRootDialog(dialog, root);
-	coreSetPaused(true);
+	lvSetPaused(true);
 	g_Vars.currentplayer->pausemode = PAUSEMODE_PAUSED;
 }
 
@@ -21952,22 +21952,22 @@ glabel var7f1b2ac8
 /*  f0fb060:	afab00f0 */ 	sw	$t3,0xf0($sp)
 /*  f0fb064:	afaa00f4 */ 	sw	$t2,0xf4($sp)
 /*  f0fb068:	afa90128 */ 	sw	$t1,0x128($sp)
-/*  f0fb06c:	0c0052e6 */ 	jal	contGetStickX
+/*  f0fb06c:	0c0052e6 */ 	jal	joyGetStickX
 /*  f0fb070:	afa80124 */ 	sw	$t0,0x124($sp)
 /*  f0fb074:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0fb078:	0010c603 */ 	sra	$t8,$s0,0x18
 /*  f0fb07c:	03008025 */ 	move	$s0,$t8
-/*  f0fb080:	0c005310 */ 	jal	contGetStickY
+/*  f0fb080:	0c005310 */ 	jal	joyGetStickY
 /*  f0fb084:	82640003 */ 	lb	$a0,0x3($s3)
 /*  f0fb088:	00028e00 */ 	sll	$s1,$v0,0x18
 /*  f0fb08c:	0011ce03 */ 	sra	$t9,$s1,0x18
 /*  f0fb090:	03208825 */ 	move	$s1,$t9
 /*  f0fb094:	82640003 */ 	lb	$a0,0x3($s3)
-/*  f0fb098:	0c00533a */ 	jal	contGetButtons
+/*  f0fb098:	0c00533a */ 	jal	joyGetButtons
 /*  f0fb09c:	3405ffff */ 	li	$a1,0xffff
 /*  f0fb0a0:	3052ffff */ 	andi	$s2,$v0,0xffff
 /*  f0fb0a4:	82640003 */ 	lb	$a0,0x3($s3)
-/*  f0fb0a8:	0c00536a */ 	jal	contGetButtonsPressedThisFrame
+/*  f0fb0a8:	0c00536a */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0fb0ac:	3405ffff */ 	li	$a1,0xffff
 /*  f0fb0b0:	304e8000 */ 	andi	$t6,$v0,0x8000
 /*  f0fb0b4:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -23003,22 +23003,22 @@ glabel var7f1b2ac8
 /*  f0fa924:	afab00f0 */ 	sw	$t3,0xf0($sp)
 /*  f0fa928:	afaa00f4 */ 	sw	$t2,0xf4($sp)
 /*  f0fa92c:	afa90128 */ 	sw	$t1,0x128($sp)
-/*  f0fa930:	0c005384 */ 	jal	contGetStickX
+/*  f0fa930:	0c005384 */ 	jal	joyGetStickX
 /*  f0fa934:	afa80124 */ 	sw	$t0,0x124($sp)
 /*  f0fa938:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0fa93c:	0010c603 */ 	sra	$t8,$s0,0x18
 /*  f0fa940:	03008025 */ 	or	$s0,$t8,$zero
-/*  f0fa944:	0c0053ae */ 	jal	contGetStickY
+/*  f0fa944:	0c0053ae */ 	jal	joyGetStickY
 /*  f0fa948:	82640003 */ 	lb	$a0,0x3($s3)
 /*  f0fa94c:	00028e00 */ 	sll	$s1,$v0,0x18
 /*  f0fa950:	0011ce03 */ 	sra	$t9,$s1,0x18
 /*  f0fa954:	03208825 */ 	or	$s1,$t9,$zero
 /*  f0fa958:	82640003 */ 	lb	$a0,0x3($s3)
-/*  f0fa95c:	0c0053d8 */ 	jal	contGetButtons
+/*  f0fa95c:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0fa960:	3405ffff */ 	dli	$a1,0xffff
 /*  f0fa964:	3052ffff */ 	andi	$s2,$v0,0xffff
 /*  f0fa968:	82640003 */ 	lb	$a0,0x3($s3)
-/*  f0fa96c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0fa96c:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0fa970:	3405ffff */ 	dli	$a1,0xffff
 /*  f0fa974:	304e8000 */ 	andi	$t6,$v0,0x8000
 /*  f0fa978:	8fa80124 */ 	lw	$t0,0x124($sp)
@@ -24918,7 +24918,7 @@ glabel var7f1b2afc
 /*  f0fcb4c:	02f28821 */ 	addu	$s1,$s7,$s2
 /*  f0fcb50:	0fc5609a */ 	jal	textMeasure
 /*  f0fcb54:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0fcb58:	0c004f75 */ 	jal	contGetConnectedControllers
+/*  f0fcb58:	0c004f75 */ 	jal	joyGetConnectedControllers
 /*  f0fcb5c:	00000000 */ 	nop
 /*  f0fcb60:	3c18800b */ 	lui	$t8,0x800b
 /*  f0fcb64:	9718d13e */ 	lhu	$t8,-0x2ec2($t8)
@@ -25907,7 +25907,7 @@ glabel var7f1b2afc
 /*  f0fc3e0:	02f28821 */ 	addu	$s1,$s7,$s2
 /*  f0fc3e4:	0fc55cbe */ 	jal	textMeasure
 /*  f0fc3e8:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0fc3ec:	0c005013 */ 	jal	contGetConnectedControllers
+/*  f0fc3ec:	0c005013 */ 	jal	joyGetConnectedControllers
 /*  f0fc3f0:	00000000 */ 	nop
 /*  f0fc3f4:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x16)
 /*  f0fc3f8:	9739cb9e */ 	lhu	$t9,%lo(g_MpSetup+0x16)($t9)
@@ -26893,7 +26893,7 @@ glabel var7f1b2afc
 /*  f0f8b30:	02f28821 */ 	addu	$s1,$s7,$s2
 /*  f0f8b34:	0fc54655 */ 	jal	textMeasure
 /*  f0f8b38:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0f8b3c:	0c0053a4 */ 	jal	contGetConnectedControllers
+/*  f0f8b3c:	0c0053a4 */ 	jal	joyGetConnectedControllers
 /*  f0f8b40:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0f8b44:	3c09800b */ 	lui	$t1,0x800b
 /*  f0f8b48:	9529144e */ 	lhu	$t1,0x144e($t1)
@@ -27492,7 +27492,7 @@ s32 menudialog000fcd48(s32 operation, struct menudialog *dialog, union handlerda
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog
-				&& func000155b4(g_Menus[g_MpPlayerNum].savedevice) == 0) {
+				&& joy000155b4(g_Menus[g_MpPlayerNum].savedevice) == 0) {
 			func0f0f3704(&g_PakRemovedMenuDialog);
 		}
 	}
@@ -27594,7 +27594,7 @@ glabel func0f0fce8c
 /*  f0fcf58:	00e02025 */ 	or	$a0,$a3,$zero
 /*  f0fcf5c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f0fcf60:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0fcf64:	0fc5b350 */ 	jal	coreSetPaused
+/*  f0fcf64:	0fc5b350 */ 	jal	lvSetPaused
 /*  f0fcf68:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0fcf6c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0fcf70:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)

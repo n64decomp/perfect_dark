@@ -3,7 +3,7 @@
 #include "game/prop.h"
 #include "game/game_091e10.h"
 #include "game/game_0b28d0.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_1a7560.h"
 #include "game/propobj.h"
 #include "bss.h"

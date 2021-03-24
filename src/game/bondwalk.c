@@ -17,7 +17,7 @@
 #include "game/game_127910.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_233c0.h"
@@ -945,7 +945,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c43a8:	240500f2 */ 	addiu	$a1,$zero,0xf2
 /*  f0c43ac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c43b0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0c43b4:	0c004241 */ 	jal	audioStart
+/*  f0c43b4:	0c004241 */ 	jal	sndStart
 /*  f0c43b8:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*  f0c43bc:	100000e5 */ 	b	.L0f0c4754
 /*  f0c43c0:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -1288,7 +1288,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c43a8:	240500f2 */ 	addiu	$a1,$zero,0xf2
 /*  f0c43ac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c43b0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0c43b4:	0c004241 */ 	jal	audioStart
+/*  f0c43b4:	0c004241 */ 	jal	sndStart
 /*  f0c43b8:	e7a80014 */ 	swc1	$f8,0x14($sp)
 /*  f0c43bc:	100000e5 */ 	b	.L0f0c4754
 /*  f0c43c0:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -1570,7 +1570,7 @@ glabel bwalkCalculateNewPositionWithPush
 //						func0f03417c(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
 //
 //						// Laser zap sound
-//						audioStart(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
+//						sndStart(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
 //					}
 //				}
 //			} else if (obstacle->type == PROPTYPE_CHR) {

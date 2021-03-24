@@ -10,7 +10,7 @@
 #include "game/game_0f09f0.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/music.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
@@ -671,21 +671,21 @@ s32 mpCalculateTeamScoreLimit(void)
 void mpApplyLimits(void)
 {
 	if (g_MpSetup.timelimit >= 60) {
-		coreSetMpTimeLimit60(0);
+		lvSetMpTimeLimit60(0);
 	} else {
-		coreSetMpTimeLimit60(SECSTOTIME60((g_MpSetup.timelimit + 1) * 60));
+		lvSetMpTimeLimit60(SECSTOTIME60((g_MpSetup.timelimit + 1) * 60));
 	}
 
 	if (g_MpSetup.scorelimit >= 100) {
-		coreSetMpScoreLimit(0);
+		lvSetMpScoreLimit(0);
 	} else {
-		coreSetMpScoreLimit(g_MpSetup.scorelimit + 1);
+		lvSetMpScoreLimit(g_MpSetup.scorelimit + 1);
 	}
 
 	if (g_MpSetup.teamscorelimit >= 400) {
-		coreSetMpTeamScoreLimit(0);
+		lvSetMpTeamScoreLimit(0);
 	} else {
-		coreSetMpTeamScoreLimit(mpCalculateTeamScoreLimit() + 1);
+		lvSetMpTeamScoreLimit(mpCalculateTeamScoreLimit() + 1);
 	}
 }
 

@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/smoke/smoke.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/propobj.h"
 #include "game/splat.h"
 #include "game/utils.h"

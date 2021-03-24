@@ -18,15 +18,15 @@
 #include "game/bondcutscene.h"
 #include "game/bondhead.h"
 #include "game/game_127910.h"
-#include "game/room.h"
-#include "game/core.h"
+#include "game/bg.h"
+#include "game/lv.h"
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/lib_09a80.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
@@ -1190,7 +1190,7 @@ glabel var7f1ad8e4
 /*  f0c8c14:	0300a825 */ 	or	$s5,$t8,$zero
 /*  f0c8c18:	00182600 */ 	sll	$a0,$t8,0x18
 /*  f0c8c1c:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f0c8c20:	0c005384 */ 	jal	contGetStickX
+/*  f0c8c20:	0c005384 */ 	jal	joyGetStickX
 /*  f0c8c24:	03202025 */ 	or	$a0,$t9,$zero
 /*  f0c8c28:	0002a600 */ 	sll	$s4,$v0,0x18
 /*  f0c8c2c:	00144603 */ 	sra	$t0,$s4,0x18
@@ -1202,7 +1202,7 @@ glabel var7f1ad8e4
 /*  f0c8c3c:	12200008 */ 	beqz	$s1,.L0f0c8c60
 /*  f0c8c40:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c44:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f0c8c48:	0c0053ae */ 	jal	contGetStickY
+/*  f0c8c48:	0c0053ae */ 	jal	joyGetStickY
 /*  f0c8c4c:	01202025 */ 	or	$a0,$t1,$zero
 /*  f0c8c50:	00029e00 */ 	sll	$s3,$v0,0x18
 /*  f0c8c54:	00135603 */ 	sra	$t2,$s3,0x18
@@ -1216,7 +1216,7 @@ glabel var7f1ad8e4
 /*  f0c8c6c:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c70:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f0c8c74:	01602025 */ 	or	$a0,$t3,$zero
-/*  f0c8c78:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8c78:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8c7c:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8c80:	10000002 */ 	b	.L0f0c8c8c
 /*  f0c8c84:	a7a201a2 */ 	sh	$v0,0x1a2($sp)
@@ -1227,7 +1227,7 @@ glabel var7f1ad8e4
 /*  f0c8c90:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c94:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0c8c98:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0c8c9c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c8c9c:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c8ca0:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ca4:	10000002 */ 	b	.L0f0c8cb0
 /*  f0c8ca8:	a7a201a0 */ 	sh	$v0,0x1a0($sp)
@@ -1246,7 +1246,7 @@ glabel var7f1ad8e4
 /*  f0c8cd4:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f0c8cd8:	a7b8019e */ 	sh	$t8,0x19e($sp)
 /*  f0c8cdc:	03202025 */ 	or	$a0,$t9,$zero
-/*  f0c8ce0:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8ce0:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8ce4:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ce8:	00508824 */ 	and	$s1,$v0,$s0
 /*  f0c8cec:	97a901a2 */ 	lhu	$t1,0x1a2($sp)
@@ -1264,7 +1264,7 @@ glabel var7f1ad8e4
 /*  f0c8d1c:	01c87825 */ 	or	$t7,$t6,$t0
 /*  f0c8d20:	acaf1c40 */ 	sw	$t7,0x1c40($a1)
 .L0f0c8d24:
-/*  f0c8d24:	0c005207 */ 	jal	contGetNumSamples
+/*  f0c8d24:	0c005207 */ 	jal	joyGetNumSamples
 /*  f0c8d28:	00000000 */ 	nop
 /*  f0c8d2c:	0040b025 */ 	or	$s6,$v0,$zero
 /*  f0c8d30:	0fc322aa */ 	jal	bmoveResetMoveData
@@ -1421,12 +1421,12 @@ glabel var7f1ad8e4
 /*  f0c8f4c:	00147603 */ 	sra	$t6,$s4,0x18
 /*  f0c8f50:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c8f54:	01c0a025 */ 	or	$s4,$t6,$zero
-/*  f0c8f58:	0c005384 */ 	jal	contGetStickX
+/*  f0c8f58:	0c005384 */ 	jal	joyGetStickX
 /*  f0c8f5c:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f0c8f60:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c8f64:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f0c8f68:	a3a200e9 */ 	sb	$v0,0xe9($sp)
-/*  f0c8f6c:	0c0053ae */ 	jal	contGetStickY
+/*  f0c8f6c:	0c0053ae */ 	jal	joyGetStickY
 /*  f0c8f70:	03002025 */ 	or	$a0,$t8,$zero
 /*  f0c8f74:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0c8f78:	00142600 */ 	sll	$a0,$s4,0x18
@@ -1434,13 +1434,13 @@ glabel var7f1ad8e4
 /*  f0c8f80:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f0c8f84:	03208025 */ 	or	$s0,$t9,$zero
 /*  f0c8f88:	01002025 */ 	or	$a0,$t0,$zero
-/*  f0c8f8c:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8f8c:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8f90:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8f94:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c8f98:	00044e03 */ 	sra	$t1,$a0,0x18
 /*  f0c8f9c:	a7a200e6 */ 	sh	$v0,0xe6($sp)
 /*  f0c8fa0:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0c8fa4:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c8fa4:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c8fa8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8fac:	8e4b0284 */ 	lw	$t3,0x284($s2)
 /*  f0c8fb0:	340affff */ 	dli	$t2,0xffff
@@ -1460,7 +1460,7 @@ glabel var7f1ad8e4
 /*  f0c8fe8:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c8fec:	a7ae00da */ 	sh	$t6,0xda($sp)
 /*  f0c8ff0:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0c8ff4:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8ff4:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8ff8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ffc:	97b900e6 */ 	lhu	$t9,0xe6($sp)
 /*  f0c9000:	97a900e4 */ 	lhu	$t1,0xe4($sp)
@@ -1587,7 +1587,7 @@ glabel var7f1ad8e4
 /*  f0c91ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c91b0:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c91b4:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c91b8:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c91b8:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c91bc:	33262000 */ 	andi	$a2,$t9,0x2000
 /*  f0c91c0:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c91c4:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -1607,7 +1607,7 @@ glabel var7f1ad8e4
 /*  f0c91f4:	8e4c0284 */ 	lw	$t4,0x284($s2)
 /*  f0c91f8:	ad8b0120 */ 	sw	$t3,0x120($t4)
 .L0f0c91fc:
-/*  f0c91fc:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0c91fc:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0c9200:	00000000 */ 	nop
 /*  f0c9204:	54400243 */ 	bnezl	$v0,.L0f0c9b14
 /*  f0c9208:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -1629,7 +1629,7 @@ glabel var7f1ad8e4
 /*  f0c9244:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c9248:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c924c:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c9250:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9250:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9254:	31e62000 */ 	andi	$a2,$t7,0x2000
 /*  f0c9258:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c925c:	10400005 */ 	beqz	$v0,.L0f0c9274
@@ -1815,7 +1815,7 @@ glabel var7f1ad8e4
 /*  f0c94e4:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c94e8:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c94ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c94f0:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c94f0:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c94f4:	3226ffff */ 	andi	$a2,$s1,0xffff
 /*  f0c94f8:	14400009 */ 	bnez	$v0,.L0f0c9520
 /*  f0c94fc:	02002025 */ 	or	$a0,$s0,$zero
@@ -1823,7 +1823,7 @@ glabel var7f1ad8e4
 /*  f0c9504:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c9508:	00057e03 */ 	sra	$t7,$a1,0x18
 /*  f0c950c:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f0c9510:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9510:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9514:	33068000 */ 	andi	$a2,$t8,0x8000
 /*  f0c9518:	50400028 */ 	beqzl	$v0,.L0f0c95bc
 /*  f0c951c:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -1836,7 +1836,7 @@ glabel var7f1ad8e4
 /*  f0c9534:	14200031 */ 	bnez	$at,.L0f0c95fc
 /*  f0c9538:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c953c:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c9540:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9540:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9544:	afa6004c */ 	sw	$a2,0x4c($sp)
 /*  f0c9548:	10400006 */ 	beqz	$v0,.L0f0c9564
 /*  f0c954c:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -1851,7 +1851,7 @@ glabel var7f1ad8e4
 /*  f0c956c:	85f8024c */ 	lh	$t8,0x24c($t7)
 /*  f0c9570:	07020023 */ 	bltzl	$t8,.L0f0c9600
 /*  f0c9574:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0c9578:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9578:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c957c:	83a500ef */ 	lb	$a1,0xef($sp)
 /*  f0c9580:	5440001f */ 	bnezl	$v0,.L0f0c9600
 /*  f0c9584:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1877,7 +1877,7 @@ glabel var7f1ad8e4
 /*  f0c95cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c95d0:	97ab00ea */ 	lhu	$t3,0xea($sp)
 /*  f0c95d4:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c95d8:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c95d8:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c95dc:	31662000 */ 	andi	$a2,$t3,0x2000
 /*  f0c95e0:	54400005 */ 	bnezl	$v0,.L0f0c95f8
 /*  f0c95e4:	8e4d0284 */ 	lw	$t5,0x284($s2)
@@ -1906,7 +1906,7 @@ glabel var7f1ad8e4
 /*  f0c9628:	0005c603 */ 	sra	$t8,$a1,0x18
 /*  f0c962c:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*  f0c9630:	03002825 */ 	or	$a1,$t8,$zero
-/*  f0c9634:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9634:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9638:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c963c:	14400009 */ 	bnez	$v0,.L0f0c9664
 /*  f0c9640:	02002025 */ 	or	$a0,$s0,$zero
@@ -1914,7 +1914,7 @@ glabel var7f1ad8e4
 /*  f0c9648:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c964c:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c9650:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c9654:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9654:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9658:	31064000 */ 	andi	$a2,$t0,0x4000
 /*  f0c965c:	5040003e */ 	beqzl	$v0,.L0f0c9758
 /*  f0c9660:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -1927,7 +1927,7 @@ glabel var7f1ad8e4
 /*  f0c9678:	2881ffff */ 	slti	$at,$a0,-1
 /*  f0c967c:	5420002f */ 	bnezl	$at,.L0f0c973c
 /*  f0c9680:	2881fffe */ 	slti	$at,$a0,-2
-/*  f0c9684:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9684:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9688:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c968c:	5040000e */ 	beqzl	$v0,.L0f0c96c8
 /*  f0c9690:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2065,14 +2065,14 @@ glabel var7f1ad8e4
 /*  f0c9864:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c9868:	11a0002e */ 	beqz	$t5,.L0f0c9924
 /*  f0c986c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c9870:	0c005241 */ 	jal	contGetStickYOnSample
+/*  f0c9870:	0c005241 */ 	jal	joyGetStickYOnSample
 /*  f0c9874:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c9878:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c987c:	14200011 */ 	bnez	$at,.L0f0c98c4
 /*  f0c9880:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9884:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c9888:	00057e03 */ 	sra	$t7,$a1,0x18
-/*  f0c988c:	0c005270 */ 	jal	contGetStickYOnSampleIndex
+/*  f0c988c:	0c005270 */ 	jal	joyGetStickYOnSampleIndex
 /*  f0c9890:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0c9894:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c9898:	1020000a */ 	beqz	$at,.L0f0c98c4
@@ -2092,14 +2092,14 @@ glabel var7f1ad8e4
 /*  f0c98c4:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c98c8:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c98cc:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c98d0:	0c005241 */ 	jal	contGetStickYOnSample
+/*  f0c98d0:	0c005241 */ 	jal	joyGetStickYOnSample
 /*  f0c98d4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c98d8:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c98dc:	10200011 */ 	beqz	$at,.L0f0c9924
 /*  f0c98e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c98e4:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c98e8:	00054603 */ 	sra	$t0,$a1,0x18
-/*  f0c98ec:	0c005270 */ 	jal	contGetStickYOnSampleIndex
+/*  f0c98ec:	0c005270 */ 	jal	joyGetStickYOnSampleIndex
 /*  f0c98f0:	01002825 */ 	or	$a1,$t0,$zero
 /*  f0c98f4:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c98f8:	1420000a */ 	bnez	$at,.L0f0c9924
@@ -2182,7 +2182,7 @@ glabel var7f1ad8e4
 /*  f0c9a08:	afa40234 */ 	sw	$a0,0x234($sp)
 /*  f0c9a0c:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c9a10:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f0c9a14:	0c0053ae */ 	jal	contGetStickY
+/*  f0c9a14:	0c0053ae */ 	jal	joyGetStickY
 /*  f0c9a18:	01002025 */ 	or	$a0,$t0,$zero
 /*  f0c9a1c:	2844ffe2 */ 	slti	$a0,$v0,-30
 .L0f0c9a20:
@@ -2268,7 +2268,7 @@ glabel var7f1ad8e4
 /*  f0c9b2c:	31252000 */ 	andi	$a1,$t1,0x2000
 /*  f0c9b30:	11000007 */ 	beqz	$t0,.L0f0c9b50
 /*  f0c9b34:	00000000 */ 	nop
-/*  f0c9b38:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c9b38:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c9b3c:	83a400ef */ 	lb	$a0,0xef($sp)
 /*  f0c9b40:	14400003 */ 	bnez	$v0,.L0f0c9b50
 /*  f0c9b44:	00000000 */ 	nop
@@ -2285,7 +2285,7 @@ glabel var7f1ad8e4
 /*  f0c9b6c:	12e0000d */ 	beqz	$s7,.L0f0c9ba4
 /*  f0c9b70:	97ac00ea */ 	lhu	$t4,0xea($sp)
 /*  f0c9b74:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c9b78:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c9b78:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c9b7c:	31852000 */ 	andi	$a1,$t4,0x2000
 /*  f0c9b80:	10400008 */ 	beqz	$v0,.L0f0c9ba4
 /*  f0c9b84:	00000000 */ 	nop
@@ -2309,7 +2309,7 @@ glabel var7f1ad8e4
 /*  f0c9bc4:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f0c9bc8:	97aa00ea */ 	lhu	$t2,0xea($sp)
 /*  f0c9bcc:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c9bd0:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c9bd0:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c9bd4:	31452000 */ 	andi	$a1,$t2,0x2000
 /*  f0c9bd8:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f0c9bdc:	5080000f */ 	beqzl	$a0,.L0f0c9c1c
@@ -2373,7 +2373,7 @@ glabel var7f1ad8e4
 /*  f0c9ca4:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c9ca8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9cac:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c9cb0:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9cb0:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9cb4:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c9cb8:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c9cbc:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -2393,7 +2393,7 @@ glabel var7f1ad8e4
 /*  f0c9cec:	8e480284 */ 	lw	$t0,0x284($s2)
 /*  f0c9cf0:	ad190120 */ 	sw	$t9,0x120($t0)
 .L0f0c9cf4:
-/*  f0c9cf4:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0c9cf4:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0c9cf8:	00000000 */ 	nop
 /*  f0c9cfc:	544002ba */ 	bnezl	$v0,.L0f0ca7e8
 /*  f0c9d00:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2417,7 +2417,7 @@ glabel var7f1ad8e4
 /*  f0c9d44:	01803025 */ 	or	$a2,$t4,$zero
 /*  f0c9d48:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0c9d4c:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c9d50:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9d50:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9d54:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c9d58:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c9d5c:	10400005 */ 	beqz	$v0,.L0f0c9d74
@@ -2475,7 +2475,7 @@ glabel var7f1ad8e4
 /*  f0c9e1c:	30cf0202 */ 	andi	$t7,$a2,0x202
 /*  f0c9e20:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0c9e24:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f0c9e28:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9e28:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9e2c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9e30:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c9e34:	02203025 */ 	or	$a2,$s1,$zero
@@ -2484,7 +2484,7 @@ glabel var7f1ad8e4
 /*  f0c9e40:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c9e44:	03002825 */ 	or	$a1,$t8,$zero
 /*  f0c9e48:	03203025 */ 	or	$a2,$t9,$zero
-/*  f0c9e4c:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9e4c:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9e50:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9e54:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c9e58:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2581,7 +2581,7 @@ glabel var7f1ad8e4
 /*  f0c9fa0:	30cb0202 */ 	andi	$t3,$a2,0x202
 /*  f0c9fa4:	01603025 */ 	or	$a2,$t3,$zero
 /*  f0c9fa8:	01402825 */ 	or	$a1,$t2,$zero
-/*  f0c9fac:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9fac:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9fb0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9fb4:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c9fb8:	02203025 */ 	or	$a2,$s1,$zero
@@ -2590,7 +2590,7 @@ glabel var7f1ad8e4
 /*  f0c9fc4:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c9fc8:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c9fcc:	01a03025 */ 	or	$a2,$t5,$zero
-/*  f0c9fd0:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9fd0:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9fd4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9fd8:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c9fdc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2752,7 +2752,7 @@ glabel var7f1ad8e4
 /*  f0ca21c:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0ca220:	8fa6003c */ 	lw	$a2,0x3c($sp)
 /*  f0ca224:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0ca228:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca228:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca22c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0ca230:	5040002d */ 	beqzl	$v0,.L0f0ca2e8
 /*  f0ca234:	8e4f0284 */ 	lw	$t7,0x284($s2)
@@ -2767,7 +2767,7 @@ glabel var7f1ad8e4
 /*  f0ca258:	02913024 */ 	and	$a2,$s4,$s1
 /*  f0ca25c:	30d8ffff */ 	andi	$t8,$a2,0xffff
 /*  f0ca260:	03003025 */ 	or	$a2,$t8,$zero
-/*  f0ca264:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca264:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca268:	afb8004c */ 	sw	$t8,0x4c($sp)
 /*  f0ca26c:	10400006 */ 	beqz	$v0,.L0f0ca288
 /*  f0ca270:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -2784,7 +2784,7 @@ glabel var7f1ad8e4
 /*  f0ca298:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0ca29c:	05620026 */ 	bltzl	$t3,.L0f0ca338
 /*  f0ca2a0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0ca2a4:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca2a4:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca2a8:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0ca2ac:	54400022 */ 	bnezl	$v0,.L0f0ca338
 /*  f0ca2b0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -2813,7 +2813,7 @@ glabel var7f1ad8e4
 /*  f0ca304:	30c8ffff */ 	andi	$t0,$a2,0xffff
 /*  f0ca308:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0ca30c:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0ca310:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca310:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca314:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0ca318:	54400005 */ 	bnezl	$v0,.L0f0ca330
 /*  f0ca31c:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -2845,7 +2845,7 @@ glabel var7f1ad8e4
 /*  f0ca368:	00056e03 */ 	sra	$t5,$a1,0x18
 /*  f0ca36c:	01a02825 */ 	or	$a1,$t5,$zero
 /*  f0ca370:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ca374:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca374:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca378:	97a60046 */ 	lhu	$a2,0x46($sp)
 /*  f0ca37c:	50400040 */ 	beqzl	$v0,.L0f0ca480
 /*  f0ca380:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2859,7 +2859,7 @@ glabel var7f1ad8e4
 /*  f0ca3a0:	1420002f */ 	bnez	$at,.L0f0ca460
 /*  f0ca3a4:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0ca3a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ca3ac:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca3ac:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca3b0:	03003025 */ 	or	$a2,$t8,$zero
 /*  f0ca3b4:	5040000e */ 	beqzl	$v0,.L0f0ca3f0
 /*  f0ca3b8:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -2987,7 +2987,7 @@ glabel var7f1ad8e4
 /*  f0ca568:	322a0404 */ 	andi	$t2,$s1,0x404
 /*  f0ca56c:	afaa0050 */ 	sw	$t2,0x50($sp)
 /*  f0ca570:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0ca574:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca574:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca578:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0ca57c:	1040000b */ 	beqz	$v0,.L0f0ca5ac
 /*  f0ca580:	02002025 */ 	or	$a0,$s0,$zero
@@ -3007,7 +3007,7 @@ glabel var7f1ad8e4
 /*  f0ca5ac:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0ca5b0:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0ca5b4:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0ca5b8:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca5b8:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca5bc:	97a60052 */ 	lhu	$a2,0x52($sp)
 /*  f0ca5c0:	5040000c */ 	beqzl	$v0,.L0f0ca5f4
 /*  f0ca5c4:	8e4e0288 */ 	lw	$t6,0x288($s2)
@@ -3091,7 +3091,7 @@ glabel var7f1ad8e4
 /*  f0ca6d8:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0ca6dc:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0ca6e0:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0ca6e4:	0c0053d8 */ 	jal	contGetButtons
+/*  f0ca6e4:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0ca6e8:	31a50404 */ 	andi	$a1,$t5,0x404
 /*  f0ca6ec:	0002202b */ 	sltu	$a0,$zero,$v0
 .L0f0ca6f0:
@@ -4341,7 +4341,7 @@ glabel var7f1ad8e4
 /*  f0c8c14:	0300a825 */ 	or	$s5,$t8,$zero
 /*  f0c8c18:	00182600 */ 	sll	$a0,$t8,0x18
 /*  f0c8c1c:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f0c8c20:	0c005384 */ 	jal	contGetStickX
+/*  f0c8c20:	0c005384 */ 	jal	joyGetStickX
 /*  f0c8c24:	03202025 */ 	or	$a0,$t9,$zero
 /*  f0c8c28:	0002a600 */ 	sll	$s4,$v0,0x18
 /*  f0c8c2c:	00144603 */ 	sra	$t0,$s4,0x18
@@ -4353,7 +4353,7 @@ glabel var7f1ad8e4
 /*  f0c8c3c:	12200008 */ 	beqz	$s1,.L0f0c8c60
 /*  f0c8c40:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c44:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f0c8c48:	0c0053ae */ 	jal	contGetStickY
+/*  f0c8c48:	0c0053ae */ 	jal	joyGetStickY
 /*  f0c8c4c:	01202025 */ 	or	$a0,$t1,$zero
 /*  f0c8c50:	00029e00 */ 	sll	$s3,$v0,0x18
 /*  f0c8c54:	00135603 */ 	sra	$t2,$s3,0x18
@@ -4367,7 +4367,7 @@ glabel var7f1ad8e4
 /*  f0c8c6c:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c70:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f0c8c74:	01602025 */ 	or	$a0,$t3,$zero
-/*  f0c8c78:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8c78:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8c7c:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8c80:	10000002 */ 	b	.L0f0c8c8c
 /*  f0c8c84:	a7a201a2 */ 	sh	$v0,0x1a2($sp)
@@ -4378,7 +4378,7 @@ glabel var7f1ad8e4
 /*  f0c8c90:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c8c94:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0c8c98:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0c8c9c:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c8c9c:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c8ca0:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ca4:	10000002 */ 	b	.L0f0c8cb0
 /*  f0c8ca8:	a7a201a0 */ 	sh	$v0,0x1a0($sp)
@@ -4397,7 +4397,7 @@ glabel var7f1ad8e4
 /*  f0c8cd4:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f0c8cd8:	a7b8019e */ 	sh	$t8,0x19e($sp)
 /*  f0c8cdc:	03202025 */ 	or	$a0,$t9,$zero
-/*  f0c8ce0:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8ce0:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8ce4:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ce8:	00508824 */ 	and	$s1,$v0,$s0
 /*  f0c8cec:	97a901a2 */ 	lhu	$t1,0x1a2($sp)
@@ -4415,7 +4415,7 @@ glabel var7f1ad8e4
 /*  f0c8d1c:	01c87825 */ 	or	$t7,$t6,$t0
 /*  f0c8d20:	acaf1c40 */ 	sw	$t7,0x1c40($a1)
 .L0f0c8d24:
-/*  f0c8d24:	0c005207 */ 	jal	contGetNumSamples
+/*  f0c8d24:	0c005207 */ 	jal	joyGetNumSamples
 /*  f0c8d28:	00000000 */ 	nop
 /*  f0c8d2c:	0040b025 */ 	or	$s6,$v0,$zero
 /*  f0c8d30:	0fc322aa */ 	jal	bmoveResetMoveData
@@ -4572,12 +4572,12 @@ glabel var7f1ad8e4
 /*  f0c8f4c:	00147603 */ 	sra	$t6,$s4,0x18
 /*  f0c8f50:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c8f54:	01c0a025 */ 	or	$s4,$t6,$zero
-/*  f0c8f58:	0c005384 */ 	jal	contGetStickX
+/*  f0c8f58:	0c005384 */ 	jal	joyGetStickX
 /*  f0c8f5c:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f0c8f60:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c8f64:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f0c8f68:	a3a200e9 */ 	sb	$v0,0xe9($sp)
-/*  f0c8f6c:	0c0053ae */ 	jal	contGetStickY
+/*  f0c8f6c:	0c0053ae */ 	jal	joyGetStickY
 /*  f0c8f70:	03002025 */ 	or	$a0,$t8,$zero
 /*  f0c8f74:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0c8f78:	00142600 */ 	sll	$a0,$s4,0x18
@@ -4585,13 +4585,13 @@ glabel var7f1ad8e4
 /*  f0c8f80:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f0c8f84:	03208025 */ 	or	$s0,$t9,$zero
 /*  f0c8f88:	01002025 */ 	or	$a0,$t0,$zero
-/*  f0c8f8c:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8f8c:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8f90:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8f94:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c8f98:	00044e03 */ 	sra	$t1,$a0,0x18
 /*  f0c8f9c:	a7a200e6 */ 	sh	$v0,0xe6($sp)
 /*  f0c8fa0:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0c8fa4:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c8fa4:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c8fa8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8fac:	8e4b0284 */ 	lw	$t3,0x284($s2)
 /*  f0c8fb0:	340affff */ 	dli	$t2,0xffff
@@ -4611,7 +4611,7 @@ glabel var7f1ad8e4
 /*  f0c8fe8:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c8fec:	a7ae00da */ 	sh	$t6,0xda($sp)
 /*  f0c8ff0:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0c8ff4:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c8ff4:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c8ff8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c8ffc:	97b900e6 */ 	lhu	$t9,0xe6($sp)
 /*  f0c9000:	97a900e4 */ 	lhu	$t1,0xe4($sp)
@@ -4738,7 +4738,7 @@ glabel var7f1ad8e4
 /*  f0c91ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c91b0:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c91b4:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c91b8:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c91b8:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c91bc:	33262000 */ 	andi	$a2,$t9,0x2000
 /*  f0c91c0:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c91c4:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -4758,7 +4758,7 @@ glabel var7f1ad8e4
 /*  f0c91f4:	8e4c0284 */ 	lw	$t4,0x284($s2)
 /*  f0c91f8:	ad8b0120 */ 	sw	$t3,0x120($t4)
 .L0f0c91fc:
-/*  f0c91fc:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0c91fc:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0c9200:	00000000 */ 	nop
 /*  f0c9204:	54400243 */ 	bnezl	$v0,.L0f0c9b14
 /*  f0c9208:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -4780,7 +4780,7 @@ glabel var7f1ad8e4
 /*  f0c9244:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c9248:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c924c:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c9250:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9250:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9254:	31e62000 */ 	andi	$a2,$t7,0x2000
 /*  f0c9258:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c925c:	10400005 */ 	beqz	$v0,.L0f0c9274
@@ -4966,7 +4966,7 @@ glabel var7f1ad8e4
 /*  f0c94e4:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c94e8:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c94ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c94f0:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c94f0:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c94f4:	3226ffff */ 	andi	$a2,$s1,0xffff
 /*  f0c94f8:	14400009 */ 	bnez	$v0,.L0f0c9520
 /*  f0c94fc:	02002025 */ 	or	$a0,$s0,$zero
@@ -4974,7 +4974,7 @@ glabel var7f1ad8e4
 /*  f0c9504:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c9508:	00057e03 */ 	sra	$t7,$a1,0x18
 /*  f0c950c:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f0c9510:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9510:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9514:	33068000 */ 	andi	$a2,$t8,0x8000
 /*  f0c9518:	50400028 */ 	beqzl	$v0,.L0f0c95bc
 /*  f0c951c:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -4987,7 +4987,7 @@ glabel var7f1ad8e4
 /*  f0c9534:	14200031 */ 	bnez	$at,.L0f0c95fc
 /*  f0c9538:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c953c:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c9540:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9540:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9544:	afa6004c */ 	sw	$a2,0x4c($sp)
 /*  f0c9548:	10400006 */ 	beqz	$v0,.L0f0c9564
 /*  f0c954c:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -5002,7 +5002,7 @@ glabel var7f1ad8e4
 /*  f0c956c:	85f8024c */ 	lh	$t8,0x24c($t7)
 /*  f0c9570:	07020023 */ 	bltzl	$t8,.L0f0c9600
 /*  f0c9574:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0c9578:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9578:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c957c:	83a500ef */ 	lb	$a1,0xef($sp)
 /*  f0c9580:	5440001f */ 	bnezl	$v0,.L0f0c9600
 /*  f0c9584:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5028,7 +5028,7 @@ glabel var7f1ad8e4
 /*  f0c95cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c95d0:	97ab00ea */ 	lhu	$t3,0xea($sp)
 /*  f0c95d4:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c95d8:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c95d8:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c95dc:	31662000 */ 	andi	$a2,$t3,0x2000
 /*  f0c95e0:	54400005 */ 	bnezl	$v0,.L0f0c95f8
 /*  f0c95e4:	8e4d0284 */ 	lw	$t5,0x284($s2)
@@ -5057,7 +5057,7 @@ glabel var7f1ad8e4
 /*  f0c9628:	0005c603 */ 	sra	$t8,$a1,0x18
 /*  f0c962c:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*  f0c9630:	03002825 */ 	or	$a1,$t8,$zero
-/*  f0c9634:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9634:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9638:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c963c:	14400009 */ 	bnez	$v0,.L0f0c9664
 /*  f0c9640:	02002025 */ 	or	$a0,$s0,$zero
@@ -5065,7 +5065,7 @@ glabel var7f1ad8e4
 /*  f0c9648:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c964c:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c9650:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c9654:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9654:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9658:	31064000 */ 	andi	$a2,$t0,0x4000
 /*  f0c965c:	5040003e */ 	beqzl	$v0,.L0f0c9758
 /*  f0c9660:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -5078,7 +5078,7 @@ glabel var7f1ad8e4
 /*  f0c9678:	2881ffff */ 	slti	$at,$a0,-1
 /*  f0c967c:	5420002f */ 	bnezl	$at,.L0f0c973c
 /*  f0c9680:	2881fffe */ 	slti	$at,$a0,-2
-/*  f0c9684:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9684:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9688:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c968c:	5040000e */ 	beqzl	$v0,.L0f0c96c8
 /*  f0c9690:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -5216,14 +5216,14 @@ glabel var7f1ad8e4
 /*  f0c9864:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c9868:	11a0002e */ 	beqz	$t5,.L0f0c9924
 /*  f0c986c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c9870:	0c005241 */ 	jal	contGetStickYOnSample
+/*  f0c9870:	0c005241 */ 	jal	joyGetStickYOnSample
 /*  f0c9874:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c9878:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c987c:	14200011 */ 	bnez	$at,.L0f0c98c4
 /*  f0c9880:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9884:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c9888:	00057e03 */ 	sra	$t7,$a1,0x18
-/*  f0c988c:	0c005270 */ 	jal	contGetStickYOnSampleIndex
+/*  f0c988c:	0c005270 */ 	jal	joyGetStickYOnSampleIndex
 /*  f0c9890:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0c9894:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c9898:	1020000a */ 	beqz	$at,.L0f0c98c4
@@ -5243,14 +5243,14 @@ glabel var7f1ad8e4
 /*  f0c98c4:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c98c8:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c98cc:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c98d0:	0c005241 */ 	jal	contGetStickYOnSample
+/*  f0c98d0:	0c005241 */ 	jal	joyGetStickYOnSample
 /*  f0c98d4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c98d8:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c98dc:	10200011 */ 	beqz	$at,.L0f0c9924
 /*  f0c98e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c98e4:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c98e8:	00054603 */ 	sra	$t0,$a1,0x18
-/*  f0c98ec:	0c005270 */ 	jal	contGetStickYOnSampleIndex
+/*  f0c98ec:	0c005270 */ 	jal	joyGetStickYOnSampleIndex
 /*  f0c98f0:	01002825 */ 	or	$a1,$t0,$zero
 /*  f0c98f4:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c98f8:	1420000a */ 	bnez	$at,.L0f0c9924
@@ -5333,7 +5333,7 @@ glabel var7f1ad8e4
 /*  f0c9a08:	afa40234 */ 	sw	$a0,0x234($sp)
 /*  f0c9a0c:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c9a10:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f0c9a14:	0c0053ae */ 	jal	contGetStickY
+/*  f0c9a14:	0c0053ae */ 	jal	joyGetStickY
 /*  f0c9a18:	01002025 */ 	or	$a0,$t0,$zero
 /*  f0c9a1c:	2844ffe2 */ 	slti	$a0,$v0,-30
 .L0f0c9a20:
@@ -5419,7 +5419,7 @@ glabel var7f1ad8e4
 /*  f0c9b2c:	31252000 */ 	andi	$a1,$t1,0x2000
 /*  f0c9b30:	11000007 */ 	beqz	$t0,.L0f0c9b50
 /*  f0c9b34:	00000000 */ 	nop
-/*  f0c9b38:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c9b38:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c9b3c:	83a400ef */ 	lb	$a0,0xef($sp)
 /*  f0c9b40:	14400003 */ 	bnez	$v0,.L0f0c9b50
 /*  f0c9b44:	00000000 */ 	nop
@@ -5436,7 +5436,7 @@ glabel var7f1ad8e4
 /*  f0c9b6c:	12e0000d */ 	beqz	$s7,.L0f0c9ba4
 /*  f0c9b70:	97ac00ea */ 	lhu	$t4,0xea($sp)
 /*  f0c9b74:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c9b78:	0c005408 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c9b78:	0c005408 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c9b7c:	31852000 */ 	andi	$a1,$t4,0x2000
 /*  f0c9b80:	10400008 */ 	beqz	$v0,.L0f0c9ba4
 /*  f0c9b84:	00000000 */ 	nop
@@ -5460,7 +5460,7 @@ glabel var7f1ad8e4
 /*  f0c9bc4:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f0c9bc8:	97aa00ea */ 	lhu	$t2,0xea($sp)
 /*  f0c9bcc:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c9bd0:	0c0053d8 */ 	jal	contGetButtons
+/*  f0c9bd0:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0c9bd4:	31452000 */ 	andi	$a1,$t2,0x2000
 /*  f0c9bd8:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f0c9bdc:	5080000f */ 	beqzl	$a0,.L0f0c9c1c
@@ -5524,7 +5524,7 @@ glabel var7f1ad8e4
 /*  f0c9ca4:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c9ca8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9cac:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c9cb0:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0c9cb0:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0c9cb4:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c9cb8:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c9cbc:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -5544,7 +5544,7 @@ glabel var7f1ad8e4
 /*  f0c9cec:	8e480284 */ 	lw	$t0,0x284($s2)
 /*  f0c9cf0:	ad190120 */ 	sw	$t9,0x120($t0)
 .L0f0c9cf4:
-/*  f0c9cf4:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0c9cf4:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0c9cf8:	00000000 */ 	nop
 /*  f0c9cfc:	544002ba */ 	bnezl	$v0,.L0f0ca7e8
 /*  f0c9d00:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -5568,7 +5568,7 @@ glabel var7f1ad8e4
 /*  f0c9d44:	01803025 */ 	or	$a2,$t4,$zero
 /*  f0c9d48:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0c9d4c:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c9d50:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0c9d50:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c9d54:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c9d58:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c9d5c:	10400005 */ 	beqz	$v0,.L0f0c9d74
@@ -5626,7 +5626,7 @@ glabel var7f1ad8e4
 /*  f0c9e1c:	30cf0202 */ 	andi	$t7,$a2,0x202
 /*  f0c9e20:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0c9e24:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f0c9e28:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9e28:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9e2c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9e30:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c9e34:	02203025 */ 	or	$a2,$s1,$zero
@@ -5635,7 +5635,7 @@ glabel var7f1ad8e4
 /*  f0c9e40:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c9e44:	03002825 */ 	or	$a1,$t8,$zero
 /*  f0c9e48:	03203025 */ 	or	$a2,$t9,$zero
-/*  f0c9e4c:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9e4c:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9e50:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9e54:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c9e58:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -5732,7 +5732,7 @@ glabel var7f1ad8e4
 /*  f0c9fa0:	30cb0202 */ 	andi	$t3,$a2,0x202
 /*  f0c9fa4:	01603025 */ 	or	$a2,$t3,$zero
 /*  f0c9fa8:	01402825 */ 	or	$a1,$t2,$zero
-/*  f0c9fac:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9fac:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9fb0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9fb4:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c9fb8:	02203025 */ 	or	$a2,$s1,$zero
@@ -5741,7 +5741,7 @@ glabel var7f1ad8e4
 /*  f0c9fc4:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c9fc8:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c9fcc:	01a03025 */ 	or	$a2,$t5,$zero
-/*  f0c9fd0:	0c005326 */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c9fd0:	0c005326 */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c9fd4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c9fd8:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c9fdc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -5903,7 +5903,7 @@ glabel var7f1ad8e4
 /*  f0ca21c:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0ca220:	8fa6003c */ 	lw	$a2,0x3c($sp)
 /*  f0ca224:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0ca228:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca228:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca22c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0ca230:	5040002d */ 	beqzl	$v0,.L0f0ca2e8
 /*  f0ca234:	8e4f0284 */ 	lw	$t7,0x284($s2)
@@ -5918,7 +5918,7 @@ glabel var7f1ad8e4
 /*  f0ca258:	02913024 */ 	and	$a2,$s4,$s1
 /*  f0ca25c:	30d8ffff */ 	andi	$t8,$a2,0xffff
 /*  f0ca260:	03003025 */ 	or	$a2,$t8,$zero
-/*  f0ca264:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca264:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca268:	afb8004c */ 	sw	$t8,0x4c($sp)
 /*  f0ca26c:	10400006 */ 	beqz	$v0,.L0f0ca288
 /*  f0ca270:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -5935,7 +5935,7 @@ glabel var7f1ad8e4
 /*  f0ca298:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0ca29c:	05620026 */ 	bltzl	$t3,.L0f0ca338
 /*  f0ca2a0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0ca2a4:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca2a4:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca2a8:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0ca2ac:	54400022 */ 	bnezl	$v0,.L0f0ca338
 /*  f0ca2b0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5964,7 +5964,7 @@ glabel var7f1ad8e4
 /*  f0ca304:	30c8ffff */ 	andi	$t0,$a2,0xffff
 /*  f0ca308:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0ca30c:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0ca310:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca310:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca314:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0ca318:	54400005 */ 	bnezl	$v0,.L0f0ca330
 /*  f0ca31c:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -5996,7 +5996,7 @@ glabel var7f1ad8e4
 /*  f0ca368:	00056e03 */ 	sra	$t5,$a1,0x18
 /*  f0ca36c:	01a02825 */ 	or	$a1,$t5,$zero
 /*  f0ca370:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ca374:	0c00529e */ 	jal	contGetButtonsOnSample
+/*  f0ca374:	0c00529e */ 	jal	joyGetButtonsOnSample
 /*  f0ca378:	97a60046 */ 	lhu	$a2,0x46($sp)
 /*  f0ca37c:	50400040 */ 	beqzl	$v0,.L0f0ca480
 /*  f0ca380:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -6010,7 +6010,7 @@ glabel var7f1ad8e4
 /*  f0ca3a0:	1420002f */ 	bnez	$at,.L0f0ca460
 /*  f0ca3a4:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0ca3a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0ca3ac:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca3ac:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca3b0:	03003025 */ 	or	$a2,$t8,$zero
 /*  f0ca3b4:	5040000e */ 	beqzl	$v0,.L0f0ca3f0
 /*  f0ca3b8:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -6138,7 +6138,7 @@ glabel var7f1ad8e4
 /*  f0ca568:	322a0404 */ 	andi	$t2,$s1,0x404
 /*  f0ca56c:	afaa0050 */ 	sw	$t2,0x50($sp)
 /*  f0ca570:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0ca574:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca574:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca578:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0ca57c:	1040000b */ 	beqz	$v0,.L0f0ca5ac
 /*  f0ca580:	02002025 */ 	or	$a0,$s0,$zero
@@ -6158,7 +6158,7 @@ glabel var7f1ad8e4
 /*  f0ca5ac:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0ca5b0:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0ca5b4:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0ca5b8:	0c0052d4 */ 	jal	contGetButtonsPressedOnSample
+/*  f0ca5b8:	0c0052d4 */ 	jal	joyGetButtonsPressedOnSample
 /*  f0ca5bc:	97a60052 */ 	lhu	$a2,0x52($sp)
 /*  f0ca5c0:	5040000c */ 	beqzl	$v0,.L0f0ca5f4
 /*  f0ca5c4:	8e4e0288 */ 	lw	$t6,0x288($s2)
@@ -6242,7 +6242,7 @@ glabel var7f1ad8e4
 /*  f0ca6d8:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0ca6dc:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0ca6e0:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0ca6e4:	0c0053d8 */ 	jal	contGetButtons
+/*  f0ca6e4:	0c0053d8 */ 	jal	joyGetButtons
 /*  f0ca6e8:	31a50404 */ 	andi	$a1,$t5,0x404
 /*  f0ca6ec:	0002202b */ 	sltu	$a0,$zero,$v0
 .L0f0ca6f0:
@@ -7492,7 +7492,7 @@ glabel var7f1ad8e4
 /*  f0c6470:	0300a825 */ 	or	$s5,$t8,$zero
 /*  f0c6474:	00182600 */ 	sll	$a0,$t8,0x18
 /*  f0c6478:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f0c647c:	0c00573c */ 	jal	contGetStickX
+/*  f0c647c:	0c00573c */ 	jal	joyGetStickX
 /*  f0c6480:	03202025 */ 	or	$a0,$t9,$zero
 /*  f0c6484:	0002a600 */ 	sll	$s4,$v0,0x18
 /*  f0c6488:	00144603 */ 	sra	$t0,$s4,0x18
@@ -7504,7 +7504,7 @@ glabel var7f1ad8e4
 /*  f0c6498:	12200008 */ 	beqz	$s1,.NB0f0c64bc
 /*  f0c649c:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c64a0:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f0c64a4:	0c005766 */ 	jal	contGetStickY
+/*  f0c64a4:	0c005766 */ 	jal	joyGetStickY
 /*  f0c64a8:	01202025 */ 	or	$a0,$t1,$zero
 /*  f0c64ac:	00029e00 */ 	sll	$s3,$v0,0x18
 /*  f0c64b0:	00135603 */ 	sra	$t2,$s3,0x18
@@ -7518,7 +7518,7 @@ glabel var7f1ad8e4
 /*  f0c64c8:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c64cc:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f0c64d0:	01602025 */ 	or	$a0,$t3,$zero
-/*  f0c64d4:	0c005790 */ 	jal	contGetButtons
+/*  f0c64d4:	0c005790 */ 	jal	joyGetButtons
 /*  f0c64d8:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c64dc:	10000002 */ 	beqz	$zero,.NB0f0c64e8
 /*  f0c64e0:	a7a201a2 */ 	sh	$v0,0x1a2($sp)
@@ -7529,7 +7529,7 @@ glabel var7f1ad8e4
 /*  f0c64ec:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c64f0:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0c64f4:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0c64f8:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c64f8:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c64fc:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c6500:	10000002 */ 	beqz	$zero,.NB0f0c650c
 /*  f0c6504:	a7a201a0 */ 	sh	$v0,0x1a0($sp)
@@ -7548,7 +7548,7 @@ glabel var7f1ad8e4
 /*  f0c6530:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f0c6534:	a7b8019e */ 	sh	$t8,0x19e($sp)
 /*  f0c6538:	03202025 */ 	or	$a0,$t9,$zero
-/*  f0c653c:	0c005790 */ 	jal	contGetButtons
+/*  f0c653c:	0c005790 */ 	jal	joyGetButtons
 /*  f0c6540:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c6544:	00508824 */ 	and	$s1,$v0,$s0
 /*  f0c6548:	97a901a2 */ 	lhu	$t1,0x1a2($sp)
@@ -7566,7 +7566,7 @@ glabel var7f1ad8e4
 /*  f0c6578:	01c87825 */ 	or	$t7,$t6,$t0
 /*  f0c657c:	acaf1c40 */ 	sw	$t7,0x1c40($a1)
 .NB0f0c6580:
-/*  f0c6580:	0c0055bf */ 	jal	contGetNumSamples
+/*  f0c6580:	0c0055bf */ 	jal	joyGetNumSamples
 /*  f0c6584:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c6588:	0040b025 */ 	or	$s6,$v0,$zero
 /*  f0c658c:	0fc318c1 */ 	jal	bmoveResetMoveData
@@ -7723,12 +7723,12 @@ glabel var7f1ad8e4
 /*  f0c67a8:	00147603 */ 	sra	$t6,$s4,0x18
 /*  f0c67ac:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c67b0:	01c0a025 */ 	or	$s4,$t6,$zero
-/*  f0c67b4:	0c00573c */ 	jal	contGetStickX
+/*  f0c67b4:	0c00573c */ 	jal	joyGetStickX
 /*  f0c67b8:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f0c67bc:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c67c0:	0004c603 */ 	sra	$t8,$a0,0x18
 /*  f0c67c4:	a3a200e9 */ 	sb	$v0,0xe9($sp)
-/*  f0c67c8:	0c005766 */ 	jal	contGetStickY
+/*  f0c67c8:	0c005766 */ 	jal	joyGetStickY
 /*  f0c67cc:	03002025 */ 	or	$a0,$t8,$zero
 /*  f0c67d0:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0c67d4:	00142600 */ 	sll	$a0,$s4,0x18
@@ -7736,13 +7736,13 @@ glabel var7f1ad8e4
 /*  f0c67dc:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f0c67e0:	03208025 */ 	or	$s0,$t9,$zero
 /*  f0c67e4:	01002025 */ 	or	$a0,$t0,$zero
-/*  f0c67e8:	0c005790 */ 	jal	contGetButtons
+/*  f0c67e8:	0c005790 */ 	jal	joyGetButtons
 /*  f0c67ec:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c67f0:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c67f4:	00044e03 */ 	sra	$t1,$a0,0x18
 /*  f0c67f8:	a7a200e6 */ 	sh	$v0,0xe6($sp)
 /*  f0c67fc:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0c6800:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c6800:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c6804:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c6808:	8e4b0284 */ 	lw	$t3,0x284($s2)
 /*  f0c680c:	340affff */ 	dli	$t2,0xffff
@@ -7762,7 +7762,7 @@ glabel var7f1ad8e4
 /*  f0c6844:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f0c6848:	a7ae00da */ 	sh	$t6,0xda($sp)
 /*  f0c684c:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0c6850:	0c005790 */ 	jal	contGetButtons
+/*  f0c6850:	0c005790 */ 	jal	joyGetButtons
 /*  f0c6854:	3405ffff */ 	dli	$a1,0xffff
 /*  f0c6858:	97b900e6 */ 	lhu	$t9,0xe6($sp)
 /*  f0c685c:	97a900e4 */ 	lhu	$t1,0xe4($sp)
@@ -7889,7 +7889,7 @@ glabel var7f1ad8e4
 /*  f0c6a08:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c6a0c:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c6a10:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c6a14:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c6a14:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c6a18:	33262000 */ 	andi	$a2,$t9,0x2000
 /*  f0c6a1c:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c6a20:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -7909,7 +7909,7 @@ glabel var7f1ad8e4
 /*  f0c6a50:	8e4c0284 */ 	lw	$t4,0x284($s2)
 /*  f0c6a54:	ad8b0120 */ 	sw	$t3,0x120($t4)
 .NB0f0c6a58:
-/*  f0c6a58:	0fc59ed0 */ 	jal	coreIsPaused
+/*  f0c6a58:	0fc59ed0 */ 	jal	lvIsPaused
 /*  f0c6a5c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c6a60:	54400243 */ 	bnezl	$v0,.NB0f0c7370
 /*  f0c6a64:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -7931,7 +7931,7 @@ glabel var7f1ad8e4
 /*  f0c6aa0:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c6aa4:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0c6aa8:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f0c6aac:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c6aac:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c6ab0:	31e62000 */ 	andi	$a2,$t7,0x2000
 /*  f0c6ab4:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c6ab8:	10400005 */ 	beqz	$v0,.NB0f0c6ad0
@@ -8117,7 +8117,7 @@ glabel var7f1ad8e4
 /*  f0c6d40:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c6d44:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c6d48:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c6d4c:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c6d4c:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c6d50:	3226ffff */ 	andi	$a2,$s1,0xffff
 /*  f0c6d54:	14400009 */ 	bnez	$v0,.NB0f0c6d7c
 /*  f0c6d58:	02002025 */ 	or	$a0,$s0,$zero
@@ -8125,7 +8125,7 @@ glabel var7f1ad8e4
 /*  f0c6d60:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c6d64:	00057e03 */ 	sra	$t7,$a1,0x18
 /*  f0c6d68:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f0c6d6c:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c6d6c:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c6d70:	33068000 */ 	andi	$a2,$t8,0x8000
 /*  f0c6d74:	50400028 */ 	beqzl	$v0,.NB0f0c6e18
 /*  f0c6d78:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -8138,7 +8138,7 @@ glabel var7f1ad8e4
 /*  f0c6d90:	14200031 */ 	bnez	$at,.NB0f0c6e58
 /*  f0c6d94:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c6d98:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c6d9c:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c6d9c:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c6da0:	afa6004c */ 	sw	$a2,0x4c($sp)
 /*  f0c6da4:	10400006 */ 	beqz	$v0,.NB0f0c6dc0
 /*  f0c6da8:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -8153,7 +8153,7 @@ glabel var7f1ad8e4
 /*  f0c6dc8:	85f8024c */ 	lh	$t8,0x24c($t7)
 /*  f0c6dcc:	07020023 */ 	bltzl	$t8,.NB0f0c6e5c
 /*  f0c6dd0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0c6dd4:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c6dd4:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c6dd8:	83a500ef */ 	lb	$a1,0xef($sp)
 /*  f0c6ddc:	5440001f */ 	bnezl	$v0,.NB0f0c6e5c
 /*  f0c6de0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -8179,7 +8179,7 @@ glabel var7f1ad8e4
 /*  f0c6e28:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c6e2c:	97ab00ea */ 	lhu	$t3,0xea($sp)
 /*  f0c6e30:	83a500ef */ 	lb	$a1,0xef($sp)
-/*  f0c6e34:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c6e34:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c6e38:	31662000 */ 	andi	$a2,$t3,0x2000
 /*  f0c6e3c:	54400005 */ 	bnezl	$v0,.NB0f0c6e54
 /*  f0c6e40:	8e4d0284 */ 	lw	$t5,0x284($s2)
@@ -8208,7 +8208,7 @@ glabel var7f1ad8e4
 /*  f0c6e84:	0005c603 */ 	sra	$t8,$a1,0x18
 /*  f0c6e88:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*  f0c6e8c:	03002825 */ 	or	$a1,$t8,$zero
-/*  f0c6e90:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c6e90:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c6e94:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c6e98:	14400009 */ 	bnez	$v0,.NB0f0c6ec0
 /*  f0c6e9c:	02002025 */ 	or	$a0,$s0,$zero
@@ -8216,7 +8216,7 @@ glabel var7f1ad8e4
 /*  f0c6ea4:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c6ea8:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c6eac:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c6eb0:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c6eb0:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c6eb4:	31064000 */ 	andi	$a2,$t0,0x4000
 /*  f0c6eb8:	5040003e */ 	beqzl	$v0,.NB0f0c6fb4
 /*  f0c6ebc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -8229,7 +8229,7 @@ glabel var7f1ad8e4
 /*  f0c6ed4:	2881ffff */ 	slti	$at,$a0,-1
 /*  f0c6ed8:	5420002f */ 	bnezl	$at,.NB0f0c6f98
 /*  f0c6edc:	2881fffe */ 	slti	$at,$a0,-2
-/*  f0c6ee0:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c6ee0:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c6ee4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c6ee8:	5040000e */ 	beqzl	$v0,.NB0f0c6f24
 /*  f0c6eec:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -8367,14 +8367,14 @@ glabel var7f1ad8e4
 /*  f0c70c0:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f0c70c4:	11a0002e */ 	beqz	$t5,.NB0f0c7180
 /*  f0c70c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c70cc:	0c0055f9 */ 	jal	contGetStickYOnSample
+/*  f0c70cc:	0c0055f9 */ 	jal	joyGetStickYOnSample
 /*  f0c70d0:	01c02825 */ 	or	$a1,$t6,$zero
 /*  f0c70d4:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c70d8:	14200011 */ 	bnez	$at,.NB0f0c7120
 /*  f0c70dc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c70e0:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c70e4:	00057e03 */ 	sra	$t7,$a1,0x18
-/*  f0c70e8:	0c005628 */ 	jal	contGetStickYOnSampleIndex
+/*  f0c70e8:	0c005628 */ 	jal	joyGetStickYOnSampleIndex
 /*  f0c70ec:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0c70f0:	2841001f */ 	slti	$at,$v0,0x1f
 /*  f0c70f4:	1020000a */ 	beqz	$at,.NB0f0c7120
@@ -8394,14 +8394,14 @@ glabel var7f1ad8e4
 /*  f0c7120:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c7124:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c7128:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c712c:	0c0055f9 */ 	jal	contGetStickYOnSample
+/*  f0c712c:	0c0055f9 */ 	jal	joyGetStickYOnSample
 /*  f0c7130:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c7134:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c7138:	10200011 */ 	beqz	$at,.NB0f0c7180
 /*  f0c713c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c7140:	00142e00 */ 	sll	$a1,$s4,0x18
 /*  f0c7144:	00054603 */ 	sra	$t0,$a1,0x18
-/*  f0c7148:	0c005628 */ 	jal	contGetStickYOnSampleIndex
+/*  f0c7148:	0c005628 */ 	jal	joyGetStickYOnSampleIndex
 /*  f0c714c:	01002825 */ 	or	$a1,$t0,$zero
 /*  f0c7150:	2841ffe2 */ 	slti	$at,$v0,-30
 /*  f0c7154:	1420000a */ 	bnez	$at,.NB0f0c7180
@@ -8484,7 +8484,7 @@ glabel var7f1ad8e4
 /*  f0c7264:	afa40234 */ 	sw	$a0,0x234($sp)
 /*  f0c7268:	00142600 */ 	sll	$a0,$s4,0x18
 /*  f0c726c:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f0c7270:	0c005766 */ 	jal	contGetStickY
+/*  f0c7270:	0c005766 */ 	jal	joyGetStickY
 /*  f0c7274:	01002025 */ 	or	$a0,$t0,$zero
 /*  f0c7278:	2844ffe2 */ 	slti	$a0,$v0,-30
 .NB0f0c727c:
@@ -8570,7 +8570,7 @@ glabel var7f1ad8e4
 /*  f0c7388:	31252000 */ 	andi	$a1,$t1,0x2000
 /*  f0c738c:	11000007 */ 	beqz	$t0,.NB0f0c73ac
 /*  f0c7390:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7394:	0c005790 */ 	jal	contGetButtons
+/*  f0c7394:	0c005790 */ 	jal	joyGetButtons
 /*  f0c7398:	83a400ef */ 	lb	$a0,0xef($sp)
 /*  f0c739c:	14400003 */ 	bnez	$v0,.NB0f0c73ac
 /*  f0c73a0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8587,7 +8587,7 @@ glabel var7f1ad8e4
 /*  f0c73c8:	12e0000d */ 	beqz	$s7,.NB0f0c7400
 /*  f0c73cc:	97ac00ea */ 	lhu	$t4,0xea($sp)
 /*  f0c73d0:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c73d4:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*  f0c73d4:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*  f0c73d8:	31852000 */ 	andi	$a1,$t4,0x2000
 /*  f0c73dc:	10400008 */ 	beqz	$v0,.NB0f0c7400
 /*  f0c73e0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8611,7 +8611,7 @@ glabel var7f1ad8e4
 /*  f0c7420:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f0c7424:	97aa00ea */ 	lhu	$t2,0xea($sp)
 /*  f0c7428:	83a400ef */ 	lb	$a0,0xef($sp)
-/*  f0c742c:	0c005790 */ 	jal	contGetButtons
+/*  f0c742c:	0c005790 */ 	jal	joyGetButtons
 /*  f0c7430:	31452000 */ 	andi	$a1,$t2,0x2000
 /*  f0c7434:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f0c7438:	5080000f */ 	beqzl	$a0,.NB0f0c7478
@@ -8675,7 +8675,7 @@ glabel var7f1ad8e4
 /*  f0c7500:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c7504:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c7508:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c750c:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c750c:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c7510:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c7514:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c7518:	8fa70048 */ 	lw	$a3,0x48($sp)
@@ -8695,7 +8695,7 @@ glabel var7f1ad8e4
 /*  f0c7548:	8e480284 */ 	lw	$t0,0x284($s2)
 /*  f0c754c:	ad190120 */ 	sw	$t9,0x120($t0)
 .NB0f0c7550:
-/*  f0c7550:	0fc59ed0 */ 	jal	coreIsPaused
+/*  f0c7550:	0fc59ed0 */ 	jal	lvIsPaused
 /*  f0c7554:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c7558:	544002ba */ 	bnezl	$v0,.NB0f0c8044
 /*  f0c755c:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -8719,7 +8719,7 @@ glabel var7f1ad8e4
 /*  f0c75a0:	01803025 */ 	or	$a2,$t4,$zero
 /*  f0c75a4:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0c75a8:	afa3004c */ 	sw	$v1,0x4c($sp)
-/*  f0c75ac:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c75ac:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c75b0:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f0c75b4:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0c75b8:	10400005 */ 	beqz	$v0,.NB0f0c75d0
@@ -8777,7 +8777,7 @@ glabel var7f1ad8e4
 /*  f0c7678:	30cf0202 */ 	andi	$t7,$a2,0x202
 /*  f0c767c:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0c7680:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f0c7684:	0c0056de */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c7684:	0c0056de */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c7688:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c768c:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c7690:	02203025 */ 	or	$a2,$s1,$zero
@@ -8786,7 +8786,7 @@ glabel var7f1ad8e4
 /*  f0c769c:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c76a0:	03002825 */ 	or	$a1,$t8,$zero
 /*  f0c76a4:	03203025 */ 	or	$a2,$t9,$zero
-/*  f0c76a8:	0c0056de */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c76a8:	0c0056de */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c76ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c76b0:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c76b4:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -8883,7 +8883,7 @@ glabel var7f1ad8e4
 /*  f0c77fc:	30cb0202 */ 	andi	$t3,$a2,0x202
 /*  f0c7800:	01603025 */ 	or	$a2,$t3,$zero
 /*  f0c7804:	01402825 */ 	or	$a1,$t2,$zero
-/*  f0c7808:	0c0056de */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c7808:	0c0056de */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c780c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c7810:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c7814:	02203025 */ 	or	$a2,$s1,$zero
@@ -8892,7 +8892,7 @@ glabel var7f1ad8e4
 /*  f0c7820:	afa201dc */ 	sw	$v0,0x1dc($sp)
 /*  f0c7824:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c7828:	01a03025 */ 	or	$a2,$t5,$zero
-/*  f0c782c:	0c0056de */ 	jal	contCountButtonsOnSpecificSamples
+/*  f0c782c:	0c0056de */ 	jal	joyCountButtonsOnSpecificSamples
 /*  f0c7830:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c7834:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0c7838:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -9054,7 +9054,7 @@ glabel var7f1ad8e4
 /*  f0c7a78:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0c7a7c:	8fa6003c */ 	lw	$a2,0x3c($sp)
 /*  f0c7a80:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0c7a84:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c7a84:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c7a88:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c7a8c:	5040002d */ 	beqzl	$v0,.NB0f0c7b44
 /*  f0c7a90:	8e4f0284 */ 	lw	$t7,0x284($s2)
@@ -9069,7 +9069,7 @@ glabel var7f1ad8e4
 /*  f0c7ab4:	02913024 */ 	and	$a2,$s4,$s1
 /*  f0c7ab8:	30d8ffff */ 	andi	$t8,$a2,0xffff
 /*  f0c7abc:	03003025 */ 	or	$a2,$t8,$zero
-/*  f0c7ac0:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c7ac0:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c7ac4:	afb8004c */ 	sw	$t8,0x4c($sp)
 /*  f0c7ac8:	10400006 */ 	beqz	$v0,.NB0f0c7ae4
 /*  f0c7acc:	8fa6004c */ 	lw	$a2,0x4c($sp)
@@ -9086,7 +9086,7 @@ glabel var7f1ad8e4
 /*  f0c7af4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c7af8:	05620026 */ 	bltzl	$t3,.NB0f0c7b94
 /*  f0c7afc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0c7b00:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c7b00:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c7b04:	01802825 */ 	or	$a1,$t4,$zero
 /*  f0c7b08:	54400022 */ 	bnezl	$v0,.NB0f0c7b94
 /*  f0c7b0c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -9115,7 +9115,7 @@ glabel var7f1ad8e4
 /*  f0c7b60:	30c8ffff */ 	andi	$t0,$a2,0xffff
 /*  f0c7b64:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f0c7b68:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c7b6c:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c7b6c:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c7b70:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0c7b74:	54400005 */ 	bnezl	$v0,.NB0f0c7b8c
 /*  f0c7b78:	8e490284 */ 	lw	$t1,0x284($s2)
@@ -9147,7 +9147,7 @@ glabel var7f1ad8e4
 /*  f0c7bc4:	00056e03 */ 	sra	$t5,$a1,0x18
 /*  f0c7bc8:	01a02825 */ 	or	$a1,$t5,$zero
 /*  f0c7bcc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c7bd0:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f0c7bd0:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f0c7bd4:	97a60046 */ 	lhu	$a2,0x46($sp)
 /*  f0c7bd8:	50400040 */ 	beqzl	$v0,.NB0f0c7cdc
 /*  f0c7bdc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -9161,7 +9161,7 @@ glabel var7f1ad8e4
 /*  f0c7bfc:	1420002f */ 	bnez	$at,.NB0f0c7cbc
 /*  f0c7c00:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f0c7c04:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c7c08:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c7c08:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c7c0c:	03003025 */ 	or	$a2,$t8,$zero
 /*  f0c7c10:	5040000e */ 	beqzl	$v0,.NB0f0c7c4c
 /*  f0c7c14:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -9289,7 +9289,7 @@ glabel var7f1ad8e4
 /*  f0c7dc4:	322a0404 */ 	andi	$t2,$s1,0x404
 /*  f0c7dc8:	afaa0050 */ 	sw	$t2,0x50($sp)
 /*  f0c7dcc:	03202825 */ 	or	$a1,$t9,$zero
-/*  f0c7dd0:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c7dd0:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c7dd4:	01003025 */ 	or	$a2,$t0,$zero
 /*  f0c7dd8:	1040000b */ 	beqz	$v0,.NB0f0c7e08
 /*  f0c7ddc:	02002025 */ 	or	$a0,$s0,$zero
@@ -9309,7 +9309,7 @@ glabel var7f1ad8e4
 /*  f0c7e08:	00152e00 */ 	sll	$a1,$s5,0x18
 /*  f0c7e0c:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f0c7e10:	01802825 */ 	or	$a1,$t4,$zero
-/*  f0c7e14:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f0c7e14:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f0c7e18:	97a60052 */ 	lhu	$a2,0x52($sp)
 /*  f0c7e1c:	5040000c */ 	beqzl	$v0,.NB0f0c7e50
 /*  f0c7e20:	8e4e0288 */ 	lw	$t6,0x288($s2)
@@ -9393,7 +9393,7 @@ glabel var7f1ad8e4
 /*  f0c7f34:	00152600 */ 	sll	$a0,$s5,0x18
 /*  f0c7f38:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f0c7f3c:	01802025 */ 	or	$a0,$t4,$zero
-/*  f0c7f40:	0c005790 */ 	jal	contGetButtons
+/*  f0c7f40:	0c005790 */ 	jal	joyGetButtons
 /*  f0c7f44:	31a50404 */ 	andi	$a1,$t5,0x404
 /*  f0c7f48:	0002202b */ 	sltu	$a0,$zero,$v0
 .NB0f0c7f4c:
@@ -10637,16 +10637,16 @@ glabel var7f1ad8e4
 //	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 //
 //	// 8c10
-//	c1stickx = arg0 ? contGetStickX(contpad1) : 0;
+//	c1stickx = arg0 ? joyGetStickX(contpad1) : 0;
 //
 //	// 8c3c
-//	c1sticky = arg1 ? contGetStickY(contpad1) : 0;
+//	c1sticky = arg1 ? joyGetStickY(contpad1) : 0;
 //
 //	// 8c68
-//	sp1a2 = arg2 ? contGetButtons(contpad1, 0xffff) : 0;
+//	sp1a2 = arg2 ? joyGetButtons(contpad1, 0xffff) : 0;
 //
 //	// 8c8c
-//	sp1a0 = arg2 ? contGetButtonsPressedThisFrame(contpad1, 0xffff) : 0;
+//	sp1a0 = arg2 ? joyGetButtonsPressedThisFrame(contpad1, 0xffff) : 0;
 //
 //	// 8cb0
 //	c1allowedbuttons = 0xffff;
@@ -10654,13 +10654,13 @@ glabel var7f1ad8e4
 //
 //	if (c1inhibitedbuttons) {
 //		c1allowedbuttons = ~c1inhibitedbuttons;
-//		inhibitedbuttons = contGetButtons(contpad1, 0xffff) & (c1inhibitedbuttons & 0xffff);
+//		inhibitedbuttons = joyGetButtons(contpad1, 0xffff) & (c1inhibitedbuttons & 0xffff);
 //		sp1a2 &= ~inhibitedbuttons;
 //		sp1a0 &= ~inhibitedbuttons;
 //		g_Vars.currentplayer->joybutinhibit = (g_Vars.currentplayer->joybutinhibit & 0xffff0000) | inhibitedbuttons;
 //	}
 //
-//	numsamples = contGetNumSamples();
+//	numsamples = joyGetNumSamples();
 //	bmoveResetMoveData(&movedata);
 //
 //	// 8d3c
@@ -10729,13 +10729,13 @@ glabel var7f1ad8e4
 //				// 8f38
 //				contpad2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex); // shifted to s8 and stored in s4
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				c2stickx = contGetStickX(contpad2); // sb v0,0xe9(sp)
+//				c2stickx = joyGetStickX(contpad2); // sb v0,0xe9(sp)
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				c2sticky = contGetStickY(contpad2); // shifted to s8 and stored in s0
+//				c2sticky = joyGetStickY(contpad2); // shifted to s8 and stored in s0
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				spe6 = contGetButtons(contpad2, 0xffff); // sh v0,0xe6(sp)
+//				spe6 = joyGetButtons(contpad2, 0xffff); // sh v0,0xe6(sp)
 //				// s4 shifted to s8 and stored in a0 for next jal
-//				spe4 = contGetButtonsPressedThisFrame(contpad2, 0xffff); // sh v0,0xe4(sp)
+//				spe4 = joyGetButtonsPressedThisFrame(contpad2, 0xffff); // sh v0,0xe4(sp)
 //				c2stickx2 = c2stickx; // s3 = spe9
 //				c2sticky2 = c2sticky; // a0 = s0
 //
@@ -10745,7 +10745,7 @@ glabel var7f1ad8e4
 //				// 8fac
 //				if (c2inhibitedbuttons) {
 //					c2allowedbuttons = ~c2inhibitedbuttons;
-//					inhibitedbuttons = contGetButtons(contpad2, 0xffff) & c2inhibitedbuttons;
+//					inhibitedbuttons = joyGetButtons(contpad2, 0xffff) & c2inhibitedbuttons;
 //					spe6 &= ~inhibitedbuttons;
 //					spe4 &= ~inhibitedbuttons;
 //					g_Vars.currentplayer->joybutinhibit = (g_Vars.currentplayer->joybutinhibit & 0xffff) | (inhibitedbuttons << 16);
@@ -10814,7 +10814,7 @@ glabel var7f1ad8e4
 //				// 9170
 //				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
 //					for (i = 0; i < numsamples; i++) {
-//						sp14c[i] = arg2 && contGetButtonsOnSample(i, aimpad, aimallowedbuttons & Z_TRIG);
+//						sp14c[i] = arg2 && joyGetButtonsOnSample(i, aimpad, aimallowedbuttons & Z_TRIG);
 //						spfc[i] = !sp14c[i];
 //					}
 //
@@ -10822,11 +10822,11 @@ glabel var7f1ad8e4
 //				}
 //
 //				// 91fc
-//				if (coreIsPaused() == false) {
+//				if (lvIsPaused() == false) {
 //					// 920c
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (arg2 && contGetButtonsPressedOnSample(i, aimpad, aimallowedbuttons & Z_TRIG)) {
+//							if (arg2 && joyGetButtonsPressedOnSample(i, aimpad, aimallowedbuttons & Z_TRIG)) {
 //								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
 //							}
 //
@@ -10907,16 +10907,16 @@ glabel var7f1ad8e4
 //							}
 //						} else {
 //							for (i = 0; i < numsamples; i++) {
-//								if (contGetButtonsOnSample(i, contpad1, c1allowedbuttons & A_BUTTON)
-//										|| contGetButtonsOnSample(i, contpad2, c2allowedbuttons & A_BUTTON)) {
+//								if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & A_BUTTON)
+//										|| joyGetButtonsOnSample(i, contpad2, c2allowedbuttons & A_BUTTON)) {
 //									if (g_Vars.currentplayer->invdowntime > -2) {
-//										if (contGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)) {
+//										if (joyGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)) {
 //											movedata.weaponbackoffset++;
 //											g_Vars.currentplayer->invdowntime = -1;
 //										}
 //
 //										if (g_Vars.currentplayer->invdowntime > -1
-//												&& contGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
+//												&& joyGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0) {
 //											if (g_Vars.currentplayer->invdowntime > 15) {
 //												amOpen();
 //												g_Vars.currentplayer->invdowntime = -1;
@@ -10927,7 +10927,7 @@ glabel var7f1ad8e4
 //									}
 //								} else {
 //									if (g_Vars.currentplayer->invdowntime > 0 &&
-//											(!arg2 || contGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0)) {
+//											(!arg2 || joyGetButtonsOnSample(i, shootpad, shootallowedbuttons & Z_TRIG) == 0)) {
 //										movedata.weaponforwardoffset++;
 //									}
 //
@@ -10940,10 +10940,10 @@ glabel var7f1ad8e4
 //					// 9608
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (contGetButtonsOnSample(i, contpad1, c1allowedbuttons & B_BUTTON)
-//									|| contGetButtonsOnSample(i, contpad2, c2allowedbuttons & B_BUTTON)) {
+//							if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & B_BUTTON)
+//									|| joyGetButtonsOnSample(i, contpad2, c2allowedbuttons & B_BUTTON)) {
 //								if (g_Vars.currentplayer->usedowntime >= -1) {
-//									if (contGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)
+//									if (joyGetButtonsPressedOnSample(i, shootpad, shootallowedbuttons & Z_TRIG)
 //											&& g_Vars.currentplayer->usedowntime > -1
 //											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
@@ -11008,7 +11008,7 @@ glabel var7f1ad8e4
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
 //							if (sp1a8 == 0 && sp14c[i]) {
-//								if (contGetStickYOnSample(i, contpad2) > 30 && contGetStickYOnSampleIndex(i, contpad2) <= 30) {
+//								if (joyGetStickYOnSample(i, contpad2) > 30 && joyGetStickYOnSampleIndex(i, contpad2) <= 30) {
 //									if (movedata.crouchdown) {
 //										movedata.crouchdown--;
 //									} else {
@@ -11018,7 +11018,7 @@ glabel var7f1ad8e4
 //									g_Vars.currentplayer->aimtaptime = -1;
 //								}
 //
-//								if (contGetStickYOnSample(i, contpad2) < -30 && contGetStickYOnSampleIndex(i, contpad2) >= -30) {
+//								if (joyGetStickYOnSample(i, contpad2) < -30 && joyGetStickYOnSampleIndex(i, contpad2) >= -30) {
 //									if (movedata.crouchup) {
 //										movedata.crouchup--;
 //									} else {
@@ -11057,7 +11057,7 @@ glabel var7f1ad8e4
 //							&& g_Vars.coopplayernum < 0) {
 //						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
 //							&& !sp1a8
-//							&& contGetStickY(contpad2) < -30;
+//							&& joyGetStickY(contpad2) < -30;
 //					}
 //
 //					// 9a24
@@ -11095,20 +11095,20 @@ glabel var7f1ad8e4
 //				movedata.unk58 = g_Vars.currentplayer->insightaimmode;
 //
 //				if (g_Vars.currentplayer->waitforzrelease
-//						&& contGetButtons(shootpad, shootallowedbuttons & Z_TRIG) == 0) {
+//						&& joyGetButtons(shootpad, shootallowedbuttons & Z_TRIG) == 0) {
 //					g_Vars.currentplayer->waitforzrelease = false;
 //				}
 //
 //				if (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_80000000)) {
 //					if (arg2
-//							&& contGetButtonsPressedThisFrame(shootpad, shootallowedbuttons & Z_TRIG)
+//							&& joyGetButtonsPressedThisFrame(shootpad, shootallowedbuttons & Z_TRIG)
 //							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
 //						movedata.btapcount++;
 //					}
 //				} else {
 //					movedata.triggeron = g_Vars.currentplayer->waitforzrelease == false
 //						&& arg2
-//						&& contGetButtons(shootpad, shootallowedbuttons & Z_TRIG)
+//						&& joyGetButtons(shootpad, shootallowedbuttons & Z_TRIG)
 //						&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
 //						&& (sp1a2 & A_BUTTON) == 0
 //						&& (spe6 & A_BUTTON) == 0;
@@ -11135,7 +11135,7 @@ glabel var7f1ad8e4
 //				// 9c60
 //				if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) == AIMCONTROL_HOLD) {
 //					for (i = 0; i < numsamples; i++) {
-//						sp14c[i] = arg2 && contGetButtonsOnSample(i, contpad1, aimbuttons & c1allowedbuttons);
+//						sp14c[i] = arg2 && joyGetButtonsOnSample(i, contpad1, aimbuttons & c1allowedbuttons);
 //						spfc[i] = !sp14c[i];
 //					}
 //
@@ -11143,11 +11143,11 @@ glabel var7f1ad8e4
 //				}
 //
 //				// 9cf4
-//				if (coreIsPaused() == false) {
+//				if (lvIsPaused() == false) {
 //					// 9d04
 //					if (optionsGetAimControl(g_Vars.currentplayerstats->mpindex) != AIMCONTROL_HOLD) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (arg2 && contGetButtonsPressedOnSample(i, contpad1, aimbuttons & c1allowedbuttons)) {
+//							if (arg2 && joyGetButtonsPressedOnSample(i, contpad1, aimbuttons & c1allowedbuttons)) {
 //								g_Vars.currentplayer->insightaimmode = !g_Vars.currentplayer->insightaimmode;
 //							}
 //
@@ -11171,8 +11171,8 @@ glabel var7f1ad8e4
 //						// Side stepping
 //						if (g_Vars.currentplayer->insightaimmode == false) {
 //							if (arg2) {
-//								movedata.digitalstepleft = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
-//								movedata.digitalstepright = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
+//								movedata.digitalstepleft = joyCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
+//								movedata.digitalstepright = joyCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
 //							}
 //						} else {
 //							// This doesn't appear to be r-leaning.
@@ -11214,8 +11214,8 @@ glabel var7f1ad8e4
 //						}
 //
 //						if (!g_Vars.currentplayer->insightaimmode && arg2) {
-//							movedata.digitalstepleft = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
-//							movedata.digitalstepright = contCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
+//							movedata.digitalstepleft = joyCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (L_JPAD | L_CBUTTONS));
+//							movedata.digitalstepright = joyCountButtonsOnSpecificSamples(spfc, contpad1, c1allowedbuttons & (R_JPAD | R_CBUTTONS));
 //						}
 //
 //						movedata.digitalstepforward = false;
@@ -11286,14 +11286,14 @@ glabel var7f1ad8e4
 //							}
 //						} else {
 //							for (i = 0; i < numsamples; i++) {
-//								if (contGetButtonsOnSample(i, contpad1, invbuttons & c1allowedbuttons)) {
+//								if (joyGetButtonsOnSample(i, contpad1, invbuttons & c1allowedbuttons)) {
 //									if (g_Vars.currentplayer->invdowntime > -2) {
-//										if (contGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)) {
+//										if (joyGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)) {
 //											movedata.weaponbackoffset++;
 //											g_Vars.currentplayer->invdowntime = -1;
 //										}
 //
-//										if (g_Vars.currentplayer->invdowntime >= 0 && contGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
+//										if (g_Vars.currentplayer->invdowntime >= 0 && joyGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0) {
 //											// Holding A and haven't pressed Z
 //											if (g_Vars.currentplayer->invdowntime > 15) {
 //												amOpen();
@@ -11306,7 +11306,7 @@ glabel var7f1ad8e4
 //								} else {
 //									// Wasn't holding A on this sample
 //									if (g_Vars.currentplayer->invdowntime > 0 &&
-//											(!arg2 || contGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0)) {
+//											(!arg2 || joyGetButtonsOnSample(i, contpad1, shootbuttons & c1allowedbuttons) == 0)) {
 //										// But was on previous sample, so cycle weapon
 //										movedata.weaponforwardoffset++;
 //									}
@@ -11321,9 +11321,9 @@ glabel var7f1ad8e4
 //					// a340
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
-//							if (contGetButtonsOnSample(i, contpad1, c1allowedbuttons & B_BUTTON)) {
+//							if (joyGetButtonsOnSample(i, contpad1, c1allowedbuttons & B_BUTTON)) {
 //								if (g_Vars.currentplayer->usedowntime >= -1) {
-//									if (contGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)
+//									if (joyGetButtonsPressedOnSample(i, contpad1, shootbuttons & c1allowedbuttons)
 //											&& g_Vars.currentplayer->usedowntime >= 0
 //											&& currentPlayerConsiderToggleGunFunction(g_Vars.currentplayer->usedowntime, 1, 0)) {
 //										g_Vars.currentplayer->usedowntime = -3;
@@ -11386,7 +11386,7 @@ glabel var7f1ad8e4
 //					if (arg2) {
 //						for (i = 0; i < numsamples; i++) {
 //							if (sp1a8 == 0 && sp14c[i]) {
-//								if (contGetButtonsPressedOnSample(i, contpad1, c1allowedbuttons & (U_JPAD | U_CBUTTONS))) {
+//								if (joyGetButtonsPressedOnSample(i, contpad1, c1allowedbuttons & (U_JPAD | U_CBUTTONS))) {
 //									if (movedata.crouchdown) {
 //										movedata.crouchdown--;
 //									} else {
@@ -11396,7 +11396,7 @@ glabel var7f1ad8e4
 //									g_Vars.currentplayer->aimtaptime = -1;
 //								}
 //
-//								if (contGetButtonsPressedOnSample(i, contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS))) {
+//								if (joyGetButtonsPressedOnSample(i, contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS))) {
 //									if (movedata.crouchup) {
 //										movedata.crouchup--;
 //									} else {
@@ -11437,7 +11437,7 @@ glabel var7f1ad8e4
 //							&& g_Vars.coopplayernum <= -1) {
 //						movedata.eyesshut = g_Vars.currentplayer->insightaimmode
 //							&& sp1a8 == 0
-//							&& contGetButtons(contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS));
+//							&& joyGetButtons(contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS));
 //					}
 //
 //					if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHTXR20) {
@@ -12022,7 +12022,7 @@ void bmoveTick(bool arg0, bool arg1, bool arg2, bool arg3)
 				sound = chrChooseFootstepSound(chr, distance > 10);
 
 				if (sound != -1) {
-					func00010718(0, 0, 0x7fff, 0x40, sound, 1, 1, -1, 1);
+					snd00010718(0, 0, 0x7fff, 0x40, sound, 1, 1, -1, 1);
 				}
 			}
 		}

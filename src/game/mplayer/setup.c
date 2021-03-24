@@ -16,7 +16,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_09a80.h"
 #include "lib/rng.h"
 #include "data.h"
@@ -8217,6 +8217,6 @@ void func0f17fcb0(s32 silent)
 
 	if (!silent) {
 		// Explosion sound
-		audioStart(var80095200, SFX_EXPLOSION_809A, NULL, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_EXPLOSION_809A, NULL, -1, -1, -1, -1, -1);
 	}
 }

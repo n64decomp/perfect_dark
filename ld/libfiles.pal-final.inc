@@ -1,5 +1,5 @@
 #define LIBFILES(section) \
-	build/ROMID/lib/entry.o (section); \
+	build/ROMID/lib/boot.o (section); \
 	build/ROMID/lib/segments.o (section); \
 	build/ROMID/lib/init.o (section); \
 	build/ROMID/lib/sched.o (section); \
@@ -33,7 +33,7 @@
 	build/ROMID/lib/lib_0c000.o (section); \
 	build/ROMID/lib/dma.o (section); \
 	build/ROMID/lib/main.o (section); \
-	build/ROMID/lib/lib_0e9d0.o (section); \
+	build/ROMID/lib/snd.o (section); \
 	build/ROMID/lib/lib_11420.o (section); \
 	build/ROMID/lib/memory.o (section); \
 	build/ROMID/lib/lib_126b0.o (section); \
@@ -45,7 +45,7 @@
 	build/ROMID/lib/lib_13750.o (section); \
 	build/ROMID/lib/lib_13790.o (section); \
 	build/ROMID/lib/lib_13820.o (section); \
-	build/ROMID/lib/controller.o (section); \
+	build/ROMID/lib/joy.o (section); \
 	build/ROMID/lib/lib_15850.o (section); \
 	build/ROMID/lib/gvars.o (section); \
 	build/ROMID/lib/lib_159b0.o (section); \

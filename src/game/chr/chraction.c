@@ -24,11 +24,11 @@
 #include "game/game_127910.h"
 #include "game/explosions/explosions.h"
 #include "game/sparks/sparks.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
 #include "game/game_1657c0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/game_190260.h"
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
@@ -42,7 +42,7 @@
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/model.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
@@ -4829,14 +4829,14 @@ glabel var7f1a8d44
 /*  f031c60:	10000010 */ 	b	.L0f031ca4
 /*  f031c64:	afa000d4 */ 	sw	$zero,0xd4($sp)
 .L0f031c68:
-/*  f031c68:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f031c68:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f031c6c:	00000000 */ 	nop
 /*  f031c70:	14400003 */ 	bnez	$v0,.L0f031c80
 /*  f031c74:	24190002 */ 	addiu	$t9,$zero,0x2
 /*  f031c78:	1000000a */ 	b	.L0f031ca4
 /*  f031c7c:	afb900d4 */ 	sw	$t9,0xd4($sp)
 .L0f031c80:
-/*  f031c80:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f031c80:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f031c84:	00000000 */ 	nop
 /*  f031c88:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f031c8c:	14410004 */ 	bne	$v0,$at,.L0f031ca0
@@ -6041,14 +6041,14 @@ glabel var7f1a8d44
 /*  f031c60:	10000010 */ 	b	.L0f031ca4
 /*  f031c64:	afa000d4 */ 	sw	$zero,0xd4($sp)
 .L0f031c68:
-/*  f031c68:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f031c68:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f031c6c:	00000000 */ 	nop
 /*  f031c70:	14400003 */ 	bnez	$v0,.L0f031c80
 /*  f031c74:	24190002 */ 	addiu	$t9,$zero,0x2
 /*  f031c78:	1000000a */ 	b	.L0f031ca4
 /*  f031c7c:	afb900d4 */ 	sw	$t9,0xd4($sp)
 .L0f031c80:
-/*  f031c80:	0fc5b367 */ 	jal	coreGetDifficulty
+/*  f031c80:	0fc5b367 */ 	jal	lvGetDifficulty
 /*  f031c84:	00000000 */ 	nop
 /*  f031c88:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f031c8c:	14410004 */ 	bne	$v0,$at,.L0f031ca0
@@ -7251,14 +7251,14 @@ glabel var7f1a8d44
 /*  f03159c:	10000010 */ 	beqz	$zero,.NB0f0315e0
 /*  f0315a0:	afa000d4 */ 	sw	$zero,0xd4($sp)
 .NB0f0315a4:
-/*  f0315a4:	0fc59ed3 */ 	jal	coreGetDifficulty
+/*  f0315a4:	0fc59ed3 */ 	jal	lvGetDifficulty
 /*  f0315a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0315ac:	14400003 */ 	bnez	$v0,.NB0f0315bc
 /*  f0315b0:	24190002 */ 	addiu	$t9,$zero,0x2
 /*  f0315b4:	1000000a */ 	beqz	$zero,.NB0f0315e0
 /*  f0315b8:	afb900d4 */ 	sw	$t9,0xd4($sp)
 .NB0f0315bc:
-/*  f0315bc:	0fc59ed3 */ 	jal	coreGetDifficulty
+/*  f0315bc:	0fc59ed3 */ 	jal	lvGetDifficulty
 /*  f0315c0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0315c4:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0315c8:	14410004 */ 	bne	$v0,$at,.NB0f0315dc
@@ -10442,7 +10442,7 @@ glabel func0f0338e0
 /*  f033f00:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f033f04:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f033f08:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f033f0c:	0c004241 */ 	jal	audioStart
+/*  f033f0c:	0c004241 */ 	jal	sndStart
 /*  f033f10:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f033f14:	1000001f */ 	b	.L0f033f94
 /*  f033f18:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -10904,7 +10904,7 @@ glabel func0f0338e0
 /*  f033f00:	afa80018 */ 	sw	$t0,0x18($sp)
 /*  f033f04:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f033f08:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f033f0c:	0c004241 */ 	jal	audioStart
+/*  f033f0c:	0c004241 */ 	jal	sndStart
 /*  f033f10:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f033f14:	1000001f */ 	b	.L0f033f94
 /*  f033f18:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -11682,7 +11682,7 @@ glabel var7f1a8d98
 /*  f034e88:	3c04800a */ 	lui	$a0,0x800a
 /*  f034e8c:	8084a79f */ 	lb	$a0,-0x5861($a0)
 /*  f034e90:	27a500e0 */ 	addiu	$a1,$sp,0xe0
-/*  f034e94:	0c005416 */ 	jal	func000152d0
+/*  f034e94:	0c005416 */ 	jal	joy000152d0
 /*  f034e98:	27a600dc */ 	addiu	$a2,$sp,0xdc
 /*  f034e9c:	8fa400e0 */ 	lw	$a0,0xe0($sp)
 /*  f034ea0:	3c053e80 */ 	lui	$a1,0x3e80
@@ -12574,7 +12574,7 @@ glabel var7f1a8d98
 /*  f035b64:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f035b68:	a21802ff */ 	sb	$t8,0x2ff($s0)
 .PF0f035b6c:
-/*  f035b6c:	0fc5b6f7 */ 	jal	coreIsPaused
+/*  f035b6c:	0fc5b6f7 */ 	jal	lvIsPaused
 /*  f035b70:	00000000 */ 	nop
 /*  f035b74:	14400005 */ 	bnez	$v0,.PF0f035b8c
 /*  f035b78:	8fad00f4 */ 	lw	$t5,0xf4($sp)
@@ -13819,7 +13819,7 @@ glabel var7f1a8d98
 /*  f034d20:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x28f)
 /*  f034d24:	8084a24f */ 	lb	$a0,%lo(g_Vars+0x28f)($a0)
 /*  f034d28:	27a500e0 */ 	addiu	$a1,$sp,0xe0
-/*  f034d2c:	0c0054b4 */ 	jal	func000152d0
+/*  f034d2c:	0c0054b4 */ 	jal	joy000152d0
 /*  f034d30:	27a600dc */ 	addiu	$a2,$sp,0xdc
 /*  f034d34:	8fa400e0 */ 	lw	$a0,0xe0($sp)
 /*  f034d38:	3c053e80 */ 	lui	$a1,0x3e80
@@ -14711,7 +14711,7 @@ glabel var7f1a8d98
 /*  f0359fc:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f035a00:	a21802ff */ 	sb	$t8,0x2ff($s0)
 .L0f035a04:
-/*  f035a04:	0fc5b364 */ 	jal	coreIsPaused
+/*  f035a04:	0fc5b364 */ 	jal	lvIsPaused
 /*  f035a08:	00000000 */ 	nop
 /*  f035a0c:	14400005 */ 	bnez	$v0,.L0f035a24
 /*  f035a10:	8fad00f4 */ 	lw	$t5,0xf4($sp)
@@ -16878,7 +16878,7 @@ glabel var7f1a8d98
 /*  f03536c:	254b0001 */ 	addiu	$t3,$t2,0x1
 /*  f035370:	a20b02ff */ 	sb	$t3,0x2ff($s0)
 .NB0f035374:
-/*  f035374:	0fc59ed0 */ 	jal	coreIsPaused
+/*  f035374:	0fc59ed0 */ 	jal	lvIsPaused
 /*  f035378:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03537c:	14400005 */ 	bnez	$v0,.NB0f035394
 /*  f035380:	8faf00fc */ 	lw	$t7,0xfc($sp)
@@ -32674,7 +32674,7 @@ void robotAttack(struct chrdata *chr)
 		chr->unk348->unk08 = -1;
 		chr->unk348->unk0c = 0.85f;
 
-		if ((coreGetDifficulty() == DIFF_PA) * 0.2f) {
+		if ((lvGetDifficulty() == DIFF_PA) * 0.2f) {
 			chr->unk348->unk10 = 2.0f;
 		} else {
 			chr->unk348->unk10 = 1.0f;

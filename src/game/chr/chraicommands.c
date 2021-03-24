@@ -26,11 +26,11 @@
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
 #include "game/weather/weather.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
 #include "game/game_1657c0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/music.h"
 #include "game/training/training.h"
 #include "game/gamefile.h"
@@ -42,7 +42,7 @@
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/model.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_11420.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
@@ -2593,7 +2593,7 @@ bool aiIfObjectiveComplete(void)
 
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_COMPLETE &&
-			objectiveGetDifficultyBits(cmd[2]) & (1 << coreGetDifficulty())) {
+			objectiveGetDifficultyBits(cmd[2]) & (1 << lvGetDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2611,7 +2611,7 @@ bool aiIfObjectiveFailed(void)
 
 	if (cmd[2] < objectiveGetCount() &&
 			objectiveCheck(cmd[2]) == OBJECTIVE_FAILED &&
-			objectiveGetDifficultyBits(cmd[2]) & (1 << coreGetDifficulty())) {
+			objectiveGetDifficultyBits(cmd[2]) & (1 << lvGetDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2853,7 +2853,7 @@ bool aiIfDifficultyLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (coreGetDifficulty() < cmd[2]) {
+	if (lvGetDifficulty() < cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2869,7 +2869,7 @@ bool aiIfDifficultyGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (coreGetDifficulty() > cmd[2]) {
+	if (lvGetDifficulty() > cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2885,7 +2885,7 @@ bool aiIfStageTimerLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 time = coreGetStageTimeInSeconds();
+	f32 time = lvGetStageTimeInSeconds();
 
 	if (time < target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -2903,7 +2903,7 @@ bool aiIfStageTimerGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 time = coreGetStageTimeInSeconds();
+	f32 time = lvGetStageTimeInSeconds();
 
 	if (time > target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -4280,7 +4280,7 @@ bool aiTryEquipWeapon(void)
 				prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
 				break;
 			case WEAPON_K7AVENGER:
-				if (g_Vars.stagenum == STAGE_INVESTIGATION && coreGetDifficulty() == DIFF_PA) {
+				if (g_Vars.stagenum == STAGE_INVESTIGATION && lvGetDifficulty() == DIFF_PA) {
 					prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
 				} else {
 					prop = chrGiveWeapon(g_Vars.chrdata, MODEL_CHRDYROCKET, WEAPON_ROCKETLAUNCHER, flags);
@@ -4419,7 +4419,7 @@ glabel var7f1a3ff0nb
 /*  f054d58:	24010033 */ 	addiu	$at,$zero,0x33
 /*  f054d5c:	14410011 */ 	bne	$v0,$at,.NB0f054da4
 /*  f054d60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054d64:	0fc59ed3 */ 	jal	coreGetDifficulty
+/*  f054d64:	0fc59ed3 */ 	jal	lvGetDifficulty
 /*  f054d68:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f054d6c:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f054d70:	8fa30018 */ 	lw	$v1,0x18($sp)
@@ -4470,7 +4470,7 @@ glabel var7f1a3ff0nb
 /*  f054e1c:	24010033 */ 	addiu	$at,$zero,0x33
 /*  f054e20:	1721000e */ 	bne	$t9,$at,.NB0f054e5c
 /*  f054e24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f054e28:	0fc59ed3 */ 	jal	coreGetDifficulty
+/*  f054e28:	0fc59ed3 */ 	jal	lvGetDifficulty
 /*  f054e2c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f054e30:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f054e34:	14410009 */ 	bne	$v0,$at,.NB0f054e5c
@@ -4833,7 +4833,7 @@ glabel aiSpeak
 /*  f0561a0:	87a4003e */ 	lh	$a0,0x3e($sp)
 /*  f0561a4:	11e00009 */ 	beqz	$t7,.L0f0561cc
 /*  f0561a8:	00000000 */ 	nop
-/*  f0561ac:	0c004103 */ 	jal	audioIsFiltered
+/*  f0561ac:	0c004103 */ 	jal	sndIsFiltered
 /*  f0561b0:	afa70030 */ 	sw	$a3,0x30($sp)
 /*  f0561b4:	14400005 */ 	bnez	$v0,.L0f0561cc
 /*  f0561b8:	8fa70030 */ 	lw	$a3,0x30($sp)
@@ -4883,7 +4883,7 @@ glabel aiSpeak
 //		channelnum = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 9, 512);
 //	}
 //
-//	if (text && !audioIsFiltered(audio_id)) {
+//	if (text && !sndIsFiltered(audio_id)) {
 //		func0f0de160(text, 6, cmd[8], channelnum);
 //	}
 //
@@ -7993,7 +7993,7 @@ glabel var7f1a9d64
 /*  f05aa8c:	0fc5bdaa */ 	jal	langGet
 /*  f05aa90:	84849362 */ 	lh	$a0,-0x6c9e($a0)
 /*  f05aa94:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f05aa98:	0c004062 */ 	jal	audioIsFiltered
+/*  f05aa98:	0c004062 */ 	jal	sndIsFiltered
 /*  f05aa9c:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05aaa0:	144000c4 */ 	bnez	$v0,.PF0f05adb4
 /*  f05aaa4:	8fa40080 */ 	lw	$a0,0x80($sp)
@@ -8016,7 +8016,7 @@ glabel var7f1a9d64
 /*  f05aae4:	0fc5bdaa */ 	jal	langGet
 /*  f05aae8:	84849362 */ 	lh	$a0,-0x6c9e($a0)
 /*  f05aaec:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f05aaf0:	0c004062 */ 	jal	audioIsFiltered
+/*  f05aaf0:	0c004062 */ 	jal	sndIsFiltered
 /*  f05aaf4:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05aaf8:	144000ae */ 	bnez	$v0,.PF0f05adb4
 /*  f05aafc:	8fa40080 */ 	lw	$a0,0x80($sp)
@@ -8184,7 +8184,7 @@ glabel var7f1a9d64
 /*  f05ad58:	0fc5bdaa */ 	jal	langGet
 /*  f05ad5c:	84849360 */ 	lh	$a0,-0x6ca0($a0)
 /*  f05ad60:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f05ad64:	0c004062 */ 	jal	audioIsFiltered
+/*  f05ad64:	0c004062 */ 	jal	sndIsFiltered
 /*  f05ad68:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05ad6c:	14400011 */ 	bnez	$v0,.PF0f05adb4
 /*  f05ad70:	8fa40080 */ 	lw	$a0,0x80($sp)
@@ -8654,7 +8654,7 @@ glabel var7f1a9d64
 /*  f05a888:	0fc5b9f1 */ 	jal	langGet
 /*  f05a88c:	84849682 */ 	lh	$a0,%lo(g_SpecialQuipBank+0x16a)($a0)
 /*  f05a890:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f05a894:	0c004103 */ 	jal	audioIsFiltered
+/*  f05a894:	0c004103 */ 	jal	sndIsFiltered
 /*  f05a898:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05a89c:	144000c4 */ 	bnez	$v0,.L0f05abb0
 /*  f05a8a0:	8fa40080 */ 	lw	$a0,0x80($sp)
@@ -8677,7 +8677,7 @@ glabel var7f1a9d64
 /*  f05a8e0:	0fc5b9f1 */ 	jal	langGet
 /*  f05a8e4:	84849682 */ 	lh	$a0,%lo(g_SpecialQuipBank+0x16a)($a0)
 /*  f05a8e8:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f05a8ec:	0c004103 */ 	jal	audioIsFiltered
+/*  f05a8ec:	0c004103 */ 	jal	sndIsFiltered
 /*  f05a8f0:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05a8f4:	144000ae */ 	bnez	$v0,.L0f05abb0
 /*  f05a8f8:	8fa40080 */ 	lw	$a0,0x80($sp)
@@ -8845,7 +8845,7 @@ glabel var7f1a9d64
 /*  f05ab54:	0fc5b9f1 */ 	jal	langGet
 /*  f05ab58:	84849680 */ 	lh	$a0,%lo(g_SpecialQuipBank+0x168)($a0)
 /*  f05ab5c:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f05ab60:	0c004103 */ 	jal	audioIsFiltered
+/*  f05ab60:	0c004103 */ 	jal	sndIsFiltered
 /*  f05ab64:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05ab68:	14400011 */ 	bnez	$v0,.L0f05abb0
 /*  f05ab6c:	8fa40080 */ 	lw	$a0,0x80($sp)
@@ -9708,14 +9708,14 @@ glabel var7f1a9d64
 //
 //					text = langGet(g_QuipTexts[cmd[8] - 1][1 + column]);
 //
-//					if (!audioIsFiltered(audioid)) {
+//					if (!sndIsFiltered(audioid)) {
 //						// 8ac
 //						hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
 //					}
 //				} else if (cmd[8]) {
 //					text = langGet(g_QuipTexts[cmd[8] - 1][1 + g_Vars.chrdata->tude]);
 //
-//					if (!audioIsFiltered(audioid)) {
+//					if (!sndIsFiltered(audioid)) {
 //						// 904
 //						hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
 //					}
@@ -9769,7 +9769,7 @@ glabel var7f1a9d64
 //					if (cmd[8]) {
 //						text = langGet(g_QuipTexts[cmd[8] - 1][i]);
 //
-//						if (!audioIsFiltered(audioid)) {
+//						if (!sndIsFiltered(audioid)) {
 //							// b78
 //							hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
 //						}
@@ -12012,7 +12012,7 @@ bool aiChrBeginOrEndTeleport(void)
 		osSetThreadPri(0, audiopri + 1);
 #endif
 
-		handle = audioStart(var80095200, SFX_RELOAD_FARSIGHT, NULL, -1, -1, -1, -1, -1);
+		handle = sndStart(var80095200, SFX_RELOAD_FARSIGHT, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
 			func00033e50(handle, 16, *(u32 *)&fvalue);
@@ -12063,7 +12063,7 @@ bool aiIfChrTeleportFullWhite(void)
 		osSetThreadPri(0, audiopri + 1);
 #endif
 
-		handle = audioStart(var80095200, SFX_FIRE_SHOTGUN, NULL, -1, -1, -1, -1, -1);
+		handle = sndStart(var80095200, SFX_FIRE_SHOTGUN, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
 			func00033e50(handle, 16, *(u32 *)&fvalue);
@@ -12189,7 +12189,7 @@ bool aiFadeScreen(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 color = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	s16 num_frames = (cmd[7] | (cmd[6] << 8));
-	coreConfigureFade(color, num_frames);
+	lvConfigureFade(color, num_frames);
 	g_Vars.aioffset += 8;
 
 	return false;
@@ -12202,7 +12202,7 @@ bool aiIfFadeComplete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (coreIsFadeActive() == false) {
+	if (lvIsFadeActive() == false) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -12484,7 +12484,7 @@ bool aiConfigureEnvironment(void)
 		}
 		break;
 	case AIENVCMD_PLAYNOSEDIVE:
-		envPlayNosedive(value);
+		sndPlayNosedive(value);
 		break;
 	case AIENVCMD_0B:
 		func0001190c();
@@ -12493,13 +12493,13 @@ bool aiConfigureEnvironment(void)
 		roomSetLightsFaulty(room_id, value);
 		break;
 	case AIENVCMD_STOPNOSEDIVE:
-		envStopNosedive();
+		sndStopNosedive();
 		break;
 	case AIENVCMD_PLAYUFOHUM:
-		envPlayUfoHum(value);
+		sndPlayUfoHum(value);
 		break;
 	case AIENVCMD_STOPUFOHUM:
-		envStopUfoHum();
+		sndStopUfoHum();
 		break;
 	}
 

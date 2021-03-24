@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/entry.h"
+#include "lib/boot.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_074f0.h"

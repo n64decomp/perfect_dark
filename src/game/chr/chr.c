@@ -23,7 +23,7 @@
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_165670.h"
 #include "game/file.h"
 #include "game/mplayer/setup.h"

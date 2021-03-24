@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/entry.h"
+#include "lib/boot.h"
 #include "constants.h"
 #include "game/game_0e0770.h"
 #include "bss.h"
@@ -8,7 +8,7 @@
 #include "lib/lib_09660.h"
 #include "lib/lib_0c000.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_13710.h"
 #include "lib/lib_13750.h"
 #include "lib/lib_2fa00.h"

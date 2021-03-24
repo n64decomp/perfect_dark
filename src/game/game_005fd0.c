@@ -3,7 +3,7 @@
 #include "game/debug.h"
 #include "game/game_006900.h"
 #include "game/game_092610.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "bss.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"

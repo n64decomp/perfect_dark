@@ -12,12 +12,12 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
 #include "game/game_0d4690.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/file.h"
 #include "game/gfxmemory.h"
 #include "bss.h"
 #include "lib/lib_09a80.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
@@ -3749,7 +3749,7 @@ void nbombsTick(void)
 	if (youngest240 < PALDOWN(350)) {
 		if (g_Vars.lvupdate240 != 0) {
 			if (g_NbombAudioHandle == 0) {
-				audioStart(var80095200, SFX_SHIP_HUM, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
+				sndStart(var80095200, SFX_SHIP_HUM, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
 			}
 
 			somevalue = 32767;
@@ -3856,7 +3856,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	// Newer versions only play audio if the handles are null,
 	// while ntsc-beta clears the handles then plays them unconditionally.
 	if (g_Nbombs[index].audiohandle20 == NULL) {
-		audioStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
 
 		if (g_Nbombs[index].audiohandle20) {
 			union audioparam param;
@@ -3866,7 +3866,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	}
 
 	if (g_Nbombs[index].audiohandle24 == NULL) {
-		audioStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
 
 		if (g_Nbombs[index].audiohandle24) {
 			union audioparam param;
@@ -3878,7 +3878,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	g_Nbombs[index].audiohandle20 = NULL;
 	g_Nbombs[index].audiohandle24 = NULL;
 
-	audioStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
+	sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
 
 	if (g_Nbombs[index].audiohandle20) {
 		union audioparam param;
@@ -3886,7 +3886,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 		func00033e50(g_Nbombs[index].audiohandle20, 16, param.s32);
 	}
 
-	audioStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
+	sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
 
 	if (g_Nbombs[index].audiohandle24) {
 		union audioparam param;

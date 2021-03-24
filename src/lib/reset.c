@@ -99,7 +99,7 @@ glabel resetproc
 /*     2f08:	1420ffed */ 	bnez	$at,.PF00002ec0
 /*     2f0c:	00000000 */ 	nop
 .PF00002f10:
-/*     2f10:	0c0053c9 */ 	jal	func0001519c
+/*     2f10:	0c0053c9 */ 	jal	joy0001519c
 /*     2f14:	00000000 */ 	nop
 .PF00002f18:
 /*     2f18:	1000ffff */ 	b	.PF00002f18
@@ -198,7 +198,7 @@ glabel resetproc
 /*     2f30:	00000000 */ 	nop
 .L00002f34:
 /*     2f34:	3c048006 */ 	lui	$a0,%hi(osViModeTable+0xa0)
-/*     2f38:	0c005467 */ 	jal	func0001519c
+/*     2f38:	0c005467 */ 	jal	joy0001519c
 /*     2f3c:	2484f7b0 */ 	addiu	$a0,$a0,%lo(osViModeTable+0xa0)
 .L00002f40:
 /*     2f40:	1000ffff */ 	b	.L00002f40

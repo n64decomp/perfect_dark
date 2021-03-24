@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/casing.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_317f0.h"
@@ -116,7 +116,7 @@ glabel casingTick
 /*  f01db68:	02003025 */ 	or	$a2,$s0,$zero
 /*  f01db6c:	24058051 */ 	addiu	$a1,$zero,-32687
 /*  f01db70:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f01db74:	0c004241 */ 	jal	audioStart
+/*  f01db74:	0c004241 */ 	jal	sndStart
 /*  f01db78:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f01db7c:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f01db80:	24050010 */ 	addiu	$a1,$zero,0x10
@@ -358,7 +358,7 @@ glabel casingTick
 /*  f01db68:	02003025 */ 	or	$a2,$s0,$zero
 /*  f01db6c:	24058051 */ 	addiu	$a1,$zero,-32687
 /*  f01db70:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f01db74:	0c004241 */ 	jal	audioStart
+/*  f01db74:	0c004241 */ 	jal	sndStart
 /*  f01db78:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f01db7c:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f01db80:	24050010 */ 	addiu	$a1,$zero,0x10

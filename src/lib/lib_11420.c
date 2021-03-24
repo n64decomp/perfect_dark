@@ -3,7 +3,7 @@
 #include "game/music.h"
 #include "game/game_176080.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_11420.h"
 #include "lib/lib_38d10.h"
 #include "lib/lib_39c80.h"
@@ -142,13 +142,13 @@ glabel var70053fd8
 /*    11540:	8e2400f8 */ 	lw	$a0,0xf8($s1)
 /*    11544:	14400014 */ 	bnez	$v0,.L00011598
 /*    11548:	02202025 */ 	or	$a0,$s1,$zero
-/*    1154c:	0c003f12 */ 	jal	func0000fc48
+/*    1154c:	0c003f12 */ 	jal	snd0000fc48
 /*    11550:	8ea50004 */ 	lw	$a1,0x4($s5)
 /*    11554:	10400014 */ 	beqz	$v0,.L000115a8
 /*    11558:	02202025 */ 	or	$a0,$s1,$zero
 /*    1155c:	96a50010 */ 	lhu	$a1,0x10($s5)
 /*    11560:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*    11564:	0c003f67 */ 	jal	func0000fd9c
+/*    11564:	0c003f67 */ 	jal	snd0000fd9c
 /*    11568:	afac0044 */ 	sw	$t4,0x44($sp)
 /*    1156c:	3c0e800b */ 	lui	$t6,%hi(var800aaa38)
 /*    11570:	25ceaa38 */ 	addiu	$t6,$t6,%lo(var800aaa38)

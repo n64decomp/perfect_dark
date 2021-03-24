@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/prop.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/pad.h"
 #include "game/padhalllv.h"
 #include "bss.h"

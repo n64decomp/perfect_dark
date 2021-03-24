@@ -9,13 +9,13 @@
 #include "game/game_0e0770.h"
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/lib_09a80.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/lib_16110.h"
 #include "data.h"
@@ -4991,7 +4991,7 @@ glabel var7f1af1e0
 .PF0f0dfdb8:
 /*  f0dfdb8:	57200038 */ 	bnezl	$t9,.PF0f0dfe9c
 /*  f0dfdbc:	9602001c */ 	lhu	$v0,0x1c($s0)
-/*  f0dfdc0:	0fc5b6f7 */ 	jal	coreIsPaused
+/*  f0dfdc0:	0fc5b6f7 */ 	jal	lvIsPaused
 /*  f0dfdc4:	00000000 */ 	nop
 /*  f0dfdc8:	54400034 */ 	bnezl	$v0,.PF0f0dfe9c
 /*  f0dfdcc:	9602001c */ 	lhu	$v0,0x1c($s0)
@@ -5047,7 +5047,7 @@ glabel var7f1af1e0
 /*  f0dfe84:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0dfe88:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*  f0dfe8c:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f0dfe90:	0c0041a0 */ 	jal	audioStart
+/*  f0dfe90:	0c0041a0 */ 	jal	sndStart
 /*  f0dfe94:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .PF0f0dfe98:
 /*  f0dfe98:	9602001c */ 	lhu	$v0,0x1c($s0)
@@ -5474,7 +5474,7 @@ glabel var7f1aded8
 .L0f0df75c:
 /*  f0df75c:	55600038 */ 	bnezl	$t3,.L0f0df840
 /*  f0df760:	9602001c */ 	lhu	$v0,0x1c($s0)
-/*  f0df764:	0fc5b364 */ 	jal	coreIsPaused
+/*  f0df764:	0fc5b364 */ 	jal	lvIsPaused
 /*  f0df768:	00000000 */ 	nop
 /*  f0df76c:	54400034 */ 	bnezl	$v0,.L0f0df840
 /*  f0df770:	9602001c */ 	lhu	$v0,0x1c($s0)
@@ -5530,7 +5530,7 @@ glabel var7f1aded8
 /*  f0df828:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f0df82c:	afac0018 */ 	sw	$t4,0x18($sp)
 /*  f0df830:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f0df834:	0c004241 */ 	jal	audioStart
+/*  f0df834:	0c004241 */ 	jal	sndStart
 /*  f0df838:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f0df83c:
 /*  f0df83c:	9602001c */ 	lhu	$v0,0x1c($s0)
@@ -5903,7 +5903,7 @@ glabel var7f1aded8
 .NB0f0dcb50:
 /*  f0dcb50:	55800033 */ 	bnezl	$t4,.NB0f0dcc20
 /*  f0dcb54:	9602001c */ 	lhu	$v0,0x1c($s0)
-/*  f0dcb58:	0fc59ed0 */ 	jal	coreIsPaused
+/*  f0dcb58:	0fc59ed0 */ 	jal	lvIsPaused
 /*  f0dcb5c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dcb60:	5440002f */ 	bnezl	$v0,.NB0f0dcc20
 /*  f0dcb64:	9602001c */ 	lhu	$v0,0x1c($s0)
@@ -5954,7 +5954,7 @@ glabel var7f1aded8
 /*  f0dcc08:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0dcc0c:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f0dcc10:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0dcc14:	0c004338 */ 	jal	audioStart
+/*  f0dcc14:	0c004338 */ 	jal	sndStart
 /*  f0dcc18:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .NB0f0dcc1c:
 /*  f0dcc1c:	9602001c */ 	lhu	$v0,0x1c($s0)

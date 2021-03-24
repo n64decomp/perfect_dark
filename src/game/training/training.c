@@ -15,7 +15,7 @@
 #include "game/inventory/inventory.h"
 #include "game/explosions/explosions.h"
 #include "game/game_1531a0.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/training/menus.h"
 #include "game/training/training.h"
 #include "game/gamefile.h"
@@ -28,7 +28,7 @@
 #include "lib/lib_09a80.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
@@ -405,7 +405,7 @@ void frInitLighting(void)
 
 		g_FrData.donelighting = true;
 
-		audioStart(var80095200, SFX_FR_LIGHTSON, NULL, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_FR_LIGHTSON, NULL, -1, -1, -1, -1, -1);
 	}
 
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
@@ -424,7 +424,7 @@ void frRestoreLighting(void)
 
 		g_FrData.donelighting = false;
 
-		audioStart(var80095200, SFX_FR_LIGHTSOFF, NULL, -1, -1, -1, -1, -1);
+		sndStart(var80095200, SFX_FR_LIGHTSOFF, NULL, -1, -1, -1, -1, -1);
 	}
 }
 
@@ -3171,7 +3171,7 @@ glabel var7f1b94e4
 /*  f1a0c6c:	240505db */ 	li	$a1,0x5db
 /*  f1a0c70:	00003025 */ 	move	$a2,$zero
 /*  f1a0c74:	2407ffff */ 	li	$a3,-1
-/*  f1a0c78:	0c0041a0 */ 	jal	audioStart
+/*  f1a0c78:	0c0041a0 */ 	jal	sndStart
 /*  f1a0c7c:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f1a0c80:	3c048009 */ 	lui	$a0,0x8009
 /*  f1a0c84:	248496e8 */ 	addiu	$a0,$a0,-26904
@@ -3192,7 +3192,7 @@ glabel var7f1b94e4
 /*  f1a0cbc:	240505dc */ 	li	$a1,0x5dc
 /*  f1a0cc0:	00003025 */ 	move	$a2,$zero
 /*  f1a0cc4:	2407ffff */ 	li	$a3,-1
-/*  f1a0cc8:	0c0041a0 */ 	jal	audioStart
+/*  f1a0cc8:	0c0041a0 */ 	jal	sndStart
 /*  f1a0ccc:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f1a0cd0:	3c048009 */ 	lui	$a0,0x8009
 /*  f1a0cd4:	248495cc */ 	addiu	$a0,$a0,-27188
@@ -3413,7 +3413,7 @@ glabel var7f1b94e4
 /*  f1a0fe0:	240505d4 */ 	li	$a1,0x5d4
 /*  f1a0fe4:	00003025 */ 	move	$a2,$zero
 /*  f1a0fe8:	2407ffff */ 	li	$a3,-1
-/*  f1a0fec:	0c0041a0 */ 	jal	audioStart
+/*  f1a0fec:	0c0041a0 */ 	jal	sndStart
 /*  f1a0ff0:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f1a0ff4:	8ea30464 */ 	lw	$v1,0x464($s5)
 .PF0f1a0ff8:
@@ -4271,7 +4271,7 @@ glabel var7f1b94e4
 /*  f19fb58:	240505db */ 	addiu	$a1,$zero,0x5db
 /*  f19fb5c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19fb60:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f19fb64:	0c004241 */ 	jal	audioStart
+/*  f19fb64:	0c004241 */ 	jal	sndStart
 /*  f19fb68:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f19fb6c:	3c048009 */ 	lui	$a0,%hi(g_FrFailedMenuDialog)
 /*  f19fb70:	24849198 */ 	addiu	$a0,$a0,%lo(g_FrFailedMenuDialog)
@@ -4292,7 +4292,7 @@ glabel var7f1b94e4
 /*  f19fba8:	240505dc */ 	addiu	$a1,$zero,0x5dc
 /*  f19fbac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19fbb0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f19fbb4:	0c004241 */ 	jal	audioStart
+/*  f19fbb4:	0c004241 */ 	jal	sndStart
 /*  f19fbb8:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f19fbbc:	3c048009 */ 	lui	$a0,%hi(g_FrCompletedMenuDialog)
 /*  f19fbc0:	2484907c */ 	addiu	$a0,$a0,%lo(g_FrCompletedMenuDialog)
@@ -4513,7 +4513,7 @@ glabel var7f1b94e4
 /*  f19fecc:	240505d4 */ 	addiu	$a1,$zero,0x5d4
 /*  f19fed0:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19fed4:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f19fed8:	0c004241 */ 	jal	audioStart
+/*  f19fed8:	0c004241 */ 	jal	sndStart
 /*  f19fedc:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f19fee0:	8ea30464 */ 	lw	$v1,0x464($s5)
 .L0f19fee4:
@@ -5430,7 +5430,7 @@ glabel var7f1b94e4
 /*  f199c08:	240505db */ 	addiu	$a1,$zero,0x5db
 /*  f199c0c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f199c10:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f199c14:	0c004338 */ 	jal	audioStart
+/*  f199c14:	0c004338 */ 	jal	sndStart
 /*  f199c18:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f199c1c:	3c048009 */ 	lui	$a0,0x8009
 /*  f199c20:	2484b908 */ 	addiu	$a0,$a0,-18168
@@ -5451,7 +5451,7 @@ glabel var7f1b94e4
 /*  f199c58:	240505dc */ 	addiu	$a1,$zero,0x5dc
 /*  f199c5c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f199c60:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f199c64:	0c004338 */ 	jal	audioStart
+/*  f199c64:	0c004338 */ 	jal	sndStart
 /*  f199c68:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f199c6c:	3c048009 */ 	lui	$a0,0x8009
 /*  f199c70:	2484b7ec */ 	addiu	$a0,$a0,-18452
@@ -5626,7 +5626,7 @@ glabel var7f1b94e4
 /*  f199ed4:	240505d4 */ 	addiu	$a1,$zero,0x5d4
 /*  f199ed8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f199edc:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f199ee0:	0c004338 */ 	jal	audioStart
+/*  f199ee0:	0c004338 */ 	jal	sndStart
 /*  f199ee4:	e7b80014 */ 	swc1	$f24,0x14($sp)
 /*  f199ee8:	8ea30464 */ 	lw	$v1,0x464($s5)
 .NB0f199eec:
@@ -6420,11 +6420,11 @@ glabel var7f1b94e4
 //				func0f0f85e0(&g_FrTrainingInfoPreGameMenuDialog, MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_FAILED:
-//				audioStart(var80095200, SFX_TRAINING_FAIL, NULL, -1, -1, -1, -1, -1);
+//				sndStart(var80095200, SFX_TRAINING_FAIL, NULL, -1, -1, -1, -1, -1);
 //				func0f0f85e0(&g_FrFailedMenuDialog, MENUROOT_TRAINING);
 //				break;
 //			case FRMENUTYPE_COMPLETED:
-//				audioStart(var80095200, SFX_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
+//				sndStart(var80095200, SFX_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
 //				func0f0f85e0(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
 //				func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
 //				break;
@@ -6537,7 +6537,7 @@ glabel var7f1b94e4
 //		if (g_FrData.numshots == 0) {
 //			if (g_FrData.donealarm == false && g_FrData.timetaken > -180) {
 //				g_FrData.donealarm = true;
-//				audioStart(var80095200, SFX_FR_ALARM, NULL, -1, -1, -1, -1, -1);
+//				sndStart(var80095200, SFX_FR_ALARM, NULL, -1, -1, -1, -1, -1);
 //			}
 //
 //			if (!g_FrData.donelighting && g_FrData.timetaken > -225) {

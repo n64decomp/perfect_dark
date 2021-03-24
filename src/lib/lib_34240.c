@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_2faf0.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_30ce0.h"
@@ -3575,7 +3575,7 @@ glabel func00035110
 .L0003672c:
 /*    3672c:	1000021f */ 	b	.L00036fac
 /*    36730:	00000000 */ 	nop
-/*    36734:	0c0040db */ 	jal	func0001036c
+/*    36734:	0c0040db */ 	jal	snd0001036c
 /*    36738:	93a400bf */ 	lbu	$a0,0xbf($sp)
 /*    3673c:	1000021b */ 	b	.L00036fac
 /*    36740:	00000000 */ 	nop
@@ -5802,7 +5802,7 @@ glabel func00035110
 .L0003672c:
 /*    3672c:	1000021f */ 	b	.L00036fac
 /*    36730:	00000000 */ 	nop
-/*    36734:	0c0040db */ 	jal	func0001036c
+/*    36734:	0c0040db */ 	jal	snd0001036c
 /*    36738:	93a400bf */ 	lbu	$a0,0xbf($sp)
 /*    3673c:	1000021b */ 	b	.L00036fac
 /*    36740:	00000000 */ 	nop

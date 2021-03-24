@@ -10,7 +10,7 @@
 #include "game/game_0b4950.h"
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_1668e0.h"
 #include "game/file.h"
 #include "game/gfxmemory.h"

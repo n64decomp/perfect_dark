@@ -10,7 +10,7 @@
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/training/training.h"
 #include "game/lang.h"
 #include "game/propobj.h"
@@ -345,7 +345,7 @@ bool objectiveIsAllComplete(void)
 	for (i = 0; i < objectiveGetCount(); i++) {
 		u32 diffbits = objectiveGetDifficultyBits(i);
 
-		if ((1 << coreGetDifficulty() & diffbits) &&
+		if ((1 << lvGetDifficulty() & diffbits) &&
 				objectiveCheck(i) != OBJECTIVE_COMPLETE) {
 			return false;
 		}
@@ -390,7 +390,7 @@ void objectivesCheckAll(void)
 			if (g_ObjectiveStatuses[i] != status) {
 				g_ObjectiveStatuses[i] = status;
 
-				if (objectiveGetDifficultyBits(i) & (1 << coreGetDifficulty())) {
+				if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
 					sprintf(buffer, "%s %d: ", langGet(L_MISC_044), availableindex + 1); // "Objective"
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -421,7 +421,7 @@ void objectivesCheckAll(void)
 				}
 			}
 
-			if (objectiveGetDifficultyBits(i) & (1 << coreGetDifficulty())) {
+			if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
 				availableindex++;
 			}
 		}

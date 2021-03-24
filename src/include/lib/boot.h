@@ -1,5 +1,5 @@
-#ifndef _IN_BOOT_ENTRY_H
-#define _IN_BOOT_ENTRY_H
+#ifndef _IN_LIB_BOOT_H
+#define _IN_LIB_BOOT_H
 #include <ultra64.h>
 
 void boot(void);

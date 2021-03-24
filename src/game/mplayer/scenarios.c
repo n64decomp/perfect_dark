@@ -26,7 +26,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/lib_09a80.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
@@ -935,7 +935,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			chr->aibot->unk0a0 += g_Vars.lvupdate240;
 
 			if (chr->aibot->unk0a0 >= PALDOWN(7200)) {
-				audioStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				var800ac500[mpPlayerGetIndex(chr)]->unk3e++;
 				chr->aibot->unk0a0 = 0;
 			}
@@ -947,7 +947,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= PALDOWN(7200)) {
-				audioStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
 				func0f0ddfa4(langGet(L_MPWEAPONS_024), 9, 1); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;
@@ -2935,7 +2935,7 @@ glabel var7f1b8950
 /*  f1830f4:	8c845750 */ 	lw	$a0,0x5750($a0)
 /*  f1830f8:	2407ffff */ 	li	$a3,-1
 /*  f1830fc:	00008825 */ 	move	$s1,$zero
-/*  f183100:	0c0041a0 */ 	jal	audioStart
+/*  f183100:	0c0041a0 */ 	jal	sndStart
 /*  f183104:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f183108:	a6700004 */ 	sh	$s0,0x4($s3)
 /*  f18310c:	a6600006 */ 	sh	$zero,0x6($s3)
@@ -3078,7 +3078,7 @@ glabel var7f1b8950
 /*  f1832fc:	00003025 */ 	move	$a2,$zero
 /*  f183300:	2407ffff */ 	li	$a3,-1
 /*  f183304:	00009025 */ 	move	$s2,$zero
-/*  f183308:	0c0041a0 */ 	jal	audioStart
+/*  f183308:	0c0041a0 */ 	jal	sndStart
 /*  f18330c:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f183310:	3c03800b */ 	lui	$v1,0x800b
 /*  f183314:	8c63cad0 */ 	lw	$v1,-0x3530($v1)
@@ -3627,7 +3627,7 @@ glabel var7f1b8950
 /*  f1820f0:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f1820f4:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f1820f8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1820fc:	0c004241 */ 	jal	audioStart
+/*  f1820fc:	0c004241 */ 	jal	sndStart
 /*  f182100:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f182104:	a6700004 */ 	sh	$s0,0x4($s3)
 /*  f182108:	a6600006 */ 	sh	$zero,0x6($s3)
@@ -3768,7 +3768,7 @@ glabel var7f1b8950
 /*  f1822f0:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1822f4:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f1822f8:	00009025 */ 	or	$s2,$zero,$zero
-/*  f1822fc:	0c004241 */ 	jal	audioStart
+/*  f1822fc:	0c004241 */ 	jal	sndStart
 /*  f182300:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f182304:	3c03800b */ 	lui	$v1,%hi(g_MpNumPlayers)
 /*  f182308:	8c63c530 */ 	lw	$v1,%lo(g_MpNumPlayers)($v1)
@@ -5438,7 +5438,7 @@ glabel var7f1b8960
 /*  f18358c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f183590:	24067fff */ 	addiu	$a2,$zero,0x7fff
 /*  f183594:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f183598:	0c0041c6 */ 	jal	func00010718
+/*  f183598:	0c0041c6 */ 	jal	snd00010718
 /*  f18359c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f1835a0:
 /*  f1835a0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5639,7 +5639,7 @@ glabel var7f1b8960
 /*  f18387c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f183880:	24067fff */ 	addiu	$a2,$zero,0x7fff
 /*  f183884:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f183888:	0c0041c6 */ 	jal	func00010718
+/*  f183888:	0c0041c6 */ 	jal	snd00010718
 /*  f18388c:	e7a80014 */ 	swc1	$f8,0x14($sp)
 .L0f183890:
 /*  f183890:	3c01800b */ 	lui	$at,%hi(g_ScenarioData)
@@ -5694,7 +5694,7 @@ glabel var7f1b8960
 /*  f183950:	00002825 */ 	or	$a1,$zero,$zero
 /*  f183954:	24067fff */ 	addiu	$a2,$zero,0x7fff
 /*  f183958:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f18395c:	0c0041c6 */ 	jal	func00010718
+/*  f18395c:	0c0041c6 */ 	jal	snd00010718
 /*  f183960:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f183964:	8fa2006c */ 	lw	$v0,0x6c($sp)
 .L0f183968:
@@ -5869,7 +5869,7 @@ glabel var7f1b8960
 /*  f18358c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f183590:	24067fff */ 	addiu	$a2,$zero,0x7fff
 /*  f183594:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f183598:	0c0041c6 */ 	jal	func00010718
+/*  f183598:	0c0041c6 */ 	jal	snd00010718
 /*  f18359c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 .L0f1835a0:
 /*  f1835a0:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -6070,7 +6070,7 @@ glabel var7f1b8960
 /*  f18387c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f183880:	24067fff */ 	addiu	$a2,$zero,0x7fff
 /*  f183884:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f183888:	0c0041c6 */ 	jal	func00010718
+/*  f183888:	0c0041c6 */ 	jal	snd00010718
 /*  f18388c:	e7a80014 */ 	swc1	$f8,0x14($sp)
 .L0f183890:
 /*  f183890:	3c01800b */ 	lui	$at,%hi(g_ScenarioData)
@@ -6125,7 +6125,7 @@ glabel var7f1b8960
 /*  f183950:	00002825 */ 	or	$a1,$zero,$zero
 /*  f183954:	24067fff */ 	addiu	$a2,$zero,0x7fff
 /*  f183958:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f18395c:	0c0041c6 */ 	jal	func00010718
+/*  f18395c:	0c0041c6 */ 	jal	snd00010718
 /*  f183960:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f183964:	8fa2006c */ 	lw	$v0,0x6c($sp)
 .L0f183968:
@@ -10508,7 +10508,7 @@ glabel chrGiveBriefcase
 /*  f187cf4:	240505b8 */ 	li	$a1,0x5b8
 /*  f187cf8:	00003025 */ 	move	$a2,$zero
 /*  f187cfc:	2407ffff */ 	li	$a3,-1
-/*  f187d00:	0c0041a0 */ 	jal	audioStart
+/*  f187d00:	0c0041a0 */ 	jal	sndStart
 /*  f187d04:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f187d08:	0fc24454 */ 	jal	func0f091250
 /*  f187d0c:	24040057 */ 	li	$a0,0x57
@@ -11193,7 +11193,7 @@ glabel chrGiveBriefcase
 /*  f186cf0:	240505b8 */ 	addiu	$a1,$zero,0x5b8
 /*  f186cf4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f186cf8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f186cfc:	0c004241 */ 	jal	audioStart
+/*  f186cfc:	0c004241 */ 	jal	sndStart
 /*  f186d00:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f186d04:	0fc24494 */ 	jal	func0f091250
 /*  f186d08:	24040057 */ 	addiu	$a0,$zero,0x57
@@ -11896,7 +11896,7 @@ glabel chrGiveBriefcase
 /*  f181140:	240505b8 */ 	addiu	$a1,$zero,0x5b8
 /*  f181144:	00003025 */ 	or	$a2,$zero,$zero
 /*  f181148:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f18114c:	0c004338 */ 	jal	audioStart
+/*  f18114c:	0c004338 */ 	jal	sndStart
 /*  f181150:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f181154:	0fc23e12 */ 	jal	func0f091250
 /*  f181158:	24040056 */ 	addiu	$a0,$zero,0x56

@@ -4,12 +4,12 @@
 #include "game/game_0b3350.h"
 #include "game/sparks/sparks.h"
 #include "game/weather/weather.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/file.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "bss.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
@@ -319,20 +319,20 @@ void weatherTickRain(struct weatherdata *weather)
 
 		iVar10 = weather->unk58[i].unk00 * 32767.0f * weather->unk88;
 
-		if (coreIsPaused()) {
+		if (lvIsPaused()) {
 			 iVar10 = 0;
 		}
 
 		if (iVar10 > 0) {
 			if (weather->audiohandles[i] == 0 && sounds[i] >= 0) {
 				weather->unkf8 = sounds[i];
-				audioStart(var80095200, weather->unkf8, &weather->audiohandles[i], -1,
+				sndStart(var80095200, weather->unkf8, &weather->audiohandles[i], -1,
 						-1, -1, -1, -1);
 			}
 
 			if (weather->audiohandles[i] != 0) {
 				if (audioIsPlaying(weather->audiohandles[i])) {
-					audioAdjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
+					sndAdjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
 							weather->unkf8, 1, 1, -1, 1);
 				}
 			}
@@ -1509,7 +1509,7 @@ glabel var7f1b5780
 /*  f1337e8:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f1337ec:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f1337f0:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
-/*  f1337f4:	0c004241 */ 	jal	audioStart
+/*  f1337f4:	0c004241 */ 	jal	sndStart
 /*  f1337f8:	e7aa0014 */ 	swc1	$f10,0x14($sp)
 /*  f1337fc:	8faf0dec */ 	lw	$t7,0xdec($sp)
 /*  f133800:	3c013f80 */ 	lui	$at,0x3f80
@@ -1544,7 +1544,7 @@ glabel var7f1b5780
 /*  f13386c:	afaf001c */ 	sw	$t7,0x1c($sp)
 /*  f133870:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f133874:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f133878:	0c004128 */ 	jal	audioAdjust
+/*  f133878:	0c004128 */ 	jal	sndAdjust
 /*  f13387c:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f133880:	8fb90dec */ 	lw	$t9,0xdec($sp)
 /*  f133884:	24050010 */ 	addiu	$a1,$zero,0x10

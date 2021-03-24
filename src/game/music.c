@@ -1,12 +1,12 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_0f09f0.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/music.h"
 #include "game/options.h"
 #include "game/game_176080.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/lib_11420.h"
 #include "data.h"
 #include "types.h"
@@ -104,7 +104,7 @@ void musicSetVolume(u16 volume)
 
 	for (i = 0; i < ARRAYCOUNT(var800aaa38); i++) {
 		if (var800aaa38[i].tracktype != 0 && var800aaa38[i].tracktype != TRACKTYPE_AMBIENT) {
-			func0000fd9c(&var80094ed8[i], volume);
+			snd0000fd9c(&var80094ed8[i], volume);
 		}
 	}
 
@@ -313,7 +313,7 @@ bool musicIsAnyPlayerInAmbientRoom(void)
 		return false;
 	}
 
-	if (coreIsPaused()) {
+	if (lvIsPaused()) {
 		return false;
 	}
 

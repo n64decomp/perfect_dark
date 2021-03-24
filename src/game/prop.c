@@ -19,7 +19,7 @@
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"
 #include "game/sparks/sparks.h"
-#include "game/room.h"
+#include "game/bg.h"
 #include "game/game_190260.h"
 #include "game/training/training.h"
 #include "game/pad.h"
@@ -28,7 +28,7 @@
 #include "game/wallhit.h"
 #include "game/mpstats.h"
 #include "bss.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
@@ -547,7 +547,7 @@ glabel var7f1a9e50
 /*  f060b14:	01002825 */ 	or	$a1,$t0,$zero
 /*  f060b18:	00003025 */ 	or	$a2,$zero,$zero
 /*  f060b1c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f060b20:	0c004241 */ 	jal	audioStart
+/*  f060b20:	0c004241 */ 	jal	sndStart
 /*  f060b24:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f060b28:	10400004 */ 	beqz	$v0,.L0f060b3c
 /*  f060b2c:	00402025 */ 	or	$a0,$v0,$zero
@@ -698,7 +698,7 @@ glabel var7f1a9e50
 /*  f05fda8:	01002825 */ 	or	$a1,$t0,$zero
 /*  f05fdac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f05fdb0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f05fdb4:	0c004338 */ 	jal	audioStart
+/*  f05fdb4:	0c004338 */ 	jal	sndStart
 /*  f05fdb8:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f05fdbc:	10400019 */ 	beqz	$v0,.NB0f05fe24
 /*  f05fdc0:	00402025 */ 	or	$a0,$v0,$zero
@@ -848,7 +848,7 @@ glabel var7f1a9e5c
 /*  f060d1c:	01002825 */ 	or	$a1,$t0,$zero
 /*  f060d20:	00003025 */ 	or	$a2,$zero,$zero
 /*  f060d24:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f060d28:	0c004241 */ 	jal	audioStart
+/*  f060d28:	0c004241 */ 	jal	sndStart
 /*  f060d2c:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f060d30:	10400004 */ 	beqz	$v0,.L0f060d44
 /*  f060d34:	00402025 */ 	or	$a0,$v0,$zero
@@ -1005,7 +1005,7 @@ glabel var7f1a9e5c
 /*  f05ffb0:	01202825 */ 	or	$a1,$t1,$zero
 /*  f05ffb4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f05ffb8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f05ffbc:	0c004338 */ 	jal	audioStart
+/*  f05ffbc:	0c004338 */ 	jal	sndStart
 /*  f05ffc0:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*  f05ffc4:	10400019 */ 	beqz	$v0,.NB0f06002c
 /*  f05ffc8:	00402025 */ 	or	$a0,$v0,$zero

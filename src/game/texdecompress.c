@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_0b3350.h"
-#include "game/texture.h"
+#include "game/texdecompress.h"
 #include "bss.h"
 #include "lib/lib_074f0.h"
 #include "lib/dma.h"

@@ -161,8 +161,8 @@
 	build/ROMID/game/game_152fa0.o (section); \
 	build/ROMID/game/game_1531a0.o (section); \
 	build/ROMID/game/game_1577f0.o (section); \
-	build/ROMID/game/room.o (section); \
-	build/ROMID/game/roombss.o (section); \
+	build/ROMID/game/bg.o (section); \
+	build/ROMID/game/bgbss.o (section); \
 	build/ROMID/game/game_165360.o (section); \
 	build/ROMID/game/game_1655c0.o (section); \
 	build/ROMID/game/game_165670.o (section); \
@@ -170,11 +170,11 @@
 	build/ROMID/game/game_1668e0.o (section); \
 	build/ROMID/game/file.o (section); \
 	build/ROMID/game/gfxmemory.o (section); \
-	build/ROMID/game/core.o (section); \
+	build/ROMID/game/lv.o (section); \
 	build/ROMID/game/timing.o (section); \
 	build/ROMID/game/music.o (section); \
 	build/ROMID/game/lang.o (section); \
-	build/ROMID/game/texture.o (section); \
+	build/ROMID/game/texdecompress.o (section); \
 	build/ROMID/game/game_173520.o (section); \
 	build/ROMID/game/game_173a00.o (section); \
 	build/ROMID/game/stubs/game_175f50.o (section); \

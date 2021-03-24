@@ -8,7 +8,7 @@
 #include "game/game_127910.h"
 #include "game/options.h"
 #include "bss.h"
-#include "lib/controller.h"
+#include "lib/joy.h"
 #include "data.h"
 #include "types.h"
 
@@ -38,17 +38,17 @@ void amTick(void)
 		if (g_Vars.currentplayer->activemenumode != AMMODE_CLOSED) {
 			s32 controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
 			s8 contpadnum = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-			s32 numsamples = contGetNumSamples();
+			s32 numsamples = joyGetNumSamples();
 			s32 j;
 
 			for (j = 0; j < numsamples; j++) {
 				s8 gotonextscreen = false;
-				s8 cstickx = contGetStickXOnSample(j, contpadnum);
-				s8 csticky = contGetStickYOnSample(j, contpadnum);
+				s8 cstickx = joyGetStickXOnSample(j, contpadnum);
+				s8 csticky = joyGetStickYOnSample(j, contpadnum);
 				s8 absstickx;
 				s8 abssticky;
-				u16 buttonsstate = contGetButtonsOnSample(j, contpadnum, 0xffff);
-				u16 buttonspressed = contGetButtonsPressedOnSample(j, contpadnum, 0xffff);
+				u16 buttonsstate = joyGetButtonsOnSample(j, contpadnum, 0xffff);
+				u16 buttonspressed = joyGetButtonsPressedOnSample(j, contpadnum, 0xffff);
 				bool stickpushed = false;
 				s32 slotnum;
 				bool stayopen;
@@ -142,10 +142,10 @@ void amTick(void)
 						|| controlmode == CONTROLMODE_22
 						|| controlmode == CONTROLMODE_21) {
 					s8 contpadnum2 = optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
-					s8 cstickx2 = contGetStickXOnSample(j, contpadnum2);
-					s8 csticky2 = contGetStickYOnSample(j, contpadnum2);
-					u16 buttonsstate2 = contGetButtonsOnSample(j, contpadnum2, 0xffff);
-					u16 buttonspressed2 = contGetButtonsPressedOnSample(j, contpadnum2, 0xffff);
+					s8 cstickx2 = joyGetStickXOnSample(j, contpadnum2);
+					s8 csticky2 = joyGetStickYOnSample(j, contpadnum2);
+					u16 buttonsstate2 = joyGetButtonsOnSample(j, contpadnum2, 0xffff);
+					u16 buttonspressed2 = joyGetButtonsPressedOnSample(j, contpadnum2, 0xffff);
 
 					if (g_Vars.currentplayer->activemenumode == AMMODE_EDIT) {
 						buttonsstate2 = buttonsstate2 & A_BUTTON;
@@ -544,7 +544,7 @@ glabel var7f1a224cnb
 /*  f01b040:	afa200d4 */ 	sw	$v0,0xd4($sp)
 /*  f01b044:	0fc5338e */ 	jal	optionsGetContpadNum1
 /*  f01b048:	8de40070 */ 	lw	$a0,0x70($t7)
-/*  f01b04c:	0c0055bf */ 	jal	contGetNumSamples
+/*  f01b04c:	0c0055bf */ 	jal	joyGetNumSamples
 /*  f01b050:	a3a200d3 */ 	sb	$v0,0xd3($sp)
 /*  f01b054:	1840022a */ 	blez	$v0,.NB0f01b900
 /*  f01b058:	afa200cc */ 	sw	$v0,0xcc($sp)
@@ -556,25 +556,25 @@ glabel var7f1a224cnb
 /*  f01b06c:	24150001 */ 	addiu	$s5,$zero,0x1
 /*  f01b070:	24140001 */ 	addiu	$s4,$zero,0x1
 /*  f01b074:	afa000b0 */ 	sw	$zero,0xb0($sp)
-/*  f01b078:	0c0055ca */ 	jal	contGetStickXOnSample
+/*  f01b078:	0c0055ca */ 	jal	joyGetStickXOnSample
 /*  f01b07c:	afa000ac */ 	sw	$zero,0xac($sp)
 /*  f01b080:	0002b600 */ 	sll	$s6,$v0,0x18
 /*  f01b084:	0016c603 */ 	sra	$t8,$s6,0x18
 /*  f01b088:	0300b025 */ 	or	$s6,$t8,$zero
 /*  f01b08c:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f01b090:	0c0055f9 */ 	jal	contGetStickYOnSample
+/*  f01b090:	0c0055f9 */ 	jal	joyGetStickYOnSample
 /*  f01b094:	83a500d3 */ 	lb	$a1,0xd3($sp)
 /*  f01b098:	0002be00 */ 	sll	$s7,$v0,0x18
 /*  f01b09c:	0017ce03 */ 	sra	$t9,$s7,0x18
 /*  f01b0a0:	0320b825 */ 	or	$s7,$t9,$zero
 /*  f01b0a4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f01b0a8:	83a500d3 */ 	lb	$a1,0xd3($sp)
-/*  f01b0ac:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f01b0ac:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f01b0b0:	3406ffff */ 	dli	$a2,0xffff
 /*  f01b0b4:	3051ffff */ 	andi	$s1,$v0,0xffff
 /*  f01b0b8:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f01b0bc:	83a500d3 */ 	lb	$a1,0xd3($sp)
-/*  f01b0c0:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f01b0c0:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f01b0c4:	3406ffff */ 	dli	$a2,0xffff
 /*  f01b0c8:	3c08800a */ 	lui	$t0,0x800a
 /*  f01b0cc:	8d0866a8 */ 	lw	$t0,0x66a8($t0)
@@ -721,7 +721,7 @@ glabel var7f1a224cnb
 /*  f01b2b4:	00056603 */ 	sra	$t4,$a1,0x18
 /*  f01b2b8:	01608025 */ 	or	$s0,$t3,$zero
 /*  f01b2bc:	01802825 */ 	or	$a1,$t4,$zero
-/*  f01b2c0:	0c0055ca */ 	jal	contGetStickXOnSample
+/*  f01b2c0:	0c0055ca */ 	jal	joyGetStickXOnSample
 /*  f01b2c4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f01b2c8:	00029600 */ 	sll	$s2,$v0,0x18
 /*  f01b2cc:	00102e00 */ 	sll	$a1,$s0,0x18
@@ -729,7 +729,7 @@ glabel var7f1a224cnb
 /*  f01b2d4:	00057603 */ 	sra	$t6,$a1,0x18
 /*  f01b2d8:	01a09025 */ 	or	$s2,$t5,$zero
 /*  f01b2dc:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f01b2e0:	0c0055f9 */ 	jal	contGetStickYOnSample
+/*  f01b2e0:	0c0055f9 */ 	jal	joyGetStickYOnSample
 /*  f01b2e4:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f01b2e8:	00029e00 */ 	sll	$s3,$v0,0x18
 /*  f01b2ec:	00102e00 */ 	sll	$a1,$s0,0x18
@@ -738,14 +738,14 @@ glabel var7f1a224cnb
 /*  f01b2f8:	01e09825 */ 	or	$s3,$t7,$zero
 /*  f01b2fc:	03002825 */ 	or	$a1,$t8,$zero
 /*  f01b300:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f01b304:	0c005656 */ 	jal	contGetButtonsOnSample
+/*  f01b304:	0c005656 */ 	jal	joyGetButtonsOnSample
 /*  f01b308:	3406ffff */ 	dli	$a2,0xffff
 /*  f01b30c:	00102e00 */ 	sll	$a1,$s0,0x18
 /*  f01b310:	0005ce03 */ 	sra	$t9,$a1,0x18
 /*  f01b314:	3051ffff */ 	andi	$s1,$v0,0xffff
 /*  f01b318:	03202825 */ 	or	$a1,$t9,$zero
 /*  f01b31c:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f01b320:	0c00568c */ 	jal	contGetButtonsPressedOnSample
+/*  f01b320:	0c00568c */ 	jal	joyGetButtonsPressedOnSample
 /*  f01b324:	3406ffff */ 	dli	$a2,0xffff
 /*  f01b328:	3c08800a */ 	lui	$t0,0x800a
 /*  f01b32c:	8d08e944 */ 	lw	$t0,-0x16bc($t0)

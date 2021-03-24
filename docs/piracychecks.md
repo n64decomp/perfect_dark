@@ -70,7 +70,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### coreGetSlowMotionType
+### lvGetSlowMotionType
 
 **When Called:** On each tick when unpaused.
 
@@ -78,11 +78,11 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Corrupts the rspboot microcode, causing a crash.
 
-### coreLoadStage
+### lvInit
 
 **When Called:** When loading any stage (including title screen).
 
-**What It Checks:** Checksums `coreGetSlowMotionType` to make sure it hasn't been modified.
+**What It Checks:** Checksums `lvGetSlowMotionType` to make sure it hasn't been modified.
 
 **Payload:** Writes 16 bytes of data to the start of EEPROM. Unsure what this does, but it's probably corrupting it.
 
@@ -90,7 +90,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When loading any stage that uses the eyespy.
 
-**What It Checks:** Checksums `coreLoadStage` to make sure it hasn't been modified.
+**What It Checks:** Checksums `lvInit` to make sure it hasn't been modified.
 
 **Payload:** Nops `func00012914` entirely. Unsure what effect this has. This means any time that function is called it'll flow into the following function, which just returns.
 

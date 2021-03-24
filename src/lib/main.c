@@ -28,7 +28,7 @@
 #include "game/game_127910.h"
 #include "game/game_1531a0.h"
 #include "game/gfxmemory.h"
-#include "game/core.h"
+#include "game/lv.h"
 #include "game/timing.h"
 #include "game/music.h"
 #include "game/stubs/game_175f50.h"
@@ -49,7 +49,7 @@
 #include "lib/lib_0c000.h"
 #include "lib/dma.h"
 #include "lib/main.h"
-#include "lib/lib_0e9d0.h"
+#include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/lib_126b0.h"
 #include "lib/lib_13750.h"
@@ -316,7 +316,7 @@ glabel mainInit
 /*     d2a8:	0c00bcc2 */ 	jal	rmonIsDisabled
 /*     d2ac:	00000000 */ 	nop
 /*     d2b0:	3c018006 */ 	lui	$at,0x8006
-/*     d2b4:	0c004e87 */ 	jal	contSystemInit
+/*     d2b4:	0c004e87 */ 	jal	joySystemInit
 /*     d2b8:	ac22d650 */ 	sw	$v0,-0x29b0($at)
 /*     d2bc:	27a41498 */ 	addiu	$a0,$sp,0x1498
 /*     d2c0:	27a514d4 */ 	addiu	$a1,$sp,0x14d4
@@ -344,7 +344,7 @@ glabel mainInit
 /*     d314:	24010001 */ 	li	$at,0x1
 /*     d318:	56010006 */ 	bnel	$s0,$at,.PF0000d334
 /*     d31c:	2a010002 */ 	slti	$at,$s0,0x2
-/*     d320:	0c004ee1 */ 	jal	func00013dfc
+/*     d320:	0c004ee1 */ 	jal	joy00013dfc
 /*     d324:	00000000 */ 	nop
 /*     d328:	10000007 */ 	b	.PF0000d348
 /*     d32c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -352,7 +352,7 @@ glabel mainInit
 .PF0000d334:
 /*     d334:	54200004 */ 	bnezl	$at,.PF0000d348
 /*     d338:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d33c:	0c00501e */ 	jal	contDebugJoy
+/*     d33c:	0c00501e */ 	jal	joyDebugJoy
 /*     d340:	00000000 */ 	nop
 /*     d344:	26100001 */ 	addiu	$s0,$s0,0x1
 .PF0000d348:
@@ -369,19 +369,19 @@ glabel mainInit
 /*     d370:	3c018006 */ 	lui	$at,0x8006
 /*     d374:	ac2bd650 */ 	sw	$t3,-0x29b0($at)
 .PF0000d378:
-/*     d378:	0c00533a */ 	jal	contGetButtons
+/*     d378:	0c00533a */ 	jal	joyGetButtons
 /*     d37c:	24051000 */ 	li	$a1,0x1000
 /*     d380:	1440000f */ 	bnez	$v0,.PF0000d3c0
 /*     d384:	24040001 */ 	li	$a0,0x1
-/*     d388:	0c00533a */ 	jal	contGetButtons
+/*     d388:	0c00533a */ 	jal	joyGetButtons
 /*     d38c:	24051000 */ 	li	$a1,0x1000
 /*     d390:	1440000b */ 	bnez	$v0,.PF0000d3c0
 /*     d394:	24040002 */ 	li	$a0,0x2
-/*     d398:	0c00533a */ 	jal	contGetButtons
+/*     d398:	0c00533a */ 	jal	joyGetButtons
 /*     d39c:	24051000 */ 	li	$a1,0x1000
 /*     d3a0:	14400007 */ 	bnez	$v0,.PF0000d3c0
 /*     d3a4:	24040003 */ 	li	$a0,0x3
-/*     d3a8:	0c00533a */ 	jal	contGetButtons
+/*     d3a8:	0c00533a */ 	jal	joyGetButtons
 /*     d3ac:	24051000 */ 	li	$a1,0x1000
 /*     d3b0:	14400003 */ 	bnez	$v0,.PF0000d3c0
 /*     d3b4:	3c018006 */ 	lui	$at,0x8006
@@ -622,7 +622,7 @@ glabel mainInit
 /*     d718:	00000000 */ 	nop
 /*     d71c:	0fc00000 */ 	jal	func0f000000
 /*     d720:	00000000 */ 	nop
-/*     d724:	0fc5a29e */ 	jal	func0f167af8
+/*     d724:	0fc5a29e */ 	jal	lv0f167af8
 /*     d728:	00000000 */ 	nop
 /*     d72c:	0fc41f77 */ 	jal	cheatsDisableAll
 /*     d730:	00000000 */ 	nop
@@ -719,7 +719,7 @@ glabel mainInit
 /*     d568:	0c00be82 */ 	jal	rmonIsDisabled
 /*     d56c:	00000000 */ 	nop
 /*     d570:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
-/*     d574:	0c004f25 */ 	jal	contSystemInit
+/*     d574:	0c004f25 */ 	jal	joySystemInit
 /*     d578:	ac22d9b0 */ 	sw	$v0,%lo(var8005d9b0)($at)
 /*     d57c:	27a41490 */ 	addiu	$a0,$sp,0x1490
 /*     d580:	27a514cc */ 	addiu	$a1,$sp,0x14cc
@@ -747,7 +747,7 @@ glabel mainInit
 /*     d5d4:	24010001 */ 	addiu	$at,$zero,0x1
 /*     d5d8:	56010006 */ 	bnel	$s0,$at,.L0000d5f4
 /*     d5dc:	2a010002 */ 	slti	$at,$s0,0x2
-/*     d5e0:	0c004f7f */ 	jal	func00013dfc
+/*     d5e0:	0c004f7f */ 	jal	joy00013dfc
 /*     d5e4:	00000000 */ 	nop
 /*     d5e8:	10000007 */ 	b	.L0000d608
 /*     d5ec:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -755,7 +755,7 @@ glabel mainInit
 .L0000d5f4:
 /*     d5f4:	54200004 */ 	bnezl	$at,.L0000d608
 /*     d5f8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     d5fc:	0c0050bc */ 	jal	contDebugJoy
+/*     d5fc:	0c0050bc */ 	jal	joyDebugJoy
 /*     d600:	00000000 */ 	nop
 /*     d604:	26100001 */ 	addiu	$s0,$s0,0x1
 .L0000d608:
@@ -772,19 +772,19 @@ glabel mainInit
 /*     d630:	3c018006 */ 	lui	$at,%hi(var8005d9b0)
 /*     d634:	ac2bd9b0 */ 	sw	$t3,%lo(var8005d9b0)($at)
 .L0000d638:
-/*     d638:	0c0053d8 */ 	jal	contGetButtons
+/*     d638:	0c0053d8 */ 	jal	joyGetButtons
 /*     d63c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d640:	14400010 */ 	bnez	$v0,.L0000d684
 /*     d644:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     d648:	0c0053d8 */ 	jal	contGetButtons
+/*     d648:	0c0053d8 */ 	jal	joyGetButtons
 /*     d64c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d650:	1440000c */ 	bnez	$v0,.L0000d684
 /*     d654:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     d658:	0c0053d8 */ 	jal	contGetButtons
+/*     d658:	0c0053d8 */ 	jal	joyGetButtons
 /*     d65c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d660:	14400008 */ 	bnez	$v0,.L0000d684
 /*     d664:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     d668:	0c0053d8 */ 	jal	contGetButtons
+/*     d668:	0c0053d8 */ 	jal	joyGetButtons
 /*     d66c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d670:	14400004 */ 	bnez	$v0,.L0000d684
 /*     d674:	3c108006 */ 	lui	$s0,%hi(g_DoBootPakMenu)
@@ -1025,7 +1025,7 @@ glabel mainInit
 /*     d9dc:	00000000 */ 	nop
 /*     d9e0:	0fc00000 */ 	jal	func0f000000
 /*     d9e4:	00000000 */ 	nop
-/*     d9e8:	0fc59ebe */ 	jal	func0f167af8
+/*     d9e8:	0fc59ebe */ 	jal	lv0f167af8
 /*     d9ec:	00000000 */ 	nop
 /*     d9f0:	0fc41d3b */ 	jal	cheatsDisableAll
 /*     d9f4:	00000000 */ 	nop
@@ -1116,7 +1116,7 @@ glabel mainInit
 /*     dad0:	0c00c456 */ 	jal	rmonIsDisabled
 /*     dad4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dad8:	3c018006 */ 	lui	$at,0x8006
-/*     dadc:	0c0052b6 */ 	jal	contSystemInit
+/*     dadc:	0c0052b6 */ 	jal	joySystemInit
 /*     dae0:	ac22f2d0 */ 	sw	$v0,-0xd30($at)
 /*     dae4:	27b11498 */ 	addiu	$s1,$sp,0x1498
 /*     dae8:	27b214d4 */ 	addiu	$s2,$sp,0x14d4
@@ -1144,7 +1144,7 @@ glabel mainInit
 /*     db3c:	24010001 */ 	addiu	$at,$zero,0x1
 /*     db40:	56010006 */ 	bnel	$s0,$at,.NB0000db5c
 /*     db44:	2a010002 */ 	slti	$at,$s0,0x2
-/*     db48:	0c005310 */ 	jal	func00013dfc
+/*     db48:	0c005310 */ 	jal	joy00013dfc
 /*     db4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     db50:	10000007 */ 	beqz	$zero,.NB0000db70
 /*     db54:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1152,7 +1152,7 @@ glabel mainInit
 .NB0000db5c:
 /*     db5c:	54200004 */ 	bnezl	$at,.NB0000db70
 /*     db60:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     db64:	0c005477 */ 	jal	contDebugJoy
+/*     db64:	0c005477 */ 	jal	joyDebugJoy
 /*     db68:	00000000 */ 	sll	$zero,$zero,0x0
 /*     db6c:	26100001 */ 	addiu	$s0,$s0,0x1
 .NB0000db70:
@@ -1180,19 +1180,19 @@ glabel mainInit
 /*     dbbc:	1000ffff */ 	beqz	$zero,.NB0000dbbc
 /*     dbc0:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0000dbc4:
-/*     dbc4:	0c005790 */ 	jal	contGetButtons
+/*     dbc4:	0c005790 */ 	jal	joyGetButtons
 /*     dbc8:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     dbcc:	1440009e */ 	bnez	$v0,.NB0000de48
 /*     dbd0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     dbd4:	0c005790 */ 	jal	contGetButtons
+/*     dbd4:	0c005790 */ 	jal	joyGetButtons
 /*     dbd8:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     dbdc:	1440009a */ 	bnez	$v0,.NB0000de48
 /*     dbe0:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     dbe4:	0c005790 */ 	jal	contGetButtons
+/*     dbe4:	0c005790 */ 	jal	joyGetButtons
 /*     dbe8:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     dbec:	14400096 */ 	bnez	$v0,.NB0000de48
 /*     dbf0:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     dbf4:	0c005790 */ 	jal	contGetButtons
+/*     dbf4:	0c005790 */ 	jal	joyGetButtons
 /*     dbf8:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     dbfc:	14400092 */ 	bnez	$v0,.NB0000de48
 /*     dc00:	3c0b8006 */ 	lui	$t3,0x8006
@@ -1398,7 +1398,7 @@ glabel mainInit
 /*     deec:	00000000 */ 	sll	$zero,$zero,0x0
 /*     def0:	0fc00000 */ 	jal	func0f000000
 /*     def4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     def8:	0fc5890e */ 	jal	func0f167af8
+/*     def8:	0fc5890e */ 	jal	lv0f167af8
 /*     defc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df00:	0fc40c5b */ 	jal	cheatsDisableAll
 /*     df04:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1503,7 +1503,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func00013758();
 //	func00009ab0();
 //	var8005d9b0 = rmonIsDisabled();
-//	contSystemInit();
+//	joySystemInit();
 //	osCreateMesgQueue(&queue, &msg, 1);
 //
 //	for (i = 0; i < 4; i++) {
@@ -1511,9 +1511,9 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
 //
 //		if (i == 1) {
-//			func00013dfc();
+//			joy00013dfc();
 //		} else if (i >= 2) {
-//			contDebugJoy();
+//			joyDebugJoy();
 //		}
 //	}
 //
@@ -1522,10 +1522,10 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	}
 //
 //	// If holding start on any controller, open boot pak menu
-//	if (contGetButtons(0, START_BUTTON) == 0
-//			&& contGetButtons(1, START_BUTTON) == 0
-//			&& contGetButtons(2, START_BUTTON) == 0
-//			&& contGetButtons(3, START_BUTTON) == 0) {
+//	if (joyGetButtons(0, START_BUTTON) == 0
+//			&& joyGetButtons(1, START_BUTTON) == 0
+//			&& joyGetButtons(2, START_BUTTON) == 0
+//			&& joyGetButtons(3, START_BUTTON) == 0) {
 //		g_DoBootPakMenu = false;
 //	} else {
 //		g_DoBootPakMenu = true;
@@ -1646,7 +1646,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func000034d0();
 //	loadTextureList();
 //	func0f000000();
-//	func0f167af8();
+//	lv0f167af8();
 //	cheatsDisableAll();
 //	func0000e9c0();
 //	func0f1531a0();
@@ -1723,7 +1723,7 @@ void mainEntry(void)
 {
 	mainInit();
 	func0002f8a0();
-	func0000f804();
+	snd0000f804();
 
 	while (true) {
 		mainLoop();
@@ -1766,7 +1766,7 @@ void mainLoop(void)
 			func0f01b148(0);
 
 			if (argFindByPrefix(1, "-hard")) {
-				coreSetDifficulty(argFindByPrefix(1, "-hard")[0] - '0');
+				lvSetDifficulty(argFindByPrefix(1, "-hard")[0] - '0');
 			}
 		}
 	}
@@ -1929,10 +1929,10 @@ void mainLoop(void)
 		}
 
 		gfxInitMemory();
-		func00013dfc();
+		joy00013dfc();
 		func00013798();
 		func0f17608c(g_StageNum);
-		coreLoadStage(g_StageNum);
+		lvInit(g_StageNum);
 		func00009c3c(g_StageNum);
 		frametimeCalculate();
 		func00009a90();
@@ -1967,7 +1967,7 @@ void mainLoop(void)
 			}
 		}
 
-		coreUnloadStage();
+		lvReset();
 		memDisablePool(MEMPOOL_STAGE);
 		memDisablePool(MEMPOOL_7);
 		func0f1672f0(4);
@@ -2094,7 +2094,7 @@ glabel mainLoop
 /*     e1e4:	0c004e18 */ 	jal	argFindByPrefix
 /*     e1e8:	24a5512c */ 	addiu	$a1,$a1,0x512c
 /*     e1ec:	90440000 */ 	lbu	$a0,0x0($v0)
-/*     e1f0:	0fc59ed6 */ 	jal	coreSetDifficulty
+/*     e1f0:	0fc59ed6 */ 	jal	lvSetDifficulty
 /*     e1f4:	2484ffd0 */ 	addiu	$a0,$a0,-48
 .NB0000e1f8:
 /*     e1f8:	3c028006 */ 	lui	$v0,0x8006
@@ -2458,7 +2458,7 @@ glabel mainLoop
 .NB0000e708:
 /*     e708:	0fc58724 */ 	jal	gfxInitMemory
 /*     e70c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e710:	0c005310 */ 	jal	func00013dfc
+/*     e710:	0c005310 */ 	jal	joy00013dfc
 /*     e714:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e718:	0c005049 */ 	jal	func00014124nb
 /*     e71c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2466,7 +2466,7 @@ glabel mainLoop
 /*     e724:	0fc5c34b */ 	jal	func0f17608c
 /*     e728:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e72c:	3c048006 */ 	lui	$a0,0x8006
-/*     e730:	0fc589ee */ 	jal	coreLoadStage
+/*     e730:	0fc589ee */ 	jal	lvInit
 /*     e734:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e738:	3c048006 */ 	lui	$a0,0x8006
 /*     e73c:	0c002778 */ 	jal	func00009c3c
@@ -2557,7 +2557,7 @@ glabel mainLoop
 /*     e86c:	55c0ffca */ 	bnezl	$t6,.NB0000e798
 /*     e870:	02602025 */ 	or	$a0,$s3,$zero
 .NB0000e874:
-/*     e874:	0fc59e56 */ 	jal	coreUnloadStage
+/*     e874:	0fc59e56 */ 	jal	lvReset
 /*     e878:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e87c:	0c004acc */ 	jal	memDisablePool
 /*     e880:	24040004 */ 	addiu	$a0,$zero,0x4
@@ -2604,7 +2604,7 @@ void mainTick(void)
 		func00009a90();
 		func00009aa0(0x20000);
 		func000034d8();
-		contDebugJoy();
+		joyDebugJoy();
 		func00001b28(0);
 
 		if (var8005d9c8) {
@@ -2613,7 +2613,7 @@ void mainTick(void)
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-			coreTick();
+			lvTick();
 			randomisePlayerOrder();
 
 			if (g_StageNum < STAGE_TITLE) {
@@ -2627,11 +2627,11 @@ void mainTick(void)
 								g_Vars.currentplayer->viewx, g_Vars.currentplayer->viewy);
 					}
 
-					coreRecordDistanceMoved();
+					lvRecordDistanceMoved();
 				}
 			}
 
-			gdl = coreRender(gdl);
+			gdl = lvRender(gdl);
 			func000034e0(&gdl);
 
 			if (debug0f11ed70() >= 2) {
@@ -2699,7 +2699,7 @@ glabel mainTick
 /*     e988:	3c040002 */ 	lui	$a0,0x2
 /*     e98c:	0c000dbe */ 	jal	func000034d8
 /*     e990:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e994:	0c005477 */ 	jal	contDebugJoy
+/*     e994:	0c005477 */ 	jal	joyDebugJoy
 /*     e998:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e99c:	0c00073e */ 	jal	func00001b28
 /*     e9a0:	00002025 */ 	or	$a0,$zero,$zero
@@ -2728,26 +2728,26 @@ glabel mainTick
 /*     e9fc:	8d08f678 */ 	lw	$t0,-0x988($t0)
 /*     ea00:	15000006 */ 	bnez	$t0,.NB0000ea1c
 /*     ea04:	00002025 */ 	or	$a0,$zero,$zero
-/*     ea08:	0c005790 */ 	jal	contGetButtons
+/*     ea08:	0c005790 */ 	jal	joyGetButtons
 /*     ea0c:	2405000c */ 	addiu	$a1,$zero,0xc
 /*     ea10:	2401000c */ 	addiu	$at,$zero,0xc
 /*     ea14:	1441001a */ 	bne	$v0,$at,.NB0000ea80
 /*     ea18:	00002025 */ 	or	$a0,$zero,$zero
 .NB0000ea1c:
-/*     ea1c:	0c00573c */ 	jal	contGetStickX
+/*     ea1c:	0c00573c */ 	jal	joyGetStickX
 /*     ea20:	00002025 */ 	or	$a0,$zero,$zero
 /*     ea24:	00028e00 */ 	sll	$s1,$v0,0x18
 /*     ea28:	00114e03 */ 	sra	$t1,$s1,0x18
 /*     ea2c:	01208825 */ 	or	$s1,$t1,$zero
-/*     ea30:	0c005766 */ 	jal	contGetStickY
+/*     ea30:	0c005766 */ 	jal	joyGetStickY
 /*     ea34:	00002025 */ 	or	$a0,$zero,$zero
 /*     ea38:	a3a2003b */ 	sb	$v0,0x3b($sp)
 /*     ea3c:	00002025 */ 	or	$a0,$zero,$zero
-/*     ea40:	0c005790 */ 	jal	contGetButtons
+/*     ea40:	0c005790 */ 	jal	joyGetButtons
 /*     ea44:	3405ffff */ 	dli	$a1,0xffff
 /*     ea48:	3050ffff */ 	andi	$s0,$v0,0xffff
 /*     ea4c:	00002025 */ 	or	$a0,$zero,$zero
-/*     ea50:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*     ea50:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*     ea54:	3405ffff */ 	dli	$a1,0xffff
 /*     ea58:	00112600 */ 	sll	$a0,$s1,0x18
 /*     ea5c:	00045603 */ 	sra	$t2,$a0,0x18
@@ -2760,7 +2760,7 @@ glabel mainTick
 /*     ea78:	10000021 */ 	beqz	$zero,.NB0000eb00
 /*     ea7c:	ac22f678 */ 	sw	$v0,-0x988($at)
 .NB0000ea80:
-/*     ea80:	0c005790 */ 	jal	contGetButtons
+/*     ea80:	0c005790 */ 	jal	joyGetButtons
 /*     ea84:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     ea88:	14400005 */ 	bnez	$v0,.NB0000eaa0
 /*     ea8c:	3c0b8008 */ 	lui	$t3,0x8008
@@ -2769,20 +2769,20 @@ glabel mainTick
 /*     ea98:	10000019 */ 	beqz	$zero,.NB0000eb00
 /*     ea9c:	ac2b86f0 */ 	sw	$t3,-0x7910($at)
 .NB0000eaa0:
-/*     eaa0:	0c00573c */ 	jal	contGetStickX
+/*     eaa0:	0c00573c */ 	jal	joyGetStickX
 /*     eaa4:	00002025 */ 	or	$a0,$zero,$zero
 /*     eaa8:	00028e00 */ 	sll	$s1,$v0,0x18
 /*     eaac:	00116603 */ 	sra	$t4,$s1,0x18
 /*     eab0:	01808825 */ 	or	$s1,$t4,$zero
-/*     eab4:	0c005766 */ 	jal	contGetStickY
+/*     eab4:	0c005766 */ 	jal	joyGetStickY
 /*     eab8:	00002025 */ 	or	$a0,$zero,$zero
 /*     eabc:	a3a2003b */ 	sb	$v0,0x3b($sp)
 /*     eac0:	00002025 */ 	or	$a0,$zero,$zero
-/*     eac4:	0c005790 */ 	jal	contGetButtons
+/*     eac4:	0c005790 */ 	jal	joyGetButtons
 /*     eac8:	3405ffff */ 	dli	$a1,0xffff
 /*     eacc:	3050ffff */ 	andi	$s0,$v0,0xffff
 /*     ead0:	00002025 */ 	or	$a0,$zero,$zero
-/*     ead4:	0c0057c0 */ 	jal	contGetButtonsPressedThisFrame
+/*     ead4:	0c0057c0 */ 	jal	joyGetButtonsPressedThisFrame
 /*     ead8:	3405ffff */ 	dli	$a1,0xffff
 /*     eadc:	00112600 */ 	sll	$a0,$s1,0x18
 /*     eae0:	00046e03 */ 	sra	$t5,$a0,0x18
@@ -2794,7 +2794,7 @@ glabel mainTick
 /*     eaf8:	3c018006 */ 	lui	$at,0x8006
 /*     eafc:	ac22f678 */ 	sw	$v0,-0x988($at)
 .NB0000eb00:
-/*     eb00:	0fc599c9 */ 	jal	coreTick
+/*     eb00:	0fc599c9 */ 	jal	lvTick
 /*     eb04:	00000000 */ 	sll	$zero,$zero,0x0
 /*     eb08:	0fc48e7f */ 	jal	randomisePlayerOrder
 /*     eb0c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2864,7 +2864,7 @@ glabel mainTick
 /*     ebf4:	0c002feb */ 	jal	viSetFovAspectAndSize
 /*     ebf8:	84470632 */ 	lh	$a3,0x632($v0)
 .NB0000ebfc:
-/*     ebfc:	0fc59e2f */ 	jal	coreRecordDistanceMoved
+/*     ebfc:	0fc59e2f */ 	jal	lvRecordDistanceMoved
 /*     ec00:	00000000 */ 	sll	$zero,$zero,0x0
 /*     ec04:	8e0d006c */ 	lw	$t5,0x6c($s0)
 /*     ec08:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -2901,7 +2901,7 @@ glabel mainTick
 /*     ec74:	1420ffca */ 	bnez	$at,.NB0000eba0
 /*     ec78:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0000ec7c:
-/*     ec7c:	0fc59012 */ 	jal	coreRender
+/*     ec7c:	0fc59012 */ 	jal	lvRender
 /*     ec80:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*     ec84:	afa20094 */ 	sw	$v0,0x94($sp)
 /*     ec88:	0c000dc0 */ 	jal	func000034e0
@@ -3043,13 +3043,13 @@ glabel mainTick
 
 void mainEndStage(void)
 {
-	envStopNosedive();
+	sndStopNosedive();
 
 	if (var8005d9d0 == 0) {
 #if VERSION >= VERSION_NTSC_1_0
 		func0f11c6d0();
 #endif
-		contDisableTemporarily();
+		joyDisableTemporarily();
 
 		if (g_Vars.coopplayernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;
