@@ -76,42 +76,21 @@ u32 var8009c96c;
 u32 var80060980 = 0xffffffff;
 u8 var80060984 = 0xfa;
 
-GLOBAL_ASM(
-glabel func0004c090
-/*    4c090:	00001825 */ 	or	$v1,$zero,$zero
-/*    4c094:	00801025 */ 	or	$v0,$a0,$zero
-/*    4c098:	18a00016 */ 	blez	$a1,.L0004c0f4
-/*    4c09c:	00003025 */ 	or	$a2,$zero,$zero
-/*    4c0a0:	30a70003 */ 	andi	$a3,$a1,0x3
-/*    4c0a4:	10e00008 */ 	beqz	$a3,.L0004c0c8
-/*    4c0a8:	00e02025 */ 	or	$a0,$a3,$zero
-.L0004c0ac:
-/*    4c0ac:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*    4c0b0:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*    4c0b4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    4c0b8:	1486fffc */ 	bne	$a0,$a2,.L0004c0ac
-/*    4c0bc:	006e1821 */ 	addu	$v1,$v1,$t6
-/*    4c0c0:	50c5000d */ 	beql	$a2,$a1,.L0004c0f8
-/*    4c0c4:	00601025 */ 	or	$v0,$v1,$zero
-.L0004c0c8:
-/*    4c0c8:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*    4c0cc:	90580001 */ 	lbu	$t8,0x1($v0)
-/*    4c0d0:	90590002 */ 	lbu	$t9,0x2($v0)
-/*    4c0d4:	006f1821 */ 	addu	$v1,$v1,$t7
-/*    4c0d8:	90480003 */ 	lbu	$t0,0x3($v0)
-/*    4c0dc:	00781821 */ 	addu	$v1,$v1,$t8
-/*    4c0e0:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*    4c0e4:	00791821 */ 	addu	$v1,$v1,$t9
-/*    4c0e8:	24420004 */ 	addiu	$v0,$v0,0x4
-/*    4c0ec:	14c5fff6 */ 	bne	$a2,$a1,.L0004c0c8
-/*    4c0f0:	00681821 */ 	addu	$v1,$v1,$t0
-.L0004c0f4:
-/*    4c0f4:	00601025 */ 	or	$v0,$v1,$zero
-.L0004c0f8:
-/*    4c0f8:	3049ffff */ 	andi	$t1,$v0,0xffff
-/*    4c0fc:	03e00008 */ 	jr	$ra
-/*    4c100:	01201025 */ 	or	$v0,$t1,$zero
-);
+u16 __osSumCalc(u8 *ptr, int length)
+{
+	int i;
+	u32 sum;
+	u8 *tmp;
+
+	sum = 0;
+	tmp = ptr;
+
+	for (i = 0; i < length; i++) {
+		sum += *tmp++;
+	}
+
+	return sum & 0xffff;
+}
 
 s32 __osIdCheckSum(u16 *ptr, u16 *csum, u16 *icsum)
 {
@@ -760,7 +739,7 @@ glabel func0004c934
 /*    4ca08:	000d7040 */ 	sll	$t6,$t5,0x1
 /*    4ca0c:	25e50100 */ 	addiu	$a1,$t7,0x100
 /*    4ca10:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*    4ca14:	0c013024 */ 	jal	func0004c090
+/*    4ca14:	0c013024 */ 	jal	__osSumCalc
 /*    4ca18:	018e2021 */ 	addu	$a0,$t4,$t6
 /*    4ca1c:	8fb8005c */ 	lw	$t8,0x5c($sp)
 /*    4ca20:	8fa3003c */ 	lw	$v1,0x3c($sp)
@@ -822,7 +801,7 @@ glabel func0004c934
 /*    4caec:	25250100 */ 	addiu	$a1,$t1,0x100
 /*    4caf0:	0308a021 */ 	addu	$s4,$t8,$t0
 /*    4caf4:	02802025 */ 	or	$a0,$s4,$zero
-/*    4caf8:	0c013024 */ 	jal	func0004c090
+/*    4caf8:	0c013024 */ 	jal	__osSumCalc
 /*    4cafc:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*    4cb00:	8fab005c */ 	lw	$t3,0x5c($sp)
 /*    4cb04:	304a00ff */ 	andi	$t2,$v0,0xff
@@ -846,7 +825,7 @@ glabel func0004c934
 /*    4cb48:	1420fff4 */ 	bnez	$at,.L0004cb1c
 /*    4cb4c:	26310020 */ 	addiu	$s1,$s1,0x20
 /*    4cb50:	02802025 */ 	or	$a0,$s4,$zero
-/*    4cb54:	0c013024 */ 	jal	func0004c090
+/*    4cb54:	0c013024 */ 	jal	__osSumCalc
 /*    4cb58:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*    4cb5c:	8fa8005c */ 	lw	$t0,0x5c($sp)
 /*    4cb60:	305800ff */ 	andi	$t8,$v0,0xff
