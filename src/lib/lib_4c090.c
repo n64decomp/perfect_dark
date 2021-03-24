@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_4b170.h"
@@ -422,6 +423,102 @@ glabel __osRepairPackId
 /*    4c548:	03e00008 */ 	jr	$ra
 /*    4c54c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
+
+// Mismatch: j = 0 needs to be removed from the for loop so it uses
+// the earlier assign, but this creates significantly different code.
+//s32 __osRepairPackId(OSPfs *pfs, __OSPackId *badid, __OSPackId *newid)
+//{
+//	s32 ret;
+//	u8 temp[32];
+//	u8 comp[32];
+//	u8 mask;
+//	int i;
+//	int j;
+//	u16 index[4];
+//
+//	ret = 0;
+//	mask = 0;
+//	j = 0;
+//
+//	newid->repaired = -1;
+//	newid->random = osGetCount();
+//	newid->serial_mid = badid->serial_mid;
+//	newid->serial_low = badid->serial_low;
+//
+//	if (pfs->activebank != 0) {
+//		ERRCK(__osPfsSelectBank(pfs, 0));
+//	}
+//
+//	for (j = 0; j < PFS_MAX_BANKS; j++) {
+//		ERRCK(__osPfsSelectBank(pfs, j));
+//
+//		ERRCK(__osContRamRead(pfs->queue, pfs->channel, 0, (u8*)&temp));
+//
+//		temp[0] = j | 0x80;
+//
+//		for (i = 1; i < ARRLEN(temp); i++) {
+//			temp[i] = ~temp[i];
+//		}
+//
+//		ERRCK(__osContRamWrite(pfs->queue, pfs->channel, 0, (u8*)temp, FALSE));
+//		ERRCK(__osContRamRead(pfs->queue, pfs->channel, 0, (u8*)&comp));
+//
+//		for (i = 0; i < ARRLEN(temp); i++) {
+//			if (comp[i] != temp[i]) {
+//				break;
+//			}
+//		}
+//
+//		if (i != ARRLEN(temp)) {
+//			break;
+//		}
+//
+//		if (j > 0) {
+//			ERRCK(__osPfsSelectBank(pfs, 0));
+//
+//			ERRCK(__osContRamRead(pfs->queue, pfs->channel, 0, (u8*)temp));
+//
+//			if (temp[0] != 128) {
+//				break;
+//			}
+//		}
+//	}
+//
+//	if (pfs->activebank != 0) {
+//		ERRCK(__osPfsSelectBank(pfs, 0));
+//	}
+//
+//	if (j > 0) {
+//		mask = 1;
+//	} else {
+//		mask = 0;
+//	}
+//
+//	newid->deviceid = (badid->deviceid & (u16)~1) | mask;
+//	newid->banks = j;
+//	newid->version = badid->version;
+//
+//	__osIdCheckSum((u16*)newid, &newid->checksum, &newid->inverted_checksum);
+//
+//	index[0] = 1;
+//	index[1] = 3;
+//	index[2] = 4;
+//	index[3] = 6;
+//
+//	for (i = 0; i < ARRLEN(index); i++) {
+//		ERRCK(__osContRamWrite(pfs->queue, pfs->channel, index[i], (u8*)newid, TRUE));
+//	}
+//
+//	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));
+//
+//	for (i = 0; i < ARRLEN(temp); i++) {
+//		if (temp[i] != ((u8 *)newid)[i]) {
+//			return PFS_ERR_DEVICE;
+//		}
+//	}
+//
+//	return 0;
+//}
 
 s32 __osCheckPackId(OSPfs *pfs, __OSPackId *temp)
 {
