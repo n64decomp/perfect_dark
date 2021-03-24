@@ -423,109 +423,47 @@ glabel __osRepairPackId
 /*    4c54c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-GLOBAL_ASM(
-glabel __osCheckPackId
-/*    4c550:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*    4c554:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*    4c558:	afb60038 */ 	sw	$s6,0x38($sp)
-/*    4c55c:	afb50034 */ 	sw	$s5,0x34($sp)
-/*    4c560:	afb40030 */ 	sw	$s4,0x30($sp)
-/*    4c564:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*    4c568:	afb20028 */ 	sw	$s2,0x28($sp)
-/*    4c56c:	afb10024 */ 	sw	$s1,0x24($sp)
-/*    4c570:	afb00020 */ 	sw	$s0,0x20($sp)
-/*    4c574:	908e0065 */ 	lbu	$t6,0x65($a0)
-/*    4c578:	00a09025 */ 	or	$s2,$a1,$zero
-/*    4c57c:	00809825 */ 	or	$s3,$a0,$zero
-/*    4c580:	51c00008 */ 	beqzl	$t6,.L0004c5a4
-/*    4c584:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4c588:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4c58c:	00002825 */ 	or	$a1,$zero,$zero
-/*    4c590:	50400004 */ 	beqzl	$v0,.L0004c5a4
-/*    4c594:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4c598:	1000003d */ 	b	.L0004c690
-/*    4c59c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*    4c5a0:	240f0001 */ 	addiu	$t7,$zero,0x1
-.L0004c5a4:
-/*    4c5a4:	24180003 */ 	addiu	$t8,$zero,0x3
-/*    4c5a8:	24190004 */ 	addiu	$t9,$zero,0x4
-/*    4c5ac:	24080006 */ 	addiu	$t0,$zero,0x6
-/*    4c5b0:	a7af0058 */ 	sh	$t7,0x58($sp)
-/*    4c5b4:	a7b8005a */ 	sh	$t8,0x5a($sp)
-/*    4c5b8:	a7b9005c */ 	sh	$t9,0x5c($sp)
-/*    4c5bc:	a7a8005e */ 	sh	$t0,0x5e($sp)
-/*    4c5c0:	24110001 */ 	addiu	$s1,$zero,0x1
-/*    4c5c4:	27b0005a */ 	addiu	$s0,$sp,0x5a
-/*    4c5c8:	27b60050 */ 	addiu	$s6,$sp,0x50
-/*    4c5cc:	24150004 */ 	addiu	$s5,$zero,0x4
-/*    4c5d0:	27b40052 */ 	addiu	$s4,$sp,0x52
-.L0004c5d4:
-/*    4c5d4:	8e640004 */ 	lw	$a0,0x4($s3)
-/*    4c5d8:	8e650008 */ 	lw	$a1,0x8($s3)
-/*    4c5dc:	96060000 */ 	lhu	$a2,0x0($s0)
-/*    4c5e0:	0c012e18 */ 	jal	__osContRamRead
-/*    4c5e4:	02403825 */ 	or	$a3,$s2,$zero
-/*    4c5e8:	10400003 */ 	beqz	$v0,.L0004c5f8
-/*    4c5ec:	02402025 */ 	or	$a0,$s2,$zero
-/*    4c5f0:	10000027 */ 	b	.L0004c690
-/*    4c5f4:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0004c5f8:
-/*    4c5f8:	02802825 */ 	or	$a1,$s4,$zero
-/*    4c5fc:	0c013041 */ 	jal	__osIdCheckSum
-/*    4c600:	02c03025 */ 	or	$a2,$s6,$zero
-/*    4c604:	97a90052 */ 	lhu	$t1,0x52($sp)
-/*    4c608:	964a001c */ 	lhu	$t2,0x1c($s2)
-/*    4c60c:	97ab0050 */ 	lhu	$t3,0x50($sp)
-/*    4c610:	552a0005 */ 	bnel	$t1,$t2,.L0004c628
-/*    4c614:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    4c618:	964c001e */ 	lhu	$t4,0x1e($s2)
-/*    4c61c:	116c0004 */ 	beq	$t3,$t4,.L0004c630
-/*    4c620:	00000000 */ 	nop
-/*    4c624:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0004c628:
-/*    4c628:	1635ffea */ 	bne	$s1,$s5,.L0004c5d4
-/*    4c62c:	26100002 */ 	addiu	$s0,$s0,0x2
-.L0004c630:
-/*    4c630:	16350003 */ 	bne	$s1,$s5,.L0004c640
-/*    4c634:	00008025 */ 	or	$s0,$zero,$zero
-/*    4c638:	10000014 */ 	b	.L0004c68c
-/*    4c63c:	2402000a */ 	addiu	$v0,$zero,0xa
-.L0004c640:
-/*    4c640:	27b40058 */ 	addiu	$s4,$sp,0x58
-.L0004c644:
-/*    4c644:	1211000d */ 	beq	$s0,$s1,.L0004c67c
-/*    4c648:	00106840 */ 	sll	$t5,$s0,0x1
-/*    4c64c:	028d7021 */ 	addu	$t6,$s4,$t5
-/*    4c650:	95c60000 */ 	lhu	$a2,0x0($t6)
-/*    4c654:	8e640004 */ 	lw	$a0,0x4($s3)
-/*    4c658:	8e650008 */ 	lw	$a1,0x8($s3)
-/*    4c65c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4c660:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*    4c664:	0c012d84 */ 	jal	__osContRamWrite
-/*    4c668:	02403825 */ 	or	$a3,$s2,$zero
-/*    4c66c:	50400004 */ 	beqzl	$v0,.L0004c680
-/*    4c670:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    4c674:	10000006 */ 	b	.L0004c690
-/*    4c678:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0004c67c:
-/*    4c67c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0004c680:
-/*    4c680:	1615fff0 */ 	bne	$s0,$s5,.L0004c644
-/*    4c684:	00000000 */ 	nop
-/*    4c688:	00001025 */ 	or	$v0,$zero,$zero
-.L0004c68c:
-/*    4c68c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0004c690:
-/*    4c690:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*    4c694:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*    4c698:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*    4c69c:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*    4c6a0:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*    4c6a4:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*    4c6a8:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*    4c6ac:	03e00008 */ 	jr	$ra
-/*    4c6b0:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+s32 __osCheckPackId(OSPfs *pfs, __OSPackId *temp)
+{
+	u16 index[4];
+	s32 ret;
+	u16 sum;
+	u16 isum;
+	int i;
+	int j;
+
+	ret = 0;
+
+	if (pfs->activebank != 0) {
+		ERRCK(__osPfsSelectBank(pfs, 0));
+	}
+
+	index[0] = 1;
+	index[1] = 3;
+	index[2] = 4;
+	index[3] = 6;
+
+	for (i = 1; i < ARRLEN(index); i++) {
+		ERRCK(__osContRamRead(pfs->queue, pfs->channel, index[i], (u8*)temp));
+		__osIdCheckSum((u16 *)temp, &sum, &isum);
+
+		if (temp->checksum == sum && temp->inverted_checksum == isum) {
+			break;
+		}
+	}
+
+	if (i == ARRLEN(index)) {
+		return PFS_ERR_ID_FATAL;
+	}
+
+	for (j = 0; j < ARRLEN(index); j++) {
+		if (j != i) {
+			ERRCK(__osContRamWrite(pfs->queue, pfs->channel, index[j], (u8*)temp, TRUE));
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0004c6b4
