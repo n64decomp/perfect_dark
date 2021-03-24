@@ -27,7 +27,7 @@ glabel osPfsChecker
 /*    4d72c:	24010002 */ 	addiu	$at,$zero,0x2
 /*    4d730:	14410004 */ 	bne	$v0,$at,.L0004d744
 /*    4d734:	0040b825 */ 	or	$s7,$v0,$zero
-/*    4d738:	0c0131ad */ 	jal	func0004c6b4
+/*    4d738:	0c0131ad */ 	jal	__osGetId
 /*    4d73c:	02602025 */ 	or	$a0,$s3,$zero
 /*    4d740:	0040b825 */ 	or	$s7,$v0,$zero
 .L0004d744:

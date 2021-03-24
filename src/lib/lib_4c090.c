@@ -489,128 +489,59 @@ s32 __osCheckPackId(OSPfs *pfs, __OSPackId *temp)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0004c6b4
-/*    4c6b4:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    4c6b8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    4c6bc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    4c6c0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    4c6c4:	908e0065 */ 	lbu	$t6,0x65($a0)
-/*    4c6c8:	00808025 */ 	or	$s0,$a0,$zero
-/*    4c6cc:	51c00008 */ 	beqzl	$t6,.L0004c6f0
-/*    4c6d0:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c6d4:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4c6d8:	00002825 */ 	or	$a1,$zero,$zero
-/*    4c6dc:	50400004 */ 	beqzl	$v0,.L0004c6f0
-/*    4c6e0:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c6e4:	1000005a */ 	b	.L0004c850
-/*    4c6e8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    4c6ec:	8e040004 */ 	lw	$a0,0x4($s0)
-.L0004c6f0:
-/*    4c6f0:	8e050008 */ 	lw	$a1,0x8($s0)
-/*    4c6f4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4c6f8:	0c012e18 */ 	jal	__osContRamRead
-/*    4c6fc:	27a7004c */ 	addiu	$a3,$sp,0x4c
-/*    4c700:	10400003 */ 	beqz	$v0,.L0004c710
-/*    4c704:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*    4c708:	10000051 */ 	b	.L0004c850
-/*    4c70c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0004c710:
-/*    4c710:	27a5006e */ 	addiu	$a1,$sp,0x6e
-/*    4c714:	0c013041 */ 	jal	__osIdCheckSum
-/*    4c718:	27a6006c */ 	addiu	$a2,$sp,0x6c
-/*    4c71c:	97af006e */ 	lhu	$t7,0x6e($sp)
-/*    4c720:	97b80068 */ 	lhu	$t8,0x68($sp)
-/*    4c724:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*    4c728:	00a08825 */ 	or	$s1,$a1,$zero
-/*    4c72c:	15f80004 */ 	bne	$t7,$t8,.L0004c740
-/*    4c730:	97b9006c */ 	lhu	$t9,0x6c($sp)
-/*    4c734:	97a9006a */ 	lhu	$t1,0x6a($sp)
-/*    4c738:	53290015 */ 	beql	$t9,$t1,.L0004c790
-/*    4c73c:	962a0018 */ 	lhu	$t2,0x18($s1)
-.L0004c740:
-/*    4c740:	0c013154 */ 	jal	__osCheckPackId
-/*    4c744:	02002025 */ 	or	$a0,$s0,$zero
-/*    4c748:	2401000a */ 	addiu	$at,$zero,0xa
-/*    4c74c:	1441000b */ 	bne	$v0,$at,.L0004c77c
-/*    4c750:	00401825 */ 	or	$v1,$v0,$zero
-/*    4c754:	02002025 */ 	or	$a0,$s0,$zero
-/*    4c758:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*    4c75c:	0c013080 */ 	jal	__osRepairPackId
-/*    4c760:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*    4c764:	10400003 */ 	beqz	$v0,.L0004c774
-/*    4c768:	00000000 */ 	nop
-/*    4c76c:	10000038 */ 	b	.L0004c850
-/*    4c770:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0004c774:
-/*    4c774:	10000005 */ 	b	.L0004c78c
-/*    4c778:	27b10028 */ 	addiu	$s1,$sp,0x28
-.L0004c77c:
-/*    4c77c:	50400004 */ 	beqzl	$v0,.L0004c790
-/*    4c780:	962a0018 */ 	lhu	$t2,0x18($s1)
-/*    4c784:	10000031 */ 	b	.L0004c84c
-/*    4c788:	00601025 */ 	or	$v0,$v1,$zero
-.L0004c78c:
-/*    4c78c:	962a0018 */ 	lhu	$t2,0x18($s1)
-.L0004c790:
-/*    4c790:	02002025 */ 	or	$a0,$s0,$zero
-/*    4c794:	02202825 */ 	or	$a1,$s1,$zero
-/*    4c798:	314b0001 */ 	andi	$t3,$t2,0x1
-/*    4c79c:	5560000d */ 	bnezl	$t3,.L0004c7d4
-/*    4c7a0:	02202025 */ 	or	$a0,$s1,$zero
-/*    4c7a4:	0c013080 */ 	jal	__osRepairPackId
-/*    4c7a8:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*    4c7ac:	10400003 */ 	beqz	$v0,.L0004c7bc
-/*    4c7b0:	97ac0040 */ 	lhu	$t4,0x40($sp)
-/*    4c7b4:	10000026 */ 	b	.L0004c850
-/*    4c7b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0004c7bc:
-/*    4c7bc:	318d0001 */ 	andi	$t5,$t4,0x1
-/*    4c7c0:	15a00003 */ 	bnez	$t5,.L0004c7d0
-/*    4c7c4:	27b10028 */ 	addiu	$s1,$sp,0x28
-/*    4c7c8:	10000020 */ 	b	.L0004c84c
-/*    4c7cc:	2402000b */ 	addiu	$v0,$zero,0xb
-.L0004c7d0:
-/*    4c7d0:	02202025 */ 	or	$a0,$s1,$zero
-.L0004c7d4:
-/*    4c7d4:	2605000c */ 	addiu	$a1,$s0,0xc
-/*    4c7d8:	0c012c5c */ 	jal	bcopy
-/*    4c7dc:	24060020 */ 	addiu	$a2,$zero,0x20
-/*    4c7e0:	922e001b */ 	lbu	$t6,0x1b($s1)
-/*    4c7e4:	24090010 */ 	addiu	$t1,$zero,0x10
-/*    4c7e8:	240a0008 */ 	addiu	$t2,$zero,0x8
-/*    4c7ec:	ae0e004c */ 	sw	$t6,0x4c($s0)
-/*    4c7f0:	922f001a */ 	lbu	$t7,0x1a($s1)
-/*    4c7f4:	ae090050 */ 	sw	$t1,0x50($s0)
-/*    4c7f8:	ae0a0054 */ 	sw	$t2,0x54($s0)
-/*    4c7fc:	31e200ff */ 	andi	$v0,$t7,0xff
-/*    4c800:	000218c0 */ 	sll	$v1,$v0,0x3
-/*    4c804:	0002c040 */ 	sll	$t8,$v0,0x1
-/*    4c808:	24680008 */ 	addiu	$t0,$v1,0x8
-/*    4c80c:	27190003 */ 	addiu	$t9,$t8,0x3
-/*    4c810:	01035821 */ 	addu	$t3,$t0,$v1
-/*    4c814:	ae190060 */ 	sw	$t9,0x60($s0)
-/*    4c818:	ae080058 */ 	sw	$t0,0x58($s0)
-/*    4c81c:	ae0b005c */ 	sw	$t3,0x5c($s0)
-/*    4c820:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c824:	8e050008 */ 	lw	$a1,0x8($s0)
-/*    4c828:	24060007 */ 	addiu	$a2,$zero,0x7
-/*    4c82c:	2607002c */ 	addiu	$a3,$s0,0x2c
-/*    4c830:	0c012e18 */ 	jal	__osContRamRead
-/*    4c834:	a20f0064 */ 	sb	$t7,0x64($s0)
-/*    4c838:	50400004 */ 	beqzl	$v0,.L0004c84c
-/*    4c83c:	00001025 */ 	or	$v0,$zero,$zero
-/*    4c840:	10000003 */ 	b	.L0004c850
-/*    4c844:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    4c848:	00001025 */ 	or	$v0,$zero,$zero
-.L0004c84c:
-/*    4c84c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0004c850:
-/*    4c850:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    4c854:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    4c858:	03e00008 */ 	jr	$ra
-/*    4c85c:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+s32 __osGetId(OSPfs *pfs)
+{
+	u16 sum;
+	u16 isum;
+	u8 temp[32];
+	__OSPackId newid;
+	s32 ret;
+	__OSPackId *id;
+
+	if (pfs->activebank != 0) {
+		ERRCK(__osPfsSelectBank(pfs, 0))
+	}
+
+	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));
+
+	__osIdCheckSum((u16*)temp, &sum, &isum);
+
+	id = (__OSPackId*)temp;
+
+	if (id->checksum != sum || id->inverted_checksum != isum) {
+		ret = __osCheckPackId(pfs, id);
+
+		if (ret == PFS_ERR_ID_FATAL) {
+			ERRCK(__osRepairPackId(pfs, id, &newid));
+			id = &newid;
+		} else if (ret != 0) {
+			return ret;
+		}
+	}
+
+	if ((id->deviceid & 1) == 0) {
+		ERRCK(__osRepairPackId(pfs, id, &newid));
+		id = &newid;
+
+		if ((id->deviceid & 1) == 0) {
+			return PFS_ERR_DEVICE;
+		}
+	}
+
+	bcopy(id, pfs->id, 0x20);
+
+	pfs->version = id->version;
+	pfs->banks = id->banks;
+	pfs->inode_start_page = pfs->banks * 2 + 3;
+	pfs->dir_size = 16;
+	pfs->inode_table = 8;
+	pfs->minode_table = pfs->banks * PFS_ONE_PAGE + 8;
+	pfs->dir_table = pfs->minode_table + pfs->banks * PFS_ONE_PAGE;
+
+	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 7, pfs->label));
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0004c860
