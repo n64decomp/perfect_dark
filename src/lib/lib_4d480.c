@@ -75,7 +75,7 @@ glabel func0004d480
 .L0004d564:
 /*    4d564:	02202825 */ 	or	$a1,$s1,$zero
 /*    4d568:	00003025 */ 	or	$a2,$zero,$zero
-/*    4d56c:	0c01324d */ 	jal	func0004c934
+/*    4d56c:	0c01324d */ 	jal	__osPfsRWInode
 /*    4d570:	320700ff */ 	andi	$a3,$s0,0xff
 /*    4d574:	10400003 */ 	beqz	$v0,.L0004d584
 /*    4d578:	02402025 */ 	or	$a0,$s2,$zero
@@ -94,7 +94,7 @@ glabel func0004d480
 .L0004d5a8:
 /*    4d5a8:	02202825 */ 	or	$a1,$s1,$zero
 /*    4d5ac:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4d5b0:	0c01324d */ 	jal	func0004c934
+/*    4d5b0:	0c01324d */ 	jal	__osPfsRWInode
 /*    4d5b4:	320700ff */ 	andi	$a3,$s0,0xff
 /*    4d5b8:	10400003 */ 	beqz	$v0,.L0004d5c8
 /*    4d5bc:	97ac0044 */ 	lhu	$t4,0x44($sp)

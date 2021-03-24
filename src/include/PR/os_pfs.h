@@ -98,6 +98,10 @@ typedef struct {
 #define PFS_ONE_PAGE            8		/* blocks */
 #define PFS_MAX_BANKS		62
 
+#define PFS_READ                0
+#define PFS_WRITE               1
+#define PFS_CREATE              2
+
 #define PFS_INITIALIZED		0x1
 #define PFS_CORRUPTED		0x2
 

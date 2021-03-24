@@ -12,7 +12,7 @@ s32 __osPfsGetStatus(OSMesgQueue *queue, int channel)
 	OSContStatus data;
 
 	ret = 0;
-	var80060984 = 0xfa;
+	g_PfsPrevBank = 0xfa;
 
 	__osPfsRequestOneChannel(channel, CONT_CMD_REQUEST_STATUS);
 	ret = __osSiRawStartDma(OS_WRITE, &__osPfsPifRam);

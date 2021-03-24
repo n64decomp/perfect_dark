@@ -8,73 +8,8 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009c870;
-u32 var8009c874;
-u32 var8009c878;
-u32 var8009c87c;
-u32 var8009c880;
-u32 var8009c884;
-u32 var8009c888;
-u32 var8009c88c;
-u32 var8009c890;
-u32 var8009c894;
-u32 var8009c898;
-u32 var8009c89c;
-u32 var8009c8a0;
-u32 var8009c8a4;
-u32 var8009c8a8;
-u32 var8009c8ac;
-u32 var8009c8b0;
-u32 var8009c8b4;
-u32 var8009c8b8;
-u32 var8009c8bc;
-u32 var8009c8c0;
-u32 var8009c8c4;
-u32 var8009c8c8;
-u32 var8009c8cc;
-u32 var8009c8d0;
-u32 var8009c8d4;
-u32 var8009c8d8;
-u32 var8009c8dc;
-u32 var8009c8e0;
-u32 var8009c8e4;
-u32 var8009c8e8;
-u32 var8009c8ec;
-u32 var8009c8f0;
-u32 var8009c8f4;
-u32 var8009c8f8;
-u32 var8009c8fc;
-u32 var8009c900;
-u32 var8009c904;
-u32 var8009c908;
-u32 var8009c90c;
-u32 var8009c910;
-u32 var8009c914;
-u32 var8009c918;
-u32 var8009c91c;
-u32 var8009c920;
-u32 var8009c924;
-u32 var8009c928;
-u32 var8009c92c;
-u32 var8009c930;
-u32 var8009c934;
-u32 var8009c938;
-u32 var8009c93c;
-u32 var8009c940;
-u32 var8009c944;
-u32 var8009c948;
-u32 var8009c94c;
-u32 var8009c950;
-u32 var8009c954;
-u32 var8009c958;
-u32 var8009c95c;
-u32 var8009c960;
-u32 var8009c964;
-u32 var8009c968;
-u32 var8009c96c;
-
-u32 var80060980 = 0xffffffff;
-u8 var80060984 = 0xfa;
+s32 g_PfsPrevChannel = -1;
+u8 g_PfsPrevBank = 250;
 
 u16 __osSumCalc(u8 *ptr, int length)
 {
@@ -607,203 +542,70 @@ glabel func0004c860
 /*    4c930:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0004c934
-/*    4c934:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*    4c938:	afb40030 */ 	sw	$s4,0x30($sp)
-/*    4c93c:	30d400ff */ 	andi	$s4,$a2,0xff
-/*    4c940:	afb20028 */ 	sw	$s2,0x28($sp)
-/*    4c944:	00809025 */ 	or	$s2,$a0,$zero
-/*    4c948:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*    4c94c:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*    4c950:	afb10024 */ 	sw	$s1,0x24($sp)
-/*    4c954:	afb00020 */ 	sw	$s0,0x20($sp)
-/*    4c958:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*    4c95c:	afa60060 */ 	sw	$a2,0x60($sp)
-/*    4c960:	16800011 */ 	bnez	$s4,.L0004c9a8
-/*    4c964:	afa70064 */ 	sw	$a3,0x64($sp)
-/*    4c968:	3c0f8006 */ 	lui	$t7,%hi(var80060984)
-/*    4c96c:	91ef0984 */ 	lbu	$t7,%lo(var80060984)($t7)
-/*    4c970:	93b80067 */ 	lbu	$t8,0x67($sp)
-/*    4c974:	3c198006 */ 	lui	$t9,%hi(var80060980)
-/*    4c978:	55f8000c */ 	bnel	$t7,$t8,.L0004c9ac
-/*    4c97c:	92490065 */ 	lbu	$t1,0x65($s2)
-/*    4c980:	8f390980 */ 	lw	$t9,%lo(var80060980)($t9)
-/*    4c984:	8c880008 */ 	lw	$t0,0x8($a0)
-/*    4c988:	3c04800a */ 	lui	$a0,%hi(var8009c870)
-/*    4c98c:	2484c870 */ 	addiu	$a0,$a0,%lo(var8009c870)
-/*    4c990:	57280006 */ 	bnel	$t9,$t0,.L0004c9ac
-/*    4c994:	92490065 */ 	lbu	$t1,0x65($s2)
-/*    4c998:	0c012c5c */ 	jal	bcopy
-/*    4c99c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*    4c9a0:	10000091 */ 	b	.L0004cbe8
-/*    4c9a4:	00001025 */ 	or	$v0,$zero,$zero
-.L0004c9a8:
-/*    4c9a8:	92490065 */ 	lbu	$t1,0x65($s2)
-.L0004c9ac:
-/*    4c9ac:	02402025 */ 	or	$a0,$s2,$zero
-/*    4c9b0:	51200008 */ 	beqzl	$t1,.L0004c9d4
-/*    4c9b4:	93a30067 */ 	lbu	$v1,0x67($sp)
-/*    4c9b8:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4c9bc:	00002825 */ 	or	$a1,$zero,$zero
-/*    4c9c0:	50400004 */ 	beqzl	$v0,.L0004c9d4
-/*    4c9c4:	93a30067 */ 	lbu	$v1,0x67($sp)
-/*    4c9c8:	10000088 */ 	b	.L0004cbec
-/*    4c9cc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*    4c9d0:	93a30067 */ 	lbu	$v1,0x67($sp)
-.L0004c9d4:
-/*    4c9d4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    4c9d8:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*    4c9dc:	58600004 */ 	blezl	$v1,.L0004c9f0
-/*    4c9e0:	8e4b0060 */ 	lw	$t3,0x60($s2)
-/*    4c9e4:	10000003 */ 	b	.L0004c9f4
-/*    4c9e8:	afaa0048 */ 	sw	$t2,0x48($sp)
-/*    4c9ec:	8e4b0060 */ 	lw	$t3,0x60($s2)
-.L0004c9f0:
-/*    4c9f0:	afab0048 */ 	sw	$t3,0x48($sp)
-.L0004c9f4:
-/*    4c9f4:	1454000c */ 	bne	$v0,$s4,.L0004ca28
-/*    4c9f8:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*    4c9fc:	8fac005c */ 	lw	$t4,0x5c($sp)
-/*    4ca00:	000d2823 */ 	negu	$a1,$t5
-/*    4ca04:	00057840 */ 	sll	$t7,$a1,0x1
-/*    4ca08:	000d7040 */ 	sll	$t6,$t5,0x1
-/*    4ca0c:	25e50100 */ 	addiu	$a1,$t7,0x100
-/*    4ca10:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*    4ca14:	0c013024 */ 	jal	__osSumCalc
-/*    4ca18:	018e2021 */ 	addu	$a0,$t4,$t6
-/*    4ca1c:	8fb8005c */ 	lw	$t8,0x5c($sp)
-/*    4ca20:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*    4ca24:	a3020001 */ 	sb	$v0,0x1($t8)
-.L0004ca28:
-/*    4ca28:	00008025 */ 	or	$s0,$zero,$zero
-/*    4ca2c:	8fb1005c */ 	lw	$s1,0x5c($sp)
-/*    4ca30:	000398c0 */ 	sll	$s3,$v1,0x3
-.L0004ca34:
-/*    4ca34:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    4ca38:	14540016 */ 	bne	$v0,$s4,.L0004ca94
-/*    4ca3c:	8e450008 */ 	lw	$a1,0x8($s2)
-/*    4ca40:	8e590054 */ 	lw	$t9,0x54($s2)
-/*    4ca44:	8e440004 */ 	lw	$a0,0x4($s2)
-/*    4ca48:	afa00010 */ 	sw	$zero,0x10($sp)
-/*    4ca4c:	03334021 */ 	addu	$t0,$t9,$s3
-/*    4ca50:	01103021 */ 	addu	$a2,$t0,$s0
-/*    4ca54:	30c9ffff */ 	andi	$t1,$a2,0xffff
-/*    4ca58:	01203025 */ 	or	$a2,$t1,$zero
-/*    4ca5c:	0c012d84 */ 	jal	__osContRamWrite
-/*    4ca60:	02203825 */ 	or	$a3,$s1,$zero
-/*    4ca64:	8e4a0058 */ 	lw	$t2,0x58($s2)
-/*    4ca68:	8e440004 */ 	lw	$a0,0x4($s2)
-/*    4ca6c:	8e450008 */ 	lw	$a1,0x8($s2)
-/*    4ca70:	01535821 */ 	addu	$t3,$t2,$s3
-/*    4ca74:	01703021 */ 	addu	$a2,$t3,$s0
-/*    4ca78:	30ccffff */ 	andi	$t4,$a2,0xffff
-/*    4ca7c:	01803025 */ 	or	$a2,$t4,$zero
-/*    4ca80:	afa00010 */ 	sw	$zero,0x10($sp)
-/*    4ca84:	0c012d84 */ 	jal	__osContRamWrite
-/*    4ca88:	02203825 */ 	or	$a3,$s1,$zero
-/*    4ca8c:	1000000a */ 	b	.L0004cab8
-/*    4ca90:	00401825 */ 	or	$v1,$v0,$zero
-.L0004ca94:
-/*    4ca94:	8e4e0054 */ 	lw	$t6,0x54($s2)
-/*    4ca98:	8e440004 */ 	lw	$a0,0x4($s2)
-/*    4ca9c:	02203825 */ 	or	$a3,$s1,$zero
-/*    4caa0:	01d36821 */ 	addu	$t5,$t6,$s3
-/*    4caa4:	01b03021 */ 	addu	$a2,$t5,$s0
-/*    4caa8:	30cfffff */ 	andi	$t7,$a2,0xffff
-/*    4caac:	0c012e18 */ 	jal	__osContRamRead
-/*    4cab0:	01e03025 */ 	or	$a2,$t7,$zero
-/*    4cab4:	00401825 */ 	or	$v1,$v0,$zero
-.L0004cab8:
-/*    4cab8:	10400003 */ 	beqz	$v0,.L0004cac8
-/*    4cabc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    4cac0:	10000049 */ 	b	.L0004cbe8
-/*    4cac4:	00601025 */ 	or	$v0,$v1,$zero
-.L0004cac8:
-/*    4cac8:	2a010008 */ 	slti	$at,$s0,0x8
-/*    4cacc:	1420ffd9 */ 	bnez	$at,.L0004ca34
-/*    4cad0:	26310020 */ 	addiu	$s1,$s1,0x20
-/*    4cad4:	16800038 */ 	bnez	$s4,.L0004cbb8
-/*    4cad8:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*    4cadc:	8fb8005c */ 	lw	$t8,0x5c($sp)
-/*    4cae0:	00192823 */ 	negu	$a1,$t9
-/*    4cae4:	00054840 */ 	sll	$t1,$a1,0x1
-/*    4cae8:	00194040 */ 	sll	$t0,$t9,0x1
-/*    4caec:	25250100 */ 	addiu	$a1,$t1,0x100
-/*    4caf0:	0308a021 */ 	addu	$s4,$t8,$t0
-/*    4caf4:	02802025 */ 	or	$a0,$s4,$zero
-/*    4caf8:	0c013024 */ 	jal	__osSumCalc
-/*    4cafc:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    4cb00:	8fab005c */ 	lw	$t3,0x5c($sp)
-/*    4cb04:	304a00ff */ 	andi	$t2,$v0,0xff
-/*    4cb08:	00008025 */ 	or	$s0,$zero,$zero
-/*    4cb0c:	916c0001 */ 	lbu	$t4,0x1($t3)
-/*    4cb10:	01608825 */ 	or	$s1,$t3,$zero
-/*    4cb14:	514c0029 */ 	beql	$t2,$t4,.L0004cbbc
-/*    4cb18:	93ab0067 */ 	lbu	$t3,0x67($sp)
-.L0004cb1c:
-/*    4cb1c:	8e4e0058 */ 	lw	$t6,0x58($s2)
-/*    4cb20:	8e440004 */ 	lw	$a0,0x4($s2)
-/*    4cb24:	8e450008 */ 	lw	$a1,0x8($s2)
-/*    4cb28:	01d36821 */ 	addu	$t5,$t6,$s3
-/*    4cb2c:	01b03021 */ 	addu	$a2,$t5,$s0
-/*    4cb30:	30cfffff */ 	andi	$t7,$a2,0xffff
-/*    4cb34:	01e03025 */ 	or	$a2,$t7,$zero
-/*    4cb38:	0c012e18 */ 	jal	__osContRamRead
-/*    4cb3c:	02203825 */ 	or	$a3,$s1,$zero
-/*    4cb40:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    4cb44:	2a010008 */ 	slti	$at,$s0,0x8
-/*    4cb48:	1420fff4 */ 	bnez	$at,.L0004cb1c
-/*    4cb4c:	26310020 */ 	addiu	$s1,$s1,0x20
-/*    4cb50:	02802025 */ 	or	$a0,$s4,$zero
-/*    4cb54:	0c013024 */ 	jal	__osSumCalc
-/*    4cb58:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*    4cb5c:	8fa8005c */ 	lw	$t0,0x5c($sp)
-/*    4cb60:	305800ff */ 	andi	$t8,$v0,0xff
-/*    4cb64:	00008025 */ 	or	$s0,$zero,$zero
-/*    4cb68:	91190001 */ 	lbu	$t9,0x1($t0)
-/*    4cb6c:	8fb1005c */ 	lw	$s1,0x5c($sp)
-/*    4cb70:	13190003 */ 	beq	$t8,$t9,.L0004cb80
-/*    4cb74:	00000000 */ 	nop
-/*    4cb78:	1000001b */ 	b	.L0004cbe8
-/*    4cb7c:	24020003 */ 	addiu	$v0,$zero,0x3
-.L0004cb80:
-/*    4cb80:	8e490054 */ 	lw	$t1,0x54($s2)
-/*    4cb84:	8e440004 */ 	lw	$a0,0x4($s2)
-/*    4cb88:	8e450008 */ 	lw	$a1,0x8($s2)
-/*    4cb8c:	01335021 */ 	addu	$t2,$t1,$s3
-/*    4cb90:	01503021 */ 	addu	$a2,$t2,$s0
-/*    4cb94:	30ccffff */ 	andi	$t4,$a2,0xffff
-/*    4cb98:	01803025 */ 	or	$a2,$t4,$zero
-/*    4cb9c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*    4cba0:	0c012d84 */ 	jal	__osContRamWrite
-/*    4cba4:	02203825 */ 	or	$a3,$s1,$zero
-/*    4cba8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    4cbac:	24010008 */ 	addiu	$at,$zero,0x8
-/*    4cbb0:	1601fff3 */ 	bne	$s0,$at,.L0004cb80
-/*    4cbb4:	26310020 */ 	addiu	$s1,$s1,0x20
-.L0004cbb8:
-/*    4cbb8:	93ab0067 */ 	lbu	$t3,0x67($sp)
-.L0004cbbc:
-/*    4cbbc:	3c018006 */ 	lui	$at,%hi(var80060984)
-/*    4cbc0:	3c05800a */ 	lui	$a1,%hi(var8009c870)
-/*    4cbc4:	24a5c870 */ 	addiu	$a1,$a1,%lo(var8009c870)
-/*    4cbc8:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*    4cbcc:	24060100 */ 	addiu	$a2,$zero,0x100
-/*    4cbd0:	0c012c5c */ 	jal	bcopy
-/*    4cbd4:	a02b0984 */ 	sb	$t3,%lo(var80060984)($at)
-/*    4cbd8:	8e4e0008 */ 	lw	$t6,0x8($s2)
-/*    4cbdc:	3c018006 */ 	lui	$at,%hi(var80060980)
-/*    4cbe0:	00001025 */ 	or	$v0,$zero,$zero
-/*    4cbe4:	ac2e0980 */ 	sw	$t6,%lo(var80060980)($at)
-.L0004cbe8:
-/*    4cbe8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0004cbec:
-/*    4cbec:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*    4cbf0:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*    4cbf4:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*    4cbf8:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*    4cbfc:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*    4cc00:	03e00008 */ 	jr	$ra
-/*    4cc04:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank)
+{
+	u8 sum;
+	int j;
+	s32 ret;
+	int offset;
+	u8 *addr;
+	static __OSInode prevnode;
+
+	if (flag == 0 && bank == g_PfsPrevBank && pfs->channel == g_PfsPrevChannel) {
+		bcopy(&prevnode, inode, sizeof(__OSInode));
+		return 0;
+	}
+
+	if (pfs->activebank != 0) {
+		ERRCK(__osPfsSelectBank(pfs, 0));
+	}
+
+	offset = (bank > 0) ? 1 : pfs->inode_start_page;
+
+	if (flag == PFS_WRITE) {
+		inode->inode_page[0].inode_t.page = __osSumCalc((u8*)&inode->inode_page[offset], (-offset) * 2 + 256);
+	}
+
+	for (j = 0; j < 8; j++) {
+		addr = ((u8 *)inode->inode_page + j * 32);
+
+		if (flag == PFS_WRITE) {
+			ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->inode_table + bank * 8 + j, addr, FALSE);
+			ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->minode_table + bank * 8 + j, addr, FALSE);
+		} else {
+			ret = __osContRamRead(pfs->queue, pfs->channel, pfs->inode_table + bank * 8 + j, addr);
+		}
+
+		if (ret != 0) {
+			return ret;
+		}
+	}
+
+	if (flag == PFS_READ) {
+		sum = __osSumCalc((u8*)&inode->inode_page[offset], (-offset) * 2 + 256);
+
+		if (sum != inode->inode_page[0].inode_t.page) {
+			for (j = 0; j < PFS_ONE_PAGE; j++) {
+				addr = ((u8 *)inode->inode_page + j * 32);
+				ret = __osContRamRead(pfs->queue, pfs->channel, pfs->minode_table + bank * PFS_ONE_PAGE + j, addr);
+			}
+
+			sum = __osSumCalc((u8*)&inode->inode_page[offset], (-offset) * 2 + 256);
+
+			if (sum != inode->inode_page[0].inode_t.page) {
+				return PFS_ERR_INCONSISTENT;
+			}
+
+			for (j = 0; j < PFS_ONE_PAGE; j++) {
+				addr = ((u8 *)inode->inode_page + j * 32);
+				ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->inode_table + bank * PFS_ONE_PAGE + j, addr, FALSE);
+			}
+		}
+	}
+
+	g_PfsPrevBank = bank;
+	bcopy(inode, &prevnode, sizeof(__OSInode));
+	g_PfsPrevChannel = pfs->channel;
+
+	return 0;
+}

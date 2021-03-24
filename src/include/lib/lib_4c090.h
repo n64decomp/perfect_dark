@@ -10,6 +10,6 @@ s32 __osRepairPackId(OSPfs *pfs, __OSPackId *badid, __OSPackId *newid);
 s32 __osCheckPackId(OSPfs *pfs, __OSPackId *temp);
 s32 __osGetId(OSPfs *pfs);
 u32 func0004c860(void);
-u32 func0004c934(void);
+s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank);
 
 #endif

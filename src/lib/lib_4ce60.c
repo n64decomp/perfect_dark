@@ -42,7 +42,7 @@ glabel func0004ce60
 /*    4ced4:	02802025 */ 	or	$a0,$s4,$zero
 /*    4ced8:	27a50048 */ 	addiu	$a1,$sp,0x48
 /*    4cedc:	00003025 */ 	or	$a2,$zero,$zero
-/*    4cee0:	0c01324d */ 	jal	func0004c934
+/*    4cee0:	0c01324d */ 	jal	__osPfsRWInode
 /*    4cee4:	326700ff */ 	andi	$a3,$s3,0xff
 /*    4cee8:	10400003 */ 	beqz	$v0,.L0004cef8
 /*    4ceec:	00000000 */ 	nop

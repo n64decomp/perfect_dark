@@ -15,6 +15,8 @@ typedef struct
 
 s32 __osDisableInt();
 void __osRestoreInt(s32);
+s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
+s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force);
 void __osEnqueueAndYield(OSThread**);
 void __osDequeueThread(OSThread**, OSThread*);
 void __osEnqueueThread(OSThread**, OSThread*);
