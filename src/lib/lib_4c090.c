@@ -113,73 +113,21 @@ glabel func0004c090
 /*    4c100:	01201025 */ 	or	$v0,$t1,$zero
 );
 
-GLOBAL_ASM(
-glabel __osIdCheckSum
-/*    4c104:	a4c00000 */ 	sh	$zero,0x0($a2)
-/*    4c108:	a4a00000 */ 	sh	$zero,0x0($a1)
-/*    4c10c:	94820000 */ 	lhu	$v0,0x0($a0)
-/*    4c110:	24870004 */ 	addiu	$a3,$a0,0x4
-/*    4c114:	24e90002 */ 	addiu	$t1,$a3,0x2
-/*    4c118:	0002c021 */ 	addu	$t8,$zero,$v0
-/*    4c11c:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    4c120:	94d90000 */ 	lhu	$t9,0x0($a2)
-/*    4c124:	00406827 */ 	nor	$t5,$v0,$zero
-/*    4c128:	24ea0004 */ 	addiu	$t2,$a3,0x4
-/*    4c12c:	032d7021 */ 	addu	$t6,$t9,$t5
-/*    4c130:	a4ce0000 */ 	sh	$t6,0x0($a2)
-/*    4c134:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    4c138:	94820002 */ 	lhu	$v0,0x2($a0)
-/*    4c13c:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*    4c140:	24eb0006 */ 	addiu	$t3,$a3,0x6
-/*    4c144:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    4c148:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    4c14c:	94d90000 */ 	lhu	$t9,0x0($a2)
-/*    4c150:	00406827 */ 	nor	$t5,$v0,$zero
-/*    4c154:	24030004 */ 	addiu	$v1,$zero,0x4
-/*    4c158:	032d7021 */ 	addu	$t6,$t9,$t5
-/*    4c15c:	a4ce0000 */ 	sh	$t6,0x0($a2)
-.L0004c160:
-/*    4c160:	94e20000 */ 	lhu	$v0,0x0($a3)
-/*    4c164:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    4c168:	24630008 */ 	addiu	$v1,$v1,0x8
-/*    4c16c:	00406827 */ 	nor	$t5,$v0,$zero
-/*    4c170:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    4c174:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    4c178:	94d90000 */ 	lhu	$t9,0x0($a2)
-/*    4c17c:	24e70008 */ 	addiu	$a3,$a3,0x8
-/*    4c180:	25290008 */ 	addiu	$t1,$t1,0x8
-/*    4c184:	032d7021 */ 	addu	$t6,$t9,$t5
-/*    4c188:	a4ce0000 */ 	sh	$t6,0x0($a2)
-/*    4c18c:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    4c190:	9522fff8 */ 	lhu	$v0,-0x8($t1)
-/*    4c194:	254a0008 */ 	addiu	$t2,$t2,0x8
-/*    4c198:	256b0008 */ 	addiu	$t3,$t3,0x8
-/*    4c19c:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    4c1a0:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    4c1a4:	94d90000 */ 	lhu	$t9,0x0($a2)
-/*    4c1a8:	00406827 */ 	nor	$t5,$v0,$zero
-/*    4c1ac:	032d7021 */ 	addu	$t6,$t9,$t5
-/*    4c1b0:	a4ce0000 */ 	sh	$t6,0x0($a2)
-/*    4c1b4:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    4c1b8:	9542fff8 */ 	lhu	$v0,-0x8($t2)
-/*    4c1bc:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    4c1c0:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    4c1c4:	94d90000 */ 	lhu	$t9,0x0($a2)
-/*    4c1c8:	00406827 */ 	nor	$t5,$v0,$zero
-/*    4c1cc:	032d7021 */ 	addu	$t6,$t9,$t5
-/*    4c1d0:	a4ce0000 */ 	sh	$t6,0x0($a2)
-/*    4c1d4:	94af0000 */ 	lhu	$t7,0x0($a1)
-/*    4c1d8:	9562fff8 */ 	lhu	$v0,-0x8($t3)
-/*    4c1dc:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*    4c1e0:	a4b80000 */ 	sh	$t8,0x0($a1)
-/*    4c1e4:	94d90000 */ 	lhu	$t9,0x0($a2)
-/*    4c1e8:	00406827 */ 	nor	$t5,$v0,$zero
-/*    4c1ec:	032d7021 */ 	addu	$t6,$t9,$t5
-/*    4c1f0:	1464ffdb */ 	bne	$v1,$a0,.L0004c160
-/*    4c1f4:	a4ce0000 */ 	sh	$t6,0x0($a2)
-/*    4c1f8:	03e00008 */ 	jr	$ra
-/*    4c1fc:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 __osIdCheckSum(u16 *ptr, u16 *csum, u16 *icsum)
+{
+	u16 data = 0;
+	u32 i;
+
+	*csum = *icsum = 0;
+
+	for (i = 0; i < ((sizeof(__OSPackId) - sizeof(u32)) / sizeof(u8)); i += 2) {
+		data = *(u16 *)((u32)ptr + i);
+		*csum += data;
+		*icsum += ~data;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel __osRepairPackId
