@@ -41,15 +41,21 @@ u32 func0f117520(s8 arg0, u32 arg1, u32 *arg2);
 void pakDumpBuffer(u8 *buffer, u32 len, char *name);
 void pakDumpEeprom(void);
 s32 func0f11789c(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
-s32 func0f117b04(OSMesgQueue *mq, struct var800a3180 *arg1, s32 channel, s32 arg3);
+
+#if VERSION >= VERSION_NTSC_1_0
+s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3);
+#else
+s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
+#endif
+
 s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer);
 s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2);
-s32 func0f117c80(struct var800a3180 *arg0, s32 *arg1);
+s32 func0f117c80(OSPfs *pfs, s32 *arg1);
 s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note);
 u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6);
-u32 func0f117e00(struct var800a3180 *arg0, u16 company_code, u32 game_code, char *game_name, char *ext_name);
+u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5);
-s32 func0f117ec0(struct var800a3180 *arg0, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes);
+s32 func0f117ec0(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes);
 s32 func0f117f80(s8 device);
 s32 func0f117fc0(s8 device);
 s32 func0f118000(s8 device);

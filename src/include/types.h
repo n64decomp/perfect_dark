@@ -6773,35 +6773,6 @@ struct joydata {
 	s32 unk200;
 };
 
-struct var800a3180 {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
-};
-
 struct guncmd {
 	u8 type;
 	u8 unk01;

@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-s32 func00050d60(struct var800a3180 *arg0, char *arg1, u8 *arg2);
+s32 func00050d60(OSPfs *pfs, char *arg1, u8 *arg2);
 
 #endif

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0004d6f0(void);
+s32 osPfsChecker(OSPfs *pfs);
 u32 func0004dc28(void);
 u32 func0004def4(void);
 u32 func0004e090(void);

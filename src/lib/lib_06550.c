@@ -599,315 +599,99 @@ glabel func00006550
 );
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00006d60
-/*     6d60:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*     6d64:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     6d68:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     6d6c:	00a08025 */ 	or	$s0,$a1,$zero
-/*     6d70:	afa40070 */ 	sw	$a0,0x70($sp)
-/*     6d74:	afa60078 */ 	sw	$a2,0x78($sp)
-/*     6d78:	0c012a18 */ 	jal	__osSiGetAccess
-/*     6d7c:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*     6d80:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*     6d84:	0c012ea4 */ 	jal	__osPfsGetStatus
-/*     6d88:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*     6d8c:	0c012a29 */ 	jal	__osSiRelAccess
-/*     6d90:	afa2006c */ 	sw	$v0,0x6c($sp)
-/*     6d94:	8fa3006c */ 	lw	$v1,0x6c($sp)
-/*     6d98:	8fae0070 */ 	lw	$t6,0x70($sp)
-/*     6d9c:	02002025 */ 	or	$a0,$s0,$zero
-/*     6da0:	50600004 */ 	beqzl	$v1,.L00006db4
-/*     6da4:	ae0e0004 */ 	sw	$t6,0x4($s0)
-/*     6da8:	10000076 */ 	b	.L00006f84
-/*     6dac:	00601025 */ 	or	$v0,$v1,$zero
-/*     6db0:	ae0e0004 */ 	sw	$t6,0x4($s0)
-.L00006db4:
-/*     6db4:	8faf0078 */ 	lw	$t7,0x78($sp)
-/*     6db8:	ae000000 */ 	sw	$zero,0x0($s0)
-/*     6dbc:	0c001be6 */ 	jal	func00006f98
-/*     6dc0:	ae0f0008 */ 	sw	$t7,0x8($s0)
-/*     6dc4:	10400003 */ 	beqz	$v0,.L00006dd4
-/*     6dc8:	02002025 */ 	or	$a0,$s0,$zero
-/*     6dcc:	1000006e */ 	b	.L00006f88
-/*     6dd0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00006dd4:
-/*     6dd4:	0c013378 */ 	jal	__osPfsSelectBank
-/*     6dd8:	00002825 */ 	or	$a1,$zero,$zero
-/*     6ddc:	10400003 */ 	beqz	$v0,.L00006dec
-/*     6de0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     6de4:	10000068 */ 	b	.L00006f88
-/*     6de8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00006dec:
-/*     6dec:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     6df0:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     6df4:	0c012e18 */ 	jal	__osContRamRead
-/*     6df8:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*     6dfc:	10400003 */ 	beqz	$v0,.L00006e0c
-/*     6e00:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*     6e04:	10000060 */ 	b	.L00006f88
-/*     6e08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00006e0c:
-/*     6e0c:	27a5006a */ 	addiu	$a1,$sp,0x6a
-/*     6e10:	0c013041 */ 	jal	func0004c104
-/*     6e14:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*     6e18:	97b8006a */ 	lhu	$t8,0x6a($sp)
-/*     6e1c:	97b90064 */ 	lhu	$t9,0x64($sp)
-/*     6e20:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*     6e24:	afa50044 */ 	sw	$a1,0x44($sp)
-/*     6e28:	17190004 */ 	bne	$t8,$t9,.L00006e3c
-/*     6e2c:	97a90068 */ 	lhu	$t1,0x68($sp)
-/*     6e30:	97aa0066 */ 	lhu	$t2,0x66($sp)
-/*     6e34:	512a000a */ 	beql	$t1,$t2,.L00006e60
-/*     6e38:	97ad0060 */ 	lhu	$t5,0x60($sp)
-.L00006e3c:
-/*     6e3c:	0c013154 */ 	jal	func0004c550
-/*     6e40:	02002025 */ 	or	$a0,$s0,$zero
-/*     6e44:	50400006 */ 	beqzl	$v0,.L00006e60
-/*     6e48:	97ad0060 */ 	lhu	$t5,0x60($sp)
-/*     6e4c:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*     6e50:	356c0004 */ 	ori	$t4,$t3,0x4
-/*     6e54:	1000004b */ 	b	.L00006f84
-/*     6e58:	ae0c0000 */ 	sw	$t4,0x0($s0)
-/*     6e5c:	97ad0060 */ 	lhu	$t5,0x60($sp)
-.L00006e60:
-/*     6e60:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*     6e64:	02002025 */ 	or	$a0,$s0,$zero
-/*     6e68:	31ae0001 */ 	andi	$t6,$t5,0x1
-/*     6e6c:	55c00016 */ 	bnezl	$t6,.L00006ec8
-/*     6e70:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*     6e74:	0c013080 */ 	jal	func0004c200
-/*     6e78:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*     6e7c:	10400009 */ 	beqz	$v0,.L00006ea4
-/*     6e80:	00401825 */ 	or	$v1,$v0,$zero
-/*     6e84:	2401000a */ 	addiu	$at,$zero,0xa
-/*     6e88:	14410004 */ 	bne	$v0,$at,.L00006e9c
-/*     6e8c:	00000000 */ 	nop
-/*     6e90:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*     6e94:	35f80004 */ 	ori	$t8,$t7,0x4
-/*     6e98:	ae180000 */ 	sw	$t8,0x0($s0)
-.L00006e9c:
-/*     6e9c:	10000039 */ 	b	.L00006f84
-/*     6ea0:	00601025 */ 	or	$v0,$v1,$zero
-.L00006ea4:
-/*     6ea4:	97a90038 */ 	lhu	$t1,0x38($sp)
-/*     6ea8:	27b90020 */ 	addiu	$t9,$sp,0x20
-/*     6eac:	afb90044 */ 	sw	$t9,0x44($sp)
-/*     6eb0:	312a0001 */ 	andi	$t2,$t1,0x1
-/*     6eb4:	55400004 */ 	bnezl	$t2,.L00006ec8
-/*     6eb8:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*     6ebc:	10000031 */ 	b	.L00006f84
-/*     6ec0:	2402000b */ 	addiu	$v0,$zero,0xb
-/*     6ec4:	8fa40044 */ 	lw	$a0,0x44($sp)
-.L00006ec8:
-/*     6ec8:	2605000c */ 	addiu	$a1,$s0,0xc
-/*     6ecc:	0c012c5c */ 	jal	bcopy
-/*     6ed0:	24060020 */ 	addiu	$a2,$zero,0x20
-/*     6ed4:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*     6ed8:	24190010 */ 	addiu	$t9,$zero,0x10
-/*     6edc:	24090008 */ 	addiu	$t1,$zero,0x8
-/*     6ee0:	916c001b */ 	lbu	$t4,0x1b($t3)
-/*     6ee4:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     6ee8:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     6eec:	ae0c004c */ 	sw	$t4,0x4c($s0)
-/*     6ef0:	8fad0044 */ 	lw	$t5,0x44($sp)
-/*     6ef4:	24060007 */ 	addiu	$a2,$zero,0x7
-/*     6ef8:	2607002c */ 	addiu	$a3,$s0,0x2c
-/*     6efc:	91ae001a */ 	lbu	$t6,0x1a($t5)
-/*     6f00:	ae190050 */ 	sw	$t9,0x50($s0)
-/*     6f04:	ae090054 */ 	sw	$t1,0x54($s0)
-/*     6f08:	31c200ff */ 	andi	$v0,$t6,0xff
-/*     6f0c:	000218c0 */ 	sll	$v1,$v0,0x3
-/*     6f10:	00027840 */ 	sll	$t7,$v0,0x1
-/*     6f14:	24680008 */ 	addiu	$t0,$v1,0x8
-/*     6f18:	25f80003 */ 	addiu	$t8,$t7,0x3
-/*     6f1c:	01035021 */ 	addu	$t2,$t0,$v1
-/*     6f20:	ae180060 */ 	sw	$t8,0x60($s0)
-/*     6f24:	ae080058 */ 	sw	$t0,0x58($s0)
-/*     6f28:	ae0a005c */ 	sw	$t2,0x5c($s0)
-/*     6f2c:	0c012e18 */ 	jal	__osContRamRead
-/*     6f30:	a20e0064 */ 	sb	$t6,0x64($s0)
-/*     6f34:	10400003 */ 	beqz	$v0,.L00006f44
-/*     6f38:	00000000 */ 	nop
-/*     6f3c:	10000012 */ 	b	.L00006f88
-/*     6f40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00006f44:
-/*     6f44:	0c0135bc */ 	jal	func0004d6f0
-/*     6f48:	02002025 */ 	or	$a0,$s0,$zero
-/*     6f4c:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*     6f50:	00401825 */ 	or	$v1,$v0,$zero
-/*     6f54:	02002025 */ 	or	$a0,$s0,$zero
-/*     6f58:	356c0001 */ 	ori	$t4,$t3,0x1
-/*     6f5c:	ae0c0000 */ 	sw	$t4,0x0($s0)
-/*     6f60:	8fad007c */ 	lw	$t5,0x7c($sp)
-/*     6f64:	51a00007 */ 	beqzl	$t5,.L00006f84
-/*     6f68:	00601025 */ 	or	$v0,$v1,$zero
-/*     6f6c:	0c001c21 */ 	jal	func00007084
-/*     6f70:	afa2006c */ 	sw	$v0,0x6c($sp)
-/*     6f74:	8fae007c */ 	lw	$t6,0x7c($sp)
-/*     6f78:	8fa3006c */ 	lw	$v1,0x6c($sp)
-/*     6f7c:	adc20000 */ 	sw	$v0,0x0($t6)
-/*     6f80:	00601025 */ 	or	$v0,$v1,$zero
-.L00006f84:
-/*     6f84:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00006f88:
-/*     6f88:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     6f8c:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*     6f90:	03e00008 */ 	jr	$ra
-/*     6f94:	00000000 */ 	nop
-);
+s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel, s32 *arg3)
 #else
-const char var70053ad0nb[] = "pfsinitpak.c -> ret = %d\n";
-
-GLOBAL_ASM(
-glabel func00006d60
-/*     6ea0:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*     6ea4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     6ea8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     6eac:	00a08025 */ 	or	$s0,$a1,$zero
-/*     6eb0:	afa40070 */ 	sw	$a0,0x70($sp)
-/*     6eb4:	0c013a80 */ 	jal	__osSiGetAccess
-/*     6eb8:	afa60078 */ 	sw	$a2,0x78($sp)
-/*     6ebc:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*     6ec0:	0c013284 */ 	jal	__osPfsGetStatus
-/*     6ec4:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*     6ec8:	0c013a91 */ 	jal	__osSiRelAccess
-/*     6ecc:	afa2006c */ 	sw	$v0,0x6c($sp)
-/*     6ed0:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*     6ed4:	8fae0070 */ 	lw	$t6,0x70($sp)
-/*     6ed8:	02002025 */ 	or	$a0,$s0,$zero
-/*     6edc:	50a00004 */ 	beqzl	$a1,.NB00006ef0
-/*     6ee0:	ae0e0004 */ 	sw	$t6,0x4($s0)
-/*     6ee4:	1000006e */ 	beqz	$zero,.NB000070a0
-/*     6ee8:	00a01025 */ 	or	$v0,$a1,$zero
-/*     6eec:	ae0e0004 */ 	sw	$t6,0x4($s0)
-.NB00006ef0:
-/*     6ef0:	8faf0078 */ 	lw	$t7,0x78($sp)
-/*     6ef4:	ae000000 */ 	sw	$zero,0x0($s0)
-/*     6ef8:	0c001c2d */ 	jal	func00006f98
-/*     6efc:	ae0f0008 */ 	sw	$t7,0x8($s0)
-/*     6f00:	10400003 */ 	beqz	$v0,.NB00006f10
-/*     6f04:	02002025 */ 	or	$a0,$s0,$zero
-/*     6f08:	10000066 */ 	beqz	$zero,.NB000070a4
-/*     6f0c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB00006f10:
-/*     6f10:	0c013828 */ 	jal	__osPfsSelectBank
-/*     6f14:	00002825 */ 	or	$a1,$zero,$zero
-/*     6f18:	10400003 */ 	beqz	$v0,.NB00006f28
-/*     6f1c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     6f20:	10000060 */ 	beqz	$zero,.NB000070a4
-/*     6f24:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB00006f28:
-/*     6f28:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     6f2c:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     6f30:	0c0131f8 */ 	jal	__osContRamRead
-/*     6f34:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*     6f38:	10400003 */ 	beqz	$v0,.NB00006f48
-/*     6f3c:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*     6f40:	10000058 */ 	beqz	$zero,.NB000070a4
-/*     6f44:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB00006f48:
-/*     6f48:	27a5006a */ 	addiu	$a1,$sp,0x6a
-/*     6f4c:	0c0134f1 */ 	jal	func0004c104
-/*     6f50:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*     6f54:	97b8006a */ 	lhu	$t8,0x6a($sp)
-/*     6f58:	97b90064 */ 	lhu	$t9,0x64($sp)
-/*     6f5c:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*     6f60:	afa50044 */ 	sw	$a1,0x44($sp)
-/*     6f64:	17190004 */ 	bne	$t8,$t9,.NB00006f78
-/*     6f68:	97a90068 */ 	lhu	$t1,0x68($sp)
-/*     6f6c:	97aa0066 */ 	lhu	$t2,0x66($sp)
-/*     6f70:	512a000a */ 	beql	$t1,$t2,.NB00006f9c
-/*     6f74:	97ad0060 */ 	lhu	$t5,0x60($sp)
-.NB00006f78:
-/*     6f78:	0c013604 */ 	jal	func0004c550
-/*     6f7c:	02002025 */ 	or	$a0,$s0,$zero
-/*     6f80:	50400006 */ 	beqzl	$v0,.NB00006f9c
-/*     6f84:	97ad0060 */ 	lhu	$t5,0x60($sp)
-/*     6f88:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*     6f8c:	356c0004 */ 	ori	$t4,$t3,0x4
-/*     6f90:	10000043 */ 	beqz	$zero,.NB000070a0
-/*     6f94:	ae0c0000 */ 	sw	$t4,0x0($s0)
-/*     6f98:	97ad0060 */ 	lhu	$t5,0x60($sp)
-.NB00006f9c:
-/*     6f9c:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*     6fa0:	02002025 */ 	or	$a0,$s0,$zero
-/*     6fa4:	31ae0001 */ 	andi	$t6,$t5,0x1
-/*     6fa8:	55c00016 */ 	bnezl	$t6,.NB00007004
-/*     6fac:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*     6fb0:	0c013530 */ 	jal	func0004c200
-/*     6fb4:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*     6fb8:	10400009 */ 	beqz	$v0,.NB00006fe0
-/*     6fbc:	00402825 */ 	or	$a1,$v0,$zero
-/*     6fc0:	2401000a */ 	addiu	$at,$zero,0xa
-/*     6fc4:	14410004 */ 	bne	$v0,$at,.NB00006fd8
-/*     6fc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     6fcc:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*     6fd0:	35f80004 */ 	ori	$t8,$t7,0x4
-/*     6fd4:	ae180000 */ 	sw	$t8,0x0($s0)
-.NB00006fd8:
-/*     6fd8:	10000031 */ 	beqz	$zero,.NB000070a0
-/*     6fdc:	00a01025 */ 	or	$v0,$a1,$zero
-.NB00006fe0:
-/*     6fe0:	97a90038 */ 	lhu	$t1,0x38($sp)
-/*     6fe4:	27b90020 */ 	addiu	$t9,$sp,0x20
-/*     6fe8:	afb90044 */ 	sw	$t9,0x44($sp)
-/*     6fec:	312a0001 */ 	andi	$t2,$t1,0x1
-/*     6ff0:	55400004 */ 	bnezl	$t2,.NB00007004
-/*     6ff4:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*     6ff8:	10000029 */ 	beqz	$zero,.NB000070a0
-/*     6ffc:	2402000b */ 	addiu	$v0,$zero,0xb
-/*     7000:	8fa40044 */ 	lw	$a0,0x44($sp)
-.NB00007004:
-/*     7004:	2605000c */ 	addiu	$a1,$s0,0xc
-/*     7008:	0c01303c */ 	jal	bcopy
-/*     700c:	24060020 */ 	addiu	$a2,$zero,0x20
-/*     7010:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*     7014:	24190010 */ 	addiu	$t9,$zero,0x10
-/*     7018:	24090008 */ 	addiu	$t1,$zero,0x8
-/*     701c:	916c001b */ 	lbu	$t4,0x1b($t3)
-/*     7020:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     7024:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     7028:	ae0c004c */ 	sw	$t4,0x4c($s0)
-/*     702c:	8fad0044 */ 	lw	$t5,0x44($sp)
-/*     7030:	24060007 */ 	addiu	$a2,$zero,0x7
-/*     7034:	2607002c */ 	addiu	$a3,$s0,0x2c
-/*     7038:	91ae001a */ 	lbu	$t6,0x1a($t5)
-/*     703c:	ae190050 */ 	sw	$t9,0x50($s0)
-/*     7040:	ae090054 */ 	sw	$t1,0x54($s0)
-/*     7044:	31c200ff */ 	andi	$v0,$t6,0xff
-/*     7048:	000218c0 */ 	sll	$v1,$v0,0x3
-/*     704c:	00027840 */ 	sll	$t7,$v0,0x1
-/*     7050:	24680008 */ 	addiu	$t0,$v1,0x8
-/*     7054:	25f80003 */ 	addiu	$t8,$t7,0x3
-/*     7058:	01035021 */ 	addu	$t2,$t0,$v1
-/*     705c:	ae180060 */ 	sw	$t8,0x60($s0)
-/*     7060:	ae080058 */ 	sw	$t0,0x58($s0)
-/*     7064:	ae0a005c */ 	sw	$t2,0x5c($s0)
-/*     7068:	0c0131f8 */ 	jal	__osContRamRead
-/*     706c:	a20e0064 */ 	sb	$t6,0x64($s0)
-/*     7070:	10400003 */ 	beqz	$v0,.NB00007080
-/*     7074:	00402825 */ 	or	$a1,$v0,$zero
-/*     7078:	1000000a */ 	beqz	$zero,.NB000070a4
-/*     707c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB00007080:
-/*     7080:	3c047005 */ 	lui	$a0,0x7005
-/*     7084:	0c00c47d */ 	jal	crashPrint
-/*     7088:	24843ad0 */ 	addiu	$a0,$a0,0x3ad0
-/*     708c:	0c013a9c */ 	jal	func0004d6f0
-/*     7090:	02002025 */ 	or	$a0,$s0,$zero
-/*     7094:	8e0b0000 */ 	lw	$t3,0x0($s0)
-/*     7098:	356c0001 */ 	ori	$t4,$t3,0x1
-/*     709c:	ae0c0000 */ 	sw	$t4,0x0($s0)
-.NB000070a0:
-/*     70a0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.NB000070a4:
-/*     70a4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*     70a8:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*     70ac:	03e00008 */ 	jr	$ra
-/*     70b0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 #endif
+{
+	s32 ret;
+	u16 sum;
+	u16 isum;
+	u8 temp[32];
+	__OSPackId *id;
+	__OSPackId newid;
+
+	ret = 0;
+
+    __osSiGetAccess();
+    ret = __osPfsGetStatus(queue, channel);
+    __osSiRelAccess();
+
+    if (ret != 0) {
+        return ret;
+	}
+
+	pfs->queue = queue;
+	pfs->channel = channel;
+	pfs->status = 0;
+
+	ERRCK(func00006f98(pfs));
+	ERRCK(__osPfsSelectBank(pfs, 0));
+	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));
+	__osIdCheckSum((u16*)temp, &sum, &isum);
+
+	id = (__OSPackId *)temp;
+
+	if (id->checksum != sum || id->inverted_checksum != isum) {
+		ret = __osCheckPackId(pfs, id);
+
+		if (ret != 0) {
+			pfs->status |= 4;
+			return ret;
+		}
+	}
+
+	if ((id->deviceid & 1) == 0) {
+		ret = __osRepairPackId(pfs, id, &newid);
+
+		if (ret != 0) {
+			if (ret == 10) {
+				pfs->status |= 4;
+			}
+
+			return ret;
+		}
+
+		id = &newid;
+
+		if ((id->deviceid & 1) == 0) {
+			return PFS_ERR_DEVICE;
+		}
+	}
+
+	bcopy(id, pfs->id, 0x20);
+
+	pfs->version = id->version;
+	pfs->banks = id->banks;
+	pfs->inode_start_page = pfs->banks * 2 + 3;
+	pfs->dir_size = 0x10;
+	pfs->inode_table = 8;
+	pfs->minode_table = pfs->banks * PFS_ONE_PAGE + 8;
+	pfs->dir_table = pfs->minode_table + pfs->banks * PFS_ONE_PAGE;
+
+#if VERSION >= VERSION_NTSC_1_0
+	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 7, pfs->label));
+	ret = osPfsChecker(pfs);
+	pfs->status |= PFS_INITIALIZED;
+
+	if (arg3 != NULL) {
+		*arg3 = func00007084(pfs);
+	}
+#else
+
+	ret = __osContRamRead(pfs->queue, pfs->channel, 7, pfs->label);
+
+	if (ret != 0) {
+		return ret;
+	}
+
+	crashPrint("pfsinitpak.c -> ret = %d\n", ret);
+	ret = osPfsChecker(pfs);
+	pfs->status |= PFS_INITIALIZED;
+#endif
+
+	return ret;
+}
 
 GLOBAL_ASM(
 glabel func00006f98

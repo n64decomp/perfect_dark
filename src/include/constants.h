@@ -34,6 +34,7 @@
 #define PLAYERCOUNT3012()   ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
 #define SECSTOTIME240(secs) (secs * 240)
 #define SECSTOTIME60(secs)  (secs * 60)
+#define PFS(device)         (device == SAVEDEVICE_GAMEPAK ? NULL : &g_Pfses[device])
 
 #if VERSION >= VERSION_NTSC_1_0
 #define VOLUME(volume)      (volume > 0x5000 ? 0x5000 : volume)

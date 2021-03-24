@@ -210,7 +210,7 @@ extern void *var800a2368;
 extern u16 g_NumSpecialCovers;
 extern u16 *g_SpecialCoverNums;
 extern struct var800a2380 var800a2380[5];
-extern struct var800a3180 var800a3180[4];
+extern OSPfs g_Pfses[4];
 extern u32 var800a33a0;
 extern u32 var800a33a4;
 extern struct explosion *g_Explosions;

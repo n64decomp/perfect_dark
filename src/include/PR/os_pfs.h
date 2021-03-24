@@ -88,11 +88,46 @@ typedef struct {
 #define PFS_ERR_ID_FATAL     10 /* dead ram pack */
 #define PFS_ERR_DEVICE       11 /* wrong device type */
 
+#define	OS_PFS_VERSION		0x0200
+#define	OS_PFS_VERSION_HI	(OS_PFS_VERSION >> 8)
+#define	OS_PFS_VERSION_LO	(OS_PFS_VERSION & 255)
+
+#define PFS_FILE_NAME_LEN       16
+#define PFS_FILE_EXT_LEN        4
+#define BLOCKSIZE		32		/* bytes */
+#define PFS_ONE_PAGE            8		/* blocks */
+#define PFS_MAX_BANKS		62
+
+#define PFS_INITIALIZED		0x1
+#define PFS_CORRUPTED		0x2
+
 /**************************************************************************
  *
  * Macro definitions
  *
  */
+
+#define SET_ACTIVEBANK_TO_ZERO        \
+    if (pfs->activebank != 0)         \
+    {                                 \
+        pfs->activebank = 0;          \
+        ERRCK(__osPfsSelectBank(pfs)) \
+    }
+
+#define PFS_CHECK_ID                              \
+    if (__osCheckId(pfs) == PFS_ERR_NEW_PACK) \
+        return PFS_ERR_NEW_PACK;
+
+#define PFS_CHECK_STATUS                          \
+    if ((pfs->status & PFS_INITIALIZED) == 0) \
+        return PFS_ERR_INVALID;
+
+#define PFS_GET_STATUS                      \
+    __osSiGetAccess();                      \
+    ret = __osPfsGetStatus(queue, channel); \
+    __osSiRelAccess();                      \
+    if (ret != 0)                           \
+        return ret;
 
 /**************************************************************************
  *

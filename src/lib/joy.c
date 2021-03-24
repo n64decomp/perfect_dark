@@ -1312,10 +1312,10 @@ void joy0001519c(void)
 	osSetEventMesg(OS_EVENT_SI, &var80099e78, 0);
 
 	for (i = 0; i < 4; i++) {
-		if (!func0004f854(&var80099e78, (i == 4 ? NULL : &var800a3180[i]), i)) {
-			func0004f5e0((i == 4 ? NULL : &var800a3180[i]), 0);
-			func0004f5e0((i == 4 ? NULL : &var800a3180[i]), 0);
-			func0004f5e0((i == 4 ? NULL : &var800a3180[i]), 0);
+		if (!func0004f854(&var80099e78, PFS(i), i)) {
+			func0004f5e0(PFS(i), 0);
+			func0004f5e0(PFS(i), 0);
+			func0004f5e0(PFS(i), 0);
 		}
 	}
 }
@@ -1351,10 +1351,10 @@ void joy000153c4(s8 arg0, s32 arg1)
 				joy000150e8();
 			}
 
-			if (func0004f854(&var80099e78, arg0 == 4 ? NULL : &var800a3180[arg0], arg0) == 0) {
-				func0004f5e0(arg0 == 4 ? NULL : &var800a3180[arg0], 0);
-				func0004f5e0(arg0 == 4 ? NULL : &var800a3180[arg0], 0);
-				func0004f5e0(arg0 == 4 ? NULL : &var800a3180[arg0], 0);
+			if (func0004f854(&var80099e78, PFS(arg0), arg0) == 0) {
+				func0004f5e0(PFS(arg0), 0);
+				func0004f5e0(PFS(arg0), 0);
+				func0004f5e0(PFS(arg0), 0);
 			}
 
 			if (arg1) {
@@ -1538,14 +1538,14 @@ void joy0001561c(void)
 			switch (var800a2380[i].unk004) {
 			case 3:
 				var800a2380[i].unk004 = 4;
-				func0004f5e0(i == 4 ? NULL : &var800a3180[i], 1);
+				func0004f5e0(PFS(i), 1);
 				break;
 			case 4:
 				if (var800a2380[i].unk284 != -1) {
 					if (var800a2380[i].unk28c == 0) {
-						func0004f5e0(i == 4 ? NULL : &var800a3180[i], 1);
+						func0004f5e0(PFS(i), 1);
 					} else if (var800a2380[i].unk284 == var800a2380[i].unk28c) {
-						func0004f5e0(i == 4 ? NULL : &var800a3180[i], 0);
+						func0004f5e0(PFS(i), 0);
 					}
 
 					var800a2380[i].unk28c++;
@@ -1563,10 +1563,10 @@ void joy0001561c(void)
 				break;
 			case 5:
 				var800a2380[i].unk004 = 2;
-				func0004f5e0(i == 4 ? NULL : &var800a3180[i], 0);
+				func0004f5e0(PFS(i), 0);
 				break;
 			case 6:
-				func0004f5e0(i == 4 ? NULL : &var800a3180[i], 0);
+				func0004f5e0(PFS(i), 0);
 				var800a2380[i].unk004 = 7;
 				break;
 			case 8:

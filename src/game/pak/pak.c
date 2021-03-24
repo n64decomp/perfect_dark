@@ -33,7 +33,7 @@ const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPa
 
 struct var800a2380 var800a2380[5];
 u32 var800a317c;
-struct var800a3180 var800a3180[4];
+OSPfs g_Pfses[4];
 u32 var800a3320;
 u32 var800a3324;
 u32 var800a3328;
@@ -394,8 +394,7 @@ s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, ch
 #else
 		joy000150e8(123, "pak.c");
 #endif
-		result = func0f117e00(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
-				company_code, game_code, game_name, ext_name);
+		result = func0f117e00(PFS(device), company_code, game_code, game_name, ext_name);
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();
 #else
@@ -917,8 +916,8 @@ glabel func0f117520
 /*  f1175e8:	01445023 */ 	subu	$t2,$t2,$a0
 /*  f1175ec:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f1175f0:	01445021 */ 	addu	$t2,$t2,$a0
-/*  f1175f4:	3c0b800a */ 	lui	$t3,%hi(var800a3180)
-/*  f1175f8:	256b3180 */ 	addiu	$t3,$t3,%lo(var800a3180)
+/*  f1175f4:	3c0b800a */ 	lui	$t3,%hi(g_Pfses)
+/*  f1175f8:	256b3180 */ 	addiu	$t3,$t3,%lo(g_Pfses)
 /*  f1175fc:	000a50c0 */ 	sll	$t2,$t2,0x3
 /*  f117600:	014b2821 */ 	addu	$a1,$t2,$t3
 .L0f117604:
@@ -1572,10 +1571,18 @@ glabel func0f11789c
 );
 #endif
 
-s32 func0f117b04(OSMesgQueue *mq, struct var800a3180 *arg1, s32 channel, s32 arg3)
+#if VERSION >= VERSION_NTSC_1_0
+s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3)
+#else
+s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
+#endif
 {
-	if (arg1) {
-		return func00006d60(mq, arg1, channel, arg3);
+	if (pfs) {
+#if VERSION >= VERSION_NTSC_1_0
+		return osPfsInitPak(mq, pfs, channel, arg3);
+#else
+		return osPfsInitPak(mq, pfs, channel);
+#endif
 	}
 
 	if (!g_PakHasEeprom) {
@@ -1651,9 +1658,9 @@ s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
 	return 0;
 }
 
-s32 func0f117c80(struct var800a3180 *arg0, s32 *arg1)
+s32 func0f117c80(OSPfs *pfs, s32 *arg1)
 {
-	if (arg0) {
+	if (pfs) {
 		s32 result;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1661,7 +1668,9 @@ s32 func0f117c80(struct var800a3180 *arg0, s32 *arg1)
 #else
 		joy000150e8(1337, "pak.c");
 #endif
-		result = func0004ce60(arg0, arg1);
+
+		result = func0004ce60(pfs, arg1);
+
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();
 #else
@@ -1733,10 +1742,10 @@ u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32
 	return 0;
 }
 
-u32 func0f117e00(struct var800a3180 *arg0, u16 company_code, u32 game_code, char *game_name, char *ext_name)
+u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
-	if (arg0) {
-		return func0004d480(arg0, company_code, game_code, game_name, ext_name);
+	if (pfs) {
+		return func0004d480(pfs, company_code, game_code, game_name, ext_name);
 	}
 
 	if (g_PakHasEeprom == 0) {
@@ -1783,9 +1792,9 @@ u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5)
 	return 0x80;
 }
 
-s32 func0f117ec0(struct var800a3180 *arg0, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes)
+s32 func0f117ec0(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes)
 {
-	if (arg0) {
+	if (pfs) {
 		s32 result;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1793,7 +1802,9 @@ s32 func0f117ec0(struct var800a3180 *arg0, u16 company_code, u32 game_code, u8 *
 #else
 		joy000150e8(1496, "pak.c");
 #endif
-		result = func00006550(arg0, company_code, game_code, game_name, ext_name, numbytes);
+
+		result = func00006550(pfs, company_code, game_code, game_name, ext_name, numbytes);
+
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();
 #else
@@ -1857,7 +1868,7 @@ s32 func0f118000(s8 device)
 {
 	s32 value;
 
-	func0f117c80(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device], &value);
+	func0f117c80(PFS(device), &value);
 
 	return value / 256;
 }
@@ -1965,8 +1976,7 @@ s32 func0f118334(s8 device, s32 numpages)
 	func0f118000(device);
 
 	numbytes = numpages * 256;
-	errno = func0f117ec0(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
-			ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, numbytes);
+	errno = func0f117ec0(PFS(device), ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, numbytes);
 	func0f11c39c(errno, device, 1, VERSION >= VERSION_NTSC_FINAL ? 1802 : 1788);
 
 	if (errno == 0) {
@@ -7420,8 +7430,8 @@ glabel func0f11a574
 /*  f11a5f4:	24170004 */ 	addiu	$s7,$zero,0x4
 /*  f11a5f8:	16b70005 */ 	bne	$s5,$s7,.L0f11a610
 /*  f11a5fc:	26850290 */ 	addiu	$a1,$s4,0x290
-/*  f11a600:	3c1e800a */ 	lui	$s8,%hi(var800a3180)
-/*  f11a604:	27de3180 */ 	addiu	$s8,$s8,%lo(var800a3180)
+/*  f11a600:	3c1e800a */ 	lui	$s8,%hi(g_Pfses)
+/*  f11a604:	27de3180 */ 	addiu	$s8,$s8,%lo(g_Pfses)
 /*  f11a608:	10000009 */ 	beqz	$zero,.L0f11a630
 /*  f11a60c:	00002025 */ 	or	$a0,$zero,$zero
 .L0f11a610:
@@ -7429,8 +7439,8 @@ glabel func0f11a574
 /*  f11a614:	01555023 */ 	subu	$t2,$t2,$s5
 /*  f11a618:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f11a61c:	01555021 */ 	addu	$t2,$t2,$s5
-/*  f11a620:	3c1e800a */ 	lui	$s8,%hi(var800a3180)
-/*  f11a624:	27de3180 */ 	addiu	$s8,$s8,%lo(var800a3180)
+/*  f11a620:	3c1e800a */ 	lui	$s8,%hi(g_Pfses)
+/*  f11a624:	27de3180 */ 	addiu	$s8,$s8,%lo(g_Pfses)
 /*  f11a628:	000a50c0 */ 	sll	$t2,$t2,0x3
 /*  f11a62c:	03ca2021 */ 	addu	$a0,$s8,$t2
 .L0f11a630:
@@ -7749,8 +7759,8 @@ glabel func0f11a7dc
 /*  f11a818:	01f17823 */ 	subu	$t7,$t7,$s1
 /*  f11a81c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11a820:	01f17821 */ 	addu	$t7,$t7,$s1
-/*  f11a824:	3c18800a */ 	lui	$t8,%hi(var800a3180)
-/*  f11a828:	27183180 */ 	addiu	$t8,$t8,%lo(var800a3180)
+/*  f11a824:	3c18800a */ 	lui	$t8,%hi(g_Pfses)
+/*  f11a828:	27183180 */ 	addiu	$t8,$t8,%lo(g_Pfses)
 /*  f11a82c:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f11a830:	01f82021 */ 	addu	$a0,$t7,$t8
 .L0f11a834:
@@ -8020,8 +8030,8 @@ glabel func0f11a8f4
 /*  f11a9a8:	01b16823 */ 	subu	$t5,$t5,$s1
 /*  f11a9ac:	000d6880 */ 	sll	$t5,$t5,0x2
 /*  f11a9b0:	01b16821 */ 	addu	$t5,$t5,$s1
-/*  f11a9b4:	3c0e800a */ 	lui	$t6,%hi(var800a3180)
-/*  f11a9b8:	25ce3180 */ 	addiu	$t6,$t6,%lo(var800a3180)
+/*  f11a9b4:	3c0e800a */ 	lui	$t6,%hi(g_Pfses)
+/*  f11a9b8:	25ce3180 */ 	addiu	$t6,$t6,%lo(g_Pfses)
 /*  f11a9bc:	000d68c0 */ 	sll	$t5,$t5,0x3
 /*  f11a9c0:	01ae2021 */ 	addu	$a0,$t5,$t6
 .L0f11a9c4:
@@ -8072,8 +8082,8 @@ glabel func0f11a8f4
 /*  f11aa6c:	01916023 */ 	subu	$t4,$t4,$s1
 /*  f11aa70:	000c6080 */ 	sll	$t4,$t4,0x2
 /*  f11aa74:	01916021 */ 	addu	$t4,$t4,$s1
-/*  f11aa78:	3c0d800a */ 	lui	$t5,%hi(var800a3180)
-/*  f11aa7c:	25ad3180 */ 	addiu	$t5,$t5,%lo(var800a3180)
+/*  f11aa78:	3c0d800a */ 	lui	$t5,%hi(g_Pfses)
+/*  f11aa7c:	25ad3180 */ 	addiu	$t5,$t5,%lo(g_Pfses)
 /*  f11aa80:	000c60c0 */ 	sll	$t4,$t4,0x3
 /*  f11aa84:	018d2021 */ 	addu	$a0,$t4,$t5
 .L0f11aa88:
@@ -8270,8 +8280,8 @@ glabel func0f11a8f4
 /*  f11a728:	01b16823 */ 	subu	$t5,$t5,$s1
 /*  f11a72c:	000d6880 */ 	sll	$t5,$t5,0x2
 /*  f11a730:	01b16821 */ 	addu	$t5,$t5,$s1
-/*  f11a734:	3c0e800a */ 	lui	$t6,%hi(var800a3180)
-/*  f11a738:	25ce3180 */ 	addiu	$t6,$t6,%lo(var800a3180)
+/*  f11a734:	3c0e800a */ 	lui	$t6,%hi(g_Pfses)
+/*  f11a738:	25ce3180 */ 	addiu	$t6,$t6,%lo(g_Pfses)
 /*  f11a73c:	000d68c0 */ 	sll	$t5,$t5,0x3
 /*  f11a740:	01ae2021 */ 	addu	$a0,$t5,$t6
 .L0f11a744_2:
@@ -8322,8 +8332,8 @@ glabel func0f11a8f4
 /*  f11a7ec:	01916023 */ 	subu	$t4,$t4,$s1
 /*  f11a7f0:	000c6080 */ 	sll	$t4,$t4,0x2
 /*  f11a7f4:	01916021 */ 	addu	$t4,$t4,$s1
-/*  f11a7f8:	3c0d800a */ 	lui	$t5,%hi(var800a3180)
-/*  f11a7fc:	25ad3180 */ 	addiu	$t5,$t5,%lo(var800a3180)
+/*  f11a7f8:	3c0d800a */ 	lui	$t5,%hi(g_Pfses)
+/*  f11a7fc:	25ad3180 */ 	addiu	$t5,$t5,%lo(g_Pfses)
 /*  f11a800:	000c60c0 */ 	sll	$t4,$t4,0x3
 /*  f11a804:	018d2021 */ 	addu	$a0,$t4,$t5
 .L0f11a808_2:
@@ -8719,8 +8729,8 @@ glabel func0f11ac7c
 /*  f11acbc:	01f07823 */ 	subu	$t7,$t7,$s0
 /*  f11acc0:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11acc4:	01f07821 */ 	addu	$t7,$t7,$s0
-/*  f11acc8:	3c18800a */ 	lui	$t8,%hi(var800a3180)
-/*  f11accc:	27183180 */ 	addiu	$t8,$t8,%lo(var800a3180)
+/*  f11acc8:	3c18800a */ 	lui	$t8,%hi(g_Pfses)
+/*  f11accc:	27183180 */ 	addiu	$t8,$t8,%lo(g_Pfses)
 /*  f11acd0:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*  f11acd4:	01f82821 */ 	addu	$a1,$t7,$t8
 .L0f11acd8:
@@ -8792,8 +8802,8 @@ glabel func0f11ac7c
 /*  f11adc8:	01906023 */ 	subu	$t4,$t4,$s0
 /*  f11adcc:	000c6080 */ 	sll	$t4,$t4,0x2
 /*  f11add0:	01906021 */ 	addu	$t4,$t4,$s0
-/*  f11add4:	3c0d800a */ 	lui	$t5,%hi(var800a3180)
-/*  f11add8:	25ad3180 */ 	addiu	$t5,$t5,%lo(var800a3180)
+/*  f11add4:	3c0d800a */ 	lui	$t5,%hi(g_Pfses)
+/*  f11add8:	25ad3180 */ 	addiu	$t5,$t5,%lo(g_Pfses)
 /*  f11addc:	000c60c0 */ 	sll	$t4,$t4,0x3
 /*  f11ade0:	018d2821 */ 	addu	$a1,$t4,$t5
 .L0f11ade4:
@@ -8854,8 +8864,8 @@ glabel func0f11ac7c
 /*  f11aeb0:	01d07023 */ 	subu	$t6,$t6,$s0
 /*  f11aeb4:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f11aeb8:	01d07021 */ 	addu	$t6,$t6,$s0
-/*  f11aebc:	3c0f800a */ 	lui	$t7,%hi(var800a3180)
-/*  f11aec0:	25ef3180 */ 	addiu	$t7,$t7,%lo(var800a3180)
+/*  f11aebc:	3c0f800a */ 	lui	$t7,%hi(g_Pfses)
+/*  f11aec0:	25ef3180 */ 	addiu	$t7,$t7,%lo(g_Pfses)
 /*  f11aec4:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f11aec8:	01cf2821 */ 	addu	$a1,$t6,$t7
 .L0f11aecc:
@@ -9235,8 +9245,8 @@ glabel pakWipeEeprom
 /*  f11b070:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
 /*  f11b074:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
 /*  f11b078:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11b07c:	3c17800a */ 	lui	$s7,%hi(var800a3180)
-/*  f11b080:	26f73180 */ 	addiu	$s7,$s7,%lo(var800a3180)
+/*  f11b07c:	3c17800a */ 	lui	$s7,%hi(g_Pfses)
+/*  f11b080:	26f73180 */ 	addiu	$s7,$s7,%lo(g_Pfses)
 /*  f11b084:	012aa021 */ 	addu	$s4,$t1,$t2
 /*  f11b088:	241e0068 */ 	addiu	$s8,$zero,0x68
 /*  f11b08c:	27b60068 */ 	addiu	$s6,$sp,0x68
@@ -10043,8 +10053,8 @@ glabel pakForceScrub
 /*  f11b650:	01d27023 */ 	subu	$t6,$t6,$s2
 /*  f11b654:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f11b658:	01d27021 */ 	addu	$t6,$t6,$s2
-/*  f11b65c:	3c0f800a */ 	lui	$t7,%hi(var800a3180)
-/*  f11b660:	25ef3180 */ 	addiu	$t7,$t7,%lo(var800a3180)
+/*  f11b65c:	3c0f800a */ 	lui	$t7,%hi(g_Pfses)
+/*  f11b660:	25ef3180 */ 	addiu	$t7,$t7,%lo(g_Pfses)
 /*  f11b664:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f11b668:	01cf8821 */ 	addu	$s1,$t6,$t7
 .L0f11b66c:
@@ -10569,8 +10579,8 @@ glabel func0f11b86c
 /*  f11bac0:	00047603 */ 	sra	$t6,$a0,0x18
 /*  f11bac4:	01916021 */ 	addu	$t4,$t4,$s1
 /*  f11bac8:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11bacc:	3c0d800a */ 	lui	$t5,%hi(var800a3180)
-/*  f11bad0:	25ad3180 */ 	addiu	$t5,$t5,%lo(var800a3180)
+/*  f11bacc:	3c0d800a */ 	lui	$t5,%hi(g_Pfses)
+/*  f11bad0:	25ad3180 */ 	addiu	$t5,$t5,%lo(g_Pfses)
 /*  f11bad4:	000c60c0 */ 	sll	$t4,$t4,0x3
 /*  f11bad8:	00005012 */ 	mflo	$t2
 /*  f11badc:	01c02025 */ 	or	$a0,$t6,$zero
@@ -11288,8 +11298,8 @@ glabel func0f11bc54
 /*  f11c148:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11c14c:	0337c821 */ 	addu	$t9,$t9,$s7
 /*  f11c150:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11c154:	3c0b800a */ 	lui	$t3,%hi(var800a3180)
-/*  f11c158:	256b3180 */ 	addiu	$t3,$t3,%lo(var800a3180)
+/*  f11c154:	3c0b800a */ 	lui	$t3,%hi(g_Pfses)
+/*  f11c158:	256b3180 */ 	addiu	$t3,$t3,%lo(g_Pfses)
 /*  f11c15c:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*  f11c160:	0000c012 */ 	mflo	$t8
 /*  f11c164:	00045603 */ 	sra	$t2,$a0,0x18
@@ -11865,7 +11875,7 @@ glabel pakRepair
 /*  f11c308:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f11c30c:	83a2002b */ 	lb	$v0,0x2b($sp)
 /*  f11c310:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11c314:	3c08800a */ 	lui	$t0,%hi(var800a3180)
+/*  f11c314:	3c08800a */ 	lui	$t0,%hi(g_Pfses)
 /*  f11c318:	14410003 */ 	bne	$v0,$at,.L0f11c328
 /*  f11c31c:	0002c880 */ 	sll	$t9,$v0,0x2
 /*  f11c320:	10000007 */ 	beqz	$zero,.L0f11c340
@@ -11875,10 +11885,10 @@ glabel pakRepair
 /*  f11c32c:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11c330:	0322c821 */ 	addu	$t9,$t9,$v0
 /*  f11c334:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f11c338:	25083180 */ 	addiu	$t0,$t0,%lo(var800a3180)
+/*  f11c338:	25083180 */ 	addiu	$t0,$t0,%lo(g_Pfses)
 /*  f11c33c:	03282821 */ 	addu	$a1,$t9,$t0
 .L0f11c340:
-/*  f11c340:	0c0135bc */ 	jal	func0004d6f0
+/*  f11c340:	0c0135bc */ 	jal	osPfsChecker
 /*  f11c344:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f11c348:	0c005451 */ 	jal	joy00015144
 /*  f11c34c:	afa20024 */ 	sw	$v0,0x24($sp)
@@ -11947,7 +11957,7 @@ glabel pakRepair
 /*  f1162bc:	25297658 */ 	addiu	$t1,$t1,0x7658
 /*  f1162c0:	01092821 */ 	addu	$a1,$t0,$t1
 .NB0f1162c4:
-/*  f1162c4:	0c013a9c */ 	jal	func0004d6f0
+/*  f1162c4:	0c013a9c */ 	jal	osPfsChecker
 /*  f1162c8:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f1162cc:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f1162d0:	afa20024 */ 	sw	$v0,0x24($sp)
@@ -12480,7 +12490,7 @@ void pakExecuteDebugOperations(void)
 		s32 device = g_PakDebugPakInit - 1;
 		joy000150e8();
 
-		func0f117b04(&var80099e78, (device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device]), device, 0);
+		func0f117b04(&var80099e78, PFS(device), device, 0);
 		joy00015144();
 		g_PakDebugPakInit = false;
 	}
@@ -13137,8 +13147,7 @@ glabel func0f116768nb
 
 s32 func0f11cbd8(s8 device, s32 arg1, char *arg2, u16 arg3)
 {
-	s32 result = func000513b0(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
-			false, arg1, arg2, arg3);
+	s32 result = func000513b0(PFS(device), false, arg1, arg2, arg3);
 
 	if (result) {
 		func0f11cb9c(result);
@@ -13150,8 +13159,7 @@ s32 func0f11cbd8(s8 device, s32 arg1, char *arg2, u16 arg3)
 
 s32 func0f11cc6c(s8 device, u16 arg1, char *arg2, u16 arg3)
 {
-	s32 result = func000513b0(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device],
-			true, arg1, arg2, arg3);
+	s32 result = func000513b0(PFS(device), true, arg1, arg2, arg3);
 
 	if (result) {
 		func0f11cb9c(result);
@@ -16932,7 +16940,7 @@ s32 func0f11e844(s8 device)
 
 	joy000150e8();
 
-	value = func00050d60(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device], sp38, &sp37);
+	value = func00050d60(PFS(device), sp38, &sp37);
 
 #if VERSION >= VERSION_NTSC_FINAL
 	// NTSC Final sets sp28 to 1 unconditionally.
@@ -16974,7 +16982,7 @@ s32 func0f11e844(s8 device)
 	}
 
 	if (sp28) {
-		if (func00006330(device == SAVEDEVICE_GAMEPAK ? NULL : &var800a3180[device], 0)) {
+		if (func00006330(PFS(device), 0)) {
 			sp24 = 0;
 		}
 	}

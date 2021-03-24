@@ -8,7 +8,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004d6f0
+glabel osPfsChecker
 /*    4d6f0:	27bdfb38 */ 	addiu	$sp,$sp,-1224
 /*    4d6f4:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*    4d6f8:	afbe0040 */ 	sw	$s8,0x40($sp)

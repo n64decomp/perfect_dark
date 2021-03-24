@@ -113,7 +113,7 @@ glabel func0004c090
 );
 
 GLOBAL_ASM(
-glabel func0004c104
+glabel __osIdCheckSum
 /*    4c104:	a4c00000 */ 	sh	$zero,0x0($a2)
 /*    4c108:	a4a00000 */ 	sh	$zero,0x0($a1)
 /*    4c10c:	94820000 */ 	lhu	$v0,0x0($a0)
@@ -181,7 +181,7 @@ glabel func0004c104
 );
 
 GLOBAL_ASM(
-glabel func0004c200
+glabel __osRepairPackId
 /*    4c200:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*    4c204:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*    4c208:	afb60038 */ 	sw	$s6,0x38($sp)
@@ -336,7 +336,7 @@ glabel func0004c200
 /*    4c418:	a68b0018 */ 	sh	$t3,0x18($s4)
 /*    4c41c:	92cc001b */ 	lbu	$t4,0x1b($s6)
 /*    4c420:	2686001e */ 	addiu	$a2,$s4,0x1e
-/*    4c424:	0c013041 */ 	jal	func0004c104
+/*    4c424:	0c013041 */ 	jal	__osIdCheckSum
 /*    4c428:	a28c001b */ 	sb	$t4,0x1b($s4)
 /*    4c42c:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*    4c430:	240e0003 */ 	addiu	$t6,$zero,0x3
@@ -424,7 +424,7 @@ glabel func0004c200
 );
 
 GLOBAL_ASM(
-glabel func0004c550
+glabel __osCheckPackId
 /*    4c550:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*    4c554:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*    4c558:	afb60038 */ 	sw	$s6,0x38($sp)
@@ -471,7 +471,7 @@ glabel func0004c550
 /*    4c5f4:	8fbf003c */ 	lw	$ra,0x3c($sp)
 .L0004c5f8:
 /*    4c5f8:	02802825 */ 	or	$a1,$s4,$zero
-/*    4c5fc:	0c013041 */ 	jal	func0004c104
+/*    4c5fc:	0c013041 */ 	jal	__osIdCheckSum
 /*    4c600:	02c03025 */ 	or	$a2,$s6,$zero
 /*    4c604:	97a90052 */ 	lhu	$t1,0x52($sp)
 /*    4c608:	964a001c */ 	lhu	$t2,0x1c($s2)
@@ -555,7 +555,7 @@ glabel func0004c6b4
 /*    4c70c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0004c710:
 /*    4c710:	27a5006e */ 	addiu	$a1,$sp,0x6e
-/*    4c714:	0c013041 */ 	jal	func0004c104
+/*    4c714:	0c013041 */ 	jal	__osIdCheckSum
 /*    4c718:	27a6006c */ 	addiu	$a2,$sp,0x6c
 /*    4c71c:	97af006e */ 	lhu	$t7,0x6e($sp)
 /*    4c720:	97b80068 */ 	lhu	$t8,0x68($sp)
@@ -567,14 +567,14 @@ glabel func0004c6b4
 /*    4c738:	53290015 */ 	beql	$t9,$t1,.L0004c790
 /*    4c73c:	962a0018 */ 	lhu	$t2,0x18($s1)
 .L0004c740:
-/*    4c740:	0c013154 */ 	jal	func0004c550
+/*    4c740:	0c013154 */ 	jal	__osCheckPackId
 /*    4c744:	02002025 */ 	or	$a0,$s0,$zero
 /*    4c748:	2401000a */ 	addiu	$at,$zero,0xa
 /*    4c74c:	1441000b */ 	bne	$v0,$at,.L0004c77c
 /*    4c750:	00401825 */ 	or	$v1,$v0,$zero
 /*    4c754:	02002025 */ 	or	$a0,$s0,$zero
 /*    4c758:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*    4c75c:	0c013080 */ 	jal	func0004c200
+/*    4c75c:	0c013080 */ 	jal	__osRepairPackId
 /*    4c760:	27a60028 */ 	addiu	$a2,$sp,0x28
 /*    4c764:	10400003 */ 	beqz	$v0,.L0004c774
 /*    4c768:	00000000 */ 	nop
@@ -596,7 +596,7 @@ glabel func0004c6b4
 /*    4c798:	314b0001 */ 	andi	$t3,$t2,0x1
 /*    4c79c:	5560000d */ 	bnezl	$t3,.L0004c7d4
 /*    4c7a0:	02202025 */ 	or	$a0,$s1,$zero
-/*    4c7a4:	0c013080 */ 	jal	func0004c200
+/*    4c7a4:	0c013080 */ 	jal	__osRepairPackId
 /*    4c7a8:	27a60028 */ 	addiu	$a2,$sp,0x28
 /*    4c7ac:	10400003 */ 	beqz	$v0,.L0004c7bc
 /*    4c7b0:	97ac0040 */ 	lhu	$t4,0x40($sp)
