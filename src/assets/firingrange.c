@@ -342,7 +342,7 @@ u8 weapon_cyclone[] = {
 	end(),
 };
 
-u8 weapon_callistontg[] = {
+u8 weapon_callisto[] = {
 	start(),
 	set_max_active_targets(6, 4, 9),
 	set_score_multiplier(2, 0, 1),
@@ -605,7 +605,7 @@ u8 weapon_sniperrifle[] = {
 	end(),
 };
 
-u8 weapon_farsightxr20[] = {
+u8 weapon_farsight[] = {
 	start(),
 	set_max_active_targets(3, 9, 6),
 	set_goal_score(0, 0, 40),

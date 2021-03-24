@@ -160,7 +160,7 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 	}
 
 	// Build an array of all corpses. If the array becomes full then enable
-	// reaping on a random corpose and replace its entry in the array.
+	// reaping on a random corpse and replace its entry in the array.
 	// So at the end, we'll have an array of up to six unreapable corpses and
 	// all other corpses will be flagged for reaping.
 	numchrs = getNumChrSlots();

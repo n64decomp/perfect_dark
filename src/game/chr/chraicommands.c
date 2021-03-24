@@ -4256,7 +4256,7 @@ bool aiTryEquipWeapon(void)
 			case WEAPON_DY357LX:
 			case WEAPON_CMP150:
 			case WEAPON_CYCLONE:
-			case WEAPON_CALLISTONTG:
+			case WEAPON_CALLISTO:
 			case WEAPON_RCP120:
 			case WEAPON_LAPTOPGUN:
 			case WEAPON_DRAGON:
@@ -4265,7 +4265,7 @@ bool aiTryEquipWeapon(void)
 			case WEAPON_SHOTGUN:
 			case WEAPON_REAPER:
 			case WEAPON_SNIPERRIFLE:
-			case WEAPON_FARSIGHTXR20:
+			case WEAPON_FARSIGHT:
 			case WEAPON_DEVASTATOR:
 			case WEAPON_ROCKETLAUNCHER:
 			case WEAPON_SLAYER:
@@ -6841,7 +6841,7 @@ glabel var7f1a9d4c
 //	switch (handGetWeaponNum(HAND_RIGHT)) {
 //	case WEAPON_CMP150:
 //	case WEAPON_CYCLONE:
-//	case WEAPON_CALLISTONTG:
+//	case WEAPON_CALLISTO:
 //	case WEAPON_RCP120:
 //	case WEAPON_LAPTOPGUN:
 //	case WEAPON_DRAGON:
@@ -6853,7 +6853,7 @@ glabel var7f1a9d4c
 //		score--;
 //		break;
 //	case WEAPON_REAPER:
-//	case WEAPON_FARSIGHTXR20:
+//	case WEAPON_FARSIGHT:
 //	case WEAPON_DEVASTATOR:
 //	case WEAPON_ROCKETLAUNCHER:
 //	case WEAPON_SLAYER:

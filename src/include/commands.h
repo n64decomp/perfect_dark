@@ -857,7 +857,7 @@
  *
  * Type 0 = if <chr> is in <room>
  * Type 1 = if <chr> is in same room that the current chr is searching
- * Type 2 = if <chr>'s camspy is within 150 units of <pad>
+ * Type 2 = if any player's camspy is within 150 units of <pad>
  *
  * Type 2 is hard coded to only work in G5 Building.
  */

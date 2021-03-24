@@ -103,7 +103,7 @@ s32 func0f19ca78(u32 weaponnum)
 		case WEAPON_DY357LX:
 		case WEAPON_CMP150:
 		case WEAPON_CYCLONE:
-		case WEAPON_CALLISTONTG:
+		case WEAPON_CALLISTO:
 		case WEAPON_RCP120:
 		case WEAPON_LAPTOPGUN:
 		case WEAPON_DRAGON:
@@ -112,7 +112,7 @@ s32 func0f19ca78(u32 weaponnum)
 		case WEAPON_SUPERDRAGON:
 		case WEAPON_SHOTGUN:
 		case WEAPON_SNIPERRIFLE:
-		case WEAPON_FARSIGHTXR20:
+		case WEAPON_FARSIGHT:
 		case WEAPON_CROSSBOW:
 		case WEAPON_TRANQUILIZER:
 		case WEAPON_REAPER:
@@ -228,7 +228,7 @@ u32 frGetWeaponIndexByWeapon(u32 weaponnum)
 	case WEAPON_DY357LX:          return 7;
 	case WEAPON_CMP150:           return 8;
 	case WEAPON_CYCLONE:          return 9;
-	case WEAPON_CALLISTONTG:      return 10;
+	case WEAPON_CALLISTO:         return 10;
 	case WEAPON_RCP120:           return 11;
 	case WEAPON_LAPTOPGUN:        return 12;
 	case WEAPON_DRAGON:           return 13;
@@ -237,7 +237,7 @@ u32 frGetWeaponIndexByWeapon(u32 weaponnum)
 	case WEAPON_SUPERDRAGON:      return 16;
 	case WEAPON_SHOTGUN:          return 17;
 	case WEAPON_SNIPERRIFLE:      return 18;
-	case WEAPON_FARSIGHTXR20:     return 19;
+	case WEAPON_FARSIGHT:         return 19;
 	case WEAPON_CROSSBOW:         return 20;
 	case WEAPON_TRANQUILIZER:     return 21;
 	case WEAPON_REAPER:           return 22;
@@ -268,7 +268,7 @@ u32 frGetWeaponScriptIndex(u32 weaponnum)
 	case WEAPON_DY357LX:          return 8;
 	case WEAPON_CMP150:           return 9;
 	case WEAPON_CYCLONE:          return 10;
-	case WEAPON_CALLISTONTG:      return 11;
+	case WEAPON_CALLISTO:         return 11;
 	case WEAPON_RCP120:           return 12;
 	case WEAPON_LAPTOPGUN:        return 13;
 	case WEAPON_DRAGON:           return 14;
@@ -277,7 +277,7 @@ u32 frGetWeaponScriptIndex(u32 weaponnum)
 	case WEAPON_SUPERDRAGON:      return 17;
 	case WEAPON_SHOTGUN:          return 18;
 	case WEAPON_SNIPERRIFLE:      return 19;
-	case WEAPON_FARSIGHTXR20:     return 20;
+	case WEAPON_FARSIGHT:         return 20;
 	case WEAPON_CROSSBOW:         return 21;
 	case WEAPON_TRANQUILIZER:     return 22;
 	case WEAPON_REAPER:           return 23;
@@ -2565,7 +2565,7 @@ char *frGetWeaponDescription(void)
 	case WEAPON_DY357LX:          return langGet(L_DISH_290);
 	case WEAPON_CMP150:           return langGet(L_DISH_291);
 	case WEAPON_CYCLONE:          return langGet(L_DISH_292);
-	case WEAPON_CALLISTONTG:      return langGet(L_DISH_293);
+	case WEAPON_CALLISTO:         return langGet(L_DISH_293);
 	case WEAPON_RCP120:           return langGet(L_DISH_294);
 	case WEAPON_LAPTOPGUN:        return langGet(L_DISH_295);
 	case WEAPON_DRAGON:           return langGet(L_DISH_296);
@@ -2574,7 +2574,7 @@ char *frGetWeaponDescription(void)
 	case WEAPON_SUPERDRAGON:      return langGet(L_DISH_299);
 	case WEAPON_SHOTGUN:          return langGet(L_DISH_300);
 	case WEAPON_SNIPERRIFLE:      return langGet(L_DISH_301);
-	case WEAPON_FARSIGHTXR20:     return langGet(L_DISH_302);
+	case WEAPON_FARSIGHT:         return langGet(L_DISH_302);
 	case WEAPON_CROSSBOW:         return langGet(L_DISH_303);
 	case WEAPON_TRANQUILIZER:     return langGet(L_DISH_304);
 	case WEAPON_REAPER:           return langGet(L_DISH_305);
@@ -2599,7 +2599,7 @@ char *frGetWeaponDescription(void)
 	case WEAPON_DY357LX:          return langGet(L_MISC_384);
 	case WEAPON_CMP150:           return langGet(L_MISC_385);
 	case WEAPON_CYCLONE:          return langGet(L_MISC_386);
-	case WEAPON_CALLISTONTG:      return langGet(L_MISC_387);
+	case WEAPON_CALLISTO:         return langGet(L_MISC_387);
 	case WEAPON_RCP120:           return langGet(L_MISC_388);
 	case WEAPON_LAPTOPGUN:        return langGet(L_MISC_389);
 	case WEAPON_DRAGON:           return langGet(L_MISC_390);
@@ -2608,7 +2608,7 @@ char *frGetWeaponDescription(void)
 	case WEAPON_SUPERDRAGON:      return langGet(L_MISC_393);
 	case WEAPON_SHOTGUN:          return langGet(L_MISC_394);
 	case WEAPON_SNIPERRIFLE:      return langGet(L_MISC_395);
-	case WEAPON_FARSIGHTXR20:     return langGet(L_MISC_396);
+	case WEAPON_FARSIGHT:         return langGet(L_MISC_396);
 	case WEAPON_CROSSBOW:         return langGet(L_MISC_397);
 	case WEAPON_TRANQUILIZER:     return langGet(L_MISC_398);
 	case WEAPON_REAPER:           return langGet(L_MISC_399);
@@ -7047,7 +7047,7 @@ glabel frChooseFarsightTarget
 //	bool found = false;
 //	s32 i;
 //
-//	if (handGetWeaponNum(0) == WEAPON_FARSIGHTXR20) {
+//	if (handGetWeaponNum(0) == WEAPON_FARSIGHT) {
 //		for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 //			if (g_FrData.targets[i].inuse
 //					&& g_FrData.targets[i].destroyed == false

@@ -2198,7 +2198,7 @@
 #define MPWEAPON_DY357LX          0x08
 #define MPWEAPON_CMP150           0x09
 #define MPWEAPON_CYCLONE          0x0a
-#define MPWEAPON_CALLISTONTG      0x0b
+#define MPWEAPON_CALLISTO         0x0b
 #define MPWEAPON_RCP120           0x0c
 #define MPWEAPON_LAPTOPGUN        0x0d
 #define MPWEAPON_DRAGON           0x0e
@@ -2208,7 +2208,7 @@
 #define MPWEAPON_SHOTGUN          0x12
 #define MPWEAPON_REAPER           0x13
 #define MPWEAPON_SNIPERRIFLE      0x14
-#define MPWEAPON_FARSIGHTXR20     0x15
+#define MPWEAPON_FARSIGHT         0x15
 #define MPWEAPON_DEVASTATOR       0x16
 #define MPWEAPON_ROCKETLAUNCHER   0x17
 #define MPWEAPON_SLAYER           0x18
@@ -3299,7 +3299,7 @@
 #define WEAPON_DY357LX           0x09
 #define WEAPON_CMP150            0x0a
 #define WEAPON_CYCLONE           0x0b
-#define WEAPON_CALLISTONTG       0x0c
+#define WEAPON_CALLISTO          0x0c
 #define WEAPON_RCP120            0x0d
 #define WEAPON_LAPTOPGUN         0x0e
 #define WEAPON_DRAGON            0x0f
@@ -3309,7 +3309,7 @@
 #define WEAPON_SHOTGUN           0x13
 #define WEAPON_REAPER            0x14
 #define WEAPON_SNIPERRIFLE       0x15
-#define WEAPON_FARSIGHTXR20      0x16
+#define WEAPON_FARSIGHT          0x16
 #define WEAPON_DEVASTATOR        0x17
 #define WEAPON_ROCKETLAUNCHER    0x18
 #define WEAPON_SLAYER            0x19

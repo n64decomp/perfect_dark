@@ -961,7 +961,7 @@ glabel var7f1b522c
 //	case WEAPON_SUPERDRAGON:      return MODEL_CHRSUPERDRAGON;
 //	case WEAPON_K7AVENGER:        return MODEL_CHRAVENGER;
 //	case WEAPON_CYCLONE:          return MODEL_CHRCYCLONE;
-//	case WEAPON_CALLISTONTG:      return MODEL_CHRMAIANSMG;
+//	case WEAPON_CALLISTO:         return MODEL_CHRMAIANSMG;
 //	case WEAPON_RCP120:           return MODEL_CHRRCP120;
 //	case WEAPON_LAPTOPGUN:        return MODEL_CHRPCGUN;
 //	case WEAPON_SHOTGUN:          return MODEL_CHRSHOTGUN;
@@ -969,7 +969,7 @@ glabel var7f1b522c
 //	case WEAPON_ROCKETLAUNCHER:   return MODEL_CHRDYROCKET;
 //	case WEAPON_DEVASTATOR:       return MODEL_CHRDEVASTATOR;
 //	case WEAPON_SLAYER:           return MODEL_CHRSKROCKET;
-//	case WEAPON_FARSIGHTXR20:     return MODEL_CHRZ2020;
+//	case WEAPON_FARSIGHT:         return MODEL_CHRZ2020;
 //	case WEAPON_SNIPERRIFLE:      return MODEL_CHRSNIPERRIFLE;
 //	case WEAPON_CROSSBOW:         return MODEL_CHRCROSSBOW;
 //	case WEAPON_LASER:            return MODEL_CHRLASER;

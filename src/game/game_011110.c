@@ -3061,7 +3061,7 @@ glabel var7f1a827c
 //	}
 //
 //	if (cheatIsActive(CHEAT_FARSIGHT)) {
-//		invGiveSingleWeapon(WEAPON_FARSIGHTXR20);
+//		invGiveSingleWeapon(WEAPON_FARSIGHT);
 //		currentPlayerSetAmmoQuantity(AMMOTYPE_FARSIGHT, 80);
 //	}
 //

@@ -64,7 +64,7 @@ void aibotReloadWeapon(struct chrdata *chr, s32 handnum, bool withsound)
 				aibot->loadedammo[handnum] += actualamount;
 
 				if (withsound) {
-					if (aibot->weaponnum == WEAPON_FARSIGHTXR20) {
+					if (aibot->weaponnum == WEAPON_FARSIGHT) {
 						// FarSight reload sound
 						func0f0939f8(NULL, chr->prop, SFX_RELOAD_FARSIGHT, -1,
 								-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
@@ -229,7 +229,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 
 	aibot = chr->aibot;
 
-	if (aibot->weaponnum == WEAPON_FARSIGHTXR20) {
+	if (aibot->weaponnum == WEAPON_FARSIGHT) {
 		rand = random() % 100;
 
 		// 3 in 10 chance of this passing
@@ -238,7 +238,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 			s32 sp168 = 0;
 			s32 sp164 = -1;
 			s32 sp160 = 200;
-			u8 sp156[] = {WEAPON_FARSIGHTXR20, 0, 0, 0};
+			u8 sp156[] = {WEAPON_FARSIGHT, 0, 0, 0};
 			f32 damage = handGetDamage((struct shorthand *)sp156);
 			s32 fallback = 30;
 			s32 value = fallback;

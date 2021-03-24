@@ -11061,7 +11061,7 @@ glabel var7f1ad8e4
 //					}
 //
 //					// 9a24
-//					if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHTXR20) {
+//					if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT) {
 //						if (g_Vars.currentplayer->insightaimmode) {
 //							movedata.unk14 = 0;
 //						}
@@ -11368,7 +11368,7 @@ glabel var7f1ad8e4
 //						spbc = 1;
 //
 //                      // @bug? Should this be HAND_RIGHT?
-//						if (handGetWeaponNum(HAND_LEFT) == WEAPON_FARSIGHTXR20) {
+//						if (handGetWeaponNum(HAND_LEFT) == WEAPON_FARSIGHT) {
 //							increment = 0.5f;
 //						}
 //
@@ -11440,7 +11440,7 @@ glabel var7f1ad8e4
 //							&& joyGetButtons(contpad1, c1allowedbuttons & (D_JPAD | D_CBUTTONS));
 //					}
 //
-//					if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHTXR20) {
+//					if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT) {
 //						movedata.farsighttempautoseek = g_Vars.currentplayer->insightaimmode && (sp1a2 & (L_TRIG | R_TRIG | L_CBUTTONS | R_CBUTTONS));
 //					} else {
 //						movedata.rleanleft = g_Vars.currentplayer->insightaimmode && (sp1a2 & (L_JPAD | L_CBUTTONS));
@@ -11539,7 +11539,7 @@ glabel var7f1ad8e4
 //		spb0 = 60;
 //
 //		// FarSight in secondary function
-//		if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHTXR20
+//		if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT
 //				&& g_Vars.currentplayer->insightaimmode
 //				&& movedata.farsighttempautoseek == false
 //				&& g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc == FUNC_SECONDARY

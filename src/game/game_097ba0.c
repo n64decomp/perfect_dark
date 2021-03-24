@@ -38248,7 +38248,7 @@ glabel var7f1a7044nb
 //	case WEAPON_CMP150:
 //	case WEAPON_K7AVENGER:
 //	case WEAPON_AR34:
-//	case WEAPON_FARSIGHTXR20:
+//	case WEAPON_FARSIGHT:
 //	case WEAPON_TIMEDMINE: // f0a8a60
 //		// These guns disallow B+Z
 //		if (firing == false) {

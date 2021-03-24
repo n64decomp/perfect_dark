@@ -1486,11 +1486,11 @@ u8 func0404_president_running[] = {
 	beginloop(0x57)
 		// @bug: This FALSE should be TRUE instead. This causes the president
 		// to behave weirdly when you've killed both blondes and stand in the
-		// entrace to Trent's room.
+		// entrance to Trent's room.
 		if_stage_flag_eq(STAGEFLAG_BOTH_BLONDES_DEAD, FALSE, /*goto*/ 0x2d)
 
 		// Both blondes dead
-		// This room is the entrace to Trent's room
+		// This room is the entrance to Trent's room
 		if_chr_in_room(CHR_TARGET, 0x00, 0x000d, /*goto*/ 0x10)
 
 		// At least one Blonde is alive, or follow through
@@ -1533,11 +1533,11 @@ u8 func0404_president_running[] = {
 	beginloop(0x59)
 		// @bug: This FALSE should be TRUE instead. This causes the president
 		// to behave weirdly when you've killed both blondes and stand in the
-		// entrace to Trent's room.
+		// entrance to Trent's room.
 		if_stage_flag_eq(STAGEFLAG_BOTH_BLONDES_DEAD, FALSE, /*goto*/ 0x2d)
 
 		// Both blondes dead
-		// This room is the entrace to Trent's room
+		// This room is the entrance to Trent's room
 		if_chr_in_room(CHR_TARGET, 0x00, 0x000d, /*goto*/ 0x10)
 
 		// At least one Blonde is alive, or follow through
@@ -1596,7 +1596,7 @@ u8 func0404_president_running[] = {
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
-	// Player is in the entrace to Trent's room and both blondes are dead.
+	// Player is in the entrance to Trent's room and both blondes are dead.
 	// The intention behind this code is to make the president cower until the
 	// Blondes are dead, then resume following. However, due to a logic bug
 	// described earlier this code is jumped to only after the blondes are dead.

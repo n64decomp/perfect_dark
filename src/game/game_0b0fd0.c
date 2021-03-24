@@ -191,7 +191,7 @@ f32 currentPlayerGetGunZoomFov(void)
 
 	switch (getCurrentPlayerWeaponIdWrapper(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
-	case WEAPON_FARSIGHTXR20:   index = 1; break;
+	case WEAPON_FARSIGHT:   index = 1; break;
 	case WEAPON_HORIZONSCANNER: index = 2; break;
 	}
 
@@ -215,7 +215,7 @@ void currentPlayerZoomOut(f32 fovpersec)
 
 	switch (getCurrentPlayerWeaponIdWrapper(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
-	case WEAPON_FARSIGHTXR20:   index = 1; break;
+	case WEAPON_FARSIGHT:   index = 1; break;
 	case WEAPON_HORIZONSCANNER: index = 2; break;
 	}
 
@@ -226,7 +226,7 @@ void currentPlayerZoomOut(f32 fovpersec)
 		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
 #endif
 
-		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHTXR20) {
+		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
 		}
 
@@ -244,7 +244,7 @@ void currentPlayerZoomIn(f32 fovpersec)
 
 	switch (getCurrentPlayerWeaponIdWrapper(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
-	case WEAPON_FARSIGHTXR20:   index = 1; break;
+	case WEAPON_FARSIGHT:   index = 1; break;
 	case WEAPON_HORIZONSCANNER: index = 2; break;
 	}
 
@@ -255,7 +255,7 @@ void currentPlayerZoomIn(f32 fovpersec)
 		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
 #endif
 
-		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHTXR20) {
+		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
 		}
 
@@ -727,8 +727,8 @@ u32 currentPlayerGetSight(void)
 	case WEAPON_REAPER:
 		return SIGHT_SKEDAR;
 	case WEAPON_PHOENIX:
-	case WEAPON_CALLISTONTG:
-	case WEAPON_FARSIGHTXR20:
+	case WEAPON_CALLISTO:
+	case WEAPON_FARSIGHT:
 		return SIGHT_MAIAN;
 	case WEAPON_PP9I:
 	case WEAPON_CC13:

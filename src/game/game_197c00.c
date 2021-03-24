@@ -30,7 +30,7 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x09*/ { 180, 188, 184, 188, 1, 1, 1, 0, 20,   0,   6,  0,  3, 0 }, // WEAPON_DY357LX
 	/*0x0a*/ { 116, 128, 136, 152, 1, 1, 2, 2, 100,  100, 30, 30, 2, 0 }, // WEAPON_CMP150
 	/*0x0b*/ { 120, 128, 132, 140, 1, 1, 2, 2, 150,  150, 50, 50, 2, 0 }, // WEAPON_CYCLONE
-	/*0x0c*/ { 152, 176, 0,   0,   1, 1, 2, 2, 100,  70,  25, 15, 2, 0 }, // WEAPON_CALLISTONTG
+	/*0x0c*/ { 152, 176, 0,   0,   1, 1, 2, 2, 100,  70,  25, 15, 2, 0 }, // WEAPON_CALLISTO
 	/*0x0d*/ { 172, 188, 0,   0,   1, 0, 2, 2, 300,  0,   40, 0,  2, 0 }, // WEAPON_RCP120
 	/*0x0e*/ { 128, 140, 0,   0,   1, 1, 2, 2, 100,  0,   30, 0,  3, 0 }, // WEAPON_LAPTOPGUN
 	/*0x0f*/ { 124, 148, 0,   0,   1, 1, 2, 2, 90,   0,   30, 0,  1, 0 }, // WEAPON_DRAGON
@@ -40,7 +40,7 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x13*/ { 140, 156, 0,   0,   1, 1, 1, 1, 18,   18,  8,  8,  6, 1 }, // WEAPON_SHOTGUN
 	/*0x14*/ { 144, 176, 0,   0,   1, 1, 2, 0, 400,  0,   80, 0,  3, 0 }, // WEAPON_REAPER
 	/*0x15*/ { 28,  40,  0,   0,   1, 0, 2, 2, 30,   30,  10, 10, 2, 0 }, // WEAPON_SNIPERRIFLE
-	/*0x16*/ { 188, 188, 0,   0,   1, 0, 3, 5, 16,   0,   4,  0,  2, 0 }, // WEAPON_FARSIGHTXR20
+	/*0x16*/ { 188, 188, 0,   0,   1, 0, 3, 5, 16,   0,   4,  0,  2, 0 }, // WEAPON_FARSIGHT
 	/*0x17*/ { 176, 188, 0,   0,   1, 1, 3, 3, 20,   20,  4,  4,  2, 0 }, // WEAPON_DEVASTATOR
 	/*0x18*/ { 160, 188, 0,   0,   1, 1, 3, 3, 2,    2,   1,  1,  2, 0 }, // WEAPON_ROCKETLAUNCHER
 	/*0x19*/ { 168, 188, 0,   0,   1, 1, 3, 3, 2,    2,   1,  1,  3, 0 }, // WEAPON_SLAYER
@@ -501,7 +501,7 @@ void aibotScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 arg3,
 			score1--;
 		}
 		break;
-	case WEAPON_CALLISTONTG:
+	case WEAPON_CALLISTO:
 		if (funcnum == (chr->aibot->rand % 2)) {
 			score1--;
 		}
