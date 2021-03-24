@@ -1715,22 +1715,22 @@ glabel var7f1b941c
 GLOBAL_ASM(
 glabel frExecuteTargetScript
 .late_rodata
-glabel var7f1b93f0
-.word frExecuteTargetScript+0xa8 # f19e138
-glabel var7f1b93f4
-.word frExecuteTargetScript+0x254 # f19e2e4
-glabel var7f1b93f8
-.word frExecuteTargetScript+0x260 # f19e2f0
-glabel var7f1b93fc
-.word frExecuteTargetScript+0x290 # f19e320
-glabel var7f1b9400
-.word frExecuteTargetScript+0x33c # f19e3cc
-glabel var7f1b9404
-.word frExecuteTargetScript+0x33c # f19e3cc
-glabel var7f1b9408
-.word frExecuteTargetScript+0x33c # f19e3cc
-glabel var7f1b940c
-.word frExecuteTargetScript+0x8c # f19e11c
+glabel var7f1b3a10nb
+.word frExecuteTargetScript+0x0a4
+glabel var7f1b3a14nb
+.word frExecuteTargetScript+0x234
+glabel var7f1b3a18nb
+.word frExecuteTargetScript+0x240
+glabel var7f1b3a1cnb
+.word frExecuteTargetScript+0x270
+glabel var7f1b3a20nb
+.word frExecuteTargetScript+0x31c
+glabel var7f1b3a24nb
+.word frExecuteTargetScript+0x31c
+glabel var7f1b3a28nb
+.word frExecuteTargetScript+0x31c
+glabel var7f1b3a2cnb
+.word frExecuteTargetScript+0x088
 glabel var7f1b9410
 .word 0xbfc90fdb
 glabel var7f1b9414
@@ -2149,6 +2149,12 @@ void frInitTargets(void)
 #else
 GLOBAL_ASM(
 glabel frInitTargets
+.late_rodata
+glabel var7f1b3a40
+.word 0x459c4000
+glabel var7f1b3a44
+.word 0x40490fdb
+.text
 /*  f198464:	27bdfec8 */ 	addiu	$sp,$sp,-312
 /*  f198468:	f7ba0030 */ 	sdc1	$f26,0x30($sp)
 /*  f19846c:	3c017f1b */ 	lui	$at,0x7f1b

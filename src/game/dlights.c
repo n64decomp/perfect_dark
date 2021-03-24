@@ -3464,15 +3464,15 @@ GLOBAL_ASM(
 glabel func0f0037ac
 .late_rodata
 glabel var7f1a7dbc
-.word func0f0037ac+0x134 # f0038e0
+.word func0f0037ac+0x154
 glabel var7f1a7dc0
-.word func0f0037ac+0x194 # f003940
+.word func0f0037ac+0x1b4
 glabel var7f1a7dc4
-.word func0f0037ac+0x278 # f003a24
+.word func0f0037ac+0x298
 glabel var7f1a7dc8
-.word func0f0037ac+0x328 # f003ad4
+.word func0f0037ac+0x348
 glabel var7f1a7dcc
-.word func0f0037ac+0x410 # f003bbc
+.word func0f0037ac+0x430
 glabel var7f1a7dd0
 .word 0x40c90fdb
 glabel var7f1a7dd4

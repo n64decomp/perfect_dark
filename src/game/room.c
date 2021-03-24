@@ -42,6 +42,19 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b1970nb[] = "NumLightsChecksum failed %s %d";
+const char var7f1b1990nb[] = "LightsOffsetChecksum failed %s %d";
+const char var7f1b19b4nb[] = "bg.c";
+const char var7f1b19bcnb[] = "bg.c";
+const char var7f1b19c4nb[] = "bg.c";
+const char var7f1b19ccnb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+const char var7f1b1a24nb[] = "bg.c";
+const char var7f1b1a2cnb[] = "bg.c";
+const char var7f1b1a34nb[] = "bg.c: roominf[room].allocsize > calculated!";
+const char var7f1b1a60nb[] = "bg.c";
+#endif
+
 const char var7f1b7420[] = "Checking Convex Room %d";
 const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";
 const char var7f1b7454[] = "";

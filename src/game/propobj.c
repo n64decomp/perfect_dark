@@ -34309,9 +34309,9 @@ GLOBAL_ASM(
 glabel platformDisplaceProps
 .late_rodata
 glabel var7f1aa450
-.word 0x3d3a5e30
-glabel var7f1aa454
 .word 0x411ffffe
+glabel var7f1aa454
+.word 0x3d3a5e30
 .text
 /*  f076270:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f076274:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -46008,8 +46008,6 @@ glabel var7f1aa6dc
 .word 0x40c907a9
 glabel var7f1aa6e0
 .word 0x40c907a9
-glabel var7f1aa6e4
-.word 0xc7c35000
 .text
 /*  f07bc90:	27bdfd88 */ 	addiu	$sp,$sp,-632
 /*  f07bc94:	afbf004c */ 	sw	$ra,0x4c($sp)

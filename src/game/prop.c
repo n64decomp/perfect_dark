@@ -6452,21 +6452,21 @@ GLOBAL_ASM(
 glabel func0f0641f4
 .late_rodata
 glabel var7f1a9f30
-.word func0f0641f4+0x144 # f064338
+.word func0f0641f4+0x138
 glabel var7f1a9f34
-.word func0f0641f4+0x160 # f064354
+.word func0f0641f4+0x154
 glabel var7f1a9f38
-.word func0f0641f4+0x160 # f064354
+.word func0f0641f4+0x154
 glabel var7f1a9f3c
-.word func0f0641f4+0x154 # f064348
+.word func0f0641f4+0x148
 glabel var7f1a9f40
-.word func0f0641f4+0x160 # f064354
+.word func0f0641f4+0x154
 glabel var7f1a9f44
-.word func0f0641f4+0x160 # f064354
+.word func0f0641f4+0x154
 glabel var7f1a9f48
-.word func0f0641f4+0x160 # f064354
+.word func0f0641f4+0x154
 glabel var7f1a9f4c
-.word func0f0641f4+0x160 # f064354
+.word func0f0641f4+0x154
 .text
 /*  f063468:	27bdfd70 */ 	addiu	$sp,$sp,-656
 /*  f06346c:	afb40028 */ 	sw	$s4,0x28($sp)

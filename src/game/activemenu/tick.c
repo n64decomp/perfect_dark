@@ -414,6 +414,16 @@ void amTick(void)
 #else
 GLOBAL_ASM(
 glabel amTick
+.late_rodata
+glabel var7f1a2240nb
+.word 0
+glabel var7f1a2244nb
+.word 0x3e89374c
+glabel var7f1a2248nb
+.word 0x4196cbe4
+glabel var7f1a224cnb
+.word 0x4196cbe4
+.text
 /*  f01ae90:	27bdff20 */ 	addiu	$sp,$sp,-224
 /*  f01ae94:	3c06800a */ 	lui	$a2,0x800a
 /*  f01ae98:	24c6e6c0 */ 	addiu	$a2,$a2,-6464

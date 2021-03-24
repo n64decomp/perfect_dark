@@ -107,6 +107,9 @@ void func0f19ab40(void)
 	}
 }
 #else
+const char var7f1b3750nb[] = "VM: Page Misses %d (%d Replaces)";
+const char var7f1b3774nb[] = "VM: TLB Misses %d";
+
 GLOBAL_ASM(
 glabel func0f19ab40
 /*  f194b20:	3c0e8009 */ 	lui	$t6,0x8009

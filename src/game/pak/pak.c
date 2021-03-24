@@ -30,9 +30,6 @@
 const char var7f1b3a90[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
-const char var7f1b3b60[] = "-> Unknown PakFileType_e - %d\n";
-const char var7f1b3b80[] = "-forceversion";
-const char var7f1b3b90[] = "Pak %d -> Header Cache 2 - FATAL ERROR\n";
 
 struct var800a2380 var800a2380[5];
 u32 var800a317c;
@@ -417,6 +414,32 @@ s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, ch
 }
 
 #if VERSION >= VERSION_NTSC_1_0
+const char var7f1b3b60[] = "-> Unknown PakFileType_e - %d\n";
+#else
+const char var7f1b3b60[] = "-> Unknown PakFileType_e - %d";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ad850nb[] = "Bad     ";
+const char var7f1ad85cnb[] = "Blank   ";
+const char var7f1ad868nb[] = "Swap    ";
+const char var7f1ad874nb[] = "Camera  ";
+const char var7f1ad880nb[] = "GmSetup ";
+const char var7f1ad88cnb[] = "Boss    ";
+const char var7f1ad898nb[] = "Multi Pl";
+const char var7f1ad8a4nb[] = "Multi Gm";
+const char var7f1ad8b0n0[] = "????????";
+#endif
+
+const char var7f1b3b80[] = "-forceversion";
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b3b90[] = "Pak %d -> Header Cache 2 - FATAL ERROR\n";
+#else
+const char var7f1b3b90[] = "Pak %d -> Header Cache 2 - FATAL ERROR";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 bool func0f116fa0(s8 device, s32 arg1)
 {
 	struct pakthing16 sp38;
@@ -543,6 +566,72 @@ s32 func0f117094(s8 arg0, u32 arg1)
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0f1114a0nb
+.late_rodata
+glabel var7f1aefa8nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefacnb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefb0nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefb4nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefb8nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefbcnb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefc0nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefc4nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefc8nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefccnb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefd0nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefd4nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefd8nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefdcnb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefe0nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefe4nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefe8nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aefecnb
+.word func0f1114a0nb+0x5c
+glabel var7f1aeff0nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aeff4nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aeff8nb
+.word func0f1114a0nb+0x5c
+glabel var7f1aeffcnb
+.word func0f1114a0nb+0x5c
+glabel var7f1af000nb
+.word func0f1114a0nb+0x5c
+glabel var7f1af004nb
+.word func0f1114a0nb+0x5c
+glabel var7f1af008nb
+.word func0f1114a0nb+0x5c
+glabel var7f1af00cnb
+.word func0f1114a0nb+0x5c
+glabel var7f1af010nb
+.word func0f1114a0nb+0x5c
+glabel var7f1af014nb
+.word func0f1114a0nb+0x5c
+glabel var7f1af018nb
+.word func0f1114a0nb+0x5c
+glabel var7f1af01cnb
+.word func0f1114a0nb+0x5c
+glabel var7f1af020nb
+.word func0f1114a0nb+0x5c
+glabel var7f1af024nb
+.word func0f1114a0nb+0x5c
+.text
 /*  f1114a0:	2c810041 */ 	sltiu	$at,$a0,0x41
 /*  f1114a4:	14200005 */ 	bnez	$at,.NB0f1114bc
 /*  f1114a8:	24010080 */ 	addiu	$at,$zero,0x80
@@ -1147,16 +1236,6 @@ void pakDumpEeprom(void)
 }
 
 const char var7f1b3be8[] = "PakSaveAtGuid: new guid = %x\n";
-const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
-const char var7f1b3c50[] = "Pak %d -> Pak_AddOneCameraFile\n";
-const char var7f1b3c70[] = "Pak %d -> Pak_AddOneCameraFile - Making one default camera file\n";
-const char var7f1b3cb4[] = "Pak %d -> Pak_AddOneCameraFile : Got Space - No need for resize\n";
-const char var7f1b3cf8[] = "Pak %d -> Pak_AddOneCameraFile : No Space - Need to resize by %d pages\n";
-const char var7f1b3d40[] = "Pak %d -> Pak_AddOneCameraFile - Make of one default camera files failed\n";
-const char var7f1b3d8c[] = "Pak %d -> Pak_AddOneCameraFile : Error - No Room\n";
-const char var7f1b3dc0[] = "Pak %d -> Pak_GameNoteResetSize : New=%u\n";
-const char var7f1b3dec[] = "bDoUpdate7\n";
-const char var7f1b3df8[] = "Pak_SetThisGameSetupFile -> Pak=%d, File=%d, EEPROM=%d\n";
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -1550,13 +1629,13 @@ s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
 #if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
 #else
-		func000150e8(123, "pak.c");
+		func000150e8(1308, "pak.c");
 #endif
 		result = func000508d0(arg0, arg1, arg2);
 #if VERSION >= VERSION_NTSC_1_0
 		func00015144();
 #else
-		func00015144(123, "pak.c");
+		func00015144(1310, "pak.c");
 #endif
 
 		return result;
@@ -1580,13 +1659,13 @@ s32 func0f117c80(struct var800a3180 *arg0, s32 *arg1)
 #if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
 #else
-		func000150e8(123, "pak.c");
+		func000150e8(1337, "pak.c");
 #endif
 		result = func0004ce60(arg0, arg1);
 #if VERSION >= VERSION_NTSC_1_0
 		func00015144();
 #else
-		func00015144(123, "pak.c");
+		func00015144(1339, "pak.c");
 #endif
 
 		return result;
@@ -1609,13 +1688,13 @@ s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
 #if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
 #else
-		func000150e8(123, "pak.c");
+		func000150e8(1363, "pak.c");
 #endif
 		result = func00050a00(arg0, arg1, note);
 #if VERSION >= VERSION_NTSC_1_0
 		func00015144();
 #else
-		func00015144(123, "pak.c");
+		func00015144(1365, "pak.c");
 #endif
 
 		return result;
@@ -1636,6 +1715,8 @@ s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
 
 	return 0;
 }
+
+const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
 
 u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6)
 {
@@ -1710,13 +1791,13 @@ s32 func0f117ec0(struct var800a3180 *arg0, u16 company_code, u32 game_code, u8 *
 #if VERSION >= VERSION_NTSC_1_0
 		func000150e8();
 #else
-		func000150e8(123, "pak.c");
+		func000150e8(1496, "pak.c");
 #endif
 		result = func00006550(arg0, company_code, game_code, game_name, ext_name, numbytes);
 #if VERSION >= VERSION_NTSC_1_0
 		func00015144();
 #else
-		func00015144(123, "pak.c");
+		func00015144(1498, "pak.c");
 #endif
 
 		return result;
@@ -1728,6 +1809,34 @@ s32 func0f117ec0(struct var800a3180 *arg0, u16 company_code, u32 game_code, u8 *
 
 	return 0;
 }
+
+const char var7f1b3c50[] = "Pak %d -> Pak_AddOneCameraFile\n";
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b3c70[] = "Pak %d -> Pak_AddOneCameraFile - Making one default camera file\n";
+#else
+const char var7f1b3c70[] = "Pak %d -> Pak_AddOneCameraFile - Making one default camera file";
+#endif
+
+const char var7f1b3cb4[] = "Pak %d -> Pak_AddOneCameraFile : Got Space - No need for resize\n";
+const char var7f1b3cf8[] = "Pak %d -> Pak_AddOneCameraFile : No Space - Need to resize by %d pages\n";
+const char var7f1b3d40[] = "Pak %d -> Pak_AddOneCameraFile - Make of one default camera files failed\n";
+const char var7f1b3d8c[] = "Pak %d -> Pak_AddOneCameraFile : Error - No Room\n";
+const char var7f1b3dc0[] = "Pak %d -> Pak_GameNoteResetSize : New=%u\n";
+const char var7f1b3dec[] = "bDoUpdate7\n";
+const char var7f1b3df8[] = "Pak_SetThisGameSetupFile -> Pak=%d, File=%d, EEPROM=%d\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1adbd8nb[] = "RWI : Pak_OneNewFile - Using a snug in a bug offset\n";
+const char var7f1adc10nb[] = "pak.c";
+const char var7f1adc18nb[] = "Pak_Make -> Dumping details of file types found\n";
+const char var7f1adc4cnb[] = "Type %d -> ";
+const char var7f1adc58nb[] = ", dSize=%u, fSize=%u\n";
+const char var7f1adc70nb[] = "Pak_Make -> Checking for inserted pakz\n";
+const char var7f1adc98nb[] = "Pak_Make -> Loading Boss File\n";
+const char var7f1adcb8nb[] = "Pak_Make -> Boss file load failed - Try to make a new one\n";
+const char var7f1adcf4nb[] = "Pak_Make -> Setting up default game file\n";
+#endif
 
 s32 func0f117f30(s8 device)
 {
@@ -2944,7 +3053,13 @@ const char var7f1b3fc0[] = "Pak Return Code = ekPakErrorPakWaitingForInit";
 const char var7f1b3ff0[] = "Pak Return Code = ekPakErrorHeaderCrcCheckFail";
 const char var7f1b4020[] = "Pak Return Code = ekPakErrorDataCrcCheckFail";
 const char var7f1b4050[] = "Pak Return Code = ekPakErrorDataNotValid";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b407c[] = "Pak Return Code = Unknown - %d\n";
+#else
+const char var7f1b407c[] = "Pak Return Code = Unknown - %d";
+#endif
+
 #if VERSION < VERSION_NTSC_FINAL
 const char var7f1b407c_2[] = "Pak %d -> Pak_RepairAsBlank : Repairing as Blank, Offset=%u, pH=%x\n";
 const char var7f1b407c_3[] = "Pak %d -> Pak_RepairAsBlank -> Summing @ offset=%u, ret=%d\n";
@@ -2952,6 +3067,17 @@ const char var7f1b407c_4[] = "Pak %d -> Pak_RepairAsBlank -> Fault Speads Over M
 #endif
 const char var7f1b409c[] = "Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n";
 const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b423c[] = "BOS";
+const char var7f1b4244[] = "CAM";
+const char var7f1b424c[] = "MPP";
+const char var7f1b4254[] = "MPG";
+const char var7f1b425c[] = "GAM";
+const char var7f1ae0e4nb[] = "Pak %d -> Pak_GetCurrentSaveId - SaveID = %u\n";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b411c[] = "Pak %d -> Pak_ValidateVersion - Start - Game File Size = %d\n";
 const char var7f1b415c[] = "Pak %d -> Pak_ValidateVersion - Clearing cache 2\n";
 const char var7f1b4190[] = "Pak %d -> Pak_ValidateVersion 1 - Loaded with ret=%d at offset %u\n";
@@ -2962,35 +3088,151 @@ const char var7f1b4244[] = "CAM\n";
 const char var7f1b424c[] = "MPP\n";
 const char var7f1b4254[] = "MPG\n";
 const char var7f1b425c[] = "GAM";
+#endif
+
 const char var7f1b4260[] = "> Pak_DefragPak_Level1 - Merge of two blanks failed";
 const char var7f1b4294[] = "Pak %d - Pak_StartOne called from line %d in %s -> Flags = %0x\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b42d4[] = "\nPak_StartOne -> Pak%d, Modes -\n";
+#else
+const char var7f1b42d4[] = "\nPak_StartOne -> Pak%d, Modes -";
+#endif
+
 const char var7f1b42f8[] = "Memory,";
 const char var7f1b4300[] = "Rumble,";
 const char var7f1b4308[] = "Game Boy";
 const char var7f1b4314[] = "\n";
 const char var7f1b4318[] = "Pak %d -> %u Bytes of scratch for cache 2 memory at %0x\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4354[] = "\nPak%d -> Pak_EndOne - Called from line %d in %s : Modes -\n";
+#else
+const char var7f1b4354[] = "\nPak%d -> Pak_EndOne - Called from line %d in %s : Modes -";
+#endif
+
 const char var7f1b4390[] = "Memory,";
 const char var7f1b4398[] = "Rumble,";
 const char var7f1b43a0[] = "Game Boy";
 const char var7f1b43ac[] = "\n";
 const char var7f1b43b0[] = "Pak -> FATAL ERROR -> MEMORY INSTANCE ENDING IS NO LONGER SUPPORTED\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
+#else
+const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae2d0nb[] = "pak.c";
+const char var7f1ae2d8nb[] = "pak.c";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo\n";
+#else
+const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae304nb[] = "pak.c";
+const char var7f1ae30cnb[] = "pak.c";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size\n";
 const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk\n";
+#else
+const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size";
+const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk";
+const char var7f1ae380nb[] = "Pak %d -> Pak_Memory_Init1";
+const char var7f1ae39cnb[] = "pak.c";
+const char var7f1ae3a4nb[] = "pak.c";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
+#else
+const char var7f1b44bc[] = "Pak %d -> Searching for the game file";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae3d4nb[] = "pak.c";
+const char var7f1ae3dcnb[] = "pak.c";
+const char var7f1ae3e4nb[] = "pak.c";
+const char var7f1ae3ecnb[] = "pak.c";
+const char var7f1ae3f4nb[] = "-forcewipe";
+const char var7f1ae400nb[] = "-forcescrub";
+const char var7f1ae40cnb[] = "Pak %d -> Initialisation - No swap file";
+const char var7f1ae434nb[] = "Pak %d -> Initialisation - Found a swap file";
+const char var7f1ae464nb[] = "pak.c";
+const char var7f1ae46cnb[] = "pak.c";
+const char var7f1ae474nb[] = "pak.c";
+const char var7f1ae47cnb[] = "pak.c";
+const char var7f1ae484nb[] = "pak.c";
+const char var7f1ae48cnb[] = "pak.c";
+const char var7f1ae494nb[] = "pak.c";
+const char var7f1ae49cnb[] = "Pak %d -> About to wipe blocks %d to %d of the game file with the wipe byte %d";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b44e4[] = "Pak %d -> Game file wipe failed\n";
+#else
+const char var7f1b44e4[] = "Pak %d -> Game file wipe failed";
+#endif
+
 const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae544nb[] = "pak.c";
+const char var7f1ae54cnb[] = "pak.c";
+const char var7f1ae554nb[] = "pak.c";
+#endif
+
 const char var7f1b4540[] = "Pak %d -> Pak_DeleteFile_Offset - DataSize = %u\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed\n";
 const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed\n";
+#else
+const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed";
+const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed";
+#endif
+
 const char var7f1b45e4[] = "-forceversion";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae60cnb[] = "pak.c";
+const char var7f1ae614nb[] = "pak.c";
+const char var7f1ae61cnb[] = "pak.c";
+const char var7f1ae624nb[] = "pak.c";
+const char var7f1ae62cnb[] = "pak.c";
+#endif
+
 const char var7f1b45f4[] = "PakMac_PaksLive()=%x\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b460c[] = "paksNeedToBeLive4Game=%x\n";
 const char var7f1b4628[] = "paksNeedToBeLive4Menu=%x\n";
+#endif
+
 const char var7f1b4644[] = "g_LastPackPattern=%x\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae664nb[] = "lvGetPause    = %s";
+const char var7f1ae678nb[] = "TRUE";
+const char var7f1ae680nb[] = "FALSE";
+const char var7f1ae688nb[] = "MP_GetPause   = %s";
+const char var7f1ae69cnb[] = "TRUE";
+const char var7f1ae6a4nb[] = "FALSE";
+const char var7f1ae6acnb[] = "getnumplayers = %d";
+const char var7f1ae6c0nb[] = "forcecrc";
+const char var7f1ae6ccnb[] = "forcescrub";
+const char var7f1ae6d8nb[] = "dumph";
+const char var7f1ae6e0nb[] = "pakcache";
+const char var7f1ae6ecnb[] = "pakinit";
+const char var7f1ae6f4nb[] = "dumpeeprom";
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -11917,64 +12159,60 @@ glabel var7f1b4f0c
 GLOBAL_ASM(
 glabel func0f11c39c
 .late_rodata
-glabel var7f1b4e9c
-.word func0f11c39c+0x44 # f11c3e0
-glabel var7f1b4ea0
-.word func0f11c39c+0x150 # f11c4ec
-glabel var7f1b4ea4
-.word func0f11c39c+0xcc # f11c468
-glabel var7f1b4ea8
-.word func0f11c39c+0x150 # f11c4ec
-glabel var7f1b4eac
-.word func0f11c39c+0x150 # f11c4ec
-glabel var7f1b4eb0
-.word func0f11c39c+0x150 # f11c4ec
-glabel var7f1b4eb4
-.word func0f11c39c+0x110 # f11c4ac
-glabel var7f1b4eb8
-.word func0f11c39c+0x110 # f11c4ac
-glabel var7f1b4ebc
-.word func0f11c39c+0x150 # f11c4ec
-glabel var7f1b4ec0
-.word func0f11c39c+0xcc # f11c468
-glabel var7f1b4ec4
-.word func0f11c39c+0x88 # f11c424
-glabel var7f1b4ec8
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ecc
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ed0
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ed4
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ed8
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4edc
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ee0
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ee4
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ee8
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4eec
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ef0
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ef4
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4ef8
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4efc
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4f00
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4f04
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4f08
-.word func0f11c39c+0x1a4 # f11c540
-glabel var7f1b4f0c
-.word func0f11c39c+0x1a4 # f11c540
+glabel var7f1af094nb
+.word func0f11c39c+0x080
+glabel var7f1af098nb
+.word func0f11c39c+0x0f4
+glabel var7f1af09cnb
+.word func0f11c39c+0x0f4
+glabel var7f1af0a0nb
+.word func0f11c39c+0x0f4
+glabel var7f1af0a4nb
+.word func0f11c39c+0x0bc
+glabel var7f1af0a8nb
+.word func0f11c39c+0x0bc
+glabel var7f1af0acnb
+.word func0f11c39c+0x0f4
+glabel var7f1af0b0nb
+.word func0f11c39c+0x080
+glabel var7f1af0b4nb
+.word func0f11c39c+0x044
+glabel var7f1af0b8nb
+.word func0f11c39c+0x148
+glabel var7f1af0bcnb
+.word func0f11c39c+0x148
+glabel var7f1af0c0nb
+.word func0f11c39c+0x148
+glabel var7f1af0c4nb
+.word func0f11c39c+0x148
+glabel var7f1af0c8nb
+.word func0f11c39c+0x148
+glabel var7f1af0ccnb
+.word func0f11c39c+0x148
+glabel var7f1af0d0nb
+.word func0f11c39c+0x148
+glabel var7f1af0d4nb
+.word func0f11c39c+0x148
+glabel var7f1af0d8nb
+.word func0f11c39c+0x148
+glabel var7f1af0dcnb
+.word func0f11c39c+0x148
+glabel var7f1af0e0nb
+.word func0f11c39c+0x148
+glabel var7f1af0e4nb
+.word func0f11c39c+0x148
+glabel var7f1af0e8nb
+.word func0f11c39c+0x148
+glabel var7f1af0ecnb
+.word func0f11c39c+0x148
+glabel var7f1af0f0nb
+.word func0f11c39c+0x148
+glabel var7f1af0f4nb
+.word func0f11c39c+0x148
+glabel var7f1af0f8nb
+.word func0f11c39c+0x148
+glabel var7f1af0fcnb
+.word func0f11c39c+0x148
 .text
 /*  f11632c:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f116330:	00057600 */ 	sll	$t6,$a1,0x18
@@ -12420,6 +12658,8 @@ const char var7f1b46c8[] = "\nOS_GBPAK_GBCART_PULL     - ";
 const char var7f1b46e8[] = "\nOS_GBPAK_POWER           - ";
 const char var7f1b4708[] = "\nOS_GBPAK_RSTB_DETECTION  - ";
 const char var7f1b4728[] = "Pak -> Dumping contents of Game Boy Pack(TM) Id file";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4760[] = "(u16) - Fixed1             - %d\n";
 const char var7f1b4784[] = "(u16) - StartAddress       - %d\n";
 const char var7f1b47a8[] = "(u8*) - Nintendo chr data  - %s\n";
@@ -12433,7 +12673,29 @@ const char var7f1b48a4[] = "(u8 ) - Fixed 2 (0x33)     - %d\n";
 const char var7f1b48c8[] = "(u8 ) - Version Number     - %d\n";
 const char var7f1b48ec[] = "(u8 ) - isum               - %d\n";
 const char var7f1b4910[] = "(u16) - sum                - %d\n";
+#else
+const char var7f1b4760[] = "(u16) - Fixed1             - %d";
+const char var7f1b4784[] = "(u16) - StartAddress       - %d";
+const char var7f1b47a8[] = "(u8*) - Nintendo chr data  - %s";
+const char var7f1b47cc[] = "(u8*) - Game Title         - %s";
+const char var7f1b47f0[] = "(u16) - Company Code       - %d";
+const char var7f1b4814[] = "(u8 ) - Body Code          - %d";
+const char var7f1b4838[] = "(u8 ) - Rom Size           - %d";
+const char var7f1b485c[] = "(u8 ) - Ram Size           - %d";
+const char var7f1b4880[] = "(u8 ) - country_code       - %d";
+const char var7f1b48a4[] = "(u8 ) - Fixed 2 (0x33)     - %d";
+const char var7f1b48c8[] = "(u8 ) - Version Number     - %d";
+const char var7f1b48ec[] = "(u8 ) - isum               - %d";
+const char var7f1b4910[] = "(u16) - sum                - %d";
+#endif
+
 const char var7f1b4934[] = "Pak -> Finished Dump";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae980nb[] = "Pak -> Game Boy Pack reset was sucessful\n";
+const char var7f1ae9acnb[] = "Pak -> Connector Check Failed";
+const char var7f1ae9ccnb[] = "Pak -> osGbpakReadId - Failed";
+#endif
 
 const u32 var7f1b494c[] = {0x43000000};
 const u32 var7f1b4950[] = {0x43140000};
@@ -12537,22 +12799,49 @@ const u32 var7f1b4ad4[] = {0x40800000};
 const u32 var7f1b4ad8[] = {0x41200000};
 
 const char var7f1b4adc[] = "Pak_StartCapture -> Failed - Code = %d\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d\n";
+#else
+const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d";
+#endif
+
 const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
 const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
 const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
-#if VERSION < VERSION_NTSC_FINAL
+
+#if VERSION == VERSION_NTSC_1_0
 const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
 #endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1aec60nb[] = "Pak %d -> ekPakInitStatusInitMemoryPak1\n";
+const char var7f1aec8cnb[] = "Pak %d -> ekPakInitStatusInitMemoryPak2\n";
+const char var7f1aecb8nb[] = "Pak %d -> ekPakInitStatusInitMemoryPak3\n";
+const char var7f1aece4nb[] = "pak.c";
+const char var7f1aececnb[] = "pak.c";
+const char var7f1aecf4nb[] = "pak.c";
+const char var7f1aecfcnb[] = "pak.c";
+#endif
+
 const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
+#endif
+
 const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
 const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
 const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
 const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
 const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
+
 #if VERSION >= VERSION_NTSC_FINAL
 const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1aee04nb[] = "Pak_EEPROM_Init";
 #endif
 
 u32 var80075d58 = 0x00000000;
@@ -15871,62 +16160,58 @@ glabel var7f1b4fd8
 GLOBAL_ASM(
 glabel func0f11df94
 .late_rodata
-glabel var7f1b4f6c
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4f70
-.word func0f11df94+0x68 # f11dffc
-glabel var7f1b4f74
-.word func0f11df94+0xb4 # f11e048
-glabel var7f1b4f78
-.word func0f11df94+0xe8 # f11e07c
-glabel var7f1b4f7c
-.word func0f11df94+0x154 # f11e0e8
-glabel var7f1b4f80
-.word func0f11df94+0x184 # f11e118
-glabel var7f1b4f84
-.word func0f11df94+0x1a4 # f11e138
-glabel var7f1b4f88
-.word func0f11df94+0x12c # f11e0c0
-glabel var7f1b4f8c
-.word func0f11df94+0x1cc # f11e160
-glabel var7f1b4f90
-.word func0f11df94+0x1e4 # f11e178
-glabel var7f1b4f94
-.word func0f11df94+0x1f4 # f11e188
-glabel var7f1b4f98
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4f9c
-.word func0f11df94+0x218 # f11e1ac
-glabel var7f1b4fa0
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4fa4
-.word func0f11df94+0x2b8 # f11e24c
-glabel var7f1b4fa8
-.word func0f11df94+0x224 # f11e1b8
-glabel var7f1b4fac
-.word func0f11df94+0x318 # f11e2ac
-glabel var7f1b4fb0
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4fb4
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4fb8
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4fbc
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4fc0
-.word func0f11df94+0x378 # f11e30c
-glabel var7f1b4fc4
-.word func0f11df94+0x39c # f11e330
-glabel var7f1b4fc8
-.word func0f11df94+0x3b8 # f11e34c
-glabel var7f1b4fcc
-.word func0f11df94+0x200 # f11e194
-glabel var7f1b4fd0
-.word func0f11df94+0x20c # f11e1a0
-glabel var7f1b4fd4
-.word func0f11df94+0x284 # f11e218
-glabel var7f1b4fd8
-.word func0f11df94+0x2ac # f11e240
+glabel var7f1af100nb
+.word func0f11df94+0x404
+glabel var7f1af104nb
+.word func0f11df94+0x064
+glabel var7f1af108nb
+.word func0f11df94+0x098
+glabel var7f1af10cnb
+.word func0f11df94+0x0bc
+glabel var7f1af110nb
+.word func0f11df94+0x140
+glabel var7f1af114nb
+.word func0f11df94+0x168
+glabel var7f1af118nb
+.word func0f11df94+0x180
+glabel var7f1af11cnb
+.word func0f11df94+0x110
+glabel var7f1af120nb
+.word func0f11df94+0x1a0
+glabel var7f1af124nb
+.word func0f11df94+0x1c0
+glabel var7f1af128nb
+.word func0f11df94+0x278
+glabel var7f1af12cnb
+.word func0f11df94+0x404
+glabel var7f1af130nb
+.word func0f11df94+0x29c
+glabel var7f1af134nb
+.word func0f11df94+0x404
+glabel var7f1af138nb
+.word func0f11df94+0x34c
+glabel var7f1af13cnb
+.word func0f11df94+0x300
+glabel var7f1af140nb
+.word func0f11df94+0x398
+glabel var7f1af144nb
+.word func0f11df94+0x404
+glabel var7f1af148nb
+.word func0f11df94+0x404
+glabel var7f1af14cnb
+.word func0f11df94+0x404
+glabel var7f1af150nb
+.word func0f11df94+0x404
+glabel var7f1af154nb
+.word func0f11df94+0x3e4
+glabel var7f1af158nb
+.word func0f11df94+0x3f8
+glabel var7f1af15cnb
+.word func0f11df94+0x404
+glabel var7f1af160nb
+.word func0f11df94+0x284
+glabel var7f1af164nb
+.word func0f11df94+0x290
 .text
 /*  f117b80:	00043600 */ 	sll	$a2,$a0,0x18
 /*  f117b84:	00067603 */ 	sra	$t6,$a2,0x18
@@ -16418,8 +16703,6 @@ void pakProbeEeprom(void)
 	}
 }
 
-const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
-
 s32 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 {
 	s32 result;
@@ -16625,6 +16908,12 @@ bool func0f11e7f0(char *a, char *b)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
+const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
+#else
+const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
 s32 func0f11e844(s8 device)
 {
 	s32 stack1;
@@ -16700,6 +16989,17 @@ s32 func0f11e844(s8 device)
 	return 0;
 }
 #else
+const char var7f1aee7c[] = "pak.c";
+const char var7f1aee84[] = "pak.c";
+const char var7f1aee8c[] = "pak.c";
+const char var7f1aee94[] = "pak.c";
+const char var7f1aee9c[] = "pak.c";
+const char var7f1aeea4[] = "pak.c";
+const char var7f1aeeac[] = "pak.c";
+const char var7f1aeeb4[] = "pak.c";
+const char var7f1aeebc[] = "pak.c";
+const char var7f1aeec4[] = "pak.c";
+
 GLOBAL_ASM(
 glabel func0f11e844
 /*  f1186c0:	27bdff80 */ 	addiu	$sp,$sp,-128
@@ -16935,7 +17235,11 @@ bool func0f11ea34(s8 arg0)
 	return true;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b4d80[] = "PerfDark\n";
+#else
+const char var7f1b4d80[] = "PerfDark";
+#endif
 
 GLOBAL_ASM(
 glabel func0f11eaec

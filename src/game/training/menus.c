@@ -471,46 +471,46 @@ glabel var7f1b9940
 GLOBAL_ASM(
 glabel menuhandler001a348c
 .late_rodata
-glabel var7f1b98f4
-.word menuhandler001a348c+0x54 # f1a34e0
-glabel var7f1b98f8
-.word menuhandler001a348c+0x3c # f1a34c8
-glabel var7f1b98fc
-.word menuhandler001a348c+0x68 # f1a34f4
-glabel var7f1b9900
-.word menuhandler001a348c+0x44 # f1a34d0
-glabel var7f1b9904
-.word menuhandler001a348c+0x4c # f1a34d8
-glabel var7f1b9908
-.word menuhandler001a348c+0x70 # f1a34fc
-glabel var7f1b990c
-.word menuhandler001a348c+0xf8 # f1a3584
-glabel var7f1b9910
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9914
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9918
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b991c
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9920
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9924
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9928
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b992c
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9930
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9934
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b9938
-.word menuhandler001a348c+0x508 # f1a3994
-glabel var7f1b993c
-.word menuhandler001a348c+0x10c # f1a3598
-glabel var7f1b9940
-.word menuhandler001a348c+0x30 # f1a34bc
+glabel var7f1b3f14nb
+.word menuhandler001a348c+0x054
+glabel var7f1b3f18nb
+.word menuhandler001a348c+0x03c
+glabel var7f1b3f1cnb
+.word menuhandler001a348c+0x068
+glabel var7f1b3f20nb
+.word menuhandler001a348c+0x044
+glabel var7f1b3f24nb
+.word menuhandler001a348c+0x04c
+glabel var7f1b3f28nb
+.word menuhandler001a348c+0x070
+glabel var7f1b3f2cnb
+.word menuhandler001a348c+0x16c
+glabel var7f1b3f30nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f34nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f38nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f3cnb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f40nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f44nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f48nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f4cnb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f50nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f54nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f58nb
+.word menuhandler001a348c+0x558
+glabel var7f1b3f5cnb
+.word menuhandler001a348c+0x180
+glabel var7f1b3f60nb
+.word menuhandler001a348c+0x030
 .text
 /*  f19d49c:	248effff */ 	addiu	$t6,$a0,-1
 /*  f19d4a0:	27bdff58 */ 	addiu	$sp,$sp,-168

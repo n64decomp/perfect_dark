@@ -64,7 +64,11 @@
 // N64 font code uses 0x0f for space, 0x10-0x19 for 0-9 and 0x1a-0x33 for A-Z.
 #define N64CHAR(c)          (c == ' ' ? 0x0f : (c >= 'A' && c <= 'Z' ? c - 0x27 : c - 0x20))
 
+#if VERSION >= VERSION_NTSC_1_0
 #define ROM_COMPANYCODE 0x3459
+#else
+#define ROM_COMPANYCODE 0x3031
+#endif
 
 #if PAL
 #define ROM_GAMECODE    'NPDP' // "NPDE" in ASCII

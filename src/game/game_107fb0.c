@@ -173,7 +173,9 @@ void filemgrGetFileName(char *buffer, struct savelocation000 *arg1, u32 filetype
 	sprintf(buffer, "%s\n", tmpbuffer1);
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b2f28[] = "Setup: item = %x\n";
+#endif
 
 const u32 var7f1b2f3c[] = {0xa0, 0x31, 0x4e, 0x4a0};
 
@@ -293,6 +295,7 @@ char *filemgrMenuTextDeviceNameForError(struct menuitem *item)
 	return g_StringPointer;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b2f6c[] = "FileMan: Failure Handler\n";
 const char var7f1b2f88[] = "Copy Memory Freed\n";
 const char var7f1b2f9c[] = "FileMan: Success Handler\n";
@@ -302,6 +305,7 @@ const char var7f1b3000[] = "SaveElsewhere\n";
 const char var7f1b3010[] = "DELETING: %x-%x\n";
 const char var7f1b3024[] = "MyResult: %d\n";
 const char var7f1b3034[] = "PakOperationSearch>> Search for pak: %x = %d\n";
+#endif
 
 void filemgrPushErrorDialog(u16 errno)
 {
@@ -791,8 +795,44 @@ bool fileSave(s32 arg0, bool arg1)
 	return errno;
 }
 #else
+const s32 var7f1ad258nb[] = {0x80, 0x40, 0x20, 0x08};
+
 GLOBAL_ASM(
 glabel fileSave
+.late_rodata
+glabel var7f1ad3e8nb
+.word fileSave+0x1a8
+glabel var7f1ad3ecnb
+.word fileSave+0x1b8
+glabel var7f1ad3f0nb
+.word fileSave+0x1d4
+glabel var7f1ad3f4nb
+.word fileSave+0x210
+glabel var7f1ad3f8nb
+.word fileSave+0x1ec
+glabel var7f1ad3fcnb
+.word fileSave+0x1ec
+glabel var7f1ad400nb
+.word fileSave+0x1ec
+glabel var7f1ad404nb
+.word fileSave+0x0dc
+glabel var7f1ad408nb
+.word fileSave+0x0dc
+glabel var7f1ad40cnb
+.word fileSave+0x0d4
+glabel var7f1ad410nb
+.word fileSave+0x0f4
+glabel var7f1ad414nb
+.word fileSave+0x110
+glabel var7f1ad418nb
+.word fileSave+0x210
+glabel var7f1ad41cnb
+.word fileSave+0x130
+glabel var7f1ad420nb
+.word fileSave+0x130
+glabel var7f1ad424nb
+.word fileSave+0x130
+.text
 /*  f104a8c:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f104a90:	8dce3af0 */ 	lw	$t6,0x3af0($t6)
 /*  f104a94:	3c18800a */ 	lui	$t8,0x800a
@@ -983,6 +1023,7 @@ glabel fileSave
 );
 #endif
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b3074[] = "FileAttemptOperation - pak %d op %d\n";
 const char var7f1b309c[] = ">> blockWrite: file:%x pak:%x\n";
 const char var7f1b30bc[] = ">> blockRead: file:%x pak:%x\n";
@@ -997,6 +1038,7 @@ const char var7f1b31b4[] = "YOUR TARGET: %x-%x\n";
 const char var7f1b31c8[] = "MyResult: %d\n";
 const char var7f1b31d8[] = "COULD NOT DELETE\n";
 const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
+#endif
 
 bool func0f1094e4(struct savelocation_2d8 *arg0, s32 arg1, void *arg2)
 {
@@ -1179,10 +1221,12 @@ void func0f1097d0(s32 device)
 	}
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b3234[] = "DestPakNo: %d (guid F:%x-%x:P)\n";
 const char var7f1b3254[] = "Copy Memory Alloced\n";
 const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
 const char var7f1b3284[] = "Saving...\n";
+#endif
 
 u32 var8007465c = 0x01020304;
 u32 var80074660 = 0x00000000;
@@ -1869,6 +1913,7 @@ glabel func0f1053a0nb
 );
 #endif
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b33fc[] = "GOT OKed!, item->data = %d\n";
 const char var7f1b3418[] = "GOT CANCELLED!\n";
 const char var7f1b3428[] = "Picking Location, type %d wadtype %d wad %d\n";
@@ -1878,6 +1923,7 @@ const char var7f1b3480[] = "item: %x\n";
 const char var7f1b348c[] = "Switched Wads Back\n";
 const char var7f1b34a0[] = "MenuClosed\n";
 const char var7f1b34ac[] = "Deleting files, wad %d\n";
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 /**
@@ -2317,8 +2363,10 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 	return 0;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b34dc[] = "GOT OKed!\n";
 const char var7f1b34e8[] = "Try to find last opened file...\n";
+#endif
 
 s32 pakGameNotesMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {

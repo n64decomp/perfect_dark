@@ -52,6 +52,153 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+const char *g_ChrActionNames[] = {
+	"ACT_INIT",
+	"ACT_STAND",
+	"ACT_KNEEL",
+	"ACT_ANIM",
+	"ACT_DIE",
+	"ACT_DEAD",
+	"ACT_ARGH",
+	"ACT_PREARGH",
+	"ACT_ATTACK",
+	"ACT_ATTACKWALK",
+	"ACT_ATTACKROLL",
+	"ACT_SIDESTEP",
+	"ACT_JUMPOUT",
+	"ACT_RUNPOS",
+	"ACT_PATROL",
+	"ACT_GOPOS",
+	"ACT_SURRENDER",
+	"ACT_LOOKATTARGET",
+	"ACT_SURPRISED",
+	"ACT_STARTALARM",
+	"ACT_THROWGRENADE",
+	"ACT_TURNDIR",
+	"ACT_TEST",
+	"ACT_BONDINTRO",
+	"ACT_BONDDIE",
+	"ACT_BONDMULTI",
+	"ACT_NULL",
+	"ACT_BOT_ATTACKSTAND",
+	"ACT_BOT_ATTACKKNEEL",
+	"ACT_BOT_ATTACKSTRAFE",
+	"ACT_DRUGGEDDROP",
+	"ACT_DRUGGEDKO",
+	"ACT_DRUGGEDCOMINGUP",
+	"ACT_ATTACKAMOUNT",
+	"ACT_ROBOTATTACK",
+	"ACT_SKJUMP",
+	"ACT_PUNCH",
+	"ACT_CUTFIRE",
+};
+
+const char *g_ChrMyActionNames[] = {
+	"NONE",
+	"NORMAL",
+	"COVERWAIT",
+	"GRENADEWAIT",
+	"WAITING",
+	"COVERGOTO",
+	"COVERBREAK",
+	"COVERSEEN",
+	"FLANKLEFT",
+	"FLANKRIGHT",
+	"DODGE",
+	"GRENADE",
+	"WAITSEEN",
+	"WITHDRAW",
+	"SHOOTING",
+	"SYNCSHOOT",
+	"WAITTIMEOUT",
+	"COVERTIMEOUT",
+	"TRACKING",
+	"RETREAT",
+	"SURRENDER",
+	"TALKING",
+	"LISTENING",
+	"GOTOALARM",
+	"BOTFRIENDFOLLOW",
+	"BOTHIDE",
+	"BOTPATH",
+	"BOTINJURED",
+	"BOTNORMAL",
+	"BOTSHOOTING",
+	"DRUGGED",
+	"PANIC",
+	"RUNFROMGRENADE",
+	"UNARMEDATTACK",
+	"MA_SKJUMP_START",
+	"MA_SKJUMP_AIR",
+	"MA_SKJUMP_LAND",
+	"MA_SKJUMP_LANDLOOP",
+	"MA_SKJUMP_SHOT",
+	"AIBOTDEADLIST",
+	"AIBOTINIT",
+	"AIBOTMAINLOOP",
+	"AIBOTGETITEM",
+	"AIBOTGOTOPOS",
+	"AIBOTGOTOPROP",
+	"AIBOTRUNAWAY",
+	"AIBOTDOWNLOAD",
+	"AIBOTATTACK",
+	"unused1",
+	"unused2",
+	"AIBOTFOLLOW",
+	"AIBOTDEFEND",
+	"FLANKBEST",
+	"FACING",
+	"PUNCHING",
+};
+
+const char *g_ChrActionNames2[] = {
+	"ACT_INIT",
+	"ACT_STAND",
+	"ACT_KNEEL",
+	"ACT_ANIM",
+	"ACT_DIE",
+	"ACT_DEAD",
+	"ACT_ARGH",
+	"ACT_PREARGH",
+	"ACT_ATTACK",
+	"ACT_ATTACKWALK",
+	"ACT_ATTACKROLL",
+	"ACT_SIDESTEP",
+	"ACT_JUMPOUT",
+	"ACT_RUNPOS",
+	"ACT_PATROL",
+	"ACT_GOPOS",
+	"ACT_SURRENDER",
+	"ACT_LOOKATTARGET",
+	"ACT_SURPRISED",
+	"ACT_STARTALARM",
+	"ACT_THROWGRENADE",
+	"ACT_TURNDIR",
+	"ACT_TEST",
+	"ACT_BONDINTRO",
+	"ACT_BONDDIE",
+	"ACT_BONDMULTI",
+	"ACT_NULL",
+	"ACT_BOT_ATTACKSTAND",
+	"ACT_BOT_ATTACKKNEEL",
+	"ACT_BOT_ATTACKSTRAFE",
+	"ACT_DRUGGEDDROP",
+	"ACT_DRUGGEDKO",
+	"ACT_DRUGGEDCOMINGUP",
+	"ACT_ATTACKAMOUNT",
+	"ACT_ROBOTATTACK",
+	"ACT_SKJUMP",
+};
+
+const char *g_ChrLiftActionNames[] = {
+	"NOTUSINGLIFT",
+	"WAITINGFORLIFT",
+	"ONLIFT",
+	"WAITINGONLIFT",
+};
+#endif
+
 #if VERSION >= VERSION_PAL_FINAL
 const char var7f1a8ac0[] = "chr/chraction.c";
 const char var7f1a8acc[] = "chr/chraction.c";
@@ -20276,16 +20423,17 @@ bool chrIsReadyForOrders(struct chrdata *chr)
 	case ACT_DRUGGEDKO:
 	case ACT_DRUGGEDCOMINGUP:
 #if VERSION < VERSION_NTSC_1_0
+	case ACT_ARGH:
 	case 0x200:
 #endif
 		return false;
-	case ACT_ARGH:
 #if VERSION >= VERSION_NTSC_1_0
+	case ACT_ARGH:
 		if ((chr->chrflags & CHRCFLAG_00000200) == 0) {
 			return false;
 		}
-#endif
 		break;
+#endif
 	case ACT_ROBOTATTACK:
 		if (!chr->act_robotattack.unk06e) {
 			return false;
@@ -29398,89 +29546,89 @@ glabel var7f1a90d8
 glabel var7f1a90dc
 .word 0x461c4000
 glabel var7f1a90e0
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a90e4
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a90e8
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a90ec
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a90f0
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a90f4
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a90f8
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a90fc
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9100
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9104
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9108
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a910c
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9110
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9114
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9118
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a911c
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9120
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9124
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9128
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a912c
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9130
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9134
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9138
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a913c
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9140
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9144
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9148
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a914c
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9150
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9154
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9158
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a915c
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9160
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9164
-.word func0f0404d4+0x14e8 # f0419bc
+.word func0f0404d4+0x14d0
 glabel var7f1a9168
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a916c
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9170
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9174
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9178
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a917c
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9180
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 glabel var7f1a9184
-.word func0f0404d4+0x14dc # f0419b0
+.word func0f0404d4+0x14c4
 .text
 /*  f03fcb4:	27bdfd88 */ 	addiu	$sp,$sp,-632
 /*  f03fcb8:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -34090,11 +34238,14 @@ const char var7f1a8bd0[] = "chraction.c";
 const char var7f1a8bdc[] = "chraction.c";
 #endif
 
+#if VERSION >=  VERSION_NTSC_1_0
 const char var7f1a8be8[] = "CHARS -> FRAMETIMESCALEI(240)  = %d";
 const char var7f1a8c0c[] = "CHARS -> numseenbond1      \t= %d/%d";
 const char var7f1a8c30[] = "CHARS -> numseenbond2      \t= %d/%d";
 const char var7f1a8c54[] = "CHARS -> numseenbond3      \t= %d/%d";
 const char var7f1a8c78[] = "CHARS -> numseenbond       \t= %d/%d";
+#endif
+
 const char var7f1a8c9c[] = "CHARS -> DEAD = %d/%d";
 const char var7f1a8cb4[] = "chrdisttopad : %x -> %d : Dist=%f";
 
@@ -42449,19 +42600,9 @@ GLOBAL_ASM(
 glabel func0f04af84
 .late_rodata
 glabel var7f1a9404
-.word 0x40c907a9
-glabel var7f1a9408
 .word 0x3f4907a9
-glabel var7f1a940c
-.word 0xc7c35000
 glabel var7f1a9410
 .word 0x40c907a9
-glabel var7f1a9414
-.word 0xc7c35000
-glabel var7f1a9418
-.word 0xc7c35000
-glabel var7f1a941c
-.word 0x3f4907a9
 .text
 /*  f04a374:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f04a378:	8fae00b4 */ 	lw	$t6,0xb4($sp)
@@ -44527,6 +44668,12 @@ Gfx *func0f004cd84(Gfx *gdl, s32 arg1)
 	return gdl;
 }
 #else
+const char var7f1a2fe4nb[] = "\nTEAM %d: Cmd: %s";
+const char var7f1a2ff8nb[] = "CHR[%d]\n%s\n%s\n%s%s";
+const char var7f1a300cnb[] = "myaction?";
+const char var7f1a3018nb[] = "ACT_?";
+const char var7f1a1020nb[] = "";
+
 GLOBAL_ASM(
 glabel func0f04c1e8nb
 /*  f04c1e8:	27bdfdd0 */ 	addiu	$sp,$sp,-560

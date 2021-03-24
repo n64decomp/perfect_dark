@@ -1538,6 +1538,10 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 #else
 GLOBAL_ASM(
 glabel amRenderAibotInfo
+.late_rodata
+glabel var7f1acfe0nb
+.word 0x3f8ccccd
+.text
 /*  f0fbab8:	3c0a800a */ 	lui	$t2,0x800a
 /*  f0fbabc:	254ae6c0 */ 	addiu	$t2,$t2,-6464
 /*  f0fbac0:	8d46006c */ 	lw	$a2,0x6c($t2)

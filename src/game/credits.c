@@ -4851,8 +4851,15 @@ void creditsTick(void)
 	}
 }
 #else
+const char var7f1afd10nb[] = "for";
+const char var7f1afd14nb[] = "flick";
+
 GLOBAL_ASM(
 glabel creditsTick
+.late_rodata
+glabel var7f1afe70nb
+.word 0x3c23d70a
+.text
 /*  f135914:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f135918:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f13591c:	3c047f1b */ 	lui	$a0,0x7f1b

@@ -3183,56 +3183,56 @@ glabel var7f1b2dfc
 GLOBAL_ASM(
 glabel menuhandler0010476c
 .late_rodata
-glabel var7f1b2d9c
-.word menuhandler0010476c+0x80 # f1047ec
-glabel var7f1b2da0
-.word menuhandler0010476c+0x394 # f104b00
-glabel var7f1b2da4
-.word menuhandler0010476c+0x144 # f1048b0
-glabel var7f1b2da8
-.word menuhandler0010476c+0x400 # f104b6c
-glabel var7f1b2dac
-.word menuhandler0010476c+0x434 # f104ba0
-glabel var7f1b2db0
-.word menuhandler0010476c+0x1d0 # f10493c
-glabel var7f1b2db4
-.word menuhandler0010476c+0x2a8 # f104a14
-glabel var7f1b2db8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dbc
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dc0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dc4
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dc8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dcc
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dd0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dd4
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dd8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2ddc
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2de0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2de4
-.word menuhandler0010476c+0x47c # f104be8
-glabel var7f1b2de8
-.word menuhandler0010476c+0xe10 # f10557c
-glabel var7f1b2dec
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2df0
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2df4
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2df8
-.word menuhandler0010476c+0xe18 # f105584
-glabel var7f1b2dfc
-.word menuhandler0010476c+0x2b8 # f104a24
+glabel var7f1ad09cnb
+.word menuhandler0010476c+0x080
+glabel var7f1ad0a0nb
+.word menuhandler0010476c+0x394
+glabel var7f1ad0a4nb
+.word menuhandler0010476c+0x144
+glabel var7f1ad0a8nb
+.word menuhandler0010476c+0x400
+glabel var7f1ad0acnb
+.word menuhandler0010476c+0x434
+glabel var7f1ad0b0nb
+.word menuhandler0010476c+0x1d0
+glabel var7f1ad0b4nb
+.word menuhandler0010476c+0x2a8
+glabel var7f1ad0b8nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0bcnb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0c0nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0c4nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0c8nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0ccnb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0d0nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0d4nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0d8nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0dcnb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0e0nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0e4nb
+.word menuhandler0010476c+0x47c
+glabel var7f1ad0e8nb
+.word menuhandler0010476c+0xd60
+glabel var7f1ad0ecnb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0f0nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0f4nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0f8nb
+.word menuhandler0010476c+0xd68
+glabel var7f1ad0fcnb
+.word menuhandler0010476c+0x2b8
 .text
 /*  f10056c:	27bdfe10 */ 	addiu	$sp,$sp,-496
 /*  f100570:	3c0e8007 */ 	lui	$t6,0x8007

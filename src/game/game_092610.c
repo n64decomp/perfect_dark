@@ -17,15 +17,43 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1a5720nb[] = "SND : Stop -> Prop=%x, Id=%d\n";
+#endif
+
 const char var7f1ab400[] = "Propsnd : USING TIME 60\n";
 const char var7f1ab41c[] = "PS_AUTO : Un-Pausing %d\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1a5778nb[] = "PS_AUTO : Pausing %d\n";
+const char var7f1a5790nb[] = "SND : Propsound needs play : Id %d is flaged g\n";
+const char var7f1a57c0nb[] = "AISND : Channel %d - %s";
+const char var7f1a57d8nb[] = "FREE";
+const char var7f1a57e0nb[] = "IN USE";
+#endif
+
 const char var7f1ab438[] = "Propsnd : Using %d of %d (Peek = %d of %d)";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1ab464[] = "AISOUND: aisoundnewtypeflags - Channel %d -> Playing sound number id=%d(%x)\n";
 const char var7f1ab4b4[] = "AISOUND: PSTYPE_MARKER - Channel %d -> Playing sound number id=%d(%x)\n";
 const char var7f1ab4fc[] = "AISOUND: PSTYPE_MARKER - Channel %d -> Playing sound number id=%d(%x)\n";
+#else
+const char var7f1a5814nb[] = "SND : Start -> Prop=%x, Id=%d, Vol=%d, Flags=%d, Type=%d\n";
+const char var7f1a5850nb[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x))\n";
+#endif
+
 const char var7f1ab544[] = "AISOUND: CUTSCENE -> Playing sound number id=%d(%x))\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1ab57c[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d, Zero=%d\n";
 const char var7f1ab5d8[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d\n";
+#else
+const char var7f1ab58c0nb[] = "AISOUND: DONTCARE -> Playing sound number id=%d(%x))\n";
+const char var7f1ab58f8nb[] = "AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x\n";
+const char var7f1ab5938nb[] = "SERIOUS: Existing ai sound number %d (Sound id=%d(%x)) : KILLING\n";
+#endif
+
 const char var7f1ab62c[] = "AISOUND: CUTSCENE -> Stopping all cutscene sounds\n";
 const char var7f1ab660[] = "AISOUND: Stop sound channel %d\n";
 const char var7f1ab680[] = "AISOUND: Channel %d -> Setting params : Vol=%d, Pad=%d, Prop=%x, Time=%d, Far=%d, Silence=%d, Flags=%u\n";
@@ -3434,6 +3462,8 @@ glabel var7f1ab744
 .word 0x451c4000
 glabel var7f1ab748
 .word 0x453b8000
+glabel var7f1a5a9cnb
+.word 0x4b18967f
 .text
 /*  f091d88:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f091d8c:	afa600c0 */ 	sw	$a2,0xc0($sp)

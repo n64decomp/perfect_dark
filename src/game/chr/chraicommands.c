@@ -4306,6 +4306,74 @@ bool aiTryEquipWeapon(void)
 #else
 GLOBAL_ASM(
 glabel aiTryEquipWeapon
+.late_rodata
+glabel var7f1a3f70nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f74nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f78nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f7cnb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f80nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f84nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f88nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f8cnb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f90nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f94nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f98nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3f9cnb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fa0nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fa4nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fa8nb
+.word aiTryEquipWeapon+0x164
+glabel var7f1a3facnb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fb0nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fb4nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fb8nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fbcnb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fc0nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fc4nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fc8nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fccnb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fd0nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fd4nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fd8nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fdcnb
+.word aiTryEquipWeapon+0x1c8
+glabel var7f1a3fe0nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fe4nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fe8nb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3fecnb
+.word aiTryEquipWeapon+0x148
+glabel var7f1a3ff0nb
+.word aiTryEquipWeapon+0x148
+.text
 /*  f054cb0:	3c07800a */ 	lui	$a3,0x800a
 /*  f054cb4:	24e7e6c0 */ 	addiu	$a3,$a3,-6464
 /*  f054cb8:	8ce50438 */ 	lw	$a1,0x438($a3)
@@ -8815,6 +8883,10 @@ glabel var7f1a9d64
 #else
 GLOBAL_ASM(
 glabel aiSayQuip
+.late_rodata
+glabel var7f1a9d64
+.word 0x45dac000
+.text
 /*  f0596c0:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0596c4:	afb00048 */ 	sw	$s0,0x48($sp)
 /*  f0596c8:	3c10800a */ 	lui	$s0,0x800a

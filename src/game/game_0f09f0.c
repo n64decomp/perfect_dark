@@ -131,9 +131,8 @@ const struct menucolourpalette g_MenuColourPalettes3[] = {
 	{ 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffff7f, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffff5f, 0xffffffff, 0xffffff7f, 0xffffffff },
 };
 
-const u32 var7f1b23e8[] = {0x544d0000};
-
 #if VERSION >= VERSION_NTSC_1_0
+const u32 var7f1b23e8[] = {0x544d0000};
 char *g_StringPointer = g_CheatMarqueeString;
 char *g_StringPointer2 = &g_CheatMarqueeString[PAL ? 150 : 125];
 #else
@@ -2801,56 +2800,56 @@ glabel var7f1b28c0
 GLOBAL_ASM(
 glabel func0f0f1618
 .late_rodata
-glabel var7f1b2860
-.word func0f0f1618+0x3dc # f0f19f4
-glabel var7f1b2864
-.word func0f0f1618+0x118 # f0f1730
-glabel var7f1b2868
-.word func0f0f1618+0x72c # f0f1d44
-glabel var7f1b286c
-.word func0f0f1618+0x3dc # f0f19f4
-glabel var7f1b2870
-.word func0f0f1618+0x59c # f0f1bb4
-glabel var7f1b2874
-.word func0f0f1618+0x5d8 # f0f1bf0
-glabel var7f1b2878
-.word func0f0f1618+0x6a4 # f0f1cbc
-glabel var7f1b287c
-.word func0f0f1618+0x27c # f0f1894
-glabel var7f1b2880
-.word func0f0f1618+0x2d4 # f0f18ec
-glabel var7f1b2884
-.word func0f0f1618+0x72c # f0f1d44
-glabel var7f1b2888
-.word func0f0f1618+0x388 # f0f19a0
-glabel var7f1b288c
-.word func0f0f1618+0x16c # f0f1784
-glabel var7f1b2890
-.word func0f0f1618+0x104 # f0f171c
-glabel var7f1b2894
-.word func0f0f1618+0x6c8 # f0f1ce0
-glabel var7f1b2898
-.word func0f0f1618+0x6b4 # f0f1ccc
-glabel var7f1b289c
-.word func0f0f1618+0x6dc # f0f1cf4
-glabel var7f1b28a0
-.word func0f0f1618+0x718 # f0f1d30
-glabel var7f1b28a4
-.word func0f0f1618+0x374 # f0f198c
-glabel var7f1b28a8
-.word func0f0f1618+0x268 # f0f1880
-glabel var7f1b28ac
-.word func0f0f1618+0xdc # f0f16f4
-glabel var7f1b28b0
-.word func0f0f1618+0xf0 # f0f1708
-glabel var7f1b28b4
-.word func0f0f1618+0x704 # f0f1d1c
-glabel var7f1b28b8
-.word func0f0f1618+0x3ac # f0f19c4
-glabel var7f1b28bc
-.word func0f0f1618+0xb0 # f0f16c8
-glabel var7f1b28c0
-.word func0f0f1618+0x9c # f0f16b4
+glabel var7f1acb8cnb
+.word func0f0f1618+0x3e8
+glabel var7f1acb90nb
+.word func0f0f1618+0x118
+glabel var7f1acb94nb
+.word func0f0f1618+0x738
+glabel var7f1acb98nb
+.word func0f0f1618+0x3e8
+glabel var7f1acb9cnb
+.word func0f0f1618+0x5a8
+glabel var7f1acba0nb
+.word func0f0f1618+0x5e4
+glabel var7f1acba4nb
+.word func0f0f1618+0x6b0
+glabel var7f1acba8nb
+.word func0f0f1618+0x288
+glabel var7f1acbacnb
+.word func0f0f1618+0x2e0
+glabel var7f1acbb0nb
+.word func0f0f1618+0x738
+glabel var7f1acbb4nb
+.word func0f0f1618+0x394
+glabel var7f1acbb8nb
+.word func0f0f1618+0x178
+glabel var7f1acbbcnb
+.word func0f0f1618+0x104
+glabel var7f1acbc0nb
+.word func0f0f1618+0x6d4
+glabel var7f1acbc4nb
+.word func0f0f1618+0x6c0
+glabel var7f1acbc8nb
+.word func0f0f1618+0x6e8
+glabel var7f1acbccnb
+.word func0f0f1618+0x724
+glabel var7f1acbd0nb
+.word func0f0f1618+0x380
+glabel var7f1acbd4nb
+.word func0f0f1618+0x274
+glabel var7f1acbd8nb
+.word func0f0f1618+0x0dc
+glabel var7f1acbdcnb
+.word func0f0f1618+0x0f0
+glabel var7f1acbe0nb
+.word func0f0f1618+0x710
+glabel var7f1acbe4nb
+.word func0f0f1618+0x3b8
+glabel var7f1acbe8nb
+.word func0f0f1618+0x0b0
+glabel var7f1acbecnb
+.word func0f0f1618+0x09c
 .text
 /*  f0ee228:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f0ee22c:	3c0e8008 */ 	lui	$t6,0x8008
@@ -15568,23 +15567,23 @@ GLOBAL_ASM(
 glabel func0f0f7728
 .late_rodata
 glabel var7f1b2970
-.word func0f0f7728+0x180 # f0f78a8
+.word func0f0f7728+0x180
 glabel var7f1b2974
-.word func0f0f7728+0x3d8 # f0f7b00
+.word func0f0f7728+0x3d8
 glabel var7f1b2978
-.word func0f0f7728+0x3d8 # f0f7b00
+.word func0f0f7728+0x3d8
 glabel var7f1b297c
-.word func0f0f7728+0x748 # f0f7e70
+.word func0f0f7728+0x738
 glabel var7f1b2980
-.word func0f0f7728+0x748 # f0f7e70
+.word func0f0f7728+0x738
 glabel var7f1b2984
-.word func0f0f7728+0x3d8 # f0f7b00
+.word func0f0f7728+0x3d8
 glabel var7f1b2988
-.word func0f0f7728+0x748 # f0f7e70
+.word func0f0f7728+0x738
 glabel var7f1b298c
-.word func0f0f7728+0x3d8 # f0f7b00
+.word func0f0f7728+0x3d8
 glabel var7f1b2990
-.word func0f0f7728+0x180 # f0f78a8
+.word func0f0f7728+0x180
 .text
 /*  f0f40a0:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0f40a4:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -20455,14 +20454,6 @@ glabel var7f1b2a24
 .word 0x3f4ccccd
 glabel var7f1b2a28
 .word 0x3f4ccccd
-glabel var7f1b2a2c
-.word 0x3dcccccd
-glabel var7f1b2a30
-.word 0x3d23d70a
-glabel var7f1b2a34
-.word 0x3f4ccccd
-glabel var7f1b2a38
-.word 0x3f4ccccd
 glabel var7f1b2a3c
 .word 0x3f4ccccd
 glabel var7f1b2a40
@@ -23887,10 +23878,6 @@ glabel var7f1b2ae8
 .word func0f0fb488+0x12c # f0fb5b4
 glabel var7f1b2aec
 .word func0f0fb488+0x6b8 # f0fbb40
-glabel var7f1b2af0
-.word 0x3f847ae1
-glabel var7f1b2af4
-.word 0x47ae147b
 .text
 /*  f0fb488:	30ae00ff */ 	andi	$t6,$a1,0xff
 /*  f0fb48c:	27bdff80 */ 	addiu	$sp,$sp,-128
@@ -24368,6 +24355,8 @@ glabel var7f1b2af4
 
 u32 var800714f0 = 1;
 
+// There's a file split either above or below this function
+// (zero-word in ntsc-beta rodata in func0f0fbc30)
 Gfx *func0f0fbba0(Gfx *gdl, u8 param_2, s32 arg2)
 {
 	if (param_2 == 4 || param_2 == 9) {
@@ -24392,6 +24381,10 @@ u32 var800714f4 = 0x00000001;
 GLOBAL_ASM(
 glabel func0f0fbc30
 .late_rodata
+glabel var7f1b2af0
+.word 0x3f847ae1
+glabel var7f1b2af4
+.word 0x47ae147b
 glabel var7f1b2af8
 .word 0xc34d8000
 glabel var7f1b2afc
@@ -25366,6 +25359,10 @@ glabel var7f1b2afc
 GLOBAL_ASM(
 glabel func0f0fbc30
 .late_rodata
+glabel var7f1b2af0
+.word 0x3f847ae1
+glabel var7f1b2af4
+.word 0x47ae147b
 glabel var7f1b2af8
 .word 0xc34d8000
 glabel var7f1b2afc
@@ -26346,6 +26343,12 @@ glabel var7f1b2afc
 GLOBAL_ASM(
 glabel func0f0fbc30
 .late_rodata
+glabel var7f1ace0cnb
+.word 0
+glabel var7f1b2af0
+.word 0x3f847ae1
+glabel var7f1b2af4
+.word 0x47ae147b
 glabel var7f1b2af8
 .word 0xc34d8000
 glabel var7f1b2afc
@@ -27940,18 +27943,6 @@ glabel var7f1b2b10
 #else
 GLOBAL_ASM(
 glabel func0f0fd320
-.late_rodata
-glabel var7f1b2b00
-.word func0f0fd320+0x6c # f0fd38c
-glabel var7f1b2b04
-.word func0f0fd320+0x50 # f0fd370
-glabel var7f1b2b08
-.word func0f0fd320+0x50 # f0fd370
-glabel var7f1b2b0c
-.word func0f0fd320+0x12c # f0fd44c
-glabel var7f1b2b10
-.word func0f0fd320+0x148 # f0fd468
-.text
 /*  f0f98c8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0f98cc:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f0f98d0:	8dce3af0 */ 	lw	$t6,0x3af0($t6)

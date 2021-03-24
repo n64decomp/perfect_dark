@@ -167,6 +167,12 @@ void func0f197600(struct chrdata *chr)
 #else
 GLOBAL_ASM(
 glabel func0f197600
+.late_rodata
+glabel var7f1b35b0
+.word 0x48742400
+glabel var7f1b35b4
+.word 0x3eb33333
+.text
 /*  f191680:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f191684:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f191688:	afa40068 */ 	sw	$a0,0x68($sp)

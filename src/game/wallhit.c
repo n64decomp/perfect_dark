@@ -4141,44 +4141,44 @@ glabel var7f1b5d6c
 GLOBAL_ASM(
 glabel func0f13f504
 .late_rodata
-glabel var7f1b5d24
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d28
-.word func0f13f504+0xe8 # f13f5ec
-glabel var7f1b5d2c
-.word func0f13f504+0xe8 # f13f5ec
-glabel var7f1b5d30
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d34
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d38
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d3c
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d40
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d44
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d48
-.word func0f13f504+0x104 # f13f608
-glabel var7f1b5d4c
-.word func0f13f504+0xe8 # f13f5ec
-glabel var7f1b5d50
-.word func0f13f504+0x104 # f13f608
+glabel var7f1b0264nb
+.word func0f13f504+0xa0
+glabel var7f1b0268nb
+.word func0f13f504+0x84
+glabel var7f1b026cnb
+.word func0f13f504+0xa0
+glabel var7f1b0270nb
+.word func0f13f504+0xa0
+glabel var7f1b0274nb
+.word func0f13f504+0xa0
+glabel var7f1b0278nb
+.word func0f13f504+0xa0
+glabel var7f1b027cnb
+.word func0f13f504+0xa0
+glabel var7f1b0280nb
+.word func0f13f504+0xa0
+glabel var7f1b0284nb
+.word func0f13f504+0xa0
+glabel var7f1b0288nb
+.word func0f13f504+0xa0
+glabel var7f1b028cnb
+.word func0f13f504+0x84
+glabel var7f1b0290nb
+.word func0f13f504+0xa0
 glabel var7f1b5d54
 .word 0x3c8efa35
 glabel var7f1b5d58
 .word 0x3b808081
-glabel var7f1b5d5c
-.word func0f13f504+0xe48 # f14034c
-glabel var7f1b5d60
-.word func0f13f504+0xdfc # f140300
-glabel var7f1b5d64
-.word func0f13f504+0xec0 # f1403c4
-glabel var7f1b5d68
-.word func0f13f504+0xf38 # f14043c
-glabel var7f1b5d6c
-.word func0f13f504+0xf58 # f14045c
+glabel var7f1b029cnb
+.word func0f13f504+0xe44
+glabel var7f1b02a0nb
+.word func0f13f504+0xdf8
+glabel var7f1b02a4nb
+.word func0f13f504+0xebc
+glabel var7f1b02a8nb
+.word func0f13f504+0xf34
+glabel var7f1b02acnb
+.word func0f13f504+0xf54
 .text
 /*  f13a004:	27bdfe00 */ 	addiu	$sp,$sp,-512
 /*  f13a008:	afbf0024 */ 	sw	$ra,0x24($sp)

@@ -11,6 +11,11 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b2330nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+const char var7f1b2388nb[] = "texdecompress.c";
+#endif
+
 struct texture *g_Textures;
 u32 var800aabc4;
 u32 var800aabc8[4];

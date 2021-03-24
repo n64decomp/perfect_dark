@@ -46,7 +46,11 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1a8690[] = "chr/chr.c";
+#else
+const char var7f1a8690[] = "chr.c";
+#endif
 
 void *var8009ccc0[20];
 s32 g_NumChrs;
@@ -4386,12 +4390,6 @@ glabel var7f1a86ec
 glabel var7f1a86f0
 .word 0x3f666666
 glabel var7f1a86f4
-.word 0xc7c35000
-glabel var7f1a86f8
-.word 0x3f666666
-glabel var7f1a86fc
-.word 0x3f666666
-glabel var7f1a8700
 .word 0xc7c35000
 glabel var7f1a8704
 .word 0x411ffffe

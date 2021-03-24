@@ -3479,15 +3479,15 @@ GLOBAL_ASM(
 glabel func0f0de7fc
 .late_rodata
 glabel var7f1adeb0
-.word func0f0de7fc+0x490 # f0dec8c
+.word func0f0de7fc+0x33c
 glabel var7f1adeb4
-.word func0f0de7fc+0x498 # f0dec94
+.word func0f0de7fc+0x348
 glabel var7f1adeb8
-.word func0f0de7fc+0x4ac # f0deca8
+.word func0f0de7fc+0x35c
 glabel var7f1adebc
-.word func0f0de7fc+0x648 # f0dee44
+.word func0f0de7fc+0x4e4
 glabel var7f1adec0
-.word func0f0de7fc+0x678 # f0dee74
+.word func0f0de7fc+0x514
 .text
 /*  f0dbe14:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f0dbe18:	3c058008 */ 	lui	$a1,0x8008
@@ -5667,17 +5667,17 @@ GLOBAL_ASM(
 glabel hudmsgsTick
 .late_rodata
 glabel var7f1adec4
-.word hudmsgsTick+0x680 # f0df9e4
+.word hudmsgsTick+0x5a8
 glabel var7f1adec8
-.word hudmsgsTick+0x1e4 # f0df548
+.word hudmsgsTick+0x168
 glabel var7f1adecc
-.word hudmsgsTick+0x39c # f0df700
+.word hudmsgsTick+0x2dc
 glabel var7f1aded0
-.word hudmsgsTick+0x3dc # f0df740
+.word hudmsgsTick+0x318
 glabel var7f1aded4
-.word hudmsgsTick+0x564 # f0df8c8
+.word hudmsgsTick+0x48c
 glabel var7f1aded8
-.word hudmsgsTick+0x604 # f0df968
+.word hudmsgsTick+0x52c
 .text
 /*  f0dc81c:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f0dc820:	3c0e8007 */ 	lui	$t6,0x8007
@@ -7809,17 +7809,17 @@ glabel hudmsgsRender
 glabel var7f1adedc
 .word 0x40490fdb
 glabel var7f1adee0
-.word hudmsgsRender+0xa34 # f0e0504
+.word hudmsgsRender+0xa5c
 glabel var7f1adee4
-.word hudmsgsRender+0xa34 # f0e0504
+.word hudmsgsRender+0xa5c
 glabel var7f1adee8
-.word hudmsgsRender+0xa34 # f0e0504
+.word hudmsgsRender+0xa5c
 glabel var7f1adeec
-.word hudmsgsRender+0x3ec # f0dfebc
+.word hudmsgsRender+0x414
 glabel var7f1adef0
-.word hudmsgsRender+0x644 # f0e0114
+.word hudmsgsRender+0x66c
 glabel var7f1adef4
-.word hudmsgsRender+0x7c8 # f0e0298
+.word hudmsgsRender+0x7f0
 .text
 /*  f0dceb0:	27bdff00 */ 	addiu	$sp,$sp,-256
 /*  f0dceb4:	3c0f8007 */ 	lui	$t7,0x8007

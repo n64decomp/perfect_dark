@@ -5,6 +5,128 @@
 #include "data.h"
 #include "types.h"
 
+// ntsc-beta rodata at 7f1af170
+char *g_DebugMenuLabels[] = {
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"All Levels",
+	"-",
+
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"All Training",
+
+	"-",
+	"-",
+	"props",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"tiles",
+	"pads",
+	"-",
+	"-",
+	"-",
+	"-",
+
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"chr stats",
+	"-",
+	"all challenges",
+	"-",
+	"VM Stats",
+	"Mem Info",
+	"-",
+
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"all buddies",
+
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"testing man pos",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+	"-",
+};
+
+const char var7f1af378nb[] = "main";
+const char var7f1af380nb[] = "scene %d";
+
 GLOBAL_ASM(
 glabel debug0f119270nb
 /*  f119270:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -165,6 +287,186 @@ glabel debug0f11944cnb
 
 GLOBAL_ASM(
 glabel debug0f11946cnb
+.late_rodata
+glabel var7f1af38cnb
+.word debug0f11946cnb+0x2a8
+glabel var7f1af390nb
+.word debug0f11946cnb+0x428
+glabel var7f1af394nb
+.word debug0f11946cnb+0x428
+glabel var7f1af398nb
+.word debug0f11946cnb+0x428
+glabel var7f1af39cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af3a0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3a4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3a8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3acnb
+.word debug0f11946cnb+0x428
+glabel var7f1af3b0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3b4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3b8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3bcnb
+.word debug0f11946cnb+0x428
+glabel var7f1af3c0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3c4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3c8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3ccnb
+.word debug0f11946cnb+0x328
+glabel var7f1af3d0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3d4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3d8nb
+.word debug0f11946cnb+0x3e4
+glabel var7f1af3dcnb
+.word debug0f11946cnb+0x428
+glabel var7f1af3e0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3e4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3e8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3ecnb
+.word debug0f11946cnb+0x428
+glabel var7f1af3f0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af3f4nb
+.word debug0f11946cnb+0x27c
+glabel var7f1af3f8nb
+.word debug0f11946cnb+0x250
+glabel var7f1af3fcnb
+.word debug0f11946cnb+0x428
+glabel var7f1af400nb
+.word debug0f11946cnb+0x428
+glabel var7f1af404nb
+.word debug0f11946cnb+0x428
+glabel var7f1af408nb
+.word debug0f11946cnb+0x3b4
+glabel var7f1af40cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af410nb
+.word debug0f11946cnb+0x428
+glabel var7f1af414nb
+.word debug0f11946cnb+0x428
+glabel var7f1af418nb
+.word debug0f11946cnb+0x428
+glabel var7f1af41cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af420nb
+.word debug0f11946cnb+0x428
+glabel var7f1af424nb
+.word debug0f11946cnb+0x428
+glabel var7f1af428nb
+.word debug0f11946cnb+0x428
+glabel var7f1af42cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af430nb
+.word debug0f11946cnb+0x428
+glabel var7f1af434nb
+.word debug0f11946cnb+0x428
+glabel var7f1af438nb
+.word debug0f11946cnb+0x428
+glabel var7f1af43cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af440nb
+.word debug0f11946cnb+0x428
+glabel var7f1af444nb
+.word debug0f11946cnb+0x428
+glabel var7f1af448nb
+.word debug0f11946cnb+0x428
+glabel var7f1af44cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af450nb
+.word debug0f11946cnb+0x428
+glabel var7f1af454nb
+.word debug0f11946cnb+0x428
+glabel var7f1af458nb
+.word debug0f11946cnb+0x428
+glabel var7f1af45cnb
+.word debug0f11946cnb+0x3cc
+glabel var7f1af460nb
+.word debug0f11946cnb+0x428
+glabel var7f1af464nb
+.word debug0f11946cnb+0x2f0
+glabel var7f1af468nb
+.word debug0f11946cnb+0x428
+glabel var7f1af46cnb
+.word debug0f11946cnb+0x3fc
+glabel var7f1af470nb
+.word debug0f11946cnb+0x414
+glabel var7f1af474nb
+.word debug0f11946cnb+0x428
+glabel var7f1af478nb
+.word debug0f11946cnb+0x428
+glabel var7f1af47cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af480nb
+.word debug0f11946cnb+0x428
+glabel var7f1af484nb
+.word debug0f11946cnb+0x428
+glabel var7f1af488nb
+.word debug0f11946cnb+0x428
+glabel var7f1af48cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af490nb
+.word debug0f11946cnb+0x428
+glabel var7f1af494nb
+.word debug0f11946cnb+0x428
+glabel var7f1af498nb
+.word debug0f11946cnb+0x428
+glabel var7f1af49cnb
+.word debug0f11946cnb+0x428
+glabel var7f1af4a0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4a4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4a8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4acnb
+.word debug0f11946cnb+0x428
+glabel var7f1af4b0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4b4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4b8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4bcnb
+.word debug0f11946cnb+0x428
+glabel var7f1af4c0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4c4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4c8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4ccnb
+.word debug0f11946cnb+0x428
+glabel var7f1af4d0nb
+.word debug0f11946cnb+0x310
+glabel var7f1af4d4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4d8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4dcnb
+.word debug0f11946cnb+0x428
+glabel var7f1af4e0nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4e4nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4e8nb
+.word debug0f11946cnb+0x428
+glabel var7f1af4ecnb
+.word debug0f11946cnb+0x238
+.text
 /*  f11946c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f119470:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f119474:	afa40030 */ 	sw	$a0,0x30($sp)

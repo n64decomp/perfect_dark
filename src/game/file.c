@@ -2027,6 +2027,13 @@ extern void *_file_Asaucerexp1M;
 #endif
 extern void *_filenamesSegmentRomStart;
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b1d40nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x";
+const char var7f1b1d78nb[] = "ob.c";
+const char var7f1b1d80nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
+const char var7f1b1dd8nb[] = "ob.c";
+#endif
+
 struct fileinfo g_FileInfo[NUM_FILES];
 u32 var800aa570;
 

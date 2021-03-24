@@ -1131,6 +1131,98 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 #else
 GLOBAL_ASM(
 glabel propobjHandlePickupByAibot
+.late_rodata
+glabel var7f1b33d0nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33d4nb
+.word propobjHandlePickupByAibot+0x080
+glabel var7f1b33d8nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33dcnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33e0nb
+.word propobjHandlePickupByAibot+0x080
+glabel var7f1b33e4nb
+.word propobjHandlePickupByAibot+0x1f4
+glabel var7f1b33e8nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33ecnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33f0nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33f4nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33f8nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b33fcnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3400nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3404nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3408nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b340cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3410nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3414nb
+.word propobjHandlePickupByAibot+0x130
+glabel var7f1b3418nb
+.word propobjHandlePickupByAibot+0x314
+glabel var7f1b341cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3420nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3424nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3428nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b342cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3430nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3434nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3438nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b343cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3440nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3444nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3448nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b344cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3450nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3454nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3458nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b345cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3460nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3464nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3468nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b346cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3470nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3474nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3478nb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b347cnb
+.word propobjHandlePickupByAibot+0x3ac
+glabel var7f1b3480nb
+.word propobjHandlePickupByAibot+0x3ac
+.text
 /*  f18a918:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f18a91c:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f18a920:	afb20050 */ 	sw	$s2,0x50($sp)
@@ -3941,6 +4033,12 @@ void func0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
 #else
 GLOBAL_ASM(
 glabel func0f1921f8
+.late_rodata
+glabel var7f1b3510nb
+.word 0x3d6147b0
+glabel var7f1b3514nb
+.word 0x3f71eb85
+.text
 /*  f18c2dc:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f18c2e0:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f18c2e4:	00808025 */ 	or	$s0,$a0,$zero

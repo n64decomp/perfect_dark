@@ -9562,6 +9562,12 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 	return func0f153780(gdl);
 }
 #else
+const char var7f1ac174nb[] = "%d\n";
+const char var7f1ac178nb[] = "%d\n";
+const char var7f1ac17cnb[] = "%d\n";
+const char var7f1ac180nb[] = "%d\n";
+const char var7f1ac184nb[] = "%d\n";
+
 GLOBAL_ASM(
 glabel menuRenderItemRanking
 /*  f0eab98:	27bdfe50 */ 	addiu	$sp,$sp,-432

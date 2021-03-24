@@ -47,7 +47,9 @@ u32 var800acc28[18];
 struct mpweaponset g_MpWeaponSets[12];
 u32 var800874c8;
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
+#endif
 
 s32 var80087260 = 0x00000000;
 u32 var80087264 = 0x00000000;
@@ -1388,8 +1390,11 @@ char *mpGetWeaponLabel(s32 weaponnum)
 	return "";
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b8a5c[] = "Gun index %d -> slot %d = gun %d\n\n";
 const char var7f1b8a80[] = "HOLDER: selecting weapon set %d\n";
+#endif
+
 const char var7f1b8aa4[] = "%d\n";
 
 void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
@@ -3812,6 +3817,7 @@ glabel mpCalculatePlayerTitle
 );
 #endif
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b8ad0[] = "%s%sAccuracy Peak! real value: %f (*100)\n";
 const char var7f1b8afc[] = "";
 const char var7f1b8b00[] = "";
@@ -3820,14 +3826,21 @@ const char var7f1b8b20[] = "";
 const char var7f1b8b24[] = "%splayer %d dist:%f -> %f = %d\n";
 const char var7f1b8b44[] = "";
 const char var7f1b8b48[] = "Player %d TitleCalc ============\n";
+#else
+const u32 var7f1b3324nb[] = {2, 4, 8, 0x10, 0x1c, 0x30, 0x4e, 0x8a, 0xc6, 0x12c };
+#endif
+
 const char var7f1b8b6c[] = "Sim\n";
 const char var7f1b8b74[] = "%s:%d\n";
 const char var7f1b8b7c[] = "%s\n";
+
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b8b80[] = "Adding GBCHead to load to slot %d: guid is %x-%x, player is %d\n";
 const char var7f1b8bc0[] = "PakId for player %d: %d\n";
 const char var7f1b8bdc[] = "Save Player Result: %d   New GUID: %x\n";
 const char var7f1b8c04[] = "PakId for player %d: %d\n";
 const char var7f1b8c20[] = "Load Player - Result: %d\n";
+#endif
 
 struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
 	// head, require feature
@@ -9300,6 +9313,7 @@ char *mpGetPresetNameBySlot(s32 slot)
 	return "";
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 const char var7f1b8c40[] = "bot %d headId %d bodyId %d\n";
 const char var7f1b8c5c[] = "team change %s %d\n";
 
@@ -9322,6 +9336,7 @@ const char var7f1b8ccc[] = "SaveGame Result: %d   New GUID: %x\n";
 const char var7f1b8cf0[] = "LoadMultiGameFile : PakId=0x%x, FileId=0x%x\n";
 const char var7f1b8d20[] = "LoadGame Result: %d\n";
 const char var7f1b8d38[] = "GBCHead: Call to create head for slot %d (gbcheadobjs[slotno]=%x)\n";
+#endif // >= VERSION_NTSC_1_0
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(

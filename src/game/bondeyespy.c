@@ -3943,15 +3943,15 @@ glabel var7f1adae0
 glabel var7f1adae4
 .word 0x3ccccccd
 glabel var7f1adae8
-.word eyespyProcessInput+0x1184 # f0d1aac
+.word eyespyProcessInput+0x11c4
 glabel var7f1adaec
-.word eyespyProcessInput+0x1280 # f0d1ba8
+.word eyespyProcessInput+0x12c0
 glabel var7f1adaf0
-.word eyespyProcessInput+0x122c # f0d1b54
+.word eyespyProcessInput+0x126c
 glabel var7f1adaf4
-.word eyespyProcessInput+0x12d4 # f0d1bfc
+.word eyespyProcessInput+0x1314
 glabel var7f1adaf8
-.word eyespyProcessInput+0x11d8 # f0d1b00
+.word eyespyProcessInput+0x1218
 glabel var7f1adafc
 .word 0x40c907a9
 glabel var7f1adb00

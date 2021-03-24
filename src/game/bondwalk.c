@@ -114,6 +114,10 @@ void bwalkInit(void)
 #else
 GLOBAL_ASM(
 glabel bwalkInit
+.late_rodata
+glabel var7f1a7ad0
+.word 0xb8d1b717
+.text
 /*  f0c13a0:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f0c13a4:	afb00038 */ 	sw	$s0,0x38($sp)
 /*  f0c13a8:	3c10800a */ 	lui	$s0,0x800a
@@ -530,6 +534,10 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 #else
 GLOBAL_ASM(
 glabel bwalkCalculateNewPosition
+.late_rodata
+glabel var7f1a7ad8nb
+.word 0x40c907a9
+.text
 /*  f0c19d0:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f0c19d4:	afb00030 */ 	sw	$s0,0x30($sp)
 /*  f0c19d8:	3c10800a */ 	lui	$s0,0x800a
@@ -2286,6 +2294,44 @@ void bwalkUpdateVertical(void)
 #else
 GLOBAL_ASM(
 glabel bwalkUpdateVertical
+.late_rodata
+glabel var7f1a7adcnb
+.word 0x3f99999a
+glabel var7f1a7ae0nb
+.word 0x3f8ccccd
+glabel var7f1a7ae4nb
+.word 0xc6ea6000
+glabel var7f1a7ae8nb
+.word 0xc6ea6000
+glabel var7f1a7aecnb
+.word 0x3d3a5e30
+glabel var7f1a7af0nb
+.word 0x3d3a5e30
+glabel var7f1a7af4nb
+.word 0x3f745a1d
+glabel var7f1a7af8nb
+.word 0x3d3a5e30
+glabel var7f1a7afcnb
+.word 0x3fb1c71d
+glabel var7f1a7b00nb
+.word 0x3e8e38e4
+glabel var7f1a7b04nb
+.word 0x3e8e38e4
+glabel var7f1a7b08nb
+.word 0xc6ea6000
+glabel var7f1a7b0cnb
+.word 0xc6ea6000
+glabel var7f1a7b10nb
+.word 0xc1555555
+glabel var7f1a7b14nb
+.word 0x41055555
+glabel var7f1a7b18nb
+.word 0x3f7212d7
+glabel var7f1a7b1cnb
+.word 0x3d5ed290
+glabel var7f1a7b20nb
+.word 0x3bce168a
+.text
 /*  f0c2bd8:	27bdff10 */ 	addiu	$sp,$sp,-240
 /*  f0c2bdc:	afb00048 */ 	sw	$s0,0x48($sp)
 /*  f0c2be0:	3c10800a */ 	lui	$s0,0x800a
@@ -5549,8 +5595,6 @@ glabel var7f1ad7fc
 .word 0xc27e6668
 glabel var7f1ad800
 .word 0x43b0aaaa
-glabel var7f1ad804
-.word 0x3ecccccd
 glabel var7f1ad808
 .word 0x3c888889
 glabel var7f1ad80c
@@ -5570,13 +5614,7 @@ glabel var7f1ad824
 glabel var7f1ad828
 .word 0x3f4ccccd
 glabel var7f1ad82c
-.word 0x3f4ccccd
-glabel var7f1ad830
 .word 0x4528c000
-glabel var7f1ad834
-.word 0x3ecccccd
-glabel var7f1ad838
-.word 0x3ecccccd
 glabel var7f1ad83c
 .word 0x3e99999a
 glabel var7f1ad840

@@ -3237,8 +3237,6 @@ glabel var7f1ada18
 .word 0x3f4ccccd
 glabel var7f1ada1c
 .word 0x4528c000
-glabel var7f1ada20
-.word 0x3ecccccd
 glabel var7f1ada24
 .word 0x3f333333
 glabel var7f1ada28

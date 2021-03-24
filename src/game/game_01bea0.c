@@ -3608,31 +3608,31 @@ glabel menuTickAll
 glabel var7f1a8608
 .word 0x3ca3d70a
 glabel var7f1a860c
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8610
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8614
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8618
-.word menuTickAll+0x16c0 # f01d5e8
+.word menuTickAll+0x16a0
 glabel var7f1a861c
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8620
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8624
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8628
-.word menuTickAll+0x16c0 # f01d5e8
+.word menuTickAll+0x16a0
 glabel var7f1a862c
-.word menuTickAll+0x16c0 # f01d5e8
+.word menuTickAll+0x16a0
 glabel var7f1a8630
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8634
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 glabel var7f1a8638
-.word menuTickAll+0x16c0 # f01d5e8
+.word menuTickAll+0x16a0
 glabel var7f1a863c
-.word menuTickAll+0x168c # f01d5b4
+.word menuTickAll+0x166c
 .text
 /*  f01bc28:	27bdfe98 */ 	addiu	$sp,$sp,-360
 /*  f01bc2c:	3c0e8007 */ 	lui	$t6,0x8007

@@ -106,7 +106,28 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b1e20nb[] = "lv.c";
+const char var7f1b1e28nb[] = "R=%d(%d)";
+const char var7f1b1e34nb[] = "%s%sx %4.0f";
+const char var7f1b1e40nb[] = "";
+const char var7f1b1e44nb[] = "";
+const char var7f1b1e48nb[] = "%s%sy %4.0f";
+const char var7f1b1e54nb[] = "";
+const char var7f1b1e58nb[] = "";
+const char var7f1b1e5cnb[] = "%s%sz %4.0f";
+const char var7f1b1e68nb[] = "";
+const char var7f1b1e6cnb[] = "";
+const char var7f1b1e70nb[] = "%s %3d";
+const char var7f1b1e78nb[] = "lv.c Master DL overrun!";
+#endif
+
 const char var7f1b7730[] = "fr: %d\n";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b1e98nb[] = "lv.c";
+#endif
+
 const char var7f1b7738[] = "cutsceneframe: %d\n";
 const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
 const char var7f1b7768[] = "";
@@ -558,6 +579,64 @@ void coreLoadStage(s32 stagenum)
 #else
 GLOBAL_ASM(
 glabel coreLoadStage
+.late_rodata
+glabel var7f1b1ed8nc
+.word coreLoadStage+0x38c
+glabel var7f1b1edcnc
+.word coreLoadStage+0x394
+glabel var7f1b1ee0nc
+.word coreLoadStage+0x394
+glabel var7f1b1ee4nc
+.word coreLoadStage+0x394
+glabel var7f1b1ee8nc
+.word coreLoadStage+0x394
+glabel var7f1b1eecnc
+.word coreLoadStage+0x394
+glabel var7f1b1ef0nc
+.word coreLoadStage+0x394
+glabel var7f1b1ef4nc
+.word coreLoadStage+0x394
+glabel var7f1b1ef8nc
+.word coreLoadStage+0x394
+glabel var7f1b1efcnc
+.word coreLoadStage+0x38c
+glabel var7f1b1f00nc
+.word coreLoadStage+0x394
+glabel var7f1b1f04nc
+.word coreLoadStage+0x394
+glabel var7f1b1f08nc
+.word coreLoadStage+0x394
+glabel var7f1b1f0cnc
+.word coreLoadStage+0x394
+glabel var7f1b1f10nc
+.word coreLoadStage+0x394
+glabel var7f1b1f14nc
+.word coreLoadStage+0x394
+glabel var7f1b1f18nc
+.word coreLoadStage+0x394
+glabel var7f1b1f1cnc
+.word coreLoadStage+0x394
+glabel var7f1b1f20nc
+.word coreLoadStage+0x394
+glabel var7f1b1f24nc
+.word coreLoadStage+0x394
+glabel var7f1b1f28nc
+.word coreLoadStage+0x394
+glabel var7f1b1f2cnc
+.word coreLoadStage+0x394
+glabel var7f1b1f30nc
+.word coreLoadStage+0x38c
+glabel var7f1b1f34nc
+.word coreLoadStage+0x38c
+glabel var7f1b1f38nc
+.word coreLoadStage+0x394
+glabel var7f1b1f3cnc
+.word coreLoadStage+0x394
+glabel var7f1b1f40nc
+.word coreLoadStage+0x394
+glabel var7f1b1f44nc
+.word coreLoadStage+0x38c
+.text
 /*  f1627b8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f1627bc:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f1627c0:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -1180,6 +1259,10 @@ bool coreCheckCmpFollowThreat(struct threat *threat, s32 index)
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func7f163414nb
+.late_rodata
+glabel var7f1b1f68
+.word 0x40490fdb
+.text
 /*  f163414:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f163418:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f16341c:	afb10038 */ 	sw	$s1,0x38($sp)
@@ -4281,6 +4364,22 @@ Gfx *coreRender(Gfx *gdl)
 #else
 GLOBAL_ASM(
 glabel coreRender
+.late_rodata
+glabel var7f1b1fbcnb
+.word 0x3f866666
+glabel var7f1b1fc0nb
+.word 0x3ca3d70b
+glabel var7f1b1fc4nb
+.word 0x3f8ccccd
+glabel var7f1b1fc8nb
+.word 0x3bda740e
+glabel var7f1b1fccnb
+.word 0x3ca3d70b
+glabel var7f1b1fd0nb
+.word 0x3f8ccccd
+glabel var7f1b1fd4nb
+.word 0x3bda740e
+.text
 /*  f164048:	27bdfe10 */ 	addiu	$sp,$sp,-496
 /*  f16404c:	afb20038 */ 	sw	$s2,0x38($sp)
 /*  f164050:	afbf0054 */ 	sw	$ra,0x54($sp)

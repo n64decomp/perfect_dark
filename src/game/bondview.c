@@ -31,6 +31,9 @@ u32 var8007f858 = 0xb8000000;
 u32 var8007f85c = 0x00000000;
 
 #if VERSION < VERSION_NTSC_1_0
+const char var7f1b02b0nb[] = "fsrad";
+const char var7f1b02b8nb[] = "fscs";
+
 GLOBAL_ASM(
 glabel func7f13c2d0nb
 /*  f13c2d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -14983,6 +14986,11 @@ Gfx *bviewRenderNvBinoculars(Gfx *gdl)
 
 const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
 const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b03d8nb[] = "Fault Scope is active\n";
+#endif
+
 const char var7f1b5e88[] = "IntroFaderBlurGfx";
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -16227,8 +16235,28 @@ Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 	return gdl;
 }
 #else
+const char var7f1b041cnb[] = "BinocularViewGfx";
+const char var7f1b0430nb[] = ">> ";
+const char var7f1b0434nb[] = " >>";
+const char var7f1b0438nb[] = "%s %s:%03d";
+const char var7f1b0444nb[] = "%s %s%s%4.2fh";
+const char var7f1b0454nb[] = "";
+const char var7f1b0458nb[] = "";
+const char var7f1b045cnb[] = "%s %s%s%4.2fX";
+const char var7f1b046cnb[] = "";
+const char var7f1b0470nb[] = "";
+const char var7f1b0474nb[] = " JMBC WIDE BAND SCANNER\n";
+
 GLOBAL_ASM(
 glabel bviewRenderHorizonScanner
+.late_rodata
+glabel var7f1b04c0nb
+.word 0x40490fdb
+glabel var7f1b04c4nb
+.word 0x40933333
+glabel var7f1b04c8nb
+.word 0x4465599a
+.text
 /*  f142640:	27bdfea0 */ 	addiu	$sp,$sp,-352
 /*  f142644:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f142648:	afb2004c */ 	sw	$s2,0x4c($sp)

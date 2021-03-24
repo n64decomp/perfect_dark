@@ -36,6 +36,25 @@ u32 var800840f4 = 0x00000000;
 u32 var800840f8 = PAL ? 100 : 120;
 u32 var800840fc = 0x00000000;
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1b2030nb[] = "MUSIC : musicPlayLevel\n";
+const char var7f1b2048nb[] = "MUSIC : SWITCHING TO CORRECT AMBIENT TUNE\n";
+const char var7f1b2074nb[] = "musicStartLevel\n";
+const char var7f1b2088nb[] = "musicEndLevel\n";
+const char var7f1b2098nb[] = "musicStartNRG\n";
+const char var7f1b20a8nb[] = "musicEndNRG\n";
+const char var7f1b20b8nb[] = "musicStartWatch start\n";
+const char var7f1b20d0nb[] = "musicEndWatch start\n";
+const char var7f1b20e8nb[] = "musicEndWatch end\n";
+const char var7f1b20fcnb[] = "musicStartDead\n";
+const char var7f1b210cnb[] = "musicStartTemporary\n";
+const char var7f1b2124nb[] = "musicEndTemporary\n";
+const char var7f1b2138nb[] = "musicStartCutscene\n";
+const char var7f1b214cnb[] = "musicEndCutscene\n";
+const char var7f1b2160nb[] = "musicStartAmbient : Tune=%d\n";
+const char var7f1b2180nb[] = "musicEndAmbient\n";
+#endif
+
 char *var80084100[] = {
 	"null",
 	"leveltune",
