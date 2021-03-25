@@ -16,7 +16,6 @@
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_4e090.h"
-#include "lib/lib_50480.h"
 #include "lib/lib_513b0.h"
 #include "data.h"
 #include "types.h"
@@ -1586,7 +1585,7 @@ s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
 	return 0;
 }
 
-s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer)
+s32 func0f117b4c(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer)
 {
 	u32 newaddress;
 
@@ -1594,8 +1593,8 @@ s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buf
 	joyCheckPfs(2);
 #endif
 
-	if (arg0) {
-		return func00050554(arg0, arg1, operation, address, len, buffer);
+	if (pfs) {
+		return osPfsReadWriteFile(pfs, file_no, flag, address, len, buffer);
 	}
 
 	newaddress = address / 8;
@@ -1611,11 +1610,11 @@ s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buf
 		return 0x80;
 	}
 
-	if (operation == OS_WRITE) {
+	if (flag == OS_WRITE) {
 		return pakWriteEeprom(newaddress, buffer, len);
 	}
 
-	if (operation == OS_READ) {
+	if (flag == OS_READ) {
 		return pakReadEeprom(newaddress, buffer, len);
 	}
 
@@ -7367,17 +7366,19 @@ glabel func0f11a434
 //	var800a2380[device].unk2b4 = -1;
 //}
 
-s32 func0f11a504(s8 arg0, s32 arg1, s32 arg2, u8 operation, u32 address, u32 len, u8 *buffer)
+s32 func0f11a504(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer)
 {
 	s32 result;
-	len = func0f1165f8(arg0, len);
+	len = func0f1165f8(device, len);
 
 #if VERSION >= VERSION_NTSC_1_0
 	joy000150e8();
 #else
 	joy000150e8(3096, "pak.c");
 #endif
-	result = func0f117b4c(arg1, arg2, operation, address, len, buffer);
+
+	result = func0f117b4c(pfs, file_no, flag, address, len, buffer);
+
 #if VERSION >= VERSION_NTSC_1_0
 	joy00015144();
 #else

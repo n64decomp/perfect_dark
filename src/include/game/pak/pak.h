@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 func0f1165d0(s8 device);
-u32 func0f1165f8(s8 arg0, u32 arg1);
+u32 func0f1165f8(s8 device, u32 arg1);
 u32 func0f116658(s8 arg0, u32 arg1);
 u32 func0f116684(u32 arg0);
 u32 func0f11668c(s8 device);
@@ -48,7 +48,7 @@ s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3);
 s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
 #endif
 
-s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer);
+s32 func0f117b4c(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer);
 s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2);
 s32 func0f117c80(OSPfs *pfs, s32 *arg1);
 s32 func0f117ce4(OSPfs *pfs, s32 file_no, OSPfsState *note);
@@ -85,7 +85,7 @@ u32 func0f11a1d0(void);
 void func0f11a2e4(void);
 void func0f11a32c(s8 device, u8 arg1, u32 line, char *file);
 void func0f11a434(s8 arg0);
-s32 func0f11a504(s8 arg0, s32 arg1, s32 arg2, u8 operation, u32 address, u32 len, u8 *buffer);
+s32 func0f11a504(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer);
 s32 func0f11a574(s8 device);
 u32 func0f11a7dc(void);
 u32 func0f11a8f4(void);

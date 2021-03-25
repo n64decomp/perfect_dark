@@ -100,6 +100,7 @@ typedef struct {
 #define PFS_LABEL_AREA          7
 #define PFS_INODE_SIZE_PER_PAGE 128
 #define PFS_PAGE_NOT_USED       3
+#define PFS_WRITTEN             2
 #define PFS_PAGE_SIZE           (BLOCKSIZE * PFS_ONE_PAGE)
 
 #define PFS_READ                0
@@ -159,6 +160,7 @@ s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_na
 s32 osPfsFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no);
 s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state);
+s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, s32 size, u8* data);
 
 s32 osMotorAccess(OSPfs *pfs, u32 vibrate);
 void osSetUpMempakWrite(s32 channel, OSPifRam* buf);
