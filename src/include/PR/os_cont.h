@@ -139,8 +139,8 @@ typedef struct
     /* 0x8 */ u8 status;
     /* 0x9 */ s8 reserved;
     /* 0xA */ u16 data_sum;
-    /* 0xC */ u8 ext_name[16];
-    /* 0x10 */ u8 game_name[4];
+    /* 0xC */ u8 ext_name[4];
+    /* 0x10 */ u8 game_name[16];
 } __OSDir;
 
 typedef struct

@@ -100,6 +100,7 @@ typedef struct {
 #define PFS_LABEL_AREA          7
 #define PFS_INODE_SIZE_PER_PAGE 128
 #define PFS_PAGE_NOT_USED       3
+#define PFS_PAGE_SIZE           (BLOCKSIZE * PFS_ONE_PAGE)
 
 #define PFS_READ                0
 #define PFS_WRITE               1

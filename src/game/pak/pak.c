@@ -1726,17 +1726,17 @@ s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
 
 const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
 
-u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6)
+s32 func0f117d90(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no)
 {
-	if (arg0) {
-		return func0004d000(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+	if (pfs) {
+		return osPfsAllocateFile(pfs, company_code, game_code, game_name, ext_name, size, file_no);
 	}
 
 	if (g_PakHasEeprom == 0) {
 		return 0x80;
 	}
 
-	*arg6 = 0;
+	*file_no = 0;
 
 	return 0;
 }
@@ -1754,15 +1754,15 @@ u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, c
 	return 0;
 }
 
-u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5)
+s32 func0f117e58(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no)
 {
-	if (arg0) {
-		return func0004cc10(arg0, arg1, arg2, arg3, arg4, arg5);
+	if (pfs) {
+		return osPfsFindFile(pfs, company_code, game_code, game_name, ext_name, file_no);
 	}
 
 	if (g_PakHasEeprom) {
 #if VERSION >= VERSION_NTSC_FINAL
-		*arg5 = 0;
+		*file_no = 0;
 		return 0;
 #else
 		u8 sp64[8];
@@ -1771,7 +1771,7 @@ u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5)
 		u32 b;
 		u16 sp44[4];
 
-		*arg5 = 0;
+		*file_no = 0;
 		a = func0f11a504(SAVEDEVICE_GAMEPAK, 0, 0, 0, 0, align16(0x10), (u8 *)sp56);
 
 		if (func0f11c39c(a, SAVEDEVICE_GAMEPAK, 1, 0x60f)) {

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0004d000(u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6);
-u32 func0004d334(void);
+s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 num_bytes, s32 *file_no);
+s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, s32 fileSizeInPages, s32 *startPage, u8 bank, s32 *decleared, s32 *finalPage);
 
 #endif

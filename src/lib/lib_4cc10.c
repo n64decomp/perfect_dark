@@ -6,7 +6,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004cc10
+glabel osPfsFindFile
 /*    4cc10:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*    4cc14:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*    4cc18:	afbe0038 */ 	sw	$s8,0x38($sp)
