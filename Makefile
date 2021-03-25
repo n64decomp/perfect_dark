@@ -68,6 +68,7 @@ $(B_DIR)/lib/ultra/io/conteepread.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/conteepwrite.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contpfs.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contramread.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/io/contramwrite.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfschecker.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
 
