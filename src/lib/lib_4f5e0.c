@@ -6,74 +6,8 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009c970;
-u32 var8009c974;
-u32 var8009c978;
-u32 var8009c97c;
-u32 var8009c980;
-u32 var8009c984;
-u32 var8009c988;
-u32 var8009c98c;
-u32 var8009c990;
-u32 var8009c994;
-u32 var8009c998;
-u32 var8009c99c;
-u32 var8009c9a0;
-u32 var8009c9a4;
-u32 var8009c9a8;
-u32 var8009c9ac;
-u32 var8009c9b0;
-u32 var8009c9b4;
-u32 var8009c9b8;
-u32 var8009c9bc;
-u32 var8009c9c0;
-u32 var8009c9c4;
-u32 var8009c9c8;
-u32 var8009c9cc;
-u32 var8009c9d0;
-u32 var8009c9d4;
-u32 var8009c9d8;
-u32 var8009c9dc;
-u32 var8009c9e0;
-u32 var8009c9e4;
-u32 var8009c9e8;
-u32 var8009c9ec;
-u32 var8009c9f0;
-u32 var8009c9f4;
-u32 var8009c9f8;
-u32 var8009c9fc;
-u32 var8009ca00;
-u32 var8009ca04;
-u32 var8009ca08;
-u32 var8009ca0c;
-u32 var8009ca10;
-u32 var8009ca14;
-u32 var8009ca18;
-u32 var8009ca1c;
-u32 var8009ca20;
-u32 var8009ca24;
-u32 var8009ca28;
-u32 var8009ca2c;
-u32 var8009ca30;
-u32 var8009ca34;
-u32 var8009ca38;
-u32 var8009ca3c;
-u32 var8009ca40;
-u32 var8009ca44;
-u32 var8009ca48;
-u32 var8009ca4c;
-u32 var8009ca50;
-u32 var8009ca54;
-u32 var8009ca58;
-u32 var8009ca5c;
-u32 var8009ca60;
-u32 var8009ca64;
-u32 var8009ca68;
-u32 var8009ca6c;
+OSPifRam osPifBuffers[MAXCONTROLLERS];
 u32 var8009ca70;
-u32 var8009ca74;
-u32 var8009ca78;
-u32 var8009ca7c;
 
 u32 var800609f0 = 0x00000032;
 u32 var800609f4 = 0x00640096;
@@ -590,104 +524,48 @@ u32 var800611ec = 0x7ffe7fff;
 
 const u32 var70059fd0[] = {0x3c8efa35};
 
-GLOBAL_ASM(
-glabel func0004f5e0
-/*    4f5e0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    4f5e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    4f5e8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    4f5ec:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    4f5f0:	8c990000 */ 	lw	$t9,0x0($a0)
-/*    4f5f4:	3c18800a */ 	lui	$t8,%hi(var8009c970)
-/*    4f5f8:	2718c970 */ 	addiu	$t8,$t8,%lo(var8009c970)
-/*    4f5fc:	000e7980 */ 	sll	$t7,$t6,0x6
-/*    4f600:	33290008 */ 	andi	$t1,$t9,0x8
-/*    4f604:	00808025 */ 	or	$s0,$a0,$zero
-/*    4f608:	00a03825 */ 	or	$a3,$a1,$zero
-/*    4f60c:	15200003 */ 	bnez	$t1,.L0004f61c
-/*    4f610:	01f84021 */ 	addu	$t0,$t7,$t8
-/*    4f614:	10000047 */ 	b	.L0004f734
-/*    4f618:	24020005 */ 	addiu	$v0,$zero,0x5
-.L0004f61c:
-/*    4f61c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*    4f620:	0c012a18 */ 	jal	__osSiGetAccess
-/*    4f624:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    4f628:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*    4f62c:	3c06800a */ 	lui	$a2,%hi(var8009c970)
-/*    4f630:	24c6c970 */ 	addiu	$a2,$a2,%lo(var8009c970)
-/*    4f634:	000b6180 */ 	sll	$t4,$t3,0x6
-/*    4f638:	00cc6821 */ 	addu	$t5,$a2,$t4
-/*    4f63c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*    4f640:	adaa003c */ 	sw	$t2,0x3c($t5)
-/*    4f644:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    4f648:	8e0e0008 */ 	lw	$t6,0x8($s0)
-/*    4f64c:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*    4f650:	00001825 */ 	or	$v1,$zero,$zero
-/*    4f654:	010e4021 */ 	addu	$t0,$t0,$t6
-/*    4f658:	01001025 */ 	or	$v0,$t0,$zero
-/*    4f65c:	24040020 */ 	addiu	$a0,$zero,0x20
-.L0004f660:
-/*    4f660:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    4f664:	a0470007 */ 	sb	$a3,0x7($v0)
-/*    4f668:	a0470008 */ 	sb	$a3,0x8($v0)
-/*    4f66c:	a0470009 */ 	sb	$a3,0x9($v0)
-/*    4f670:	24420004 */ 	addiu	$v0,$v0,0x4
-/*    4f674:	1464fffa */ 	bne	$v1,$a0,.L0004f660
-/*    4f678:	a0470002 */ 	sb	$a3,0x2($v0)
-/*    4f67c:	240f00fe */ 	addiu	$t7,$zero,0xfe
-/*    4f680:	3c01800a */ 	lui	$at,%hi(__osContLastCmd)
-/*    4f684:	a02fc820 */ 	sb	$t7,%lo(__osContLastCmd)($at)
-/*    4f688:	8e180008 */ 	lw	$t8,0x8($s0)
-/*    4f68c:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    4f690:	afa70034 */ 	sw	$a3,0x34($sp)
-/*    4f694:	0018c980 */ 	sll	$t9,$t8,0x6
-/*    4f698:	00d92821 */ 	addu	$a1,$a2,$t9
-/*    4f69c:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4f6a0:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    4f6a4:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4f6a8:	00002825 */ 	or	$a1,$zero,$zero
-/*    4f6ac:	0c0121bc */ 	jal	osRecvMesg
-/*    4f6b0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4f6b4:	8e090008 */ 	lw	$t1,0x8($s0)
-/*    4f6b8:	3c0c800a */ 	lui	$t4,%hi(var8009c970)
-/*    4f6bc:	258cc970 */ 	addiu	$t4,$t4,%lo(var8009c970)
-/*    4f6c0:	00095980 */ 	sll	$t3,$t1,0x6
-/*    4f6c4:	016c2821 */ 	addu	$a1,$t3,$t4
-/*    4f6c8:	0c012a34 */ 	jal	__osSiRawStartDma
-/*    4f6cc:	00002025 */ 	or	$a0,$zero,$zero
-/*    4f6d0:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4f6d4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4f6d8:	0c0121bc */ 	jal	osRecvMesg
-/*    4f6dc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4f6e0:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    4f6e4:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*    4f6e8:	91100002 */ 	lbu	$s0,0x2($t0)
-/*    4f6ec:	320a00c0 */ 	andi	$t2,$s0,0xc0
-/*    4f6f0:	1540000d */ 	bnez	$t2,.L0004f728
-/*    4f6f4:	01408025 */ 	or	$s0,$t2,$zero
-/*    4f6f8:	54e00007 */ 	bnezl	$a3,.L0004f718
-/*    4f6fc:	910e0026 */ 	lbu	$t6,0x26($t0)
-/*    4f700:	910d0026 */ 	lbu	$t5,0x26($t0)
-/*    4f704:	11a00008 */ 	beqz	$t5,.L0004f728
-/*    4f708:	00000000 */ 	nop
-/*    4f70c:	10000006 */ 	b	.L0004f728
-/*    4f710:	24100004 */ 	addiu	$s0,$zero,0x4
-/*    4f714:	910e0026 */ 	lbu	$t6,0x26($t0)
-.L0004f718:
-/*    4f718:	240100eb */ 	addiu	$at,$zero,0xeb
-/*    4f71c:	11c10002 */ 	beq	$t6,$at,.L0004f728
-/*    4f720:	00000000 */ 	nop
-/*    4f724:	24100004 */ 	addiu	$s0,$zero,0x4
-.L0004f728:
-/*    4f728:	0c012a29 */ 	jal	__osSiRelAccess
-/*    4f72c:	00000000 */ 	nop
-/*    4f730:	02001025 */ 	or	$v0,$s0,$zero
-.L0004f734:
-/*    4f734:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    4f738:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    4f73c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    4f740:	03e00008 */ 	jr	$ra
-/*    4f744:	00000000 */ 	nop
-);
+s32 osMotorAccess(OSPfs *pfs, u32 vibrate)
+{
+	s32 i;
+	s32 ret;
+	u8* buf = (u8*)&osPifBuffers[pfs->channel];
+
+	if (!(pfs->status & 8)) {
+		return 5;
+	}
+
+	__osSiGetAccess();
+	osPifBuffers[pfs->channel].pifstatus = 1;
+	buf += pfs->channel;
+
+	for (i = 0; i < BLOCKSIZE; i++) {
+		((__OSContRamReadFormat*)buf)->data[i] = vibrate;
+	}
+
+	__osContLastCmd = CONT_CMD_END;
+	__osSiRawStartDma(OS_WRITE, &osPifBuffers[pfs->channel]);
+	osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
+	__osSiRawStartDma(OS_READ, &osPifBuffers[pfs->channel]);
+	osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
+
+	ret = ((__OSContRamReadFormat*)buf)->rxsize & 0xc0;
+
+	if (!ret) {
+		if (!vibrate) {
+			if (((__OSContRamReadFormat*)buf)->datacrc != 0) {
+				ret = PFS_ERR_CONTRFAIL;
+			}
+		} else {
+			if (((__OSContRamReadFormat*)buf)->datacrc != 0xeb) {
+				ret = PFS_ERR_CONTRFAIL;
+			}
+		}
+	}
+
+	__osSiRelAccess();
+
+	return ret;
+}
 
 GLOBAL_ASM(
 glabel func0004f748
@@ -848,11 +726,11 @@ glabel func0004f854
 /*    4f96c:	8e090000 */ 	lw	$t1,0x0($s0)
 .L0004f970:
 /*    4f970:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*    4f974:	3c0d800a */ 	lui	$t5,%hi(var8009c970)
+/*    4f974:	3c0d800a */ 	lui	$t5,%hi(osPifBuffers)
 /*    4f978:	312a0008 */ 	andi	$t2,$t1,0x8
 /*    4f97c:	15400004 */ 	bnez	$t2,.L0004f990
 /*    4f980:	00046180 */ 	sll	$t4,$a0,0x6
-/*    4f984:	25adc970 */ 	addiu	$t5,$t5,%lo(var8009c970)
+/*    4f984:	25adc970 */ 	addiu	$t5,$t5,%lo(osPifBuffers)
 /*    4f988:	0c013dd2 */ 	jal	func0004f748
 /*    4f98c:	018d2821 */ 	addu	$a1,$t4,$t5
 .L0004f990:

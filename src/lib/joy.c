@@ -1313,9 +1313,9 @@ void joy0001519c(void)
 
 	for (i = 0; i < 4; i++) {
 		if (!func0004f854(&var80099e78, PFS(i), i)) {
-			func0004f5e0(PFS(i), 0);
-			func0004f5e0(PFS(i), 0);
-			func0004f5e0(PFS(i), 0);
+			osMotorAccess(PFS(i), 0);
+			osMotorAccess(PFS(i), 0);
+			osMotorAccess(PFS(i), 0);
 		}
 	}
 }
@@ -1352,9 +1352,9 @@ void joy000153c4(s8 arg0, s32 arg1)
 			}
 
 			if (func0004f854(&var80099e78, PFS(arg0), arg0) == 0) {
-				func0004f5e0(PFS(arg0), 0);
-				func0004f5e0(PFS(arg0), 0);
-				func0004f5e0(PFS(arg0), 0);
+				osMotorAccess(PFS(arg0), 0);
+				osMotorAccess(PFS(arg0), 0);
+				osMotorAccess(PFS(arg0), 0);
 			}
 
 			if (arg1) {
@@ -1449,7 +1449,7 @@ glabel joy000153c4
 /*    163b8:	018d3821 */ 	addu	$a3,$t4,$t5
 .NB000163bc:
 /*    163bc:	00e02025 */ 	or	$a0,$a3,$zero
-/*    163c0:	0c014370 */ 	jal	func0004f5e0
+/*    163c0:	0c014370 */ 	jal	osMotorAccess
 /*    163c4:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    163c8:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*    163cc:	24010004 */ 	addiu	$at,$zero,0x4
@@ -1468,7 +1468,7 @@ glabel joy000153c4
 /*    163fc:	01cf3821 */ 	addu	$a3,$t6,$t7
 .NB00016400:
 /*    16400:	00e02025 */ 	or	$a0,$a3,$zero
-/*    16404:	0c014370 */ 	jal	func0004f5e0
+/*    16404:	0c014370 */ 	jal	osMotorAccess
 /*    16408:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    1640c:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*    16410:	24010004 */ 	addiu	$at,$zero,0x4
@@ -1486,7 +1486,7 @@ glabel joy000153c4
 /*    1643c:	0018c0c0 */ 	sll	$t8,$t8,0x3
 /*    16440:	03193821 */ 	addu	$a3,$t8,$t9
 .NB00016444:
-/*    16444:	0c014370 */ 	jal	func0004f5e0
+/*    16444:	0c014370 */ 	jal	osMotorAccess
 /*    16448:	00e02025 */ 	or	$a0,$a3,$zero
 .NB0001644c:
 /*    1644c:	8fa8002c */ 	lw	$t0,0x2c($sp)
@@ -1538,14 +1538,14 @@ void joy0001561c(void)
 			switch (var800a2380[i].unk004) {
 			case 3:
 				var800a2380[i].unk004 = 4;
-				func0004f5e0(PFS(i), 1);
+				osMotorAccess(PFS(i), 1);
 				break;
 			case 4:
 				if (var800a2380[i].unk284 != -1) {
 					if (var800a2380[i].unk28c == 0) {
-						func0004f5e0(PFS(i), 1);
+						osMotorAccess(PFS(i), 1);
 					} else if (var800a2380[i].unk284 == var800a2380[i].unk28c) {
-						func0004f5e0(PFS(i), 0);
+						osMotorAccess(PFS(i), 0);
 					}
 
 					var800a2380[i].unk28c++;
@@ -1563,10 +1563,10 @@ void joy0001561c(void)
 				break;
 			case 5:
 				var800a2380[i].unk004 = 2;
-				func0004f5e0(PFS(i), 0);
+				osMotorAccess(PFS(i), 0);
 				break;
 			case 6:
-				func0004f5e0(PFS(i), 0);
+				osMotorAccess(PFS(i), 0);
 				var800a2380[i].unk004 = 7;
 				break;
 			case 8:
