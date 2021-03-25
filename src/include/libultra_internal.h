@@ -65,5 +65,7 @@ s32 __osCheckPackId(OSPfs *pfs, __OSPackId *temp);
 s32 __osGetId(OSPfs *pfs);
 s32 __osCheckId(OSPfs *pfs);
 s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank);
+u8 __osContAddressCrc(u16 inaddr);
+u8 __osContDataCrc(u8 *data);
 
 #endif
