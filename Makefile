@@ -77,6 +77,7 @@ $(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32
 
+$(B_DIR)/lib/ultra/gu/align.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/gu/frustum.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/gu/ortho.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/gu/scale.o: OPT_LVL := -O3

@@ -185,7 +185,7 @@
 	build/ROMID/lib/ultra/io/pfsisplug.o (section); \
 	build/ROMID/lib/ultra/io/contreaddata.o (section); \
 	build/ROMID/lib/ultra/io/motor.o (section); \
-	build/ROMID/lib/lib_4f9b0.o (section); \
+	build/ROMID/lib/ultra/gu/align.o (section); \
 	build/ROMID/lib/ultra/gu/coss.o (section); \
 	build/ROMID/lib/ultra/gu/sins.o (section); \
 	build/ROMID/lib/ultra/gu/ortho.o (section); \

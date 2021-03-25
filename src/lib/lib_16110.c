@@ -1017,7 +1017,7 @@ glabel func00017028
 /*    1704c:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*    17050:	e7a60010 */ 	swc1	$f6,0x10($sp)
 /*    17054:	44056000 */ 	mfc1	$a1,$f12
-/*    17058:	0c013e6c */ 	jal	func0004f9b0
+/*    17058:	0c013e6c */ 	jal	guAlignF
 /*    1705c:	00000000 */ 	nop
 /*    17060:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*    17064:	27bd0020 */ 	addiu	$sp,$sp,0x20

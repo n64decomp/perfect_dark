@@ -23,6 +23,7 @@ void guMtxIdent(Mtx *m);
 void guMtxIdentF(float mf[4][4]);
 void guMtxL2F(float mf[4][4], Mtx *m);
 void guNormalize(float *, float *, float *);
+void guAlignF(float mf[4][4], float a, float x, float y, float z);
 
 void guLookAt(Mtx *m, float xEye, float yEye, float zEye,
 		float xAt,  float yAt,  float zAt,
