@@ -28,6 +28,8 @@ void guLookAt(Mtx *m, float xEye, float yEye, float zEye,
 		float xAt,  float yAt,  float zAt,
 		float xUp,  float yUp,  float zUp);
 
+signed short sins(unsigned short x);
+
 /* Used only in Fast3DEX2 */
 void guLookAtReflect (Mtx *m, LookAt *l, float xEye, float yEye, float zEye,
                     float xAt,  float yAt,  float zAt,
