@@ -153,6 +153,7 @@ typedef struct {
 extern s32		osPfsIsPlug(OSMesgQueue *, u8 *);
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 num_bytes, s32 *file_no);
 s32 osPfsFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no);
+s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

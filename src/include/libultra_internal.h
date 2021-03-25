@@ -67,5 +67,6 @@ s32 __osCheckId(OSPfs *pfs);
 s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank);
 u8 __osContAddressCrc(u16 inaddr);
 u8 __osContDataCrc(u8 *data);
+s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 initial_page, u8 bank, __OSInodeUnit *final_page);
 
 #endif

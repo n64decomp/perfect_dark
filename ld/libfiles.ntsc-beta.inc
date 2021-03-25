@@ -167,7 +167,7 @@
 	build/ROMID/lib/ultra/io/pfsselectbank.o (section); \
 	build/ROMID/lib/ultra/io/pfsfreeblocks.o (section); \
 	build/ROMID/lib/ultra/io/pfsallocatefile.o (section); \
-	build/ROMID/lib/lib_4d480.o (section); \
+	build/ROMID/lib/ultra/io/pfsdeletefile.o (section); \
 	build/ROMID/lib/ultra/io/siacs.o (section); \
 	build/ROMID/lib/ultra/io/pfschecker.o (section); \
 	build/ROMID/lib/lib_4e090.o (section); \
