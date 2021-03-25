@@ -1,11 +1,6 @@
 #include <libultra_internal.h>
 #include "data.h"
 
-#define WAIT_ON_IOBUSY(stat)                                \
-    stat = IO_READ(PI_STATUS_REG);                          \
-    while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) \
-        stat = IO_READ(PI_STATUS_REG);
-
 s32 osEPiRawReadIo(OSPiHandle *handle, u32 devAddr, u32 *data)
 {
 	u32 stat = IO_READ(PI_STATUS_REG);
