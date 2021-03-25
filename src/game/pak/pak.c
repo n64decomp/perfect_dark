@@ -18,7 +18,6 @@
 #include "lib/lib_4e090.h"
 #include "lib/lib_4f5e0.h"
 #include "lib/lib_50480.h"
-#include "lib/lib_50a00.h"
 #include "lib/lib_513b0.h"
 #include "data.h"
 #include "types.h"
@@ -1685,9 +1684,9 @@ s32 func0f117c80(OSPfs *pfs, s32 *arg1)
 	return 0;
 }
 
-s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
+s32 func0f117ce4(OSPfs *pfs, s32 file_no, OSPfsState *note)
 {
-	if (arg0) {
+	if (pfs) {
 		s32 result;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1695,7 +1694,9 @@ s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
 #else
 		joy000150e8(1363, "pak.c");
 #endif
-		result = func00050a00(arg0, arg1, note);
+
+		result = osPfsFileState(pfs, file_no, note);
+
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();
 #else
@@ -1709,7 +1710,7 @@ s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note)
 		return 0x80;
 	}
 
-	if (arg1) {
+	if (file_no) {
 		return 0x84;
 	}
 

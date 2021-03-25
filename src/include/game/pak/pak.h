@@ -51,7 +51,7 @@ s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
 s32 func0f117b4c(s32 arg0, s32 arg1, u8 operation, u32 address, u32 len, u8 *buffer);
 s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2);
 s32 func0f117c80(OSPfs *pfs, s32 *arg1);
-s32 func0f117ce4(s32 arg0, s32 arg1, OSPfsState *note);
+s32 func0f117ce4(OSPfs *pfs, s32 file_no, OSPfsState *note);
 s32 func0f117d90(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no);
 u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 s32 func0f117e58(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no);

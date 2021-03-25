@@ -194,7 +194,7 @@
 	build/ROMID/lib/ultra/io/conteeplongread.o (section); \
 	build/ROMID/lib/lib_50480.o (section); \
 	build/ROMID/lib/lib_508d0.o (section); \
-	build/ROMID/lib/lib_50a00.o (section); \
+	build/ROMID/lib/ultra/io/pfsfilestate.o (section); \
 	build/ROMID/lib/lib_50be0.o (section); \
 	build/ROMID/lib/lib_50d60.o (section); \
 	build/ROMID/lib/lib_50f20.o (section); \
