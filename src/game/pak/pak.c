@@ -1742,7 +1742,7 @@ s32 func0f117d90(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, c
 u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
 	if (pfs) {
-		return func0004d480(pfs, company_code, game_code, game_name, ext_name);
+		return osPfsDeleteFile(pfs, company_code, game_code, game_name, ext_name);
 	}
 
 	if (g_PakHasEeprom == 0) {

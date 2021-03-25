@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0004d480(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
-u32 func0004d658(void);
+s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
+s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 initialPage, u8 bank, __OSInodeUnit* final_page);
 
 #endif
