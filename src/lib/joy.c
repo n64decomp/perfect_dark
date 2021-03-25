@@ -1311,10 +1311,10 @@ void joy0001519c(void)
 	osSetEventMesg(OS_EVENT_SI, &var80099e78, 0);
 
 	for (i = 0; i < 4; i++) {
-		if (!osMotorProbe(&var80099e78, PFS(i), i)) {
-			osMotorAccess(PFS(i), 0);
-			osMotorAccess(PFS(i), 0);
-			osMotorAccess(PFS(i), 0);
+		if (osMotorProbe(&var80099e78, PFS(i), i) == 0) {
+			osMotorStop(PFS(i));
+			osMotorStop(PFS(i));
+			osMotorStop(PFS(i));
 		}
 	}
 }
@@ -1351,9 +1351,9 @@ void joy000153c4(s8 arg0, s32 arg1)
 			}
 
 			if (osMotorProbe(&var80099e78, PFS(arg0), arg0) == 0) {
-				osMotorAccess(PFS(arg0), 0);
-				osMotorAccess(PFS(arg0), 0);
-				osMotorAccess(PFS(arg0), 0);
+				osMotorStop(PFS(arg0));
+				osMotorStop(PFS(arg0));
+				osMotorStop(PFS(arg0));
 			}
 
 			if (arg1) {
@@ -1537,14 +1537,14 @@ void joy0001561c(void)
 			switch (var800a2380[i].unk004) {
 			case 3:
 				var800a2380[i].unk004 = 4;
-				osMotorAccess(PFS(i), 1);
+				osMotorStart(PFS(i));
 				break;
 			case 4:
 				if (var800a2380[i].unk284 != -1) {
 					if (var800a2380[i].unk28c == 0) {
-						osMotorAccess(PFS(i), 1);
+						osMotorStart(PFS(i));
 					} else if (var800a2380[i].unk284 == var800a2380[i].unk28c) {
-						osMotorAccess(PFS(i), 0);
+						osMotorStop(PFS(i));
 					}
 
 					var800a2380[i].unk28c++;
@@ -1562,10 +1562,10 @@ void joy0001561c(void)
 				break;
 			case 5:
 				var800a2380[i].unk004 = 2;
-				osMotorAccess(PFS(i), 0);
+				osMotorStop(PFS(i));
 				break;
 			case 6:
-				osMotorAccess(PFS(i), 0);
+				osMotorStop(PFS(i));
 				var800a2380[i].unk004 = 7;
 				break;
 			case 8:

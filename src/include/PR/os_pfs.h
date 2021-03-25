@@ -116,6 +116,9 @@ typedef struct {
  *
  */
 
+#define osMotorStop(pfs)  osMotorAccess(pfs, 0)
+#define osMotorStart(pfs) osMotorAccess(pfs, 1)
+
 #define SET_ACTIVEBANK_TO_ZERO        \
     if (pfs->activebank != 0)         \
     {                                 \
