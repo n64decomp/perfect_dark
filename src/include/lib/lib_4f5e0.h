@@ -5,7 +5,7 @@
 #include "types.h"
 
 s32 osMotorAccess(OSPfs *pfs, u32 vibrate);
-u32 func0004f748(void);
+void osSetUpMempakWrite(s32 channel, OSPifRam* buf);
 bool func0004f854(OSMesgQueue *mq, OSPfs *pfs, s32 arg2);
 u32 func0004f9b0(void);
 u32 func0004fbc0(void);

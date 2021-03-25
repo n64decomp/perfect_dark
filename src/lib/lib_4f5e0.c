@@ -567,80 +567,29 @@ s32 osMotorAccess(OSPfs *pfs, u32 vibrate)
 	return ret;
 }
 
-GLOBAL_ASM(
-glabel func0004f748
-/*    4f748:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*    4f74c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4f750:	00803025 */ 	or	$a2,$a0,$zero
-/*    4f754:	240e00ff */ 	addiu	$t6,$zero,0xff
-/*    4f758:	240f0023 */ 	addiu	$t7,$zero,0x23
-/*    4f75c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    4f760:	24190003 */ 	addiu	$t9,$zero,0x3
-/*    4f764:	240800c0 */ 	addiu	$t0,$zero,0xc0
-/*    4f768:	a3ae0024 */ 	sb	$t6,0x24($sp)
-/*    4f76c:	a3af0025 */ 	sb	$t7,0x25($sp)
-/*    4f770:	a3b80026 */ 	sb	$t8,0x26($sp)
-/*    4f774:	a3b90027 */ 	sb	$t9,0x27($sp)
-/*    4f778:	a3a80028 */ 	sb	$t0,0x28($sp)
-/*    4f77c:	afa60050 */ 	sw	$a2,0x50($sp)
-/*    4f780:	24040600 */ 	addiu	$a0,$zero,0x600
-/*    4f784:	0c014754 */ 	jal	__osContAddressCrc
-/*    4f788:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*    4f78c:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*    4f790:	3449c000 */ 	ori	$t1,$v0,0xc000
-/*    4f794:	a3a90029 */ 	sb	$t1,0x29($sp)
-/*    4f798:	10c00012 */ 	beqz	$a2,.L0004f7e4
-/*    4f79c:	8fa3004c */ 	lw	$v1,0x4c($sp)
-/*    4f7a0:	18c00010 */ 	blez	$a2,.L0004f7e4
-/*    4f7a4:	00001025 */ 	or	$v0,$zero,$zero
-/*    4f7a8:	30c50003 */ 	andi	$a1,$a2,0x3
-/*    4f7ac:	10a00006 */ 	beqz	$a1,.L0004f7c8
-/*    4f7b0:	00a02025 */ 	or	$a0,$a1,$zero
-.L0004f7b4:
-/*    4f7b4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    4f7b8:	a0600000 */ 	sb	$zero,0x0($v1)
-/*    4f7bc:	1482fffd */ 	bne	$a0,$v0,.L0004f7b4
-/*    4f7c0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*    4f7c4:	10460007 */ 	beq	$v0,$a2,.L0004f7e4
-.L0004f7c8:
-/*    4f7c8:	24420004 */ 	addiu	$v0,$v0,0x4
-/*    4f7cc:	a0600001 */ 	sb	$zero,0x1($v1)
-/*    4f7d0:	a0600002 */ 	sb	$zero,0x2($v1)
-/*    4f7d4:	a0600003 */ 	sb	$zero,0x3($v1)
-/*    4f7d8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*    4f7dc:	1446fffa */ 	bne	$v0,$a2,.L0004f7c8
-/*    4f7e0:	a060fffc */ 	sb	$zero,-0x4($v1)
-.L0004f7e4:
-/*    4f7e4:	27aa0024 */ 	addiu	$t2,$sp,0x24
-/*    4f7e8:	254c0024 */ 	addiu	$t4,$t2,0x24
-/*    4f7ec:	00606825 */ 	or	$t5,$v1,$zero
-.L0004f7f0:
-/*    4f7f0:	8d410000 */ 	lw	$at,0x0($t2)
-/*    4f7f4:	254a000c */ 	addiu	$t2,$t2,0xc
-/*    4f7f8:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*    4f7fc:	a9a1fff4 */ 	swl	$at,-0xc($t5)
-/*    4f800:	b9a1fff7 */ 	swr	$at,-0x9($t5)
-/*    4f804:	8d41fff8 */ 	lw	$at,-0x8($t2)
-/*    4f808:	a9a1fff8 */ 	swl	$at,-0x8($t5)
-/*    4f80c:	b9a1fffb */ 	swr	$at,-0x5($t5)
-/*    4f810:	8d41fffc */ 	lw	$at,-0x4($t2)
-/*    4f814:	a9a1fffc */ 	swl	$at,-0x4($t5)
-/*    4f818:	154cfff5 */ 	bne	$t2,$t4,.L0004f7f0
-/*    4f81c:	b9a1ffff */ 	swr	$at,-0x1($t5)
-/*    4f820:	91410000 */ 	lbu	$at,0x0($t2)
-/*    4f824:	240e00fe */ 	addiu	$t6,$zero,0xfe
-/*    4f828:	24630027 */ 	addiu	$v1,$v1,0x27
-/*    4f82c:	a1a10000 */ 	sb	$at,0x0($t5)
-/*    4f830:	914c0001 */ 	lbu	$t4,0x1($t2)
-/*    4f834:	a1ac0001 */ 	sb	$t4,0x1($t5)
-/*    4f838:	91410002 */ 	lbu	$at,0x2($t2)
-/*    4f83c:	a1a10002 */ 	sb	$at,0x2($t5)
-/*    4f840:	a06e0000 */ 	sb	$t6,0x0($v1)
-/*    4f844:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    4f848:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*    4f84c:	03e00008 */ 	jr	$ra
-/*    4f850:	00000000 */ 	nop
-);
+void osSetUpMempakWrite(s32 channel, OSPifRam* buf)
+{
+	u8* bufptr = (u8*)buf;
+	__OSContRamReadFormat mempakwr;
+	s32 i;
+
+	mempakwr.dummy = 0xff;
+	mempakwr.txsize = 0x23;
+	mempakwr.rxsize = 1;
+	mempakwr.cmd = 3;
+	mempakwr.hi = 0x600 >> 3;
+	mempakwr.lo = (u8)(__osContAddressCrc(0x600) | (0x600 << 5));
+
+	if (channel != 0) {
+		for (i = 0; i < channel; ++i) {
+			*bufptr++ = 0;
+		}
+	}
+
+	*(__OSContRamReadFormat*)bufptr = mempakwr;
+	bufptr += sizeof(mempakwr);
+	*bufptr = 0xfe;
+}
 
 GLOBAL_ASM(
 glabel func0004f854
@@ -731,7 +680,7 @@ glabel func0004f854
 /*    4f97c:	15400004 */ 	bnez	$t2,.L0004f990
 /*    4f980:	00046180 */ 	sll	$t4,$a0,0x6
 /*    4f984:	25adc970 */ 	addiu	$t5,$t5,%lo(osPifBuffers)
-/*    4f988:	0c013dd2 */ 	jal	func0004f748
+/*    4f988:	0c013dd2 */ 	jal	osSetUpMempakWrite
 /*    4f98c:	018d2821 */ 	addu	$a1,$t4,$t5
 .L0004f990:
 /*    4f990:	240e0008 */ 	addiu	$t6,$zero,0x8
