@@ -8561,7 +8561,7 @@ glabel func0002124c
 /*    213b0:	00000000 */ 	nop
 /*    213b4:	00025280 */ 	sll	$t2,$v0,0xa
 /*    213b8:	3151ffff */ 	andi	$s1,$t2,0xffff
-/*    213bc:	0c013ef0 */ 	jal	func0004fbc0
+/*    213bc:	0c013ef0 */ 	jal	coss
 /*    213c0:	3144ffff */ 	andi	$a0,$t2,0xffff
 /*    213c4:	00025940 */ 	sll	$t3,$v0,0x5
 /*    213c8:	01770019 */ 	multu	$t3,$s7
@@ -9200,7 +9200,7 @@ glabel var70054454
 /*    21d58:	00608825 */ 	or	$s1,$v1,$zero
 /*    21d5c:	00026a80 */ 	sll	$t5,$v0,0xa
 /*    21d60:	a7ad0062 */ 	sh	$t5,0x62($sp)
-/*    21d64:	0c013ef0 */ 	jal	func0004fbc0
+/*    21d64:	0c013ef0 */ 	jal	coss
 /*    21d68:	31a4ffff */ 	andi	$a0,$t5,0xffff
 /*    21d6c:	922e0004 */ 	lbu	$t6,0x4($s1)
 /*    21d70:	97a40062 */ 	lhu	$a0,0x62($sp)

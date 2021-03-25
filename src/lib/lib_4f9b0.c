@@ -149,19 +149,3 @@ glabel func0004fb70
 /*    4fbb8:	03e00008 */ 	jr	$ra
 /*    4fbbc:	00000000 */ 	nop
 );
-
-GLOBAL_ASM(
-glabel func0004fbc0
-/*    4fbc0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4fbc4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    4fbc8:	00802825 */ 	or	$a1,$a0,$zero
-/*    4fbcc:	24a44000 */ 	addiu	$a0,$a1,0x4000
-/*    4fbd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4fbd4:	308effff */ 	andi	$t6,$a0,0xffff
-/*    4fbd8:	0c013efc */ 	jal	sins
-/*    4fbdc:	01c02025 */ 	or	$a0,$t6,$zero
-/*    4fbe0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    4fbe4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    4fbe8:	03e00008 */ 	jr	$ra
-/*    4fbec:	00000000 */ 	nop
-);
