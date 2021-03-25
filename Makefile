@@ -69,10 +69,10 @@ $(B_DIR)/lib/ultra/io/conteepwrite.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contpfs.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contramread.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contramwrite.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/io/motor.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfschecker.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfsfreeblocks.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
-$(B_DIR)/lib/lib_4f5e0.o: LOOPUNROLL :=
 
 $(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32

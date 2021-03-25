@@ -4,7 +4,6 @@
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/joy.h"
-#include "lib/lib_4f5e0.h"
 #include "data.h"
 #include "types.h"
 
@@ -1312,7 +1311,7 @@ void joy0001519c(void)
 	osSetEventMesg(OS_EVENT_SI, &var80099e78, 0);
 
 	for (i = 0; i < 4; i++) {
-		if (!func0004f854(&var80099e78, PFS(i), i)) {
+		if (!osMotorProbe(&var80099e78, PFS(i), i)) {
 			osMotorAccess(PFS(i), 0);
 			osMotorAccess(PFS(i), 0);
 			osMotorAccess(PFS(i), 0);
@@ -1351,7 +1350,7 @@ void joy000153c4(s8 arg0, s32 arg1)
 				joy000150e8();
 			}
 
-			if (func0004f854(&var80099e78, PFS(arg0), arg0) == 0) {
+			if (osMotorProbe(&var80099e78, PFS(arg0), arg0) == 0) {
 				osMotorAccess(PFS(arg0), 0);
 				osMotorAccess(PFS(arg0), 0);
 				osMotorAccess(PFS(arg0), 0);
@@ -1429,7 +1428,7 @@ glabel joy000153c4
 .NB00016370:
 /*    16370:	2484e5d8 */ 	addiu	$a0,$a0,-6696
 /*    16374:	00e02825 */ 	or	$a1,$a3,$zero
-/*    16378:	0c01440d */ 	jal	func0004f854
+/*    16378:	0c01440d */ 	jal	osMotorProbe
 /*    1637c:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    16380:	14400032 */ 	bnez	$v0,.NB0001644c
 /*    16384:	8fa60024 */ 	lw	$a2,0x24($sp)

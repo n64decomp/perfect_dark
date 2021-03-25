@@ -180,7 +180,8 @@
 	build/ROMID/lib/ultra/libc/xprintf.o (section); \
 	build/ROMID/lib/ultra/io/contquery.o (section); \
 	build/ROMID/lib/ultra/io/contreaddata.o (section); \
-	build/ROMID/lib/lib_4f5e0.o (section); \
+	build/ROMID/lib/ultra/io/motor.o (section); \
+	build/ROMID/lib/lib_4f9b0.o (section); \
 	build/ROMID/lib/ultra/gu/ortho.o (section); \
 	build/ROMID/lib/ultra/gu/frustum.o (section); \
 	build/ROMID/lib/lib_4fff0.o (section); \

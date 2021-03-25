@@ -16,7 +16,6 @@
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_4e090.h"
-#include "lib/lib_4f5e0.h"
 #include "lib/lib_50480.h"
 #include "lib/lib_513b0.h"
 #include "data.h"
@@ -8805,7 +8804,7 @@ glabel func0f11ac7c
 /*  f11ade0:	018d2821 */ 	addu	$a1,$t4,$t5
 .L0f11ade4:
 /*  f11ade4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11ade8:	0c013e15 */ 	jal	func0004f854
+/*  f11ade8:	0c013e15 */ 	jal	osMotorProbe
 /*  f11adec:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f11adf0:	00102e00 */ 	sll	$a1,$s0,0x18
 /*  f11adf4:	00057603 */ 	sra	$t6,$a1,0x18
@@ -8997,7 +8996,7 @@ glabel func0f114c08nb
 /*  f114cec:	01092821 */ 	addu	$a1,$t0,$t1
 .NB0f114cf0:
 /*  f114cf0:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f114cf4:	0c01440d */ 	jal	func0004f854
+/*  f114cf4:	0c01440d */ 	jal	osMotorProbe
 /*  f114cf8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f114cfc:	00102e00 */ 	sll	$a1,$s0,0x18
 /*  f114d00:	00055603 */ 	sra	$t2,$a1,0x18
@@ -9140,7 +9139,7 @@ glabel func0f114dd4nb
 /*  f114eec:	03282821 */ 	addu	$a1,$t9,$t0
 .NB0f114ef0:
 /*  f114ef0:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f114ef4:	0c01440d */ 	jal	func0004f854
+/*  f114ef4:	0c01440d */ 	jal	osMotorProbe
 /*  f114ef8:	02203025 */ 	or	$a2,$s1,$zero
 /*  f114efc:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f114f00:	afa20020 */ 	sw	$v0,0x20($sp)

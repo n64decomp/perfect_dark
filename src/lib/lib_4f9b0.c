@@ -2,11 +2,9 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_16110.h"
-#include "lib/lib_4f5e0.h"
 #include "data.h"
 #include "types.h"
 
-OSPifRam osPifBuffers[MAXCONTROLLERS];
 u32 var8009ca70;
 
 u32 var800609f0 = 0x00000032;
@@ -524,176 +522,6 @@ u32 var800611ec = 0x7ffe7fff;
 
 const u32 var70059fd0[] = {0x3c8efa35};
 
-s32 osMotorAccess(OSPfs *pfs, u32 vibrate)
-{
-	s32 i;
-	s32 ret;
-	u8* buf = (u8*)&osPifBuffers[pfs->channel];
-
-	if (!(pfs->status & 8)) {
-		return 5;
-	}
-
-	__osSiGetAccess();
-	osPifBuffers[pfs->channel].pifstatus = 1;
-	buf += pfs->channel;
-
-	for (i = 0; i < BLOCKSIZE; i++) {
-		((__OSContRamReadFormat*)buf)->data[i] = vibrate;
-	}
-
-	__osContLastCmd = CONT_CMD_END;
-	__osSiRawStartDma(OS_WRITE, &osPifBuffers[pfs->channel]);
-	osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
-	__osSiRawStartDma(OS_READ, &osPifBuffers[pfs->channel]);
-	osRecvMesg(pfs->queue, NULL, OS_MESG_BLOCK);
-
-	ret = ((__OSContRamReadFormat*)buf)->rxsize & 0xc0;
-
-	if (!ret) {
-		if (!vibrate) {
-			if (((__OSContRamReadFormat*)buf)->datacrc != 0) {
-				ret = PFS_ERR_CONTRFAIL;
-			}
-		} else {
-			if (((__OSContRamReadFormat*)buf)->datacrc != 0xeb) {
-				ret = PFS_ERR_CONTRFAIL;
-			}
-		}
-	}
-
-	__osSiRelAccess();
-
-	return ret;
-}
-
-void osSetUpMempakWrite(s32 channel, OSPifRam* buf)
-{
-	u8* bufptr = (u8*)buf;
-	__OSContRamReadFormat mempakwr;
-	s32 i;
-
-	mempakwr.dummy = 0xff;
-	mempakwr.txsize = 0x23;
-	mempakwr.rxsize = 1;
-	mempakwr.cmd = 3;
-	mempakwr.hi = 0x600 >> 3;
-	mempakwr.lo = (u8)(__osContAddressCrc(0x600) | (0x600 << 5));
-
-	if (channel != 0) {
-		for (i = 0; i < channel; ++i) {
-			*bufptr++ = 0;
-		}
-	}
-
-	*(__OSContRamReadFormat*)bufptr = mempakwr;
-	bufptr += sizeof(mempakwr);
-	*bufptr = 0xfe;
-}
-
-GLOBAL_ASM(
-glabel func0004f854
-/*    4f854:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    4f858:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    4f85c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    4f860:	afa40048 */ 	sw	$a0,0x48($sp)
-/*    4f864:	afa60050 */ 	sw	$a2,0x50($sp)
-/*    4f868:	aca40004 */ 	sw	$a0,0x4($a1)
-/*    4f86c:	8faf0050 */ 	lw	$t7,0x50($sp)
-/*    4f870:	241800ff */ 	addiu	$t8,$zero,0xff
-/*    4f874:	00a08025 */ 	or	$s0,$a1,$zero
-/*    4f878:	a0b80065 */ 	sb	$t8,0x65($a1)
-/*    4f87c:	aca00000 */ 	sw	$zero,0x0($a1)
-/*    4f880:	00a02025 */ 	or	$a0,$a1,$zero
-/*    4f884:	acaf0008 */ 	sw	$t7,0x8($a1)
-/*    4f888:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4f88c:	240500fe */ 	addiu	$a1,$zero,0xfe
-/*    4f890:	24010002 */ 	addiu	$at,$zero,0x2
-/*    4f894:	14410005 */ 	bne	$v0,$at,.L0004f8ac
-/*    4f898:	00401825 */ 	or	$v1,$v0,$zero
-/*    4f89c:	02002025 */ 	or	$a0,$s0,$zero
-/*    4f8a0:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4f8a4:	24050080 */ 	addiu	$a1,$zero,0x80
-/*    4f8a8:	00401825 */ 	or	$v1,$v0,$zero
-.L0004f8ac:
-/*    4f8ac:	10400003 */ 	beqz	$v0,.L0004f8bc
-/*    4f8b0:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*    4f8b4:	10000039 */ 	b	.L0004f99c
-/*    4f8b8:	00601025 */ 	or	$v0,$v1,$zero
-.L0004f8bc:
-/*    4f8bc:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*    4f8c0:	24060400 */ 	addiu	$a2,$zero,0x400
-/*    4f8c4:	0c012e18 */ 	jal	__osContRamRead
-/*    4f8c8:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*    4f8cc:	24010002 */ 	addiu	$at,$zero,0x2
-/*    4f8d0:	14410002 */ 	bne	$v0,$at,.L0004f8dc
-/*    4f8d4:	00401825 */ 	or	$v1,$v0,$zero
-/*    4f8d8:	24030004 */ 	addiu	$v1,$zero,0x4
-.L0004f8dc:
-/*    4f8dc:	10600003 */ 	beqz	$v1,.L0004f8ec
-/*    4f8e0:	93b90043 */ 	lbu	$t9,0x43($sp)
-/*    4f8e4:	1000002d */ 	b	.L0004f99c
-/*    4f8e8:	00601025 */ 	or	$v0,$v1,$zero
-.L0004f8ec:
-/*    4f8ec:	240100fe */ 	addiu	$at,$zero,0xfe
-/*    4f8f0:	17210003 */ 	bne	$t9,$at,.L0004f900
-/*    4f8f4:	02002025 */ 	or	$a0,$s0,$zero
-/*    4f8f8:	10000028 */ 	b	.L0004f99c
-/*    4f8fc:	2402000b */ 	addiu	$v0,$zero,0xb
-.L0004f900:
-/*    4f900:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4f904:	24050080 */ 	addiu	$a1,$zero,0x80
-/*    4f908:	24010002 */ 	addiu	$at,$zero,0x2
-/*    4f90c:	14410002 */ 	bne	$v0,$at,.L0004f918
-/*    4f910:	00401825 */ 	or	$v1,$v0,$zero
-/*    4f914:	24030004 */ 	addiu	$v1,$zero,0x4
-.L0004f918:
-/*    4f918:	10600003 */ 	beqz	$v1,.L0004f928
-/*    4f91c:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*    4f920:	1000001e */ 	b	.L0004f99c
-/*    4f924:	00601025 */ 	or	$v0,$v1,$zero
-.L0004f928:
-/*    4f928:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*    4f92c:	24060400 */ 	addiu	$a2,$zero,0x400
-/*    4f930:	0c012e18 */ 	jal	__osContRamRead
-/*    4f934:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*    4f938:	24010002 */ 	addiu	$at,$zero,0x2
-/*    4f93c:	14410002 */ 	bne	$v0,$at,.L0004f948
-/*    4f940:	00401825 */ 	or	$v1,$v0,$zero
-/*    4f944:	24030004 */ 	addiu	$v1,$zero,0x4
-.L0004f948:
-/*    4f948:	10600003 */ 	beqz	$v1,.L0004f958
-/*    4f94c:	93a80043 */ 	lbu	$t0,0x43($sp)
-/*    4f950:	10000012 */ 	b	.L0004f99c
-/*    4f954:	00601025 */ 	or	$v0,$v1,$zero
-.L0004f958:
-/*    4f958:	24010080 */ 	addiu	$at,$zero,0x80
-/*    4f95c:	51010004 */ 	beql	$t0,$at,.L0004f970
-/*    4f960:	8e090000 */ 	lw	$t1,0x0($s0)
-/*    4f964:	1000000d */ 	b	.L0004f99c
-/*    4f968:	2402000b */ 	addiu	$v0,$zero,0xb
-/*    4f96c:	8e090000 */ 	lw	$t1,0x0($s0)
-.L0004f970:
-/*    4f970:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*    4f974:	3c0d800a */ 	lui	$t5,%hi(osPifBuffers)
-/*    4f978:	312a0008 */ 	andi	$t2,$t1,0x8
-/*    4f97c:	15400004 */ 	bnez	$t2,.L0004f990
-/*    4f980:	00046180 */ 	sll	$t4,$a0,0x6
-/*    4f984:	25adc970 */ 	addiu	$t5,$t5,%lo(osPifBuffers)
-/*    4f988:	0c013dd2 */ 	jal	osSetUpMempakWrite
-/*    4f98c:	018d2821 */ 	addu	$a1,$t4,$t5
-.L0004f990:
-/*    4f990:	240e0008 */ 	addiu	$t6,$zero,0x8
-/*    4f994:	ae0e0000 */ 	sw	$t6,0x0($s0)
-/*    4f998:	00001025 */ 	or	$v0,$zero,$zero
-.L0004f99c:
-/*    4f99c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    4f9a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    4f9a4:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*    4f9a8:	03e00008 */ 	jr	$ra
-/*    4f9ac:	00000000 */ 	nop
-);
-
 GLOBAL_ASM(
 glabel func0004f9b0
 /*    4f9b0:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -809,6 +637,10 @@ glabel func0004f9b0
 /*    4fb64:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*    4fb68:	03e00008 */ 	jr	$ra
 /*    4fb6c:	00000000 */ 	nop
+);
+
+GLOBAL_ASM(
+glabel func0004fb70
 /*    4fb70:	44856000 */ 	mtc1	$a1,$f12
 /*    4fb74:	44867000 */ 	mtc1	$a2,$f14
 /*    4fb78:	44878000 */ 	mtc1	$a3,$f16

@@ -106,8 +106,9 @@ typedef struct {
 #define PFS_WRITE               1
 #define PFS_CREATE              2
 
-#define PFS_INITIALIZED		0x1
-#define PFS_CORRUPTED		0x2
+#define PFS_INITIALIZED       0x1
+#define PFS_CORRUPTED         0x2
+#define PFS_MOTOR_INITIALIZED 0x8
 
 /**************************************************************************
  *
@@ -150,11 +151,15 @@ typedef struct {
  *
  */
 
-extern s32		osPfsIsPlug(OSMesgQueue *, u8 *);
+s32	osPfsIsPlug(OSMesgQueue *, u8 *);
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 num_bytes, s32 *file_no);
 s32 osPfsFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no);
 s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state);
+
+s32 osMotorAccess(OSPfs *pfs, u32 vibrate);
+void osSetUpMempakWrite(s32 channel, OSPifRam* buf);
+s32 osMotorProbe(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 
