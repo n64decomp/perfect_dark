@@ -5,7 +5,6 @@
 #include "lib/lib_06550.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4cc10.h"
-#include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"
 #include "lib/lib_4d480.h"
 #include "lib/lib_4e090.h"
@@ -208,7 +207,7 @@ glabel func00006550
 /*     67fc:	0123082a */ 	slt	$at,$t1,$v1
 /*     6800:	01e38023 */ 	subu	$s0,$t7,$v1
 /*     6804:	02008825 */ 	or	$s1,$s0,$zero
-/*     6808:	0c013398 */ 	jal	func0004ce60
+/*     6808:	0c013398 */ 	jal	osPfsFreeBlocks
 /*     680c:	02a02025 */ 	or	$a0,$s5,$zero
 /*     6810:	8fb8008c */ 	lw	$t8,0x8c($sp)
 /*     6814:	32d200ff */ 	andi	$s2,$s6,0xff

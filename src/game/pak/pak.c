@@ -16,7 +16,6 @@
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/lib_4cc10.h"
-#include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"
 #include "lib/lib_4d480.h"
 #include "lib/lib_4e090.h"
@@ -1669,7 +1668,7 @@ s32 func0f117c80(OSPfs *pfs, s32 *arg1)
 		joy000150e8(1337, "pak.c");
 #endif
 
-		result = func0004ce60(pfs, arg1);
+		result = osPfsFreeBlocks(pfs, arg1);
 
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();

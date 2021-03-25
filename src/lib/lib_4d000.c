@@ -4,7 +4,6 @@
 #include "bss.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4cc10.h"
-#include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"
 #include "data.h"
 #include "types.h"
@@ -70,7 +69,7 @@ glabel func0004d000
 /*    4d0cc:	1000008e */ 	b	.L0004d308
 /*    4d0d0:	24020009 */ 	addiu	$v0,$zero,0x9
 .L0004d0d4:
-/*    4d0d4:	0c013398 */ 	jal	func0004ce60
+/*    4d0d4:	0c013398 */ 	jal	osPfsFreeBlocks
 /*    4d0d8:	27a50054 */ 	addiu	$a1,$sp,0x54
 /*    4d0dc:	8faa0054 */ 	lw	$t2,0x54($sp)
 /*    4d0e0:	0151082a */ 	slt	$at,$t2,$s1

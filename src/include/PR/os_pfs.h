@@ -94,10 +94,12 @@ typedef struct {
 
 #define PFS_FILE_NAME_LEN       16
 #define PFS_FILE_EXT_LEN        4
-#define BLOCKSIZE		32		/* bytes */
-#define PFS_ONE_PAGE            8		/* blocks */
-#define PFS_MAX_BANKS		62
-#define PFS_LABEL_AREA 7
+#define BLOCKSIZE               32  /* bytes  */
+#define PFS_ONE_PAGE            8   /* blocks */
+#define PFS_MAX_BANKS           62
+#define PFS_LABEL_AREA          7
+#define PFS_INODE_SIZE_PER_PAGE 128
+#define PFS_PAGE_NOT_USED       3
 
 #define PFS_READ                0
 #define PFS_WRITE               1

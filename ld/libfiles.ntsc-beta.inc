@@ -165,7 +165,7 @@
 	build/ROMID/lib/ultra/io/contpfs.o (section); \
 	build/ROMID/lib/lib_4cc10.o (section); \
 	build/ROMID/lib/ultra/io/pfsselectbank.o (section); \
-	build/ROMID/lib/lib_4ce60.o (section); \
+	build/ROMID/lib/ultra/io/pfsfreeblocks.o (section); \
 	build/ROMID/lib/lib_4d000.o (section); \
 	build/ROMID/lib/lib_4d480.o (section); \
 	build/ROMID/lib/ultra/io/siacs.o (section); \
