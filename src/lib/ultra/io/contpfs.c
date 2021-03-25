@@ -504,7 +504,7 @@ s32 __osCheckId(OSPfs *pfs)
 		ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));
 	}
 
-	if (func0004e090(pfs->id, temp, 0x20) != 0) {
+	if (bcmp(pfs->id, temp, 0x20) != 0) {
 		return PFS_ERR_NEW_PACK;
 	}
 

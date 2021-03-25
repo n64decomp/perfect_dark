@@ -12,7 +12,6 @@ s32 osPfsInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3);
 s32 osPfsInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
 #endif
 
-s32 func00006f98(OSPfs *pfs);
 s32 func00007084(OSPfs *pfs);
 
 #endif

@@ -4,6 +4,4 @@
 #include "data.h"
 #include "types.h"
 
-s32 func0004e090(u8 *id, u8 *buffer, u32 len);
-
 #endif

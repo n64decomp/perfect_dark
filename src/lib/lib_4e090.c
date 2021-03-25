@@ -8,7 +8,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004e090
+glabel bcmp
 /*    4e090:	28c10010 */ 	slti	$at,$a2,0x10
 /*    4e094:	14200037 */ 	bnez	$at,.L0004e174
 /*    4e098:	00851026 */ 	xor	$v0,$a0,$a1

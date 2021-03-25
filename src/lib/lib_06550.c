@@ -598,6 +598,8 @@ glabel func00006550
 /*     6d5c:	27bd02d0 */ 	addiu	$sp,$sp,0x2d0
 );
 
+s32 __osPfsCheckRamArea(OSPfs* pfs);
+
 #if VERSION >= VERSION_NTSC_1_0
 s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel, s32 *arg3)
 #else
@@ -625,7 +627,7 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 	pfs->channel = channel;
 	pfs->status = 0;
 
-	ERRCK(func00006f98(pfs));
+	ERRCK(__osPfsCheckRamArea(pfs));
 	ERRCK(__osPfsSelectBank(pfs, 0));
 	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));
 	__osIdCheckSum((u16*)temp, &sum, &isum);
@@ -693,76 +695,40 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 	return ret;
 }
 
-GLOBAL_ASM(
-glabel func00006f98
-/*     6f98:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*     6f9c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     6fa0:	afb00020 */ 	sw	$s0,0x20($sp)
-/*     6fa4:	00808025 */ 	or	$s0,$a0,$zero
-/*     6fa8:	0c013378 */ 	jal	__osPfsSelectBank
-/*     6fac:	00002825 */ 	or	$a1,$zero,$zero
-/*     6fb0:	10400003 */ 	beqz	$v0,.L00006fc0
-/*     6fb4:	00003025 */ 	or	$a2,$zero,$zero
-/*     6fb8:	1000002e */ 	b	.L00007074
-/*     6fbc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L00006fc0:
-/*     6fc0:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     6fc4:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     6fc8:	0c012e18 */ 	jal	__osContRamRead
-/*     6fcc:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*     6fd0:	10400003 */ 	beqz	$v0,.L00006fe0
-/*     6fd4:	27a30070 */ 	addiu	$v1,$sp,0x70
-/*     6fd8:	10000026 */ 	b	.L00007074
-/*     6fdc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L00006fe0:
-/*     6fe0:	00001025 */ 	or	$v0,$zero,$zero
-/*     6fe4:	24040020 */ 	addiu	$a0,$zero,0x20
-.L00006fe8:
-/*     6fe8:	a0620000 */ 	sb	$v0,0x0($v1)
-/*     6fec:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     6ff0:	1444fffd */ 	bne	$v0,$a0,.L00006fe8
-/*     6ff4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     6ff8:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     6ffc:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     7000:	afa00010 */ 	sw	$zero,0x10($sp)
-/*     7004:	00003025 */ 	or	$a2,$zero,$zero
-/*     7008:	0c012d84 */ 	jal	__osContRamWrite
-/*     700c:	27a70070 */ 	addiu	$a3,$sp,0x70
-/*     7010:	10400003 */ 	beqz	$v0,.L00007020
-/*     7014:	00003025 */ 	or	$a2,$zero,$zero
-/*     7018:	10000016 */ 	b	.L00007074
-/*     701c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L00007020:
-/*     7020:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     7024:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     7028:	0c012e18 */ 	jal	__osContRamRead
-/*     702c:	27a70050 */ 	addiu	$a3,$sp,0x50
-/*     7030:	10400003 */ 	beqz	$v0,.L00007040
-/*     7034:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*     7038:	1000000e */ 	b	.L00007074
-/*     703c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L00007040:
-/*     7040:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*     7044:	0c013824 */ 	jal	func0004e090
-/*     7048:	24060020 */ 	addiu	$a2,$zero,0x20
-/*     704c:	10400003 */ 	beqz	$v0,.L0000705c
-/*     7050:	00003025 */ 	or	$a2,$zero,$zero
-/*     7054:	10000006 */ 	b	.L00007070
-/*     7058:	2402000b */ 	addiu	$v0,$zero,0xb
-.L0000705c:
-/*     705c:	8e040004 */ 	lw	$a0,0x4($s0)
-/*     7060:	8e050008 */ 	lw	$a1,0x8($s0)
-/*     7064:	afa00010 */ 	sw	$zero,0x10($sp)
-/*     7068:	0c012d84 */ 	jal	__osContRamWrite
-/*     706c:	27a70030 */ 	addiu	$a3,$sp,0x30
-.L00007070:
-/*     7070:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L00007074:
-/*     7074:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*     7078:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*     707c:	03e00008 */ 	jr	$ra
-/*     7080:	00000000 */ 	nop
-);
+s32 __osPfsCheckRamArea(OSPfs* pfs)
+{
+	s32 i = 0;
+	s32 ret = 0;
+	u8 temp1[BLOCKSIZE];
+	u8 temp2[BLOCKSIZE];
+	u8 saveReg[BLOCKSIZE];
+
+	if ((ret = __osPfsSelectBank(pfs, 0)) != 0) {
+		return ret;
+	}
+
+	if ((ret = __osContRamRead(pfs->queue, pfs->channel, 0, saveReg)) != 0) {
+		return ret;
+	}
+
+	for (i = 0; i < BLOCKSIZE; i++) {
+		temp1[i] = i;
+	}
+
+	if ((ret = __osContRamWrite(pfs->queue, pfs->channel, 0, temp1, 0)) != 0) {
+		return ret;
+	}
+
+	if ((ret = __osContRamRead(pfs->queue, pfs->channel, 0, temp2)) != 0) {
+		return ret;
+	}
+
+	if (bcmp(temp1, temp2, BLOCKSIZE) != 0) {
+		return PFS_ERR_DEVICE;
+	}
+
+	return __osContRamWrite(pfs->queue, pfs->channel, 0, saveReg, 0);
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
