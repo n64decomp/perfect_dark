@@ -186,7 +186,7 @@
 	build/ROMID/lib/ultra/gu/sins.o (section); \
 	build/ROMID/lib/ultra/gu/ortho.o (section); \
 	build/ROMID/lib/ultra/gu/frustum.o (section); \
-	build/ROMID/lib/lib_4fff0.o (section); \
+	build/ROMID/lib/ultra/gu/translate.o (section); \
 	build/ROMID/lib/ultra/gu/scale.o (section); \
 	build/ROMID/lib/ultra/io/conteepprobe.o (section); \
 	build/ROMID/lib/ultra/io/conteepread.o (section); \
