@@ -1,7 +1,7 @@
 #include <ultra64.h>
+#include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_4c090.h"
 #include "lib/lib_50480.h"
 #include "data.h"
 #include "types.h"
@@ -114,7 +114,7 @@ glabel func00050554
 /*    505dc:	100000b4 */ 	b	.L000508b0
 /*    505e0:	24020005 */ 	addiu	$v0,$zero,0x5
 .L000505e4:
-/*    505e4:	0c013218 */ 	jal	func0004c860
+/*    505e4:	0c013218 */ 	jal	__osCheckId
 /*    505e8:	afa50174 */ 	sw	$a1,0x174($sp)
 /*    505ec:	24010002 */ 	addiu	$at,$zero,0x2
 /*    505f0:	54410004 */ 	bnel	$v0,$at,.L00050604

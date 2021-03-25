@@ -1,8 +1,8 @@
 #include <ultra64.h>
+#include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/libc/ll.h"
-#include "lib/lib_4c090.h"
 #include "lib/lib_4d6f0.h"
 #include "data.h"
 #include "types.h"
@@ -22,7 +22,7 @@ glabel osPfsChecker
 /*    4d718:	afb10024 */ 	sw	$s1,0x24($sp)
 /*    4d71c:	afb00020 */ 	sw	$s0,0x20($sp)
 /*    4d720:	afa00074 */ 	sw	$zero,0x74($sp)
-/*    4d724:	0c013218 */ 	jal	func0004c860
+/*    4d724:	0c013218 */ 	jal	__osCheckId
 /*    4d728:	241e00fe */ 	addiu	$s8,$zero,0xfe
 /*    4d72c:	24010002 */ 	addiu	$at,$zero,0x2
 /*    4d730:	14410004 */ 	bne	$v0,$at,.L0004d744

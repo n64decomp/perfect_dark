@@ -161,7 +161,7 @@
 	build/ROMID/lib/ultra/io/contramread.o (section); \
 	build/ROMID/lib/ultra/io/pfsgetstatus.o (section); \
 	build/ROMID/lib/ultra/io/conteepwrite.o (section); \
-	build/ROMID/lib/lib_4c090.o (section); \
+	build/ROMID/lib/ultra/io/contpfs.o (section); \
 	build/ROMID/lib/lib_4cc10.o (section); \
 	build/ROMID/lib/ultra/io/pfsselectbank.o (section); \
 	build/ROMID/lib/lib_4ce60.o (section); \

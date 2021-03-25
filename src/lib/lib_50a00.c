@@ -1,10 +1,10 @@
 #include <ultra64.h>
+#include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_06100.h"
 #include "lib/lib_06330.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4c090.h"
 #include "lib/lib_4d6f0.h"
 #include "lib/lib_50a00.h"
 #include "lib/lib_513b0.h"
@@ -40,7 +40,7 @@ glabel func00050a00
 /*    50a58:	10000058 */ 	b	.L00050bbc
 /*    50a5c:	24020005 */ 	addiu	$v0,$zero,0x5
 .L00050a60:
-/*    50a60:	0c013218 */ 	jal	func0004c860
+/*    50a60:	0c013218 */ 	jal	__osCheckId
 /*    50a64:	02602025 */ 	or	$a0,$s3,$zero
 /*    50a68:	50400004 */ 	beqzl	$v0,.L00050a7c
 /*    50a6c:	92790065 */ 	lbu	$t9,0x65($s3)

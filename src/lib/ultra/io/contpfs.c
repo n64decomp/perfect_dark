@@ -3,7 +3,6 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4c090.h"
 #include "lib/lib_4d6f0.h"
 #include "data.h"
 #include "types.h"
@@ -478,69 +477,39 @@ s32 __osGetId(OSPfs *pfs)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0004c860
-/*    4c860:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    4c864:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    4c868:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    4c86c:	908e0065 */ 	lbu	$t6,0x65($a0)
-/*    4c870:	00808025 */ 	or	$s0,$a0,$zero
-/*    4c874:	51c0000f */ 	beqzl	$t6,.L0004c8b4
-/*    4c878:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c87c:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4c880:	00002825 */ 	or	$a1,$zero,$zero
-/*    4c884:	24010002 */ 	addiu	$at,$zero,0x2
-/*    4c888:	14410005 */ 	bne	$v0,$at,.L0004c8a0
-/*    4c88c:	00401825 */ 	or	$v1,$v0,$zero
-/*    4c890:	02002025 */ 	or	$a0,$s0,$zero
-/*    4c894:	0c013378 */ 	jal	__osPfsSelectBank
-/*    4c898:	00002825 */ 	or	$a1,$zero,$zero
-/*    4c89c:	00401825 */ 	or	$v1,$v0,$zero
-.L0004c8a0:
-/*    4c8a0:	50400004 */ 	beqzl	$v0,.L0004c8b4
-/*    4c8a4:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c8a8:	1000001d */ 	b	.L0004c920
-/*    4c8ac:	00601025 */ 	or	$v0,$v1,$zero
-/*    4c8b0:	8e040004 */ 	lw	$a0,0x4($s0)
-.L0004c8b4:
-/*    4c8b4:	8e050008 */ 	lw	$a1,0x8($s0)
-/*    4c8b8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4c8bc:	0c012e18 */ 	jal	__osContRamRead
-/*    4c8c0:	27a70028 */ 	addiu	$a3,$sp,0x28
-/*    4c8c4:	1040000d */ 	beqz	$v0,.L0004c8fc
-/*    4c8c8:	24010002 */ 	addiu	$at,$zero,0x2
-/*    4c8cc:	10410003 */ 	beq	$v0,$at,.L0004c8dc
-/*    4c8d0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4c8d4:	10000013 */ 	b	.L0004c924
-/*    4c8d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0004c8dc:
-/*    4c8dc:	8e040004 */ 	lw	$a0,0x4($s0)
-/*    4c8e0:	8e050008 */ 	lw	$a1,0x8($s0)
-/*    4c8e4:	0c012e18 */ 	jal	__osContRamRead
-/*    4c8e8:	27a70028 */ 	addiu	$a3,$sp,0x28
-/*    4c8ec:	50400004 */ 	beqzl	$v0,.L0004c900
-/*    4c8f0:	2604000c */ 	addiu	$a0,$s0,0xc
-/*    4c8f4:	1000000b */ 	b	.L0004c924
-/*    4c8f8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0004c8fc:
-/*    4c8fc:	2604000c */ 	addiu	$a0,$s0,0xc
-.L0004c900:
-/*    4c900:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*    4c904:	0c013824 */ 	jal	func0004e090
-/*    4c908:	24060020 */ 	addiu	$a2,$zero,0x20
-/*    4c90c:	50400004 */ 	beqzl	$v0,.L0004c920
-/*    4c910:	00001025 */ 	or	$v0,$zero,$zero
-/*    4c914:	10000002 */ 	b	.L0004c920
-/*    4c918:	24020002 */ 	addiu	$v0,$zero,0x2
-/*    4c91c:	00001025 */ 	or	$v0,$zero,$zero
-.L0004c920:
-/*    4c920:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0004c924:
-/*    4c924:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    4c928:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*    4c92c:	03e00008 */ 	jr	$ra
-/*    4c930:	00000000 */ 	nop
-);
+s32 __osCheckId(OSPfs *pfs)
+{
+	u8 temp[32];
+	s32 ret;
+
+	if (pfs->activebank != 0) {
+		ret = __osPfsSelectBank(pfs, 0);
+
+		if (ret == PFS_ERR_NEW_PACK) {
+			ret = __osPfsSelectBank(pfs, 0);
+		}
+
+		if (ret != 0) {
+			return ret;
+		}
+	}
+
+	ret = __osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp);
+
+	if (ret != 0) {
+		if (ret != PFS_ERR_NEW_PACK) {
+			return ret;
+		}
+
+		ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));
+	}
+
+	if (func0004e090(pfs->id, temp, 0x20) != 0) {
+		return PFS_ERR_NEW_PACK;
+	}
+
+	return 0;
+}
 
 s32 __osPfsRWInode(OSPfs *pfs, __OSInode *inode, u8 flag, u8 bank)
 {

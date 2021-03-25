@@ -1,8 +1,8 @@
 #include <ultra64.h>
+#include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4c090.h"
 #include "lib/lib_4cc10.h"
 #include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"

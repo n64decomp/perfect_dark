@@ -1,9 +1,9 @@
 #include <ultra64.h>
+#include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_06550.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4c090.h"
 #include "lib/lib_4cc10.h"
 #include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"
@@ -54,7 +54,7 @@ glabel func00006550
 /*     65d8:	24020005 */ 	addiu	$v0,$zero,0x5
 .L000065dc:
 /*     65dc:	02a02025 */ 	or	$a0,$s5,$zero
-/*     65e0:	0c013218 */ 	jal	func0004c860
+/*     65e0:	0c013218 */ 	jal	__osCheckId
 /*     65e4:	afa20054 */ 	sw	$v0,0x54($sp)
 /*     65e8:	24010002 */ 	addiu	$at,$zero,0x2
 /*     65ec:	14410003 */ 	bne	$v0,$at,.L000065fc
