@@ -6,68 +6,34 @@
 #include "data.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func00050480
-/*    50480:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    50484:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    50488:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    5048c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    50490:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    50494:	90af0000 */ 	lbu	$t7,0x0($a1)
-/*    50498:	90e20000 */ 	lbu	$v0,0x0($a3)
-/*    5049c:	00e08025 */ 	or	$s0,$a3,$zero
-/*    504a0:	00a07025 */ 	or	$t6,$a1,$zero
-/*    504a4:	104f000a */ 	beq	$v0,$t7,.L000504d0
-/*    504a8:	00003025 */ 	or	$a2,$zero,$zero
-/*    504ac:	a0a20000 */ 	sb	$v0,0x0($a1)
-/*    504b0:	91c70000 */ 	lbu	$a3,0x0($t6)
-/*    504b4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    504b8:	0c01324d */ 	jal	__osPfsRWInode
-/*    504bc:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    504c0:	10400003 */ 	beqz	$v0,.L000504d0
-/*    504c4:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    504c8:	1000001e */ 	b	.L00050544
-/*    504cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L000504d0:
-/*    504d0:	92190001 */ 	lbu	$t9,0x1($s0)
-/*    504d4:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    504d8:	00194040 */ 	sll	$t0,$t9,0x1
-/*    504dc:	03084821 */ 	addu	$t1,$t8,$t0
-/*    504e0:	95210000 */ 	lhu	$at,0x0($t1)
-/*    504e4:	a6010000 */ 	sh	$at,0x0($s0)
-/*    504e8:	8c8c0060 */ 	lw	$t4,0x60($a0)
-/*    504ec:	3023ffff */ 	andi	$v1,$at,0xffff
-/*    504f0:	006c082a */ 	slt	$at,$v1,$t4
-/*    504f4:	5420000c */ 	bnezl	$at,.L00050528
-/*    504f8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    504fc:	920d0000 */ 	lbu	$t5,0x0($s0)
-/*    50500:	908f0064 */ 	lbu	$t7,0x64($a0)
-/*    50504:	01af082a */ 	slt	$at,$t5,$t7
-/*    50508:	50200007 */ 	beqzl	$at,.L00050528
-/*    5050c:	24010001 */ 	addiu	$at,$zero,0x1
-/*    50510:	92020001 */ 	lbu	$v0,0x1($s0)
-/*    50514:	18400003 */ 	blez	$v0,.L00050524
-/*    50518:	28410080 */ 	slti	$at,$v0,0x80
-/*    5051c:	14200008 */ 	bnez	$at,.L00050540
-/*    50520:	00001025 */ 	or	$v0,$zero,$zero
-.L00050524:
-/*    50524:	24010001 */ 	addiu	$at,$zero,0x1
-.L00050528:
-/*    50528:	14610003 */ 	bne	$v1,$at,.L00050538
-/*    5052c:	00000000 */ 	nop
-/*    50530:	10000003 */ 	b	.L00050540
-/*    50534:	24020005 */ 	addiu	$v0,$zero,0x5
-.L00050538:
-/*    50538:	10000001 */ 	b	.L00050540
-/*    5053c:	24020003 */ 	addiu	$v0,$zero,0x3
-.L00050540:
-/*    50540:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00050544:
-/*    50544:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    50548:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    5054c:	03e00008 */ 	jr	$ra
-/*    50550:	00000000 */ 	nop
-);
+#define CHECK_IPAGE(p, pfs)                                                                                   \
+	(((p).ipage >= (pfs).inode_start_page) && ((p).inode_t.bank < (pfs).banks) && ((p).inode_t.page >= 0x01) && \
+	 ((p).inode_t.page < 0x80))
+
+s32 __osPfsGetNextPage(OSPfs *pfs, u8 *bank, __OSInode *inode, __OSInodeUnit *page)
+{
+	s32 ret;
+
+	if (page->inode_t.bank != *bank) {
+		*bank = page->inode_t.bank;
+
+		if ((ret = __osPfsRWInode(pfs, inode, PFS_READ, *bank)) != 0) {
+			return ret;
+		}
+	}
+
+	*page = inode->inode_page[page->inode_t.page];
+
+	if (!CHECK_IPAGE(*page, *pfs)) {
+		if (page->ipage == 1) {
+			return PFS_ERR_INVALID;
+		}
+
+		return PFS_ERR_INCONSISTENT;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func00050554
@@ -206,7 +172,7 @@ glabel func00050554
 .L00050718:
 /*    50718:	27a5003b */ 	addiu	$a1,$sp,0x3b
 /*    5071c:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*    50720:	0c014120 */ 	jal	func00050480
+/*    50720:	0c014120 */ 	jal	__osPfsGetNextPage
 /*    50724:	27a70048 */ 	addiu	$a3,$sp,0x48
 /*    50728:	10400003 */ 	beqz	$v0,.L00050738
 /*    5072c:	2610fff8 */ 	addiu	$s0,$s0,-8
@@ -232,7 +198,7 @@ glabel func00050554
 /*    5076c:	02402025 */ 	or	$a0,$s2,$zero
 /*    50770:	27a5003b */ 	addiu	$a1,$sp,0x3b
 /*    50774:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*    50778:	0c014120 */ 	jal	func00050480
+/*    50778:	0c014120 */ 	jal	__osPfsGetNextPage
 /*    5077c:	27a70048 */ 	addiu	$a3,$sp,0x48
 /*    50780:	10400003 */ 	beqz	$v0,.L00050790
 /*    50784:	00008025 */ 	or	$s0,$zero,$zero
