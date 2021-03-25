@@ -5,7 +5,6 @@
 #include "lib/lib_06550.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4cc10.h"
-#include "lib/lib_4d000.h"
 #include "lib/lib_4d480.h"
 #include "lib/lib_4e090.h"
 #include "data.h"
