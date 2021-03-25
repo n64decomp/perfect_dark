@@ -64,10 +64,11 @@ LOOPUNROLL := -Wo,-loopunroll,0
 $(B_DIR)/lib/ultra/gu/frustum.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/gu/mtxutil.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/gu/ortho.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/conteepread.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/conteepwrite.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contpfs.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/io/pfschecker.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
 
 $(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32

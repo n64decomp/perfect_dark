@@ -13,6 +13,13 @@ typedef struct
     u64 force_align;
 } OSMgrArgs;
 
+typedef struct
+{
+    /* 0x0 */ __OSInode inode;
+    /* 0x100 */ u8 bank;
+    /* 0x101 */ u8 map[256];
+} __OSInodeCache;
+
 s32 __osDisableInt();
 void __osRestoreInt(s32);
 s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);

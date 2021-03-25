@@ -19,7 +19,7 @@
 #include "lib/lib_4ce60.h"
 #include "lib/lib_4d000.h"
 #include "lib/lib_4d480.h"
-#include "lib/lib_4d6f0.h"
+#include "lib/lib_4e090.h"
 #include "lib/lib_4f5e0.h"
 #include "lib/lib_50480.h"
 #include "lib/lib_50a00.h"

@@ -169,7 +169,8 @@
 	build/ROMID/lib/lib_4d000.o (section); \
 	build/ROMID/lib/lib_4d480.o (section); \
 	build/ROMID/lib/ultra/io/siacs.o (section); \
-	build/ROMID/lib/lib_4d6f0.o (section); \
+	build/ROMID/lib/ultra/io/pfschecker.o (section); \
+	build/ROMID/lib/lib_4e090.o (section); \
 	build/ROMID/lib/ultra/os/getmemsize.o (section); \
 	build/ROMID/lib/ultra/os/maptlb.o (section); \
 	build/ROMID/lib/ultra/io/aisetfreq.o (section); \
