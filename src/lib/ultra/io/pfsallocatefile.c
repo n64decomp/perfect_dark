@@ -3,7 +3,6 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_4b170.h"
-#include "lib/lib_4cc10.h"
 #include "data.h"
 #include "types.h"
 
