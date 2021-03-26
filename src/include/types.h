@@ -4569,9 +4569,7 @@ struct savefile_solo {
 	/*0x0b*/ u8 autodifficulty : 3;
 	/*0x0c*/ u8 autostageindex;
 	/*0x10*/ u32 totaltime;
-	/*0x14*/ u32 flags;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u16 unk1c;
+	/*0x14*/ u8 flags[10];
 	/*0x1e*/ u16 unk1e;
 	/*0x20*/ u16 besttimes[NUM_SOLOSTAGES][3];
 	/*0xa0*/ s32 coopcompletions[3]; // indexed by difficulty

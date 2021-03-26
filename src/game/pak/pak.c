@@ -16812,7 +16812,7 @@ s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
 }
 
 GLOBAL_ASM(
-glabel bitSetByIndex
+glabel pakSetBitflag
 /*  f11e530:	10c0000a */ 	beqz	$a2,.L0f11e55c
 /*  f11e534:	000458c2 */ 	srl	$t3,$a0,0x3
 /*  f11e538:	000470c2 */ 	srl	$t6,$a0,0x3
@@ -16837,31 +16837,20 @@ glabel bitSetByIndex
 /*  f11e580:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel bitGetByIndex
-/*  f11e584:	000470c2 */ 	srl	$t6,$a0,0x3
-/*  f11e588:	00ae7821 */ 	addu	$t7,$a1,$t6
-/*  f11e58c:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f11e590:	30990007 */ 	andi	$t9,$a0,0x7
-/*  f11e594:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f11e598:	03284804 */ 	sllv	$t1,$t0,$t9
-/*  f11e59c:	312a00ff */ 	andi	$t2,$t1,0xff
-/*  f11e5a0:	030a5824 */ 	and	$t3,$t8,$t2
-/*  f11e5a4:	11600003 */ 	beqz	$t3,.L0f11e5b4
-/*  f11e5a8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f11e5ac:	03e00008 */ 	jr	$ra
-/*  f11e5b0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11e5b4:
-/*  f11e5b4:	03e00008 */ 	jr	$ra
-/*  f11e5b8:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool pakHasBitflag(u32 flagnum, u8 *bitstream)
+{
+	u32 byteindex = flagnum / 8;
+	u8 mask = 1 << (flagnum % 8);
 
-void savefileClearAllFlags(u32 *flags)
+	return bitstream[byteindex] & mask ? 1 : 0;
+}
+
+void pakClearAllBitflags(u8 *flags)
 {
 	s32 i;
 
 	for (i = 0; i <= SAVEFILEFLAG_4E; i++) {
-		bitSetByIndex(i, flags, false);
+		pakSetBitflag(i, flags, false);
 	}
 }
 

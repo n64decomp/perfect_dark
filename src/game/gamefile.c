@@ -21,24 +21,24 @@
 #include "data.h"
 #include "types.h"
 
-u32 *savefileGetFlags(void)
+u8 *savefileGetFlags(void)
 {
-	return &g_SoloSaveFile.flags;
+	return g_SoloSaveFile.flags;
 }
 
 void savefileSetFlag(u32 value)
 {
-	bitSetByIndex(value, &g_SoloSaveFile.flags, true);
+	pakSetBitflag(value, g_SoloSaveFile.flags, true);
 }
 
 void savefileUnsetFlag(u32 value)
 {
-	bitSetByIndex(value, &g_SoloSaveFile.flags, false);
+	pakSetBitflag(value, g_SoloSaveFile.flags, false);
 }
 
 u32 savefileHasFlag(u32 value)
 {
-	return bitGetByIndex(value, &g_SoloSaveFile.flags);
+	return pakHasBitflag(value, g_SoloSaveFile.flags);
 }
 
 void savefilePrintFlags(void)
@@ -47,7 +47,7 @@ void savefilePrintFlags(void)
 
 	for (i = 0x23; i != 0x4f; i++) {
 		osSyncPrintf("Flag %d = %s", i,
-				bitGetByIndex(i, &g_SoloSaveFile.flags) ? "TRUE" : "FALSE");
+				pakHasBitflag(i, g_SoloSaveFile.flags) ? "TRUE" : "FALSE");
 	}
 }
 
@@ -84,172 +84,172 @@ glabel savefileApplyOptions
 /*  f10fbf0:	afa80020 */ 	sw	$t0,0x20($sp)
 .PF0f10fbf4:
 /*  f10fbf4:	24d00014 */ 	addiu	$s0,$a2,0x14
-/*  f10fbf8:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fbf8:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fbfc:	02002825 */ 	move	$a1,$s0
 /*  f10fc00:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fc04:	0fc54d7e */ 	jal	optionsSetForwardPitch
 /*  f10fc08:	00402825 */ 	move	$a1,$v0
 /*  f10fc0c:	24040001 */ 	li	$a0,0x1
-/*  f10fc10:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fc10:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fc14:	02002825 */ 	move	$a1,$s0
 /*  f10fc18:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fc1c:	0fc54d94 */ 	jal	optionsSetAutoAim
 /*  f10fc20:	00402825 */ 	move	$a1,$v0
 /*  f10fc24:	24040002 */ 	li	$a0,0x2
-/*  f10fc28:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fc28:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fc2c:	02002825 */ 	move	$a1,$s0
 /*  f10fc30:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fc34:	0fc54dc0 */ 	jal	optionsSetAimControl
 /*  f10fc38:	00402825 */ 	move	$a1,$v0
 /*  f10fc3c:	24040003 */ 	li	$a0,0x3
-/*  f10fc40:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fc40:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fc44:	02002825 */ 	move	$a1,$s0
 /*  f10fc48:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fc4c:	0fc54dd6 */ 	jal	optionsSetSightOnScreen
 /*  f10fc50:	00402825 */ 	move	$a1,$v0
 /*  f10fc54:	24040004 */ 	li	$a0,0x4
-/*  f10fc58:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fc58:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fc5c:	02002825 */ 	move	$a1,$s0
 /*  f10fc60:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fc64:	0fc54daa */ 	jal	optionsSetLookAhead
 /*  f10fc68:	00402825 */ 	move	$a1,$v0
 /*  f10fc6c:	24040005 */ 	li	$a0,0x5
-/*  f10fc70:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fc70:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fc74:	02002825 */ 	move	$a1,$s0
 /*  f10fc78:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fc7c:	0fc54dec */ 	jal	optionsSetAmmoOnScreen
 /*  f10fc80:	00402825 */ 	move	$a1,$v0
 /*  f10fc84:	24040009 */ 	li	$a0,0x9
-/*  f10fc88:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fc88:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fc8c:	02002825 */ 	move	$a1,$s0
 /*  f10fc90:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fc94:	0fc54e76 */ 	jal	optionsSetHeadRoll
 /*  f10fc98:	00402825 */ 	move	$a1,$v0
 /*  f10fc9c:	2404000a */ 	li	$a0,0xa
-/*  f10fca0:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fca0:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fca4:	02002825 */ 	move	$a1,$s0
 /*  f10fca8:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fcac:	0fc54e02 */ 	jal	optionsSetShowGunFunction
 /*  f10fcb0:	00402825 */ 	move	$a1,$v0
 /*  f10fcb4:	24040015 */ 	li	$a0,0x15
-/*  f10fcb8:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fcb8:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fcbc:	02002825 */ 	move	$a1,$s0
 /*  f10fcc0:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fcc4:	0fc54e18 */ 	jal	optionsSetAlwaysShowTarget
 /*  f10fcc8:	00402825 */ 	move	$a1,$v0
 /*  f10fccc:	24040017 */ 	li	$a0,0x17
-/*  f10fcd0:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fcd0:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fcd4:	02002825 */ 	move	$a1,$s0
 /*  f10fcd8:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fcdc:	0fc54e2e */ 	jal	optionsSetShowZoomRange
 /*  f10fce0:	00402825 */ 	move	$a1,$v0
 /*  f10fce4:	2404001a */ 	li	$a0,0x1a
-/*  f10fce8:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fce8:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fcec:	02002825 */ 	move	$a1,$s0
 /*  f10fcf0:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fcf4:	0fc54e5a */ 	jal	optionsSetShowMissionTime
 /*  f10fcf8:	00402825 */ 	move	$a1,$v0
 /*  f10fcfc:	24040020 */ 	li	$a0,0x20
-/*  f10fd00:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fd00:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fd04:	02002825 */ 	move	$a1,$s0
 /*  f10fd08:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f10fd0c:	0fc54e44 */ 	jal	optionsSetPaintball
 /*  f10fd10:	00402825 */ 	move	$a1,$v0
 /*  f10fd14:	2404000c */ 	li	$a0,0xc
-/*  f10fd18:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fd18:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fd1c:	02002825 */ 	move	$a1,$s0
 /*  f10fd20:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fd24:	0fc54d7e */ 	jal	optionsSetForwardPitch
 /*  f10fd28:	00402825 */ 	move	$a1,$v0
 /*  f10fd2c:	2404000d */ 	li	$a0,0xd
-/*  f10fd30:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fd30:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fd34:	02002825 */ 	move	$a1,$s0
 /*  f10fd38:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fd3c:	0fc54d94 */ 	jal	optionsSetAutoAim
 /*  f10fd40:	00402825 */ 	move	$a1,$v0
 /*  f10fd44:	2404000e */ 	li	$a0,0xe
-/*  f10fd48:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fd48:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fd4c:	02002825 */ 	move	$a1,$s0
 /*  f10fd50:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fd54:	0fc54dc0 */ 	jal	optionsSetAimControl
 /*  f10fd58:	00402825 */ 	move	$a1,$v0
 /*  f10fd5c:	2404000f */ 	li	$a0,0xf
-/*  f10fd60:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fd60:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fd64:	02002825 */ 	move	$a1,$s0
 /*  f10fd68:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fd6c:	0fc54dd6 */ 	jal	optionsSetSightOnScreen
 /*  f10fd70:	00402825 */ 	move	$a1,$v0
 /*  f10fd74:	24040010 */ 	li	$a0,0x10
-/*  f10fd78:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fd78:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fd7c:	02002825 */ 	move	$a1,$s0
 /*  f10fd80:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fd84:	0fc54daa */ 	jal	optionsSetLookAhead
 /*  f10fd88:	00402825 */ 	move	$a1,$v0
 /*  f10fd8c:	24040011 */ 	li	$a0,0x11
-/*  f10fd90:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fd90:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fd94:	02002825 */ 	move	$a1,$s0
 /*  f10fd98:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fd9c:	0fc54dec */ 	jal	optionsSetAmmoOnScreen
 /*  f10fda0:	00402825 */ 	move	$a1,$v0
 /*  f10fda4:	24040012 */ 	li	$a0,0x12
-/*  f10fda8:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fda8:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fdac:	02002825 */ 	move	$a1,$s0
 /*  f10fdb0:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fdb4:	0fc54e76 */ 	jal	optionsSetHeadRoll
 /*  f10fdb8:	00402825 */ 	move	$a1,$v0
 /*  f10fdbc:	24040013 */ 	li	$a0,0x13
-/*  f10fdc0:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fdc0:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fdc4:	02002825 */ 	move	$a1,$s0
 /*  f10fdc8:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fdcc:	0fc54e02 */ 	jal	optionsSetShowGunFunction
 /*  f10fdd0:	00402825 */ 	move	$a1,$v0
 /*  f10fdd4:	24040016 */ 	li	$a0,0x16
-/*  f10fdd8:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fdd8:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fddc:	02002825 */ 	move	$a1,$s0
 /*  f10fde0:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fde4:	0fc54e18 */ 	jal	optionsSetAlwaysShowTarget
 /*  f10fde8:	00402825 */ 	move	$a1,$v0
 /*  f10fdec:	24040018 */ 	li	$a0,0x18
-/*  f10fdf0:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fdf0:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fdf4:	02002825 */ 	move	$a1,$s0
 /*  f10fdf8:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fdfc:	0fc54e2e */ 	jal	optionsSetShowZoomRange
 /*  f10fe00:	00402825 */ 	move	$a1,$v0
 /*  f10fe04:	2404001b */ 	li	$a0,0x1b
-/*  f10fe08:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fe08:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fe0c:	02002825 */ 	move	$a1,$s0
 /*  f10fe10:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fe14:	0fc54e5a */ 	jal	optionsSetShowMissionTime
 /*  f10fe18:	00402825 */ 	move	$a1,$v0
 /*  f10fe1c:	24040021 */ 	li	$a0,0x21
-/*  f10fe20:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fe20:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fe24:	02002825 */ 	move	$a1,$s0
 /*  f10fe28:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fe2c:	0fc54e44 */ 	jal	optionsSetPaintball
 /*  f10fe30:	00402825 */ 	move	$a1,$v0
 /*  f10fe34:	2404000b */ 	li	$a0,0xb
-/*  f10fe38:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fe38:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fe3c:	02002825 */ 	move	$a1,$s0
 /*  f10fe40:	0fc54e70 */ 	jal	optionsSetInGameSubtitles
 /*  f10fe44:	00402025 */ 	move	$a0,$v0
 /*  f10fe48:	24040014 */ 	li	$a0,0x14
-/*  f10fe4c:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fe4c:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fe50:	02002825 */ 	move	$a1,$s0
 /*  f10fe54:	0fc54e73 */ 	jal	optionsSetCutsceneSubtitles
 /*  f10fe58:	00402025 */ 	move	$a0,$v0
 /*  f10fe5c:	24040021 */ 	li	$a0,0x21
-/*  f10fe60:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fe60:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fe64:	02002825 */ 	move	$a1,$s0
 /*  f10fe68:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f10fe6c:	0fc54e44 */ 	jal	optionsSetPaintball
 /*  f10fe70:	00402825 */ 	move	$a1,$v0
 /*  f10fe74:	24040040 */ 	li	$a0,0x40
-/*  f10fe78:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fe78:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fe7c:	02002825 */ 	move	$a1,$s0
 /*  f10fe80:	3c01800a */ 	lui	$at,0x800a
 /*  f10fe84:	a022a9f3 */ 	sb	$v0,-0x560d($at)
 /*  f10fe88:	24040022 */ 	li	$a0,0x22
-/*  f10fe8c:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fe8c:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fe90:	02002825 */ 	move	$a1,$s0
 /*  f10fe94:	1040000d */ 	beqz	$v0,.PF0f10fecc
 /*  f10fe98:	3c098009 */ 	lui	$t1,0x8009
@@ -283,18 +283,18 @@ glabel savefileApplyOptions
 /*  f10fefc:	24040008 */ 	li	$a0,0x8
 /*  f10ff00:	24040019 */ 	li	$a0,0x19
 .PF0f10ff04:
-/*  f10ff04:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10ff04:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10ff08:	02002825 */ 	move	$a1,$s0
 /*  f10ff0c:	0fc54efc */ 	jal	optionsSetScreenSplit
 /*  f10ff10:	304400ff */ 	andi	$a0,$v0,0xff
 /*  f10ff14:	24040007 */ 	li	$a0,0x7
-/*  f10ff18:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10ff18:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10ff1c:	02002825 */ 	move	$a1,$s0
 /*  f10ff20:	0fc54ef6 */ 	jal	optionsSetScreenRatio
 /*  f10ff24:	00402025 */ 	move	$a0,$v0
 /*  f10ff28:	24040008 */ 	li	$a0,0x8
 .PF0f10ff2c:
-/*  f10ff2c:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10ff2c:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10ff30:	02002825 */ 	move	$a1,$s0
 /*  f10ff34:	50400006 */ 	beqzl	$v0,.PF0f10ff50
 /*  f10ff38:	24040006 */ 	li	$a0,0x6
@@ -304,7 +304,7 @@ glabel savefileApplyOptions
 /*  f10ff48:	2404001f */ 	li	$a0,0x1f
 /*  f10ff4c:	24040006 */ 	li	$a0,0x6
 .PF0f10ff50:
-/*  f10ff50:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10ff50:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10ff54:	02002825 */ 	move	$a1,$s0
 /*  f10ff58:	10400005 */ 	beqz	$v0,.PF0f10ff70
 /*  f10ff5c:	00000000 */ 	nop
@@ -317,7 +317,7 @@ glabel savefileApplyOptions
 /*  f10ff74:	00002025 */ 	move	$a0,$zero
 /*  f10ff78:	2404001f */ 	li	$a0,0x1f
 .PF0f10ff7c:
-/*  f10ff7c:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10ff7c:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10ff80:	02002825 */ 	move	$a1,$s0
 /*  f10ff84:	10400005 */ 	beqz	$v0,.PF0f10ff9c
 /*  f10ff88:	2404001c */ 	li	$a0,0x1c
@@ -329,7 +329,7 @@ glabel savefileApplyOptions
 /*  f10ff9c:	3c01800a */ 	lui	$at,0x800a
 /*  f10ffa0:	ac20a960 */ 	sw	$zero,-0x56a0($at)
 .PF0f10ffa4:
-/*  f10ffa4:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10ffa4:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10ffa8:	02002825 */ 	move	$a1,$s0
 /*  f10ffac:	10400005 */ 	beqz	$v0,.PF0f10ffc4
 /*  f10ffb0:	2404001d */ 	li	$a0,0x1d
@@ -341,7 +341,7 @@ glabel savefileApplyOptions
 /*  f10ffc4:	3c01800a */ 	lui	$at,0x800a
 /*  f10ffc8:	ac20a958 */ 	sw	$zero,-0x56a8($at)
 .PF0f10ffcc:
-/*  f10ffcc:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10ffcc:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10ffd0:	02002825 */ 	move	$a1,$s0
 /*  f10ffd4:	10400005 */ 	beqz	$v0,.PF0f10ffec
 /*  f10ffd8:	2404001e */ 	li	$a0,0x1e
@@ -353,7 +353,7 @@ glabel savefileApplyOptions
 /*  f10ffec:	3c01800a */ 	lui	$at,0x800a
 /*  f10fff0:	ac20a964 */ 	sw	$zero,-0x569c($at)
 .PF0f10fff4:
-/*  f10fff4:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f10fff4:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f10fff8:	02002825 */ 	move	$a1,$s0
 /*  f10fffc:	10400005 */ 	beqz	$v0,.PF0f110014
 /*  f110000:	24040044 */ 	li	$a0,0x44
@@ -367,7 +367,7 @@ glabel savefileApplyOptions
 .PF0f11001c:
 /*  f11001c:	3c01800a */ 	lui	$at,0x800a
 /*  f110020:	a420a992 */ 	sh	$zero,-0x566e($at)
-/*  f110024:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f110024:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f110028:	02002825 */ 	move	$a1,$s0
 /*  f11002c:	10400006 */ 	beqz	$v0,.PF0f110048
 /*  f110030:	24040045 */ 	li	$a0,0x45
@@ -377,7 +377,7 @@ glabel savefileApplyOptions
 /*  f110040:	35f80001 */ 	ori	$t8,$t7,0x1
 /*  f110044:	a438a992 */ 	sh	$t8,-0x566e($at)
 .PF0f110048:
-/*  f110048:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f110048:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f11004c:	02002825 */ 	move	$a1,$s0
 /*  f110050:	10400006 */ 	beqz	$v0,.PF0f11006c
 /*  f110054:	24040046 */ 	li	$a0,0x46
@@ -387,7 +387,7 @@ glabel savefileApplyOptions
 /*  f110064:	37280002 */ 	ori	$t0,$t9,0x2
 /*  f110068:	a428a992 */ 	sh	$t0,-0x566e($at)
 .PF0f11006c:
-/*  f11006c:	0fc47c20 */ 	jal	bitGetByIndex
+/*  f11006c:	0fc47c20 */ 	jal	pakHasBitflag
 /*  f110070:	02002825 */ 	move	$a1,$s0
 /*  f110074:	10400006 */ 	beqz	$v0,.PF0f110090
 /*  f110078:	3c04800a */ 	lui	$a0,0x800a
@@ -411,41 +411,41 @@ void savefileApplyOptions(struct savefile_solo *file)
 	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
 	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
 
-	optionsSetForwardPitch(player1, bitGetByIndex(SAVEFILEFLAG_P1_FORWARDPITCH, &file->flags));
-	optionsSetAutoAim(player1, bitGetByIndex(SAVEFILEFLAG_P1_AUTOAIM, &file->flags));
-	optionsSetAimControl(player1, bitGetByIndex(SAVEFILEFLAG_P1_AIMCONTROL, &file->flags));
-	optionsSetSightOnScreen(player1, bitGetByIndex(SAVEFILEFLAG_P1_SIGHTONSCREEN, &file->flags));
-	optionsSetLookAhead(player1, bitGetByIndex(SAVEFILEFLAG_P1_LOOKAHEAD, &file->flags));
-	optionsSetAmmoOnScreen(player1, bitGetByIndex(SAVEFILEFLAG_P1_AMMOONSCREEN, &file->flags));
-	optionsSetHeadRoll(player1, bitGetByIndex(SAVEFILEFLAG_P1_HEADROLL, &file->flags));
-	optionsSetShowGunFunction(player1, bitGetByIndex(SAVEFILEFLAG_P1_SHOWGUNFUNCTION, &file->flags));
-	optionsSetAlwaysShowTarget(player1, bitGetByIndex(SAVEFILEFLAG_P1_ALWAYSSHOWTARGET, &file->flags));
-	optionsSetShowZoomRange(player1, bitGetByIndex(SAVEFILEFLAG_P1_SHOWZOOMRANGE, &file->flags));
-	optionsSetShowMissionTime(player1, bitGetByIndex(SAVEFILEFLAG_P1_SHOWMISSIONTIME, &file->flags));
-	optionsSetPaintball(player1, bitGetByIndex(SAVEFILEFLAG_P1_PAINTBALL, &file->flags));
+	optionsSetForwardPitch(player1, pakHasBitflag(SAVEFILEFLAG_P1_FORWARDPITCH, file->flags));
+	optionsSetAutoAim(player1, pakHasBitflag(SAVEFILEFLAG_P1_AUTOAIM, file->flags));
+	optionsSetAimControl(player1, pakHasBitflag(SAVEFILEFLAG_P1_AIMCONTROL, file->flags));
+	optionsSetSightOnScreen(player1, pakHasBitflag(SAVEFILEFLAG_P1_SIGHTONSCREEN, file->flags));
+	optionsSetLookAhead(player1, pakHasBitflag(SAVEFILEFLAG_P1_LOOKAHEAD, file->flags));
+	optionsSetAmmoOnScreen(player1, pakHasBitflag(SAVEFILEFLAG_P1_AMMOONSCREEN, file->flags));
+	optionsSetHeadRoll(player1, pakHasBitflag(SAVEFILEFLAG_P1_HEADROLL, file->flags));
+	optionsSetShowGunFunction(player1, pakHasBitflag(SAVEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags));
+	optionsSetAlwaysShowTarget(player1, pakHasBitflag(SAVEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags));
+	optionsSetShowZoomRange(player1, pakHasBitflag(SAVEFILEFLAG_P1_SHOWZOOMRANGE, file->flags));
+	optionsSetShowMissionTime(player1, pakHasBitflag(SAVEFILEFLAG_P1_SHOWMISSIONTIME, file->flags));
+	optionsSetPaintball(player1, pakHasBitflag(SAVEFILEFLAG_P1_PAINTBALL, file->flags));
 
-	optionsSetForwardPitch(player2, bitGetByIndex(SAVEFILEFLAG_P2_FORWARDPITCH, &file->flags));
-	optionsSetAutoAim(player2, bitGetByIndex(SAVEFILEFLAG_P2_AUTOAIM, &file->flags));
-	optionsSetAimControl(player2, bitGetByIndex(SAVEFILEFLAG_P2_AIMCONTROL, &file->flags));
-	optionsSetSightOnScreen(player2, bitGetByIndex(SAVEFILEFLAG_P2_SIGHTONSCREEN, &file->flags));
-	optionsSetLookAhead(player2, bitGetByIndex(SAVEFILEFLAG_P2_LOOKAHEAD, &file->flags));
-	optionsSetAmmoOnScreen(player2, bitGetByIndex(SAVEFILEFLAG_P2_AMMOONSCREEN, &file->flags));
-	optionsSetHeadRoll(player2, bitGetByIndex(SAVEFILEFLAG_P2_HEADROLL, &file->flags));
-	optionsSetShowGunFunction(player2, bitGetByIndex(SAVEFILEFLAG_P2_SHOWGUNFUNCTION, &file->flags));
-	optionsSetAlwaysShowTarget(player2, bitGetByIndex(SAVEFILEFLAG_P2_ALWAYSSHOWTARGET, &file->flags));
-	optionsSetShowZoomRange(player2, bitGetByIndex(SAVEFILEFLAG_P2_SHOWZOOMRANGE, &file->flags));
-	optionsSetShowMissionTime(player2, bitGetByIndex(SAVEFILEFLAG_P2_SHOWMISSIONTIME, &file->flags));
-	optionsSetPaintball(player2, bitGetByIndex(SAVEFILEFLAG_P2_PAINTBALL, &file->flags));
+	optionsSetForwardPitch(player2, pakHasBitflag(SAVEFILEFLAG_P2_FORWARDPITCH, file->flags));
+	optionsSetAutoAim(player2, pakHasBitflag(SAVEFILEFLAG_P2_AUTOAIM, file->flags));
+	optionsSetAimControl(player2, pakHasBitflag(SAVEFILEFLAG_P2_AIMCONTROL, file->flags));
+	optionsSetSightOnScreen(player2, pakHasBitflag(SAVEFILEFLAG_P2_SIGHTONSCREEN, file->flags));
+	optionsSetLookAhead(player2, pakHasBitflag(SAVEFILEFLAG_P2_LOOKAHEAD, file->flags));
+	optionsSetAmmoOnScreen(player2, pakHasBitflag(SAVEFILEFLAG_P2_AMMOONSCREEN, file->flags));
+	optionsSetHeadRoll(player2, pakHasBitflag(SAVEFILEFLAG_P2_HEADROLL, file->flags));
+	optionsSetShowGunFunction(player2, pakHasBitflag(SAVEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags));
+	optionsSetAlwaysShowTarget(player2, pakHasBitflag(SAVEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags));
+	optionsSetShowZoomRange(player2, pakHasBitflag(SAVEFILEFLAG_P2_SHOWZOOMRANGE, file->flags));
+	optionsSetShowMissionTime(player2, pakHasBitflag(SAVEFILEFLAG_P2_SHOWMISSIONTIME, file->flags));
+	optionsSetPaintball(player2, pakHasBitflag(SAVEFILEFLAG_P2_PAINTBALL, file->flags));
 
-	optionsSetInGameSubtitles(bitGetByIndex(SAVEFILEFLAG_INGAMESUBTITLES, &file->flags));
-	optionsSetCutsceneSubtitles(bitGetByIndex(SAVEFILEFLAG_CUTSCENESUBTITLES, &file->flags));
+	optionsSetInGameSubtitles(pakHasBitflag(SAVEFILEFLAG_INGAMESUBTITLES, file->flags));
+	optionsSetCutsceneSubtitles(pakHasBitflag(SAVEFILEFLAG_CUTSCENESUBTITLES, file->flags));
 
 	// Duplicate
-	optionsSetPaintball(player2, bitGetByIndex(SAVEFILEFLAG_P2_PAINTBALL, &file->flags));
+	optionsSetPaintball(player2, pakHasBitflag(SAVEFILEFLAG_P2_PAINTBALL, file->flags));
 
-	g_Vars.langfilteron = bitGetByIndex(SAVEFILEFLAG_LANGFILTERON, &file->flags);
+	g_Vars.langfilteron = pakHasBitflag(SAVEFILEFLAG_LANGFILTERON, file->flags);
 
-	if (bitGetByIndex(SAVEFILEFLAG_HIRES, &file->flags)) {
+	if (pakHasBitflag(SAVEFILEFLAG_HIRES, file->flags)) {
 		if (IS4MB()) {
 			optionsSetHiRes(false);
 		} else {
@@ -459,22 +459,22 @@ void savefileApplyOptions(struct savefile_solo *file)
 		optionsSetScreenSplit(SCREENSPLIT_HORIZONTAL);
 		optionsSetScreenRatio(SCREENRATIO_NORMAL);
 	} else {
-		optionsSetScreenSplit(bitGetByIndex(SAVEFILEFLAG_SCREENSPLIT, &file->flags));
-		optionsSetScreenRatio(bitGetByIndex(SAVEFILEFLAG_SCREENRATIO, &file->flags));
+		optionsSetScreenSplit(pakHasBitflag(SAVEFILEFLAG_SCREENSPLIT, file->flags));
+		optionsSetScreenRatio(pakHasBitflag(SAVEFILEFLAG_SCREENRATIO, file->flags));
 	}
 
-	if (bitGetByIndex(SAVEFILEFLAG_SCREENSIZE_CINEMA, &file->flags)) {
+	if (pakHasBitflag(SAVEFILEFLAG_SCREENSIZE_CINEMA, file->flags)) {
 		optionsSetScreenSize(SCREENSIZE_CINEMA);
-	} else if (bitGetByIndex(SAVEFILEFLAG_SCREENSIZE_WIDE, &file->flags)) {
+	} else if (pakHasBitflag(SAVEFILEFLAG_SCREENSIZE_WIDE, file->flags)) {
 		optionsSetScreenSize(SCREENSIZE_WIDE);
 	} else {
 		optionsSetScreenSize(SCREENSIZE_FULL);
 	}
 
-	g_Vars.pendingantiplayernum = bitGetByIndex(SAVEFILEFLAG_ANTIPLAYERNUM, &file->flags) ? 1 : 0;
-	g_Vars.coopradaron = bitGetByIndex(SAVEFILEFLAG_COOPRADARON, &file->flags) ? 1 : 0;
-	g_Vars.coopfriendlyfire = bitGetByIndex(SAVEFILEFLAG_COOPFRIENDLYFIRE, &file->flags) ? 1 : 0;
-	g_Vars.antiradaron = bitGetByIndex(SAVEFILEFLAG_ANTIRADARON, &file->flags) ? 1 : 0;
+	g_Vars.pendingantiplayernum = pakHasBitflag(SAVEFILEFLAG_ANTIPLAYERNUM, file->flags) ? 1 : 0;
+	g_Vars.coopradaron = pakHasBitflag(SAVEFILEFLAG_COOPRADARON, file->flags) ? 1 : 0;
+	g_Vars.coopfriendlyfire = pakHasBitflag(SAVEFILEFLAG_COOPFRIENDLYFIRE, file->flags) ? 1 : 0;
+	g_Vars.antiradaron = pakHasBitflag(SAVEFILEFLAG_ANTIRADARON, file->flags) ? 1 : 0;
 }
 #endif
 
@@ -536,163 +536,163 @@ glabel savefileLoadDefaults
 /*  f110164:	00002825 */ 	move	$a1,$zero
 /*  f110168:	8fb00028 */ 	lw	$s0,0x28($sp)
 /*  f11016c:	26100014 */ 	addiu	$s0,$s0,0x14
-/*  f110170:	0fc47c2e */ 	jal	savefileClearAllFlags
+/*  f110170:	0fc47c2e */ 	jal	pakClearAllBitflags
 /*  f110174:	02002025 */ 	move	$a0,$s0
 /*  f110178:	00002025 */ 	move	$a0,$zero
 /*  f11017c:	02002825 */ 	move	$a1,$s0
-/*  f110180:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110180:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110184:	00003025 */ 	move	$a2,$zero
 /*  f110188:	24040001 */ 	li	$a0,0x1
 /*  f11018c:	02002825 */ 	move	$a1,$s0
-/*  f110190:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110190:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110194:	24060001 */ 	li	$a2,0x1
 /*  f110198:	24040002 */ 	li	$a0,0x2
 /*  f11019c:	02002825 */ 	move	$a1,$s0
-/*  f1101a0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1101a0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1101a4:	00003025 */ 	move	$a2,$zero
 /*  f1101a8:	24040003 */ 	li	$a0,0x3
 /*  f1101ac:	02002825 */ 	move	$a1,$s0
-/*  f1101b0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1101b0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1101b4:	24060001 */ 	li	$a2,0x1
 /*  f1101b8:	24040004 */ 	li	$a0,0x4
 /*  f1101bc:	02002825 */ 	move	$a1,$s0
-/*  f1101c0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1101c0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1101c4:	24060001 */ 	li	$a2,0x1
 /*  f1101c8:	24040005 */ 	li	$a0,0x5
 /*  f1101cc:	02002825 */ 	move	$a1,$s0
-/*  f1101d0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1101d0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1101d4:	24060001 */ 	li	$a2,0x1
 /*  f1101d8:	24040009 */ 	li	$a0,0x9
 /*  f1101dc:	02002825 */ 	move	$a1,$s0
-/*  f1101e0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1101e0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1101e4:	24060001 */ 	li	$a2,0x1
 /*  f1101e8:	2404000a */ 	li	$a0,0xa
 /*  f1101ec:	02002825 */ 	move	$a1,$s0
-/*  f1101f0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1101f0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1101f4:	24060001 */ 	li	$a2,0x1
 /*  f1101f8:	2404000b */ 	li	$a0,0xb
 /*  f1101fc:	02002825 */ 	move	$a1,$s0
-/*  f110200:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110200:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110204:	24060001 */ 	li	$a2,0x1
 /*  f110208:	24040015 */ 	li	$a0,0x15
 /*  f11020c:	02002825 */ 	move	$a1,$s0
-/*  f110210:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110210:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110214:	24060001 */ 	li	$a2,0x1
 /*  f110218:	24040017 */ 	li	$a0,0x17
 /*  f11021c:	02002825 */ 	move	$a1,$s0
-/*  f110220:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110220:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110224:	24060001 */ 	li	$a2,0x1
 /*  f110228:	2404001a */ 	li	$a0,0x1a
 /*  f11022c:	02002825 */ 	move	$a1,$s0
-/*  f110230:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110230:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110234:	00003025 */ 	move	$a2,$zero
 /*  f110238:	24040020 */ 	li	$a0,0x20
 /*  f11023c:	02002825 */ 	move	$a1,$s0
-/*  f110240:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110240:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110244:	00003025 */ 	move	$a2,$zero
 /*  f110248:	2404000c */ 	li	$a0,0xc
 /*  f11024c:	02002825 */ 	move	$a1,$s0
-/*  f110250:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110250:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110254:	00003025 */ 	move	$a2,$zero
 /*  f110258:	2404000d */ 	li	$a0,0xd
 /*  f11025c:	02002825 */ 	move	$a1,$s0
-/*  f110260:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110260:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110264:	24060001 */ 	li	$a2,0x1
 /*  f110268:	2404000e */ 	li	$a0,0xe
 /*  f11026c:	02002825 */ 	move	$a1,$s0
-/*  f110270:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110270:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110274:	00003025 */ 	move	$a2,$zero
 /*  f110278:	2404000f */ 	li	$a0,0xf
 /*  f11027c:	02002825 */ 	move	$a1,$s0
-/*  f110280:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110280:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110284:	24060001 */ 	li	$a2,0x1
 /*  f110288:	24040010 */ 	li	$a0,0x10
 /*  f11028c:	02002825 */ 	move	$a1,$s0
-/*  f110290:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110290:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110294:	24060001 */ 	li	$a2,0x1
 /*  f110298:	24040011 */ 	li	$a0,0x11
 /*  f11029c:	02002825 */ 	move	$a1,$s0
-/*  f1102a0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1102a0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1102a4:	24060001 */ 	li	$a2,0x1
 /*  f1102a8:	24040012 */ 	li	$a0,0x12
 /*  f1102ac:	02002825 */ 	move	$a1,$s0
-/*  f1102b0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1102b0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1102b4:	24060001 */ 	li	$a2,0x1
 /*  f1102b8:	24040013 */ 	li	$a0,0x13
 /*  f1102bc:	02002825 */ 	move	$a1,$s0
-/*  f1102c0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1102c0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1102c4:	24060001 */ 	li	$a2,0x1
 /*  f1102c8:	24040014 */ 	li	$a0,0x14
 /*  f1102cc:	02002825 */ 	move	$a1,$s0
-/*  f1102d0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1102d0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1102d4:	00003025 */ 	move	$a2,$zero
 /*  f1102d8:	24040016 */ 	li	$a0,0x16
 /*  f1102dc:	02002825 */ 	move	$a1,$s0
-/*  f1102e0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1102e0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1102e4:	24060001 */ 	li	$a2,0x1
 /*  f1102e8:	24040018 */ 	li	$a0,0x18
 /*  f1102ec:	02002825 */ 	move	$a1,$s0
-/*  f1102f0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1102f0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1102f4:	24060001 */ 	li	$a2,0x1
 /*  f1102f8:	2404001b */ 	li	$a0,0x1b
 /*  f1102fc:	02002825 */ 	move	$a1,$s0
-/*  f110300:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110300:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110304:	00003025 */ 	move	$a2,$zero
 /*  f110308:	24040021 */ 	li	$a0,0x21
 /*  f11030c:	02002825 */ 	move	$a1,$s0
-/*  f110310:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110310:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110314:	00003025 */ 	move	$a2,$zero
 /*  f110318:	24040019 */ 	li	$a0,0x19
 /*  f11031c:	02002825 */ 	move	$a1,$s0
-/*  f110320:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110320:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110324:	00003025 */ 	move	$a2,$zero
 /*  f110328:	24040007 */ 	li	$a0,0x7
 /*  f11032c:	02002825 */ 	move	$a1,$s0
-/*  f110330:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110330:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110334:	00003025 */ 	move	$a2,$zero
 /*  f110338:	24040008 */ 	li	$a0,0x8
 /*  f11033c:	02002825 */ 	move	$a1,$s0
-/*  f110340:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110340:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110344:	00003025 */ 	move	$a2,$zero
 /*  f110348:	24040006 */ 	li	$a0,0x6
 /*  f11034c:	02002825 */ 	move	$a1,$s0
-/*  f110350:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110350:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110354:	00003025 */ 	move	$a2,$zero
 /*  f110358:	24040022 */ 	li	$a0,0x22
 /*  f11035c:	02002825 */ 	move	$a1,$s0
-/*  f110360:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110360:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110364:	00003025 */ 	move	$a2,$zero
 /*  f110368:	24040040 */ 	li	$a0,0x40
 /*  f11036c:	02002825 */ 	move	$a1,$s0
-/*  f110370:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110370:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110374:	00003025 */ 	move	$a2,$zero
 /*  f110378:	24040041 */ 	li	$a0,0x41
 /*  f11037c:	02002825 */ 	move	$a1,$s0
-/*  f110380:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110380:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110384:	00003025 */ 	move	$a2,$zero
 /*  f110388:	24040042 */ 	li	$a0,0x42
 /*  f11038c:	02002825 */ 	move	$a1,$s0
-/*  f110390:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110390:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110394:	00003025 */ 	move	$a2,$zero
 /*  f110398:	24040043 */ 	li	$a0,0x43
 /*  f11039c:	02002825 */ 	move	$a1,$s0
-/*  f1103a0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1103a0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1103a4:	00003025 */ 	move	$a2,$zero
 /*  f1103a8:	2404001c */ 	li	$a0,0x1c
 /*  f1103ac:	02002825 */ 	move	$a1,$s0
-/*  f1103b0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1103b0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1103b4:	24060001 */ 	li	$a2,0x1
 /*  f1103b8:	2404001d */ 	li	$a0,0x1d
 /*  f1103bc:	02002825 */ 	move	$a1,$s0
-/*  f1103c0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1103c0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1103c4:	24060001 */ 	li	$a2,0x1
 /*  f1103c8:	2404001e */ 	li	$a0,0x1e
 /*  f1103cc:	02002825 */ 	move	$a1,$s0
-/*  f1103d0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1103d0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1103d4:	24060001 */ 	li	$a2,0x1
 /*  f1103d8:	2404001f */ 	li	$a0,0x1f
 /*  f1103dc:	02002825 */ 	move	$a1,$s0
-/*  f1103e0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1103e0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1103e4:	24060001 */ 	li	$a2,0x1
 /*  f1103e8:	96460482 */ 	lhu	$a2,0x482($s2)
 /*  f1103ec:	3c10800a */ 	lui	$s0,0x800a
@@ -701,21 +701,21 @@ glabel savefileLoadDefaults
 /*  f1103f8:	394b0001 */ 	xori	$t3,$t2,0x1
 /*  f1103fc:	2d660001 */ 	sltiu	$a2,$t3,0x1
 /*  f110400:	02002825 */ 	move	$a1,$s0
-/*  f110404:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110404:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110408:	24040044 */ 	li	$a0,0x44
 /*  f11040c:	96460482 */ 	lhu	$a2,0x482($s2)
 /*  f110410:	24040045 */ 	li	$a0,0x45
 /*  f110414:	02002825 */ 	move	$a1,$s0
 /*  f110418:	30cc0002 */ 	andi	$t4,$a2,0x2
 /*  f11041c:	398d0002 */ 	xori	$t5,$t4,0x2
-/*  f110420:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110420:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110424:	2da60001 */ 	sltiu	$a2,$t5,0x1
 /*  f110428:	96460482 */ 	lhu	$a2,0x482($s2)
 /*  f11042c:	24040046 */ 	li	$a0,0x46
 /*  f110430:	02002825 */ 	move	$a1,$s0
 /*  f110434:	30ce0004 */ 	andi	$t6,$a2,0x4
 /*  f110438:	39cf0004 */ 	xori	$t7,$t6,0x4
-/*  f11043c:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f11043c:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110440:	2de60001 */ 	sltiu	$a2,$t7,0x1
 /*  f110444:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f110448:	00009025 */ 	move	$s2,$zero
@@ -804,54 +804,54 @@ void savefileLoadDefaults(struct savefile_solo *file)
 	sndSetSoundMode(SOUNDMODE_STEREO);
 	optionsSetControlMode(player1, CONTROLMODE_11);
 	optionsSetControlMode(player2, CONTROLMODE_11);
-	savefileClearAllFlags(&file->flags);
+	pakClearAllBitflags(file->flags);
 
-	bitSetByIndex(SAVEFILEFLAG_P1_FORWARDPITCH, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_P1_AUTOAIM, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_AIMCONTROL, &file->flags, AIMCONTROL_HOLD);
-	bitSetByIndex(SAVEFILEFLAG_P1_SIGHTONSCREEN, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_LOOKAHEAD, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_AMMOONSCREEN, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_HEADROLL, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_SHOWGUNFUNCTION, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_INGAMESUBTITLES, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_ALWAYSSHOWTARGET, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_SHOWZOOMRANGE, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P1_SHOWMISSIONTIME, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_P1_PAINTBALL, &file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_P1_FORWARDPITCH, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_P1_AUTOAIM, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
+	pakSetBitflag(SAVEFILEFLAG_P1_SIGHTONSCREEN, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_LOOKAHEAD, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_AMMOONSCREEN, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_HEADROLL, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_INGAMESUBTITLES, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_SHOWZOOMRANGE, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P1_SHOWMISSIONTIME, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_P1_PAINTBALL, file->flags, false);
 
-	bitSetByIndex(SAVEFILEFLAG_P2_FORWARDPITCH, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_P2_AUTOAIM, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P2_AIMCONTROL, &file->flags, AIMCONTROL_HOLD);
-	bitSetByIndex(SAVEFILEFLAG_P2_SIGHTONSCREEN, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P2_LOOKAHEAD, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P2_AMMOONSCREEN, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P2_HEADROLL, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P2_SHOWGUNFUNCTION, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_CUTSCENESUBTITLES, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_P2_ALWAYSSHOWTARGET, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P2_SHOWZOOMRANGE, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_P2_SHOWMISSIONTIME, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_P2_PAINTBALL, &file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_P2_FORWARDPITCH, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_P2_AUTOAIM, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P2_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
+	pakSetBitflag(SAVEFILEFLAG_P2_SIGHTONSCREEN, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P2_LOOKAHEAD, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P2_AMMOONSCREEN, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P2_HEADROLL, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_CUTSCENESUBTITLES, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P2_SHOWZOOMRANGE, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_P2_SHOWMISSIONTIME, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_P2_PAINTBALL, file->flags, false);
 
-	bitSetByIndex(SAVEFILEFLAG_SCREENSPLIT, &file->flags, SCREENSPLIT_HORIZONTAL);
-	bitSetByIndex(SAVEFILEFLAG_SCREENRATIO, &file->flags, SCREENRATIO_NORMAL);
-	bitSetByIndex(SAVEFILEFLAG_SCREENSIZE_CINEMA, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_SCREENSIZE_WIDE, &file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_SCREENSPLIT, file->flags, SCREENSPLIT_HORIZONTAL);
+	pakSetBitflag(SAVEFILEFLAG_SCREENRATIO, file->flags, SCREENRATIO_NORMAL);
+	pakSetBitflag(SAVEFILEFLAG_SCREENSIZE_CINEMA, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_SCREENSIZE_WIDE, file->flags, false);
 
-	bitSetByIndex(SAVEFILEFLAG_HIRES, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_LANGFILTERON, &file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_HIRES, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_LANGFILTERON, file->flags, false);
 
 #if VERSION >= VERSION_NTSC_1_0
-	bitSetByIndex(SAVEFILEFLAG_41, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_42, &file->flags, false);
-	bitSetByIndex(SAVEFILEFLAG_43, &file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_41, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_42, file->flags, false);
+	pakSetBitflag(SAVEFILEFLAG_43, file->flags, false);
 #endif
 
-	bitSetByIndex(SAVEFILEFLAG_COOPRADARON, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_COOPFRIENDLYFIRE, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_ANTIRADARON, &file->flags, true);
-	bitSetByIndex(SAVEFILEFLAG_ANTIPLAYERNUM, &file->flags, 1);
+	pakSetBitflag(SAVEFILEFLAG_COOPRADARON, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_COOPFRIENDLYFIRE, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_ANTIRADARON, file->flags, true);
+	pakSetBitflag(SAVEFILEFLAG_ANTIPLAYERNUM, file->flags, 1);
 
 	file->unk1e = 0;
 
@@ -1141,7 +1141,7 @@ glabel func0f10fac8
 /*  f10fe0c:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile+0x14)
 /*  f10fe10:	26102214 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile+0x14)
 /*  f10fe14:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fe18:	0fc47961 */ 	jal	bitGetByIndex
+/*  f10fe18:	0fc47961 */ 	jal	pakHasBitflag
 /*  f10fe1c:	24040041 */ 	addiu	$a0,$zero,0x41
 /*  f10fe20:	50400004 */ 	beqzl	$v0,.L0f10fe34
 /*  f10fe24:	24040042 */ 	addiu	$a0,$zero,0x42
@@ -1149,7 +1149,7 @@ glabel func0f10fac8
 /*  f10fe2c:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f10fe30:	24040042 */ 	addiu	$a0,$zero,0x42
 .L0f10fe34:
-/*  f10fe34:	0fc47961 */ 	jal	bitGetByIndex
+/*  f10fe34:	0fc47961 */ 	jal	pakHasBitflag
 /*  f10fe38:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10fe3c:	50400004 */ 	beqzl	$v0,.L0f10fe50
 /*  f10fe40:	24040043 */ 	addiu	$a0,$zero,0x43
@@ -1157,7 +1157,7 @@ glabel func0f10fac8
 /*  f10fe48:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f10fe4c:	24040043 */ 	addiu	$a0,$zero,0x43
 .L0f10fe50:
-/*  f10fe50:	0fc47961 */ 	jal	bitGetByIndex
+/*  f10fe50:	0fc47961 */ 	jal	pakHasBitflag
 /*  f10fe54:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10fe58:	10400003 */ 	beqz	$v0,.L0f10fe68
 /*  f10fe5c:	00000000 */ 	nop
@@ -1477,164 +1477,164 @@ glabel func0f10feac
 /*  f1109a4:	261027b4 */ 	addiu	$s0,$s0,0x27b4
 /*  f1109a8:	02002825 */ 	move	$a1,$s0
 /*  f1109ac:	00002025 */ 	move	$a0,$zero
-/*  f1109b0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1109b0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1109b4:	00403025 */ 	move	$a2,$v0
 /*  f1109b8:	0fc54d15 */ 	jal	optionsGetAutoAim
 /*  f1109bc:	02202025 */ 	move	$a0,$s1
 /*  f1109c0:	02802025 */ 	move	$a0,$s4
 /*  f1109c4:	02002825 */ 	move	$a1,$s0
-/*  f1109c8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1109c8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1109cc:	00403025 */ 	move	$a2,$v0
 /*  f1109d0:	0fc54d27 */ 	jal	optionsGetAimControl
 /*  f1109d4:	02202025 */ 	move	$a0,$s1
 /*  f1109d8:	24040002 */ 	li	$a0,0x2
 /*  f1109dc:	02002825 */ 	move	$a1,$s0
-/*  f1109e0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1109e0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1109e4:	00403025 */ 	move	$a2,$v0
 /*  f1109e8:	0fc54d30 */ 	jal	optionsGetSightOnScreen
 /*  f1109ec:	02202025 */ 	move	$a0,$s1
 /*  f1109f0:	24040003 */ 	li	$a0,0x3
 /*  f1109f4:	02002825 */ 	move	$a1,$s0
-/*  f1109f8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f1109f8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f1109fc:	00403025 */ 	move	$a2,$v0
 /*  f110a00:	0fc54d1e */ 	jal	optionsGetLookAhead
 /*  f110a04:	02202025 */ 	move	$a0,$s1
 /*  f110a08:	24040004 */ 	li	$a0,0x4
 /*  f110a0c:	02002825 */ 	move	$a1,$s0
-/*  f110a10:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110a10:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110a14:	00403025 */ 	move	$a2,$v0
 /*  f110a18:	0fc54d39 */ 	jal	optionsGetAmmoOnScreen
 /*  f110a1c:	02202025 */ 	move	$a0,$s1
 /*  f110a20:	24040005 */ 	li	$a0,0x5
 /*  f110a24:	02002825 */ 	move	$a1,$s0
-/*  f110a28:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110a28:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110a2c:	00403025 */ 	move	$a2,$v0
 /*  f110a30:	0fc54d75 */ 	jal	optionsGetHeadRoll
 /*  f110a34:	02202025 */ 	move	$a0,$s1
 /*  f110a38:	24040009 */ 	li	$a0,0x9
 /*  f110a3c:	02002825 */ 	move	$a1,$s0
-/*  f110a40:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110a40:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110a44:	00403025 */ 	move	$a2,$v0
 /*  f110a48:	0fc54d42 */ 	jal	optionsGetShowGunFunction
 /*  f110a4c:	02202025 */ 	move	$a0,$s1
 /*  f110a50:	2404000a */ 	li	$a0,0xa
 /*  f110a54:	02002825 */ 	move	$a1,$s0
-/*  f110a58:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110a58:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110a5c:	00403025 */ 	move	$a2,$v0
 /*  f110a60:	0fc54d4b */ 	jal	optionsGetAlwaysShowTarget
 /*  f110a64:	02202025 */ 	move	$a0,$s1
 /*  f110a68:	24040015 */ 	li	$a0,0x15
 /*  f110a6c:	02002825 */ 	move	$a1,$s0
-/*  f110a70:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110a70:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110a74:	00403025 */ 	move	$a2,$v0
 /*  f110a78:	0fc54d54 */ 	jal	optionsGetShowZoomRange
 /*  f110a7c:	02202025 */ 	move	$a0,$s1
 /*  f110a80:	24040017 */ 	li	$a0,0x17
 /*  f110a84:	02002825 */ 	move	$a1,$s0
-/*  f110a88:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110a88:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110a8c:	00403025 */ 	move	$a2,$v0
 /*  f110a90:	0fc54d66 */ 	jal	optionsGetShowMissionTime
 /*  f110a94:	02202025 */ 	move	$a0,$s1
 /*  f110a98:	2404001a */ 	li	$a0,0x1a
 /*  f110a9c:	02002825 */ 	move	$a1,$s0
-/*  f110aa0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110aa0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110aa4:	00403025 */ 	move	$a2,$v0
 /*  f110aa8:	0fc54d5d */ 	jal	optionsGetPaintball
 /*  f110aac:	02202025 */ 	move	$a0,$s1
 /*  f110ab0:	24040020 */ 	li	$a0,0x20
 /*  f110ab4:	02002825 */ 	move	$a1,$s0
-/*  f110ab8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110ab8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110abc:	00403025 */ 	move	$a2,$v0
 /*  f110ac0:	0fc54d0c */ 	jal	optionsGetForwardPitch
 /*  f110ac4:	02602025 */ 	move	$a0,$s3
 /*  f110ac8:	2404000c */ 	li	$a0,0xc
 /*  f110acc:	02002825 */ 	move	$a1,$s0
-/*  f110ad0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110ad0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110ad4:	00403025 */ 	move	$a2,$v0
 /*  f110ad8:	0fc54d15 */ 	jal	optionsGetAutoAim
 /*  f110adc:	02602025 */ 	move	$a0,$s3
 /*  f110ae0:	2404000d */ 	li	$a0,0xd
 /*  f110ae4:	02002825 */ 	move	$a1,$s0
-/*  f110ae8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110ae8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110aec:	00403025 */ 	move	$a2,$v0
 /*  f110af0:	0fc54d27 */ 	jal	optionsGetAimControl
 /*  f110af4:	02602025 */ 	move	$a0,$s3
 /*  f110af8:	2404000e */ 	li	$a0,0xe
 /*  f110afc:	02002825 */ 	move	$a1,$s0
-/*  f110b00:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110b00:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110b04:	00403025 */ 	move	$a2,$v0
 /*  f110b08:	0fc54d30 */ 	jal	optionsGetSightOnScreen
 /*  f110b0c:	02602025 */ 	move	$a0,$s3
 /*  f110b10:	2404000f */ 	li	$a0,0xf
 /*  f110b14:	02002825 */ 	move	$a1,$s0
-/*  f110b18:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110b18:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110b1c:	00403025 */ 	move	$a2,$v0
 /*  f110b20:	0fc54d1e */ 	jal	optionsGetLookAhead
 /*  f110b24:	02602025 */ 	move	$a0,$s3
 /*  f110b28:	24040010 */ 	li	$a0,0x10
 /*  f110b2c:	02002825 */ 	move	$a1,$s0
-/*  f110b30:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110b30:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110b34:	00403025 */ 	move	$a2,$v0
 /*  f110b38:	0fc54d39 */ 	jal	optionsGetAmmoOnScreen
 /*  f110b3c:	02602025 */ 	move	$a0,$s3
 /*  f110b40:	24040011 */ 	li	$a0,0x11
 /*  f110b44:	02002825 */ 	move	$a1,$s0
-/*  f110b48:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110b48:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110b4c:	00403025 */ 	move	$a2,$v0
 /*  f110b50:	0fc54d75 */ 	jal	optionsGetHeadRoll
 /*  f110b54:	02602025 */ 	move	$a0,$s3
 /*  f110b58:	24040012 */ 	li	$a0,0x12
 /*  f110b5c:	02002825 */ 	move	$a1,$s0
-/*  f110b60:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110b60:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110b64:	00403025 */ 	move	$a2,$v0
 /*  f110b68:	0fc54d42 */ 	jal	optionsGetShowGunFunction
 /*  f110b6c:	02602025 */ 	move	$a0,$s3
 /*  f110b70:	24040013 */ 	li	$a0,0x13
 /*  f110b74:	02002825 */ 	move	$a1,$s0
-/*  f110b78:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110b78:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110b7c:	00403025 */ 	move	$a2,$v0
 /*  f110b80:	0fc54d4b */ 	jal	optionsGetAlwaysShowTarget
 /*  f110b84:	02602025 */ 	move	$a0,$s3
 /*  f110b88:	24040016 */ 	li	$a0,0x16
 /*  f110b8c:	02002825 */ 	move	$a1,$s0
-/*  f110b90:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110b90:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110b94:	00403025 */ 	move	$a2,$v0
 /*  f110b98:	0fc54d54 */ 	jal	optionsGetShowZoomRange
 /*  f110b9c:	02602025 */ 	move	$a0,$s3
 /*  f110ba0:	24040018 */ 	li	$a0,0x18
 /*  f110ba4:	02002825 */ 	move	$a1,$s0
-/*  f110ba8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110ba8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110bac:	00403025 */ 	move	$a2,$v0
 /*  f110bb0:	0fc54d66 */ 	jal	optionsGetShowMissionTime
 /*  f110bb4:	02602025 */ 	move	$a0,$s3
 /*  f110bb8:	2404001b */ 	li	$a0,0x1b
 /*  f110bbc:	02002825 */ 	move	$a1,$s0
-/*  f110bc0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110bc0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110bc4:	00403025 */ 	move	$a2,$v0
 /*  f110bc8:	0fc54d5d */ 	jal	optionsGetPaintball
 /*  f110bcc:	02602025 */ 	move	$a0,$s3
 /*  f110bd0:	24040021 */ 	li	$a0,0x21
 /*  f110bd4:	02002825 */ 	move	$a1,$s0
-/*  f110bd8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110bd8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110bdc:	00403025 */ 	move	$a2,$v0
 /*  f110be0:	0fc54ef9 */ 	jal	optionsGetScreenSplit
 /*  f110be4:	00000000 */ 	nop
 /*  f110be8:	24040019 */ 	li	$a0,0x19
 /*  f110bec:	02002825 */ 	move	$a1,$s0
-/*  f110bf0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110bf0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110bf4:	00403025 */ 	move	$a2,$v0
 /*  f110bf8:	0fc54ef3 */ 	jal	optionsGetScreenRatio
 /*  f110bfc:	00000000 */ 	nop
 /*  f110c00:	24040007 */ 	li	$a0,0x7
 /*  f110c04:	02002825 */ 	move	$a1,$s0
-/*  f110c08:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110c08:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110c0c:	00403025 */ 	move	$a2,$v0
 /*  f110c10:	0fc54eed */ 	jal	optionsGetScreenSize
 /*  f110c14:	00000000 */ 	nop
 /*  f110c18:	00543026 */ 	xor	$a2,$v0,$s4
 /*  f110c1c:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110c20:	24040006 */ 	li	$a0,0x6
-/*  f110c24:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110c24:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110c28:	02002825 */ 	move	$a1,$s0
 /*  f110c2c:	0fc54eed */ 	jal	optionsGetScreenSize
 /*  f110c30:	00000000 */ 	nop
@@ -1642,48 +1642,48 @@ glabel func0f10feac
 /*  f110c38:	00553026 */ 	xor	$a2,$v0,$s5
 /*  f110c3c:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110c40:	24040008 */ 	li	$a0,0x8
-/*  f110c44:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110c44:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110c48:	02002825 */ 	move	$a1,$s0
 /*  f110c4c:	3c188007 */ 	lui	$t8,0x8007
 /*  f110c50:	8f1809a8 */ 	lw	$t8,0x9a8($t8)
 /*  f110c54:	24040022 */ 	li	$a0,0x22
 /*  f110c58:	02002825 */ 	move	$a1,$s0
 /*  f110c5c:	02983026 */ 	xor	$a2,$s4,$t8
-/*  f110c60:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110c60:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110c64:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110c68:	0fc54d6f */ 	jal	optionsGetInGameSubtitles
 /*  f110c6c:	00000000 */ 	nop
 /*  f110c70:	2404000b */ 	li	$a0,0xb
 /*  f110c74:	02002825 */ 	move	$a1,$s0
-/*  f110c78:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110c78:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110c7c:	00403025 */ 	move	$a2,$v0
 /*  f110c80:	0fc54d72 */ 	jal	optionsGetCutsceneSubtitles
 /*  f110c84:	00000000 */ 	nop
 /*  f110c88:	24040014 */ 	li	$a0,0x14
 /*  f110c8c:	02002825 */ 	move	$a1,$s0
-/*  f110c90:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110c90:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110c94:	00403025 */ 	move	$a2,$v0
 /*  f110c98:	24040040 */ 	li	$a0,0x40
 /*  f110c9c:	02002825 */ 	move	$a1,$s0
-/*  f110ca0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110ca0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110ca4:	924604e3 */ 	lbu	$a2,0x4e3($s2)
 /*  f110ca8:	0fc676f5 */ 	jal	frIsWeaponFound
 /*  f110cac:	24040020 */ 	li	$a0,0x20
 /*  f110cb0:	24040041 */ 	li	$a0,0x41
 /*  f110cb4:	02002825 */ 	move	$a1,$s0
-/*  f110cb8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110cb8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110cbc:	00403025 */ 	move	$a2,$v0
 /*  f110cc0:	0fc676f5 */ 	jal	frIsWeaponFound
 /*  f110cc4:	24040021 */ 	li	$a0,0x21
 /*  f110cc8:	24040042 */ 	li	$a0,0x42
 /*  f110ccc:	02002825 */ 	move	$a1,$s0
-/*  f110cd0:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110cd0:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110cd4:	00403025 */ 	move	$a2,$v0
 /*  f110cd8:	0fc676f5 */ 	jal	frIsWeaponFound
 /*  f110cdc:	24040022 */ 	li	$a0,0x22
 /*  f110ce0:	24040043 */ 	li	$a0,0x43
 /*  f110ce4:	02002825 */ 	move	$a1,$s0
-/*  f110ce8:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110ce8:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110cec:	00403025 */ 	move	$a2,$v0
 /*  f110cf0:	0fc54eed */ 	jal	optionsGetScreenSize
 /*  f110cf4:	00000000 */ 	nop
@@ -1694,46 +1694,46 @@ glabel func0f10feac
 /*  f110d04:	2404001f */ 	li	$a0,0x1f
 /*  f110d08:	02002825 */ 	move	$a1,$s0
 /*  f110d0c:	02993026 */ 	xor	$a2,$s4,$t9
-/*  f110d10:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110d10:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110d14:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110d18:	8e480448 */ 	lw	$t0,0x448($s2)
 /*  f110d1c:	2404001c */ 	li	$a0,0x1c
 /*  f110d20:	02002825 */ 	move	$a1,$s0
 /*  f110d24:	02883026 */ 	xor	$a2,$s4,$t0
-/*  f110d28:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110d28:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110d2c:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110d30:	8e490454 */ 	lw	$t1,0x454($s2)
 /*  f110d34:	2404001d */ 	li	$a0,0x1d
 /*  f110d38:	02002825 */ 	move	$a1,$s0
 /*  f110d3c:	02893026 */ 	xor	$a2,$s4,$t1
-/*  f110d40:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110d40:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110d44:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110d48:	8e4a044c */ 	lw	$t2,0x44c($s2)
 /*  f110d4c:	2404001e */ 	li	$a0,0x1e
 /*  f110d50:	02002825 */ 	move	$a1,$s0
 /*  f110d54:	028a3026 */ 	xor	$a2,$s4,$t2
-/*  f110d58:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110d58:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110d5c:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110d60:	964b0482 */ 	lhu	$t3,0x482($s2)
 /*  f110d64:	24040044 */ 	li	$a0,0x44
 /*  f110d68:	02002825 */ 	move	$a1,$s0
 /*  f110d6c:	316c0001 */ 	andi	$t4,$t3,0x1
 /*  f110d70:	028c3026 */ 	xor	$a2,$s4,$t4
-/*  f110d74:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110d74:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110d78:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110d7c:	964d0482 */ 	lhu	$t5,0x482($s2)
 /*  f110d80:	24040045 */ 	li	$a0,0x45
 /*  f110d84:	02002825 */ 	move	$a1,$s0
 /*  f110d88:	31ae0002 */ 	andi	$t6,$t5,0x2
 /*  f110d8c:	02ae3026 */ 	xor	$a2,$s5,$t6
-/*  f110d90:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110d90:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110d94:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f110d98:	96460482 */ 	lhu	$a2,0x482($s2)
 /*  f110d9c:	24040046 */ 	li	$a0,0x46
 /*  f110da0:	02002825 */ 	move	$a1,$s0
 /*  f110da4:	30cf0004 */ 	andi	$t7,$a2,0x4
 /*  f110da8:	39f80004 */ 	xori	$t8,$t7,0x4
-/*  f110dac:	0fc47c0b */ 	jal	bitSetByIndex
+/*  f110dac:	0fc47c0b */ 	jal	pakSetBitflag
 /*  f110db0:	2f060001 */ 	sltiu	$a2,$t8,0x1
 /*  f110db4:	8fb90148 */ 	lw	$t9,0x148($sp)
 /*  f110db8:	27b4004c */ 	addiu	$s4,$sp,0x4c
@@ -1988,164 +1988,164 @@ glabel func0f10feac
 /*  f10ff34:	26102214 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile+0x14)
 /*  f10ff38:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10ff3c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10ff40:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ff40:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ff44:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff48:	0fc549e9 */ 	jal	optionsGetAutoAim
 /*  f10ff4c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff50:	02402025 */ 	or	$a0,$s2,$zero
 /*  f10ff54:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ff58:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ff58:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ff5c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff60:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f10ff64:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff68:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f10ff6c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ff70:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ff70:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ff74:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff78:	0fc54a04 */ 	jal	optionsGetSightOnScreen
 /*  f10ff7c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff80:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f10ff84:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ff88:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ff88:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ff8c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff90:	0fc549f2 */ 	jal	optionsGetLookAhead
 /*  f10ff94:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff98:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f10ff9c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffa0:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ffa0:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ffa4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ffa8:	0fc54a0d */ 	jal	optionsGetAmmoOnScreen
 /*  f10ffac:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ffb0:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f10ffb4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffb8:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ffb8:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ffbc:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ffc0:	0fc54a49 */ 	jal	optionsGetHeadRoll
 /*  f10ffc4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ffc8:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f10ffcc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffd0:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ffd0:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ffd4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ffd8:	0fc54a16 */ 	jal	optionsGetShowGunFunction
 /*  f10ffdc:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ffe0:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f10ffe4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffe8:	0fc4794c */ 	jal	bitSetByIndex
+/*  f10ffe8:	0fc4794c */ 	jal	pakSetBitflag
 /*  f10ffec:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10fff0:	0fc54a1f */ 	jal	optionsGetAlwaysShowTarget
 /*  f10fff4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10fff8:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f10fffc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110000:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110000:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110004:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110008:	0fc54a28 */ 	jal	optionsGetShowZoomRange
 /*  f11000c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f110010:	24040017 */ 	addiu	$a0,$zero,0x17
 /*  f110014:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110018:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110018:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11001c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110020:	0fc54a3a */ 	jal	optionsGetShowMissionTime
 /*  f110024:	02602025 */ 	or	$a0,$s3,$zero
 /*  f110028:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f11002c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110030:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110030:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110034:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110038:	0fc54a31 */ 	jal	optionsGetPaintball
 /*  f11003c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f110040:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f110044:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110048:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110048:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11004c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110050:	0fc549e0 */ 	jal	optionsGetForwardPitch
 /*  f110054:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110058:	2404000c */ 	addiu	$a0,$zero,0xc
 /*  f11005c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110060:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110060:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110064:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110068:	0fc549e9 */ 	jal	optionsGetAutoAim
 /*  f11006c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110070:	2404000d */ 	addiu	$a0,$zero,0xd
 /*  f110074:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110078:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110078:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11007c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110080:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f110084:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110088:	2404000e */ 	addiu	$a0,$zero,0xe
 /*  f11008c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110090:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110090:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110094:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110098:	0fc54a04 */ 	jal	optionsGetSightOnScreen
 /*  f11009c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100a0:	2404000f */ 	addiu	$a0,$zero,0xf
 /*  f1100a4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100a8:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1100a8:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1100ac:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100b0:	0fc549f2 */ 	jal	optionsGetLookAhead
 /*  f1100b4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100b8:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f1100bc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100c0:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1100c0:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1100c4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100c8:	0fc54a0d */ 	jal	optionsGetAmmoOnScreen
 /*  f1100cc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100d0:	24040011 */ 	addiu	$a0,$zero,0x11
 /*  f1100d4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100d8:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1100d8:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1100dc:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100e0:	0fc54a49 */ 	jal	optionsGetHeadRoll
 /*  f1100e4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100e8:	24040012 */ 	addiu	$a0,$zero,0x12
 /*  f1100ec:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100f0:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1100f0:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1100f4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100f8:	0fc54a16 */ 	jal	optionsGetShowGunFunction
 /*  f1100fc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110100:	24040013 */ 	addiu	$a0,$zero,0x13
 /*  f110104:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110108:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110108:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11010c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110110:	0fc54a1f */ 	jal	optionsGetAlwaysShowTarget
 /*  f110114:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110118:	24040016 */ 	addiu	$a0,$zero,0x16
 /*  f11011c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110120:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110120:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110124:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110128:	0fc54a28 */ 	jal	optionsGetShowZoomRange
 /*  f11012c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110130:	24040018 */ 	addiu	$a0,$zero,0x18
 /*  f110134:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110138:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110138:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11013c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110140:	0fc54a3a */ 	jal	optionsGetShowMissionTime
 /*  f110144:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110148:	2404001b */ 	addiu	$a0,$zero,0x1b
 /*  f11014c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110150:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110150:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110154:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110158:	0fc54a31 */ 	jal	optionsGetPaintball
 /*  f11015c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110160:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f110164:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110168:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110168:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11016c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110170:	0fc54bcd */ 	jal	optionsGetScreenSplit
 /*  f110174:	00000000 */ 	nop
 /*  f110178:	24040019 */ 	addiu	$a0,$zero,0x19
 /*  f11017c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110180:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110180:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110184:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110188:	0fc54bc7 */ 	jal	optionsGetScreenRatio
 /*  f11018c:	00000000 */ 	nop
 /*  f110190:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f110194:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110198:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110198:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11019c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1101a0:	0fc54bc1 */ 	jal	optionsGetScreenSize
 /*  f1101a4:	00000000 */ 	nop
 /*  f1101a8:	00523026 */ 	xor	$a2,$v0,$s2
 /*  f1101ac:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1101b0:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f1101b4:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1101b4:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1101b8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1101bc:	0fc54bc1 */ 	jal	optionsGetScreenSize
 /*  f1101c0:	00000000 */ 	nop
@@ -2153,48 +2153,48 @@ glabel func0f10feac
 /*  f1101c8:	00553026 */ 	xor	$a2,$v0,$s5
 /*  f1101cc:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1101d0:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f1101d4:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1101d4:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1101d8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1101dc:	3c188007 */ 	lui	$t8,%hi(g_ViMode)
 /*  f1101e0:	8f1806c8 */ 	lw	$t8,%lo(g_ViMode)($t8)
 /*  f1101e4:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f1101e8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1101ec:	02583026 */ 	xor	$a2,$s2,$t8
-/*  f1101f0:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1101f0:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1101f4:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1101f8:	0fc54a43 */ 	jal	optionsGetInGameSubtitles
 /*  f1101fc:	00000000 */ 	nop
 /*  f110200:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f110204:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110208:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110208:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11020c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110210:	0fc54a46 */ 	jal	optionsGetCutsceneSubtitles
 /*  f110214:	00000000 */ 	nop
 /*  f110218:	24040014 */ 	addiu	$a0,$zero,0x14
 /*  f11021c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110220:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110220:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110224:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110228:	24040040 */ 	addiu	$a0,$zero,0x40
 /*  f11022c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110230:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110230:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110234:	928604e3 */ 	lbu	$a2,0x4e3($s4)
 /*  f110238:	0fc672b5 */ 	jal	frIsWeaponFound
 /*  f11023c:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f110240:	24040041 */ 	addiu	$a0,$zero,0x41
 /*  f110244:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110248:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110248:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11024c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110250:	0fc672b5 */ 	jal	frIsWeaponFound
 /*  f110254:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f110258:	24040042 */ 	addiu	$a0,$zero,0x42
 /*  f11025c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110260:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110260:	0fc4794c */ 	jal	pakSetBitflag
 /*  f110264:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110268:	0fc672b5 */ 	jal	frIsWeaponFound
 /*  f11026c:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f110270:	24040043 */ 	addiu	$a0,$zero,0x43
 /*  f110274:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110278:	0fc4794c */ 	jal	bitSetByIndex
+/*  f110278:	0fc4794c */ 	jal	pakSetBitflag
 /*  f11027c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110280:	0fc54bc1 */ 	jal	optionsGetScreenSize
 /*  f110284:	00000000 */ 	nop
@@ -2205,25 +2205,25 @@ glabel func0f10feac
 /*  f110294:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f110298:	02002825 */ 	or	$a1,$s0,$zero
 /*  f11029c:	02593026 */ 	xor	$a2,$s2,$t9
-/*  f1102a0:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1102a0:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1102a4:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102a8:	8e880448 */ 	lw	$t0,0x448($s4)
 /*  f1102ac:	2404001c */ 	addiu	$a0,$zero,0x1c
 /*  f1102b0:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1102b4:	02483026 */ 	xor	$a2,$s2,$t0
-/*  f1102b8:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1102b8:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1102bc:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102c0:	8e890454 */ 	lw	$t1,0x454($s4)
 /*  f1102c4:	2404001d */ 	addiu	$a0,$zero,0x1d
 /*  f1102c8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1102cc:	02493026 */ 	xor	$a2,$s2,$t1
-/*  f1102d0:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1102d0:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1102d4:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102d8:	8e8a044c */ 	lw	$t2,0x44c($s4)
 /*  f1102dc:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f1102e0:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1102e4:	024a3026 */ 	xor	$a2,$s2,$t2
-/*  f1102e8:	0fc4794c */ 	jal	bitSetByIndex
+/*  f1102e8:	0fc4794c */ 	jal	pakSetBitflag
 /*  f1102ec:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102f0:	8fab0148 */ 	lw	$t3,0x148($sp)
 /*  f1102f4:	27b4004c */ 	addiu	$s4,$sp,0x4c
@@ -2478,164 +2478,164 @@ glabel func0f10feac
 /*  f10a408:	26106704 */ 	addiu	$s0,$s0,0x6704
 /*  f10a40c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a410:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10a414:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a414:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a418:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a41c:	0fc533a5 */ 	jal	optionsGetAutoAim
 /*  f10a420:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a424:	02402025 */ 	or	$a0,$s2,$zero
 /*  f10a428:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a42c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a42c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a430:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a434:	0fc533b7 */ 	jal	optionsGetAimControl
 /*  f10a438:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a43c:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f10a440:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a444:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a444:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a448:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a44c:	0fc533c0 */ 	jal	optionsGetSightOnScreen
 /*  f10a450:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a454:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f10a458:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a45c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a45c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a460:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a464:	0fc533ae */ 	jal	optionsGetLookAhead
 /*  f10a468:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a46c:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f10a470:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a474:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a474:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a478:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a47c:	0fc533c9 */ 	jal	optionsGetAmmoOnScreen
 /*  f10a480:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a484:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f10a488:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a48c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a48c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a490:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a494:	0fc53405 */ 	jal	optionsGetHeadRoll
 /*  f10a498:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a49c:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f10a4a0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a4a4:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a4a4:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a4a8:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a4ac:	0fc533d2 */ 	jal	optionsGetShowGunFunction
 /*  f10a4b0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a4b4:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f10a4b8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a4bc:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a4bc:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a4c0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a4c4:	0fc533db */ 	jal	optionsGetAlwaysShowTarget
 /*  f10a4c8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a4cc:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f10a4d0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a4d4:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a4d4:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a4d8:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a4dc:	0fc533e4 */ 	jal	optionsGetShowZoomRange
 /*  f10a4e0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a4e4:	24040017 */ 	addiu	$a0,$zero,0x17
 /*  f10a4e8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a4ec:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a4ec:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a4f0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a4f4:	0fc533f6 */ 	jal	optionsGetShowMissionTime
 /*  f10a4f8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a4fc:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f10a500:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a504:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a504:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a508:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a50c:	0fc533ed */ 	jal	optionsGetPaintball
 /*  f10a510:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a514:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f10a518:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a51c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a51c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a520:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a524:	0fc5339c */ 	jal	optionsGetForwardPitch
 /*  f10a528:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a52c:	2404000c */ 	addiu	$a0,$zero,0xc
 /*  f10a530:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a534:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a534:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a538:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a53c:	0fc533a5 */ 	jal	optionsGetAutoAim
 /*  f10a540:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a544:	2404000d */ 	addiu	$a0,$zero,0xd
 /*  f10a548:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a54c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a54c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a550:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a554:	0fc533b7 */ 	jal	optionsGetAimControl
 /*  f10a558:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a55c:	2404000e */ 	addiu	$a0,$zero,0xe
 /*  f10a560:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a564:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a564:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a568:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a56c:	0fc533c0 */ 	jal	optionsGetSightOnScreen
 /*  f10a570:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a574:	2404000f */ 	addiu	$a0,$zero,0xf
 /*  f10a578:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a57c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a57c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a580:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a584:	0fc533ae */ 	jal	optionsGetLookAhead
 /*  f10a588:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a58c:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f10a590:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a594:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a594:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a598:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a59c:	0fc533c9 */ 	jal	optionsGetAmmoOnScreen
 /*  f10a5a0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a5a4:	24040011 */ 	addiu	$a0,$zero,0x11
 /*  f10a5a8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a5ac:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a5ac:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a5b0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a5b4:	0fc53405 */ 	jal	optionsGetHeadRoll
 /*  f10a5b8:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a5bc:	24040012 */ 	addiu	$a0,$zero,0x12
 /*  f10a5c0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a5c4:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a5c4:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a5c8:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a5cc:	0fc533d2 */ 	jal	optionsGetShowGunFunction
 /*  f10a5d0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a5d4:	24040013 */ 	addiu	$a0,$zero,0x13
 /*  f10a5d8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a5dc:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a5dc:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a5e0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a5e4:	0fc533db */ 	jal	optionsGetAlwaysShowTarget
 /*  f10a5e8:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a5ec:	24040016 */ 	addiu	$a0,$zero,0x16
 /*  f10a5f0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a5f4:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a5f4:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a5f8:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a5fc:	0fc533e4 */ 	jal	optionsGetShowZoomRange
 /*  f10a600:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a604:	24040018 */ 	addiu	$a0,$zero,0x18
 /*  f10a608:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a60c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a60c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a610:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a614:	0fc533f6 */ 	jal	optionsGetShowMissionTime
 /*  f10a618:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a61c:	2404001b */ 	addiu	$a0,$zero,0x1b
 /*  f10a620:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a624:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a624:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a628:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a62c:	0fc533ed */ 	jal	optionsGetPaintball
 /*  f10a630:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a634:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f10a638:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a63c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a63c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a640:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a644:	0fc53588 */ 	jal	optionsGetScreenSplit
 /*  f10a648:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10a64c:	24040019 */ 	addiu	$a0,$zero,0x19
 /*  f10a650:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a654:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a654:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a658:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a65c:	0fc53582 */ 	jal	optionsGetScreenRatio
 /*  f10a660:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10a664:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f10a668:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a66c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a66c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a670:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a674:	0fc5351c */ 	jal	optionsGetEffectiveScreenSize
 /*  f10a678:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10a67c:	00523026 */ 	xor	$a2,$v0,$s2
 /*  f10a680:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f10a684:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f10a688:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a688:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a68c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a690:	0fc5351c */ 	jal	optionsGetEffectiveScreenSize
 /*  f10a694:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2643,30 +2643,30 @@ glabel func0f10feac
 /*  f10a69c:	00553026 */ 	xor	$a2,$v0,$s5
 /*  f10a6a0:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f10a6a4:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f10a6a8:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a6a8:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a6ac:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a6b0:	3c188007 */ 	lui	$t8,0x8007
 /*  f10a6b4:	8f182d88 */ 	lw	$t8,0x2d88($t8)
 /*  f10a6b8:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f10a6bc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a6c0:	02583026 */ 	xor	$a2,$s2,$t8
-/*  f10a6c4:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a6c4:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a6c8:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f10a6cc:	0fc533ff */ 	jal	optionsGetInGameSubtitles
 /*  f10a6d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10a6d4:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f10a6d8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a6dc:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a6dc:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a6e0:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a6e4:	0fc53402 */ 	jal	optionsGetCutsceneSubtitles
 /*  f10a6e8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10a6ec:	24040014 */ 	addiu	$a0,$zero,0x14
 /*  f10a6f0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a6f4:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a6f4:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a6f8:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10a6fc:	24040040 */ 	addiu	$a0,$zero,0x40
 /*  f10a700:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a704:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a704:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a708:	928604e3 */ 	lbu	$a2,0x4e3($s4)
 /*  f10a70c:	0fc5351c */ 	jal	optionsGetEffectiveScreenSize
 /*  f10a710:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2677,25 +2677,25 @@ glabel func0f10feac
 /*  f10a720:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f10a724:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a728:	02593026 */ 	xor	$a2,$s2,$t9
-/*  f10a72c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a72c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a730:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f10a734:	8e880448 */ 	lw	$t0,0x448($s4)
 /*  f10a738:	2404001c */ 	addiu	$a0,$zero,0x1c
 /*  f10a73c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a740:	02483026 */ 	xor	$a2,$s2,$t0
-/*  f10a744:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a744:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a748:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f10a74c:	8e890454 */ 	lw	$t1,0x454($s4)
 /*  f10a750:	2404001d */ 	addiu	$a0,$zero,0x1d
 /*  f10a754:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a758:	02493026 */ 	xor	$a2,$s2,$t1
-/*  f10a75c:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a75c:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a760:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f10a764:	8e8a044c */ 	lw	$t2,0x44c($s4)
 /*  f10a768:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f10a76c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10a770:	024a3026 */ 	xor	$a2,$s2,$t2
-/*  f10a774:	0fc460eb */ 	jal	bitSetByIndex
+/*  f10a774:	0fc460eb */ 	jal	pakSetBitflag
 /*  f10a778:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f10a77c:	8fab0148 */ 	lw	$t3,0x148($sp)
 /*  f10a780:	27b4004c */ 	addiu	$s4,$sp,0x4c
