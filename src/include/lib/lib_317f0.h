@@ -4,15 +4,15 @@
 #include "data.h"
 #include "types.h"
 
-u32 func000317f0(void);
+void func000317f0(void *arg0);
 u32 func00031b34(void);
 u32 func00033090(void);
 u32 func00033100(void);
 u32 func00033180(void);
 u32 func00033274(void);
-u32 func00033378(void);
+void func00033378(void *fn);
 u32 func00033390(void);
-u32 func00033634(void);
+void func00033634(void *fn);
 u32 func0003364c(void);
 u32 audioIsPlaying(struct audiohandle *handle);
 u32 func00033820(void);

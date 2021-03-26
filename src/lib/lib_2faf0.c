@@ -5,7 +5,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0002faf0
+glabel alHeapInit
 /*    2faf0:	ac850000 */ 	sw	$a1,0x0($a0)
 /*    2faf4:	ac860008 */ 	sw	$a2,0x8($a0)
 /*    2faf8:	8c8e0000 */ 	lw	$t6,0x0($a0)
@@ -18,7 +18,7 @@ glabel func0002faf0
 );
 
 GLOBAL_ASM(
-glabel func0002fb14
+glabel alHeapDBAlloc
 /*    2fb14:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    2fb18:	afa40008 */ 	sw	$a0,0x8($sp)
 /*    2fb1c:	afa5000c */ 	sw	$a1,0xc($sp)

@@ -37,7 +37,7 @@ extern u32 var80092828;
 extern u32 var80092870;
 extern s32 var80094ea8;
 extern struct var80094ed8 var80094ed8[3];
-extern u32 var800951f0[4];
+extern ALHeap g_SndHeap;
 extern u32 var80095200;
 extern u8 var80095210[0x40f0];
 extern OSMesgQueue var80099e78;

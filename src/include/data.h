@@ -42,7 +42,7 @@ extern s32 var8005dd18;
 extern u32 var8005dd58;
 extern bool g_Silent;
 extern u16 g_SfxVolume;
-extern u32 g_SoundMode;
+extern s32 g_SoundMode;
 extern s32 var8005ddd4;
 extern struct audiorussmapping g_AudioRussMappings[];
 extern struct audioconfig g_AudioConfigs[];

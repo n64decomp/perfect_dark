@@ -7128,4 +7128,15 @@ struct handweaponinfo {
 	struct gunctrl *gunctrl;
 };
 
+struct seqtableentry {
+	u8 *data;
+	u16 binlen;
+	u16 ziplen;
+};
+
+struct seqtable {
+	u16 count;
+	struct seqtableentry entries[1];
+};
+
 #endif

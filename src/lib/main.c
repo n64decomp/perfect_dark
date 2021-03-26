@@ -1723,7 +1723,7 @@ void mainEntry(void)
 {
 	mainInit();
 	func0002f8a0();
-	snd0000f804();
+	sndInit();
 
 	while (true) {
 		mainLoop();
