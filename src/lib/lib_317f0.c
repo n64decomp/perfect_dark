@@ -4953,11 +4953,9 @@ glabel func00033f44
 /*    34028:	03e00008 */ 	jr	$ra
 /*    3402c:	00000000 */ 	nop
 );
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
+#else
 GLOBAL_ASM(
-glabel func00035300nb
+glabel func00033f44
 /*    35300:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    35304:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    35308:	afa40038 */ 	sw	$a0,0x38($sp)

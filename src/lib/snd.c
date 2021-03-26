@@ -679,7 +679,6 @@ u32 var8005ede4 = 0x4ccc6ccb;
 u32 var8005ede8 = 0xffff0000;
 u32 var8005edec = 0xffffffff;
 
-
 GLOBAL_ASM(
 glabel snd0000e9d0
 /*     e9d0:	3c028009 */ 	lui	$v0,%hi(var80094eb4)
@@ -687,40 +686,22 @@ glabel snd0000e9d0
 /*     e9d8:	8c424eb4 */ 	lw	$v0,%lo(var80094eb4)($v0)
 );
 
+u16 snd0000e9dc(void)
+{
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel snd0000e9dc
-/*     e9dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     e9e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     e9e4:	0c00cfb1 */ 	jal	func00033ec4
-/*     e9e8:	00002025 */ 	or	$a0,$zero,$zero
-/*     e9ec:	28415000 */ 	slti	$at,$v0,0x5000
-/*     e9f0:	10200005 */ 	beqz	$at,.L0000ea08
-/*     e9f4:	24035000 */ 	addiu	$v1,$zero,0x5000
-/*     e9f8:	0c00cfb1 */ 	jal	func00033ec4
-/*     e9fc:	00002025 */ 	or	$a0,$zero,$zero
-/*     ea00:	10000001 */ 	b	.L0000ea08
-/*     ea04:	00401825 */ 	or	$v1,$v0,$zero
-.L0000ea08:
-/*     ea08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     ea0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     ea10:	3062ffff */ 	andi	$v0,$v1,0xffff
-/*     ea14:	03e00008 */ 	jr	$ra
-/*     ea18:	00000000 */ 	nop
-);
+	s32 result;
+
+	if (func00033ec4(0) < 0x5000) {
+		result = func00033ec4(0);
+	} else {
+		result = 0x5000;
+	}
+
+	return result;
 #else
-GLOBAL_ASM(
-glabel snd0000e9dc
-/*     f1bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     f1c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     f1c4:	0c00d4af */ 	jal	func00033ec4
-/*     f1c8:	00002025 */ 	or	$a0,$zero,$zero
-/*     f1cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     f1d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     f1d4:	03e00008 */ 	jr	$ra
-/*     f1d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return func00033ec4(0);
 #endif
+}
 
 void sndSetSfxVolume(u16 volume)
 {
@@ -780,7 +761,7 @@ glabel snd0000ea80
 /*     f24c:	00008025 */ 	or	$s0,$zero,$zero
 .NB0000f250:
 /*     f250:	320400ff */ 	andi	$a0,$s0,0xff
-/*     f254:	0c00d4c0 */ 	jal	func00035300nb
+/*     f254:	0c00d4c0 */ 	jal	func00033f44
 /*     f258:	3225ffff */ 	andi	$a1,$s1,0xffff
 /*     f25c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*     f260:	320e00ff */ 	andi	$t6,$s0,0xff

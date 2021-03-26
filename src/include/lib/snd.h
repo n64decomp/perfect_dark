@@ -6,7 +6,7 @@
 
 bool sndIsFiltered(s32 audioid);
 u32 snd0000e9d0(void);
-u32 snd0000e9dc(void);
+u16 snd0000e9dc(void);
 void sndSetSfxVolume(u16 volume);
 u32 snd0000ea80(void);
 void snd0000eadc(void);
