@@ -43,18 +43,18 @@ void pakDumpEeprom(void);
 s32 func0f11789c(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3);
+s32 pakInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3);
 #else
-s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
+s32 pakInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
 #endif
 
-s32 func0f117b4c(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer);
+s32 pakReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer);
 s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2);
-s32 func0f117c80(OSPfs *pfs, s32 *arg1);
-s32 func0f117ce4(OSPfs *pfs, s32 file_no, OSPfsState *note);
-s32 func0f117d90(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no);
-u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
-s32 func0f117e58(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no);
+s32 pakFreeBlocks(OSPfs *pfs, s32 *bytes_not_used);
+s32 pakFileState(OSPfs *pfs, s32 file_no, OSPfsState *note);
+s32 pakAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no);
+u32 pakDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
+s32 pakFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no);
 s32 func0f117ec0(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes);
 s32 func0f117f80(s8 device);
 s32 func0f117fc0(s8 device);

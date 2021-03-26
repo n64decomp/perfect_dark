@@ -161,6 +161,7 @@ s32 osPfsFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, 
 s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
 s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state);
 s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, s32 size, u8* data);
+s32 osPfsFreeBlocks(OSPfs* pfs, s32 *bytes_not_used);
 
 s32 osMotorAccess(OSPfs *pfs, u32 vibrate);
 void osSetUpMempakWrite(s32 channel, OSPifRam* buf);

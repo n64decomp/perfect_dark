@@ -20,6 +20,67 @@
 #include "data.h"
 #include "types.h"
 
+/**
+ * Perfect Dark supports saving to an in-cartridge EEPROM chip, as well as to
+ * controller paks which can be inserted in any of the four controllers.
+ *
+ * This file provides an abstraction layer between a generic "pak" and the
+ * backend device it uses, and also manages the structure of data within the
+ * pak.
+ *
+ * -- EEPROM --
+ *
+ * The EEPROM chip is 2KB (0x800 bytes) and is rather simple: The game reads and
+ * writes to it using address and length arguments to osEeprom functions.
+ *
+ * -- Controller Paks --
+ *
+ * The controller paks are accessed via osPfs functions which are provided by
+ * Nintendo. Controller paks use a filesystem and can hold data from other games
+ * which is why these functions must be used.
+ *
+ * Controller paks have a capacity of 256Kbits (32KB). Each controller pak
+ * consists of 128 "pages", where each page is a block of 256 bytes. The first
+ * 5 pages are reserved for the file allocation table, leaving 123 pages
+ * available for game data.
+ *
+ * Games use osPfsAllocateFile to create a file, also known as a game note.
+ * Controller paks can hold up to 16 game notes. Perfect Dark's game note uses
+ * 28 pages (7168 bytes). This single game note holds all saved information
+ * (game files, MP players and MP games).
+ *
+ * -- Data Structure --
+ *
+ * Regardless of whether the data is being written to EEPROM or to a controller
+ * pak, the format of it is the same. The data is a list of files, with
+ * different lengths based on their file type.
+ *
+ * Each file has the following 12-byte header:
+ *
+ * 0x00 - 0x03 = checksum
+ * 0x04 - 0x07 = 0xffffff if empty or space space, else another checksum?
+ * 0x08 = unknown
+ * 0x09 = unknown
+ * 0x0a = unknown
+ * 0x0b = length of this file including this header
+ *
+ * The file types are:
+ *
+ * BOS (length 0x70) - The "boss" file stores things global to all game files,
+ *     such as the alternative title setting and chosen language if PAL.
+ * GAM (length 0xb0) - Single player game files
+ * MPP (length 0x60) - Multiplayer player files
+ * MPG (length 0x50) - Multiplayer game setup files
+ *
+ * Each device can store 4 GAM, MPG and MPP files, and one BOS file. There is
+ * additionally a single scratch space per game type, making the total usage
+ * 1984 bytes (0x7c0), which is 0x30 short of the EEPROM capacity.
+ *
+ * Controller paks, however, use 28 pages which is 20 pages more than necessary.
+ * This is likely because they were going to hold PerfectHead photos, but when
+ * the feature was removed the controller pak allocation was not adjusted.
+ */
+
 const char var7f1b3a90[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
@@ -387,7 +448,7 @@ s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, ch
 #else
 		joy000150e8(123, "pak.c");
 #endif
-		result = func0f117e00(PFS(device), company_code, game_code, game_name, ext_name);
+		result = pakDeleteFile(PFS(device), company_code, game_code, game_name, ext_name);
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();
 #else
@@ -1565,9 +1626,9 @@ glabel func0f11789c
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3)
+s32 pakInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3)
 #else
-s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
+s32 pakInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
 #endif
 {
 	if (pfs) {
@@ -1585,7 +1646,7 @@ s32 func0f117b04(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
 	return 0;
 }
 
-s32 func0f117b4c(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer)
+s32 pakReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer)
 {
 	u32 newaddress;
 
@@ -1651,7 +1712,7 @@ s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
 	return 0;
 }
 
-s32 func0f117c80(OSPfs *pfs, s32 *arg1)
+s32 pakFreeBlocks(OSPfs *pfs, s32 *bytes_not_used)
 {
 	if (pfs) {
 		s32 result;
@@ -1662,7 +1723,7 @@ s32 func0f117c80(OSPfs *pfs, s32 *arg1)
 		joy000150e8(1337, "pak.c");
 #endif
 
-		result = osPfsFreeBlocks(pfs, arg1);
+		result = osPfsFreeBlocks(pfs, bytes_not_used);
 
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();
@@ -1677,12 +1738,12 @@ s32 func0f117c80(OSPfs *pfs, s32 *arg1)
 		return 0x80;
 	}
 
-	*arg1 = 0;
+	*bytes_not_used = 0;
 
 	return 0;
 }
 
-s32 func0f117ce4(OSPfs *pfs, s32 file_no, OSPfsState *note)
+s32 pakFileState(OSPfs *pfs, s32 file_no, OSPfsState *note)
 {
 	if (pfs) {
 		s32 result;
@@ -1722,7 +1783,7 @@ s32 func0f117ce4(OSPfs *pfs, s32 file_no, OSPfsState *note)
 
 const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
 
-s32 func0f117d90(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no)
+s32 pakAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no)
 {
 	if (pfs) {
 		return osPfsAllocateFile(pfs, company_code, game_code, game_name, ext_name, size, file_no);
@@ -1737,7 +1798,7 @@ s32 func0f117d90(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, c
 	return 0;
 }
 
-u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name)
+u32 pakDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
 	if (pfs) {
 		return osPfsDeleteFile(pfs, company_code, game_code, game_name, ext_name);
@@ -1750,7 +1811,7 @@ u32 func0f117e00(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, c
 	return 0;
 }
 
-s32 func0f117e58(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no)
+s32 pakFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no)
 {
 	if (pfs) {
 		return osPfsFindFile(pfs, company_code, game_code, game_name, ext_name, file_no);
@@ -1863,7 +1924,7 @@ s32 func0f118000(s8 device)
 {
 	s32 value;
 
-	func0f117c80(PFS(device), &value);
+	pakFreeBlocks(PFS(device), &value);
 
 	return value / 256;
 }
@@ -7377,7 +7438,7 @@ s32 func0f11a504(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 l
 	joy000150e8(3096, "pak.c");
 #endif
 
-	result = func0f117b4c(pfs, file_no, flag, address, len, buffer);
+	result = pakReadWriteFile(pfs, file_no, flag, address, len, buffer);
 
 #if VERSION >= VERSION_NTSC_1_0
 	joy00015144();
@@ -7469,7 +7530,7 @@ glabel func0f11a574
 /*  f11a68c:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f11a690:	03ce2021 */ 	addu	$a0,$s8,$t6
 .L0f11a694:
-/*  f11a694:	0fc45f20 */ 	jal	func0f117c80
+/*  f11a694:	0fc45f20 */ 	jal	pakFreeBlocks
 /*  f11a698:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f11a69c:	8faf0060 */ 	lw	$t7,0x60($sp)
 /*  f11a6a0:	00152e00 */ 	sll	$a1,$s5,0x18
@@ -7508,7 +7569,7 @@ glabel func0f11a574
 /*  f11a718:	000c60c0 */ 	sll	$t4,$t4,0x3
 /*  f11a71c:	03cc2021 */ 	addu	$a0,$s8,$t4
 .L0f11a720:
-/*  f11a720:	0fc45f39 */ 	jal	func0f117ce4
+/*  f11a720:	0fc45f39 */ 	jal	pakFileState
 /*  f11a724:	02603025 */ 	or	$a2,$s3,$zero
 /*  f11a728:	10400003 */ 	beqz	$v0,.L0f11a738
 /*  f11a72c:	ae220000 */ 	sw	$v0,0x0($s1)
@@ -7640,7 +7701,7 @@ glabel func0f11a574
 /*  f114540:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f114544:	03ce2021 */ 	addu	$a0,$s8,$t6
 .NB0f114548:
-/*  f114548:	0fc447f9 */ 	jal	func0f117c80
+/*  f114548:	0fc447f9 */ 	jal	pakFreeBlocks
 /*  f11454c:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f114550:	8faf0060 */ 	lw	$t7,0x60($sp)
 /*  f114554:	00152e00 */ 	sll	$a1,$s5,0x18
@@ -7679,7 +7740,7 @@ glabel func0f11a574
 /*  f1145cc:	000c60c0 */ 	sll	$t4,$t4,0x3
 /*  f1145d0:	03cc2021 */ 	addu	$a0,$s8,$t4
 .NB0f1145d4:
-/*  f1145d4:	0fc4481a */ 	jal	func0f117ce4
+/*  f1145d4:	0fc4481a */ 	jal	pakFileState
 /*  f1145d8:	02603025 */ 	or	$a2,$s3,$zero
 /*  f1145dc:	10400003 */ 	beqz	$v0,.NB0f1145ec
 /*  f1145e0:	ae220000 */ 	sw	$v0,0x0($s1)
@@ -7773,7 +7834,7 @@ glabel func0f11a7dc
 /*  f11a858:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11a85c:	03288021 */ 	addu	$s0,$t9,$t0
 /*  f11a860:	8e05029c */ 	lw	$a1,0x29c($s0)
-/*  f11a864:	0fc45f39 */ 	jal	func0f117ce4
+/*  f11a864:	0fc45f39 */ 	jal	pakFileState
 /*  f11a868:	27a6002c */ 	addiu	$a2,$sp,0x2c
 /*  f11a86c:	0c005451 */ 	jal	joy00015144
 /*  f11a870:	afa20028 */ 	sw	$v0,0x28($sp)
@@ -7852,7 +7913,7 @@ glabel func0f11a7dc
 /*  f114710:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*  f114714:	03288021 */ 	addu	$s0,$t9,$t0
 /*  f114718:	8e05029c */ 	lw	$a1,0x29c($s0)
-/*  f11471c:	0fc4481a */ 	jal	func0f117ce4
+/*  f11471c:	0fc4481a */ 	jal	pakFileState
 /*  f114720:	27a6002c */ 	addiu	$a2,$sp,0x2c
 /*  f114724:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f114728:	afa20028 */ 	sw	$v0,0x28($sp)
@@ -7926,7 +7987,7 @@ glabel func0f1147b8nb
 /*  f114814:	01f82821 */ 	addu	$a1,$t7,$t8
 .NB0f114818:
 /*  f114818:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f11481c:	0fc4478e */ 	jal	func0f117b04
+/*  f11481c:	0fc4478e */ 	jal	pakInitPak
 /*  f114820:	02003025 */ 	or	$a2,$s0,$zero
 /*  f114824:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f114828:	afa20020 */ 	sw	$v0,0x20($sp)
@@ -8041,7 +8102,7 @@ glabel func0f11a8f4
 /*  f11a9dc:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f11a9e0:	24e75cf8 */ 	addiu	$a3,$a3,%lo(g_PakNoteGameName)
 /*  f11a9e4:	34c64445 */ 	ori	$a2,$a2,_gamecode
-/*  f11a9e8:	0fc45f96 */ 	jal	func0f117e58
+/*  f11a9e8:	0fc45f96 */ 	jal	pakFindFile
 /*  f11a9ec:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f11a9f0:	0c005451 */ 	jal	joy00015144
 /*  f11a9f4:	afa20048 */ 	sw	$v0,0x48($sp)
@@ -8094,7 +8155,7 @@ glabel func0f11a8f4
 /*  f11aaa4:	34c64445 */ 	ori	$a2,$a2,_gamecode
 /*  f11aaa8:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f11aaac:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f11aab0:	0fc45f64 */ 	jal	func0f117d90
+/*  f11aab0:	0fc45f64 */ 	jal	pakAllocateFile
 /*  f11aab4:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f11aab8:	0c005451 */ 	jal	joy00015144
 /*  f11aabc:	afa20048 */ 	sw	$v0,0x48($sp)
@@ -8291,7 +8352,7 @@ glabel func0f11a8f4
 /*  f11a75c:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f11a760:	24e75cf8 */ 	addiu	$a3,$a3,%lo(g_PakNoteGameName)
 /*  f11a764:	34c64445 */ 	ori	$a2,$a2,_gamecode
-/*  f11a768:	0fc45f76 */ 	jal	func0f117e58
+/*  f11a768:	0fc45f76 */ 	jal	pakFindFile
 /*  f11a76c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f11a770:	0c005451 */ 	jal	joy00015144
 /*  f11a774:	afa2004c */ 	sw	$v0,0x4c($sp)
@@ -8344,7 +8405,7 @@ glabel func0f11a8f4
 /*  f11a824:	34c64445 */ 	ori	$a2,$a2,_gamecode
 /*  f11a828:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f11a82c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f11a830:	0fc45f44 */ 	jal	func0f117d90
+/*  f11a830:	0fc45f44 */ 	jal	pakAllocateFile
 /*  f11a834:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f11a838:	0c005451 */ 	jal	joy00015144
 /*  f11a83c:	afa2004c */ 	sw	$v0,0x4c($sp)
@@ -8533,7 +8594,7 @@ glabel func0f11a8f4
 /*  f114994:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f114998:	24e780b8 */ 	addiu	$a3,$a3,-32584
 /*  f11499c:	34c64445 */ 	ori	$a2,$a2,0x4445
-/*  f1149a0:	0fc4487f */ 	jal	func0f117e58
+/*  f1149a0:	0fc4487f */ 	jal	pakFindFile
 /*  f1149a4:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f1149a8:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f1149ac:	afa20040 */ 	sw	$v0,0x40($sp)
@@ -8592,7 +8653,7 @@ glabel func0f11a8f4
 /*  f114a70:	34c64445 */ 	ori	$a2,$a2,0x4445
 /*  f114a74:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f114a78:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f114a7c:	0fc4484d */ 	jal	func0f117d90
+/*  f114a7c:	0fc4484d */ 	jal	pakAllocateFile
 /*  f114a80:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f114a84:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f114a88:	afa20040 */ 	sw	$v0,0x40($sp)
@@ -8735,7 +8796,7 @@ glabel func0f11ac7c
 /*  f11acdc:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*  f11ace0:	02003025 */ 	or	$a2,$s0,$zero
 /*  f11ace4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11ace8:	0fc45ec1 */ 	jal	func0f117b04
+/*  f11ace8:	0fc45ec1 */ 	jal	pakInitPak
 /*  f11acec:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f11acf0:	00102e00 */ 	sll	$a1,$s0,0x18
 /*  f11acf4:	0005ce03 */ 	sra	$t9,$a1,0x18
@@ -8964,7 +9025,7 @@ glabel func0f114c08nb
 /*  f114c74:	01f82821 */ 	addu	$a1,$t7,$t8
 .NB0f114c78:
 /*  f114c78:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f114c7c:	0fc4478e */ 	jal	func0f117b04
+/*  f114c7c:	0fc4478e */ 	jal	pakInitPak
 /*  f114c80:	02003025 */ 	or	$a2,$s0,$zero
 /*  f114c84:	00102e00 */ 	sll	$a1,$s0,0x18
 /*  f114c88:	0005ce03 */ 	sra	$t9,$a1,0x18
@@ -12487,7 +12548,7 @@ void pakExecuteDebugOperations(void)
 		s32 device = g_PakDebugPakInit - 1;
 		joy000150e8();
 
-		func0f117b04(&var80099e78, PFS(device), device, 0);
+		pakInitPak(&var80099e78, PFS(device), device, 0);
 		joy00015144();
 		g_PakDebugPakInit = false;
 	}
@@ -12594,7 +12655,7 @@ glabel pakExecuteDebugOperations
 /*  f11657c:	01f82821 */ 	addu	$a1,$t7,$t8
 .NB0f116580:
 /*  f116580:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f116584:	0fc4478e */ 	jal	func0f117b04
+/*  f116584:	0fc4478e */ 	jal	pakInitPak
 /*  f116588:	02003025 */ 	or	$a2,$s0,$zero
 /*  f11658c:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f116590:	24a5e708 */ 	addiu	$a1,$a1,-6392
