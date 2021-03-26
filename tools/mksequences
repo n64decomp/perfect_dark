@@ -4,7 +4,8 @@ import os
 import subprocess
 import sys
 
-sys.path.append('src/assets/sequences')
+sys.path.append('src/assets/%s/sequences' % os.environ['ROMID'])
+
 from sequences import sequences
 
 def zip(filename):
@@ -19,7 +20,7 @@ fd.seek(4)
 offset = 4 + len(sequences) * 8
 
 for name in sequences:
-    filename = 'src/assets/sequences/' + name;
+    filename = 'src/assets/%s/sequences/%s' % (os.environ['ROMID'], name)
     fd2 = open(filename, 'rb')
     data = fd2.read()
     fd2.close()

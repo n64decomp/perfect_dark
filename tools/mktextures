@@ -3,7 +3,8 @@
 import os
 import sys
 
-sys.path.append('src/assets/textures')
+sys.path.append('src/assets/%s/textures' % os.environ['ROMID'])
+
 from textures import textures
 
 fdd = open('build/%s/assets/texturesdata.bin' % os.environ['ROMID'], 'wb')
@@ -15,7 +16,7 @@ for row in textures:
     name = row[0]
     flags = row[1]
 
-    filename = 'src/assets/textures/' + name;
+    filename = 'src/assets/%s/textures/%s' % (os.environ['ROMID'], name);
     fd = open(filename, 'rb')
     data = fd.read()
     fd.close()

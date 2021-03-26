@@ -30,7 +30,7 @@
 #define MPSTRINGS(lang) \
 	BEGIN_SEG(mpstrings##lang) \
 	{ \
-		build/ROMID/assets/mpstrings/ROMID/mpstrings##lang.o (.data); \
+		build/ROMID/assets/mpstrings/mpstrings##lang.o (.data); \
 	} \
 	END_SEG(mpstrings##lang)
 
@@ -216,7 +216,7 @@ SECTIONS
 
 	BEGIN_SEG(bootloader)
 	{
-		build/ROMID/assets/bootloader/bootloader.o (.data);
+		build/ROMID/bootloader.o (.data);
 	}
 	END_SEG(bootloader)
 
@@ -261,13 +261,13 @@ SECTIONS
 
 	BEGIN_SEG(data)
 	{
-		build/ROMID/assets/rsp/rspboot.text.o (.data);
-		build/ROMID/assets/rsp/gsp.text.o (.data);
-		build/ROMID/assets/rsp/asp.text.o (.data);
+		build/ROMID/rsp/rspboot.text.o (.data);
+		build/ROMID/rsp/gsp.text.o (.data);
+		build/ROMID/rsp/asp.text.o (.data);
 		LIBFILES(.data)
 		GAMEFILES(.data)
-		build/ROMID/assets/rsp/gsp.data.o (.data);
-		build/ROMID/assets/rsp/asp.data.o (.data);
+		build/ROMID/rsp/gsp.data.o (.data);
+		build/ROMID/rsp/asp.data.o (.data);
 	}
 	END_SEG(data)
 
@@ -355,7 +355,21 @@ SECTIONS
 
 	BEGIN_SEG(animations) SUBALIGN(1)
 	{
-#include "../src/assets/animations/list.ld"
+
+#if VERSION == VERSION_JPN_FINAL
+#include "../src/assets/jpn-final/animations/list.ld"
+#elif VERSION == VERSION_PAL_FINAL
+#include "../src/assets/pal-final/animations/list.ld"
+#elif VERSION == VERSION_PAL_BETA
+#include "../src/assets/pal-beta/animations/list.ld"
+#elif VERSION == VERSION_NTSC_FINAL
+#include "../src/assets/ntsc-final/animations/list.ld"
+#elif VERSION == VERSION_NTSC_1_0
+#include "../src/assets/ntsc-1.0/animations/list.ld"
+#elif VERSION == VERSION_NTSC_BETA
+#include "../src/assets/ntsc-beta/animations/list.ld"
+#endif
+
 		. = ALIGN(0x10);
 		build/ROMID/assets/animations/list.o (.data);
 	}
@@ -374,7 +388,7 @@ SECTIONS
 
 	BEGIN_SEG(mpconfigs)
 	{
-		build/ROMID/assets/mpconfigs.o (.data);
+		build/ROMID/mpconfigs.o (.data);
 	}
 	END_SEG(mpconfigs)
 
@@ -404,7 +418,7 @@ SECTIONS
 
 	BEGIN_SEG(firingrange)
 	{
-		build/ROMID/assets/firingrange.o (.data);
+		build/ROMID/firingrange.o (.data);
 	}
 	END_SEG(firingrange)
 
@@ -434,7 +448,7 @@ SECTIONS
 
 	BEGIN_SEG(getitle)
 	{
-		build/ROMID/assets/getitle.o (.data);
+		build/ROMID/getitle.o (.data);
 	}
 	END_SEG(getitle)
 
@@ -550,7 +564,19 @@ SECTIONS
 	. = 0;
 	_filesSegmentRomStart = __rompos;
 
-#include "../src/assets/files/list.ld"
+#if VERSION == VERSION_JPN_FINAL
+#include "../src/assets/jpn-final/files/list.ld"
+#elif VERSION == VERSION_PAL_FINAL
+#include "../src/assets/pal-final/files/list.ld"
+#elif VERSION == VERSION_PAL_BETA
+#include "../src/assets/pal-beta/files/list.ld"
+#elif VERSION == VERSION_NTSC_FINAL
+#include "../src/assets/ntsc-final/files/list.ld"
+#elif VERSION == VERSION_NTSC_1_0
+#include "../src/assets/ntsc-1.0/files/list.ld"
+#elif VERSION == VERSION_NTSC_BETA
+#include "../src/assets/ntsc-beta/files/list.ld"
+#endif
 
 	_filesSegmentRomEnd = __rompos;
 

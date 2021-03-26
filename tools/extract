@@ -94,7 +94,7 @@ class Extractor:
         self.write_asset('copyright.bin', data)
 
     def extract_data(self):
-        self.write_extracted('segments/data.bin', self.data)
+        self.write_extracted('data.bin', self.data)
 
     def extract_files(self):
         offsets = self.get_file_offsets()
@@ -125,7 +125,7 @@ class Extractor:
             elif name.endswith('padsZ'):
                 self.write_asset('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
             elif name.endswith('tilesZ'):
-                self.write_extracted('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
+                self.write_asset('files/bgdata/%s.bin' % os.path.basename(unzippedname), unzipped)
             elif name.startswith('A'):
                 self.write_asset('files/audio/%s.mp3' % unzippedname[1:-1], content)
             elif name.startswith('C'):
@@ -182,30 +182,30 @@ class Extractor:
                 break
             i += 4
 
-        self.write_extracted('segments/game.bin', binary)
+        self.write_extracted('game.bin', binary)
 
     def extract_inflate(self):
-        self.write_extracted('segments/inflate.bin', self.rom[0x4e850:0x4fc40])
+        self.write_extracted('inflate.bin', self.rom[0x4e850:0x4fc40])
 
     def extract_garbage1(self):
         start = self.val('garbage1')
         end = self.val('data')
-        self.write_asset('garbage/%s/garbage1.bin' % self.romid, self.rom[start:end])
+        self.write_extracted('garbage1.bin', self.rom[start:end])
 
     def extract_garbage2(self):
         start = self.val('garbage2')
         end = self.val('animations')
-        self.write_asset('garbage/%s/garbage2.bin' % self.romid, self.rom[start:end])
+        self.write_extracted('garbage2.bin', self.rom[start:end])
 
     # In all versions, lib starts at 0x1000 and is compressed from 0x3050 onwards
     def extract_lib(self):
         part1 = self.rom[0x1000:0x3050]
         part2 = self.decompress(self.rom[0x3050:])
-        self.write_extracted('segments/lib.bin', part1 + part2)
+        self.write_extracted('lib.bin', part1 + part2)
 
     def extract_mpconfigs(self):
         addr = self.val('mpconfigs')
-        self.write_extracted('segments/mpconfigs.bin', self.rom[addr:addr+0x68*44])
+        self.write_extracted('mpconfigs.bin', self.rom[addr:addr+0x68*44])
 
     def extract_mpstrings(self):
         self.extract_mpstrings_lang(0, 'E')
@@ -218,11 +218,11 @@ class Extractor:
 
     def extract_mpstrings_lang(self, index, lang):
         addr = self.val('mpconfigs') + 0x68 * 44 + 0x3700 * index
-        self.write_extracted('segments/mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
+        self.write_extracted('mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
 
     def extract_firingrange(self):
         addr = self.val('firingrange')
-        self.write_extracted('segments/firingrange.bin', self.rom[addr:addr+0x1550])
+        self.write_extracted('firingrange.bin', self.rom[addr:addr+0x1550])
 
     def extract_font(self, startvar, endvar, fontname):
         start = self.val(startvar)
@@ -242,7 +242,7 @@ class Extractor:
         self.extract_font('font9', 'sfxctl', 'ocralg')
 
     def extract_bootloader(self):
-        self.write_asset('bootloader/bootloader.bin', self.rom[0x40:0x1000])
+        self.write_extracted('bootloader.bin', self.rom[0x40:0x1000])
 
     def extract_rsp_segment(self, name, pos, length):
         if pos < 0:
@@ -251,14 +251,14 @@ class Extractor:
         end = pos + length
         content = self.data[pos:end]
 
-        self.write_asset(name, content)
+        self.write_extracted('rsp/' + name, content)
 
     def extract_rsp(self):
-        self.extract_rsp_segment('rsp/rspboot.text.bin', 0, 0xd0)
-        self.extract_rsp_segment('rsp/gsp.text.bin', 0xd0, 0x1420)
-        self.extract_rsp_segment('rsp/asp.text.bin', 0x14f0, 0x1930)
-        self.extract_rsp_segment('rsp/gsp.data.bin', -0x1350, 0x800)
-        self.extract_rsp_segment('rsp/asp.data.bin', -0xb50, 0xb50)
+        self.extract_rsp_segment('rspboot.text.bin', 0, 0xd0)
+        self.extract_rsp_segment('gsp.text.bin', 0xd0, 0x1420)
+        self.extract_rsp_segment('asp.text.bin', 0x14f0, 0x1930)
+        self.extract_rsp_segment('gsp.data.bin', -0x1350, 0x800)
+        self.extract_rsp_segment('asp.data.bin', -0xb50, 0xb50)
 
     def extract_textures(self):
         base = self.val('textures')
@@ -279,11 +279,11 @@ class Extractor:
 
     def extract_textureconfig(self):
         addr = self.val('textureconfig')
-        self.write_extracted('segments/textureconfig.bin', self.rom[addr:addr+0xb50])
+        self.write_extracted('textureconfig.bin', self.rom[addr:addr+0xb50])
 
     def extract_getitle(self):
         addr = self.val('textureconfig') + 0xb50
-        self.write_asset('getitle.bin', self.rom[addr:addr+0x65d0])
+        self.write_extracted('getitle.bin', self.rom[addr:addr+0x65d0])
 
     #
     # Misc functions
@@ -306,7 +306,7 @@ class Extractor:
         self.write(filename, data)
 
     def write_asset(self, filename, data):
-        filename = 'src/assets/%s' % filename
+        filename = 'src/assets/%s/%s' % (self.romid, filename)
         self.write(filename, data)
 
     def write(self, filename, data):

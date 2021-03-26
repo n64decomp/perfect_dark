@@ -43,7 +43,9 @@ ifeq ($(ROMID),jpn-final)
 	VERSION=5
 endif
 
+A_DIR := src/assets/$(ROMID)
 B_DIR := build/$(ROMID)
+E_DIR := extracted/$(ROMID)
 
 ifeq ($(shell type mips-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
 	# Debian, Ubuntu and Arch AUR
@@ -147,34 +149,38 @@ CFLAGS = -DVERSION=$(VERSION) \
 C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game -name '*.s')
 
-# Create names such as $(B_DIR)/assets/files/PfooZ
-# These names (with .o added) will be dependenices for LD
+# Create names such as $(B_DIR)/assets/files/PfooZ.
+# These names (with .o added) will be dependenices for ld.
+#
+# There are two types of assets: Those which are generated for all versions from
+# a single location in src, and those which are copied into each ROM version
+# folder at src/assets/$(ROMID) folder. Currently the former is just setup and
+# tile files.
 ASSET_FILES := \
-	$(patsubst src/assets/files/audio/%.mp3, $(B_DIR)/assets/files/A%M, $(shell find src/assets/files/audio -name '*.mp3')) \
-	$(patsubst src/assets/files/chrs/%.bin, $(B_DIR)/assets/files/C%Z, $(shell find src/assets/files/chrs -name '*.bin')) \
-	$(patsubst src/assets/files/guns/%.bin, $(B_DIR)/assets/files/G%Z, $(shell find src/assets/files/guns -name '*.bin')) \
-	$(patsubst src/assets/files/props/%.bin, $(B_DIR)/assets/files/P%Z, $(shell find src/assets/files/props -name '*.bin')) \
-	$(patsubst src/assets/files/setup/%.c, $(B_DIR)/assets/files/U%Z, $(shell find src/assets/files/setup -name '*.c')) \
-	$(patsubst src/assets/files/bgdata/%.seg, $(B_DIR)/assets/files/bgdata/%.seg, $(shell find src/assets/files/bgdata -name '*.seg')) \
-	$(patsubst src/assets/files/bgdata/%_pads.bin, $(B_DIR)/assets/files/bgdata/%_padsZ, $(shell find src/assets/files/bgdata -name 'bg_*_pads.bin')) \
-	$(patsubst src/assets/files/bgdata/%_tiles.s, $(B_DIR)/assets/files/bgdata/%_tilesZ, $(shell find src/assets/files/bgdata -name 'bg_*_tiles.s')) \
-	$(patsubst src/assets/files/bgdata/%_tiles.bin, $(B_DIR)/assets/files/bgdata/%_tilesZ, $(shell find src/assets/files/bgdata -name 'bg_*_tiles.bin')) \
-	$(patsubst src/assets/files/lang/$(ROMID)/%.c, $(B_DIR)/assets/files/L%, $(shell find src/assets/files/lang/$(ROMID) -name '*[EJP].c')) \
-	$(patsubst src/assets/files/lang/$(ROMID)/%.c, $(B_DIR)/assets/files/L%Z, $(shell find src/assets/files/lang/$(ROMID) -name '*_str_[fgis].c')) \
+	$(patsubst $(A_DIR)/files/audio/%.mp3,        $(B_DIR)/assets/files/A%M,             $(shell find $(A_DIR)/files/audio -name '*.mp3')) \
+	$(patsubst $(A_DIR)/files/chrs/%.bin,         $(B_DIR)/assets/files/C%Z,             $(shell find $(A_DIR)/files/chrs -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/guns/%.bin,         $(B_DIR)/assets/files/G%Z,             $(shell find $(A_DIR)/files/guns -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/props/%.bin,        $(B_DIR)/assets/files/P%Z,             $(shell find $(A_DIR)/files/props -name '*.bin')) \
+	$(patsubst src/files/setup/%.c,               $(B_DIR)/assets/files/U%Z,             $(shell find src/files/setup -name '*.c')) \
+	$(patsubst $(A_DIR)/files/setup/%.bin,        $(B_DIR)/assets/files/U%Z,             $(shell find $(A_DIR)/files/setup -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/bgdata/%.seg,       $(B_DIR)/assets/files/bgdata/%.seg,    $(shell find $(A_DIR)/files/bgdata -name '*.seg')) \
+	$(patsubst $(A_DIR)/files/bgdata/%_pads.bin,  $(B_DIR)/assets/files/bgdata/%_padsZ,  $(shell find $(A_DIR)/files/bgdata -name 'bg_*_pads.bin')) \
+	$(patsubst src/files/bgdata/%_tiles.s,        $(B_DIR)/assets/files/bgdata/%_tilesZ, $(shell find src/files/bgdata -name 'bg_*_tiles.s')) \
+	$(patsubst $(A_DIR)/files/bgdata/%_tiles.bin, $(B_DIR)/assets/files/bgdata/%_tilesZ, $(shell find $(A_DIR)/files/bgdata -name 'bg_*_tiles.bin')) \
+	$(patsubst $(A_DIR)/files/lang/%.c,           $(B_DIR)/assets/files/L%,              $(shell find $(A_DIR)/files/lang -name '*[EJP].c')) \
+	$(patsubst $(A_DIR)/files/lang/%.c,           $(B_DIR)/assets/files/L%Z,             $(shell find $(A_DIR)/files/lang -name '*_str_[fgis].c')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
-
-ANIM_FILES := $(shell find src/assets/animations -name '*.bin')
 
 O_FILES := \
 	$(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES)) \
 	$(patsubst src/%.s, $(B_DIR)/%.o, $(S_FILES)) \
 	$(patsubst %, %.o, $(ASSET_FILES)) \
-	$(patsubst src/%.bin, $(B_DIR)/%.o, $(ANIM_FILES)) \
+	$(patsubst $(A_DIR)/animations/%.bin, $(B_DIR)/assets/animations/%.o, $(shell find $(A_DIR)/animations -name '*.bin')) \
 	$(B_DIR)/assets/animations/list.o \
-	$(B_DIR)/assets/bootloader/bootloader.o \
+	$(B_DIR)/bootloader.o \
 	$(B_DIR)/assets/copyrightZ.o \
 	$(B_DIR)/assets/files/list.o \
-	$(B_DIR)/assets/firingrange.o \
+	$(B_DIR)/firingrange.o \
 	$(B_DIR)/assets/fonts/bankgothic.o \
 	$(B_DIR)/assets/fonts/handelgothiclg.o \
 	$(B_DIR)/assets/fonts/handelgothicmd.o \
@@ -185,20 +191,20 @@ O_FILES := \
 	$(B_DIR)/assets/fonts/ocramd.o \
 	$(B_DIR)/assets/fonts/tahoma.o \
 	$(B_DIR)/assets/fonts/zurich.o \
-	$(B_DIR)/assets/getitle.o \
-	$(B_DIR)/assets/mpconfigs.o \
-	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsE.o \
-	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsF.o \
-	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsG.o \
-	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsI.o \
-	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsJ.o \
-	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsP.o \
-	$(B_DIR)/assets/mpstrings/$(ROMID)/mpstringsS.o \
-	$(B_DIR)/assets/rsp/rspboot.text.o \
-	$(B_DIR)/assets/rsp/asp.data.o \
-	$(B_DIR)/assets/rsp/asp.text.o \
-	$(B_DIR)/assets/rsp/gsp.data.o \
-	$(B_DIR)/assets/rsp/gsp.text.o \
+	$(B_DIR)/getitle.o \
+	$(B_DIR)/mpconfigs.o \
+	$(B_DIR)/assets/mpstrings/mpstringsE.o \
+	$(B_DIR)/assets/mpstrings/mpstringsF.o \
+	$(B_DIR)/assets/mpstrings/mpstringsG.o \
+	$(B_DIR)/assets/mpstrings/mpstringsI.o \
+	$(B_DIR)/assets/mpstrings/mpstringsJ.o \
+	$(B_DIR)/assets/mpstrings/mpstringsP.o \
+	$(B_DIR)/assets/mpstrings/mpstringsS.o \
+	$(B_DIR)/rsp/rspboot.text.o \
+	$(B_DIR)/rsp/asp.data.o \
+	$(B_DIR)/rsp/asp.text.o \
+	$(B_DIR)/rsp/gsp.data.o \
+	$(B_DIR)/rsp/gsp.text.o \
 	$(B_DIR)/assets/seq.ctl.o \
 	$(B_DIR)/assets/seq.tbl.o \
 	$(B_DIR)/assets/sequences.o \
@@ -279,80 +285,81 @@ $(B_DIR)/segments/%.bin: $(B_DIR)/stage2.bin
 ################################################################################
 # Raw data segments
 
-$(B_DIR)/assets/fonts/%.o: src/assets/fonts/%.bin
+$(B_DIR)/assets/fonts/%.o: $(A_DIR)/fonts/%.bin
 	mkdir -p $(B_DIR)/assets/fonts
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/getitle.o: src/assets/getitle.bin
+$(B_DIR)/getitle.o: $(E_DIR)/getitle.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/seq.ctl.o: src/assets/seq.ctl
+$(B_DIR)/assets/seq.ctl.o: $(A_DIR)/seq.ctl
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/seq.tbl.o: src/assets/seq.tbl
+$(B_DIR)/assets/seq.tbl.o: $(A_DIR)/seq.tbl
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/sfx.ctl.o: src/assets/sfx.ctl
+$(B_DIR)/assets/sfx.ctl.o: $(A_DIR)/sfx.ctl
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/sfx.tbl.o: src/assets/sfx.tbl
+$(B_DIR)/assets/sfx.tbl.o: $(A_DIR)/sfx.tbl
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/textures.o: src/assets/textures.bin
+$(B_DIR)/assets/textures.o: $(A_DIR)/textures.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 ################################################################################
 # Files
 
 # Audio
-$(B_DIR)/assets/files/A%M: src/assets/files/audio/%.mp3
+$(B_DIR)/assets/files/A%M: $(A_DIR)/files/audio/%.mp3
 	@mkdir -p $(B_DIR)/assets/files
 	cp $< $@
 
 # BG segs
-$(B_DIR)/assets/files/bgdata/bg_%.seg: src/assets/files/bgdata/bg_%.seg
+$(B_DIR)/assets/files/bgdata/bg_%.seg: $(A_DIR)/files/bgdata/bg_%.seg
 	@mkdir -p $(B_DIR)/assets/files/bgdata
 	cp $< $@
 
 # BG pads
-$(B_DIR)/assets/files/bgdata/bg_%_padsZ: src/assets/files/bgdata/bg_%_pads.bin
+$(B_DIR)/assets/files/bgdata/bg_%_padsZ: $(A_DIR)/files/bgdata/bg_%_pads.bin
 	@mkdir -p $(B_DIR)/assets/files/bgdata
 	tools/rarezip $< > $@
 
 # BG tiles
 # src/assets/files/bgdata/bg_foo_tiles.s
-# -> B_DIR/assets/files/bgdata/bg_foo_tiles.o (done by generic .o target)
+# -> B_DIR/assets/files/bgdata/bg_foo_tiles.o (done here)
 # -> B_DIR/assets/files/bgdata/bg_foo_tiles.elf (done here)
-# -> B_DIR/assets/files/bgdata/bg_foo_tiles (done here)
+# -> A_DIR/assets/files/bgdata/bg_foo_tiles.bin (done here)
 # -> B_DIR/assets/files/bgdata/bg_foo_tilesZ (done here)
-# Or create src/assets/files/bgdata/bg_foo_tiles.bin and it'll get copied/zipped
-$(B_DIR)/assets/files/bgdata/bg_%_tiles.o: src/assets/files/bgdata/bg_%_tiles.s
+# Or create $(A_DIR)/files/bgdata/bg_foo_tiles.bin to skip the earlier steps
+$(B_DIR)/assets/files/bgdata/bg_%_tiles.o: src/files/bgdata/bg_%_tiles.s
 	$(TOOLCHAIN)-as --defsym VERSION=$(VERSION) -march=vr4300 -mabi=32 -I src/include -EB -o $@ $<
 
 $(B_DIR)/assets/files/bgdata/bg_%_tiles.elf: $(B_DIR)/assets/files/bgdata/bg_%_tiles.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
 
-$(B_DIR)/assets/files/bgdata/bg_%_tiles: $(B_DIR)/assets/files/bgdata/bg_%_tiles.elf
+$(A_DIR)/files/bgdata/bg_%_tiles.bin: $(B_DIR)/assets/files/bgdata/bg_%_tiles.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
-$(B_DIR)/assets/files/bgdata/bg_%_tilesZ: src/assets/files/bgdata/bg_%_tiles.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/bgdata/bg_%_tilesZ: $(B_DIR)/assets/files/bgdata/bg_%_tiles
+$(B_DIR)/assets/files/bgdata/bg_%_tilesZ: $(A_DIR)/files/bgdata/bg_%_tiles.bin
 	tools/rarezip $< > $@
 
 # Chrs
-$(B_DIR)/assets/files/C%Z: src/assets/files/chrs/%.bin
+$(B_DIR)/assets/files/C%Z: $(A_DIR)/files/chrs/%.bin
 	@mkdir -p $(B_DIR)/assets/files
 	tools/rarezip $< > $@
 
 # Guns
-$(B_DIR)/assets/files/G%Z: src/assets/files/guns/%.bin
+$(B_DIR)/assets/files/G%Z: $(A_DIR)/files/guns/%.bin
 	@mkdir -p $(B_DIR)/assets/files
 	tools/rarezip $< > $@
 
 # Lang
-$(B_DIR)/assets/files/lang/%.elf: $(B_DIR)/assets/files/lang/$(ROMID)/%.o
+$(B_DIR)/assets/files/lang/%.o: $(A_DIR)/files/lang/%.c
+	@mkdir -p $(dir $@)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
+
+$(B_DIR)/assets/files/lang/%.elf: $(B_DIR)/assets/files/lang/%.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
 
 $(B_DIR)/assets/files/lang/%.bin: $(B_DIR)/assets/files/lang/%.elf
@@ -388,26 +395,29 @@ $(B_DIR)/assets/files/ob/ob_mid.seg:
 	> $@
 
 # Props
-$(B_DIR)/assets/files/P%Z: src/assets/files/props/%.bin
+$(B_DIR)/assets/files/P%Z: $(A_DIR)/files/props/%.bin
 	tools/rarezip $< > $@
 
 # Stage setups
-# src/assets/files/setup/foo.c
-# -> B_DIR/assets/files/setup/foo.o (done by generic .o target)
+# $(A_DIR)/files/setup/foo.c
+# -> B_DIR/assets/files/setup/foo.o (done here)
 # -> B_DIR/assets/files/setup/foo.elf (done here)
-# -> B_DIR/assets/files/Usetupfoo (done here)
+# -> A_DIR/assets/files/setup/foo.bin (done here)
 # -> B_DIR/assets/files/UsetupfooZ (done here)
-# Or create src/assets/files/setup/foo.bin and it'll get copied/zipped
+# -> B_DIR/assets/files/UsetupfooZ.o (done elsewhere)
+# Or create $(A_DIR)/files/setup/foo.bin to skip the earlier steps
+$(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c
+	@mkdir -p $(dir $@)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
+
 $(B_DIR)/assets/files/setup/%.elf: $(B_DIR)/assets/files/setup/%.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
 
-$(B_DIR)/assets/files/U%: $(B_DIR)/assets/files/setup/%.elf
+$(A_DIR)/files/setup/%.bin: $(B_DIR)/assets/files/setup/%.elf
+	@mkdir -p $(dir $@)
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
-$(B_DIR)/assets/files/U%Z: src/assets/files/setup/%.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/U%Z: $(B_DIR)/assets/files/U%
+$(B_DIR)/assets/files/U%Z: $(A_DIR)/files/setup/%.bin
 	tools/rarezip $< > $@
 
 # General target to convert any finalised file into a raw object for ld
@@ -420,17 +430,17 @@ $(B_DIR)/assets/files/%.bin: $(B_DIR)/assets/files/%.elf
 ################################################################################
 # Miscellaneous
 
-$(B_DIR)/assets/bootloader/bootloader.o: src/assets/bootloader/bootloader.bin
+$(B_DIR)/bootloader.o: $(E_DIR)/bootloader.bin
 	@mkdir -p $(dir $@)
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/romheader.o: src/romheader/romheader.s
 	$(TOOLCHAIN)-as --defsym VERSION=$(VERSION) -march=vr4300 -mabi=32 -I src/include -EB -o $@ $<
 
-$(B_DIR)/assets/accessingpakZ: src/assets/accessingpak.bin
+$(B_DIR)/assets/accessingpakZ: $(A_DIR)/accessingpak.bin
 	tools/rarezip $< > $@
 
-$(B_DIR)/assets/copyrightZ: src/assets/copyright.bin
+$(B_DIR)/assets/copyrightZ: $(A_DIR)/copyright.bin
 	tools/rarezip $< > $@
 
 $(B_DIR)/assets/accessingpakZ.o: $(B_DIR)/assets/accessingpakZ
@@ -439,20 +449,20 @@ $(B_DIR)/assets/accessingpakZ.o: $(B_DIR)/assets/accessingpakZ
 $(B_DIR)/assets/copyrightZ.o: $(B_DIR)/assets/copyrightZ
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/rsp/%.o: src/assets/rsp/%.bin
+$(B_DIR)/rsp/%.o: $(E_DIR)/rsp/%.bin
 	@mkdir -p $(dir $@)
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/sequences.bin: src/assets/sequences/sequences.py
-	tools/mksequences
+$(B_DIR)/assets/sequences.bin: $(A_DIR)/sequences/sequences.py
+	ROMID=$(ROMID) tools/mksequences
 
 $(B_DIR)/assets/sequences.o: $(B_DIR)/assets/sequences.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/texturesdata.bin: src/assets/textures/textures.py
+$(B_DIR)/assets/texturesdata.bin: $(A_DIR)/textures/textures.py
 	tools/mktextures
 
-$(B_DIR)/assets/textureslist.bin: src/assets/textures/textures.py
+$(B_DIR)/assets/textureslist.bin: $(A_DIR)/textures/textures.py
 	tools/mktextures
 
 $(B_DIR)/assets/texturesdata.o: $(B_DIR)/assets/texturesdata.bin
@@ -461,11 +471,11 @@ $(B_DIR)/assets/texturesdata.o: $(B_DIR)/assets/texturesdata.bin
 $(B_DIR)/assets/textureslist.o: $(B_DIR)/assets/textureslist.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/animations/%.o: src/assets/animations/%.bin
+$(B_DIR)/assets/animations/%.o: $(A_DIR)/animations/%.bin
 	@mkdir -p $(dir $@)
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@ 0x1
 
-$(B_DIR)/assets/animations/list.o: src/assets/animations/list.c
+$(B_DIR)/assets/animations/list.o: $(A_DIR)/animations/list.c
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
@@ -513,6 +523,10 @@ $(B_DIR)/%.o: src/%.s
 	@mkdir -p $(dir $@)
 	$(IDOAS) $(CFLAGS) $< -o $@
 
+$(B_DIR)/assets/%.o: $(A_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
+
 extract:
 	ROMID=$(ROMID) tools/extract
 
@@ -524,14 +538,5 @@ clean:
 allclean:
 	rm -rf build/*
 
-assetsclean:
-	find src/assets -name '*.bin' -delete
-	find src/assets -name '*.ctl' -delete
-	find src/assets -name '*.mp3' -delete
-	find src/assets -name '*.seg' -delete
-	find src/assets -name '*.seq' -delete
-	find src/assets -name '*.tbl' -delete
-
 codeclean:
-	rm -f $(B_DIR)/segments/*.bin
 	find $(B_DIR)/{game,inflate,lib} -name '*.o' -delete
