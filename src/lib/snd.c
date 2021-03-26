@@ -722,65 +722,22 @@ glabel snd0000e9dc
 );
 #endif
 
+void sndSetSfxVolume(u16 volume)
+{
+	u8 i;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel sndSetSfxVolume
-/*     ea1c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     ea20:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     ea24:	3091ffff */ 	andi	$s1,$a0,0xffff
-/*     ea28:	2a215001 */ 	slti	$at,$s1,0x5001
-/*     ea2c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     ea30:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     ea34:	14200002 */ 	bnez	$at,.L0000ea40
-/*     ea38:	afa40020 */ 	sw	$a0,0x20($sp)
-/*     ea3c:	24115000 */ 	addiu	$s1,$zero,0x5000
-.L0000ea40:
-/*     ea40:	00008025 */ 	or	$s0,$zero,$zero
-.L0000ea44:
-/*     ea44:	320400ff */ 	andi	$a0,$s0,0xff
-/*     ea48:	0c00cfd1 */ 	jal	func00033f44
-/*     ea4c:	3225ffff */ 	andi	$a1,$s1,0xffff
-/*     ea50:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     ea54:	320e00ff */ 	andi	$t6,$s0,0xff
-/*     ea58:	29c10009 */ 	slti	$at,$t6,0x9
-/*     ea5c:	1420fff9 */ 	bnez	$at,.L0000ea44
-/*     ea60:	01c08025 */ 	or	$s0,$t6,$zero
-/*     ea64:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     ea68:	3c018006 */ 	lui	$at,%hi(g_SfxVolume)
-/*     ea6c:	a431ddc8 */ 	sh	$s1,%lo(g_SfxVolume)($at)
-/*     ea70:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     ea74:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     ea78:	03e00008 */ 	jr	$ra
-/*     ea7c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
-#else
-GLOBAL_ASM(
-glabel sndSetSfxVolume
-/*     f1dc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*     f1e0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     f1e4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     f1e8:	3091ffff */ 	andi	$s1,$a0,0xffff
-/*     f1ec:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     f1f0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*     f1f4:	00008025 */ 	or	$s0,$zero,$zero
-.NB0000f1f8:
-/*     f1f8:	320400ff */ 	andi	$a0,$s0,0xff
-/*     f1fc:	0c00d4c0 */ 	jal	func00035300nb
-/*     f200:	3225ffff */ 	andi	$a1,$s1,0xffff
-/*     f204:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     f208:	320e00ff */ 	andi	$t6,$s0,0xff
-/*     f20c:	29c10009 */ 	slti	$at,$t6,0x9
-/*     f210:	1420fff9 */ 	bnez	$at,.NB0000f1f8
-/*     f214:	01c08025 */ 	or	$s0,$t6,$zero
-/*     f218:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     f21c:	3c018006 */ 	lui	$at,0x8006
-/*     f220:	a431f6e8 */ 	sh	$s1,-0x918($at)
-/*     f224:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     f228:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     f22c:	03e00008 */ 	jr	$ra
-/*     f230:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+	if (volume > 0x5000) {
+		volume = 0x5000;
+	}
 #endif
+
+	for (i = 0; i < 9; i++) {
+		func00033f44(i, volume);
+	}
+
+	g_SfxVolume = volume;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

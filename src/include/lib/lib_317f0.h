@@ -26,6 +26,6 @@ void func00033e50(struct audiohandle *handle, s32 arg1, s32 arg2);
 u32 func00033ec4(void);
 u32 func00033f08(void);
 u32 func00033f24(void);
-u32 func00033f44(void);
+void func00033f44(u8 index, u16 volume);
 
 #endif
