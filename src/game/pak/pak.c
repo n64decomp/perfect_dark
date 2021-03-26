@@ -16837,6 +16837,19 @@ glabel pakSetBitflag
 /*  f11e580:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch: regalloc
+//void pakSetBitflag(u32 flagnum, u8 *bitstream, bool set)
+//{
+//	u32 byteindex = flagnum / 8;
+//	u8 mask = 1 << (flagnum % 8);
+//
+//	if (set) {
+//		bitstream[byteindex] |= mask;
+//	} else {
+//		bitstream[byteindex] &= ~mask;
+//	}
+//}
+
 bool pakHasBitflag(u32 flagnum, u8 *bitstream)
 {
 	u32 byteindex = flagnum / 8;
