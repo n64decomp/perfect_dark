@@ -10,7 +10,7 @@ u32 func00034f0c(void);
 u32 func00034fb8(void);
 u32 func00035110(void);
 u32 func00037220(void);
-u32 func00037554(void);
+u32 __setUsptFromTempo(void);
 u32 func0003759c(void);
 
 #endif

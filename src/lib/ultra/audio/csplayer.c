@@ -6557,7 +6557,7 @@ glabel func00037220
 /*    372a8:	00000000 */ 	nop
 /*    372ac:	46802120 */ 	cvt.s.w	$f4,$f4
 /*    372b0:	44052000 */ 	mfc1	$a1,$f4
-/*    372b4:	0c00dd55 */ 	jal	func00037554
+/*    372b4:	0c00dd55 */ 	jal	__setUsptFromTempo
 /*    372b8:	00000000 */ 	nop
 /*    372bc:	8fab0040 */ 	lw	$t3,0x40($sp)
 /*    372c0:	8d6d0050 */ 	lw	$t5,0x50($t3)
@@ -6705,30 +6705,14 @@ void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
 	osSetIntMask(mask);
 }
 
-GLOBAL_ASM(
-glabel func00037554
-/*    37554:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    37558:	8c8e0018 */ 	lw	$t6,0x18($a0)
-/*    3755c:	11c00009 */ 	beqz	$t6,.L00037584
-/*    37560:	00000000 */ 	nop
-/*    37564:	8c8f0018 */ 	lw	$t7,0x18($a0)
-/*    37568:	c7a40004 */ 	lwc1	$f4,0x4($sp)
-/*    3756c:	c5e60008 */ 	lwc1	$f6,0x8($t7)
-/*    37570:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*    37574:	4600428d */ 	trunc.w.s	$f10,$f8
-/*    37578:	44195000 */ 	mfc1	$t9,$f10
-/*    3757c:	10000003 */ 	b	.L0003758c
-/*    37580:	ac990024 */ 	sw	$t9,0x24($a0)
-.L00037584:
-/*    37584:	240801e8 */ 	addiu	$t0,$zero,0x1e8
-/*    37588:	ac880024 */ 	sw	$t0,0x24($a0)
-.L0003758c:
-/*    3758c:	10000001 */ 	b	.L00037594
-/*    37590:	00000000 */ 	nop
-.L00037594:
-/*    37594:	03e00008 */ 	jr	$ra
-/*    37598:	00000000 */ 	nop
-);
+void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo)
+{
+	if (seqp->target) {
+		seqp->uspt = (s32)((f32)tempo * seqp->target->qnpt);
+	} else {
+		seqp->uspt = 488;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0003759c
