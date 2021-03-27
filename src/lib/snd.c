@@ -37,7 +37,7 @@ u32 var80094ed4;
 struct var80094ed8 var80094ed8[3];
 ALHeap g_SndHeap;
 u32 var80095200;
-u32 var80095204;
+ALBank *var80095204;
 struct seqtable *g_SeqTable;
 u32 var8009520c;
 u8 var80095210[0x40f0];
@@ -2222,7 +2222,7 @@ void sndInit(void)
 		u32 seqromaddr = (u32) &_sequencesSegmentRomStart;
 		u8 *heapstart = ptr;
 		u8 *end = heapstart + heaplen;
-		u32 *tmp;
+		ALBankFile *bankfile;
 
 		while (ptr < end) {
 			*ptr = 0;
@@ -2241,16 +2241,16 @@ void sndInit(void)
 
 		// Load seq.ctl
 		var80095200 = 0xffffffff;
-		tmp = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(tmp, &_seqctlSegmentRomStart, len);
+		bankfile = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
+		dmaExec(bankfile, &_seqctlSegmentRomStart, len);
 
 		// Load seq.tbl
-		func00037704(tmp, &_seqtblSegmentRomStart);
+		alBnkfNew(bankfile, &_seqtblSegmentRomStart);
 
 		// Load the sequences table. To do this, load the header of the
 		// sequences segment and read the number of sequences, then allocate
 		// enough space for the table and load it.
-		var80095204 = tmp[1];
+		var80095204 = bankfile->bankArray[0];
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 0x10);
 		dmaExec(g_SeqTable, (void *) seqromaddr, 0x10);
 
