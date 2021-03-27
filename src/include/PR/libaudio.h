@@ -786,7 +786,7 @@ void    alSeqGetLoc(ALSeq *seq, ALSeqMarker *marker);
  * Compact Sequence data representation routines
  */
 void    alCSeqNew(ALCSeq *seq, u8 *ptr);
-void    alCSeqNextEvent(ALCSeq *seq,ALEvent *evt);
+void    alCSeqNextEvent(ALCSeq *seq, ALEvent *evt, s32 arg2);
 s32     alCSeqGetTicks(ALCSeq *seq);
 f32     alCSeqTicksToSec(ALCSeq *seq, s32 ticks, u32 tempo);
 u32     alCSeqSecToTicks(ALCSeq *seq, f32 sec, u32 tempo);

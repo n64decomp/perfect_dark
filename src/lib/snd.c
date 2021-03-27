@@ -2460,7 +2460,7 @@ glabel snd0000fc48
 /*     fd20:	0c001d3c */ 	jal	rzipInflate
 /*     fd24:	27a60034 */ 	addiu	$a2,$sp,0x34
 /*     fd28:	02002025 */ 	or	$a0,$s0,$zero
-/*     fd2c:	0c00e34c */ 	jal	func00038d30
+/*     fd2c:	0c00e34c */ 	jal	alCSeqNew
 /*     fd30:	8e0500fc */ 	lw	$a1,0xfc($s0)
 /*     fd34:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*     fd38:	0c00e6f8 */ 	jal	func00039be0
@@ -2591,7 +2591,7 @@ glabel snd0000fc48
 /*    10274:	a00c0000 */ 	sb	$t4,0x0($zero)
 .NB00010278:
 /*    10278:	02002025 */ 	or	$a0,$s0,$zero
-/*    1027c:	0c00e840 */ 	jal	func00038d30
+/*    1027c:	0c00e840 */ 	jal	alCSeqNew
 /*    10280:	8e0500fc */ 	lw	$a1,0xfc($s0)
 /*    10284:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*    10288:	0c00ebec */ 	jal	func00039be0
