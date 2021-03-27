@@ -7,7 +7,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0003ccf0
+glabel alSynSetVol
 /*    3ccf0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3ccf4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3ccf8:	afa40020 */ 	sw	$a0,0x20($sp)

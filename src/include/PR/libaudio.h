@@ -342,11 +342,11 @@ void    alSynStartVoiceParams(ALSynth *s, ALVoice *voice, ALWaveTable *w,
                               ALMicroTime t);
 void    alSynStopVoice(ALSynth *s, ALVoice *voice);
 
-void    alSynSetVol(ALSynth *s, ALVoice *v, s16 vol, ALMicroTime delta);
+void    alSynSetVol(ALVoice *v, s16 vol, ALMicroTime delta);
 void    alSynSetPitch(ALSynth *s, ALVoice *voice, f32 ratio);
 void    alSynSetPan(ALSynth *s, ALVoice *voice, ALPan pan);
 void    alSynSetFXMix(ALSynth *s, ALVoice *voice, u8 fxmix);
-void    alSynSetPriority(ALSynth *s, ALVoice *voice, s16 priority);
+void    alSynSetPriority(ALVoice *voice, s16 priority);
 s16     alSynGetPriority(ALSynth *s, ALVoice *voice);
 
 ALFxRef *alSynAllocFX(ALSynth *s, s16 bus, ALSynConfig *c, ALHeap *hp);

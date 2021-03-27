@@ -4,6 +4,4 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0003ccf0(void);
-
 #endif

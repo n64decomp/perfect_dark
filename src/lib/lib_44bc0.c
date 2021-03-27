@@ -247,7 +247,7 @@ glabel func00044bc0
 );
 
 GLOBAL_ASM(
-glabel func00044f40
+glabel alSynSetPriority
 /*    44f40:	00052c00 */ 	sll	$a1,$a1,0x10
 /*    44f44:	00052c03 */ 	sra	$a1,$a1,0x10
 /*    44f48:	a4850016 */ 	sh	$a1,0x16($a0)

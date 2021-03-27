@@ -5,7 +5,6 @@
 #include "types.h"
 
 u32 func0003d280(void);
-u32 func0003d340(void);
 u32 func0003d5d8(void);
 u32 func0003d69c(void);
 u32 func0003d72c(void);
