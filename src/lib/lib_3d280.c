@@ -778,7 +778,7 @@ glabel func0003dba0
 /*    3dc00:	00000000 */ 	nop
 .L0003dc04:
 /*    3dc04:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    3dc08:	0c00f745 */ 	jal	func0003dd14
+/*    3dc08:	0c00f745 */ 	jal	__resetPerfChanState
 /*    3dc0c:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*    3dc10:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*    3dc14:	8fa50018 */ 	lw	$a1,0x18($sp)
@@ -798,7 +798,7 @@ glabel func0003dba0
 /*    3dc48:	11400009 */ 	beqz	$t2,.L0003dc70
 /*    3dc4c:	00000000 */ 	nop
 /*    3dc50:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    3dc54:	0c00f745 */ 	jal	func0003dd14
+/*    3dc54:	0c00f745 */ 	jal	__resetPerfChanState
 /*    3dc58:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*    3dc5c:	8fab0024 */ 	lw	$t3,0x24($sp)
 /*    3dc60:	8fa40020 */ 	lw	$a0,0x20($sp)
@@ -815,50 +815,18 @@ glabel func0003dba0
 /*    3dc84:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __initChanState
-/*    3dc88:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    3dc8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3dc90:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    3dc94:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    3dc98:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    3dc9c:	91cf0034 */ 	lbu	$t7,0x34($t6)
-/*    3dca0:	19e00016 */ 	blez	$t7,.L0003dcfc
-/*    3dca4:	00000000 */ 	nop
-.L0003dca8:
-/*    3dca8:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*    3dcac:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*    3dcb0:	00084880 */ 	sll	$t1,$t0,0x2
-/*    3dcb4:	01284823 */ 	subu	$t1,$t1,$t0
-/*    3dcb8:	8f190060 */ 	lw	$t9,0x60($t8)
-/*    3dcbc:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3dcc0:	01284821 */ 	addu	$t1,$t1,$t0
-/*    3dcc4:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3dcc8:	03295021 */ 	addu	$t2,$t9,$t1
-/*    3dccc:	ad400000 */ 	sw	$zero,0x0($t2)
-/*    3dcd0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    3dcd4:	0c00f745 */ 	jal	func0003dd14
-/*    3dcd8:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    3dcdc:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    3dce0:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    3dce4:	256c0001 */ 	addiu	$t4,$t3,0x1
-/*    3dce8:	afac001c */ 	sw	$t4,0x1c($sp)
-/*    3dcec:	91ae0034 */ 	lbu	$t6,0x34($t5)
-/*    3dcf0:	018e082a */ 	slt	$at,$t4,$t6
-/*    3dcf4:	1420ffec */ 	bnez	$at,.L0003dca8
-/*    3dcf8:	00000000 */ 	nop
-.L0003dcfc:
-/*    3dcfc:	10000001 */ 	b	.L0003dd04
-/*    3dd00:	00000000 */ 	nop
-.L0003dd04:
-/*    3dd04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3dd08:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    3dd0c:	03e00008 */ 	jr	$ra
-/*    3dd10:	00000000 */ 	nop
-);
+void __initChanState(ALSeqPlayer *seqp)
+{
+	int i;
+
+	for (i = 0; i < seqp->maxChannels; i++) {
+		seqp->chanState[i].instrument = 0;
+		__resetPerfChanState (seqp, i);
+	}
+}
 
 GLOBAL_ASM(
-glabel func0003dd14
+glabel __resetPerfChanState
 /*    3dd14:	00057880 */ 	sll	$t7,$a1,0x2
 /*    3dd18:	01e57823 */ 	subu	$t7,$t7,$a1
 /*    3dd1c:	8c8e0060 */ 	lw	$t6,0x60($a0)
