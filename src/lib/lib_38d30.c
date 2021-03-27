@@ -509,53 +509,27 @@ glabel func0003902c
 /*    3946c:	00000000 */ 	nop
 /*    39470:	03e00008 */ 	jr	$ra
 /*    39474:	00000000 */ 	nop
-/*    39478:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3947c:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*    39480:	ac8e0004 */ 	sw	$t6,0x4($a0)
-/*    39484:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*    39488:	ac8f000c */ 	sw	$t7,0xc($a0)
-/*    3948c:	8cb80008 */ 	lw	$t8,0x8($a1)
-/*    39490:	ac980010 */ 	sw	$t8,0x10($a0)
-/*    39494:	afa00004 */ 	sw	$zero,0x4($sp)
-.L00039498:
-/*    39498:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    3949c:	00194080 */ 	sll	$t0,$t9,0x2
-/*    394a0:	00a84821 */ 	addu	$t1,$a1,$t0
-/*    394a4:	8d2a000c */ 	lw	$t2,0xc($t1)
-/*    394a8:	00885821 */ 	addu	$t3,$a0,$t0
-/*    394ac:	ad6a0018 */ 	sw	$t2,0x18($t3)
-/*    394b0:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    394b4:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    394b8:	00ad7021 */ 	addu	$t6,$a1,$t5
-/*    394bc:	8dcf004c */ 	lw	$t7,0x4c($t6)
-/*    394c0:	008dc021 */ 	addu	$t8,$a0,$t5
-/*    394c4:	af0f0058 */ 	sw	$t7,0x58($t8)
-/*    394c8:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    394cc:	00b94821 */ 	addu	$t1,$a1,$t9
-/*    394d0:	9128008c */ 	lbu	$t0,0x8c($t1)
-/*    394d4:	00995021 */ 	addu	$t2,$a0,$t9
-/*    394d8:	a1480098 */ 	sb	$t0,0x98($t2)
-/*    394dc:	8fab0004 */ 	lw	$t3,0x4($sp)
-/*    394e0:	00ab6021 */ 	addu	$t4,$a1,$t3
-/*    394e4:	918e009c */ 	lbu	$t6,0x9c($t4)
-/*    394e8:	008b6821 */ 	addu	$t5,$a0,$t3
-/*    394ec:	a1ae00a8 */ 	sb	$t6,0xa8($t5)
-/*    394f0:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    394f4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    394f8:	00b84821 */ 	addu	$t1,$a1,$t8
-/*    394fc:	8d3900ac */ 	lw	$t9,0xac($t1)
-/*    39500:	00984021 */ 	addu	$t0,$a0,$t8
-/*    39504:	ad1900b8 */ 	sw	$t9,0xb8($t0)
-/*    39508:	8faa0004 */ 	lw	$t2,0x4($sp)
-/*    3950c:	254c0001 */ 	addiu	$t4,$t2,0x1
-/*    39510:	29810010 */ 	slti	$at,$t4,0x10
-/*    39514:	1420ffe0 */ 	bnez	$at,.L00039498
-/*    39518:	afac0004 */ 	sw	$t4,0x4($sp)
-/*    3951c:	10000001 */ 	b	.L00039524
-/*    39520:	00000000 */ 	nop
-.L00039524:
-/*    39524:	03e00008 */ 	jr	$ra
-/*    39528:	27bd0008 */ 	addiu	$sp,$sp,0x8
+);
+
+void alCSeqSetLoc(ALCSeq *seq, ALCSeqMarker *m)
+{
+	s32 i;
+
+	seq->validTracks    = m->validTracks;
+	seq->lastTicks      = m->lastTicks;
+	seq->lastDeltaTicks = m->lastDeltaTicks;
+
+	for (i = 0; i < 16; i++) {
+		seq->curLoc[i]        = m->curLoc[i];
+		seq->curBUPtr[i]      = m->curBUPtr[i];
+		seq->curBULen[i]      = m->curBULen[i];
+		seq->lastStatus[i]    = m->lastStatus[i];
+		seq->evtDeltaTicks[i] = m->evtDeltaTicks[i];
+	}
+}
+
+GLOBAL_ASM(
+glabel alCSeqGetLoc
 /*    3952c:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    39530:	8c8e0004 */ 	lw	$t6,0x4($a0)
 /*    39534:	acae0000 */ 	sw	$t6,0x0($a1)

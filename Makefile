@@ -83,6 +83,7 @@ $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32
 # it introduces a race condition when using make -j because they create a
 # temporary include-stdin.u file during compilation.
 # For these files, see their explicit targets towards the end of this file.
+$(B_DIR)/lib/lib_38d30.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/audio/bnkf.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/audio/csplayer.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/audio/heap.o: OPT_LVL := -g
