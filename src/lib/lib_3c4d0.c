@@ -23,53 +23,35 @@ void alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0003c56c
-/*    3c56c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    3c570:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3c574:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    3c578:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    3c57c:	0c012194 */ 	jal	osSetIntMask
-/*    3c580:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    3c584:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    3c588:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    3c58c:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*    3c590:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*    3c594:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3c598:	1300000f */ 	beqz	$t8,.L0003c5d8
-/*    3c59c:	00000000 */ 	nop
-/*    3c5a0:	0c00c5e9 */ 	jal	alUnlink
-/*    3c5a4:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3c5a8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3c5ac:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    3c5b0:	24060010 */ 	addiu	$a2,$zero,0x10
-/*    3c5b4:	0c012c5c */ 	jal	bcopy
-/*    3c5b8:	2484000c */ 	addiu	$a0,$a0,0xc
-/*    3c5bc:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3c5c0:	0c00c5dc */ 	jal	alLink
-/*    3c5c4:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    3c5c8:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3c5cc:	8f280008 */ 	lw	$t0,0x8($t9)
-/*    3c5d0:	10000005 */ 	b	.L0003c5e8
-/*    3c5d4:	afa80020 */ 	sw	$t0,0x20($sp)
-.L0003c5d8:
-/*    3c5d8:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    3c5dc:	2409ffff */ 	addiu	$t1,$zero,-1
-/*    3c5e0:	a5490000 */ 	sh	$t1,0x0($t2)
-/*    3c5e4:	afa00020 */ 	sw	$zero,0x20($sp)
-.L0003c5e8:
-/*    3c5e8:	0c012194 */ 	jal	osSetIntMask
-/*    3c5ec:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    3c5f0:	10000003 */ 	b	.L0003c600
-/*    3c5f4:	8fa20020 */ 	lw	$v0,0x20($sp)
-/*    3c5f8:	10000001 */ 	b	.L0003c600
-/*    3c5fc:	00000000 */ 	nop
-.L0003c600:
-/*    3c600:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3c604:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    3c608:	03e00008 */ 	jr	$ra
-/*    3c60c:	00000000 */ 	nop
-);
+ALMicroTime alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt)
+{
+	ALEventListItem *item;
+	ALMicroTime delta;
+	OSIntMask mask;
+
+	mask = osSetIntMask(OS_IM_NONE);
+
+	item = (ALEventListItem *)evtq->allocList.next;
+
+	if (item) {
+		alUnlink((ALLink *)item);
+		bcopy(&item->evt, evt, sizeof(*evt));
+		alLink((ALLink *)item, &evtq->freeList);
+		delta = item->delta;
+	} else {
+		/* sct 11/28/95 - If we get here, most like we overflowed the event queue */
+		/* with non-self-perpetuating events.  Eg. if we filled the evtq with volume */
+		/* events, then when the seqp is told to play it will handle all the events */
+		/* at once completely emptying out the queue.  At this point this problem */
+		/* must be treated as an out of resource error and the evtq should be increased. */
+		evt->type = -1;
+		delta = 0;
+	}
+
+	osSetIntMask(mask);
+
+	return delta;
+}
 
 GLOBAL_ASM(
 glabel alEvtqPostEvent

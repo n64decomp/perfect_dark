@@ -1564,7 +1564,7 @@ glabel __CSPVoiceHandler
 .L00034d8c:
 /*    34d8c:	8fb90074 */ 	lw	$t9,0x74($sp)
 /*    34d90:	27240048 */ 	addiu	$a0,$t9,0x48
-/*    34d94:	0c00f15b */ 	jal	func0003c56c
+/*    34d94:	0c00f15b */ 	jal	alEvtqNextEvent
 /*    34d98:	27250038 */ 	addiu	$a1,$t9,0x38
 /*    34d9c:	8fae0074 */ 	lw	$t6,0x74($sp)
 /*    34da0:	adc20028 */ 	sw	$v0,0x28($t6)
