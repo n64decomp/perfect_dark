@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "PR/synthInternals.h"
 #include "constants.h"
 #include "game/atan2f.h"
 #include "bss.h"
@@ -6,6 +7,8 @@
 #include "lib/lib_446d0.h"
 #include "data.h"
 #include "types.h"
+
+#define RANGE 2.0f
 
 GLOBAL_ASM(
 glabel func0003a100
@@ -959,7 +962,7 @@ glabel func0003ae60
 /*    3aeb0:	014b6023 */ 	subu	$t4,$t2,$t3
 /*    3aeb4:	afac0030 */ 	sw	$t4,0x30($sp)
 /*    3aeb8:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*    3aebc:	0c00ed93 */ 	jal	func0003b64c
+/*    3aebc:	0c00ed93 */ 	jal	_doModFunc
 /*    3aec0:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*    3aec4:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*    3aec8:	8fad0030 */ 	lw	$t5,0x30($sp)
@@ -1469,62 +1472,40 @@ glabel func0003b54c
 /*    3b648:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0003b64c
-/*    3b64c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3b650:	44853000 */ 	mtc1	$a1,$f6
-/*    3b654:	c4840010 */ 	lwc1	$f4,0x10($a0)
-/*    3b658:	c4900014 */ 	lwc1	$f16,0x14($a0)
-/*    3b65c:	46803220 */ 	cvt.s.w	$f8,$f6
-/*    3b660:	46082282 */ 	mul.s	$f10,$f4,$f8
-/*    3b664:	460a8480 */ 	add.s	$f18,$f16,$f10
-/*    3b668:	e4920014 */ 	swc1	$f18,0x14($a0)
-/*    3b66c:	3c014000 */ 	lui	$at,0x4000
-/*    3b670:	44812000 */ 	mtc1	$at,$f4
-/*    3b674:	c4860014 */ 	lwc1	$f6,0x14($a0)
-/*    3b678:	4606203c */ 	c.lt.s	$f4,$f6
-/*    3b67c:	00000000 */ 	nop
-/*    3b680:	45000007 */ 	bc1f	.L0003b6a0
-/*    3b684:	00000000 */ 	nop
-/*    3b688:	3c014080 */ 	lui	$at,0x4080
-/*    3b68c:	44818000 */ 	mtc1	$at,$f16
-/*    3b690:	c4880014 */ 	lwc1	$f8,0x14($a0)
-/*    3b694:	46104281 */ 	sub.s	$f10,$f8,$f16
-/*    3b698:	10000003 */ 	b	.L0003b6a8
-/*    3b69c:	e48a0014 */ 	swc1	$f10,0x14($a0)
-.L0003b6a0:
-/*    3b6a0:	c4920014 */ 	lwc1	$f18,0x14($a0)
-/*    3b6a4:	e4920014 */ 	swc1	$f18,0x14($a0)
-.L0003b6a8:
-/*    3b6a8:	c4860014 */ 	lwc1	$f6,0x14($a0)
-/*    3b6ac:	e7a60004 */ 	swc1	$f6,0x4($sp)
-/*    3b6b0:	c7a40004 */ 	lwc1	$f4,0x4($sp)
-/*    3b6b4:	44804000 */ 	mtc1	$zero,$f8
-/*    3b6b8:	00000000 */ 	nop
-/*    3b6bc:	4608203c */ 	c.lt.s	$f4,$f8
-/*    3b6c0:	00000000 */ 	nop
-/*    3b6c4:	45000004 */ 	bc1f	.L0003b6d8
-/*    3b6c8:	00000000 */ 	nop
-/*    3b6cc:	46002407 */ 	neg.s	$f16,$f4
-/*    3b6d0:	10000001 */ 	b	.L0003b6d8
-/*    3b6d4:	e7b00004 */ 	swc1	$f16,0x4($sp)
-.L0003b6d8:
-/*    3b6d8:	3c013f80 */ 	lui	$at,0x3f80
-/*    3b6dc:	44819000 */ 	mtc1	$at,$f18
-/*    3b6e0:	c7aa0004 */ 	lwc1	$f10,0x4($sp)
-/*    3b6e4:	46125181 */ 	sub.s	$f6,$f10,$f18
-/*    3b6e8:	e7a60004 */ 	swc1	$f6,0x4($sp)
-/*    3b6ec:	c488001c */ 	lwc1	$f8,0x1c($a0)
-/*    3b6f0:	c7a40004 */ 	lwc1	$f4,0x4($sp)
-/*    3b6f4:	46044002 */ 	mul.s	$f0,$f8,$f4
-/*    3b6f8:	10000003 */ 	b	.L0003b708
-/*    3b6fc:	00000000 */ 	nop
-/*    3b700:	10000001 */ 	b	.L0003b708
-/*    3b704:	00000000 */ 	nop
-.L0003b708:
-/*    3b708:	03e00008 */ 	jr	$ra
-/*    3b70c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+/**
+ * Generate a triangle wave from -1 to 1, and find the current position
+ * in the wave. (Rate of the wave is controlled by d->rsinc, which is chorus
+ * rate) Multiply the current triangle wave value by d->rsgain, (chorus depth)
+ * which is expressed in number of samples back from output pointer the chorus
+ * should go at it's full chorus. In otherwords, this function returns a number
+ * of samples the output pointer should modulate backwards.
+ */
+f32 _doModFunc(ALDelay *d, s32 count)
+{
+	f32 val;
+
+	/*
+	 * generate bipolar sawtooth
+	 * from -RANGE to +RANGE
+	 */
+	d->rsval += d->rsinc * count;
+	d->rsval = (d->rsval > RANGE) ? d->rsval - (RANGE * 2) : d->rsval;
+
+	/*
+	 * convert to monopolar triangle
+	 * from 0 to RANGE
+	 */
+	val = d->rsval;
+	val = (val < 0) ? -val : val;
+
+	/*
+	 * convert to bipolar triangle
+	 * from -1 to 1
+	 */
+	val -= RANGE/2;
+
+	return d->rsgain * val;
+}
 
 GLOBAL_ASM(
 glabel func0003b710
