@@ -6,6 +6,8 @@
 #include "data.h"
 #include "types.h"
 
+u8 __getTrackByte(ALCSeq *seq, u32 track);
+
 GLOBAL_ASM(
 glabel func00038d30
 /*    38d30:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -224,7 +226,7 @@ glabel func0003902c
 /*    3903c:	afa60038 */ 	sw	$a2,0x38($sp)
 /*    39040:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*    39044:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39048:	0c00e656 */ 	jal	func00039958
+/*    39048:	0c00e656 */ 	jal	__getTrackByte
 /*    3904c:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    39050:	a3a2002b */ 	sb	$v0,0x2b($sp)
 /*    39054:	93ae002b */ 	lbu	$t6,0x2b($sp)
@@ -232,7 +234,7 @@ glabel func0003902c
 /*    3905c:	15c100b9 */ 	bne	$t6,$at,.L00039344
 /*    39060:	00000000 */ 	nop
 /*    39064:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39068:	0c00e656 */ 	jal	func00039958
+/*    39068:	0c00e656 */ 	jal	__getTrackByte
 /*    3906c:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    39070:	a3a20023 */ 	sb	$v0,0x23($sp)
 /*    39074:	93af0023 */ 	lbu	$t7,0x23($sp)
@@ -249,17 +251,17 @@ glabel func0003902c
 /*    390a0:	8fab0038 */ 	lw	$t3,0x38($sp)
 /*    390a4:	a16a0009 */ 	sb	$t2,0x9($t3)
 /*    390a8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    390ac:	0c00e656 */ 	jal	func00039958
+/*    390ac:	0c00e656 */ 	jal	__getTrackByte
 /*    390b0:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    390b4:	8fac0038 */ 	lw	$t4,0x38($sp)
 /*    390b8:	a182000b */ 	sb	$v0,0xb($t4)
 /*    390bc:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    390c0:	0c00e656 */ 	jal	func00039958
+/*    390c0:	0c00e656 */ 	jal	__getTrackByte
 /*    390c4:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    390c8:	8fad0038 */ 	lw	$t5,0x38($sp)
 /*    390cc:	a1a2000c */ 	sb	$v0,0xc($t5)
 /*    390d0:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    390d4:	0c00e656 */ 	jal	func00039958
+/*    390d4:	0c00e656 */ 	jal	__getTrackByte
 /*    390d8:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    390dc:	8fae0038 */ 	lw	$t6,0x38($sp)
 /*    390e0:	a1c2000d */ 	sb	$v0,0xd($t6)
@@ -303,7 +305,7 @@ glabel func0003902c
 /*    39168:	15a1001a */ 	bne	$t5,$at,.L000391d4
 /*    3916c:	00000000 */ 	nop
 /*    39170:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39174:	0c00e656 */ 	jal	func00039958
+/*    39174:	0c00e656 */ 	jal	__getTrackByte
 /*    39178:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    3917c:	a3a2002b */ 	sb	$v0,0x2b($sp)
 /*    39180:	93ae002b */ 	lbu	$t6,0x2b($sp)
@@ -311,7 +313,7 @@ glabel func0003902c
 /*    39188:	000e7a00 */ 	sll	$t7,$t6,0x8
 /*    3918c:	ad8f000c */ 	sw	$t7,0xc($t4)
 /*    39190:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39194:	0c00e656 */ 	jal	func00039958
+/*    39194:	0c00e656 */ 	jal	__getTrackByte
 /*    39198:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    3919c:	a3a2002b */ 	sb	$v0,0x2b($sp)
 /*    391a0:	8fb80038 */ 	lw	$t8,0x38($sp)
@@ -440,7 +442,7 @@ glabel func0003902c
 /*    39370:	01c95825 */ 	or	$t3,$t6,$t1
 /*    39374:	a1eb0008 */ 	sb	$t3,0x8($t7)
 /*    39378:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    3937c:	0c00e656 */ 	jal	func00039958
+/*    3937c:	0c00e656 */ 	jal	__getTrackByte
 /*    39380:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    39384:	8fac0038 */ 	lw	$t4,0x38($sp)
 /*    39388:	a1820009 */ 	sb	$v0,0x9($t4)
@@ -472,7 +474,7 @@ glabel func0003902c
 /*    393e8:	13210013 */ 	beq	$t9,$at,.L00039438
 /*    393ec:	00000000 */ 	nop
 /*    393f0:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    393f4:	0c00e656 */ 	jal	func00039958
+/*    393f4:	0c00e656 */ 	jal	__getTrackByte
 /*    393f8:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    393fc:	8fae0038 */ 	lw	$t6,0x38($sp)
 /*    39400:	a1c2000a */ 	sb	$v0,0xa($t6)
@@ -782,137 +784,51 @@ glabel func000395e0
 /*    39954:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00039958
-/*    39958:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    3995c:	00857021 */ 	addu	$t6,$a0,$a1
-/*    39960:	91cf0098 */ 	lbu	$t7,0x98($t6)
-/*    39964:	11e00013 */ 	beqz	$t7,.L000399b4
-/*    39968:	00000000 */ 	nop
-/*    3996c:	0005c080 */ 	sll	$t8,$a1,0x2
-/*    39970:	0098c821 */ 	addu	$t9,$a0,$t8
-/*    39974:	8f280058 */ 	lw	$t0,0x58($t9)
-/*    39978:	91090000 */ 	lbu	$t1,0x0($t0)
-/*    3997c:	a3a9000f */ 	sb	$t1,0xf($sp)
-/*    39980:	00055080 */ 	sll	$t2,$a1,0x2
-/*    39984:	008a5821 */ 	addu	$t3,$a0,$t2
-/*    39988:	8d6c0058 */ 	lw	$t4,0x58($t3)
-/*    3998c:	00057080 */ 	sll	$t6,$a1,0x2
-/*    39990:	008e7821 */ 	addu	$t7,$a0,$t6
-/*    39994:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*    39998:	aded0058 */ 	sw	$t5,0x58($t7)
-/*    3999c:	0085c021 */ 	addu	$t8,$a0,$a1
-/*    399a0:	93190098 */ 	lbu	$t9,0x98($t8)
-/*    399a4:	00854821 */ 	addu	$t1,$a0,$a1
-/*    399a8:	2728ffff */ 	addiu	$t0,$t9,-1
-/*    399ac:	10000061 */ 	b	.L00039b34
-/*    399b0:	a1280098 */ 	sb	$t0,0x98($t1)
-.L000399b4:
-/*    399b4:	00055080 */ 	sll	$t2,$a1,0x2
-/*    399b8:	008a5821 */ 	addu	$t3,$a0,$t2
-/*    399bc:	8d6c0018 */ 	lw	$t4,0x18($t3)
-/*    399c0:	918e0000 */ 	lbu	$t6,0x0($t4)
-/*    399c4:	a3ae000f */ 	sb	$t6,0xf($sp)
-/*    399c8:	00056880 */ 	sll	$t5,$a1,0x2
-/*    399cc:	008d7821 */ 	addu	$t7,$a0,$t5
-/*    399d0:	8df80018 */ 	lw	$t8,0x18($t7)
-/*    399d4:	00054080 */ 	sll	$t0,$a1,0x2
-/*    399d8:	00884821 */ 	addu	$t1,$a0,$t0
-/*    399dc:	27190001 */ 	addiu	$t9,$t8,0x1
-/*    399e0:	ad390018 */ 	sw	$t9,0x18($t1)
-/*    399e4:	93aa000f */ 	lbu	$t2,0xf($sp)
-/*    399e8:	240100fe */ 	addiu	$at,$zero,0xfe
-/*    399ec:	15410051 */ 	bne	$t2,$at,.L00039b34
-/*    399f0:	00000000 */ 	nop
-/*    399f4:	00055880 */ 	sll	$t3,$a1,0x2
-/*    399f8:	008b6021 */ 	addu	$t4,$a0,$t3
-/*    399fc:	8d8e0018 */ 	lw	$t6,0x18($t4)
-/*    39a00:	91cd0000 */ 	lbu	$t5,0x0($t6)
-/*    39a04:	a3ad000b */ 	sb	$t5,0xb($sp)
-/*    39a08:	00057880 */ 	sll	$t7,$a1,0x2
-/*    39a0c:	008fc021 */ 	addu	$t8,$a0,$t7
-/*    39a10:	8f080018 */ 	lw	$t0,0x18($t8)
-/*    39a14:	00054880 */ 	sll	$t1,$a1,0x2
-/*    39a18:	00895021 */ 	addu	$t2,$a0,$t1
-/*    39a1c:	25190001 */ 	addiu	$t9,$t0,0x1
-/*    39a20:	ad590018 */ 	sw	$t9,0x18($t2)
-/*    39a24:	93ab000b */ 	lbu	$t3,0xb($sp)
-/*    39a28:	240100fe */ 	addiu	$at,$zero,0xfe
-/*    39a2c:	11610041 */ 	beq	$t3,$at,.L00039b34
-/*    39a30:	00000000 */ 	nop
-/*    39a34:	93ac000b */ 	lbu	$t4,0xb($sp)
-/*    39a38:	a3ac000d */ 	sb	$t4,0xd($sp)
-/*    39a3c:	00057080 */ 	sll	$t6,$a1,0x2
-/*    39a40:	008e6821 */ 	addu	$t5,$a0,$t6
-/*    39a44:	8daf0018 */ 	lw	$t7,0x18($t5)
-/*    39a48:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*    39a4c:	a3b8000e */ 	sb	$t8,0xe($sp)
-/*    39a50:	00054080 */ 	sll	$t0,$a1,0x2
-/*    39a54:	00884821 */ 	addu	$t1,$a0,$t0
-/*    39a58:	8d390018 */ 	lw	$t9,0x18($t1)
-/*    39a5c:	00055880 */ 	sll	$t3,$a1,0x2
-/*    39a60:	008b6021 */ 	addu	$t4,$a0,$t3
-/*    39a64:	272a0001 */ 	addiu	$t2,$t9,0x1
-/*    39a68:	ad8a0018 */ 	sw	$t2,0x18($t4)
-/*    39a6c:	00057080 */ 	sll	$t6,$a1,0x2
-/*    39a70:	008e6821 */ 	addu	$t5,$a0,$t6
-/*    39a74:	8daf0018 */ 	lw	$t7,0x18($t5)
-/*    39a78:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*    39a7c:	a3b8000c */ 	sb	$t8,0xc($sp)
-/*    39a80:	00054080 */ 	sll	$t0,$a1,0x2
-/*    39a84:	00884821 */ 	addu	$t1,$a0,$t0
-/*    39a88:	8d390018 */ 	lw	$t9,0x18($t1)
-/*    39a8c:	00055080 */ 	sll	$t2,$a1,0x2
-/*    39a90:	008a6021 */ 	addu	$t4,$a0,$t2
-/*    39a94:	272b0001 */ 	addiu	$t3,$t9,0x1
-/*    39a98:	ad8b0018 */ 	sw	$t3,0x18($t4)
-/*    39a9c:	93ae000d */ 	lbu	$t6,0xd($sp)
-/*    39aa0:	afae0004 */ 	sw	$t6,0x4($sp)
-/*    39aa4:	8fad0004 */ 	lw	$t5,0x4($sp)
-/*    39aa8:	000d7a00 */ 	sll	$t7,$t5,0x8
-/*    39aac:	afaf0004 */ 	sw	$t7,0x4($sp)
-/*    39ab0:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    39ab4:	93a8000e */ 	lbu	$t0,0xe($sp)
-/*    39ab8:	03084821 */ 	addu	$t1,$t8,$t0
-/*    39abc:	afa90004 */ 	sw	$t1,0x4($sp)
-/*    39ac0:	0005c880 */ 	sll	$t9,$a1,0x2
-/*    39ac4:	00995021 */ 	addu	$t2,$a0,$t9
-/*    39ac8:	8d4b0018 */ 	lw	$t3,0x18($t2)
-/*    39acc:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    39ad0:	00057880 */ 	sll	$t7,$a1,0x2
-/*    39ad4:	008fc021 */ 	addu	$t8,$a0,$t7
-/*    39ad8:	016c7023 */ 	subu	$t6,$t3,$t4
-/*    39adc:	25cdfffc */ 	addiu	$t5,$t6,-4
-/*    39ae0:	af0d0058 */ 	sw	$t5,0x58($t8)
-/*    39ae4:	93a8000c */ 	lbu	$t0,0xc($sp)
-/*    39ae8:	00854821 */ 	addu	$t1,$a0,$a1
-/*    39aec:	a1280098 */ 	sb	$t0,0x98($t1)
-/*    39af0:	0005c880 */ 	sll	$t9,$a1,0x2
-/*    39af4:	00995021 */ 	addu	$t2,$a0,$t9
-/*    39af8:	8d4b0058 */ 	lw	$t3,0x58($t2)
-/*    39afc:	916c0000 */ 	lbu	$t4,0x0($t3)
-/*    39b00:	a3ac000f */ 	sb	$t4,0xf($sp)
-/*    39b04:	00057080 */ 	sll	$t6,$a1,0x2
-/*    39b08:	008e7821 */ 	addu	$t7,$a0,$t6
-/*    39b0c:	8ded0058 */ 	lw	$t5,0x58($t7)
-/*    39b10:	00054080 */ 	sll	$t0,$a1,0x2
-/*    39b14:	00884821 */ 	addu	$t1,$a0,$t0
-/*    39b18:	25b80001 */ 	addiu	$t8,$t5,0x1
-/*    39b1c:	ad380058 */ 	sw	$t8,0x58($t1)
-/*    39b20:	0085c821 */ 	addu	$t9,$a0,$a1
-/*    39b24:	932a0098 */ 	lbu	$t2,0x98($t9)
-/*    39b28:	00856021 */ 	addu	$t4,$a0,$a1
-/*    39b2c:	254bffff */ 	addiu	$t3,$t2,-1
-/*    39b30:	a18b0098 */ 	sb	$t3,0x98($t4)
-.L00039b34:
-/*    39b34:	10000003 */ 	b	.L00039b44
-/*    39b38:	93a2000f */ 	lbu	$v0,0xf($sp)
-/*    39b3c:	10000001 */ 	b	.L00039b44
-/*    39b40:	00000000 */ 	nop
-.L00039b44:
-/*    39b44:	03e00008 */ 	jr	$ra
-/*    39b48:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+u8 __getTrackByte(ALCSeq *seq, u32 track)
+{
+    u8 theByte;
+
+    if (seq->curBULen[track]) {
+        theByte = *seq->curBUPtr[track];
+        seq->curBUPtr[track]++;
+        seq->curBULen[track]--;
+    } else /* need to handle backup mode */ {
+        theByte = *seq->curLoc[track];
+        seq->curLoc[track]++;
+
+        if (theByte == AL_CMIDI_BLOCK_CODE) {
+            u8 loBackUp, hiBackUp, theLen, nextByte;
+            u32 backup;
+
+            nextByte = *seq->curLoc[track];
+            seq->curLoc[track]++;
+
+            if (nextByte != AL_CMIDI_BLOCK_CODE) {
+                /* if here, then got a backup section. get the amount of
+                   backup, and the len of the section. Subtract the amount of
+                   backup from the curLoc ptr, and subtract four more, since
+                   curLoc has been advanced by four while reading the codes. */
+                hiBackUp = nextByte;
+                loBackUp = *seq->curLoc[track];
+                seq->curLoc[track]++;
+                theLen = *seq->curLoc[track];
+                seq->curLoc[track]++;
+                backup = (u32)hiBackUp;
+                backup = backup << 8;
+                backup += loBackUp;
+                seq->curBUPtr[track] = seq->curLoc[track] - (backup + 4);
+                seq->curBULen[track] = (u32)theLen;
+
+                /* now get the byte */
+                theByte = *seq->curBUPtr[track];
+                seq->curBUPtr[track]++;
+                seq->curBULen[track]--;
+            }
+        }
+    }
+
+    return theByte;
+}
 
 GLOBAL_ASM(
 glabel func00039b4c
@@ -921,7 +837,7 @@ glabel func00039b4c
 /*    39b54:	afa40020 */ 	sw	$a0,0x20($sp)
 /*    39b58:	afa50024 */ 	sw	$a1,0x24($sp)
 /*    39b5c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39b60:	0c00e656 */ 	jal	func00039958
+/*    39b60:	0c00e656 */ 	jal	__getTrackByte
 /*    39b64:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*    39b68:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    39b6c:	8fae001c */ 	lw	$t6,0x1c($sp)
@@ -933,7 +849,7 @@ glabel func00039b4c
 /*    39b84:	afb9001c */ 	sw	$t9,0x1c($sp)
 .L00039b88:
 /*    39b88:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39b8c:	0c00e656 */ 	jal	func00039958
+/*    39b8c:	0c00e656 */ 	jal	__getTrackByte
 /*    39b90:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*    39b94:	afa20018 */ 	sw	$v0,0x18($sp)
 /*    39b98:	8fa8001c */ 	lw	$t0,0x1c($sp)
