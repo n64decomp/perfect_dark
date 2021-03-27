@@ -551,7 +551,7 @@ glabel alAudioFrame
 /*    314cc:	01b87023 */ 	subu	$t6,$t5,$t8
 /*    314d0:	000e78c3 */ 	sra	$t7,$t6,0x3
 /*    314d4:	ad0f0000 */ 	sw	$t7,0x0($t0)
-/*    314d8:	0c00c564 */ 	jal	func00031590
+/*    314d8:	0c00c564 */ 	jal	_collectPVoices
 /*    314dc:	00000000 */ 	nop
 /*    314e0:	10000003 */ 	b	.L000314f0
 /*    314e4:	8fa20038 */ 	lw	$v0,0x38($sp)
@@ -584,37 +584,15 @@ void __freeParam(ALParam *param)
     alGlobals->drvr.paramList = param;
 }
 
-GLOBAL_ASM(
-glabel func00031590
-/*    31590:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    31594:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    31598:	3c0e8006 */ 	lui	$t6,%hi(alGlobals)
-/*    3159c:	8dcef114 */ 	lw	$t6,%lo(alGlobals)($t6)
-/*    315a0:	8dcf0014 */ 	lw	$t7,0x14($t6)
-/*    315a4:	11e0000d */ 	beqz	$t7,.L000315dc
-/*    315a8:	afaf001c */ 	sw	$t7,0x1c($sp)
-.L000315ac:
-/*    315ac:	0c00c5e9 */ 	jal	alUnlink
-/*    315b0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    315b4:	3c058006 */ 	lui	$a1,%hi(alGlobals)
-/*    315b8:	8ca5f114 */ 	lw	$a1,%lo(alGlobals)($a1)
-/*    315bc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    315c0:	0c00c5dc */ 	jal	alLink
-/*    315c4:	24a50004 */ 	addiu	$a1,$a1,4
-/*    315c8:	3c188006 */ 	lui	$t8,%hi(alGlobals)
-/*    315cc:	8f18f114 */ 	lw	$t8,%lo(alGlobals)($t8)
-/*    315d0:	8f190014 */ 	lw	$t9,0x14($t8)
-/*    315d4:	1720fff5 */ 	bnez	$t9,.L000315ac
-/*    315d8:	afb9001c */ 	sw	$t9,0x1c($sp)
-.L000315dc:
-/*    315dc:	10000001 */ 	b	.L000315e4
-/*    315e0:	00000000 */ 	nop
-.L000315e4:
-/*    315e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    315e8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    315ec:	03e00008 */ 	jr	$ra
-/*    315f0:	00000000 */ 	nop
-);
+void _collectPVoices(void)
+{
+	ALLink *dl;
+
+	while ((dl = alGlobals->drvr.pLameList.next) != 0) {
+		alUnlink(dl);
+		alLink(dl, &alGlobals->drvr.pFreeList);
+	}
+}
 
 GLOBAL_ASM(
 glabel func000315f4
