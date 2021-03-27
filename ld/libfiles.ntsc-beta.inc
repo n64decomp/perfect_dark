@@ -79,7 +79,8 @@
 	build/ROMID/lib/lib_39fe0.o (section); \
 	build/ROMID/lib/lib_3a100.o (section); \
 	build/ROMID/lib/lib_3c430.o (section); \
-	build/ROMID/lib/lib_3c4d0.o (section); \
+	build/ROMID/lib/ultra/audio/event.o (section); \
+	build/ROMID/lib/lib_3c890.o (section); \
 	build/ROMID/lib/lib_3ccf0.o (section); \
 	build/ROMID/lib/lib_3cdc0.o (section); \
 	build/ROMID/lib/lib_3cef0.o (section); \

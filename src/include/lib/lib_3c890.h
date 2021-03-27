@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_3C4D0_H
-#define _IN_LIB_LIB_3C4D0_H
+#ifndef _IN_LIB_LIB_3C890_H
+#define _IN_LIB_LIB_3C890_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

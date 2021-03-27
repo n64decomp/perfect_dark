@@ -84,10 +84,10 @@ $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32
 # temporary include-stdin.u file during compilation.
 # For these files, see their explicit targets towards the end of this file.
 $(B_DIR)/lib/lib_3a100.o: OPT_LVL := -g
-$(B_DIR)/lib/lib_3c4d0.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/audio/bnkf.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/audio/cseq.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/audio/csplayer.o: OPT_LVL := -g
+$(B_DIR)/lib/ultra/audio/event.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/audio/heap.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/gu/align.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/gu/frustum.o: OPT_LVL := -O3
