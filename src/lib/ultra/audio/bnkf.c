@@ -6,6 +6,8 @@
 #include "data.h"
 #include "types.h"
 
+void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table);
+
 void alSeqFileNew(ALSeqFile *file, u8 *base)
 {
 	s32 offset = (s32) base;
@@ -257,7 +259,7 @@ glabel func000379c4
 /*    37a38:	8fab0018 */ 	lw	$t3,0x18($sp)
 /*    37a3c:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*    37a40:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    37a44:	0c00de99 */ 	jal	func00037a64
+/*    37a44:	0c00de99 */ 	jal	_bnkfPatchWaveTable
 /*    37a48:	8d640008 */ 	lw	$a0,0x8($t3)
 /*    37a4c:	10000001 */ 	b	.L00037a54
 /*    37a50:	00000000 */ 	nop
@@ -268,48 +270,25 @@ glabel func000379c4
 /*    37a60:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00037a64
-/*    37a64:	908e0009 */ 	lbu	$t6,0x9($a0)
-/*    37a68:	11c00003 */ 	beqz	$t6,.L00037a78
-/*    37a6c:	00000000 */ 	nop
-/*    37a70:	03e00008 */ 	jr	$ra
-/*    37a74:	00000000 */ 	nop
-.L00037a78:
-/*    37a78:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    37a7c:	a08f0009 */ 	sb	$t7,0x9($a0)
-/*    37a80:	8c980000 */ 	lw	$t8,0x0($a0)
-/*    37a84:	0306c821 */ 	addu	$t9,$t8,$a2
-/*    37a88:	ac990000 */ 	sw	$t9,0x0($a0)
-/*    37a8c:	90880008 */ 	lbu	$t0,0x8($a0)
-/*    37a90:	1500000c */ 	bnez	$t0,.L00037ac4
-/*    37a94:	00000000 */ 	nop
-/*    37a98:	8c890010 */ 	lw	$t1,0x10($a0)
-/*    37a9c:	01255021 */ 	addu	$t2,$t1,$a1
-/*    37aa0:	ac8a0010 */ 	sw	$t2,0x10($a0)
-/*    37aa4:	8c8b000c */ 	lw	$t3,0xc($a0)
-/*    37aa8:	11600004 */ 	beqz	$t3,.L00037abc
-/*    37aac:	00000000 */ 	nop
-/*    37ab0:	8c8c000c */ 	lw	$t4,0xc($a0)
-/*    37ab4:	01856821 */ 	addu	$t5,$t4,$a1
-/*    37ab8:	ac8d000c */ 	sw	$t5,0xc($a0)
-.L00037abc:
-/*    37abc:	1000000b */ 	b	.L00037aec
-/*    37ac0:	00000000 */ 	nop
-.L00037ac4:
-/*    37ac4:	908e0008 */ 	lbu	$t6,0x8($a0)
-/*    37ac8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    37acc:	15c10007 */ 	bne	$t6,$at,.L00037aec
-/*    37ad0:	00000000 */ 	nop
-/*    37ad4:	8c8f000c */ 	lw	$t7,0xc($a0)
-/*    37ad8:	11e00004 */ 	beqz	$t7,.L00037aec
-/*    37adc:	00000000 */ 	nop
-/*    37ae0:	8c98000c */ 	lw	$t8,0xc($a0)
-/*    37ae4:	0305c821 */ 	addu	$t9,$t8,$a1
-/*    37ae8:	ac99000c */ 	sw	$t9,0xc($a0)
-.L00037aec:
-/*    37aec:	03e00008 */ 	jr	$ra
-/*    37af0:	00000000 */ 	nop
-/*    37af4:	03e00008 */ 	jr	$ra
-/*    37af8:	00000000 */ 	nop
-);
+void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table)
+{
+	if (w->flags) {
+		return;
+	}
+
+	w->flags = 1;
+
+	w->base += table;
+
+	if (w->type == AL_ADPCM_WAVE) {
+		w->waveInfo.adpcmWave.book  = (ALADPCMBook *)((u8 *)w->waveInfo.adpcmWave.book + offset);
+
+		if (w->waveInfo.adpcmWave.loop) {
+			w->waveInfo.adpcmWave.loop = (ALADPCMloop *)((u8 *)w->waveInfo.adpcmWave.loop + offset);
+		}
+	} else if (w->type == AL_RAW16_WAVE) {
+		if (w->waveInfo.rawWave.loop) {
+			w->waveInfo.rawWave.loop = (ALRawLoop *)((u8 *)w->waveInfo.rawWave.loop + offset);
+		}
+	}
+}
