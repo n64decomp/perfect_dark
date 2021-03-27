@@ -698,49 +698,16 @@ ALMicroTime __vsDelta(ALVoiceState *vs, ALMicroTime t)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0003db14
-/*    3db14:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3db18:	908f0031 */ 	lbu	$t7,0x31($a0)
-/*    3db1c:	8cae0060 */ 	lw	$t6,0x60($a1)
-/*    3db20:	8c890020 */ 	lw	$t1,0x20($a0)
-/*    3db24:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    3db28:	030fc023 */ 	subu	$t8,$t8,$t7
-/*    3db2c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3db30:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    3db34:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3db38:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*    3db3c:	93280007 */ 	lbu	$t0,0x7($t9)
-/*    3db40:	912a000c */ 	lbu	$t2,0xc($t1)
-/*    3db44:	010a5821 */ 	addu	$t3,$t0,$t2
-/*    3db48:	256cffc0 */ 	addiu	$t4,$t3,-64
-/*    3db4c:	afac0004 */ 	sw	$t4,0x4($sp)
-/*    3db50:	8fad0004 */ 	lw	$t5,0x4($sp)
-/*    3db54:	19a00003 */ 	blez	$t5,.L0003db64
-/*    3db58:	00000000 */ 	nop
-/*    3db5c:	10000002 */ 	b	.L0003db68
-/*    3db60:	00000000 */ 	nop
-.L0003db64:
-/*    3db64:	afa00004 */ 	sw	$zero,0x4($sp)
-.L0003db68:
-/*    3db68:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    3db6c:	29e1007f */ 	slti	$at,$t7,0x7f
-/*    3db70:	10200003 */ 	beqz	$at,.L0003db80
-/*    3db74:	00000000 */ 	nop
-/*    3db78:	10000003 */ 	b	.L0003db88
-/*    3db7c:	00000000 */ 	nop
-.L0003db80:
-/*    3db80:	240e007f */ 	addiu	$t6,$zero,0x7f
-/*    3db84:	afae0004 */ 	sw	$t6,0x4($sp)
-.L0003db88:
-/*    3db88:	10000003 */ 	b	.L0003db98
-/*    3db8c:	93a20007 */ 	lbu	$v0,0x7($sp)
-/*    3db90:	10000001 */ 	b	.L0003db98
-/*    3db94:	00000000 */ 	nop
-.L0003db98:
-/*    3db98:	03e00008 */ 	jr	$ra
-/*    3db9c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+ALPan __vsPan(ALVoiceState *vs, ALSeqPlayer *seqp)
+{
+	s32 tmp;
+
+	tmp = seqp->chanState[vs->channel].pan - AL_PAN_CENTER + vs->sound->samplePan;
+	tmp = MAX(tmp, AL_PAN_LEFT);
+	tmp = MIN(tmp, AL_PAN_RIGHT);
+
+	return (ALPan) tmp;
+}
 
 void __initFromBank(ALSeqPlayer *seqp, ALBank *b)
 {
