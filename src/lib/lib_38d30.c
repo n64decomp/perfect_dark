@@ -175,7 +175,7 @@ glabel alCSeqNextEvent
 /*    38f84:	8fa40038 */ 	lw	$a0,0x38($sp)
 /*    38f88:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*    38f8c:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*    38f90:	0c00e40b */ 	jal	func0003902c
+/*    38f90:	0c00e40b */ 	jal	__alCSeqGetTrackEvent
 /*    38f94:	8fa70040 */ 	lw	$a3,0x40($sp)
 /*    38f98:	8fae0030 */ 	lw	$t6,0x30($sp)
 /*    38f9c:	8fb8003c */ 	lw	$t8,0x3c($sp)
@@ -218,294 +218,97 @@ glabel alCSeqNextEvent
 /*    39028:	00000000 */ 	nop
 );
 
+u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event, s32 arg3)
+{
+    u32 offset;
+    u8 status, loopCt, curLpCt, *tmpPtr;
+
+    status = __getTrackByte(seq, track);
+
+    if (status == AL_MIDI_Meta) {
+        u8 type = __getTrackByte(seq, track);
+
+        if (type == AL_MIDI_META_TEMPO) {
+            event->type = AL_TEMPO_EVT;
+            event->msg.tempo.status = status;
+            event->msg.tempo.type = type;
+            event->msg.tempo.byte1 = __getTrackByte(seq, track);
+            event->msg.tempo.byte2 = __getTrackByte(seq, track);
+            event->msg.tempo.byte3 = __getTrackByte(seq, track);
+            seq->lastStatus[track] = 0;  /* lastStatus not supported after meta */
+        } else if (type == AL_MIDI_META_EOT) {
+            u32 flagMask;
+
+            flagMask = 1 << track;
+            seq->validTracks = seq->validTracks ^ flagMask;
+
+            if (seq->validTracks) { /* there is music left don't end */
+                event->type = AL_TRACK_END;
+			} else {       /* no more music send AL_SEQ_END_EVT msg */
+                event->type = AL_SEQ_END_EVT;
+			}
+        } else if (type == AL_CMIDI_LOOPSTART_CODE) {
+            status = __getTrackByte(seq, track);
+            event->msg.loop.count = status << 8;
+
+            status = __getTrackByte(seq, track);
+            event->msg.loop.count += status;
+
+            seq->lastStatus[track] = 0;
+            event->type = AL_CSP_LOOPSTART;
+        } else if (type == AL_CMIDI_LOOPEND_CODE) {
+            tmpPtr = seq->curLoc[track];
+            loopCt = *tmpPtr++;
+            curLpCt = *tmpPtr;
+
+            if (curLpCt == 0 || !arg3) {
+                *tmpPtr = loopCt; /* reset current loop count */
+                seq->curLoc[track] = tmpPtr + 5; /* move pointer to end of event */
+            } else {
+                if (curLpCt != 0xff) { /* not a loop forever */
+                    *tmpPtr = curLpCt - 1;   /* decrement current loop count */
+				}
+
+                tmpPtr++;                    /* get offset from end of event */
+                offset = (*tmpPtr++) << 24;
+                offset += (*tmpPtr++) << 16;
+                offset += (*tmpPtr++) << 8;
+                offset += *tmpPtr++;
+                seq->curLoc[track] = tmpPtr - offset;
+            }
+
+            seq->lastStatus[track] = 0;
+            event->type = AL_CSP_LOOPEND;
+        }
+    } else {
+        event->type = AL_SEQ_MIDI_EVT;
+
+        if (status & 0x80) {
+            event->msg.midi.status = (status & 0xf0) | track;
+            event->msg.midi.byte1 = __getTrackByte(seq,track);
+            seq->lastStatus[track] = event->msg.midi.status;
+        } else {    /* running status */
+            event->msg.midi.status = seq->lastStatus[track];
+            event->msg.midi.byte1 = status;
+        }
+
+        if ((event->msg.midi.status & 0xf0) != AL_MIDI_ProgramChange
+        		&& (event->msg.midi.status & 0xf0) != AL_MIDI_ChannelPressure) {
+            event->msg.midi.byte2 = __getTrackByte(seq,track);
+
+            if ((event->msg.midi.status & 0xf0) == AL_MIDI_NoteOn) {
+                event->msg.midi.duration = __readVarLen(seq,track);
+            }
+        } else {
+            event->msg.midi.byte2 = 0;
+		}
+    }
+
+    return TRUE;
+}
+
 GLOBAL_ASM(
-glabel func0003902c
-/*    3902c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    39030:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    39034:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    39038:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    3903c:	afa60038 */ 	sw	$a2,0x38($sp)
-/*    39040:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*    39044:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39048:	0c00e656 */ 	jal	__getTrackByte
-/*    3904c:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    39050:	a3a2002b */ 	sb	$v0,0x2b($sp)
-/*    39054:	93ae002b */ 	lbu	$t6,0x2b($sp)
-/*    39058:	240100ff */ 	addiu	$at,$zero,0xff
-/*    3905c:	15c100b9 */ 	bne	$t6,$at,.L00039344
-/*    39060:	00000000 */ 	nop
-/*    39064:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39068:	0c00e656 */ 	jal	__getTrackByte
-/*    3906c:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    39070:	a3a20023 */ 	sb	$v0,0x23($sp)
-/*    39074:	93af0023 */ 	lbu	$t7,0x23($sp)
-/*    39078:	24010051 */ 	addiu	$at,$zero,0x51
-/*    3907c:	15e1001e */ 	bne	$t7,$at,.L000390f8
-/*    39080:	00000000 */ 	nop
-/*    39084:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*    39088:	24180003 */ 	addiu	$t8,$zero,0x3
-/*    3908c:	a7380000 */ 	sh	$t8,0x0($t9)
-/*    39090:	93a8002b */ 	lbu	$t0,0x2b($sp)
-/*    39094:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    39098:	a1280008 */ 	sb	$t0,0x8($t1)
-/*    3909c:	93aa0023 */ 	lbu	$t2,0x23($sp)
-/*    390a0:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*    390a4:	a16a0009 */ 	sb	$t2,0x9($t3)
-/*    390a8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    390ac:	0c00e656 */ 	jal	__getTrackByte
-/*    390b0:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    390b4:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    390b8:	a182000b */ 	sb	$v0,0xb($t4)
-/*    390bc:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    390c0:	0c00e656 */ 	jal	__getTrackByte
-/*    390c4:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    390c8:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    390cc:	a1a2000c */ 	sb	$v0,0xc($t5)
-/*    390d0:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    390d4:	0c00e656 */ 	jal	__getTrackByte
-/*    390d8:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    390dc:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    390e0:	a1c2000d */ 	sb	$v0,0xd($t6)
-/*    390e4:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*    390e8:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*    390ec:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*    390f0:	10000092 */ 	b	.L0003933c
-/*    390f4:	a32000a8 */ 	sb	$zero,0xa8($t9)
-.L000390f8:
-/*    390f8:	93a80023 */ 	lbu	$t0,0x23($sp)
-/*    390fc:	2401002f */ 	addiu	$at,$zero,0x2f
-/*    39100:	15010017 */ 	bne	$t0,$at,.L00039160
-/*    39104:	00000000 */ 	nop
-/*    39108:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    3910c:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*    39110:	012a5804 */ 	sllv	$t3,$t2,$t1
-/*    39114:	afab001c */ 	sw	$t3,0x1c($sp)
-/*    39118:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    3911c:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*    39120:	8d8d0004 */ 	lw	$t5,0x4($t4)
-/*    39124:	01ae7826 */ 	xor	$t7,$t5,$t6
-/*    39128:	ad8f0004 */ 	sw	$t7,0x4($t4)
-/*    3912c:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    39130:	8f190004 */ 	lw	$t9,0x4($t8)
-/*    39134:	13200005 */ 	beqz	$t9,.L0003914c
-/*    39138:	00000000 */ 	nop
-/*    3913c:	8faa0038 */ 	lw	$t2,0x38($sp)
-/*    39140:	24080012 */ 	addiu	$t0,$zero,0x12
-/*    39144:	10000004 */ 	b	.L00039158
-/*    39148:	a5480000 */ 	sh	$t0,0x0($t2)
-.L0003914c:
-/*    3914c:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*    39150:	24090004 */ 	addiu	$t1,$zero,0x4
-/*    39154:	a5690000 */ 	sh	$t1,0x0($t3)
-.L00039158:
-/*    39158:	10000078 */ 	b	.L0003933c
-/*    3915c:	00000000 */ 	nop
-.L00039160:
-/*    39160:	93ad0023 */ 	lbu	$t5,0x23($sp)
-/*    39164:	2401002e */ 	addiu	$at,$zero,0x2e
-/*    39168:	15a1001a */ 	bne	$t5,$at,.L000391d4
-/*    3916c:	00000000 */ 	nop
-/*    39170:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39174:	0c00e656 */ 	jal	__getTrackByte
-/*    39178:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    3917c:	a3a2002b */ 	sb	$v0,0x2b($sp)
-/*    39180:	93ae002b */ 	lbu	$t6,0x2b($sp)
-/*    39184:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    39188:	000e7a00 */ 	sll	$t7,$t6,0x8
-/*    3918c:	ad8f000c */ 	sw	$t7,0xc($t4)
-/*    39190:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39194:	0c00e656 */ 	jal	__getTrackByte
-/*    39198:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    3919c:	a3a2002b */ 	sb	$v0,0x2b($sp)
-/*    391a0:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*    391a4:	93a8002b */ 	lbu	$t0,0x2b($sp)
-/*    391a8:	8f19000c */ 	lw	$t9,0xc($t8)
-/*    391ac:	03285021 */ 	addu	$t2,$t9,$t0
-/*    391b0:	af0a000c */ 	sw	$t2,0xc($t8)
-/*    391b4:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*    391b8:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*    391bc:	012b6821 */ 	addu	$t5,$t1,$t3
-/*    391c0:	a1a000a8 */ 	sb	$zero,0xa8($t5)
-/*    391c4:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*    391c8:	240e0013 */ 	addiu	$t6,$zero,0x13
-/*    391cc:	1000005b */ 	b	.L0003933c
-/*    391d0:	a5ee0000 */ 	sh	$t6,0x0($t7)
-.L000391d4:
-/*    391d4:	93ac0023 */ 	lbu	$t4,0x23($sp)
-/*    391d8:	2401002d */ 	addiu	$at,$zero,0x2d
-/*    391dc:	15810057 */ 	bne	$t4,$at,.L0003933c
-/*    391e0:	00000000 */ 	nop
-/*    391e4:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*    391e8:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*    391ec:	00085080 */ 	sll	$t2,$t0,0x2
-/*    391f0:	032ac021 */ 	addu	$t8,$t9,$t2
-/*    391f4:	8f090018 */ 	lw	$t1,0x18($t8)
-/*    391f8:	afa90024 */ 	sw	$t1,0x24($sp)
-/*    391fc:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    39200:	916d0000 */ 	lbu	$t5,0x0($t3)
-/*    39204:	256e0001 */ 	addiu	$t6,$t3,0x1
-/*    39208:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    3920c:	a3ad002a */ 	sb	$t5,0x2a($sp)
-/*    39210:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    39214:	91ec0000 */ 	lbu	$t4,0x0($t7)
-/*    39218:	a3ac0029 */ 	sb	$t4,0x29($sp)
-/*    3921c:	93a80029 */ 	lbu	$t0,0x29($sp)
-/*    39220:	11000004 */ 	beqz	$t0,.L00039234
-/*    39224:	00000000 */ 	nop
-/*    39228:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*    3922c:	1720000c */ 	bnez	$t9,.L00039260
-/*    39230:	00000000 */ 	nop
-.L00039234:
-/*    39234:	93aa002a */ 	lbu	$t2,0x2a($sp)
-/*    39238:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3923c:	a30a0000 */ 	sb	$t2,0x0($t8)
-/*    39240:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*    39244:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    39248:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*    3924c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    39250:	252d0005 */ 	addiu	$t5,$t1,0x5
-/*    39254:	016f6021 */ 	addu	$t4,$t3,$t7
-/*    39258:	10000031 */ 	b	.L00039320
-/*    3925c:	ad8d0018 */ 	sw	$t5,0x18($t4)
-.L00039260:
-/*    39260:	93a80029 */ 	lbu	$t0,0x29($sp)
-/*    39264:	240100ff */ 	addiu	$at,$zero,0xff
-/*    39268:	11010005 */ 	beq	$t0,$at,.L00039280
-/*    3926c:	00000000 */ 	nop
-/*    39270:	93b90029 */ 	lbu	$t9,0x29($sp)
-/*    39274:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    39278:	272affff */ 	addiu	$t2,$t9,-1
-/*    3927c:	a30a0000 */ 	sb	$t2,0x0($t8)
-.L00039280:
-/*    39280:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    39284:	252e0001 */ 	addiu	$t6,$t1,0x1
-/*    39288:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    3928c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    39290:	916f0000 */ 	lbu	$t7,0x0($t3)
-/*    39294:	256c0001 */ 	addiu	$t4,$t3,0x1
-/*    39298:	afac0024 */ 	sw	$t4,0x24($sp)
-/*    3929c:	000f6e00 */ 	sll	$t5,$t7,0x18
-/*    392a0:	afad002c */ 	sw	$t5,0x2c($sp)
-/*    392a4:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    392a8:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    392ac:	932a0000 */ 	lbu	$t2,0x0($t9)
-/*    392b0:	272e0001 */ 	addiu	$t6,$t9,0x1
-/*    392b4:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    392b8:	000ac400 */ 	sll	$t8,$t2,0x10
-/*    392bc:	01184821 */ 	addu	$t1,$t0,$t8
-/*    392c0:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*    392c4:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    392c8:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    392cc:	91ab0000 */ 	lbu	$t3,0x0($t5)
-/*    392d0:	25a80001 */ 	addiu	$t0,$t5,0x1
-/*    392d4:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    392d8:	000b6200 */ 	sll	$t4,$t3,0x8
-/*    392dc:	01ec5021 */ 	addu	$t2,$t7,$t4
-/*    392e0:	afaa002c */ 	sw	$t2,0x2c($sp)
-/*    392e4:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    392e8:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    392ec:	91390000 */ 	lbu	$t9,0x0($t1)
-/*    392f0:	252b0001 */ 	addiu	$t3,$t1,0x1
-/*    392f4:	afab0024 */ 	sw	$t3,0x24($sp)
-/*    392f8:	03197021 */ 	addu	$t6,$t8,$t9
-/*    392fc:	afae002c */ 	sw	$t6,0x2c($sp)
-/*    39300:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*    39304:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    39308:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*    3930c:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*    39310:	0008c080 */ 	sll	$t8,$t0,0x2
-/*    39314:	01ec5023 */ 	subu	$t2,$t7,$t4
-/*    39318:	01b8c821 */ 	addu	$t9,$t5,$t8
-/*    3931c:	af2a0018 */ 	sw	$t2,0x18($t9)
-.L00039320:
-/*    39320:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    39324:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    39328:	01c95821 */ 	addu	$t3,$t6,$t1
-/*    3932c:	a16000a8 */ 	sb	$zero,0xa8($t3)
-/*    39330:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    39334:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    39338:	a58f0000 */ 	sh	$t7,0x0($t4)
-.L0003933c:
-/*    3933c:	10000040 */ 	b	.L00039440
-/*    39340:	00000000 */ 	nop
-.L00039344:
-/*    39344:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    39348:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    3934c:	a5a80000 */ 	sh	$t0,0x0($t5)
-/*    39350:	93b8002b */ 	lbu	$t8,0x2b($sp)
-/*    39354:	330a0080 */ 	andi	$t2,$t8,0x80
-/*    39358:	11400013 */ 	beqz	$t2,.L000393a8
-/*    3935c:	00000000 */ 	nop
-/*    39360:	93b9002b */ 	lbu	$t9,0x2b($sp)
-/*    39364:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    39368:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*    3936c:	332e00f0 */ 	andi	$t6,$t9,0xf0
-/*    39370:	01c95825 */ 	or	$t3,$t6,$t1
-/*    39374:	a1eb0008 */ 	sb	$t3,0x8($t7)
-/*    39378:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    3937c:	0c00e656 */ 	jal	__getTrackByte
-/*    39380:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    39384:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    39388:	a1820009 */ 	sb	$v0,0x9($t4)
-/*    3938c:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*    39390:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    39394:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*    39398:	910d0008 */ 	lbu	$t5,0x8($t0)
-/*    3939c:	030ac821 */ 	addu	$t9,$t8,$t2
-/*    393a0:	1000000a */ 	b	.L000393cc
-/*    393a4:	a32d00a8 */ 	sb	$t5,0xa8($t9)
-.L000393a8:
-/*    393a8:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    393ac:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    393b0:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    393b4:	01c95821 */ 	addu	$t3,$t6,$t1
-/*    393b8:	916f00a8 */ 	lbu	$t7,0xa8($t3)
-/*    393bc:	a18f0008 */ 	sb	$t7,0x8($t4)
-/*    393c0:	93a8002b */ 	lbu	$t0,0x2b($sp)
-/*    393c4:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*    393c8:	a3080009 */ 	sb	$t0,0x9($t8)
-.L000393cc:
-/*    393cc:	8faa0038 */ 	lw	$t2,0x38($sp)
-/*    393d0:	240100c0 */ 	addiu	$at,$zero,0xc0
-/*    393d4:	914d0008 */ 	lbu	$t5,0x8($t2)
-/*    393d8:	31b900f0 */ 	andi	$t9,$t5,0xf0
-/*    393dc:	13210016 */ 	beq	$t9,$at,.L00039438
-/*    393e0:	00000000 */ 	nop
-/*    393e4:	240100d0 */ 	addiu	$at,$zero,0xd0
-/*    393e8:	13210013 */ 	beq	$t9,$at,.L00039438
-/*    393ec:	00000000 */ 	nop
-/*    393f0:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    393f4:	0c00e656 */ 	jal	__getTrackByte
-/*    393f8:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    393fc:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    39400:	a1c2000a */ 	sb	$v0,0xa($t6)
-/*    39404:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    39408:	24010090 */ 	addiu	$at,$zero,0x90
-/*    3940c:	912b0008 */ 	lbu	$t3,0x8($t1)
-/*    39410:	316f00f0 */ 	andi	$t7,$t3,0xf0
-/*    39414:	15e10006 */ 	bne	$t7,$at,.L00039430
-/*    39418:	00000000 */ 	nop
-/*    3941c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39420:	0c00e6d3 */ 	jal	__readVarLen
-/*    39424:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    39428:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    3942c:	ad82000c */ 	sw	$v0,0xc($t4)
-.L00039430:
-/*    39430:	10000003 */ 	b	.L00039440
-/*    39434:	00000000 */ 	nop
-.L00039438:
-/*    39438:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*    3943c:	a100000a */ 	sb	$zero,0xa($t0)
-.L00039440:
-/*    39440:	10000003 */ 	b	.L00039450
-/*    39444:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    39448:	10000001 */ 	b	.L00039450
-/*    3944c:	00000000 */ 	nop
-.L00039450:
-/*    39450:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    39454:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    39458:	03e00008 */ 	jr	$ra
-/*    3945c:	00000000 */ 	nop
+glabel func00039460
 /*    39460:	03e00008 */ 	jr	$ra
 /*    39464:	8c82000c */ 	lw	$v0,0xc($a0)
 /*    39468:	03e00008 */ 	jr	$ra

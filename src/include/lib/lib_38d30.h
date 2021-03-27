@@ -4,7 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0003902c(void);
 u32 func00039be0(void);
 u32 func00039c30(void);
 
