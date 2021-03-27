@@ -66,6 +66,7 @@
 	build/ROMID/lib/lib_34030.o (section); \
 	build/ROMID/lib/ultra/audio/csplayer.o (section); \
 	build/ROMID/lib/lib_37650.o (section); \
+	build/ROMID/lib/ultra/audio/bnkf.o (section); \
 	build/ROMID/lib/lib_37b00.o (section); \
 	build/ROMID/lib/lib_38d10.o (section); \
 	build/ROMID/lib/lib_38d30.o (section); \
