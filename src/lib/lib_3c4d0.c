@@ -53,128 +53,62 @@ ALMicroTime alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt)
 	return delta;
 }
 
-GLOBAL_ASM(
-glabel alEvtqPostEvent
-/*    3c610:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    3c614:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3c618:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    3c61c:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    3c620:	afa60038 */ 	sw	$a2,0x38($sp)
-/*    3c624:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*    3c628:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    3c62c:	0c012194 */ 	jal	osSetIntMask
-/*    3c630:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    3c634:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    3c638:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    3c63c:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*    3c640:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*    3c644:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    3c648:	17000005 */ 	bnez	$t8,.L0003c660
-/*    3c64c:	00000000 */ 	nop
-/*    3c650:	0c012194 */ 	jal	osSetIntMask
-/*    3c654:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    3c658:	10000055 */ 	b	.L0003c7b0
-/*    3c65c:	00000000 */ 	nop
-.L0003c660:
-/*    3c660:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3c664:	8f280000 */ 	lw	$t0,0x0($t9)
-/*    3c668:	15000008 */ 	bnez	$t0,.L0003c68c
-/*    3c66c:	00000000 */ 	nop
-/*    3c670:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*    3c674:	15200005 */ 	bnez	$t1,.L0003c68c
-/*    3c678:	00000000 */ 	nop
-/*    3c67c:	0c012194 */ 	jal	osSetIntMask
-/*    3c680:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    3c684:	1000004a */ 	b	.L0003c7b0
-/*    3c688:	00000000 */ 	nop
-.L0003c68c:
-/*    3c68c:	0c00c5e9 */ 	jal	alUnlink
-/*    3c690:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    3c694:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    3c698:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*    3c69c:	24060010 */ 	addiu	$a2,$zero,0x10
-/*    3c6a0:	0c012c5c */ 	jal	bcopy
-/*    3c6a4:	24a5000c */ 	addiu	$a1,$a1,0xc
-/*    3c6a8:	8faa0038 */ 	lw	$t2,0x38($sp)
-/*    3c6ac:	3c017fff */ 	lui	$at,0x7fff
-/*    3c6b0:	3421ffff */ 	ori	$at,$at,0xffff
-/*    3c6b4:	15410003 */ 	bne	$t2,$at,.L0003c6c4
-/*    3c6b8:	00000000 */ 	nop
-/*    3c6bc:	240bffff */ 	addiu	$t3,$zero,-1
-/*    3c6c0:	afab0020 */ 	sw	$t3,0x20($sp)
-.L0003c6c4:
-/*    3c6c4:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    3c6c8:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*    3c6cc:	11a00034 */ 	beqz	$t5,.L0003c7a0
-/*    3c6d0:	afad0024 */ 	sw	$t5,0x24($sp)
-.L0003c6d4:
-/*    3c6d4:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    3c6d8:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*    3c6dc:	15e00011 */ 	bnez	$t7,.L0003c724
-/*    3c6e0:	00000000 */ 	nop
-/*    3c6e4:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*    3c6e8:	13000004 */ 	beqz	$t8,.L0003c6fc
-/*    3c6ec:	00000000 */ 	nop
-/*    3c6f0:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3c6f4:	10000004 */ 	b	.L0003c708
-/*    3c6f8:	af200008 */ 	sw	$zero,0x8($t9)
-.L0003c6fc:
-/*    3c6fc:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*    3c700:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    3c704:	ad280008 */ 	sw	$t0,0x8($t1)
-.L0003c708:
-/*    3c708:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    3c70c:	0c00c5dc */ 	jal	alLink
-/*    3c710:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    3c714:	10000022 */ 	b	.L0003c7a0
-/*    3c718:	00000000 */ 	nop
-/*    3c71c:	1000001c */ 	b	.L0003c790
-/*    3c720:	00000000 */ 	nop
-.L0003c724:
-/*    3c724:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    3c728:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*    3c72c:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    3c730:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3c734:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    3c738:	8dae0008 */ 	lw	$t6,0x8($t5)
-/*    3c73c:	018e082a */ 	slt	$at,$t4,$t6
-/*    3c740:	1020000e */ 	beqz	$at,.L0003c77c
-/*    3c744:	00000000 */ 	nop
-/*    3c748:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*    3c74c:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    3c750:	af0f0008 */ 	sw	$t7,0x8($t8)
-/*    3c754:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    3c758:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    3c75c:	8f280008 */ 	lw	$t0,0x8($t9)
-/*    3c760:	01095023 */ 	subu	$t2,$t0,$t1
-/*    3c764:	af2a0008 */ 	sw	$t2,0x8($t9)
-/*    3c768:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    3c76c:	0c00c5dc */ 	jal	alLink
-/*    3c770:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    3c774:	1000000a */ 	b	.L0003c7a0
-/*    3c778:	00000000 */ 	nop
-.L0003c77c:
-/*    3c77c:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3c780:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*    3c784:	8dac0008 */ 	lw	$t4,0x8($t5)
-/*    3c788:	016c7023 */ 	subu	$t6,$t3,$t4
-/*    3c78c:	afae0038 */ 	sw	$t6,0x38($sp)
-.L0003c790:
-/*    3c790:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3c794:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    3c798:	1700ffce */ 	bnez	$t8,.L0003c6d4
-/*    3c79c:	afb80024 */ 	sw	$t8,0x24($sp)
-.L0003c7a0:
-/*    3c7a0:	0c012194 */ 	jal	osSetIntMask
-/*    3c7a4:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    3c7a8:	10000001 */ 	b	.L0003c7b0
-/*    3c7ac:	00000000 */ 	nop
-.L0003c7b0:
-/*    3c7b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3c7b4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    3c7b8:	03e00008 */ 	jr	$ra
-/*    3c7bc:	00000000 */ 	nop
-);
+void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta, s32 arg3)
+{
+	ALEventListItem *item;
+	ALEventListItem *nextItem;
+	ALLink *node;
+	s32 postAtEnd = 0;
+	OSIntMask mask;
+
+	mask = osSetIntMask(OS_IM_NONE);
+
+	item = (ALEventListItem *)evtq->freeList.next;
+
+	if (!item) {
+		osSetIntMask(mask);
+		return;
+	}
+
+	if (!item->node.next && !arg3) {
+		osSetIntMask(mask);
+		return;
+	}
+
+	alUnlink((ALLink *)item);
+	bcopy(evt, &item->evt, sizeof(*evt));
+
+	if (delta == AL_EVTQ_END) {
+		postAtEnd = -1;
+	}
+
+	for (node = &evtq->allocList; node != 0; node = node->next) {
+		if (!node->next) { /* end of the list */
+			if (postAtEnd) {
+				item->delta = 0;
+			} else {
+				item->delta = delta;
+			}
+
+			alLink((ALLink *)item, node);
+			break;
+		} else {
+			nextItem = (ALEventListItem *)node->next;
+
+			if (delta < nextItem->delta) {
+				item->delta = delta;
+				nextItem->delta -= delta;
+
+				alLink((ALLink *)item, node);
+				break;
+			}
+
+			delta -= nextItem->delta;
+		}
+	}
+
+	osSetIntMask(mask);
+}
 
 GLOBAL_ASM(
 glabel func0003c7c0

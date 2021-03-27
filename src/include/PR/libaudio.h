@@ -597,7 +597,7 @@ void            alEvtqNew(ALEventQueue *evtq, ALEventListItem *items,
                           s32 itemCount);
 ALMicroTime     alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt);
 void            alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt,
-                                ALMicroTime delta);
+                                ALMicroTime delta, s32 arg3);
 void        	alEvtqFlush(ALEventQueue *evtq);
 void        	alEvtqFlushType(ALEventQueue *evtq, s16 type);
 
