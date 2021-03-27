@@ -6,6 +6,5 @@
 
 u32 func00037650(void);
 void func00037704(void *arg0, void *arg1);
-u32 func000377e8(void);
 
 #endif
