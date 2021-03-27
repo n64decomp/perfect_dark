@@ -8,51 +8,20 @@
 #include "data.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel alEvtqNew
-/*    3c4d0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    3c4d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3c4d8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    3c4dc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    3c4e0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    3c4e4:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    3c4e8:	adc00010 */ 	sw	$zero,0x10($t6)
-/*    3c4ec:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*    3c4f0:	ade00008 */ 	sw	$zero,0x8($t7)
-/*    3c4f4:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*    3c4f8:	af00000c */ 	sw	$zero,0xc($t8)
-/*    3c4fc:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*    3c500:	af200000 */ 	sw	$zero,0x0($t9)
-/*    3c504:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    3c508:	ad000004 */ 	sw	$zero,0x4($t0)
-/*    3c50c:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*    3c510:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    3c514:	1920000f */ 	blez	$t1,.L0003c554
-/*    3c518:	00000000 */ 	nop
-.L0003c51c:
-/*    3c51c:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    3c520:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    3c524:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*    3c528:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*    3c52c:	016a5823 */ 	subu	$t3,$t3,$t2
-/*    3c530:	000b5880 */ 	sll	$t3,$t3,0x2
-/*    3c534:	0c00c5dc */ 	jal	alLink
-/*    3c538:	016c2021 */ 	addu	$a0,$t3,$t4
-/*    3c53c:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*    3c540:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3c544:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*    3c548:	01cf082a */ 	slt	$at,$t6,$t7
-/*    3c54c:	1420fff3 */ 	bnez	$at,.L0003c51c
-/*    3c550:	afae001c */ 	sw	$t6,0x1c($sp)
-.L0003c554:
-/*    3c554:	10000001 */ 	b	.L0003c55c
-/*    3c558:	00000000 */ 	nop
-.L0003c55c:
-/*    3c55c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3c560:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    3c564:	03e00008 */ 	jr	$ra
-/*    3c568:	00000000 */ 	nop
-);
+void alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount)
+{
+	s32 i;
+
+	evtq->eventCount     = 0;
+	evtq->allocList.next = 0;
+	evtq->allocList.prev = 0;
+	evtq->freeList.next  = 0;
+	evtq->freeList.prev  = 0;
+
+	for (i = 0; i < itemCount; i++) {
+		alLink((ALLink *)&items[i], &evtq->freeList);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0003c56c
