@@ -7,6 +7,7 @@
 #include "types.h"
 
 u8 __getTrackByte(ALCSeq *seq, u32 track);
+u32 __readVarLen(ALCSeq *seq,u32 track);
 
 GLOBAL_ASM(
 glabel func00038d30
@@ -69,7 +70,7 @@ glabel func00038d30
 /*    38e0c:	012a6821 */ 	addu	$t5,$t1,$t2
 /*    38e10:	adb90018 */ 	sw	$t9,0x18($t5)
 /*    38e14:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    38e18:	0c00e6d3 */ 	jal	func00039b4c
+/*    38e18:	0c00e6d3 */ 	jal	__readVarLen
 /*    38e1c:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*    38e20:	8faf0024 */ 	lw	$t7,0x24($sp)
 /*    38e24:	8fac0028 */ 	lw	$t4,0x28($sp)
@@ -193,7 +194,7 @@ glabel func00038eb0
 /*    38fd0:	11e1000c */ 	beq	$t7,$at,.L00039004
 /*    38fd4:	00000000 */ 	nop
 /*    38fd8:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*    38fdc:	0c00e6d3 */ 	jal	func00039b4c
+/*    38fdc:	0c00e6d3 */ 	jal	__readVarLen
 /*    38fe0:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*    38fe4:	8fb8002c */ 	lw	$t8,0x2c($sp)
 /*    38fe8:	8fae0038 */ 	lw	$t6,0x38($sp)
@@ -485,7 +486,7 @@ glabel func0003902c
 /*    39414:	15e10006 */ 	bne	$t7,$at,.L00039430
 /*    39418:	00000000 */ 	nop
 /*    3941c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    39420:	0c00e6d3 */ 	jal	func00039b4c
+/*    39420:	0c00e6d3 */ 	jal	__readVarLen
 /*    39424:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*    39428:	8fac0038 */ 	lw	$t4,0x38($sp)
 /*    3942c:	ad82000c */ 	sw	$v0,0xc($t4)
@@ -830,49 +831,24 @@ u8 __getTrackByte(ALCSeq *seq, u32 track)
     return theByte;
 }
 
-GLOBAL_ASM(
-glabel func00039b4c
-/*    39b4c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    39b50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    39b54:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    39b58:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    39b5c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39b60:	0c00e656 */ 	jal	__getTrackByte
-/*    39b64:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    39b68:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    39b6c:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*    39b70:	31cf0080 */ 	andi	$t7,$t6,0x80
-/*    39b74:	11e00012 */ 	beqz	$t7,.L00039bc0
-/*    39b78:	00000000 */ 	nop
-/*    39b7c:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    39b80:	3319007f */ 	andi	$t9,$t8,0x7f
-/*    39b84:	afb9001c */ 	sw	$t9,0x1c($sp)
-.L00039b88:
-/*    39b88:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    39b8c:	0c00e656 */ 	jal	__getTrackByte
-/*    39b90:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    39b94:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    39b98:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*    39b9c:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*    39ba0:	000849c0 */ 	sll	$t1,$t0,0x7
-/*    39ba4:	314b007f */ 	andi	$t3,$t2,0x7f
-/*    39ba8:	012b6021 */ 	addu	$t4,$t1,$t3
-/*    39bac:	afac001c */ 	sw	$t4,0x1c($sp)
-/*    39bb0:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*    39bb4:	31ae0080 */ 	andi	$t6,$t5,0x80
-/*    39bb8:	15c0fff3 */ 	bnez	$t6,.L00039b88
-/*    39bbc:	00000000 */ 	nop
-.L00039bc0:
-/*    39bc0:	10000003 */ 	b	.L00039bd0
-/*    39bc4:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    39bc8:	10000001 */ 	b	.L00039bd0
-/*    39bcc:	00000000 */ 	nop
-.L00039bd0:
-/*    39bd0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    39bd4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    39bd8:	03e00008 */ 	jr	$ra
-/*    39bdc:	00000000 */ 	nop
-);
+u32 __readVarLen(ALCSeq *seq, u32 track)
+{
+    u32 value;
+    u32 c;
+
+    value = (u32)__getTrackByte(seq, track);
+
+    if (value & 0x80) {
+        value &= 0x7f;
+
+        do {
+            c = (u32)__getTrackByte(seq, track);
+            value = (value << 7) + (c & 0x7f);
+        } while (c & 0x80);
+    }
+
+    return value;
+}
 
 GLOBAL_ASM(
 glabel func00039be0
