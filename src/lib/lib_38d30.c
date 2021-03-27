@@ -6,6 +6,7 @@
 #include "data.h"
 #include "types.h"
 
+u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event, s32 arg3);
 u8 __getTrackByte(ALCSeq *seq, u32 track);
 u32 __readVarLen(ALCSeq *seq,u32 track);
 
@@ -114,109 +115,38 @@ glabel alCSeqNew
 /*    38eac:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel alCSeqNextEvent
-/*    38eb0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    38eb4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    38eb8:	afa40038 */ 	sw	$a0,0x38($sp)
-/*    38ebc:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    38ec0:	afa60040 */ 	sw	$a2,0x40($sp)
-/*    38ec4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    38ec8:	240effff */ 	addiu	$t6,$zero,-1
-/*    38ecc:	afae0030 */ 	sw	$t6,0x30($sp)
-/*    38ed0:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*    38ed4:	8df80010 */ 	lw	$t8,0x10($t7)
-/*    38ed8:	afb80028 */ 	sw	$t8,0x28($sp)
-/*    38edc:	afa00034 */ 	sw	$zero,0x34($sp)
-.L00038ee0:
-/*    38ee0:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*    38ee4:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    38ee8:	8f280004 */ 	lw	$t0,0x4($t9)
-/*    38eec:	01285006 */ 	srlv	$t2,$t0,$t1
-/*    38ef0:	314b0001 */ 	andi	$t3,$t2,0x1
-/*    38ef4:	1160001e */ 	beqz	$t3,.L00038f70
-/*    38ef8:	00000000 */ 	nop
-/*    38efc:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    38f00:	8d8d0014 */ 	lw	$t5,0x14($t4)
-/*    38f04:	11a00009 */ 	beqz	$t5,.L00038f2c
-/*    38f08:	00000000 */ 	nop
-/*    38f0c:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    38f10:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    38f14:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*    38f18:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    38f1c:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*    38f20:	8f2800b8 */ 	lw	$t0,0xb8($t9)
-/*    38f24:	01095023 */ 	subu	$t2,$t0,$t1
-/*    38f28:	af2a00b8 */ 	sw	$t2,0xb8($t9)
-.L00038f2c:
-/*    38f2c:	8fac0034 */ 	lw	$t4,0x34($sp)
-/*    38f30:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*    38f34:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    38f38:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    38f3c:	016d7821 */ 	addu	$t7,$t3,$t5
-/*    38f40:	8dee00b8 */ 	lw	$t6,0xb8($t7)
-/*    38f44:	01d8082b */ 	sltu	$at,$t6,$t8
-/*    38f48:	10200009 */ 	beqz	$at,.L00038f70
-/*    38f4c:	00000000 */ 	nop
-/*    38f50:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    38f54:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*    38f58:	00095080 */ 	sll	$t2,$t1,0x2
-/*    38f5c:	010ac821 */ 	addu	$t9,$t0,$t2
-/*    38f60:	8f2c00b8 */ 	lw	$t4,0xb8($t9)
-/*    38f64:	afac0030 */ 	sw	$t4,0x30($sp)
-/*    38f68:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*    38f6c:	afab002c */ 	sw	$t3,0x2c($sp)
-.L00038f70:
-/*    38f70:	8fad0034 */ 	lw	$t5,0x34($sp)
-/*    38f74:	25af0001 */ 	addiu	$t7,$t5,0x1
-/*    38f78:	2de10010 */ 	sltiu	$at,$t7,0x10
-/*    38f7c:	1420ffd8 */ 	bnez	$at,.L00038ee0
-/*    38f80:	afaf0034 */ 	sw	$t7,0x34($sp)
-/*    38f84:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*    38f88:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    38f8c:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*    38f90:	0c00e40b */ 	jal	__alCSeqGetTrackEvent
-/*    38f94:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*    38f98:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    38f9c:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    38fa0:	af0e0004 */ 	sw	$t6,0x4($t8)
-/*    38fa4:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*    38fa8:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*    38fac:	8d28000c */ 	lw	$t0,0xc($t1)
-/*    38fb0:	010ac821 */ 	addu	$t9,$t0,$t2
-/*    38fb4:	ad39000c */ 	sw	$t9,0xc($t1)
-/*    38fb8:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    38fbc:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*    38fc0:	ad6c0010 */ 	sw	$t4,0x10($t3)
-/*    38fc4:	8fad003c */ 	lw	$t5,0x3c($sp)
-/*    38fc8:	24010012 */ 	addiu	$at,$zero,0x12
-/*    38fcc:	85af0000 */ 	lh	$t7,0x0($t5)
-/*    38fd0:	11e1000c */ 	beq	$t7,$at,.L00039004
-/*    38fd4:	00000000 */ 	nop
-/*    38fd8:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*    38fdc:	0c00e6d3 */ 	jal	__readVarLen
-/*    38fe0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    38fe4:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    38fe8:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    38fec:	00408025 */ 	or	$s0,$v0,$zero
-/*    38ff0:	00184080 */ 	sll	$t0,$t8,0x2
-/*    38ff4:	01c85021 */ 	addu	$t2,$t6,$t0
-/*    38ff8:	8d5900b8 */ 	lw	$t9,0xb8($t2)
-/*    38ffc:	03304821 */ 	addu	$t1,$t9,$s0
-/*    39000:	ad4900b8 */ 	sw	$t1,0xb8($t2)
-.L00039004:
-/*    39004:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*    39008:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*    3900c:	ad6c0014 */ 	sw	$t4,0x14($t3)
-/*    39010:	10000001 */ 	b	.L00039018
-/*    39014:	00000000 */ 	nop
-.L00039018:
-/*    39018:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    3901c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    39020:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    39024:	03e00008 */ 	jr	$ra
-/*    39028:	00000000 */ 	nop
-);
+void alCSeqNextEvent(ALCSeq *seq, ALEvent *evt, s32 arg2)
+{
+	u32 i;
+	u32 firstTime = 0xffffffff;
+	u32 firstTrack;
+	u32 lastTicks = seq->lastDeltaTicks;
+
+	for (i = 0; i < 16; i++) {
+		if ((seq->validTracks >> i) & 1) {
+			if (seq->deltaFlag) {
+				seq->evtDeltaTicks[i] -= lastTicks;
+			}
+
+			if (seq->evtDeltaTicks[i] < firstTime) {
+				firstTime = seq->evtDeltaTicks[i];
+				firstTrack = i;
+			}
+		}
+	}
+
+	__alCSeqGetTrackEvent(seq, firstTrack, evt, arg2);
+
+	evt->msg.midi.ticks = firstTime;
+	seq->lastTicks += firstTime;
+	seq->lastDeltaTicks = firstTime;
+
+	if (evt->type != AL_TRACK_END) {
+		seq->evtDeltaTicks[firstTrack] += __readVarLen(seq, firstTrack);
+	}
+
+	seq->deltaFlag = 1;
+}
 
 u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event, s32 arg3)
 {
