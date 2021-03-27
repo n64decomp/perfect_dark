@@ -528,55 +528,25 @@ void alCSeqSetLoc(ALCSeq *seq, ALCSeqMarker *m)
 	}
 }
 
+void alCSeqGetLoc(ALCSeq *seq, ALCSeqMarker *m)
+{
+	s32 i;
+
+	m->validTracks    = seq->validTracks;
+	m->lastTicks      = seq->lastTicks;
+	m->lastDeltaTicks = seq->lastDeltaTicks;
+
+	for (i = 0; i < 16; i++) {
+		m->curLoc[i]        = seq->curLoc[i];
+		m->curBUPtr[i]      = seq->curBUPtr[i];
+		m->curBULen[i]      = seq->curBULen[i];
+		m->lastStatus[i]    = seq->lastStatus[i];
+		m->evtDeltaTicks[i] = seq->evtDeltaTicks[i];
+	}
+}
+
 GLOBAL_ASM(
-glabel alCSeqGetLoc
-/*    3952c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    39530:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*    39534:	acae0000 */ 	sw	$t6,0x0($a1)
-/*    39538:	8c8f000c */ 	lw	$t7,0xc($a0)
-/*    3953c:	acaf0004 */ 	sw	$t7,0x4($a1)
-/*    39540:	8c980010 */ 	lw	$t8,0x10($a0)
-/*    39544:	acb80008 */ 	sw	$t8,0x8($a1)
-/*    39548:	afa00004 */ 	sw	$zero,0x4($sp)
-.L0003954c:
-/*    3954c:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    39550:	00194080 */ 	sll	$t0,$t9,0x2
-/*    39554:	00884821 */ 	addu	$t1,$a0,$t0
-/*    39558:	8d2a0018 */ 	lw	$t2,0x18($t1)
-/*    3955c:	00a85821 */ 	addu	$t3,$a1,$t0
-/*    39560:	ad6a000c */ 	sw	$t2,0xc($t3)
-/*    39564:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    39568:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    3956c:	008d7021 */ 	addu	$t6,$a0,$t5
-/*    39570:	8dcf0058 */ 	lw	$t7,0x58($t6)
-/*    39574:	00adc021 */ 	addu	$t8,$a1,$t5
-/*    39578:	af0f004c */ 	sw	$t7,0x4c($t8)
-/*    3957c:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    39580:	00994821 */ 	addu	$t1,$a0,$t9
-/*    39584:	91280098 */ 	lbu	$t0,0x98($t1)
-/*    39588:	00b95021 */ 	addu	$t2,$a1,$t9
-/*    3958c:	a148008c */ 	sb	$t0,0x8c($t2)
-/*    39590:	8fab0004 */ 	lw	$t3,0x4($sp)
-/*    39594:	008b6021 */ 	addu	$t4,$a0,$t3
-/*    39598:	918e00a8 */ 	lbu	$t6,0xa8($t4)
-/*    3959c:	00ab6821 */ 	addu	$t5,$a1,$t3
-/*    395a0:	a1ae009c */ 	sb	$t6,0x9c($t5)
-/*    395a4:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    395a8:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    395ac:	00984821 */ 	addu	$t1,$a0,$t8
-/*    395b0:	8d3900b8 */ 	lw	$t9,0xb8($t1)
-/*    395b4:	00b84021 */ 	addu	$t0,$a1,$t8
-/*    395b8:	ad1900ac */ 	sw	$t9,0xac($t0)
-/*    395bc:	8faa0004 */ 	lw	$t2,0x4($sp)
-/*    395c0:	254c0001 */ 	addiu	$t4,$t2,0x1
-/*    395c4:	29810010 */ 	slti	$at,$t4,0x10
-/*    395c8:	1420ffe0 */ 	bnez	$at,.L0003954c
-/*    395cc:	afac0004 */ 	sw	$t4,0x4($sp)
-/*    395d0:	10000001 */ 	b	.L000395d8
-/*    395d4:	00000000 */ 	nop
-.L000395d8:
-/*    395d8:	03e00008 */ 	jr	$ra
-/*    395dc:	27bd0008 */ 	addiu	$sp,$sp,0x8
+glabel func000395e0
 /*    395e0:	27bdfed8 */ 	addiu	$sp,$sp,-296
 /*    395e4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    395e8:	afa40128 */ 	sw	$a0,0x128($sp)
