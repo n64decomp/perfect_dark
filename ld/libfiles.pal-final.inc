@@ -89,6 +89,7 @@
 	build/ROMID/lib/lib_43dd0.o (section); \
 	build/ROMID/lib/lib_446d0.o (section); \
 	build/ROMID/lib/lib_44bc0.o (section); \
+	build/ROMID/lib/ultra/audio/synsetpriority.o (section); \
 	build/ROMID/lib/lib_44f60.o (section); \
 	build/ROMID/lib/lib_45ed0.o (section); \
 	build/ROMID/lib/lib_461c0.o (section); \
