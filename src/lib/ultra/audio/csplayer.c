@@ -1545,7 +1545,7 @@ glabel __CSPVoiceHandler
 /*    34d44:	00000000 */ 	nop
 /*    34d48:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*    34d4c:	01a02025 */ 	or	$a0,$t5,$zero
-/*    34d50:	0c00f6e8 */ 	jal	func0003dba0
+/*    34d50:	0c00f6e8 */ 	jal	__initFromBank
 /*    34d54:	8da50020 */ 	lw	$a1,0x20($t5)
 .L00034d58:
 /*    34d58:	1000000c */ 	b	.L00034d8c
@@ -1555,7 +1555,7 @@ glabel __CSPVoiceHandler
 /*    34d68:	ad280020 */ 	sw	$t0,0x20($t1)
 /*    34d6c:	8faf0074 */ 	lw	$t7,0x74($sp)
 /*    34d70:	01e02025 */ 	or	$a0,$t7,$zero
-/*    34d74:	0c00f6e8 */ 	jal	func0003dba0
+/*    34d74:	0c00f6e8 */ 	jal	__initFromBank
 /*    34d78:	8de50020 */ 	lw	$a1,0x20($t7)
 /*    34d7c:	10000003 */ 	b	.L00034d8c
 /*    34d80:	00000000 */ 	nop
@@ -3908,7 +3908,7 @@ glabel func00035110
 /*    37020:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*    37024:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    37028:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    3702c:	0c00f7d9 */ 	jal	func0003df64
+/*    3702c:	0c00f7d9 */ 	jal	__setInstChanState
 /*    37030:	93a600c3 */ 	lbu	$a2,0xc3($sp)
 /*    37034:	10000001 */ 	b	.L0003703c
 /*    37038:	00000000 */ 	nop
@@ -6135,7 +6135,7 @@ glabel func00035110
 /*    37020:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*    37024:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    37028:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    3702c:	0c00f7d9 */ 	jal	func0003df64
+/*    3702c:	0c00f7d9 */ 	jal	__setInstChanState
 /*    37030:	93a600c3 */ 	lbu	$a2,0xc3($sp)
 /*    37034:	10000001 */ 	b	.L0003703c
 /*    37038:	00000000 */ 	nop

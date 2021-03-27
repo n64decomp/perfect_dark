@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "PR/seqp.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_30ce0.h"
@@ -747,73 +748,32 @@ glabel func0003db14
 /*    3db9c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel func0003dba0
-/*    3dba0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    3dba4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3dba8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    3dbac:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    3dbb0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    3dbb4:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    3dbb8:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    3dbbc:	15c0000c */ 	bnez	$t6,.L0003dbf0
-/*    3dbc0:	00000000 */ 	nop
-.L0003dbc4:
-/*    3dbc4:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    3dbc8:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3dbcc:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    3dbd0:	01f94021 */ 	addu	$t0,$t7,$t9
-/*    3dbd4:	8d09000c */ 	lw	$t1,0xc($t0)
-/*    3dbd8:	afa90018 */ 	sw	$t1,0x18($sp)
-/*    3dbdc:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    3dbe0:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*    3dbe4:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*    3dbe8:	1180fff6 */ 	beqz	$t4,.L0003dbc4
-/*    3dbec:	afab001c */ 	sw	$t3,0x1c($sp)
-.L0003dbf0:
-/*    3dbf0:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    3dbf4:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    3dbf8:	91ae0034 */ 	lbu	$t6,0x34($t5)
-/*    3dbfc:	19c00010 */ 	blez	$t6,.L0003dc40
-/*    3dc00:	00000000 */ 	nop
-.L0003dc04:
-/*    3dc04:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    3dc08:	0c00f745 */ 	jal	__resetPerfChanState
-/*    3dc0c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    3dc10:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    3dc14:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    3dc18:	0c00f7d9 */ 	jal	func0003df64
-/*    3dc1c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3dc20:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    3dc24:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*    3dc28:	270f0001 */ 	addiu	$t7,$t8,0x1
-/*    3dc2c:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*    3dc30:	93280034 */ 	lbu	$t0,0x34($t9)
-/*    3dc34:	01e8082a */ 	slt	$at,$t7,$t0
-/*    3dc38:	1420fff2 */ 	bnez	$at,.L0003dc04
-/*    3dc3c:	00000000 */ 	nop
-.L0003dc40:
-/*    3dc40:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3dc44:	8d2a0008 */ 	lw	$t2,0x8($t1)
-/*    3dc48:	11400009 */ 	beqz	$t2,.L0003dc70
-/*    3dc4c:	00000000 */ 	nop
-/*    3dc50:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    3dc54:	0c00f745 */ 	jal	__resetPerfChanState
-/*    3dc58:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    3dc5c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    3dc60:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*    3dc64:	24060009 */ 	addiu	$a2,$zero,0x9
-/*    3dc68:	0c00f7d9 */ 	jal	func0003df64
-/*    3dc6c:	8d650008 */ 	lw	$a1,0x8($t3)
-.L0003dc70:
-/*    3dc70:	10000001 */ 	b	.L0003dc78
-/*    3dc74:	00000000 */ 	nop
-.L0003dc78:
-/*    3dc78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3dc7c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    3dc80:	03e00008 */ 	jr	$ra
-/*    3dc84:	00000000 */ 	nop
-);
+void __initFromBank(ALSeqPlayer *seqp, ALBank *b)
+{
+	/*
+	 * init the chanState with the default instrument
+	 */
+	s32 i;
+	ALInstrument *inst = 0;
+
+	/* set to the first available instrument. */
+	for (i = 0; !inst; i++) {
+		inst = b->instArray[i];
+	}
+
+	/* sct 11/6/95 - Setup the channel state for the given instrument. */
+	/* There is some wasted effort here since both calls the same state vars */
+	/* but it's safer. */
+	for (i = 0; i < seqp->maxChannels; i++) {
+		__resetPerfChanState(seqp, i);
+		__setInstChanState(seqp, inst, i);
+	}
+
+	if (b->percussion) {
+		__resetPerfChanState(seqp, i);
+		__setInstChanState(seqp, b->percussion, 9);
+	}
+}
 
 void __initChanState(ALSeqPlayer *seqp)
 {
@@ -847,7 +807,7 @@ void __resetPerfChanState(ALSeqPlayer *seqp, s32 chan)
 }
 
 GLOBAL_ASM(
-glabel func0003df64
+glabel __setInstChanState
 /*    3df64:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    3df68:	00067880 */ 	sll	$t7,$a2,0x2
 /*    3df6c:	01e67823 */ 	subu	$t7,$t7,$a2
