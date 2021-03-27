@@ -861,7 +861,7 @@ glabel func0003dba0
 );
 
 GLOBAL_ASM(
-glabel func0003dc88
+glabel __initChanState
 /*    3dc88:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3dc8c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3dc90:	afa40020 */ 	sw	$a0,0x20($sp)

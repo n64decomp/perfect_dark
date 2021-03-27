@@ -86,7 +86,7 @@ extern u32 var8005f048;
 extern u32 var8005f0a8;
 extern u32 var8005f108;
 extern u32 var8005f110;
-extern u32 var8005f114;
+extern ALGlobals *alGlobals;
 extern u32 var8005f120;
 extern u32 var8005f124;
 extern u32 var8005f128;

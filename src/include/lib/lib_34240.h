@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00034240(void);
+u32 alCSPNew(void);
 u32 func00034df8(void);
 u32 func00034f0c(void);
 u32 func00034fb8(void);

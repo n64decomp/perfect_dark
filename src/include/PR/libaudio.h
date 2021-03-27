@@ -35,7 +35,11 @@ extern "C" {
 
 #define AL_FX_BUFFER_SIZE       8192
 #define AL_FRAME_INIT           -1
+#if PAL
+#define AL_USEC_PER_FRAME       20000
+#else
 #define AL_USEC_PER_FRAME       16000
+#endif
 #define AL_MAX_PRIORITY         127
 #define AL_GAIN_CHANGE_TIME     1000
 
@@ -621,6 +625,8 @@ typedef struct ALVoiceState_s {
     u8          tremelo;        /* current value of the tremelo */
     u8          flags;          /* bit 0 tremelo flag
                                    bit 1 vibrato flag           */
+    u32 unk38;
+    u32 unk3c;
 } ALVoiceState;
 
 typedef struct {
@@ -633,6 +639,15 @@ typedef struct {
     u8                  fxmix;          /* current fx mix for this chan     */
     u8                  sustain;        /* current sustain pedal state      */
     f32                 pitchBend;      /* current pitch bend val in cents  */
+    u32 unk10;
+    u32 unk14;
+    u32 unk18;
+    u32 unk1c;
+    u32 unk20;
+    u32 unk24;
+    u32 unk28;
+    u32 unk2c;
+    u32 unk30;
 } ALChanState;
 
 typedef struct ALSeq_s {
@@ -749,6 +764,11 @@ typedef struct {
     ALOscInit           initOsc;
     ALOscUpdate         updateOsc;
     ALOscStop           stopOsc;
+    f32 unk7c;
+    f32 unk80;
+    s32 unk84;
+    u8 unk88;
+    u8 unk89;
 } ALCSPlayer;
 
 /*

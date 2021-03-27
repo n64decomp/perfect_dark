@@ -7,7 +7,7 @@
 #include "types.h"
 
 u32 var8005f110 = 0;
-u32 var8005f114 = 0;
+ALGlobals *alGlobals = NULL;
 u32 var8005f118 = 0;
 u32 var8005f11c = 0;
 
@@ -24,14 +24,14 @@ glabel func0002fba0
 /*    2fbc0:	8faf0018 */ 	lw	$t7,0x18($sp)
 /*    2fbc4:	3c018006 */ 	lui	$at,%hi(var8005f110)
 /*    2fbc8:	ac2ff110 */ 	sw	$t7,%lo(var8005f110)($at)
-/*    2fbcc:	3c188006 */ 	lui	$t8,%hi(var8005f114)
-/*    2fbd0:	8f18f114 */ 	lw	$t8,%lo(var8005f114)($t8)
+/*    2fbcc:	3c188006 */ 	lui	$t8,%hi(alGlobals)
+/*    2fbd0:	8f18f114 */ 	lw	$t8,%lo(alGlobals)($t8)
 /*    2fbd4:	17000007 */ 	bnez	$t8,.L0002fbf4
 /*    2fbd8:	00000000 */ 	nop
 /*    2fbdc:	3c198006 */ 	lui	$t9,%hi(var8005f110)
 /*    2fbe0:	8f39f110 */ 	lw	$t9,%lo(var8005f110)($t9)
-/*    2fbe4:	3c018006 */ 	lui	$at,%hi(var8005f114)
-/*    2fbe8:	ac39f114 */ 	sw	$t9,%lo(var8005f114)($at)
+/*    2fbe4:	3c018006 */ 	lui	$at,%hi(alGlobals)
+/*    2fbe8:	ac39f114 */ 	sw	$t9,%lo(alGlobals)($at)
 /*    2fbec:	0c00c338 */ 	jal	func00030ce0
 /*    2fbf0:	8fa4001c */ 	lw	$a0,0x1c($sp)
 .L0002fbf4:
@@ -57,8 +57,8 @@ glabel alClose
 /*    2fc2c:	00000000 */ 	nop
 /*    2fc30:	3c018006 */ 	lui	$at,%hi(var8005f110)
 /*    2fc34:	ac20f110 */ 	sw	$zero,%lo(var8005f110)($at)
-/*    2fc38:	3c018006 */ 	lui	$at,%hi(var8005f114)
-/*    2fc3c:	ac20f114 */ 	sw	$zero,%lo(var8005f114)($at)
+/*    2fc38:	3c018006 */ 	lui	$at,%hi(alGlobals)
+/*    2fc3c:	ac20f114 */ 	sw	$zero,%lo(alGlobals)($at)
 .L0002fc40:
 /*    2fc40:	10000001 */ 	b	.L0002fc48
 /*    2fc44:	00000000 */ 	nop

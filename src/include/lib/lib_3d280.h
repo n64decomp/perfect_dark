@@ -15,7 +15,6 @@ u32 func0003d9cc(void);
 u32 func0003dad0(void);
 u32 func0003db14(void);
 u32 func0003dba0(void);
-u32 func0003dc88(void);
 u32 func0003dd14(void);
 u32 func0003df64(void);
 u32 func0003e2a0(void);

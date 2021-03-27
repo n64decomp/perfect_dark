@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 func00039c80(void);
-u32 func00039cd0(void);
+void func00039cd0(ALCSPlayer *seqp);
 u32 func00039e5c(void);
 
 #endif
