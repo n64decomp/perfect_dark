@@ -17,7 +17,7 @@ glabel alSynSetVol
 /*    3cd08:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3cd0c:	11e00023 */ 	beqz	$t7,.L0003cd9c
 /*    3cd10:	00000000 */ 	nop
-/*    3cd14:	0c00c541 */ 	jal	func00031504
+/*    3cd14:	0c00c541 */ 	jal	__allocParam
 /*    3cd18:	00000000 */ 	nop
 /*    3cd1c:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3cd20:	8fb8001c */ 	lw	$t8,0x1c($sp)

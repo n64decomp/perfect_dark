@@ -22,7 +22,7 @@ glabel func0003e3e0
 /*    3e3f4:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3e3f8:	11e0001f */ 	beqz	$t7,.L0003e478
 /*    3e3fc:	00000000 */ 	nop
-/*    3e400:	0c00c541 */ 	jal	func00031504
+/*    3e400:	0c00c541 */ 	jal	__allocParam
 /*    3e404:	00000000 */ 	nop
 /*    3e408:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3e40c:	8fb8001c */ 	lw	$t8,0x1c($sp)
@@ -73,7 +73,7 @@ glabel func0003e490
 /*    3e4a4:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3e4a8:	11e0001f */ 	beqz	$t7,.L0003e528
 /*    3e4ac:	00000000 */ 	nop
-/*    3e4b0:	0c00c541 */ 	jal	func00031504
+/*    3e4b0:	0c00c541 */ 	jal	__allocParam
 /*    3e4b4:	00000000 */ 	nop
 /*    3e4b8:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3e4bc:	8fb8001c */ 	lw	$t8,0x1c($sp)

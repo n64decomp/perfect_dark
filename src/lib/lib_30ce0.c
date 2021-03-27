@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "PR/synthInternals.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_30ce0.h"
@@ -564,35 +565,18 @@ glabel alAudioFrame
 /*    31500:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func00031504
-/*    31504:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    31508:	afa00004 */ 	sw	$zero,0x4($sp)
-/*    3150c:	3c0e8006 */ 	lui	$t6,%hi(alGlobals)
-/*    31510:	8dcef114 */ 	lw	$t6,%lo(alGlobals)($t6)
-/*    31514:	8dcf002c */ 	lw	$t7,0x2c($t6)
-/*    31518:	11e0000c */ 	beqz	$t7,.L0003154c
-/*    3151c:	00000000 */ 	nop
-/*    31520:	3c188006 */ 	lui	$t8,%hi(alGlobals)
-/*    31524:	8f18f114 */ 	lw	$t8,%lo(alGlobals)($t8)
-/*    31528:	8f19002c */ 	lw	$t9,0x2c($t8)
-/*    3152c:	afb90004 */ 	sw	$t9,0x4($sp)
-/*    31530:	3c088006 */ 	lui	$t0,%hi(alGlobals)
-/*    31534:	8d08f114 */ 	lw	$t0,%lo(alGlobals)($t0)
-/*    31538:	8d09002c */ 	lw	$t1,0x2c($t0)
-/*    3153c:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*    31540:	ad0a002c */ 	sw	$t2,0x2c($t0)
-/*    31544:	8fab0004 */ 	lw	$t3,0x4($sp)
-/*    31548:	ad600000 */ 	sw	$zero,0x0($t3)
-.L0003154c:
-/*    3154c:	10000003 */ 	b	.L0003155c
-/*    31550:	8fa20004 */ 	lw	$v0,0x4($sp)
-/*    31554:	10000001 */ 	b	.L0003155c
-/*    31558:	00000000 */ 	nop
-.L0003155c:
-/*    3155c:	03e00008 */ 	jr	$ra
-/*    31560:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+ALParam *__allocParam()
+{
+	ALParam *update = NULL;
+
+	if (alGlobals->drvr.paramList) {
+		update = alGlobals->drvr.paramList;
+		alGlobals->drvr.paramList = alGlobals->drvr.paramList->next;
+		update->next = 0;
+	}
+
+	return update;
+}
 
 GLOBAL_ASM(
 glabel func00031564

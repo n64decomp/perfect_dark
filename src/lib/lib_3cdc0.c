@@ -18,7 +18,7 @@ glabel func0003cdc0
 /*    3cddc:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3cde0:	11e0003c */ 	beqz	$t7,.L0003ced4
 /*    3cde4:	00000000 */ 	nop
-/*    3cde8:	0c00c541 */ 	jal	func00031504
+/*    3cde8:	0c00c541 */ 	jal	__allocParam
 /*    3cdec:	00000000 */ 	nop
 /*    3cdf0:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3cdf4:	8fb8001c */ 	lw	$t8,0x1c($sp)

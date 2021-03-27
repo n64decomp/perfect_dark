@@ -16,7 +16,7 @@ glabel func0003cef0
 /*    3cf04:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3cf08:	11e0001f */ 	beqz	$t7,.L0003cf88
 /*    3cf0c:	00000000 */ 	nop
-/*    3cf10:	0c00c541 */ 	jal	func00031504
+/*    3cf10:	0c00c541 */ 	jal	__allocParam
 /*    3cf14:	00000000 */ 	nop
 /*    3cf18:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3cf1c:	8fb8001c */ 	lw	$t8,0x1c($sp)
@@ -67,7 +67,7 @@ glabel func0003cfa0
 /*    3cfb4:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3cfb8:	11e0001f */ 	beqz	$t7,.L0003d038
 /*    3cfbc:	00000000 */ 	nop
-/*    3cfc0:	0c00c541 */ 	jal	func00031504
+/*    3cfc0:	0c00c541 */ 	jal	__allocParam
 /*    3cfc4:	00000000 */ 	nop
 /*    3cfc8:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3cfcc:	8fb8001c */ 	lw	$t8,0x1c($sp)
@@ -118,7 +118,7 @@ glabel func0003d050
 /*    3d064:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3d068:	11e0001f */ 	beqz	$t7,.L0003d0e8
 /*    3d06c:	00000000 */ 	nop
-/*    3d070:	0c00c541 */ 	jal	func00031504
+/*    3d070:	0c00c541 */ 	jal	__allocParam
 /*    3d074:	00000000 */ 	nop
 /*    3d078:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3d07c:	8fb8001c */ 	lw	$t8,0x1c($sp)
@@ -168,7 +168,7 @@ glabel func0003d100
 /*    3d110:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3d114:	11e0001c */ 	beqz	$t7,.L0003d188
 /*    3d118:	00000000 */ 	nop
-/*    3d11c:	0c00c541 */ 	jal	func00031504
+/*    3d11c:	0c00c541 */ 	jal	__allocParam
 /*    3d120:	00000000 */ 	nop
 /*    3d124:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3d128:	8fb8001c */ 	lw	$t8,0x1c($sp)
@@ -220,7 +220,7 @@ glabel func0003d1a0
 /*    3d1c4:	8f280088 */ 	lw	$t0,0x88($t9)
 /*    3d1c8:	1100001f */ 	beqz	$t0,.L0003d248
 /*    3d1cc:	00000000 */ 	nop
-/*    3d1d0:	0c00c541 */ 	jal	func00031504
+/*    3d1d0:	0c00c541 */ 	jal	__allocParam
 /*    3d1d4:	00000000 */ 	nop
 /*    3d1d8:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3d1dc:	8fa9001c */ 	lw	$t1,0x1c($sp)
