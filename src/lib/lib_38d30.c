@@ -220,102 +220,97 @@ glabel alCSeqNextEvent
 
 u32 __alCSeqGetTrackEvent(ALCSeq *seq, u32 track, ALEvent *event, s32 arg3)
 {
-    u32 offset;
-    u8 status, loopCt, curLpCt, *tmpPtr;
+	u32 offset;
+	u8 status, loopCt, curLpCt, *tmpPtr;
 
-    status = __getTrackByte(seq, track);
+	status = __getTrackByte(seq, track);
 
-    if (status == AL_MIDI_Meta) {
-        u8 type = __getTrackByte(seq, track);
+	if (status == AL_MIDI_Meta) {
+		u8 type = __getTrackByte(seq, track);
 
-        if (type == AL_MIDI_META_TEMPO) {
-            event->type = AL_TEMPO_EVT;
-            event->msg.tempo.status = status;
-            event->msg.tempo.type = type;
-            event->msg.tempo.byte1 = __getTrackByte(seq, track);
-            event->msg.tempo.byte2 = __getTrackByte(seq, track);
-            event->msg.tempo.byte3 = __getTrackByte(seq, track);
-            seq->lastStatus[track] = 0;  /* lastStatus not supported after meta */
-        } else if (type == AL_MIDI_META_EOT) {
-            u32 flagMask;
+		if (type == AL_MIDI_META_TEMPO) {
+			event->type = AL_TEMPO_EVT;
+			event->msg.tempo.status = status;
+			event->msg.tempo.type = type;
+			event->msg.tempo.byte1 = __getTrackByte(seq, track);
+			event->msg.tempo.byte2 = __getTrackByte(seq, track);
+			event->msg.tempo.byte3 = __getTrackByte(seq, track);
+			seq->lastStatus[track] = 0;  /* lastStatus not supported after meta */
+		} else if (type == AL_MIDI_META_EOT) {
+			u32 flagMask;
 
-            flagMask = 1 << track;
-            seq->validTracks = seq->validTracks ^ flagMask;
+			flagMask = 1 << track;
+			seq->validTracks = seq->validTracks ^ flagMask;
 
-            if (seq->validTracks) { /* there is music left don't end */
-                event->type = AL_TRACK_END;
+			if (seq->validTracks) { /* there is music left don't end */
+				event->type = AL_TRACK_END;
 			} else {       /* no more music send AL_SEQ_END_EVT msg */
-                event->type = AL_SEQ_END_EVT;
+				event->type = AL_SEQ_END_EVT;
 			}
-        } else if (type == AL_CMIDI_LOOPSTART_CODE) {
-            status = __getTrackByte(seq, track);
-            event->msg.loop.count = status << 8;
+		} else if (type == AL_CMIDI_LOOPSTART_CODE) {
+			status = __getTrackByte(seq, track);
+			event->msg.loop.count = status << 8;
 
-            status = __getTrackByte(seq, track);
-            event->msg.loop.count += status;
+			status = __getTrackByte(seq, track);
+			event->msg.loop.count += status;
 
-            seq->lastStatus[track] = 0;
-            event->type = AL_CSP_LOOPSTART;
-        } else if (type == AL_CMIDI_LOOPEND_CODE) {
-            tmpPtr = seq->curLoc[track];
-            loopCt = *tmpPtr++;
-            curLpCt = *tmpPtr;
+			seq->lastStatus[track] = 0;
+			event->type = AL_CSP_LOOPSTART;
+		} else if (type == AL_CMIDI_LOOPEND_CODE) {
+			tmpPtr = seq->curLoc[track];
+			loopCt = *tmpPtr++;
+			curLpCt = *tmpPtr;
 
-            if (curLpCt == 0 || !arg3) {
-                *tmpPtr = loopCt; /* reset current loop count */
-                seq->curLoc[track] = tmpPtr + 5; /* move pointer to end of event */
-            } else {
-                if (curLpCt != 0xff) { /* not a loop forever */
-                    *tmpPtr = curLpCt - 1;   /* decrement current loop count */
+			if (curLpCt == 0 || !arg3) {
+				*tmpPtr = loopCt; /* reset current loop count */
+				seq->curLoc[track] = tmpPtr + 5; /* move pointer to end of event */
+			} else {
+				if (curLpCt != 0xff) { /* not a loop forever */
+					*tmpPtr = curLpCt - 1;   /* decrement current loop count */
 				}
 
-                tmpPtr++;                    /* get offset from end of event */
-                offset = (*tmpPtr++) << 24;
-                offset += (*tmpPtr++) << 16;
-                offset += (*tmpPtr++) << 8;
-                offset += *tmpPtr++;
-                seq->curLoc[track] = tmpPtr - offset;
-            }
+				tmpPtr++;                    /* get offset from end of event */
+				offset = (*tmpPtr++) << 24;
+				offset += (*tmpPtr++) << 16;
+				offset += (*tmpPtr++) << 8;
+				offset += *tmpPtr++;
+				seq->curLoc[track] = tmpPtr - offset;
+			}
 
-            seq->lastStatus[track] = 0;
-            event->type = AL_CSP_LOOPEND;
-        }
-    } else {
-        event->type = AL_SEQ_MIDI_EVT;
-
-        if (status & 0x80) {
-            event->msg.midi.status = (status & 0xf0) | track;
-            event->msg.midi.byte1 = __getTrackByte(seq,track);
-            seq->lastStatus[track] = event->msg.midi.status;
-        } else {    /* running status */
-            event->msg.midi.status = seq->lastStatus[track];
-            event->msg.midi.byte1 = status;
-        }
-
-        if ((event->msg.midi.status & 0xf0) != AL_MIDI_ProgramChange
-        		&& (event->msg.midi.status & 0xf0) != AL_MIDI_ChannelPressure) {
-            event->msg.midi.byte2 = __getTrackByte(seq,track);
-
-            if ((event->msg.midi.status & 0xf0) == AL_MIDI_NoteOn) {
-                event->msg.midi.duration = __readVarLen(seq,track);
-            }
-        } else {
-            event->msg.midi.byte2 = 0;
+			seq->lastStatus[track] = 0;
+			event->type = AL_CSP_LOOPEND;
 		}
-    }
+	} else {
+		event->type = AL_SEQ_MIDI_EVT;
 
-    return TRUE;
+		if (status & 0x80) {
+			event->msg.midi.status = (status & 0xf0) | track;
+			event->msg.midi.byte1 = __getTrackByte(seq,track);
+			seq->lastStatus[track] = event->msg.midi.status;
+		} else {    /* running status */
+			event->msg.midi.status = seq->lastStatus[track];
+			event->msg.midi.byte1 = status;
+		}
+
+		if ((event->msg.midi.status & 0xf0) != AL_MIDI_ProgramChange
+				&& (event->msg.midi.status & 0xf0) != AL_MIDI_ChannelPressure) {
+			event->msg.midi.byte2 = __getTrackByte(seq,track);
+
+			if ((event->msg.midi.status & 0xf0) == AL_MIDI_NoteOn) {
+				event->msg.midi.duration = __readVarLen(seq,track);
+			}
+		} else {
+			event->msg.midi.byte2 = 0;
+		}
+	}
+
+	return TRUE;
 }
 
-GLOBAL_ASM(
-glabel func00039460
-/*    39460:	03e00008 */ 	jr	$ra
-/*    39464:	8c82000c */ 	lw	$v0,0xc($a0)
-/*    39468:	03e00008 */ 	jr	$ra
-/*    3946c:	00000000 */ 	nop
-/*    39470:	03e00008 */ 	jr	$ra
-/*    39474:	00000000 */ 	nop
-);
+s32 alCSeqGetTicks(ALCSeq *seq)
+{
+	return seq->lastTicks;
+}
 
 void alCSeqSetLoc(ALCSeq *seq, ALCSeqMarker *m)
 {
