@@ -4,7 +4,6 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_09660.h"
-#include "lib/lib_2faf0.h"
 #include "lib/lib_2fba0.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_30ce0.h"

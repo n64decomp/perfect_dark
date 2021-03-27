@@ -58,7 +58,7 @@
 	build/ROMID/lib/lib_2f490.o (section); \
 	build/ROMID/lib/lib_2f8a0.o (section); \
 	build/ROMID/lib/lib_2fa00.o (section); \
-	build/ROMID/lib/lib_2faf0.o (section); \
+	build/ROMID/lib/ultra/audio/heap.o (section); \
 	build/ROMID/lib/lib_2fba0.o (section); \
 	build/ROMID/lib/lib_2fc60.o (section); \
 	build/ROMID/lib/lib_30ce0.o (section); \

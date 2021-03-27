@@ -79,6 +79,11 @@ $(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32
 
+# Note: Files that use -O3 must be compiled without the ASM processor, otherwise
+# it introduces a race condition when using make -j because they create a
+# temporary include-stdin.u file during compilation.
+# For these files, see their explicit targets towards the end of this file.
+$(B_DIR)/lib/ultra/audio/heap.o: OPT_LVL := -g
 $(B_DIR)/lib/ultra/gu/align.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/gu/frustum.o: OPT_LVL := -O3
 $(B_DIR)/lib/ultra/gu/ortho.o: OPT_LVL := -O3
@@ -481,8 +486,8 @@ $(B_DIR)/assets/animations/list.o: $(A_DIR)/animations/list.c
 
 $(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c
@@ -490,9 +495,10 @@ $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 	tools/patchmips3 $@ || rm $@
 
-# Files that use -O3 must be compiled without the ASM processor, otherwise it
-# introduces a race condition when using make -j because they create a temporary
-# include-stdin.u file during compilation.
+$(B_DIR)/lib/ultra/gu/align.o: src/lib/ultra/gu/align.c
+	@mkdir -p $(dir $@)
+	$(IDOCC) -c $(CFLAGS) $< -o $@
+
 $(B_DIR)/lib/ultra/gu/frustum.o: src/lib/ultra/gu/frustum.c
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
@@ -507,13 +513,13 @@ $(B_DIR)/lib/ultra/gu/scale.o: src/lib/ultra/gu/scale.c
 
 $(B_DIR)/lib/%.o: src/lib/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/game/%.o: src/game/%.c
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)

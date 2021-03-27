@@ -10,7 +10,6 @@
 #include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
-#include "lib/lib_2faf0.h"
 #include "lib/lib_2fc60.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_37650.h"
