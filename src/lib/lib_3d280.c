@@ -277,88 +277,43 @@ glabel func0003d340
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0003d4b8
-/*    3d4b8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    3d4bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3d4c0:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    3d4c4:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    3d4c8:	afa60038 */ 	sw	$a2,0x38($sp)
-/*    3d4cc:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    3d4d0:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    3d4d4:	a3ae001f */ 	sb	$t6,0x1f($sp)
-/*    3d4d8:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*    3d4dc:	8df80050 */ 	lw	$t8,0x50($t7)
-/*    3d4e0:	afb8002c */ 	sw	$t8,0x2c($sp)
-/*    3d4e4:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3d4e8:	13200033 */ 	beqz	$t9,.L0003d5b8
-/*    3d4ec:	00000000 */ 	nop
-.L0003d4f0:
-/*    3d4f0:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    3d4f4:	8d090000 */ 	lw	$t1,0x0($t0)
-/*    3d4f8:	afa90028 */ 	sw	$t1,0x28($sp)
-/*    3d4fc:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    3d500:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*    3d504:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    3d508:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*    3d50c:	8d8d0008 */ 	lw	$t5,0x8($t4)
-/*    3d510:	016d7021 */ 	addu	$t6,$t3,$t5
-/*    3d514:	afae0020 */ 	sw	$t6,0x20($sp)
-/*    3d518:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3d51c:	24010005 */ 	addiu	$at,$zero,0x5
-/*    3d520:	85f8000c */ 	lh	$t8,0xc($t7)
-/*    3d524:	1701001f */ 	bne	$t8,$at,.L0003d5a4
-/*    3d528:	00000000 */ 	nop
-/*    3d52c:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3d530:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    3d534:	8f280010 */ 	lw	$t0,0x10($t9)
-/*    3d538:	1509001a */ 	bne	$t0,$t1,.L0003d5a4
-/*    3d53c:	00000000 */ 	nop
-/*    3d540:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*    3d544:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*    3d548:	018a082a */ 	slt	$at,$t4,$t2
-/*    3d54c:	10200012 */ 	beqz	$at,.L0003d598
-/*    3d550:	00000000 */ 	nop
-/*    3d554:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*    3d558:	11600007 */ 	beqz	$t3,.L0003d578
-/*    3d55c:	00000000 */ 	nop
-/*    3d560:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3d564:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3d568:	8dae0008 */ 	lw	$t6,0x8($t5)
-/*    3d56c:	8df80008 */ 	lw	$t8,0x8($t7)
-/*    3d570:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*    3d574:	adb90008 */ 	sw	$t9,0x8($t5)
-.L0003d578:
-/*    3d578:	0c00c5e9 */ 	jal	alUnlink
-/*    3d57c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    3d580:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*    3d584:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    3d588:	0c00c5dc */ 	jal	alLink
-/*    3d58c:	24a50048 */ 	addiu	$a1,$a1,0x48
-/*    3d590:	10000002 */ 	b	.L0003d59c
-/*    3d594:	00000000 */ 	nop
-.L0003d598:
-/*    3d598:	a3a0001f */ 	sb	$zero,0x1f($sp)
-.L0003d59c:
-/*    3d59c:	10000006 */ 	b	.L0003d5b8
-/*    3d5a0:	00000000 */ 	nop
-.L0003d5a4:
-/*    3d5a4:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    3d5a8:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*    3d5ac:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    3d5b0:	1520ffcf */ 	bnez	$t1,.L0003d4f0
-/*    3d5b4:	00000000 */ 	nop
-.L0003d5b8:
-/*    3d5b8:	10000003 */ 	b	.L0003d5c8
-/*    3d5bc:	93a2001f */ 	lbu	$v0,0x1f($sp)
-/*    3d5c0:	10000001 */ 	b	.L0003d5c8
-/*    3d5c4:	00000000 */ 	nop
-.L0003d5c8:
-/*    3d5c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3d5cc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    3d5d0:	03e00008 */ 	jr	$ra
-/*    3d5d4:	00000000 */ 	nop
-);
+char __voiceNeedsNoteKill(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime killTime)
+{
+	ALLink *thisNode;
+	ALLink *nextNode;
+	ALEventListItem *thisItem;
+	ALMicroTime itemTime = 0;
+	char needsNoteKill = TRUE;
+
+	thisNode = seqp->evtq.allocList.next;
+
+	while (thisNode != 0) {
+		nextNode = thisNode->next;
+		thisItem = (ALEventListItem *)thisNode;
+		itemTime += thisItem->delta;
+
+		if (thisItem->evt.type == AL_NOTE_END_EVT) {
+			if (thisItem->evt.msg.note.voice == voice) {
+				if (itemTime > killTime) {
+					if ((ALEventListItem *)nextNode) {
+						((ALEventListItem *)nextNode)->delta += thisItem->delta;
+					}
+
+					alUnlink(thisNode);
+					alLink(thisNode, &seqp->evtq.freeList);
+				} else {
+					needsNoteKill = FALSE;
+				}
+
+				break;
+			}
+		}
+
+		thisNode = nextNode;
+	}
+
+	return needsNoteKill;
+}
 
 GLOBAL_ASM(
 glabel func0003d5d8

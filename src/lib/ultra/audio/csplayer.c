@@ -1438,7 +1438,7 @@ glabel __CSPVoiceHandler
 /*    34bb0:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*    34bb4:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    34bb8:	3406c350 */ 	dli	$a2,0xc350
-/*    34bbc:	0c00f52e */ 	jal	func0003d4b8
+/*    34bbc:	0c00f52e */ 	jal	__voiceNeedsNoteKill
 /*    34bc0:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*    34bc4:	10400006 */ 	beqz	$v0,.L00034be0
 /*    34bc8:	00000000 */ 	nop
