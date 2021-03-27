@@ -6,6 +6,7 @@
 #include "data.h"
 #include "types.h"
 
+void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table);
 void _bnkfPatchSound(ALSound *s, s32 offset, s32 table);
 void _bnkfPatchWaveTable(ALWaveTable *w, s32 offset, s32 table);
 
@@ -117,7 +118,7 @@ glabel func000377e8
 /*    37844:	8fae0020 */ 	lw	$t6,0x20($sp)
 /*    37848:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*    3784c:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    37850:	0c00de40 */ 	jal	func00037900
+/*    37850:	0c00de40 */ 	jal	_bnkfPatchInst
 /*    37854:	8dc40008 */ 	lw	$a0,0x8($t6)
 .L00037858:
 /*    37858:	8faf0020 */ 	lw	$t7,0x20($sp)
@@ -147,7 +148,7 @@ glabel func000377e8
 /*    378b4:	000c6880 */ 	sll	$t5,$t4,0x2
 /*    378b8:	012d5021 */ 	addu	$t2,$t1,$t5
 /*    378bc:	8d44000c */ 	lw	$a0,0xc($t2)
-/*    378c0:	0c00de40 */ 	jal	func00037900
+/*    378c0:	0c00de40 */ 	jal	_bnkfPatchInst
 /*    378c4:	8fa60028 */ 	lw	$a2,0x28($sp)
 .L000378c8:
 /*    378c8:	8fab001c */ 	lw	$t3,0x1c($sp)
@@ -168,62 +169,21 @@ glabel func000377e8
 /*    378fc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00037900
-/*    37900:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    37904:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    37908:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    3790c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    37910:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    37914:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    37918:	91cf0003 */ 	lbu	$t7,0x3($t6)
-/*    3791c:	11e00003 */ 	beqz	$t7,.L0003792c
-/*    37920:	00000000 */ 	nop
-/*    37924:	10000023 */ 	b	.L000379b4
-/*    37928:	00000000 */ 	nop
-.L0003792c:
-/*    3792c:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*    37930:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    37934:	a3380003 */ 	sb	$t8,0x3($t9)
-/*    37938:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    3793c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    37940:	8509000e */ 	lh	$t1,0xe($t0)
-/*    37944:	19200019 */ 	blez	$t1,.L000379ac
-/*    37948:	00000000 */ 	nop
-.L0003794c:
-/*    3794c:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    37950:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*    37954:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    37958:	000b6080 */ 	sll	$t4,$t3,0x2
-/*    3795c:	014c6821 */ 	addu	$t5,$t2,$t4
-/*    37960:	8dae0010 */ 	lw	$t6,0x10($t5)
-/*    37964:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    37968:	adb80010 */ 	sw	$t8,0x10($t5)
-/*    3796c:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*    37970:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*    37974:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    37978:	00084880 */ 	sll	$t1,$t0,0x2
-/*    3797c:	03295821 */ 	addu	$t3,$t9,$t1
-/*    37980:	8d640010 */ 	lw	$a0,0x10($t3)
-/*    37984:	0c00de71 */ 	jal	_bnkfPatchSound
-/*    37988:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    3798c:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    37990:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    37994:	254c0001 */ 	addiu	$t4,$t2,0x1
-/*    37998:	afac001c */ 	sw	$t4,0x1c($sp)
-/*    3799c:	85cf000e */ 	lh	$t7,0xe($t6)
-/*    379a0:	018f082a */ 	slt	$at,$t4,$t7
-/*    379a4:	1420ffe9 */ 	bnez	$at,.L0003794c
-/*    379a8:	00000000 */ 	nop
-.L000379ac:
-/*    379ac:	10000001 */ 	b	.L000379b4
-/*    379b0:	00000000 */ 	nop
-.L000379b4:
-/*    379b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    379b8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    379bc:	03e00008 */ 	jr	$ra
-/*    379c0:	00000000 */ 	nop
-);
+void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table)
+{
+	s32 i;
+
+	if (inst->flags) {
+		return;
+	}
+
+	inst->flags = 1;
+
+	for (i = 0; i < inst->soundCount; i++) {
+		inst->soundArray[i] = (ALSound *)((u8 *)inst->soundArray[i] + offset);
+		_bnkfPatchSound(inst->soundArray[i], offset, table);
+	}
+}
 
 void _bnkfPatchSound(ALSound *s, s32 offset, s32 table)
 {
