@@ -69,7 +69,8 @@
 	build/ROMID/lib/ultra/audio/bnkf.o (section); \
 	build/ROMID/lib/lib_37b00.o (section); \
 	build/ROMID/lib/lib_38d10.o (section); \
-	build/ROMID/lib/lib_38d30.o (section); \
+	build/ROMID/lib/ultra/audio/cseq.o (section); \
+	build/ROMID/lib/lib_39be0.o (section); \
 	build/ROMID/lib/lib_39c80.o (section); \
 	build/ROMID/lib/lib_39f70.o (section); \
 	build/ROMID/lib/lib_39fc0.o (section); \

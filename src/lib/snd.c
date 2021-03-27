@@ -15,7 +15,7 @@
 #include "lib/lib_37650.h"
 #include "lib/lib_37b00.h"
 #include "lib/lib_38d10.h"
-#include "lib/lib_38d30.h"
+#include "lib/lib_39be0.h"
 #include "lib/lib_39c80.h"
 #include "data.h"
 #include "types.h"
