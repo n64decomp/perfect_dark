@@ -680,29 +680,23 @@ glabel func0003d9cc
 /*    3dacc:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0003dad0
-/*    3dad0:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3dad4:	8c8e0024 */ 	lw	$t6,0x24($a0)
-/*    3dad8:	01c57823 */ 	subu	$t7,$t6,$a1
-/*    3dadc:	afaf0004 */ 	sw	$t7,0x4($sp)
-/*    3dae0:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3dae4:	07000005 */ 	bltz	$t8,.L0003dafc
-/*    3dae8:	00000000 */ 	nop
-/*    3daec:	10000007 */ 	b	.L0003db0c
-/*    3daf0:	8fa20004 */ 	lw	$v0,0x4($sp)
-/*    3daf4:	10000003 */ 	b	.L0003db04
-/*    3daf8:	00000000 */ 	nop
-.L0003dafc:
-/*    3dafc:	10000003 */ 	b	.L0003db0c
-/*    3db00:	240203e8 */ 	addiu	$v0,$zero,0x3e8
-.L0003db04:
-/*    3db04:	10000001 */ 	b	.L0003db0c
-/*    3db08:	00000000 */ 	nop
-.L0003db0c:
-/*    3db0c:	03e00008 */ 	jr	$ra
-/*    3db10:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+ALMicroTime __vsDelta(ALVoiceState *vs, ALMicroTime t)
+{
+	/*
+	 * If we are interrupting a previously set envelope segment, we
+	 * need to recalculate the segment end time given the current
+	 * time. Note: this routine assumes that the voice is currently
+	 * playing.
+	 */
+
+	s32 delta = vs->envEndTime - t;
+
+	if (delta >= 0) {
+		return delta;
+	} else {
+		return AL_GAIN_CHANGE_TIME;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0003db14
