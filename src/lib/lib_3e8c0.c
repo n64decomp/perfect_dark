@@ -6139,7 +6139,7 @@ glabel func0003e8c0
 /*    3f160:	8fab0050 */ 	lw	$t3,0x50($sp)
 /*    3f164:	ad600080 */ 	sw	$zero,0x80($t3)
 .L0003f168:
-/*    3f168:	0c00c559 */ 	jal	func00031564
+/*    3f168:	0c00c559 */ 	jal	__freeParam
 /*    3f16c:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    3f170:	8fa80050 */ 	lw	$t0,0x50($sp)
 /*    3f174:	8d0c007c */ 	lw	$t4,0x7c($t0)

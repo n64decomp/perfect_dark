@@ -578,20 +578,11 @@ ALParam *__allocParam()
 	return update;
 }
 
-GLOBAL_ASM(
-glabel func00031564
-/*    31564:	3c0e8006 */ 	lui	$t6,%hi(alGlobals)
-/*    31568:	8dcef114 */ 	lw	$t6,%lo(alGlobals)($t6)
-/*    3156c:	8dcf002c */ 	lw	$t7,0x2c($t6)
-/*    31570:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*    31574:	3c188006 */ 	lui	$t8,%hi(alGlobals)
-/*    31578:	8f18f114 */ 	lw	$t8,%lo(alGlobals)($t8)
-/*    3157c:	af04002c */ 	sw	$a0,0x2c($t8)
-/*    31580:	03e00008 */ 	jr	$ra
-/*    31584:	00000000 */ 	nop
-/*    31588:	03e00008 */ 	jr	$ra
-/*    3158c:	00000000 */ 	nop
-);
+void __freeParam(ALParam *param)
+{
+    param->next = alGlobals->drvr.paramList;
+    alGlobals->drvr.paramList = param;
+}
 
 GLOBAL_ASM(
 glabel func00031590
