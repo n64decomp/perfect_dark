@@ -19,6 +19,9 @@
 #include "data.h"
 #include "types.h"
 
+void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
+void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);
+
 u32 var8009c350;
 u32 var8009c354;
 u32 var8009c358;
@@ -1509,7 +1512,7 @@ glabel func000344b0
 /*    34924:	00000000 */ 	nop
 /*    34928:	8fab0074 */ 	lw	$t3,0x74($sp)
 /*    3492c:	01602025 */ 	or	$a0,$t3,$zero
-/*    34930:	0c00dc88 */ 	jal	func00037220
+/*    34930:	0c00dc88 */ 	jal	__CSPHandleMetaMsg
 /*    34934:	25650038 */ 	addiu	$a1,$t3,0x38
 /*    34938:	10000114 */ 	b	.L00034d8c
 /*    3493c:	00000000 */ 	nop
@@ -1875,7 +1878,7 @@ glabel func00034df8
 /*    34e70:	10000020 */ 	b	.L00034ef4
 /*    34e74:	00000000 */ 	nop
 /*    34e78:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    34e7c:	0c00dc88 */ 	jal	func00037220
+/*    34e7c:	0c00dc88 */ 	jal	__CSPHandleMetaMsg
 /*    34e80:	27a50018 */ 	addiu	$a1,$sp,0x18
 /*    34e84:	0c00dd67 */ 	jal	func0003759c
 /*    34e88:	8fa40028 */ 	lw	$a0,0x28($sp)
@@ -6518,164 +6521,63 @@ glabel func00035110
 );
 #endif
 
-GLOBAL_ASM(
-glabel func00037220
-/*    37220:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    37224:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    37228:	afa40040 */ 	sw	$a0,0x40($sp)
-/*    3722c:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    37230:	8fae0044 */ 	lw	$t6,0x44($sp)
-/*    37234:	25cf0004 */ 	addiu	$t7,$t6,0x4
-/*    37238:	afaf003c */ 	sw	$t7,0x3c($sp)
-/*    3723c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*    37240:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    37244:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*    37248:	240100ff */ 	addiu	$at,$zero,0xff
-/*    3724c:	93190008 */ 	lbu	$t9,0x8($t8)
-/*    37250:	1721007d */ 	bne	$t9,$at,.L00037448
-/*    37254:	00000000 */ 	nop
-/*    37258:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*    3725c:	24010051 */ 	addiu	$at,$zero,0x51
-/*    37260:	91090009 */ 	lbu	$t1,0x9($t0)
-/*    37264:	15210078 */ 	bne	$t1,$at,.L00037448
-/*    37268:	00000000 */ 	nop
-/*    3726c:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*    37270:	8d4b0024 */ 	lw	$t3,0x24($t2)
-/*    37274:	afab0034 */ 	sw	$t3,0x34($sp)
-/*    37278:	8fac003c */ 	lw	$t4,0x3c($sp)
-/*    3727c:	918d0007 */ 	lbu	$t5,0x7($t4)
-/*    37280:	918f0008 */ 	lbu	$t7,0x8($t4)
-/*    37284:	91880009 */ 	lbu	$t0,0x9($t4)
-/*    37288:	000d7400 */ 	sll	$t6,$t5,0x10
-/*    3728c:	000fc200 */ 	sll	$t8,$t7,0x8
-/*    37290:	01d8c825 */ 	or	$t9,$t6,$t8
-/*    37294:	03284825 */ 	or	$t1,$t9,$t0
-/*    37298:	afa90038 */ 	sw	$t1,0x38($sp)
-/*    3729c:	8faa0038 */ 	lw	$t2,0x38($sp)
-/*    372a0:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*    372a4:	448a2000 */ 	mtc1	$t2,$f4
-/*    372a8:	00000000 */ 	nop
-/*    372ac:	46802120 */ 	cvt.s.w	$f4,$f4
-/*    372b0:	44052000 */ 	mfc1	$a1,$f4
-/*    372b4:	0c00dd55 */ 	jal	__setUsptFromTempo
-/*    372b8:	00000000 */ 	nop
-/*    372bc:	8fab0040 */ 	lw	$t3,0x40($sp)
-/*    372c0:	8d6d0050 */ 	lw	$t5,0x50($t3)
-/*    372c4:	afad0024 */ 	sw	$t5,0x24($sp)
-/*    372c8:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    372cc:	11e00036 */ 	beqz	$t7,.L000373a8
-/*    372d0:	00000000 */ 	nop
-.L000372d4:
-/*    372d4:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    372d8:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    372dc:	8f0c0008 */ 	lw	$t4,0x8($t8)
-/*    372e0:	01ccc821 */ 	addu	$t9,$t6,$t4
-/*    372e4:	afb90028 */ 	sw	$t9,0x28($sp)
-/*    372e8:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    372ec:	8d090000 */ 	lw	$t1,0x0($t0)
-/*    372f0:	afa90020 */ 	sw	$t1,0x20($sp)
-/*    372f4:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    372f8:	24010015 */ 	addiu	$at,$zero,0x15
-/*    372fc:	854b000c */ 	lh	$t3,0xc($t2)
-/*    37300:	15610024 */ 	bne	$t3,$at,.L00037394
-/*    37304:	00000000 */ 	nop
-/*    37308:	0c00c5e9 */ 	jal	alUnlink
-/*    3730c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    37310:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*    37314:	11a00006 */ 	beqz	$t5,.L00037330
-/*    37318:	00000000 */ 	nop
-/*    3731c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    37320:	0c00c5dc */ 	jal	alLink
-/*    37324:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    37328:	10000007 */ 	b	.L00037348
-/*    3732c:	00000000 */ 	nop
-.L00037330:
-/*    37330:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    37334:	ade00000 */ 	sw	$zero,0x0($t7)
-/*    37338:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3733c:	af000004 */ 	sw	$zero,0x4($t8)
-/*    37340:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    37344:	afae001c */ 	sw	$t6,0x1c($sp)
-.L00037348:
-/*    37348:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*    3734c:	afac002c */ 	sw	$t4,0x2c($sp)
-/*    37350:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*    37354:	1320000c */ 	beqz	$t9,.L00037388
-/*    37358:	00000000 */ 	nop
-/*    3735c:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    37360:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    37364:	8d2a0008 */ 	lw	$t2,0x8($t1)
-/*    37368:	010a5823 */ 	subu	$t3,$t0,$t2
-/*    3736c:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    37370:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    37374:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    37378:	8daf0008 */ 	lw	$t7,0x8($t5)
-/*    3737c:	8f0e0008 */ 	lw	$t6,0x8($t8)
-/*    37380:	01ee6021 */ 	addu	$t4,$t7,$t6
-/*    37384:	adac0008 */ 	sw	$t4,0x8($t5)
-.L00037388:
-/*    37388:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3738c:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    37390:	ad390008 */ 	sw	$t9,0x8($t1)
-.L00037394:
-/*    37394:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    37398:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    3739c:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    373a0:	1540ffcc */ 	bnez	$t2,.L000372d4
-/*    373a4:	00000000 */ 	nop
-.L000373a8:
-/*    373a8:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*    373ac:	afab0024 */ 	sw	$t3,0x24($sp)
-/*    373b0:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    373b4:	13000024 */ 	beqz	$t8,.L00037448
-/*    373b8:	00000000 */ 	nop
-.L000373bc:
-/*    373bc:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    373c0:	8dee0000 */ 	lw	$t6,0x0($t7)
-/*    373c4:	afae0020 */ 	sw	$t6,0x20($sp)
-/*    373c8:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    373cc:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*    373d0:	8d8d0008 */ 	lw	$t5,0x8($t4)
-/*    373d4:	01b9001a */ 	div	$zero,$t5,$t9
-/*    373d8:	00004812 */ 	mflo	$t1
-/*    373dc:	afa90030 */ 	sw	$t1,0x30($sp)
-/*    373e0:	17200002 */ 	bnez	$t9,.L000373ec
-/*    373e4:	00000000 */ 	nop
-/*    373e8:	0007000d */ 	break	0x7
-.L000373ec:
-/*    373ec:	2401ffff */ 	addiu	$at,$zero,-1
-/*    373f0:	17210004 */ 	bne	$t9,$at,.L00037404
-/*    373f4:	3c018000 */ 	lui	$at,0x8000
-/*    373f8:	15a10002 */ 	bne	$t5,$at,.L00037404
-/*    373fc:	00000000 */ 	nop
-/*    37400:	0006000d */ 	break	0x6
-.L00037404:
-/*    37404:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*    37408:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*    3740c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    37410:	8d0a0024 */ 	lw	$t2,0x24($t0)
-/*    37414:	014b0019 */ 	multu	$t2,$t3
-/*    37418:	0000c012 */ 	mflo	$t8
-/*    3741c:	adf80008 */ 	sw	$t8,0x8($t7)
-/*    37420:	00000000 */ 	nop
-/*    37424:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*    37428:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    3742c:	0c00dd18 */ 	jal	__CSPRepostEvent
-/*    37430:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    37434:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    37438:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    3743c:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    37440:	1580ffde */ 	bnez	$t4,.L000373bc
-/*    37444:	00000000 */ 	nop
-.L00037448:
-/*    37448:	10000001 */ 	b	.L00037450
-/*    3744c:	00000000 */ 	nop
-.L00037450:
-/*    37450:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    37454:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*    37458:	03e00008 */ 	jr	$ra
-/*    3745c:	00000000 */ 	nop
-);
+void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
+{
+	ALTempoEvent *tevt = &event->msg.tempo;
+	s32 tempo;
+	s32 oldUspt;
+	u32 ticks;
+	ALMicroTime tempDelta, curDelta = 0;
+	ALEventListItem *thisNode, *nextNode, *firstTemp = 0;
+
+	if (event->msg.tempo.status == AL_MIDI_Meta) {
+		if (event->msg.tempo.type == AL_MIDI_META_TEMPO) {
+			oldUspt = seqp->uspt;
+			tempo = (tevt->byte1 << 16) | (tevt->byte2 <<  8) | (tevt->byte3 <<  0);
+			__setUsptFromTempo (seqp, (f32)tempo);
+
+			thisNode = (ALEventListItem*)seqp->evtq.allocList.next;
+
+			while (thisNode) {
+				curDelta += thisNode->delta;
+				nextNode = (ALEventListItem*)thisNode->node.next;
+
+				if (thisNode->evt.type == AL_CSP_NOTEOFF_EVT) {
+					alUnlink((ALLink*)thisNode);
+
+					if (firstTemp) {
+						alLink((ALLink*)thisNode,(ALLink*)firstTemp);
+					} else {
+						thisNode->node.next = 0;
+						thisNode->node.prev = 0;
+						firstTemp = thisNode;
+					}
+
+					tempDelta = curDelta;         /* record the current delta */
+
+					if (nextNode) {/* don't do this if no nextNode */
+						curDelta -= thisNode->delta;  /* subtract out this delta */
+						nextNode->delta += thisNode->delta; /* add it to next event */
+					}
+
+					thisNode->delta = tempDelta; /* set this event delta from current */
+				}
+
+				thisNode = nextNode;
+			}
+
+			thisNode = firstTemp;
+
+			while (thisNode) {
+				nextNode = (ALEventListItem*)thisNode->node.next;
+				ticks = thisNode->delta/oldUspt;
+				thisNode->delta = ticks * seqp->uspt;
+				__CSPRepostEvent(&seqp->evtq,thisNode);
+				thisNode = nextNode;
+			}
+		}
+	}
+}
 
 void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
 {
