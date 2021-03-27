@@ -630,24 +630,32 @@ typedef struct ALVoiceState_s {
 } ALVoiceState;
 
 typedef struct {
-    ALInstrument        *instrument;    /* instrument assigned to this chan */
-    s16                 bendRange;      /* pitch bend range in cents        */
-    ALFxId              fxId;           /* type of fx assigned to this chan */
-    ALPan               pan;            /* overall pan for this chan        */
-    u8                  priority;       /* priority for this chan           */
-    u8                  vol;            /* current volume for this chan     */
-    u8                  fxmix;          /* current fx mix for this chan     */
-    u8                  sustain;        /* current sustain pedal state      */
-    f32                 pitchBend;      /* current pitch bend val in cents  */
-    u32 unk10;
-    u32 unk14;
+    /*0x00*/ ALInstrument        *instrument;    /* instrument assigned to this chan */
+    /*0x04*/ s16                 bendRange;      /* pitch bend range in cents        */
+    /*0x06*/ ALFxId              fxId;           /* type of fx assigned to this chan */
+    /*0x07*/ ALPan               pan;            /* overall pan for this chan        */
+    /*0x08*/ u8                  priority;       /* priority for this chan           */
+    /*0x09*/ u8                  vol;            /* current volume for this chan     */
+    /*0x0a*/ u8                  fxmix;          /* current fx mix for this chan     */
+    /*0x0b*/ u8 unk0b;
+    /*0x0c*/ u8                  sustain;        /* current sustain pedal state      */
+    u8 unk0d;
+    u8 unk0e;
+    u8 unk0f;
+    u8 unk10;
+    u8 unk11;
+    u8 unk12;
+    u8 unk13;
+    f32 pitchBend;      /* current pitch bend val in cents  */
     u32 unk18;
     u32 unk1c;
     u32 unk20;
     u32 unk24;
     u32 unk28;
     u32 unk2c;
-    u32 unk30;
+    u8 unk30;
+    u8 unk31;
+    u8 unk32;
 } ALChanState;
 
 typedef struct ALSeq_s {

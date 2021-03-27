@@ -825,157 +825,26 @@ void __initChanState(ALSeqPlayer *seqp)
 	}
 }
 
-GLOBAL_ASM(
-glabel __resetPerfChanState
-/*    3dd14:	00057880 */ 	sll	$t7,$a1,0x2
-/*    3dd18:	01e57823 */ 	subu	$t7,$t7,$a1
-/*    3dd1c:	8c8e0060 */ 	lw	$t6,0x60($a0)
-/*    3dd20:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3dd24:	01e57821 */ 	addu	$t7,$t7,$a1
-/*    3dd28:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3dd2c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    3dd30:	a3000006 */ 	sb	$zero,0x6($t8)
-/*    3dd34:	00054080 */ 	sll	$t0,$a1,0x2
-/*    3dd38:	01054023 */ 	subu	$t0,$t0,$a1
-/*    3dd3c:	8c990060 */ 	lw	$t9,0x60($a0)
-/*    3dd40:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3dd44:	01054021 */ 	addu	$t0,$t0,$a1
-/*    3dd48:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3dd4c:	03284821 */ 	addu	$t1,$t9,$t0
-/*    3dd50:	a120000a */ 	sb	$zero,0xa($t1)
-/*    3dd54:	00056080 */ 	sll	$t4,$a1,0x2
-/*    3dd58:	01856023 */ 	subu	$t4,$t4,$a1
-/*    3dd5c:	8c8b0060 */ 	lw	$t3,0x60($a0)
-/*    3dd60:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3dd64:	01856021 */ 	addu	$t4,$t4,$a1
-/*    3dd68:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3dd6c:	240a0040 */ 	addiu	$t2,$zero,0x40
-/*    3dd70:	016c6821 */ 	addu	$t5,$t3,$t4
-/*    3dd74:	a1aa0007 */ 	sb	$t2,0x7($t5)
-/*    3dd78:	0005c080 */ 	sll	$t8,$a1,0x2
-/*    3dd7c:	0305c023 */ 	subu	$t8,$t8,$a1
-/*    3dd80:	8c8f0060 */ 	lw	$t7,0x60($a0)
-/*    3dd84:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3dd88:	0305c021 */ 	addu	$t8,$t8,$a1
-/*    3dd8c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3dd90:	240e007f */ 	addiu	$t6,$zero,0x7f
-/*    3dd94:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*    3dd98:	a32e0009 */ 	sb	$t6,0x9($t9)
-/*    3dd9c:	00055880 */ 	sll	$t3,$a1,0x2
-/*    3dda0:	01655823 */ 	subu	$t3,$t3,$a1
-/*    3dda4:	8c890060 */ 	lw	$t1,0x60($a0)
-/*    3dda8:	000b5880 */ 	sll	$t3,$t3,0x2
-/*    3ddac:	01655821 */ 	addu	$t3,$t3,$a1
-/*    3ddb0:	000b5880 */ 	sll	$t3,$t3,0x2
-/*    3ddb4:	24080005 */ 	addiu	$t0,$zero,0x5
-/*    3ddb8:	012b6021 */ 	addu	$t4,$t1,$t3
-/*    3ddbc:	a1880008 */ 	sb	$t0,0x8($t4)
-/*    3ddc0:	00056880 */ 	sll	$t5,$a1,0x2
-/*    3ddc4:	01a56823 */ 	subu	$t5,$t5,$a1
-/*    3ddc8:	8c8a0060 */ 	lw	$t2,0x60($a0)
-/*    3ddcc:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3ddd0:	01a56821 */ 	addu	$t5,$t5,$a1
-/*    3ddd4:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3ddd8:	014d7821 */ 	addu	$t7,$t2,$t5
-/*    3dddc:	a1e0000c */ 	sb	$zero,0xc($t7)
-/*    3dde0:	0005c880 */ 	sll	$t9,$a1,0x2
-/*    3dde4:	0325c823 */ 	subu	$t9,$t9,$a1
-/*    3dde8:	8c8e0060 */ 	lw	$t6,0x60($a0)
-/*    3ddec:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3ddf0:	0325c821 */ 	addu	$t9,$t9,$a1
-/*    3ddf4:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3ddf8:	241800c8 */ 	addiu	$t8,$zero,0xc8
-/*    3ddfc:	01d94821 */ 	addu	$t1,$t6,$t9
-/*    3de00:	a5380004 */ 	sh	$t8,0x4($t1)
-/*    3de04:	00054080 */ 	sll	$t0,$a1,0x2
-/*    3de08:	01054023 */ 	subu	$t0,$t0,$a1
-/*    3de0c:	8c8b0060 */ 	lw	$t3,0x60($a0)
-/*    3de10:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3de14:	3c013f80 */ 	lui	$at,0x3f80
-/*    3de18:	44812000 */ 	mtc1	$at,$f4
-/*    3de1c:	01054021 */ 	addu	$t0,$t0,$a1
-/*    3de20:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3de24:	01686021 */ 	addu	$t4,$t3,$t0
-/*    3de28:	e5840014 */ 	swc1	$f4,0x14($t4)
-/*    3de2c:	00056880 */ 	sll	$t5,$a1,0x2
-/*    3de30:	01a56823 */ 	subu	$t5,$t5,$a1
-/*    3de34:	8c8a0060 */ 	lw	$t2,0x60($a0)
-/*    3de38:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3de3c:	01a56821 */ 	addu	$t5,$t5,$a1
-/*    3de40:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3de44:	014d7821 */ 	addu	$t7,$t2,$t5
-/*    3de48:	a1e00010 */ 	sb	$zero,0x10($t7)
-/*    3de4c:	0005c080 */ 	sll	$t8,$a1,0x2
-/*    3de50:	0305c023 */ 	subu	$t8,$t8,$a1
-/*    3de54:	8c990060 */ 	lw	$t9,0x60($a0)
-/*    3de58:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3de5c:	0305c021 */ 	addu	$t8,$t8,$a1
-/*    3de60:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3de64:	240e00ff */ 	addiu	$t6,$zero,0xff
-/*    3de68:	03384821 */ 	addu	$t1,$t9,$t8
-/*    3de6c:	a12e000d */ 	sb	$t6,0xd($t1)
-/*    3de70:	00056080 */ 	sll	$t4,$a1,0x2
-/*    3de74:	01856023 */ 	subu	$t4,$t4,$a1
-/*    3de78:	8c880060 */ 	lw	$t0,0x60($a0)
-/*    3de7c:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3de80:	01856021 */ 	addu	$t4,$t4,$a1
-/*    3de84:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3de88:	240b00ff */ 	addiu	$t3,$zero,0xff
-/*    3de8c:	010c5021 */ 	addu	$t2,$t0,$t4
-/*    3de90:	a14b000e */ 	sb	$t3,0xe($t2)
-/*    3de94:	00057880 */ 	sll	$t7,$a1,0x2
-/*    3de98:	01e57823 */ 	subu	$t7,$t7,$a1
-/*    3de9c:	8c8d0060 */ 	lw	$t5,0x60($a0)
-/*    3dea0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3dea4:	01e57821 */ 	addu	$t7,$t7,$a1
-/*    3dea8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3deac:	01afc821 */ 	addu	$t9,$t5,$t7
-/*    3deb0:	a320000f */ 	sb	$zero,0xf($t9)
-/*    3deb4:	00057080 */ 	sll	$t6,$a1,0x2
-/*    3deb8:	01c57023 */ 	subu	$t6,$t6,$a1
-/*    3debc:	8c980060 */ 	lw	$t8,0x60($a0)
-/*    3dec0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    3dec4:	01c57021 */ 	addu	$t6,$t6,$a1
-/*    3dec8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    3decc:	030e4821 */ 	addu	$t1,$t8,$t6
-/*    3ded0:	a120000b */ 	sb	$zero,0xb($t1)
-/*    3ded4:	00056080 */ 	sll	$t4,$a1,0x2
-/*    3ded8:	01856023 */ 	subu	$t4,$t4,$a1
-/*    3dedc:	8c880060 */ 	lw	$t0,0x60($a0)
-/*    3dee0:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3dee4:	01856021 */ 	addu	$t4,$t4,$a1
-/*    3dee8:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3deec:	010c5821 */ 	addu	$t3,$t0,$t4
-/*    3def0:	a1600013 */ 	sb	$zero,0x13($t3)
-/*    3def4:	00056880 */ 	sll	$t5,$a1,0x2
-/*    3def8:	01a56823 */ 	subu	$t5,$t5,$a1
-/*    3defc:	8c8a0060 */ 	lw	$t2,0x60($a0)
-/*    3df00:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3df04:	01a56821 */ 	addu	$t5,$t5,$a1
-/*    3df08:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3df0c:	014d7821 */ 	addu	$t7,$t2,$t5
-/*    3df10:	a1e00012 */ 	sb	$zero,0x12($t7)
-/*    3df14:	0005c080 */ 	sll	$t8,$a1,0x2
-/*    3df18:	0305c023 */ 	subu	$t8,$t8,$a1
-/*    3df1c:	8c990060 */ 	lw	$t9,0x60($a0)
-/*    3df20:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3df24:	0305c021 */ 	addu	$t8,$t8,$a1
-/*    3df28:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3df2c:	03387021 */ 	addu	$t6,$t9,$t8
-/*    3df30:	a1c00011 */ 	sb	$zero,0x11($t6)
-/*    3df34:	00054080 */ 	sll	$t0,$a1,0x2
-/*    3df38:	01054023 */ 	subu	$t0,$t0,$a1
-/*    3df3c:	8c890060 */ 	lw	$t1,0x60($a0)
-/*    3df40:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3df44:	01054021 */ 	addu	$t0,$t0,$a1
-/*    3df48:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3df4c:	01286021 */ 	addu	$t4,$t1,$t0
-/*    3df50:	a1800032 */ 	sb	$zero,0x32($t4)
-/*    3df54:	03e00008 */ 	jr	$ra
-/*    3df58:	00000000 */ 	nop
-/*    3df5c:	03e00008 */ 	jr	$ra
-/*    3df60:	00000000 */ 	nop
-);
+void __resetPerfChanState(ALSeqPlayer *seqp, s32 chan)
+{
+	seqp->chanState[chan].fxId = AL_FX_NONE;
+	seqp->chanState[chan].fxmix = AL_DEFAULT_FXMIX;
+	seqp->chanState[chan].pan = AL_PAN_CENTER;
+	seqp->chanState[chan].vol = AL_VOL_FULL;
+	seqp->chanState[chan].priority = AL_DEFAULT_PRIORITY;
+	seqp->chanState[chan].sustain = 0;
+	seqp->chanState[chan].bendRange = 200;
+	seqp->chanState[chan].pitchBend = 1;
+	seqp->chanState[chan].unk10 = 0;
+	seqp->chanState[chan].unk0d = 255;
+	seqp->chanState[chan].unk0e = 255;
+	seqp->chanState[chan].unk0f = 0;
+	seqp->chanState[chan].unk0b = 0;
+	seqp->chanState[chan].unk13 = 0;
+	seqp->chanState[chan].unk12 = 0;
+	seqp->chanState[chan].unk11 = 0;
+	seqp->chanState[chan].unk32 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0003df64
