@@ -1017,7 +1017,7 @@ glabel __CSPVoiceHandler
 /*    34568:	11c00004 */ 	beqz	$t6,.L0003457c
 /*    3456c:	00000000 */ 	nop
 /*    34570:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34574:	0c00f8a8 */ 	jal	func0003e2a0
+/*    34574:	0c00f8a8 */ 	jal	__seqpStopOsc
 /*    34578:	8fa50058 */ 	lw	$a1,0x58($sp)
 .L0003457c:
 /*    3457c:	8fa40074 */ 	lw	$a0,0x74($sp)
@@ -1396,7 +1396,7 @@ glabel __CSPVoiceHandler
 /*    34b18:	11800004 */ 	beqz	$t4,.L00034b2c
 /*    34b1c:	00000000 */ 	nop
 /*    34b20:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34b24:	0c00f8a8 */ 	jal	func0003e2a0
+/*    34b24:	0c00f8a8 */ 	jal	__seqpStopOsc
 /*    34b28:	8fa50058 */ 	lw	$a1,0x58($sp)
 .L00034b2c:
 /*    34b2c:	8fa50058 */ 	lw	$a1,0x58($sp)

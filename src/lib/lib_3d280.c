@@ -980,93 +980,40 @@ glabel __setInstChanState
 /*    3e29c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel func0003e2a0
-/*    3e2a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    3e2a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3e2a8:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    3e2ac:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    3e2b0:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    3e2b4:	8dcf0050 */ 	lw	$t7,0x50($t6)
-/*    3e2b8:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*    3e2bc:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3e2c0:	13000040 */ 	beqz	$t8,.L0003e3c4
-/*    3e2c4:	00000000 */ 	nop
-.L0003e2c8:
-/*    3e2c8:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3e2cc:	8f280000 */ 	lw	$t0,0x0($t9)
-/*    3e2d0:	afa80020 */ 	sw	$t0,0x20($sp)
-/*    3e2d4:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3e2d8:	852a000c */ 	lh	$t2,0xc($t1)
-/*    3e2dc:	a7aa001e */ 	sh	$t2,0x1e($sp)
-/*    3e2e0:	87ab001e */ 	lh	$t3,0x1e($sp)
-/*    3e2e4:	24010016 */ 	addiu	$at,$zero,0x16
-/*    3e2e8:	11610004 */ 	beq	$t3,$at,.L0003e2fc
-/*    3e2ec:	00000000 */ 	nop
-/*    3e2f0:	24010017 */ 	addiu	$at,$zero,0x17
-/*    3e2f4:	1561002e */ 	bne	$t3,$at,.L0003e3b0
-/*    3e2f8:	00000000 */ 	nop
-.L0003e2fc:
-/*    3e2fc:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    3e300:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*    3e304:	8d8d0010 */ 	lw	$t5,0x10($t4)
-/*    3e308:	15ae0029 */ 	bne	$t5,$t6,.L0003e3b0
-/*    3e30c:	00000000 */ 	nop
-/*    3e310:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    3e314:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3e318:	8f190078 */ 	lw	$t9,0x78($t8)
-/*    3e31c:	8de40014 */ 	lw	$a0,0x14($t7)
-/*    3e320:	0320f809 */ 	jalr	$t9
-/*    3e324:	00000000 */ 	nop
-/*    3e328:	0c00c5e9 */ 	jal	alUnlink
-/*    3e32c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3e330:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    3e334:	11000007 */ 	beqz	$t0,.L0003e354
-/*    3e338:	00000000 */ 	nop
-/*    3e33c:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3e340:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    3e344:	8d2a0008 */ 	lw	$t2,0x8($t1)
-/*    3e348:	8d6c0008 */ 	lw	$t4,0x8($t3)
-/*    3e34c:	014c6821 */ 	addu	$t5,$t2,$t4
-/*    3e350:	ad2d0008 */ 	sw	$t5,0x8($t1)
-.L0003e354:
-/*    3e354:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    3e358:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3e35c:	0c00c5dc */ 	jal	alLink
-/*    3e360:	24a50048 */ 	addiu	$a1,$a1,0x48
-/*    3e364:	87ae001e */ 	lh	$t6,0x1e($sp)
-/*    3e368:	24010016 */ 	addiu	$at,$zero,0x16
-/*    3e36c:	15c10006 */ 	bne	$t6,$at,.L0003e388
-/*    3e370:	00000000 */ 	nop
-/*    3e374:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    3e378:	91f80037 */ 	lbu	$t8,0x37($t7)
-/*    3e37c:	331900fe */ 	andi	$t9,$t8,0xfe
-/*    3e380:	10000005 */ 	b	.L0003e398
-/*    3e384:	a1f90037 */ 	sb	$t9,0x37($t7)
-.L0003e388:
-/*    3e388:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    3e38c:	910b0037 */ 	lbu	$t3,0x37($t0)
-/*    3e390:	316a00fd */ 	andi	$t2,$t3,0xfd
-/*    3e394:	a10a0037 */ 	sb	$t2,0x37($t0)
-.L0003e398:
-/*    3e398:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*    3e39c:	918d0037 */ 	lbu	$t5,0x37($t4)
-/*    3e3a0:	15a00003 */ 	bnez	$t5,.L0003e3b0
-/*    3e3a4:	00000000 */ 	nop
-/*    3e3a8:	10000008 */ 	b	.L0003e3cc
-/*    3e3ac:	00000000 */ 	nop
-.L0003e3b0:
-/*    3e3b0:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3e3b4:	afa90024 */ 	sw	$t1,0x24($sp)
-/*    3e3b8:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    3e3bc:	15c0ffc2 */ 	bnez	$t6,.L0003e2c8
-/*    3e3c0:	00000000 */ 	nop
-.L0003e3c4:
-/*    3e3c4:	10000001 */ 	b	.L0003e3cc
-/*    3e3c8:	00000000 */ 	nop
-.L0003e3cc:
-/*    3e3cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3e3d0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    3e3d4:	03e00008 */ 	jr	$ra
-/*    3e3d8:	00000000 */ 	nop
-);
+void __seqpStopOsc(ALSeqPlayer *seqp, ALVoiceState *vs)
+{
+	ALEventListItem *thisNode,*nextNode;
+	s16 evtType;
+
+	thisNode = (ALEventListItem*)seqp->evtq.allocList.next;
+
+	while (thisNode) {
+		nextNode = (ALEventListItem*)thisNode->node.next;
+		evtType = thisNode->evt.type;
+
+		if (evtType == AL_TREM_OSC_EVT || evtType == AL_VIB_OSC_EVT) {
+			if (thisNode->evt.msg.osc.vs == vs) {
+				(*seqp->stopOsc)(thisNode->evt.msg.osc.oscState);
+				alUnlink((ALLink*)thisNode);
+
+				if (nextNode) {
+					nextNode->delta += thisNode->delta;
+				}
+
+				alLink((ALLink*)thisNode, &seqp->evtq.freeList);
+
+				if (evtType == AL_TREM_OSC_EVT) {
+					vs->flags &= 0xfe;
+				} else { /* must be a AL_VIB_OSC_EVT */
+					vs->flags &= 0xfd;
+				}
+
+				if (!vs->flags) {
+					return;  /* there should be no more events */
+				}
+			}
+		}
+
+		thisNode = nextNode;
+	}
+}
