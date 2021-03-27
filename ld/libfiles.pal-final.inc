@@ -196,7 +196,7 @@
 	build/ROMID/lib/ultra/io/conteepread.o (section); \
 	build/ROMID/lib/ultra/io/conteeplongread.o (section); \
 	build/ROMID/lib/ultra/io/pfsreadwritefile.o (section); \
-	build/ROMID/lib/lib_508d0.o (section); \
+	build/ROMID/lib/ultra/io/pfsnumfiles.o (section); \
 	build/ROMID/lib/ultra/io/pfsfilestate.o (section); \
 	build/ROMID/lib/lib_50be0.o (section); \
 	build/ROMID/lib/lib_50d60.o (section); \

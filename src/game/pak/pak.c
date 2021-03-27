@@ -1692,7 +1692,7 @@ s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
 #else
 		joy000150e8(1308, "pak.c");
 #endif
-		result = func000508d0(arg0, arg1, arg2);
+		result = osPfsNumFiles(arg0, arg1, arg2);
 #if VERSION >= VERSION_NTSC_1_0
 		joy00015144();
 #else
