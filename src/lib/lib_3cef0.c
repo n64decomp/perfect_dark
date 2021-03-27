@@ -253,7 +253,7 @@ glabel func0003d1a0
 /*    3d244:	00000000 */ 	nop
 .L0003d248:
 /*    3d248:	8fad0020 */ 	lw	$t5,0x20($sp)
-/*    3d24c:	0c00c57d */ 	jal	func000315f4
+/*    3d24c:	0c00c57d */ 	jal	_freePVoice
 /*    3d250:	8da40008 */ 	lw	$a0,0x8($t5)
 .L0003d254:
 /*    3d254:	8fab0020 */ 	lw	$t3,0x20($sp)

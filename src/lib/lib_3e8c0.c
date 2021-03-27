@@ -6051,7 +6051,7 @@ glabel func0003e8c0
 /*    3f008:	8d0c000c */ 	lw	$t4,0xc($t0)
 /*    3f00c:	ad800088 */ 	sw	$zero,0x88($t4)
 /*    3f010:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*    3f014:	0c00c57d */ 	jal	func000315f4
+/*    3f014:	0c00c57d */ 	jal	_freePVoice
 /*    3f018:	8f04000c */ 	lw	$a0,0xc($t8)
 /*    3f01c:	1000003c */ 	b	.L0003f110
 /*    3f020:	00000000 */ 	nop

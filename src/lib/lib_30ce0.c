@@ -594,26 +594,14 @@ void _collectPVoices(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func000315f4
-/*    315f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    315f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    315fc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    31600:	0c00c5e9 */ 	jal	alUnlink
-/*    31604:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    31608:	3c058006 */ 	lui	$a1,%hi(alGlobals)
-/*    3160c:	8ca5f114 */ 	lw	$a1,%lo(alGlobals)($a1)
-/*    31610:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    31614:	0c00c5dc */ 	jal	alLink
-/*    31618:	24a50014 */ 	addiu	$a1,$a1,20
-/*    3161c:	10000001 */ 	b	.L00031624
-/*    31620:	00000000 */ 	nop
-.L00031624:
-/*    31624:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    31628:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    3162c:	03e00008 */ 	jr	$ra
-/*    31630:	00000000 */ 	nop
-);
+void _freePVoice(PVoice *pvoice)
+{
+	/*
+	 * move the voice from the allocated list to the lame list
+	 */
+	alUnlink((ALLink *)pvoice);
+	alLink((ALLink *)pvoice, &alGlobals->drvr.pLameList);
+}
 
 GLOBAL_ASM(
 glabel func00031634
