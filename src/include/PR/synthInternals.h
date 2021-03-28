@@ -329,7 +329,7 @@ void            __freeParam(ALParam *param);
 void            _freePVoice(PVoice *pvoice);
 void            _collectPVoices(void);
 
-s32             _timeToSamples(ALSynth *ALSynth, s32 micros);
+s32             _timeToSamples(s32 micros);
 ALMicroTime     _samplesToTime(ALSynth *synth, s32 samples);
 
 #endif

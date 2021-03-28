@@ -529,7 +529,7 @@ s32 _timeToSamplesNoRound(s32 micros)
 }
 
 GLOBAL_ASM(
-glabel func00031698
+glabel _timeToSamples
 /*    31698:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    3169c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    316a0:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -547,53 +547,22 @@ glabel func00031698
 /*    316cc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel __nextSampleTime
-/*    316d0:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    316d4:	3c0e7fff */ 	lui	$t6,0x7fff
-/*    316d8:	35ceffff */ 	ori	$t6,$t6,0xffff
-/*    316dc:	afae0004 */ 	sw	$t6,0x4($sp)
-/*    316e0:	ac800000 */ 	sw	$zero,0x0($a0)
-/*    316e4:	3c0f8006 */ 	lui	$t7,%hi(alGlobals)
-/*    316e8:	8deff114 */ 	lw	$t7,%lo(alGlobals)($t7)
-/*    316ec:	8df80000 */ 	lw	$t8,0x0($t7)
-/*    316f0:	13000018 */ 	beqz	$t8,.L00031754
-/*    316f4:	afb80000 */ 	sw	$t8,0x0($sp)
-.L000316f8:
-/*    316f8:	3c098006 */ 	lui	$t1,%hi(alGlobals)
-/*    316fc:	8d29f114 */ 	lw	$t1,%lo(alGlobals)($t1)
-/*    31700:	8fb90000 */ 	lw	$t9,0x0($sp)
-/*    31704:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    31708:	8d2a0020 */ 	lw	$t2,0x20($t1)
-/*    3170c:	8f280010 */ 	lw	$t0,0x10($t9)
-/*    31710:	010a5823 */ 	subu	$t3,$t0,$t2
-/*    31714:	016c082a */ 	slt	$at,$t3,$t4
-/*    31718:	1020000a */ 	beqz	$at,.L00031744
-/*    3171c:	00000000 */ 	nop
-/*    31720:	8fad0000 */ 	lw	$t5,0x0($sp)
-/*    31724:	ac8d0000 */ 	sw	$t5,0x0($a0)
-/*    31728:	3c188006 */ 	lui	$t8,%hi(alGlobals)
-/*    3172c:	8f18f114 */ 	lw	$t8,%lo(alGlobals)($t8)
-/*    31730:	8fae0000 */ 	lw	$t6,0x0($sp)
-/*    31734:	8f190020 */ 	lw	$t9,0x20($t8)
-/*    31738:	8dcf0010 */ 	lw	$t7,0x10($t6)
-/*    3173c:	01f94823 */ 	subu	$t1,$t7,$t9
-/*    31740:	afa90004 */ 	sw	$t1,0x4($sp)
-.L00031744:
-/*    31744:	8fa80000 */ 	lw	$t0,0x0($sp)
-/*    31748:	8d0a0000 */ 	lw	$t2,0x0($t0)
-/*    3174c:	1540ffea */ 	bnez	$t2,.L000316f8
-/*    31750:	afaa0000 */ 	sw	$t2,0x0($sp)
-.L00031754:
-/*    31754:	8c8b0000 */ 	lw	$t3,0x0($a0)
-/*    31758:	10000003 */ 	b	.L00031768
-/*    3175c:	8d620010 */ 	lw	$v0,0x10($t3)
-/*    31760:	10000001 */ 	b	.L00031768
-/*    31764:	00000000 */ 	nop
-.L00031768:
-/*    31768:	03e00008 */ 	jr	$ra
-/*    3176c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+s32 __nextSampleTime(ALPlayer **client)
+{
+	ALMicroTime delta = 0x7fffffff;     /* max delta for s32 */
+	ALPlayer *cl;
+
+	*client = 0;
+
+	for (cl = alGlobals->drvr.head; cl != 0; cl = cl->next) {
+		if ((cl->samplesLeft - alGlobals->drvr.curSamples) < delta) {
+			*client = cl;
+			delta = cl->samplesLeft - alGlobals->drvr.curSamples;
+		}
+	}
+
+	return (*client)->samplesLeft;
+}
 
 void alLink(ALLink *ln, ALLink *to)
 {
