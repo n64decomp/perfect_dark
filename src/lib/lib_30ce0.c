@@ -712,24 +712,13 @@ void alLink(ALLink *ln, ALLink *to)
 	to->next = ln;
 }
 
-GLOBAL_ASM(
-glabel alUnlink
-/*    317a4:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*    317a8:	11c00004 */ 	beqz	$t6,.L000317bc
-/*    317ac:	00000000 */ 	nop
-/*    317b0:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*    317b4:	8c980000 */ 	lw	$t8,0x0($a0)
-/*    317b8:	af0f0004 */ 	sw	$t7,0x4($t8)
-.L000317bc:
-/*    317bc:	8c990004 */ 	lw	$t9,0x4($a0)
-/*    317c0:	13200004 */ 	beqz	$t9,.L000317d4
-/*    317c4:	00000000 */ 	nop
-/*    317c8:	8c880000 */ 	lw	$t0,0x0($a0)
-/*    317cc:	8c890004 */ 	lw	$t1,0x4($a0)
-/*    317d0:	ad280000 */ 	sw	$t0,0x0($t1)
-.L000317d4:
-/*    317d4:	03e00008 */ 	jr	$ra
-/*    317d8:	00000000 */ 	nop
-/*    317dc:	03e00008 */ 	jr	$ra
-/*    317e0:	00000000 */ 	nop
-);
+void alUnlink(ALLink *ln)
+{
+	if (ln->next) {
+		ln->next->prev = ln->prev;
+	}
+
+	if (ln->prev) {
+		ln->prev->next = ln->next;
+	}
+}
