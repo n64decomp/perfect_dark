@@ -50,7 +50,7 @@ glabel alSynSetVol
 /*    3cd88:	8fa80020 */ 	lw	$t0,0x20($sp)
 /*    3cd8c:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3cd90:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3cd94:	0c00fc79 */ 	jal	func0003f1e4
+/*    3cd94:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3cd98:	8d040008 */ 	lw	$a0,0x8($t0)
 .L0003cd9c:
 /*    3cd9c:	10000001 */ 	b	.L0003cda4

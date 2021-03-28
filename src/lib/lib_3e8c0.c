@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "PR/synthInternals.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_16110.h"
@@ -15,190 +16,9 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009c400;
-u32 var8009c404;
-u32 var8009c408;
-u32 var8009c40c;
-u32 var8009c410;
-u32 var8009c414;
-u32 var8009c418;
-u32 var8009c41c;
-u32 var8009c420;
-u32 var8009c424;
-u32 var8009c428;
-u32 var8009c42c;
-u32 var8009c430;
-u32 var8009c434;
-u32 var8009c438;
-u32 var8009c43c;
-u32 var8009c440;
-u32 var8009c444;
-u32 var8009c448;
-u32 var8009c44c;
-u32 var8009c450;
-u32 var8009c454;
-u32 var8009c458;
-u32 var8009c45c;
-u32 var8009c460;
-u32 var8009c464;
-u32 var8009c468;
-u32 var8009c46c;
-u32 var8009c470;
-u32 var8009c474;
-u32 var8009c478;
-u32 var8009c47c;
-u32 var8009c480;
-u32 var8009c484;
-u32 var8009c488;
-u32 var8009c48c;
-u32 var8009c490;
-u32 var8009c494;
-u32 var8009c498;
-u32 var8009c49c;
-u32 var8009c4a0;
-u32 var8009c4a4;
-u32 var8009c4a8;
-u32 var8009c4ac;
-u32 var8009c4b0;
-u32 var8009c4b4;
-u32 var8009c4b8;
-u32 var8009c4bc;
-u32 var8009c4c0;
-u32 var8009c4c4;
-u32 var8009c4c8;
-u32 var8009c4cc;
-u32 var8009c4d0;
-u32 var8009c4d4;
-u32 var8009c4d8;
-u32 var8009c4dc;
-u32 var8009c4e0;
-u32 var8009c4e4;
-u32 var8009c4e8;
-u32 var8009c4ec;
-u32 var8009c4f0;
-u32 var8009c4f4;
-u32 var8009c4f8;
-u32 var8009c4fc;
-u32 var8009c500;
-u32 var8009c504;
-u32 var8009c508;
-u32 var8009c50c;
-u32 var8009c510;
-u32 var8009c514;
-u32 var8009c518;
-u32 var8009c51c;
-u32 var8009c520;
-u32 var8009c524;
-u32 var8009c528;
-u32 var8009c52c;
-u32 var8009c530;
-u32 var8009c534;
-u32 var8009c538;
-u32 var8009c53c;
-u32 var8009c540;
-u32 var8009c544;
-u32 var8009c548;
-u32 var8009c54c;
-u32 var8009c550;
-u32 var8009c554;
-u32 var8009c558;
-u32 var8009c55c;
-u32 var8009c560;
-u32 var8009c564;
-u32 var8009c568;
-u32 var8009c56c;
-u32 var8009c570;
-u32 var8009c574;
-u32 var8009c578;
-u32 var8009c57c;
-u32 var8009c580;
-u32 var8009c584;
-u32 var8009c588;
-u32 var8009c58c;
-u32 var8009c590;
-u32 var8009c594;
-u32 var8009c598;
-u32 var8009c59c;
-u32 var8009c5a0;
-u32 var8009c5a4;
-u32 var8009c5a8;
-u32 var8009c5ac;
-u32 var8009c5b0;
-u32 var8009c5b4;
-u32 var8009c5b8;
-u32 var8009c5bc;
-u32 var8009c5c0;
-u32 var8009c5c4;
-u32 var8009c5c8;
-u32 var8009c5cc;
-u32 var8009c5d0;
-u32 var8009c5d4;
-u32 var8009c5d8;
-u32 var8009c5dc;
-u32 var8009c5e0;
-u32 var8009c5e4;
-u32 var8009c5e8;
-u32 var8009c5ec;
-u32 var8009c5f0;
-u32 var8009c5f4;
-u32 var8009c5f8;
-u32 var8009c5fc;
-u32 var8009c600;
-u32 var8009c604;
-u32 var8009c608;
-u32 var8009c60c;
-u32 var8009c610;
-u32 var8009c614;
-u32 var8009c618;
-u32 var8009c61c;
-u32 var8009c620;
-u32 var8009c624;
-u32 var8009c628;
-u32 var8009c62c;
-u32 var8009c630;
-u32 var8009c634;
-u32 var8009c638;
-u32 var8009c63c;
-u32 var8009c640;
-u32 var8009c644;
-u32 var8009c648;
-u32 var8009c64c;
-u32 var8009c650;
-u32 var8009c654;
-u32 var8009c658;
-u32 var8009c65c;
-u32 var8009c660;
-u32 var8009c664;
-u32 var8009c668;
-u32 var8009c66c;
-u32 var8009c670;
-u32 var8009c674;
-u32 var8009c678;
-u32 var8009c67c;
-u32 var8009c680;
-u32 var8009c684;
-u32 var8009c688;
-u32 var8009c68c;
-u32 var8009c690;
-u32 var8009c694;
-u32 var8009c698;
-u32 var8009c69c;
-u32 var8009c6a0;
-u32 var8009c6a4;
-u32 var8009c6a8;
-u32 var8009c6ac;
-u32 var8009c6b0;
-u32 var8009c6b4;
-u32 var8009c6b8;
-u32 var8009c6bc;
-u32 var8009c6c0;
-u32 var8009c6c4;
-u32 var8009c6c8;
-u32 var8009c6cc;
-u32 var8009c6d0;
-u32 var8009c6d4;
-u32 var8009c6d8;
-u32 var8009c6dc;
+u8 var8009c400[0x90];
+u8 var8009c490[0x120];
+u8 var8009c5b0[0x90];
 
 u32 var8005f570 = 0x7fff7ffc;
 u32 var8005f574 = 0x7ff57fe8;
@@ -6040,7 +5860,7 @@ glabel func0003e8c0
 /*    3efdc:	afa20054 */ 	sw	$v0,0x54($sp)
 /*    3efe0:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*    3efe4:	24050004 */ 	addiu	$a1,$zero,0x4
-/*    3efe8:	0c00fc79 */ 	jal	func0003f1e4
+/*    3efe8:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3efec:	00003025 */ 	or	$a2,$zero,$zero
 /*    3eff0:	10000047 */ 	b	.L0003f110
 /*    3eff4:	00000000 */ 	nop
@@ -6111,7 +5931,7 @@ glabel func0003e8c0
 /*    3f0f4:	8f2d007c */ 	lw	$t5,0x7c($t9)
 /*    3f0f8:	03202025 */ 	or	$a0,$t9,$zero
 /*    3f0fc:	85a50008 */ 	lh	$a1,0x8($t5)
-/*    3f100:	0c00fc79 */ 	jal	func0003f1e4
+/*    3f100:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3f104:	8da6000c */ 	lw	$a2,0xc($t5)
 /*    3f108:	10000001 */ 	b	.L0003f110
 /*    3f10c:	00000000 */ 	nop
@@ -6175,98 +5995,44 @@ glabel func0003e8c0
 /*    3f1e0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0003f1e4
-/*    3f1e4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    3f1e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    3f1ec:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    3f1f0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    3f1f4:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    3f1f8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    3f1fc:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    3f200:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    3f204:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*    3f208:	24010003 */ 	addiu	$at,$zero,0x3
-/*    3f20c:	12010009 */ 	beq	$s0,$at,.L0003f234
-/*    3f210:	00000000 */ 	nop
-/*    3f214:	24010004 */ 	addiu	$at,$zero,0x4
-/*    3f218:	12010017 */ 	beq	$s0,$at,.L0003f278
-/*    3f21c:	00000000 */ 	nop
-/*    3f220:	24010009 */ 	addiu	$at,$zero,0x9
-/*    3f224:	1201002c */ 	beq	$s0,$at,.L0003f2d8
-/*    3f228:	00000000 */ 	nop
-/*    3f22c:	1000002f */ 	b	.L0003f2ec
-/*    3f230:	00000000 */ 	nop
-.L0003f234:
-/*    3f234:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3f238:	8df80080 */ 	lw	$t8,0x80($t7)
-/*    3f23c:	13000006 */ 	beqz	$t8,.L0003f258
-/*    3f240:	00000000 */ 	nop
-/*    3f244:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    3f248:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*    3f24c:	8d090080 */ 	lw	$t1,0x80($t0)
-/*    3f250:	10000004 */ 	b	.L0003f264
-/*    3f254:	ad390000 */ 	sw	$t9,0x0($t1)
-.L0003f258:
-/*    3f258:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*    3f25c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    3f260:	ad6a007c */ 	sw	$t2,0x7c($t3)
-.L0003f264:
-/*    3f264:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    3f268:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    3f26c:	adac0080 */ 	sw	$t4,0x80($t5)
-/*    3f270:	10000024 */ 	b	.L0003f304
-/*    3f274:	00000000 */ 	nop
-.L0003f278:
-/*    3f278:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3f27c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    3f280:	adee0078 */ 	sw	$t6,0x78($t7)
-/*    3f284:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3f288:	af000084 */ 	sw	$zero,0x84($t8)
-/*    3f28c:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3f290:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    3f294:	a728005a */ 	sh	$t0,0x5a($t9)
-/*    3f298:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3f29c:	ad200074 */ 	sw	$zero,0x74($t1)
-/*    3f2a0:	44802000 */ 	mtc1	$zero,$f4
-/*    3f2a4:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    3f2a8:	e544004c */ 	swc1	$f4,0x4c($t2)
-/*    3f2ac:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    3f2b0:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    3f2b4:	ad8b0050 */ 	sw	$t3,0x50($t4)
-/*    3f2b8:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    3f2bc:	ada00048 */ 	sw	$zero,0x48($t5)
-/*    3f2c0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3f2c4:	24050004 */ 	addiu	$a1,$zero,0x4
-/*    3f2c8:	0c01176a */ 	jal	func00045da8
-/*    3f2cc:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*    3f2d0:	1000000c */ 	b	.L0003f304
-/*    3f2d4:	00000000 */ 	nop
-.L0003f2d8:
-/*    3f2d8:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3f2dc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    3f2e0:	adee0084 */ 	sw	$t6,0x84($t7)
-/*    3f2e4:	10000007 */ 	b	.L0003f304
-/*    3f2e8:	00000000 */ 	nop
-.L0003f2ec:
-/*    3f2ec:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3f2f0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    3f2f4:	0c01176a */ 	jal	func00045da8
-/*    3f2f8:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*    3f2fc:	10000001 */ 	b	.L0003f304
-/*    3f300:	00000000 */ 	nop
-.L0003f304:
-/*    3f304:	10000003 */ 	b	.L0003f314
-/*    3f308:	00001025 */ 	or	$v0,$zero,$zero
-/*    3f30c:	10000001 */ 	b	.L0003f314
-/*    3f310:	00000000 */ 	nop
-.L0003f314:
-/*    3f314:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    3f318:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    3f31c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    3f320:	03e00008 */ 	jr	$ra
-/*    3f324:	00000000 */ 	nop
-);
+s32 n_alEnvmixerParam(void *filter, s32 paramID, void *param)
+{
+	ALEnvMixer	*e = (ALEnvMixer *) filter;
+
+	switch (paramID) {
+	case AL_FILTER_ADD_UPDATE:
+		if (e->ctrlTail) {
+			e->ctrlTail->next = (ALParam *)param;
+		} else {
+			e->ctrlList = (ALParam *)param;
+		}
+
+		e->ctrlTail = (ALParam *)param;
+		break;
+	case AL_FILTER_RESET:
+		e->first = 1;
+		e->motion = AL_STOPPED;
+		e->volume = 1;
+
+		// @dangerous: Unsure which properties these refer to
+		// as the ALEnvMixer struct was modified
+		*(s32 *)((u32)e + 0x74) = 0;
+		*(f32 *)((u32)e + 0x4c) = 0;
+		*(s32 *)((u32)e + 0x50) = 1;
+		*(s32 *)((u32)e + 0x48) = 0;
+
+		n_alLoadParam(e, AL_FILTER_RESET, param);
+		break;
+	case AL_FILTER_START:
+		e->motion = AL_PLAYING;
+		break;
+	default:
+		n_alLoadParam(e, paramID, param);
+		break;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0003f328

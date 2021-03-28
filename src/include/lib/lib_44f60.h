@@ -8,6 +8,6 @@ u32 func00044f60(void);
 u32 func00045608(void);
 u32 func000458f8(void);
 u32 func00045ab0(void);
-u32 func00045da8(void);
+void n_alLoadParam(void *arg0, s32 arg1, void *arg2);
 
 #endif

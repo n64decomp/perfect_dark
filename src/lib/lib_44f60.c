@@ -1002,7 +1002,7 @@ glabel func00045ab0
 );
 
 GLOBAL_ASM(
-glabel func00045da8
+glabel n_alLoadParam
 /*    45da8:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    45dac:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    45db0:	afa40028 */ 	sw	$a0,0x28($sp)

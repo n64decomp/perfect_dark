@@ -54,7 +54,7 @@ glabel func0003e730
 /*    3e7b4:	8faa0020 */ 	lw	$t2,0x20($sp)
 /*    3e7b8:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3e7bc:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3e7c0:	0c00fc79 */ 	jal	func0003f1e4
+/*    3e7c0:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3e7c4:	8d440008 */ 	lw	$a0,0x8($t2)
 .L0003e7c8:
 /*    3e7c8:	10000001 */ 	b	.L0003e7d0

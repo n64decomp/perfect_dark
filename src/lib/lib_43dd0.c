@@ -10,6 +10,14 @@
 #include "data.h"
 #include "types.h"
 
+u32 var8009c640;
+u32 var8009c644;
+u32 var8009c648;
+u32 var8009c64c;
+u8 var8009c650[0x88];
+u32 var8009c6d8;
+u32 var8009c6dc;
+
 u32 var8005f700 = 0;
 u32 var8005f704 = 0;
 

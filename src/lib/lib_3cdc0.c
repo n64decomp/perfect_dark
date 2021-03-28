@@ -76,7 +76,7 @@ glabel func0003cdc0
 /*    3cec0:	8faf0020 */ 	lw	$t7,0x20($sp)
 /*    3cec4:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3cec8:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3cecc:	0c00fc79 */ 	jal	func0003f1e4
+/*    3cecc:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3ced0:	8de40008 */ 	lw	$a0,0x8($t7)
 .L0003ced4:
 /*    3ced4:	10000001 */ 	b	.L0003cedc

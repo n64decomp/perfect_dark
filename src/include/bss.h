@@ -56,7 +56,7 @@ extern u32 var8009c3e0;
 extern u32 var8009c3f4;
 extern u32 var8009c640;
 extern u32 var8009c644;
-extern u32 var8009c650;
+extern u8 var8009c650[];
 extern u32 var8009c6d8;
 extern u32 var8009c6dc;
 extern __OSEventState __osEventStateTab[15];

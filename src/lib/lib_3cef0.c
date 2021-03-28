@@ -45,7 +45,7 @@ glabel func0003cef0
 /*    3cf74:	8faa0020 */ 	lw	$t2,0x20($sp)
 /*    3cf78:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3cf7c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3cf80:	0c00fc79 */ 	jal	func0003f1e4
+/*    3cf80:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3cf84:	8d440008 */ 	lw	$a0,0x8($t2)
 .L0003cf88:
 /*    3cf88:	10000001 */ 	b	.L0003cf90
@@ -96,7 +96,7 @@ glabel func0003cfa0
 /*    3d024:	8fa90020 */ 	lw	$t1,0x20($sp)
 /*    3d028:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3d02c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3d030:	0c00fc79 */ 	jal	func0003f1e4
+/*    3d030:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3d034:	8d240008 */ 	lw	$a0,0x8($t1)
 .L0003d038:
 /*    3d038:	10000001 */ 	b	.L0003d040
@@ -147,7 +147,7 @@ glabel func0003d050
 /*    3d0d4:	8faa0020 */ 	lw	$t2,0x20($sp)
 /*    3d0d8:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3d0dc:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3d0e0:	0c00fc79 */ 	jal	func0003f1e4
+/*    3d0e0:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3d0e4:	8d440008 */ 	lw	$a0,0x8($t2)
 .L0003d0e8:
 /*    3d0e8:	10000001 */ 	b	.L0003d0f0
@@ -194,7 +194,7 @@ glabel func0003d100
 /*    3d174:	8fb90020 */ 	lw	$t9,0x20($sp)
 /*    3d178:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3d17c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3d180:	0c00fc79 */ 	jal	func0003f1e4
+/*    3d180:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3d184:	8f240008 */ 	lw	$a0,0x8($t9)
 .L0003d188:
 /*    3d188:	10000001 */ 	b	.L0003d190
@@ -247,7 +247,7 @@ glabel func0003d1a0
 /*    3d22c:	8fac0020 */ 	lw	$t4,0x20($sp)
 /*    3d230:	24050003 */ 	addiu	$a1,$zero,0x3
 /*    3d234:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3d238:	0c00fc79 */ 	jal	func0003f1e4
+/*    3d238:	0c00fc79 */ 	jal	n_alEnvmixerParam
 /*    3d23c:	8d840008 */ 	lw	$a0,0x8($t4)
 /*    3d240:	10000004 */ 	b	.L0003d254
 /*    3d244:	00000000 */ 	nop

@@ -39,7 +39,7 @@ extern const u32 var700576c8[];
 extern const u32 var70057750[];
 
 u32 func0003e8c0(void);
-u32 func0003f1e4(void);
+s32 n_alEnvmixerParam(void *filter, s32 paramID, void *param);
 u32 func0003f328(void);
 u32 func0003f60c(void);
 u32 func0003f81c(void);
