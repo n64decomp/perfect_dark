@@ -417,153 +417,75 @@ glabel func00030ce0
 /*    312e0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel alAudioFrame
-/*    312e4:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    312e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    312ec:	afa40040 */ 	sw	$a0,0x40($sp)
-/*    312f0:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    312f4:	afa60048 */ 	sw	$a2,0x48($sp)
-/*    312f8:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*    312fc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    31300:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    31304:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*    31308:	afae0038 */ 	sw	$t6,0x38($sp)
-/*    3130c:	8faf0048 */ 	lw	$t7,0x48($sp)
-/*    31310:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*    31314:	3c188006 */ 	lui	$t8,%hi(alGlobals)
-/*    31318:	8f18f114 */ 	lw	$t8,%lo(alGlobals)($t8)
-/*    3131c:	8f190000 */ 	lw	$t9,0x0($t8)
-/*    31320:	17200005 */ 	bnez	$t9,.L00031338
-/*    31324:	00000000 */ 	nop
-/*    31328:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*    3132c:	ad000000 */ 	sw	$zero,0x0($t0)
-/*    31330:	1000006f */ 	b	.L000314f0
-/*    31334:	8fa20040 */ 	lw	$v0,0x40($sp)
-.L00031338:
-/*    31338:	0c00c5b4 */ 	jal	func000316d0
-/*    3133c:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*    31340:	3c098006 */ 	lui	$t1,%hi(alGlobals)
-/*    31344:	8d29f114 */ 	lw	$t1,%lo(alGlobals)($t1)
-/*    31348:	3c0a8006 */ 	lui	$t2,%hi(alGlobals)
-/*    3134c:	ad22001c */ 	sw	$v0,0x1c($t1)
-/*    31350:	8d4af114 */ 	lw	$t2,%lo(alGlobals)($t2)
-/*    31354:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*    31358:	8d4b001c */ 	lw	$t3,0x1c($t2)
-/*    3135c:	8d4c0020 */ 	lw	$t4,0x20($t2)
-/*    31360:	016c6823 */ 	subu	$t5,$t3,$t4
-/*    31364:	01ae082a */ 	slt	$at,$t5,$t6
-/*    31368:	10200022 */ 	beqz	$at,.L000313f4
-/*    3136c:	00000000 */ 	nop
-.L00031370:
-/*    31370:	3c0f8006 */ 	lui	$t7,%hi(alGlobals)
-/*    31374:	8deff114 */ 	lw	$t7,%lo(alGlobals)($t7)
-/*    31378:	2401fff0 */ 	addiu	$at,$zero,-16
-/*    3137c:	8df8001c */ 	lw	$t8,0x1c($t7)
-/*    31380:	0301c824 */ 	and	$t9,$t8,$at
-/*    31384:	adf9001c */ 	sw	$t9,0x1c($t7)
-/*    31388:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*    3138c:	8d190008 */ 	lw	$t9,0x8($t0)
-/*    31390:	01002025 */ 	or	$a0,$t0,$zero
-/*    31394:	0320f809 */ 	jalr	$t9
-/*    31398:	00000000 */ 	nop
-/*    3139c:	00408825 */ 	or	$s1,$v0,$zero
-/*    313a0:	0c00c58d */ 	jal	func00031634
-/*    313a4:	02202025 */ 	or	$a0,$s1,$zero
-/*    313a8:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*    313ac:	00408025 */ 	or	$s0,$v0,$zero
-/*    313b0:	8d2a0010 */ 	lw	$t2,0x10($t1)
-/*    313b4:	01505821 */ 	addu	$t3,$t2,$s0
-/*    313b8:	ad2b0010 */ 	sw	$t3,0x10($t1)
-/*    313bc:	0c00c5b4 */ 	jal	func000316d0
-/*    313c0:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*    313c4:	3c0c8006 */ 	lui	$t4,%hi(alGlobals)
-/*    313c8:	8d8cf114 */ 	lw	$t4,%lo(alGlobals)($t4)
-/*    313cc:	3c0d8006 */ 	lui	$t5,%hi(alGlobals)
-/*    313d0:	ad82001c */ 	sw	$v0,0x1c($t4)
-/*    313d4:	8dadf114 */ 	lw	$t5,%lo(alGlobals)($t5)
-/*    313d8:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*    313dc:	8dae001c */ 	lw	$t6,0x1c($t5)
-/*    313e0:	8db80020 */ 	lw	$t8,0x20($t5)
-/*    313e4:	01d87823 */ 	subu	$t7,$t6,$t8
-/*    313e8:	01e8082a */ 	slt	$at,$t7,$t0
-/*    313ec:	1420ffe0 */ 	bnez	$at,.L00031370
-/*    313f0:	00000000 */ 	nop
-.L000313f4:
-/*    313f4:	3c198006 */ 	lui	$t9,%hi(alGlobals)
-/*    313f8:	8f39f114 */ 	lw	$t9,%lo(alGlobals)($t9)
-/*    313fc:	2401fff0 */ 	addiu	$at,$zero,-16
-/*    31400:	8f2a001c */ 	lw	$t2,0x1c($t9)
-/*    31404:	01415824 */ 	and	$t3,$t2,$at
-/*    31408:	af2b001c */ 	sw	$t3,0x1c($t9)
-/*    3140c:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*    31410:	1920002b */ 	blez	$t1,.L000314c0
-/*    31414:	00000000 */ 	nop
-.L00031418:
-/*    31418:	3c0c8006 */ 	lui	$t4,%hi(alGlobals)
-/*    3141c:	8d8cf114 */ 	lw	$t4,%lo(alGlobals)($t4)
-/*    31420:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*    31424:	8d8d0044 */ 	lw	$t5,0x44($t4)
-/*    31428:	01ae082a */ 	slt	$at,$t5,$t6
-/*    3142c:	10200003 */ 	beqz	$at,.L0003143c
-/*    31430:	00000000 */ 	nop
-/*    31434:	10000003 */ 	b	.L00031444
-/*    31438:	afad0030 */ 	sw	$t5,0x30($sp)
-.L0003143c:
-/*    3143c:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*    31440:	afb80030 */ 	sw	$t8,0x30($sp)
-.L00031444:
-/*    31444:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*    31448:	afaf0034 */ 	sw	$t7,0x34($sp)
-/*    3144c:	3c0a8006 */ 	lui	$t2,%hi(alGlobals)
-/*    31450:	8d4af114 */ 	lw	$t2,%lo(alGlobals)($t2)
-/*    31454:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    31458:	ad480048 */ 	sw	$t0,0x48($t2)
-/*    3145c:	3c0b8006 */ 	lui	$t3,%hi(alGlobals)
-/*    31460:	8d6bf114 */ 	lw	$t3,%lo(alGlobals)($t3)
-/*    31464:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*    31468:	0c00f10c */ 	jal	func0003c430
-/*    3146c:	8d640020 */ 	lw	$a0,0x20($t3)
-/*    31470:	afa20038 */ 	sw	$v0,0x38($sp)
-/*    31474:	8fb9004c */ 	lw	$t9,0x4c($sp)
-/*    31478:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*    3147c:	03296023 */ 	subu	$t4,$t9,$t1
-/*    31480:	afac004c */ 	sw	$t4,0x4c($sp)
-/*    31484:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*    31488:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*    3148c:	000dc040 */ 	sll	$t8,$t5,0x1
-/*    31490:	00187840 */ 	sll	$t7,$t8,0x1
-/*    31494:	01cf4021 */ 	addu	$t0,$t6,$t7
-/*    31498:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*    3149c:	3c0a8006 */ 	lui	$t2,%hi(alGlobals)
-/*    314a0:	8d4af114 */ 	lw	$t2,%lo(alGlobals)($t2)
-/*    314a4:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*    314a8:	8d4b0020 */ 	lw	$t3,0x20($t2)
-/*    314ac:	01794821 */ 	addu	$t1,$t3,$t9
-/*    314b0:	ad490020 */ 	sw	$t1,0x20($t2)
-/*    314b4:	8fac004c */ 	lw	$t4,0x4c($sp)
-/*    314b8:	1d80ffd7 */ 	bgtz	$t4,.L00031418
-/*    314bc:	00000000 */ 	nop
-.L000314c0:
-/*    314c0:	8fad0038 */ 	lw	$t5,0x38($sp)
-/*    314c4:	8fb80040 */ 	lw	$t8,0x40($sp)
-/*    314c8:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*    314cc:	01b87023 */ 	subu	$t6,$t5,$t8
-/*    314d0:	000e78c3 */ 	sra	$t7,$t6,0x3
-/*    314d4:	ad0f0000 */ 	sw	$t7,0x0($t0)
-/*    314d8:	0c00c564 */ 	jal	_collectPVoices
-/*    314dc:	00000000 */ 	nop
-/*    314e0:	10000003 */ 	b	.L000314f0
-/*    314e4:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*    314e8:	10000001 */ 	b	.L000314f0
-/*    314ec:	00000000 */ 	nop
-.L000314f0:
-/*    314f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    314f4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    314f8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    314fc:	03e00008 */ 	jr	$ra
-/*    31500:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+s32 __nextSampleTime(ALPlayer **client);
+s32 _timeToSamplesNoRound(s32 micros);
+
+Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen)
+{
+	ALPlayer    *client;
+	Acmd        *cmdlEnd = cmdList;
+	Acmd        *cmdPtr;
+	s32         nOut;
+	s16         *lOutBuf = outBuf;
+
+	if (alGlobals->drvr.head == 0) {
+		*cmdLen = 0;
+		return cmdList;         /* nothing to do */
+	}
+
+	/*
+	 * run down list of clients and execute callback if needed this
+	 * subframe. Here we do all the work for the frame at the
+	 * start. Time offsets that occur before the next frame are
+	 * executed "early".
+	 */
+
+	/*
+	 * paramSamples = time of next parameter change.
+	 * curSamples = current sample time.
+	 * so paramSamples - curSamples is the time until the next parameter change.
+	 * if the next parameter change occurs within this frame time (outLen),
+	 * then call back the client that contains the parameter change.
+	 * Note, paramSamples must be rounded down to 16 sample boundary for use
+	 * during the client handler.
+	 */
+
+	for (alGlobals->drvr.paramSamples = __nextSampleTime(&client);
+			alGlobals->drvr.paramSamples - alGlobals->drvr.curSamples < outLen;
+			alGlobals->drvr.paramSamples = __nextSampleTime(&client)) {
+		alGlobals->drvr.paramSamples &= ~0xf;
+		client->samplesLeft += _timeToSamplesNoRound((*client->handler)(client));
+	}
+
+	/* for safety's sake, always store paramSamples aligned to 16 sample boundary.
+	 * this way, if an voice handler routine gets called outside the ALVoiceHandler
+	 * routine (alSynAllocVoice) it will get timestamped with an aligned value and
+	 * will be processed immediately next audio frame.
+	 */
+	alGlobals->drvr.paramSamples &= ~0xf;
+
+	/*
+	 * Now build the command list in small chunks
+	 */
+	while (outLen > 0) {
+		nOut = MIN(alGlobals->drvr.outputRate, outLen);
+
+		cmdPtr = cmdlEnd;
+		alGlobals->drvr.maxOutSamples = (s32)lOutBuf;
+
+		cmdlEnd = func0003c430(alGlobals->drvr.curSamples, cmdPtr);
+
+		outLen -= nOut;
+		lOutBuf += nOut << 1;     /* For Stereo */
+		alGlobals->drvr.curSamples += nOut;
+	}
+
+	*cmdLen = (s32) (cmdlEnd - cmdList);
+
+	_collectPVoices(); /* collect free physical voices */
+
+	return cmdlEnd;
+}
 
 ALParam *__allocParam()
 {
@@ -604,7 +526,7 @@ void _freePVoice(PVoice *pvoice)
 }
 
 GLOBAL_ASM(
-glabel func00031634
+glabel _timeToSamplesNoRound
 /*    31634:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    31638:	3c0e8006 */ 	lui	$t6,%hi(alGlobals)
 /*    3163c:	8dcef114 */ 	lw	$t6,%lo(alGlobals)($t6)
@@ -638,7 +560,7 @@ glabel func00031698
 /*    31698:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    3169c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    316a0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    316a4:	0c00c58d */ 	jal	func00031634
+/*    316a4:	0c00c58d */ 	jal	_timeToSamplesNoRound
 /*    316a8:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    316ac:	2401fff0 */ 	addiu	$at,$zero,-16
 /*    316b0:	10000003 */ 	b	.L000316c0
@@ -653,7 +575,7 @@ glabel func00031698
 );
 
 GLOBAL_ASM(
-glabel func000316d0
+glabel __nextSampleTime
 /*    316d0:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    316d4:	3c0e7fff */ 	lui	$t6,0x7fff
 /*    316d8:	35ceffff */ 	ori	$t6,$t6,0xffff

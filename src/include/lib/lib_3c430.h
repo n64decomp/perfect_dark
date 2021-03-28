@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0003c430(void);
+Acmd *func0003c430(s32 arg0, void *arg1);
 
 #endif
