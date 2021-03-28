@@ -700,23 +700,17 @@ glabel func000316d0
 /*    3176c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel alLink
-/*    31770:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*    31774:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*    31778:	ac850004 */ 	sw	$a1,0x4($a0)
-/*    3177c:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*    31780:	11e00003 */ 	beqz	$t7,.L00031790
-/*    31784:	00000000 */ 	nop
-/*    31788:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*    3178c:	af040004 */ 	sw	$a0,0x4($t8)
-.L00031790:
-/*    31790:	aca40000 */ 	sw	$a0,0x0($a1)
-/*    31794:	03e00008 */ 	jr	$ra
-/*    31798:	00000000 */ 	nop
-/*    3179c:	03e00008 */ 	jr	$ra
-/*    317a0:	00000000 */ 	nop
-);
+void alLink(ALLink *ln, ALLink *to)
+{
+	ln->next = to->next;
+	ln->prev = to;
+
+	if (to->next) {
+		to->next->prev = ln;
+	}
+
+	to->next = ln;
+}
 
 GLOBAL_ASM(
 glabel alUnlink
