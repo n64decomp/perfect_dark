@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0002fba0(void);
+void n_alInit(ALGlobals *g, ALSynConfig *c);
 
 #endif

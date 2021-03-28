@@ -10,7 +10,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00030ce0
+glabel n_alSynNew
 /*    30ce0:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    30ce4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    30ce8:	afa40040 */ 	sw	$a0,0x40($sp)

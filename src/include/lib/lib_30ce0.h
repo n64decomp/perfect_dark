@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00030ce0(void);
+void n_alSynNew(ALSynConfig *c);
 
 #endif

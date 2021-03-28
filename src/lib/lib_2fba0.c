@@ -6,43 +6,22 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8005f110 = 0;
+ALGlobals *var8005f110 = NULL;
 ALGlobals *alGlobals = NULL;
 u32 var8005f118 = 0;
 u32 var8005f11c = 0;
 
-GLOBAL_ASM(
-glabel func0002fba0
-/*    2fba0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    2fba4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    2fba8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    2fbac:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    2fbb0:	3c0e8006 */ 	lui	$t6,%hi(var8005f110)
-/*    2fbb4:	8dcef110 */ 	lw	$t6,%lo(var8005f110)($t6)
-/*    2fbb8:	15c0000e */ 	bnez	$t6,.L0002fbf4
-/*    2fbbc:	00000000 */ 	nop
-/*    2fbc0:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    2fbc4:	3c018006 */ 	lui	$at,%hi(var8005f110)
-/*    2fbc8:	ac2ff110 */ 	sw	$t7,%lo(var8005f110)($at)
-/*    2fbcc:	3c188006 */ 	lui	$t8,%hi(alGlobals)
-/*    2fbd0:	8f18f114 */ 	lw	$t8,%lo(alGlobals)($t8)
-/*    2fbd4:	17000007 */ 	bnez	$t8,.L0002fbf4
-/*    2fbd8:	00000000 */ 	nop
-/*    2fbdc:	3c198006 */ 	lui	$t9,%hi(var8005f110)
-/*    2fbe0:	8f39f110 */ 	lw	$t9,%lo(var8005f110)($t9)
-/*    2fbe4:	3c018006 */ 	lui	$at,%hi(alGlobals)
-/*    2fbe8:	ac39f114 */ 	sw	$t9,%lo(alGlobals)($at)
-/*    2fbec:	0c00c338 */ 	jal	func00030ce0
-/*    2fbf0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-.L0002fbf4:
-/*    2fbf4:	10000001 */ 	b	.L0002fbfc
-/*    2fbf8:	00000000 */ 	nop
-.L0002fbfc:
-/*    2fbfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    2fc00:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    2fc04:	03e00008 */ 	jr	$ra
-/*    2fc08:	00000000 */ 	nop
-);
+void n_alInit(ALGlobals *g, ALSynConfig *c)
+{
+	if (!var8005f110) {
+		var8005f110 = g;
+
+		if (!alGlobals) {
+			alGlobals = var8005f110;
+			n_alSynNew(c);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel alClose

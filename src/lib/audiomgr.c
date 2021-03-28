@@ -829,7 +829,7 @@ glabel amgrCreate
 .PF00008fac:
 /*     8fac:	3c048009 */ 	lui	$a0,0x8009
 /*     8fb0:	24841dd0 */ 	addiu	$a0,$a0,0x1dd0
-/*     8fb4:	0c00bd28 */ 	jal	func0002fba0
+/*     8fb4:	0c00bd28 */ 	jal	n_alInit
 /*     8fb8:	02002825 */ 	move	$a1,$s0
 /*     8fbc:	00002025 */ 	move	$a0,$zero
 /*     8fc0:	0c00c13f */ 	jal	func00030bfc
@@ -1283,7 +1283,7 @@ glabel amgrCreate
 .L0000907c:
 /*     907c:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x2b8)
 /*     9080:	24841880 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x2b8)
-/*     9084:	0c00bee8 */ 	jal	func0002fba0
+/*     9084:	0c00bee8 */ 	jal	n_alInit
 /*     9088:	00e02825 */ 	or	$a1,$a3,$zero
 /*     908c:	00002025 */ 	or	$a0,$zero,$zero
 /*     9090:	0c00c2ff */ 	jal	func00030bfc
