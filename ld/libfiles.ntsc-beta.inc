@@ -75,7 +75,7 @@
 	build/ROMID/lib/lib_39be0.o (section); \
 	build/ROMID/lib/lib_39c80.o (section); \
 	build/ROMID/lib/lib_39f70.o (section); \
-	build/ROMID/lib/lib_39fc0.o (section); \
+	build/ROMID/lib/ultra/audio/syndelete.o (section); \
 	build/ROMID/lib/lib_39fe0.o (section); \
 	build/ROMID/lib/lib_3a100.o (section); \
 	build/ROMID/lib/lib_3c430.o (section); \
