@@ -304,26 +304,27 @@ typedef struct ALVoiceConfig_s {
     u8                  unityPitch;     /* unity pitch flag             */
 } ALVoiceConfig;
 
+/**
+ * This struct needs some modifications but I'm not sure how yet.
+ * outputRate should be at 0x40
+ */
 typedef struct {
-    ALPlayer    *head;          /* client list head                     */
-    ALLink      pFreeList;      /* list of free physical voices         */
-    ALLink      pAllocList;     /* list of allocated physical voices    */
-    ALLink      pLameList;      /* list of voices ready to be freed     */
-    s32         paramSamples;
-    s32         curSamples;     /* samples from start of game           */
-    ALDMANew    dma;
-    ALHeap      *heap;
-
-    struct ALParam_s    *paramList;
-
-    struct ALMainBus_s  *mainBus;
-    struct ALAuxBus_s   *auxBus;        /* ptr to array of aux bus structs */
-    struct ALFilter_s   *outputFilter;  /* last filter in the filter chain */
-
-    s32                 numPVoices;
-    s32                 maxAuxBusses;
-    s32                 outputRate;     /* output sample rate */
-    s32                 maxOutSamples;  /* Maximum samples rsp can generate
+    /*0x00*/ ALPlayer    *head;          /* client list head                     */
+    /*0x04*/ ALLink      pFreeList;      /* list of free physical voices         */
+    /*0x0c*/ ALLink      pAllocList;     /* list of allocated physical voices    */
+    /*0x14*/ ALLink      pLameList;      /* list of voices ready to be freed     */
+    /*0x1c*/ s32         paramSamples;
+    /*0x20*/ s32         curSamples;     /* samples from start of game           */
+    /*0x24*/ ALDMANew    dma;
+    /*0x28*/ ALHeap      *heap;
+    /*0x2c*/ struct ALParam_s    *paramList;
+    /*0x30*/ struct ALMainBus_s  *mainBus;
+    /*0x34*/ struct ALAuxBus_s   *auxBus;        /* ptr to array of aux bus structs */
+    /*0x38*/ struct ALFilter_s   *outputFilter;  /* last filter in the filter chain */
+    /*0x3c*/ s32                 numPVoices;
+    /*0x40*/ s32                 maxAuxBusses;
+    /*0x44*/ s32                 outputRate;     /* output sample rate */
+    /*0x48*/ s32                 maxOutSamples;  /* Maximum samples rsp can generate
                                            at one time at output rate */
 } ALSynth;
 

@@ -9,11 +9,6 @@
 #include "data.h"
 #include "types.h"
 
-const u32 var70054730[] = {0x49742400};
-const u32 var70054734[] = {0x00000000};
-const u32 var70054738[] = {0x00000000};
-const u32 var7005473c[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func00030ce0
 /*    30ce0:	27bdffc0 */ 	addiu	$sp,$sp,-64
@@ -525,35 +520,13 @@ void _freePVoice(PVoice *pvoice)
 	alLink((ALLink *)pvoice, &alGlobals->drvr.pLameList);
 }
 
-GLOBAL_ASM(
-glabel _timeToSamplesNoRound
-/*    31634:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    31638:	3c0e8006 */ 	lui	$t6,%hi(alGlobals)
-/*    3163c:	8dcef114 */ 	lw	$t6,%lo(alGlobals)($t6)
-/*    31640:	44842000 */ 	mtc1	$a0,$f4
-/*    31644:	3c017005 */ 	lui	$at,%hi(var70054730)
-/*    31648:	8dcf0040 */ 	lw	$t7,0x40($t6)
-/*    3164c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    31650:	c4324730 */ 	lwc1	$f18,%lo(var70054730)($at)
-/*    31654:	448f4000 */ 	mtc1	$t7,$f8
-/*    31658:	3c013f00 */ 	lui	$at,0x3f00
-/*    3165c:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    31660:	44814000 */ 	mtc1	$at,$f8
-/*    31664:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*    31668:	46128103 */ 	div.s	$f4,$f16,$f18
-/*    3166c:	46082180 */ 	add.s	$f6,$f4,$f8
-/*    31670:	e7a60004 */ 	swc1	$f6,0x4($sp)
-/*    31674:	c7aa0004 */ 	lwc1	$f10,0x4($sp)
-/*    31678:	4600540d */ 	trunc.w.s	$f16,$f10
-/*    3167c:	44028000 */ 	mfc1	$v0,$f16
-/*    31680:	10000003 */ 	b	.L00031690
-/*    31684:	00000000 */ 	nop
-/*    31688:	10000001 */ 	b	.L00031690
-/*    3168c:	00000000 */ 	nop
-.L00031690:
-/*    31690:	03e00008 */ 	jr	$ra
-/*    31694:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+s32 _timeToSamplesNoRound(s32 micros)
+{
+	// Should be outputRate but struct is not sized correctly
+	f32 tmp = ((f32)micros) * alGlobals->drvr.maxAuxBusses / 1000000.0f + 0.5f;
+
+	return (s32)tmp;
+}
 
 GLOBAL_ASM(
 glabel func00031698
