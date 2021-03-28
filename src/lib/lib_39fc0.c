@@ -5,7 +5,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00039fc0
+glabel n_alSynDelete
 /*    39fc0:	3c0e8006 */ 	lui	$t6,%hi(alGlobals)
 /*    39fc4:	8dcef114 */ 	lw	$t6,%lo(alGlobals)($t6)
 /*    39fc8:	adc00000 */ 	sw	$zero,0x0($t6)

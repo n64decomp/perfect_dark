@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00039fc0(void);
+void n_alSynDelete(void);
 
 #endif

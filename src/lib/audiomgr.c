@@ -1520,7 +1520,7 @@ glabel amgrMain
 /*     931c:	1260ff7a */ 	beqz	$s3,.PF00009108
 /*     9320:	00000000 */ 	nop
 /*     9324:	3c048009 */ 	lui	$a0,0x8009
-/*     9328:	0c00bd43 */ 	jal	alClose
+/*     9328:	0c00bd43 */ 	jal	n_alClose
 /*     932c:	24841dd0 */ 	addiu	$a0,$a0,0x1dd0
 /*     9330:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*     9334:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -1722,7 +1722,7 @@ glabel amgrMain
 /*     9404:	1260ff7a */ 	beqz	$s3,.L000091f0
 /*     9408:	00000000 */ 	nop
 /*     940c:	3c048009 */ 	lui	$a0,%hi(g_AudioManager+0x2b8)
-/*     9410:	0c00bf03 */ 	jal	alClose
+/*     9410:	0c00bf03 */ 	jal	n_alClose
 /*     9414:	24841880 */ 	addiu	$a0,$a0,%lo(g_AudioManager+0x2b8)
 /*     9418:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*     941c:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -1799,7 +1799,7 @@ glabel amgrMain
 //		}
 //	}
 //
-//	alClose(&g_AudioManager.g);
+//	n_alClose(&g_AudioManager.g);
 //}
 
 GLOBAL_ASM(
