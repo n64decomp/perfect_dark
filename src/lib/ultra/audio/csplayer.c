@@ -6385,7 +6385,7 @@ glabel func0003759c
 .L000375d0:
 /*    375d0:	8fb90030 */ 	lw	$t9,0x30($sp)
 /*    375d4:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    375d8:	0c00f9f8 */ 	jal	func0003e7e0
+/*    375d8:	0c00f9f8 */ 	jal	__alCSeqNextDelta
 /*    375dc:	8f240018 */ 	lw	$a0,0x18($t9)
 /*    375e0:	14400003 */ 	bnez	$v0,.L000375f0
 /*    375e4:	00000000 */ 	nop

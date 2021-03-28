@@ -66,66 +66,35 @@ glabel func0003e730
 /*    3e7dc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0003e7e0
-/*    3e7e0:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    3e7e4:	240effff */ 	addiu	$t6,$zero,-1
-/*    3e7e8:	afae0008 */ 	sw	$t6,0x8($sp)
-/*    3e7ec:	8c8f0010 */ 	lw	$t7,0x10($a0)
-/*    3e7f0:	afaf0004 */ 	sw	$t7,0x4($sp)
-/*    3e7f4:	8c980004 */ 	lw	$t8,0x4($a0)
-/*    3e7f8:	17000003 */ 	bnez	$t8,.L0003e808
-/*    3e7fc:	00000000 */ 	nop
-/*    3e800:	1000002c */ 	b	.L0003e8b4
-/*    3e804:	00001025 */ 	or	$v0,$zero,$zero
-.L0003e808:
-/*    3e808:	afa0000c */ 	sw	$zero,0xc($sp)
-.L0003e80c:
-/*    3e80c:	8c990004 */ 	lw	$t9,0x4($a0)
-/*    3e810:	8fa8000c */ 	lw	$t0,0xc($sp)
-/*    3e814:	01194806 */ 	srlv	$t1,$t9,$t0
-/*    3e818:	312a0001 */ 	andi	$t2,$t1,0x1
-/*    3e81c:	11400019 */ 	beqz	$t2,.L0003e884
-/*    3e820:	00000000 */ 	nop
-/*    3e824:	8c8b0014 */ 	lw	$t3,0x14($a0)
-/*    3e828:	11600009 */ 	beqz	$t3,.L0003e850
-/*    3e82c:	00000000 */ 	nop
-/*    3e830:	8fac000c */ 	lw	$t4,0xc($sp)
-/*    3e834:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3e838:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    3e83c:	008d7021 */ 	addu	$t6,$a0,$t5
-/*    3e840:	8dcf00b8 */ 	lw	$t7,0xb8($t6)
-/*    3e844:	008d4021 */ 	addu	$t0,$a0,$t5
-/*    3e848:	01f8c823 */ 	subu	$t9,$t7,$t8
-/*    3e84c:	ad1900b8 */ 	sw	$t9,0xb8($t0)
-.L0003e850:
-/*    3e850:	8fa9000c */ 	lw	$t1,0xc($sp)
-/*    3e854:	8fae0008 */ 	lw	$t6,0x8($sp)
-/*    3e858:	00095080 */ 	sll	$t2,$t1,0x2
-/*    3e85c:	008a5821 */ 	addu	$t3,$a0,$t2
-/*    3e860:	8d6c00b8 */ 	lw	$t4,0xb8($t3)
-/*    3e864:	018e082b */ 	sltu	$at,$t4,$t6
-/*    3e868:	10200006 */ 	beqz	$at,.L0003e884
-/*    3e86c:	00000000 */ 	nop
-/*    3e870:	8faf000c */ 	lw	$t7,0xc($sp)
-/*    3e874:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    3e878:	00986821 */ 	addu	$t5,$a0,$t8
-/*    3e87c:	8db900b8 */ 	lw	$t9,0xb8($t5)
-/*    3e880:	afb90008 */ 	sw	$t9,0x8($sp)
-.L0003e884:
-/*    3e884:	8fa8000c */ 	lw	$t0,0xc($sp)
-/*    3e888:	25090001 */ 	addiu	$t1,$t0,0x1
-/*    3e88c:	2d210010 */ 	sltiu	$at,$t1,0x10
-/*    3e890:	1420ffde */ 	bnez	$at,.L0003e80c
-/*    3e894:	afa9000c */ 	sw	$t1,0xc($sp)
-/*    3e898:	ac800014 */ 	sw	$zero,0x14($a0)
-/*    3e89c:	8faa0008 */ 	lw	$t2,0x8($sp)
-/*    3e8a0:	acaa0000 */ 	sw	$t2,0x0($a1)
-/*    3e8a4:	10000003 */ 	b	.L0003e8b4
-/*    3e8a8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    3e8ac:	10000001 */ 	b	.L0003e8b4
-/*    3e8b0:	00000000 */ 	nop
-.L0003e8b4:
-/*    3e8b4:	03e00008 */ 	jr	$ra
-/*    3e8b8:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+/**
+ * Note: If there are no valid tracks (ie. all tracks have
+ * reached the end of their data stream), then return FALSE
+ * to indicate that there is no next event.
+ */
+char __alCSeqNextDelta(ALCSeq *seq, s32 *pDeltaTicks)
+{
+	u32 i;
+	u32	firstTime = 0xffffffff;
+	u32 lastTicks = seq->lastDeltaTicks;
+
+	if (!seq->validTracks) {
+		return FALSE;
+	}
+
+	for (i = 0; i < 16; i++) {
+		if ((seq->validTracks >> i) & 1) {
+			if (seq->deltaFlag) {
+				seq->evtDeltaTicks[i] -= lastTicks;
+			}
+
+			if (seq->evtDeltaTicks[i] < firstTime) {
+				firstTime = seq->evtDeltaTicks[i];
+			}
+		}
+	}
+
+	seq->deltaFlag = 0;
+	*pDeltaTicks = firstTime;
+
+	return TRUE;
+}

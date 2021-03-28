@@ -5,6 +5,5 @@
 #include "types.h"
 
 u32 func0003e730(void);
-u32 func0003e7e0(void);
 
 #endif
