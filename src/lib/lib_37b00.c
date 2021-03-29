@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "lib/lib_37b00.h"
 #include "types.h"
 
 #if VERSION < VERSION_NTSC_1_0
@@ -1361,31 +1362,12 @@ glabel func00038ba8
 /*    38ca8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00038cac
-/*    38cac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    38cb0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    38cb4:	3c0e8006 */ 	lui	$t6,%hi(alGlobals)
-/*    38cb8:	8dcef114 */ 	lw	$t6,%lo(alGlobals)($t6)
-/*    38cbc:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*    38cc0:	8dd90024 */ 	lw	$t9,0x24($t6)
-/*    38cc4:	0320f809 */ 	jalr	$t9
-/*    38cc8:	00000000 */ 	nop
-/*    38ccc:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    38cd0:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    38cd4:	3c0f800a */ 	lui	$t7,%hi(var8009c390)
-/*    38cd8:	3c18800a */ 	lui	$t8,%hi(var8009c3c4)
-/*    38cdc:	8f18c3c4 */ 	lw	$t8,%lo(var8009c3c4)($t8)
-/*    38ce0:	8defc390 */ 	lw	$t7,%lo(var8009c390)($t7)
-/*    38ce4:	24050400 */ 	addiu	$a1,$zero,0x400
-/*    38ce8:	00003025 */ 	or	$a2,$zero,$zero
-/*    38cec:	0320f809 */ 	jalr	$t9
-/*    38cf0:	01f82021 */ 	addu	$a0,$t7,$t8
-/*    38cf4:	10000001 */ 	b	.L00038cfc
-/*    38cf8:	00000000 */ 	nop
-.L00038cfc:
-/*    38cfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    38d00:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    38d04:	03e00008 */ 	jr	$ra
-/*    38d08:	00000000 */ 	nop
-);
+void func00038cac(void)
+{
+	u32 state;
+	ALDMAproc proc;
+
+	proc = alGlobals->drvr.dma(&state);
+
+	proc(var8009c390 + var8009c3c4, 0x400, 0);
+}
