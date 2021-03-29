@@ -660,12 +660,10 @@ extern u8 _seqctlSegmentRomEnd;
 extern u8 _seqtblSegmentRomStart;
 extern u8 _sequencesSegmentRomStart;
 
-GLOBAL_ASM(
-glabel snd0000e9d0
-/*     e9d0:	3c028009 */ 	lui	$v0,%hi(var80094eb4)
-/*     e9d4:	03e00008 */ 	jr	$ra
-/*     e9d8:	8c424eb4 */ 	lw	$v0,%lo(var80094eb4)($v0)
-);
+u32 snd0000e9d0(void)
+{
+	return var80094eb4;
+}
 
 u16 snd0000e9dc(void)
 {
