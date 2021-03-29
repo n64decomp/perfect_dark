@@ -5363,41 +5363,13 @@ glabel snd00010e10
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel sndPlayUfoHum
-/*    10e40:	00047080 */ 	sll	$t6,$a0,0x2
-/*    10e44:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    10e48:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*    10e4c:	01c47021 */ 	addu	$t6,$t6,$a0
-/*    10e50:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*    10e54:	3c018006 */ 	lui	$at,0x8006
-/*    10e58:	ac2eda5c */ 	sw	$t6,-0x25a4($at)
-/*    10e5c:	3c018006 */ 	lui	$at,0x8006
-/*    10e60:	ac20da58 */ 	sw	$zero,-0x25a8($at)
-/*    10e64:	3c018006 */ 	lui	$at,0x8006
-/*    10e68:	ac20da54 */ 	sw	$zero,-0x25ac($at)
-/*    10e6c:	3c018006 */ 	lui	$at,0x8006
-/*    10e70:	03e00008 */ 	jr	$ra
-/*    10e74:	ac20da64 */ 	sw	$zero,-0x259c($at)
-);
-#else
-GLOBAL_ASM(
-glabel sndPlayUfoHum
-/*    110bc:	00047100 */ 	sll	$t6,$a0,0x4
-/*    110c0:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    110c4:	000e7100 */ 	sll	$t6,$t6,0x4
-/*    110c8:	3c018006 */ 	lui	$at,%hi(var8005ddbc)
-/*    110cc:	ac2eddbc */ 	sw	$t6,%lo(var8005ddbc)($at)
-/*    110d0:	3c018006 */ 	lui	$at,%hi(var8005ddb8)
-/*    110d4:	ac20ddb8 */ 	sw	$zero,%lo(var8005ddb8)($at)
-/*    110d8:	3c018006 */ 	lui	$at,%hi(var8005ddb4)
-/*    110dc:	ac20ddb4 */ 	sw	$zero,%lo(var8005ddb4)($at)
-/*    110e0:	3c018006 */ 	lui	$at,%hi(var8005ddc4)
-/*    110e4:	03e00008 */ 	jr	$ra
-/*    110e8:	ac20ddc4 */ 	sw	$zero,%lo(var8005ddc4)($at)
-);
-#endif
+void sndPlayUfoHum(s32 arg0)
+{
+	var8005ddbc = arg0 * PALDOWN(240);
+	var8005ddb8 = 0;
+	var8005ddb4 = 0;
+	var8005ddc4 = 0;
+}
 
 GLOBAL_ASM(
 glabel sndStopUfoHum
