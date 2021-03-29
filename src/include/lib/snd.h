@@ -36,7 +36,7 @@ void sndAdjust(struct audiohandle **handle, u32 arg1, u32 arg2, s32 speakerweigh
 struct audiohandle *snd00010718(struct audiohandle **handle, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
 struct audiohandle *sndStart(s32 arg0, s16 sound, struct audiohandle **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7);
 u32 snd00010ae4(void);
-void sndPlayNosedive(s32 room_id);
+void sndPlayNosedive(s32 value);
 void sndStopNosedive(void);
 u32 snd00010e10(void);
 void sndPlayUfoHum(s32 value);

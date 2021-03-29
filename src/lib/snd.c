@@ -4938,41 +4938,13 @@ glabel snd00010ae4
 /*    10dac:	00000000 */ 	nop
 );
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel sndPlayNosedive
-/*    10b2c:	00047080 */ 	sll	$t6,$a0,0x2
-/*    10b30:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    10b34:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*    10b38:	01c47021 */ 	addu	$t6,$t6,$a0
-/*    10b3c:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*    10b40:	3c018006 */ 	lui	$at,0x8006
-/*    10b44:	ac2eda50 */ 	sw	$t6,-0x25b0($at)
-/*    10b48:	3c018006 */ 	lui	$at,0x8006
-/*    10b4c:	ac20da4c */ 	sw	$zero,-0x25b4($at)
-/*    10b50:	3c018006 */ 	lui	$at,0x8006
-/*    10b54:	ac20da48 */ 	sw	$zero,-0x25b8($at)
-/*    10b58:	3c018006 */ 	lui	$at,0x8006
-/*    10b5c:	03e00008 */ 	jr	$ra
-/*    10b60:	ac20da60 */ 	sw	$zero,-0x25a0($at)
-);
-#else
-GLOBAL_ASM(
-glabel sndPlayNosedive
-/*    10db0:	00047100 */ 	sll	$t6,$a0,0x4
-/*    10db4:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    10db8:	000e7100 */ 	sll	$t6,$t6,0x4
-/*    10dbc:	3c018006 */ 	lui	$at,%hi(var8005ddb0)
-/*    10dc0:	ac2eddb0 */ 	sw	$t6,%lo(var8005ddb0)($at)
-/*    10dc4:	3c018006 */ 	lui	$at,%hi(var8005ddac)
-/*    10dc8:	ac20ddac */ 	sw	$zero,%lo(var8005ddac)($at)
-/*    10dcc:	3c018006 */ 	lui	$at,%hi(var8005dda8)
-/*    10dd0:	ac20dda8 */ 	sw	$zero,%lo(var8005dda8)($at)
-/*    10dd4:	3c018006 */ 	lui	$at,%hi(var8005ddc0)
-/*    10dd8:	03e00008 */ 	jr	$ra
-/*    10ddc:	ac20ddc0 */ 	sw	$zero,%lo(var8005ddc0)($at)
-);
-#endif
+void sndPlayNosedive(s32 arg0)
+{
+	var8005ddb0 = arg0 * PALDOWN(240);
+	var8005ddac = 0;
+	var8005dda8 = 0;
+	var8005ddc0 = 0;
+}
 
 GLOBAL_ASM(
 glabel sndStopNosedive
