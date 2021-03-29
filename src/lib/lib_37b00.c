@@ -1,46 +1,39 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "bss.h"
-#include "lib/lib_37b00.h"
-#include "lib/lib_3e730.h"
-#include "lib/lib_43dd0.h"
-#include "lib/libc/ll.h"
-#include "lib/lib_4b170.h"
-#include "data.h"
 #include "types.h"
 
 #if VERSION < VERSION_NTSC_1_0
 const char var700561b0nb[] = "MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n";
 #endif
 
-u32 var8009c390;
-u32 var8009c394;
-u32 var8009c398;
-u32 var8009c39c;
-u32 var8009c3a0;
-u32 var8009c3a4;
-u32 var8009c3a8;
-u32 var8009c3ac;
-u32 var8009c3b0;
-u32 var8009c3b4;
-u32 var8009c3b8;
-u32 var8009c3bc;
-u32 var8009c3c0;
-u32 var8009c3c4;
-u32 var8009c3c8;
-u32 var8009c3cc;
-
-// Moved to another file due to bss reordering issues
+extern u32 var8009c390;
+extern u32 var8009c394;
+extern u32 var8009c398;
+extern u32 var8009c39c;
+extern u32 var8009c3a0;
+extern u32 var8009c3a4;
+extern u32 var8009c3a8;
+extern u32 var8009c3ac;
+extern u32 var8009c3b0;
+extern u32 var8009c3b4;
+extern u32 var8009c3b8;
+extern u32 var8009c3bc;
+extern u32 var8009c3c0;
+extern u32 var8009c3c4;
+extern u32 var8009c3c8;
+extern u32 var8009c3cc;
 extern u32 var8009c3d0;
 extern u32 var8009c3d4;
 extern u32 var8009c3d8;
 extern u32 var8009c3dc;
-extern u32 var8009c3e0;
-extern u32 var8009c3e4;
-extern u32 var8009c3e8;
-extern u32 var8009c3ec;
-extern u8 var8009c3f0;
-extern u32 var8009c3f4;
+
+u32 var8009c3e0;
+u32 var8009c3e4;
+u32 var8009c3e8;
+s16 var8009c3ec;
+s16 var8009c3ee;
+u8 var8009c3f0;
+u32 var8009c3f4;
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -494,30 +487,25 @@ void func00037f08(s32 arg0, s32 arg1)
 	var8009c3e8 = arg1;
 }
 
+void func00037f5c(s32 arg0, bool arg1)
+{
+	if (arg0 > 255) {
+		arg0 = 255;
+	}
+
+	if (arg0 < 0) {
+		arg0 = 0;
+	}
+
+	var8009c3ee = arg0;
+
+	if (arg1) {
+		var8009c3ec = var8009c3ee;
+	}
+}
+
 GLOBAL_ASM(
-glabel func00037f5c
-/*    37f5c:	28810100 */ 	slti	$at,$a0,0x100
-/*    37f60:	14200002 */ 	bnez	$at,.L00037f6c
-/*    37f64:	00000000 */ 	nop
-/*    37f68:	240400ff */ 	addiu	$a0,$zero,0xff
-.L00037f6c:
-/*    37f6c:	04810002 */ 	bgez	$a0,.L00037f78
-/*    37f70:	00000000 */ 	nop
-/*    37f74:	00002025 */ 	or	$a0,$zero,$zero
-.L00037f78:
-/*    37f78:	3c01800a */ 	lui	$at,%hi(var8009c3ec+0x2)
-/*    37f7c:	a424c3ee */ 	sh	$a0,%lo(var8009c3ec+0x2)($at)
-/*    37f80:	10a00005 */ 	beqz	$a1,.L00037f98
-/*    37f84:	00000000 */ 	nop
-/*    37f88:	3c0e800a */ 	lui	$t6,%hi(var8009c3ec+0x2)
-/*    37f8c:	85cec3ee */ 	lh	$t6,%lo(var8009c3ec+0x2)($t6)
-/*    37f90:	3c01800a */ 	lui	$at,%hi(var8009c3ec)
-/*    37f94:	a42ec3ec */ 	sh	$t6,%lo(var8009c3ec)($at)
-.L00037f98:
-/*    37f98:	03e00008 */ 	jr	$ra
-/*    37f9c:	00000000 */ 	nop
-/*    37fa0:	03e00008 */ 	jr	$ra
-/*    37fa4:	00000000 */ 	nop
+glabel func00037fa8
 /*    37fa8:	afa40000 */ 	sw	$a0,0x0($sp)
 /*    37fac:	afa50004 */ 	sw	$a1,0x4($sp)
 /*    37fb0:	10000001 */ 	b	.L00037fb8

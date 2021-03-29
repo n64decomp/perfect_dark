@@ -6,6 +6,28 @@
 #include "data.h"
 #include "types.h"
 
+// This bss belongs in lib_37b00 but is here due to reordering issues
+u32 var8009c390;
+u32 var8009c394;
+u32 var8009c398;
+u32 var8009c39c;
+u32 var8009c3a0;
+u32 var8009c3a4;
+u32 var8009c3a8;
+u32 var8009c3ac;
+u32 var8009c3b0;
+u32 var8009c3b4;
+u32 var8009c3b8;
+u32 var8009c3bc;
+u32 var8009c3c0;
+u32 var8009c3c4;
+u32 var8009c3c8;
+u32 var8009c3cc;
+u32 var8009c3d0;
+u32 var8009c3d4;
+u32 var8009c3d8;
+u32 var8009c3dc;
+
 GLOBAL_ASM(
 glabel func00037650
 /*    37650:	27bdffd8 */ 	addiu	$sp,$sp,-40

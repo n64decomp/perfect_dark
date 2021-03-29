@@ -4,18 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-// This bss belongs in lib_37b00 but is here due to reordering issues
-u32 var8009c3d0;
-u32 var8009c3d4;
-u32 var8009c3d8;
-u32 var8009c3dc;
-u32 var8009c3e0;
-u32 var8009c3e4;
-u32 var8009c3e8;
-u32 var8009c3ec;
-u8 var8009c3f0;
-u32 var8009c3f4;
-
 GLOBAL_ASM(
 glabel func00038d10
 /*    38d10:	03e00008 */ 	jr	$ra
