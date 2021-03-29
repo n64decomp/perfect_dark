@@ -7,7 +7,7 @@
 const char var700561b0nb[] = "MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n";
 #endif
 
-extern u32 var8009c390;
+extern s32 var8009c390;
 extern u32 var8009c394;
 extern u32 var8009c398;
 extern u32 var8009c39c;
@@ -19,8 +19,8 @@ extern u32 var8009c3b0;
 extern u32 var8009c3b4;
 extern u32 var8009c3b8;
 extern u32 var8009c3bc;
-extern u32 var8009c3c0;
-extern u32 var8009c3c4;
+extern s32 var8009c3c0;
+extern s32 var8009c3c4;
 extern u32 var8009c3c8;
 extern u32 var8009c3cc;
 extern u32 var8009c3d0;
@@ -1290,77 +1290,28 @@ void func00038b90(s32 arg0)
 	var8009c3dc = arg0;
 }
 
-GLOBAL_ASM(
-glabel func00038ba8
-/*    38ba8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    38bac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    38bb0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    38bb4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    38bb8:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    38bbc:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*    38bc0:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*    38bc4:	2401ffff */ 	addiu	$at,$zero,-1
-/*    38bc8:	11c10004 */ 	beq	$t6,$at,.L00038bdc
-/*    38bcc:	00000000 */ 	nop
-/*    38bd0:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    38bd4:	3c01800a */ 	lui	$at,%hi(var8009c3c4)
-/*    38bd8:	ac2fc3c4 */ 	sw	$t7,%lo(var8009c3c4)($at)
-.L00038bdc:
-/*    38bdc:	3c18800a */ 	lui	$t8,%hi(var8009c3c4)
-/*    38be0:	8f18c3c4 */ 	lw	$t8,%lo(var8009c3c4)($t8)
-/*    38be4:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    38be8:	3c09800a */ 	lui	$t1,%hi(var8009c3c0)
-/*    38bec:	8d29c3c0 */ 	lw	$t1,%lo(var8009c3c0)($t1)
-/*    38bf0:	03194021 */ 	addu	$t0,$t8,$t9
-/*    38bf4:	0128082a */ 	slt	$at,$t1,$t0
-/*    38bf8:	10200007 */ 	beqz	$at,.L00038c18
-/*    38bfc:	00000000 */ 	nop
-/*    38c00:	3c0a800a */ 	lui	$t2,%hi(var8009c3c0)
-/*    38c04:	3c0b800a */ 	lui	$t3,%hi(var8009c3c4)
-/*    38c08:	8d6bc3c4 */ 	lw	$t3,%lo(var8009c3c4)($t3)
-/*    38c0c:	8d4ac3c0 */ 	lw	$t2,%lo(var8009c3c0)($t2)
-/*    38c10:	014b6023 */ 	subu	$t4,$t2,$t3
-/*    38c14:	afac0028 */ 	sw	$t4,0x28($sp)
-.L00038c18:
-/*    38c18:	3c0d8006 */ 	lui	$t5,%hi(alGlobals)
-/*    38c1c:	8dadf114 */ 	lw	$t5,%lo(alGlobals)($t5)
-/*    38c20:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*    38c24:	8db90024 */ 	lw	$t9,0x24($t5)
-/*    38c28:	0320f809 */ 	jalr	$t9
-/*    38c2c:	00000000 */ 	nop
-/*    38c30:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    38c34:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*    38c38:	3c0e800a */ 	lui	$t6,%hi(var8009c390)
-/*    38c3c:	3c0f800a */ 	lui	$t7,%hi(var8009c3c4)
-/*    38c40:	8defc3c4 */ 	lw	$t7,%lo(var8009c3c4)($t7)
-/*    38c44:	8dcec390 */ 	lw	$t6,%lo(var8009c390)($t6)
-/*    38c48:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    38c4c:	00003025 */ 	or	$a2,$zero,$zero
-/*    38c50:	0320f809 */ 	jalr	$t9
-/*    38c54:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*    38c58:	3c018000 */ 	lui	$at,0x8000
-/*    38c5c:	0041c021 */ 	addu	$t8,$v0,$at
-/*    38c60:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*    38c64:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    38c68:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    38c6c:	0c012c5c */ 	jal	bcopy
-/*    38c70:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    38c74:	3c08800a */ 	lui	$t0,%hi(var8009c3c4)
-/*    38c78:	8d08c3c4 */ 	lw	$t0,%lo(var8009c3c4)($t0)
-/*    38c7c:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*    38c80:	3c01800a */ 	lui	$at,%hi(var8009c3c4)
-/*    38c84:	01095021 */ 	addu	$t2,$t0,$t1
-/*    38c88:	ac2ac3c4 */ 	sw	$t2,%lo(var8009c3c4)($at)
-/*    38c8c:	10000003 */ 	b	.L00038c9c
-/*    38c90:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*    38c94:	10000001 */ 	b	.L00038c9c
-/*    38c98:	00000000 */ 	nop
-.L00038c9c:
-/*    38c9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    38ca0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    38ca4:	03e00008 */ 	jr	$ra
-/*    38ca8:	00000000 */ 	nop
-);
+s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
+{
+	u32 sp1c;
+	ALDMAproc proc;
+
+	if (arg3 != -1) {
+		var8009c3c4 = arg3;
+	}
+
+	if (var8009c3c4 + arg2 > var8009c3c0) {
+		arg2 = var8009c3c0 - var8009c3c4;
+	}
+
+	proc = alGlobals->drvr.dma(&sp1c);
+	sp1c = OS_K0_TO_PHYSICAL(proc(var8009c390 + var8009c3c4, arg2, 0));
+
+	bcopy((u8 *)sp1c, arg1, arg2);
+
+	var8009c3c4 += arg2;
+
+	return arg2;
+}
 
 void func00038cac(void)
 {
