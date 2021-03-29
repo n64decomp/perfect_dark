@@ -481,33 +481,18 @@ glabel func00037ea4
 /*    37f04:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00037f08
-/*    37f08:	04810004 */ 	bgez	$a0,.L00037f1c
-/*    37f0c:	00000000 */ 	nop
-/*    37f10:	3c01800a */ 	lui	$at,%hi(var8009c3e4)
-/*    37f14:	1000000b */ 	b	.L00037f44
-/*    37f18:	ac20c3e4 */ 	sw	$zero,%lo(var8009c3e4)($at)
-.L00037f1c:
-/*    37f1c:	34018000 */ 	dli	$at,0x8000
-/*    37f20:	0081082a */ 	slt	$at,$a0,$at
-/*    37f24:	14200005 */ 	bnez	$at,.L00037f3c
-/*    37f28:	00000000 */ 	nop
-/*    37f2c:	240e7fff */ 	addiu	$t6,$zero,0x7fff
-/*    37f30:	3c01800a */ 	lui	$at,%hi(var8009c3e4)
-/*    37f34:	10000003 */ 	b	.L00037f44
-/*    37f38:	ac2ec3e4 */ 	sw	$t6,%lo(var8009c3e4)($at)
-.L00037f3c:
-/*    37f3c:	3c01800a */ 	lui	$at,%hi(var8009c3e4)
-/*    37f40:	ac24c3e4 */ 	sw	$a0,%lo(var8009c3e4)($at)
-.L00037f44:
-/*    37f44:	3c01800a */ 	lui	$at,%hi(var8009c3e8)
-/*    37f48:	ac25c3e8 */ 	sw	$a1,%lo(var8009c3e8)($at)
-/*    37f4c:	03e00008 */ 	jr	$ra
-/*    37f50:	00000000 */ 	nop
-/*    37f54:	03e00008 */ 	jr	$ra
-/*    37f58:	00000000 */ 	nop
-);
+void func00037f08(s32 arg0, s32 arg1)
+{
+	if (arg0 < 0) {
+		var8009c3e4 = 0;
+	} else if (arg0 > 0x7fff) {
+		var8009c3e4 = 0x7fff;
+	} else {
+		var8009c3e4 = arg0;
+	}
+
+	var8009c3e8 = arg1;
+}
 
 GLOBAL_ASM(
 glabel func00037f5c
