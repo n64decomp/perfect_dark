@@ -2672,24 +2672,17 @@ void snd0000fe20(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel snd0000fe50
-/*     fe50:	3c0e8006 */ 	lui	$t6,%hi(g_SndMp3Enabled)
-/*     fe54:	8dceddd0 */ 	lw	$t6,%lo(g_SndMp3Enabled)($t6)
-/*     fe58:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     fe5c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     fe60:	51c00004 */ 	beqzl	$t6,.L0000fe74
-/*     fe64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     fe68:	0c00df9a */ 	jal	func00037e68
-/*     fe6c:	00000000 */ 	nop
-/*     fe70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0000fe74:
-/*     fe74:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     fe78:	03e00008 */ 	jr	$ra
-/*     fe7c:	00000000 */ 	nop
-/*     fe80:	03e00008 */ 	jr	$ra
-/*     fe84:	00000000 */ 	nop
-);
+void snd0000fe50(void)
+{
+	if (g_SndMp3Enabled) {
+		func00037e68();
+	}
+}
+
+void snd0000fe80(void)
+{
+	// empty
+}
 
 #if PAL
 GLOBAL_ASM(
