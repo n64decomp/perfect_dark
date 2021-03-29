@@ -87,7 +87,7 @@ bool argsParseDebugArgs(void)
 	}
 
 	if (argFindByPrefix(1, "-s")) {
-		g_Silent = true;
+		g_SndDisabled = true;
 	}
 
 	if (argFindByPrefix(1, "-j")) {

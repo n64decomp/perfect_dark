@@ -164,7 +164,7 @@ s32 func0f16d180(s32 tracktype)
 
 void musicStart(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 {
-	if (!g_Silent) {
+	if (!g_SndDisabled) {
 		var800aa5d8[var800840c4].tracktype = tracktype;
 		var800aa5d8[var800840c4].tracknum = tracknum;
 		var800aa5d8[var800840c4].unk0c = arg2;
@@ -179,7 +179,7 @@ void musicStart(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
 
 void musicEnd(s32 tracktype)
 {
-	if (!g_Silent) {
+	if (!g_SndDisabled) {
 		var800aa5d8[var800840c4].tracktype = tracktype;
 		var800aa5d8[var800840c4].unk12 = 2;
 		var800aa5d8[var800840c4].unk14 = var800840d4++;
@@ -191,7 +191,7 @@ void musicEnd(s32 tracktype)
 
 void func0f16d2ac(s32 tracktype, f32 arg1, s32 arg2)
 {
-	if (!g_Silent) {
+	if (!g_SndDisabled) {
 		var800aa5d8[var800840c4].tracktype = tracktype;
 		var800aa5d8[var800840c4].unk0c = arg1;
 		var800aa5d8[var800840c4].unk08 = arg2;
@@ -207,7 +207,7 @@ void func0f16d324(void)
 {
 	s32 i;
 
-	if (!g_Silent) {
+	if (!g_SndDisabled) {
 		for (i = 0; i < 4; i++) {
 			g_AudioXReasonsActive[i] = 0;
 			var800aaa78[i] = 0;

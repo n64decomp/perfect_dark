@@ -40,7 +40,7 @@ extern u8 g_LoadType;
 extern s32 var8005d9d0;
 extern s32 var8005dd18;
 extern u32 var8005dd58;
-extern bool g_Silent;
+extern bool g_SndDisabled;
 extern u16 g_SfxVolume;
 extern s32 g_SoundMode;
 extern s32 var8005ddd4;

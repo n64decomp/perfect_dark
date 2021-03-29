@@ -438,8 +438,8 @@ glabel var70053fec
 .word func0001190c+0x370
 .text
 /*    1190c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    11910:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
-/*    11914:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)
+/*    11910:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
+/*    11914:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*    11918:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    1191c:	afb30020 */ 	sw	$s3,0x20($sp)
 /*    11920:	afb2001c */ 	sw	$s2,0x1c($sp)
@@ -1079,8 +1079,8 @@ glabel func0001190c
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func00011d84
-/*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
-/*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)
+/*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
+/*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*    11d8c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    11d90:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    11d94:	15c000e0 */ 	bnez	$t6,.L00012118
@@ -1336,8 +1336,8 @@ glabel func00011d84
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00011d84
-/*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
-/*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)
+/*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
+/*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*    11d8c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    11d90:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    11d94:	15c000e0 */ 	bnez	$t6,.L00012118

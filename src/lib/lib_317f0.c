@@ -4066,7 +4066,7 @@ glabel func00033820
 /*    33838:	afa00058 */ 	sw	$zero,0x58($sp)
 /*    3383c:	a7a0004e */ 	sh	$zero,0x4e($sp)
 /*    33840:	afa00040 */ 	sw	$zero,0x40($sp)
-/*    33844:	0c0040d8 */ 	jal	snd00010360
+/*    33844:	0c0040d8 */ 	jal	sndIsDisabled
 /*    33848:	00000000 */ 	nop
 /*    3384c:	10400003 */ 	beqz	$v0,.L0003385c
 /*    33850:	00000000 */ 	nop
@@ -4274,7 +4274,7 @@ glabel func00033820
 /*    34dc8:	afa00058 */ 	sw	$zero,0x58($sp)
 /*    34dcc:	a7a0004e */ 	sh	$zero,0x4e($sp)
 /*    34dd0:	afa00040 */ 	sw	$zero,0x40($sp)
-/*    34dd4:	0c0041df */ 	jal	snd00010360
+/*    34dd4:	0c0041df */ 	jal	sndIsDisabled
 /*    34dd8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    34ddc:	10400003 */ 	beqz	$v0,.NB00034dec
 /*    34de0:	00000000 */ 	sll	$zero,$zero,0x0

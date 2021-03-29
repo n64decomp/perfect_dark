@@ -45,7 +45,7 @@ u8 var80095210[0x40f0];
 const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
 const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";
 
-bool g_Silent = false;
+bool g_SndDisabled = false;
 u32 var8005dda4 = 0x00000000;
 
 s32 g_SndNosediveVolume = 0;
@@ -2213,7 +2213,7 @@ void sndInit(void)
 		}
 	}
 
-	if (!g_Silent) {
+	if (!g_SndDisabled) {
 		// Allocate memory for the audio heap,
 		// clear it and give it to the audio library
 		ALSynConfig synconfig;
@@ -2355,8 +2355,8 @@ glabel snd0000fba0
 
 GLOBAL_ASM(
 glabel snd0000fbc4
-/*     fbc4:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
-/*     fbc8:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)
+/*     fbc4:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
+/*     fbc8:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*     fbcc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     fbd0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     fbd4:	15c00015 */ 	bnez	$t6,.L0000fc2c
@@ -2403,8 +2403,8 @@ glabel snd0000fc48
 /*     fc58:	afa5144c */ 	sw	$a1,0x144c($sp)
 /*     fc5c:	0c00e344 */ 	jal	func00038d10
 /*     fc60:	8c8400f8 */ 	lw	$a0,0xf8($a0)
-/*     fc64:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
-/*     fc68:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)
+/*     fc64:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
+/*     fc68:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*     fc6c:	8fa4144c */ 	lw	$a0,0x144c($sp)
 /*     fc70:	3c038009 */ 	lui	$v1,%hi(g_SeqTable)
 /*     fc74:	51c00004 */ 	beqzl	$t6,.L0000fc88
@@ -2612,8 +2612,8 @@ glabel snd0000fc48
 
 GLOBAL_ASM(
 glabel snd0000fd74
-/*     fd74:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
-/*     fd78:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)
+/*     fd74:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
+/*     fd78:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*     fd7c:	24037fff */ 	addiu	$v1,$zero,0x7fff
 /*     fd80:	51c00004 */ 	beqzl	$t6,.L0000fd94
 /*     fd84:	94830100 */ 	lhu	$v1,0x100($a0)
@@ -2627,8 +2627,8 @@ glabel snd0000fd74
 
 GLOBAL_ASM(
 glabel snd0000fd9c
-/*     fd9c:	3c0f8006 */ 	lui	$t7,%hi(g_Silent)
-/*     fda0:	8defdda0 */ 	lw	$t7,%lo(g_Silent)($t7)
+/*     fd9c:	3c0f8006 */ 	lui	$t7,%hi(g_SndDisabled)
+/*     fda0:	8defdda0 */ 	lw	$t7,%lo(g_SndDisabled)($t7)
 /*     fda4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     fda8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     fdac:	afa5001c */ 	sw	$a1,0x1c($sp)
@@ -2788,7 +2788,7 @@ glabel sndTick
 /*     ffac:	8c820000 */ 	lw	$v0,0x0($a0)
 /*     ffb0:	8ce30000 */ 	lw	$v1,0x0($a3)
 /*     ffb4:	3c0f8006 */ 	lui	$t7,%hi(var8005edec)
-/*     ffb8:	3c188006 */ 	lui	$t8,%hi(g_Silent)
+/*     ffb8:	3c188006 */ 	lui	$t8,%hi(g_SndDisabled)
 /*     ffbc:	0043082a */ 	slt	$at,$v0,$v1
 /*     ffc0:	10200003 */ 	beqz	$at,.L0000ffd0
 /*     ffc4:	3c198006 */ 	lui	$t9,%hi(g_SndMp3Enabled)
@@ -2801,7 +2801,7 @@ glabel sndTick
 /*     ffdc:	00000000 */ 	nop
 /*     ffe0:	ac22edec */ 	sw	$v0,%lo(var8005edec)($at)
 .L0000ffe4:
-/*     ffe4:	8f18dda0 */ 	lw	$t8,%lo(g_Silent)($t8)
+/*     ffe4:	8f18dda0 */ 	lw	$t8,%lo(g_SndDisabled)($t8)
 /*     ffe8:	570000d4 */ 	bnezl	$t8,.L0001033c
 /*     ffec:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*     fff0:	8f39ddd0 */ 	lw	$t9,%lo(g_SndMp3Enabled)($t9)
@@ -3136,7 +3136,7 @@ glabel sndTick
 /*     ffac:	8c820000 */ 	lw	$v0,0x0($a0)
 /*     ffb0:	8ce30000 */ 	lw	$v1,0x0($a3)
 /*     ffb4:	3c0f8006 */ 	lui	$t7,%hi(var8005edec)
-/*     ffb8:	3c188006 */ 	lui	$t8,%hi(g_Silent)
+/*     ffb8:	3c188006 */ 	lui	$t8,%hi(g_SndDisabled)
 /*     ffbc:	0043082a */ 	slt	$at,$v0,$v1
 /*     ffc0:	10200003 */ 	beqz	$at,.L0000ffd0
 /*     ffc4:	3c198006 */ 	lui	$t9,%hi(g_SndMp3Enabled)
@@ -3149,7 +3149,7 @@ glabel sndTick
 /*     ffdc:	00000000 */ 	nop
 /*     ffe0:	ac22edec */ 	sw	$v0,%lo(var8005edec)($at)
 .L0000ffe4:
-/*     ffe4:	8f18dda0 */ 	lw	$t8,%lo(g_Silent)($t8)
+/*     ffe4:	8f18dda0 */ 	lw	$t8,%lo(g_SndDisabled)($t8)
 /*     ffe8:	570000d4 */ 	bnezl	$t8,.L0001033c
 /*     ffec:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*     fff0:	8f39ddd0 */ 	lw	$t9,%lo(g_SndMp3Enabled)($t9)
@@ -3673,17 +3673,15 @@ glabel func0001034c
 /*    1035c:	00081403 */ 	sra	$v0,$t0,0x10
 );
 
-GLOBAL_ASM(
-glabel snd00010360
-/*    10360:	3c028006 */ 	lui	$v0,%hi(g_Silent)
-/*    10364:	03e00008 */ 	jr	$ra
-/*    10368:	8c42dda0 */ 	lw	$v0,%lo(g_Silent)($v0)
-);
+bool sndIsDisabled(void)
+{
+	return g_SndDisabled;
+}
 
 GLOBAL_ASM(
 glabel snd0001036c
-/*    1036c:	3c0e8006 */ 	lui	$t6,%hi(g_Silent)
-/*    10370:	8dcedda0 */ 	lw	$t6,%lo(g_Silent)($t6)
+/*    1036c:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
+/*    10370:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*    10374:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    10378:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    1037c:	15c0001f */ 	bnez	$t6,.L000103fc
@@ -4480,7 +4478,7 @@ glabel sndStart
 /*    10934:	44802000 */ 	mtc1	$zero,$f4
 /*    10938:	24050001 */ 	addiu	$a1,$zero,0x1
 /*    1093c:	10620003 */ 	beq	$v1,$v0,.L0001094c
-/*    10940:	3c198006 */ 	lui	$t9,%hi(g_Silent)
+/*    10940:	3c198006 */ 	lui	$t9,%hi(g_SndDisabled)
 /*    10944:	10000001 */ 	b	.L0001094c
 /*    10948:	306500ff */ 	andi	$a1,$v1,0xff
 .L0001094c:
@@ -4509,7 +4507,7 @@ glabel sndStart
 .L0001099c:
 /*    1099c:	00000000 */ 	nop
 .L000109a0:
-/*    109a0:	8f39dda0 */ 	lw	$t9,%lo(g_Silent)($t9)
+/*    109a0:	8f39dda0 */ 	lw	$t9,%lo(g_SndDisabled)($t9)
 /*    109a4:	87b8004e */ 	lh	$t8,0x4e($sp)
 /*    109a8:	24010037 */ 	addiu	$at,$zero,0x37
 /*    109ac:	13200003 */ 	beqz	$t9,.L000109bc
@@ -4739,8 +4737,8 @@ glabel sndStart
 GLOBAL_ASM(
 glabel snd00010ae4
 /*    10ae4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    10ae8:	3c188006 */ 	lui	$t8,%hi(g_Silent)
-/*    10aec:	8f18dda0 */ 	lw	$t8,%lo(g_Silent)($t8)
+/*    10ae8:	3c188006 */ 	lui	$t8,%hi(g_SndDisabled)
+/*    10aec:	8f18dda0 */ 	lw	$t8,%lo(g_SndDisabled)($t8)
 /*    10af0:	00047400 */ 	sll	$t6,$a0,0x10
 /*    10af4:	000e7c03 */ 	sra	$t7,$t6,0x10
 /*    10af8:	afa40028 */ 	sw	$a0,0x28($sp)
