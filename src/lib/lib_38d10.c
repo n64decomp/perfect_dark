@@ -13,7 +13,7 @@ u32 var8009c3e0;
 u32 var8009c3e4;
 u32 var8009c3e8;
 u32 var8009c3ec;
-u32 var8009c3f0;
+u8 var8009c3f0;
 u32 var8009c3f4;
 
 GLOBAL_ASM(

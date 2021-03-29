@@ -30,6 +30,18 @@ u32 var8009c3c4;
 u32 var8009c3c8;
 u32 var8009c3cc;
 
+// Moved to another file due to bss reordering issues
+extern u32 var8009c3d0;
+extern u32 var8009c3d4;
+extern u32 var8009c3d8;
+extern u32 var8009c3dc;
+extern u32 var8009c3e0;
+extern u32 var8009c3e4;
+extern u32 var8009c3e8;
+extern u32 var8009c3ec;
+extern u8 var8009c3f0;
+extern u32 var8009c3f4;
+
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func00037b00
@@ -429,25 +441,13 @@ void func00037e38(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00037e68
-/*    37e68:	3c0e800a */ 	lui	$t6,%hi(var8009c3e0)
-/*    37e6c:	8dcec3e0 */ 	lw	$t6,%lo(var8009c3e0)($t6)
-/*    37e70:	24010002 */ 	addiu	$at,$zero,0x2
-/*    37e74:	15c10007 */ 	bne	$t6,$at,.L00037e94
-/*    37e78:	00000000 */ 	nop
-/*    37e7c:	240f0005 */ 	addiu	$t7,$zero,0x5
-/*    37e80:	3c01800a */ 	lui	$at,%hi(var8009c3f0)
-/*    37e84:	a02fc3f0 */ 	sb	$t7,%lo(var8009c3f0)($at)
-/*    37e88:	24180005 */ 	addiu	$t8,$zero,0x5
-/*    37e8c:	3c01800a */ 	lui	$at,%hi(var8009c3e0)
-/*    37e90:	ac38c3e0 */ 	sw	$t8,%lo(var8009c3e0)($at)
-.L00037e94:
-/*    37e94:	03e00008 */ 	jr	$ra
-/*    37e98:	00000000 */ 	nop
-/*    37e9c:	03e00008 */ 	jr	$ra
-/*    37ea0:	00000000 */ 	nop
-);
+void func00037e68(void)
+{
+	if (var8009c3e0 == 2) {
+		var8009c3f0 = 5;
+		var8009c3e0 = 5;
+	}
+}
 
 GLOBAL_ASM(
 glabel func00037ea4
