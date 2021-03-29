@@ -2665,22 +2665,12 @@ void snd0000fe18(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel snd0000fe20
-/*     fe20:	3c0e8006 */ 	lui	$t6,%hi(g_SndMp3Enabled)
-/*     fe24:	8dceddd0 */ 	lw	$t6,%lo(g_SndMp3Enabled)($t6)
-/*     fe28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     fe2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     fe30:	51c00004 */ 	beqzl	$t6,.L0000fe44
-/*     fe34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     fe38:	0c00df8e */ 	jal	func00037e38
-/*     fe3c:	00000000 */ 	nop
-/*     fe40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0000fe44:
-/*     fe44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     fe48:	03e00008 */ 	jr	$ra
-/*     fe4c:	00000000 */ 	nop
-);
+void snd0000fe20(void)
+{
+	if (g_SndMp3Enabled) {
+		func00037e38();
+	}
+}
 
 GLOBAL_ASM(
 glabel snd0000fe50
