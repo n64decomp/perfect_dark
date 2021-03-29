@@ -379,48 +379,23 @@ glabel func00037b00
 );
 #endif
 
-GLOBAL_ASM(
-glabel func00037d88
-/*    37d88:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    37d8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    37d90:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    37d94:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    37d98:	3c0e800a */ 	lui	$t6,%hi(var8009c3dc)
-/*    37d9c:	8dcec3dc */ 	lw	$t6,%lo(var8009c3dc)($t6)
-/*    37da0:	15c00003 */ 	bnez	$t6,.L00037db0
-/*    37da4:	00000000 */ 	nop
-/*    37da8:	10000018 */ 	b	.L00037e0c
-/*    37dac:	00000000 */ 	nop
-.L00037db0:
-/*    37db0:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    37db4:	3c01800a */ 	lui	$at,%hi(var8009c390)
-/*    37db8:	ac2fc390 */ 	sw	$t7,%lo(var8009c390)($at)
-/*    37dbc:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    37dc0:	3c01800a */ 	lui	$at,%hi(var8009c3c0)
-/*    37dc4:	ac38c3c0 */ 	sw	$t8,%lo(var8009c3c0)($at)
-/*    37dc8:	3c01800a */ 	lui	$at,%hi(var8009c3c4)
-/*    37dcc:	ac20c3c4 */ 	sw	$zero,%lo(var8009c3c4)($at)
-/*    37dd0:	3c01800a */ 	lui	$at,%hi(var8009c3e8)
-/*    37dd4:	ac20c3e8 */ 	sw	$zero,%lo(var8009c3e8)($at)
-/*    37dd8:	24197fff */ 	addiu	$t9,$zero,0x7fff
-/*    37ddc:	3c01800a */ 	lui	$at,%hi(var8009c3e4)
-/*    37de0:	ac39c3e4 */ 	sw	$t9,%lo(var8009c3e4)($at)
-/*    37de4:	24080005 */ 	addiu	$t0,$zero,0x5
-/*    37de8:	3c01800a */ 	lui	$at,%hi(var8009c3f0)
-/*    37dec:	a028c3f0 */ 	sb	$t0,%lo(var8009c3f0)($at)
-/*    37df0:	0c00e32b */ 	jal	func00038cac
-/*    37df4:	00000000 */ 	nop
-/*    37df8:	24090004 */ 	addiu	$t1,$zero,0x4
-/*    37dfc:	3c01800a */ 	lui	$at,%hi(var8009c3e0)
-/*    37e00:	ac29c3e0 */ 	sw	$t1,%lo(var8009c3e0)($at)
-/*    37e04:	10000001 */ 	b	.L00037e0c
-/*    37e08:	00000000 */ 	nop
-.L00037e0c:
-/*    37e0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    37e10:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    37e14:	03e00008 */ 	jr	$ra
-/*    37e18:	00000000 */ 	nop
-);
+void func00037d88(s32 arg0, s32 arg1)
+{
+	if (!var8009c3dc) {
+		return;
+	}
+
+	var8009c390 = arg0;
+	var8009c3c0 = arg1;
+	var8009c3c4 = 0;
+	var8009c3e8 = 0;
+	var8009c3e4 = 0x7fff;
+	var8009c3f0 = 5;
+
+	func00038cac();
+
+	var8009c3e0 = 4;
+}
 
 void func00037e1c(void)
 {

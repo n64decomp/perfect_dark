@@ -5,7 +5,7 @@
 #include "types.h"
 
 void func00037b00(ALHeap *heap);
-u32 func00037d88(void);
+void func00037d88(s32 arg0, s32 arg1);
 void func00037e1c(void);
 void func00037e38(void);
 void func00037e68(void);
