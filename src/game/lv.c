@@ -8117,7 +8117,7 @@ glabel var7f1b8ed0pf
 .PF0f16d82c:
 /*  f16d82c:	0fc5a302 */ 	jal	lvUpdateMiscSfx
 /*  f16d830:	00000000 */ 	nop
-/*  f16d834:	0c003f01 */ 	jal	snd0000fe88
+/*  f16d834:	0c003f01 */ 	jal	sndTick
 /*  f16d838:	00000000 */ 	nop
 /*  f16d83c:	0fc474a7 */ 	jal	pakExecuteDebugOperations
 /*  f16d840:	00000000 */ 	nop
@@ -8505,7 +8505,7 @@ void lvTick(void)
 		}
 
 		lvUpdateMiscSfx();
-		snd0000fe88();
+		sndTick();
 		pakExecuteDebugOperations();
 		lightingTick();
 		func0f0b2904();
@@ -9717,7 +9717,7 @@ glabel lvTick
 .NB0f167798:
 /*  f167798:	0fc58971 */ 	jal	lvUpdateMiscSfx
 /*  f16779c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1677a0:	0c0040f6 */ 	jal	snd0000fe88
+/*  f1677a0:	0c0040f6 */ 	jal	sndTick
 /*  f1677a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1677a8:	0fc45920 */ 	jal	pakExecuteDebugOperations
 /*  f1677ac:	00000000 */ 	sll	$zero,$zero,0x0
