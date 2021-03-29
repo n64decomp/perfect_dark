@@ -4946,22 +4946,12 @@ void sndPlayNosedive(s32 arg0)
 	var8005ddc0 = 0;
 }
 
-GLOBAL_ASM(
-glabel sndStopNosedive
-/*    10de0:	3c028006 */ 	lui	$v0,%hi(var8005ddac)
-/*    10de4:	2442ddac */ 	addiu	$v0,$v0,%lo(var8005ddac)
-/*    10de8:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*    10dec:	2401ffff */ 	addiu	$at,$zero,-1
-/*    10df0:	3c0f8006 */ 	lui	$t7,%hi(var8005ddb0)
-/*    10df4:	11c10004 */ 	beq	$t6,$at,.L00010e08
-/*    10df8:	00000000 */ 	nop
-/*    10dfc:	8defddb0 */ 	lw	$t7,%lo(var8005ddb0)($t7)
-/*    10e00:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*    10e04:	ac580000 */ 	sw	$t8,0x0($v0)
-.L00010e08:
-/*    10e08:	03e00008 */ 	jr	$ra
-/*    10e0c:	00000000 */ 	nop
-);
+void sndStopNosedive(void)
+{
+	if (var8005ddac != -1) {
+		var8005ddac = var8005ddb0 + 1;
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
