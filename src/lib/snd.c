@@ -5371,22 +5371,12 @@ void sndPlayUfoHum(s32 arg0)
 	var8005ddc4 = 0;
 }
 
-GLOBAL_ASM(
-glabel sndStopUfoHum
-/*    110ec:	3c028006 */ 	lui	$v0,%hi(var8005ddb8)
-/*    110f0:	2442ddb8 */ 	addiu	$v0,$v0,%lo(var8005ddb8)
-/*    110f4:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*    110f8:	2401ffff */ 	addiu	$at,$zero,-1
-/*    110fc:	3c0f8006 */ 	lui	$t7,%hi(var8005ddbc)
-/*    11100:	11c10004 */ 	beq	$t6,$at,.L00011114
-/*    11104:	00000000 */ 	nop
-/*    11108:	8defddbc */ 	lw	$t7,%lo(var8005ddbc)($t7)
-/*    1110c:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*    11110:	ac580000 */ 	sw	$t8,0x0($v0)
-.L00011114:
-/*    11114:	03e00008 */ 	jr	$ra
-/*    11118:	00000000 */ 	nop
-);
+void sndStopUfoHum(void)
+{
+	if (var8005ddb8 != -1) {
+		var8005ddb8 = var8005ddbc + 1;
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
