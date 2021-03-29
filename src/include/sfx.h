@@ -367,6 +367,7 @@
 #define SFX_MAIAN_05E6                          0x05e6
 #define SFX_MAIAN_05E7                          0x05e7
 #define SFX_NOSEDIVE                            0x0608
+#define SFX_UFOHUM                              0x0609
 #define SFX_CASS_HOW_DARE_YOU_DISTURB_ME        0x0af2
 #define SFX_CASS_YOU_WILL_REGRET                0x0af3
 #define SFX_CASS_LEAVE_NOW                      0x0af8

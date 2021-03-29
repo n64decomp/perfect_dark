@@ -12496,10 +12496,10 @@ bool aiConfigureEnvironment(void)
 		sndStopNosedive();
 		break;
 	case AIENVCMD_PLAYUFOHUM:
-		sndPlayUfoHum(value);
+		sndPlayUfo(value);
 		break;
 	case AIENVCMD_STOPUFOHUM:
-		sndStopUfoHum();
+		sndStopUfo();
 		break;
 	}
 

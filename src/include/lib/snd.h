@@ -39,8 +39,8 @@ u32 snd00010ae4(void);
 void sndPlayNosedive(s32 seconds);
 void sndStopNosedive(void);
 void sndTickNosedive(void);
-void sndPlayUfoHum(s32 value);
-void sndStopUfoHum(void);
-u32 sndTickUfoHum(void);
+void sndPlayUfo(s32 seconds);
+void sndStopUfo(void);
+void sndTickUfo(void);
 
 #endif
