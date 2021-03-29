@@ -504,16 +504,10 @@ void func00037f5c(s32 arg0, bool arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00037fa8
-/*    37fa8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    37fac:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    37fb0:	10000001 */ 	b	.L00037fb8
-/*    37fb4:	00000000 */ 	nop
-.L00037fb8:
-/*    37fb8:	03e00008 */ 	jr	$ra
-/*    37fbc:	00000000 */ 	nop
-);
+void func00037fa8(s32 arg0, s32 arg1)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func00037fc0
