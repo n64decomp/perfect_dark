@@ -42,7 +42,6 @@ u32 func0003e8c0(void);
 s32 n_alEnvmixerParam(void *filter, s32 paramID, void *param);
 u32 func0003f328(void);
 u32 func0003f60c(void);
-u32 func0003f81c(void);
 u32 func0003f8a0(void);
 u32 func00040164(void);
 u32 func00040dac(void);

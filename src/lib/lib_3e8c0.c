@@ -5660,7 +5660,7 @@ glabel func0003e8c0
 /*    3ecec:	85c4005c */ 	lh	$a0,0x5c($t6)
 /*    3ecf0:	8dc50070 */ 	lw	$a1,0x70($t6)
 /*    3ecf4:	85c60066 */ 	lh	$a2,0x66($t6)
-/*    3ecf8:	0c00fe07 */ 	jal	func0003f81c
+/*    3ecf8:	0c00fe07 */ 	jal	_getVol
 /*    3ecfc:	95c70064 */ 	lhu	$a3,0x64($t6)
 /*    3ed00:	8faf0050 */ 	lw	$t7,0x50($sp)
 /*    3ed04:	a5e2005c */ 	sh	$v0,0x5c($t7)
@@ -5668,7 +5668,7 @@ glabel func0003e8c0
 /*    3ed0c:	8524005e */ 	lh	$a0,0x5e($t1)
 /*    3ed10:	8d250070 */ 	lw	$a1,0x70($t1)
 /*    3ed14:	8526006c */ 	lh	$a2,0x6c($t1)
-/*    3ed18:	0c00fe07 */ 	jal	func0003f81c
+/*    3ed18:	0c00fe07 */ 	jal	_getVol
 /*    3ed1c:	9527006a */ 	lhu	$a3,0x6a($t1)
 /*    3ed20:	8fab0050 */ 	lw	$t3,0x50($sp)
 /*    3ed24:	a562005e */ 	sh	$v0,0x5e($t3)
@@ -6373,7 +6373,7 @@ glabel func0003f60c
 );
 
 GLOBAL_ASM(
-glabel func0003f81c
+glabel _getVol
 /*    3f81c:	00042400 */ 	sll	$a0,$a0,0x10
 /*    3f820:	00063400 */ 	sll	$a2,$a2,0x10
 /*    3f824:	00063403 */ 	sra	$a2,$a2,0x10
@@ -6410,6 +6410,28 @@ glabel func0003f81c
 /*    3f898:	03e00008 */ 	jr	$ra
 /*    3f89c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
+
+//s16 _getVol(s16 ivol, s32 samples, s16 ratem, u16 ratel)
+//{
+//	s32 sp4;
+//
+//	/*
+//	 * Rate values are actually rate^8
+//	 */
+//	samples >>= 3;
+//
+//	if (samples == 0) {
+//		return ivol;
+//	}
+//
+//	sp4 = ratel * samples;
+//	sp4 >>= 16;
+//	sp4 += ratem * samples;
+//
+//	ivol += sp4;
+//
+//	return ivol;
+//}
 
 GLOBAL_ASM(
 glabel func0003f8a0
