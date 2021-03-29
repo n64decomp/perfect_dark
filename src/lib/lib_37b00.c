@@ -29,18 +29,6 @@ u32 var8009c3c0;
 u32 var8009c3c4;
 u32 var8009c3c8;
 u32 var8009c3cc;
-u32 var8009c3d0;
-u32 var8009c3d4;
-u32 var8009c3d8;
-u32 var8009c3dc;
-u32 var8009c3e0;
-u32 var8009c3e4;
-u32 var8009c3e8;
-u32 var8009c3ec;
-u32 var8009c3f0;
-u32 var8009c3f4;
-u32 var8009c3f8;
-u32 var8009c3fc;
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -429,16 +417,10 @@ glabel func00037d88
 /*    37e18:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00037e1c
-/*    37e1c:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*    37e20:	3c01800a */ 	lui	$at,%hi(var8009c3e0)
-/*    37e24:	ac2ec3e0 */ 	sw	$t6,%lo(var8009c3e0)($at)
-/*    37e28:	03e00008 */ 	jr	$ra
-/*    37e2c:	00000000 */ 	nop
-/*    37e30:	03e00008 */ 	jr	$ra
-/*    37e34:	00000000 */ 	nop
-);
+void func00037e1c(void)
+{
+	var8009c3e0 = 3;
+}
 
 GLOBAL_ASM(
 glabel func00037e38

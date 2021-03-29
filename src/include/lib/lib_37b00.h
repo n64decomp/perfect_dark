@@ -6,7 +6,7 @@
 
 void func00037b00(ALHeap *heap);
 u32 func00037d88(void);
-u32 func00037e1c(void);
+void func00037e1c(void);
 void func00037e38(void);
 void func00037e68(void);
 u32 func00037ea4(void);
