@@ -1309,15 +1309,10 @@ glabel func00038924
 /*    38b8c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00038b90
-/*    38b90:	3c01800a */ 	lui	$at,%hi(var8009c3dc)
-/*    38b94:	ac24c3dc */ 	sw	$a0,%lo(var8009c3dc)($at)
-/*    38b98:	03e00008 */ 	jr	$ra
-/*    38b9c:	00000000 */ 	nop
-/*    38ba0:	03e00008 */ 	jr	$ra
-/*    38ba4:	00000000 */ 	nop
-);
+void func00038b90(s32 arg0)
+{
+	var8009c3dc = arg0;
+}
 
 GLOBAL_ASM(
 glabel func00038ba8
