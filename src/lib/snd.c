@@ -2296,7 +2296,7 @@ void sndInit(void)
 		if (g_SndMp3Enabled) {
 			osSyncPrintf("RWI : Initialising the new and improved MP3 player\n");
 
-			func00037b00(&g_SndHeap);
+			mp3Init(&g_SndHeap);
 			func00037f08(0x7fff, 1);
 			func00037f5c(0, 1);
 

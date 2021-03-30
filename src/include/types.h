@@ -7139,4 +7139,36 @@ struct seqtable {
 	struct seqtableentry entries[1];
 };
 
+struct mp3vars {
+	s32 var8009c390;
+	u32 var8009c394;
+	u8 *var8009c398;
+	s16 var8009c39c;
+	s16 var8009c39e;
+	u16 var8009c3a0;
+	u16 var8009c3a2;
+	u16 var8009c3a4;
+	u16 var8009c3a6;
+	u32 var8009c3a8;
+	u32 var8009c3ac;
+	u32 var8009c3b0;
+	u16 var8009c3b4;
+	u32 var8009c3b8;
+	u32 var8009c3bc;
+	s32 var8009c3c0;
+	s32 var8009c3c4;
+	u32 var8009c3c8;
+	u32 var8009c3cc;
+	u32 var8009c3d0;
+	u8 *var8009c3d4;
+	u32 var8009c3d8;
+	void *var8009c3dc;
+	u32 var8009c3e0;
+	u32 var8009c3e4;
+	u32 var8009c3e8;
+	s16 var8009c3ec;
+	s16 var8009c3ee;
+	u8 var8009c3f0;
+};
+
 #endif

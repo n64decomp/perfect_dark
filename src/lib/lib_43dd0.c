@@ -10,13 +10,13 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009c640;
-u32 var8009c644;
+u8 *var8009c640;
+u8 *var8009c644;
 u32 var8009c648;
 u32 var8009c64c;
 u8 var8009c650[0x88];
-u32 var8009c6d8;
-u32 var8009c6dc;
+u8 *var8009c6d8;
+u8 *var8009c6dc;
 
 u32 var8005f700 = 0;
 u32 var8005f704 = 0;
@@ -485,8 +485,8 @@ glabel func00044460
 /*    44468:	afa40020 */ 	sw	$a0,0x20($sp)
 /*    4446c:	afa50024 */ 	sw	$a1,0x24($sp)
 /*    44470:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    44474:	3c0e800a */ 	lui	$t6,%hi(var8009c3f4)
-/*    44478:	8dcec3f4 */ 	lw	$t6,%lo(var8009c3f4)($t6)
+/*    44474:	3c0e800a */ 	lui	$t6,%hi(g_Mp3Vars+0x64)
+/*    44478:	8dcec3f4 */ 	lw	$t6,%lo(g_Mp3Vars+0x64)($t6)
 /*    4447c:	afae001c */ 	sw	$t6,0x1c($sp)
 /*    44480:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*    44484:	15e00003 */ 	bnez	$t7,.L00044494
@@ -568,8 +568,8 @@ glabel func0004453c
 /*    44598:	14400006 */ 	bnez	$v0,.L000445b4
 /*    4459c:	00000000 */ 	nop
 /*    445a0:	240c0003 */ 	addiu	$t4,$zero,0x3
-/*    445a4:	3c01800a */ 	lui	$at,%hi(var8009c3e0)
-/*    445a8:	ac2cc3e0 */ 	sw	$t4,%lo(var8009c3e0)($at)
+/*    445a4:	3c01800a */ 	lui	$at,%hi(g_Mp3Vars+0x50)
+/*    445a8:	ac2cc3e0 */ 	sw	$t4,%lo(g_Mp3Vars+0x50)($at)
 /*    445ac:	10000024 */ 	b	.L00044640
 /*    445b0:	00001025 */ 	or	$v0,$zero,$zero
 .L000445b4:
