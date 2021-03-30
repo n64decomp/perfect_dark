@@ -7140,35 +7140,45 @@ struct seqtable {
 };
 
 struct mp3vars {
-	s32 var8009c390;
-	u32 var8009c394;
-	u8 *var8009c398;
-	s16 var8009c39c;
-	s16 var8009c39e;
-	u16 var8009c3a0;
-	u16 var8009c3a2;
-	u16 var8009c3a4;
-	u16 var8009c3a6;
-	u32 var8009c3a8;
-	u32 var8009c3ac;
-	u32 var8009c3b0;
-	u16 var8009c3b4;
-	u32 var8009c3b8;
-	u32 var8009c3bc;
-	s32 var8009c3c0;
-	s32 var8009c3c4;
-	u32 var8009c3c8;
-	u32 var8009c3cc;
-	u32 var8009c3d0;
-	u8 *var8009c3d4;
-	u32 var8009c3d8;
-	void *var8009c3dc;
-	u32 var8009c3e0;
-	u32 var8009c3e4;
-	u32 var8009c3e8;
-	s16 var8009c3ec;
-	s16 var8009c3ee;
-	u8 var8009c3f0;
+	/*0x00*/ s32 var8009c390;
+	/*0x04*/ u32 var8009c394;
+	/*0x08*/ u8 *var8009c398;
+	/*0x0c*/ s16 var8009c39c;
+	/*0x0e*/ s16 var8009c39e;
+	/*0x10*/ s16 ivol1;
+	/*0x12*/ s16 ivol2;
+	/*0x14*/ u16 var8009c3a4;
+	/*0x16*/ u16 var8009c3a6;
+	/*0x18*/ u16 ratel1;
+	/*0x1a*/ s16 ratem1;
+	/*0x1c*/ s16 var8009c3ac;
+	/*0x1e*/ u16 ratel2;
+	/*0x20*/ s16 ratem2;
+	/*0x22*/ s16 var8009c3b2;
+	/*0x24*/ u16 var8009c3b4;
+	/*0x28*/ s32 samples;
+	/*0x2c*/ s32 var8009c3bc;
+	/*0x30*/ s32 var8009c3c0;
+	/*0x34*/ s32 var8009c3c4;
+	/*0x38*/ u32 var8009c3c8;
+	/*0x3c*/ u32 var8009c3cc;
+	/*0x40*/ u32 var8009c3d0;
+	/*0x44*/ u8 *var8009c3d4;
+	/*0x48*/ u32 var8009c3d8;
+	/*0x4c*/ void *var8009c3dc;
+	/*0x50*/ u32 var8009c3e0;
+	/*0x54*/ u32 var8009c3e4;
+	/*0x58*/ u32 var8009c3e8;
+	/*0x5c*/ s16 var8009c3ec;
+	/*0x5e*/ s16 var8009c3ee;
+	/*0x60*/ u8 var8009c3f0;
+};
+
+struct var8009c340 {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+	u8 unk03;
 };
 
 #endif

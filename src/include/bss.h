@@ -50,7 +50,7 @@ extern u32 *g_TileRooms;
 extern u32 var8009a918;
 extern u32 var8009a970[256];
 extern u32 var8009c2d0;
-extern u32 var8009c340;
+extern struct var8009c340 var8009c340;
 extern u32 var8009c344;
 extern u32 var8009c3e0;
 extern u8 *var8009c3f4;

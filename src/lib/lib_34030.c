@@ -18,7 +18,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8009c340;
+struct var8009c340 var8009c340;
 u32 var8009c344;
 u32 var8009c348;
 
