@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00037650(void);
+void func00037650(ALCSPlayer *seqp, ALBank *bank);
 
 #endif

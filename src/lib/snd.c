@@ -2057,71 +2057,32 @@ glabel snd0000f49c
 );
 #endif
 
-GLOBAL_ASM(
-glabel snd0000f67c
-/*     f67c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*     f680:	3c198009 */ 	lui	$t9,%hi(g_SndHeap)
-/*     f684:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     f688:	afa40040 */ 	sw	$a0,0x40($sp)
-/*     f68c:	240e002c */ 	addiu	$t6,$zero,0x2c
-/*     f690:	240f0040 */ 	addiu	$t7,$zero,0x40
-/*     f694:	24180010 */ 	addiu	$t8,$zero,0x10
-/*     f698:	273951f0 */ 	addiu	$t9,$t9,%lo(g_SndHeap)
-/*     f69c:	afae0020 */ 	sw	$t6,0x20($sp)
-/*     f6a0:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*     f6a4:	a3b80028 */ 	sb	$t8,0x28($sp)
-/*     f6a8:	a3a00029 */ 	sb	$zero,0x29($sp)
-/*     f6ac:	afb9002c */ 	sw	$t9,0x2c($sp)
-/*     f6b0:	0c00c326 */ 	jal	func00030c98
-/*     f6b4:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*     f6b8:	3c088009 */ 	lui	$t0,%hi(g_Is4Mb)
-/*     f6bc:	91080af0 */ 	lbu	$t0,%lo(g_Is4Mb)($t0)
-/*     f6c0:	24010001 */ 	addiu	$at,$zero,0x1
-/*     f6c4:	00002025 */ 	or	$a0,$zero,$zero
-/*     f6c8:	15010006 */ 	bne	$t0,$at,.L0000f6e4
-/*     f6cc:	00002825 */ 	or	$a1,$zero,$zero
-/*     f6d0:	3c028009 */ 	lui	$v0,%hi(var8009520c)
-/*     f6d4:	2442520c */ 	addiu	$v0,$v0,%lo(var8009520c)
-/*     f6d8:	24093800 */ 	addiu	$t1,$zero,0x3800
-/*     f6dc:	10000005 */ 	b	.L0000f6f4
-/*     f6e0:	ac490000 */ 	sw	$t1,0x0($v0)
-.L0000f6e4:
-/*     f6e4:	3c028009 */ 	lui	$v0,%hi(var8009520c)
-/*     f6e8:	2442520c */ 	addiu	$v0,$v0,%lo(var8009520c)
-/*     f6ec:	240a4800 */ 	addiu	$t2,$zero,0x4800
-/*     f6f0:	ac4a0000 */ 	sw	$t2,0x0($v0)
-.L0000f6f4:
-/*     f6f4:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*     f6f8:	3c068009 */ 	lui	$a2,%hi(g_SndHeap)
-/*     f6fc:	24c651f0 */ 	addiu	$a2,$a2,%lo(g_SndHeap)
-/*     f700:	24070001 */ 	addiu	$a3,$zero,0x1
-/*     f704:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*     f708:	afab0010 */ 	sw	$t3,0x10($sp)
-/*     f70c:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*     f710:	3c068009 */ 	lui	$a2,%hi(g_SndHeap)
-/*     f714:	240d008c */ 	addiu	$t5,$zero,0x8c
-/*     f718:	ad8200fc */ 	sw	$v0,0xfc($t4)
-/*     f71c:	afad0010 */ 	sw	$t5,0x10($sp)
-/*     f720:	24c651f0 */ 	addiu	$a2,$a2,%lo(g_SndHeap)
-/*     f724:	00002025 */ 	or	$a0,$zero,$zero
-/*     f728:	00002825 */ 	or	$a1,$zero,$zero
-/*     f72c:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*     f730:	24070001 */ 	addiu	$a3,$zero,0x1
-/*     f734:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*     f738:	00402025 */ 	or	$a0,$v0,$zero
-/*     f73c:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*     f740:	0c00d090 */ 	jal	alCSPNew
-/*     f744:	adc200f8 */ 	sw	$v0,0xf8($t6)
-/*     f748:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*     f74c:	3c058009 */ 	lui	$a1,%hi(var80095204)
-/*     f750:	8ca55204 */ 	lw	$a1,%lo(var80095204)($a1)
-/*     f754:	0c00dd94 */ 	jal	func00037650
-/*     f758:	8de400f8 */ 	lw	$a0,0xf8($t7)
-/*     f75c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*     f760:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*     f764:	03e00008 */ 	jr	$ra
-/*     f768:	00000000 */ 	nop
-);
+void snd0000f67c(struct var80094ed8 *arg0)
+{
+	u32 stack;
+	ALSeqpConfig config;
+
+	config.maxVoices = 44;
+	config.maxEvents = 64;
+	config.maxChannels = 16;
+	config.debugFlags = 0;
+	config.heap = &g_SndHeap;
+
+	func00030c98(&config);
+
+	if (IS4MB()) {
+		var8009520c = 0x3800;
+	} else {
+		var8009520c = 0x4800;
+	}
+
+	arg0->unk0fc = alHeapAlloc(&g_SndHeap, 1, var8009520c);
+	arg0->seqp = alHeapAlloc(&g_SndHeap, 1, sizeof(ALCSPlayer));
+
+	alCSPNew(arg0->seqp, &config);
+
+	func00037650(arg0->seqp, var80095204);
+}
 
 void snd0000f76c(void);
 
@@ -2609,7 +2570,7 @@ void snd0000fd9c(struct var80094ed8 *arg0, u16 volume)
 			tmp = 0x7fff;
 		}
 
-		func00039c80(arg0->unk0f8, tmp);
+		func00039c80(arg0->seqp, tmp);
 	}
 }
 
