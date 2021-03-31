@@ -599,7 +599,8 @@ u32 var8005ece8 = 0x00000000;
 u32 var8005ecec = 0x00000000;
 u32 var8005ecf0 = 0x00000000;
 u32 var8005ecf4 = 0x00000000;
-u32 var8005ecf8 = 0x66655998;
+
+s16 var8005ecf8[] = {0x6665, 0x5998};
 u32 var8005ecfc = 0x5fff4ccc;
 u32 var8005ed00 = 0x5fff2ccc;
 u32 var8005ed04 = 0x59986665;
@@ -2615,42 +2616,21 @@ glabel snd0000fd74
 /*     fd98:	3062ffff */ 	andi	$v0,$v1,0xffff
 );
 
-GLOBAL_ASM(
-glabel snd0000fd9c
-/*     fd9c:	3c0f8006 */ 	lui	$t7,%hi(g_SndDisabled)
-/*     fda0:	8defdda0 */ 	lw	$t7,%lo(g_SndDisabled)($t7)
-/*     fda4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     fda8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     fdac:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*     fdb0:	00803025 */ 	or	$a2,$a0,$zero
-/*     fdb4:	15e00014 */ 	bnez	$t7,.L0000fe08
-/*     fdb8:	30aeffff */ 	andi	$t6,$a1,0xffff
-/*     fdbc:	8c980104 */ 	lw	$t8,0x104($a0)
-/*     fdc0:	3c088006 */ 	lui	$t0,%hi(var8005ecf8)
-/*     fdc4:	34018000 */ 	dli	$at,0x8000
-/*     fdc8:	0018c840 */ 	sll	$t9,$t8,0x1
-/*     fdcc:	01194021 */ 	addu	$t0,$t0,$t9
-/*     fdd0:	8508ecf8 */ 	lh	$t0,%lo(var8005ecf8)($t0)
-/*     fdd4:	a48e0100 */ 	sh	$t6,0x100($a0)
-/*     fdd8:	010e0019 */ 	multu	$t0,$t6
-/*     fddc:	00001012 */ 	mflo	$v0
-/*     fde0:	00024bc2 */ 	srl	$t1,$v0,0xf
-/*     fde4:	0121082b */ 	sltu	$at,$t1,$at
-/*     fde8:	14200002 */ 	bnez	$at,.L0000fdf4
-/*     fdec:	01201025 */ 	or	$v0,$t1,$zero
-/*     fdf0:	24027fff */ 	addiu	$v0,$zero,0x7fff
-.L0000fdf4:
-/*     fdf4:	00022c00 */ 	sll	$a1,$v0,0x10
-/*     fdf8:	00055403 */ 	sra	$t2,$a1,0x10
-/*     fdfc:	01402825 */ 	or	$a1,$t2,$zero
-/*     fe00:	0c00e720 */ 	jal	func00039c80
-/*     fe04:	8cc400f8 */ 	lw	$a0,0xf8($a2)
-.L0000fe08:
-/*     fe08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     fe0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     fe10:	03e00008 */ 	jr	$ra
-/*     fe14:	00000000 */ 	nop
-);
+void snd0000fd9c(struct var80094ed8 *arg0, u16 volume)
+{
+	if (!g_SndDisabled) {
+		u32 tmp = (var8005ecf8[arg0->unk104] * volume);
+		tmp >>=	15;
+
+		arg0->unk100 = volume;
+
+		if (tmp > 0x7fff) {
+			tmp = 0x7fff;
+		}
+
+		func00039c80(arg0->unk0f8, tmp);
+	}
+}
 
 void snd0000fe18(void)
 {

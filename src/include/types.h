@@ -6347,7 +6347,7 @@ struct var80094ed8 {
 	/*0x0f4*/ u32 unk0f4;
 	/*0x0f8*/ u32 unk0f8;
 	/*0x0fc*/ u32 unk0fc;
-	/*0x100*/ u32 unk100;
+	/*0x100*/ u16 unk100;
 	/*0x104*/ u32 unk104;
 };
 
