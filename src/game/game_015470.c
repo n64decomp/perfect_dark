@@ -697,7 +697,7 @@ void getitleInit(void *addr, u32 arg1)
 	var80062498 = 0;
 	var8009cc90 = addr;
 
-	dmaExec(var8009cc90, &_getitleSegmentRomStart, ALIGN64(len));
+	dmaExec(var8009cc90, (u32) &_getitleSegmentRomStart, ALIGN64(len));
 }
 
 Gfx *getitleRender(Gfx *gdl)

@@ -39,7 +39,7 @@ extern s32 var80094ea8;
 extern struct var80094ed8 var80094ed8[3];
 extern ALHeap g_SndHeap;
 extern u32 var80095200;
-extern u8 var80095210[0x40f0];
+extern struct var80095210 var80095210;
 extern OSMesgQueue var80099e78;
 extern struct g_vars g_Vars;
 extern u32 var8009a874;

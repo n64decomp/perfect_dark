@@ -283,18 +283,18 @@ void dmaWait(void)
 	}
 }
 
-void dmaExec(void *memaddr, void *romaddr, u32 len)
+void dmaExec(void *memaddr, u32 romaddr, u32 len)
 {
-	dmaStart(memaddr, (u32) romaddr, len, false);
+	dmaStart(memaddr, romaddr, len, false);
 	dmaWait();
 #if VERSION >= VERSION_NTSC_1_0
 	dmaCheckPiracy(memaddr, len);
 #endif
 }
 
-void dmaExecHighPriority(void *memaddr, void *romaddr, u32 len)
+void dmaExecHighPriority(void *memaddr, u32 romaddr, u32 len)
 {
-	dmaStart(memaddr, (u32) romaddr, len, true);
+	dmaStart(memaddr, romaddr, len, true);
 	dmaWait();
 #if VERSION >= VERSION_NTSC_1_0
 	dmaCheckPiracy(memaddr, len);
@@ -327,7 +327,7 @@ void *dmaExecWithAutoAlign(void *memaddr, u32 romaddr, u32 len)
 		return (void *)(alignedmem + offset);
 	}
 
-	dmaExec((void *)alignedmem, (void *)alignedrom, alignedlen);
+	dmaExec((void *)alignedmem, alignedrom, alignedlen);
 
 	return (void *)(alignedmem + offset);
 }

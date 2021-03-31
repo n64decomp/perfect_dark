@@ -4094,7 +4094,7 @@ void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *i
 
 	if (scratchlen == 0) {
 		// DMA with no inflate
-		dmaExec(dst, (void *)*romaddrptr, romsize);
+		dmaExec(dst, *romaddrptr, romsize);
 	} else {
 		// DMA the compressed data to scratch space then inflate
 		u32 scratchaddr = ((u32)dst + scratchlen) - (romsize + 7 & 0xfffffff8);
@@ -4102,7 +4102,7 @@ void func0f166eb4(void *dst, u32 scratchlen, u32 *romaddrptr, struct fileinfo *i
 		if (scratchaddr - (u32)dst < 8) {
 			info->size = 0;
 		} else {
-			dmaExec((void *)scratchaddr, (void *)*romaddrptr, romsize);
+			dmaExec((void *)scratchaddr, *romaddrptr, romsize);
 			info->size = ALIGN16(rzipInflate((void *)scratchaddr, dst, buffer));
 		}
 	}
@@ -4251,7 +4251,7 @@ void func0f166ff0(u16 filenum, void *memaddr, s32 offset, u32 len)
 	u32 stack[2];
 
 	if (fileGetRomSizeByTableAddress((u32 *)&filetable[filenum])) {
-		dmaExec(memaddr, (void *)((u32)filetable[filenum] + offset), len);
+		dmaExec(memaddr, (u32)filetable[filenum] + offset, len);
 	}
 }
 

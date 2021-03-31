@@ -15,5 +15,5 @@ void loadTextureList(void)
 
 	g_Textures = malloc(len, MEMPOOL_PERMANENT);
 
-	dmaExec(g_Textures, &_textureslistSegmentRomStart, len);
+	dmaExec(g_Textures, (u32) &_textureslistSegmentRomStart, len);
 }

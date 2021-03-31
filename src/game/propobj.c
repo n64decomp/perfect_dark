@@ -59203,7 +59203,7 @@ void func0f084cf0(struct defaultobj *obj)
 		u32 *ptr;
 		u32 romaddr = add43214321(0x00000dc0 - 0x43214321);
 		ptr = (u32 *) ALIGN16((u32)buffer);
-		dmaExec(ptr, (void *) romaddr, 0x10);
+		dmaExec(ptr, romaddr, 0x10);
 
 		if (ptr[1] + ptr[0] != add43214321(0x10a78f00e - 0x43214321)) {
 			osAiSetFrequency(80000);

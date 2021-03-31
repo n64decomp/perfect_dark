@@ -332,7 +332,7 @@ void __scHandleRetrace(OSSched *sc)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
-			u8 *addr = var80095210;
+			u8 *addr = (u8 *) &var80095210;
 
 			for (i = 0; i < 40; i++) {
 				addr[4 + i] = 0xff;

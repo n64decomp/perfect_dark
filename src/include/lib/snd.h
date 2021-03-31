@@ -10,7 +10,7 @@ u16 snd0000e9dc(void);
 void sndSetSfxVolume(u16 volume);
 u32 snd0000ea80(void);
 void snd0000eadc(void);
-void snd0000eb2c(void);
+void sndLoadSfxCtl(void);
 u32 snd0000ed14(void);
 u32 snd0000ed68(void);
 u32 snd0000ee88(void);

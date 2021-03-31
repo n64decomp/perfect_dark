@@ -7181,4 +7181,10 @@ struct var8009c340 {
 	u8 unk03;
 };
 
+struct var80095210 {
+	u16 *soundnums;
+	u8 unk04[45];
+	u16 unk32[45];
+};
+
 #endif

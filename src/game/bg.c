@@ -4733,7 +4733,7 @@ void bgInit(s32 stagenum)
 			// Copy 0x40 bytes from a random location in ROM to a random
 			// location in RAM. The write address can be anywhere in the
 			// boot segment or in the lib segment up to func00020f30.
-			dmaExec((void *)(PHYS_TO_K0(0x1000) + (random() & 0x1fff8)), (void *)(random() & 0x1fffe), 0x40);
+			dmaExec((void *)(PHYS_TO_K0(0x1000) + (random() & 0x1fff8)), random() & 0x1fffe, 0x40);
 		}
 	}
 #endif

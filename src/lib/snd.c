@@ -33,8 +33,8 @@ struct var80094eb0 {
 	s32 unk18;
 };
 
-u32 var80094ea0;
-u32 var80094ea4;
+s32 g_NumSounds;
+u32 *g_ALSoundRomOffsets;
 s32 var80094ea8;
 u32 var80094eac;
 struct var80094eb0 var80094eb0;
@@ -47,7 +47,8 @@ u32 var80095200;
 ALBank *var80095204;
 struct seqtable *g_SeqTable;
 u32 var8009520c;
-u8 var80095210[0x40f0];
+struct var80095210 var80095210;
+u8 var800952a0[0x4060];
 
 const char g_SndGuardString[] = "RUSSES SOUND GUARD STRING";
 const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";
@@ -663,6 +664,8 @@ u32 var8005ede4 = 0x4ccc6ccb;
 u32 var8005ede8 = 0xffff0000;
 u32 var8005edec = 0xffffffff;
 
+extern u8 _sfxctlSegmentRomStart;
+extern u8 _sfxtblSegmentRomStart;
 extern u8 _seqctlSegmentRomStart;
 extern u8 _seqctlSegmentRomEnd;
 extern u8 _seqtblSegmentRomStart;
@@ -778,139 +781,73 @@ void snd0000eadc(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel snd0000eb2c
-/*     eb2c:	27bdfe90 */ 	addiu	$sp,$sp,-368
-/*     eb30:	afb20028 */ 	sw	$s2,0x28($sp)
-/*     eb34:	03a09025 */ 	or	$s2,$sp,$zero
-/*     eb38:	afb10024 */ 	sw	$s1,0x24($sp)
-/*     eb3c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*     eb40:	2652006b */ 	addiu	$s2,$s2,0x6b
-/*     eb44:	3c118009 */ 	lui	$s1,%hi(var80094ea4)
-/*     eb48:	364e000f */ 	ori	$t6,$s2,0xf
-/*     eb4c:	3c100081 */ 	lui	$s0,%hi(_sfxctlSegmentRomStart)
-/*     eb50:	26314ea4 */ 	addiu	$s1,$s1,%lo(var80094ea4)
-/*     eb54:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*     eb58:	2610a250 */ 	addiu	$s0,$s0,%lo(_sfxctlSegmentRomStart)
-/*     eb5c:	39c4000f */ 	xori	$a0,$t6,0xf
-/*     eb60:	afb40030 */ 	sw	$s4,0x30($sp)
-/*     eb64:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*     eb68:	ae200000 */ 	sw	$zero,0x0($s1)
-/*     eb6c:	00809025 */ 	or	$s2,$a0,$zero
-/*     eb70:	02002825 */ 	or	$a1,$s0,$zero
-/*     eb74:	0c003504 */ 	jal	dmaExec
-/*     eb78:	24060100 */ 	addiu	$a2,$zero,0x100
-/*     eb7c:	8e580004 */ 	lw	$t8,0x4($s2)
-/*     eb80:	02402025 */ 	or	$a0,$s2,$zero
-/*     eb84:	24060100 */ 	addiu	$a2,$zero,0x100
-/*     eb88:	0c003504 */ 	jal	dmaExec
-/*     eb8c:	02182821 */ 	addu	$a1,$s0,$t8
-/*     eb90:	8e59000c */ 	lw	$t9,0xc($s2)
-/*     eb94:	02402025 */ 	or	$a0,$s2,$zero
-/*     eb98:	24060100 */ 	addiu	$a2,$zero,0x100
-/*     eb9c:	0219a021 */ 	addu	$s4,$s0,$t9
-/*     eba0:	0c003504 */ 	jal	dmaExec
-/*     eba4:	02802825 */ 	or	$a1,$s4,$zero
-/*     eba8:	864a000e */ 	lh	$t2,0xe($s2)
-/*     ebac:	3c098009 */ 	lui	$t1,%hi(var80094ea0)
-/*     ebb0:	3c018009 */ 	lui	$at,%hi(var80094ea0)
-/*     ebb4:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*     ebb8:	25294ea0 */ 	addiu	$t1,$t1,%lo(var80094ea0)
-/*     ebbc:	ac2b4ea0 */ 	sw	$t3,%lo(var80094ea0)($at)
-/*     ebc0:	8d330000 */ 	lw	$s3,0x0($t1)
-/*     ebc4:	3c068009 */ 	lui	$a2,%hi(g_SndHeap)
-/*     ebc8:	24c651f0 */ 	addiu	$a2,$a2,%lo(g_SndHeap)
-/*     ebcc:	00136080 */ 	sll	$t4,$s3,0x2
-/*     ebd0:	01809825 */ 	or	$s3,$t4,$zero
-/*     ebd4:	26730023 */ 	addiu	$s3,$s3,0x23
-/*     ebd8:	366d000f */ 	ori	$t5,$s3,0xf
-/*     ebdc:	39b3000f */ 	xori	$s3,$t5,0xf
-/*     ebe0:	afb30010 */ 	sw	$s3,0x10($sp)
-/*     ebe4:	00002025 */ 	or	$a0,$zero,$zero
-/*     ebe8:	00002825 */ 	or	$a1,$zero,$zero
-/*     ebec:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*     ebf0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*     ebf4:	ae220000 */ 	sw	$v0,0x0($s1)
-/*     ebf8:	00402025 */ 	or	$a0,$v0,$zero
-/*     ebfc:	02802825 */ 	or	$a1,$s4,$zero
-/*     ec00:	0c003504 */ 	jal	dmaExec
-/*     ec04:	02603025 */ 	or	$a2,$s3,$zero
-/*     ec08:	3c098009 */ 	lui	$t1,%hi(var80094ea0)
-/*     ec0c:	8e2f0000 */ 	lw	$t7,0x0($s1)
-/*     ec10:	25294ea0 */ 	addiu	$t1,$t1,%lo(var80094ea0)
-/*     ec14:	8d280000 */ 	lw	$t0,0x0($t1)
-/*     ec18:	25f80010 */ 	addiu	$t8,$t7,0x10
-/*     ec1c:	ae380000 */ 	sw	$t8,0x0($s1)
-/*     ec20:	1900000e */ 	blez	$t0,.L0000ec5c
-/*     ec24:	00001825 */ 	or	$v1,$zero,$zero
-/*     ec28:	00002025 */ 	or	$a0,$zero,$zero
-/*     ec2c:	8e390000 */ 	lw	$t9,0x0($s1)
-.L0000ec30:
-/*     ec30:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     ec34:	03241021 */ 	addu	$v0,$t9,$a0
-/*     ec38:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*     ec3c:	24840004 */ 	addiu	$a0,$a0,0x4
-/*     ec40:	01505821 */ 	addu	$t3,$t2,$s0
-/*     ec44:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*     ec48:	8d280000 */ 	lw	$t0,0x0($t1)
-/*     ec4c:	0068082a */ 	slt	$at,$v1,$t0
-/*     ec50:	5420fff7 */ 	bnezl	$at,.L0000ec30
-/*     ec54:	8e390000 */ 	lw	$t9,0x0($s1)
-/*     ec58:	00001825 */ 	or	$v1,$zero,$zero
-.L0000ec5c:
-/*     ec5c:	3c068009 */ 	lui	$a2,%hi(g_SndHeap)
-/*     ec60:	24c651f0 */ 	addiu	$a2,$a2,%lo(g_SndHeap)
-/*     ec64:	00002025 */ 	or	$a0,$zero,$zero
-/*     ec68:	00002825 */ 	or	$a1,$zero,$zero
-/*     ec6c:	24070002 */ 	addiu	$a3,$zero,0x2
-/*     ec70:	afa80010 */ 	sw	$t0,0x10($sp)
-/*     ec74:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*     ec78:	afa3016c */ 	sw	$v1,0x16c($sp)
-/*     ec7c:	3c098009 */ 	lui	$t1,%hi(var80094ea0)
-/*     ec80:	25294ea0 */ 	addiu	$t1,$t1,%lo(var80094ea0)
-/*     ec84:	8d2c0000 */ 	lw	$t4,0x0($t1)
-/*     ec88:	3c058009 */ 	lui	$a1,%hi(var80095210)
-/*     ec8c:	24a55210 */ 	addiu	$a1,$a1,%lo(var80095210)
-/*     ec90:	aca20000 */ 	sw	$v0,0x0($a1)
-/*     ec94:	1180000c */ 	beqz	$t4,.L0000ecc8
-/*     ec98:	8fa3016c */ 	lw	$v1,0x16c($sp)
-/*     ec9c:	00001025 */ 	or	$v0,$zero,$zero
-/*     eca0:	3404ffff */ 	dli	$a0,0xffff
-/*     eca4:	8cad0000 */ 	lw	$t5,0x0($a1)
-.L0000eca8:
-/*     eca8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     ecac:	01a27021 */ 	addu	$t6,$t5,$v0
-/*     ecb0:	a5c40000 */ 	sh	$a0,0x0($t6)
-/*     ecb4:	8d2f0000 */ 	lw	$t7,0x0($t1)
-/*     ecb8:	24420002 */ 	addiu	$v0,$v0,0x2
-/*     ecbc:	006f082b */ 	sltu	$at,$v1,$t7
-/*     ecc0:	5420fff9 */ 	bnezl	$at,.L0000eca8
-/*     ecc4:	8cad0000 */ 	lw	$t5,0x0($a1)
-.L0000ecc8:
-/*     ecc8:	3c188009 */ 	lui	$t8,%hi(var80095210)
-/*     eccc:	27025210 */ 	addiu	$v0,$t8,%lo(var80095210)
-/*     ecd0:	3c058009 */ 	lui	$a1,%hi(var80095210+0x2d)
-/*     ecd4:	24a5523d */ 	addiu	$a1,$a1,%lo(var80095210+0x2d)
-/*     ecd8:	00401825 */ 	or	$v1,$v0,$zero
-/*     ecdc:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0000ece0:
-/*     ece0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*     ece4:	a4640032 */ 	sh	$a0,0x32($v1)
-/*     ece8:	24630002 */ 	addiu	$v1,$v1,0x2
-/*     ecec:	1445fffc */ 	bne	$v0,$a1,.L0000ece0
-/*     ecf0:	a0400003 */ 	sb	$zero,0x3($v0)
-/*     ecf4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*     ecf8:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*     ecfc:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*     ed00:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*     ed04:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*     ed08:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*     ed0c:	03e00008 */ 	jr	$ra
-/*     ed10:	27bd0170 */ 	addiu	$sp,$sp,0x170
-);
+void sndLoadSfxCtl(void)
+{
+	s32 i;
+	u8 unalignedbuffer[256 + 16];
+	u8 *buffer;
+	ALBankFile *file;
+	ALBank *bank;
+	u32 romaddr;
+	u32 size;
+
+	g_ALSoundRomOffsets = NULL;
+	buffer = (u8 *) ALIGN16((u32)unalignedbuffer);
+
+	// Load the first 256 bytes of the ctl file.
+	size = 256;
+	dmaExec(buffer, (u32) &_sfxctlSegmentRomStart, size);
+
+	// Get the ROM address of the first (and only) bank,
+	// then load the first 256 bytes of the bank.
+	file = (ALBankFile *) buffer;
+	romaddr = (u32)&_sfxctlSegmentRomStart;
+	romaddr += (u32)file->bankArray[0];
+	dmaExec(buffer, romaddr, size);
+
+	// Get the ROM address of the first (and only) instrument,
+	// then load the first 256 bytes of the instrument.
+	bank = (ALBank *) buffer;
+	romaddr = (u32)&_sfxctlSegmentRomStart;
+	romaddr += (u32)bank->instArray[0];
+	dmaExec(buffer, romaddr, size);
+
+	// Get the soundCount (spoiler: there's 1545+1).
+	// The final one might be a null terminator?
+	// Or accounting for 1-based indexing of soundnums.
+	g_NumSounds = ((ALInstrument *)buffer)->soundCount + 1;
+
+	// Calculate the size of the ALInstrument and load it. The pointer is then
+	// shifted forward to point to the instrument's ALSound array. This leaks
+	// some memory but this is initialisation code so it's not much of an issue.
+	size = g_NumSounds * 4 + 20;
+	size = ALIGN16(size);
+	g_ALSoundRomOffsets = alHeapAlloc(&g_SndHeap, 1, size);
+	dmaExec(g_ALSoundRomOffsets, romaddr, size);
+
+	*(u32 *)&g_ALSoundRomOffsets += 0x10;
+
+	// Convert ctl-local offsets to ROM offsets
+	for (i = 0; i < g_NumSounds; i++) {
+		g_ALSoundRomOffsets[i] += (u32) &_sfxctlSegmentRomStart;
+	}
+
+	// Allocate and initialise some soundnum array
+	var80095210.soundnums = alHeapAlloc(&g_SndHeap, sizeof(u16), g_NumSounds);
+
+	for (i = 0; i < (u32)g_NumSounds; i++) {
+		var80095210.soundnums[i] = -1;
+	}
+
+	// Initialise some other arrays
+	for (i = 0; i < 45; i++) {
+		var80095210.unk32[i] = 1;
+		var80095210.unk04[i] = 0;
+	}
+}
 #else
 GLOBAL_ASM(
-glabel snd0000eb2c
+glabel sndLoadSfxCtl
 /*     f2d4:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*     f2d8:	afb20028 */ 	sw	$s2,0x28($sp)
 /*     f2dc:	03a09025 */ 	or	$s2,$sp,$zero
@@ -1836,8 +1773,8 @@ glabel snd0000f49c
 /*     f548:	2841002d */ 	slti	$at,$v0,0x2d
 /*     f54c:	1420fff2 */ 	bnez	$at,.L0000f518
 /*     f550:	24630001 */ 	addiu	$v1,$v1,0x1
-/*     f554:	3c048009 */ 	lui	$a0,%hi(var80094ea0)
-/*     f558:	8c844ea0 */ 	lw	$a0,%lo(var80094ea0)($a0)
+/*     f554:	3c048009 */ 	lui	$a0,%hi(g_NumSounds)
+/*     f558:	8c844ea0 */ 	lw	$a0,%lo(g_NumSounds)($a0)
 /*     f55c:	30e9ffff */ 	andi	$t1,$a3,0xffff
 /*     f560:	00c01825 */ 	or	$v1,$a2,$zero
 /*     f564:	1080000d */ 	beqz	$a0,.L0000f59c
@@ -1850,15 +1787,15 @@ glabel snd0000f49c
 /*     f57c:	54b80005 */ 	bnel	$a1,$t8,.L0000f594
 /*     f580:	0044082b */ 	sltu	$at,$v0,$a0
 /*     f584:	a4660000 */ 	sh	$a2,0x0($v1)
-/*     f588:	3c048009 */ 	lui	$a0,%hi(var80094ea0)
-/*     f58c:	8c844ea0 */ 	lw	$a0,%lo(var80094ea0)($a0)
+/*     f588:	3c048009 */ 	lui	$a0,%hi(g_NumSounds)
+/*     f58c:	8c844ea0 */ 	lw	$a0,%lo(g_NumSounds)($a0)
 /*     f590:	0044082b */ 	sltu	$at,$v0,$a0
 .L0000f594:
 /*     f594:	1420fff7 */ 	bnez	$at,.L0000f574
 /*     f598:	24630002 */ 	addiu	$v1,$v1,0x2
 .L0000f59c:
-/*     f59c:	3c0d8009 */ 	lui	$t5,%hi(var80094ea4)
-/*     f5a0:	8dad4ea4 */ 	lw	$t5,%lo(var80094ea4)($t5)
+/*     f59c:	3c0d8009 */ 	lui	$t5,%hi(g_ALSoundRomOffsets)
+/*     f5a0:	8dad4ea4 */ 	lw	$t5,%lo(g_ALSoundRomOffsets)($t5)
 /*     f5a4:	03a08025 */ 	or	$s0,$sp,$zero
 /*     f5a8:	26100047 */ 	addiu	$s0,$s0,0x47
 /*     f5ac:	000a7080 */ 	sll	$t6,$t2,0x2
@@ -2197,13 +2134,13 @@ void sndInit(void)
 		g_SndGuardStringPtr = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 32);
 		strcpy(g_SndGuardStringPtr, g_SndGuardString);
 
-		// Load the sfx I think
-		snd0000eb2c();
+		// Load sfx.ctl
+		sndLoadSfxCtl();
 
 		// Load seq.ctl
 		var80095200 = 0xffffffff;
 		bankfile = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(bankfile, &_seqctlSegmentRomStart, len);
+		dmaExec(bankfile, (u32) &_seqctlSegmentRomStart, len);
 
 		// Load seq.tbl
 		alBnkfNew(bankfile, &_seqtblSegmentRomStart);
@@ -2213,11 +2150,11 @@ void sndInit(void)
 		// enough space for the table and load it.
 		var80095204 = bankfile->bankArray[0];
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 0x10);
-		dmaExec(g_SeqTable, (void *) seqromaddr, 0x10);
+		dmaExec(g_SeqTable, seqromaddr, 0x10);
 
 		len = g_SeqTable->count * sizeof(struct seqtableentry) + 4;
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(g_SeqTable, (void *) seqromaddr, len + 0xf & 0xfffffff0);
+		dmaExec(g_SeqTable, seqromaddr, len + 0xf & 0xfffffff0);
 
 		// Promote segment-relative offsets to real pointers
 		for (i = 0; i < g_SeqTable->count; i++) {
@@ -4458,8 +4395,8 @@ glabel sndStart
 /*    10a60:	1000001c */ 	b	.L00010ad4
 /*    10a64:	00001025 */ 	or	$v0,$zero,$zero
 .L00010a68:
-/*    10a68:	3c188009 */ 	lui	$t8,%hi(var80094ea0)
-/*    10a6c:	8f184ea0 */ 	lw	$t8,%lo(var80094ea0)($t8)
+/*    10a68:	3c188009 */ 	lui	$t8,%hi(g_NumSounds)
+/*    10a6c:	8f184ea0 */ 	lw	$t8,%lo(g_NumSounds)($t8)
 /*    10a70:	3c198009 */ 	lui	$t9,%hi(g_Is4Mb)
 /*    10a74:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*    10a78:	0078082b */ 	sltu	$at,$v1,$t8
