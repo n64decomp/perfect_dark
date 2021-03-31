@@ -21,7 +21,7 @@ void sndSetSoundMode(s32 mode);
 u32 snd0000f49c(void);
 void snd0000f67c(struct var80094ed8 *arg0);
 void sndInit(void);
-bool snd0000fba0(s32 soundnum);
+bool sndIsMp3(u16 soundnum);
 void snd0000fbc4(s16 arg0);
 u32 snd0000fc48(void);
 u32 snd0000fd74(void);

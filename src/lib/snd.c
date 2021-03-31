@@ -1799,7 +1799,7 @@ glabel snd0000f49c
 /*     f4b8:	00047c03 */ 	sra	$t7,$a0,0x10
 /*     f4bc:	01c08025 */ 	or	$s0,$t6,$zero
 /*     f4c0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     f4c4:	0c003ee8 */ 	jal	snd0000fba0
+/*     f4c4:	0c003ee8 */ 	jal	sndIsMp3
 /*     f4c8:	01e02025 */ 	or	$a0,$t7,$zero
 /*     f4cc:	10400003 */ 	beqz	$v0,.L0000f4dc
 /*     f4d0:	3c088009 */ 	lui	$t0,%hi(var80095210)
@@ -1931,7 +1931,7 @@ glabel snd0000f49c
 /*     f934:	00047c03 */ 	sra	$t7,$a0,0x10
 /*     f938:	01c08025 */ 	or	$s0,$t6,$zero
 /*     f93c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     f940:	0c00400e */ 	jal	snd0000fba0
+/*     f940:	0c00400e */ 	jal	sndIsMp3
 /*     f944:	01e02025 */ 	or	$a0,$t7,$zero
 /*     f948:	10400003 */ 	beqz	$v0,.NB0000f958
 /*     f94c:	3c08800a */ 	lui	$t0,0x800a
@@ -2338,18 +2338,13 @@ const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
 const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
 const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
 
-GLOBAL_ASM(
-glabel snd0000fba0
-/*     fba0:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*     fba4:	a7a40004 */ 	sh	$a0,0x4($sp)
-/*     fba8:	8fa20004 */ 	lw	$v0,0x4($sp)
-/*     fbac:	afa40008 */ 	sw	$a0,0x8($sp)
-/*     fbb0:	27bd0008 */ 	addiu	$sp,$sp,0x8
-/*     fbb4:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*     fbb8:	0018cf82 */ 	srl	$t9,$t8,0x1e
-/*     fbbc:	03e00008 */ 	jr	$ra
-/*     fbc0:	0019102b */ 	sltu	$v0,$zero,$t9
-);
+bool sndIsMp3(u16 soundnum)
+{
+	union soundnumhack tmp;
+	tmp.packed = soundnum & 0xffff;
+
+	return tmp.bits3.unk04 != 0;
+}
 
 GLOBAL_ASM(
 glabel snd0000fbc4
@@ -4522,7 +4517,7 @@ glabel sndStart
 /*    10a0c:	a3a5003e */ 	sb	$a1,0x3e($sp)
 /*    10a10:	a3a8003d */ 	sb	$t0,0x3d($sp)
 /*    10a14:	a3a9003f */ 	sb	$t1,0x3f($sp)
-/*    10a18:	0c003ee8 */ 	jal	snd0000fba0
+/*    10a18:	0c003ee8 */ 	jal	sndIsMp3
 /*    10a1c:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*    10a20:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*    10a24:	87a40040 */ 	lh	$a0,0x40($sp)
@@ -4663,7 +4658,7 @@ glabel sndStart
 /*    10de8:	a3a5003e */ 	sb	$a1,0x3e($sp)
 /*    10dec:	a3a8003d */ 	sb	$t0,0x3d($sp)
 /*    10df0:	a3a9003f */ 	sb	$t1,0x3f($sp)
-/*    10df4:	0c00400e */ 	jal	snd0000fba0
+/*    10df4:	0c00400e */ 	jal	sndIsMp3
 /*    10df8:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*    10dfc:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*    10e00:	87a40040 */ 	lh	$a0,0x40($sp)

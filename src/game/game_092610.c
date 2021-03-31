@@ -3395,7 +3395,7 @@ glabel var7f1ab748
 .L0f093f60:
 /*  f093f60:	358d1000 */ 	ori	$t5,$t4,0x1000
 /*  f093f64:	a60d0030 */ 	sh	$t5,0x30($s0)
-/*  f093f68:	0c003ee8 */ 	jal	snd0000fba0
+/*  f093f68:	0c003ee8 */ 	jal	sndIsMp3
 /*  f093f6c:	87a400ba */ 	lh	$a0,0xba($sp)
 /*  f093f70:	10400014 */ 	beqz	$v0,.L0f093fc4
 /*  f093f74:	00000000 */ 	nop
@@ -3830,7 +3830,7 @@ glabel var7f1a5a9cnb
 /*  f092290:	96180030 */ 	lhu	$t8,0x30($s0)
 /*  f092294:	37191000 */ 	ori	$t9,$t8,0x1000
 /*  f092298:	a6190030 */ 	sh	$t9,0x30($s0)
-/*  f09229c:	0c00400e */ 	jal	snd0000fba0
+/*  f09229c:	0c00400e */ 	jal	sndIsMp3
 /*  f0922a0:	87a400c2 */ 	lh	$a0,0xc2($sp)
 /*  f0922a4:	10400008 */ 	beqz	$v0,.NB0f0922c8
 /*  f0922a8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4072,7 +4072,7 @@ glabel var7f1a5a9cnb
 //
 //	channel->flags |= AUDIOCHANNELFLAG_1000;
 //
-//	if (snd0000fba0(soundnum)) {
+//	if (sndIsMp3(soundnum)) {
 //		channel->flags |= AUDIOCHANNELFLAG_0010;
 //
 //		prevpri = osGetThreadPri(0);
@@ -5473,7 +5473,7 @@ glabel var7f1ab788
 /*  f095198:	0fc2535e */ 	jal	func0f094d78
 /*  f09519c:	e7a80010 */ 	swc1	$f8,0x10($sp)
 /*  f0951a0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0951a4:	0c003ee8 */ 	jal	snd0000fba0
+/*  f0951a4:	0c003ee8 */ 	jal	sndIsMp3
 /*  f0951a8:	87a4007a */ 	lh	$a0,0x7a($sp)
 /*  f0951ac:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0951b0:	44815000 */ 	mtc1	$at,$f10

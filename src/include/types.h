@@ -3630,7 +3630,7 @@ struct something {
 };
 
 union soundnumhack {
-	s16 packed;
+	u16 packed;
 
 	struct {
 		u16 isruss : 1;
