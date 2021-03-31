@@ -2344,45 +2344,26 @@ bool sndIsMp3(u16 soundnum)
 	return tmp.bits3.unk04 != 0;
 }
 
-GLOBAL_ASM(
-glabel snd0000fbc4
-/*     fbc4:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
-/*     fbc8:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
-/*     fbcc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     fbd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     fbd4:	15c00015 */ 	bnez	$t6,.L0000fc2c
-/*     fbd8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     fbdc:	3c0f8006 */ 	lui	$t7,%hi(g_SndMp3Enabled)
-/*     fbe0:	8defddd0 */ 	lw	$t7,%lo(g_SndMp3Enabled)($t7)
-/*     fbe4:	51e00012 */ 	beqzl	$t7,.L0000fc30
-/*     fbe8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*     fbec:	0c00dfa9 */ 	jal	func00037ea4
-/*     fbf0:	00000000 */ 	nop
-/*     fbf4:	10400006 */ 	beqz	$v0,.L0000fc10
-/*     fbf8:	3c188009 */ 	lui	$t8,%hi(var80094eb0+0x8)
-/*     fbfc:	8f184eb8 */ 	lw	$t8,%lo(var80094eb0+0x8)($t8)
-/*     fc00:	13000003 */ 	beqz	$t8,.L0000fc10
-/*     fc04:	00000000 */ 	nop
-/*     fc08:	10000009 */ 	b	.L0000fc30
-/*     fc0c:	00001025 */ 	or	$v0,$zero,$zero
-.L0000fc10:
-/*     fc10:	0c00df87 */ 	jal	func00037e1c
-/*     fc14:	00000000 */ 	nop
-/*     fc18:	3c028009 */ 	lui	$v0,%hi(var80094eb0)
-/*     fc1c:	24424eb0 */ 	addiu	$v0,$v0,%lo(var80094eb0)
-/*     fc20:	2419ffff */ 	addiu	$t9,$zero,-1
-/*     fc24:	ac400004 */ 	sw	$zero,0x4($v0)
-/*     fc28:	ac59000c */ 	sw	$t9,0xc($v0)
-.L0000fc2c:
-/*     fc2c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0000fc30:
-/*     fc30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     fc34:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     fc38:	03e00008 */ 	jr	$ra
-/*     fc3c:	00000000 */ 	nop
-/*     fc40:	03e00008 */ 	jr	$ra
-/*     fc44:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+bool snd0000fbc4(s16 arg0)
+{
+	if (!g_SndDisabled && g_SndMp3Enabled) {
+		if (func00037ea4() && var80094eb0.unk08 != 0) {
+			return false;
+		}
+
+		func00037e1c();
+
+		var80094eb0.unk04 = 0;
+		var80094eb0.unk0c = -1;
+	}
+
+	return true;
+}
+
+void snd0000fc40(s32 arg0)
+{
+	// empty
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
