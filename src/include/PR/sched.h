@@ -25,11 +25,7 @@ typedef struct OSScTask_s {
     OSTask              list;
     OSMesgQueue         *msgQ;
     OSMesg              msg;
-#ifndef _FINALROM                       /* all #ifdef items should    */
-    OSTime              startTime;      /* remain at the end!!, or    */
-    OSTime              totalTime;      /* possible conflict if       */
-#endif                                  /* FINALROM library used with */
-} OSScTask;                             /* non FINALROM code          */
+} OSScTask;
 
 /*
  * OSScTask flags:

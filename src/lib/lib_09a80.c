@@ -2133,15 +2133,15 @@ glabel func0000a044
 /*     a920:	3c018006 */ 	lui	$at,%hi(var8005d5a0)
 /*     a924:	11400006 */ 	beqz	$t2,.L0000a940
 /*     a928:	ac2ed5a0 */ 	sw	$t6,%lo(var8005d5a0)($at)
-/*     a92c:	3c0f8006 */ 	lui	$t7,%hi(var8005f108)
-/*     a930:	8deff108 */ 	lw	$t7,%lo(var8005f108)($t7)
+/*     a92c:	3c0f8006 */ 	lui	$t7,%hi(g_RdpCurTask)
+/*     a930:	8deff108 */ 	lw	$t7,%lo(g_RdpCurTask)($t7)
 /*     a934:	8d390028 */ 	lw	$t9,0x28($t1)
 /*     a938:	10000006 */ 	b	.L0000a954
 /*     a93c:	adf90058 */ 	sw	$t9,0x58($t7)
 .L0000a940:
 /*     a940:	3c18800a */ 	lui	$t8,%hi(var8009cac0)
-/*     a944:	3c0e8006 */ 	lui	$t6,%hi(var8005f108)
-/*     a948:	8dcef108 */ 	lw	$t6,%lo(var8005f108)($t6)
+/*     a944:	3c0e8006 */ 	lui	$t6,%hi(g_RdpCurTask)
+/*     a948:	8dcef108 */ 	lw	$t6,%lo(g_RdpCurTask)($t6)
 /*     a94c:	8f18cac0 */ 	lw	$t8,%lo(var8009cac0)($t8)
 /*     a950:	add80058 */ 	sw	$t8,0x58($t6)
 .L0000a954:

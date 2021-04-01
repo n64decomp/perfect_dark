@@ -55,7 +55,7 @@
 #include "lib/lib_13750.h"
 #include "lib/lib_13790.h"
 #include "lib/lib_233c0.h"
-#include "lib/lib_2f8a0.h"
+#include "lib/rdp.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_2fa00.h"
 #include "data.h"
@@ -564,7 +564,7 @@ glabel mainInit
 /*     d640:	24a5d990 */ 	addiu	$a1,$a1,-9840
 /*     d644:	2484d968 */ 	addiu	$a0,$a0,-9880
 /*     d648:	00003025 */ 	move	$a2,$zero
-/*     d64c:	0c00bc7d */ 	jal	func0002f8f4
+/*     d64c:	0c00bc7d */ 	jal	rdpCreateTask
 /*     d650:	02003825 */ 	move	$a3,$s0
 /*     d654:	8fa31490 */ 	lw	$v1,0x1490($sp)
 /*     d658:	24630001 */ 	addiu	$v1,$v1,0x1
@@ -925,12 +925,12 @@ glabel mainInit
 /*     d868:	0c0026d4 */ 	jal	func00009b50
 /*     d86c:	02002025 */ 	or	$a0,$s0,$zero
 /*     d870:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*     d874:	3c018006 */ 	lui	$at,%hi(var8005f044)
+/*     d874:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferStart)
 /*     d878:	3c048009 */ 	lui	$a0,%hi(var8008db30)
-/*     d87c:	ac2af044 */ 	sw	$t2,%lo(var8005f044)($at)
-/*     d880:	3c018006 */ 	lui	$at,%hi(var8005f040)
+/*     d87c:	ac2af044 */ 	sw	$t2,%lo(g_RdpOutBufferStart)($at)
+/*     d880:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferEnd)
 /*     d884:	254e0800 */ 	addiu	$t6,$t2,0x800
-/*     d888:	ac2ef040 */ 	sw	$t6,%lo(var8005f040)($at)
+/*     d888:	ac2ef040 */ 	sw	$t6,%lo(g_RdpOutBufferEnd)($at)
 /*     d88c:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
 /*     d890:	27a51470 */ 	addiu	$a1,$sp,0x1470
 /*     d894:	0c0121bc */ 	jal	osRecvMesg
@@ -967,7 +967,7 @@ glabel mainInit
 /*     d904:	24a5dcf0 */ 	addiu	$a1,$a1,%lo(var8005dcf0)
 /*     d908:	2484dcc8 */ 	addiu	$a0,$a0,%lo(var8005dcc8)
 /*     d90c:	00003025 */ 	or	$a2,$zero,$zero
-/*     d910:	0c00be3d */ 	jal	func0002f8f4
+/*     d910:	0c00be3d */ 	jal	rdpCreateTask
 /*     d914:	02003825 */ 	or	$a3,$s0,$zero
 /*     d918:	8fa31488 */ 	lw	$v1,0x1488($sp)
 /*     d91c:	24630001 */ 	addiu	$v1,$v1,0x1
@@ -1342,7 +1342,7 @@ glabel mainInit
 /*     de1c:	24a5f610 */ 	addiu	$a1,$a1,-2544
 /*     de20:	02402025 */ 	or	$a0,$s2,$zero
 /*     de24:	00003025 */ 	or	$a2,$zero,$zero
-/*     de28:	0c00c411 */ 	jal	func0002f8f4
+/*     de28:	0c00c411 */ 	jal	rdpCreateTask
 /*     de2c:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*     de30:	26100001 */ 	addiu	$s0,$s0,0x1
 /*     de34:	2a010006 */ 	slti	$at,$s0,0x6
@@ -1591,8 +1591,8 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		func0000aab0(2);
 //		func00009b50(fb);
 //
-//		var8005f044 = texture;
-//		var8005f040 = texture + 0x400; // 0x800 bytes, because texture is u16
+//		g_RdpOutBufferStart = texture;
+//		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 //
 //		while (osRecvMesg(&var8008db30, &sp1470, OS_MESG_NOBLOCK) == 0) {
 //			// empty
@@ -1607,7 +1607,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //
 //			if (*(s16 *)sp1470 == 1) {
 //				func0000a044();
-//				func0002f8f4(var8005dcc8, var8005dcf0, 0, sp1450);
+//				rdpCreateTask(var8005dcc8, var8005dcf0, 0, sp1450);
 //				j++;
 //			}
 //		}
@@ -2647,7 +2647,7 @@ void mainTick(void)
 			func0000a044();
 		}
 
-		func0002f8f4(gdlstart, gdl, 0, array);
+		rdpCreateTask(gdlstart, gdl, 0, array);
 		var8005d9cc++;
 		func00012a8c();
 		func0f16cf94();
@@ -3020,7 +3020,7 @@ glabel mainTick
 .NB0000ee3c:
 /*     ee3c:	8fa50094 */ 	lw	$a1,0x94($sp)
 /*     ee40:	00003025 */ 	or	$a2,$zero,$zero
-/*     ee44:	0c00c411 */ 	jal	func0002f8f4
+/*     ee44:	0c00c411 */ 	jal	rdpCreateTask
 /*     ee48:	27a70070 */ 	addiu	$a3,$sp,0x70
 /*     ee4c:	3c028006 */ 	lui	$v0,0x8006
 /*     ee50:	2442f2ec */ 	addiu	$v0,$v0,-3348
