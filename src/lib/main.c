@@ -1722,7 +1722,7 @@ glabel func0000e010nb
 void mainEntry(void)
 {
 	mainInit();
-	func0002f8a0();
+	rdpInit();
 	sndInit();
 
 	while (true) {

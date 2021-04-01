@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0002f8a0(void);
+u32 rdpInit(void);
 void func0002f8f4(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *arg3);
 
 #endif

@@ -59,31 +59,17 @@ u32 var8005f100 = 0x00000000;
 u32 var8005f104 = 0x00000000;
 u32 var8005f108 = (u32) &var8005f048;
 
-GLOBAL_ASM(
-glabel func0002f8a0
-/*    2f8a0:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
-/*    2f8a4:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
-/*    2f8a8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    2f8ac:	24010001 */ 	addiu	$at,$zero,0x1
-/*    2f8b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    2f8b4:	15c10002 */ 	bne	$t6,$at,.L0002f8c0
-/*    2f8b8:	3c040001 */ 	lui	$a0,0x1
-/*    2f8bc:	34048000 */ 	dli	$a0,0x8000
-.L0002f8c0:
-/*    2f8c0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    2f8c4:	0c0048f2 */ 	jal	malloc
-/*    2f8c8:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*    2f8cc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    2f8d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    2f8d4:	3c038006 */ 	lui	$v1,%hi(var8005f044)
-/*    2f8d8:	2463f044 */ 	addiu	$v1,$v1,%lo(var8005f044)
-/*    2f8dc:	ac620000 */ 	sw	$v0,0x0($v1)
-/*    2f8e0:	3c018006 */ 	lui	$at,%hi(var8005f040)
-/*    2f8e4:	0044c021 */ 	addu	$t8,$v0,$a0
-/*    2f8e8:	ac38f040 */ 	sw	$t8,%lo(var8005f040)($at)
-/*    2f8ec:	03e00008 */ 	jr	$ra
-/*    2f8f0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void rdpInit(void)
+{
+	s32 size = 0x10000;
+
+	if (IS4MB()) {
+		size = 0x8000;
+	}
+
+	var8005f044 = malloc(size, MEMPOOL_PERMANENT);
+	var8005f040 = (u16 *)((u32)var8005f044 + size);
+}
 
 GLOBAL_ASM(
 glabel func0002f8f4
