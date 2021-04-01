@@ -25,7 +25,7 @@ extern u32 var8005ce98;
 extern u32 var8005ce9c;
 extern OSMesg var8005cea8;
 extern u32 var8005cec8;
-extern s8 var8005ced0;
+extern s8 g_Resetting;
 extern OSDevMgr __osViDevMgr;
 extern u32 var8005cefc;
 extern OSDevMgr __osPiDevMgr;

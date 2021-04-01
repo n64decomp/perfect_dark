@@ -47,7 +47,7 @@ void joy000150e8(s32 line, char *file);
 void joy00015144(s32 line, char *file);
 #endif
 
-void joy0001519c(void);
+void joyReset(void);
 void joy000152d0(s8 playernum, s32 *arg1, s32 *arg2);
 void joy000153c4(s8 arg0, s32 arg1);
 s32 joy000155b4(s8 index);

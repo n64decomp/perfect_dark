@@ -1303,7 +1303,7 @@ glabel func00016154nb
 );
 #endif
 
-void joy0001519c(void)
+void joyReset(void)
 {
 	s32 i;
 

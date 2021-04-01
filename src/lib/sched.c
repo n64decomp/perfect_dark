@@ -269,18 +269,18 @@ void func00002078(OSSched *sc)
 	sc->frameCount++;
 
 #if VERSION >= VERSION_PAL_FINAL
-	if (var8005ced0 == 0 && (sc->frameCount & 1)) {
+	if (!g_Resetting && (sc->frameCount & 1)) {
 		osStopTimer(&var8008de18);
 		osSetTimer(&var8008de18, 280000, 0, amgrGetFrameMesgQueue(), &var8005cea8);
 	}
 #else
-	if (var8005ced0 == 0 && ((sc->frameCount & 1) || IS4MB())) {
+	if (!g_Resetting && ((sc->frameCount & 1) || IS4MB())) {
 		osStopTimer(&var8008de18);
 		osSetTimer(&var8008de18, 280000, 0, amgrGetFrameMesgQueue(), &var8005cea8);
 	}
 #endif
 
-	if (var8005ced0 == 0) {
+	if (!g_Resetting) {
 		func00009ed4();
 	}
 
@@ -347,7 +347,7 @@ void __scHandleRSP(OSSched *sc)
 	OSScTask *t, *sp = 0, *dp = 0;
 	s32 state;
 
-	if (!var8005ced0) {
+	if (!g_Resetting) {
 		t = sc->curRSPTask;
 		sc->curRSPTask = 0;
 
