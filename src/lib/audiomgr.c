@@ -1316,12 +1316,10 @@ void amgrStartThread(void)
 	g_AudioIsThreadRunning = true;
 }
 
-GLOBAL_ASM(
-glabel amgr00009118
-/*     9118:	3c028009 */ 	lui	$v0,%hi(g_AudioManager+0x248)
-/*     911c:	03e00008 */ 	jr	$ra
-/*     9120:	24421810 */ 	addiu	$v0,$v0,%lo(g_AudioManager+0x248)
-);
+OSMesgQueue *amgrGetFrameMesgQueue(void)
+{
+	return &g_AudioManager.audioFrameMsgQ;
+}
 
 /**
  * This doesn't set g_AudioIsThreadRunning to false, but that's okay because

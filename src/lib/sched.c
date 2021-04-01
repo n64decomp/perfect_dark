@@ -271,12 +271,12 @@ void func00002078(OSSched *sc)
 #if VERSION >= VERSION_PAL_FINAL
 	if (var8005ced0 == 0 && (sc->frameCount & 1)) {
 		osStopTimer(&var8008de18);
-		osSetTimer(&var8008de18, 280000, 0, amgr00009118(), &var8005cea8);
+		osSetTimer(&var8008de18, 280000, 0, amgrGetFrameMesgQueue(), &var8005cea8);
 	}
 #else
 	if (var8005ced0 == 0 && ((sc->frameCount & 1) || IS4MB())) {
 		osStopTimer(&var8008de18);
-		osSetTimer(&var8008de18, 280000, 0, amgr00009118(), &var8005cea8);
+		osSetTimer(&var8008de18, 280000, 0, amgrGetFrameMesgQueue(), &var8005cea8);
 	}
 #endif
 
