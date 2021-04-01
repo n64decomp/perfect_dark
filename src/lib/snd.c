@@ -4431,6 +4431,69 @@ glabel sndStart
 /*    10adc:	03e00008 */ 	jr	$ra
 /*    10ae0:	00000000 */ 	nop
 );
+
+// Mismatch: Likely related to soundnumhack
+//struct audiohandle *sndStart(s32 arg0, s16 sound, struct audiohandle **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7)
+//{
+//	union soundnumhack sp44;
+//	union soundnumhack sp40;
+//	u8 sp3f;
+//	u8 sp3e;
+//	u8 sp3d;
+//	u8 sp3c;
+//	s16 sp3a;
+//	u16 sp38;
+//	f32 sp34;
+//
+//	// 91c
+//	sp3f = arg7 != -1 ? arg7 : 0;
+//
+//	// 93c
+//	sp3e = arg6 != -1 ? arg6 : 1;
+//
+//	// 958
+//	sp3d = arg4 != -1 ? arg4 : 64;
+//
+//	// 968
+//	sp3a = arg3 != -1 ? arg3 : 0x7fff;
+//
+//	// 988
+//	sp34 = arg5 > 0.0f ? arg5 : 1.0f;
+//
+//	sp44.packed = sound & 0xffff;
+//
+//	// 9ac
+//	if (g_SndDisabled) {
+//		return NULL;
+//	}
+//
+//	// 9cc
+//	sp40.packed = sp44.bits.isruss ? g_AudioRussMappings[sp44.bits.id].soundnum : sp44.packed;
+//
+//	// 9ec
+//	if (sp40.bits3.id == 0x37 || sp40.bits3.id == 9) {
+//		return NULL;
+//	}
+//
+//	// a18
+//	if (sndIsMp3(sp40.packed)) {
+//		snd00010ae4(sp40.packed, sp3a, sp3d, 0);
+//
+//		if (handle != NULL) {
+//			*handle = NULL;
+//		}
+//
+//		return NULL;
+//	}
+//
+//	// a68
+//	if (sp40.bits3.id < g_NumSounds) {
+//		return func00033820(arg0, sp40.bits3.id, sp3a, sp3d & 0x7f,
+//				sp34, sp3f, IS4MB() ? 0 : sp3e, handle);
+//	}
+//
+//	return NULL;
+//}
 #else
 GLOBAL_ASM(
 glabel sndStart

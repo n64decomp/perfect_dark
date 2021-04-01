@@ -35,7 +35,7 @@ u32 snd0001036c(void);
 void sndAdjust(struct audiohandle **handle, s32 arg1, s32 arg2, s32 speakerweight, s16 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
 struct audiohandle *snd00010718(struct audiohandle **handle, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
 struct audiohandle *sndStart(s32 arg0, s16 sound, struct audiohandle **handle, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7);
-u32 snd00010ae4(void);
+void snd00010ae4(s32 soundnum, s32 arg1, s32 arg2, s32 arg3);
 void sndPlayNosedive(s32 seconds);
 void sndStopNosedive(void);
 void sndTickNosedive(void);
