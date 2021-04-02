@@ -1098,7 +1098,7 @@ u8 func0404_scientist[] = {
 	label(0x15)
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT3)
 	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
-	assign_sound(0x01c3, CHANNEL_5)
+	assign_sound(SFX_01C3, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM3, TRUE)
 	goto_next(0x0f)
 
@@ -1115,7 +1115,7 @@ u8 func0404_scientist[] = {
 	label(0x16)
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT1)
 	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
-	assign_sound(0x01c3, CHANNEL_5)
+	assign_sound(SFX_01C3, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM1, TRUE)
 	goto_next(0x0f)
 
@@ -1132,13 +1132,13 @@ u8 func0404_scientist[] = {
 	label(0x17)
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT2)
 	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
-	assign_sound(0x01c3, CHANNEL_5)
+	assign_sound(SFX_01C3, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM2, TRUE)
 	goto_next(0x0f)
 
 	label(0x0f)
 	show_hudmsg(CHR_TARGET, L_EAR_028) // "Powering down active systems."
-	speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+	speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0d)
@@ -1178,7 +1178,7 @@ u8 func0406_nasty_scientist[] = {
 	if_just_injured(CHR_SELF, /*goto*/ 0x2f)
 	if_num_times_shot_lt(1, /*goto*/ 0x06)
 	label(0x2f)
-	play_sound(0x128c, CHANNEL_7)
+	play_sound(MP3_028C, CHANNEL_7)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1256,7 +1256,7 @@ u8 func0406_nasty_scientist[] = {
 
 	label(0x30)
 	set_stage_flag(STAGEFLAG_ALARM3_ACTIVE)
-	assign_sound(0x8118, CHANNEL_6)
+	assign_sound(SFX_TYPING_8118, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_GOODTERM3, TRUE)
 	goto_next(0x0f)
 
@@ -1266,7 +1266,7 @@ u8 func0406_nasty_scientist[] = {
 
 	label(0x30)
 	set_stage_flag(STAGEFLAG_ALARM1_ACTIVE)
-	assign_sound(0x8118, CHANNEL_6)
+	assign_sound(SFX_TYPING_8118, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_GOODTERM1, TRUE)
 	goto_next(0x0f)
 
@@ -1276,7 +1276,7 @@ u8 func0406_nasty_scientist[] = {
 
 	label(0x30)
 	set_stage_flag(STAGEFLAG_ALARM2_ACTIVE)
-	assign_sound(0x8118, CHANNEL_6)
+	assign_sound(SFX_TYPING_8118, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_GOODTERM2, TRUE)
 	goto_next(0x0f)
 
@@ -1285,7 +1285,7 @@ u8 func0406_nasty_scientist[] = {
 	goto_next(0x78)
 
 	label(0x0f)
-	speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+	speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 	say_quip(CHR_TARGET, 0x0e, 0xff, 0x00, 0xff, 0x81, 0x07, 0x08)
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1315,8 +1315,8 @@ u8 func1009_weaponscache[] = {
 	label(0x2f)
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_PSYCHOSISED, /*goto*/ 0x2f)
 	show_hudmsg(CHR_TARGET, L_EAR_098) // "Secret weapons compartment opened."
-	play_sound(0x00f7, -1)
-	assign_sound(0x043b, CHANNEL_5)
+	play_sound(SFX_00F7, -1)
+	assign_sound(SFX_043B, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_CMP150_1, TRUE)
 	hide_object(OBJ_CACHEDOOR1)
 	hide_object(OBJ_CACHEDOOR2)
@@ -1330,7 +1330,7 @@ u8 func1009_weaponscache[] = {
 
 	label(0x2f)
 	show_hudmsg(CHR_TARGET, L_EAR_099) // "Enemy detected - weapon cache locked."
-	play_sound(0x00f7, -1)
+	play_sound(SFX_00F7, -1)
 	unset_stage_flag(STAGEFLAG_BOT_ACTIVE)
 	unset_stage_flag(STAGEFLAG_BOT_REPROGRAMMED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1366,8 +1366,8 @@ u8 func1002_bot_activation_terminal[] = {
 		if_stage_flag_eq(STAGEFLAG_BOT_REPROGRAMMED, TRUE, /*goto*/ 0x2f)
 
 		// Activating prior to reprogramming
-		play_sound(0x01ca, -1)
-		assign_sound(0x01c5, CHANNEL_3)
+		play_sound(SFX_01CA, -1)
+		assign_sound(SFX_01C5, CHANNEL_3)
 		play_sound_from_object(CHANNEL_3, OBJ_PURPLEBOT, 0x0258, 0x0320)
 		show_hudmsg(CHR_TARGET, L_EAR_015) // "Maintenance robots activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE)
@@ -1379,14 +1379,14 @@ u8 func1002_bot_activation_terminal[] = {
 		show_hudmsg(CHR_TARGET, L_EAR_015) // "Maintenance robots activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		yield
-		play_sound(0x00f7, -1)
+		play_sound(SFX_00F7, -1)
 		show_hudmsg(CHR_TARGET, L_EAR_018) // "Maintenance cycle activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_MAINTENANCE)
 		reloop(0x04)
 
 		// Attempting to deactivate while bot reprogrammed and running
 		label(0x08)
-		play_sound(0x00f7, -1)
+		play_sound(SFX_00F7, -1)
 		show_hudmsg(CHR_TARGET, L_EAR_020) // "Operation not allowed - robots busy."
 		restart_timer
 
@@ -1403,12 +1403,12 @@ u8 func1002_bot_activation_terminal[] = {
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE_CLEANING)
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE_NOPROGRAM)
-		play_sound(0x01c9, -1)
+		play_sound(SFX_01C9, -1)
 		mute_channel(CHANNEL_3)
 		reloop(0x04)
 
 		label(0x0b)
-		play_sound(0x00f7, -1)
+		play_sound(SFX_00F7, -1)
 		show_hudmsg(CHR_TARGET, L_EAR_023) // "Maintenance robot system offline."
 	endloop(0x04)
 
@@ -1443,7 +1443,7 @@ u8 func1003_bot_programming_terminal[] = {
 		if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE_CLEANING, TRUE, /*goto*/ 0x09)
 
 		// Reprogramming
-		play_sound(0x00f7, -1)
+		play_sound(SFX_00F7, -1)
 		show_hudmsg(CHR_TARGET, L_EAR_016) // "Maintenance robots reprogrammed."
 		set_stage_flag(STAGEFLAG_BOT_REPROGRAMMED)
 		if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE, TRUE, /*goto*/ 0x2f)
@@ -1451,7 +1451,7 @@ u8 func1003_bot_programming_terminal[] = {
 
 		label(0x2f)
 		yield
-		play_sound(0x00f7, -1)
+		play_sound(SFX_00F7, -1)
 		show_hudmsg(CHR_TARGET, L_EAR_019) // "Routine cleaning cycle activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_CLEANING)
 		restart_timer
@@ -1465,7 +1465,7 @@ u8 func1003_bot_programming_terminal[] = {
 
 		// Attempting to reprogram while bot already reprogrammed and running
 		label(0x09)
-		play_sound(0x00f7, -1)
+		play_sound(SFX_00F7, -1)
 		show_hudmsg(CHR_TARGET, L_EAR_020) // "Operation not allowed - robots busy."
 		restart_timer
 
@@ -1639,7 +1639,7 @@ u8 func1006_terminal_activation[] = {
 
 		// Inactive terminal
 		label(0x2f)
-		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		show_hudmsg(CHR_TARGET, L_EAR_027) // "Terminal is not active."
 		restart_timer
 
@@ -1652,7 +1652,7 @@ u8 func1006_terminal_activation[] = {
 
 		// Good terminal 0x07
 		label(0x08)
-		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT1, FALSE, /*goto*/ 0x2f)
 		restart_timer
 
@@ -1666,7 +1666,7 @@ u8 func1006_terminal_activation[] = {
 
 		label(0x2f)
 		show_hudmsg(CHR_TARGET, L_EAR_028) // "Powering down active systems."
-		assign_sound(0x01c3, CHANNEL_5)
+		assign_sound(SFX_01C3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM1, TRUE)
 		restart_timer
 
@@ -1681,7 +1681,7 @@ u8 func1006_terminal_activation[] = {
 
 		// Good terminal 0x08
 		label(0x0d)
-		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT2, FALSE, /*goto*/ 0x2f)
 		restart_timer
 
@@ -1695,7 +1695,7 @@ u8 func1006_terminal_activation[] = {
 
 		label(0x2f)
 		show_hudmsg(CHR_TARGET, L_EAR_028) // "Powering down active systems."
-		assign_sound(0x01c3, CHANNEL_5)
+		assign_sound(SFX_01C3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM2, TRUE)
 		restart_timer
 
@@ -1710,7 +1710,7 @@ u8 func1006_terminal_activation[] = {
 
 		// Good terminal 0x09
 		label(0x0f)
-		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT3, FALSE, /*goto*/ 0x2f)
 		restart_timer
 
@@ -1724,7 +1724,7 @@ u8 func1006_terminal_activation[] = {
 
 		label(0x2f)
 		show_hudmsg(CHR_TARGET, L_EAR_028) // "Powering down active systems."
-		assign_sound(0x01c3, CHANNEL_5)
+		assign_sound(SFX_01C3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM3, TRUE)
 		restart_timer
 
@@ -1740,7 +1740,7 @@ u8 func1006_terminal_activation[] = {
 		// Alarm terminal 0x0f
 		label(0x09)
 		if_alarm_active(/*goto*/ 0x06)
-		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		show_hudmsg(CHR_TARGET, L_EAR_030) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM1_ACTIVE)
 		activate_alarm
@@ -1755,7 +1755,7 @@ u8 func1006_terminal_activation[] = {
 		// Alarm terminal 0x14
 		label(0x0b)
 		if_alarm_active(/*goto*/ 0x06)
-		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		show_hudmsg(CHR_TARGET, L_EAR_030) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM2_ACTIVE)
 		activate_alarm
@@ -1770,7 +1770,7 @@ u8 func1006_terminal_activation[] = {
 		// Alarm terminal 0x19
 		label(0x0c)
 		if_alarm_active(/*goto*/ 0x06)
-		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		show_hudmsg(CHR_TARGET, L_EAR_030) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM3_ACTIVE)
 		activate_alarm
@@ -1803,7 +1803,7 @@ u8 func1007_uplink[] = {
 		if_stage_flag_eq(STAGEFLAG_UPLINK_FINISHED, FALSE, /*goto*/ 0x06)
 
 		// Activating a second time
-		speak(CHR_TARGET, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		show_hudmsg(CHR_TARGET, L_EAR_041) // "Security door already unlocked."
 		reloop(0x04)
 
@@ -1811,7 +1811,7 @@ u8 func1007_uplink[] = {
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 
 		// Activated computer without uplink
-		speak(CHR_TARGET, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, SFX_8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		show_hudmsg(CHR_TARGET, L_EAR_036) // "ACCESS DENIED - security code required."
 		reloop(0x04)
 
@@ -1842,7 +1842,7 @@ u8 func1007_uplink[] = {
 		show_hudmsg(CHR_TARGET, L_EAR_037) // "Searching for password."
 		restart_timer
 		set_stage_flag(STAGEFLAG_UPLINK_SEARCHING)
-		assign_sound(0x01bf, CHANNEL_5)
+		assign_sound(SFX_01BF, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_UPLINKPC, TRUE)
 
 		beginloop(0x14)
@@ -1859,7 +1859,7 @@ u8 func1007_uplink[] = {
 
 		label(0x06)
 		mute_channel(CHANNEL_5)
-		assign_sound(0x01c1, CHANNEL_6)
+		assign_sound(SFX_01C1, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
 		show_hudmsg(CHR_TARGET, L_EAR_039) // "Password located - bypassing lock."
 		yield
@@ -1872,7 +1872,7 @@ u8 func1007_uplink[] = {
 		endloop(0x15)
 
 		label(0x06)
-		assign_sound(0x043b, CHANNEL_6)
+		assign_sound(SFX_043B, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, 0x22, TRUE)
 		reloop(0x04)
 
@@ -1881,7 +1881,7 @@ u8 func1007_uplink[] = {
 		show_hudmsg(CHR_TARGET, L_EAR_040) // "Contact broken - reestablish link."
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
-		assign_sound(0x01c0, CHANNEL_6)
+		assign_sound(SFX_01C0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
 		restart_timer
 
@@ -1904,7 +1904,7 @@ u8 func1007_uplink[] = {
 		show_hudmsg(CHR_TARGET, L_EAR_085) // "Connection broken - experiments still active."
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
-		assign_sound(0x01c0, CHANNEL_6)
+		assign_sound(SFX_01C0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
 		restart_timer
 
@@ -2259,62 +2259,62 @@ u8 func0416_intro[] = {
 
 
 	wait_until(0, 0x56)
-	play_sound(0x01d5, CHANNEL_7)
+	play_sound(SFX_01D5, CHANNEL_7)
 
 	wait_until(250, 0x57)
-	play_sound(0x00ec, CHANNEL_10)
+	play_sound(SFX_00EC, CHANNEL_10)
 
 	wait_until(270, 0x58)
-	play_sound(0x0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_10)
 
 	wait_until(290, 0x59)
-	play_sound(0x0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_10)
 
 	wait_until(320, 0x5a)
-	play_sound(0x0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_10)
 
 	wait_until(380, 0x5b)
 	open_door(0x24)
-	play_sound(0x0165, CHANNEL_7)
+	play_sound(SFX_0165, CHANNEL_7)
 
 	wait_until(580, 0x5c)
-	play_sound(0x01d2, CHANNEL_7)
+	play_sound(SFX_01D2, CHANNEL_7)
 
 	wait_until(950, 0x5d)
-	play_sound(0x0172, CHANNEL_7)
+	play_sound(SFX_0172, CHANNEL_7)
 
 	wait_until(990, 0x5e)
-	play_sound(0x0171, CHANNEL_7)
+	play_sound(SFX_0171, CHANNEL_7)
 
 	wait_until(1060, 0x5f)
-	play_sound(0x0172, CHANNEL_7)
+	play_sound(SFX_0172, CHANNEL_7)
 
 	wait_until(1090, 0x60)
-	play_sound(0x0173, CHANNEL_7)
+	play_sound(SFX_0173, CHANNEL_7)
 
 	wait_until(1140, 0x61)
-	play_sound(0x01d3, CHANNEL_7)
+	play_sound(SFX_01D3, CHANNEL_7)
 
 	wait_until(1190, 0x62)
-	play_sound(0x0031, CHANNEL_7)
+	play_sound(SFX_0031, CHANNEL_7)
 
 	wait_until(1196, 0x68)
-	play_sound(0x008f, CHANNEL_6)
+	play_sound(SFX_008F, CHANNEL_6)
 
 	wait_until(1310, 0x63)
-	play_sound(0x0085, CHANNEL_7)
+	play_sound(SFX_0085, CHANNEL_7)
 
 	wait_until(1370, 0x64)
-	play_sound(0x007b, CHANNEL_7)
+	play_sound(SFX_007B, CHANNEL_7)
 
 	wait_until(1410, 0x65)
-	play_sound(0x0175, CHANNEL_7)
+	play_sound(SFX_0175, CHANNEL_7)
 
 	wait_until(1430, 0x66)
-	play_sound(0x0176, CHANNEL_7)
+	play_sound(SFX_0176, CHANNEL_7)
 
 	wait_until(1600, 0x67)
-	play_sound(0x0171, CHANNEL_7)
+	play_sound(SFX_0171, CHANNEL_7)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2f)
@@ -2518,92 +2518,92 @@ u8 func1415_outro_audio[] = {
 
 
 	outro_wait_until(78, 0x56)
-	play_sound(0x0161, CHANNEL_6)
+	play_sound(SFX_0161, CHANNEL_6)
 
 	outro_wait_until(116, 0x57)
-	play_sound(0x0165, CHANNEL_7)
+	play_sound(SFX_0165, CHANNEL_7)
 
 	outro_wait_until(131, 0x58)
-	play_sound(0x0166, CHANNEL_5)
+	play_sound(SFX_0166, CHANNEL_5)
 
 	outro_wait_until(162, 0x59)
-	play_sound(0x0167, CHANNEL_6)
+	play_sound(SFX_0167, CHANNEL_6)
 
 	outro_wait_until(197, 0x5a)
-	play_sound(0x0168, CHANNEL_7)
+	play_sound(SFX_0168, CHANNEL_7)
 
 	outro_wait_until(236, 0x5b)
-	play_sound(0x0167, CHANNEL_5)
+	play_sound(SFX_0167, CHANNEL_5)
 
 	outro_wait_until(266, 0x5c)
-	play_sound(0x0168, CHANNEL_6)
+	play_sound(SFX_0168, CHANNEL_6)
 
 	outro_wait_until(281, 0x5d)
-	play_sound(0x0165, CHANNEL_7)
+	play_sound(SFX_0165, CHANNEL_7)
 
 	outro_wait_until(335, 0x5e)
-	play_sound(0x0162, CHANNEL_5)
+	play_sound(SFX_0162, CHANNEL_5)
 
 	outro_wait_until(384, 0x5f)
-	play_sound(0x0163, CHANNEL_6)
+	play_sound(SFX_0163, CHANNEL_6)
 
 	outro_wait_until(415, 0x60)
-	play_sound(0x0164, CHANNEL_7)
+	play_sound(SFX_0164, CHANNEL_7)
 
 	outro_wait_until(434, 0x61)
-	play_sound(0x0163, CHANNEL_5)
+	play_sound(SFX_0163, CHANNEL_5)
 
 	outro_wait_until(474, 0x62)
-	play_sound(0x0164, CHANNEL_6)
+	play_sound(SFX_0164, CHANNEL_6)
 
 	outro_wait_until(511, 0x63)
-	play_sound(0x0163, CHANNEL_7)
+	play_sound(SFX_0163, CHANNEL_7)
 
 	outro_wait_until(356, 0x65)
-	play_sound(0x0164, CHANNEL_5)
+	play_sound(SFX_0164, CHANNEL_5)
 
 	outro_wait_until(581, 0x66)
-	play_sound(0x0161, CHANNEL_6)
+	play_sound(SFX_0161, CHANNEL_6)
 
 	outro_wait_until(620, 0x68)
-	speak(CHR_P1P2, L_EAR_100, 0x73ec, CHANNEL_7, COLOR_09_BLUE) // "Dr. Caroll?"
+	speak(CHR_P1P2, L_EAR_100, MP3_03EC, CHANNEL_7, COLOR_09_BLUE) // "Dr. Caroll?"
 
 	outro_wait_until(676, 0x67)
-	play_sound(0x0162, CHANNEL_6)
+	play_sound(SFX_0162, CHANNEL_6)
 
 	outro_wait_until(747, 0x69)
-	play_sound(0x0163, CHANNEL_5)
+	play_sound(SFX_0163, CHANNEL_5)
 
 	outro_wait_until(750, 0x6a)
-	speak(CHR_P1P2, L_EAR_101, 0x73ed, CHANNEL_7, COLOR_09_BLUE) // "Dr. Caroll, are you here?"
+	speak(CHR_P1P2, L_EAR_101, MP3_03ED, CHANNEL_7, COLOR_09_BLUE) // "Dr. Caroll, are you here?"
 
 	outro_wait_until(864, 0x6b)
-	speak(CHR_P1P2, L_EAR_102, 0x73ee, CHANNEL_7, COLOR_04_ORANGE) // "Well, is it safe to come out?"
+	speak(CHR_P1P2, L_EAR_102, MP3_03EE, CHANNEL_7, COLOR_04_ORANGE) // "Well, is it safe to come out?"
 
 	outro_wait_until(1027, 0x6c)
-	speak(CHR_P1P2, L_EAR_103, 0x73ef, CHANNEL_7, COLOR_09_BLUE) // "Yes, all clear."
+	speak(CHR_P1P2, L_EAR_103, MP3_03EF, CHANNEL_7, COLOR_09_BLUE) // "Yes, all clear."
 
 	outro_wait_until(1200, 0x6f)
 	mute_channel(CHANNEL_6)
 
-	play_sound(0x042c, CHANNEL_4)
+	play_sound(SFX_DOOR_042C, CHANNEL_4)
 	outro_wait_until(1219, 0x70)
 
 	outro_wait_until(1254, 0x71)
-	speak(CHR_P1P2, L_EAR_104, 0x73f0, CHANNEL_7, COLOR_09_BLUE) // "Wh..what... you're..."
+	speak(CHR_P1P2, L_EAR_104, MP3_03F0, CHANNEL_7, COLOR_09_BLUE) // "Wh..what... you're..."
 
 	outro_wait_until(1460, 0x73)
-	speak(CHR_P1P2, L_EAR_105, 0x73f1, CHANNEL_7, COLOR_04_ORANGE) // "Very professionally done, my dear, but there's no ..."
+	speak(CHR_P1P2, L_EAR_105, MP3_03F1, CHANNEL_7, COLOR_04_ORANGE) // "Very professionally done, my dear, but there's no ..."
 
 	outro_wait_until(1556, 0x74)
 	mute_channel(CHANNEL_5)
-	play_sound(0x042c, CHANNEL_6)
+	play_sound(SFX_DOOR_042C, CHANNEL_6)
 
 	outro_wait_until(1900, 0x75)
-	speak(CHR_P1P2, L_EAR_106, 0x73f2, CHANNEL_7, COLOR_04_ORANGE) // "Come on. I have vital information, and you must pr..."
+	speak(CHR_P1P2, L_EAR_106, MP3_03F2, CHANNEL_7, COLOR_04_ORANGE) // "Come on. I have vital information, and you must pr..."
 
 	outro_wait_until(2200, 0x76)
-	play_sound(0x0161, CHANNEL_6)
+	play_sound(SFX_0161, CHANNEL_6)
 
 	label(0x77)
 	goto_first(0x79)
@@ -2715,17 +2715,17 @@ u8 func0409_uplink_responder[] = {
 u8 func1012_start_laser_sound[] = {
 	label(0x04)
 	yield
-	assign_sound(0x8119, CHANNEL_0)
+	assign_sound(SFX_8119, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, 0x28, 0x012c, 0x0190)
 	label(0x2f)
-	assign_sound(0x811a, CHANNEL_1)
+	assign_sound(SFX_811A, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, 0x2d, 0x012c, 0x0190)
 	label(0x2f)
-	assign_sound(0x8119, CHANNEL_2)
+	assign_sound(SFX_8119, CHANNEL_2)
 	play_sound_from_object(CHANNEL_2, 0x32, 0x012c, 0x0190)
-	assign_sound(0x01c5, CHANNEL_3)
+	assign_sound(SFX_01C5, CHANNEL_3)
 	play_sound_from_object(CHANNEL_3, 0x38, 0x0258, 0x0320)
-	assign_sound(0x01c5, CHANNEL_4)
+	assign_sound(SFX_01C5, CHANNEL_4)
 	play_sound_from_object(CHANNEL_4, 0x37, 0x0258, 0x0320)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2743,7 +2743,7 @@ u8 func1013_hatch_pc[] = {
 		goto_next(0x2f)
 
 		label(0x56)
-		play_sound(0x00f7, -1)
+		play_sound(SFX_00F7, -1)
 		show_hudmsg(CHR_TARGET, L_EAR_061) // "Maintenance hatch is now open."
 		unlock_door(0x3f, 0x08)
 		reloop(0x04)
@@ -2889,7 +2889,7 @@ u8 func0402_k7_guard[] = {
 	restart_timer
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x06)
-	assign_sound(0x1299, CHANNEL_6)
+	assign_sound(MP3_0299, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	beginloop(0x0c)
@@ -2996,7 +2996,7 @@ u8 func0403_k7_scientist[] = {
 	goto_first(0x03)
 
 	label(0x0c)
-	assign_sound(0x128f, CHANNEL_6)
+	assign_sound(MP3_028F, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	increase_squadron_alertness(100)
 	jog_to_pad(0x0133)
@@ -3056,7 +3056,7 @@ u8 func1019_msg_securitysector[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	speak(CHR_P1P2, L_EAR_094, 0x8173, CHANNEL_6, COLOR_09_BLUE) // "That's the highest security sector - Dr. Caroll ha..."
+	speak(CHR_P1P2, L_EAR_094, SFX_8173, CHANNEL_6, COLOR_09_BLUE) // "That's the highest security sector - Dr. Caroll ha..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3069,7 +3069,7 @@ u8 func101a_msg_lotofpower[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	speak(CHR_P1P2, L_EAR_095, 0x73a5, CHANNEL_6, COLOR_09_BLUE) // "Something around here's using a lot of power."
+	speak(CHR_P1P2, L_EAR_095, MP3_03A5, CHANNEL_6, COLOR_09_BLUE) // "Something around here's using a lot of power."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3084,7 +3084,7 @@ u8 func101b_msg_reprogram[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	speak(CHR_P1P2, L_EAR_096, 0x8174, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that cleaning bot - it'll give you a way..."
+	speak(CHR_P1P2, L_EAR_096, SFX_8174, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that cleaning bot - it'll give you a way..."
 	label(0x08)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3098,7 +3098,7 @@ u8 func101c_msg_radioactive[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	speak(CHR_P1P2, L_EAR_097, 0x8175, CHANNEL_6, COLOR_09_BLUE) // "Get out, Jo! The levels are too high. Use the CamS..."
+	speak(CHR_P1P2, L_EAR_097, SFX_8175, CHANNEL_6, COLOR_09_BLUE) // "Get out, Jo! The levels are too high. Use the CamS..."
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

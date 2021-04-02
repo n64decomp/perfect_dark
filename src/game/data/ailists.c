@@ -1688,7 +1688,7 @@ u8 func0007_alerted[] = {
 	beginloop(0xe8)
 		if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
 		if_timer_lt(120, /*goto*/ 0x16)
-		assign_sound(0x80f6, CHANNEL_7)
+		assign_sound(SFX_80F6, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 		label(0x16)
@@ -2051,7 +2051,7 @@ u8 func0007_alerted[] = {
 	yield
 	if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
 	if_timer_lt(120, /*goto*/ 0x16)
-	assign_sound(0x80f6, CHANNEL_6)
+	assign_sound(SFX_80F6, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	unset_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	label(0x16)
@@ -2396,7 +2396,7 @@ u8 func0007_alerted[] = {
 	yield
 	if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
 	if_timer_lt(120, /*goto*/ 0x16)
-	assign_sound(0x80f6, CHANNEL_6)
+	assign_sound(SFX_80F6, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	unset_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	label(0x16)

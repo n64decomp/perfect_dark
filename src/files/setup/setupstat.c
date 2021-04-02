@@ -1102,7 +1102,7 @@ u8 func1002_intro[] = {
 
 	// Timer expired - play a sound (explosion?)
 	label(0x06)
-	play_sound(0x05e2, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E2, CHANNEL_10)
 
 	// Wait for camera to finish or button to be pressed
 	beginloop(0x08)
@@ -1180,7 +1180,7 @@ u8 func040b_outro[] = {
 
 	// Play sound
 	label(0x06)
-	play_sound(0x05e3, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E3, CHANNEL_10)
 
 	// Wait 70 frames or for button press
 	beginloop(0x97)
@@ -1190,7 +1190,7 @@ u8 func040b_outro[] = {
 
 	// Play sound
 	label(0x06)
-	play_sound(0x05e5, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E5, CHANNEL_10)
 
 	// Wait 180 frames or for button press
 	beginloop(0x98)
@@ -1200,7 +1200,7 @@ u8 func040b_outro[] = {
 
 	// Play sound
 	label(0x06)
-	play_sound(0x05e7, CHANNEL_10)
+	play_sound(SFX_MAIAN_05E7, CHANNEL_10)
 
 	// Wait for outro to finish
 	beginloop(0x08)

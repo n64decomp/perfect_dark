@@ -987,7 +987,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	endloop(0x82)
 
 	label(0x2f)
-	play_sound(0x00ba, -1)
+	play_sound(SFX_PRESS_SWITCH, -1)
 	set_lights_state(0x0030, LIGHTOP_1, 0xff, 0x00, 0x00)
 	set_lights_state(0x002e, LIGHTOP_1, 0xff, 0x00, 0x00)
 	set_lights_state(0x002f, LIGHTOP_1, 0xff, 0x00, 0x00)
@@ -1142,7 +1142,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_027) // "Decoder attached. Initiating cracking routines..."
 	unset_object_flag2(0x88, OBJFLAG2_INVISIBLE)
-	assign_sound(0x8144, CHANNEL_1)
+	assign_sound(SFX_8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, 0x35, 0x012c, 0x0190)
 	restart_timer
 
@@ -1161,7 +1161,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 
 	label(0x2f)
 	mute_channel(CHANNEL_1)
-	assign_sound(0x8145, CHANNEL_1)
+	assign_sound(SFX_8145, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, 0x35, TRUE)
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_028) // "Decoding complete. Door has been unlocked."
@@ -2216,7 +2216,7 @@ u8 func100b_devicetraining_uplink[] = {
 
 	label(0x2f)
 	if_chr_weapon_equipped(CHR_BOND, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
-	play_sound(0x8116, -1)
+	play_sound(SFX_8116, -1)
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_012) // "You need to be holding the Data Uplink."
 	goto_first(0x82)
@@ -2237,7 +2237,7 @@ u8 func100b_devicetraining_uplink[] = {
 	label(0x57)
 	set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	label(0x59)
-	assign_sound(0x01bf, CHANNEL_5)
+	assign_sound(SFX_01BF, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, 0x30, TRUE)
 	label(0x14)
 	yield
@@ -2261,7 +2261,7 @@ u8 func100b_devicetraining_uplink[] = {
 	label(0x06)
 	restart_timer
 	mute_channel(CHANNEL_5)
-	assign_sound(0x01c1, CHANNEL_7)
+	assign_sound(SFX_01C1, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x30, TRUE)
 	remove_hudmsgs
 	show_hudmsg(CHR_TARGET, L_DISH_014) // "Terminal has been successfully hacked."
@@ -2286,7 +2286,7 @@ u8 func100b_devicetraining_uplink[] = {
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_015) // "Connection broken - too far from PC."
 	mute_channel(CHANNEL_5)
-	assign_sound(0x01c0, CHANNEL_6)
+	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, 0x30, TRUE)
 	restart_timer
 
@@ -2493,7 +2493,7 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x58)
 
 	label(0x06)
-	speak(CHR_BOND, L_DISH_043, 0x1517, CHANNEL_6, COLOR_09_BLUE) // "I'm here to pick up the equipment."
+	speak(CHR_BOND, L_DISH_043, MP3_0517, CHANNEL_6, COLOR_09_BLUE) // "I'm here to pick up the equipment."
 
 	beginloop(0x59)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2511,7 +2511,7 @@ u8 func0429_grimshaw_disguise[] = {
 	label(0x06)
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_044, 0x1518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
+	speak(CHR_TARGET, L_DISH_044, MP3_0518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
 
 	beginloop(0x5c)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2524,7 +2524,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_045, 0x1519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
+	speak(CHR_TARGET, L_DISH_045, MP3_0519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
 
 	beginloop(0x5d)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2584,7 +2584,7 @@ u8 func100c_cloak_detection[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
-	speak(CHR_TARGET, L_DISH_048, 0x151a, CHANNEL_6, COLOR_05_GREEN) // "You'll have to do better than that, Joanna."
+	speak(CHR_TARGET, L_DISH_048, MP3_051A, CHANNEL_6, COLOR_05_GREEN) // "You'll have to do better than that, Joanna."
 	show_hudmsg(CHR_BOND, L_DISH_050) // "You have been detected by the camera."
 	restart_timer
 
@@ -2675,7 +2675,7 @@ u8 func042a_carrington_cloak[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_BOND, L_DISH_049, 0x151b, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
+	speak(CHR_BOND, L_DISH_049, MP3_051B, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
 
 	beginloop(0x59)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -2690,7 +2690,7 @@ u8 func042a_carrington_cloak[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_053, 0x151c, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
+	speak(CHR_TARGET, L_DISH_053, MP3_051C, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
 
 	beginloop(0x5c)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -2951,7 +2951,7 @@ u8 func042c_carrington_tour[] = {
 	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_STARTED)
 	do_preset_animation(-1)
 	remove_hudmsgs
-	speak(CHR_TARGET, L_DISH_066, 0x8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
+	speak(CHR_TARGET, L_DISH_066, SFX_8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
 	restart_timer
 
 	beginloop(0x57)
@@ -2960,7 +2960,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_067, 0x151d, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
+	speak(CHR_TARGET, L_DISH_067, MP3_051D, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
 	restart_timer
 
 	beginloop(0x59)
@@ -2992,7 +2992,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x2f)
 	do_preset_animation(-1)
 	remove_hudmsgs
-	speak(CHR_TARGET, L_DISH_068, 0x1520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
+	speak(CHR_TARGET, L_DISH_068, MP3_0520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
 	restart_timer
 
 	beginloop(0x5d)
@@ -3020,7 +3020,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x2f)
 	set_ailist(0x01, GAILIST_IDLE)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_069, 0x151f, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
+	speak(CHR_TARGET, L_DISH_069, MP3_051F, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
 	restart_timer
 
 	beginloop(0x64)
@@ -3037,7 +3037,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	play_sound(0x8028, CHANNEL_6)
+	play_sound(SFX_CARR_HELLO_JOANNA, CHANNEL_6)
 	set_ailist(0x01, AILIST_DEVICEGIRL_REPLY_TO_CARRINGTON)
 	restart_timer
 
@@ -3076,7 +3076,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_070, 0x1521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
+	speak(CHR_TARGET, L_DISH_070, MP3_0521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
 	restart_timer
 
 	beginloop(0x6b)
@@ -3112,7 +3112,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_071, 0x151e, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
+	speak(CHR_TARGET, L_DISH_071, MP3_051E, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
 	restart_timer
 
 	beginloop(0x6f)
@@ -3164,7 +3164,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_072, 0x1522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
+	speak(CHR_TARGET, L_DISH_072, MP3_0522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
 	restart_timer
 
 	beginloop(0x75)
@@ -3182,7 +3182,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DISH_124, 0x17dc, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
+	speak(CHR_TARGET, L_DISH_124, MP3_07DC, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
 
 	beginloop(0x7a)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2f)
@@ -3219,7 +3219,7 @@ u8 func042d_unused[] = {
 	endloop(0x60)
 
 	label(0x06)
-	assign_sound(0x802d, CHANNEL_6)
+	assign_sound(SFX_GRIMSHAW_HI_THERE, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	beginloop(0x61)
@@ -3251,7 +3251,7 @@ u8 func042e_devicegirl_reply_to_carrington[] = {
 	yield
 	yield
 	yield
-	assign_sound(0x177d, CHANNEL_6)
+	assign_sound(MP3_CIFEM_PATIENCE, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	beginloop(0x61)
@@ -3634,7 +3634,7 @@ u8 func101c_holo1_main[] = {
 	label(0x2f) \
 	set_object_image(object, 0x00, 0x13) \
 	set_object_flag2(object, OBJFLAG2_00040000) \
-	assign_sound(0x043a, CHANNEL_7) \
+	assign_sound(SFX_043A, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
 	set_returnlist(CHR_SELF, function) \
 	set_ailist(CHR_SELF, AILIST_HOLO1_CHECK_DONE)
@@ -3676,7 +3676,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	label(0x2f)
 	set_object_image(0x4f, 0x00, 0x13)
 	set_object_flag2(0x4f, OBJFLAG2_00040000)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x4f, TRUE)
 	set_returnlist(CHR_SELF, AILIST_HOLO1_MONITOR_SWITCHES)
 	set_ailist(CHR_SELF, AILIST_HOLO1_CHECK_DONE)
@@ -3717,7 +3717,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	set_object_image(object1, 0x00, 0x13) \
 	remove_hudmsgs \
 	show_hudmsg(CHR_BOND, msg) \
-	assign_sound(0x81b0, CHANNEL_7) \
+	assign_sound(SFX_DOOR_81B0, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object1, TRUE) \
 	restart_timer \
  \
@@ -3979,7 +3979,7 @@ u8 func1022_holo2_main[] = {
 	endloop(0x04) \
  \
 	label(0x2f) \
-	assign_sound(0x043a, CHANNEL_7) \
+	assign_sound(SFX_043A, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
 	set_object_image(object, 0x00, 0x13) \
 	set_object_flag2(object, OBJFLAG2_00000001) \
@@ -4353,7 +4353,7 @@ u8 func102c_holo3_object1[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x65, 0x00, 0x13)
 	set_object_flag2(0x65, OBJFLAG2_00000001)
@@ -4368,7 +4368,7 @@ u8 func102d_holo3_object2[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x66, 0x00, 0x13)
 	set_object_flag2(0x66, OBJFLAG2_00000001)
@@ -5837,7 +5837,7 @@ u8 func1000_jo_typing[] = {
 	endloop(0x57)
 
 	label(0x06)
-	play_sound(0x8116, CHANNEL_5)
+	play_sound(SFX_8116, CHANNEL_5)
 
 	beginloop(0x59)
 		if_controller_button_pressed(/*goto*/ 0x7b)
@@ -5845,7 +5845,7 @@ u8 func1000_jo_typing[] = {
 	endloop(0x59)
 
 	label(0x06)
-	play_sound(0x8118, CHANNEL_6)
+	play_sound(SFX_TYPING_8118, CHANNEL_6)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2f)
@@ -5906,7 +5906,7 @@ u8 func1040_lift_door_sounds[] = {
 		reloop(0x8f)
 
 		label(0x2f)
-		play_sound(0x81b0, -1)
+		play_sound(SFX_DOOR_81B0, -1)
 		restart_timer
 
 		beginloop(0x08)

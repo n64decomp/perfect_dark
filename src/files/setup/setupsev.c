@@ -1322,7 +1322,7 @@ u8 func1008_check_console[] = {
 
 	// Console activated - play sound and wait 3 seconds
 	label(0x2c)
-	play_sound(0x8116, -1)
+	play_sound(SFX_8116, -1)
 	restart_timer
 
 	beginloop(0x09)
@@ -1330,7 +1330,7 @@ u8 func1008_check_console[] = {
 	endloop(0x09)
 
 	label(0x2c)
-	assign_sound(0x8111, CHANNEL_0)
+	assign_sound(SFX_8111, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 0x012c, 0x0190)
 	show_hudmsg(CHR_BOND, L_SEV_009) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
@@ -1396,7 +1396,7 @@ u8 func100a_vertical_door_sounds[] = {
 		reloop(0x5d)
 
 		label(0x2c)
-		play_sound(0x81b0, -1)
+		play_sound(SFX_DOOR_81B0, -1)
 		restart_timer
 
 		beginloop(0x08)
@@ -1544,16 +1544,16 @@ u8 func1002_intro[] = {
 
 
 	wait_until(300, 0x76)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(302, 0x77)
-	play_sound(0x0162, CHANNEL_6)
+	play_sound(SFX_0162, CHANNEL_6)
 
 	wait_until(330, 0x78)
-	play_sound(0x0163, CHANNEL_6)
+	play_sound(SFX_0163, CHANNEL_6)
 
 	wait_until(360, 0x79)
-	play_sound(0x0164, CHANNEL_6)
+	play_sound(SFX_0164, CHANNEL_6)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -1600,25 +1600,25 @@ u8 func041b_outro[] = {
 	restart_timer
 
 	wait_until(46, 0x6c)
-	play_sound(0x0264, CHANNEL_7)
+	play_sound(SFX_M0_HEY_YOU, CHANNEL_7)
 
 	wait_until(144, 0x6d)
-	play_sound(0x0085, CHANNEL_6)
+	play_sound(SFX_0085, CHANNEL_6)
 
 	wait_until(205, 0x6e)
-	play_sound(0x04f2, CHANNEL_10)
+	play_sound(SFX_04F2, CHANNEL_10)
 
 	wait_until(210, 0x6f)
-	play_sound(0x0045, CHANNEL_10)
+	play_sound(SFX_0045, CHANNEL_10)
 
 	wait_until(214, 0x70)
-	play_sound(0x05e0, CHANNEL_10)
+	play_sound(SFX_MAIAN_YELP_05E0, CHANNEL_10)
 
 	wait_until(260, 0x71)
-	play_sound(0x007b, CHANNEL_10)
+	play_sound(SFX_007B, CHANNEL_10)
 
 	wait_until(270, 0x72)
-	play_sound(0x02a3, CHANNEL_10)
+	play_sound(SFX_M0_GRAB_A_BODY_BAG, CHANNEL_10)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)

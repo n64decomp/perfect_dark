@@ -1001,7 +1001,7 @@ u8 func100c_maingate_switch[] = {
 		reloop(0x04)
 
 		label(0x2e)
-		assign_sound(0x043f, CHANNEL_7)
+		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0x00, 0x13)
 		if_door_state(OBJ_MAINGATE1, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
@@ -1018,7 +1018,7 @@ u8 func100c_maingate_switch[] = {
 		reloop(0x04)
 
 		label(0x2e)
-		assign_sound(0x043f, CHANNEL_7)
+		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0x00, 0x12)
 		show_hudmsg(CHR_P1P2, L_LUE_044) // "Main gate has been closed."
@@ -1139,8 +1139,8 @@ u8 func1405_antenna_switch[] = {
 
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_ANTENNA_LOWERED, TRUE, /*goto*/ 0x06)
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801e, 0x00, 0x00)
-		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, 0x00cd, 0x00, 0x02)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, 0x00, 0x00)
+		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, 0x00, 0x02)
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x12)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		show_hudmsg(CHR_P1P2, L_LUE_030) // "Antenna lowered."
@@ -1157,13 +1157,13 @@ u8 func1405_antenna_switch[] = {
 
 		label(0x2e)
 		mute_channel(CHANNEL_1)
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801f, 0x00, 0x00)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, 0x00, 0x00)
 		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
 
 		label(0x06)
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801e, 0x00, 0x00)
-		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, 0x00cd, 0x00, 0x02)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, 0x00, 0x00)
+		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, 0x00, 0x02)
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x13)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
@@ -1180,7 +1180,7 @@ u8 func1405_antenna_switch[] = {
 
 		label(0x2e)
 		mute_channel(CHANNEL_1)
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801f, 0x00, 0x00)
+		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, 0x00, 0x00)
 		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 
@@ -1195,7 +1195,7 @@ u8 func1006_lift_switches[] = {
 		reloop(0x04)
 
 		label(0x09)
-		assign_sound(0x043f, CHANNEL_7)
+		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT1_SWITCH, 0x012c, 0x0190, 0x00)
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2e)
 		show_hudmsg(CHR_P1P2, L_LUE_036) // "Lift access denied - key card needed."
@@ -1217,7 +1217,7 @@ u8 func1006_lift_switches[] = {
 		goto_next(0x0b)
 
 		label(0x0a)
-		assign_sound(0x043f, CHANNEL_7)
+		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT2_SWITCH, 0x012c, 0x0190, 0x00)
 #if VERSION >= VERSION_PAL_FINAL
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2e)
@@ -1670,7 +1670,7 @@ u8 func0416_mechanic[] = {
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	play_sound(0x80f7, CHANNEL_7)
+	play_sound(SFX_M0_HOLY_SHH, CHANNEL_7)
 	label(0x06)
 	set_returnlist(CHR_SELF, GAILIST_ALERTED)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
@@ -1817,25 +1817,25 @@ u8 func040e_outro[] = {
 
 
 	wait_until(1, 0x60)
-	speak(CHR_P1P2, L_LUE_067, 0x7421, CHANNEL_5, COLOR_07_RED) // "Agent Dark! Over here!"
+	speak(CHR_P1P2, L_LUE_067, MP3_0421, CHANNEL_5, COLOR_07_RED) // "Agent Dark! Over here!"
 
 	wait_until(46, 0x61)
-	play_sound(0x0171, CHANNEL_7)
+	play_sound(SFX_0171, CHANNEL_7)
 
 	wait_until(74, 0x62)
-	play_sound(0x0172, CHANNEL_6)
+	play_sound(SFX_0172, CHANNEL_6)
 
 	wait_until(100, 0x64)
-	play_sound(0x0173, CHANNEL_7)
+	play_sound(SFX_0173, CHANNEL_7)
 
 	wait_until(150, 0x65)
-	speak(CHR_P1P2, L_LUE_068, 0x7422, CHANNEL_5, COLOR_09_BLUE) // "There you are! I was beginning to wonder if..."
+	speak(CHR_P1P2, L_LUE_068, MP3_0422, CHANNEL_5, COLOR_09_BLUE) // "There you are! I was beginning to wonder if..."
 
 	wait_until(188, 0x66)
-	play_sound(0x0174, CHANNEL_6)
+	play_sound(SFX_0174, CHANNEL_6)
 
 	wait_until(278, 0x67)
-	play_sound(0x0175, CHANNEL_7)
+	play_sound(SFX_0175, CHANNEL_7)
 
 	wait_until(290, 0x68)
 	set_chr_shooting_in_cutscene(CHR_JONATHAN, TRUE)
@@ -1844,61 +1844,61 @@ u8 func040e_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_JONATHAN, FALSE)
 
 	wait_until(296, 0x79)
-	play_sound(0x8076, CHANNEL_10)
+	play_sound(SFX_8076, CHANNEL_10)
 
 	wait_until(310, 0x7a)
-	play_sound(0x0090, CHANNEL_10)
+	play_sound(SFX_0090, CHANNEL_10)
 
 	wait_until(392, 0x69)
-	play_sound(0x808e, CHANNEL_10)
+	play_sound(SFX_THUD_808E, CHANNEL_10)
 
 	wait_until(406, 0x6c)
-	speak(CHR_P1P2, L_LUE_069, 0x7423, CHANNEL_5, COLOR_07_RED) // "If what?"
+	speak(CHR_P1P2, L_LUE_069, MP3_0423, CHANNEL_5, COLOR_07_RED) // "If what?"
 
 	wait_until(410, 0x6a)
-	play_sound(0x0176, CHANNEL_6)
+	play_sound(SFX_0176, CHANNEL_6)
 
 	wait_until(424, 0x6b)
-	play_sound(0x0177, CHANNEL_6)
+	play_sound(SFX_0177, CHANNEL_6)
 
 	wait_until(426, 0x6c)
-	play_sound(0x0177, CHANNEL_7)
+	play_sound(SFX_0177, CHANNEL_7)
 
 	wait_until(464, 0x6d)
-	play_sound(0x007d, CHANNEL_10)
+	play_sound(SFX_007D, CHANNEL_10)
 
 	wait_until(472, 0x6e)
-	speak(CHR_P1P2, L_LUE_070, 0x7424, CHANNEL_5, COLOR_09_BLUE) // "If you'd been discovered yet. And frankly, if this..."
+	speak(CHR_P1P2, L_LUE_070, MP3_0424, CHANNEL_5, COLOR_09_BLUE) // "If you'd been discovered yet. And frankly, if this..."
 
 	wait_until(900, 0x70)
-	speak(CHR_P1P2, L_LUE_071, 0x7425, CHANNEL_5, COLOR_07_RED) // "I was tidying up one of your loose ends."
+	speak(CHR_P1P2, L_LUE_071, MP3_0425, CHANNEL_5, COLOR_07_RED) // "I was tidying up one of your loose ends."
 
 	wait_until(936, 0x6f)
-	play_sound(0x0178, CHANNEL_7)
+	play_sound(SFX_0178, CHANNEL_7)
 
 	wait_until(1080, 0x71)
-	speak(CHR_P1P2, L_LUE_072, 0x7426, CHANNEL_5, COLOR_09_BLUE) // "My loose ends?"
+	speak(CHR_P1P2, L_LUE_072, MP3_0426, CHANNEL_5, COLOR_09_BLUE) // "My loose ends?"
 
 	wait_until(1180, 0x72)
-	speak(CHR_P1P2, L_LUE_073, 0x7427, CHANNEL_5, COLOR_07_RED) // "I'm sorry, I didn't realize you wanted him to shoo..."
+	speak(CHR_P1P2, L_LUE_073, MP3_0427, CHANNEL_5, COLOR_07_RED) // "I'm sorry, I didn't realize you wanted him to shoo..."
 
 	wait_until(1228, 0x73)
-	play_sound(0x0171, CHANNEL_7)
+	play_sound(SFX_0171, CHANNEL_7)
 
 	wait_until(1286, 0x74)
-	play_sound(0x0172, CHANNEL_7)
+	play_sound(SFX_0172, CHANNEL_7)
 
 	wait_until(1434, 0x75)
-	play_sound(0x0173, CHANNEL_7)
+	play_sound(SFX_0173, CHANNEL_7)
 
 	wait_until(1462, 0x77)
-	play_sound(0x0174, CHANNEL_6)
+	play_sound(SFX_0174, CHANNEL_6)
 
 	wait_until(1585, 0x76)
-	speak(CHR_P1P2, L_LUE_074, 0x7428, CHANNEL_5, COLOR_09_BLUE) // "Okay, okay, forget about it. I'm going to let the ..."
+	speak(CHR_P1P2, L_LUE_074, MP3_0428, CHANNEL_5, COLOR_09_BLUE) // "Okay, okay, forget about it. I'm going to let the ..."
 
 	wait_until(1588, 0x78)
-	play_sound(0x0175, CHANNEL_7)
+	play_sound(SFX_0175, CHANNEL_7)
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -1939,18 +1939,18 @@ u8 func0410_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2, WEAPON_NONE)
 
 	wait_until(26, 0x60)
-	speak(CHR_BOND, L_LUE_058, 0x7418, CHANNEL_7, COLOR_06_WHITE) // "Okay, Joanna, take a look at this. Our operative i..."
+	speak(CHR_BOND, L_LUE_058, MP3_0418, CHANNEL_7, COLOR_06_WHITE) // "Okay, Joanna, take a look at this. Our operative i..."
 
 	wait_until(500, 0x61)
-	speak(CHR_BOND, L_LUE_059, 0x7419, CHANNEL_7, COLOR_06_WHITE) // "This is your entry point... A deserted helipad on ..."
+	speak(CHR_BOND, L_LUE_059, MP3_0419, CHANNEL_7, COLOR_06_WHITE) // "This is your entry point... A deserted helipad on ..."
 
 	wait_until(800, 0x62)
-	speak(CHR_BOND, L_LUE_060, 0x741a, CHANNEL_7, COLOR_06_WHITE) // "The lift down to the hangars and the rendezvous po..."
+	speak(CHR_BOND, L_LUE_060, MP3_041A, CHANNEL_7, COLOR_06_WHITE) // "The lift down to the hangars and the rendezvous po..."
 
 	wait_until(1200, 0x63)
 
 	wait_until(1236, 0x64)
-	speak(CHR_BOND, L_LUE_061, 0x741b, CHANNEL_7, COLOR_06_WHITE) // "Here is the communications antenna. Attach a comms..."
+	speak(CHR_BOND, L_LUE_061, MP3_041B, CHANNEL_7, COLOR_06_WHITE) // "Here is the communications antenna. Attach a comms..."
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -1991,10 +1991,10 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(186, 0x65)
-	speak(CHR_BOND, L_LUE_062, 0x81b9, CHANNEL_7, COLOR_09_BLUE) // "Oh, my God!"
+	speak(CHR_BOND, L_LUE_062, SFX_81B9, CHANNEL_7, COLOR_09_BLUE) // "Oh, my God!"
 
 	wait_until(380, 0x66)
-	speak(CHR_BOND, L_LUE_063, 0x741d, CHANNEL_7, COLOR_06_WHITE) // "Here is our friend. He appears to be physically un..."
+	speak(CHR_BOND, L_LUE_063, MP3_041D, CHANNEL_7, COLOR_06_WHITE) // "Here is our friend. He appears to be physically un..."
 
 	beginloop(0x0a)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -2032,10 +2032,10 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(416, 0x67)
-	speak(CHR_BOND, L_LUE_064, 0x741e, CHANNEL_7, COLOR_09_BLUE) // "But who was...?"
+	speak(CHR_BOND, L_LUE_064, MP3_041E, CHANNEL_7, COLOR_09_BLUE) // "But who was...?"
 
 	wait_until(485, 0x68)
-	speak(CHR_BOND, L_LUE_065, 0x741f, CHANNEL_7, COLOR_06_WHITE) // "Any questions? No. Good. Away you go to the hangar..."
+	speak(CHR_BOND, L_LUE_065, MP3_041F, CHANNEL_7, COLOR_06_WHITE) // "Any questions? No. Good. Away you go to the hangar..."
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -2064,40 +2064,40 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(1, 0x69)
-	speak(CHR_BOND, L_LUE_066, 0x7420, CHANNEL_10, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
+	speak(CHR_BOND, L_LUE_066, MP3_0420, CHANNEL_10, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
 
 	wait_until(340, 0x6a)
-	play_sound(0x80d5, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_10)
 
 	wait_until(364, 0x6b)
-	play_sound(0x04b0, CHANNEL_10)
+	play_sound(SFX_04B0, CHANNEL_10)
 
 	wait_until(458, 0x6c)
-	play_sound(0x046e, CHANNEL_10)
+	play_sound(SFX_046E, CHANNEL_10)
 
-	play_sound(0x80d5, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_10)
 	wait_until(496, 0x6d)
-	play_sound(0x80cc, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_10)
 
-	play_sound(0x80cd, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80CD, CHANNEL_10)
 	wait_until(638, 0x6e)
 
 	wait_until(688, 0x6f)
-	play_sound(0x046f, CHANNEL_10)
-	play_sound(0x80ce, CHANNEL_10)
-	play_sound(0x80cf, CHANNEL_10)
+	play_sound(SFX_JO_LANDING_046F, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80CE, CHANNEL_10)
+	play_sound(SFX_FOOTSTEP_80CF, CHANNEL_10)
 
 	wait_until(750, 0x70)
-	play_sound(0x016a, CHANNEL_10)
+	play_sound(SFX_016A, CHANNEL_10)
 
 	wait_until(815, 0x71)
-	play_sound(0x016b, CHANNEL_10)
+	play_sound(SFX_016B, CHANNEL_10)
 
 	wait_until(844, 0x72)
-	play_sound(0x016c, CHANNEL_10)
+	play_sound(SFX_016C, CHANNEL_10)
 
 	wait_until(908, 0x73)
-	play_sound(0x0169, CHANNEL_10)
+	play_sound(SFX_0169, CHANNEL_10)
 
 	wait_until(916, 0x74)
 
@@ -2167,7 +2167,7 @@ u8 func1010_bunker_lighting[] = {
 	label(0x06)
 	mute_channel(CHANNEL_0)
 	yield
-	assign_sound(0x04ac, CHANNEL_0)
+	assign_sound(SFX_ALARM_INFILTRATION, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, 0x10, 0x0320, 0x044c)
 	set_lights_state(0x0009, LIGHTOP_3, 0xff, 0x32, 0x78)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0e)
@@ -2445,7 +2445,7 @@ u8 func1011_bunker_explosives[] = {
 	destroy_object(0x25)
 	destroy_object(OBJ_RADAR_TERMINAL)
 	mute_channel(CHANNEL_0)
-	assign_sound(0x0479, CHANNEL_0)
+	assign_sound(SFX_0479, CHANNEL_0)
 	control_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, TRUE)
 	restart_timer
 
@@ -2568,7 +2568,7 @@ u8 func1016_trigger_interceptor[] = {
 
 u8 func1017_radar_terminal_noise[] = {
 	yield
-	assign_sound(0x8146, CHANNEL_0)
+	assign_sound(SFX_8146, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, 0x0320, 0x044c)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2858,7 +2858,7 @@ u8 func101b_msg_airinterceptradar[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, L_LUE_053, 0x817d, CHANNEL_6, COLOR_09_BLUE) // "The air intercept radar is controlled from that bu..."
+	speak(CHR_P1P2, L_LUE_053, SFX_817D, CHANNEL_6, COLOR_09_BLUE) // "The air intercept radar is controlled from that bu..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2873,7 +2873,7 @@ u8 func101c_msg_cantthrow[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, L_LUE_054, 0x73b9, CHANNEL_6, COLOR_09_BLUE) // "There's the antenna, but... I can't throw a bug th..."
+	speak(CHR_P1P2, L_LUE_054, MP3_03B9, CHANNEL_6, COLOR_09_BLUE) // "There's the antenna, but... I can't throw a bug th..."
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2894,7 +2894,7 @@ u8 func101d_msg_hangarlift[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, L_LUE_055, 0x817e, CHANNEL_6, COLOR_09_BLUE) // "The hangar lift is on the other side of that huge ..."
+	speak(CHR_P1P2, L_LUE_055, SFX_817E, CHANNEL_6, COLOR_09_BLUE) // "The hangar lift is on the other side of that huge ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2906,7 +2906,7 @@ u8 func101e_msg_triggerfinger[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, L_LUE_056, 0x817f, CHANNEL_6, COLOR_09_BLUE) // "Careful with that trigger finger, Agent Dark - you..."
+	speak(CHR_P1P2, L_LUE_056, SFX_817F, CHANNEL_6, COLOR_09_BLUE) // "Careful with that trigger finger, Agent Dark - you..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3033,15 +3033,15 @@ u8 func1024_lift_door_sounds[] = {
 		goto_next(0x41)
 
 		label(0x41)
-		play_sound(0x01dc, -1)
+		play_sound(SFX_01DC, -1)
 		goto_next(0x06)
 
 		label(0x2e)
-		play_sound(0x81b0, -1)
+		play_sound(SFX_DOOR_81B0, -1)
 		goto_next(0x06)
 
 		label(0x2f)
-		play_sound(0x05dd, -1)
+		play_sound(SFX_MENU_SELECT, -1)
 		label(0x06)
 		restart_timer
 

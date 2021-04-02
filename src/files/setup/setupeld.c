@@ -819,112 +819,112 @@ u8 func1002_intro[] = {
 
 
 	wait_until(205, 0xab)
-	speak(CHR_BOND, L_ELD_039, 0x73ff, CHANNEL_4, COLOR_09_BLUE) // "Agent Dark Mission Log, 1846 hours. Last night we ..."
+	speak(CHR_BOND, L_ELD_039, MP3_03FF, CHANNEL_4, COLOR_09_BLUE) // "Agent Dark Mission Log, 1846 hours. Last night we ..."
 
 	wait_until(680, 0x66)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(687, 0x67)
-	play_sound(0x0162, CHANNEL_6)
+	play_sound(SFX_0162, CHANNEL_6)
 
 	wait_until(708, 0x68)
-	play_sound(0x0163, CHANNEL_7)
+	play_sound(SFX_0163, CHANNEL_7)
 
 	wait_until(716, 0x69)
-	play_sound(0x0164, CHANNEL_7)
+	play_sound(SFX_0164, CHANNEL_7)
 
 	wait_until(914, 0x6a)
-	play_sound(0x0171, CHANNEL_7)
+	play_sound(SFX_0171, CHANNEL_7)
 
 	wait_until(1010, 0x6b)
-	play_sound(0x0172, CHANNEL_7)
+	play_sound(SFX_0172, CHANNEL_7)
 
 	wait_until(1048, 0x6c)
-	play_sound(0x0173, CHANNEL_7)
+	play_sound(SFX_0173, CHANNEL_7)
 
 	wait_until(1075, 0x6d)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(1100, 0xac)
-	speak(CHR_BOND, L_ELD_040, 0x7400, CHANNEL_4, COLOR_09_BLUE) // "Unfortunately, we don't have it. Daniel and Dr. Ca..."
+	speak(CHR_BOND, L_ELD_040, MP3_0400, CHANNEL_4, COLOR_09_BLUE) // "Unfortunately, we don't have it. Daniel and Dr. Ca..."
 
 	wait_until(1118, 0x6e)
-	play_sound(0x0162, CHANNEL_7)
+	play_sound(SFX_0162, CHANNEL_7)
 
 	wait_until(1148, 0x6f)
-	play_sound(0x0163, CHANNEL_7)
+	play_sound(SFX_0163, CHANNEL_7)
 
 	wait_until(1175, 0x70)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(1193, 0x71)
-	play_sound(0x0163, CHANNEL_7)
+	play_sound(SFX_0163, CHANNEL_7)
 
 	wait_until(1214, 0x72)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(1313, 0x73)
-	play_sound(0x0164, CHANNEL_7)
+	play_sound(SFX_0164, CHANNEL_7)
 
 	wait_until(1313, 0x74)
-	play_sound(0x0163, CHANNEL_6)
+	play_sound(SFX_0163, CHANNEL_6)
 
 	wait_until(1331, 0x75)
-	play_sound(0x0174, CHANNEL_7)
+	play_sound(SFX_0174, CHANNEL_7)
 
 	wait_until(1348, 0x76)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(1366, 0x77)
-	play_sound(0x0162, CHANNEL_7)
+	play_sound(SFX_0162, CHANNEL_7)
 
 	wait_until(1386, 0x78)
-	play_sound(0x0163, CHANNEL_7)
+	play_sound(SFX_0163, CHANNEL_7)
 
 	wait_until(1390, 0x79)
-	play_sound(0x0164, CHANNEL_7)
+	play_sound(SFX_0164, CHANNEL_7)
 
 	wait_until(1450, 0x7a)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(1458, 0x7b)
-	play_sound(0x0164, CHANNEL_7)
+	play_sound(SFX_0164, CHANNEL_7)
 
 	wait_until(1519, 0x7c)
-	play_sound(0x0162, CHANNEL_7)
+	play_sound(SFX_0162, CHANNEL_7)
 
 	wait_until(1544, 0x7d)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	wait_until(1554, 0x7e)
-	play_sound(0x0164, CHANNEL_6)
+	play_sound(SFX_0164, CHANNEL_6)
 
 	wait_until(1592, 0x7f)
-	play_sound(0x0162, CHANNEL_7)
+	play_sound(SFX_0162, CHANNEL_7)
 
 	wait_until(1618, 0x81)
-	play_sound(0x0163, CHANNEL_7)
+	play_sound(SFX_0163, CHANNEL_7)
 
 	wait_until(1645, 0x82)
-	play_sound(0x0162, CHANNEL_7)
+	play_sound(SFX_0162, CHANNEL_7)
 
 	wait_until(1654, 0x83)
-	play_sound(0x0164, CHANNEL_6)
+	play_sound(SFX_0164, CHANNEL_6)
 
 	wait_until(1657, 0x84)
-	play_sound(0x0161, CHANNEL_6)
+	play_sound(SFX_0161, CHANNEL_6)
 
 	wait_until(1679, 0x85)
-	play_sound(0x0164, CHANNEL_6)
+	play_sound(SFX_0164, CHANNEL_6)
 
 	wait_until(1683, 0x86)
-	play_sound(0x0162, CHANNEL_6)
+	play_sound(SFX_0162, CHANNEL_6)
 
 	wait_until(1692, 0x87)
-	play_sound(0x0163, CHANNEL_6)
+	play_sound(SFX_0163, CHANNEL_6)
 
 	wait_until(1716, 0x88)
-	play_sound(0x0164, CHANNEL_6)
+	play_sound(SFX_0164, CHANNEL_6)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -961,55 +961,55 @@ u8 func1002_intro[] = {
 	restart_timer
 
 	wait_until(50, 0xaa)
-	speak(CHR_BOND, L_ELD_041, 0x7401, CHANNEL_4, COLOR_09_BLUE) // "Hopefully our phoney negotiator ploy will give me ..."
+	speak(CHR_BOND, L_ELD_041, MP3_0401, CHANNEL_4, COLOR_09_BLUE) // "Hopefully our phoney negotiator ploy will give me ..."
 
 	restart_timer
 	wait_until(295, 0x89)
-	play_sound(0x0179, CHANNEL_6)
+	play_sound(SFX_0179, CHANNEL_6)
 
 	wait_until(302, 0x8a)
-	play_sound(0x017a, CHANNEL_7)
+	play_sound(SFX_017A, CHANNEL_7)
 
 	wait_until(333, 0x8b)
-	play_sound(0x017b, CHANNEL_7)
+	play_sound(SFX_017B, CHANNEL_7)
 
 	wait_until(338, 0x8c)
-	play_sound(0x017a, CHANNEL_6)
+	play_sound(SFX_017A, CHANNEL_6)
 
 	wait_until(344, 0x8d)
-	play_sound(0x017c, CHANNEL_7)
+	play_sound(SFX_017C, CHANNEL_7)
 
 	wait_until(353, 0x8e)
-	play_sound(0x0179, CHANNEL_6)
+	play_sound(SFX_0179, CHANNEL_6)
 
 	wait_until(372, 0x8f)
-	play_sound(0x017a, CHANNEL_6)
+	play_sound(SFX_017A, CHANNEL_6)
 
 	wait_until(412, 0x90)
-	play_sound(0x017a, CHANNEL_6)
+	play_sound(SFX_017A, CHANNEL_6)
 
 	wait_until(415, 0x91)
-	play_sound(0x017b, CHANNEL_7)
+	play_sound(SFX_017B, CHANNEL_7)
 
 	wait_until(466, 0x92)
-	play_sound(0x0179, CHANNEL_6)
+	play_sound(SFX_0179, CHANNEL_6)
 
 	wait_until(472, 0x93)
-	play_sound(0x017c, CHANNEL_7)
+	play_sound(SFX_017C, CHANNEL_7)
 
 	wait_until(515, 0x94)
-	play_sound(0x017a, CHANNEL_6)
+	play_sound(SFX_017A, CHANNEL_6)
 
 	wait_until(533, 0x95)
-	play_sound(0x017b, CHANNEL_6)
+	play_sound(SFX_017B, CHANNEL_6)
 
 	wait_until(535, 0x96)
 
 	wait_until(561, 0x97)
-	play_sound(0x017b, CHANNEL_6)
+	play_sound(SFX_017B, CHANNEL_6)
 
 	wait_until(570, 0x98)
-	play_sound(0x017c, CHANNEL_7)
+	play_sound(SFX_017C, CHANNEL_7)
 
 	wait_until(572, 0x99)
 
@@ -1056,28 +1056,28 @@ u8 func1002_intro[] = {
 	restart_timer
 
 	wait_until(238, 0x9e)
-	play_sound(0x046e, CHANNEL_6)
+	play_sound(SFX_046E, CHANNEL_6)
 
 	wait_until(305, 0x9f)
-	play_sound(0x046f, CHANNEL_6)
+	play_sound(SFX_JO_LANDING_046F, CHANNEL_6)
 
 	wait_until(313, 0xa0)
-	play_sound(0x04ae, CHANNEL_7)
+	play_sound(SFX_04AE, CHANNEL_7)
 
 	wait_until(350, 0xa1)
-	play_sound(0x0085, CHANNEL_6)
+	play_sound(SFX_0085, CHANNEL_6)
 
 	wait_until(380, 0xa2)
-	play_sound(0x0161, CHANNEL_6)
+	play_sound(SFX_0161, CHANNEL_6)
 
 	wait_until(381, 0xa3)
-	play_sound(0x0162, CHANNEL_7)
+	play_sound(SFX_0162, CHANNEL_7)
 
 	wait_until(400, 0xa4)
-	play_sound(0x0163, CHANNEL_6)
+	play_sound(SFX_0163, CHANNEL_6)
 
 	wait_until(429, 0xa5)
-	play_sound(0x0164, CHANNEL_6)
+	play_sound(SFX_0164, CHANNEL_6)
 
 	beginloop(0x0a)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -1155,7 +1155,7 @@ u8 func1002_intro[] = {
 	goto_first(0xa6)
 
 	label(0x06)
-	play_sound(0x0179, CHANNEL_6)
+	play_sound(SFX_0179, CHANNEL_6)
 	label(0xa7)
 	yield
 	if_controller_button_pressed(/*goto*/ 0x56)
@@ -1163,7 +1163,7 @@ u8 func1002_intro[] = {
 	goto_first(0xa7)
 
 	label(0x06)
-	play_sound(0x017a, CHANNEL_6)
+	play_sound(SFX_017A, CHANNEL_6)
 	label(0xa8)
 	yield
 	if_controller_button_pressed(/*goto*/ 0x56)
@@ -1171,7 +1171,7 @@ u8 func1002_intro[] = {
 	goto_first(0xa8)
 
 	label(0x06)
-	play_sound(0x017b, CHANNEL_6)
+	play_sound(SFX_017B, CHANNEL_6)
 	label(0xa9)
 	yield
 	if_controller_button_pressed(/*goto*/ 0x56)
@@ -1179,7 +1179,7 @@ u8 func1002_intro[] = {
 	goto_first(0xa9)
 
 	label(0x06)
-	play_sound(0x017c, CHANNEL_6)
+	play_sound(SFX_017C, CHANNEL_6)
 	label(0x0b)
 	yield
 	if_camera_animating(/*goto*/ 0x2d)
@@ -1273,43 +1273,43 @@ u8 func0408_outro[] = {
 		label(0x06)
 
 	outro_wait_until1(14, '1', 0x66)
-	play_sound(0x80d0, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80D0, CHANNEL_7)
 
 	outro_wait_until1(36, '2', 0x67)
-	play_sound(0x80d1, CHANNEL_6)
+	play_sound(SFX_FOOTSTEP_80D1, CHANNEL_6)
 
 	outro_wait_until1(40, '3', 0x68)
-	speak(CHR_P1P2, L_ELD_042, 0x7402, CHANNEL_4, COLOR_09_BLUE) // "Sir? Are you injured?"
+	speak(CHR_P1P2, L_ELD_042, MP3_0402, CHANNEL_4, COLOR_09_BLUE) // "Sir? Are you injured?"
 
 	outro_wait_until1(58, '4', 0xad)
-	play_sound(0x80d2, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80D2, CHANNEL_7)
 
 	outro_wait_until1(80, '5', 0x69)
-	play_sound(0x80d3, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80D3, CHANNEL_7)
 
 	outro_wait_until1(102, '6', 0x6a)
-	play_sound(0x80d0, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80D0, CHANNEL_7)
 
 	outro_wait_until1(142, '7', 0x6b)
-	play_sound(0x80d1, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80D1, CHANNEL_7)
 
 	outro_wait_until1(164, '8', 0x6c)
-	play_sound(0x80cc, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_7)
 
 	outro_wait_until1(165, '9', 0xae)
-	speak(CHR_P1P2, L_ELD_043, 0x7403, CHANNEL_4, COLOR_05_GREEN) // "No, Joanna, I'm okay, but those dataDyne thugs mad..."
+	speak(CHR_P1P2, L_ELD_043, MP3_0403, CHANNEL_4, COLOR_05_GREEN) // "No, Joanna, I'm okay, but those dataDyne thugs mad..."
 
 	outro_wait_until2(195, '1','0', 0x6d)
-	play_sound(0x80cd, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CD, CHANNEL_7)
 
 	outro_wait_until2(213, '1','1', 0x6e)
-	play_sound(0x80ce, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CE, CHANNEL_7)
 
 	outro_wait_until2(231, '1','2', 0x6f)
-	play_sound(0x80cf, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CF, CHANNEL_7)
 
 	outro_wait_until2(235, '1','3', 0x70)
-	play_sound(0x80cc, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_7)
 
 	// @bug: No check for button presses for about 8 seconds while Carrington is
 	// saying the above line.
@@ -1319,55 +1319,55 @@ u8 func0408_outro[] = {
 	endloop(0xaf)
 
 	label(0x06)
-	speak(CHR_P1P2, L_ELD_044, 0x7404, CHANNEL_4, COLOR_09_BLUE) // "It's not your fault, sir. I should have been quick..."
+	speak(CHR_P1P2, L_ELD_044, MP3_0404, CHANNEL_4, COLOR_09_BLUE) // "It's not your fault, sir. I should have been quick..."
 
 	outro_wait_until2(956, '1','5', 0xb0)
-	speak(CHR_P1P2, L_ELD_045, 0x7405, CHANNEL_4, COLOR_05_GREEN) // "Don't blame yourself, Joanna. Dr. Caroll told me t..."
+	speak(CHR_P1P2, L_ELD_045, MP3_0405, CHANNEL_4, COLOR_05_GREEN) // "Don't blame yourself, Joanna. Dr. Caroll told me t..."
 
 	outro_wait_until2(2280, '2','2', 0xb1)
-	speak(CHR_P1P2, L_ELD_046, 0x7406, CHANNEL_4, COLOR_09_BLUE) // "That won't be a problem, sir. So, did Dr. Caroll h..."
+	speak(CHR_P1P2, L_ELD_046, MP3_0406, CHANNEL_4, COLOR_09_BLUE) // "That won't be a problem, sir. So, did Dr. Caroll h..."
 
 	outro_wait_until2(2457, '1','6', 0x71)
-	play_sound(0x80cc, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_7)
 
 	outro_wait_until2(2496, '1','7', 0x72)
-	play_sound(0x80cd, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CD, CHANNEL_7)
 
 	outro_wait_until2(2620, '2','6', 0x7a)
-	speak(CHR_P1P2, L_ELD_047, 0x7407, CHANNEL_5, COLOR_05_GREEN) // "Oh, yes, indeed. He certainly did, and I'll brief ..."
+	speak(CHR_P1P2, L_ELD_047, MP3_0407, CHANNEL_5, COLOR_05_GREEN) // "Oh, yes, indeed. He certainly did, and I'll brief ..."
 
 	outro_wait_until2(2730, '1','8', 0x73)
-	play_sound(0x80ce, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CE, CHANNEL_7)
 
 	outro_wait_until2(2808, '1','9', 0x74)
-	play_sound(0x80cf, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CF, CHANNEL_7)
 
 	outro_wait_until2(2861, '2','0', 0x75)
-	play_sound(0x80cc, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_7)
 
 	outro_wait_until2(3030, '2','1', 0x76)
-	play_sound(0x80d1, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80D1, CHANNEL_7)
 
 	outro_wait_until2(3098, '2','3', 0x77)
-	play_sound(0x80cd, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CD, CHANNEL_7)
 
 	outro_wait_until2(3194, '2','4', 0x78)
-	play_sound(0x80ce, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CE, CHANNEL_7)
 
 	outro_wait_until2(3276, '2','5', 0x79)
-	play_sound(0x80cf, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CF, CHANNEL_7)
 
 	outro_wait_until2(3370, '2','7', 0x7b)
-	play_sound(0x80cc, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CC, CHANNEL_7)
 
 	outro_wait_until2(3463, '2','8', 0x7c)
-	play_sound(0x80cd, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CD, CHANNEL_7)
 
 	outro_wait_until2(3503, '2','9', 0x7d)
-	play_sound(0x80ce, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CE, CHANNEL_7)
 
 	outro_wait_until2(3545, '3','0', 0x7e)
-	play_sound(0x80cf, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_80CF, CHANNEL_7)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -1966,12 +1966,12 @@ u8 func1007_cooling_switch[] = {
 		reloop(0x04)
 
 		label(0x06)
-		assign_sound(0x043a, CHANNEL_7)
+		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_COOLING_ACTIVE, TRUE, /*goto*/ 0x06)
 		show_hudmsg(CHR_P1P2, L_ELD_014) // "Cooling systems have been activated."
 		set_stage_flag(STAGEFLAG_COOLING_ACTIVE)
-		assign_sound(0x8148, CHANNEL_1)
+		assign_sound(SFX_8148, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
 		restart_timer
 
@@ -1980,19 +1980,19 @@ u8 func1007_cooling_switch[] = {
 		endloop(0x08)
 
 		label(0x2d)
-		assign_sound(0x811c, CHANNEL_1)
+		assign_sound(SFX_811C, CHANNEL_1)
 		play_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, 0x04b0, 0x0640)
 		reloop(0x04)
 
 		label(0x06)
 		mute_channel(CHANNEL_1)
-		assign_sound(0x043a, CHANNEL_7)
+		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
 		show_hudmsg(CHR_P1P2, L_ELD_048) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
-		assign_sound(0x8149, CHANNEL_1)
+		assign_sound(SFX_8149, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_ELD_015) // "Cooling systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_COOLING_ACTIVE)
@@ -2016,12 +2016,12 @@ u8 func1008_power_switch[] = {
 		reloop(0x04)
 
 		label(0x06)
-		assign_sound(0x043a, CHANNEL_7)
+		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, TRUE, /*goto*/ 0x06)
 		show_hudmsg(CHR_P1P2, L_ELD_016) // "Power systems have been activated."
 		set_stage_flag(STAGEFLAG_POWER_ACTIVE)
-		assign_sound(0x8148, CHANNEL_0)
+		assign_sound(SFX_8148, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
 		restart_timer
 
@@ -2030,19 +2030,19 @@ u8 func1008_power_switch[] = {
 		endloop(0x08)
 
 		label(0x2d)
-		assign_sound(0x8146, CHANNEL_0)
+		assign_sound(SFX_8146, CHANNEL_0)
 		play_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, 0x04b0, 0x0640)
 		reloop(0x04)
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
-		assign_sound(0x043a, CHANNEL_7)
+		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
 		show_hudmsg(CHR_P1P2, L_ELD_048) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
-		assign_sound(0x8149, CHANNEL_0)
+		assign_sound(SFX_8149, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_ELD_017) // "Power systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_POWER_ACTIVE)
@@ -2070,9 +2070,9 @@ u8 func1009_windmill_switch[] = {
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, FALSE, /*goto*/ 0x06)
 
 		// Activating
-		assign_sound(0x043a, CHANNEL_7)
+		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_WINDMILL_SWITCH, TRUE)
-		assign_sound(0x8148, CHANNEL_2)
+		assign_sound(SFX_8148, CHANNEL_2)
 		control_sound_from_object(CHANNEL_2, OBJ_WINDMILL_SWITCH, TRUE)
 		restart_timer
 
@@ -2081,7 +2081,7 @@ u8 func1009_windmill_switch[] = {
 		endloop(0x08)
 
 		label(0x2d)
-		assign_sound(0x0438, CHANNEL_2)
+		assign_sound(SFX_0438, CHANNEL_2)
 		play_sound_from_object(CHANNEL_2, OBJ_WINDMILL_SWITCH, 0x0708, 0x0960)
 		show_hudmsg(CHR_P1P2, L_ELD_018) // "Windmill has been reactivated."
 		yield
@@ -2093,7 +2093,7 @@ u8 func1009_windmill_switch[] = {
 
 		// Cooling and power not active
 		label(0x06)
-		assign_sound(0x043e, CHANNEL_7)
+		assign_sound(SFX_MENU_SUBFOCUS, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_WINDMILL_SWITCH, TRUE)
 		restart_timer
 
@@ -2165,7 +2165,7 @@ u8 func100b_invoke_hackers[] = {
 	endloop(0x08)
 
 	label(0x06)
-	speak(CHR_BOND, L_ELD_022, 0x819f, CHANNEL_4, COLOR_05_GREEN) // "Joanna! It's Grimshaw. We've got hackers at the vi..."
+	speak(CHR_BOND, L_ELD_022, SFX_819F, CHANNEL_4, COLOR_05_GREEN) // "Joanna! It's Grimshaw. We've got hackers at the vi..."
 	set_stage_flag(STAGEFLAG_HACKERS_STARTED)
 	set_object_flag3(0x0b, OBJFLAG3_RTRACKED_YELLOW)
 	set_object_flag3(0x0d, OBJFLAG3_RTRACKED_YELLOW)
@@ -2541,7 +2541,7 @@ u8 func1016_msg_generator[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_ELD_035, 0x73ac, CHANNEL_6, COLOR_09_BLUE) // "If I get the wind generator back online, I'll get ..."
+	speak(CHR_P1P2, L_ELD_035, MP3_03AC, CHANNEL_6, COLOR_09_BLUE) // "If I get the wind generator back online, I'll get ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2565,7 +2565,7 @@ u8 func1017_msg_gottobequick[] = {
 	endloop(0x08)
 
 	label(0x06)
-	speak(CHR_BOND, L_ELD_036, 0x73ad, CHANNEL_6, COLOR_09_BLUE) // "I've got to be quick, or they'll kill the negotiat..."
+	speak(CHR_BOND, L_ELD_036, MP3_03AD, CHANNEL_6, COLOR_09_BLUE) // "I've got to be quick, or they'll kill the negotiat..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2587,7 +2587,7 @@ u8 func1018_msg_hidingdaniel[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_ELD_037, 0x73ae, CHANNEL_6, COLOR_09_BLUE) // "Here's where they must be holding Daniel."
+	speak(CHR_P1P2, L_ELD_037, MP3_03AE, CHANNEL_6, COLOR_09_BLUE) // "Here's where they must be holding Daniel."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2605,7 +2605,7 @@ u8 func1019_msg_hackershavetobestopped[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_BOND, L_ELD_038, 0x73af, CHANNEL_6, COLOR_09_BLUE) // "Those hackers have to be stopped before I rescue D..."
+	speak(CHR_BOND, L_ELD_038, MP3_03AF, CHANNEL_6, COLOR_09_BLUE) // "Those hackers have to be stopped before I rescue D..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2786,7 +2786,7 @@ u8 func101b_toggle_basement_chrs[] = {
 		if_object_in_good_condition(0x86, /*goto*/ 0x06)
 		if_object_in_good_condition(0x87, /*goto*/ 0x06)
 		if_object_in_good_condition(0x88, /*goto*/ 0x06)
-		play_sound(0x17cb, -1)
+		play_sound(MP3_07CB, -1)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x06)
 	goto_first(0x08)
@@ -2928,7 +2928,7 @@ u8 func101d_dual_cmp150[] = {
 
 	label(0x2d)
 	pause_timer
-	play_sound(0x04c6, -1) // "My gun!"
+	play_sound(SFX_M0_MY_GUN, -1) // "My gun!"
 
 	beginloop(0x08)
 		if_chr_death_animation_finished(0x06, /*goto*/ 0x2d)

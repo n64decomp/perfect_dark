@@ -1,664 +1,2560 @@
-#define SFX_LAUNCH_ROCKET                       0x0001
-#define SFX_F_GASP_000D                         0x000d
-#define SFX_BOTTLE_BREAK                        0x0010
-#define SFX_MENU_CANCEL                         0x002b
-#define SFX_0037                                0x0037
-#define SFX_TITLE_RAREPRESENTS                  0x003e
-#define SFX_REGEN                               0x0052
-#define SFX_CLOAK_ON                            0x005b
-#define SFX_CLOAK_OFF                           0x005c
-#define SFX_SHIELD_DAMAGE                       0x0064
-#define SFX_ALARM_AIRBASE                       0x00a1
-#define SFX_ALARM_2                             0x00a2
-#define SFX_ALARM_DEFAULT                       0x00a3
-#define SFX_PRESS_SWITCH                        0x00ba
-#define SFX_PICKUP_KEYCARD                      0x00e5
-#define SFX_PICKUP_GUN                          0x00e8
-#define SFX_PICKUP_KNIFE                        0x00e9
-#define SFX_PICKUP_AMMO                         0x00ea
-#define SFX_PICKUP_MINE                         0x00eb
-#define SFX_PICKUP_LASER                        0x00f2
-#define SFX_BIKE_TAKEOFF                        0x00f5
-#define SFX_BIKE_ENGINE                         0x01b4
-#define SFX_EYESPY_RUNNING                      0x01bd
-#define SFX_SLAYER_BEEP                         0x01c8
-#define SFX_PICKUP_SHIELD                       0x01cd
-#define SFX_DRCAROLL_COME_ON                    0x023d
-#define SFX_DRCAROLL_TAKING_YOUR_TIME           0x023e
-#define SFX_DRCAROLL_WHAT                       0x023f
-#define SFX_DRCAROLL_OOH                        0x0240
-#define SFX_DRCAROLL_OH_CRIKEY                  0x0243
-#define SFX_DRCAROLL_GOODNESS_GRACIOUS          0x0244
-#define SFX_DRCAROLL_DONT_THEY_KNOW             0x0245
-#define SFX_DRCAROLL_STOP_THAT                  0x0246
-#define SFX_DRCAROLL_GET_OUT_OF_HERE            0x0247
-#define SFX_DRCAROLL_KNOW_WHAT_YOURE_DOING      0x0248
-#define SFX_DRCAROLL_0249                       0x0249
-#define SFX_DRCAROLL_GOING_TO_THE_HELIPAD       0x024b
-#define SFX_DRCAROLL_OOH_UH                     0x024c
-#define SFX_DRCAROLL_SYSTEMS_FAILURE            0x024d
-#define SFX_DRCAROLL_YOU_GO_ON                  0x024e
-#define SFX_DRCAROLL_I_CANT_MAKE_IT             0x024f
-#define SFX_DRCAROLL_WHOA                       0x0251
-#define SFX_DRCAROLL_QUITE_ENOUGH               0x0252
-#define SFX_DRCAROLL_IM_DYING                   0x0256
-#define SFX_DRCAROLL_GOODBYE                    0x0257
-#define SFX_DRCAROLL_YOU_WERE_SUPPOSED          0x0258
-#define SFX_M0_WHAT_THE                         0x025b
-#define SFX_M0_WHO_THE                          0x025c
-#define SFX_M0_MEDIC                            0x025e
-#define SFX_M0_OW                               0x025f
-#define SFX_M0_YOU_SHOT_ME                      0x0260
-#define SFX_M0_IM_HIT                           0x0261
-#define SFX_M0_IM_TAKING_FIRE                   0x0262
-#define SFX_M0_TAKING_DAMAGE                    0x0263
-#define SFX_M0_HEY_YOU                          0x0264
-#define SFX_M0_INTRUDER_ALERT                   0x0265
-#define SFX_M0_GOT_A_CONTACT                    0x0266
-#define SFX_M0_HEAR_THAT                        0x026b
-#define SFX_M0_WHATS_THAT_NOISE                 0x026c
-#define SFX_M0_HEARD_A_NOISE                    0x026d
-#define SFX_M0_ARE_YOU_OKAY                     0x026e
-#define SFX_M0_GOT_A_MAN_DOWN                   0x026f
-#define SFX_M0_HES_BOUGHT_IT                    0x0270
-#define SFX_M0_INTRUDER_ALERT2                  0x0272
-#define SFX_M0_WEVE_GOT_TROUBLE                 0x0273
-#define SFX_M0_WEVE_GOT_PROBLEMS                0x0274
-#define SFX_M0_I_SEE_HER                        0x0275
-#define SFX_M0_THERE_SHE_IS                     0x0277
-#define SFX_M0_THERE_MOVEMENT                   0x0278
-#define SFX_M0_CLEAR_SHOT                       0x027b
-#define SFX_M0_SHES_MINE                        0x027c
-#define SFX_M0_OPEN_FIRE                        0x027d
-#define SFX_M0_WIPE_HER_OUT                     0x027e
-#define SFX_M0_WASTE_HER                        0x027f
-#define SFX_M0_GIVE_IT_UP                       0x0280
-#define SFX_M0_SURRENDER_NOW                    0x0281
-#define SFX_M0_TAKE_THAT                        0x0282
-#define SFX_M0_HOW_DID_I_MISS                   0x0287
-#define SFX_M0_SHES_A_TRICKY_ONE                0x0289
-#define SFX_M0_COVER_ME                         0x028a
-#define SFX_M0_WATCH_MY_BACK                    0x028b
-#define SFX_M0_TAKE_COVER                       0x028c
-#define SFX_M0_TAKE_COVER_028D                  0x028d
-#define SFX_M0_ILL_COVER_YOU                    0x028e
-#define SFX_M0_GET_DOWN                         0x028f
-#define SFX_M0_GO_TO_PLAN_B                     0x0290
-#define SFX_M0_RETREAT                          0x0292
-#define SFX_M0_CATCH                            0x0293
-#define SFX_M0_EVERYBODY_DOWN                   0x0294
-#define SFX_M0_FALL_BACK                        0x0297
-#define SFX_M0_EVERYONE_BACK_OFF                0x0298
-#define SFX_M0_WITHDRAW                         0x0299
-#define SFX_M0_FLANK_THE_TARGET                 0x029a
-#define SFX_M0_LETS_SPLIT_UP                    0x029b
-#define SFX_M0_SURROUND_HER                     0x029c
-#define SFX_M0_GRENADE                          0x029d
-#define SFX_M0_SHE_GOT_ME                       0x02a2
-#define SFX_M0_GRAB_A_BODY_BAG                  0x02a3
-#define SFX_M0_ONE_FOR_THE_MORGUE               0x02a4
-#define SFX_M0_REST_IN_PEACE                    0x02a5
-#define SFX_M0_DONT_SHOOT_ME                    0x02a7
-#define SFX_M0_I_GIVE_UP                        0x02a8
-#define SFX_M0_YOU_WIN_I_SURRENDER              0x02a9
-#define SFX_JO_BOOST_REVERT                     0x02ad
-#define SFX_M1_WHA                              0x02ff
-#define SFX_M1_IM_HIT_IM_HIT                    0x0301
-#define SFX_M1_IM_BLEEDING                      0x0302
-#define SFX_M1_HELP_ME_OUT                      0x0304
-#define SFX_M1_IM_IN_TROUBLE                    0x0305
-#define SFX_M1_COME_HERE                        0x0306
-#define SFX_M1_THERES_SOMEONE_HERE              0x0307
-#define SFX_M1_GET_HER                          0x0308
-#define SFX_M1_WHOA                             0x0309
-#define SFX_M1_IS_THAT_A_BULLET                 0x030b
-#define SFX_M1_THAT_SOUNDED_LIKE                0x030e
-#define SFX_M1_GUNFIRE                          0x030f
-#define SFX_M1_SOMEONES_SHOOTING                0x0310
-#define SFX_M1_HES_GONE                         0x0316
-#define SFX_M1_M2_LOOK_OUT_SHES_COMING          0x031c
-#define SFX_M1_M2_TAKE_COVER                    0x031d
-#define SFX_M1_M2_LOOK_OUT_LOOK_OUT             0x031e
-#define SFX_M1_OVER_THERE                       0x031f
-#define SFX_M1_HALT                             0x0320
-#define SFX_M1_FREEZE                           0x0321
-#define SFX_M1_LAST_MISTAKE                     0x0322
-#define SFX_M1_WHAT_ARE_YOU_WAITING_FOR         0x0323
-#define SFX_M1_BRING_IT_ON                      0x0324
-#define SFX_M1_TAKE_HER_DOWN                    0x0325
-#define SFX_M1_EVERYBODY_GET_HER                0x0326
-#define SFX_M1_ATTACK                           0x0327
-#define SFX_M1_YEAH_BABY                        0x0329
-#define SFX_M1_MY_GUN_ITS_USELESS               0x032f
-#define SFX_M1_STOP_DODGING                     0x0331
-#define SFX_M1_SOMEONE_HIT_HER                  0x0332
-#define SFX_M1_COVER_ME_NOW                     0x0335
-#define SFX_M1_IM_GOING_FOR_COVER               0x0336
-#define SFX_M1_GO_FOR_IT                        0x0337
-#define SFX_M1_GO_GO_GO                         0x0338
-#define SFX_M1_RUN                              0x0339
-#define SFX_M1_SHES_TOO_GOOD_RUN                0x033a
-#define SFX_M1_GET_SOME_BACKUP                  0x033b
-#define SFX_M1_EVACUATE_THE_AREA                0x033c
-#define SFX_M1_CATCH_THIS                       0x033d
-#define SFX_M1_HERE_KEEP_IT                     0x033f
-#define SFX_M1_GRENADE                          0x0342
-#define SFX_M1_WITHDRAW                         0x0343
-#define SFX_M1_FALL_BACK                        0x0344
-#define SFX_M1_EVERYONE_GET_BACK                0x0345
-#define SFX_M1_SURROUND_HER                     0x0346
-#define SFX_M1_SPREAD_OUT                       0x0347
-#define SFX_M1_SPLIT_UP                         0x0348
-#define SFX_M1_PLEASE_DONT                      0x0349
-#define SFX_M1_DONT_SHOOT                       0x034a
-#define SFX_M1_IM_ONLY_DOING_MY_JOB             0x034b
-#define SFX_M1_WHY_ME                           0x034d
-#define SFX_M1_CHOKING                          0x034e
-#define SFX_M1_OUTSTANDING                      0x0355
-#define SFX_M1_IM_JUST_TOO_GOOD                 0x0356
-#define SFX_M1_YEEHAH_GOT_ONE                   0x0357
-#define SFX_M1_ANOTHER_ONE_BITES_THE_DUST       0x035a
-#define SFX_M0_M1_LOOK_OUT_LOOK_OUT             0x035b
-#define SFX_M0_M1_ITS_A_GRENADE                 0x035c
-#define SFX_M0_M1_CLEAR_THE_AREA                0x035d
-#define SFX_F_HEY                               0x037b
-#define SFX_F_HUH                               0x037c
-#define SFX_F_IM_WOUNDED                        0x037e
-#define SFX_F_HELP_ME_OUT                       0x037f
-#define SFX_F_IM_IN_TROUBLE                     0x0380
-#define SFX_F_GET_HER                           0x0381
-#define SFX_F_HEY_YOU_COME_HERE                 0x0382
-#define SFX_F_TARGET_ATTACKING                  0x0384
-#define SFX_F_UNDER_FIRE                        0x0385
-#define SFX_F_WERE_UNDER_FIRE                   0x0387
-#define SFX_F_0389                              0x0389
-#define SFX_F_SOMEONES_SHOOTING                 0x038a
-#define SFX_F_UNIT_DOWN                         0x038d
-#define SFX_F_COME_ON                           0x0396
-#define SFX_F_EVERYONE_GET_HER                  0x0398
-#define SFX_F_ATTACK                            0x0399
-#define SFX_F_DID_THAT_HURT                     0x039a
-#define SFX_F_YOU_WANT_SOME_MORE                0x039b
-#define SFX_F_THIS_GUNS_USELESS                 0x039f
-#define SFX_F_STAND_STILL                       0x03a1
-#define SFX_F_SOMEONE_HIT_HER                   0x03a2
-#define SFX_F_COVER_ME                          0x03a4
-#define SFX_F_TAKE_COVER                        0x03a6
-#define SFX_F_GO_FOR_IT                         0x03a7
-#define SFX_F_RUN                               0x03a9
-#define SFX_F_GET_REINFORCEMENTS                0x03aa
-#define SFX_F_EVACUATE_THE_AREA                 0x03ab
-#define SFX_F_RETREAT                           0x03ac
-#define SFX_F_CATCH_THIS                        0x03ad
-#define SFX_F_TIME_TO_DIE                       0x03ae
-#define SFX_F_WITHDRAW                          0x03b0
-#define SFX_F_FALL_BACK                         0x03b1
-#define SFX_F_SPREAD_OUT                        0x03b3
-#define SFX_F_SPLIT_UP                          0x03b4
-#define SFX_F_PLEASE_DONT                       0x03b5
-#define SFX_F_DONT_SHOOT                        0x03b6
-#define SFX_F_WHY_ME                            0x03b7
-#define SFX_F_NOO                               0x03b8
-#define SFX_F_GET_A_CLEANER                     0x03bc
-#define SFX_F_IM_JUST_TOO_GOOD                  0x03be
-#define SFX_F_SUCH_A_WASTE                      0x03c0
-#define SFX_F_LOOK_OUT                          0x03c1
-#define SFX_F_ITS_A_GRENADE                     0x03c2
-#define SFX_M2_HOW_THE                          0x03c4
-#define SFX_M2_HEY                              0x03c5
-#define SFX_M2_STOP                             0x03c6
-#define SFX_M2_WHY_YOU                          0x03c8
-#define SFX_M2_IM_INJURED                       0x03cd
-#define SFX_M2_IM_HIT_IM_HIT                    0x03ce
-#define SFX_M2_TARGET_SIGHTED                   0x03d0
-#define SFX_M2_COME_ON_MAN                      0x03d1
-#define SFX_M2_THAT_WAS_CLOSE                   0x03d3
-#define SFX_M2_AY_CARAMBA                       0x03d5
-#define SFX_M2_LISTEN_GUNSHOTS                  0x03d6
-#define SFX_M2_SOMEONES_NEARBY                  0x03d7
-#define SFX_M2_BODY_COUNTS_TOO_HIGH             0x03d9
-#define SFX_M2_I_NEVER_LIKED_HIM_ANYWAY         0x03da
-#define SFX_M2_THAT_WAS_MY_BEST_FRIEND          0x03db
-#define SFX_M2_WATCH_OUT                        0x03e1
-#define SFX_M2_HELP_ME_OUT                      0x03e2
-#define SFX_M2_WEVE_GOT_AN_INTRUDER             0x03e3
-#define SFX_M2_GET_HER                          0x03e4
-#define SFX_M2_THERE_ATTACK                     0x03e5
-#define SFX_M2_HEY_YOU_STOP                     0x03e6
-#define SFX_M2_COME_ON_MAN2                     0x03e7
-#define SFX_M2_DIE                              0x03e8
-#define SFX_M2_TAKE_THIS                        0x03e9
-#define SFX_M2_MOVE_IN                          0x03ea
-#define SFX_M2_YOURE_OUT_OF_YOUR_LEAGUE         0x03eb
-#define SFX_M2_LET_HER_HAVE_IT                  0x03ec
-#define SFX_M2_SURRENDER_OR_DIE                 0x03ed
-#define SFX_M2_I_HAVE_YOU_NOW                   0x03ee
-#define SFX_M2_YOU_WANT_BEAT_ME                 0x03ef
-#define SFX_M2_I_DONT_BELIEVE_IT                0x03f4
-#define SFX_M2_STOP_MOVING                      0x03f7
-#define SFX_M2_NO_ESCAPE_FOR_YOU                0x03f8
-#define SFX_M2_HELP_ME_OUT_HERE                 0x03f9
-#define SFX_M2_HEY_DISTRACT_HER                 0x03fa
-#define SFX_M2_KEEP_HER_OCCUPIED                0x03fb
-#define SFX_M2_MOVE_IT_MOVE_IT                  0x03fc
-#define SFX_M2_GET_TO_COVER_NOW                 0x03fd
-#define SFX_M2_RUN_FOR_IT                       0x03fe
-#define SFX_M2_RETREAT                          0x03ff
-#define SFX_M2_GET_BACK_GET_BACK                0x0401
-#define SFX_M2_FIRE_IN_THE_HOLE                 0x0403
-#define SFX_M2_HERES_A_LITTLE_PRESENT_FOR_YA    0x0405
-#define SFX_M2_TRY_THIS_FOR_SIZE                0x0407
-#define SFX_M2_GET_OUT_OF_THE_WAY               0x0408
-#define SFX_M2_FALL_BACK                        0x0409
-#define SFX_M2_MOVE_OUT                         0x040a
-#define SFX_M2_TEAM_UP_GUYS                     0x040b
-#define SFX_M2_COME_ON_AROUND_THE_SIDE          0x040c
-#define SFX_M2_SCATTER                          0x040d
-#define SFX_M2_I_DONT_LIKE_THIS_ANY_MORE        0x040e
-#define SFX_M2_DONT_HURT_ME                     0x040f
-#define SFX_M2_YOU_WIN_I_GIVE_UP                0x0410
-#define SFX_M2_I_DONT_WANT_TO_DIE               0x0415
-#define SFX_M2_ITS_ALL_OVER_FOR_THIS_ONE        0x0417
-#define SFX_M2_IM_THE_MAN                       0x041b
-#define SFX_M2_BOY_THAT_WAS_CLOSE               0x041c
-#define SFX_M2_DID_YOU_SEE_THAT                 0x041d
-#define SFX_M2_GET_BACK_QUICK                   0x0420
-#define SFX_M2_WERE_GONNA_DIE                   0x0421
-#define SFX_DOOR_042B                           0x042b
-#define SFX_DOOR_042C                           0x042c
-#define SFX_DISGUISE_ON                         0x042e
-#define SFX_RELOAD_FARSIGHT                     0x0433
-#define SFX_MENU_SUBFOCUS                       0x043e
-#define SFX_MENU_FOCUS                          0x0441
-#define SFX_CIV_THERES_A_MANIAC                 0x0444
-#define SFX_CIV_GREETINGS_CITIZEN               0x0446
-#define SFX_CIV_HOWS_IT_GOING                   0x0447
-#define SFX_CIV_GUNS_DONT_SCARE_ME              0x0448
-#define SFX_CIV_KEEP_AWAY_FROM_THIS_CAR         0x0449
-#define SFX_FBI_WE_HAVE_AN_INTRUDER             0x044b
-#define SFX_FBI_CODE_2_SITUATION                0x0459
-#define SFX_FBI_REQUEST_BACKUP_IMMEDIATELY      0x045a
-#define SFX_CIV_TAKE_IT_EASY                    0x045d
-#define SFX_CIV_I_DONT_WANT_ANY_TROUBLE         0x045e
-#define SFX_CIV_QUICK_DOWN_THERE                0x045f
-#define SFX_CIV_HEY_SUGAR_WANNA_PARTY           0x0461
-#define SFX_CIV_TAKE_THE_WALLET                 0x0463
-#define SFX_CIV_HEY_BABY                        0x0465
-#define SFX_CIV_WHISTLE                         0x0466
-#define SFX_CIV_GET_ME_OUT_OF_HERE              0x0468
-#define SFX_JO_LANDING_046F                     0x046f
-#define SFX_ALARM_INFILTRATION                  0x04ac
-#define SFX_M0_MY_GUN                           0x04c6
-#define SFX_M0_TRIGGER_THE_ALARM                0x04c7
-#define SFX_M0_HELLO_THERE                      0x04c9
-#define SFX_M0_WHATS_THIS                       0x04ca
-#define SFX_M0_IM_SURE_I_HEARD_A_NOISE          0x04cb
-#define SFX_M0_HEARING_THINGS                   0x04cc
-#define SFX_M1_WARN_THE_OTHERS                  0x04ce
-#define SFX_M1_WHAT_IS_IT                       0x04cf
-#define SFX_M1_HOW_DID_THAT_GET_HERE            0x04d0
-#define SFX_M1_DONT_TOUCH_IT                    0x04d1
-#define SFX_M1_I_CANT_SEE_ANYBODY               0x04d2
-#define SFX_M1_THERES_NO_ONE_HERE               0x04d3
-#define SFX_M2_ACTIVATE_THE_ALARM               0x04d4
-#define SFX_M2_IS_IT_DANGEROUS                  0x04d5
-#define SFX_M2_DONT_MOVE                        0x04d6
-#define SFX_M2_STAY_BACK                        0x04d7
-#define SFX_M2_I_BET_THIS_IS_ANOTHER_DRILL      0x04d8
-#define SFX_M2_ANOTHER_FALSE_ALARM              0x04d9
-#define SFX_CAMSPY_SHUTTER                      0x04ff
-#define SFX_SECURE_THE_PERIMETER                0x0515
-#define SFX_ELVIS_INTERGALACTIC_PEACE           0x051b
-#define SFX_ELVIS_EAT_HOT_LEAD_WEIRDOS          0x051c
-#define SFX_ELVIS_KISS_MY_ALIEN_BUTT            0x051d
-#define SFX_ELVIS_ILL_KICK_YOUR_ASS             0x051e
-#define SFX_ELVIS_FOR_YOUR_OWN_GOOD             0x051f
-#define SFX_ELVIS_YOU_DARE_SHOOT_AT_ME          0x0520
-#define SFX_ELVIS_DONT_MESS_WITH_THE_MAIAN      0x0521
-#define SFX_ELVIS_IM_BAD                        0x0522
-#define SFX_ELVIS_ALL_GOING_WRONG               0x0523
-#define SFX_ELVIS_WATCH_THE_SUIT                0x0524
-#define SFX_ELVIS_HEHE                          0x0525
-#define SFX_SKEDAR_ROAR_0529                    0x0529
-#define SFX_SKEDAR_ROAR_052A                    0x052a
-#define SFX_SKEDAR_ROAR_052B                    0x052b
-#define SFX_SKEDAR_ROAR_052D                    0x052d
-#define SFX_SKEDAR_ROAR_052E                    0x052e
-#define SFX_SKEDAR_ROAR_052F                    0x052f
-#define SFX_SKEDAR_ROAR_0530                    0x0530
-#define SFX_SKEDAR_ROAR_0531                    0x0531
-#define SFX_SKEDAR_ROAR_0532                    0x0532
-#define SFX_SKEDAR_ROAR_0533                    0x0533
-#define SFX_SKEDAR_ROAR_0534                    0x0534
-#define SFX_SKEDAR_ROAR_0536                    0x0536
-#define SFX_SKEDAR_ROAR_0537                    0x0537
-#define SFX_SKEDAR_ROAR_0538                    0x0538
-#define SFX_SKEDAR_ROAR_0539                    0x0539
-#define SFX_SKEDAR_ROAR_053A                    0x053a
-#define SFX_INFIL_STATIC_SHORT                  0x059d
-#define SFX_INFIL_STATIC_MEDIUM                 0x059e
-#define SFX_INFIL_STATIC_LONG                   0x059f
-#define SFX_JO_LANDING_05B6                     0x05b6
-#define SFX_JO_LANDING_05B7                     0x05b7
-#define SFX_MP_SCOREPOINT                       0x05b8
-#define SFX_MENU_SWIPE                          0x05bb
-#define SFX_MENU_OPENDIALOG                     0x05bc
-#define SFX_SHOULD_HAVE_COME_HERE_GIRL          0x05be
-#define SFX_WERE_TAKING_OVER                    0x05bf
-#define SFX_ALARM_ATTACKSHIP                    0x05c2
-#define SFX_HEARTBEAT                           0x05c8
-#define SFX_JO_BOOST_ACTIVATE                   0x05c9
-#define SFX_FR_ALARM                            0x05d4
-#define SFX_FR_LIGHTSON                         0x05d5
-#define SFX_FR_LIGHTSOFF                        0x05d6
-#define SFX_WOOD_BREAK                          0x05d8
-#define SFX_FR_CONVEYER                         0x05d9
-#define SFX_FR_CONVEYER_STOP                    0x05da
-#define SFX_TRAINING_FAIL                       0x05db
-#define SFX_TRAINING_COMPLETE                   0x05dc
-#define SFX_MENU_SELECT                         0x05dd
-#define SFX_MAIAN_YELP_05DF                     0x05df
-#define SFX_MAIAN_YELP_05E0                     0x05e0
-#define SFX_MAIAN_YELP_05E1                     0x05e1
-#define SFX_MAIAN_05E2                          0x05e2
-#define SFX_MAIAN_05E3                          0x05e3
-#define SFX_MAIAN_05E4                          0x05e4
-#define SFX_MAIAN_05E5                          0x05e5
-#define SFX_MAIAN_05E6                          0x05e6
-#define SFX_MAIAN_05E7                          0x05e7
-#define SFX_NOSEDIVE                            0x0608
-#define SFX_UFOHUM                              0x0609
-#define SFX_CASS_HOW_DARE_YOU_DISTURB_ME        0x0af2
-#define SFX_CASS_YOU_WILL_REGRET                0x0af3
-#define SFX_CASS_LEAVE_NOW                      0x0af8
-#define SFX_SCI_HAVENT_SEEN_YOU                 0x127e
-#define SFX_SCI_PLEASE_DONT_HURT_ME             0x1280
-#define SFX_SCI_OFF_ALREADY                     0x1281
-#define SFX_SCI_WHATS_HAPPENED_TO_THE_TERMINAL  0x1282
-#define SFX_SCI_EXPERIMENT_IS_DOWN              0x1283
-#define SFX_SCI_IM_CALLING_SECURITY             0x1284
-#define SFX_SCI_LEAVE_THIS_AREA                 0x1286
-#define SFX_SCI_ALLOW_ME_TO_ASSIST_YOU          0x1287
-#define SFX_SCI_HAVE_YOU_BEEN_TAMPERING         0x1288
-#define SFX_SCI_YOU_VANDAL                      0x1289
-#define SFX_SCI_ACCIDENTS_WILL_HAPPEN           0x128a
-#define SFX_SCI_SOMEONES_BROKEN_MY_EQUIPMENT    0x128b
-#define SFX_SCI_MY_EXPERIMENTS                  0x128d
-#define SFX_SCI_ILL_SHUT_IT_DOWN                0x128e
-#define SFX_SCI_WHAT_ARE_YOU_DOING              0x1290
-#define SFX_SCI_SECURITY                        0x1291
-#define SFX_SCI_HOW_DID_THAT_HAPPEN             0x1292
-#define SFX_K7_IM_NOT_SURE                      0x1294
-#define SFX_K7_ONE_MORE_TIME                    0x1295
-#define SFX_K7_I_DUNNO                          0x1296
-#define SFX_SCI_AND_AGAIN                       0x1297
-#define SFX_SCI_TRY_IT_NOW                      0x1298
-#define SFX_CARR_WORRIES_ME                     0x177b
-#define SFX_CIFEM_PATIENCE                      0x177d
-#define SFX_CIFEM_BE_SOMEWHERE                  0x1782
-#define SFX_CIFEM_BOTHER_SOMEONE_ELSE           0x1783
-#define SFX_FOSTER_LEAVE_ME_ALONE               0x1785
-#define SFX_GRIMSHAW_BUG_OFF                    0x1789
-#define SFX_GRIMSHAW_CRIMINAL_RECORD            0x178a
-#define SFX_GRIMSHAW_LOSER                      0x178b
-#define SFX_HOLO_IRRITATING                     0x178d
-#define SFX_CIM_BE_SOMEWHERE                    0x1791
-#define SFX_HANGAR_LIVED_THIS_LONG              0x1795
-#define SFX_FOSTER_WHAT_TO_SHOOT_AT             0x179e
-#define SFX_FOSTER_ZEROED_THE_SIGHTS            0x179f
-#define SFX_FOSTER_GOOD_SHOW                    0x17a0
-#define SFX_CARR_WHAT_IS_IT                     0x17a1
-#define SFX_CARR_A_LITTLE_BUSY                  0x17a2
-#define SFX_CARR_PROUD_OF_YOU                   0x17a3
-#define SFX_CIFEM_FOSTER                        0x17a4
-#define SFX_CIFEM_COME_TO_SEE_ME                0x17a5
-#define SFX_CIFEM_PRACTICE_MAKES_PERFECT        0x17a6
-#define SFX_GRIMSHAW_KNOW_YOUR_ENEMY            0x17a7
-#define SFX_GRIMSHAW_ALL_EARS                   0x17a8
-#define SFX_GRIMSHAW_GAP_IN_RECORDS             0x17a9
-#define SFX_HOLO_LAST_MINUTE_TRAINING           0x17aa
-#define SFX_HOLO_PRACTICE_MAKES_PERFECT         0x17ab
-#define SFX_HOLO_HAVE_A_LIFE                    0x17ac
-#define SFX_HANGERGUY_DONT_SCREW_UP             0x17ad
-#define SFX_HANGERGUY_DONT_MAKE_A_MESS          0x17ae
-#define SFX_HANGERGUY_HALF_HOUR_AGO             0x17af
-#define SFX_M0_WHERE_DID_YOU_GET_THAT           0x1aa0
-#define SFX_M0_SHOULD_YOU_HAVE_THAT             0x1aa1
-#define SFX_M0_WHAT_ARE_YOU_DOING               0x1aa2
-#define SFX_M0_DONT_POINT_THAT_AT_ME            0x1aa3
-#define SFX_M0_WATCH_WHERE_YOURE_POINTING       0x1aa4
-#define SFX_M0_IMPOSTER                         0x1aa5
-#define SFX_M0_ITS_A_SPY                        0x1aa6
-#define SFX_PRES_STOP_SHOOTING                  0x1ac0
-#define SFX_PRES_YOU_SURE_THIS_IS_THE_WAY       0x1ac1
-#define SFX_PRES_WHY_ARE_THEY_SHOOTING          0x1ac3
-#define SFX_M1_WHERE_ARE_YOU_TAKING             0x1ace
-#define SFX_M1_GET_THAT_FIREARM_APPROVED        0x1acf
-#define SFX_M1_WATCH_WHAT_YOURE_DOING           0x1ad0
-#define SFX_M1_BE_CAREFUL                       0x1ad1
-#define SFX_M1_STOP_RIGHT_THERE                 0x1ad2
-#define SFX_M1_DROP_THE_GUN                     0x1ad3
-#define SFX_M2_DO_YOU_HAVE_PERMISSION_FOR_THAT  0x1ad6
-#define SFX_M2_WHAT_ARE_YOU_DOING               0x1ad7
-#define SFX_M2_HEY_THATS_DANGEROUS              0x1ad8
-#define SFX_M2_WATCH_IT_THAT_THING_COULD_GO_OFF 0x1ad9
-#define SFX_M2_PUT_YOUR_HANDS_UP                0x1ada
-#define SFX_M2_ITS_A_TERRORIST                  0x1adb
-#define SFX_ROBOT_STOP_WHERE_YOU_ARE            0x1aeb
-#define SFX_ROBOT_ALERT_UNDER_ATTACK            0x1aec
-#define SFX_SEC_PLEASE_DONT_KILL_ME             0x1aee
-#define SFX_SEC_DONT_SHOOT                      0x1aef
-#define SFX_CIFEM_THANKS1                       0x1b1c
-#define SFX_CIFEM_THANKS3                       0x1b1d
-#define SFX_FOSTER_RELY_ON_YOU                  0x1b1e
-#define SFX_GRIMSHAW_TOO_CLOSE                  0x1b1f
-#define SFX_CIFEM_THANKS2                       0x1b20
-#define SFX_CIM_THANKS_JO                       0x1b21
-#define SFX_COME_BACK_LATER_IM_BUSY             0x1b35
-#define SFX_GO_AWAY                             0x1b36
-#define SFX_LOOK_I_CANT_HELP_YOU                0x1b37
-#define SFX_ALARM_CHICAGO                       0x6455
-#define SFX_JO_SHUT_DOWN_EXPERIMENTS            0x7324
-#define SFX_JO_PULL_THE_PLUG                    0x7325
-#define SFX_JO_SWITCH_THIS_THING_OFF            0x7326
-#define SFX_DOOR_8001                           0x8001
-#define SFX_DOOR_8002                           0x8002
-#define SFX_DOOR_8003                           0x8003
-#define SFX_DOOR_8004                           0x8004
-#define SFX_DOOR_8005                           0x8005
-#define SFX_DOOR_8006                           0x8006
-#define SFX_DOOR_8007                           0x8007
-#define SFX_DOOR_8008                           0x8008
-#define SFX_DOOR_800A                           0x800a
-#define SFX_DOOR_800B                           0x800b
-#define SFX_DOOR_800C                           0x800c
-#define SFX_DOOR_800D                           0x800d
-#define SFX_DOOR_800E                           0x800e
-#define SFX_DOOR_800F                           0x800f
-#define SFX_DOOR_8010                           0x8010
-#define SFX_DOOR_8011                           0x8011
-#define SFX_DOOR_8012                           0x8012
-#define SFX_DOOR_8013                           0x8013
-#define SFX_DOOR_8014                           0x8014
-#define SFX_DOOR_8015                           0x8015
-#define SFX_DOOR_8016                           0x8016
-#define SFX_DOOR_8017                           0x8017
-#define SFX_DOOR_8018                           0x8018
-#define SFX_DOOR_8019                           0x8019
-#define SFX_DOOR_801A                           0x801a
-#define SFX_DOOR_801B                           0x801b
-#define SFX_DOOR_801C                           0x801c
-#define SFX_DOOR_801D                           0x801d
-#define SFX_DOOR_801E                           0x801e
-#define SFX_DOOR_801F                           0x801f
-#define SFX_DOOR_8020                           0x8020
-#define SFX_DOOR_8021                           0x8021
-#define SFX_DOOR_8022                           0x8022
-#define SFX_DOOR_8026                           0x8026
-#define SFX_DOOR_8027                           0x8027
-#define SFX_CARR_HELLO_JOANNA                   0x8028
-#define SFX_CIFEM_HI_THERE                      0x802b
-#define SFX_GRIMSHAW_WELCOME                    0x802c
-#define SFX_GRIMSHAW_HI_THERE                   0x802d
-#define SFX_GRIMSHAW_UMM_ERR_HI                 0x802e
-#define SFX_HOLO_HI                             0x802f
-#define SFX_HANGAR_WHAT_DO_YOU_WANT             0x8030
-#define SFX_FOSTER_STAR_AGENT                   0x8031
-#define SFX_CIM_HEY_THERE                       0x8032
-#define SFX_CIM_HI                              0x8033
-#define SFX_CIM_HOWS_IT_GOING                   0x8034
-#define SFX_CIFEM_HELLO                         0x8035
-#define SFX_CIFEM_HI_JO                         0x8036
-#define SFX_CIFEM_HOWS_IT_GOING                 0x8037
-#define SFX_MENU_ERROR                          0x8040
-#define SFX_RELOAD_DEFAULT                      0x804f
-#define SFX_DRUGSPY_FIREEMPTY                   0x8052
-#define SFX_LAUNCH_ROCKET_8053                  0x8053
-#define SFX_FIRE_SHOTGUN                        0x8055
-#define SFX_DRUGSPY_FIREDART                    0x8057
-#define SFX_SLAYER_WHIR                         0x8068
-#define SFX_PUNCH_GLASS                         0x8077
-#define SFX_GLASS_SHATTER                       0x8078
-#define SFX_THUD_808D                           0x808d
-#define SFX_THUD_808E                           0x808e
-#define SFX_THUD_808F                           0x808f
-#define SFX_THUD_8090                           0x8090
-#define SFX_THUD_8091                           0x8091
-#define SFX_THUD_8092                           0x8092
-#define SFX_THUD_8093                           0x8093
-#define SFX_THUD_8094                           0x8094
-#define SFX_THUD_8095                           0x8095
-#define SFX_THUD_8096                           0x8096
-#define SFX_THUD_8097                           0x8097
-#define SFX_EXPLOSION_8098                      0x8098
-#define SFX_EXPLOSION_809A                      0x809a
-#define SFX_DETONATE                            0x80ab
-#define SFX_DOOR_80AC                           0x80ac
-#define SFX_DOOR_80AD                           0x80ad
-#define SFX_DOOR_80AE                           0x80ae
-#define SFX_BIKE_PULSE                          0x80af
-#define SFX_FOOTSTEP_80C4                       0x80c4
-#define SFX_FOOTSTEP_80C5                       0x80c5
-#define SFX_FOOTSTEP_80C6                       0x80c6
-#define SFX_FOOTSTEP_80C7                       0x80c7
-#define SFX_FOOTSTEP_80C8                       0x80c8
-#define SFX_FOOTSTEP_80C9                       0x80c9
-#define SFX_FOOTSTEP_80CA                       0x80ca
-#define SFX_FOOTSTEP_80CB                       0x80cb
-#define SFX_FOOTSTEP_80CC                       0x80cc
-#define SFX_FOOTSTEP_80CD                       0x80cd
-#define SFX_FOOTSTEP_80CE                       0x80ce
-#define SFX_FOOTSTEP_80CF                       0x80cf
-#define SFX_FOOTSTEP_80D0                       0x80d0
-#define SFX_FOOTSTEP_80D1                       0x80d1
-#define SFX_FOOTSTEP_80D2                       0x80d2
-#define SFX_FOOTSTEP_80D3                       0x80d3
-#define SFX_FOOTSTEP_80D4                       0x80d4
-#define SFX_FOOTSTEP_80D5                       0x80d5
-#define SFX_FOOTSTEP_80D6                       0x80d6
-#define SFX_FOOTSTEP_80D7                       0x80d7
-#define SFX_FOOTSTEP_80D8                       0x80d8
-#define SFX_FOOTSTEP_80D9                       0x80d9
-#define SFX_FOOTSTEP_80DA                       0x80da
-#define SFX_FOOTSTEP_80DB                       0x80db
-#define SFX_FOOTSTEP_80DC                       0x80dc
-#define SFX_FOOTSTEP_80DD                       0x80dd
-#define SFX_FOOTSTEP_80DE                       0x80de
-#define SFX_FOOTSTEP_80DF                       0x80df
-#define SFX_FOOTSTEP_80E0                       0x80e0
-#define SFX_FOOTSTEP_80E1                       0x80e1
-#define SFX_FOOTSTEP_80E2                       0x80e2
-#define SFX_FOOTSTEP_80E3                       0x80e3
-#define SFX_FOOTSTEP_80E4                       0x80e4
-#define SFX_FOOTSTEP_80E5                       0x80e5
-#define SFX_FOOTSTEP_80E6                       0x80e6
-#define SFX_FOOTSTEP_80E7                       0x80e7
-#define SFX_FOOTSTEP_80E8                       0x80e8
-#define SFX_FOOTSTEP_80E9                       0x80e9
-#define SFX_FOOTSTEP_80EA                       0x80ea
-#define SFX_FOOTSTEP_80EB                       0x80eb
-#define SFX_FOOTSTEP_80EC                       0x80ec
-#define SFX_FOOTSTEP_80ED                       0x80ed
-#define SFX_FOOTSTEP_80EE                       0x80ee
-#define SFX_FOOTSTEP_80EF                       0x80ef
-#define SFX_FOOTSTEP_80F0                       0x80f0
-#define SFX_FOOTSTEP_80F1                       0x80f1
-#define SFX_FOOTSTEP_80F2                       0x80f2
-#define SFX_FOOTSTEP_80F3                       0x80f3
-#define SFX_FOOTSTEP_80F4                       0x80f4
-#define SFX_FOOTSTEP_80F5                       0x80f5
-#define SFX_M0_HOLY_SHH                         0x80f7
-#define SFX_M0_WHAT_THE_HELL                    0x80f8
-#define SFX_M0_DAMN_IT_MISSED                   0x80f9
-#define SFX_M0_GODS_SAKE_SOMEONE_HIT_HER        0x80fa
-#define SFX_M0_GET_THE_HELL_OUT_OF_HERE         0x80fb
-#define SFX_M0_YOU_BITCH                        0x80fc
-#define SFX_M0_OH_MY_GOD                        0x80fd
-#define SFX_SCI_WHO_THE_HELL_ARE_YOU            0x8103
-#define SFX_SHIP_HUM                            0x810c
-#define SFX_TYPING_8118                         0x8118
-#define SFX_M1_HOLY                             0x8124
-#define SFX_M1_WHAT_THE_HELL                    0x8125
-#define SFX_M1_OH_MY_GOD                        0x8126
-#define SFX_M1_OH_GOD_IM_HIT                    0x8127
-#define SFX_M1_MY_GOD                           0x8128
-#define SFX_M1_NOOO                             0x8129
-#define SFX_M1_OH_GOD_HES_DEAD                  0x812a
-#define SFX_M1_BLOODY_STUPID_GUN                0x812b
-#define SFX_M1_DAMN_IT                          0x812c
-#define SFX_M1_DAMN_SHES_GOOD                   0x812d
-#define SFX_M1_COVER_MY_ASS                     0x812e
-#define SFX_M1_SCREAM                           0x812f
-#define SFX_F_DAMN_SHES_GOOD                    0x8130
-#define SFX_F_MY_GOD                            0x8131
-#define SFX_M2_GEEZ_THAT_HURT                   0x8132
-#define SFX_M2_DAMN_IT_IM_TAKING_FIRE           0x8133
-#define SFX_M2_GOD_DAMN_IT                      0x8134
-#define SFX_M2_HOLY_MOLY                        0x8135
-#define SFX_M2_DAMN_MISSED_AGAIN                0x8136
-#define SFX_M2_DAMN_YOU                         0x8137
-#define SFX_M2_HELL_SHES_GOOD                   0x8138
-#define SFX_M2_LETS_GET_THE_HELL_OUT_OF_HERE    0x8139
-#define SFX_M2_NOOO                             0x813a
-#define SFX_M2_OH_GOD_IM_DYING                  0x813c
-#define SFX_M2_GOD_RUN                          0x813d
-#define SFX_CIV_OH_MY_GOD                       0x814a
-#define SFX_M0_HOWS_THINGS                      0x815d
-#define SFX_M0_HEY_THERE                        0x815e
-#define SFX_M0_HI_HOW_ARE_YOU                   0x815f
-#define SFX_M1_HI_THERE                         0x8163
-#define SFX_M1_HOWS_THINGS                      0x8164
-#define SFX_M2_HELLO                            0x8165
-#define SFX_M2_HEY_WHATS_UP                     0x8166
-#define SFX_M0_WHAT_THE_HELL_8167               0x8167
-#define SFX_M1_M2_GEEZ                          0x8168
-#define SFX_DOOR_816B                           0x816b
-#define SFX_DOOR_816C                           0x816c
-#define SFX_DOOR_816D                           0x816d
-#define SFX_FOOTSTEP_8187                       0x8187
-#define SFX_FOOTSTEP_8188                       0x8188
-#define SFX_FOOTSTEP_8189                       0x8189
-#define SFX_FOOTSTEP_818A                       0x818a
-#define SFX_FOOTSTEP_818B                       0x818b
-#define SFX_FOOTSTEP_818C                       0x818c
-#define SFX_FOOTSTEP_818D                       0x818d
-#define SFX_FOOTSTEP_818E                       0x818e
-#define SFX_FOOTSTEP_818F                       0x818f
-#define SFX_FOOTSTEP_8190                       0x8190
-#define SFX_FOOTSTEP_8191                       0x8191
-#define SFX_FOOTSTEP_8192                       0x8192
-#define SFX_DOOR_81A8                           0x81a8
-#define SFX_DOOR_81AA                           0x81aa
-#define SFX_DOOR_81AB                           0x81ab
-#define SFX_DOOR_81AD                           0x81ad
-#define SFX_DOOR_81AE                           0x81ae
-#define SFX_DOOR_81AF                           0x81af
-#define SFX_DOOR_81B0                           0x81b0
-#define SFX_DOOR_81B1                           0x81b1
-#define SFX_DOOR_81B2                           0x81b2
-#define SFX_DOOR_81B3                           0x81b3
-#define SFX_DOOR_81B4                           0x81b4
-#define SFX_DOOR_81B5                           0x81b5
-#define SFX_DOOR_81B6                           0x81b6
-#define SFX_DOOR_81B7                           0x81b7
-#define SFX_DOOR_81B8                           0x81b8
+enum sfx {
+	SFX_0000,
+	SFX_LAUNCH_ROCKET,
+	SFX_0002,
+	SFX_0003,
+	SFX_0004,
+	SFX_0005,
+	SFX_0006,
+	SFX_0007,
+	SFX_0008,
+	SFX_0009,
+	SFX_000A,
+	SFX_000B,
+	SFX_000C,
+	SFX_F_GASP_000D,
+	SFX_000E,
+	SFX_000F,
+	SFX_BOTTLE_BREAK,
+	SFX_0011,
+	SFX_0012,
+	SFX_0013,
+	SFX_0014,
+	SFX_0015,
+	SFX_0016,
+	SFX_0017,
+	SFX_0018,
+	SFX_0019,
+	SFX_001A,
+	SFX_001B,
+	SFX_001C,
+	SFX_001D,
+	SFX_001E,
+	SFX_001F,
+	SFX_0020,
+	SFX_0021,
+	SFX_0022,
+	SFX_0023,
+	SFX_0024,
+	SFX_0025,
+	SFX_0026,
+	SFX_0027,
+	SFX_0028,
+	SFX_0029,
+	SFX_002A,
+	SFX_MENU_CANCEL,
+	SFX_002C,
+	SFX_002D,
+	SFX_002E,
+	SFX_002F,
+	SFX_0030,
+	SFX_0031,
+	SFX_0032,
+	SFX_0033,
+	SFX_0034,
+	SFX_0035,
+	SFX_0036,
+	SFX_0037,
+	SFX_0038,
+	SFX_0039,
+	SFX_003A,
+	SFX_003B,
+	SFX_003C,
+	SFX_003D,
+	SFX_TITLE_RAREPRESENTS,
+	SFX_003F,
+	SFX_0040,
+	SFX_0041,
+	SFX_0042,
+	SFX_0043,
+	SFX_0044,
+	SFX_0045,
+	SFX_0046,
+	SFX_0047,
+	SFX_0048,
+	SFX_0049,
+	SFX_004A,
+	SFX_004B,
+	SFX_004C,
+	SFX_004D,
+	SFX_004E,
+	SFX_004F,
+	SFX_0050,
+	SFX_0051,
+	SFX_REGEN,
+	SFX_0053,
+	SFX_0054,
+	SFX_0055,
+	SFX_0056,
+	SFX_0057,
+	SFX_0058,
+	SFX_0059,
+	SFX_005A,
+	SFX_CLOAK_ON,
+	SFX_CLOAK_OFF,
+	SFX_005D,
+	SFX_005E,
+	SFX_005F,
+	SFX_0060,
+	SFX_0061,
+	SFX_0062,
+	SFX_0063,
+	SFX_SHIELD_DAMAGE,
+	SFX_0065,
+	SFX_0066,
+	SFX_0067,
+	SFX_0068,
+	SFX_0069,
+	SFX_006A,
+	SFX_006B,
+	SFX_006C,
+	SFX_006D,
+	SFX_006E,
+	SFX_006F,
+	SFX_0070,
+	SFX_0071,
+	SFX_0072,
+	SFX_0073,
+	SFX_0074,
+	SFX_0075,
+	SFX_0076,
+	SFX_0077,
+	SFX_0078,
+	SFX_0079,
+	SFX_007A,
+	SFX_007B,
+	SFX_007C,
+	SFX_007D,
+	SFX_007E,
+	SFX_007F,
+	SFX_0080,
+	SFX_0081,
+	SFX_0082,
+	SFX_0083,
+	SFX_0084,
+	SFX_0085,
+	SFX_0086,
+	SFX_0087,
+	SFX_0088,
+	SFX_0089,
+	SFX_008A,
+	SFX_008B,
+	SFX_008C,
+	SFX_008D,
+	SFX_008E,
+	SFX_008F,
+	SFX_0090,
+	SFX_0091,
+	SFX_0092,
+	SFX_0093,
+	SFX_0094,
+	SFX_0095,
+	SFX_0096,
+	SFX_0097,
+	SFX_0098,
+	SFX_0099,
+	SFX_009A,
+	SFX_009B,
+	SFX_009C,
+	SFX_009D,
+	SFX_009E,
+	SFX_009F,
+	SFX_00A0,
+	SFX_ALARM_AIRBASE,
+	SFX_ALARM_2,
+	SFX_ALARM_DEFAULT,
+	SFX_00A4,
+	SFX_00A5,
+	SFX_00A6,
+	SFX_00A7,
+	SFX_00A8,
+	SFX_00A9,
+	SFX_00AA,
+	SFX_00AB,
+	SFX_00AC,
+	SFX_00AD,
+	SFX_00AE,
+	SFX_00AF,
+	SFX_00B0,
+	SFX_00B1,
+	SFX_00B2,
+	SFX_00B3,
+	SFX_00B4,
+	SFX_00B5,
+	SFX_00B6,
+	SFX_00B7,
+	SFX_00B8,
+	SFX_00B9,
+	SFX_PRESS_SWITCH,
+	SFX_00BB,
+	SFX_00BC,
+	SFX_00BD,
+	SFX_00BE,
+	SFX_00BF,
+	SFX_00C0,
+	SFX_00C1,
+	SFX_00C2,
+	SFX_00C3,
+	SFX_00C4,
+	SFX_00C5,
+	SFX_00C6,
+	SFX_00C7,
+	SFX_00C8,
+	SFX_00C9,
+	SFX_00CA,
+	SFX_00CB,
+	SFX_00CC,
+	SFX_00CD,
+	SFX_00CE,
+	SFX_00CF,
+	SFX_00D0,
+	SFX_00D1,
+	SFX_00D2,
+	SFX_00D3,
+	SFX_00D4,
+	SFX_00D5,
+	SFX_00D6,
+	SFX_00D7,
+	SFX_00D8,
+	SFX_00D9,
+	SFX_00DA,
+	SFX_00DB,
+	SFX_00DC,
+	SFX_00DD,
+	SFX_00DE,
+	SFX_00DF,
+	SFX_00E0,
+	SFX_00E1,
+	SFX_00E2,
+	SFX_00E3,
+	SFX_00E4,
+	SFX_PICKUP_KEYCARD,
+	SFX_00E6,
+	SFX_00E7,
+	SFX_PICKUP_GUN,
+	SFX_PICKUP_KNIFE,
+	SFX_PICKUP_AMMO,
+	SFX_PICKUP_MINE,
+	SFX_00EC,
+	SFX_00ED,
+	SFX_00EE,
+	SFX_00EF,
+	SFX_00F0,
+	SFX_00F1,
+	SFX_PICKUP_LASER,
+	SFX_00F3,
+	SFX_00F4,
+	SFX_BIKE_TAKEOFF,
+	SFX_00F6,
+	SFX_00F7,
+	SFX_00F8,
+	SFX_00F9,
+	SFX_00FA,
+	SFX_00FB,
+	SFX_00FC,
+	SFX_00FD,
+	SFX_00FE,
+	SFX_00FF,
+	SFX_0100,
+	SFX_0101,
+	SFX_0102,
+	SFX_0103,
+	SFX_0104,
+	SFX_0105,
+	SFX_0106,
+	SFX_0107,
+	SFX_0108,
+	SFX_0109,
+	SFX_010A,
+	SFX_010B,
+	SFX_010C,
+	SFX_010D,
+	SFX_010E,
+	SFX_010F,
+	SFX_0110,
+	SFX_0111,
+	SFX_0112,
+	SFX_0113,
+	SFX_0114,
+	SFX_0115,
+	SFX_0116,
+	SFX_0117,
+	SFX_0118,
+	SFX_0119,
+	SFX_011A,
+	SFX_011B,
+	SFX_011C,
+	SFX_011D,
+	SFX_011E,
+	SFX_011F,
+	SFX_0120,
+	SFX_0121,
+	SFX_0122,
+	SFX_0123,
+	SFX_0124,
+	SFX_0125,
+	SFX_0126,
+	SFX_0127,
+	SFX_0128,
+	SFX_0129,
+	SFX_012A,
+	SFX_012B,
+	SFX_012C,
+	SFX_012D,
+	SFX_012E,
+	SFX_012F,
+	SFX_0130,
+	SFX_0131,
+	SFX_0132,
+	SFX_0133,
+	SFX_0134,
+	SFX_0135,
+	SFX_0136,
+	SFX_0137,
+	SFX_0138,
+	SFX_0139,
+	SFX_013A,
+	SFX_013B,
+	SFX_013C,
+	SFX_013D,
+	SFX_013E,
+	SFX_013F,
+	SFX_0140,
+	SFX_0141,
+	SFX_0142,
+	SFX_0143,
+	SFX_0144,
+	SFX_0145,
+	SFX_0146,
+	SFX_0147,
+	SFX_0148,
+	SFX_0149,
+	SFX_014A,
+	SFX_014B,
+	SFX_014C,
+	SFX_014D,
+	SFX_014E,
+	SFX_014F,
+	SFX_0150,
+	SFX_0151,
+	SFX_0152,
+	SFX_0153,
+	SFX_0154,
+	SFX_0155,
+	SFX_0156,
+	SFX_0157,
+	SFX_0158,
+	SFX_0159,
+	SFX_015A,
+	SFX_015B,
+	SFX_015C,
+	SFX_015D,
+	SFX_015E,
+	SFX_015F,
+	SFX_0160,
+	SFX_0161,
+	SFX_0162,
+	SFX_0163,
+	SFX_0164,
+	SFX_0165,
+	SFX_0166,
+	SFX_0167,
+	SFX_0168,
+	SFX_0169,
+	SFX_016A,
+	SFX_016B,
+	SFX_016C,
+	SFX_016D,
+	SFX_016E,
+	SFX_016F,
+	SFX_0170,
+	SFX_0171,
+	SFX_0172,
+	SFX_0173,
+	SFX_0174,
+	SFX_0175,
+	SFX_0176,
+	SFX_0177,
+	SFX_0178,
+	SFX_0179,
+	SFX_017A,
+	SFX_017B,
+	SFX_017C,
+	SFX_017D,
+	SFX_017E,
+	SFX_017F,
+	SFX_0180,
+	SFX_0181,
+	SFX_0182,
+	SFX_0183,
+	SFX_0184,
+	SFX_0185,
+	SFX_0186,
+	SFX_0187,
+	SFX_0188,
+	SFX_0189,
+	SFX_018A,
+	SFX_018B,
+	SFX_018C,
+	SFX_018D,
+	SFX_018E,
+	SFX_018F,
+	SFX_0190,
+	SFX_0191,
+	SFX_0192,
+	SFX_0193,
+	SFX_0194,
+	SFX_0195,
+	SFX_0196,
+	SFX_0197,
+	SFX_0198,
+	SFX_0199,
+	SFX_019A,
+	SFX_019B,
+	SFX_019C,
+	SFX_019D,
+	SFX_019E,
+	SFX_019F,
+	SFX_01A0,
+	SFX_01A1,
+	SFX_01A2,
+	SFX_01A3,
+	SFX_01A4,
+	SFX_01A5,
+	SFX_01A6,
+	SFX_01A7,
+	SFX_01A8,
+	SFX_01A9,
+	SFX_01AA,
+	SFX_01AB,
+	SFX_01AC,
+	SFX_01AD,
+	SFX_01AE,
+	SFX_01AF,
+	SFX_01B0,
+	SFX_01B1,
+	SFX_01B2,
+	SFX_01B3,
+	SFX_BIKE_ENGINE,
+	SFX_01B5,
+	SFX_01B6,
+	SFX_01B7,
+	SFX_01B8,
+	SFX_01B9,
+	SFX_01BA,
+	SFX_01BB,
+	SFX_01BC,
+	SFX_EYESPY_RUNNING,
+	SFX_01BE,
+	SFX_01BF,
+	SFX_01C0,
+	SFX_01C1,
+	SFX_01C2,
+	SFX_01C3,
+	SFX_01C4,
+	SFX_01C5,
+	SFX_01C6,
+	SFX_01C7,
+	SFX_SLAYER_BEEP,
+	SFX_01C9,
+	SFX_01CA,
+	SFX_01CB,
+	SFX_01CC,
+	SFX_PICKUP_SHIELD,
+	SFX_01CE,
+	SFX_01CF,
+	SFX_01D0,
+	SFX_01D1,
+	SFX_01D2,
+	SFX_01D3,
+	SFX_01D4,
+	SFX_01D5,
+	SFX_01D6,
+	SFX_01D7,
+	SFX_01D8,
+	SFX_01D9,
+	SFX_01DA,
+	SFX_01DB,
+	SFX_01DC,
+	SFX_01DD,
+	SFX_01DE,
+	SFX_01DF,
+	SFX_01E0,
+	SFX_01E1,
+	SFX_01E2,
+	SFX_01E3,
+	SFX_01E4,
+	SFX_01E5,
+	SFX_01E6,
+	SFX_01E7,
+	SFX_01E8,
+	SFX_01E9,
+	SFX_01EA,
+	SFX_01EB,
+	SFX_01EC,
+	SFX_01ED,
+	SFX_01EE,
+	SFX_01EF,
+	SFX_01F0,
+	SFX_01F1,
+	SFX_01F2,
+	SFX_01F3,
+	SFX_01F4,
+	SFX_01F5,
+	SFX_01F6,
+	SFX_01F7,
+	SFX_01F8,
+	SFX_01F9,
+	SFX_01FA,
+	SFX_01FB,
+	SFX_01FC,
+	SFX_01FD,
+	SFX_01FE,
+	SFX_01FF,
+	SFX_0200,
+	SFX_0201,
+	SFX_0202,
+	SFX_0203,
+	SFX_0204,
+	SFX_0205,
+	SFX_0206,
+	SFX_0207,
+	SFX_0208,
+	SFX_0209,
+	SFX_020A,
+	SFX_020B,
+	SFX_020C,
+	SFX_020D,
+	SFX_020E,
+	SFX_020F,
+	SFX_0210,
+	SFX_0211,
+	SFX_0212,
+	SFX_0213,
+	SFX_0214,
+	SFX_0215,
+	SFX_0216,
+	SFX_0217,
+	SFX_0218,
+	SFX_0219,
+	SFX_021A,
+	SFX_021B,
+	SFX_021C,
+	SFX_021D,
+	SFX_021E,
+	SFX_021F,
+	SFX_0220,
+	SFX_0221,
+	SFX_0222,
+	SFX_0223,
+	SFX_0224,
+	SFX_0225,
+	SFX_0226,
+	SFX_0227,
+	SFX_0228,
+	SFX_0229,
+	SFX_022A,
+	SFX_022B,
+	SFX_022C,
+	SFX_022D,
+	SFX_022E,
+	SFX_022F,
+	SFX_0230,
+	SFX_0231,
+	SFX_0232,
+	SFX_0233,
+	SFX_0234,
+	SFX_0235,
+	SFX_0236,
+	SFX_0237,
+	SFX_0238,
+	SFX_0239,
+	SFX_023A,
+	SFX_023B,
+	SFX_023C,
+	SFX_DRCAROLL_COME_ON,
+	SFX_DRCAROLL_TAKING_YOUR_TIME,
+	SFX_DRCAROLL_WHAT,
+	SFX_DRCAROLL_OOH,
+	SFX_0241,
+	SFX_0242,
+	SFX_DRCAROLL_OH_CRIKEY,
+	SFX_DRCAROLL_GOODNESS_GRACIOUS,
+	SFX_DRCAROLL_DONT_THEY_KNOW,
+	SFX_DRCAROLL_STOP_THAT,
+	SFX_DRCAROLL_GET_OUT_OF_HERE,
+	SFX_DRCAROLL_KNOW_WHAT_YOURE_DOING,
+	SFX_DRCAROLL_0249,
+	SFX_024A,
+	SFX_DRCAROLL_GOING_TO_THE_HELIPAD,
+	SFX_DRCAROLL_OOH_UH,
+	SFX_DRCAROLL_SYSTEMS_FAILURE,
+	SFX_DRCAROLL_YOU_GO_ON,
+	SFX_DRCAROLL_I_CANT_MAKE_IT,
+	SFX_0250,
+	SFX_DRCAROLL_WHOA,
+	SFX_DRCAROLL_QUITE_ENOUGH,
+	SFX_0253,
+	SFX_0254,
+	SFX_0255,
+	SFX_DRCAROLL_IM_DYING,
+	SFX_DRCAROLL_GOODBYE,
+	SFX_DRCAROLL_YOU_WERE_SUPPOSED,
+	SFX_0259,
+	SFX_025A,
+	SFX_M0_WHAT_THE,
+	SFX_M0_WHO_THE,
+	SFX_025D,
+	SFX_M0_MEDIC,
+	SFX_M0_OW,
+	SFX_M0_YOU_SHOT_ME,
+	SFX_M0_IM_HIT,
+	SFX_M0_IM_TAKING_FIRE,
+	SFX_M0_TAKING_DAMAGE,
+	SFX_M0_HEY_YOU,
+	SFX_M0_INTRUDER_ALERT,
+	SFX_M0_GOT_A_CONTACT,
+	SFX_0267,
+	SFX_0268,
+	SFX_0269,
+	SFX_026A,
+	SFX_M0_HEAR_THAT,
+	SFX_M0_WHATS_THAT_NOISE,
+	SFX_M0_HEARD_A_NOISE,
+	SFX_M0_ARE_YOU_OKAY,
+	SFX_M0_GOT_A_MAN_DOWN,
+	SFX_M0_HES_BOUGHT_IT,
+	SFX_0271,
+	SFX_M0_INTRUDER_ALERT2,
+	SFX_M0_WEVE_GOT_TROUBLE,
+	SFX_M0_WEVE_GOT_PROBLEMS,
+	SFX_M0_I_SEE_HER,
+	SFX_0276,
+	SFX_M0_THERE_SHE_IS,
+	SFX_M0_THERE_MOVEMENT,
+	SFX_0279,
+	SFX_027A,
+	SFX_M0_CLEAR_SHOT,
+	SFX_M0_SHES_MINE,
+	SFX_M0_OPEN_FIRE,
+	SFX_M0_WIPE_HER_OUT,
+	SFX_M0_WASTE_HER,
+	SFX_M0_GIVE_IT_UP,
+	SFX_M0_SURRENDER_NOW,
+	SFX_M0_TAKE_THAT,
+	SFX_0283,
+	SFX_0284,
+	SFX_0285,
+	SFX_0286,
+	SFX_M0_HOW_DID_I_MISS,
+	SFX_0288,
+	SFX_M0_SHES_A_TRICKY_ONE,
+	SFX_M0_COVER_ME,
+	SFX_M0_WATCH_MY_BACK,
+	SFX_M0_TAKE_COVER,
+	SFX_M0_TAKE_COVER_028D,
+	SFX_M0_ILL_COVER_YOU,
+	SFX_M0_GET_DOWN,
+	SFX_M0_GO_TO_PLAN_B,
+	SFX_0291,
+	SFX_M0_RETREAT,
+	SFX_M0_CATCH,
+	SFX_M0_EVERYBODY_DOWN,
+	SFX_0295,
+	SFX_0296,
+	SFX_M0_FALL_BACK,
+	SFX_M0_EVERYONE_BACK_OFF,
+	SFX_M0_WITHDRAW,
+	SFX_M0_FLANK_THE_TARGET,
+	SFX_M0_LETS_SPLIT_UP,
+	SFX_M0_SURROUND_HER,
+	SFX_M0_GRENADE,
+	SFX_029E,
+	SFX_029F,
+	SFX_02A0,
+	SFX_02A1,
+	SFX_M0_SHE_GOT_ME,
+	SFX_M0_GRAB_A_BODY_BAG,
+	SFX_M0_ONE_FOR_THE_MORGUE,
+	SFX_M0_REST_IN_PEACE,
+	SFX_02A6,
+	SFX_M0_DONT_SHOOT_ME,
+	SFX_M0_I_GIVE_UP,
+	SFX_M0_YOU_WIN_I_SURRENDER,
+	SFX_02AA,
+	SFX_02AB,
+	SFX_02AC,
+	SFX_JO_BOOST_REVERT,
+	SFX_02AE,
+	SFX_02AF,
+	SFX_02B0,
+	SFX_02B1,
+	SFX_02B2,
+	SFX_02B3,
+	SFX_02B4,
+	SFX_02B5,
+	SFX_02B6,
+	SFX_02B7,
+	SFX_02B8,
+	SFX_02B9,
+	SFX_02BA,
+	SFX_02BB,
+	SFX_02BC,
+	SFX_02BD,
+	SFX_02BE,
+	SFX_02BF,
+	SFX_02C0,
+	SFX_02C1,
+	SFX_02C2,
+	SFX_02C3,
+	SFX_02C4,
+	SFX_02C5,
+	SFX_02C6,
+	SFX_02C7,
+	SFX_02C8,
+	SFX_02C9,
+	SFX_02CA,
+	SFX_02CB,
+	SFX_02CC,
+	SFX_02CD,
+	SFX_02CE,
+	SFX_02CF,
+	SFX_02D0,
+	SFX_02D1,
+	SFX_02D2,
+	SFX_02D3,
+	SFX_02D4,
+	SFX_02D5,
+	SFX_02D6,
+	SFX_02D7,
+	SFX_02D8,
+	SFX_02D9,
+	SFX_02DA,
+	SFX_02DB,
+	SFX_02DC,
+	SFX_02DD,
+	SFX_02DE,
+	SFX_02DF,
+	SFX_02E0,
+	SFX_02E1,
+	SFX_02E2,
+	SFX_02E3,
+	SFX_02E4,
+	SFX_02E5,
+	SFX_02E6,
+	SFX_02E7,
+	SFX_02E8,
+	SFX_02E9,
+	SFX_02EA,
+	SFX_02EB,
+	SFX_02EC,
+	SFX_02ED,
+	SFX_02EE,
+	SFX_02EF,
+	SFX_02F0,
+	SFX_02F1,
+	SFX_02F2,
+	SFX_02F3,
+	SFX_02F4,
+	SFX_02F5,
+	SFX_02F6,
+	SFX_02F7,
+	SFX_02F8,
+	SFX_02F9,
+	SFX_02FA,
+	SFX_02FB,
+	SFX_02FC,
+	SFX_02FD,
+	SFX_02FE,
+	SFX_M1_WHA,
+	SFX_0300,
+	SFX_M1_IM_HIT_IM_HIT,
+	SFX_M1_IM_BLEEDING,
+	SFX_0303,
+	SFX_M1_HELP_ME_OUT,
+	SFX_M1_IM_IN_TROUBLE,
+	SFX_M1_COME_HERE,
+	SFX_M1_THERES_SOMEONE_HERE,
+	SFX_M1_GET_HER,
+	SFX_M1_WHOA,
+	SFX_030A,
+	SFX_M1_IS_THAT_A_BULLET,
+	SFX_030C,
+	SFX_030D,
+	SFX_M1_THAT_SOUNDED_LIKE,
+	SFX_M1_GUNFIRE,
+	SFX_M1_SOMEONES_SHOOTING,
+	SFX_0311,
+	SFX_0312,
+	SFX_0313,
+	SFX_0314,
+	SFX_0315,
+	SFX_M1_HES_GONE,
+	SFX_0317,
+	SFX_0318,
+	SFX_0319,
+	SFX_031A,
+	SFX_031B,
+	SFX_M1_M2_LOOK_OUT_SHES_COMING,
+	SFX_M1_M2_TAKE_COVER,
+	SFX_M1_M2_LOOK_OUT_LOOK_OUT,
+	SFX_M1_OVER_THERE,
+	SFX_M1_HALT,
+	SFX_M1_FREEZE,
+	SFX_M1_LAST_MISTAKE,
+	SFX_M1_WHAT_ARE_YOU_WAITING_FOR,
+	SFX_M1_BRING_IT_ON,
+	SFX_M1_TAKE_HER_DOWN,
+	SFX_M1_EVERYBODY_GET_HER,
+	SFX_M1_ATTACK,
+	SFX_0328,
+	SFX_M1_YEAH_BABY,
+	SFX_032A,
+	SFX_032B,
+	SFX_032C,
+	SFX_032D,
+	SFX_032E,
+	SFX_M1_MY_GUN_ITS_USELESS,
+	SFX_0330,
+	SFX_M1_STOP_DODGING,
+	SFX_M1_SOMEONE_HIT_HER,
+	SFX_0333,
+	SFX_0334,
+	SFX_M1_COVER_ME_NOW,
+	SFX_M1_IM_GOING_FOR_COVER,
+	SFX_M1_GO_FOR_IT,
+	SFX_M1_GO_GO_GO,
+	SFX_M1_RUN,
+	SFX_M1_SHES_TOO_GOOD_RUN,
+	SFX_M1_GET_SOME_BACKUP,
+	SFX_M1_EVACUATE_THE_AREA,
+	SFX_M1_CATCH_THIS,
+	SFX_033E,
+	SFX_M1_HERE_KEEP_IT,
+	SFX_0340,
+	SFX_0341,
+	SFX_M1_GRENADE,
+	SFX_M1_WITHDRAW,
+	SFX_M1_FALL_BACK,
+	SFX_M1_EVERYONE_GET_BACK,
+	SFX_M1_SURROUND_HER,
+	SFX_M1_SPREAD_OUT,
+	SFX_M1_SPLIT_UP,
+	SFX_M1_PLEASE_DONT,
+	SFX_M1_DONT_SHOOT,
+	SFX_M1_IM_ONLY_DOING_MY_JOB,
+	SFX_034C,
+	SFX_M1_WHY_ME,
+	SFX_M1_CHOKING,
+	SFX_034F,
+	SFX_0350,
+	SFX_0351,
+	SFX_0352,
+	SFX_0353,
+	SFX_0354,
+	SFX_M1_OUTSTANDING,
+	SFX_M1_IM_JUST_TOO_GOOD,
+	SFX_M1_YEEHAH_GOT_ONE,
+	SFX_0358,
+	SFX_0359,
+	SFX_M1_ANOTHER_ONE_BITES_THE_DUST,
+	SFX_M0_M1_LOOK_OUT_LOOK_OUT,
+	SFX_M0_M1_ITS_A_GRENADE,
+	SFX_M0_M1_CLEAR_THE_AREA,
+	SFX_035E,
+	SFX_035F,
+	SFX_0360,
+	SFX_0361,
+	SFX_0362,
+	SFX_0363,
+	SFX_0364,
+	SFX_0365,
+	SFX_0366,
+	SFX_0367,
+	SFX_0368,
+	SFX_0369,
+	SFX_036A,
+	SFX_036B,
+	SFX_036C,
+	SFX_036D,
+	SFX_036E,
+	SFX_036F,
+	SFX_0370,
+	SFX_0371,
+	SFX_0372,
+	SFX_0373,
+	SFX_0374,
+	SFX_0375,
+	SFX_0376,
+	SFX_0377,
+	SFX_0378,
+	SFX_0379,
+	SFX_037A,
+	SFX_F_HEY,
+	SFX_F_HUH,
+	SFX_037D,
+	SFX_F_IM_WOUNDED,
+	SFX_F_HELP_ME_OUT,
+	SFX_F_IM_IN_TROUBLE,
+	SFX_F_GET_HER,
+	SFX_F_HEY_YOU_COME_HERE,
+	SFX_0383,
+	SFX_F_TARGET_ATTACKING,
+	SFX_F_UNDER_FIRE,
+	SFX_0386,
+	SFX_F_WERE_UNDER_FIRE,
+	SFX_0388,
+	SFX_F_0389,
+	SFX_F_SOMEONES_SHOOTING,
+	SFX_038B,
+	SFX_038C,
+	SFX_F_UNIT_DOWN,
+	SFX_038E,
+	SFX_038F,
+	SFX_0390,
+	SFX_0391,
+	SFX_0392,
+	SFX_0393,
+	SFX_0394,
+	SFX_0395,
+	SFX_F_COME_ON,
+	SFX_0397,
+	SFX_F_EVERYONE_GET_HER,
+	SFX_F_ATTACK,
+	SFX_F_DID_THAT_HURT,
+	SFX_F_YOU_WANT_SOME_MORE,
+	SFX_039C,
+	SFX_039D,
+	SFX_039E,
+	SFX_F_THIS_GUNS_USELESS,
+	SFX_03A0,
+	SFX_F_STAND_STILL,
+	SFX_F_SOMEONE_HIT_HER,
+	SFX_03A3,
+	SFX_F_COVER_ME,
+	SFX_03A5,
+	SFX_F_TAKE_COVER,
+	SFX_F_GO_FOR_IT,
+	SFX_03A8,
+	SFX_F_RUN,
+	SFX_F_GET_REINFORCEMENTS,
+	SFX_F_EVACUATE_THE_AREA,
+	SFX_F_RETREAT,
+	SFX_F_CATCH_THIS,
+	SFX_F_TIME_TO_DIE,
+	SFX_03AF,
+	SFX_F_WITHDRAW,
+	SFX_F_FALL_BACK,
+	SFX_03B2,
+	SFX_F_SPREAD_OUT,
+	SFX_F_SPLIT_UP,
+	SFX_F_PLEASE_DONT,
+	SFX_F_DONT_SHOOT,
+	SFX_F_WHY_ME,
+	SFX_F_NOO,
+	SFX_03B9,
+	SFX_03BA,
+	SFX_03BB,
+	SFX_F_GET_A_CLEANER,
+	SFX_03BD,
+	SFX_F_IM_JUST_TOO_GOOD,
+	SFX_03BF,
+	SFX_F_SUCH_A_WASTE,
+	SFX_F_LOOK_OUT,
+	SFX_F_ITS_A_GRENADE,
+	SFX_03C3,
+	SFX_M2_HOW_THE,
+	SFX_M2_HEY,
+	SFX_M2_STOP,
+	SFX_03C7,
+	SFX_M2_WHY_YOU,
+	SFX_03C9,
+	SFX_03CA,
+	SFX_03CB,
+	SFX_03CC,
+	SFX_M2_IM_INJURED,
+	SFX_M2_IM_HIT_IM_HIT,
+	SFX_03CF,
+	SFX_M2_TARGET_SIGHTED,
+	SFX_M2_COME_ON_MAN,
+	SFX_03D2,
+	SFX_M2_THAT_WAS_CLOSE,
+	SFX_03D4,
+	SFX_M2_AY_CARAMBA,
+	SFX_M2_LISTEN_GUNSHOTS,
+	SFX_M2_SOMEONES_NEARBY,
+	SFX_03D8,
+	SFX_M2_BODY_COUNTS_TOO_HIGH,
+	SFX_M2_I_NEVER_LIKED_HIM_ANYWAY,
+	SFX_M2_THAT_WAS_MY_BEST_FRIEND,
+	SFX_03DC,
+	SFX_03DD,
+	SFX_03DE,
+	SFX_03DF,
+	SFX_03E0,
+	SFX_M2_WATCH_OUT,
+	SFX_M2_HELP_ME_OUT,
+	SFX_M2_WEVE_GOT_AN_INTRUDER,
+	SFX_M2_GET_HER,
+	SFX_M2_THERE_ATTACK,
+	SFX_M2_HEY_YOU_STOP,
+	SFX_M2_COME_ON_MAN2,
+	SFX_M2_DIE,
+	SFX_M2_TAKE_THIS,
+	SFX_M2_MOVE_IN,
+	SFX_M2_YOURE_OUT_OF_YOUR_LEAGUE,
+	SFX_M2_LET_HER_HAVE_IT,
+	SFX_M2_SURRENDER_OR_DIE,
+	SFX_M2_I_HAVE_YOU_NOW,
+	SFX_M2_YOU_WANT_BEAT_ME,
+	SFX_03F0,
+	SFX_03F1,
+	SFX_03F2,
+	SFX_03F3,
+	SFX_M2_I_DONT_BELIEVE_IT,
+	SFX_03F5,
+	SFX_03F6,
+	SFX_M2_STOP_MOVING,
+	SFX_M2_NO_ESCAPE_FOR_YOU,
+	SFX_M2_HELP_ME_OUT_HERE,
+	SFX_M2_HEY_DISTRACT_HER,
+	SFX_M2_KEEP_HER_OCCUPIED,
+	SFX_M2_MOVE_IT_MOVE_IT,
+	SFX_M2_GET_TO_COVER_NOW,
+	SFX_M2_RUN_FOR_IT,
+	SFX_M2_RETREAT,
+	SFX_0400,
+	SFX_M2_GET_BACK_GET_BACK,
+	SFX_0402,
+	SFX_M2_FIRE_IN_THE_HOLE,
+	SFX_0404,
+	SFX_M2_HERES_A_LITTLE_PRESENT_FOR_YA,
+	SFX_0406,
+	SFX_M2_TRY_THIS_FOR_SIZE,
+	SFX_M2_GET_OUT_OF_THE_WAY,
+	SFX_M2_FALL_BACK,
+	SFX_M2_MOVE_OUT,
+	SFX_M2_TEAM_UP_GUYS,
+	SFX_M2_COME_ON_AROUND_THE_SIDE,
+	SFX_M2_SCATTER,
+	SFX_M2_I_DONT_LIKE_THIS_ANY_MORE,
+	SFX_M2_DONT_HURT_ME,
+	SFX_M2_YOU_WIN_I_GIVE_UP,
+	SFX_0411,
+	SFX_0412,
+	SFX_0413,
+	SFX_0414,
+	SFX_M2_I_DONT_WANT_TO_DIE,
+	SFX_0416,
+	SFX_M2_ITS_ALL_OVER_FOR_THIS_ONE,
+	SFX_0418,
+	SFX_0419,
+	SFX_041A,
+	SFX_M2_IM_THE_MAN,
+	SFX_M2_BOY_THAT_WAS_CLOSE,
+	SFX_M2_DID_YOU_SEE_THAT,
+	SFX_041E,
+	SFX_041F,
+	SFX_M2_GET_BACK_QUICK,
+	SFX_M2_WERE_GONNA_DIE,
+	SFX_0422,
+	SFX_0423,
+	SFX_0424,
+	SFX_0425,
+	SFX_0426,
+	SFX_0427,
+	SFX_0428,
+	SFX_0429,
+	SFX_042A,
+	SFX_DOOR_042B,
+	SFX_DOOR_042C,
+	SFX_042D,
+	SFX_DISGUISE_ON,
+	SFX_042F,
+	SFX_0430,
+	SFX_0431,
+	SFX_0432,
+	SFX_RELOAD_FARSIGHT,
+	SFX_0434,
+	SFX_0435,
+	SFX_0436,
+	SFX_0437,
+	SFX_0438,
+	SFX_0439,
+	SFX_043A,
+	SFX_043B,
+	SFX_043C,
+	SFX_043D,
+	SFX_MENU_SUBFOCUS,
+	SFX_043F,
+	SFX_0440,
+	SFX_MENU_FOCUS,
+	SFX_0442,
+	SFX_0443,
+	SFX_CIV_THERES_A_MANIAC,
+	SFX_0445,
+	SFX_CIV_GREETINGS_CITIZEN,
+	SFX_CIV_HOWS_IT_GOING,
+	SFX_CIV_GUNS_DONT_SCARE_ME,
+	SFX_CIV_KEEP_AWAY_FROM_THIS_CAR,
+	SFX_044A,
+	SFX_FBI_WE_HAVE_AN_INTRUDER,
+	SFX_044C,
+	SFX_044D,
+	SFX_044E,
+	SFX_044F,
+	SFX_0450,
+	SFX_0451,
+	SFX_0452,
+	SFX_0453,
+	SFX_0454,
+	SFX_0455,
+	SFX_0456,
+	SFX_0457,
+	SFX_0458,
+	SFX_FBI_CODE_2_SITUATION,
+	SFX_FBI_REQUEST_BACKUP_IMMEDIATELY,
+	SFX_045B,
+	SFX_045C,
+	SFX_CIV_TAKE_IT_EASY,
+	SFX_CIV_I_DONT_WANT_ANY_TROUBLE,
+	SFX_CIV_QUICK_DOWN_THERE,
+	SFX_0460,
+	SFX_CIV_HEY_SUGAR_WANNA_PARTY,
+	SFX_0462,
+	SFX_CIV_TAKE_THE_WALLET,
+	SFX_0464,
+	SFX_CIV_HEY_BABY,
+	SFX_CIV_WHISTLE,
+	SFX_0467,
+	SFX_CIV_GET_ME_OUT_OF_HERE,
+	SFX_0469,
+	SFX_046A,
+	SFX_046B,
+	SFX_046C,
+	SFX_046D,
+	SFX_046E,
+	SFX_JO_LANDING_046F,
+	SFX_0470,
+	SFX_0471,
+	SFX_0472,
+	SFX_0473,
+	SFX_0474,
+	SFX_0475,
+	SFX_0476,
+	SFX_0477,
+	SFX_0478,
+	SFX_0479,
+	SFX_047A,
+	SFX_047B,
+	SFX_047C,
+	SFX_047D,
+	SFX_047E,
+	SFX_047F,
+	SFX_0480,
+	SFX_0481,
+	SFX_0482,
+	SFX_0483,
+	SFX_0484,
+	SFX_0485,
+	SFX_0486,
+	SFX_0487,
+	SFX_0488,
+	SFX_0489,
+	SFX_048A,
+	SFX_048B,
+	SFX_048C,
+	SFX_048D,
+	SFX_048E,
+	SFX_048F,
+	SFX_0490,
+	SFX_0491,
+	SFX_0492,
+	SFX_0493,
+	SFX_0494,
+	SFX_0495,
+	SFX_0496,
+	SFX_0497,
+	SFX_0498,
+	SFX_0499,
+	SFX_049A,
+	SFX_049B,
+	SFX_049C,
+	SFX_049D,
+	SFX_049E,
+	SFX_049F,
+	SFX_04A0,
+	SFX_04A1,
+	SFX_04A2,
+	SFX_04A3,
+	SFX_04A4,
+	SFX_04A5,
+	SFX_04A6,
+	SFX_04A7,
+	SFX_04A8,
+	SFX_04A9,
+	SFX_04AA,
+	SFX_04AB,
+	SFX_ALARM_INFILTRATION,
+	SFX_04AD,
+	SFX_04AE,
+	SFX_04AF,
+	SFX_04B0,
+	SFX_04B1,
+	SFX_04B2,
+	SFX_04B3,
+	SFX_04B4,
+	SFX_04B5,
+	SFX_04B6,
+	SFX_04B7,
+	SFX_04B8,
+	SFX_04B9,
+	SFX_04BA,
+	SFX_04BB,
+	SFX_04BC,
+	SFX_04BD,
+	SFX_04BE,
+	SFX_04BF,
+	SFX_04C0,
+	SFX_04C1,
+	SFX_04C2,
+	SFX_04C3,
+	SFX_04C4,
+	SFX_04C5,
+	SFX_M0_MY_GUN,
+	SFX_M0_TRIGGER_THE_ALARM,
+	SFX_04C8,
+	SFX_M0_HELLO_THERE,
+	SFX_M0_WHATS_THIS,
+	SFX_M0_IM_SURE_I_HEARD_A_NOISE,
+	SFX_M0_HEARING_THINGS,
+	SFX_04CD,
+	SFX_M1_WARN_THE_OTHERS,
+	SFX_M1_WHAT_IS_IT,
+	SFX_M1_HOW_DID_THAT_GET_HERE,
+	SFX_M1_DONT_TOUCH_IT,
+	SFX_M1_I_CANT_SEE_ANYBODY,
+	SFX_M1_THERES_NO_ONE_HERE,
+	SFX_M2_ACTIVATE_THE_ALARM,
+	SFX_M2_IS_IT_DANGEROUS,
+	SFX_M2_DONT_MOVE,
+	SFX_M2_STAY_BACK,
+	SFX_M2_I_BET_THIS_IS_ANOTHER_DRILL,
+	SFX_M2_ANOTHER_FALSE_ALARM,
+	SFX_04DA,
+	SFX_04DB,
+	SFX_04DC,
+	SFX_04DD,
+	SFX_04DE,
+	SFX_04DF,
+	SFX_04E0,
+	SFX_04E1,
+	SFX_04E2,
+	SFX_04E3,
+	SFX_04E4,
+	SFX_04E5,
+	SFX_04E6,
+	SFX_04E7,
+	SFX_04E8,
+	SFX_04E9,
+	SFX_04EA,
+	SFX_04EB,
+	SFX_04EC,
+	SFX_04ED,
+	SFX_04EE,
+	SFX_04EF,
+	SFX_04F0,
+	SFX_04F1,
+	SFX_04F2,
+	SFX_04F3,
+	SFX_04F4,
+	SFX_04F5,
+	SFX_04F6,
+	SFX_04F7,
+	SFX_04F8,
+	SFX_04F9,
+	SFX_04FA,
+	SFX_04FB,
+	SFX_04FC,
+	SFX_04FD,
+	SFX_04FE,
+	SFX_CAMSPY_SHUTTER,
+	SFX_0500,
+	SFX_0501,
+	SFX_0502,
+	SFX_0503,
+	SFX_0504,
+	SFX_0505,
+	SFX_0506,
+	SFX_0507,
+	SFX_0508,
+	SFX_0509,
+	SFX_050A,
+	SFX_050B,
+	SFX_050C,
+	SFX_050D,
+	SFX_050E,
+	SFX_050F,
+	SFX_0510,
+	SFX_0511,
+	SFX_0512,
+	SFX_0513,
+	SFX_0514,
+	SFX_SECURE_THE_PERIMETER,
+	SFX_0516,
+	SFX_0517,
+	SFX_0518,
+	SFX_0519,
+	SFX_051A,
+	SFX_ELVIS_INTERGALACTIC_PEACE,
+	SFX_ELVIS_EAT_HOT_LEAD_WEIRDOS,
+	SFX_ELVIS_KISS_MY_ALIEN_BUTT,
+	SFX_ELVIS_ILL_KICK_YOUR_ASS,
+	SFX_ELVIS_FOR_YOUR_OWN_GOOD,
+	SFX_ELVIS_YOU_DARE_SHOOT_AT_ME,
+	SFX_ELVIS_DONT_MESS_WITH_THE_MAIAN,
+	SFX_ELVIS_IM_BAD,
+	SFX_ELVIS_ALL_GOING_WRONG,
+	SFX_ELVIS_WATCH_THE_SUIT,
+	SFX_ELVIS_HEHE,
+	SFX_0526,
+	SFX_0527,
+	SFX_0528,
+	SFX_SKEDAR_ROAR_0529,
+	SFX_SKEDAR_ROAR_052A,
+	SFX_SKEDAR_ROAR_052B,
+	SFX_052C,
+	SFX_SKEDAR_ROAR_052D,
+	SFX_SKEDAR_ROAR_052E,
+	SFX_SKEDAR_ROAR_052F,
+	SFX_SKEDAR_ROAR_0530,
+	SFX_SKEDAR_ROAR_0531,
+	SFX_SKEDAR_ROAR_0532,
+	SFX_SKEDAR_ROAR_0533,
+	SFX_SKEDAR_ROAR_0534,
+	SFX_0535,
+	SFX_SKEDAR_ROAR_0536,
+	SFX_SKEDAR_ROAR_0537,
+	SFX_SKEDAR_ROAR_0538,
+	SFX_SKEDAR_ROAR_0539,
+	SFX_SKEDAR_ROAR_053A,
+	SFX_053B,
+	SFX_053C,
+	SFX_053D,
+	SFX_053E,
+	SFX_053F,
+	SFX_0540,
+	SFX_0541,
+	SFX_0542,
+	SFX_0543,
+	SFX_0544,
+	SFX_0545,
+	SFX_0546,
+	SFX_0547,
+	SFX_0548,
+	SFX_0549,
+	SFX_054A,
+	SFX_054B,
+	SFX_054C,
+	SFX_054D,
+	SFX_054E,
+	SFX_054F,
+	SFX_0550,
+	SFX_0551,
+	SFX_0552,
+	SFX_0553,
+	SFX_0554,
+	SFX_0555,
+	SFX_0556,
+	SFX_0557,
+	SFX_0558,
+	SFX_0559,
+	SFX_055A,
+	SFX_055B,
+	SFX_055C,
+	SFX_055D,
+	SFX_055E,
+	SFX_055F,
+	SFX_0560,
+	SFX_0561,
+	SFX_0562,
+	SFX_0563,
+	SFX_0564,
+	SFX_0565,
+	SFX_0566,
+	SFX_0567,
+	SFX_0568,
+	SFX_0569,
+	SFX_056A,
+	SFX_056B,
+	SFX_056C,
+	SFX_056D,
+	SFX_056E,
+	SFX_056F,
+	SFX_0570,
+	SFX_0571,
+	SFX_0572,
+	SFX_0573,
+	SFX_0574,
+	SFX_0575,
+	SFX_0576,
+	SFX_0577,
+	SFX_0578,
+	SFX_0579,
+	SFX_057A,
+	SFX_057B,
+	SFX_057C,
+	SFX_057D,
+	SFX_057E,
+	SFX_057F,
+	SFX_0580,
+	SFX_0581,
+	SFX_0582,
+	SFX_0583,
+	SFX_0584,
+	SFX_0585,
+	SFX_0586,
+	SFX_0587,
+	SFX_0588,
+	SFX_0589,
+	SFX_058A,
+	SFX_058B,
+	SFX_058C,
+	SFX_058D,
+	SFX_058E,
+	SFX_058F,
+	SFX_0590,
+	SFX_0591,
+	SFX_0592,
+	SFX_0593,
+	SFX_0594,
+	SFX_0595,
+	SFX_0596,
+	SFX_0597,
+	SFX_0598,
+	SFX_0599,
+	SFX_059A,
+	SFX_059B,
+	SFX_059C,
+	SFX_INFIL_STATIC_SHORT,
+	SFX_INFIL_STATIC_MEDIUM,
+	SFX_INFIL_STATIC_LONG,
+	SFX_05A0,
+	SFX_05A1,
+	SFX_05A2,
+	SFX_05A3,
+	SFX_05A4,
+	SFX_05A5,
+	SFX_05A6,
+	SFX_05A7,
+	SFX_05A8,
+	SFX_05A9,
+	SFX_05AA,
+	SFX_05AB,
+	SFX_05AC,
+	SFX_05AD,
+	SFX_05AE,
+	SFX_05AF,
+	SFX_05B0,
+	SFX_05B1,
+	SFX_05B2,
+	SFX_05B3,
+	SFX_05B4,
+	SFX_05B5,
+	SFX_JO_LANDING_05B6,
+	SFX_JO_LANDING_05B7,
+	SFX_MP_SCOREPOINT,
+	SFX_05B9,
+	SFX_05BA,
+	SFX_MENU_SWIPE,
+	SFX_MENU_OPENDIALOG,
+	SFX_05BD,
+	SFX_SHOULD_HAVE_COME_HERE_GIRL,
+	SFX_WERE_TAKING_OVER,
+	SFX_05C0,
+	SFX_05C1,
+	SFX_ALARM_ATTACKSHIP,
+	SFX_05C3,
+	SFX_05C4,
+	SFX_05C5,
+	SFX_05C6,
+	SFX_05C7,
+	SFX_HEARTBEAT,
+	SFX_JO_BOOST_ACTIVATE,
+	SFX_05CA,
+	SFX_05CB,
+	SFX_05CC,
+	SFX_05CD,
+	SFX_05CE,
+	SFX_05CF,
+	SFX_05D0,
+	SFX_05D1,
+	SFX_05D2,
+	SFX_05D3,
+	SFX_FR_ALARM,
+	SFX_FR_LIGHTSON,
+	SFX_FR_LIGHTSOFF,
+	SFX_05D7,
+	SFX_WOOD_BREAK,
+	SFX_FR_CONVEYER,
+	SFX_FR_CONVEYER_STOP,
+	SFX_TRAINING_FAIL,
+	SFX_TRAINING_COMPLETE,
+	SFX_MENU_SELECT,
+	SFX_05DE,
+	SFX_MAIAN_YELP_05DF,
+	SFX_MAIAN_YELP_05E0,
+	SFX_MAIAN_YELP_05E1,
+	SFX_MAIAN_05E2,
+	SFX_MAIAN_05E3,
+	SFX_MAIAN_05E4,
+	SFX_MAIAN_05E5,
+	SFX_MAIAN_05E6,
+	SFX_MAIAN_05E7,
+	SFX_05E8,
+	SFX_05E9,
+	SFX_05EA,
+	SFX_05EB,
+	SFX_05EC,
+	SFX_05ED,
+	SFX_05EE,
+	SFX_05EF,
+	SFX_05F0,
+	SFX_05F1,
+	SFX_05F2,
+	SFX_05F3,
+	SFX_05F4,
+	SFX_05F5,
+	SFX_05F6,
+	SFX_05F7,
+	SFX_05F8,
+	SFX_05F9,
+	SFX_05FA,
+	SFX_05FB,
+	SFX_05FC,
+	SFX_05FD,
+	SFX_05FE,
+	SFX_05FF,
+	SFX_0600,
+	SFX_0601,
+	SFX_0602,
+	SFX_0603,
+	SFX_0604,
+	SFX_0605,
+	SFX_0606,
+	SFX_0607,
+	SFX_NOSEDIVE,
+	SFX_UFOHUM,
+
+	SFX_ALARM_CHICAGO = 0x6455,
+
+	// These SFX values are remapped using a table in snd.c
+	SFX_8000 = 0x8000,
+	SFX_DOOR_8001,
+	SFX_DOOR_8002,
+	SFX_DOOR_8003,
+	SFX_DOOR_8004,
+	SFX_DOOR_8005,
+	SFX_DOOR_8006,
+	SFX_DOOR_8007,
+	SFX_DOOR_8008,
+	SFX_8009,
+	SFX_DOOR_800A,
+	SFX_DOOR_800B,
+	SFX_DOOR_800C,
+	SFX_DOOR_800D,
+	SFX_DOOR_800E,
+	SFX_DOOR_800F,
+	SFX_DOOR_8010,
+	SFX_DOOR_8011,
+	SFX_DOOR_8012,
+	SFX_DOOR_8013,
+	SFX_DOOR_8014,
+	SFX_DOOR_8015,
+	SFX_DOOR_8016,
+	SFX_DOOR_8017,
+	SFX_DOOR_8018,
+	SFX_DOOR_8019,
+	SFX_DOOR_801A,
+	SFX_DOOR_801B,
+	SFX_DOOR_801C,
+	SFX_DOOR_801D,
+	SFX_DOOR_801E,
+	SFX_DOOR_801F,
+	SFX_DOOR_8020,
+	SFX_DOOR_8021,
+	SFX_DOOR_8022,
+	SFX_8023,
+	SFX_8024,
+	SFX_8025,
+	SFX_DOOR_8026,
+	SFX_DOOR_8027,
+	SFX_CARR_HELLO_JOANNA,
+	SFX_8029,
+	SFX_802A,
+	SFX_CIFEM_HI_THERE,
+	SFX_GRIMSHAW_WELCOME,
+	SFX_GRIMSHAW_HI_THERE,
+	SFX_GRIMSHAW_UMM_ERR_HI,
+	SFX_HOLO_HI,
+	SFX_HANGAR_WHAT_DO_YOU_WANT,
+	SFX_FOSTER_STAR_AGENT,
+	SFX_CIM_HEY_THERE,
+	SFX_CIM_HI,
+	SFX_CIM_HOWS_IT_GOING,
+	SFX_CIFEM_HELLO,
+	SFX_CIFEM_HI_JO,
+	SFX_CIFEM_HOWS_IT_GOING,
+	SFX_8038,
+	SFX_8039,
+	SFX_803A,
+	SFX_803B,
+	SFX_803C,
+	SFX_803D,
+	SFX_803E,
+	SFX_803F,
+	SFX_MENU_ERROR,
+	SFX_8041,
+	SFX_8042,
+	SFX_8043,
+	SFX_8044,
+	SFX_8045,
+	SFX_8046,
+	SFX_8047,
+	SFX_8048,
+	SFX_8049,
+	SFX_804A,
+	SFX_804B,
+	SFX_804C,
+	SFX_804D,
+	SFX_804E,
+	SFX_RELOAD_DEFAULT,
+	SFX_8050,
+	SFX_8051,
+	SFX_DRUGSPY_FIREEMPTY,
+	SFX_LAUNCH_ROCKET_8053,
+	SFX_8054,
+	SFX_FIRE_SHOTGUN,
+	SFX_8056,
+	SFX_DRUGSPY_FIREDART,
+	SFX_8058,
+	SFX_8059,
+	SFX_805A,
+	SFX_805B,
+	SFX_805C,
+	SFX_805D,
+	SFX_805E,
+	SFX_805F,
+	SFX_8060,
+	SFX_8061,
+	SFX_8062,
+	SFX_8063,
+	SFX_8064,
+	SFX_8065,
+	SFX_8066,
+	SFX_8067,
+	SFX_SLAYER_WHIR,
+	SFX_8069,
+	SFX_806A,
+	SFX_806B,
+	SFX_806C,
+	SFX_806D,
+	SFX_806E,
+	SFX_806F,
+	SFX_8070,
+	SFX_8071,
+	SFX_8072,
+	SFX_8073,
+	SFX_8074,
+	SFX_8075,
+	SFX_8076,
+	SFX_PUNCH_GLASS,
+	SFX_GLASS_SHATTER,
+	SFX_8079,
+	SFX_807A,
+	SFX_807B,
+	SFX_807C,
+	SFX_807D,
+	SFX_807E,
+	SFX_807F,
+	SFX_8080,
+	SFX_8081,
+	SFX_8082,
+	SFX_8083,
+	SFX_8084,
+	SFX_8085,
+	SFX_8086,
+	SFX_8087,
+	SFX_8088,
+	SFX_8089,
+	SFX_808A,
+	SFX_808B,
+	SFX_808C,
+	SFX_THUD_808D,
+	SFX_THUD_808E,
+	SFX_THUD_808F,
+	SFX_THUD_8090,
+	SFX_THUD_8091,
+	SFX_THUD_8092,
+	SFX_THUD_8093,
+	SFX_THUD_8094,
+	SFX_THUD_8095,
+	SFX_THUD_8096,
+	SFX_THUD_8097,
+	SFX_EXPLOSION_8098,
+	SFX_8099,
+	SFX_EXPLOSION_809A,
+	SFX_809B,
+	SFX_809C,
+	SFX_809D,
+	SFX_809E,
+	SFX_809F,
+	SFX_80A0,
+	SFX_80A1,
+	SFX_80A2,
+	SFX_80A3,
+	SFX_80A4,
+	SFX_80A5,
+	SFX_80A6,
+	SFX_80A7,
+	SFX_80A8,
+	SFX_80A9,
+	SFX_80AA,
+	SFX_DETONATE,
+	SFX_DOOR_80AC,
+	SFX_DOOR_80AD,
+	SFX_DOOR_80AE,
+	SFX_BIKE_PULSE,
+	SFX_80B0,
+	SFX_80B1,
+	SFX_80B2,
+	SFX_80B3,
+	SFX_80B4,
+	SFX_80B5,
+	SFX_80B6,
+	SFX_80B7,
+	SFX_80B8,
+	SFX_80B9,
+	SFX_80BA,
+	SFX_80BB,
+	SFX_80BC,
+	SFX_80BD,
+	SFX_80BE,
+	SFX_80BF,
+	SFX_80C0,
+	SFX_80C1,
+	SFX_80C2,
+	SFX_80C3,
+	SFX_FOOTSTEP_80C4,
+	SFX_FOOTSTEP_80C5,
+	SFX_FOOTSTEP_80C6,
+	SFX_FOOTSTEP_80C7,
+	SFX_FOOTSTEP_80C8,
+	SFX_FOOTSTEP_80C9,
+	SFX_FOOTSTEP_80CA,
+	SFX_FOOTSTEP_80CB,
+	SFX_FOOTSTEP_80CC,
+	SFX_FOOTSTEP_80CD,
+	SFX_FOOTSTEP_80CE,
+	SFX_FOOTSTEP_80CF,
+	SFX_FOOTSTEP_80D0,
+	SFX_FOOTSTEP_80D1,
+	SFX_FOOTSTEP_80D2,
+	SFX_FOOTSTEP_80D3,
+	SFX_FOOTSTEP_80D4,
+	SFX_FOOTSTEP_80D5,
+	SFX_FOOTSTEP_80D6,
+	SFX_FOOTSTEP_80D7,
+	SFX_FOOTSTEP_80D8,
+	SFX_FOOTSTEP_80D9,
+	SFX_FOOTSTEP_80DA,
+	SFX_FOOTSTEP_80DB,
+	SFX_FOOTSTEP_80DC,
+	SFX_FOOTSTEP_80DD,
+	SFX_FOOTSTEP_80DE,
+	SFX_FOOTSTEP_80DF,
+	SFX_FOOTSTEP_80E0,
+	SFX_FOOTSTEP_80E1,
+	SFX_FOOTSTEP_80E2,
+	SFX_FOOTSTEP_80E3,
+	SFX_FOOTSTEP_80E4,
+	SFX_FOOTSTEP_80E5,
+	SFX_FOOTSTEP_80E6,
+	SFX_FOOTSTEP_80E7,
+	SFX_FOOTSTEP_80E8,
+	SFX_FOOTSTEP_80E9,
+	SFX_FOOTSTEP_80EA,
+	SFX_FOOTSTEP_80EB,
+	SFX_FOOTSTEP_80EC,
+	SFX_FOOTSTEP_80ED,
+	SFX_FOOTSTEP_80EE,
+	SFX_FOOTSTEP_80EF,
+	SFX_FOOTSTEP_80F0,
+	SFX_FOOTSTEP_80F1,
+	SFX_FOOTSTEP_80F2,
+	SFX_FOOTSTEP_80F3,
+	SFX_FOOTSTEP_80F4,
+	SFX_FOOTSTEP_80F5,
+	SFX_80F6,
+	SFX_M0_HOLY_SHH,
+	SFX_M0_WHAT_THE_HELL,
+	SFX_M0_DAMN_IT_MISSED,
+	SFX_M0_GODS_SAKE_SOMEONE_HIT_HER,
+	SFX_M0_GET_THE_HELL_OUT_OF_HERE,
+	SFX_M0_YOU_BITCH,
+	SFX_M0_OH_MY_GOD,
+	SFX_80FE,
+	SFX_80FF,
+	SFX_8100,
+	SFX_8101,
+	SFX_8102,
+	SFX_SCI_WHO_THE_HELL_ARE_YOU,
+	SFX_8104,
+	SFX_8105,
+	SFX_8106,
+	SFX_8107,
+	SFX_8108,
+	SFX_8109,
+	SFX_810A,
+	SFX_810B,
+	SFX_SHIP_HUM,
+	SFX_810D,
+	SFX_810E,
+	SFX_810F,
+	SFX_8110,
+	SFX_8111,
+	SFX_8112,
+	SFX_8113,
+	SFX_8114,
+	SFX_8115,
+	SFX_8116,
+	SFX_8117,
+	SFX_TYPING_8118,
+	SFX_8119,
+	SFX_811A,
+	SFX_811B,
+	SFX_811C,
+	SFX_811D,
+	SFX_811E,
+	SFX_811F,
+	SFX_8120,
+	SFX_8121,
+	SFX_8122,
+	SFX_8123,
+	SFX_M1_HOLY,
+	SFX_M1_WHAT_THE_HELL,
+	SFX_M1_OH_MY_GOD,
+	SFX_M1_OH_GOD_IM_HIT,
+	SFX_M1_MY_GOD,
+	SFX_M1_NOOO,
+	SFX_M1_OH_GOD_HES_DEAD,
+	SFX_M1_BLOODY_STUPID_GUN,
+	SFX_M1_DAMN_IT,
+	SFX_M1_DAMN_SHES_GOOD,
+	SFX_M1_COVER_MY_ASS,
+	SFX_M1_SCREAM,
+	SFX_F_DAMN_SHES_GOOD,
+	SFX_F_MY_GOD,
+	SFX_M2_GEEZ_THAT_HURT,
+	SFX_M2_DAMN_IT_IM_TAKING_FIRE,
+	SFX_M2_GOD_DAMN_IT,
+	SFX_M2_HOLY_MOLY,
+	SFX_M2_DAMN_MISSED_AGAIN,
+	SFX_M2_DAMN_YOU,
+	SFX_M2_HELL_SHES_GOOD,
+	SFX_M2_LETS_GET_THE_HELL_OUT_OF_HERE,
+	SFX_M2_NOOO,
+	SFX_813B,
+	SFX_M2_OH_GOD_IM_DYING,
+	SFX_M2_GOD_RUN,
+	SFX_813E,
+	SFX_813F,
+	SFX_8140,
+	SFX_8141,
+	SFX_8142,
+	SFX_8143,
+	SFX_8144,
+	SFX_8145,
+	SFX_8146,
+	SFX_8147,
+	SFX_8148,
+	SFX_8149,
+	SFX_CIV_OH_MY_GOD,
+	SFX_814B,
+	SFX_814C,
+	SFX_814D,
+	SFX_814E,
+	SFX_814F,
+	SFX_8150,
+	SFX_8151,
+	SFX_8152,
+	SFX_8153,
+	SFX_8154,
+	SFX_8155,
+	SFX_8156,
+	SFX_8157,
+	SFX_8158,
+	SFX_8159,
+	SFX_815A,
+	SFX_815B,
+	SFX_815C,
+	SFX_M0_HOWS_THINGS,
+	SFX_M0_HEY_THERE,
+	SFX_M0_HI_HOW_ARE_YOU,
+	SFX_8160,
+	SFX_8161,
+	SFX_8162,
+	SFX_M1_HI_THERE,
+	SFX_M1_HOWS_THINGS,
+	SFX_M2_HELLO,
+	SFX_M2_HEY_WHATS_UP,
+	SFX_M0_WHAT_THE_HELL_8167,
+	SFX_M1_M2_GEEZ,
+	SFX_8169,
+	SFX_816A,
+	SFX_DOOR_816B,
+	SFX_DOOR_816C,
+	SFX_DOOR_816D,
+	SFX_816E,
+	SFX_816F,
+	SFX_8170,
+	SFX_8171,
+	SFX_8172,
+	SFX_8173,
+	SFX_8174,
+	SFX_8175,
+	SFX_8176,
+	SFX_8177,
+	SFX_8178,
+	SFX_8179,
+	SFX_817A,
+	SFX_817B,
+	SFX_817C,
+	SFX_817D,
+	SFX_817E,
+	SFX_817F,
+	SFX_8180,
+	SFX_8181,
+	SFX_8182,
+	SFX_8183,
+	SFX_8184,
+	SFX_8185,
+	SFX_8186,
+	SFX_FOOTSTEP_8187,
+	SFX_FOOTSTEP_8188,
+	SFX_FOOTSTEP_8189,
+	SFX_FOOTSTEP_818A,
+	SFX_FOOTSTEP_818B,
+	SFX_FOOTSTEP_818C,
+	SFX_FOOTSTEP_818D,
+	SFX_FOOTSTEP_818E,
+	SFX_FOOTSTEP_818F,
+	SFX_FOOTSTEP_8190,
+	SFX_FOOTSTEP_8191,
+	SFX_FOOTSTEP_8192,
+	SFX_8193,
+	SFX_8194,
+	SFX_8195,
+	SFX_8196,
+	SFX_8197,
+	SFX_8198,
+	SFX_8199,
+	SFX_819A,
+	SFX_819B,
+	SFX_819C,
+	SFX_819D,
+	SFX_819E,
+	SFX_819F,
+	SFX_81A0,
+	SFX_81A1,
+	SFX_81A2,
+	SFX_81A3,
+	SFX_81A4,
+	SFX_81A5,
+	SFX_81A6,
+	SFX_81A7,
+	SFX_DOOR_81A8,
+	SFX_81A9,
+	SFX_DOOR_81AA,
+	SFX_DOOR_81AB,
+	SFX_81AC,
+	SFX_DOOR_81AD,
+	SFX_DOOR_81AE,
+	SFX_DOOR_81AF,
+	SFX_DOOR_81B0,
+	SFX_DOOR_81B1,
+	SFX_DOOR_81B2,
+	SFX_DOOR_81B3,
+	SFX_DOOR_81B4,
+	SFX_DOOR_81B5,
+	SFX_DOOR_81B6,
+	SFX_DOOR_81B7,
+	SFX_DOOR_81B8,
+	SFX_81B9,
+	SFX_81BA,
+	SFX_81BB
+};
+
+/**
+ * MP3s can be specified as an SFX ID. MP3s are specified by bitwise or'ing the
+ * ID with 0x1000 or 0x0800. In these cases the lower 3 nibbles are the file
+ * number, which should be an MP3 file (FILE_A*M constant).
+ *
+ * There are other bits that can be set too. Their purpose is unknown.
+ */
+#define MP3_0271                                (FILE_ARECEP01M | 0x1000)
+#define MP3_0272                                (FILE_ARECEP02M | 0x1000)
+#define MP3_0273                                (FILE_ARECEP03M | 0x1000)
+#define MP3_0274                                (FILE_ARECEP04M | 0x1000)
+#define MP3_0275                                (FILE_ARECEP05M | 0x1000)
+#define MP3_0276                                (FILE_ARECEP06M | 0x1000)
+#define MP3_0277                                (FILE_ARLGUARD1M | 0x1000)
+#define MP3_0278                                (FILE_ARLTECH01M | 0x1000)
+#define MP3_0279                                (FILE_ARLTECH02M | 0x1000)
+#define MP3_027A                                (FILE_ARLTECH03M | 0x1000)
+#define MP3_027B                                (FILE_ARLTECH04M | 0x1000)
+#define MP3_027C                                (FILE_ARLTECH05M | 0x1000)
+#define MP3_027D                                (FILE_ARLTECH06M | 0x1000)
+#define MP3_SCI_HAVENT_SEEN_YOU                 (FILE_ASCIE2AM | 0x1000)
+#define MP3_027F                                (FILE_ASCIE2BM | 0x1000)
+#define MP3_SCI_PLEASE_DONT_HURT_ME             (FILE_ASCIE2CM | 0x1000)
+#define MP3_SCI_OFF_ALREADY                     (FILE_ASCIE2DM | 0x1000)
+#define MP3_SCI_WHATS_HAPPENED_TO_THE_TERMINAL  (FILE_ASCIE2EM | 0x1000)
+#define MP3_SCI_EXPERIMENT_IS_DOWN              (FILE_ASCIE2FM | 0x1000)
+#define MP3_SCI_IM_CALLING_SECURITY             (FILE_ASCIE2GM | 0x1000)
+#define MP3_0285                                (FILE_ASCIE3AM | 0x1000)
+#define MP3_SCI_LEAVE_THIS_AREA                 (FILE_ASCIE3BM | 0x1000)
+#define MP3_SCI_ALLOW_ME_TO_ASSIST_YOU          (FILE_ASCIE3CM | 0x1000)
+#define MP3_SCI_HAVE_YOU_BEEN_TAMPERING         (FILE_ASCIE3DM | 0x1000)
+#define MP3_SCI_YOU_VANDAL                      (FILE_ASCIE3EM | 0x1000)
+#define MP3_SCI_ACCIDENTS_WILL_HAPPEN           (FILE_ASCIE3GM | 0x1000)
+#define MP3_SCI_SOMEONES_BROKEN_MY_EQUIPMENT    (FILE_ASCIEN10AM | 0x1000)
+#define MP3_028C                                (FILE_ASCIEN2_AM | 0x1000)
+#define MP3_SCI_MY_EXPERIMENTS                  (FILE_ASCIEN3_AM | 0x1000)
+#define MP3_SCI_ILL_SHUT_IT_DOWN                (FILE_ASCIEN4_AM | 0x1000)
+#define MP3_028F                                (FILE_ASCIEN5_AM | 0x1000)
+#define MP3_SCI_WHAT_ARE_YOU_DOING              (FILE_ASCIEN6_AM | 0x1000)
+#define MP3_SCI_SECURITY                        (FILE_ASCIEN7_AM | 0x1000)
+#define MP3_SCI_HOW_DID_THAT_HAPPEN             (FILE_ASCIEN9_AM | 0x1000)
+#define MP3_0293                                (FILE_AVILGRIMM | 0x1000)
+#define MP3_K7_IM_NOT_SURE                      (FILE_AWEPGD01M | 0x1000)
+#define MP3_K7_ONE_MORE_TIME                    (FILE_AWEPGD02M | 0x1000)
+#define MP3_K7_I_DUNNO                          (FILE_AWEPGD03M | 0x1000)
+#define MP3_SCI_AND_AGAIN                       (FILE_AWEPSC01M | 0x1000)
+#define MP3_SCI_TRY_IT_NOW                      (FILE_AWEPSC02M | 0x1000)
+#define MP3_0299                                (FILE_AWEPSC03M | 0x1000)
+#define MP3_029A                                (FILE_AA51ELV01M | 0x0800 | 0x1000)
+#define MP3_029B                                (FILE_AA51ELV02M | 0x0800 | 0x1000)
+#define MP3_029C                                (FILE_AA51ELV03M | 0x0800 | 0x1000)
+#define MP3_029D                                (FILE_AA51GRD01M | 0x1000)
+#define MP3_029E                                (FILE_AA51GRD02M | 0x1000)
+#define MP3_029F                                (FILE_AA51GRD03M | 0x1000)
+#define MP3_M0_WHERE_DID_YOU_GET_THAT           (FILE_AA51GRD04M | 0x0800 | 0x1000)
+#define MP3_M0_SHOULD_YOU_HAVE_THAT             (FILE_AA51GRD05M | 0x0800 | 0x1000)
+#define MP3_M0_WHAT_ARE_YOU_DOING               (FILE_AA51GRD06M | 0x0800 | 0x1000)
+#define MP3_M0_DONT_POINT_THAT_AT_ME            (FILE_AA51GRD07M | 0x0800 | 0x1000)
+#define MP3_M0_WATCH_WHERE_YOURE_POINTING       (FILE_AA51GRD08M | 0x0800 | 0x1000)
+#define MP3_M0_IMPOSTER                         (FILE_AA51GRD09M | 0x0800 | 0x1000)
+#define MP3_M0_ITS_A_SPY                        (FILE_AA51GRD10M | 0x0800 | 0x1000)
+#define MP3_02A7                                (FILE_AA51JO1M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02A8                                (FILE_AA51JO2M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02A9                                (FILE_AA51JO3M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02AA                                (FILE_AA51JO4M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02AB                                (FILE_AA51JO5M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02AC                                (FILE_AA51JO6M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02AD                                (FILE_AA51JON01M | 0x1000)
+#define MP3_02AE                                (FILE_AA51JON02M | 0x1000)
+#define MP3_02AF                                (FILE_AA51JON03M | 0x1000)
+#define MP3_02B0                                (FILE_AA51JON04M | 0x1000)
+#define MP3_02B1                                (FILE_AA51JON05M | 0x1000)
+#define MP3_02B2                                (FILE_AA51JON06M | 0x1000)
+#define MP3_02B3                                (FILE_AA51JON07M | 0x1000)
+#define MP3_02B4                                (FILE_AA51JON08M | 0x1000)
+#define MP3_02B5                                (FILE_AA51JON09M | 0x1000)
+#define MP3_02B6                                (FILE_AA51JON10M | 0x1000)
+#define MP3_02B7                                (FILE_AA51JON11M | 0x1000)
+#define MP3_02B8                                (FILE_AA51JON12M | 0x1000)
+#define MP3_02B9                                (FILE_AA51JON14M | 0x1000)
+#define MP3_02BA                                (FILE_AA51JON15M | 0x1000)
+#define MP3_02BB                                (FILE_AA51SCI1M | 0x0800 | 0x1000)
+#define MP3_02BC                                (FILE_AAF1JO01M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02BD                                (FILE_AAF1JO02M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02BE                                (FILE_AAF1JO03M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02BF                                (FILE_AAF1PR01M | 0x0800 | 0x1000)
+#define MP3_PRES_STOP_SHOOTING                  (FILE_AAF1PR02M | 0x0800 | 0x1000)
+#define MP3_PRES_YOU_SURE_THIS_IS_THE_WAY       (FILE_AAF1PR03M | 0x0800 | 0x1000)
+#define MP3_02C2                                (FILE_AAF1PR04M | 0x0800 | 0x1000)
+#define MP3_PRES_WHY_ARE_THEY_SHOOTING          (FILE_AAF1PR05M | 0x0800 | 0x1000)
+#define MP3_02C4                                (FILE_AAF1PR06M | 0x1000)
+#define MP3_02C5                                (FILE_AAF1PR07M | 0x1000)
+#define MP3_02C6                                (FILE_AAF1PR08M | 0x1000)
+#define MP3_02C7                                (FILE_AAF1PR09M | 0x1000)
+#define MP3_02C8                                (FILE_AAF1PR10M | 0x1000)
+#define MP3_02C9                                (FILE_AAF1TR01M | 0x1000)
+#define MP3_02CA                                (FILE_AAF1TR02M | 0x1000)
+#define MP3_02CB                                (FILE_AAF1TR03M | 0x1000)
+#define MP3_02CC                                (FILE_AAIRBGD01M | 0x1000)
+#define MP3_02CD                                (FILE_AAIRBGD02M | 0x1000)
+#define MP3_M1_WHERE_ARE_YOU_TAKING             (FILE_AAIRBGD03M | 0x0800 | 0x1000)
+#define MP3_M1_GET_THAT_FIREARM_APPROVED        (FILE_AAIRBGD04M | 0x0800 | 0x1000)
+#define MP3_M1_WATCH_WHAT_YOURE_DOING           (FILE_AAIRBGD05M | 0x0800 | 0x1000)
+#define MP3_M1_BE_CAREFUL                       (FILE_AAIRBGD06M | 0x0800 | 0x1000)
+#define MP3_M1_STOP_RIGHT_THERE                 (FILE_AAIRBGD07M | 0x0800 | 0x1000)
+#define MP3_M1_DROP_THE_GUN                     (FILE_AAIRBGD08M | 0x0800 | 0x1000)
+#define MP3_02D4                                (FILE_AAIRBGD09M | 0x1000)
+#define MP3_02D5                                (FILE_AAIRBGD10M | 0x1000)
+#define MP3_M2_DO_YOU_HAVE_PERMISSION_FOR_THAT  (FILE_AAIRBGD11M | 0x0800 | 0x1000)
+#define MP3_M2_WHAT_ARE_YOU_DOING               (FILE_AAIRBGD12M | 0x0800 | 0x1000)
+#define MP3_M2_HEY_THATS_DANGEROUS              (FILE_AAIRBGD13M | 0x0800 | 0x1000)
+#define MP3_M2_WATCH_IT_THAT_THING_COULD_GO_OFF (FILE_AAIRBGD14M | 0x0800 | 0x1000)
+#define MP3_M2_PUT_YOUR_HANDS_UP                (FILE_AAIRBGD15M | 0x0800 | 0x1000)
+#define MP3_M2_ITS_A_TERRORIST                  (FILE_AAIRBGD16M | 0x0800 | 0x1000)
+#define MP3_02DC                                (FILE_AAIRSTW01M | 0x0800 | 0x1000)
+#define MP3_02DD                                (FILE_AAIRSTW02M | 0x0800 | 0x1000)
+#define MP3_02DE                                (FILE_AAIRSTW03M | 0x0800 | 0x1000)
+#define MP3_02DF                                (FILE_AASSAEL01M | 0x1000)
+#define MP3_02E0                                (FILE_AASSAEL02M | 0x1000)
+#define MP3_02E1                                (FILE_AASSAEL03M | 0x1000)
+#define MP3_02E2                                (FILE_AASSAEL04M | 0x1000)
+#define MP3_02E3                                (FILE_AASSAEL05M | 0x1000)
+#define MP3_02E4                                (FILE_AASSAEL06M | 0x1000)
+#define MP3_02E5                                (FILE_ABSEWRK01M | 0x0800 | 0x1000)
+#define MP3_02E6                                (FILE_ABSEWRK02M | 0x0800 | 0x1000)
+#define MP3_02E7                                (FILE_ABSEWRK03M | 0x0800 | 0x1000)
+#define MP3_02E8                                (FILE_ABSEWRK04M | 0x0800 | 0x1000)
+#define MP3_02E9                                (FILE_ABSEWRK05M | 0x0800 | 0x1000)
+#define MP3_02EA                                (FILE_ACETAEL01M | 0x1000)
+#define MP3_ROBOT_STOP_WHERE_YOU_ARE            (FILE_ACHDROID1M | 0x0800 | 0x1000)
+#define MP3_ROBOT_ALERT_UNDER_ATTACK            (FILE_ACHDROID2M | 0x0800 | 0x1000)
+#define MP3_02ED                                (FILE_ACSEC01M | 0x0800 | 0x1000)
+#define MP3_SEC_PLEASE_DONT_KILL_ME             (FILE_ACSEC02M | 0x0800 | 0x1000)
+#define MP3_SEC_DONT_SHOOT                      (FILE_ACSEC03M | 0x0800 | 0x1000)
+#define MP3_02F0                                (FILE_ACSTAN1M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#define MP3_02F1                                (FILE_ACSTAN2M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#define MP3_CASS_HOW_DARE_YOU_DISTURB_ME        (FILE_ADEVR01M | 0x0800)
+#define MP3_CASS_YOU_WILL_REGRET                (FILE_ADEVR02M | 0x0800)
+
+#if VERSION >= VERSION_NTSC_1_0
+#define MP3_02F4 (FILE_ADEVR03M | 0x0800)
+#define MP3_02F5 (FILE_ADEVR04M | 0x0800)
+#define MP3_02F6 (FILE_ADEVR05M | 0x0800)
+#define MP3_02F7 (FILE_ADEVR06M | 0x0800)
+#else
+#define MP3_02F4 (FILE_ADEVR03M | 0x1000)
+#define MP3_02F5 (FILE_ADEVR04M | 0x1000)
+#define MP3_02F6 (FILE_ADEVR05M | 0x1000)
+#define MP3_02F7 (FILE_ADEVR06M | 0x1000)
+#endif
+
+#define MP3_CASS_LEAVE_NOW               (FILE_ADEVR07M | 0x0800)
+#define MP3_02F9                         (FILE_ADEVR08M | 0x1000)
+#define MP3_02FA                         (FILE_ADEVR09M | 0x1000)
+#define MP3_02FB                         (FILE_ADEVR10M | 0x1000)
+#define MP3_02FC                         (FILE_ADEVR11M | 0x1000)
+#define MP3_02FD                         (FILE_ADEVR12M | 0x1000)
+#define MP3_02FE                         (FILE_AEXEC01M | 0x1000)
+#define MP3_02FF                         (FILE_AEXEC02M | 0x1000)
+#define MP3_0300                         (FILE_AEXEC04M | 0x1000)
+#define MP3_0301                         (FILE_AEXEC05M | 0x1000)
+#define MP3_0302                         (FILE_AEXEC06M | 0x1000)
+#define MP3_0303                         (FILE_AEXEC07M | 0x1000)
+#define MP3_0304                         (FILE_AEXEC08M | 0x1000)
+#define MP3_0305                         (FILE_AEXEC09M | 0x1000)
+#define MP3_0306                         (FILE_AEXEC10M | 0x1000)
+#define MP3_0307                         (FILE_AEXEC11M | 0x1000)
+#define MP3_0308                         (FILE_AEXEC12M | 0x1000)
+#define MP3_0309                         (FILE_AEXEC13M | 0x1000)
+#define MP3_030A                         (FILE_AEXEC14M | 0x1000)
+#define MP3_030B                         (FILE_AHELIC01M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#define MP3_030C                         (FILE_AHELIC02M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#define MP3_030D                         (FILE_AHELIC03M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#define MP3_030E                         (FILE_AHOLOGD01M | 0x0800 | 0x1000)
+#define MP3_030F                         (FILE_AHOLOHOPKM | 0x0800 | 0x1000)
+#define MP3_0310                         (FILE_AINVCAR01M | 0x1000)
+#define MP3_0311                         (FILE_AINVCAR02M | 0x1000)
+#define MP3_0312                         (FILE_AINVCAR03M | 0x1000)
+#define MP3_0313                         (FILE_AINVCAR04M | 0x1000)
+#define MP3_0314                         (FILE_AINVCAR05M | 0x1000)
+#define MP3_0315                         (FILE_AINVCAR06M | 0x1000)
+#define MP3_0316                         (FILE_AINVCAR07M | 0x1000)
+#define MP3_0317                         (FILE_AINVCAR08M | 0x1000)
+#define MP3_0318                         (FILE_AINVCAR09M | 0x1000)
+#define MP3_0319                         (FILE_AINVCAR10M | 0x1000)
+#define MP3_031A                         (FILE_AINVCAR11M | 0x1000)
+#define MP3_031B                         (FILE_AINVCAR12M | 0x1000)
+#define MP3_CIFEM_THANKS1                (FILE_AINVFARRM | 0x0800 | 0x1000)
+#define MP3_CIFEM_THANKS3                (FILE_AINVFEMAM | 0x0800 | 0x1000)
+#define MP3_FOSTER_RELY_ON_YOU           (FILE_AINVFOSTM | 0x0800 | 0x1000)
+#define MP3_GRIMSHAW_TOO_CLOSE           (FILE_AINVGRIMM | 0x0800 | 0x1000)
+#define MP3_CIFEM_THANKS2                (FILE_AINVHOPKM | 0x0800 | 0x1000)
+#define MP3_CIM_THANKS_JO                (FILE_AINVMALEM | 0x0800 | 0x1000)
+#define MP3_0322                         (FILE_AJOEXEC01M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0323                         (FILE_AJOEXEC02M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_JO_SHUT_DOWN_EXPERIMENTS     (FILE_AJOSCI01M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_JO_PULL_THE_PLUG             (FILE_AJOSCI02M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_JO_SWITCH_THIS_THING_OFF     (FILE_AJOSCI03M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0327                         (FILE_ALABACC1M | 0x1000)
+#define MP3_0328                         (FILE_ALABACC2M | 0x1000)
+#define MP3_0329                         (FILE_ALABACC3M | 0x1000)
+#define MP3_032A                         (FILE_ALABACC4M | 0x1000)
+#define MP3_032B                         (FILE_ALABACC5M | 0x1000)
+#define MP3_032C                         (FILE_ALABACC6M | 0x1000)
+#define MP3_032D                         (FILE_ALABTECH1M | 0x0800 | 0x1000)
+#define MP3_032E                         (FILE_ALABTECH2M | 0x0800 | 0x1000)
+#define MP3_032F                         (FILE_ALABTECH3M | 0x0800 | 0x1000)
+#define MP3_0330                         (FILE_ALABTECH5M | 0x1000)
+#define MP3_0331                         (FILE_ALABTECH6M | 0x0800 | 0x1000)
+#define MP3_0332                         (FILE_ALABTECH7M | 0x0800 | 0x1000)
+#define MP3_0333                         (FILE_ALABTECH8M | 0x0800 | 0x1000)
+#define MP3_0334                         (FILE_ALABTECH9M | 0x0800 | 0x1000)
+#define MP3_COME_BACK_LATER_IM_BUSY      (FILE_AOFFWRK01M | 0x0800 | 0x1000)
+#define MP3_GO_AWAY                      (FILE_AOFFWRK02M | 0x0800 | 0x1000)
+#define MP3_LOOK_I_CANT_HELP_YOU         (FILE_AOFFWRK03M | 0x0800 | 0x1000)
+#define MP3_0338                         (FILE_AOFFWRK04M | 0x0800 | 0x1000)
+#define MP3_03A0                         (FILE_AM1_L1_AM | 0x1000)
+#define MP3_03A1                         (FILE_AM1_L1_BM | 0x1000)
+#define MP3_03A2                         (FILE_AM1_L1_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03A3                         (FILE_AM1_L1_DM | 0x1000)
+#define MP3_03A4                         (FILE_AM1_L2_AM | 0x1000)
+#define MP3_03A5                         (FILE_AM1_L2_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03A6                         (FILE_AM1_L2_CM | 0x1000)
+#define MP3_03A7                         (FILE_AM1_L2_DM | 0x1000)
+#define MP3_03A8                         (FILE_AM1_L3_AM | 0x1000)
+#define MP3_03A9                         (FILE_AM1_L3_BM | 0x1000)
+#define MP3_03AA                         (FILE_AM1_L3_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03AB                         (FILE_AM1_L3_DM | 0x1000)
+#define MP3_03AC                         (FILE_AM2_L1_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03AD                         (FILE_AM2_L1_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03AE                         (FILE_AM2_L1_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03AF                         (FILE_AM2_L1_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03B0                         (FILE_AM3_L1_AM | 0x1000)
+#define MP3_03B1                         (FILE_AM3_L1_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03B2                         (FILE_AM3_L1_CM | 0x1000)
+#define MP3_03B3                         (FILE_AM3_L1_DM | 0x1000)
+#define MP3_03B4                         (FILE_AM3_L2_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03B5                         (FILE_AM3_L2_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03B6                         (FILE_AM3_L2_CM | 0x1000)
+#define MP3_03B7                         (FILE_AM3_L2_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03B8                         (FILE_AM4_L1_AM | 0x1000)
+#define MP3_03B9                         (FILE_AM4_L1_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03BA                         (FILE_AM4_L1_CM | 0x1000)
+#define MP3_03BB                         (FILE_AM4_L1_DM | 0x1000)
+#define MP3_03BC                         (FILE_AM4_L2_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03BD                         (FILE_AM4_L2_BM | 0x1000)
+#define MP3_03BE                         (FILE_AM4_L2_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03BF                         (FILE_AM4_L2_DM | 0x1000)
+#define MP3_03C0                         (FILE_AM4_L3_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03C1                         (FILE_AM4_L3_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03C2                         (FILE_AM4_L3_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03C3                         (FILE_AM4_L3_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03C4                         (FILE_AM5_L1_AM | 0x1000)
+#define MP3_03C5                         (FILE_AM5_L1_BM | 0x1000)
+#define MP3_03C6                         (FILE_AM5_L1_CM | 0x1000)
+#define MP3_03C7                         (FILE_AM5_L1_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03C8                         (FILE_AM5_L2_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03C9                         (FILE_AM5_L2_BM | 0x1000)
+#define MP3_03CA                         (FILE_AM5_L2_CM | 0x1000)
+#define MP3_03CB                         (FILE_AM5_L2_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03CC                         (FILE_AM5_L3_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03CD                         (FILE_AM5_L3_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03CE                         (FILE_AM5_L3_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03CF                         (FILE_AM5_L3_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D0                         (FILE_AM6_L1_AM | 0x1000)
+#define MP3_03D1                         (FILE_AM6_L1_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D2                         (FILE_AM6_L1_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D3                         (FILE_AM6_L1_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D4                         (FILE_AM6_L2_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D5                         (FILE_AM6_L2_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D6                         (FILE_AM6_L2_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D7                         (FILE_AM6_L2_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D8                         (FILE_AM7_L1_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03D9                         (FILE_AM7_L1_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03DA                         (FILE_AM7_L1_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03DB                         (FILE_AM7_L1_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03DC                         (FILE_AM8_L1_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03DD                         (FILE_AM8_L1_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03DE                         (FILE_AM8_L1_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03DF                         (FILE_AM8_L1_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E0                         (FILE_AM9_L1_AM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E1                         (FILE_AM9_L1_BM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E2                         (FILE_AM9_L1_CM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E3                         (FILE_AM9_L1_DM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E4                         (FILE_AP1_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E5                         (FILE_AP1_02_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E6                         (FILE_AP1_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E7                         (FILE_AP1_04_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E8                         (FILE_AP1_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03E9                         (FILE_AP1_06_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03EA                         (FILE_AP1_07_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03EB                         (FILE_AP1_08_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03EC                         (FILE_AP2_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03ED                         (FILE_AP2_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03EE                         (FILE_AP2_03_DRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03EF                         (FILE_AP2_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F0                         (FILE_AP2_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F1                         (FILE_AP2_06_DRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F2                         (FILE_AP2_07_DRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F3                         (FILE_AP3_01_GDM | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F4                         (FILE_AP3_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F5                         (FILE_AP3_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F6                         (FILE_AP4_01_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F7                         (FILE_AP4_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F8                         (FILE_AP4_03_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03F9                         (FILE_AP4_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03FA                         (FILE_AP4_05_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03FB                         (FILE_AP4_06_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03FC                         (FILE_AP4_07_BLM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03FD                         (FILE_AP4_08_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03FE                         (FILE_AP4_09_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_03FF                         (FILE_AP5_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0400                         (FILE_AP5_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0401                         (FILE_AP5_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0402                         (FILE_AP6_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0403                         (FILE_AP6_02_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0404                         (FILE_AP6_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0405                         (FILE_AP6_04_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0406                         (FILE_AP6_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0407                         (FILE_AP6_06_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0408                         (FILE_AP7_01_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0409                         (FILE_AP7_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_040A                         (FILE_AP7_03_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_040B                         (FILE_AP7_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_040C                         (FILE_AP8_01_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_040D                         (FILE_AP8_02_BLM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_040E                         (FILE_AP8_03_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_040F                         (FILE_AP8_04_BLM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0410                         (FILE_AP8_06_BLM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0411                         (FILE_AP8_07_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0412                         (FILE_AP8_08_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0413                         (FILE_AP8_09_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0414                         (FILE_AP8_10_BLM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0415                         (FILE_AP9_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0416                         (FILE_AP9_02_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0417                         (FILE_AP9_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0418                         (FILE_AP10_01_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0419                         (FILE_AP10_02_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_041A                         (FILE_AP10_03_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_041B                         (FILE_AP10_04_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_041C                         (FILE_AP10_05_JOM | 0x1000)
+#define MP3_041D                         (FILE_AP10_06_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_041E                         (FILE_AP10_07_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_041F                         (FILE_AP10_08_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0420                         (FILE_AP10_09_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0421                         (FILE_AP11_01_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0422                         (FILE_AP11_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0423                         (FILE_AP11_03_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0424                         (FILE_AP11_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0425                         (FILE_AP11_05_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0426                         (FILE_AP11_06_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0427                         (FILE_AP11_07_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0428                         (FILE_AP11_08_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0429                         (FILE_AP12_01_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_042A                         (FILE_AP12_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_042B                         (FILE_AP12_03_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_042C                         (FILE_AP12_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_042D                         (FILE_AP12_05_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_042E                         (FILE_AP12_06_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_042F                         (FILE_AP12_07_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0430                         (FILE_AP12_08_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0431                         (FILE_AP12_09_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0432                         (FILE_AP12_10_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0433                         (FILE_AP13_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0434                         (FILE_AP13_02_SUM | 0x1000)
+#define MP3_0435                         (FILE_AP13_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0436                         (FILE_AP13_04_SUM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0437                         (FILE_AP13_06_SUM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0438                         (FILE_AP14_03_SUM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0439                         (FILE_AP14_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_043A                         (FILE_AP14_05_SUM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_043B                         (FILE_AP14_07_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_043C                         (FILE_AP15_01_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_043D                         (FILE_AP15_02_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_043E                         (FILE_AP15_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_043F                         (FILE_AP15_04_JNM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0440                         (FILE_AP15_05_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0441                         (FILE_AP15_06_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0442                         (FILE_AP15_07_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0443                         (FILE_AP15_08_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0444                         (FILE_AP15_09_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0445                         (FILE_AP15_10_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0446                         (FILE_AP15_11_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0447                         (FILE_AP16_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0448                         (FILE_AP16_02_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0449                         (FILE_AP16_04_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_044A                         (FILE_AP16_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_044B                         (FILE_AP16_06_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_044C                         (FILE_AP17_01_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_044D                         (FILE_AP17_02_PRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_044E                         (FILE_AP17_03_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_044F                         (FILE_AP17_04_PRM | 0x1000)
+#define MP3_0450                         (FILE_AP17_05_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0451                         (FILE_AP17_06_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0452                         (FILE_AP18_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0453                         (FILE_AP18_02_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0454                         (FILE_AP18_03_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0455                         (FILE_AP18_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0456                         (FILE_AP18_05_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0457                         (FILE_AP19_01_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0458                         (FILE_AP19_02_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0459                         (FILE_AP19_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_045A                         (FILE_AP19_04_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_045B                         (FILE_AP19_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_045C                         (FILE_AP19_06_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_045D                         (FILE_AP20_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_045E                         (FILE_AP20_02_PRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_045F                         (FILE_AP20_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0460                         (FILE_AP20_04_PRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0461                         (FILE_AP20_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0462                         (FILE_AP20_06_BLM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0463                         (FILE_AP20_07_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0464                         (FILE_AP20_08_TRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0465                         (FILE_AP21_01_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0466                         (FILE_AP21_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0467                         (FILE_AP21_03_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0468                         (FILE_AP21_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0469                         (FILE_AP22_01_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_046A                         (FILE_AP22_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_046B                         (FILE_AP22_03_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_046C                         (FILE_AP22_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_046D                         (FILE_AP23_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_046E                         (FILE_AP23_02_DRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_046F                         (FILE_AP23_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0470                         (FILE_AP23_04_DRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0471                         (FILE_AP23_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0472                         (FILE_AP23_06_DRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0473                         (FILE_AP23_07_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0474                         (FILE_AP23_08_DRM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0475                         (FILE_AP24_01_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0476                         (FILE_AP24_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0477                         (FILE_AP24_03_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0478                         (FILE_AP24_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0479                         (FILE_AP24_05_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_047A                         (FILE_AP24_06_CAM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_047B                         (FILE_AP24_07_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_047C                         (FILE_AP24_08_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_047D                         (FILE_AP25_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_047E                         (FILE_AP25_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_047F                         (FILE_AP26_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0480                         (FILE_AP26_02_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0481                         (FILE_AP26_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0482                         (FILE_AP26_04_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0483                         (FILE_AP26_05_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0484                         (FILE_AP26_06_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0485                         (FILE_AP26_07_DVM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0486                         (FILE_AP26_08_DVM | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0487                         (FILE_AP27_01_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0488                         (FILE_AP27_02_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0489                         (FILE_AP27_03_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_048A                         (FILE_AP27_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_048B                         (FILE_AP27_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_048C                         (FILE_AP27_06_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_048D                         (FILE_AP28_01_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_048E                         (FILE_AP28_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_048F                         (FILE_AP28_03_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0490                         (FILE_AP28_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0491                         (FILE_AP28_05_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0492                         (FILE_AP28_06_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0493                         (FILE_AP29_01_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0494                         (FILE_AP29_02_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0495                         (FILE_AP29_03_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0496                         (FILE_AP29_04_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0497                         (FILE_AP29_05_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0498                         (FILE_AP29_06_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0499                         (FILE_AP29_07_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_049A                         (FILE_AP29_08_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_049B                         (FILE_AP29_09_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_049C                         (FILE_AP29_10_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_04DC                         (FILE_APELELV01M | 0x1000)
+#define MP3_04DD                         (FILE_APELGRD01M | 0x1000)
+#define MP3_04DE                         (FILE_AP29_11_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_04EA                         (FILE_AM3L2CARRM | 0x1000)
+#define MP3_04EB                         (FILE_AELVCET01M | 0x1000)
+#define MP3_04EC                         (FILE_AELVCET02M | 0x1000)
+#define MP3_04ED                         (FILE_AJOREP01M | 0x1000)
+#define MP3_04EE                         (FILE_AJOREP02M | 0x1000)
+#define MP3_04EF                         (FILE_AJOREP03M | 0x1000)
+#define MP3_04F0                         (FILE_AJOREP04M | 0x1000)
+#define MP3_04F8                         (FILE_AJORPLD01M | 0x1000)
+#define MP3_04F9                         (FILE_AJORPLD02M | 0x1000)
+#define MP3_04FA                         (FILE_AJORPLD03M | 0x1000)
+#define MP3_04FB                         (FILE_AJORPLD04M | 0x1000)
+#define MP3_0517                         (FILE_ATRJO01M | 0x1000)
+#define MP3_0518                         (FILE_ATRGRIM01M | 0x1000)
+#define MP3_0519                         (FILE_ATRGRIM02M | 0x1000)
+#define MP3_051A                         (FILE_ATRCARR06M | 0x1000)
+#define MP3_051B                         (FILE_ATRCARR07M | 0x1000)
+#define MP3_051C                         (FILE_ATRCARR08M | 0x1000)
+#define MP3_051D                         (FILE_ATRCARR01M | 0x1000)
+#define MP3_051E                         (FILE_ATRCARR02M | 0x1000)
+#define MP3_051F                         (FILE_ATRCARR03M | 0x1000)
+#define MP3_0520                         (FILE_ATRCARR04M | 0x1000)
+#define MP3_0521                         (FILE_ATRCARR05M | 0x1000)
+#define MP3_0522                         (FILE_ATRCARR12M | 0x1000)
+#define MP3_0523                         (FILE_ABNBLDE01M | 0x0800)
+#define MP3_0524                         (FILE_ABNCASS01M | 0x1000)
+#define MP3_0562                         (FILE_APELELV02M | 0x1000)
+#define MP3_0754                         (FILE_AVAULT2M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0755                         (FILE_AP29_12_ELM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0758                         (FILE_AP14_09_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_0759                         (FILE_AP19_07_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_075A                         (FILE_AP19_08_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_077A                         (FILE_ACICARR06M | 0x1000)
+#define MP3_CARR_WORRIES_ME              (FILE_ACICARR11M | 0x1000)
+#define MP3_077C                         (FILE_ACIFARR08M | 0x1000)
+#define MP3_CIFEM_PATIENCE               (FILE_ACIFARR12M | 0x1000)
+#define MP3_077E                         (FILE_ACIFEMA01M | 0x1000)
+#define MP3_077F                         (FILE_ACIFEMA04M | 0x1000)
+#define MP3_0780                         (FILE_ACIFEMA07M | 0x1000)
+#define MP3_0781                         (FILE_ACIFEMA08M | 0x1000)
+#define MP3_CIFEM_BE_SOMEWHERE           (FILE_ACIFEMA09M | 0x1000)
+#define MP3_CIFEM_BOTHER_SOMEONE_ELSE    (FILE_ACIFEMA14M | 0x1000)
+#define MP3_0784                         (FILE_ACIFOST08M | 0x1000)
+#define MP3_FOSTER_LEAVE_ME_ALONE        (FILE_ACIFOST12M | 0x1000)
+#define MP3_0786                         (FILE_ACIGRIM05M | 0x1000)
+#define MP3_0787                         (FILE_ACIGRIM06M | 0x1000)
+#define MP3_0788                         (FILE_ACIGRIM07M | 0x1000)
+#define MP3_GRIMSHAW_BUG_OFF             (FILE_ACIGRIM08M | 0x1000)
+#define MP3_GRIMSHAW_CRIMINAL_RECORD     (FILE_ACIGRIM09M | 0x1000)
+#define MP3_GRIMSHAW_LOSER               (FILE_ACIGRIM10M | 0x1000)
+#define MP3_078C                         (FILE_ACIHOPK09M | 0x1000)
+#define MP3_HOLO_IRRITATING              (FILE_ACIHOPK11M | 0x1000)
+#define MP3_078E                         (FILE_ACIMALE02M | 0x1000)
+#define MP3_078F                         (FILE_ACIMALE03M | 0x1000)
+#define MP3_0790                         (FILE_ACIMALE07M | 0x1000)
+#define MP3_CIM_BE_SOMEWHERE             (FILE_ACIMALE09M | 0x1000)
+#define MP3_0792                         (FILE_ACIMALE11M | 0x1000)
+#define MP3_0793                         (FILE_ACIMALE13M | 0x1000)
+#define MP3_0794                         (FILE_ACIROGE08M | 0x1000)
+#define MP3_HANGAR_LIVED_THIS_LONG       (FILE_ACIROGE12M | 0x1000)
+#define MP3_FOSTER_WHAT_TO_SHOOT_AT      (FILE_ATRFOST01M | 0x1000)
+#define MP3_FOSTER_ZEROED_THE_SIGHTS     (FILE_ATRFOST02M | 0x1000)
+#define MP3_FOSTER_GOOD_SHOW             (FILE_ATRFOST03M | 0x1000)
+#define MP3_CARR_WHAT_IS_IT              (FILE_ATRCARR09M | 0x1000)
+#define MP3_CARR_A_LITTLE_BUSY           (FILE_ATRCARR10M | 0x1000)
+#define MP3_CARR_PROUD_OF_YOU            (FILE_ATRCARR11M | 0x1000)
+#define MP3_CIFEM_FOSTER                 (FILE_ACIFARR01M | 0x1000)
+#define MP3_CIFEM_COME_TO_SEE_ME         (FILE_ACIFARR02M | 0x1000)
+#define MP3_CIFEM_PRACTICE_MAKES_PERFECT (FILE_ACIFARR03M | 0x1000)
+#define MP3_GRIMSHAW_KNOW_YOUR_ENEMY     (FILE_ACIGRIM01M | 0x1000)
+#define MP3_GRIMSHAW_ALL_EARS            (FILE_ACIGRIM03M | 0x1000)
+#define MP3_GRIMSHAW_GAP_IN_RECORDS      (FILE_ACIGRIM04M | 0x1000)
+#define MP3_HOLO_LAST_MINUTE_TRAINING    (FILE_ACIHOPK01M | 0x1000)
+#define MP3_HOLO_PRACTICE_MAKES_PERFECT  (FILE_ACIHOPK04M | 0x1000)
+#define MP3_HOLO_HAVE_A_LIFE             (FILE_ACIHOPK06M | 0x1000)
+#define MP3_HANGERGUY_DONT_SCREW_UP      (FILE_ACIROGE01M | 0x1000)
+#define MP3_HANGERGUY_DONT_MAKE_A_MESS   (FILE_ACIROGE02M | 0x1000)
+#define MP3_HANGERGUY_HALF_HOUR_AGO      (FILE_ATRROGE01M | 0x1000)
+#define MP3_07B0                         (FILE_ACICARR07M | 0x1000)
+#define MP3_07B1                         (FILE_ACICARR08M | 0x1000)
+#define MP3_07B6                         (FILE_AJOINST01M | 0x1000)
+#define MP3_07B7                         (FILE_AJOINST02M | 0x1000)
+#define MP3_07B8                         (FILE_AJOINST03M | 0x1000)
+#define MP3_07B9                         (FILE_AJOINST04M | 0x1000)
+#define MP3_07BA                         (FILE_AP25_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_07C8                         (FILE_AP29_13_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_07C9                         (FILE_AP29_14_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_07CA                         (FILE_ACICARR09M | 0x1000)
+#define MP3_07CB                         (FILE_ACICARR10M | 0x1000)
+#define MP3_07DA                         (FILE_AP29_15_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_07DB                         (FILE_AP16_03_JOM | 0x1000 | 0x2000 | 0x4000)
+#define MP3_07DC                         (FILE_ACARRBYE02M | 0x1000)

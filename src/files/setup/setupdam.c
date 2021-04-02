@@ -714,88 +714,88 @@ u8 func1002_intro[] = {
 
 
 	wait_until(342, 0x3b)
-	play_sound(0x0171, CHANNEL_7)
+	play_sound(SFX_0171, CHANNEL_7)
 
 	wait_until(390, 0x3c)
-	play_sound(0x0172, CHANNEL_6)
+	play_sound(SFX_0172, CHANNEL_6)
 
 	wait_until(438, 0x3d)
-	play_sound(0x0173, CHANNEL_5)
+	play_sound(SFX_0173, CHANNEL_5)
 
 	wait_until(484, 0x48)
-	play_sound(0x0174, CHANNEL_7)
+	play_sound(SFX_0174, CHANNEL_7)
 
 	wait_until(532, 0x4a)
-	play_sound(0x0175, CHANNEL_5)
+	play_sound(SFX_0175, CHANNEL_5)
 
 	wait_until(574, 0x4b)
-	play_sound(0x0176, CHANNEL_7)
+	play_sound(SFX_0176, CHANNEL_7)
 
 	wait_until(616, 0x49)
-	play_sound(0x0177, CHANNEL_6)
+	play_sound(SFX_0177, CHANNEL_6)
 
 	wait_until(660, 0x4c)
-	play_sound(0x0178, CHANNEL_6)
+	play_sound(SFX_0178, CHANNEL_6)
 
 	wait_until(712, 0x4d)
-	play_sound(0x0171, CHANNEL_5)
+	play_sound(SFX_0171, CHANNEL_5)
 
 	wait_until(760, 0x4e)
-	play_sound(0x0172, CHANNEL_7)
+	play_sound(SFX_0172, CHANNEL_7)
 
 	wait_until(812, 0x4f)
-	play_sound(0x0173, CHANNEL_6)
+	play_sound(SFX_0173, CHANNEL_6)
 
 	wait_until(1386, 0x50)
-	play_sound(0x0171, CHANNEL_5)
+	play_sound(SFX_0171, CHANNEL_5)
 
 	wait_until(1482, 0x51)
-	play_sound(0x0172, CHANNEL_7)
+	play_sound(SFX_0172, CHANNEL_7)
 
 	wait_until(1628, 0x52)
-	play_sound(0x0173, CHANNEL_6)
+	play_sound(SFX_0173, CHANNEL_6)
 
 	wait_until(1698, 0x53)
-	play_sound(0x0174, CHANNEL_5)
+	play_sound(SFX_0174, CHANNEL_5)
 
 	wait_until(1860, 0x54)
-	play_sound(0x05a8, CHANNEL_7)
+	play_sound(SFX_05A8, CHANNEL_7)
 
 	wait_until(2180, 0x55)
-	play_sound(0x05a9, CHANNEL_6)
+	play_sound(SFX_05A9, CHANNEL_6)
 
 	wait_until(2260, 0x57)
-	play_sound(0x05aa, CHANNEL_7)
+	play_sound(SFX_05AA, CHANNEL_7)
 
 	wait_until(2274, 0x58)
-	play_sound(0x0175, CHANNEL_6)
+	play_sound(SFX_0175, CHANNEL_6)
 
 	wait_until(2280, 0x59)
-	play_sound(0x0176, CHANNEL_5)
+	play_sound(SFX_0176, CHANNEL_5)
 
 	wait_until(2294, 0x56)
-	play_sound(0x0177, CHANNEL_5)
+	play_sound(SFX_0177, CHANNEL_5)
 
 	wait_until(2298, 0x5a)
-	play_sound(0x0171, CHANNEL_7)
+	play_sound(SFX_0171, CHANNEL_7)
 
 	wait_until(2316, 0x5b)
-	play_sound(0x0178, CHANNEL_6)
+	play_sound(SFX_0178, CHANNEL_6)
 
 	wait_until(2474, 0x5c)
-	play_sound(0x0172, CHANNEL_5)
+	play_sound(SFX_0172, CHANNEL_5)
 
 	wait_until(2489, 0x5d)
-	play_sound(0x01db, CHANNEL_7)
+	play_sound(SFX_01DB, CHANNEL_7)
 
 	wait_until(2572, 0x5e)
-	play_sound(0x0171, CHANNEL_6)
+	play_sound(SFX_0171, CHANNEL_6)
 
 	wait_until(2616, 0x5f)
-	play_sound(0x0173, CHANNEL_5)
+	play_sound(SFX_0173, CHANNEL_5)
 
 	wait_until(2644, 0x60)
-	play_sound(0x0172, CHANNEL_5)
+	play_sound(SFX_0172, CHANNEL_5)
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x07)
@@ -881,113 +881,113 @@ u8 func0c01_outro[] = {
 	restart_timer
 
 	wait_until(46, 0x3c)
-	play_sound(0x0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_10)
 
 	wait_until(160, 0x3d)
-	play_sound(0x0172, CHANNEL_10)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, 0x042d, 0x00, 0x00)
+	play_sound(SFX_0172, CHANNEL_10)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, 0x00, 0x00)
 
 	wait_until(180, 0x3b)
-	speak(CHR_BOND, L_DAM_039, 0x7465, CHANNEL_10, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
+	speak(CHR_BOND, L_DAM_039, MP3_0465, CHANNEL_10, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
 
 	wait_until(200, 0x48)
-	play_sound(0x0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_10)
 
 	wait_until(232, 0x49)
-	play_sound(0x0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_10)
 
 	wait_until(254, 0x4a)
-	play_sound(0x0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_10)
 
 	wait_until(272, 0x66)
 
 	wait_until(374, 0x4b)
-	play_sound(0x0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_10)
 
 	wait_until(415, 0x4c)
-	play_sound(0x0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_10)
 
 	wait_until(454, 0x4d)
-	play_sound(0x0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_10)
 
 	wait_until(532, 0x4e)
-	play_sound(0x0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_10)
 
 	wait_until(570, 0x4f)
-	speak(CHR_BOND, L_DAM_040, 0x7466, CHANNEL_10, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
+	speak(CHR_BOND, L_DAM_040, MP3_0466, CHANNEL_10, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
 
 	wait_until(582, 0x50)
-	play_sound(0x0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_10)
 
 	wait_until(666, 0x51)
-	play_sound(0x0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_10)
 
 	wait_until(706, 0x52)
-	play_sound(0x0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_10)
 
 	wait_until(736, 0x64)
-	play_sound(0x05a8, CHANNEL_10)
+	play_sound(SFX_05A8, CHANNEL_10)
 
 	wait_until(806, 0x53)
-	play_sound(0x809f, CHANNEL_10)
+	play_sound(SFX_809F, CHANNEL_10)
 
 	wait_until(854, 0x54)
-	play_sound(0x0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_10)
 
 	wait_until(876, 0x55)
-	play_sound(0x0173, CHANNEL_10)
+	play_sound(SFX_0173, CHANNEL_10)
 
 	wait_until(906, 0x56)
-	play_sound(0x0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_10)
 
 	wait_until(926, 0x57)
-	play_sound(0x80a2, CHANNEL_10)
+	play_sound(SFX_80A2, CHANNEL_10)
 
 	wait_until(950, 0x58)
-	speak(CHR_BOND, L_DAM_041, 0x7467, CHANNEL_10, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
+	speak(CHR_BOND, L_DAM_041, MP3_0467, CHANNEL_10, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
 
 	wait_until(1088, 0x59)
-	play_sound(0x80a3, CHANNEL_10)
+	play_sound(SFX_80A3, CHANNEL_10)
 
 	wait_until(1152, 0x5a)
-	play_sound(0x0176, CHANNEL_10)
+	play_sound(SFX_0176, CHANNEL_10)
 
 	wait_until(1190, 0x5b)
-	speak(CHR_BOND, L_DAM_042, 0x7468, CHANNEL_10, COLOR_09_BLUE) // "Naaahhhh."
+	speak(CHR_BOND, L_DAM_042, MP3_0468, CHANNEL_10, COLOR_09_BLUE) // "Naaahhhh."
 
 	wait_until(1228, 0x5c)
-	play_sound(0x0174, CHANNEL_10)
+	play_sound(SFX_0174, CHANNEL_10)
 
 	wait_until(1258, 0x5d)
-	play_sound(0x0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_10)
 
 	wait_until(1260, 0x5e)
-	play_sound(0x05b4, CHANNEL_10)
+	play_sound(SFX_05B4, CHANNEL_10)
 
 	wait_until(1300, 0x5f)
-	play_sound(0x05b6, CHANNEL_10)
-	play_sound(0x0171, CHANNEL_10)
+	play_sound(SFX_JO_LANDING_05B6, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_10)
 
 	wait_until(1309, 0x65)
-	play_sound(0x0172, CHANNEL_10)
+	play_sound(SFX_0172, CHANNEL_10)
 
 	wait_until(1358, 0x60)
-	play_sound(0x0171, CHANNEL_10)
+	play_sound(SFX_0171, CHANNEL_10)
 
 	wait_until(1382, 0x61)
-	play_sound(0x8098, CHANNEL_10)
+	play_sound(SFX_EXPLOSION_8098, CHANNEL_10)
 
 	wait_until(1480, 0x62)
-	play_sound(0x80a3, CHANNEL_10)
+	play_sound(SFX_80A3, CHANNEL_10)
 
 	wait_until(1480, 0x63)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_GRATE, 0x00c1, 0x00, 0x00)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_GRATE, SFX_00C1, 0x00, 0x00)
 
 	wait_until(1500, 0x67)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, 0x042d, 0x00, 0x00)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, 0x00, 0x00)
 
 	wait_until(1590, 0x68)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, 0x0434, 0x00, 0x00)
+	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_0434, 0x00, 0x00)
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x07)
@@ -1025,7 +1025,7 @@ u8 func1004_msg_controlledfrom[] = {
 	endloop(0x00)
 
 	label(0x07)
-	speak(CHR_P1P2, L_DAM_011, 0x73d1, CHANNEL_6, COLOR_09_BLUE) // "This must be where the sub's controlled from."
+	speak(CHR_P1P2, L_DAM_011, MP3_03D1, CHANNEL_6, COLOR_09_BLUE) // "This must be where the sub's controlled from."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1037,7 +1037,7 @@ u8 func1005_msg_withoutautopilot[] = {
 	endloop(0x00)
 
 	label(0x07)
-	speak(CHR_P1P2, L_DAM_012, 0x73d2, CHANNEL_6, COLOR_09_BLUE) // "Without the autopilot and the GPS, the ship will w..."
+	speak(CHR_P1P2, L_DAM_012, MP3_03D2, CHANNEL_6, COLOR_09_BLUE) // "Without the autopilot and the GPS, the ship will w..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1049,7 +1049,7 @@ u8 func1006_msg_conductoperations[] = {
 	endloop(0x00)
 
 	label(0x07)
-	speak(CHR_P1P2, L_DAM_013, 0x73d3, CHANNEL_6, COLOR_09_BLUE) // "They'll be unable to conduct any operations withou..."
+	speak(CHR_P1P2, L_DAM_013, MP3_03D3, CHANNEL_6, COLOR_09_BLUE) // "They'll be unable to conduct any operations withou..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1121,7 +1121,7 @@ u8 func100a_reactor_switch[] = {
 	label(0x07)
 	mute_channel(CHANNEL_0)
 	mute_channel(CHANNEL_1)
-	assign_sound(0x8147, CHANNEL_0)
+	assign_sound(SFX_8147, CHANNEL_0)
 	control_sound_from_object(CHANNEL_0, OBJ_REACTOR_SWITCH, TRUE)
 	set_lights_state(0x007f, LIGHTOP_3, 0xff, 0x06, 0x78)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x00, 0x12)
@@ -1947,12 +1947,12 @@ u8 func0401_pilot[] = {
 	goto_first(0x0b)
 
 	label(0x07)
-	speak(CHR_TARGET, L_DAM_043, 0x7325, CHANNEL_7, COLOR_09_BLUE) // "Pull the plug on that now."
+	speak(CHR_TARGET, L_DAM_043, MP3_JO_PULL_THE_PLUG, CHANNEL_7, COLOR_09_BLUE) // "Pull the plug on that now."
 	set_stage_flag(STAGEFLAG_SAID_PULLTHEPLUG)
 	goto_next(0x0c)
 
 	label(0x08)
-	speak(CHR_TARGET, L_DAM_044, 0x7326, CHANNEL_7, COLOR_09_BLUE) // "Switch this thing off."
+	speak(CHR_TARGET, L_DAM_044, MP3_JO_SWITCH_THIS_THING_OFF, CHANNEL_7, COLOR_09_BLUE) // "Switch this thing off."
 	set_stage_flag(STAGEFLAG_SAID_SWITCHTHINGOFF)
 	goto_next(0x0c)
 
@@ -1963,11 +1963,11 @@ u8 func0401_pilot[] = {
 	label(0x07)
 	set_self_flag_bankx(CHRFLAG0_08000000, BANK_0)
 	if_stage_flag_eq(STAGEFLAG_SAID_SWITCHTHINGOFF, FALSE, /*goto*/ 0x07)
-	speak(CHR_TARGET, L_DAM_045, 0x128e, CHANNEL_6, COLOR_04_ORANGE) // "I'll shut it down."
+	speak(CHR_TARGET, L_DAM_045, MP3_SCI_ILL_SHUT_IT_DOWN, CHANNEL_6, COLOR_04_ORANGE) // "I'll shut it down."
 	goto_next(0x08)
 
 	label(0x07)
-	speak(CHR_TARGET, L_DAM_046, 0x1280, CHANNEL_6, COLOR_04_ORANGE) // "Please don't hurt me."
+	speak(CHR_TARGET, L_DAM_046, MP3_SCI_PLEASE_DONT_HURT_ME, CHANNEL_6, COLOR_04_ORANGE) // "Please don't hurt me."
 	label(0x08)
 	do_preset_animation(-1)
 
@@ -2000,7 +2000,7 @@ u8 func0401_pilot[] = {
 	endloop(0x0e)
 
 	label(0x08)
-	speak(CHR_SELF, -1, 0x8118, CHANNEL_9, COLOR_00_GREEN)
+	speak(CHR_SELF, -1, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x07)
@@ -2149,7 +2149,7 @@ u8 func0404_angry_pilot[] = {
 	// Alive
 	label(0x04)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
-	speak(CHR_TARGET, L_DAM_047, 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
+	speak(CHR_TARGET, L_DAM_047, MP3_04DD, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
 	chr_do_animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x06, 0x00, CHR_SELF, 3)
 	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x6c)
 
@@ -2323,7 +2323,7 @@ u8 func1015_shuffle_hatchswitches[] = {
 	endloop(0x00) \
  \
 	label(0x07) \
-	assign_sound(0x043a, CHANNEL_7) \
+	assign_sound(SFX_043A, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, switch, TRUE) \
 	set_object_image(switch, 0x00, 0x14) \
 	set_stage_flag(flag) \
@@ -2380,40 +2380,40 @@ u8 func101a_badhatchswitches[] = {
 
 	// 1
 	label(0x0b)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH1, TRUE)
 	yield
-	assign_sound(0x01c0, CHANNEL_6)
+	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH1, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH1, 0x00, 0x0f)
 	goto_next(0x04)
 
 	// 2
 	label(0x0c)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH2, TRUE)
 	yield
-	assign_sound(0x01c0, CHANNEL_6)
+	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH2, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH2, 0x00, 0x0f)
 	goto_next(0x04)
 
 	// 3
 	label(0x0d)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH3, TRUE)
 	yield
-	assign_sound(0x01c0, CHANNEL_6)
+	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH3, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH3, 0x00, 0x0f)
 	goto_next(0x04)
 
 	// 4
 	label(0x0e)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_BADHATCHSWITCH4, TRUE)
 	yield
-	assign_sound(0x01c0, CHANNEL_6)
+	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH4, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH4, 0x00, 0x0f)
 	goto_next(0x04)
@@ -2441,7 +2441,7 @@ u8 func101a_badhatchswitches[] = {
 
 u8 func101b_reactor_hum[] = {
 	yield
-	assign_sound(0x8146, CHANNEL_1)
+	assign_sound(SFX_8146, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_REACTOR_SWITCH, 0x07d0, 0x0bb8)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2473,7 +2473,7 @@ u8 func0415_elvis_at_start[] = {
 
 	label(0x07)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_DAM_032, 0x14dc, CHANNEL_6, COLOR_06_WHITE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
+	speak(CHR_TARGET, L_DAM_032, MP3_04DC, CHANNEL_6, COLOR_06_WHITE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
 
 	beginloop(0x0c)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x07)
@@ -2702,7 +2702,7 @@ u8 func0418_elvis_at_moonpool[] = {
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x07)
 	do_preset_animation(-1)
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
-	speak(CHR_P1P2, L_DAM_034, 0x81a4, CHANNEL_6, COLOR_06_WHITE) // "Joanna... What took you so long? Follow me - let's..."
+	speak(CHR_P1P2, L_DAM_034, SFX_81A4, CHANNEL_6, COLOR_06_WHITE) // "Joanna... What took you so long? Follow me - let's..."
 
 	beginloop(0x0b)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x07)

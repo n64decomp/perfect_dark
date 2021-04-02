@@ -1092,7 +1092,7 @@ u8 func1005_5e0c[] = {
 	label(0x2d)
 	if_stage_flag_eq(STAGEFLAG_TRIGGER_BRIDGE, TRUE, /*goto*/ 0x2d)
 	mute_channel(CHANNEL_5)
-	assign_sound(0x0436, CHANNEL_5)
+	assign_sound(SFX_0436, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_PUZZLEROCK, TRUE)
 
 	// Wait for a condition that would cause the bridge to retract
@@ -1129,7 +1129,7 @@ u8 func1005_5e0c[] = {
 
 	// Switch no longer pressed
 	mute_channel(CHANNEL_5)
-	assign_sound(0x0437, CHANNEL_5)
+	assign_sound(SFX_0437, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_PUZZLEROCK, TRUE)
 	goto_first(0x04)
 
@@ -1150,7 +1150,7 @@ u8 func1006_bridge[] = {
 	label(0x2d)
 	unset_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
-	assign_sound(0x8020, CHANNEL_4)
+	assign_sound(SFX_DOOR_8020, CHANNEL_4)
 	play_sound_from_object(CHANNEL_4, OBJ_BRIDGE, 0x04b0, 0x0640)
 	yield
 
@@ -1160,7 +1160,7 @@ u8 func1006_bridge[] = {
 
 	label(0x06)
 	mute_channel(CHANNEL_4)
-	assign_sound(0x8027, CHANNEL_4)
+	assign_sound(SFX_DOOR_8027, CHANNEL_4)
 	control_sound_from_object(CHANNEL_4, OBJ_BRIDGE, TRUE)
 	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	set_stage_flag(STAGEFLAG_BRIDGE_EXTENDED)
@@ -1178,7 +1178,7 @@ u8 func1006_bridge[] = {
 	label(0x2d)
 	unset_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
-	assign_sound(0x8020, CHANNEL_4)
+	assign_sound(SFX_DOOR_8020, CHANNEL_4)
 	play_sound_from_object(CHANNEL_4, OBJ_BRIDGE, 0x04b0, 0x0640)
 	yield
 
@@ -1190,7 +1190,7 @@ u8 func1006_bridge[] = {
 	unset_stage_flag(STAGEFLAG_BRIDGE_EXTENDED)
 	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
-	assign_sound(0x8027, CHANNEL_4)
+	assign_sound(SFX_DOOR_8027, CHANNEL_4)
 	control_sound_from_object(CHANNEL_4, OBJ_BRIDGE, TRUE)
 	goto_first(0x04)
 
@@ -1502,7 +1502,7 @@ u8 func1009_altar[] = {
 	goto_next(0x2d)
 
 	label(0x2d)
-	play_sound(0x80aa, -1)
+	play_sound(SFX_80AA, -1)
 	chr_drop_weapon(CHR_P1P2)
 	label(0x04)
 	yield
@@ -3040,7 +3040,7 @@ u8 func1015_msg_specialpillars[] = {
 	goto_first(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO_030, 0x73e0, CHANNEL_6, COLOR_09_BLUE) // "This seems to be one of the special pillars."
+	speak(CHR_P1P2, L_SHO_030, MP3_03E0, CHANNEL_6, COLOR_09_BLUE) // "This seems to be one of the special pillars."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3054,7 +3054,7 @@ u8 func1016_msg_powersmoreconstant[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO_031, 0x73e1, CHANNEL_6, COLOR_09_BLUE) // "The power's more constant in this area. The Inner ..."
+	speak(CHR_P1P2, L_SHO_031, MP3_03E1, CHANNEL_6, COLOR_09_BLUE) // "The power's more constant in this area. The Inner ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3066,7 +3066,7 @@ u8 func1017_msg_skedararmy[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO_032, 0x73e2, CHANNEL_6, COLOR_09_BLUE) // "OH, NO!!! A Skedar army in suspended animation!"
+	speak(CHR_P1P2, L_SHO_032, MP3_03E2, CHANNEL_6, COLOR_09_BLUE) // "OH, NO!!! A Skedar army in suspended animation!"
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3085,7 +3085,7 @@ u8 func1018_msg_cutoffthehead[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_SHO_033, 0x73e3, CHANNEL_6, COLOR_09_BLUE) // "Okay, this is it... Cut off the head and the body ..."
+	speak(CHR_P1P2, L_SHO_033, MP3_03E3, CHANNEL_6, COLOR_09_BLUE) // "Okay, this is it... Cut off the head and the body ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3230,134 +3230,134 @@ u8 func0c00_intro_sounds[] = {
 	restart_timer
 
 	wait_until_with_stageflag(100, 0x91)
-	speak(CHR_BOND, L_SHO_034, 0x748d, CHANNEL_10, COLOR_04_ORANGE) // "This is the Skedar fanatics' most holy place. They..."
+	speak(CHR_BOND, L_SHO_034, MP3_048D, CHANNEL_10, COLOR_04_ORANGE) // "This is the Skedar fanatics' most holy place. They..."
 
 	wait_until_with_stageflag(770, 0xa4)
-	play_sound(0x0433, CHANNEL_10)
+	play_sound(SFX_RELOAD_FARSIGHT, CHANNEL_10)
 
 	wait_until_with_stageflag(800, 0x92)
-	speak(CHR_BOND, L_SHO_035, 0x748e, CHANNEL_10, COLOR_09_BLUE) // "So let me get this straight - it's holy. But there..."
+	speak(CHR_BOND, L_SHO_035, MP3_048E, CHANNEL_10, COLOR_09_BLUE) // "So let me get this straight - it's holy. But there..."
 
 	wait_until_with_stageflag(1018, 0xa5)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(1090, 0xa6)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until_with_stageflag(1148, 0xa7)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(1210, 0x93)
-	speak(CHR_BOND, L_SHO_036, 0x748f, CHANNEL_10, COLOR_04_ORANGE) // "Yes. In all of the time that we Maians fought the ..."
+	speak(CHR_BOND, L_SHO_036, MP3_048F, CHANNEL_10, COLOR_04_ORANGE) // "Yes. In all of the time that we Maians fought the ..."
 
 	wait_until_with_stageflag(1230, 0xa8)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until(1270, 0xc5)
-	play_sound(0x0531, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_0531, CHANNEL_10)
 
 	wait_until_with_stageflag(1274, 0xa9)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(1330, 0xaa)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until_with_stageflag(1375, 0xab)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(1435, 0xac)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until_with_stageflag(1490, 0xad)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(1600, 0xc7)
-	play_sound(0x05c7, CHANNEL_10)
+	play_sound(SFX_05C7, CHANNEL_10)
 
 	wait_until_with_stageflag(1670, 0xc8)
-	play_sound(0x05c6, CHANNEL_10)
+	play_sound(SFX_05C6, CHANNEL_10)
 
 	wait_until_with_stageflag(1710, 0xae)
-	play_sound(0x05c5, CHANNEL_10)
+	play_sound(SFX_05C5, CHANNEL_10)
 
 	wait_until_with_stageflag(1840, 0xaf)
-	play_sound(0x05cc, CHANNEL_10)
+	play_sound(SFX_05CC, CHANNEL_10)
 
 	wait_until_with_stageflag(2040, 0xb7)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(2065, 0xb0)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until_with_stageflag(2090, 0xb8)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(2115, 0xb1)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until(2050, 0xc6) // time is out of order
-	play_sound(0x0530, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_0530, CHANNEL_10)
 
 	wait_until_with_stageflag(2140, 0xb9)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(2180, 0xb2)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until_with_stageflag(2220, 0xb3)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(2250, 0xb4)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(2290, 0xb5)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(2340, 0xb6)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until_with_stageflag(2650, 0x94)
-	speak(CHR_BOND, L_SHO_037, 0x7490, CHANNEL_10, COLOR_09_BLUE) // "Then we have to be certain that no fanatics surviv..."
+	speak(CHR_BOND, L_SHO_037, MP3_0490, CHANNEL_10, COLOR_09_BLUE) // "Then we have to be certain that no fanatics surviv..."
 
 	wait_until_with_stageflag(3250, 0x95)
-	speak(CHR_BOND, L_SHO_038, 0x7491, CHANNEL_10, COLOR_04_ORANGE) // "If you're caught on the ground when the fleet gets..."
+	speak(CHR_BOND, L_SHO_038, MP3_0491, CHANNEL_10, COLOR_04_ORANGE) // "If you're caught on the ground when the fleet gets..."
 
 	wait_until(3330, 0xc3)
-	play_sound(0x0530, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_0530, CHANNEL_10)
 
 	wait_until(3535, 0xc4)
-	play_sound(0x0531, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_0531, CHANNEL_10)
 
 	wait_until_with_stageflag(3600, 0x96)
 	mute_channel(CHANNEL_7)
-	speak(CHR_BOND, L_SHO_039, 0x7492, CHANNEL_10, COLOR_09_BLUE) // "That's a mistake I don't intend to make."
+	speak(CHR_BOND, L_SHO_039, MP3_0492, CHANNEL_10, COLOR_09_BLUE) // "That's a mistake I don't intend to make."
 
 	wait_until(4040, 0xc0)
-	play_sound(0x05a0, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_10)
 
 	wait_until(4158, 0xc1)
-	play_sound(0x05a1, CHANNEL_10)
+	play_sound(SFX_05A1, CHANNEL_10)
 
 	wait_until(4236, 0xc2)
-	play_sound(0x0529, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_0529, CHANNEL_10)
 
 	wait_until(4580, 0xbc)
-	play_sound(0x01d8, CHANNEL_10)
+	play_sound(SFX_01D8, CHANNEL_10)
 
 	wait_until(4610, 0xbd)
-	play_sound(0x01da, CHANNEL_10)
+	play_sound(SFX_01DA, CHANNEL_10)
 
 	wait_until(4630, 0xbe)
-	play_sound(0x80f6, CHANNEL_10)
+	play_sound(SFX_80F6, CHANNEL_10)
 
 	wait_until(4678, 0xbf)
-	play_sound(0x01db, CHANNEL_10)
+	play_sound(SFX_01DB, CHANNEL_10)
 
 	wait_until_with_stageflag(4675, 0x97)
-	play_sound(0x0162, CHANNEL_10)
+	play_sound(SFX_0162, CHANNEL_10)
 
 	wait_until_with_stageflag(4750, 0xbb)
-	play_sound(0x0161, CHANNEL_10)
+	play_sound(SFX_0161, CHANNEL_10)
 
 	mute_channel(CHANNEL_0)
 	mute_channel(CHANNEL_1)
@@ -3417,69 +3417,69 @@ u8 func0414_outro_sounds[] = {
 
 
 	outro_wait_until_with_stageflag(40, 0xd5)
-	play_sound(0x0067, CHANNEL_10)
+	play_sound(SFX_0067, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(80, 0x9e)
-	play_sound(0x0067, CHANNEL_10)
+	play_sound(SFX_0067, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(120, 0x9f)
-	play_sound(0x0067, CHANNEL_10)
+	play_sound(SFX_0067, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(160, 0xa0)
-	play_sound(0x05c0, CHANNEL_10)
+	play_sound(SFX_05C0, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(180, 0xa1)
-	play_sound(0x052d, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_052D, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(230, 0x9b)
-	speak(CHR_BOND, L_SHO_040, 0x74de, CHANNEL_10, COLOR_09_BLUE) // "Yesss..."
+	speak(CHR_BOND, L_SHO_040, MP3_04DE, CHANNEL_10, COLOR_09_BLUE) // "Yesss..."
 
 	outro_wait_until_with_stageflag(470, 0xa9)
-	play_sound(0x8099, CHANNEL_10)
+	play_sound(SFX_8099, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(494, 0xa2)
-	play_sound(0x8098, CHANNEL_10)
-	play_sound(0x00f6, CHANNEL_10)
+	play_sound(SFX_EXPLOSION_8098, CHANNEL_10)
+	play_sound(SFX_00F6, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(520, 0xa8)
-	play_sound(0x809b, CHANNEL_10)
+	play_sound(SFX_809B, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(540, 0xa3)
-	play_sound(0x80a2, CHANNEL_10)
-	play_sound(0x00f6, CHANNEL_10)
+	play_sound(SFX_80A2, CHANNEL_10)
+	play_sound(SFX_00F6, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(550, 0xd6)
-	play_sound(0x77c8, CHANNEL_10)
+	play_sound(MP3_07C8, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(600, 0xaa)
-	play_sound(0x80a3, CHANNEL_10)
+	play_sound(SFX_80A3, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(616, 0xa4)
-	play_sound(0x809f, CHANNEL_10)
-	play_sound(0x00f6, CHANNEL_10)
+	play_sound(SFX_809F, CHANNEL_10)
+	play_sound(SFX_00F6, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(700, 0xa5)
-	play_sound(0x80a1, CHANNEL_10)
-	play_sound(0x00f6, CHANNEL_10)
+	play_sound(SFX_80A1, CHANNEL_10)
+	play_sound(SFX_00F6, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(760, 0xcd)
-	play_sound(0x80a3, CHANNEL_10)
+	play_sound(SFX_80A3, CHANNEL_10)
 
 	outro_wait_until(780, 0xae)
 	fade_to_color(0x000000ff, 80)
 
 	outro_wait_until_with_stageflag(790, 0xa6)
-	play_sound(0x809c, CHANNEL_10)
-	play_sound(0x00f6, CHANNEL_10)
+	play_sound(SFX_809C, CHANNEL_10)
+	play_sound(SFX_00F6, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(820, 0xcc)
-	play_sound(0x80a2, CHANNEL_10)
+	play_sound(SFX_80A2, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(860, 0xa7)
-	play_sound(0x80a3, CHANNEL_10)
+	play_sound(SFX_80A3, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(880, 0xce)
-	play_sound(0x77da, CHANNEL_10)
+	play_sound(MP3_07DA, CHANNEL_10)
 
 	outro_wait_until(920, 0xaf)
 	fade_to_color(0xffffffff, 0)
@@ -3493,22 +3493,22 @@ u8 func0414_outro_sounds[] = {
 
 	outro_wait_until_with_stageflag(1680, 0x91)
 	mute_channel(CHANNEL_10)
-	speak(CHR_BOND, L_SHO_041, 0x7493, CHANNEL_10, COLOR_04_ORANGE) // "Joanna! Joanna!"
+	speak(CHR_BOND, L_SHO_041, MP3_0493, CHANNEL_10, COLOR_04_ORANGE) // "Joanna! Joanna!"
 
 	outro_wait_until_with_stageflag(2020, 0x9c)
-	speak(CHR_BOND, L_SHO_054, 0x7755, CHANNEL_10, COLOR_04_ORANGE) // "Where are you? Are you hurt?"
+	speak(CHR_BOND, L_SHO_054, MP3_0755, CHANNEL_10, COLOR_04_ORANGE) // "Where are you? Are you hurt?"
 
 	outro_wait_until_with_stageflag(2206, 0x92)
-	speak(CHR_BOND, L_SHO_042, 0x7494, CHANNEL_10, COLOR_09_BLUE) // "Elvis! Elvis! Over here."
+	speak(CHR_BOND, L_SHO_042, MP3_0494, CHANNEL_10, COLOR_09_BLUE) // "Elvis! Elvis! Over here."
 
 	outro_wait_until_with_stageflag(2625, 0x93)
-	speak(CHR_BOND, L_SHO_043, 0x7495, CHANNEL_10, COLOR_04_ORANGE) // "No problem. Grab my arms - we'll get you out in no..."
+	speak(CHR_BOND, L_SHO_043, MP3_0495, CHANNEL_10, COLOR_04_ORANGE) // "No problem. Grab my arms - we'll get you out in no..."
 
 	outro_wait_until_with_stageflag(2810, 0xd4)
-	play_sound(0x0531, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_0531, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(2895, 0x94)
-	speak(CHR_BOND, L_SHO_044, 0x7496, CHANNEL_10, COLOR_09_BLUE) // "No, quick! Give me your gun!"
+	speak(CHR_BOND, L_SHO_044, MP3_0496, CHANNEL_10, COLOR_09_BLUE) // "No, quick! Give me your gun!"
 
 	outro_wait_until_with_stageflag(3160, 0xca)
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
@@ -3520,14 +3520,14 @@ u8 func0414_outro_sounds[] = {
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
 
 	outro_wait_until_with_stageflag(3290, 0x95)
-	speak(CHR_BOND, L_SHO_045, 0x7497, CHANNEL_10, COLOR_09_BLUE) // "Will! You! Just! Let! Go!"
+	speak(CHR_BOND, L_SHO_045, MP3_0497, CHANNEL_10, COLOR_09_BLUE) // "Will! You! Just! Let! Go!"
 
 	outro_wait_until_with_stageflag(3420, 0xcf)
 	set_chr_shooting_in_cutscene(CHR_TARGET, TRUE)
 	yield
 	yield
 	set_chr_shooting_in_cutscene(CHR_TARGET, FALSE)
-	play_sound(0x052e, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_052E, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(3445, 0xd0)
 	set_chr_shooting_in_cutscene(CHR_TARGET, TRUE)
@@ -3552,31 +3552,31 @@ u8 func0414_outro_sounds[] = {
 	yield
 	yield
 	set_chr_shooting_in_cutscene(CHR_TARGET, FALSE)
-	play_sound_from_object2(CHANNEL_6, 0x25, 0x052d, 0x00, 0x00)
+	play_sound_from_object2(CHANNEL_6, 0x25, SFX_SKEDAR_ROAR_052D, 0x00, 0x00)
 
 	outro_wait_until_with_stageflag(3600, 0xd7)
-	play_sound(0x77c9, CHANNEL_10)
+	play_sound(MP3_07C9, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(3880, 0xd8)
-	play_sound(0x0427, CHANNEL_10)
+	play_sound(SFX_0427, CHANNEL_10)
 
 	outro_wait_until_with_stageflag(3990, 0x96)
-	speak(CHR_BOND, L_SHO_046, 0x7498, CHANNEL_10, COLOR_04_ORANGE) // "I managed to get the fleet to stop the bombardment..."
+	speak(CHR_BOND, L_SHO_046, MP3_0498, CHANNEL_10, COLOR_04_ORANGE) // "I managed to get the fleet to stop the bombardment..."
 
 	outro_wait_until_with_stageflag(4425, 0x97)
-	speak(CHR_BOND, L_SHO_047, 0x7499, CHANNEL_10, COLOR_09_BLUE) // "I'd have got out in time if that one hadn't grabbe..."
+	speak(CHR_BOND, L_SHO_047, MP3_0499, CHANNEL_10, COLOR_09_BLUE) // "I'd have got out in time if that one hadn't grabbe..."
 
 	outro_wait_until_with_stageflag(4650, 0x98)
-	speak(CHR_BOND, L_SHO_048, 0x749a, CHANNEL_10, COLOR_04_ORANGE) // "Of course, Joanna, of course."
+	speak(CHR_BOND, L_SHO_048, MP3_049A, CHANNEL_10, COLOR_04_ORANGE) // "Of course, Joanna, of course."
 
 	outro_wait_until_with_stageflag(4825, 0x99)
-	speak(CHR_BOND, L_SHO_049, 0x749b, CHANNEL_10, COLOR_09_BLUE) // "No, I would have."
+	speak(CHR_BOND, L_SHO_049, MP3_049B, CHANNEL_10, COLOR_09_BLUE) // "No, I would have."
 
 	outro_wait_until_with_stageflag(4960, 0x9a)
-	speak(CHR_BOND, L_SHO_050, 0x749c, CHANNEL_10, COLOR_04_ORANGE) // "I believe you."
+	speak(CHR_BOND, L_SHO_050, MP3_049C, CHANNEL_10, COLOR_04_ORANGE) // "I believe you."
 
 	outro_wait_until_with_stageflag(5560, 0x9d)
-	play_sound(0x0161, CHANNEL_7)
+	play_sound(SFX_0161, CHANNEL_7)
 
 	label(0x86)
 	mute_channel(CHANNEL_10)

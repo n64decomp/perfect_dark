@@ -160,7 +160,7 @@ u8 func1000_idle[] = {
 };
 
 u8 func0403_init_some_sound[] = {
-	play_sound(0x0037, -1)
+	play_sound(SFX_0037, -1)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

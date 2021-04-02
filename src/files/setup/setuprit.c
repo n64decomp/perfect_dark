@@ -1146,7 +1146,7 @@ u8 func100a_autopilot_switch[] = {
 
 	// Switch pressed
 	label(0x06)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_AUTOPILOT_SWITCH, TRUE)
 	set_object_image(OBJ_AUTOPILOT_SWITCH, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
@@ -1224,7 +1224,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(0)
-	speak(CHR_TARGET, L_RIT_035, 0x12c5, CHANNEL_6, COLOR_08_RED) // "Who are you, young lady?"
+	speak(CHR_TARGET, L_RIT_035, MP3_02C5, CHANNEL_6, COLOR_08_RED) // "Who are you, young lady?"
 	restart_timer
 
 	beginloop(0x60)
@@ -1243,7 +1243,7 @@ u8 func0405_president_in_room[] = {
 	endloop(0x60)
 
 	label(0x06)
-	speak(CHR_TARGET, L_RIT_037, 0x72bc, CHANNEL_7, COLOR_09_BLUE) // "Mr. President, you're in danger. Trent is trying t..."
+	speak(CHR_TARGET, L_RIT_037, MP3_02BC, CHANNEL_7, COLOR_09_BLUE) // "Mr. President, you're in danger. Trent is trying t..."
 	restart_timer
 	stop_chr
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x78)
@@ -1267,7 +1267,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(1)
-	speak(CHR_TARGET, L_RIT_040, 0x12c6, CHANNEL_6, COLOR_08_RED) // "You can't make accusations like that without evide..."
+	speak(CHR_TARGET, L_RIT_040, MP3_02C6, CHANNEL_6, COLOR_08_RED) // "You can't make accusations like that without evide..."
 	restart_timer
 
 	beginloop(0x79)
@@ -1294,7 +1294,7 @@ u8 func0405_president_in_room[] = {
 	label(0x85)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISE_UNCOVERED)
 	set_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISE_UNCOVERED)
-	speak(CHR_TARGET, L_RIT_036, 0x12c4, CHANNEL_6, COLOR_08_RED) // "Security, SECURITY!!"
+	speak(CHR_TARGET, L_RIT_036, MP3_02C4, CHANNEL_6, COLOR_08_RED) // "Security, SECURITY!!"
 	restart_timer
 	chr_do_animation(0x0231, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
@@ -1337,7 +1337,7 @@ u8 func0405_president_in_room[] = {
 	// Has equipment
 	label(0x10)
 	stop_chr
-	speak(CHR_TARGET, L_RIT_041, 0x72bd, CHANNEL_6, COLOR_09_BLUE) // "This is a recording of a meeting between Trent and..."
+	speak(CHR_TARGET, L_RIT_041, MP3_02BD, CHANNEL_6, COLOR_09_BLUE) // "This is a recording of a meeting between Trent and..."
 	restart_timer
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
 
@@ -1358,7 +1358,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(2)
-	speak(CHR_TARGET, L_RIT_042, 0x12c7, CHANNEL_6, COLOR_08_RED) // "Seems overwhelming... I'm in your hands. What do w..."
+	speak(CHR_TARGET, L_RIT_042, MP3_02C7, CHANNEL_6, COLOR_08_RED) // "Seems overwhelming... I'm in your hands. What do w..."
 	restart_timer
 
 	beginloop(0x7a)
@@ -1392,7 +1392,7 @@ u8 func0405_president_in_room[] = {
 	unset_object_flag2(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG2_INVISIBLE)
 	unset_object_flag2(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG2_INVISIBLE)
 	set_object_flag(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG_00000100)
-	play_sound(0x8098, -1)
+	play_sound(SFX_EXPLOSION_8098, -1)
 	restart_timer
 
 	beginloop(0x7b)
@@ -1401,7 +1401,7 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_RIT_038, 0x816e, CHANNEL_6, COLOR_08_RED) // "What the hell was that!"
+	speak(CHR_TARGET, L_RIT_038, SFX_816E, CHANNEL_6, COLOR_08_RED) // "What the hell was that!"
 	restart_timer
 
 	beginloop(0x0c)
@@ -1411,7 +1411,7 @@ u8 func0405_president_in_room[] = {
 	label(0x06)
 	stop_chr
 	set_stage_flag(STAGEFLAG_PRESIDENT_STARTED_RUNNING)
-	speak(CHR_TARGET, L_RIT_039, 0x72be, CHANNEL_6, COLOR_09_BLUE) // "We have to get you to the escape pod. Follow me."
+	speak(CHR_TARGET, L_RIT_039, MP3_02BE, CHANNEL_6, COLOR_09_BLUE) // "We have to get you to the escape pod. Follow me."
 	restart_timer
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0e)
 
@@ -1450,7 +1450,7 @@ u8 func0404_president_running[] = {
 	endloop(0x54)
 
 	label(0x06)
-	assign_sound(0x1abf, CHANNEL_6)
+	assign_sound(MP3_02BF, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1464,7 +1464,7 @@ u8 func0404_president_running[] = {
 	// Injured
 	label(0x06)
 	restart_timer
-	assign_sound(0x1ac2, CHANNEL_6)
+	assign_sound(MP3_02C2, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	if_stage_flag_eq(STAGEFLAG_PRESIDENT_INJURED, TRUE, /*goto*/ 0x56)
 	set_stage_flag(STAGEFLAG_PRESIDENT_INJURED)
@@ -2055,14 +2055,14 @@ u8 func1002_intro[] = {
 	wait_until(140, 0x94)
 
 	wait_until(180, 0x60)
-	speak(CHR_BOND, L_RIT_073, 0x744c, CHANNEL_7, COLOR_05_GREEN) // "Have you thought any more about that proposal I ga..."
+	speak(CHR_BOND, L_RIT_073, MP3_044C, CHANNEL_7, COLOR_05_GREEN) // "Have you thought any more about that proposal I ga..."
 
 	wait_until(330, 0x95)
 
 	wait_until(360, 0x96)
 
 	wait_until(438, 0x77)
-	speak(CHR_BOND, L_RIT_074, 0x744d, CHANNEL_7, COLOR_08_RED) // "My answer remains the same... I'm sorry Trent, but..."
+	speak(CHR_BOND, L_RIT_074, MP3_044D, CHANNEL_7, COLOR_08_RED) // "My answer remains the same... I'm sorry Trent, but..."
 
 	wait_until(486, 0x97)
 
@@ -2071,13 +2071,13 @@ u8 func1002_intro[] = {
 	wait_until(850, 0x99)
 
 	wait_until(1020, 0x78)
-	speak(CHR_BOND, L_RIT_075, 0x744e, CHANNEL_7, COLOR_05_GREEN) // "But this is a golden opportunity to show that Amer..."
+	speak(CHR_BOND, L_RIT_075, MP3_044E, CHANNEL_7, COLOR_05_GREEN) // "But this is a golden opportunity to show that Amer..."
 
 	wait_until(1402, 0x79)
-	speak(CHR_BOND, L_RIT_076, 0x81bb, CHANNEL_7, COLOR_08_RED) // "Damn it, man! I say no and I mean no! I'm not gonn..."
+	speak(CHR_BOND, L_RIT_076, SFX_81BB, CHANNEL_7, COLOR_08_RED) // "Damn it, man! I say no and I mean no! I'm not gonn..."
 
 	wait_until(2348, 0x7a)
-	speak(CHR_BOND, L_RIT_077, 0x7450, CHANNEL_7, COLOR_05_GREEN) // "As you wish, sir."
+	speak(CHR_BOND, L_RIT_077, MP3_0450, CHANNEL_7, COLOR_05_GREEN) // "As you wish, sir."
 
 	wait_until(2406, 0x9a)
 
@@ -2093,9 +2093,9 @@ u8 func1002_intro[] = {
 	wait_until(2616, 0x9e)
 
 	wait_until(2654, 0x7b)
-	speak(CHR_BOND, L_RIT_078, 0x7451, CHANNEL_7, COLOR_05_GREEN) // "My last chance? Ha! You fool. That was yours."
+	speak(CHR_BOND, L_RIT_078, MP3_0451, CHANNEL_7, COLOR_05_GREEN) // "My last chance? Ha! You fool. That was yours."
 	close_door(0x15)
-	play_sound(0x8008, CHANNEL_10)
+	play_sound(SFX_DOOR_8008, CHANNEL_10)
 
 	wait_until(2680, 0x9f)
 
@@ -2218,7 +2218,7 @@ u8 func1010_dumbwaiter1[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	play_sound(0x043a, CHANNEL_7)
+	play_sound(SFX_043A, CHANNEL_7)
 	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0x00, 0x13)
 	unset_object_flag(OBJ_DUMBWAITER1, OBJFLAG_DEACTIVATED)
 	yield
@@ -2279,7 +2279,7 @@ u8 func1011_dumbwaiter2[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	play_sound(0x043a, CHANNEL_7)
+	play_sound(SFX_043A, CHANNEL_7)
 	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0x00, 0x13)
 	unset_object_flag(OBJ_DUMBWAITER2, OBJFLAG_DEACTIVATED)
 	yield
@@ -2797,7 +2797,7 @@ u8 func041e_blonde[] = {
 	beginloop(0x66)
 		if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x06)
 		if_timer_lt(120, /*goto*/ 0x06)
-		assign_sound(0x80f6, CHANNEL_7)
+		assign_sound(SFX_80F6, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 		label(0x06)
@@ -2881,7 +2881,7 @@ u8 func0421_trent_waiting[] = {
 
 	label(0x06)
 	restart_timer
-	speak(CHR_TARGET, L_RIT_045, 0x816f, CHANNEL_6, COLOR_05_GREEN) // "How the hell did you get on board?"
+	speak(CHR_TARGET, L_RIT_045, SFX_816F, CHANNEL_6, COLOR_05_GREEN) // "How the hell did you get on board?"
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x08)
@@ -2910,7 +2910,7 @@ u8 func0420_trent_attacking[] = {
 	label(0x2d)
 	set_shield(500)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
-	speak(CHR_P1P2, L_RIT_070, 0x12cb, CHANNEL_6, COLOR_05_GREEN) // "Ha, Ha, Ha, Ha, Ha."
+	speak(CHR_P1P2, L_RIT_070, MP3_02CB, CHANNEL_6, COLOR_05_GREEN) // "Ha, Ha, Ha, Ha, Ha."
 	set_ailist(CHR_SELF, AILIST_TRENT_RUNNING)
 
 	// President in sight
@@ -2938,7 +2938,7 @@ u8 func0420_trent_attacking[] = {
 	label(0x09)
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
-	speak(CHR_P1P2, L_RIT_071, 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now."
+	speak(CHR_P1P2, L_RIT_071, MP3_02CA, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now."
 
 	beginloop(0x0a)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -3251,7 +3251,7 @@ u8 func0407_steward[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISE_UNCOVERED)
 	do_preset_animation(-1)
 	restart_timer
-	speak(CHR_P1P2, L_RIT_043, 0x1abb, CHANNEL_4, COLOR_04_ORANGE) // "Hey, that's not..."
+	speak(CHR_P1P2, L_RIT_043, MP3_02BB, CHANNEL_4, COLOR_04_ORANGE) // "Hey, that's not..."
 
 	beginloop(0x08)
 		if_timer_gt(35, /*goto*/ 0x2d)
@@ -3324,7 +3324,7 @@ u8 func0407_stewardess[] = {
 	endloop(0x7f)
 
 	label(0x80)
-	play_sound(0x1adc, CHANNEL_7)
+	play_sound(MP3_02DC, CHANNEL_7)
 	increase_squadron_alertness(100)
 
 	label(0x0a)
@@ -3356,7 +3356,7 @@ u8 func1015_msg_retrievetheevidence[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_BOND, L_RIT_046, 0x73c8, CHANNEL_6, COLOR_09_BLUE) // "Now, let's retrieve the evidence."
+	speak(CHR_BOND, L_RIT_046, MP3_03C8, CHANNEL_6, COLOR_09_BLUE) // "Now, let's retrieve the evidence."
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3375,7 +3375,7 @@ u8 func1016_msg_onthislevel[] = {
 
 	label(0x2d)
 	set_target_chr(CHR_PRESET)
-	speak(CHR_TARGET, L_RIT_047, 0x8185, CHANNEL_6, COLOR_09_BLUE) // "The President's room is on this level, Joanna."
+	speak(CHR_TARGET, L_RIT_047, SFX_8185, CHANNEL_6, COLOR_09_BLUE) // "The President's room is on this level, Joanna."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3399,7 +3399,7 @@ u8 func1017_msg_gettothecockpit[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_BOND, L_RIT_048, 0x8186, CHANNEL_5, COLOR_09_BLUE) // "Something's wrong... You have to get to the cockpi..."
+	speak(CHR_BOND, L_RIT_048, SFX_8186, CHANNEL_5, COLOR_09_BLUE) // "Something's wrong... You have to get to the cockpi..."
 
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3418,7 +3418,7 @@ u8 func1018_msg_maybeamine[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, L_RIT_049, 0x73cb, CHANNEL_6, COLOR_09_BLUE) // "Maybe a mine will detach the UFO."
+	speak(CHR_P1P2, L_RIT_049, MP3_03CB, CHANNEL_6, COLOR_09_BLUE) // "Maybe a mine will detach the UFO."
 
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3483,7 +3483,7 @@ u8 func0423_outro[] = {
 	goto_first(0x60)
 
 	label(0x06)
-	speak(CHR_BOND, L_RIT_079, 0x7452, CHANNEL_7, COLOR_09_BLUE) // "Elvis! Elvis! I can't detach that tube from the fu..."
+	speak(CHR_BOND, L_RIT_079, MP3_0452, CHANNEL_7, COLOR_09_BLUE) // "Elvis! Elvis! I can't detach that tube from the fu..."
 
 	#define outro_wait_until(time, loopid) \
 		beginloop(loopid) \
@@ -3495,20 +3495,20 @@ u8 func0423_outro[] = {
 
 
 	outro_wait_until(426, 0x77)
-	speak(CHR_BOND, L_RIT_080, 0x7453, CHANNEL_7, COLOR_06_WHITE) // "Piece of cake, Joanna. Watch this!"
+	speak(CHR_BOND, L_RIT_080, MP3_0453, CHANNEL_7, COLOR_06_WHITE) // "Piece of cake, Joanna. Watch this!"
 
 	outro_wait_until(1045, 0x65)
-	play_sound(0x0063, CHANNEL_10)
+	play_sound(SFX_0063, CHANNEL_10)
 
 	outro_wait_until(1050, 0x78)
-	speak(CHR_BOND, L_RIT_081, 0x7454, CHANNEL_7, COLOR_06_WHITE) // "Uh-oh."
+	speak(CHR_BOND, L_RIT_081, MP3_0454, CHANNEL_7, COLOR_06_WHITE) // "Uh-oh."
 	emit_sparks(0x23)
 
 	outro_wait_until(1112, 0x79)
-	speak(CHR_BOND, L_RIT_082, 0x7455, CHANNEL_7, COLOR_09_BLUE) // "Watch what? Will you stop playing around and shoot..."
+	speak(CHR_BOND, L_RIT_082, MP3_0455, CHANNEL_7, COLOR_09_BLUE) // "Watch what? Will you stop playing around and shoot..."
 
 	outro_wait_until(1380, 0x7a)
-	speak(CHR_BOND, L_RIT_083, 0x7456, CHANNEL_7, COLOR_06_WHITE) // "Out of options... Joanna, brace yourself for impac..."
+	speak(CHR_BOND, L_RIT_083, MP3_0456, CHANNEL_7, COLOR_06_WHITE) // "Out of options... Joanna, brace yourself for impac..."
 
 	outro_wait_until(1950, 0x7b)
 
@@ -3591,7 +3591,7 @@ u8 func1019_midcutscene[] = {
 	restart_timer
 
 	outro_wait_until(1086, 0x61)
-	play_sound(0x042c, -1)
+	play_sound(SFX_DOOR_042C, -1)
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -3649,7 +3649,7 @@ u8 func101a_equipment_switch[] = {
 	set_stage_flag(STAGEFLAG_EQUIPMENT_RAISED)
 	open_door(0x1c)
 	show_hudmsg(CHR_P1P2, L_RIT_061) // "Cargo bay has been raised."
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
 	unset_object_flag(0x1b, OBJFLAG_DEACTIVATED)
 	yield
@@ -3713,7 +3713,7 @@ u8 func101b_hoverbike_switch[] = {
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x13)
 	show_hudmsg(CHR_P1P2, L_RIT_060) // "Cargo bay has been lowered."
 	set_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
-	assign_sound(0x043a, CHANNEL_7)
+	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
 	unset_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	restart_timer

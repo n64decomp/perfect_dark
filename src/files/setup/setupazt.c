@@ -429,46 +429,46 @@ u8 func1002_intro[] = {
 
 
 	wait_until(724, 0x69)
-	speak(CHR_BOND, L_AZT_032, 0x7759, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uuhhhh..."
+	speak(CHR_BOND, L_AZT_032, MP3_0759, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uuhhhh..."
 
 	wait_until(830, 0x6a)
-	speak(CHR_BOND, L_AZT_034, 0x7457, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please report!"
+	speak(CHR_BOND, L_AZT_034, MP3_0457, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please report!"
 
 	wait_until(980, 0x6b)
-	speak(CHR_BOND, L_AZT_033, 0x775a, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uhh... owww..."
+	speak(CHR_BOND, L_AZT_033, MP3_075A, CHANNEL_10, COLOR_09_BLUE) // "Ahhh... uhh... owww..."
 
 	wait_until(1030, 0x6c)
-	speak(CHR_BOND, L_AZT_035, 0x7458, CHANNEL_10, COLOR_06_WHITE) // "Perfect Dark, come in!"
+	speak(CHR_BOND, L_AZT_035, MP3_0458, CHANNEL_10, COLOR_06_WHITE) // "Perfect Dark, come in!"
 
 	wait_until(1152, 0x6e)
-	speak(CHR_BOND, L_AZT_036, 0x7459, CHANNEL_10, COLOR_09_BLUE) // "A-agent Dark reporting in..."
+	speak(CHR_BOND, L_AZT_036, MP3_0459, CHANNEL_10, COLOR_09_BLUE) // "A-agent Dark reporting in..."
 
 	wait_until(1372, 0x6f)
-	speak(CHR_BOND, L_AZT_037, 0x745a, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please reply!"
+	speak(CHR_BOND, L_AZT_037, MP3_045A, CHANNEL_10, COLOR_06_WHITE) // "Agent Dark! Please reply!"
 
 	wait_until(1610, 0x6d)
-	speak(CHR_BOND, L_AZT_038, 0x745b, CHANNEL_10, COLOR_09_BLUE) // "Something's jamming my transmissions... It's comin..."
+	speak(CHR_BOND, L_AZT_038, MP3_045B, CHANNEL_10, COLOR_09_BLUE) // "Something's jamming my transmissions... It's comin..."
 
 	wait_until(1875, 0x70)
-	speak(CHR_BOND, -1, 0x8189, CHANNEL_10, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8189, CHANNEL_10, COLOR_00_GREEN)
 
 	wait_until(1900, 0x71)
-	speak(CHR_BOND, -1, 0x818a, CHANNEL_10, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_818A, CHANNEL_10, COLOR_00_GREEN)
 
 	wait_until(1926, 0x72)
-	speak(CHR_BOND, -1, 0x8188, CHANNEL_7, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8188, CHANNEL_7, COLOR_00_GREEN)
 
 	wait_until(1958, 0x73)
-	speak(CHR_BOND, -1, 0x8189, CHANNEL_10, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8189, CHANNEL_10, COLOR_00_GREEN)
 
 	wait_until(2000, 0x74)
-	speak(CHR_BOND, L_AZT_039, 0x745c, CHANNEL_10, COLOR_09_BLUE) // "I'd better find the jamming device and check that ..."
+	speak(CHR_BOND, L_AZT_039, MP3_045C, CHANNEL_10, COLOR_09_BLUE) // "I'd better find the jamming device and check that ..."
 
 	wait_until(2116, 0x75)
-	speak(CHR_BOND, -1, 0x8188, CHANNEL_7, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8188, CHANNEL_7, COLOR_00_GREEN)
 
 	wait_until(2168, 0x76)
-	speak(CHR_BOND, -1, 0x8187, CHANNEL_6, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8187, CHANNEL_6, COLOR_00_GREEN)
 
 	wait_until(2224, 0x78)
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -476,22 +476,22 @@ u8 func1002_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SCOPE, WEAPON_NONE)
 
 	wait_until(2305, 0x79)
-	speak(CHR_BOND, -1, 0x01db, CHANNEL_5, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_01DB, CHANNEL_5, COLOR_00_GREEN)
 
 	wait_until(2392, 0x7a)
-	speak(CHR_BOND, -1, 0x8189, CHANNEL_7, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8189, CHANNEL_7, COLOR_00_GREEN)
 
 	wait_until(2412, 0x7b)
-	speak(CHR_BOND, -1, 0x8187, CHANNEL_6, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8187, CHANNEL_6, COLOR_00_GREEN)
 
 	wait_until(2460, 0x7c)
-	speak(CHR_BOND, -1, 0x8188, CHANNEL_7, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8188, CHANNEL_7, COLOR_00_GREEN)
 
 	wait_until(2513, 0x7d)
-	speak(CHR_BOND, -1, 0x8189, CHANNEL_6, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_8189, CHANNEL_6, COLOR_00_GREEN)
 
 	wait_until(2685, 0x7e)
-	speak(CHR_BOND, -1, 0x818a, CHANNEL_7, COLOR_00_GREEN)
+	speak(CHR_BOND, -1, SFX_FOOTSTEP_818A, CHANNEL_7, COLOR_00_GREEN)
 
 	beginloop(0x0a)
 		if_camera_animating(/*goto*/ 0x31)
@@ -612,139 +612,139 @@ u8 func0402_outro[] = {
 	show_nonessential_chrs(FALSE)
 
 	wait_until(146, 0x69)
-	play_sound(0x0594, CHANNEL_7)
+	play_sound(SFX_0594, CHANNEL_7)
 
 	wait_until(200, 0x6a)
-	play_sound(0x0595, CHANNEL_6)
+	play_sound(SFX_0595, CHANNEL_6)
 
 	wait_until(248, 0x6b)
-	speak(CHR_BOND, L_AZT_040, 0x745d, CHANNEL_10, COLOR_09_BLUE) // "How are you feeling, Mr. President?"
+	speak(CHR_BOND, L_AZT_040, MP3_045D, CHANNEL_10, COLOR_09_BLUE) // "How are you feeling, Mr. President?"
 
 	wait_until(414, 0x6c)
-	speak(CHR_BOND, L_AZT_041, 0x745e, CHANNEL_10, COLOR_08_RED) // "Better now, young lady. Today, I think, will take ..."
+	speak(CHR_BOND, L_AZT_041, MP3_045E, CHANNEL_10, COLOR_08_RED) // "Better now, young lady. Today, I think, will take ..."
 
 	wait_until(490, 0x6e)
-	play_sound(0x0596, CHANNEL_5)
+	play_sound(SFX_0596, CHANNEL_5)
 
 	wait_until(526, 0x6f)
-	play_sound(0x0597, CHANNEL_7)
+	play_sound(SFX_0597, CHANNEL_7)
 
 	wait_until(578, 0x6d)
-	play_sound(0x0427, CHANNEL_6)
+	play_sound(SFX_0427, CHANNEL_6)
 
 	wait_until(1078, 0x71)
-	play_sound(0x0596, CHANNEL_5)
+	play_sound(SFX_0596, CHANNEL_5)
 
 	wait_until(1116, 0x72)
-	play_sound(0x0597, CHANNEL_7)
+	play_sound(SFX_0597, CHANNEL_7)
 
 	wait_until(1200, 0x70)
-	speak(CHR_BOND, L_AZT_042, 0x745f, CHANNEL_10, COLOR_09_BLUE) // "Just one thing, sir? What is the Pelagic II that T..."
+	speak(CHR_BOND, L_AZT_042, MP3_045F, CHANNEL_10, COLOR_09_BLUE) // "Just one thing, sir? What is the Pelagic II that T..."
 
 	wait_until(1474, 0x74)
-	play_sound(0x0525, CHANNEL_5)
-	play_sound(0x00f8, CHANNEL_10)
+	play_sound(SFX_ELVIS_HEHE, CHANNEL_5)
+	play_sound(SFX_00F8, CHANNEL_10)
 
 	wait_until(1490, 0x75)
-	play_sound(0x0596, CHANNEL_7)
+	play_sound(SFX_0596, CHANNEL_7)
 
 	wait_until(1492, 0x76)
-	play_sound(0x0594, CHANNEL_6)
+	play_sound(SFX_0594, CHANNEL_6)
 
 	wait_until(1556, 0x77)
-	play_sound(0x00f8, CHANNEL_10)
+	play_sound(SFX_00F8, CHANNEL_10)
 
 	wait_until(1626, 0x73)
-	speak(CHR_BOND, L_AZT_043, 0x7460, CHANNEL_10, COLOR_08_RED) // "It's a U.S. government deep sea research vessel, o..."
+	speak(CHR_BOND, L_AZT_043, MP3_0460, CHANNEL_10, COLOR_08_RED) // "It's a U.S. government deep sea research vessel, o..."
 
 	wait_until(1807, 0x79)
-	play_sound(0x0595, CHANNEL_7)
+	play_sound(SFX_0595, CHANNEL_7)
 
 	wait_until(1850, 0x7a)
-	play_sound(0x0597, CHANNEL_6)
+	play_sound(SFX_0597, CHANNEL_6)
 
 	wait_until(1872, 0x7c)
-	play_sound(0x0595, CHANNEL_7)
+	play_sound(SFX_0595, CHANNEL_7)
 
 	wait_until(2074, 0x7d)
-	play_sound(0x0594, CHANNEL_6)
+	play_sound(SFX_0594, CHANNEL_6)
 
 	wait_until(2270, 0x7e)
-	play_sound(0x0596, CHANNEL_5)
+	play_sound(SFX_0596, CHANNEL_5)
 
 	wait_until(2286, 0x7f)
-	play_sound(0x818a, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_818A, CHANNEL_7)
 
 	wait_until(2296, 0x80)
-	play_sound(0x8189, CHANNEL_6)
+	play_sound(SFX_FOOTSTEP_8189, CHANNEL_6)
 
 	wait_until(2316, 0x81)
-	play_sound(0x8187, CHANNEL_5)
+	play_sound(SFX_FOOTSTEP_8187, CHANNEL_5)
 
 	wait_until(2335, 0x82)
-	play_sound(0x8188, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_8188, CHANNEL_7)
 
 	wait_until(2450, 0x7b)
-	speak(CHR_BOND, L_AZT_044, 0x7461, CHANNEL_10, COLOR_09_BLUE) // "Trent has a lot to answer for, but I don't think w..."
+	speak(CHR_BOND, L_AZT_044, MP3_0461, CHANNEL_10, COLOR_09_BLUE) // "Trent has a lot to answer for, but I don't think w..."
 
 	wait_until(3150, 0x83)
-	speak(CHR_BOND, L_AZT_045, 0x7462, CHANNEL_10, COLOR_03_RED) // "You have failed, Easton. You are a flawed device, ..."
+	speak(CHR_BOND, L_AZT_045, MP3_0462, CHANNEL_10, COLOR_03_RED) // "You have failed, Easton. You are a flawed device, ..."
 
 	wait_until(3380, 0x88)
-	play_sound(0x818a, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_818A, CHANNEL_7)
 
 	wait_until(3580, 0x87)
-	speak(CHR_BOND, L_AZT_046, 0x7463, CHANNEL_10, COLOR_05_GREEN) // "Just try it, you Scandinavian freak!"
+	speak(CHR_BOND, L_AZT_046, MP3_0463, CHANNEL_10, COLOR_05_GREEN) // "Just try it, you Scandinavian freak!"
 
 	wait_until(3747, 0x84)
-	play_sound(0x8189, CHANNEL_5)
+	play_sound(SFX_FOOTSTEP_8189, CHANNEL_5)
 
 	wait_until(3875, 0x85)
-	play_sound(0x8188, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_8188, CHANNEL_7)
 
 	wait_until(4054, 0x86)
-	play_sound(0x05a0, CHANNEL_5)
-	play_sound(0x005c, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_5)
+	play_sound(SFX_CLOAK_OFF, CHANNEL_10)
 	set_chr_hiddenflag(CHR_MRBLONDE, CHRHFLAG_CLOAKED)
 	set_chr_hiddenflag(CHR_SKEDAR, CHRHFLAG_CLOAKED)
 
 	wait_until(4100, 0x95)
 	unset_chr_hiddenflag(CHR_SKEDAR, CHRHFLAG_CLOAKED)
-	play_sound(0x052a, CHANNEL_10)
+	play_sound(SFX_SKEDAR_ROAR_052A, CHANNEL_10)
 
 	wait_until(4200, 0x78)
-	speak(CHR_BOND, L_AZT_047, 0x7464, CHANNEL_10, COLOR_05_GREEN) // "Noooooooo!!!"
+	speak(CHR_BOND, L_AZT_047, MP3_0464, CHANNEL_10, COLOR_05_GREEN) // "Noooooooo!!!"
 
 	wait_until(4240, 0x93)
-	play_sound(0x05c0, CHANNEL_10)
+	play_sound(SFX_05C0, CHANNEL_10)
 
 	wait_until(4296, 0x89)
-	play_sound(0x007d, CHANNEL_6)
+	play_sound(SFX_007D, CHANNEL_6)
 
 	wait_until(4444, 0x8a)
-	play_sound(0x05a0, CHANNEL_5)
-	play_sound(0x0530, CHANNEL_10)
+	play_sound(SFX_05A0, CHANNEL_5)
+	play_sound(SFX_SKEDAR_ROAR_0530, CHANNEL_10)
 
 	wait_until(4506, 0x8b)
-	play_sound(0x05a1, CHANNEL_7)
+	play_sound(SFX_05A1, CHANNEL_7)
 
 	wait_until(4544, 0x96)
 	set_chr_hiddenflag(CHR_SKEDAR, CHRHFLAG_CLOAKED)
 
 	wait_until(4566, 0x8c)
-	play_sound(0x005b, CHANNEL_10)
+	play_sound(SFX_CLOAK_ON, CHANNEL_10)
 	unset_chr_hiddenflag(CHR_MRBLONDE, CHRHFLAG_CLOAKED)
 
 	wait_until(4576, 0x8d)
 
 	wait_until(4622, 0x8e)
-	play_sound(0x8187, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_8187, CHANNEL_7)
 
 	wait_until(4678, 0x8f)
-	play_sound(0x8188, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_8188, CHANNEL_7)
 
 	wait_until(4752, 0x90)
-	play_sound(0x8189, CHANNEL_7)
+	play_sound(SFX_FOOTSTEP_8189, CHANNEL_7)
 
 	beginloop(0x0a)
 		if_camera_animating(/*goto*/ 0x31)
@@ -791,7 +791,7 @@ u8 func1003_msg_therestheescapepod[] = {
 	endloop(0x06)
 
 	label(0x31)
-	speak(CHR_P1P2, L_AZT_010, 0x73cc, CHANNEL_6, COLOR_09_BLUE) // "There's the escape pod."
+	speak(CHR_P1P2, L_AZT_010, MP3_03CC, CHANNEL_6, COLOR_09_BLUE) // "There's the escape pod."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -803,7 +803,7 @@ u8 func1004_msg_maybetheresabeacon[] = {
 
 	// Unreachable
 	label(0x31)
-	speak(CHR_BOND, L_AZT_011, 0x73cd, CHANNEL_6, COLOR_09_BLUE) // "Maybe there's a beacon in there."
+	speak(CHR_BOND, L_AZT_011, MP3_03CD, CHANNEL_6, COLOR_09_BLUE) // "Maybe there's a beacon in there."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -818,7 +818,7 @@ u8 func1005_msg_thejamming[] = {
 	endloop(0x06)
 
 	label(0x31)
-	speak(CHR_P1P2, L_AZT_012, 0x73ce, CHANNEL_6, COLOR_09_BLUE) // "The jamming... It's coming from that ship."
+	speak(CHR_P1P2, L_AZT_012, MP3_03CE, CHANNEL_6, COLOR_09_BLUE) // "The jamming... It's coming from that ship."
 	label(0x0f)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -831,7 +831,7 @@ u8 func1006_msg_elvisbeable[] = {
 	endloop(0x06)
 
 	label(0x31)
-	speak(CHR_P1P2, L_AZT_013, 0x73cf, CHANNEL_6, COLOR_09_BLUE) // "Elvis... He'll be able to protect the President."
+	speak(CHR_P1P2, L_AZT_013, MP3_03CF, CHANNEL_6, COLOR_09_BLUE) // "Elvis... He'll be able to protect the President."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1068,7 +1068,7 @@ u8 func1008_escapepod[] = {
 		reloop(0x06)
 
 		label(0x31)
-		assign_sound(0x8115, CHANNEL_0)
+		assign_sound(SFX_8115, CHANNEL_0)
 		play_sound_from_object(CHANNEL_0, OBJ_ESCAPEPOD, 0x0320, 0x0640)
 		show_hudmsg(CHR_P1P2, L_AZT_014) // "Distress beacon has been activated."
 		set_stage_flag(STAGEFLAG_BEACON_ACTIVATED)
@@ -1226,7 +1226,7 @@ u8 func0404_elvis[] = {
 	// Close to player
 	label(0x13)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, L_AZT_031, 0x12e2, CHANNEL_6, COLOR_04_ORANGE) // "Take this; you should find it useful!"
+	speak(CHR_TARGET, L_AZT_031, MP3_02E2, CHANNEL_6, COLOR_04_ORANGE) // "Take this; you should find it useful!"
 	give_object_to_chr(OBJ_PROXYMINE, CHR_TARGET)
 
 	beginloop(0x14)
@@ -1286,15 +1286,15 @@ u8 func0418_robot[] = {
 		call_rng
 		if_rand_lt(86, /*goto*/ 0x0b)
 		if_rand_lt(172, /*goto*/ 0x0c)
-		assign_sound(0x046a, CHANNEL_5)
+		assign_sound(SFX_046A, CHANNEL_5)
 		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x31)
 		label(0x0b)
-		assign_sound(0x046b, CHANNEL_5)
+		assign_sound(SFX_046B, CHANNEL_5)
 		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x31)
 		label(0x0c)
-		assign_sound(0x046c, CHANNEL_5)
+		assign_sound(SFX_046C, CHANNEL_5)
 		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		label(0x31)
 	endloop(0x04)
@@ -1350,7 +1350,7 @@ u8 func0418_robot[] = {
 	goto_first(0x0d)
 
 	label(0x11)
-	assign_sound(0x1aec, CHANNEL_6)
+	assign_sound(MP3_ROBOT_ALERT_UNDER_ATTACK, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1514,7 +1514,7 @@ u8 func041d_president_running[] = {
 	endloop(0x9c)
 
 	label(0x08)
-	assign_sound(0x1abf, CHANNEL_6)
+	assign_sound(MP3_02BF, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1528,7 +1528,7 @@ u8 func041d_president_running[] = {
 	// Injured
 	label(0x08)
 	restart_timer
-	assign_sound(0x1ac2, CHANNEL_6)
+	assign_sound(MP3_02C2, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	beginloop(0x9e)
@@ -1720,7 +1720,7 @@ u8 func041e_trent_waiting[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_P1P2, L_AZT_024, 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now!"
+	speak(CHR_P1P2, L_AZT_024, MP3_02CA, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now!"
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
