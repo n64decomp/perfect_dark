@@ -2385,8 +2385,7 @@ struct hand {
 	/*0x0cf0*/ struct coord unk0cf0;
 	/*0x0cfc*/ struct coord unk0cfc;
 	/*0x0d08*/ f32 unk0d08;
-	/*0x0d0c*/ u8 unk0d0c;
-	/*0x0d0d*/ u8 unk0d0d;
+	/*0x0d0c*/ s16 unk0d0c;
 	/*0x0d0e*/ u8 unk0d0e_00 : 4;
 	/*0x0d0e*/ u8 unk0d0e_04 : 3;
 	/*0x0d0e*/ u8 unk0d0e_07 : 1;
@@ -3188,8 +3187,8 @@ struct weaponfunc_shootprojectile {
 struct weaponfunc_throw {
 	struct weaponfunc base;
 	/*0x14*/ s32 projectilemodelnum;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x18*/ s16 activatetime60; // time until proxies become active, or timed mine/grenade explodes
+	/*0x1c*/ s32 recoverytime60; // time before player can throw another
 	/*0x20*/ f32 damage;
 };
 

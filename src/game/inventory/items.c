@@ -1770,8 +1770,8 @@ struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 	NULL, // fire animation
 	0x00042040, // flags
 	0x000000ff,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -2318,8 +2318,8 @@ struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	NULL, // fire animation
 	0x00842140, // flags
 	0x00000157,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -2998,8 +2998,8 @@ struct weaponfunc_throw invfunc_timedmine_throw = {
 	invanim_mine_throw, // fire animation
 	0x00802040, // flags
 	0x00000113,
-	0x00f00000,
-	0x00000000,
+	240, // activatetime60
+	0, // recoverytime60
 	0, // damage
 };
 
@@ -3070,8 +3070,8 @@ struct weaponfunc_throw invfunc_remotemine_throw = {
 	invanim_remotemine_throw, // fire animation
 	0x00802040, // flags
 	0x00000115,
-	0x00f00000,
-	0x00000000,
+	240, // activatetime60
+	0, // recoverytime60
 	0, // damage
 };
 
@@ -3135,8 +3135,8 @@ struct weaponfunc_throw invfunc_proxymine_throw = {
 	invanim_mine_throw, // fire animation
 	0x00802040, // flags
 	0x00000114,
-	0x00f00000,
-	0x00000000,
+	240, // activatetime60
+	0, // recoverytime60
 	0, // damage
 };
 
@@ -3198,8 +3198,8 @@ struct weaponfunc_throw invfunc_ecmmine_throw = {
 	invanim_ecmmine_throw, // fire animation
 	0x00802040, // flags
 	0x00000116,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -3291,8 +3291,8 @@ struct weaponfunc_throw invfunc_grenade_throw = {
 	invanim_grenade_throw, // fire animation
 	0x00002040, // flags
 	0x00000112,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -3305,8 +3305,8 @@ struct weaponfunc_throw invfunc_grenade_pinball = {
 	invanim_grenade_throw, // fire animation
 	0x00002040, // flags
 	0x00000112,
-	0x005a0000,
-	0x0000003c,
+	90, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -3352,8 +3352,8 @@ struct weaponfunc_throw invfunc_nbomb_throw = {
 	invanim_grenade_throw, // fire animation
 	0x00002640, // flags
 	0x00000110,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -3366,8 +3366,8 @@ struct weaponfunc_throw invfunc_nbomb_proxy = {
 	invanim_grenade_throw, // fire animation
 	0x00002640, // flags
 	0x00000110,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -4762,8 +4762,8 @@ struct weaponfunc_throw invfunc_combatknife_throw = {
 	invanim_combatknife_throw, // fire animation
 	0x00802000, // flags
 	0x0000010f,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	1, // damage
 };
 
@@ -4809,8 +4809,8 @@ struct weaponfunc_throw invfunc_bug_throw = {
 	NULL, // fire animation
 	0x00802040, // flags
 	0x00000012,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
@@ -4823,8 +4823,8 @@ struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	NULL, // fire animation
 	0x00802040, // flags
 	0x000001b1,
-	0x00f00000,
-	0x0000003c,
+	240, // activatetime60
+	60, // recoverytime60
 	0, // damage
 };
 
