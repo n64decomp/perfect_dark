@@ -830,7 +830,7 @@ s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 		arg2 = g_Mp3Vars.var8009c3c0 - g_Mp3Vars.var8009c3c4;
 	}
 
-	proc = alGlobals->drvr.dma(&sp1c);
+	proc = n_syn->drvr.dma(&sp1c);
 	sp1c = OS_K0_TO_PHYSICAL(proc(g_Mp3Vars.var8009c390 + g_Mp3Vars.var8009c3c4, arg2, 0));
 
 	bcopy((u8 *)sp1c, arg1, arg2);
@@ -845,7 +845,7 @@ void func00038cac(void)
 	u32 state;
 	ALDMAproc proc;
 
-	proc = alGlobals->drvr.dma(&state);
+	proc = n_syn->drvr.dma(&state);
 
 	proc(g_Mp3Vars.var8009c390 + g_Mp3Vars.var8009c3c4, 0x400, 0);
 }

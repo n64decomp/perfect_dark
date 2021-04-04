@@ -6,16 +6,16 @@
 #include "data.h"
 #include "types.h"
 
-ALGlobals *var8005f110 = NULL;
-ALGlobals *alGlobals = NULL;
+ALGlobals *n_alGlobals = NULL;
+ALGlobals *n_syn = NULL;
 
 void n_alInit(ALGlobals *g, ALSynConfig *c)
 {
-	if (!var8005f110) {
-		var8005f110 = g;
+	if (!n_alGlobals) {
+		n_alGlobals = g;
 
-		if (!alGlobals) {
-			alGlobals = var8005f110;
+		if (!n_syn) {
+			n_syn = n_alGlobals;
 			n_alSynNew(c);
 		}
 	}
@@ -23,9 +23,9 @@ void n_alInit(ALGlobals *g, ALSynConfig *c)
 
 void n_alClose(ALGlobals *g)
 {
-	if (var8005f110) {
+	if (n_alGlobals) {
 		n_alSynDelete();
-		var8005f110 = NULL;
-		alGlobals = NULL;
+		n_alGlobals = NULL;
+		n_syn = NULL;
 	}
 }

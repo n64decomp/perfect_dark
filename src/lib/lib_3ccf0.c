@@ -27,8 +27,8 @@ glabel alSynSetVol
 /*    3cd30:	00000000 */ 	nop
 .L0003cd34:
 /*    3cd34:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3cd38:	3c198006 */ 	lui	$t9,%hi(alGlobals)
-/*    3cd3c:	8f39f114 */ 	lw	$t9,%lo(alGlobals)($t9)
+/*    3cd38:	3c198006 */ 	lui	$t9,%hi(n_syn)
+/*    3cd3c:	8f39f114 */ 	lw	$t9,%lo(n_syn)($t9)
 /*    3cd40:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*    3cd44:	8fad001c */ 	lw	$t5,0x1c($sp)
 /*    3cd48:	8f28001c */ 	lw	$t0,0x1c($t9)

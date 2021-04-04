@@ -111,7 +111,7 @@ void __seqpReleaseVoice(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime deltaTime
 	vs->envGain  = 0;
 	vs->envEndTime = seqp->curTime + deltaTime;
 
-	alSynSetPriority(voice, 0); /* make candidate for stealing */
+	n_alSynSetPriority(voice, 0); /* make candidate for stealing */
 	alSynSetVol(voice, 0, deltaTime);
 
 	evt.type = AL_NOTE_END_EVT;
@@ -122,7 +122,7 @@ void __seqpReleaseVoice(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime deltaTime
 	alEvtqPostEvent(&seqp->evtq, &evt, deltaTime, 0);
 }
 
-char __voiceNeedsNoteKill(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime killTime)
+char __n_voiceNeedsNoteKill(ALSeqPlayer *seqp, ALVoice *voice, ALMicroTime killTime)
 {
 	ALLink *thisNode;
 	ALLink *nextNode;
@@ -524,7 +524,7 @@ glabel func0003d9cc
 /*    3dacc:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-ALMicroTime __vsDelta(ALVoiceState *vs, ALMicroTime t)
+ALMicroTime __n_vsDelta(ALVoiceState *vs, ALMicroTime t)
 {
 	/*
 	 * If we are interrupting a previously set envelope segment, we
@@ -553,7 +553,7 @@ ALPan __vsPan(ALVoiceState *vs, ALSeqPlayer *seqp)
 	return (ALPan) tmp;
 }
 
-void __initFromBank(ALSeqPlayer *seqp, ALBank *b)
+void __n_initFromBank(ALSeqPlayer *seqp, ALBank *b)
 {
 	/*
 	 * init the chanState with the default instrument
@@ -570,13 +570,13 @@ void __initFromBank(ALSeqPlayer *seqp, ALBank *b)
 	/* There is some wasted effort here since both calls the same state vars */
 	/* but it's safer. */
 	for (i = 0; i < seqp->maxChannels; i++) {
-		__resetPerfChanState(seqp, i);
-		__setInstChanState(seqp, inst, i);
+		__n_resetPerfChanState(seqp, i);
+		__n_setInstChanState(seqp, inst, i);
 	}
 
 	if (b->percussion) {
-		__resetPerfChanState(seqp, i);
-		__setInstChanState(seqp, b->percussion, 9);
+		__n_resetPerfChanState(seqp, i);
+		__n_setInstChanState(seqp, b->percussion, 9);
 	}
 }
 
@@ -586,11 +586,11 @@ void __initChanState(ALSeqPlayer *seqp)
 
 	for (i = 0; i < seqp->maxChannels; i++) {
 		seqp->chanState[i].instrument = 0;
-		__resetPerfChanState (seqp, i);
+		__n_resetPerfChanState (seqp, i);
 	}
 }
 
-void __resetPerfChanState(ALSeqPlayer *seqp, s32 chan)
+void __n_resetPerfChanState(ALSeqPlayer *seqp, s32 chan)
 {
 	seqp->chanState[chan].fxId = AL_FX_NONE;
 	seqp->chanState[chan].fxmix = AL_DEFAULT_FXMIX;
@@ -612,7 +612,7 @@ void __resetPerfChanState(ALSeqPlayer *seqp, s32 chan)
 }
 
 GLOBAL_ASM(
-glabel __setInstChanState
+glabel __n_setInstChanState
 /*    3df64:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    3df68:	00067880 */ 	sll	$t7,$a2,0x2
 /*    3df6c:	01e67823 */ 	subu	$t7,$t7,$a2
@@ -824,7 +824,7 @@ glabel __setInstChanState
 /*    3e29c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-void __seqpStopOsc(ALSeqPlayer *seqp, ALVoiceState *vs)
+void __n_seqpStopOsc(ALSeqPlayer *seqp, ALVoiceState *vs)
 {
 	ALEventListItem *thisNode,*nextNode;
 	s16 evtType;

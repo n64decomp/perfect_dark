@@ -35,8 +35,8 @@ glabel func0003e730
 /*    3e76c:	00000000 */ 	nop
 .L0003e770:
 /*    3e770:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3e774:	3c198006 */ 	lui	$t9,%hi(alGlobals)
-/*    3e778:	8f39f114 */ 	lw	$t9,%lo(alGlobals)($t9)
+/*    3e774:	3c198006 */ 	lui	$t9,%hi(n_syn)
+/*    3e778:	8f39f114 */ 	lw	$t9,%lo(n_syn)($t9)
 /*    3e77c:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*    3e780:	8fad001c */ 	lw	$t5,0x1c($sp)
 /*    3e784:	8f28001c */ 	lw	$t0,0x1c($t9)

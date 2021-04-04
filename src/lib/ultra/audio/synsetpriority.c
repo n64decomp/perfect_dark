@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-void alSynSetPriority(ALVoice *voice, s16 priority)
+void n_alSynSetPriority(ALVoice *voice, s16 priority)
 {
 	voice->priority = priority;
 }

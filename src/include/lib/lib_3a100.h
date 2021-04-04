@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 func0003a100(void);
-u32 func0003a940(void);
+u32 n_alFxParamHdl(void);
 u32 func0003ae60(void);
 u32 func0003b178(void);
 u32 func0003b370(void);

@@ -10,6 +10,6 @@ u32 func0003d69c(void);
 u32 func0003d72c(void);
 u32 func0003d8a4(void);
 u32 func0003d9cc(void);
-void __resetPerfChanState(ALSeqPlayer *seqp, s32 chan);
+void __n_resetPerfChanState(ALSeqPlayer *seqp, s32 chan);
 
 #endif

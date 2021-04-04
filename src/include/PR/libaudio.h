@@ -347,7 +347,7 @@ void    alSynSetVol(ALVoice *v, s16 vol, ALMicroTime delta);
 void    alSynSetPitch(ALSynth *s, ALVoice *voice, f32 ratio);
 void    alSynSetPan(ALSynth *s, ALVoice *voice, ALPan pan);
 void    alSynSetFXMix(ALSynth *s, ALVoice *voice, u8 fxmix);
-void    alSynSetPriority(ALVoice *voice, s16 priority);
+void    n_alSynSetPriority(ALVoice *voice, s16 priority);
 s16     alSynGetPriority(ALSynth *s, ALVoice *voice);
 
 ALFxRef *alSynAllocFX(ALSynth *s, s16 bus, ALSynConfig *c, ALHeap *hp);
@@ -362,7 +362,7 @@ typedef struct {
     ALSynth     drvr;
 } ALGlobals;
 
-extern ALGlobals *alGlobals;
+extern ALGlobals *n_syn;
 
 void    alInit(ALGlobals *glob, ALSynConfig *c);
 void    alClose(ALGlobals *glob);
@@ -594,13 +594,13 @@ typedef struct {
     s32         eventCount;
 } ALEventQueue;
 
-void            alEvtqNew(ALEventQueue *evtq, ALEventListItem *items,
+void            n_alEvtqNew(ALEventQueue *evtq, ALEventListItem *items,
                           s32 itemCount);
-ALMicroTime     alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt);
+ALMicroTime     n_alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt);
 void            alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt,
                                 ALMicroTime delta, s32 arg3);
 void        	alEvtqFlush(ALEventQueue *evtq);
-void        	alEvtqFlushType(ALEventQueue *evtq, s16 type);
+void        	n_alEvtqFlushType(ALEventQueue *evtq, s16 type);
 
 
 #define AL_PHASE_ATTACK         0

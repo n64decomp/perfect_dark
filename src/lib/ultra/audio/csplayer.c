@@ -19,8 +19,8 @@
 #include "data.h"
 #include "types.h"
 
-void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
-void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);
+void __n_CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
+void __n_setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);
 
 u32 var8009c350;
 u32 var8009c354;
@@ -903,7 +903,7 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
 	 */
 	seqp->bank          = 0;
 	seqp->target        = NULL;
-	seqp->drvr          = &alGlobals->drvr;
+	seqp->drvr          = &n_syn->drvr;
 	seqp->chanMask      = 0xffff;
 
 	func00039cd0(seqp);
@@ -952,7 +952,7 @@ void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
 	 * init the event queue
 	 */
 	items = alHeapAlloc(hp, c->maxEvents, sizeof(ALEventListItem));
-	alEvtqNew(&seqp->evtq, items, c->maxEvents);
+	n_alEvtqNew(&seqp->evtq, items, c->maxEvents);
 
 
 	/*
@@ -1017,7 +1017,7 @@ glabel __CSPVoiceHandler
 /*    34568:	11c00004 */ 	beqz	$t6,.L0003457c
 /*    3456c:	00000000 */ 	nop
 /*    34570:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34574:	0c00f8a8 */ 	jal	__seqpStopOsc
+/*    34574:	0c00f8a8 */ 	jal	__n_seqpStopOsc
 /*    34578:	8fa50058 */ 	lw	$a1,0x58($sp)
 .L0003457c:
 /*    3457c:	8fa40074 */ 	lw	$a0,0x74($sp)
@@ -1124,7 +1124,7 @@ glabel __CSPVoiceHandler
 /*    34700:	00028400 */ 	sll	$s0,$v0,0x10
 /*    34704:	00108403 */ 	sra	$s0,$s0,0x10
 /*    34708:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    3470c:	0c00f6b4 */ 	jal	__vsDelta
+/*    3470c:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    34710:	8d65001c */ 	lw	$a1,0x1c($t3)
 /*    34714:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*    34718:	00408825 */ 	or	$s1,$v0,$zero
@@ -1281,7 +1281,7 @@ glabel __CSPVoiceHandler
 /*    3496c:	00028400 */ 	sll	$s0,$v0,0x10
 /*    34970:	00108403 */ 	sra	$s0,$s0,0x10
 /*    34974:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    34978:	0c00f6b4 */ 	jal	__vsDelta
+/*    34978:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    3497c:	8d85001c */ 	lw	$a1,0x1c($t4)
 /*    34980:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*    34984:	00408825 */ 	or	$s1,$v0,$zero
@@ -1341,7 +1341,7 @@ glabel __CSPVoiceHandler
 /*    34a50:	25260040 */ 	addiu	$a2,$t1,0x40
 /*    34a54:	000d58c0 */ 	sll	$t3,$t5,0x3
 /*    34a58:	31ca0007 */ 	andi	$t2,$t6,0x7
-/*    34a5c:	0c00f98c */ 	jal	func0003e630
+/*    34a5c:	0c00f98c */ 	jal	n_alSynSetFXParam
 /*    34a60:	016a2825 */ 	or	$a1,$t3,$t2
 .L00034a64:
 /*    34a64:	1000000d */ 	b	.L00034a9c
@@ -1396,7 +1396,7 @@ glabel __CSPVoiceHandler
 /*    34b18:	11800004 */ 	beqz	$t4,.L00034b2c
 /*    34b1c:	00000000 */ 	nop
 /*    34b20:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34b24:	0c00f8a8 */ 	jal	__seqpStopOsc
+/*    34b24:	0c00f8a8 */ 	jal	__n_seqpStopOsc
 /*    34b28:	8fa50058 */ 	lw	$a1,0x58($sp)
 .L00034b2c:
 /*    34b2c:	8fa50058 */ 	lw	$a1,0x58($sp)
@@ -1420,15 +1420,15 @@ glabel __CSPVoiceHandler
 /*    34b6c:	00000000 */ 	nop
 /*    34b70:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    34b74:	00002825 */ 	or	$a1,$zero,$zero
-/*    34b78:	0c00f1f0 */ 	jal	alEvtqFlushType
+/*    34b78:	0c00f1f0 */ 	jal	n_alEvtqFlushType
 /*    34b7c:	24840048 */ 	addiu	$a0,$a0,0x48
 /*    34b80:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    34b84:	24050015 */ 	addiu	$a1,$zero,0x15
-/*    34b88:	0c00f1f0 */ 	jal	alEvtqFlushType
+/*    34b88:	0c00f1f0 */ 	jal	n_alEvtqFlushType
 /*    34b8c:	24840048 */ 	addiu	$a0,$a0,0x48
 /*    34b90:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    34b94:	24050002 */ 	addiu	$a1,$zero,0x2
-/*    34b98:	0c00f1f0 */ 	jal	alEvtqFlushType
+/*    34b98:	0c00f1f0 */ 	jal	n_alEvtqFlushType
 /*    34b9c:	24840048 */ 	addiu	$a0,$a0,0x48
 /*    34ba0:	8faa0074 */ 	lw	$t2,0x74($sp)
 /*    34ba4:	8d490064 */ 	lw	$t1,0x64($t2)
@@ -1438,7 +1438,7 @@ glabel __CSPVoiceHandler
 /*    34bb0:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*    34bb4:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    34bb8:	3406c350 */ 	dli	$a2,0xc350
-/*    34bbc:	0c00f52e */ 	jal	__voiceNeedsNoteKill
+/*    34bbc:	0c00f52e */ 	jal	__n_voiceNeedsNoteKill
 /*    34bc0:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*    34bc4:	10400006 */ 	beqz	$v0,.L00034be0
 /*    34bc8:	00000000 */ 	nop
@@ -1545,7 +1545,7 @@ glabel __CSPVoiceHandler
 /*    34d44:	00000000 */ 	nop
 /*    34d48:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*    34d4c:	01a02025 */ 	or	$a0,$t5,$zero
-/*    34d50:	0c00f6e8 */ 	jal	__initFromBank
+/*    34d50:	0c00f6e8 */ 	jal	__n_initFromBank
 /*    34d54:	8da50020 */ 	lw	$a1,0x20($t5)
 .L00034d58:
 /*    34d58:	1000000c */ 	b	.L00034d8c
@@ -1555,7 +1555,7 @@ glabel __CSPVoiceHandler
 /*    34d68:	ad280020 */ 	sw	$t0,0x20($t1)
 /*    34d6c:	8faf0074 */ 	lw	$t7,0x74($sp)
 /*    34d70:	01e02025 */ 	or	$a0,$t7,$zero
-/*    34d74:	0c00f6e8 */ 	jal	__initFromBank
+/*    34d74:	0c00f6e8 */ 	jal	__n_initFromBank
 /*    34d78:	8de50020 */ 	lw	$a1,0x20($t7)
 /*    34d7c:	10000003 */ 	b	.L00034d8c
 /*    34d80:	00000000 */ 	nop
@@ -1564,7 +1564,7 @@ glabel __CSPVoiceHandler
 .L00034d8c:
 /*    34d8c:	8fb90074 */ 	lw	$t9,0x74($sp)
 /*    34d90:	27240048 */ 	addiu	$a0,$t9,0x48
-/*    34d94:	0c00f15b */ 	jal	alEvtqNextEvent
+/*    34d94:	0c00f15b */ 	jal	n_alEvtqNextEvent
 /*    34d98:	27250038 */ 	addiu	$a1,$t9,0x38
 /*    34d9c:	8fae0074 */ 	lw	$t6,0x74($sp)
 /*    34da0:	adc20028 */ 	sw	$v0,0x28($t6)
@@ -1697,7 +1697,7 @@ glabel func00034f0c
 /*    34f60:	a7a2002a */ 	sh	$v0,0x2a($sp)
 /*    34f64:	8faa0030 */ 	lw	$t2,0x30($sp)
 /*    34f68:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    34f6c:	0c00f6b4 */ 	jal	__vsDelta
+/*    34f6c:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    34f70:	8d45001c */ 	lw	$a1,0x1c($t2)
 /*    34f74:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*    34f78:	00408025 */ 	or	$s0,$v0,$zero
@@ -2538,7 +2538,7 @@ glabel func00035110
 /*    35bac:	00028c00 */ 	sll	$s1,$v0,0x10
 /*    35bb0:	00118c03 */ 	sra	$s1,$s1,0x10
 /*    35bb4:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*    35bb8:	0c00f6b4 */ 	jal	__vsDelta
+/*    35bb8:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    35bbc:	8d45001c */ 	lw	$a1,0x1c($t2)
 /*    35bc0:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*    35bc4:	00408025 */ 	or	$s0,$v0,$zero
@@ -2568,7 +2568,7 @@ glabel func00035110
 /*    35c20:	00028c00 */ 	sll	$s1,$v0,0x10
 /*    35c24:	00118c03 */ 	sra	$s1,$s1,0x10
 /*    35c28:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    35c2c:	0c00f6b4 */ 	jal	__vsDelta
+/*    35c2c:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    35c30:	8de5001c */ 	lw	$a1,0x1c($t7)
 /*    35c34:	8fa400c8 */ 	lw	$a0,0xc8($sp)
 /*    35c38:	00408025 */ 	or	$s0,$v0,$zero
@@ -3077,7 +3077,7 @@ glabel func00035110
 /*    36394:	a7a200b6 */ 	sh	$v0,0xb6($sp)
 /*    36398:	8faa00d0 */ 	lw	$t2,0xd0($sp)
 /*    3639c:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    363a0:	0c00f6b4 */ 	jal	__vsDelta
+/*    363a0:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    363a4:	8d45001c */ 	lw	$a1,0x1c($t2)
 /*    363a8:	8fa400c8 */ 	lw	$a0,0xc8($sp)
 /*    363ac:	00408025 */ 	or	$s0,$v0,$zero
@@ -3306,8 +3306,8 @@ glabel func00035110
 /*    366dc:	10000233 */ 	b	.L00036fac
 /*    366e0:	00000000 */ 	nop
 .L000366e4:
-/*    366e4:	3c0d8006 */ 	lui	$t5,%hi(alGlobals)
-/*    366e8:	8dadf114 */ 	lw	$t5,%lo(alGlobals)($t5)
+/*    366e4:	3c0d8006 */ 	lui	$t5,%hi(n_syn)
+/*    366e8:	8dadf114 */ 	lw	$t5,%lo(n_syn)($t5)
 /*    366ec:	93ab00bf */ 	lbu	$t3,0xbf($sp)
 /*    366f0:	8dac003c */ 	lw	$t4,0x3c($t5)
 /*    366f4:	016c082a */ 	slt	$at,$t3,$t4
@@ -3908,7 +3908,7 @@ glabel func00035110
 /*    37020:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*    37024:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    37028:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    3702c:	0c00f7d9 */ 	jal	__setInstChanState
+/*    3702c:	0c00f7d9 */ 	jal	__n_setInstChanState
 /*    37030:	93a600c3 */ 	lbu	$a2,0xc3($sp)
 /*    37034:	10000001 */ 	b	.L0003703c
 /*    37038:	00000000 */ 	nop
@@ -4765,7 +4765,7 @@ glabel func00035110
 /*    35bac:	00028c00 */ 	sll	$s1,$v0,0x10
 /*    35bb0:	00118c03 */ 	sra	$s1,$s1,0x10
 /*    35bb4:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*    35bb8:	0c00f6b4 */ 	jal	__vsDelta
+/*    35bb8:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    35bbc:	8d45001c */ 	lw	$a1,0x1c($t2)
 /*    35bc0:	8fa4009c */ 	lw	$a0,0x9c($sp)
 /*    35bc4:	00408025 */ 	or	$s0,$v0,$zero
@@ -4795,7 +4795,7 @@ glabel func00035110
 /*    35c20:	00028c00 */ 	sll	$s1,$v0,0x10
 /*    35c24:	00118c03 */ 	sra	$s1,$s1,0x10
 /*    35c28:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    35c2c:	0c00f6b4 */ 	jal	__vsDelta
+/*    35c2c:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    35c30:	8de5001c */ 	lw	$a1,0x1c($t7)
 /*    35c34:	8fa400c8 */ 	lw	$a0,0xc8($sp)
 /*    35c38:	00408025 */ 	or	$s0,$v0,$zero
@@ -5304,7 +5304,7 @@ glabel func00035110
 /*    36394:	a7a200b6 */ 	sh	$v0,0xb6($sp)
 /*    36398:	8faa00d0 */ 	lw	$t2,0xd0($sp)
 /*    3639c:	8fa400c8 */ 	lw	$a0,0xc8($sp)
-/*    363a0:	0c00f6b4 */ 	jal	__vsDelta
+/*    363a0:	0c00f6b4 */ 	jal	__n_vsDelta
 /*    363a4:	8d45001c */ 	lw	$a1,0x1c($t2)
 /*    363a8:	8fa400c8 */ 	lw	$a0,0xc8($sp)
 /*    363ac:	00408025 */ 	or	$s0,$v0,$zero
@@ -5533,8 +5533,8 @@ glabel func00035110
 /*    366dc:	10000233 */ 	b	.L00036fac
 /*    366e0:	00000000 */ 	nop
 .L000366e4:
-/*    366e4:	3c0d8006 */ 	lui	$t5,%hi(alGlobals)
-/*    366e8:	8dadf114 */ 	lw	$t5,%lo(alGlobals)($t5)
+/*    366e4:	3c0d8006 */ 	lui	$t5,%hi(n_syn)
+/*    366e8:	8dadf114 */ 	lw	$t5,%lo(n_syn)($t5)
 /*    366ec:	93ab00bf */ 	lbu	$t3,0xbf($sp)
 /*    366f0:	8dac003c */ 	lw	$t4,0x3c($t5)
 /*    366f4:	016c082a */ 	slt	$at,$t3,$t4
@@ -6135,7 +6135,7 @@ glabel func00035110
 /*    37020:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*    37024:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    37028:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    3702c:	0c00f7d9 */ 	jal	__setInstChanState
+/*    3702c:	0c00f7d9 */ 	jal	__n_setInstChanState
 /*    37030:	93a600c3 */ 	lbu	$a2,0xc3($sp)
 /*    37034:	10000001 */ 	b	.L0003703c
 /*    37038:	00000000 */ 	nop
@@ -6284,7 +6284,7 @@ void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
 		if (event->msg.tempo.type == AL_MIDI_META_TEMPO) {
 			oldUspt = seqp->uspt;
 			tempo = (tevt->byte1 << 16) | (tevt->byte2 <<  8) | (tevt->byte3 <<  0);
-			__setUsptFromTempo (seqp, (f32)tempo);
+			__n_setUsptFromTempo (seqp, (f32)tempo);
 
 			thisNode = (ALEventListItem*)seqp->evtq.allocList.next;
 
@@ -6322,14 +6322,14 @@ void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
 				nextNode = (ALEventListItem*)thisNode->node.next;
 				ticks = thisNode->delta/oldUspt;
 				thisNode->delta = ticks * seqp->uspt;
-				__CSPRepostEvent(&seqp->evtq,thisNode);
+				__n_CSPRepostEvent(&seqp->evtq,thisNode);
 				thisNode = nextNode;
 			}
 		}
 	}
 }
 
-void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
+void __n_CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
 {
 	OSIntMask mask;
 	ALLink *node;
@@ -6357,7 +6357,7 @@ void __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
 	osSetIntMask(mask);
 }
 
-void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo)
+void __n_setUsptFromTempo(ALCSPlayer *seqp, f32 tempo)
 {
 	if (seqp->target) {
 		seqp->uspt = (s32)((f32)tempo * seqp->target->qnpt);

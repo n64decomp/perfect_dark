@@ -26,8 +26,8 @@ glabel func0003cef0
 /*    3cf2c:	00000000 */ 	nop
 .L0003cf30:
 /*    3cf30:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3cf34:	3c198006 */ 	lui	$t9,%hi(alGlobals)
-/*    3cf38:	8f39f114 */ 	lw	$t9,%lo(alGlobals)($t9)
+/*    3cf34:	3c198006 */ 	lui	$t9,%hi(n_syn)
+/*    3cf38:	8f39f114 */ 	lw	$t9,%lo(n_syn)($t9)
 /*    3cf3c:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*    3cf40:	8fad001c */ 	lw	$t5,0x1c($sp)
 /*    3cf44:	8f28001c */ 	lw	$t0,0x1c($t9)
@@ -77,8 +77,8 @@ glabel func0003cfa0
 /*    3cfdc:	00000000 */ 	nop
 .L0003cfe0:
 /*    3cfe0:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3cfe4:	3c198006 */ 	lui	$t9,%hi(alGlobals)
-/*    3cfe8:	8f39f114 */ 	lw	$t9,%lo(alGlobals)($t9)
+/*    3cfe4:	3c198006 */ 	lui	$t9,%hi(n_syn)
+/*    3cfe8:	8f39f114 */ 	lw	$t9,%lo(n_syn)($t9)
 /*    3cfec:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*    3cff0:	8fad001c */ 	lw	$t5,0x1c($sp)
 /*    3cff4:	8f28001c */ 	lw	$t0,0x1c($t9)
@@ -128,8 +128,8 @@ glabel func0003d050
 /*    3d08c:	00000000 */ 	nop
 .L0003d090:
 /*    3d090:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3d094:	3c198006 */ 	lui	$t9,%hi(alGlobals)
-/*    3d098:	8f39f114 */ 	lw	$t9,%lo(alGlobals)($t9)
+/*    3d094:	3c198006 */ 	lui	$t9,%hi(n_syn)
+/*    3d098:	8f39f114 */ 	lw	$t9,%lo(n_syn)($t9)
 /*    3d09c:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*    3d0a0:	8fad001c */ 	lw	$t5,0x1c($sp)
 /*    3d0a4:	8f28001c */ 	lw	$t0,0x1c($t9)
@@ -178,8 +178,8 @@ glabel func0003d100
 /*    3d138:	00000000 */ 	nop
 .L0003d13c:
 /*    3d13c:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3d140:	3c198006 */ 	lui	$t9,%hi(alGlobals)
-/*    3d144:	8f39f114 */ 	lw	$t9,%lo(alGlobals)($t9)
+/*    3d140:	3c198006 */ 	lui	$t9,%hi(n_syn)
+/*    3d144:	8f39f114 */ 	lw	$t9,%lo(n_syn)($t9)
 /*    3d148:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*    3d14c:	8fad001c */ 	lw	$t5,0x1c($sp)
 /*    3d150:	8f28001c */ 	lw	$t0,0x1c($t9)
@@ -230,8 +230,8 @@ glabel func0003d1a0
 /*    3d1ec:	00000000 */ 	nop
 .L0003d1f0:
 /*    3d1f0:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*    3d1f4:	3c0a8006 */ 	lui	$t2,%hi(alGlobals)
-/*    3d1f8:	8d4af114 */ 	lw	$t2,%lo(alGlobals)($t2)
+/*    3d1f4:	3c0a8006 */ 	lui	$t2,%hi(n_syn)
+/*    3d1f8:	8d4af114 */ 	lw	$t2,%lo(n_syn)($t2)
 /*    3d1fc:	8d8d0008 */ 	lw	$t5,0x8($t4)
 /*    3d200:	8fb8001c */ 	lw	$t8,0x1c($sp)
 /*    3d204:	8d4b001c */ 	lw	$t3,0x1c($t2)

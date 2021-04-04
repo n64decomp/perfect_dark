@@ -6,5 +6,5 @@
 
 void n_alSynDelete(void)
 {
-	alGlobals->drvr.head = NULL;
+	n_syn->drvr.head = NULL;
 }

@@ -8,7 +8,7 @@ u32 func0003e3e0(void);
 u32 func0003e490(void);
 u32 func0003e540(void);
 u32 func0003e5b8(void);
-u32 func0003e630(void);
+u32 n_alSynSetFXParam(void);
 u32 func0003e674(void);
 
 #endif

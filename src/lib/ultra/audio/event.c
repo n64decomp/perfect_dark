@@ -8,7 +8,7 @@
 #include "data.h"
 #include "types.h"
 
-void alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount)
+void n_alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount)
 {
 	s32 i;
 
@@ -23,7 +23,7 @@ void alEvtqNew(ALEventQueue *evtq, ALEventListItem *items, s32 itemCount)
 	}
 }
 
-ALMicroTime alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt)
+ALMicroTime n_alEvtqNextEvent(ALEventQueue *evtq, ALEvent *evt)
 {
 	ALEventListItem *item;
 	ALMicroTime delta;
@@ -110,7 +110,7 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, ALMicroTime delta, s32 ar
 	osSetIntMask(mask);
 }
 
-void alEvtqFlushType(ALEventQueue *evtq, s16 type)
+void n_alEvtqFlushType(ALEventQueue *evtq, s16 type)
 {
 	ALLink *thisNode;
 	ALLink *nextNode;
