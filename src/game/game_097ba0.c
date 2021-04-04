@@ -919,48 +919,18 @@ glabel func0f098030
 /*  f098158:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f09815c
-/*  f09815c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f098160:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f098164:	8c8e068c */ 	lw	$t6,0x68c($a0)
-/*  f098168:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f09816c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f098170:	55c10018 */ 	bnel	$t6,$at,.L0f0981d4
-/*  f098174:	44800000 */ 	mtc1	$zero,$f0
-/*  f098178:	8c8206b0 */ 	lw	$v0,0x6b0($a0)
-/*  f09817c:	50400015 */ 	beqzl	$v0,.L0f0981d4
-/*  f098180:	44800000 */ 	mtc1	$zero,$f0
-/*  f098184:	8c4f0004 */ 	lw	$t7,0x4($v0)
-/*  f098188:	24840384 */ 	addiu	$a0,$a0,0x384
-/*  f09818c:	05e1000c */ 	bgez	$t7,.L0f0981c0
-/*  f098190:	00000000 */ 	nop
-/*  f098194:	0c007486 */ 	jal	modelGetNumAnimFrames
-/*  f098198:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f09819c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0981a0:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f0981a4:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0981a8:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0981ac:	44982000 */ 	mtc1	$t8,$f4
-/*  f0981b0:	00000000 */ 	nop
-/*  f0981b4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0981b8:	10000007 */ 	b	.L0f0981d8
-/*  f0981bc:	46003001 */ 	sub.s	$f0,$f6,$f0
-.L0f0981c0:
-/*  f0981c0:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f0981c4:	24a40384 */ 	addiu	$a0,$a1,0x384
-/*  f0981c8:	10000004 */ 	b	.L0f0981dc
-/*  f0981cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0981d0:	44800000 */ 	mtc1	$zero,$f0
-.L0f0981d4:
-/*  f0981d4:	00000000 */ 	nop
-.L0f0981d8:
-/*  f0981d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0981dc:
-/*  f0981dc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0981e0:	03e00008 */ 	jr	$ra
-/*  f0981e4:	00000000 */ 	nop
-);
+f32 func0f09815c(struct hand *hand)
+{
+	if (hand->unk0cc4 == 2 && hand->unk0ce8 != NULL) {
+		if (hand->unk0ce8->unk04 < 0) {
+			return modelGetNumAnimFrames(&hand->unk09bc) - modelGetCurAnimFrame(&hand->unk09bc);
+		}
+
+		return modelGetCurAnimFrame(&hand->unk09bc);
+	}
+
+	return 0;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
