@@ -38268,84 +38268,30 @@ void func0f0a8c50(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel currentPlayerIsUsingSecondaryFunction
-/*  f0a8c7c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0a8c80:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0a8c84:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0a8c88:	80431580 */ 	lb	$v1,0x1580($v0)
-/*  f0a8c8c:	1860001e */ 	blez	$v1,.L0f0a8d08
-/*  f0a8c90:	28610024 */ 	slti	$at,$v1,0x24
-/*  f0a8c94:	5020001d */ 	beqzl	$at,.L0f0a8d0c
-/*  f0a8c98:	8c591580 */ 	lw	$t9,0x1580($v0)
-/*  f0a8c9c:	8cae0288 */ 	lw	$t6,0x288($a1)
-/*  f0a8ca0:	2464ffff */ 	addiu	$a0,$v1,-1
-/*  f0a8ca4:	0004c8c3 */ 	sra	$t9,$a0,0x3
-/*  f0a8ca8:	8dcf0070 */ 	lw	$t7,0x70($t6)
-/*  f0a8cac:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers+0x97)
-/*  f0a8cb0:	308a0007 */ 	andi	$t2,$a0,0x7
-/*  f0a8cb4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0a8cb8:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0a8cbc:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f0a8cc0:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f0a8cc4:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f0a8cc8:	9129c84f */ 	lbu	$t1,%lo(g_MpPlayers+0x97)($t1)
-/*  f0a8ccc:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0a8cd0:	014b6004 */ 	sllv	$t4,$t3,$t2
-/*  f0a8cd4:	012c6824 */ 	and	$t5,$t1,$t4
-/*  f0a8cd8:	51a0000c */ 	beqzl	$t5,.L0f0a8d0c
-/*  f0a8cdc:	8c591580 */ 	lw	$t9,0x1580($v0)
-/*  f0a8ce0:	8c4e1580 */ 	lw	$t6,0x1580($v0)
-/*  f0a8ce4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a8ce8:	000e7e80 */ 	sll	$t7,$t6,0x1a
-/*  f0a8cec:	000fc7c2 */ 	srl	$t8,$t7,0x1f
-/*  f0a8cf0:	17010003 */ 	bne	$t8,$at,.L0f0a8d00
-/*  f0a8cf4:	00000000 */ 	nop
-/*  f0a8cf8:	03e00008 */ 	jr	$ra
-/*  f0a8cfc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0a8d00:
-/*  f0a8d00:	03e00008 */ 	jr	$ra
-/*  f0a8d04:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a8d08:
-/*  f0a8d08:	8c591580 */ 	lw	$t9,0x1580($v0)
-.L0f0a8d0c:
-/*  f0a8d0c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a8d10:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a8d14:	00194680 */ 	sll	$t0,$t9,0x1a
-/*  f0a8d18:	00085fc2 */ 	srl	$t3,$t0,0x1f
-/*  f0a8d1c:	15610003 */ 	bne	$t3,$at,.L0f0a8d2c
-/*  f0a8d20:	00000000 */ 	nop
-/*  f0a8d24:	03e00008 */ 	jr	$ra
-/*  f0a8d28:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a8d2c:
-/*  f0a8d2c:	03e00008 */ 	jr	$ra
-/*  f0a8d30:	00000000 */ 	nop
-);
+bool currentPlayerIsUsingSecondaryFunction(void)
+{
+	struct player *player = g_Vars.currentplayer;
+	s32 weaponnum = player->gunctrl.weaponnum;
 
-// regalloc
-//bool currentPlayerIsUsingSecondaryFunction(void)
-//{
-//	s32 weaponnum = g_Vars.currentplayer->weaponnum;
-//
-//	if (weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_COMBATBOOST) {
-//		s32 index = (weaponnum - 1) >> 3;
-//		s32 value = 1 << ((weaponnum - 1) & 7);
-//
-//		if (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[index] & value) {
-//			if (g_Vars.currentplayer->invertgunfunc == true) {
-//				return false;
-//			}
-//
-//			return true;
-//		}
-//	}
-//
-//	if (g_Vars.currentplayer->invertgunfunc == true) {
-//		return true;
-//	}
-//
-//	return false;
-//}
+	if (weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_COMBATBOOST) {
+		s32 index = (weaponnum - 1) >> 3;
+		s32 value = 1 << ((weaponnum - 1) & 7);
+
+		if (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[index] & value) {
+			if (player->gunctrl.invertgunfunc == true) {
+				return false;
+			}
+
+			return true;
+		}
+	}
+
+	if (player->gunctrl.invertgunfunc == true) {
+		return true;
+	}
+
+	return false;
+}
 
 void currentPlayerTickInventory(bool triggeron)
 {
