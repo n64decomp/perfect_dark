@@ -11005,93 +11005,50 @@ glabel var7f1ac480
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f09bc2c
-/*  f09bc2c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f09bc30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09bc34:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f09bc38:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f09bc3c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f09bc40:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f09bc44:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*  f09bc48:	00001825 */ 	or	$v1,$zero,$zero
-/*  f09bc4c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f09bc50:	11e00005 */ 	beqz	$t7,.L0f09bc68
-/*  f09bc54:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f09bc58:	0fc2c41f */ 	jal	handGetWeaponFunction
-/*  f09bc5c:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f09bc60:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f09bc64:	00401825 */ 	or	$v1,$v0,$zero
-.L0f09bc68:
-/*  f09bc68:	10600021 */ 	beqz	$v1,.L0f09bcf0
-/*  f09bc6c:	00000000 */ 	nop
-/*  f09bc70:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f09bc74:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f09bc78:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f09bc7c:	305800ff */ 	andi	$t8,$v0,0xff
-/*  f09bc80:	1301000c */ 	beq	$t8,$at,.L0f09bcb4
-/*  f09bc84:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f09bc88:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f09bc8c:	1301000d */ 	beq	$t8,$at,.L0f09bcc4
-/*  f09bc90:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f09bc94:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f09bc98:	1301000e */ 	beq	$t8,$at,.L0f09bcd4
-/*  f09bc9c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f09bca0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f09bca4:	1301000f */ 	beq	$t8,$at,.L0f09bce4
-/*  f09bca8:	00000000 */ 	nop
-/*  f09bcac:	10000010 */ 	b	.L0f09bcf0
-/*  f09bcb0:	00000000 */ 	nop
-.L0f09bcb4:
-/*  f09bcb4:	0fc26bf9 */ 	jal	func0f09afe4
-/*  f09bcb8:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f09bcbc:	1000000c */ 	b	.L0f09bcf0
-/*  f09bcc0:	00404025 */ 	or	$t0,$v0,$zero
-.L0f09bcc4:
-/*  f09bcc4:	0fc26c98 */ 	jal	func0f09b260
-/*  f09bcc8:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f09bccc:	10000008 */ 	b	.L0f09bcf0
-/*  f09bcd0:	00404025 */ 	or	$t0,$v0,$zero
-.L0f09bcd4:
-/*  f09bcd4:	0fc26d40 */ 	jal	func0f09b500
-/*  f09bcd8:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f09bcdc:	10000004 */ 	b	.L0f09bcf0
-/*  f09bce0:	00404025 */ 	or	$t0,$v0,$zero
-.L0f09bce4:
-/*  f09bce4:	0fc26e0a */ 	jal	func0f09b828
-/*  f09bce8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f09bcec:	00404025 */ 	or	$t0,$v0,$zero
-.L0f09bcf0:
-/*  f09bcf0:	11000014 */ 	beqz	$t0,.L0f09bd44
-/*  f09bcf4:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*  f09bcf8:	93290000 */ 	lbu	$t1,0x0($t9)
-/*  f09bcfc:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f09bd00:	00002825 */ 	or	$a1,$zero,$zero
-/*  f09bd04:	15210007 */ 	bne	$t1,$at,.L0f09bd24
-/*  f09bd08:	00000000 */ 	nop
-/*  f09bd0c:	8f2a000c */ 	lw	$t2,0xc($t9)
-/*  f09bd10:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f09bd14:	11400003 */ 	beqz	$t2,.L0f09bd24
-/*  f09bd18:	00000000 */ 	nop
-/*  f09bd1c:	a32b0003 */ 	sb	$t3,0x3($t9)
-/*  f09bd20:	00004025 */ 	or	$t0,$zero,$zero
-.L0f09bd24:
-/*  f09bd24:	51000008 */ 	beqzl	$t0,.L0f09bd48
-/*  f09bd28:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bd2c:	0fc27346 */ 	jal	func0f09cd18
-/*  f09bd30:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f09bd34:	50400004 */ 	beqzl	$v0,.L0f09bd48
-/*  f09bd38:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bd3c:	10000002 */ 	b	.L0f09bd48
-/*  f09bd40:	8fa20034 */ 	lw	$v0,0x34($sp)
-.L0f09bd44:
-/*  f09bd44:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09bd48:
-/*  f09bd48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09bd4c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f09bd50:	03e00008 */ 	jr	$ra
-/*  f09bd54:	00000000 */ 	nop
-);
+s32 func0f09bc2c(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+{
+	u32 stack;
+	struct weaponfunc *func = NULL;
+	bool doit = true;
+	u32 stack2;
+
+	if (info->definition) {
+		func = handGetWeaponFunction(&hand->base);
+	}
+
+	if (func != NULL) {
+		switch (func->type & 0xff) {
+		case INVENTORYFUNCTYPE_SHOOT_SINGLE:
+			doit = func0f09afe4(info, handnum, hand);
+			break;
+		case INVENTORYFUNCTYPE_THROW:
+			doit = func0f09b260(handnum, hand);
+			break;
+		case INVENTORYFUNCTYPE_CLOSE:
+			doit = func0f09b500(handnum, hand);
+			break;
+		case INVENTORYFUNCTYPE_SPECIAL:
+			doit = func0f09b828(hand);
+			break;
+		}
+	}
+
+	if (doit) {
+		if (hand->base.weaponnum == WEAPON_REAPER && hand->triggeron) {
+			hand->base.weaponfunc = FUNC_SECONDARY;
+			doit = false;
+		}
+
+		if (doit && func0f09cd18(handnum, 0)) {
+			return lvupdate;
+		}
+	}
+
+	if (1);
+	if (1);
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f09bd58

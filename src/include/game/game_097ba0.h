@@ -34,10 +34,10 @@ s32 func0f09a310(struct handweaponinfo *info, s32 handnum, struct hand *hand, s3
 u32 func0f09a3f8(void);
 u32 func0f09a6f8(void);
 u32 func0f09aba4(void);
-u32 func0f09afe4(void);
-u32 func0f09b260(void);
+bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand);
+bool func0f09b260(s32 handnum, struct hand *hand);
 s32 weaponGetMinClipQty(s32 weaponnum, s32 funcnum);
-u32 func0f09b500(void);
+bool func0f09b500(s32 handnum, struct hand *hand);
 bool func0f09b828(struct hand *hand);
 s32 func0f09b8e0(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 func0f09bc2c(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
