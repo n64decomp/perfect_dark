@@ -83,7 +83,7 @@ void func0f0a0b98(f32 arg0, f32 arg1);
 void currentPlayerGetCrossPos(f32 *x, f32 *y);
 void func0f0a0c08(struct coord *arg0, struct coord *arg1);
 void func0f0a0c44(s32 handnum, struct coord *param_2, struct coord *arg2);
-void func0f0a0cb0(struct coord *arg0, struct coord *arg1, s32 handnum, bool arg3);
+void handCalculateShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum, bool dorandom);
 u32 func0f0a0fac(void);
 void func0f0a12b0(struct coord *arg0, struct coord *arg1, s32 handnum);
 u32 handGetUnk0c30(s32 handnum);

@@ -121,7 +121,7 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 	&invmenupos_00011098,
 	0x00000000,
 	1, // damage
-	0x40c00000,
+	6, // spread
 	6, 18, 2, 8,
 	0x40a00000,
 	0x40000000,
@@ -444,7 +444,7 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	&invmenupos_00011098,
 	0x10000000,
 	1, // damage
-	0x3f800000,
+	1, // spread
 	3, 5, 2, 0,
 	0x41200000,
 	0x41700000,
@@ -466,7 +466,7 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	&invmenupos_00011098,
 	0x10000000,
 	1, // damage
-	0x3f800000,
+	1, // spread
 	3, 5, 2, 0,
 	0x41200000,
 	0x41700000,
@@ -673,7 +673,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	&invmenupos_00011098,
 	0x10000000,
 	1.1, // damage
-	0x40c00000,
+	6, // spread
 	4, 8, 3, 0,
 	0x40a00000,
 	0x41200000,
@@ -695,7 +695,7 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	&invmenupos_00011098,
 	0x10000000,
 	1.1, // damage
-	0x41200000,
+	10, // spread
 	9, 14, 0, 0,
 	0x41000000,
 	0x41400000,
@@ -840,7 +840,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	&invmenupos_00011098,
 	0x14000000,
 	2, // damage
-	0x00000000,
+	0, // spread
 	8, 16, 0, -1,
 	0x41400000,
 	0x420c0000,
@@ -862,7 +862,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	&invmenupos_00011098,
 	0x1e000000,
 	200, // damage
-	0x00000000,
+	0, // spread
 	8, 24, 0, -1,
 	0x41400000,
 	0x420c0000,
@@ -1009,7 +1009,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	&invmenupos_00011098,
 	0x10000000,
 	1.1, // damage
-	0x40400000,
+	3, // spread
 	3, 5, 2, 0,
 	0x41200000,
 	0x41700000,
@@ -1031,7 +1031,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	&invmenupos_00011098,
 	0x10000000,
 	1.2, // damage
-	0x40a00000,
+	5, // spread
 	13, 15, 25, 0,
 	0x41700000,
 	0x41c80000,
@@ -1149,7 +1149,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	&invmenupos_00011098,
 	0x00000000,
 	1.2, // damage
-	0x40c00000,
+	6, // spread
 	3, 9, 32, 28,
 	0x00000000,
 	0x00000000,
@@ -1171,7 +1171,7 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	&invmenupos_00011098,
 	0x00000000,
 	1.2, // damage
-	0x40c00000,
+	6, // spread
 	3, 9, 32, 28,
 	0x00000000,
 	0x00000000,
@@ -2403,7 +2403,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	&invmenupos_00011098,
 	0x00000000,
 	0.6, // damage
-	0x41f00000,
+	30, // spread
 	20, 28, 0, 0,
 	0x00000000,
 	0x00000000,
@@ -2425,7 +2425,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	&invmenupos_00011098,
 	0x00000000,
 	0.6, // damage
-	0x41800000,
+	16, // spread
 	20, 28, 0, 0,
 	0x00000000,
 	0x00000000,
@@ -3445,7 +3445,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	&invmenupos_00011098,
 	0x00000000,
 	100, // damage
-	0x00000000,
+	0, // spread
 	70, 40, 0, 0,
 	0x00000000,
 	0x00000000,
@@ -3467,7 +3467,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	&invmenupos_00011098,
 	0x00000000,
 	100, // damage
-	0x00000000,
+	0, // spread
 	70, 40, 0, 0,
 	0x00000000,
 	0x00000000,
@@ -3708,7 +3708,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	&invmenupos_00011098,
 	0x10000000,
 	0.25, // damage
-	0x40400000,
+	3, // spread
 	3, 5, 5, 0,
 	0x3f800000,
 	0x00000000,
@@ -3802,7 +3802,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	&invmenupos_00011098,
 	0x10000000,
 	0.5, // damage
-	0x40400000,
+	3, // spread
 	3, 5, 5, 0,
 	0x3f800000,
 	0x00000000,
@@ -3884,7 +3884,7 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	&invmenupos_00011098,
 	0x10000000,
 	1.2, // damage
-	0x00000000,
+	0, // spread
 	6, 10, 0, 0,
 	0x41000000,
 	0x00000000,
@@ -3967,7 +3967,7 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	&invmenupos_00011098,
 	0x00000000,
 	1, // damage
-	0x00000000,
+	0, // spread
 	6, 18, 24, -1,
 	0x00000000,
 	0x00000000,
@@ -4056,7 +4056,7 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	&invmenupos_00011098,
 	0x10000000,
 	1, // damage
-	0x3f800000,
+	1, // spread
 	4, 8, 3, 0,
 	0x40400000,
 	0x41200000,
@@ -4117,7 +4117,7 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	&invmenupos_00011098,
 	0x10000000,
 	1, // damage
-	0x40c00000,
+	6, // spread
 	4, 8, 3, 0,
 	0x40a00000,
 	0x41200000,
@@ -5931,7 +5931,7 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 	&invmenupos_00011070,
 	0x10000000,
 	1, // damage
-	0x40c00000,
+	6, // spread
 	4, 8, 3, 0,
 	0x00000000,
 	0x00000000,

@@ -2213,7 +2213,7 @@ glabel var7f1a9ebc
 /*  f061d68:	8fa70078 */ 	lw	$a3,0x78($sp)
 /*  f061d6c:	8fa60070 */ 	lw	$a2,0x70($sp)
 /*  f061d70:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f061d74:	0fc2832c */ 	jal	func0f0a0cb0
+/*  f061d74:	0fc2832c */ 	jal	handCalculateShotSpread
 /*  f061d78:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f061d7c:	8fae0078 */ 	lw	$t6,0x78($sp)
 /*  f061d80:	24010002 */ 	addiu	$at,$zero,0x2
@@ -2311,14 +2311,14 @@ glabel var7f1a9ebc
 /*  f061ed0:	00000000 */ 	nop
 );
 
-void handCreateBulletRaycast(s32 handnum, bool arg1, bool arg2, s32 arg3, bool arg4)
+void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
 {
 	struct coord sp5c;
 	struct coord sp50;
 	struct coord sp44;
 	struct coord sp38;
 
-	func0f0a0cb0(&sp38, &sp44, handnum, arg2);
+	handCalculateShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
 		func00015b68(currentPlayerGetUnk174c(), &sp38, &sp50);
@@ -2631,7 +2631,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 							struct coord spcc;
 							u32 spc8 = 0;
 
-							func0f0a0cb0(&spd8, &spcc, handnum, true);
+							handCalculateShotSpread(&spd8, &spcc, handnum, true);
 
 							if (func000225d4(spe4, &spd8, &spcc, &spc8) > 0) {
 								f32 damage = handGetDamage(hand) * 2.5f;
@@ -2651,7 +2651,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 							s32 sp9c = 15;
 
 							if (!chrIsAvoiding(chr)) {
-								func0f0a0cb0(&spb8, &spac, handnum, true);
+								handCalculateShotSpread(&spb8, &spac, handnum, true);
 								skipthething = true;
 								func00015b10(currentPlayerGetUnk174c(), &spac);
 								func0f0a7d98(hand, prop, -1);

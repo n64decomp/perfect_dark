@@ -3114,7 +3114,7 @@ struct weaponfunc_shootsingle {
 	/*0x14*/ struct inventory_menupos *unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ f32 damage;
-	/*0x20*/ u32 unk20;
+	/*0x20*/ f32 spread;
 
 	/**
 	 * Setting these 4 bytes to higher values causes slower recoil animations
