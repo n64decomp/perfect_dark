@@ -3144,7 +3144,7 @@ glabel func0f0991e4
 /*  f09973c:	00095f40 */ 	sll	$t3,$t1,0x1d
 /*  f099740:	05610005 */ 	bgez	$t3,.PF0f099758
 /*  f099744:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f099748:	0fc2884a */ 	jal	func0f0a1df4
+/*  f099748:	0fc2884a */ 	jal	currentPlayerAutoSwitchWeapon
 /*  f09974c:	00000000 */ 	nop
 /*  f099750:	10000027 */ 	b	.PF0f0997f0
 /*  f099754:	00001025 */ 	move	$v0,$zero
@@ -3178,7 +3178,7 @@ glabel func0f0991e4
 /*  f0997b8:	51a00005 */ 	beqzl	$t5,.PF0f0997d0
 /*  f0997bc:	904c0690 */ 	lbu	$t4,0x690($v0)
 .PF0f0997c0:
-/*  f0997c0:	0fc2884a */ 	jal	func0f0a1df4
+/*  f0997c0:	0fc2884a */ 	jal	currentPlayerAutoSwitchWeapon
 /*  f0997c4:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f0997c8:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f0997cc:	904c0690 */ 	lbu	$t4,0x690($v0)
@@ -3535,7 +3535,7 @@ glabel func0f0991e4
 /*  f0996b8:	000a6740 */ 	sll	$t4,$t2,0x1d
 /*  f0996bc:	05810005 */ 	bgez	$t4,.L0f0996d4
 /*  f0996c0:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f0996c4:	0fc2877d */ 	jal	func0f0a1df4
+/*  f0996c4:	0fc2877d */ 	jal	currentPlayerAutoSwitchWeapon
 /*  f0996c8:	00000000 */ 	nop
 /*  f0996cc:	10000027 */ 	b	.L0f09976c
 /*  f0996d0:	00001025 */ 	or	$v0,$zero,$zero
@@ -3569,7 +3569,7 @@ glabel func0f0991e4
 /*  f099734:	51c00005 */ 	beqzl	$t6,.L0f09974c
 /*  f099738:	904d0690 */ 	lbu	$t5,0x690($v0)
 .L0f09973c:
-/*  f09973c:	0fc2877d */ 	jal	func0f0a1df4
+/*  f09973c:	0fc2877d */ 	jal	currentPlayerAutoSwitchWeapon
 /*  f099740:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f099744:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f099748:	904d0690 */ 	lbu	$t5,0x690($v0)
@@ -3856,7 +3856,7 @@ glabel var7f1ac1b4
 .PF0f099ba4:
 /*  f099ba4:	50600004 */ 	beqzl	$v1,.PF0f099bb8
 /*  f099ba8:	8fac0058 */ 	lw	$t4,0x58($sp)
-/*  f099bac:	0fc2884a */ 	jal	func0f0a1df4
+/*  f099bac:	0fc2884a */ 	jal	currentPlayerAutoSwitchWeapon
 /*  f099bb0:	00000000 */ 	nop
 .PF0f099bb4:
 /*  f099bb4:	8fac0058 */ 	lw	$t4,0x58($sp)
@@ -4154,7 +4154,7 @@ glabel var7f1ac1b4
 .L0f099b28:
 /*  f099b28:	50600004 */ 	beqzl	$v1,.L0f099b3c
 /*  f099b2c:	8fad0058 */ 	lw	$t5,0x58($sp)
-/*  f099b30:	0fc2877d */ 	jal	func0f0a1df4
+/*  f099b30:	0fc2877d */ 	jal	currentPlayerAutoSwitchWeapon
 /*  f099b34:	00000000 */ 	nop
 .L0f099b38:
 /*  f099b38:	8fad0058 */ 	lw	$t5,0x58($sp)
@@ -8508,7 +8508,7 @@ bool func0f09b260(s32 handnum, struct hand *hand)
 #if VERSION >= VERSION_NTSC_1_0
 				func0f0a1ab0();
 #else
-				func0f0a1df4();
+				currentPlayerAutoSwitchWeapon();
 #endif
 				hand->unk0d0c = 0;
 				return true;
@@ -8682,17 +8682,55 @@ u32 var800701b0 = 0x00000000;
 u32 var800701b4 = 0x00000000;
 u32 var800701b8 = 0x00000000;
 u32 var800701bc = 0x00000000;
-u32 var800701c0 = 0x0d121011;
-u32 var800701c4 = 0x0c0e0f0a;
-u32 var800701c8 = 0x0b161314;
-u32 var800701cc = 0x09060805;
-u32 var800701d0 = 0x07040203;
-u32 var800701d4 = 0x151b1c1d;
-u32 var800701d8 = 0x12171819;
-u32 var800701dc = 0x1e1f2120;
-u32 var800701e0 = 0x221a0100;
-u32 var800701e4 = 0x14090804;
-u32 var800701e8 = 0x02030100;
+
+u8 g_AutoSwitchWeaponsPrimary[] = {
+	WEAPON_RCP120,
+	WEAPON_SUPERDRAGON,
+	WEAPON_K7AVENGER,
+	WEAPON_AR34,
+	WEAPON_CALLISTO,
+	WEAPON_LAPTOPGUN,
+	WEAPON_DRAGON,
+	WEAPON_CMP150,
+	WEAPON_CYCLONE,
+	WEAPON_FARSIGHT,
+	WEAPON_SHOTGUN,
+	WEAPON_REAPER,
+	WEAPON_DY357LX,
+	WEAPON_MAULER,
+	WEAPON_DY357MAGNUM,
+	WEAPON_MAGSEC4,
+	WEAPON_PHOENIX,
+	WEAPON_FALCON2_SCOPE,
+	WEAPON_FALCON2,
+	WEAPON_FALCON2_SILENCER,
+	WEAPON_SNIPERRIFLE,
+	WEAPON_CROSSBOW,
+	WEAPON_TRANQUILIZER,
+	WEAPON_LASER,
+	WEAPON_SUPERDRAGON, // duplicate
+	WEAPON_DEVASTATOR,
+	WEAPON_ROCKETLAUNCHER,
+	WEAPON_SLAYER,
+	WEAPON_GRENADE,
+	WEAPON_NBOMB,
+	WEAPON_PROXIMITYMINE,
+	WEAPON_TIMEDMINE,
+	WEAPON_REMOTEMINE,
+	WEAPON_COMBATKNIFE,
+	WEAPON_UNARMED,
+};
+
+u8 g_AutoSwitchWeaponsSecondary[] = {
+	WEAPON_REAPER,
+	WEAPON_DY357LX,
+	WEAPON_DY357MAGNUM,
+	WEAPON_FALCON2_SCOPE,
+	WEAPON_FALCON2,
+	WEAPON_FALCON2_SILENCER,
+	WEAPON_UNARMED,
+};
+
 u32 var800701ec = 0x00000000;
 u32 var800701f0 = 0x00000000;
 u32 var800701f4 = 0x00000000;
@@ -22328,7 +22366,7 @@ void currentPlayerEquipWeapon(s32 weaponnum)
 	}
 
 	player->gunctrl.switchtoweaponnum = weaponnum;
-	player->gunctrl.unk1583_05 = 0;
+	player->gunctrl.wantammo = false;
 }
 
 s32 handGetWeaponNum(s32 handnum)
@@ -22386,7 +22424,7 @@ void func0f0a1ab0(void)
 				* player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
 			currentPlayerEquipWeaponWrapper(HAND_LEFT, dualweaponnum);
 		} else {
-			func0f0a1df4();
+			currentPlayerAutoSwitchWeapon();
 		}
 #else
 		currentPlayerEquipWeaponWrapper(HAND_RIGHT, player->gunctrl.prevweaponnum);
@@ -22498,7 +22536,7 @@ bool currentPlayerHasAmmoForWeapon(s32 weaponnum)
 }
 
 GLOBAL_ASM(
-glabel func0f0a1df4
+glabel currentPlayerAutoSwitchWeapon
 /*  f0a1df4:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f0a1df8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f0a1dfc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
@@ -22524,8 +22562,8 @@ glabel func0f0a1df4
 /*  f0a1e4c:	afa00040 */ 	sw	$zero,0x40($sp)
 /*  f0a1e50:	13210083 */ 	beq	$t9,$at,.L0f0a2060
 /*  f0a1e54:	afb80044 */ 	sw	$t8,0x44($sp)
-/*  f0a1e58:	3c138007 */ 	lui	$s3,%hi(var800701c0)
-/*  f0a1e5c:	267301c0 */ 	addiu	$s3,$s3,%lo(var800701c0)
+/*  f0a1e58:	3c138007 */ 	lui	$s3,%hi(g_AutoSwitchWeaponsPrimary)
+/*  f0a1e5c:	267301c0 */ 	addiu	$s3,$s3,%lo(g_AutoSwitchWeaponsPrimary)
 /*  f0a1e60:	3c170010 */ 	lui	$s7,0x10
 /*  f0a1e64:	2416ffff */ 	addiu	$s6,$zero,-1
 /*  f0a1e68:	0000a025 */ 	or	$s4,$zero,$zero
@@ -22588,8 +22626,8 @@ glabel func0f0a1df4
 /*  f0a1f34:	0200f025 */ 	or	$s8,$s0,$zero
 /*  f0a1f38:	afb00050 */ 	sw	$s0,0x50($sp)
 .L0f0a1f3c:
-/*  f0a1f3c:	3c0f8007 */ 	lui	$t7,%hi(var800701e0+0x3)
-/*  f0a1f40:	25ef01e3 */ 	addiu	$t7,$t7,%lo(var800701e0+0x3)
+/*  f0a1f3c:	3c0f8007 */ 	lui	$t7,%hi(g_AutoSwitchWeaponsPrimary+0x23)
+/*  f0a1f40:	25ef01e3 */ 	addiu	$t7,$t7,%lo(g_AutoSwitchWeaponsPrimary+0x23)
 /*  f0a1f44:	26730001 */ 	addiu	$s3,$s3,0x1
 /*  f0a1f48:	026f082b */ 	sltu	$at,$s3,$t7
 /*  f0a1f4c:	50200007 */ 	beqzl	$at,.L0f0a1f6c
@@ -22608,13 +22646,13 @@ glabel func0f0a1df4
 /*  f0a1f7c:	8fbe0050 */ 	lw	$s8,0x50($sp)
 .L0f0a1f80:
 /*  f0a1f80:	17d60002 */ 	bne	$s8,$s6,.L0f0a1f8c
-/*  f0a1f84:	3c108007 */ 	lui	$s0,%hi(var800701e4)
+/*  f0a1f84:	3c108007 */ 	lui	$s0,%hi(g_AutoSwitchWeaponsSecondary)
 /*  f0a1f88:	241e0001 */ 	addiu	$s8,$zero,0x1
 .L0f0a1f8c:
 /*  f0a1f8c:	17c10018 */ 	bne	$s8,$at,.L0f0a1ff0
-/*  f0a1f90:	261001e4 */ 	addiu	$s0,$s0,%lo(var800701e4)
-/*  f0a1f94:	3c138007 */ 	lui	$s3,%hi(var800701e8+0x3)
-/*  f0a1f98:	267301eb */ 	addiu	$s3,$s3,%lo(var800701e8+0x3)
+/*  f0a1f90:	261001e4 */ 	addiu	$s0,$s0,%lo(g_AutoSwitchWeaponsSecondary)
+/*  f0a1f94:	3c138007 */ 	lui	$s3,%hi(g_AutoSwitchWeaponsSecondary+0x7)
+/*  f0a1f98:	267301eb */ 	addiu	$s3,$s3,%lo(g_AutoSwitchWeaponsSecondary+0x7)
 /*  f0a1f9c:	92110000 */ 	lbu	$s1,0x0($s0)
 .L0f0a1fa0:
 /*  f0a1fa0:	0fc44727 */ 	jal	invHasSingleWeaponIncAllGuns
@@ -22687,6 +22725,150 @@ glabel func0f0a1df4
 /*  f0a2088:	03e00008 */ 	jr	$ra
 /*  f0a208c:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
+
+/**
+ * Automatically choose and equip a new weapon after trying to fire a weapon
+ * which is out of ammo.
+ *
+ * The weapon preference order is stored in two arrays; one for weapons which
+ * should have their primary functions considered and which require ammo, and
+ * another for weapons which should have their secondary functions considered
+ * and don't require ammo for those functions. The second is only used if no
+ * weapons are usable from the primary array.
+ *
+ * For the primary array, the weapon must not be out of ammo and must have a
+ * certain flag. If the player's current weapon is not in the primary array then
+ * the first available primary will be selected. If the player's current weapon
+ * is in the primary array then the last available weapon earlier than their
+ * current weapon will be selected. If there are no weapons earlier than their
+ * current weapon then the first weapon after their current weapon is selected.
+ *
+ * In the primary array, the SuperDragon is a special case. It is prioritised
+ * when the player's current weapon is not in the array, but otherwise has a
+ * fairly low priority. The reasons for this are unknown.
+ *
+ * For the secondary array, the player's current weapon must not be in the
+ * array. The first available weapon is selected. The player's "wantammo" flag
+ * will be set which will force the weapon onto the second function.
+ */
+// Mismatch: First loop should store pointer to current item in s3 and do an
+// address comparison for the end, but the below stores index in s4 and does an
+// integer comparison. Variable refcounts affects this so might be related.
+//void currentPlayerAutoSwitchWeapon(void)
+//{
+//	s32 i;
+//	bool foundcurrent2;
+//	s32 firstweaponnum2;
+//	bool usable;
+//	s32 firstweaponnum = -1; // 50
+//	s32 newweaponnum = -1;
+//	bool foundcurrent = false; // 48
+//	s32 curweaponnum = g_Vars.currentplayer->gunctrl.weaponnum; // 44
+//	s32 foundsuperdragon = 0;
+//	s32 wantammo = false; // 40
+//	s32 weaponnum;
+//	struct weapon *weapon;
+//	struct weaponfunc *func;
+//	s32 weaponnum2;
+//
+//	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
+//		return;
+//	}
+//
+//	// Loop through g_AutoSwitchWeaponsPrimary, checking which weapons the
+//	// player has which are usable. Stop when both any usable weapon is found
+//	// and when the player's current weapon is found. Note the first and last
+//	// usable weapons.
+//	for (i = 0; i < ARRAYCOUNT(g_AutoSwitchWeaponsPrimary) && (newweaponnum == -1 || !foundcurrent); i++) {
+//		usable = false;
+//
+//		if (invHasSingleWeaponIncAllGuns(g_AutoSwitchWeaponsPrimary[i])) {
+//			weaponnum = g_AutoSwitchWeaponsPrimary[i];
+//			weapon = weaponFindById(weaponnum);
+//			func = weaponGetFunctionById(weaponnum, FUNC_PRIMARY);
+//
+//			if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_00100000) == 0) {
+//				usable = true;
+//			}
+//
+//			if (weaponnum == WEAPON_SUPERDRAGON && !foundsuperdragon) {
+//				foundsuperdragon++;
+//			} else {
+//				func = weaponGetFunctionById(weaponnum, FUNC_SECONDARY);
+//
+//				if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_00100000) == 0) {
+//					usable = true;
+//				}
+//			}
+//
+//			if (weaponnum == curweaponnum) {
+//				foundcurrent = true;
+//			} else if (usable) {
+//				newweaponnum = weaponnum;
+//
+//				if (firstweaponnum == -1) {
+//					firstweaponnum = weaponnum;
+//				}
+//			}
+//		}
+//	}
+//
+//	foundcurrent2 = false;
+//	firstweaponnum2 = -1;
+//
+//	if (!foundcurrent) {
+//		newweaponnum = firstweaponnum;
+//	}
+//
+//	if (newweaponnum == -1) {
+//		newweaponnum = WEAPON_UNARMED;
+//	}
+//
+//	if (newweaponnum == WEAPON_UNARMED) {
+//		// No usable weapon was found in the primary array,
+//		// so search the secondary array.
+//		for (i = 0; i < ARRAYCOUNT(g_AutoSwitchWeaponsSecondary); i++) {
+//			weaponnum2 = g_AutoSwitchWeaponsSecondary[i];
+//
+//			if (invHasSingleWeaponIncAllGuns(weaponnum2)) {
+//				if (weaponnum2 == curweaponnum) {
+//					foundcurrent2 = true;
+//				}
+//
+//				if (firstweaponnum2 == -1) {
+//					firstweaponnum2 = weaponnum2;
+//				}
+//			}
+//		}
+//
+//		newweaponnum = firstweaponnum2;
+//
+//		if (newweaponnum == -1) {
+//			newweaponnum = WEAPON_UNARMED;
+//		}
+//
+//		if (foundcurrent2) {
+//			newweaponnum = -1;
+//		}
+//
+//		wantammo = true;
+//	}
+//
+//	// Switch to newweaponnum
+//	if (newweaponnum >= 0 && newweaponnum != curweaponnum) {
+//		if (invHasDoubleWeaponIncAllGuns(newweaponnum, newweaponnum)) {
+//			g_Vars.currentplayer->gunctrl.unk1583_00 = true;
+//		} else {
+//			g_Vars.currentplayer->gunctrl.unk1583_00 = false;
+//		}
+//
+//		currentPlayerEquipWeapon(newweaponnum);
+//
+//		if (wantammo) {
+//			g_Vars.currentplayer->gunctrl.wantammo = true;
+//		}
+//	}
+//}
 
 void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
 {

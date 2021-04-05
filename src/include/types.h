@@ -2464,7 +2464,7 @@ struct gunctrl {
 	/*0x1583*/ u8 invertgunfunc : 1;
 	/*0x1583*/ u8 unk1583_03 : 1;
 	/*0x1583*/ u8 unk1583_04 : 1;
-	/*0x1583*/ u8 unk1583_05 : 1;
+	/*0x1583*/ u8 wantammo : 1;
 	/*0x1583*/ u8 unk1583_06 : 1;
 	/*0x1583*/ u8 passivemode : 1;
 	/*0x1584*/ s32 gunmemnew;
