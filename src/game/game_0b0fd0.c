@@ -528,8 +528,8 @@ u8 handGetSingleUnk3c(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
 		return funcshoot->unk3c;
 	}
 
@@ -553,8 +553,8 @@ f32 handGetSingleUnk34(struct shorthand *hand)
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 	f32 result = 0;
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
 		result = funcshoot->unk34;
 	}
 
@@ -567,8 +567,8 @@ f32 handGetDamage(struct shorthand *hand)
 	f32 damage = 0;
 
 	if (func) {
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-			struct weaponfunc_shootsingle *fullfunc = (struct weaponfunc_shootsingle *)func;
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+			struct weaponfunc_shoot *fullfunc = (struct weaponfunc_shoot *)func;
 			damage = fullfunc->damage;
 		}
 
@@ -608,8 +608,8 @@ u8 handGetSingleUnk38(struct shorthand *hand)
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 	u8 result = 0;
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
 		result = funcshoot->unk38;
 	}
 
@@ -621,8 +621,8 @@ u8 handGetSingleUnk38(struct shorthand *hand)
 #else
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
 		return funcshoot->unk38;
 	}
 
@@ -634,8 +634,8 @@ u16 handGetSingleShootSound(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 
-	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-		struct weaponfunc_shootsingle *funcshoot = (struct weaponfunc_shootsingle *)func;
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
 		return funcshoot->shootsound;
 	}
 

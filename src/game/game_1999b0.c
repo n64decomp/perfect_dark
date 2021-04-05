@@ -421,13 +421,13 @@ s32 func0f19a60c(s32 weaponnum, s32 funcnum)
 
 		if (func) {
 			if (func->type == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-				struct weaponfunc_shootsingle *func2 = (struct weaponfunc_shootsingle *)func;
+				struct weaponfunc_shoot *func2 = (struct weaponfunc_shoot *)func;
 				iVar4 = func2->unk24 + func2->unk25;
 			} else if (func->type == INVENTORYFUNCTYPE_SHOOT_AUTOMATIC) {
-				struct weaponfunc_shootauto *func2 = (struct weaponfunc_shootauto *)func;
+				struct weaponfunc_shoot *func2 = (struct weaponfunc_shoot *)func;
 				iVar4 = func2->unk24 + func2->unk25;
 			} else if (func->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
-				struct weaponfunc_shootprojectile *func2 = (struct weaponfunc_shootprojectile *)func;
+				struct weaponfunc_shoot *func2 = (struct weaponfunc_shoot *)func;
 				iVar4 = func2->unk24 + func2->unk25;
 			} else if (func->type == INVENTORYFUNCTYPE_CLOSE && weaponnum != WEAPON_REAPER) {
 				iVar4 = 60;

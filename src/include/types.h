@@ -3109,7 +3109,7 @@ struct weaponfunc {
 	/*0x10*/ u32 flags;
 };
 
-struct weaponfunc_shootsingle {
+struct weaponfunc_shoot {
 	struct weaponfunc base;
 	/*0x14*/ struct inventory_menupos *unk14;
 	/*0x18*/ u32 unk18;
@@ -3134,22 +3134,12 @@ struct weaponfunc_shootsingle {
 	/*0x3c*/ u8 unk3c;
 };
 
+struct weaponfunc_shootsingle {
+	struct weaponfunc_shoot base;
+};
+
 struct weaponfunc_shootauto {
-	struct weaponfunc base;
-	/*0x14*/ struct inventory_menupos *unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ s8 unk24;
-	/*0x25*/ s8 unk25;
-	/*0x26*/ s8 unk26;
-	/*0x27*/ s8 unk27;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
+	struct weaponfunc_shoot base;
 	/*0x40*/ f32 initialfirerate; // rounds per minute
 	/*0x44*/ f32 maxfirerate; // rounds per minute
 	/*0x48*/ f32 *unk48;
@@ -3158,21 +3148,7 @@ struct weaponfunc_shootauto {
 };
 
 struct weaponfunc_shootprojectile {
-	struct weaponfunc base;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ s8 unk24;
-	/*0x25*/ s8 unk25;
-	/*0x26*/ s8 unk26;
-	/*0x27*/ s8 unk27;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
+	struct weaponfunc_shoot base;
 	/*0x40*/ s32 projectilemodelnum;
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;

@@ -10501,7 +10501,7 @@ s32 func0f09bc2c(struct handweaponinfo *info, s32 handnum, struct hand *hand, s3
 
 	if (func != NULL) {
 		switch (func->type & 0xff) {
-		case INVENTORYFUNCTYPE_SHOOT_SINGLE:
+		case INVENTORYFUNCTYPE_SHOOT:
 			doit = func0f09afe4(info, handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_THROW:
@@ -21740,8 +21740,8 @@ void handCalculateShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(handnum);
 	struct player *player = g_Vars.currentplayer;
 
-	if (func != NULL && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-		struct weaponfunc_shootsingle *shootfunc = (struct weaponfunc_shootsingle *) func;
+	if (func != NULL && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
+		struct weaponfunc_shoot *shootfunc = (struct weaponfunc_shoot *) func;
 		spread = shootfunc->spread;
 	}
 
