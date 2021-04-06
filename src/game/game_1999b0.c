@@ -352,13 +352,13 @@ void func0f19a37c(struct chrdata *chr)
 	Mtxf sp84;
 	f32 sp80 = func0f03e5f0(chr);
 	u32 stack;
-	u8 sp72[] = {0, 0, 0, 0};
+	struct shorthand hand = {0};
 	struct prop *target = chrGetTargetProp(chr);
 	struct coord sp56;
 	f32 mult;
 
-	sp72[0] = chr->aibot->weaponnum;
-	sp72[3] = chr->aibot->gunfunc;
+	hand.weaponnum = chr->aibot->weaponnum;
+	hand.weaponfunc = chr->aibot->gunfunc;
 
 	if (chrIsTargetInFov(chr, WEAPON_GRENADE, 0)) {
 		sp56.x = target->pos.x;
@@ -403,9 +403,9 @@ void func0f19a37c(struct chrdata *chr)
 	func00016374(sp80, &sp84);
 	func00015be0(&sp84, &sp164);
 
-	func0f09ee18(chr, sp72, &prop->pos, prop->rooms, &sp164, &sp228);
+	func0f09ee18(chr, &hand, &prop->pos, prop->rooms, &sp164, &sp228);
 
-	if (sp72[0] == WEAPON_REMOTEMINE) {
+	if (hand.weaponnum == WEAPON_REMOTEMINE) {
 		chr->aibot->unk064 |= 0x1000;
 	}
 }

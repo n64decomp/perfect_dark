@@ -6924,10 +6924,13 @@ struct var8009cda4 {
 	s16 unk00[8];
 };
 
+// Suspect this is just a weaponobj
 struct var8009ce58 {
 	struct defaultobj base;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
+	/*0x5c*/ u8 weaponnum;
+	/*0x60*/ u16 unk5e;
+	/*0x60*/ u16 unk60;
+	/*0x62*/ s16 activatetime240;
 	/*0x64*/ u32 unk64;
 };
 
