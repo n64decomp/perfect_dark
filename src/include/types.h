@@ -3080,7 +3080,7 @@ struct inventory_menupos {
 	f32 size;
 };
 
-struct inventory_typee {
+struct inventory_class {
 	f32 zoomfov;
 	f32 unk04;
 	f32 unk08;
@@ -3125,9 +3125,9 @@ struct weaponfunc_shoot {
 	/*0x26*/ s8 unk26;
 	/*0x27*/ s8 unk27;
 
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
+	/*0x28*/ f32 recoil;
+	/*0x2c*/ f32 unk2c;
+	/*0x30*/ f32 unk30;
 	/*0x34*/ f32 unk34;
 	/*0x38*/ u8 unk38;
 	/*0x3a*/ u16 shootsound;
@@ -3220,7 +3220,7 @@ struct weapon {
 	/*0x10*/ struct guncmd *sectopri_animation;
 	/*0x14*/ void *functions[2];
 	/*0x1c*/ struct inventory_ammo *ammos[2];
-	/*0x24*/ struct inventory_typee *eptr;
+	/*0x24*/ struct inventory_class *eptr;
 	/*0x28*/ f32 sway;
 	/*0x2c*/ f32 leftright;
 	/*0x30*/ f32 updown;

@@ -272,7 +272,7 @@ extern u16 var8006ae90[];
 extern u16 var8006af0c[];
 extern u16 var8006af8c[];
 extern struct inventory_menupos invmenupos_00010fd0;
-extern struct inventory_typee inve_000110c0;
+extern struct inventory_class invclass_default;
 extern struct weapon *g_Weapons[];
 extern u32 var800700ac;
 extern s32 g_CasingsActive;

@@ -102,7 +102,7 @@ u32 weaponGetNumFunctions(u32 weaponnum)
 	return 2;
 }
 
-struct inventory_typee *func0f0b11bc(struct shorthand *hand)
+struct inventory_class *func0f0b11bc(struct shorthand *hand)
 {
 	struct weapon *weapon = weaponFindById(hand->weaponnum);
 
@@ -110,7 +110,7 @@ struct inventory_typee *func0f0b11bc(struct shorthand *hand)
 		return weapon->eptr;
 	}
 
-	return &inve_000110c0;
+	return &invclass_default;
 }
 
 struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
@@ -278,7 +278,7 @@ bool weaponHasFlag(s32 itemid, u32 flag)
 	return (weapon->flags & flag) != 0;
 }
 
-bool weaponHasInvEFlag(s32 weaponnum, u32 flag)
+bool weaponHasClassFlag(s32 weaponnum, u32 flag)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);
 

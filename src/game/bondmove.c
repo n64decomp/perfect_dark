@@ -74,7 +74,7 @@ bool bmoveIsAutoAimYEnabledForCurrentWeapon(void)
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(0);
 
 	if (func) {
-		if (func->flags & WEAPONFUNCFLAG_00000040) {
+		if (func->flags & FUNCFLAG_NOAUTOAIM) {
 			return false;
 		}
 
@@ -132,7 +132,7 @@ bool bmoveIsAutoAimXEnabledForCurrentWeapon(void)
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(0);
 
 	if (func) {
-		if (func->flags & WEAPONFUNCFLAG_00000040) {
+		if (func->flags & FUNCFLAG_NOAUTOAIM) {
 			return false;
 		}
 
@@ -1178,7 +1178,7 @@ glabel var7f1ad8e4
 /*  f0c8be4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0c8be8:	afa201ac */ 	sw	$v0,0x1ac($sp)
 /*  f0c8bec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0c8bf0:	0fc2c601 */ 	jal	weaponHasInvEFlag
+/*  f0c8bf0:	0fc2c601 */ 	jal	weaponHasClassFlag
 /*  f0c8bf4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c8bf8:	8e4f0288 */ 	lw	$t7,0x288($s2)
 /*  f0c8bfc:	afa201a8 */ 	sw	$v0,0x1a8($sp)
@@ -4128,7 +4128,7 @@ glabel var7f1ad8e4
 /*  f0cb578:	8fa401ac */ 	lw	$a0,0x1ac($sp)
 /*  f0cb57c:	11800005 */ 	beqz	$t4,.L0f0cb594
 /*  f0cb580:	00000000 */ 	nop
-/*  f0cb584:	0fc2c601 */ 	jal	weaponHasInvEFlag
+/*  f0cb584:	0fc2c601 */ 	jal	weaponHasClassFlag
 /*  f0cb588:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f0cb58c:	5440000b */ 	bnezl	$v0,.L0f0cb5bc
 /*  f0cb590:	00008025 */ 	or	$s0,$zero,$zero
@@ -4329,7 +4329,7 @@ glabel var7f1ad8e4
 /*  f0c8be4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0c8be8:	afa201ac */ 	sw	$v0,0x1ac($sp)
 /*  f0c8bec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0c8bf0:	0fc2c601 */ 	jal	weaponHasInvEFlag
+/*  f0c8bf0:	0fc2c601 */ 	jal	weaponHasClassFlag
 /*  f0c8bf4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c8bf8:	8e4f0288 */ 	lw	$t7,0x288($s2)
 /*  f0c8bfc:	afa201a8 */ 	sw	$v0,0x1a8($sp)
@@ -7279,7 +7279,7 @@ glabel var7f1ad8e4
 /*  f0cb578:	8fa401ac */ 	lw	$a0,0x1ac($sp)
 /*  f0cb57c:	11800005 */ 	beqz	$t4,.L0f0cb594
 /*  f0cb580:	00000000 */ 	nop
-/*  f0cb584:	0fc2c601 */ 	jal	weaponHasInvEFlag
+/*  f0cb584:	0fc2c601 */ 	jal	weaponHasClassFlag
 /*  f0cb588:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f0cb58c:	5440000b */ 	bnezl	$v0,.L0f0cb5bc
 /*  f0cb590:	00008025 */ 	or	$s0,$zero,$zero
@@ -7480,7 +7480,7 @@ glabel var7f1ad8e4
 /*  f0c6440:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0c6444:	afa201ac */ 	sw	$v0,0x1ac($sp)
 /*  f0c6448:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0c644c:	0fc2bd59 */ 	jal	weaponHasInvEFlag
+/*  f0c644c:	0fc2bd59 */ 	jal	weaponHasClassFlag
 /*  f0c6450:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c6454:	8e4f0288 */ 	lw	$t7,0x288($s2)
 /*  f0c6458:	afa201a8 */ 	sw	$v0,0x1a8($sp)
@@ -10418,7 +10418,7 @@ glabel var7f1ad8e4
 /*  f0c8da8:	8fa401ac */ 	lw	$a0,0x1ac($sp)
 /*  f0c8dac:	11400005 */ 	beqz	$t2,.NB0f0c8dc4
 /*  f0c8db0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c8db4:	0fc2bd59 */ 	jal	weaponHasInvEFlag
+/*  f0c8db4:	0fc2bd59 */ 	jal	weaponHasClassFlag
 /*  f0c8db8:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f0c8dbc:	5440000b */ 	bnezl	$v0,.NB0f0c8dec
 /*  f0c8dc0:	00008025 */ 	or	$s0,$zero,$zero
@@ -10633,7 +10633,7 @@ glabel var7f1ad8e4
 //
 //	controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
 //	weaponnum = handGetWeaponNum(HAND_RIGHT);
-//	sp1a8 = weaponHasInvEFlag(weaponnum, 0x00000001);
+//	sp1a8 = weaponHasClassFlag(weaponnum, WEAPONCLASSFLAG_MANUALZOOM);
 //	contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
 //
 //	// 8c10
@@ -11813,7 +11813,7 @@ glabel var7f1ad8e4
 //				 && (bmoveIsAutoAimXEnabledForCurrentWeapon() || bmoveIsAutoAimYEnabledForCurrentWeapon())
 //				 && g_Vars.currentplayer->autoxaimprop
 //				 && g_Vars.currentplayer->autoyaimprop
-//				 && weaponHasInvEFlag(weaponnum, 0x00000002)
+//				 && weaponHasClassFlag(weaponnum, WEAPONCLASSFLAG_AUTOAIM)
 //				)
 //				|| (handGetWeaponNum(HAND_RIGHT) == WEAPON_CMP150 && g_Vars.currentplayer->hands[HAND_RIGHT].weaponfunc == FUNC_SECONDARY)) {
 //			// Auto aim - move crosshair towards target

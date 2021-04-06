@@ -3929,7 +3929,7 @@ Gfx *lvRender(Gfx *gdl)
 					g_Vars.currentplayer->lookingatprop.prop = NULL;
 				}
 
-				if (handHasFunctionFlags(&g_Vars.currentplayer->hands[0].base, FUNCFLAG_00080000)) {
+				if (handHasFunctionFlags(&g_Vars.currentplayer->hands[0].base, FUNCFLAG_THREATDETECTOR)) {
 					lvFindThreats();
 				} else if (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;

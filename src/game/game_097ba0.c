@@ -8502,7 +8502,7 @@ bool func0f09b260(s32 handnum, struct hand *hand)
 
 	if (hand->unk0c40 == 0) {
 		if (hand->unk0c50 == 0) {
-			if (func->base.flags & FUNCFLAG_00040000) {
+			if (func->base.flags & FUNCFLAG_DISCARDWEAPON) {
 				invRemoveItemByNum(hand->base.weaponnum);
 				g_Vars.currentplayer->gunctrl.unk1583_04 = true;
 #if VERSION >= VERSION_NTSC_1_0
@@ -21746,7 +21746,7 @@ void handCalculateShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum
 	}
 
 	// Unsure what this is
-	if (weaponHasInvEFlag(getCurrentPlayerWeaponIdWrapper(handnum), 0x00000004)
+	if (weaponHasClassFlag(getCurrentPlayerWeaponIdWrapper(handnum), WEAPONCLASSFLAG_00000004)
 			&& player->hands[handnum].unk0b90 == 1) {
 		spread *= 0.25f;
 	}
@@ -21821,7 +21821,7 @@ glabel func0f0a0fac
 /*  f0a1014:	8faa00b8 */ 	lw	$t2,0xb8($sp)
 /*  f0a1018:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f0a101c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0a1020:	0fc2c601 */ 	jal	weaponHasInvEFlag
+/*  f0a1020:	0fc2c601 */ 	jal	weaponHasClassFlag
 /*  f0a1024:	e7a200a4 */ 	swc1	$f2,0xa4($sp)
 /*  f0a1028:	10400006 */ 	beqz	$v0,.L0f0a1044
 /*  f0a102c:	c7a200a4 */ 	lwc1	$f2,0xa4($sp)
@@ -22636,7 +22636,7 @@ glabel currentPlayerAutoSwitchWeapon
 //			weapon = weaponFindById(weaponnum);
 //			func = weaponGetFunctionById(weaponnum, FUNC_PRIMARY);
 //
-//			if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_00100000) == 0) {
+//			if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
 //				usable = true;
 //			}
 //
@@ -22645,7 +22645,7 @@ glabel currentPlayerAutoSwitchWeapon
 //			} else {
 //				func = weaponGetFunctionById(weaponnum, FUNC_SECONDARY);
 //
-//				if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_00100000) == 0) {
+//				if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
 //					usable = true;
 //				}
 //			}

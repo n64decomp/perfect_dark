@@ -849,9 +849,29 @@
 #define FUNC_PRIMARY   0
 #define FUNC_SECONDARY 1
 
-#define FUNCFLAG_00040000 0x00040000
-#define FUNCFLAG_00080000 0x00080000
-#define FUNCFLAG_00100000 0x00100000
+#define FUNCFLAG_BURST3                 0x00000002
+#define FUNCFLAG_MAGDISCHARGE           0x00000020 // automatics only
+#define FUNCFLAG_NOAUTOAIM              0x00000040
+#define FUNCFLAG_STICKTOWALL            0x00000100
+#define FUNCFLAG_MAKEDIZZY              0x00000200
+#define FUNCFLAG_DROPWEAPON             0x00000400
+#define FUNCFLAG_FLYBYWIRE              0x00000800
+#define FUNCFLAG_BURST2                 0x00001000
+#define FUNCFLAG_NOMUZZLEFLASH          0x00002000
+#define FUNCFLAG_EXPLOSIVESHELLS        0x00004000
+#define FUNCFLAG_LESSDAMAGE             0x00008000
+#define FUNCFLAG_NOSTUN                 0x00010000
+#define FUNCFLAG_BURST5                 0x00020000
+#define FUNCFLAG_DISCARDWEAPON          0x00040000 // Dragon and Laptop throw
+#define FUNCFLAG_THREATDETECTOR         0x00080000
+#define FUNCFLAG_AUTOSWITCHUNSELECTABLE 0x00100000
+#define FUNCFLAG_00200000               0x00200000 // Psychosis gun only, but doesn't trigger psychosis
+#define FUNCFLAG_00400000               0x00400000 // punch, disarm and pistol whip
+#define FUNCFLAG_00800000               0x00800000 // mostly throwables but some projectiles too
+#define FUNCFLAG_08000000               0x08000000 // rockets
+#define FUNCFLAG_10000000               0x10000000 // grenade launchers
+#define FUNCFLAG_20000000               0x20000000 // explosives related
+#define FUNCFLAG_HOMINGROCKET           0x40000000
 
 #define GAILIST_IDLE                   0x0000
 #define GAILIST_UNALERTED_0001         0x0001
@@ -3386,27 +3406,39 @@
 #define WEAPON_DISABLED          0x5c
 #define WEAPON_SUICIDEPILL       0x5d
 
+#define WEAPONCLASSFLAG_MANUALZOOM 0x00000001
+#define WEAPONCLASSFLAG_AUTOAIM    0x00000002
+#define WEAPONCLASSFLAG_00000004   0x00000004
+
+#define WEAPONFLAG_00000001          0x00000001 // mines, grenades and knives
+#define WEAPONFLAG_00000004          0x00000004
 #define WEAPONFLAG_ONEHANDED         0x00000008 // Makes guards carry the gun with one hand
-#define WEAPONFLAG_00000010          0x00000010
-#define WEAPONFLAG_00000400          0x00000400
+#define WEAPONFLAG_AICANUSE          0x00000010
+#define WEAPONFLAG_DUALFLIP          0x00000020 // For dual wielding, flip the right model to make the left (else have two right hands)
+#define WEAPONFLAG_00000040          0x00000040
+#define WEAPONFLAG_00000080          0x00000080 // Night vision
 #define WEAPONFLAG_TRACKTIMEUSED     0x00000200 // Allow tracking how long gun is used, for weapon of choice
+#define WEAPONFLAG_00000400          0x00000400
+#define WEAPONFLAG_00000800          0x00000800 // MP briefcase
 #define WEAPONFLAG_DUALWIELD         0x00001000 // Allow dual wielding
+#define WEAPONFLAG_00002000          0x00002000
+#define WEAPONFLAG_00004000          0x00004000
+#define WEAPONFLAG_00008000          0x00008000 // Editor: "Special environment mapping"
+#define WEAPONFLAG_HASHANDS          0x00020000
 #define WEAPONFLAG_HIDEMENUMODEL     0x00040000 // Don't display the rotating model in the inventory menu
-#define WEAPONFLAG_HOLDSIDEWAYS      0x00080000 // Allow turning the gun sideways at close range
+#define WEAPONFLAG_GANGSTA           0x00080000 // Allow turning the gun sideways at close range
+#define WEAPONFLAG_DONTCOUNTSHOTS    0x00100000 // Laser and MP briefcase
 #define WEAPONFLAG_DETERMINER_S_AN   0x00200000 // "An ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_AN   0x00400000 // "Picked up an ..." (full version)
 #define WEAPONFLAG_DETERMINER_S_THE  0x00800000 // "The ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_THE  0x01000000 // "Picked up the ..." (full version)
-#define WEAPONFLAG_00100000          0x00100000
-#define WEAPONFLAG_00200000          0x00200000 // Camspy related
-#define WEAPONFLAG_00400000          0x00400000 // Camspy related
+#define WEAPONFLAG_02000000          0x02000000 // Slayer
+#define WEAPONFLAG_04000000          0x04000000
 #define WEAPONFLAG_08000000          0x08000000
 #define WEAPONFLAG_DETERMINER_S_SOME 0x10000000 // "Some ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_SOME 0x20000000 // "Picked up some ..." (full version)
 #define WEAPONFLAG_AIMTRACK          0x40000000 // Allow drawing red box around targets in aim mode
-#define WEAPONFLAG_80000000          0x80000000
-
-#define WEAPONFUNCFLAG_00000040 0x00000040 // related to auto aim
+#define WEAPONFLAG_FIRETOACTIVATE    0x80000000 // For devices/gadgets
 
 #define WEATHERTYPE_RAIN 0
 #define WEATHERTYPE_SNOW 1
