@@ -5,6 +5,7 @@
 #include "bss.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
+#include "lib/lib_184d0.h"
 #include "data.h"
 #include "types.h"
 
@@ -20,35 +21,20 @@ u32 var8005ef50 = 0x00001400;
 u32 var8005ef54 = 0x0018001c;
 u32 var8005ef58 = 0x00000000;
 
-#if VERSION >= VERSION_PAL_FINAL
-u32 var8005ef5c = 0x70019304;
-u32 var8005ef60 = 0x70018e4c;
-u32 var8005ef64 = 0x700187b8;
-u32 var8005ef68 = 0x70018da0;
-u32 var8005ef6c = 0x700192dc;
-u32 var8005ef70 = 0x700192e4;
-u32 var8005ef74 = 0x70019270;
-u32 var8005ef78 = 0x70019234;
+u32 var8005ef5c = (u32)func00018680+0xef4;
+u32 var8005ef60 = (u32)func00018680+0xa3c;
+u32 var8005ef64 = (u32)func00018680+0x3a8;
+u32 var8005ef68 = (u32)func00018680+0x990;
+u32 var8005ef6c = (u32)func00018680+0xecc;
+u32 var8005ef70 = (u32)func00018680+0xed4;
+u32 var8005ef74 = (u32)func00018680+0xe60;
+u32 var8005ef78 = (u32)func00018680+0xe24;
+
 u32 var8005ef7c = 0x00000000;
-u32 var8005ef80 = 0x700199f4;
-u32 var8005ef84 = 0x70019a00;
-u32 var8005ef88 = 0x70019a18;
-u32 var8005ef8c = 0x70019a3c;
-#else
-u32 var8005ef5c = 0x70019574;
-u32 var8005ef60 = 0x700190bc;
-u32 var8005ef64 = 0x70018a28;
-u32 var8005ef68 = 0x70019010;
-u32 var8005ef6c = 0x7001954c;
-u32 var8005ef70 = 0x70019554;
-u32 var8005ef74 = 0x700194e0;
-u32 var8005ef78 = 0x700194a4;
-u32 var8005ef7c = 0x00000000;
-u32 var8005ef80 = 0x70019c64;
-u32 var8005ef84 = 0x70019c70;
-u32 var8005ef88 = 0x70019c88;
-u32 var8005ef8c = 0x70019cac;
-#endif
+u32 var8005ef80 = (u32)func00019be0+0x84;
+u32 var8005ef84 = (u32)func00019be0+0x90;
+u32 var8005ef88 = (u32)func00019be0+0xa8;
+u32 var8005ef8c = (u32)func00019be0+0xcc;
 
 u32 var8005ef90 = 0xff08ffff;
 u32 var8005ef94 = 0xffffffff;
