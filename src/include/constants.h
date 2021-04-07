@@ -850,7 +850,7 @@
 #define FUNC_SECONDARY 1
 
 #define FUNCFLAG_BURST3                 0x00000002
-#define FUNCFLAG_MAGDISCHARGE           0x00000020 // automatics only
+#define FUNCFLAG_BURST50                0x00000020 // automatics only
 #define FUNCFLAG_NOAUTOAIM              0x00000040
 #define FUNCFLAG_STICKTOWALL            0x00000100
 #define FUNCFLAG_MAKEDIZZY              0x00000200

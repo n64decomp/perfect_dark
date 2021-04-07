@@ -2294,7 +2294,7 @@ struct hand {
 	/*0x0b84*/ u32 unk0b84;
 	/*0x0b88*/ u32 unk0b88;
 	/*0x0b8c*/ struct anim *unk0b8c;
-	/*0x0b90*/ s32 unk0b90;
+	/*0x0b90*/ s32 burstbullets;
 	/*0x0b94*/ struct coord unk0b94;
 	/*0x0ba0*/ u32 unk0ba0;
 	/*0x0ba4*/ u32 unk0ba4;
@@ -3144,7 +3144,8 @@ struct weaponfunc_shootauto {
 	/*0x44*/ f32 maxfirerate; // rounds per minute
 	/*0x48*/ f32 *unk48;
 	/*0x4c*/ f32 *unk4c;
-	/*0x50*/ u32 unk50;
+	/*0x50*/ s8 unk50;
+	/*0x51*/ s8 unk51;
 };
 
 struct weaponfunc_shootprojectile {

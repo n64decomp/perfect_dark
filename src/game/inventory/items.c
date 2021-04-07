@@ -1308,7 +1308,7 @@ struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 	900,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
@@ -1335,7 +1335,7 @@ struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	900,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_cmp150 = {
@@ -1434,7 +1434,7 @@ struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
 	900,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
@@ -1444,7 +1444,7 @@ struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	invanim_cyclone_shoot, // fire animation
-	FUNCFLAG_MAGDISCHARGE,
+	FUNCFLAG_BURST50,
 	&invmenupos_00011098,
 	0x00000000,
 	1.4, // damage
@@ -1461,7 +1461,7 @@ struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 	2000,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_cyclone = {
@@ -1552,7 +1552,7 @@ struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 	1100,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_special invfunc_rcp120_cloak = {
@@ -1651,7 +1651,7 @@ struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
 	900,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
@@ -1678,7 +1678,7 @@ struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
 	300,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_callisto = {
@@ -1766,7 +1766,7 @@ struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 	700,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_throw invfunc_dragon_selfdestruct = {
@@ -1899,7 +1899,7 @@ struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 	700,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
@@ -2036,7 +2036,7 @@ struct weaponfunc_shootauto invfunc_ar34_burstfire = {
 	750,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_shootauto invfunc_ar34_usescope = {
@@ -2063,7 +2063,7 @@ struct weaponfunc_shootauto invfunc_ar34_usescope = {
 	750,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_ar34 = {
@@ -2175,7 +2175,7 @@ struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
 	950,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
@@ -2202,7 +2202,7 @@ struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
 	950,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_k7avenger = {
@@ -2321,7 +2321,7 @@ struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
 	1000,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weaponfunc_throw invfunc_laptopgun_deploy = {
@@ -2552,7 +2552,7 @@ struct weaponfunc_shootauto invfunc_reaper_shoot = {
 	1800,
 	var8006d33c,
 	var8006d36c,
-	0x58580000,
+	88, 88,
 };
 
 struct weaponfunc_close invfunc_reaper_grind = {
@@ -4026,7 +4026,7 @@ struct weaponfunc_shootauto invfunc_laser_stream = {
 	3600,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct weapon invitem_laser = {
@@ -4210,7 +4210,7 @@ struct weaponfunc_shootauto invfunc_kl01313_shoot = {
 	450,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_kl01313 = {
@@ -4270,7 +4270,7 @@ struct weaponfunc_shootauto invfunc_kf7special_shoot = {
 	450,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_kf7special = {
@@ -4330,7 +4330,7 @@ struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
 	600,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_zzt9mm = {
@@ -4390,7 +4390,7 @@ struct weaponfunc_shootauto invfunc_dmc_shoot = {
 	450,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_dmc = {
@@ -4450,7 +4450,7 @@ struct weaponfunc_shootauto invfunc_ar53_shoot = {
 	550,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_ar53 = {
@@ -4510,7 +4510,7 @@ struct weaponfunc_shootauto invfunc_rcp45_shoot = {
 	600,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_rcp45 = {
@@ -4610,7 +4610,7 @@ struct weaponfunc_shootauto invfunc_59_rapidfire = {
 	900,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_59 = {
@@ -4670,7 +4670,7 @@ struct weaponfunc_shootauto invfunc_5a_rapidfire = {
 	900,
 	NULL,
 	NULL,
-	0x00000000,
+	0, 0,
 };
 
 struct inventory_ammo invammo_5a = {

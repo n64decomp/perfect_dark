@@ -508,7 +508,7 @@ glabel handPopulateFromCurrentPlayer
 //	}
 //
 //	if (hand->weaponnum == WEAPON_LASER) {
-//		hand->unk063a = g_Vars.currentplayer->hands[handnum].unk0b90;
+//		hand->unk063a = g_Vars.currentplayer->hands[handnum].burstbullets;
 //	}
 //}
 

@@ -2691,7 +2691,7 @@ void handTickAttack(s32 handnum)
 		s32 doit = true;
 
 		if (handGetWeaponNum(handnum) == WEAPON_REAPER
-				&& (g_Vars.currentplayer->hands[handnum].unk0b90 % 3) != 1) {
+				&& (g_Vars.currentplayer->hands[handnum].burstbullets % 3) != 1) {
 			doit = false;
 		}
 
