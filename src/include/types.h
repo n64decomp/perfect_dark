@@ -2329,7 +2329,7 @@ struct hand {
 	/*0x0c18*/ struct coord lastshootdir;
 	/*0x0c24*/ struct coord lastshootpos;
 	/*0x0c30*/ u32 unk0c30;
-	/*0x0c34*/ u32 unk0c34;
+	/*0x0c34*/ f32 shotremainder;
 	/*0x0c38*/ u32 unk0c38;
 	/*0x0c3c*/ u32 state;
 	/*0x0c40*/ s32 stateminor;
