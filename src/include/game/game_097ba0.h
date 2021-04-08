@@ -16,7 +16,7 @@ u32 func0f0981e8(void);
 bool func0f098884(struct guncmd *cmd, struct shorthand *hand);
 void func0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand);
 bool func0f098a44(struct hand *hand, s32 time);
-u32 func0f098bfc(void);
+bool func0f098bfc(struct hand *hand);
 void handResetAnim(struct hand *hand);
 void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum);
 s32 func0f098ca0(s32 arg0, struct handweaponinfo *info, struct hand *hand);
