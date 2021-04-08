@@ -2096,13 +2096,13 @@ struct hand {
 	/*0x0674*/ u32 pausechange;
 	/*0x0678*/ u32 nextprevchange; // "
 	/*0x067c*/ struct coord posstart;
-	/*0x0688*/ u32 rotxstart;
+	/*0x0688*/ f32 rotxstart;
 	/*0x068c*/ struct coord posend;
-	/*0x0698*/ u32 rotxend;
+	/*0x0698*/ f32 rotxend;
 	/*0x069c*/ struct coord posoffset;
-	/*0x06a8*/ u32 rotxoffset;
+	/*0x06a8*/ f32 rotxoffset;
 	/*0x06ac*/ Mtxf posrotmtx;
-	/*0x06ec*/ u32 useposrot;
+	/*0x06ec*/ bool useposrot;
 	/*0x06f0*/ struct coord damppos;
 	/*0x06fc*/ struct coord damplook;
 	/*0x0708*/ struct coord dampup;
@@ -2378,7 +2378,7 @@ struct hand {
 	/*0x0cd4*/ f32 unk0cd4;
 	/*0x0cd8*/ f32 unk0cd8;
 	/*0x0cdc*/ u32 unk0cdc;
-	/*0x0ce0*/ u32 unk0ce0;
+	/*0x0ce0*/ s32 statevar1;
 	/*0x0ce4*/ u32 attacktype;
 	/*0x0ce8*/ struct guncmd *unk0ce8;
 	/*0x0cec*/ ubool unk0cec;
@@ -3112,7 +3112,7 @@ struct weaponfunc {
 struct weaponfunc_shoot {
 	struct weaponfunc base;
 	/*0x14*/ struct inventory_menupos *unk14;
-	/*0x18*/ u32 unk18;
+	/*0x18*/ s8 unk18;
 	/*0x1c*/ f32 damage;
 	/*0x20*/ f32 spread;
 

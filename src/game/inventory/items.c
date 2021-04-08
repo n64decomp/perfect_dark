@@ -119,7 +119,7 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -442,7 +442,7 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	invanim_falcon2_shoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1, // damage
 	1, // spread
 	3, 5, 2, 0,
@@ -464,7 +464,7 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	invanim_falcon2_shoot, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1, // damage
 	1, // spread
 	3, 5, 2, 0,
@@ -671,7 +671,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	invanim_magsec_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1.1, // damage
 	6, // spread
 	4, 8, 3, 0,
@@ -693,7 +693,7 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	invanim_magsec_equiporshoot, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1.1, // damage
 	10, // spread
 	9, 14, 0, 0,
@@ -838,7 +838,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	invanim_dy357_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x14000000,
+	20,
 	2, // damage
 	0, // spread
 	8, 16, 0, -1,
@@ -860,7 +860,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	invanim_dy357_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x1e000000,
+	30,
 	200, // damage
 	0, // spread
 	8, 24, 0, -1,
@@ -1007,7 +1007,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	invanim_phoenix_shoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1.1, // damage
 	3, // spread
 	3, 5, 2, 0,
@@ -1029,7 +1029,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	invanim_phoenix_shoot, // fire animation
 	FUNCFLAG_EXPLOSIVESHELLS,
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1.2, // damage
 	5, // spread
 	13, 15, 25, 0,
@@ -1147,7 +1147,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	invanim_mauler_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.2, // damage
 	6, // spread
 	3, 9, 32, 28,
@@ -1169,7 +1169,7 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	invanim_mauler_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.2, // damage
 	6, // spread
 	3, 9, 32, 28,
@@ -1293,7 +1293,7 @@ struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 	invanim_cmp150_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	9, // spread
 	6, 18, 0, 6,
@@ -1320,7 +1320,7 @@ struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	invanim_cmp150_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	9, // spread
 	6, 18, 0, 6,
@@ -1419,7 +1419,7 @@ struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
 	invanim_cyclone_shoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	0.8, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -1446,7 +1446,7 @@ struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 	invanim_cyclone_shoot, // fire animation
 	FUNCFLAG_BURST50,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.4, // damage
 	25, // spread
 	6, 18, 2, 8,
@@ -1537,7 +1537,7 @@ struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 	invanim_rcp120_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.2, // damage
 	6, // spread
 	6, 18, 0, 6,
@@ -1636,7 +1636,7 @@ struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
 	invanim_callisto_shoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.2, // damage
 	9, // spread
 	6, 18, 0, 6,
@@ -1663,7 +1663,7 @@ struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
 	invanim_callisto_shoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	2.4, // damage
 	9, // spread
 	6, 18, 0, 6,
@@ -1751,7 +1751,7 @@ struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 	invanim_dragon_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.1, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -1884,7 +1884,7 @@ struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 	invanim_superdragon_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.2, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -1910,8 +1910,8 @@ struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 	&invmenupos_00011048, // menupos
 	invanim_superdragon_shootgrenade, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_10000000 | FUNCFLAG_20000000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1.2, // damage
 	6, // spread
 	5, 15, -1, 0,
@@ -2021,7 +2021,7 @@ struct weaponfunc_shootauto invfunc_ar34_burstfire = {
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.4, // damage
 	8, // spread
 	6, 18, 2, 8,
@@ -2048,7 +2048,7 @@ struct weaponfunc_shootauto invfunc_ar34_usescope = {
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.4, // damage
 	8, // spread
 	6, 18, 2, 8,
@@ -2160,7 +2160,7 @@ struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.5, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -2187,7 +2187,7 @@ struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
 	NULL, // fire animation
 	FUNCFLAG_BURST3 | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_THREATDETECTOR,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.5, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -2306,7 +2306,7 @@ struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
 	invanim_laptopgun_shoot, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.15, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -2416,7 +2416,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	invanim_shotgun_equiporsingleshot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	0.6, // damage
 	30, // spread
 	20, 28, 0, 0,
@@ -2438,7 +2438,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	invanim_shotgun_doubleshot, // fire animation
 	FUNCFLAG_BURST2,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	0.6, // damage
 	16, // spread
 	20, 28, 0, 0,
@@ -2537,7 +2537,7 @@ struct weaponfunc_shootauto invfunc_reaper_shoot = {
 	invanim_reaper_shoot, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_000110ac,
-	0x00000000,
+	0,
 	1.2, // damage
 	56, // spread
 	3, 9, 32, 28,
@@ -2662,8 +2662,8 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	3, 12, 15, 0,
@@ -2693,8 +2693,8 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000 | FUNCFLAG_HOMINGROCKET,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	3, 12, 15, 0,
@@ -2772,8 +2772,8 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	&invmenupos_00011048, // menupos
 	invanim_slayer_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	3, 12, 15, 0,
@@ -2803,8 +2803,8 @@ struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	&invmenupos_00011048, // menupos
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_FLYBYWIRE | FUNCFLAG_08000000 | FUNCFLAG_20000000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	3, 12, 15, 0,
@@ -2892,8 +2892,8 @@ struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	&invmenupos_00011048, // menupos
 	invanim_devastator_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_10000000 | FUNCFLAG_20000000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	5, 58, -1, 0,
@@ -2923,8 +2923,8 @@ struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	&invmenupos_00011048, // menupos
 	invanim_devastator_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_10000000 | FUNCFLAG_20000000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	5, 58, -1, 0,
@@ -3465,7 +3465,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	invanim_farsight_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	100, // damage
 	0, // spread
 	70, 40, 0, 0,
@@ -3487,7 +3487,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	invanim_farsight_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	100, // damage
 	0, // spread
 	70, 40, 0, 0,
@@ -3588,8 +3588,8 @@ struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	&invmenupos_00010fe4, // menupos
 	invanim_crossbow_shoot, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	100, // damage
 	6, // spread
 	3, 12, 15, 0,
@@ -3619,8 +3619,8 @@ struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	&invmenupos_00010fe4, // menupos
 	invanim_crossbow_shoot, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	3, 12, 15, 0,
@@ -3730,7 +3730,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	invanim_tranquilizer_equiporshoot, // fire animation
 	FUNCFLAG_MAKEDIZZY,
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	0.25, // damage
 	3, // spread
 	3, 5, 5, 0,
@@ -3824,7 +3824,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	invanim_tranquilizer_equiporshoot, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_00200000,
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	0.5, // damage
 	3, // spread
 	3, 5, 5, 0,
@@ -3906,7 +3906,7 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1.2, // damage
 	0, // spread
 	6, 10, 0, 0,
@@ -3989,7 +3989,7 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	0, // spread
 	6, 18, 24, -1,
@@ -4011,7 +4011,7 @@ struct weaponfunc_shootauto invfunc_laser_stream = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011084,
-	0x00000000,
+	0,
 	0.1, // damage
 	0, // spread
 	6, 18, 0, 6,
@@ -4079,7 +4079,7 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	invanim_pp9i_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1, // damage
 	1, // spread
 	4, 8, 3, 0,
@@ -4140,7 +4140,7 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	invanim_cc13_equiporshoot, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x10000000,
+	16,
 	1, // damage
 	6, // spread
 	4, 8, 3, 0,
@@ -4195,7 +4195,7 @@ struct weaponfunc_shootauto invfunc_kl01313_shoot = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	0.6, // damage
 	15, // spread
 	0, 0, 0, 6,
@@ -4255,7 +4255,7 @@ struct weaponfunc_shootauto invfunc_kf7special_shoot = {
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	10, // spread
 	4, 12, 0, 6,
@@ -4315,7 +4315,7 @@ struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	9, // spread
 	6, 18, 0, 6,
@@ -4375,7 +4375,7 @@ struct weaponfunc_shootauto invfunc_dmc_shoot = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	7, // spread
 	6, 18, 0, 6,
@@ -4435,7 +4435,7 @@ struct weaponfunc_shootauto invfunc_ar53_shoot = {
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.4, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -4495,7 +4495,7 @@ struct weaponfunc_shootauto invfunc_rcp45_shoot = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1.8, // damage
 	6, // spread
 	4, 8, 0, 3,
@@ -4595,7 +4595,7 @@ struct weaponfunc_shootauto invfunc_59_rapidfire = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -4655,7 +4655,7 @@ struct weaponfunc_shootauto invfunc_5a_rapidfire = {
 	NULL, // fire animation
 	0, // flags
 	&invmenupos_00011098,
-	0x00000000,
+	0,
 	1, // damage
 	6, // spread
 	6, 18, 2, 8,
@@ -5893,8 +5893,8 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
-	0x00000000,
-	0x00000000,
+	NULL,
+	0,
 	1, // damage
 	6, // spread
 	3, 12, 15, 0,
@@ -5963,7 +5963,7 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 	invanim_tester_shoot, // fire animation
 	0, // flags
 	&invmenupos_00011070,
-	0x10000000,
+	16,
 	1, // damage
 	6, // spread
 	4, 8, 3, 0,

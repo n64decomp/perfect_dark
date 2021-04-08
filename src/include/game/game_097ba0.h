@@ -33,7 +33,7 @@ s32 handTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 s32 handTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func);
 void func0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, struct weaponfunc *func);
-bool func0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc *func);
+bool func0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func);
 bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct hand *hand);
 bool handTickIncAttackingThrow(s32 handnum, struct hand *hand);
 s32 weaponGetMinClipQty(s32 weaponnum, s32 funcnum);
