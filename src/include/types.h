@@ -2122,9 +2122,9 @@ struct hand {
 	/*0x07f4*/ f32 xshift;
 	/*0x07f8*/ struct coord aimpos;
 	/*0x0804*/ struct audiohandle *audiohandle2;
-	/*0x0808*/ u32 unk0808;
-	/*0x080c*/ u32 allowshootframe;
-	/*0x0810*/ u32 lastshootframe60;
+	/*0x0808*/ struct audiohandle *audiohandle3;
+	/*0x080c*/ s32 allowshootframe;
+	/*0x0810*/ s32 lastshootframe60;
 	/*0x0814*/ struct beam beam;
 	/*0x0840*/ f32 noiseradius;
 	/*0x0844*/ u32 unk0844;
@@ -2142,7 +2142,7 @@ struct hand {
 	/*0x087c*/ f32 matmot3;
 	/*0x0880*/ u32 unk0880;
 	/*0x0884*/ u32 unk0884;
-	/*0x0888*/ f32 unk0888;
+	/*0x0888*/ f32 loadslide;
 	/*0x088c*/ f32 unk088c;
 	/*0x0890*/ f32 unk0890;
 	/*0x0894*/ u32 unk0894;
@@ -2328,7 +2328,7 @@ struct hand {
 	/*0x0c14*/ u8 lastdirvalid;
 	/*0x0c18*/ struct coord lastshootdir;
 	/*0x0c24*/ struct coord lastshootpos;
-	/*0x0c30*/ u32 unk0c30;
+	/*0x0c30*/ s32 shotstotake;
 	/*0x0c34*/ f32 shotremainder;
 	/*0x0c38*/ u32 unk0c38;
 	/*0x0c3c*/ u32 state;
@@ -2379,7 +2379,7 @@ struct hand {
 	/*0x0cd8*/ f32 unk0cd8;
 	/*0x0cdc*/ u32 unk0cdc;
 	/*0x0ce0*/ s32 statevar1;
-	/*0x0ce4*/ u32 attacktype;
+	/*0x0ce4*/ s32 attacktype;
 	/*0x0ce8*/ struct guncmd *unk0ce8;
 	/*0x0cec*/ ubool unk0cec;
 	/*0x0cf0*/ struct coord unk0cf0;

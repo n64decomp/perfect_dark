@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f097ba0(void);
+void func0f097ba0(s32 handnum, s32 weaponnum);
 s32 func0f097d0c(s32 weaponnum);
 u32 func0f097d64(void);
 u32 func0f097df0(void);

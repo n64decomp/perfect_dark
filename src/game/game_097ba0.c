@@ -122,11 +122,6 @@ u32 var80070110 = 0x73747563;
 u32 var80070114 = 0x6b007878;
 u32 var80070118 = 0x78000000;
 u32 var8007011c = 0x00000000;
-u32 var80070120 = 0x00000002;
-u32 var80070124 = 0x00000004;
-
-const char var7f1ab890[] = "rontime";
-const char var7f1ab898[] = "rofftime";
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -6882,6 +6877,158 @@ glabel var7f1ac320
 /*  f098bac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+u32 var80070120 = 2;
+u32 var80070124 = 4;
+
+const char var7f1ab890[] = "rontime";
+const char var7f1ab898[] = "rofftime";
+
+//void func0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, struct weaponfunc *func)
+//{
+//	bool usesammo = true;
+//
+//	static u32 rontime = 2;
+//	static u32 rofftime = 4;
+//
+//	func0000db30("rontime", &rontime);
+//	func0000db30("rofftime", &rofftime);
+//
+//	hand->firing = true;
+//
+//	if ((func->type & 0xff00) == 0x100) {
+//		struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
+//		f32 tmp;
+//		f32 tmp2;
+//
+//		tmp = autofunc->initialfirerate + (autofunc->maxfirerate - autofunc->initialfirerate) * hand->gs_float1;
+//		tmp2 = tmp / 60.0f * (g_Vars.lvupdate240f / 60.0f) + hand->shotremainder;
+//
+//		hand->shotstotake = tmp2;
+//		hand->shotremainder = tmp2 - hand->shotstotake;
+//
+//		if (hand->shotstotake <= 0) {
+//			if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+//				hand->shotstotake++;
+//			} else {
+//				hand->firing = false;
+//			}
+//		}
+//	} else {
+//		hand->shotstotake = 1;
+//
+//		if (hand->base.weaponnum == WEAPON_LASER) {
+//			usesammo = false;
+//		}
+//	}
+//
+//	hand->burstbullets += hand->shotstotake;
+//
+//	if (func->flags & FUNCFLAG_NOMUZZLEFLASH) {
+//		hand->flashon = false;
+//	} else {
+//		hand->flashon = true;
+//	}
+//
+//	func0f0a2308(handnum);
+//
+//	hand->loadslide = 0;
+//
+//	if (hand->firing) {
+//		hand->statevar1 = hand->stateframes;
+//		hand->stateflags |= HANDSTATEFLAG_00000020;
+//		hand->stateflags |= HANDSTATEFLAG_00000010;
+//
+//		func0f097ba0(handnum, info->weaponnum);
+//
+//		if (usesammo && func->ammoindex >= 0) {
+//			hand->loadedammo[func->ammoindex] -= hand->shotstotake;
+//
+//			if (hand->loadedammo[func->ammoindex] < 0) {
+//				// Note: loadedammo is negative
+//				hand->shotstotake += hand->loadedammo[func->ammoindex];
+//				hand->loadedammo[func->ammoindex] = 0;
+//			}
+//		}
+//
+//		switch (func->type & 0xff00) {
+//		case 0:
+//		case 0x100:
+//			hand->attacktype = HANDATTACKTYPE_SHOOT;
+//			break;
+//		case 0x200:
+//			hand->attacktype = HANDATTACKTYPE_SHOOTPROJECTILE;
+//			break;
+//		}
+//	}
+//
+//	if (hand->firing) {
+//		bool playsound = false;
+//
+//		if (handGetSingleUnk38(&hand->base) > 0) {
+//			if (g_Vars.lvframe60 != g_Vars.currentplayer->hands[1 - handnum].lastshootframe60
+//					&& g_Vars.lvframe60 > hand->allowshootframe) {
+//				hand->allowshootframe = g_Vars.lvframe60 + handGetSingleUnk38(&hand->base);
+//				playsound = true;
+//			}
+//		} else {
+//			if (hand->firing) {
+//				playsound = true;
+//			}
+//		}
+//
+//		if (playsound) {
+//			struct audiohandle *handle;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//			OSPri prevpri = osGetThreadPri(0);
+//			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
+//#endif
+//
+//			if (hand->audiohandle2 && audioIsPlaying(hand->audiohandle2)) {
+//				audioStop(hand->audiohandle2);
+//			}
+//
+//			if (hand->audiohandle3 && audioIsPlaying(hand->audiohandle3)) {
+//				audioStop(hand->audiohandle3);
+//			}
+//
+//			if (handGetSingleShootSound(&hand->base)) {
+//				handle = NULL;
+//
+//				if (hand->audiohandle2 == NULL) {
+//					handle = sndStart(var80095200, handGetSingleShootSound(&hand->base), &hand->audiohandle2, -1, -1, -1, -1, -1);
+//				} else if (hand->audiohandle3 == NULL) {
+//					handle = sndStart(var80095200, handGetSingleShootSound(&hand->base), &hand->audiohandle3, -1, -1, -1, -1, -1);
+//				}
+//			}
+//
+//			hand->lastshootframe60 = g_Vars.lvframe60;
+//
+//			/**
+//			 * @dangerous: handle may be uninitialised. This is unlikely though
+//			 * because the branch above (which clears handle) should always be
+//			 * taken for the Mauler.
+//			 */
+//			if (hand->base.weaponnum == WEAPON_MAULER && handle) {
+//				f32 frac = (s32)hand->matmot1 / 3.0f;
+//				f32 tmp;
+//
+//				if (frac > 1.0f) {
+//					frac = 1.0f;
+//				}
+//
+//				tmp = 1.0f - frac * 0.4f;
+//
+//				func00033e50(handle, 16, *(s32 *)&tmp);
+//			}
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//			osSetThreadPri(0, prevpri);
+//#endif
+//		}
+//	}
+//}
 
 bool func0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func)
 {
@@ -19966,7 +20113,7 @@ u32 handGetUnk0c30(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
-	return hand->unk0c30;
+	return hand->shotstotake;
 }
 
 void func0f0a134c(s32 handnum)
@@ -20102,7 +20249,7 @@ void func0f0a1528(void)
 				player->hands[i].angledamper = 0.0f;
 				player->hands[i].gunsmokepoint = 0.0f;
 				player->hands[i].burstbullets = 0;
-				player->hands[i].unk0888 = 0.0f;
+				player->hands[i].loadslide = 0.0f;
 				player->hands[i].allowshootframe = 0;
 				player->hands[i].lastshootframe60 = 0;
 				player->hands[i].base.weaponfunc = FUNC_PRIMARY;
