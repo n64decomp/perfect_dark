@@ -3262,7 +3262,7 @@ glabel var7f1ad8e4
 /*  f0ca934:	e7a001f0 */ 	swc1	$f0,0x1f0($sp)
 /*  f0ca938:	e7a401ec */ 	swc1	$f4,0x1ec($sp)
 .L0f0ca93c:
-/*  f0ca93c:	0fc2a34d */ 	jal	currentPlayerTickInventory
+/*  f0ca93c:	0fc2a34d */ 	jal	handsTick
 /*  f0ca940:	8fa401bc */ 	lw	$a0,0x1bc($sp)
 /*  f0ca944:	8e580324 */ 	lw	$t8,0x324($s2)
 /*  f0ca948:	5300002b */ 	beqzl	$t8,.L0f0ca9f8
@@ -6413,7 +6413,7 @@ glabel var7f1ad8e4
 /*  f0ca934:	e7a001f0 */ 	swc1	$f0,0x1f0($sp)
 /*  f0ca938:	e7a401ec */ 	swc1	$f4,0x1ec($sp)
 .L0f0ca93c:
-/*  f0ca93c:	0fc2a34d */ 	jal	currentPlayerTickInventory
+/*  f0ca93c:	0fc2a34d */ 	jal	handsTick
 /*  f0ca940:	8fa401bc */ 	lw	$a0,0x1bc($sp)
 /*  f0ca944:	8e580324 */ 	lw	$t8,0x324($s2)
 /*  f0ca948:	5300002b */ 	beqzl	$t8,.L0f0ca9f8
@@ -9564,7 +9564,7 @@ glabel var7f1ad8e4
 /*  f0c8190:	e7a001f0 */ 	swc1	$f0,0x1f0($sp)
 /*  f0c8194:	e7a401ec */ 	swc1	$f4,0x1ec($sp)
 .NB0f0c8198:
-/*  f0c8198:	0fc29ab5 */ 	jal	currentPlayerTickInventory
+/*  f0c8198:	0fc29ab5 */ 	jal	handsTick
 /*  f0c819c:	8fa401bc */ 	lw	$a0,0x1bc($sp)
 /*  f0c81a0:	8e580324 */ 	lw	$t8,0x324($s2)
 /*  f0c81a4:	5300002b */ 	beqzl	$t8,.NB0f0c8254
@@ -11507,7 +11507,7 @@ glabel var7f1ad8e4
 //		movedata.speedvertadown = tmp;
 //	}
 //
-//	currentPlayerTickInventory(movedata.triggeron);
+//	handsTick(movedata.triggeron);
 //
 //	// a944
 //	if (g_Vars.bondvisible && (handIsFiring(0) || handIsFiring(1))) {

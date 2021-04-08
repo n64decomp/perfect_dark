@@ -724,7 +724,7 @@ glabel func0f098030
 
 f32 func0f09815c(struct hand *hand)
 {
-	if (hand->unk0cc4 == 2 && hand->unk0ce8 != NULL) {
+	if (hand->animmode == HANDANIMMODE_BUSY && hand->unk0ce8 != NULL) {
 		if (hand->unk0ce8->unk04 < 0) {
 			return modelGetNumAnimFrames(&hand->unk09bc) - modelGetCurAnimFrame(&hand->unk09bc);
 		}
@@ -2287,12 +2287,12 @@ void func0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
 			loopcmd++;
 		}
 	} else {
-		hand->unk0cb8 = cmd->unk02;
-		hand->unk0cc4 = 0;
+		hand->animload = cmd->unk02;
+		hand->animmode = HANDANIMMODE_IDLE;
 		hand->unk0cc8_01 = 0;
 		hand->unk0cc8_03 = 0;
 		hand->unk0ce8 = cmd;
-		hand->unk0cc9 = 0;
+		hand->animloopcount = 0;
 		hand->unk0cc8_02 = 0;
 		hand->unk0d0e_07 = 0;
 		hand->unk0d80 = cmd;
@@ -2305,8 +2305,8 @@ bool func0f098a44(struct hand *hand, s32 time)
 	s32 waittimekeyframe = -1;
 	s32 zreleasekeyframe = -1;
 
-	if (hand->unk0cc4 == 0) {
-		return (hand->unk0cb8 == -1);
+	if (hand->animmode == HANDANIMMODE_IDLE) {
+		return (hand->animload == -1);
 	}
 
 	while (cmd->type != GUNCMD_END && waittimekeyframe == -1) {
@@ -2327,13 +2327,13 @@ bool func0f098a44(struct hand *hand, s32 time)
 			return false;
 		}
 
-		return (func0f09815c(hand) + hand->unk0cc0 >= waittimekeyframe);
+		return (func0f09815c(hand) + hand->animframeincfreal >= waittimekeyframe);
 #else
 		if (hand->unk0cc8_01 && (s32)func0f09815c(hand) <= zreleasekeyframe) {
 			return false;
 		}
 
-		return (func0f09815c(hand) + hand->unk0cbc >= waittimekeyframe);
+		return (func0f09815c(hand) + hand->animframeinc >= waittimekeyframe);
 #endif
 	}
 
@@ -2388,14 +2388,14 @@ glabel func0f098bfc
 /*  f098c08:	01c01025 */ 	or	$v0,$t6,$zero
 );
 
-void func0f098c0c(struct hand *hand)
+void handResetAnim(struct hand *hand)
 {
-	hand->unk0cb8 = -1;
-	hand->unk0cc4 = 0;
+	hand->animload = -1;
+	hand->animmode = HANDANIMMODE_IDLE;
 	hand->unk0cc8_01 = false;
 	hand->unk0cc8_03 = false;
 	hand->unk0ce8 = NULL;
-	hand->unk0cc9 = 0;
+	hand->animloopcount = 0;
 	hand->unk0cc8_02 = false;
 	hand->unk0d0e_07 = false;
 }
@@ -2811,7 +2811,7 @@ glabel func0f099188
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0991e4
+glabel handTickIncIdle
 /*  f099270:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f099274:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f099278:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -2829,7 +2829,7 @@ glabel func0f0991e4
 /*  f0992a8:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0992ac:	10400007 */ 	beqz	$v0,.PF0f0992cc
 /*  f0992b0:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0992b4:	0fc273ec */ 	jal	func0f09cd18
+/*  f0992b4:	0fc273ec */ 	jal	handSetState
 /*  f0992b8:	24050005 */ 	li	$a1,0x5
 /*  f0992bc:	50400004 */ 	beqzl	$v0,.PF0f0992d0
 /*  f0992c0:	8fae0038 */ 	lw	$t6,0x38($sp)
@@ -2894,7 +2894,7 @@ glabel func0f0991e4
 /*  f09939c:	a20b0003 */ 	sb	$t3,0x3($s0)
 /*  f0993a0:	afa80034 */ 	sw	$t0,0x34($sp)
 /*  f0993a4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f0993a8:	0fc273ec */ 	jal	func0f09cd18
+/*  f0993a8:	0fc273ec */ 	jal	handSetState
 /*  f0993ac:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0993b0:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f0993b4:	10400006 */ 	beqz	$v0,.PF0f0993d0
@@ -2913,7 +2913,7 @@ glabel func0f0991e4
 /*  f0993e0:	318dfffd */ 	andi	$t5,$t4,0xfffd
 /*  f0993e4:	a20d0690 */ 	sb	$t5,0x690($s0)
 /*  f0993e8:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f0993ec:	0fc273ec */ 	jal	func0f09cd18
+/*  f0993ec:	0fc273ec */ 	jal	handSetState
 /*  f0993f0:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0993f4:	10400003 */ 	beqz	$v0,.PF0f099404
 /*  f0993f8:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -2936,7 +2936,7 @@ glabel func0f0991e4
 /*  f099438:	13210007 */ 	beq	$t9,$at,.PF0f099458
 /*  f09943c:	00000000 */ 	nop
 .PF0f099440:
-/*  f099440:	0fc273ec */ 	jal	func0f09cd18
+/*  f099440:	0fc273ec */ 	jal	handSetState
 /*  f099444:	24050008 */ 	li	$a1,0x8
 /*  f099448:	10400003 */ 	beqz	$v0,.PF0f099458
 /*  f09944c:	00000000 */ 	nop
@@ -3035,7 +3035,7 @@ glabel func0f0991e4
 /*  f0995a8:	24050007 */ 	li	$a1,0x7
 /*  f0995ac:	358e0002 */ 	ori	$t6,$t4,0x2
 /*  f0995b0:	a20e0690 */ 	sb	$t6,0x690($s0)
-/*  f0995b4:	0fc273ec */ 	jal	func0f09cd18
+/*  f0995b4:	0fc273ec */ 	jal	handSetState
 /*  f0995b8:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0995bc:	50400056 */ 	beqzl	$v0,.PF0f099718
 /*  f0995c0:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -3056,7 +3056,7 @@ glabel func0f0991e4
 /*  f0995f8:	24050003 */ 	li	$a1,0x3
 /*  f0995fc:	314bff7f */ 	andi	$t3,$t2,0xff7f
 /*  f099600:	a20b0690 */ 	sb	$t3,0x690($s0)
-/*  f099604:	0fc273ec */ 	jal	func0f09cd18
+/*  f099604:	0fc273ec */ 	jal	handSetState
 /*  f099608:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f09960c:	50400042 */ 	beqzl	$v0,.PF0f099718
 /*  f099610:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -3065,7 +3065,7 @@ glabel func0f0991e4
 /*  f09961c:	ae00001c */ 	sw	$zero,0x1c($s0)
 .PF0f099620:
 /*  f099620:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f099624:	0fc273ec */ 	jal	func0f09cd18
+/*  f099624:	0fc273ec */ 	jal	handSetState
 /*  f099628:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f09962c:	5040003a */ 	beqzl	$v0,.PF0f099718
 /*  f099630:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -3101,7 +3101,7 @@ glabel func0f0991e4
 /*  f0996a0:	ae000014 */ 	sw	$zero,0x14($s0)
 /*  f0996a4:	a21906d7 */ 	sb	$t9,0x6d7($s0)
 /*  f0996a8:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f0996ac:	0fc273ec */ 	jal	func0f09cd18
+/*  f0996ac:	0fc273ec */ 	jal	handSetState
 /*  f0996b0:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0996b4:	10400003 */ 	beqz	$v0,.PF0f0996c4
 /*  f0996b8:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -3123,7 +3123,7 @@ glabel func0f0991e4
 /*  f0996f0:	8fae0044 */ 	lw	$t6,0x44($sp)
 /*  f0996f4:	05000007 */ 	bltz	$t0,.PF0f099714
 /*  f0996f8:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0996fc:	0fc273ec */ 	jal	func0f09cd18
+/*  f0996fc:	0fc273ec */ 	jal	handSetState
 /*  f099700:	24050001 */ 	li	$a1,0x1
 /*  f099704:	50400004 */ 	beqzl	$v0,.PF0f099718
 /*  f099708:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -3200,7 +3200,7 @@ glabel func0f0991e4
 );
 #else
 GLOBAL_ASM(
-glabel func0f0991e4
+glabel handTickIncIdle
 /*  f0991e4:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0991e8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0991ec:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -3220,7 +3220,7 @@ glabel func0f0991e4
 /*  f099224:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099228:	10400007 */ 	beqz	$v0,.L0f099248
 /*  f09922c:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f099230:	0fc27346 */ 	jal	func0f09cd18
+/*  f099230:	0fc27346 */ 	jal	handSetState
 /*  f099234:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f099238:	50400004 */ 	beqzl	$v0,.L0f09924c
 /*  f09923c:	8faf0038 */ 	lw	$t7,0x38($sp)
@@ -3285,7 +3285,7 @@ glabel func0f0991e4
 /*  f099318:	a20c0003 */ 	sb	$t4,0x3($s0)
 /*  f09931c:	afa80034 */ 	sw	$t0,0x34($sp)
 /*  f099320:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f099324:	0fc27346 */ 	jal	func0f09cd18
+/*  f099324:	0fc27346 */ 	jal	handSetState
 /*  f099328:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f09932c:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f099330:	10400006 */ 	beqz	$v0,.L0f09934c
@@ -3304,7 +3304,7 @@ glabel func0f0991e4
 /*  f09935c:	31aefffd */ 	andi	$t6,$t5,0xfffd
 /*  f099360:	a20e0690 */ 	sb	$t6,0x690($s0)
 /*  f099364:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f099368:	0fc27346 */ 	jal	func0f09cd18
+/*  f099368:	0fc27346 */ 	jal	handSetState
 /*  f09936c:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099370:	10400003 */ 	beqz	$v0,.L0f099380
 /*  f099374:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -3327,7 +3327,7 @@ glabel func0f0991e4
 /*  f0993b4:	11210007 */ 	beq	$t1,$at,.L0f0993d4
 /*  f0993b8:	00000000 */ 	nop
 .L0f0993bc:
-/*  f0993bc:	0fc27346 */ 	jal	func0f09cd18
+/*  f0993bc:	0fc27346 */ 	jal	handSetState
 /*  f0993c0:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f0993c4:	10400003 */ 	beqz	$v0,.L0f0993d4
 /*  f0993c8:	00000000 */ 	nop
@@ -3426,7 +3426,7 @@ glabel func0f0991e4
 /*  f099524:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f099528:	35af0002 */ 	ori	$t7,$t5,0x2
 /*  f09952c:	a20f0690 */ 	sb	$t7,0x690($s0)
-/*  f099530:	0fc27346 */ 	jal	func0f09cd18
+/*  f099530:	0fc27346 */ 	jal	handSetState
 /*  f099534:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099538:	50400056 */ 	beqzl	$v0,.L0f099694
 /*  f09953c:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3447,7 +3447,7 @@ glabel func0f0991e4
 /*  f099574:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f099578:	316cff7f */ 	andi	$t4,$t3,0xff7f
 /*  f09957c:	a20c0690 */ 	sb	$t4,0x690($s0)
-/*  f099580:	0fc27346 */ 	jal	func0f09cd18
+/*  f099580:	0fc27346 */ 	jal	handSetState
 /*  f099584:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099588:	50400042 */ 	beqzl	$v0,.L0f099694
 /*  f09958c:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3456,7 +3456,7 @@ glabel func0f0991e4
 /*  f099598:	ae00001c */ 	sw	$zero,0x1c($s0)
 .L0f09959c:
 /*  f09959c:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f0995a0:	0fc27346 */ 	jal	func0f09cd18
+/*  f0995a0:	0fc27346 */ 	jal	handSetState
 /*  f0995a4:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0995a8:	5040003a */ 	beqzl	$v0,.L0f099694
 /*  f0995ac:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3492,7 +3492,7 @@ glabel func0f0991e4
 /*  f09961c:	ae000014 */ 	sw	$zero,0x14($s0)
 /*  f099620:	a20906d7 */ 	sb	$t1,0x6d7($s0)
 /*  f099624:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f099628:	0fc27346 */ 	jal	func0f09cd18
+/*  f099628:	0fc27346 */ 	jal	handSetState
 /*  f09962c:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099630:	10400003 */ 	beqz	$v0,.L0f099640
 /*  f099634:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -3514,7 +3514,7 @@ glabel func0f0991e4
 /*  f09966c:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f099670:	05000007 */ 	bltz	$t0,.L0f099690
 /*  f099674:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f099678:	0fc27346 */ 	jal	func0f09cd18
+/*  f099678:	0fc27346 */ 	jal	handSetState
 /*  f09967c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099680:	50400004 */ 	beqzl	$v0,.L0f099694
 /*  f099684:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3631,7 +3631,7 @@ glabel func0f099780
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f099808
+glabel handTickIncState8
 .late_rodata
 glabel var7f1ac1b4
 .word 0x3f5f5dd8
@@ -3649,7 +3649,7 @@ glabel var7f1ac1b4
 /*  f0998b4:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f0998b8:	55c00008 */ 	bnezl	$t6,.PF0f0998dc
 /*  f0998bc:	8e020608 */ 	lw	$v0,0x608($s0)
-/*  f0998c0:	0fc273ec */ 	jal	func0f09cd18
+/*  f0998c0:	0fc273ec */ 	jal	handSetState
 /*  f0998c4:	00002825 */ 	move	$a1,$zero
 /*  f0998c8:	50400004 */ 	beqzl	$v0,.PF0f0998dc
 /*  f0998cc:	8e020608 */ 	lw	$v0,0x608($s0)
@@ -3699,7 +3699,7 @@ glabel var7f1ac1b4
 /*  f099968:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f09996c:	10400035 */ 	beqz	$v0,.PF0f099a44
 /*  f099970:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*  f099974:	0fc273ec */ 	jal	func0f09cd18
+/*  f099974:	0fc273ec */ 	jal	handSetState
 /*  f099978:	24050005 */ 	li	$a1,0x5
 /*  f09997c:	10400031 */ 	beqz	$v0,.PF0f099a44
 /*  f099980:	3c02800a */ 	lui	$v0,0x800a
@@ -3786,7 +3786,7 @@ glabel var7f1ac1b4
 /*  f099aa0:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f099aa4:	118d0007 */ 	beq	$t4,$t5,.PF0f099ac4
 /*  f099aa8:	00000000 */ 	nop
-/*  f099aac:	0fc273ec */ 	jal	func0f09cd18
+/*  f099aac:	0fc273ec */ 	jal	handSetState
 /*  f099ab0:	24050007 */ 	li	$a1,0x7
 /*  f099ab4:	10400003 */ 	beqz	$v0,.PF0f099ac4
 /*  f099ab8:	00000000 */ 	nop
@@ -3884,7 +3884,7 @@ glabel var7f1ac1b4
 /*  f099c08:	8e020024 */ 	lw	$v0,0x24($s0)
 /*  f099c0c:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f099c10:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f099c14:	0fc273ec */ 	jal	func0f09cd18
+/*  f099c14:	0fc273ec */ 	jal	handSetState
 /*  f099c18:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f099c1c:	1040000f */ 	beqz	$v0,.PF0f099c5c
 /*  f099c20:	8fa90060 */ 	lw	$t1,0x60($sp)
@@ -3927,7 +3927,7 @@ glabel var7f1ac1b4
 );
 #else
 GLOBAL_ASM(
-glabel func0f099808
+glabel handTickIncState8
 .late_rodata
 glabel var7f1ac1b4
 .word 0x3f5f5dd8
@@ -3945,7 +3945,7 @@ glabel var7f1ac1b4
 /*  f099830:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f099834:	55c00008 */ 	bnezl	$t6,.L0f099858
 /*  f099838:	8e020608 */ 	lw	$v0,0x608($s0)
-/*  f09983c:	0fc27346 */ 	jal	func0f09cd18
+/*  f09983c:	0fc27346 */ 	jal	handSetState
 /*  f099840:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099844:	50400004 */ 	beqzl	$v0,.L0f099858
 /*  f099848:	8e020608 */ 	lw	$v0,0x608($s0)
@@ -3997,7 +3997,7 @@ glabel var7f1ac1b4
 /*  f0998ec:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f0998f0:	10400035 */ 	beqz	$v0,.L0f0999c8
 /*  f0998f4:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*  f0998f8:	0fc27346 */ 	jal	func0f09cd18
+/*  f0998f8:	0fc27346 */ 	jal	handSetState
 /*  f0998fc:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f099900:	10400031 */ 	beqz	$v0,.L0f0999c8
 /*  f099904:	3c02800a */ 	lui	$v0,%hi(g_Vars)
@@ -4084,7 +4084,7 @@ glabel var7f1ac1b4
 /*  f099a24:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f099a28:	11ae0007 */ 	beq	$t5,$t6,.L0f099a48
 /*  f099a2c:	00000000 */ 	nop
-/*  f099a30:	0fc27346 */ 	jal	func0f09cd18
+/*  f099a30:	0fc27346 */ 	jal	handSetState
 /*  f099a34:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f099a38:	10400003 */ 	beqz	$v0,.L0f099a48
 /*  f099a3c:	00000000 */ 	nop
@@ -4182,7 +4182,7 @@ glabel var7f1ac1b4
 /*  f099b8c:	8e020024 */ 	lw	$v0,0x24($s0)
 /*  f099b90:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f099b94:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f099b98:	0fc27346 */ 	jal	func0f09cd18
+/*  f099b98:	0fc27346 */ 	jal	handSetState
 /*  f099b9c:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f099ba0:	1040000f */ 	beqz	$v0,.L0f099be0
 /*  f099ba4:	8faa0060 */ 	lw	$t2,0x60($sp)
@@ -4241,186 +4241,186 @@ glabel func0f099c24
 
 #if PAL
 GLOBAL_ASM(
-glabel func0f099c48
+glabel handTickIncReloading
 .late_rodata
 glabel var7f1ac1b8
 .word 0x3f5f5dd8
 glabel var7f1ac1bc
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac1c0
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac1c4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1c8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1cc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1dc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1ec
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1fc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac200
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac204
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac208
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac20c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac210
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac214
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac218
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac21c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac220
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac224
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac228
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac22c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac230
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac234
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac238
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac23c
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac240
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac244
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac248
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac24c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac250
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac254
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac258
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac25c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac260
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac264
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac268
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac26c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac270
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac274
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac278
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac27c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac280
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac284
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac288
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac28c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac290
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac294
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac298
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac29c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2ac
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2b0
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2b4
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2b8
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2bc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2cc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2dc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2ec
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2fc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac300
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac304
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac308
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac30c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac310
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac314
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac318
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac31c
 .word 0x3f5f5dd8
 .text
@@ -4443,7 +4443,7 @@ glabel var7f1ac31c
 /*  f099c88:	8e190618 */ 	lw	$t9,0x618($s0)
 /*  f099c8c:	ae00068c */ 	sw	$zero,0x68c($s0)
 /*  f099c90:	ae180680 */ 	sw	$t8,0x680($s0)
-/*  f099c94:	0fc27346 */ 	jal	func0f09cd18
+/*  f099c94:	0fc27346 */ 	jal	handSetState
 /*  f099c98:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099c9c:	50400004 */ 	beqzl	$v0,.L0f099cb0
 /*  f099ca0:	8e190618 */ 	lw	$t9,0x618($s0)
@@ -4578,7 +4578,7 @@ glabel var7f1ac31c
 /*  f099e7c:	10000007 */ 	b	.L0f099e9c
 /*  f099e80:	ae090608 */ 	sw	$t1,0x608($s0)
 .L0f099e84:
-/*  f099e84:	0fc27346 */ 	jal	func0f09cd18
+/*  f099e84:	0fc27346 */ 	jal	handSetState
 /*  f099e88:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099e8c:	10400003 */ 	beqz	$v0,.L0f099e9c
 /*  f099e90:	00000000 */ 	nop
@@ -4668,7 +4668,7 @@ glabel var7f1ac31c
 /*  f099fc0:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099fc4:	51610008 */ 	beql	$t3,$at,.L0f099fe8
 /*  f099fc8:	8e030608 */ 	lw	$v1,0x608($s0)
-/*  f099fcc:	0fc27346 */ 	jal	func0f09cd18
+/*  f099fcc:	0fc27346 */ 	jal	handSetState
 /*  f099fd0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099fd4:	50400004 */ 	beqzl	$v0,.L0f099fe8
 /*  f099fd8:	8e030608 */ 	lw	$v1,0x608($s0)
@@ -4868,7 +4868,7 @@ glabel var7f1ac31c
 /*  f09a298:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09a29c:	ae000018 */ 	sw	$zero,0x18($s0)
 /*  f09a2a0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f09a2a4:	0fc27346 */ 	jal	func0f09cd18
+/*  f09a2a4:	0fc27346 */ 	jal	handSetState
 /*  f09a2a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09a2ac:	50400013 */ 	beqzl	$v0,.L0f09a2fc
 /*  f09a2b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -4901,186 +4901,186 @@ glabel var7f1ac31c
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f099c48
+glabel handTickIncReloading
 .late_rodata
 glabel var7f1ac1b8
 .word 0x3f5f5dd8
 glabel var7f1ac1bc
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac1c0
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac1c4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1c8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1cc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1dc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1ec
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1fc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac200
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac204
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac208
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac20c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac210
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac214
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac218
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac21c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac220
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac224
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac228
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac22c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac230
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac234
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac238
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac23c
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac240
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac244
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac248
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac24c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac250
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac254
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac258
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac25c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac260
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac264
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac268
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac26c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac270
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac274
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac278
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac27c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac280
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac284
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac288
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac28c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac290
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac294
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac298
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac29c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2ac
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2b0
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2b4
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2b8
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2bc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2cc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2dc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2ec
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2fc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac300
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac304
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac308
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac30c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac310
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac314
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac318
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac31c
 .word 0x3f5f5dd8
 .text
@@ -5103,7 +5103,7 @@ glabel var7f1ac31c
 /*  f099c88:	8e190618 */ 	lw	$t9,0x618($s0)
 /*  f099c8c:	ae00068c */ 	sw	$zero,0x68c($s0)
 /*  f099c90:	ae180680 */ 	sw	$t8,0x680($s0)
-/*  f099c94:	0fc27346 */ 	jal	func0f09cd18
+/*  f099c94:	0fc27346 */ 	jal	handSetState
 /*  f099c98:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099c9c:	50400004 */ 	beqzl	$v0,.L0f099cb0
 /*  f099ca0:	8e190618 */ 	lw	$t9,0x618($s0)
@@ -5238,7 +5238,7 @@ glabel var7f1ac31c
 /*  f099e7c:	10000007 */ 	b	.L0f099e9c
 /*  f099e80:	ae090608 */ 	sw	$t1,0x608($s0)
 .L0f099e84:
-/*  f099e84:	0fc27346 */ 	jal	func0f09cd18
+/*  f099e84:	0fc27346 */ 	jal	handSetState
 /*  f099e88:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099e8c:	10400003 */ 	beqz	$v0,.L0f099e9c
 /*  f099e90:	00000000 */ 	nop
@@ -5328,7 +5328,7 @@ glabel var7f1ac31c
 /*  f099fc0:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099fc4:	51610008 */ 	beql	$t3,$at,.L0f099fe8
 /*  f099fc8:	8e030608 */ 	lw	$v1,0x608($s0)
-/*  f099fcc:	0fc27346 */ 	jal	func0f09cd18
+/*  f099fcc:	0fc27346 */ 	jal	handSetState
 /*  f099fd0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099fd4:	50400004 */ 	beqzl	$v0,.L0f099fe8
 /*  f099fd8:	8e030608 */ 	lw	$v1,0x608($s0)
@@ -5528,7 +5528,7 @@ glabel var7f1ac31c
 /*  f09a298:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09a29c:	ae000018 */ 	sw	$zero,0x18($s0)
 /*  f09a2a0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f09a2a4:	0fc27346 */ 	jal	func0f09cd18
+/*  f09a2a4:	0fc27346 */ 	jal	handSetState
 /*  f09a2a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09a2ac:	50400013 */ 	beqzl	$v0,.L0f09a2fc
 /*  f09a2b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -5561,184 +5561,184 @@ glabel var7f1ac31c
 );
 #else
 GLOBAL_ASM(
-glabel func0f099c48
+glabel handTickIncReloading
 .late_rodata
 glabel var7f1ac1b8
 .word 0x3f5f5dd8
 glabel var7f1ac1bc
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac1c0
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac1c4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1c8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1cc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1d8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1dc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1e8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1ec
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1f8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac1fc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac200
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac204
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac208
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac20c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac210
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac214
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac218
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac21c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac220
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac224
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac228
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac22c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac230
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac234
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac238
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac23c
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac240
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac244
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac248
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac24c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac250
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac254
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac258
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac25c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac260
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac264
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac268
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac26c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac270
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac274
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac278
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac27c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac280
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac284
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac288
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac28c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac290
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac294
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac298
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac29c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2a8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2ac
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2b0
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2b4
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2b8
-.word func0f099c48+0x570 # f09a1b8
+.word handTickIncReloading+0x570 # f09a1b8
 glabel var7f1ac2bc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2c8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2cc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2d8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2dc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2e8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2ec
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f0
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f4
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2f8
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac2fc
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac300
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac304
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac308
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac30c
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac310
-.word func0f099c48+0x534 # f09a17c
+.word handTickIncReloading+0x534 # f09a17c
 glabel var7f1ac314
-.word func0f099c48+0x570
+.word handTickIncReloading+0x570
 glabel var7f1ac31c
 .word 0x3f5f5dd8
 .text
@@ -5761,7 +5761,7 @@ glabel var7f1ac31c
 /*  f099c88:	8e190618 */ 	lw	$t9,0x618($s0)
 /*  f099c8c:	ae00068c */ 	sw	$zero,0x68c($s0)
 /*  f099c90:	ae180680 */ 	sw	$t8,0x680($s0)
-/*  f099c94:	0fc27346 */ 	jal	func0f09cd18
+/*  f099c94:	0fc27346 */ 	jal	handSetState
 /*  f099c98:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099c9c:	50400004 */ 	beqzl	$v0,.L0f099cb0
 /*  f099ca0:	8e190618 */ 	lw	$t9,0x618($s0)
@@ -5896,7 +5896,7 @@ glabel var7f1ac31c
 /*  f099e7c:	10000007 */ 	b	.L0f099e9c
 /*  f099e80:	ae090608 */ 	sw	$t1,0x608($s0)
 .L0f099e84:
-/*  f099e84:	0fc27346 */ 	jal	func0f09cd18
+/*  f099e84:	0fc27346 */ 	jal	handSetState
 /*  f099e88:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099e8c:	10400003 */ 	beqz	$v0,.L0f099e9c
 /*  f099e90:	00000000 */ 	nop
@@ -5986,7 +5986,7 @@ glabel var7f1ac31c
 /*  f099fc0:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099fc4:	51610008 */ 	beql	$t3,$at,.L0f099fe8
 /*  f099fc8:	8e030608 */ 	lw	$v1,0x608($s0)
-/*  f099fcc:	0fc27346 */ 	jal	func0f09cd18
+/*  f099fcc:	0fc27346 */ 	jal	handSetState
 /*  f099fd0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099fd4:	50400004 */ 	beqzl	$v0,.L0f099fe8
 /*  f099fd8:	8e030608 */ 	lw	$v1,0x608($s0)
@@ -6186,7 +6186,7 @@ glabel var7f1ac31c
 /*  f09a298:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09a29c:	ae000018 */ 	sw	$zero,0x18($s0)
 /*  f09a2a0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f09a2a4:	0fc27346 */ 	jal	func0f09cd18
+/*  f09a2a4:	0fc27346 */ 	jal	handSetState
 /*  f09a2a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09a2ac:	50400013 */ 	beqzl	$v0,.L0f09a2fc
 /*  f09a2b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -6219,12 +6219,12 @@ glabel var7f1ac31c
 );
 #endif
 
-s32 func0f09a310(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 handTickIncChangingFunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	struct guncmd *cmd;
-	bool somebool = false;
+	bool more = false;
 
-	if (hand->unk0c50 == 0) {
+	if (hand->statecycles == 0) {
 		if (hand->base.weaponfunc == FUNC_PRIMARY) {
 			cmd = handGetPriToSecAnim(&hand->base);
 			hand->base.weaponfunc = FUNC_SECONDARY;
@@ -6233,20 +6233,20 @@ s32 func0f09a310(struct handweaponinfo *info, s32 handnum, struct hand *hand, s3
 			hand->base.weaponfunc = FUNC_PRIMARY;
 		}
 
-		somebool = false;
+		more = false;
 
 		if (cmd != NULL) {
 			func0f0988e0(cmd, handnum, hand);
-			somebool = true;
+			more = true;
 			g_Vars.currentplayer->hands[HAND_RIGHT].unk0dd4 = -1;
 		}
 	} else {
-		if (hand->unk0cc4 == 2) {
-			somebool = true;
+		if (hand->animmode == HANDANIMMODE_BUSY) {
+			more = true;
 		}
 	}
 
-	if (!somebool && func0f09cd18(handnum, 0)) {
+	if (!more && handSetState(handnum, HANDSTATE_IDLE)) {
 		return lvupdate;
 	}
 
@@ -6283,7 +6283,7 @@ s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func)
 		burst = true;
 	}
 
-	if (hand->triggeron || (hand->unk0c44 & 0x10) == 0 || burst) {
+	if (hand->triggeron || (hand->stateflags & HANDSTATEFLAG_00000010) == 0 || burst) {
 		if (func->ammoindex >= 0
 				&& hand->loadedammo[func->ammoindex] == 0
 				&& ctrl->ammotypes[func->ammoindex] >= 0) {
@@ -6295,26 +6295,26 @@ s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func)
 			struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
 
 			if (autofunc->unk50 > 0) {
-				if (hand->unk0c98 < 1) {
+				if (hand->gs_float1 < 1) {
 #if VERSION >= VERSION_PAL_FINAL
-					hand->unk0c98 += g_Vars.lvupdate240freal / autofunc->unk50;
+					hand->gs_float1 += g_Vars.lvupdate240freal / autofunc->unk50;
 #else
-					hand->unk0c98 += g_Vars.lvupdate240f / autofunc->unk50;
+					hand->gs_float1 += g_Vars.lvupdate240f / autofunc->unk50;
 #endif
 
-					if (hand->unk0c98 > 1) {
-						hand->unk0c98 = 1;
+					if (hand->gs_float1 > 1) {
+						hand->gs_float1 = 1;
 						return 1;
 					}
 				}
 			} else {
-				hand->unk0c98 = 1;
+				hand->gs_float1 = 1;
 			}
 
 			return 1;
 		}
 
-		hand->unk0c98 = 1;
+		hand->gs_float1 = 1;
 
 		if (smallburst) {
 			if (hand->burstbullets > 0) {
@@ -6324,12 +6324,12 @@ s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func)
 					delay = PALDOWN(13);
 				}
 
-				if (hand->unk0c4c < delay) {
+				if (hand->stateframes < delay) {
 					return 0;
 				}
 			}
 
-			hand->unk0c4c = 0;
+			hand->stateframes = 0;
 		}
 
 		if ((func->flags & FUNCFLAG_BURST3) && hand->burstbullets == 2) {
@@ -6357,22 +6357,22 @@ s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func)
 		struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
 
 		if (autofunc->unk51 > 0) {
-			if (hand->unk0c98 > 0) {
+			if (hand->gs_float1 > 0) {
 #if VERSION >= VERSION_PAL_FINAL
-				hand->unk0c98 -= g_Vars.lvupdate240freal / autofunc->unk51;
+				hand->gs_float1 -= g_Vars.lvupdate240freal / autofunc->unk51;
 #else
-				hand->unk0c98 -= g_Vars.lvupdate240f / autofunc->unk51;
+				hand->gs_float1 -= g_Vars.lvupdate240f / autofunc->unk51;
 #endif
 
-				if (hand->unk0c98 < 0) {
-					hand->unk0c98 = 0;
+				if (hand->gs_float1 < 0) {
+					hand->gs_float1 = 0;
 					return -1;
 				}
 
 				return 1;
 			}
 		} else {
-			hand->unk0c98 = 0;
+			hand->gs_float1 = 0;
 		}
 
 		return -1;
@@ -8077,7 +8077,7 @@ glabel var7f1ac330
 );
 #endif
 
-bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand)
+bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 {
 	static u32 var80070128 = 99;
 
@@ -8090,13 +8090,13 @@ bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 		return true;
 	}
 
-	if (hand->unk0c40 == 0) {
+	if (hand->stateminor == HANDSTATEMINOR_IDLE) {
 		sp64 = 1;
 
 		func0000db30("gkef", &var80070128);
 
-		if (hand->unk0c50 == 0) {
-			hand->unk0c98 = 0;
+		if (hand->statecycles == 0) {
+			hand->gs_float1 = 0;
 
 			if (func->fire_animation) {
 				func0f0988e0(func->fire_animation, handnum, hand);
@@ -8111,13 +8111,13 @@ bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 		}
 
 		if (sp64) {
-			hand->unk0c40 = 1;
+			hand->stateminor = HANDSTATEMINOR_START;
 		}
 
-		hand->matmot2 = hand->unk0c98;
+		hand->matmot2 = hand->gs_float1;
 	}
 
-	if (hand->unk0c40 == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_START) {
 		sp60 = func0f09a3f8(hand, func);
 
 		if ((func->type & 0xff00) == 0x100) {
@@ -8125,7 +8125,7 @@ bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 			f32 auStack68[12];
 
 			if (autofunc->unk48 != NULL && autofunc->unk4c != NULL) {
-				func0f097b64(autofunc->unk48, autofunc->unk4c, hand->unk0c98, auStack68);
+				func0f097b64(autofunc->unk48, autofunc->unk4c, hand->gs_float1, auStack68);
 				func0f097b40(&hand->unk088c, auStack68, &hand->unk08bc);
 			}
 		}
@@ -8135,10 +8135,10 @@ bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 		}
 
 		if (sp60 < 0 || sp60 == 2) {
-			hand->unk0c40 = 2;
+			hand->stateminor = HANDSTATEMINOR_ANIM;
 		}
 
-		hand->matmot2 = hand->unk0c98;
+		hand->matmot2 = hand->gs_float1;
 
 		if (hand->triggeron && hand->matmot2 < 0.4f) {
 			hand->matmot2 = 0.4f;
@@ -8151,18 +8151,18 @@ bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 		return false;
 	}
 
-	if (hand->unk0c40 == 2) {
-		if (hand->unk0c44 & 0x20) {
+	if (hand->stateminor == HANDSTATEMINOR_ANIM) {
+		if (hand->stateflags & HANDSTATEFLAG_00000020) {
 			sp68 = func0f09aba4(hand, info, handnum, func);
 		} else {
 			sp68 = true;
 		}
 
-		if (hand->base.weaponnum == WEAPON_SHOTGUN && hand->unk0cc4 == 2) {
+		if (hand->base.weaponnum == WEAPON_SHOTGUN && hand->animmode == HANDANIMMODE_BUSY) {
 			sp68 = false;
 		}
 
-		hand->matmot2 = hand->unk0c98;
+		hand->matmot2 = hand->gs_float1;
 
 		if (sp68 && !hand->triggeron) {
 			hand->matmot2 = 0;
@@ -8178,7 +8178,7 @@ bool func0f09afe4(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 	return false;
 }
 
-bool func0f09b260(s32 handnum, struct hand *hand)
+bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 {
 	struct weaponfunc_throw *func = (struct weaponfunc_throw *) handGetWeaponFunction(&hand->base);
 
@@ -8186,8 +8186,8 @@ bool func0f09b260(s32 handnum, struct hand *hand)
 		return true;
 	}
 
-	if (hand->unk0c40 == 0) {
-		if (hand->unk0c50 == 0) {
+	if (hand->stateminor == HANDSTATEMINOR_IDLE) {
+		if (hand->statecycles == 0) {
 			if (func->base.flags & FUNCFLAG_DISCARDWEAPON) {
 				invRemoveItemByNum(hand->base.weaponnum);
 				g_Vars.currentplayer->gunctrl.unk1583_04 = true;
@@ -8196,7 +8196,7 @@ bool func0f09b260(s32 handnum, struct hand *hand)
 #else
 				currentPlayerAutoSwitchWeapon();
 #endif
-				hand->unk0d0c = 0;
+				hand->primetimer = 0;
 				return true;
 			}
 
@@ -8212,24 +8212,24 @@ bool func0f09b260(s32 handnum, struct hand *hand)
 			}
 
 			if (func0f098a44(hand, 2)) {
-				hand->unk0c40 = 1;
+				hand->stateminor = HANDSTATEMINOR_START;
 				hand->unk0cc8_01 = false;
 			}
 		} else {
-			hand->unk0c40 = 1;
+			hand->stateminor = HANDSTATEMINOR_START;
 		}
 	}
 
-	if (hand->unk0c40 == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_START) {
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
 		hand->loadedammo[func->base.ammoindex]--;
-		hand->unk0c40 = 2;
+		hand->stateminor = HANDSTATEMINOR_ANIM;
 		return false;
 	}
 
-	if (hand->unk0c40 == 2) {
-		if (PALDOWN(func->recoverytime60) < hand->unk0c4c) {
+	if (hand->stateminor == HANDSTATEMINOR_ANIM) {
+		if (hand->stateframes > PALDOWN(func->recoverytime60)) {
 			return true;
 		}
 
@@ -8243,25 +8243,29 @@ bool func0f09b260(s32 handnum, struct hand *hand)
 		return false;
 	}
 
-	if (hand->unk0c40 == 0x37) {
-		func0f098c0c(hand);
+	// This state is only used after having a grenade explode in the player's
+	// hand. It waits 4 seconds before finishing, which means the player won't
+	// pull out another grenade until the flames have cleared.
+	if (hand->stateminor == HANDSTATEMINOR_WAIT) {
+		handResetAnim(hand);
 
-		if (PALDOWN(func->activatetime60 + 240) < hand->unk0c4c) {
+		if (hand->stateframes > PALDOWN(func->activatetime60 + 240)) {
 			return true;
 		}
 
 		return false;
 	}
 
-	hand->unk0d0c = hand->unk0c4c;
+	hand->primetimer = hand->stateframes;
 
+	// If held a grenade too long, force throw it and enter the wait state
 	if (hand->base.weaponnum == WEAPON_GRENADE
 			&& hand->base.weaponfunc == FUNC_PRIMARY
-			&& hand->unk0d0c > PALDOWN(func->activatetime60)) {
+			&& hand->primetimer > PALDOWN(func->activatetime60)) {
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
 		hand->loadedammo[func->base.ammoindex]--;
-		hand->unk0c40 = 0x37;
+		hand->stateminor = HANDSTATEMINOR_WAIT;
 
 		return false;
 	}
@@ -8515,7 +8519,7 @@ u32 var8007035c = 0x0029002a;
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f09b500
+glabel handTickIncAttackingClose
 .late_rodata
 glabel var7f1ac338
 .word 0x3dcccccd
@@ -8749,7 +8753,7 @@ glabel var7f1ac33c
 );
 #else
 GLOBAL_ASM(
-glabel func0f09b500
+glabel handTickIncAttackingClose
 .late_rodata
 glabel var7f1ac338
 .word 0x3dcccccd
@@ -8983,7 +8987,7 @@ glabel var7f1ac33c
 );
 #endif
 
-bool func0f09b828(struct hand *hand)
+bool handTickIncAttackingSpecial(struct hand *hand)
 {
 	struct weaponfunc_special *func = (struct weaponfunc_special *) handGetWeaponFunction(&hand->base);
 
@@ -8991,11 +8995,11 @@ bool func0f09b828(struct hand *hand)
 		return true;
 	}
 
-	if (hand->unk0c40 == 0) {
-		hand->unk0c40 = 1;
+	if (hand->stateminor == HANDSTATEMINOR_IDLE) {
+		hand->stateminor = HANDSTATEMINOR_START;
 	}
 
-	if (hand->unk0c40 == 1) {
+	if (hand->stateminor == HANDSTATEMINOR_START) {
 		hand->firing = true;
 		hand->attacktype = func->specialfunc;
 
@@ -9003,12 +9007,12 @@ bool func0f09b828(struct hand *hand)
 			hand->loadedammo[func->base.ammoindex]--;
 		}
 
-		hand->unk0c40 = 2;
+		hand->stateminor = HANDSTATEMINOR_ANIM;
 		return false;
 	}
 
-	if (hand->unk0c40 == 2) {
-		if (hand->unk0c4c > PALDOWN(func->unk18)) {
+	if (hand->stateminor == HANDSTATEMINOR_ANIM) {
+		if (hand->stateframes > PALDOWN(func->unk18)) {
 			return true;
 		}
 
@@ -9020,168 +9024,168 @@ bool func0f09b828(struct hand *hand)
 
 #if PAL
 GLOBAL_ASM(
-glabel func0f09b8e0
+glabel handTickIncAttackingEmpty
 .late_rodata
 glabel var7f1ac340
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac344
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac348
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac34c
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac350
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac354
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac358
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac35c
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac360
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac364
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac368
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac36c
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac370
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac374
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac378
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac37c
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac380
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac384
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac388
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac38c
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac390
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac394
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac398
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac39c
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3a0
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3a4
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3a8
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac3ac
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3b0
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3b4
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3b8
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3bc
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3c0
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3c4
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3c8
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac3cc
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac3d0
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac3d4
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3d8
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3dc
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3e0
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3e4
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3e8
-.word func0f09b8e0+0x19c # f09ba7c
+.word handTickIncAttackingEmpty+0x19c # f09ba7c
 glabel var7f1ac3ec
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3f0
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3f4
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3f8
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3fc
-.word func0f09b8e0+0x19c # f09ba7c
+.word handTickIncAttackingEmpty+0x19c # f09ba7c
 glabel var7f1ac400
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac404
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac408
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac40c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac410
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac414
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac418
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac41c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac420
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac424
-.word func0f09b8e0+0x19c # f09ba7c
+.word handTickIncAttackingEmpty+0x19c # f09ba7c
 glabel var7f1ac428
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac42c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac430
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac434
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac438
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac43c
-.word func0f09b8e0+0x228 # f09bb08
+.word handTickIncAttackingEmpty+0x228 # f09bb08
 glabel var7f1ac440
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac444
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac448
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac44c
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac450
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac454
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac458
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac45c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac460
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac464
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac468
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac46c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac470
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac474
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac478
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac47c
-.word func0f09b8e0+0x228 # f09bb08
+.word handTickIncAttackingEmpty+0x228 # f09bb08
 glabel var7f1ac480
 .word 0x40047ae1
 .text
@@ -9209,7 +9213,7 @@ glabel var7f1ac480
 /*  f09b934:	14200004 */ 	bnez	$at,.L0f09b948
 /*  f09b938:	2459ffe7 */ 	addiu	$t9,$v0,-20
 /*  f09b93c:	ae190614 */ 	sw	$t9,0x614($s0)
-/*  f09b940:	0fc26303 */ 	jal	func0f098c0c
+/*  f09b940:	0fc26303 */ 	jal	handResetAnim
 /*  f09b944:	ae00060c */ 	sw	$zero,0x60c($s0)
 .L0f09b948:
 /*  f09b948:	8e08068c */ 	lw	$t0,0x68c($s0)
@@ -9268,7 +9272,7 @@ glabel var7f1ac480
 /*  f09ba0c:	2459ffe7 */ 	addiu	$t9,$v0,-20
 /*  f09ba10:	afb80050 */ 	sw	$t8,0x50($sp)
 /*  f09ba14:	ae190614 */ 	sw	$t9,0x614($s0)
-/*  f09ba18:	0fc26303 */ 	jal	func0f098c0c
+/*  f09ba18:	0fc26303 */ 	jal	handResetAnim
 /*  f09ba1c:	ae00060c */ 	sw	$zero,0x60c($s0)
 .L0f09ba20:
 /*  f09ba20:	2408000d */ 	addiu	$t0,$zero,0xd
@@ -9394,14 +9398,14 @@ glabel var7f1ac480
 /*  f09bbe8:	ae000020 */ 	sw	$zero,0x20($s0)
 /*  f09bbec:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09bbf0:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f09bbf4:	0fc27346 */ 	jal	func0f09cd18
+/*  f09bbf4:	0fc27346 */ 	jal	handSetState
 /*  f09bbf8:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*  f09bbfc:	10400003 */ 	beqz	$v0,.L0f09bc0c
 /*  f09bc00:	00000000 */ 	nop
 /*  f09bc04:	10000004 */ 	b	.L0f09bc18
 /*  f09bc08:	8fa20064 */ 	lw	$v0,0x64($sp)
 .L0f09bc0c:
-/*  f09bc0c:	0fc26303 */ 	jal	func0f098c0c
+/*  f09bc0c:	0fc26303 */ 	jal	handResetAnim
 /*  f09bc10:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09bc14:	00001025 */ 	or	$v0,$zero,$zero
 .L0f09bc18:
@@ -9413,168 +9417,168 @@ glabel var7f1ac480
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f09b8e0
+glabel handTickIncAttackingEmpty
 .late_rodata
 glabel var7f1ac340
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac344
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac348
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac34c
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac350
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac354
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac358
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac35c
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac360
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac364
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac368
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac36c
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac370
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac374
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac378
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac37c
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac380
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac384
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac388
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac38c
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac390
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac394
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac398
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac39c
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3a0
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3a4
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3a8
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac3ac
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3b0
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3b4
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3b8
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3bc
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3c0
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3c4
-.word func0f09b8e0+0x118 # f09b9f8
+.word handTickIncAttackingEmpty+0x118 # f09b9f8
 glabel var7f1ac3c8
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac3cc
-.word func0f09b8e0+0x48 # f09b928
+.word handTickIncAttackingEmpty+0x48 # f09b928
 glabel var7f1ac3d0
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac3d4
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3d8
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3dc
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3e0
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3e4
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3e8
-.word func0f09b8e0+0x19c # f09ba7c
+.word handTickIncAttackingEmpty+0x19c # f09ba7c
 glabel var7f1ac3ec
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3f0
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3f4
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3f8
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac3fc
-.word func0f09b8e0+0x19c # f09ba7c
+.word handTickIncAttackingEmpty+0x19c # f09ba7c
 glabel var7f1ac400
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac404
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac408
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac40c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac410
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac414
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac418
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac41c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac420
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac424
-.word func0f09b8e0+0x19c # f09ba7c
+.word handTickIncAttackingEmpty+0x19c # f09ba7c
 glabel var7f1ac428
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac42c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac430
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac434
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac438
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac43c
-.word func0f09b8e0+0x228 # f09bb08
+.word handTickIncAttackingEmpty+0x228 # f09bb08
 glabel var7f1ac440
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac444
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac448
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac44c
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac450
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac454
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac458
-.word func0f09b8e0+0x2f8 # f09bbd8
+.word handTickIncAttackingEmpty+0x2f8 # f09bbd8
 glabel var7f1ac45c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac460
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac464
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac468
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac46c
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac470
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac474
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac478
-.word func0f09b8e0+0x2bc # f09bb9c
+.word handTickIncAttackingEmpty+0x2bc # f09bb9c
 glabel var7f1ac47c
-.word func0f09b8e0+0x228 # f09bb08
+.word handTickIncAttackingEmpty+0x228 # f09bb08
 glabel var7f1ac480
 .word 0x40047ae1
 .text
@@ -9602,7 +9606,7 @@ glabel var7f1ac480
 /*  f09b934:	14200004 */ 	bnez	$at,.L0f09b948
 /*  f09b938:	2459ffe7 */ 	addiu	$t9,$v0,-25
 /*  f09b93c:	ae190614 */ 	sw	$t9,0x614($s0)
-/*  f09b940:	0fc26303 */ 	jal	func0f098c0c
+/*  f09b940:	0fc26303 */ 	jal	handResetAnim
 /*  f09b944:	ae00060c */ 	sw	$zero,0x60c($s0)
 .L0f09b948:
 /*  f09b948:	8e08068c */ 	lw	$t0,0x68c($s0)
@@ -9661,7 +9665,7 @@ glabel var7f1ac480
 /*  f09ba0c:	2459ffe7 */ 	addiu	$t9,$v0,-25
 /*  f09ba10:	afb80050 */ 	sw	$t8,0x50($sp)
 /*  f09ba14:	ae190614 */ 	sw	$t9,0x614($s0)
-/*  f09ba18:	0fc26303 */ 	jal	func0f098c0c
+/*  f09ba18:	0fc26303 */ 	jal	handResetAnim
 /*  f09ba1c:	ae00060c */ 	sw	$zero,0x60c($s0)
 .L0f09ba20:
 /*  f09ba20:	2408000d */ 	addiu	$t0,$zero,0xd
@@ -9787,14 +9791,14 @@ glabel var7f1ac480
 /*  f09bbe8:	ae000020 */ 	sw	$zero,0x20($s0)
 /*  f09bbec:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09bbf0:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f09bbf4:	0fc27346 */ 	jal	func0f09cd18
+/*  f09bbf4:	0fc27346 */ 	jal	handSetState
 /*  f09bbf8:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*  f09bbfc:	10400003 */ 	beqz	$v0,.L0f09bc0c
 /*  f09bc00:	00000000 */ 	nop
 /*  f09bc04:	10000004 */ 	b	.L0f09bc18
 /*  f09bc08:	8fa20064 */ 	lw	$v0,0x64($sp)
 .L0f09bc0c:
-/*  f09bc0c:	0fc26303 */ 	jal	func0f098c0c
+/*  f09bc0c:	0fc26303 */ 	jal	handResetAnim
 /*  f09bc10:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09bc14:	00001025 */ 	or	$v0,$zero,$zero
 .L0f09bc18:
@@ -9806,168 +9810,168 @@ glabel var7f1ac480
 );
 #else
 GLOBAL_ASM(
-glabel func0f09b8e0
+glabel handTickIncAttackingEmpty
 .late_rodata
 glabel var7f1a668cnb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a6690nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a6694nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a6698nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a669cnb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66a0nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66a4nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66a8nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66acnb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66b0nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66b4nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66b8nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66bcnb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66c0nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66c4nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66c8nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66ccnb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66d0nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66d4nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66d8nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66dcnb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66e0nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66e4nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66e8nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66ecnb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66f0nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66f4nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a66f8nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a66fcnb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a6700nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a6704nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a6708nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a670cnb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a6710nb
-.word func0f09b8e0+0x118
+.word handTickIncAttackingEmpty+0x118
 glabel var7f1a6714nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a6718nb
-.word func0f09b8e0+0x048
+.word handTickIncAttackingEmpty+0x048
 glabel var7f1a671cnb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a6720nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6724nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6728nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a672cnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6730nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6734nb
-.word func0f09b8e0+0x19c
+.word handTickIncAttackingEmpty+0x19c
 glabel var7f1a6738nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a673cnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6740nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6744nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6748nb
-.word func0f09b8e0+0x19c
+.word handTickIncAttackingEmpty+0x19c
 glabel var7f1a674cnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6750nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6754nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6758nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a675cnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6760nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6764nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6768nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a676cnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6770nb
-.word func0f09b8e0+0x19c
+.word handTickIncAttackingEmpty+0x19c
 glabel var7f1a6774nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6778nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a677cnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6780nb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a6784nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6788nb
-.word func0f09b8e0+0x1f8
+.word handTickIncAttackingEmpty+0x1f8
 glabel var7f1a678cnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a6790nb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a6794nb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a6798nb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a679cnb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a67a0nb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a67a4nb
-.word func0f09b8e0+0x298
+.word handTickIncAttackingEmpty+0x298
 glabel var7f1a67a8nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67acnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67b0nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67b4nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67b8nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67bcnb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67c0nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67c4nb
-.word func0f09b8e0+0x25c
+.word handTickIncAttackingEmpty+0x25c
 glabel var7f1a67c8nb
-.word func0f09b8e0+0x1f8
+.word handTickIncAttackingEmpty+0x1f8
 glabel var7f1ac480
 .word 0x40047ae1
 .text
@@ -9995,7 +9999,7 @@ glabel var7f1ac480
 /*  f099940:	14200004 */ 	bnez	$at,.NB0f099954
 /*  f099944:	2459ffe7 */ 	addiu	$t9,$v0,-25
 /*  f099948:	ae190614 */ 	sw	$t9,0x614($s0)
-/*  f09994c:	0fc25b12 */ 	jal	func0f098c0c
+/*  f09994c:	0fc25b12 */ 	jal	handResetAnim
 /*  f099950:	ae00060c */ 	sw	$zero,0x60c($s0)
 .NB0f099954:
 /*  f099954:	8e08068c */ 	lw	$t0,0x68c($s0)
@@ -10054,7 +10058,7 @@ glabel var7f1ac480
 /*  f099a18:	2459ffe7 */ 	addiu	$t9,$v0,-25
 /*  f099a1c:	afb80048 */ 	sw	$t8,0x48($sp)
 /*  f099a20:	ae190614 */ 	sw	$t9,0x614($s0)
-/*  f099a24:	0fc25b12 */ 	jal	func0f098c0c
+/*  f099a24:	0fc25b12 */ 	jal	handResetAnim
 /*  f099a28:	ae00060c */ 	sw	$zero,0x60c($s0)
 .NB0f099a2c:
 /*  f099a2c:	2408000d */ 	addiu	$t0,$zero,0xd
@@ -10155,14 +10159,14 @@ glabel var7f1ac480
 /*  f099b94:	ae000020 */ 	sw	$zero,0x20($s0)
 /*  f099b98:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f099b9c:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f099ba0:	0fc26b0d */ 	jal	func0f09cd18
+/*  f099ba0:	0fc26b0d */ 	jal	handSetState
 /*  f099ba4:	8fa40054 */ 	lw	$a0,0x54($sp)
 /*  f099ba8:	10400003 */ 	beqz	$v0,.NB0f099bb8
 /*  f099bac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f099bb0:	10000004 */ 	beqz	$zero,.NB0f099bc4
 /*  f099bb4:	8fa2005c */ 	lw	$v0,0x5c($sp)
 .NB0f099bb8:
-/*  f099bb8:	0fc25b12 */ 	jal	func0f098c0c
+/*  f099bb8:	0fc25b12 */ 	jal	handResetAnim
 /*  f099bbc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f099bc0:	00001025 */ 	or	$v0,$zero,$zero
 .NB0f099bc4:
@@ -10174,11 +10178,11 @@ glabel var7f1ac480
 );
 #endif
 
-s32 func0f09bc2c(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 handTickIncAttacking(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
 	struct weaponfunc *func = NULL;
-	bool doit = true;
+	bool finished = true;
 	u32 stack2;
 
 	if (info->definition) {
@@ -10188,27 +10192,27 @@ s32 func0f09bc2c(struct handweaponinfo *info, s32 handnum, struct hand *hand, s3
 	if (func != NULL) {
 		switch (func->type & 0xff) {
 		case INVENTORYFUNCTYPE_SHOOT:
-			doit = func0f09afe4(info, handnum, hand);
+			finished = handTickIncAttackingShoot(info, handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_THROW:
-			doit = func0f09b260(handnum, hand);
+			finished = handTickIncAttackingThrow(handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_CLOSE:
-			doit = func0f09b500(handnum, hand);
+			finished = handTickIncAttackingClose(handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_SPECIAL:
-			doit = func0f09b828(hand);
+			finished = handTickIncAttackingSpecial(hand);
 			break;
 		}
 	}
 
-	if (doit) {
+	if (finished) {
 		if (hand->base.weaponnum == WEAPON_REAPER && hand->triggeron) {
 			hand->base.weaponfunc = FUNC_SECONDARY;
-			doit = false;
+			finished = false;
 		}
 
-		if (doit && func0f09cd18(handnum, 0)) {
+		if (finished && handSetState(handnum, HANDSTATE_IDLE)) {
 			return lvupdate;
 		}
 	}
@@ -10328,8 +10332,8 @@ bool func0f09bec8(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (player->hands[handnum].unk0c3c == 5
-			&& player->hands[handnum].unk0c40 == 2
+	if (player->hands[handnum].state == HANDSTATE_CHANGINGGUN
+			&& player->hands[handnum].stateminor == HANDSTATEMINOR_ANIM
 			&& player->hands[handnum].count >= 3
 			&& player->gunctrl.unk1583_04 == false) {
 		return true;
@@ -10404,186 +10408,186 @@ glabel func0f09bf44
 
 #if PAL
 GLOBAL_ASM(
-glabel func0f09c01c
+glabel handTickIncChangingGun
 .late_rodata
 glabel var7f1ac484
 .word 0x3f5f5dd8
 glabel var7f1ac488
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac48c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac490
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac494
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac498
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac49c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4a0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4a4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4a8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4ac
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4b0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4b4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4b8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4bc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4c0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac4c4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4c8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4cc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4d0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4d4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4d8
-.word func0f09c01c+0x900 # f09c91c
+.word handTickIncChangingGun+0x900 # f09c91c
 glabel var7f1ac4dc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4e0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4e4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4e8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4ec
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4f0
-.word func0f09c01c+0x798 # f09c7b4
+.word handTickIncChangingGun+0x798 # f09c7b4
 glabel var7f1ac4f4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac4f8
-.word func0f09c01c+0x86c # f09c888
+.word handTickIncChangingGun+0x86c # f09c888
 glabel var7f1ac4fc
-.word func0f09c01c+0x754 # f09c770
+.word handTickIncChangingGun+0x754 # f09c770
 glabel var7f1ac500
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac504
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac508
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac50c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac510
-.word func0f09c01c+0x7dc # f09c7f8
+.word handTickIncChangingGun+0x7dc # f09c7f8
 glabel var7f1ac514
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac518
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac51c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac520
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac524
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac528
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac52c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac530
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac534
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac538
-.word func0f09c01c+0x86c # f09c888
+.word handTickIncChangingGun+0x86c # f09c888
 glabel var7f1ac53c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac540
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac544
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac548
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac54c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac550
-.word func0f09c01c+0x6c0 # f09c6dc
+.word handTickIncChangingGun+0x6c0 # f09c6dc
 glabel var7f1ac554
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac558
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac55c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac560
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac564
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac568
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac56c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac570
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac574
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac578
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac57c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac580
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac584
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac588
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac58c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac590
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac594
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac598
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac59c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5a0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5a4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5a8
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5ac
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5b0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5b4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5b8
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5bc
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5c0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5c4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5c8
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5cc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5d0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5d4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5d8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5dc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5e0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5e4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5e8
 .word 0x3f59999a
 glabel var7f1ac5ec
@@ -10881,7 +10885,7 @@ glabel var7f1ac5ec
 /*  f09c428:	ae0b0020 */ 	sw	$t3,0x20($s0)
 /*  f09c42c:	1580001c */ 	bnez	$t4,.L0f09c4a0
 /*  f09c430:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f09c434:	0fc27346 */ 	jal	func0f09cd18
+/*  f09c434:	0fc27346 */ 	jal	handSetState
 /*  f09c438:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09c43c:	50400019 */ 	beqzl	$v0,.L0f09c4a4
 /*  f09c440:	8e020020 */ 	lw	$v0,0x20($s0)
@@ -11027,7 +11031,7 @@ glabel var7f1ac5ec
 /*  f09c628:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09c62c:	04410008 */ 	bgez	$v0,.L0f09c650
 /*  f09c630:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f09c634:	0fc27346 */ 	jal	func0f09cd18
+/*  f09c634:	0fc27346 */ 	jal	handSetState
 /*  f09c638:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f09c63c:	10400004 */ 	beqz	$v0,.L0f09c650
 /*  f09c640:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -11345,7 +11349,7 @@ glabel var7f1ac5ec
 /*  f09caec:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*  f09caf0:	5520000f */ 	bnezl	$t1,.L0f09cb30
 /*  f09caf4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09caf8:	0fc27346 */ 	jal	func0f09cd18
+/*  f09caf8:	0fc27346 */ 	jal	handSetState
 /*  f09cafc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09cb00:	5040000b */ 	beqzl	$v0,.L0f09cb30
 /*  f09cb04:	00001025 */ 	or	$v0,$zero,$zero
@@ -11353,7 +11357,7 @@ glabel var7f1ac5ec
 /*  f09cb0c:	8fa2007c */ 	lw	$v0,0x7c($sp)
 /*  f09cb10:	8fa40074 */ 	lw	$a0,0x74($sp)
 .L0f09cb14:
-/*  f09cb14:	0fc27346 */ 	jal	func0f09cd18
+/*  f09cb14:	0fc27346 */ 	jal	handSetState
 /*  f09cb18:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09cb1c:	50400004 */ 	beqzl	$v0,.L0f09cb30
 /*  f09cb20:	00001025 */ 	or	$v0,$zero,$zero
@@ -11370,186 +11374,186 @@ glabel var7f1ac5ec
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f09c01c
+glabel handTickIncChangingGun
 .late_rodata
 glabel var7f1ac484
 .word 0x3f5f5dd8
 glabel var7f1ac488
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac48c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac490
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac494
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac498
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac49c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4a0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4a4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4a8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4ac
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4b0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4b4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4b8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4bc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4c0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac4c4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4c8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4cc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4d0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4d4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4d8
-.word func0f09c01c+0x900 # f09c91c
+.word handTickIncChangingGun+0x900 # f09c91c
 glabel var7f1ac4dc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4e0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4e4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4e8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4ec
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac4f0
-.word func0f09c01c+0x798 # f09c7b4
+.word handTickIncChangingGun+0x798 # f09c7b4
 glabel var7f1ac4f4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac4f8
-.word func0f09c01c+0x86c # f09c888
+.word handTickIncChangingGun+0x86c # f09c888
 glabel var7f1ac4fc
-.word func0f09c01c+0x754 # f09c770
+.word handTickIncChangingGun+0x754 # f09c770
 glabel var7f1ac500
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac504
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac508
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac50c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac510
-.word func0f09c01c+0x7dc # f09c7f8
+.word handTickIncChangingGun+0x7dc # f09c7f8
 glabel var7f1ac514
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac518
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac51c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac520
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac524
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac528
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac52c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac530
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac534
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac538
-.word func0f09c01c+0x86c # f09c888
+.word handTickIncChangingGun+0x86c # f09c888
 glabel var7f1ac53c
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac540
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac544
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac548
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac54c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac550
-.word func0f09c01c+0x6c0 # f09c6dc
+.word handTickIncChangingGun+0x6c0 # f09c6dc
 glabel var7f1ac554
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac558
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac55c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac560
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac564
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac568
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac56c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac570
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac574
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac578
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac57c
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac580
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac584
-.word func0f09c01c+0x828 # f09c844
+.word handTickIncChangingGun+0x828 # f09c844
 glabel var7f1ac588
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac58c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac590
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac594
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac598
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac59c
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5a0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5a4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5a8
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5ac
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5b0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5b4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5b8
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5bc
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5c0
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5c4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5c8
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5cc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5d0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5d4
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5d8
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5dc
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5e0
-.word func0f09c01c+0x994 # f09c9b0
+.word handTickIncChangingGun+0x994 # f09c9b0
 glabel var7f1ac5e4
-.word func0f09c01c+0x9d0 # f09c9ec
+.word handTickIncChangingGun+0x9d0 # f09c9ec
 glabel var7f1ac5e8
 .word 0x3f59999a
 glabel var7f1ac5ec
@@ -11847,7 +11851,7 @@ glabel var7f1ac5ec
 /*  f09c428:	ae0b0020 */ 	sw	$t3,0x20($s0)
 /*  f09c42c:	1580001c */ 	bnez	$t4,.L0f09c4a0
 /*  f09c430:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f09c434:	0fc27346 */ 	jal	func0f09cd18
+/*  f09c434:	0fc27346 */ 	jal	handSetState
 /*  f09c438:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09c43c:	50400019 */ 	beqzl	$v0,.L0f09c4a4
 /*  f09c440:	8e020020 */ 	lw	$v0,0x20($s0)
@@ -11993,7 +11997,7 @@ glabel var7f1ac5ec
 /*  f09c628:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09c62c:	04410008 */ 	bgez	$v0,.L0f09c650
 /*  f09c630:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f09c634:	0fc27346 */ 	jal	func0f09cd18
+/*  f09c634:	0fc27346 */ 	jal	handSetState
 /*  f09c638:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f09c63c:	10400004 */ 	beqz	$v0,.L0f09c650
 /*  f09c640:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -12311,7 +12315,7 @@ glabel var7f1ac5ec
 /*  f09caec:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*  f09caf0:	5520000f */ 	bnezl	$t1,.L0f09cb30
 /*  f09caf4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09caf8:	0fc27346 */ 	jal	func0f09cd18
+/*  f09caf8:	0fc27346 */ 	jal	handSetState
 /*  f09cafc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09cb00:	5040000b */ 	beqzl	$v0,.L0f09cb30
 /*  f09cb04:	00001025 */ 	or	$v0,$zero,$zero
@@ -12319,7 +12323,7 @@ glabel var7f1ac5ec
 /*  f09cb0c:	8fa2007c */ 	lw	$v0,0x7c($sp)
 /*  f09cb10:	8fa40074 */ 	lw	$a0,0x74($sp)
 .L0f09cb14:
-/*  f09cb14:	0fc27346 */ 	jal	func0f09cd18
+/*  f09cb14:	0fc27346 */ 	jal	handSetState
 /*  f09cb18:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09cb1c:	50400004 */ 	beqzl	$v0,.L0f09cb30
 /*  f09cb20:	00001025 */ 	or	$v0,$zero,$zero
@@ -12336,184 +12340,184 @@ glabel var7f1ac5ec
 );
 #else
 GLOBAL_ASM(
-glabel func0f09c01c
+glabel handTickIncChangingGun
 .late_rodata
 glabel var7f1ac484
 .word 0x3f5f5dd8
 glabel var7f1a67d4nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a67d8nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a67dcnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67e0nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67e4nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67e8nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67ecnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67f0nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67f4nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67f8nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a67fcnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6800nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6804nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6808nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a680cnb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6810nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6814nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6818nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a681cnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6820nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6824nb
-.word func0f09c01c+0x8a0
+.word handTickIncChangingGun+0x8a0
 glabel var7f1a6828nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a682cnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6830nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6834nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6838nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a683cnb
-.word func0f09c01c+0x768
+.word handTickIncChangingGun+0x768
 glabel var7f1a6840nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6844nb
-.word func0f09c01c+0x83c
+.word handTickIncChangingGun+0x83c
 glabel var7f1a6848nb
-.word func0f09c01c+0x724
+.word handTickIncChangingGun+0x724
 glabel var7f1a684cnb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6850nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6854nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a6858nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a685cnb
-.word func0f09c01c+0x7ac
+.word handTickIncChangingGun+0x7ac
 glabel var7f1a6860nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6864nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6868nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a686cnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6870nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6874nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6878nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a687cnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6880nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6884nb
-.word func0f09c01c+0x83c
+.word handTickIncChangingGun+0x83c
 glabel var7f1a6888nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a688cnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6890nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6894nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6898nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a689cnb
-.word func0f09c01c+0x6c0
+.word handTickIncChangingGun+0x6c0
 glabel var7f1a68a0nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a68a4nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a68a8nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68acnb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68b0nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68b4nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68b8nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68bcnb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68c0nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68c4nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68c8nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68ccnb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68d0nb
-.word func0f09c01c+0x7f8
+.word handTickIncChangingGun+0x7f8
 glabel var7f1a68d4nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68d8nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68dcnb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68e0nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68e4nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68e8nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68ecnb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68f0nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68f4nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68f8nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a68fcnb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6900nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6904nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6908nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a690cnb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6910nb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1a6914nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6918nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a691cnb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6920nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6924nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a6928nb
-.word func0f09c01c+0x904
+.word handTickIncChangingGun+0x904
 glabel var7f1a692cnb
-.word func0f09c01c+0x940
+.word handTickIncChangingGun+0x940
 glabel var7f1ac5e8
 .word 0x3f59999a
 glabel var7f1ac5ec
@@ -12811,7 +12815,7 @@ glabel var7f1ac5ec
 /*  f09a3d4:	ae0b0020 */ 	sw	$t3,0x20($s0)
 /*  f09a3d8:	1580001c */ 	bnez	$t4,.NB0f09a44c
 /*  f09a3dc:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f09a3e0:	0fc26b0d */ 	jal	func0f09cd18
+/*  f09a3e0:	0fc26b0d */ 	jal	handSetState
 /*  f09a3e4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09a3e8:	50400019 */ 	beqzl	$v0,.NB0f09a450
 /*  f09a3ec:	8e020020 */ 	lw	$v0,0x20($s0)
@@ -12957,7 +12961,7 @@ glabel var7f1ac5ec
 /*  f09a5d4:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09a5d8:	04410008 */ 	bgez	$v0,.NB0f09a5fc
 /*  f09a5dc:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f09a5e0:	0fc26b0d */ 	jal	func0f09cd18
+/*  f09a5e0:	0fc26b0d */ 	jal	handSetState
 /*  f09a5e4:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f09a5e8:	10400004 */ 	beqz	$v0,.NB0f09a5fc
 /*  f09a5ec:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -13236,7 +13240,7 @@ glabel var7f1ac5ec
 /*  f09aa08:	8fa4006c */ 	lw	$a0,0x6c($sp)
 /*  f09aa0c:	5520000f */ 	bnezl	$t1,.NB0f09aa4c
 /*  f09aa10:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09aa14:	0fc26b0d */ 	jal	func0f09cd18
+/*  f09aa14:	0fc26b0d */ 	jal	handSetState
 /*  f09aa18:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09aa1c:	5040000b */ 	beqzl	$v0,.NB0f09aa4c
 /*  f09aa20:	00001025 */ 	or	$v0,$zero,$zero
@@ -13244,7 +13248,7 @@ glabel var7f1ac5ec
 /*  f09aa28:	8fa20074 */ 	lw	$v0,0x74($sp)
 /*  f09aa2c:	8fa4006c */ 	lw	$a0,0x6c($sp)
 .NB0f09aa30:
-/*  f09aa30:	0fc26b0d */ 	jal	func0f09cd18
+/*  f09aa30:	0fc26b0d */ 	jal	handSetState
 /*  f09aa34:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09aa38:	50400004 */ 	beqzl	$v0,.NB0f09aa4c
 /*  f09aa3c:	00001025 */ 	or	$v0,$zero,$zero
@@ -13261,20 +13265,25 @@ glabel var7f1ac5ec
 );
 #endif
 
-s32 func0f09cb44(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+/**
+ * This function may have implemented an early beta feature where the gun could
+ * be held at the side of the screen, pointed upwards. The feature was shown in
+ * a demo video but doesn't exist in any public version of the game.
+ */
+s32 handTickIncState2(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	return 0;
 }
 
-s32 func0f09cb5c(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
+s32 handTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 {
 	s32 result = 0;
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
-	s32 prevvalue = hand->unk0c3c;
+	s32 prevstate = hand->state;
 
 	hand->firing = false;
 	hand->flashon = false;
-	hand->unk0c4c += lvupdate;
+	hand->stateframes += lvupdate;
 
 	if (g_Vars.lvupdate240 > 0) {
 		hand->count60 += g_Vars.lvupdate240_60;
@@ -13283,69 +13292,70 @@ s32 func0f09cb5c(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 
 	hand->useposrot = false;
 
-	switch (hand->unk0c3c) {
-	case 0:
-		result = func0f0991e4(info, handnum, hand, lvupdate);
+	switch (hand->state) {
+	case HANDSTATE_IDLE:
+		result = handTickIncIdle(info, handnum, hand, lvupdate);
 		break;
-	case 1:
-		result = func0f099c48(info, handnum, hand, lvupdate);
+	case HANDSTATE_RELOADING:
+		result = handTickIncReloading(info, handnum, hand, lvupdate);
 		break;
-	case 4:
-		result = func0f09bc2c(info, handnum, hand, lvupdate);
+	case HANDSTATE_ATTACKING:
+		result = handTickIncAttacking(info, handnum, hand, lvupdate);
 		break;
-	case 2:
-		result = func0f09cb44(info, handnum, hand, lvupdate);
+	case HANDSTATE_2:
+		result = handTickIncState2(info, handnum, hand, lvupdate);
 		break;
-	case 5:
-		result = func0f09c01c(info, handnum, hand, lvupdate);
+	case HANDSTATE_CHANGINGGUN:
+		result = handTickIncChangingGun(info, handnum, hand, lvupdate);
 		break;
-	case 3:
-		result = func0f09b8e0(info, handnum, hand, lvupdate);
+	case HANDSTATE_ATTACKINGEMPTY:
+		result = handTickIncAttackingEmpty(info, handnum, hand, lvupdate);
 		break;
-	case 8:
-		result = func0f099808(info, handnum, hand, lvupdate);
+	case HANDSTATE_8:
+		result = handTickIncState8(info, handnum, hand, lvupdate);
 		break;
-	case 7:
-		result = func0f09a310(info, handnum, hand, lvupdate);
+	case HANDSTATE_CHANGINGFUNC:
+		result = handTickIncChangingFunc(info, handnum, hand, lvupdate);
 		break;
 	}
 
-	hand->unk0c54 = hand->unk0c4c;
+	hand->statelastframe = hand->stateframes;
 
-	if (hand->unk0c3c != prevvalue) {
-		hand->unk0c54 = -result;
+	if (hand->state != prevstate) {
+		hand->statelastframe = -result;
 	} else {
-		hand->unk0c4c -= result;
-		hand->unk0c50++;
+		hand->stateframes -= result;
+		hand->statecycles++;
 	}
 
 	return result;
 }
 
-bool func0f09cd18(s32 handnum, s32 arg1)
+bool handSetState(s32 handnum, s32 state)
 {
-	bool result = true;
+	bool valid = true;
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
-	if (arg1 == 7 && weaponGetFunction(&hand->base, 1 - hand->base.weaponfunc) == NULL) {
-		result = false;
+	// Sanity check - don't allow changing function if there is no other
+	if (state == HANDSTATE_CHANGINGFUNC && weaponGetFunction(&hand->base, 1 - hand->base.weaponfunc) == NULL) {
+		valid = false;
 	}
 
-	if (result) {
-		hand->unk0c3c = arg1;
-		hand->unk0c4c = 0;
-		hand->unk0c44 = 0;
-		hand->unk0c50 = 0;
-		hand->unk0c40 = 0;
-		hand->unk0c54 = 0;
+	if (valid) {
+		hand->state = state;
+		hand->stateframes = 0;
+		hand->stateflags = 0;
+		hand->statecycles = 0;
+		hand->stateminor = HANDSTATEMINOR_IDLE;
+		hand->statelastframe = 0;
 	}
 
-	return result;
+	return valid;
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f09cdc4
+glabel handTick
 .late_rodata
 glabel var7f1ad810pf
 .word 0x3f99999a
@@ -13394,7 +13404,7 @@ glabel var7f1ad810pf
 /*  f09d100:	02602025 */ 	move	$a0,$s3
 .PF0f09d104:
 /*  f09d104:	02402825 */ 	move	$a1,$s2
-/*  f09d108:	0fc2737d */ 	jal	func0f09cb5c
+/*  f09d108:	0fc2737d */ 	jal	handTickInc
 /*  f09d10c:	02003025 */ 	move	$a2,$s0
 /*  f09d110:	00408025 */ 	move	$s0,$v0
 /*  f09d114:	18400003 */ 	blez	$v0,.PF0f09d124
@@ -13411,7 +13421,7 @@ glabel var7f1ad810pf
 /*  f09d13c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 #else
-void func0f09cdc4(s32 handnum)
+void handTick(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 	struct handweaponinfo info;
@@ -13427,15 +13437,15 @@ void func0f09cdc4(s32 handnum)
 
 	lvupdate = g_Vars.lvupdate240_60;
 
-	hand->unk0cbc = g_Vars.lvupdate240_60;
+	hand->animframeinc = g_Vars.lvupdate240_60;
 #if VERSION >= VERSION_PAL_FINAL
-	hand->unk0cc0 = modelGetAbsAnimSpeed(&hand->unk09bc) * PALUPF(hand->unk0cbc);
+	hand->animframeincfreal = modelGetAbsAnimSpeed(&hand->unk09bc) * PALUPF(hand->animframeinc);
 #else
-	hand->unk0cc0 += PALUPF(g_Vars.lvupdate240_60);
+	hand->animframeincfreal += PALUPF(g_Vars.lvupdate240_60);
 #endif
 
 	while (i >= 0) {
-		lvupdate = func0f09cb5c(&info, handnum, lvupdate);
+		lvupdate = handTickInc(&info, handnum, lvupdate);
 		i--;
 
 		if (lvupdate <= 0) {
@@ -13462,10 +13472,10 @@ void func0f09ceac(void)
 			hand = &g_Vars.currentplayer->hands[0];
 		}
 
-		hand->unk0d08 = 0;
-		hand->unk0c3c = 0;
-		hand->unk0cb8 = -1;
-		hand->unk0cc4 = 0;
+		hand->ganstarot = 0;
+		hand->state = HANDSTATE_IDLE;
+		hand->animload = -1;
+		hand->animmode = HANDANIMMODE_IDLE;
 
 		animInitialise(&hand->anim);
 
@@ -21340,19 +21350,19 @@ glabel func0f0a0fac
 /*  f0a12ac:	00000000 */ 	nop
 );
 
-void func0f0a12b0(struct coord *arg0, struct coord *arg1, s32 handnum)
+void handSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
-	hand->unk0c14 = 1;
+	hand->lastdirvalid = true;
 
-	hand->unk0c24.x = arg0->x;
-	hand->unk0c24.y = arg0->y;
-	hand->unk0c24.z = arg0->z;
+	hand->lastshootpos.x = pos->x;
+	hand->lastshootpos.y = pos->y;
+	hand->lastshootpos.z = pos->z;
 
-	hand->unk0c18.x = arg1->x;
-	hand->unk0c18.y = arg1->y;
-	hand->unk0c18.z = arg1->z;
+	hand->lastshootdir.x = dir->x;
+	hand->lastshootdir.y = dir->y;
+	hand->lastshootdir.z = dir->z;
 }
 
 u32 handGetUnk0c30(s32 handnum)
@@ -21503,7 +21513,7 @@ void func0f0a1528(void)
 				player->hands[i].base.weaponnum = ctrl->weaponnum;
 
 				player->hands[i].base.unk0639 = (ctrl->upgradewant >> (i * 4)) & 0xf;
-				player->hands[i].unk0d08 = 0.0f;
+				player->hands[i].ganstarot = 0.0f;
 
 				func0f0abd30(i);
 
@@ -22795,7 +22805,7 @@ void func0f0a29c8(void)
 			player->hands[i].matmot2 = 0;
 			player->hands[i].matmot3 = 0;
 
-			func0f09cd18(i, 0);
+			handSetState(i, 0);
 		}
 
 		currentPlayerEquipWeaponWrapper(1, WEAPON_NONE);
@@ -22861,8 +22871,8 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 				struct weaponfunc *func = handGetWeaponFunction(&player->hands[i].base);
 
 				if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW
-						&& player->hands[i].unk0c3c == 4
-						&& player->hands[i].unk0c40 == 0) {
+						&& player->hands[i].state == HANDSTATE_ATTACKING
+						&& player->hands[i].stateminor == HANDSTATEMINOR_IDLE) {
 					drop = false;
 					handCreateThrownProjectile(i + 2, &player->hands[i].base);
 				}
@@ -22893,12 +22903,12 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 
 		invRemoveItemByNum(weaponnum);
 
-		player->hands[1].unk0c3c = 0;
+		player->hands[1].state = HANDSTATE_IDLE;
 		player->hands[1].unk0d0e_00 = 1;
 		player->hands[1].unk0d0e_04 = 0;
 		player->hands[0].unk0d0e_00 = 1;
 		player->hands[0].unk0d0e_04 = 0;
-		player->hands[0].unk0c3c = 0;
+		player->hands[0].state = HANDSTATE_IDLE;
 
 		// Exit slayer rocket mode if player was using it
 		if (player->visionmode == VISIONMODE_SLAYERROCKET) {
@@ -37070,7 +37080,7 @@ bool currentPlayerIsUsingSecondaryFunction(void)
 	return false;
 }
 
-void currentPlayerTickInventory(bool triggeron)
+void handsTick(bool triggeron)
 {
 	s32 gunsfiring[2] = {false, false};
 	struct player *player = g_Vars.currentplayer;
@@ -37186,12 +37196,12 @@ void currentPlayerTickInventory(bool triggeron)
 		player->playertrigtime240 = 0;
 	}
 
-	handSetTriggerOn(0, gunsfiring[0]);
-	handSetTriggerOn(1, gunsfiring[1]);
+	handSetTriggerOn(HAND_RIGHT, gunsfiring[0]);
+	handSetTriggerOn(HAND_LEFT, gunsfiring[1]);
 
 	if (g_Vars.tickmode == TICKMODE_NORMAL && g_Vars.lvupdate240 > 0) {
-		func0f09cdc4(0);
-		func0f09cdc4(1);
+		handTick(HAND_RIGHT);
+		handTick(HAND_LEFT);
 		func0f09ce8c();
 
 		if (cheatIsActive(CHEAT_UNLIMITEDAMMONORELOADS)) {
@@ -37257,13 +37267,13 @@ void handSetAimPos(struct coord *coord)
 	player->hands[HAND_LEFT].aimpos.z = coord->z;
 }
 
-void func0f0a9464(struct coord *coord)
+void handSetHitPos(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->hands[HAND_LEFT].unk0b94.x = player->hands[HAND_RIGHT].unk0b94.x = coord->x;
-	player->hands[HAND_LEFT].unk0b94.y = player->hands[HAND_RIGHT].unk0b94.y = coord->y;
-	player->hands[HAND_LEFT].unk0b94.z = player->hands[HAND_RIGHT].unk0b94.z = coord->z;
+	player->hands[HAND_LEFT].hitpos.x = player->hands[HAND_RIGHT].hitpos.x = coord->x;
+	player->hands[HAND_LEFT].hitpos.y = player->hands[HAND_RIGHT].hitpos.y = coord->y;
+	player->hands[HAND_LEFT].hitpos.z = player->hands[HAND_RIGHT].hitpos.z = coord->z;
 }
 
 void func0f0a9494(u32 operation)

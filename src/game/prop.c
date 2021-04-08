@@ -1766,7 +1766,7 @@ glabel var7f1a9eb8
 .L0f061754:
 /*  f061754:	8e104458 */ 	lw	$s0,%lo(somethings)($s0)
 .L0f061758:
-/*  f061758:	0fc2a519 */ 	jal	func0f0a9464
+/*  f061758:	0fc2a519 */ 	jal	handSetHitPos
 /*  f06175c:	27a40694 */ 	addiu	$a0,$sp,0x694
 /*  f061760:	860c000a */ 	lh	$t4,0xa($s0)
 /*  f061764:	8fb801f0 */ 	lw	$t8,0x1f0($sp)
@@ -2045,7 +2045,7 @@ glabel var7f1a9eb8
 /*  f061b44:	10000003 */ 	b	.L0f061b54
 /*  f061b48:	00000000 */ 	nop
 .L0f061b4c:
-/*  f061b4c:	0fc2a519 */ 	jal	func0f0a9464
+/*  f061b4c:	0fc2a519 */ 	jal	handSetHitPos
 /*  f061b50:	27a40648 */ 	addiu	$a0,$sp,0x648
 .L0f061b54:
 /*  f061b54:	10000079 */ 	b	.L0f061d3c
@@ -2313,21 +2313,21 @@ glabel var7f1a9ebc
 
 void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
 {
-	struct coord sp5c;
-	struct coord sp50;
+	struct coord shootdir;
+	struct coord shootpos;
 	struct coord sp44;
 	struct coord sp38;
 
 	handCalculateShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
-		func00015b68(currentPlayerGetUnk174c(), &sp38, &sp50);
-		func00015b14(currentPlayerGetUnk174c(), &sp44, &sp5c);
+		func00015b68(currentPlayerGetUnk174c(), &sp38, &shootpos);
+		func00015b14(currentPlayerGetUnk174c(), &sp44, &shootdir);
 
-		func0f060db8(handnum, arg1, &sp38, &sp44, &sp50, &sp5c, 0, 4294836224, arg4);
+		func0f060db8(handnum, arg1, &sp38, &sp44, &shootpos, &shootdir, 0, 4294836224, arg4);
 
 		if (arg3 < 2) {
-			func0f0a12b0(&sp50, &sp5c, handnum);
+			handSetLastShootInfo(&shootpos, &shootdir, handnum);
 		}
 	}
 }

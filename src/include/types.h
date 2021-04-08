@@ -2295,7 +2295,7 @@ struct hand {
 	/*0x0b88*/ u32 unk0b88;
 	/*0x0b8c*/ struct anim *unk0b8c;
 	/*0x0b90*/ s32 burstbullets;
-	/*0x0b94*/ struct coord unk0b94;
+	/*0x0b94*/ struct coord hitpos;
 	/*0x0ba0*/ u32 unk0ba0;
 	/*0x0ba4*/ u32 unk0ba4;
 	/*0x0ba8*/ u32 unk0ba8;
@@ -2325,19 +2325,19 @@ struct hand {
 	/*0x0c08*/ u32 unk0c08;
 	/*0x0c0c*/ u32 unk0c0c;
 	/*0x0c10*/ u32 unk0c10;
-	/*0x0c14*/ u8 unk0c14;
-	/*0x0c18*/ struct coord unk0c18;
-	/*0x0c24*/ struct coord unk0c24;
+	/*0x0c14*/ u8 lastdirvalid;
+	/*0x0c18*/ struct coord lastshootdir;
+	/*0x0c24*/ struct coord lastshootpos;
 	/*0x0c30*/ u32 unk0c30;
 	/*0x0c34*/ u32 unk0c34;
 	/*0x0c38*/ u32 unk0c38;
-	/*0x0c3c*/ u32 unk0c3c;
-	/*0x0c40*/ s32 unk0c40;
-	/*0x0c44*/ u32 unk0c44;
+	/*0x0c3c*/ u32 state;
+	/*0x0c40*/ s32 stateminor;
+	/*0x0c44*/ u32 stateflags;
 	/*0x0c48*/ u32 unk0c48;
-	/*0x0c4c*/ s32 unk0c4c;
-	/*0x0c50*/ u32 unk0c50;
-	/*0x0c54*/ u32 unk0c54;
+	/*0x0c4c*/ s32 stateframes;
+	/*0x0c50*/ u32 statecycles;
+	/*0x0c54*/ u32 statelastframe;
 	/*0x0c58*/ u32 unk0c58;
 	/*0x0c5c*/ u32 unk0c5c;
 	/*0x0c60*/ u32 unk0c60;
@@ -2354,7 +2354,7 @@ struct hand {
 	/*0x0c8c*/ u32 unk0c8c;
 	/*0x0c90*/ u32 unk0c90;
 	/*0x0c94*/ u32 unk0c94;
-	/*0x0c98*/ f32 unk0c98;
+	/*0x0c98*/ f32 gs_float1;
 	/*0x0c9c*/ u32 unk0c9c;
 	/*0x0ca0*/ u32 unk0ca0;
 	/*0x0ca4*/ u32 unk0ca4;
@@ -2362,18 +2362,18 @@ struct hand {
 	/*0x0cac*/ u32 unk0cac;
 	/*0x0cb0*/ u32 unk0cb0;
 	/*0x0cb4*/ u32 unk0cb4;
-	/*0x0cb8*/ s32 unk0cb8;
-	/*0x0cbc*/ s32 unk0cbc;
+	/*0x0cb8*/ s32 animload;
+	/*0x0cbc*/ s32 animframeinc;
 #if VERSION >= VERSION_PAL_FINAL
-	/*0x0cc0*/ f32 unk0cc0;
+	/*0x0cc0*/ f32 animframeincfreal;
 #else
-	/*0x0cc0*/ u32 unk0cc0;
+	/*0x0cc0*/ u32 animframeincfreal;
 #endif
-	/*0x0cc4*/ u32 unk0cc4;
+	/*0x0cc4*/ u32 animmode;
 	/*0x0cc8*/ u8 unk0cc8_01 : 1;
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
 	/*0x0cc8*/ u8 unk0cc8_03 : 1;
-	/*0x0cc9*/ u8 unk0cc9;
+	/*0x0cc9*/ u8 animloopcount;
 	/*0x0ccc*/ f32 crosspos[2];
 	/*0x0cd4*/ f32 unk0cd4;
 	/*0x0cd8*/ f32 unk0cd8;
@@ -2384,8 +2384,8 @@ struct hand {
 	/*0x0cec*/ ubool unk0cec;
 	/*0x0cf0*/ struct coord unk0cf0;
 	/*0x0cfc*/ struct coord unk0cfc;
-	/*0x0d08*/ f32 unk0d08;
-	/*0x0d0c*/ s16 unk0d0c;
+	/*0x0d08*/ f32 ganstarot;
+	/*0x0d0c*/ s16 primetimer;
 	/*0x0d0e*/ u8 unk0d0e_00 : 4;
 	/*0x0d0e*/ u8 unk0d0e_04 : 3;
 	/*0x0d0e*/ u8 unk0d0e_07 : 1;
