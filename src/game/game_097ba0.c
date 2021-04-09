@@ -3586,6 +3586,190 @@ glabel handTickIncIdle
 );
 #endif
 
+// Mismatch: regalloc
+//s32 handTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+//{
+//	bool usesec;
+//	s32 gunfunc = currentPlayerIsUsingSecondaryFunction();
+//	s32 sp34;
+//	s32 sp30;
+//	bool changefunc;
+//	s32 next;
+//	struct hand *lhand;
+//	struct weaponfunc *func;
+//
+//	hand->lastdirvalid = false;
+//	hand->burstbullets = 0;
+//#if VERSION < VERSION_PAL_FINAL
+//	hand->animframeincfreal = hand->animframeinc;
+//#endif
+//	hand->shotremainder = 0;
+//
+//	// If ready to change gun due to manual switch, just do that
+//	if (func0f09bd58(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
+//		return lvupdate;
+//	}
+//
+//	if (gunfunc == hand->base.weaponfunc) {
+//		hand->unk0cc8_07 = false;
+//	}
+//
+//	hand->unk0cc8_08 = false;
+//
+//	if (hand->inuse) {
+//		sp34 = func0f098ca0(hand->base.weaponfunc, info, hand);
+//
+//		// Handle changing gun function
+//		if (gunfunc != hand->base.weaponfunc && hand->modenext != 9) {
+//			changefunc = true;
+//
+//			if (hand->unk0cc8_07 && func0f098ca0(1 - hand->base.weaponfunc, info, hand) < 0) {
+//				changefunc = false;
+//			}
+//
+//			if (changefunc && info->weaponnum == WEAPON_COMBATKNIFE) {
+//				if (sp34 == 0) {
+//					hand->count60 = 0;
+//					hand->count = 0;
+//					hand->base.weaponfunc = gunfunc;
+//
+//					if (handSetState(handnum, HANDSTATE_RELOAD)) {
+//						return lvupdate;
+//					}
+//				} else {
+//					if (sp34 < 0) {
+//						changefunc = false;
+//					}
+//				}
+//			}
+//
+//			if (changefunc) {
+//				hand->unk0cc8_07 = false;
+//
+//				if (handSetState(handnum, HANDSTATE_CHANGEFUNC)) {
+//					return lvupdate;
+//				}
+//			}
+//		}
+//
+//		if (sp34 < 0) {
+//			// Attempted to shoot with no ammo
+//
+//			// Consider switching to another weapon
+//			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_00000001)
+//					&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
+//					&& handSetState(handnum, HANDSTATE_AUTOSWITCH)) {
+//				return lvupdate;
+//			}
+//
+//			// Consider switching to other gun function
+//			usesec = g_Vars.currentplayer->gunctrl.weaponnum >= WEAPON_UNARMED
+//				&& g_Vars.currentplayer->gunctrl.weaponnum <= WEAPON_COMBATBOOST
+//				&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)));
+//
+//			if (usesec == gunfunc) {
+//				sp30 = func0f098ca0(1 - hand->base.weaponfunc, info, hand);
+//
+//				if (func0f099188(hand, 1 - hand->base.weaponfunc)
+//						&& info->weaponnum != WEAPON_REAPER) {
+//					if (info->gunctrl->wantammo) {
+//						func = weaponGetFunction(&hand->base, 1 - hand->base.weaponfunc);
+//
+//						if ((func->type & 0xff) != INVENTORYFUNCTYPE_CLOSE) {
+//							sp30 = -1;
+//						}
+//					} else {
+//						sp30 = -1;
+//					}
+//				}
+//
+//				if (sp30 < 0) {
+//					hand->unk0cc8_08 = true;
+//				} else {
+//					if (!weaponHasFlag(info->weaponnum, WEAPONFLAG_04000000)
+//							|| hand->base.weaponfunc == FUNC_SECONDARY) {
+//						hand->unk0cc8_07 = true;
+//
+//						if (handSetState(handnum, HANDSTATE_CHANGEFUNC)) {
+//							return lvupdate;
+//						}
+//					}
+//				}
+//			}
+//		} else if (sp34 == 0) {
+//			// Clip is empty
+//			if (hand->triggeron && info->weaponnum != WEAPON_NONE) {
+//				hand->unk0cc8_01 = false;
+//
+//				if (handSetState(handnum, HANDSTATE_ATTACKEMPTY)) {
+//					return lvupdate;
+//				}
+//			} else {
+//				hand->count60 = 0;
+//				hand->count = 0;
+//
+//				if (handSetState(handnum, HANDSTATE_RELOAD)) {
+//					return lvupdate;
+//				}
+//			}
+//		} else {
+//			// Clip has ammo
+//			if (hand->triggeron || (hand->unk0d0f_03 && hand->base.weaponfunc == FUNC_SECONDARY)) {
+//				if (info->weaponnum != WEAPON_NONE) {
+//					g_Vars.currentplayer->doautoselect = false;
+//
+//					hand->mode = 1;
+//					hand->count = 0;
+//					hand->count60 = 0;
+//					hand->triggerreleased = false;
+//
+//					hand->unk0d0f_03 = false;
+//
+//					if (handSetState(handnum, HANDSTATE_ATTACK)) {
+//						return lvupdate;
+//					}
+//				}
+//			}
+//
+//			// Not attacking, but the player may have attempted
+//			// to change guns or reload while firing
+//			if (hand->modenext != 0) {
+//				next = hand->modenext;
+//
+//				hand->mode = hand->modenext;
+//				hand->count60 = 0;
+//				hand->count = 0;
+//				hand->modenext = 0;
+//
+//				if (next == 9 && sp34 < 2 && sp34 >= 0) {
+//					if (handSetState(handnum, HANDSTATE_RELOAD)) {
+//						return lvupdate;
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	// 698
+//	if (handnum == HAND_RIGHT) {
+//		if (info->gunctrl->wantammo) {
+//			currentPlayerAutoSwitchWeapon();
+//		} else {
+//			lhand = &g_Vars.currentplayer->hands[1] - handnum;
+//
+//			if ((hand->unk0cc8_08 || !hand->inuse)
+//					&& (lhand->unk0cc8_08 || !lhand->inuse)
+//					&& (hand->triggeron || lhand->triggeron)) {
+//				currentPlayerAutoSwitchWeapon();
+//			}
+//
+//			hand->unk0cc8_08 = lhand->unk0cc8_08 = false;
+//		}
+//	}
+//
+//	return 0;
+//}
+
 GLOBAL_ASM(
 glabel func0f099780
 /*  f099780:	27bdffe0 */ 	addiu	$sp,$sp,-32

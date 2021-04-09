@@ -2373,6 +2373,11 @@ struct hand {
 	/*0x0cc8*/ u8 unk0cc8_01 : 1;
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
 	/*0x0cc8*/ u8 unk0cc8_03 : 1;
+	/*0x0cc8*/ u8 unk0cc8_04 : 1;
+	/*0x0cc8*/ u8 unk0cc8_05 : 1;
+	/*0x0cc8*/ u8 unk0cc8_06 : 1;
+	/*0x0cc8*/ u8 unk0cc8_07 : 1;
+	/*0x0cc8*/ u8 unk0cc8_08 : 1;
 	/*0x0cc9*/ u8 animloopcount;
 	/*0x0ccc*/ f32 crosspos[2];
 	/*0x0cd4*/ f32 unk0cd4;
