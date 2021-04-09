@@ -3972,7 +3972,7 @@ Gfx *lvRender(Gfx *gdl)
 									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);
 						} else {
 							// No dart ammo
-							sndStart(var80095200, SFX_DRUGSPY_FIREEMPTY, 0, -1, -1, -1, -1, -1);
+							sndStart(var80095200, SFX_FIREEMPTY, 0, -1, -1, -1, -1, -1);
 						}
 					} else { // EYESPYMODE_BOMBSPY
 						struct coord spd4 = {0, 0, 0};

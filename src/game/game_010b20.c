@@ -226,9 +226,9 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->unk16dc = 0;
 	g_Vars.currentplayer->unk16e0 = 0;
 	g_Vars.currentplayer->unk16e4 = 0;
-	g_Vars.currentplayer->unk16e8 = 0;
-	g_Vars.currentplayer->unk16ec = 0;
-	g_Vars.currentplayer->unk16f0 = 0;
+	g_Vars.currentplayer->syncoffset = 0;
+	g_Vars.currentplayer->cyclesum = 0;
+	g_Vars.currentplayer->gunampsum = 0;
 
 	func0f09d140(HAND_RIGHT);
 	func0f09d140(HAND_RIGHT);

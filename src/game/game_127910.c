@@ -466,9 +466,9 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->unk16dc = 0;
 	g_Vars.players[index]->unk16e0 = 0;
 	g_Vars.players[index]->unk16e4 = 0;
-	g_Vars.players[index]->unk16e8 = 0;
-	g_Vars.players[index]->unk16ec = 0;
-	g_Vars.players[index]->unk16f0 = 0;
+	g_Vars.players[index]->syncoffset = 0;
+	g_Vars.players[index]->cyclesum = 0;
+	g_Vars.players[index]->gunampsum = 0;
 
 	g_Vars.players[index]->gunzoomfovs[0] = 15;
 	g_Vars.players[index]->gunzoomfovs[1] = 60;
