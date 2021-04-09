@@ -2113,7 +2113,7 @@ struct hand {
 	/*0x0768*/ f32 blendlook[12];
 	/*0x0798*/ f32 blendup[12];
 	/*0x07c8*/ u32 curblendpos;
-	/*0x07cc*/ u32 dampt;
+	/*0x07cc*/ f32 dampt;
 	/*0x07d0*/ f32 blendescale;
 	/*0x07d4*/ f32 blendescale1;
 	/*0x07d8*/ u32 sideflag;
@@ -2811,9 +2811,9 @@ struct player {
 	/*0x16dc*/ f32 unk16dc;
 	/*0x16e0*/ f32 unk16e0;
 	/*0x16e4*/ f32 unk16e4;
-	/*0x16e8*/ u32 unk16e8;
-	/*0x16ec*/ f32 unk16ec;
-	/*0x16f0*/ f32 unk16f0;
+	/*0x16e8*/ s32 syncoffset;
+	/*0x16ec*/ f32 cyclesum;
+	/*0x16f0*/ f32 gunampsum;
 	/*0x16f4*/ f32 gunzoomfovs[3]; // saved zoom levels/fovs for sniper, farsight and horizon scanner
 	/*0x1700*/ s32 lastroomforoffset;
 	/*0x1704*/ f32 c_screenwidth;
