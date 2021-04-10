@@ -34639,32 +34639,17 @@ void currentPlayerGiveAmmoForWeapon(u32 weaponnum, u32 func, u32 quantity)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0a9b10
-/*  f0a9b10:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a9b14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a9b18:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0a9b1c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0a9b20:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f0a9b24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a9b28:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0a9b2c:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f0a9b30:	8f03001c */ 	lw	$v1,0x1c($t8)
-/*  f0a9b34:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a9b38:	10600009 */ 	beqz	$v1,.L0f0a9b60
-/*  f0a9b3c:	00000000 */ 	nop
-/*  f0a9b40:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f0a9b44:	3c028007 */ 	lui	$v0,%hi(g_AmmoTypes)
-/*  f0a9b48:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f0a9b4c:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0a9b50:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0a9b54:	00481021 */ 	addu	$v0,$v0,$t0
-/*  f0a9b58:	10000001 */ 	b	.L0f0a9b60
-/*  f0a9b5c:	8c420368 */ 	lw	$v0,%lo(g_AmmoTypes)($v0)
-.L0f0a9b60:
-/*  f0a9b60:	03e00008 */ 	jr	$ra
-/*  f0a9b64:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+	struct inventory_ammo *ammo = weapon->ammos[func];
+
+	if (ammo) {
+		return g_AmmoTypes[ammo->type].capacity;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0a9b68

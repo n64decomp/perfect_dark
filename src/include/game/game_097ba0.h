@@ -161,7 +161,7 @@ void currentPlayerGiveUnlimitedAmmo(bool force);
 u32 weaponGetAmmoType(u32 weaponnum, u32 func);
 s32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func);
 void currentPlayerGiveAmmoForWeapon(u32 weaponnum, u32 func, u32 quantity);
-u32 func0f0a9b10(void);
+s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func);
 u32 func0f0a9b68(void);
 u32 func0f0a9d2c(void);
 void abmagReset(struct abmag *abmag);
