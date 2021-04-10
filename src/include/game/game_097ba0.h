@@ -43,7 +43,7 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 bool handIsReadyToSwitch(s32 handnum);
 bool func0f09bec8(s32 handnum);
-u32 func0f09bf44(void);
+bool func0f09bf44(s32 handnum);
 s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 handTickIncState2(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 handTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate);

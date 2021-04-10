@@ -8115,69 +8115,33 @@ bool func0f09bec8(s32 handnum)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f09bf44
-/*  f09bf44:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09bf48:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x284)
-/*  f09bf4c:	8ca5a244 */ 	lw	$a1,%lo(g_Vars+0x284)($a1)
-/*  f09bf50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09bf54:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f09bf58:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f09bf5c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f09bf60:	0fc2775f */ 	jal	func0f09dd7c
-/*  f09bf64:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f09bf68:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f09bf6c:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f09bf70:	14400002 */ 	bnez	$v0,.L0f09bf7c
-/*  f09bf74:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f09bf78:	00001825 */ 	or	$v1,$zero,$zero
-.L0f09bf7c:
-/*  f09bf7c:	80ae1582 */ 	lb	$t6,0x1582($a1)
-/*  f09bf80:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f09bf84:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f09bf88:	11c10002 */ 	beq	$t6,$at,.L0f09bf94
-/*  f09bf8c:	00041100 */ 	sll	$v0,$a0,0x4
-/*  f09bf90:	00001825 */ 	or	$v1,$zero,$zero
-.L0f09bf94:
-/*  f09bf94:	1486000f */ 	bne	$a0,$a2,.L0f09bfd4
-/*  f09bf98:	00441023 */ 	subu	$v0,$v0,$a0
-/*  f09bf9c:	0004c900 */ 	sll	$t9,$a0,0x4
-/*  f09bfa0:	0324c823 */ 	subu	$t9,$t9,$a0
-/*  f09bfa4:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f09bfa8:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f09bfac:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f09bfb0:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f09bfb4:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f09bfb8:	90af1583 */ 	lbu	$t7,0x1583($a1)
-/*  f09bfbc:	00b94021 */ 	addu	$t0,$a1,$t9
-/*  f09bfc0:	81090640 */ 	lb	$t1,0x640($t0)
-/*  f09bfc4:	000fc1c2 */ 	srl	$t8,$t7,0x7
-/*  f09bfc8:	53090003 */ 	beql	$t8,$t1,.L0f09bfd8
-/*  f09bfcc:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f09bfd0:	00001825 */ 	or	$v1,$zero,$zero
-.L0f09bfd4:
-/*  f09bfd4:	00021080 */ 	sll	$v0,$v0,0x2
-.L0f09bfd8:
-/*  f09bfd8:	8caa1584 */ 	lw	$t2,0x1584($a1)
-/*  f09bfdc:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f09bfe0:	000210c0 */ 	sll	$v0,$v0,0x3
-/*  f09bfe4:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f09bfe8:	05400002 */ 	bltz	$t2,.L0f09bff4
-/*  f09bfec:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f09bff0:	00001825 */ 	or	$v1,$zero,$zero
-.L0f09bff4:
-/*  f09bff4:	00025823 */ 	negu	$t3,$v0
-/*  f09bff8:	00ab6021 */ 	addu	$t4,$a1,$t3
-/*  f09bffc:	8d8d13e0 */ 	lw	$t5,0x13e0($t4)
-/*  f09c000:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09c004:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f09c008:	14cd0002 */ 	bne	$a2,$t5,.L0f09c014
-/*  f09c00c:	00000000 */ 	nop
-/*  f09c010:	00001825 */ 	or	$v1,$zero,$zero
-.L0f09c014:
-/*  f09c014:	03e00008 */ 	jr	$ra
-/*  f09c018:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool func0f09bf44(s32 handnum)
+{
+	bool result = true;
+	struct player *player = g_Vars.currentplayer;
+
+	if (!func0f09dd7c()) {
+		result = false;
+	}
+
+	if (player->gunctrl.switchtoweaponnum != -1) {
+		result = false;
+	}
+
+	if (handnum == HAND_LEFT && player->gunctrl.unk1583_00 != player->hands[handnum].inuse) {
+		result = false;
+	}
+
+	if (player->gunctrl.gunmemnew >= 0) {
+		result = false;
+	}
+
+	if (player->hands[1 - handnum].state == HANDSTATE_RELOAD) {
+		result = false;
+	}
+
+	return result;
+}
 
 #if PAL
 GLOBAL_ASM(
