@@ -2331,7 +2331,7 @@ struct hand {
 	/*0x0c30*/ s32 shotstotake;
 	/*0x0c34*/ f32 shotremainder;
 	/*0x0c38*/ u32 unk0c38;
-	/*0x0c3c*/ u32 state;
+	/*0x0c3c*/ s32 state;
 	/*0x0c40*/ s32 stateminor;
 	/*0x0c44*/ u32 stateflags;
 	/*0x0c48*/ u32 unk0c48;

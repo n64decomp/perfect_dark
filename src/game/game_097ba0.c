@@ -2748,7 +2748,7 @@ glabel handTickIncIdle
 /*  f099298:	a20005dc */ 	sb	$zero,0x5dc($s0)
 /*  f09929c:	ae000558 */ 	sw	$zero,0x558($s0)
 /*  f0992a0:	e60405fc */ 	swc1	$f4,0x5fc($s0)
-/*  f0992a4:	0fc26ffc */ 	jal	func0f09bd58
+/*  f0992a4:	0fc26ffc */ 	jal	handIsReadyToSwitch
 /*  f0992a8:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0992ac:	10400007 */ 	beqz	$v0,.PF0f0992cc
 /*  f0992b0:	8fa40044 */ 	lw	$a0,0x44($sp)
@@ -3139,7 +3139,7 @@ glabel handTickIncIdle
 /*  f099214:	ae000558 */ 	sw	$zero,0x558($s0)
 /*  f099218:	ae0e0688 */ 	sw	$t6,0x688($s0)
 /*  f09921c:	e60405fc */ 	swc1	$f4,0x5fc($s0)
-/*  f099220:	0fc26f56 */ 	jal	func0f09bd58
+/*  f099220:	0fc26f56 */ 	jal	handIsReadyToSwitch
 /*  f099224:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099228:	10400007 */ 	beqz	$v0,.L0f099248
 /*  f09922c:	8fa40044 */ 	lw	$a0,0x44($sp)
@@ -3534,7 +3534,7 @@ glabel handTickIncIdle
 //	hand->shotremainder = 0;
 //
 //	// If ready to change gun due to manual switch, just do that
-//	if (func0f09bd58(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
+//	if (handIsReadyToSwitch(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
 //		return lvupdate;
 //	}
 //
@@ -3740,7 +3740,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 #endif
 		hand->shotremainder = 0;
 
-		if (func0f09bd58(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
+		if (handIsReadyToSwitch(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
 			if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
 				currentPlayerSetWeaponFlag4(handnum);
 			}
@@ -8056,110 +8056,55 @@ s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f09bd58
-/*  f09bd58:	3c0e8009 */ 	lui	$t6,%hi(g_FrIsValidWeapon)
-/*  f09bd5c:	91ce8804 */ 	lbu	$t6,%lo(g_FrIsValidWeapon)($t6)
-/*  f09bd60:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09bd64:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f09bd68:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09bd6c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f09bd70:	11c00013 */ 	beqz	$t6,.L0f09bdc0
-/*  f09bd74:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f09bd78:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f09bd7c:	0fc67494 */ 	jal	frGetSlot
-/*  f09bd80:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f09bd84:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f09bd88:	00402025 */ 	or	$a0,$v0,$zero
-/*  f09bd8c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f09bd90:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f09bd94:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f09bd98:	906f0638 */ 	lbu	$t7,0x638($v1)
-/*  f09bd9c:	144f0008 */ 	bne	$v0,$t7,.L0f09bdc0
-/*  f09bda0:	00000000 */ 	nop
-/*  f09bda4:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f09bda8:	8f191580 */ 	lw	$t9,0x1580($t8)
-/*  f09bdac:	00194f00 */ 	sll	$t1,$t9,0x1c
-/*  f09bdb0:	05200003 */ 	bltz	$t1,.L0f09bdc0
-/*  f09bdb4:	00000000 */ 	nop
-/*  f09bdb8:	1000003f */ 	b	.L0f09beb8
-/*  f09bdbc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09bdc0:
-/*  f09bdc0:	54a0000e */ 	bnezl	$a1,.L0f09bdfc
-/*  f09bdc4:	806d1582 */ 	lb	$t5,0x1582($v1)
-/*  f09bdc8:	806a0de4 */ 	lb	$t2,0xde4($v1)
-/*  f09bdcc:	5140000b */ 	beqzl	$t2,.L0f09bdfc
-/*  f09bdd0:	806d1582 */ 	lb	$t5,0x1582($v1)
-/*  f09bdd4:	8c6b13e0 */ 	lw	$t3,0x13e0($v1)
-/*  f09bdd8:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f09bddc:	55610007 */ 	bnel	$t3,$at,.L0f09bdfc
-/*  f09bde0:	806d1582 */ 	lb	$t5,0x1582($v1)
-/*  f09bde4:	8c6c13e4 */ 	lw	$t4,0x13e4($v1)
-/*  f09bde8:	55800004 */ 	bnezl	$t4,.L0f09bdfc
-/*  f09bdec:	806d1582 */ 	lb	$t5,0x1582($v1)
-/*  f09bdf0:	10000031 */ 	b	.L0f09beb8
-/*  f09bdf4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bdf8:	806d1582 */ 	lb	$t5,0x1582($v1)
-.L0f09bdfc:
-/*  f09bdfc:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f09be00:	05a00003 */ 	bltz	$t5,.L0f09be10
-/*  f09be04:	00000000 */ 	nop
-/*  f09be08:	1000002b */ 	b	.L0f09beb8
-/*  f09be0c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f09be10:
-/*  f09be10:	54a40029 */ 	bnel	$a1,$a0,.L0f09beb8
-/*  f09be14:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09be18:	14a40010 */ 	bne	$a1,$a0,.L0f09be5c
-/*  f09be1c:	00057100 */ 	sll	$t6,$a1,0x4
-/*  f09be20:	8c620c3c */ 	lw	$v0,0xc3c($v1)
-/*  f09be24:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f09be28:	14820003 */ 	bne	$a0,$v0,.L0f09be38
-/*  f09be2c:	00000000 */ 	nop
-/*  f09be30:	10000021 */ 	b	.L0f09beb8
-/*  f09be34:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09be38:
-/*  f09be38:	54410004 */ 	bnel	$v0,$at,.L0f09be4c
-/*  f09be3c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f09be40:	1000001d */ 	b	.L0f09beb8
-/*  f09be44:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09be48:	24010004 */ 	addiu	$at,$zero,0x4
-.L0f09be4c:
-/*  f09be4c:	54410004 */ 	bnel	$v0,$at,.L0f09be60
-/*  f09be50:	01c57023 */ 	subu	$t6,$t6,$a1
-/*  f09be54:	10000018 */ 	b	.L0f09beb8
-/*  f09be58:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09be5c:
-/*  f09be5c:	01c57023 */ 	subu	$t6,$t6,$a1
-.L0f09be60:
-/*  f09be60:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09be64:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f09be68:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f09be6c:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f09be70:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09be74:	006e7821 */ 	addu	$t7,$v1,$t6
-/*  f09be78:	81e20640 */ 	lb	$v0,0x640($t7)
-/*  f09be7c:	10400006 */ 	beqz	$v0,.L0f09be98
-/*  f09be80:	00000000 */ 	nop
-/*  f09be84:	80791583 */ 	lb	$t9,0x1583($v1)
-/*  f09be88:	07200003 */ 	bltz	$t9,.L0f09be98
-/*  f09be8c:	00000000 */ 	nop
-/*  f09be90:	10000009 */ 	b	.L0f09beb8
-/*  f09be94:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f09be98:
-/*  f09be98:	54400007 */ 	bnezl	$v0,.L0f09beb8
-/*  f09be9c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09bea0:	80691583 */ 	lb	$t1,0x1583($v1)
-/*  f09bea4:	05230004 */ 	bgezl	$t1,.L0f09beb8
-/*  f09bea8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09beac:	10000002 */ 	b	.L0f09beb8
-/*  f09beb0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f09beb4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09beb8:
-/*  f09beb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09bebc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f09bec0:	03e00008 */ 	jr	$ra
-/*  f09bec4:	00000000 */ 	nop
-);
+bool handIsReadyToSwitch(s32 handnum)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	// Dont switch if... something firing range related
+	if (g_FrIsValidWeapon
+			&& frGetWeaponBySlot(frGetSlot()) == player->hands[HAND_RIGHT].base.weaponnum
+			&& g_Vars.currentplayer->gunctrl.unk1583_04 == false) {
+		return false;
+	}
+
+	// Don't switch right hand if left hand is about to auto switch
+	if (handnum == HAND_RIGHT
+			&& player->hands[HAND_LEFT].inuse
+			&& player->hands[HAND_LEFT].state == HANDSTATE_AUTOSWITCH
+			&& player->hands[HAND_LEFT].stateminor == HANDSTATEMINOR_IDLE) {
+		return false;
+	}
+
+	if (player->gunctrl.switchtoweaponnum >= 0) {
+		return true;
+	}
+
+	if (handnum == HAND_LEFT) {
+		if (handnum == HAND_LEFT) {
+			if (player->hands[HAND_RIGHT].state == HANDSTATE_RELOAD) {
+				return false;
+			}
+
+			if (player->hands[HAND_RIGHT].state == HANDSTATE_CHANGEFUNC) {
+				return false;
+			}
+
+			if (player->hands[HAND_RIGHT].state == HANDSTATE_ATTACK) {
+				return false;
+			}
+		}
+
+		if (player->hands[handnum].inuse && player->gunctrl.unk1583_00 == false) {
+			return true;
+		}
+
+		if (!player->hands[handnum].inuse && player->gunctrl.unk1583_00) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool func0f09bec8(s32 handnum)
 {
