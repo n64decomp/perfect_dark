@@ -28,7 +28,7 @@ bool func0f099188(struct hand *hand, s32 gunfunc);
 s32 handTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 void func0f099780(struct hand *hand, f32 angle);
 s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
-u32 func0f099c24(void);
+bool handIsReloading(struct hand *hand);
 s32 handTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 handTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func);

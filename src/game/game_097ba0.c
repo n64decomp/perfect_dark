@@ -3829,19 +3829,14 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f099c24
-/*  f099c24:	8c8e0604 */ 	lw	$t6,0x604($a0)
-/*  f099c28:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f099c2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f099c30:	15c10003 */ 	bne	$t6,$at,.L0f099c40
-/*  f099c34:	00000000 */ 	nop
-/*  f099c38:	03e00008 */ 	jr	$ra
-/*  f099c3c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f099c40:
-/*  f099c40:	03e00008 */ 	jr	$ra
-/*  f099c44:	00000000 */ 	nop
-);
+bool handIsReloading(struct hand *hand)
+{
+	if (hand->state == HANDSTATE_RELOAD) {
+		return true;
+	}
+
+	return false;
+}
 
 #if PAL
 GLOBAL_ASM(
@@ -27966,7 +27961,7 @@ glabel var7f1aca84
 /*  f0a69fc:	26500638 */ 	addiu	$s0,$s2,0x638
 /*  f0a6a00:	51c00077 */ 	beqzl	$t6,.L0f0a6be0
 /*  f0a6a04:	267307a4 */ 	addiu	$s3,$s3,0x7a4
-/*  f0a6a08:	0fc26709 */ 	jal	func0f099c24
+/*  f0a6a08:	0fc26709 */ 	jal	handIsReloading
 /*  f0a6a0c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a6a10:	50400004 */ 	beqzl	$v0,.L0f0a6a24
 /*  f0a6a14:	920f0003 */ 	lbu	$t7,0x3($s0)
