@@ -3753,43 +3753,16 @@ glabel handTickIncIdle
 //	return 0;
 //}
 
-GLOBAL_ASM(
-glabel func0f099780
-/*  f099780:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f099784:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f099788:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f09978c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f099790:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f099794:	ac8e00b4 */ 	sw	$t6,0xb4($a0)
-/*  f099798:	00808025 */ 	or	$s0,$a0,$zero
-/*  f09979c:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f0997a0:	0c0058ba */ 	jal	func000162e8
-/*  f0997a4:	24850074 */ 	addiu	$a1,$a0,0x74
-/*  f0997a8:	44802000 */ 	mtc1	$zero,$f4
-/*  f0997ac:	00000000 */ 	nop
-/*  f0997b0:	e60400a4 */ 	swc1	$f4,0xa4($s0)
-/*  f0997b4:	0c0068f4 */ 	jal	cosf
-/*  f0997b8:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f0997bc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0997c0:	44813000 */ 	mtc1	$at,$f6
-/*  f0997c4:	3c01c2a0 */ 	lui	$at,0xc2a0
-/*  f0997c8:	44815000 */ 	mtc1	$at,$f10
-/*  f0997cc:	46003201 */ 	sub.s	$f8,$f6,$f0
-/*  f0997d0:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0997d4:	e61000a8 */ 	swc1	$f16,0xa8($s0)
-/*  f0997d8:	0c0068f7 */ 	jal	sinf
-/*  f0997dc:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f0997e0:	3c014170 */ 	lui	$at,0x4170
-/*  f0997e4:	44819000 */ 	mtc1	$at,$f18
-/*  f0997e8:	00000000 */ 	nop
-/*  f0997ec:	46120102 */ 	mul.s	$f4,$f0,$f18
-/*  f0997f0:	e60400ac */ 	swc1	$f4,0xac($s0)
-/*  f0997f4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0997f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0997fc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f099800:	03e00008 */ 	jr	$ra
-/*  f099804:	00000000 */ 	nop
-);
+void func0f099780(struct hand *hand, f32 angle)
+{
+	hand->useposrot = true;
+
+	func000162e8(angle, &hand->posrotmtx);
+
+	hand->posrotmtx.m[3][0] = 0;
+	hand->posrotmtx.m[3][1] = (1.0f - cosf(angle)) * -80.0f;
+	hand->posrotmtx.m[3][2] = sinf(angle) * 15.0f;
+}
 
 s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
