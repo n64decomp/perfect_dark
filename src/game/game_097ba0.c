@@ -54,7 +54,7 @@
 u32 var8009d0d0[2];
 s32 var8009d0d8;
 u32 var8009d0dc;
-u32 var8009d0e0[4];
+struct audiohandle *var8009d0e0[4];
 u32 var8009d0f0;
 u32 var8009d0f4;
 u32 var8009d0f8;
@@ -31696,26 +31696,21 @@ glabel var7f1aca90
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0a7d5c
-/*  f0a7d5c:	3c03800a */ 	lui	$v1,%hi(var8009d0e0)
-/*  f0a7d60:	3c02800a */ 	lui	$v0,%hi(var8009d0e0+0x10)
-/*  f0a7d64:	2442d0f0 */ 	addiu	$v0,$v0,%lo(var8009d0e0+0x10)
-/*  f0a7d68:	2463d0e0 */ 	addiu	$v1,$v1,%lo(var8009d0e0)
-/*  f0a7d6c:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f0a7d70:
-/*  f0a7d70:	55c00004 */ 	bnezl	$t6,.L0f0a7d84
-/*  f0a7d74:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0a7d78:	03e00008 */ 	jr	$ra
-/*  f0a7d7c:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0a7d80:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f0a7d84:
-/*  f0a7d84:	5462fffa */ 	bnel	$v1,$v0,.L0f0a7d70
-/*  f0a7d88:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0a7d8c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a7d90:	03e00008 */ 	jr	$ra
-/*  f0a7d94:	00000000 */ 	nop
-);
+/**
+ * Find and return an available audio handle out of a pool of four.
+ */
+struct audiohandle **func0f0a7d5c(void)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(var8009d0e0); i++) {
+		if (var8009d0e0[i] == NULL) {
+			return &var8009d0e0[i];
+		}
+	}
+
+	return NULL;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
