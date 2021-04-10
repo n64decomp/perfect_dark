@@ -2375,13 +2375,10 @@ glabel func0f098b80
 /*  f098bf8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f098bfc
-/*  f098bfc:	8c82068c */ 	lw	$v0,0x68c($a0)
-/*  f098c00:	0002702b */ 	sltu	$t6,$zero,$v0
-/*  f098c04:	03e00008 */ 	jr	$ra
-/*  f098c08:	01c01025 */ 	or	$v0,$t6,$zero
-);
+bool handIsAnimBusy(struct hand *hand)
+{
+	return hand->animmode != HANDANIMMODE_IDLE;
+}
 
 void handResetAnim(struct hand *hand)
 {
@@ -7853,7 +7850,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 	}
 
 	if (hand->stateminor == HANDSTATEMINOR_ANIM) {
-		if (!func0f098bfc(hand)) {
+		if (!handIsAnimBusy(hand)) {
 			return true;
 		}
 
