@@ -29132,53 +29132,28 @@ s8 freeFireslot(s32 fireslot_id)
 	return -1;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0a70f8
-/*  f0a70f8:	3c04800a */ 	lui	$a0,%hi(g_Fireslots)
-/*  f0a70fc:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0a7100:	2484d150 */ 	addiu	$a0,$a0,%lo(g_Fireslots)
-/*  f0a7104:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a7108:	24050014 */ 	addiu	$a1,$zero,0x14
-.L0f0a710c:
-/*  f0a710c:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f0a7110:	05c10004 */ 	bgez	$t6,.L0f0a7124
-/*  f0a7114:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0a7118:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0a711c:	03e00008 */ 	jr	$ra
-/*  f0a7120:	a08f0004 */ 	sb	$t7,0x4($a0)
-.L0f0a7124:
-/*  f0a7124:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0a7128:	1445fff8 */ 	bne	$v0,$a1,.L0f0a710c
-/*  f0a712c:	24840030 */ 	addiu	$a0,$a0,0x30
-/*  f0a7130:	03e00008 */ 	jr	$ra
-/*  f0a7134:	00601025 */ 	or	$v0,$v1,$zero
-);
-#else
-GLOBAL_ASM(
-glabel func0f0a70f8
-/*  f0a4e3c:	3c04800a */ 	lui	$a0,0x800a
-/*  f0a4e40:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0a4e44:	24841888 */ 	addiu	$a0,$a0,0x1888
-/*  f0a4e48:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a4e4c:	24050014 */ 	addiu	$a1,$zero,0x14
-.NB0f0a4e50:
-/*  f0a4e50:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f0a4e54:	05c10006 */ 	bgez	$t6,.NB0f0a4e70
-/*  f0a4e58:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0a4e5c:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0a4e60:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f0a4e64:	ac800008 */ 	sw	$zero,0x8($a0)
-/*  f0a4e68:	03e00008 */ 	jr	$ra
-/*  f0a4e6c:	a08f000c */ 	sb	$t7,0xc($a0)
-.NB0f0a4e70:
-/*  f0a4e70:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0a4e74:	1445fff6 */ 	bne	$v0,$a1,.NB0f0a4e50
-/*  f0a4e78:	24840038 */ 	addiu	$a0,$a0,0x38
-/*  f0a4e7c:	03e00008 */ 	jr	$ra
-/*  f0a4e80:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func0f0a70f8(void)
+{
+	s32 index = -1;
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_Fireslots); i++) {
+		if (g_Fireslots[i].unk00 < 0) {
+			g_Fireslots[i].unk00 = 0;
+
+#if VERSION < VERSION_NTSC_1_0
+			g_Fireslots[i].unk04nb = 0;
+			g_Fireslots[i].unk08nb = 0;
 #endif
+
+			g_Fireslots[i].beam.age = -1;
+			index = i;
+			break;
+		}
+	}
+
+	return index;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
