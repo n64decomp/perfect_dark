@@ -13777,32 +13777,14 @@ glabel func0f09e4e0
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f09ea90
-/*  f09ea90:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09ea94:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f09ea98:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f09ea9c:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f09eaa0:	8e2e0034 */ 	lw	$t6,0x34($s1)
-/*  f09eaa4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f09eaa8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f09eaac:	19c00008 */ 	blez	$t6,.L0f09ead0
-/*  f09eab0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f09eab4:
-/*  f09eab4:	0fc27938 */ 	jal	func0f09e4e0
-/*  f09eab8:	00000000 */ 	nop
-/*  f09eabc:	8e2f0034 */ 	lw	$t7,0x34($s1)
-/*  f09eac0:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f09eac4:	020f082a */ 	slt	$at,$s0,$t7
-/*  f09eac8:	1420fffa */ 	bnez	$at,.L0f09eab4
-/*  f09eacc:	00000000 */ 	nop
-.L0f09ead0:
-/*  f09ead0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f09ead4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f09ead8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f09eadc:	03e00008 */ 	jr	$ra
-/*  f09eae0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f09ea90(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_Vars.lvupdate240; i += 8) {
+		func0f09e4e0();
+	}
+}
 
 bool func0f09eae4(void)
 {
