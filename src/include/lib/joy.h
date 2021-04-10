@@ -48,7 +48,7 @@ void joy00015144(s32 line, char *file);
 #endif
 
 void joyReset(void);
-void joy000152d0(s8 playernum, s32 *arg1, s32 *arg2);
+void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2);
 void joy000153c4(s8 arg0, s32 arg1);
 s32 joy000155b4(s8 index);
 s32 joy000155f4(s8 index);

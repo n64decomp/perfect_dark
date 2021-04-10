@@ -1320,22 +1320,22 @@ void joyReset(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void joy000152d0(s8 playernum, s32 *arg1, s32 *arg2)
+void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2)
 {
 	if (g_Vars.normmplayerisrunning) {
-		*arg1 = g_Vars.playerstats[playernum].mpindex;
-		*arg2 = -1;
+		*pad1 = g_Vars.playerstats[playernum].mpindex;
+		*pad2 = -1;
 		return;
 	}
 
-	*arg1 = playernum;
+	*pad1 = playernum;
 
 	if (g_MpPlayers[g_Vars.playerstats[playernum].mpindex].base.controlmode >= CONTROLMODE_21) {
-		*arg2 = PLAYERCOUNT() + playernum;
+		*pad2 = PLAYERCOUNT() + playernum;
 		return;
 	}
 
-	*arg2 = -1;
+	*pad2 = -1;
 }
 #endif
 
