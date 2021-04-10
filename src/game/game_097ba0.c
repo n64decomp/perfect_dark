@@ -2775,34 +2775,17 @@ bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f099188
-/*  f099188:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09918c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f099190:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f099194:	0fc2c42e */ 	jal	weaponGetFunction
-/*  f099198:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f09919c:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f0991a0:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0991a4:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0991a8:	91c40000 */ 	lbu	$a0,0x0($t6)
-/*  f0991ac:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
-/*  f0991b0:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0991b4:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f0991b8:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0991bc:	144f0003 */ 	bne	$v0,$t7,.L0f0991cc
-/*  f0991c0:	00000000 */ 	nop
-/*  f0991c4:	10000003 */ 	b	.L0f0991d4
-/*  f0991c8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0991cc:
-/*  f0991cc:	0fc2642c */ 	jal	func0f0990b0
-/*  f0991d0:	8fa50018 */ 	lw	$a1,0x18($sp)
-.L0f0991d4:
-/*  f0991d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0991d8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0991dc:	03e00008 */ 	jr	$ra
-/*  f0991e0:	00000000 */ 	nop
-);
+bool func0f099188(struct hand *hand, s32 gunfunc)
+{
+	struct weaponfunc *func = weaponGetFunction(&hand->base, gunfunc);
+	struct weapon *weapon = weaponFindById(hand->base.weaponnum);
+
+	if (currentPlayerIsUsingSecondaryFunction() == gunfunc) {
+		return false;
+	}
+
+	return func0f0990b0(func, weapon);
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(

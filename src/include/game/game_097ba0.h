@@ -24,7 +24,7 @@ u32 func0f098df8(void);
 u32 func0f098f8c(void);
 bool func0f099008(s32 handnum);
 bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon);
-s32 func0f099188(struct hand *hand, s32 gunfunc);
+bool func0f099188(struct hand *hand, s32 gunfunc);
 s32 handTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 void func0f099780(struct hand *hand, f32 arg1);
 s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
