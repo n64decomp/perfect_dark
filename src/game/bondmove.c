@@ -11773,8 +11773,8 @@ glabel var7f1ad8e4
 //	bmoveUpdateSpeedTheta();
 //
 //	if (movedata.detonating) {
-//		g_Vars.currentplayer->hands[HAND_RIGHT].mode = 0;
-//		g_Vars.currentplayer->hands[HAND_RIGHT].modenext = 0;
+//		g_Vars.currentplayer->hands[HAND_RIGHT].mode = HANDMODE_NONE;
+//		g_Vars.currentplayer->hands[HAND_RIGHT].modenext = HANDMODE_NONE;
 //		playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
 //	}
 //

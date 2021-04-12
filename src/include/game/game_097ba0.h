@@ -21,7 +21,7 @@ void handResetAnim(struct hand *hand);
 void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum);
 s32 func0f098ca0(s32 arg0, struct handweaponinfo *info, struct hand *hand);
 u32 func0f098df8(void);
-u32 func0f098f8c(void);
+void func0f098f8c(struct handweaponinfo *info, struct hand *hand);
 bool func0f099008(s32 handnum);
 bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon);
 bool func0f099188(struct hand *hand, s32 gunfunc);

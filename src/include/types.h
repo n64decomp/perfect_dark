@@ -2085,14 +2085,14 @@ struct hand {
 	/*0x0648*/ bool triggerprev;
 	/*0x064c*/ bool triggerreleased;
 	/*0x0650*/ s32 count;
-	/*0x0654*/ u32 count60;
+	/*0x0654*/ s32 count60;
 	/*0x0658*/ u32 mode;
 	/*0x065c*/ u32 modenext; // 0 = idle, 9 = reloading
 	/*0x0660*/ u32 numfires;
 	/*0x0664*/ u32 numshotguncarts;
 	/*0x0668*/ u32 refiretime;
 	/*0x066c*/ u32 typechange;
-	/*0x0670*/ u32 pausetime60;
+	/*0x0670*/ s32 pausetime60;
 	/*0x0674*/ u32 pausechange;
 	/*0x0678*/ u32 nextprevchange; // "
 	/*0x067c*/ struct coord posstart;
