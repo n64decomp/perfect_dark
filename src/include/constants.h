@@ -976,6 +976,7 @@
 #define HANDMODE_8  8
 #define HANDMODE_RELOAD  9
 #define HANDMODE_11 11
+#define HANDMODE_12 12
 #define HANDMODE_13 13
 
 #define HANDSTATE_IDLE        0

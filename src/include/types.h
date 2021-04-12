@@ -2079,7 +2079,7 @@ struct hand {
 	/*0x063c*/ s8 firing;
 	/*0x063d*/ s8 flashon;
 	/*0x063e*/ u8 gunon;
-	/*0x063f*/ u8 visible;
+	/*0x063f*/ s8 visible;
 	/*0x0640*/ s8 inuse; // true if hand is holding a gun, false if not
 	/*0x0644*/ bool triggeron;
 	/*0x0648*/ bool triggerprev;
@@ -2336,8 +2336,8 @@ struct hand {
 	/*0x0c44*/ u32 stateflags;
 	/*0x0c48*/ u32 unk0c48;
 	/*0x0c4c*/ s32 stateframes;
-	/*0x0c50*/ u32 statecycles;
-	/*0x0c54*/ u32 statelastframe;
+	/*0x0c50*/ s32 statecycles;
+	/*0x0c54*/ s32 statelastframe;
 	/*0x0c58*/ u32 unk0c58;
 	/*0x0c5c*/ u32 unk0c5c;
 	/*0x0c60*/ u32 unk0c60;
@@ -2355,13 +2355,13 @@ struct hand {
 	/*0x0c90*/ u32 unk0c90;
 	/*0x0c94*/ u32 unk0c94;
 	/*0x0c98*/ f32 gs_float1;
-	/*0x0c9c*/ u32 unk0c9c;
-	/*0x0ca0*/ u32 unk0ca0;
-	/*0x0ca4*/ u32 unk0ca4;
-	/*0x0ca8*/ u32 unk0ca8;
-	/*0x0cac*/ u32 unk0cac;
-	/*0x0cb0*/ u32 unk0cb0;
-	/*0x0cb4*/ u32 unk0cb4;
+	/*0x0c9c*/ f32 gs_float2;
+	/*0x0ca0*/ f32 gs_float3;
+	/*0x0ca4*/ f32 gs_float4;
+	/*0x0ca8*/ s32 gs_int1;
+	/*0x0cac*/ s32 gs_int2;
+	/*0x0cb0*/ s32 gs_int3;
+	/*0x0cb4*/ s32 gs_int4;
 	/*0x0cb8*/ s32 animload;
 	/*0x0cbc*/ s32 animframeinc;
 #if VERSION >= VERSION_PAL_FINAL
@@ -3209,7 +3209,7 @@ struct inventory_ammo {
 	u32 casingeject;
 	s16 clipsize;
 	struct guncmd *reload_animation;
-	u32 style;
+	u8 flags;
 };
 
 struct modelpartvisibility {

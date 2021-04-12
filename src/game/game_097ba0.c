@@ -5818,6 +5818,206 @@ glabel var7f1ac31c
 );
 #endif
 
+// Mismatch: Branch logic near e9c is different (but functionally the same)
+//s32 handTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+//{
+//	struct weaponfunc *func = handGetWeaponFunction(&hand->base);
+//
+//	if (g_Vars.currentplayer->isdead) {
+//		hand->animmode = HANDANIMMODE_IDLE;
+//		hand->animload = -1;
+//
+//		if (handSetState(handnum, HANDSTATE_IDLE)) {
+//			return lvupdate;
+//		}
+//	}
+//
+//	if (hand->statecycles == 0) {
+//		struct hand *hand2 = &g_Vars.currentplayer->hands[1 - handnum];
+//
+//		hand->gs_int1 = -1;
+//		hand->gs_int2 = 0;
+//
+//		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < PALDOWN(20)) {
+//			hand->stateminor = 9;
+//		}
+//	}
+//
+//	if (hand->stateminor == 9) {
+//		struct hand *hand2 = &g_Vars.currentplayer->hands[1 - handnum];
+//
+//		if (hand2->state == HANDSTATE_RELOAD && hand2->stateframes < PALDOWN(20)) {
+//			return 0;
+//		}
+//
+//		hand->stateframes = 0;
+//		hand->statecycles = 0;
+//		hand->stateminor = 0;
+//		hand->statelastframe = 0;
+//	}
+//
+//	// d94
+//	if (hand->stateminor == 0) {
+//		if (hand->statecycles == 0) {
+//			if (func && (func->ammoindex == 0 || func->ammoindex == 1)) {
+//				if (info->definition->ammos[func->ammoindex]->reload_animation
+//						&& info->weaponnum != WEAPON_COMBATKNIFE) {
+//					func0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
+//
+//					hand->unk0d0e_07 = true;
+//
+//					if (info->definition->ammos[func->ammoindex]->flags & 4) {
+//						hand->unk0cc8_03 = true;
+//					}
+//
+//					if (info->weaponnum == WEAPON_GRENADE || info->weaponnum == WEAPON_NBOMB) {
+//						hand->unk0d0e_00 = 0;
+//					}
+//				} else {
+//					hand->stateminor++;
+//				}
+//			} else {
+//				if (handSetState(handnum, HANDSTATE_IDLE)) {
+//					return lvupdate;
+//				}
+//			}
+//
+//			// e9c
+//			if (hand);
+//		} else {
+//			if (info->definition->ammos[func->ammoindex]->flags & 4) {
+//				if (func0f098a44(hand, 1)) {
+//					if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+//						s32 value;
+//
+//						func0f098df8(hand->base.weaponfunc, info, hand, 1, 0);
+//						hand->stateflags |= HANDSTATEFLAG_00000010;
+//						value = func0f098ca0(hand->base.weaponfunc, info, hand);
+//
+//						if (value >= 2) {
+//							hand->unk0cc8_03 = false;
+//						}
+//
+//						if (value == -1) {
+//							hand->unk0cc8_03 = false;
+//						}
+//					}
+//				} else {
+//					hand->stateflags = 0;
+//				}
+//
+//				if (hand->triggeron) {
+//					hand->unk0cc8_03 = false;
+//				}
+//			} else {
+//				if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+//					if (func0f098a44(hand, 1)) {
+//						func0f098df8(hand->base.weaponfunc, info, hand, 0, 0);
+//						hand->stateflags |= HANDSTATEFLAG_00000010;
+//					}
+//				}
+//			}
+//
+//			if (hand->animmode != HANDANIMMODE_BUSY) {
+//				if (handSetState(handnum, HANDSTATE_IDLE)) {
+//					return lvupdate;
+//				}
+//			}
+//		}
+//	}
+//
+//	if (1);
+//
+//	if (hand->stateminor == 1) {
+//		if (hand->count60 > PALDOWN(15) || !hand->visible) {
+//			hand->mode = HANDMODE_11;
+//			hand->stateminor++;
+//			hand->pausetime60 = PALDOWN(17);
+//			hand->count60 = 0;
+//			hand->count = 0;
+//		} else {
+//			func0f099780(hand, (hand->count60 * 0.87252569198608f) / PALDOWN(16));
+//		}
+//	}
+//
+//	if (hand->stateminor == 2) {
+//		if (hand->count == 0) {
+//			if (info->weaponnum == WEAPON_COMBATKNIFE
+//					&& func->ammoindex >= 0
+//					&& info->definition->ammos[func->ammoindex]->reload_animation) {
+//				func0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
+//				hand->unk0cc8_02 = true;
+//			}
+//
+//			if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+//				func0f098df8(hand->base.weaponfunc, info, hand, 0, 0);
+//			}
+//
+//			if (g_Vars.lvupdate240 > 0
+//					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
+//					&& func0f09dd7c()
+//					&& !g_PlayerInvincible
+//					&& !g_Vars.currentplayer->isdead) {
+//				switch (info->weaponnum) {
+//				default:
+//					sndStart(var80095200, SFX_RELOAD_DEFAULT, 0, -1, -1, -1, -1, -1);
+//					break;
+//				case WEAPON_NONE:
+//				case WEAPON_UNARMED:
+//				case WEAPON_COMBATKNIFE:
+//				case WEAPON_LASER:
+//				case WEAPON_GRENADE:
+//				case WEAPON_NBOMB:
+//				case WEAPON_PROXIMITYMINE:
+//				case WEAPON_REMOTEMINE:
+//				case WEAPON_ECMMINE:
+//				case WEAPON_COMMSRIDER:
+//				case WEAPON_TRACERBUG:
+//				case WEAPON_TARGETAMPLIFIER:
+//				case WEAPON_BRIEFCASE2:
+//					break;
+//				}
+//			}
+//		}
+//
+//		if (hand->count60 >= hand->pausetime60 && hand->count >= 2) {
+//			hand->mode = HANDMODE_12;
+//			hand->stateminor++;
+//			hand->count60 = 0;
+//			hand->count = 0;
+//		} else {
+//			func0f099780(hand, 0.87252569198608f);
+//		}
+//	}
+//
+//	if (hand->stateminor == 3) {
+//		if (info->weaponnum == WEAPON_COMBATKNIFE) {
+//			hand->animmode = HANDANIMMODE_IDLE;
+//		}
+//
+//		if (hand->count == 0) {
+//			g_Vars.currentplayer->doautoselect = false;
+//		}
+//
+//		if (hand->count60 >= PALDOWN(23)
+//				|| !weaponGetModelNum2(info->weaponnum)
+//				|| !weaponHasFlag(info->weaponnum, WEAPONFLAG_00000040)
+//				|| weaponHasFlag(info->weaponnum, WEAPONFLAG_00000080)) {
+//			hand->mode = HANDMODE_NONE;
+//			hand->count60 = 0;
+//			hand->count = 0;
+//
+//			if (handSetState(handnum, HANDSTATE_IDLE)) {
+//				return lvupdate;
+//			}
+//		} else {
+//			func0f099780(hand, (PALDOWN(23) - hand->count60) * 0.87252569198608f / PALDOWN(23));
+//		}
+//	}
+//
+//	return 0;
+//}
+
 s32 handTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	struct guncmd *cmd;

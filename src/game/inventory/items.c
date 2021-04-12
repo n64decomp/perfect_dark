@@ -137,7 +137,7 @@ struct inventory_ammo invammo_default = {
 	CASING_RIFLE,
 	30, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_hammer = {
@@ -506,7 +506,7 @@ struct inventory_ammo invammo_falcon2 = {
 	CASING_STANDARD,
 	8, // clip size
 	invanim_falcon2_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct inventory_ammo invammo_falcon2scope = {
@@ -514,7 +514,7 @@ struct inventory_ammo invammo_falcon2scope = {
 	CASING_STANDARD,
 	8, // clip size
 	invanim_falcon2scope_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_falcon2 = {
@@ -711,7 +711,7 @@ struct inventory_ammo invammo_magsec = {
 	CASING_STANDARD,
 	9, // clip size
 	invanim_magsec_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_magsec = {
@@ -902,7 +902,7 @@ struct inventory_ammo invammo_dy357 = {
 	CASING_STANDARD,
 	6, // clip size
 	invanim_dy357_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_dy357 = {
@@ -1047,7 +1047,7 @@ struct inventory_ammo invammo_phoenix = {
 	CASING_NONE,
 	8, // clip size
 	invanim_phoenix_equiporreload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_phoenix = {
@@ -1187,7 +1187,7 @@ struct inventory_ammo invammo_mauler = {
 	CASING_NONE,
 	20, // clip size
 	invanim_mauler_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_mauler = {
@@ -1343,7 +1343,7 @@ struct inventory_ammo invammo_cmp150 = {
 	CASING_STANDARD,
 	32, // clip size
 	invanim_cmp150_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_cmp150 = {
@@ -1469,7 +1469,7 @@ struct inventory_ammo invammo_cyclone = {
 	CASING_NONE,
 	50, // clip size
 	invanim_cyclone_equiporreload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_cyclone = {
@@ -1573,7 +1573,7 @@ struct inventory_ammo invammo_rcp120 = {
 	CASING_STANDARD,
 	120, // clip size
 	invanim_rcp120_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_rcp120 = {
@@ -1686,7 +1686,7 @@ struct inventory_ammo invammo_callisto = {
 	CASING_NONE,
 	32, // clip size
 	invanim_callisto_equiporreload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_callisto = {
@@ -1788,7 +1788,7 @@ struct inventory_ammo invammo_dragon = {
 	CASING_RIFLE,
 	30, // clip size
 	invanim_dragon_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_dragon = {
@@ -1938,7 +1938,7 @@ struct inventory_ammo invammo_superdragon = {
 	CASING_RIFLE,
 	30, // clip size
 	invanim_superdragon_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct inventory_ammo invammo_superdragon_grenades = {
@@ -1946,7 +1946,7 @@ struct inventory_ammo invammo_superdragon_grenades = {
 	CASING_NONE,
 	6, // clip size
 	invanim_superdragon_grenadereload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_superdragon = {
@@ -2071,7 +2071,7 @@ struct inventory_ammo invammo_ar34 = {
 	CASING_RIFLE,
 	30, // clip size
 	invanim_ar34_equiporreload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_ar34 = {
@@ -2210,7 +2210,7 @@ struct inventory_ammo invammo_k7avenger = {
 	CASING_RIFLE,
 	25, // clip size
 	invanim_k7avenger_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_k7avenger = {
@@ -2343,7 +2343,7 @@ struct inventory_ammo invammo_laptopgun = {
 	CASING_NONE,
 	50, // clip size
 	invanim_laptopgun_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_laptopgun = {
@@ -2456,7 +2456,7 @@ struct inventory_ammo invammo_shotgun = {
 	CASING_SHOTGUN,
 	9, // clip size
 	invanim_shotgun_reload, // reload animation
-	0x04000000, // style
+	0x04, // flags
 };
 
 struct weapon invitem_shotgun = {
@@ -2584,7 +2584,7 @@ struct inventory_ammo invammo_reaper = {
 	CASING_REAPER,
 	200, // clip size
 	invanim_reaper_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_reaper = {
@@ -2721,7 +2721,7 @@ struct inventory_ammo invammo_rocketlauncher = {
 	CASING_NONE,
 	1, // clip size
 	invanim_rocketlauncher_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_rocketlauncher = {
@@ -2831,7 +2831,7 @@ struct inventory_ammo invammo_slayer = {
 	CASING_NONE,
 	1, // clip size
 	invanim_slayer_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_slayer = {
@@ -2951,7 +2951,7 @@ struct inventory_ammo invammo_devastator = {
 	CASING_NONE,
 	8, // clip size
 	invanim_devastator_reload, // reload animation
-	0x08000000, // style
+	0x08, // flags
 };
 
 struct modelpartvisibility invpartvisibility_devastator[] = {
@@ -3030,7 +3030,7 @@ struct inventory_ammo invammo_timedmine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_mine_equiporreload, // reload animation
-	0x02000000, // style
+	0x02, // flags
 };
 
 struct weapon invitem_timedmine = {
@@ -3115,7 +3115,7 @@ struct inventory_ammo invammo_remotemine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_remotemine_equiporreload, // reload animation
-	0x02000000, // style
+	0x02, // flags
 };
 
 struct modelpartvisibility invpartvisibility_remotemine[] = {
@@ -3167,7 +3167,7 @@ struct inventory_ammo invammo_proximitymine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_mine_equiporreload, // reload animation
-	0x02000000, // style
+	0x02, // flags
 };
 
 struct weapon invitem_proximitymine = {
@@ -3230,7 +3230,7 @@ struct inventory_ammo invammo_ecmmine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_ecmmine_equiporreload, // reload animation
-	0x02000000, // style
+	0x02, // flags
 };
 
 struct weapon invitem_ecmmine = {
@@ -3337,7 +3337,7 @@ struct inventory_ammo invammo_grenade = {
 	CASING_NONE,
 	1, // clip size
 	invanim_grenade_equiporreload, // reload animation
-	0x0a000000, // style
+	0x0a, // flags
 };
 
 struct weapon invitem_grenade = {
@@ -3398,7 +3398,7 @@ struct inventory_ammo invammo_nbomb = {
 	CASING_NONE,
 	1, // clip size
 	invanim_grenade_equiporreload, // reload animation
-	0x0a000000, // style
+	0x0a, // flags
 };
 
 struct weapon invitem_nbomb = {
@@ -3505,7 +3505,7 @@ struct inventory_ammo invammo_farsight = {
 	CASING_NONE,
 	8, // clip size
 	invanim_farsight_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct modelpartvisibility invpartvisibility_farsight[] = {
@@ -3647,7 +3647,7 @@ struct inventory_ammo invammo_crossbow = {
 	CASING_NONE,
 	5, // clip size
 	invanim_crossbow_reload, // reload animation
-	0x04000000, // style
+	0x04, // flags
 };
 
 struct modelpartvisibility invpartvisibility_crossbow[] = {
@@ -3772,7 +3772,7 @@ struct inventory_ammo invammo_tranquilizer = {
 	CASING_NONE,
 	8, // clip size
 	invanim_tranquilizer_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct modelpartvisibility invpartvisibility_tranquilizer[] = {
@@ -3812,7 +3812,7 @@ struct inventory_ammo invammo_psychosisgun = {
 	CASING_NONE,
 	8, // clip size
 	invanim_tranquilizer_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
@@ -3937,7 +3937,7 @@ struct inventory_ammo invammo_sniperrifle = {
 	CASING_RIFLE,
 	8, // clip size
 	invanim_sniperrifle_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct modelpartvisibility invpartvisibility_sniperrifle[] = {
@@ -4097,7 +4097,7 @@ struct inventory_ammo invammo_pp9i = {
 	CASING_STANDARD,
 	7, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_pp9i = {
@@ -4158,7 +4158,7 @@ struct inventory_ammo invammo_cc13 = {
 	CASING_STANDARD,
 	8, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_cc13 = {
@@ -4218,7 +4218,7 @@ struct inventory_ammo invammo_kl01313 = {
 	CASING_STANDARD,
 	20, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_kl01313 = {
@@ -4278,7 +4278,7 @@ struct inventory_ammo invammo_kf7special = {
 	CASING_RIFLE,
 	30, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_kf7special = {
@@ -4338,7 +4338,7 @@ struct inventory_ammo invammo_zzt9mm = {
 	CASING_STANDARD,
 	32, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_zzt9mm = {
@@ -4398,7 +4398,7 @@ struct inventory_ammo invammo_dmc = {
 	CASING_STANDARD,
 	30, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_dmc = {
@@ -4458,7 +4458,7 @@ struct inventory_ammo invammo_ar53 = {
 	CASING_RIFLE,
 	30, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_ar53 = {
@@ -4518,7 +4518,7 @@ struct inventory_ammo invammo_rcp45 = {
 	CASING_STANDARD,
 	80, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_rcp45 = {
@@ -4618,7 +4618,7 @@ struct inventory_ammo invammo_59 = {
 	CASING_RIFLE,
 	27, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_59 = {
@@ -4678,7 +4678,7 @@ struct inventory_ammo invammo_5a = {
 	CASING_RIFLE,
 	27, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_5a = {
@@ -4805,7 +4805,7 @@ struct inventory_ammo invammo_combatknife = {
 	CASING_NONE,
 	1, // clip size
 	invanim_combatknife_reload, // reload animation
-	0x0a000000, // style
+	0x0a, // flags
 };
 
 struct weapon invitem_combatknife = {
@@ -4866,7 +4866,7 @@ struct inventory_ammo invammo_bug = {
 	CASING_NONE,
 	1, // clip size
 	NULL, // reload animation
-	0x02000000, // style
+	0x02, // flags
 };
 
 struct weapon invitem_commsrider = {
@@ -5042,7 +5042,7 @@ struct inventory_ammo invammo_cloakingdevice = {
 	CASING_NONE,
 	10, // clip size
 	NULL, // reload animation
-	0x01000000, // style
+	0x01, // flags
 };
 
 struct weapon invitem_cloakingdevice = {
@@ -5101,7 +5101,7 @@ struct inventory_ammo invammo_combatboost = {
 	CASING_NONE,
 	4, // clip size
 	NULL, // reload animation
-	0x01000000, // style
+	0x01, // flags
 };
 
 struct weapon invitem_combatboost = {
@@ -5921,7 +5921,7 @@ struct inventory_ammo invammo_rocketlauncher34 = {
 	CASING_NONE,
 	1, // clip size
 	invanim_rocketlauncher_reload, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_rocketlauncher_34 = {
@@ -5981,7 +5981,7 @@ struct inventory_ammo invammo_tester = {
 	CASING_STANDARD,
 	8, // clip size
 	NULL, // reload animation
-	0, // style
+	0, // flags
 };
 
 struct weapon invitem_tester = {
