@@ -17043,40 +17043,21 @@ f32 func0f0a2498(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 	return func0f096a7c(a / sqrtf(a * a + (arg1 - arg3) * (arg1 - arg3)));
 }
 
-GLOBAL_ASM(
-glabel func0f0a24f0
-/*  f0a24f0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0a24f4:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0a24f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a24fc:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f0a2500:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0a2504:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*  f0a2508:	afa70030 */ 	sw	$a3,0x30($sp)
-/*  f0a250c:	0fc28311 */ 	jal	func0f0a0c44
-/*  f0a2510:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f0a2514:	3c01447a */ 	lui	$at,0x447a
-/*  f0a2518:	44810000 */ 	mtc1	$at,$f0
-/*  f0a251c:	c7a40024 */ 	lwc1	$f4,0x24($sp)
-/*  f0a2520:	c7a80028 */ 	lwc1	$f8,0x28($sp)
-/*  f0a2524:	c7b0002c */ 	lwc1	$f16,0x2c($sp)
-/*  f0a2528:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0a252c:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f0a2530:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f0a2534:	00000000 */ 	nop
-/*  f0a2538:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f0a253c:	e7a60024 */ 	swc1	$f6,0x24($sp)
-/*  f0a2540:	e7aa0028 */ 	swc1	$f10,0x28($sp)
-/*  f0a2544:	e7b2002c */ 	swc1	$f18,0x2c($sp)
-/*  f0a2548:	e4e60000 */ 	swc1	$f6,0x0($a3)
-/*  f0a254c:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f0a2550:	e4e40004 */ 	swc1	$f4,0x4($a3)
-/*  f0a2554:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*  f0a2558:	e4e80008 */ 	swc1	$f8,0x8($a3)
-/*  f0a255c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a2560:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0a2564:	03e00008 */ 	jr	$ra
-/*  f0a2568:	00000000 */ 	nop
-);
+void func0f0a24f0(struct coord *arg0, s32 handnum)
+{
+	struct coord b;
+	struct coord a;
+
+	func0f0a0c44(handnum, &a, &b);
+
+	b.x *= 1000;
+	b.y *= 1000;
+	b.z *= 1000;
+
+	arg0->x = b.x;
+	arg0->y = b.y;
+	arg0->z = b.z;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
