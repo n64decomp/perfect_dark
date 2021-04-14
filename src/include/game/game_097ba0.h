@@ -108,7 +108,7 @@ void currentPlayerReloadHandIfPossible(s32 handnum);
 void handSetAdjustPos(f32 angle);
 void func0f0a2308(s32 handnum);
 u32 func0f0a233c(void);
-u32 func0f0a2498(void);
+f32 func0f0a2498(f32 arg0, f32 arg1, f32 arg2, f32 arg3);
 u32 func0f0a24f0(void);
 u32 func0f0a27c8(void);
 void func0f0a29c8(void);
