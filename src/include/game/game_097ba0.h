@@ -162,7 +162,7 @@ u32 weaponGetAmmoType(u32 weaponnum, u32 func);
 s32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func);
 void currentPlayerGiveAmmoForWeapon(u32 weaponnum, u32 func, u32 quantity);
 s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func);
-Gfx *handRenderHudString(Gfx *gdl, char *text, s32 arg2, s32 arg3, s32 arg4, s32 arg5, u32 colour);
+Gfx *handRenderHudString(Gfx *gdl, char *text, s32 x, bool leftalign, s32 y, s32 arg5, u32 colour);
 Gfx *handRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool leftalign, s32 y, s32 arg5, u32 colour);
 void abmagReset(struct abmag *abmag);
 u32 func0f0a9da8(void);

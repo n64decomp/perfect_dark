@@ -16910,7 +16910,6 @@ char *weaponGetShortName(s32 weaponnum)
 }
 
 const char var7f1ac170[] = "wantedfn %d tiggle %d\n";
-const char var7f1ac188[] = "%d\n";
 
 void currentPlayerReloadHandIfPossible(s32 handnum)
 {
@@ -32422,35 +32421,15 @@ glabel handRenderHudString
 /*  f0a9d28:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel handRenderHudInteger
-/*  f0a9d2c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0a9d30:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0a9d34:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0a9d38:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0a9d3c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0a9d40:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0a9d44:	3c057f1b */ 	lui	$a1,%hi(var7f1ac188)
-/*  f0a9d48:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0a9d4c:	24a5c188 */ 	addiu	$a1,$a1,%lo(var7f1ac188)
-/*  f0a9d50:	0c004dad */ 	jal	sprintf
-/*  f0a9d54:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*  f0a9d58:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*  f0a9d5c:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*  f0a9d60:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f0a9d64:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0a9d68:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f0a9d6c:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f0a9d70:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f0a9d74:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0a9d78:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0a9d7c:	0fc2a6da */ 	jal	handRenderHudString
-/*  f0a9d80:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0a9d84:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0a9d88:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0a9d8c:	03e00008 */ 	jr	$ra
-/*  f0a9d90:	00000000 */ 	nop
-);
+Gfx *handRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool leftalign, s32 y, s32 arg5, u32 colour)
+{
+	char buffer[12];
+
+	sprintf(buffer, "%d\n", value);
+	gdl = handRenderHudString(gdl, buffer, x, leftalign, y, arg5, colour);
+
+	return gdl;
+}
 
 void abmagReset(struct abmag *abmag)
 {
@@ -38170,7 +38149,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //			}
 //
 //			// a7c
-//			gdl = handRenderHudString(gdl, text, xpos + barwidth - 2, 0, bottom - reserveheight + 1, 0, 0x00ffc0a0);
+//			gdl = handRenderHudString(gdl, text, xpos + barwidth - 2, false, bottom - reserveheight + 1, 0, 0x00ffc0a0);
 //		}
 //	}
 //
