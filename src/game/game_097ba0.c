@@ -37697,9 +37697,13 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	u32 fncolour; // f4
 //	s32 funcnum; // f0
 //	s32 fnfaderinc; // ec
+//
+//#if VERSION >= VERSION_NTSC_1_0
 //	s32 tmpfuncnum; // e8
 //
 //	struct handweaponinfo info; // dc
+//#endif
+//
 //	struct hand *hand;
 //	char *str; // d4
 //	u32 colour; // d0
@@ -37743,11 +37747,15 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //		return gdl;
 //	}
 //
+//#if PAL
+//	g_ScaleX = 1;
+//#else
 //	if (g_ViMode == VIMODE_HIRES) {
 //		g_ScaleX = 2;
 //	} else {
 //		g_ScaleX = 1;
 //	}
+//#endif
 //
 //	gdl = func0f153628(gdl);
 //
@@ -37777,14 +37785,16 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	// a9c
 //	fncolour = 0xff000040;
 //	funcnum = hand->base.weaponfunc;
-//	fnfaderinc = g_Vars.lvupdate240 * 2;
+//	fnfaderinc = PALUP(g_Vars.lvupdate240 * 2);
 //
+//#if VERSION >= VERSION_NTSC_1_0
 //	handGetWeaponInfo(&info, HAND_RIGHT);
 //	tmpfuncnum = currentPlayerIsUsingSecondaryFunction();
 //
 //	if (func0f098ca0(tmpfuncnum, &info, hand) >= 0) {
 //		funcnum = tmpfuncnum;
 //	}
+//#endif
 //
 //	xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
 //
@@ -37830,7 +37840,11 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	// d20
 //	// Render weapon name and function name
 //	if (optionsGetShowGunFunction(g_Vars.currentplayerstats->mpindex)) {
+//#if VERSION >= VERSION_NTSC_1_0
 //		func = weaponGetFunctionById(hand->base.weaponnum, funcnum);
+//#else
+//		func = weaponGetFunctionById(hand->base.weaponnum, hand->base.weaponfunc);
+//#endif
 //		nameid = invGetNameIdByIndex(invGetCurrentIndex());
 //		str = langGet(nameid);
 //
@@ -37908,6 +37922,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //					ctrl->fnstrtimer += (u32)g_Vars.lvupdate240_60;
 //				}
 //
+//#if VERSION >= VERSION_NTSC_1_0
 //				if (funcnum == FUNC_SECONDARY && func->name == ctrl->curfnstr) {
 //					colour |= 0x00ff0000;
 //				}
@@ -37915,6 +37930,15 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //				if (funcnum == FUNC_PRIMARY && func->name != ctrl->curfnstr) {
 //					colour |= 0x00ff0000;
 //				}
+//#else
+//				if (hand->base.weaponfunc == FUNC_SECONDARY && func->name == ctrl->curfnstr) {
+//					colour |= 0x00ff0000;
+//				}
+//
+//				if (hand->base.weaponfunc == FUNC_PRIMARY && func->name != ctrl->curfnstr) {
+//					colour |= 0x00ff0000;
+//				}
+//#endif
 //
 //				textMeasure(&textheight, &textwidth, str, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
 //				textwidth += 2;
@@ -38002,7 +38026,15 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	if (hand->inuse && ctrl->ammotypes[ammoindex] >= 0) {
 //		ammotype = player->gunctrl.ammotypes[ammoindex];
 //
+//#if VERSION >= VERSION_NTSC_1_0
 //		xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
+//#else
+//		// NTSC Beta omits the brackets here. This would normally cause the
+//		// ammo info to be misaligned for players on the right side of the
+//		// screen and when using hi-res, but I'm not sure if hi-res can even be
+//		// active when using multiple players...
+//		xpos = viGetViewLeft() + viGetViewWidth() / g_ScaleX - barwidth - 24;
+//#endif
 //
 //		if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 0) {
 //			xpos += 15;
