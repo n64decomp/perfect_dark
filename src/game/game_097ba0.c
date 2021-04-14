@@ -32296,137 +32296,54 @@ s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel handRenderHudString
-/*  f0a9b68:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0a9b6c:	3c0e8008 */ 	lui	$t6,%hi(g_FontNumeric2)
-/*  f0a9b70:	8dcefafc */ 	lw	$t6,%lo(g_FontNumeric2)($t6)
-/*  f0a9b74:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f0a9b78:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f0a9b7c:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f0a9b80:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0a9b84:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f0a9b88:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f0a9b8c:	3c078008 */ 	lui	$a3,%hi(g_FontNumeric1)
-/*  f0a9b90:	afa0005c */ 	sw	$zero,0x5c($sp)
-/*  f0a9b94:	afa00058 */ 	sw	$zero,0x58($sp)
-/*  f0a9b98:	8ce7fb00 */ 	lw	$a3,%lo(g_FontNumeric1)($a3)
-/*  f0a9b9c:	8fa60064 */ 	lw	$a2,0x64($sp)
-/*  f0a9ba0:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f0a9ba4:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f0a9ba8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0a9bac:	afa00054 */ 	sw	$zero,0x54($sp)
-/*  f0a9bb0:	afa00050 */ 	sw	$zero,0x50($sp)
-/*  f0a9bb4:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f0a9bb8:	afa0004c */ 	sw	$zero,0x4c($sp)
-/*  f0a9bbc:	0fc55cbe */ 	jal	textMeasure
-/*  f0a9bc0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0a9bc4:	8fa2006c */ 	lw	$v0,0x6c($sp)
-/*  f0a9bc8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0a9bcc:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f0a9bd0:	14430006 */ 	bne	$v0,$v1,.L0f0a9bec
-/*  f0a9bd4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0a9bd8:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0a9bdc:	afb0005c */ 	sw	$s0,0x5c($sp)
-/*  f0a9be0:	02081021 */ 	addu	$v0,$s0,$t0
-/*  f0a9be4:	10000012 */ 	b	.L0f0a9c30
-/*  f0a9be8:	afa20054 */ 	sw	$v0,0x54($sp)
-.L0f0a9bec:
-/*  f0a9bec:	14400006 */ 	bnez	$v0,.L0f0a9c08
-/*  f0a9bf0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a9bf4:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0a9bf8:	afb00054 */ 	sw	$s0,0x54($sp)
-/*  f0a9bfc:	02087823 */ 	subu	$t7,$s0,$t0
-/*  f0a9c00:	1000000b */ 	b	.L0f0a9c30
-/*  f0a9c04:	afaf005c */ 	sw	$t7,0x5c($sp)
-.L0f0a9c08:
-/*  f0a9c08:	14410009 */ 	bne	$v0,$at,.L0f0a9c30
-/*  f0a9c0c:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f0a9c10:	05010003 */ 	bgez	$t0,.L0f0a9c20
-/*  f0a9c14:	0008c043 */ 	sra	$t8,$t0,0x1
-/*  f0a9c18:	25010001 */ 	addiu	$at,$t0,0x1
-/*  f0a9c1c:	0001c043 */ 	sra	$t8,$at,0x1
-.L0f0a9c20:
-/*  f0a9c20:	03101021 */ 	addu	$v0,$t8,$s0
-/*  f0a9c24:	0048c823 */ 	subu	$t9,$v0,$t0
-/*  f0a9c28:	afb9005c */ 	sw	$t9,0x5c($sp)
-/*  f0a9c2c:	afa20054 */ 	sw	$v0,0x54($sp)
-.L0f0a9c30:
-/*  f0a9c30:	8fa20074 */ 	lw	$v0,0x74($sp)
-/*  f0a9c34:	27a70054 */ 	addiu	$a3,$sp,0x54
-/*  f0a9c38:	27ad0050 */ 	addiu	$t5,$sp,0x50
-/*  f0a9c3c:	14430007 */ 	bne	$v0,$v1,.L0f0a9c5c
-/*  f0a9c40:	00000000 */ 	nop
-/*  f0a9c44:	8fa20070 */ 	lw	$v0,0x70($sp)
-/*  f0a9c48:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0a9c4c:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f0a9c50:	00491821 */ 	addu	$v1,$v0,$t1
-/*  f0a9c54:	10000014 */ 	b	.L0f0a9ca8
-/*  f0a9c58:	afa30050 */ 	sw	$v1,0x50($sp)
-.L0f0a9c5c:
-/*  f0a9c5c:	14400007 */ 	bnez	$v0,.L0f0a9c7c
-/*  f0a9c60:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a9c64:	8fa20070 */ 	lw	$v0,0x70($sp)
-/*  f0a9c68:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0a9c6c:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f0a9c70:	00495023 */ 	subu	$t2,$v0,$t1
-/*  f0a9c74:	1000000c */ 	b	.L0f0a9ca8
-/*  f0a9c78:	afaa0058 */ 	sw	$t2,0x58($sp)
-.L0f0a9c7c:
-/*  f0a9c7c:	1441000a */ 	bne	$v0,$at,.L0f0a9ca8
-/*  f0a9c80:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*  f0a9c84:	8fa20070 */ 	lw	$v0,0x70($sp)
-/*  f0a9c88:	05210003 */ 	bgez	$t1,.L0f0a9c98
-/*  f0a9c8c:	00095843 */ 	sra	$t3,$t1,0x1
-/*  f0a9c90:	25210001 */ 	addiu	$at,$t1,0x1
-/*  f0a9c94:	00015843 */ 	sra	$t3,$at,0x1
-.L0f0a9c98:
-/*  f0a9c98:	01621821 */ 	addu	$v1,$t3,$v0
-/*  f0a9c9c:	00696023 */ 	subu	$t4,$v1,$t1
-/*  f0a9ca0:	afac0058 */ 	sw	$t4,0x58($sp)
-/*  f0a9ca4:	afa30050 */ 	sw	$v1,0x50($sp)
-.L0f0a9ca8:
-/*  f0a9ca8:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*  f0a9cac:	0fc54e16 */ 	jal	func0f153858
-/*  f0a9cb0:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0a9cb4:	0c002f02 */ 	jal	viGetWidth
-/*  f0a9cb8:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f0a9cbc:	00028400 */ 	sll	$s0,$v0,0x10
-/*  f0a9cc0:	00107403 */ 	sra	$t6,$s0,0x10
-/*  f0a9cc4:	0c002f06 */ 	jal	viGetHeight
-/*  f0a9cc8:	01c08025 */ 	or	$s0,$t6,$zero
-/*  f0a9ccc:	3c0f8008 */ 	lui	$t7,%hi(g_FontNumeric1)
-/*  f0a9cd0:	3c188008 */ 	lui	$t8,%hi(g_FontNumeric2)
-/*  f0a9cd4:	8f18fafc */ 	lw	$t8,%lo(g_FontNumeric2)($t8)
-/*  f0a9cd8:	8deffb00 */ 	lw	$t7,%lo(g_FontNumeric1)($t7)
-/*  f0a9cdc:	8fb90078 */ 	lw	$t9,0x78($sp)
-/*  f0a9ce0:	240a00a0 */ 	addiu	$t2,$zero,0xa0
-/*  f0a9ce4:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f0a9ce8:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*  f0a9cec:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f0a9cf0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0a9cf4:	8fa70064 */ 	lw	$a3,0x64($sp)
-/*  f0a9cf8:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0a9cfc:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0a9d00:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0a9d04:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f0a9d08:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f0a9d0c:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0a9d10:	0fc55b92 */ 	jal	textRender
-/*  f0a9d14:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f0a9d18:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0a9d1c:	8fb00038 */ 	lw	$s0,0x38($sp)
-/*  f0a9d20:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*  f0a9d24:	03e00008 */ 	jr	$ra
-/*  f0a9d28:	00000000 */ 	nop
-);
+Gfx *handRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 valign, u32 colour)
+{
+	s32 x1 = 0;
+	s32 y1 = 0;
+	s32 x2 = 0;
+	s32 y2 = 0;
+	s32 textheight;
+	s32 textwidth;
 
-Gfx *handRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool leftalign, s32 y, s32 arg5, u32 colour)
+	textwidth = 0;
+	textheight = 0;
+
+	textMeasure(&textheight, &textwidth, text, g_FontNumeric1, g_FontNumeric2, 0);
+
+	if (halign == 1) { // left
+		x2 = x + textwidth;
+		x1 = x;
+	} else if (halign == 0) { // right
+		x1 = x - textwidth;
+		x2 = x;
+	} else if (halign == 2) { // middle
+		x2 = x + textwidth / 2;
+		x1 = x2 - textwidth;
+	}
+
+	if (valign == 1) { // top
+		y2 = y + textheight;
+		y1 = y;
+	} else if (valign == 0) { // bottom
+		y1 = y - textheight;
+		y2 = y;
+	} else if (valign == 2) { // middle
+		y2 = y + textheight / 2;
+		y1 = y2 - textheight;
+	}
+
+	gdl = func0f153858(gdl, &x1, &y1, &x2, &y2);
+	gdl = textRender(gdl, &x1, &y1, text, g_FontNumeric1, g_FontNumeric2, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+
+	return gdl;
+}
+
+Gfx *handRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool halign, s32 y, s32 valign, u32 colour)
 {
 	char buffer[12];
 
 	sprintf(buffer, "%d\n", value);
-	gdl = handRenderHudString(gdl, buffer, x, leftalign, y, arg5, colour);
+	gdl = handRenderHudString(gdl, buffer, x, halign, y, valign, colour);
 
 	return gdl;
 }
