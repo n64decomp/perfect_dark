@@ -2627,42 +2627,16 @@ glabel func0f098df8
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f098f8c
-/*  f098f8c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f098f90:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f098f94:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f098f98:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f098f9c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f098fa0:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f098fa4:	00809825 */ 	or	$s3,$a0,$zero
-/*  f098fa8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f098fac:	00008025 */ 	or	$s0,$zero,$zero
-/*  f098fb0:	24120002 */ 	addiu	$s2,$zero,0x2
-/*  f098fb4:	02202025 */ 	or	$a0,$s1,$zero
-.L0f098fb8:
-/*  f098fb8:	0fc2c42e */ 	jal	weaponGetFunction
-/*  f098fbc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f098fc0:	10400007 */ 	beqz	$v0,.L0f098fe0
-/*  f098fc4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f098fc8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f098fcc:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f098fd0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f098fd4:	02203025 */ 	or	$a2,$s1,$zero
-/*  f098fd8:	0fc2637e */ 	jal	func0f098df8
-/*  f098fdc:	00003825 */ 	or	$a3,$zero,$zero
-.L0f098fe0:
-/*  f098fe0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f098fe4:	5612fff4 */ 	bnel	$s0,$s2,.L0f098fb8
-/*  f098fe8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f098fec:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f098ff0:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f098ff4:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f098ff8:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f098ffc:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f099000:	03e00008 */ 	jr	$ra
-/*  f099004:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f098f8c(struct handweaponinfo *info, struct hand *hand)
+{
+	s32 i;
+
+	for (i = 0; i < 2; i++) {
+		if (weaponGetFunction(&hand->base, i)) {
+			func0f098df8(i, info, hand, 0, 1);
+		}
+	}
+}
 
 bool func0f099008(s32 handnum)
 {
