@@ -188,7 +188,7 @@ struct g_vars {
 	/*000450*/ s32 pendingantiplayernum;
 	/*000454*/ s32 coopfriendlyfire;
 	/*000458*/ u32 modifiedfiles;
-	/*00045c*/ s32 speedpilltime;
+	/*00045c*/ s32 speedpilltime; // in time60
 	/*000460*/ s32 speedpillchange;
 	/*000464*/ u32 speedpillwant;
 	/*000468*/ bool speedpillon;
@@ -2500,11 +2500,11 @@ struct gunctrl {
 	/*0x15e6*/ u8 action;
 	/*0x15e7*/ u8 fnfader;
 	/*0x15e8*/ u8 upgradewant;
-	/*0x15e9*/ u8 lastmag;
+	/*0x15e9*/ s8 lastmag;
 	/*0x15ea*/ u8 gunmemowner;
 	/*0x15eb*/ s8 gunlocktimer;
 	/*0x15ec*/ u16 curfnstr;
-	/*0x15ee*/ s8 fnstrtimer;
+	/*0x15ee*/ u8 fnstrtimer;
 	/*0x15ef*/ u8 guntypetimer;
 	/*0x15f0*/ u8 guntypefader;
 	/*0x15f2*/ u16 curgunstr;

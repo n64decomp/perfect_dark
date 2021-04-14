@@ -600,7 +600,7 @@ void func0f153d3c(void)
 	var800a45d0.unk00 = var800a45d0.unk2a;
 }
 
-void func0f153d50(u32 arg0, u32 arg1, u32 arg2)
+void func0f153d50(s32 arg0, s32 arg1, s32 arg2)
 {
 	var800a45d0.unk00 |= 0x04;
 	var800a45d0.unk4c = arg0;

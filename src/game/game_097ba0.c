@@ -16911,8 +16911,6 @@ char *weaponGetShortName(s32 weaponnum)
 
 const char var7f1ac170[] = "wantedfn %d tiggle %d\n";
 const char var7f1ac188[] = "%d\n";
-const char var7f1ac18c[] = "%02d:%02d:%02d\n";
-const char var7f1ac19c[] = "%02d:%02d\n";
 
 void currentPlayerReloadHandIfPossible(s32 handnum)
 {
@@ -32300,7 +32298,7 @@ s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func)
 }
 
 GLOBAL_ASM(
-glabel func0f0a9b68
+glabel handRenderHudString
 /*  f0a9b68:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0a9b6c:	3c0e8008 */ 	lui	$t6,%hi(g_FontNumeric2)
 /*  f0a9b70:	8dcefafc */ 	lw	$t6,%lo(g_FontNumeric2)($t6)
@@ -32425,7 +32423,7 @@ glabel func0f0a9b68
 );
 
 GLOBAL_ASM(
-glabel func0f0a9d2c
+glabel handRenderHudInteger
 /*  f0a9d2c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0a9d30:	afa60040 */ 	sw	$a2,0x40($sp)
 /*  f0a9d34:	00a03025 */ 	or	$a2,$a1,$zero
@@ -32446,7 +32444,7 @@ glabel func0f0a9d2c
 /*  f0a9d70:	8fa70044 */ 	lw	$a3,0x44($sp)
 /*  f0a9d74:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0a9d78:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0a9d7c:	0fc2a6da */ 	jal	func0f0a9b68
+/*  f0a9d7c:	0fc2a6da */ 	jal	handRenderHudString
 /*  f0a9d80:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f0a9d84:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f0a9d88:	27bd0038 */ 	addiu	$sp,$sp,0x38
@@ -32778,7 +32776,7 @@ glabel func0f0a9da8
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a9fc0
+glabel handRenderHudGauge
 /*  f0aa41c:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*  f0aa420:	afbe0038 */ 	sw	$s8,0x38($sp)
 /*  f0aa424:	afa600e0 */ 	sw	$a2,0xe0($sp)
@@ -33401,7 +33399,7 @@ glabel func0f0a9fc0
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a9fc0
+glabel handRenderHudGauge
 /*  f0a9fc0:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f0a9fc4:	afa600d8 */ 	sw	$a2,0xd8($sp)
 /*  f0a9fc8:	8faf00d8 */ 	lw	$t7,0xd8($sp)
@@ -33998,7 +33996,7 @@ glabel func0f0a9fc0
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel hudRenderAmmo
+glabel handRenderHud
 /*  f0aad34:	3c0e800a */ 	lui	$t6,0x800a
 /*  f0aad38:	8dcea794 */ 	lw	$t6,-0x586c($t6)
 /*  f0aad3c:	27bdfed0 */ 	addiu	$sp,$sp,-304
@@ -34869,7 +34867,7 @@ glabel hudRenderAmmo
 /*  f0ab9dc:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0ab9e0:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0ab9e4:	24c6fffd */ 	addiu	$a2,$a2,-3
-/*  f0ab9e8:	0fc2a907 */ 	jal	func0f0a9fc0
+/*  f0ab9e8:	0fc2a907 */ 	jal	handRenderHudGauge
 /*  f0ab9ec:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0ab9f0:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0ab9f4:	8fb80048 */ 	lw	$t8,0x48($sp)
@@ -34883,7 +34881,7 @@ glabel hudRenderAmmo
 /*  f0aba14:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0aba18:	00402025 */ 	move	$a0,$v0
 /*  f0aba1c:	24070001 */ 	li	$a3,0x1
-/*  f0aba20:	0fc2a85e */ 	jal	func0f0a9d2c
+/*  f0aba20:	0fc2a85e */ 	jal	handRenderHudInteger
 /*  f0aba24:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0aba28:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0aba2c:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -35008,7 +35006,7 @@ glabel hudRenderAmmo
 /*  f0abbe8:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f0abbec:	24c6fffd */ 	addiu	$a2,$a2,-3
 /*  f0abbf0:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0abbf4:	0fc2a907 */ 	jal	func0f0a9fc0
+/*  f0abbf4:	0fc2a907 */ 	jal	handRenderHudGauge
 /*  f0abbf8:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0abbfc:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0abc00:	8fa60100 */ 	lw	$a2,0x100($sp)
@@ -35021,7 +35019,7 @@ glabel hudRenderAmmo
 /*  f0abc1c:	00402025 */ 	move	$a0,$v0
 /*  f0abc20:	00003825 */ 	move	$a3,$zero
 /*  f0abc24:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0abc28:	0fc2a85e */ 	jal	func0f0a9d2c
+/*  f0abc28:	0fc2a85e */ 	jal	handRenderHudInteger
 /*  f0abc2c:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0abc30:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0abc34:	8faa0058 */ 	lw	$t2,0x58($sp)
@@ -35089,7 +35087,7 @@ glabel hudRenderAmmo
 /*  f0abd18:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0abd1c:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0abd20:	afa9009c */ 	sw	$t1,0x9c($sp)
-/*  f0abd24:	0fc2a907 */ 	jal	func0f0a9fc0
+/*  f0abd24:	0fc2a907 */ 	jal	handRenderHudGauge
 /*  f0abd28:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0abd2c:	8fae0048 */ 	lw	$t6,0x48($sp)
 /*  f0abd30:	3c1800ff */ 	lui	$t8,0xff
@@ -35101,7 +35099,7 @@ glabel hudRenderAmmo
 /*  f0abd48:	8fa5009c */ 	lw	$a1,0x9c($sp)
 /*  f0abd4c:	8fa60054 */ 	lw	$a2,0x54($sp)
 /*  f0abd50:	00003825 */ 	move	$a3,$zero
-/*  f0abd54:	0fc2a85e */ 	jal	func0f0a9d2c
+/*  f0abd54:	0fc2a85e */ 	jal	handRenderHudInteger
 /*  f0abd58:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0abd5c:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0abd60:	8fb9005c */ 	lw	$t9,0x5c($sp)
@@ -35244,7 +35242,7 @@ glabel hudRenderAmmo
 /*  f0abf50:	00003825 */ 	move	$a3,$zero
 /*  f0abf54:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0abf58:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0abf5c:	0fc2a7ed */ 	jal	func0f0a9b68
+/*  f0abf5c:	0fc2a7ed */ 	jal	handRenderHudString
 /*  f0abf60:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0abf64:	afa20130 */ 	sw	$v0,0x130($sp)
 .PF0f0abf68:
@@ -35261,7 +35259,7 @@ glabel hudRenderAmmo
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel hudRenderAmmo
+glabel handRenderHud
 /*  f0aa86c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0aa870:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0aa874:	27bdfed0 */ 	addiu	$sp,$sp,-304
@@ -36137,7 +36135,7 @@ glabel hudRenderAmmo
 /*  f0ab520:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0ab524:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0ab528:	24c6fffd */ 	addiu	$a2,$a2,-3
-/*  f0ab52c:	0fc2a7f0 */ 	jal	func0f0a9fc0
+/*  f0ab52c:	0fc2a7f0 */ 	jal	handRenderHudGauge
 /*  f0ab530:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0ab534:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0ab538:	8fae0048 */ 	lw	$t6,0x48($sp)
@@ -36151,7 +36149,7 @@ glabel hudRenderAmmo
 /*  f0ab558:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0ab55c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ab560:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0ab564:	0fc2a74b */ 	jal	func0f0a9d2c
+/*  f0ab564:	0fc2a74b */ 	jal	handRenderHudInteger
 /*  f0ab568:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0ab56c:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ab570:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -36276,7 +36274,7 @@ glabel hudRenderAmmo
 /*  f0ab72c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f0ab730:	24c6fffd */ 	addiu	$a2,$a2,-3
 /*  f0ab734:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab738:	0fc2a7f0 */ 	jal	func0f0a9fc0
+/*  f0ab738:	0fc2a7f0 */ 	jal	handRenderHudGauge
 /*  f0ab73c:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0ab740:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0ab744:	8fa60100 */ 	lw	$a2,0x100($sp)
@@ -36289,7 +36287,7 @@ glabel hudRenderAmmo
 /*  f0ab760:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ab764:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0ab768:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0ab76c:	0fc2a74b */ 	jal	func0f0a9d2c
+/*  f0ab76c:	0fc2a74b */ 	jal	handRenderHudInteger
 /*  f0ab770:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0ab774:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0ab778:	8faa0058 */ 	lw	$t2,0x58($sp)
@@ -36357,7 +36355,7 @@ glabel hudRenderAmmo
 /*  f0ab85c:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0ab860:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0ab864:	afa9009c */ 	sw	$t1,0x9c($sp)
-/*  f0ab868:	0fc2a7f0 */ 	jal	func0f0a9fc0
+/*  f0ab868:	0fc2a7f0 */ 	jal	handRenderHudGauge
 /*  f0ab86c:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0ab870:	8fb80048 */ 	lw	$t8,0x48($sp)
 /*  f0ab874:	3c0e00ff */ 	lui	$t6,0xff
@@ -36369,7 +36367,7 @@ glabel hudRenderAmmo
 /*  f0ab88c:	8fa5009c */ 	lw	$a1,0x9c($sp)
 /*  f0ab890:	8fa60054 */ 	lw	$a2,0x54($sp)
 /*  f0ab894:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0ab898:	0fc2a74b */ 	jal	func0f0a9d2c
+/*  f0ab898:	0fc2a74b */ 	jal	handRenderHudInteger
 /*  f0ab89c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0ab8a0:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab8a4:	8faf005c */ 	lw	$t7,0x5c($sp)
@@ -36512,7 +36510,7 @@ glabel hudRenderAmmo
 /*  f0aba94:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0aba98:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0aba9c:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0abaa0:	0fc2a6da */ 	jal	func0f0a9b68
+/*  f0abaa0:	0fc2a6da */ 	jal	handRenderHudString
 /*  f0abaa4:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0abaa8:	afa20130 */ 	sw	$v0,0x130($sp)
 .L0f0abaac:
@@ -36529,7 +36527,7 @@ glabel hudRenderAmmo
 );
 #else
 GLOBAL_ASM(
-glabel hudRenderAmmo
+glabel handRenderHud
 /*  f0a860c:	3c0e800a */ 	lui	$t6,0x800a
 /*  f0a8610:	8dcee944 */ 	lw	$t6,-0x16bc($t6)
 /*  f0a8614:	27bdfee0 */ 	addiu	$sp,$sp,-288
@@ -37388,7 +37386,7 @@ glabel hudRenderAmmo
 /*  f0a9280:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0a9284:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0a9288:	24c6fffd */ 	addiu	$a2,$a2,-3
-/*  f0a928c:	0fc29f58 */ 	jal	func0f0a9fc0
+/*  f0a928c:	0fc29f58 */ 	jal	handRenderHudGauge
 /*  f0a9290:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0a9294:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0a9298:	8fae0048 */ 	lw	$t6,0x48($sp)
@@ -37402,7 +37400,7 @@ glabel hudRenderAmmo
 /*  f0a92b8:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0a92bc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a92c0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0a92c4:	0fc29eb3 */ 	jal	func0f0a9d2c
+/*  f0a92c4:	0fc29eb3 */ 	jal	handRenderHudInteger
 /*  f0a92c8:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0a92cc:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0a92d0:	afa20120 */ 	sw	$v0,0x120($sp)
@@ -37527,7 +37525,7 @@ glabel hudRenderAmmo
 /*  f0a948c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f0a9490:	24c6fffd */ 	addiu	$a2,$a2,-3
 /*  f0a9494:	8fa40120 */ 	lw	$a0,0x120($sp)
-/*  f0a9498:	0fc29f58 */ 	jal	func0f0a9fc0
+/*  f0a9498:	0fc29f58 */ 	jal	handRenderHudGauge
 /*  f0a949c:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0a94a0:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0a94a4:	8fa600f0 */ 	lw	$a2,0xf0($sp)
@@ -37540,7 +37538,7 @@ glabel hudRenderAmmo
 /*  f0a94c0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a94c4:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0a94c8:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0a94cc:	0fc29eb3 */ 	jal	func0f0a9d2c
+/*  f0a94cc:	0fc29eb3 */ 	jal	handRenderHudInteger
 /*  f0a94d0:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0a94d4:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0a94d8:	8faa0058 */ 	lw	$t2,0x58($sp)
@@ -37608,7 +37606,7 @@ glabel hudRenderAmmo
 /*  f0a95bc:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0a95c0:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0a95c4:	afa9009c */ 	sw	$t1,0x9c($sp)
-/*  f0a95c8:	0fc29f58 */ 	jal	func0f0a9fc0
+/*  f0a95c8:	0fc29f58 */ 	jal	handRenderHudGauge
 /*  f0a95cc:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0a95d0:	8fb80048 */ 	lw	$t8,0x48($sp)
 /*  f0a95d4:	3c0e00ff */ 	lui	$t6,0xff
@@ -37620,7 +37618,7 @@ glabel hudRenderAmmo
 /*  f0a95ec:	8fa5009c */ 	lw	$a1,0x9c($sp)
 /*  f0a95f0:	8fa60054 */ 	lw	$a2,0x54($sp)
 /*  f0a95f4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0a95f8:	0fc29eb3 */ 	jal	func0f0a9d2c
+/*  f0a95f8:	0fc29eb3 */ 	jal	handRenderHudInteger
 /*  f0a95fc:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0a9600:	afa20120 */ 	sw	$v0,0x120($sp)
 /*  f0a9604:	8fb9005c */ 	lw	$t9,0x5c($sp)
@@ -37763,7 +37761,7 @@ glabel hudRenderAmmo
 /*  f0a97f4:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0a97f8:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0a97fc:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0a9800:	0fc29e42 */ 	jal	func0f0a9b68
+/*  f0a9800:	0fc29e42 */ 	jal	handRenderHudString
 /*  f0a9804:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0a9808:	afa20120 */ 	sw	$v0,0x120($sp)
 .NB0f0a980c:
@@ -37779,6 +37777,409 @@ glabel hudRenderAmmo
 /*  f0a982c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+const char var7f1ac18c[] = "%02d:%02d:%02d\n";
+const char var7f1ac19c[] = "%02d:%02d\n";
+
+// Mismatch: regalloc near da8
+//Gfx *handRenderHud(Gfx *gdl)
+//{
+//	struct player *player = g_Vars.currentplayer; // 12c
+//	s32 bottom = viGetViewTop() + viGetViewHeight() - 13; // 128
+//	s32 playercount; // 124
+//	s32 playernum; // 120
+//	struct hand *lefthand;
+//	s32 secs60;
+//	s32 secs;
+//	s32 ammoindex; // 110
+//	s32 barwidth; // 10c
+//	s32 reserveheight; // 108
+//	s32 clipheight; // 104
+//	s32 xpos; // 100
+//	struct weapon *weapon; // fc
+//	u32 alpha;
+//	u32 fncolour; // f4
+//	s32 funcnum; // f0
+//	s32 fnfaderinc; // ec
+//	s32 tmpfuncnum; // e8
+//
+//	struct handweaponinfo info; // dc
+//	struct hand *hand;
+//	char *str; // d4
+//	u32 colour; // d0
+//	s32 x; // cc
+//	s32 y; // c8
+//	s32 textheight; // c4
+//	s32 textwidth; // c0
+//	struct weaponfunc *func; // bc
+//	u16 nameid; // ba
+//
+//	s32 ammotype; // a4
+//	s32 ammoheld; // a0
+//	s32 ammototal; // 9c
+//
+//	char text[32]; // 78
+//	s32 mins; // 5c
+//	struct gunctrl *ctrl; // 58
+//
+//	playercount = PLAYERCOUNT();
+//	playernum = g_Vars.currentplayernum;
+//	ammoindex = 0;
+//	barwidth = 9;
+//	reserveheight = 36;
+//	clipheight = 57;
+//	weapon = weaponFindById(player->gunctrl.weaponnum);
+//
+//	hand = &player->hands[HAND_RIGHT];
+//	lefthand = &player->hands[HAND_LEFT];
+//	ctrl = &player->gunctrl;
+//
+//	// 958
+//	if (player->isdead) {
+//		return gdl;
+//	}
+//
+//	if (g_Vars.currentplayer->gunctrl.passivemode) {
+//		return gdl;
+//	}
+//
+//	if (g_Vars.lvframenum < 5) {
+//		return gdl;
+//	}
+//
+//	if (g_ViMode == VIMODE_HIRES) {
+//		g_ScaleX = 2;
+//	} else {
+//		g_ScaleX = 1;
+//	}
+//
+//	gdl = func0f153628(gdl);
+//
+//	// 9d8
+//	if (playercount >= 2) {
+//		barwidth = 5;
+//		reserveheight = 26;
+//		clipheight = 47;
+//
+//		if (playercount == 2) {
+//			if (IS4MB() || (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL && playernum == 0)) {
+//				bottom += 10;
+//			} else {
+//				bottom += 2;
+//			}
+//		} else if (playercount >= 3) {
+//			if (playernum < 2) {
+//				bottom += 10;
+//			} else {
+//				bottom += 2;
+//			}
+//		}
+//	} else if (optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
+//		bottom += 8;
+//	}
+//
+//	// a9c
+//	fncolour = 0xff000040;
+//	funcnum = hand->base.weaponfunc;
+//	fnfaderinc = g_Vars.lvupdate240 * 2;
+//
+//	handGetWeaponInfo(&info, HAND_RIGHT);
+//	tmpfuncnum = currentPlayerIsUsingSecondaryFunction();
+//
+//	if (func0f098ca0(tmpfuncnum, &info, hand) >= 0) {
+//		funcnum = tmpfuncnum;
+//	}
+//
+//	xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
+//
+//	// b64
+//	if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 0) {
+//		xpos += 15;
+//	} else if (playercount >= 3 && (playernum % 2) == 0) {
+//		xpos += 15;
+//	}
+//
+//	// bd4
+//	// Render function square
+//	if (funcnum == FUNC_SECONDARY && ctrl->fnfader < 255) {
+//		if (ctrl->fnfader < 128) {
+//			ctrl->fnfader = 128;
+//		}
+//
+//		if (ctrl->fnfader + fnfaderinc > 255) {
+//			ctrl->fnfader = 255;
+//		} else {
+//			ctrl->fnfader += fnfaderinc;
+//		}
+//	}
+//
+//	if (funcnum == FUNC_PRIMARY && ctrl->fnfader > 0) {
+//		if (ctrl->fnfader - fnfaderinc < 0) {
+//			ctrl->fnfader = 0;
+//		} else {
+//			ctrl->fnfader -= fnfaderinc;
+//		}
+//	}
+//
+//	if (ctrl->fnfader > 128) {
+//		fncolour = ((ctrl->fnfader * 2) - 256) << 16 | 0xff000040;
+//	}
+//
+//	gdl = gfxSetPrimColour(gdl, fncolour);
+//
+//	gDPFillRectangleScaled(gdl++, xpos - 13, bottom - 11, xpos - 2, bottom);
+//
+//	gdl = func0f153838(gdl);
+//
+//	// d20
+//	// Render weapon name and function name
+//	if (optionsGetShowGunFunction(g_Vars.currentplayerstats->mpindex)) {
+//		func = weaponGetFunctionById(hand->base.weaponnum, funcnum);
+//		nameid = invGetNameIdByIndex(invGetCurrentIndex());
+//		str = langGet(nameid);
+//
+//		// d70
+//		if (ctrl->curgunstr != nameid) {
+//			ctrl->guntypetimer = 0;
+//			ctrl->curgunstr = nameid;
+//		}
+//
+//		// d8c
+//		if (ctrl->guntypetimer < 255) {
+//			colour = 0x55ffffff;
+//
+//			if (ctrl->guntypetimer);
+//
+//			// da8
+//			if (ctrl->guntypetimer + g_Vars.lvupdate240_60 > 255) {
+//				ctrl->guntypetimer = 255;
+//			} else {
+//				ctrl->guntypetimer = (u32)ctrl->guntypetimer + g_Vars.lvupdate240_60;
+//			}
+//
+//			textMeasure(&textheight, &textwidth, str, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+//			textwidth += 2;
+//
+//			if (textwidth > ctrl->guntypetimer * 3) {
+//				textwidth = ctrl->guntypetimer * 3;
+//			}
+//
+//			// e24
+//			if (playercount >= 2) {
+//				x = xpos - textwidth - 13;
+//			} else {
+//				x = xpos - textwidth - 2;
+//			}
+//
+//			y = bottom - textheight - 15;
+//
+//			if (ctrl->guntypetimer > 192) {
+//				alpha = 255 - (ctrl->guntypetimer - 192) * 255 / 63U;
+//				colour = (colour & 0xfffffff00) | alpha;
+//			}
+//
+//			gdl = gfxSetPrimColour(gdl, 0);
+//
+//			gDPFillRectangleScaled(gdl++, x - 1, y - 1, xpos - 11, bottom);
+//
+//			gdl = func0f153838(gdl);
+//			func0f153d50(var80061630 * 50.0f, 0, 50);
+//			func0f153e38(0xffffffff, 0xffffffff);
+//			gdl = textRenderProjected(gdl, &x, &y, str, g_FontHandelGothicXs1, g_FontHandelGothicXs2, colour, textwidth, 1000, 0, 0);
+//			func0f153e4c();
+//		}
+//
+//		// fbc
+//		if (func) {
+//			langGet(func->name);
+//
+//			colour = 0xff5555ff;
+//
+//			if ((ctrl->curfnstr != func->name && ctrl->fnfader > 128) || !ctrl->curfnstr) {
+//				ctrl->fnstrtimer = 0;
+//				ctrl->curfnstr = func->name;
+//			}
+//
+//			// A match can be made here by changing langGet's argument to a u32
+//			// but that causes a mismatch within langGet
+//			str = langGet(ctrl->curfnstr);
+//
+//			// 040
+//			if (ctrl->fnstrtimer < 255) {
+//				if (ctrl->fnstrtimer + g_Vars.lvupdate240_60 > 255) {
+//					ctrl->fnstrtimer = 255;
+//				} else {
+//					ctrl->fnstrtimer += (u32)g_Vars.lvupdate240_60;
+//				}
+//
+//				if (funcnum == FUNC_SECONDARY && func->name == ctrl->curfnstr) {
+//					colour |= 0x00ff0000;
+//				}
+//
+//				if (funcnum == FUNC_PRIMARY && func->name != ctrl->curfnstr) {
+//					colour |= 0x00ff0000;
+//				}
+//
+//				textMeasure(&textheight, &textwidth, str, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+//				textwidth += 2;
+//
+//				if (textwidth > ctrl->fnstrtimer * 3) {
+//					textwidth = ctrl->fnstrtimer * 3;
+//				}
+//
+//				x = xpos - textwidth - 13;
+//				y = bottom - textheight - 1;
+//
+//				// 158
+//				if (ctrl->fnstrtimer > 192) {
+//					alpha = 255 - (ctrl->fnstrtimer - 192) * 255 / 63U;
+//					colour = (colour & 0xffffff00) | alpha;
+//				}
+//
+//				gdl = gfxSetPrimColour(gdl, 0);
+//
+//				gDPFillRectangleScaled(gdl++, x - 1, y - 1, xpos - 11, bottom + 3);
+//
+//				gdl = func0f153838(gdl);
+//
+//				func0f153d50(var80061630 * 50.0f, 0, 50);
+//				func0f153e38(0xffffffff, 0xffffffff);
+//
+//				gdl = textRenderProjected(gdl, &x, &y, str,
+//						g_FontHandelGothicXs1, g_FontHandelGothicXs2, colour, textwidth,
+//						1000, 0, 0);
+//
+//				func0f153e4c();
+//			}
+//		}
+//	}
+//
+//	// 2b8
+//	if (weapon && weapon->functions[hand->base.weaponfunc] != NULL) {
+//		ammoindex = ((struct weaponfunc *)(weapon->functions[hand->base.weaponfunc]))->ammoindex;
+//	}
+//
+//	if (ammoindex == -1) {
+//		if (weapon->functions[1 - hand->base.weaponfunc] != NULL) {
+//			ammoindex = ((struct weaponfunc *)(weapon->functions[1 - hand->base.weaponfunc]))->ammoindex;
+//		}
+//
+//		if (ammoindex == -1) {
+//			gdl = func0f153780(gdl);
+//			g_ScaleX = 1;
+//			return gdl;
+//		}
+//	}
+//
+//	if (ammoindex != ctrl->lastmag) {
+//		abmagReset(&player->hands[HAND_LEFT].abmag);
+//		abmagReset(&hand->abmag);
+//		abmagReset(&ctrl->abmag);
+//		ctrl->lastmag = ammoindex;
+//	}
+//
+//	// 39c
+//	// Left hand - mag
+//	if (lefthand->inuse
+//			&& weapon->ammos[ammoindex] != NULL
+//			&& lefthand->base.weaponnum != WEAPON_REMOTEMINE) {
+//		xpos = viGetViewLeft() / g_ScaleX + 24;
+//
+//		if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
+//			xpos -= 14;
+//		} else if (playercount >= 3 && (playernum & 1) == 1) {
+//			xpos -= 14;
+//		}
+//
+//		if (lefthand->clipsizes[ammoindex] > 0 && (weapon->ammos[ammoindex]->flags & 2) == 0) {
+//			gdl = handRenderHudGauge(gdl,
+//					xpos, bottom - reserveheight - clipheight - 3, xpos + barwidth, bottom - reserveheight - 3,
+//					&lefthand->abmag, lefthand->loadedammo[ammoindex], lefthand->clipsizes[ammoindex],
+//					0x00300080, 0x00ff0040, false);
+//			gdl = handRenderHudInteger(gdl, lefthand->loadedammo[ammoindex], xpos + barwidth + 2, true,
+//					bottom - reserveheight - 8, 0, 0x00ff00a0);
+//		}
+//	}
+//
+//	// 584
+//	// Right hand - mag, reserve and combat boost timer
+//	if (hand->inuse && ctrl->ammotypes[ammoindex] >= 0) {
+//		ammotype = player->gunctrl.ammotypes[ammoindex];
+//
+//		xpos = (viGetViewLeft() + viGetViewWidth()) / g_ScaleX - barwidth - 24;
+//
+//		if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 0) {
+//			xpos += 15;
+//		} else if (playercount >= 3 && (playernum % 2) == 0) {
+//			xpos += 15;
+//		}
+//
+//		// Mag
+//		// 6a8
+//		ammoheld = player->ammoheldarr[ammotype];
+//
+//		if (hand->clipsizes[ammoindex] > 0
+//				&& weapon->ammos[ammoindex] != NULL
+//				&& (weapon->ammos[ammoindex]->flags & 2) == 0) {
+//			gdl = handRenderHudGauge(gdl, xpos, bottom - reserveheight - clipheight - 3, xpos + barwidth,
+//					bottom - reserveheight - 3, &hand->abmag, hand->loadedammo[ammoindex], hand->clipsizes[ammoindex],
+//					0x00300080, 0x00ff0040, false);
+//			gdl = handRenderHudInteger(gdl, hand->loadedammo[ammoindex], xpos - 2, false,
+//					bottom - reserveheight - 8, 0, 0x00ff00a0);
+//		}
+//
+//		// Reserve
+//		// 7ac
+//		if (g_AmmoTypes[ammotype].capacity > 0
+//				&& (weapon->ammos[ammoindex]->flags & 1) == 0) {
+//			ammototal = ammoheld;
+//
+//			if (weapon->ammos[ammoindex]->flags & 2) {
+//				if (hand->clipsizes[ammoindex] > 0) {
+//					ammototal += hand->loadedammo[ammoindex];
+//				}
+//
+//				if (lefthand->clipsizes[ammoindex] > 0) {
+//					ammototal += lefthand->loadedammo[ammoindex];
+//				}
+//			}
+//
+//			gdl = handRenderHudGauge(gdl, xpos, bottom - reserveheight, xpos + barwidth,
+//					bottom, &ctrl->abmag, ammototal, g_AmmoTypes[ammotype].capacity,
+//					0x00403080, 0x00ffc040, true);
+//			gdl = handRenderHudInteger(gdl, ammototal, xpos - 2, false, bottom - reserveheight + 1, 0, 0x00ffc0a0);
+//		}
+//
+//		// 8b8
+//		// Combat boost timer
+//		if (hand->base.weaponnum == WEAPON_COMBATBOOST) {
+//			mins = g_Vars.speedpilltime / 3600;
+//
+//			// 91c
+//			if (mins >= 1) {
+//				secs60 = g_Vars.speedpilltime - mins * 3600;
+//				secs = secs60 / 60;
+//
+//				sprintf(text, "%02d:%02d:%02d\n", mins, secs, (secs60 - secs * 60) * 100 / 60);
+//			} else {
+//				// 9d4
+//				secs60 = g_Vars.speedpilltime - mins * 3600;
+//				secs = secs60 / 60;
+//
+//				sprintf(text, "%02d:%02d\n", secs, (secs60 - secs * 60) * 100 / 60);
+//			}
+//
+//			// a7c
+//			gdl = handRenderHudString(gdl, text, xpos + barwidth - 2, 0, bottom - reserveheight + 1, 0, 0x00ffc0a0);
+//		}
+//	}
+//
+//	// aac
+//	gdl = func0f153780(gdl);
+//	g_ScaleX = 1;
+//
+//	return gdl;
+//}
 
 void cboostAdd(s32 amount)
 {

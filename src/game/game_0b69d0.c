@@ -16014,7 +16014,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 		}
 
 		if (optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex)) {
-			gdl = hudRenderAmmo(gdl);
+			gdl = handRenderHud(gdl);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
