@@ -74,7 +74,7 @@ u32 func0f09ed2c(void);
 struct var8009ce58 *func0f09ee18(struct chrdata *chr, struct shorthand *hand, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5);
 void handCreateThrownProjectile(s32 handnum, struct shorthand *hand);
 u32 func0f09f848(void);
-u32 func0f09f974(void);
+void func0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func);
 void func0f09fa20(s32 handnum);
 void handCreateFiredProjectile(s32 handnum);
 void func0f0a0394(f32 autoaimx, f32 autoaimy, f32 damp, f32 arg3);

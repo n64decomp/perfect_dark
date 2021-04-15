@@ -12732,106 +12732,38 @@ glabel func0f09f848
 /*  f09f970:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 
+void func0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+	struct weaponobj *obj;
+
+	if (hand->rocket == NULL) {
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f09f974
-/*  f09f974:	00047900 */ 	sll	$t7,$a0,0x4
-/*  f09f978:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f09f97c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f09f980:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09f984:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f09f988:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09f98c:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f09f990:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f09f994:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f09f998:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09f99c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09f9a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09f9a4:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f09f9a8:	8c780850 */ 	lw	$t8,0x850($v1)
-/*  f09f9ac:	24630638 */ 	addiu	$v1,$v1,0x638
-/*  f09f9b0:	57000018 */ 	bnezl	$t8,.L0f09fa14
-/*  f09f9b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09f9b8:	ac60021c */ 	sw	$zero,0x21c($v1)
-/*  f09f9bc:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f09f9c0:	8ca40040 */ 	lw	$a0,0x40($a1)
-/*  f09f9c4:	24050053 */ 	addiu	$a1,$zero,0x53
-/*  f09f9c8:	8f2800bc */ 	lw	$t0,0xbc($t9)
-/*  f09f9cc:	8d060004 */ 	lw	$a2,0x4($t0)
-/*  f09f9d0:	0fc22e20 */ 	jal	func0f08b880
-/*  f09f9d4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f09f9d8:	1040000d */ 	beqz	$v0,.L0f09fa10
-/*  f09f9dc:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f09f9e0:	ac620218 */ 	sw	$v0,0x218($v1)
-/*  f09f9e4:	ac60021c */ 	sw	$zero,0x21c($v1)
-/*  f09f9e8:	8c4a0008 */ 	lw	$t2,0x8($v0)
-/*  f09f9ec:	8c4c000c */ 	lw	$t4,0xc($v0)
-/*  f09f9f0:	3c010080 */ 	lui	$at,0x80
-/*  f09f9f4:	01415825 */ 	or	$t3,$t2,$at
-/*  f09f9f8:	3c010200 */ 	lui	$at,0x200
-/*  f09f9fc:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f09fa00:	01816825 */ 	or	$t5,$t4,$at
-/*  f09fa04:	a4490062 */ 	sh	$t1,0x62($v0)
-/*  f09fa08:	ac4b0008 */ 	sw	$t3,0x8($v0)
-/*  f09fa0c:	ac4d000c */ 	sw	$t5,0xc($v0)
-.L0f09fa10:
-/*  f09fa10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f09fa14:
-/*  f09fa14:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f09fa18:	03e00008 */ 	jr	$ra
-/*  f09fa1c:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel func0f09f974
-/*  f09d808:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f09d80c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f09d810:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09d814:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f09d818:	3c02800a */ 	lui	$v0,0x800a
-/*  f09d81c:	8c42e944 */ 	lw	$v0,-0x16bc($v0)
-/*  f09d820:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f09d824:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f09d828:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f09d82c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09d830:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09d834:	004e1821 */ 	addu	$v1,$v0,$t6
-/*  f09d838:	8c6f0850 */ 	lw	$t7,0x850($v1)
-/*  f09d83c:	24630638 */ 	addiu	$v1,$v1,0x638
-/*  f09d840:	55e00012 */ 	bnezl	$t7,.NB0f09d88c
-/*  f09d844:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09d848:	8c5800bc */ 	lw	$t8,0xbc($v0)
-/*  f09d84c:	8ca40040 */ 	lw	$a0,0x40($a1)
-/*  f09d850:	24050052 */ 	addiu	$a1,$zero,0x52
-/*  f09d854:	8f060004 */ 	lw	$a2,0x4($t8)
-/*  f09d858:	0fc2282a */ 	jal	func0f08b880
-/*  f09d85c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f09d860:	10400009 */ 	beqz	$v0,.NB0f09d888
-/*  f09d864:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f09d868:	ac620218 */ 	sw	$v0,0x218($v1)
-/*  f09d86c:	ac60021c */ 	sw	$zero,0x21c($v1)
-/*  f09d870:	8c48000c */ 	lw	$t0,0xc($v0)
-/*  f09d874:	3c010200 */ 	lui	$at,0x200
-/*  f09d878:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f09d87c:	01014825 */ 	or	$t1,$t0,$at
-/*  f09d880:	a4590062 */ 	sh	$t9,0x62($v0)
-/*  f09d884:	ac49000c */ 	sw	$t1,0xc($v0)
-.NB0f09d888:
-/*  f09d888:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f09d88c:
-/*  f09d88c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f09d890:	03e00008 */ 	jr	$ra
-/*  f09d894:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		hand->firedrocket = false;
 #endif
+
+		obj = func0f08b880(func->projectilemodelnum, WEAPON_ROCKET, g_Vars.currentplayer->prop->chr);
+
+		if (obj != NULL) {
+			hand->rocket = obj;
+			hand->firedrocket = false;
+
+			obj->unk62 = 1;
+#if VERSION >= VERSION_NTSC_1_0
+			obj->base.flags |= OBJFLAG_00800000;
+#endif
+			obj->base.flags2 |= OBJFLAG2_THROWTHROUGH;
+		}
+	}
+}
 
 void func0f09fa20(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
-	if (hand->unk0850) {
-		func0f06b34c(hand->unk0850, 1);
-		hand->unk0850 = NULL;
+	if (hand->rocket) {
+		func0f06b34c(hand->rocket, 1);
+		hand->rocket = NULL;
 	}
 }
 

@@ -178,9 +178,9 @@ void func0f010bb0(void)
 
 	g_Vars.currentplayer->gunctrl.curgunstr = 0;
 
-	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->hands[1].unk0d74); i++) {
-		g_Vars.currentplayer->hands[1].unk0d74[i] = 0;
-		g_Vars.currentplayer->hands[0].unk0d74[i] = 0;
+	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->hands[1].gunroundsspent); i++) {
+		g_Vars.currentplayer->hands[1].gunroundsspent[i] = 0;
+		g_Vars.currentplayer->hands[0].gunroundsspent[i] = 0;
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_Vars.currentplayer->ammoheldarr); i++) {
