@@ -6,7 +6,7 @@
 
 void func0f097ba0(s32 handnum, s32 weaponnum);
 s32 func0f097d0c(s32 weaponnum);
-u32 func0f097d64(void);
+void func0f097d64(void);
 u32 func0f097df0(void);
 u32 func0f097e74(void);
 u32 func0f097f28(void);
@@ -131,9 +131,9 @@ u32 func0f0a45d0(void);
 u32 func0f0a46a4(void);
 u32 func0f0a4e44(void);
 u32 func0f0a5300(void);
-u32 func0f0a5550(void);
-u32 func0f0a695c(void);
-u32 func0f0a6c30(void);
+void func0f0a5550(s32 handnum);
+void func0f0a695c(void);
+void func0f0a6c30(void);
 s32 func0f0a70f8(void);
 void func0f0a7138(Gfx **gdl);
 struct audiohandle **func0f0a7d5c(void);

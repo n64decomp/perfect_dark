@@ -2620,6 +2620,9 @@ struct player {
 	/*0x024c*/ s16 invdowntime;
 	/*0x024e*/ s16 usedowntime;
 	/*0x0250*/ u8 activemenumode;
+	/*0x0251*/ u8 unk0251;
+	/*0x0252*/ u8 unk0252;
+	/*0x0253*/ u8 unk0253;
 	/*0x0254*/ s32 erasertime; // related to FarSight's auto tracking
 	/*0x0258*/ f32 autoeraserdist;
 	/*0x025c*/ struct prop *autoerasertarget;
@@ -2628,9 +2631,9 @@ struct player {
 	/*0x0268*/ bool eyesshut;
 	/*0x026c*/ f32 eyesshutfrac;
 	/*0x0270*/ u8 epcol_0;
-	/*0x0270*/ u8 epcol_1;
-	/*0x0270*/ u8 epcol_2;
-	/*0x0270*/ u8 flashbang;
+	/*0x0271*/ u8 epcol_1;
+	/*0x0272*/ u8 epcol_2;
+	/*0x0273*/ u8 flashbang;
 	/*0x0274*/ bool waitforzrelease;
 	/*0x0278*/ f32 shieldshowrot;
 	/*0x027c*/ u32 shieldshowrnd;

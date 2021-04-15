@@ -345,7 +345,7 @@ void func0f0904e0(void);
 bool func0f090520(void);
 void func0f09054c(void);
 Gfx *func0f0908b8(Gfx *gdl);
-u32 func0f090d34(void);
+void func0f090d34(void);
 void alarmTick(void);
 void func0f091030(void);
 void func0f0910ac(void);
