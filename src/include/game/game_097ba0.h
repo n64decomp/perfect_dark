@@ -5,8 +5,8 @@
 #include "types.h"
 
 void func0f097ba0(s32 handnum, s32 weaponnum);
-s32 func0f097d0c(s32 weaponnum);
-void func0f097d64(void);
+s32 weaponGetUnequippedReloadIndex(s32 weaponnum);
+void handsTickUnequippedReload(void);
 u32 func0f097df0(void);
 u32 func0f097e74(void);
 u32 func0f097f28(void);

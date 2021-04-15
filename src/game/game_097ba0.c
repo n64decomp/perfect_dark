@@ -345,7 +345,7 @@ glabel func0f097ba0
 );
 #endif
 
-s32 func0f097d0c(s32 weaponnum)
+s32 weaponGetUnequippedReloadIndex(s32 weaponnum)
 {
 	if (weaponnum == WEAPON_CROSSBOW) {
 		return 0;
@@ -366,48 +366,34 @@ s32 func0f097d0c(s32 weaponnum)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel func0f097d64
-/*  f097d64:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f097d68:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
-/*  f097d6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f097d70:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*  f097d74:	240a0004 */ 	addiu	$t2,$zero,0x4
-/*  f097d78:	00001825 */ 	or	$v1,$zero,$zero
-.L0f097d7c:
-/*  f097d7c:	00002825 */ 	or	$a1,$zero,$zero
-.L0f097d80:
-/*  f097d80:	00027900 */ 	sll	$t7,$v0,0x4
-/*  f097d84:	01e27823 */ 	subu	$t7,$t7,$v0
-/*  f097d88:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f097d8c:	01e27821 */ 	addu	$t7,$t7,$v0
-/*  f097d90:	8d2e0284 */ 	lw	$t6,0x284($t1)
-/*  f097d94:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f097d98:	01e27821 */ 	addu	$t7,$t7,$v0
-/*  f097d9c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f097da0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f097da4:	03053021 */ 	addu	$a2,$t8,$a1
-/*  f097da8:	94c40d74 */ 	lhu	$a0,0xd74($a2)
-/*  f097dac:	8d270038 */ 	lw	$a3,0x38($t1)
-/*  f097db0:	24a50002 */ 	addiu	$a1,$a1,0x2
-/*  f097db4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f097db8:	00e4082a */ 	slt	$at,$a3,$a0
-/*  f097dbc:	10200004 */ 	beqz	$at,.L0f097dd0
-/*  f097dc0:	00872023 */ 	subu	$a0,$a0,$a3
-/*  f097dc4:	3099ffff */ 	andi	$t9,$a0,0xffff
-/*  f097dc8:	10000002 */ 	b	.L0f097dd4
-/*  f097dcc:	03202025 */ 	or	$a0,$t9,$zero
-.L0f097dd0:
-/*  f097dd0:	00002025 */ 	or	$a0,$zero,$zero
-.L0f097dd4:
-/*  f097dd4:	146affea */ 	bne	$v1,$t2,.L0f097d80
-/*  f097dd8:	a4c40d74 */ 	sh	$a0,0xd74($a2)
-/*  f097ddc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f097de0:	544bffe6 */ 	bnel	$v0,$t3,.L0f097d7c
-/*  f097de4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f097de8:	03e00008 */ 	jr	$ra
-/*  f097dec:	00000000 */ 	nop
-);
+/**
+ * The magnums, shotgun and crossbow are special because that the game remembers
+ * how much ammo is loaded in their clips when the weapon is not being used.
+ * Their clips are gradually reloaded while the weapon is not in use, and that
+ * gradual reloading is handled by this function.
+ *
+ * The gunroundsspent value is actually a countdown timer,
+ * not the number of rounds as the name suggests.
+ */
+void handsTickUnequippedReload(void)
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 2; i++) {
+		for (j = 0; j < 4; j++) {
+			u16 spent = g_Vars.currentplayer->hands[i].gunroundsspent[j];
+
+			if (spent > g_Vars.lvupdate240_60) {
+				spent -= g_Vars.lvupdate240_60;
+			} else {
+				spent = 0;
+			}
+
+			g_Vars.currentplayer->hands[i].gunroundsspent[j] = spent;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f097df0
@@ -2421,7 +2407,7 @@ glabel func0f098df8
 /*  f098eec:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f098ef0:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f098ef4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f098ef8:	0fc25f0b */ 	jal	func0f097d0c
+/*  f098ef8:	0fc25f0b */ 	jal	weaponGetUnequippedReloadIndex
 /*  f098efc:	afa50030 */ 	sw	$a1,0x30($sp)
 /*  f098f00:	3c0b8009 */ 	lui	$t3,0x8009
 /*  f098f04:	916b8d54 */ 	lbu	$t3,-0x72ac($t3)
@@ -2535,7 +2521,7 @@ glabel func0f098df8
 /*  f098e6c:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f098e70:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f098e74:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f098e78:	0fc25f43 */ 	jal	func0f097d0c
+/*  f098e78:	0fc25f43 */ 	jal	weaponGetUnequippedReloadIndex
 /*  f098e7c:	afa50030 */ 	sw	$a1,0x30($sp)
 /*  f098e80:	3c0b8009 */ 	lui	$t3,%hi(g_FrIsValidWeapon)
 /*  f098e84:	916b8804 */ 	lbu	$t3,%lo(g_FrIsValidWeapon)($t3)
@@ -16117,13 +16103,13 @@ void func0f0a134c(s32 handnum)
 		for (i = 0; i < 2; i++) {
 			if (player->gunctrl.ammotypes[i] >= 0) {
 				s32 spaceinclip = player->hands[handnum].clipsizes[i] - player->hands[handnum].loadedammo[i];
-				s32 specialnum = func0f097d0c(player->gunctrl.weaponnum);
+				s32 index = weaponGetUnequippedReloadIndex(player->gunctrl.weaponnum);
 
-				if (specialnum != -1) {
+				if (index != -1) {
 #if VERSION >= VERSION_PAL_FINAL
-					player->hands[handnum].unk0d74[specialnum] = spaceinclip * 213 + 212;
+					player->hands[handnum].gunroundsspent[index] = spaceinclip * 213 + 212;
 #else
-					player->hands[handnum].unk0d74[specialnum] = (spaceinclip << 8) | 0xff;
+					player->hands[handnum].gunroundsspent[index] = (spaceinclip << 8) | 0xff;
 #endif
 				}
 
@@ -25831,7 +25817,7 @@ void func0f0a6c30(void)
 		}
 	}
 
-	func0f097d64();
+	handsTickUnequippedReload();
 	func0f0a5550(HAND_RIGHT);
 
 	if (player->hands[HAND_LEFT].inuse) {
