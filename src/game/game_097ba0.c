@@ -2283,45 +2283,31 @@ bool func0f098a44(struct hand *hand, s32 time)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f098b80
-/*  f098b80:	8c8e068c */ 	lw	$t6,0x68c($a0)
-/*  f098b84:	8c8206b0 */ 	lw	$v0,0x6b0($a0)
-/*  f098b88:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f098b8c:	55c00004 */ 	bnezl	$t6,.L0f098ba0
-/*  f098b90:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f098b94:	03e00008 */ 	jr	$ra
-/*  f098b98:	00001025 */ 	or	$v0,$zero,$zero
-/*  f098b9c:	90440000 */ 	lbu	$a0,0x0($v0)
-.L0f098ba0:
-/*  f098ba0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f098ba4:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f098ba8:	5080000e */ 	beqzl	$a0,.L0f098be4
-/*  f098bac:	2407ffff */ 	addiu	$a3,$zero,-1
-.L0f098bb0:
-/*  f098bb0:	54c40006 */ 	bnel	$a2,$a0,.L0f098bcc
-/*  f098bb4:	90440008 */ 	lbu	$a0,0x8($v0)
-/*  f098bb8:	8c4f0004 */ 	lw	$t7,0x4($v0)
-/*  f098bbc:	54af0003 */ 	bnel	$a1,$t7,.L0f098bcc
-/*  f098bc0:	90440008 */ 	lbu	$a0,0x8($v0)
-/*  f098bc4:	94430002 */ 	lhu	$v1,0x2($v0)
-/*  f098bc8:	90440008 */ 	lbu	$a0,0x8($v0)
-.L0f098bcc:
-/*  f098bcc:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f098bd0:	50800004 */ 	beqzl	$a0,.L0f098be4
-/*  f098bd4:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f098bd8:	1067fff5 */ 	beq	$v1,$a3,.L0f098bb0
-/*  f098bdc:	00000000 */ 	nop
-/*  f098be0:	2407ffff */ 	addiu	$a3,$zero,-1
-.L0f098be4:
-/*  f098be4:	54670003 */ 	bnel	$v1,$a3,.L0f098bf4
-/*  f098be8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f098bec:	00001825 */ 	or	$v1,$zero,$zero
-/*  f098bf0:	00601025 */ 	or	$v0,$v1,$zero
-.L0f098bf4:
-/*  f098bf4:	03e00008 */ 	jr	$ra
-/*  f098bf8:	00000000 */ 	nop
-);
+s32 func0f098b80(struct hand *hand, s32 arg1)
+{
+	struct guncmd *cmd = hand->unk0ce8;
+	s32 keyframe = -1;
+
+	if (hand->animmode == HANDANIMMODE_IDLE) {
+		return 0;
+	}
+
+	while (cmd->type != GUNCMD_END && keyframe == -1) {
+		if (cmd->type == GUNCMD_WAITTIME) {
+			if (cmd->unk04 == arg1) {
+				keyframe = cmd->unk02;
+			}
+		}
+
+		cmd++;
+	}
+
+	if (keyframe == -1) {
+		keyframe = 0;
+	}
+
+	return keyframe;
+}
 
 bool handIsAnimBusy(struct hand *hand)
 {
