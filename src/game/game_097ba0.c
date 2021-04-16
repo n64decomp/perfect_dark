@@ -436,58 +436,30 @@ glabel func0f097df0
 /*  f097e70:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f097e74
-/*  f097e74:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f097e78:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f097e7c:	87ae001a */ 	lh	$t6,0x1a($sp)
-/*  f097e80:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f097e84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f097e88:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f097e8c:	11c10004 */ 	beq	$t6,$at,.L0f097ea0
-/*  f097e90:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f097e94:	24010036 */ 	addiu	$at,$zero,0x36
-/*  f097e98:	15c10013 */ 	bne	$t6,$at,.L0f097ee8
-/*  f097e9c:	00e02025 */ 	or	$a0,$a3,$zero
-.L0f097ea0:
-/*  f097ea0:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f097ea4:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f097ea8:	8de41594 */ 	lw	$a0,0x1594($t7)
-/*  f097eac:	5080001b */ 	beqzl	$a0,.L0f097f1c
-/*  f097eb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f097eb4:	0c006a47 */ 	jal	modelGetPart
-/*  f097eb8:	87a5001a */ 	lh	$a1,0x1a($sp)
-/*  f097ebc:	50400017 */ 	beqzl	$v0,.L0f097f1c
-/*  f097ec0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f097ec4:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f097ec8:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f097ecc:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*  f097ed0:	94790004 */ 	lhu	$t9,0x4($v1)
-/*  f097ed4:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f097ed8:	03082021 */ 	addu	$a0,$t8,$t0
-/*  f097edc:	248404b4 */ 	addiu	$a0,$a0,0x4b4
-/*  f097ee0:	1000000d */ 	b	.L0f097f18
-/*  f097ee4:	ac890000 */ 	sw	$t1,0x0($a0)
-.L0f097ee8:
-/*  f097ee8:	0c006a47 */ 	jal	modelGetPart
-/*  f097eec:	87a5001a */ 	lh	$a1,0x1a($sp)
-/*  f097ef0:	5040000a */ 	beqzl	$v0,.L0f097f1c
-/*  f097ef4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f097ef8:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f097efc:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*  f097f00:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f097f04:	946b0004 */ 	lhu	$t3,0x4($v1)
-/*  f097f08:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f097f0c:	014c2021 */ 	addu	$a0,$t2,$t4
-/*  f097f10:	24840434 */ 	addiu	$a0,$a0,0x434
-/*  f097f14:	ac8d0000 */ 	sw	$t5,0x0($a0)
-.L0f097f18:
-/*  f097f18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f097f1c:
-/*  f097f1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f097f20:	03e00008 */ 	jr	$ra
-/*  f097f24:	00000000 */ 	nop
-);
+void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata *arg3)
+{
+	struct modelnode *node;
+
+	if (partnum == 0x35 || partnum == 0x36) {
+		if (g_Vars.currentplayer->gunctrl.unk1594) {
+			node = modelGetPart(g_Vars.currentplayer->gunctrl.unk1594, partnum);
+
+			if (node) {
+				union modelnode_data *data = node->data;
+				u32 *ptr = &hand->handsavedata[data->partid.index];
+				*ptr = arg1;
+			}
+		}
+	} else {
+		node = modelGetPart(arg3, partnum);
+
+		if (node) {
+			union modelnode_data *data = node->data;
+			u32 *ptr = &hand->unk0a6c[data->partid.index];
+			*ptr = arg1;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f097f28
@@ -567,7 +539,7 @@ glabel func0f097f28
 /*  f09802c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-void func0f098030(struct hand *hand, u32 arg1)
+void func0f098030(struct hand *hand, struct modelfiledata *arg1)
 {
 	struct weapon *weapon = weaponFindById(hand->base.weaponnum);
 	s32 i;
