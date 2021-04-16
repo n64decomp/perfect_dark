@@ -124,7 +124,7 @@ u32 func0f0a3aa4(void);
 u32 func0f0a3eac(void);
 u32 func0f0a4094(void);
 u32 func0f0a419c(void);
-u32 func0f0a4334(void);
+void func0f0a4334(struct hand *hand);
 u32 func0f0a4438(void);
 void func0f0a4570(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func);
 void func0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2);
