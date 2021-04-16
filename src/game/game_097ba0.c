@@ -82,7 +82,7 @@ u32 fill2[2];
 
 u32 var8009d140;
 u32 var8009d144;
-u32 var8009d148;
+s32 var8009d148;
 u32 var8009d14c;
 
 struct fireslot g_Fireslots[NUM_FIRESLOTS];
@@ -20441,69 +20441,35 @@ glabel func0f0a4570
 /*  f0a45cc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0a45d0
-/*  f0a45d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a45d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a45d8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0a45dc:	8c8206d4 */ 	lw	$v0,0x6d4($a0)
-/*  f0a45e0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0a45e4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a45e8:	00027500 */ 	sll	$t6,$v0,0x14
-/*  f0a45ec:	000e7f42 */ 	srl	$t7,$t6,0x1d
-/*  f0a45f0:	11e00008 */ 	beqz	$t7,.L0f0a4614
-/*  f0a45f4:	00000000 */ 	nop
-/*  f0a45f8:	11e10011 */ 	beq	$t7,$at,.L0f0a4640
-/*  f0a45fc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a4600:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a4604:	11e10012 */ 	beq	$t7,$at,.L0f0a4650
-/*  f0a4608:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a460c:	10000013 */ 	b	.L0f0a465c
-/*  f0a4610:	00000000 */ 	nop
-.L0f0a4614:
-/*  f0a4614:	10c00006 */ 	beqz	$a2,.L0f0a4630
-/*  f0a4618:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a461c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a4620:	0c006a47 */ 	jal	modelGetPart
-/*  f0a4624:	2405002a */ 	addiu	$a1,$zero,0x2a
-/*  f0a4628:	1000000c */ 	b	.L0f0a465c
-/*  f0a462c:	00403825 */ 	or	$a3,$v0,$zero
-.L0f0a4630:
-/*  f0a4630:	0c006a47 */ 	jal	modelGetPart
-/*  f0a4634:	24050037 */ 	addiu	$a1,$zero,0x37
-/*  f0a4638:	10000008 */ 	b	.L0f0a465c
-/*  f0a463c:	00403825 */ 	or	$a3,$v0,$zero
-.L0f0a4640:
-/*  f0a4640:	0c006a47 */ 	jal	modelGetPart
-/*  f0a4644:	2405002b */ 	addiu	$a1,$zero,0x2b
-/*  f0a4648:	10000004 */ 	b	.L0f0a465c
-/*  f0a464c:	00403825 */ 	or	$a3,$v0,$zero
-.L0f0a4650:
-/*  f0a4650:	0c006a47 */ 	jal	modelGetPart
-/*  f0a4654:	2405002b */ 	addiu	$a1,$zero,0x2b
-/*  f0a4658:	00403825 */ 	or	$a3,$v0,$zero
-.L0f0a465c:
-/*  f0a465c:	10e0000b */ 	beqz	$a3,.L0f0a468c
-/*  f0a4660:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f0a4664:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0a4668:	0c006949 */ 	jal	func0001a524
-/*  f0a466c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a4670:	3c01800a */ 	lui	$at,%hi(var8009d148)
-/*  f0a4674:	ac22d148 */ 	sw	$v0,%lo(var8009d148)($at)
-/*  f0a4678:	3c187f0a */ 	lui	$t8,%hi(func0f0a256c)
-/*  f0a467c:	2718256c */ 	addiu	$t8,$t8,%lo(func0f0a256c)
-/*  f0a4680:	3c018006 */ 	lui	$at,%hi(var8005efcc)
-/*  f0a4684:	10000003 */ 	b	.L0f0a4694
-/*  f0a4688:	ac38efcc */ 	sw	$t8,%lo(var8005efcc)($at)
-.L0f0a468c:
-/*  f0a468c:	3c01800a */ 	lui	$at,%hi(var8009d148)
-/*  f0a4690:	ac39d148 */ 	sw	$t9,%lo(var8009d148)($at)
-.L0f0a4694:
-/*  f0a4694:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a4698:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a469c:	03e00008 */ 	jr	$ra
-/*  f0a46a0:	00000000 */ 	nop
-);
+void func0f0a256c(void);
+
+void func0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2)
+{
+	struct modelnode *node = NULL;
+
+	switch (hand->unk0d0e_04) {
+	case 0:
+		if (arg2) {
+			node = modelGetPart(filedata, 0x2a);
+		} else {
+			node = modelGetPart(filedata, 0x37);
+		}
+		break;
+	case 1:
+		node = modelGetPart(filedata, 0x2b);
+		break;
+	case 2:
+		node = modelGetPart(filedata, 0x2b);
+		break;
+	}
+
+	if (node) {
+		var8009d148 = func0001a524(node, 0);
+		var8005efcc = func0f0a256c;
+	} else {
+		var8009d148 = -1;
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(

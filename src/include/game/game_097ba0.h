@@ -127,7 +127,7 @@ u32 func0f0a419c(void);
 u32 func0f0a4334(void);
 u32 func0f0a4438(void);
 u32 func0f0a4570(void);
-u32 func0f0a45d0(void);
+void func0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2);
 u32 func0f0a46a4(void);
 u32 func0f0a4e44(void);
 u32 func0f0a5300(void);

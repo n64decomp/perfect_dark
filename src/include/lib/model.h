@@ -7,7 +7,7 @@
 u32 func0001a500(void);
 u32 func0001a50c(void);
 void func0001a518(void *callback);
-u32 func0001a524(void);
+s32 func0001a524(struct modelnode *node, s32 arg1);
 Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2);
 u32 func0001a60c(void);
 u32 func0001a634(void);

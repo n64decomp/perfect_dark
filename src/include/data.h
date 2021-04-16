@@ -61,7 +61,7 @@ extern bool var8005efbc;
 extern u32 var8005efc0;
 extern void *var8005efc4;
 extern void *var8005efc8;
-extern u32 var8005efcc;
+extern void *var8005efcc;
 extern u32 var8005efd0;
 extern u32 var8005efdc;
 extern u32 var8005efe0;
