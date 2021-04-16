@@ -7,7 +7,7 @@
 void func0f097ba0(s32 handnum, s32 weaponnum);
 s32 weaponGetUnequippedReloadIndex(s32 weaponnum);
 void handsTickUnequippedReload(void);
-u32 func0f097df0(void);
+bool func0f097df0(struct inventory_typef *arg0, struct hand *hand);
 void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata *arg3);
 void func0f097f28(struct hand *hand, struct modelfiledata *arg1, struct inventory_typef *arg2);
 void func0f098030(struct hand *hand, struct modelfiledata *arg1);

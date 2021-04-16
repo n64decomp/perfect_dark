@@ -3038,11 +3038,11 @@ struct inventory_class {
 };
 
 struct inventory_typef {
-	u16 unk00;
-	u16 unk04;
+	u8 unk00;
+	u16 unk02;
+	u8 unk04;
+	u16 unk06;
 	u16 unk08;
-	u16 unk0c;
-	u16 unk10;
 };
 
 struct weaponfunc {

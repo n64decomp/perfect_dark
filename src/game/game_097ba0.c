@@ -461,83 +461,41 @@ void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f097f28
-/*  f097f28:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f097f2c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f097f30:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f097f34:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f097f38:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f097f3c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f097f40:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f097f44:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f097f48:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f097f4c:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f097f50:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f097f54:	10c0002d */ 	beqz	$a2,.L0f09800c
-/*  f097f58:	00009825 */ 	or	$s3,$zero,$zero
-/*  f097f5c:	24150001 */ 	addiu	$s5,$zero,0x1
-/*  f097f60:	24140003 */ 	addiu	$s4,$zero,0x3
-/*  f097f64:	02002025 */ 	or	$a0,$s0,$zero
-.L0f097f68:
-/*  f097f68:	0fc25f7c */ 	jal	func0f097df0
-/*  f097f6c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f097f70:	50400019 */ 	beqzl	$v0,.L0f097fd8
-/*  f097f74:	920e0004 */ 	lbu	$t6,0x4($s0)
-/*  f097f78:	92020004 */ 	lbu	$v0,0x4($s0)
-/*  f097f7c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f097f80:	02203025 */ 	or	$a2,$s1,$zero
-/*  f097f84:	14400004 */ 	bnez	$v0,.L0f097f98
-/*  f097f88:	02403825 */ 	or	$a3,$s2,$zero
-/*  f097f8c:	0fc25f9d */ 	jal	func0f097e74
-/*  f097f90:	86040006 */ 	lh	$a0,0x6($s0)
-/*  f097f94:	92020004 */ 	lbu	$v0,0x4($s0)
-.L0f097f98:
-/*  f097f98:	16a20006 */ 	bne	$s5,$v0,.L0f097fb4
-/*  f097f9c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f097fa0:	86040006 */ 	lh	$a0,0x6($s0)
-/*  f097fa4:	02203025 */ 	or	$a2,$s1,$zero
-/*  f097fa8:	0fc25f9d */ 	jal	func0f097e74
-/*  f097fac:	02403825 */ 	or	$a3,$s2,$zero
-/*  f097fb0:	92020004 */ 	lbu	$v0,0x4($s0)
-.L0f097fb4:
-/*  f097fb4:	1682000e */ 	bne	$s4,$v0,.L0f097ff0
-/*  f097fb8:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f097fbc:	86040006 */ 	lh	$a0,0x6($s0)
-/*  f097fc0:	02203025 */ 	or	$a2,$s1,$zero
-/*  f097fc4:	0fc25f9d */ 	jal	func0f097e74
-/*  f097fc8:	02403825 */ 	or	$a3,$s2,$zero
-/*  f097fcc:	10000009 */ 	b	.L0f097ff4
-/*  f097fd0:	920f000a */ 	lbu	$t7,0xa($s0)
-/*  f097fd4:	920e0004 */ 	lbu	$t6,0x4($s0)
-.L0f097fd8:
-/*  f097fd8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f097fdc:	02203025 */ 	or	$a2,$s1,$zero
-/*  f097fe0:	168e0003 */ 	bne	$s4,$t6,.L0f097ff0
-/*  f097fe4:	02403825 */ 	or	$a3,$s2,$zero
-/*  f097fe8:	0fc25f9d */ 	jal	func0f097e74
-/*  f097fec:	86040006 */ 	lh	$a0,0x6($s0)
-.L0f097ff0:
-/*  f097ff0:	920f000a */ 	lbu	$t7,0xa($s0)
-.L0f097ff4:
-/*  f097ff4:	2610000a */ 	addiu	$s0,$s0,0xa
-/*  f097ff8:	15e00002 */ 	bnez	$t7,.L0f098004
-/*  f097ffc:	00000000 */ 	nop
-/*  f098000:	02a09825 */ 	or	$s3,$s5,$zero
-.L0f098004:
-/*  f098004:	5260ffd8 */ 	beqzl	$s3,.L0f097f68
-/*  f098008:	02002025 */ 	or	$a0,$s0,$zero
-.L0f09800c:
-/*  f09800c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f098010:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f098014:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f098018:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f09801c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f098020:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f098024:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f098028:	03e00008 */ 	jr	$ra
-/*  f09802c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void func0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inventory_typef *arg2)
+{
+	struct inventory_typef *thing = arg2;
+	bool done = false;
+
+	if (thing == NULL) {
+		return;
+	}
+
+	while (!done) {
+		if (func0f097df0(thing, hand)) {
+			if (thing->unk04 == 0) {
+				func0f097e74(thing->unk06, 1, hand, filedata);
+			}
+
+			if (thing->unk04 == 1) {
+				func0f097e74(thing->unk06, 0, hand, filedata);
+			}
+
+			if (thing->unk04 == 3) {
+				func0f097e74(thing->unk06, 1, hand, filedata);
+			}
+		} else {
+			if (thing->unk04 == 3) {
+				func0f097e74(thing->unk06, 0, hand, filedata);
+			}
+		}
+
+		thing++;
+
+		if (thing->unk00 == 0) {
+			done = true;
+		}
+	}
+}
 
 void func0f098030(struct hand *hand, struct modelfiledata *arg1)
 {
