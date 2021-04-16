@@ -11373,69 +11373,32 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f09ed2c
-/*  f09ed2c:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f09ed30:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f09ed34:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f09ed38:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f09ed3c:	afa60060 */ 	sw	$a2,0x60($sp)
-/*  f09ed40:	afa70064 */ 	sw	$a3,0x64($sp)
-/*  f09ed44:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f09ed48:	00808025 */ 	or	$s0,$a0,$zero
-/*  f09ed4c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f09ed50:	5040002d */ 	beqzl	$v0,.L0f09ee08
-/*  f09ed54:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f09ed58:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f09ed5c:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f09ed60:	8dc200bc */ 	lw	$v0,0xbc($t6)
-/*  f09ed64:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f09ed68:	24440028 */ 	addiu	$a0,$v0,0x28
-/*  f09ed6c:	e7a40048 */ 	swc1	$f4,0x48($sp)
-/*  f09ed70:	c446000c */ 	lwc1	$f6,0xc($v0)
-/*  f09ed74:	e7a6004c */ 	swc1	$f6,0x4c($sp)
-/*  f09ed78:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f09ed7c:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f09ed80:	0fc195e9 */ 	jal	roomsCopy
-/*  f09ed84:	e7a80050 */ 	swc1	$f8,0x50($sp)
-/*  f09ed88:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f09ed8c:	8fa3005c */ 	lw	$v1,0x5c($sp)
-/*  f09ed90:	8faf0064 */ 	lw	$t7,0x64($sp)
-/*  f09ed94:	8fb80068 */ 	lw	$t8,0x68($sp)
-/*  f09ed98:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09ed9c:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f09eda0:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f09eda4:	8fa70060 */ 	lw	$a3,0x60($sp)
-/*  f09eda8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f09edac:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f09edb0:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f09edb4:	0fc27af3 */ 	jal	func0f09ebcc
-/*  f09edb8:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f09edbc:	8e190040 */ 	lw	$t9,0x40($s0)
-/*  f09edc0:	8fa3005c */ 	lw	$v1,0x5c($sp)
-/*  f09edc4:	33280080 */ 	andi	$t0,$t9,0x80
-/*  f09edc8:	5100000f */ 	beqzl	$t0,.L0f09ee08
-/*  f09edcc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f09edd0:	8e020048 */ 	lw	$v0,0x48($s0)
-/*  f09edd4:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f09edd8:	352a0080 */ 	ori	$t2,$t1,0x80
-/*  f09eddc:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f09ede0:	8e0b0048 */ 	lw	$t3,0x48($s0)
-/*  f09ede4:	c46a0000 */ 	lwc1	$f10,0x0($v1)
-/*  f09ede8:	e56a00c4 */ 	swc1	$f10,0xc4($t3)
-/*  f09edec:	8e0c0048 */ 	lw	$t4,0x48($s0)
-/*  f09edf0:	c4700004 */ 	lwc1	$f16,0x4($v1)
-/*  f09edf4:	e59000c8 */ 	swc1	$f16,0xc8($t4)
-/*  f09edf8:	8e0d0048 */ 	lw	$t5,0x48($s0)
-/*  f09edfc:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f09ee00:	e5b200cc */ 	swc1	$f18,0xcc($t5)
-/*  f09ee04:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f09ee08:
-/*  f09ee08:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f09ee0c:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f09ee10:	03e00008 */ 	jr	$ra
-/*  f09ee14:	00000000 */ 	nop
-);
+void func0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 *arg3, Mtxf *arg4)
+{
+	struct prop *objprop = obj->prop;
+	struct coord pos;
+	s16 rooms[8];
+
+	if (objprop) {
+		struct prop *playerprop = g_Vars.currentplayer->prop;
+
+		pos.x = playerprop->pos.x;
+		pos.y = playerprop->pos.y;
+		pos.z = playerprop->pos.z;
+
+		roomsCopy(playerprop->rooms, rooms);
+
+		func0f09ebcc(obj, &pos, rooms, arg2, arg3, arg4, playerprop, newpos);
+
+		if (obj->hidden & OBJHFLAG_AIRBORNE) {
+			obj->projectile->flags |= PROJECTILEFLAG_00000080;
+
+			obj->projectile->pos.x = newpos->x;
+			obj->projectile->pos.y = newpos->y;
+			obj->projectile->pos.z = newpos->z;
+		}
+	}
+}
 
 /**
  * Create a thrown projectile.
