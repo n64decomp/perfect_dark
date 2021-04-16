@@ -20042,7 +20042,11 @@ void func0f0a4334(struct hand *hand)
 	}
 
 	if (hand->matmot1 > 0) {
+#if VERSION >= VERSION_PAL_FINAL
+		hand->matmot1 -= g_Vars.lvupdate240freal / 10.0f;
+#else
 		hand->matmot1 -= g_Vars.lvupdate240f / 10.0f;
+#endif
 	} else if (hand->audiohandle != NULL && audioIsPlaying(hand->audiohandle)) {
 		audioStop(hand->audiohandle);
 	}
