@@ -73,7 +73,7 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 u32 func0f09ed2c(void);
 struct var8009ce58 *func0f09ee18(struct chrdata *chr, struct shorthand *hand, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5);
 void handCreateThrownProjectile(s32 handnum, struct shorthand *hand);
-u32 func0f09f848(void);
+void func0f09f848(s32 handnum);
 void func0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func);
 void func0f09fa20(s32 handnum);
 void handCreateFiredProjectile(s32 handnum);
@@ -126,7 +126,7 @@ u32 func0f0a4094(void);
 u32 func0f0a419c(void);
 u32 func0f0a4334(void);
 u32 func0f0a4438(void);
-u32 func0f0a4570(void);
+void func0f0a4570(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func);
 void func0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2);
 u32 func0f0a46a4(void);
 u32 func0f0a4e44(void);

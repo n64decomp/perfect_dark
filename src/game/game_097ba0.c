@@ -20411,35 +20411,16 @@ glabel var7f1ac8c8
 /*  f0a456c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-GLOBAL_ASM(
-glabel func0f0a4570
-/*  f0a4570:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a4574:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a4578:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0a457c:	8c820218 */ 	lw	$v0,0x218($a0)
-/*  f0a4580:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0a4584:	1440000a */ 	bnez	$v0,.L0f0a45b0
-/*  f0a4588:	00000000 */ 	nop
-/*  f0a458c:	8c8e0220 */ 	lw	$t6,0x220($a0)
-/*  f0a4590:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0a4594:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f0a4598:	19c00005 */ 	blez	$t6,.L0f0a45b0
-/*  f0a459c:	00000000 */ 	nop
-/*  f0a45a0:	0fc27e5d */ 	jal	func0f09f974
-/*  f0a45a4:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f0a45a8:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f0a45ac:	8ce20218 */ 	lw	$v0,0x218($a3)
-.L0f0a45b0:
-/*  f0a45b0:	50400004 */ 	beqzl	$v0,.L0f0a45c4
-/*  f0a45b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a45b8:	0fc27e12 */ 	jal	func0f09f848
-/*  f0a45bc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a45c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a45c4:
-/*  f0a45c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a45c8:	03e00008 */ 	jr	$ra
-/*  f0a45cc:	00000000 */ 	nop
-);
+void func0f0a4570(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func)
+{
+	if (hand->rocket == NULL && hand->loadedammo[0] > 0) {
+		func0f09f974(handnum, func);
+	}
+
+	if (hand->rocket) {
+		func0f09f848(handnum);
+	}
+}
 
 void func0f0a256c(void);
 
