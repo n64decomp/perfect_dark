@@ -132,7 +132,7 @@ u32 func0f0a46a4(void);
 u32 func0f0a4e44(void);
 u32 func0f0a5300(void);
 void func0f0a5550(s32 handnum);
-void func0f0a695c(void);
+void handsTickMaulerCharge(void);
 void func0f0a6c30(void);
 s32 func0f0a70f8(void);
 void func0f0a7138(Gfx **gdl);

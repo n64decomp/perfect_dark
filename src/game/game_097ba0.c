@@ -25388,213 +25388,82 @@ glabel var7f1aca70
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0a695c
-.late_rodata
-glabel var7f1aca74
-.word 0x40490fdb
-glabel var7f1aca78
-.word 0x3dcccccd
-glabel var7f1aca7c
-.word 0x3d4ccccd
-glabel var7f1aca80
-.word 0x3ba3d70a
-glabel var7f1aca84
-.word 0x3cf5c28f
-.text
-/*  f0a695c:	27bdff50 */ 	addiu	$sp,$sp,-176
-/*  f0a6960:	f7be0050 */ 	sdc1	$f30,0x50($sp)
-/*  f0a6964:	3c014200 */ 	lui	$at,0x4200
-/*  f0a6968:	4481f000 */ 	mtc1	$at,$f30
-/*  f0a696c:	f7bc0048 */ 	sdc1	$f28,0x48($sp)
-/*  f0a6970:	3c017f1b */ 	lui	$at,%hi(var7f1aca74)
-/*  f0a6974:	c43cca74 */ 	lwc1	$f28,%lo(var7f1aca74)($at)
-/*  f0a6978:	f7ba0040 */ 	sdc1	$f26,0x40($sp)
-/*  f0a697c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0a6980:	4481d000 */ 	mtc1	$at,$f26
-/*  f0a6984:	f7b80038 */ 	sdc1	$f24,0x38($sp)
-/*  f0a6988:	3c017f1b */ 	lui	$at,%hi(var7f1aca78)
-/*  f0a698c:	afb40068 */ 	sw	$s4,0x68($sp)
-/*  f0a6990:	c438ca78 */ 	lwc1	$f24,%lo(var7f1aca78)($at)
-/*  f0a6994:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f0a6998:	afb60070 */ 	sw	$s6,0x70($sp)
-/*  f0a699c:	afb5006c */ 	sw	$s5,0x6c($sp)
-/*  f0a69a0:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f0a69a4:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f0a69a8:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0a69ac:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f0a69b0:	afbe0078 */ 	sw	$s8,0x78($sp)
-/*  f0a69b4:	afb70074 */ 	sw	$s7,0x74($sp)
-/*  f0a69b8:	afb30064 */ 	sw	$s3,0x64($sp)
-/*  f0a69bc:	afb20060 */ 	sw	$s2,0x60($sp)
-/*  f0a69c0:	3c158009 */ 	lui	$s5,%hi(var80095200)
-/*  f0a69c4:	3c168006 */ 	lui	$s6,%hi(var80061630)
-/*  f0a69c8:	4481b000 */ 	mtc1	$at,$f22
-/*  f0a69cc:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0a69d0:	afbf007c */ 	sw	$ra,0x7c($sp)
-/*  f0a69d4:	afb1005c */ 	sw	$s1,0x5c($sp)
-/*  f0a69d8:	afb00058 */ 	sw	$s0,0x58($sp)
-/*  f0a69dc:	8e920284 */ 	lw	$s2,0x284($s4)
-/*  f0a69e0:	26d61630 */ 	addiu	$s6,$s6,%lo(var80061630)
-/*  f0a69e4:	26b55200 */ 	addiu	$s5,$s5,%lo(var80095200)
-/*  f0a69e8:	00009825 */ 	or	$s3,$zero,$zero
-/*  f0a69ec:	24170f48 */ 	addiu	$s7,$zero,0xf48
-/*  f0a69f0:	27be0094 */ 	addiu	$s8,$sp,0x94
-.L0f0a69f4:
-/*  f0a69f4:	824e0640 */ 	lb	$t6,0x640($s2)
-/*  f0a69f8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0a69fc:	26500638 */ 	addiu	$s0,$s2,0x638
-/*  f0a6a00:	51c00077 */ 	beqzl	$t6,.L0f0a6be0
-/*  f0a6a04:	267307a4 */ 	addiu	$s3,$s3,0x7a4
-/*  f0a6a08:	0fc26709 */ 	jal	handIsReloading
-/*  f0a6a0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a6a10:	50400004 */ 	beqzl	$v0,.L0f0a6a24
-/*  f0a6a14:	920f0003 */ 	lbu	$t7,0x3($s0)
-/*  f0a6a18:	10000035 */ 	b	.L0f0a6af0
-/*  f0a6a1c:	e614023c */ 	swc1	$f20,0x23c($s0)
-/*  f0a6a20:	920f0003 */ 	lbu	$t7,0x3($s0)
-.L0f0a6a24:
-/*  f0a6a24:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a6a28:	15e10024 */ 	bne	$t7,$at,.L0f0a6abc
-/*  f0a6a2c:	00000000 */ 	nop
-/*  f0a6a30:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a6a34:	8e190220 */ 	lw	$t9,0x220($s0)
-/*  f0a6a38:	4600010d */ 	trunc.w.s	$f4,$f0
-/*  f0a6a3c:	2b210002 */ 	slti	$at,$t9,0x2
-/*  f0a6a40:	44032000 */ 	mfc1	$v1,$f4
-/*  f0a6a44:	5420000d */ 	bnezl	$at,.L0f0a6a7c
-/*  f0a6a48:	4600b03c */ 	c.lt.s	$f22,$f0
-/*  f0a6a4c:	4616003c */ 	c.lt.s	$f0,$f22
-/*  f0a6a50:	3c017f1b */ 	lui	$at,%hi(var7f1aca7c)
-/*  f0a6a54:	45020009 */ 	bc1fl	.L0f0a6a7c
-/*  f0a6a58:	4600b03c */ 	c.lt.s	$f22,$f0
-/*  f0a6a5c:	c686004c */ 	lwc1	$f6,0x4c($s4)
-/*  f0a6a60:	c428ca7c */ 	lwc1	$f8,%lo(var7f1aca7c)($at)
-/*  f0a6a64:	24110001 */ 	addiu	$s1,$zero,0x1
-/*  f0a6a68:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0a6a6c:	460a0400 */ 	add.s	$f16,$f0,$f10
-/*  f0a6a70:	e610023c */ 	swc1	$f16,0x23c($s0)
-/*  f0a6a74:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a6a78:	4600b03c */ 	c.lt.s	$f22,$f0
-.L0f0a6a7c:
-/*  f0a6a7c:	00000000 */ 	nop
-/*  f0a6a80:	45020004 */ 	bc1fl	.L0f0a6a94
-/*  f0a6a84:	4600048d */ 	trunc.w.s	$f18,$f0
-/*  f0a6a88:	e616023c */ 	swc1	$f22,0x23c($s0)
-/*  f0a6a8c:	c600023c */ 	lwc1	$f0,0x23c($s0)
-/*  f0a6a90:	4600048d */ 	trunc.w.s	$f18,$f0
-.L0f0a6a94:
-/*  f0a6a94:	44029000 */ 	mfc1	$v0,$f18
-/*  f0a6a98:	00000000 */ 	nop
-/*  f0a6a9c:	50620015 */ 	beql	$v1,$v0,.L0f0a6af4
-/*  f0a6aa0:	8e03074c */ 	lw	$v1,0x74c($s0)
-/*  f0a6aa4:	8e020220 */ 	lw	$v0,0x220($s0)
-/*  f0a6aa8:	28410002 */ 	slti	$at,$v0,0x2
-/*  f0a6aac:	14200010 */ 	bnez	$at,.L0f0a6af0
-/*  f0a6ab0:	2449ffff */ 	addiu	$t1,$v0,-1
-/*  f0a6ab4:	1000000e */ 	b	.L0f0a6af0
-/*  f0a6ab8:	ae090220 */ 	sw	$t1,0x220($s0)
-.L0f0a6abc:
-/*  f0a6abc:	3c017f1b */ 	lui	$at,%hi(var7f1aca80)
-/*  f0a6ac0:	c426ca80 */ 	lwc1	$f6,%lo(var7f1aca80)($at)
-/*  f0a6ac4:	c684004c */ 	lwc1	$f4,0x4c($s4)
-/*  f0a6ac8:	c60a023c */ 	lwc1	$f10,0x23c($s0)
-/*  f0a6acc:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0a6ad0:	46085401 */ 	sub.s	$f16,$f10,$f8
-/*  f0a6ad4:	e610023c */ 	swc1	$f16,0x23c($s0)
-/*  f0a6ad8:	c612023c */ 	lwc1	$f18,0x23c($s0)
-/*  f0a6adc:	4614903c */ 	c.lt.s	$f18,$f20
-/*  f0a6ae0:	00000000 */ 	nop
-/*  f0a6ae4:	45020003 */ 	bc1fl	.L0f0a6af4
-/*  f0a6ae8:	8e03074c */ 	lw	$v1,0x74c($s0)
-/*  f0a6aec:	e614023c */ 	swc1	$f20,0x23c($s0)
-.L0f0a6af0:
-/*  f0a6af0:	8e03074c */ 	lw	$v1,0x74c($s0)
-.L0f0a6af4:
-/*  f0a6af4:	14600017 */ 	bnez	$v1,.L0f0a6b54
-/*  f0a6af8:	00000000 */ 	nop
-/*  f0a6afc:	c604023c */ 	lwc1	$f4,0x23c($s0)
-/*  f0a6b00:	4604c03c */ 	c.lt.s	$f24,$f4
-/*  f0a6b04:	00000000 */ 	nop
-/*  f0a6b08:	45000012 */ 	bc1f	.L0f0a6b54
-/*  f0a6b0c:	00000000 */ 	nop
-/*  f0a6b10:	12200010 */ 	beqz	$s1,.L0f0a6b54
-/*  f0a6b14:	00000000 */ 	nop
-/*  f0a6b18:	8e8a0034 */ 	lw	$t2,0x34($s4)
-/*  f0a6b1c:	24058065 */ 	addiu	$a1,$zero,-32667
-/*  f0a6b20:	2606074c */ 	addiu	$a2,$s0,0x74c
-/*  f0a6b24:	1140000b */ 	beqz	$t2,.L0f0a6b54
-/*  f0a6b28:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0a6b2c:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f0a6b30:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f0a6b34:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f0a6b38:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f0a6b3c:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f0a6b40:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0a6b44:	8ea40000 */ 	lw	$a0,0x0($s5)
-/*  f0a6b48:	0c004241 */ 	jal	sndStart
-/*  f0a6b4c:	e7ba0014 */ 	swc1	$f26,0x14($sp)
-/*  f0a6b50:	8e03074c */ 	lw	$v1,0x74c($s0)
-.L0f0a6b54:
-/*  f0a6b54:	50600022 */ 	beqzl	$v1,.L0f0a6be0
-/*  f0a6b58:	267307a4 */ 	addiu	$s3,$s3,0x7a4
-/*  f0a6b5c:	c6c60000 */ 	lwc1	$f6,0x0($s6)
-/*  f0a6b60:	461c3282 */ 	mul.s	$f10,$f6,$f28
-/*  f0a6b64:	00000000 */ 	nop
-/*  f0a6b68:	461e5302 */ 	mul.s	$f12,$f10,$f30
-/*  f0a6b6c:	0c0068f7 */ 	jal	sinf
-/*  f0a6b70:	00000000 */ 	nop
-/*  f0a6b74:	3c014040 */ 	lui	$at,0x4040
-/*  f0a6b78:	44818000 */ 	mtc1	$at,$f16
-/*  f0a6b7c:	c608023c */ 	lwc1	$f8,0x23c($s0)
-/*  f0a6b80:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0a6b84:	44812000 */ 	mtc1	$at,$f4
-/*  f0a6b88:	46104483 */ 	div.s	$f18,$f8,$f16
-/*  f0a6b8c:	3c017f1b */ 	lui	$at,%hi(var7f1aca84)
-/*  f0a6b90:	c42aca84 */ 	lwc1	$f10,%lo(var7f1aca84)($at)
-/*  f0a6b94:	460a0202 */ 	mul.s	$f8,$f0,$f10
-/*  f0a6b98:	46122180 */ 	add.s	$f6,$f4,$f18
-/*  f0a6b9c:	46064400 */ 	add.s	$f16,$f8,$f6
-/*  f0a6ba0:	e7b00094 */ 	swc1	$f16,0x94($sp)
-/*  f0a6ba4:	c604023c */ 	lwc1	$f4,0x23c($s0)
-/*  f0a6ba8:	4618203c */ 	c.lt.s	$f4,$f24
-/*  f0a6bac:	00000000 */ 	nop
-/*  f0a6bb0:	45010003 */ 	bc1t	.L0f0a6bc0
-/*  f0a6bb4:	00000000 */ 	nop
-/*  f0a6bb8:	16200005 */ 	bnez	$s1,.L0f0a6bd0
-/*  f0a6bbc:	24050010 */ 	addiu	$a1,$zero,0x10
-.L0f0a6bc0:
-/*  f0a6bc0:	0c00cec9 */ 	jal	audioStop
-/*  f0a6bc4:	8e04074c */ 	lw	$a0,0x74c($s0)
-/*  f0a6bc8:	10000005 */ 	b	.L0f0a6be0
-/*  f0a6bcc:	267307a4 */ 	addiu	$s3,$s3,0x7a4
-.L0f0a6bd0:
-/*  f0a6bd0:	8e04074c */ 	lw	$a0,0x74c($s0)
-/*  f0a6bd4:	0c00cf94 */ 	jal	func00033e50
-/*  f0a6bd8:	8fc60000 */ 	lw	$a2,0x0($s8)
-/*  f0a6bdc:	267307a4 */ 	addiu	$s3,$s3,0x7a4
-.L0f0a6be0:
-/*  f0a6be0:	1677ff84 */ 	bne	$s3,$s7,.L0f0a69f4
-/*  f0a6be4:	265207a4 */ 	addiu	$s2,$s2,0x7a4
-/*  f0a6be8:	8fbf007c */ 	lw	$ra,0x7c($sp)
-/*  f0a6bec:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f0a6bf0:	d7b60030 */ 	ldc1	$f22,0x30($sp)
-/*  f0a6bf4:	d7b80038 */ 	ldc1	$f24,0x38($sp)
-/*  f0a6bf8:	d7ba0040 */ 	ldc1	$f26,0x40($sp)
-/*  f0a6bfc:	d7bc0048 */ 	ldc1	$f28,0x48($sp)
-/*  f0a6c00:	d7be0050 */ 	ldc1	$f30,0x50($sp)
-/*  f0a6c04:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*  f0a6c08:	8fb1005c */ 	lw	$s1,0x5c($sp)
-/*  f0a6c0c:	8fb20060 */ 	lw	$s2,0x60($sp)
-/*  f0a6c10:	8fb30064 */ 	lw	$s3,0x64($sp)
-/*  f0a6c14:	8fb40068 */ 	lw	$s4,0x68($sp)
-/*  f0a6c18:	8fb5006c */ 	lw	$s5,0x6c($sp)
-/*  f0a6c1c:	8fb60070 */ 	lw	$s6,0x70($sp)
-/*  f0a6c20:	8fb70074 */ 	lw	$s7,0x74($sp)
-/*  f0a6c24:	8fbe0078 */ 	lw	$s8,0x78($sp)
-/*  f0a6c28:	03e00008 */ 	jr	$ra
-/*  f0a6c2c:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-);
+void handsTickMaulerCharge(void)
+{
+	struct player *player = g_Vars.currentplayer;
+	s32 i;
+
+	for (i = 0; i < 2; i++) {
+		struct hand *hand = &player->hands[i];
+		u32 charging = false;
+
+		if (hand->inuse) {
+			if (handIsReloading(hand)) {
+				// Reloading - reset charge amount
+				hand->matmot1 = 0;
+			} else if (hand->base.weaponfunc == FUNC_SECONDARY) {
+				// Charging or fully charged
+				s32 oldvalue = hand->matmot1;
+				s32 newvalue;
+
+				if (hand->loadedammo[0] >= 2 && hand->matmot1 < 5) {
+					charging = true;
+					hand->matmot1 += g_Vars.lvupdate240freal * 0.05f;
+				}
+
+				if (hand->matmot1 > 5) {
+					hand->matmot1 = 5;
+				}
+
+				newvalue = hand->matmot1;
+
+				if (oldvalue != newvalue && hand->loadedammo[0] >= 2) {
+					hand->loadedammo[0]--;
+				}
+			} else {
+				// Using primary function - make the charge wear off slowly
+				hand->matmot1 -= g_Vars.lvupdate240freal * 0.005f;
+
+				if (hand->matmot1 < 0) {
+					hand->matmot1 = 0;
+				}
+			}
+
+			/**
+			 * Probable @bug: In other places where audio is started and then
+			 * its speed is adjusted, the game raises the priority of the main
+			 * thread (this thread) to above the audio thread's priority so that
+			 * the audio thread cannot execute and start playing the audio
+			 * between the calls to sndStart and func00033e50. But this pattern
+			 * is not done here.
+			 *
+			 * There is a known issue where the Mauler charge sound is played
+			 * correctly then the game proceeds to play other unrelated sound
+			 * effects before eventually crashing. It's suspected that this lack
+			 * of thread priority adjusting is the root cause. Perhaps a race
+			 * condition exists where the audio thread does something with the
+			 * sound while this thread is in the middle of reconfiguring it.
+			 * This is not yet confirmed.
+			 */
+			if (hand->audiohandle == NULL
+					&& hand->matmot1 > 0.1f
+					&& charging
+					&& g_Vars.lvupdate240 != 0) {
+				sndStart(var80095200, SFX_MAULER_CHARGE, &hand->audiohandle, -1, -1, -1, -1, -1);
+			}
+
+			if (hand->audiohandle) {
+				f32 speed = 0.5f + hand->matmot1 / 3.0f + sinf(var80061630 * M_PI * 32.0f) * 0.03f;
+
+				if (hand->matmot1 < 0.1f || !charging) {
+					audioStop(hand->audiohandle);
+				} else {
+					func00033e50(hand->audiohandle, 16, *(s32 *)&speed);
+				}
+			}
+		}
+	}
+}
 
 void func0f0a6c30(void)
 {
@@ -25669,7 +25538,7 @@ void func0f0a6c30(void)
 	}
 
 	if (player->gunctrl.weaponnum == WEAPON_MAULER) {
-		func0f0a695c();
+		handsTickMaulerCharge();
 	}
 
 	if (g_Vars.lvupdate240 == 0) {
