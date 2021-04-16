@@ -567,89 +567,27 @@ glabel func0f097f28
 /*  f09802c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f098030
-/*  f098030:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f098034:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f098038:	00809025 */ 	or	$s2,$a0,$zero
-/*  f09803c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f098040:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f098044:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f098048:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f09804c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f098050:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f098054:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f098058:	00a09825 */ 	or	$s3,$a1,$zero
-/*  f09805c:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f098060:	90840000 */ 	lbu	$a0,0x0($a0)
-/*  f098064:	00408025 */ 	or	$s0,$v0,$zero
-/*  f098068:	02402025 */ 	or	$a0,$s2,$zero
-/*  f09806c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f098070:	0fc25fca */ 	jal	func0f097f28
-/*  f098074:	8c46003c */ 	lw	$a2,0x3c($v0)
-/*  f098078:	24040042 */ 	addiu	$a0,$zero,0x42
-/*  f09807c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f098080:	02403025 */ 	or	$a2,$s2,$zero
-/*  f098084:	0fc25f9d */ 	jal	func0f097e74
-/*  f098088:	02603825 */ 	or	$a3,$s3,$zero
-/*  f09808c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f098090:	0200a825 */ 	or	$s5,$s0,$zero
-/*  f098094:	24160008 */ 	addiu	$s6,$zero,0x8
-.L0f098098:
-/*  f098098:	8ea2001c */ 	lw	$v0,0x1c($s5)
-/*  f09809c:	50400023 */ 	beqzl	$v0,.L0f09812c
-/*  f0980a0:	26940004 */ 	addiu	$s4,$s4,0x4
-/*  f0980a4:	904e0010 */ 	lbu	$t6,0x10($v0)
-/*  f0980a8:	02548821 */ 	addu	$s1,$s2,$s4
-/*  f0980ac:	31cf0008 */ 	andi	$t7,$t6,0x8
-/*  f0980b0:	51e0001e */ 	beqzl	$t7,.L0f09812c
-/*  f0980b4:	26940004 */ 	addiu	$s4,$s4,0x4
-/*  f0980b8:	8e380228 */ 	lw	$t8,0x228($s1)
-/*  f0980bc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0980c0:	5b00001a */ 	blezl	$t8,.L0f09812c
-/*  f0980c4:	26940004 */ 	addiu	$s4,$s4,0x4
-/*  f0980c8:	8e390220 */ 	lw	$t9,0x220($s1)
-.L0f0980cc:
-/*  f0980cc:	26040064 */ 	addiu	$a0,$s0,0x64
-/*  f0980d0:	00045400 */ 	sll	$t2,$a0,0x10
-/*  f0980d4:	0219082a */ 	slt	$at,$s0,$t9
-/*  f0980d8:	1420000a */ 	bnez	$at,.L0f098104
-/*  f0980dc:	000a2403 */ 	sra	$a0,$t2,0x10
-/*  f0980e0:	26040064 */ 	addiu	$a0,$s0,0x64
-/*  f0980e4:	00044400 */ 	sll	$t0,$a0,0x10
-/*  f0980e8:	00082403 */ 	sra	$a0,$t0,0x10
-/*  f0980ec:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0980f0:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0980f4:	0fc25f9d */ 	jal	func0f097e74
-/*  f0980f8:	02603825 */ 	or	$a3,$s3,$zero
-/*  f0980fc:	10000006 */ 	b	.L0f098118
-/*  f098100:	8e2c0228 */ 	lw	$t4,0x228($s1)
-.L0f098104:
-/*  f098104:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f098108:	02403025 */ 	or	$a2,$s2,$zero
-/*  f09810c:	0fc25f9d */ 	jal	func0f097e74
-/*  f098110:	02603825 */ 	or	$a3,$s3,$zero
-/*  f098114:	8e2c0228 */ 	lw	$t4,0x228($s1)
-.L0f098118:
-/*  f098118:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f09811c:	020c082a */ 	slt	$at,$s0,$t4
-/*  f098120:	5420ffea */ 	bnezl	$at,.L0f0980cc
-/*  f098124:	8e390220 */ 	lw	$t9,0x220($s1)
-/*  f098128:	26940004 */ 	addiu	$s4,$s4,0x4
-.L0f09812c:
-/*  f09812c:	1696ffda */ 	bne	$s4,$s6,.L0f098098
-/*  f098130:	26b50004 */ 	addiu	$s5,$s5,0x4
-/*  f098134:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f098138:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f09813c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f098140:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f098144:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f098148:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f09814c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f098150:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f098154:	03e00008 */ 	jr	$ra
-/*  f098158:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f098030(struct hand *hand, u32 arg1)
+{
+	struct weapon *weapon = weaponFindById(hand->base.weaponnum);
+	s32 i;
+	s32 j;
+
+	func0f097f28(hand, arg1, weapon->fptr);
+	func0f097e74(MODELPART_42, 0, hand, arg1);
+
+	for (i = 0; i < 2; i++) {
+		if (weapon->ammos[i] && (weapon->ammos[i]->flags & WEAPONFLAG_ONEHANDED)) {
+			for (j = 0; j < hand->clipsizes[i]; j++) {
+				if (j >= hand->loadedammo[i]) {
+					func0f097e74(j + 100, 0, hand, arg1);
+				} else {
+					func0f097e74(j + 100, 1, hand, arg1);
+				}
+			}
+		}
+	}
+}
 
 f32 func0f09815c(struct hand *hand)
 {

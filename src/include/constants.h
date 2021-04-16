@@ -1769,6 +1769,7 @@
 #define MODELPART_SILENCER          0x2d
 #define MODELPART_2E                0x2e
 #define MODELPART_2F                0x2f
+#define MODELPART_42                0x42
 #define MODELPART_MUZZLEFLASH       0x5a
 #define MODELPART_MUZZLEFLASH2      0x5b
 #define MODELPART_MUZZLEFLASH3      0x5c
