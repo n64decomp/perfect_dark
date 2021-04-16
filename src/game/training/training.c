@@ -2134,7 +2134,7 @@ void frInitTargets(void)
 				func00016374(M_PI, &sp144);
 			}
 
-			func00015f04(obj->model->unk14, &sp144);
+			func00015f04(obj->model->scale, &sp144);
 			func00015da0(&sp144, sp108);
 			func00015cd8(sp108, obj->realrot);
 
@@ -6853,7 +6853,7 @@ glabel var7f1b94e4
 //
 //				// 81c
 //				func00016374(g_FrData.targets[i].angle + M_PI, &spbc);
-//				func00015f04(obj->model->unk14, &spbc);
+//				func00015f04(obj->model->scale, &spbc);
 //				func00015da0(&spbc, sp98);
 //				func00015cd8(sp98, obj->realrot);
 //			}

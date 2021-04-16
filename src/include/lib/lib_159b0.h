@@ -14,7 +14,7 @@ void func00015b68(Mtxf *matrix, struct coord *arg1, struct coord *arg2);
 void func00015be0(Mtxf *matrix1, Mtxf *matrix2);
 void func00015be4(Mtxf *arg0, Mtxf *arg1, Mtxf *arg2);
 void func00015cd8(f32 *arg0, f32 *realrot);
-void func00015d18(Mtxf *matrix, f32 *arg1);
+void func00015d18(Mtxf *matrix, Mtxf *arg1);
 void func00015d54(f32 *realrot, Mtxf *matrix);
 void func00015da0(Mtxf *arg0, f32 *arg1);
 void func00015dd4(struct coord *pos, Mtxf *matrix);

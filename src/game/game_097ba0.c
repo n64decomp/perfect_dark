@@ -21,6 +21,7 @@
 #include "game/game_0b4950.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0c33f0.h"
+#include "game/gfxmemory.h"
 #include "game/sight.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
@@ -11281,7 +11282,7 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 	if (objprop) {
 		propPrependToList1(objprop);
 		propShow(objprop);
-		func00015f04(obj->model->unk14, matrix1);
+		func00015f04(obj->model->scale, matrix1);
 		func0f06a580(obj, coord, matrix1, rooms);
 
 		if (obj->type == OBJTYPE_WEAPON && ((struct weaponobj *) obj)->weaponnum == WEAPON_BOLT) {
@@ -11304,7 +11305,7 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 			obj->projectile->unk088 = prop;
 
 			func0f068694(objprop);
-			func00015d18(matrix2, &obj->projectile->unk020);
+			func00015d18(matrix2, (Mtxf *)&obj->projectile->unk020);
 
 			obj->projectile->unk004.x = arg4[0];
 			obj->projectile->unk004.y = arg4[1];
@@ -12466,86 +12467,41 @@ glabel var7f1ac72c
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f09f848
-/*  f09f848:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f09f84c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f09f850:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f09f854:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09f858:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f09f85c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f09f860:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f09f864:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f09f868:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f09f86c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f09f870:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f09f874:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f09f878:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f09f87c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f09f880:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f09f884:	004e8821 */ 	addu	$s1,$v0,$t6
-/*  f09f888:	8e300850 */ 	lw	$s0,0x850($s1)
-/*  f09f88c:	26310638 */ 	addiu	$s1,$s1,0x638
-/*  f09f890:	52000032 */ 	beqzl	$s0,.L0f09f95c
-/*  f09f894:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f09f898:	8e120014 */ 	lw	$s2,0x14($s0)
-/*  f09f89c:	5240002f */ 	beqzl	$s2,.L0f09f95c
-/*  f09f8a0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f09f8a4:	8c4f00bc */ 	lw	$t7,0xbc($v0)
-/*  f09f8a8:	262402f4 */ 	addiu	$a0,$s1,0x2f4
-/*  f09f8ac:	afaf0030 */ 	sw	$t7,0x30($sp)
-/*  f09f8b0:	8e38021c */ 	lw	$t8,0x21c($s1)
-/*  f09f8b4:	8e130018 */ 	lw	$s3,0x18($s0)
-/*  f09f8b8:	57000014 */ 	bnezl	$t8,.L0f09f90c
-/*  f09f8bc:	8e680008 */ 	lw	$t0,0x8($s3)
-/*  f09f8c0:	0c005746 */ 	jal	func00015d18
-/*  f09f8c4:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f09f8c8:	44800000 */ 	mtc1	$zero,$f0
-/*  f09f8cc:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f09f8d0:	e7a00064 */ 	swc1	$f0,0x64($sp)
-/*  f09f8d4:	e7a00068 */ 	swc1	$f0,0x68($sp)
-/*  f09f8d8:	e7a0006c */ 	swc1	$f0,0x6c($sp)
-/*  f09f8dc:	8e190018 */ 	lw	$t9,0x18($s0)
-/*  f09f8e0:	0c0057c1 */ 	jal	func00015f04
-/*  f09f8e4:	c72c0014 */ 	lwc1	$f12,0x14($t9)
-/*  f09f8e8:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f09f8ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09f8f0:	26250374 */ 	addiu	$a1,$s1,0x374
-/*  f09f8f4:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f09f8f8:	0fc1a960 */ 	jal	func0f06a580
-/*  f09f8fc:	24e70028 */ 	addiu	$a3,$a3,0x28
-/*  f09f900:	0fc19711 */ 	jal	func0f065c44
-/*  f09f904:	02402025 */ 	or	$a0,$s2,$zero
-/*  f09f908:	8e680008 */ 	lw	$t0,0x8($s3)
-.L0f09f90c:
-/*  f09f90c:	8504000e */ 	lh	$a0,0xe($t0)
-/*  f09f910:	00044980 */ 	sll	$t1,$a0,0x6
-/*  f09f914:	0fc59e7d */ 	jal	gfxAllocate
-/*  f09f918:	01202025 */ 	or	$a0,$t1,$zero
-/*  f09f91c:	ae62000c */ 	sw	$v0,0xc($s3)
-/*  f09f920:	26240620 */ 	addiu	$a0,$s1,0x620
-/*  f09f924:	0c005746 */ 	jal	func00015d18
-/*  f09f928:	00402825 */ 	or	$a1,$v0,$zero
-/*  f09f92c:	8e6a0008 */ 	lw	$t2,0x8($s3)
-/*  f09f930:	02602025 */ 	or	$a0,$s3,$zero
-/*  f09f934:	0c0072c3 */ 	jal	func0001cb0c
-/*  f09f938:	8d450000 */ 	lw	$a1,0x0($t2)
-/*  f09f93c:	924b0001 */ 	lbu	$t3,0x1($s2)
-/*  f09f940:	356c0042 */ 	ori	$t4,$t3,0x42
-/*  f09f944:	a24c0001 */ 	sb	$t4,0x1($s2)
-/*  f09f948:	8e6d000c */ 	lw	$t5,0xc($s3)
-/*  f09f94c:	c5a40038 */ 	lwc1	$f4,0x38($t5)
-/*  f09f950:	46002187 */ 	neg.s	$f6,$f4
-/*  f09f954:	e6460014 */ 	swc1	$f6,0x14($s2)
-/*  f09f958:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f09f95c:
-/*  f09f95c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f09f960:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f09f964:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f09f968:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f09f96c:	03e00008 */ 	jr	$ra
-/*  f09f970:	27bd0080 */ 	addiu	$sp,$sp,0x80
-);
+void func0f09f848(s32 handnum)
+{
+	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
+	struct defaultobj *obj = &hand->rocket->base;
+
+	if (obj) {
+		struct prop *objprop = obj->prop;
+		Mtxf mtx;
+
+		if (objprop) {
+			struct prop *playerprop = g_Vars.currentplayer->prop;
+			struct model *model = obj->model;
+
+			if (!hand->firedrocket) {
+				func00015d18(&hand->posmtx, &mtx);
+
+				mtx.m[3][0] = 0;
+				mtx.m[3][1] = 0;
+				mtx.m[3][2] = 0;
+
+				func00015f04(obj->model->scale, &mtx);
+				func0f06a580(obj, &hand->muzzlepos, &mtx, playerprop->rooms);
+				func0f065c44(objprop);
+			}
+
+			model->matrices = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));
+
+			func00015d18(&hand->muzzlemat, &model->matrices[0]);
+			func0001cb0c(model, model->filedata->rootnode);
+
+			objprop->flags |= PROPFLAG_40 | PROPFLAG_02;
+			objprop->z = -model->matrices[0].m[3][2];
+		}
+	}
+}
 
 void func0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func)
 {

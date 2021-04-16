@@ -26,7 +26,7 @@ void modelSetRootPosition(struct model *model, struct coord *pos);
 u32 func0001ad5c(void);
 f32 func0001ae44(struct model *model);
 void func0001ae90(struct model *model, f32 angle);
-void modelSetUnk14(struct model *model, f32 arg1);
+void modelSetScale(struct model *model, f32 scale);
 void modelSetAnimScale(struct model *model, f32 scale);
 f32 func0001af80(struct model *model);
 u32 func0001af98(void);

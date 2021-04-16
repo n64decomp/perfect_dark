@@ -18229,7 +18229,7 @@ f32 func0f0370a8(struct chrdata *chr)
 		result = aibotCalculateMaxSpeed(chr);
 	} else {
 		s16 animnum = modelGetAnimNum(chr->model);
-		result = func0f02dff0(animnum) * (chr->model->unk14 * 9.999999f);
+		result = func0f02dff0(animnum) * (chr->model->scale * 9.999999f);
 	}
 
 	return result;
@@ -21653,7 +21653,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 	weapon = func0f08b880(modelnum, (u8)weaponnum, chr);
 
 	if (weapon && weapon->base.prop) {
-		modelSetUnk14(weapon->base.model, weapon->base.model->unk14);
+		modelSetScale(weapon->base.model, weapon->base.model->scale);
 		propReparent(weapon->base.prop, chr->prop);
 		weapon->unk62 = PALDOWN(720);
 		propobjSetDropped(weapon->base.prop, DROPREASON_1);

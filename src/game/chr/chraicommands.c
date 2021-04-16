@@ -2416,7 +2416,7 @@ bool aiObjectMoveToPad(void)
 				pad.up.x, pad.up.y, pad.up.z);
 
 		if (obj->model) {
-			func00015f04(obj->model->unk14, &matrix);
+			func00015f04(obj->model->scale, &matrix);
 		}
 
 		rooms[0] = pad.room;
@@ -5417,7 +5417,7 @@ bool aiObjectDoAnimation(void)
 			modelSetAnimPlaySpeed(obj->model, 1.2, 0);
 #endif
 			modelSetAnimation(obj->model, anim_id, 0, fstartframe, thing, 0);
-			modelSetAnimScale(obj->model, func0f15c888() * obj->model->unk14 * 100.0f);
+			modelSetAnimScale(obj->model, func0f15c888() * obj->model->scale * 100.0f);
 		}
 	}
 

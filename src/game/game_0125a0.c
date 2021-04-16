@@ -81,7 +81,7 @@ void currentPlayerInitAnimation(void)
 
 	func00022fa4(&g_Vars.currentplayer->model, &var8007c0c0, &g_Vars.currentplayer->unk0494, 0);
 	animInitialise(g_Vars.currentplayer->model.anim);
-	modelSetUnk14(&g_Vars.currentplayer->model, 0.1000000089407f);
+	modelSetScale(&g_Vars.currentplayer->model, 0.1000000089407f);
 	modelSetAnimPlaySpeed(&g_Vars.currentplayer->model, (PAL ? 1.2f : 1), 0);
 
 	g_Vars.currentplayer->headanim = 0;

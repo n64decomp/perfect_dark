@@ -13197,7 +13197,7 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 		}
 
 		if (withalpha) {
-			func0f0c33f0(model->unk0c, model->filedata->unk0e);
+			func0f0c33f0(model->matrices, model->filedata->nummatrices);
 		}
 	}
 }
@@ -13559,7 +13559,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 				}
 			}
 
-			func0f0c33f0(model->unk0c, model->filedata->unk0e);
+			func0f0c33f0(model->matrices, model->filedata->nummatrices);
 
 			if (!g_Vars.currentplayer->isdead
 					&& !g_InCutscene
@@ -15365,7 +15365,7 @@ f32 func0f0278a4(struct chrdata *chr)
 		for (i = 0; i < 2; i++) {
 			if (chr->weapons_held[i]) {
 				struct defaultobj *obj = chr->weapons_held[i]->obj;
-				f32 value = func0001af80(obj->model) * chr->model->unk14;
+				f32 value = func0001af80(obj->model) * chr->model->scale;
 
 				if (value > highest) {
 					highest = value;

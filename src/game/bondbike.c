@@ -95,9 +95,9 @@ void bbikeUpdateVehicleOffset(void)
 {
 	struct defaultobj *hoverbike = g_Vars.currentplayer->hoverbike->obj;
 
-	g_Vars.currentplayer->bondvehicleoffset.x = 0.0f / hoverbike->model->unk14;
-	g_Vars.currentplayer->bondvehicleoffset.y = 80.0f / hoverbike->model->unk14;
-	g_Vars.currentplayer->bondvehicleoffset.z = -50.0f / hoverbike->model->unk14;
+	g_Vars.currentplayer->bondvehicleoffset.x = 0.0f / hoverbike->model->scale;
+	g_Vars.currentplayer->bondvehicleoffset.y = 80.0f / hoverbike->model->scale;
+	g_Vars.currentplayer->bondvehicleoffset.z = -50.0f / hoverbike->model->scale;
 }
 
 void bbikeTryDismountAngle(f32 relativeangle, f32 distance)
@@ -172,8 +172,8 @@ void bbikeHandleActivate(void)
 		struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
 		struct model08thing *thing = func0f068af4(&bike->base);
 
-		f32 sidedist = thing->unk04[1] * bike->base.model->unk14;
-		f32 frontdist = thing->unk18 * bike->base.model->unk14;
+		f32 sidedist = thing->unk04[1] * bike->base.model->scale;
+		f32 frontdist = thing->unk18 * bike->base.model->scale;
 		f32 diagdist = sqrtf(sidedist * sidedist + frontdist * frontdist);
 
 		g_Vars.currentplayer->walkinitmove = false;
@@ -1131,7 +1131,7 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 		hoverpropSetTurnAngle(&bike->base, newangle);
 
 		func00016374(newangle, &sp44);
-		func00015f04(bike->base.model->unk14, &sp44);
+		func00015f04(bike->base.model->scale, &sp44);
 		func00015da0(&sp44, bike->base.realrot);
 	}
 
@@ -1685,7 +1685,7 @@ void bbikeTick(void)
 
 	func000159fc(&sp124, &sp164);
 	func00015d54(obj->realrot, &sp124);
-	func00015f04(1.0f / obj->model->unk14, &sp124);
+	func00015f04(1.0f / obj->model->scale, &sp124);
 	func00016374(hoverpropGetTurnAngle(obj), &spe4);
 	func0f097044(&spe4, spd4);
 	func0f097044(&sp124, spc4);

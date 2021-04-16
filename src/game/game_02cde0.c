@@ -446,7 +446,7 @@ glabel var7f1a8a84
 .L0f02d26c:
 /*  f02d26c:	1180002d */ 	beqz	$t4,.L0f02d324
 /*  f02d270:	01802025 */ 	or	$a0,$t4,$zero
-/*  f02d274:	0c006bd6 */ 	jal	modelSetUnk14
+/*  f02d274:	0c006bd6 */ 	jal	modelSetScale
 /*  f02d278:	8fa50044 */ 	lw	$a1,0x44($sp)
 /*  f02d27c:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*  f02d280:	0c006bd9 */ 	jal	modelSetAnimScale

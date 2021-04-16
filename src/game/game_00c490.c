@@ -423,7 +423,7 @@ glabel var7f1a7f80
 /*  f00cfbc:	c4880014 */ 	lwc1	$f8,0x14($a0)
 /*  f00cfc0:	46064282 */ 	mul.s	$f10,$f8,$f6
 /*  f00cfc4:	44055000 */ 	mfc1	$a1,$f10
-/*  f00cfc8:	0c006bd6 */ 	jal	modelSetUnk14
+/*  f00cfc8:	0c006bd6 */ 	jal	modelSetScale
 /*  f00cfcc:	00000000 */ 	nop
 /*  f00cfd0:	100001a3 */ 	b	.L0f00d660
 /*  f00cfd4:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -467,7 +467,7 @@ glabel var7f1a7f80
 /*  f00d060:	afa6006c */ 	sw	$a2,0x6c($sp)
 /*  f00d064:	46082182 */ 	mul.s	$f6,$f4,$f8
 /*  f00d068:	44053000 */ 	mfc1	$a1,$f6
-/*  f00d06c:	0c006bd6 */ 	jal	modelSetUnk14
+/*  f00d06c:	0c006bd6 */ 	jal	modelSetScale
 /*  f00d070:	00000000 */ 	nop
 /*  f00d074:	8fab0070 */ 	lw	$t3,0x70($sp)
 /*  f00d078:	8fa4006c */ 	lw	$a0,0x6c($sp)
@@ -504,7 +504,7 @@ glabel var7f1a7f80
 /*  f00d0e8:	c48a0014 */ 	lwc1	$f10,0x14($a0)
 /*  f00d0ec:	46045202 */ 	mul.s	$f8,$f10,$f4
 /*  f00d0f0:	44054000 */ 	mfc1	$a1,$f8
-/*  f00d0f4:	0c006bd6 */ 	jal	modelSetUnk14
+/*  f00d0f4:	0c006bd6 */ 	jal	modelSetScale
 /*  f00d0f8:	00000000 */ 	nop
 /*  f00d0fc:	10000158 */ 	b	.L0f00d660
 /*  f00d100:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -824,7 +824,7 @@ glabel var7f1a7f80
 /*  f00d584:	c48a0014 */ 	lwc1	$f10,0x14($a0)
 /*  f00d588:	460e5182 */ 	mul.s	$f6,$f10,$f14
 /*  f00d58c:	44053000 */ 	mfc1	$a1,$f6
-/*  f00d590:	0c006bd6 */ 	jal	modelSetUnk14
+/*  f00d590:	0c006bd6 */ 	jal	modelSetScale
 /*  f00d594:	00000000 */ 	nop
 .L0f00d598:
 /*  f00d598:	8e040018 */ 	lw	$a0,0x18($s0)
@@ -833,7 +833,7 @@ glabel var7f1a7f80
 /*  f00d5a0:	c4880014 */ 	lwc1	$f8,0x14($a0)
 /*  f00d5a4:	46044282 */ 	mul.s	$f10,$f8,$f4
 /*  f00d5a8:	44055000 */ 	mfc1	$a1,$f10
-/*  f00d5ac:	0c006bd6 */ 	jal	modelSetUnk14
+/*  f00d5ac:	0c006bd6 */ 	jal	modelSetScale
 /*  f00d5b0:	00000000 */ 	nop
 /*  f00d5b4:	8e0e0018 */ 	lw	$t6,0x18($s0)
 /*  f00d5b8:	27a500ac */ 	addiu	$a1,$sp,0xac
@@ -1106,7 +1106,7 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 		}
 
 		func00016d58(&camera->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
-		func00015f04(obj->model->unk14, &camera->camrotm);
+		func00015f04(obj->model->scale, &camera->camrotm);
 
 		camera->toleft = 0;
 		camera->yleft = *(s32 *)&camera->yleft * M_BADTAU / 65536.0f;
@@ -1332,7 +1332,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 
 		if (prop && monitor->base.monitorthing) {
 			monitor->base.hidden |= OBJHFLAG_00000040;
-			modelSetUnk14(monitor->base.model, monitor->base.model->unk14 * scale);
+			modelSetScale(monitor->base.model, monitor->base.model->scale * scale);
 			monitor->base.model->attachedto = owner->model;
 
 			if (monitor->ownerpart == MODELPART_00) {
@@ -1347,7 +1347,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 
 			propReparent(prop, owner->prop);
 			func000162e8(0.3664608001709f, &sp64);
-			func00015f04(monitor->base.model->unk14 / owner->model->unk14, &sp64);
+			func00015f04(monitor->base.model->scale / owner->model->scale, &sp64);
 			modelGetRootPosition(monitor->base.model, &spa4);
 
 			spa4.x = -spa4.x;
@@ -1810,7 +1810,7 @@ glabel var7f1a926cpf
 .PF0f00e8c8:
 /*  f00e8c8:	46002282 */ 	mul.s	$f10,$f4,$f0
 /*  f00e8cc:	44055000 */ 	mfc1	$a1,$f10
-/*  f00e8d0:	0c006b3a */ 	jal	modelSetUnk14
+/*  f00e8d0:	0c006b3a */ 	jal	modelSetScale
 /*  f00e8d4:	00000000 */ 	nop
 .PF0f00e8d8:
 /*  f00e8d8:	0fc181c7 */ 	jal	propPrependToList1
@@ -2200,7 +2200,7 @@ glabel var7f1a8064
 .L0f00e8cc:
 /*  f00e8cc:	46008182 */ 	mul.s	$f6,$f16,$f0
 /*  f00e8d0:	44053000 */ 	mfc1	$a1,$f6
-/*  f00e8d4:	0c006bd6 */ 	jal	modelSetUnk14
+/*  f00e8d4:	0c006bd6 */ 	jal	modelSetScale
 /*  f00e8d8:	00000000 */ 	nop
 .L0f00e8dc:
 /*  f00e8dc:	0fc1812f */ 	jal	propPrependToList1
@@ -2367,7 +2367,7 @@ glabel var7f1a8064
 //				mult = sp48;
 //			}
 //
-//			modelSetUnk14(door->base.model, door->base.model->unk14 * mult);
+//			modelSetScale(door->base.model, door->base.model->scale * mult);
 //		}
 //
 //		propPrependToList1(prop);
@@ -3477,7 +3477,7 @@ void setupParseObjects(s32 stagenum)
 
 						if (owner && owner->prop) {
 							obj->hidden |= OBJHFLAG_HASOWNER;
-							modelSetUnk14(obj->model, obj->model->unk14);
+							modelSetScale(obj->model, obj->model->scale);
 							propReparent(obj->prop, owner->prop);
 						}
 					}

@@ -663,9 +663,9 @@ void func0001ae90(struct model *model, f32 angle)
 	}
 }
 
-void modelSetUnk14(struct model *model, f32 arg1)
+void modelSetScale(struct model *model, f32 scale)
 {
-	model->unk14 = arg1;
+	model->scale = scale;
 }
 
 void modelSetAnimScale(struct model *model, f32 scale)
@@ -677,7 +677,7 @@ void modelSetAnimScale(struct model *model, f32 scale)
 
 f32 func0001af80(struct model *model)
 {
-	return model->filedata->unk10 * model->unk14;
+	return model->filedata->unk10 * model->scale;
 }
 
 GLOBAL_ASM(
