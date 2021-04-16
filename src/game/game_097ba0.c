@@ -395,46 +395,30 @@ void handsTickUnequippedReload(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f097df0
-/*  f097df0:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f097df4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f097df8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f097dfc:	10410008 */ 	beq	$v0,$at,.L0f097e20
-/*  f097e00:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f097e04:	1041000e */ 	beq	$v0,$at,.L0f097e40
-/*  f097e08:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f097e0c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f097e10:	10410011 */ 	beq	$v0,$at,.L0f097e58
-/*  f097e14:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f097e18:	03e00008 */ 	jr	$ra
-/*  f097e1c:	00601025 */ 	or	$v0,$v1,$zero
-.L0f097e20:
-/*  f097e20:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f097e24:	948f0002 */ 	lhu	$t7,0x2($a0)
-/*  f097e28:	01eec007 */ 	srav	$t8,$t6,$t7
-/*  f097e2c:	33190001 */ 	andi	$t9,$t8,0x1
-/*  f097e30:	1720000e */ 	bnez	$t9,.L0f097e6c
-/*  f097e34:	00000000 */ 	nop
-/*  f097e38:	03e00008 */ 	jr	$ra
-/*  f097e3c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f097e40:
-/*  f097e40:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f097e44:	25090ddc */ 	addiu	$t1,$t0,0xddc
-/*  f097e48:	10a90008 */ 	beq	$a1,$t1,.L0f097e6c
-/*  f097e4c:	00000000 */ 	nop
-/*  f097e50:	03e00008 */ 	jr	$ra
-/*  f097e54:	00001025 */ 	or	$v0,$zero,$zero
-.L0f097e58:
-/*  f097e58:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f097e5c:	254b0638 */ 	addiu	$t3,$t2,0x638
-/*  f097e60:	10ab0002 */ 	beq	$a1,$t3,.L0f097e6c
-/*  f097e64:	00000000 */ 	nop
-/*  f097e68:	00001825 */ 	or	$v1,$zero,$zero
-.L0f097e6c:
-/*  f097e6c:	03e00008 */ 	jr	$ra
-/*  f097e70:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool func0f097df0(struct inventory_typef *arg0, struct hand *hand)
+{
+	bool result = true;
+
+	switch (arg0->unk00) {
+	case 4:
+		if (((hand->base.unk0639 >> arg0->unk02) & 1) == 0) {
+			result = false;
+		}
+		break;
+	case 5:
+		if (hand != &g_Vars.currentplayer->hands[HAND_LEFT]) {
+			result = false;
+		}
+		break;
+	case 6:
+		if (hand != &g_Vars.currentplayer->hands[HAND_RIGHT]) {
+			result = false;
+		}
+		break;
+	}
+
+	return result;
+}
 
 void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata *arg3)
 {
@@ -473,19 +457,19 @@ void func0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inve
 	while (!done) {
 		if (func0f097df0(thing, hand)) {
 			if (thing->unk04 == 0) {
-				func0f097e74(thing->unk06, 1, hand, filedata);
+				func0f097e74(thing->partnum, 1, hand, filedata);
 			}
 
 			if (thing->unk04 == 1) {
-				func0f097e74(thing->unk06, 0, hand, filedata);
+				func0f097e74(thing->partnum, 0, hand, filedata);
 			}
 
 			if (thing->unk04 == 3) {
-				func0f097e74(thing->unk06, 1, hand, filedata);
+				func0f097e74(thing->partnum, 1, hand, filedata);
 			}
 		} else {
 			if (thing->unk04 == 3) {
-				func0f097e74(thing->unk06, 0, hand, filedata);
+				func0f097e74(thing->partnum, 0, hand, filedata);
 			}
 		}
 

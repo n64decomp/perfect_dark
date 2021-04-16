@@ -3038,10 +3038,23 @@ struct inventory_class {
 };
 
 struct inventory_typef {
+	// See related functions: func0f097f28 and func0f097df0
+
+	// unk00 - Some kind of condition field
+	// 0 = terminator
+	// 4 = if bit in hand->unk0639 (bit index specified via unk02)
+	// 5 = if in left hand
+	// 6 = if in right hand
 	u8 unk00;
+
 	u16 unk02;
+
+	// 0 = do true thing if condition passed
+	// 1 = do false thing if condition passed
+	// 3 = do true thing if condition passed, or false thing if condition failed
 	u8 unk04;
-	u16 unk06;
+
+	u16 partnum;
 	u16 unk08;
 };
 
