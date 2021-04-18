@@ -165,7 +165,7 @@ s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func);
 Gfx *handRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 valign, u32 colour);
 Gfx *handRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool halign, s32 y, s32 valign, u32 colour);
 void abmagReset(struct abmag *abmag);
-u32 func0f0a9da8(void);
+void func0f0a9da8(struct abmag *abmag, s32 remaining, s32 capacity, s32 height);
 Gfx *handRenderHudGauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag *abmag, s32 remaining, s32 capacity, u32 vacantcolour, u32 occupiedcolour, bool flip);
 Gfx *handRenderHud(Gfx *gdl);
 void cboostAdd(s32 arg0);

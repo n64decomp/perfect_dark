@@ -30856,10 +30856,10 @@ Gfx *handRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool halign, s32 y, s32 va
 
 void abmagReset(struct abmag *abmag)
 {
-	abmag->unk00 = 0;
-	abmag->unk05 = 0;
-	abmag->unk04 = 0;
-	abmag->unk02 = 0;
+	abmag->loadedammo = 0;
+	abmag->change = 0;
+	abmag->ref = 0;
+	abmag->timer60 = 0;
 }
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -32395,6 +32395,277 @@ glabel handRenderHudGauge
 /*  f0aa868:	24420008 */ 	addiu	$v0,$v0,0x8
 );
 #endif
+
+/**
+ * Render an ammo gauge on the HUD.
+ *
+ * Ammo gauges can be displayed in two ways. If the capacity is less than 20,
+ * each bullet is displayed as a separate block with a gap between each. If the
+ * capacity is 20 or more, a single block covers the whole gauge and the block
+ * is partitioned into two (filled and empty).
+ *
+ * For the separated mode, a unit refers to a single bullet/block.
+ * For the merged mode, a unit refers to a single 1px high line in the gauge.
+ */
+// Mismatch: Regalloc (play with the if-statements near 3a8)
+// Some potential clues:
+// - gaugeheight variable can be removed and usages replaced with (y2 - y1)
+// - (s32)ref can be made into a variable
+// - At 278, asm effectively does y2 - y2 + y1, so a tmp variable is used to
+//   prevent optimising out the y2s
+// - Unsigned comparison at fadeamount > 255U
+// - There are several callee-save registers (s2, s5, s8) which can either be
+//   variables or used by the compiler to hold expressions that are used several
+//   times. Below, s2 is a variable while s5 and s8 are inline expressions.
+//Gfx *handRenderHudGauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag *abmag, s32 remaining, s32 capacity, u32 emptycolour, u32 filledcolour, bool flip)
+//{
+//	s32 gaugeheight = y2 - y1; // s2
+//	s32 unitheight;
+//	s32 remainder1;
+//	s32 remainder2;
+//	s32 gaugetop; // bc
+//	f32 ref; // b8
+//	s32 numunits = capacity; // b4 = s1
+//	s32 i;
+//
+//	// 020
+//	func0f0a9da8(abmag, remaining, capacity, gaugeheight);
+//
+//	if (capacity > 20) {
+//		// Use a single merged bar
+//		ref = abmag->ref;
+//		unitheight = 1;
+//		numunits = gaugeheight;
+//		gaugetop = y2 - gaugeheight;
+//	} else {
+//		// 05c
+//		// Use a separate block for each bullet
+//		ref = abmag->ref;
+//		unitheight = gaugeheight / capacity;
+//		remainder1 = unitheight * capacity - gaugeheight;
+//		remainder2 = (unitheight + 1) * capacity - gaugeheight;
+//
+//		if (remainder1 < 0) {
+//			remainder1 = -remainder1;
+//		}
+//
+//		if (remainder2 < 0) {
+//			remainder2 = -remainder2;
+//		}
+//
+//		if (remainder2 < remainder1) {
+//			unitheight++;
+//		}
+//
+//		gaugetop = y2 - unitheight * capacity + 1;
+//
+//		if (unitheight <= 2) {
+//			gaugetop--;
+//		}
+//	}
+//
+//	// 104
+//	if (unitheight == 0) {
+//		/**
+//		 * Using separate blocks, but the clip capacity is more than the gauge
+//		 * height meaning each block is less than 1px. This is impossible
+//		 * because the gauge switches modes away from separate blocks at 20,
+//		 * therefore this code is unreachable.
+//		 *
+//		 * This code renders the gauge in the merged style, but uses 1px per
+//		 * bullet and truncates the gauge at the gaugetop if needed. This is
+//		 * clearly an early revision of the code, as it is visually misleading
+//		 * and also lacks the transition effect.
+//		 */
+//		s32 partitiony;
+//		s32 tmp;
+//
+//		gaugeheight = y2 - gaugetop;
+//		partitiony = y2 - gaugeheight * ref / numunits;
+//		tmp = y2;
+//
+//		// 150
+//		if (partitiony > gaugetop) {
+//			// Render empty partition
+//			gdl = gfxSetPrimColour(gdl, emptycolour);
+//
+//			if (flip) {
+//				gDPFillRectangleScaled(gdl++, x1, y2 - partitiony + y1, x2, gaugeheight + y1);
+//			} else {
+//				gDPFillRectangleScaled(gdl++, x1, gaugetop, x2, partitiony);
+//			}
+//
+//			gdl = func0f153838(gdl);
+//		}
+//
+//		// 25c
+//		// Render filled partition
+//		gdl = gfxSetPrimColour(gdl, filledcolour);
+//
+//		// 278
+//		if (flip) {
+//			gDPFillRectangleScaled(gdl++, x1, y2 - tmp + y1, x2, y2 - partitiony + y1);
+//		} else {
+//			// 2e4
+//			gDPFillRectangleScaled(gdl++, x1, partitiony, x2, y2);
+//		}
+//	} else {
+//		// 338
+//		u32 colour;
+//		s32 unittop;
+//		s32 unitbottom;
+//
+//		gdl = gfxSetPrimColour(gdl, emptycolour);
+//
+//		unittop = gaugetop; // s5
+//		unitbottom = -1;
+//
+//		for (i = 0; i < numunits; i++) {
+//			// 3a8
+//			bool newstate = false;
+//
+//			//if (gaugetop + i * unitheight);
+//			//if (abmag);
+//			if (capacity);
+//
+//			// 3b0
+//			if (abmag->change > 0) {
+//				// Loading or reloading
+//				// 3bc
+//				if (i >= numunits - (s32)ref - abmag->change && i < numunits - (s32)ref) {
+//					// Unit is potentially unsettled
+//					s32 fadeamount = abmag->timer60 - (numunits - (s32)ref - i - 1) * 64;
+//
+//					// 3e0
+//					if (fadeamount >= 0) {
+//						if (fadeamount >= 64) {
+//							// Unit is transitioning to filled
+//							u32 weight = (fadeamount * 4 - 252) / 3;
+//
+//							if (weight > 255) {
+//								weight = 255;
+//							}
+//
+//							colour = colourBlend(filledcolour, 0xffffffbf, weight);
+//						} else {
+//							// Unit is bright and has not started transitioning to filled yet
+//							colour = colourBlend(0xffffffbf, emptycolour, fadeamount * 4);
+//						}
+//
+//						newstate = true;
+//					}
+//				}
+//			} else /*478*/ if (abmag->change < 0) {
+//				// Firing
+//				if (i < numunits - (s32)ref - abmag->change && i >= numunits - (s32)ref) {
+//					s32 fadeamount = abmag->timer60 - (i - numunits + (s32)ref) * 64;
+//
+//					// 48c
+//					if (fadeamount >= 0) {
+//						if (fadeamount > 255U) {
+//							colour = emptycolour;
+//						} else {
+//							// Unit was recently emptied
+//							colour = colourBlend(emptycolour, filledcolour | 0xff, fadeamount);
+//						}
+//
+//						newstate = true;
+//					}
+//				}
+//			}
+//
+//			// 4fc
+//			// Special case for units which are one after the last one being
+//			// faded. I think their colour is calculated incorrectly by the code
+//			// above and this is resetting them to the normal filled colour.
+//			if (abmag->change < 0) {
+//				// Firing
+//				if (i == numunits - (s32)ref - abmag->change) {
+//					colour = filledcolour;
+//					newstate = true;
+//				}
+//			} else {
+//				// 51c
+//				if (i == numunits - (s32)ref) {
+//					colour = filledcolour;
+//					newstate = true;
+//				}
+//			}
+//
+//			// 52c
+//			// Calculate unittop and unitbottom. For merged gauges keep unittop
+//			// as it is if possible, so the empty and filled partitions can be
+//			// drawn whenever the state is changed in order to save gfx calls.
+//			if (unitheight <= 2) {
+//				// 534
+//				if (newstate) {
+//					// 53c
+//					if (unitbottom >= 0) {
+//						// Render empty or transitioning unit of merged gauge
+//						// 544
+//						if (flip) {
+//							gDPFillRectangleScaled(gdl++, x1, y2 - unitbottom + y1, x2, y2 - unittop + y1);
+//						} else {
+//							// 5b4
+//							gDPFillRectangleScaled(gdl++, x1, unittop, x2, unitbottom);
+//						}
+//					}
+//
+//					unittop = gaugetop + i * unitheight;
+//				}
+//
+//				unitbottom = gaugetop + i * unitheight + unitheight;
+//			} else {
+//				// 614
+//				// Separate blocks - reduce unitbottom by 1 to make a gap
+//				unittop = gaugetop + i * unitheight;
+//				unitbottom = gaugetop + i * unitheight + unitheight - 1;
+//			}
+//
+//			// 61c
+//			if (newstate) {
+//				gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
+//			}
+//
+//			// 640
+//			// For separate blocks, clip the unit bottom to the bottom of the gauge
+//			if (unitbottom >= y2 - 1 && unitheight >= 2) {
+//				unitbottom = y2;
+//			}
+//
+//			// 658
+//			// Render separated blocks
+//			if (unitheight >= 3) {
+//				// 660
+//				if (flip) {
+//					gDPFillRectangleScaled(gdl++, x1, y2 - unitbottom + y1, x2, y2 - unittop + y1);
+//				} else {
+//					// 6d0
+//					gDPFillRectangleScaled(gdl++, x1, unittop, x2, unitbottom);
+//				}
+//			}
+//		} // end loop
+//
+//		// For merged gauges, render the final partition
+//		if (unitheight <= 2) {
+//			s32 stack;
+//
+//			// 754
+//			if (flip) {
+//				gDPFillRectangleScaled(gdl++, x1, y2 - unitbottom + y1, x2, y2 - unittop + y1);
+//			} else {
+//				// 7c4
+//				gDPFillRectangleScaled(gdl++, x1, unittop, x2, unitbottom);
+//			}
+//		}
+//	}
+//
+//	gdl = func0f153838(gdl);
+//
+//	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+//
+//	return gdl;
+//}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(

@@ -2058,11 +2058,28 @@ struct beam {
 };
 
 struct abmag {
-	u16 unk00;
-	u16 unk02;
-	u8 unk04;
-	u8 unk05;
-	u16 alignment;
+	// When the gauge uses separate bars, this is zero/unused. When the gauge
+	// uses merged bars, this is the same figure as displayed on the HUD.
+	/*0x00*/ u16 loadedammo;
+
+	// Counts up to 255 when firing or reloading. It's used to determine the
+	// brightness of the bar in the ammo gauge.
+	/*0x02*/ s16 timer60;
+
+	// When firing, this is the number of bars still loaded + any bars recently
+	// fired which are fading to empty.
+	// When loading, this is the number of bars which are loaded and don't have
+	// a fade effect on them.
+	// In other words, it's a reference to where the fade effects start and is
+	// also a reference for the timer.
+	/*0x04*/ s8 ref;
+
+	// When positive, is the number of slots remaining to settle when reloading,
+	// including slots which are fully empty.
+	// When negative, is the number of slots remaining to settle when firing.
+	/*0x05*/ s8 change;
+
+	/*0x06*/ u16 alignment;
 };
 
 // The first 4 bytes of the hand struct
