@@ -273,10 +273,16 @@
 #define ANIM_LOOK_AROUND_025D       0x025d
 #define ANIM_LOOK_AROUND_025E       0x025e
 #define ANIM_LOOK_AROUND_FRANTIC    0x025f
+#define ANIM_SPECIALDIE_FALLBACK    0x0261
+#define ANIM_SPECIALDIE_ROLL1       0x0262
+#define ANIM_SPECIALDIE_ROLL2       0x0263
+#define ANIM_SPECIALDIE_ROLL3       0x0267
+#define ANIM_SPECIALDIE_OVERRAILING 0x0268
 #define ANIM_SITTING_0265           0x0265
 #define ANIM_SNIPING_0269           0x0269
 #define ANIM_SNIPING_026A           0x026a
 #define ANIM_SNIPING_026B           0x026b
+#define ANIM_SNIPING_DIE            0x026c
 #define ANIM_DRAW_PISTOL_0288       0x0288
 #define ANIM_DRAW_PISTOL_0289       0x0289
 #define ANIM_FIX_GUN_JAM_EASY       0x0299
@@ -744,6 +750,7 @@
 #define ENTITYTYPE_TARGET    0x0200 // aim/shoot at whatever is in the chr's `target` field
 
 #define EXPLOSIONTYPE_0  0
+#define EXPLOSIONTYPE_2  2
 #define EXPLOSIONTYPE_3  3
 #define EXPLOSIONTYPE_5  5
 #define EXPLOSIONTYPE_7  7
@@ -3048,10 +3055,10 @@
 #define SOUNDMODE_SURROUND  3
 
 #define SPECIALDIE_NONE        0
-#define SPECIALDIE_1           1
-#define SPECIALDIE_2           2
-#define SPECIALDIE_3           3
-#define SPECIALDIE_4           4
+#define SPECIALDIE_FALLBACK    1
+#define SPECIALDIE_ROLL1       2
+#define SPECIALDIE_ROLL2       3
+#define SPECIALDIE_ROLL3       4
 #define SPECIALDIE_OVERRAILING 5
 #define SPECIALDIE_ONCHAIR     6
 
@@ -3177,6 +3184,7 @@
 #define STAGEFLAG_CI_IN_HOLO6               0x00800000
 #define STAGEFLAG_CI_IN_HOLO7               0x01000000
 #define STAGEFLAG_CI_GENERAL_PURPOSE        0x02000000
+#define STAGEFLAG_EYESPY_DESTROYED          0x00002000
 
 #define STAGEINDEX_MAIANSOS      0x00
 #define STAGEINDEX_TEST_SILO     0x01

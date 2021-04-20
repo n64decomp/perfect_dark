@@ -62,7 +62,7 @@ u32 func0001d320(void);
 void modelCopyAnimForMerge(struct model *model, f32 arg1);
 void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 arg5);
 bool modelIsAnimMerging(struct model *model);
-void func0001dbfc(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 arg5, bool merge);
+void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 arg5, bool merge);
 void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 arg5);
 void modelCopyAnimData(struct model *src, struct model *dst);
 void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge);

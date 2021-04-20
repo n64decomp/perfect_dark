@@ -2797,7 +2797,7 @@ glabel var7f1b8e7cpf
 /*  f16b1f0:	8f240004 */ 	lw	$a0,0x4($t9)
 /*  f16b1f4:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f16b1f8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f16b1fc:	0fc0c6bb */ 	jal	func0f0319a8
+/*  f16b1fc:	0fc0c6bb */ 	jal	chrBeginDeath
 /*  f16b200:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f16b204:	8e500284 */ 	lw	$s0,0x284($s2)
 .PF0f16b208:
@@ -3975,13 +3975,13 @@ Gfx *lvRender(Gfx *gdl)
 							sndStart(var80095200, SFX_FIREEMPTY, 0, -1, -1, -1, -1, -1);
 						}
 					} else { // EYESPYMODE_BOMBSPY
-						struct coord spd4 = {0, 0, 0};
-						s8 spd0[] = {30, 0, 0, 0};
+						struct coord vel = {0, 0, 0};
+						struct shorthand hand = {WEAPON_GRENADE, 0, 0, 0};
 						explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
 								&g_Vars.currentplayer->eyespy->prop->pos,
 								g_Vars.currentplayer->eyespy->prop->rooms,
 								EXPLOSIONTYPE_23, 0);
-						func0f0319a8(g_Vars.currentplayer->eyespy->prop->chr, &spd4, 0, 0, spd0, 0, 0);
+						chrBeginDeath(g_Vars.currentplayer->eyespy->prop->chr, &vel, 0, 0, &hand, false, 0);
 					}
 				}
 
@@ -5387,7 +5387,7 @@ glabel var7f1b1fd4nb
 /*  f164f08:	8de40004 */ 	lw	$a0,0x4($t7)
 /*  f164f0c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f164f10:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f164f14:	0fc0c4ba */ 	jal	func0f0319a8
+/*  f164f14:	0fc0c4ba */ 	jal	chrBeginDeath
 /*  f164f18:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f164f1c:	8e500284 */ 	lw	$s0,0x284($s2)
 .NB0f164f20:

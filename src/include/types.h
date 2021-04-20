@@ -945,11 +945,9 @@ struct act_die {
 	/*0x2c*/ s32 notifychrindex;
 	/*0x30*/ f32 thudframe1;
 	/*0x34*/ f32 thudframe2;
-	/*0x38*/ f32 unk038;
-	/*0x3c*/ u32 unk03c;
-	/*0x40*/ u32 unk040;
-	/*0x44*/ u32 unk044;
-	/*0x48*/ u32 unk048;
+	/*0x38*/ f32 timeextra;
+	/*0x3c*/ f32 elapseextra;
+	/*0x40*/ struct coord extraspeed; // for changing position while airborne (eg. when shot by magnum)
 	/*0x4c*/ s16 drcarollimagedelay;
 };
 
@@ -963,6 +961,7 @@ struct act_dead {
 
 struct act_argh {
 	/*0x2c*/ s32 notifychrindex;
+	/*0x30*/ s32 unk030; // lvframe60 value
 };
 
 struct act_preargh {
@@ -5088,21 +5087,21 @@ struct simdifficulty {
 	s32 blurdrugamount;
 };
 
-struct somedruggedracethingdeep {
-	s16 unk00;
-	u32 unk04;
-	f32 unk08;
-	f32 unk0c;
+struct animtablerow {
+	s16 animnum;
+	bool flip;
+	f32 endframe;
+	f32 speed;
 	u32 unk10;
-	f32 unk14;
-	f32 unk18;
+	f32 thudframe1;
+	f32 thudframe2;
 };
 
-struct somedruggedracething {
-	s32 index;
-	struct somedruggedracethingdeep *unk04;
-	struct somedruggedracethingdeep *unk08;
-	s32 unk0c;
+struct animtable {
+	s32 id;
+	struct animtablerow *atable;
+	struct animtablerow *btable;
+	s32 count;
 	u32 unk10;
 };
 

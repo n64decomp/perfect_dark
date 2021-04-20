@@ -4849,7 +4849,7 @@ bool modelIsAnimMerging(struct model *model)
 	return false;
 }
 
-void func0001dbfc(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 arg5, bool newmerge)
+void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 arg5, bool newmerge)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
