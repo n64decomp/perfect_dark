@@ -69890,12 +69890,10 @@ glabel func0f08bc5c
 /*  f08bcf0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel hatGetType
-/*  f08bcf4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f08bcf8:	03e00008 */ 	jr	$ra
-/*  f08bcfc:	2402ffff */ 	addiu	$v0,$zero,-1
-);
+s32 hatGetType(struct prop *prop)
+{
+	return -1;
+}
 
 bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
 {
