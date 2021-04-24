@@ -5443,52 +5443,18 @@ void chrSetShield(struct chrdata *chr, f32 amount)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f034080
-/*  f034080:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f034084:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f034088:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f03408c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f034090:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f034094:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f034098:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f03409c:	44802000 */ 	mtc1	$zero,$f4
-/*  f0340a0:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f0340a4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0340a8:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f0340ac:	00000000 */ 	nop
-/*  f0340b0:	45000018 */ 	bc1f	.L0f034114
-/*  f0340b4:	00000000 */ 	nop
-/*  f0340b8:	10e00014 */ 	beqz	$a3,.L0f03410c
-/*  f0340bc:	00000000 */ 	nop
-/*  f0340c0:	94ee0000 */ 	lhu	$t6,0x0($a3)
-/*  f0340c4:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f0340c8:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0340cc:	15e1000f */ 	bne	$t7,$at,.L0f03410c
-/*  f0340d0:	00000000 */ 	nop
-/*  f0340d4:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f0340d8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f0340dc:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f0340e0:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f0340e4:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*  f0340e8:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*  f0340ec:	8f04001c */ 	lw	$a0,0x1c($t8)
-/*  f0340f0:	44050000 */ 	mfc1	$a1,$f0
-/*  f0340f4:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f0340f8:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f0340fc:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f034100:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f034104:	0fc0a3df */ 	jal	func0f028f7c
-/*  f034108:	afa90018 */ 	sw	$t1,0x18($sp)
-.L0f03410c:
-/*  f03410c:	10000001 */ 	b	.L0f034114
-/*  f034110:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f034114:
-/*  f034114:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f034118:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f03411c:	03e00008 */ 	jr	$ra
-/*  f034120:	00000000 */ 	nop
-);
+bool func0f034080(struct chrdata *chr, u16 *arg1, struct prop *prop, s32 arg3, s32 arg4, s32 arg5)
+{
+	if (chrGetShield(chr) > 0) {
+		if (arg1 && (*arg1 & 0xff) == 10) {
+			func0f028f7c(chr->prop, chrGetShield(chr), prop, arg1, arg3, arg4, arg5);
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * Damage the chr, bypassing any shield.
@@ -5500,7 +5466,7 @@ void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, stru
 	chrDamage(chr, damage, vector, hand, prop, IBH_GENERAL,
 			false,     // damageshield
 			NULL,      // prop2
-			0,         // arg8
+			NULL,      // arg8
 			0,         // arg9
 			-1,        // arg10
 			0,         // arg11
@@ -5513,7 +5479,7 @@ void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, str
 	chrDamage(chr, damage, vector, hand, prop, IBH_GENERAL,
 			true,      // damageshield
 			chr->prop, // prop2
-			0,         // arg8
+			NULL,      // arg8
 			0,         // arg9
 			-1,        // arg10
 			0,         // arg11
@@ -5521,7 +5487,7 @@ void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, str
 			NULL);     // explosionpos
 }
 
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, s32 arg7, s32 arg8, s32 arg9, u32 arg10)
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, u16 *arg7, s32 arg8, s32 arg9, u32 arg10)
 {
 	chrDamage(chr, damage, vector, hand, prop, ibh,
 			true,      // damageshield
@@ -5539,7 +5505,7 @@ void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct 
  */
 void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
 {
-	s32 sp4c = 0;
+	u16 *sp4c = NULL;
 	s32 sp48 = 0;
 	s32 sp44 = 0;
 	s32 ibh = IBH_GENERAL;
@@ -5561,7 +5527,7 @@ void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 
 void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 ibh)
 {
-	s32 sp76 = 0;
+	u16 *sp76 = NULL;
 	s32 sp72 = 0;
 	s32 sp68 = 0;
 
@@ -5585,7 +5551,7 @@ void chrDamageByExplosion(struct chrdata *chr, f32 damage, struct coord *vector,
 	chrDamage(chr, damage, vector, NULL, prop, IBH_GENERAL,
 			true,      // damageshield
 			chr->prop, // prop2
-			0,         // arg8
+			NULL,      // arg8
 			0,         // arg9
 			-1,        // arg10
 			0,         // arg11
@@ -5640,7 +5606,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
  */
 void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand,
 		struct prop *aprop, s32 ibh, bool damageshield, struct prop *prop2,
-		s32 arg8, s32 arg9, s32 arg10, s32 arg11,
+		u16 *arg8, s32 arg9, s32 arg10, s32 arg11,
 		bool explosion, struct coord *explosionpos)
 {
 	bool onehitko = false;
@@ -5939,7 +5905,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 			if (prop2 && arg8 && chr->model) {
 				func0f034080(chr, arg8, prop2, arg9, arg10, arg11);
 			} else {
-				func0f028f7c(chr->prop, chrGetShield(chr), 0, 0, 0, 0, 0);
+				func0f028f7c(chr->prop, chrGetShield(chr), NULL, 0, 0, 0, 0);
 			}
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_ONEHITKILLS)) {

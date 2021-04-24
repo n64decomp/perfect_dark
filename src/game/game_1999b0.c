@@ -234,12 +234,12 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 
 		// 3 in 10 chance of this passing
 		if (rand < 30) {
-			s32 sp172 = 0;
+			u16 *sp172 = NULL;
 			s32 sp168 = 0;
 			s32 sp164 = -1;
 			s32 sp160 = 200;
-			u8 sp156[] = {WEAPON_FARSIGHT, 0, 0, 0};
-			f32 damage = handGetDamage((struct shorthand *)sp156);
+			struct shorthand hand = {WEAPON_FARSIGHT, 0, 0, FUNC_PRIMARY};
+			f32 damage = handGetDamage(&hand);
 			s32 fallback = 30;
 			s32 value = fallback;
 
@@ -267,14 +267,14 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 				if (oppchr != chr
 						&& value > rand
 						&& func0f06b39c(arg3, arg2, &oppprop->pos, func0f0278a4(oppchr))) {
-					func0f0a7d98((struct shorthand *)sp156, oppprop, -1);
+					func0f0a7d98(&hand, oppprop, -1);
 
 					if (oppchr->model && chrGetShield(oppchr) > 0) {
 						func0f03ff2c(oppchr, &oppprop->pos, arg2, &sp172, &sp160, &sp168, &sp164);
 					}
 
 					chrEmitSparks(oppchr, oppprop, sp160, &oppprop->pos, arg2, chr);
-					func0f0341dc(oppchr, damage, arg2, (struct shorthand *)sp156, chr->prop, IBH_GENERAL, oppprop, sp172, sp168, sp164, 0);
+					func0f0341dc(oppchr, damage, arg2, &hand, chr->prop, IBH_GENERAL, oppprop, sp172, sp168, sp164, 0);
 				}
 			}
 

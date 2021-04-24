@@ -2645,7 +2645,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 						} else {
 							struct coord spb8;
 							struct coord spac;
-							s32 spa8 = 0;
+							u16 *spa8 = NULL;
 							s32 spa4 = 0;
 							s32 spa0 = -1;
 							s32 ibh = IBH_TORSO;
