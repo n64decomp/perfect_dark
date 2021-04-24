@@ -6604,65 +6604,28 @@ glabel var7f1a8d5c
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel handGetBlurAmount
-/*  f033654:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x318)
-/*  f033658:	8dcea2d8 */ 	lw	$t6,%lo(g_Vars+0x318)($t6)
-/*  f03365c:	240303e8 */ 	addiu	$v1,$zero,0x341
-/*  f033660:	55c00003 */ 	bnezl	$t6,.L0f033670
-/*  f033664:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f033668:	240300fa */ 	addiu	$v1,$zero,0xd0
-/*  f03366c:	90820000 */ 	lbu	$v0,0x0($a0)
-.L0f033670:
-/*  f033670:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f033674:	54410003 */ 	bnel	$v0,$at,.L0f033684
-/*  f033678:	24010056 */ 	addiu	$at,$zero,0x56
-/*  f03367c:	240307d0 */ 	addiu	$v1,$zero,0x682
-/*  f033680:	24010056 */ 	addiu	$at,$zero,0x56
-.L0f033684:
-/*  f033684:	54410003 */ 	bnel	$v0,$at,.L0f033694
-/*  f033688:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f03368c:	24031388 */ 	addiu	$v1,$zero,0x1046
-/*  f033690:	2401001f */ 	addiu	$at,$zero,0x1f
-.L0f033694:
-/*  f033694:	14410002 */ 	bne	$v0,$at,.L0f0336a0
-/*  f033698:	00000000 */ 	nop
-/*  f03369c:	24030064 */ 	addiu	$v1,$zero,0x53
-.L0f0336a0:
-/*  f0336a0:	03e00008 */ 	jr	$ra
-/*  f0336a4:	00601025 */ 	or	$v0,$v1,$zero
-);
-#else
-GLOBAL_ASM(
-glabel handGetBlurAmount
-/*  f033654:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x318)
-/*  f033658:	8dcea2d8 */ 	lw	$t6,%lo(g_Vars+0x318)($t6)
-/*  f03365c:	240303e8 */ 	addiu	$v1,$zero,0x3e8
-/*  f033660:	55c00003 */ 	bnezl	$t6,.L0f033670
-/*  f033664:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f033668:	240300fa */ 	addiu	$v1,$zero,0xfa
-/*  f03366c:	90820000 */ 	lbu	$v0,0x0($a0)
-.L0f033670:
-/*  f033670:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f033674:	54410003 */ 	bnel	$v0,$at,.L0f033684
-/*  f033678:	24010056 */ 	addiu	$at,$zero,0x56
-/*  f03367c:	240307d0 */ 	addiu	$v1,$zero,0x7d0
-/*  f033680:	24010056 */ 	addiu	$at,$zero,0x56
-.L0f033684:
-/*  f033684:	54410003 */ 	bnel	$v0,$at,.L0f033694
-/*  f033688:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f03368c:	24031388 */ 	addiu	$v1,$zero,0x1388
-/*  f033690:	2401001f */ 	addiu	$at,$zero,0x1f
-.L0f033694:
-/*  f033694:	14410002 */ 	bne	$v0,$at,.L0f0336a0
-/*  f033698:	00000000 */ 	nop
-/*  f03369c:	24030064 */ 	addiu	$v1,$zero,0x64
-.L0f0336a0:
-/*  f0336a0:	03e00008 */ 	jr	$ra
-/*  f0336a4:	00601025 */ 	or	$v0,$v1,$zero
-);
-#endif
+s32 handGetBlurAmount(struct shorthand *hand)
+{
+	s32 amount = PALDOWN(1000);
+
+	if (g_Vars.normmplayerisrunning == false) {
+		amount = PALDOWN(250);
+	}
+
+	if (hand->weaponnum == WEAPON_TRANQUILIZER) {
+		amount = PALDOWN(2000);
+	}
+
+	if (hand->weaponnum == WEAPON_BOLT) {
+		amount = PALDOWN(5000);
+	}
+
+	if (hand->weaponnum == WEAPON_NBOMB) {
+		amount = PALDOWN(100);
+	}
+
+	return amount;
+}
 
 void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand)
 {
