@@ -1847,7 +1847,7 @@ u8 func040e_outro[] = {
 	play_sound(SFX_8076, CHANNEL_10)
 
 	wait_until(310, 0x7a)
-	play_sound(SFX_0090, CHANNEL_10)
+	play_sound(SFX_ARGH_MALE_0090, CHANNEL_10)
 
 	wait_until(392, 0x69)
 	play_sound(SFX_THUD_808E, CHANNEL_10)

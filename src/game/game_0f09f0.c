@@ -6924,8 +6924,8 @@ glabel var7f1b2948
 /*  f0f3a64:	a20f05b0 */ 	sb	$t7,0x5b0($s0)
 .L0f0f3a68:
 /*  f0f3a68:	8fb80404 */ 	lw	$t8,0x404($sp)
-/*  f0f3a6c:	3c0a8008 */ 	lui	$t2,%hi(g_Bodies)
-/*  f0f3a70:	254acf04 */ 	addiu	$t2,$t2,%lo(g_Bodies)
+/*  f0f3a6c:	3c0a8008 */ 	lui	$t2,%hi(g_HeadsAndBodies)
+/*  f0f3a70:	254acf04 */ 	addiu	$t2,$t2,%lo(g_HeadsAndBodies)
 /*  f0f3a74:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f0f3a78:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f0f3a7c:	0019c880 */ 	sll	$t9,$t9,0x2
@@ -6947,13 +6947,13 @@ glabel var7f1b2948
 /*  f0f3abc:	3411ffff */ 	dli	$s1,0xffff
 .L0f0f3ac0:
 /*  f0f3ac0:	8fb90400 */ 	lw	$t9,0x400($sp)
-/*  f0f3ac4:	3c118008 */ 	lui	$s1,%hi(g_Bodies+0x2)
+/*  f0f3ac4:	3c118008 */ 	lui	$s1,%hi(g_HeadsAndBodies+0x2)
 /*  f0f3ac8:	afa30420 */ 	sw	$v1,0x420($sp)
 /*  f0f3acc:	00195080 */ 	sll	$t2,$t9,0x2
 /*  f0f3ad0:	01595021 */ 	addu	$t2,$t2,$t9
 /*  f0f3ad4:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f0f3ad8:	022a8821 */ 	addu	$s1,$s1,$t2
-/*  f0f3adc:	9631cf06 */ 	lhu	$s1,%lo(g_Bodies+0x2)($s1)
+/*  f0f3adc:	9631cf06 */ 	lhu	$s1,%lo(g_HeadsAndBodies+0x2)($s1)
 /*  f0f3ae0:	0fc59c15 */ 	jal	fileGetInflatedLength
 /*  f0f3ae4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0f3ae8:	8fab0420 */ 	lw	$t3,0x420($sp)

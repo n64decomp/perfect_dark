@@ -2299,7 +2299,7 @@ u8 func0416_intro[] = {
 	play_sound(SFX_0031, CHANNEL_7)
 
 	wait_until(1196, 0x68)
-	play_sound(SFX_008F, CHANNEL_6)
+	play_sound(SFX_ARGH_MALE_008F, CHANNEL_6)
 
 	wait_until(1310, 0x63)
 	play_sound(SFX_0085, CHANNEL_7)

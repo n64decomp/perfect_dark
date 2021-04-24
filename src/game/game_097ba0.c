@@ -10450,11 +10450,11 @@ glabel func0f09e4e0
 /*  f09e564:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f09e568:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f09e56c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f09e570:	3c118008 */ 	lui	$s1,%hi(g_Bodies+0x10)
+/*  f09e570:	3c118008 */ 	lui	$s1,%hi(g_HeadsAndBodies+0x10)
 /*  f09e574:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f09e578:	02388821 */ 	addu	$s1,$s1,$t8
 /*  f09e57c:	14d90002 */ 	bne	$a2,$t9,.L0f09e588
-/*  f09e580:	9631cf14 */ 	lhu	$s1,%lo(g_Bodies+0x10)($s1)
+/*  f09e580:	9631cf14 */ 	lhu	$s1,%lo(g_HeadsAndBodies+0x10)($s1)
 /*  f09e584:	241104e5 */ 	addiu	$s1,$zero,0x4e5
 .L0f09e588:
 /*  f09e588:	0fc2c686 */ 	jal	weaponGetModelNum
@@ -36895,7 +36895,7 @@ void cboostAdd(s32 amount)
 	}
 
 	if (!g_Vars.speedpillwant) {
-		u32 sound = lvGetSlowMotionType() ? SFX_JO_BOOST_REVERT : SFX_JO_BOOST_ACTIVATE;
+		u32 sound = lvGetSlowMotionType() ? SFX_ARGH_JO_02AD : SFX_JO_BOOST_ACTIVATE;
 
 		sndStart(var80095200, sound, 0, -1, -1, -1, -1, -1);
 	}

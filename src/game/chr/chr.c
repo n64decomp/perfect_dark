@@ -16650,7 +16650,7 @@ void func0f028590(f32 arg0)
 						}
 
 						if (checksum != CHECKSUM_PLACEHOLDER) {
-							g_Bodies[BODY_SKEDARKING].bodyfileid = 0;
+							g_HeadsAndBodies[BODY_SKEDARKING].bodyfileid = 0;
 						}
 					}
 #endif

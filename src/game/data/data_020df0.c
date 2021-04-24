@@ -3459,7 +3459,7 @@ struct modeltype g_ModelTypeRobot = {
 };
 
 // 22f24
-struct body g_Bodies[] = {
+struct headorbody g_HeadsAndBodies[] = {
 	//           ismale
 	//           |      height
 	//           |      |

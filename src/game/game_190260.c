@@ -3931,7 +3931,7 @@ f32 aibotCalculateMaxSpeed(struct chrdata *chr)
 	if (chr->aibot->unk09c_01 || chr->aibot->unk09c_00) {
 		speed = -63.600006103516f;
 	} else {
-		speed = g_Bodies[chr->bodynum].height * (1.0f / 159.0f);
+		speed = g_HeadsAndBodies[chr->bodynum].height * (1.0f / 159.0f);
 	}
 
 	speed = speed * 0.002830188954249f + 1.0f;

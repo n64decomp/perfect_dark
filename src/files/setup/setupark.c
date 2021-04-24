@@ -2352,7 +2352,7 @@ u8 func100d_intro[] = {
 	play_sound(SFX_0428, -1)
 
 	wait_until(720, 0x67)
-	play_sound(SFX_0250, 10)
+	play_sound(SFX_ARGH_DRCAROLL_0250, 10)
 
 	wait_until(850, 0x68)
 	play_sound(SFX_0430, -1)
@@ -2563,10 +2563,10 @@ u8 func0412_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_BOND, FALSE)
 
 	outro_wait_until(1554, 0x71)
-	play_sound(SFX_F_GASP_000D, CHANNEL_10)
+	play_sound(SFX_ARGH_FEMALE_000D, CHANNEL_10)
 
 	outro_wait_until(1600, 0x74)
-	play_sound(SFX_000E, CHANNEL_10)
+	play_sound(SFX_ARGH_FEMALE_000E, CHANNEL_10)
 
 	outro_wait_until(1734, 0x72)
 	play_sound(SFX_THUD_808D, CHANNEL_10)

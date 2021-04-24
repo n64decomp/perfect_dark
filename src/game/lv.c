@@ -4163,7 +4163,7 @@ Gfx *lvRender(Gfx *gdl)
 							|| (g_Vars.speedpillwant && !g_Vars.speedpillon)
 							|| (!g_Vars.speedpillwant && g_Vars.speedpillon)) {
 						if (g_Vars.speedpillchange == 30 && !g_Vars.speedpillwant) {
-							sndStart(var80095200, lvGetSlowMotionType() ? SFX_JO_BOOST_ACTIVATE : SFX_JO_BOOST_REVERT, 0, -1, -1, -1, -1, -1);
+							sndStart(var80095200, lvGetSlowMotionType() ? SFX_JO_BOOST_ACTIVATE : SFX_ARGH_JO_02AD, 0, -1, -1, -1, -1, -1);
 						}
 
 						if (g_Vars.speedpillchange < 15) {

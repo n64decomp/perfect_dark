@@ -1741,7 +1741,7 @@ u8 func040d_intro[] = {
 	endloop(0x69)
 
 	label(0x06)
-	play_sound(SFX_0087, CHANNEL_5)
+	play_sound(SFX_ARGH_MALE_0087, CHANNEL_5)
 
 	beginloop(0x64)
 		if_controller_button_pressed(/*goto*/ 0x54)

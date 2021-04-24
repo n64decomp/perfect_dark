@@ -2713,14 +2713,14 @@ u8 func1002_intro[] = {
 	play_sound(SFX_0429, CHANNEL_10)
 
 	wait_until(2930, 0xb4)
-	play_sound(SFX_05AF, CHANNEL_10)
+	play_sound(SFX_COUGH_04AF, CHANNEL_10)
 
 	wait_until(3024, 0x89)
 	play_sound(SFX_00FA, CHANNEL_10)
 	play_sound(SFX_00F9, CHANNEL_10)
 
 	wait_until(3060, 0xb0)
-	play_sound(SFX_05B0, CHANNEL_10)
+	play_sound(SFX_COUGH_04B0, CHANNEL_10)
 
 	wait_until(3178, 0xb6)
 	play_sound(SFX_007D, CHANNEL_6)

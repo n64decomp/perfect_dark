@@ -26,8 +26,8 @@ u32 var8006170c = 0x00000000;
 GLOBAL_ASM(
 glabel stageChooseActiveHeads
 /*  f00b820:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f00b824:	3c0e8008 */ 	lui	$t6,%hi(g_Bodies+0x2)
-/*  f00b828:	95cecf06 */ 	lhu	$t6,%lo(g_Bodies+0x2)($t6)
+/*  f00b824:	3c0e8008 */ 	lui	$t6,%hi(g_HeadsAndBodies+0x2)
+/*  f00b828:	95cecf06 */ 	lhu	$t6,%lo(g_HeadsAndBodies+0x2)($t6)
 /*  f00b82c:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f00b830:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f00b834:	00808025 */ 	or	$s0,$a0,$zero
@@ -38,8 +38,8 @@ glabel stageChooseActiveHeads
 /*  f00b848:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*  f00b84c:	11c00009 */ 	beqz	$t6,.L0f00b874
 /*  f00b850:	00008825 */ 	or	$s1,$zero,$zero
-/*  f00b854:	3c028008 */ 	lui	$v0,%hi(g_Bodies)
-/*  f00b858:	2442cf04 */ 	addiu	$v0,$v0,%lo(g_Bodies)
+/*  f00b854:	3c028008 */ 	lui	$v0,%hi(g_HeadsAndBodies)
+/*  f00b858:	2442cf04 */ 	addiu	$v0,$v0,%lo(g_HeadsAndBodies)
 /*  f00b85c:	944f0016 */ 	lhu	$t7,0x16($v0)
 .L0f00b860:
 /*  f00b860:	24420014 */ 	addiu	$v0,$v0,0x14
@@ -283,8 +283,8 @@ glabel stageChooseActiveHeads
 //	s32 i;
 //	s32 j;
 //
-//	for (i = 0; g_Bodies[i].bodyfileid; i++) {
-//		g_Bodies[i].unk0c = NULL;
+//	for (i = 0; g_HeadsAndBodies[i].bodyfileid; i++) {
+//		g_HeadsAndBodies[i].unk0c = NULL;
 //	}
 //
 //	var80062c80 = random() % g_NumBondBodies;

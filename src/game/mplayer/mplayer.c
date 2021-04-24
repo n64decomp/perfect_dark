@@ -7047,7 +7047,7 @@ s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
 	headnum = g_MpBodies[mpbodynum].headnum;
 
 	if (headnum == 1000) {
-		if (g_Bodies[g_MpBodies[mpbodynum].bodynum].ismale) {
+		if (g_HeadsAndBodies[g_MpBodies[mpbodynum].bodynum].ismale) {
 			headnum = g_MpMaleHeads[random() % ARRAYCOUNT(g_MpMaleHeads)];
 		} else {
 			headnum = g_MpFemaleHeads[random() % ARRAYCOUNT(g_MpFemaleHeads)];

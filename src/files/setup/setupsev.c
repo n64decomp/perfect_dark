@@ -1612,7 +1612,7 @@ u8 func041b_outro[] = {
 	play_sound(SFX_0045, CHANNEL_10)
 
 	wait_until(214, 0x70)
-	play_sound(SFX_MAIAN_YELP_05E0, CHANNEL_10)
+	play_sound(SFX_ARGH_MAIAN_05E0, CHANNEL_10)
 
 	wait_until(260, 0x71)
 	play_sound(SFX_007B, CHANNEL_10)

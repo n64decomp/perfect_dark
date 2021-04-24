@@ -403,7 +403,7 @@
 
 #define CHOKETYPE_NONE   0
 #define CHOKETYPE_GURGLE 1
-#define CHOKETYPE_GASP   2
+#define CHOKETYPE_COUGH  2
 
 #define CHR_P1P2_OPPOSITE 0xf1
 #define CHR_P1P2          0xf2

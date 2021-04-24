@@ -156,8 +156,8 @@ u32 bodyGetRace(s32 bodynum)
 
 bool bodyLoad(s32 bodynum)
 {
-	if (!g_Bodies[bodynum].unk0c) {
-		g_Bodies[bodynum].unk0c = fileLoad(g_Bodies[bodynum].bodyfileid);
+	if (!g_HeadsAndBodies[bodynum].unk0c) {
+		g_HeadsAndBodies[bodynum].unk0c = fileLoad(g_HeadsAndBodies[bodynum].bodyfileid);
 		return true;
 	}
 
@@ -182,8 +182,8 @@ glabel var7f1a8a84
 .text
 /*  f02ce8c:	00047880 */ 	sll	$t7,$a0,0x2
 /*  f02ce90:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f02ce94:	3c188008 */ 	lui	$t8,%hi(g_Bodies)
-/*  f02ce98:	2718cf04 */ 	addiu	$t8,$t8,%lo(g_Bodies)
+/*  f02ce94:	3c188008 */ 	lui	$t8,%hi(g_HeadsAndBodies)
+/*  f02ce98:	2718cf04 */ 	addiu	$t8,$t8,%lo(g_HeadsAndBodies)
 /*  f02ce9c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f02cea0:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f02cea4:	3c017f1b */ 	lui	$at,%hi(var7f1a8a70)
@@ -270,13 +270,13 @@ glabel var7f1a8a84
 /*  f02cfdc:	11610019 */ 	beq	$t3,$at,.L0f02d044
 /*  f02cfe0:	01a76821 */ 	addu	$t5,$t5,$a3
 /*  f02cfe4:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f02cfe8:	3c048008 */ 	lui	$a0,%hi(g_Bodies+0x2)
+/*  f02cfe8:	3c048008 */ 	lui	$a0,%hi(g_HeadsAndBodies+0x2)
 /*  f02cfec:	008d2021 */ 	addu	$a0,$a0,$t5
 /*  f02cff0:	0fc69e11 */ 	jal	fileLoad
-/*  f02cff4:	9484cf06 */ 	lhu	$a0,%lo(g_Bodies+0x2)($a0)
+/*  f02cff4:	9484cf06 */ 	lhu	$a0,%lo(g_HeadsAndBodies+0x2)($a0)
 /*  f02cff8:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f02cffc:	3c0e8008 */ 	lui	$t6,%hi(g_Bodies)
-/*  f02d000:	25cecf04 */ 	addiu	$t6,$t6,%lo(g_Bodies)
+/*  f02cffc:	3c0e8008 */ 	lui	$t6,%hi(g_HeadsAndBodies)
+/*  f02d000:	25cecf04 */ 	addiu	$t6,$t6,%lo(g_HeadsAndBodies)
 /*  f02d004:	00056080 */ 	sll	$t4,$a1,0x2
 /*  f02d008:	01856021 */ 	addu	$t4,$t4,$a1
 /*  f02d00c:	000c6080 */ 	sll	$t4,$t4,0x2
@@ -294,8 +294,8 @@ glabel var7f1a8a84
 /*  f02d03c:	10000014 */ 	b	.L0f02d090
 /*  f02d040:	00000000 */ 	nop
 .L0f02d044:
-/*  f02d044:	3c0f8008 */ 	lui	$t7,%hi(g_Bodies)
-/*  f02d048:	25efcf04 */ 	addiu	$t7,$t7,%lo(g_Bodies)
+/*  f02d044:	3c0f8008 */ 	lui	$t7,%hi(g_HeadsAndBodies)
+/*  f02d048:	25efcf04 */ 	addiu	$t7,$t7,%lo(g_HeadsAndBodies)
 /*  f02d04c:	00084080 */ 	sll	$t0,$t0,0x2
 /*  f02d050:	010f1821 */ 	addu	$v1,$t0,$t7
 /*  f02d054:	8c64000c */ 	lw	$a0,0xc($v1)
@@ -304,8 +304,8 @@ glabel var7f1a8a84
 /*  f02d060:	0fc69e11 */ 	jal	fileLoad
 /*  f02d064:	94640002 */ 	lhu	$a0,0x2($v1)
 /*  f02d068:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f02d06c:	3c0a8008 */ 	lui	$t2,%hi(g_Bodies)
-/*  f02d070:	254acf04 */ 	addiu	$t2,$t2,%lo(g_Bodies)
+/*  f02d06c:	3c0a8008 */ 	lui	$t2,%hi(g_HeadsAndBodies)
+/*  f02d070:	254acf04 */ 	addiu	$t2,$t2,%lo(g_HeadsAndBodies)
 /*  f02d074:	00074880 */ 	sll	$t1,$a3,0x2
 /*  f02d078:	01274821 */ 	addu	$t1,$t1,$a3
 /*  f02d07c:	00094880 */ 	sll	$t1,$t1,0x2
@@ -397,8 +397,8 @@ glabel var7f1a8a84
 /*  f02d1b8:	93ab0067 */ 	lbu	$t3,0x67($sp)
 /*  f02d1bc:	1160001c */ 	beqz	$t3,.L0f02d230
 /*  f02d1c0:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*  f02d1c4:	3c088008 */ 	lui	$t0,%hi(g_Bodies+0x730)
-/*  f02d1c8:	2508d634 */ 	addiu	$t0,$t0,%lo(g_Bodies+0x730)
+/*  f02d1c4:	3c088008 */ 	lui	$t0,%hi(g_HeadsAndBodies+0x730)
+/*  f02d1c8:	2508d634 */ 	addiu	$t0,$t0,%lo(g_HeadsAndBodies+0x730)
 /*  f02d1cc:	57280019 */ 	bnel	$t9,$t0,.L0f02d234
 /*  f02d1d0:	8fa2005c */ 	lw	$v0,0x5c($sp)
 /*  f02d1d4:	0c004b70 */ 	jal	random
@@ -544,7 +544,7 @@ s32 bodyChooseHead(s32 bodynum)
 {
 	s32 head;
 
-	if (g_Bodies[bodynum].ismale) {
+	if (g_HeadsAndBodies[bodynum].ismale) {
 		head = g_ActiveMaleHeads[g_ActiveMaleHeadsIndex++];
 
 		if (g_ActiveMaleHeadsIndex == g_NumActiveHeadsPerGender) {
@@ -651,8 +651,8 @@ glabel chrUnpack
 /*  f02d638:	afa2004c */ 	sw	$v0,0x4c($sp)
 .L0f02d63c:
 /*  f02d63c:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*  f02d640:	3c188008 */ 	lui	$t8,%hi(g_Bodies)
-/*  f02d644:	2718cf04 */ 	addiu	$t8,$t8,%lo(g_Bodies)
+/*  f02d640:	3c188008 */ 	lui	$t8,%hi(g_HeadsAndBodies)
+/*  f02d644:	2718cf04 */ 	addiu	$t8,$t8,%lo(g_HeadsAndBodies)
 /*  f02d648:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f02d64c:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f02d650:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -769,8 +769,8 @@ glabel chrUnpack
 /*  f02d7e8:	0fc0b378 */ 	jal	bodyGetRace
 /*  f02d7ec:	84c40010 */ 	lh	$a0,0x10($a2)
 /*  f02d7f0:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*  f02d7f4:	3c0e8008 */ 	lui	$t6,%hi(g_Bodies+0x85c)
-/*  f02d7f8:	25ced760 */ 	addiu	$t6,$t6,%lo(g_Bodies+0x85c)
+/*  f02d7f4:	3c0e8008 */ 	lui	$t6,%hi(g_HeadsAndBodies+0x85c)
+/*  f02d7f8:	25ced760 */ 	addiu	$t6,$t6,%lo(g_HeadsAndBodies+0x85c)
 /*  f02d7fc:	90cb032e */ 	lbu	$t3,0x32e($a2)
 /*  f02d800:	a0c202fe */ 	sb	$v0,0x2fe($a2)
 /*  f02d804:	316dfff7 */ 	andi	$t5,$t3,0xfff7
@@ -792,8 +792,8 @@ glabel chrUnpack
 /*  f02d844:	e4d20024 */ 	swc1	$f18,0x24($a2)
 /*  f02d848:	8fa90038 */ 	lw	$t1,0x38($sp)
 .L0f02d84c:
-/*  f02d84c:	3c0a8008 */ 	lui	$t2,%hi(g_Bodies+0x938)
-/*  f02d850:	254ad83c */ 	addiu	$t2,$t2,%lo(g_Bodies+0x938)
+/*  f02d84c:	3c0a8008 */ 	lui	$t2,%hi(g_HeadsAndBodies+0x938)
+/*  f02d850:	254ad83c */ 	addiu	$t2,$t2,%lo(g_HeadsAndBodies+0x938)
 /*  f02d854:	152a0025 */ 	bne	$t1,$t2,.L0f02d8ec
 /*  f02d858:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f02d85c:	24050004 */ 	addiu	$a1,$zero,0x4
@@ -940,7 +940,7 @@ glabel chrUnpack
 /*  f02da60:	0043001b */ 	divu	$zero,$v0,$v1
 /*  f02da64:	8fa6005c */ 	lw	$a2,0x5c($sp)
 /*  f02da68:	00006010 */ 	mfhi	$t4
-/*  f02da6c:	3c188008 */ 	lui	$t8,%hi(g_Bodies)
+/*  f02da6c:	3c188008 */ 	lui	$t8,%hi(g_HeadsAndBodies)
 /*  f02da70:	84cf0010 */ 	lh	$t7,0x10($a2)
 /*  f02da74:	a0cc02b1 */ 	sb	$t4,0x2b1($a2)
 /*  f02da78:	14600002 */ 	bnez	$v1,.L0f02da84
@@ -951,7 +951,7 @@ glabel chrUnpack
 /*  f02da88:	032fc821 */ 	addu	$t9,$t9,$t7
 /*  f02da8c:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f02da90:	0319c021 */ 	addu	$t8,$t8,$t9
-/*  f02da94:	8f18cf04 */ 	lw	$t8,%lo(g_Bodies)($t8)
+/*  f02da94:	8f18cf04 */ 	lw	$t8,%lo(g_HeadsAndBodies)($t8)
 /*  f02da98:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f02da9c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
 /*  f02daa0:	001847c2 */ 	srl	$t0,$t8,0x1f
@@ -1162,8 +1162,8 @@ glabel var7f1a8ab4
 /*  f02ddd4:	15c10081 */ 	bne	$t6,$at,.L0f02dfdc
 /*  f02ddd8:	24050014 */ 	addiu	$a1,$zero,0x14
 /*  f02dddc:	00e50019 */ 	multu	$a3,$a1
-/*  f02dde0:	3c038008 */ 	lui	$v1,%hi(g_Bodies)
-/*  f02dde4:	2463cf04 */ 	addiu	$v1,$v1,%lo(g_Bodies)
+/*  f02dde0:	3c038008 */ 	lui	$v1,%hi(g_HeadsAndBodies)
+/*  f02dde4:	2463cf04 */ 	addiu	$v1,$v1,%lo(g_HeadsAndBodies)
 /*  f02dde8:	00007812 */ 	mflo	$t7
 /*  f02ddec:	006fc021 */ 	addu	$t8,$v1,$t7
 /*  f02ddf0:	8f020000 */ 	lw	$v0,0x0($t8)

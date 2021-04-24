@@ -2449,7 +2449,7 @@ struct player {
 	/*0x00d4*/ u32 unk00d4;
 	/*0x00d8*/ bool isdead;
 	/*0x00dc*/ f32 bondhealth; // frac (range 0-1)
-	/*0x00e0*/ u32 unk00e0;
+	/*0x00e0*/ struct audiohandle *chokehandle;
 	/*0x00e4*/ f32 oldhealth;
 	/*0x00e8*/ f32 oldarmour;
 	/*0x00ec*/ f32 apparenthealth;
@@ -3162,7 +3162,7 @@ struct cheat {
 	u8 flags;
 };
 
-struct body {
+struct headorbody {
 	/*0x00*/ u16 ismale : 1;
 	/*0x00*/ u16 unk00_01 : 5;
 	/*0x00*/ u16 height : 8;

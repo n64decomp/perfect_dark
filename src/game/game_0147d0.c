@@ -104,7 +104,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					chr->tude = 0;
 					chr->voicebox = random() % 3;
 
-					if (g_Bodies[chr->bodynum].ismale == false) {
+					if (g_HeadsAndBodies[chr->bodynum].ismale == false) {
 						chr->voicebox = VOICEBOX_FEMALE;
 					}
 
