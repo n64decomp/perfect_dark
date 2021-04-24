@@ -27,7 +27,7 @@ u16 weaponGetModelNum2(s32 weaponnum);
 void handPopulateFromCurrentPlayer(s32 handnum, struct shorthand *hand);
 struct inventory_ammo *handGetAmmoDefinition(struct shorthand *hand);
 u8 handGetSingleUnk3c(struct shorthand *hand);
-f32 handGetSingleUnk34(struct shorthand *hand);
+f32 handGetStrength(struct shorthand *hand);
 f32 handGetDamage(struct shorthand *hand);
 u8 handGetSingleUnk38(struct shorthand *hand);
 u16 handGetSingleShootSound(struct shorthand *hand);

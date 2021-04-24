@@ -3039,7 +3039,7 @@ struct weaponfunc_shoot {
 	/*0x28*/ f32 recoil;
 	/*0x2c*/ f32 unk2c;
 	/*0x30*/ f32 unk30;
-	/*0x34*/ f32 unk34;
+	/*0x34*/ f32 strength;
 	/*0x38*/ u8 unk38;
 	/*0x3a*/ u16 shootsound;
 	/*0x3c*/ u8 unk3c;
@@ -5096,9 +5096,9 @@ struct animtablerow {
 };
 
 struct animtable {
-	s32 id;
-	struct animtablerow *atable;
-	struct animtablerow *btable;
+	s32 ibh;
+	struct animtablerow *deathanims;
+	struct animtablerow *injuryanims;
 	s32 count;
 	u32 unk10;
 };

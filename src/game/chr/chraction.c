@@ -225,17 +225,17 @@ u32 var80062cb4 = 0x00000000;
 u32 var80062cb8 = 0x00000000;
 s32 var80062cbc = 0;
 
-struct animtablerow g_AnimTableHumanType001_A[] = {
+struct animtablerow g_DeathAnimsHumanLfoot[] = {
 	{ 0x0020, 0, -1, 0.5, 0, 26, -1 },
 	{ 0,      0,  0, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType002_A[] = {
+struct animtablerow g_DeathAnimsHumanLshin[] = {
 	{ 0x0020, 0, -1, 0.5, 0, 26, -1 },
 	{ 0,      0,  0, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType003_A[] = {
+struct animtablerow g_DeathAnimsHumanLthigh[] = {
 	{ 0x0020, 0, -1, 0.5, 1, 26, -1  },
 	{ 0x0039, 1, -1, 0.5, 0, -1, -1  },
 	{ 0x0092, 1, -1, 0.4, 0, 42, 103 },
@@ -243,17 +243,17 @@ struct animtablerow g_AnimTableHumanType003_A[] = {
 	{ 0,      0, 0,  0.5, 0, -1, -1  },
 };
 
-struct animtablerow g_AnimTableHumanType004_A[] = {
+struct animtablerow g_DeathAnimsHumanRfoot[] = {
 	{ 0x0020, 1, -1, 0.5, 0, 26, -1 },
 	{ 0,      0, 0,  0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType005_A[] = {
+struct animtablerow g_DeathAnimsHumanRshin[] = {
 	{ 0x0020, 1, -1, 0.5, 0, 26, -1 },
 	{ 0,      0, 0,  0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType006_A[] = {
+struct animtablerow g_DeathAnimsHumanRthigh[] = {
 	{ 0x0020, 1, -1, 0.5, 1, 26, -1  },
 	{ 0x0039, 0, -1, 0.5, 0, -1, -1  },
 	{ 0x0092, 0, -1, 0.4, 0, 42, 103 },
@@ -261,7 +261,7 @@ struct animtablerow g_AnimTableHumanType006_A[] = {
 	{ 0,      0, 0,  0.5, 0, -1, -1  },
 };
 
-struct animtablerow g_AnimTableHumanType007_A[] = {
+struct animtablerow g_DeathAnimsHumanPelvis[] = {
 	{ 0x001a, 0, -1, 0.5, 0, 55,  39  },
 	{ 0x001a, 1, -1, 0.5, 0, 55,  39  },
 	{ 0x001c, 0, -1, 0.5, 1, 29,  -1  },
@@ -283,7 +283,7 @@ struct animtablerow g_AnimTableHumanType007_A[] = {
 	{ 0,      0, -1, 0.5, 0, -1,  -1  },
 };
 
-struct animtablerow g_AnimTableHumanType008_A[] = {
+struct animtablerow g_DeathAnimsHumanHead[] = {
 	{ 0x001a, 0, -1, 0.5, 0, 55,  39  },
 	{ 0x001a, 1, -1, 0.5, 0, 55,  39  },
 	{ 0x001c, 0, -1, 0.5, 1, 29,  -1  },
@@ -311,39 +311,39 @@ struct animtablerow g_AnimTableHumanType008_A[] = {
 	{ 0,      0, -1, 0.5, 0, -1,  -1  },
 };
 
-struct animtablerow g_AnimTableHumanType009_A[] = {
+struct animtablerow g_DeathAnimsHumanLhand[] = {
 	{ 0x0020, 0, -1, 0.5, 0, 26, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType010_A[] = {
+struct animtablerow g_DeathAnimsHumanForearm[] = {
 	{ 0x0020, 0, -1, 0.5, 0, 26, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType011_A[] = {
+struct animtablerow g_DeathAnimsHumanLbicep[] = {
 	{ 0x0020, 0, -1, 0.5,  1, 26, -1 },
 	{ 0x008f, 1, -1, 0.45, 1, 52, -1 },
 	{ 0,      0, -1, 0.5,  0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType012_A[] = {
+struct animtablerow g_DeathAnimsHumanRhand[] = {
 	{ 0x0020, 1, -1, 0.5, 0, 26, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType013_A[] = {
+struct animtablerow g_DeathAnimsHumanRforearm[] = {
 	{ 0x0020, 1, -1, 0.5, 0, 26, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType014_A[] = {
+struct animtablerow g_DeathAnimsHumanRbicep[] = {
 	{ 0x0020, 1, -1, 0.5,  1, 26, -1 },
 	{ 0x008f, 0, -1, 0.45, 1, 52, -1 },
 	{ 0,      0, -1, 0.5,  0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType015_A[] = {
+struct animtablerow g_DeathAnimsHumanTorso[] = {
 	{ 0x001a, 0, -1, 0.5, 0, 55, 39 },
 	{ 0x001a, 1, -1, 0.5, 0, 55, 39 },
 	{ 0x001c, 0, -1, 0.5, 1, 29, -1 },
@@ -371,7 +371,7 @@ struct animtablerow g_AnimTableHumanType015_A[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType100_A[] = {
+struct animtablerow g_DeathAnimsHumanGun[] = {
 	{ 0x001a, 0, -1, 0.5, 0, 55, 39 },
 	{ 0x001a, 1, -1, 0.5, 0, 55, 39 },
 	{ 0x001c, 0, -1, 0.5, 1, 29, -1 },
@@ -397,13 +397,13 @@ struct animtablerow g_AnimTableHumanSlumped[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType001_B[] = {
+struct animtablerow g_InjuryAnimsHumanLfoot[] = {
 	{ 0x0014, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0015, 1, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType002_B[] = {
+struct animtablerow g_InjuryAnimsHumanLshin[] = {
 	{ 0x0014, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0015, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x00bc, 0, -1, 0.5, 0, -1, -1 },
@@ -411,7 +411,7 @@ struct animtablerow g_AnimTableHumanType002_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType003_B[] = {
+struct animtablerow g_InjuryAnimsHumanLthigh[] = {
 	{ 0x0014, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0015, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x0039, 1, 20, 0.4, 0, -1, -1 },
@@ -419,21 +419,21 @@ struct animtablerow g_AnimTableHumanType003_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType004_B[] = {
+struct animtablerow g_InjuryAnimsHumanRfoot[] = {
 	{ 0x0015, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0014, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x0236, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType005_B[] = {
+struct animtablerow g_InjuryAnimsHumanRshin[] = {
 	{ 0x0015, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0014, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x00be, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType006_B[] = {
+struct animtablerow g_InjuryAnimsHumanRthigh[] = {
 	{ 0x0015, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0014, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x0039, 0, 20, 0.4, 0, -1, -1 },
@@ -441,7 +441,7 @@ struct animtablerow g_AnimTableHumanType006_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType007_B[] = {
+struct animtablerow g_InjuryAnimsHumanPelvis[] = {
 	{ 0x0022, 0, 20, 0.5,  0, -1, -1 },
 	{ 0x0022, 1, 20, 0.5,  0, -1, -1 },
 	{ 0x001a, 0, 15, 0.5,  0, -1, -1 },
@@ -453,7 +453,7 @@ struct animtablerow g_AnimTableHumanType007_B[] = {
 	{ 0,      0, -1, 0.5,  0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType008_B[] = {
+struct animtablerow g_InjuryAnimsHumanHead[] = {
 	{ 0x0022, 0, 20, 0.5, 0, -1, -1 },
 	{ 0x0022, 1, 20, 0.5, 0, -1, -1 },
 	{ 0x001a, 0, 15, 0.5, 0, -1, -1 },
@@ -465,14 +465,14 @@ struct animtablerow g_AnimTableHumanType008_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType009_B[] = {
+struct animtablerow g_InjuryAnimsHumanLhand[] = {
 	{ 0x0012, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0013, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x00b8, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType010_B[] = {
+struct animtablerow g_InjuryAnimsHumanForearm[] = {
 	{ 0x0010, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0011, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x00b4, 0, -1, 0.5, 0, -1, -1 },
@@ -480,7 +480,7 @@ struct animtablerow g_AnimTableHumanType010_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType011_B[] = {
+struct animtablerow g_InjuryAnimsHumanLbicep[] = {
 	{ 0x000e, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x000f, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x0022, 0, 20, 0.5, 0, -1, -1 },
@@ -491,20 +491,20 @@ struct animtablerow g_AnimTableHumanType011_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType012_B[] = {
+struct animtablerow g_InjuryAnimsHumanRhand[] = {
 	{ 0x0013, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0012, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x00b9, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType013_B[] = {
+struct animtablerow g_InjuryAnimsHumanRforearm[] = {
 	{ 0x0011, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0010, 1, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType014_B[] = {
+struct animtablerow g_InjuryAnimsHumanRbicep[] = {
 	{ 0x000f, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x000e, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x0022, 1, 20, 0.5, 0, -1, -1 },
@@ -516,7 +516,7 @@ struct animtablerow g_AnimTableHumanType014_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType015_B[] = {
+struct animtablerow g_InjuryAnimsHumanTorso[] = {
 	{ 0x0022, 0, 20, 0.5, 0, -1, -1 },
 	{ 0x0022, 1, 20, 0.5, 0, -1, -1 },
 	{ 0x001a, 0, 15, 0.5, 0, -1, -1 },
@@ -526,7 +526,7 @@ struct animtablerow g_AnimTableHumanType015_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableHumanType100_B[] = {
+struct animtablerow g_InjuryAnimsHumanGun[] = {
 	{ 0x0022, 0, 20, 0.5, 0, -1, -1 },
 	{ 0x0022, 1, 20, 0.5, 0, -1, -1 },
 	{ 0x001a, 0, 15, 0.5, 0, -1, -1 },
@@ -534,199 +534,199 @@ struct animtablerow g_AnimTableHumanType100_B[] = {
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType001_A[] = {
+struct animtablerow g_DeathAnimsSkedarLfoot[] = {
 	{ 0x0337, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x033c, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x033b, 1, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType002_A[] = {
+struct animtablerow g_DeathAnimsSkedarLshin[] = {
 	{ 0x0337, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x033c, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x033b, 1, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType003_A[] = {
+struct animtablerow g_DeathAnimsSkedarLthigh[] = {
 	{ 0x0337, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x033c, 1, -1, 0.5, 0, -1, -1 },
 	{ 0x033b, 1, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType004_A[] = {
+struct animtablerow g_DeathAnimsSkedarRfoot[] = {
 	{ 0x0337, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033c, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033b, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType005_A[] = {
+struct animtablerow g_DeathAnimsSkedarRshin[] = {
 	{ 0x0337, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033c, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033b, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType006_A[] = {
+struct animtablerow g_DeathAnimsSkedarRthigh[] = {
 	{ 0x0337, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033c, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033b, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType007_A[] = {
+struct animtablerow g_DeathAnimsSkedarPelvis[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType008_A[] = {
+struct animtablerow g_DeathAnimsSkedarHead[] = {
 	{ 0x0339, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x0338, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033a, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType009_A[] = {
+struct animtablerow g_DeathAnimsSkedarLhand[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType010_A[] = {
+struct animtablerow g_DeathAnimsSkedarLforearm[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType011_A[] = {
+struct animtablerow g_DeathAnimsSkedarLbicep[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType012_A[] = {
+struct animtablerow g_DeathAnimsSkedarRhand[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType013_A[] = {
+struct animtablerow g_DeathAnimsSkedarRforearm[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType014_A[] = {
+struct animtablerow g_DeathAnimsSkedarRbicep[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType015_A[] = {
+struct animtablerow g_DeathAnimsSkedarTorso[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType100_A[] = {
+struct animtablerow g_DeathAnimsSkedarGun[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType016_A[] = {
+struct animtablerow g_DeathAnimsSkedarTail[] = {
 	{ 0x0336, 0, -1, 0.5, 0, -1, -1 },
 	{ 0x033d, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType001_B[] = {
+struct animtablerow g_InjuryAnimsSkedarLfoot[] = {
 	{ 0x038e, 0, -1, 1,   0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType002_B[] = {
+struct animtablerow g_InjuryAnimsSkedarLshin[] = {
 	{ 0x0390, 0, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType003_B[] = {
+struct animtablerow g_InjuryAnimsSkedarLthigh[] = {
 	{ 0x0390, 0, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType004_B[] = {
+struct animtablerow g_InjuryAnimsSkedarRfoot[] = {
 	{ 0x038e, 1, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType005_B[] = {
+struct animtablerow g_InjuryAnimsSkedarRshin[] = {
 	{ 0x0390, 1, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType006_B[] = {
+struct animtablerow g_InjuryAnimsSkedarRthigh[] = {
 	{ 0x0390, 1, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType007_B[] = {
+struct animtablerow g_InjuryAnimsSkedarPelvis[] = {
 	{ 0x038c, 0, -1, 0.9, 0, -1, -1 },
 	{ 0x038c, 1, -1, 0.9, 0, -1, -1 },
 	{ 0x0341, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType008_B[] = {
+struct animtablerow g_InjuryAnimsSkedarHead[] = {
 	{ 0x0341, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType009_B[] = {
+struct animtablerow g_InjuryAnimsSkedarLhand[] = {
 	{ 0x0343, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType010_B[] = {
+struct animtablerow g_InjuryAnimsSkedarLforearm[] = {
 	{ 0x038b, 0, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType011_B[] = {
+struct animtablerow g_InjuryAnimsSkedarLbicep[] = {
 	{ 0x038b, 0, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType012_B[] = {
+struct animtablerow g_InjuryAnimsSkedarRhand[] = {
 	{ 0x0343, 1, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType013_B[] = {
+struct animtablerow g_InjuryAnimsSkedarRforearm[] = {
 	{ 0x038b, 1, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType014_B[] = {
+struct animtablerow g_InjuryAnimsSkedarRbicep[] = {
 	{ 0x038b, 1, -1, 0.9, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType015_B[] = {
+struct animtablerow g_InjuryAnimsSkedarTorso[] = {
 	{ 0x038c, 0, -1, 0.9, 0, -1, -1 },
 	{ 0x038c, 1, -1, 0.9, 0, -1, -1 },
 	{ 0x0341, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType100_B[] = {
+struct animtablerow g_InjuryAnimsSkedarGun[] = {
 	{ 0x0343, 0, -1, 0.5, 0, -1, -1 },
 	{ 0,      0, -1, 0.5, 0, -1, -1 },
 };
 
-struct animtablerow g_AnimTableSkedarType016_B[] = {
+struct animtablerow g_InjuryAnimsSkedarTail[] = {
 	{ 0x0341, 0, -1, 0.5, 0, -1,  -1  },
 	{ 0,      0, -1, 0.5, 0, -1,  -1  },
 };
@@ -745,48 +745,48 @@ struct animtablerow g_SpecialDieAnims[] = {
 };
 
 struct animtable g_AnimTablesHuman[] = {
-	{ 0,   NULL,        NULL,        0, 0 },
-	{ 1,   g_AnimTableHumanType001_A, g_AnimTableHumanType001_B, 0, 0 },
-	{ 2,   g_AnimTableHumanType002_A, g_AnimTableHumanType002_B, 0, 0 },
-	{ 3,   g_AnimTableHumanType003_A, g_AnimTableHumanType003_B, 0, 0 },
-	{ 4,   g_AnimTableHumanType004_A, g_AnimTableHumanType004_B, 0, 0 },
-	{ 5,   g_AnimTableHumanType005_A, g_AnimTableHumanType005_B, 0, 0 },
-	{ 6,   g_AnimTableHumanType006_A, g_AnimTableHumanType006_B, 0, 0 },
-	{ 7,   g_AnimTableHumanType007_A, g_AnimTableHumanType007_B, 0, 0 },
-	{ 8,   g_AnimTableHumanType008_A, g_AnimTableHumanType008_B, 0, 0 },
-	{ 9,   g_AnimTableHumanType009_A, g_AnimTableHumanType009_B, 0, 0 },
-	{ 10,  g_AnimTableHumanType010_A, g_AnimTableHumanType010_B, 0, 0 },
-	{ 11,  g_AnimTableHumanType011_A, g_AnimTableHumanType011_B, 0, 0 },
-	{ 12,  g_AnimTableHumanType012_A, g_AnimTableHumanType012_B, 0, 0 },
-	{ 13,  g_AnimTableHumanType013_A, g_AnimTableHumanType013_B, 0, 0 },
-	{ 14,  g_AnimTableHumanType014_A, g_AnimTableHumanType014_B, 0, 0 },
-	{ 15,  g_AnimTableHumanType015_A, g_AnimTableHumanType015_B, 0, 0 },
-	{ 100, g_AnimTableHumanType100_A, g_AnimTableHumanType100_B, 0, 0 },
-	{ 110, NULL,        NULL,        0, 0 },
-	{ -1,  NULL,        NULL,        0, 0 },
+	{ 0,            NULL,                      NULL,                       0, 0 },
+	{ IBH_LFOOT,    g_DeathAnimsHumanLfoot,    g_InjuryAnimsHumanLfoot,    0, 0 },
+	{ IBH_LSHIN,    g_DeathAnimsHumanLshin,    g_InjuryAnimsHumanLshin,    0, 0 },
+	{ IBH_LTHIGH,   g_DeathAnimsHumanLthigh,   g_InjuryAnimsHumanLthigh,   0, 0 },
+	{ IBH_RFOOT,    g_DeathAnimsHumanRfoot,    g_InjuryAnimsHumanRfoot,    0, 0 },
+	{ IBH_RSHIN,    g_DeathAnimsHumanRshin,    g_InjuryAnimsHumanRshin,    0, 0 },
+	{ IBH_RTHIGH,   g_DeathAnimsHumanRthigh,   g_InjuryAnimsHumanRthigh,   0, 0 },
+	{ IBH_PELVIS,   g_DeathAnimsHumanPelvis,   g_InjuryAnimsHumanPelvis,   0, 0 },
+	{ IBH_HEAD,     g_DeathAnimsHumanHead,     g_InjuryAnimsHumanHead,     0, 0 },
+	{ IBH_LHAND,    g_DeathAnimsHumanLhand,    g_InjuryAnimsHumanLhand,    0, 0 },
+	{ IBH_LFOREARM, g_DeathAnimsHumanForearm,  g_InjuryAnimsHumanForearm,  0, 0 },
+	{ IBH_LBICEP,   g_DeathAnimsHumanLbicep,   g_InjuryAnimsHumanLbicep,   0, 0 },
+	{ IBH_RHAND,    g_DeathAnimsHumanRhand,    g_InjuryAnimsHumanRhand,    0, 0 },
+	{ IBH_RFOREARM, g_DeathAnimsHumanRforearm, g_InjuryAnimsHumanRforearm, 0, 0 },
+	{ IBH_RBICEP,   g_DeathAnimsHumanRbicep,   g_InjuryAnimsHumanRbicep,   0, 0 },
+	{ IBH_TORSO,    g_DeathAnimsHumanTorso,    g_InjuryAnimsHumanTorso,    0, 0 },
+	{ IBH_GUN,      g_DeathAnimsHumanGun,      g_InjuryAnimsHumanGun,      0, 0 },
+	{ IBH_HAT,      NULL,                      NULL,                       0, 0 },
+	{ -1,           NULL,                      NULL,                       0, 0 },
 };
 
 struct animtable g_AnimTablesSkedar[] = {
-	{ 0,   NULL,        NULL,        0, 0 },
-	{ 1,   g_AnimTableSkedarType001_A, g_AnimTableSkedarType001_B, 0, 0 },
-	{ 2,   g_AnimTableSkedarType002_A, g_AnimTableSkedarType002_B, 0, 0 },
-	{ 3,   g_AnimTableSkedarType003_A, g_AnimTableSkedarType003_B, 0, 0 },
-	{ 4,   g_AnimTableSkedarType004_A, g_AnimTableSkedarType004_B, 0, 0 },
-	{ 5,   g_AnimTableSkedarType005_A, g_AnimTableSkedarType005_B, 0, 0 },
-	{ 6,   g_AnimTableSkedarType006_A, g_AnimTableSkedarType006_B, 0, 0 },
-	{ 7,   g_AnimTableSkedarType007_A, g_AnimTableSkedarType007_B, 0, 0 },
-	{ 8,   g_AnimTableSkedarType008_A, g_AnimTableSkedarType008_B, 0, 0 },
-	{ 9,   g_AnimTableSkedarType009_A, g_AnimTableSkedarType009_B, 0, 0 },
-	{ 10,  g_AnimTableSkedarType010_A, g_AnimTableSkedarType010_B, 0, 0 },
-	{ 11,  g_AnimTableSkedarType011_A, g_AnimTableSkedarType011_B, 0, 0 },
-	{ 12,  g_AnimTableSkedarType012_A, g_AnimTableSkedarType012_B, 0, 0 },
-	{ 13,  g_AnimTableSkedarType013_A, g_AnimTableSkedarType013_B, 0, 0 },
-	{ 14,  g_AnimTableSkedarType014_A, g_AnimTableSkedarType014_B, 0, 0 },
-	{ 15,  g_AnimTableSkedarType015_A, g_AnimTableSkedarType015_B, 0, 0 },
-	{ 100, g_AnimTableSkedarType100_A, g_AnimTableSkedarType100_B, 0, 0 },
-	{ 110, g_AnimTableSkedarType008_A, g_AnimTableSkedarType008_B, 0, 0 },
-	{ 16,  g_AnimTableSkedarType016_A, g_AnimTableSkedarType016_B, 0, 0 },
-	{ -1,  NULL,        NULL,        0, 0 },
+	{ 0,            NULL,                       NULL,                        0, 0 },
+	{ IBH_LFOOT,    g_DeathAnimsSkedarLfoot,    g_InjuryAnimsSkedarLfoot,    0, 0 },
+	{ IBH_LSHIN,    g_DeathAnimsSkedarLshin,    g_InjuryAnimsSkedarLshin,    0, 0 },
+	{ IBH_LTHIGH,   g_DeathAnimsSkedarLthigh,   g_InjuryAnimsSkedarLthigh,   0, 0 },
+	{ IBH_RFOOT,    g_DeathAnimsSkedarRfoot,    g_InjuryAnimsSkedarRfoot,    0, 0 },
+	{ IBH_RSHIN,    g_DeathAnimsSkedarRshin,    g_InjuryAnimsSkedarRshin,    0, 0 },
+	{ IBH_RTHIGH,   g_DeathAnimsSkedarRthigh,   g_InjuryAnimsSkedarRthigh,   0, 0 },
+	{ IBH_PELVIS,   g_DeathAnimsSkedarPelvis,   g_InjuryAnimsSkedarPelvis,   0, 0 },
+	{ IBH_HEAD,     g_DeathAnimsSkedarHead,     g_InjuryAnimsSkedarHead,     0, 0 },
+	{ IBH_LHAND,    g_DeathAnimsSkedarLhand,    g_InjuryAnimsSkedarLhand,    0, 0 },
+	{ IBH_LFOREARM, g_DeathAnimsSkedarLforearm, g_InjuryAnimsSkedarLforearm, 0, 0 },
+	{ IBH_LBICEP,   g_DeathAnimsSkedarLbicep,   g_InjuryAnimsSkedarLbicep,   0, 0 },
+	{ IBH_RHAND,    g_DeathAnimsSkedarRhand,    g_InjuryAnimsSkedarRhand,    0, 0 },
+	{ IBH_RFOREARM, g_DeathAnimsSkedarRforearm, g_InjuryAnimsSkedarRforearm, 0, 0 },
+	{ IBH_RBICEP,   g_DeathAnimsSkedarRbicep,   g_InjuryAnimsSkedarRbicep,   0, 0 },
+	{ IBH_TORSO,    g_DeathAnimsSkedarTorso,    g_InjuryAnimsSkedarTorso,    0, 0 },
+	{ IBH_GUN,      g_DeathAnimsSkedarGun,      g_InjuryAnimsSkedarGun,      0, 0 },
+	{ IBH_HAT,      g_DeathAnimsSkedarHead,     g_InjuryAnimsSkedarHead,     0, 0 },
+	{ IBH_TAIL,     g_DeathAnimsSkedarTail,     g_InjuryAnimsSkedarTail,     0, 0 },
+	{ -1,           NULL,                       NULL,                        0, 0 },
 };
 
 struct animtable g_AnimTablesDrCaroll[] = {
@@ -804,7 +804,7 @@ struct animtable g_AnimTablesRobot[] = {
 	{ -1, NULL, NULL, 0, 0 },
 };
 
-struct animtable *g_AnimTablesByRace[NUM_RACES] = {
+struct animtable *g_AnimTablesByRace[] = {
 	g_AnimTablesHuman,
 	g_AnimTablesSkedar,
 	g_AnimTablesDrCaroll,
@@ -4345,7 +4345,7 @@ u8 var80068080 = 50;
  * - Updating kill statistics
  * - Dropping items
  */
-void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tableid, struct shorthand *hand, bool knockout, s32 aplayernum)
+void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh, struct shorthand *hand, bool knockout, s32 aplayernum)
 {
 	bool overridden = false;
 	bool instant;
@@ -4459,8 +4459,8 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 	// instant = whether to merge into death animation or switch to it instantly
 	instant = chr->actiontype == ACT_ARGH && chr->act_argh.unk030 == g_Vars.lvframe60;
 
-	for (i = 0; g_AnimTablesByRace[race][i].id != -1; i++) {
-		if (g_AnimTablesByRace[race][i].id == tableid) {
+	for (i = 0; g_AnimTablesByRace[race][i].ibh != -1; i++) {
+		if (g_AnimTablesByRace[race][i].ibh == ibh) {
 			index = i;
 			break;
 		}
@@ -4493,7 +4493,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 
 	// Handle robots and Dr Caroll then return early
 	if (race == RACE_ROBOT || race == RACE_DRCAROLL) {
-		mult1 = handGetSingleUnk34(hand) * 0.5f;
+		mult1 = handGetStrength(hand) * 0.5f;
 
 		if (mult1 <= 0) {
 			mult1 = 3;
@@ -4591,13 +4591,13 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 
 				overridden = true;
 
-				if (tableid == 11 || tableid == 14) {
+				if (ibh == IBH_LBICEP || ibh == IBH_RBICEP) {
 					row = &rows[0];
 
-					if (tableid == 11) {
-						flip = 1;
+					if (ibh == IBH_LBICEP) {
+						flip = true;
 					} else {
-						flip = 0;
+						flip = false;
 					}
 				} else {
 					row = &rows[1];
@@ -4621,14 +4621,14 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 			if (!overridden && index >= 0) {
 				// Handle specialdie animations or choose a random one if not
 				// using specialdie
-				if (g_AnimTablesByRace[race][index].atable
+				if (g_AnimTablesByRace[race][index].deathanims
 						&& g_AnimTablesByRace[race][index].count > 0
 						&& !wasknockedout) {
 					struct animtablerow *row;
 
 					if (chr->specialdie == SPECIALDIE_NONE) {
 						s32 tmp = random() % g_AnimTablesByRace[race][index].count;
-						row = &g_AnimTablesByRace[race][index].atable[tmp];
+						row = &g_AnimTablesByRace[race][index].deathanims[tmp];
 					} else if (chr->specialdie == SPECIALDIE_ONCHAIR) {
 						row = &g_SpecialDieAnims[chr->specialdie + random() % 2];
 
@@ -4665,7 +4665,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 						modelSetAnimEndFrame(model, row->endframe);
 					}
 
-					mult2 = handGetSingleUnk34(hand);
+					mult2 = handGetStrength(hand);
 
 					if (mult2 <= 0 && (chr->chrflags & CHRCFLAG_00008000)) {
 						mult2 = 6;
@@ -4688,7 +4688,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 
 		if (relangle > 2.3558194637299f && relangle < 3.9263656139374f) {
 			// Player is behind the Skedar - use specific set of anims
-			row = &g_AnimTablesByRace[race][1 + (random() % 6)].atable[random() % 3];
+			row = &g_AnimTablesByRace[race][1 + (random() % 6)].deathanims[random() % 3];
 
 			chr->act_die.thudframe1 = row->thudframe1;
 			chr->act_die.thudframe2 = row->thudframe2;
@@ -4701,12 +4701,12 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 		} else {
 			// Normal Skedar death
 			if (index >= 0
-					&& g_AnimTablesByRace[race][index].atable != NULL
+					&& g_AnimTablesByRace[race][index].deathanims != NULL
 					&& g_AnimTablesByRace[race][index].count > 0) {
 				s32 tmp = random() % g_AnimTablesByRace[race][index].count;
-				row = &g_AnimTablesByRace[race][index].atable[tmp];
+				row = &g_AnimTablesByRace[race][index].deathanims[tmp];
 			} else {
-				row = &g_AnimTablesByRace[race][0].atable[0];
+				row = &g_AnimTablesByRace[race][0].deathanims[0];
 			}
 
 			chr->act_die.thudframe1 = row->thudframe1;
@@ -4718,7 +4718,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tab
 				modelSetAnimEndFrame(model, row->endframe);
 			}
 
-			mult3 = handGetSingleUnk34(hand);
+			mult3 = handGetStrength(hand);
 
 			if (mult3 <= 0 && (chr->chrflags & CHRCFLAG_00008000)) {
 				mult3 = 6;
@@ -5183,350 +5183,74 @@ glabel var7f1a8d4c
 /*  f032fe0:	00000000 */ 	nop
 );
 
+void chrBeginArgh(struct chrdata *chr, struct coord *vector, f32 angle, s32 ibh, struct shorthand *hand, s32 aplayernum)
+{
+	s32 race = CHRRACE(chr);
+	bool knockedout = false;
+	s32 animnum = modelGetAnimNum(chr->model);
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f032fe4
-/*  f032fe4:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f032fe8:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f032fec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f032ff0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f032ff4:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f032ff8:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f032ffc:	10800003 */ 	beqz	$a0,.L0f03300c
-/*  f033000:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f033004:	10000002 */ 	b	.L0f033010
-/*  f033008:	908302fe */ 	lbu	$v1,0x2fe($a0)
-.L0f03300c:
-/*  f03300c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f033010:
-/*  f033010:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f033014:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f033018:	0c00744f */ 	jal	modelGetAnimNum
-/*  f03301c:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f033020:	820e0007 */ 	lb	$t6,0x7($s0)
-/*  f033024:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f033028:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f03302c:	15c10003 */ 	bne	$t6,$at,.L0f03303c
-/*  f033030:	00402825 */ 	or	$a1,$v0,$zero
-/*  f033034:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f033038:	afaf0038 */ 	sw	$t7,0x38($sp)
-.L0f03303c:
-/*  f03303c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f033040:	14610024 */ 	bne	$v1,$at,.L0f0330d4
-/*  f033044:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f033048:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f03304c:	0fc2c73a */ 	jal	handGetSingleUnk34
-/*  f033050:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f033054:	02002025 */ 	or	$a0,$s0,$zero
-/*  f033058:	0fc0f011 */ 	jal	chrToEyespy
-/*  f03305c:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f033060:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f033064:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f033068:	1040001a */ 	beqz	$v0,.L0f0330d4
-/*  f03306c:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f033070:	44806000 */ 	mtc1	$zero,$f12
-/*  f033074:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f033078:	460c103e */ 	c.le.s	$f2,$f12
-/*  f03307c:	00000000 */ 	nop
-/*  f033080:	45020004 */ 	bc1fl	.L0f033094
-/*  f033084:	3c014080 */ 	lui	$at,0x4080
-/*  f033088:	44811000 */ 	mtc1	$at,$f2
-/*  f03308c:	00000000 */ 	nop
-/*  f033090:	3c014080 */ 	lui	$at,0x4080
-.L0f033094:
-/*  f033094:	44812000 */ 	mtc1	$at,$f4
-/*  f033098:	24180004 */ 	addiu	$t8,$zero,0x4
-/*  f03309c:	a0580069 */ 	sb	$t8,0x69($v0)
-/*  f0330a0:	46041082 */ 	mul.s	$f2,$f2,$f4
-/*  f0330a4:	8fb90044 */ 	lw	$t9,0x44($sp)
-/*  f0330a8:	c4460040 */ 	lwc1	$f6,0x40($v0)
-/*  f0330ac:	c4520048 */ 	lwc1	$f18,0x48($v0)
-/*  f0330b0:	c7280000 */ 	lwc1	$f8,0x0($t9)
-/*  f0330b4:	46024282 */ 	mul.s	$f10,$f8,$f2
-/*  f0330b8:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f0330bc:	e4500040 */ 	swc1	$f16,0x40($v0)
-/*  f0330c0:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*  f0330c4:	c5040008 */ 	lwc1	$f4,0x8($t0)
-/*  f0330c8:	46022202 */ 	mul.s	$f8,$f4,$f2
-/*  f0330cc:	46089180 */ 	add.s	$f6,$f18,$f8
-/*  f0330d0:	e4460048 */ 	swc1	$f6,0x48($v0)
-.L0f0330d4:
-/*  f0330d4:	c60a0100 */ 	lwc1	$f10,0x100($s0)
-/*  f0330d8:	c6100104 */ 	lwc1	$f16,0x104($s0)
-/*  f0330dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0330e0:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f0330e4:	460a803e */ 	c.le.s	$f16,$f10
-/*  f0330e8:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f0330ec:	8fa90050 */ 	lw	$t1,0x50($sp)
-/*  f0330f0:	24010269 */ 	addiu	$at,$zero,0x269
-/*  f0330f4:	45000009 */ 	bc1f	.L0f03311c
-/*  f0330f8:	00000000 */ 	nop
-/*  f0330fc:	8faa0054 */ 	lw	$t2,0x54($sp)
-/*  f033100:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f033104:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f033108:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f03310c:	0fc0c66a */ 	jal	chrBeginDeath
-/*  f033110:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f033114:	10000045 */ 	b	.L0f03322c
-/*  f033118:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f03311c:
-/*  f03311c:	10a10005 */ 	beq	$a1,$at,.L0f033134
-/*  f033120:	2401026b */ 	addiu	$at,$zero,0x26b
-/*  f033124:	10a10003 */ 	beq	$a1,$at,.L0f033134
-/*  f033128:	2401026a */ 	addiu	$at,$zero,0x26a
-/*  f03312c:	54a10006 */ 	bnel	$a1,$at,.L0f033148
-/*  f033130:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f033134:
-/*  f033134:	0fc084cf */ 	jal	chrFlinchBody
-/*  f033138:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03313c:	1000003b */ 	b	.L0f03322c
-/*  f033140:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f033144:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f033148:
-/*  f033148:	10610037 */ 	beq	$v1,$at,.L0f033228
-/*  f03314c:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f033150:	10620003 */ 	beq	$v1,$v0,.L0f033160
-/*  f033154:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f033158:	1461002e */ 	bne	$v1,$at,.L0f033214
-/*  f03315c:	8fab0038 */ 	lw	$t3,0x38($sp)
-.L0f033160:
-/*  f033160:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f033164:	0fc2c73a */ 	jal	handGetSingleUnk34
-/*  f033168:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f03316c:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f033170:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f033174:	44806000 */ 	mtc1	$zero,$f12
-/*  f033178:	14620006 */ 	bne	$v1,$v0,.L0f033194
-/*  f03317c:	46000086 */ 	mov.s	$f2,$f0
-/*  f033180:	3c013f00 */ 	lui	$at,0x3f00
-/*  f033184:	44812000 */ 	mtc1	$at,$f4
-/*  f033188:	00000000 */ 	nop
-/*  f03318c:	46040082 */ 	mul.s	$f2,$f0,$f4
-/*  f033190:	00000000 */ 	nop
-.L0f033194:
-/*  f033194:	460c103e */ 	c.le.s	$f2,$f12
-/*  f033198:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f03319c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0331a0:	45020004 */ 	bc1fl	.L0f0331b4
-/*  f0331a4:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f0331a8:	44811000 */ 	mtc1	$at,$f2
-/*  f0331ac:	00000000 */ 	nop
-/*  f0331b0:	4602603c */ 	c.lt.s	$f12,$f2
-.L0f0331b4:
-/*  f0331b4:	3c014170 */ 	lui	$at,0x4170
-/*  f0331b8:	4500000f */ 	bc1f	.L0f0331f8
-/*  f0331bc:	00000000 */ 	nop
-/*  f0331c0:	44819000 */ 	mtc1	$at,$f18
-/*  f0331c4:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0331c8:	e60c02ec */ 	swc1	$f12,0x2ec($s0)
-/*  f0331cc:	46121202 */ 	mul.s	$f8,$f2,$f18
-/*  f0331d0:	e60802e8 */ 	swc1	$f8,0x2e8($s0)
-/*  f0331d4:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f0331d8:	46023282 */ 	mul.s	$f10,$f6,$f2
-/*  f0331dc:	e60a02f0 */ 	swc1	$f10,0x2f0($s0)
-/*  f0331e0:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*  f0331e4:	46028102 */ 	mul.s	$f4,$f16,$f2
-/*  f0331e8:	e60402f4 */ 	swc1	$f4,0x2f4($s0)
-/*  f0331ec:	c4920008 */ 	lwc1	$f18,0x8($a0)
-/*  f0331f0:	46029202 */ 	mul.s	$f8,$f18,$f2
-/*  f0331f4:	e60802f8 */ 	swc1	$f8,0x2f8($s0)
-.L0f0331f8:
-/*  f0331f8:	5462000c */ 	bnel	$v1,$v0,.L0f03322c
-/*  f0331fc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f033200:	44056000 */ 	mfc1	$a1,$f12
-/*  f033204:	0fc0cab1 */ 	jal	func0f032ac4
-/*  f033208:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03320c:	10000007 */ 	b	.L0f03322c
-/*  f033210:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f033214:
-/*  f033214:	15600004 */ 	bnez	$t3,.L0f033228
-/*  f033218:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03321c:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f033220:	0fc0cab1 */ 	jal	func0f032ac4
-/*  f033224:	8fa6004c */ 	lw	$a2,0x4c($sp)
-.L0f033228:
-/*  f033228:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f03322c:
-/*  f03322c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f033230:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f033234:	03e00008 */ 	jr	$ra
-/*  f033238:	00000000 */ 	nop
-);
+	if (chr->actiontype == ACT_DRUGGEDKO)
 #else
-GLOBAL_ASM(
-glabel func0f032fe4
-/*  f032910:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f032914:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f032918:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03291c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f032920:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f032924:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f032928:	10800003 */ 	beqz	$a0,.NB0f032938
-/*  f03292c:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*  f032930:	10000002 */ 	beqz	$zero,.NB0f03293c
-/*  f032934:	908502fe */ 	lbu	$a1,0x2fe($a0)
-.NB0f032938:
-/*  f032938:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f03293c:
-/*  f03293c:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f032940:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f032944:	0c00786f */ 	jal	modelGetAnimNum
-/*  f032948:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f03294c:	82030007 */ 	lb	$v1,0x7($s0)
-/*  f032950:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f032954:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f032958:	10610005 */ 	beq	$v1,$at,.NB0f032970
-/*  f03295c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f032960:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f032964:	10610002 */ 	beq	$v1,$at,.NB0f032970
-/*  f032968:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f03296c:	14610002 */ 	bne	$v1,$at,.NB0f032978
-.NB0f032970:
-/*  f032970:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f032974:	afae0038 */ 	sw	$t6,0x38($sp)
-.NB0f032978:
-/*  f032978:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03297c:	14a10024 */ 	bne	$a1,$at,.NB0f032a10
-/*  f032980:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f032984:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f032988:	0fc2be92 */ 	jal	handGetSingleUnk34
-/*  f03298c:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f032990:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032994:	0fc0ee10 */ 	jal	chrToEyespy
-/*  f032998:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f03299c:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f0329a0:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f0329a4:	1040001a */ 	beqz	$v0,.NB0f032a10
-/*  f0329a8:	c7a20030 */ 	lwc1	$f2,0x30($sp)
-/*  f0329ac:	44806000 */ 	mtc1	$zero,$f12
-/*  f0329b0:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f0329b4:	460c103e */ 	c.le.s	$f2,$f12
-/*  f0329b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0329bc:	45020004 */ 	bc1fl	.NB0f0329d0
-/*  f0329c0:	3c014080 */ 	lui	$at,0x4080
-/*  f0329c4:	44811000 */ 	mtc1	$at,$f2
-/*  f0329c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0329cc:	3c014080 */ 	lui	$at,0x4080
-.NB0f0329d0:
-/*  f0329d0:	44812000 */ 	mtc1	$at,$f4
-/*  f0329d4:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*  f0329d8:	a04f0069 */ 	sb	$t7,0x69($v0)
-/*  f0329dc:	46041082 */ 	mul.s	$f2,$f2,$f4
-/*  f0329e0:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f0329e4:	c4460040 */ 	lwc1	$f6,0x40($v0)
-/*  f0329e8:	c4520048 */ 	lwc1	$f18,0x48($v0)
-/*  f0329ec:	c7080000 */ 	lwc1	$f8,0x0($t8)
-/*  f0329f0:	46024282 */ 	mul.s	$f10,$f8,$f2
-/*  f0329f4:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f0329f8:	e4500040 */ 	swc1	$f16,0x40($v0)
-/*  f0329fc:	8fb90044 */ 	lw	$t9,0x44($sp)
-/*  f032a00:	c7240008 */ 	lwc1	$f4,0x8($t9)
-/*  f032a04:	46022202 */ 	mul.s	$f8,$f4,$f2
-/*  f032a08:	46089180 */ 	add.s	$f6,$f18,$f8
-/*  f032a0c:	e4460048 */ 	swc1	$f6,0x48($v0)
-.NB0f032a10:
-/*  f032a10:	c60a0100 */ 	lwc1	$f10,0x100($s0)
-/*  f032a14:	c6100104 */ 	lwc1	$f16,0x104($s0)
-/*  f032a18:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032a1c:	8fa7004c */ 	lw	$a3,0x4c($sp)
-/*  f032a20:	460a803e */ 	c.le.s	$f16,$f10
-/*  f032a24:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f032a28:	24010269 */ 	addiu	$at,$zero,0x269
-/*  f032a2c:	4500000a */ 	bc1f	.NB0f032a58
-/*  f032a30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f032a34:	8fa90054 */ 	lw	$t1,0x54($sp)
-/*  f032a38:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*  f032a3c:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f032a40:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f032a44:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f032a48:	0fc0c4ba */ 	jal	chrBeginDeath
-/*  f032a4c:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f032a50:	10000045 */ 	beqz	$zero,.NB0f032b68
-/*  f032a54:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f032a58:
-/*  f032a58:	10c10005 */ 	beq	$a2,$at,.NB0f032a70
-/*  f032a5c:	2401026b */ 	addiu	$at,$zero,0x26b
-/*  f032a60:	10c10003 */ 	beq	$a2,$at,.NB0f032a70
-/*  f032a64:	2401026a */ 	addiu	$at,$zero,0x26a
-/*  f032a68:	54c10006 */ 	bnel	$a2,$at,.NB0f032a84
-/*  f032a6c:	24010003 */ 	addiu	$at,$zero,0x3
-.NB0f032a70:
-/*  f032a70:	0fc0839f */ 	jal	chrFlinchBody
-/*  f032a74:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032a78:	1000003b */ 	beqz	$zero,.NB0f032b68
-/*  f032a7c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f032a80:	24010003 */ 	addiu	$at,$zero,0x3
-.NB0f032a84:
-/*  f032a84:	10a10037 */ 	beq	$a1,$at,.NB0f032b64
-/*  f032a88:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f032a8c:	10a20003 */ 	beq	$a1,$v0,.NB0f032a9c
-/*  f032a90:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f032a94:	14a1002e */ 	bne	$a1,$at,.NB0f032b50
-/*  f032a98:	8faa0038 */ 	lw	$t2,0x38($sp)
-.NB0f032a9c:
-/*  f032a9c:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f032aa0:	0fc2be92 */ 	jal	handGetSingleUnk34
-/*  f032aa4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f032aa8:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f032aac:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f032ab0:	44806000 */ 	mtc1	$zero,$f12
-/*  f032ab4:	14a20006 */ 	bne	$a1,$v0,.NB0f032ad0
-/*  f032ab8:	46000086 */ 	mov.s	$f2,$f0
-/*  f032abc:	3c013f00 */ 	lui	$at,0x3f00
-/*  f032ac0:	44812000 */ 	mtc1	$at,$f4
-/*  f032ac4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f032ac8:	46040082 */ 	mul.s	$f2,$f0,$f4
-/*  f032acc:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f032ad0:
-/*  f032ad0:	460c103e */ 	c.le.s	$f2,$f12
-/*  f032ad4:	3c0140c0 */ 	lui	$at,0x40c0
-/*  f032ad8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032adc:	45020004 */ 	bc1fl	.NB0f032af0
-/*  f032ae0:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f032ae4:	44811000 */ 	mtc1	$at,$f2
-/*  f032ae8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f032aec:	4602603c */ 	c.lt.s	$f12,$f2
-.NB0f032af0:
-/*  f032af0:	3c014170 */ 	lui	$at,0x4170
-/*  f032af4:	4500000f */ 	bc1f	.NB0f032b34
-/*  f032af8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f032afc:	44819000 */ 	mtc1	$at,$f18
-/*  f032b00:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f032b04:	e60c02ec */ 	swc1	$f12,0x2ec($s0)
-/*  f032b08:	46121202 */ 	mul.s	$f8,$f2,$f18
-/*  f032b0c:	e60802e8 */ 	swc1	$f8,0x2e8($s0)
-/*  f032b10:	c4660000 */ 	lwc1	$f6,0x0($v1)
-/*  f032b14:	46023282 */ 	mul.s	$f10,$f6,$f2
-/*  f032b18:	e60a02f0 */ 	swc1	$f10,0x2f0($s0)
-/*  f032b1c:	c4700004 */ 	lwc1	$f16,0x4($v1)
-/*  f032b20:	46028102 */ 	mul.s	$f4,$f16,$f2
-/*  f032b24:	e60402f4 */ 	swc1	$f4,0x2f4($s0)
-/*  f032b28:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f032b2c:	46029202 */ 	mul.s	$f8,$f18,$f2
-/*  f032b30:	e60802f8 */ 	swc1	$f8,0x2f8($s0)
-.NB0f032b34:
-/*  f032b34:	54a2000c */ 	bnel	$a1,$v0,.NB0f032b68
-/*  f032b38:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f032b3c:	44056000 */ 	mfc1	$a1,$f12
-/*  f032b40:	0fc0c8fc */ 	jal	func0f032ac4
-/*  f032b44:	00003025 */ 	or	$a2,$zero,$zero
-/*  f032b48:	10000007 */ 	beqz	$zero,.NB0f032b68
-/*  f032b4c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f032b50:
-/*  f032b50:	15400004 */ 	bnez	$t2,.NB0f032b64
-/*  f032b54:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032b58:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f032b5c:	0fc0c8fc */ 	jal	func0f032ac4
-/*  f032b60:	8fa6004c */ 	lw	$a2,0x4c($sp)
-.NB0f032b64:
-/*  f032b64:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f032b68:
-/*  f032b68:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f032b6c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f032b70:	03e00008 */ 	jr	$ra
-/*  f032b74:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	if (chr->actiontype == ACT_DRUGGEDCOMINGUP
+			|| chr->actiontype == ACT_DRUGGEDDROP
+			|| chr->actiontype == ACT_DRUGGEDKO)
 #endif
+	{
+		knockedout = true;
+	}
+
+	if (race == RACE_EYESPY) {
+		f32 strength = handGetStrength(hand);
+		struct eyespy *eyespy = chrToEyespy(chr);
+
+		if (eyespy) {
+			if (strength <= 0) {
+				strength = 6;
+			}
+
+			strength *= 4;
+
+			eyespy->hit = 4;
+			eyespy->vel.x += vector->x * strength;
+			eyespy->vel.z += vector->z * strength;
+		}
+	}
+
+	if (chr->damage >= chr->maxdamage) {
+		chrBeginDeath(chr, vector, angle, ibh, hand, false, aplayernum);
+	} else if (animnum == ANIM_SNIPING_0269
+			|| animnum == ANIM_SNIPING_026B
+			|| animnum == ANIM_SNIPING_026A) {
+		chrFlinchBody(chr);
+	} else if (race == RACE_EYESPY) {
+		// empty
+	} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
+		f32 strength = handGetStrength(hand);
+
+		if (race == RACE_DRCAROLL) {
+			strength *= 0.5f;
+		}
+
+		if (strength <= 0) {
+			strength = 6;
+		}
+
+		if (strength > 0) {
+			chr->elapseextra = 0;
+			chr->timeextra = strength * 15;
+			chr->extraspeed.x = vector->x * strength;
+			chr->extraspeed.y = vector->y * strength;
+			chr->extraspeed.z = vector->z * strength;
+		}
+
+		if (race == RACE_DRCAROLL) {
+			func0f032ac4(chr, 0, 0);
+		}
+	} else if (!knockedout) {
+		func0f032ac4(chr, angle, ibh);
+	}
+}
 
 /**
  * Launch a chr away from the given pos (for explosions).
@@ -7019,7 +6743,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 							chr->sleep = 0;
 						} else {
-							func0f032fe4(chr, vector, angle, ibh, hand, aplayernum);
+							chrBeginArgh(chr, vector, angle, ibh, hand, aplayernum);
 						}
 					}
 				}
@@ -12861,7 +12585,7 @@ void chrTickPreArgh(struct chrdata *chr)
 		pos.y = chr->act_preargh.pos.y;
 		pos.z = chr->act_preargh.pos.z;
 
-		func0f032fe4(chr, &pos,
+		chrBeginArgh(chr, &pos,
 				chr->act_preargh.angle,
 				chr->act_preargh.ibh,
 				&chr->act_preargh.hand,

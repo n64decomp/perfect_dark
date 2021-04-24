@@ -49,9 +49,9 @@ void func0f030ff8(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendfra
 void func0f031254(struct chrdata *chr);
 void func0f031384(struct chrdata *chr, struct var80065750 **arg1, bool arg2, s32 *firing, u32 entitytype, u32 entityid, u32 arg6);
 void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 arg3);
-void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 tableid, struct shorthand *hand, bool knockout, s32 aplayernum);
-u32 func0f032ac4(void);
-void func0f032fe4(struct chrdata *chr, struct coord *pos, f32 angle, s32 ibh, struct shorthand *hand, s32 playernum);
+void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh, struct shorthand *hand, bool knockout, s32 aplayernum);
+void func0f032ac4(struct chrdata *chr, f32 angle, s32 ibh);
+void chrBeginArgh(struct chrdata *chr, struct coord *pos, f32 angle, s32 ibh, struct shorthand *hand, s32 playernum);
 void chrYeetFromPos(struct chrdata *chr, struct coord *pos, f32 arg2);
 s32 handGetBlurAmount(struct shorthand *hand);
 void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand);

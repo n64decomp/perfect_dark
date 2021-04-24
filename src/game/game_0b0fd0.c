@@ -548,14 +548,14 @@ u32 handGetCasingEject(struct shorthand *hand)
 	return result;
 }
 
-f32 handGetSingleUnk34(struct shorthand *hand)
+f32 handGetStrength(struct shorthand *hand)
 {
 	struct weaponfunc *func = handGetWeaponFunction(hand);
 	f32 result = 0;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
 		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
-		result = funcshoot->unk34;
+		result = funcshoot->strength;
 	}
 
 	return result;
