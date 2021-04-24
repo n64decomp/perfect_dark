@@ -5646,15 +5646,17 @@ void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand
 	if (chr->actiontype != ACT_DRUGGEDCOMINGUP
 			&& chr->actiontype != ACT_DRUGGEDDROP
 			&& chr->actiontype != ACT_DRUGGEDKO) {
-#if VERSION >= VERSION_NTSC_1_0
+#if VERSION >= VERSION_PAL_FINAL
 		if (mpstatsGetTotalKnockoutCount() < 2) {
 			chr->chrflags |= CHRCFLAG_KEEPCORPSEKO;
 
-#if VERSION >= VERSION_PAL_FINAL
 			if (mainGetStageNum() == STAGE_VILLA) {
 				chr->hidden |= CHRHFLAG_ANTINONINTERACTABLE;
 			}
-#endif
+		}
+#elif VERSION >= VERSION_NTSC_1_0
+		if (mpstatsGetTotalKnockoutCount() < 2) {
+			chr->chrflags |= CHRCFLAG_KEEPCORPSEKO;
 		}
 #endif
 
@@ -5665,131 +5667,66 @@ void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f033728
-/*  f033728:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f03372c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f033730:	00808025 */ 	or	$s0,$a0,$zero
-/*  f033734:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f033738:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f03373c:	10800003 */ 	beqz	$a0,.L0f03374c
-/*  f033740:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f033744:	10000002 */ 	b	.L0f033750
-/*  f033748:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03374c:
-/*  f03374c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f033750:
-/*  f033750:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f033754:	10410006 */ 	beq	$v0,$at,.L0f033770
-/*  f033758:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03375c:	10410004 */ 	beq	$v0,$at,.L0f033770
-/*  f033760:	00000000 */ 	nop
-/*  f033764:	8e0e02d4 */ 	lw	$t6,0x2d4($s0)
-/*  f033768:	11c00003 */ 	beqz	$t6,.L0f033778
-/*  f03376c:	00000000 */ 	nop
-.L0f033770:
-/*  f033770:	10000056 */ 	b	.L0f0338cc
-/*  f033774:	00001025 */ 	or	$v0,$zero,$zero
-.L0f033778:
-/*  f033778:	5440004e */ 	bnezl	$v0,.L0f0338b4
-/*  f03377c:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f033780:	0c00744f */ 	jal	modelGetAnimNum
-/*  f033784:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f033788:	24010269 */ 	addiu	$at,$zero,0x269
-/*  f03378c:	10410005 */ 	beq	$v0,$at,.L0f0337a4
-/*  f033790:	2401026b */ 	addiu	$at,$zero,0x26b
-/*  f033794:	10410003 */ 	beq	$v0,$at,.L0f0337a4
-/*  f033798:	2401026a */ 	addiu	$at,$zero,0x26a
-/*  f03379c:	54410006 */ 	bnel	$v0,$at,.L0f0337b8
-/*  f0337a0:	820f0007 */ 	lb	$t7,0x7($s0)
-.L0f0337a4:
-/*  f0337a4:	0fc084cf */ 	jal	chrFlinchBody
-/*  f0337a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0337ac:	10000041 */ 	b	.L0f0338b4
-/*  f0337b0:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f0337b4:	820f0007 */ 	lb	$t7,0x7($s0)
-.L0f0337b8:
-/*  f0337b8:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f0337bc:	55e1003d */ 	bnel	$t7,$at,.L0f0338b4
-/*  f0337c0:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f0337c4:	0c00744f */ 	jal	modelGetAnimNum
-/*  f0337c8:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0337cc:	8e03002c */ 	lw	$v1,0x2c($s0)
-/*  f0337d0:	84780000 */ 	lh	$t8,0x0($v1)
-/*  f0337d4:	54580037 */ 	bnel	$v0,$t8,.L0f0338b4
-/*  f0337d8:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f0337dc:	82190035 */ 	lb	$t9,0x35($s0)
-/*  f0337e0:	3c088006 */ 	lui	$t0,%hi(var80067548)
-/*  f0337e4:	25087548 */ 	addiu	$t0,$t0,%lo(var80067548)
-/*  f0337e8:	13200022 */ 	beqz	$t9,.L0f033874
-/*  f0337ec:	3c014100 */ 	lui	$at,0x4100
-/*  f0337f0:	1103000a */ 	beq	$t0,$v1,.L0f03381c
-/*  f0337f4:	3c098006 */ 	lui	$t1,%hi(var80067590)
-/*  f0337f8:	25297590 */ 	addiu	$t1,$t1,%lo(var80067590)
-/*  f0337fc:	11230007 */ 	beq	$t1,$v1,.L0f03381c
-/*  f033800:	3c0a8006 */ 	lui	$t2,%hi(var800675d8)
-/*  f033804:	254a75d8 */ 	addiu	$t2,$t2,%lo(var800675d8)
-/*  f033808:	11430004 */ 	beq	$t2,$v1,.L0f03381c
-/*  f03380c:	3c0b8006 */ 	lui	$t3,%hi(var80067620)
-/*  f033810:	256b7620 */ 	addiu	$t3,$t3,%lo(var80067620)
-/*  f033814:	55630027 */ 	bnel	$t3,$v1,.L0f0338b4
-/*  f033818:	82180007 */ 	lb	$t8,0x7($s0)
-.L0f03381c:
-/*  f03381c:	c4600004 */ 	lwc1	$f0,0x4($v1)
-/*  f033820:	c46c0014 */ 	lwc1	$f12,0x14($v1)
-/*  f033824:	3c014100 */ 	lui	$at,0x4100
-/*  f033828:	44812000 */ 	mtc1	$at,$f4
-/*  f03382c:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f033830:	46040081 */ 	sub.s	$f2,$f0,$f4
-/*  f033834:	45020003 */ 	bc1fl	.L0f033844
-/*  f033838:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f03383c:	46006086 */ 	mov.s	$f2,$f12
-/*  f033840:	8e040020 */ 	lw	$a0,0x20($s0)
-.L0f033844:
-/*  f033844:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f033848:	e7a20020 */ 	swc1	$f2,0x20($sp)
-/*  f03384c:	c7a20020 */ 	lwc1	$f2,0x20($sp)
-/*  f033850:	8fac0034 */ 	lw	$t4,0x34($sp)
-/*  f033854:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f033858:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f03385c:	00000000 */ 	nop
-/*  f033860:	45020014 */ 	bc1fl	.L0f0338b4
-/*  f033864:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f033868:	e5820000 */ 	swc1	$f2,0x0($t4)
-/*  f03386c:	10000010 */ 	b	.L0f0338b0
-/*  f033870:	afad002c */ 	sw	$t5,0x2c($sp)
-.L0f033874:
-/*  f033874:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f033878:	44814000 */ 	mtc1	$at,$f8
-/*  f03387c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f033880:	46083081 */ 	sub.s	$f2,$f6,$f8
-/*  f033884:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f033888:	e7a20020 */ 	swc1	$f2,0x20($sp)
-/*  f03388c:	c7a20020 */ 	lwc1	$f2,0x20($sp)
-/*  f033890:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*  f033894:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f033898:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f03389c:	00000000 */ 	nop
-/*  f0338a0:	45020004 */ 	bc1fl	.L0f0338b4
-/*  f0338a4:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f0338a8:	e5c20000 */ 	swc1	$f2,0x0($t6)
-/*  f0338ac:	afaf002c */ 	sw	$t7,0x2c($sp)
-.L0f0338b0:
-/*  f0338b0:	82180007 */ 	lb	$t8,0x7($s0)
-.L0f0338b4:
-/*  f0338b4:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f0338b8:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f0338bc:	57010003 */ 	bnel	$t8,$at,.L0f0338cc
-/*  f0338c0:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f0338c4:	afb9002c */ 	sw	$t9,0x2c($sp)
-/*  f0338c8:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0f0338cc:
-/*  f0338cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0338d0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0338d4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0338d8:	03e00008 */ 	jr	$ra
-/*  f0338dc:	00000000 */ 	nop
-);
+/**
+ * Return true if the chr's current animation would be too awkward to transition
+ * into an injury animation or if they're already in the PREARGH action state,
+ * and set dst to the anim frame number where the chr will become available for
+ * transition to an injury animation.
+ *
+ * The attack roll animation is the only one which is too awkward to transition.
+ */
+bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
+{
+	bool result = false;
+	s32 race = CHRRACE(chr);
+
+	if (race == RACE_DRCAROLL || race == RACE_EYESPY || chr->aibot) {
+		return false;
+	}
+
+	if (race == RACE_HUMAN) {
+		s32 animnum = modelGetAnimNum(chr->model);
+		f32 endframe;
+
+		if (animnum == ANIM_SNIPING_0269
+				|| animnum == ANIM_SNIPING_026B
+				|| animnum == ANIM_SNIPING_026A) {
+			chrFlinchBody(chr);
+		} else if (chr->actiontype == ACT_ATTACKROLL
+				&& modelGetAnimNum(chr->model) == chr->act_attackroll.animfloats->animnum) {
+			if (chr->act_attackroll.unk035) {
+				if (chr->act_attackroll.animfloats == &var80067548
+						|| chr->act_attackroll.animfloats == &var80067590
+						|| chr->act_attackroll.animfloats == &var800675d8
+						|| chr->act_attackroll.animfloats == &var80067620) {
+					endframe = chr->act_attackroll.animfloats->unk04 - 8;
+
+					if (chr->act_attackroll.animfloats->unk14 < chr->act_attackroll.animfloats->unk04) {
+						endframe = chr->act_attackroll.animfloats->unk14;
+					}
+
+					if (endframe > modelGetCurAnimFrame(chr->model)) {
+						*dst = endframe;
+						result = true;
+					}
+				}
+			} else {
+				endframe = chr->act_attackroll.animfloats->unk04 - 8;
+
+				if (endframe > modelGetCurAnimFrame(chr->model)) {
+					*dst = endframe;
+					result = true;
+				}
+			}
+		}
+	}
+
+	if (chr->actiontype == ACT_PREARGH) {
+		result = true;
+	}
+
+	return result;
+}
 
 void chrChoke(struct chrdata *chr, s32 choketype)
 {
@@ -7056,14 +6993,14 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 							(handHasFunctionFlags(hand, FUNCFLAG_NOSTUN) && chr->damage < chr->maxdamage)) {
 						f32 endframe = -1;
 
-						if (!func0f033728(chr, &endframe)) {
+						if (!chrIsAnimPreventingArgh(chr, &endframe)) {
 							chrFlinchBody(chr);
 						}
 					} else if (ibh != IBH_HAT) {
 						// Cancel current animation and prepare for argh
 						f32 endframe = -1;
 
-						if (func0f033728(chr, &endframe)) {
+						if (chrIsAnimPreventingArgh(chr, &endframe)) {
 							if (endframe >= 0) {
 								modelSetAnimEndFrame(chr->model, endframe);
 							}

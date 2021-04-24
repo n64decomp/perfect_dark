@@ -444,7 +444,7 @@ union filedataptr {
 };
 
 struct animfloats {
-	/*0x00*/ u16 animnum;
+	/*0x00*/ s16 animnum;
 	/*0x04*/ f32 unk04;
 	/*0x08*/ f32 unk08;
 	/*0x0c*/ f32 unk0c;

@@ -55,7 +55,7 @@ void func0f032fe4(struct chrdata *chr, struct coord *pos, f32 angle, s32 ibh, st
 void chrYeetFromPos(struct chrdata *chr, struct coord *pos, f32 arg2);
 s32 handGetBlurAmount(struct shorthand *hand);
 void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand);
-bool func0f033728(struct chrdata *chr, f32 *arg1);
+bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *arg1);
 void chrChoke(struct chrdata *chr, s32 choketype);
 void chrSetShield(struct chrdata *chr, f32 shield);
 bool func0f034080(struct chrdata *chr, s32 arg1, struct prop *prop, s32 arg3, s32 arg4, s32 arg5);
