@@ -4457,7 +4457,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh
 	}
 
 	// instant = whether to merge into death animation or switch to it instantly
-	instant = chr->actiontype == ACT_ARGH && chr->act_argh.unk030 == g_Vars.lvframe60;
+	instant = chr->actiontype == ACT_ARGH && chr->act_argh.lvframe60 == g_Vars.lvframe60;
 
 	for (i = 0; g_AnimTablesByRace[race][i].ibh != -1; i++) {
 		if (g_AnimTablesByRace[race][i].ibh == ibh) {
@@ -4622,12 +4622,12 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh
 				// Handle specialdie animations or choose a random one if not
 				// using specialdie
 				if (g_AnimTablesByRace[race][index].deathanims
-						&& g_AnimTablesByRace[race][index].count > 0
+						&& g_AnimTablesByRace[race][index].deathanimcount > 0
 						&& !wasknockedout) {
 					struct animtablerow *row;
 
 					if (chr->specialdie == SPECIALDIE_NONE) {
-						s32 tmp = random() % g_AnimTablesByRace[race][index].count;
+						s32 tmp = random() % g_AnimTablesByRace[race][index].deathanimcount;
 						row = &g_AnimTablesByRace[race][index].deathanims[tmp];
 					} else if (chr->specialdie == SPECIALDIE_ONCHAIR) {
 						row = &g_SpecialDieAnims[chr->specialdie + random() % 2];
@@ -4702,8 +4702,8 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh
 			// Normal Skedar death
 			if (index >= 0
 					&& g_AnimTablesByRace[race][index].deathanims != NULL
-					&& g_AnimTablesByRace[race][index].count > 0) {
-				s32 tmp = random() % g_AnimTablesByRace[race][index].count;
+					&& g_AnimTablesByRace[race][index].deathanimcount > 0) {
+				s32 tmp = random() % g_AnimTablesByRace[race][index].deathanimcount;
 				row = &g_AnimTablesByRace[race][index].deathanims[tmp];
 			} else {
 				row = &g_AnimTablesByRace[race][0].deathanims[0];
@@ -4766,424 +4766,135 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh
 	}
 }
 
-u32 var800680bc = 0x013b0000;
-u32 var800680c0 = 0x00000000;
-u32 var800680c4 = 0xbf800000;
-u32 var800680c8 = 0x3f000000;
-u32 var800680cc = 0x00000000;
-u32 var800680d0 = 0xbf800000;
-u32 var800680d4 = 0xbf800000;
-u32 var800680d8 = 0x013c0000;
-u32 var800680dc = 0x00000000;
-u32 var800680e0 = 0xbf800000;
-u32 var800680e4 = 0x3f000000;
-u32 var800680e8 = 0x00000000;
-u32 var800680ec = 0xbf800000;
-u32 var800680f0 = 0xbf800000;
+void chrBeginArgh(struct chrdata *chr, f32 angle, s32 ibh)
+{
+	bool doneanim = false;
+	s32 instant;
+	s32 index = -1;
+	struct model *model = chr->model;
+	s32 i;
+	s32 race = CHRRACE(chr);
+	s32 animnum = modelGetAnimNum(chr->model);
 
-u32 var800680f4 = 0x013f0000;
-u32 var800680f8 = 0x00000000;
-u32 var800680fc = 0xbf800000;
-u32 var80068100 = 0x3f000000;
-u32 var80068104 = 0x00000000;
-u32 var80068108 = 0xbf800000;
-u32 var8006810c = 0xbf800000;
-u32 var80068110 = 0x01420000;
-u32 var80068114 = 0x00000000;
-u32 var80068118 = 0xbf800000;
-u32 var8006811c = 0x3f000000;
-u32 var80068120 = 0x00000000;
-u32 var80068124 = 0xbf800000;
-u32 var80068128 = 0xbf800000;
+	if (animnum == ANIM_SNIPING_0269
+			|| animnum == ANIM_SNIPING_026B
+			|| animnum == ANIM_SNIPING_026A) {
+		chrFlinchBody(chr);
+		return;
+	}
 
-u32 var8006812c = 0x01450000;
-u32 var80068130 = 0x00000000;
-u32 var80068134 = 0xbf800000;
-u32 var80068138 = 0x3f000000;
-u32 var8006813c = 0x00000000;
-u32 var80068140 = 0xbf800000;
-u32 var80068144 = 0xbf800000;
-u32 var80068148 = 0x01480000;
-u32 var8006814c = 0x00000000;
-u32 var80068150 = 0xbf800000;
-u32 var80068154 = 0x3f000000;
-u32 var80068158 = 0x00000000;
-u32 var8006815c = 0xbf800000;
-u32 var80068160 = 0xbf800000;
+	if (race == RACE_EYESPY || chr->aibot) {
+		return;
+	}
 
-u32 var80068164 = 0x00360000;
-u32 var80068168 = 0x00000000;
-u32 var8006816c = 0xbf800000;
-u32 var80068170 = 0x3f000000;
-u32 var80068174 = 0x00000000;
-u32 var80068178 = 0xbf800000;
-u32 var8006817c = 0xbf800000;
-u32 var80068180 = 0x00370000;
-u32 var80068184 = 0x00000000;
-u32 var80068188 = 0xbf800000;
-u32 var8006818c = 0x3f000000;
-u32 var80068190 = 0x00000000;
-u32 var80068194 = 0xbf800000;
-u32 var80068198 = 0xbf800000;
+	if (race == RACE_DRCAROLL) {
+		chr->actiontype = ACT_ARGH;
+		chr->act_argh.notifychrindex = 0;
+		chr->act_argh.lvframe60 = g_Vars.lvframe60;
 
-GLOBAL_ASM(
-glabel func0f032ac4
-.late_rodata
-glabel var7f1a8d48
-.word 0x4016c5bf
-glabel var7f1a8d4c
-.word 0x407b4993
-.text
-/*  f032ac4:	27bdfea8 */ 	addiu	$sp,$sp,-344
-/*  f032ac8:	240effff */ 	addiu	$t6,$zero,-1
-/*  f032acc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f032ad0:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f032ad4:	44856000 */ 	mtc1	$a1,$f12
-/*  f032ad8:	afae014c */ 	sw	$t6,0x14c($sp)
-/*  f032adc:	8c850020 */ 	lw	$a1,0x20($a0)
-/*  f032ae0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f032ae4:	00004025 */ 	or	$t0,$zero,$zero
-/*  f032ae8:	10800003 */ 	beqz	$a0,.L0f032af8
-/*  f032aec:	afa50148 */ 	sw	$a1,0x148($sp)
-/*  f032af0:	10000002 */ 	b	.L0f032afc
-/*  f032af4:	908302fe */ 	lbu	$v1,0x2fe($a0)
-.L0f032af8:
-/*  f032af8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f032afc:
-/*  f032afc:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f032b00:	afa30140 */ 	sw	$v1,0x140($sp)
-/*  f032b04:	afa60160 */ 	sw	$a2,0x160($sp)
-/*  f032b08:	afa80154 */ 	sw	$t0,0x154($sp)
-/*  f032b0c:	0c00744f */ 	jal	modelGetAnimNum
-/*  f032b10:	e7ac015c */ 	swc1	$f12,0x15c($sp)
-/*  f032b14:	24010269 */ 	addiu	$at,$zero,0x269
-/*  f032b18:	8fa30140 */ 	lw	$v1,0x140($sp)
-/*  f032b1c:	8fa60160 */ 	lw	$a2,0x160($sp)
-/*  f032b20:	8fa80154 */ 	lw	$t0,0x154($sp)
-/*  f032b24:	10410006 */ 	beq	$v0,$at,.L0f032b40
-/*  f032b28:	c7ac015c */ 	lwc1	$f12,0x15c($sp)
-/*  f032b2c:	2401026b */ 	addiu	$at,$zero,0x26b
-/*  f032b30:	10410003 */ 	beq	$v0,$at,.L0f032b40
-/*  f032b34:	2401026a */ 	addiu	$at,$zero,0x26a
-/*  f032b38:	54410006 */ 	bnel	$v0,$at,.L0f032b54
-/*  f032b3c:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f032b40:
-/*  f032b40:	0fc084cf */ 	jal	chrFlinchBody
-/*  f032b44:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032b48:	10000122 */ 	b	.L0f032fd4
-/*  f032b4c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f032b50:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f032b54:
-/*  f032b54:	5061011f */ 	beql	$v1,$at,.L0f032fd4
-/*  f032b58:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f032b5c:	8e0f02d4 */ 	lw	$t7,0x2d4($s0)
-/*  f032b60:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f032b64:	55e0011b */ 	bnezl	$t7,.L0f032fd4
-/*  f032b68:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f032b6c:	1461001b */ 	bne	$v1,$at,.L0f032bdc
-/*  f032b70:	00034880 */ 	sll	$t1,$v1,0x2
-/*  f032b74:	24180006 */ 	addiu	$t8,$zero,0x6
-/*  f032b78:	a2180007 */ 	sb	$t8,0x7($s0)
-/*  f032b7c:	ae00002c */ 	sw	$zero,0x2c($s0)
-/*  f032b80:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x8)
-/*  f032b84:	3c013f00 */ 	lui	$at,0x3f00
-/*  f032b88:	8f399fc8 */ 	lw	$t9,%lo(g_Vars+0x8)($t9)
-/*  f032b8c:	44812000 */ 	mtc1	$at,$f4
-/*  f032b90:	3c014180 */ 	lui	$at,0x4180
-/*  f032b94:	44813000 */ 	mtc1	$at,$f6
-/*  f032b98:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f032b9c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f032ba0:	ae190030 */ 	sw	$t9,0x30($s0)
-/*  f032ba4:	24050163 */ 	addiu	$a1,$zero,0x163
-/*  f032ba8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f032bac:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f032bb0:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f032bb4:	0c007733 */ 	jal	modelSetAnimation
-/*  f032bb8:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f032bbc:	92090362 */ 	lbu	$t1,0x362($s0)
-/*  f032bc0:	312aff0f */ 	andi	$t2,$t1,0xff0f
-/*  f032bc4:	354c0030 */ 	ori	$t4,$t2,0x30
-/*  f032bc8:	318d00f0 */ 	andi	$t5,$t4,0xf0
-/*  f032bcc:	a20c0362 */ 	sb	$t4,0x362($s0)
-/*  f032bd0:	35ae0003 */ 	ori	$t6,$t5,0x3
-/*  f032bd4:	100000fe */ 	b	.L0f032fd0
-/*  f032bd8:	a20e0362 */ 	sb	$t6,0x362($s0)
-.L0f032bdc:
-/*  f032bdc:	82020007 */ 	lb	$v0,0x7($s0)
-/*  f032be0:	3c0a8006 */ 	lui	$t2,%hi(g_AnimTablesByRace)
-/*  f032be4:	254a52b8 */ 	addiu	$t2,$t2,%lo(g_AnimTablesByRace)
-/*  f032be8:	384f0006 */ 	xori	$t7,$v0,0x6
-/*  f032bec:	2de20001 */ 	sltiu	$v0,$t7,0x1
-/*  f032bf0:	10400006 */ 	beqz	$v0,.L0f032c0c
-/*  f032bf4:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f032bf8:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
-/*  f032bfc:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
-/*  f032c00:	8e190030 */ 	lw	$t9,0x30($s0)
-/*  f032c04:	03191026 */ 	xor	$v0,$t8,$t9
-/*  f032c08:	2c420001 */ 	sltiu	$v0,$v0,0x1
-.L0f032c0c:
-/*  f032c0c:	afa20150 */ 	sw	$v0,0x150($sp)
-/*  f032c10:	afab003c */ 	sw	$t3,0x3c($sp)
-/*  f032c14:	8d670000 */ 	lw	$a3,0x0($t3)
-/*  f032c18:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f032c1c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f032c20:	8cec0000 */ 	lw	$t4,0x0($a3)
-/*  f032c24:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f032c28:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f032c2c:	50ac0010 */ 	beql	$a1,$t4,.L0f032c70
-/*  f032c30:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f032c34:	8ce30000 */ 	lw	$v1,0x0($a3)
-.L0f032c38:
-/*  f032c38:	54c30008 */ 	bnel	$a2,$v1,.L0f032c5c
-/*  f032c3c:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f032c40:	afa4014c */ 	sw	$a0,0x14c($sp)
-/*  f032c44:	920d02fd */ 	lbu	$t5,0x2fd($s0)
-/*  f032c48:	55a00009 */ 	bnezl	$t5,.L0f032c70
-/*  f032c4c:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f032c50:	10000006 */ 	b	.L0f032c6c
-/*  f032c54:	a20602fd */ 	sb	$a2,0x2fd($s0)
-/*  f032c58:	8c430014 */ 	lw	$v1,0x14($v0)
-.L0f032c5c:
-/*  f032c5c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f032c60:	24420014 */ 	addiu	$v0,$v0,0x14
-/*  f032c64:	14a3fff4 */ 	bne	$a1,$v1,.L0f032c38
-/*  f032c68:	00000000 */ 	nop
-.L0f032c6c:
-/*  f032c6c:	8fae003c */ 	lw	$t6,0x3c($sp)
-.L0f032c70:
-/*  f032c70:	3c0f8006 */ 	lui	$t7,%hi(g_AnimTablesByRace)
-/*  f032c74:	25ef52b8 */ 	addiu	$t7,$t7,%lo(g_AnimTablesByRace)
-/*  f032c78:	15cf0063 */ 	bne	$t6,$t7,.L0f032e08
-/*  f032c7c:	00000000 */ 	nop
-/*  f032c80:	14c10061 */ 	bne	$a2,$at,.L0f032e08
-/*  f032c84:	3c017f1b */ 	lui	$at,%hi(var7f1a8d48)
-/*  f032c88:	c4288d48 */ 	lwc1	$f8,%lo(var7f1a8d48)($at)
-/*  f032c8c:	3c017f1b */ 	lui	$at,%hi(var7f1a8d4c)
-/*  f032c90:	460c403c */ 	c.lt.s	$f8,$f12
-/*  f032c94:	00000000 */ 	nop
-/*  f032c98:	4500005b */ 	bc1f	.L0f032e08
-/*  f032c9c:	00000000 */ 	nop
-/*  f032ca0:	c42a8d4c */ 	lwc1	$f10,%lo(var7f1a8d4c)($at)
-/*  f032ca4:	460a603c */ 	c.lt.s	$f12,$f10
-/*  f032ca8:	00000000 */ 	nop
-/*  f032cac:	45000056 */ 	bc1f	.L0f032e08
-/*  f032cb0:	00000000 */ 	nop
-/*  f032cb4:	0c004b70 */ 	jal	random
-/*  f032cb8:	afa80154 */ 	sw	$t0,0x154($sp)
-/*  f032cbc:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f032cc0:	0041001b */ 	divu	$zero,$v0,$at
-/*  f032cc4:	0000c010 */ 	mfhi	$t8
-/*  f032cc8:	2f010002 */ 	sltiu	$at,$t8,0x2
-/*  f032ccc:	1020004e */ 	beqz	$at,.L0f032e08
-/*  f032cd0:	8fa80154 */ 	lw	$t0,0x154($sp)
-/*  f032cd4:	3c098007 */ 	lui	$t1,%hi(var800680bc)
-/*  f032cd8:	252980bc */ 	addiu	$t1,$t1,%lo(var800680bc)
-/*  f032cdc:	252b00d8 */ 	addiu	$t3,$t1,0xd8
-/*  f032ce0:	27b90058 */ 	addiu	$t9,$sp,0x58
-.L0f032ce4:
-/*  f032ce4:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f032ce8:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f032cec:	2739000c */ 	addiu	$t9,$t9,12
-/*  f032cf0:	af21fff4 */ 	sw	$at,-0xc($t9)
-/*  f032cf4:	8d21fff8 */ 	lw	$at,-0x8($t1)
-/*  f032cf8:	af21fff8 */ 	sw	$at,-0x8($t9)
-/*  f032cfc:	8d21fffc */ 	lw	$at,-0x4($t1)
-/*  f032d00:	152bfff8 */ 	bne	$t1,$t3,.L0f032ce4
-/*  f032d04:	af21fffc */ 	sw	$at,-0x4($t9)
-/*  f032d08:	8d210000 */ 	lw	$at,0x0($t1)
-/*  f032d0c:	8d2b0004 */ 	lw	$t3,0x4($t1)
-/*  f032d10:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032d14:	af210000 */ 	sw	$at,0x0($t9)
-/*  f032d18:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f032d1c:	af2b0004 */ 	sw	$t3,0x4($t9)
-/*  f032d20:	240c0006 */ 	addiu	$t4,$zero,0x6
-/*  f032d24:	a20c0007 */ 	sb	$t4,0x7($s0)
-/*  f032d28:	ae00002c */ 	sw	$zero,0x2c($s0)
-/*  f032d2c:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x8)
-/*  f032d30:	8dad9fc8 */ 	lw	$t5,%lo(g_Vars+0x8)($t5)
-/*  f032d34:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f032d38:	0c004b70 */ 	jal	random
-/*  f032d3c:	ae0d0030 */ 	sw	$t5,0x30($s0)
-/*  f032d40:	304e0007 */ 	andi	$t6,$v0,0x7
-/*  f032d44:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f032d48:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f032d4c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f032d50:	27b80058 */ 	addiu	$t8,$sp,0x58
-/*  f032d54:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f032d58:	8faa0150 */ 	lw	$t2,0x150($sp)
-/*  f032d5c:	c470000c */ 	lwc1	$f16,0xc($v1)
-/*  f032d60:	84650000 */ 	lh	$a1,0x0($v1)
-/*  f032d64:	8c660004 */ 	lw	$a2,0x4($v1)
-/*  f032d68:	3c014180 */ 	lui	$at,0x4180
-/*  f032d6c:	44819000 */ 	mtc1	$at,$f18
-/*  f032d70:	2d4b0001 */ 	sltiu	$t3,$t2,0x1
-/*  f032d74:	afab0018 */ 	sw	$t3,0x18($sp)
-/*  f032d78:	afa30138 */ 	sw	$v1,0x138($sp)
-/*  f032d7c:	8fa40148 */ 	lw	$a0,0x148($sp)
-/*  f032d80:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f032d84:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*  f032d88:	0c0076ff */ 	jal	modelSetAnimationWithMerge
-/*  f032d8c:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f032d90:	8fa80138 */ 	lw	$t0,0x138($sp)
-/*  f032d94:	44802000 */ 	mtc1	$zero,$f4
-/*  f032d98:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032d9c:	c5000008 */ 	lwc1	$f0,0x8($t0)
-/*  f032da0:	4600203e */ 	c.le.s	$f4,$f0
-/*  f032da4:	00000000 */ 	nop
-/*  f032da8:	45000009 */ 	bc1f	.L0f032dd0
-/*  f032dac:	00000000 */ 	nop
-/*  f032db0:	44050000 */ 	mfc1	$a1,$f0
-/*  f032db4:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
-/*  f032db8:	3c064100 */ 	lui	$a2,0x4100
-/*  f032dbc:	44050000 */ 	mfc1	$a1,$f0
-/*  f032dc0:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f032dc4:	8fa40148 */ 	lw	$a0,0x148($sp)
-/*  f032dc8:	1000000f */ 	b	.L0f032e08
-/*  f032dcc:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f032dd0:
-/*  f032dd0:	0c008dda */ 	jal	animGetNumFrames
-/*  f032dd4:	85040000 */ 	lh	$a0,0x0($t0)
-/*  f032dd8:	2449ffff */ 	addiu	$t1,$v0,-1
-/*  f032ddc:	44893000 */ 	mtc1	$t1,$f6
-/*  f032de0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032de4:	3c064100 */ 	lui	$a2,0x4100
-/*  f032de8:	468031a0 */ 	cvt.s.w	$f6,$f6
-/*  f032dec:	44053000 */ 	mfc1	$a1,$f6
-/*  f032df0:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
-/*  f032df4:	00000000 */ 	nop
-/*  f032df8:	44050000 */ 	mfc1	$a1,$f0
-/*  f032dfc:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f032e00:	8fa40148 */ 	lw	$a0,0x148($sp)
-/*  f032e04:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f032e08:
-/*  f032e08:	15000071 */ 	bnez	$t0,.L0f032fd0
-/*  f032e0c:	8fb9014c */ 	lw	$t9,0x14c($sp)
-/*  f032e10:	0720006f */ 	bltz	$t9,.L0f032fd0
-/*  f032e14:	8fac003c */ 	lw	$t4,0x3c($sp)
-/*  f032e18:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*  f032e1c:	00193080 */ 	sll	$a2,$t9,0x2
-/*  f032e20:	00d93021 */ 	addu	$a2,$a2,$t9
-/*  f032e24:	00063080 */ 	sll	$a2,$a2,0x2
-/*  f032e28:	01a61821 */ 	addu	$v1,$t5,$a2
-/*  f032e2c:	8c6e0008 */ 	lw	$t6,0x8($v1)
-/*  f032e30:	51c00068 */ 	beqzl	$t6,.L0f032fd4
-/*  f032e34:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f032e38:	8c6f0010 */ 	lw	$t7,0x10($v1)
-/*  f032e3c:	8fb80150 */ 	lw	$t8,0x150($sp)
-/*  f032e40:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032e44:	19e00062 */ 	blez	$t7,.L0f032fd0
-/*  f032e48:	2f0a0001 */ 	sltiu	$t2,$t8,0x1
-/*  f032e4c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f032e50:	afaa0038 */ 	sw	$t2,0x38($sp)
-/*  f032e54:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f032e58:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f032e5c:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f032e60:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032e64:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f032e68:	00002825 */ 	or	$a1,$zero,$zero
-/*  f032e6c:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*  f032e70:	3c098006 */ 	lui	$t1,%hi(g_AnimTablesByRace)
-/*  f032e74:	252952b8 */ 	addiu	$t1,$t1,%lo(g_AnimTablesByRace)
-/*  f032e78:	15690010 */ 	bne	$t3,$t1,.L0f032ebc
-/*  f032e7c:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f032e80:	240100b4 */ 	addiu	$at,$zero,0xb4
-/*  f032e84:	14c10006 */ 	bne	$a2,$at,.L0f032ea0
-/*  f032e88:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f032e8c:	13200004 */ 	beqz	$t9,.L0f032ea0
-/*  f032e90:	240c000a */ 	addiu	$t4,$zero,0xa
-/*  f032e94:	afac014c */ 	sw	$t4,0x14c($sp)
-/*  f032e98:	10000008 */ 	b	.L0f032ebc
-/*  f032e9c:	240600c8 */ 	addiu	$a2,$zero,0xc8
-.L0f032ea0:
-/*  f032ea0:	240100f0 */ 	addiu	$at,$zero,0xf0
-/*  f032ea4:	14c10005 */ 	bne	$a2,$at,.L0f032ebc
-/*  f032ea8:	00000000 */ 	nop
-/*  f032eac:	10400003 */ 	beqz	$v0,.L0f032ebc
-/*  f032eb0:	240d000d */ 	addiu	$t5,$zero,0xd
-/*  f032eb4:	afad014c */ 	sw	$t5,0x14c($sp)
-/*  f032eb8:	24060104 */ 	addiu	$a2,$zero,0x104
-.L0f032ebc:
-/*  f032ebc:	0c004b70 */ 	jal	random
-/*  f032ec0:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f032ec4:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f032ec8:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f032ecc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032ed0:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*  f032ed4:	01e61821 */ 	addu	$v1,$t7,$a2
-/*  f032ed8:	8c780010 */ 	lw	$t8,0x10($v1)
-/*  f032edc:	8c6a0008 */ 	lw	$t2,0x8($v1)
-/*  f032ee0:	0058001b */ 	divu	$zero,$v0,$t8
-/*  f032ee4:	00002810 */ 	mfhi	$a1
-/*  f032ee8:	000558c0 */ 	sll	$t3,$a1,0x3
-/*  f032eec:	01655823 */ 	subu	$t3,$t3,$a1
-/*  f032ef0:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f032ef4:	17000002 */ 	bnez	$t8,.L0f032f00
-/*  f032ef8:	00000000 */ 	nop
-/*  f032efc:	0007000d */ 	break	0x7
-.L0f032f00:
-/*  f032f00:	014b4021 */ 	addu	$t0,$t2,$t3
-/*  f032f04:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f032f08:	afa80048 */ 	sw	$t0,0x48($sp)
-/*  f032f0c:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f032f10:	24090006 */ 	addiu	$t1,$zero,0x6
-/*  f032f14:	a2090007 */ 	sb	$t1,0x7($s0)
-/*  f032f18:	ae00002c */ 	sw	$zero,0x2c($s0)
-/*  f032f1c:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x8)
-/*  f032f20:	8f399fc8 */ 	lw	$t9,%lo(g_Vars+0x8)($t9)
-/*  f032f24:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f032f28:	3c014180 */ 	lui	$at,0x4180
-/*  f032f2c:	ae190030 */ 	sw	$t9,0x30($s0)
-/*  f032f30:	8fac0038 */ 	lw	$t4,0x38($sp)
-/*  f032f34:	44815000 */ 	mtc1	$at,$f10
-/*  f032f38:	c508000c */ 	lwc1	$f8,0xc($t0)
-/*  f032f3c:	8d060004 */ 	lw	$a2,0x4($t0)
-/*  f032f40:	85050000 */ 	lh	$a1,0x0($t0)
-/*  f032f44:	8fa40148 */ 	lw	$a0,0x148($sp)
-/*  f032f48:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f032f4c:	afac0018 */ 	sw	$t4,0x18($sp)
-/*  f032f50:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f032f54:	0c0076ff */ 	jal	modelSetAnimationWithMerge
-/*  f032f58:	e7a80010 */ 	swc1	$f8,0x10($sp)
-/*  f032f5c:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*  f032f60:	44808000 */ 	mtc1	$zero,$f16
-/*  f032f64:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032f68:	c5000008 */ 	lwc1	$f0,0x8($t0)
-/*  f032f6c:	4600803e */ 	c.le.s	$f16,$f0
-/*  f032f70:	00000000 */ 	nop
-/*  f032f74:	45000009 */ 	bc1f	.L0f032f9c
-/*  f032f78:	00000000 */ 	nop
-/*  f032f7c:	44050000 */ 	mfc1	$a1,$f0
-/*  f032f80:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
-/*  f032f84:	3c064100 */ 	lui	$a2,0x4100
-/*  f032f88:	44050000 */ 	mfc1	$a1,$f0
-/*  f032f8c:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f032f90:	8fa40148 */ 	lw	$a0,0x148($sp)
-/*  f032f94:	1000000f */ 	b	.L0f032fd4
-/*  f032f98:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f032f9c:
-/*  f032f9c:	0c008dda */ 	jal	animGetNumFrames
-/*  f032fa0:	85040000 */ 	lh	$a0,0x0($t0)
-/*  f032fa4:	244dffff */ 	addiu	$t5,$v0,-1
-/*  f032fa8:	448d9000 */ 	mtc1	$t5,$f18
-/*  f032fac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032fb0:	3c064100 */ 	lui	$a2,0x4100
-/*  f032fb4:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*  f032fb8:	44059000 */ 	mfc1	$a1,$f18
-/*  f032fbc:	0fc0b898 */ 	jal	chrGetRangedArghSpeed
-/*  f032fc0:	00000000 */ 	nop
-/*  f032fc4:	44050000 */ 	mfc1	$a1,$f0
-/*  f032fc8:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f032fcc:	8fa40148 */ 	lw	$a0,0x148($sp)
-.L0f032fd0:
-/*  f032fd0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f032fd4:
-/*  f032fd4:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f032fd8:	27bd0158 */ 	addiu	$sp,$sp,0x158
-/*  f032fdc:	03e00008 */ 	jr	$ra
-/*  f032fe0:	00000000 */ 	nop
-);
+		chr->sleep = 0;
 
-void chrBeginArgh(struct chrdata *chr, struct coord *vector, f32 angle, s32 ibh, struct shorthand *hand, s32 aplayernum)
+		modelSetAnimation(chr->model, 0x163, false, 0, 0.5f, 16);
+
+		chr->drcarollimage_left = DRCAROLLIMAGE_X;
+		chr->drcarollimage_right = DRCAROLLIMAGE_X;
+		return;
+	}
+
+	instant = chr->actiontype == ACT_ARGH && chr->act_argh.lvframe60 == g_Vars.lvframe60;
+
+	for (i = 0; g_AnimTablesByRace[race][i].ibh != -1; i++) {
+		if (g_AnimTablesByRace[race][i].ibh == ibh) {
+			index = i;
+
+			if (chr->ivebeenhit == 0) {
+				chr->ivebeenhit = ibh;
+			}
+
+			break;
+		}
+	}
+
+	// If shot in the butt from behind, 2 in 5 chance of doing a special anim
+	if (race == RACE_HUMAN
+			&& ibh == IBH_PELVIS
+			&& angle > 2.3558194637299f
+			&& angle < 3.9263656139374f
+			&& random() % 5 < 2) {
+		struct animtablerow *row;
+		struct animtablerow rows[] = {
+			{ 0x013b, 0, -1, 0.5, 0, -1, -1 },
+			{ 0x013c, 0, -1, 0.5, 0, -1, -1 },
+			{ 0x013f, 0, -1, 0.5, 0, -1, -1 },
+			{ 0x0142, 0, -1, 0.5, 0, -1, -1 },
+			{ 0x0145, 0, -1, 0.5, 0, -1, -1 },
+			{ 0x0148, 0, -1, 0.5, 0, -1, -1 },
+			{ 0x0036, 0, -1, 0.5, 0, -1, -1 },
+			{ 0x0037, 0, -1, 0.5, 0, -1, -1 },
+		};
+
+		chrStopFiring(chr);
+
+		chr->actiontype = ACT_ARGH;
+		chr->act_argh.notifychrindex = 0;
+		chr->act_argh.lvframe60 = g_Vars.lvframe60;
+		chr->sleep = 0;
+
+		row = &rows[random() % 8];
+
+		modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, !instant);
+
+		if (row->endframe >= 0) {
+			modelSetAnimEndFrame(model, chrGetRangedArghSpeed(chr, row->endframe, 8));
+			doneanim = true;
+		} else {
+			modelSetAnimEndFrame(model, chrGetRangedArghSpeed(chr, animGetNumFrames(row->animnum) - 1, 8));
+			doneanim = true;
+		}
+	}
+
+	if (!doneanim
+			&& index >= 0
+			&& g_AnimTablesByRace[race][index].injuryanims
+			&& g_AnimTablesByRace[race][index].injuryanimcount > 0) {
+		// If shot in a hand that's holding a gun, remap the hit location to the
+		// forearm because the hand injury animations assume the hand is empty.
+		struct prop *lgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+		struct prop *rgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+		s32 rowindex;
+		struct animtablerow *row;
+
+		if (race == RACE_HUMAN) {
+			if (index == 9 && lgun) { // left hand
+				index = 10; // left forearm
+			} else if (index == 12 && rgun) { // right hand
+				index = 13; // right forearm
+			}
+		}
+
+		// Select a random animation for this hit location and apply it
+		rowindex = random() % g_AnimTablesByRace[race][index].injuryanimcount;
+
+		row = &g_AnimTablesByRace[race][index].injuryanims[rowindex];
+
+		chrStopFiring(chr);
+
+		chr->actiontype = ACT_ARGH;
+		chr->act_argh.notifychrindex = 0;
+		chr->act_argh.lvframe60 = g_Vars.lvframe60;
+		chr->sleep = 0;
+
+		modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, !instant);
+
+		if (row->endframe >= 0) {
+			modelSetAnimEndFrame(model, chrGetRangedArghSpeed(chr, row->endframe, 8));
+		} else {
+			modelSetAnimEndFrame(model, chrGetRangedArghSpeed(chr, animGetNumFrames(row->animnum) - 1, 8));
+		}
+	}
+}
+
+void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 ibh, struct shorthand *hand, s32 aplayernum)
 {
 	s32 race = CHRRACE(chr);
 	bool knockedout = false;
@@ -5245,10 +4956,10 @@ void chrBeginArgh(struct chrdata *chr, struct coord *vector, f32 angle, s32 ibh,
 		}
 
 		if (race == RACE_DRCAROLL) {
-			func0f032ac4(chr, 0, 0);
+			chrBeginArgh(chr, 0, 0);
 		}
 	} else if (!knockedout) {
-		func0f032ac4(chr, angle, ibh);
+		chrBeginArgh(chr, angle, ibh);
 	}
 }
 
@@ -6743,7 +6454,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 							chr->sleep = 0;
 						} else {
-							chrBeginArgh(chr, vector, angle, ibh, hand, aplayernum);
+							chrReactToDamage(chr, vector, angle, ibh, hand, aplayernum);
 						}
 					}
 				}
@@ -12585,7 +12296,7 @@ void chrTickPreArgh(struct chrdata *chr)
 		pos.y = chr->act_preargh.pos.y;
 		pos.z = chr->act_preargh.pos.z;
 
-		chrBeginArgh(chr, &pos,
+		chrReactToDamage(chr, &pos,
 				chr->act_preargh.angle,
 				chr->act_preargh.ibh,
 				&chr->act_preargh.hand,

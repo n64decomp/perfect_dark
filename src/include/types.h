@@ -959,7 +959,7 @@ struct act_dead {
 
 struct act_argh {
 	/*0x2c*/ s32 notifychrindex;
-	/*0x30*/ s32 unk030; // lvframe60 value
+	/*0x30*/ s32 lvframe60;
 };
 
 // The first 4 bytes of the hand struct
@@ -5099,8 +5099,8 @@ struct animtable {
 	s32 ibh;
 	struct animtablerow *deathanims;
 	struct animtablerow *injuryanims;
-	s32 count;
-	u32 unk10;
+	s32 deathanimcount;
+	s32 injuryanimcount;
 };
 
 struct var80075c00 {
