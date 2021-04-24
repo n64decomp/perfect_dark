@@ -263,22 +263,30 @@
 	label,
 
 /**
- * Damages the chr by the given amount.
+ * Damages the chr using the given weapon's stats.
  */
-#define damage_chr(chr, value) \
+#define damage_chr(chr, weapon) \
 	mkshort(0x0019), \
 	chr, \
-	0x08, \
-	value, \
-	0x00, \
-	0x00, \
-	0x00,
+	IBH_HEAD, \
+	weapon, \
+	0, \
+	0, \
+	FUNC_PRIMARY,
 
-#define chr_shoot_chr(chr1, chr2, weapon) \
+/**
+ * Makes achr damage vchr as if achr shot vchr. No actual firing animation is
+ * done, nor is any bullet beam shown and the chrs don't even need line of sight
+ * to each other.
+ *
+ * The ibh value is the body part the victim is shot in.
+ * It's expected to be an IBH constant.
+ */
+#define chr_damage_chr(achr, vchr, ibh) \
 	mkshort(0x001a), \
-	chr1, \
-	chr2, \
-	weapon,
+	achr, \
+	vchr, \
+	ibh,
 
 /**
  * Makes the chr consider throwing a grenade, using their grenade probability
@@ -3200,14 +3208,15 @@
 	bool,
 
 /**
- * Poison or unpoison the given chr by the given amount.
+ * Damage or undamage the given chr by the given amount.
+ * 1 unit of amount is equal to 1/32 of a damage unit (0.03125).
+ * For reference, full health for a player is 8 damage units.
  *
- * If operation is 0, the chr is poisoned, likely without any ongoing effects.
- * If operation is 2, the chr is poisoned, likely with the same effects as being
- * hit by a combat knife.
- * If operation is anything else, the chr is unpoisoned by the given amount.
+ * If operation is 0, the chr is damaged.
+ * If operation is 1, the chr is undamaged (ie. given health).
+ * If operation is 2, the chr is damaged and poisoned.
  */
-#define poison_chr(chr, amount, operation) \
+#define damage_chr_by_amount(chr, amount, operation) \
 	mkshort(0x016e), \
 	chr, \
 	amount, \
@@ -3412,7 +3421,7 @@
  * The two values are the lower and upper bounds of a random percentage. For
  * example, when using the values 40 and 60 a random percentage will be chosen
  * between 40% and 60%. This percentage is then applied to the weapon's clip
- * size. When happens with that is not yet known.
+ * size. What happens with that is not yet known.
  *
  * Note that this command can fail, but doesn't have a label argument so failure
  * cannot be detected.

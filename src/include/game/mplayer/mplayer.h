@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-f32 func0f187770(u8 value);
+f32 mpHandicapToDamageScale(u8 value);
 void func0f187838(struct mpchr *mpchr);
 void mpStartMatch(void);
 void mpInit(void);

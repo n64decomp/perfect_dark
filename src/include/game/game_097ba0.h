@@ -113,7 +113,7 @@ void func0f0a24f0(struct coord *arg0, s32 handnum);
 u32 func0f0a27c8(void);
 void func0f0a29c8(void);
 bool weaponIsMissionCritical(s32 weaponnum);
-void currentPlayerLoseGunInNbombStorm(struct prop *prop);
+void currentPlayerLoseGun(struct prop *attacker);
 u32 func0f0a2da8(void);
 u32 func0f0a2e94(void);
 void playerDetonateRemoteMines(s32 playernum);

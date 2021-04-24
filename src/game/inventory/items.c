@@ -232,7 +232,7 @@ struct weaponfunc_close invfunc_unarmed_punch = {
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire animation
-	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_LESSDAMAGE | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
+	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.5, // damage
 	60,
 	0x00000069,
@@ -256,7 +256,7 @@ struct weaponfunc_close invfunc_unarmed_disarm = {
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire animation
-	FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_LESSDAMAGE | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
+	FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.3, // damage
 	60,
 	0x00000069,
@@ -484,7 +484,7 @@ struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
 	invanim_falcon2_pistolwhip, // fire animation
-	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_LESSDAMAGE | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
+	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.9, // damage
 	60,
 	0x00000069,
@@ -880,7 +880,7 @@ struct weaponfunc_close invfunc_dy357_pistolwhip = {
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
 	invanim_dy357_pistolwhip, // fire animation
-	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_LESSDAMAGE | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
+	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.9, // damage
 	60,
 	0x00000069,
@@ -3822,7 +3822,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_equiporshoot, // fire animation
-	FUNCFLAG_MAKEDIZZY | FUNCFLAG_00200000,
+	FUNCFLAG_MAKEDIZZY | FUNCFLAG_PSYCHOSIS,
 	&invmenupos_00011098,
 	16,
 	0.5, // damage

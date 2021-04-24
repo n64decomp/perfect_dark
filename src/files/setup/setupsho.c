@@ -1934,7 +1934,7 @@ u8 func040c_king_waiting[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2d)
 	set_self_chrflag(CHRCFLAG_00000020)
 	label(0x2d)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
 	set_morale(0)
 
@@ -1953,7 +1953,7 @@ u8 func040c_king_waiting[] = {
 	endloop(0x09)
 
 	label(0x2d)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, AILIST_KING_COMBAT)
 	endlist
 };
@@ -2282,7 +2282,7 @@ u8 func040d_king_combat[] = {
 u8 func040e_king_skedar_spawner[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00100000)
 
@@ -2339,7 +2339,7 @@ u8 func0410_init_king_skedar_clone[] = {
 u8 func0411_king_miniskedar_spawner[] = {
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00100000)
 
@@ -2993,7 +2993,7 @@ u8 func0414_outro[] = {
 };
 
 u8 func0413_hide[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

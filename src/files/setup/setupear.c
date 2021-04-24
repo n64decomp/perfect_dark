@@ -2333,7 +2333,7 @@ u8 func0416_intro[] = {
 	chr_do_animation(0x00f6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
 	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
-	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_INVINCIBLE)
 	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
 	chr_do_animation(0x00f7, -2, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
 
@@ -2784,7 +2784,7 @@ u8 func0415_radioactivity[] = {
 		add_motion_blur(CHR_TARGET, 10, TRUE)
 		if_timer_lt(300, /*goto*/ 0x2f)
 		restart_timer
-		poison_chr(CHR_TARGET, 4, 0)
+		damage_chr_by_amount(CHR_TARGET, 4, 0)
 		label(0x2f)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0014, /*goto*/ 0x06)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0015, /*goto*/ 0x06)

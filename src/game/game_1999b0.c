@@ -274,7 +274,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 					}
 
 					chrEmitSparks(oppchr, oppprop, sp160, &oppprop->pos, arg2, chr);
-					func0f0341dc(oppchr, damage, arg2, (struct shorthand *)sp156, chr->prop, 200, oppprop, sp172, sp168, sp164, 0);
+					func0f0341dc(oppchr, damage, arg2, (struct shorthand *)sp156, chr->prop, IBH_GENERAL, oppprop, sp172, sp168, sp164, 0);
 				}
 			}
 

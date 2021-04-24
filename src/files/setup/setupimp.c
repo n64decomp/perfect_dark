@@ -646,7 +646,7 @@ u8 func0403_init_clone1[] = {
 };
 
 u8 func0402_clone1[] = {
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	run_to_pad(0x00c2)
 	set_returnlist(CHR_SELF, AILIST_CLONE1)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
@@ -1547,21 +1547,21 @@ u8 func1003_hide_blondes_and_skedar[] = {
 	set_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SKEDAR2, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SKEDAR3, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_SKEDAR2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_SKEDAR3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_SKEDAR2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_SKEDAR3, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_BLONDE1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BLONDE2, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BLONDE3, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BLONDE4, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BLONDE5, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BLONDE6, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_BLONDE1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_BLONDE2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_BLONDE3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_BLONDE4, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_BLONDE5, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_BLONDE6, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BLONDE1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_BLONDE2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_BLONDE3, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_BLONDE4, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_BLONDE5, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_BLONDE6, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1648,10 +1648,10 @@ u8 func0414_firingrange_hostage[] = {
 };
 
 u8 func100e_setup_firingrange[] = {
-	set_chr_chrflag(CHR_HOSTAGE_FR1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_HOSTAGE_FR2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_TAKER_FR1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_TAKER_FR2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_HOSTAGE_FR1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_HOSTAGE_FR2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_TAKER_FR1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_TAKER_FR2, CHRCFLAG_INVINCIBLE)
 
 	// Wait until guns complete or failed, or skip this check if Agent
 	beginloop(0x04)
@@ -1696,10 +1696,10 @@ u8 func100e_setup_firingrange[] = {
 	// Unset invincible on hostages and takers
 	label(0x08)
 	destroy_object(OBJ_FR_GLASS)
-	unset_chr_chrflag(CHR_HOSTAGE_FR1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_HOSTAGE_FR2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TAKER_FR1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TAKER_FR2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_HOSTAGE_FR1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_HOSTAGE_FR2, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TAKER_FR1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TAKER_FR2, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2700,7 +2700,7 @@ u8 func1014_carrington_messages[] = {
 	endloop(0x0d)
 
 	label(0x08)
-	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_HIDDEN)
 	unlock_door(0x23, 0x04)
 	unlock_door(0x24, 0x04)
@@ -3212,12 +3212,12 @@ u8 func1022_skedar_shuttle[] = {
 	unset_chr_chrflag(CHR_BLONDE4, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BLONDE5, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BLONDE6, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(CHR_BLONDE1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_BLONDE2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_BLONDE3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_BLONDE4, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_BLONDE5, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_BLONDE6, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BLONDE1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_BLONDE2, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_BLONDE3, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_BLONDE4, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_BLONDE5, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_BLONDE6, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_BLONDE1, AILIST_INIT_BLONDE)
 	set_ailist(CHR_BLONDE2, AILIST_INIT_BLONDE)
 	set_ailist(CHR_BLONDE3, AILIST_INIT_BLONDE)
@@ -3439,7 +3439,7 @@ u8 func1018_hurt_carrington[] = {
 	endloop(0x0a)
 
 	label(0x08)
-	damage_chr(CHR_CARRINGTON, 18)
+	damage_chr(CHR_CARRINGTON, WEAPON_SUPERDRAGON)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3961,11 +3961,11 @@ u8 unregistered_function3[] = {
 		reloop(0x03)
 
 		label(0x11)
-		damage_chr(CHR_TAKER_INFO_F, 18)
+		damage_chr(CHR_TAKER_INFO_F, WEAPON_SUPERDRAGON)
 		reloop(0x03)
 
 		label(0x12)
-		damage_chr(CHR_TAKER_INFO_M, 18)
+		damage_chr(CHR_TAKER_INFO_M, WEAPON_SUPERDRAGON)
 	endloop(0x03)
 
 	endlist
@@ -3980,7 +3980,7 @@ u8 func102d_firingrange_taker_invincibility[] = {
 		if_chr_in_room(CHR_TAKER_FR1, 0x00, 0x0008, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR1, 0x00, 0x0009, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR1, 0x00, 0x000a, /*goto*/ 0x2e)
-		unset_chr_chrflag(CHR_TAKER_FR1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+		unset_chr_chrflag(CHR_TAKER_FR1, CHRCFLAG_INVINCIBLE)
 
 		label(0x2e)
 		if_chr_death_animation_finished(CHR_TAKER_FR2, /*goto*/ 0x2e)
@@ -3990,7 +3990,7 @@ u8 func102d_firingrange_taker_invincibility[] = {
 		if_chr_in_room(CHR_TAKER_FR2, 0x00, 0x0008, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR2, 0x00, 0x0009, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_TAKER_FR2, 0x00, 0x000a, /*goto*/ 0x2e)
-		unset_chr_chrflag(CHR_TAKER_FR2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+		unset_chr_chrflag(CHR_TAKER_FR2, CHRCFLAG_INVINCIBLE)
 
 		label(0x2e)
 	endloop(0x03)

@@ -17211,7 +17211,7 @@ bool weaponIsMissionCritical(s32 weaponnum)
 }
 #endif
 
-void currentPlayerLoseGunInNbombStorm(struct prop *prop)
+void currentPlayerLoseGun(struct prop *attackerprop)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 weaponnum = player->hands[0].base.weaponnum;
@@ -17226,7 +17226,7 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 		// because AI lists can fail the mission if the player has zero
 		// quantity.
 		if (g_Vars.coopplayernum >= 0
-				&& (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop)
+				&& (attackerprop == g_Vars.bond->prop || attackerprop == g_Vars.coop->prop)
 				&& weaponIsMissionCritical(weaponnum)) {
 			return;
 		}
@@ -17278,7 +17278,7 @@ void currentPlayerLoseGunInNbombStorm(struct prop *prop)
 
 				if (obj->hidden & OBJHFLAG_AIRBORNE) {
 					obj->projectile->unk0b4 = PALDOWN(240);
-					obj->projectile->unk108 = prop;
+					obj->projectile->unk108 = attackerprop;
 				}
 
 				func0f08307c(prop2, true);

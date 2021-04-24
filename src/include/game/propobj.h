@@ -294,7 +294,7 @@ struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 fl
 u32 func0f08bb3c(void);
 void func0f08bb5c(struct prop *prop, bool firing, s32 room);
 s32 func0f08bc5c(struct prop *prop);
-u32 func0f08bcf4(void);
+s32 hatGetType(struct prop *prop);
 bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop);
 bool func0f08bdd4(struct doorobj *door, struct coord *pos, f32 arg2, bool isbike);
 bool func0f08be80(struct doorobj *door, struct defaultobj *obj, bool isbike);

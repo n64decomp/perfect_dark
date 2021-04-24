@@ -1237,7 +1237,7 @@ u8 func0408_outro[] = {
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
-	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_UNEXPLODABLE)
 
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
@@ -1450,7 +1450,7 @@ u8 func1004_check_negotiator[] = {
 u8 func0401_init_taker[] = {
 	set_chr_maxdamage(CHR_SELF, 1)
 	if_difficulty_gt(DIFF_SA, /*goto*/ 0x2d)
-	unset_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	unset_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	label(0x2d)
 	set_ailist(CHR_SELF, AILIST_TAKER)
 	endlist
@@ -2954,7 +2954,7 @@ u8 func0407_init_sniper[] = {
 
 u8 func0410_carrington[] = {
 	yield
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_chr_maxdamage(CHR_SELF, 1)
 	chr_do_animation(0x017b, 1, 1, 0x06, 0x00, CHR_CARRINGTON, 2)
@@ -3122,7 +3122,7 @@ u8 func1423_setup_environment[] = {
 
 u8 func1021_toggle_last_basement_guard[] = {
 	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_INVINCIBLE)
 
 	beginloop(0x04)
 		if_difficulty_gt(DIFF_SA, /*goto*/ 0x2d)
@@ -3150,7 +3150,7 @@ u8 func1021_toggle_last_basement_guard[] = {
 
 	label(0x2d)
 	unset_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3165,7 +3165,7 @@ u8 func1022_setup_rtracker[] = {
 };
 
 u8 func0411_cisoldier[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	chr_drop_weapon(CHR_SELF)
 	label(0x08)
 	yield

@@ -711,7 +711,7 @@ u8 func041e_colleague[] = {
 };
 
 u8 func041f_colleague1[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(0)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -719,7 +719,7 @@ u8 func041f_colleague1[] = {
 };
 
 u8 func0420_colleague2[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(1)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -727,7 +727,7 @@ u8 func0420_colleague2[] = {
 };
 
 u8 func0421_colleague3[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(2)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -735,7 +735,7 @@ u8 func0421_colleague3[] = {
 };
 
 u8 func0422_colleague4[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(3)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -743,7 +743,7 @@ u8 func0422_colleague4[] = {
 };
 
 u8 func0423_colleague5[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(4)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -751,7 +751,7 @@ u8 func0423_colleague5[] = {
 };
 
 u8 func0424_colleague6[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(5)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -759,7 +759,7 @@ u8 func0424_colleague6[] = {
 };
 
 u8 func0425_colleague7[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(6)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -767,7 +767,7 @@ u8 func0425_colleague7[] = {
 };
 
 u8 func0426_colleague8[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(7)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -775,7 +775,7 @@ u8 func0426_colleague8[] = {
 };
 
 u8 func0427_colleague9[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(8)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -783,7 +783,7 @@ u8 func0427_colleague9[] = {
 };
 
 u8 func0428_colleague10[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(9)
 	set_ailist(CHR_SELF, AILIST_COLLEAGUE)
@@ -2874,7 +2874,7 @@ u8 func101b_ir_door[] = {
 };
 
 u8 func042b_init_carrington[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	yield
 	set_morale(0)
@@ -4760,7 +4760,7 @@ u8 func0406_holo5_init_guard1[] = {
 };
 
 u8 func0407_holo5_guard1[] = {
-	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	dprint 'C','R','E','A','T','E','D',' ','4',0,
 	set_shotlist(AILIST_HOLO5_GUARD1)
 	set_chr_maxdamage(CHR_SELF, 300)
@@ -4779,7 +4779,7 @@ u8 func0407_holo5_guard1[] = {
 	goto_next(0x0a)
 	label(0x30)
 	restart_timer
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 
 	beginloop(0x62)
 		if_timer_gt(60, /*goto*/ 0x63)
@@ -4859,13 +4859,13 @@ u8 func0409_holo5_guard2[] = {
 	if_chr_dead(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
 	if_target_in_sight(/*goto*/ 0x09)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_alertness(0)
 	goto_first(0x08)
 
 	label(0x06)
 	label(0x09)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
@@ -4876,7 +4876,7 @@ u8 func0409_holo5_guard2[] = {
 	endloop(0x0a)
 
 	label(0x2f)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00000040)
 
 	beginloop(0x57)
@@ -5527,7 +5527,7 @@ u8 func1030_holo7_main[] = {
 };
 
 u8 func0412_holo7_init_guard1[] = {
-	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	set_chr_id(0x19)
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
@@ -5536,7 +5536,7 @@ u8 func0412_holo7_init_guard1[] = {
 };
 
 u8 func0413_holo7_init_guard2[] = {
-	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	set_chr_id(0x1a)
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
@@ -5545,7 +5545,7 @@ u8 func0413_holo7_init_guard2[] = {
 };
 
 u8 func0414_holo7_init_guard3[] = {
-	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	set_chr_id(0x1b)
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)

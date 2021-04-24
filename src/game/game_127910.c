@@ -557,7 +557,7 @@ void playerAllocate(s32 index)
 
 	g_Vars.players[index]->unk1994 = 0;
 	g_Vars.players[index]->unk1998 = 0;
-	g_Vars.players[index]->unk199c = 1;
+	g_Vars.players[index]->healthscale = 1;
 	g_Vars.players[index]->armourscale = 1;
 
 	g_Vars.players[index]->haschrbody = false;

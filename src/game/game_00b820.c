@@ -370,8 +370,8 @@ void resetSomeStageThings(void)
 	g_StageFlags = 0;
 
 	var80062ca0 = 1;
-	var80062ca4 = 1;
-	var80062ca8 = 1;
+	g_DamageReceivedScale = 1;
+	g_DamageDealtScale = 1;
 	var80062cac = 1;
 
 	var80062cbc = 0;

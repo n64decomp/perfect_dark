@@ -656,7 +656,7 @@ bool eyespyTryLaunch(void)
 		launched = true;
 
 		chr->chrflags &= ~CHRCFLAG_HIDDEN;
-		chr->chrflags &= ~CHRCFLAG_INVINCIBLE_TO_GUNFIRE;
+		chr->chrflags &= ~CHRCFLAG_INVINCIBLE;
 
 #if VERSION >= VERSION_NTSC_1_0
 		func0f0939f8(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,

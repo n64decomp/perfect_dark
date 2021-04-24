@@ -1792,7 +1792,7 @@ u8 func040d_intro[] = {
 
 	unset_chr_chrflag(CHR_INTRO_VICTIM, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_INTRO_VICTIM, CHRHFLAG_00020000)
-	set_chr_chrflag(CHR_INTRO_VICTIM, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_INTRO_VICTIM, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_INTRO_VICTIM, CHRCFLAG_00010000)
 	chr_do_animation(0x0167, -2, -1, 0x06, 0x00, CHR_INTRO_VICTIM, 2)
 
@@ -2343,7 +2343,7 @@ u8 func0412_cloak_guard[] = {
 u8 func0413_cloak1_guard[] = {
 	yield
 	set_shotlist(AILIST_CLOAK_GUARD)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	label(0x06)
 	set_reaction_speed(100)
 	set_shotlist(AILIST_CLOAK_GUARD)
@@ -2361,7 +2361,7 @@ u8 func0413_cloak1_guard[] = {
 	endloop(0x04)
 
 	label(0x06)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	set_ailist(CHR_SELF, AILIST_CLOAK_GUARD)
@@ -2371,7 +2371,7 @@ u8 func0413_cloak1_guard[] = {
 u8 func0414_init_cloak2_guard[] = {
 	stop_chr
 	set_shotlist(AILIST_CLOAK_GUARD)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(5)
 	set_reaction_speed(25)
@@ -2379,7 +2379,7 @@ u8 func0414_init_cloak2_guard[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	set_ailist(CHR_SELF, AILIST_CLOAK_GUARD)
@@ -2958,7 +2958,7 @@ u8 func1026_unlock_doors[] = {
 u8 func0410_invincible[] = {
 	label(0x04)
 	yield
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2968,7 +2968,7 @@ u8 func0411_hide[] = {
 	label(0x04)
 	yield
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

@@ -5702,7 +5702,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->propsoundcount = 0;
 	chr->patrolnextstep = -1;
 	chr->p1p2 = g_Vars.bondplayernum;
-	chr->unk350 = 0;
+	chr->lastattacker = NULL;
 	chr->race = RACE_HUMAN;
 	chr->aimtesttimer60 = random() % PALDOWN(30);
 	chr->lastfootsample = 0;
@@ -5938,7 +5938,7 @@ void chrUpdateAimProperties(struct chrdata *chr)
 	}
 }
 
-void func0f02133c(struct chrdata *chr)
+void chrFlinchBody(struct chrdata *chr)
 {
 	if (chr->actiontype != ACT_DEAD && chr->flinchcnt < 0) {
 		chr->flinchcnt = 1;
@@ -5947,7 +5947,7 @@ void func0f02133c(struct chrdata *chr)
 	}
 }
 
-void chrDoFlinchcntThing(struct chrdata *chr, f32 arg1)
+void chrFlinchHead(struct chrdata *chr, f32 arg1)
 {
 	s32 value;
 
@@ -8081,9 +8081,7 @@ void chrTickPoisoned(struct chrdata *chr)
 	if (chr->poisoncounter > 0) {
 		struct coord coord = {0, 0, 0};
 
-		struct shorthand hand = {
-			WEAPON_COMBATKNIFE, 0, 0, 3,
-		};
+		struct shorthand hand = { WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON };
 
 		if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DIE) {
 			// Dying chr
@@ -8100,7 +8098,7 @@ void chrTickPoisoned(struct chrdata *chr)
 			}
 		} else if (chr->prop->type == PROPTYPE_PLAYER
 				&& g_Vars.players[propGetPlayerNum(chr->prop)]->bondhealth < 0.001f) {
-			// Alive player chr
+			// Player who's alive but on almost zero health
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter > PALDOWN(3600)) {
 					chr->poisoncounter = PALDOWN(3600);
@@ -8111,13 +8109,13 @@ void chrTickPoisoned(struct chrdata *chr)
 				}
 			}
 		} else {
-			// Alive non-player chr
+			// Alive chr
 			chr->poisoncounter -= g_Vars.lvupdate240;
 
 			if (chr->poisoncounter <= 0) {
 				if (!g_Vars.normmplayerisrunning) {
-					chrPoison(chr, 100, &coord, &hand, chr->poisonprop);
-					chrDoFlinchcntThing(chr, M_PI);
+					chrDamageByMisc(chr, 100, &coord, &hand, chr->poisonprop);
+					chrFlinchHead(chr, M_PI);
 				}
 
 				chr->poisoncounter = 0;
@@ -8127,7 +8125,7 @@ void chrTickPoisoned(struct chrdata *chr)
 
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter / PALDOWN(720) != (chr->poisoncounter + g_Vars.lvupdate240) / PALDOWN(720)) {
-					chrPoison(chr, 1.3f, &coord, &hand, chr->poisonprop);
+					chrDamageByMisc(chr, 1.3f, &coord, &hand, chr->poisonprop);
 				}
 			}
 		}
@@ -9453,7 +9451,7 @@ glabel var7f1a99ecpf
 /*  f0243e0:	8de10008 */ 	lw	$at,0x8($t7)
 /*  f0243e4:	ad380004 */ 	sw	$t8,0x4($t1)
 /*  f0243e8:	ad210008 */ 	sw	$at,0x8($t1)
-/*  f0243ec:	0fc22f08 */ 	jal	func0f08bcf4
+/*  f0243ec:	0fc22f08 */ 	jal	hatGetType
 /*  f0243f0:	8e040178 */ 	lw	$a0,0x178($s0)
 /*  f0243f4:	afa20058 */ 	sw	$v0,0x58($sp)
 /*  f0243f8:	82060006 */ 	lb	$a2,0x6($s0)
@@ -10891,7 +10889,7 @@ glabel var7f1a87d8
 /*  f0242bc:	8f210008 */ 	lw	$at,0x8($t9)
 /*  f0242c0:	ad680004 */ 	sw	$t0,0x4($t3)
 /*  f0242c4:	ad610008 */ 	sw	$at,0x8($t3)
-/*  f0242c8:	0fc22f3d */ 	jal	func0f08bcf4
+/*  f0242c8:	0fc22f3d */ 	jal	hatGetType
 /*  f0242cc:	8e040178 */ 	lw	$a0,0x178($s0)
 /*  f0242d0:	afa20058 */ 	sw	$v0,0x58($sp)
 /*  f0242d4:	82060006 */ 	lb	$a2,0x6($s0)
@@ -12270,7 +12268,7 @@ glabel var7f1a87d8
 /*  f023cd4:	8f010008 */ 	lw	$at,0x8($t8)
 /*  f023cd8:	ad2c0004 */ 	sw	$t4,0x4($t1)
 /*  f023cdc:	ad210008 */ 	sw	$at,0x8($t1)
-/*  f023ce0:	0fc22947 */ 	jal	func0f08bcf4
+/*  f023ce0:	0fc22947 */ 	jal	hatGetType
 /*  f023ce4:	8e040178 */ 	lw	$a0,0x178($s0)
 /*  f023ce8:	afa20058 */ 	sw	$v0,0x58($sp)
 /*  f023cec:	82060006 */ 	lb	$a2,0x6($s0)

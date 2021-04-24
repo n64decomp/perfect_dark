@@ -1359,8 +1359,8 @@ u8 func1009_check_for_exit[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
 	if_chr_dead(CHR_BOND, /*goto*/ 0x2c)
 	if_chr_knockedout(CHR_BOND, /*goto*/ 0x2c)
@@ -1637,7 +1637,7 @@ u8 func041b_outro[] = {
 
 u8 func0419_init_outro_guard[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

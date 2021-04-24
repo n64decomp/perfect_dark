@@ -202,7 +202,7 @@ char *soloMenuTextNumLimbShots(struct menuitem *item)
 
 char *soloMenuTextNumOtherShots(struct menuitem *item)
 {
-	u32 total = mpstatsGetPlayerShotCountByRegion(SHOTREGION_GUN) + mpstatsGetPlayerShotCountByRegion(SHOTREGION_5);
+	u32 total = mpstatsGetPlayerShotCountByRegion(SHOTREGION_GUN) + mpstatsGetPlayerShotCountByRegion(SHOTREGION_HAT);
 	sprintf(g_StringPointer, "%d", total);
 	return g_StringPointer;
 }
@@ -214,12 +214,12 @@ char *soloMenuTextAccuracy(struct menuitem *item)
 	s32 numbody = mpstatsGetPlayerShotCountByRegion(SHOTREGION_BODY);
 	s32 numlimb = mpstatsGetPlayerShotCountByRegion(SHOTREGION_LIMB);
 	s32 numgun = mpstatsGetPlayerShotCountByRegion(SHOTREGION_GUN);
-	s32 num5 = mpstatsGetPlayerShotCountByRegion(SHOTREGION_5);
+	s32 numhat = mpstatsGetPlayerShotCountByRegion(SHOTREGION_HAT);
 	s32 numobject = mpstatsGetPlayerShotCountByRegion(SHOTREGION_OBJECT);
 	f32 accuracy;
 
 	if (total > 0) {
-		s32 hits = numhead + numbody + numlimb + numgun + num5 + numobject;
+		s32 hits = numhead + numbody + numlimb + numgun + numhat + numobject;
 		accuracy = hits * 100.0f / total;
 	} else {
 		accuracy = 0;

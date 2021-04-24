@@ -1267,7 +1267,7 @@ u8 func0411_labtech_showers_agent[] = {
 	endloop(0x04)
 
 	beginloop(0x64)
-		damage_chr(CHR_SELF, 18)
+		damage_chr(CHR_SELF, WEAPON_SUPERDRAGON)
 		if_chr_dead(CHR_SELF, /*goto*/ 0x2d)
 	endloop(0x64)
 
@@ -2380,7 +2380,7 @@ u8 func1011_unhide_warehouse_spawner[] = {
 	// Unhide a guy at the top of the ramp near the start
 	label(0x06)
 	unset_chr_chrflag(0x44, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(0x44, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x44, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x44, AILIST_WAREHOUSE_SPAWNER)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2511,7 +2511,7 @@ u8 func1014_check_crate_destroyed[] = {
  */
 u8 func041c_unused_041c[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2521,7 +2521,7 @@ u8 func041c_unused_041c[] = {
  */
 u8 func041d_unused_041d[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2537,7 +2537,7 @@ u8 func041e_unused_041e[] = {
 	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3442,7 +3442,7 @@ u8 func1020_chamber8[] = {
 
 u8 func0424_alien[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, AILIST_CHECK_LOOKING_AT_ALIEN)
 	endlist
 };
@@ -3453,7 +3453,7 @@ u8 func0424_alien[] = {
  */
 u8 func0425_hiddenguy[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3918,7 +3918,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
 	remove_chr(CHR_JONATHAN)
 	unset_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_UNPLAYABLE)
-	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_INVINCIBLE)
 	set_chr_hiddenflag(CHR_INTRO_DEAD_GUARD, CHRHFLAG_00020000)
 	chr_do_animation(0x01c9, -2, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
 	mute_channel(CHANNEL_10)
@@ -3957,24 +3957,24 @@ u8 func1024_noop[] = {
 u8 func1025_toggle_guards[] = {
 	set_chr_chrflag(0x33, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x34, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(0x33, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(0x34, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(0x33, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(0x34, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(0x37, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x2c, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x2d, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x2e, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(0x37, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(0x2c, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(0x2d, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(0x2e, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(0x37, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(0x2c, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(0x2d, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(0x2e, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(0x2f, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x30, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x31, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x32, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(0x2f, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(0x30, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(0x31, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(0x32, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(0x2f, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(0x30, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(0x31, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(0x32, CHRCFLAG_INVINCIBLE)
 
 	beginloop(0x08)
 		chr_toggle_p1p2(CHR_SELF)
@@ -3985,18 +3985,18 @@ u8 func1025_toggle_guards[] = {
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
 	unset_chr_chrflag(0x33, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x34, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(0x33, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x34, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x33, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x34, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x33, AILIST_BIOTECH_GUARD_ALERTED)
 	set_ailist(0x34, AILIST_BIOTECH_GUARD_ALERTED)
 	unset_chr_chrflag(0x37, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x2c, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x2d, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x2e, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(0x37, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x2c, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x2d, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x2e, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x37, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x2c, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x2d, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x2e, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x37, AILIST_SUPERDRAGON_GUARD)
 	set_ailist(0x2c, AILIST_SUPERDRAGON_GUARD)
 	set_ailist(0x2d, AILIST_SUPERDRAGON_GUARD)
@@ -4005,10 +4005,10 @@ u8 func1025_toggle_guards[] = {
 	unset_chr_chrflag(0x30, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x31, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x32, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(0x2f, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x30, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x31, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x32, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x2f, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x30, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x31, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x32, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x2f, AILIST_BIOTECH_GUARD)
 	set_ailist(0x30, AILIST_SUPERDRAGON_GUARD)
 	set_ailist(0x31, AILIST_SUPERDRAGON_GUARD)
@@ -4027,7 +4027,7 @@ u8 func0429_spawn_while_xraying[] = {
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	restart_timer
 
@@ -4437,7 +4437,7 @@ u8 func1030_lift_door_sounds[] = {
 u8 func1031_toggle_doorman[] = {
 	yield
 	set_chr_chrflag(CHR_DOORMAN, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_DOORMAN, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_DOORMAN, CHRCFLAG_INVINCIBLE)
 
 	beginloop(0x5e)
 		label(0x2d)
@@ -4452,7 +4452,7 @@ u8 func1031_toggle_doorman[] = {
 
 	label(0x2d)
 	unset_chr_chrflag(CHR_DOORMAN, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(CHR_DOORMAN, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_DOORMAN, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4637,14 +4637,14 @@ u8 func1435_setup_environment[] = {
 };
 
 u8 func0432_init_biotech1[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, AILIST_BIOTECH1)
 	endlist
 };
 
 u8 func0433_init_biotech2[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, AILIST_BIOTECH2)
 	endlist

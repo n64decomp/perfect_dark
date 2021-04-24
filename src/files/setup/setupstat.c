@@ -1009,7 +1009,7 @@ u8 func1007_check_end_level[] = {
 
 u8 func040c_hide[] = {
 	label(0x03)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1027,11 +1027,11 @@ u8 func100d_king1_invincible[] = {
 		if_chr_in_room(CHR_BOND, 0x00, 0x0077, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0078, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0079, /*goto*/ 0x2d)
-		set_chr_chrflag(CHR_KING1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+		set_chr_chrflag(CHR_KING1, CHRCFLAG_INVINCIBLE)
 		reloop(0x03)
 
 		label(0x2d)
-		unset_chr_chrflag(CHR_KING1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+		unset_chr_chrflag(CHR_KING1, CHRCFLAG_INVINCIBLE)
 	endloop(0x03)
 
 	endlist

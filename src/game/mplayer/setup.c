@@ -4486,7 +4486,7 @@ s32 menuhandlerMpHandicapPlayer(s32 operation, struct menuitem *item, union hand
 		g_MpPlayers[item->param].handicap = (u16)data->slider.value;
 		break;
 	case MENUOP_GETSLIDERLABEL:
-		sprintf(data->slider.label, "%s%s%.00f%%\n", "", "", func0f187770(g_MpPlayers[item->param].handicap) * 100);
+		sprintf(data->slider.label, "%s%s%.00f%%\n", "", "", mpHandicapToDamageScale(g_MpPlayers[item->param].handicap) * 100);
 		break;
 	}
 

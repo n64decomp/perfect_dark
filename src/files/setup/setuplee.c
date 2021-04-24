@@ -666,7 +666,7 @@ u8 func040d_elvis_wait_for_hangar_entry[] = {
 	add_health_or_armor(200)
 	set_alertness(100)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
 
@@ -695,7 +695,7 @@ u8 func040d_elvis_wait_for_hangar_entry[] = {
 
 	label(0x06)
 	unset_self_chrflag(CHRCFLAG_HIDDEN)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	yield
 	yield
 	yield
@@ -2808,7 +2808,7 @@ u8 func0c01_outro[] = {
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_00020000)
 	chr_do_animation(0x01e2, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 
-	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_ELVIS, GAILIST_IDLE)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
@@ -3164,9 +3164,9 @@ u8 func1016_msg_ifwecontrolthebridge[] = {
 
 	label(0x2c)
 	set_stage_flag(STAGEFLAG_ENTERED_BRIDGELIFT)
-	unset_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_INVINCIBLE)
 	speak(CHR_P1P2, L_LEE_030, MP3_03DF, CHANNEL_6, COLOR_09_BLUE) // "If we control the bridge, then the ship is ours."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3199,7 +3199,7 @@ u8 func0422_cass[] = {
 	set_stage_flag(STAGEFLAG_CASS_SCREAMING)
 
 	beginloop(0xc2)
-		damage_chr(CHR_SELF, 18)
+		damage_chr(CHR_SELF, WEAPON_SUPERDRAGON)
 		if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2c)
 		if_chr_dead(CHR_SELF, /*goto*/ 0x2c)
 		if_chr_knockedout(CHR_SELF, /*goto*/ 0x2c)
@@ -3397,13 +3397,13 @@ u8 func1002_hangar_shuttle[] = {
 
 u8 func101a_kill_maian[] = {
 	yield
-	damage_chr(CHR_MAIAN3, 18)
+	damage_chr(CHR_MAIAN3, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(CHR_MAIAN3, 18)
+	damage_chr(CHR_MAIAN3, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(CHR_MAIAN3, 18)
+	damage_chr(CHR_MAIAN3, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(CHR_MAIAN3, 18)
+	damage_chr(CHR_MAIAN3, WEAPON_SUPERDRAGON)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3587,9 +3587,9 @@ u8 func040b_init_cass[] = {
 };
 
 u8 func1024_set_bridge_skedar_invincible[] = {
-	set_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_UNEXPLODABLE)
 	set_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_UNEXPLODABLE)
 	set_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_UNEXPLODABLE)

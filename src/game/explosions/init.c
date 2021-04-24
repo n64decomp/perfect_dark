@@ -12,7 +12,7 @@ void explosionsInit(void)
 
 	var8007e4a0 = 0;
 	var8007e4a4 = 0;
-	var8007e4a8 = 1;
+	g_ExplosionDamageReceivedScale = 1;
 
 	g_MaxExplosions = 6;
 

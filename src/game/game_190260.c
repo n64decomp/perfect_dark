@@ -4204,7 +4204,7 @@ void mpAibotApplyScenarioCommand(struct chrdata *chr, u32 command)
 	chr->aibot->unk0d8 = 1;
 }
 
-void func0f192628(struct chrdata *chr, struct prop *arg1)
+void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
 {
 	if (chr->aibot->weaponnum >= WEAPON_FALCON2 && chr->aibot->weaponnum != WEAPON_BRIEFCASE2) {
 		struct prop *prop = NULL;
@@ -4236,7 +4236,7 @@ void func0f192628(struct chrdata *chr, struct prop *arg1)
 
 			if (obj->hidden & OBJHFLAG_AIRBORNE) {
 				obj->projectile->unk0b4 = PALDOWN(240);
-				obj->projectile->unk108 = arg1;
+				obj->projectile->unk108 = attackerprop;
 			}
 		}
 

@@ -906,9 +906,9 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	set_chr_chrflag(0x14, CHRCFLAG_00040000)
 	set_chr_chrflag(0x15, CHRCFLAG_00040000)
 	set_chr_chrflag(0x16, CHRCFLAG_00040000)
-	unset_chr_chrflag(0x14, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x15, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x16, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x14, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x15, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x16, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x14, AILIST_TELEPORT_ACTIVATION_RESPONDER)
 	set_ailist(0x15, AILIST_TELEPORT_ACTIVATION_RESPONDER)
 	set_ailist(0x16, AILIST_TELEPORT_ACTIVATION_RESPONDER)
@@ -1881,13 +1881,13 @@ u8 func0c02_outro[] = {
 	play_cutscene_track(MUSIC_DEEPSEA_OUTRO)
 	camera_movement(0x02d7)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_ANTI, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE)
 	restart_timer
 
 	// @bug: Missing button checks makes the outro unskippable until a certain
@@ -1990,13 +1990,13 @@ u8 func0c02_outro[] = {
 
 	label(0x57)
 	if_all_objectives_complete(/*goto*/ 0x06)
-	unset_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_INVINCIBLE)
 	explosions_around_chr(CHR_BOND)
 	label(0x2e)
-	unset_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE)
 	enter_firstperson
 	grant_control(CHR_BOND)
 	restart_timer
@@ -3333,8 +3333,8 @@ u8 func100c_countdown_timer[] = {
 
 	// Mission complete
 	label(0x06)
-	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3559,7 +3559,7 @@ u8 func1010_agent_hallway_spawner[] = {
 };
 
 u8 func0411_hide[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3579,7 +3579,7 @@ u8 func0413_cloak_and_hide[] = {
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	stop_chr
 	yield
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -4428,9 +4428,9 @@ u8 func1028_enable_last_3_guards[] = {
 	unset_chr_chrflag(0x3c, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x3d, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x3e, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(0x3c, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x3d, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(0x3e, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x3c, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x3d, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(0x3e, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x3c, AILIST_RUN_TO_EXIT)
 	set_ailist(0x3d, AILIST_RUN_TO_EXIT)
 	set_ailist(0x3e, AILIST_RUN_TO_EXIT)
@@ -4462,13 +4462,13 @@ u8 func1429_start_lift[] = {
 
 u8 func102a_kill_pelagic_guard[] = {
 	yield
-	damage_chr(0x3f, 18)
+	damage_chr(0x3f, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(0x3f, 18)
+	damage_chr(0x3f, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(0x3f, 18)
+	damage_chr(0x3f, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(0x3f, 18)
+	damage_chr(0x3f, WEAPON_SUPERDRAGON)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4534,7 +4534,7 @@ u8 func040f_miniskedar_unalerted[] = {
 };
 
 u8 func0432_dead_skedar[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 
 	label(0x08)
 	yield

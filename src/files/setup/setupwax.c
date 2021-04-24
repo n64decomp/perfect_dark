@@ -1276,7 +1276,7 @@ u8 func0411_cass_in_office[] = {
 	// Not dying
 	label(0x06)
 	if_has_gun(CHR_SELF, /*goto*/ 0x2c)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_stage_flag(STAGEFLAG_TRIGGER_YWSM)
 	set_shotlist(AILIST_CASS_RUNNING)
 	restart_timer
@@ -1290,7 +1290,7 @@ u8 func0411_cass_in_office[] = {
 	endloop(0x08)
 
 	label(0x06)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, AILIST_CASS_RUNNING)
 
 	// Waiting for player to enter office
@@ -1367,7 +1367,7 @@ u8 func0411_cass_in_office[] = {
 
 u8 func0413_cass_running[] = {
 	chr_toggle_modelpart(CHR_CASS, MODELPART_NECKLACE)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_shotlist(AILIST_CASS_RUNNING)
 	if_chr_dead(CHR_CASS, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_CASS, /*goto*/ 0x06)
@@ -2022,7 +2022,7 @@ u8 func0417_outro[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE)
 	show_object(OBJ_SHUTTLE2)
 	set_object_flag2(OBJ_SHUTTLE2, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_SHUTTLE2, OBJFLAG3_00000010)

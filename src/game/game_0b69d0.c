@@ -5144,7 +5144,11 @@ void currentPlayerTickChrFade(void)
 	}
 }
 
-void func0f0bb69c(void)
+/**
+ * Make the health bar appear. If called while the health bar is already open,
+ * the damage displayed will be updated and the show timer will be reset.
+ */
+void currentPlayerShowHealthBar(void)
 {
 	switch (g_Vars.currentplayer->healthshowmode) {
 	case HEALTHSHOWMODE_HIDDEN:
@@ -5669,7 +5673,7 @@ glabel var7f1ad674
 /*  f0bbf10:	00000000 */ 	nop
 );
 
-void func0f0bbf14(void)
+void currentPlayerUpdateHealthShow(void)
 {
 	if (g_Vars.currentplayer->damageshowtime >= var80070844[g_Vars.currentplayer->healthdamagetype].showtime) {
 		g_Vars.currentplayer->damageshowtime = var80070844[g_Vars.currentplayer->healthdamagetype].showtime;
@@ -13741,7 +13745,7 @@ glabel var7f1ad6ac
 //			eyespy->active = false;
 //			func0f0926bc(eyespy->prop, 1, 0xffff);
 //			chr->chrflags |= CHRCFLAG_HIDDEN;
-//			chr->chrflags |= CHRCFLAG_INVINCIBLE_TO_GUNFIRE;
+//			chr->chrflags |= CHRCFLAG_INVINCIBLE;
 //			g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
 //		} else {
 //			// dd7c
@@ -15903,7 +15907,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 								if (totalhealth > 0.125f
 										&& !(mainGetStageNum() == STAGE_DEEPSEA && chrHasStageFlag(NULL, 0x00000200))) {
 									if (canrestart) {
-										func0f0bb69c();
+										currentPlayerShowHealthBar();
 
 										stealhealth = totalhealth * 0.5f;
 
@@ -15933,7 +15937,7 @@ Gfx *func0f0c07c8(Gfx *gdl)
 								}
 #else
 								if (totalhealth > 0.125f && canrestart) {
-									func0f0bb69c();
+									currentPlayerShowHealthBar();
 
 									stealhealth = totalhealth * 0.5f;
 

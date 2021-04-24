@@ -18,7 +18,7 @@ bool func0f191638(struct chrdata *chr, bool arg1);
 bool aibotTick(struct prop *prop);
 f32 aibotCalculateMaxSpeed(struct chrdata *chr);
 void func0f1921f8(struct chrdata *chr, f32 *arg1, s32 arg2, f32 arg3);
-void func0f192628(struct chrdata *chr, struct prop *arg1);
+void aibotLoseGun(struct chrdata *chr, struct prop *attacker);
 void func0f19277c(struct chrdata *chr, s32 propnum);
 bool func0f19294c(struct chrdata *botchr, struct chrdata *otherchr);
 bool chrHasGround(struct chrdata *chr);

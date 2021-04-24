@@ -68,7 +68,7 @@ struct playerstats {
 	/*0x50*/ s32 shortestlife;
 	/*0x54*/ u32 maxkills;
 	/*0x58*/ s32 maxsimulkills;
-	/*0x5c*/ f32 damagescale;
+	/*0x5c*/ f32 damagescale; // of received damage
 	/*0x60*/ s32 tokenheldtime;
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 cloaktime;
@@ -799,9 +799,7 @@ struct aibot {
 	/*0x0fc*/ u32 unk0fc;
 	/*0x100*/ u32 unk100;
 	/*0x104*/ u32 unk104;
-	/*0x108*/ f32 unk108;
-	/*0x10c*/ f32 unk10c;
-	/*0x110*/ f32 unk110;
+	/*0x108*/ struct coord shotspeed; // "boost" when aibot is shot
 	/*0x114*/ s32 unk114;
 	/*0x118*/ u32 unk118;
 	/*0x11c*/ s32 unk11c;
@@ -964,12 +962,20 @@ struct act_argh {
 	/*0x30*/ s32 unk030; // lvframe60 value
 };
 
+// The first 4 bytes of the hand struct
+struct shorthand {
+	u8 weaponnum;
+	u8 unk0639;
+	u8 unk063a;
+	u8 weaponfunc; // 0 or 1
+};
+
 struct act_preargh {
 	/*0x2c*/ struct coord pos;
-	/*0x38*/ f32 unk038;
-	/*0x3c*/ f32 unk03c;
-	/*0x40*/ u32 unk040;
-	/*0x44*/ u32 unk044;
+	/*0x38*/ f32 angle;
+	/*0x3c*/ s32 ibh;
+	/*0x40*/ struct shorthand hand;
+	/*0x44*/ s32 aplayernum;
 };
 
 struct act_attack {
@@ -1385,7 +1391,7 @@ struct chrdata {
 	/*0x33c*/ struct coord lastdroppos;
 	/*0x348*/ struct fireslotthing *unk348;
 	/*0x34c*/ struct fireslotthing *unk34c;
-	/*0x350*/ u32 unk350;
+	/*0x350*/ struct chrdata *lastattacker;
 	/*0x354*/ s16 aipunchdodgelist;
 	/*0x356*/ s16 aishootingatmelist;
 	/*0x358*/ s16 poisoncounter;
@@ -2079,14 +2085,6 @@ struct abmag {
 	/*0x05*/ s8 change;
 
 	/*0x06*/ u16 alignment;
-};
-
-// The first 4 bytes of the hand struct
-struct shorthand {
-	u8 weaponnum;
-	u8 unk0639;
-	u8 unk063a;
-	u8 weaponfunc; // 0 or 1
 };
 
 // Weapon data per hand
@@ -2809,7 +2807,7 @@ struct player {
 	/*0x1990*/ u32 unk1990;
 	/*0x1994*/ u32 unk1994;
 	/*0x1998*/ u32 unk1998;
-	/*0x199c*/ f32 unk199c;
+	/*0x199c*/ f32 healthscale;
 	/*0x19a0*/ f32 armourscale;
 	/*0x19a4*/ f32 speedgo;
 	/*0x19a8*/ s32 sighttimer240;

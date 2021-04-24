@@ -3098,7 +3098,7 @@ glabel var7f1a7f20
 /*  f009ca0:	46049002 */ 	mul.s	$f0,$f18,$f4
 /*  f009ca4:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f009ca8:	44050000 */ 	mfc1	$a1,$f0
-/*  f009cac:	0fc0d049 */ 	jal	chrPoison
+/*  f009cac:	0fc0d049 */ 	jal	chrDamageByMisc
 /*  f009cb0:	00000000 */ 	nop
 /*  f009cb4:	8e0c0018 */ 	lw	$t4,0x18($s0)
 /*  f009cb8:	8e0e0014 */ 	lw	$t6,0x14($s0)
@@ -3319,7 +3319,7 @@ glabel var7f1a7f20
 /*  f009ca0:	46049002 */ 	mul.s	$f0,$f18,$f4
 /*  f009ca4:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f009ca8:	44050000 */ 	mfc1	$a1,$f0
-/*  f009cac:	0fc0d049 */ 	jal	chrPoison
+/*  f009cac:	0fc0d049 */ 	jal	chrDamageByMisc
 /*  f009cb0:	00000000 */ 	nop
 /*  f009cb4:	8e0c0018 */ 	lw	$t4,0x18($s0)
 /*  f009cb8:	8e0e0014 */ 	lw	$t6,0x14($s0)
@@ -3544,7 +3544,7 @@ glabel var7f1a7f20
 /*  f009958:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00995c:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f009960:	44050000 */ 	mfc1	$a1,$f0
-/*  f009964:	0fc0ce8b */ 	jal	chrPoison
+/*  f009964:	0fc0ce8b */ 	jal	chrDamageByMisc
 /*  f009968:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f00996c:	8e0a0018 */ 	lw	$t2,0x18($s0)
 /*  f009970:	8e0d0014 */ 	lw	$t5,0x14($s0)
@@ -3654,7 +3654,7 @@ glabel var7f1a7f20
 //						struct coord vector = {0, 0, 0};
 //						f32 damage = 0.0099999997764826f * g_Vars.lvupdate240freal;
 //
-//						chrPoison(chr, damage, &vector, sp70, nbomb->prop);
+//						chrDamageByMisc(chr, damage, &vector, sp70, nbomb->prop);
 //
 //						chr->chrflags |= CHRCFLAG_TRIGGERSHOTLIST;
 //

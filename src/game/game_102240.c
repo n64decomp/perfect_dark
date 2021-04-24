@@ -834,7 +834,7 @@ f32 func0f1036ac(u8 value, s32 prop)
 		return value / 255.0f;
 	}
 
-	return func0f187770(value);
+	return mpHandicapToDamageScale(value);
 }
 
 s32 menuhandlerPdModeSetting(s32 operation, struct menuitem *item, union handlerdata *data)

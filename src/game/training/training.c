@@ -2733,7 +2733,7 @@ void frEndSession(bool hidetargets)
 		}
 	}
 
-	func0f0bb69c();
+	currentPlayerShowHealthBar();
 
 	g_Vars.currentplayer->bondhealth = 1;
 }
@@ -7684,7 +7684,7 @@ void dtEnd(void)
 	chrUnsetStageFlag(NULL, ciGetStageFlagByDeviceIndex(dtGetIndexBySlot(g_DtSlot)));
 	g_Vars.currentplayer->training = false;
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
-	func0f0bb69c();
+	currentPlayerShowHealthBar();
 	g_Vars.currentplayer->bondhealth = 1;
 }
 
@@ -8002,7 +8002,7 @@ void htEnd(void)
 
 	playersSetPassiveMode(true);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
-	func0f0bb69c();
+	currentPlayerShowHealthBar();
 	g_Vars.currentplayer->bondhealth = 1;
 }
 

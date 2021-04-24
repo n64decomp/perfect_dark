@@ -10,12 +10,12 @@
 #include "data.h"
 #include "types.h"
 
-f32 pdmodeGetReaction(void)
+f32 pdmodeGetEnemyReactionSpeed(void)
 {
 	return 0;
 }
 
-f32 pdmodeGetHealth(void)
+f32 pdmodeGetEnemyHealth(void)
 {
 	if (g_MissionConfig.pdmode) {
 		return g_MissionConfig.pdmodehealthf;
@@ -24,7 +24,7 @@ f32 pdmodeGetHealth(void)
 	return 1;
 }
 
-f32 pdmodeGetDamage(void)
+f32 pdmodeGetEnemyDamage(void)
 {
 	if (g_MissionConfig.pdmode) {
 		return g_MissionConfig.pdmodedamagef;
@@ -33,7 +33,7 @@ f32 pdmodeGetDamage(void)
 	return 1;
 }
 
-f32 pdmodeGetAccuracy(void)
+f32 pdmodeGetEnemyAccuracy(void)
 {
 	if (g_MissionConfig.pdmode) {
 		return g_MissionConfig.pdmodeaccuracyf;

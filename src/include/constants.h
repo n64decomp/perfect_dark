@@ -401,6 +401,10 @@
 
 #define CHECKSUM_PLACEHOLDER 0x99aabbcc
 
+#define CHOKETYPE_NONE   0
+#define CHOKETYPE_GURGLE 1
+#define CHOKETYPE_GASP   2
+
 #define CHR_P1P2_OPPOSITE 0xf1
 #define CHR_P1P2          0xf2
 #define CHR_ANY           0xf3 // Only supported by if_chr_activated_object command
@@ -446,7 +450,7 @@
 #define CHRFLAG0_10000000           0x10000000 // If set, "IM GOING TO POP"
 #define CHRFLAG0_CAN_HEARSPAWN      0x20000000
 #define CHRFLAG0_NOHEAR             0x40000000 // Globals, Villa
-#define CHRFLAG0_80000000           0x80000000 // Globals, Villa, Chicago, CI Training
+#define CHRFLAG0_CANLOSEGUN         0x80000000 // Globals, Villa, Chicago, CI Training
 
 // chr->flags2
 #define CHRFLAG1_00000001                  0x00000001 // Globals, Extraction, Air Base, Deep Sea
@@ -483,38 +487,38 @@
 #define CHRFLAG1_80000000                  0x80000000 // Globals
 
 // chr->hidden
-#define CHRHFLAG_00000001           0x00000001 // Set when chr drops weapon
-#define CHRHFLAG_IS_HEARING_TARGET  0x00000002 // Not used in scripts
-#define CHRHFLAG_00000004           0x00000004 // Related to firing - hand 1
-#define CHRHFLAG_00000008           0x00000008 // Related to firing - hand 0
-#define CHRHFLAG_00000010           0x00000010 // Not used in scripts
-#define CHRHFLAG_REAPED             0x00000020
-#define CHRHFLAG_TIMER_RUNNING      0x00000040
-#define CHRHFLAG_00000080           0x00000080 // Not used in scripts
-#define CHRHFLAG_00000100           0x00000100 // Not used in scripts
-#define CHRHFLAG_00000200           0x00000200 // Not used in scripts
-#define CHRHFLAG_PASSIVE            0x00000400
-#define CHRHFLAG_KEEP_CORPSE        0x00000800 // Appears to be misnamed
-#define CHRHFLAG_UNTARGETABLE       0x00001000
-#define CHRHFLAG_00002000           0x00002000 // Globals, Rescue guards once disguised
-#define CHRHFLAG_TRIGGER_BUDDY_WARP 0x00004000
-#define CHRHFLAG_00008000           0x00008000 // Duel only. Set on each opponent when they start combat.
-#define CHRHFLAG_DISGUISE_UNCOVERED 0x00010000
-#define CHRHFLAG_00020000           0x00020000 // Used in every stage, on Jo and other chrs. Only ever set, never unset or read.
-#define CHRHFLAG_00040000           0x00040000 // Not used in scripts
-#define CHRHFLAG_DISGUISED          0x00080000
-#define CHRHFLAG_00100000           0x00100000 // Set before warping to pad, never unset or read
-#define CHRHFLAG_NEEDANIM           0x00200000
-#define CHRHFLAG_00400000           0x00400000 // Set in Chicago, G5, AF1, Defense, Attack Ship, Skedar Ruins, Maian SOS, WAR
-#define CHRHFLAG_00800000           0x00800000 // Not used in scripts
-#define CHRHFLAG_01000000           0x01000000 // Globals - asked about gun (eg. "where did you get that?")
-#define CHRHFLAG_02000000           0x02000000 // Similar to DISGUISED flag, but not sure where set
-#define CHRHFLAG_04000000           0x04000000 // Related to disguise and detection
-#define CHRHFLAG_08000000           0x08000000 // Globals, Villa and G5
-#define CHRHFLAG_10000000           0x10000000 // Related to invincible flag
-#define CHRHFLAG_CLOAKED            0x20000000
-#define CHRHFLAG_ANTICANNOTPUSH     0x40000000
-#define CHRHFLAG_PSYCHOSISED        0x80000000
+#define CHRHFLAG_00000001            0x00000001 // Set when chr drops weapon
+#define CHRHFLAG_IS_HEARING_TARGET   0x00000002 // Not used in scripts
+#define CHRHFLAG_00000004            0x00000004 // Related to firing - hand 1
+#define CHRHFLAG_00000008            0x00000008 // Related to firing - hand 0
+#define CHRHFLAG_00000010            0x00000010 // Not used in scripts
+#define CHRHFLAG_REAPED              0x00000020
+#define CHRHFLAG_TIMER_RUNNING       0x00000040
+#define CHRHFLAG_00000080            0x00000080 // Not used in scripts
+#define CHRHFLAG_00000100            0x00000100 // Not used in scripts
+#define CHRHFLAG_00000200            0x00000200 // Not used in scripts
+#define CHRHFLAG_PASSIVE             0x00000400
+#define CHRHFLAG_KEEP_CORPSE         0x00000800 // Appears to be misnamed
+#define CHRHFLAG_UNTARGETABLE        0x00001000
+#define CHRHFLAG_00002000            0x00002000 // Globals, Rescue guards once disguised
+#define CHRHFLAG_TRIGGER_BUDDY_WARP  0x00004000
+#define CHRHFLAG_00008000            0x00008000 // Duel only. Set on each opponent when they start combat.
+#define CHRHFLAG_DISGUISE_UNCOVERED  0x00010000
+#define CHRHFLAG_00020000            0x00020000 // Used in every stage, on Jo and other chrs. Only ever set, never unset or read.
+#define CHRHFLAG_00040000            0x00040000 // Not used in scripts
+#define CHRHFLAG_DISGUISED           0x00080000
+#define CHRHFLAG_00100000            0x00100000 // Set before warping to pad, never unset or read
+#define CHRHFLAG_NEEDANIM            0x00200000
+#define CHRHFLAG_00400000            0x00400000 // Set in Chicago, G5, AF1, Defense, Attack Ship, Skedar Ruins, Maian SOS, WAR
+#define CHRHFLAG_00800000            0x00800000 // Not used in scripts
+#define CHRHFLAG_01000000            0x01000000 // Globals - asked about gun (eg. "where did you get that?")
+#define CHRHFLAG_02000000            0x02000000 // Similar to DISGUISED flag, but not sure where set
+#define CHRHFLAG_04000000            0x04000000 // Related to disguise and detection
+#define CHRHFLAG_08000000            0x08000000 // Globals, Villa and G5
+#define CHRHFLAG_10000000            0x10000000 // Related to invincible flag
+#define CHRHFLAG_CLOAKED             0x20000000
+#define CHRHFLAG_ANTINONINTERACTABLE 0x40000000
+#define CHRHFLAG_PSYCHOSISED         0x80000000
 
 // chr->hidden2
 #define CHRH2FLAG_0001        0x0001
@@ -530,7 +534,7 @@
 #define CHRCFLAG_CLONEABLE                   0x00000002
 #define CHRCFLAG_NEAR_MISS                   0x00000004
 #define CHRCFLAG_NEVER_BEEN_ON_SCREEN        0x00000008
-#define CHRCFLAG_INVINCIBLE_TO_GUNFIRE       0x00000010
+#define CHRCFLAG_INVINCIBLE                  0x00000010
 #define CHRCFLAG_00000020                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
 #define CHRCFLAG_00000040                    0x00000040 // Used quite a lot
 #define CHRCFLAG_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
@@ -557,7 +561,7 @@
 #define CHRCFLAG_10000000                    0x10000000 // Not used in scripts
 #define CHRCFLAG_20000000                    0x20000000 // Not used in scripts
 #define CHRCFLAG_40000000                    0x40000000 // Not used in scripts
-#define CHRCFLAG_INJURED                     0x80000000
+#define CHRCFLAG_INJUREDTARGET               0x80000000
 
 #define CIQUIP_GREETING 0
 #define CIQUIP_MAIN     1
@@ -855,6 +859,8 @@
 // Weapon functions
 #define FUNC_PRIMARY   0
 #define FUNC_SECONDARY 1
+#define FUNC_2         2
+#define FUNC_POISON         3 // Internal function for delivering knife poison periodically
 
 #define FUNCFLAG_BURST3                 0x00000002
 #define FUNCFLAG_BURST50                0x00000020 // automatics only
@@ -866,13 +872,13 @@
 #define FUNCFLAG_BURST2                 0x00001000
 #define FUNCFLAG_NOMUZZLEFLASH          0x00002000
 #define FUNCFLAG_EXPLOSIVESHELLS        0x00004000
-#define FUNCFLAG_LESSDAMAGE             0x00008000
+#define FUNCFLAG_BLUNTIMPACT            0x00008000
 #define FUNCFLAG_NOSTUN                 0x00010000
 #define FUNCFLAG_BURST5                 0x00020000
 #define FUNCFLAG_DISCARDWEAPON          0x00040000 // Dragon and Laptop throw
 #define FUNCFLAG_THREATDETECTOR         0x00080000
 #define FUNCFLAG_AUTOSWITCHUNSELECTABLE 0x00100000
-#define FUNCFLAG_00200000               0x00200000 // Psychosis gun only, but doesn't trigger psychosis
+#define FUNCFLAG_PSYCHOSIS              0x00200000
 #define FUNCFLAG_00400000               0x00400000 // punch, disarm and pistol whip
 #define FUNCFLAG_00800000               0x00800000 // mostly throwables but some projectiles too
 #define FUNCFLAG_08000000               0x08000000 // rockets
@@ -1026,6 +1032,9 @@
 #define HANGARBIO_MAIANVESSEL    21
 #define HANGARBIO_SKEDARSHUTTLE  22
 
+#define HATTYPE_METAL 3
+#define HATTYPE_CLOTH 5
+
 #define HEALTHSHOWMODE_HIDDEN   0 // health bar not visible
 #define HEALTHSHOWMODE_OPENING  1 // height expanding
 #define HEALTHSHOWMODE_PREVIOUS 2 // full height, showing previous health amount
@@ -1055,21 +1064,26 @@
 #define HUDMSGTYPE_11                11
 
 // chr->ivebeenhit values
-#define IBH_LFOOT    1
-#define IBH_LSHIN    2
-#define IBH_LTHIGH   3
-#define IBH_RFOOT    4
-#define IBH_RSHIN    5
-#define IBH_RTHIGH   6
-#define IBH_PELVIS   7
-#define IBH_HEAD     8
-#define IBH_LHAND    9
-#define IBH_LFOREARM 10
-#define IBH_LBICEP   11
-#define IBH_RHAND    12
-#define IBH_RFOREARM 13
-#define IBH_RBICEP   14
-#define IBH_TORSO    15
+#define IBH_LFOOT       1
+#define IBH_LSHIN       2
+#define IBH_LTHIGH      3
+#define IBH_RFOOT       4
+#define IBH_RSHIN       5
+#define IBH_RTHIGH      6
+#define IBH_PELVIS      7
+#define IBH_HEAD        8
+#define IBH_LHAND       9
+#define IBH_LFOREARM    10
+#define IBH_LBICEP      11
+#define IBH_RHAND       12
+#define IBH_RFOREARM    13
+#define IBH_RBICEP      14
+#define IBH_TORSO       15
+#define IBH_TAIL        16
+#define IBH_GUN         100
+#define IBH_HAT         110
+#define IBH_GENERAL     200
+#define IBH_GENERALHALF 201
 
 #define IDLEACTION_STANDING        0x01
 #define IDLEACTION_SITTING_TYPING  0x02
@@ -2958,7 +2972,7 @@
 #define SHOTREGION_BODY   2
 #define SHOTREGION_LIMB   3
 #define SHOTREGION_GUN    4
-#define SHOTREGION_5      5 // hat?
+#define SHOTREGION_HAT    5
 #define SHOTREGION_OBJECT 6
 
 #define SIGHT_DEFAULT  0

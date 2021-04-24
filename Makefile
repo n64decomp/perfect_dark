@@ -156,6 +156,7 @@ CFLAGS = -DVERSION=$(VERSION) \
 	$(LOOPUNROLL) \
 	-Wab,-r4300_mul \
 	-non_shared \
+	-Olimit 1000 \
 	-G 0 \
 	-Xcpluscomm \
 	-woff 581,649,819,820,821,838,852 \

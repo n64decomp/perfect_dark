@@ -160,7 +160,7 @@ u8 func1007_second_walk[] = {
 
 	label(0x2d)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNEXPLODABLE)
 	yield
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -241,7 +241,7 @@ u8 func1008_third_walk[] = {
 
 	label(0x2d)
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_UNEXPLODABLE)
 	yield
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -544,7 +544,7 @@ u8 func0406_jon_init[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -559,7 +559,7 @@ u8 func0407_trent_init[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

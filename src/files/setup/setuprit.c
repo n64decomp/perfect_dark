@@ -688,7 +688,7 @@ u8 func0401_init_stripes[] = {
 
 u8 func0402_init_elvis[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -828,9 +828,9 @@ u8 func1006_hijack[] = {
 	set_chr_team(CHR_TRENT, TEAM_04)
 	set_chr_team(CHR_BLONDE1, TEAM_04)
 	set_chr_team(CHR_BLONDE2, TEAM_04)
-	unset_chr_hiddenflag(CHR_TRENT, CHRHFLAG_ANTICANNOTPUSH)
-	unset_chr_hiddenflag(CHR_BLONDE1, CHRHFLAG_ANTICANNOTPUSH)
-	unset_chr_hiddenflag(CHR_BLONDE2, CHRHFLAG_ANTICANNOTPUSH)
+	unset_chr_hiddenflag(CHR_TRENT, CHRHFLAG_ANTINONINTERACTABLE)
+	unset_chr_hiddenflag(CHR_BLONDE1, CHRHFLAG_ANTINONINTERACTABLE)
+	unset_chr_hiddenflag(CHR_BLONDE2, CHRHFLAG_ANTINONINTERACTABLE)
 	unlock_door(OBJ_COCKPITDOOR, 0x40)
 	rebuild_teams
 	rebuild_squadrons
@@ -1745,7 +1745,7 @@ u8 func0413_taker2[] = {
 
 u8 func0413_taker[] = {
 	set_shotlist(GAILIST_ALERTED)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_chr_team(CHR_SELF, TEAM_04)
 	rebuild_teams
 	rebuild_squadrons
@@ -1793,7 +1793,7 @@ u8 func0413_taker[] = {
 	goto_next(0x11)
 
 	label(0x2d)
-	damage_chr(CHR_TARGET, 18)
+	damage_chr(CHR_TARGET, WEAPON_SUPERDRAGON)
 
 	beginloop(0x0b)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1831,8 +1831,8 @@ u8 func100c_cockpit[] = {
 	if_stage_flag_eq(STAGEFLAG_ALL_OBJECTIVES_COMPLETE, TRUE, /*goto*/ 0x11)
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
-	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_INVINCIBLE)
 	label(0x06)
 
 	// This loop will surely never iterate because
@@ -1860,14 +1860,14 @@ u8 func100c_cockpit[] = {
 
 	// At least one taker alive
 	label(0x06)
-	damage_chr(CHR_PILOT1, 18)
-	damage_chr(CHR_PILOT2, 18)
+	damage_chr(CHR_PILOT1, WEAPON_SUPERDRAGON)
+	damage_chr(CHR_PILOT2, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(CHR_PILOT1, 18)
-	damage_chr(CHR_PILOT2, 18)
+	damage_chr(CHR_PILOT1, WEAPON_SUPERDRAGON)
+	damage_chr(CHR_PILOT2, WEAPON_SUPERDRAGON)
 	yield
-	damage_chr(CHR_PILOT1, 18)
-	damage_chr(CHR_PILOT2, 18)
+	damage_chr(CHR_PILOT1, WEAPON_SUPERDRAGON)
+	damage_chr(CHR_PILOT2, WEAPON_SUPERDRAGON)
 	yield
 	set_stage_flag(STAGEFLAG_PILOTS_DEAD)
 	show_hudmsg(CHR_BOND, L_RIT_027) // "Pilots have been killed."
@@ -2871,7 +2871,7 @@ u8 func0421_trent_waiting[] = {
 	rebuild_squadrons
 	set_self_chrflag(CHRCFLAG_00000040)
 	set_shield(500)
-	set_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -3754,7 +3754,7 @@ u8 func101c_check_equipment_switch_destroyed[] = {
 };
 
 u8 func040c_init_defend_pad[] = {
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_ANTICANNOTPUSH)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_ANTINONINTERACTABLE)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	rebuild_teams
 	rebuild_squadrons
@@ -3786,7 +3786,7 @@ u8 func040d_init_defend_president[] = {
 };
 
 u8 func042c_remove_if_offscreen[] = {
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_ANTICANNOTPUSH)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_ANTINONINTERACTABLE)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	rebuild_teams
 	rebuild_squadrons

@@ -32,7 +32,7 @@ s32 g_MaxExplosions;
 
 u32 var8007e4a0 = 0x00000000;
 u32 var8007e4a4 = 0x00000000;
-f32 var8007e4a8 = 1;
+f32 g_ExplosionDamageReceivedScale = 1;
 u32 var8007e4ac = 0x0000004b;
 u32 var8007e4b0 = 0x000001e0;
 u32 var8007e4b4 = 0x000000a8;
@@ -2121,7 +2121,7 @@ glabel var7f1b68a0pf
 /*  f12c650:	02402025 */ 	move	$a0,$s2
 /*  f12c654:	27a600a0 */ 	addiu	$a2,$sp,0xa0
 /*  f12c658:	02203825 */ 	move	$a3,$s1
-/*  f12c65c:	0fc0d15e */ 	jal	func0f034410
+/*  f12c65c:	0fc0d15e */ 	jal	chrDamageByExplosion
 /*  f12c660:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f12c664:	920e0000 */ 	lbu	$t6,0x0($s0)
 /*  f12c668:	8fb80194 */ 	lw	$t8,0x194($sp)
@@ -2889,7 +2889,7 @@ glabel var7f1b559c
 /*  f12bb4c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f12bb50:	27a600a0 */ 	addiu	$a2,$sp,0xa0
 /*  f12bb54:	02203825 */ 	or	$a3,$s1,$zero
-/*  f12bb58:	0fc0d104 */ 	jal	func0f034410
+/*  f12bb58:	0fc0d104 */ 	jal	chrDamageByExplosion
 /*  f12bb5c:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f12bb60:	920e0000 */ 	lbu	$t6,0x0($s0)
 /*  f12bb64:	8fb80194 */ 	lw	$t8,0x194($sp)
@@ -3654,7 +3654,7 @@ glabel var7f1b559c
 /*  f1266dc:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1266e0:	27a600a0 */ 	addiu	$a2,$sp,0xa0
 /*  f1266e4:	02203825 */ 	or	$a3,$s1,$zero
-/*  f1266e8:	0fc0cf46 */ 	jal	func0f034410
+/*  f1266e8:	0fc0cf46 */ 	jal	chrDamageByExplosion
 /*  f1266ec:	afb30010 */ 	sw	$s3,0x10($sp)
 /*  f1266f0:	920e0000 */ 	lbu	$t6,0x0($s0)
 /*  f1266f4:	8fb80194 */ 	lw	$t8,0x194($sp)

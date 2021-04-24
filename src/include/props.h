@@ -127,6 +127,9 @@
 #define debris(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19) \
 	_generic_object(0x0f, scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19),
 
+#define hat(scale, model, chr, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19) \
+	_generic_object(0x11, scale, model, chr, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19),
+
 #define lift_door(dooroffset, liftoffset, stopnum) \
 	0x13, dooroffset, liftoffset, 0, stopnum,
 

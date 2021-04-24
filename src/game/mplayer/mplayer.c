@@ -103,7 +103,7 @@ struct mpweapon g_MpWeapons[0x27] = {
  * value 127 will return 1
  * value 255 will return 10
  */
-f32 func0f187770(u8 value)
+f32 mpHandicapToDamageScale(u8 value)
 {
 	f32 tmp;
 

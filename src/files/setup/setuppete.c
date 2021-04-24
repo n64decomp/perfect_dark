@@ -2067,7 +2067,7 @@ u8 func041a_robot[] = {
 	set_chr_chrflag(CHR_ROBOT, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ROBOT, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ROBOT, CHRHFLAG_00020000)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
 	set_ailist(CHR_ROBOT, GAILIST_IDLE)
 	set_shield(0)
@@ -2356,7 +2356,7 @@ u8 func100d_spawn_alarm_responders[] = {
 
 u8 func041f_alarm_responder[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(14)
 	set_reaction_speed(20)
@@ -2841,7 +2841,7 @@ u8 func1416_setup_rain[] = {
 
 u8 func041c_hiddenguy[] = {
 	set_chr_chrflag(CHR_HIDDENGUY, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_HIDDENGUY, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_HIDDENGUY, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3198,10 +3198,10 @@ u8 func0412_cia_invincibility[] = {
 	endloop(0x10)
 
 	label(0x03)
-	set_chr_chrflag(CHR_CIA1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_CIA2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_CIA3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_CIA4, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_CIA1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_CIA2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_CIA3, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_CIA4, CHRCFLAG_INVINCIBLE)
 
 	beginloop(0x2d)
 		if_stage_flag_eq(STAGEFLAG_DIVERSION_CREATED, TRUE, /*goto*/ 0x03)
@@ -3215,10 +3215,10 @@ u8 func0412_cia_invincibility[] = {
 	endloop(0x2f)
 
 	label(0x03)
-	unset_chr_chrflag(CHR_CIA1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_CIA2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_CIA3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_CIA4, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_CIA1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_CIA2, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_CIA3, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_CIA4, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

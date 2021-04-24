@@ -561,7 +561,7 @@ u8 func0402_outro[] = {
 	set_ailist(CHR_ELVIS, GAILIST_IDLE)
 
 	set_chr_chrflag(CHR_PRESIDENT, CHRCFLAG_HIDDEN)
-	set_chr_chrflag(CHR_PRESIDENT, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_PRESIDENT, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_PRESIDENT, GAILIST_IDLE)
 
 	set_chr_chrflag(CHR_TARGET, CHRCFLAG_UNPLAYABLE)
@@ -574,25 +574,25 @@ u8 func0402_outro[] = {
 	set_chr_hiddenflag(CHR_SKEDAR, CHRHFLAG_00020000)
 	chr_do_animation(0x01da, -1, -1, 0x06, 0x00, CHR_SKEDAR, 4)
 
-	set_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS_OUTRO, CHRHFLAG_00020000)
 	chr_do_animation(0x01db, -1, -1, 0x06, 0x00, CHR_ELVIS_OUTRO, 4)
 
-	set_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_TRENT, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TRENT, CHRHFLAG_00020000)
 	chr_do_animation(0x01dc, -1, -1, 0x06, 0x00, CHR_TRENT, 4)
 
-	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_MRBLONDE, CHRHFLAG_00020000)
 	chr_do_animation(0x01dd, -1, -1, 0x06, 0x00, CHR_MRBLONDE, 4)
 
-	set_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_PRESIDENT_OUTRO, CHRHFLAG_00020000)
@@ -1127,7 +1127,7 @@ u8 func100b_check_clone_dead[] = {
 u8 func0403_init_elvis[] = {
 	set_shield(100)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_accuracy(100)
 	set_reaction_speed(100)
 	add_health_or_armor(1000)
@@ -1267,7 +1267,7 @@ u8 func0418_robot[] = {
 	goto_next(0x04)
 	label(0x08)
 	yield
-	damage_chr(CHR_SELF, 18)
+	damage_chr(CHR_SELF, WEAPON_SUPERDRAGON)
 	goto_first(0x66)
 
 	beginloop(0x04)
@@ -1406,7 +1406,7 @@ u8 func0419_unused[] = {
 };
 
 u8 func0422_hide[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1785,7 +1785,7 @@ u8 func041f_trent_shooting[] = {
 
 u8 func0420_trent_running[] = {
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_stage_flag(STAGEFLAG_TRENT_RUNNING)
 	restart_timer
 	run_to_pad(0x0027)

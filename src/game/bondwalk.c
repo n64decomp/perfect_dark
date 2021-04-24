@@ -930,7 +930,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c436c:	27a60090 */ 	addiu	$a2,$sp,0x90
 /*  f0c4370:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0c4374:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f0c4378:	0fc0d05f */ 	jal	func0f03417c
+/*  f0c4378:	0fc0d05f */ 	jal	chrDamageByLaser
 /*  f0c437c:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f0c4380:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f0c4384:	44814000 */ 	mtc1	$at,$f8
@@ -1273,7 +1273,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c436c:	27a60090 */ 	addiu	$a2,$sp,0x90
 /*  f0c4370:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0c4374:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f0c4378:	0fc0d05f */ 	jal	func0f03417c
+/*  f0c4378:	0fc0d05f */ 	jal	chrDamageByLaser
 /*  f0c437c:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f0c4380:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f0c4384:	44814000 */ 	mtc1	$at,$f8
@@ -1567,7 +1567,7 @@ glabel bwalkCalculateNewPositionWithPush
 //							sp90.z = 1;
 //						}
 //
-//						func0f03417c(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
+//						chrDamageByLaser(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
 //
 //						// Laser zap sound
 //						sndStart(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
@@ -1591,7 +1591,7 @@ glabel bwalkCalculateNewPositionWithPush
 //				} else if (chr->chrflags & CHRCFLAG_PUSHABLE) {
 //					if (g_Vars.antiplayernum < 0
 //							|| g_Vars.currentplayer != g_Vars.anti
-//							|| (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0) {
+//							|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0) {
 //						canpush = true;
 //					}
 //				}
@@ -2133,7 +2133,7 @@ void bwalkUpdateVertical(void)
 					if (prop->type == PROPTYPE_CHR) {
 						// Landed on top of a chr
 						if (prop->chr->inlift) {
-							func0f03323c(prop->chr, &g_Vars.currentplayer->prop->pos, 0);
+							chrYeetFromPos(prop->chr, &g_Vars.currentplayer->prop->pos, 0);
 						}
 					} else if (prop->type == PROPTYPE_PLAYER) {
 						// Landed on top of a player

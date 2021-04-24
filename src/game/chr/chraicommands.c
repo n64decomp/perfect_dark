@@ -824,20 +824,20 @@ bool ai0019(void)
 /**
  * @cmd 001a
  */
-bool ai001a(void)
+bool aiChrDamageChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
 	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
 	if (chr1 && chr2 && chr1->prop && chr2->prop) {
-		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, 0);
+		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, HAND_RIGHT);
 		f32 damage;
 		struct coord vector = {0, 0, 0};
 		struct weaponobj *weapon;
 
 		if (!prop) {
-			prop = chrGetEquippedWeaponPropWithCheck(chr1, 1);
+			prop = chrGetEquippedWeaponPropWithCheck(chr1, HAND_LEFT);
 		}
 
 		if (prop) {
@@ -7053,11 +7053,11 @@ bool aiDetectEnemyOnSameFloor(void)
 					&& chrCompareTeams(g_Vars.chrdata, chr, COMPARE_ENEMIES)
 					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
-					&& (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0
+					&& (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
 					&& y - chr->prop->pos.y > -200
 					&& y - chr->prop->pos.y < 200
 					&& ((g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
-						|| (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0
+						|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
 						|| chr->hidden & CHRHFLAG_08000000)
 					&& g_Vars.chrdata->chrnum != chr->chrnum) {
 				distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
@@ -7140,7 +7140,7 @@ bool aiDetectEnemy(void)
 					&& chr->team != TEAM_NONCOMBAT
 					&& (
 						(g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
-						|| (chr->hidden & CHRHFLAG_ANTICANNOTPUSH) == 0
+						|| (chr->hidden & CHRHFLAG_ANTINONINTERACTABLE) == 0
 						|| chr->hidden & CHRHFLAG_08000000)) {
 				f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
@@ -10610,8 +10610,8 @@ bool aiIfChrInjured(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && (chr->chrflags & CHRCFLAG_INJURED)) {
-		chr->chrflags &= ~CHRCFLAG_INJURED;
+	if (chr && (chr->chrflags & CHRCFLAG_INJUREDTARGET)) {
+		chr->chrflags &= ~CHRCFLAG_INJUREDTARGET;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -10731,7 +10731,7 @@ bool aiChrAdjustMotionBlur(void)
 /**
  * @cmd 016e
  */
-bool aiPoisonChr(void)
+bool aiDamageChrByAmount(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct coord coord = {0, 0, 0};
@@ -10739,12 +10739,12 @@ bool aiPoisonChr(void)
 
 	if (chr && chr->prop) {
 		if (cmd[4] == 2) {
-			struct shorthand hand = {WEAPON_COMBATKNIFE, 0, 0, 3};
-			chrPoison(chr, (s32)cmd[3] * 0.03125f, &coord, &hand, NULL);
+			struct shorthand hand = {WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON};
+			chrDamageByMisc(chr, (s32)cmd[3] * 0.03125f, &coord, &hand, NULL);
 		} else if (cmd[4] == 0) {
-			chrPoison(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
+			chrDamageByMisc(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
 		} else {
-			chrPoison(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, NULL);
+			chrDamageByMisc(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, NULL);
 		}
 	}
 

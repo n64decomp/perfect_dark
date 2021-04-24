@@ -227,9 +227,9 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 
 					aibot->unk0b4 = 0.0f;
 					aibot->unk0b8 = 0.0f;
-					aibot->unk108 = 0.0f;
-					aibot->unk10c = 0.0f;
-					aibot->unk110 = 0.0f;
+					aibot->shotspeed.x = 0.0f;
+					aibot->shotspeed.y = 0.0f;
+					aibot->shotspeed.z = 0.0f;
 					aibot->unk118 = 0;
 					aibot->unk11c = 0;
 					aibot->unk120 = -1;

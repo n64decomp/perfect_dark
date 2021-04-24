@@ -1016,7 +1016,7 @@ u8 func0007_alerted[] = {
 	set_self_flag_bankx(CHRFLAG0_00200000, BANK_0)
 	unset_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	unset_self_flag_bankx(CHRFLAG0_00004000, BANK_0)
-	unset_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	unset_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	set_self_flag_bankx(CHRFLAG1_00000002, BANK_1)
 	goto_next(0x1b)
 
@@ -1053,7 +1053,7 @@ u8 func0007_alerted[] = {
 
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_CAN_DRAW_PISTOL, TRUE, BANK_1, /*goto*/ 0x13)
-	unset_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	unset_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	label(0x13)
 	unset_self_flag_bankx(CHRFLAG1_CAN_DRAW_PISTOL, BANK_1)
 	label(0x16)
@@ -1321,7 +1321,7 @@ u8 func0007_alerted[] = {
 	// SNIPE
 	//
 	label(LABEL_SNIPE)
-	unset_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	unset_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	yield
 	if_distance_to_target_lt(1000, /*goto*/ 0x16)
 	if_distance_to_target_gt(2500, /*goto*/ 0x14)
@@ -1378,7 +1378,7 @@ u8 func0007_alerted[] = {
 
 	label(0x13)
 	if_can_see_attack_target(/*goto*/ 0x13)
-	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	stop_chr
 	goto_first(0x1b)
 
@@ -1402,7 +1402,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	stop_chr
 	unset_self_flag_bankx(CHRFLAG1_CAN_SNIPE, BANK_1)
-	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
+	set_self_flag_bankx(CHRFLAG0_CANLOSEGUN, BANK_0)
 	restart_timer
 
 	beginloop(0xbd)
@@ -3258,7 +3258,7 @@ u8 func000c_combat_with_target_chr[] = {
 	dprint 'B','O','N','N','D',' ','3','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00000800, FALSE, BANK_1, /*goto*/ 0x13)
 	if_target_is_player(/*goto*/ 0x13)
-	damage_chr(CHR_TARGET, 18)
+	damage_chr(CHR_TARGET, WEAPON_SUPERDRAGON)
 	unset_self_flag_bankx(CHRFLAG1_00000800, BANK_1)
 	label(0x13)
 	if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
@@ -4991,7 +4991,7 @@ u8 func0015_aibuddy_stealth[] = {
 	// Hide chr
 	label(0x16)
 	remove_references_to_chr
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag((CHRCFLAG_HIDDEN | CHRCFLAG_00010000 | CHRCFLAG_00040000))
 
 	// Wait 3 seconds
@@ -5046,7 +5046,7 @@ u8 func0015_aibuddy_stealth[] = {
 
 	label(0x17)
 	unset_self_chrflag(0x00050400)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	unset_chr_hiddenflag(CHR_SELF, 0x00100200)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	set_returnlist(CHR_SELF, GAILIST_COOP_BUDDY)
@@ -5270,14 +5270,14 @@ u8 func0027_psychosised[] = {
 };
 
 u8 func002d_invincible_and_idle[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
 u8 func0020_place_coop_buddy[] = {
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	stop_chr
@@ -5330,7 +5330,7 @@ u8 func0020_place_coop_buddy[] = {
 	// Move to pad worked
 	label(0x13)
 	unset_self_chrflag(CHRCFLAG_HIDDEN)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	stop_chr
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE)
@@ -5382,7 +5382,7 @@ u8 func0020_place_coop_buddy[] = {
 	// Unhide
 	label(0x16)
 	unset_self_chrflag(CHRCFLAG_HIDDEN)
-	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE)
 	stop_chr
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	set_returnlist(CHR_SELF, GAILIST_COOP_BUDDY)

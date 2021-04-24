@@ -25,7 +25,7 @@ u32 var8007f8b8 = 0x42480000;
 void splatTick(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
-	u32 unk350 = chr->unk350;
+	struct chrdata *attacker = chr->lastattacker;
 	s32 race;
 
 	if (chr->unk32c_19 || (chr->chrflags & CHRCFLAG_HIDDEN) || chr->bulletstaken == 0) {
@@ -58,7 +58,7 @@ void splatTick(struct prop *prop)
 			if (thudframe != -1.0f && modelGetCurAnimFrame(chr->model) < thudframe) {
 				osSyncPrintf("SPLAT : Not Dead Enough %s%s%f", "", "", modelGetCurAnimFrame(chr->model));
 			} else if (chr->tickssincesplat > PALDOWN(30) && chr->deaddropsplatsadded < 6) {
-				chr->deaddropsplatsadded += func0f148f18(1, 1.1f, prop, NULL, 0, 0, isskedar, 1, PALDOWN(150), unk350, random() & 8);
+				chr->deaddropsplatsadded += func0f148f18(1, 1.1f, prop, NULL, 0, 0, isskedar, 1, PALDOWN(150), attacker, random() & 8);
 			}
 		} else {
 			u32 value = chr->bulletstaken * chr->tickssincesplat;
@@ -76,7 +76,7 @@ void splatTick(struct prop *prop)
 				}
 
 				if (addmore) {
-					chr->woundedsplatsadded += func0f148f18(1, 0.3f, prop, NULL, 0, 0, isskedar, 2, PALDOWN(80), unk350, 0);
+					chr->woundedsplatsadded += func0f148f18(1, 0.3f, prop, NULL, 0, 0, isskedar, 2, PALDOWN(80), attacker, 0);
 				}
 			}
 
@@ -92,7 +92,7 @@ void splatTick(struct prop *prop)
 	chr->tickssincesplat += g_Vars.lvupdate240_60;
 }
 
-void func0f148e54(struct prop *prop, struct splat *arg1, struct coord *arg2, struct coord *arg3, s32 arg4, s32 arg5, s32 arg6)
+void func0f148e54(struct prop *prop, struct splat *arg1, struct coord *arg2, struct coord *arg3, s32 arg4, s32 arg5, struct chrdata *arg6)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -109,7 +109,7 @@ void func0f148e54(struct prop *prop, struct splat *arg1, struct coord *arg2, str
 	}
 }
 
-s32 func0f148f18(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struct coord *arg4, struct coord *arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
+s32 func0f148f18(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struct coord *arg4, struct coord *arg5, s32 arg6, s32 arg7, s32 arg8, struct chrdata *arg9, s32 arg10)
 {
 	s32 i;
 	s32 j;

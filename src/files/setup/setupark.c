@@ -1570,12 +1570,12 @@ u8 func1008_trigger_hovercopter_roof[] = {
 };
 
 u8 func1009_init_top_room[] = {
-	set_chr_chrflag(CHR_TOPGUARD1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_TOPGUARD2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_TOPGUARD3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_TOPGUARD4, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_TOPGUARD5, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_TOPGUARD1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_TOPGUARD2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_TOPGUARD3, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_TOPGUARD4, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_TOPGUARD5, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE)
 
 	beginloop(0x1f)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1591,11 +1591,11 @@ u8 func1009_init_top_room[] = {
 	set_chr_target_chr(CHR_TOPGUARD3, CHR_P1P2)
 	set_chr_target_chr(CHR_TOPGUARD4, CHR_P1P2)
 	set_chr_target_chr(CHR_TOPGUARD5, CHR_P1P2)
-	unset_chr_chrflag(CHR_TOPGUARD1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TOPGUARD2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TOPGUARD3, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TOPGUARD4, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TOPGUARD5, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_TOPGUARD1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TOPGUARD2, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TOPGUARD3, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TOPGUARD4, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TOPGUARD5, CHRCFLAG_INVINCIBLE)
 	set_chr_team(CHR_CASS, TEAM_ENEMY)
 	set_chr_team(CHR_TOPGUARD1, TEAM_ENEMY)
 	set_chr_team(CHR_TOPGUARD2, TEAM_ENEMY)
@@ -1636,9 +1636,9 @@ u8 func0409_tech_conversation[] = {
 		if_door_state(0x11, DOORSTATE_OPEN, /*goto*/ 0x00)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		dprint 'T','E','C','H',' ','1',' ','L','O','O','P','\n',0,
-		set_chr_chrflag(CHR_TECH1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-		set_chr_chrflag(CHR_TECH2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-		set_chr_chrflag(CHR_RLSHOCK, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+		set_chr_chrflag(CHR_TECH1, CHRCFLAG_INVINCIBLE)
+		set_chr_chrflag(CHR_TECH2, CHRCFLAG_INVINCIBLE)
+		set_chr_chrflag(CHR_RLSHOCK, CHRCFLAG_INVINCIBLE)
 	endloop(0x01)
 
 	// Player activated door or door is fully open
@@ -1649,9 +1649,9 @@ u8 func0409_tech_conversation[] = {
 	set_chr_team(CHR_RLSHOCK, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	unset_chr_chrflag(CHR_TECH1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_TECH2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_chrflag(CHR_RLSHOCK, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_TECH1, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_TECH2, CHRCFLAG_INVINCIBLE)
+	unset_chr_chrflag(CHR_RLSHOCK, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_RLSHOCK, GAILIST_UNALERTED)
 	restart_timer
 	chr_do_animation(0x0204, -1, -1, 0x02, 0x14, 0x10, 2)
@@ -1925,7 +1925,7 @@ u8 func040a_tech2[] = {
 
 u8 func040d_cass[] = {
 	set_shield(100)
-	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_UNEXPLODABLE)
 	set_target_chr(CHR_P1P2)
 
@@ -2389,7 +2389,7 @@ u8 func100d_intro[] = {
 	chr_do_animation(0x013d, -2, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 
 	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
-	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_INVINCIBLE)
 	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
 	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_00010000)
 	chr_do_animation(0x013a, -2, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
@@ -2416,13 +2416,13 @@ u8 func0412_outro[] = {
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	dprint 'c','u','t',' ','s','c','e','n','e',' ','2',0,
-	set_chr_chrflag(CHR_P1P2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_P1P2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE)
 	chr_toggle_modelpart(CHR_CASS, MODELPART_NECKLACE)
-	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_OUTRO_GUARD1, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_OUTRO_GUARD2, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_OUTRO_GUARD1, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_OUTRO_GUARD2, CHRCFLAG_INVINCIBLE)
+	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_INVINCIBLE)
 
 	set_ailist(CHR_DRCAROLL, GAILIST_IDLE)
 	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
