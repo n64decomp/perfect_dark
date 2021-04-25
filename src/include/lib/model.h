@@ -12,7 +12,7 @@ Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2);
 u32 func0001a60c(void);
 u32 func0001a634(void);
 u32 func0001a740(void);
-u32 func0001a784(void);
+struct prop *func0001a784(struct prop *prop);
 u32 func0001a7cc(void);
 u32 func0001a85c(void);
 struct modelnode *modelGetPart(struct modelfiledata *arg0, s32 partnum);

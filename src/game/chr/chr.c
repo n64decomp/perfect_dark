@@ -17380,60 +17380,26 @@ void func0f0292bc(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f02932c
-/*  f02932c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f029330:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f029334:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f029338:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f02933c:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f029340:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f029344:	27ae002c */ 	addiu	$t6,$sp,0x2c
-/*  f029348:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f02934c:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*  f029350:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f029354:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f029358:	0fc0a39b */ 	jal	func0f028e6c
-/*  f02935c:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f029360:	1040001d */ 	beqz	$v0,.L0f0293d8
-/*  f029364:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f029368:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f02936c:	5080001b */ 	beqzl	$a0,.L0f0293dc
-/*  f029370:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f029374:	0c0069e1 */ 	jal	func0001a784
-/*  f029378:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f02937c:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f029380:	10400007 */ 	beqz	$v0,.L0f0293a0
-/*  f029384:	00402825 */ 	or	$a1,$v0,$zero
-/*  f029388:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f02938c:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f029390:	0fc0a386 */ 	jal	func0f028e18
-/*  f029394:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f029398:	1000000f */ 	b	.L0f0293d8
-/*  f02939c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0293a0:
-/*  f0293a0:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f0293a4:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*  f0293a8:	8de40018 */ 	lw	$a0,0x18($t7)
-/*  f0293ac:	5080000b */ 	beqzl	$a0,.L0f0293dc
-/*  f0293b0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0293b4:	8f060018 */ 	lw	$a2,0x18($t8)
-/*  f0293b8:	50c00008 */ 	beqzl	$a2,.L0f0293dc
-/*  f0293bc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0293c0:	8f05001c */ 	lw	$a1,0x1c($t8)
-/*  f0293c4:	50a00005 */ 	beqzl	$a1,.L0f0293dc
-/*  f0293c8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0293cc:	0fc0a386 */ 	jal	func0f028e18
-/*  f0293d0:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f0293d4:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0293d8:
-/*  f0293d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0293dc:
-/*  f0293dc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0293e0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0293e4:	03e00008 */ 	jr	$ra
-/*  f0293e8:	00000000 */ 	nop
-);
+s32 func0f02932c(struct prop *prop, s32 arg1)
+{
+	s32 result = -1;
+	struct prop *sp38;
+	struct prop *sp34;
+	struct prop *sp30;
+	struct prop *sp2c;
+
+	if (func0f028e6c(arg1, prop, &sp34, &sp30, &sp2c) && sp30) {
+		sp38 = func0001a784(sp30);
+
+		if (sp38) {
+			result = func0f028e18(sp34, sp38, sp2c, prop);
+		} else if (sp34->parent && sp2c->parent && sp2c->child) {
+			result = func0f028e18(sp34->parent, sp2c->child, sp2c->parent, prop);
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0293ec
