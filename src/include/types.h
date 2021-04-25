@@ -1133,9 +1133,7 @@ struct act_druggedko {
 };
 
 struct act_druggedcomingup {
-	/*0x2c*/ s16 unk02c; // timer
-	/*0x30*/ f32 unk030;
-	/*0x34*/ f32 unk034;
+	/*0x2c*/ s16 timer60;
 };
 
 struct act_attackamount_2c {

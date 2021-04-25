@@ -5084,7 +5084,7 @@ void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand
 		mpstatsIncrementTotalKnockoutCount();
 
 		chr->actiontype = ACT_DRUGGEDCOMINGUP;
-		chr->act_druggedcomingup.unk02c = 0;
+		chr->act_druggedcomingup.timer60 = 0;
 	}
 }
 
@@ -12115,6 +12115,83 @@ glabel chrTickDruggedComingUp
 /*  f03da84:	03e00008 */ 	jr	$ra
 /*  f03da88:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
+
+// Mismatch: regalloc
+//void chrTickDruggedComingUp(struct chrdata *chr)
+//{
+//	u16 thuds[] = {
+//		SFX_THUD_808D,
+//		SFX_THUD_808E,
+//		SFX_THUD_808F,
+//		SFX_THUD_8090,
+//		SFX_THUD_8091,
+//		SFX_THUD_8092,
+//		SFX_THUD_8093,
+//		SFX_THUD_8094,
+//		SFX_THUD_8095,
+//		SFX_THUD_8096,
+//		SFX_THUD_8097,
+//	};
+//
+//	u32 stack;
+//
+//	chr->act_druggedcomingup.timer60 += g_Vars.lvupdate240_60;
+//
+//	if (chr->act_druggedcomingup.timer60 > 0) {
+//		s32 race = CHRRACE(chr);
+//		struct model *model = chr->model;
+//		s32 i = 0;
+//		bool done = false;
+//		struct prop *weapon;
+//
+//		chrUncloak(chr, true);
+//
+//		chr->actiontype = ACT_DRUGGEDDROP;
+//
+//		while (!done) {
+//			if (i >= 0
+//					&& g_AnimTablesByRace[race][i].deathanims != NULL
+//					&& g_AnimTablesByRace[race][i].deathanimcount > 0) {
+//				struct animtablerow *row = &g_AnimTablesByRace[race][i].deathanims[random() % g_AnimTablesByRace[race][i].deathanimcount];
+//
+//				chr->act_druggeddrop.thudframe1 = row->thudframe1;
+//				chr->act_druggeddrop.thudframe2 = row->thudframe2;
+//
+//				modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, true);
+//
+//				if (row->endframe >= 0) {
+//					modelSetAnimEndFrame(model, row->endframe);
+//				}
+//
+//				done = true;
+//			}
+//
+//			if (!done) {
+//				i++;
+//
+//				if (g_AnimTablesByRace[race][i].ibh == -1) {
+//					done = true;
+//				}
+//			}
+//		}
+//
+//		weapon = chr->weapons_held[HAND_RIGHT];
+//
+//		if (weapon && (weapon->obj->flags & OBJFLAG_00002000) == 0) {
+//			propobjSetDropped(weapon, DROPREASON_1);
+//			chr->hidden |= CHRHFLAG_00000001;
+//		}
+//
+//		weapon = chr->weapons_held[HAND_LEFT];
+//
+//		if (weapon && (weapon->obj->flags & OBJFLAG_00002000) == 0) {
+//			propobjSetDropped(weapon, DROPREASON_1);
+//			chr->hidden |= CHRHFLAG_00000001;
+//		}
+//
+//		chrDropItems(chr);
+//	}
+//}
 
 void chrTickDruggedDrop(struct chrdata *chr)
 {
