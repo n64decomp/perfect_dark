@@ -200,14 +200,6 @@ const char *g_ChrLiftActionNames[] = {
 };
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-const char var7f1a8ac0[] = "chr/chraction.c";
-const char var7f1a8acc[] = "chr/chraction.c";
-#else
-const char var7f1a8ac0[] = "chraction.c";
-const char var7f1a8acc[] = "chraction.c";
-#endif
-
 s32 g_RecentQuipsPlayed[5];
 u32 var8009cd84;
 u32 var8009cd88;
@@ -1663,31 +1655,25 @@ void func0f02e3dc(struct coord *a, struct coord *b,struct coord *c, struct coord
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f02e4f8
-/*  f02e4f8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f02e4fc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02e500:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f02e504:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f02e508:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f02e50c:	3c077f1b */ 	lui	$a3,%hi(var7f1a8ac0)
-/*  f02e510:	24e78ac0 */ 	addiu	$a3,$a3,%lo(var7f1a8ac0)
-/*  f02e514:	240608fa */ 	addiu	$a2,$zero,0x8fa
-/*  f02e518:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f02e51c:	0c009393 */ 	jal	func00024e4c
-/*  f02e520:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*  f02e524:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f02e528:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*  f02e52c:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f02e530:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f02e534:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f02e538:	0fc0b8f7 */ 	jal	func0f02e3dc
-/*  f02e53c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f02e540:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02e544:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f02e548:	03e00008 */ 	jr	$ra
-/*  f02e54c:	00000000 */ 	nop
-);
+void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst)
+{
+	struct coord sp2c;
+	struct coord sp20;
+
+#if VERSION >= VERSION_PAL_FINAL
+	func00024e4c(&sp2c, &sp20, 2298, "chr/chraction.c");
+#else
+	func00024e4c(&sp2c, &sp20, 2298, "chraction.c");
+#endif
+
+	func0f02e3dc(&sp2c, &sp20, arg0, arg1, dst);
+}
+
+#if VERSION >= VERSION_PAL_FINAL
+const char var7f1a8acc[] = "chr/chraction.c";
+#else
+const char var7f1a8acc[] = "chraction.c";
+#endif
 
 GLOBAL_ASM(
 glabel func0f02e550
