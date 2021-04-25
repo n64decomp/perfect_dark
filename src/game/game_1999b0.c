@@ -214,7 +214,7 @@ void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
  * This function appears to handle aibots shooting chrs with the Farsight, but
  * is called conditionally and I haven't determined what those conditions are.
  */
-bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, struct coord *arg3)
+bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, struct coord *arg3)
 {
 	struct aibot *aibot;
 	struct chrdata *oppchr;
@@ -234,10 +234,10 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 
 		// 3 in 10 chance of this passing
 		if (rand < 30) {
-			u16 *sp172 = NULL;
-			s32 sp168 = 0;
-			s32 sp164 = -1;
-			s32 sp160 = 200;
+			struct modelnode *node = NULL;
+			struct model *model = NULL;
+			s32 side = -1;
+			s32 ibh = IBH_GENERAL;
 			struct shorthand hand = {WEAPON_FARSIGHT, 0, 0, FUNC_PRIMARY};
 			f32 damage = handGetDamage(&hand);
 			s32 fallback = 30;
@@ -266,15 +266,15 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *arg2, str
 				// chance of passing.
 				if (oppchr != chr
 						&& value > rand
-						&& func0f06b39c(arg3, arg2, &oppprop->pos, func0f0278a4(oppchr))) {
+						&& func0f06b39c(arg3, vector, &oppprop->pos, func0f0278a4(oppchr))) {
 					func0f0a7d98(&hand, oppprop, -1);
 
 					if (oppchr->model && chrGetShield(oppchr) > 0) {
-						func0f03ff2c(oppchr, &oppprop->pos, arg2, &sp172, &sp160, &sp168, &sp164);
+						chrCalculateShieldHit(oppchr, &oppprop->pos, vector, &node, &ibh, &model, &side);
 					}
 
-					chrEmitSparks(oppchr, oppprop, sp160, &oppprop->pos, arg2, chr);
-					func0f0341dc(oppchr, damage, arg2, &hand, chr->prop, IBH_GENERAL, oppprop, sp172, sp168, sp164, 0);
+					chrEmitSparks(oppchr, oppprop, ibh, &oppprop->pos, vector, chr);
+					func0f0341dc(oppchr, damage, vector, &hand, chr->prop, IBH_GENERAL, oppprop, node, model, side, 0);
 				}
 			}
 

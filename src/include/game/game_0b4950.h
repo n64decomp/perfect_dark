@@ -25,7 +25,7 @@ void *currentPlayerGetUnk1750(void);
 void currentPlayerSetUnk1758(Mtx *matrix);
 Mtx *currentPlayerGetUnk1758(void);
 void currentPlayerSetMatrix1740(Mtxf *value);
-u32 func0f0b5050(void);
+Mtxf *func0f0b5050(Mtxf *matrix);
 u32 func0f0b53a4(void);
 Mtxf *currentPlayerGetMatrix1740(void);
 void currentPlayerSetUnk1754(Mtxf *matrix);

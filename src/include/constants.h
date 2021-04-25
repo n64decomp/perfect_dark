@@ -18,8 +18,9 @@
 
 #define osSyncPrintf
 
-#define S32_MAX 2147483647
-#define U32_MAX 4294967295
+#define S32_MAX  2147483647
+#define U32_MAX  4294967295
+#define MAXFLOAT ((float)3.40282346638528860e+38)
 
 #define ABS(val)            ((val) > 0 ? (val) : -(val))
 #define ALIGN2(val)         (((val) | 1) ^ 0x1)
@@ -1764,6 +1765,7 @@
 #define MODELNODETYPE_05           0x05
 #define MODELNODETYPE_NEARFAR      0x08
 #define MODELNODETYPE_HAT          0x09
+#define MODELNODETYPE_BBOX         0x0a
 #define MODELNODETYPE_0B           0x0b
 #define MODELNODETYPE_GUNFIRE      0x0c
 #define MODELNODETYPE_PARTID       0x12

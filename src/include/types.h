@@ -549,6 +549,16 @@ struct modelnode_hat { // type 0x09
 	u16 index;
 };
 
+struct modelnode_bbox { // type 0x0a
+	s32 ibh;
+	f32 xmin;
+	f32 xmax;
+	f32 ymin;
+	f32 ymax;
+	f32 zmin;
+	f32 zmax;
+};
+
 struct modelnode_0b { // type 0x0b
 	u32 unk00;
 	u32 unk04;
@@ -607,6 +617,7 @@ union modelnode_data {
 	struct modelnode_position position;
 	struct modelnode_nearfar nearfar;
 	struct modelnode_hat hat;
+	struct modelnode_bbox bbox;
 	struct modelnode_0b unk0b;
 	struct modelnode_gunfire gunfire;
 	struct modelnode_partid partid;

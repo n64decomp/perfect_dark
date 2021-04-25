@@ -20,7 +20,7 @@ u32 func00016710(void);
 void func00016748(f32 arg0);
 u32 func00016760(void);
 u32 func00016784(void);
-u32 func00016798(void);
+void func00016798(Mtxf *arg0, Mtxf *arg1);
 void func00016820(Mtx *arg0, Mtx *arg1);
 void func00016874(Mtxf *matrix, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz);
 void func00016ae4(Mtxf *matrix, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9);

@@ -11,6 +11,9 @@ IDOAS ?= $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/as
 
 ################################################################################
 
+QEMUCC = $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc
+QEMUAS = $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/as
+
 export ROMID
 
 NTSC=0
@@ -533,6 +536,12 @@ $(B_DIR)/lib/%.o: src/lib/%.c
 $(B_DIR)/game/%.o: src/game/%.c
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
+# Files requiring qemu-irix to build rather than recomp due to using MAXFLOAT
+$(B_DIR)/game/chr/chraction.o: src/game/chr/chraction.c
+	@mkdir -p $(dir $@)
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/%.o: src/%.c

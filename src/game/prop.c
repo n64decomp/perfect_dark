@@ -2644,20 +2644,20 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 							chr->chrflags |= CHRCFLAG_10000000;
 						} else {
 							struct coord spb8;
-							struct coord spac;
-							u16 *spa8 = NULL;
-							s32 spa4 = 0;
-							s32 spa0 = -1;
+							struct coord vector;
+							struct modelnode *node = NULL;
+							struct model *model = NULL;
+							s32 side = -1;
 							s32 ibh = IBH_TORSO;
 
 							if (!chrIsAvoiding(chr)) {
-								handCalculateShotSpread(&spb8, &spac, handnum, true);
+								handCalculateShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
-								func00015b10(currentPlayerGetUnk174c(), &spac);
+								func00015b10(currentPlayerGetUnk174c(), &vector);
 								func0f0a7d98(hand, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {
-									func0f03ff2c(chr, &playerprop->pos, &spac, &spa8, &ibh, &spa4, &spa0);
+									chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &ibh, &model, &side);
 								}
 
 								if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
@@ -2668,8 +2668,8 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 									ibh = IBH_TORSO;
 								}
 
-								func0f0341dc(chr, handGetDamage(hand), &spac, hand,
-										g_Vars.currentplayer->prop, ibh, chr->prop, spa8, spa4, spa0, 0);
+								func0f0341dc(chr, handGetDamage(hand), &vector, hand,
+										g_Vars.currentplayer->prop, ibh, chr->prop, node, model, side, 0);
 							}
 						}
 					}

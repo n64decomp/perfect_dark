@@ -13575,7 +13575,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 struct var80062a8c *var80062a8c = NULL;
 
-void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 arg2, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
+void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 ibh, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
 {
 	struct prop *chrprop = chr->prop;
 	s32 race;
@@ -13593,8 +13593,8 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 arg2, struct coor
 	if (prop->type == PROPTYPE_OBJ
 			|| prop->type == PROPTYPE_WEAPON
 			|| prop->type == PROPTYPE_DOOR
-			|| arg2 == 100
-			|| arg2 == 110) {
+			|| ibh == IBH_GUN
+			|| ibh == IBH_HAT) {
 		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
 		return;
 	}
