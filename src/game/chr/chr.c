@@ -17156,6 +17156,44 @@ glabel func0f028e6c
 /*  f028f78:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+// Mismatch: Reordered instructions
+//bool func0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr)
+//{
+//	while (true) {
+//		bool result = false;
+//		struct model *model;
+//		s32 stack;
+//
+//		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+//			model = prop->chr->model;
+//		} else {
+//			model = prop->obj->model;
+//		}
+//
+//		if (1);
+//
+//		if (arg0 >= model->filedata->nummatrices) {
+//			arg0 -= model->filedata->nummatrices;
+//
+//			if (prop->child) {
+//				result = func0f028e6c(arg0, prop->child, propptr, nodeptr, modelptr);
+//			}
+//
+//			if (prop->next && !result) {
+//				prop = prop->next;
+//				continue;
+//			}
+//		} else {
+//			*propptr = prop;
+//			*nodeptr = func0001a634(model, arg0);
+//			*modelptr = model;
+//			result = true;
+//		}
+//
+//		return result;
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f028f7c
 /*  f028f7c:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -17383,18 +17421,18 @@ void func0f0292bc(struct prop *prop)
 s32 func0f02932c(struct prop *prop, s32 arg1)
 {
 	s32 result = -1;
-	struct prop *sp38;
-	struct prop *sp34;
-	struct prop *sp30;
-	struct prop *sp2c;
+	struct modelnode *node2;
+	struct prop *prop2;
+	struct modelnode *node;
+	struct model *model;
 
-	if (func0f028e6c(arg1, prop, &sp34, &sp30, &sp2c) && sp30) {
-		sp38 = func0001a784(sp30);
+	if (func0f028e6c(arg1, prop, &prop2, &node, &model) && node) {
+		node2 = func0001a784(node);
 
-		if (sp38) {
-			result = func0f028e18(sp34, sp38, sp2c, prop);
-		} else if (sp34->parent && sp2c->parent && sp2c->child) {
-			result = func0f028e18(sp34->parent, sp2c->child, sp2c->parent, prop);
+		if (node2) {
+			result = func0f028e18(prop2, node2, model, prop);
+		} else if (prop2->parent && model->attachedto && model->unk1c) {
+			result = func0f028e18(prop2->parent, model->unk1c, model->attachedto, prop);
 		}
 	}
 
