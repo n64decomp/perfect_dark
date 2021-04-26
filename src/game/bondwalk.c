@@ -1064,7 +1064,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c4574:	c4460010 */ 	lwc1	$f6,0x10($v0)
 /*  f0c4578:	46005102 */ 	mul.s	$f4,$f10,$f0
 /*  f0c457c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0c4580:	0fc079fd */ 	jal	func0f01e7f4
+/*  f0c4580:	0fc079fd */ 	jal	chrCalculatePushPos
 /*  f0c4584:	e7a80070 */ 	swc1	$f8,0x70($sp)
 /*  f0c4588:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f0c458c:	c7aa0068 */ 	lwc1	$f10,0x68($sp)
@@ -1407,7 +1407,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c4574:	c4460010 */ 	lwc1	$f6,0x10($v0)
 /*  f0c4578:	46005102 */ 	mul.s	$f4,$f10,$f0
 /*  f0c457c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0c4580:	0fc079fd */ 	jal	func0f01e7f4
+/*  f0c4580:	0fc079fd */ 	jal	chrCalculatePushPos
 /*  f0c4584:	e7a80070 */ 	swc1	$f8,0x70($sp)
 /*  f0c4588:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f0c458c:	c7aa0068 */ 	lwc1	$f10,0x68($sp)
@@ -1616,7 +1616,7 @@ glabel bwalkCalculateNewPositionWithPush
 //							newpos.y = obstacle->pos.y;
 //							newpos.z = obstacle->pos.z + chr->pushspeed[1] * g_Vars.lvupdate240f;
 //
-//							func0f01e7f4(chr, &newpos, newrooms, 0);
+//							chrCalculatePushPos(chr, &newpos, newrooms, false);
 //
 //							obstacle->pos.x = newpos.x;
 //							obstacle->pos.y = newpos.y;

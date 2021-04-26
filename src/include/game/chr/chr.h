@@ -7,7 +7,7 @@
 void func0f01e250(void);
 void chrSetChrnum(struct chrdata *chr, s16 chrnum);
 void chrDeregister(s32 chrnum);
-void func0f01e7f4(struct chrdata *chr, struct coord *pos, s16 *rooms, s32 arg3);
+void chrCalculatePushPos(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3);
 bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
 void func0f01f378(void);
 s32 getNumFreeChrSlots(void);

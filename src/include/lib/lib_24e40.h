@@ -69,7 +69,7 @@ u32 func0002a4d0(void);
 s32 func0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u32 arg3, struct coord *arg4, bool *arg5);
 u32 func0002a5e4(void);
 s32 cdTestVolume(struct coord *pos, f32 width, s16 *rooms, s32 types, s32 arg4, f32 ymax, f32 ymin);
-u32 func0002a6fc(void);
+s32 func0002a6fc(struct coord *pos, struct coord *pos2, f32 width, s16 *rooms, s32 types, bool arg5, f32 arg6, f32 arg7);
 s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, s32 arg5, f32 ymax, f32 ymin);
 u32 func0002aac0(void);
 u32 func0002ab98(void);
@@ -87,7 +87,7 @@ bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 ar
 s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 arg6, f32 arg7);
 bool func0002d7c0(struct coord *pos, s16 *rooms, struct coord *arg2, u32 arg3, u32 arg4, f32 arg5, f32 arg6);
 u32 func0002d840(void);
-u32 func0002d8b8(void);
+s32 func0002d8b8(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s32 types, bool arg5, f32 arg6, f32 arg7);
 s32 cdTestAToB3(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 arg4, s32 types, s32 arg6, f32 ymax, f32 ymin);
 u32 func0002da50(void);
 u32 func0002dac8(void);
