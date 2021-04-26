@@ -16991,6 +16991,8 @@ glabel func0f028a50
 /*  f028d4c:	00000000 */ 	nop
 );
 
+bool func0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *arg4);
+
 GLOBAL_ASM(
 glabel func0f028d50
 /*  f028d50:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -17049,32 +17051,16 @@ glabel func0f028d50
 /*  f028e14:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f028e18
-/*  f028e18:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f028e1c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f028e20:	00802825 */ 	or	$a1,$a0,$zero
-/*  f028e24:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f028e28:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f028e2c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f028e30:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f028e34:	27ae0024 */ 	addiu	$t6,$sp,0x24
-/*  f028e38:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f028e3c:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f028e40:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f028e44:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f028e48:	0fc0a354 */ 	jal	func0f028d50
-/*  f028e4c:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f028e50:	10400003 */ 	beqz	$v0,.L0f028e60
-/*  f028e54:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f028e58:	10000002 */ 	b	.L0f028e64
-/*  f028e5c:	8fa20024 */ 	lw	$v0,0x24($sp)
-.L0f028e60:
-/*  f028e60:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f028e64:
-/*  f028e64:	03e00008 */ 	jr	$ra
-/*  f028e68:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 func0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3)
+{
+	s32 result = 0;
+
+	if (func0f028d50(arg3, arg0, node, model, &result)) {
+		return result;
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f028e6c
