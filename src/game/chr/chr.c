@@ -16991,65 +16991,25 @@ glabel func0f028a50
 /*  f028d4c:	00000000 */ 	nop
 );
 
-bool func0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *arg4);
+bool func0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
+{
+	if (arg1 == arg0) {
+		*total += func0001a524(node, 0);
+		return true;
+	}
 
-GLOBAL_ASM(
-glabel func0f028d50
-/*  f028d50:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f028d54:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f028d58:	14a4000a */ 	bne	$a1,$a0,.L0f028d84
-/*  f028d5c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f028d60:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f028d64:	0c006949 */ 	jal	func0001a524
-/*  f028d68:	00002825 */ 	or	$a1,$zero,$zero
-/*  f028d6c:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f028d70:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f028d74:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f028d78:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f028d7c:	10000022 */ 	b	.L0f028e08
-/*  f028d80:	ac780000 */ 	sw	$t8,0x0($v1)
-.L0f028d84:
-/*  f028d84:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f028d88:	8ce80008 */ 	lw	$t0,0x8($a3)
-/*  f028d8c:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f028d90:	8509000e */ 	lh	$t1,0xe($t0)
-/*  f028d94:	03295021 */ 	addu	$t2,$t9,$t1
-/*  f028d98:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*  f028d9c:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*  f028da0:	8d64001c */ 	lw	$a0,0x1c($t3)
-/*  f028da4:	5080000e */ 	beqzl	$a0,.L0f028de0
-/*  f028da8:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*  f028dac:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f028db0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f028db4:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f028db8:	0fc0a354 */ 	jal	func0f028d50
-/*  f028dbc:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f028dc0:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f028dc4:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f028dc8:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f028dcc:	18400003 */ 	blez	$v0,.L0f028ddc
-/*  f028dd0:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f028dd4:	1000000c */ 	b	.L0f028e08
-/*  f028dd8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f028ddc:
-/*  f028ddc:	8fac0020 */ 	lw	$t4,0x20($sp)
-.L0f028de0:
-/*  f028de0:	8d840020 */ 	lw	$a0,0x20($t4)
-/*  f028de4:	50800008 */ 	beqzl	$a0,.L0f028e08
-/*  f028de8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f028dec:	0fc0a354 */ 	jal	func0f028d50
-/*  f028df0:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f028df4:	58400004 */ 	blezl	$v0,.L0f028e08
-/*  f028df8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f028dfc:	10000002 */ 	b	.L0f028e08
-/*  f028e00:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f028e04:	00001025 */ 	or	$v0,$zero,$zero
-.L0f028e08:
-/*  f028e08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f028e0c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f028e10:	03e00008 */ 	jr	$ra
-/*  f028e14:	00000000 */ 	nop
-);
+	*total += model->filedata->nummatrices;
+
+	if (arg0->child && func0f028d50(arg0->child, arg1, node, model, total) > 0) {
+		return true;
+	}
+
+	if (arg0->next && func0f028d50(arg0->next, arg1, node, model, total) > 0) {
+		return true;
+	}
+
+	return false;
+}
 
 s32 func0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3)
 {
