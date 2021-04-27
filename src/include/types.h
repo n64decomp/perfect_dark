@@ -589,7 +589,7 @@ struct modelnode_gunfire { // type 0x0c
 };
 
 struct modelnode_partid { // type 0x12
-	u32 target;
+	struct modelnode *target;
 	u16 index;
 };
 

@@ -3287,29 +3287,17 @@ glabel func0001c784
 /*    1c7cc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001c7d0
-/*    1c7d0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1c7d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1c7d8:	8cae0004 */ 	lw	$t6,0x4($a1)
-/*    1c7dc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    1c7e0:	0c006a87 */ 	jal	modelGetNodeData
-/*    1c7e4:	afae001c */ 	sw	$t6,0x1c($sp)
-/*    1c7e8:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*    1c7ec:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    1c7f0:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    1c7f4:	51e00005 */ 	beqzl	$t7,.L0001c80c
-/*    1c7f8:	aca00014 */ 	sw	$zero,0x14($a1)
-/*    1c7fc:	8f190000 */ 	lw	$t9,0x0($t8)
-/*    1c800:	10000002 */ 	b	.L0001c80c
-/*    1c804:	acb90014 */ 	sw	$t9,0x14($a1)
-/*    1c808:	aca00014 */ 	sw	$zero,0x14($a1)
-.L0001c80c:
-/*    1c80c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1c810:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1c814:	03e00008 */ 	jr	$ra
-/*    1c818:	00000000 */ 	nop
-);
+void func0001c7d0(struct model *model, struct modelnode *node)
+{
+	struct modelnode_partid *data1 = &node->data->partid;
+	struct modelnode_partid *data2 = modelGetNodeData(model, node);
+
+	if (data2->target) {
+		node->child = data1->target;
+	} else {
+		node->child = NULL;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001c81c
