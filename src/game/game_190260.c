@@ -9350,7 +9350,7 @@ glabel var7f1b8fc8
 /*  f19826c:	00008025 */ 	move	$s0,$zero
 /*  f198270:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f198274:	00056080 */ 	sll	$t4,$a1,0x2
-/*  f198278:	0fc2c8f8 */ 	jal	weaponGetMaxFireRatePerTick
+/*  f198278:	0fc2c8f8 */ 	jal	weaponGetNumTicksPerShot
 /*  f19827c:	000c2fc2 */ 	srl	$a1,$t4,0x1f
 /*  f198280:	5c400030 */ 	bgtzl	$v0,.PF0f198344
 /*  f198284:	02e08025 */ 	move	$s0,$s7
@@ -9497,7 +9497,7 @@ glabel var7f1b8fc8
 .PF0f198490:
 /*  f198490:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f198494:	00056080 */ 	sll	$t4,$a1,0x2
-/*  f198498:	0fc2c8f8 */ 	jal	weaponGetMaxFireRatePerTick
+/*  f198498:	0fc2c8f8 */ 	jal	weaponGetNumTicksPerShot
 /*  f19849c:	000c2fc2 */ 	srl	$a1,$t4,0x1f
 /*  f1984a0:	1c400049 */ 	bgtz	$v0,.PF0f1985c8
 /*  f1984a4:	00000000 */ 	nop
@@ -12357,7 +12357,7 @@ glabel var7f1b8fc8
 /*  f197198:	00008025 */ 	or	$s0,$zero,$zero
 /*  f19719c:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f1971a0:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f1971a4:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
+/*  f1971a4:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
 /*  f1971a8:	000b2fc2 */ 	srl	$a1,$t3,0x1f
 /*  f1971ac:	5c400030 */ 	bgtzl	$v0,.L0f197270
 /*  f1971b0:	02e08025 */ 	or	$s0,$s7,$zero
@@ -12504,7 +12504,7 @@ glabel var7f1b8fc8
 .L0f1973bc:
 /*  f1973bc:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f1973c0:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f1973c4:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
+/*  f1973c4:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
 /*  f1973c8:	000b2fc2 */ 	srl	$a1,$t3,0x1f
 /*  f1973cc:	1c40003f */ 	bgtz	$v0,.L0f1974cc
 /*  f1973d0:	00000000 */ 	nop

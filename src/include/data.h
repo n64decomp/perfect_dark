@@ -190,7 +190,7 @@ extern s32 g_FemaleGuardTeamHeads[];
 extern s32 var80062c80;
 extern s32 g_ActiveMaleHeadsIndex;
 extern s32 g_ActiveFemaleHeadsIndex;
-extern f32 var80062ca0;
+extern f32 g_EnemyAccuracyScale;
 extern f32 g_DamageReceivedScale;
 extern f32 g_DamageDealtScale;
 extern f32 var80062cac;

@@ -369,7 +369,7 @@ void resetSomeStageThings(void)
 
 	g_StageFlags = 0;
 
-	var80062ca0 = 1;
+	g_EnemyAccuracyScale = 1;
 	g_DamageReceivedScale = 1;
 	g_DamageDealtScale = 1;
 	var80062cac = 1;

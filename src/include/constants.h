@@ -503,7 +503,7 @@
 #define CHRHFLAG_UNTARGETABLE        0x00001000
 #define CHRHFLAG_00002000            0x00002000 // Globals, Rescue guards once disguised
 #define CHRHFLAG_TRIGGER_BUDDY_WARP  0x00004000
-#define CHRHFLAG_00008000            0x00008000 // Duel only. Set on each opponent when they start combat.
+#define CHRHFLAG_PERFECTACCURACY     0x00008000
 #define CHRHFLAG_DISGUISE_UNCOVERED  0x00010000
 #define CHRHFLAG_00020000            0x00020000 // Used in every stage, on Jo and other chrs. Only ever set, never unset or read.
 #define CHRHFLAG_00040000            0x00040000 // Not used in scripts

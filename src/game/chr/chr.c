@@ -5433,7 +5433,7 @@ glabel var7f1a879c
 .L0f021db4:
 /*  f021db4:	8c84cd1c */ 	lw	$a0,%lo(var8009cd1c)($a0)
 /*  f021db8:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021dbc:	0fc0f97c */ 	jal	func0f03e5f0
+/*  f021dbc:	0fc0f97c */ 	jal	chrGetAimAngle
 /*  f021dc0:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021dc4:	c7ae00a4 */ 	lwc1	$f14,0xa4($sp)
 /*  f021dc8:	44808000 */ 	mtc1	$zero,$f16
@@ -6227,7 +6227,7 @@ glabel var7f1a879c
 .L0f021db4:
 /*  f021db4:	8c84cd1c */ 	lw	$a0,%lo(var8009cd1c)($a0)
 /*  f021db8:	e7ac00a0 */ 	swc1	$f12,0xa0($sp)
-/*  f021dbc:	0fc0f97c */ 	jal	func0f03e5f0
+/*  f021dbc:	0fc0f97c */ 	jal	chrGetAimAngle
 /*  f021dc0:	e7ae00a4 */ 	swc1	$f14,0xa4($sp)
 /*  f021dc4:	c7ae00a4 */ 	lwc1	$f14,0xa4($sp)
 /*  f021dc8:	44808000 */ 	mtc1	$zero,$f16

@@ -1417,21 +1417,26 @@
 	mkshort(value),
 
 /**
- * Set the chr's reaction speed. Range is 0-100.
+ * Set the chr's reaction speed. Range is probably -128 to 127.
  */
 #define set_reaction_speed(value) \
 	mkshort(0x0098), \
 	value,
 
 /**
- * Set the chr's injury recovery speed. Range is 0-100.
+ * Set the chr's injury recovery speed. Range is probably -128 to 127.
  */
 #define set_recovery_speed(value) \
 	mkshort(0x0099), \
 	value,
 
 /**
- * Set the chr's accuracy. Range is 0-100.
+ * Set the chr's accuracy. Range is -128 to 127.
+ *
+ * Negative values reduce the accuracy, while positive values increase it.
+ * Values -100 or lower will cause the chr to miss all their shots.
+ *
+ * This setting has no effect if the chr has CHRHFLAG_PERFECTACCURACY.
  */
 #define set_accuracy(value) \
 	mkshort(0x009a), \

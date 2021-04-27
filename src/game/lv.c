@@ -6516,7 +6516,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
 			var80069958 = 2;
-			var80062ca0 = 0.5f;
+			g_EnemyAccuracyScale = 0.5f;
 			g_DamageReceivedScale = 0.35f;
 			g_DamageDealtScale = 4;
 			g_ExplosionDamageReceivedScale = 0.25f;
@@ -6529,7 +6529,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
 			var80069958 = 1.5f;
-			var80062ca0 = 0.6f;
+			g_EnemyAccuracyScale = 0.6f;
 			g_DamageReceivedScale = 0.5f;
 			g_DamageDealtScale = 3;
 			g_ExplosionDamageReceivedScale = 0.25f;
@@ -6542,7 +6542,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
 			var80069958 = 1;
-			var80062ca0 = 0.7f;
+			g_EnemyAccuracyScale = 0.7f;
 			g_DamageReceivedScale = 0.65f;
 			g_DamageDealtScale = 2;
 			g_ExplosionDamageReceivedScale = 0.25f;
@@ -6557,7 +6557,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 0.5f;
 			var80069954 = 0.5f;
 			var80069958 = 2;
-			var80062ca0 = 0.6f;
+			g_EnemyAccuracyScale = 0.6f;
 			g_DamageReceivedScale = 0.5f;
 			g_DamageDealtScale = 2;
 			g_ExplosionDamageReceivedScale = 0.25f;
@@ -6570,7 +6570,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 0.75f;
 			var80069954 = 1;
 			var80069958 = 1;
-			var80062ca0 = 0.75f;
+			g_EnemyAccuracyScale = 0.75f;
 			g_DamageReceivedScale = 1;
 			g_DamageDealtScale = 1;
 			g_ExplosionDamageReceivedScale = 1;
@@ -6583,7 +6583,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 1;
 			var80069954 = 1.5f;
 			var80069958 = 1;
-			var80062ca0 = 1.5f;
+			g_EnemyAccuracyScale = 1.5f;
 			g_DamageReceivedScale = 1.5f;
 			g_DamageDealtScale = 1;
 			g_ExplosionDamageReceivedScale = 1.5f;
@@ -6615,7 +6615,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 0.5f * frac;
 			var80069954 = 0.5f * frac;
 			var80069958 = 2;
-			var80062ca0 = 0.6f;
+			g_EnemyAccuracyScale = 0.6f;
 			g_DamageReceivedScale = 0.5f * frac;
 			g_DamageDealtScale = 2;
 			g_ExplosionDamageReceivedScale = 0.25f * frac;
@@ -6628,7 +6628,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 0.75f;
 			var80069954 = 0.75f;
 			var80069958 = 1;
-			var80062ca0 = 0.8f;
+			g_EnemyAccuracyScale = 0.8f;
 			g_DamageReceivedScale = 0.6f;
 			g_DamageDealtScale = 1;
 			g_ExplosionDamageReceivedScale = 0.75f;
@@ -6641,7 +6641,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 1;
 			var80069954 = 1;
 			var80069958 = 1;
-			var80062ca0 = 1.175f;
+			g_EnemyAccuracyScale = 1.175f;
 			g_DamageReceivedScale = 1;
 			g_DamageDealtScale = 1;
 			g_ExplosionDamageReceivedScale = 1;
@@ -6654,7 +6654,7 @@ void lvUpdateSoloHandicaps(void)
 			var80069950 = 1;
 			var80069954 = 1;
 			var80069958 = 1;
-			var80062ca0 = 1.1f;
+			g_EnemyAccuracyScale = 1.1f;
 			g_DamageReceivedScale = 1;
 			g_DamageDealtScale = 1;
 			g_ExplosionDamageReceivedScale = 1;

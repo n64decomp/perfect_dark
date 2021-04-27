@@ -393,7 +393,7 @@ u8 func1006_check_objectives_complete[] = {
 u8 func0402_guard_combat[] = {
 	set_shotlist(AILIST_GUARD_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x03)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PERFECTACCURACY)
 
 	// Wait 2 seconds or for guard to come into view
 	restart_timer
@@ -447,7 +447,7 @@ u8 func0402_guard_combat[] = {
 u8 func0403_jon_combat[] = {
 	set_shotlist(AILIST_JON_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x58)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PERFECTACCURACY)
 	restart_timer
 
 	beginloop(0x04)
@@ -486,7 +486,7 @@ u8 func0403_jon_combat[] = {
 u8 func0404_trent_combat[] = {
 	set_shotlist(AILIST_TRENT_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x03)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PERFECTACCURACY)
 	restart_timer
 
 	beginloop(0x04)
@@ -525,6 +525,10 @@ u8 func0404_trent_combat[] = {
 
 u8 func0405_guard_init[] = {
 	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
+	// @bug: The value for set_accuracy is interpreted as a signed byte,
+	// so 200 is interpreted as -56 which reduces the chr's accuracy.
+	// However this isn't an issue because the chr has CHRHFLAG_PERFECTACCURACY.
+	// This bug is repeated for Jon and Trent below.
 	set_accuracy(200)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 20)

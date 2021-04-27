@@ -350,7 +350,7 @@ void func0f19a37c(struct chrdata *chr)
 	f32 sp152[3];
 	struct prop *prop = chr->prop;
 	Mtxf sp84;
-	f32 sp80 = func0f03e5f0(chr);
+	f32 sp80 = chrGetAimAngle(chr);
 	u32 stack;
 	struct shorthand hand = {0};
 	struct prop *target = chrGetTargetProp(chr);
@@ -498,7 +498,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 		f32 b;
 		f32 sp100[3];
 
-		a = func0f03e5f0(chr);
+		a = chrGetAimAngle(chr);
 		b = func0f03e754(chr);
 
 		sp100[0] = cosf(b) * sinf(a);

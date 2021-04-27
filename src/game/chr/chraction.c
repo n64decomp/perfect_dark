@@ -208,7 +208,7 @@ u32 var8009cd90;
 u32 var8009cd94;
 u8 g_RecentQuipsIndex;
 
-f32 var80062ca0 = 1;
+f32 g_EnemyAccuracyScale = 1;
 f32 g_DamageReceivedScale = 1;
 f32 g_DamageDealtScale = 1;
 f32 var80062cac = 1;
@@ -2943,7 +2943,7 @@ glabel var7f1a9f70pf
 /*  f0309a8:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f0309ac:	9064005c */ 	lbu	$a0,0x5c($v1)
 /*  f0309b0:	9065005f */ 	lbu	$a1,0x5f($v1)
-/*  f0309b4:	0fc2c8f8 */ 	jal	weaponGetMaxFireRatePerTick
+/*  f0309b4:	0fc2c8f8 */ 	jal	weaponGetNumTicksPerShot
 /*  f0309b8:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f0309bc:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f0309c0:	8fa60034 */ 	lw	$a2,0x34($sp)
@@ -3259,7 +3259,7 @@ glabel chrAttackWalk
 /*  f030864:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f030868:	9064005c */ 	lbu	$a0,0x5c($v1)
 /*  f03086c:	9065005f */ 	lbu	$a1,0x5f($v1)
-/*  f030870:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
+/*  f030870:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
 /*  f030874:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f030878:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f03087c:	8fa60034 */ 	lw	$a2,0x34($sp)
@@ -3579,7 +3579,7 @@ glabel chrAttackRoll
 /*  f030da0:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f030da4:	9064005c */ 	lbu	$a0,0x5c($v1)
 /*  f030da8:	9065005f */ 	lbu	$a1,0x5f($v1)
-/*  f030dac:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
+/*  f030dac:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
 /*  f030db0:	afa3006c */ 	sw	$v1,0x6c($sp)
 /*  f030db4:	8fa3006c */ 	lw	$v1,0x6c($sp)
 /*  f030db8:	8fa60038 */ 	lw	$a2,0x38($sp)
@@ -4091,7 +4091,7 @@ glabel var7f1a8d18
 /*  f0315e4:	9065005f */ 	lbu	$a1,0x5f($v1)
 /*  f0315e8:	afa80040 */ 	sw	$t0,0x40($sp)
 /*  f0315ec:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0315f0:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
+/*  f0315f0:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
 /*  f0315f4:	afa30078 */ 	sw	$v1,0x78($sp)
 /*  f0315f8:	8fa30078 */ 	lw	$v1,0x78($sp)
 /*  f0315fc:	8fa70044 */ 	lw	$a3,0x44($sp)
@@ -12725,7 +12725,7 @@ void func0f03e5b0(struct chrdata *chr, f32 arg1)
 }
 
 GLOBAL_ASM(
-glabel func0f03e5f0
+glabel chrGetAimAngle
 .late_rodata
 glabel var7f1a8f28
 .word 0x40c907a9
@@ -13646,7 +13646,7 @@ glabel var7f1a8fc8
 .L0f03f1f0:
 /*  f03f1f0:	51800150 */ 	beqzl	$t4,.L0f03f734
 /*  f03f1f4:	c7a4018c */ 	lwc1	$f4,0x18c($sp)
-/*  f03f1f8:	0fc0f97c */ 	jal	func0f03e5f0
+/*  f03f1f8:	0fc0f97c */ 	jal	chrGetAimAngle
 /*  f03f1fc:	8fa40190 */ 	lw	$a0,0x190($sp)
 /*  f03f200:	8fae0020 */ 	lw	$t6,0x20($sp)
 /*  f03f204:	e7a00130 */ 	swc1	$f0,0x130($sp)
@@ -13915,7 +13915,7 @@ glabel var7f1a8fc8
 /*  f03f5ec:	0c0068f7 */ 	jal	sinf
 /*  f03f5f0:	00000000 */ 	nop
 /*  f03f5f4:	e7a00028 */ 	swc1	$f0,0x28($sp)
-/*  f03f5f8:	0fc0fe84 */ 	jal	func0f03fa10
+/*  f03f5f8:	0fc0fe84 */ 	jal	chrGetAimLimitAngle
 /*  f03f5fc:	c7ac0164 */ 	lwc1	$f12,0x164($sp)
 /*  f03f600:	3c013f00 */ 	lui	$at,0x3f00
 /*  f03f604:	44813000 */ 	mtc1	$at,$f6
@@ -14143,7 +14143,7 @@ void func0f03f988(struct chrdata *chr, s32 hand, s32 arg2)
 }
 
 GLOBAL_ASM(
-glabel func0f03fa10
+glabel chrGetAimLimitAngle
 .late_rodata
 glabel var7f1a8fcc
 .word 0x4a1c4000
@@ -14210,331 +14210,168 @@ glabel var7f1a8fec
 /*  f03faac:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f03fab0
-.late_rodata
-glabel var7f1a8ff0
-.word 0x40c907a9
-glabel var7f1a8ff4
-.word 0x40c907a9
-glabel var7f1a8ff8
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a8ffc
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9000
-.word func0f03fab0+0x148 # f03fbf8
-glabel var7f1a9004
-.word func0f03fab0+0x148 # f03fbf8
-glabel var7f1a9008
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a900c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9010
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9014
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9018
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a901c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9020
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9024
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9028
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a902c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9030
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9034
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9038
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a903c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9040
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9044
-.word func0f03fab0+0x158 # f03fc08
-glabel var7f1a9048
-.word func0f03fab0+0x158 # f03fc08
-glabel var7f1a904c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9050
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9054
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9058
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a905c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9060
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9064
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9068
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a906c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9070
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9074
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9078
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a907c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9080
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9084
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9088
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a908c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9090
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9094
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a9098
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a909c
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a90a0
-.word func0f03fab0+0x168 # f03fc18
-glabel var7f1a90a4
-.word 0x3e23d70a
-glabel var7f1a90a8
-.word 0x3dcccccd
-glabel var7f1a90ac
-.word 0x3c23d70a
-glabel var7f1a90b0
-.word 0x41200419
-glabel var7f1a90b4
-.word 0x3f8ccccd
-.text
-/*  f03fab0:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f03fab4:	3c014396 */ 	lui	$at,0x4396
-/*  f03fab8:	44812000 */ 	mtc1	$at,$f4
-/*  f03fabc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03fac0:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f03fac4:	afa60068 */ 	sw	$a2,0x68($sp)
-/*  f03fac8:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f03facc:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*  f03fad0:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f03fad4:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f03fad8:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03fadc:	afa3005c */ 	sw	$v1,0x5c($sp)
-/*  f03fae0:	8fa3005c */ 	lw	$v1,0x5c($sp)
-/*  f03fae4:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f03fae8:	c44a000c */ 	lwc1	$f10,0xc($v0)
-/*  f03faec:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f03faf0:	c464000c */ 	lwc1	$f4,0xc($v1)
-/*  f03faf4:	46083301 */ 	sub.s	$f12,$f6,$f8
-/*  f03faf8:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f03fafc:	e7a60050 */ 	swc1	$f6,0x50($sp)
-/*  f03fb00:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f03fb04:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f03fb08:	e7ac0054 */ 	swc1	$f12,0x54($sp)
-/*  f03fb0c:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f03fb10:	0fc259d4 */ 	jal	atan2f
-/*  f03fb14:	e7ae004c */ 	swc1	$f14,0x4c($sp)
-/*  f03fb18:	e7a00048 */ 	swc1	$f0,0x48($sp)
-/*  f03fb1c:	0fc0f97c */ 	jal	func0f03e5f0
-/*  f03fb20:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*  f03fb24:	c7b00054 */ 	lwc1	$f16,0x54($sp)
-/*  f03fb28:	c7b20050 */ 	lwc1	$f18,0x50($sp)
-/*  f03fb2c:	c7a40048 */ 	lwc1	$f4,0x48($sp)
-/*  f03fb30:	46108182 */ 	mul.s	$f6,$f16,$f16
-/*  f03fb34:	c7ae004c */ 	lwc1	$f14,0x4c($sp)
-/*  f03fb38:	46002081 */ 	sub.s	$f2,$f4,$f0
-/*  f03fb3c:	46129202 */ 	mul.s	$f8,$f18,$f18
-/*  f03fb40:	e7a20040 */ 	swc1	$f2,0x40($sp)
-/*  f03fb44:	460e7102 */ 	mul.s	$f4,$f14,$f14
-/*  f03fb48:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f03fb4c:	46045300 */ 	add.s	$f12,$f10,$f4
-/*  f03fb50:	0fc0fe84 */ 	jal	func0f03fa10
-/*  f03fb54:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f03fb58:	c7a20040 */ 	lwc1	$f2,0x40($sp)
-/*  f03fb5c:	44803000 */ 	mtc1	$zero,$f6
-/*  f03fb60:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f03fb64:	3c017f1b */ 	lui	$at,%hi(var7f1a8ff0)
-/*  f03fb68:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f03fb6c:	8fae0064 */ 	lw	$t6,0x64($sp)
-/*  f03fb70:	45020004 */ 	bc1fl	.L0f03fb84
-/*  f03fb74:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f03fb78:	c4288ff0 */ 	lwc1	$f8,%lo(var7f1a8ff0)($at)
-/*  f03fb7c:	46081080 */ 	add.s	$f2,$f2,$f8
-/*  f03fb80:	4600103c */ 	c.lt.s	$f2,$f0
-.L0f03fb84:
-/*  f03fb84:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03fb88:	3c017f1b */ 	lui	$at,%hi(var7f1a8ff4)
-/*  f03fb8c:	45000002 */ 	bc1f	.L0f03fb98
-/*  f03fb90:	00000000 */ 	nop
-/*  f03fb94:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03fb98:
-/*  f03fb98:	14400009 */ 	bnez	$v0,.L0f03fbc0
-/*  f03fb9c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f03fba0:	c42a8ff4 */ 	lwc1	$f10,%lo(var7f1a8ff4)($at)
-/*  f03fba4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f03fba8:	46005101 */ 	sub.s	$f4,$f10,$f0
-/*  f03fbac:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f03fbb0:	00000000 */ 	nop
-/*  f03fbb4:	45020003 */ 	bc1fl	.L0f03fbc4
-/*  f03fbb8:	adc30000 */ 	sw	$v1,0x0($t6)
-/*  f03fbbc:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f03fbc0:
-/*  f03fbc0:	adc30000 */ 	sw	$v1,0x0($t6)
-.L0f03fbc4:
-/*  f03fbc4:	8faf0068 */ 	lw	$t7,0x68($sp)
-/*  f03fbc8:	ade00000 */ 	sw	$zero,0x0($t7)
-/*  f03fbcc:	8fb8006c */ 	lw	$t8,0x6c($sp)
-/*  f03fbd0:	93190000 */ 	lbu	$t9,0x0($t8)
-/*  f03fbd4:	2728fffe */ 	addiu	$t0,$t9,-2
-/*  f03fbd8:	2d01002b */ 	sltiu	$at,$t0,0x2b
-/*  f03fbdc:	1020000e */ 	beqz	$at,.L0f03fc18
-/*  f03fbe0:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f03fbe4:	3c017f1b */ 	lui	$at,%hi(var7f1a8ff8)
-/*  f03fbe8:	00280821 */ 	addu	$at,$at,$t0
-/*  f03fbec:	8c288ff8 */ 	lw	$t0,%lo(var7f1a8ff8)($at)
-/*  f03fbf0:	01000008 */ 	jr	$t0
-/*  f03fbf4:	00000000 */ 	nop
-/*  f03fbf8:	3c014416 */ 	lui	$at,0x4416
-/*  f03fbfc:	44813000 */ 	mtc1	$at,$f6
-/*  f03fc00:	10000005 */ 	b	.L0f03fc18
-/*  f03fc04:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f03fc08:	3c014496 */ 	lui	$at,0x4496
-/*  f03fc0c:	44814000 */ 	mtc1	$at,$f8
-/*  f03fc10:	00000000 */ 	nop
-/*  f03fc14:	e7a80030 */ 	swc1	$f8,0x30($sp)
-.L0f03fc18:
-/*  f03fc18:	5060006f */ 	beqzl	$v1,.L0f03fdd8
-/*  f03fc1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03fc20:	0c012974 */ 	jal	sqrtf
-/*  f03fc24:	00000000 */ 	nop
-/*  f03fc28:	c7aa0030 */ 	lwc1	$f10,0x30($sp)
-/*  f03fc2c:	3c017f1b */ 	lui	$at,%hi(var7f1a90a4)
-/*  f03fc30:	c42c90a4 */ 	lwc1	$f12,%lo(var7f1a90a4)($at)
-/*  f03fc34:	4600503c */ 	c.lt.s	$f10,$f0
-/*  f03fc38:	8fa90060 */ 	lw	$t1,0x60($sp)
-/*  f03fc3c:	46006086 */ 	mov.s	$f2,$f12
-/*  f03fc40:	45020005 */ 	bc1fl	.L0f03fc58
-/*  f03fc44:	81220002 */ 	lb	$v0,0x2($t1)
-/*  f03fc48:	46005103 */ 	div.s	$f4,$f10,$f0
-/*  f03fc4c:	46046082 */ 	mul.s	$f2,$f12,$f4
-/*  f03fc50:	00000000 */ 	nop
-/*  f03fc54:	81220002 */ 	lb	$v0,0x2($t1)
-.L0f03fc58:
-/*  f03fc58:	1840000c */ 	blez	$v0,.L0f03fc8c
-/*  f03fc5c:	00000000 */ 	nop
-/*  f03fc60:	44823000 */ 	mtc1	$v0,$f6
-/*  f03fc64:	3c017f1b */ 	lui	$at,%hi(var7f1a90a8)
-/*  f03fc68:	c42a90a8 */ 	lwc1	$f10,%lo(var7f1a90a8)($at)
-/*  f03fc6c:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f03fc70:	3c013f80 */ 	lui	$at,0x3f80
-/*  f03fc74:	44813000 */ 	mtc1	$at,$f6
-/*  f03fc78:	460a4102 */ 	mul.s	$f4,$f8,$f10
-/*  f03fc7c:	46043200 */ 	add.s	$f8,$f6,$f4
-/*  f03fc80:	46081082 */ 	mul.s	$f2,$f2,$f8
-/*  f03fc84:	10000010 */ 	b	.L0f03fcc8
-/*  f03fc88:	00000000 */ 	nop
-.L0f03fc8c:
-/*  f03fc8c:	0441000e */ 	bgez	$v0,.L0f03fcc8
-/*  f03fc90:	2841ff9d */ 	slti	$at,$v0,-99
-/*  f03fc94:	10200004 */ 	beqz	$at,.L0f03fca8
-/*  f03fc98:	244a0064 */ 	addiu	$t2,$v0,0x64
-/*  f03fc9c:	44801000 */ 	mtc1	$zero,$f2
-/*  f03fca0:	10000009 */ 	b	.L0f03fcc8
-/*  f03fca4:	00000000 */ 	nop
-.L0f03fca8:
-/*  f03fca8:	448a5000 */ 	mtc1	$t2,$f10
-/*  f03fcac:	3c017f1b */ 	lui	$at,%hi(var7f1a90ac)
-/*  f03fcb0:	c42490ac */ 	lwc1	$f4,%lo(var7f1a90ac)($at)
-/*  f03fcb4:	468051a0 */ 	cvt.s.w	$f6,$f10
-/*  f03fcb8:	46043202 */ 	mul.s	$f8,$f6,$f4
-/*  f03fcbc:	00000000 */ 	nop
-/*  f03fcc0:	46081082 */ 	mul.s	$f2,$f2,$f8
-/*  f03fcc4:	00000000 */ 	nop
-.L0f03fcc8:
-/*  f03fcc8:	0fc06c45 */ 	jal	pdmodeGetEnemyAccuracy
-/*  f03fccc:	e7a20024 */ 	swc1	$f2,0x24($sp)
-/*  f03fcd0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f03fcd4:	44815000 */ 	mtc1	$at,$f10
-/*  f03fcd8:	c7a20024 */ 	lwc1	$f2,0x24($sp)
-/*  f03fcdc:	460a003e */ 	c.le.s	$f0,$f10
-/*  f03fce0:	00000000 */ 	nop
-/*  f03fce4:	45000007 */ 	bc1f	.L0f03fd04
-/*  f03fce8:	00000000 */ 	nop
-/*  f03fcec:	0fc06c45 */ 	jal	pdmodeGetEnemyAccuracy
-/*  f03fcf0:	e7a20024 */ 	swc1	$f2,0x24($sp)
-/*  f03fcf4:	c7a20024 */ 	lwc1	$f2,0x24($sp)
-/*  f03fcf8:	46001082 */ 	mul.s	$f2,$f2,$f0
-/*  f03fcfc:	1000000c */ 	b	.L0f03fd30
-/*  f03fd00:	00000000 */ 	nop
-.L0f03fd04:
-/*  f03fd04:	0fc06c45 */ 	jal	pdmodeGetEnemyAccuracy
-/*  f03fd08:	e7a20024 */ 	swc1	$f2,0x24($sp)
-/*  f03fd0c:	3c014110 */ 	lui	$at,0x4110
-/*  f03fd10:	44813000 */ 	mtc1	$at,$f6
-/*  f03fd14:	3c017f1b */ 	lui	$at,%hi(var7f1a90b0)
-/*  f03fd18:	c42490b0 */ 	lwc1	$f4,%lo(var7f1a90b0)($at)
-/*  f03fd1c:	c7a20024 */ 	lwc1	$f2,0x24($sp)
-/*  f03fd20:	46002201 */ 	sub.s	$f8,$f4,$f0
-/*  f03fd24:	46083283 */ 	div.s	$f10,$f6,$f8
-/*  f03fd28:	460a1082 */ 	mul.s	$f2,$f2,$f10
-/*  f03fd2c:	00000000 */ 	nop
-.L0f03fd30:
-/*  f03fd30:	3c018006 */ 	lui	$at,%hi(var80062ca0)
-/*  f03fd34:	c4242ca0 */ 	lwc1	$f4,%lo(var80062ca0)($at)
-/*  f03fd38:	8fa2006c */ 	lw	$v0,0x6c($sp)
-/*  f03fd3c:	46041082 */ 	mul.s	$f2,$f2,$f4
-/*  f03fd40:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f03fd44:	90450003 */ 	lbu	$a1,0x3($v0)
-/*  f03fd48:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
-/*  f03fd4c:	e7a20024 */ 	swc1	$f2,0x24($sp)
-/*  f03fd50:	1c400002 */ 	bgtz	$v0,.L0f03fd5c
-/*  f03fd54:	c7a20024 */ 	lwc1	$f2,0x24($sp)
-/*  f03fd58:	46021080 */ 	add.s	$f2,$f2,$f2
-.L0f03fd5c:
-/*  f03fd5c:	8fab006c */ 	lw	$t3,0x6c($sp)
-/*  f03fd60:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f03fd64:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f03fd68:	916c0000 */ 	lbu	$t4,0x0($t3)
-/*  f03fd6c:	55810003 */ 	bnel	$t4,$at,.L0f03fd7c
-/*  f03fd70:	c446014c */ 	lwc1	$f6,0x14c($v0)
-/*  f03fd74:	46021080 */ 	add.s	$f2,$f2,$f2
-/*  f03fd78:	c446014c */ 	lwc1	$f6,0x14c($v0)
-.L0f03fd7c:
-/*  f03fd7c:	8c4d0014 */ 	lw	$t5,0x14($v0)
-/*  f03fd80:	3c017f1b */ 	lui	$at,%hi(var7f1a90b4)
-/*  f03fd84:	46023200 */ 	add.s	$f8,$f6,$f2
-/*  f03fd88:	31ae8000 */ 	andi	$t6,$t5,0x8000
-/*  f03fd8c:	11c00005 */ 	beqz	$t6,.L0f03fda4
-/*  f03fd90:	e448014c */ 	swc1	$f8,0x14c($v0)
-/*  f03fd94:	c44a014c */ 	lwc1	$f10,0x14c($v0)
-/*  f03fd98:	c42490b4 */ 	lwc1	$f4,%lo(var7f1a90b4)($at)
-/*  f03fd9c:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f03fda0:	e446014c */ 	swc1	$f6,0x14c($v0)
-.L0f03fda4:
-/*  f03fda4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f03fda8:	44815000 */ 	mtc1	$at,$f10
-/*  f03fdac:	c448014c */ 	lwc1	$f8,0x14c($v0)
-/*  f03fdb0:	8fb80068 */ 	lw	$t8,0x68($sp)
-/*  f03fdb4:	4608503e */ 	c.le.s	$f10,$f8
-/*  f03fdb8:	00000000 */ 	nop
-/*  f03fdbc:	45020006 */ 	bc1fl	.L0f03fdd8
-/*  f03fdc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03fdc4:	44802000 */ 	mtc1	$zero,$f4
-/*  f03fdc8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f03fdcc:	af0f0000 */ 	sw	$t7,0x0($t8)
-/*  f03fdd0:	e444014c */ 	swc1	$f4,0x14c($v0)
-/*  f03fdd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03fdd8:
-/*  f03fdd8:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*  f03fddc:	03e00008 */ 	jr	$ra
-/*  f03fde0:	00000000 */ 	nop
-);
+/**
+ * Calculate whether a chr's shot hits their target on this tick.
+ *
+ * Each chr maintains a shotbondsum property which is a float ranging from
+ * 0 to 1. Each time this function is called, the value is increased slightly
+ * based on the chr's accuracy and other factors. Once it reaches 1, the target
+ * is considered to be hit and the value is reset to 0.
+ *
+ * The function writes to the angleokptr argument if the angle to their target
+ * is within range, and writes to the hit argument to indicate if the target is
+ * being hit or not.
+ */
+void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct shorthand *hand)
+{
+	struct prop *prop;
+	struct prop *target;
+	f32 xdist;
+	f32 ydist;
+	f32 zdist;
+	f32 angletotarget;
+	f32 angleaiming;
+	f32 anglediff;
+	f32 limitangle;
+	bool angleok;
+	u32 stack;
+	f32 taperdist;
+	f32 sqdist;
+
+	taperdist = 300;
+
+	// Check that the chr's aim angle is within an acceptable range to their
+	// target.
+	prop = chr->prop;
+	target = chrGetTargetProp(chr);
+
+	xdist = target->pos.x - prop->pos.x;
+	ydist = target->pos.y - prop->pos.y;
+	zdist = target->pos.z - prop->pos.z;
+
+	angletotarget = atan2f(xdist, zdist);
+	angleaiming = chrGetAimAngle(chr);
+	anglediff = angletotarget - angleaiming;
+
+	sqdist = xdist * xdist + ydist * ydist + zdist * zdist;
+	limitangle = chrGetAimLimitAngle(sqdist);
+
+	if (anglediff < 0) {
+		anglediff += M_BADTAU;
+	}
+
+	angleok = anglediff < limitangle || anglediff > M_BADTAU - limitangle;
+
+	*angleokptr = angleok;
+	*hit = false;
+
+	// Determine the distance at which accuracy starts to taper off
+	switch (hand->weaponnum) {
+	case WEAPON_FALCON2:
+	case WEAPON_FALCON2_SILENCER:
+	case WEAPON_MAULER:
+	case WEAPON_PHOENIX:
+	case WEAPON_DY357MAGNUM:
+	case WEAPON_DY357LX:
+	case WEAPON_CMP150:
+	case WEAPON_CYCLONE:
+	case WEAPON_CALLISTO:
+	case WEAPON_RCP120:
+	case WEAPON_LAPTOPGUN:
+	case WEAPON_DRAGON:
+	case WEAPON_K7AVENGER:
+	case WEAPON_AR34:
+	case WEAPON_SUPERDRAGON:
+	case WEAPON_SHOTGUN:
+	case WEAPON_REAPER:
+	case WEAPON_DEVASTATOR:
+	case WEAPON_ROCKETLAUNCHER:
+	case WEAPON_SLAYER:
+	case WEAPON_COMBATKNIFE:
+	case WEAPON_CROSSBOW:
+	case WEAPON_TRANQUILIZER:
+	case WEAPON_LASER:
+	case WEAPON_GRENADE:
+	case WEAPON_NBOMB:
+	case WEAPON_TIMEDMINE:
+	case WEAPON_PROXIMITYMINE:
+	case WEAPON_REMOTEMINE:
+	case WEAPON_COMBATBOOST:
+	case WEAPON_PP9I:
+	case WEAPON_CC13:
+	case WEAPON_KL01313:
+	case WEAPON_KF7SPECIAL:
+	case WEAPON_ZZT:
+	case WEAPON_DMC:
+	case WEAPON_AR53:
+	case WEAPON_RCP45:
+	case WEAPON_PSYCHOSISGUN:
+	default:
+		// Use default distance (300)
+		break;
+	case WEAPON_FALCON2_SCOPE:
+	case WEAPON_MAGSEC4:
+		taperdist = 600;
+		break;
+	case WEAPON_SNIPERRIFLE:
+	case WEAPON_FARSIGHT:
+		taperdist = 1200;
+		break;
+	}
+
+	if (angleok) {
+		f32 dist = sqrtf(xdist * xdist + ydist * ydist + zdist * zdist);
+		f32 accuracy = 0.16f;
+
+		// Decrease accuracy if further than taperdist
+		if (dist > taperdist) {
+			accuracy *= taperdist / dist;
+		}
+
+		// Scale accuracy up or down based on chr's accuracyrating
+		if (chr->accuracyrating > 0) {
+			accuracy *= 1 + chr->accuracyrating * 0.1f;
+		} else if (chr->accuracyrating < 0) {
+			if (chr->accuracyrating <= -100) {
+				accuracy = 0;
+			} else {
+				accuracy *= (chr->accuracyrating + 100) * 0.01f;
+			}
+		}
+
+		// Apply PD mode enemy accuracy setting (default 1 which is no op)
+		if (pdmodeGetEnemyAccuracy() <= 1) {
+			accuracy *= pdmodeGetEnemyAccuracy();
+		} else {
+			accuracy *= 9 / (10.001f - pdmodeGetEnemyAccuracy());
+		}
+
+		// Apply difficulty multiplier (solo A = 0.6, SA = 0.8, PA = 1.175)
+		accuracy *= g_EnemyAccuracyScale;
+
+		// If the weapon fires more than once per tick, double the value to
+		// account for it. No weapons meet this criteria, however.
+		if (weaponGetNumTicksPerShot(hand->weaponnum, hand->weaponfunc) <= 0) {
+			accuracy += accuracy;
+		}
+
+		// Shotgun doubles the value due to more bullets
+		if (hand->weaponnum == WEAPON_SHOTGUN) {
+			accuracy += accuracy;
+		}
+
+		chr->shotbondsum += accuracy;
+
+		if (chr->hidden & CHRHFLAG_PERFECTACCURACY) {
+			chr->shotbondsum += 1.1f;
+		}
+
+		if (chr->shotbondsum >= 1) {
+			*hit = true;
+			chr->shotbondsum = 0;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03fde4
@@ -15071,7 +14908,7 @@ glabel var7f1a9184
 /*  f04070c:	93a40260 */ 	lbu	$a0,0x260($sp)
 /*  f040710:	93a50263 */ 	lbu	$a1,0x263($sp)
 /*  f040714:	afa00254 */ 	sw	$zero,0x254($sp)
-/*  f040718:	0fc2c8f8 */ 	jal	weaponGetMaxFireRatePerTick
+/*  f040718:	0fc2c8f8 */ 	jal	weaponGetNumTicksPerShot
 /*  f04071c:	afa80258 */ 	sw	$t0,0x258($sp)
 /*  f040720:	8fa60254 */ 	lw	$a2,0x254($sp)
 /*  f040724:	1c400005 */ 	bgtz	$v0,.PF0f04073c
@@ -15172,7 +15009,7 @@ glabel var7f1a9184
 .PF0f04088c:
 /*  f04088c:	50c004a3 */ 	beqzl	$a2,.PF0f041b1c
 /*  f040890:	8fa80268 */ 	lw	$t0,0x268($sp)
-/*  f040894:	0fc0f9dd */ 	jal	func0f03e5f0
+/*  f040894:	0fc0f9dd */ 	jal	chrGetAimAngle
 /*  f040898:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f04089c:	e7a00204 */ 	swc1	$f0,0x204($sp)
 /*  f0408a0:	0fc0fa36 */ 	jal	func0f03e754
@@ -16012,7 +15849,7 @@ glabel var7f1a9184
 /*  f0414d8:	00000000 */ 	nop
 /*  f0414dc:	4500002b */ 	bc1f	.PF0f04158c
 /*  f0414e0:	00000000 */ 	nop
-/*  f0414e4:	0fc0ff0d */ 	jal	func0f03fab0
+/*  f0414e4:	0fc0ff0d */ 	jal	chrCalculateHit
 /*  f0414e8:	27a70260 */ 	addiu	$a3,$sp,0x260
 /*  f0414ec:	8fac01f4 */ 	lw	$t4,0x1f4($sp)
 /*  f0414f0:	8fad01f8 */ 	lw	$t5,0x1f8($sp)
@@ -16669,7 +16506,7 @@ glabel var7f1a9184
 /*  f040588:	93a40260 */ 	lbu	$a0,0x260($sp)
 /*  f04058c:	93a50263 */ 	lbu	$a1,0x263($sp)
 /*  f040590:	afa00254 */ 	sw	$zero,0x254($sp)
-/*  f040594:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
+/*  f040594:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
 /*  f040598:	afa80258 */ 	sw	$t0,0x258($sp)
 /*  f04059c:	8fa60254 */ 	lw	$a2,0x254($sp)
 /*  f0405a0:	1c400005 */ 	bgtz	$v0,.L0f0405b8
@@ -16770,7 +16607,7 @@ glabel var7f1a9184
 .L0f040708:
 /*  f040708:	50c0049b */ 	beqzl	$a2,.L0f041978
 /*  f04070c:	8fa80268 */ 	lw	$t0,0x268($sp)
-/*  f040710:	0fc0f97c */ 	jal	func0f03e5f0
+/*  f040710:	0fc0f97c */ 	jal	chrGetAimAngle
 /*  f040714:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f040718:	e7a00204 */ 	swc1	$f0,0x204($sp)
 /*  f04071c:	0fc0f9d5 */ 	jal	func0f03e754
@@ -17602,7 +17439,7 @@ glabel var7f1a9184
 /*  f041334:	00000000 */ 	nop
 /*  f041338:	4500002b */ 	bc1f	.L0f0413e8
 /*  f04133c:	00000000 */ 	nop
-/*  f041340:	0fc0feac */ 	jal	func0f03fab0
+/*  f041340:	0fc0feac */ 	jal	chrCalculateHit
 /*  f041344:	27a70260 */ 	addiu	$a3,$sp,0x260
 /*  f041348:	8fb801f4 */ 	lw	$t8,0x1f4($sp)
 /*  f04134c:	8fac01f8 */ 	lw	$t4,0x1f8($sp)
@@ -18259,7 +18096,7 @@ glabel var7f1a9184
 /*  f03fd68:	93a40260 */ 	lbu	$a0,0x260($sp)
 /*  f03fd6c:	93a50263 */ 	lbu	$a1,0x263($sp)
 /*  f03fd70:	afa00254 */ 	sw	$zero,0x254($sp)
-/*  f03fd74:	0fc2bf12 */ 	jal	weaponGetMaxFireRatePerTick
+/*  f03fd74:	0fc2bf12 */ 	jal	weaponGetNumTicksPerShot
 /*  f03fd78:	afa80258 */ 	sw	$t0,0x258($sp)
 /*  f03fd7c:	8fa60254 */ 	lw	$a2,0x254($sp)
 /*  f03fd80:	1c400005 */ 	bgtz	$v0,.NB0f03fd98
@@ -18360,7 +18197,7 @@ glabel var7f1a9184
 .NB0f03fee8:
 /*  f03fee8:	50c00495 */ 	beqzl	$a2,.NB0f041140
 /*  f03feec:	8fa80268 */ 	lw	$t0,0x268($sp)
-/*  f03fef0:	0fc0f779 */ 	jal	func0f03e5f0
+/*  f03fef0:	0fc0f779 */ 	jal	chrGetAimAngle
 /*  f03fef4:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f03fef8:	e7a00204 */ 	swc1	$f0,0x204($sp)
 /*  f03fefc:	0fc0f7d2 */ 	jal	func0f03e754
@@ -19186,7 +19023,7 @@ glabel var7f1a9184
 /*  f040afc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f040b00:	4500002b */ 	bc1f	.NB0f040bb0
 /*  f040b04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f040b08:	0fc0fca9 */ 	jal	func0f03fab0
+/*  f040b08:	0fc0fca9 */ 	jal	chrCalculateHit
 /*  f040b0c:	27a70260 */ 	addiu	$a3,$sp,0x260
 /*  f040b10:	8faf01f4 */ 	lw	$t7,0x1f4($sp)
 /*  f040b14:	8fb901f8 */ 	lw	$t9,0x1f8($sp)

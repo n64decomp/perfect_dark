@@ -653,7 +653,7 @@ bool handHasFunctionFlags(struct shorthand *hand, u32 flags)
 	return false;
 }
 
-s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
+s8 weaponGetNumTicksPerShot(u32 weaponnum, u32 funcindex)
 {
 	u32 stack[2];
 	s32 result = 0;
