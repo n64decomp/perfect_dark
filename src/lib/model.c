@@ -91,27 +91,16 @@ glabel func0001a524
 /*    1a5c8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001a5cc
-/*    1a5cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1a5d0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    1a5d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1a5d8:	00a02025 */ 	or	$a0,$a1,$zero
-/*    1a5dc:	0c006949 */ 	jal	func0001a524
-/*    1a5e0:	00c02825 */ 	or	$a1,$a2,$zero
-/*    1a5e4:	04400006 */ 	bltz	$v0,.L0001a600
-/*    1a5e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1a5ec:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    1a5f0:	0002c180 */ 	sll	$t8,$v0,0x6
-/*    1a5f4:	8dcf000c */ 	lw	$t7,0xc($t6)
-/*    1a5f8:	10000002 */ 	b	.L0001a604
-/*    1a5fc:	01f81021 */ 	addu	$v0,$t7,$t8
-.L0001a600:
-/*    1a600:	00001025 */ 	or	$v0,$zero,$zero
-.L0001a604:
-/*    1a604:	03e00008 */ 	jr	$ra
-/*    1a608:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2)
+{
+	s32 index = func0001a524(node, arg2);
+
+	if (index >= 0) {
+		return &model->matrices[index];
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0001a60c
