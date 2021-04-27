@@ -14142,73 +14142,26 @@ void func0f03f988(struct chrdata *chr, s32 hand, s32 arg2)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrGetAimLimitAngle
-.late_rodata
-glabel var7f1a8fcc
-.word 0x4a1c4000
-glabel var7f1a8fd0
-.word 0x3c999f74
-glabel var7f1a8fd4
-.word 0x491c4000
-glabel var7f1a8fd8
-.word 0x3d1a1533
-glabel var7f1a8fdc
-.word 0x481c4000
-glabel var7f1a8fe0
-.word 0x3d992a68
-glabel var7f1a8fe4
-.word 0x471c4000
-glabel var7f1a8fe8
-.word 0x3e192a68
-glabel var7f1a8fec
-.word 0x3e80a8be
-.text
-/*  f03fa10:	3c017f1b */ 	lui	$at,%hi(var7f1a8fcc)
-/*  f03fa14:	c4248fcc */ 	lwc1	$f4,%lo(var7f1a8fcc)($at)
-/*  f03fa18:	3c017f1b */ 	lui	$at,%hi(var7f1a8fd0)
-/*  f03fa1c:	460c203c */ 	c.lt.s	$f4,$f12
-/*  f03fa20:	00000000 */ 	nop
-/*  f03fa24:	45000004 */ 	bc1f	.L0f03fa38
-/*  f03fa28:	00000000 */ 	nop
-/*  f03fa2c:	3c017f1b */ 	lui	$at,%hi(var7f1a8fd4)
-/*  f03fa30:	03e00008 */ 	jr	$ra
-/*  f03fa34:	c4208fd0 */ 	lwc1	$f0,%lo(var7f1a8fd0)($at)
-.L0f03fa38:
-/*  f03fa38:	c4268fd4 */ 	lwc1	$f6,%lo(var7f1a8fd4)($at)
-/*  f03fa3c:	3c017f1b */ 	lui	$at,%hi(var7f1a8fd8)
-/*  f03fa40:	460c303c */ 	c.lt.s	$f6,$f12
-/*  f03fa44:	00000000 */ 	nop
-/*  f03fa48:	45000004 */ 	bc1f	.L0f03fa5c
-/*  f03fa4c:	00000000 */ 	nop
-/*  f03fa50:	3c017f1b */ 	lui	$at,%hi(var7f1a8fdc)
-/*  f03fa54:	03e00008 */ 	jr	$ra
-/*  f03fa58:	c4208fd8 */ 	lwc1	$f0,%lo(var7f1a8fd8)($at)
-.L0f03fa5c:
-/*  f03fa5c:	c4288fdc */ 	lwc1	$f8,%lo(var7f1a8fdc)($at)
-/*  f03fa60:	3c017f1b */ 	lui	$at,%hi(var7f1a8fe0)
-/*  f03fa64:	460c403c */ 	c.lt.s	$f8,$f12
-/*  f03fa68:	00000000 */ 	nop
-/*  f03fa6c:	45000004 */ 	bc1f	.L0f03fa80
-/*  f03fa70:	00000000 */ 	nop
-/*  f03fa74:	3c017f1b */ 	lui	$at,%hi(var7f1a8fe4)
-/*  f03fa78:	03e00008 */ 	jr	$ra
-/*  f03fa7c:	c4208fe0 */ 	lwc1	$f0,%lo(var7f1a8fe0)($at)
-.L0f03fa80:
-/*  f03fa80:	c42a8fe4 */ 	lwc1	$f10,%lo(var7f1a8fe4)($at)
-/*  f03fa84:	3c017f1b */ 	lui	$at,%hi(var7f1a8fe8)
-/*  f03fa88:	460c503c */ 	c.lt.s	$f10,$f12
-/*  f03fa8c:	00000000 */ 	nop
-/*  f03fa90:	45000004 */ 	bc1f	.L0f03faa4
-/*  f03fa94:	00000000 */ 	nop
-/*  f03fa98:	3c017f1b */ 	lui	$at,%hi(var7f1a8fec)
-/*  f03fa9c:	03e00008 */ 	jr	$ra
-/*  f03faa0:	c4208fe8 */ 	lwc1	$f0,%lo(var7f1a8fe8)($at)
-.L0f03faa4:
-/*  f03faa4:	c4208fec */ 	lwc1	$f0,%lo(var7f1a8fec)($at)
-/*  f03faa8:	03e00008 */ 	jr	$ra
-/*  f03faac:	00000000 */ 	nop
-);
+f32 chrGetAimLimitAngle(f32 sqdist)
+{
+	if (sqdist > 1600 * 1600) {
+		return 0.018752790987492f;
+	}
+
+	if (sqdist > 800 * 800) {
+		return 0.03761787340045f;
+	}
+
+	if (sqdist > 400 * 400) {
+		return 0.07478791475296f;
+	}
+
+	if (sqdist > 200 * 200) {
+		return 0.14957582950592f;
+	}
+
+	return 0.2512874007225f;
+}
 
 /**
  * Calculate whether a chr's shot hits their target on this tick.

@@ -141,7 +141,7 @@ f32 func0f03e754(struct chrdata *chr);
 void func0f03e788(struct chrdata *chr, s32 arg1, f32 arg2, f32 arg3, f32 arg4);
 void func0f03e9f4(struct chrdata *chr, struct act_attackamount_2c *arg1, s32 arg2, s32 arg3, f32 arg4);
 u32 func0f03f778(void);
-f32 chrGetAimLimitAngle(f32 arg0);
+f32 chrGetAimLimitAngle(f32 sqdist);
 void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct shorthand *hand);
 u32 func0f03fde4(void);
 void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord *vector, struct modelnode **node, s32 *ibh, struct model **model, s32 *side);
