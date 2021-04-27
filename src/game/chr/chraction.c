@@ -23537,83 +23537,33 @@ glabel chrTickAttackWalk
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0445c4
-/*  f0445c4:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0445c8:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f0445cc:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f0445d0:	44808000 */ 	mtc1	$zero,$f16
-/*  f0445d4:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0445d8:	44876000 */ 	mtc1	$a3,$f12
-/*  f0445dc:	e7a80004 */ 	swc1	$f8,0x4($sp)
-/*  f0445e0:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f0445e4:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f0445e8:	46045181 */ 	sub.s	$f6,$f10,$f4
-/*  f0445ec:	e7a6000c */ 	swc1	$f6,0xc($sp)
-/*  f0445f0:	c4a00000 */ 	lwc1	$f0,0x0($a1)
-/*  f0445f4:	c7aa000c */ 	lwc1	$f10,0xc($sp)
-/*  f0445f8:	46008032 */ 	c.eq.s	$f16,$f0
-/*  f0445fc:	00000000 */ 	nop
-/*  f044600:	45020015 */ 	bc1fl	.L0f044658
-/*  f044604:	c4a20008 */ 	lwc1	$f2,0x8($a1)
-/*  f044608:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f04460c:	c7a2000c */ 	lwc1	$f2,0xc($sp)
-/*  f044610:	46088032 */ 	c.eq.s	$f16,$f8
-/*  f044614:	00000000 */ 	nop
-/*  f044618:	4502000f */ 	bc1fl	.L0f044658
-/*  f04461c:	c4a20008 */ 	lwc1	$f2,0x8($a1)
-/*  f044620:	46021282 */ 	mul.s	$f10,$f2,$f2
-/*  f044624:	c7a00004 */ 	lwc1	$f0,0x4($sp)
-/*  f044628:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04462c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f044630:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f044634:	460c6202 */ 	mul.s	$f8,$f12,$f12
-/*  f044638:	4608303e */ 	c.le.s	$f6,$f8
-/*  f04463c:	00000000 */ 	nop
-/*  f044640:	45000025 */ 	bc1f	.L0f0446d8
-/*  f044644:	00000000 */ 	nop
-/*  f044648:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04464c:	10000022 */ 	b	.L0f0446d8
-/*  f044650:	00000000 */ 	nop
-/*  f044654:	c4a20008 */ 	lwc1	$f2,0x8($a1)
-.L0f044658:
-/*  f044658:	c7a80004 */ 	lwc1	$f8,0x4($sp)
-/*  f04465c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f044660:	46025102 */ 	mul.s	$f4,$f10,$f2
-/*  f044664:	00000000 */ 	nop
-/*  f044668:	46080182 */ 	mul.s	$f6,$f0,$f8
-/*  f04466c:	46062380 */ 	add.s	$f14,$f4,$f6
-/*  f044670:	460e803c */ 	c.lt.s	$f16,$f14
-/*  f044674:	00000000 */ 	nop
-/*  f044678:	45000017 */ 	bc1f	.L0f0446d8
-/*  f04467c:	00000000 */ 	nop
-/*  f044680:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f044684:	00000000 */ 	nop
-/*  f044688:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f04468c:	46062400 */ 	add.s	$f16,$f4,$f6
-/*  f044690:	460a5102 */ 	mul.s	$f4,$f10,$f10
-/*  f044694:	00000000 */ 	nop
-/*  f044698:	46084182 */ 	mul.s	$f6,$f8,$f8
-/*  f04469c:	00000000 */ 	nop
-/*  f0446a0:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f0446a4:	00000000 */ 	nop
-/*  f0446a8:	460c6202 */ 	mul.s	$f8,$f12,$f12
-/*  f0446ac:	46062480 */ 	add.s	$f18,$f4,$f6
-/*  f0446b0:	46089101 */ 	sub.s	$f4,$f18,$f8
-/*  f0446b4:	46102182 */ 	mul.s	$f6,$f4,$f16
-/*  f0446b8:	460a303e */ 	c.le.s	$f6,$f10
-/*  f0446bc:	00000000 */ 	nop
-/*  f0446c0:	45000003 */ 	bc1f	.L0f0446d0
-/*  f0446c4:	00000000 */ 	nop
-/*  f0446c8:	10000003 */ 	b	.L0f0446d8
-/*  f0446cc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0446d0:
-/*  f0446d0:	10000001 */ 	b	.L0f0446d8
-/*  f0446d4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0446d8:
-/*  f0446d8:	03e00008 */ 	jr	$ra
-/*  f0446dc:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+bool func0f0445c4(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3)
+{
+	struct coord diff;
+	f32 tmp;
+
+	diff.x = arg2->x - arg0->x;
+	diff.z = arg2->z - arg0->z;
+
+	if (arg1->f[0] == 0 && arg1->f[2] == 0) {
+		return diff.f[0] * diff.f[0] + diff.f[2] * diff.f[2] <= arg3 * arg3;
+	}
+
+	tmp = arg1->f[0] * diff.f[0] + arg1->f[2] * diff.f[2];
+
+	if (tmp > 0) {
+		f32 a = arg1->f[0] * arg1->f[0] + arg1->f[2] * arg1->f[2];
+		f32 b = diff.f[0] * diff.f[0] + diff.f[2] * diff.f[2];
+
+		if ((b - arg3 * arg3) * a <= tmp * tmp) {
+			return true;
+		}
+
+		return false;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0446e0
