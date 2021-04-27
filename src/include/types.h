@@ -532,7 +532,7 @@ struct modelnode_position { // type 0x02
 struct modelnode_nearfar { // type 0x08
 	f32 near;
 	f32 far;
-	u32 target;
+	struct modelnode *target;
 	u16 index;
 };
 

@@ -3263,29 +3263,17 @@ glabel func0001c664
 /*    1c780:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001c784
-/*    1c784:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1c788:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1c78c:	8cae0004 */ 	lw	$t6,0x4($a1)
-/*    1c790:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    1c794:	0c006a87 */ 	jal	modelGetNodeData
-/*    1c798:	afae001c */ 	sw	$t6,0x1c($sp)
-/*    1c79c:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*    1c7a0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*    1c7a4:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    1c7a8:	51e00005 */ 	beqzl	$t7,.L0001c7c0
-/*    1c7ac:	aca00014 */ 	sw	$zero,0x14($a1)
-/*    1c7b0:	8f190008 */ 	lw	$t9,0x8($t8)
-/*    1c7b4:	10000002 */ 	b	.L0001c7c0
-/*    1c7b8:	acb90014 */ 	sw	$t9,0x14($a1)
-/*    1c7bc:	aca00014 */ 	sw	$zero,0x14($a1)
-.L0001c7c0:
-/*    1c7c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1c7c4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1c7c8:	03e00008 */ 	jr	$ra
-/*    1c7cc:	00000000 */ 	nop
-);
+void func0001c784(struct model *model, struct modelnode *node)
+{
+	struct modelnode_nearfar *data1 = &node->data->nearfar;
+	u32 *data2 = modelGetNodeData(model, node);
+
+	if (*data2) {
+		node->child = data1->target;
+	} else {
+		node->child = NULL;
+	}
+}
 
 void func0001c7d0(struct model *model, struct modelnode *node)
 {
