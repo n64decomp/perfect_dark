@@ -14326,94 +14326,52 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct sh
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f03fde4
-/*  f03fde4:	27bdff38 */ 	addiu	$sp,$sp,-200
-/*  f03fde8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03fdec:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03fdf0:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f03fdf4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f03fdf8:	afa400c8 */ 	sw	$a0,0xc8($sp)
-/*  f03fdfc:	10400046 */ 	beqz	$v0,.L0f03ff18
-/*  f03fe00:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03fe04:	8fae00c8 */ 	lw	$t6,0xc8($sp)
-/*  f03fe08:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f03fe0c:	8dcf001c */ 	lw	$t7,0x1c($t6)
-/*  f03fe10:	8c670018 */ 	lw	$a3,0x18($v1)
-/*  f03fe14:	91f80001 */ 	lbu	$t8,0x1($t7)
-/*  f03fe18:	33190002 */ 	andi	$t9,$t8,0x2
-/*  f03fe1c:	5320003f */ 	beqzl	$t9,.L0f03ff1c
-/*  f03fe20:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03fe24:	90480001 */ 	lbu	$t0,0x1($v0)
-/*  f03fe28:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03fe2c:	31090002 */ 	andi	$t1,$t0,0x2
-/*  f03fe30:	5120003a */ 	beqzl	$t1,.L0f03ff1c
-/*  f03fe34:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03fe38:	8ce40008 */ 	lw	$a0,0x8($a3)
-/*  f03fe3c:	afa700bc */ 	sw	$a3,0xbc($sp)
-/*  f03fe40:	0c006a47 */ 	jal	modelGetPart
-/*  f03fe44:	afa000b8 */ 	sw	$zero,0xb8($sp)
-/*  f03fe48:	8fa600b8 */ 	lw	$a2,0xb8($sp)
-/*  f03fe4c:	8fa700bc */ 	lw	$a3,0xbc($sp)
-/*  f03fe50:	10400018 */ 	beqz	$v0,.L0f03feb4
-/*  f03fe54:	00402825 */ 	or	$a1,$v0,$zero
-/*  f03fe58:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f03fe5c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03fe60:	0c006973 */ 	jal	func0001a5cc
-/*  f03fe64:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*  f03fe68:	8fa500b4 */ 	lw	$a1,0xb4($sp)
-/*  f03fe6c:	afa200ac */ 	sw	$v0,0xac($sp)
-/*  f03fe70:	8ca30004 */ 	lw	$v1,0x4($a1)
-/*  f03fe74:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f03fe78:	e6040000 */ 	swc1	$f4,0x0($s0)
-/*  f03fe7c:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f03fe80:	e6060004 */ 	swc1	$f6,0x4($s0)
-/*  f03fe84:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f03fe88:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f03fe8c:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*  f03fe90:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03fe94:	8fa500ac */ 	lw	$a1,0xac($sp)
-/*  f03fe98:	0c0056f9 */ 	jal	func00015be4
-/*  f03fe9c:	27a6006c */ 	addiu	$a2,$sp,0x6c
-/*  f03fea0:	27a4006c */ 	addiu	$a0,$sp,0x6c
-/*  f03fea4:	0c0056d9 */ 	jal	func00015b64
-/*  f03fea8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f03feac:	1000001a */ 	b	.L0f03ff18
-/*  f03feb0:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f03feb4:
-/*  f03feb4:	8ce40008 */ 	lw	$a0,0x8($a3)
-/*  f03feb8:	afa700bc */ 	sw	$a3,0xbc($sp)
-/*  f03febc:	afa600b8 */ 	sw	$a2,0xb8($sp)
-/*  f03fec0:	0c006a47 */ 	jal	modelGetPart
-/*  f03fec4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03fec8:	8fa600b8 */ 	lw	$a2,0xb8($sp)
-/*  f03fecc:	8fa700bc */ 	lw	$a3,0xbc($sp)
-/*  f03fed0:	10400011 */ 	beqz	$v0,.L0f03ff18
-/*  f03fed4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f03fed8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f03fedc:	0c006973 */ 	jal	func0001a5cc
-/*  f03fee0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03fee4:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f03fee8:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f03feec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03fef0:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*  f03fef4:	0c0056f9 */ 	jal	func00015be4
-/*  f03fef8:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f03fefc:	c7aa0054 */ 	lwc1	$f10,0x54($sp)
-/*  f03ff00:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f03ff04:	e60a0000 */ 	swc1	$f10,0x0($s0)
-/*  f03ff08:	c7b00058 */ 	lwc1	$f16,0x58($sp)
-/*  f03ff0c:	e6100004 */ 	swc1	$f16,0x4($s0)
-/*  f03ff10:	c7b2005c */ 	lwc1	$f18,0x5c($sp)
-/*  f03ff14:	e6120008 */ 	swc1	$f18,0x8($s0)
-.L0f03ff18:
-/*  f03ff18:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03ff1c:
-/*  f03ff1c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03ff20:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
-/*  f03ff24:	03e00008 */ 	jr	$ra
-/*  f03ff28:	00c01025 */ 	or	$v0,$a2,$zero
-);
+bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
+{
+	struct prop *weaponprop = chrGetEquippedWeaponProp(chr, handnum);
+	struct defaultobj *obj;
+	struct model *model;
+	bool result = false;
+	struct modelnode *part0;
+	struct modelnode *part1;
+	Mtxf *spac;
+	Mtxf sp6c;
+	struct modelnode_type16 *data;
+	Mtxf *sp64;
+	Mtxf sp24;
+
+	if (weaponprop) {
+		obj = weaponprop->obj;
+		model = obj->model;
+
+		if ((chr->prop->flags & PROPFLAG_02) && (weaponprop->flags & PROPFLAG_02)) {
+			if ((part0 = modelGetPart(model->filedata, MODELPART_00))) {
+				spac = func0001a5cc(model, part0, 0);
+				data = &part0->data->type16;
+
+				arg2->x = data->pos.x;
+				arg2->y = data->pos.y;
+				arg2->z = data->pos.z;
+
+				func00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
+				func00015b64(&sp6c, arg2);
+				result = true;
+			} else if ((part1 = modelGetPart(model->filedata, MODELPART_01))) {
+				sp64 = func0001a5cc(model, part1, 0);
+
+				func00015be4(currentPlayerGetUnk174c(), sp64, &sp24);
+
+				arg2->x = sp24.m[3][0];
+				arg2->y = sp24.m[3][1];
+				arg2->z = sp24.m[3][2];
+
+				result = true;
+			}
+		}
+	}
+
+	return result;
+}
 
 /**
  * For a shielded chr, determine which model node has been shot and populate the

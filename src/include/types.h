@@ -597,6 +597,10 @@ struct modelnode_positionheld { // type 0x15
 	struct coord pos;
 };
 
+struct modelnode_type16 { // type 0x16
+	struct coord pos;
+};
+
 struct modelnode_headspot { // type 0x17
 	u16 index;
 };
@@ -622,6 +626,7 @@ union modelnode_data {
 	struct modelnode_gunfire gunfire;
 	struct modelnode_partid partid;
 	struct modelnode_positionheld positionheld;
+	struct modelnode_type16 type16;
 	struct modelnode_headspot headspot;
 	struct modelnode_displaylist displaylist;
 };
