@@ -3389,21 +3389,21 @@ glabel chrAttackWalk
 
 void chrAttackRollChooseAnimation(struct chrdata *chr)
 {
-	modelSetAnimation(chr->model,chr->act_attackroll.animfloats->animnum, chr->act_attackroll.flip,
-			chr->act_attackroll.animfloats->unk10, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
+	modelSetAnimation(chr->model, chr->act_attack.animfloats->animnum, chr->act_attack.flip,
+			chr->act_attack.animfloats->unk10, chrGetRangedSpeed(chr, 0.5, 0.8), 16);
 
-	if (chr->act_attackroll.unk035 == 0) {
-		if (chr->act_attackroll.unk036) {
-			if (chr->act_attackroll.animfloats->unk24 >= 0) {
-				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk24);
+	if (chr->act_attack.unk035 == 0) {
+		if (chr->act_attack.unk036) {
+			if (chr->act_attack.animfloats->unk24 >= 0) {
+				modelSetAnimEndFrame(chr->model, chr->act_attack.animfloats->unk24);
 			} else {
-				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk1c);
+				modelSetAnimEndFrame(chr->model, chr->act_attack.animfloats->unk1c);
 			}
 		} else {
-			if (chr->act_attackroll.animfloats->unk20 >= 0) {
-				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk20);
-			} else if (chr->act_attackroll.animfloats->unk14 >= 0) {
-				modelSetAnimEndFrame(chr->model, chr->act_attackroll.animfloats->unk14);
+			if (chr->act_attack.animfloats->unk20 >= 0) {
+				modelSetAnimEndFrame(chr->model, chr->act_attack.animfloats->unk20);
+			} else if (chr->act_attack.animfloats->unk14 >= 0) {
+				modelSetAnimEndFrame(chr->model, chr->act_attack.animfloats->unk14);
 			}
 		}
 	}
@@ -3889,25 +3889,25 @@ void chrBeginDead(struct chrdata *chr)
 void func0f031254(struct chrdata *chr)
 {
 	struct model *model = chr->model;
-	f32 *floats = chr->act_attack.unk02c;
+	struct animfloats *floats = chr->act_attack.animfloats;
 
 	if (chr->act_attack.entitytype & ENTITYTYPE_AIMONLY) {
-		if (floats[8] >= 0 && floats[8] < floats[6]) {
-			modelSetAnimEndFrame(model, floats[8]);
+		if (floats->unk20 >= 0 && floats->unk20 < floats->unk18) {
+			modelSetAnimEndFrame(model, floats->unk20);
 		} else {
-			modelSetAnimEndFrame(model, floats[6]);
+			modelSetAnimEndFrame(model, floats->unk18);
 		}
 	} else if (chr->act_attack.unk036) {
-		if (floats[8] >= 0) {
-			modelSetAnimEndFrame(model, floats[8]);
+		if (floats->unk20 >= 0) {
+			modelSetAnimEndFrame(model, floats->unk20);
 		} else {
-			modelSetAnimEndFrame(model, floats[6]);
+			modelSetAnimEndFrame(model, floats->unk18);
 		}
 	} else {
-		if (floats[8] >= 0) {
-			modelSetAnimEndFrame(model, floats[8]);
-		} else if (floats[5] >= 0) {
-			modelSetAnimEndFrame(model, floats[5]);
+		if (floats->unk20 >= 0) {
+			modelSetAnimEndFrame(model, floats->unk20);
+		} else if (floats->unk14 >= 0) {
+			modelSetAnimEndFrame(model, floats->unk14);
 		} else {
 			modelSetAnimEndFrame(model, -1);
 		}
@@ -5114,16 +5114,16 @@ bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
 				|| animnum == ANIM_SNIPING_026A) {
 			chrFlinchBody(chr);
 		} else if (chr->actiontype == ACT_ATTACKROLL
-				&& modelGetAnimNum(chr->model) == chr->act_attackroll.animfloats->animnum) {
-			if (chr->act_attackroll.unk035) {
-				if (chr->act_attackroll.animfloats == &var80067548
-						|| chr->act_attackroll.animfloats == &var80067590
-						|| chr->act_attackroll.animfloats == &var800675d8
-						|| chr->act_attackroll.animfloats == &var80067620) {
-					endframe = chr->act_attackroll.animfloats->unk04 - 8;
+				&& modelGetAnimNum(chr->model) == chr->act_attack.animfloats->animnum) {
+			if (chr->act_attack.unk035) {
+				if (chr->act_attack.animfloats == &var80067548
+						|| chr->act_attack.animfloats == &var80067590
+						|| chr->act_attack.animfloats == &var800675d8
+						|| chr->act_attack.animfloats == &var80067620) {
+					endframe = chr->act_attack.animfloats->unk04 - 8;
 
-					if (chr->act_attackroll.animfloats->unk14 < chr->act_attackroll.animfloats->unk04) {
-						endframe = chr->act_attackroll.animfloats->unk14;
+					if (chr->act_attack.animfloats->unk14 < chr->act_attack.animfloats->unk04) {
+						endframe = chr->act_attack.animfloats->unk14;
 					}
 
 					if (endframe > modelGetCurAnimFrame(chr->model)) {
@@ -5132,7 +5132,7 @@ bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
 					}
 				}
 			} else {
-				endframe = chr->act_attackroll.animfloats->unk04 - 8;
+				endframe = chr->act_attack.animfloats->unk04 - 8;
 
 				if (endframe > modelGetCurAnimFrame(chr->model)) {
 					*dst = endframe;
@@ -12724,115 +12724,47 @@ void func0f03e5b0(struct chrdata *chr, f32 arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrGetAimAngle
-.late_rodata
-glabel var7f1a8f28
-.word 0x40c907a9
-glabel var7f1a8f2c
-.word 0x40c907a9
-.text
-/*  f03e5f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03e5f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03e5f8:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f03e5fc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f03e600:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f03e604:	3c017f1b */ 	lui	$at,%hi(var7f1a8f28)
-/*  f03e608:	c42e8f28 */ 	lwc1	$f14,%lo(var7f1a8f28)($at)
-/*  f03e60c:	c4a4015c */ 	lwc1	$f4,0x15c($a1)
-/*  f03e610:	44808000 */ 	mtc1	$zero,$f16
-/*  f03e614:	46040080 */ 	add.s	$f2,$f0,$f4
-/*  f03e618:	46008306 */ 	mov.s	$f12,$f16
-/*  f03e61c:	4602703e */ 	c.le.s	$f14,$f2
-/*  f03e620:	00000000 */ 	nop
-/*  f03e624:	45020004 */ 	bc1fl	.L0f03e638
-/*  f03e628:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f03e62c:	10000006 */ 	b	.L0f03e648
-/*  f03e630:	460e1081 */ 	sub.s	$f2,$f2,$f14
-/*  f03e634:	4610103c */ 	c.lt.s	$f2,$f16
-.L0f03e638:
-/*  f03e638:	00000000 */ 	nop
-/*  f03e63c:	45020003 */ 	bc1fl	.L0f03e64c
-/*  f03e640:	8ca202d4 */ 	lw	$v0,0x2d4($a1)
-/*  f03e644:	460e1080 */ 	add.s	$f2,$f2,$f14
-.L0f03e648:
-/*  f03e648:	8ca202d4 */ 	lw	$v0,0x2d4($a1)
-.L0f03e64c:
-/*  f03e64c:	50400007 */ 	beqzl	$v0,.L0f03e66c
-/*  f03e650:	80a20007 */ 	lb	$v0,0x7($a1)
-/*  f03e654:	8c4e0068 */ 	lw	$t6,0x68($v0)
-/*  f03e658:	51c00026 */ 	beqzl	$t6,.L0f03e6f4
-/*  f03e65c:	46106032 */ 	c.eq.s	$f12,$f16
-/*  f03e660:	10000024 */ 	b	.L0f03e6f4
-/*  f03e664:	46106032 */ 	c.eq.s	$f12,$f16
-/*  f03e668:	80a20007 */ 	lb	$v0,0x7($a1)
-.L0f03e66c:
-/*  f03e66c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f03e670:	10410009 */ 	beq	$v0,$at,.L0f03e698
-/*  f03e674:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f03e678:	10410007 */ 	beq	$v0,$at,.L0f03e698
-/*  f03e67c:	2401001b */ 	addiu	$at,$zero,0x1b
-/*  f03e680:	10410005 */ 	beq	$v0,$at,.L0f03e698
-/*  f03e684:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f03e688:	10410003 */ 	beq	$v0,$at,.L0f03e698
-/*  f03e68c:	2401001d */ 	addiu	$at,$zero,0x1d
-/*  f03e690:	54410005 */ 	bnel	$v0,$at,.L0f03e6a8
-/*  f03e694:	8ca4001c */ 	lw	$a0,0x1c($a1)
-.L0f03e698:
-/*  f03e698:	8caf002c */ 	lw	$t7,0x2c($a1)
-/*  f03e69c:	10000014 */ 	b	.L0f03e6f0
-/*  f03e6a0:	c5ec000c */ 	lwc1	$f12,0xc($t7)
-/*  f03e6a4:	8ca4001c */ 	lw	$a0,0x1c($a1)
-.L0f03e6a8:
-/*  f03e6a8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f03e6ac:	90980000 */ 	lbu	$t8,0x0($a0)
-/*  f03e6b0:	57010010 */ 	bnel	$t8,$at,.L0f03e6f4
-/*  f03e6b4:	46106032 */ 	c.eq.s	$f12,$f16
-/*  f03e6b8:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f03e6bc:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f03e6c0:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f03e6c4:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f03e6c8:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x64)
-/*  f03e6cc:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f03e6d0:	8d08a024 */ 	lw	$t0,%lo(g_Vars+0x64)($t0)
-/*  f03e6d4:	44808000 */ 	mtc1	$zero,$f16
-/*  f03e6d8:	3c017f1b */ 	lui	$at,%hi(var7f1a8f2c)
-/*  f03e6dc:	c50618f4 */ 	lwc1	$f6,0x18f4($t0)
-/*  f03e6e0:	c42e8f2c */ 	lwc1	$f14,%lo(var7f1a8f2c)($at)
-/*  f03e6e4:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f03e6e8:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f03e6ec:	46068300 */ 	add.s	$f12,$f16,$f6
-.L0f03e6f0:
-/*  f03e6f0:	46106032 */ 	c.eq.s	$f12,$f16
-.L0f03e6f4:
-/*  f03e6f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03e6f8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03e6fc:	45010013 */ 	bc1t	.L0f03e74c
-/*  f03e700:	00000000 */ 	nop
-/*  f03e704:	8ca90020 */ 	lw	$t1,0x20($a1)
-/*  f03e708:	8d2a0020 */ 	lw	$t2,0x20($t1)
-/*  f03e70c:	814b0008 */ 	lb	$t3,0x8($t2)
-/*  f03e710:	51600003 */ 	beqzl	$t3,.L0f03e720
-/*  f03e714:	460c1080 */ 	add.s	$f2,$f2,$f12
-/*  f03e718:	460c7301 */ 	sub.s	$f12,$f14,$f12
-/*  f03e71c:	460c1080 */ 	add.s	$f2,$f2,$f12
-.L0f03e720:
-/*  f03e720:	4602703e */ 	c.le.s	$f14,$f2
-/*  f03e724:	00000000 */ 	nop
-/*  f03e728:	45020004 */ 	bc1fl	.L0f03e73c
-/*  f03e72c:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f03e730:	10000006 */ 	b	.L0f03e74c
-/*  f03e734:	460e1081 */ 	sub.s	$f2,$f2,$f14
-/*  f03e738:	460e103c */ 	c.lt.s	$f2,$f14
-.L0f03e73c:
-/*  f03e73c:	00000000 */ 	nop
-/*  f03e740:	45000002 */ 	bc1f	.L0f03e74c
-/*  f03e744:	00000000 */ 	nop
-/*  f03e748:	460e1080 */ 	add.s	$f2,$f2,$f14
-.L0f03e74c:
-/*  f03e74c:	03e00008 */ 	jr	$ra
-/*  f03e750:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 chrGetAimAngle(struct chrdata *chr)
+{
+	f32 angle = chrGetInverseTheta(chr) + chr->aimsideback;
+	f32 offset = 0;
+
+	if (angle >= M_BADTAU) {
+		angle -= M_BADTAU;
+	} else if (angle < 0) {
+		angle += M_BADTAU;
+	}
+
+	if (chr->aibot) {
+		if (chr->aibot->unk068) {
+			// empty
+		}
+	} else if (chr->actiontype == ACT_ATTACK
+			|| chr->actiontype == ACT_ATTACKROLL
+			|| chr->actiontype == ACT_BOT_ATTACKSTAND
+			|| chr->actiontype == ACT_BOT_ATTACKKNEEL
+			|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
+		offset = chr->act_attack.animfloats->unk0c;
+	} else if (chr->prop->type == PROPTYPE_PLAYER) {
+		offset += g_Vars.players[propGetPlayerNum(chr->prop)]->angleoffset;
+	}
+
+	if (offset) {
+		if (chr->model->anim->flip) {
+			offset = M_BADTAU - offset;
+		}
+
+		angle += offset;
+
+		if (angle >= M_BADTAU) {
+			angle -= M_BADTAU;
+		} else if (angle < M_BADTAU) {
+			angle += M_BADTAU;
+		}
+	}
+
+	return angle;
+}
 
 f32 func0f03e754(struct chrdata *chr)
 {

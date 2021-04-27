@@ -995,15 +995,16 @@ struct act_preargh {
 };
 
 struct act_attack {
-	/*0x2c*/ f32 *unk02c;
+	/*0x2c*/ struct animfloats *animfloats;
 	/*0x30*/ u16 unk030;
 	/*0x32*/ u8 unk032;
 	/*0x33*/ s8 unk033;
 	/*0x34*/ s8 unk034;
-	/*0x35*/ u8 unk035;
+	/*0x35*/ s8 unk035;
 	/*0x36*/ s8 unk036;
 	/*0x38*/ u32 unk038;
-	/*0x3c*/ u32 unk03c;
+	/*0x3c*/ u16 unk03c;
+	/*0x3e*/ s8 flip;
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
 	/*0x48*/ u32 unk048;
@@ -1024,17 +1025,6 @@ struct act_attackwalk {
 	/*0x48*/ u32 unk048;
 	/*0x4c*/ u16 unk04c;
 	/*0x4e*/ u8 flip;
-};
-
-struct act_attackroll {
-	/*0x2c*/ struct animfloats *animfloats;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ u8 unk034;
-	/*0x35*/ s8 unk035;
-	/*0x36*/ s8 unk036;
-	/*0x38*/ u32 unk038;
-	/*0x3c*/ u16 unk03c;
-	/*0x3e*/ s8 flip;
 };
 
 struct act_sidestep {
@@ -1236,7 +1226,7 @@ struct chrdata {
 		struct act_preargh act_preargh;
 		struct act_attack act_attack;
 		struct act_attackwalk act_attackwalk;
-		struct act_attackroll act_attackroll;
+		// act_attackroll uses act_attack
 		struct act_sidestep act_sidestep;
 		struct act_jumpout act_jumpout;
 		struct act_runpos act_runpos;
@@ -1244,6 +1234,9 @@ struct chrdata {
 		struct act_gopos act_gopos;
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;
+		// act_bot_attackstand uses act_attack
+		// act_bot_attackkneel uses act_attack
+		// act_bot_attackstrafe uses act_attack
 		struct act_druggeddrop act_druggeddrop;
 		struct act_druggedko act_druggedko;
 		struct act_druggedcomingup act_druggedcomingup;
