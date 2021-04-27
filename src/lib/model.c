@@ -5171,12 +5171,10 @@ void func0001e29c(bool value)
 	var8005efdc = value;
 }
 
-GLOBAL_ASM(
-glabel func0001e2a8
-/*    1e2a8:	3c028006 */ 	lui	$v0,%hi(var8005efdc)
-/*    1e2ac:	03e00008 */ 	jr	$ra
-/*    1e2b0:	8c42efdc */ 	lw	$v0,%lo(var8005efdc)($v0)
-);
+bool func0001e2a8(void)
+{
+	return var8005efdc;
+}
 
 GLOBAL_ASM(
 glabel func0001e2b4
