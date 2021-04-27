@@ -5429,7 +5429,7 @@ void chrSetShield(struct chrdata *chr, f32 amount)
 	}
 }
 
-bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s32 arg5)
+bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s16 *arg5)
 {
 	if (chrGetShield(chr) > 0) {
 		if (node && (node->type & 0xff) == MODELNODETYPE_BBOX) {
@@ -5455,7 +5455,7 @@ void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, stru
 			NULL,      // node
 			NULL,      // model
 			-1,        // side
-			0,         // arg11
+			NULL,      // arg11
 			false,     // explosion
 			NULL);     // explosionpos
 }
@@ -5468,12 +5468,12 @@ void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, str
 			NULL,      // node
 			NULL,      // model
 			-1,        // side
-			0,         // arg11
+			NULL,      // arg11
 			false,     // explosion
 			NULL);     // explosionpos
 }
 
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, u32 arg10)
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10)
 {
 	chrDamage(chr, damage, vector, hand, prop, ibh,
 			true,      // damageshield
@@ -5506,7 +5506,7 @@ void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 			node,      // node
 			model,     // model
 			side,      // side
-			0,         // arg11
+			NULL,      // arg11
 			false,     // explosion
 			NULL);     // explosionpos
 }
@@ -5527,7 +5527,7 @@ void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 			node,      // node
 			model,     // model
 			side,      // side
-			0,         // arg11
+			NULL,      // arg11
 			false,     // explosion
 			NULL);     // explosionpos
 }
@@ -5540,7 +5540,7 @@ void chrDamageByExplosion(struct chrdata *chr, f32 damage, struct coord *vector,
 			NULL,      // node
 			NULL,      // model
 			-1,        // side
-			0,         // arg11
+			NULL,      // arg11
 			true,      // explosion
 			explosionpos);
 }
@@ -5592,7 +5592,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
  */
 void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand,
 		struct prop *aprop, s32 ibh, bool damageshield, struct prop *prop2,
-		struct modelnode *node, struct model *model, s32 side, s32 arg11,
+		struct modelnode *node, struct model *model, s32 side, s16 *arg11,
 		bool explosion, struct coord *explosionpos)
 {
 	bool onehitko = false;

@@ -6053,28 +6053,17 @@ struct rend_vidat {
 
 struct var80062a8c {
 	/*0x00*/ struct prop *prop;
-	/*0x04*/ u32 unk004;
-	/*0x08*/ u32 unk008;
-	/*0x0c*/ u32 unk00c;
-	/*0x10*/ u32 unk010;
-	/*0x14*/ u32 unk014;
-	/*0x18*/ u32 unk018;
-	/*0x1c*/ u32 unk01c;
-	/*0x20*/ u32 unk020;
-	/*0x24*/ u32 unk024;
-	/*0x28*/ u32 unk028;
-	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ u32 unk034;
-	/*0x38*/ u32 unk038;
-	/*0x3c*/ u32 unk03c;
-	/*0x40*/ u32 unk040;
-	/*0x44*/ u32 unk044;
-	/*0x48*/ u32 unk048;
-	/*0x4c*/ u32 unk04c;
-	/*0x50*/ u32 unk050;
-	/*0x54*/ u32 unk054;
-	/*0x58*/ u32 unk058;
+	/*0x04*/ struct modelnode *node;
+	/*0x08*/ struct model *model;
+	/*0x0c*/ s32 lvframe60;
+	/*0x10*/ s8 side;
+	/*0x11*/ s8 unk011;
+	/*0x12*/ s16 unk012;
+	/*0x14*/ s16 unk014;
+	/*0x14*/ s16 unk016;
+	/*0x18*/ s8 unk018[32];
+	/*0x38*/ s8 unk038[32];
+	/*0x58*/ f32 shield;
 };
 
 struct bgroom {

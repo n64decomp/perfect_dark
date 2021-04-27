@@ -48,7 +48,7 @@ void func0f028590(f32 arg0);
 u32 func0f028a50(void);
 s32 func0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3);
 bool func0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr);
-void func0f028f7c(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s32 arg6);
+void func0f028f7c(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6);
 void func0f0291d4(struct var80062a8c *thing);
 void func0f0292bc(struct prop *prop);
 s32 func0f02932c(struct prop *prop, s32 arg1);

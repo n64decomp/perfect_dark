@@ -16096,6 +16096,89 @@ glabel func0f028f7c
 /*  f0291d0:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
+// Mismatch: Goal uses a temp register for thing and handles the i/j loop
+// differently.
+//void func0f028f7c(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
+//{
+//	struct var80062a8c *thing = NULL;
+//	s32 i;
+//	s32 j;
+//
+//	for (i = 0; i < 20; i++) {
+//		if (var80062a8c[i].prop == NULL) {
+//			thing = &var80062a8c[i];
+//			break;
+//		}
+//	}
+//
+//	if (thing == NULL) {
+//		for (i = 0; i < 20; i++) {
+//			if (var80062a8c[i].lvframe60 < g_Vars.lvframe60) {
+//				thing = &var80062a8c[i];
+//			}
+//		}
+//	}
+//
+//	if (thing) {
+//		thing->prop = prop;
+//		thing->node = node;
+//		thing->model = model;
+//		thing->side = side;
+//		thing->lvframe60 = g_Vars.lvframe60;
+//
+//		for (i = 0; i < 32; i++) {
+//			thing->unk018[i] = -1;
+//		}
+//
+//		thing->unk011 = 2 + (random() % 6);
+//		thing->shield = shield;
+//
+//		if (arg6) {
+//			thing->unk012 = arg6[0];
+//			thing->unk014 = arg6[1];
+//			thing->unk016 = arg6[2];
+//		} else {
+//			thing->unk012 = 0x7fff;
+//		}
+//
+//		if (node) {
+//			bool pass = true;
+//
+//			for (i = 0; i < 20; i++) {
+//				if (var80062a8c[i].prop == prop) {
+//					for (j = 0; j < 32; j++) {
+//						if (var80062a8c[i].unk018[j] != -1 && var80062a8c[i].unk018[j] != -2) {
+//							pass = false;
+//							break;
+//						}
+//					}
+//
+//					if (!pass) {
+//						break;
+//					}
+//				}
+//			}
+//
+//			if (pass) {
+//				s32 index = func0f028e18(arg2, node, model, prop);
+//
+//				if (index < 32) {
+//					thing->unk018[index] = 0;
+//					thing->unk038[index] = 0;
+//				}
+//			}
+//		}
+//
+//		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+//			prop->chr->hidden2 |= CHRH2FLAG_0002;
+//		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+//			prop->obj->flags3 |= OBJFLAG3_00020000;
+//		}
+//	}
+//
+//	var80062a90 = true;
+//}
+
 void func0f0291d4(struct var80062a8c *thing)
 {
 	s32 exists = false;

@@ -58,14 +58,14 @@ void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand
 bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *arg1);
 void chrChoke(struct chrdata *chr, s32 choketype);
 void chrSetShield(struct chrdata *chr, f32 shield);
-bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s32 arg5);
+bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s16 *arg5);
 void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop);
 void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop);
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, u32 arg10);
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10);
 void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 arg5);
 void chrDamageByExplosion(struct chrdata *chr, f32 damage, struct coord *vector, struct prop *prop, struct coord *explosionpos);
 void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 damage);
-void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *aprop, s32 ibh, bool damageshield, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s32 arg11, bool explosion, struct coord *explosionpos);
+void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *aprop, s32 ibh, bool damageshield, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg11, bool explosion, struct coord *explosionpos);
 u32 func0f03645c(void);
 bool func0f03654c(struct chrdata *chr, struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, struct coord *vector, f32 arg6, u32 types);
 bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct coord *vector);
