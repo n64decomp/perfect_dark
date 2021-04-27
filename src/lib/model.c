@@ -10525,20 +10525,10 @@ glabel var700545d4
 /*    22d20:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func00022d24
-/*    22d24:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    22d28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    22d2c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    22d30:	0c008ada */ 	jal	func00022b68
-/*    22d34:	8c840000 */ 	lw	$a0,0x0($a0)
-/*    22d38:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*    22d3c:	a5e20014 */ 	sh	$v0,0x14($t7)
-/*    22d40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    22d44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    22d48:	03e00008 */ 	jr	$ra
-/*    22d4c:	00000000 */ 	nop
-);
+void func00022d24(struct modelfiledata *filedata)
+{
+	filedata->unk14 = func00022b68(filedata->rootnode);
+}
 
 GLOBAL_ASM(
 glabel func00022d50
