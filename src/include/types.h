@@ -685,6 +685,10 @@ struct modeldata_root { // type 0x01
 	u32 unk5c;
 };
 
+struct modeldata_nearfar { // type 0x08
+	bool visible;
+};
+
 struct modeldata_partid { // type 0x12
 	union {
 		u16 u16;

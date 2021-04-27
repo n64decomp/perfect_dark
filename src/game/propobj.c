@@ -2841,7 +2841,7 @@ glabel func0f0687e4
 /*  f068878:	10000004 */ 	b	.L0f06888c
 /*  f06887c:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f068880:
-/*  f068880:	0c007207 */ 	jal	func0001c81c
+/*  f068880:	0c007207 */ 	jal	modelAttachHead
 /*  f068884:	02002825 */ 	or	$a1,$s0,$zero
 /*  f068888:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f06888c:
@@ -2983,7 +2983,7 @@ glabel func0f068998
 /*  f068a2c:	10000004 */ 	b	.L0f068a40
 /*  f068a30:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f068a34:
-/*  f068a34:	0c007207 */ 	jal	func0001c81c
+/*  f068a34:	0c007207 */ 	jal	modelAttachHead
 /*  f068a38:	02002825 */ 	or	$a1,$s0,$zero
 /*  f068a3c:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f068a40:
@@ -8286,7 +8286,7 @@ glabel var7f1aa264
 /*  f06c148:	10000004 */ 	b	.L0f06c15c
 /*  f06c14c:	00000000 */ 	nop
 /*  f06c150:	02602025 */ 	or	$a0,$s3,$zero
-/*  f06c154:	0c007207 */ 	jal	func0001c81c
+/*  f06c154:	0c007207 */ 	jal	modelAttachHead
 /*  f06c158:	02002825 */ 	or	$a1,$s0,$zero
 .L0f06c15c:
 /*  f06c15c:	12800018 */ 	beqz	$s4,.L0f06c1c0
@@ -53304,7 +53304,7 @@ glabel var7f1aa838
 /*  f082610:	10000005 */ 	b	.L0f082628
 /*  f082614:	8fa600d0 */ 	lw	$a2,0xd0($sp)
 .L0f082618:
-/*  f082618:	0c007207 */ 	jal	func0001c81c
+/*  f082618:	0c007207 */ 	jal	modelAttachHead
 /*  f08261c:	8cc40018 */ 	lw	$a0,0x18($a2)
 /*  f082620:	8fc20014 */ 	lw	$v0,0x14($s8)
 /*  f082624:	8fa600d0 */ 	lw	$a2,0xd0($sp)
@@ -54018,7 +54018,7 @@ glabel var7f1aa838
 /*  f081084:	10000005 */ 	beqz	$zero,.NB0f08109c
 /*  f081088:	8fa600d8 */ 	lw	$a2,0xd8($sp)
 .NB0f08108c:
-/*  f08108c:	0c007627 */ 	jal	func0001c81c
+/*  f08108c:	0c007627 */ 	jal	modelAttachHead
 /*  f081090:	8cc40018 */ 	lw	$a0,0x18($a2)
 /*  f081094:	8ec20014 */ 	lw	$v0,0x14($s6)
 /*  f081098:	8fa600d8 */ 	lw	$a2,0xd8($sp)
@@ -59045,7 +59045,7 @@ glabel var7f1aaa00
 /*  f084b24:	10000004 */ 	b	.L0f084b38
 /*  f084b28:	00000000 */ 	nop
 /*  f084b2c:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f084b30:	0c007207 */ 	jal	func0001c81c
+/*  f084b30:	0c007207 */ 	jal	modelAttachHead
 /*  f084b34:	02002825 */ 	or	$a1,$s0,$zero
 .L0f084b38:
 /*  f084b38:	12600043 */ 	beqz	$s3,.L0f084c48
@@ -66645,7 +66645,7 @@ glabel func0f089a94
 /*  f089bec:	10000004 */ 	b	.L0f089c00
 /*  f089bf0:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f089bf4:
-/*  f089bf4:	0c007207 */ 	jal	func0001c81c
+/*  f089bf4:	0c007207 */ 	jal	modelAttachHead
 /*  f089bf8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f089bfc:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f089c00:

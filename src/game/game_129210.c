@@ -73,7 +73,7 @@ void func0f129210(void *find, void *replacement)
 					func0001c7d0(obj->model, node);
 					break;
 				case MODELNODETYPE_HEADSPOT:
-					func0001c81c(obj->model, node);
+					modelAttachHead(obj->model, node);
 					break;
 				}
 

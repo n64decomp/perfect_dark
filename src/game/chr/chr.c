@@ -12636,7 +12636,7 @@ glabel func0f0260c4
 /*  f02641c:	10000005 */ 	b	.L0f026434
 /*  f026420:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f026424:
-/*  f026424:	0c007207 */ 	jal	func0001c81c
+/*  f026424:	0c007207 */ 	jal	modelAttachHead
 /*  f026428:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f02642c:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f026430:	8ca20014 */ 	lw	$v0,0x14($a1)
@@ -12924,7 +12924,7 @@ glabel func0f0260c4
 /*  f026828:	10000006 */ 	b	.L0f026844
 /*  f02682c:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f026830:
-/*  f026830:	0c007207 */ 	jal	func0001c81c
+/*  f026830:	0c007207 */ 	jal	modelAttachHead
 /*  f026834:	afa50110 */ 	sw	$a1,0x110($sp)
 /*  f026838:	8fa50110 */ 	lw	$a1,0x110($sp)
 /*  f02683c:	8fa40128 */ 	lw	$a0,0x128($sp)
@@ -13234,7 +13234,7 @@ glabel var7f1a8944
 /*  f026c0c:	10000005 */ 	b	.L0f026c24
 /*  f026c10:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f026c14:
-/*  f026c14:	0c007207 */ 	jal	func0001c81c
+/*  f026c14:	0c007207 */ 	jal	modelAttachHead
 /*  f026c18:	afa500fc */ 	sw	$a1,0xfc($sp)
 /*  f026c1c:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f026c20:	8ca20014 */ 	lw	$v0,0x14($a1)
@@ -13539,7 +13539,7 @@ glabel var7f1a8944
 /*  f02705c:	10000006 */ 	b	.L0f027078
 /*  f027060:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f027064:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f027068:	0c007207 */ 	jal	func0001c81c
+/*  f027068:	0c007207 */ 	jal	modelAttachHead
 /*  f02706c:	afa500fc */ 	sw	$a1,0xfc($sp)
 /*  f027070:	8fa70120 */ 	lw	$a3,0x120($sp)
 /*  f027074:	8fa500fc */ 	lw	$a1,0xfc($sp)
@@ -14090,7 +14090,7 @@ glabel func0f0270f4
 /*  f027818:	10000006 */ 	b	.L0f027834
 /*  f02781c:	8ca20014 */ 	lw	$v0,0x14($a1)
 .L0f027820:
-/*  f027820:	0c007207 */ 	jal	func0001c81c
+/*  f027820:	0c007207 */ 	jal	modelAttachHead
 /*  f027824:	afa500a4 */ 	sw	$a1,0xa4($sp)
 /*  f027828:	8fa500a4 */ 	lw	$a1,0xa4($sp)
 /*  f02782c:	8fa40094 */ 	lw	$a0,0x94($sp)

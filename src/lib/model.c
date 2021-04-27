@@ -3266,9 +3266,9 @@ glabel func0001c664
 void func0001c784(struct model *model, struct modelnode *node)
 {
 	struct modelnode_nearfar *data1 = &node->data->nearfar;
-	u32 *data2 = modelGetNodeData(model, node);
+	struct modeldata_nearfar *data2 = modelGetNodeData(model, node);
 
-	if (*data2) {
+	if (data2->visible) {
 		node->child = data1->target;
 	} else {
 		node->child = NULL;
@@ -3278,40 +3278,35 @@ void func0001c784(struct model *model, struct modelnode *node)
 void func0001c7d0(struct model *model, struct modelnode *node)
 {
 	struct modelnode_partid *data1 = &node->data->partid;
-	struct modelnode_partid *data2 = modelGetNodeData(model, node);
+	struct modeldata_partid *data2 = modelGetNodeData(model, node);
 
-	if (data2->target) {
+	if (data2->visible.u32) {
 		node->child = data1->target;
 	} else {
 		node->child = NULL;
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001c81c
-/*    1c81c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1c820:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1c824:	0c006a87 */ 	jal	modelGetNodeData
-/*    1c828:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    1c82c:	8c440000 */ 	lw	$a0,0x0($v0)
-/*    1c830:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    1c834:	50800009 */ 	beqzl	$a0,.L0001c85c
-/*    1c838:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1c83c:	8c830000 */ 	lw	$v1,0x0($a0)
-/*    1c840:	10600005 */ 	beqz	$v1,.L0001c858
-/*    1c844:	aca30014 */ 	sw	$v1,0x14($a1)
-/*    1c848:	ac650008 */ 	sw	$a1,0x8($v1)
-.L0001c84c:
-/*    1c84c:	8c63000c */ 	lw	$v1,0xc($v1)
-/*    1c850:	5460fffe */ 	bnezl	$v1,.L0001c84c
-/*    1c854:	ac650008 */ 	sw	$a1,0x8($v1)
-.L0001c858:
-/*    1c858:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001c85c:
-/*    1c85c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1c860:	03e00008 */ 	jr	$ra
-/*    1c864:	00000000 */ 	nop
-);
+/**
+ * Attach a head model to its placeholder on the body model.
+ *
+ * The given modelnode is assumed to be of type MODELNODETYPE_HEADSPOT.
+ */
+void modelAttachHead(struct model *model, struct modelnode *bodynode)
+{
+	struct modeldata_headspot *data = modelGetNodeData(model, bodynode);
+
+	if (data->modelfiledata) {
+		struct modelnode *headnode = data->modelfiledata->rootnode;
+
+		bodynode->child = headnode;
+
+		while (headnode) {
+			headnode->parent = bodynode;
+			headnode = headnode->next;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001c868
@@ -3626,7 +3621,7 @@ glabel var700543b8
 /*    1cb90:	10000004 */ 	b	.L0001cba4
 /*    1cb94:	00000000 */ 	nop
 /*    1cb98:	02402025 */ 	or	$a0,$s2,$zero
-/*    1cb9c:	0c007207 */ 	jal	func0001c81c
+/*    1cb9c:	0c007207 */ 	jal	modelAttachHead
 /*    1cba0:	02002825 */ 	or	$a1,$s0,$zero
 .L0001cba4:
 /*    1cba4:	12200006 */ 	beqz	$s1,.L0001cbc0
@@ -3729,7 +3724,7 @@ glabel var700543e0
 /*    1cca4:	10000007 */ 	b	.L0001ccc4
 /*    1cca8:	8e020014 */ 	lw	$v0,0x14($s0)
 /*    1ccac:	02202025 */ 	or	$a0,$s1,$zero
-/*    1ccb0:	0c007207 */ 	jal	func0001c81c
+/*    1ccb0:	0c007207 */ 	jal	modelAttachHead
 /*    1ccb4:	02002825 */ 	or	$a1,$s0,$zero
 /*    1ccb8:	10000002 */ 	b	.L0001ccc4
 /*    1ccbc:	8e020014 */ 	lw	$v0,0x14($s0)
@@ -3873,7 +3868,7 @@ glabel var70054440
 /*    1cdec:	10000007 */ 	b	.L0001ce0c
 /*    1cdf0:	8e020014 */ 	lw	$v0,0x14($s0)
 /*    1cdf4:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cdf8:	0c007207 */ 	jal	func0001c81c
+/*    1cdf8:	0c007207 */ 	jal	modelAttachHead
 /*    1cdfc:	02002825 */ 	or	$a1,$s0,$zero
 /*    1ce00:	10000002 */ 	b	.L0001ce0c
 /*    1ce04:	8e020014 */ 	lw	$v0,0x14($s0)

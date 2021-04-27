@@ -42,7 +42,7 @@ u32 func0001c5b4(void);
 u32 func0001c664(void);
 void func0001c784(struct model *model, struct modelnode *node);
 void func0001c7d0(struct model *model, struct modelnode *node);
-void func0001c81c(struct model *model, struct modelnode *node);
+void modelAttachHead(struct model *model, struct modelnode *node);
 u32 func0001c868(void);
 u32 func0001c924(void);
 u32 func0001c950(void);
