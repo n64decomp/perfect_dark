@@ -74,7 +74,7 @@ void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 frame);
 void modelSetAnim70(struct model *model, void *callback);
 u32 func0001e018(void);
 u32 func0001e14c(void);
-void func0001e29c(bool arg0);
+void func0001e29c(bool value);
 bool func0001e2a8(void);
 u32 func0001e2b4(void);
 void func0001ee18(struct model *model, s32 lvupdate240, bool arg2);

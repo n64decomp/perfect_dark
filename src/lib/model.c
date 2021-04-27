@@ -5166,12 +5166,10 @@ glabel func0001e14c
 /*    1e298:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001e29c
-/*    1e29c:	3c018006 */ 	lui	$at,%hi(var8005efdc)
-/*    1e2a0:	03e00008 */ 	jr	$ra
-/*    1e2a4:	ac24efdc */ 	sw	$a0,%lo(var8005efdc)($at)
-);
+void func0001e29c(bool value)
+{
+	var8005efdc = value;
+}
 
 GLOBAL_ASM(
 glabel func0001e2a8
