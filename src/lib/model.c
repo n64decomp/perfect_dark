@@ -3,6 +3,7 @@
 #include "game/game_096700.h"
 #include "game/game_0969d0.h"
 #include "game/game_096ca0.h"
+#include "game/game_0b4950.h"
 #include "game/floor.h"
 #include "game/ceil.h"
 #include "game/game_0b3350.h"
@@ -3115,88 +3116,37 @@ glabel func0001c5b4
 /*    1c660:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001c664
-/*    1c664:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    1c668:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    1c66c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    1c670:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    1c674:	8cae0004 */ 	lw	$t6,0x4($a1)
-/*    1c678:	00a08025 */ 	or	$s0,$a1,$zero
-/*    1c67c:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    1c680:	afae002c */ 	sw	$t6,0x2c($sp)
-/*    1c684:	afa20028 */ 	sw	$v0,0x28($sp)
-/*    1c688:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*    1c68c:	02002825 */ 	or	$a1,$s0,$zero
-/*    1c690:	0c006973 */ 	jal	func0001a5cc
-/*    1c694:	00003025 */ 	or	$a2,$zero,$zero
-/*    1c698:	3c0f8006 */ 	lui	$t7,%hi(var8005efb4)
-/*    1c69c:	8defefb4 */ 	lw	$t7,%lo(var8005efb4)($t7)
-/*    1c6a0:	00401825 */ 	or	$v1,$v0,$zero
-/*    1c6a4:	55e00004 */ 	bnezl	$t7,.L0001c6b8
-/*    1c6a8:	44801000 */ 	mtc1	$zero,$f2
-/*    1c6ac:	14400004 */ 	bnez	$v0,.L0001c6c0
-/*    1c6b0:	00000000 */ 	nop
-/*    1c6b4:	44801000 */ 	mtc1	$zero,$f2
-.L0001c6b8:
-/*    1c6b8:	10000011 */ 	b	.L0001c700
-/*    1c6bc:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0001c6c0:
-/*    1c6c0:	0fc2d5ee */ 	jal	currentPlayerGetLodScaleZ
-/*    1c6c4:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1c6c8:	3c018006 */ 	lui	$at,%hi(var8005efb8)
-/*    1c6cc:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1c6d0:	c42cefb8 */ 	lwc1	$f12,%lo(var8005efb8)($at)
-/*    1c6d4:	3c013f80 */ 	lui	$at,0x3f80
-/*    1c6d8:	44814000 */ 	mtc1	$at,$f8
-/*    1c6dc:	c4640038 */ 	lwc1	$f4,0x38($v1)
-/*    1c6e0:	460c4032 */ 	c.eq.s	$f8,$f12
-/*    1c6e4:	46002187 */ 	neg.s	$f6,$f4
-/*    1c6e8:	46060082 */ 	mul.s	$f2,$f0,$f6
-/*    1c6ec:	45030004 */ 	bc1tl	.L0001c700
-/*    1c6f0:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*    1c6f4:	460c1082 */ 	mul.s	$f2,$f2,$f12
-/*    1c6f8:	00000000 */ 	nop
-/*    1c6fc:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0001c700:
-/*    1c700:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    1c704:	c4400000 */ 	lwc1	$f0,0x0($v0)
-/*    1c708:	c70c0014 */ 	lwc1	$f12,0x14($t8)
-/*    1c70c:	460c0282 */ 	mul.s	$f10,$f0,$f12
-/*    1c710:	4602503c */ 	c.lt.s	$f10,$f2
-/*    1c714:	00000000 */ 	nop
-/*    1c718:	45030008 */ 	bc1tl	.L0001c73c
-/*    1c71c:	c4520004 */ 	lwc1	$f18,0x4($v0)
-/*    1c720:	44808000 */ 	mtc1	$zero,$f16
-/*    1c724:	00000000 */ 	nop
-/*    1c728:	46008032 */ 	c.eq.s	$f16,$f0
-/*    1c72c:	00000000 */ 	nop
-/*    1c730:	4502000d */ 	bc1fl	.L0001c768
-/*    1c734:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*    1c738:	c4520004 */ 	lwc1	$f18,0x4($v0)
-.L0001c73c:
-/*    1c73c:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    1c740:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*    1c744:	4604103e */ 	c.le.s	$f2,$f4
-/*    1c748:	00000000 */ 	nop
-/*    1c74c:	45000005 */ 	bc1f	.L0001c764
-/*    1c750:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    1c754:	ad190000 */ 	sw	$t9,0x0($t0)
-/*    1c758:	8c490008 */ 	lw	$t1,0x8($v0)
-/*    1c75c:	10000004 */ 	b	.L0001c770
-/*    1c760:	ae090014 */ 	sw	$t1,0x14($s0)
-.L0001c764:
-/*    1c764:	8faa0028 */ 	lw	$t2,0x28($sp)
-.L0001c768:
-/*    1c768:	ad400000 */ 	sw	$zero,0x0($t2)
-/*    1c76c:	ae000014 */ 	sw	$zero,0x14($s0)
-.L0001c770:
-/*    1c770:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    1c774:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    1c778:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    1c77c:	03e00008 */ 	jr	$ra
-/*    1c780:	00000000 */ 	nop
-);
+/**
+ * For a near/far node, set its target to visible based on distance.
+ */
+void func0001c664(struct model *model, struct modelnode *node)
+{
+	union modelrodata *rodata = node->rodata;
+	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+	Mtxf *mtx = func0001a5cc(model, node, 0);
+	f32 distance;
+
+	if (var8005efb4 || !mtx) {
+		distance = 0;
+	} else {
+		distance = -mtx->m[3][2] * currentPlayerGetLodScaleZ();
+
+		if (var8005efb8 != 1) {
+			distance *= var8005efb8;
+		}
+	}
+
+	if (distance > rodata->nearfar.near * model->scale || rodata->nearfar.near == 0) {
+		if (distance <= rodata->nearfar.far * model->scale) {
+			rwdata->nearfar.visible = true;
+			node->child = rodata->nearfar.target;
+			return;
+		}
+	}
+
+	rwdata->nearfar.visible = false;
+	node->child = NULL;
+}
 
 void func0001c784(struct model *model, struct modelnode *node)
 {

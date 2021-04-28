@@ -51,7 +51,7 @@ u32 var8005efb0_2 = 0;
 #endif
 
 u32 var8005efb4 = 0x00000000;
-u32 var8005efb8 = 0x3f800000;
+f32 var8005efb8 = 1;
 bool var8005efbc = false;
 u32 var8005efc0 = 0x00000000;
 void *var8005efc4 = NULL; // pointer to a function

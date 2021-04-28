@@ -1481,9 +1481,8 @@ struct modelfiledata g_PlayerModelFileData = {
 	3,
 	41.161228179932,
 	0,
+	NULL,
 };
-
-u32 var8007c0d8 = 0x00000000;
 
 u32 var8007c0dc = 0x00010000;
 u32 var8007c0e0 = (u32) &var8007c124;
