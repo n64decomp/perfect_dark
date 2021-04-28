@@ -36,60 +36,31 @@ void func0001a518(void *callback)
 	var8005efc8 = callback;
 }
 
-GLOBAL_ASM(
-glabel func0001a524
-/*    1a524:	10800026 */ 	beqz	$a0,.L0001a5c0
-/*    1a528:	00a03025 */ 	or	$a2,$a1,$zero
-/*    1a52c:	24070015 */ 	addiu	$a3,$zero,0x15
-/*    1a530:	24050002 */ 	addiu	$a1,$zero,0x2
-/*    1a534:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    1a538:	94830000 */ 	lhu	$v1,0x0($a0)
-.L0001a53c:
-/*    1a53c:	306e00ff */ 	andi	$t6,$v1,0xff
-/*    1a540:	51c20008 */ 	beql	$t6,$v0,.L0001a564
-/*    1a544:	8c830004 */ 	lw	$v1,0x4($a0)
-/*    1a548:	51c50009 */ 	beql	$t6,$a1,.L0001a570
-/*    1a54c:	24010200 */ 	addiu	$at,$zero,0x200
-/*    1a550:	51c70016 */ 	beql	$t6,$a3,.L0001a5ac
-/*    1a554:	8c830004 */ 	lw	$v1,0x4($a0)
-/*    1a558:	10000017 */ 	b	.L0001a5b8
-/*    1a55c:	8c840008 */ 	lw	$a0,0x8($a0)
-/*    1a560:	8c830004 */ 	lw	$v1,0x4($a0)
-.L0001a564:
-/*    1a564:	03e00008 */ 	jr	$ra
-/*    1a568:	84620002 */ 	lh	$v0,0x2($v1)
-/*    1a56c:	24010200 */ 	addiu	$at,$zero,0x200
-.L0001a570:
-/*    1a570:	14c10003 */ 	bne	$a2,$at,.L0001a580
-/*    1a574:	8c850004 */ 	lw	$a1,0x4($a0)
-/*    1a578:	10000007 */ 	b	.L0001a598
-/*    1a57c:	24030002 */ 	addiu	$v1,$zero,0x2
-.L0001a580:
-/*    1a580:	24010100 */ 	addiu	$at,$zero,0x100
-/*    1a584:	14c10003 */ 	bne	$a2,$at,.L0001a594
-/*    1a588:	00001025 */ 	or	$v0,$zero,$zero
-/*    1a58c:	10000001 */ 	b	.L0001a594
-/*    1a590:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0001a594:
-/*    1a594:	00401825 */ 	or	$v1,$v0,$zero
-.L0001a598:
-/*    1a598:	00037840 */ 	sll	$t7,$v1,0x1
-/*    1a59c:	00afc021 */ 	addu	$t8,$a1,$t7
-/*    1a5a0:	03e00008 */ 	jr	$ra
-/*    1a5a4:	8702000e */ 	lh	$v0,0xe($t8)
-/*    1a5a8:	8c830004 */ 	lw	$v1,0x4($a0)
-.L0001a5ac:
-/*    1a5ac:	03e00008 */ 	jr	$ra
-/*    1a5b0:	8462000c */ 	lh	$v0,0xc($v1)
-/*    1a5b4:	8c840008 */ 	lw	$a0,0x8($a0)
-.L0001a5b8:
-/*    1a5b8:	5480ffe0 */ 	bnezl	$a0,.L0001a53c
-/*    1a5bc:	94830000 */ 	lhu	$v1,0x0($a0)
-.L0001a5c0:
-/*    1a5c0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*    1a5c4:	03e00008 */ 	jr	$ra
-/*    1a5c8:	00000000 */ 	nop
-);
+s32 func0001a524(struct modelnode *node, s32 arg1)
+{
+	s32 index;
+	union modelrodata *rodata1;
+	union modelrodata *rodata2;
+	union modelrodata *rodata3;
+
+	while (node) {
+		switch (node->type & 0xff) {
+		case MODELNODETYPE_ROOT:
+			rodata1 = node->rodata;
+			return (s16) rodata1->root.modeltype;
+		case MODELNODETYPE_POSITION:
+			rodata2 = node->rodata;
+			return rodata2->position.pieces[arg1 == 0x200 ? 2 : (arg1 == 0x100 ? 1 : 0)];
+		case MODELNODETYPE_POSITIONHELD:
+			rodata3 = node->rodata;
+			return rodata3->positionheld.unk0c;
+		}
+
+		node = node->parent;
+	}
+
+	return -1;
+}
 
 Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2)
 {

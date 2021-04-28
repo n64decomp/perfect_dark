@@ -523,9 +523,7 @@ struct modelrodata_root { // type 0x01
 struct modelrodata_position { // type 0x02
 	struct coord pos;
 	u16 part;
-	s16 piece0;
-	s16 piece1;
-	s16 piece2;
+	s16 pieces[3];
 	f32 drawdist;
 };
 
@@ -595,6 +593,7 @@ struct modelrodata_partid { // type 0x12
 
 struct modelrodata_positionheld { // type 0x15
 	struct coord pos;
+	s16 unk0c;
 };
 
 struct modelrodata_type16 { // type 0x16
