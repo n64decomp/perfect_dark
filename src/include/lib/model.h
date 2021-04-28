@@ -43,7 +43,7 @@ void func0001c664(struct model *model, struct modelnode *node);
 void func0001c784(struct model *model, struct modelnode *node);
 void func0001c7d0(struct model *model, struct modelnode *node);
 void modelAttachHead(struct model *model, struct modelnode *node);
-u32 func0001c868(void);
+void func0001c868(struct modelnode *node, bool visible);
 void func0001c924(struct model *model, struct modelnode *node);
 void func0001c950(struct model *model, struct modelnode *node);
 void func0001cb0c(struct model *model, struct modelnode *node);

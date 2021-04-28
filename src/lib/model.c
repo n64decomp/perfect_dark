@@ -3252,20 +3252,12 @@ glabel func0001c868
 /*    1c920:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001c924
-/*    1c924:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1c928:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1c92c:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    1c930:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    1c934:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    1c938:	0c00721a */ 	jal	func0001c868
-/*    1c93c:	8c450000 */ 	lw	$a1,0x0($v0)
-/*    1c940:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1c944:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1c948:	03e00008 */ 	jr	$ra
-/*    1c94c:	00000000 */ 	nop
-);
+void func0001c924(struct model *model, struct modelnode *node)
+{
+	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+
+	func0001c868(node, rwdata->hat.visible);
+}
 
 void func0001c950(struct model *model, struct modelnode *node)
 {
