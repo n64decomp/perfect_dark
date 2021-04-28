@@ -1768,6 +1768,9 @@
 #define MODELNODETYPE_BBOX         0x0a
 #define MODELNODETYPE_0B           0x0b
 #define MODELNODETYPE_GUNFIRE      0x0c
+#define MODELNODETYPE_0D           0x0d
+#define MODELNODETYPE_0E           0x0e
+#define MODELNODETYPE_0F           0x0f
 #define MODELNODETYPE_PARTID       0x12
 #define MODELNODETYPE_POSITIONHELD 0x15
 #define MODELNODETYPE_HEADSPOT     0x17

@@ -3439,168 +3439,91 @@ glabel func0001c950
 /*    1cb08:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001cb0c
-.late_rodata
-glabel var70054324
-.word func0001cb0c+0x05c
-glabel var70054328
-.word func0001cb0c+0x05c
-glabel var7005432c
-.word func0001cb0c+0x098
-glabel var70054330
-.word func0001cb0c+0x098
-glabel var70054334
-.word func0001cb0c+0x098
-glabel var70054338
-.word func0001cb0c+0x098
-glabel var7005433c
-.word func0001cb0c+0x098
-glabel var70054340
-.word func0001cb0c+0x064
-glabel var70054344
-.word func0001cb0c+0x078
-glabel var70054348
-.word func0001cb0c+0x098
-glabel var7005434c
-.word func0001cb0c+0x05c
-glabel var70054350
-.word func0001cb0c+0x05c
-glabel var70054354
-.word func0001cb0c+0x05c
-glabel var70054358
-.word func0001cb0c+0x05c
-glabel var7005435c
-.word func0001cb0c+0x05c
-glabel var70054360
-.word func0001cb0c+0x098
-glabel var70054364
-.word func0001cb0c+0x098
-glabel var70054368
-.word func0001cb0c+0x098
-glabel var7005436c
-.word func0001cb0c+0x098
-glabel var70054370
-.word func0001cb0c+0x098
-glabel var70054374
-.word func0001cb0c+0x05c
-glabel var70054378
-.word func0001cb0c+0x098
-glabel var7005437c
-.word func0001cb0c+0x08c
-glabel var70054380
-.word func0001cb0c+0x098
-glabel var70054384
-.word func0001cb0c+0x1b4
-glabel var70054388
-.word func0001cb0c+0x1b4
-glabel var7005438c
-.word func0001cb0c+0x1b4
-glabel var70054390
-.word func0001cb0c+0x1b4
-glabel var70054394
-.word func0001cb0c+0x1b4
-glabel var70054398
-.word func0001cb0c+0x1b4
-glabel var7005439c
-.word func0001cb0c+0x1b4
-glabel var700543a0
-.word func0001cb0c+0x164
-glabel var700543a4
-.word func0001cb0c+0x178
-glabel var700543a8
-.word func0001cb0c+0x1b4
-glabel var700543ac
-.word func0001cb0c+0x1b4
-glabel var700543b0
-.word func0001cb0c+0x1b4
-glabel var700543b4
-.word func0001cb0c+0x1b4
-glabel var700543b8
-.word func0001cb0c+0x1b4
-.text
-/*    1cb0c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    1cb10:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    1cb14:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    1cb18:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    1cb1c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    1cb20:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    1cb24:	8cb00014 */ 	lw	$s0,0x14($a1)
-/*    1cb28:	00809025 */ 	or	$s2,$a0,$zero
-/*    1cb2c:	00a09825 */ 	or	$s3,$a1,$zero
-/*    1cb30:	52000035 */ 	beqzl	$s0,.L0001cc08
-/*    1cb34:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    1cb38:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0001cb3c:
-/*    1cb3c:	24110001 */ 	addiu	$s1,$zero,0x1
-/*    1cb40:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1cb44:	25cfffff */ 	addiu	$t7,$t6,-1
-/*    1cb48:	2de10018 */ 	sltiu	$at,$t7,0x18
-/*    1cb4c:	10200015 */ 	beqz	$at,.L0001cba4
-/*    1cb50:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    1cb54:	3c017005 */ 	lui	$at,%hi(var70054324)
-/*    1cb58:	002f0821 */ 	addu	$at,$at,$t7
-/*    1cb5c:	8c2f4324 */ 	lw	$t7,%lo(var70054324)($at)
-/*    1cb60:	01e00008 */ 	jr	$t7
-/*    1cb64:	00000000 */ 	nop
-/*    1cb68:	1000000e */ 	b	.L0001cba4
-/*    1cb6c:	00008825 */ 	or	$s1,$zero,$zero
-/*    1cb70:	02402025 */ 	or	$a0,$s2,$zero
-/*    1cb74:	0c007199 */ 	jal	func0001c664
-/*    1cb78:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cb7c:	10000009 */ 	b	.L0001cba4
-/*    1cb80:	00000000 */ 	nop
-/*    1cb84:	02402025 */ 	or	$a0,$s2,$zero
-/*    1cb88:	0c007254 */ 	jal	func0001c950
-/*    1cb8c:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cb90:	10000004 */ 	b	.L0001cba4
-/*    1cb94:	00000000 */ 	nop
-/*    1cb98:	02402025 */ 	or	$a0,$s2,$zero
-/*    1cb9c:	0c007207 */ 	jal	modelAttachHead
-/*    1cba0:	02002825 */ 	or	$a1,$s0,$zero
-.L0001cba4:
-/*    1cba4:	12200006 */ 	beqz	$s1,.L0001cbc0
-/*    1cba8:	00000000 */ 	nop
-/*    1cbac:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cbb0:	10400003 */ 	beqz	$v0,.L0001cbc0
-/*    1cbb4:	00000000 */ 	nop
-/*    1cbb8:	10000010 */ 	b	.L0001cbfc
-/*    1cbbc:	00408025 */ 	or	$s0,$v0,$zero
-.L0001cbc0:
-/*    1cbc0:	1200000e */ 	beqz	$s0,.L0001cbfc
-/*    1cbc4:	00000000 */ 	nop
-/*    1cbc8:	8e630008 */ 	lw	$v1,0x8($s3)
-.L0001cbcc:
-/*    1cbcc:	56030004 */ 	bnel	$s0,$v1,.L0001cbe0
-/*    1cbd0:	8e02000c */ 	lw	$v0,0xc($s0)
-/*    1cbd4:	10000009 */ 	b	.L0001cbfc
-/*    1cbd8:	00008025 */ 	or	$s0,$zero,$zero
-/*    1cbdc:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0001cbe0:
-/*    1cbe0:	50400004 */ 	beqzl	$v0,.L0001cbf4
-/*    1cbe4:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    1cbe8:	10000004 */ 	b	.L0001cbfc
-/*    1cbec:	00408025 */ 	or	$s0,$v0,$zero
-/*    1cbf0:	8e100008 */ 	lw	$s0,0x8($s0)
-.L0001cbf4:
-/*    1cbf4:	1600fff5 */ 	bnez	$s0,.L0001cbcc
-/*    1cbf8:	00000000 */ 	nop
-.L0001cbfc:
-/*    1cbfc:	5600ffcf */ 	bnezl	$s0,.L0001cb3c
-/*    1cc00:	96020000 */ 	lhu	$v0,0x0($s0)
-/*    1cc04:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0001cc08:
-/*    1cc08:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    1cc0c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    1cc10:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    1cc14:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    1cc18:	03e00008 */ 	jr	$ra
-/*    1cc1c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0001cb0c(struct model *model, struct modelnode *parent)
+{
+	struct modelnode *node = parent->child;
+
+	if (parent);
+
+	while (node) {
+		s32 type = node->type & 0xff;
+		bool dochildren = true;
+
+		switch (type) {
+		case MODELNODETYPE_ROOT:
+		case MODELNODETYPE_POSITION:
+		case MODELNODETYPE_0B:
+		case MODELNODETYPE_GUNFIRE:
+		case MODELNODETYPE_0D:
+		case MODELNODETYPE_0E:
+		case MODELNODETYPE_0F:
+		case MODELNODETYPE_POSITIONHELD:
+			dochildren = false;
+			break;
+		case MODELNODETYPE_NEARFAR:
+			func0001c664(model, node);
+			break;
+		case MODELNODETYPE_HAT:
+			func0001c950(model, node);
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			modelAttachHead(model, node);
+			break;
+		case MODELNODETYPE_DISPLAYLIST:
+			break;
+		}
+
+		if (dochildren && node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node == parent->parent) {
+					node = NULL;
+					break;
+				}
+
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001cc20
 .late_rodata
+glabel var70054384
+.word func0001cc20+0xa0
+glabel var70054388
+.word func0001cc20+0xa0
+glabel var7005438c
+.word func0001cc20+0xa0
+glabel var70054390
+.word func0001cc20+0xa0
+glabel var70054394
+.word func0001cc20+0xa0
+glabel var70054398
+.word func0001cc20+0xa0
+glabel var7005439c
+.word func0001cc20+0xa0
+glabel var700543a0
+.word func0001cc20+0x50
+glabel var700543a4
+.word func0001cc20+0x64
+glabel var700543a8
+.word func0001cc20+0xa0
+glabel var700543ac
+.word func0001cc20+0xa0
+glabel var700543b0
+.word func0001cc20+0xa0
+glabel var700543b4
+.word func0001cc20+0xa0
+glabel var700543b8
+.word func0001cc20+0xa0
 glabel var700543bc
 .word func0001cc20+0xa0
 glabel var700543c0
