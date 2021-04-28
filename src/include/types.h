@@ -535,15 +535,13 @@ struct modelrodata_nearfar { // type 0x08
 };
 
 struct modelrodata_hat { // type 0x09
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
+	f32 unk00;
+	f32 unk04;
+	f32 unk08;
+	f32 unk0c[3];
 	u32 unk18;
 	u32 unk1c;
-	u16 unk20;
+	s16 unk20;
 	u16 rwdataindex;
 };
 
@@ -701,6 +699,10 @@ struct modelrwdata_05 {
 	bool unk00;
 };
 
+struct modelrwdata_hat {
+	bool visible;
+};
+
 struct modelrwdata_headspot { // type 0x17
 	struct modelfiledata *modelfiledata;
 	void *rwdatas;
@@ -709,6 +711,7 @@ struct modelrwdata_headspot { // type 0x17
 union modelrwdata {
 	struct modelrwdata_root root;
 	struct modelrwdata_nearfar nearfar;
+	struct modelrwdata_hat hat;
 	struct modelrwdata_partid partid;
 	struct modelrwdata_05 type05;
 	struct modelrwdata_headspot headspot;
