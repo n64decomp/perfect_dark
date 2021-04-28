@@ -651,6 +651,7 @@ struct modelfiledata {
 	s16 nummatrices;
 	f32 unk10;
 	u16 unk14;
+	void *unk18;
 };
 
 struct model {

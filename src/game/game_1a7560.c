@@ -260,7 +260,7 @@ void *func0f1a7794(u16 fileid, u8 *arg1, s32 arg2, s32 arg3)
 	}
 
 	modelPromoteTypeToPointer(filedata);
-	func00022a24(filedata, 0x5000000, filedata);
+	modelPromoteOffsetsToPointers(filedata, 0x5000000, (u32) filedata);
 	func0f1a7560(filedata, fileid, 0x5000000, filedata, arg3, arg1 == NULL);
 
 	return filedata;

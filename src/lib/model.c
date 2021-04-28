@@ -9912,56 +9912,56 @@ glabel var70054514
 );
 
 GLOBAL_ASM(
-glabel func000227a4
+glabel modelPromoteNodeOffsetsToPointers
 .late_rodata
 glabel var70054518
-.word func000227a4+0x09c
+.word modelPromoteNodeOffsetsToPointers+0x09c
 glabel var7005451c
-.word func000227a4+0x0a4
+.word modelPromoteNodeOffsetsToPointers+0x0a4
 glabel var70054520
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054524
-.word func000227a4+0x0ac
+.word modelPromoteNodeOffsetsToPointers+0x0ac
 glabel var70054528
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var7005452c
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054530
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054534
-.word func000227a4+0x0f4
+.word modelPromoteNodeOffsetsToPointers+0x0f4
 glabel var70054538
-.word func000227a4+0x13c
+.word modelPromoteNodeOffsetsToPointers+0x13c
 glabel var7005453c
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054540
-.word func000227a4+0x190
+.word modelPromoteNodeOffsetsToPointers+0x190
 glabel var70054544
-.word func000227a4+0x1b4
+.word modelPromoteNodeOffsetsToPointers+0x1b4
 glabel var70054548
-.word func000227a4+0x1d8
+.word modelPromoteNodeOffsetsToPointers+0x1d8
 glabel var7005454c
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054550
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054554
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054558
-.word func000227a4+0x170
+.word modelPromoteNodeOffsetsToPointers+0x170
 glabel var7005455c
-.word func000227a4+0x11c
+.word modelPromoteNodeOffsetsToPointers+0x11c
 glabel var70054560
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054564
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054568
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var7005456c
-.word func000227a4+0x210
+.word modelPromoteNodeOffsetsToPointers+0x210
 glabel var70054570
-.word func000227a4+0x234
+.word modelPromoteNodeOffsetsToPointers+0x234
 glabel var70054574
-.word func000227a4+0x0d0
+.word modelPromoteNodeOffsetsToPointers+0x0d0
 .text
 /*    227a4:	1080009d */ 	beqz	$a0,.L00022a1c
 /*    227a8:	00000000 */ 	nop
@@ -10150,101 +10150,66 @@ glabel var70054574
 /*    22a20:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00022a24
-/*    22a24:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    22a28:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    22a2c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    22a30:	8c820000 */ 	lw	$v0,0x0($a0)
-/*    22a34:	00808025 */ 	or	$s0,$a0,$zero
-/*    22a38:	00c03825 */ 	or	$a3,$a2,$zero
-/*    22a3c:	10400003 */ 	beqz	$v0,.L00022a4c
-/*    22a40:	00c57023 */ 	subu	$t6,$a2,$a1
-/*    22a44:	004e7821 */ 	addu	$t7,$v0,$t6
-/*    22a48:	ac8f0000 */ 	sw	$t7,0x0($a0)
-.L00022a4c:
-/*    22a4c:	8e020008 */ 	lw	$v0,0x8($s0)
-/*    22a50:	00e5c023 */ 	subu	$t8,$a3,$a1
-/*    22a54:	00e57023 */ 	subu	$t6,$a3,$a1
-/*    22a58:	10400002 */ 	beqz	$v0,.L00022a64
-/*    22a5c:	0058c821 */ 	addu	$t9,$v0,$t8
-/*    22a60:	ae190008 */ 	sw	$t9,0x8($s0)
-.L00022a64:
-/*    22a64:	8e020018 */ 	lw	$v0,0x18($s0)
-/*    22a68:	00003025 */ 	or	$a2,$zero,$zero
-/*    22a6c:	10400002 */ 	beqz	$v0,.L00022a78
-/*    22a70:	004e7821 */ 	addu	$t7,$v0,$t6
-/*    22a74:	ae0f0018 */ 	sw	$t7,0x18($s0)
-.L00022a78:
-/*    22a78:	8604000c */ 	lh	$a0,0xc($s0)
-/*    22a7c:	00004825 */ 	or	$t1,$zero,$zero
-/*    22a80:	5880000e */ 	blezl	$a0,.L00022abc
-/*    22a84:	8e040000 */ 	lw	$a0,0x0($s0)
-.L00022a88:
-/*    22a88:	8e180008 */ 	lw	$t8,0x8($s0)
-/*    22a8c:	00e5c823 */ 	subu	$t9,$a3,$a1
-/*    22a90:	25290001 */ 	addiu	$t1,$t1,0x1
-/*    22a94:	03061821 */ 	addu	$v1,$t8,$a2
-/*    22a98:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    22a9c:	10400003 */ 	beqz	$v0,.L00022aac
-/*    22aa0:	00597021 */ 	addu	$t6,$v0,$t9
-/*    22aa4:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*    22aa8:	8604000c */ 	lh	$a0,0xc($s0)
-.L00022aac:
-/*    22aac:	0124082a */ 	slt	$at,$t1,$a0
-/*    22ab0:	1420fff5 */ 	bnez	$at,.L00022a88
-/*    22ab4:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*    22ab8:	8e040000 */ 	lw	$a0,0x0($s0)
-.L00022abc:
-/*    22abc:	0c0089e9 */ 	jal	func000227a4
-/*    22ac0:	00e03025 */ 	or	$a2,$a3,$zero
-/*    22ac4:	8604000c */ 	lh	$a0,0xc($s0)
-/*    22ac8:	8e0f0008 */ 	lw	$t7,0x8($s0)
-/*    22acc:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*    22ad0:	0004c080 */ 	sll	$t8,$a0,0x2
-/*    22ad4:	1080001f */ 	beqz	$a0,.L00022b54
-/*    22ad8:	01f86021 */ 	addu	$t4,$t7,$t8
-/*    22adc:	248affff */ 	addiu	$t2,$a0,-1
-/*    22ae0:	00005825 */ 	or	$t3,$zero,$zero
-.L00022ae4:
-/*    22ae4:	19400019 */ 	blez	$t2,.L00022b4c
-/*    22ae8:	00004825 */ 	or	$t1,$zero,$zero
-/*    22aec:	01801025 */ 	or	$v0,$t4,$zero
-.L00022af0:
-/*    22af0:	84470002 */ 	lh	$a3,0x2($v0)
-/*    22af4:	84480000 */ 	lh	$t0,0x0($v0)
-/*    22af8:	00e8082a */ 	slt	$at,$a3,$t0
-/*    22afc:	50200010 */ 	beqzl	$at,.L00022b40
-/*    22b00:	25290001 */ 	addiu	$t1,$t1,0x1
-/*    22b04:	a4470000 */ 	sh	$a3,0x0($v0)
-/*    22b08:	a4480002 */ 	sh	$t0,0x2($v0)
-/*    22b0c:	8e0e0008 */ 	lw	$t6,0x8($s0)
-/*    22b10:	00093080 */ 	sll	$a2,$t1,0x2
-/*    22b14:	01a05825 */ 	or	$t3,$t5,$zero
-/*    22b18:	01c61821 */ 	addu	$v1,$t6,$a2
-/*    22b1c:	8c6f0004 */ 	lw	$t7,0x4($v1)
-/*    22b20:	8c650000 */ 	lw	$a1,0x0($v1)
-/*    22b24:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*    22b28:	8e180008 */ 	lw	$t8,0x8($s0)
-/*    22b2c:	0306c821 */ 	addu	$t9,$t8,$a2
-/*    22b30:	af250004 */ 	sw	$a1,0x4($t9)
-/*    22b34:	860a000c */ 	lh	$t2,0xc($s0)
-/*    22b38:	254affff */ 	addiu	$t2,$t2,-1
-/*    22b3c:	25290001 */ 	addiu	$t1,$t1,0x1
-.L00022b40:
-/*    22b40:	012a082a */ 	slt	$at,$t1,$t2
-/*    22b44:	1420ffea */ 	bnez	$at,.L00022af0
-/*    22b48:	24420002 */ 	addiu	$v0,$v0,0x2
-.L00022b4c:
-/*    22b4c:	516dffe5 */ 	beql	$t3,$t5,.L00022ae4
-/*    22b50:	00005825 */ 	or	$t3,$zero,$zero
-.L00022b54:
-/*    22b54:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    22b58:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    22b5c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    22b60:	03e00008 */ 	jr	$ra
-/*    22b64:	00000000 */ 	nop
-);
+/**
+ * Convert a model file's file-relative offsets to global pointers,
+ * and sort the part numbers list so they can be looked up using bisection.
+ *
+ * Offsets in model files are based from virtual memory address 0x0f000000.
+ * This vma address is specified as an argument to the function.
+ */
+void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 vma, u32 fileramaddr)
+{
+	s32 diff = fileramaddr - vma;
+	s32 i;
+	s16 *partnums;
+
+	if ((u32)filedata->rootnode != 0) {
+		filedata->rootnode = (struct modelnode *)((u32)filedata->rootnode + diff);
+	}
+
+	if ((u32)filedata->parts != 0) {
+		filedata->parts = (struct modelnode **)((u32)filedata->parts + diff);
+	}
+
+	if ((u32)filedata->unk18 != 0) {
+		filedata->unk18 = (void *)((u32)filedata->unk18 + diff);
+	}
+
+	for (i = 0; i < filedata->numparts; i++) {
+		if (filedata->parts[i]) {
+			filedata->parts[i] = (struct modelnode *)((u32)filedata->parts[i] + diff);
+		}
+	}
+
+	modelPromoteNodeOffsetsToPointers(filedata->rootnode, vma, fileramaddr);
+
+	// Sort parts by part number so they can be bisected during lookup
+	partnums = (s16 *)&filedata->parts[filedata->numparts];
+
+	if (filedata->numparts) {
+		struct modelnode *tmpnode;
+		s16 tmpnum;
+		bool changed;
+
+		do {
+			changed = false;
+
+			for (i = 0; i < filedata->numparts - 1; i++) {
+				if (partnums[i] > partnums[i + 1]) {
+					tmpnum = partnums[i];
+					partnums[i] = partnums[i + 1];
+					partnums[i + 1] = tmpnum;
+
+					tmpnode = filedata->parts[i];
+					filedata->parts[i] = filedata->parts[i + 1];
+					filedata->parts[i + 1] = tmpnode;
+
+					changed = true;
+				}
+			}
+		} while (changed == true);
+	}
+}
 
 GLOBAL_ASM(
 glabel func00022b68
