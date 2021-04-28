@@ -3193,64 +3193,59 @@ void modelAttachHead(struct model *model, struct modelnode *bodynode)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001c868
-/*    1c868:	10a00004 */ 	beqz	$a1,.L0001c87c
-/*    1c86c:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    1c870:	8c430018 */ 	lw	$v1,0x18($v0)
-/*    1c874:	10000003 */ 	b	.L0001c884
-/*    1c878:	8c45001c */ 	lw	$a1,0x1c($v0)
-.L0001c87c:
-/*    1c87c:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*    1c880:	8c450018 */ 	lw	$a1,0x18($v0)
-.L0001c884:
-/*    1c884:	10600022 */ 	beqz	$v1,.L0001c910
-/*    1c888:	00000000 */ 	nop
-/*    1c88c:	ac830014 */ 	sw	$v1,0x14($a0)
-/*    1c890:	8c66000c */ 	lw	$a2,0xc($v1)
-/*    1c894:	ac600010 */ 	sw	$zero,0x10($v1)
-/*    1c898:	00601025 */ 	or	$v0,$v1,$zero
-/*    1c89c:	10c0000a */ 	beqz	$a2,.L0001c8c8
-/*    1c8a0:	00000000 */ 	nop
-/*    1c8a4:	10a60008 */ 	beq	$a1,$a2,.L0001c8c8
-/*    1c8a8:	00000000 */ 	nop
-/*    1c8ac:	8c44000c */ 	lw	$a0,0xc($v0)
-/*    1c8b0:	00801025 */ 	or	$v0,$a0,$zero
-.L0001c8b4:
-/*    1c8b4:	8c84000c */ 	lw	$a0,0xc($a0)
-/*    1c8b8:	10800003 */ 	beqz	$a0,.L0001c8c8
-/*    1c8bc:	00000000 */ 	nop
-/*    1c8c0:	54a4fffc */ 	bnel	$a1,$a0,.L0001c8b4
-/*    1c8c4:	00801025 */ 	or	$v0,$a0,$zero
-.L0001c8c8:
-/*    1c8c8:	10a00014 */ 	beqz	$a1,.L0001c91c
-/*    1c8cc:	ac45000c */ 	sw	$a1,0xc($v0)
-/*    1c8d0:	8ca4000c */ 	lw	$a0,0xc($a1)
-/*    1c8d4:	aca20010 */ 	sw	$v0,0x10($a1)
-/*    1c8d8:	00a01025 */ 	or	$v0,$a1,$zero
-/*    1c8dc:	1080000a */ 	beqz	$a0,.L0001c908
-/*    1c8e0:	00000000 */ 	nop
-/*    1c8e4:	10640008 */ 	beq	$v1,$a0,.L0001c908
-/*    1c8e8:	00000000 */ 	nop
-/*    1c8ec:	8ca4000c */ 	lw	$a0,0xc($a1)
-/*    1c8f0:	00801025 */ 	or	$v0,$a0,$zero
-.L0001c8f4:
-/*    1c8f4:	8c84000c */ 	lw	$a0,0xc($a0)
-/*    1c8f8:	10800003 */ 	beqz	$a0,.L0001c908
-/*    1c8fc:	00000000 */ 	nop
-/*    1c900:	5464fffc */ 	bnel	$v1,$a0,.L0001c8f4
-/*    1c904:	00801025 */ 	or	$v0,$a0,$zero
-.L0001c908:
-/*    1c908:	03e00008 */ 	jr	$ra
-/*    1c90c:	ac40000c */ 	sw	$zero,0xc($v0)
-.L0001c910:
-/*    1c910:	10a00002 */ 	beqz	$a1,.L0001c91c
-/*    1c914:	ac850014 */ 	sw	$a1,0x14($a0)
-/*    1c918:	aca00010 */ 	sw	$zero,0x10($a1)
-.L0001c91c:
-/*    1c91c:	03e00008 */ 	jr	$ra
-/*    1c920:	00000000 */ 	nop
-);
+void func0001c868(struct modelnode *basenode, bool visible)
+{
+	union modelrodata *rodata = basenode->rodata;
+	struct modelnode *node1;
+	struct modelnode *node2;
+	struct modelnode *loopnode;
+
+	if (visible) {
+		node1 = rodata->hat.unk18;
+		node2 = rodata->hat.unk1c;
+	} else {
+		node1 = rodata->hat.unk1c;
+		node2 = rodata->hat.unk18;
+	}
+
+	if (node1) {
+		// I think what's happening here is there's two groups of siblings,
+		// where node1 and node2 are the head nodes. Either group can be first,
+		// and this is ensuring the node1 group is first.
+		// Note that node2 might be NULL.
+
+		basenode->child = node1;
+		node1->prev = NULL;
+
+		// Skip through node1's siblings until node2 is found or the end is
+		// reached
+		loopnode = node1;
+
+		while (loopnode->next && loopnode->next != node2) {
+			loopnode = loopnode->next;
+		}
+
+		loopnode->next = node2;
+
+		if (node2) {
+			// Append node2 and its siblings to node1's siblings
+			node2->prev = loopnode;
+			loopnode = node2;
+
+			while (loopnode->next && loopnode->next != node1) {
+				loopnode = loopnode->next;
+			}
+
+			loopnode->next = NULL;
+		}
+	} else {
+		basenode->child = node2;
+
+		if (node2) {
+			node2->prev = NULL;
+		}
+	}
+}
 
 void func0001c924(struct model *model, struct modelnode *node)
 {

@@ -539,8 +539,8 @@ struct modelrodata_hat { // type 0x09
 	f32 unk04;
 	f32 unk08;
 	f32 unk0c[3];
-	u32 unk18;
-	u32 unk1c;
+	struct modelnode *unk18;
+	struct modelnode *unk1c;
 	s16 unk20;
 	u16 rwdataindex;
 };
