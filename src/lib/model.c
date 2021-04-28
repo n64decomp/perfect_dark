@@ -9994,183 +9994,89 @@ void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 vma, u32 
 	}
 }
 
-GLOBAL_ASM(
-glabel func00022b68
-.late_rodata
-glabel var70054578
-.word func00022b68+0x050
-glabel var7005457c
-.word func00022b68+0x148
-glabel var70054580
-.word func00022b68+0x148
-glabel var70054584
-.word func00022b68+0x148
-glabel var70054588
-.word func00022b68+0x148
-glabel var7005458c
-.word func00022b68+0x148
-glabel var70054590
-.word func00022b68+0x148
-glabel var70054594
-.word func00022b68+0x06c
-glabel var70054598
-.word func00022b68+0x0cc
-glabel var7005459c
-.word func00022b68+0x148
-glabel var700545a0
-.word func00022b68+0x0f4
-glabel var700545a4
-.word func00022b68+0x110
-glabel var700545a8
-.word func00022b68+0x148
-glabel var700545ac
-.word func00022b68+0x148
-glabel var700545b0
-.word func00022b68+0x148
-glabel var700545b4
-.word func00022b68+0x148
-glabel var700545b8
-.word func00022b68+0x148
-glabel var700545bc
-.word func00022b68+0x08c
-glabel var700545c0
-.word func00022b68+0x148
-glabel var700545c4
-.word func00022b68+0x148
-glabel var700545c8
-.word func00022b68+0x148
-glabel var700545cc
-.word func00022b68+0x148
-glabel var700545d0
-.word func00022b68+0x0ac
-glabel var700545d4
-.word func00022b68+0x12c
-.text
-/*    22b68:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    22b6c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    22b70:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    22b74:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    22b78:	00809025 */ 	or	$s2,$a0,$zero
-/*    22b7c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    22b80:	00008825 */ 	or	$s1,$zero,$zero
-/*    22b84:	10800060 */ 	beqz	$a0,.L00022d08
-/*    22b88:	00808025 */ 	or	$s0,$a0,$zero
-/*    22b8c:	96020000 */ 	lhu	$v0,0x0($s0)
-.L00022b90:
-/*    22b90:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    22b94:	25cfffff */ 	addiu	$t7,$t6,-1
-/*    22b98:	2de10018 */ 	sltiu	$at,$t7,0x18
-/*    22b9c:	10200044 */ 	beqz	$at,.L00022cb0
-/*    22ba0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    22ba4:	3c017005 */ 	lui	$at,%hi(var70054578)
-/*    22ba8:	002f0821 */ 	addu	$at,$at,$t7
-/*    22bac:	8c2f4578 */ 	lw	$t7,%lo(var70054578)($at)
-/*    22bb0:	01e00008 */ 	jr	$t7
-/*    22bb4:	00000000 */ 	nop
-/*    22bb8:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22bbc:	a4510008 */ 	sh	$s1,0x8($v0)
-/*    22bc0:	26310018 */ 	addiu	$s1,$s1,0x18
-/*    22bc4:	3238ffff */ 	andi	$t8,$s1,0xffff
-/*    22bc8:	03008825 */ 	or	$s1,$t8,$zero
-/*    22bcc:	10000039 */ 	b	.L00022cb4
-/*    22bd0:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22bd4:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22bd8:	a451000c */ 	sh	$s1,0xc($v0)
-/*    22bdc:	8c430008 */ 	lw	$v1,0x8($v0)
-/*    22be0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    22be4:	3239ffff */ 	andi	$t9,$s1,0xffff
-/*    22be8:	03208825 */ 	or	$s1,$t9,$zero
-/*    22bec:	10000031 */ 	b	.L00022cb4
-/*    22bf0:	ae030014 */ 	sw	$v1,0x14($s0)
-/*    22bf4:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22bf8:	a4510004 */ 	sh	$s1,0x4($v0)
-/*    22bfc:	8c430000 */ 	lw	$v1,0x0($v0)
-/*    22c00:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    22c04:	3229ffff */ 	andi	$t1,$s1,0xffff
-/*    22c08:	01208825 */ 	or	$s1,$t1,$zero
-/*    22c0c:	10000029 */ 	b	.L00022cb4
-/*    22c10:	ae030014 */ 	sw	$v1,0x14($s0)
-/*    22c14:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22c18:	00001825 */ 	or	$v1,$zero,$zero
-/*    22c1c:	a4510000 */ 	sh	$s1,0x0($v0)
-/*    22c20:	26310002 */ 	addiu	$s1,$s1,0x2
-/*    22c24:	322bffff */ 	andi	$t3,$s1,0xffff
-/*    22c28:	01608825 */ 	or	$s1,$t3,$zero
-/*    22c2c:	10000021 */ 	b	.L00022cb4
-/*    22c30:	ae000014 */ 	sw	$zero,0x14($s0)
-/*    22c34:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22c38:	02002025 */ 	or	$a0,$s0,$zero
-/*    22c3c:	00002825 */ 	or	$a1,$zero,$zero
-/*    22c40:	a4510022 */ 	sh	$s1,0x22($v0)
-/*    22c44:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    22c48:	322cffff */ 	andi	$t4,$s1,0xffff
-/*    22c4c:	0c00721a */ 	jal	func0001c868
-/*    22c50:	01808825 */ 	or	$s1,$t4,$zero
-/*    22c54:	10000017 */ 	b	.L00022cb4
-/*    22c58:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22c5c:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22c60:	a4510044 */ 	sh	$s1,0x44($v0)
-/*    22c64:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    22c68:	322dffff */ 	andi	$t5,$s1,0xffff
-/*    22c6c:	01a08825 */ 	or	$s1,$t5,$zero
-/*    22c70:	10000010 */ 	b	.L00022cb4
-/*    22c74:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22c78:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22c7c:	a4510020 */ 	sh	$s1,0x20($v0)
-/*    22c80:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    22c84:	322effff */ 	andi	$t6,$s1,0xffff
-/*    22c88:	01c08825 */ 	or	$s1,$t6,$zero
-/*    22c8c:	10000009 */ 	b	.L00022cb4
-/*    22c90:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22c94:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    22c98:	a4510014 */ 	sh	$s1,0x14($v0)
-/*    22c9c:	26310003 */ 	addiu	$s1,$s1,0x3
-/*    22ca0:	322fffff */ 	andi	$t7,$s1,0xffff
-/*    22ca4:	01e08825 */ 	or	$s1,$t7,$zero
-/*    22ca8:	10000002 */ 	b	.L00022cb4
-/*    22cac:	8e030014 */ 	lw	$v1,0x14($s0)
-.L00022cb0:
-/*    22cb0:	8e030014 */ 	lw	$v1,0x14($s0)
-.L00022cb4:
-/*    22cb4:	10600003 */ 	beqz	$v1,.L00022cc4
-/*    22cb8:	00000000 */ 	nop
-/*    22cbc:	10000010 */ 	b	.L00022d00
-/*    22cc0:	00608025 */ 	or	$s0,$v1,$zero
-.L00022cc4:
-/*    22cc4:	1200000e */ 	beqz	$s0,.L00022d00
-/*    22cc8:	00000000 */ 	nop
-/*    22ccc:	8e430008 */ 	lw	$v1,0x8($s2)
-.L00022cd0:
-/*    22cd0:	56030004 */ 	bnel	$s0,$v1,.L00022ce4
-/*    22cd4:	8e02000c */ 	lw	$v0,0xc($s0)
-/*    22cd8:	10000009 */ 	b	.L00022d00
-/*    22cdc:	00008025 */ 	or	$s0,$zero,$zero
-/*    22ce0:	8e02000c */ 	lw	$v0,0xc($s0)
-.L00022ce4:
-/*    22ce4:	50400004 */ 	beqzl	$v0,.L00022cf8
-/*    22ce8:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    22cec:	10000004 */ 	b	.L00022d00
-/*    22cf0:	00408025 */ 	or	$s0,$v0,$zero
-/*    22cf4:	8e100008 */ 	lw	$s0,0x8($s0)
-.L00022cf8:
-/*    22cf8:	1600fff5 */ 	bnez	$s0,.L00022cd0
-/*    22cfc:	00000000 */ 	nop
-.L00022d00:
-/*    22d00:	5600ffa3 */ 	bnezl	$s0,.L00022b90
-/*    22d04:	96020000 */ 	lhu	$v0,0x0($s0)
-.L00022d08:
-/*    22d08:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    22d0c:	02201025 */ 	or	$v0,$s1,$zero
-/*    22d10:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    22d14:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    22d18:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    22d1c:	03e00008 */ 	jr	$ra
-/*    22d20:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
-
-void func00022d24(struct modelfiledata *filedata)
+s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 {
-	filedata->unk14 = func00022b68(filedata->rootnode);
+	u16 len = 0;
+	struct modelnode *node = basenode;
+	union modelrodata *rodata;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_ROOT:
+			rodata = node->rodata;
+			rodata->root.rwdataindex = len;
+			len += sizeof(struct modelrwdata_root) / 4;
+			break;
+		case MODELNODETYPE_NEARFAR:
+			rodata = node->rodata;
+			rodata->nearfar.rwdataindex = len;
+			len += sizeof(struct modelrwdata_nearfar) / 4;
+			node->child = rodata->nearfar.target;
+			break;
+		case MODELNODETYPE_PARTID:
+			rodata = node->rodata;
+			rodata->partid.rwdataindex = len;
+			len += sizeof(struct modelrwdata_partid) / 4;
+			node->child = rodata->partid.target;
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			rodata = node->rodata;
+			rodata->headspot.rwdataindex = len;
+			len += sizeof(struct modelrwdata_headspot) / 4;
+			node->child = NULL;
+			break;
+		case MODELNODETYPE_HAT:
+			rodata = node->rodata;
+			rodata->hat.rwdataindex = len;
+			len += sizeof(struct modelrwdata_hat) / 4;
+			func0001c868(node, false);
+			break;
+		case MODELNODETYPE_0B:
+			rodata = node->rodata;
+			rodata->type0b.rwdataindex = len;
+			len += sizeof(struct modelrwdata_0b) / 4;
+			break;
+		case MODELNODETYPE_GUNFIRE:
+			rodata = node->rodata;
+			rodata->gunfire.rwdataindex = len;
+			len += sizeof(struct modelrwdata_gunfire) / 4;
+			break;
+		case MODELNODETYPE_DISPLAYLIST:
+			rodata = node->rodata;
+			rodata->displaylist.rwdataindex = len;
+			len += sizeof(struct modelrwdata_displaylist) / 4;
+			break;
+		default:
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node == basenode->parent) {
+					node = NULL;
+					break;
+				}
+
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+
+	return len;
+}
+
+void modelCalculateRwDataLen(struct modelfiledata *filedata)
+{
+	filedata->rwdatalen = modelCalculateRwDataIndexes(filedata->rootnode);
 }
 
 GLOBAL_ASM(
@@ -10489,7 +10395,7 @@ glabel func00023108
 /*    2316c:	ac660008 */ 	sw	$a2,0x8($v1)
 /*    23170:	8cc40014 */ 	lw	$a0,0x14($a2)
 .L00023174:
-/*    23174:	0c008ada */ 	jal	func00022b68
+/*    23174:	0c008ada */ 	jal	modelCalculateRwDataIndexes
 /*    23178:	00000000 */ 	nop
 /*    2317c:	8fa7001c */ 	lw	$a3,0x1c($sp)
 /*    23180:	84ea0014 */ 	lh	$t2,0x14($a3)

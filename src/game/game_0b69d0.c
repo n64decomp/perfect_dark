@@ -1995,12 +1995,12 @@ glabel var7f1ad5b4
 /*  f0b8fd4:	39ab003f */ 	xori	$t3,$t5,0x3f
 /*  f0b8fd8:	afab00f0 */ 	sw	$t3,0xf0($sp)
 .L0f0b8fdc:
-/*  f0b8fdc:	0c008b49 */ 	jal	func00022d24
+/*  f0b8fdc:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f0b8fe0:	8fa400fc */ 	lw	$a0,0xfc($sp)
 /*  f0b8fe4:	8fae00f8 */ 	lw	$t6,0xf8($sp)
 /*  f0b8fe8:	51c00004 */ 	beqzl	$t6,.L0f0b8ffc
 /*  f0b8fec:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f0b8ff0:	0c008b49 */ 	jal	func00022d24
+/*  f0b8ff0:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f0b8ff4:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f0b8ff8:	8fa4005c */ 	lw	$a0,0x5c($sp)
 .L0f0b8ffc:
@@ -2300,7 +2300,7 @@ glabel var7f1ad5b4
 /*  f0b9458:	afa200f4 */ 	sw	$v0,0xf4($sp)
 /*  f0b945c:	0fc59ca0 */ 	jal	fileGetSize
 /*  f0b9460:	94640004 */ 	lhu	$a0,0x4($v1)
-/*  f0b9464:	0c008b49 */ 	jal	func00022d24
+/*  f0b9464:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f0b9468:	8fa400f4 */ 	lw	$a0,0xf4($sp)
 /*  f0b946c:	10000004 */ 	b	.L0f0b9480
 /*  f0b9470:	8faf00dc */ 	lw	$t7,0xdc($sp)
@@ -2653,12 +2653,12 @@ glabel var7f1ad5b4
 /*  f0b6cec:	39ab003f */ 	xori	$t3,$t5,0x3f
 /*  f0b6cf0:	afab00f0 */ 	sw	$t3,0xf0($sp)
 .NB0f0b6cf4:
-/*  f0b6cf4:	0c008f6f */ 	jal	func00022d24
+/*  f0b6cf4:	0c008f6f */ 	jal	modelCalculateRwDataLen
 /*  f0b6cf8:	8fa400fc */ 	lw	$a0,0xfc($sp)
 /*  f0b6cfc:	8fae00f8 */ 	lw	$t6,0xf8($sp)
 /*  f0b6d00:	51c00004 */ 	beqzl	$t6,.NB0f0b6d14
 /*  f0b6d04:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f0b6d08:	0c008f6f */ 	jal	func00022d24
+/*  f0b6d08:	0c008f6f */ 	jal	modelCalculateRwDataLen
 /*  f0b6d0c:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f0b6d10:	8fa4005c */ 	lw	$a0,0x5c($sp)
 .NB0f0b6d14:
@@ -2942,7 +2942,7 @@ glabel var7f1ad5b4
 /*  f0b7134:	afa200f4 */ 	sw	$v0,0xf4($sp)
 /*  f0b7138:	0fc586ed */ 	jal	fileGetSize
 /*  f0b713c:	94640004 */ 	lhu	$a0,0x4($v1)
-/*  f0b7140:	0c008f6f */ 	jal	func00022d24
+/*  f0b7140:	0c008f6f */ 	jal	modelCalculateRwDataLen
 /*  f0b7144:	8fa400f4 */ 	lw	$a0,0xf4($sp)
 /*  f0b7148:	10000004 */ 	beqz	$zero,.NB0f0b715c
 /*  f0b714c:	8fb900dc */ 	lw	$t9,0xdc($sp)

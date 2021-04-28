@@ -1519,7 +1519,7 @@ glabel titleInitPdLogo
 /*  f016db8:	356b7800 */ 	ori	$t3,$t3,0x7800
 /*  f016dbc:	020a8021 */ 	addu	$s0,$s0,$t2
 /*  f016dc0:	016a9023 */ 	subu	$s2,$t3,$t2
-/*  f016dc4:	0c008b49 */ 	jal	func00022d24
+/*  f016dc4:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f016dc8:	8e240240 */ 	lw	$a0,0x240($s1)
 /*  f016dcc:	0fc2cca0 */ 	jal	func0f0b3280
 /*  f016dd0:	8e240240 */ 	lw	$a0,0x240($s1)
@@ -1555,7 +1555,7 @@ glabel titleInitPdLogo
 /*  f016e48:	39cf003f */ 	xori	$t7,$t6,0x3f
 /*  f016e4c:	020f8021 */ 	addu	$s0,$s0,$t7
 /*  f016e50:	024f9023 */ 	subu	$s2,$s2,$t7
-/*  f016e54:	0c008b49 */ 	jal	func00022d24
+/*  f016e54:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f016e58:	8e240248 */ 	lw	$a0,0x248($s1)
 /*  f016e5c:	0fc2cca0 */ 	jal	func0f0b3280
 /*  f016e60:	8e240248 */ 	lw	$a0,0x248($s1)
@@ -1591,7 +1591,7 @@ glabel titleInitPdLogo
 /*  f016ed8:	3b2c003f */ 	xori	$t4,$t9,0x3f
 /*  f016edc:	020c8021 */ 	addu	$s0,$s0,$t4
 /*  f016ee0:	024c9023 */ 	subu	$s2,$s2,$t4
-/*  f016ee4:	0c008b49 */ 	jal	func00022d24
+/*  f016ee4:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f016ee8:	8e240268 */ 	lw	$a0,0x268($s1)
 /*  f016eec:	0fc2cc2b */ 	jal	func0f0b30ac
 /*  f016ef0:	8e240268 */ 	lw	$a0,0x268($s1)
@@ -1627,7 +1627,7 @@ glabel titleInitPdLogo
 /*  f016f68:	3948003f */ 	xori	$t0,$t2,0x3f
 /*  f016f6c:	02088021 */ 	addu	$s0,$s0,$t0
 /*  f016f70:	02489023 */ 	subu	$s2,$s2,$t0
-/*  f016f74:	0c008b49 */ 	jal	func00022d24
+/*  f016f74:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f016f78:	8e240270 */ 	lw	$a0,0x270($s1)
 /*  f016f7c:	0fc2cc2b */ 	jal	func0f0b30ac
 /*  f016f80:	8e240270 */ 	lw	$a0,0x270($s1)
@@ -1707,7 +1707,7 @@ glabel titleInitPdLogo
 //		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_NLOGO].fileid));
 //		nextaddr += size;
 //		remaining = 0x47800 - size;
-//		func00022d24(g_ModelStates[MODEL_NLOGO].filedata);
+//		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO].filedata);
 //
 //		g_TitleModel = func0f0b3280(g_ModelStates[MODEL_NLOGO].filedata);
 //		modelSetScale(g_TitleModel, 1);
@@ -1720,7 +1720,7 @@ glabel titleInitPdLogo
 //		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_NLOGO2].fileid));
 //		nextaddr += size;
 //		remaining -= size;
-//		func00022d24(g_ModelStates[MODEL_NLOGO2].filedata);
+//		modelCalculateRwDataLen(g_ModelStates[MODEL_NLOGO2].filedata);
 //
 //		g_TitleModel2 = func0f0b3280(g_ModelStates[MODEL_NLOGO2].filedata);
 //		modelSetScale(g_TitleModel2, 1);
@@ -1733,7 +1733,7 @@ glabel titleInitPdLogo
 //		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_PDTWO].fileid));
 //		nextaddr += size;
 //		remaining -= size;
-//		func00022d24(g_ModelStates[MODEL_PDTWO].filedata);
+//		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
 //
 //		var80062508 = func0f0b30ac(g_ModelStates[MODEL_PDTWO].filedata);
 //		modelSetScale(var80062508, 1);
@@ -1746,7 +1746,7 @@ glabel titleInitPdLogo
 //		size = ALIGN64(fileGetSize(g_ModelStates[MODEL_PDTHREE].fileid));
 //		nextaddr += size;
 //		remaining -= size;
-//		func00022d24(g_ModelStates[MODEL_PDTHREE].filedata);
+//		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
 //
 //		var8006250c = func0f0b30ac(g_ModelStates[MODEL_PDTHREE].filedata);
 //		modelSetScale(var8006250c, 1);
@@ -5348,7 +5348,7 @@ void titleInitNintendoLogo(void)
 
 		g_ModelStates[MODEL_NINTENDOLOGO].filedata = func0f1a7794(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
-		func00022d24(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
+		modelCalculateRwDataLen(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		g_TitleModel = func0f0b30ac(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
@@ -6029,7 +6029,7 @@ void titleInitRareLogo(void)
 
 		g_ModelStates[MODEL_RARELOGO].filedata = func0f1a7794(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
-		func00022d24(g_ModelStates[MODEL_RARELOGO].filedata);
+		modelCalculateRwDataLen(g_ModelStates[MODEL_RARELOGO].filedata);
 		g_TitleModel = func0f0b30ac(g_ModelStates[MODEL_RARELOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);

@@ -202,7 +202,7 @@ bool propLoad(s32 propnum)
 {
 	if (g_ModelStates[propnum].filedata == NULL) {
 		g_ModelStates[propnum].filedata = fileLoad(g_ModelStates[propnum].fileid);
-		func00022d24(g_ModelStates[propnum].filedata);
+		modelCalculateRwDataLen(g_ModelStates[propnum].filedata);
 		return true;
 	}
 

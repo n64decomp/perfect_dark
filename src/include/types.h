@@ -648,7 +648,7 @@ struct modelfiledata {
 	s16 numparts;
 	s16 nummatrices;
 	f32 unk10;
-	u16 unk14;
+	u16 rwdatalen; // in words
 	void *unk18;
 };
 
@@ -684,8 +684,24 @@ struct modelrwdata_root { // type 0x01
 	u32 unk5c;
 };
 
+struct modelrwdata_05 { // type 0x05
+	bool unk00;
+};
+
 struct modelrwdata_nearfar { // type 0x08
 	bool visible;
+};
+
+struct modelrwdata_hat { // type 0x09
+	bool visible;
+};
+
+struct modelrwdata_0b { // type 0x0b
+	u32 unk00;
+};
+
+struct modelrwdata_gunfire { // type 0x0c
+	u32 unk00;
 };
 
 struct modelrwdata_partid { // type 0x12
@@ -695,26 +711,27 @@ struct modelrwdata_partid { // type 0x12
 	} visible;
 };
 
-struct modelrwdata_05 {
-	bool unk00;
-};
-
-struct modelrwdata_hat {
-	bool visible;
-};
-
 struct modelrwdata_headspot { // type 0x17
 	struct modelfiledata *modelfiledata;
 	void *rwdatas;
 };
 
+struct modelrwdata_displaylist { // type 0x18
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+};
+
 union modelrwdata {
 	struct modelrwdata_root root;
+	struct modelrwdata_05 type05;
 	struct modelrwdata_nearfar nearfar;
 	struct modelrwdata_hat hat;
+	struct modelrwdata_0b type0b;
+	struct modelrwdata_gunfire gunfire;
 	struct modelrwdata_partid partid;
-	struct modelrwdata_05 type05;
 	struct modelrwdata_headspot headspot;
+	struct modelrwdata_displaylist displaylist;
 };
 
 struct waygroup {
