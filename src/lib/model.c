@@ -10637,84 +10637,56 @@ glabel var70054634
 /*    22fa0:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func00022fa4
-/*    22fa4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    22fa8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    22fac:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    22fb0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    22fb4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*    22fb8:	3c013f80 */ 	lui	$at,0x3f80
-/*    22fbc:	44812000 */ 	mtc1	$at,$f4
-/*    22fc0:	240effff */ 	addiu	$t6,$zero,-1
-/*    22fc4:	a0800000 */ 	sb	$zero,0x0($a0)
-/*    22fc8:	ac850008 */ 	sw	$a1,0x8($a0)
-/*    22fcc:	ac860010 */ 	sw	$a2,0x10($a0)
-/*    22fd0:	a48e0002 */ 	sh	$t6,0x2($a0)
-/*    22fd4:	ac800018 */ 	sw	$zero,0x18($a0)
-/*    22fd8:	ac80001c */ 	sw	$zero,0x1c($a0)
-/*    22fdc:	e4840014 */ 	swc1	$f4,0x14($a0)
-/*    22fe0:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*    22fe4:	00a08825 */ 	or	$s1,$a1,$zero
-/*    22fe8:	00808025 */ 	or	$s0,$a0,$zero
-/*    22fec:	1040001f */ 	beqz	$v0,.L0002306c
-/*    22ff0:	24050017 */ 	addiu	$a1,$zero,0x17
-/*    22ff4:	94430000 */ 	lhu	$v1,0x0($v0)
-.L00022ff8:
-/*    22ff8:	306f00ff */ 	andi	$t7,$v1,0xff
-/*    22ffc:	55e50005 */ 	bnel	$t7,$a1,.L00023014
-/*    23000:	8c430014 */ 	lw	$v1,0x14($v0)
-/*    23004:	92180000 */ 	lbu	$t8,0x0($s0)
-/*    23008:	37190001 */ 	ori	$t9,$t8,0x1
-/*    2300c:	a2190000 */ 	sb	$t9,0x0($s0)
-/*    23010:	8c430014 */ 	lw	$v1,0x14($v0)
-.L00023014:
-/*    23014:	10600003 */ 	beqz	$v1,.L00023024
-/*    23018:	00000000 */ 	nop
-/*    2301c:	10000011 */ 	b	.L00023064
-/*    23020:	00601025 */ 	or	$v0,$v1,$zero
-.L00023024:
-/*    23024:	1040000f */ 	beqz	$v0,.L00023064
-/*    23028:	00000000 */ 	nop
-/*    2302c:	8e280000 */ 	lw	$t0,0x0($s1)
-/*    23030:	8d040008 */ 	lw	$a0,0x8($t0)
-.L00023034:
-/*    23034:	54440004 */ 	bnel	$v0,$a0,.L00023048
-/*    23038:	8c43000c */ 	lw	$v1,0xc($v0)
-/*    2303c:	10000009 */ 	b	.L00023064
-/*    23040:	00001025 */ 	or	$v0,$zero,$zero
-/*    23044:	8c43000c */ 	lw	$v1,0xc($v0)
-.L00023048:
-/*    23048:	50600004 */ 	beqzl	$v1,.L0002305c
-/*    2304c:	8c420008 */ 	lw	$v0,0x8($v0)
-/*    23050:	10000004 */ 	b	.L00023064
-/*    23054:	00601025 */ 	or	$v0,$v1,$zero
-/*    23058:	8c420008 */ 	lw	$v0,0x8($v0)
-.L0002305c:
-/*    2305c:	1440fff5 */ 	bnez	$v0,.L00023034
-/*    23060:	00000000 */ 	nop
-.L00023064:
-/*    23064:	5440ffe4 */ 	bnezl	$v0,.L00022ff8
-/*    23068:	94430000 */ 	lhu	$v1,0x0($v0)
-.L0002306c:
-/*    2306c:	10c00003 */ 	beqz	$a2,.L0002307c
-/*    23070:	02002025 */ 	or	$a0,$s0,$zero
-/*    23074:	0c008b54 */ 	jal	func00022d50
-/*    23078:	8e250000 */ 	lw	$a1,0x0($s1)
-.L0002307c:
-/*    2307c:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    23080:	51200003 */ 	beqzl	$t1,.L00023090
-/*    23084:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    23088:	ae000020 */ 	sw	$zero,0x20($s0)
-/*    2308c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00023090:
-/*    23090:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    23094:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    23098:	03e00008 */ 	jr	$ra
-/*    2309c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void modelInit(struct model *model, struct modelfiledata *filedata, union modelrwdata **rwdatas, bool resetanim)
+{
+	struct modelnode *node;
 
-void animInitialise(struct anim *anim)
+	model->unk00 = 0;
+	model->filedata = filedata;
+	model->rwdatas = rwdatas;
+	model->unk02 = -1;
+	model->scale = 1;
+	model->attachedto = NULL;
+	model->unk1c = NULL;
+
+	node = filedata->rootnode;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		if (type == MODELNODETYPE_HEADSPOT) {
+			model->unk00 |= 1;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node == filedata->rootnode->parent) {
+					node = NULL;
+					break;
+				}
+
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+
+	if (rwdatas != NULL) {
+		func00022d50(model, filedata->rootnode);
+	}
+
+	if (resetanim) {
+		model->anim = NULL;
+	}
+}
+
+void animInit(struct anim *anim)
 {
 	anim->animnum = 0;
 	anim->animnum2 = 0;

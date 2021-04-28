@@ -2006,10 +2006,10 @@ glabel var7f1ad5b4
 .L0f0b8ffc:
 /*  f0b8ffc:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f0b9000:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f0b9004:	0c008be9 */ 	jal	func00022fa4
+/*  f0b9004:	0c008be9 */ 	jal	modelInit
 /*  f0b9008:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0b900c:	8fa8005c */ 	lw	$t0,0x5c($sp)
-/*  f0b9010:	0c008c28 */ 	jal	animInitialise
+/*  f0b9010:	0c008c28 */ 	jal	animInit
 /*  f0b9014:	8d040020 */ 	lw	$a0,0x20($t0)
 /*  f0b9018:	8fb9005c */ 	lw	$t9,0x5c($sp)
 /*  f0b901c:	24180100 */ 	addiu	$t8,$zero,0x100
@@ -2664,10 +2664,10 @@ glabel var7f1ad5b4
 .NB0f0b6d14:
 /*  f0b6d14:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f0b6d18:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f0b6d1c:	0c00900f */ 	jal	func00022fa4
+/*  f0b6d1c:	0c00900f */ 	jal	modelInit
 /*  f0b6d20:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0b6d24:	8fa8005c */ 	lw	$t0,0x5c($sp)
-/*  f0b6d28:	0c00904e */ 	jal	animInitialise
+/*  f0b6d28:	0c00904e */ 	jal	animInit
 /*  f0b6d2c:	8d040020 */ 	lw	$a0,0x20($t0)
 /*  f0b6d30:	8fb9005c */ 	lw	$t9,0x5c($sp)
 /*  f0b6d34:	24180100 */ 	addiu	$t8,$zero,0x100

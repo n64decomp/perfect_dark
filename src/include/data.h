@@ -384,7 +384,7 @@ extern u8 propexplosiontypes[];
 extern struct modeltype g_ModelTypeBasic;
 extern struct modeltype g_ModelTypeChrGun;
 extern struct modeltype g_ModelType0B;
-extern u32 var8007c0c0;
+extern struct modelfiledata g_PlayerModelFileData;
 extern struct modeltype g_ModelType0A;
 extern struct modeltype g_ModelType20;
 extern struct modeltype g_ModelTypeClassicGun;

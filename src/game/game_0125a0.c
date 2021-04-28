@@ -79,8 +79,8 @@ void currentPlayerInitAnimation(void)
 {
 	s32 i;
 
-	func00022fa4(&g_Vars.currentplayer->model, &var8007c0c0, &g_Vars.currentplayer->unk0494, 0);
-	animInitialise(g_Vars.currentplayer->model.anim);
+	modelInit(&g_Vars.currentplayer->model, &g_PlayerModelFileData, g_Vars.currentplayer->bondheadsave, false);
+	animInit(g_Vars.currentplayer->model.anim);
 	modelSetScale(&g_Vars.currentplayer->model, 0.1000000089407f);
 	modelSetAnimPlaySpeed(&g_Vars.currentplayer->model, (PAL ? 1.2f : 1), 0);
 

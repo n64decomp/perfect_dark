@@ -656,6 +656,7 @@ struct modelfiledata {
 struct model {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
+	/*0x02*/ s16 unk02;
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct modelfiledata *filedata;
 	/*0x0c*/ Mtxf *matrices;
@@ -2608,36 +2609,7 @@ struct player {
 	/*0x0488*/ u8 *unk0488; // pointer to vtx buffer?
 	/*0x048c*/ bool aborted;
 	/*0x0490*/ s32 eyespydarts;
-	/*0x0494*/ u32 unk0494;
-	/*0x0498*/ u32 unk0498;
-	/*0x049c*/ u32 unk049c;
-	/*0x04a0*/ u32 unk04a0;
-	/*0x04a4*/ u32 unk04a4;
-	/*0x04a8*/ u32 unk04a8;
-	/*0x04ac*/ u32 unk04ac;
-	/*0x04b0*/ u32 unk04b0;
-	/*0x04b4*/ u32 unk04b4;
-	/*0x04b8*/ u32 unk04b8;
-	/*0x04bc*/ u32 unk04bc;
-	/*0x04c0*/ u32 unk04c0;
-	/*0x04c4*/ u32 unk04c4;
-	/*0x04c8*/ u32 unk04c8;
-	/*0x04cc*/ u32 unk04cc;
-	/*0x04d0*/ u32 unk04d0;
-	/*0x04d4*/ u32 unk04d4;
-	/*0x04d8*/ u32 unk04d8;
-	/*0x04dc*/ u32 unk04dc;
-	/*0x04e0*/ u32 unk04e0;
-	/*0x04e4*/ u32 unk04e4;
-	/*0x04e8*/ u32 unk04e8;
-	/*0x04ec*/ u32 unk04ec;
-	/*0x04f0*/ u32 unk04f0;
-	/*0x04f4*/ u32 unk04f4;
-	/*0x04f8*/ u32 unk04f8;
-	/*0x04fc*/ u32 unk04fc;
-	/*0x0500*/ u32 unk0500;
-	/*0x0504*/ u32 unk0504;
-	/*0x0508*/ u32 unk0508;
+	/*0x0494*/ union modelrwdata *bondheadsave[30];
 	/*0x050c*/ u32 unk050c;
 	/*0x0510*/ Mtxf unk0510;
 	/*0x0550*/ Mtxf unk0550;

@@ -8697,7 +8697,7 @@ void func0f09ceac(void)
 		hand->animload = -1;
 		hand->animmode = HANDANIMMODE_IDLE;
 
-		animInitialise(&hand->anim);
+		animInit(&hand->anim);
 
 		hand->unk09bc.anim = &hand->anim;
 		hand->unk0b8c = &hand->anim;
@@ -10718,14 +10718,14 @@ glabel func0f09e4e0
 /*  f09e918:	02802025 */ 	or	$a0,$s4,$zero
 /*  f09e91c:	8e451590 */ 	lw	$a1,0x1590($s2)
 /*  f09e920:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f09e924:	0c008be9 */ 	jal	func00022fa4
+/*  f09e924:	0c008be9 */ 	jal	modelInit
 /*  f09e928:	00003825 */ 	or	$a3,$zero,$zero
 /*  f09e92c:	8e451594 */ 	lw	$a1,0x1594($s2)
 /*  f09e930:	26040534 */ 	addiu	$a0,$s0,0x534
 /*  f09e934:	260604b4 */ 	addiu	$a2,$s0,0x4b4
 /*  f09e938:	50a00004 */ 	beqzl	$a1,.L0f09e94c
 /*  f09e93c:	8e4b15a8 */ 	lw	$t3,0x15a8($s2)
-/*  f09e940:	0c008be9 */ 	jal	func00022fa4
+/*  f09e940:	0c008be9 */ 	jal	modelInit
 /*  f09e944:	00003825 */ 	or	$a3,$zero,$zero
 /*  f09e948:	8e4b15a8 */ 	lw	$t3,0x15a8($s2)
 .L0f09e94c:
@@ -11125,14 +11125,14 @@ glabel func0f09e4e0
 /*  f09c7c4:	02802025 */ 	or	$a0,$s4,$zero
 /*  f09c7c8:	8e451590 */ 	lw	$a1,0x1590($s2)
 /*  f09c7cc:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f09c7d0:	0c00900f */ 	jal	func00022fa4
+/*  f09c7d0:	0c00900f */ 	jal	modelInit
 /*  f09c7d4:	00003825 */ 	or	$a3,$zero,$zero
 /*  f09c7d8:	8e451594 */ 	lw	$a1,0x1594($s2)
 /*  f09c7dc:	26040534 */ 	addiu	$a0,$s0,0x534
 /*  f09c7e0:	260604b4 */ 	addiu	$a2,$s0,0x4b4
 /*  f09c7e4:	50a00004 */ 	beqzl	$a1,.NB0f09c7f8
 /*  f09c7e8:	8e4c15a8 */ 	lw	$t4,0x15a8($s2)
-/*  f09c7ec:	0c00900f */ 	jal	func00022fa4
+/*  f09c7ec:	0c00900f */ 	jal	modelInit
 /*  f09c7f0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f09c7f4:	8e4c15a8 */ 	lw	$t4,0x15a8($s2)
 .NB0f09c7f8:
@@ -15942,7 +15942,7 @@ void func0f0a1528(void)
 
 				func0f0abd30(i);
 
-				animInitialise(&player->hands[i].anim);
+				animInit(&player->hands[i].anim);
 
 				if (player->hands[i].audiohandle && audioIsPlaying(player->hands[i].audiohandle)) {
 					audioStop(player->hands[i].audiohandle);

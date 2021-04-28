@@ -1472,12 +1472,17 @@ u32 var8007c148;
 
 u32 var8007c0b8 = 0x00000000;
 u32 var8007c0bc = 0x00000000;
-u32 var8007c0c0 = (u32) &var8007c0dc;
-u32 var8007c0c4 = (u32) &g_ModelType0B;
-u32 var8007c0c8 = 0x00000000;
-u32 var8007c0cc = 0x00000003;
-u32 var8007c0d0 = 0x4224a519;
-u32 var8007c0d4 = 0x00000000;
+
+struct modelfiledata g_PlayerModelFileData = {
+	(struct modelnode *) &var8007c0dc,
+	&g_ModelType0B,
+	NULL,
+	0,
+	3,
+	41.161228179932,
+	0,
+};
+
 u32 var8007c0d8 = 0x00000000;
 
 u32 var8007c0dc = 0x00010000;

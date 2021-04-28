@@ -5412,7 +5412,7 @@ bool aiObjectDoAnimation(void)
 #endif
 			}
 
-			animInitialise(obj->model->anim);
+			animInit(obj->model->anim);
 #if VERSION >= VERSION_PAL_FINAL
 			modelSetAnimPlaySpeed(obj->model, 1.2, 0);
 #endif
