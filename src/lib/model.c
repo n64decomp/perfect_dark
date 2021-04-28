@@ -87,89 +87,53 @@ glabel func0001a60c
 /*    1a630:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001a634
-/*    1a634:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1a638:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    1a63c:	24070015 */ 	addiu	$a3,$zero,0x15
-/*    1a640:	8dc30000 */ 	lw	$v1,0x0($t6)
-/*    1a644:	24060002 */ 	addiu	$a2,$zero,0x2
-/*    1a648:	5060003b */ 	beqzl	$v1,.L0001a738
-/*    1a64c:	00001025 */ 	or	$v0,$zero,$zero
-/*    1a650:	94620000 */ 	lhu	$v0,0x0($v1)
-.L0001a654:
-/*    1a654:	304f00ff */ 	andi	$t7,$v0,0xff
-/*    1a658:	51e40008 */ 	beql	$t7,$a0,.L0001a67c
-/*    1a65c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*    1a660:	51e6000e */ 	beql	$t7,$a2,.L0001a69c
-/*    1a664:	8c620004 */ 	lw	$v0,0x4($v1)
-/*    1a668:	51e7001a */ 	beql	$t7,$a3,.L0001a6d4
-/*    1a66c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*    1a670:	1000001e */ 	b	.L0001a6ec
-/*    1a674:	8c620014 */ 	lw	$v0,0x14($v1)
-/*    1a678:	8c620004 */ 	lw	$v0,0x4($v1)
-.L0001a67c:
-/*    1a67c:	84580002 */ 	lh	$t8,0x2($v0)
-/*    1a680:	14b80003 */ 	bne	$a1,$t8,.L0001a690
-/*    1a684:	00000000 */ 	nop
-/*    1a688:	03e00008 */ 	jr	$ra
-/*    1a68c:	00601025 */ 	or	$v0,$v1,$zero
-.L0001a690:
-/*    1a690:	10000016 */ 	b	.L0001a6ec
-/*    1a694:	8c620014 */ 	lw	$v0,0x14($v1)
-/*    1a698:	8c620004 */ 	lw	$v0,0x4($v1)
-.L0001a69c:
-/*    1a69c:	8459000e */ 	lh	$t9,0xe($v0)
-/*    1a6a0:	10b90007 */ 	beq	$a1,$t9,.L0001a6c0
-/*    1a6a4:	00000000 */ 	nop
-/*    1a6a8:	84480010 */ 	lh	$t0,0x10($v0)
-/*    1a6ac:	10a80004 */ 	beq	$a1,$t0,.L0001a6c0
-/*    1a6b0:	00000000 */ 	nop
-/*    1a6b4:	84490012 */ 	lh	$t1,0x12($v0)
-/*    1a6b8:	14a90003 */ 	bne	$a1,$t1,.L0001a6c8
-/*    1a6bc:	00000000 */ 	nop
-.L0001a6c0:
-/*    1a6c0:	03e00008 */ 	jr	$ra
-/*    1a6c4:	00601025 */ 	or	$v0,$v1,$zero
-.L0001a6c8:
-/*    1a6c8:	10000008 */ 	b	.L0001a6ec
-/*    1a6cc:	8c620014 */ 	lw	$v0,0x14($v1)
-/*    1a6d0:	8c620004 */ 	lw	$v0,0x4($v1)
-.L0001a6d4:
-/*    1a6d4:	844a000c */ 	lh	$t2,0xc($v0)
-/*    1a6d8:	54aa0004 */ 	bnel	$a1,$t2,.L0001a6ec
-/*    1a6dc:	8c620014 */ 	lw	$v0,0x14($v1)
-/*    1a6e0:	03e00008 */ 	jr	$ra
-/*    1a6e4:	00601025 */ 	or	$v0,$v1,$zero
-/*    1a6e8:	8c620014 */ 	lw	$v0,0x14($v1)
-.L0001a6ec:
-/*    1a6ec:	10400003 */ 	beqz	$v0,.L0001a6fc
-/*    1a6f0:	00000000 */ 	nop
-/*    1a6f4:	1000000d */ 	b	.L0001a72c
-/*    1a6f8:	00401825 */ 	or	$v1,$v0,$zero
-.L0001a6fc:
-/*    1a6fc:	1060000b */ 	beqz	$v1,.L0001a72c
-/*    1a700:	00000000 */ 	nop
-.L0001a704:
-/*    1a704:	50600007 */ 	beqzl	$v1,.L0001a724
-/*    1a708:	8c630008 */ 	lw	$v1,0x8($v1)
-/*    1a70c:	8c62000c */ 	lw	$v0,0xc($v1)
-/*    1a710:	50400004 */ 	beqzl	$v0,.L0001a724
-/*    1a714:	8c630008 */ 	lw	$v1,0x8($v1)
-/*    1a718:	10000004 */ 	b	.L0001a72c
-/*    1a71c:	00401825 */ 	or	$v1,$v0,$zero
-/*    1a720:	8c630008 */ 	lw	$v1,0x8($v1)
-.L0001a724:
-/*    1a724:	1460fff7 */ 	bnez	$v1,.L0001a704
-/*    1a728:	00000000 */ 	nop
-.L0001a72c:
-/*    1a72c:	5460ffc9 */ 	bnezl	$v1,.L0001a654
-/*    1a730:	94620000 */ 	lhu	$v0,0x0($v1)
-/*    1a734:	00001025 */ 	or	$v0,$zero,$zero
-.L0001a738:
-/*    1a738:	03e00008 */ 	jr	$ra
-/*    1a73c:	00000000 */ 	nop
-);
+struct modelnode *func0001a634(struct model *model, s32 arg1)
+{
+	struct modelnode *node = model->filedata->rootnode;
+	union modelrodata *rodata1;
+	union modelrodata *rodata2;
+	union modelrodata *rodata3;
+
+	while (node) {
+		switch (node->type & 0xff) {
+		case MODELNODETYPE_ROOT:
+			rodata1 = node->rodata;
+			if (arg1 == (s16)rodata1->root.modeltype) {
+				return node;
+			}
+			break;
+		case MODELNODETYPE_POSITION:
+			rodata2 = node->rodata;
+			if (arg1 == rodata2->position.pieces[0]
+					|| arg1 == rodata2->position.pieces[1]
+					|| arg1 == rodata2->position.pieces[2]) {
+				return node;
+			}
+			break;
+		case MODELNODETYPE_POSITIONHELD:
+			rodata3 = node->rodata;
+			if (arg1 == rodata3->positionheld.unk0c) {
+				return node;
+			}
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node && node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0001a740
