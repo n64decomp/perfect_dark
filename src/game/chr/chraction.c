@@ -7496,7 +7496,7 @@ glabel var7f1a8dac
 /*  f0377d4:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f0377d8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0377dc:	8c8f0008 */ 	lw	$t7,0x8($a0)
-/*  f0377e0:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0377e0:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0377e4:	8de50000 */ 	lw	$a1,0x0($t7)
 /*  f0377e8:	c7b20108 */ 	lwc1	$f18,0x108($sp)
 /*  f0377ec:	2401000e */ 	addiu	$at,$zero,0xe
@@ -7757,7 +7757,7 @@ glabel var7f1a8dac
 /*  f0377d4:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f0377d8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0377dc:	8c8f0008 */ 	lw	$t7,0x8($a0)
-/*  f0377e0:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0377e0:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0377e4:	8de50000 */ 	lw	$a1,0x0($t7)
 /*  f0377e8:	c7b20108 */ 	lwc1	$f18,0x108($sp)
 /*  f0377ec:	2401000e */ 	addiu	$at,$zero,0xe
@@ -13779,7 +13779,7 @@ glabel var7f1a8fc8
 /*  f03f4e4:	8da40020 */ 	lw	$a0,0x20($t5)
 /*  f03f4e8:	8c8c0008 */ 	lw	$t4,0x8($a0)
 /*  f03f4ec:	8d850000 */ 	lw	$a1,0x0($t4)
-/*  f03f4f0:	0c006a87 */ 	jal	modelGetNodeData
+/*  f03f4f0:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f03f4f4:	e7b00188 */ 	swc1	$f16,0x188($sp)
 /*  f03f4f8:	44801000 */ 	mtc1	$zero,$f2
 /*  f03f4fc:	c440005c */ 	lwc1	$f0,0x5c($v0)
@@ -14268,7 +14268,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 	struct modelnode *part1;
 	Mtxf *spac;
 	Mtxf sp6c;
-	struct modelnode_type16 *data;
+	struct modelrodata_type16 *rodata;
 	Mtxf *sp64;
 	Mtxf sp24;
 
@@ -14279,11 +14279,11 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 		if ((chr->prop->flags & PROPFLAG_02) && (weaponprop->flags & PROPFLAG_02)) {
 			if ((part0 = modelGetPart(model->filedata, MODELPART_00))) {
 				spac = func0001a5cc(model, part0, 0);
-				data = &part0->data->type16;
+				rodata = &part0->rodata->type16;
 
-				arg2->x = data->pos.x;
-				arg2->y = data->pos.y;
-				arg2->z = data->pos.z;
+				arg2->x = rodata->pos.x;
+				arg2->y = rodata->pos.y;
+				arg2->z = rodata->pos.z;
 
 				func00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
 				func00015b64(&sp6c, arg2);
@@ -14399,9 +14399,9 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 #endif
 				{
 					Mtxf sp48;
-					struct modelnode_bbox *data = &bestnode->data->bbox;
+					struct modelrodata_bbox *rodata = &bestnode->rodata->bbox;
 
-					*ibhptr = data->ibh;
+					*ibhptr = rodata->ibh;
 					*nodeptr = bestnode;
 					*modelptr = chr->model;
 					*sideptr = 0;
@@ -14446,10 +14446,10 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 			while (node) {
 
 				if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
-					struct modelnode_bbox *data = &node->data->bbox;
+					struct modelrodata_bbox *rodata = &node->rodata->bbox;
 
-					if (data->ibh == IBH_TORSO) {
-						*ibhptr = data->ibh;
+					if (rodata->ibh == IBH_TORSO) {
+						*ibhptr = rodata->ibh;
 						*nodeptr = node;
 						*modelptr = chr->model;
 						*sideptr = 0;
@@ -20898,7 +20898,7 @@ void chrTickAttackAmount(struct chrdata *chr)
 void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
 {
 	struct modelnode *node;
-	struct modeldata_partid *data;
+	union modelrwdata *rwdata;
 	s32 partnum;
 
 	if (right) {
@@ -20910,12 +20910,12 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
 	node = modelGetPart(chr->model->filedata, partnum);
 
 	if (node) {
-		data = modelGetNodeData(chr->model, node);
+		rwdata = modelGetNodeRwData(chr->model, node);
 	}
 
 	// @dangerous: data may be uninitialised
-	if (data) {
-		data->visible.u16 = enabled;
+	if (rwdata) {
+		rwdata->partid.visible.u16 = enabled;
 	}
 }
 
@@ -21178,7 +21178,7 @@ glabel var7f1a91dc
 /*  f042c98:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f042c9c:
 /*  f042c9c:	8e4b0020 */ 	lw	$t3,0x20($s2)
-/*  f042ca0:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f042ca0:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f042ca4:	8d640008 */ 	lw	$a0,0x8($t3)
 /*  f042ca8:	c4500000 */ 	lwc1	$f16,0x0($v0)
 /*  f042cac:	3c014396 */ 	lui	$at,0x4396
@@ -22202,7 +22202,7 @@ glabel chrTickAttackRoll
 /*  f043750:	00000000 */ 	nop
 /*  f043754:	8c880008 */ 	lw	$t0,0x8($a0)
 /*  f043758:	8d050000 */ 	lw	$a1,0x0($t0)
-/*  f04375c:	0c006a87 */ 	jal	modelGetNodeData
+/*  f04375c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f043760:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f043764:	c7a20034 */ 	lwc1	$f2,0x34($sp)
 /*  f043768:	e442005c */ 	swc1	$f2,0x5c($v0)
@@ -31131,7 +31131,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	s16 rooms2[8];
 	bool result = false;
 	u32 nodetype;
-	struct modeldata_root *data;
+	union modelrwdata *rwdata;
 	struct player *player;
 	f32 ground;
 
@@ -31166,8 +31166,8 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		nodetype = chr->model->filedata->rootnode->type;
 
 		if ((nodetype & 0xff) == MODELNODETYPE_ROOT) {
-			data = modelGetNodeData(chr->model, chr->model->filedata->rootnode);
-			data->ground = ground;
+			rwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
+			rwdata->root.ground = ground;
 		}
 
 		chr->chrflags |= CHRCFLAG_00000001;
@@ -33130,15 +33130,15 @@ void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 {
 	if (chr && chr->model && chr->model->filedata) {
 		struct modelnode *node = modelGetPart(chr->model->filedata, partnum);
-		struct modeldata_partid *data = NULL;
+		union modelrwdata *rwdata = NULL;
 
 		if (node) {
-			data = modelGetNodeData(chr->model, node);
+			rwdata = modelGetNodeRwData(chr->model, node);
 		}
 
-		if (data) {
-			bool visible = data->visible.u32;
-			data->visible.u32 = !visible;
+		if (rwdata) {
+			bool visible = rwdata->partid.visible.u32;
+			rwdata->partid.visible.u32 = !visible;
 		}
 	}
 }

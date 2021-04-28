@@ -4653,7 +4653,7 @@ glabel func0f069850
 /*  f0698d0:	55020005 */ 	bnel	$t0,$v0,.L0f0698e8
 /*  f0698d4:	8e090010 */ 	lw	$t1,0x10($s0)
 .L0f0698d8:
-/*  f0698d8:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f0698d8:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f0698dc:	24050064 */ 	addiu	$a1,$zero,0x64
 /*  f0698e0:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f0698e4:	8e090010 */ 	lw	$t1,0x10($s0)
@@ -4847,7 +4847,7 @@ glabel func0f069b4c
 /*  f069b98:	8e280018 */ 	lw	$t0,0x18($s1)
 .L0f069b9c:
 /*  f069b9c:	24050065 */ 	addiu	$a1,$zero,0x65
-/*  f069ba0:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f069ba0:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f069ba4:	8d040008 */ 	lw	$a0,0x8($t0)
 /*  f069ba8:	1040000c */ 	beqz	$v0,.L0f069bdc
 /*  f069bac:	00401825 */ 	or	$v1,$v0,$zero
@@ -4866,7 +4866,7 @@ glabel func0f069b4c
 .L0f069bdc:
 /*  f069bdc:	8e2a0018 */ 	lw	$t2,0x18($s1)
 /*  f069be0:	24050066 */ 	addiu	$a1,$zero,0x66
-/*  f069be4:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f069be4:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f069be8:	8d440008 */ 	lw	$a0,0x8($t2)
 /*  f069bec:	10400006 */ 	beqz	$v0,.L0f069c08
 /*  f069bf0:	02202025 */ 	or	$a0,$s1,$zero
@@ -4928,7 +4928,7 @@ glabel func0f069cd8
 /*  f069d00:	260500c9 */ 	addiu	$a1,$s0,0xc9
 /*  f069d04:	10400006 */ 	beqz	$v0,.L0f069d20
 /*  f069d08:	00402825 */ 	or	$a1,$v0,$zero
-/*  f069d0c:	0c006a87 */ 	jal	modelGetNodeData
+/*  f069d0c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f069d10:	02202025 */ 	or	$a0,$s1,$zero
 /*  f069d14:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f069d18:	1612fff7 */ 	bne	$s0,$s2,.L0f069cf8
@@ -5227,7 +5227,7 @@ glabel var7f1aa1fc
 /*  f06a118:	8d040008 */ 	lw	$a0,0x8($t0)
 /*  f06a11c:	10400004 */ 	beqz	$v0,.L0f06a130
 /*  f06a120:	00402825 */ 	or	$a1,$v0,$zero
-/*  f06a124:	0c006a87 */ 	jal	modelGetNodeData
+/*  f06a124:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f06a128:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f06a12c:	ac400000 */ 	sw	$zero,0x0($v0)
 .L0f06a130:
@@ -5238,7 +5238,7 @@ glabel var7f1aa1fc
 /*  f06a140:	24a500c9 */ 	addiu	$a1,$a1,0xc9
 /*  f06a144:	10400005 */ 	beqz	$v0,.L0f06a15c
 /*  f06a148:	00402825 */ 	or	$a1,$v0,$zero
-/*  f06a14c:	0c006a87 */ 	jal	modelGetNodeData
+/*  f06a14c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f06a150:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f06a154:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f06a158:	ac4d0000 */ 	sw	$t5,0x0($v0)
@@ -5534,7 +5534,7 @@ glabel var7f1aa1fc
 /*  f06a118:	8d040008 */ 	lw	$a0,0x8($t0)
 /*  f06a11c:	10400004 */ 	beqz	$v0,.L0f06a130
 /*  f06a120:	00402825 */ 	or	$a1,$v0,$zero
-/*  f06a124:	0c006a87 */ 	jal	modelGetNodeData
+/*  f06a124:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f06a128:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f06a12c:	ac400000 */ 	sw	$zero,0x0($v0)
 .L0f06a130:
@@ -5545,7 +5545,7 @@ glabel var7f1aa1fc
 /*  f06a140:	24a500c9 */ 	addiu	$a1,$a1,0xc9
 /*  f06a144:	10400005 */ 	beqz	$v0,.L0f06a15c
 /*  f06a148:	00402825 */ 	or	$a1,$v0,$zero
-/*  f06a14c:	0c006a87 */ 	jal	modelGetNodeData
+/*  f06a14c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f06a150:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f06a154:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f06a158:	ac4d0000 */ 	sw	$t5,0x0($v0)
@@ -5621,7 +5621,7 @@ glabel func0f06a1ec
 /*  f06a238:	24050065 */ 	addiu	$a1,$zero,0x65
 /*  f06a23c:	ae070018 */ 	sw	$a3,0x18($s0)
 /*  f06a240:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f06a244:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f06a244:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f06a248:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f06a24c:	10400004 */ 	beqz	$v0,.L0f06a260
 /*  f06a250:	8fa60028 */ 	lw	$a2,0x28($sp)
@@ -5631,7 +5631,7 @@ glabel func0f06a1ec
 .L0f06a260:
 /*  f06a260:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f06a264:	24050066 */ 	addiu	$a1,$zero,0x66
-/*  f06a268:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f06a268:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f06a26c:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f06a270:	10400004 */ 	beqz	$v0,.L0f06a284
 /*  f06a274:	8fa60028 */ 	lw	$a2,0x28($sp)
@@ -8235,7 +8235,7 @@ glabel var7f1aa264
 /*  f06c088:	12e00034 */ 	beqz	$s7,.L0f06c15c
 /*  f06c08c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f06c090:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f06c094:	0c006a87 */ 	jal	modelGetNodeData
+/*  f06c094:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f06c098:	02002825 */ 	or	$a1,$s0,$zero
 /*  f06c09c:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f06c0a0:	1060002e */ 	beqz	$v1,.L0f06c15c
@@ -16881,13 +16881,13 @@ glabel func0f070f08
 /*  f070f78:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f070f7c:	8e280018 */ 	lw	$t0,0x18($s1)
 /*  f070f80:	2413003b */ 	addiu	$s3,$zero,0x3b
-/*  f070f84:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f070f84:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f070f88:	8d040008 */ 	lw	$a0,0x8($t0)
 /*  f070f8c:	14400036 */ 	bnez	$v0,.L0f071068
 /*  f070f90:	00408025 */ 	or	$s0,$v0,$zero
 /*  f070f94:	8e290018 */ 	lw	$t1,0x18($s1)
 /*  f070f98:	00002825 */ 	or	$a1,$zero,$zero
-/*  f070f9c:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f070f9c:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f070fa0:	8d240008 */ 	lw	$a0,0x8($t1)
 /*  f070fa4:	14400030 */ 	bnez	$v0,.L0f071068
 /*  f070fa8:	0040a025 */ 	or	$s4,$v0,$zero
@@ -16900,7 +16900,7 @@ glabel func0f070f08
 /*  f070fc0:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f070fc4:	8e2a0018 */ 	lw	$t2,0x18($s1)
 /*  f070fc8:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f070fcc:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f070fcc:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f070fd0:	8d440008 */ 	lw	$a0,0x8($t2)
 /*  f070fd4:	10000024 */ 	b	.L0f071068
 /*  f070fd8:	00408025 */ 	or	$s0,$v0,$zero
@@ -16909,7 +16909,7 @@ glabel func0f070f08
 /*  f070fe0:	02c02825 */ 	or	$a1,$s6,$zero
 /*  f070fe4:	8e2b0018 */ 	lw	$t3,0x18($s1)
 /*  f070fe8:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f070fec:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f070fec:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f070ff0:	8d640008 */ 	lw	$a0,0x8($t3)
 /*  f070ff4:	1000001c */ 	b	.L0f071068
 /*  f070ff8:	00408025 */ 	or	$s0,$v0,$zero
@@ -16918,7 +16918,7 @@ glabel func0f070f08
 /*  f071000:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f071004:	8e2c0018 */ 	lw	$t4,0x18($s1)
 /*  f071008:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f07100c:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07100c:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f071010:	8d840008 */ 	lw	$a0,0x8($t4)
 /*  f071014:	10000014 */ 	b	.L0f071068
 /*  f071018:	00408025 */ 	or	$s0,$v0,$zero
@@ -16931,7 +16931,7 @@ glabel func0f070f08
 /*  f071030:	00000000 */ 	nop
 /*  f071034:	8e2f0018 */ 	lw	$t7,0x18($s1)
 /*  f071038:	24130004 */ 	addiu	$s3,$zero,0x4
-/*  f07103c:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07103c:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f071040:	8de40008 */ 	lw	$a0,0x8($t7)
 /*  f071044:	10000008 */ 	b	.L0f071068
 /*  f071048:	00408025 */ 	or	$s0,$v0,$zero
@@ -16940,7 +16940,7 @@ glabel func0f070f08
 /*  f071050:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f071054:	8e2e0018 */ 	lw	$t6,0x18($s1)
 /*  f071058:	2413003b */ 	addiu	$s3,$zero,0x3b
-/*  f07105c:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07105c:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f071060:	8dc40008 */ 	lw	$a0,0x8($t6)
 /*  f071064:	00408025 */ 	or	$s0,$v0,$zero
 .L0f071068:
@@ -33346,7 +33346,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 	struct modelnode *node;
 	bool canhide = true;
 	struct model *model = doorprop->obj->model;
-	struct modeldata_partid *partdata;
+	union modelrwdata *rwdata;
 
 	if (doorobj->doorflags & DOORFLAG_WINDOWED) {
 		doorobj->fadealpha = func0f07092c(&doorprop->pos, doorobj->xludist, doorobj->opadist, 0);
@@ -33357,9 +33357,9 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 
 		if (model->filedata->type == &g_ModelTypeWindowedDoor) {
 			node = modelGetPart(model->filedata, MODELPART_01);
-			partdata = modelGetNodeData(model, node);
+			rwdata = modelGetNodeRwData(model, node);
 
-			if (partdata->visible.u32 == 0) {
+			if (rwdata->partid.visible.u32 == 0) {
 				canhide = false;
 			}
 		}
@@ -33425,7 +33425,7 @@ glabel var7f1aa44c
 /*  f0774d0:	c436a444 */ 	lwc1	$f22,%lo(var7f1aa444)($at)
 /*  f0774d4:	460e2182 */ 	mul.s	$f6,$f4,$f14
 /*  f0774d8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0774dc:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f0774dc:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f0774e0:	4606b501 */ 	sub.s	$f20,$f22,$f6
 /*  f0774e4:	26b10040 */ 	addiu	$s1,$s5,0x40
 /*  f0774e8:	00408025 */ 	or	$s0,$v0,$zero
@@ -33439,7 +33439,7 @@ glabel var7f1aa44c
 /*  f077508:	0c00567f */ 	jal	func000159fc
 /*  f07750c:	02202825 */ 	or	$a1,$s1,$zero
 /*  f077510:	8ec40008 */ 	lw	$a0,0x8($s6)
-/*  f077514:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f077514:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f077518:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f07751c:	26b10080 */ 	addiu	$s1,$s5,0x80
 /*  f077520:	00408025 */ 	or	$s0,$v0,$zero
@@ -33482,7 +33482,7 @@ glabel var7f1aa44c
 .L0f0775ac:
 /*  f0775ac:	26330001 */ 	addiu	$s3,$s1,0x1
 /*  f0775b0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0775b4:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f0775b4:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f0775b8:	8ec40008 */ 	lw	$a0,0x8($s6)
 /*  f0775bc:	0013c180 */ 	sll	$t8,$s3,0x6
 /*  f0775c0:	02b89021 */ 	addu	$s2,$s5,$t8
@@ -33498,7 +33498,7 @@ glabel var7f1aa44c
 /*  f0775e8:	02402825 */ 	or	$a1,$s2,$zero
 /*  f0775ec:	26330002 */ 	addiu	$s3,$s1,0x2
 /*  f0775f0:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0775f4:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f0775f4:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f0775f8:	8ec40008 */ 	lw	$a0,0x8($s6)
 /*  f0775fc:	0013c980 */ 	sll	$t9,$s3,0x6
 /*  f077600:	02b98821 */ 	addu	$s1,$s5,$t9
@@ -33719,7 +33719,7 @@ glabel var7f1aa454
 /*  f07790c:	304d00ff */ 	andi	$t5,$v0,0xff
 /*  f077910:	55a100ab */ 	bnel	$t5,$at,.L0f077bc0
 /*  f077914:	8fac00b8 */ 	lw	$t4,0xb8($sp)
-/*  f077918:	0c006a87 */ 	jal	modelGetNodeData
+/*  f077918:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07791c:	00000000 */ 	nop
 /*  f077920:	c6aa0004 */ 	lwc1	$f10,0x4($s5)
 /*  f077924:	c6c40004 */ 	lwc1	$f4,0x4($s6)
@@ -34105,7 +34105,7 @@ glabel var7f1aa454
 /*  f07790c:	304d00ff */ 	andi	$t5,$v0,0xff
 /*  f077910:	55a100ab */ 	bnel	$t5,$at,.L0f077bc0
 /*  f077914:	8fac00b8 */ 	lw	$t4,0xb8($sp)
-/*  f077918:	0c006a87 */ 	jal	modelGetNodeData
+/*  f077918:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07791c:	00000000 */ 	nop
 /*  f077920:	c6aa0004 */ 	lwc1	$f10,0x4($s5)
 /*  f077924:	c6c40004 */ 	lwc1	$f4,0x4($s6)
@@ -34488,7 +34488,7 @@ glabel var7f1aa454
 /*  f076504:	304d00ff */ 	andi	$t5,$v0,0xff
 /*  f076508:	55a10067 */ 	bnel	$t5,$at,.NB0f0766a8
 /*  f07650c:	8fac0088 */ 	lw	$t4,0x88($sp)
-/*  f076510:	0c006bab */ 	jal	modelGetNodeData
+/*  f076510:	0c006bab */ 	jal	modelGetNodeRwData
 /*  f076514:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f076518:	c64a0004 */ 	lwc1	$f10,0x4($s2)
 /*  f07651c:	c6640004 */ 	lwc1	$f4,0x4($s3)
@@ -35031,7 +35031,7 @@ glabel var7f1aa4ac
 /*  f078948:	8c4e000c */ 	lw	$t6,0xc($v0)
 /*  f07894c:	afae0074 */ 	sw	$t6,0x74($sp)
 /*  f078950:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f078954:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f078954:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f078958:	afa3007c */ 	sw	$v1,0x7c($sp)
 /*  f07895c:	8fa3007c */ 	lw	$v1,0x7c($sp)
 /*  f078960:	44802000 */ 	mtc1	$zero,$f4
@@ -37667,7 +37667,7 @@ glabel var7f1aa588
 /*  f079d00:	8e240008 */ 	lw	$a0,0x8($s1)
 .L0f079d04:
 /*  f079d04:	e7ac0048 */ 	swc1	$f12,0x48($sp)
-/*  f079d08:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f079d08:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f079d0c:	afa20064 */ 	sw	$v0,0x64($sp)
 /*  f079d10:	c4500000 */ 	lwc1	$f16,0x0($v0)
 /*  f079d14:	02002025 */ 	or	$a0,$s0,$zero
@@ -38747,7 +38747,7 @@ glabel var7f1aa5a8
 /*  f07ac78:	8da40008 */ 	lw	$a0,0x8($t5)
 /*  f07ac7c:	10400005 */ 	beqz	$v0,.L0f07ac94
 /*  f07ac80:	00402825 */ 	or	$a1,$v0,$zero
-/*  f07ac84:	0c006a87 */ 	jal	modelGetNodeData
+/*  f07ac84:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07ac88:	8fa40184 */ 	lw	$a0,0x184($sp)
 /*  f07ac8c:	8fae018c */ 	lw	$t6,0x18c($sp)
 /*  f07ac90:	a44e0000 */ 	sh	$t6,0x0($v0)
@@ -38758,7 +38758,7 @@ glabel var7f1aa5a8
 /*  f07aca0:	8d640008 */ 	lw	$a0,0x8($t3)
 /*  f07aca4:	10400005 */ 	beqz	$v0,.L0f07acbc
 /*  f07aca8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f07acac:	0c006a87 */ 	jal	modelGetNodeData
+/*  f07acac:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07acb0:	8fa40184 */ 	lw	$a0,0x184($sp)
 /*  f07acb4:	8fb80188 */ 	lw	$t8,0x188($sp)
 /*  f07acb8:	a4580000 */ 	sh	$t8,0x0($v0)
@@ -39709,7 +39709,7 @@ glabel var7f1aa5a8
 /*  f07ac78:	8da40008 */ 	lw	$a0,0x8($t5)
 /*  f07ac7c:	10400005 */ 	beqz	$v0,.L0f07ac94
 /*  f07ac80:	00402825 */ 	or	$a1,$v0,$zero
-/*  f07ac84:	0c006a87 */ 	jal	modelGetNodeData
+/*  f07ac84:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07ac88:	8fa40184 */ 	lw	$a0,0x184($sp)
 /*  f07ac8c:	8fae018c */ 	lw	$t6,0x18c($sp)
 /*  f07ac90:	a44e0000 */ 	sh	$t6,0x0($v0)
@@ -39720,7 +39720,7 @@ glabel var7f1aa5a8
 /*  f07aca0:	8d640008 */ 	lw	$a0,0x8($t3)
 /*  f07aca4:	10400005 */ 	beqz	$v0,.L0f07acbc
 /*  f07aca8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f07acac:	0c006a87 */ 	jal	modelGetNodeData
+/*  f07acac:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07acb0:	8fa40184 */ 	lw	$a0,0x184($sp)
 /*  f07acb4:	8fb80188 */ 	lw	$t8,0x188($sp)
 /*  f07acb8:	a4580000 */ 	sh	$t8,0x0($v0)
@@ -39750,7 +39750,7 @@ glabel var7f1aa5b0
 /*  f07ace8:	8c4e000c */ 	lw	$t6,0xc($v0)
 /*  f07acec:	afae00ec */ 	sw	$t6,0xec($sp)
 /*  f07acf0:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f07acf4:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07acf4:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07acf8:	afa200f0 */ 	sw	$v0,0xf0($sp)
 /*  f07acfc:	afa200e8 */ 	sw	$v0,0xe8($sp)
 /*  f07ad00:	3c017f1b */ 	lui	$at,%hi(var7f1aa5ac)
@@ -39780,7 +39780,7 @@ glabel var7f1aa5b0
 /*  f07ad60:	afa60024 */ 	sw	$a2,0x24($sp)
 /*  f07ad64:	8faf00f0 */ 	lw	$t7,0xf0($sp)
 /*  f07ad68:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f07ad6c:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07ad6c:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07ad70:	8de40008 */ 	lw	$a0,0x8($t7)
 /*  f07ad74:	afa200e8 */ 	sw	$v0,0xe8($sp)
 /*  f07ad78:	c60c00dc */ 	lwc1	$f12,0xdc($s0)
@@ -40138,7 +40138,7 @@ glabel var7f1aa610
 /*  f07b48c:	8fa90114 */ 	lw	$t1,0x114($sp)
 /*  f07b490:	510000b2 */ 	beqzl	$t0,.L0f07b75c
 /*  f07b494:	c60000d8 */ 	lwc1	$f0,0xd8($s0)
-/*  f07b498:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07b498:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07b49c:	8d240008 */ 	lw	$a0,0x8($t1)
 /*  f07b4a0:	8faa00dc */ 	lw	$t2,0xdc($sp)
 /*  f07b4a4:	afa200d0 */ 	sw	$v0,0xd0($sp)
@@ -40455,7 +40455,7 @@ glabel var7f1aa610
 /*  f07b93c:	8d240008 */ 	lw	$a0,0x8($t1)
 /*  f07b940:	10400004 */ 	beqz	$v0,.L0f07b954
 /*  f07b944:	00402825 */ 	or	$a1,$v0,$zero
-/*  f07b948:	0c006a87 */ 	jal	modelGetNodeData
+/*  f07b948:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07b94c:	8fa40114 */ 	lw	$a0,0x114($sp)
 /*  f07b950:	afa200d4 */ 	sw	$v0,0xd4($sp)
 .L0f07b954:
@@ -40599,7 +40599,7 @@ glabel var7f1aa610
 /*  f07b48c:	8fa90114 */ 	lw	$t1,0x114($sp)
 /*  f07b490:	510000b2 */ 	beqzl	$t0,.L0f07b75c
 /*  f07b494:	c60000d8 */ 	lwc1	$f0,0xd8($s0)
-/*  f07b498:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07b498:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07b49c:	8d240008 */ 	lw	$a0,0x8($t1)
 /*  f07b4a0:	8faa00dc */ 	lw	$t2,0xdc($sp)
 /*  f07b4a4:	afa200d0 */ 	sw	$v0,0xd0($sp)
@@ -40916,7 +40916,7 @@ glabel var7f1aa610
 /*  f07b93c:	8d240008 */ 	lw	$a0,0x8($t1)
 /*  f07b940:	10400004 */ 	beqz	$v0,.L0f07b954
 /*  f07b944:	00402825 */ 	or	$a1,$v0,$zero
-/*  f07b948:	0c006a87 */ 	jal	modelGetNodeData
+/*  f07b948:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07b94c:	8fa40114 */ 	lw	$a0,0x114($sp)
 /*  f07b950:	afa200d4 */ 	sw	$v0,0xd4($sp)
 .L0f07b954:
@@ -47323,10 +47323,10 @@ void func0f07e058(struct prop *prop)
 	struct modelnode *node = modelGetPart(model->filedata, MODELPART_6E);
 
 	if (node) {
-		struct modeldata_partid *data = modelGetNodeData(model, node);
+		union modelrwdata *data = modelGetNodeRwData(model, node);
 		u32 flags = obj->flags;
 
-		data->visible.u32 = (flags & OBJFLAG_DEACTIVATED) == 0;
+		data->partid.visible.u32 = (flags & OBJFLAG_DEACTIVATED) == 0;
 	}
 }
 
@@ -47435,7 +47435,7 @@ glabel func0f07e1fc
 /*  f07e210:	00002825 */ 	or	$a1,$zero,$zero
 /*  f07e214:	8c510018 */ 	lw	$s1,0x18($v0)
 /*  f07e218:	8e30000c */ 	lw	$s0,0xc($s1)
-/*  f07e21c:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07e21c:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07e220:	8e240008 */ 	lw	$a0,0x8($s1)
 /*  f07e224:	26050040 */ 	addiu	$a1,$s0,0x40
 /*  f07e228:	afa50024 */ 	sw	$a1,0x24($sp)
@@ -47445,7 +47445,7 @@ glabel func0f07e1fc
 /*  f07e238:	0c0056f8 */ 	jal	func00015be0
 /*  f07e23c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07e240:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f07e244:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07e244:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07e248:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f07e24c:	26050080 */ 	addiu	$a1,$s0,0x80
 /*  f07e250:	afa50024 */ 	sw	$a1,0x24($sp)
@@ -47455,7 +47455,7 @@ glabel func0f07e1fc
 /*  f07e260:	0c0056f8 */ 	jal	func00015be0
 /*  f07e264:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07e268:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f07e26c:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07e26c:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07e270:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f07e274:	260500c0 */ 	addiu	$a1,$s0,0xc0
 /*  f07e278:	afa50024 */ 	sw	$a1,0x24($sp)
@@ -47465,7 +47465,7 @@ glabel func0f07e1fc
 /*  f07e288:	0c0056f8 */ 	jal	func00015be0
 /*  f07e28c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07e290:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f07e294:	0c006a6f */ 	jal	modelGetPartNodeData
+/*  f07e294:	0c006a6f */ 	jal	modelGetPartRodata
 /*  f07e298:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f07e29c:	26110100 */ 	addiu	$s1,$s0,0x100
 /*  f07e2a0:	02202825 */ 	or	$a1,$s1,$zero
@@ -48536,7 +48536,7 @@ glabel var7f1aa824
 /*  f07fc68:	afb800ac */ 	sw	$t8,0xac($sp)
 /*  f07fc6c:	8e290004 */ 	lw	$t1,0x4($s1)
 /*  f07fc70:	02202825 */ 	or	$a1,$s1,$zero
-/*  f07fc74:	0c006a87 */ 	jal	modelGetNodeData
+/*  f07fc74:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f07fc78:	afa900a8 */ 	sw	$t1,0xa8($sp)
 /*  f07fc7c:	3c017f1b */ 	lui	$at,%hi(var7f1aa7cc)
 /*  f07fc80:	c43aa7cc */ 	lwc1	$f26,%lo(var7f1aa7cc)($at)
@@ -51306,7 +51306,7 @@ glabel var7f1aa82c
 /*  f081664:	8c460004 */ 	lw	$a2,0x4($v0)
 /*  f081668:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f08166c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f081670:	0c006a87 */ 	jal	modelGetNodeData
+/*  f081670:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f081674:	afa60060 */ 	sw	$a2,0x60($sp)
 /*  f081678:	8fa60060 */ 	lw	$a2,0x60($sp)
 /*  f08167c:	afa2005c */ 	sw	$v0,0x5c($sp)
@@ -51941,7 +51941,7 @@ glabel var7f1aa82c
 /*  f081664:	8c460004 */ 	lw	$a2,0x4($v0)
 /*  f081668:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f08166c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f081670:	0c006a87 */ 	jal	modelGetNodeData
+/*  f081670:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f081674:	afa60060 */ 	sw	$a2,0x60($sp)
 /*  f081678:	8fa60060 */ 	lw	$a2,0x60($sp)
 /*  f08167c:	afa2005c */ 	sw	$v0,0x5c($sp)
@@ -52448,7 +52448,7 @@ glabel var7f1aa82c
 //		if (door->doortype == DOORTYPE_LASER) {
 //			node = func0f0687e4(obj->model);
 //			dldata1 = &node->data->displaylist;
-//			dldata2 = modelGetNodeData(obj->model, node);
+//			dldata2 = modelGetNodeRwData(obj->model, node);
 //			oldcolours = (struct colour *)(((u32)&dldata1->ptable[dldata1->pcount] + 7 | 7) ^ 7);
 //			newcolours = (struct colour *)gfxAllocateColours(dldata1->numcolours);
 //
@@ -58997,7 +58997,7 @@ glabel var7f1aaa00
 /*  f084a70:	00000000 */ 	nop
 /*  f084a74:	8e110004 */ 	lw	$s1,0x4($s0)
 /*  f084a78:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f084a7c:	0c006a87 */ 	jal	modelGetNodeData
+/*  f084a7c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f084a80:	02002825 */ 	or	$a1,$s0,$zero
 /*  f084a84:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f084a88:	1060002b */ 	beqz	$v1,.L0f084b38
@@ -59222,12 +59222,11 @@ void doorDestroyGlass(struct doorobj *door)
 	bool bail;
 	struct prop *prop = door->base.prop;
 	struct model *model = door->base.model;
-	struct model08thing *thing;
-	struct modeldata_partid *data;
+	union modelrodata *rodata;
+	union modelrwdata *rwdata;
 	f32 matrix[16];
 
-	// TODO: Remove cast
-	thing = (struct model08thing *) modelGetPartNodeData(model->filedata, 2);
+	rodata = modelGetPartRodata(model->filedata, 2);
 
 	if (door->portalnum >= 0) {
 		bail = (g_BgPortals[door->portalnum].flags & PORTALFLAG_ENABLED) != 0
@@ -59242,38 +59241,37 @@ void doorDestroyGlass(struct doorobj *door)
 
 	func0f08c424(door, matrix);
 	shardsCreate((struct coord *) &matrix[12], &matrix[0], &matrix[4], &matrix[8],
-			thing->unk04[0], thing->unk04[1], thing->unk04[2], thing->unk04[3],
+			rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
 			SHARDTYPE_GLASS, prop);
 	func0f13e40c(prop, 1);
 
 	node = modelGetPart(model->filedata, 1);
-	data = modelGetNodeData(model, node);
-	data->visible.u32 = 0;
+	rwdata = modelGetNodeRwData(model, node);
+	rwdata->partid.visible.u32 = 0;
 }
 
 void func0f084f64(struct defaultobj *obj)
 {
 	struct prop *prop = obj->prop;
 	struct model *model = obj->model;
-	struct model08thing *thing;
-	struct modeldata_partid *data;
+	union modelrodata *rodata;
+	union modelrwdata *rwdata;
 	Mtxf *sp7c;
 	Mtxf matrix;
 
 	if (prop->flags & PROPFLAG_02) {
-		// TODO: Remove cast
-		thing = (struct model08thing *) modelGetPartNodeData(model->filedata, 2);
+		rodata = modelGetPartRodata(model->filedata, 2);
 		sp7c = func0001a5cc(model, modelGetPart(model->filedata, 1), 0);
 		func00015be4(currentPlayerGetUnk174c(), sp7c, &matrix);
 
 		shardsCreate((struct coord *) matrix.m[3], matrix.m[0], matrix.m[1], matrix.m[2],
-				thing->unk04[0], thing->unk04[1], thing->unk04[2], thing->unk04[3],
+				rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
 				SHARDTYPE_GLASS, prop);
 	}
 
 	func0f13e40c(prop, 1);
-	data = modelGetNodeData(model, modelGetPart(model->filedata, 3));
-	data->visible.u32 = 0;
+	rwdata = modelGetNodeRwData(model, modelGetPart(model->filedata, 3));
+	rwdata->partid.visible.u32 = 0;
 }
 
 void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s32 arg4)
@@ -66586,7 +66584,7 @@ glabel func0f089a94
 /*  f089b18:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f089b1c:
 /*  f089b1c:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f089b20:	0c006a87 */ 	jal	modelGetNodeData
+/*  f089b20:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f089b24:	02002825 */ 	or	$a1,$s0,$zero
 /*  f089b28:	00409025 */ 	or	$s2,$v0,$zero
 /*  f089b2c:	02c02025 */ 	or	$a0,$s6,$zero
@@ -69799,7 +69797,7 @@ glabel func0f08bb5c
 /*  f08bbb8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f08bbbc:	1040000a */ 	beqz	$v0,.L0f08bbe8
 /*  f08bbc0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bbc4:	0c006a87 */ 	jal	modelGetNodeData
+/*  f08bbc4:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f08bbc8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08bbcc:	8fb9003c */ 	lw	$t9,0x3c($sp)
 /*  f08bbd0:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -69815,7 +69813,7 @@ glabel func0f08bb5c
 /*  f08bbf0:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f08bbf4:	1040000a */ 	beqz	$v0,.L0f08bc20
 /*  f08bbf8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bbfc:	0c006a87 */ 	jal	modelGetNodeData
+/*  f08bbfc:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f08bc00:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08bc04:	8faa003c */ 	lw	$t2,0x3c($sp)
 /*  f08bc08:	240c0001 */ 	addiu	$t4,$zero,0x1
@@ -69865,7 +69863,7 @@ glabel func0f08bc5c
 /*  f08bc98:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*  f08bc9c:	10400005 */ 	beqz	$v0,.L0f08bcb4
 /*  f08bca0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bca4:	0c006a87 */ 	jal	modelGetNodeData
+/*  f08bca4:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f08bca8:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f08bcac:	1000000d */ 	b	.L0f08bce4
 /*  f08bcb0:	84420000 */ 	lh	$v0,0x0($v0)
@@ -69877,7 +69875,7 @@ glabel func0f08bc5c
 /*  f08bcc4:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*  f08bcc8:	10400005 */ 	beqz	$v0,.L0f08bce0
 /*  f08bccc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bcd0:	0c006a87 */ 	jal	modelGetNodeData
+/*  f08bcd0:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f08bcd4:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f08bcd8:	10000002 */ 	b	.L0f08bce4
 /*  f08bcdc:	8c420000 */ 	lw	$v0,0x0($v0)
@@ -71549,7 +71547,7 @@ glabel func0f08d3dc
 /*  f08d408:	8c580004 */ 	lw	$t8,0x4($v0)
 /*  f08d40c:	00402825 */ 	or	$a1,$v0,$zero
 /*  f08d410:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f08d414:	0c006a87 */ 	jal	modelGetNodeData
+/*  f08d414:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f08d418:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f08d41c:	8fb90028 */ 	lw	$t9,0x28($sp)
 /*  f08d420:	afa20024 */ 	sw	$v0,0x24($sp)
@@ -71587,7 +71585,7 @@ glabel func0f08d460
 /*  f08d48c:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f08d490:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f08d494:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08d498:	0c006a87 */ 	jal	modelGetNodeData
+/*  f08d498:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f08d49c:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f08d4a0:	8e0600a4 */ 	lw	$a2,0xa4($s0)
 /*  f08d4a4:	8c580000 */ 	lw	$t8,0x0($v0)
@@ -77908,16 +77906,16 @@ void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible)
 		struct modelnode *node = modelGetPart(obj->model->filedata, partnum);
 
 		if (node) {
-			struct modeldata_partid *data = modelGetNodeData(obj->model, node);
+			union modelrwdata *rwdata = modelGetNodeRwData(obj->model, node);
 
-			if (data) {
+			if (rwdata) {
 				if (visible) {
 					visible = true;
 				} else {
 					visible = false;
 				}
 
-				data->visible.u32 = visible;
+				rwdata->partid.visible.u32 = visible;
 			}
 		}
 	}

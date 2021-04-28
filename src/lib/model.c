@@ -387,12 +387,12 @@ struct modelnode *modelGetPart(struct modelfiledata *modelfiledata, s32 partnum)
 	return NULL;
 }
 
-union modelnode_data *modelGetPartNodeData(struct modelfiledata *modelfiledata, s32 partnum)
+union modelrodata *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 partnum)
 {
 	struct modelnode *node = modelGetPart(modelfiledata, partnum);
 
 	if (node) {
-		return node->data;
+		return node->rodata;
 	}
 
 	return NULL;
@@ -419,35 +419,35 @@ glabel func0001a9e8
 
 #if VERSION >= VERSION_NTSC_1_0
 // ntsc-beta has this function in another file
-void *modelGetNodeData(struct model *model, struct modelnode *node)
+void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
-	void **datas = model->datas;
+	union modelrwdata **rwdatas = model->rwdatas;
 
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_ROOT:
-		index = node->data->root.index;
+		index = node->rodata->root.rwdataindex;
 		break;
 	case MODELNODETYPE_DISPLAYLIST:
-		index = node->data->displaylist.index;
+		index = node->rodata->displaylist.rwdataindex;
 		break;
 	case MODELNODETYPE_NEARFAR:
-		index = node->data->nearfar.index;
+		index = node->rodata->nearfar.rwdataindex;
 		break;
 	case MODELNODETYPE_PARTID:
-		index = node->data->partid.index;
+		index = node->rodata->partid.rwdataindex;
 		break;
 	case MODELNODETYPE_HAT:
-		index = node->data->hat.index;
+		index = node->rodata->hat.rwdataindex;
 		break;
 	case MODELNODETYPE_0B:
-		index = node->data->unk0b.index;
+		index = node->rodata->type0b.rwdataindex;
 		break;
 	case MODELNODETYPE_GUNFIRE:
-		index = node->data->gunfire.index;
+		index = node->rodata->gunfire.rwdataindex;
 		break;
 	case MODELNODETYPE_HEADSPOT:
-		index = node->data->headspot.index;
+		index = node->rodata->headspot.rwdataindex;
 		break;
 	}
 
@@ -455,13 +455,13 @@ void *modelGetNodeData(struct model *model, struct modelnode *node)
 		node = node->parent;
 
 		if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT) {
-			struct modeldata_headspot *tmp = modelGetNodeData(model, node);
-			datas = tmp->datas;
+			struct modelrwdata_headspot *tmp = modelGetNodeRwData(model, node);
+			rwdatas = tmp->rwdatas;
 			break;
 		}
 	}
 
-	return &datas[index];
+	return &rwdatas[index];
 }
 #endif
 
@@ -470,26 +470,26 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_ROOT:
 		{
-			struct modeldata_root *data = modelGetNodeData(model, node);
-			pos->x = data->pos.x;
-			pos->y = data->pos.y;
-			pos->z = data->pos.z;
+			struct modelrwdata_root *rwdata = modelGetNodeRwData(model, node);
+			pos->x = rwdata->pos.x;
+			pos->y = rwdata->pos.y;
+			pos->z = rwdata->pos.z;
 		}
 		break;
 	case MODELNODETYPE_POSITION:
 		{
-			struct modelnode_position *data = &node->data->position;
-			pos->x = data->pos.x;
-			pos->y = data->pos.y;
-			pos->z = data->pos.z;
+			struct modelrodata_position *rodata = &node->rodata->position;
+			pos->x = rodata->pos.x;
+			pos->y = rodata->pos.y;
+			pos->z = rodata->pos.z;
 		}
 		break;
 	case MODELNODETYPE_POSITIONHELD:
 		{
-			struct modelnode_positionheld *data = &node->data->positionheld;
-			pos->x = data->pos.x;
-			pos->y = data->pos.y;
-			pos->z = data->pos.z;
+			struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
+			pos->x = rodata->pos.x;
+			pos->y = rodata->pos.y;
+			pos->z = rodata->pos.z;
 		}
 		break;
 	default:
@@ -505,36 +505,36 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_ROOT:
 		{
-			struct modeldata_root *data = modelGetNodeData(model, node);
+			struct modelrwdata_root *rwdata = modelGetNodeRwData(model, node);
 			struct coord diff[1];
 
-			diff[0].x = pos->x - data->pos.x;
-			diff[0].z = pos->z - data->pos.z;
+			diff[0].x = pos->x - rwdata->pos.x;
+			diff[0].z = pos->z - rwdata->pos.z;
 
-			data->pos.x = pos->x;
-			data->pos.y = pos->y;
-			data->pos.z = pos->z;
+			rwdata->pos.x = pos->x;
+			rwdata->pos.y = pos->y;
+			rwdata->pos.z = pos->z;
 
-			data->unk24.x += diff[0].x; data->unk24.z += diff[0].z;
-			data->unk34.x += diff[0].x; data->unk34.z += diff[0].z;
-			data->unk40.x += diff[0].x; data->unk40.z += diff[0].z;
-			data->unk4c.x += diff[0].x; data->unk4c.z += diff[0].z;
+			rwdata->unk24.x += diff[0].x; rwdata->unk24.z += diff[0].z;
+			rwdata->unk34.x += diff[0].x; rwdata->unk34.z += diff[0].z;
+			rwdata->unk40.x += diff[0].x; rwdata->unk40.z += diff[0].z;
+			rwdata->unk4c.x += diff[0].x; rwdata->unk4c.z += diff[0].z;
 		}
 		break;
 	case MODELNODETYPE_POSITION:
 		{
-			struct modelnode_position *data = &node->data->position;
-			data->pos.x = pos->x;
-			data->pos.y = pos->y;
-			data->pos.z = pos->z;
+			struct modelrodata_position *rodata = &node->rodata->position;
+			rodata->pos.x = pos->x;
+			rodata->pos.y = pos->y;
+			rodata->pos.z = pos->z;
 		}
 		break;
 	case MODELNODETYPE_POSITIONHELD:
 		{
-			struct modelnode_positionheld *data = &node->data->positionheld;
-			data->pos.x = pos->x;
-			data->pos.y = pos->y;
-			data->pos.z = pos->z;
+			struct modelrodata_positionheld *rodata = &node->rodata->positionheld;
+			rodata->pos.x = pos->x;
+			rodata->pos.y = pos->y;
+			rodata->pos.z = pos->z;
 		}
 		break;
 	}
@@ -619,8 +619,8 @@ glabel func0001ad5c
 f32 func0001ae44(struct model *model)
 {
 	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
-		struct modeldata_root *data = modelGetNodeData(model, model->filedata->rootnode);
-		return data->unk14;
+		union modelrwdata *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
+		return rwdata->root.unk14;
 	}
 
 	return 0;
@@ -629,26 +629,26 @@ f32 func0001ae44(struct model *model)
 void func0001ae90(struct model *model, f32 angle)
 {
 	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
-		struct modeldata_root *data = modelGetNodeData(model, model->filedata->rootnode);
-		f32 diff = angle - data->unk14;
+		struct modelrwdata_root *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
+		f32 diff = angle - rwdata->unk14;
 
 		if (diff < 0) {
 			diff += M_BADTAU;
 		}
 
-		data->unk30 += diff;
+		rwdata->unk30 += diff;
 
-		if (data->unk30 >= M_BADTAU) {
-			data->unk30 -= M_BADTAU;
+		if (rwdata->unk30 >= M_BADTAU) {
+			rwdata->unk30 -= M_BADTAU;
 		}
 
-		data->unk20 += diff;
+		rwdata->unk20 += diff;
 
-		if (data->unk20 >= M_BADTAU) {
-			data->unk20 -= M_BADTAU;
+		if (rwdata->unk20 >= M_BADTAU) {
+			rwdata->unk20 -= M_BADTAU;
 		}
 
-		data->unk14 = angle;
+		rwdata->unk14 = angle;
 	}
 }
 
@@ -764,7 +764,7 @@ glabel var70053f98pf
 /*    1ae84:	510000b1 */ 	beqzl	$t0,.PF0001b14c
 /*    1ae88:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    1ae8c:	afa40048 */ 	sw	$a0,0x48($sp)
-/*    1ae90:	0c0069eb */ 	jal	modelGetNodeData
+/*    1ae90:	0c0069eb */ 	jal	modelGetNodeRwData
 /*    1ae94:	afa80040 */ 	sw	$t0,0x40($sp)
 /*    1ae98:	804e0000 */ 	lb	$t6,0x0($v0)
 /*    1ae9c:	8fa80040 */ 	lw	$t0,0x40($sp)
@@ -962,7 +962,7 @@ glabel func0001b0e8
 /*    1b0f4:	510000ae */ 	beqzl	$t0,.L0001b3b0
 /*    1b0f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    1b0fc:	afa40048 */ 	sw	$a0,0x48($sp)
-/*    1b100:	0c006a87 */ 	jal	modelGetNodeData
+/*    1b100:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    1b104:	afa80040 */ 	sw	$t0,0x40($sp)
 /*    1b108:	804e0000 */ 	lb	$t6,0x0($v0)
 /*    1b10c:	8fa80040 */ 	lw	$t0,0x40($sp)
@@ -1173,7 +1173,7 @@ glabel func0001b400
 /*    1b1bc:	00c02825 */ 	move	$a1,$a2
 /*    1b1c0:	afa7026c */ 	sw	$a3,0x26c($sp)
 /*    1b1c4:	afa60270 */ 	sw	$a2,0x270($sp)
-/*    1b1c8:	0c0069eb */ 	jal	modelGetNodeData
+/*    1b1c8:	0c0069eb */ 	jal	modelGetNodeRwData
 /*    1b1cc:	afa80260 */ 	sw	$t0,0x260($sp)
 /*    1b1d0:	8fa7026c */ 	lw	$a3,0x26c($sp)
 /*    1b1d4:	afa2025c */ 	sw	$v0,0x25c($sp)
@@ -1455,7 +1455,7 @@ glabel func0001b400
 /*    1b420:	00c02825 */ 	or	$a1,$a2,$zero
 /*    1b424:	afa7026c */ 	sw	$a3,0x26c($sp)
 /*    1b428:	afa60270 */ 	sw	$a2,0x270($sp)
-/*    1b42c:	0c006a87 */ 	jal	modelGetNodeData
+/*    1b42c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    1b430:	afa80260 */ 	sw	$t0,0x260($sp)
 /*    1b434:	8fa7026c */ 	lw	$a3,0x26c($sp)
 /*    1b438:	afa2025c */ 	sw	$v0,0x25c($sp)
@@ -3188,7 +3188,7 @@ glabel func0001c664
 /*    1c670:	afa40030 */ 	sw	$a0,0x30($sp)
 /*    1c674:	8cae0004 */ 	lw	$t6,0x4($a1)
 /*    1c678:	00a08025 */ 	or	$s0,$a1,$zero
-/*    1c67c:	0c006a87 */ 	jal	modelGetNodeData
+/*    1c67c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    1c680:	afae002c */ 	sw	$t6,0x2c($sp)
 /*    1c684:	afa20028 */ 	sw	$v0,0x28($sp)
 /*    1c688:	8fa40030 */ 	lw	$a0,0x30($sp)
@@ -3265,11 +3265,11 @@ glabel func0001c664
 
 void func0001c784(struct model *model, struct modelnode *node)
 {
-	struct modelnode_nearfar *data1 = &node->data->nearfar;
-	struct modeldata_nearfar *data2 = modelGetNodeData(model, node);
+	struct modelrodata_nearfar *rodata = &node->rodata->nearfar;
+	struct modelrwdata_nearfar *rwdata = modelGetNodeRwData(model, node);
 
-	if (data2->visible) {
-		node->child = data1->target;
+	if (rwdata->visible) {
+		node->child = rodata->target;
 	} else {
 		node->child = NULL;
 	}
@@ -3277,11 +3277,11 @@ void func0001c784(struct model *model, struct modelnode *node)
 
 void func0001c7d0(struct model *model, struct modelnode *node)
 {
-	struct modelnode_partid *data1 = &node->data->partid;
-	struct modeldata_partid *data2 = modelGetNodeData(model, node);
+	struct modelrodata_partid *rodata = &node->rodata->partid;
+	struct modelrwdata_partid *rwdata = modelGetNodeRwData(model, node);
 
-	if (data2->visible.u32) {
-		node->child = data1->target;
+	if (rwdata->visible.u32) {
+		node->child = rodata->target;
 	} else {
 		node->child = NULL;
 	}
@@ -3294,10 +3294,10 @@ void func0001c7d0(struct model *model, struct modelnode *node)
  */
 void modelAttachHead(struct model *model, struct modelnode *bodynode)
 {
-	struct modeldata_headspot *data = modelGetNodeData(model, bodynode);
+	struct modelrwdata_headspot *rwdata = modelGetNodeRwData(model, bodynode);
 
-	if (data->modelfiledata) {
-		struct modelnode *headnode = data->modelfiledata->rootnode;
+	if (rwdata->modelfiledata) {
+		struct modelnode *headnode = rwdata->modelfiledata->rootnode;
 
 		bodynode->child = headnode;
 
@@ -3371,7 +3371,7 @@ GLOBAL_ASM(
 glabel func0001c924
 /*    1c924:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    1c928:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1c92c:	0c006a87 */ 	jal	modelGetNodeData
+/*    1c92c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    1c930:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*    1c934:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    1c938:	0c00721a */ 	jal	func0001c868
@@ -3389,7 +3389,7 @@ glabel func0001c950
 /*    1c958:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    1c95c:	afa40050 */ 	sw	$a0,0x50($sp)
 /*    1c960:	8cb00004 */ 	lw	$s0,0x4($a1)
-/*    1c964:	0c006a87 */ 	jal	modelGetNodeData
+/*    1c964:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    1c968:	afa50054 */ 	sw	$a1,0x54($sp)
 /*    1c96c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*    1c970:	8fa40050 */ 	lw	$a0,0x50($sp)
@@ -4414,14 +4414,14 @@ void modelCopyAnimForMerge(struct model *model, f32 arg1)
 			anim->endframe2 = anim->endframe;
 
 			if (nodetype == MODELNODETYPE_ROOT) {
-				struct modeldata_root *data = modelGetNodeData(model, node);
-				data->unk02 = 1;
-				data->unk4c.x = data->unk34.x;
-				data->unk4c.y = data->unk34.y;
-				data->unk4c.z = data->unk34.z;
-				data->unk40.x = data->unk24.x;
-				data->unk40.y = data->unk24.y;
-				data->unk40.z = data->unk24.z;
+				struct modelrwdata_root *rwdata = modelGetNodeRwData(model, node);
+				rwdata->unk02 = 1;
+				rwdata->unk4c.x = rwdata->unk34.x;
+				rwdata->unk4c.y = rwdata->unk34.y;
+				rwdata->unk4c.z = rwdata->unk34.z;
+				rwdata->unk40.x = rwdata->unk24.x;
+				rwdata->unk40.y = rwdata->unk24.y;
+				rwdata->unk40.z = rwdata->unk24.z;
 			}
 		} else {
 			anim->animnum2 = 0;
@@ -4491,7 +4491,7 @@ glabel var7005444c
 /*    1d6e8:	55010126 */ 	bnel	$t0,$at,.L0001db84
 /*    1d6ec:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*    1d6f0:	8ca90004 */ 	lw	$t1,0x4($a1)
-/*    1d6f4:	0c006a87 */ 	jal	modelGetNodeData
+/*    1d6f4:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    1d6f8:	afa900ac */ 	sw	$t1,0xac($sp)
 /*    1d6fc:	8fab00c0 */ 	lw	$t3,0xc0($sp)
 /*    1d700:	3c0d8006 */ 	lui	$t5,%hi(var8005efd0)
@@ -5169,7 +5169,7 @@ glabel var70054450
 /*    1e314:	304f00ff */ 	andi	$t7,$v0,0xff
 /*    1e318:	55e102ac */ 	bnel	$t7,$at,.L0001edcc
 /*    1e31c:	c7b40140 */ 	lwc1	$f20,0x140($sp)
-/*    1e320:	0c006a87 */ 	jal	modelGetNodeData
+/*    1e320:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    1e324:	8cb30004 */ 	lw	$s3,0x4($a1)
 /*    1e328:	80580000 */ 	lb	$t8,0x0($v0)
 /*    1e32c:	00409025 */ 	or	$s2,$v0,$zero
@@ -8233,7 +8233,7 @@ glabel func00020f30
 /*    20f78:	33190001 */ 	andi	$t9,$t8,0x1
 /*    20f7c:	53200068 */ 	beqzl	$t9,.L00021120
 /*    20f80:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*    20f84:	0c006a87 */ 	jal	modelGetNodeData
+/*    20f84:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    20f88:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*    20f8c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*    20f90:	8c480004 */ 	lw	$t0,0x4($v0)
@@ -8347,7 +8347,7 @@ glabel func00020f30
 /*    21124:	316c0002 */ 	andi	$t4,$t3,0x2
 /*    21128:	51800044 */ 	beqzl	$t4,.L0002123c
 /*    2112c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    21130:	0c006a87 */ 	jal	modelGetNodeData
+/*    21130:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    21134:	8fa50058 */ 	lw	$a1,0x58($sp)
 /*    21138:	afa20030 */ 	sw	$v0,0x30($sp)
 /*    2113c:	8c4d0004 */ 	lw	$t5,0x4($v0)
@@ -8757,7 +8757,7 @@ glabel var70054454
 /*    2172c:	00a02025 */ 	or	$a0,$a1,$zero
 /*    21730:	00c08025 */ 	or	$s0,$a2,$zero
 /*    21734:	8cd10004 */ 	lw	$s1,0x4($a2)
-/*    21738:	0c006a87 */ 	jal	modelGetNodeData
+/*    21738:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    2173c:	00c02825 */ 	or	$a1,$a2,$zero
 /*    21740:	3c198006 */ 	lui	$t9,%hi(var8005efec)
 /*    21744:	2739efec */ 	addiu	$t9,$t9,%lo(var8005efec)
@@ -9350,7 +9350,7 @@ glabel var700544b4
 /*    21f78:	8e110004 */ 	lw	$s1,0x4($s0)
 /*    21f7c:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*    21f80:	02402025 */ 	or	$a0,$s2,$zero
-/*    21f84:	0c006a87 */ 	jal	modelGetNodeData
+/*    21f84:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    21f88:	02002825 */ 	or	$a1,$s0,$zero
 /*    21f8c:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*    21f90:	24010008 */ 	addiu	$at,$zero,0x8
@@ -9382,7 +9382,7 @@ glabel var700544b4
 /*    21fe8:	1000002d */ 	b	.L000220a0
 /*    21fec:	8e020014 */ 	lw	$v0,0x14($s0)
 /*    21ff0:	02402025 */ 	or	$a0,$s2,$zero
-/*    21ff4:	0c006a87 */ 	jal	modelGetNodeData
+/*    21ff4:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    21ff8:	02002825 */ 	or	$a1,$s0,$zero
 /*    21ffc:	8c440000 */ 	lw	$a0,0x0($v0)
 /*    22000:	10800008 */ 	beqz	$a0,.L00022024
@@ -9924,7 +9924,7 @@ glabel var70054514
 /*    226e4:	00009825 */ 	or	$s3,$zero,$zero
 /*    226e8:	8e110004 */ 	lw	$s1,0x4($s0)
 /*    226ec:	02402025 */ 	or	$a0,$s2,$zero
-/*    226f0:	0c006a87 */ 	jal	modelGetNodeData
+/*    226f0:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    226f4:	02002825 */ 	or	$a1,$s0,$zero
 /*    226f8:	8c490000 */ 	lw	$t1,0x0($v0)
 /*    226fc:	11200004 */ 	beqz	$t1,.L00022710
@@ -9937,7 +9937,7 @@ glabel var70054514
 /*    22714:	ae000014 */ 	sw	$zero,0x14($s0)
 /*    22718:	8e110004 */ 	lw	$s1,0x4($s0)
 /*    2271c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22720:	0c006a87 */ 	jal	modelGetNodeData
+/*    22720:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22724:	02002825 */ 	or	$a1,$s0,$zero
 /*    22728:	8c4b0000 */ 	lw	$t3,0x0($v0)
 /*    2272c:	11600004 */ 	beqz	$t3,.L00022740
@@ -9949,7 +9949,7 @@ glabel var70054514
 /*    22740:	1000000e */ 	b	.L0002277c
 /*    22744:	ae000014 */ 	sw	$zero,0x14($s0)
 /*    22748:	02402025 */ 	or	$a0,$s2,$zero
-/*    2274c:	0c006a87 */ 	jal	modelGetNodeData
+/*    2274c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22750:	02002825 */ 	or	$a1,$s0,$zero
 /*    22754:	8c440000 */ 	lw	$a0,0x0($v0)
 /*    22758:	10800008 */ 	beqz	$a0,.L0002277c
@@ -10568,7 +10568,7 @@ glabel var70054634
 /*    22da8:	01e00008 */ 	jr	$t7
 /*    22dac:	00000000 */ 	nop
 /*    22db0:	02402025 */ 	or	$a0,$s2,$zero
-/*    22db4:	0c006a87 */ 	jal	modelGetNodeData
+/*    22db4:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22db8:	02002825 */ 	or	$a1,$s0,$zero
 /*    22dbc:	a0400000 */ 	sb	$zero,0x0($v0)
 /*    22dc0:	e4540004 */ 	swc1	$f20,0x4($v0)
@@ -10599,7 +10599,7 @@ glabel var70054634
 /*    22e24:	8e030014 */ 	lw	$v1,0x14($s0)
 /*    22e28:	8e110004 */ 	lw	$s1,0x4($s0)
 /*    22e2c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e30:	0c006a87 */ 	jal	modelGetNodeData
+/*    22e30:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22e34:	02002825 */ 	or	$a1,$s0,$zero
 /*    22e38:	ac400000 */ 	sw	$zero,0x0($v0)
 /*    22e3c:	8e230008 */ 	lw	$v1,0x8($s1)
@@ -10607,7 +10607,7 @@ glabel var70054634
 /*    22e44:	ae030014 */ 	sw	$v1,0x14($s0)
 /*    22e48:	8e110004 */ 	lw	$s1,0x4($s0)
 /*    22e4c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e50:	0c006a87 */ 	jal	modelGetNodeData
+/*    22e50:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22e54:	02002825 */ 	or	$a1,$s0,$zero
 /*    22e58:	24190001 */ 	addiu	$t9,$zero,0x1
 /*    22e5c:	ac590000 */ 	sw	$t9,0x0($v0)
@@ -10615,14 +10615,14 @@ glabel var70054634
 /*    22e64:	10000032 */ 	b	.L00022f30
 /*    22e68:	ae030014 */ 	sw	$v1,0x14($s0)
 /*    22e6c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e70:	0c006a87 */ 	jal	modelGetNodeData
+/*    22e70:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22e74:	02002825 */ 	or	$a1,$s0,$zero
 /*    22e78:	ac400000 */ 	sw	$zero,0x0($v0)
 /*    22e7c:	ac400004 */ 	sw	$zero,0x4($v0)
 /*    22e80:	1000002b */ 	b	.L00022f30
 /*    22e84:	8e030014 */ 	lw	$v1,0x14($s0)
 /*    22e88:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e8c:	0c006a87 */ 	jal	modelGetNodeData
+/*    22e8c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22e90:	02002825 */ 	or	$a1,$s0,$zero
 /*    22e94:	ac400000 */ 	sw	$zero,0x0($v0)
 /*    22e98:	02402025 */ 	or	$a0,$s2,$zero
@@ -10631,20 +10631,20 @@ glabel var70054634
 /*    22ea4:	10000022 */ 	b	.L00022f30
 /*    22ea8:	8e030014 */ 	lw	$v1,0x14($s0)
 /*    22eac:	02402025 */ 	or	$a0,$s2,$zero
-/*    22eb0:	0c006a87 */ 	jal	modelGetNodeData
+/*    22eb0:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22eb4:	02002825 */ 	or	$a1,$s0,$zero
 /*    22eb8:	a4400000 */ 	sh	$zero,0x0($v0)
 /*    22ebc:	1000001c */ 	b	.L00022f30
 /*    22ec0:	8e030014 */ 	lw	$v1,0x14($s0)
 /*    22ec4:	02402025 */ 	or	$a0,$s2,$zero
-/*    22ec8:	0c006a87 */ 	jal	modelGetNodeData
+/*    22ec8:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22ecc:	02002825 */ 	or	$a1,$s0,$zero
 /*    22ed0:	a4400000 */ 	sh	$zero,0x0($v0)
 /*    22ed4:	10000016 */ 	b	.L00022f30
 /*    22ed8:	8e030014 */ 	lw	$v1,0x14($s0)
 /*    22edc:	8e110004 */ 	lw	$s1,0x4($s0)
 /*    22ee0:	02402025 */ 	or	$a0,$s2,$zero
-/*    22ee4:	0c006a87 */ 	jal	modelGetNodeData
+/*    22ee4:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    22ee8:	02002825 */ 	or	$a1,$s0,$zero
 /*    22eec:	8e29000c */ 	lw	$t1,0xc($s1)
 /*    22ef0:	ac490000 */ 	sw	$t1,0x0($v0)
@@ -10811,7 +10811,7 @@ glabel func00023108
 /*    23114:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    23118:	afa70024 */ 	sw	$a3,0x24($sp)
 /*    2311c:	00c02825 */ 	or	$a1,$a2,$zero
-/*    23120:	0c006a87 */ 	jal	modelGetNodeData
+/*    23120:	0c006a87 */ 	jal	modelGetNodeRwData
 /*    23124:	afa60020 */ 	sw	$a2,0x20($sp)
 /*    23128:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*    2312c:	8fa60020 */ 	lw	$a2,0x20($sp)

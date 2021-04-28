@@ -44,7 +44,7 @@ struct var8007e3d0 var8007e3d0[] = {
  * Search all props and their model data for something, and replace it with
  * something else.
  */
-void func0f129210(void *find, void *replacement)
+void func0f129210(union modelrwdata *find, union modelrwdata *replacement)
 {
 	u32 stack;
 	struct prop *prop = g_Vars.list1head;
@@ -55,15 +55,15 @@ void func0f129210(void *find, void *replacement)
 			struct model *model = obj->model;
 			struct modelfiledata *filedata = model->filedata;
 			struct modelnode *node = filedata->rootnode;
-			struct modelnode_displaylist *data;
+			struct modelrodata_displaylist *rodata;
 
 			while (node) {
 				switch (node->type & 0xff) {
 				case MODELNODETYPE_DISPLAYLIST:
-					data = &node->data->displaylist;
+					rodata = &node->rodata->displaylist;
 
-					if (model->datas[data->index] == find) {
-						model->datas[data->index] = replacement;
+					if (model->rwdatas[rodata->rwdataindex] == find) {
+						model->rwdatas[rodata->rwdataindex] = replacement;
 					}
 					break;
 				case MODELNODETYPE_NEARFAR:

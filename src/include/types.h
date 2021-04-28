@@ -514,13 +514,13 @@ struct modeltype {
 	u16 *things;
 };
 
-struct modelnode_root { // type 0x01
+struct modelrodata_root { // type 0x01
 	u32 modeltype;
 	f32 unk04;
-	u16 index;
+	u16 rwdataindex;
 };
 
-struct modelnode_position { // type 0x02
+struct modelrodata_position { // type 0x02
 	struct coord pos;
 	u16 part;
 	s16 piece0;
@@ -529,14 +529,14 @@ struct modelnode_position { // type 0x02
 	f32 drawdist;
 };
 
-struct modelnode_nearfar { // type 0x08
+struct modelrodata_nearfar { // type 0x08
 	f32 near;
 	f32 far;
 	struct modelnode *target;
-	u16 index;
+	u16 rwdataindex;
 };
 
-struct modelnode_hat { // type 0x09
+struct modelrodata_hat { // type 0x09
 	u32 unk00;
 	u32 unk04;
 	u32 unk08;
@@ -546,10 +546,10 @@ struct modelnode_hat { // type 0x09
 	u32 unk18;
 	u32 unk1c;
 	u16 unk20;
-	u16 index;
+	u16 rwdataindex;
 };
 
-struct modelnode_bbox { // type 0x0a
+struct modelrodata_bbox { // type 0x0a
 	s32 ibh;
 	f32 xmin;
 	f32 xmax;
@@ -559,7 +559,7 @@ struct modelnode_bbox { // type 0x0a
 	f32 zmax;
 };
 
-struct modelnode_0b { // type 0x0b
+struct modelrodata_type0b { // type 0x0b
 	u32 unk00;
 	u32 unk04;
 	u32 unk08;
@@ -577,63 +577,63 @@ struct modelnode_0b { // type 0x0b
 	u32 unk38;
 	u32 unk3c;
 	u32 unk40;
-	u16 index;
+	u16 rwdataindex;
 };
 
-struct modelnode_gunfire { // type 0x0c
+struct modelrodata_gunfire { // type 0x0c
 	struct coord pos;
 	struct coord dim;
 	u32 texture;
 	f32 unk1c;
-	u16 index;
+	u16 rwdataindex;
 };
 
-struct modelnode_partid { // type 0x12
+struct modelrodata_partid { // type 0x12
 	struct modelnode *target;
-	u16 index;
+	u16 rwdataindex;
 };
 
-struct modelnode_positionheld { // type 0x15
+struct modelrodata_positionheld { // type 0x15
 	struct coord pos;
 };
 
-struct modelnode_type16 { // type 0x16
+struct modelrodata_type16 { // type 0x16
 	struct coord pos;
 };
 
-struct modelnode_headspot { // type 0x17
-	u16 index;
+struct modelrodata_headspot { // type 0x17
+	u16 rwdataindex;
 };
 
-struct modelnode_displaylist { // type 0x18
+struct modelrodata_displaylist { // type 0x18
 	/*0x00*/ u32 primary;
 	/*0x04*/ u32 secondary;
 	/*0x08*/ u32 *colourtable;
 	/*0x0c*/ struct coord *ptable;
 	/*0x10*/ s16 pcount;
 	/*0x12*/ u16 mcount;
-	/*0x14*/ u16 index;
+	/*0x14*/ u16 rwdataindex;
 	/*0x16*/ u16 numcolours;
 };
 
-union modelnode_data {
-	struct modelnode_root root;
-	struct modelnode_position position;
-	struct modelnode_nearfar nearfar;
-	struct modelnode_hat hat;
-	struct modelnode_bbox bbox;
-	struct modelnode_0b unk0b;
-	struct modelnode_gunfire gunfire;
-	struct modelnode_partid partid;
-	struct modelnode_positionheld positionheld;
-	struct modelnode_type16 type16;
-	struct modelnode_headspot headspot;
-	struct modelnode_displaylist displaylist;
+union modelrodata {
+	struct modelrodata_root root;
+	struct modelrodata_position position;
+	struct modelrodata_nearfar nearfar;
+	struct modelrodata_hat hat;
+	struct modelrodata_bbox bbox;
+	struct modelrodata_type0b type0b;
+	struct modelrodata_gunfire gunfire;
+	struct modelrodata_partid partid;
+	struct modelrodata_positionheld positionheld;
+	struct modelrodata_type16 type16;
+	struct modelrodata_headspot headspot;
+	struct modelrodata_displaylist displaylist;
 };
 
 struct modelnode {
 	/*0x00*/ u16 type;
-	/*0x04*/ union modelnode_data *data;
+	/*0x04*/ union modelrodata *rodata;
 	/*0x08*/ struct modelnode *parent;
 	/*0x0c*/ struct modelnode *next;
 	/*0x10*/ struct modelnode *prev;
@@ -660,14 +660,14 @@ struct model {
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct modelfiledata *filedata;
 	/*0x0c*/ Mtxf *matrices;
-	/*0x10*/ void **datas; // array of pointers to modeldata structs
+	/*0x10*/ union modelrwdata **rwdatas; // array of pointers to modelrwdata structs
 	/*0x14*/ f32 scale;
 	/*0x18*/ struct model *attachedto;
 	/*0x1c*/ struct modelnode *unk1c;
 	/*0x20*/ struct anim *anim;
 };
 
-struct modeldata_root { // type 0x01
+struct modelrwdata_root { // type 0x01
 	u16 unk00;
 	u8 unk02;
 	f32 ground;
@@ -685,24 +685,32 @@ struct modeldata_root { // type 0x01
 	u32 unk5c;
 };
 
-struct modeldata_nearfar { // type 0x08
+struct modelrwdata_nearfar { // type 0x08
 	bool visible;
 };
 
-struct modeldata_partid { // type 0x12
+struct modelrwdata_partid { // type 0x12
 	union {
 		u16 u16;
 		bool u32;
 	} visible;
 };
 
-struct modeldata_05 {
+struct modelrwdata_05 {
 	bool unk00;
 };
 
-struct modeldata_headspot { // type 0x17
+struct modelrwdata_headspot { // type 0x17
 	struct modelfiledata *modelfiledata;
-	void *datas;
+	void *rwdatas;
+};
+
+union modelrwdata {
+	struct modelrwdata_root root;
+	struct modelrwdata_nearfar nearfar;
+	struct modelrwdata_partid partid;
+	struct modelrwdata_05 type05;
+	struct modelrwdata_headspot headspot;
 };
 
 struct waygroup {

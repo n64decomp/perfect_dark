@@ -1079,7 +1079,7 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 
 	if (camera->lookatpadnum >= 0) {
 		struct coord lenspos;
-		union modelnode_data *lens = modelGetPartNodeData(obj->model->filedata, MODELPART_LENS);
+		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_LENS);
 		struct pad pad;
 		f32 xdiff;
 		f32 ydiff;
@@ -3027,19 +3027,19 @@ void setupParseObjects(s32 stagenum)
 						modelstate = &g_ModelStates[modelnum];
 
 						if (modelstate->filedata) {
-							if (modelGetPartNodeData(modelstate->filedata, 1)) {
+							if (modelGetPartRodata(modelstate->filedata, 1)) {
 								obj->numtiles++;
 							}
-							if (modelGetPartNodeData(modelstate->filedata, 2)) {
+							if (modelGetPartRodata(modelstate->filedata, 2)) {
 								obj->numtiles++;
 							}
-							if (modelGetPartNodeData(modelstate->filedata, 3)) {
+							if (modelGetPartRodata(modelstate->filedata, 3)) {
 								obj->numtiles++;
 							}
-							if (modelGetPartNodeData(modelstate->filedata, 4)) {
+							if (modelGetPartRodata(modelstate->filedata, 4)) {
 								obj->numtiles++;
 							}
-							if (modelGetPartNodeData(modelstate->filedata, 6)) {
+							if (modelGetPartRodata(modelstate->filedata, 6)) {
 								obj->numtiles++;
 							}
 						}
@@ -3199,8 +3199,8 @@ void setupParseObjects(s32 stagenum)
 							struct modelnode *node = modelGetPart(obj->model->filedata, 5);
 
 							if (node) {
-								struct modeldata_05 *data = modelGetNodeData(obj->model, node);
-								data->unk00 = ((obj->flags & OBJFLAG_DEACTIVATED) == 0);
+								union modelrwdata *rwdata = modelGetNodeRwData(obj->model, node);
+								rwdata->type05.unk00 = ((obj->flags & OBJFLAG_DEACTIVATED) == 0);
 							}
 						}
 

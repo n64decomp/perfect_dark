@@ -1789,7 +1789,7 @@ glabel func00019d1c
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel modelGetNodeData
+glabel modelGetNodeRwData
 /*    1aeac:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /*    1aeb0:	afa80000 */ 	sw	$t0,0x0($sp)
 /*    1aeb4:	afa90004 */ 	sw	$t1,0x4($sp)
@@ -1823,7 +1823,7 @@ glabel modelGetNodeData
 /*    1af1c:	24010017 */ 	addiu	$at,$zero,0x17
 /*    1af20:	1521fff9 */ 	bne	$t1,$at,.NB0001af08
 /*    1af24:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1af28:	0c006bab */ 	jal	modelGetNodeData
+/*    1af28:	0c006bab */ 	jal	modelGetNodeRwData
 /*    1af2c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    1af30:	8c4b0004 */ 	lw	$t3,0x4($v0)
 .NB0001af34:

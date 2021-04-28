@@ -430,8 +430,8 @@ void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 			node = modelGetPart(g_Vars.currentplayer->gunctrl.unk1594, partnum);
 
 			if (node) {
-				union modelnode_data *data = node->data;
-				u32 *ptr = &hand->handsavedata[data->partid.index];
+				struct modelrodata_partid *rodata = &node->rodata->partid;
+				u32 *ptr = &hand->handsavedata[rodata->rwdataindex];
 				*ptr = arg1;
 			}
 		}
@@ -439,8 +439,8 @@ void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 		node = modelGetPart(arg3, partnum);
 
 		if (node) {
-			union modelnode_data *data = node->data;
-			u32 *ptr = &hand->unk0a6c[data->partid.index];
+			struct modelrodata_partid *rodata = &node->rodata->partid;
+			u32 *ptr = &hand->unk0a6c[rodata->rwdataindex];
 			*ptr = arg1;
 		}
 	}
@@ -17462,7 +17462,7 @@ glabel var7f1ac7c4
 /*  f0a2f0c:	00000000 */ 	nop
 /*  f0a2f10:	8e120004 */ 	lw	$s2,0x4($s0)
 /*  f0a2f14:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0a2f18:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a2f18:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a2f1c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0a2f20:	ac400000 */ 	sw	$zero,0x0($v0)
 /*  f0a2f24:	8e580008 */ 	lw	$t8,0x8($s2)
@@ -17477,7 +17477,7 @@ glabel var7f1ac7c4
 /*  f0a2f48:	ae39fffc */ 	sw	$t9,-0x4($s1)
 /*  f0a2f4c:	8e120004 */ 	lw	$s2,0x4($s0)
 /*  f0a2f50:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0a2f54:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a2f54:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a2f58:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0a2f5c:	ac550000 */ 	sw	$s5,0x0($v0)
 /*  f0a2f60:	8e480000 */ 	lw	$t0,0x0($s2)
@@ -17491,7 +17491,7 @@ glabel var7f1ac7c4
 /*  f0a2f80:	1000003b */ 	b	.L0f0a3070
 /*  f0a2f84:	ae29fffc */ 	sw	$t1,-0x4($s1)
 /*  f0a2f88:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0a2f8c:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a2f8c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a2f90:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0a2f94:	ac400000 */ 	sw	$zero,0x0($v0)
 /*  f0a2f98:	ac400004 */ 	sw	$zero,0x4($v0)
@@ -17502,7 +17502,7 @@ glabel var7f1ac7c4
 /*  f0a2fac:	10000030 */ 	b	.L0f0a3070
 /*  f0a2fb0:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f0a2fb4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0a2fb8:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a2fb8:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a2fbc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0a2fc0:	a4400000 */ 	sh	$zero,0x0($v0)
 /*  f0a2fc4:	240b0003 */ 	addiu	$t3,$zero,0x3
@@ -17512,7 +17512,7 @@ glabel var7f1ac7c4
 /*  f0a2fd4:	10000026 */ 	b	.L0f0a3070
 /*  f0a2fd8:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f0a2fdc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0a2fe0:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a2fe0:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a2fe4:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0a2fe8:	a4400000 */ 	sh	$zero,0x0($v0)
 /*  f0a2fec:	240c0004 */ 	addiu	$t4,$zero,0x4
@@ -17523,7 +17523,7 @@ glabel var7f1ac7c4
 /*  f0a3000:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f0a3004:	8e120004 */ 	lw	$s2,0x4($s0)
 /*  f0a3008:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0a300c:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a300c:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a3010:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0a3014:	8e4d000c */ 	lw	$t5,0xc($s2)
 /*  f0a3018:	26310014 */ 	addiu	$s1,$s1,0x14
@@ -25601,7 +25601,7 @@ glabel var7f1aca90
 /*  f0a7568:	0c006a47 */ 	jal	modelGetPart
 /*  f0a756c:	24050011 */ 	addiu	$a1,$zero,0x11
 /*  f0a7570:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0a7574:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a7574:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a7578:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0a757c:	10400003 */ 	beqz	$v0,.L0f0a758c
 /*  f0a7580:	3c06800a */ 	lui	$a2,%hi(var8009cf88)
@@ -26442,7 +26442,7 @@ glabel var7f1aca90
 /*  f0a7568:	0c006a47 */ 	jal	modelGetPart
 /*  f0a756c:	24050011 */ 	addiu	$a1,$zero,0x11
 /*  f0a7570:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0a7574:	0c006a87 */ 	jal	modelGetNodeData
+/*  f0a7574:	0c006a87 */ 	jal	modelGetNodeRwData
 /*  f0a7578:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0a757c:	10400003 */ 	beqz	$v0,.L0f0a758c
 /*  f0a7580:	3c06800a */ 	lui	$a2,%hi(var8009cf88)
@@ -27283,7 +27283,7 @@ glabel var7f1aca90
 /*  f0a52b4:	0c006ea3 */ 	jal	modelGetPart
 /*  f0a52b8:	24050011 */ 	addiu	$a1,$zero,0x11
 /*  f0a52bc:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f0a52c0:	0c006bab */ 	jal	modelGetNodeData
+/*  f0a52c0:	0c006bab */ 	jal	modelGetNodeRwData
 /*  f0a52c4:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0a52c8:	10400003 */ 	beqz	$v0,.NB0f0a52d8
 /*  f0a52cc:	3c06800a */ 	lui	$a2,0x800a

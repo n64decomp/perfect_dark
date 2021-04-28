@@ -1257,9 +1257,9 @@ void currentPlayerResetToDefault(void)
 bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 {
 	struct prop *hostprop;
-	struct modeldata_root *chrrootnode;
+	union modelrwdata *chrrootrwdata;
 	struct chrdata *playerchr = g_Vars.currentplayer->prop->chr;
-	struct modeldata_root *playerrootnode;
+	union modelrwdata *playerrootrwdata;
 
 	hostprop = hostchr->prop;
 
@@ -1341,17 +1341,17 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 		modelCopyAnimData(hostchr->model, playerchr->model);
 		func0f02e9a0(playerchr, 12);
 
-		chrrootnode = modelGetNodeData(hostchr->model, hostchr->model->filedata->rootnode);
-		playerrootnode = modelGetNodeData(playerchr->model, playerchr->model->filedata->rootnode);
+		chrrootrwdata = modelGetNodeRwData(hostchr->model, hostchr->model->filedata->rootnode);
+		playerrootrwdata = modelGetNodeRwData(playerchr->model, playerchr->model->filedata->rootnode);
 
-		*playerrootnode = *chrrootnode;
+		playerrootrwdata->root = chrrootrwdata->root;
 
-		if (playerrootnode->unk34.y < 10) {
-			playerrootnode->unk34.y = 10;
+		if (playerrootrwdata->root.unk34.y < 10) {
+			playerrootrwdata->root.unk34.y = 10;
 		}
 
-		if (playerrootnode->unk24.y < 10) {
-			playerrootnode->unk24.y = 10;
+		if (playerrootrwdata->root.unk24.y < 10) {
+			playerrootrwdata->root.unk24.y = 10;
 		}
 
 		playerchr->chrwidth = hostchr->chrwidth;
