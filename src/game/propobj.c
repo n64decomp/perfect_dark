@@ -33359,7 +33359,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 			node = modelGetPart(model->filedata, MODELPART_01);
 			rwdata = modelGetNodeRwData(model, node);
 
-			if (rwdata->partid.visible.u32 == 0) {
+			if (!rwdata->toggle.visible) {
 				canhide = false;
 			}
 		}
@@ -47326,7 +47326,7 @@ void func0f07e058(struct prop *prop)
 		union modelrwdata *data = modelGetNodeRwData(model, node);
 		u32 flags = obj->flags;
 
-		data->partid.visible.u32 = (flags & OBJFLAG_DEACTIVATED) == 0;
+		data->toggle.visible = (flags & OBJFLAG_DEACTIVATED) == 0;
 	}
 }
 
@@ -59247,7 +59247,7 @@ void doorDestroyGlass(struct doorobj *door)
 
 	node = modelGetPart(model->filedata, 1);
 	rwdata = modelGetNodeRwData(model, node);
-	rwdata->partid.visible.u32 = 0;
+	rwdata->toggle.visible = false;
 }
 
 void func0f084f64(struct defaultobj *obj)
@@ -59271,7 +59271,7 @@ void func0f084f64(struct defaultobj *obj)
 
 	func0f13e40c(prop, 1);
 	rwdata = modelGetNodeRwData(model, modelGetPart(model->filedata, 3));
-	rwdata->partid.visible.u32 = 0;
+	rwdata->toggle.visible = false;
 }
 
 void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s32 arg4)
@@ -77915,7 +77915,7 @@ void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible)
 					visible = false;
 				}
 
-				rwdata->partid.visible.u32 = visible;
+				rwdata->toggle.visible = visible;
 			}
 		}
 	}

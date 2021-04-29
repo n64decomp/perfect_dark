@@ -20895,7 +20895,7 @@ void chrTickAttackAmount(struct chrdata *chr)
  * There are two muzzles, left and right, which is specified using the `right`
  * argument.
  */
-void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
+void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 {
 	struct modelnode *node;
 	union modelrwdata *rwdata;
@@ -20913,9 +20913,8 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled)
 		rwdata = modelGetNodeRwData(chr->model, node);
 	}
 
-	// @dangerous: data may be uninitialised
 	if (rwdata) {
-		rwdata->partid.visible.u16 = enabled;
+		rwdata->gunfire.visible = visible;
 	}
 }
 
@@ -31165,9 +31164,9 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 
 		nodetype = chr->model->filedata->rootnode->type;
 
-		if ((nodetype & 0xff) == MODELNODETYPE_ROOT) {
+		if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
 			rwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
-			rwdata->root.ground = ground;
+			rwdata->chrinfo.ground = ground;
 		}
 
 		chr->chrflags |= CHRCFLAG_00000001;
@@ -33137,8 +33136,8 @@ void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 		}
 
 		if (rwdata) {
-			bool visible = rwdata->partid.visible.u32;
-			rwdata->partid.visible.u32 = !visible;
+			bool visible = rwdata->toggle.visible;
+			rwdata->toggle.visible = !visible;
 		}
 	}
 }

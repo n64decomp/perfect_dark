@@ -1344,14 +1344,14 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 		chrrootrwdata = modelGetNodeRwData(hostchr->model, hostchr->model->filedata->rootnode);
 		playerrootrwdata = modelGetNodeRwData(playerchr->model, playerchr->model->filedata->rootnode);
 
-		playerrootrwdata->root = chrrootrwdata->root;
+		playerrootrwdata->chrinfo = chrrootrwdata->chrinfo;
 
-		if (playerrootrwdata->root.unk34.y < 10) {
-			playerrootrwdata->root.unk34.y = 10;
+		if (playerrootrwdata->chrinfo.unk34.y < 10) {
+			playerrootrwdata->chrinfo.unk34.y = 10;
 		}
 
-		if (playerrootrwdata->root.unk24.y < 10) {
-			playerrootrwdata->root.unk24.y = 10;
+		if (playerrootrwdata->chrinfo.unk24.y < 10) {
+			playerrootrwdata->chrinfo.unk24.y = 10;
 		}
 
 		playerchr->chrwidth = hostchr->chrwidth;

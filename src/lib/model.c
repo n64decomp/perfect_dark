@@ -46,9 +46,9 @@ s32 func0001a524(struct modelnode *node, s32 arg1)
 
 	while (node) {
 		switch (node->type & 0xff) {
-		case MODELNODETYPE_ROOT:
+		case MODELNODETYPE_CHRINFO:
 			rodata1 = node->rodata;
-			return (s16) rodata1->root.modeltype;
+			return (s16) rodata1->chrinfo.modeltype;
 		case MODELNODETYPE_POSITION:
 			rodata2 = node->rodata;
 			return rodata2->position.pieces[arg1 == 0x200 ? 2 : (arg1 == 0x100 ? 1 : 0)];
@@ -97,9 +97,9 @@ struct modelnode *func0001a634(struct model *model, s32 arg1)
 
 	while (node) {
 		switch (node->type & 0xff) {
-		case MODELNODETYPE_ROOT:
+		case MODELNODETYPE_CHRINFO:
 			rodata1 = node->rodata;
-			if (arg1 == (s16)rodata1->root.modeltype) {
+			if (arg1 == (s16)rodata1->chrinfo.modeltype) {
 				return node;
 			}
 			break;
@@ -361,20 +361,20 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 	union modelrwdata **rwdatas = model->rwdatas;
 
 	switch (node->type & 0xff) {
-	case MODELNODETYPE_ROOT:
-		index = node->rodata->root.rwdataindex;
+	case MODELNODETYPE_CHRINFO:
+		index = node->rodata->chrinfo.rwdataindex;
 		break;
-	case MODELNODETYPE_DISPLAYLIST:
-		index = node->rodata->displaylist.rwdataindex;
+	case MODELNODETYPE_DL:
+		index = node->rodata->dl.rwdataindex;
 		break;
-	case MODELNODETYPE_NEARFAR:
-		index = node->rodata->nearfar.rwdataindex;
+	case MODELNODETYPE_DISTANCE:
+		index = node->rodata->distance.rwdataindex;
 		break;
-	case MODELNODETYPE_PARTID:
-		index = node->rodata->partid.rwdataindex;
+	case MODELNODETYPE_TOGGLE:
+		index = node->rodata->toggle.rwdataindex;
 		break;
-	case MODELNODETYPE_HAT:
-		index = node->rodata->hat.rwdataindex;
+	case MODELNODETYPE_REORDER:
+		index = node->rodata->reorder.rwdataindex;
 		break;
 	case MODELNODETYPE_0B:
 		index = node->rodata->type0b.rwdataindex;
@@ -404,9 +404,9 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
 	switch (node->type & 0xff) {
-	case MODELNODETYPE_ROOT:
+	case MODELNODETYPE_CHRINFO:
 		{
-			struct modelrwdata_root *rwdata = modelGetNodeRwData(model, node);
+			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
 			pos->x = rwdata->pos.x;
 			pos->y = rwdata->pos.y;
 			pos->z = rwdata->pos.z;
@@ -439,9 +439,9 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos)
 {
 	switch (node->type & 0xff) {
-	case MODELNODETYPE_ROOT:
+	case MODELNODETYPE_CHRINFO:
 		{
-			struct modelrwdata_root *rwdata = modelGetNodeRwData(model, node);
+			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
 			struct coord diff[1];
 
 			diff[0].x = pos->x - rwdata->pos.x;
@@ -554,9 +554,9 @@ glabel func0001ad5c
 
 f32 func0001ae44(struct model *model)
 {
-	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
+	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
 		union modelrwdata *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
-		return rwdata->root.unk14;
+		return rwdata->chrinfo.unk14;
 	}
 
 	return 0;
@@ -564,8 +564,8 @@ f32 func0001ae44(struct model *model)
 
 void func0001ae90(struct model *model, f32 angle)
 {
-	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_ROOT) {
-		struct modelrwdata_root *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
+	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
+		struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
 		f32 diff = angle - rwdata->unk14;
 
 		if (diff < 0) {
@@ -1090,7 +1090,7 @@ void func0001b3bc(struct model *model)
 {
 	struct modelnode *node = model->filedata->rootnode;
 
-	if (node && (node->type & 0xff) == MODELNODETYPE_ROOT) {
+	if (node && (node->type & 0xff) == MODELNODETYPE_CHRINFO) {
 		func0001b0e8(model, node);
 	}
 }
@@ -3136,22 +3136,22 @@ void func0001c664(struct model *model, struct modelnode *node)
 		}
 	}
 
-	if (distance > rodata->nearfar.near * model->scale || rodata->nearfar.near == 0) {
-		if (distance <= rodata->nearfar.far * model->scale) {
-			rwdata->nearfar.visible = true;
-			node->child = rodata->nearfar.target;
+	if (distance > rodata->distance.near * model->scale || rodata->distance.near == 0) {
+		if (distance <= rodata->distance.far * model->scale) {
+			rwdata->distance.visible = true;
+			node->child = rodata->distance.target;
 			return;
 		}
 	}
 
-	rwdata->nearfar.visible = false;
+	rwdata->distance.visible = false;
 	node->child = NULL;
 }
 
 void func0001c784(struct model *model, struct modelnode *node)
 {
-	struct modelrodata_nearfar *rodata = &node->rodata->nearfar;
-	struct modelrwdata_nearfar *rwdata = modelGetNodeRwData(model, node);
+	struct modelrodata_distance *rodata = &node->rodata->distance;
+	struct modelrwdata_distance *rwdata = modelGetNodeRwData(model, node);
 
 	if (rwdata->visible) {
 		node->child = rodata->target;
@@ -3162,10 +3162,10 @@ void func0001c784(struct model *model, struct modelnode *node)
 
 void func0001c7d0(struct model *model, struct modelnode *node)
 {
-	struct modelrodata_partid *rodata = &node->rodata->partid;
-	struct modelrwdata_partid *rwdata = modelGetNodeRwData(model, node);
+	struct modelrodata_toggle *rodata = &node->rodata->toggle;
+	struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);
 
-	if (rwdata->visible.u32) {
+	if (rwdata->visible) {
 		node->child = rodata->target;
 	} else {
 		node->child = NULL;
@@ -3201,11 +3201,11 @@ void func0001c868(struct modelnode *basenode, bool visible)
 	struct modelnode *loopnode;
 
 	if (visible) {
-		node1 = rodata->hat.unk18;
-		node2 = rodata->hat.unk1c;
+		node1 = rodata->reorder.unk18;
+		node2 = rodata->reorder.unk1c;
 	} else {
-		node1 = rodata->hat.unk1c;
-		node2 = rodata->hat.unk18;
+		node1 = rodata->reorder.unk1c;
+		node2 = rodata->reorder.unk18;
 	}
 
 	if (node1) {
@@ -3247,11 +3247,11 @@ void func0001c868(struct modelnode *basenode, bool visible)
 	}
 }
 
-void func0001c924(struct model *model, struct modelnode *node)
+void modelRenderNodeReorder(struct model *model, struct modelnode *node)
 {
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
-	func0001c868(node, rwdata->hat.visible);
+	func0001c868(node, rwdata->reorder.visible);
 }
 
 void func0001c950(struct model *model, struct modelnode *node)
@@ -3263,40 +3263,40 @@ void func0001c950(struct model *model, struct modelnode *node)
 	struct coord sp2c;
 	f32 tmp;
 
-	if (rodata->hat.unk20 == 0) {
-		sp38.x = rodata->hat.unk0c[0];
-		sp38.y = rodata->hat.unk0c[1];
-		sp38.z = rodata->hat.unk0c[2];
+	if (rodata->reorder.unk20 == 0) {
+		sp38.x = rodata->reorder.unk0c[0];
+		sp38.y = rodata->reorder.unk0c[1];
+		sp38.z = rodata->reorder.unk0c[2];
 		func00015b10(mtx, &sp38);
-	} else if (rodata->hat.unk20 == 2) {
-		sp38.x = mtx->m[1][0] * rodata->hat.unk0c[1];
-		sp38.y = mtx->m[1][1] * rodata->hat.unk0c[1];
-		sp38.z = mtx->m[1][2] * rodata->hat.unk0c[1];
-	} else if (rodata->hat.unk20 == 3) {
-		sp38.x = mtx->m[2][0] * rodata->hat.unk0c[2];
-		sp38.y = mtx->m[2][1] * rodata->hat.unk0c[2];
-		sp38.z = mtx->m[2][2] * rodata->hat.unk0c[2];
-	} else if (rodata->hat.unk20 == 1) {
-		sp38.x = mtx->m[0][0] * rodata->hat.unk0c[0];
-		sp38.y = mtx->m[0][1] * rodata->hat.unk0c[0];
-		sp38.z = mtx->m[0][2] * rodata->hat.unk0c[0];
+	} else if (rodata->reorder.unk20 == 2) {
+		sp38.x = mtx->m[1][0] * rodata->reorder.unk0c[1];
+		sp38.y = mtx->m[1][1] * rodata->reorder.unk0c[1];
+		sp38.z = mtx->m[1][2] * rodata->reorder.unk0c[1];
+	} else if (rodata->reorder.unk20 == 3) {
+		sp38.x = mtx->m[2][0] * rodata->reorder.unk0c[2];
+		sp38.y = mtx->m[2][1] * rodata->reorder.unk0c[2];
+		sp38.z = mtx->m[2][2] * rodata->reorder.unk0c[2];
+	} else if (rodata->reorder.unk20 == 1) {
+		sp38.x = mtx->m[0][0] * rodata->reorder.unk0c[0];
+		sp38.y = mtx->m[0][1] * rodata->reorder.unk0c[0];
+		sp38.z = mtx->m[0][2] * rodata->reorder.unk0c[0];
 	}
 
-	sp2c.x = rodata->hat.unk00;
-	sp2c.y = rodata->hat.unk04;
-	sp2c.z = rodata->hat.unk08;
+	sp2c.x = rodata->reorder.unk00;
+	sp2c.y = rodata->reorder.unk04;
+	sp2c.z = rodata->reorder.unk08;
 
 	func00015b64(mtx, &sp2c);
 
 	tmp = sp38.f[0] * sp2c.f[0] + sp38.f[1] * sp2c.f[1] + sp38.f[2] * sp2c.f[2];
 
 	if (tmp < 0) {
-		rwdata->hat.visible = true;
+		rwdata->reorder.visible = true;
 	} else {
-		rwdata->hat.visible = false;
+		rwdata->reorder.visible = false;
 	}
 
-	func0001c924(model, node);
+	modelRenderNodeReorder(model, node);
 }
 
 void func0001cb0c(struct model *model, struct modelnode *parent)
@@ -3310,7 +3310,7 @@ void func0001cb0c(struct model *model, struct modelnode *parent)
 		bool dochildren = true;
 
 		switch (type) {
-		case MODELNODETYPE_ROOT:
+		case MODELNODETYPE_CHRINFO:
 		case MODELNODETYPE_POSITION:
 		case MODELNODETYPE_0B:
 		case MODELNODETYPE_GUNFIRE:
@@ -3320,16 +3320,16 @@ void func0001cb0c(struct model *model, struct modelnode *parent)
 		case MODELNODETYPE_POSITIONHELD:
 			dochildren = false;
 			break;
-		case MODELNODETYPE_NEARFAR:
+		case MODELNODETYPE_DISTANCE:
 			func0001c664(model, node);
 			break;
-		case MODELNODETYPE_HAT:
+		case MODELNODETYPE_REORDER:
 			func0001c950(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
 			modelAttachHead(model, node);
 			break;
-		case MODELNODETYPE_DISPLAYLIST:
+		case MODELNODETYPE_DL:
 			break;
 		}
 
@@ -4131,8 +4131,8 @@ void modelCopyAnimForMerge(struct model *model, f32 arg1)
 			anim->elapsespeed2 = anim->elapsespeed;
 			anim->endframe2 = anim->endframe;
 
-			if (nodetype == MODELNODETYPE_ROOT) {
-				struct modelrwdata_root *rwdata = modelGetNodeRwData(model, node);
+			if (nodetype == MODELNODETYPE_CHRINFO) {
+				struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
 				rwdata->unk02 = 1;
 				rwdata->unk4c.x = rwdata->unk34.x;
 				rwdata->unk4c.y = rwdata->unk34.y;
@@ -7781,7 +7781,7 @@ glabel func00020c90
 );
 
 GLOBAL_ASM(
-glabel func00020d1c
+glabel modelRenderNodeGundl
 /*    20d1c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    20d20:	3c028006 */ 	lui	$v0,%hi(var8005efc4)
 /*    20d24:	8c42efc4 */ 	lw	$v0,%lo(var8005efc4)($v0)
@@ -7928,7 +7928,7 @@ glabel func00020d1c
 );
 
 GLOBAL_ASM(
-glabel func00020f30
+glabel modelRenderNodeDl
 /*    20f30:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*    20f34:	3c028006 */ 	lui	$v0,%hi(var8005efc4)
 /*    20f38:	8c42efc4 */ 	lw	$v0,%lo(var8005efc4)($v0)
@@ -8141,7 +8141,7 @@ glabel func00020f30
 );
 
 GLOBAL_ASM(
-glabel func0002124c
+glabel modelRenderNodeType16
 /*    2124c:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    21250:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*    21254:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -8459,7 +8459,7 @@ glabel func000216cc
 );
 
 GLOBAL_ASM(
-glabel func0002170c
+glabel modelRenderNodeGunfire
 .late_rodata
 glabel var70054454
 .word 0x40c907a9
@@ -8992,17 +8992,17 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 		type = node->type & 0xff;
 
 		switch (type) {
-		case MODELNODETYPE_NEARFAR:
-		case MODELNODETYPE_PARTID:
+		case MODELNODETYPE_DISTANCE:
+		case MODELNODETYPE_TOGGLE:
 			rodata = node->rodata;
 			rwdata = modelGetNodeRwData(model, node);
 
 			switch (type) {
-			case MODELNODETYPE_NEARFAR:
-				node->child = rwdata->nearfar.visible ? rodata->nearfar.target : NULL;
+			case MODELNODETYPE_DISTANCE:
+				node->child = rwdata->distance.visible ? rodata->distance.target : NULL;
 				break;
-			case MODELNODETYPE_PARTID:
-				node->child = rwdata->partid.visible.u32 ? rodata->partid.target : NULL;
+			case MODELNODETYPE_TOGGLE:
+				node->child = rwdata->toggle.visible ? rodata->toggle.target : NULL;
 				break;
 			}
 			break;
@@ -9019,22 +9019,22 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 				}
 			}
 			break;
-		case MODELNODETYPE_HAT:
-			func0001c924(model, node);
+		case MODELNODETYPE_REORDER:
+			modelRenderNodeReorder(model, node);
 			break;
 		case MODELNODETYPE_GUNFIRE:
-			func0002170c(renderdata, model, node);
+			modelRenderNodeGunfire(renderdata, model, node);
 			break;
-		case MODELNODETYPE_04:
-			func00020d1c(renderdata, model, node);
+		case MODELNODETYPE_GUNDL:
+			modelRenderNodeGundl(renderdata, model, node);
 			break;
-		case MODELNODETYPE_DISPLAYLIST:
-			func00020f30(renderdata, model, node);
+		case MODELNODETYPE_DL:
+			modelRenderNodeDl(renderdata, model, node);
 			break;
 		case MODELNODETYPE_16:
-			func0002124c(renderdata, node);
+			modelRenderNodeType16(renderdata, node);
 			break;
-		case MODELNODETYPE_ROOT:
+		case MODELNODETYPE_CHRINFO:
 		default:
 			break;
 		}
@@ -9881,22 +9881,22 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 		u32 type = node->type & 0xff;
 
 		switch (type) {
-		case MODELNODETYPE_ROOT:
+		case MODELNODETYPE_CHRINFO:
 			rodata = node->rodata;
-			rodata->root.rwdataindex = len;
-			len += sizeof(struct modelrwdata_root) / 4;
+			rodata->chrinfo.rwdataindex = len;
+			len += sizeof(struct modelrwdata_chrinfo) / 4;
 			break;
-		case MODELNODETYPE_NEARFAR:
+		case MODELNODETYPE_DISTANCE:
 			rodata = node->rodata;
-			rodata->nearfar.rwdataindex = len;
-			len += sizeof(struct modelrwdata_nearfar) / 4;
-			node->child = rodata->nearfar.target;
+			rodata->distance.rwdataindex = len;
+			len += sizeof(struct modelrwdata_distance) / 4;
+			node->child = rodata->distance.target;
 			break;
-		case MODELNODETYPE_PARTID:
+		case MODELNODETYPE_TOGGLE:
 			rodata = node->rodata;
-			rodata->partid.rwdataindex = len;
-			len += sizeof(struct modelrwdata_partid) / 4;
-			node->child = rodata->partid.target;
+			rodata->toggle.rwdataindex = len;
+			len += sizeof(struct modelrwdata_toggle) / 4;
+			node->child = rodata->toggle.target;
 			break;
 		case MODELNODETYPE_HEADSPOT:
 			rodata = node->rodata;
@@ -9904,10 +9904,10 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 			len += sizeof(struct modelrwdata_headspot) / 4;
 			node->child = NULL;
 			break;
-		case MODELNODETYPE_HAT:
+		case MODELNODETYPE_REORDER:
 			rodata = node->rodata;
-			rodata->hat.rwdataindex = len;
-			len += sizeof(struct modelrwdata_hat) / 4;
+			rodata->reorder.rwdataindex = len;
+			len += sizeof(struct modelrwdata_reorder) / 4;
 			func0001c868(node, false);
 			break;
 		case MODELNODETYPE_0B:
@@ -9920,10 +9920,10 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 			rodata->gunfire.rwdataindex = len;
 			len += sizeof(struct modelrwdata_gunfire) / 4;
 			break;
-		case MODELNODETYPE_DISPLAYLIST:
+		case MODELNODETYPE_DL:
 			rodata = node->rodata;
-			rodata->displaylist.rwdataindex = len;
-			len += sizeof(struct modelrwdata_displaylist) / 4;
+			rodata->dl.rwdataindex = len;
+			len += sizeof(struct modelrwdata_dl) / 4;
 			break;
 		default:
 			break;
@@ -10092,7 +10092,7 @@ glabel var70054634
 /*    22e90:	02002825 */ 	or	$a1,$s0,$zero
 /*    22e94:	ac400000 */ 	sw	$zero,0x0($v0)
 /*    22e98:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e9c:	0c007249 */ 	jal	func0001c924
+/*    22e9c:	0c007249 */ 	jal	modelRenderNodeReorder
 /*    22ea0:	02002825 */ 	or	$a1,$s0,$zero
 /*    22ea4:	10000022 */ 	b	.L00022f30
 /*    22ea8:	8e030014 */ 	lw	$v1,0x14($s0)

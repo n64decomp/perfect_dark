@@ -55,21 +55,21 @@ void func0f129210(union modelrwdata *find, union modelrwdata *replacement)
 			struct model *model = obj->model;
 			struct modelfiledata *filedata = model->filedata;
 			struct modelnode *node = filedata->rootnode;
-			struct modelrodata_displaylist *rodata;
+			struct modelrodata_dl *rodata;
 
 			while (node) {
 				switch (node->type & 0xff) {
-				case MODELNODETYPE_DISPLAYLIST:
-					rodata = &node->rodata->displaylist;
+				case MODELNODETYPE_DL:
+					rodata = &node->rodata->dl;
 
 					if (model->rwdatas[rodata->rwdataindex] == find) {
 						model->rwdatas[rodata->rwdataindex] = replacement;
 					}
 					break;
-				case MODELNODETYPE_NEARFAR:
+				case MODELNODETYPE_DISTANCE:
 					func0001c784(obj->model, node);
 					break;
-				case MODELNODETYPE_PARTID:
+				case MODELNODETYPE_TOGGLE:
 					func0001c7d0(obj->model, node);
 					break;
 				case MODELNODETYPE_HEADSPOT:

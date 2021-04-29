@@ -4543,9 +4543,9 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 
 	nodetype = chr->model->filedata->rootnode->type;
 
-	if ((nodetype & 0xff) == MODELNODETYPE_ROOT) {
+	if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
 		union modelrwdata *rwdata = modelGetNodeRwData(chr->model, chr->model->filedata->rootnode);
-		rwdata->root.ground = ground;
+		rwdata->chrinfo.ground = ground;
 	}
 
 	chr->prevpos.x = prop->pos.x;
@@ -11248,7 +11248,7 @@ void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 
 				if (node2) {
 					union modelrwdata *rwdata2 = modelGetNodeRwData(chr->model, node2);
-					rwdata2->partid.visible.u32 = visible;
+					rwdata2->toggle.visible = visible;
 				}
 			}
 		}
@@ -12229,8 +12229,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 				union modelrwdata *data1 = modelGetNodeRwData(model, node1);
 				union modelrwdata *data2 = modelGetNodeRwData(model, node2);
 
-				data2->partid.visible.u32 = chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD;
-				data1->partid.visible.u32 = !data2->partid.visible.u32;
+				data2->toggle.visible = chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD;
+				data1->toggle.visible = !data2->toggle.visible;
 			}
 		}
 
@@ -12253,8 +12253,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 							union modelrwdata *data1 = modelGetNodeRwData(model, node1);
 							union modelrwdata *data2 = modelGetNodeRwData(model, node2);
 
-							data2->partid.visible.u32 = chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD;
-							data1->partid.visible.u32 = !data2->partid.visible.u32;
+							data2->toggle.visible = chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD;
+							data1->toggle.visible = !data2->toggle.visible;
 						}
 					}
 				}
@@ -22346,9 +22346,9 @@ void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imagerigh
 					rwdata = modelGetNodeRwData(model, nodes[j]);
 
 					if (j == 0) {
-						rwdata->partid.visible.u32 = (imageleft == i) ? true : false;
+						rwdata->toggle.visible = (imageleft == i) ? true : false;
 					} else {
-						rwdata->partid.visible.u32 = (imageright == i) ? true : false;
+						rwdata->toggle.visible = (imageright == i) ? true : false;
 					}
 				}
 			}

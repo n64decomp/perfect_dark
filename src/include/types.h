@@ -514,7 +514,7 @@ struct modeltype {
 	u16 *things;
 };
 
-struct modelrodata_root { // type 0x01
+struct modelrodata_chrinfo { // type 0x01
 	u32 modeltype;
 	f32 unk04;
 	u16 rwdataindex;
@@ -527,14 +527,14 @@ struct modelrodata_position { // type 0x02
 	f32 drawdist;
 };
 
-struct modelrodata_nearfar { // type 0x08
+struct modelrodata_distance { // type 0x08
 	f32 near;
 	f32 far;
 	struct modelnode *target;
 	u16 rwdataindex;
 };
 
-struct modelrodata_hat { // type 0x09
+struct modelrodata_reorder { // type 0x09
 	f32 unk00;
 	f32 unk04;
 	f32 unk08;
@@ -584,7 +584,7 @@ struct modelrodata_gunfire { // type 0x0c
 	u16 rwdataindex;
 };
 
-struct modelrodata_partid { // type 0x12
+struct modelrodata_toggle { // type 0x12
 	struct modelnode *target;
 	u16 rwdataindex;
 };
@@ -602,7 +602,7 @@ struct modelrodata_headspot { // type 0x17
 	u16 rwdataindex;
 };
 
-struct modelrodata_displaylist { // type 0x18
+struct modelrodata_dl { // type 0x18
 	/*0x00*/ u32 primary;
 	/*0x04*/ u32 secondary;
 	/*0x08*/ u32 *colourtable;
@@ -614,18 +614,18 @@ struct modelrodata_displaylist { // type 0x18
 };
 
 union modelrodata {
-	struct modelrodata_root root;
+	struct modelrodata_chrinfo chrinfo;
 	struct modelrodata_position position;
-	struct modelrodata_nearfar nearfar;
-	struct modelrodata_hat hat;
+	struct modelrodata_distance distance;
+	struct modelrodata_reorder reorder;
 	struct modelrodata_bbox bbox;
 	struct modelrodata_type0b type0b;
 	struct modelrodata_gunfire gunfire;
-	struct modelrodata_partid partid;
+	struct modelrodata_toggle toggle;
 	struct modelrodata_positionheld positionheld;
 	struct modelrodata_type16 type16;
 	struct modelrodata_headspot headspot;
-	struct modelrodata_displaylist displaylist;
+	struct modelrodata_dl dl;
 };
 
 struct modelnode {
@@ -659,14 +659,14 @@ struct model {
 	/*0x04*/ struct chrdata *chr;
 	/*0x08*/ struct modelfiledata *filedata;
 	/*0x0c*/ Mtxf *matrices;
-	/*0x10*/ union modelrwdata **rwdatas; // array of pointers to modelrwdata structs
+	/*0x10*/ union modelrwdata **rwdatas;
 	/*0x14*/ f32 scale;
 	/*0x18*/ struct model *attachedto;
 	/*0x1c*/ struct modelnode *unk1c;
 	/*0x20*/ struct anim *anim;
 };
 
-struct modelrwdata_root { // type 0x01
+struct modelrwdata_chrinfo { // type 0x01
 	u16 unk00;
 	u8 unk02;
 	f32 ground;
@@ -688,11 +688,11 @@ struct modelrwdata_05 { // type 0x05
 	bool unk00;
 };
 
-struct modelrwdata_nearfar { // type 0x08
+struct modelrwdata_distance { // type 0x08
 	bool visible;
 };
 
-struct modelrwdata_hat { // type 0x09
+struct modelrwdata_reorder { // type 0x09
 	bool visible;
 };
 
@@ -701,14 +701,12 @@ struct modelrwdata_0b { // type 0x0b
 };
 
 struct modelrwdata_gunfire { // type 0x0c
-	u32 unk00;
+	u16 visible;
+	u16 unk02;
 };
 
-struct modelrwdata_partid { // type 0x12
-	union {
-		u16 u16;
-		bool u32;
-	} visible;
+struct modelrwdata_toggle { // type 0x12
+	bool visible;
 };
 
 struct modelrwdata_headspot { // type 0x17
@@ -716,22 +714,22 @@ struct modelrwdata_headspot { // type 0x17
 	void *rwdatas;
 };
 
-struct modelrwdata_displaylist { // type 0x18
+struct modelrwdata_dl { // type 0x18
 	u32 unk00;
 	u32 unk04;
 	u32 unk08;
 };
 
 union modelrwdata {
-	struct modelrwdata_root root;
+	struct modelrwdata_chrinfo chrinfo;
 	struct modelrwdata_05 type05;
-	struct modelrwdata_nearfar nearfar;
-	struct modelrwdata_hat hat;
+	struct modelrwdata_distance distance;
+	struct modelrwdata_reorder reorder;
 	struct modelrwdata_0b type0b;
 	struct modelrwdata_gunfire gunfire;
-	struct modelrwdata_partid partid;
+	struct modelrwdata_toggle toggle;
 	struct modelrwdata_headspot headspot;
-	struct modelrwdata_displaylist displaylist;
+	struct modelrwdata_dl dl;
 };
 
 struct waygroup {

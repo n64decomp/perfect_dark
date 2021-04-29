@@ -430,7 +430,7 @@ void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 			node = modelGetPart(g_Vars.currentplayer->gunctrl.unk1594, partnum);
 
 			if (node) {
-				struct modelrodata_partid *rodata = &node->rodata->partid;
+				struct modelrodata_toggle *rodata = &node->rodata->toggle;
 				u32 *ptr = &hand->handsavedata[rodata->rwdataindex];
 				*ptr = arg1;
 			}
@@ -439,7 +439,7 @@ void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 		node = modelGetPart(arg3, partnum);
 
 		if (node) {
-			struct modelrodata_partid *rodata = &node->rodata->partid;
+			struct modelrodata_toggle *rodata = &node->rodata->toggle;
 			u32 *ptr = &hand->unk0a6c[rodata->rwdataindex];
 			*ptr = arg1;
 		}

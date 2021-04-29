@@ -1760,23 +1760,23 @@
 #define MODEL_CETANDOORSIDE         0x01b7
 #define MODEL_BUDDYBRIDGE           0x01b8
 
-#define MODELNODETYPE_ROOT         0x01
+#define MODELNODETYPE_CHRINFO      0x01
 #define MODELNODETYPE_POSITION     0x02
-#define MODELNODETYPE_04           0x04
+#define MODELNODETYPE_GUNDL        0x04
 #define MODELNODETYPE_05           0x05
-#define MODELNODETYPE_NEARFAR      0x08
-#define MODELNODETYPE_HAT          0x09
+#define MODELNODETYPE_DISTANCE     0x08
+#define MODELNODETYPE_REORDER      0x09
 #define MODELNODETYPE_BBOX         0x0a
 #define MODELNODETYPE_0B           0x0b
 #define MODELNODETYPE_GUNFIRE      0x0c
 #define MODELNODETYPE_0D           0x0d
 #define MODELNODETYPE_0E           0x0e
 #define MODELNODETYPE_0F           0x0f
-#define MODELNODETYPE_PARTID       0x12
+#define MODELNODETYPE_TOGGLE       0x12
 #define MODELNODETYPE_POSITIONHELD 0x15
 #define MODELNODETYPE_16           0x16
 #define MODELNODETYPE_HEADSPOT     0x17
-#define MODELNODETYPE_DISPLAYLIST  0x18
+#define MODELNODETYPE_DL           0x18
 
 #define MODELPART_00                0x00
 #define MODELPART_LENS              0x00
