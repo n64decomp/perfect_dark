@@ -605,29 +605,12 @@ f32 func0001af80(struct model *model)
 	return model->filedata->unk10 * model->scale;
 }
 
-GLOBAL_ASM(
-glabel func0001af98
-/*    1af98:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*    1af9c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*    1afa0:	44866000 */ 	mtc1	$a2,$f12
-/*    1afa4:	c4820004 */ 	lwc1	$f2,0x4($a0)
-/*    1afa8:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*    1afac:	c48e0008 */ 	lwc1	$f14,0x8($a0)
-/*    1afb0:	460c3202 */ 	mul.s	$f8,$f6,$f12
-/*    1afb4:	46080280 */ 	add.s	$f10,$f0,$f8
-/*    1afb8:	e48a0000 */ 	swc1	$f10,0x0($a0)
-/*    1afbc:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*    1afc0:	46028481 */ 	sub.s	$f18,$f16,$f2
-/*    1afc4:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*    1afc8:	46041180 */ 	add.s	$f6,$f2,$f4
-/*    1afcc:	e4860004 */ 	swc1	$f6,0x4($a0)
-/*    1afd0:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*    1afd4:	460e4281 */ 	sub.s	$f10,$f8,$f14
-/*    1afd8:	460c5402 */ 	mul.s	$f16,$f10,$f12
-/*    1afdc:	46107480 */ 	add.s	$f18,$f14,$f16
-/*    1afe0:	03e00008 */ 	jr	$ra
-/*    1afe4:	e4920008 */ 	swc1	$f18,0x8($a0)
-);
+void func0001af98(struct coord *arg0, struct coord *arg1, f32 frac)
+{
+	arg0->x += (arg1->x - arg0->x) * frac;
+	arg0->y += (arg1->y - arg0->y) * frac;
+	arg0->z += (arg1->z - arg0->z) * frac;
+}
 
 f32 func0001afe8(f32 arg0, f32 angle, f32 mult)
 {
