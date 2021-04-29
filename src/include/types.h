@@ -532,8 +532,8 @@ struct modelrodata_position { // type 0x02
 struct modelrodata_gundl { // type 0x04
 	Gfx *unk00;
 	Gfx *unk04;
-	void *unk08;
-	u32 unk0c;
+	void *baseaddr;
+	void *unk0c;
 	u16 unk10;
 	s16 unk12;
 };
@@ -582,17 +582,39 @@ struct modelrodata_type0b { // type 0x0b
 	u32 unk30;
 	u32 unk34;
 	u32 unk38;
-	u32 unk3c;
+	void *unk3c;
 	u32 unk40;
 	u16 rwdataindex;
+	void *baseaddr;
 };
 
 struct modelrodata_gunfire { // type 0x0c
 	struct coord pos;
 	struct coord dim;
-	u32 texture;
+	void *texture;
 	f32 unk1c;
 	u16 rwdataindex;
+	void *baseaddr;
+};
+
+struct modelrodata_type0d { // type 0x0d
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	void *unk10;
+	void *unk14;
+	u32 unk18;
+	void *baseaddr;
+};
+
+struct modelrodata_type11 { // type 0x11
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	void *unk14;
 };
 
 struct modelrodata_toggle { // type 0x12
@@ -606,7 +628,10 @@ struct modelrodata_positionheld { // type 0x15
 };
 
 struct modelrodata_type16 { // type 0x16
-	struct coord pos;
+	u32 unk00;
+	void *unk04;
+	u32 unk08;
+	void *baseaddr;
 };
 
 struct modelrodata_headspot { // type 0x17
@@ -633,6 +658,8 @@ union modelrodata {
 	struct modelrodata_bbox bbox;
 	struct modelrodata_type0b type0b;
 	struct modelrodata_gunfire gunfire;
+	struct modelrodata_type0d type0d;
+	struct modelrodata_type11 type11;
 	struct modelrodata_toggle toggle;
 	struct modelrodata_positionheld positionheld;
 	struct modelrodata_type16 type16;

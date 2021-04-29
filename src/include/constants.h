@@ -1776,6 +1776,7 @@
 #define MODELNODETYPE_0D           0x0d
 #define MODELNODETYPE_0E           0x0e
 #define MODELNODETYPE_0F           0x0f
+#define MODELNODETYPE_11           0x11
 #define MODELNODETYPE_TOGGLE       0x12
 #define MODELNODETYPE_POSITIONHELD 0x15
 #define MODELNODETYPE_16           0x16

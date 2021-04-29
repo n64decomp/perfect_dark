@@ -7359,7 +7359,7 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 	}
 
 	if ((renderdata->flags & 1) && rodata->unk00) {
-		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->unk08));
+		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
 			modelApplyCullMode(renderdata);
@@ -7389,11 +7389,8 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 		}
 	}
 
-	if ((renderdata->flags & 2)
-			&& rodata->unk00
-			&& rodata->unk12 == 4
-			&& rodata->unk04) {
-		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->unk08));
+	if ((renderdata->flags & 2) && rodata->unk00 && rodata->unk12 == 4 && rodata->unk04) {
+		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
 			modelApplyCullMode(renderdata);
@@ -8803,244 +8800,96 @@ s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, st
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel modelPromoteNodeOffsetsToPointers
-.late_rodata
-glabel var70054518
-.word modelPromoteNodeOffsetsToPointers+0x09c
-glabel var7005451c
-.word modelPromoteNodeOffsetsToPointers+0x0a4
-glabel var70054520
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054524
-.word modelPromoteNodeOffsetsToPointers+0x0ac
-glabel var70054528
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var7005452c
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054530
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054534
-.word modelPromoteNodeOffsetsToPointers+0x0f4
-glabel var70054538
-.word modelPromoteNodeOffsetsToPointers+0x13c
-glabel var7005453c
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054540
-.word modelPromoteNodeOffsetsToPointers+0x190
-glabel var70054544
-.word modelPromoteNodeOffsetsToPointers+0x1b4
-glabel var70054548
-.word modelPromoteNodeOffsetsToPointers+0x1d8
-glabel var7005454c
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054550
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054554
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054558
-.word modelPromoteNodeOffsetsToPointers+0x170
-glabel var7005455c
-.word modelPromoteNodeOffsetsToPointers+0x11c
-glabel var70054560
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054564
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054568
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var7005456c
-.word modelPromoteNodeOffsetsToPointers+0x210
-glabel var70054570
-.word modelPromoteNodeOffsetsToPointers+0x234
-glabel var70054574
-.word modelPromoteNodeOffsetsToPointers+0x0d0
-.text
-/*    227a4:	1080009d */ 	beqz	$a0,.L00022a1c
-/*    227a8:	00000000 */ 	nop
-/*    227ac:	94820000 */ 	lhu	$v0,0x0($a0)
-.L000227b0:
-/*    227b0:	8c830004 */ 	lw	$v1,0x4($a0)
-/*    227b4:	00c57823 */ 	subu	$t7,$a2,$a1
-/*    227b8:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    227bc:	10600003 */ 	beqz	$v1,.L000227cc
-/*    227c0:	01c01025 */ 	or	$v0,$t6,$zero
-/*    227c4:	006fc021 */ 	addu	$t8,$v1,$t7
-/*    227c8:	ac980004 */ 	sw	$t8,0x4($a0)
-.L000227cc:
-/*    227cc:	8c830008 */ 	lw	$v1,0x8($a0)
-/*    227d0:	244fffff */ 	addiu	$t7,$v0,-1
-/*    227d4:	00c5c823 */ 	subu	$t9,$a2,$a1
-/*    227d8:	10600003 */ 	beqz	$v1,.L000227e8
-/*    227dc:	2de10018 */ 	sltiu	$at,$t7,0x18
-/*    227e0:	00794021 */ 	addu	$t0,$v1,$t9
-/*    227e4:	ac880008 */ 	sw	$t0,0x8($a0)
-.L000227e8:
-/*    227e8:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    227ec:	00c54823 */ 	subu	$t1,$a2,$a1
-/*    227f0:	00c55823 */ 	subu	$t3,$a2,$a1
-/*    227f4:	10600002 */ 	beqz	$v1,.L00022800
-/*    227f8:	00695021 */ 	addu	$t2,$v1,$t1
-/*    227fc:	ac8a000c */ 	sw	$t2,0xc($a0)
-.L00022800:
-/*    22800:	8c830010 */ 	lw	$v1,0x10($a0)
-/*    22804:	00c56823 */ 	subu	$t5,$a2,$a1
-/*    22808:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    2280c:	10600002 */ 	beqz	$v1,.L00022818
-/*    22810:	006b6021 */ 	addu	$t4,$v1,$t3
-/*    22814:	ac8c0010 */ 	sw	$t4,0x10($a0)
-.L00022818:
-/*    22818:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    2281c:	10600002 */ 	beqz	$v1,.L00022828
-/*    22820:	006d7021 */ 	addu	$t6,$v1,$t5
-/*    22824:	ac8e0014 */ 	sw	$t6,0x14($a0)
-.L00022828:
-/*    22828:	1020006b */ 	beqz	$at,.L000229d8
-/*    2282c:	3c017005 */ 	lui	$at,%hi(var70054518)
-/*    22830:	002f0821 */ 	addu	$at,$at,$t7
-/*    22834:	8c2f4518 */ 	lw	$t7,%lo(var70054518)($at)
-/*    22838:	01e00008 */ 	jr	$t7
-/*    2283c:	00000000 */ 	nop
-/*    22840:	10000066 */ 	b	.L000229dc
-/*    22844:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    22848:	10000064 */ 	b	.L000229dc
-/*    2284c:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    22850:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    22854:	00c5c023 */ 	subu	$t8,$a2,$a1
-/*    22858:	8c43000c */ 	lw	$v1,0xc($v0)
-/*    2285c:	10600002 */ 	beqz	$v1,.L00022868
-/*    22860:	0078c821 */ 	addu	$t9,$v1,$t8
-/*    22864:	ac59000c */ 	sw	$t9,0xc($v0)
-.L00022868:
-/*    22868:	ac460008 */ 	sw	$a2,0x8($v0)
-/*    2286c:	1000005b */ 	b	.L000229dc
-/*    22870:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    22874:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    22878:	00c54023 */ 	subu	$t0,$a2,$a1
-/*    2287c:	8c43000c */ 	lw	$v1,0xc($v0)
-/*    22880:	10600002 */ 	beqz	$v1,.L0002288c
-/*    22884:	00684821 */ 	addu	$t1,$v1,$t0
-/*    22888:	ac49000c */ 	sw	$t1,0xc($v0)
-.L0002288c:
-/*    2288c:	ac460008 */ 	sw	$a2,0x8($v0)
-/*    22890:	10000052 */ 	b	.L000229dc
-/*    22894:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    22898:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    2289c:	00c55023 */ 	subu	$t2,$a2,$a1
-/*    228a0:	8c470008 */ 	lw	$a3,0x8($v0)
-/*    228a4:	10e00003 */ 	beqz	$a3,.L000228b4
-/*    228a8:	00ea5821 */ 	addu	$t3,$a3,$t2
-/*    228ac:	ac4b0008 */ 	sw	$t3,0x8($v0)
-/*    228b0:	01603825 */ 	or	$a3,$t3,$zero
-.L000228b4:
-/*    228b4:	ac870014 */ 	sw	$a3,0x14($a0)
-/*    228b8:	10000048 */ 	b	.L000229dc
-/*    228bc:	00e01825 */ 	or	$v1,$a3,$zero
-/*    228c0:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    228c4:	00c56023 */ 	subu	$t4,$a2,$a1
-/*    228c8:	8c430000 */ 	lw	$v1,0x0($v0)
-/*    228cc:	10600002 */ 	beqz	$v1,.L000228d8
-/*    228d0:	006c6821 */ 	addu	$t5,$v1,$t4
-/*    228d4:	ac4d0000 */ 	sw	$t5,0x0($v0)
-.L000228d8:
-/*    228d8:	10000040 */ 	b	.L000229dc
-/*    228dc:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    228e0:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    228e4:	00c57023 */ 	subu	$t6,$a2,$a1
-/*    228e8:	00c5c023 */ 	subu	$t8,$a2,$a1
-/*    228ec:	8c430018 */ 	lw	$v1,0x18($v0)
-/*    228f0:	10600002 */ 	beqz	$v1,.L000228fc
-/*    228f4:	006e7821 */ 	addu	$t7,$v1,$t6
-/*    228f8:	ac4f0018 */ 	sw	$t7,0x18($v0)
-.L000228fc:
-/*    228fc:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*    22900:	10600002 */ 	beqz	$v1,.L0002290c
-/*    22904:	0078c821 */ 	addu	$t9,$v1,$t8
-/*    22908:	ac59001c */ 	sw	$t9,0x1c($v0)
-.L0002290c:
-/*    2290c:	10000033 */ 	b	.L000229dc
-/*    22910:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    22914:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    22918:	00c54023 */ 	subu	$t0,$a2,$a1
-/*    2291c:	8c430014 */ 	lw	$v1,0x14($v0)
-/*    22920:	10600002 */ 	beqz	$v1,.L0002292c
-/*    22924:	00684821 */ 	addu	$t1,$v1,$t0
-/*    22928:	ac490014 */ 	sw	$t1,0x14($v0)
-.L0002292c:
-/*    2292c:	1000002b */ 	b	.L000229dc
-/*    22930:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    22934:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    22938:	00c55023 */ 	subu	$t2,$a2,$a1
-/*    2293c:	8c43003c */ 	lw	$v1,0x3c($v0)
-/*    22940:	10600002 */ 	beqz	$v1,.L0002294c
-/*    22944:	006a5821 */ 	addu	$t3,$v1,$t2
-/*    22948:	ac4b003c */ 	sw	$t3,0x3c($v0)
-.L0002294c:
-/*    2294c:	ac460048 */ 	sw	$a2,0x48($v0)
-/*    22950:	10000022 */ 	b	.L000229dc
-/*    22954:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    22958:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    2295c:	00c56023 */ 	subu	$t4,$a2,$a1
-/*    22960:	8c430018 */ 	lw	$v1,0x18($v0)
-/*    22964:	10600002 */ 	beqz	$v1,.L00022970
-/*    22968:	006c6821 */ 	addu	$t5,$v1,$t4
-/*    2296c:	ac4d0018 */ 	sw	$t5,0x18($v0)
-.L00022970:
-/*    22970:	ac460024 */ 	sw	$a2,0x24($v0)
-/*    22974:	10000019 */ 	b	.L000229dc
-/*    22978:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    2297c:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    22980:	00c57023 */ 	subu	$t6,$a2,$a1
-/*    22984:	00c5c023 */ 	subu	$t8,$a2,$a1
-/*    22988:	8c430010 */ 	lw	$v1,0x10($v0)
-/*    2298c:	10600002 */ 	beqz	$v1,.L00022998
-/*    22990:	006e7821 */ 	addu	$t7,$v1,$t6
-/*    22994:	ac4f0010 */ 	sw	$t7,0x10($v0)
-.L00022998:
-/*    22998:	8c430014 */ 	lw	$v1,0x14($v0)
-/*    2299c:	10600002 */ 	beqz	$v1,.L000229a8
-/*    229a0:	0078c821 */ 	addu	$t9,$v1,$t8
-/*    229a4:	ac590014 */ 	sw	$t9,0x14($v0)
-.L000229a8:
-/*    229a8:	ac46001c */ 	sw	$a2,0x1c($v0)
-/*    229ac:	1000000b */ 	b	.L000229dc
-/*    229b0:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    229b4:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    229b8:	00c54023 */ 	subu	$t0,$a2,$a1
-/*    229bc:	8c430004 */ 	lw	$v1,0x4($v0)
-/*    229c0:	10600002 */ 	beqz	$v1,.L000229cc
-/*    229c4:	00684821 */ 	addu	$t1,$v1,$t0
-/*    229c8:	ac490004 */ 	sw	$t1,0x4($v0)
-.L000229cc:
-/*    229cc:	ac46000c */ 	sw	$a2,0xc($v0)
-/*    229d0:	10000002 */ 	b	.L000229dc
-/*    229d4:	8c830014 */ 	lw	$v1,0x14($a0)
-.L000229d8:
-/*    229d8:	8c830014 */ 	lw	$v1,0x14($a0)
-.L000229dc:
-/*    229dc:	10600003 */ 	beqz	$v1,.L000229ec
-/*    229e0:	00000000 */ 	nop
-/*    229e4:	1000000b */ 	b	.L00022a14
-/*    229e8:	00602025 */ 	or	$a0,$v1,$zero
-.L000229ec:
-/*    229ec:	10800009 */ 	beqz	$a0,.L00022a14
-/*    229f0:	00000000 */ 	nop
-/*    229f4:	8c83000c */ 	lw	$v1,0xc($a0)
-.L000229f8:
-/*    229f8:	50600004 */ 	beqzl	$v1,.L00022a0c
-/*    229fc:	8c840008 */ 	lw	$a0,0x8($a0)
-/*    22a00:	10000004 */ 	b	.L00022a14
-/*    22a04:	00602025 */ 	or	$a0,$v1,$zero
-/*    22a08:	8c840008 */ 	lw	$a0,0x8($a0)
-.L00022a0c:
-/*    22a0c:	5480fffa */ 	bnezl	$a0,.L000229f8
-/*    22a10:	8c83000c */ 	lw	$v1,0xc($a0)
-.L00022a14:
-/*    22a14:	5480ff66 */ 	bnezl	$a0,.L000227b0
-/*    22a18:	94820000 */ 	lhu	$v0,0x0($a0)
-.L00022a1c:
-/*    22a1c:	03e00008 */ 	jr	$ra
-/*    22a20:	00000000 */ 	nop
-);
+#define PROMOTE(var) \
+	if (var) \
+		var = (void *)((u32)var + diff)
+
+void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 fileramaddr)
+{
+	union modelrodata *rodata;
+	s32 diff = fileramaddr - vma;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		PROMOTE(node->rodata);
+		PROMOTE(node->parent);
+		PROMOTE(node->next);
+		PROMOTE(node->prev);
+		PROMOTE(node->child);
+
+		switch (type) {
+		case MODELNODETYPE_CHRINFO:
+			break;
+		case MODELNODETYPE_POSITION:
+			break;
+		case MODELNODETYPE_GUNDL:
+			rodata = node->rodata;
+			PROMOTE(rodata->gundl.unk0c);
+			rodata->gundl.baseaddr = (void *)fileramaddr;
+			break;
+		case MODELNODETYPE_DL:
+			rodata = node->rodata;
+			PROMOTE(rodata->dl.ptable);
+			rodata->dl.colourtable = (void *)fileramaddr;
+			break;
+		case MODELNODETYPE_DISTANCE:
+			rodata = node->rodata;
+			PROMOTE(rodata->distance.target);
+			node->child = rodata->distance.target;
+			break;
+		case MODELNODETYPE_TOGGLE:
+			rodata = node->rodata;
+			PROMOTE(rodata->toggle.target);
+			break;
+		case MODELNODETYPE_REORDER:
+			rodata = node->rodata;
+			PROMOTE(rodata->reorder.unk18);
+			PROMOTE(rodata->reorder.unk1c);
+			break;
+		case MODELNODETYPE_11:
+			rodata = node->rodata;
+			PROMOTE(rodata->type11.unk14);
+			break;
+		case MODELNODETYPE_0B:
+			rodata = node->rodata;
+			PROMOTE(rodata->type0b.unk3c);
+			rodata->type0b.baseaddr = (void *)fileramaddr;
+			break;
+		case MODELNODETYPE_GUNFIRE:
+			rodata = node->rodata;
+			PROMOTE(rodata->gunfire.texture);
+			rodata->gunfire.baseaddr = (void *)fileramaddr;
+			break;
+		case MODELNODETYPE_0D:
+			rodata = node->rodata;
+			PROMOTE(rodata->type0d.unk10);
+			PROMOTE(rodata->type0d.unk14);
+			rodata->type0d.baseaddr = (void *)fileramaddr;
+			break;
+		case MODELNODETYPE_16:
+			rodata = node->rodata;
+			PROMOTE(rodata->type16.unk04);
+			rodata->type16.baseaddr = (void *)fileramaddr;
+			break;
+		default:
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+}
 
 /**
  * Convert a model file's file-relative offsets to global pointers,
@@ -9055,22 +8904,12 @@ void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 vma, u32 
 	s32 i;
 	s16 *partnums;
 
-	if ((u32)filedata->rootnode != 0) {
-		filedata->rootnode = (struct modelnode *)((u32)filedata->rootnode + diff);
-	}
-
-	if ((u32)filedata->parts != 0) {
-		filedata->parts = (struct modelnode **)((u32)filedata->parts + diff);
-	}
-
-	if ((u32)filedata->unk18 != 0) {
-		filedata->unk18 = (void *)((u32)filedata->unk18 + diff);
-	}
+	PROMOTE(filedata->rootnode);
+	PROMOTE(filedata->parts);
+	PROMOTE(filedata->unk18);
 
 	for (i = 0; i < filedata->numparts; i++) {
-		if (filedata->parts[i]) {
-			filedata->parts[i] = (struct modelnode *)((u32)filedata->parts[i] + diff);
-		}
+		PROMOTE(filedata->parts[i]);
 	}
 
 	modelPromoteNodeOffsetsToPointers(filedata->rootnode, vma, fileramaddr);

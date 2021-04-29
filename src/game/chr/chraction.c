@@ -14268,7 +14268,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 	struct modelnode *part1;
 	Mtxf *spac;
 	Mtxf sp6c;
-	struct modelrodata_type16 *rodata;
+	struct modelrodata_gunfire *rodata;
 	Mtxf *sp64;
 	Mtxf sp24;
 
@@ -14279,7 +14279,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 		if ((chr->prop->flags & PROPFLAG_02) && (weaponprop->flags & PROPFLAG_02)) {
 			if ((part0 = modelGetPart(model->filedata, MODELPART_00))) {
 				spac = func0001a5cc(model, part0, 0);
-				rodata = &part0->rodata->type16;
+				rodata = &part0->rodata->gunfire;
 
 				arg2->x = rodata->pos.x;
 				arg2->y = rodata->pos.y;
