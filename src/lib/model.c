@@ -7738,47 +7738,16 @@ glabel func00020bdc
 /*    20c8c:	ac790000 */ 	sw	$t9,0x0($v1)
 );
 
-GLOBAL_ASM(
-glabel func00020c90
-/*    20c90:	8c82003c */ 	lw	$v0,0x3c($a0)
-/*    20c94:	24010001 */ 	addiu	$at,$zero,0x1
-/*    20c98:	5441000a */ 	bnel	$v0,$at,.L00020cc4
-/*    20c9c:	24010002 */ 	addiu	$at,$zero,0x2
-/*    20ca0:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20ca4:	3c0fb600 */ 	lui	$t7,0xb600
-/*    20ca8:	24183000 */ 	addiu	$t8,$zero,0x3000
-/*    20cac:	246e0008 */ 	addiu	$t6,$v1,0x8
-/*    20cb0:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*    20cb4:	ac780004 */ 	sw	$t8,0x4($v1)
-/*    20cb8:	03e00008 */ 	jr	$ra
-/*    20cbc:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*    20cc0:	24010002 */ 	addiu	$at,$zero,0x2
-.L00020cc4:
-/*    20cc4:	5441000a */ 	bnel	$v0,$at,.L00020cf0
-/*    20cc8:	24010003 */ 	addiu	$at,$zero,0x3
-/*    20ccc:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20cd0:	3c08b700 */ 	lui	$t0,0xb700
-/*    20cd4:	24091000 */ 	addiu	$t1,$zero,0x1000
-/*    20cd8:	24790008 */ 	addiu	$t9,$v1,0x8
-/*    20cdc:	ac99000c */ 	sw	$t9,0xc($a0)
-/*    20ce0:	ac690004 */ 	sw	$t1,0x4($v1)
-/*    20ce4:	03e00008 */ 	jr	$ra
-/*    20ce8:	ac680000 */ 	sw	$t0,0x0($v1)
-/*    20cec:	24010003 */ 	addiu	$at,$zero,0x3
-.L00020cf0:
-/*    20cf0:	14410008 */ 	bne	$v0,$at,.L00020d14
-/*    20cf4:	00000000 */ 	nop
-/*    20cf8:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20cfc:	3c0bb700 */ 	lui	$t3,0xb700
-/*    20d00:	240c2000 */ 	addiu	$t4,$zero,0x2000
-/*    20d04:	246a0008 */ 	addiu	$t2,$v1,0x8
-/*    20d08:	ac8a000c */ 	sw	$t2,0xc($a0)
-/*    20d0c:	ac6c0004 */ 	sw	$t4,0x4($v1)
-/*    20d10:	ac6b0000 */ 	sw	$t3,0x0($v1)
-.L00020d14:
-/*    20d14:	03e00008 */ 	jr	$ra
-/*    20d18:	00000000 */ 	nop
-);
+void modelApplyCullMode(struct modelrenderdata *renderdata)
+{
+	if (renderdata->cullmode == CULLMODE_NONE) {
+		gSPClearGeometryMode(renderdata->gdl++, G_CULL_BOTH);
+	} else if (renderdata->cullmode == CULLMODE_FRONT) {
+		gSPSetGeometryMode(renderdata->gdl++, G_CULL_FRONT);
+	} else if (renderdata->cullmode == CULLMODE_BACK) {
+		gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
+	}
+}
 
 void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
@@ -7791,8 +7760,8 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 	if ((renderdata->flags & 1) && rodata->unk00) {
 		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->unk08));
 
-		if (renderdata->unk3c) {
-			func00020c90(renderdata);
+		if (renderdata->cullmode) {
+			modelApplyCullMode(renderdata);
 		}
 
 		switch (rodata->unk12) {
@@ -7825,8 +7794,8 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 			&& rodata->unk04) {
 		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->unk08));
 
-		if (renderdata->unk3c) {
-			func00020c90(renderdata);
+		if (renderdata->cullmode) {
+			modelApplyCullMode(renderdata);
 		}
 
 		func00020248(renderdata, false);
@@ -7880,7 +7849,7 @@ glabel modelRenderNodeDl
 /*    20fcc:	8e0c003c */ 	lw	$t4,0x3c($s0)
 /*    20fd0:	51800004 */ 	beqzl	$t4,.L00020fe4
 /*    20fd4:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    20fd8:	0c008324 */ 	jal	func00020c90
+/*    20fd8:	0c008324 */ 	jal	modelApplyCullMode
 /*    20fdc:	02002025 */ 	or	$a0,$s0,$zero
 /*    20fe0:	8fad004c */ 	lw	$t5,0x4c($sp)
 .L00020fe4:
@@ -8002,7 +7971,7 @@ glabel modelRenderNodeDl
 /*    21198:	8e0a003c */ 	lw	$t2,0x3c($s0)
 /*    2119c:	51400004 */ 	beqzl	$t2,.L000211b0
 /*    211a0:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    211a4:	0c008324 */ 	jal	func00020c90
+/*    211a4:	0c008324 */ 	jal	modelApplyCullMode
 /*    211a8:	02002025 */ 	or	$a0,$s0,$zero
 /*    211ac:	8e03000c */ 	lw	$v1,0xc($s0)
 .L000211b0:

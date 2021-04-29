@@ -651,6 +651,10 @@
 #define CROUCHPOS_DUCK  1
 #define CROUCHPOS_STAND 2
 
+#define CULLMODE_NONE  1
+#define CULLMODE_FRONT 2
+#define CULLMODE_BACK  3
+
 #define DAMAGETYPE_0 0
 #define DAMAGETYPE_1 1
 #define DAMAGETYPE_2 2

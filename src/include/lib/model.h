@@ -83,7 +83,7 @@ void func0001f7e0(struct modelrenderdata *renderdata);
 void func0001f890(struct modelrenderdata *renderdata, bool arg1);
 void func00020248(struct modelrenderdata *renderdata, bool arg1);
 void func00020bdc(struct modelrenderdata *renderdata);
-void func00020c90(struct modelrenderdata *renderdata);
+void modelApplyCullMode(struct modelrenderdata *renderdata);
 void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRenderNodeType16(struct modelrenderdata *renderdata, struct modelnode *node);

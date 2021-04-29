@@ -6041,7 +6041,7 @@ struct modelrenderdata {
 	/*0x30*/ u32 unk30;
 	/*0x34*/ u32 colour34;
 	/*0x38*/ u32 colour38;
-	/*0x3c*/ u32 unk3c;
+	/*0x3c*/ u32 cullmode;
 };
 
 struct rend_vidat {
