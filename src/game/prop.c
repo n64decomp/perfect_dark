@@ -2626,14 +2626,14 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 
 					if (func0002dc18(&playerprop->pos, playerprop->rooms, &prop->pos, someval)) {
 						if (isbreakableobj) {
-							struct model *spe4 = obj->model;
+							struct model *model = obj->model;
 							struct coord spd8;
 							struct coord spcc;
-							u32 spc8 = 0;
+							struct modelnode *node = NULL;
 
 							handCalculateShotSpread(&spd8, &spcc, handnum, true);
 
-							if (func000225d4(spe4, &spd8, &spcc, &spc8) > 0) {
+							if (func000225d4(model, &spd8, &spcc, &node) > 0) {
 								f32 damage = handGetDamage(hand) * 2.5f;
 								skipthething = true;
 								func0f0a8404(&playerprop->pos, playerprop->rooms, -1);

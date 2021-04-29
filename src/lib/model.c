@@ -9191,189 +9191,90 @@ glabel func000220fc
 /*    225d0:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
 
-GLOBAL_ASM(
-glabel func000225d4
-.late_rodata
-glabel var700544b8
-.word func000225d4+0x1a8
-glabel var700544bc
-.word func000225d4+0x1a8
-glabel var700544c0
-.word func000225d4+0x1a8
-glabel var700544c4
-.word func000225d4+0x1a8
-glabel var700544c8
-.word func000225d4+0x1a8
-glabel var700544cc
-.word func000225d4+0x1a8
-glabel var700544d0
-.word func000225d4+0x1a8
-glabel var700544d4
-.word func000225d4+0x114
-glabel var700544d8
-.word func000225d4+0x1a8
-glabel var700544dc
-.word func000225d4+0x0cc
-glabel var700544e0
-.word func000225d4+0x1a8
-glabel var700544e4
-.word func000225d4+0x1a8
-glabel var700544e8
-.word func000225d4+0x1a8
-glabel var700544ec
-.word func000225d4+0x1a8
-glabel var700544f0
-.word func000225d4+0x1a8
-glabel var700544f4
-.word func000225d4+0x1a8
-glabel var700544f8
-.word func000225d4+0x1a8
-glabel var700544fc
-.word func000225d4+0x144
-glabel var70054500
-.word func000225d4+0x1a8
-glabel var70054504
-.word func000225d4+0x1a8
-glabel var70054508
-.word func000225d4+0x1a8
-glabel var7005450c
-.word func000225d4+0x1a8
-glabel var70054510
-.word func000225d4+0x174
-glabel var70054514
-.word func000225d4+0x1a8
-.text
-/*    225d4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    225d8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    225dc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    225e0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    225e4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    225e8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    225ec:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    225f0:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    225f4:	afa70034 */ 	sw	$a3,0x34($sp)
-/*    225f8:	8ce20000 */ 	lw	$v0,0x0($a3)
-/*    225fc:	00809025 */ 	or	$s2,$a0,$zero
-/*    22600:	24130001 */ 	addiu	$s3,$zero,0x1
-/*    22604:	10400003 */ 	beqz	$v0,.L00022614
-/*    22608:	00408025 */ 	or	$s0,$v0,$zero
-/*    2260c:	10000003 */ 	b	.L0002261c
-/*    22610:	ace00000 */ 	sw	$zero,0x0($a3)
-.L00022614:
-/*    22614:	8e4f0008 */ 	lw	$t7,0x8($s2)
-/*    22618:	8df00000 */ 	lw	$s0,0x0($t7)
-.L0002261c:
-/*    2261c:	5200005a */ 	beqzl	$s0,.L00022788
-/*    22620:	00001025 */ 	or	$v0,$zero,$zero
-.L00022624:
-/*    22624:	12600006 */ 	beqz	$s3,.L00022640
-/*    22628:	00000000 */ 	nop
-/*    2262c:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    22630:	10400003 */ 	beqz	$v0,.L00022640
-/*    22634:	00000000 */ 	nop
-/*    22638:	1000000d */ 	b	.L00022670
-/*    2263c:	00408025 */ 	or	$s0,$v0,$zero
-.L00022640:
-/*    22640:	12000009 */ 	beqz	$s0,.L00022668
-/*    22644:	00000000 */ 	nop
-/*    22648:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0002264c:
-/*    2264c:	50400004 */ 	beqzl	$v0,.L00022660
-/*    22650:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    22654:	10000004 */ 	b	.L00022668
-/*    22658:	00408025 */ 	or	$s0,$v0,$zero
-/*    2265c:	8e100008 */ 	lw	$s0,0x8($s0)
-.L00022660:
-/*    22660:	5600fffa */ 	bnezl	$s0,.L0002264c
-/*    22664:	8e02000c */ 	lw	$v0,0xc($s0)
-.L00022668:
-/*    22668:	52000047 */ 	beqzl	$s0,.L00022788
-/*    2266c:	00001025 */ 	or	$v0,$zero,$zero
-.L00022670:
-/*    22670:	96020000 */ 	lhu	$v0,0x0($s0)
-/*    22674:	24130001 */ 	addiu	$s3,$zero,0x1
-/*    22678:	305800ff */ 	andi	$t8,$v0,0xff
-/*    2267c:	2719ffff */ 	addiu	$t9,$t8,-1
-/*    22680:	2f210018 */ 	sltiu	$at,$t9,0x18
-/*    22684:	1020003d */ 	beqz	$at,.L0002277c
-/*    22688:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    2268c:	3c017005 */ 	lui	$at,%hi(var700544b8)
-/*    22690:	00390821 */ 	addu	$at,$at,$t9
-/*    22694:	8c3944b8 */ 	lw	$t9,%lo(var700544b8)($at)
-/*    22698:	03200008 */ 	jr	$t9
-/*    2269c:	00000000 */ 	nop
-/*    226a0:	8e110004 */ 	lw	$s1,0x4($s0)
-/*    226a4:	02402025 */ 	or	$a0,$s2,$zero
-/*    226a8:	02002825 */ 	or	$a1,$s0,$zero
-/*    226ac:	0c006973 */ 	jal	func0001a5cc
-/*    226b0:	00003025 */ 	or	$a2,$zero,$zero
-/*    226b4:	02202025 */ 	or	$a0,$s1,$zero
-/*    226b8:	00402825 */ 	or	$a1,$v0,$zero
-/*    226bc:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*    226c0:	0c00883f */ 	jal	func000220fc
-/*    226c4:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*    226c8:	10400005 */ 	beqz	$v0,.L000226e0
-/*    226cc:	00000000 */ 	nop
-/*    226d0:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*    226d4:	ad100000 */ 	sw	$s0,0x0($t0)
-/*    226d8:	1000002b */ 	b	.L00022788
-/*    226dc:	8e220000 */ 	lw	$v0,0x0($s1)
-.L000226e0:
-/*    226e0:	10000026 */ 	b	.L0002277c
-/*    226e4:	00009825 */ 	or	$s3,$zero,$zero
-/*    226e8:	8e110004 */ 	lw	$s1,0x4($s0)
-/*    226ec:	02402025 */ 	or	$a0,$s2,$zero
-/*    226f0:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    226f4:	02002825 */ 	or	$a1,$s0,$zero
-/*    226f8:	8c490000 */ 	lw	$t1,0x0($v0)
-/*    226fc:	11200004 */ 	beqz	$t1,.L00022710
-/*    22700:	00000000 */ 	nop
-/*    22704:	8e2a0008 */ 	lw	$t2,0x8($s1)
-/*    22708:	1000001c */ 	b	.L0002277c
-/*    2270c:	ae0a0014 */ 	sw	$t2,0x14($s0)
-.L00022710:
-/*    22710:	1000001a */ 	b	.L0002277c
-/*    22714:	ae000014 */ 	sw	$zero,0x14($s0)
-/*    22718:	8e110004 */ 	lw	$s1,0x4($s0)
-/*    2271c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22720:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22724:	02002825 */ 	or	$a1,$s0,$zero
-/*    22728:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*    2272c:	11600004 */ 	beqz	$t3,.L00022740
-/*    22730:	00000000 */ 	nop
-/*    22734:	8e2c0000 */ 	lw	$t4,0x0($s1)
-/*    22738:	10000010 */ 	b	.L0002277c
-/*    2273c:	ae0c0014 */ 	sw	$t4,0x14($s0)
-.L00022740:
-/*    22740:	1000000e */ 	b	.L0002277c
-/*    22744:	ae000014 */ 	sw	$zero,0x14($s0)
-/*    22748:	02402025 */ 	or	$a0,$s2,$zero
-/*    2274c:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22750:	02002825 */ 	or	$a1,$s0,$zero
-/*    22754:	8c440000 */ 	lw	$a0,0x0($v0)
-/*    22758:	10800008 */ 	beqz	$a0,.L0002277c
-/*    2275c:	00000000 */ 	nop
-/*    22760:	8c830000 */ 	lw	$v1,0x0($a0)
-/*    22764:	10600005 */ 	beqz	$v1,.L0002277c
-/*    22768:	ae030014 */ 	sw	$v1,0x14($s0)
-/*    2276c:	ac700008 */ 	sw	$s0,0x8($v1)
-.L00022770:
-/*    22770:	8c63000c */ 	lw	$v1,0xc($v1)
-/*    22774:	5460fffe */ 	bnezl	$v1,.L00022770
-/*    22778:	ac700008 */ 	sw	$s0,0x8($v1)
-.L0002277c:
-/*    2277c:	1600ffa9 */ 	bnez	$s0,.L00022624
-/*    22780:	00000000 */ 	nop
-/*    22784:	00001025 */ 	or	$v0,$zero,$zero
-.L00022788:
-/*    22788:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2278c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    22790:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    22794:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    22798:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    2279c:	03e00008 */ 	jr	$ra
-/*    227a0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode)
+{
+	struct modelnode *node;
+	bool dochildren = true;
+	Mtxf *mtx;
+	union modelrodata *rodata;
+	union modelrwdata *rwdata;
+	u32 type;
+
+	if (model);
+
+	if (*startnode) {
+		node = *startnode;
+		*startnode = NULL;
+	} else {
+		node = model->filedata->rootnode;
+	}
+
+	while (node) {
+		if (dochildren && node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+
+			if (!node) {
+				break;
+			}
+		}
+
+		dochildren = true;
+		type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_BBOX:
+			rodata = node->rodata;
+			mtx = func0001a5cc(model, node, 0);
+
+			if (func000220fc(rodata, mtx, arg1, arg2)) {
+				*startnode = node;
+				return rodata->bbox.ibh;
+			}
+
+			dochildren = false;
+			break;
+		case MODELNODETYPE_DISTANCE:
+			rodata = node->rodata;
+			rwdata = modelGetNodeRwData(model, node);
+			node->child = rwdata->distance.visible ? rodata->distance.target : NULL;
+			break;
+		case MODELNODETYPE_TOGGLE:
+			rodata = node->rodata;
+			rwdata = modelGetNodeRwData(model, node);
+			node->child = rwdata->toggle.visible ? rodata->toggle.target : NULL;
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			rwdata = modelGetNodeRwData(model, node);
+
+			if (rwdata->headspot.modelfiledata) {
+				struct modelnode *loopnode = rwdata->headspot.modelfiledata->rootnode;
+
+				node->child = loopnode;
+
+				while (loopnode) {
+					loopnode->parent = node;
+					loopnode = loopnode->next;
+				}
+			}
+			break;
+		case MODELNODETYPE_CHRINFO:
+		case MODELNODETYPE_DL:
+		default:
+			break;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel modelPromoteNodeOffsetsToPointers

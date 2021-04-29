@@ -90,8 +90,8 @@ void modelRenderNodeType16(struct modelrenderdata *renderdata, struct modelnode 
 u32 func000216cc(void);
 void modelRenderNodeGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRender(struct modelrenderdata *renderdata, struct model *model);
-u32 func000220fc(void);
-s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, u32 *arg3);
+bool func000220fc(union modelrodata *rodata, Mtxf *mtx, struct coord *arg2, struct coord *arg3);
+s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode);
 void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 arg1, u32 arg2);
 void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 arg1, u32 arg2);
 s32 modelCalculateRwDataIndexes(struct modelnode *node);
