@@ -8979,203 +8979,80 @@ glabel var70054454
 /*    21ef0:	27bd0110 */ 	addiu	$sp,$sp,0x110
 );
 
-GLOBAL_ASM(
-glabel modelRender
-.late_rodata
-glabel var70054458
-.word modelRender+0x1a8
-glabel var7005445c
-.word modelRender+0x1a8
-glabel var70054460
-.word modelRender+0x1a8
-glabel var70054464
-.word modelRender+0x164
-glabel var70054468
-.word modelRender+0x1a8
-glabel var7005446c
-.word modelRender+0x1a8
-glabel var70054470
-.word modelRender+0x1a8
-glabel var70054474
-.word modelRender+0x084
-glabel var70054478
-.word modelRender+0x138
-glabel var7005447c
-.word modelRender+0x1a8
-glabel var70054480
-.word modelRender+0x1a8
-glabel var70054484
-.word modelRender+0x14c
-glabel var70054488
-.word modelRender+0x1a8
-glabel var7005448c
-.word modelRender+0x1a8
-glabel var70054490
-.word modelRender+0x1a8
-glabel var70054494
-.word modelRender+0x1a8
-glabel var70054498
-.word modelRender+0x1a8
-glabel var7005449c
-.word modelRender+0x084
-glabel var700544a0
-.word modelRender+0x1a8
-glabel var700544a4
-.word modelRender+0x1a8
-glabel var700544a8
-.word modelRender+0x1a8
-glabel var700544ac
-.word modelRender+0x194
-glabel var700544b0
-.word modelRender+0x0fc
-glabel var700544b4
-.word modelRender+0x17c
-.text
-/*    21ef4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    21ef8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    21efc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    21f00:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    21f04:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    21f08:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    21f0c:	8cae0008 */ 	lw	$t6,0x8($a1)
-/*    21f10:	8c82000c */ 	lw	$v0,0xc($a0)
-/*    21f14:	3c18bc00 */ 	lui	$t8,0xbc00
-/*    21f18:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*    21f1c:	244f0008 */ 	addiu	$t7,$v0,0x8
-/*    21f20:	ac8f000c */ 	sw	$t7,0xc($a0)
-/*    21f24:	37180c06 */ 	ori	$t8,$t8,0xc06
-/*    21f28:	00809825 */ 	or	$s3,$a0,$zero
-/*    21f2c:	ac580000 */ 	sw	$t8,0x0($v0)
-/*    21f30:	00a09025 */ 	or	$s2,$a1,$zero
-/*    21f34:	8ca4000c */ 	lw	$a0,0xc($a1)
-/*    21f38:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    21f3c:	00408825 */ 	or	$s1,$v0,$zero
-/*    21f40:	12000067 */ 	beqz	$s0,.L000220e0
-/*    21f44:	ae220004 */ 	sw	$v0,0x4($s1)
-/*    21f48:	96030000 */ 	lhu	$v1,0x0($s0)
-.L00021f4c:
-/*    21f4c:	307900ff */ 	andi	$t9,$v1,0xff
-/*    21f50:	2728ffff */ 	addiu	$t0,$t9,-1
-/*    21f54:	2d010018 */ 	sltiu	$at,$t0,0x18
-/*    21f58:	10200050 */ 	beqz	$at,.L0002209c
-/*    21f5c:	03201825 */ 	or	$v1,$t9,$zero
-/*    21f60:	00084080 */ 	sll	$t0,$t0,0x2
-/*    21f64:	3c017005 */ 	lui	$at,%hi(var70054458)
-/*    21f68:	00280821 */ 	addu	$at,$at,$t0
-/*    21f6c:	8c284458 */ 	lw	$t0,%lo(var70054458)($at)
-/*    21f70:	01000008 */ 	jr	$t0
-/*    21f74:	00000000 */ 	nop
-/*    21f78:	8e110004 */ 	lw	$s1,0x4($s0)
-/*    21f7c:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*    21f80:	02402025 */ 	or	$a0,$s2,$zero
-/*    21f84:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    21f88:	02002825 */ 	or	$a1,$s0,$zero
-/*    21f8c:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*    21f90:	24010008 */ 	addiu	$at,$zero,0x8
-/*    21f94:	10610005 */ 	beq	$v1,$at,.L00021fac
-/*    21f98:	24010012 */ 	addiu	$at,$zero,0x12
-/*    21f9c:	5061000c */ 	beql	$v1,$at,.L00021fd0
-/*    21fa0:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*    21fa4:	10000010 */ 	b	.L00021fe8
-/*    21fa8:	00000000 */ 	nop
-.L00021fac:
-/*    21fac:	8c490000 */ 	lw	$t1,0x0($v0)
-/*    21fb0:	11200004 */ 	beqz	$t1,.L00021fc4
-/*    21fb4:	00000000 */ 	nop
-/*    21fb8:	8e2a0008 */ 	lw	$t2,0x8($s1)
-/*    21fbc:	1000000a */ 	b	.L00021fe8
-/*    21fc0:	ae0a0014 */ 	sw	$t2,0x14($s0)
-.L00021fc4:
-/*    21fc4:	10000008 */ 	b	.L00021fe8
-/*    21fc8:	ae000014 */ 	sw	$zero,0x14($s0)
-/*    21fcc:	8c4b0000 */ 	lw	$t3,0x0($v0)
-.L00021fd0:
-/*    21fd0:	51600005 */ 	beqzl	$t3,.L00021fe8
-/*    21fd4:	ae000014 */ 	sw	$zero,0x14($s0)
-/*    21fd8:	8e2c0000 */ 	lw	$t4,0x0($s1)
-/*    21fdc:	10000002 */ 	b	.L00021fe8
-/*    21fe0:	ae0c0014 */ 	sw	$t4,0x14($s0)
-/*    21fe4:	ae000014 */ 	sw	$zero,0x14($s0)
-.L00021fe8:
-/*    21fe8:	1000002d */ 	b	.L000220a0
-/*    21fec:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    21ff0:	02402025 */ 	or	$a0,$s2,$zero
-/*    21ff4:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    21ff8:	02002825 */ 	or	$a1,$s0,$zero
-/*    21ffc:	8c440000 */ 	lw	$a0,0x0($v0)
-/*    22000:	10800008 */ 	beqz	$a0,.L00022024
-/*    22004:	00000000 */ 	nop
-/*    22008:	8c830000 */ 	lw	$v1,0x0($a0)
-/*    2200c:	10600005 */ 	beqz	$v1,.L00022024
-/*    22010:	ae030014 */ 	sw	$v1,0x14($s0)
-/*    22014:	ac700008 */ 	sw	$s0,0x8($v1)
-.L00022018:
-/*    22018:	8c63000c */ 	lw	$v1,0xc($v1)
-/*    2201c:	5460fffe */ 	bnezl	$v1,.L00022018
-/*    22020:	ac700008 */ 	sw	$s0,0x8($v1)
-.L00022024:
-/*    22024:	1000001e */ 	b	.L000220a0
-/*    22028:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    2202c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22030:	0c007249 */ 	jal	func0001c924
-/*    22034:	02002825 */ 	or	$a1,$s0,$zero
-/*    22038:	10000019 */ 	b	.L000220a0
-/*    2203c:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    22040:	02602025 */ 	or	$a0,$s3,$zero
-/*    22044:	02402825 */ 	or	$a1,$s2,$zero
-/*    22048:	0c0085c3 */ 	jal	func0002170c
-/*    2204c:	02003025 */ 	or	$a2,$s0,$zero
-/*    22050:	10000013 */ 	b	.L000220a0
-/*    22054:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    22058:	02602025 */ 	or	$a0,$s3,$zero
-/*    2205c:	02402825 */ 	or	$a1,$s2,$zero
-/*    22060:	0c008347 */ 	jal	func00020d1c
-/*    22064:	02003025 */ 	or	$a2,$s0,$zero
-/*    22068:	1000000d */ 	b	.L000220a0
-/*    2206c:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    22070:	02602025 */ 	or	$a0,$s3,$zero
-/*    22074:	02402825 */ 	or	$a1,$s2,$zero
-/*    22078:	0c0083cc */ 	jal	func00020f30
-/*    2207c:	02003025 */ 	or	$a2,$s0,$zero
-/*    22080:	10000007 */ 	b	.L000220a0
-/*    22084:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    22088:	02602025 */ 	or	$a0,$s3,$zero
-/*    2208c:	0c008493 */ 	jal	func0002124c
-/*    22090:	02002825 */ 	or	$a1,$s0,$zero
-/*    22094:	10000002 */ 	b	.L000220a0
-/*    22098:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0002209c:
-/*    2209c:	8e020014 */ 	lw	$v0,0x14($s0)
-.L000220a0:
-/*    220a0:	10400003 */ 	beqz	$v0,.L000220b0
-/*    220a4:	00000000 */ 	nop
-/*    220a8:	1000000b */ 	b	.L000220d8
-/*    220ac:	00408025 */ 	or	$s0,$v0,$zero
-.L000220b0:
-/*    220b0:	12000009 */ 	beqz	$s0,.L000220d8
-/*    220b4:	00000000 */ 	nop
-/*    220b8:	8e02000c */ 	lw	$v0,0xc($s0)
-.L000220bc:
-/*    220bc:	50400004 */ 	beqzl	$v0,.L000220d0
-/*    220c0:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    220c4:	10000004 */ 	b	.L000220d8
-/*    220c8:	00408025 */ 	or	$s0,$v0,$zero
-/*    220cc:	8e100008 */ 	lw	$s0,0x8($s0)
-.L000220d0:
-/*    220d0:	5600fffa */ 	bnezl	$s0,.L000220bc
-/*    220d4:	8e02000c */ 	lw	$v0,0xc($s0)
-.L000220d8:
-/*    220d8:	5600ff9c */ 	bnezl	$s0,.L00021f4c
-/*    220dc:	96030000 */ 	lhu	$v1,0x0($s0)
-.L000220e0:
-/*    220e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    220e4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    220e8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    220ec:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    220f0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    220f4:	03e00008 */ 	jr	$ra
-/*    220f8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void modelRender(struct modelrenderdata *renderdata, struct model *model)
+{
+	union modelrodata *rodata;
+	union modelrwdata *rwdata;
+	u32 type;
+	struct modelnode *node = model->filedata->rootnode;
+
+	gSPSegment(renderdata->gdl++, 0x03, osVirtualToPhysical(model->matrices));
+
+	while (node) {
+		type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_NEARFAR:
+		case MODELNODETYPE_PARTID:
+			rodata = node->rodata;
+			rwdata = modelGetNodeRwData(model, node);
+
+			switch (type) {
+			case MODELNODETYPE_NEARFAR:
+				node->child = rwdata->nearfar.visible ? rodata->nearfar.target : NULL;
+				break;
+			case MODELNODETYPE_PARTID:
+				node->child = rwdata->partid.visible.u32 ? rodata->partid.target : NULL;
+				break;
+			}
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			rwdata = modelGetNodeRwData(model, node);
+
+			if (rwdata->headspot.modelfiledata) {
+				struct modelnode *loopnode = rwdata->headspot.modelfiledata->rootnode;
+				node->child = loopnode;
+
+				while (loopnode) {
+					loopnode->parent = node;
+					loopnode = loopnode->next;
+				}
+			}
+			break;
+		case MODELNODETYPE_HAT:
+			func0001c924(model, node);
+			break;
+		case MODELNODETYPE_GUNFIRE:
+			func0002170c(renderdata, model, node);
+			break;
+		case MODELNODETYPE_04:
+			func00020d1c(renderdata, model, node);
+			break;
+		case MODELNODETYPE_DISPLAYLIST:
+			func00020f30(renderdata, model, node);
+			break;
+		case MODELNODETYPE_16:
+			func0002124c(renderdata, node);
+			break;
+		case MODELNODETYPE_ROOT:
+		default:
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func000220fc
