@@ -6027,7 +6027,7 @@ struct objticksp476 {
 // Suspected to be the same as objticksp476
 struct modelrenderdata {
 	/*0x00*/ u32 unk00;
-	/*0x04*/ s32 unk04;
+	/*0x04*/ bool zbufferenabled;
 	/*0x08*/ u32 flags;
 	/*0x0c*/ Gfx *gdl;
 	/*0x10*/ u32 unk10;

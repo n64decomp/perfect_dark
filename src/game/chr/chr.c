@@ -12152,7 +12152,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 		}
 
 		renderdata.flags = sp100;
-		renderdata.unk04 = 1;
+		renderdata.zbufferenabled = true;
 		renderdata.gdl = gdl;
 
 		// Configure colours for IR scanner or default

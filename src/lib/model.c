@@ -6338,55 +6338,19 @@ glabel func0001f314
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0001f7e0
-/*    1f7e0:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    1f7e4:	3c0fe700 */ 	lui	$t7,0xe700
-/*    1f7e8:	3c19ba00 */ 	lui	$t9,0xba00
-/*    1f7ec:	246e0008 */ 	addiu	$t6,$v1,0x8
-/*    1f7f0:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*    1f7f4:	ac600004 */ 	sw	$zero,0x4($v1)
-/*    1f7f8:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*    1f7fc:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    1f800:	37391402 */ 	ori	$t9,$t9,0x1402
-/*    1f804:	3c0db900 */ 	lui	$t5,0xb900
-/*    1f808:	24780008 */ 	addiu	$t8,$v1,0x8
-/*    1f80c:	ac98000c */ 	sw	$t8,0xc($a0)
-/*    1f810:	ac600004 */ 	sw	$zero,0x4($v1)
-/*    1f814:	ac790000 */ 	sw	$t9,0x0($v1)
-/*    1f818:	8c880004 */ 	lw	$t0,0x4($a0)
-/*    1f81c:	3c18fc12 */ 	lui	$t8,0xfc12
-/*    1f820:	35ad031d */ 	ori	$t5,$t5,0x31d
-/*    1f824:	1100000b */ 	beqz	$t0,.L0001f854
-/*    1f828:	37181824 */ 	ori	$t8,$t8,0x1824
-/*    1f82c:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    1f830:	3c0ab900 */ 	lui	$t2,0xb900
-/*    1f834:	3c0b0055 */ 	lui	$t3,0x55
-/*    1f838:	24690008 */ 	addiu	$t1,$v1,0x8
-/*    1f83c:	ac89000c */ 	sw	$t1,0xc($a0)
-/*    1f840:	356b2078 */ 	ori	$t3,$t3,0x2078
-/*    1f844:	354a031d */ 	ori	$t2,$t2,0x31d
-/*    1f848:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*    1f84c:	10000008 */ 	b	.L0001f870
-/*    1f850:	ac6b0004 */ 	sw	$t3,0x4($v1)
-.L0001f854:
-/*    1f854:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    1f858:	3c0e0055 */ 	lui	$t6,0x55
-/*    1f85c:	35ce2048 */ 	ori	$t6,$t6,0x2048
-/*    1f860:	246c0008 */ 	addiu	$t4,$v1,0x8
-/*    1f864:	ac8c000c */ 	sw	$t4,0xc($a0)
-/*    1f868:	ac6e0004 */ 	sw	$t6,0x4($v1)
-/*    1f86c:	ac6d0000 */ 	sw	$t5,0x0($v1)
-.L0001f870:
-/*    1f870:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    1f874:	3c19ff33 */ 	lui	$t9,0xff33
-/*    1f878:	3739ffff */ 	ori	$t9,$t9,0xffff
-/*    1f87c:	246f0008 */ 	addiu	$t7,$v1,0x8
-/*    1f880:	ac8f000c */ 	sw	$t7,0xc($a0)
-/*    1f884:	ac790004 */ 	sw	$t9,0x4($v1)
-/*    1f888:	03e00008 */ 	jr	$ra
-/*    1f88c:	ac780000 */ 	sw	$t8,0x0($v1)
-);
+void func0001f7e0(struct modelrenderdata *renderdata)
+{
+	gDPPipeSync(renderdata->gdl++);
+	gDPSetCycleType(renderdata->gdl++, G_CYC_1CYCLE);
+
+	if (renderdata->zbufferenabled) {
+		gDPSetRenderMode(renderdata->gdl++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+	} else {
+		gDPSetRenderMode(renderdata->gdl++, G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
+	}
+
+	gDPSetCombineMode(renderdata->gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+}
 
 GLOBAL_ASM(
 glabel func0001f890
