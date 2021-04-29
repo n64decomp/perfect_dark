@@ -464,6 +464,8 @@ struct animfloats {
 	/*0x44*/ f32 unk44;
 };
 
+struct model;
+
 struct anim {
 	/*0x00*/ s16 animnum;
 	/*0x02*/ s16 animnum2;
@@ -499,7 +501,7 @@ struct anim {
 	/*0x64*/ f32 loopmerge;
 	/*0x68*/ void *flipfunc;
 	/*0x6c*/ u32 unk6c;
-	/*0x70*/ void *unk70; // pointer to function
+	/*0x70*/ bool (*unk70)(struct model *model, struct coord *arg1, struct coord *arg2, f32 *ground);
 	/*0x74*/ f32 playspeed;
 	/*0x78*/ f32 newplay;
 	/*0x7c*/ f32 oldplay;
@@ -677,8 +679,9 @@ struct model {
 };
 
 struct modelrwdata_chrinfo { // type 0x01
-	u16 unk00;
-	u8 unk02;
+	s8 unk00;
+	s8 unk01;
+	s8 unk02;
 	f32 ground;
 	struct coord pos;
 	f32 unk14; // angle
