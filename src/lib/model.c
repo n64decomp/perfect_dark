@@ -7405,218 +7405,71 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 	}
 }
 
-GLOBAL_ASM(
-glabel modelRenderNodeDl
-/*    20f30:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*    20f34:	3c028006 */ 	lui	$v0,%hi(var8005efc4)
-/*    20f38:	8c42efc4 */ 	lw	$v0,%lo(var8005efc4)($v0)
-/*    20f3c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    20f40:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    20f44:	afa50054 */ 	sw	$a1,0x54($sp)
-/*    20f48:	afa60058 */ 	sw	$a2,0x58($sp)
-/*    20f4c:	8ccf0004 */ 	lw	$t7,0x4($a2)
-/*    20f50:	00808025 */ 	or	$s0,$a0,$zero
-/*    20f54:	10400006 */ 	beqz	$v0,.L00020f70
-/*    20f58:	afaf004c */ 	sw	$t7,0x4c($sp)
-/*    20f5c:	00a02025 */ 	or	$a0,$a1,$zero
-/*    20f60:	0040f809 */ 	jalr	$v0
-/*    20f64:	00c02825 */ 	or	$a1,$a2,$zero
-/*    20f68:	504000b4 */ 	beqzl	$v0,.L0002123c
-/*    20f6c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L00020f70:
-/*    20f70:	8e180008 */ 	lw	$t8,0x8($s0)
-/*    20f74:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*    20f78:	33190001 */ 	andi	$t9,$t8,0x1
-/*    20f7c:	53200068 */ 	beqzl	$t9,.L00021120
-/*    20f80:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*    20f84:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    20f88:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    20f8c:	afa20048 */ 	sw	$v0,0x48($sp)
-/*    20f90:	8c480004 */ 	lw	$t0,0x4($v0)
-/*    20f94:	51000062 */ 	beqzl	$t0,.L00021120
-/*    20f98:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*    20f9c:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    20fa0:	3c0abc00 */ 	lui	$t2,0xbc00
-/*    20fa4:	354a1406 */ 	ori	$t2,$t2,0x1406
-/*    20fa8:	24690008 */ 	addiu	$t1,$v1,0x8
-/*    20fac:	ae09000c */ 	sw	$t1,0xc($s0)
-/*    20fb0:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*    20fb4:	8fab004c */ 	lw	$t3,0x4c($sp)
-/*    20fb8:	8d640008 */ 	lw	$a0,0x8($t3)
-/*    20fbc:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    20fc0:	afa30044 */ 	sw	$v1,0x44($sp)
-/*    20fc4:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    20fc8:	aca20004 */ 	sw	$v0,0x4($a1)
-/*    20fcc:	8e0c003c */ 	lw	$t4,0x3c($s0)
-/*    20fd0:	51800004 */ 	beqzl	$t4,.L00020fe4
-/*    20fd4:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*    20fd8:	0c008324 */ 	jal	modelApplyCullMode
-/*    20fdc:	02002025 */ 	or	$a0,$s0,$zero
-/*    20fe0:	8fad004c */ 	lw	$t5,0x4c($sp)
-.L00020fe4:
-/*    20fe4:	24010001 */ 	addiu	$at,$zero,0x1
-/*    20fe8:	85a20012 */ 	lh	$v0,0x12($t5)
-/*    20fec:	1041000a */ 	beq	$v0,$at,.L00021018
-/*    20ff0:	24010002 */ 	addiu	$at,$zero,0x2
-/*    20ff4:	10410014 */ 	beq	$v0,$at,.L00021048
-/*    20ff8:	24010003 */ 	addiu	$at,$zero,0x3
-/*    20ffc:	1041000a */ 	beq	$v0,$at,.L00021028
-/*    21000:	02002025 */ 	or	$a0,$s0,$zero
-/*    21004:	24010004 */ 	addiu	$at,$zero,0x4
-/*    21008:	1041000b */ 	beq	$v0,$at,.L00021038
-/*    2100c:	02002025 */ 	or	$a0,$s0,$zero
-/*    21010:	10000010 */ 	b	.L00021054
-/*    21014:	8e03000c */ 	lw	$v1,0xc($s0)
-.L00021018:
-/*    21018:	0c007df8 */ 	jal	func0001f7e0
-/*    2101c:	02002025 */ 	or	$a0,$s0,$zero
-/*    21020:	1000000c */ 	b	.L00021054
-/*    21024:	8e03000c */ 	lw	$v1,0xc($s0)
-.L00021028:
-/*    21028:	0c007e24 */ 	jal	func0001f890
-/*    2102c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    21030:	10000008 */ 	b	.L00021054
-/*    21034:	8e03000c */ 	lw	$v1,0xc($s0)
-.L00021038:
-/*    21038:	0c008092 */ 	jal	func00020248
-/*    2103c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    21040:	10000004 */ 	b	.L00021054
-/*    21044:	8e03000c */ 	lw	$v1,0xc($s0)
-.L00021048:
-/*    21048:	0c0082f7 */ 	jal	func00020bdc
-/*    2104c:	02002025 */ 	or	$a0,$s0,$zero
-/*    21050:	8e03000c */ 	lw	$v1,0xc($s0)
-.L00021054:
-/*    21054:	3c0ebc00 */ 	lui	$t6,0xbc00
-/*    21058:	35ce1006 */ 	ori	$t6,$t6,0x1006
-/*    2105c:	246f0008 */ 	addiu	$t7,$v1,0x8
-/*    21060:	ae0f000c */ 	sw	$t7,0xc($s0)
-/*    21064:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*    21068:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*    2106c:	8f040000 */ 	lw	$a0,0x0($t8)
-/*    21070:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    21074:	afa30040 */ 	sw	$v1,0x40($sp)
-/*    21078:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*    2107c:	3c08bc00 */ 	lui	$t0,0xbc00
-/*    21080:	35081806 */ 	ori	$t0,$t0,0x1806
-/*    21084:	aca20004 */ 	sw	$v0,0x4($a1)
-/*    21088:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    2108c:	24790008 */ 	addiu	$t9,$v1,0x8
-/*    21090:	ae19000c */ 	sw	$t9,0xc($s0)
-/*    21094:	ac680000 */ 	sw	$t0,0x0($v1)
-/*    21098:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*    2109c:	8d240008 */ 	lw	$a0,0x8($t1)
-/*    210a0:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    210a4:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*    210a8:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*    210ac:	3c0b0600 */ 	lui	$t3,0x600
-/*    210b0:	24010003 */ 	addiu	$at,$zero,0x3
-/*    210b4:	acc20004 */ 	sw	$v0,0x4($a2)
-/*    210b8:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    210bc:	246a0008 */ 	addiu	$t2,$v1,0x8
-/*    210c0:	ae0a000c */ 	sw	$t2,0xc($s0)
-/*    210c4:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*    210c8:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*    210cc:	8d8d0004 */ 	lw	$t5,0x4($t4)
-/*    210d0:	ac6d0004 */ 	sw	$t5,0x4($v1)
-/*    210d4:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*    210d8:	85ee0012 */ 	lh	$t6,0x12($t7)
-/*    210dc:	55c10010 */ 	bnel	$t6,$at,.L00021120
-/*    210e0:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*    210e4:	8df80004 */ 	lw	$t8,0x4($t7)
-/*    210e8:	02002025 */ 	or	$a0,$s0,$zero
-/*    210ec:	5300000c */ 	beqzl	$t8,.L00021120
-/*    210f0:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*    210f4:	0c007e24 */ 	jal	func0001f890
-/*    210f8:	00002825 */ 	or	$a1,$zero,$zero
-/*    210fc:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    21100:	3c080600 */ 	lui	$t0,0x600
-/*    21104:	24790008 */ 	addiu	$t9,$v1,0x8
-/*    21108:	ae19000c */ 	sw	$t9,0xc($s0)
-/*    2110c:	ac680000 */ 	sw	$t0,0x0($v1)
-/*    21110:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*    21114:	8d2a0004 */ 	lw	$t2,0x4($t1)
-/*    21118:	ac6a0004 */ 	sw	$t2,0x4($v1)
-/*    2111c:	8e0b0008 */ 	lw	$t3,0x8($s0)
-.L00021120:
-/*    21120:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*    21124:	316c0002 */ 	andi	$t4,$t3,0x2
-/*    21128:	51800044 */ 	beqzl	$t4,.L0002123c
-/*    2112c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    21130:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    21134:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    21138:	afa20030 */ 	sw	$v0,0x30($sp)
-/*    2113c:	8c4d0004 */ 	lw	$t5,0x4($v0)
-/*    21140:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*    21144:	51a0003d */ 	beqzl	$t5,.L0002123c
-/*    21148:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    2114c:	85cf0012 */ 	lh	$t7,0x12($t6)
-/*    21150:	24010004 */ 	addiu	$at,$zero,0x4
-/*    21154:	55e10039 */ 	bnel	$t7,$at,.L0002123c
-/*    21158:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    2115c:	8dd80004 */ 	lw	$t8,0x4($t6)
-/*    21160:	53000036 */ 	beqzl	$t8,.L0002123c
-/*    21164:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    21168:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    2116c:	3c08bc00 */ 	lui	$t0,0xbc00
-/*    21170:	35081406 */ 	ori	$t0,$t0,0x1406
-/*    21174:	24790008 */ 	addiu	$t9,$v1,0x8
-/*    21178:	ae19000c */ 	sw	$t9,0xc($s0)
-/*    2117c:	ac680000 */ 	sw	$t0,0x0($v1)
-/*    21180:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*    21184:	8d240008 */ 	lw	$a0,0x8($t1)
-/*    21188:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    2118c:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*    21190:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    21194:	aca20004 */ 	sw	$v0,0x4($a1)
-/*    21198:	8e0a003c */ 	lw	$t2,0x3c($s0)
-/*    2119c:	51400004 */ 	beqzl	$t2,.L000211b0
-/*    211a0:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    211a4:	0c008324 */ 	jal	modelApplyCullMode
-/*    211a8:	02002025 */ 	or	$a0,$s0,$zero
-/*    211ac:	8e03000c */ 	lw	$v1,0xc($s0)
-.L000211b0:
-/*    211b0:	3c0cbc00 */ 	lui	$t4,0xbc00
-/*    211b4:	358c1006 */ 	ori	$t4,$t4,0x1006
-/*    211b8:	246b0008 */ 	addiu	$t3,$v1,0x8
-/*    211bc:	ae0b000c */ 	sw	$t3,0xc($s0)
-/*    211c0:	ac6c0000 */ 	sw	$t4,0x0($v1)
-/*    211c4:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*    211c8:	8da40000 */ 	lw	$a0,0x0($t5)
-/*    211cc:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    211d0:	afa30028 */ 	sw	$v1,0x28($sp)
-/*    211d4:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    211d8:	3c0ebc00 */ 	lui	$t6,0xbc00
-/*    211dc:	35ce1806 */ 	ori	$t6,$t6,0x1806
-/*    211e0:	aca20004 */ 	sw	$v0,0x4($a1)
-/*    211e4:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    211e8:	246f0008 */ 	addiu	$t7,$v1,0x8
-/*    211ec:	ae0f000c */ 	sw	$t7,0xc($s0)
-/*    211f0:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*    211f4:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    211f8:	8f040008 */ 	lw	$a0,0x8($t8)
-/*    211fc:	0c012d20 */ 	jal	osVirtualToPhysical
-/*    21200:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    21204:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    21208:	02002025 */ 	or	$a0,$s0,$zero
-/*    2120c:	00002825 */ 	or	$a1,$zero,$zero
-/*    21210:	0c008092 */ 	jal	func00020248
-/*    21214:	acc20004 */ 	sw	$v0,0x4($a2)
-/*    21218:	8e03000c */ 	lw	$v1,0xc($s0)
-/*    2121c:	3c080600 */ 	lui	$t0,0x600
-/*    21220:	24790008 */ 	addiu	$t9,$v1,0x8
-/*    21224:	ae19000c */ 	sw	$t9,0xc($s0)
-/*    21228:	ac680000 */ 	sw	$t0,0x0($v1)
-/*    2122c:	8fa9004c */ 	lw	$t1,0x4c($sp)
-/*    21230:	8d2a0004 */ 	lw	$t2,0x4($t1)
-/*    21234:	ac6a0004 */ 	sw	$t2,0x4($v1)
-/*    21238:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0002123c:
-/*    2123c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    21240:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*    21244:	03e00008 */ 	jr	$ra
-/*    21248:	00000000 */ 	nop
-);
+void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+{
+	union modelrodata *rodata = node->rodata;
+
+	if (var8005efc4 && !var8005efc4(model, node)) {
+		return;
+	}
+
+	if (renderdata->flags & 1) {
+		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+
+		if (rwdata->dl.gdl) {
+			gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->dl.colourtable));
+
+			if (renderdata->cullmode) {
+				modelApplyCullMode(renderdata);
+			}
+
+			switch (rodata->dl.mcount) {
+			case 1:
+				func0001f7e0(renderdata);
+				break;
+			case 3:
+				func0001f890(renderdata, true);
+				break;
+			case 4:
+				func00020248(renderdata, true);
+				break;
+			case 2:
+				func00020bdc(renderdata);
+				break;
+			}
+
+			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.ptable));
+			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.unk08));
+
+			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
+
+			if (rodata->dl.mcount == 3 && rodata->dl.secondary) {
+				func0001f890(renderdata, false);
+
+				gSPDisplayList(renderdata->gdl++, rodata->dl.secondary);
+			}
+		}
+	}
+
+	if (renderdata->flags & 2) {
+		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+
+		if (rwdata->dl.gdl && rodata->dl.mcount == 4 && rodata->dl.secondary) {
+			gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->dl.colourtable));
+
+			if (renderdata->cullmode) {
+				modelApplyCullMode(renderdata);
+			}
+
+			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.ptable));
+			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.unk08));
+
+			func00020248(renderdata, false);
+
+			gSPDisplayList(renderdata->gdl++, rodata->dl.secondary);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel modelRenderNodeType16
@@ -9411,7 +9264,7 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 			rwdata = modelGetNodeRwData(model, node);
 			rwdata->dl.ptable = rodata->dl.ptable;
 			rwdata->dl.gdl = rodata->dl.primary;
-			rwdata->dl.unk08 = ALIGN8((u32)(rodata->dl.ptable + rodata->dl.pcount));
+			rwdata->dl.unk08 = (void *) ALIGN8((u32)(rodata->dl.ptable + rodata->dl.pcount));
 			if (rodata->dl.pcount);
 			if (rodata->dl.pcount);
 			if (rodata->dl.pcount);

@@ -619,7 +619,7 @@ struct modelrodata_dl { // type 0x18
 	/*0x08*/ u32 *colourtable;
 	/*0x0c*/ struct coord *ptable;
 	/*0x10*/ s16 pcount;
-	/*0x12*/ u16 mcount;
+	/*0x12*/ s16 mcount;
 	/*0x14*/ u16 rwdataindex;
 	/*0x16*/ u16 numcolours;
 };
@@ -731,7 +731,7 @@ struct modelrwdata_headspot { // type 0x17
 struct modelrwdata_dl { // type 0x18
 	struct coord *ptable;
 	Gfx *gdl;
-	u32 unk08;
+	u32 *unk08;
 };
 
 union modelrwdata {
