@@ -7651,56 +7651,19 @@ glabel func00020248
 /*    20bd8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00020bdc
-/*    20bdc:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20be0:	3c0fe700 */ 	lui	$t7,0xe700
-/*    20be4:	3c19ba00 */ 	lui	$t9,0xba00
-/*    20be8:	246e0008 */ 	addiu	$t6,$v1,0x8
-/*    20bec:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*    20bf0:	ac600004 */ 	sw	$zero,0x4($v1)
-/*    20bf4:	ac6f0000 */ 	sw	$t7,0x0($v1)
-/*    20bf8:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20bfc:	37391402 */ 	ori	$t9,$t9,0x1402
-/*    20c00:	3c080010 */ 	lui	$t0,0x10
-/*    20c04:	24780008 */ 	addiu	$t8,$v1,0x8
-/*    20c08:	ac98000c */ 	sw	$t8,0xc($a0)
-/*    20c0c:	ac680004 */ 	sw	$t0,0x4($v1)
-/*    20c10:	ac790000 */ 	sw	$t9,0x0($v1)
-/*    20c14:	8c890004 */ 	lw	$t1,0x4($a0)
-/*    20c18:	3c19fc26 */ 	lui	$t9,0xfc26
-/*    20c1c:	3c0eb900 */ 	lui	$t6,0xb900
-/*    20c20:	1120000b */ 	beqz	$t1,.L00020c50
-/*    20c24:	3739a004 */ 	ori	$t9,$t9,0xa004
-/*    20c28:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20c2c:	3c0bb900 */ 	lui	$t3,0xb900
-/*    20c30:	3c0c0c19 */ 	lui	$t4,0xc19
-/*    20c34:	246a0008 */ 	addiu	$t2,$v1,0x8
-/*    20c38:	ac8a000c */ 	sw	$t2,0xc($a0)
-/*    20c3c:	358c2078 */ 	ori	$t4,$t4,0x2078
-/*    20c40:	356b031d */ 	ori	$t3,$t3,0x31d
-/*    20c44:	ac6b0000 */ 	sw	$t3,0x0($v1)
-/*    20c48:	10000009 */ 	b	.L00020c70
-/*    20c4c:	ac6c0004 */ 	sw	$t4,0x4($v1)
-.L00020c50:
-/*    20c50:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20c54:	3c0f0c19 */ 	lui	$t7,0xc19
-/*    20c58:	35ef2048 */ 	ori	$t7,$t7,0x2048
-/*    20c5c:	246d0008 */ 	addiu	$t5,$v1,0x8
-/*    20c60:	ac8d000c */ 	sw	$t5,0xc($a0)
-/*    20c64:	35ce031d */ 	ori	$t6,$t6,0x31d
-/*    20c68:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*    20c6c:	ac6f0004 */ 	sw	$t7,0x4($v1)
-.L00020c70:
-/*    20c70:	8c83000c */ 	lw	$v1,0xc($a0)
-/*    20c74:	3c081f10 */ 	lui	$t0,0x1f10
-/*    20c78:	350893ff */ 	ori	$t0,$t0,0x93ff
-/*    20c7c:	24780008 */ 	addiu	$t8,$v1,0x8
-/*    20c80:	ac98000c */ 	sw	$t8,0xc($a0)
-/*    20c84:	ac680004 */ 	sw	$t0,0x4($v1)
-/*    20c88:	03e00008 */ 	jr	$ra
-/*    20c8c:	ac790000 */ 	sw	$t9,0x0($v1)
-);
+void func00020bdc(struct modelrenderdata *renderdata)
+{
+	gDPPipeSync(renderdata->gdl++);
+	gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
+
+	if (renderdata->zbufferenabled) {
+		gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
+	} else {
+		gDPSetRenderMode(renderdata->gdl++, G_RM_PASS, G_RM_AA_OPA_SURF2);
+	}
+
+	gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
+}
 
 void modelApplyCullMode(struct modelrenderdata *renderdata)
 {
