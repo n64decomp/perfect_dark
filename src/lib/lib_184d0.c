@@ -54,7 +54,7 @@ u32 var8005efb4 = 0x00000000;
 f32 var8005efb8 = 1;
 bool var8005efbc = false;
 u32 var8005efc0 = 0x00000000;
-void *var8005efc4 = NULL; // pointer to a function
+bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 
 #if VERSION >= VERSION_PAL_FINAL
 u32 var8005efd8_2 = 0;

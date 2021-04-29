@@ -12042,8 +12042,6 @@ void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 	}
 }
 
-extern void *var8005efc4;
-
 Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 {
 	struct chrdata *chr = prop->chr;
@@ -12153,7 +12151,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			gdl = currentPlayerScissorToViewport(gdl);
 		}
 
-		renderdata.unk08 = sp100;
+		renderdata.flags = sp100;
 		renderdata.unk04 = 1;
 		renderdata.gdl = gdl;
 
@@ -12284,7 +12282,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 		gdl = renderdata.gdl;
 
-		var8005efc4 = 0;
+		var8005efc4 = NULL;
 
 		// Render shadow
 		if (withalpha) {

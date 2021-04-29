@@ -527,6 +527,15 @@ struct modelrodata_position { // type 0x02
 	f32 drawdist;
 };
 
+struct modelrodata_gundl { // type 0x04
+	Gfx *unk00;
+	Gfx *unk04;
+	void *unk08;
+	u32 unk0c;
+	u16 unk10;
+	s16 unk12;
+};
+
 struct modelrodata_distance { // type 0x08
 	f32 near;
 	f32 far;
@@ -616,6 +625,7 @@ struct modelrodata_dl { // type 0x18
 union modelrodata {
 	struct modelrodata_chrinfo chrinfo;
 	struct modelrodata_position position;
+	struct modelrodata_gundl gundl;
 	struct modelrodata_distance distance;
 	struct modelrodata_reorder reorder;
 	struct modelrodata_bbox bbox;
@@ -6018,7 +6028,7 @@ struct objticksp476 {
 struct modelrenderdata {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ s32 unk04;
-	/*0x08*/ u32 unk08;
+	/*0x08*/ u32 flags;
 	/*0x0c*/ Gfx *gdl;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
