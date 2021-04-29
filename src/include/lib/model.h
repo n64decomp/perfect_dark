@@ -96,7 +96,7 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 arg1, u32 arg
 void modelPromoteOffsetsToPointers(struct modelfiledata *filedata, u32 arg1, u32 arg2);
 s32 modelCalculateRwDataIndexes(struct modelnode *node);
 void modelCalculateRwDataLen(struct modelfiledata *filedata);
-void func00022d50(struct model *model, struct modelnode *node);
+void modelInitRwData(struct model *model, struct modelnode *node);
 void modelInit(struct model *model, struct modelfiledata *filedata, union modelrwdata **rwdatas, bool resetanim);
 void animInit(struct anim *anim);
 u32 func00023108(void);

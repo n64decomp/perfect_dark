@@ -614,8 +614,8 @@ struct modelrodata_headspot { // type 0x17
 };
 
 struct modelrodata_dl { // type 0x18
-	/*0x00*/ u32 primary;
-	/*0x04*/ u32 secondary;
+	/*0x00*/ Gfx *primary;
+	/*0x04*/ Gfx *secondary;
 	/*0x08*/ u32 *colourtable;
 	/*0x0c*/ struct coord *ptable;
 	/*0x10*/ s16 pcount;
@@ -686,7 +686,7 @@ struct modelrwdata_chrinfo { // type 0x01
 	struct coord pos;
 	f32 unk14; // angle
 	f32 unk18;
-	u32 unk1c;
+	f32 unk1c;
 	f32 unk20; // angle
 	struct coord unk24;
 	f32 unk30; // angle
@@ -694,7 +694,7 @@ struct modelrwdata_chrinfo { // type 0x01
 	struct coord unk40; // "2" version of unk24
 	struct coord unk4c; // "2" version of unk34
 	u32 unk58;
-	u32 unk5c;
+	f32 unk5c;
 };
 
 struct modelrwdata_05 { // type 0x05
@@ -710,7 +710,8 @@ struct modelrwdata_reorder { // type 0x09
 };
 
 struct modelrwdata_0b { // type 0x0b
-	u32 unk00;
+	u16 unk00;
+	u16 unk04;
 };
 
 struct modelrwdata_gunfire { // type 0x0c
@@ -728,8 +729,8 @@ struct modelrwdata_headspot { // type 0x17
 };
 
 struct modelrwdata_dl { // type 0x18
-	u32 unk00;
-	u32 unk04;
+	struct coord *ptable;
+	Gfx *gdl;
 	u32 unk08;
 };
 

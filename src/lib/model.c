@@ -9335,217 +9335,110 @@ void modelCalculateRwDataLen(struct modelfiledata *filedata)
 	filedata->rwdatalen = modelCalculateRwDataIndexes(filedata->rootnode);
 }
 
-GLOBAL_ASM(
-glabel func00022d50
-.late_rodata
-glabel var700545d8
-.word func00022d50+0x060
-glabel var700545dc
-.word func00022d50+0x1dc
-glabel var700545e0
-.word func00022d50+0x1dc
-glabel var700545e4
-.word func00022d50+0x1dc
-glabel var700545e8
-.word func00022d50+0x1dc
-glabel var700545ec
-.word func00022d50+0x1dc
-glabel var700545f0
-.word func00022d50+0x1dc
-glabel var700545f4
-.word func00022d50+0x0d8
-glabel var700545f8
-.word func00022d50+0x138
-glabel var700545fc
-.word func00022d50+0x1dc
-glabel var70054600
-.word func00022d50+0x15c
-glabel var70054604
-.word func00022d50+0x174
-glabel var70054608
-.word func00022d50+0x1dc
-glabel var7005460c
-.word func00022d50+0x1dc
-glabel var70054610
-.word func00022d50+0x1dc
-glabel var70054614
-.word func00022d50+0x1dc
-glabel var70054618
-.word func00022d50+0x1dc
-glabel var7005461c
-.word func00022d50+0x0f8
-glabel var70054620
-.word func00022d50+0x1dc
-glabel var70054624
-.word func00022d50+0x1dc
-glabel var70054628
-.word func00022d50+0x1dc
-glabel var7005462c
-.word func00022d50+0x1dc
-glabel var70054630
-.word func00022d50+0x11c
-glabel var70054634
-.word func00022d50+0x18c
-.text
-/*    22d50:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    22d54:	afb30028 */ 	sw	$s3,0x28($sp)
-/*    22d58:	afb20024 */ 	sw	$s2,0x24($sp)
-/*    22d5c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*    22d60:	00809025 */ 	or	$s2,$a0,$zero
-/*    22d64:	00a09825 */ 	or	$s3,$a1,$zero
-/*    22d68:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    22d6c:	afb10020 */ 	sw	$s1,0x20($sp)
-/*    22d70:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*    22d74:	10a00083 */ 	beqz	$a1,.L00022f84
-/*    22d78:	00a08025 */ 	or	$s0,$a1,$zero
-/*    22d7c:	4480a000 */ 	mtc1	$zero,$f20
-/*    22d80:	00000000 */ 	nop
-/*    22d84:	96020000 */ 	lhu	$v0,0x0($s0)
-.L00022d88:
-/*    22d88:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    22d8c:	25cfffff */ 	addiu	$t7,$t6,-1
-/*    22d90:	2de10018 */ 	sltiu	$at,$t7,0x18
-/*    22d94:	10200065 */ 	beqz	$at,.L00022f2c
-/*    22d98:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    22d9c:	3c017005 */ 	lui	$at,%hi(var700545d8)
-/*    22da0:	002f0821 */ 	addu	$at,$at,$t7
-/*    22da4:	8c2f45d8 */ 	lw	$t7,%lo(var700545d8)($at)
-/*    22da8:	01e00008 */ 	jr	$t7
-/*    22dac:	00000000 */ 	nop
-/*    22db0:	02402025 */ 	or	$a0,$s2,$zero
-/*    22db4:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22db8:	02002825 */ 	or	$a1,$s0,$zero
-/*    22dbc:	a0400000 */ 	sb	$zero,0x0($v0)
-/*    22dc0:	e4540004 */ 	swc1	$f20,0x4($v0)
-/*    22dc4:	e4540008 */ 	swc1	$f20,0x8($v0)
-/*    22dc8:	e454000c */ 	swc1	$f20,0xc($v0)
-/*    22dcc:	e4540010 */ 	swc1	$f20,0x10($v0)
-/*    22dd0:	e4540014 */ 	swc1	$f20,0x14($v0)
-/*    22dd4:	e4540018 */ 	swc1	$f20,0x18($v0)
-/*    22dd8:	e454001c */ 	swc1	$f20,0x1c($v0)
-/*    22ddc:	a0400001 */ 	sb	$zero,0x1($v0)
-/*    22de0:	e4540034 */ 	swc1	$f20,0x34($v0)
-/*    22de4:	e4540038 */ 	swc1	$f20,0x38($v0)
-/*    22de8:	e454003c */ 	swc1	$f20,0x3c($v0)
-/*    22dec:	e4540030 */ 	swc1	$f20,0x30($v0)
-/*    22df0:	e4540024 */ 	swc1	$f20,0x24($v0)
-/*    22df4:	e4540028 */ 	swc1	$f20,0x28($v0)
-/*    22df8:	e454002c */ 	swc1	$f20,0x2c($v0)
-/*    22dfc:	e4540020 */ 	swc1	$f20,0x20($v0)
-/*    22e00:	a0400002 */ 	sb	$zero,0x2($v0)
-/*    22e04:	e454004c */ 	swc1	$f20,0x4c($v0)
-/*    22e08:	e4540050 */ 	swc1	$f20,0x50($v0)
-/*    22e0c:	e4540054 */ 	swc1	$f20,0x54($v0)
-/*    22e10:	e4540040 */ 	swc1	$f20,0x40($v0)
-/*    22e14:	e4540044 */ 	swc1	$f20,0x44($v0)
-/*    22e18:	e4540048 */ 	swc1	$f20,0x48($v0)
-/*    22e1c:	e454005c */ 	swc1	$f20,0x5c($v0)
-/*    22e20:	10000043 */ 	b	.L00022f30
-/*    22e24:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22e28:	8e110004 */ 	lw	$s1,0x4($s0)
-/*    22e2c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e30:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22e34:	02002825 */ 	or	$a1,$s0,$zero
-/*    22e38:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    22e3c:	8e230008 */ 	lw	$v1,0x8($s1)
-/*    22e40:	1000003b */ 	b	.L00022f30
-/*    22e44:	ae030014 */ 	sw	$v1,0x14($s0)
-/*    22e48:	8e110004 */ 	lw	$s1,0x4($s0)
-/*    22e4c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e50:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22e54:	02002825 */ 	or	$a1,$s0,$zero
-/*    22e58:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    22e5c:	ac590000 */ 	sw	$t9,0x0($v0)
-/*    22e60:	8e230000 */ 	lw	$v1,0x0($s1)
-/*    22e64:	10000032 */ 	b	.L00022f30
-/*    22e68:	ae030014 */ 	sw	$v1,0x14($s0)
-/*    22e6c:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e70:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22e74:	02002825 */ 	or	$a1,$s0,$zero
-/*    22e78:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    22e7c:	ac400004 */ 	sw	$zero,0x4($v0)
-/*    22e80:	1000002b */ 	b	.L00022f30
-/*    22e84:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22e88:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e8c:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22e90:	02002825 */ 	or	$a1,$s0,$zero
-/*    22e94:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    22e98:	02402025 */ 	or	$a0,$s2,$zero
-/*    22e9c:	0c007249 */ 	jal	modelRenderNodeReorder
-/*    22ea0:	02002825 */ 	or	$a1,$s0,$zero
-/*    22ea4:	10000022 */ 	b	.L00022f30
-/*    22ea8:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22eac:	02402025 */ 	or	$a0,$s2,$zero
-/*    22eb0:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22eb4:	02002825 */ 	or	$a1,$s0,$zero
-/*    22eb8:	a4400000 */ 	sh	$zero,0x0($v0)
-/*    22ebc:	1000001c */ 	b	.L00022f30
-/*    22ec0:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22ec4:	02402025 */ 	or	$a0,$s2,$zero
-/*    22ec8:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22ecc:	02002825 */ 	or	$a1,$s0,$zero
-/*    22ed0:	a4400000 */ 	sh	$zero,0x0($v0)
-/*    22ed4:	10000016 */ 	b	.L00022f30
-/*    22ed8:	8e030014 */ 	lw	$v1,0x14($s0)
-/*    22edc:	8e110004 */ 	lw	$s1,0x4($s0)
-/*    22ee0:	02402025 */ 	or	$a0,$s2,$zero
-/*    22ee4:	0c006a87 */ 	jal	modelGetNodeRwData
-/*    22ee8:	02002825 */ 	or	$a1,$s0,$zero
-/*    22eec:	8e29000c */ 	lw	$t1,0xc($s1)
-/*    22ef0:	ac490000 */ 	sw	$t1,0x0($v0)
-/*    22ef4:	8e2a0000 */ 	lw	$t2,0x0($s1)
-/*    22ef8:	ac4a0004 */ 	sw	$t2,0x4($v0)
-/*    22efc:	862c0010 */ 	lh	$t4,0x10($s1)
-/*    22f00:	8e2b000c */ 	lw	$t3,0xc($s1)
-/*    22f04:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    22f08:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*    22f0c:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    22f10:	016d7021 */ 	addu	$t6,$t3,$t5
-/*    22f14:	25cf0007 */ 	addiu	$t7,$t6,0x7
-/*    22f18:	35f80007 */ 	ori	$t8,$t7,0x7
-/*    22f1c:	3b190007 */ 	xori	$t9,$t8,0x7
-/*    22f20:	ac590008 */ 	sw	$t9,0x8($v0)
-/*    22f24:	10000002 */ 	b	.L00022f30
-/*    22f28:	8e030014 */ 	lw	$v1,0x14($s0)
-.L00022f2c:
-/*    22f2c:	8e030014 */ 	lw	$v1,0x14($s0)
-.L00022f30:
-/*    22f30:	10600003 */ 	beqz	$v1,.L00022f40
-/*    22f34:	00000000 */ 	nop
-/*    22f38:	10000010 */ 	b	.L00022f7c
-/*    22f3c:	00608025 */ 	or	$s0,$v1,$zero
-.L00022f40:
-/*    22f40:	1200000e */ 	beqz	$s0,.L00022f7c
-/*    22f44:	00000000 */ 	nop
-/*    22f48:	8e630008 */ 	lw	$v1,0x8($s3)
-.L00022f4c:
-/*    22f4c:	56030004 */ 	bnel	$s0,$v1,.L00022f60
-/*    22f50:	8e02000c */ 	lw	$v0,0xc($s0)
-/*    22f54:	10000009 */ 	b	.L00022f7c
-/*    22f58:	00008025 */ 	or	$s0,$zero,$zero
-/*    22f5c:	8e02000c */ 	lw	$v0,0xc($s0)
-.L00022f60:
-/*    22f60:	50400004 */ 	beqzl	$v0,.L00022f74
-/*    22f64:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    22f68:	10000004 */ 	b	.L00022f7c
-/*    22f6c:	00408025 */ 	or	$s0,$v0,$zero
-/*    22f70:	8e100008 */ 	lw	$s0,0x8($s0)
-.L00022f74:
-/*    22f74:	1600fff5 */ 	bnez	$s0,.L00022f4c
-/*    22f78:	00000000 */ 	nop
-.L00022f7c:
-/*    22f7c:	5600ff82 */ 	bnezl	$s0,.L00022d88
-/*    22f80:	96020000 */ 	lhu	$v0,0x0($s0)
-.L00022f84:
-/*    22f84:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    22f88:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*    22f8c:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*    22f90:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*    22f94:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*    22f98:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*    22f9c:	03e00008 */ 	jr	$ra
-/*    22fa0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void modelInitRwData(struct model *model, struct modelnode *startnode)
+{
+	struct modelnode *node = startnode;
+	union modelrodata *rodata;
+	union modelrwdata *rwdata;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_CHRINFO:
+			rwdata = modelGetNodeRwData(model, node);
+
+			rwdata->chrinfo.unk00 = 0;
+			rwdata->chrinfo.ground = 0;
+			rwdata->chrinfo.pos.x = 0;
+			rwdata->chrinfo.pos.y = 0;
+			rwdata->chrinfo.pos.z = 0;
+			rwdata->chrinfo.unk14 = 0;
+			rwdata->chrinfo.unk18 = 0;
+			rwdata->chrinfo.unk1c = 0;
+
+			rwdata->chrinfo.unk01 = 0;
+			rwdata->chrinfo.unk34.x = 0;
+			rwdata->chrinfo.unk34.y = 0;
+			rwdata->chrinfo.unk34.z = 0;
+			rwdata->chrinfo.unk30 = 0;
+			rwdata->chrinfo.unk24.x = 0;
+			rwdata->chrinfo.unk24.y = 0;
+			rwdata->chrinfo.unk24.z = 0;
+			rwdata->chrinfo.unk20 = 0;
+
+			rwdata->chrinfo.unk02 = 0;
+			rwdata->chrinfo.unk4c.x = 0;
+			rwdata->chrinfo.unk4c.y = 0;
+			rwdata->chrinfo.unk4c.z = 0;
+			rwdata->chrinfo.unk40.x = 0;
+			rwdata->chrinfo.unk40.y = 0;
+			rwdata->chrinfo.unk40.z = 0;
+			rwdata->chrinfo.unk5c = 0;
+			break;
+		case MODELNODETYPE_DISTANCE:
+			rodata = node->rodata;
+			rwdata = modelGetNodeRwData(model, node);
+			rwdata->distance.visible = false;
+			node->child = rodata->distance.target;
+			break;
+		case MODELNODETYPE_TOGGLE:
+			rodata = node->rodata;
+			rwdata = modelGetNodeRwData(model, node);
+			rwdata->toggle.visible = true;
+			node->child = rodata->toggle.target;
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			rwdata = modelGetNodeRwData(model, node);
+			rwdata->headspot.modelfiledata = NULL;
+			rwdata->headspot.rwdatas = NULL;
+			break;
+		case MODELNODETYPE_REORDER:
+			rwdata = modelGetNodeRwData(model, node);
+			rwdata->reorder.visible = false;
+			modelRenderNodeReorder(model, node);
+			break;
+		case MODELNODETYPE_0B:
+			rwdata = modelGetNodeRwData(model, node);
+			rwdata->type0b.unk00 = 0;
+			break;
+		case MODELNODETYPE_GUNFIRE:
+			rwdata = modelGetNodeRwData(model, node);
+			rwdata->gunfire.visible = false;
+			break;
+		case MODELNODETYPE_DL:
+			rodata = node->rodata;
+			rwdata = modelGetNodeRwData(model, node);
+			rwdata->dl.ptable = rodata->dl.ptable;
+			rwdata->dl.gdl = rodata->dl.primary;
+			rwdata->dl.unk08 = ALIGN8((u32)(rodata->dl.ptable + rodata->dl.pcount));
+			if (rodata->dl.pcount);
+			if (rodata->dl.pcount);
+			if (rodata->dl.pcount);
+			break;
+		default:
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node == startnode->parent) {
+					node = NULL;
+					break;
+				}
+
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+}
 
 void modelInit(struct model *model, struct modelfiledata *filedata, union modelrwdata **rwdatas, bool resetanim)
 {
@@ -9588,7 +9481,7 @@ void modelInit(struct model *model, struct modelfiledata *filedata, union modelr
 	}
 
 	if (rwdatas != NULL) {
-		func00022d50(model, filedata->rootnode);
+		modelInitRwData(model, filedata->rootnode);
 	}
 
 	if (resetanim) {
