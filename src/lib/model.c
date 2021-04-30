@@ -3554,31 +3554,14 @@ f32 modelGetAbsAnimSpeed(struct model *model)
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel func0001d2d0
-/*    1d2d0:   27bdffe8 */     addiu   $sp,$sp,-24
-/*    1d2d4:   afbf0014 */     sw      $ra,0x14($sp)
-/*    1d2d8:   8c8e0020 */     lw      $t6,0x20($a0)
-/*    1d2dc:   3c013f80 */     lui     $at,0x3f80
-/*    1d2e0:   51c0000a */     beqzl   $t6,.L0001d30c
-/*    1d2e4:   44810000 */     mtc1    $at,$f0
-/*    1d2e8:   0c007498 */     jal     modelGetAnimSpeed
-/*    1d2ec:   afa40018 */     sw      $a0,0x18($sp)
-/*    1d2f0:   8fa40018 */     lw      $a0,0x18($sp)
-/*    1d2f4:   8c8f0020 */     lw      $t7,0x20($a0)
-/*    1d2f8:   c5e40074 */     lwc1    $f4,0x74($t7)
-/*    1d2fc:   46040002 */     mul.s   $f0,$f0,$f4
-/*    1d300:   10000004 */     b       .L0001d314
-/*    1d304:   8fbf0014 */     lw      $ra,0x14($sp)
-/*    1d308:   44810000 */     mtc1    $at,$f0
-.L0001d30c:
-/*    1d30c:   00000000 */     nop
-/*    1d310:   8fbf0014 */     lw      $ra,0x14($sp)
-.L0001d314:
-/*    1d314:   27bd0018 */     addiu   $sp,$sp,0x18
-/*    1d318:   03e00008 */     jr      $ra
-/*    1d31c:   00000000 */     nop
-);
+f32 modelGetEffectiveAnimSpeed(struct model *model)
+{
+	if (model->anim) {
+		return modelGetAnimSpeed(model) * model->anim->playspeed;
+	}
+
+	return 1;
+}
 
 GLOBAL_ASM(
 glabel func0001d320
