@@ -2898,129 +2898,46 @@ void func0001cb0c(struct model *model, struct modelnode *parent)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001cc20
-.late_rodata
-glabel var70054384
-.word func0001cc20+0xa0
-glabel var70054388
-.word func0001cc20+0xa0
-glabel var7005438c
-.word func0001cc20+0xa0
-glabel var70054390
-.word func0001cc20+0xa0
-glabel var70054394
-.word func0001cc20+0xa0
-glabel var70054398
-.word func0001cc20+0xa0
-glabel var7005439c
-.word func0001cc20+0xa0
-glabel var700543a0
-.word func0001cc20+0x50
-glabel var700543a4
-.word func0001cc20+0x64
-glabel var700543a8
-.word func0001cc20+0xa0
-glabel var700543ac
-.word func0001cc20+0xa0
-glabel var700543b0
-.word func0001cc20+0xa0
-glabel var700543b4
-.word func0001cc20+0xa0
-glabel var700543b8
-.word func0001cc20+0xa0
-glabel var700543bc
-.word func0001cc20+0xa0
-glabel var700543c0
-.word func0001cc20+0xa0
-glabel var700543c4
-.word func0001cc20+0xa0
-glabel var700543c8
-.word func0001cc20+0x78
-glabel var700543cc
-.word func0001cc20+0xa0
-glabel var700543d0
-.word func0001cc20+0xa0
-glabel var700543d4
-.word func0001cc20+0xa0
-glabel var700543d8
-.word func0001cc20+0xa0
-glabel var700543dc
-.word func0001cc20+0x8c
-glabel var700543e0
-.word func0001cc20+0xa0
-.text
-/*    1cc20:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1cc24:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    1cc28:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    1cc2c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    1cc30:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1cc34:	00808825 */ 	or	$s1,$a0,$zero
-/*    1cc38:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*    1cc3c:	52000032 */ 	beqzl	$s0,.L0001cd08
-/*    1cc40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    1cc44:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0001cc48:
-/*    1cc48:	304f00ff */ 	andi	$t7,$v0,0xff
-/*    1cc4c:	25f8ffff */ 	addiu	$t8,$t7,-1
-/*    1cc50:	2f010018 */ 	sltiu	$at,$t8,0x18
-/*    1cc54:	1020001a */ 	beqz	$at,.L0001ccc0
-/*    1cc58:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    1cc5c:	3c017005 */ 	lui	$at,%hi(var70054384)
-/*    1cc60:	00380821 */ 	addu	$at,$at,$t8
-/*    1cc64:	8c384384 */ 	lw	$t8,%lo(var70054384)($at)
-/*    1cc68:	03000008 */ 	jr	$t8
-/*    1cc6c:	00000000 */ 	nop
-/*    1cc70:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cc74:	0c007199 */ 	jal	func0001c664
-/*    1cc78:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cc7c:	10000011 */ 	b	.L0001ccc4
-/*    1cc80:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cc84:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cc88:	0c007254 */ 	jal	func0001c950
-/*    1cc8c:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cc90:	1000000c */ 	b	.L0001ccc4
-/*    1cc94:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cc98:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cc9c:	0c0071f4 */ 	jal	func0001c7d0
-/*    1cca0:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cca4:	10000007 */ 	b	.L0001ccc4
-/*    1cca8:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1ccac:	02202025 */ 	or	$a0,$s1,$zero
-/*    1ccb0:	0c007207 */ 	jal	modelAttachHead
-/*    1ccb4:	02002825 */ 	or	$a1,$s0,$zero
-/*    1ccb8:	10000002 */ 	b	.L0001ccc4
-/*    1ccbc:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0001ccc0:
-/*    1ccc0:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0001ccc4:
-/*    1ccc4:	10400003 */ 	beqz	$v0,.L0001ccd4
-/*    1ccc8:	00000000 */ 	nop
-/*    1cccc:	1000000b */ 	b	.L0001ccfc
-/*    1ccd0:	00408025 */ 	or	$s0,$v0,$zero
-.L0001ccd4:
-/*    1ccd4:	12000009 */ 	beqz	$s0,.L0001ccfc
-/*    1ccd8:	00000000 */ 	nop
-/*    1ccdc:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0001cce0:
-/*    1cce0:	50400004 */ 	beqzl	$v0,.L0001ccf4
-/*    1cce4:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    1cce8:	10000004 */ 	b	.L0001ccfc
-/*    1ccec:	00408025 */ 	or	$s0,$v0,$zero
-/*    1ccf0:	8e100008 */ 	lw	$s0,0x8($s0)
-.L0001ccf4:
-/*    1ccf4:	5600fffa */ 	bnezl	$s0,.L0001cce0
-/*    1ccf8:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0001ccfc:
-/*    1ccfc:	5600ffd2 */ 	bnezl	$s0,.L0001cc48
-/*    1cd00:	96020000 */ 	lhu	$v0,0x0($s0)
-/*    1cd04:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0001cd08:
-/*    1cd08:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    1cd0c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    1cd10:	03e00008 */ 	jr	$ra
-/*    1cd14:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0001cc20(struct model *model)
+{
+	struct modelnode *node = model->filedata->rootnode;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_DISTANCE:
+			func0001c664(model, node);
+			break;
+		case MODELNODETYPE_REORDER:
+			func0001c950(model, node);
+			break;
+		case MODELNODETYPE_TOGGLE:
+			func0001c7d0(model, node);
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			modelAttachHead(model, node);
+			break;
+		case MODELNODETYPE_CHRINFO:
+		case MODELNODETYPE_DL:
+		default:
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0001cd18

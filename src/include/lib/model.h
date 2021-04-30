@@ -46,7 +46,7 @@ void func0001c868(struct modelnode *node, bool visible);
 void modelRenderNodeReorder(struct model *model, struct modelnode *node);
 void func0001c950(struct model *model, struct modelnode *node);
 void func0001cb0c(struct model *model, struct modelnode *node);
-u32 func0001cc20(void);
+void func0001cc20(struct model *model);
 u32 func0001cd18(void);
 u32 func0001ce64(void);
 void func0001cebc(struct objticksp476 *arg0, struct model *model);
