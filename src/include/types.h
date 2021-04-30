@@ -6019,14 +6019,6 @@ struct modelthing {
 	/*0x16*/ u16 unk16;
 };
 
-struct g_Anims {
-	u32 unk00;
-	u32 unk04;
-	u16 unk08;
-	u8 unk0a;
-	u8 unk0b;
-};
-
 struct animheader {
 	/*0x00*/ u16 numframes;
 	/*0x02*/ u16 framelen; // in bytes

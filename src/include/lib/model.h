@@ -57,7 +57,7 @@ f32 modelGetAnimEndFrame(struct model *model);
 s32 modelGetNumAnimFrames(struct model *model);
 f32 modelGetAnimSpeed(struct model *model);
 f32 modelGetAbsAnimSpeed(struct model *model);
-u32 func0001d320(void);
+s32 modelConstrainOrWrapAnimFrame(s32 arg0, s16 arg1, f32 arg2);
 void modelCopyAnimForMerge(struct model *model, f32 arg1);
 void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 arg5);
 bool modelIsAnimMerging(struct model *model);

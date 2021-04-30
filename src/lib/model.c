@@ -3413,140 +3413,30 @@ f32 modelGetEffectiveAnimSpeed(struct model *model)
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel func0001d320
-/*    1d320:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1d324:	00057400 */ 	sll	$t6,$a1,0x10
-/*    1d328:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    1d32c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    1d330:	44866000 */ 	mtc1	$a2,$f12
-/*    1d334:	00803025 */ 	or	$a2,$a0,$zero
-/*    1d338:	01e02825 */ 	or	$a1,$t7,$zero
-/*    1d33c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1d340:	0481002c */ 	bgez	$a0,.L0001d3f4
-/*    1d344:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    1d348:	3c188006 */ 	lui	$t8,%hi(var8005efbc)
-/*    1d34c:	8f18efbc */ 	lw	$t8,%lo(var8005efbc)($t8)
-/*    1d350:	3c198006 */ 	lui	$t9,%hi(g_Anims)
-/*    1d354:	000f4080 */ 	sll	$t0,$t7,0x2
-/*    1d358:	17000008 */ 	bnez	$t8,.L0001d37c
-/*    1d35c:	00052400 */ 	sll	$a0,$a1,0x10
-/*    1d360:	8f39f00c */ 	lw	$t9,%lo(g_Anims)($t9)
-/*    1d364:	010f4023 */ 	subu	$t0,$t0,$t7
-/*    1d368:	00084080 */ 	sll	$t0,$t0,0x2
-/*    1d36c:	03284821 */ 	addu	$t1,$t9,$t0
-/*    1d370:	912a000b */ 	lbu	$t2,0xb($t1)
-/*    1d374:	314b0001 */ 	andi	$t3,$t2,0x1
-/*    1d378:	1160001c */ 	beqz	$t3,.L0001d3ec
-.L0001d37c:
-/*    1d37c:	00046403 */ 	sra	$t4,$a0,0x10
-/*    1d380:	01802025 */ 	or	$a0,$t4,$zero
-/*    1d384:	a7a50026 */ 	sh	$a1,0x26($sp)
-/*    1d388:	0c008dda */ 	jal	animGetNumFrames
-/*    1d38c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    1d390:	87a50026 */ 	lh	$a1,0x26($sp)
-/*    1d394:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    1d398:	00052400 */ 	sll	$a0,$a1,0x10
-/*    1d39c:	00046c03 */ 	sra	$t5,$a0,0x10
-/*    1d3a0:	0c008dda */ 	jal	animGetNumFrames
-/*    1d3a4:	01a02025 */ 	or	$a0,$t5,$zero
-/*    1d3a8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    1d3ac:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*    1d3b0:	00067823 */ 	negu	$t7,$a2
-/*    1d3b4:	01e2001a */ 	div	$zero,$t7,$v0
-/*    1d3b8:	0000c010 */ 	mfhi	$t8
-/*    1d3bc:	01d83023 */ 	subu	$a2,$t6,$t8
-/*    1d3c0:	14400002 */ 	bnez	$v0,.L0001d3cc
-/*    1d3c4:	00000000 */ 	nop
-/*    1d3c8:	0007000d */ 	break	0x7
-.L0001d3cc:
-/*    1d3cc:	2401ffff */ 	addiu	$at,$zero,-1
-/*    1d3d0:	14410004 */ 	bne	$v0,$at,.L0001d3e4
-/*    1d3d4:	3c018000 */ 	lui	$at,0x8000
-/*    1d3d8:	15e10002 */ 	bne	$t7,$at,.L0001d3e4
-/*    1d3dc:	00000000 */ 	nop
-/*    1d3e0:	0006000d */ 	break	0x6
-.L0001d3e4:
-/*    1d3e4:	10000041 */ 	b	.L0001d4ec
-/*    1d3e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001d3ec:
-/*    1d3ec:	1000003e */ 	b	.L0001d4e8
-/*    1d3f0:	00003025 */ 	or	$a2,$zero,$zero
-.L0001d3f4:
-/*    1d3f4:	44802000 */ 	mtc1	$zero,$f4
-/*    1d3f8:	00052400 */ 	sll	$a0,$a1,0x10
-/*    1d3fc:	00044c03 */ 	sra	$t1,$a0,0x10
-/*    1d400:	460c203e */ 	c.le.s	$f4,$f12
-/*    1d404:	01202025 */ 	or	$a0,$t1,$zero
-/*    1d408:	4502000c */ 	bc1fl	.L0001d43c
-/*    1d40c:	a7a50026 */ 	sh	$a1,0x26($sp)
-/*    1d410:	4600618d */ 	trunc.w.s	$f6,$f12
-/*    1d414:	44083000 */ 	mfc1	$t0,$f6
-/*    1d418:	00000000 */ 	nop
-/*    1d41c:	0106082a */ 	slt	$at,$t0,$a2
-/*    1d420:	50200006 */ 	beqzl	$at,.L0001d43c
-/*    1d424:	a7a50026 */ 	sh	$a1,0x26($sp)
-/*    1d428:	0fc25e7a */ 	jal	ceil
-/*    1d42c:	00000000 */ 	nop
-/*    1d430:	1000002d */ 	b	.L0001d4e8
-/*    1d434:	00403025 */ 	or	$a2,$v0,$zero
-/*    1d438:	a7a50026 */ 	sh	$a1,0x26($sp)
-.L0001d43c:
-/*    1d43c:	0c008dda */ 	jal	animGetNumFrames
-/*    1d440:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    1d444:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    1d448:	87a50026 */ 	lh	$a1,0x26($sp)
-/*    1d44c:	3c0a8006 */ 	lui	$t2,%hi(var8005efbc)
-/*    1d450:	00c2082a */ 	slt	$at,$a2,$v0
-/*    1d454:	54200025 */ 	bnezl	$at,.L0001d4ec
-/*    1d458:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1d45c:	8d4aefbc */ 	lw	$t2,%lo(var8005efbc)($t2)
-/*    1d460:	3c0b8006 */ 	lui	$t3,%hi(g_Anims)
-/*    1d464:	00056080 */ 	sll	$t4,$a1,0x2
-/*    1d468:	15400008 */ 	bnez	$t2,.L0001d48c
-/*    1d46c:	00052400 */ 	sll	$a0,$a1,0x10
-/*    1d470:	8d6bf00c */ 	lw	$t3,%lo(g_Anims)($t3)
-/*    1d474:	01856023 */ 	subu	$t4,$t4,$a1
-/*    1d478:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    1d47c:	016c6821 */ 	addu	$t5,$t3,$t4
-/*    1d480:	91af000b */ 	lbu	$t7,0xb($t5)
-/*    1d484:	31ee0001 */ 	andi	$t6,$t7,0x1
-/*    1d488:	11c00012 */ 	beqz	$t6,.L0001d4d4
-.L0001d48c:
-/*    1d48c:	0004c403 */ 	sra	$t8,$a0,0x10
-/*    1d490:	03002025 */ 	or	$a0,$t8,$zero
-/*    1d494:	0c008dda */ 	jal	animGetNumFrames
-/*    1d498:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    1d49c:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    1d4a0:	00c2001a */ 	div	$zero,$a2,$v0
-/*    1d4a4:	14400002 */ 	bnez	$v0,.L0001d4b0
-/*    1d4a8:	00000000 */ 	nop
-/*    1d4ac:	0007000d */ 	break	0x7
-.L0001d4b0:
-/*    1d4b0:	2401ffff */ 	addiu	$at,$zero,-1
-/*    1d4b4:	14410004 */ 	bne	$v0,$at,.L0001d4c8
-/*    1d4b8:	3c018000 */ 	lui	$at,0x8000
-/*    1d4bc:	14c10002 */ 	bne	$a2,$at,.L0001d4c8
-/*    1d4c0:	00000000 */ 	nop
-/*    1d4c4:	0006000d */ 	break	0x6
-.L0001d4c8:
-/*    1d4c8:	00003010 */ 	mfhi	$a2
-/*    1d4cc:	10000007 */ 	b	.L0001d4ec
-/*    1d4d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001d4d4:
-/*    1d4d4:	00052400 */ 	sll	$a0,$a1,0x10
-/*    1d4d8:	0004cc03 */ 	sra	$t9,$a0,0x10
-/*    1d4dc:	0c008dda */ 	jal	animGetNumFrames
-/*    1d4e0:	03202025 */ 	or	$a0,$t9,$zero
-/*    1d4e4:	2446ffff */ 	addiu	$a2,$v0,-1
-.L0001d4e8:
-/*    1d4e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001d4ec:
-/*    1d4ec:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1d4f0:	00c01025 */ 	or	$v0,$a2,$zero
-/*    1d4f4:	03e00008 */ 	jr	$ra
-/*    1d4f8:	00000000 */ 	nop
-);
+/**
+ * Constrain the given frame number to the bounds of the animation, unless the
+ * animation is looping in which case wrap it to the other side.
+ */
+s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
+{
+	if (frame < 0) {
+		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
+			frame = animGetNumFrames(animnum) - (-frame % animGetNumFrames(animnum));
+		} else {
+			frame = 0;
+		}
+	} else if (endframe >= 0 && frame > (s32)endframe) {
+		frame = ceil(endframe);
+	} else if (frame >= animGetNumFrames(animnum)) {
+		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
+			frame = frame % animGetNumFrames(animnum);
+		} else {
+			frame = animGetNumFrames(animnum) - 1;
+		}
+	}
+
+	return frame;
+}
 
 void modelCopyAnimForMerge(struct model *model, f32 arg1)
 {
@@ -4138,12 +4028,12 @@ glabel func0001e018
 /*    1e074:	8e060018 */ 	lw	$a2,0x18($s0)
 /*    1e078:	afa80024 */ 	sw	$t0,0x24($sp)
 /*    1e07c:	afa70028 */ 	sw	$a3,0x28($sp)
-/*    1e080:	0c0074c8 */ 	jal	func0001d320
+/*    1e080:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e084:	afa4002c */ 	sw	$a0,0x2c($sp)
 /*    1e088:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    1e08c:	a6020014 */ 	sh	$v0,0x14($s0)
 /*    1e090:	86050000 */ 	lh	$a1,0x0($s0)
-/*    1e094:	0c0074c8 */ 	jal	func0001d320
+/*    1e094:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e098:	8e060018 */ 	lw	$a2,0x18($s0)
 /*    1e09c:	8fa70028 */ 	lw	$a3,0x28($sp)
 /*    1e0a0:	8fa80024 */ 	lw	$t0,0x24($sp)
@@ -4232,12 +4122,12 @@ glabel func0001e14c
 /*    1e1c4:	8e06003c */ 	lw	$a2,0x3c($s0)
 /*    1e1c8:	afa80020 */ 	sw	$t0,0x20($sp)
 /*    1e1cc:	afa70024 */ 	sw	$a3,0x24($sp)
-/*    1e1d0:	0c0074c8 */ 	jal	func0001d320
+/*    1e1d0:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e1d4:	afa40028 */ 	sw	$a0,0x28($sp)
 /*    1e1d8:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*    1e1dc:	a6020038 */ 	sh	$v0,0x38($s0)
 /*    1e1e0:	86050002 */ 	lh	$a1,0x2($s0)
-/*    1e1e4:	0c0074c8 */ 	jal	func0001d320
+/*    1e1e4:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e1e8:	8e06003c */ 	lw	$a2,0x3c($s0)
 /*    1e1ec:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*    1e1f0:	8fa80020 */ 	lw	$t0,0x20($sp)
@@ -4436,7 +4326,7 @@ glabel var70054450
 /*    1e4a0:	114b005d */ 	beq	$t2,$t3,.L0001e618
 /*    1e4a4:	00000000 */ 	nop
 /*    1e4a8:	86250000 */ 	lh	$a1,0x0($s1)
-/*    1e4ac:	0c0074c8 */ 	jal	func0001d320
+/*    1e4ac:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e4b0:	8e260018 */ 	lw	$a2,0x18($s1)
 /*    1e4b4:	a6220014 */ 	sh	$v0,0x14($s1)
 /*    1e4b8:	8fae00c8 */ 	lw	$t6,0xc8($sp)
@@ -4496,7 +4386,7 @@ glabel var70054450
 .L0001e584:
 /*    1e584:	02602025 */ 	or	$a0,$s3,$zero
 /*    1e588:	86250000 */ 	lh	$a1,0x0($s1)
-/*    1e58c:	0c0074c8 */ 	jal	func0001d320
+/*    1e58c:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e590:	8e260018 */ 	lw	$a2,0x18($s1)
 /*    1e594:	00408025 */ 	or	$s0,$v0,$zero
 /*    1e598:	a6220016 */ 	sh	$v0,0x16($s1)
@@ -4551,7 +4441,7 @@ glabel var70054450
 .L0001e64c:
 /*    1e64c:	8e260018 */ 	lw	$a2,0x18($s1)
 /*    1e650:	afa700ec */ 	sw	$a3,0xec($sp)
-/*    1e654:	0c0074c8 */ 	jal	func0001d320
+/*    1e654:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e658:	02602025 */ 	or	$a0,$s3,$zero
 /*    1e65c:	a6220014 */ 	sh	$v0,0x14($s1)
 /*    1e660:	8fae00c8 */ 	lw	$t6,0xc8($sp)
@@ -4661,7 +4551,7 @@ glabel var70054450
 .L0001e7ec:
 /*    1e7ec:	02602025 */ 	or	$a0,$s3,$zero
 /*    1e7f0:	86250000 */ 	lh	$a1,0x0($s1)
-/*    1e7f4:	0c0074c8 */ 	jal	func0001d320
+/*    1e7f4:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1e7f8:	8e260018 */ 	lw	$a2,0x18($s1)
 /*    1e7fc:	a6220016 */ 	sh	$v0,0x16($s1)
 /*    1e800:	86290016 */ 	lh	$t1,0x16($s1)
@@ -4982,12 +4872,12 @@ glabel var70054450
 /*    1ec94:	e6440050 */ 	swc1	$f4,0x50($s2)
 .L0001ec98:
 /*    1ec98:	86250002 */ 	lh	$a1,0x2($s1)
-/*    1ec9c:	0c0074c8 */ 	jal	func0001d320
+/*    1ec9c:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1eca0:	8e26003c */ 	lw	$a2,0x3c($s1)
 /*    1eca4:	a6220038 */ 	sh	$v0,0x38($s1)
 /*    1eca8:	26640001 */ 	addiu	$a0,$s3,0x1
 /*    1ecac:	86250002 */ 	lh	$a1,0x2($s1)
-/*    1ecb0:	0c0074c8 */ 	jal	func0001d320
+/*    1ecb0:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
 /*    1ecb4:	8e26003c */ 	lw	$a2,0x3c($s1)
 /*    1ecb8:	a622003a */ 	sh	$v0,0x3a($s1)
 /*    1ecbc:	82250009 */ 	lb	$a1,0x9($s1)
