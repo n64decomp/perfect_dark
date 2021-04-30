@@ -22,7 +22,7 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos);
 void modelGetRootPosition(struct model *model, struct coord *pos);
 void modelSetRootPosition(struct model *model, struct coord *pos);
-u32 func0001ad5c(void);
+void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *node, struct coord *pos);
 f32 func0001ae44(struct model *model);
 void func0001ae90(struct model *model, f32 angle);
 void modelSetScale(struct model *model, f32 scale);

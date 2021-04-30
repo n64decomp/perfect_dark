@@ -424,71 +424,28 @@ void modelSetRootPosition(struct model *model, struct coord *pos)
 	modelNodeSetPosition(model, model->filedata->rootnode, pos);
 }
 
-GLOBAL_ASM(
-glabel func0001ad5c
-/*    1ad5c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*    1ad60:	44800000 */ 	mtc1	$zero,$f0
-/*    1ad64:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    1ad68:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    1ad6c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    1ad70:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*    1ad74:	afb60030 */ 	sw	$s6,0x30($sp)
-/*    1ad78:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*    1ad7c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    1ad80:	afb30024 */ 	sw	$s3,0x24($sp)
-/*    1ad84:	00c08025 */ 	or	$s0,$a2,$zero
-/*    1ad88:	00a08825 */ 	or	$s1,$a1,$zero
-/*    1ad8c:	00809025 */ 	or	$s2,$a0,$zero
-/*    1ad90:	e4c00000 */ 	swc1	$f0,0x0($a2)
-/*    1ad94:	e4c00004 */ 	swc1	$f0,0x4($a2)
-/*    1ad98:	10a00020 */ 	beqz	$a1,.L0001ae1c
-/*    1ad9c:	e4c00008 */ 	swc1	$f0,0x8($a2)
-/*    1ada0:	27b6003c */ 	addiu	$s6,$sp,0x3c
-/*    1ada4:	24150015 */ 	addiu	$s5,$zero,0x15
-/*    1ada8:	24140002 */ 	addiu	$s4,$zero,0x2
-/*    1adac:	24130001 */ 	addiu	$s3,$zero,0x1
-/*    1adb0:	96220000 */ 	lhu	$v0,0x0($s1)
-.L0001adb4:
-/*    1adb4:	02402025 */ 	or	$a0,$s2,$zero
-/*    1adb8:	02202825 */ 	or	$a1,$s1,$zero
-/*    1adbc:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1adc0:	11d30005 */ 	beq	$t6,$s3,.L0001add8
-/*    1adc4:	00000000 */ 	nop
-/*    1adc8:	11d40003 */ 	beq	$t6,$s4,.L0001add8
-/*    1adcc:	00000000 */ 	nop
-/*    1add0:	55d50010 */ 	bnel	$t6,$s5,.L0001ae14
-/*    1add4:	8e310008 */ 	lw	$s1,0x8($s1)
-.L0001add8:
-/*    1add8:	0c006ac3 */ 	jal	modelNodeGetPosition
-/*    1addc:	02c03025 */ 	or	$a2,$s6,$zero
-/*    1ade0:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*    1ade4:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*    1ade8:	c60a0004 */ 	lwc1	$f10,0x4($s0)
-/*    1adec:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    1adf0:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*    1adf4:	e6080000 */ 	swc1	$f8,0x0($s0)
-/*    1adf8:	c7b00040 */ 	lwc1	$f16,0x40($sp)
-/*    1adfc:	46105480 */ 	add.s	$f18,$f10,$f16
-/*    1ae00:	e6120004 */ 	swc1	$f18,0x4($s0)
-/*    1ae04:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*    1ae08:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    1ae0c:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*    1ae10:	8e310008 */ 	lw	$s1,0x8($s1)
-.L0001ae14:
-/*    1ae14:	5620ffe7 */ 	bnezl	$s1,.L0001adb4
-/*    1ae18:	96220000 */ 	lhu	$v0,0x0($s1)
-.L0001ae1c:
-/*    1ae1c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*    1ae20:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    1ae24:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    1ae28:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    1ae2c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*    1ae30:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*    1ae34:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*    1ae38:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*    1ae3c:	03e00008 */ 	jr	$ra
-/*    1ae40:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *node, struct coord *pos)
+{
+	pos->x = 0;
+	pos->y = 0;
+	pos->z = 0;
+
+	while (node) {
+		struct coord nodepos;
+		u32 type = node->type & 0xff;
+
+		if (type == MODELNODETYPE_CHRINFO
+				|| type == MODELNODETYPE_POSITION
+				|| type == MODELNODETYPE_POSITIONHELD) {
+			modelNodeGetPosition(model, node, &nodepos);
+			pos->x += nodepos.x;
+			pos->y += nodepos.y;
+			pos->z += nodepos.z;
+		}
+
+		node = node->parent;
+	}
+}
 
 f32 func0001ae44(struct model *model)
 {
