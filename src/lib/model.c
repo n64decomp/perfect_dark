@@ -70,19 +70,10 @@ Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0001a60c
-/*    1a60c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1a610:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1a614:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*    1a618:	00003025 */ 	or	$a2,$zero,$zero
-/*    1a61c:	0c006973 */ 	jal	func0001a5cc
-/*    1a620:	8dc50000 */ 	lw	$a1,0x0($t6)
-/*    1a624:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1a628:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1a62c:	03e00008 */ 	jr	$ra
-/*    1a630:	00000000 */ 	nop
-);
+Mtxf *func0001a60c(struct model *model)
+{
+	return func0001a5cc(model, model->filedata->rootnode, 0);
+}
 
 struct modelnode *func0001a634(struct model *model, s32 arg1)
 {

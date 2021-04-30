@@ -8,7 +8,7 @@ void modelSetDistanceScale(f32 value);
 void func0001a518(void *callback);
 s32 func0001a524(struct modelnode *node, s32 arg1);
 Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2);
-u32 func0001a60c(void);
+Mtxf *func0001a60c(struct model *model);
 struct modelnode *func0001a634(struct model *model, s32 arg1);
 struct modelnode *func0001a740(struct modelnode *node);
 struct modelnode *func0001a784(struct modelnode *node);
