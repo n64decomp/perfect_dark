@@ -182,7 +182,7 @@ glabel func0f1a7560
 /*  f1a7674:	01936823 */ 	subu	$t5,$t4,$s3
 /*  f1a7678:	01b2a023 */ 	subu	$s4,$t5,$s2
 .L0f1a767c:
-/*  f1a767c:	0c008cc5 */ 	jal	func00023314
+/*  f1a767c:	0c008cc5 */ 	jal	modelNodeReplaceGdl
 /*  f1a7680:	02a03825 */ 	or	$a3,$s5,$zero
 /*  f1a7684:	962e0000 */ 	lhu	$t6,0x0($s1)
 /*  f1a7688:	24010018 */ 	addiu	$at,$zero,0x18

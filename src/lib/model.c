@@ -9297,53 +9297,45 @@ glabel var70054688
 /*    23310:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func00023314
-/*    23314:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    23318:	94a20000 */ 	lhu	$v0,0x0($a1)
-/*    2331c:	24010004 */ 	addiu	$at,$zero,0x4
-/*    23320:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    23324:	11c10007 */ 	beq	$t6,$at,.L00023344
-/*    23328:	24010016 */ 	addiu	$at,$zero,0x16
-/*    2332c:	11c1001b */ 	beq	$t6,$at,.L0002339c
-/*    23330:	24010018 */ 	addiu	$at,$zero,0x18
-/*    23334:	51c1000f */ 	beql	$t6,$at,.L00023374
-/*    23338:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    2333c:	03e00008 */ 	jr	$ra
-/*    23340:	00000000 */ 	nop
-.L00023344:
-/*    23344:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    23348:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*    2334c:	54cf0004 */ 	bnel	$a2,$t7,.L00023360
-/*    23350:	8c580004 */ 	lw	$t8,0x4($v0)
-/*    23354:	03e00008 */ 	jr	$ra
-/*    23358:	ac470000 */ 	sw	$a3,0x0($v0)
-/*    2335c:	8c580004 */ 	lw	$t8,0x4($v0)
-.L00023360:
-/*    23360:	14d80013 */ 	bne	$a2,$t8,.L000233b0
-/*    23364:	00000000 */ 	nop
-/*    23368:	03e00008 */ 	jr	$ra
-/*    2336c:	ac470004 */ 	sw	$a3,0x4($v0)
-/*    23370:	8ca20004 */ 	lw	$v0,0x4($a1)
-.L00023374:
-/*    23374:	8c590000 */ 	lw	$t9,0x0($v0)
-/*    23378:	54d90004 */ 	bnel	$a2,$t9,.L0002338c
-/*    2337c:	8c480004 */ 	lw	$t0,0x4($v0)
-/*    23380:	03e00008 */ 	jr	$ra
-/*    23384:	ac470000 */ 	sw	$a3,0x0($v0)
-/*    23388:	8c480004 */ 	lw	$t0,0x4($v0)
-.L0002338c:
-/*    2338c:	14c80008 */ 	bne	$a2,$t0,.L000233b0
-/*    23390:	00000000 */ 	nop
-/*    23394:	03e00008 */ 	jr	$ra
-/*    23398:	ac470004 */ 	sw	$a3,0x4($v0)
-.L0002339c:
-/*    2339c:	8ca20004 */ 	lw	$v0,0x4($a1)
-/*    233a0:	8c490008 */ 	lw	$t1,0x8($v0)
-/*    233a4:	14c90002 */ 	bne	$a2,$t1,.L000233b0
-/*    233a8:	00000000 */ 	nop
-/*    233ac:	ac470008 */ 	sw	$a3,0x8($v0)
-.L000233b0:
-/*    233b0:	03e00008 */ 	jr	$ra
-/*    233b4:	00000000 */ 	nop
-);
+void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *replacement)
+{
+	union modelrodata *rodata;
+	u32 type = node->type & 0xff;
+
+	switch (type) {
+	case MODELNODETYPE_GUNDL:
+		rodata = node->rodata;
+
+		if (rodata->gundl.unk00 == find) {
+			rodata->gundl.unk00 = replacement;
+			return;
+		}
+
+		if (rodata->gundl.unk04 == find) {
+			rodata->gundl.unk04 = replacement;
+			return;
+		}
+		break;
+	case MODELNODETYPE_DL:
+		rodata = node->rodata;
+
+		if (rodata->dl.primary == find) {
+			rodata->dl.primary = replacement;
+			return;
+		}
+
+		if (rodata->dl.secondary == find) {
+			rodata->dl.secondary = replacement;
+			return;
+		}
+		break;
+	case MODELNODETYPE_16:
+		rodata = node->rodata;
+
+		if (rodata->type16.unk08 == find) {
+			rodata->type16.unk08 = replacement;
+			return;
+		}
+		break;
+	}
+}

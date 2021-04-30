@@ -630,7 +630,7 @@ struct modelrodata_positionheld { // type 0x15
 struct modelrodata_type16 { // type 0x16
 	u32 unk00;
 	void *unk04;
-	u32 unk08;
+	Gfx *unk08;
 	void *baseaddr;
 };
 

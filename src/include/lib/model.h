@@ -100,6 +100,6 @@ void modelInit(struct model *model, struct modelfiledata *filedata, union modelr
 void animInit(struct anim *anim);
 u32 func00023108(void);
 u32 func0002319c(void);
-u32 func00023314(void);
+void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *replacement);
 
 #endif
