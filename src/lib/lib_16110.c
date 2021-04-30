@@ -88,30 +88,30 @@ void func00016208(f32 *matrix, struct coord *coord)
 	coord->z = tmp[2];
 }
 
-void func00016248(struct coord *coord, f32 angle, f32 *matrix)
+void func00016248(struct coord *coord, f32 angle, Mtxf *matrix)
 {
 	f32 cos = cosf(angle);
 	f32 sin = sinf(angle);
 
-	matrix[0] = cos;
-	matrix[1] = 0;
-	matrix[2] = -sin;
-	matrix[3] = 0;
+	matrix->m[0][0] = cos;
+	matrix->m[0][1] = 0;
+	matrix->m[0][2] = -sin;
+	matrix->m[0][3] = 0;
 
-	matrix[4] = 0;
-	matrix[5] = 1;
-	matrix[6] = 0;
-	matrix[7] = 0;
+	matrix->m[1][0] = 0;
+	matrix->m[1][1] = 1;
+	matrix->m[1][2] = 0;
+	matrix->m[1][3] = 0;
 
-	matrix[8] = sin;
-	matrix[9] = 0;
-	matrix[10] = cos;
-	matrix[11] = 0;
+	matrix->m[2][0] = sin;
+	matrix->m[2][1] = 0;
+	matrix->m[2][2] = cos;
+	matrix->m[2][3] = 0;
 
-	matrix[12] = coord->x;
-	matrix[13] = coord->y;
-	matrix[14] = coord->z;
-	matrix[15] = 1;
+	matrix->m[3][0] = coord->x;
+	matrix->m[3][1] = coord->y;
+	matrix->m[3][2] = coord->z;
+	matrix->m[3][3] = 1;
 }
 
 #if VERSION < VERSION_NTSC_1_0

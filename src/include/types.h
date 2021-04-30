@@ -469,9 +469,12 @@ struct model;
 struct anim {
 	/*0x00*/ s16 animnum;
 	/*0x02*/ s16 animnum2;
-	/*0x04*/ u32 unk04;
+	/*0x04*/ u8 unk04;
+	/*0x05*/ u8 unk05;
+	/*0x06*/ u8 unk06;
+	/*0x07*/ u8 unk07;
 	/*0x08*/ s8 flip;
-	/*0x09*/ u8 flip2;
+	/*0x09*/ s8 flip2;
 	/*0x0a*/ u8 looping;
 	/*0x0b*/ u8 average;
 	/*0x0c*/ f32 frame;
@@ -517,7 +520,8 @@ struct modeltype {
 };
 
 struct modelrodata_chrinfo { // type 0x01
-	u32 modeltype;
+	u16 unk00;
+	s16 mtxindex;
 	f32 unk04;
 	u16 rwdataindex;
 };

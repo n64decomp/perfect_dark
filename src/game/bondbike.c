@@ -1556,11 +1556,15 @@ void bbikeTick(void)
 	Mtxf sp164;
 	Mtxf sp124;
 	Mtxf spe4;
-	f32 spd4[4];
-	f32 spc4[4];
+	u32 stack3;
+	struct coord spd4;
+	u32 stack4;
+	struct coord spc4;
 	f32 spb4[4];
-	f32 spa4[4];
-	f32 sp94[4];
+	u32 stack5;
+	struct coord spa4;
+	u32 stack6;
+	struct coord sp94;
 	f32 sp84[4];
 	struct coord pos;
 	f32 breathing;
@@ -1687,10 +1691,10 @@ void bbikeTick(void)
 	func00015d54(obj->realrot, &sp124);
 	func00015f04(1.0f / obj->model->scale, &sp124);
 	func00016374(hoverpropGetTurnAngle(obj), &spe4);
-	func0f097044(&spe4, spd4);
-	func0f097044(&sp124, spc4);
-	func0f0976c0(spc4, spd4);
-	func0f0972b8(spd4, spc4, 0.8f, spb4);
+	func0f097044(&spe4, &spd4);
+	func0f097044(&sp124, &spc4);
+	func0f0976c0(&spc4, &spd4);
+	func0f0972b8(&spd4, &spc4, 0.8f, spb4);
 	func0f096ed4(spb4, &sp124);
 	func000159fc(&sp124, &sp164);
 
@@ -1718,10 +1722,10 @@ void bbikeTick(void)
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 
-		func0f097044(&g_Vars.currentplayer->bondentermtx, spa4);
-		func0f097044(&sp164, sp94);
-		func0f0976c0(sp94, spa4);
-		func0f0972b8(spa4, sp94, 1.0f - g_Vars.currentplayer->bondentert2, sp84);
+		func0f097044(&g_Vars.currentplayer->bondentermtx, &spa4);
+		func0f097044(&sp164, &sp94);
+		func0f0976c0(&sp94, &spa4);
+		func0f0972b8(&spa4, &sp94, 1.0f - g_Vars.currentplayer->bondentert2, sp84);
 		func0f096ed4(sp84, &sp164);
 	}
 
