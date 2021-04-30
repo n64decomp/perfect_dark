@@ -136,28 +136,22 @@ struct modelnode *func0001a634(struct model *model, s32 arg1)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0001a740
-/*    1a740:	1080000e */ 	beqz	$a0,.L0001a77c
-/*    1a744:	24060015 */ 	addiu	$a2,$zero,0x15
-/*    1a748:	24050002 */ 	addiu	$a1,$zero,0x2
-/*    1a74c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*    1a750:	94820000 */ 	lhu	$v0,0x0($a0)
-.L0001a754:
-/*    1a754:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1a758:	11c30008 */ 	beq	$t6,$v1,.L0001a77c
-/*    1a75c:	00000000 */ 	nop
-/*    1a760:	11c50006 */ 	beq	$t6,$a1,.L0001a77c
-/*    1a764:	00000000 */ 	nop
-/*    1a768:	11c60004 */ 	beq	$t6,$a2,.L0001a77c
-/*    1a76c:	00000000 */ 	nop
-/*    1a770:	8c840008 */ 	lw	$a0,0x8($a0)
-/*    1a774:	5480fff7 */ 	bnezl	$a0,.L0001a754
-/*    1a778:	94820000 */ 	lhu	$v0,0x0($a0)
-.L0001a77c:
-/*    1a77c:	03e00008 */ 	jr	$ra
-/*    1a780:	00801025 */ 	or	$v0,$a0,$zero
-);
+struct modelnode *func0001a740(struct modelnode *node)
+{
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		if (type == MODELNODETYPE_CHRINFO
+				|| type == MODELNODETYPE_POSITION
+				|| type == MODELNODETYPE_POSITIONHELD) {
+			break;
+		}
+
+		node = node->parent;
+	}
+
+	return node;
+}
 
 struct modelnode *func0001a784(struct modelnode *node)
 {

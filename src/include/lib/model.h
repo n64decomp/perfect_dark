@@ -11,7 +11,7 @@ s32 func0001a524(struct modelnode *node, s32 arg1);
 Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2);
 u32 func0001a60c(void);
 struct modelnode *func0001a634(struct model *model, s32 arg1);
-u32 func0001a740(void);
+struct modelnode *func0001a740(struct modelnode *node);
 struct modelnode *func0001a784(struct modelnode *node);
 u32 func0001a7cc(void);
 u32 func0001a85c(void);
