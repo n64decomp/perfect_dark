@@ -203,66 +203,52 @@ struct modelnode *func0001a7cc(struct modelnode *basenode)
 	return node;
 }
 
-GLOBAL_ASM(
-glabel func0001a85c
-/*    1a85c:	1080002d */ 	beqz	$a0,.L0001a914
-/*    1a860:	00801825 */ 	or	$v1,$a0,$zero
-/*    1a864:	24070015 */ 	addiu	$a3,$zero,0x15
-/*    1a868:	24060002 */ 	addiu	$a2,$zero,0x2
-/*    1a86c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0001a870:
-/*    1a870:	10640006 */ 	beq	$v1,$a0,.L0001a88c
-/*    1a874:	00000000 */ 	nop
-/*    1a878:	8c620014 */ 	lw	$v0,0x14($v1)
-/*    1a87c:	10400003 */ 	beqz	$v0,.L0001a88c
-/*    1a880:	00000000 */ 	nop
-/*    1a884:	10000019 */ 	b	.L0001a8ec
-/*    1a888:	00401825 */ 	or	$v1,$v0,$zero
-.L0001a88c:
-/*    1a88c:	10600015 */ 	beqz	$v1,.L0001a8e4
-/*    1a890:	00000000 */ 	nop
-.L0001a894:
-/*    1a894:	5064000c */ 	beql	$v1,$a0,.L0001a8c8
-/*    1a898:	8c62000c */ 	lw	$v0,0xc($v1)
-/*    1a89c:	94620000 */ 	lhu	$v0,0x0($v1)
-/*    1a8a0:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1a8a4:	11c50005 */ 	beq	$t6,$a1,.L0001a8bc
-/*    1a8a8:	00000000 */ 	nop
-/*    1a8ac:	11c60003 */ 	beq	$t6,$a2,.L0001a8bc
-/*    1a8b0:	00000000 */ 	nop
-/*    1a8b4:	55c70004 */ 	bnel	$t6,$a3,.L0001a8c8
-/*    1a8b8:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0001a8bc:
-/*    1a8bc:	10000009 */ 	b	.L0001a8e4
-/*    1a8c0:	00001825 */ 	or	$v1,$zero,$zero
-/*    1a8c4:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0001a8c8:
-/*    1a8c8:	50400004 */ 	beqzl	$v0,.L0001a8dc
-/*    1a8cc:	8c630008 */ 	lw	$v1,0x8($v1)
-/*    1a8d0:	10000004 */ 	b	.L0001a8e4
-/*    1a8d4:	00401825 */ 	or	$v1,$v0,$zero
-/*    1a8d8:	8c630008 */ 	lw	$v1,0x8($v1)
-.L0001a8dc:
-/*    1a8dc:	1460ffed */ 	bnez	$v1,.L0001a894
-/*    1a8e0:	00000000 */ 	nop
-.L0001a8e4:
-/*    1a8e4:	1060000b */ 	beqz	$v1,.L0001a914
-/*    1a8e8:	00000000 */ 	nop
-.L0001a8ec:
-/*    1a8ec:	94620000 */ 	lhu	$v0,0x0($v1)
-/*    1a8f0:	304f00ff */ 	andi	$t7,$v0,0xff
-/*    1a8f4:	11e50007 */ 	beq	$t7,$a1,.L0001a914
-/*    1a8f8:	00000000 */ 	nop
-/*    1a8fc:	11e60005 */ 	beq	$t7,$a2,.L0001a914
-/*    1a900:	00000000 */ 	nop
-/*    1a904:	11e70003 */ 	beq	$t7,$a3,.L0001a914
-/*    1a908:	00000000 */ 	nop
-/*    1a90c:	1460ffd8 */ 	bnez	$v1,.L0001a870
-/*    1a910:	00000000 */ 	nop
-.L0001a914:
-/*    1a914:	03e00008 */ 	jr	$ra
-/*    1a918:	00601025 */ 	or	$v0,$v1,$zero
-);
+struct modelnode *func0001a85c(struct modelnode *basenode)
+{
+	struct modelnode *node = basenode;
+	struct modelnode *next;
+	u32 type;
+
+	while (node) {
+		if (node != basenode && node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node != basenode) {
+					type = node->type & 0xff;
+
+					if (type == MODELNODETYPE_CHRINFO
+							|| type == MODELNODETYPE_POSITION
+							|| type == MODELNODETYPE_POSITIONHELD) {
+						node = NULL;
+						break;
+					}
+				}
+
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+
+			if (!node) {
+				break;
+			}
+		}
+
+		type = node->type & 0xff;
+
+		if (type == MODELNODETYPE_CHRINFO
+				|| type == MODELNODETYPE_POSITION
+				|| type == MODELNODETYPE_POSITIONHELD) {
+			break;
+		}
+	}
+
+	return node;
+}
 
 struct modelnode *modelGetPart(struct modelfiledata *modelfiledata, s32 partnum)
 {
