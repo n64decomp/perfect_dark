@@ -13,7 +13,7 @@ u32 func0001a60c(void);
 struct modelnode *func0001a634(struct model *model, s32 arg1);
 struct modelnode *func0001a740(struct modelnode *node);
 struct modelnode *func0001a784(struct modelnode *node);
-u32 func0001a7cc(void);
+struct modelnode *func0001a7cc(struct modelnode *node);
 u32 func0001a85c(void);
 struct modelnode *modelGetPart(struct modelfiledata *arg0, s32 partnum);
 union modelrodata *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 partnum);

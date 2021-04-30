@@ -168,52 +168,40 @@ struct modelnode *func0001a784(struct modelnode *node)
 	return node;
 }
 
-GLOBAL_ASM(
-glabel func0001a7cc
-/*    1a7cc:	8c830014 */ 	lw	$v1,0x14($a0)
-/*    1a7d0:	24070015 */ 	addiu	$a3,$zero,0x15
-/*    1a7d4:	24060002 */ 	addiu	$a2,$zero,0x2
-/*    1a7d8:	1060001e */ 	beqz	$v1,.L0001a854
-/*    1a7dc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    1a7e0:	94620000 */ 	lhu	$v0,0x0($v1)
-.L0001a7e4:
-/*    1a7e4:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1a7e8:	11c5001a */ 	beq	$t6,$a1,.L0001a854
-/*    1a7ec:	00000000 */ 	nop
-/*    1a7f0:	11c60018 */ 	beq	$t6,$a2,.L0001a854
-/*    1a7f4:	00000000 */ 	nop
-/*    1a7f8:	11c70016 */ 	beq	$t6,$a3,.L0001a854
-/*    1a7fc:	00000000 */ 	nop
-/*    1a800:	8c620014 */ 	lw	$v0,0x14($v1)
-/*    1a804:	10400003 */ 	beqz	$v0,.L0001a814
-/*    1a808:	00000000 */ 	nop
-/*    1a80c:	1000000f */ 	b	.L0001a84c
-/*    1a810:	00401825 */ 	or	$v1,$v0,$zero
-.L0001a814:
-/*    1a814:	1060000d */ 	beqz	$v1,.L0001a84c
-/*    1a818:	00000000 */ 	nop
-.L0001a81c:
-/*    1a81c:	54640004 */ 	bnel	$v1,$a0,.L0001a830
-/*    1a820:	8c62000c */ 	lw	$v0,0xc($v1)
-/*    1a824:	10000009 */ 	b	.L0001a84c
-/*    1a828:	00001825 */ 	or	$v1,$zero,$zero
-/*    1a82c:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0001a830:
-/*    1a830:	50400004 */ 	beqzl	$v0,.L0001a844
-/*    1a834:	8c630008 */ 	lw	$v1,0x8($v1)
-/*    1a838:	10000004 */ 	b	.L0001a84c
-/*    1a83c:	00401825 */ 	or	$v1,$v0,$zero
-/*    1a840:	8c630008 */ 	lw	$v1,0x8($v1)
-.L0001a844:
-/*    1a844:	1460fff5 */ 	bnez	$v1,.L0001a81c
-/*    1a848:	00000000 */ 	nop
-.L0001a84c:
-/*    1a84c:	5460ffe5 */ 	bnezl	$v1,.L0001a7e4
-/*    1a850:	94620000 */ 	lhu	$v0,0x0($v1)
-.L0001a854:
-/*    1a854:	03e00008 */ 	jr	$ra
-/*    1a858:	00601025 */ 	or	$v0,$v1,$zero
-);
+struct modelnode *func0001a7cc(struct modelnode *basenode)
+{
+	struct modelnode *node = basenode->child;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		if (type == MODELNODETYPE_CHRINFO
+				|| type == MODELNODETYPE_POSITION
+				|| type == MODELNODETYPE_POSITIONHELD) {
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node == basenode) {
+					node = NULL;
+					break;
+				}
+
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+
+	return node;
+}
 
 GLOBAL_ASM(
 glabel func0001a85c
