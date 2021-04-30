@@ -159,29 +159,20 @@ glabel func0001a740
 /*    1a780:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0001a784
-/*    1a784:	8c840008 */ 	lw	$a0,0x8($a0)
-/*    1a788:	24060015 */ 	addiu	$a2,$zero,0x15
-/*    1a78c:	24050002 */ 	addiu	$a1,$zero,0x2
-/*    1a790:	1080000c */ 	beqz	$a0,.L0001a7c4
-/*    1a794:	24030001 */ 	addiu	$v1,$zero,0x1
-/*    1a798:	94820000 */ 	lhu	$v0,0x0($a0)
-.L0001a79c:
-/*    1a79c:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    1a7a0:	11c30008 */ 	beq	$t6,$v1,.L0001a7c4
-/*    1a7a4:	00000000 */ 	nop
-/*    1a7a8:	11c50006 */ 	beq	$t6,$a1,.L0001a7c4
-/*    1a7ac:	00000000 */ 	nop
-/*    1a7b0:	11c60004 */ 	beq	$t6,$a2,.L0001a7c4
-/*    1a7b4:	00000000 */ 	nop
-/*    1a7b8:	8c840008 */ 	lw	$a0,0x8($a0)
-/*    1a7bc:	5480fff7 */ 	bnezl	$a0,.L0001a79c
-/*    1a7c0:	94820000 */ 	lhu	$v0,0x0($a0)
-.L0001a7c4:
-/*    1a7c4:	03e00008 */ 	jr	$ra
-/*    1a7c8:	00801025 */ 	or	$v0,$a0,$zero
-);
+struct modelnode *func0001a784(struct modelnode *node)
+{
+	while ((node = node->parent)) {
+		u32 type = node->type & 0xff;
+
+		if (type == MODELNODETYPE_CHRINFO
+				|| type == MODELNODETYPE_POSITION
+				|| type == MODELNODETYPE_POSITIONHELD) {
+			break;
+		}
+	}
+
+	return node;
+}
 
 GLOBAL_ASM(
 glabel func0001a7cc
