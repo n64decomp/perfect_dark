@@ -2939,150 +2939,54 @@ void func0001cc20(struct model *model)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001cd18
-.late_rodata
-glabel var700543e4
-.word func0001cd18+0x58
-glabel var700543e8
-.word func0001cd18+0x70
-glabel var700543ec
-.word func0001cd18+0xf0
-glabel var700543f0
-.word func0001cd18+0xf0
-glabel var700543f4
-.word func0001cd18+0xf0
-glabel var700543f8
-.word func0001cd18+0xf0
-glabel var700543fc
-.word func0001cd18+0xf0
-glabel var70054400
-.word func0001cd18+0xa0
-glabel var70054404
-.word func0001cd18+0xb4
-glabel var70054408
-.word func0001cd18+0xf0
-glabel var7005440c
-.word func0001cd18+0xf0
-glabel var70054410
-.word func0001cd18+0xf0
-glabel var70054414
-.word func0001cd18+0xf0
-glabel var70054418
-.word func0001cd18+0xf0
-glabel var7005441c
-.word func0001cd18+0xf0
-glabel var70054420
-.word func0001cd18+0xf0
-glabel var70054424
-.word func0001cd18+0xf0
-glabel var70054428
-.word func0001cd18+0xc8
-glabel var7005442c
-.word func0001cd18+0xf0
-glabel var70054430
-.word func0001cd18+0xf0
-glabel var70054434
-.word func0001cd18+0x88
-glabel var70054438
-.word func0001cd18+0xf0
-glabel var7005443c
-.word func0001cd18+0xdc
-glabel var70054440
-.word func0001cd18+0xf0
-.text
-/*    1cd18:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    1cd1c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    1cd20:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    1cd24:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    1cd28:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    1cd2c:	8cae0008 */ 	lw	$t6,0x8($a1)
-/*    1cd30:	00a08825 */ 	or	$s1,$a1,$zero
-/*    1cd34:	00809025 */ 	or	$s2,$a0,$zero
-/*    1cd38:	8dd00000 */ 	lw	$s0,0x0($t6)
-/*    1cd3c:	52000044 */ 	beqzl	$s0,.L0001ce50
-/*    1cd40:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    1cd44:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0001cd48:
-/*    1cd48:	304f00ff */ 	andi	$t7,$v0,0xff
-/*    1cd4c:	25f8ffff */ 	addiu	$t8,$t7,-1
-/*    1cd50:	2f010018 */ 	sltiu	$at,$t8,0x18
-/*    1cd54:	1020002c */ 	beqz	$at,.L0001ce08
-/*    1cd58:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    1cd5c:	3c017005 */ 	lui	$at,%hi(var700543e4)
-/*    1cd60:	00380821 */ 	addu	$at,$at,$t8
-/*    1cd64:	8c3843e4 */ 	lw	$t8,%lo(var700543e4)($at)
-/*    1cd68:	03000008 */ 	jr	$t8
-/*    1cd6c:	00000000 */ 	nop
-/*    1cd70:	02402025 */ 	or	$a0,$s2,$zero
-/*    1cd74:	02202825 */ 	or	$a1,$s1,$zero
-/*    1cd78:	0c006d00 */ 	jal	func0001b400
-/*    1cd7c:	02003025 */ 	or	$a2,$s0,$zero
-/*    1cd80:	10000022 */ 	b	.L0001ce0c
-/*    1cd84:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cd88:	02402025 */ 	or	$a0,$s2,$zero
-/*    1cd8c:	02202825 */ 	or	$a1,$s1,$zero
-/*    1cd90:	0c006fea */ 	jal	func0001bfa8
-/*    1cd94:	02003025 */ 	or	$a2,$s0,$zero
-/*    1cd98:	1000001c */ 	b	.L0001ce0c
-/*    1cd9c:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cda0:	02402025 */ 	or	$a0,$s2,$zero
-/*    1cda4:	02202825 */ 	or	$a1,$s1,$zero
-/*    1cda8:	0c00716d */ 	jal	func0001c5b4
-/*    1cdac:	02003025 */ 	or	$a2,$s0,$zero
-/*    1cdb0:	10000016 */ 	b	.L0001ce0c
-/*    1cdb4:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cdb8:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cdbc:	0c007199 */ 	jal	func0001c664
-/*    1cdc0:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cdc4:	10000011 */ 	b	.L0001ce0c
-/*    1cdc8:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cdcc:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cdd0:	0c007254 */ 	jal	func0001c950
-/*    1cdd4:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cdd8:	1000000c */ 	b	.L0001ce0c
-/*    1cddc:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cde0:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cde4:	0c0071f4 */ 	jal	func0001c7d0
-/*    1cde8:	02002825 */ 	or	$a1,$s0,$zero
-/*    1cdec:	10000007 */ 	b	.L0001ce0c
-/*    1cdf0:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    1cdf4:	02202025 */ 	or	$a0,$s1,$zero
-/*    1cdf8:	0c007207 */ 	jal	modelAttachHead
-/*    1cdfc:	02002825 */ 	or	$a1,$s0,$zero
-/*    1ce00:	10000002 */ 	b	.L0001ce0c
-/*    1ce04:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0001ce08:
-/*    1ce08:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0001ce0c:
-/*    1ce0c:	10400003 */ 	beqz	$v0,.L0001ce1c
-/*    1ce10:	00000000 */ 	nop
-/*    1ce14:	1000000b */ 	b	.L0001ce44
-/*    1ce18:	00408025 */ 	or	$s0,$v0,$zero
-.L0001ce1c:
-/*    1ce1c:	12000009 */ 	beqz	$s0,.L0001ce44
-/*    1ce20:	00000000 */ 	nop
-/*    1ce24:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0001ce28:
-/*    1ce28:	50400004 */ 	beqzl	$v0,.L0001ce3c
-/*    1ce2c:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    1ce30:	10000004 */ 	b	.L0001ce44
-/*    1ce34:	00408025 */ 	or	$s0,$v0,$zero
-/*    1ce38:	8e100008 */ 	lw	$s0,0x8($s0)
-.L0001ce3c:
-/*    1ce3c:	5600fffa */ 	bnezl	$s0,.L0001ce28
-/*    1ce40:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0001ce44:
-/*    1ce44:	5600ffc0 */ 	bnezl	$s0,.L0001cd48
-/*    1ce48:	96020000 */ 	lhu	$v0,0x0($s0)
-/*    1ce4c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0001ce50:
-/*    1ce50:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    1ce54:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    1ce58:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    1ce5c:	03e00008 */ 	jr	$ra
-/*    1ce60:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0001cd18(Mtxf *mtx, struct model *model)
+{
+	struct modelnode *node = model->filedata->rootnode;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_CHRINFO:
+			func0001b400(mtx, model, node);
+			break;
+		case MODELNODETYPE_POSITION:
+			func0001bfa8(mtx, model, node);
+			break;
+		case MODELNODETYPE_POSITIONHELD:
+			func0001c5b4(mtx, model, node);
+			break;
+		case MODELNODETYPE_DISTANCE:
+			func0001c664(model, node);
+			break;
+		case MODELNODETYPE_REORDER:
+			func0001c950(model, node);
+			break;
+		case MODELNODETYPE_TOGGLE:
+			func0001c7d0(model, node);
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			modelAttachHead(model, node);
+			break;
+		case MODELNODETYPE_DL:
+		default:
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
