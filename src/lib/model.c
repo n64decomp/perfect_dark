@@ -2609,57 +2609,27 @@ glabel func0001bfa8
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0001c5b4
-/*    1c5b4:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    1c5b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1c5bc:	afa50074 */ 	sw	$a1,0x74($sp)
-/*    1c5c0:	8cce0004 */ 	lw	$t6,0x4($a2)
-/*    1c5c4:	afae006c */ 	sw	$t6,0x6c($sp)
-/*    1c5c8:	8cc70008 */ 	lw	$a3,0x8($a2)
-/*    1c5cc:	8ca8000c */ 	lw	$t0,0xc($a1)
-/*    1c5d0:	00003025 */ 	or	$a2,$zero,$zero
-/*    1c5d4:	10e0000a */ 	beqz	$a3,.L0001c600
-/*    1c5d8:	85c3000c */ 	lh	$v1,0xc($t6)
-/*    1c5dc:	00a02025 */ 	or	$a0,$a1,$zero
-/*    1c5e0:	00e02825 */ 	or	$a1,$a3,$zero
-/*    1c5e4:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1c5e8:	0c006973 */ 	jal	func0001a5cc
-/*    1c5ec:	afa80020 */ 	sw	$t0,0x20($sp)
-/*    1c5f0:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1c5f4:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    1c5f8:	10000002 */ 	b	.L0001c604
-/*    1c5fc:	00403825 */ 	or	$a3,$v0,$zero
-.L0001c600:
-/*    1c600:	8c870000 */ 	lw	$a3,0x0($a0)
-.L0001c604:
-/*    1c604:	10e00010 */ 	beqz	$a3,.L0001c648
-/*    1c608:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*    1c60c:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*    1c610:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*    1c614:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1c618:	afa70068 */ 	sw	$a3,0x68($sp)
-/*    1c61c:	0c0059b7 */ 	jal	func000166dc
-/*    1c620:	afa80020 */ 	sw	$t0,0x20($sp)
-/*    1c624:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1c628:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    1c62c:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*    1c630:	0003c980 */ 	sll	$t9,$v1,0x6
-/*    1c634:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*    1c638:	0c0056f9 */ 	jal	func00015be4
-/*    1c63c:	03283021 */ 	addu	$a2,$t9,$t0
-/*    1c640:	10000005 */ 	b	.L0001c658
-/*    1c644:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001c648:
-/*    1c648:	00034980 */ 	sll	$t1,$v1,0x6
-/*    1c64c:	0c0059b7 */ 	jal	func000166dc
-/*    1c650:	01282821 */ 	addu	$a1,$t1,$t0
-/*    1c654:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001c658:
-/*    1c658:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*    1c65c:	03e00008 */ 	jr	$ra
-/*    1c660:	00000000 */ 	nop
-);
+void func0001c5b4(struct objticksp476 *arg0, struct model *model, struct modelnode *node)
+{
+	union modelrodata *rodata = node->rodata;
+	Mtxf *sp68;
+	Mtxf sp28;
+	s32 mtxindex = rodata->positionheld.unk0c;
+	Mtxf *matrices = model->matrices;
+
+	if (node->parent) {
+		sp68 = func0001a5cc(model, node->parent, 0);
+	} else {
+		sp68 = arg0->matrix;
+	}
+
+	if (sp68) {
+		func000166dc(&rodata->positionheld.pos, &sp28);
+		func00015be4(sp68, &sp28, &matrices[mtxindex]);
+	} else {
+		func000166dc(&rodata->positionheld.pos, &matrices[mtxindex]);
+	}
+}
 
 /**
  * For a distance node, set its target to visible based on distance.
@@ -2939,7 +2909,7 @@ void func0001cc20(struct model *model)
 	}
 }
 
-void func0001cd18(Mtxf *mtx, struct model *model)
+void func0001cd18(struct objticksp476 *arg0, struct model *model)
 {
 	struct modelnode *node = model->filedata->rootnode;
 
@@ -2948,13 +2918,13 @@ void func0001cd18(Mtxf *mtx, struct model *model)
 
 		switch (type) {
 		case MODELNODETYPE_CHRINFO:
-			func0001b400(mtx, model, node);
+			func0001b400(arg0, model, node);
 			break;
 		case MODELNODETYPE_POSITION:
-			func0001bfa8(mtx, model, node);
+			func0001bfa8(arg0, model, node);
 			break;
 		case MODELNODETYPE_POSITIONHELD:
-			func0001c5b4(mtx, model, node);
+			func0001c5b4(arg0, model, node);
 			break;
 		case MODELNODETYPE_DISTANCE:
 			func0001c664(model, node);
