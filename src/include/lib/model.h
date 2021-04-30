@@ -16,7 +16,7 @@ struct modelnode *func0001a7cc(struct modelnode *node);
 struct modelnode *func0001a85c(struct modelnode *node);
 struct modelnode *modelGetPart(struct modelfiledata *arg0, s32 partnum);
 union modelrodata *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 partnum);
-u32 func0001a9e8(void);
+f32 func0001a9e8(struct model *model);
 void *modelGetNodeRwData(struct model *model, struct modelnode *node);
 void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos);
 void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos);

@@ -280,24 +280,16 @@ union modelrodata *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 p
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0001a9e8
-/*    1a9e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1a9ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1a9f0:	0c006983 */ 	jal	func0001a60c
-/*    1a9f4:	00000000 */ 	nop
-/*    1a9f8:	10400004 */ 	beqz	$v0,.L0001aa0c
-/*    1a9fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1aa00:	c4400038 */ 	lwc1	$f0,0x38($v0)
-/*    1aa04:	10000003 */ 	b	.L0001aa14
-/*    1aa08:	46000007 */ 	neg.s	$f0,$f0
-.L0001aa0c:
-/*    1aa0c:	44800000 */ 	mtc1	$zero,$f0
-/*    1aa10:	00000000 */ 	nop
-.L0001aa14:
-/*    1aa14:	03e00008 */ 	jr	$ra
-/*    1aa18:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+f32 func0001a9e8(struct model *model)
+{
+	Mtxf *mtx = func0001a60c(model);
+
+	if (mtx) {
+		return -mtx->m[3][2];
+	}
+
+	return 0;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 // ntsc-beta has this function in another file
