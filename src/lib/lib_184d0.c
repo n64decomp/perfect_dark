@@ -50,8 +50,8 @@ u32 var8005efb0 = 0x00000000;
 u32 var8005efb0_2 = 0;
 #endif
 
-u32 var8005efb4 = 0x00000000;
-f32 var8005efb8 = 1;
+bool g_ModelDistanceDisabled = false;
+f32 g_ModelDistanceScale = 1;
 bool var8005efbc = false;
 u32 var8005efc0 = 0x00000000;
 bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
@@ -821,8 +821,8 @@ glabel func00018680
 /*    1900c:	0000000c */ 	syscall
 /*    19010:	0c006897 */ 	jal	func0001a25c
 /*    19014:	001c4020 */ 	add	$t0,$zero,$gp
-/*    19018:	3c0a8006 */ 	lui	$t2,%hi(var8005efb4)
-/*    1901c:	254aefb4 */ 	addiu	$t2,$t2,%lo(var8005efb4)
+/*    19018:	3c0a8006 */ 	lui	$t2,%hi(g_ModelDistanceDisabled)
+/*    1901c:	254aefb4 */ 	addiu	$t2,$t2,%lo(g_ModelDistanceDisabled)
 /*    19020:	0c006747 */ 	jal	func00019d1c
 /*    19024:	8f890004 */ 	lw	$t1,0x4($gp)
 /*    19028:	8d4a0000 */ 	lw	$t2,0x0($t2)
@@ -837,8 +837,8 @@ glabel func00018680
 /*    1904c:	46000007 */ 	neg.s	$f0,$f0
 /*    19050:	c5411774 */ 	lwc1	$f1,0x1774($t2)
 /*    19054:	46010002 */ 	mul.s	$f0,$f0,$f1
-/*    19058:	3c088006 */ 	lui	$t0,%hi(var8005efb8)
-/*    1905c:	2508efb8 */ 	addiu	$t0,$t0,%lo(var8005efb8)
+/*    19058:	3c088006 */ 	lui	$t0,%hi(g_ModelDistanceScale)
+/*    1905c:	2508efb8 */ 	addiu	$t0,$t0,%lo(g_ModelDistanceScale)
 /*    19060:	c5010000 */ 	lwc1	$f1,0x0($t0)
 /*    19064:	46010002 */ 	mul.s	$f0,$f0,$f1
 .L00019068:

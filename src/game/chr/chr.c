@@ -7876,7 +7876,7 @@ glabel var7f1a99ecpf
 /*  f023ea8:	10400004 */ 	beqz	$v0,.PF0f023ebc
 /*  f023eac:	3c013ea0 */ 	lui	$at,0x3ea0
 /*  f023eb0:	44816000 */ 	mtc1	$at,$f12
-/*  f023eb4:	0c0068a7 */ 	jal	func0001a50c
+/*  f023eb4:	0c0068a7 */ 	jal	modelSetDistanceScale
 /*  f023eb8:	00000000 */ 	nop
 .PF0f023ebc:
 /*  f023ebc:	3c0a7f02 */ 	lui	$t2,0x7f02
@@ -8185,7 +8185,7 @@ glabel var7f1a99ecpf
 .PF0f024334:
 /*  f024334:	ac20ec74 */ 	sw	$zero,-0x138c($at)
 /*  f024338:	3c018006 */ 	lui	$at,0x8006
-/*  f02433c:	0c0068a7 */ 	jal	func0001a50c
+/*  f02433c:	0c0068a7 */ 	jal	modelSetDistanceScale
 /*  f024340:	c42c26c8 */ 	lwc1	$f12,0x26c8($at)
 /*  f024344:	8fab01f0 */ 	lw	$t3,0x1f0($sp)
 /*  f024348:	260400f8 */ 	addiu	$a0,$s0,0xf8
@@ -9314,7 +9314,7 @@ glabel var7f1a87d8
 /*  f023d84:	10400004 */ 	beqz	$v0,.L0f023d98
 /*  f023d88:	3c013ea0 */ 	lui	$at,0x3ea0
 /*  f023d8c:	44816000 */ 	mtc1	$at,$f12
-/*  f023d90:	0c006943 */ 	jal	func0001a50c
+/*  f023d90:	0c006943 */ 	jal	modelSetDistanceScale
 /*  f023d94:	00000000 */ 	nop
 .L0f023d98:
 /*  f023d98:	3c0c7f02 */ 	lui	$t4,%hi(func0f02152c)
@@ -9623,7 +9623,7 @@ glabel var7f1a87d8
 .L0f024210:
 /*  f024210:	ac20efcc */ 	sw	$zero,%lo(var8005efcc)($at)
 /*  f024214:	3c018006 */ 	lui	$at,%hi(var800629e8)
-/*  f024218:	0c006943 */ 	jal	func0001a50c
+/*  f024218:	0c006943 */ 	jal	modelSetDistanceScale
 /*  f02421c:	c42c29e8 */ 	lwc1	$f12,%lo(var800629e8)($at)
 /*  f024220:	8fad01f0 */ 	lw	$t5,0x1f0($sp)
 /*  f024224:	260400f8 */ 	addiu	$a0,$s0,0xf8
@@ -10693,7 +10693,7 @@ glabel var7f1a87d8
 /*  f02379c:	10400004 */ 	beqz	$v0,.NB0f0237b0
 /*  f0237a0:	3c013ea0 */ 	lui	$at,0x3ea0
 /*  f0237a4:	44816000 */ 	mtc1	$at,$f12
-/*  f0237a8:	0c006d9f */ 	jal	func0001a50c
+/*  f0237a8:	0c006d9f */ 	jal	modelSetDistanceScale
 /*  f0237ac:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f0237b0:
 /*  f0237b0:	3c0e7f02 */ 	lui	$t6,0x7f02
@@ -11002,7 +11002,7 @@ glabel var7f1a87d8
 .NB0f023c28:
 /*  f023c28:	ac20139c */ 	sw	$zero,0x139c($at)
 /*  f023c2c:	3c018006 */ 	lui	$at,0x8006
-/*  f023c30:	0c006d9f */ 	jal	func0001a50c
+/*  f023c30:	0c006d9f */ 	jal	modelSetDistanceScale
 /*  f023c34:	c42c4ef8 */ 	lwc1	$f12,0x4ef8($at)
 /*  f023c38:	8faa01f0 */ 	lw	$t2,0x1f0($sp)
 /*  f023c3c:	260400f8 */ 	addiu	$a0,$s0,0xf8

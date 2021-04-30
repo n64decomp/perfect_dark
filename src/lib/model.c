@@ -18,16 +18,14 @@
 #include "data.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0001a500
-/*    1a500:	3c018006 */ 	lui	$at,%hi(var8005efb4)
-/*    1a504:	03e00008 */ 	jr	$ra
-/*    1a508:	ac24efb4 */ 	sw	$a0,%lo(var8005efb4)($at)
-);
-
-void func0001a50c(f32 value)
+void modelSetDistanceChecksDisabled(bool disabled)
 {
-	var8005efb8 = value;
+	g_ModelDistanceDisabled = disabled;
+}
+
+void modelSetDistanceScale(f32 scale)
+{
+	g_ModelDistanceScale = scale;
 }
 
 void func0001a518(void *callback)
@@ -2748,7 +2746,7 @@ glabel func0001c5b4
 );
 
 /**
- * For a near/far node, set its target to visible based on distance.
+ * For a distance node, set its target to visible based on distance.
  */
 void func0001c664(struct model *model, struct modelnode *node)
 {
@@ -2757,13 +2755,13 @@ void func0001c664(struct model *model, struct modelnode *node)
 	Mtxf *mtx = func0001a5cc(model, node, 0);
 	f32 distance;
 
-	if (var8005efb4 || !mtx) {
+	if (g_ModelDistanceDisabled || !mtx) {
 		distance = 0;
 	} else {
 		distance = -mtx->m[3][2] * currentPlayerGetLodScaleZ();
 
-		if (var8005efb8 != 1) {
-			distance *= var8005efb8;
+		if (g_ModelDistanceScale != 1) {
+			distance *= g_ModelDistanceScale;
 		}
 	}
 
