@@ -575,36 +575,12 @@ f32 func0001afe8(f32 arg0, f32 angle, f32 mult)
 	return arg0;
 }
 
-GLOBAL_ASM(
-glabel func0001b07c
-/*    1b07c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    1b080:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    1b084:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    1b088:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    1b08c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*    1b090:	00808025 */ 	or	$s0,$a0,$zero
-/*    1b094:	c4ae0000 */ 	lwc1	$f14,0x0($a1)
-/*    1b098:	0c006bfa */ 	jal	func0001afe8
-/*    1b09c:	c48c0000 */ 	lwc1	$f12,0x0($a0)
-/*    1b0a0:	e6000000 */ 	swc1	$f0,0x0($s0)
-/*    1b0a4:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    1b0a8:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    1b0ac:	c60c0004 */ 	lwc1	$f12,0x4($s0)
-/*    1b0b0:	0c006bfa */ 	jal	func0001afe8
-/*    1b0b4:	c5ee0004 */ 	lwc1	$f14,0x4($t7)
-/*    1b0b8:	e6000004 */ 	swc1	$f0,0x4($s0)
-/*    1b0bc:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    1b0c0:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*    1b0c4:	c60c0008 */ 	lwc1	$f12,0x8($s0)
-/*    1b0c8:	0c006bfa */ 	jal	func0001afe8
-/*    1b0cc:	c70e0008 */ 	lwc1	$f14,0x8($t8)
-/*    1b0d0:	e6000008 */ 	swc1	$f0,0x8($s0)
-/*    1b0d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    1b0d8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    1b0dc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    1b0e0:	03e00008 */ 	jr	$ra
-/*    1b0e4:	00000000 */ 	nop
-);
+void func0001b07c(struct coord *arg0, struct coord *arg1, f32 mult)
+{
+	arg0->x = func0001afe8(arg0->x, arg1->x, mult);
+	arg0->y = func0001afe8(arg0->y, arg1->y, mult);
+	arg0->z = func0001afe8(arg0->z, arg1->z, mult);
+}
 
 void func0001b0e8(struct model *model, struct modelnode *node)
 {
