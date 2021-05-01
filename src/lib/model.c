@@ -3503,99 +3503,36 @@ glabel func0001e018
 /*    1e148:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0001e14c
-/*    1e14c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    1e150:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    1e154:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    1e158:	afa60038 */ 	sw	$a2,0x38($sp)
-/*    1e15c:	8c900020 */ 	lw	$s0,0x20($a0)
-/*    1e160:	44856000 */ 	mtc1	$a1,$f12
-/*    1e164:	52000049 */ 	beqzl	$s0,.L0001e28c
-/*    1e168:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    1e16c:	44056000 */ 	mfc1	$a1,$f12
-/*    1e170:	0c007806 */ 	jal	func0001e018
-/*    1e174:	00000000 */ 	nop
-/*    1e178:	860e0002 */ 	lh	$t6,0x2($s0)
-/*    1e17c:	51c00043 */ 	beqzl	$t6,.L0001e28c
-/*    1e180:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    1e184:	0fc25e42 */ 	jal	floor
-/*    1e188:	c7ac0038 */ 	lwc1	$f12,0x38($sp)
-/*    1e18c:	c6040040 */ 	lwc1	$f4,0x40($s0)
-/*    1e190:	44803000 */ 	mtc1	$zero,$f6
-/*    1e194:	00402025 */ 	or	$a0,$v0,$zero
-/*    1e198:	00004025 */ 	or	$t0,$zero,$zero
-/*    1e19c:	4604303e */ 	c.le.s	$f6,$f4
-/*    1e1a0:	2447ffff */ 	addiu	$a3,$v0,-1
-/*    1e1a4:	45000002 */ 	bc1f	.L0001e1b0
-/*    1e1a8:	00000000 */ 	nop
-/*    1e1ac:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0001e1b0:
-/*    1e1b0:	11000003 */ 	beqz	$t0,.L0001e1c0
-/*    1e1b4:	00000000 */ 	nop
-/*    1e1b8:	10000001 */ 	b	.L0001e1c0
-/*    1e1bc:	24470001 */ 	addiu	$a3,$v0,0x1
-.L0001e1c0:
-/*    1e1c0:	86050002 */ 	lh	$a1,0x2($s0)
-/*    1e1c4:	8e06003c */ 	lw	$a2,0x3c($s0)
-/*    1e1c8:	afa80020 */ 	sw	$t0,0x20($sp)
-/*    1e1cc:	afa70024 */ 	sw	$a3,0x24($sp)
-/*    1e1d0:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
-/*    1e1d4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    1e1d8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    1e1dc:	a6020038 */ 	sh	$v0,0x38($s0)
-/*    1e1e0:	86050002 */ 	lh	$a1,0x2($s0)
-/*    1e1e4:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
-/*    1e1e8:	8e06003c */ 	lw	$a2,0x3c($s0)
-/*    1e1ec:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*    1e1f0:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    1e1f4:	a602003a */ 	sh	$v0,0x3a($s0)
-/*    1e1f8:	8604003a */ 	lh	$a0,0x3a($s0)
-/*    1e1fc:	86030038 */ 	lh	$v1,0x38($s0)
-/*    1e200:	14830007 */ 	bne	$a0,$v1,.L0001e220
-/*    1e204:	00000000 */ 	nop
-/*    1e208:	44835000 */ 	mtc1	$v1,$f10
-/*    1e20c:	44804000 */ 	mtc1	$zero,$f8
-/*    1e210:	46805420 */ 	cvt.s.w	$f16,$f10
-/*    1e214:	e6080034 */ 	swc1	$f8,0x34($s0)
-/*    1e218:	1000001b */ 	b	.L0001e288
-/*    1e21c:	e6100030 */ 	swc1	$f16,0x30($s0)
-.L0001e220:
-/*    1e220:	1100000b */ 	beqz	$t0,.L0001e250
-/*    1e224:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    1e228:	448f2000 */ 	mtc1	$t7,$f4
-/*    1e22c:	44834000 */ 	mtc1	$v1,$f8
-/*    1e230:	c7b20038 */ 	lwc1	$f18,0x38($sp)
-/*    1e234:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    1e238:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    1e23c:	46069001 */ 	sub.s	$f0,$f18,$f6
-/*    1e240:	46005400 */ 	add.s	$f16,$f10,$f0
-/*    1e244:	e6000034 */ 	swc1	$f0,0x34($s0)
-/*    1e248:	1000000f */ 	b	.L0001e288
-/*    1e24c:	e6100030 */ 	swc1	$f16,0x30($s0)
-.L0001e250:
-/*    1e250:	44879000 */ 	mtc1	$a3,$f18
-/*    1e254:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*    1e258:	3c013f80 */ 	lui	$at,0x3f80
-/*    1e25c:	468091a0 */ 	cvt.s.w	$f6,$f18
-/*    1e260:	44811000 */ 	mtc1	$at,$f2
-/*    1e264:	44845000 */ 	mtc1	$a0,$f10
-/*    1e268:	00000000 */ 	nop
-/*    1e26c:	46805420 */ 	cvt.s.w	$f16,$f10
-/*    1e270:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*    1e274:	46081001 */ 	sub.s	$f0,$f2,$f8
-/*    1e278:	46001481 */ 	sub.s	$f18,$f2,$f0
-/*    1e27c:	e6000034 */ 	swc1	$f0,0x34($s0)
-/*    1e280:	46128100 */ 	add.s	$f4,$f16,$f18
-/*    1e284:	e6040030 */ 	swc1	$f4,0x30($s0)
-.L0001e288:
-/*    1e288:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0001e28c:
-/*    1e28c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    1e290:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    1e294:	03e00008 */ 	jr	$ra
-/*    1e298:	00000000 */ 	nop
-);
+void func0001e14c(struct model *model, f32 arg1, f32 arg2)
+{
+	struct anim *anim = model->anim;
+
+	if (anim) {
+		func0001e018(model, arg1);
+
+		if (anim->animnum2) {
+			s32 sp28 = floor(arg2);
+			s32 sp24;
+			bool sp20 = anim->speed2 >= 0;
+
+			sp24 = (sp20 ? sp28 + 1 : sp28 - 1);
+
+			anim->frame2a = modelConstrainOrWrapAnimFrame(sp28, anim->animnum2, anim->endframe2);
+			anim->frame2b = modelConstrainOrWrapAnimFrame(sp24, anim->animnum2, anim->endframe2);
+
+			if (anim->frame2a == anim->frame2b) {
+				anim->frac2 = 0;
+				anim->frame2 = anim->frame2a;
+			} else if (sp20) {
+				anim->frac2 = arg2 - sp28;
+				anim->frame2 = anim->frame2a + anim->frac2;
+			} else {
+				anim->frac2 = 1.0f - (arg2 - sp24);
+				anim->frame2 = anim->frame2b + (1.0f - anim->frac2);
+			}
+		}
+	}
+}
 
 void func0001e29c(bool value)
 {
