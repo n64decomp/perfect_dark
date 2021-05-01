@@ -16,7 +16,7 @@ u32 func00023908(void);
 u32 func000239e0(void);
 s32 func00023ab0(s32 animnum, s32 framenum);
 void func00023d0c(void);
-void func00023d38(s32 animnum);
+void func00023d38(s16 animnum);
 u32 func00023f50(void);
 u32 func00023fe0(void);
 void func00024050(s32 arg0, s32 arg1, struct modeltype *arg2, s32 animnum, u32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7);

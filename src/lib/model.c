@@ -2549,183 +2549,55 @@ void func0001ce64(struct objticksp476 *arg0, struct model *model)
 #endif
 }
 
-GLOBAL_ASM(
-glabel func0001cebc
-/*    1cebc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    1cec0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1cec4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    1cec8:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    1cecc:	8ca30020 */ 	lw	$v1,0x20($a1)
-/*    1ced0:	5060006a */ 	beqzl	$v1,.L0001d07c
-/*    1ced4:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    1ced8:	84670000 */ 	lh	$a3,0x0($v1)
-/*    1cedc:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*    1cee0:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*    1cee4:	50e00065 */ 	beqzl	$a3,.L0001d07c
-/*    1cee8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    1ceec:	8d0f006c */ 	lw	$t7,0x6c($t0)
-/*    1cef0:	00003025 */ 	or	$a2,$zero,$zero
-/*    1cef4:	11e00003 */ 	beqz	$t7,.L0001cf04
-/*    1cef8:	00000000 */ 	nop
-/*    1cefc:	10000001 */ 	b	.L0001cf04
-/*    1cf00:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0001cf04:
-/*    1cf04:	8d180068 */ 	lw	$t8,0x68($t0)
-/*    1cf08:	00002825 */ 	or	$a1,$zero,$zero
-/*    1cf0c:	13000003 */ 	beqz	$t8,.L0001cf1c
-/*    1cf10:	00000000 */ 	nop
-/*    1cf14:	10000001 */ 	b	.L0001cf1c
-/*    1cf18:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0001cf1c:
-/*    1cf1c:	8d190064 */ 	lw	$t9,0x64($t0)
-/*    1cf20:	00002025 */ 	or	$a0,$zero,$zero
-/*    1cf24:	00001025 */ 	or	$v0,$zero,$zero
-/*    1cf28:	13200003 */ 	beqz	$t9,.L0001cf38
-/*    1cf2c:	00000000 */ 	nop
-/*    1cf30:	10000001 */ 	b	.L0001cf38
-/*    1cf34:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0001cf38:
-/*    1cf38:	8d090070 */ 	lw	$t1,0x70($t0)
-/*    1cf3c:	11200003 */ 	beqz	$t1,.L0001cf4c
-/*    1cf40:	00000000 */ 	nop
-/*    1cf44:	10000001 */ 	b	.L0001cf4c
-/*    1cf48:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0001cf4c:
-/*    1cf4c:	00445021 */ 	addu	$t2,$v0,$a0
-/*    1cf50:	01455821 */ 	addu	$t3,$t2,$a1
-/*    1cf54:	01666021 */ 	addu	$t4,$t3,$a2
-/*    1cf58:	29810002 */ 	slti	$at,$t4,0x2
-/*    1cf5c:	54200016 */ 	bnezl	$at,.L0001cfb8
-/*    1cf60:	00072400 */ 	sll	$a0,$a3,0x10
-/*    1cf64:	c4640010 */ 	lwc1	$f4,0x10($v1)
-/*    1cf68:	44801000 */ 	mtc1	$zero,$f2
-/*    1cf6c:	3c013f00 */ 	lui	$at,0x3f00
-/*    1cf70:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    1cf74:	c4660034 */ 	lwc1	$f6,0x34($v1)
-/*    1cf78:	44814000 */ 	mtc1	$at,$f8
-/*    1cf7c:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*    1cf80:	c460001c */ 	lwc1	$f0,0x1c($v1)
-/*    1cf84:	4602003c */ 	c.lt.s	$f0,$f2
-/*    1cf88:	00000000 */ 	nop
-/*    1cf8c:	45020003 */ 	bc1fl	.L0001cf9c
-/*    1cf90:	4600403c */ 	c.lt.s	$f8,$f0
-/*    1cf94:	46000007 */ 	neg.s	$f0,$f0
-/*    1cf98:	4600403c */ 	c.lt.s	$f8,$f0
-.L0001cf9c:
-/*    1cf9c:	00000000 */ 	nop
-/*    1cfa0:	45020005 */ 	bc1fl	.L0001cfb8
-/*    1cfa4:	00072400 */ 	sll	$a0,$a3,0x10
-/*    1cfa8:	e4620010 */ 	swc1	$f2,0x10($v1)
-/*    1cfac:	e4620034 */ 	swc1	$f2,0x34($v1)
-/*    1cfb0:	84670000 */ 	lh	$a3,0x0($v1)
-/*    1cfb4:	00072400 */ 	sll	$a0,$a3,0x10
-.L0001cfb8:
-/*    1cfb8:	00046c03 */ 	sra	$t5,$a0,0x10
-/*    1cfbc:	01a02025 */ 	or	$a0,$t5,$zero
-/*    1cfc0:	0c008f4e */ 	jal	func00023d38
-/*    1cfc4:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1cfc8:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1cfcc:	84640000 */ 	lh	$a0,0x0($v1)
-/*    1cfd0:	0c008eac */ 	jal	func00023ab0
-/*    1cfd4:	84650014 */ 	lh	$a1,0x14($v1)
-/*    1cfd8:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1cfdc:	44805000 */ 	mtc1	$zero,$f10
-/*    1cfe0:	c4700010 */ 	lwc1	$f16,0x10($v1)
-/*    1cfe4:	a0620004 */ 	sb	$v0,0x4($v1)
-/*    1cfe8:	46105032 */ 	c.eq.s	$f10,$f16
-/*    1cfec:	00000000 */ 	nop
-/*    1cff0:	45030008 */ 	bc1tl	.L0001d014
-/*    1cff4:	84640002 */ 	lh	$a0,0x2($v1)
-/*    1cff8:	84640000 */ 	lh	$a0,0x0($v1)
-/*    1cffc:	84650016 */ 	lh	$a1,0x16($v1)
-/*    1d000:	0c008eac */ 	jal	func00023ab0
-/*    1d004:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1d008:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1d00c:	a0620005 */ 	sb	$v0,0x5($v1)
-/*    1d010:	84640002 */ 	lh	$a0,0x2($v1)
-.L0001d014:
-/*    1d014:	10800015 */ 	beqz	$a0,.L0001d06c
-/*    1d018:	00000000 */ 	nop
-/*    1d01c:	0c008f4e */ 	jal	func00023d38
-/*    1d020:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1d024:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1d028:	84640002 */ 	lh	$a0,0x2($v1)
-/*    1d02c:	0c008eac */ 	jal	func00023ab0
-/*    1d030:	84650038 */ 	lh	$a1,0x38($v1)
-/*    1d034:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1d038:	44809000 */ 	mtc1	$zero,$f18
-/*    1d03c:	c4640034 */ 	lwc1	$f4,0x34($v1)
-/*    1d040:	a0620006 */ 	sb	$v0,0x6($v1)
-/*    1d044:	46049032 */ 	c.eq.s	$f18,$f4
-/*    1d048:	00000000 */ 	nop
-/*    1d04c:	45010007 */ 	bc1t	.L0001d06c
-/*    1d050:	00000000 */ 	nop
-/*    1d054:	84640002 */ 	lh	$a0,0x2($v1)
-/*    1d058:	8465003a */ 	lh	$a1,0x3a($v1)
-/*    1d05c:	0c008eac */ 	jal	func00023ab0
-/*    1d060:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1d064:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1d068:	a0620007 */ 	sb	$v0,0x7($v1)
-.L0001d06c:
-/*    1d06c:	0c008f43 */ 	jal	func00023d0c
-/*    1d070:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1d074:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1d078:	8fa40028 */ 	lw	$a0,0x28($sp)
-.L0001d07c:
-/*    1d07c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    1d080:	0c007399 */ 	jal	func0001ce64
-/*    1d084:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1d088:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*    1d08c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*    1d090:	8c4e006c */ 	lw	$t6,0x6c($v0)
-/*    1d094:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*    1d098:	00003025 */ 	or	$a2,$zero,$zero
-/*    1d09c:	11c00003 */ 	beqz	$t6,.L0001d0ac
-/*    1d0a0:	00002825 */ 	or	$a1,$zero,$zero
-/*    1d0a4:	10000001 */ 	b	.L0001d0ac
-/*    1d0a8:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0001d0ac:
-/*    1d0ac:	8c4f0068 */ 	lw	$t7,0x68($v0)
-/*    1d0b0:	00002025 */ 	or	$a0,$zero,$zero
-/*    1d0b4:	11e00003 */ 	beqz	$t7,.L0001d0c4
-/*    1d0b8:	00000000 */ 	nop
-/*    1d0bc:	10000001 */ 	b	.L0001d0c4
-/*    1d0c0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0001d0c4:
-/*    1d0c4:	8c580064 */ 	lw	$t8,0x64($v0)
-/*    1d0c8:	13000003 */ 	beqz	$t8,.L0001d0d8
-/*    1d0cc:	00000000 */ 	nop
-/*    1d0d0:	10000001 */ 	b	.L0001d0d8
-/*    1d0d4:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0001d0d8:
-/*    1d0d8:	8c590070 */ 	lw	$t9,0x70($v0)
-/*    1d0dc:	00001025 */ 	or	$v0,$zero,$zero
-/*    1d0e0:	13200003 */ 	beqz	$t9,.L0001d0f0
-/*    1d0e4:	00000000 */ 	nop
-/*    1d0e8:	10000001 */ 	b	.L0001d0f0
-/*    1d0ec:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0001d0f0:
-/*    1d0f0:	00444821 */ 	addu	$t1,$v0,$a0
-/*    1d0f4:	01255021 */ 	addu	$t2,$t1,$a1
-/*    1d0f8:	01465821 */ 	addu	$t3,$t2,$a2
-/*    1d0fc:	29610002 */ 	slti	$at,$t3,0x2
-/*    1d100:	5420000b */ 	bnezl	$at,.L0001d130
-/*    1d104:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1d108:	50600009 */ 	beqzl	$v1,.L0001d130
-/*    1d10c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1d110:	846c0000 */ 	lh	$t4,0x0($v1)
-/*    1d114:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*    1d118:	51800005 */ 	beqzl	$t4,.L0001d130
-/*    1d11c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1d120:	e4660010 */ 	swc1	$f6,0x10($v1)
-/*    1d124:	c7a80018 */ 	lwc1	$f8,0x18($sp)
-/*    1d128:	e4680034 */ 	swc1	$f8,0x34($v1)
-/*    1d12c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001d130:
-/*    1d130:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    1d134:	03e00008 */ 	jr	$ra
-/*    1d138:	00000000 */ 	nop
-);
+void func0001cebc(struct objticksp476 *arg0, struct model *model)
+{
+	struct anim *anim = model->anim;
+	f32 speed;
+	f32 frac;
+	f32 frac2;
+
+	if (anim && anim->animnum) {
+		if (PLAYERCOUNT() >= 2) {
+			frac = anim->frac;
+			frac2 = anim->frac2;
+			speed = anim->speed;
+
+			if (speed < 0) {
+				speed = -speed;
+			}
+
+			if (speed > 0.5f) {
+				anim->frac = 0;
+				anim->frac2 = 0;
+			}
+		}
+
+		func00023d38(anim->animnum);
+		anim->unk04 = func00023ab0(anim->animnum, anim->framea);
+
+		if (anim->frac != 0) {
+			anim->unk05 = func00023ab0(anim->animnum, anim->frameb);
+		}
+
+		if (anim->animnum2) {
+			func00023d38(anim->animnum2);
+			anim->unk06 = func00023ab0(anim->animnum2, anim->frame2a);
+
+			if (anim->frac2 != 0) {
+				anim->unk07 = func00023ab0(anim->animnum2, anim->frame2b);
+			}
+		}
+
+		func00023d0c();
+	}
+
+	func0001ce64(arg0, model);
+
+	if (PLAYERCOUNT() >= 2 && anim && anim->animnum) {
+		anim->frac = frac;
+		anim->frac2 = frac2;
+	}
+}
 
 s16 modelGetAnimNum(struct model *model)
 {
