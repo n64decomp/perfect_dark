@@ -3416,92 +3416,34 @@ void modelSetAnim70(struct model *model, void *callback)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0001e018
-/*    1e018:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    1e01c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    1e020:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    1e024:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    1e028:	8c900020 */ 	lw	$s0,0x20($a0)
-/*    1e02c:	52000043 */ 	beqzl	$s0,.L0001e13c
-/*    1e030:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    1e034:	0fc25e42 */ 	jal	floor
-/*    1e038:	c7ac0034 */ 	lwc1	$f12,0x34($sp)
-/*    1e03c:	c604001c */ 	lwc1	$f4,0x1c($s0)
-/*    1e040:	44803000 */ 	mtc1	$zero,$f6
-/*    1e044:	00402025 */ 	or	$a0,$v0,$zero
-/*    1e048:	00004025 */ 	or	$t0,$zero,$zero
-/*    1e04c:	4604303e */ 	c.le.s	$f6,$f4
-/*    1e050:	2447ffff */ 	addiu	$a3,$v0,-1
-/*    1e054:	45000002 */ 	bc1f	.L0001e060
-/*    1e058:	00000000 */ 	nop
-/*    1e05c:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0001e060:
-/*    1e060:	11000003 */ 	beqz	$t0,.L0001e070
-/*    1e064:	00000000 */ 	nop
-/*    1e068:	10000001 */ 	b	.L0001e070
-/*    1e06c:	24470001 */ 	addiu	$a3,$v0,0x1
-.L0001e070:
-/*    1e070:	86050000 */ 	lh	$a1,0x0($s0)
-/*    1e074:	8e060018 */ 	lw	$a2,0x18($s0)
-/*    1e078:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    1e07c:	afa70028 */ 	sw	$a3,0x28($sp)
-/*    1e080:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
-/*    1e084:	afa4002c */ 	sw	$a0,0x2c($sp)
-/*    1e088:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    1e08c:	a6020014 */ 	sh	$v0,0x14($s0)
-/*    1e090:	86050000 */ 	lh	$a1,0x0($s0)
-/*    1e094:	0c0074c8 */ 	jal	modelConstrainOrWrapAnimFrame
-/*    1e098:	8e060018 */ 	lw	$a2,0x18($s0)
-/*    1e09c:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*    1e0a0:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    1e0a4:	a6020016 */ 	sh	$v0,0x16($s0)
-/*    1e0a8:	86040016 */ 	lh	$a0,0x16($s0)
-/*    1e0ac:	86030014 */ 	lh	$v1,0x14($s0)
-/*    1e0b0:	14830007 */ 	bne	$a0,$v1,.L0001e0d0
-/*    1e0b4:	00000000 */ 	nop
-/*    1e0b8:	44835000 */ 	mtc1	$v1,$f10
-/*    1e0bc:	44804000 */ 	mtc1	$zero,$f8
-/*    1e0c0:	46805420 */ 	cvt.s.w	$f16,$f10
-/*    1e0c4:	e6080010 */ 	swc1	$f8,0x10($s0)
-/*    1e0c8:	1000001b */ 	b	.L0001e138
-/*    1e0cc:	e610000c */ 	swc1	$f16,0xc($s0)
-.L0001e0d0:
-/*    1e0d0:	1100000b */ 	beqz	$t0,.L0001e100
-/*    1e0d4:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*    1e0d8:	448e2000 */ 	mtc1	$t6,$f4
-/*    1e0dc:	44834000 */ 	mtc1	$v1,$f8
-/*    1e0e0:	c7b20034 */ 	lwc1	$f18,0x34($sp)
-/*    1e0e4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    1e0e8:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    1e0ec:	46069001 */ 	sub.s	$f0,$f18,$f6
-/*    1e0f0:	46005400 */ 	add.s	$f16,$f10,$f0
-/*    1e0f4:	e6000010 */ 	swc1	$f0,0x10($s0)
-/*    1e0f8:	1000000f */ 	b	.L0001e138
-/*    1e0fc:	e610000c */ 	swc1	$f16,0xc($s0)
-.L0001e100:
-/*    1e100:	44879000 */ 	mtc1	$a3,$f18
-/*    1e104:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*    1e108:	3c013f80 */ 	lui	$at,0x3f80
-/*    1e10c:	468091a0 */ 	cvt.s.w	$f6,$f18
-/*    1e110:	44811000 */ 	mtc1	$at,$f2
-/*    1e114:	44845000 */ 	mtc1	$a0,$f10
-/*    1e118:	00000000 */ 	nop
-/*    1e11c:	46805420 */ 	cvt.s.w	$f16,$f10
-/*    1e120:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*    1e124:	46081001 */ 	sub.s	$f0,$f2,$f8
-/*    1e128:	46001481 */ 	sub.s	$f18,$f2,$f0
-/*    1e12c:	e6000010 */ 	swc1	$f0,0x10($s0)
-/*    1e130:	46128100 */ 	add.s	$f4,$f16,$f18
-/*    1e134:	e604000c */ 	swc1	$f4,0xc($s0)
-.L0001e138:
-/*    1e138:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0001e13c:
-/*    1e13c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    1e140:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    1e144:	03e00008 */ 	jr	$ra
-/*    1e148:	00000000 */ 	nop
-);
+void func0001e018(struct model *model, f32 arg1)
+{
+	s32 sp28;
+	s32 sp24;
+	bool sp20;
+	struct anim *anim = model->anim;
+
+	if (anim) {
+		sp28 = floor(arg1);
+		sp20 = anim->speed >= 0;
+
+		sp24 = (sp20 ? sp28 + 1 : sp28 - 1);
+
+		anim->framea = modelConstrainOrWrapAnimFrame(sp28, anim->animnum, anim->endframe);
+		anim->frameb = modelConstrainOrWrapAnimFrame(sp24, anim->animnum, anim->endframe);
+
+		if (anim->framea == anim->frameb) {
+			anim->frac = 0;
+			anim->frame = anim->framea;
+		} else if (sp20) {
+			anim->frac = arg1 - sp28;
+			anim->frame = anim->framea + anim->frac;
+		} else {
+			anim->frac = 1 - (arg1 - sp24);
+			anim->frame = anim->frameb + (1 - anim->frac);
+		}
+	}
+}
 
 void func0001e14c(struct model *model, f32 arg1, f32 arg2)
 {
@@ -3527,8 +3469,8 @@ void func0001e14c(struct model *model, f32 arg1, f32 arg2)
 				anim->frac2 = arg2 - sp28;
 				anim->frame2 = anim->frame2a + anim->frac2;
 			} else {
-				anim->frac2 = 1.0f - (arg2 - sp24);
-				anim->frame2 = anim->frame2b + (1.0f - anim->frac2);
+				anim->frac2 = 1 - (arg2 - sp24);
+				anim->frame2 = anim->frame2b + (1 - anim->frac2);
 			}
 		}
 	}
