@@ -77,7 +77,7 @@ void func0001e29c(bool value);
 bool func0001e2a8(void);
 void func0001e2b4(struct model *model, f32 frame, f32 arg2, f32 frame2, f32 arg4);
 void func0001ee18(struct model *model, s32 lvupdate240, bool arg2);
-void func0001f314(struct model *model, s32 arg1, bool arg2);
+void func0001f314(struct model *model, s32 lvupdate240, bool arg2);
 void func0001f7e0(struct modelrenderdata *renderdata);
 void func0001f890(struct modelrenderdata *renderdata, bool arg1);
 void func00020248(struct modelrenderdata *renderdata, bool arg1);
