@@ -475,7 +475,7 @@ struct anim {
 	/*0x07*/ u8 unk07;
 	/*0x08*/ s8 flip;
 	/*0x09*/ s8 flip2;
-	/*0x0a*/ u8 looping;
+	/*0x0a*/ s8 looping;
 	/*0x0b*/ u8 average;
 	/*0x0c*/ f32 frame;
 	/*0x10*/ f32 frac;
@@ -502,7 +502,7 @@ struct anim {
 	/*0x5c*/ f32 elapsemerge;
 	/*0x60*/ f32 loopframe;
 	/*0x64*/ f32 loopmerge;
-	/*0x68*/ void *flipfunc;
+	/*0x68*/ void (*flipfunc)(void);
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ bool (*unk70)(struct model *model, struct coord *arg1, struct coord *arg2, f32 *ground);
 	/*0x74*/ f32 playspeed;
