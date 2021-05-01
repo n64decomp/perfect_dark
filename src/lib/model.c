@@ -18,6 +18,36 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_PAL_FINAL
+u8 var8005efb0_2 = 0;
+#endif
+
+u32 var8005efb0 = 0;
+
+bool g_ModelDistanceDisabled = false;
+f32 g_ModelDistanceScale = 1;
+bool var8005efbc = false;
+u32 var8005efc0 = 0x00000000;
+bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
+
+#if VERSION >= VERSION_PAL_FINAL
+u32 var8005efd8_2 = 0;
+#endif
+
+void *var8005efc8 = NULL; // pointer to a function
+void *var8005efcc = NULL; // pointer to a function
+u32 var8005efd0 = 0x00000000;
+u32 var8005efd4 = 0x00000000;
+u32 var8005efd8 = 0x00000000;
+u32 var8005efdc = 0x00000001;
+u32 var8005efe0 = 0x00000000;
+u32 var8005efe4 = 0x00000000;
+u32 var8005efe8 = 0x00000000;
+u32 var8005efec = 0x00000000;
+u32 var8005eff0 = 0x00000000;
+u32 var8005eff4 = 0x00000000;
+u32 var8005eff8 = 0xffffffff;
+
 void modelSetDistanceChecksDisabled(bool disabled)
 {
 	g_ModelDistanceDisabled = disabled;
@@ -2502,66 +2532,22 @@ void func0001cd18(struct objticksp476 *arg0, struct model *model)
 	}
 }
 
+void func0001ce64(struct objticksp476 *arg0, struct model *model)
+{
+	model->matrices = arg0->unk10;
+
+	arg0->unk10 += model->filedata->nummatrices;
+
 #if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0001ce64
-/*    1cc24:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1cc28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1cc2c:	8c8e0010 */ 	lw	$t6,0x10($a0)
-/*    1cc30:	8cb80008 */ 	lw	$t8,0x8($a1)
-/*    1cc34:	3c0a8006 */ 	lui	$t2,0x8006
-/*    1cc38:	acae000c */ 	sw	$t6,0xc($a1)
-/*    1cc3c:	8719000e */ 	lh	$t9,0xe($t8)
-/*    1cc40:	8c8f0010 */ 	lw	$t7,0x10($a0)
-/*    1cc44:	00194180 */ 	sll	$t0,$t9,0x6
-/*    1cc48:	01e84821 */ 	addu	$t1,$t7,$t0
-/*    1cc4c:	ac890010 */ 	sw	$t1,0x10($a0)
-/*    1cc50:	914aec50 */ 	lbu	$t2,-0x13b0($t2)
-/*    1cc54:	15400007 */ 	bnez	$t2,.PF0001cc74
-/*    1cc58:	00000000 */ 	nop
-/*    1cc5c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    1cc60:	0c006104 */ 	jal	func00018680
-/*    1cc64:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    1cc68:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    1cc6c:	14400003 */ 	bnez	$v0,.PF0001cc7c
-/*    1cc70:	8fa5001c */ 	lw	$a1,0x1c($sp)
-.PF0001cc74:
-/*    1cc74:	0c0072b6 */ 	jal	func0001cd18
-/*    1cc78:	00000000 */ 	nop
-.PF0001cc7c:
-/*    1cc7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1cc80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1cc84:	03e00008 */ 	jr	$ra
-/*    1cc88:	00000000 */ 	nop
-);
+	if (var8005efb0_2 || !func00018680()) {
+		func0001cd18(arg0, model);
+	}
 #else
-GLOBAL_ASM(
-glabel func0001ce64
-/*    1ce64:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    1ce68:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1ce6c:	8c8e0010 */ 	lw	$t6,0x10($a0)
-/*    1ce70:	8cb80008 */ 	lw	$t8,0x8($a1)
-/*    1ce74:	acae000c */ 	sw	$t6,0xc($a1)
-/*    1ce78:	8719000e */ 	lh	$t9,0xe($t8)
-/*    1ce7c:	8c8f0010 */ 	lw	$t7,0x10($a0)
-/*    1ce80:	00194180 */ 	sll	$t0,$t9,0x6
-/*    1ce84:	01e84821 */ 	addu	$t1,$t7,$t0
-/*    1ce88:	ac890010 */ 	sw	$t1,0x10($a0)
-/*    1ce8c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    1ce90:	0c0061a0 */ 	jal	func00018680
-/*    1ce94:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    1ce98:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    1ce9c:	14400003 */ 	bnez	$v0,.L0001ceac
-/*    1cea0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    1cea4:	0c007346 */ 	jal	func0001cd18
-/*    1cea8:	00000000 */ 	nop
-.L0001ceac:
-/*    1ceac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1ceb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1ceb4:	03e00008 */ 	jr	$ra
-/*    1ceb8:	00000000 */ 	nop
-);
+	if (!func00018680()) {
+		func0001cd18(arg0, model);
+	}
 #endif
+}
 
 GLOBAL_ASM(
 glabel func0001cebc

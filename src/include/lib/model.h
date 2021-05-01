@@ -48,7 +48,7 @@ void func0001c950(struct model *model, struct modelnode *node);
 void func0001cb0c(struct model *model, struct modelnode *node);
 void func0001cc20(struct model *model);
 void func0001cd18(struct objticksp476 *arg0, struct model *model);
-u32 func0001ce64(void);
+void func0001ce64(struct objticksp476 *arg0, struct model *model);
 void func0001cebc(struct objticksp476 *arg0, struct model *model);
 s16 modelGetAnimNum(struct model *model);
 bool modelIsFlipped(struct model *model);

@@ -44,35 +44,6 @@ u32 var8005efa0 = 0xffff04ff;
 u32 var8005efa4 = 0xffffff00;
 u32 var8005efa8 = 0x14000000;
 u32 var8005efac = 0x00000000;
-u32 var8005efb0 = 0x00000000;
-
-#if VERSION >= VERSION_PAL_FINAL
-u32 var8005efb0_2 = 0;
-#endif
-
-bool g_ModelDistanceDisabled = false;
-f32 g_ModelDistanceScale = 1;
-bool var8005efbc = false;
-u32 var8005efc0 = 0x00000000;
-bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
-
-#if VERSION >= VERSION_PAL_FINAL
-u32 var8005efd8_2 = 0;
-#endif
-
-void *var8005efc8 = NULL; // pointer to a function
-void *var8005efcc = NULL; // pointer to a function
-u32 var8005efd0 = 0x00000000;
-u32 var8005efd4 = 0x00000000;
-u32 var8005efd8 = 0x00000000;
-u32 var8005efdc = 0x00000001;
-u32 var8005efe0 = 0x00000000;
-u32 var8005efe4 = 0x00000000;
-u32 var8005efe8 = 0x00000000;
-u32 var8005efec = 0x00000000;
-u32 var8005eff0 = 0x00000000;
-u32 var8005eff4 = 0x00000000;
-u32 var8005eff8 = 0xffffffff;
 
 const u32 var70054210[] = {0xbf7ffcb9};
 const u32 var70054214[] = {0x3f7ffcb9};

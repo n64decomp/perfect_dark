@@ -6,7 +6,7 @@
 
 u8 *ailistFindById(s32 ailistid);
 void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked);
-u32 func00018680(void);
+bool func00018680(void);
 u32 func00019634(void);
 u32 func000198dc(void);
 u32 func00019be0(void);
