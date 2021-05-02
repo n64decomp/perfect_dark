@@ -6916,171 +6916,49 @@ void func0f1a0924(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel frChooseFarsightTarget
-/*  f1a0a70:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f1a0a74:	f7bc0030 */ 	sdc1	$f28,0x30($sp)
-/*  f1a0a78:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1a0a7c:	4481e000 */ 	mtc1	$at,$f28
-/*  f1a0a80:	f7be0038 */ 	sdc1	$f30,0x38($sp)
-/*  f1a0a84:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f1a0a88:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*  f1a0a8c:	afb50058 */ 	sw	$s5,0x58($sp)
-/*  f1a0a90:	afb40054 */ 	sw	$s4,0x54($sp)
-/*  f1a0a94:	4481f000 */ 	mtc1	$at,$f30
-/*  f1a0a98:	afb30050 */ 	sw	$s3,0x50($sp)
-/*  f1a0a9c:	afb2004c */ 	sw	$s2,0x4c($sp)
-/*  f1a0aa0:	afb10048 */ 	sw	$s1,0x48($sp)
-/*  f1a0aa4:	afb00044 */ 	sw	$s0,0x44($sp)
-/*  f1a0aa8:	f7ba0028 */ 	sdc1	$f26,0x28($sp)
-/*  f1a0aac:	f7b80020 */ 	sdc1	$f24,0x20($sp)
-/*  f1a0ab0:	f7b60018 */ 	sdc1	$f22,0x18($sp)
-/*  f1a0ab4:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f1a0ab8:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f1a0abc:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f1a0ac0:	0fc2866a */ 	jal	handGetWeaponNum
-/*  f1a0ac4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a0ac8:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f1a0acc:	14410042 */ 	bne	$v0,$at,.L0f1a0bd8
-/*  f1a0ad0:	3c11800b */ 	lui	$s1,%hi(g_FrData)
-/*  f1a0ad4:	3c13800b */ 	lui	$s3,%hi(g_FrData+0x438)
-/*  f1a0ad8:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f1a0adc:	4480d000 */ 	mtc1	$zero,$f26
-/*  f1a0ae0:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f1a0ae4:	2673d158 */ 	addiu	$s3,$s3,%lo(g_FrData+0x438)
-/*  f1a0ae8:	2631cd20 */ 	addiu	$s1,$s1,%lo(g_FrData)
-/*  f1a0aec:	8e220010 */ 	lw	$v0,0x10($s1)
-.L0f1a0af0:
-/*  f1a0af0:	000277c2 */ 	srl	$t6,$v0,0x1f
-/*  f1a0af4:	11c00035 */ 	beqz	$t6,.L0f1a0bcc
-/*  f1a0af8:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f1a0afc:	07000033 */ 	bltz	$t8,.L0f1a0bcc
-/*  f1a0b00:	00024040 */ 	sll	$t0,$v0,0x1
-/*  f1a0b04:	05030032 */ 	bgezl	$t0,.L0f1a0bd0
-/*  f1a0b08:	2631003c */ 	addiu	$s1,$s1,0x3c
-/*  f1a0b0c:	92290040 */ 	lbu	$t1,0x40($s1)
-/*  f1a0b10:	312a0040 */ 	andi	$t2,$t1,0x40
-/*  f1a0b14:	5140002e */ 	beqzl	$t2,.L0f1a0bd0
-/*  f1a0b18:	2631003c */ 	addiu	$s1,$s1,0x3c
-/*  f1a0b1c:	8e300014 */ 	lw	$s0,0x14($s1)
-/*  f1a0b20:	8e420284 */ 	lw	$v0,0x284($s2)
-/*  f1a0b24:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f1a0b28:	c444037c */ 	lwc1	$f4,0x37c($v0)
-/*  f1a0b2c:	c60a000c */ 	lwc1	$f10,0xc($s0)
-/*  f1a0b30:	c4480380 */ 	lwc1	$f8,0x380($v0)
-/*  f1a0b34:	46062501 */ 	sub.s	$f20,$f4,$f6
-/*  f1a0b38:	c6120010 */ 	lwc1	$f18,0x10($s0)
-/*  f1a0b3c:	c4500384 */ 	lwc1	$f16,0x384($v0)
-/*  f1a0b40:	460a4581 */ 	sub.s	$f22,$f8,$f10
-/*  f1a0b44:	4614a102 */ 	mul.s	$f4,$f20,$f20
-/*  f1a0b48:	46128601 */ 	sub.s	$f24,$f16,$f18
-/*  f1a0b4c:	4616b182 */ 	mul.s	$f6,$f22,$f22
-/*  f1a0b50:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f1a0b54:	4618c282 */ 	mul.s	$f10,$f24,$f24
-/*  f1a0b58:	0c012974 */ 	jal	sqrtf
-/*  f1a0b5c:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f1a0b60:	4600d03c */ 	c.lt.s	$f26,$f0
-/*  f1a0b64:	00000000 */ 	nop
-/*  f1a0b68:	45020019 */ 	bc1fl	.L0f1a0bd0
-/*  f1a0b6c:	2631003c */ 	addiu	$s1,$s1,0x3c
-/*  f1a0b70:	8e420284 */ 	lw	$v0,0x284($s2)
-/*  f1a0b74:	c4500388 */ 	lwc1	$f16,0x388($v0)
-/*  f1a0b78:	c444038c */ 	lwc1	$f4,0x38c($v0)
-/*  f1a0b7c:	c44a0390 */ 	lwc1	$f10,0x390($v0)
-/*  f1a0b80:	4610a482 */ 	mul.s	$f18,$f20,$f16
-/*  f1a0b84:	00000000 */ 	nop
-/*  f1a0b88:	4604b182 */ 	mul.s	$f6,$f22,$f4
-/*  f1a0b8c:	46069200 */ 	add.s	$f8,$f18,$f6
-/*  f1a0b90:	46185402 */ 	mul.s	$f16,$f10,$f24
-/*  f1a0b94:	46088100 */ 	add.s	$f4,$f16,$f8
-/*  f1a0b98:	46002083 */ 	div.s	$f2,$f4,$f0
-/*  f1a0b9c:	461a103c */ 	c.lt.s	$f2,$f26
-/*  f1a0ba0:	00000000 */ 	nop
-/*  f1a0ba4:	45000009 */ 	bc1f	.L0f1a0bcc
-/*  f1a0ba8:	00000000 */ 	nop
-/*  f1a0bac:	461c103c */ 	c.lt.s	$f2,$f28
-/*  f1a0bb0:	00000000 */ 	nop
-/*  f1a0bb4:	45020006 */ 	bc1fl	.L0f1a0bd0
-/*  f1a0bb8:	2631003c */ 	addiu	$s1,$s1,0x3c
-/*  f1a0bbc:	46001706 */ 	mov.s	$f28,$f2
-/*  f1a0bc0:	0200a025 */ 	or	$s4,$s0,$zero
-/*  f1a0bc4:	46000786 */ 	mov.s	$f30,$f0
-/*  f1a0bc8:	24150001 */ 	addiu	$s5,$zero,0x1
-.L0f1a0bcc:
-/*  f1a0bcc:	2631003c */ 	addiu	$s1,$s1,0x3c
-.L0f1a0bd0:
-/*  f1a0bd0:	5633ffc7 */ 	bnel	$s1,$s3,.L0f1a0af0
-/*  f1a0bd4:	8e220010 */ 	lw	$v0,0x10($s1)
-.L0f1a0bd8:
-/*  f1a0bd8:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f1a0bdc:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f1a0be0:	8e4b0284 */ 	lw	$t3,0x284($s2)
-/*  f1a0be4:	02a01025 */ 	or	$v0,$s5,$zero
-/*  f1a0be8:	e57e0258 */ 	swc1	$f30,0x258($t3)
-/*  f1a0bec:	8e4c0284 */ 	lw	$t4,0x284($s2)
-/*  f1a0bf0:	ad94025c */ 	sw	$s4,0x25c($t4)
-/*  f1a0bf4:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*  f1a0bf8:	8fb50058 */ 	lw	$s5,0x58($sp)
-/*  f1a0bfc:	8fb40054 */ 	lw	$s4,0x54($sp)
-/*  f1a0c00:	8fb30050 */ 	lw	$s3,0x50($sp)
-/*  f1a0c04:	8fb2004c */ 	lw	$s2,0x4c($sp)
-/*  f1a0c08:	8fb10048 */ 	lw	$s1,0x48($sp)
-/*  f1a0c0c:	8fb00044 */ 	lw	$s0,0x44($sp)
-/*  f1a0c10:	d7be0038 */ 	ldc1	$f30,0x38($sp)
-/*  f1a0c14:	d7bc0030 */ 	ldc1	$f28,0x30($sp)
-/*  f1a0c18:	d7ba0028 */ 	ldc1	$f26,0x28($sp)
-/*  f1a0c1c:	d7b80020 */ 	ldc1	$f24,0x20($sp)
-/*  f1a0c20:	d7b60018 */ 	ldc1	$f22,0x18($sp)
-/*  f1a0c24:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f1a0c28:	03e00008 */ 	jr	$ra
-/*  f1a0c2c:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+bool frChooseFarsightTarget(void)
+{
+	struct prop *bestprop = NULL;
+	f32 bestvalue = 1;
+	f32 bestdist = -1;
+	bool found = false;
+	s32 i;
 
-// Mismatch because f26 and f28 are swapped and the multiplication order for
-// travelspeed is different. f26 should be constant 0 (used in dist > 0 and
-// value < 0 checks) and f28 should be bestvalue.
-//bool frChooseFarsightTarget(void)
-//{
-//	f32 bestvalue = 1;
-//	f32 bestdist = -1;
-//	struct prop *bestprop = NULL;
-//	bool found = false;
-//	s32 i;
-//
-//	if (handGetWeaponNum(0) == WEAPON_FARSIGHT) {
-//		for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
-//			if (g_FrData.targets[i].inuse
-//					&& g_FrData.targets[i].destroyed == false
-//					&& g_FrData.targets[i].active
-//					&& g_FrData.targets[i].flags & FRTARGETFLAG_FARSIGHTAUTOTARGETABLE) {
-//				struct prop *prop = g_FrData.targets[i].prop;
-//				f32 xdiff = g_Vars.currentplayer->bond2.unk10.x - prop->pos.x;
-//				f32 ydiff = g_Vars.currentplayer->bond2.unk10.y - prop->pos.y;
-//				f32 zdiff = g_Vars.currentplayer->bond2.unk10.z - prop->pos.z;
-//				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
-//
-//				if (dist > 0) {
-//					f32 value = (
-//							g_Vars.currentplayer->bond2.unk1c.x * xdiff +
-//							g_Vars.currentplayer->bond2.unk1c.y * ydiff +
-//							g_Vars.currentplayer->bond2.unk1c.z * zdiff) / dist;
-//
-//					if (value < 0 && value < bestvalue) {
-//						bestvalue = value;
-//						bestprop = prop;
-//						bestdist = dist;
-//						found = true;
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	g_Vars.currentplayer->autoeraserdist = bestdist;
-//	g_Vars.currentplayer->autoerasertarget = bestprop;
-//
-//	return found;
-//}
+	if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT) {
+		for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
+			if (g_FrData.targets[i].inuse
+					&& g_FrData.targets[i].destroyed == false
+					&& g_FrData.targets[i].active
+					&& g_FrData.targets[i].flags & FRTARGETFLAG_FARSIGHTAUTOTARGETABLE) {
+				struct prop *prop = g_FrData.targets[i].prop;
+				f32 xdiff = g_Vars.currentplayer->bond2.unk10.x - prop->pos.x;
+				f32 ydiff = g_Vars.currentplayer->bond2.unk10.y - prop->pos.y;
+				f32 zdiff = g_Vars.currentplayer->bond2.unk10.z - prop->pos.z;
+				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+
+				if (dist > 0) {
+					f32 value = (xdiff * g_Vars.currentplayer->bond2.unk1c.f[0]
+							+ ydiff * g_Vars.currentplayer->bond2.unk1c.f[1]
+							+ zdiff * g_Vars.currentplayer->bond2.unk1c.f[2]) / dist;
+
+					if (value);
+
+					if (value < 0 && value < bestvalue) {
+						bestvalue = value;
+						bestprop = prop;
+						bestdist = dist;
+						found = true;
+					}
+				}
+			}
+		}
+	}
+
+	g_Vars.currentplayer->autoeraserdist = bestdist;
+	g_Vars.currentplayer->autoerasertarget = bestprop;
+
+	return found;
+}
 
 s32 frIsInTraining(void)
 {
