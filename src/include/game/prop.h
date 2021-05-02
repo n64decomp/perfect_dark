@@ -38,7 +38,7 @@ void func0f063dcc(void);
 void propSetCollisionsEnabled(struct prop *prop, bool enable);
 void func0f0641f4(void);
 u32 func0f06438c(void);
-u32 func0f064a24(void);
+void farsightChooseTarget(void);
 void func0f064ce8(void);
 u32 propDoorGetCdTypes(struct prop *prop);
 bool propIsOfCdType(struct prop *prop, u32 types);
