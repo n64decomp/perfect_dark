@@ -476,7 +476,7 @@ struct anim {
 	/*0x08*/ s8 flip;
 	/*0x09*/ s8 flip2;
 	/*0x0a*/ s8 looping;
-	/*0x0b*/ u8 average;
+	/*0x0b*/ s8 average;
 	/*0x0c*/ f32 frame;
 	/*0x10*/ f32 frac;
 	/*0x14*/ s16 framea;

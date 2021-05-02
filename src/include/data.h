@@ -63,7 +63,7 @@ extern bool (*var8005efc4)(struct model *model, struct modelnode *node);
 extern void *var8005efc8;
 extern void *var8005efcc;
 extern u32 var8005efd0;
-extern u32 var8005efdc;
+extern bool var8005efdc;
 extern u32 var8005efe0;
 extern u32 var8005efec;
 extern u32 var8005eff8;

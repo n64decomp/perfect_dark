@@ -71,7 +71,7 @@ void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe);
 void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe);
 void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 frame);
 void modelSetAnim70(struct model *model, void *callback);
-void func0001e018(struct model *model, f32 arg1);
+void func0001e018(struct model *model, f32 startframe);
 void func0001e14c(struct model *model, f32 arg1, f32 arg2);
 void func0001e29c(bool value);
 bool func0001e2a8(void);
