@@ -2252,7 +2252,7 @@ u8 func042e_taker_device_m[] = {
 
 	// Alive
 	label(0x08)
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 
 	beginloop(0x0a)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2304,7 +2304,7 @@ u8 func0430_taker_device_f[] = {
 
 	// Alive
 	label(0x08)
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 
 	beginloop(0x0a)
 		chr_toggle_p1p2(CHR_SELF)

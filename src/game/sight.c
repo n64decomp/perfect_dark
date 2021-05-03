@@ -253,10 +253,10 @@ void sightTick(bool sighton)
 					threat = &g_Vars.currentplayer->cmpfollowprops[0];
 
 					threat->prop = g_Vars.currentplayer->lookingatprop.prop;
-					threat->unk04 = g_Vars.currentplayer->lookingatprop.unk04;
-					threat->unk06 = g_Vars.currentplayer->lookingatprop.unk06;
-					threat->unk08 = g_Vars.currentplayer->lookingatprop.unk08;
-					threat->unk0a = g_Vars.currentplayer->lookingatprop.unk0a;
+					threat->x1 = g_Vars.currentplayer->lookingatprop.x1;
+					threat->y1 = g_Vars.currentplayer->lookingatprop.y1;
+					threat->x2 = g_Vars.currentplayer->lookingatprop.x2;
+					threat->y2 = g_Vars.currentplayer->lookingatprop.y2;
 
 					g_Vars.currentplayer->targetset[0] = 0;
 				}
@@ -279,10 +279,10 @@ void sightTick(bool sighton)
 				threat = &g_Vars.currentplayer->cmpfollowprops[index];
 
 				threat->prop = g_Vars.currentplayer->lookingatprop.prop;
-				threat->unk04 = g_Vars.currentplayer->lookingatprop.unk04;
-				threat->unk06 = g_Vars.currentplayer->lookingatprop.unk06;
-				threat->unk08 = g_Vars.currentplayer->lookingatprop.unk08;
-				threat->unk0a = g_Vars.currentplayer->lookingatprop.unk0a;
+				threat->x1 = g_Vars.currentplayer->lookingatprop.x1;
+				threat->y1 = g_Vars.currentplayer->lookingatprop.y1;
+				threat->x2 = g_Vars.currentplayer->lookingatprop.x2;
+				threat->y2 = g_Vars.currentplayer->lookingatprop.y2;
 
 				g_Vars.currentplayer->targetset[index] = 0;
 			}
@@ -302,10 +302,10 @@ void sightTick(bool sighton)
 				threat = &g_Vars.currentplayer->cmpfollowprops[index];
 
 				threat->prop = g_Vars.currentplayer->lookingatprop.prop;
-				threat->unk04 = g_Vars.currentplayer->lookingatprop.unk04;
-				threat->unk06 = g_Vars.currentplayer->lookingatprop.unk06;
-				threat->unk08 = g_Vars.currentplayer->lookingatprop.unk08;
-				threat->unk0a = g_Vars.currentplayer->lookingatprop.unk0a;
+				threat->x1 = g_Vars.currentplayer->lookingatprop.x1;
+				threat->y1 = g_Vars.currentplayer->lookingatprop.y1;
+				threat->x2 = g_Vars.currentplayer->lookingatprop.x2;
+				threat->y2 = g_Vars.currentplayer->lookingatprop.y2;
 
 				g_Vars.currentplayer->targetset[index] = 0;
 			}

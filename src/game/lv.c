@@ -1247,10 +1247,10 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 			return false;
 		}
 
-		threat->unk04 = sp72 - 2;
-		threat->unk08 = sp64 + 2;
-		threat->unk06 = sp76 - 2;
-		threat->unk0a = sp68 + 2;
+		threat->x1 = sp72 - 2;
+		threat->x2 = sp64 + 2;
+		threat->y1 = sp76 - 2;
+		threat->y2 = sp68 + 2;
 	}
 
 	return true;
@@ -1634,10 +1634,10 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 
 			if (index >= 0) {
 				g_Vars.currentplayer->cmpfollowprops[index].prop = prop;
-				g_Vars.currentplayer->cmpfollowprops[index].unk04 = sp84 - 2;
-				g_Vars.currentplayer->cmpfollowprops[index].unk08 = sp76 + 2;
-				g_Vars.currentplayer->cmpfollowprops[index].unk06 = sp88 - 2;
-				g_Vars.currentplayer->cmpfollowprops[index].unk0a = sp80 + 2;
+				g_Vars.currentplayer->cmpfollowprops[index].x1 = sp84 - 2;
+				g_Vars.currentplayer->cmpfollowprops[index].x2 = sp76 + 2;
+				g_Vars.currentplayer->cmpfollowprops[index].y1 = sp88 - 2;
+				g_Vars.currentplayer->cmpfollowprops[index].y2 = sp80 + 2;
 				g_Vars.currentplayer->targetset[index] = 0;
 				activeslots[index] = true;
 				distances[index] = sqdist;
@@ -1688,10 +1688,10 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 
 				if (modelSetRedBox(model, &sp116, &sp124, &sp120, &sp128)) {
 					activeslots[i] = true;
-					g_Vars.currentplayer->cmpfollowprops[i].unk04 = sp124 - 2;
-					g_Vars.currentplayer->cmpfollowprops[i].unk08 = sp116 + 2;
-					g_Vars.currentplayer->cmpfollowprops[i].unk06 = sp128 - 2;
-					g_Vars.currentplayer->cmpfollowprops[i].unk0a = sp120 + 2;
+					g_Vars.currentplayer->cmpfollowprops[i].x1 = sp124 - 2;
+					g_Vars.currentplayer->cmpfollowprops[i].x2 = sp116 + 2;
+					g_Vars.currentplayer->cmpfollowprops[i].y1 = sp128 - 2;
+					g_Vars.currentplayer->cmpfollowprops[i].y2 = sp120 + 2;
 
 					distances[i] =
 						(prop->pos.f[0] - playerpos->f[0]) * (prop->pos.f[0] - playerpos->f[0]) +
@@ -1737,8 +1737,8 @@ void lvFindThreats(void)
 	for (i = 0; i != ARRAYCOUNT(activeslots); i++) {
 		if (!activeslots[i]) {
 			g_Vars.currentplayer->cmpfollowprops[i].prop = NULL;
-			g_Vars.currentplayer->cmpfollowprops[i].unk04 = -1;
-			g_Vars.currentplayer->cmpfollowprops[i].unk08 = -2;
+			g_Vars.currentplayer->cmpfollowprops[i].x1 = -1;
+			g_Vars.currentplayer->cmpfollowprops[i].x2 = -2;
 		}
 	}
 
@@ -2474,7 +2474,7 @@ glabel var7f1b8e7cpf
 /*  f16ad50:	00002025 */ 	move	$a0,$zero
 /*  f16ad54:	0fc18104 */ 	jal	func0f0601b0
 /*  f16ad58:	00000000 */ 	nop
-/*  f16ad5c:	0fc193de */ 	jal	func0f064ce8
+/*  f16ad5c:	0fc193de */ 	jal	autoaimTick
 /*  f16ad60:	00000000 */ 	nop
 /*  f16ad64:	0fc18b63 */ 	jal	handsTickAttack
 /*  f16ad68:	00000000 */ 	nop
@@ -3885,7 +3885,7 @@ Gfx *lvRender(Gfx *gdl)
 				func0f06302c(islastplayer);
 				scenarioCallback14(NULL);
 				func0f0601b0();
-				func0f064ce8();
+				autoaimTick();
 				handsTickAttack();
 
 				// Calculate lookingatprop
@@ -3944,8 +3944,8 @@ Gfx *lvRender(Gfx *gdl)
 
 					for (j = 0; j < ARRAYCOUNT(g_Vars.currentplayer->cmpfollowprops); j++) {
 						if (!lvCheckCmpFollowThreat(&g_Vars.currentplayer->cmpfollowprops[j], j)) {
-							g_Vars.currentplayer->cmpfollowprops[j].unk04 = -1;
-							g_Vars.currentplayer->cmpfollowprops[j].unk08 = -2;
+							g_Vars.currentplayer->cmpfollowprops[j].x1 = -1;
+							g_Vars.currentplayer->cmpfollowprops[j].x2 = -2;
 						}
 					}
 				}
@@ -5060,7 +5060,7 @@ glabel var7f1b1fd4nb
 /*  f164a58:	00002025 */ 	or	$a0,$zero,$zero
 /*  f164a5c:	0fc17d1c */ 	jal	func0f0601b0
 /*  f164a60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164a64:	0fc18fd4 */ 	jal	func0f064ce8
+/*  f164a64:	0fc18fd4 */ 	jal	autoaimTick
 /*  f164a68:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f164a6c:	0fc1876c */ 	jal	handsTickAttack
 /*  f164a70:	00000000 */ 	sll	$zero,$zero,0x0

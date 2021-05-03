@@ -1251,7 +1251,7 @@ u8 func0405_unused[] = {
 
 u8 func0417_init_robot[] = {
 	set_accuracy(40)
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 	set_chr_maxdamage(CHR_SELF, 250)
 	set_ailist(CHR_SELF, AILIST_ROBOT)
 	endlist
@@ -1414,7 +1414,7 @@ u8 func0422_hide[] = {
 };
 
 u8 func041a_pres_clone[] = {
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
 
 	beginloop(0x06)

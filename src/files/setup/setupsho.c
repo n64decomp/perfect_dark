@@ -493,7 +493,7 @@ u8 func0401_init_unarmed_skedar[] = {
 	add_health_or_armor(160)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 	set_ailist(CHR_SELF, AILIST_UNARMED_SKEDAR)
 	endlist
 };
@@ -717,7 +717,7 @@ u8 func0405_puzzleroom_miniskedar_waiting[] = {
 };
 
 u8 func0403_init_miniskedar[] = {
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 	set_accuracy(0)
 	set_reaction_speed(75)
 	set_chr_maxdamage(CHR_SELF, 40)

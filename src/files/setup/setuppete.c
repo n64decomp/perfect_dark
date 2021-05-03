@@ -2935,7 +2935,7 @@ u8 func0410_60d0[] = {
 };
 
 u8 func0411_60f4[] = {
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(14)
 	set_reaction_speed(20)

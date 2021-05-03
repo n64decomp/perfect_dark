@@ -2125,10 +2125,10 @@ struct playerbond {
 
 struct threat {
 	struct prop *prop;
-	s16 unk04;
-	s16 unk06;
-	s16 unk08;
-	s16 unk0a;
+	s16 x1; // x1
+	s16 y1; // y1
+	s16 x2; // x2
+	s16 y2; // y2
 };
 
 struct beam {
@@ -2441,7 +2441,7 @@ struct gunctrl {
 	/*0x1583*/ u8 unk1583_00 : 1;
 	/*0x1583*/ u8 unk1583_01 : 1;
 	/*0x1583*/ u8 invertgunfunc : 1;
-	/*0x1583*/ u8 unk1583_03 : 1;
+	/*0x1583*/ u8 gangsta : 1;
 	/*0x1583*/ u8 unk1583_04 : 1;
 	/*0x1583*/ u8 wantammo : 1;
 	/*0x1583*/ u8 unk1583_06 : 1;

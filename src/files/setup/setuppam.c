@@ -3395,7 +3395,7 @@ u8 func040f_miniskedar_send_clones[] = {
 
 u8 func040e_init_miniskedar[] = {
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 	set_accuracy(0)
 	set_reaction_speed(65)
 	set_chr_maxdamage(CHR_SELF, 20)
@@ -4510,7 +4510,7 @@ u8 func102c_lock_doors[] = {
 u8 func040f_miniskedar_unalerted[] = {
 	set_shotlist(AILIST_MINISKEDAR)
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
-	set_self_chrflag(CHRCFLAG_00020000)
+	set_self_chrflag(CHRCFLAG_FORCEAUTOAIM)
 	set_accuracy(0)
 	set_reaction_speed(65)
 	set_chr_maxdamage(CHR_SELF, 20)
