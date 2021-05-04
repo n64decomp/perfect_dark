@@ -17030,79 +17030,43 @@ glabel func0f0a256c
 );
 #endif
 
+bool func0f0a27c8(void)
+{
+	struct hand *hand;
+	struct weaponfunc *func;
+
+	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
+	func = handGetWeaponFunction2(&hand->base);
+
+	if (func
+			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+			&& hand->state == HANDSTATE_ATTACK
+			&& hand->unk0ce8 != NULL
+			&& hand->animmode == HANDANIMMODE_BUSY
+			&& !func0f098a44(hand, 2)) {
+		return true;
+	}
+
+	hand = &g_Vars.currentplayer->hands[HAND_LEFT];
+
+	if (hand->inuse) {
+		func = handGetWeaponFunction2(&hand->base);
+
+		if (func
+				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+				&& hand->state == HANDSTATE_ATTACK
+				&& hand->unk0ce8 != NULL
+				&& hand->animmode == HANDANIMMODE_BUSY
+				&& !func0f098a44(hand, 2)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 GLOBAL_ASM(
-glabel func0f0a27c8
-/*  f0a27c8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f0a27cc:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f0a27d0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a27d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a27d8:	24840638 */ 	addiu	$a0,$a0,1592
-/*  f0a27dc:	0fc2c40f */ 	jal	handGetWeaponFunction2
-/*  f0a27e0:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f0a27e4:	10400017 */ 	beqz	$v0,.L0f0a2844
-/*  f0a27e8:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a27ec:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0a27f0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0a27f4:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0a27f8:	15e10012 */ 	bne	$t7,$at,.L0f0a2844
-/*  f0a27fc:	00000000 */ 	nop
-/*  f0a2800:	8c980604 */ 	lw	$t8,0x604($a0)
-/*  f0a2804:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0a2808:	1701000e */ 	bne	$t8,$at,.L0f0a2844
-/*  f0a280c:	00000000 */ 	nop
-/*  f0a2810:	8c9906b0 */ 	lw	$t9,0x6b0($a0)
-/*  f0a2814:	1320000b */ 	beqz	$t9,.L0f0a2844
-/*  f0a2818:	00000000 */ 	nop
-/*  f0a281c:	8c88068c */ 	lw	$t0,0x68c($a0)
-/*  f0a2820:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a2824:	15010007 */ 	bne	$t0,$at,.L0f0a2844
-/*  f0a2828:	00000000 */ 	nop
-/*  f0a282c:	0fc26291 */ 	jal	func0f098a44
-/*  f0a2830:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0a2834:	14400003 */ 	bnez	$v0,.L0f0a2844
-/*  f0a2838:	00000000 */ 	nop
-/*  f0a283c:	10000022 */ 	b	.L0f0a28c8
-/*  f0a2840:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a2844:
-/*  f0a2844:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f0a2848:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f0a284c:	80890de4 */ 	lb	$t1,0xde4($a0)
-/*  f0a2850:	24840ddc */ 	addiu	$a0,$a0,3548
-/*  f0a2854:	5120001c */ 	beqzl	$t1,.L0f0a28c8
-/*  f0a2858:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a285c:	0fc2c40f */ 	jal	handGetWeaponFunction2
-/*  f0a2860:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f0a2864:	10400017 */ 	beqz	$v0,.L0f0a28c4
-/*  f0a2868:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a286c:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f0a2870:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0a2874:	314b00ff */ 	andi	$t3,$t2,0xff
-/*  f0a2878:	55610013 */ 	bnel	$t3,$at,.L0f0a28c8
-/*  f0a287c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a2880:	8c8c0604 */ 	lw	$t4,0x604($a0)
-/*  f0a2884:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0a2888:	5581000f */ 	bnel	$t4,$at,.L0f0a28c8
-/*  f0a288c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a2890:	8c8d06b0 */ 	lw	$t5,0x6b0($a0)
-/*  f0a2894:	51a0000c */ 	beqzl	$t5,.L0f0a28c8
-/*  f0a2898:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a289c:	8c8e068c */ 	lw	$t6,0x68c($a0)
-/*  f0a28a0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a28a4:	55c10008 */ 	bnel	$t6,$at,.L0f0a28c8
-/*  f0a28a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a28ac:	0fc26291 */ 	jal	func0f098a44
-/*  f0a28b0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0a28b4:	54400004 */ 	bnezl	$v0,.L0f0a28c8
-/*  f0a28b8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a28bc:	10000002 */ 	b	.L0f0a28c8
-/*  f0a28c0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a28c4:
-/*  f0a28c4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0a28c8:
-/*  f0a28c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a28cc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a28d0:	03e00008 */ 	jr	$ra
-/*  f0a28d4:	00000000 */ 	nop
+glabel func0f0a28d8
 /*  f0a28d8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
 /*  f0a28dc:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
 /*  f0a28e0:	27bdffe0 */ 	addiu	$sp,$sp,-32
