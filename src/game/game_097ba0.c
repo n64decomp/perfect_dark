@@ -17065,72 +17065,43 @@ bool func0f0a27c8(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0a28d8
-/*  f0a28d8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f0a28dc:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f0a28e0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a28e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a28e8:	24840638 */ 	addiu	$a0,$a0,1592
-/*  f0a28ec:	0fc2c40f */ 	jal	handGetWeaponFunction2
-/*  f0a28f0:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f0a28f4:	10400013 */ 	beqz	$v0,.L0f0a2944
-/*  f0a28f8:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a28fc:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0a2900:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0a2904:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0a2908:	15e1000e */ 	bne	$t7,$at,.L0f0a2944
-/*  f0a290c:	00000000 */ 	nop
-/*  f0a2910:	8c980604 */ 	lw	$t8,0x604($a0)
-/*  f0a2914:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0a2918:	1701000a */ 	bne	$t8,$at,.L0f0a2944
-/*  f0a291c:	00000000 */ 	nop
-/*  f0a2920:	8c9906b0 */ 	lw	$t9,0x6b0($a0)
-/*  f0a2924:	13200007 */ 	beqz	$t9,.L0f0a2944
-/*  f0a2928:	00000000 */ 	nop
-/*  f0a292c:	8c88068c */ 	lw	$t0,0x68c($a0)
-/*  f0a2930:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a2934:	15010003 */ 	bne	$t0,$at,.L0f0a2944
-/*  f0a2938:	00000000 */ 	nop
-/*  f0a293c:	1000001e */ 	b	.L0f0a29b8
-/*  f0a2940:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a2944:
-/*  f0a2944:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
-/*  f0a2948:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f0a294c:	80890de4 */ 	lb	$t1,0xde4($a0)
-/*  f0a2950:	24840ddc */ 	addiu	$a0,$a0,3548
-/*  f0a2954:	51200018 */ 	beqzl	$t1,.L0f0a29b8
-/*  f0a2958:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a295c:	0fc2c40f */ 	jal	handGetWeaponFunction2
-/*  f0a2960:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f0a2964:	10400013 */ 	beqz	$v0,.L0f0a29b4
-/*  f0a2968:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0a296c:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f0a2970:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0a2974:	314b00ff */ 	andi	$t3,$t2,0xff
-/*  f0a2978:	5561000f */ 	bnel	$t3,$at,.L0f0a29b8
-/*  f0a297c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a2980:	8c8c0604 */ 	lw	$t4,0x604($a0)
-/*  f0a2984:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0a2988:	5581000b */ 	bnel	$t4,$at,.L0f0a29b8
-/*  f0a298c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a2990:	8c8d06b0 */ 	lw	$t5,0x6b0($a0)
-/*  f0a2994:	51a00008 */ 	beqzl	$t5,.L0f0a29b8
-/*  f0a2998:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a299c:	8c8e068c */ 	lw	$t6,0x68c($a0)
-/*  f0a29a0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a29a4:	55c10004 */ 	bnel	$t6,$at,.L0f0a29b8
-/*  f0a29a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a29ac:	10000002 */ 	b	.L0f0a29b8
-/*  f0a29b0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a29b4:
-/*  f0a29b4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0a29b8:
-/*  f0a29b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a29bc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a29c0:	03e00008 */ 	jr	$ra
-/*  f0a29c4:	00000000 */ 	nop
-);
+/**
+ * This function is the same as above but it doesn't call func0f098a44().
+ *
+ * This function is unused.
+ */
+bool func0f0a28d8(void)
+{
+	struct hand *hand;
+	struct weaponfunc *func;
+
+	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
+	func = handGetWeaponFunction2(&hand->base);
+
+	if (func
+			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+			&& hand->state == HANDSTATE_ATTACK
+			&& hand->unk0ce8 != NULL
+			&& hand->animmode == HANDANIMMODE_BUSY) {
+		return true;
+	}
+
+	hand = &g_Vars.currentplayer->hands[HAND_LEFT];
+
+	if (hand->inuse) {
+		func = handGetWeaponFunction2(&hand->base);
+
+		if (func
+				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
+				&& hand->state == HANDSTATE_ATTACK
+				&& hand->unk0ce8 != NULL
+				&& hand->animmode == HANDANIMMODE_BUSY) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 void func0f0a29c8(void)
 {
