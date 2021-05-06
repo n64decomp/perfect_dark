@@ -5965,25 +5965,10 @@ glabel modelRenderNodeType16
 /*    216c8:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func000216cc
-/*    216cc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    216d0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    216d4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    216d8:	00807025 */ 	or	$t6,$a0,$zero
-/*    216dc:	8dc70004 */ 	lw	$a3,0x4($t6)
-/*    216e0:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*    216e4:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    216e8:	afb80014 */ 	sw	$t8,0x14($sp)
-/*    216ec:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*    216f0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    216f4:	0fc2ce70 */ 	jal	func0f0b39c0
-/*    216f8:	2484000c */ 	addiu	$a0,$a0,0xc
-/*    216fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    21700:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    21704:	03e00008 */ 	jr	$ra
-/*    21708:	00000000 */ 	nop
-);
+void func000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
+{
+	func0f0b39c0(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, 0);
+}
 
 GLOBAL_ASM(
 glabel modelRenderNodeGunfire
@@ -6534,7 +6519,7 @@ glabel var70054454
 //	struct tmpcolour colourtemplate = {0xffffffff}; // 80
 //	f32 scale;
 //	struct tmpcolour *colours;
-//	struct modeltexture *texture;
+//	struct textureconfig *texture;
 //	Mtxf *mtx;
 //	f32 tmp;
 //	f32 distance;
@@ -6629,13 +6614,13 @@ glabel var70054454
 //
 //		// d4c
 //		if (rodata->texture) {
-//			texture = rodata->texture;
+//			tconfig = rodata->texture;
 //
 //			sp62 = random() * 1024;
-//			sp5c = (coss(sp62) * texture->unk04 * 0xb5) >> 18;
-//			sp58 = (sins(sp62) * texture->unk04 * 0xb5) >> 18;
+//			sp5c = (coss(sp62) * tconfig->width * 0xb5) >> 18;
+//			sp58 = (sins(sp62) * tconfig->width * 0xb5) >> 18;
 //
-//			centre = texture->unk04 << 4;
+//			centre = tconfig->width << 4;
 //
 //			vertices[0].unk08 = centre - sp5c;
 //			vertices[0].unk0a = centre - sp58;
@@ -6646,7 +6631,7 @@ glabel var70054454
 //			vertices[3].unk08 = centre - sp58;
 //			vertices[3].unk0a = centre + sp5c;
 //
-//			func000216cc(renderdata, texture, 4);
+//			func000216cc(renderdata, tconfig, 4);
 //		} else {
 //			func000216cc(renderdata, NULL, 1);
 //		}

@@ -86,7 +86,7 @@ void modelApplyCullMode(struct modelrenderdata *renderdata);
 void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRenderNodeType16(struct modelrenderdata *renderdata, struct modelnode *node);
-void func000216cc(struct modelrenderdata *renderdata, struct modeltexture *texture, s32 arg2);
+void func000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2);
 void modelRenderNodeGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node);
 void modelRender(struct modelrenderdata *renderdata, struct model *model);
 bool func000220fc(union modelrodata *rodata, Mtxf *mtx, struct coord *arg2, struct coord *arg3);

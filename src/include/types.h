@@ -7123,9 +7123,4 @@ struct rdptask {
 	u32 unk5c;
 };
 
-struct modeltexture {
-	u32 unk00;
-	u8 unk04;
-};
-
 #endif
