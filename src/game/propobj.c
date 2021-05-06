@@ -52473,18 +52473,18 @@ glabel var7f1aa82c
 //
 //	if (alpha < 0xff) {
 //		renderdata.unk30 = 5;
-//		renderdata.colour34 = alpha;
+//		renderdata.envcolour = alpha;
 //	} else {
 //		renderdata.unk30 = 9;
 //
 //		if (obj->type == OBJTYPE_TINTEDGLASS) {
 //			struct tintedglassobj *glass = (struct tintedglassobj *)obj;
-//			renderdata.colour34 = glass->unk60 << 8;
+//			renderdata.envcolour = glass->unk60 << 8;
 //		} else {
 //			if (obj->type == OBJTYPE_DOOR && ((struct doorobj *)obj)->doorflags & DOORFLAG_WINDOWED) {
-//				renderdata.colour34 = ((struct doorobj *)obj)->fadealpha << 8;
+//				renderdata.envcolour = ((struct doorobj *)obj)->fadealpha << 8;
 //			} else {
-//				renderdata.colour34 = 0;
+//				renderdata.envcolour = 0;
 //			}
 //		}
 //	}
@@ -52572,7 +52572,7 @@ glabel var7f1aa82c
 //		}
 //	}
 //
-//	renderdata.colour38 = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
+//	renderdata.fogcolour = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
 //	func0f0809c4(prop, &renderdata, withalpha);
 //
 //	gdl = renderdata.gdl;

@@ -106,6 +106,7 @@
 }
 
 #define	gDPSetEnvColorViaWord(pkt, rgba) gDPSetColor(pkt, G_SETENVCOLOR, rgba)
+#define	gDPSetFogColorViaWord(pkt, rgba) gDPSetColor(pkt, G_SETFOGCOLOR, rgba)
 
 /**
  * gDPFillRectangle - a wrapper around gDPFillRectangle which applies

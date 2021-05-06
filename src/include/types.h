@@ -6065,9 +6065,9 @@ struct modelrenderdata {
 	/*0x24*/ u32 unk24;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 colour34;
-	/*0x38*/ u32 colour38;
+	/*0x30*/ s32 unk30;
+	/*0x34*/ u32 envcolour;
+	/*0x38*/ u32 fogcolour;
 	/*0x3c*/ u32 cullmode;
 };
 

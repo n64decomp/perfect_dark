@@ -12208,12 +12208,12 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			colour[3] = 0xff;
 		}
 
-		renderdata.colour34 = var80062a48[0] << 24 | var80062a48[1] << 16 | var80062a48[2] << 8;
-		renderdata.colour38 = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
+		renderdata.envcolour = var80062a48[0] << 24 | var80062a48[1] << 16 | var80062a48[2] << 8;
+		renderdata.fogcolour = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
 
 		if (alpha < 0xff) {
 			renderdata.unk30 = 8;
-			renderdata.colour34 |= (u8)alpha;
+			renderdata.envcolour |= (u8)alpha;
 		} else {
 			renderdata.unk30 = 7;
 		}
