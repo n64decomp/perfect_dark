@@ -534,8 +534,8 @@ struct modelrodata_position { // type 0x02
 };
 
 struct modelrodata_gundl { // type 0x04
-	Gfx *unk00;
-	Gfx *unk04;
+	Gfx *primary;
+	Gfx *secondary;
 	void *baseaddr;
 	void *unk0c;
 	u16 unk10;

@@ -99,7 +99,7 @@ void modelInitRwData(struct model *model, struct modelnode *node);
 void modelInit(struct model *model, struct modelfiledata *filedata, union modelrwdata **rwdatas, bool resetanim);
 void animInit(struct anim *anim);
 u32 func00023108(void);
-u32 func0002319c(void);
+void func0002319c(struct modelfiledata *filedata, struct modelfiledata *filedataptr, Gfx **gdlptr);
 void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *replacement);
 
 #endif

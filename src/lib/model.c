@@ -5557,7 +5557,7 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 		return;
 	}
 
-	if ((renderdata->flags & 1) && rodata->unk00) {
+	if ((renderdata->flags & 1) && rodata->primary) {
 		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
@@ -5579,16 +5579,16 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 			break;
 		}
 
-		gSPDisplayList(renderdata->gdl++, rodata->unk00);
+		gSPDisplayList(renderdata->gdl++, rodata->primary);
 
-		if (rodata->unk12 == 3 && rodata->unk04) {
+		if (rodata->unk12 == 3 && rodata->secondary) {
 			func0001f890(renderdata, false);
 
-			gSPDisplayList(renderdata->gdl++, rodata->unk04);
+			gSPDisplayList(renderdata->gdl++, rodata->secondary);
 		}
 	}
 
-	if ((renderdata->flags & 2) && rodata->unk00 && rodata->unk12 == 4 && rodata->unk04) {
+	if ((renderdata->flags & 2) && rodata->primary && rodata->unk12 == 4 && rodata->secondary) {
 		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
@@ -5597,7 +5597,7 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 
 		func00020248(renderdata, false);
 
-		gSPDisplayList(renderdata->gdl++, rodata->unk04);
+		gSPDisplayList(renderdata->gdl++, rodata->secondary);
 	}
 }
 
@@ -7585,157 +7585,79 @@ glabel func00023108
 /*    23198:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0002319c
-.late_rodata
-glabel var70054638
-.word func0002319c+0x064
-glabel var7005463c
-.word func0002319c+0x108
-glabel var70054640
-.word func0002319c+0x108
-glabel var70054644
-.word func0002319c+0x108
-glabel var70054648
-.word func0002319c+0x0dc
-glabel var7005464c
-.word func0002319c+0x0fc
-glabel var70054650
-.word func0002319c+0x108
-glabel var70054654
-.word func0002319c+0x108
-glabel var70054658
-.word func0002319c+0x108
-glabel var7005465c
-.word func0002319c+0x108
-glabel var70054660
-.word func0002319c+0x108
-glabel var70054664
-.word func0002319c+0x108
-glabel var70054668
-.word func0002319c+0x108
-glabel var7005466c
-.word func0002319c+0x108
-glabel var70054670
-.word func0002319c+0x0ec
-glabel var70054674
-.word func0002319c+0x108
-glabel var70054678
-.word func0002319c+0x108
-glabel var7005467c
-.word func0002319c+0x108
-glabel var70054680
-.word func0002319c+0x0c4
-glabel var70054684
-.word func0002319c+0x108
-glabel var70054688
-.word func0002319c+0x094
-.text
-/*    2319c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    231a0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    231a4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    231a8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    231ac:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    231b0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    231b4:	8cb00000 */ 	lw	$s0,0x0($a1)
-/*    231b8:	00a09025 */ 	or	$s2,$a1,$zero
-/*    231bc:	00c09825 */ 	or	$s3,$a2,$zero
-/*    231c0:	16000002 */ 	bnez	$s0,.L000231cc
-/*    231c4:	00008825 */ 	or	$s1,$zero,$zero
-/*    231c8:	8c900000 */ 	lw	$s0,0x0($a0)
-.L000231cc:
-/*    231cc:	52000049 */ 	beqzl	$s0,.L000232f4
-/*    231d0:	ae710000 */ 	sw	$s1,0x0($s3)
-/*    231d4:	96020000 */ 	lhu	$v0,0x0($s0)
-.L000231d8:
-/*    231d8:	304e00ff */ 	andi	$t6,$v0,0xff
-/*    231dc:	25cffffc */ 	addiu	$t7,$t6,-4
-/*    231e0:	2de10015 */ 	sltiu	$at,$t7,0x15
-/*    231e4:	1020002f */ 	beqz	$at,.L000232a4
-/*    231e8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    231ec:	3c017005 */ 	lui	$at,%hi(var70054638)
-/*    231f0:	002f0821 */ 	addu	$at,$at,$t7
-/*    231f4:	8c2f4638 */ 	lw	$t7,%lo(var70054638)($at)
-/*    231f8:	01e00008 */ 	jr	$t7
-/*    231fc:	00000000 */ 	nop
-/*    23200:	8e580000 */ 	lw	$t8,0x0($s2)
-/*    23204:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    23208:	52180004 */ 	beql	$s0,$t8,.L0002321c
-/*    2320c:	8c430004 */ 	lw	$v1,0x4($v0)
-/*    23210:	10000024 */ 	b	.L000232a4
-/*    23214:	8c510000 */ 	lw	$s1,0x0($v0)
-/*    23218:	8c430004 */ 	lw	$v1,0x4($v0)
-.L0002321c:
-/*    2321c:	8e790000 */ 	lw	$t9,0x0($s3)
-/*    23220:	10790020 */ 	beq	$v1,$t9,.L000232a4
-/*    23224:	00000000 */ 	nop
-/*    23228:	1000001e */ 	b	.L000232a4
-/*    2322c:	00608825 */ 	or	$s1,$v1,$zero
-/*    23230:	8e480000 */ 	lw	$t0,0x0($s2)
-/*    23234:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    23238:	52080004 */ 	beql	$s0,$t0,.L0002324c
-/*    2323c:	8c430004 */ 	lw	$v1,0x4($v0)
-/*    23240:	10000018 */ 	b	.L000232a4
-/*    23244:	8c510000 */ 	lw	$s1,0x0($v0)
-/*    23248:	8c430004 */ 	lw	$v1,0x4($v0)
-.L0002324c:
-/*    2324c:	8e690000 */ 	lw	$t1,0x0($s3)
-/*    23250:	10690014 */ 	beq	$v1,$t1,.L000232a4
-/*    23254:	00000000 */ 	nop
-/*    23258:	10000012 */ 	b	.L000232a4
-/*    2325c:	00608825 */ 	or	$s1,$v1,$zero
-/*    23260:	8e4a0000 */ 	lw	$t2,0x0($s2)
-/*    23264:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    23268:	120a000e */ 	beq	$s0,$t2,.L000232a4
-/*    2326c:	00000000 */ 	nop
-/*    23270:	1000000c */ 	b	.L000232a4
-/*    23274:	8c510008 */ 	lw	$s1,0x8($v0)
-/*    23278:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    2327c:	8c4b0008 */ 	lw	$t3,0x8($v0)
-/*    23280:	10000008 */ 	b	.L000232a4
-/*    23284:	ae0b0014 */ 	sw	$t3,0x14($s0)
-/*    23288:	8e020004 */ 	lw	$v0,0x4($s0)
-/*    2328c:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*    23290:	10000004 */ 	b	.L000232a4
-/*    23294:	ae0c0014 */ 	sw	$t4,0x14($s0)
-/*    23298:	02002025 */ 	or	$a0,$s0,$zero
-/*    2329c:	0c00721a */ 	jal	func0001c868
-/*    232a0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L000232a4:
-/*    232a4:	56200013 */ 	bnezl	$s1,.L000232f4
-/*    232a8:	ae710000 */ 	sw	$s1,0x0($s3)
-/*    232ac:	8e020014 */ 	lw	$v0,0x14($s0)
-/*    232b0:	10400003 */ 	beqz	$v0,.L000232c0
-/*    232b4:	00000000 */ 	nop
-/*    232b8:	1000000b */ 	b	.L000232e8
-/*    232bc:	00408025 */ 	or	$s0,$v0,$zero
-.L000232c0:
-/*    232c0:	12000009 */ 	beqz	$s0,.L000232e8
-/*    232c4:	00000000 */ 	nop
-/*    232c8:	8e02000c */ 	lw	$v0,0xc($s0)
-.L000232cc:
-/*    232cc:	50400004 */ 	beqzl	$v0,.L000232e0
-/*    232d0:	8e100008 */ 	lw	$s0,0x8($s0)
-/*    232d4:	10000004 */ 	b	.L000232e8
-/*    232d8:	00408025 */ 	or	$s0,$v0,$zero
-/*    232dc:	8e100008 */ 	lw	$s0,0x8($s0)
-.L000232e0:
-/*    232e0:	5600fffa */ 	bnezl	$s0,.L000232cc
-/*    232e4:	8e02000c */ 	lw	$v0,0xc($s0)
-.L000232e8:
-/*    232e8:	5600ffbb */ 	bnezl	$s0,.L000231d8
-/*    232ec:	96020000 */ 	lhu	$v0,0x0($s0)
-/*    232f0:	ae710000 */ 	sw	$s1,0x0($s3)
-.L000232f4:
-/*    232f4:	ae500000 */ 	sw	$s0,0x0($s2)
-/*    232f8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    232fc:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    23300:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    23304:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    23308:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    2330c:	03e00008 */ 	jr	$ra
-/*    23310:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0002319c(struct modelfiledata *filedata, struct modelfiledata *filedataptr, Gfx **gdlptr)
+{
+	struct modelnode *node = filedataptr->rootnode;
+	union modelrodata *rodata;
+	Gfx *gdl = NULL;
+
+	if (node == NULL) {
+		node = filedata->rootnode;
+	}
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_GUNDL:
+			rodata = node->rodata;
+
+			if (node != filedataptr->rootnode) {
+				gdl = rodata->gundl.primary;
+			} else if (rodata->gundl.secondary != *gdlptr) {
+				gdl = rodata->gundl.secondary;
+			}
+			break;
+		case MODELNODETYPE_DL:
+			rodata = node->rodata;
+
+			if (node != filedataptr->rootnode) {
+				gdl = rodata->dl.primary;
+			} else if (rodata->dl.secondary != *gdlptr) {
+				gdl = rodata->dl.secondary;
+			}
+			break;
+		case MODELNODETYPE_16:
+			rodata = node->rodata;
+
+			if (node != filedataptr->rootnode) {
+				gdl = rodata->type16.unk08;
+			}
+			break;
+		case MODELNODETYPE_DISTANCE:
+			rodata = node->rodata;
+			node->child = rodata->distance.target;
+			break;
+		case MODELNODETYPE_TOGGLE:
+			rodata = node->rodata;
+			node->child = rodata->toggle.target;
+			break;
+		case MODELNODETYPE_REORDER:
+			func0001c868(node, true);
+			break;
+		}
+
+		if (gdl) {
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+
+	*gdlptr = gdl;
+	filedataptr->rootnode = node;
+}
 
 void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *replacement)
 {
@@ -7746,13 +7668,13 @@ void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *repla
 	case MODELNODETYPE_GUNDL:
 		rodata = node->rodata;
 
-		if (rodata->gundl.unk00 == find) {
-			rodata->gundl.unk00 = replacement;
+		if (rodata->gundl.primary == find) {
+			rodata->gundl.primary = replacement;
 			return;
 		}
 
-		if (rodata->gundl.unk04 == find) {
-			rodata->gundl.unk04 = replacement;
+		if (rodata->gundl.secondary == find) {
+			rodata->gundl.secondary = replacement;
 			return;
 		}
 		break;
