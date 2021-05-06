@@ -64,7 +64,7 @@ u32 func0f02c9b0(void);
 void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright);
 s32 getNumChrSlots(void);
 void chrRegister(s32 chrnum, s32 chrindex);
-void func0f01e760(s32 arg0);
+struct gfxvtx *chrAllocateVertices(s32 numvertices);
 void setVar8006297c(u32 arg0);
 u32 getVar8006297c(void);
 void setVar80062980(u32 arg0);

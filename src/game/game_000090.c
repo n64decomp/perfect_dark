@@ -26,6 +26,6 @@ void func0f000090(void)
 
 void func0f000100(void)
 {
-	func0001a518(&func0f01e760);
+	modelSetVtxAllocatorFunc(&chrAllocateVertices);
 	func0f000648();
 }

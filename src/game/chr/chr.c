@@ -249,9 +249,9 @@ void chrDeregister(s32 chrnum)
 	}
 }
 
-void func0f01e760(s32 arg0)
+struct gfxvtx *chrAllocateVertices(s32 numvertices)
 {
-	gfxAllocate(arg0 * 12);
+	return (struct gfxvtx *) gfxAllocate(numvertices * sizeof(struct gfxvtx));
 }
 
 void setVar8006297c(u32 arg0)

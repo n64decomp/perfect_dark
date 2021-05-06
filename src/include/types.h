@@ -595,7 +595,7 @@ struct modelrodata_type0b { // type 0x0b
 struct modelrodata_gunfire { // type 0x0c
 	struct coord pos;
 	struct coord dim;
-	void *texture;
+	struct modeltexture *texture;
 	f32 unk1c;
 	u16 rwdataindex;
 	void *baseaddr;
@@ -746,7 +746,7 @@ struct modelrwdata_0b { // type 0x0b
 };
 
 struct modelrwdata_gunfire { // type 0x0c
-	u16 visible;
+	s16 visible;
 	u16 unk02;
 };
 
@@ -7121,6 +7121,11 @@ struct rdptask {
 	OSScTask sctask;
 	u16 *framebuffer;
 	u32 unk5c;
+};
+
+struct modeltexture {
+	u32 unk00;
+	u8 unk04;
 };
 
 #endif

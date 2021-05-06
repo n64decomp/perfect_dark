@@ -7,6 +7,7 @@
 #include "game/floor.h"
 #include "game/ceil.h"
 #include "game/game_0b3350.h"
+#include "game/gfxmemory.h"
 #include "game/bg.h"
 #include "game/file.h"
 #include "bss.h"
@@ -34,7 +35,7 @@ bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 u32 var8005efd8_2 = 0;
 #endif
 
-void *var8005efc8 = NULL; // pointer to a function
+struct gfxvtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
 void *var8005efcc = NULL; // pointer to a function
 
 void modelSetDistanceChecksDisabled(bool disabled)
@@ -47,9 +48,9 @@ void modelSetDistanceScale(f32 scale)
 	g_ModelDistanceScale = scale;
 }
 
-void func0001a518(void *callback)
+void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices))
 {
-	var8005efc8 = callback;
+	g_ModelVtxAllocatorFunc = fn;
 }
 
 s32 func0001a524(struct modelnode *node, s32 arg1)
@@ -5693,8 +5694,8 @@ glabel modelRenderNodeType16
 /*    212a4:	afa20044 */ 	sw	$v0,0x44($sp)
 /*    212a8:	0004c880 */ 	sll	$t9,$a0,0x2
 /*    212ac:	03202025 */ 	or	$a0,$t9,$zero
-/*    212b0:	3c198006 */ 	lui	$t9,%hi(var8005efc8)
-/*    212b4:	8f39efc8 */ 	lw	$t9,%lo(var8005efc8)($t9)
+/*    212b0:	3c198006 */ 	lui	$t9,%hi(g_ModelVtxAllocatorFunc)
+/*    212b4:	8f39efc8 */ 	lw	$t9,%lo(g_ModelVtxAllocatorFunc)($t9)
 /*    212b8:	0320f809 */ 	jalr	$t9
 /*    212bc:	00000000 */ 	nop
 /*    212c0:	8e74000c */ 	lw	$s4,0xc($s3)
@@ -6197,8 +6198,8 @@ glabel var70054454
 /*    21a2c:	44814000 */ 	mtc1	$at,$f8
 /*    21a30:	46043282 */ 	mul.s	$f10,$f6,$f4
 /*    21a34:	c626000c */ 	lwc1	$f6,0xc($s1)
-/*    21a38:	3c198006 */ 	lui	$t9,%hi(var8005efc8)
-/*    21a3c:	8f39efc8 */ 	lw	$t9,%lo(var8005efc8)($t9)
+/*    21a38:	3c198006 */ 	lui	$t9,%hi(g_ModelVtxAllocatorFunc)
+/*    21a3c:	8f39efc8 */ 	lw	$t9,%lo(g_ModelVtxAllocatorFunc)($t9)
 /*    21a40:	24040004 */ 	addiu	$a0,$zero,0x4
 /*    21a44:	46085080 */ 	add.s	$f2,$f10,$f8
 /*    21a48:	46023102 */ 	mul.s	$f4,$f6,$f2
@@ -6504,6 +6505,159 @@ glabel var70054454
 /*    21eec:	03e00008 */ 	jr	$ra
 /*    21ef0:	27bd0110 */ 	addiu	$sp,$sp,0x110
 );
+
+//struct tmpcolour {
+//	u32 value;
+//};
+
+// Mismatch: Reordered instructions near assign to spcc
+//void modelRenderNodeGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+//{
+//	struct modelrodata_gunfire *rodata = &node->rodata->gunfire;
+//	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+//	struct gfxvtx *vertices;
+//	f32 spf0;
+//	f32 spec;
+//	struct coord spe0;
+//	f32 spdc;
+//	f32 spd8;
+//	f32 spd4;
+//	f32 spd0;
+//	f32 spcc;
+//	f32 spc8;
+//	f32 spc4;
+//	f32 spc0;
+//	f32 spbc;
+//	struct coord sp9c;
+//	struct coord sp90;
+//	struct gfxvtx vtxtemplate = {0}; // 84, 88, 8c
+//	struct tmpcolour colourtemplate = {0xffffffff}; // 80
+//	f32 scale;
+//	struct tmpcolour *colours;
+//	struct modeltexture *texture;
+//	Mtxf *mtx;
+//	f32 tmp;
+//	f32 distance;
+//	u16 sp62;
+//	s32 sp5c;
+//	s32 sp58;
+//	s32 centre;
+//	u32 stack[6];
+//
+//	// 778
+//	if ((renderdata->flags & 2) && rwdata->gunfire.visible) {
+//		mtx = &model->matrices[func0001a524(node, 0)];
+//
+//		spe0.x = -(rodata->pos.f[0] * mtx->m[0][0] + rodata->pos.f[1] * mtx->m[1][0] + rodata->pos.f[2] * mtx->m[2][0] + mtx->m[3][0]);
+//		spe0.y = -(rodata->pos.f[0] * mtx->m[0][1] + rodata->pos.f[1] * mtx->m[1][1] + rodata->pos.f[2] * mtx->m[2][1] + mtx->m[3][1]);
+//		spe0.z = -(rodata->pos.f[0] * mtx->m[0][2] + rodata->pos.f[1] * mtx->m[1][2] + rodata->pos.f[2] * mtx->m[2][2] + mtx->m[3][2]);
+//
+//		distance = sqrtf(spe0.f[0] * spe0.f[0] + spe0.f[1] * spe0.f[1] + spe0.f[2] * spe0.f[2]);
+//
+//		// 88c
+//		if (distance > 0) {
+//			f32 tmp = 1 / (model->scale * distance);
+//			spe0.f[0] *= tmp;
+//			spe0.f[1] *= tmp;
+//			spe0.f[2] *= tmp;
+//		} else {
+//			spe0.f[0] = 0;
+//			spe0.f[1] = 0;
+//			spe0.f[2] = 1 / model->scale;
+//		}
+//
+//		// 8f4
+//		spec = func0f0969d0(spe0.f[0] * mtx->m[1][0] + spe0.f[1] * mtx->m[1][1] + spe0.f[2] * mtx->m[1][2]);
+//		spf0 = func0f0969d0(-(spe0.f[0] * mtx->m[2][0] + spe0.f[1] * mtx->m[2][1] + spe0.f[2] * mtx->m[2][2]) / sinf(spec));
+//
+//		tmp = -(spe0.f[0] * mtx->m[0][0] + spe0.f[1] * mtx->m[0][1] + spe0.f[2] * mtx->m[0][2]);
+//
+//		// 9a8
+//		if (tmp < 0) {
+//			spf0 = M_BADTAU - spf0;
+//		}
+//
+//		// 9b8
+//		spdc = cosf(spf0);
+//		spd8 = sinf(spf0);
+//		spd4 = cosf(spec);
+//		spd0 = sinf(spec);
+//
+//		scale = 0.75f + (random() % 128) * (1.0f / 256.0f); // 0.75 to 1.25
+//
+//		sp9c.f[0] = rodata->dim.f[0] * scale;
+//		sp9c.f[1] = rodata->dim.f[1] * scale;
+//		sp9c.f[2] = rodata->dim.f[2] * scale;
+//
+//		spcc = sp9c.f[0] * spdc * 0.5f;
+//		spc8 = sp9c.f[1] * spd8 * 0.5f;
+//		spc4 = sp9c.f[2] * spd0 * 0.5f;
+//
+//		spc0 = sp9c.f[0] * spd4 * spd8 * 0.5f;
+//		spbc = sp9c.f[2] * spd4 * spdc * 0.5f;
+//
+//		sp90.f[0] = rodata->pos.f[0] - sp9c.f[0] * 0.5f;
+//		sp90.f[1] = rodata->pos.f[1];
+//		sp90.f[2] = rodata->pos.f[2];
+//
+//		vertices = g_ModelVtxAllocatorFunc(4);
+//
+//		// b04
+//		colours = (struct tmpcolour *) gfxAllocateColours(1);
+//
+//		vertices[0] = vtxtemplate;
+//		vertices[1] = vtxtemplate;
+//		vertices[2] = vtxtemplate;
+//		vertices[3] = vtxtemplate;
+//
+//		colours[0] = colourtemplate;
+//
+//		vertices[0].x = sp90.f[0] + -spcc + -spc0;
+//		vertices[0].y = sp90.f[1] - spc4;
+//		vertices[0].z = sp90.f[2] - -spc8 + -spbc;
+//		vertices[1].x = sp90.f[0] + -spcc - -spc0;
+//		vertices[1].y = sp90.f[1] + spc4;
+//		vertices[1].z = sp90.f[2] - -spc8 - -spbc;
+//		vertices[2].x = sp90.f[0] - -spcc - -spc0;
+//		vertices[2].y = sp90.f[1] + spc4;
+//		vertices[2].z = sp90.f[2] + -spc8 - -spbc;
+//		vertices[3].x = sp90.f[0] - -spcc + -spc0;
+//		vertices[3].y = sp90.f[1] - spc4;
+//		vertices[3].z = sp90.f[2] + -spc8 + -spbc;
+//
+//		gSPSegment(renderdata->gdl++, 0x05, osVirtualToPhysical(rodata->baseaddr));
+//
+//		// d4c
+//		if (rodata->texture) {
+//			texture = rodata->texture;
+//
+//			sp62 = random() * 1024;
+//			sp5c = (coss(sp62) * texture->unk04 * 0xb5) >> 18;
+//			sp58 = (sins(sp62) * texture->unk04 * 0xb5) >> 18;
+//
+//			centre = texture->unk04 << 4;
+//
+//			vertices[0].unk08 = centre - sp5c;
+//			vertices[0].unk0a = centre - sp58;
+//			vertices[1].unk08 = centre + sp58;
+//			vertices[1].unk0a = centre - sp5c;
+//			vertices[2].unk08 = centre + sp5c;
+//			vertices[2].unk0a = centre + sp58;
+//			vertices[3].unk08 = centre - sp58;
+//			vertices[3].unk0a = centre + sp5c;
+//
+//			func000216cc(renderdata, texture, 4);
+//		} else {
+//			func000216cc(renderdata, NULL, 1);
+//		}
+//
+//		gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
+//		gSPMatrix(renderdata->gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//		gDPSetColorArray(renderdata->gdl++, osVirtualToPhysical(colours), 1);
+//		gDPSetVerticeArray(renderdata->gdl++, osVirtualToPhysical(vertices), 4);
+//		gDPTri2(renderdata->gdl++, 0, 1, 2, 2, 3, 0);
+//	}
+//}
 
 void modelRender(struct modelrenderdata *renderdata, struct model *model)
 {
