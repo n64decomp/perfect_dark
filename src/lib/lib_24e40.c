@@ -9640,51 +9640,23 @@ glabel func0002d840
 /*    2d8b4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0002d8b8
-/*    2d8b8:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    2d8bc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2d8c0:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*    2d8c4:	27ae0044 */ 	addiu	$t6,$sp,0x44
-/*    2d8c8:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2d8cc:	afa40070 */ 	sw	$a0,0x70($sp)
-/*    2d8d0:	afa60078 */ 	sw	$a2,0x78($sp)
-/*    2d8d4:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2d8d8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2d8dc:	0fc19747 */ 	jal	func0f065d1c
-/*    2d8e0:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2d8e4:	8fb90084 */ 	lw	$t9,0x84($sp)
-/*    2d8e8:	c7a40088 */ 	lwc1	$f4,0x88($sp)
-/*    2d8ec:	c7a6008c */ 	lwc1	$f6,0x8c($sp)
-/*    2d8f0:	24180004 */ 	addiu	$t8,$zero,0x4
-/*    2d8f4:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2d8f8:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*    2d8fc:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*    2d900:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*    2d904:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*    2d908:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    2d90c:	afb90018 */ 	sw	$t9,0x18($sp)
-/*    2d910:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    2d914:	0c00b4ec */ 	jal	func0002d3b0
-/*    2d918:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*    2d91c:	1040000a */ 	beqz	$v0,.L0002d948
-/*    2d920:	00401825 */ 	or	$v1,$v0,$zero
-/*    2d924:	27a40034 */ 	addiu	$a0,$sp,0x34
-/*    2d928:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*    2d92c:	0fc19620 */ 	jal	arrayIntersects
-/*    2d930:	afa20030 */ 	sw	$v0,0x30($sp)
-/*    2d934:	14400004 */ 	bnez	$v0,.L0002d948
-/*    2d938:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*    2d93c:	0c0093db */ 	jal	func00024f6c
-/*    2d940:	00000000 */ 	nop
-/*    2d944:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0002d948:
-/*    2d948:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2d94c:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*    2d950:	00601025 */ 	or	$v0,$v1,$zero
-/*    2d954:	03e00008 */ 	jr	$ra
-/*    2d958:	00000000 */ 	nop
-);
+s32 func0002d8b8(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s32 types, bool arg5, f32 ymax, f32 ymin)
+{
+	s16 sp44[21];
+	s16 sp34[8];
+	s32 result;
+
+	func0f065d1c(pos, rooms, pos2, sp34, sp44, 20);
+
+	result = func0002d3b0(pos, pos2, sp44, types, 4, 0, arg5, ymax, ymin);
+
+	if (result != CDRESULT_COLLISION && !arrayIntersects(sp34, rooms2)) {
+		func00024f6c();
+		result = CDRESULT_ERROR;
+	}
+
+	return result;
+}
 
 s32 cdTestAToB3(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 width, s32 types, s32 arg6, f32 ymax, f32 ymin)
 {
