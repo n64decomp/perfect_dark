@@ -27,9 +27,7 @@ struct coord var8009a8c8;
 struct prop *g_CdObstacle;
 u32 var8009a8d8;
 u32 var8009a8dc;
-u32 var8009a8e0;
-u32 var8009a8e4;
-u32 var8009a8e8;
+struct coord g_CdPos;
 u32 var8009a8ec;
 f32 var8009a8f0;
 u32 var8009a8f4;
@@ -101,20 +99,12 @@ struct prop *cdGetObstacle(void)
 	return g_CdObstacle;
 }
 
-GLOBAL_ASM(
-glabel cdGetPos
-/*    24ebc:	3c02800a */ 	lui	$v0,%hi(var8009a8e0)
-/*    24ec0:	2442a8e0 */ 	addiu	$v0,$v0,%lo(var8009a8e0)
-/*    24ec4:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*    24ec8:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    24ecc:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    24ed0:	e4840000 */ 	swc1	$f4,0x0($a0)
-/*    24ed4:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*    24ed8:	e4860004 */ 	swc1	$f6,0x4($a0)
-/*    24edc:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*    24ee0:	03e00008 */ 	jr	$ra
-/*    24ee4:	e4880008 */ 	swc1	$f8,0x8($a0)
-);
+void cdGetPos(struct coord *pos, u32 line, char *file)
+{
+	pos->x = g_CdPos.x;
+	pos->y = g_CdPos.y;
+	pos->z = g_CdPos.z;
+}
 
 GLOBAL_ASM(
 glabel func00024ee8
@@ -327,8 +317,8 @@ glabel func000251ac
 /*    251c4:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
 /*    251c8:	e4460004 */ 	swc1	$f6,0x4($v0)
 /*    251cc:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    251d0:	3c08800a */ 	lui	$t0,%hi(var8009a8e0)
-/*    251d4:	2508a8e0 */ 	addiu	$t0,$t0,%lo(var8009a8e0)
+/*    251d0:	3c08800a */ 	lui	$t0,%hi(g_CdPos)
+/*    251d4:	2508a8e0 */ 	addiu	$t0,$t0,%lo(g_CdPos)
 /*    251d8:	e4480008 */ 	swc1	$f8,0x8($v0)
 /*    251dc:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
 /*    251e0:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -373,8 +363,8 @@ glabel func00025254
 /*    2526c:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
 /*    25270:	e4460004 */ 	swc1	$f6,0x4($v0)
 /*    25274:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    25278:	3c08800a */ 	lui	$t0,%hi(var8009a8e0)
-/*    2527c:	2508a8e0 */ 	addiu	$t0,$t0,%lo(var8009a8e0)
+/*    25278:	3c08800a */ 	lui	$t0,%hi(g_CdPos)
+/*    2527c:	2508a8e0 */ 	addiu	$t0,$t0,%lo(g_CdPos)
 /*    25280:	e4480008 */ 	swc1	$f8,0x8($v0)
 /*    25284:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
 /*    25288:	24090001 */ 	addiu	$t1,$zero,0x1
