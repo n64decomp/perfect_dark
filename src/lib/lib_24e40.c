@@ -9625,41 +9625,14 @@ glabel func0002d3b0
 /*    2d6a8:	27bd02e0 */ 	addiu	$sp,$sp,0x2e0
 );
 
-GLOBAL_ASM(
-glabel func0002d6ac
-/*    2d6ac:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    2d6b0:	afa60078 */ 	sw	$a2,0x78($sp)
-/*    2d6b4:	00a03025 */ 	or	$a2,$a1,$zero
-/*    2d6b8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2d6bc:	afa50074 */ 	sw	$a1,0x74($sp)
-/*    2d6c0:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*    2d6c4:	27ae0044 */ 	addiu	$t6,$sp,0x44
-/*    2d6c8:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2d6cc:	afa40070 */ 	sw	$a0,0x70($sp)
-/*    2d6d0:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2d6d4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2d6d8:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2d6dc:	0c006052 */ 	jal	func00018148
-/*    2d6e0:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*    2d6e4:	8fb90080 */ 	lw	$t9,0x80($sp)
-/*    2d6e8:	c7a40084 */ 	lwc1	$f4,0x84($sp)
-/*    2d6ec:	c7a60088 */ 	lwc1	$f6,0x88($sp)
-/*    2d6f0:	24180004 */ 	addiu	$t8,$zero,0x4
-/*    2d6f4:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2d6f8:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*    2d6fc:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*    2d700:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*    2d704:	8fa7007c */ 	lw	$a3,0x7c($sp)
-/*    2d708:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    2d70c:	afb90018 */ 	sw	$t9,0x18($sp)
-/*    2d710:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    2d714:	0c00b457 */ 	jal	func0002d15c
-/*    2d718:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*    2d71c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2d720:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*    2d724:	03e00008 */ 	jr	$ra
-/*    2d728:	00000000 */ 	nop
-);
+bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 arg3, u32 arg4, f32 arg5, f32 arg6)
+{
+	s16 sp44[21];
+	u32 sp34[4];
+
+	func00018148(pos, targetpos, rooms, sp34, sp44, 20);
+	func0002d15c(pos, targetpos, sp44, arg3, 4, 0, arg4, arg5, arg6);
+}
 
 s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 arg6, f32 arg7)
 {
