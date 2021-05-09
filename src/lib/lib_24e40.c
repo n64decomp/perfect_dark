@@ -31,7 +31,7 @@ u32 var8009a8e0;
 u32 var8009a8e4;
 u32 var8009a8e8;
 u32 var8009a8ec;
-u32 var8009a8f0;
+f32 var8009a8f0;
 u32 var8009a8f4;
 u32 var8009a8f8;
 u32 var8009a8fc;
@@ -70,12 +70,10 @@ u32 var8005f030 = 0x00000000;
 u32 var8005f034 = 0x00000000;
 u32 var8005f038 = 0x00000000;
 
-GLOBAL_ASM(
-glabel func00024e40
-/*    24e40:	3c01800a */ 	lui	$at,%hi(var8009a8f0)
-/*    24e44:	03e00008 */ 	jr	$ra
-/*    24e48:	c420a8f0 */ 	lwc1	$f0,%lo(var8009a8f0)($at)
-);
+f32 func00024e40(void)
+{
+	return var8009a8f0;
+}
 
 void func00024e4c(struct coord *a, struct coord *b, u32 line, char *file)
 {

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00024e40(void);
+f32 func00024e40(void);
 void func00024e4c(struct coord *arg0, struct coord *arg1, u32 line, char *file);
 f32 func00024e98(void);
 u32 func00024ea4(void);
