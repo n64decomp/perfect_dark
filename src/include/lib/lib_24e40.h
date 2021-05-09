@@ -97,7 +97,7 @@ bool hasLineOfSight(struct coord *coord, s16 *room, struct coord *coord2, s16 *r
 bool func0002dcd0(struct coord *arg0, s16 *rooms1, struct coord *arg2, s16 *rooms2, u32 arg4);
 bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s16 *rooms3, u32 arg5, u32 arg6);
 s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u32 arg4);
-u32 func0002de10(void);
+s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types);
 u32 func0002de34(void);
 u32 func0002deac(void);
 u32 func0002ded8(void);

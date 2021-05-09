@@ -10076,18 +10076,10 @@ glabel cdTestAToB4
 /*    2de0c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0002de10
-/*    2de10:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    2de14:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    2de18:	240e001c */ 	addiu	$t6,$zero,0x1c
-/*    2de1c:	0c00b764 */ 	jal	cdTestAToB4
-/*    2de20:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2de24:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    2de28:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    2de2c:	03e00008 */ 	jr	$ra
-/*    2de30:	00000000 */ 	nop
-);
+s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types)
+{
+	return cdTestAToB4(pos, rooms, pos2, types, 0x1c);
+}
 
 GLOBAL_ASM(
 glabel func0002de34
