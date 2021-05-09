@@ -1481,7 +1481,7 @@ glabel func00026288
 /*    263e0:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-bool cdIs2dPointInTile(struct tiletype1 *tile, f32 x, f32 z)
+bool cdIs2dPointInTileType1(struct tiletype1 *tile, f32 x, f32 z)
 {
 	s32 result = -1;
 	s32 numvertices = tile->header.numvertices;
@@ -1515,95 +1515,39 @@ bool cdIs2dPointInTile(struct tiletype1 *tile, f32 x, f32 z)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func00026520
-/*    26520:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    26524:	f7b40008 */ 	sdc1	$f20,0x8($sp)
-/*    26528:	90830001 */ 	lbu	$v1,0x1($a0)
-/*    2652c:	4486a000 */ 	mtc1	$a2,$f20
-/*    26530:	44856000 */ 	mtc1	$a1,$f12
-/*    26534:	2402ffff */ 	addiu	$v0,$zero,-1
-/*    26538:	1860003e */ 	blez	$v1,.L00026634
-/*    2653c:	00002825 */ 	or	$a1,$zero,$zero
-/*    26540:	44808000 */ 	mtc1	$zero,$f16
-/*    26544:	00804025 */ 	or	$t0,$a0,$zero
-.L00026548:
-/*    26548:	24a60001 */ 	addiu	$a2,$a1,0x1
-/*    2654c:	00c3001a */ 	div	$zero,$a2,$v1
-/*    26550:	00007010 */ 	mfhi	$t6
-/*    26554:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*    26558:	008f3821 */ 	addu	$a3,$a0,$t7
-/*    2655c:	c4e40010 */ 	lwc1	$f4,0x10($a3)
-/*    26560:	c5020010 */ 	lwc1	$f2,0x10($t0)
-/*    26564:	c50e000c */ 	lwc1	$f14,0xc($t0)
-/*    26568:	14600002 */ 	bnez	$v1,.L00026574
-/*    2656c:	00000000 */ 	nop
-/*    26570:	0007000d */ 	break	0x7
-.L00026574:
-/*    26574:	2401ffff */ 	addiu	$at,$zero,-1
-/*    26578:	14610004 */ 	bne	$v1,$at,.L0002658c
-/*    2657c:	3c018000 */ 	lui	$at,0x8000
-/*    26580:	14c10002 */ 	bne	$a2,$at,.L0002658c
-/*    26584:	00000000 */ 	nop
-/*    26588:	0006000d */ 	break	0x6
-.L0002658c:
-/*    2658c:	46022181 */ 	sub.s	$f6,$f4,$f2
-/*    26590:	c4e4000c */ 	lwc1	$f4,0xc($a3)
-/*    26594:	25080008 */ 	addiu	$t0,$t0,0x8
-/*    26598:	460e6201 */ 	sub.s	$f8,$f12,$f14
-/*    2659c:	4602a481 */ 	sub.s	$f18,$f20,$f2
-/*    265a0:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*    265a4:	460e2181 */ 	sub.s	$f6,$f4,$f14
-/*    265a8:	46069202 */ 	mul.s	$f8,$f18,$f6
-/*    265ac:	46085001 */ 	sub.s	$f0,$f10,$f8
-/*    265b0:	46100032 */ 	c.eq.s	$f0,$f16
-/*    265b4:	00000000 */ 	nop
-/*    265b8:	4501001c */ 	bc1t	.L0002662c
-/*    265bc:	00000000 */ 	nop
-/*    265c0:	50a00004 */ 	beqzl	$a1,.L000265d4
-/*    265c4:	4600803c */ 	c.lt.s	$f16,$f0
-/*    265c8:	04410008 */ 	bgez	$v0,.L000265ec
-/*    265cc:	00000000 */ 	nop
-/*    265d0:	4600803c */ 	c.lt.s	$f16,$f0
-.L000265d4:
-/*    265d4:	00001025 */ 	or	$v0,$zero,$zero
-/*    265d8:	45000014 */ 	bc1f	.L0002662c
-/*    265dc:	00000000 */ 	nop
-/*    265e0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    265e4:	10000011 */ 	b	.L0002662c
-/*    265e8:	00000000 */ 	nop
-.L000265ec:
-/*    265ec:	10400007 */ 	beqz	$v0,.L0002660c
-/*    265f0:	00000000 */ 	nop
-/*    265f4:	4610003c */ 	c.lt.s	$f0,$f16
-/*    265f8:	00000000 */ 	nop
-/*    265fc:	45000003 */ 	bc1f	.L0002660c
-/*    26600:	00000000 */ 	nop
-/*    26604:	10000010 */ 	b	.L00026648
-/*    26608:	00001025 */ 	or	$v0,$zero,$zero
-.L0002660c:
-/*    2660c:	14400007 */ 	bnez	$v0,.L0002662c
-/*    26610:	00000000 */ 	nop
-/*    26614:	4600803c */ 	c.lt.s	$f16,$f0
-/*    26618:	00000000 */ 	nop
-/*    2661c:	45000003 */ 	bc1f	.L0002662c
-/*    26620:	00000000 */ 	nop
-/*    26624:	10000008 */ 	b	.L00026648
-/*    26628:	00001025 */ 	or	$v0,$zero,$zero
-.L0002662c:
-/*    2662c:	14c3ffc6 */ 	bne	$a2,$v1,.L00026548
-/*    26630:	00c02825 */ 	or	$a1,$a2,$zero
-.L00026634:
-/*    26634:	04430004 */ 	bgezl	$v0,.L00026648
-/*    26638:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    2663c:	10000002 */ 	b	.L00026648
-/*    26640:	00001025 */ 	or	$v0,$zero,$zero
-/*    26644:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00026648:
-/*    26648:	d7b40008 */ 	ldc1	$f20,0x8($sp)
-/*    2664c:	03e00008 */ 	jr	$ra
-/*    26650:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+bool cdIs2dPointInTileType2(struct tiletype2 *tile, f32 x, f32 z)
+{
+	s32 result = -1;
+	s32 numvertices = tile->header.numvertices;
+	s32 i;
+
+	for (i = 0; i < numvertices; i++) {
+		s32 next = (i + 1) % numvertices;
+
+		f32 value = (tile->vertices[next][1] - tile->vertices[i][1]) * (x - tile->vertices[i][0])
+			- (tile->vertices[next][0] - tile->vertices[i][0]) * (z - tile->vertices[i][1]);
+
+		if (value != 0) {
+			if (i == 0 || result < 0) {
+				result = (value > 0);
+			} else {
+				if (result != 0 && value < 0) {
+					return false;
+				}
+
+				if (result == 0 && value > 0) {
+					return false;
+				}
+			}
+		}
+	}
+
+	if (result < 0) {
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func00026654
@@ -1645,7 +1589,7 @@ glabel func000266a4
 /*    266c8:	24010003 */ 	addiu	$at,$zero,0x3
 /*    266cc:	44056000 */ 	mfc1	$a1,$f12
 /*    266d0:	44067000 */ 	mfc1	$a2,$f14
-/*    266d4:	0c009948 */ 	jal	func00026520
+/*    266d4:	0c009948 */ 	jal	cdIs2dPointInTileType2
 /*    266d8:	00000000 */ 	nop
 /*    266dc:	1000000c */ 	b	.L00026710
 /*    266e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1789,7 +1733,7 @@ glabel platformGetRidingProps
 /*    268e0:	926b0001 */ 	lbu	$t3,0x1($s3)
 /*    268e4:	44051000 */ 	mfc1	$a1,$f2
 /*    268e8:	44060000 */ 	mfc1	$a2,$f0
-/*    268ec:	0c0098f9 */ 	jal	cdIs2dPointInTile
+/*    268ec:	0c0098f9 */ 	jal	cdIs2dPointInTileType1
 /*    268f0:	02002025 */ 	or	$a0,$s0,$zero
 /*    268f4:	10400009 */ 	beqz	$v0,.L0002691c
 /*    268f8:	02002025 */ 	or	$a0,$s0,$zero
@@ -2171,7 +2115,7 @@ glabel func00026a04
 /*    26d60:	44051000 */ 	mfc1	$a1,$f2
 .L00026d64:
 /*    26d64:	44060000 */ 	mfc1	$a2,$f0
-/*    26d68:	0c0098f9 */ 	jal	cdIs2dPointInTile
+/*    26d68:	0c0098f9 */ 	jal	cdIs2dPointInTileType1
 /*    26d6c:	02002025 */ 	or	$a0,$s0,$zero
 /*    26d70:	10400021 */ 	beqz	$v0,.L00026df8
 /*    26d74:	02002025 */ 	or	$a0,$s0,$zero
@@ -2569,7 +2513,7 @@ bool func000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *
 {
 	bool result = false;
 
-	if (cdIs2dPointInTile(tile, x, z)) {
+	if (cdIs2dPointInTileType1(tile, x, z)) {
 		thing->tile = &tile->header;
 		thing->unk08 = 0;
 		thing->prop = prop;
@@ -2606,7 +2550,7 @@ s32 func000274e0(struct tiletype2 *tile, f32 x, f32 z, f32 width, struct prop *p
 {
 	bool result = false;
 
-	if (func00026520(tile, x, z)) {
+	if (cdIs2dPointInTileType2(tile, x, z)) {
 		if (thing) {
 			thing->tile = &tile->header;
 			thing->unk08 = 0;
@@ -4330,7 +4274,7 @@ glabel func000296a0
 /*    2977c:	8ea70014 */ 	lw	$a3,0x14($s5)
 /*    29780:	00e02025 */ 	or	$a0,$a3,$zero
 /*    29784:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    29788:	0c0098f9 */ 	jal	cdIs2dPointInTile
+/*    29788:	0c0098f9 */ 	jal	cdIs2dPointInTileType1
 /*    2978c:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    29790:	10400002 */ 	beqz	$v0,.L0002979c
 /*    29794:	aea20004 */ 	sw	$v0,0x4($s5)
@@ -4979,7 +4923,7 @@ glabel func000296a0
 /*    2ac78:	8ec70014 */ 	lw	$a3,0x14($s6)
 /*    2ac7c:	00e02025 */ 	or	$a0,$a3,$zero
 /*    2ac80:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    2ac84:	0c009dfd */ 	jal	cdIs2dPointInTile
+/*    2ac84:	0c009dfd */ 	jal	cdIs2dPointInTileType1
 /*    2ac88:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    2ac8c:	10400002 */ 	beqz	$v0,.NB0002ac98
 /*    2ac90:	aec20004 */ 	sw	$v0,0x4($s6)
@@ -9620,7 +9564,7 @@ glabel func0002dffc
 /*    2e0c4:	00000000 */ 	nop
 /*    2e0c8:	44059000 */ 	mfc1	$a1,$f18
 /*    2e0cc:	44061000 */ 	mfc1	$a2,$f2
-/*    2e0d0:	0c009948 */ 	jal	func00026520
+/*    2e0d0:	0c009948 */ 	jal	cdIs2dPointInTileType2
 /*    2e0d4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    2e0d8:	50400058 */ 	beqzl	$v0,.L0002e23c
 /*    2e0dc:	02803025 */ 	or	$a2,$s4,$zero
@@ -9808,7 +9752,7 @@ glabel func0002e278
 /*    2e35c:	02402025 */ 	or	$a0,$s2,$zero
 .L0002e360:
 /*    2e360:	8e05000c */ 	lw	$a1,0xc($s0)
-/*    2e364:	0c009948 */ 	jal	func00026520
+/*    2e364:	0c009948 */ 	jal	cdIs2dPointInTileType2
 /*    2e368:	8e060010 */ 	lw	$a2,0x10($s0)
 /*    2e36c:	50400004 */ 	beqzl	$v0,.L0002e380
 /*    2e370:	926a0001 */ 	lbu	$t2,0x1($s3)
@@ -9829,7 +9773,7 @@ glabel func0002e278
 /*    2e3a4:	02602025 */ 	or	$a0,$s3,$zero
 .L0002e3a8:
 /*    2e3a8:	8e05000c */ 	lw	$a1,0xc($s0)
-/*    2e3ac:	0c009948 */ 	jal	func00026520
+/*    2e3ac:	0c009948 */ 	jal	cdIs2dPointInTileType2
 /*    2e3b0:	8e060010 */ 	lw	$a2,0x10($s0)
 /*    2e3b4:	50400004 */ 	beqzl	$v0,.L0002e3c8
 /*    2e3b8:	928c0001 */ 	lbu	$t4,0x1($s4)
