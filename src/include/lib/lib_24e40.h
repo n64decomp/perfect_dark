@@ -35,7 +35,7 @@ u32 func00025c74(void);
 u32 func00025f90(void);
 u32 func000260cc(void);
 u32 func00026288(void);
-bool func000263e4(struct tiletype1 *tile, f32 x, f32 z);
+bool cdIs2dPointInTile(struct tiletype1 *tile, f32 x, f32 z);
 u32 func00026520(void);
 u32 func00026654(void);
 u32 func000266a4(void);

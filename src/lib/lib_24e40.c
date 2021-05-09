@@ -1481,97 +1481,39 @@ glabel func00026288
 /*    263e0:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel func000263e4
-/*    263e4:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    263e8:	f7b40008 */ 	sdc1	$f20,0x8($sp)
-/*    263ec:	90830001 */ 	lbu	$v1,0x1($a0)
-/*    263f0:	4486a000 */ 	mtc1	$a2,$f20
-/*    263f4:	44856000 */ 	mtc1	$a1,$f12
-/*    263f8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*    263fc:	18600040 */ 	blez	$v1,.L00026500
-/*    26400:	00002825 */ 	or	$a1,$zero,$zero
-/*    26404:	44808000 */ 	mtc1	$zero,$f16
-/*    26408:	00804025 */ 	or	$t0,$a0,$zero
-/*    2640c:	2409000c */ 	addiu	$t1,$zero,0xc
-.L00026410:
-/*    26410:	24a60001 */ 	addiu	$a2,$a1,0x1
-/*    26414:	00c3001a */ 	div	$zero,$a2,$v1
-/*    26418:	00007010 */ 	mfhi	$t6
-/*    2641c:	c5020018 */ 	lwc1	$f2,0x18($t0)
-/*    26420:	c50e0010 */ 	lwc1	$f14,0x10($t0)
-/*    26424:	01c90019 */ 	multu	$t6,$t1
-/*    26428:	4602a481 */ 	sub.s	$f18,$f20,$f2
-/*    2642c:	14600002 */ 	bnez	$v1,.L00026438
-/*    26430:	00000000 */ 	nop
-/*    26434:	0007000d */ 	break	0x7
-.L00026438:
-/*    26438:	2401ffff */ 	addiu	$at,$zero,-1
-/*    2643c:	14610004 */ 	bne	$v1,$at,.L00026450
-/*    26440:	3c018000 */ 	lui	$at,0x8000
-/*    26444:	14c10002 */ 	bne	$a2,$at,.L00026450
-/*    26448:	00000000 */ 	nop
-/*    2644c:	0006000d */ 	break	0x6
-.L00026450:
-/*    26450:	00007812 */ 	mflo	$t7
-/*    26454:	008f3821 */ 	addu	$a3,$a0,$t7
-/*    26458:	c4e40018 */ 	lwc1	$f4,0x18($a3)
-/*    2645c:	460e6201 */ 	sub.s	$f8,$f12,$f14
-/*    26460:	2508000c */ 	addiu	$t0,$t0,0xc
-/*    26464:	46022181 */ 	sub.s	$f6,$f4,$f2
-/*    26468:	c4e40010 */ 	lwc1	$f4,0x10($a3)
-/*    2646c:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*    26470:	460e2181 */ 	sub.s	$f6,$f4,$f14
-/*    26474:	46069202 */ 	mul.s	$f8,$f18,$f6
-/*    26478:	46085001 */ 	sub.s	$f0,$f10,$f8
-/*    2647c:	46100032 */ 	c.eq.s	$f0,$f16
-/*    26480:	00000000 */ 	nop
-/*    26484:	4501001c */ 	bc1t	.L000264f8
-/*    26488:	00000000 */ 	nop
-/*    2648c:	50a00004 */ 	beqzl	$a1,.L000264a0
-/*    26490:	4600803c */ 	c.lt.s	$f16,$f0
-/*    26494:	04410008 */ 	bgez	$v0,.L000264b8
-/*    26498:	00000000 */ 	nop
-/*    2649c:	4600803c */ 	c.lt.s	$f16,$f0
-.L000264a0:
-/*    264a0:	00001025 */ 	or	$v0,$zero,$zero
-/*    264a4:	45000014 */ 	bc1f	.L000264f8
-/*    264a8:	00000000 */ 	nop
-/*    264ac:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    264b0:	10000011 */ 	b	.L000264f8
-/*    264b4:	00000000 */ 	nop
-.L000264b8:
-/*    264b8:	10400007 */ 	beqz	$v0,.L000264d8
-/*    264bc:	00000000 */ 	nop
-/*    264c0:	4610003c */ 	c.lt.s	$f0,$f16
-/*    264c4:	00000000 */ 	nop
-/*    264c8:	45000003 */ 	bc1f	.L000264d8
-/*    264cc:	00000000 */ 	nop
-/*    264d0:	10000010 */ 	b	.L00026514
-/*    264d4:	00001025 */ 	or	$v0,$zero,$zero
-.L000264d8:
-/*    264d8:	14400007 */ 	bnez	$v0,.L000264f8
-/*    264dc:	00000000 */ 	nop
-/*    264e0:	4600803c */ 	c.lt.s	$f16,$f0
-/*    264e4:	00000000 */ 	nop
-/*    264e8:	45000003 */ 	bc1f	.L000264f8
-/*    264ec:	00000000 */ 	nop
-/*    264f0:	10000008 */ 	b	.L00026514
-/*    264f4:	00001025 */ 	or	$v0,$zero,$zero
-.L000264f8:
-/*    264f8:	14c3ffc5 */ 	bne	$a2,$v1,.L00026410
-/*    264fc:	00c02825 */ 	or	$a1,$a2,$zero
-.L00026500:
-/*    26500:	04430004 */ 	bgezl	$v0,.L00026514
-/*    26504:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    26508:	10000002 */ 	b	.L00026514
-/*    2650c:	00001025 */ 	or	$v0,$zero,$zero
-/*    26510:	24020001 */ 	addiu	$v0,$zero,0x1
-.L00026514:
-/*    26514:	d7b40008 */ 	ldc1	$f20,0x8($sp)
-/*    26518:	03e00008 */ 	jr	$ra
-/*    2651c:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+bool cdIs2dPointInTile(struct tiletype1 *tile, f32 x, f32 z)
+{
+	s32 result = -1;
+	s32 numvertices = tile->header.numvertices;
+	s32 i;
+
+	for (i = 0; i < numvertices; i++) {
+		s32 next = (i + 1) % numvertices;
+
+		f32 value = (tile->vertices[next].z - tile->vertices[i].z) * (x - tile->vertices[i].x)
+			- (tile->vertices[next].x - tile->vertices[i].x) * (z - tile->vertices[i].z);
+
+		if (value != 0) {
+			if (i == 0 || result < 0) {
+				result = (value > 0);
+			} else {
+				if (result != 0 && value < 0) {
+					return false;
+				}
+
+				if (result == 0 && value > 0) {
+					return false;
+				}
+			}
+		}
+	}
+
+	if (result < 0) {
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func00026520
@@ -1847,7 +1789,7 @@ glabel platformGetRidingProps
 /*    268e0:	926b0001 */ 	lbu	$t3,0x1($s3)
 /*    268e4:	44051000 */ 	mfc1	$a1,$f2
 /*    268e8:	44060000 */ 	mfc1	$a2,$f0
-/*    268ec:	0c0098f9 */ 	jal	func000263e4
+/*    268ec:	0c0098f9 */ 	jal	cdIs2dPointInTile
 /*    268f0:	02002025 */ 	or	$a0,$s0,$zero
 /*    268f4:	10400009 */ 	beqz	$v0,.L0002691c
 /*    268f8:	02002025 */ 	or	$a0,$s0,$zero
@@ -2229,7 +2171,7 @@ glabel func00026a04
 /*    26d60:	44051000 */ 	mfc1	$a1,$f2
 .L00026d64:
 /*    26d64:	44060000 */ 	mfc1	$a2,$f0
-/*    26d68:	0c0098f9 */ 	jal	func000263e4
+/*    26d68:	0c0098f9 */ 	jal	cdIs2dPointInTile
 /*    26d6c:	02002025 */ 	or	$a0,$s0,$zero
 /*    26d70:	10400021 */ 	beqz	$v0,.L00026df8
 /*    26d74:	02002025 */ 	or	$a0,$s0,$zero
@@ -2627,7 +2569,7 @@ bool func000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *
 {
 	bool result = false;
 
-	if (func000263e4(tile, x, z)) {
+	if (cdIs2dPointInTile(tile, x, z)) {
 		thing->tile = &tile->header;
 		thing->unk08 = 0;
 		thing->prop = prop;
@@ -4480,7 +4422,7 @@ glabel func000296a0
 /*    2977c:	8ea70014 */ 	lw	$a3,0x14($s5)
 /*    29780:	00e02025 */ 	or	$a0,$a3,$zero
 /*    29784:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    29788:	0c0098f9 */ 	jal	func000263e4
+/*    29788:	0c0098f9 */ 	jal	cdIs2dPointInTile
 /*    2978c:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    29790:	10400002 */ 	beqz	$v0,.L0002979c
 /*    29794:	aea20004 */ 	sw	$v0,0x4($s5)
@@ -5129,7 +5071,7 @@ glabel func000296a0
 /*    2ac78:	8ec70014 */ 	lw	$a3,0x14($s6)
 /*    2ac7c:	00e02025 */ 	or	$a0,$a3,$zero
 /*    2ac80:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    2ac84:	0c009dfd */ 	jal	func000263e4
+/*    2ac84:	0c009dfd */ 	jal	cdIs2dPointInTile
 /*    2ac88:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    2ac8c:	10400002 */ 	beqz	$v0,.NB0002ac98
 /*    2ac90:	aec20004 */ 	sw	$v0,0x4($s6)
