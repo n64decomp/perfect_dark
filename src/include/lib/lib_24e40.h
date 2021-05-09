@@ -92,7 +92,7 @@ s32 cdTestAToB3(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f3
 u32 func0002da50(void);
 u32 func0002dac8(void);
 bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, s32 arg3, u32 arg4);
-u32 func0002dc18(struct coord *coord, s16 *room, struct coord *coord2, s32 arg3);
+bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg3);
 bool hasLineOfSight(struct coord *coord, s16 *room, struct coord *coord2, s16 *room2, s32 arg4, s32 arg5);
 bool func0002dcd0(struct coord *arg0, s16 *rooms1, struct coord *arg2, s16 *rooms2, u32 arg4);
 bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s16 *rooms3, u32 arg5, u32 arg6);

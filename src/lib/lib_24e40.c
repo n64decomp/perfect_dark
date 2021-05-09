@@ -9976,18 +9976,10 @@ glabel func0002db98
 /*    2dc14:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0002dc18
-/*    2dc18:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    2dc1c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    2dc20:	240e001c */ 	addiu	$t6,$zero,0x1c
-/*    2dc24:	0c00b6e6 */ 	jal	func0002db98
-/*    2dc28:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2dc2c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    2dc30:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    2dc34:	03e00008 */ 	jr	$ra
-/*    2dc38:	00000000 */ 	nop
-);
+bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg3)
+{
+	return func0002db98(coord, rooms, coord2, arg3, 0x1c);
+}
 
 GLOBAL_ASM(
 glabel hasLineOfSight
