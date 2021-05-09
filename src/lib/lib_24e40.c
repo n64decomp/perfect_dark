@@ -6118,11 +6118,11 @@ glabel func0002a36c
 
 s32 func0002a400(struct coord *pos, s16 *rooms)
 {
-	u32 sp34;
+	struct tile *tile;
 	s16 sp32;
-	u32 sp2c;
+	f32 sp2c;
 
-	func00026e7c(pos, rooms, 3, &sp34, &sp32, &sp2c, 0, 0);
+	func00026e7c(pos, rooms, 3, &tile, &sp32, &sp2c, 0, 0);
 
 	return sp32;
 }
@@ -6287,43 +6287,25 @@ glabel func0002a4d0
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0002a564
-/*    2a564:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    2a568:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*    2a56c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    2a570:	afa60040 */ 	sw	$a2,0x40($sp)
-/*    2a574:	afa70044 */ 	sw	$a3,0x44($sp)
-/*    2a578:	27ae0032 */ 	addiu	$t6,$sp,0x32
-/*    2a57c:	27af002c */ 	addiu	$t7,$sp,0x2c
-/*    2a580:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2a584:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a588:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2a58c:	24060003 */ 	addiu	$a2,$zero,0x3
-/*    2a590:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    2a594:	0c009b9f */ 	jal	func00026e7c
-/*    2a598:	afb80018 */ 	sw	$t8,0x18($sp)
-/*    2a59c:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*    2a5a0:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*    2a5a4:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*    2a5a8:	13200004 */ 	beqz	$t9,.L0002a5bc
-/*    2a5ac:	03202025 */ 	or	$a0,$t9,$zero
-/*    2a5b0:	e5040000 */ 	swc1	$f4,0x0($t0)
-/*    2a5b4:	0c00964a */ 	jal	func00025928
-/*    2a5b8:	8fa50048 */ 	lw	$a1,0x48($sp)
-.L0002a5bc:
-/*    2a5bc:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    2a5c0:	50a00004 */ 	beqzl	$a1,.L0002a5d4
-/*    2a5c4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2a5c8:	0c0096dc */ 	jal	tileGetFloorCol
-/*    2a5cc:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*    2a5d0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0002a5d4:
-/*    2a5d4:	87a20032 */ 	lh	$v0,0x32($sp)
-/*    2a5d8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    2a5dc:	03e00008 */ 	jr	$ra
-/*    2a5e0:	00000000 */ 	nop
-);
+s32 func0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct coord *arg4, bool *arg5)
+{
+	struct tile *tile;
+	s16 sp32;
+	f32 sp2c;
+
+	func00026e7c(pos, rooms, 3, &tile, &sp32, &sp2c, arg5, 0);
+
+	if (tile) {
+		*arg2 = sp2c;
+		func00025928(tile, arg4);
+	}
+
+	if (floorcol) {
+		tileGetFloorCol(tile, floorcol);
+	}
+
+	return sp32;
+}
 
 GLOBAL_ASM(
 glabel func0002a5e4
