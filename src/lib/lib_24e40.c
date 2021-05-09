@@ -10260,128 +10260,62 @@ glabel func0002e278
 /*    2e4c0:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0002e4c4
-/*    2e4c4:	27bdfd98 */ 	addiu	$sp,$sp,-616
-/*    2e4c8:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*    2e4cc:	afb70034 */ 	sw	$s7,0x34($sp)
-/*    2e4d0:	afb60030 */ 	sw	$s6,0x30($sp)
-/*    2e4d4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    2e4d8:	30ce0020 */ 	andi	$t6,$a2,0x20
-/*    2e4dc:	0080a025 */ 	or	$s4,$a0,$zero
-/*    2e4e0:	00a0b025 */ 	or	$s6,$a1,$zero
-/*    2e4e4:	00c0f025 */ 	or	$s8,$a2,$zero
-/*    2e4e8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*    2e4ec:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*    2e4f0:	afb30024 */ 	sw	$s3,0x24($sp)
-/*    2e4f4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    2e4f8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    2e4fc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    2e500:	11c00026 */ 	beqz	$t6,.L0002e59c
-/*    2e504:	24170001 */ 	addiu	$s7,$zero,0x1
-/*    2e508:	84a80000 */ 	lh	$t0,0x0($a1)
-/*    2e50c:	2415ffff */ 	addiu	$s5,$zero,-1
-/*    2e510:	00a08025 */ 	or	$s0,$a1,$zero
-/*    2e514:	11150021 */ 	beq	$t0,$s5,.L0002e59c
-/*    2e518:	3c13800a */ 	lui	$s3,%hi(g_TileFileData)
-/*    2e51c:	3c12800a */ 	lui	$s2,%hi(g_TileRooms)
-/*    2e520:	3c11800a */ 	lui	$s1,%hi(g_TileNumRooms)
-/*    2e524:	2631a8a4 */ 	addiu	$s1,$s1,%lo(g_TileNumRooms)
-/*    2e528:	2652a8a8 */ 	addiu	$s2,$s2,%lo(g_TileRooms)
-/*    2e52c:	2673a8a0 */ 	addiu	$s3,$s3,%lo(g_TileFileData)
-/*    2e530:	8e2f0000 */ 	lw	$t7,0x0($s1)
-.L0002e534:
-/*    2e534:	010f082a */ 	slt	$at,$t0,$t7
-/*    2e538:	50200015 */ 	beqzl	$at,.L0002e590
-/*    2e53c:	86080002 */ 	lh	$t0,0x2($s0)
-/*    2e540:	8e580000 */ 	lw	$t8,0x0($s2)
-/*    2e544:	0008c880 */ 	sll	$t9,$t0,0x2
-/*    2e548:	8e630000 */ 	lw	$v1,0x0($s3)
-/*    2e54c:	03191021 */ 	addu	$v0,$t8,$t9
-/*    2e550:	8c490000 */ 	lw	$t1,0x0($v0)
-/*    2e554:	02803025 */ 	or	$a2,$s4,$zero
-/*    2e558:	24070004 */ 	addiu	$a3,$zero,0x4
-/*    2e55c:	01232021 */ 	addu	$a0,$t1,$v1
-/*    2e560:	afa4025c */ 	sw	$a0,0x25c($sp)
-/*    2e564:	8c4b0004 */ 	lw	$t3,0x4($v0)
-/*    2e568:	01632821 */ 	addu	$a1,$t3,$v1
-/*    2e56c:	0c00b89e */ 	jal	func0002e278
-/*    2e570:	afa50258 */ 	sw	$a1,0x258($sp)
-/*    2e574:	14400005 */ 	bnez	$v0,.L0002e58c
-/*    2e578:	0040b825 */ 	or	$s7,$v0,$zero
-/*    2e57c:	0c00945a */ 	jal	func00025168
-/*    2e580:	00002025 */ 	or	$a0,$zero,$zero
-/*    2e584:	10000005 */ 	b	.L0002e59c
-/*    2e588:	00000000 */ 	nop
-.L0002e58c:
-/*    2e58c:	86080002 */ 	lh	$t0,0x2($s0)
-.L0002e590:
-/*    2e590:	26100002 */ 	addiu	$s0,$s0,0x2
-/*    2e594:	5515ffe7 */ 	bnel	$t0,$s5,.L0002e534
-/*    2e598:	8e2f0000 */ 	lw	$t7,0x0($s1)
-.L0002e59c:
-/*    2e59c:	12e0002b */ 	beqz	$s7,.L0002e64c
-/*    2e5a0:	27b10054 */ 	addiu	$s1,$sp,0x54
-/*    2e5a4:	02c02025 */ 	or	$a0,$s6,$zero
-/*    2e5a8:	02202825 */ 	or	$a1,$s1,$zero
-/*    2e5ac:	0fc197e0 */ 	jal	roomGetProps
-/*    2e5b0:	24060100 */ 	addiu	$a2,$zero,0x100
-/*    2e5b4:	87ad0054 */ 	lh	$t5,0x54($sp)
-/*    2e5b8:	02208025 */ 	or	$s0,$s1,$zero
-/*    2e5bc:	27ae0054 */ 	addiu	$t6,$sp,0x54
-/*    2e5c0:	05a00022 */ 	bltz	$t5,.L0002e64c
-/*    2e5c4:	27b60258 */ 	addiu	$s6,$sp,0x258
-/*    2e5c8:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*    2e5cc:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*    2e5d0:	85c20000 */ 	lh	$v0,0x0($t6)
-/*    2e5d4:	27b5025c */ 	addiu	$s5,$sp,0x25c
-/*    2e5d8:	24120048 */ 	addiu	$s2,$zero,0x48
-.L0002e5dc:
-/*    2e5dc:	00520019 */ 	multu	$v0,$s2
-/*    2e5e0:	8e780338 */ 	lw	$t8,0x338($s3)
-/*    2e5e4:	03c02825 */ 	or	$a1,$s8,$zero
-/*    2e5e8:	00007812 */ 	mflo	$t7
-/*    2e5ec:	01f88821 */ 	addu	$s1,$t7,$t8
-/*    2e5f0:	0fc19553 */ 	jal	propIsOfCdType
-/*    2e5f4:	02202025 */ 	or	$a0,$s1,$zero
-/*    2e5f8:	10400010 */ 	beqz	$v0,.L0002e63c
-/*    2e5fc:	02202025 */ 	or	$a0,$s1,$zero
-/*    2e600:	02a02825 */ 	or	$a1,$s5,$zero
-/*    2e604:	0fc198a4 */ 	jal	propUpdateGeometry
-/*    2e608:	02c03025 */ 	or	$a2,$s6,$zero
-/*    2e60c:	1040000b */ 	beqz	$v0,.L0002e63c
-/*    2e610:	8fa4025c */ 	lw	$a0,0x25c($sp)
-/*    2e614:	8fa50258 */ 	lw	$a1,0x258($sp)
-/*    2e618:	02803025 */ 	or	$a2,$s4,$zero
-/*    2e61c:	0c00b89e */ 	jal	func0002e278
-/*    2e620:	24070004 */ 	addiu	$a3,$zero,0x4
-/*    2e624:	14400005 */ 	bnez	$v0,.L0002e63c
-/*    2e628:	0040b825 */ 	or	$s7,$v0,$zero
-/*    2e62c:	0c00945a */ 	jal	func00025168
-/*    2e630:	02202025 */ 	or	$a0,$s1,$zero
-/*    2e634:	10000006 */ 	b	.L0002e650
-/*    2e638:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0002e63c:
-/*    2e63c:	86020002 */ 	lh	$v0,0x2($s0)
-/*    2e640:	26100002 */ 	addiu	$s0,$s0,0x2
-/*    2e644:	0441ffe5 */ 	bgez	$v0,.L0002e5dc
-/*    2e648:	00000000 */ 	nop
-.L0002e64c:
-/*    2e64c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0002e650:
-/*    2e650:	02e01025 */ 	or	$v0,$s7,$zero
-/*    2e654:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*    2e658:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    2e65c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    2e660:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    2e664:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*    2e668:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*    2e66c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*    2e670:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*    2e674:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*    2e678:	03e00008 */ 	jr	$ra
-/*    2e67c:	27bd0268 */ 	addiu	$sp,$sp,0x268
-);
+s32 func0002e4c4(struct tiletype3 *geo, s16 *rooms, u32 types)
+{
+	s32 result = CDRESULT_NOCOLLISION;
+	s32 roomnum;
+	u8 *roomdatastart;
+	u8 *roomdataend;
+	s16 *roomptr;
+	s16 propnums[256];
+	s16 *propnumptr;
+
+	// Check BG
+	if (types & CDTYPE_BG) {
+		roomptr = rooms;
+		roomnum = rooms[0];
+
+		while (roomnum != -1) {
+			if (roomnum < g_TileNumRooms) {
+				roomdatastart = (g_TileFileData.u8 + g_TileRooms[roomnum]);
+				roomdataend = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
+
+				result = func0002e278((struct tile *) roomdatastart, (struct tile *) roomdataend, geo, 4);
+
+				if (result == CDRESULT_COLLISION) {
+					func00025168(NULL);
+					break;
+				}
+			}
+
+			roomptr++;
+			roomnum = *roomptr;
+		}
+	}
+
+	// Check props
+	if (result != CDRESULT_COLLISION) {
+		roomGetProps(rooms, propnums, 256);
+		propnumptr = propnums;
+
+		while (*propnumptr >= 0) {
+			struct prop *prop = &g_Vars.props[*propnumptr];
+
+			if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, (struct tiletype3 **) &roomdatastart, (struct tiletype3 **) &roomdataend)) {
+				result = func0002e278((struct tile *) roomdatastart, (struct tile *) roomdataend, geo, 4);
+
+				if (result == CDRESULT_COLLISION) {
+					func00025168(prop);
+					break;
+				}
+			}
+
+			propnumptr++;
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0002e680
