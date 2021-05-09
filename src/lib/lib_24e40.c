@@ -5867,91 +5867,36 @@ glabel func000296a0
 );
 #endif
 
-GLOBAL_ASM(
-glabel func00029ffc
-/*    29ffc:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*    2a000:	44856000 */ 	mtc1	$a1,$f12
-/*    2a004:	afa70084 */ 	sw	$a3,0x84($sp)
-/*    2a008:	44867000 */ 	mtc1	$a2,$f14
-/*    2a00c:	c7a40084 */ 	lwc1	$f4,0x84($sp)
-/*    2a010:	97ae008e */ 	lhu	$t6,0x8e($sp)
-/*    2a014:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2a018:	27b80050 */ 	addiu	$t8,$sp,0x50
-/*    2a01c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    2a020:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2a024:	44056000 */ 	mfc1	$a1,$f12
-/*    2a028:	afa40078 */ 	sw	$a0,0x78($sp)
-/*    2a02c:	afb90024 */ 	sw	$t9,0x24($sp)
-/*    2a030:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2a034:	afb80020 */ 	sw	$t8,0x20($sp)
-/*    2a038:	8fa60088 */ 	lw	$a2,0x88($sp)
-/*    2a03c:	24070020 */ 	addiu	$a3,$zero,0x20
-/*    2a040:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    2a044:	e7ae0018 */ 	swc1	$f14,0x18($sp)
-/*    2a048:	0c009f47 */ 	jal	func00027d1c
-/*    2a04c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a050:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*    2a054:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*    2a058:	00001025 */ 	or	$v0,$zero,$zero
-/*    2a05c:	10800033 */ 	beqz	$a0,.L0002a12c
-/*    2a060:	00000000 */ 	nop
-/*    2a064:	0c00964a */ 	jal	func00025928
-/*    2a068:	afa4004c */ 	sw	$a0,0x4c($sp)
-/*    2a06c:	8fa2004c */ 	lw	$v0,0x4c($sp)
-/*    2a070:	8fa30078 */ 	lw	$v1,0x78($sp)
-/*    2a074:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*    2a078:	8448000e */ 	lh	$t0,0xe($v0)
-/*    2a07c:	c4660000 */ 	lwc1	$f6,0x0($v1)
-/*    2a080:	44884000 */ 	mtc1	$t0,$f8
-/*    2a084:	00000000 */ 	nop
-/*    2a088:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    2a08c:	460a3401 */ 	sub.s	$f16,$f6,$f10
-/*    2a090:	e7b00040 */ 	swc1	$f16,0x40($sp)
-/*    2a094:	84490010 */ 	lh	$t1,0x10($v0)
-/*    2a098:	c4720004 */ 	lwc1	$f18,0x4($v1)
-/*    2a09c:	44892000 */ 	mtc1	$t1,$f4
-/*    2a0a0:	00000000 */ 	nop
-/*    2a0a4:	46802220 */ 	cvt.s.w	$f8,$f4
-/*    2a0a8:	46089181 */ 	sub.s	$f6,$f18,$f8
-/*    2a0ac:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*    2a0b0:	e7a60044 */ 	swc1	$f6,0x44($sp)
-/*    2a0b4:	844a0012 */ 	lh	$t2,0x12($v0)
-/*    2a0b8:	c46a0008 */ 	lwc1	$f10,0x8($v1)
-/*    2a0bc:	448a8000 */ 	mtc1	$t2,$f16
-/*    2a0c0:	00000000 */ 	nop
-/*    2a0c4:	46808120 */ 	cvt.s.w	$f4,$f16
-/*    2a0c8:	c7b00044 */ 	lwc1	$f16,0x44($sp)
-/*    2a0cc:	46045481 */ 	sub.s	$f18,$f10,$f4
-/*    2a0d0:	e7b20048 */ 	swc1	$f18,0x48($sp)
-/*    2a0d4:	c4a20000 */ 	lwc1	$f2,0x0($a1)
-/*    2a0d8:	c4ac0004 */ 	lwc1	$f12,0x4($a1)
-/*    2a0dc:	c7b20048 */ 	lwc1	$f18,0x48($sp)
-/*    2a0e0:	46024182 */ 	mul.s	$f6,$f8,$f2
-/*    2a0e4:	c4a00008 */ 	lwc1	$f0,0x8($a1)
-/*    2a0e8:	460c8282 */ 	mul.s	$f10,$f16,$f12
-/*    2a0ec:	460a3100 */ 	add.s	$f4,$f6,$f10
-/*    2a0f0:	46120202 */ 	mul.s	$f8,$f0,$f18
-/*    2a0f4:	44803000 */ 	mtc1	$zero,$f6
-/*    2a0f8:	46044400 */ 	add.s	$f16,$f8,$f4
-/*    2a0fc:	4606803c */ 	c.lt.s	$f16,$f6
-/*    2a100:	00000000 */ 	nop
-/*    2a104:	45000007 */ 	bc1f	.L0002a124
-/*    2a108:	00000000 */ 	nop
-/*    2a10c:	46001287 */ 	neg.s	$f10,$f2
-/*    2a110:	46006487 */ 	neg.s	$f18,$f12
-/*    2a114:	46000207 */ 	neg.s	$f8,$f0
-/*    2a118:	e4aa0000 */ 	swc1	$f10,0x0($a1)
-/*    2a11c:	e4b20004 */ 	swc1	$f18,0x4($a1)
-/*    2a120:	e4a80008 */ 	swc1	$f8,0x8($a1)
-.L0002a124:
-/*    2a124:	10000001 */ 	b	.L0002a12c
-/*    2a128:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0002a12c:
-/*    2a12c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2a130:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*    2a134:	03e00008 */ 	jr	$ra
-/*    2a138:	00000000 */ 	nop
-);
+bool func00029ffc(struct coord *pos, f32 width, f32 foreheadheight, f32 inversefeettoeyesheight, s16 *rooms, u16 arg5, struct coord *laddernormal)
+{
+	u32 stack[5];
+	struct collisionthing thing;
+
+	func00027d1c(pos, width, rooms, CDTYPE_BG,
+			arg5, 1, foreheadheight, inversefeettoeyesheight,
+			&thing, 1);
+
+	if (thing.tile) {
+		struct tiletype0 *tile = (struct tiletype0 *) thing.tile;
+		struct coord dist;
+
+		func00025928(&thing.tile->header, laddernormal);
+
+		dist.x = pos->x - tile->vertices[0][0];
+		dist.y = pos->y - tile->vertices[0][1];
+		dist.z = pos->z - tile->vertices[0][2];
+
+		if (dist.f[0] * laddernormal->f[0] + dist.f[1] * laddernormal->f[1] + dist.f[2] * laddernormal->f[2] < 0) {
+			laddernormal->x = -laddernormal->x;
+			laddernormal->y = -laddernormal->y;
+			laddernormal->z = -laddernormal->z;
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0002a13c
