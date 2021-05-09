@@ -6136,25 +6136,16 @@ glabel func0002a36c
 /*    2a3fc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0002a400
-/*    2a400:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    2a404:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    2a408:	27ae0032 */ 	addiu	$t6,$sp,0x32
-/*    2a40c:	27af002c */ 	addiu	$t7,$sp,0x2c
-/*    2a410:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2a414:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a418:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2a41c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    2a420:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    2a424:	0c009b9f */ 	jal	func00026e7c
-/*    2a428:	24060003 */ 	addiu	$a2,$zero,0x3
-/*    2a42c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2a430:	87a20032 */ 	lh	$v0,0x32($sp)
-/*    2a434:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    2a438:	03e00008 */ 	jr	$ra
-/*    2a43c:	00000000 */ 	nop
-);
+s32 func0002a400(struct coord *pos, s16 *rooms)
+{
+	u32 sp34;
+	s16 sp32;
+	u32 sp2c;
+
+	func00026e7c(pos, rooms, 3, &sp34, &sp32, &sp2c, 0, 0);
+
+	return sp32;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

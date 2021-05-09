@@ -41,7 +41,7 @@ u32 func00026654(void);
 u32 func000266a4(void);
 void platformGetRidingProps(struct prop *platform, s16 *propnums, u32 len);
 u32 func00026a04(void);
-u32 func00026e7c(void);
+void func00026e7c(struct coord *pos, s16 *rooms, s32 arg2, u32 *arg3, s16 *arg4, u32 *arg5, s32 arg6, s32 arg7);
 s32 func0002709c(struct tiletype0 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
 s32 func000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
 s32 func000274e0(struct tiletype2 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
