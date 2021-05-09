@@ -19,7 +19,7 @@ union filedataptr g_TileFileData;
 s32 g_TileNumRooms;
 u32 *g_TileRooms;
 u32 var8009a8ac;
-u32 var8009a8b0;
+f32 var8009a8b0;
 u32 var8009a8b4;
 struct coord var8009a8b8;
 u32 var8009a8c4;
@@ -88,12 +88,10 @@ void func00024e4c(struct coord *a, struct coord *b, u32 line, char *file)
 	b->z = var8009a8c8.z;
 }
 
-GLOBAL_ASM(
-glabel func00024e98
-/*    24e98:	3c01800a */ 	lui	$at,%hi(var8009a8b0)
-/*    24e9c:	03e00008 */ 	jr	$ra
-/*    24ea0:	c420a8b0 */ 	lwc1	$f0,%lo(var8009a8b0)($at)
-);
+f32 func00024e98(void)
+{
+	return var8009a8b0;
+}
 
 GLOBAL_ASM(
 glabel func00024ea4
