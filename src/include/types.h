@@ -976,6 +976,7 @@ struct tiletype1 {
 	/*0x0a*/ u8 ymax;
 	/*0x0b*/ u8 zmax;
 	/*0x0c*/ u16 floorcol;
+	/*0x10*/ struct coord vertices[1];
 };
 
 struct tiletype2 {
@@ -6946,7 +6947,7 @@ struct var800ab570 {
 };
 
 struct collisionthing {
-	struct tiletype3 *tile;
+	struct tile *tile;
 	u32 unk04;
 	u32 unk08;
 	struct prop *prop;
