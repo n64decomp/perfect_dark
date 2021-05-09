@@ -82,7 +82,7 @@ u32 func0002c328(void);
 u32 func0002c528(void);
 u32 func0002c714(void);
 s32 func0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, s32 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8);
-s32 func0002d3b0(struct coord *arg0, struct coord *arg1, void *arg2, s32 types, s32 arg4, s32 arg5, s32 arg6, f32 ymax, f32 ymin);
+s32 func0002d3b0(struct coord *arg0, struct coord *arg1, void *arg2, s32 types, u16 arg4, s32 arg5, s32 arg6, f32 ymax, f32 ymin);
 bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 arg3, u32 arg4, f32 arg5, f32 arg6);
 s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 arg6, f32 arg7);
 bool func0002d7c0(struct coord *pos, s16 *rooms, struct coord *arg2, u32 arg3, u32 arg4, f32 arg5, f32 arg6);
@@ -96,7 +96,7 @@ bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg
 bool hasLineOfSight(struct coord *coord, s16 *room, struct coord *coord2, s16 *room2, s32 arg4, s32 arg5);
 bool func0002dcd0(struct coord *arg0, s16 *rooms1, struct coord *arg2, s16 *rooms2, u32 arg4);
 bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s16 *rooms3, u32 arg5, u32 arg6);
-s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u32 arg4);
+s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u16 arg4);
 s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types);
 u32 func0002de34(void);
 u32 func0002deac(void);
