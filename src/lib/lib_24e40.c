@@ -9853,47 +9853,22 @@ bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg
 	return func0002db98(coord, rooms, coord2, arg3, 0x1c);
 }
 
-GLOBAL_ASM(
-glabel hasLineOfSight
-/*    2dc3c:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    2dc40:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2dc44:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*    2dc48:	27ae0044 */ 	addiu	$t6,$sp,0x44
-/*    2dc4c:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2dc50:	afa40070 */ 	sw	$a0,0x70($sp)
-/*    2dc54:	afa60078 */ 	sw	$a2,0x78($sp)
-/*    2dc58:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2dc5c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2dc60:	0fc19747 */ 	jal	func0f065d1c
-/*    2dc64:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2dc68:	27a40034 */ 	addiu	$a0,$sp,0x34
-/*    2dc6c:	0fc19620 */ 	jal	arrayIntersects
-/*    2dc70:	8fa5007c */ 	lw	$a1,0x7c($sp)
-/*    2dc74:	10400011 */ 	beqz	$v0,.L0002dcbc
-/*    2dc78:	00001825 */ 	or	$v1,$zero,$zero
-/*    2dc7c:	44800000 */ 	mtc1	$zero,$f0
-/*    2dc80:	97b80086 */ 	lhu	$t8,0x86($sp)
-/*    2dc84:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2dc88:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    2dc8c:	afa80018 */ 	sw	$t0,0x18($sp)
-/*    2dc90:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    2dc94:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*    2dc98:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*    2dc9c:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*    2dca0:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*    2dca4:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2dca8:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    2dcac:	0c00b457 */ 	jal	func0002d15c
-/*    2dcb0:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*    2dcb4:	10000001 */ 	b	.L0002dcbc
-/*    2dcb8:	00401825 */ 	or	$v1,$v0,$zero
-.L0002dcbc:
-/*    2dcbc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2dcc0:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*    2dcc4:	00601025 */ 	or	$v0,$v1,$zero
-/*    2dcc8:	03e00008 */ 	jr	$ra
-/*    2dccc:	00000000 */ 	nop
-);
+bool hasLineOfSight(struct coord *coord, s16 *rooms, struct coord *coord2, s16 *rooms2, s32 arg4, u16 arg5)
+{
+	bool result;
+	s16 sp44[20];
+	s16 sp34[8];
+
+	func0f065d1c(coord, rooms, coord2, sp34, sp44, 20);
+
+	if (arrayIntersects(sp34, rooms2)) {
+		result = func0002d15c(coord, coord2, sp44, arg4, arg5, 1, 1, 0, 0);
+	} else {
+		result = false;
+	}
+
+	return result;
+}
 
 bool func0002dcd0(struct coord *arg0, s16 *rooms1, struct coord *arg2, s16 *rooms2, u32 arg4)
 {
