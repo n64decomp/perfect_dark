@@ -285,26 +285,17 @@ glabel func000250cc
 /*    25164:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func00025168
-/*    25168:	3c01800a */ 	lui	$at,%hi(var8009a8b4)
-/*    2516c:	ac20a8b4 */ 	sw	$zero,%lo(var8009a8b4)($at)
-/*    25170:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
-/*    25174:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    25178:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
-/*    2517c:	ac24a8d4 */ 	sw	$a0,%lo(g_CdObstacle)($at)
-/*    25180:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
-/*    25184:	ac20a8d8 */ 	sw	$zero,%lo(var8009a8d8)($at)
-/*    25188:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
-/*    2518c:	ac20a8ec */ 	sw	$zero,%lo(var8009a8ec)($at)
-/*    25190:	3c01800a */ 	lui	$at,%hi(var8009a8f4)
-/*    25194:	ac20a8f4 */ 	sw	$zero,%lo(var8009a8f4)($at)
-/*    25198:	3c018006 */ 	lui	$at,%hi(var8005f034)
-/*    2519c:	ac20f034 */ 	sw	$zero,%lo(var8005f034)($at)
-/*    251a0:	3c018006 */ 	lui	$at,%hi(var8005f038)
-/*    251a4:	03e00008 */ 	jr	$ra
-/*    251a8:	ac20f038 */ 	sw	$zero,%lo(var8005f038)($at)
-);
+void func00025168(struct prop *prop)
+{
+	var8009a8b4 = 0;
+	var8009a8ac = 0;
+	g_CdObstacle = prop;
+	var8009a8d8 = 0;
+	var8009a8ec = 0;
+	var8009a8f4 = 0;
+	var8005f034 = 0;
+	var8005f038 = 0;
+}
 
 GLOBAL_ASM(
 glabel func000251ac
@@ -6404,7 +6395,7 @@ s32 cdTestVolume(struct coord *pos, f32 width, s16 *rooms, s32 types, s32 arg4, 
 
 	if (cdthings[0].unk00) {
 		result = false;
-		func00025168(cdthings[0].unk0c);
+		func00025168(cdthings[0].prop);
 	}
 
 	return result;

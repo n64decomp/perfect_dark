@@ -16,7 +16,7 @@ void func00024f6c(void);
 u32 func00024fb0(void);
 u32 func00025038(void);
 void func000250cc(struct coord *arg0, struct coord *arg1, f32 width);
-void func00025168(u32 arg0);
+void func00025168(struct prop *prop);
 u32 func000251ac(void);
 u32 func00025254(void);
 u32 func00025314(void);

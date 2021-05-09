@@ -6949,7 +6949,7 @@ struct collisionthing {
 	u32 unk00;
 	u32 unk04;
 	u32 unk08;
-	u32 unk0c;
+	struct prop *prop;
 	u32 roomnum;
 };
 
