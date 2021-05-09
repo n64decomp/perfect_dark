@@ -9607,13 +9607,13 @@ glabel func0002d3b0
 /*    2d6a8:	27bd02e0 */ 	addiu	$sp,$sp,0x2e0
 );
 
-bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 arg3, u32 arg4, f32 arg5, f32 arg6)
+bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 arg5, f32 arg6)
 {
 	s16 sp44[21];
 	u32 sp34[4];
 
 	func00018148(pos, targetpos, rooms, sp34, sp44, 20);
-	func0002d15c(pos, targetpos, sp44, arg3, 4, 0, arg4, arg5, arg6);
+	func0002d15c(pos, targetpos, sp44, types, 4, 0, arg4, arg5, arg6);
 }
 
 s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 arg6, f32 arg7)
@@ -9839,13 +9839,13 @@ glabel func0002dac8
 /*    2db94:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, s32 arg3, u16 arg4)
+bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, u32 types, u16 arg4)
 {
 	s16 sp44[21];
 	u32 sp34[4];
 
 	func00018148(viewpos, targetpos, rooms, sp34, sp44, 20);
-	func0002d15c(viewpos, targetpos, sp44, arg3, arg4, 1, 1, 0, 0);
+	func0002d15c(viewpos, targetpos, sp44, types, arg4, 1, 1, 0, 0);
 }
 
 bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg3)
@@ -9900,47 +9900,21 @@ bool func0002dcd0(struct coord *arg0, s16 *rooms1, struct coord *arg2, s16 *room
 	return hasLineOfSight(arg0, rooms1, arg2, rooms2, arg4, 0x1c);
 }
 
-GLOBAL_ASM(
-glabel func0002dcfc
-/*    2dcfc:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*    2dd00:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2dd04:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*    2dd08:	27ae0034 */ 	addiu	$t6,$sp,0x34
-/*    2dd0c:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2dd10:	afa40060 */ 	sw	$a0,0x60($sp)
-/*    2dd14:	afa60068 */ 	sw	$a2,0x68($sp)
-/*    2dd18:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2dd1c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2dd20:	0fc19747 */ 	jal	func0f065d1c
-/*    2dd24:	8fa70070 */ 	lw	$a3,0x70($sp)
-/*    2dd28:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*    2dd2c:	0fc19620 */ 	jal	arrayIntersects
-/*    2dd30:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*    2dd34:	10400011 */ 	beqz	$v0,.L0002dd7c
-/*    2dd38:	00001825 */ 	or	$v1,$zero,$zero
-/*    2dd3c:	44800000 */ 	mtc1	$zero,$f0
-/*    2dd40:	97b8007a */ 	lhu	$t8,0x7a($sp)
-/*    2dd44:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2dd48:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    2dd4c:	afa80018 */ 	sw	$t0,0x18($sp)
-/*    2dd50:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    2dd54:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    2dd58:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*    2dd5c:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*    2dd60:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*    2dd64:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2dd68:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    2dd6c:	0c00b457 */ 	jal	func0002d15c
-/*    2dd70:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*    2dd74:	10000001 */ 	b	.L0002dd7c
-/*    2dd78:	00401825 */ 	or	$v1,$v0,$zero
-.L0002dd7c:
-/*    2dd7c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2dd80:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*    2dd84:	00601025 */ 	or	$v0,$v1,$zero
-/*    2dd88:	03e00008 */ 	jr	$ra
-/*    2dd8c:	00000000 */ 	nop
-);
+bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s16 *rooms3, u32 types, u16 arg6)
+{
+	bool result;
+	s16 sp34[20];
+
+	func0f065d1c(pos, rooms, pos2, rooms3, sp34, 20);
+
+	if (arrayIntersects(rooms3, rooms2)) {
+		result = func0002d15c(pos, pos2, sp34, types, arg6, 1, 1, 0, 0);
+	} else {
+		result = false;
+	}
+
+	return result;
+}
 
 s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u16 arg4)
 {
