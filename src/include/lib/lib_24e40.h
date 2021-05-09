@@ -7,7 +7,7 @@
 f32 func00024e40(void);
 void func00024e4c(struct coord *arg0, struct coord *arg1, u32 line, char *file);
 f32 func00024e98(void);
-u32 func00024ea4(void);
+s32 func00024ea4(void);
 struct prop *cdGetObstacle(void);
 void cdGetPos(struct coord *pos, u32 line, char *file);
 u32 func00024ee8(void);

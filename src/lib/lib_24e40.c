@@ -18,7 +18,7 @@
 union filedataptr g_TileFileData;
 s32 g_TileNumRooms;
 u32 *g_TileRooms;
-u32 var8009a8ac;
+s32 var8009a8ac;
 f32 var8009a8b0;
 u32 var8009a8b4;
 struct coord var8009a8b8;
@@ -91,12 +91,10 @@ f32 func00024e98(void)
 	return var8009a8b0;
 }
 
-GLOBAL_ASM(
-glabel func00024ea4
-/*    24ea4:	3c02800a */ 	lui	$v0,%hi(var8009a8ac)
-/*    24ea8:	03e00008 */ 	jr	$ra
-/*    24eac:	8c42a8ac */ 	lw	$v0,%lo(var8009a8ac)($v0)
-);
+s32 func00024ea4(void)
+{
+	return var8009a8ac;
+}
 
 struct prop *cdGetObstacle(void)
 {
