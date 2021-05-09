@@ -36,7 +36,7 @@ u32 func00025f90(void);
 u32 func000260cc(void);
 u32 func00026288(void);
 bool cdIs2dPointInTile(struct tiletype1 *tile, f32 x, f32 z);
-u32 func00026520(void);
+bool func00026520(struct tiletype2 *tile, f32 x, f32 z);
 u32 func00026654(void);
 u32 func000266a4(void);
 void platformGetRidingProps(struct prop *platform, s16 *propnums, u32 len);
