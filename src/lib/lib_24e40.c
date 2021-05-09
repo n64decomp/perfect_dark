@@ -7,6 +7,7 @@
 #include "lib/dma.h"
 #include "lib/memory.h"
 #include "lib/lib_16110.h"
+#include "lib/lib_17ce0.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
 #include "lib/lib_2f490.h"
@@ -9910,41 +9911,14 @@ glabel func0002dac8
 /*    2db94:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0002db98
-/*    2db98:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    2db9c:	afa60078 */ 	sw	$a2,0x78($sp)
-/*    2dba0:	00a03025 */ 	or	$a2,$a1,$zero
-/*    2dba4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2dba8:	afa50074 */ 	sw	$a1,0x74($sp)
-/*    2dbac:	afa7007c */ 	sw	$a3,0x7c($sp)
-/*    2dbb0:	27ae0044 */ 	addiu	$t6,$sp,0x44
-/*    2dbb4:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2dbb8:	afa40070 */ 	sw	$a0,0x70($sp)
-/*    2dbbc:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2dbc0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2dbc4:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2dbc8:	0c006052 */ 	jal	func00018148
-/*    2dbcc:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*    2dbd0:	44800000 */ 	mtc1	$zero,$f0
-/*    2dbd4:	97b80082 */ 	lhu	$t8,0x82($sp)
-/*    2dbd8:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2dbdc:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    2dbe0:	afa80018 */ 	sw	$t0,0x18($sp)
-/*    2dbe4:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    2dbe8:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*    2dbec:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*    2dbf0:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*    2dbf4:	8fa7007c */ 	lw	$a3,0x7c($sp)
-/*    2dbf8:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2dbfc:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    2dc00:	0c00b457 */ 	jal	func0002d15c
-/*    2dc04:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*    2dc08:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2dc0c:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*    2dc10:	03e00008 */ 	jr	$ra
-/*    2dc14:	00000000 */ 	nop
-);
+bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, s32 arg3, u16 arg4)
+{
+	s16 sp44[21];
+	u32 sp34[4];
+
+	func00018148(viewpos, targetpos, rooms, sp34, sp44, 20);
+	func0002d15c(viewpos, targetpos, sp44, arg3, arg4, 1, 1, 0, 0);
+}
 
 bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg3)
 {
@@ -10042,10 +10016,10 @@ glabel func0002dcfc
 
 s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u16 arg4)
 {
-	u32 sp44[11];
+	s16 sp44[21];
 	u32 sp34[4];
 
-	func00018148(pos, pos2, rooms, sp34, sp44, 0x14);
+	func00018148(pos, pos2, rooms, sp34, sp44, 20);
 	func0002d3b0(pos, pos2, sp44, types, arg4, 1, 1, 0, 0);
 }
 
