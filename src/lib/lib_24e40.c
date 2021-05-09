@@ -6056,49 +6056,29 @@ f32 cdFindGroundYSimple(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 	return cdFindGroundY(pos, width, rooms, floorcol, floortype, NULL, NULL, NULL, NULL);
 }
 
-GLOBAL_ASM(
-glabel func0002a36c
-/*    2a36c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    2a370:	3c01cf80 */ 	lui	$at,0xcf80
-/*    2a374:	44812000 */ 	mtc1	$at,$f4
-/*    2a378:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    2a37c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*    2a380:	afa70044 */ 	sw	$a3,0x44($sp)
-/*    2a384:	27ae0032 */ 	addiu	$t6,$sp,0x32
-/*    2a388:	27af002c */ 	addiu	$t7,$sp,0x2c
-/*    2a38c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2a390:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a394:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2a398:	24060003 */ 	addiu	$a2,$zero,0x3
-/*    2a39c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    2a3a0:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    2a3a4:	0c009b9f */ 	jal	func00026e7c
-/*    2a3a8:	e7a40028 */ 	swc1	$f4,0x28($sp)
-/*    2a3ac:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*    2a3b0:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*    2a3b4:	c7a6002c */ 	lwc1	$f6,0x2c($sp)
-/*    2a3b8:	10800002 */ 	beqz	$a0,.L0002a3c4
-/*    2a3bc:	00000000 */ 	nop
-/*    2a3c0:	e7a60028 */ 	swc1	$f6,0x28($sp)
-.L0002a3c4:
-/*    2a3c4:	50a00005 */ 	beqzl	$a1,.L0002a3dc
-/*    2a3c8:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    2a3cc:	0c0096dc */ 	jal	tileGetFloorCol
-/*    2a3d0:	00000000 */ 	nop
-/*    2a3d4:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*    2a3d8:	8fa50044 */ 	lw	$a1,0x44($sp)
-.L0002a3dc:
-/*    2a3dc:	50a00004 */ 	beqzl	$a1,.L0002a3f0
-/*    2a3e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2a3e4:	0c0096f7 */ 	jal	tileGetFloorType
-/*    2a3e8:	00000000 */ 	nop
-/*    2a3ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0002a3f0:
-/*    2a3f0:	c7a00028 */ 	lwc1	$f0,0x28($sp)
-/*    2a3f4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    2a3f8:	03e00008 */ 	jr	$ra
-/*    2a3fc:	00000000 */ 	nop
-);
+f32 func0002a36c(struct coord *coord, s16 *rooms, u16 *floorcol, u8 *floortype)
+{
+	struct tile *tile;
+	s16 sp30[2];
+	f32 sp2c;
+	f32 result = -4294967296;
+
+	func00026e7c(coord, rooms, 3, &tile, &sp30[1], &sp2c, NULL, 0);
+
+	if (tile) {
+		result = sp2c;
+	}
+
+	if (floorcol) {
+		tileGetFloorCol(tile, floorcol);
+	}
+
+	if (floortype) {
+		tileGetFloorType(tile, floortype);
+	}
+
+	return result;
+}
 
 s32 func0002a400(struct coord *pos, s16 *rooms)
 {

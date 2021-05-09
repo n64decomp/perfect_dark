@@ -62,7 +62,7 @@ u32 func0002a13c(void);
 f32 cdFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype, u16 *floorflags, s16 *floorroom, s32 *inlift, struct prop **lift);
 f32 func0002a324(void);
 f32 cdFindGroundYSimple(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype);
-f32 func0002a36c(struct coord *coord, s16 *rooms, u16 *floorcol, s32 arg3);
+f32 func0002a36c(struct coord *coord, s16 *rooms, u16 *floorcol, u8 *floortype);
 s32 func0002a400(struct coord *pos, s16 *rooms);
 u32 func0002a440(void);
 u32 func0002a4d0(void);
