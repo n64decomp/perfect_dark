@@ -45,7 +45,7 @@ void func00026e7c(struct coord *pos, s16 *rooms, s32 arg2, u32 *arg3, s16 *arg4,
 s32 func0002709c(struct tiletype0 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
 s32 func000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
 s32 func000274e0(struct tiletype2 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
-s32 func000276c8(struct tiletype3 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
+bool func000276c8(struct tiletype3 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing);
 void func00027738(struct coord *pos, f32 width, struct tile *start, struct tile *end, u16 flags, bool checkvertical, f32 arg6, f32 arg7, struct prop *prop, struct collisionthing *things, s32 maxthings, s32 *thingnum, s32 roomnum);
 void func00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4, u32 arg5, f32 arg6, f32 arg7, struct collisionthing *arg8, s32 arg9);
 u32 func00027f78(void);

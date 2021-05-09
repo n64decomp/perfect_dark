@@ -6946,7 +6946,7 @@ struct var800ab570 {
 };
 
 struct collisionthing {
-	u32 unk00;
+	struct tiletype3 *tile;
 	u32 unk04;
 	u32 unk08;
 	struct prop *prop;

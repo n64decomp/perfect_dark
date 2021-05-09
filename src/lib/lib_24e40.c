@@ -3013,38 +3013,26 @@ glabel func000274e0
 /*    276c4:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func000276c8
-/*    276c8:	afa7000c */ 	sw	$a3,0xc($sp)
-/*    276cc:	c7aa000c */ 	lwc1	$f10,0xc($sp)
-/*    276d0:	c4880014 */ 	lwc1	$f8,0x14($a0)
-/*    276d4:	44856000 */ 	mtc1	$a1,$f12
-/*    276d8:	c484000c */ 	lwc1	$f4,0xc($a0)
-/*    276dc:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*    276e0:	44867000 */ 	mtc1	$a2,$f14
-/*    276e4:	c4860010 */ 	lwc1	$f6,0x10($a0)
-/*    276e8:	46046001 */ 	sub.s	$f0,$f12,$f4
-/*    276ec:	46108482 */ 	mul.s	$f18,$f16,$f16
-/*    276f0:	00001825 */ 	or	$v1,$zero,$zero
-/*    276f4:	46067081 */ 	sub.s	$f2,$f14,$f6
-/*    276f8:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*    276fc:	8fa20014 */ 	lw	$v0,0x14($sp)
-/*    27700:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*    27704:	46062200 */ 	add.s	$f8,$f4,$f6
-/*    27708:	4612403e */ 	c.le.s	$f8,$f18
-/*    2770c:	00000000 */ 	nop
-/*    27710:	45000007 */ 	bc1f	.L00027730
-/*    27714:	00000000 */ 	nop
-/*    27718:	10400005 */ 	beqz	$v0,.L00027730
-/*    2771c:	24030001 */ 	addiu	$v1,$zero,0x1
-/*    27720:	ac440000 */ 	sw	$a0,0x0($v0)
-/*    27724:	ac400008 */ 	sw	$zero,0x8($v0)
-/*    27728:	8fae0010 */ 	lw	$t6,0x10($sp)
-/*    2772c:	ac4e000c */ 	sw	$t6,0xc($v0)
-.L00027730:
-/*    27730:	03e00008 */ 	jr	$ra
-/*    27734:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool func000276c8(struct tiletype3 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing)
+{
+	bool result = false;
+
+	f32 sumx = x - tile->x;
+	f32 sumz = z - tile->z;
+	f32 sumwidth = tile->width + width;
+
+	if (sumx * sumx + sumz * sumz <= sumwidth * sumwidth) {
+		result = true;
+
+		if (thing) {
+			thing->tile = tile;
+			thing->unk08 = 0;
+			thing->prop = prop;
+		}
+	}
+
+	return result;
+}
 
 void func00027738(struct coord *pos, f32 width, struct tile *start, struct tile *end, u16 flags,
 		bool checkvertical, f32 arg6, f32 arg7, struct prop *prop,
@@ -3202,7 +3190,7 @@ void func00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 	}
 
 end:
-	arg8[sp294].unk00 = 0;
+	arg8[sp294].tile = NULL;
 }
 
 GLOBAL_ASM(
@@ -4192,7 +4180,7 @@ void func00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 		propnumptr++;
 	}
 
-	arg8[sp294].unk00 = 0;
+	arg8[sp294].tile = NULL;
 }
 
 GLOBAL_ASM(
@@ -6393,7 +6381,7 @@ s32 cdTestVolume(struct coord *pos, f32 width, s16 *rooms, s32 types, s32 arg4, 
 
 	func00027d1c(pos, width, rooms, types, 4, arg4, ymax, ymin, cdthings, 1);
 
-	if (cdthings[0].unk00) {
+	if (cdthings[0].tile) {
 		result = false;
 		func00025168(cdthings[0].prop);
 	}
@@ -6613,7 +6601,7 @@ s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dst
 
 	func00028df0(dstpos, width, dstrooms, types, 4, arg5, ymax, ymin, things, 20);
 
-	if (things[0].unk00) {
+	if (things[0].tile) {
 		result = CDRESULT_COLLISION;
 
 		dist.x = dstpos->x - origpos->x;
