@@ -3,6 +3,7 @@
 #include "game/prop.h"
 #include "game/game_1531a0.h"
 #include "game/bg.h"
+#include "game/game_1577f0.h"
 #include "bss.h"
 #include "lib/dma.h"
 #include "lib/memory.h"
@@ -243,48 +244,31 @@ glabel func00025038
 /*    250c8:	ac20f038 */ 	sw	$zero,%lo(var8005f038)($at)
 );
 
-GLOBAL_ASM(
-glabel func000250cc
-/*    250cc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    250d0:	44866000 */ 	mtc1	$a2,$f12
-/*    250d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    250d8:	afa40040 */ 	sw	$a0,0x40($sp)
-/*    250dc:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    250e0:	e7ac0034 */ 	swc1	$f12,0x34($sp)
-/*    250e4:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    250e8:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
-/*    250ec:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
-/*    250f0:	e7a40038 */ 	swc1	$f4,0x38($sp)
-/*    250f4:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*    250f8:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
-/*    250fc:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
-/*    25100:	e7a6003c */ 	swc1	$f6,0x3c($sp)
-/*    25104:	c4a80000 */ 	lwc1	$f8,0x0($a1)
-/*    25108:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*    2510c:	c4520008 */ 	lwc1	$f18,0x8($v0)
-/*    25110:	e7a8001c */ 	swc1	$f8,0x1c($sp)
-/*    25114:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*    25118:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*    2511c:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*    25120:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*    25124:	27a40034 */ 	addiu	$a0,$sp,0x34
-/*    25128:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*    2512c:	27a7001c */ 	addiu	$a3,$sp,0x1c
-/*    25130:	e7b0002c */ 	swc1	$f16,0x2c($sp)
-/*    25134:	e7b20030 */ 	swc1	$f18,0x30($sp)
-/*    25138:	e7aa0020 */ 	swc1	$f10,0x20($sp)
-/*    2513c:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*    25140:	0fc55e73 */ 	jal	func0f1579cc
-/*    25144:	e7a60028 */ 	swc1	$f6,0x28($sp)
-/*    25148:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    2514c:	3c01800a */ 	lui	$at,%hi(var8009a8b0)
-/*    25150:	e420a8b0 */ 	swc1	$f0,%lo(var8009a8b0)($at)
-/*    25154:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
-/*    25158:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    2515c:	ac38a8ac */ 	sw	$t8,%lo(var8009a8ac)($at)
-/*    25160:	03e00008 */ 	jr	$ra
-/*    25164:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void func000250cc(struct coord *arg0, struct coord *arg1, f32 width)
+{
+	f32 sp38[2];
+	f32 sp34;
+	f32 sp2c[2];
+	f32 sp24[2];
+	f32 sp1c[2];
+
+	sp34 = width;
+
+	sp38[0] = arg0->x;
+	sp38[1] = arg0->z;
+
+	sp1c[0] = arg1->x;
+	sp1c[1] = arg1->z;
+
+	sp2c[0] = var8009a8b8.x;
+	sp2c[1] = var8009a8b8.z;
+
+	sp24[0] = var8009a8c8.x;
+	sp24[1] = var8009a8c8.z;
+
+	var8009a8b0 = func0f1579cc(&sp34, sp2c, sp24, sp1c);
+	var8009a8ac = 1;
+}
 
 void func00025168(struct prop *prop)
 {
