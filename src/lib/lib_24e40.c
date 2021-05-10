@@ -62,7 +62,7 @@ u32 var8009a958;
 u32 var8009a95c;
 u32 var8009a960;
 
-u32 var8009a964;
+struct tile *var8009a964;
 u32 var8009a968;
 u32 var8009a96c;
 
@@ -108,19 +108,10 @@ void cdGetPos(struct coord *pos, u32 line, char *file)
 	pos->z = g_CdPos.z;
 }
 
-GLOBAL_ASM(
-glabel func00024ee8
-/*    24ee8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    24eec:	00802825 */ 	or	$a1,$a0,$zero
-/*    24ef0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    24ef4:	3c04800a */ 	lui	$a0,%hi(var8009a964)
-/*    24ef8:	0c00964a */ 	jal	func00025928
-/*    24efc:	8c84a964 */ 	lw	$a0,%lo(var8009a964)($a0)
-/*    24f00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    24f04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    24f08:	03e00008 */ 	jr	$ra
-/*    24f0c:	00000000 */ 	nop
-);
+void func00024ee8(struct coord *arg0)
+{
+	func00025928(var8009a964, arg0);
+}
 
 GLOBAL_ASM(
 glabel func00024f10
