@@ -1277,105 +1277,39 @@ glabel func000260cc
 /*    26284:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel cdIs2dPointInTileType0
-/*    26288:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    2628c:	f7b40008 */ 	sdc1	$f20,0x8($sp)
-/*    26290:	90830001 */ 	lbu	$v1,0x1($a0)
-/*    26294:	4486a000 */ 	mtc1	$a2,$f20
-/*    26298:	44856000 */ 	mtc1	$a1,$f12
-/*    2629c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*    262a0:	18600048 */ 	blez	$v1,.L000263c4
-/*    262a4:	00002825 */ 	or	$a1,$zero,$zero
-/*    262a8:	44808000 */ 	mtc1	$zero,$f16
-/*    262ac:	00804025 */ 	or	$t0,$a0,$zero
-/*    262b0:	24090006 */ 	addiu	$t1,$zero,0x6
-.L000262b4:
-/*    262b4:	24a60001 */ 	addiu	$a2,$a1,0x1
-/*    262b8:	00c3001a */ 	div	$zero,$a2,$v1
-/*    262bc:	00007010 */ 	mfhi	$t6
-/*    262c0:	85180012 */ 	lh	$t8,0x12($t0)
-/*    262c4:	8519000e */ 	lh	$t9,0xe($t0)
-/*    262c8:	01c90019 */ 	multu	$t6,$t1
-/*    262cc:	44982000 */ 	mtc1	$t8,$f4
-/*    262d0:	44993000 */ 	mtc1	$t9,$f6
-/*    262d4:	14600002 */ 	bnez	$v1,.L000262e0
-/*    262d8:	00000000 */ 	nop
-/*    262dc:	0007000d */ 	break	0x7
-.L000262e0:
-/*    262e0:	2401ffff */ 	addiu	$at,$zero,-1
-/*    262e4:	14610004 */ 	bne	$v1,$at,.L000262f8
-/*    262e8:	3c018000 */ 	lui	$at,0x8000
-/*    262ec:	14c10002 */ 	bne	$a2,$at,.L000262f8
-/*    262f0:	00000000 */ 	nop
-/*    262f4:	0006000d */ 	break	0x6
-.L000262f8:
-/*    262f8:	00007812 */ 	mflo	$t7
-/*    262fc:	008f3821 */ 	addu	$a3,$a0,$t7
-/*    26300:	84ea0012 */ 	lh	$t2,0x12($a3)
-/*    26304:	468020a0 */ 	cvt.s.w	$f2,$f4
-/*    26308:	84eb000e */ 	lh	$t3,0xe($a3)
-/*    2630c:	448a4000 */ 	mtc1	$t2,$f8
-/*    26310:	25080006 */ 	addiu	$t0,$t0,0x6
-/*    26314:	468033a0 */ 	cvt.s.w	$f14,$f6
-/*    26318:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    2631c:	460e6101 */ 	sub.s	$f4,$f12,$f14
-/*    26320:	46025481 */ 	sub.s	$f18,$f10,$f2
-/*    26324:	448b5000 */ 	mtc1	$t3,$f10
-/*    26328:	4602a201 */ 	sub.s	$f8,$f20,$f2
-/*    2632c:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*    26330:	468054a0 */ 	cvt.s.w	$f18,$f10
-/*    26334:	460e9101 */ 	sub.s	$f4,$f18,$f14
-/*    26338:	46044282 */ 	mul.s	$f10,$f8,$f4
-/*    2633c:	460a3001 */ 	sub.s	$f0,$f6,$f10
-/*    26340:	46100032 */ 	c.eq.s	$f0,$f16
-/*    26344:	00000000 */ 	nop
-/*    26348:	4501001c */ 	bc1t	.L000263bc
-/*    2634c:	00000000 */ 	nop
-/*    26350:	50a00004 */ 	beqzl	$a1,.L00026364
-/*    26354:	4600803c */ 	c.lt.s	$f16,$f0
-/*    26358:	04410008 */ 	bgez	$v0,.L0002637c
-/*    2635c:	00000000 */ 	nop
-/*    26360:	4600803c */ 	c.lt.s	$f16,$f0
-.L00026364:
-/*    26364:	00001025 */ 	or	$v0,$zero,$zero
-/*    26368:	45000014 */ 	bc1f	.L000263bc
-/*    2636c:	00000000 */ 	nop
-/*    26370:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    26374:	10000011 */ 	b	.L000263bc
-/*    26378:	00000000 */ 	nop
-.L0002637c:
-/*    2637c:	10400007 */ 	beqz	$v0,.L0002639c
-/*    26380:	00000000 */ 	nop
-/*    26384:	4610003c */ 	c.lt.s	$f0,$f16
-/*    26388:	00000000 */ 	nop
-/*    2638c:	45000003 */ 	bc1f	.L0002639c
-/*    26390:	00000000 */ 	nop
-/*    26394:	10000010 */ 	b	.L000263d8
-/*    26398:	00001025 */ 	or	$v0,$zero,$zero
-.L0002639c:
-/*    2639c:	14400007 */ 	bnez	$v0,.L000263bc
-/*    263a0:	00000000 */ 	nop
-/*    263a4:	4600803c */ 	c.lt.s	$f16,$f0
-/*    263a8:	00000000 */ 	nop
-/*    263ac:	45000003 */ 	bc1f	.L000263bc
-/*    263b0:	00000000 */ 	nop
-/*    263b4:	10000008 */ 	b	.L000263d8
-/*    263b8:	00001025 */ 	or	$v0,$zero,$zero
-.L000263bc:
-/*    263bc:	14c3ffbd */ 	bne	$a2,$v1,.L000262b4
-/*    263c0:	00c02825 */ 	or	$a1,$a2,$zero
-.L000263c4:
-/*    263c4:	04430004 */ 	bgezl	$v0,.L000263d8
-/*    263c8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    263cc:	10000002 */ 	b	.L000263d8
-/*    263d0:	00001025 */ 	or	$v0,$zero,$zero
-/*    263d4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L000263d8:
-/*    263d8:	d7b40008 */ 	ldc1	$f20,0x8($sp)
-/*    263dc:	03e00008 */ 	jr	$ra
-/*    263e0:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+bool cdIs2dPointInTileType0(struct tiletype0 *tile, f32 x, f32 z)
+{
+	s32 result = -1;
+	s32 numvertices = tile->header.numvertices;
+	s32 i;
+
+	for (i = 0; i < numvertices; i++) {
+		s32 next = (i + 1) % numvertices;
+
+		f32 value = ((f32)tile->vertices[next][2] - (f32)tile->vertices[i][2]) * (x - tile->vertices[i][0])
+			- ((f32)tile->vertices[next][0] - (f32)tile->vertices[i][0]) * (z - tile->vertices[i][2]);
+
+		if (value != 0) {
+			if (i == 0 || result < 0) {
+				result = (value > 0);
+			} else {
+				if (result != 0 && value < 0) {
+					return false;
+				}
+
+				if (result == 0 && value > 0) {
+					return false;
+				}
+			}
+		}
+	}
+
+	if (result < 0) {
+		return false;
+	}
+
+	return true;
+}
 
 bool cdIs2dPointInTileType1(struct tiletype1 *tile, f32 x, f32 z)
 {
