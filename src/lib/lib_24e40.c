@@ -8549,166 +8549,59 @@ glabel func0002c714
 /*    2d158:	27bd0170 */ 	addiu	$sp,$sp,0x170
 );
 
-GLOBAL_ASM(
-glabel func0002d15c
-/*    2d15c:	27bdfd68 */ 	addiu	$sp,$sp,-664
-/*    2d160:	afbf0064 */ 	sw	$ra,0x64($sp)
-/*    2d164:	afbe0060 */ 	sw	$s8,0x60($sp)
-/*    2d168:	afb7005c */ 	sw	$s7,0x5c($sp)
-/*    2d16c:	afb60058 */ 	sw	$s6,0x58($sp)
-/*    2d170:	afb50054 */ 	sw	$s5,0x54($sp)
-/*    2d174:	afb40050 */ 	sw	$s4,0x50($sp)
-/*    2d178:	afb3004c */ 	sw	$s3,0x4c($sp)
-/*    2d17c:	afb20048 */ 	sw	$s2,0x48($sp)
-/*    2d180:	afb10044 */ 	sw	$s1,0x44($sp)
-/*    2d184:	afb00040 */ 	sw	$s0,0x40($sp)
-/*    2d188:	f7b60038 */ 	sdc1	$f22,0x38($sp)
-/*    2d18c:	f7b40030 */ 	sdc1	$f20,0x30($sp)
-/*    2d190:	afa602a0 */ 	sw	$a2,0x2a0($sp)
-/*    2d194:	afa702a4 */ 	sw	$a3,0x2a4($sp)
-/*    2d198:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*    2d19c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*    2d1a0:	30ef0020 */ 	andi	$t7,$a3,0x20
-/*    2d1a4:	00a0a025 */ 	or	$s4,$a1,$zero
-/*    2d1a8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*    2d1ac:	0080a825 */ 	or	$s5,$a0,$zero
-/*    2d1b0:	e7a8027c */ 	swc1	$f8,0x27c($sp)
-/*    2d1b4:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*    2d1b8:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*    2d1bc:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*    2d1c0:	e7b20280 */ 	swc1	$f18,0x280($sp)
-/*    2d1c4:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*    2d1c8:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*    2d1cc:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*    2d1d0:	11e00033 */ 	beqz	$t7,.L0002d2a0
-/*    2d1d4:	e7a80284 */ 	swc1	$f8,0x284($sp)
-/*    2d1d8:	84c80000 */ 	lh	$t0,0x0($a2)
-/*    2d1dc:	2401ffff */ 	addiu	$at,$zero,-1
-/*    2d1e0:	00c08025 */ 	or	$s0,$a2,$zero
-/*    2d1e4:	1101002e */ 	beq	$t0,$at,.L0002d2a0
-/*    2d1e8:	c7b602b8 */ 	lwc1	$f22,0x2b8($sp)
-/*    2d1ec:	3c13800a */ 	lui	$s3,%hi(g_TileFileData)
-/*    2d1f0:	3c12800a */ 	lui	$s2,%hi(g_TileRooms)
-/*    2d1f4:	3c11800a */ 	lui	$s1,%hi(g_TileNumRooms)
-/*    2d1f8:	2631a8a4 */ 	addiu	$s1,$s1,%lo(g_TileNumRooms)
-/*    2d1fc:	2652a8a8 */ 	addiu	$s2,$s2,%lo(g_TileRooms)
-/*    2d200:	2673a8a0 */ 	addiu	$s3,$s3,%lo(g_TileFileData)
-/*    2d204:	c7b402b4 */ 	lwc1	$f20,0x2b4($sp)
-/*    2d208:	8fbe02b0 */ 	lw	$s8,0x2b0($sp)
-/*    2d20c:	8fb702ac */ 	lw	$s7,0x2ac($sp)
-/*    2d210:	97b602aa */ 	lhu	$s6,0x2aa($sp)
-/*    2d214:	8e390000 */ 	lw	$t9,0x0($s1)
-.L0002d218:
-/*    2d218:	00085080 */ 	sll	$t2,$t0,0x2
-/*    2d21c:	0119082a */ 	slt	$at,$t0,$t9
-/*    2d220:	5020001b */ 	beqzl	$at,.L0002d290
-/*    2d224:	86080002 */ 	lh	$t0,0x2($s0)
-/*    2d228:	8e490000 */ 	lw	$t1,0x0($s2)
-/*    2d22c:	8e630000 */ 	lw	$v1,0x0($s3)
-/*    2d230:	27af027c */ 	addiu	$t7,$sp,0x27c
-/*    2d234:	012a1021 */ 	addu	$v0,$t1,$t2
-/*    2d238:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*    2d23c:	02a03025 */ 	or	$a2,$s5,$zero
-/*    2d240:	02803825 */ 	or	$a3,$s4,$zero
-/*    2d244:	01632021 */ 	addu	$a0,$t3,$v1
-/*    2d248:	afa4028c */ 	sw	$a0,0x28c($sp)
-/*    2d24c:	8c4d0004 */ 	lw	$t5,0x4($v0)
-/*    2d250:	e7b60024 */ 	swc1	$f22,0x24($sp)
-/*    2d254:	e7b40020 */ 	swc1	$f20,0x20($sp)
-/*    2d258:	01a32821 */ 	addu	$a1,$t5,$v1
-/*    2d25c:	afa50288 */ 	sw	$a1,0x288($sp)
-/*    2d260:	afbe001c */ 	sw	$s8,0x1c($sp)
-/*    2d264:	afb70018 */ 	sw	$s7,0x18($sp)
-/*    2d268:	afb60014 */ 	sw	$s6,0x14($sp)
-/*    2d26c:	0c00af41 */ 	jal	func0002bd04
-/*    2d270:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*    2d274:	54400006 */ 	bnezl	$v0,.L0002d290
-/*    2d278:	86080002 */ 	lh	$t0,0x2($s0)
-/*    2d27c:	0c00945a */ 	jal	func00025168
-/*    2d280:	00002025 */ 	or	$a0,$zero,$zero
-/*    2d284:	1000003c */ 	b	.L0002d378
-/*    2d288:	00001025 */ 	or	$v0,$zero,$zero
-/*    2d28c:	86080002 */ 	lh	$t0,0x2($s0)
-.L0002d290:
-/*    2d290:	2401ffff */ 	addiu	$at,$zero,-1
-/*    2d294:	26100002 */ 	addiu	$s0,$s0,0x2
-/*    2d298:	5501ffdf */ 	bnel	$t0,$at,.L0002d218
-/*    2d29c:	8e390000 */ 	lw	$t9,0x0($s1)
-.L0002d2a0:
-/*    2d2a0:	27b10078 */ 	addiu	$s1,$sp,0x78
-/*    2d2a4:	97b602aa */ 	lhu	$s6,0x2aa($sp)
-/*    2d2a8:	8fb702ac */ 	lw	$s7,0x2ac($sp)
-/*    2d2ac:	8fbe02b0 */ 	lw	$s8,0x2b0($sp)
-/*    2d2b0:	c7b402b4 */ 	lwc1	$f20,0x2b4($sp)
-/*    2d2b4:	c7b602b8 */ 	lwc1	$f22,0x2b8($sp)
-/*    2d2b8:	02202825 */ 	or	$a1,$s1,$zero
-/*    2d2bc:	8fa402a0 */ 	lw	$a0,0x2a0($sp)
-/*    2d2c0:	0fc197e0 */ 	jal	roomGetProps
-/*    2d2c4:	24060100 */ 	addiu	$a2,$zero,0x100
-/*    2d2c8:	87b80078 */ 	lh	$t8,0x78($sp)
-/*    2d2cc:	02208025 */ 	or	$s0,$s1,$zero
-/*    2d2d0:	27b90078 */ 	addiu	$t9,$sp,0x78
-/*    2d2d4:	07000027 */ 	bltz	$t8,.L0002d374
-/*    2d2d8:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*    2d2dc:	87220000 */ 	lh	$v0,0x0($t9)
-/*    2d2e0:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*    2d2e4:	24120048 */ 	addiu	$s2,$zero,0x48
-.L0002d2e8:
-/*    2d2e8:	00520019 */ 	multu	$v0,$s2
-/*    2d2ec:	8e6a0338 */ 	lw	$t2,0x338($s3)
-/*    2d2f0:	8fa502a4 */ 	lw	$a1,0x2a4($sp)
-/*    2d2f4:	00004812 */ 	mflo	$t1
-/*    2d2f8:	012a8821 */ 	addu	$s1,$t1,$t2
-/*    2d2fc:	0fc19553 */ 	jal	propIsOfCdType
-/*    2d300:	02202025 */ 	or	$a0,$s1,$zero
-/*    2d304:	10400017 */ 	beqz	$v0,.L0002d364
-/*    2d308:	02202025 */ 	or	$a0,$s1,$zero
-/*    2d30c:	27a5028c */ 	addiu	$a1,$sp,0x28c
-/*    2d310:	0fc198a4 */ 	jal	propUpdateGeometry
-/*    2d314:	27a60288 */ 	addiu	$a2,$sp,0x288
-/*    2d318:	10400012 */ 	beqz	$v0,.L0002d364
-/*    2d31c:	8fa4028c */ 	lw	$a0,0x28c($sp)
-/*    2d320:	27ab027c */ 	addiu	$t3,$sp,0x27c
-/*    2d324:	afab0010 */ 	sw	$t3,0x10($sp)
-/*    2d328:	8fa50288 */ 	lw	$a1,0x288($sp)
-/*    2d32c:	02a03025 */ 	or	$a2,$s5,$zero
-/*    2d330:	02803825 */ 	or	$a3,$s4,$zero
-/*    2d334:	afb60014 */ 	sw	$s6,0x14($sp)
-/*    2d338:	afb70018 */ 	sw	$s7,0x18($sp)
-/*    2d33c:	afbe001c */ 	sw	$s8,0x1c($sp)
-/*    2d340:	e7b40020 */ 	swc1	$f20,0x20($sp)
-/*    2d344:	0c00af41 */ 	jal	func0002bd04
-/*    2d348:	e7b60024 */ 	swc1	$f22,0x24($sp)
-/*    2d34c:	54400006 */ 	bnezl	$v0,.L0002d368
-/*    2d350:	86020002 */ 	lh	$v0,0x2($s0)
-/*    2d354:	0c00945a */ 	jal	func00025168
-/*    2d358:	02202025 */ 	or	$a0,$s1,$zero
-/*    2d35c:	10000006 */ 	b	.L0002d378
-/*    2d360:	00001025 */ 	or	$v0,$zero,$zero
-.L0002d364:
-/*    2d364:	86020002 */ 	lh	$v0,0x2($s0)
-.L0002d368:
-/*    2d368:	26100002 */ 	addiu	$s0,$s0,0x2
-/*    2d36c:	0441ffde */ 	bgez	$v0,.L0002d2e8
-/*    2d370:	00000000 */ 	nop
-.L0002d374:
-/*    2d374:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0002d378:
-/*    2d378:	8fbf0064 */ 	lw	$ra,0x64($sp)
-/*    2d37c:	d7b40030 */ 	ldc1	$f20,0x30($sp)
-/*    2d380:	d7b60038 */ 	ldc1	$f22,0x38($sp)
-/*    2d384:	8fb00040 */ 	lw	$s0,0x40($sp)
-/*    2d388:	8fb10044 */ 	lw	$s1,0x44($sp)
-/*    2d38c:	8fb20048 */ 	lw	$s2,0x48($sp)
-/*    2d390:	8fb3004c */ 	lw	$s3,0x4c($sp)
-/*    2d394:	8fb40050 */ 	lw	$s4,0x50($sp)
-/*    2d398:	8fb50054 */ 	lw	$s5,0x54($sp)
-/*    2d39c:	8fb60058 */ 	lw	$s6,0x58($sp)
-/*    2d3a0:	8fb7005c */ 	lw	$s7,0x5c($sp)
-/*    2d3a4:	8fbe0060 */ 	lw	$s8,0x60($sp)
-/*    2d3a8:	03e00008 */ 	jr	$ra
-/*    2d3ac:	27bd0298 */ 	addiu	$sp,$sp,0x298
-);
+bool func0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, u16 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8)
+{
+	s32 roomnum;
+	s16 *roomptr;
+	struct tiletype3 *sp28c;
+	struct tiletype3 *sp288;
+	struct coord sp27c;
+	s16 *propnumptr;
+	s16 propnums[256];
+
+	sp27c.x = coord2->x - pos->x;
+	sp27c.y = coord2->y - pos->y;
+	sp27c.z = coord2->z - pos->z;
+
+	if (types & CDTYPE_BG) {
+		roomptr = rooms;
+		roomnum = rooms[0];
+
+		while (roomnum != -1) {
+			if (roomnum < g_TileNumRooms) {
+				sp28c = (struct tiletype3 *)(g_TileFileData.u8 + g_TileRooms[roomnum]);
+				sp288 = (struct tiletype3 *)(g_TileFileData.u8 + g_TileRooms[roomnum + 1]);
+
+				if (func0002bd04(sp28c, sp288, pos, coord2, &sp27c, arg4, arg5, arg6, arg7, arg8) == 0) {
+					func00025168(NULL);
+					return false;
+				}
+			}
+
+			roomptr++;
+			roomnum = *roomptr;
+		}
+	}
+
+	roomGetProps(rooms, propnums, 256);
+
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		struct prop *prop = &g_Vars.props[*propnumptr];
+
+		if (propIsOfCdType(prop, types)
+				&& propUpdateGeometry(prop, &sp28c, &sp288)
+				&& func0002bd04(sp28c, sp288, pos, coord2, &sp27c, arg4, arg5, arg6, arg7, arg8) == 0) {
+			func00025168(prop);
+			return false;
+		}
+
+		propnumptr++;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0002d3b0
