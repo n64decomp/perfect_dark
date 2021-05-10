@@ -1278,7 +1278,7 @@ glabel func000260cc
 );
 
 GLOBAL_ASM(
-glabel func00026288
+glabel cdIs2dPointInTileType0
 /*    26288:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /*    2628c:	f7b40008 */ 	sdc1	$f20,0x8($sp)
 /*    26290:	90830001 */ 	lbu	$v1,0x1($a0)
@@ -1890,7 +1890,7 @@ glabel func00026a04
 /*    26b98:	44051000 */ 	mfc1	$a1,$f2
 .L00026b9c:
 /*    26b9c:	44060000 */ 	mfc1	$a2,$f0
-/*    26ba0:	0c0098a2 */ 	jal	func00026288
+/*    26ba0:	0c0098a2 */ 	jal	cdIs2dPointInTileType0
 /*    26ba4:	02002025 */ 	or	$a0,$s0,$zero
 /*    26ba8:	10400021 */ 	beqz	$v0,.L00026c30
 /*    26bac:	02002025 */ 	or	$a0,$s0,$zero
@@ -2148,169 +2148,42 @@ void func00026e7c(struct coord *pos, s16 *rooms, u16 arg2, struct tile **tileptr
 	}
 }
 
-GLOBAL_ASM(
-glabel func0002709c
-/*    2709c:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*    270a0:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*    270a4:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*    270a8:	4485a000 */ 	mtc1	$a1,$f20
-/*    270ac:	4486b000 */ 	mtc1	$a2,$f22
-/*    270b0:	f7b80030 */ 	sdc1	$f24,0x30($sp)
-/*    270b4:	4487c000 */ 	mtc1	$a3,$f24
-/*    270b8:	afbf005c */ 	sw	$ra,0x5c($sp)
-/*    270bc:	afb50054 */ 	sw	$s5,0x54($sp)
-/*    270c0:	4405a000 */ 	mfc1	$a1,$f20
-/*    270c4:	4406b000 */ 	mfc1	$a2,$f22
-/*    270c8:	0080a825 */ 	or	$s5,$a0,$zero
-/*    270cc:	afb60058 */ 	sw	$s6,0x58($sp)
-/*    270d0:	afb40050 */ 	sw	$s4,0x50($sp)
-/*    270d4:	afb3004c */ 	sw	$s3,0x4c($sp)
-/*    270d8:	afb20048 */ 	sw	$s2,0x48($sp)
-/*    270dc:	afb10044 */ 	sw	$s1,0x44($sp)
-/*    270e0:	afb00040 */ 	sw	$s0,0x40($sp)
-/*    270e4:	f7ba0038 */ 	sdc1	$f26,0x38($sp)
-/*    270e8:	0c0098a2 */ 	jal	func00026288
-/*    270ec:	afa00064 */ 	sw	$zero,0x64($sp)
-/*    270f0:	5040000a */ 	beqzl	$v0,.L0002711c
-/*    270f4:	92b40001 */ 	lbu	$s4,0x1($s5)
-/*    270f8:	8fa2007c */ 	lw	$v0,0x7c($sp)
-/*    270fc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    27100:	ac550000 */ 	sw	$s5,0x0($v0)
-/*    27104:	ac400008 */ 	sw	$zero,0x8($v0)
-/*    27108:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*    2710c:	ac4e000c */ 	sw	$t6,0xc($v0)
-/*    27110:	1000006a */ 	b	.L000272bc
-/*    27114:	afaf0064 */ 	sw	$t7,0x64($sp)
-/*    27118:	92b40001 */ 	lbu	$s4,0x1($s5)
-.L0002711c:
-/*    2711c:	00009825 */ 	or	$s3,$zero,$zero
-/*    27120:	02a08825 */ 	or	$s1,$s5,$zero
-/*    27124:	5a800066 */ 	blezl	$s4,.L000272c0
-/*    27128:	8fbf005c */ 	lw	$ra,0x5c($sp)
-/*    2712c:	4480d000 */ 	mtc1	$zero,$f26
-/*    27130:	24160006 */ 	addiu	$s6,$zero,0x6
-.L00027134:
-/*    27134:	26720001 */ 	addiu	$s2,$s3,0x1
-/*    27138:	0254001a */ 	div	$zero,$s2,$s4
-/*    2713c:	00004010 */ 	mfhi	$t0
-/*    27140:	8638000e */ 	lh	$t8,0xe($s1)
-/*    27144:	86390012 */ 	lh	$t9,0x12($s1)
-/*    27148:	01160019 */ 	multu	$t0,$s6
-/*    2714c:	44982000 */ 	mtc1	$t8,$f4
-/*    27150:	44993000 */ 	mtc1	$t9,$f6
-/*    27154:	46802320 */ 	cvt.s.w	$f12,$f4
-/*    27158:	468033a0 */ 	cvt.s.w	$f14,$f6
-/*    2715c:	00004812 */ 	mflo	$t1
-/*    27160:	02a98021 */ 	addu	$s0,$s5,$t1
-/*    27164:	860a000e */ 	lh	$t2,0xe($s0)
-/*    27168:	860b0012 */ 	lh	$t3,0x12($s0)
-/*    2716c:	16800002 */ 	bnez	$s4,.L00027178
-/*    27170:	00000000 */ 	nop
-/*    27174:	0007000d */ 	break	0x7
-.L00027178:
-/*    27178:	2401ffff */ 	addiu	$at,$zero,-1
-/*    2717c:	16810004 */ 	bne	$s4,$at,.L00027190
-/*    27180:	3c018000 */ 	lui	$at,0x8000
-/*    27184:	16410002 */ 	bne	$s2,$at,.L00027190
-/*    27188:	00000000 */ 	nop
-/*    2718c:	0006000d */ 	break	0x6
-.L00027190:
-/*    27190:	448a4000 */ 	mtc1	$t2,$f8
-/*    27194:	448b5000 */ 	mtc1	$t3,$f10
-/*    27198:	e7b60014 */ 	swc1	$f22,0x14($sp)
-/*    2719c:	46804220 */ 	cvt.s.w	$f8,$f8
-/*    271a0:	e7b40010 */ 	swc1	$f20,0x10($sp)
-/*    271a4:	468052a0 */ 	cvt.s.w	$f10,$f10
-/*    271a8:	44064000 */ 	mfc1	$a2,$f8
-/*    271ac:	44075000 */ 	mfc1	$a3,$f10
-/*    271b0:	0c009595 */ 	jal	func00025654
-/*    271b4:	00000000 */ 	nop
-/*    271b8:	461a003c */ 	c.lt.s	$f0,$f26
-/*    271bc:	46000086 */ 	mov.s	$f2,$f0
-/*    271c0:	45020003 */ 	bc1fl	.L000271d0
-/*    271c4:	4618103e */ 	c.le.s	$f2,$f24
-/*    271c8:	46000087 */ 	neg.s	$f2,$f0
-/*    271cc:	4618103e */ 	c.le.s	$f2,$f24
-.L000271d0:
-/*    271d0:	00000000 */ 	nop
-/*    271d4:	45020037 */ 	bc1fl	.L000272b4
-/*    271d8:	02409825 */ 	or	$s3,$s2,$zero
-/*    271dc:	862c000e */ 	lh	$t4,0xe($s1)
-/*    271e0:	862d0012 */ 	lh	$t5,0x12($s1)
-/*    271e4:	4406a000 */ 	mfc1	$a2,$f20
-/*    271e8:	448c8000 */ 	mtc1	$t4,$f16
-/*    271ec:	448d9000 */ 	mtc1	$t5,$f18
-/*    271f0:	4407b000 */ 	mfc1	$a3,$f22
-/*    271f4:	46808320 */ 	cvt.s.w	$f12,$f16
-/*    271f8:	0c0095c9 */ 	jal	func00025724
-/*    271fc:	468093a0 */ 	cvt.s.w	$f14,$f18
-/*    27200:	4618003e */ 	c.le.s	$f0,$f24
-/*    27204:	00000000 */ 	nop
-/*    27208:	45030022 */ 	bc1tl	.L00027294
-/*    2720c:	8fa2007c */ 	lw	$v0,0x7c($sp)
-/*    27210:	860e000e */ 	lh	$t6,0xe($s0)
-/*    27214:	860f0012 */ 	lh	$t7,0x12($s0)
-/*    27218:	4406a000 */ 	mfc1	$a2,$f20
-/*    2721c:	448e2000 */ 	mtc1	$t6,$f4
-/*    27220:	448f3000 */ 	mtc1	$t7,$f6
-/*    27224:	4407b000 */ 	mfc1	$a3,$f22
-/*    27228:	46802320 */ 	cvt.s.w	$f12,$f4
-/*    2722c:	0c0095c9 */ 	jal	func00025724
-/*    27230:	468033a0 */ 	cvt.s.w	$f14,$f6
-/*    27234:	4618003e */ 	c.le.s	$f0,$f24
-/*    27238:	00000000 */ 	nop
-/*    2723c:	45030015 */ 	bc1tl	.L00027294
-/*    27240:	8fa2007c */ 	lw	$v0,0x7c($sp)
-/*    27244:	8608000e */ 	lh	$t0,0xe($s0)
-/*    27248:	86090012 */ 	lh	$t1,0x12($s0)
-/*    2724c:	8638000e */ 	lh	$t8,0xe($s1)
-/*    27250:	44888000 */ 	mtc1	$t0,$f16
-/*    27254:	44899000 */ 	mtc1	$t1,$f18
-/*    27258:	86390012 */ 	lh	$t9,0x12($s1)
-/*    2725c:	46808420 */ 	cvt.s.w	$f16,$f16
-/*    27260:	44984000 */ 	mtc1	$t8,$f8
-/*    27264:	44995000 */ 	mtc1	$t9,$f10
-/*    27268:	e7b60014 */ 	swc1	$f22,0x14($sp)
-/*    2726c:	e7b40010 */ 	swc1	$f20,0x10($sp)
-/*    27270:	468094a0 */ 	cvt.s.w	$f18,$f18
-/*    27274:	44068000 */ 	mfc1	$a2,$f16
-/*    27278:	46804320 */ 	cvt.s.w	$f12,$f8
-/*    2727c:	44079000 */ 	mfc1	$a3,$f18
-/*    27280:	0c0095dd */ 	jal	func00025774
-/*    27284:	468053a0 */ 	cvt.s.w	$f14,$f10
-/*    27288:	5040000a */ 	beqzl	$v0,.L000272b4
-/*    2728c:	02409825 */ 	or	$s3,$s2,$zero
-/*    27290:	8fa2007c */ 	lw	$v0,0x7c($sp)
-.L00027294:
-/*    27294:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    27298:	ac550000 */ 	sw	$s5,0x0($v0)
-/*    2729c:	ac530008 */ 	sw	$s3,0x8($v0)
-/*    272a0:	8faa0078 */ 	lw	$t2,0x78($sp)
-/*    272a4:	ac4a000c */ 	sw	$t2,0xc($v0)
-/*    272a8:	10000004 */ 	b	.L000272bc
-/*    272ac:	afab0064 */ 	sw	$t3,0x64($sp)
-/*    272b0:	02409825 */ 	or	$s3,$s2,$zero
-.L000272b4:
-/*    272b4:	1654ff9f */ 	bne	$s2,$s4,.L00027134
-/*    272b8:	26310006 */ 	addiu	$s1,$s1,0x6
-.L000272bc:
-/*    272bc:	8fbf005c */ 	lw	$ra,0x5c($sp)
-.L000272c0:
-/*    272c0:	8fa20064 */ 	lw	$v0,0x64($sp)
-/*    272c4:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*    272c8:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*    272cc:	d7b80030 */ 	ldc1	$f24,0x30($sp)
-/*    272d0:	d7ba0038 */ 	ldc1	$f26,0x38($sp)
-/*    272d4:	8fb00040 */ 	lw	$s0,0x40($sp)
-/*    272d8:	8fb10044 */ 	lw	$s1,0x44($sp)
-/*    272dc:	8fb20048 */ 	lw	$s2,0x48($sp)
-/*    272e0:	8fb3004c */ 	lw	$s3,0x4c($sp)
-/*    272e4:	8fb40050 */ 	lw	$s4,0x50($sp)
-/*    272e8:	8fb50054 */ 	lw	$s5,0x54($sp)
-/*    272ec:	8fb60058 */ 	lw	$s6,0x58($sp)
-/*    272f0:	03e00008 */ 	jr	$ra
-/*    272f4:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+bool func0002709c(struct tiletype0 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing)
+{
+	bool result = false;
+
+	if (cdIs2dPointInTileType0(tile, x, z)) {
+		thing->tile = &tile->header;
+		thing->unk08 = 0;
+		thing->prop = prop;
+		result = true;
+	} else {
+		s32 numvertices = tile->header.numvertices;
+		s32 i;
+
+		for (i = 0; i < numvertices; i++) {
+			s32 next = (i + 1) % numvertices;
+			f32 value = func00025654(tile->vertices[i][0], tile->vertices[i][2], tile->vertices[next][0], tile->vertices[next][2], x, z);
+
+			if (value < 0) {
+				value = -value;
+			}
+
+			if (value <= width
+					&& (func00025724(tile->vertices[i][0], tile->vertices[i][2], x, z) <= width
+						|| func00025724(tile->vertices[next][0], tile->vertices[next][2], x, z) <= width
+						|| func00025774(tile->vertices[i][0], tile->vertices[i][2], tile->vertices[next][0], tile->vertices[next][2], x, z))) {
+				thing->tile = &tile->header;
+				thing->unk08 = i;
+				thing->prop = prop;
+				result = true;
+				break;
+			}
+		}
+	}
+
+	return result;
+}
 
 bool func000272f8(struct tiletype1 *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collisionthing *thing)
 {
@@ -4066,7 +3939,7 @@ glabel func000296a0
 /*    29758:	24110001 */ 	addiu	$s1,$zero,0x1
 /*    2975c:	8e450000 */ 	lw	$a1,0x0($s2)
 .L00029760:
-/*    29760:	0c0098a2 */ 	jal	func00026288
+/*    29760:	0c0098a2 */ 	jal	cdIs2dPointInTileType0
 /*    29764:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    29768:	1040000c */ 	beqz	$v0,.L0002979c
 /*    2976c:	aea20004 */ 	sw	$v0,0x4($s5)
@@ -4715,7 +4588,7 @@ glabel func000296a0
 /*    2ac54:	24110001 */ 	addiu	$s1,$zero,0x1
 /*    2ac58:	8e450000 */ 	lw	$a1,0x0($s2)
 .NB0002ac5c:
-/*    2ac5c:	0c009da6 */ 	jal	func00026288
+/*    2ac5c:	0c009da6 */ 	jal	cdIs2dPointInTileType0
 /*    2ac60:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    2ac64:	1040000c */ 	beqz	$v0,.NB0002ac98
 /*    2ac68:	aec20004 */ 	sw	$v0,0x4($s6)
