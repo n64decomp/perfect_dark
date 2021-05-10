@@ -113,36 +113,27 @@ void func00024ee8(struct coord *arg0)
 	func00025928(var8009a964, arg0);
 }
 
-GLOBAL_ASM(
-glabel func00024f10
-/*    24f10:	3c04800a */ 	lui	$a0,%hi(var8009a964)
-/*    24f14:	8c84a964 */ 	lw	$a0,%lo(var8009a964)($a0)
-/*    24f18:	24010001 */ 	addiu	$at,$zero,0x1
-/*    24f1c:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    24f20:	10400009 */ 	beqz	$v0,.L00024f48
-/*    24f24:	00000000 */ 	nop
-/*    24f28:	10410009 */ 	beq	$v0,$at,.L00024f50
-/*    24f2c:	24010002 */ 	addiu	$at,$zero,0x2
-/*    24f30:	10410009 */ 	beq	$v0,$at,.L00024f58
-/*    24f34:	24010003 */ 	addiu	$at,$zero,0x3
-/*    24f38:	5041000a */ 	beql	$v0,$at,.L00024f64
-/*    24f3c:	94830002 */ 	lhu	$v1,0x2($a0)
-/*    24f40:	03e00008 */ 	jr	$ra
-/*    24f44:	00001025 */ 	or	$v0,$zero,$zero
-.L00024f48:
-/*    24f48:	03e00008 */ 	jr	$ra
-/*    24f4c:	94820002 */ 	lhu	$v0,0x2($a0)
-.L00024f50:
-/*    24f50:	03e00008 */ 	jr	$ra
-/*    24f54:	94820002 */ 	lhu	$v0,0x2($a0)
-.L00024f58:
-/*    24f58:	03e00008 */ 	jr	$ra
-/*    24f5c:	2402001c */ 	addiu	$v0,$zero,0x1c
-/*    24f60:	94830002 */ 	lhu	$v1,0x2($a0)
-.L00024f64:
-/*    24f64:	03e00008 */ 	jr	$ra
-/*    24f68:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 cdGetTileFlags(void)
+{
+	u32 flags = 0;
+
+	switch (var8009a964->type) {
+	case TILETYPE_00:
+		flags = var8009a964->flags;
+		break;
+	case TILETYPE_01:
+		flags = var8009a964->flags;
+		break;
+	case TILETYPE_02:
+		flags = TILEFLAG_0004 | TILEFLAG_0008 | TILEFLAG_0010;
+		break;
+	case TILETYPE_03:
+		flags = var8009a964->flags;
+		break;
+	}
+
+	return flags;
+}
 
 void func00024f6c(void)
 {

@@ -468,7 +468,7 @@ glabel var7f1ad8b4
 /*  f0c86f8:	24c6d860 */ 	addiu	$a2,$a2,%lo(var7f1ad860)
 /*  f0c86fc:	0c0093af */ 	jal	cdGetPos
 /*  f0c8700:	240501c7 */ 	addiu	$a1,$zero,0x1c7
-/*  f0c8704:	0c0093c4 */ 	jal	func00024f10
+/*  f0c8704:	0c0093c4 */ 	jal	cdGetTileFlags
 /*  f0c8708:	00000000 */ 	nop
 /*  f0c870c:	c7aa0150 */ 	lwc1	$f10,0x150($sp)
 /*  f0c8710:	c7b000f0 */ 	lwc1	$f16,0xf0($sp)
@@ -824,7 +824,7 @@ glabel var7f1ad8b4
 /*  f0c5f58:	24c67ba0 */ 	addiu	$a2,$a2,0x7ba0
 /*  f0c5f5c:	0c0098a7 */ 	jal	cdGetPos
 /*  f0c5f60:	240501c7 */ 	addiu	$a1,$zero,0x1c7
-/*  f0c5f64:	0c0098bc */ 	jal	func00024f10
+/*  f0c5f64:	0c0098bc */ 	jal	cdGetTileFlags
 /*  f0c5f68:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c5f6c:	c7aa0150 */ 	lwc1	$f10,0x150($sp)
 /*  f0c5f70:	c7b000f0 */ 	lwc1	$f16,0xf0($sp)

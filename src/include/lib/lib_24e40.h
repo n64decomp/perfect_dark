@@ -11,7 +11,7 @@ s32 func00024ea4(void);
 struct prop *cdGetObstacle(void);
 void cdGetPos(struct coord *pos, u32 line, char *file);
 void func00024ee8(struct coord *arg0);
-u32 func00024f10(void);
+u32 cdGetTileFlags(void);
 void func00024f6c(void);
 u32 func00024fb0(void);
 u32 func00025038(void);
