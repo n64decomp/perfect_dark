@@ -16849,7 +16849,7 @@ void func0f0c1e54(struct prop *prop, bool enable)
 	g_Vars.players[playernum]->bondperimenabled = enable;
 }
 
-bool playerUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2)
+bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 {
 	s32 playernum = propGetPlayerNum(prop);
 
@@ -16859,18 +16859,18 @@ bool playerUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct til
 			g_Vars.players[playernum]->perimshoot = g_Vars.players[playernum]->periminfo;
 			g_Vars.players[playernum]->perimshoot.width = 15;
 
-			*arg1 = &g_Vars.players[playernum]->perimshoot;
+			*start = (void *) &g_Vars.players[playernum]->perimshoot;
 		} else {
-			*arg1 = &g_Vars.players[playernum]->periminfo;
+			*start = (void *) &g_Vars.players[playernum]->periminfo;
 		}
 
-		*arg2 = *arg1 + 1;
+		*end = *start + sizeof(struct tiletype3);
 
 		return true;
 	}
 
-	*arg2 = NULL;
-	*arg1 = NULL;
+	*end = NULL;
+	*start = NULL;
 
 	return false;
 }

@@ -68,7 +68,7 @@ void func0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struc
 void func0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look);
 void allPlayersClearMemCamRoom(void);
 void func0f0c1e54(struct prop *prop, bool enable);
-bool playerUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2);
+bool playerUpdateGeometry(struct prop *prop, u8 **start, u8 **end);
 void currentPlayerUpdatePerimInfo(void);
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 f32 currentPlayerGetHealthFrac(void);

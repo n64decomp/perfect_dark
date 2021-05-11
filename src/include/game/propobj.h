@@ -244,7 +244,7 @@ bool func0f0869cc(struct prop *prop);
 bool currentPlayerTryMountHoverbike(struct prop *prop);
 bool propobjInteract(struct prop *prop);
 void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable);
-bool objUpdateGeometry(struct prop *prop, struct tile **arg1, struct tiletype3 **arg2);
+bool objUpdateGeometry(struct prop *prop, u8 **arg1, u8 **arg2);
 void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 void ammotypeGetPickedUpText(char *dst);
 void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty);

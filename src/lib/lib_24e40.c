@@ -2011,8 +2011,8 @@ void func00026e7c(struct coord *pos, s16 *rooms, u16 arg2, struct tile **tileptr
 {
 	s16 *roomptr;
 	s32 roomnum;
-	struct tiletype3 *sp27c;
-	struct tiletype3 *sp278;
+	u8 *start;
+	u8 *end;
 	f32 sp274;
 	struct tile *sp270 = NULL;
 	s32 sp26c = 0;
@@ -2031,10 +2031,10 @@ void func00026e7c(struct coord *pos, s16 *rooms, u16 arg2, struct tile **tileptr
 
 	while (roomnum != -1) {
 		if (roomnum < g_TileNumRooms) {
-			sp27c = (struct tiletype3 *)(g_TileFileData.u8 + g_TileRooms[roomnum]);
-			sp278 = (struct tiletype3 *)(g_TileFileData.u8 + g_TileRooms[roomnum + 1]);
+			start = g_TileFileData.u8 + g_TileRooms[roomnum];
+			end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
 
-			func00026a04(pos, sp27c, sp278, arg2, roomnum, &sp270, &sp26c, &sp274, arg7);
+			func00026a04(pos, start, end, arg2, roomnum, &sp270, &sp26c, &sp274, arg7);
 		}
 
 		roomptr++;
@@ -2047,8 +2047,8 @@ void func00026e7c(struct coord *pos, s16 *rooms, u16 arg2, struct tile **tileptr
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (propUpdateGeometry(prop, &sp27c, &sp278)
-				&& func00026a04(pos, sp27c, sp278, arg2, prop->rooms[0], &sp270, &sp26c, &sp274, arg7)) {
+		if (propUpdateGeometry(prop, &start, &end)
+				&& func00026a04(pos, start, end, arg2, prop->rooms[0], &sp270, &sp26c, &sp274, arg7)) {
 			sp268 = prop;
 		}
 
@@ -2204,14 +2204,14 @@ bool func000276c8(struct tiletype3 *tile, f32 x, f32 z, f32 width, struct prop *
 	return result;
 }
 
-void func00027738(struct coord *pos, f32 width, struct tile *start, struct tile *end, u16 flags,
+void func00027738(struct coord *pos, f32 width, u8 *start, u8 *end, u16 flags,
 		bool checkvertical, f32 arg6, f32 arg7, struct prop *prop,
 		struct collisionthing *things, s32 maxthings, s32 *thingnum, s32 roomnum)
 {
-	struct tile *tile = start;
+	struct tile *tile = (struct tile *) start;
 	s32 result;
 
-	while (tile < end) {
+	while (tile < (struct tile *) end) {
 		if (tile->type == TILETYPE_00) {
 			struct tiletype0 *type0 = (struct tiletype0 *) tile;
 
@@ -2311,8 +2311,8 @@ void func00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 {
 	s16 *roomptr;
 	s32 roomnum;
-	u8 *roomdatastart;
-	u8 *roomdataend;
+	u8 *start;
+	u8 *end;
 	s32 sp294 = 0;
 	s16 *propnumptr;
 	s16 propnums[256];
@@ -2324,11 +2324,10 @@ void func00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 
 		while (roomnum != -1) {
 			if (roomnum < g_TileNumRooms) {
-				roomdatastart = (g_TileFileData.u8 + g_TileRooms[roomnum]);
-				roomdataend = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
+				start = g_TileFileData.u8 + g_TileRooms[roomnum];
+				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
 
-				func00027738(pos, width, (struct tile *) roomdatastart, (struct tile *) roomdataend,
-						arg4, arg5, arg6, arg7, NULL, arg8, arg9, &sp294, roomnum);
+				func00027738(pos, width, start, end, arg4, arg5, arg6, arg7, NULL, arg8, arg9, &sp294, roomnum);
 
 				if (sp294 >= arg9) {
 					goto end;
@@ -2347,9 +2346,8 @@ void func00027d1c(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, (struct tiletype3 **) &roomdatastart, (struct tiletype3 **) &roomdataend)) {
-			func00027738(pos, width, (struct tile *) roomdatastart, (struct tile *) roomdataend,
-					arg4, arg5, arg6, arg7, prop, arg8, arg9, &sp294, prop->rooms[0]);
+		if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, &start, &end)) {
+			func00027738(pos, width, start, end, arg4, arg5, arg6, arg7, prop, arg8, arg9, &sp294, prop->rooms[0]);
 
 			if (sp294 >= arg9) {
 				break;
@@ -3310,8 +3308,8 @@ void func00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 {
 	s16 *roomptr;
 	s32 roomnum;
-	u8 *roomdatastart;
-	u8 *roomdataend;
+	u8 *start;
+	u8 *end;
 	s32 sp294 = 0;
 	s16 *propnumptr;
 	s16 propnums[256];
@@ -3323,11 +3321,10 @@ void func00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 
 		while (roomnum != -1) {
 			if (roomnum < g_TileNumRooms) {
-				roomdatastart = (g_TileFileData.u8 + g_TileRooms[roomnum]);
-				roomdataend = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
+				start = g_TileFileData.u8 + g_TileRooms[roomnum];
+				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
 
-				func00028914((struct tile *) roomdatastart, (struct tile *) roomdataend, pos, width,
-						arg4, arg5, ymax, ymin, NULL, arg8, arg9, &sp294);
+				func00028914(start, end, pos, width, arg4, arg5, ymax, ymin, NULL, arg8, arg9, &sp294);
 			}
 
 			roomptr++;
@@ -3342,9 +3339,8 @@ void func00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, (struct tiletype3 **) &roomdatastart, (struct tiletype3 **) &roomdataend)) {
-			func00028914((struct tile *) roomdatastart, (struct tile *) roomdataend, pos, width,
-					arg4, arg5, ymax, ymin, prop, arg8, arg9, &sp294);
+		if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, &start, &end)) {
+			func00028914(start, end, pos, width, arg4, arg5, ymax, ymin, prop, arg8, arg9, &sp294);
 		}
 
 		propnumptr++;
@@ -8342,8 +8338,8 @@ bool func0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types
 {
 	s32 roomnum;
 	s16 *roomptr;
-	struct tiletype3 *sp28c;
-	struct tiletype3 *sp288;
+	u8 *start;
+	u8 *end;
 	struct coord sp27c;
 	s16 *propnumptr;
 	s16 propnums[256];
@@ -8358,10 +8354,10 @@ bool func0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types
 
 		while (roomnum != -1) {
 			if (roomnum < g_TileNumRooms) {
-				sp28c = (struct tiletype3 *)(g_TileFileData.u8 + g_TileRooms[roomnum]);
-				sp288 = (struct tiletype3 *)(g_TileFileData.u8 + g_TileRooms[roomnum + 1]);
+				start = g_TileFileData.u8 + g_TileRooms[roomnum];
+				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
 
-				if (func0002bd04(sp28c, sp288, pos, coord2, &sp27c, arg4, arg5, arg6, arg7, arg8) == 0) {
+				if (func0002bd04(start, end, pos, coord2, &sp27c, arg4, arg5, arg6, arg7, arg8) == 0) {
 					func00025168(NULL);
 					return false;
 				}
@@ -8380,8 +8376,8 @@ bool func0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
 		if (propIsOfCdType(prop, types)
-				&& propUpdateGeometry(prop, &sp28c, &sp288)
-				&& func0002bd04(sp28c, sp288, pos, coord2, &sp27c, arg4, arg5, arg6, arg7, arg8) == 0) {
+				&& propUpdateGeometry(prop, &start, &end)
+				&& func0002bd04(start, end, pos, coord2, &sp27c, arg4, arg5, arg6, arg7, arg8) == 0) {
 			func00025168(prop);
 			return false;
 		}
@@ -8593,6 +8589,68 @@ glabel func0002d3b0
 /*    2d6a4:	03e00008 */ 	jr	$ra
 /*    2d6a8:	27bd02e0 */ 	addiu	$sp,$sp,0x2e0
 );
+
+// Mismatch: Calculation of g_TileRooms[roomnum] is different
+// Other functions and the below use t3 as the offset, t2 as the base, then t2 + t3
+// But goal for this function uses t2 as the offset, t3 as the base, then t2 + t3
+//s32 func0002d3b0(struct coord *arg0, struct coord *arg1, s16 *rooms, s32 types, u16 arg4, s32 arg5, s32 arg6, f32 ymax, f32 ymin)
+//{
+//	s32 roomnum;
+//	s16 *roomptr;
+//	u8 *start;
+//	u8 *end;
+//	struct coord sp2c4;
+//	bool sp2c0 = false;
+//	u32 sp2b4[3];
+//	u32 sp2a8[3];
+//	u32 sp29c[3];
+//	f32 sp298 = 4294967296;
+//	u32 sp294;
+//	s16 *propnumptr;
+//	s16 propnums[256];
+//
+//	sp2c4.x = arg1->x - arg0->x;
+//	sp2c4.y = arg1->y - arg0->y;
+//	sp2c4.z = arg1->z - arg0->z;
+//
+//	if (types & CDTYPE_BG) {
+//		roomptr = rooms;
+//		roomnum = rooms[0];
+//
+//		while (roomnum != -1) {
+//			if (roomnum < g_TileNumRooms) {
+//				start = g_TileFileData.u8 + g_TileRooms[roomnum];
+//				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
+//
+//				if (!func0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, sp2a8, sp29c, &sp294, roomnum)) {
+//					sp2c0 = true;
+//					func00025254(sp2a8, sp29c, sp2b4, NULL, sp298, sp294);
+//				}
+//			}
+//
+//			roomptr++;
+//			roomnum = *roomptr;
+//		}
+//	}
+//
+//	roomGetProps(rooms, propnums, 256);
+//	propnumptr = propnums;
+//
+//	while (*propnumptr >= 0) {
+//		struct prop *prop = &g_Vars.props[*propnumptr];
+//
+//		if (propIsOfCdType(prop, types)
+//				&& propUpdateGeometry(prop, &start, &end)
+//				&& !func0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, sp2a8, sp29c, &sp294, -999)) {
+//			sp2c0 = true;
+//			func00025254(sp2a8, sp29c, sp2b4, prop, sp298, sp294);
+//		}
+//
+//		propnumptr++;
+//	}
+//
+//	return !sp2c0;
+//}
 
 bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 arg5, f32 arg6)
 {
@@ -9230,11 +9288,11 @@ glabel func0002dffc
 //	return false;
 //}
 
-s32 func0002e278(struct tile *start, struct tile *end, struct tiletype2 *ref, u16 flags)
+s32 func0002e278(u8 *start, u8 *end, struct tiletype2 *ref, u16 flags)
 {
-	struct tile *tile = start;
+	struct tile *tile = (struct tile *) start;
 
-	while (tile < end) {
+	while (tile < (struct tile *) end) {
 		if (tile->type == TILETYPE_00) {
 			struct tiletype0 *type0 = (struct tiletype0 *) tile;
 			tile = (struct tile *)((u32)tile + type0->header.numvertices * 6 + 0xe);
@@ -9289,8 +9347,8 @@ s32 func0002e4c4(struct tiletype2 *geo, s16 *rooms, u32 types)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	s32 roomnum;
-	u8 *roomdatastart;
-	u8 *roomdataend;
+	u8 *start;
+	u8 *end;
 	s16 *roomptr;
 	s16 propnums[256];
 	s16 *propnumptr;
@@ -9302,10 +9360,10 @@ s32 func0002e4c4(struct tiletype2 *geo, s16 *rooms, u32 types)
 
 		while (roomnum != -1) {
 			if (roomnum < g_TileNumRooms) {
-				roomdatastart = (g_TileFileData.u8 + g_TileRooms[roomnum]);
-				roomdataend = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
+				start = g_TileFileData.u8 + g_TileRooms[roomnum];
+				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
 
-				result = func0002e278((struct tile *) roomdatastart, (struct tile *) roomdataend, geo, TILEFLAG_0004);
+				result = func0002e278(start, end, geo, TILEFLAG_0004);
 
 				if (result == CDRESULT_COLLISION) {
 					func00025168(NULL);
@@ -9326,8 +9384,8 @@ s32 func0002e4c4(struct tiletype2 *geo, s16 *rooms, u32 types)
 		while (*propnumptr >= 0) {
 			struct prop *prop = &g_Vars.props[*propnumptr];
 
-			if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, (struct tiletype3 **) &roomdatastart, (struct tiletype3 **) &roomdataend)) {
-				result = func0002e278((struct tile *) roomdatastart, (struct tile *) roomdataend, geo, TILEFLAG_0004);
+			if (propIsOfCdType(prop, types) && propUpdateGeometry(prop, &start, &end)) {
+				result = func0002e278(start, end, geo, TILEFLAG_0004);
 
 				if (result == CDRESULT_COLLISION) {
 					func00025168(prop);

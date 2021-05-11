@@ -15495,7 +15495,7 @@ struct prop *chrGetTargetProp(struct chrdata *chr)
 	return ret;
 }
 
-bool chrUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2)
+bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -15528,14 +15528,14 @@ bool chrUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tilety
 			chr->geo.width = 15;
 		}
 
-		*arg1 = &chr->geo;
-		*arg2 = *arg1 + 1;
+		*start = (void *) &chr->geo;
+		*end = *start + sizeof(struct tiletype3);
 
 		return true;
 	}
 
-	*arg2 = NULL;
-	*arg1 = NULL;
+	*end = NULL;
+	*start = NULL;
 
 	return false;
 

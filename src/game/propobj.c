@@ -47876,7 +47876,7 @@ s32 objTick(struct prop *prop)
 			f32 sp112;
 			s32 tagnum;
 			struct tile *geos[2];
-			struct tiletype3 *sp96;
+			u8 *end;
 			f32 damage;
 
 			if (sp572) {
@@ -47948,7 +47948,7 @@ s32 objTick(struct prop *prop)
 				func0f069c70(obj, true, true);
 				sp592 = true;
 
-				if (objUpdateGeometry(prop, geos, &sp96)
+				if (objUpdateGeometry(prop, (u8 **)geos, &end)
 						&& geos[0]->type == TILETYPE_02
 						&& func0002e4c4((struct tiletype2 *) geos[0], prop->rooms, 4) == 0) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;

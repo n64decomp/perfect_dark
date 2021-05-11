@@ -7780,16 +7780,16 @@ void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-bool propUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2)
+bool propUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 {
 	bool result = false;
 
 	if (prop->type == PROPTYPE_PLAYER) {
-		result = playerUpdateGeometry(prop, arg1, arg2);
+		result = playerUpdateGeometry(prop, start, end);
 	} else if (prop->type == PROPTYPE_CHR) {
-		result = chrUpdateGeometry(prop, arg1, arg2);
+		result = chrUpdateGeometry(prop, start, end);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
-		result = objUpdateGeometry(prop, arg1, arg2);
+		result = objUpdateGeometry(prop, start, end);
 	}
 
 	return result;

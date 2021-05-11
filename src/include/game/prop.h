@@ -59,6 +59,6 @@ void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2
 void roomGetProps(s16 *room, s16 *propnums, u32 size);
 u32 func0f066054(void);
 void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
-bool propUpdateGeometry(struct prop *prop, struct tiletype3 **arg1, struct tiletype3 **arg2);
+bool propUpdateGeometry(struct prop *prop, u8 **start, u8 **end);
 
 #endif
