@@ -983,7 +983,7 @@ struct tiletype2 {
 	struct tile header;
 	/*0x04*/ f32 ymax;
 	/*0x08*/ f32 ymin;
-	/*0x0c*/ f32 vertices[1][2];
+	/*0x0c*/ f32 vertices[8][2];
 };
 
 struct tiletype3 {

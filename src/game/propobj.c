@@ -47875,7 +47875,7 @@ s32 objTick(struct prop *prop)
 			struct coord sp116 = {0, 0, 0};
 			f32 sp112;
 			s32 tagnum;
-			struct tiletype3 *geos[2];
+			struct tile *geos[2];
 			struct tiletype3 *sp96;
 			f32 damage;
 
@@ -47949,8 +47949,8 @@ s32 objTick(struct prop *prop)
 				sp592 = true;
 
 				if (objUpdateGeometry(prop, geos, &sp96)
-						&& geos[0]->header.type == TILETYPE_02
-						&& func0002e4c4(geos[0], prop->rooms, 4) == 0) {
+						&& geos[0]->type == TILETYPE_02
+						&& func0002e4c4((struct tiletype2 *) geos[0], prop->rooms, 4) == 0) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
 					obj->flags &= ~OBJFLAG_INVINCIBLE;
 					func0f0852ac(obj, damage, &prop->pos, 0x22, -1);
