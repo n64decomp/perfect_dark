@@ -9172,6 +9172,64 @@ glabel func0002dffc
 /*    2e274:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
 
+// Mismatch: Float regalloc, likely related to the zero variable
+//bool func0002dffc(struct tiletype2 *arg0, struct tiletype2 *arg1)
+//{
+//	u32 stack[4];
+//	f32 zero = 0;
+//	s32 numvertices0 = arg0->header.numvertices;
+//	s32 numvertices1 = arg1->header.numvertices;
+//	s32 i;
+//
+//	for (i = 0; i < numvertices0; i++) {
+//		s32 next = (i + 1) % numvertices0;
+//		f64 diff1;
+//		f64 diff2;
+//
+//		diff1 = arg0->vertices[next][1] - (f64)arg0->vertices[i][1];
+//		diff2 = arg0->vertices[i][0] - (f64)arg0->vertices[next][0];
+//
+//		if (diff1 == zero && diff2 == zero) {
+//			if (cdIs2dPointInTileType2(arg1, arg0->vertices[i][0], arg0->vertices[i][1])) {
+//				return false;
+//			}
+//		} else {
+//			f64 sum1 = arg0->vertices[i][0] * diff1 + arg0->vertices[i][1] * diff2;
+//			f64 sum2;
+//			s32 j = (next + 1) % numvertices0;
+//			s32 k;
+//
+//			while (j != i) {
+//				sum2 = arg0->vertices[j][0] * diff1 + arg0->vertices[j][1] * diff2;
+//
+//				if (sum2 != sum1) {
+//					break;
+//				}
+//
+//				j = (j + 1) % numvertices0;
+//			}
+//
+//			for (k = 0; k < numvertices1; k++) {
+//				f64 sum3 = arg1->vertices[k][0] * diff1 + arg1->vertices[k][1] * diff2;
+//
+//				if (sum2 == sum1) {
+//					sum2 = sum1 - sum3 + sum1;
+//				}
+//
+//				if ((sum3 < sum1 && sum2 < sum1) || (sum3 > sum1 && sum2 > sum1)) {
+//					break;
+//				}
+//			}
+//
+//			if (k == numvertices1) {
+//				return true;
+//			}
+//		}
+//	}
+//
+//	return false;
+//}
+
 s32 func0002e278(struct tile *start, struct tile *end, struct tiletype2 *ref, u16 flags)
 {
 	struct tile *tile = start;
