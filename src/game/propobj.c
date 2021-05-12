@@ -62707,98 +62707,62 @@ void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel objUpdateGeometry
-/*  f087458:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f08745c:	8c670044 */ 	lw	$a3,0x44($v1)
-/*  f087460:	50e0003e */ 	beqzl	$a3,.L0f08755c
-/*  f087464:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f087468:	8c620010 */ 	lw	$v0,0x10($v1)
-/*  f08746c:	304e0400 */ 	andi	$t6,$v0,0x400
-/*  f087470:	55c0003a */ 	bnezl	$t6,.L0f08755c
-/*  f087474:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f087478:	906f0002 */ 	lbu	$t7,0x2($v1)
-/*  f08747c:	0002c980 */ 	sll	$t9,$v0,0x6
-/*  f087480:	31f80008 */ 	andi	$t8,$t7,0x8
-/*  f087484:	5300002d */ 	beqzl	$t8,.L0f08753c
-/*  f087488:	aca70000 */ 	sw	$a3,0x0($a1)
-/*  f08748c:	07210003 */ 	bgez	$t9,.L0f08749c
-/*  f087490:	2404004c */ 	addiu	$a0,$zero,0x4c
-/*  f087494:	10000001 */ 	b	.L0f08749c
-/*  f087498:	24040018 */ 	addiu	$a0,$zero,0x18
-.L0f08749c:
-/*  f08749c:	8c680008 */ 	lw	$t0,0x8($v1)
-/*  f0874a0:	31090100 */ 	andi	$t1,$t0,0x100
-/*  f0874a4:	51200014 */ 	beqzl	$t1,.L0f0874f8
-/*  f0874a8:	8068005a */ 	lb	$t0,0x5a($v1)
-/*  f0874ac:	8c6a0040 */ 	lw	$t2,0x40($v1)
-/*  f0874b0:	3c0100c0 */ 	lui	$at,0xc0
-/*  f0874b4:	01415824 */ 	and	$t3,$t2,$at
-/*  f0874b8:	5560000f */ 	bnezl	$t3,.L0f0874f8
-/*  f0874bc:	8068005a */ 	lb	$t0,0x5a($v1)
-/*  f0874c0:	aca70000 */ 	sw	$a3,0x0($a1)
-/*  f0874c4:	8c6c0044 */ 	lw	$t4,0x44($v1)
-/*  f0874c8:	01846821 */ 	addu	$t5,$t4,$a0
-/*  f0874cc:	accd0000 */ 	sw	$t5,0x0($a2)
-/*  f0874d0:	8062005a */ 	lb	$v0,0x5a($v1)
-/*  f0874d4:	28410002 */ 	slti	$at,$v0,0x2
-/*  f0874d8:	14200004 */ 	bnez	$at,.L0f0874ec
-/*  f0874dc:	00027980 */ 	sll	$t7,$v0,0x6
-/*  f0874e0:	01afc021 */ 	addu	$t8,$t5,$t7
-/*  f0874e4:	2719ffc0 */ 	addiu	$t9,$t8,-64
-/*  f0874e8:	acd90000 */ 	sw	$t9,0x0($a2)
-.L0f0874ec:
-/*  f0874ec:	03e00008 */ 	jr	$ra
-/*  f0874f0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0874f4:	8068005a */ 	lb	$t0,0x5a($v1)
-.L0f0874f8:
-/*  f0874f8:	00e44821 */ 	addu	$t1,$a3,$a0
-/*  f0874fc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f087500:	29010002 */ 	slti	$at,$t0,0x2
-/*  f087504:	5420000a */ 	bnezl	$at,.L0f087530
-/*  f087508:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f08750c:	aca90000 */ 	sw	$t1,0x0($a1)
-/*  f087510:	806b005a */ 	lb	$t3,0x5a($v1)
-/*  f087514:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f087518:	000b6180 */ 	sll	$t4,$t3,0x6
-/*  f08751c:	012c6821 */ 	addu	$t5,$t1,$t4
-/*  f087520:	25aeffc0 */ 	addiu	$t6,$t5,-64
-/*  f087524:	03e00008 */ 	jr	$ra
-/*  f087528:	acce0000 */ 	sw	$t6,0x0($a2)
-/*  f08752c:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0f087530:
-/*  f087530:	03e00008 */ 	jr	$ra
-/*  f087534:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f087538:	aca70000 */ 	sw	$a3,0x0($a1)
-.L0f08753c:
-/*  f08753c:	8078005a */ 	lb	$t8,0x5a($v1)
-/*  f087540:	8c6f0044 */ 	lw	$t7,0x44($v1)
-/*  f087544:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f087548:	0018c980 */ 	sll	$t9,$t8,0x6
-/*  f08754c:	01f94021 */ 	addu	$t0,$t7,$t9
-/*  f087550:	03e00008 */ 	jr	$ra
-/*  f087554:	acc80000 */ 	sw	$t0,0x0($a2)
-/*  f087558:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0f08755c:
-/*  f08755c:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f087560:	00001025 */ 	or	$v0,$zero,$zero
-/*  f087564:	03e00008 */ 	jr	$ra
-/*  f087568:	00000000 */ 	nop
-);
+bool objUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if (obj->unkgeo && (obj->flags3 & OBJFLAG3_WALKTHROUGH) == 0) {
+		if ((obj->hidden2 & OBJH2FLAG_08)) {
+			s32 len = (obj->flags3 & OBJFLAG3_GEOTYPE3) ? sizeof(struct tiletype3) : sizeof(struct tiletype2);
+
+			if (obj->flags & OBJFLAG_00000100) {
+				if ((obj->hidden & (OBJHFLAG_00400000 | OBJHFLAG_00800000)) == 0) {
+					*start = (void *) obj->unkgeo;
+					*end = (void *)((u32)obj->unkgeo + len);
+
+					if (obj->numtiles >= 2) {
+						*end += obj->numtiles * 0x40 - 0x40;
+					}
+
+					return true;
+				}
+			}
+
+			if (obj->numtiles >= 2) {
+				*start = (void *)((u32)obj->unkgeo + len);
+				*end = (void *)(*start + obj->numtiles * 0x40 - 0x40);
+				return true;
+			}
+
+			*end = NULL;
+			*start = NULL;
+			return false;
+		}
+
+		*start = (void *) obj->unkgeo;
+		*end = (void *) ((u32)obj->unkgeo + obj->numtiles * 0x40);
+		return true;
+	}
+
+	*end = NULL;
+	*start = NULL;
+
+	return false;
+}
 
 void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
 	struct defaultobj *obj = prop->obj;
 
 	if (obj->unkgeo && obj->hidden2 & OBJH2FLAG_08) {
-		if (obj->flags3 & OBJFLAG3_02000000) {
-			*width = obj->unkgeo->width;
-			*ymin = obj->unkgeo->ymin;
-			*ymax = obj->unkgeo->ymax;
+		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
+			*width = obj->geo3->width;
+			*ymin = obj->geo3->ymin;
+			*ymax = obj->geo3->ymax;
 		} else {
 			*width = func0001af80(obj->model);
-			*ymin = obj->unkgeo->ymin;
-			*ymax = obj->unkgeo->ymax;
+			*ymin = obj->geo2->ymin;
+			*ymax = obj->geo2->ymax;
 		}
 	} else {
 		*width = 1;

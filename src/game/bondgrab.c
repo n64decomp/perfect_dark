@@ -108,7 +108,7 @@ void bgrabInit(void)
 
 		obj->hidden |= OBJHFLAG_GRABBED;
 
-		if (obj->flags3 & OBJFLAG3_02000000) {
+		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
 			setthething = func000276c8(obj->geo3,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z, 45, 0, 0);
