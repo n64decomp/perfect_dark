@@ -310,57 +310,31 @@ glabel func000251ac
 /*    25250:	ac20f038 */ 	sw	$zero,%lo(var8005f038)($at)
 );
 
-GLOBAL_ASM(
-glabel func00025254
-/*    25254:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    25258:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
-/*    2525c:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
-/*    25260:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*    25264:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    25268:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
-/*    2526c:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
-/*    25270:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*    25274:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    25278:	3c08800a */ 	lui	$t0,%hi(g_CdPos)
-/*    2527c:	2508a8e0 */ 	addiu	$t0,$t0,%lo(g_CdPos)
-/*    25280:	e4480008 */ 	swc1	$f8,0x8($v0)
-/*    25284:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*    25288:	24090001 */ 	addiu	$t1,$zero,0x1
-/*    2528c:	3c01800a */ 	lui	$at,%hi(var8009a8b4)
-/*    25290:	e46a0000 */ 	swc1	$f10,0x0($v1)
-/*    25294:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*    25298:	c7aa0010 */ 	lwc1	$f10,0x10($sp)
-/*    2529c:	8fae0014 */ 	lw	$t6,0x14($sp)
-/*    252a0:	e4700004 */ 	swc1	$f16,0x4($v1)
-/*    252a4:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*    252a8:	e4720008 */ 	swc1	$f18,0x8($v1)
-/*    252ac:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*    252b0:	e5040000 */ 	swc1	$f4,0x0($t0)
-/*    252b4:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*    252b8:	e5060004 */ 	swc1	$f6,0x4($t0)
-/*    252bc:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*    252c0:	e5080008 */ 	swc1	$f8,0x8($t0)
-/*    252c4:	ac29a8b4 */ 	sw	$t1,%lo(var8009a8b4)($at)
-/*    252c8:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
-/*    252cc:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    252d0:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
-/*    252d4:	ac27a8d4 */ 	sw	$a3,%lo(g_CdObstacle)($at)
-/*    252d8:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
-/*    252dc:	ac29a8d8 */ 	sw	$t1,%lo(var8009a8d8)($at)
-/*    252e0:	3c01800a */ 	lui	$at,%hi(var8009a8f0)
-/*    252e4:	e42aa8f0 */ 	swc1	$f10,%lo(var8009a8f0)($at)
-/*    252e8:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
-/*    252ec:	ac29a8ec */ 	sw	$t1,%lo(var8009a8ec)($at)
-/*    252f0:	3c01800a */ 	lui	$at,%hi(var8009a8f4)
-/*    252f4:	ac20a8f4 */ 	sw	$zero,%lo(var8009a8f4)($at)
-/*    252f8:	3c018006 */ 	lui	$at,%hi(var8005f034)
-/*    252fc:	ac20f034 */ 	sw	$zero,%lo(var8005f034)($at)
-/*    25300:	3c01800a */ 	lui	$at,%hi(var8009a964)
-/*    25304:	ac2ea964 */ 	sw	$t6,%lo(var8009a964)($at)
-/*    25308:	3c018006 */ 	lui	$at,%hi(var8005f038)
-/*    2530c:	03e00008 */ 	jr	$ra
-/*    25310:	ac29f038 */ 	sw	$t1,%lo(var8005f038)($at)
-);
+void func00025254(struct coord *arg0, struct coord *arg1, struct coord *pos, struct prop *prop, f32 arg4, struct tile *tile)
+{
+	var8009a8b8.x = arg0->x;
+	var8009a8b8.y = arg0->y;
+	var8009a8b8.z = arg0->z;
+
+	var8009a8c8.x = arg1->x;
+	var8009a8c8.y = arg1->y;
+	var8009a8c8.z = arg1->z;
+
+	g_CdPos.x = pos->x;
+	g_CdPos.y = pos->y;
+	g_CdPos.z = pos->z;
+
+	var8009a8b4 = 1;
+	var8009a8ac = 0;
+	g_CdObstacle = prop;
+	var8009a8d8 = 1;
+	var8009a8f0 = arg4;
+	var8009a8ec = 1;
+	var8009a8f4 = 0;
+	var8005f034 = 0;
+	var8009a964 = tile;
+	var8005f038 = 1;
+}
 
 GLOBAL_ASM(
 glabel func00025314
@@ -8602,10 +8576,10 @@ glabel func0002d3b0
 //	struct coord sp2c4;
 //	bool sp2c0 = false;
 //	u32 sp2b4[3];
-//	u32 sp2a8[3];
-//	u32 sp29c[3];
+//	struct coord sp2a8;
+//	struct coord sp29c;
 //	f32 sp298 = 4294967296;
-//	u32 sp294;
+//	struct tile *sp294;
 //	s16 *propnumptr;
 //	s16 propnums[256];
 //
@@ -8622,9 +8596,9 @@ glabel func0002d3b0
 //				start = g_TileFileData.u8 + g_TileRooms[roomnum];
 //				end = g_TileFileData.u8 + g_TileRooms[roomnum + 1];
 //
-//				if (!func0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, sp2a8, sp29c, &sp294, roomnum)) {
+//				if (!func0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, &sp2a8, &sp29c, &sp294, roomnum)) {
 //					sp2c0 = true;
-//					func00025254(sp2a8, sp29c, sp2b4, NULL, sp298, sp294);
+//					func00025254(&sp2a8, &sp29c, sp2b4, NULL, sp298, sp294);
 //				}
 //			}
 //
@@ -8641,9 +8615,9 @@ glabel func0002d3b0
 //
 //		if (propIsOfCdType(prop, types)
 //				&& propUpdateGeometry(prop, &start, &end)
-//				&& !func0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, sp2a8, sp29c, &sp294, -999)) {
+//				&& !func0002c714(start, end, arg0, arg1, &sp2c4, arg4, arg5, arg6, ymax, ymin, &sp298, sp2b4, &sp2a8, &sp29c, &sp294, -999)) {
 //			sp2c0 = true;
-//			func00025254(sp2a8, sp29c, sp2b4, prop, sp298, sp294);
+//			func00025254(&sp2a8, &sp29c, sp2b4, prop, sp298, sp294);
 //		}
 //
 //		propnumptr++;
