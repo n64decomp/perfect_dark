@@ -18669,3 +18669,23 @@ glabel func0f0c3320
 /*  f0c33e4:	03e00008 */ 	jr	$ra
 /*  f0c33e8:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
+
+// Mismatch: goal stores matrices in both s5 and s0, increments s0 for the first
+// &matrices[i], and calculates s5 + i * 0x40 for the second &matrices[i].
+// The below stores matrices in s5, calculates s5 + i * 0x40 for the first
+// &matrices[i], then puts that value in s0 for the second &matrices[i].
+//void func0f0c3320(Mtxf *matrices, s32 count)
+//{
+//	Mtxf sp40;
+//	s32 i;
+//
+//	for (i = 0; i < count; i++) {
+//		func00015be4(currentPlayerGetUnk174c(), &matrices[i], &sp40);
+//
+//		sp40.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
+//		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
+//		sp40.m[3][2] -= g_Vars.currentplayer->globaldrawworldoffset.z;
+//
+//		func00016054(&sp40, &matrices[i]);
+//	}
+//}
