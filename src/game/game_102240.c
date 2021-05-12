@@ -445,7 +445,7 @@ s32 menuhandlerAlternativeTitle(s32 operation, struct menuitem *item, union hand
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
-		if (g_Vars.stagenum != STAGE_CITRAINING || var800a2328[3] == 0) {
+		if (g_Vars.stagenum != STAGE_CITRAINING || (u8)g_SoloCompleted == false) {
 			return true;
 		}
 		break;

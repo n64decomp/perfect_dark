@@ -43,7 +43,10 @@ u32 var800a2318;
 u32 var800a231c;
 u32 var800a2320;
 u32 var800a2324;
-u8 var800a2328[4];
+u8 var800a2328;
+u8 var800a2329;
+u8 var800a232a;
+s8 g_SoloCompleted;
 u8 g_AltTitle;
 u32 var800a2330;
 u32 var800a2334;
@@ -565,7 +568,7 @@ void func0f110b68(void)
 	g_Vars.unk00047c = 0;
 	g_Vars.unk000480 = 0;
 	g_Vars.unk000482 = (PAL ? 7 : 0);
-	var800a2328[3] = 0;
+	g_SoloCompleted = 0;
 	g_AltTitle = false;
 	func0f1109c0();
 }
