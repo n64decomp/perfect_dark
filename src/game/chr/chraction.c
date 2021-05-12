@@ -29089,14 +29089,14 @@ glabel func0f048398
 //		propPrintDangerous();
 //	}
 //
-//	if (g_Vars.unk0004d2 >= 0) {
-//		func0f0482cc(g_Vars.unk0004d2 + 0xc00);
-//		g_Vars.unk0004d2 = -1;
-//		g_Vars.unk0004d3 = 1;
+//	if (g_Vars.autocutnum >= 0) {
+//		func0f0482cc(g_Vars.autocutnum + 0xc00);
+//		g_Vars.autocutnum = -1;
+//		g_Vars.autocutplaying = true;
 //	}
 //
 //	for (i = 0; i < g_NumBgChrs; i++) {
-//		if (g_Vars.unk0004d3 == 0 || (g_BgChrs[i].hidden2 & CHRH2FLAG_0010)) {
+//		if (!g_Vars.autocutplaying || (g_BgChrs[i].hidden2 & CHRH2FLAG_TICKDURINGAUTOCUT)) {
 //			chrTick(&g_BgChrs[i]);
 //		}
 //	}

@@ -5253,8 +5253,8 @@ bool aiEndLevel(void)
 	if (debugAllowEndLevel()) {
 		if (var800624a4) {
 			mainSetStageNum(STAGE_TITLE);
-		} else if (g_Vars.unk0004d3) {
-			g_Vars.unk0004d6 = 1;
+		} else if (g_Vars.autocutplaying) {
+			g_Vars.autocutfinished = true;
 		} else {
 			func0000e990();
 		}
@@ -5500,7 +5500,7 @@ bool aiHideObj(void)
 
 	if (obj && obj->prop && obj->model) {
 #if VERSION >= VERSION_PAL_FINAL
-		if (g_Vars.unk0004d3
+		if (g_Vars.autocutplaying
 				&& mainGetStageNum() == STAGE_AIRFORCEONE
 				&& (obj->modelnum == MODEL_AIRFORCE1 || obj->modelnum == MODEL_SK_SHUTTLE)) {
 			// ignore

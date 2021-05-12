@@ -180,7 +180,7 @@ void setVar80084040(u32 value)
 void lv0f167af8(void)
 {
 	g_Vars.lockscreen = 0;
-	g_Vars.unk0004d8 = -1;
+	g_Vars.joydisableframestogo = -1;
 }
 
 void lvStopAllMiscSfx(void)
@@ -344,8 +344,8 @@ void lvInit(s32 stagenum)
 
 	joy00013900();
 
-	g_Vars.unk0004d8 = 10;
-	g_Vars.unk0004d1 = 0;
+	g_Vars.joydisableframestogo = 10;
+	g_Vars.paksconnected2 = 0;
 	g_Vars.paksconnected = 0;
 	g_Vars.stagenum = stagenum;
 
@@ -371,15 +371,15 @@ void lvInit(s32 stagenum)
 	g_Vars.speedpillon = false;
 
 	g_Vars.restartlevel = false;
-	g_Vars.unk000478 = 0;
+	g_Vars.aibuddiesspawned = false;
 	g_Vars.totalkills = 0;
 	g_Vars.antiheadnum = -1;
 	g_Vars.antibodynum = -1;
 	g_Vars.dontplaynrg = false;
-	g_Vars.in_cutscene = 0;
-	g_Vars.unk0004d3 = 0;
-	g_Vars.unk0004d6 = 0;
-	g_Vars.unk0004d7 = 0;
+	g_Vars.in_cutscene = false;
+	g_Vars.autocutplaying = false;
+	g_Vars.autocutfinished = false;
+	g_Vars.autocutgroupskip = false;
 
 	g_MiscAudioHandle = NULL;
 
@@ -4312,26 +4312,26 @@ Gfx *lvRender(Gfx *gdl)
 		} // end of player loop
 	} // end of stage if-statements
 
-	if (g_Vars.unk0004d3) {
-		if (g_Vars.unk0004d6) {
-			g_Vars.unk0004d3 = 0;
-			g_Vars.unk0004d6 = 0;
+	if (g_Vars.autocutplaying) {
+		if (g_Vars.autocutfinished) {
+			g_Vars.autocutplaying = false;
+			g_Vars.autocutfinished = false;
 
-			if (g_Vars.unk0004d7) {
-				g_Vars.unk0004d4 = -1;
-				g_Vars.unk0004d5 = 0;
+			if (g_Vars.autocutgroupskip) {
+				g_Vars.autocutgroupcur = -1;
+				g_Vars.autocutgroupleft = 0;
 			}
 
-			if (g_Vars.unk0004d4 < 0 && g_Vars.unk0004d5 <= 0) {
+			if (g_Vars.autocutgroupcur < 0 && g_Vars.autocutgroupleft <= 0) {
 				mainSetStageNum(STAGE_TITLE);
 			}
 		}
 	}
 
 	// Advance the cutscenes when autoplaying
-	if (g_Vars.unk0004d3 == 0 && g_Vars.unk0004d4 >= 0 && g_Vars.unk0004d5 > 0) {
+	if (!g_Vars.autocutplaying && g_Vars.autocutgroupcur >= 0 && g_Vars.autocutgroupleft > 0) {
 		hudmsgRemoveAll();
-		g_Vars.unk0004d2 = g_Cutscenes[g_Vars.unk0004d4].scene;
+		g_Vars.autocutnum = g_Cutscenes[g_Vars.autocutgroupcur].scene;
 		g_MissionConfig.iscoop = false;
 		g_Vars.mplayerisrunning = false;
 		g_Vars.normmplayerisrunning = false;
@@ -4343,17 +4343,17 @@ Gfx *lvRender(Gfx *gdl)
 		titleSetNextMode(TITLEMODE_SKIP);
 		g_MissionConfig.difficulty = DIFF_A;
 		lvSetDifficulty(DIFF_A);
-		g_MissionConfig.stageindex = g_Cutscenes[g_Vars.unk0004d4].mission;
-		g_MissionConfig.stagenum = g_Cutscenes[g_Vars.unk0004d4].stage;
-		titleSetNextStage(g_Cutscenes[g_Vars.unk0004d4].stage);
-		mainSetStageNum(g_Cutscenes[g_Vars.unk0004d4].stage);
+		g_MissionConfig.stageindex = g_Cutscenes[g_Vars.autocutgroupcur].mission;
+		g_MissionConfig.stagenum = g_Cutscenes[g_Vars.autocutgroupcur].stage;
+		titleSetNextStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
+		mainSetStageNum(g_Cutscenes[g_Vars.autocutgroupcur].stage);
 
-		g_Vars.unk0004d5--;
+		g_Vars.autocutgroupleft--;
 
-		if (g_Vars.unk0004d5 > 0) {
-			g_Vars.unk0004d4++;
+		if (g_Vars.autocutgroupleft > 0) {
+			g_Vars.autocutgroupcur++;
 		} else {
-			g_Vars.unk0004d4 = -1;
+			g_Vars.autocutgroupcur = -1;
 		}
 	}
 
@@ -8206,22 +8206,22 @@ void lvTick(void)
 		func0f11c54c();
 	}
 
-	if (g_Vars.unk0004d8 > 0) {
-		g_Vars.unk0004d8--;
-	} else if (g_Vars.unk0004d8 == 0) {
+	if (g_Vars.joydisableframestogo > 0) {
+		g_Vars.joydisableframestogo--;
+	} else if (g_Vars.joydisableframestogo == 0) {
 		joy00013938();
 
 		if (g_Vars.stagenum == STAGE_TITLE
 				|| g_Vars.stagenum == STAGE_BOOTPAKMENU
 				|| g_Vars.stagenum == STAGE_CREDITS
 				|| g_Vars.stagenum == STAGE_4MBMENU) {
-			g_Vars.unk0004d1 = 0;
+			g_Vars.paksconnected2 = 0;
 		} else {
-			g_Vars.unk0004d1 = 31;
+			g_Vars.paksconnected2 = 31;
 			func0f11df38();
 		}
 
-		g_Vars.unk0004d8 = -1;
+		g_Vars.joydisableframestogo = -1;
 	}
 
 	if (IS4MB()) {

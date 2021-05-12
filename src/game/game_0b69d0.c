@@ -1540,7 +1540,7 @@ void currentPlayerSpawn(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (g_Vars.currentplayer->unk00d4 == 0
-					&& (IS8MB() || g_Vars.unk0004e0 || g_MpPlayerChrs[g_Vars.currentplayernum] == NULL)) {
+					&& (IS8MB() || g_Vars.fourmeg2player || g_MpPlayerChrs[g_Vars.currentplayernum] == NULL)) {
 				func0f0b8ba0();
 			}
 #else
@@ -3300,8 +3300,8 @@ void func0f0b9afc(void)
 {
 	if (var800624a4) {
 		mainSetStageNum(STAGE_TITLE);
-	} else if (g_Vars.unk0004d3) {
-		g_Vars.unk0004d6 = 1;
+	} else if (g_Vars.autocutplaying) {
+		g_Vars.autocutfinished = true;
 	} else {
 		setTickMode(TICKMODE_NORMAL);
 		var80070744 = 0;
@@ -3595,12 +3595,12 @@ void func0f0ba010(void)
 
 	func0f11dcb0(1);
 	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && g_CameraAnimCurFrame < animGetNumFrames(g_CameraAnimNum) - 1;
-	g_Vars.unk0004e2 = 0;
+	g_Vars.cutsceneskip60ths = 0;
 }
 
 void cameraDoAnimation(s16 animnum)
 {
-	if ((!var800624a4 && g_Vars.unk0004d3 == 0)
+	if ((!var800624a4 && !g_Vars.autocutplaying)
 			|| g_Vars.in_cutscene == 0
 			|| var8009de24 == 0) {
 		joyDisableTemporarily();
@@ -5782,7 +5782,7 @@ s16 viGetFbHeight(void)
 {
 	s16 height = g_ViModes[g_ViMode].fbheight;
 
-	if (g_Vars.unk0004e0) {
+	if (g_Vars.fourmeg2player) {
 		height = height >> 1;
 	}
 
@@ -5820,7 +5820,7 @@ s16 currentPlayerGetViewportWidth(void)
 				width--;
 			}
 		} else if (PLAYERCOUNT() == 2) {
-			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.unk0004e0) {
+			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
 				// 2 players vsplit
 				width = g_ViModes[g_ViMode].width / 2;
 
@@ -5861,7 +5861,7 @@ s16 currentPlayerGetViewportLeft(void)
 			left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
 		}
 	} else if (PLAYERCOUNT() == 2 && something != 0) {
-		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.unk0004e0) {
+		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
 			if (g_Vars.currentplayernum == 1) {
 				// 2 players vsplit - right side
 				left = (g_ViModes[g_ViMode].width / 2) + g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
@@ -5894,7 +5894,7 @@ s16 currentPlayerGetViewportHeight(void)
 			) {
 		s16 tmp = g_ViModes[g_ViMode].fullheight;
 
-		if (IS4MB() && !g_Vars.unk0004e0) {
+		if (IS4MB() && !g_Vars.fourmeg2player) {
 			height = tmp;
 		} else {
 			height = tmp / 2;
@@ -5950,7 +5950,7 @@ s16 currentPlayerGetViewportTop(void)
 			if (PLAYERCOUNT() == 2
 					&& g_Vars.currentplayernum == 1
 					&& optionsGetScreenSplit() != SCREENSPLIT_VERTICAL
-					&& !g_Vars.unk0004e0) {
+					&& !g_Vars.fourmeg2player) {
 				// 2 players hsplit - bottom side
 				top = g_ViModes[g_ViMode].fulltop + g_ViModes[g_ViMode].fullheight / 2;
 			} else if (g_Vars.currentplayernum == 2 || g_Vars.currentplayernum == 3) {
@@ -14172,11 +14172,11 @@ glabel var7f1ad6ac
 //						if (g_Vars.normmplayerisrunning == false
 //								&& g_MissionConfig.iscoop
 //								&& g_Vars.numaibuddies > 0
-//								&& g_Vars.unk000478 == 0
+//								&& !g_Vars.aibuddiesspawned
 //								&& g_Vars.stagenum != STAGE_CITRAINING
 //								&& g_Vars.lvframenum > 20) {
 //							s32 i;
-//							g_Vars.unk000478 = 1;
+//							g_Vars.aibuddiesspawned = true;
 //
 //							// Spawn coop aibots
 //							for (i = 0; i < g_Vars.numaibuddies; i++) {

@@ -47785,8 +47785,8 @@ s32 objTick(struct prop *prop)
 				if (sp572) {
 					s32 iVar10 = g_Vars.lvupdate240;
 
-					if (g_Vars.tickmode == TICKMODE_CUTSCENE && iVar10 > 0 && g_Vars.unk0004e2 > 0) {
-						iVar10 += g_Vars.unk0004e2 * 4;
+					if (g_Vars.tickmode == TICKMODE_CUTSCENE && iVar10 > 0 && g_Vars.cutsceneskip60ths > 0) {
+						iVar10 += g_Vars.cutsceneskip60ths * 4;
 					}
 
 					func0001ee18(model, iVar10, true);

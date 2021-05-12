@@ -656,7 +656,7 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 
 	crashPrint("\n\nFAULT-\n");
 
-	if (g_Vars.unk0004e0 == 0) {
+	if (!g_Vars.fourmeg2player) {
 		// Print a stack trace in a dodgy way.
 		// It works by iterating through the stack allocation, looking for any
 		// values which could potentially be a return address, and prints them.
@@ -678,7 +678,7 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 
 	crashPrint("%H#@! Another Perfect Crash (tm)\n");
 
-	if (g_Vars.unk0004e0 == 0) {
+	if (!g_Vars.fourmeg2player) {
 		// Print floating point registers
 		crashPrint2Floats(0, ctx->fp0.f.f_odd, ctx->fp0.f.f_even);
 		crashPrint3Floats(2, ctx->fp2.f.f_odd, ctx->fp2.f.f_even, ctx->fp4.f.f_odd);

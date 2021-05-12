@@ -71,7 +71,7 @@ void playersAllocate(s32 count)
 		playerAllocate(0);
 		setCurrentPlayerNum(0);
 
-		if (g_Vars.unk0004e0) {
+		if (g_Vars.fourmeg2player) {
 			s16 a = viGetFbWidth();
 			s16 b = viGetFbHeight();
 			currentPlayerSetViewSize(a, b << 1);

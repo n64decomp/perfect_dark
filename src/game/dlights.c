@@ -2166,7 +2166,7 @@ void func0f002a98(void)
 #if VERSION >= VERSION_NTSC_1_0
 	var80061458 = 0;
 #endif
-	g_Vars.unk0004e1 = 0;
+	g_Vars.remakewallhitvtx = 0;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		roomSetDefaults(&g_Rooms[i]);
@@ -2562,10 +2562,10 @@ void lightingTick(void)
 
 	func0f0037ac();
 
-	if (g_Vars.unk0004e1) {
+	if (g_Vars.remakewallhitvtx) {
 		func0f141234();
 
-		g_Vars.unk0004e1 = 0;
+		g_Vars.remakewallhitvtx = false;
 
 		for (i = 1; i < g_Vars.roomcount; i++) {
 			g_Rooms[i].flags &= ~ROOMFLAG_1000;

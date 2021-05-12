@@ -195,7 +195,7 @@ struct g_vars {
 	/*00046c*/ s32 restartlevel;
 	/*000470*/ s32 perfectbuddynum;
 	/*000474*/ s32 numaibuddies;
-	/*000478*/ u32 unk000478;
+	/*000478*/ bool aibuddiesspawned;
 	/*00047c*/ u32 unk00047c;
 	/*000480*/ u16 unk000480;
 	/*000482*/ u16 unk000482;
@@ -221,18 +221,18 @@ struct g_vars {
 	/*0004c8*/ u32 dontplaynrg; // allow X music to be played (NRG = energy track)
 	/*0004cc*/ s32 in_cutscene;
 	/*0004d0*/ u8 paksconnected;
-	/*0004d1*/ u8 unk0004d1;
-	/*0004d2*/ s8 unk0004d2; // cutscene scene number (0, 1 or 2)
-	/*0004d3*/ s8 unk0004d3;
-	/*0004d4*/ s8 unk0004d4; // index into g_Cutscenes
-	/*0004d5*/ s8 unk0004d5;
-	/*0004d6*/ s8 unk0004d6;
-	/*0004d7*/ s8 unk0004d7;
-	/*0004d8*/ s32 unk0004d8;
+	/*0004d1*/ u8 paksconnected2;
+	/*0004d2*/ s8 autocutnum; // cutscene scene number (0, 1 or 2), set to -1 while loading cutscene
+	/*0004d3*/ s8 autocutplaying; // true if playing a cutscene via the menu, false when a button is pressed
+	/*0004d4*/ s8 autocutgroupcur; // index into g_Cutscenes
+	/*0004d5*/ s8 autocutgroupleft; // number of cutscenes left to play
+	/*0004d6*/ s8 autocutfinished; // true if cutscene reached natural end
+	/*0004d7*/ s8 autocutgroupskip; // true if pressed start during auto cutscene
+	/*0004d8*/ s32 joydisableframestogo;
 	/*0004dc*/ u8 playertojoymap[4];
-	/*0004e0*/ u8 unk0004e0;
-	/*0004e1*/ u8 unk0004e1;
-	/*0004e2*/ u8 unk0004e2;
+	/*0004e0*/ u8 fourmeg2player;
+	/*0004e1*/ u8 remakewallhitvtx;
+	/*0004e2*/ u8 cutsceneskip60ths;
 	/*0004e3*/ u8 langfilteron;
 	/*0004e4*/ u16 unk0004e4;
 	/*0004e8*/ u32 unk0004e8;

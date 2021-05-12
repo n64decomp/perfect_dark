@@ -5576,9 +5576,9 @@ struct cutscene g_Cutscenes[] = {
 	{ /*37*/ STAGE_SKEDARRUINS,   16, 1, L_OPTIONS_488 },
 };
 
-u32 g_CutsceneIndexes[] = {
-	/* 0*/ 1,
-	/* 1*/ 3,
+u32 g_CutsceneCountsByMission[] = {
+	/* 0*/ 1,  // 0 missions completed => 1 cutscene available (Def intro)
+	/* 1*/ 3,  // 1 mission completed => 3 cutscenes available (Def intro, outro, Invest intro)
 	/* 2*/ 5,
 	/* 3*/ 7,
 	/* 4*/ 9,
@@ -5645,7 +5645,8 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = g_CutsceneIndexes[getNumCompletedMissions()] + 1;
+		// Add one for Play All option
+		data->list.value = g_CutsceneCountsByMission[getNumCompletedMissions()] + 1;
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		if (data->list.value == 0) {
@@ -5655,14 +5656,16 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 		return (s32) langGet(g_Cutscenes[data->list.value - 1].name);
 	case MENUOP_SET:
 		if (data->list.value == 0) {
+			// Play all
 			s32 index = getNumCompletedMissions();
-			g_Vars.unk0004d4 = 0;
-			g_Vars.unk0004d5 = g_CutsceneIndexes[index];
+			g_Vars.autocutgroupcur = 0;
+			g_Vars.autocutgroupleft = g_CutsceneCountsByMission[index];
 			menuPopDialog();
 			func0f01bea0();
 		} else {
-			g_Vars.unk0004d4 = data->list.value - 1;
-			g_Vars.unk0004d5 = 1;
+			// Play specific cutscene
+			g_Vars.autocutgroupcur = data->list.value - 1;
+			g_Vars.autocutgroupleft = 1;
 			menuPopDialog();
 			func0f01bea0();
 		}

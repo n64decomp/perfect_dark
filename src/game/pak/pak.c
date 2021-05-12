@@ -322,7 +322,7 @@ void func0f1169c8(s8 device, s32 arg1)
 
 	g_Vars.paksconnected = 0x1f;
 
-	if ((g_Vars.unk0004d1 | g_Vars.paksconnected) & (1 << device)) {
+	if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << device)) {
 		var80075d10 &= ~(1 << device);
 
 		func0f11ca30();
@@ -345,7 +345,7 @@ void func0f1169c8(s8 device, s32 arg1)
 
 	g_Vars.paksconnected = prevvalue;
 #else
-	if ((g_Vars.unk0004d1 | g_Vars.paksconnected) & (1 << device)) {
+	if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & (1 << device)) {
 		var80075d10 &= ~(1 << device);
 
 		func0f11ca30();

@@ -422,7 +422,7 @@ void stageAllocateBgChrs(void)
 
 				if (g_StageSetup.ailists[i].id >= 0x1400) {
 					g_BgChrs[count].chrnum = g_StageSetup.ailists[i].id - 0x460; // 4000+
-					g_BgChrs[count].hidden2 |= CHRH2FLAG_0010;
+					g_BgChrs[count].hidden2 |= CHRH2FLAG_TICKDURINGAUTOCUT;
 				} else {
 					g_BgChrs[count].chrnum = g_StageSetup.ailists[i].id - 0x60; // 4000+
 				}
@@ -444,7 +444,7 @@ void stageAllocateBgChrs(void)
 		g_BgChrs[count].aioffset = 0;
 		g_BgChrs[count].aireturnlist = -1;
 		g_BgChrs[count].actiontype = ACT_NULL;
-		g_BgChrs[count].hidden2 |= CHRH2FLAG_0010;
+		g_BgChrs[count].hidden2 |= CHRH2FLAG_TICKDURINGAUTOCUT;
 		count++;
 
 		// Sort them

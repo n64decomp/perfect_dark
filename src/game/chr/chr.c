@@ -6421,12 +6421,12 @@ void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 		if (model->anim
 				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
 				&& arg1 > 0
-				&& g_Vars.unk0004e2 > 0) {
-			arg1 += g_Vars.unk0004e2 * 4;
+				&& g_Vars.cutsceneskip60ths > 0) {
+			arg1 += g_Vars.cutsceneskip60ths * 4;
 		}
 	}
 
-	if ((chr->chrflags & CHRCFLAG_20000000)) {
+	if (chr->chrflags & CHRCFLAG_20000000) {
 		chr->chrflags &= ~CHRCFLAG_20000000;
 	} else if (arg2) {
 		if ((chr->hidden & CHRHFLAG_KEEP_CORPSE) == 0) {

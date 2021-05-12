@@ -67,11 +67,11 @@ void gvarsInit(void)
 	g_Vars.mpquickteam = MPQUICKTEAM_NONE;
 	g_Vars.dontplaynrg = false;
 	g_Vars.in_cutscene = false;
-	g_Vars.unk0004d2 = -1;
-	g_Vars.unk0004d3 = 0;
-	g_Vars.unk0004d4 = -1;
-	g_Vars.unk0004d5 = 0;
-	g_Vars.unk0004d7 = 0;
-	g_Vars.unk0004e0 = 0;
-	g_Vars.unk0004e2 = 0;
+	g_Vars.autocutnum = -1;
+	g_Vars.autocutplaying = false;
+	g_Vars.autocutgroupcur = -1;
+	g_Vars.autocutgroupleft = 0;
+	g_Vars.autocutgroupskip = false;
+	g_Vars.fourmeg2player = false;
+	g_Vars.cutsceneskip60ths = 0;
 }
