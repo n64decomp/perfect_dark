@@ -5381,22 +5381,10 @@ void currentPlayerTickDamageAndHealth(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0bbee4
-/*  f0bbee4:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0bbee8:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0bbeec:	44803000 */ 	mtc1	$zero,$f6
-/*  f0bbef0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0bbef4:	c5c400f4 */ 	lwc1	$f4,0xf4($t6)
-/*  f0bbef8:	4604303e */ 	c.le.s	$f6,$f4
-/*  f0bbefc:	00000000 */ 	nop
-/*  f0bbf00:	45000002 */ 	bc1f	.L0f0bbf0c
-/*  f0bbf04:	00000000 */ 	nop
-/*  f0bbf08:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0bbf0c:
-/*  f0bbf0c:	03e00008 */ 	jr	$ra
-/*  f0bbf10:	00000000 */ 	nop
-);
+bool currentPlayerIsDamageVisible(void)
+{
+	return g_Vars.currentplayer->damageshowtime >= 0;
+}
 
 /**
  * Trigger the red flash when the player is damaged.
