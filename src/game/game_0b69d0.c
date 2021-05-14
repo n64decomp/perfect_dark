@@ -15540,97 +15540,32 @@ void currentPlayerCheckIfShotInBack(s32 attackerplayernum, f32 x, f32 z)
 	}
 }
 
-GLOBAL_ASM(
-glabel currentPlayerGetHealthBarHeightFrac
-/*  f0c16f4:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f0c16f8:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f0c16fc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0c1700:	8c6200fc */ 	lw	$v0,0xfc($v1)
-/*  f0c1704:	50400008 */ 	beqzl	$v0,.L0f0c1728
-/*  f0c1708:	44800000 */ 	mtc1	$zero,$f0
-/*  f0c170c:	10410008 */ 	beq	$v0,$at,.L0f0c1730
-/*  f0c1710:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0c1714:	50410014 */ 	beql	$v0,$at,.L0f0c1768
-/*  f0c1718:	8c791924 */ 	lw	$t9,0x1924($v1)
-/*  f0c171c:	10000027 */ 	b	.L0f0c17bc
-/*  f0c1720:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0c1724:	44800000 */ 	mtc1	$zero,$f0
-.L0f0c1728:
-/*  f0c1728:	03e00008 */ 	jr	$ra
-/*  f0c172c:	00000000 */ 	nop
-.L0f0c1730:
-/*  f0c1730:	8c6e1924 */ 	lw	$t6,0x1924($v1)
-/*  f0c1734:	3c188007 */ 	lui	$t8,%hi(g_HealthDamageTypes)
-/*  f0c1738:	c46c00f8 */ 	lwc1	$f12,0xf8($v1)
-/*  f0c173c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0c1740:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0c1744:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0c1748:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0c174c:	8f180924 */ 	lw	$t8,%lo(g_HealthDamageTypes)($t8)
-/*  f0c1750:	44982000 */ 	mtc1	$t8,$f4
-/*  f0c1754:	00000000 */ 	nop
-/*  f0c1758:	468020a0 */ 	cvt.s.w	$f2,$f4
-/*  f0c175c:	03e00008 */ 	jr	$ra
-/*  f0c1760:	46026003 */ 	div.s	$f0,$f12,$f2
-/*  f0c1764:	8c791924 */ 	lw	$t9,0x1924($v1)
-.L0f0c1768:
-/*  f0c1768:	3c098007 */ 	lui	$t1,%hi(g_HealthDamageTypes)
-/*  f0c176c:	25290924 */ 	addiu	$t1,$t1,%lo(g_HealthDamageTypes)
-/*  f0c1770:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f0c1774:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f0c1778:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0c177c:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f0c1780:	8c44000c */ 	lw	$a0,0xc($v0)
-/*  f0c1784:	8c4a0010 */ 	lw	$t2,0x10($v0)
-/*  f0c1788:	c46800f8 */ 	lwc1	$f8,0xf8($v1)
-/*  f0c178c:	44845000 */ 	mtc1	$a0,$f10
-/*  f0c1790:	01445823 */ 	subu	$t3,$t2,$a0
-/*  f0c1794:	448b3000 */ 	mtc1	$t3,$f6
-/*  f0c1798:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f0c179c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0c17a0:	44819000 */ 	mtc1	$at,$f18
-/*  f0c17a4:	468030a0 */ 	cvt.s.w	$f2,$f6
-/*  f0c17a8:	46104301 */ 	sub.s	$f12,$f8,$f16
-/*  f0c17ac:	46026103 */ 	div.s	$f4,$f12,$f2
-/*  f0c17b0:	03e00008 */ 	jr	$ra
-/*  f0c17b4:	46049001 */ 	sub.s	$f0,$f18,$f4
-/*  f0c17b8:	3c013f80 */ 	lui	$at,0x3f80
-.L0f0c17bc:
-/*  f0c17bc:	44810000 */ 	mtc1	$at,$f0
-/*  f0c17c0:	00000000 */ 	nop
-/*  f0c17c4:	03e00008 */ 	jr	$ra
-/*  f0c17c8:	00000000 */ 	nop
-);
-
 /**
  * Determines what height the health bar should have. The function is called
  * while any menu is open and any time when the health bar should be shown.
  *
  * A return value of 0 means zero height, while 1 means full expanded height.
  */
-// regalloc
-//f32 currentPlayerGetHealthBarHeightFrac(void)
-//{
-//	switch (g_Vars.currentplayer->healthshowmode) {
-//	case HEALTHSHOWMODE_HIDDEN:
-//		return 0;
-//	case HEALTHSHOWMODE_OPENING: // 730
-//		{
-//			f32 duration = g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].openendframe;
-//			return g_Vars.currentplayer->healthshowtime / duration;
-//		}
-//	case HEALTHSHOWMODE_CLOSING: // 768
-//		{
-//			f32 value =
-//				(g_Vars.currentplayer->healthshowtime - g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].closestartframe) /
-//				(g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].unk10 - g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].closestartframe);
-//
-//			return 1 - value;
-//		}
-//	}
-//
-//	return 1;
-//}
+f32 currentPlayerGetHealthBarHeightFrac(void)
+{
+	f32 done;
+	f32 total;
+
+	switch (g_Vars.currentplayer->healthshowmode) {
+	case HEALTHSHOWMODE_HIDDEN:
+		return 0;
+	case HEALTHSHOWMODE_OPENING:
+		total = g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].openendframe;
+		done = g_Vars.currentplayer->healthshowtime;
+		return done / total;
+	case HEALTHSHOWMODE_CLOSING:
+		total = g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].closeendframe - g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].closestartframe;
+		done = g_Vars.currentplayer->healthshowtime - g_HealthDamageTypes[g_Vars.currentplayer->healthdamagetype].closestartframe;
+		return 1 - done / total;
+	}
+
+	return 1;
+}
 
 bool currentPlayerIsHealthVisible(void)
 {
