@@ -295,6 +295,7 @@
 
 #define ANIMFLAG_LOOP 0x01
 #define ANIMFLAG_02   0x02
+#define ANIMFLAG_08   0x08
 
 #define AUDIOCHANNELFLAG_IDLE 0x0001
 #define AUDIOCHANNELFLAG_0002 0x0002
@@ -517,7 +518,7 @@
 #define CHRHFLAG_02000000            0x02000000 // Similar to DISGUISED flag, but not sure where set
 #define CHRHFLAG_04000000            0x04000000 // Related to disguise and detection
 #define CHRHFLAG_08000000            0x08000000 // Globals, Villa and G5
-#define CHRHFLAG_10000000            0x10000000 // Related to invincible flag
+#define CHRHFLAG_INFINITESHIELD      0x10000000
 #define CHRHFLAG_CLOAKED             0x20000000
 #define CHRHFLAG_ANTINONINTERACTABLE 0x40000000
 #define CHRHFLAG_PSYCHOSISED         0x80000000

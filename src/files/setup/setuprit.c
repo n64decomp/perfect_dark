@@ -2909,7 +2909,7 @@ u8 func0420_trent_attacking[] = {
 	// One Blonde dead or player in sight
 	label(0x2d)
 	set_shield(500)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 	speak(CHR_P1P2, L_RIT_070, MP3_02CB, CHANNEL_6, COLOR_05_GREEN) // "Ha, Ha, Ha, Ha, Ha."
 	set_ailist(CHR_SELF, AILIST_TRENT_RUNNING)
 

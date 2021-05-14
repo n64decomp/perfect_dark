@@ -1935,7 +1935,7 @@ u8 func040c_king_waiting[] = {
 	set_self_chrflag(CHRCFLAG_00000020)
 	label(0x2d)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 	set_morale(0)
 
 	beginloop(0x08)

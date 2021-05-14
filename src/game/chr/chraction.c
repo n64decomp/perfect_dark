@@ -5412,7 +5412,7 @@ void chrSetShield(struct chrdata *chr, f32 amount)
 
 	chr->cshield = amount;
 
-	if ((chr->hidden & CHRHFLAG_10000000) && chr->cshield < 1) {
+	if ((chr->hidden & CHRHFLAG_INFINITESHIELD) && chr->cshield < 1) {
 		chr->cshield = 1;
 	}
 
@@ -27762,10 +27762,10 @@ void func0f0482cc(u32 ailistid)
 #if VERSION >= VERSION_PAL_FINAL
 	var8009e388pf = 0;
 #else
-	var8009de20 = 0;
+	g_CutsceneFrameOverrun240 = 0;
 #endif
-	var8009de24 = 0;
-	var8009de28 = 0;
+	g_CutsceneSkipRequested = false;
+	g_CutsceneCurTotalFrame60f = 0;
 
 	prop = g_Vars.list1head;
 

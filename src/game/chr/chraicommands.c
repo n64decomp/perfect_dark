@@ -425,7 +425,7 @@ bool aiChrDoAnimation(void)
 #if VERSION >= VERSION_PAL_FINAL
 				fstartframe += var8009e388pf * result;
 #else
-				fstartframe += var8009de20 * result * 0.25f;
+				fstartframe += g_CutsceneFrameOverrun240 * result * 0.25f;
 #endif
 			}
 
@@ -5340,7 +5340,7 @@ bool aiIfCutsceneButtonPressed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if ((g_Vars.in_cutscene && var8009de24) ||
+	if ((g_Vars.in_cutscene && g_CutsceneSkipRequested) ||
 			(g_Vars.stagenum == STAGE_CITRAINING && var80087260 > 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -5408,7 +5408,7 @@ bool aiObjectDoAnimation(void)
 #if VERSION >= VERSION_PAL_FINAL
 				fstartframe += var8009e388pf * thing;
 #else
-				fstartframe += var8009de20 * thing * 0.25f;
+				fstartframe += g_CutsceneFrameOverrun240 * thing * 0.25f;
 #endif
 			}
 

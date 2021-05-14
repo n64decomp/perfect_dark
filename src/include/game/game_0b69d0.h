@@ -73,7 +73,7 @@ void currentPlayerUpdatePerimInfo(void);
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 f32 currentPlayerGetHealthFrac(void);
 f32 currentPlayerGetShieldFrac(void);
-void currentPlayerSetShieldFrac(f32 shield);
+void currentPlayerSetShieldFrac(f32 frac);
 s32 getMissionTime(void);
 s32 func0f0c228c(struct prop *prop);
 u32 func0f0c2364(void);

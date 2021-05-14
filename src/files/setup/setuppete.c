@@ -1952,7 +1952,7 @@ u8 func100c_check_cia4_dead[] = {
 u8 func041b_init_robot[] = {
 	set_accuracy(40)
 	set_shield(100)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 	set_ailist(CHR_SELF, AILIST_ROBOT)
 	endlist
 };
@@ -2068,7 +2068,7 @@ u8 func041a_robot[] = {
 	unset_chr_chrflag(CHR_ROBOT, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ROBOT, CHRHFLAG_00020000)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 	set_ailist(CHR_ROBOT, GAILIST_IDLE)
 	set_shield(0)
 	chr_do_animation(0x016a, 0, -1, 0x06, 0x00, CHR_SELF, 4)

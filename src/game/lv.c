@@ -4032,22 +4032,22 @@ Gfx *lvRender(Gfx *gdl)
 						if (g_Vars.stagenum == STAGE_TEST_OLD) {
 							f32 frac = 0;
 							u32 colour;
-							s32 endframe = animGetNumFrames(g_CameraAnimNum) - 1;
+							s32 endframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
 
 							colour = 0;
 
-							if (g_CameraAnimCurFrame < STAGE_TITLE) {
-								frac = 1.0f - (f32)g_CameraAnimCurFrame / 90.0f;
+							if (g_CutsceneCurAnimFrame60 < 90) {
+								frac = 1.0f - (f32)g_CutsceneCurAnimFrame60 / 90.0f;
 							}
 
-							if (g_CameraAnimNum != 0x46c) {
-								if (g_CameraAnimCurFrame > endframe - 90) {
-									frac = (g_CameraAnimCurFrame - endframe + 90) / 90.0f;
+							if (g_CutsceneAnimNum != 0x46c) {
+								if (g_CutsceneCurAnimFrame60 > endframe - 90) {
+									frac = (g_CutsceneCurAnimFrame60 - endframe + 90) / 90.0f;
 								}
 							} else {
-								if (g_CameraAnimCurFrame > endframe - 30) {
+								if (g_CutsceneCurAnimFrame60 > endframe - 30) {
 									colour = 0xffffff00;
-									frac = (g_CameraAnimCurFrame - endframe + 30) / 30.0f;
+									frac = (g_CutsceneCurAnimFrame60 - endframe + 30) / 30.0f;
 								}
 							}
 
@@ -4070,10 +4070,10 @@ Gfx *lvRender(Gfx *gdl)
 						}
 
 						// Handle visual effects in cutscenes
-						switch (g_CameraAnimNum) {
+						switch (g_CutsceneAnimNum) {
 						case 0x1e5:
 							// Horizon scanner in Air Base intro
-							if (g_CameraAnimCurFrame > 839 && g_CameraAnimCurFrame < 1411) {
+							if (g_CutsceneCurAnimFrame60 > 839 && g_CutsceneCurAnimFrame60 < 1411) {
 								gdl = bviewRenderHorizonScanner(gdl);
 							}
 							break;

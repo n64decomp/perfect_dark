@@ -167,16 +167,16 @@ extern u32 var8009dd58;
 extern u32 var8009dd5c;
 extern u32 var8009dd6c;
 extern s32 g_DefaultWeapons[2];
-extern s32 g_CameraAnimCurFrame;
+extern s32 g_CutsceneCurAnimFrame60;
 
 #if VERSION >= VERSION_PAL_FINAL
 extern f32 var8009e388pf;
 #endif
 
-extern s16 g_CameraAnimNum;
-extern s32 var8009de20;
-extern s32 var8009de24;
-extern f32 var8009de28;
+extern s16 g_CutsceneAnimNum;
+extern s32 g_CutsceneFrameOverrun240;
+extern bool g_CutsceneSkipRequested;
+extern f32 g_CutsceneCurTotalFrame60f;
 extern s16 g_SpawnPoints[MAX_SPAWNPOINTS];
 extern s32 g_NumSpawnPoints;
 extern u32 var8009de90;

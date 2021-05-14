@@ -1126,7 +1126,7 @@ u8 func100b_check_clone_dead[] = {
 
 u8 func0403_init_elvis[] = {
 	set_shield(100)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_accuracy(100)
 	set_reaction_speed(100)
@@ -1710,7 +1710,7 @@ u8 func041e_trent_waiting[] = {
 	set_accuracy(0)
 	set_self_chrflag(CHRCFLAG_00000040)
 	set_shield(100)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 
 	beginloop(0x06)
 		chr_toggle_p1p2(CHR_SELF)

@@ -4696,10 +4696,10 @@ glabel var7f1a7f5c
 /*  f00ab00:	e7a60108 */ 	swc1	$f6,0x108($sp)
 /*  f00ab04:	8dada26c */ 	lw	$t5,%lo(g_Vars+0x2ac)($t5)
 /*  f00ab08:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f00ab0c:	3c02800a */ 	lui	$v0,%hi(g_CameraAnimCurFrame)
+/*  f00ab0c:	3c02800a */ 	lui	$v0,%hi(g_CutsceneCurAnimFrame60)
 /*  f00ab10:	15a10012 */ 	bne	$t5,$at,.L0f00ab5c
 /*  f00ab14:	00000000 */ 	nop
-/*  f00ab18:	8c42de10 */ 	lw	$v0,%lo(g_CameraAnimCurFrame)($v0)
+/*  f00ab18:	8c42de10 */ 	lw	$v0,%lo(g_CutsceneCurAnimFrame60)($v0)
 /*  f00ab1c:	28410884 */ 	slti	$at,$v0,0x884
 /*  f00ab20:	50200004 */ 	beqzl	$at,.L0f00ab34
 /*  f00ab24:	28410a28 */ 	slti	$at,$v0,0xa28
@@ -5211,11 +5211,11 @@ const u32 var7f1a7eac[] = {0x00000090};
 //		alphafrac *= intensityfrac;
 //
 //		if (show && g_Vars.tickmode == TICKMODE_CUTSCENE) {
-//			if (g_CameraAnimCurFrame < 2180) {
+//			if (g_CutsceneCurAnimFrame60 < 2180) {
 //				show = false;
 //			} else {
-//				if (g_CameraAnimCurFrame < 2600) {
-//					alphafrac *= (g_CameraAnimCurFrame - 2180) / 420.0f;
+//				if (g_CutsceneCurAnimFrame60 < 2600) {
+//					alphafrac *= (g_CutsceneCurAnimFrame60 - 2180) / 420.0f;
 //				}
 //			}
 //		}

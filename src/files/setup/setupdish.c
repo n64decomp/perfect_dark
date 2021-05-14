@@ -2906,7 +2906,7 @@ u8 func042b_init_carrington[] = {
 
 u8 func1019_setup_carrington[] = {
 	beginloop(0x04)
-		if_chr_has_hiddenflag(CHR_CARRINGTON, CHRHFLAG_10000000, /*goto*/ 0x06)
+		if_chr_has_hiddenflag(CHR_CARRINGTON, CHRHFLAG_INFINITESHIELD, /*goto*/ 0x06)
 		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x2f)
 	endloop(0x04)
 
@@ -2947,7 +2947,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_STARTED)
 	do_preset_animation(-1)
 	remove_hudmsgs
