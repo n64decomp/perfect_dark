@@ -5422,7 +5422,7 @@ void chrSetShield(struct chrdata *chr, f32 amount)
 		if (playernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;
 			setCurrentPlayerNum(playernum);
-			currentPlayerShowHealthBar();
+			currentPlayerDisplayHealth();
 			g_Vars.currentplayerstats->armourcount += amount * 0.125f;
 			setCurrentPlayerNum(prevplayernum);
 		}
@@ -5604,7 +5604,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 	f32 headshotdamagescale = 1;
 	bool usedshield = false;
 	bool showshield = false;
-	bool showhealth = false;
+	bool showdamage = false;
 	struct shorthand hand2 = {0};
 	f32 explosionforce = damage;
 	f32 healthscale = 1;
@@ -6134,7 +6134,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 					}
 
 					playerUpdateDamageStats(aprop, vprop, statsamount);
-					currentPlayerShowHealthBar();
+					currentPlayerDisplayHealth();
 
 					if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_ONEHITKILLS)) {
 						g_Vars.currentplayer->bondhealth = 0;
@@ -6144,7 +6144,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 					chr->lastattacker = (aprop ? aprop->chr : NULL);
 
-					showhealth = true;
+					showdamage = true;
 
 					if (g_Vars.currentplayer->training == false
 							&& g_Vars.currentplayer->bondhealth <= 0) {
@@ -6171,12 +6171,12 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 				g_Vars.currentplayer->bondshotspeed[0] += vector->x * boostscale;
 				g_Vars.currentplayer->bondshotspeed[2] += vector->z * boostscale;
 
-				if (showhealth) {
-					currentPlayerUpdateHealthShow();
+				if (showdamage) {
+					currentPlayerDisplayDamage();
 				}
 
 				if (showshield) {
-					currentPlayerUpdateShieldShow();
+					currentPlayerDisplayShield();
 				}
 
 				if (g_Vars.normmplayerisrunning && aprop && aprop->type == PROPTYPE_PLAYER) {

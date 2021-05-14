@@ -16589,7 +16589,7 @@ glabel var7f1b29f8
 /*  f0f85bc:	00000000 */ 	nop
 /*  f0f85c0:	50400004 */ 	beqzl	$v0,.L0f0f85d4
 /*  f0f85c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f85c8:	0fc2eda7 */ 	jal	currentPlayerShowHealthBar
+/*  f0f85c8:	0fc2eda7 */ 	jal	currentPlayerDisplayHealth
 /*  f0f85cc:	00000000 */ 	nop
 /*  f0f85d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0f85d4:

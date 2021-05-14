@@ -2835,13 +2835,13 @@ struct player {
 	/*0x1920*/ u8 buthistindex;
 	/*0x1921*/ u8 buthistlen;
 	/*0x1922*/ u8 invincible;
-	/*0x1924*/ u32 healthdamagetype; // 0-7, decreases based on amount of damage taken
+	/*0x1924*/ s32 healthdamagetype; // 0-7, decreases based on amount of damage taken
 	/*0x1928*/ f32 bondleandown;
 	/*0x192c*/ bool mpmenuon;
 	/*0x1930*/ u32 mpmenumode;
 	/*0x1934*/ u32 mpquitconfirm;
 	/*0x1938*/ u32 mpjoywascentre;
-	/*0x193c*/ u32 damagetype;
+	/*0x193c*/ s32 damagetype;
 	/*0x1940*/ u32 deathcount;
 	/*0x1948*/ u32 oldcrosspos[2];
 	/*0x194c*/ s32 lastkilltime60;
@@ -6113,22 +6113,22 @@ struct bgroom {
 	u8 unk11;
 };
 
-struct healthdamagetype2 {
-	s32 unk00;
-	f32 showtime;
-	f32 unk08;
-	f32 unk0c;
-	s32 unk10;
-	s32 unk14;
-	s32 unk18;
+struct damagetype {
+	f32 flashstartframe;
+	f32 flashfullframe;
+	f32 flashendframe;
+	f32 maxalpha;
+	s32 red;
+	s32 green;
+	s32 blue;
 };
 
 struct healthdamagetype {
-	s32 openduration;
-	s32 unk04;
-	s32 unk08;
-	s32 unk0c;
-	s32 unk10;
+	s32 openendframe;
+	s32 updatestartframe;
+	s32 updateendframe;
+	s32 closestartframe;
+	s32 closeendframe;
 };
 
 struct model08thing {
