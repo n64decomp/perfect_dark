@@ -969,7 +969,7 @@ struct tiletype0 {
 struct tiletype1 {
 	struct tile header;
 	/*0x04*/ u16 floortype;
-	/*0x06*/ u8 xmin; // These are byte offsets relative to the start of tile
+	/*0x06*/ u8 xmin; // These are indexes into vertices
 	/*0x07*/ u8 ymin;
 	/*0x08*/ u8 zmin;
 	/*0x09*/ u8 xmax;

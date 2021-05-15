@@ -968,7 +968,7 @@ glabel func00027370nb
 #endif
 
 GLOBAL_ASM(
-glabel func00025f90
+glabel cdFindGroundInTileType0
 /*    25f90:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    25f94:	f7b40010 */ 	sdc1	$f20,0x10($sp)
 /*    25f98:	4485a000 */ 	mtc1	$a1,$f20
@@ -1398,314 +1398,73 @@ glabel func00027e18nb
 );
 #endif
 
-GLOBAL_ASM(
-glabel func00026a04
-/*    26a04:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    26a08:	afb60030 */ 	sw	$s6,0x30($sp)
-/*    26a0c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    26a10:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    26a14:	00a6082b */ 	sltu	$at,$a1,$a2
-/*    26a18:	00808825 */ 	or	$s1,$a0,$zero
-/*    26a1c:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*    26a20:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*    26a24:	afb70034 */ 	sw	$s7,0x34($sp)
-/*    26a28:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*    26a2c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    26a30:	afb30024 */ 	sw	$s3,0x24($sp)
-/*    26a34:	afb20020 */ 	sw	$s2,0x20($sp)
-/*    26a38:	afa60048 */ 	sw	$a2,0x48($sp)
-/*    26a3c:	afa7004c */ 	sw	$a3,0x4c($sp)
-/*    26a40:	0000b025 */ 	or	$s6,$zero,$zero
-/*    26a44:	10200100 */ 	beqz	$at,.L00026e48
-/*    26a48:	00a08025 */ 	or	$s0,$a1,$zero
-/*    26a4c:	8fbe0058 */ 	lw	$s8,0x58($sp)
-/*    26a50:	8fb70054 */ 	lw	$s7,0x54($sp)
-/*    26a54:	8fb4005c */ 	lw	$s4,0x5c($sp)
-/*    26a58:	2413000c */ 	addiu	$s3,$zero,0xc
-/*    26a5c:	8fb20060 */ 	lw	$s2,0x60($sp)
-/*    26a60:	92020000 */ 	lbu	$v0,0x0($s0)
-.L00026a64:
-/*    26a64:	97b8004e */ 	lhu	$t8,0x4e($sp)
-/*    26a68:	24010001 */ 	addiu	$at,$zero,0x1
-/*    26a6c:	14400077 */ 	bnez	$v0,.L00026c4c
-/*    26a70:	00000000 */ 	nop
-/*    26a74:	960f0002 */ 	lhu	$t7,0x2($s0)
-/*    26a78:	0200a825 */ 	or	$s5,$s0,$zero
-/*    26a7c:	01f8c824 */ 	and	$t9,$t7,$t8
-/*    26a80:	5320006c */ 	beqzl	$t9,.L00026c34
-/*    26a84:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26a88:	92080006 */ 	lbu	$t0,0x6($s0)
-/*    26a8c:	c6220000 */ 	lwc1	$f2,0x0($s1)
-/*    26a90:	01104821 */ 	addu	$t1,$t0,$s0
-/*    26a94:	852a0000 */ 	lh	$t2,0x0($t1)
-/*    26a98:	448a2000 */ 	mtc1	$t2,$f4
-/*    26a9c:	00000000 */ 	nop
-/*    26aa0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    26aa4:	4602303e */ 	c.le.s	$f6,$f2
-/*    26aa8:	00000000 */ 	nop
-/*    26aac:	45020061 */ 	bc1fl	.L00026c34
-/*    26ab0:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26ab4:	920b0009 */ 	lbu	$t3,0x9($s0)
-/*    26ab8:	01706021 */ 	addu	$t4,$t3,$s0
-/*    26abc:	858d0000 */ 	lh	$t5,0x0($t4)
-/*    26ac0:	448d4000 */ 	mtc1	$t5,$f8
-/*    26ac4:	00000000 */ 	nop
-/*    26ac8:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    26acc:	460a103e */ 	c.le.s	$f2,$f10
-/*    26ad0:	00000000 */ 	nop
-/*    26ad4:	45020057 */ 	bc1fl	.L00026c34
-/*    26ad8:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26adc:	920e0008 */ 	lbu	$t6,0x8($s0)
-/*    26ae0:	c6200008 */ 	lwc1	$f0,0x8($s1)
-/*    26ae4:	01d07821 */ 	addu	$t7,$t6,$s0
-/*    26ae8:	85f80000 */ 	lh	$t8,0x0($t7)
-/*    26aec:	44988000 */ 	mtc1	$t8,$f16
-/*    26af0:	00000000 */ 	nop
-/*    26af4:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*    26af8:	4600903e */ 	c.le.s	$f18,$f0
-/*    26afc:	00000000 */ 	nop
-/*    26b00:	4502004c */ 	bc1fl	.L00026c34
-/*    26b04:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26b08:	9219000b */ 	lbu	$t9,0xb($s0)
-/*    26b0c:	03304021 */ 	addu	$t0,$t9,$s0
-/*    26b10:	85090000 */ 	lh	$t1,0x0($t0)
-/*    26b14:	44892000 */ 	mtc1	$t1,$f4
-/*    26b18:	00000000 */ 	nop
-/*    26b1c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    26b20:	4606003e */ 	c.le.s	$f0,$f6
-/*    26b24:	00000000 */ 	nop
-/*    26b28:	45020042 */ 	bc1fl	.L00026c34
-/*    26b2c:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26b30:	1640000c */ 	bnez	$s2,.L00026b64
-/*    26b34:	00000000 */ 	nop
-/*    26b38:	920a0007 */ 	lbu	$t2,0x7($s0)
-/*    26b3c:	c6280004 */ 	lwc1	$f8,0x4($s1)
-/*    26b40:	01505821 */ 	addu	$t3,$t2,$s0
-/*    26b44:	856c0000 */ 	lh	$t4,0x0($t3)
-/*    26b48:	448c5000 */ 	mtc1	$t4,$f10
-/*    26b4c:	00000000 */ 	nop
-/*    26b50:	46805420 */ 	cvt.s.w	$f16,$f10
-/*    26b54:	4608803e */ 	c.le.s	$f16,$f8
-/*    26b58:	00000000 */ 	nop
-/*    26b5c:	4503000f */ 	bc1tl	.L00026b9c
-/*    26b60:	44051000 */ 	mfc1	$a1,$f2
-.L00026b64:
-/*    26b64:	52400033 */ 	beqzl	$s2,.L00026c34
-/*    26b68:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26b6c:	920d000a */ 	lbu	$t5,0xa($s0)
-/*    26b70:	c6260004 */ 	lwc1	$f6,0x4($s1)
-/*    26b74:	01b07021 */ 	addu	$t6,$t5,$s0
-/*    26b78:	85cf0000 */ 	lh	$t7,0x0($t6)
-/*    26b7c:	448f9000 */ 	mtc1	$t7,$f18
-/*    26b80:	00000000 */ 	nop
-/*    26b84:	46809120 */ 	cvt.s.w	$f4,$f18
-/*    26b88:	4604303e */ 	c.le.s	$f6,$f4
-/*    26b8c:	00000000 */ 	nop
-/*    26b90:	45020028 */ 	bc1fl	.L00026c34
-/*    26b94:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26b98:	44051000 */ 	mfc1	$a1,$f2
-.L00026b9c:
-/*    26b9c:	44060000 */ 	mfc1	$a2,$f0
-/*    26ba0:	0c0098a2 */ 	jal	cdIs2dPointInTileType0
-/*    26ba4:	02002025 */ 	or	$a0,$s0,$zero
-/*    26ba8:	10400021 */ 	beqz	$v0,.L00026c30
-/*    26bac:	02002025 */ 	or	$a0,$s0,$zero
-/*    26bb0:	8e250000 */ 	lw	$a1,0x0($s1)
-/*    26bb4:	0c0097e4 */ 	jal	func00025f90
-/*    26bb8:	8e260008 */ 	lw	$a2,0x8($s1)
-/*    26bbc:	1640000b */ 	bnez	$s2,.L00026bec
-/*    26bc0:	00000000 */ 	nop
-/*    26bc4:	c62a0004 */ 	lwc1	$f10,0x4($s1)
-/*    26bc8:	460a003e */ 	c.le.s	$f0,$f10
-/*    26bcc:	00000000 */ 	nop
-/*    26bd0:	45000006 */ 	bc1f	.L00026bec
-/*    26bd4:	00000000 */ 	nop
-/*    26bd8:	c6880000 */ 	lwc1	$f8,0x0($s4)
-/*    26bdc:	4600403c */ 	c.lt.s	$f8,$f0
-/*    26be0:	00000000 */ 	nop
-/*    26be4:	4503000e */ 	bc1tl	.L00026c20
-/*    26be8:	e6800000 */ 	swc1	$f0,0x0($s4)
-.L00026bec:
-/*    26bec:	52400011 */ 	beqzl	$s2,.L00026c34
-/*    26bf0:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26bf4:	c6300004 */ 	lwc1	$f16,0x4($s1)
-/*    26bf8:	4600803e */ 	c.le.s	$f16,$f0
-/*    26bfc:	00000000 */ 	nop
-/*    26c00:	4502000c */ 	bc1fl	.L00026c34
-/*    26c04:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26c08:	c6920000 */ 	lwc1	$f18,0x0($s4)
-/*    26c0c:	4612003c */ 	c.lt.s	$f0,$f18
-/*    26c10:	00000000 */ 	nop
-/*    26c14:	45020007 */ 	bc1fl	.L00026c34
-/*    26c18:	92b90001 */ 	lbu	$t9,0x1($s5)
-/*    26c1c:	e6800000 */ 	swc1	$f0,0x0($s4)
-.L00026c20:
-/*    26c20:	aef00000 */ 	sw	$s0,0x0($s7)
-/*    26c24:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*    26c28:	24160001 */ 	addiu	$s6,$zero,0x1
-/*    26c2c:	afd80000 */ 	sw	$t8,0x0($s8)
-.L00026c30:
-/*    26c30:	92b90001 */ 	lbu	$t9,0x1($s5)
-.L00026c34:
-/*    26c34:	00194080 */ 	sll	$t0,$t9,0x2
-/*    26c38:	01194023 */ 	subu	$t0,$t0,$t9
-/*    26c3c:	00084040 */ 	sll	$t0,$t0,0x1
-/*    26c40:	02088021 */ 	addu	$s0,$s0,$t0
-/*    26c44:	1000007c */ 	b	.L00026e38
-/*    26c48:	2610000e */ 	addiu	$s0,$s0,0xe
-.L00026c4c:
-/*    26c4c:	14410071 */ 	bne	$v0,$at,.L00026e14
-/*    26c50:	97aa004e */ 	lhu	$t2,0x4e($sp)
-/*    26c54:	96090002 */ 	lhu	$t1,0x2($s0)
-/*    26c58:	0200a825 */ 	or	$s5,$s0,$zero
-/*    26c5c:	012a5824 */ 	and	$t3,$t1,$t2
-/*    26c60:	51600066 */ 	beqzl	$t3,.L00026dfc
-/*    26c64:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26c68:	920c0006 */ 	lbu	$t4,0x6($s0)
-/*    26c6c:	c6220000 */ 	lwc1	$f2,0x0($s1)
-/*    26c70:	01930019 */ 	multu	$t4,$s3
-/*    26c74:	00006812 */ 	mflo	$t5
-/*    26c78:	020d7021 */ 	addu	$t6,$s0,$t5
-/*    26c7c:	c5c40010 */ 	lwc1	$f4,0x10($t6)
-/*    26c80:	4602203e */ 	c.le.s	$f4,$f2
-/*    26c84:	00000000 */ 	nop
-/*    26c88:	4502005c */ 	bc1fl	.L00026dfc
-/*    26c8c:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26c90:	920f0009 */ 	lbu	$t7,0x9($s0)
-/*    26c94:	01f30019 */ 	multu	$t7,$s3
-/*    26c98:	0000c012 */ 	mflo	$t8
-/*    26c9c:	0218c821 */ 	addu	$t9,$s0,$t8
-/*    26ca0:	c7260010 */ 	lwc1	$f6,0x10($t9)
-/*    26ca4:	4606103e */ 	c.le.s	$f2,$f6
-/*    26ca8:	00000000 */ 	nop
-/*    26cac:	45020053 */ 	bc1fl	.L00026dfc
-/*    26cb0:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26cb4:	92080008 */ 	lbu	$t0,0x8($s0)
-/*    26cb8:	c6200008 */ 	lwc1	$f0,0x8($s1)
-/*    26cbc:	01130019 */ 	multu	$t0,$s3
-/*    26cc0:	00004812 */ 	mflo	$t1
-/*    26cc4:	02095021 */ 	addu	$t2,$s0,$t1
-/*    26cc8:	c54a0018 */ 	lwc1	$f10,0x18($t2)
-/*    26ccc:	4600503e */ 	c.le.s	$f10,$f0
-/*    26cd0:	00000000 */ 	nop
-/*    26cd4:	45020049 */ 	bc1fl	.L00026dfc
-/*    26cd8:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26cdc:	920b000b */ 	lbu	$t3,0xb($s0)
-/*    26ce0:	01730019 */ 	multu	$t3,$s3
-/*    26ce4:	00006012 */ 	mflo	$t4
-/*    26ce8:	020c6821 */ 	addu	$t5,$s0,$t4
-/*    26cec:	c5a80018 */ 	lwc1	$f8,0x18($t5)
-/*    26cf0:	4608003e */ 	c.le.s	$f0,$f8
-/*    26cf4:	00000000 */ 	nop
-/*    26cf8:	45020040 */ 	bc1fl	.L00026dfc
-/*    26cfc:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26d00:	1640000b */ 	bnez	$s2,.L00026d30
-/*    26d04:	00000000 */ 	nop
-/*    26d08:	920e0007 */ 	lbu	$t6,0x7($s0)
-/*    26d0c:	c6300004 */ 	lwc1	$f16,0x4($s1)
-/*    26d10:	01d30019 */ 	multu	$t6,$s3
-/*    26d14:	00007812 */ 	mflo	$t7
-/*    26d18:	020fc021 */ 	addu	$t8,$s0,$t7
-/*    26d1c:	c7120014 */ 	lwc1	$f18,0x14($t8)
-/*    26d20:	4610903e */ 	c.le.s	$f18,$f16
-/*    26d24:	00000000 */ 	nop
-/*    26d28:	4503000e */ 	bc1tl	.L00026d64
-/*    26d2c:	44051000 */ 	mfc1	$a1,$f2
-.L00026d30:
-/*    26d30:	52400032 */ 	beqzl	$s2,.L00026dfc
-/*    26d34:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26d38:	9219000a */ 	lbu	$t9,0xa($s0)
-/*    26d3c:	c6260004 */ 	lwc1	$f6,0x4($s1)
-/*    26d40:	03330019 */ 	multu	$t9,$s3
-/*    26d44:	00004012 */ 	mflo	$t0
-/*    26d48:	02084821 */ 	addu	$t1,$s0,$t0
-/*    26d4c:	c5240014 */ 	lwc1	$f4,0x14($t1)
-/*    26d50:	4604303e */ 	c.le.s	$f6,$f4
-/*    26d54:	00000000 */ 	nop
-/*    26d58:	45020028 */ 	bc1fl	.L00026dfc
-/*    26d5c:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26d60:	44051000 */ 	mfc1	$a1,$f2
-.L00026d64:
-/*    26d64:	44060000 */ 	mfc1	$a2,$f0
-/*    26d68:	0c0098f9 */ 	jal	cdIs2dPointInTileType1
-/*    26d6c:	02002025 */ 	or	$a0,$s0,$zero
-/*    26d70:	10400021 */ 	beqz	$v0,.L00026df8
-/*    26d74:	02002025 */ 	or	$a0,$s0,$zero
-/*    26d78:	8e250000 */ 	lw	$a1,0x0($s1)
-/*    26d7c:	0c009833 */ 	jal	cdFindGroundInTileType1
-/*    26d80:	8e260008 */ 	lw	$a2,0x8($s1)
-/*    26d84:	1640000b */ 	bnez	$s2,.L00026db4
-/*    26d88:	00000000 */ 	nop
-/*    26d8c:	c62a0004 */ 	lwc1	$f10,0x4($s1)
-/*    26d90:	460a003e */ 	c.le.s	$f0,$f10
-/*    26d94:	00000000 */ 	nop
-/*    26d98:	45000006 */ 	bc1f	.L00026db4
-/*    26d9c:	00000000 */ 	nop
-/*    26da0:	c6880000 */ 	lwc1	$f8,0x0($s4)
-/*    26da4:	4600403c */ 	c.lt.s	$f8,$f0
-/*    26da8:	00000000 */ 	nop
-/*    26dac:	4503000e */ 	bc1tl	.L00026de8
-/*    26db0:	e6800000 */ 	swc1	$f0,0x0($s4)
-.L00026db4:
-/*    26db4:	52400011 */ 	beqzl	$s2,.L00026dfc
-/*    26db8:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26dbc:	c6300004 */ 	lwc1	$f16,0x4($s1)
-/*    26dc0:	4600803e */ 	c.le.s	$f16,$f0
-/*    26dc4:	00000000 */ 	nop
-/*    26dc8:	4502000c */ 	bc1fl	.L00026dfc
-/*    26dcc:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26dd0:	c6920000 */ 	lwc1	$f18,0x0($s4)
-/*    26dd4:	4612003c */ 	c.lt.s	$f0,$f18
-/*    26dd8:	00000000 */ 	nop
-/*    26ddc:	45020007 */ 	bc1fl	.L00026dfc
-/*    26de0:	92ab0001 */ 	lbu	$t3,0x1($s5)
-/*    26de4:	e6800000 */ 	swc1	$f0,0x0($s4)
-.L00026de8:
-/*    26de8:	aef00000 */ 	sw	$s0,0x0($s7)
-/*    26dec:	8faa0050 */ 	lw	$t2,0x50($sp)
-/*    26df0:	24160001 */ 	addiu	$s6,$zero,0x1
-/*    26df4:	afca0000 */ 	sw	$t2,0x0($s8)
-.L00026df8:
-/*    26df8:	92ab0001 */ 	lbu	$t3,0x1($s5)
-.L00026dfc:
-/*    26dfc:	256cffc0 */ 	addiu	$t4,$t3,-64
-/*    26e00:	01930019 */ 	multu	$t4,$s3
-/*    26e04:	00006812 */ 	mflo	$t5
-/*    26e08:	020d8021 */ 	addu	$s0,$s0,$t5
-/*    26e0c:	1000000a */ 	b	.L00026e38
-/*    26e10:	26100310 */ 	addiu	$s0,$s0,0x310
-.L00026e14:
-/*    26e14:	24010002 */ 	addiu	$at,$zero,0x2
-/*    26e18:	54410004 */ 	bnel	$v0,$at,.L00026e2c
-/*    26e1c:	24010003 */ 	addiu	$at,$zero,0x3
-/*    26e20:	10000005 */ 	b	.L00026e38
-/*    26e24:	2610004c */ 	addiu	$s0,$s0,0x4c
-/*    26e28:	24010003 */ 	addiu	$at,$zero,0x3
-.L00026e2c:
-/*    26e2c:	54410003 */ 	bnel	$v0,$at,.L00026e3c
-/*    26e30:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*    26e34:	26100018 */ 	addiu	$s0,$s0,0x18
-.L00026e38:
-/*    26e38:	8fae0048 */ 	lw	$t6,0x48($sp)
-.L00026e3c:
-/*    26e3c:	020e082b */ 	sltu	$at,$s0,$t6
-/*    26e40:	5420ff08 */ 	bnezl	$at,.L00026a64
-/*    26e44:	92020000 */ 	lbu	$v0,0x0($s0)
-.L00026e48:
-/*    26e48:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*    26e4c:	02c01025 */ 	or	$v0,$s6,$zero
-/*    26e50:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*    26e54:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    26e58:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*    26e5c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*    26e60:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*    26e64:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*    26e68:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*    26e6c:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*    26e70:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*    26e74:	03e00008 */ 	jr	$ra
-/*    26e78:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+bool func00026a04(struct coord *pos, u8 *start, u8 *end, u16 flags, s32 room, struct tile **tileptr, s32 *roomptr, f32 *groundptr, bool arg8)
+{
+	bool result = false;
+	struct tile *tile = (struct tile *) start;
+
+	if (room);
+
+	while (tile < (struct tile *) end) {
+		if (tile->type == TILETYPE_00) {
+			struct tiletype0 *type0 = (struct tiletype0 *) tile;
+
+			if ((tile->flags & flags)
+					&& pos->x >= *(s16 *)(type0->xmin + (u32)type0)
+					&& pos->x <= *(s16 *)(type0->xmax + (u32)type0)
+					&& pos->z >= *(s16 *)(type0->zmin + (u32)type0)
+					&& pos->z <= *(s16 *)(type0->zmax + (u32)type0)) {
+				if ((!arg8 && pos->y >= *(s16 *)(type0->ymin + (u32)type0))
+						|| (arg8 && pos->y <= *(s16 *)(type0->ymax + (u32)type0))) {
+					if (cdIs2dPointInTileType0(type0, pos->x, pos->z)) {
+						f32 ground = cdFindGroundInTileType0(type0, pos->x, pos->z);
+
+						if ((!arg8 && ground <= pos->y && ground > *groundptr)
+								|| (arg8 && ground >= pos->y && ground < *groundptr)) {
+							*groundptr = ground;
+							*tileptr = tile;
+							*roomptr = room;
+							result = true;
+						}
+					}
+				}
+			}
+
+			tile = (struct tile *)((u32)tile + sizeof(struct tiletype0) + sizeof(type0->vertices[0]) * (type0->header.numvertices - ARRAYCOUNT(type0->vertices)));
+		} else if (tile->type == TILETYPE_01) {
+			struct tiletype1 *type1 = (struct tiletype1 *) tile;
+
+			if ((tile->flags & flags)
+					&& pos->x >= type1->vertices[type1->xmin].x
+					&& pos->x <= type1->vertices[type1->xmax].x
+					&& pos->z >= type1->vertices[type1->zmin].z
+					&& pos->z <= type1->vertices[type1->zmax].z) {
+				if ((!arg8 && pos->y >= type1->vertices[type1->ymin].y)
+						|| (arg8 && pos->y <= type1->vertices[type1->ymax].y)) {
+					if (cdIs2dPointInTileType1(type1, pos->x, pos->z)) {
+						f32 ground = cdFindGroundInTileType1(type1, pos->x, pos->z);
+
+						if ((!arg8 && pos->y >= ground && ground > *groundptr)
+								|| (arg8 && pos->y <= ground && ground < *groundptr)) {
+							*groundptr = ground;
+							*tileptr = tile;
+							*roomptr = room;
+							result = true;
+						}
+					}
+				}
+			}
+
+			tile = (struct tile *)((u32)tile + sizeof(struct tiletype1) + sizeof(struct coord) * (type1->header.numvertices - ARRAYCOUNT(type1->vertices)));
+		} else if (tile->type == TILETYPE_02) {
+			tile = (struct tile *)((u32)tile + sizeof(struct tiletype2));
+		} else if (tile->type == TILETYPE_03) {
+			tile = (struct tile *)((u32)tile + sizeof(struct tiletype3));
+		}
+	}
+
+	return result;
+}
 
 void func00026e7c(struct coord *pos, s16 *rooms, u16 arg2, struct tile **tileptr, s16 *arg4, f32 *arg5, struct prop **arg6, s32 arg7)
 {
@@ -3595,7 +3354,7 @@ glabel func000296a0
 /*    297f0:	8eaf0014 */ 	lw	$t7,0x14($s5)
 /*    297f4:	00e02025 */ 	or	$a0,$a3,$zero
 /*    297f8:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    297fc:	0c0097e4 */ 	jal	func00025f90
+/*    297fc:	0c0097e4 */ 	jal	cdFindGroundInTileType0
 /*    29800:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    29804:	c7a60104 */ 	lwc1	$f6,0x104($sp)
 /*    29808:	4600303e */ 	c.le.s	$f6,$f0
@@ -3660,7 +3419,7 @@ glabel func000296a0
 /*    298e0:	8ead0014 */ 	lw	$t5,0x14($s5)
 /*    298e4:	00e02025 */ 	or	$a0,$a3,$zero
 /*    298e8:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    298ec:	0c0097e4 */ 	jal	func00025f90
+/*    298ec:	0c0097e4 */ 	jal	cdFindGroundInTileType0
 /*    298f0:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    298f4:	c7b20104 */ 	lwc1	$f18,0x104($sp)
 /*    298f8:	4600903e */ 	c.le.s	$f18,$f0
@@ -4244,7 +4003,7 @@ glabel func000296a0
 /*    2acec:	8ecc0014 */ 	lw	$t4,0x14($s6)
 /*    2acf0:	00e02025 */ 	or	$a0,$a3,$zero
 /*    2acf4:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    2acf8:	0c009ce8 */ 	jal	func00025f90
+/*    2acf8:	0c009ce8 */ 	jal	cdFindGroundInTileType0
 /*    2acfc:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    2ad00:	c7a600fc */ 	lwc1	$f6,0xfc($sp)
 /*    2ad04:	4600303e */ 	c.le.s	$f6,$f0
@@ -4307,7 +4066,7 @@ glabel func000296a0
 /*    2add4:	8ec90014 */ 	lw	$t1,0x14($s6)
 /*    2add8:	00e02025 */ 	or	$a0,$a3,$zero
 /*    2addc:	8e450000 */ 	lw	$a1,0x0($s2)
-/*    2ade0:	0c009ce8 */ 	jal	func00025f90
+/*    2ade0:	0c009ce8 */ 	jal	cdFindGroundInTileType0
 /*    2ade4:	8e460008 */ 	lw	$a2,0x8($s2)
 /*    2ade8:	c7b200fc */ 	lwc1	$f18,0xfc($sp)
 /*    2adec:	4600903e */ 	c.le.s	$f18,$f0
