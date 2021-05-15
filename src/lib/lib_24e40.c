@@ -147,43 +147,25 @@ void func00024f6c(void)
 	var8005f038 = 0;
 }
 
-GLOBAL_ASM(
-glabel func00024fb0
-/*    24fb0:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    24fb4:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
-/*    24fb8:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
-/*    24fbc:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*    24fc0:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    24fc4:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
-/*    24fc8:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
-/*    24fcc:	e4460004 */ 	swc1	$f6,0x4($v0)
-/*    24fd0:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    24fd4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    24fd8:	3c01800a */ 	lui	$at,%hi(var8009a8b4)
-/*    24fdc:	e4480008 */ 	swc1	$f8,0x8($v0)
-/*    24fe0:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*    24fe4:	e46a0000 */ 	swc1	$f10,0x0($v1)
-/*    24fe8:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*    24fec:	e4700004 */ 	swc1	$f16,0x4($v1)
-/*    24ff0:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*    24ff4:	e4720008 */ 	swc1	$f18,0x8($v1)
-/*    24ff8:	ac2ea8b4 */ 	sw	$t6,%lo(var8009a8b4)($at)
-/*    24ffc:	3c01800a */ 	lui	$at,%hi(var8009a8ac)
-/*    25000:	ac20a8ac */ 	sw	$zero,%lo(var8009a8ac)($at)
-/*    25004:	3c01800a */ 	lui	$at,%hi(g_CdObstacle)
-/*    25008:	ac26a8d4 */ 	sw	$a2,%lo(g_CdObstacle)($at)
-/*    2500c:	3c01800a */ 	lui	$at,%hi(var8009a8d8)
-/*    25010:	ac20a8d8 */ 	sw	$zero,%lo(var8009a8d8)($at)
-/*    25014:	3c01800a */ 	lui	$at,%hi(var8009a8ec)
-/*    25018:	ac20a8ec */ 	sw	$zero,%lo(var8009a8ec)($at)
-/*    2501c:	3c01800a */ 	lui	$at,%hi(var8009a8f4)
-/*    25020:	ac20a8f4 */ 	sw	$zero,%lo(var8009a8f4)($at)
-/*    25024:	3c018006 */ 	lui	$at,%hi(var8005f034)
-/*    25028:	ac20f034 */ 	sw	$zero,%lo(var8005f034)($at)
-/*    2502c:	3c018006 */ 	lui	$at,%hi(var8005f038)
-/*    25030:	03e00008 */ 	jr	$ra
-/*    25034:	ac20f038 */ 	sw	$zero,%lo(var8005f038)($at)
-);
+void func00024fb0(struct coord *arg0, struct coord *arg1, struct prop *prop)
+{
+	var8009a8b8.x = arg0->x;
+	var8009a8b8.y = arg0->y;
+	var8009a8b8.z = arg0->z;
+
+	var8009a8c8.x = arg1->x;
+	var8009a8c8.y = arg1->y;
+	var8009a8c8.z = arg1->z;
+
+	var8009a8b4 = 1;
+	var8009a8ac = 0;
+	g_CdObstacle = prop;
+	var8009a8d8 = 0;
+	var8009a8ec = 0;
+	var8009a8f4 = 0;
+	var8005f034 = 0;
+	var8005f038 = 0;
+}
 
 GLOBAL_ASM(
 glabel func00025038
