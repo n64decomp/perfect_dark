@@ -5425,6 +5425,77 @@ glabel func0002a6fc
 /*    2a9ec:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
+// Mismatch: Goal copies tile from t1 to v0 in the type 0 block
+//s32 func0002a6fc(struct coord *pos, struct coord *pos2, f32 width, s16 *rooms, s32 types, bool arg5, f32 arg6, f32 arg7)
+//{
+//	u32 stack[5];
+//	struct collisionthing thing; // 80
+//	s32 cdresult;
+//	struct coord sp70;
+//	struct coord sp64;
+//
+//	cdresult = CDRESULT_NOCOLLISION;
+//
+//	func00027d1c(pos2, width, rooms, types, 4, arg5, arg6, arg7, &thing, 1);
+//
+//	// 768
+//	if (thing.tile != NULL) {
+//		cdresult = CDRESULT_COLLISION;
+//
+//		// 778
+//		if (thing.tile->type == TILETYPE_00) {
+//			struct tiletype0 *type0 = (struct tiletype0 *) thing.tile;
+//			s32 this = thing.unk08;
+//			s32 next = (this + 1) % thing.tile->numvertices;
+//
+//			sp70.x = type0->vertices[this][0];
+//			sp70.y = type0->vertices[this][1];
+//			sp70.z = type0->vertices[this][2];
+//
+//			sp64.x = type0->vertices[next][0];
+//			sp64.y = type0->vertices[next][1];
+//			sp64.z = type0->vertices[next][2];
+//		} else /*854*/ if (thing.tile->type == TILETYPE_01) {
+//			struct tiletype1 *type1 = (struct tiletype1 *) thing.tile;
+//			s32 this = thing.unk08;
+//			s32 next = (this + 1) % thing.tile->numvertices;
+//
+//			sp70.x = type1->vertices[this].x;
+//			sp70.y = type1->vertices[this].y;
+//			sp70.z = type1->vertices[this].z;
+//
+//			sp64.x = type1->vertices[next].x;
+//			sp64.y = type1->vertices[next].y;
+//			sp64.z = type1->vertices[next].z;
+//		} else if (thing.tile->type == TILETYPE_02) {
+//			struct tiletype2 *type2 = (struct tiletype2 *) thing.tile;
+//			s32 this = thing.unk08;
+//			s32 next = (this + 1) % thing.tile->numvertices;
+//
+//			sp70.x = type2->vertices[this][0];
+//			sp70.y = pos->y;
+//			sp70.z = type2->vertices[this][1];
+//
+//			sp64.x = type2->vertices[next][0];
+//			sp64.y = pos->y;
+//			sp64.z = type2->vertices[next][1];
+//		} else if (thing.tile->type == TILETYPE_03) {
+//			struct tiletype3 *type3 = (struct tiletype3 *) thing.tile;
+//
+//			if (1);
+//
+//			func00025848(type3->x, type3->z, type3->width, pos->x, pos->z, &sp70.x, &sp70.z, &sp64.x, &sp64.z);
+//
+//			sp70.y = pos->y;
+//			sp64.y = pos->y;
+//		}
+//
+//		func00024fb0(&sp70, &sp64, thing.prop);
+//	}
+//
+//	return cdresult;
+//}
+
 s32 cdTestAToB1(struct coord *origpos, struct coord *dstpos, f32 width, s16 *dstrooms, s32 types, s32 arg5, f32 ymax, f32 ymin)
 {
 	struct collisionthing things[21];
