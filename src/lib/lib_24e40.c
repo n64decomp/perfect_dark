@@ -1055,6 +1055,43 @@ glabel cdFindGroundInTileType0
 /*    260c8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
+// Mismatch: regalloc, and operators for second mult are swapped
+//f32 cdFindGroundInTileType0(struct tiletype0 *tile, f32 x, f32 z)
+//{
+//	s32 i = 1;
+//	s32 ival = -1;
+//	f32 tmpx;
+//	f32 tmpz;
+//	f32 fval;
+//
+//	if (tile->header.numvertices >= 4) {
+//		while (i < tile->header.numvertices) { \
+//			tmpz = tile->vertices[i][2];
+//			tmpx = tile->vertices[i][0];
+//
+//			fval =
+//				(tile->vertices[0][2] - tmpz) * (x - tmpx) -
+//				(tile->vertices[0][0] - tmpx) * (z - tmpz);
+//
+//			if (fval != 0) {
+//				if (ival < 0) {
+//					ival = (fval > 0);
+//				} else if (ival != 0 && fval < 0) {
+//					i--;
+//					break;
+//				} else if (ival == 0 && fval > 0) {
+//					i--;
+//					break;
+//				}
+//			}
+//
+//			i++;
+//		}
+//	}
+//
+//	return func00025c74(tile, x, z, i);
+//}
+
 f32 cdFindGroundInTileType1(struct tiletype1 *tile, f32 x, f32 z)
 {
 	struct coord sp24;
