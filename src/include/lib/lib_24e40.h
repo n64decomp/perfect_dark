@@ -58,7 +58,7 @@ void func00028df0(struct coord *pos, f32 width, s16 *rooms, u32 types, u16 arg4,
 void func0002901c(struct coord *pos, struct coord *dist, f32 width, struct collisionthing *arg3);
 f32 func000296a0(struct collisionthing *arg0, struct coord *pos, struct tilething **arg2, f32 width);
 bool func00029ffc(struct coord *pos, f32 width, f32 foreheadheight, f32 inversefeettoeyesheight, s16 *rooms, u16 arg5, struct coord *laddernormal);
-u32 func0002a13c(void);
+bool func0002a13c(struct coord *pos, f32 width, f32 arg2, f32 arg3, s16 *rooms, u16 arg5);
 f32 cdFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype, u16 *floorflags, s16 *floorroom, s32 *inlift, struct prop **lift);
 f32 func0002a324(void);
 f32 cdFindGroundYSimple(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype);

@@ -4404,39 +4404,19 @@ bool func00029ffc(struct coord *pos, f32 width, f32 foreheadheight, f32 inversef
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0002a13c
-/*    2a13c:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*    2a140:	44856000 */ 	mtc1	$a1,$f12
-/*    2a144:	afa70064 */ 	sw	$a3,0x64($sp)
-/*    2a148:	44867000 */ 	mtc1	$a2,$f14
-/*    2a14c:	c7a40064 */ 	lwc1	$f4,0x64($sp)
-/*    2a150:	97ae006e */ 	lhu	$t6,0x6e($sp)
-/*    2a154:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2a158:	27b80030 */ 	addiu	$t8,$sp,0x30
-/*    2a15c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    2a160:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2a164:	44056000 */ 	mfc1	$a1,$f12
-/*    2a168:	afb90024 */ 	sw	$t9,0x24($sp)
-/*    2a16c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2a170:	afb80020 */ 	sw	$t8,0x20($sp)
-/*    2a174:	8fa60068 */ 	lw	$a2,0x68($sp)
-/*    2a178:	24070020 */ 	addiu	$a3,$zero,0x20
-/*    2a17c:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    2a180:	e7ae0018 */ 	swc1	$f14,0x18($sp)
-/*    2a184:	0c009f47 */ 	jal	func00027d1c
-/*    2a188:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a18c:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*    2a190:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2a194:	00001025 */ 	or	$v0,$zero,$zero
-/*    2a198:	11000003 */ 	beqz	$t0,.L0002a1a8
-/*    2a19c:	00000000 */ 	nop
-/*    2a1a0:	10000001 */ 	b	.L0002a1a8
-/*    2a1a4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0002a1a8:
-/*    2a1a8:	03e00008 */ 	jr	$ra
-/*    2a1ac:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+bool func0002a13c(struct coord *pos, f32 width, f32 arg2, f32 arg3, s16 *rooms, u16 arg5)
+{
+	u32 stack[5];
+	struct collisionthing thing;
+
+	func00027d1c(pos, width, rooms, CDTYPE_BG, arg5, 1, arg2, arg3, &thing, 1);
+
+	if (thing.tile) {
+		return true;
+	}
+
+	return false;
+}
 
 f32 cdFindGroundY(struct coord *pos, f32 width, s16 *rooms, u16 *floorcol,
 		u8 *floortype, u16 *floorflags, s16 *floorroom, s32 *inlift, struct prop **lift)
