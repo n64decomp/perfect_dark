@@ -1062,30 +1062,13 @@ bool cdIs2dPointInTileType2(struct tiletype2 *tile, f32 x, f32 z)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel cdIs2dPointInTileType3
-/*    26654:	44856000 */ 	mtc1	$a1,$f12
-/*    26658:	c484000c */ 	lwc1	$f4,0xc($a0)
-/*    2665c:	44867000 */ 	mtc1	$a2,$f14
-/*    26660:	c4860010 */ 	lwc1	$f6,0x10($a0)
-/*    26664:	46046001 */ 	sub.s	$f0,$f12,$f4
-/*    26668:	c4900014 */ 	lwc1	$f16,0x14($a0)
-/*    2666c:	00001025 */ 	or	$v0,$zero,$zero
-/*    26670:	46067081 */ 	sub.s	$f2,$f14,$f6
-/*    26674:	46000202 */ 	mul.s	$f8,$f0,$f0
-/*    26678:	00000000 */ 	nop
-/*    2667c:	46021282 */ 	mul.s	$f10,$f2,$f2
-/*    26680:	460a4480 */ 	add.s	$f18,$f8,$f10
-/*    26684:	46108102 */ 	mul.s	$f4,$f16,$f16
-/*    26688:	4604903e */ 	c.le.s	$f18,$f4
-/*    2668c:	00000000 */ 	nop
-/*    26690:	45000002 */ 	bc1f	.L0002669c
-/*    26694:	00000000 */ 	nop
-/*    26698:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0002669c:
-/*    2669c:	03e00008 */ 	jr	$ra
-/*    266a0:	00000000 */ 	nop
-);
+bool cdIs2dPointInTileType3(struct tiletype3 *tile, f32 x, f32 z)
+{
+	f32 xdiff = x - tile->x;
+	f32 zdiff = z - tile->z;
+
+	return xdiff * xdiff + zdiff * zdiff <= tile->width * tile->width;
+}
 
 bool func000266a4(f32 x, f32 z, struct tile *tile)
 {

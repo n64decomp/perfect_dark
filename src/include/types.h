@@ -992,7 +992,7 @@ struct tiletype3 {
 	/*0x08*/ f32 ymin;
 	/*0x0c*/ f32 x;
 	/*0x10*/ f32 z;
-	/*0x14*/ f32 width;
+	/*0x14*/ f32 width; // radius
 };
 
 struct tilething {
