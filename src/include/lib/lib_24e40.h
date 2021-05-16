@@ -99,7 +99,7 @@ bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2
 s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u16 arg4);
 s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types);
 s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5);
-u32 func0002deac(void);
+s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5);
 u32 func0002ded8(void);
 bool func0002dffc(struct tiletype2 *arg0, struct tiletype2 *arg1);
 s32 func0002e278(u8 *start, u8 *end, struct tiletype2 *ref, u16 flags);

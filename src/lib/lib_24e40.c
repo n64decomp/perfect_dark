@@ -8268,20 +8268,10 @@ s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u
 	return func0002d15c(arg0, arg2, rooms, types, arg5, 1, 1, 0, 0);
 }
 
-GLOBAL_ASM(
-glabel func0002deac
-/*    2deac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    2deb0:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    2deb4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    2deb8:	240f001c */ 	addiu	$t7,$zero,0x1c
-/*    2debc:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2dec0:	0c00b78d */ 	jal	func0002de34
-/*    2dec4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2dec8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    2decc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    2ded0:	03e00008 */ 	jr	$ra
-/*    2ded4:	00000000 */ 	nop
-);
+s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5)
+{
+	return func0002de34(arg0, arg1, arg2, arg3, types, 0x1c);
+}
 
 GLOBAL_ASM(
 glabel func0002ded8
