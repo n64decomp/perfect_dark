@@ -1155,75 +1155,35 @@ void platformGetRidingProps(struct prop *platform, s16 *propnums, s32 maxlen)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00027e18nb
-/*    27e14:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    27e18:	44856000 */ 	mtc1	$a1,$f12
-/*    27e1c:	44867000 */ 	mtc1	$a2,$f14
-/*    27e20:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    27e24:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*    27e28:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*    27e2c:	e7ac003c */ 	swc1	$f12,0x3c($sp)
-/*    27e30:	0fc1953e */ 	jal	propUpdateGeometry
-/*    27e34:	e7ae0040 */ 	swc1	$f14,0x40($sp)
-/*    27e38:	c7ac003c */ 	lwc1	$f12,0x3c($sp)
-/*    27e3c:	1040002c */ 	beqz	$v0,.NB00027ef0
-/*    27e40:	c7ae0040 */ 	lwc1	$f14,0x40($sp)
-/*    27e44:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*    27e48:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    27e4c:	24080003 */ 	addiu	$t0,$zero,0x3
-/*    27e50:	24070002 */ 	addiu	$a3,$zero,0x2
-/*    27e54:	004e082b */ 	sltu	$at,$v0,$t6
-/*    27e58:	10200025 */ 	beqz	$at,.NB00027ef0
-/*    27e5c:	2406000c */ 	addiu	$a2,$zero,0xc
-/*    27e60:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    27e64:	24040006 */ 	addiu	$a0,$zero,0x6
-/*    27e68:	90430000 */ 	lbu	$v1,0x0($v0)
-.NB00027e6c:
-/*    27e6c:	14600008 */ 	bnez	$v1,.NB00027e90
-/*    27e70:	00000000 */ 	sll	$zero,$zero,0x0
-/*    27e74:	904f0001 */ 	lbu	$t7,0x1($v0)
-/*    27e78:	25f8ffc0 */ 	addiu	$t8,$t7,-64
-/*    27e7c:	03040019 */ 	multu	$t8,$a0
-/*    27e80:	0000c812 */ 	mflo	$t9
-/*    27e84:	00591021 */ 	addu	$v0,$v0,$t9
-/*    27e88:	10000015 */ 	beqz	$zero,.NB00027ee0
-/*    27e8c:	2442018e */ 	addiu	$v0,$v0,0x18e
-.NB00027e90:
-/*    27e90:	14a30008 */ 	bne	$a1,$v1,.NB00027eb4
-/*    27e94:	00000000 */ 	sll	$zero,$zero,0x0
-/*    27e98:	90490001 */ 	lbu	$t1,0x1($v0)
-/*    27e9c:	252affc0 */ 	addiu	$t2,$t1,-64
-/*    27ea0:	01460019 */ 	multu	$t2,$a2
-/*    27ea4:	00005812 */ 	mflo	$t3
-/*    27ea8:	004b1021 */ 	addu	$v0,$v0,$t3
-/*    27eac:	1000000c */ 	beqz	$zero,.NB00027ee0
-/*    27eb0:	24420310 */ 	addiu	$v0,$v0,0x310
-.NB00027eb4:
-/*    27eb4:	14e30005 */ 	bne	$a3,$v1,.NB00027ecc
-/*    27eb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    27ebc:	e44c0004 */ 	swc1	$f12,0x4($v0)
-/*    27ec0:	e44e0008 */ 	swc1	$f14,0x8($v0)
-/*    27ec4:	10000006 */ 	beqz	$zero,.NB00027ee0
-/*    27ec8:	2442004c */ 	addiu	$v0,$v0,0x4c
-.NB00027ecc:
-/*    27ecc:	55030005 */ 	bnel	$t0,$v1,.NB00027ee4
-/*    27ed0:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    27ed4:	e44c0004 */ 	swc1	$f12,0x4($v0)
-/*    27ed8:	e44e0008 */ 	swc1	$f14,0x8($v0)
-/*    27edc:	24420018 */ 	addiu	$v0,$v0,0x18
-.NB00027ee0:
-/*    27ee0:	8fac0030 */ 	lw	$t4,0x30($sp)
-.NB00027ee4:
-/*    27ee4:	004c082b */ 	sltu	$at,$v0,$t4
-/*    27ee8:	5420ffe0 */ 	bnezl	$at,.NB00027e6c
-/*    27eec:	90430000 */ 	lbu	$v1,0x0($v0)
-.NB00027ef0:
-/*    27ef0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    27ef4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    27ef8:	03e00008 */ 	jr	$ra
-/*    27efc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void cdSetPropYBounds(struct prop *prop, f32 ymax, f32 ymin)
+{
+	u8 *start;
+	u8 *end;
+
+	if (propUpdateGeometry(prop, &start, &end)) {
+		struct tile *tile = (struct tile *) start;
+
+		while (tile < (struct tile *) end) {
+			if (tile->type == TILETYPE_00) {
+				struct tiletype0 *type0 = (struct tiletype0 *) tile;
+				tile = (struct tile *)((u32)tile + sizeof(struct tiletype0) + sizeof(type0->vertices[0]) * (type0->header.numvertices - ARRAYCOUNT(type0->vertices)));
+			} else if (tile->type == TILETYPE_01) {
+				struct tiletype1 *type1 = (struct tiletype1 *) tile;
+				tile = (struct tile *)((u32)tile + sizeof(struct tiletype1) + sizeof(struct coord) * (type1->header.numvertices - ARRAYCOUNT(type1->vertices)));
+			} else if (tile->type == TILETYPE_02) {
+				struct tiletype2 *type2 = (struct tiletype2 *) tile;
+				type2->ymax = ymax;
+				type2->ymin = ymin;
+				tile = (struct tile *)((u32)tile + sizeof(struct tiletype2));
+			} else if (tile->type == TILETYPE_03) {
+				struct tiletype3 *type3 = (struct tiletype3 *) tile;
+				type3->ymax = ymax;
+				type3->ymin = ymin;
+				tile = (struct tile *)((u32)tile + sizeof(struct tiletype3));
+			}
+		}
+	}
+}
 #endif
 
 bool func00026a04(struct coord *pos, u8 *start, u8 *end, u16 flags, s32 room, struct tile **tileptr, s32 *roomptr, f32 *groundptr, bool arg8)
