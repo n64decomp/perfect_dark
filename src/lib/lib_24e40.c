@@ -8081,42 +8081,18 @@ bool func0002d7c0(struct coord *pos, s16 *rooms, struct coord *arg2, u32 arg3, u
 	u32 sp34[4];
 
 	func00018148(pos, arg2, rooms, sp34, sp44, 20);
-	func0002d3b0(pos, arg2, sp44, arg3, 4, 0, arg4, ymax, ymin);
+
+	return func0002d3b0(pos, arg2, sp44, arg3, 4, 0, arg4, ymax, ymin);
 }
 
-GLOBAL_ASM(
-glabel func0002d840
-/*    2d840:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*    2d844:	afa60068 */ 	sw	$a2,0x68($sp)
-/*    2d848:	00a03025 */ 	or	$a2,$a1,$zero
-/*    2d84c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2d850:	afa50064 */ 	sw	$a1,0x64($sp)
-/*    2d854:	27ae0034 */ 	addiu	$t6,$sp,0x34
-/*    2d858:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2d85c:	afa40060 */ 	sw	$a0,0x60($sp)
-/*    2d860:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2d864:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2d868:	0c006052 */ 	jal	func00018148
-/*    2d86c:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*    2d870:	8fb90074 */ 	lw	$t9,0x74($sp)
-/*    2d874:	c7a40078 */ 	lwc1	$f4,0x78($sp)
-/*    2d878:	c7a6007c */ 	lwc1	$f6,0x7c($sp)
-/*    2d87c:	24180004 */ 	addiu	$t8,$zero,0x4
-/*    2d880:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2d884:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    2d888:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*    2d88c:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*    2d890:	8fa70070 */ 	lw	$a3,0x70($sp)
-/*    2d894:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    2d898:	afb90018 */ 	sw	$t9,0x18($sp)
-/*    2d89c:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*    2d8a0:	0c00b457 */ 	jal	func0002d15c
-/*    2d8a4:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*    2d8a8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2d8ac:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*    2d8b0:	03e00008 */ 	jr	$ra
-/*    2d8b4:	00000000 */ 	nop
-);
+s32 func0002d840(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
+{
+	s16 rooms[21];
+
+	func00018148(arg0, arg2, arg1, arg3, rooms, 20);
+
+	return func0002d15c(arg0, arg2, rooms, types, 4, 0, arg5, ymax, ymin);
+}
 
 s32 func0002d8b8(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s32 types, bool arg5, f32 ymax, f32 ymin)
 {
