@@ -4612,52 +4612,29 @@ s32 func0002a564(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, struct
 	return sp32;
 }
 
-GLOBAL_ASM(
-glabel func0002a5e4
-/*    2a5e4:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    2a5e8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    2a5ec:	afa60040 */ 	sw	$a2,0x40($sp)
-/*    2a5f0:	afa70044 */ 	sw	$a3,0x44($sp)
-/*    2a5f4:	27ae0032 */ 	addiu	$t6,$sp,0x32
-/*    2a5f8:	27af002c */ 	addiu	$t7,$sp,0x2c
-/*    2a5fc:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    2a600:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*    2a604:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2a608:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2a60c:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*    2a610:	24060003 */ 	addiu	$a2,$zero,0x3
-/*    2a614:	0c009b9f */ 	jal	func00026e7c
-/*    2a618:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    2a61c:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*    2a620:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*    2a624:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*    2a628:	13200004 */ 	beqz	$t9,.L0002a63c
-/*    2a62c:	03202025 */ 	or	$a0,$t9,$zero
-/*    2a630:	e5040000 */ 	swc1	$f4,0x0($t0)
-/*    2a634:	0c00964a */ 	jal	func00025928
-/*    2a638:	8fa5004c */ 	lw	$a1,0x4c($sp)
-.L0002a63c:
-/*    2a63c:	8fa50044 */ 	lw	$a1,0x44($sp)
-/*    2a640:	50a00004 */ 	beqzl	$a1,.L0002a654
-/*    2a644:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*    2a648:	0c0096dc */ 	jal	tileGetFloorCol
-/*    2a64c:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*    2a650:	8fa20048 */ 	lw	$v0,0x48($sp)
-.L0002a654:
-/*    2a654:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*    2a658:	50400006 */ 	beqzl	$v0,.L0002a674
-/*    2a65c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2a660:	51200004 */ 	beqzl	$t1,.L0002a674
-/*    2a664:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    2a668:	952a0002 */ 	lhu	$t2,0x2($t1)
-/*    2a66c:	a44a0000 */ 	sh	$t2,0x0($v0)
-/*    2a670:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0002a674:
-/*    2a674:	87a20032 */ 	lh	$v0,0x32($sp)
-/*    2a678:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    2a67c:	03e00008 */ 	jr	$ra
-/*    2a680:	00000000 */ 	nop
-);
+s32 func0002a5e4(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcol, u16 *flagsptr, struct coord *arg5)
+{
+	struct tile *tile;
+	s16 sp32;
+	f32 sp2c;
+
+	func00026e7c(pos, rooms, 3, &tile, &sp32, &sp2c, NULL, 1);
+
+	if (tile) {
+		*arg2 = sp2c;
+		func00025928(tile, arg5);
+	}
+
+	if (floorcol) {
+		tileGetFloorCol(tile, floorcol);
+	}
+
+	if (flagsptr != NULL && tile != NULL) {
+		*flagsptr = tile->flags;
+	}
+
+	return sp32;
+}
 
 /**
  * Tests if a cylinder volume fits in the given position.
