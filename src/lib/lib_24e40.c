@@ -737,217 +737,57 @@ void tileGetFloorType(struct tile *tile, u8 *floortype)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00025c74
-/*    25c74:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*    25c78:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    25c7c:	00808025 */ 	or	$s0,$a0,$zero
-/*    25c80:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    25c84:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*    25c88:	14e00002 */ 	bnez	$a3,.L00025c94
-/*    25c8c:	afa60090 */ 	sw	$a2,0x90($sp)
-/*    25c90:	24070001 */ 	addiu	$a3,$zero,0x1
-.L00025c94:
-/*    25c94:	920f0001 */ 	lbu	$t7,0x1($s0)
-/*    25c98:	24ee0001 */ 	addiu	$t6,$a3,0x1
-/*    25c9c:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    25ca0:	01cf001a */ 	div	$zero,$t6,$t7
-/*    25ca4:	00002010 */ 	mfhi	$a0
-/*    25ca8:	15e00002 */ 	bnez	$t7,.L00025cb4
-/*    25cac:	00000000 */ 	nop
-/*    25cb0:	0007000d */ 	break	0x7
-.L00025cb4:
-/*    25cb4:	2401ffff */ 	addiu	$at,$zero,-1
-/*    25cb8:	15e10004 */ 	bne	$t7,$at,.L00025ccc
-/*    25cbc:	3c018000 */ 	lui	$at,0x8000
-/*    25cc0:	15c10002 */ 	bne	$t6,$at,.L00025ccc
-/*    25cc4:	00000000 */ 	nop
-/*    25cc8:	0006000d */ 	break	0x6
-.L00025ccc:
-/*    25ccc:	14800002 */ 	bnez	$a0,.L00025cd8
-/*    25cd0:	00000000 */ 	nop
-/*    25cd4:	24040001 */ 	addiu	$a0,$zero,0x1
-.L00025cd8:
-/*    25cd8:	00e50019 */ 	multu	$a3,$a1
-/*    25cdc:	8608000e */ 	lh	$t0,0xe($s0)
-/*    25ce0:	0000c012 */ 	mflo	$t8
-/*    25ce4:	02181021 */ 	addu	$v0,$s0,$t8
-/*    25ce8:	8459000e */ 	lh	$t9,0xe($v0)
-/*    25cec:	00850019 */ 	multu	$a0,$a1
-/*    25cf0:	03284823 */ 	subu	$t1,$t9,$t0
-/*    25cf4:	44892000 */ 	mtc1	$t1,$f4
-/*    25cf8:	00000000 */ 	nop
-/*    25cfc:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    25d00:	0000c012 */ 	mflo	$t8
-/*    25d04:	02181821 */ 	addu	$v1,$s0,$t8
-/*    25d08:	e7a6007c */ 	swc1	$f6,0x7c($sp)
-/*    25d0c:	860b0010 */ 	lh	$t3,0x10($s0)
-/*    25d10:	844a0010 */ 	lh	$t2,0x10($v0)
-/*    25d14:	014b6023 */ 	subu	$t4,$t2,$t3
-/*    25d18:	448c4000 */ 	mtc1	$t4,$f8
-/*    25d1c:	00000000 */ 	nop
-/*    25d20:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*    25d24:	e7aa0080 */ 	swc1	$f10,0x80($sp)
-/*    25d28:	860e0012 */ 	lh	$t6,0x12($s0)
-/*    25d2c:	844d0012 */ 	lh	$t5,0x12($v0)
-/*    25d30:	01ae7823 */ 	subu	$t7,$t5,$t6
-/*    25d34:	448f2000 */ 	mtc1	$t7,$f4
-/*    25d38:	00000000 */ 	nop
-/*    25d3c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    25d40:	e7a60084 */ 	swc1	$f6,0x84($sp)
-/*    25d44:	8608000e */ 	lh	$t0,0xe($s0)
-/*    25d48:	8479000e */ 	lh	$t9,0xe($v1)
-/*    25d4c:	03284823 */ 	subu	$t1,$t9,$t0
-/*    25d50:	44894000 */ 	mtc1	$t1,$f8
-/*    25d54:	00000000 */ 	nop
-/*    25d58:	46804120 */ 	cvt.s.w	$f4,$f8
-/*    25d5c:	e7a40070 */ 	swc1	$f4,0x70($sp)
-/*    25d60:	860b0010 */ 	lh	$t3,0x10($s0)
-/*    25d64:	846a0010 */ 	lh	$t2,0x10($v1)
-/*    25d68:	014b6023 */ 	subu	$t4,$t2,$t3
-/*    25d6c:	448c4000 */ 	mtc1	$t4,$f8
-/*    25d70:	00000000 */ 	nop
-/*    25d74:	46804120 */ 	cvt.s.w	$f4,$f8
-/*    25d78:	e7a40074 */ 	swc1	$f4,0x74($sp)
-/*    25d7c:	860e0012 */ 	lh	$t6,0x12($s0)
-/*    25d80:	846d0012 */ 	lh	$t5,0x12($v1)
-/*    25d84:	01ae7823 */ 	subu	$t7,$t5,$t6
-/*    25d88:	448f4000 */ 	mtc1	$t7,$f8
-/*    25d8c:	00000000 */ 	nop
-/*    25d90:	46804220 */ 	cvt.s.w	$f8,$f8
-/*    25d94:	46085282 */ 	mul.s	$f10,$f10,$f8
-/*    25d98:	e7a80078 */ 	swc1	$f8,0x78($sp)
-/*    25d9c:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*    25da0:	0c001698 */ 	jal	__f_to_ll
-/*    25da4:	46085301 */ 	sub.s	$f12,$f10,$f8
-/*    25da8:	c7a40084 */ 	lwc1	$f4,0x84($sp)
-/*    25dac:	c7a60070 */ 	lwc1	$f6,0x70($sp)
-/*    25db0:	c7a80078 */ 	lwc1	$f8,0x78($sp)
-/*    25db4:	afa20058 */ 	sw	$v0,0x58($sp)
-/*    25db8:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*    25dbc:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
-/*    25dc0:	afa3005c */ 	sw	$v1,0x5c($sp)
-/*    25dc4:	46044182 */ 	mul.s	$f6,$f8,$f4
-/*    25dc8:	0c001698 */ 	jal	__f_to_ll
-/*    25dcc:	46065301 */ 	sub.s	$f12,$f10,$f6
-/*    25dd0:	c7a8007c */ 	lwc1	$f8,0x7c($sp)
-/*    25dd4:	c7a40074 */ 	lwc1	$f4,0x74($sp)
-/*    25dd8:	c7a60070 */ 	lwc1	$f6,0x70($sp)
-/*    25ddc:	afa20060 */ 	sw	$v0,0x60($sp)
-/*    25de0:	46044282 */ 	mul.s	$f10,$f8,$f4
-/*    25de4:	c7a80080 */ 	lwc1	$f8,0x80($sp)
-/*    25de8:	afa30064 */ 	sw	$v1,0x64($sp)
-/*    25dec:	46083102 */ 	mul.s	$f4,$f6,$f8
-/*    25df0:	0c001698 */ 	jal	__f_to_ll
-/*    25df4:	46045301 */ 	sub.s	$f12,$f10,$f4
-/*    25df8:	afa20068 */ 	sw	$v0,0x68($sp)
-/*    25dfc:	afa3006c */ 	sw	$v1,0x6c($sp)
-/*    25e00:	86070010 */ 	lh	$a3,0x10($s0)
-/*    25e04:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    25e08:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*    25e0c:	0c012bda */ 	jal	__ll_mul
-/*    25e10:	000737c3 */ 	sra	$a2,$a3,0x1f
-/*    25e14:	afa20038 */ 	sw	$v0,0x38($sp)
-/*    25e18:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*    25e1c:	8607000e */ 	lh	$a3,0xe($s0)
-/*    25e20:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    25e24:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*    25e28:	0c012bda */ 	jal	__ll_mul
-/*    25e2c:	000737c3 */ 	sra	$a2,$a3,0x1f
-/*    25e30:	afa20040 */ 	sw	$v0,0x40($sp)
-/*    25e34:	afa30044 */ 	sw	$v1,0x44($sp)
-/*    25e38:	86070012 */ 	lh	$a3,0x12($s0)
-/*    25e3c:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*    25e40:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*    25e44:	0c012bda */ 	jal	__ll_mul
-/*    25e48:	000737c3 */ 	sra	$a2,$a3,0x1f
-/*    25e4c:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*    25e50:	8faf003c */ 	lw	$t7,0x3c($sp)
-/*    25e54:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*    25e58:	006b6821 */ 	addu	$t5,$v1,$t3
-/*    25e5c:	01ab082b */ 	sltu	$at,$t5,$t3
-/*    25e60:	00226021 */ 	addu	$t4,$at,$v0
-/*    25e64:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*    25e68:	01afc821 */ 	addu	$t9,$t5,$t7
-/*    25e6c:	8fa80060 */ 	lw	$t0,0x60($sp)
-/*    25e70:	032f082b */ 	sltu	$at,$t9,$t7
-/*    25e74:	018a6021 */ 	addu	$t4,$t4,$t2
-/*    25e78:	002cc021 */ 	addu	$t8,$at,$t4
-/*    25e7c:	030ec021 */ 	addu	$t8,$t8,$t6
-/*    25e80:	afb80050 */ 	sw	$t8,0x50($sp)
-/*    25e84:	afb90054 */ 	sw	$t9,0x54($sp)
-/*    25e88:	15000009 */ 	bnez	$t0,.L00025eb0
-/*    25e8c:	8fa90064 */ 	lw	$t1,0x64($sp)
-/*    25e90:	55200008 */ 	bnezl	$t1,.L00025eb4
-/*    25e94:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*    25e98:	920a000a */ 	lbu	$t2,0xa($s0)
-/*    25e9c:	01505821 */ 	addu	$t3,$t2,$s0
-/*    25ea0:	856c0000 */ 	lh	$t4,0x0($t3)
-/*    25ea4:	448c3000 */ 	mtc1	$t4,$f6
-/*    25ea8:	10000034 */ 	b	.L00025f7c
-/*    25eac:	46803020 */ 	cvt.s.w	$f0,$f6
-.L00025eb0:
-/*    25eb0:	8fa40068 */ 	lw	$a0,0x68($sp)
-.L00025eb4:
-/*    25eb4:	0c0016c6 */ 	jal	__ll_to_d
-/*    25eb8:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*    25ebc:	f7a00020 */ 	sdc1	$f0,0x20($sp)
-/*    25ec0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    25ec4:	0c0016c6 */ 	jal	__ll_to_d
-/*    25ec8:	8fa5005c */ 	lw	$a1,0x5c($sp)
-/*    25ecc:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*    25ed0:	8fa50054 */ 	lw	$a1,0x54($sp)
-/*    25ed4:	0c0016c6 */ 	jal	__ll_to_d
-/*    25ed8:	f7a00028 */ 	sdc1	$f0,0x28($sp)
-/*    25edc:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    25ee0:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*    25ee4:	0c0016c6 */ 	jal	__ll_to_d
-/*    25ee8:	f7a00030 */ 	sdc1	$f0,0x30($sp)
-/*    25eec:	c7a80090 */ 	lwc1	$f8,0x90($sp)
-/*    25ef0:	d7a40020 */ 	ldc1	$f4,0x20($sp)
-/*    25ef4:	d7a20028 */ 	ldc1	$f2,0x28($sp)
-/*    25ef8:	460042a1 */ 	cvt.d.s	$f10,$f8
-/*    25efc:	c7a8008c */ 	lwc1	$f8,0x8c($sp)
-/*    25f00:	46245182 */ 	mul.d	$f6,$f10,$f4
-/*    25f04:	d7ac0030 */ 	ldc1	$f12,0x30($sp)
-/*    25f08:	460042a1 */ 	cvt.d.s	$f10,$f8
-/*    25f0c:	920d000a */ 	lbu	$t5,0xa($s0)
-/*    25f10:	46225102 */ 	mul.d	$f4,$f10,$f2
-/*    25f14:	01b07021 */ 	addu	$t6,$t5,$s0
-/*    25f18:	85cf0000 */ 	lh	$t7,0x0($t6)
-/*    25f1c:	46246201 */ 	sub.d	$f8,$f12,$f4
-/*    25f20:	46264281 */ 	sub.d	$f10,$f8,$f6
-/*    25f24:	448f4000 */ 	mtc1	$t7,$f8
-/*    25f28:	46205103 */ 	div.d	$f4,$f10,$f0
-/*    25f2c:	468044a0 */ 	cvt.s.w	$f18,$f8
-/*    25f30:	46202420 */ 	cvt.s.d	$f16,$f4
-/*    25f34:	4610903c */ 	c.lt.s	$f18,$f16
-/*    25f38:	46008386 */ 	mov.s	$f14,$f16
-/*    25f3c:	45020004 */ 	bc1fl	.L00025f50
-/*    25f40:	92180007 */ 	lbu	$t8,0x7($s0)
-/*    25f44:	1000000c */ 	b	.L00025f78
-/*    25f48:	46009386 */ 	mov.s	$f14,$f18
-/*    25f4c:	92180007 */ 	lbu	$t8,0x7($s0)
-.L00025f50:
-/*    25f50:	0310c821 */ 	addu	$t9,$t8,$s0
-/*    25f54:	87280000 */ 	lh	$t0,0x0($t9)
-/*    25f58:	44883000 */ 	mtc1	$t0,$f6
-/*    25f5c:	00000000 */ 	nop
-/*    25f60:	46803020 */ 	cvt.s.w	$f0,$f6
-/*    25f64:	4600803c */ 	c.lt.s	$f16,$f0
-/*    25f68:	00000000 */ 	nop
-/*    25f6c:	45020003 */ 	bc1fl	.L00025f7c
-/*    25f70:	46007006 */ 	mov.s	$f0,$f14
-/*    25f74:	46000386 */ 	mov.s	$f14,$f0
-.L00025f78:
-/*    25f78:	46007006 */ 	mov.s	$f0,$f14
-.L00025f7c:
-/*    25f7c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    25f80:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    25f84:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*    25f88:	03e00008 */ 	jr	$ra
-/*    25f8c:	00000000 */ 	nop
-);
+f32 cdFindGroundInTileType0AtVertex(struct tiletype0 *tile, f32 x, f32 z, s32 vertexindex)
+{
+	struct coord sp7c;
+	struct coord sp70;
+	s64 sp68;
+	s64 sp60;
+	s64 sp58;
+	s64 tmp;
+	f32 ground;
+	s32 next;
+
+	if (vertexindex == 0) {
+		vertexindex = 1;
+	}
+
+	next = (vertexindex + 1) % tile->header.numvertices;
+
+	if (next == 0) {
+		next = 1;
+	}
+
+	sp7c.x = tile->vertices[vertexindex][0] - tile->vertices[0][0];
+	sp7c.y = tile->vertices[vertexindex][1] - tile->vertices[0][1];
+	sp7c.z = tile->vertices[vertexindex][2] - tile->vertices[0][2];
+
+	sp70.x = tile->vertices[next][0] - tile->vertices[0][0];
+	sp70.y = tile->vertices[next][1] - tile->vertices[0][1];
+	sp70.z = tile->vertices[next][2] - tile->vertices[0][2];
+
+	sp58 = sp7c.f[1] * sp70.f[2] - sp7c.f[2] * sp70.f[1];
+	sp60 = sp7c.f[2] * sp70.f[0] - sp7c.f[0] * sp70.f[2];
+	sp68 = sp7c.f[0] * sp70.f[1] - sp7c.f[1] * sp70.f[0];
+
+	tmp = sp58 * tile->vertices[0][0]
+		+ sp60 * tile->vertices[0][1]
+		+ sp68 * tile->vertices[0][2];
+
+	if (sp60 == 0) {
+		return *(s16 *)(tile->ymax + (u32)tile);
+	}
+
+	ground = (tmp - (f64)x * sp58 - (f64)z * sp68) / sp60;
+
+	if (ground > *(s16 *)(tile->ymax + (u32)tile)) {
+		ground = *(s16 *)(tile->ymax + (u32)tile);
+	} else if (ground < *(s16 *)(tile->ymin + (u32)tile)) {
+		ground = *(s16 *)(tile->ymin + (u32)tile);
+	}
+
+	return ground;
+}
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -958,7 +798,7 @@ glabel func00027370nb
 /*    2737c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    27380:	44056000 */ 	mfc1	$a1,$f12
 /*    27384:	44067000 */ 	mfc1	$a2,$f14
-/*    27388:	0c009c15 */ 	jal	func00025c74
+/*    27388:	0c009c15 */ 	jal	cdFindGroundInTileType0AtVertex
 /*    2738c:	24070001 */ 	addiu	$a3,$zero,0x1
 /*    27390:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    27394:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -1046,7 +886,7 @@ glabel cdFindGroundInTileType0
 .L000260a8:
 /*    260a8:	4405a000 */ 	mfc1	$a1,$f20
 /*    260ac:	4406b000 */ 	mfc1	$a2,$f22
-/*    260b0:	0c00971d */ 	jal	func00025c74
+/*    260b0:	0c00971d */ 	jal	cdFindGroundInTileType0AtVertex
 /*    260b4:	00000000 */ 	nop
 /*    260b8:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*    260bc:	d7b40010 */ 	ldc1	$f20,0x10($sp)
@@ -1089,7 +929,7 @@ glabel cdFindGroundInTileType0
 //		}
 //	}
 //
-//	return func00025c74(tile, x, z, i);
+//	return cdFindGroundInTileType0AtVertex(tile, x, z, i);
 //}
 
 f32 cdFindGroundInTileType1(struct tiletype1 *tile, f32 x, f32 z)
@@ -3619,7 +3459,7 @@ glabel func000296a0
 /*    29b3c:	46082300 */ 	add.s	$f12,$f4,$f8
 /*    29b40:	44051000 */ 	mfc1	$a1,$f2
 /*    29b44:	44066000 */ 	mfc1	$a2,$f12
-/*    29b48:	0c00971d */ 	jal	func00025c74
+/*    29b48:	0c00971d */ 	jal	cdFindGroundInTileType0AtVertex
 /*    29b4c:	00000000 */ 	nop
 /*    29b50:	c6500004 */ 	lwc1	$f16,0x4($s2)
 /*    29b54:	4610003c */ 	c.lt.s	$f0,$f16
@@ -3674,7 +3514,7 @@ glabel func000296a0
 /*    29c0c:	46803320 */ 	cvt.s.w	$f12,$f6
 /*    29c10:	44051000 */ 	mfc1	$a1,$f2
 /*    29c14:	44066000 */ 	mfc1	$a2,$f12
-/*    29c18:	0c00971d */ 	jal	func00025c74
+/*    29c18:	0c00971d */ 	jal	cdFindGroundInTileType0AtVertex
 /*    29c1c:	00000000 */ 	nop
 /*    29c20:	c6440004 */ 	lwc1	$f4,0x4($s2)
 /*    29c24:	4604003c */ 	c.lt.s	$f0,$f4
@@ -3714,7 +3554,7 @@ glabel func000296a0
 /*    29ca0:	46805320 */ 	cvt.s.w	$f12,$f10
 /*    29ca4:	44051000 */ 	mfc1	$a1,$f2
 /*    29ca8:	44066000 */ 	mfc1	$a2,$f12
-/*    29cac:	0c00971d */ 	jal	func00025c74
+/*    29cac:	0c00971d */ 	jal	cdFindGroundInTileType0AtVertex
 /*    29cb0:	00000000 */ 	nop
 /*    29cb4:	c6520004 */ 	lwc1	$f18,0x4($s2)
 /*    29cb8:	4612003c */ 	c.lt.s	$f0,$f18
@@ -4251,7 +4091,7 @@ glabel func000296a0
 /*    2affc:	46082300 */ 	add.s	$f12,$f4,$f8
 /*    2b000:	44051000 */ 	mfc1	$a1,$f2
 /*    2b004:	44066000 */ 	mfc1	$a2,$f12
-/*    2b008:	0c009c15 */ 	jal	func00025c74
+/*    2b008:	0c009c15 */ 	jal	cdFindGroundInTileType0AtVertex
 /*    2b00c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    2b010:	c6500004 */ 	lwc1	$f16,0x4($s2)
 /*    2b014:	4610003c */ 	c.lt.s	$f0,$f16
@@ -4299,7 +4139,7 @@ glabel func000296a0
 /*    2b0b4:	46803320 */ 	cvt.s.w	$f12,$f6
 /*    2b0b8:	44051000 */ 	mfc1	$a1,$f2
 /*    2b0bc:	44066000 */ 	mfc1	$a2,$f12
-/*    2b0c0:	0c009c15 */ 	jal	func00025c74
+/*    2b0c0:	0c009c15 */ 	jal	cdFindGroundInTileType0AtVertex
 /*    2b0c4:	00000000 */ 	sll	$zero,$zero,0x0
 /*    2b0c8:	c6440004 */ 	lwc1	$f4,0x4($s2)
 /*    2b0cc:	4604003c */ 	c.lt.s	$f0,$f4
@@ -4332,7 +4172,7 @@ glabel func000296a0
 /*    2b130:	46805320 */ 	cvt.s.w	$f12,$f10
 /*    2b134:	44051000 */ 	mfc1	$a1,$f2
 /*    2b138:	44066000 */ 	mfc1	$a2,$f12
-/*    2b13c:	0c009c15 */ 	jal	func00025c74
+/*    2b13c:	0c009c15 */ 	jal	cdFindGroundInTileType0AtVertex
 /*    2b140:	00000000 */ 	sll	$zero,$zero,0x0
 /*    2b144:	c6520004 */ 	lwc1	$f18,0x4($s2)
 /*    2b148:	4612003c */ 	c.lt.s	$f0,$f18

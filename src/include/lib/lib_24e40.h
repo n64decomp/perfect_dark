@@ -31,7 +31,7 @@ void func00025848(f32 tilex, f32 tilez, f32 tilewidth, f32 posx, f32 posz, f32 *
 void func00025928(struct tile *tile, struct coord *arg1);
 void tileGetFloorCol(struct tile *tile, u16 *floorcol);
 void tileGetFloorType(struct tile *tile, u8 *floortype);
-f32 func00025c74(struct tiletype0 *tile, f32 x, f32 z, s32 vertexindex);
+f32 cdFindGroundInTileType0AtVertex(struct tiletype0 *tile, f32 x, f32 z, s32 vertexindex);
 f32 cdFindGroundInTileType0(struct tiletype0 *tile, f32 x, f32 z);
 f32 cdFindGroundInTileType1(struct tiletype1 *tile, f32 x, f32 z);
 bool cdIs2dPointInTileType0(struct tiletype0 *tile, f32 x, f32 z);
