@@ -8018,83 +8018,31 @@ s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u
 	return func0002de34(arg0, arg1, arg2, arg3, types, 0x1c);
 }
 
-GLOBAL_ASM(
-glabel func0002ded8
-/*    2ded8:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*    2dedc:	3c014f80 */ 	lui	$at,0x4f80
-/*    2dee0:	44812000 */ 	mtc1	$at,$f4
-/*    2dee4:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*    2dee8:	afa40090 */ 	sw	$a0,0x90($sp)
-/*    2deec:	afa60098 */ 	sw	$a2,0x98($sp)
-/*    2def0:	afa00078 */ 	sw	$zero,0x78($sp)
-/*    2def4:	e7a40050 */ 	swc1	$f4,0x50($sp)
-/*    2def8:	c4880000 */ 	lwc1	$f8,0x0($a0)
-/*    2defc:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*    2df00:	00a03825 */ 	or	$a3,$a1,$zero
-/*    2df04:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*    2df08:	e7aa007c */ 	swc1	$f10,0x7c($sp)
-/*    2df0c:	c4920004 */ 	lwc1	$f18,0x4($a0)
-/*    2df10:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*    2df14:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*    2df18:	e7a40080 */ 	swc1	$f4,0x80($sp)
-/*    2df1c:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    2df20:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*    2df24:	00c02025 */ 	or	$a0,$a2,$zero
-/*    2df28:	27a60088 */ 	addiu	$a2,$sp,0x88
-/*    2df2c:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*    2df30:	afa70094 */ 	sw	$a3,0x94($sp)
-/*    2df34:	27a5008c */ 	addiu	$a1,$sp,0x8c
-/*    2df38:	0fc198a4 */ 	jal	propUpdateGeometry
-/*    2df3c:	e7aa0084 */ 	swc1	$f10,0x84($sp)
-/*    2df40:	10400028 */ 	beqz	$v0,.L0002dfe4
-/*    2df44:	8fa70094 */ 	lw	$a3,0x94($sp)
-/*    2df48:	44800000 */ 	mtc1	$zero,$f0
-/*    2df4c:	27af007c */ 	addiu	$t7,$sp,0x7c
-/*    2df50:	2418001c */ 	addiu	$t8,$zero,0x1c
-/*    2df54:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2df58:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    2df5c:	27a90050 */ 	addiu	$t1,$sp,0x50
-/*    2df60:	27aa006c */ 	addiu	$t2,$sp,0x6c
-/*    2df64:	27ab0060 */ 	addiu	$t3,$sp,0x60
-/*    2df68:	27ac0054 */ 	addiu	$t4,$sp,0x54
-/*    2df6c:	27ad004c */ 	addiu	$t5,$sp,0x4c
-/*    2df70:	240efc19 */ 	addiu	$t6,$zero,-999
-/*    2df74:	afae003c */ 	sw	$t6,0x3c($sp)
-/*    2df78:	afad0038 */ 	sw	$t5,0x38($sp)
-/*    2df7c:	afac0034 */ 	sw	$t4,0x34($sp)
-/*    2df80:	afab0030 */ 	sw	$t3,0x30($sp)
-/*    2df84:	afaa002c */ 	sw	$t2,0x2c($sp)
-/*    2df88:	afa90028 */ 	sw	$t1,0x28($sp)
-/*    2df8c:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*    2df90:	afb90018 */ 	sw	$t9,0x18($sp)
-/*    2df94:	afb80014 */ 	sw	$t8,0x14($sp)
-/*    2df98:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*    2df9c:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*    2dfa0:	8fa50088 */ 	lw	$a1,0x88($sp)
-/*    2dfa4:	8fa60090 */ 	lw	$a2,0x90($sp)
-/*    2dfa8:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*    2dfac:	0c00b1c5 */ 	jal	func0002c714
-/*    2dfb0:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*    2dfb4:	1440000b */ 	bnez	$v0,.L0002dfe4
-/*    2dfb8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    2dfbc:	c7b00050 */ 	lwc1	$f16,0x50($sp)
-/*    2dfc0:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*    2dfc4:	afaf0078 */ 	sw	$t7,0x78($sp)
-/*    2dfc8:	27a40060 */ 	addiu	$a0,$sp,0x60
-/*    2dfcc:	27a50054 */ 	addiu	$a1,$sp,0x54
-/*    2dfd0:	27a6006c */ 	addiu	$a2,$sp,0x6c
-/*    2dfd4:	8fa70098 */ 	lw	$a3,0x98($sp)
-/*    2dfd8:	e7b00010 */ 	swc1	$f16,0x10($sp)
-/*    2dfdc:	0c009495 */ 	jal	func00025254
-/*    2dfe0:	afb80014 */ 	sw	$t8,0x14($sp)
-.L0002dfe4:
-/*    2dfe4:	8fa20078 */ 	lw	$v0,0x78($sp)
-/*    2dfe8:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*    2dfec:	27bd0090 */ 	addiu	$sp,$sp,0x90
-/*    2dff0:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*    2dff4:	03e00008 */ 	jr	$ra
-/*    2dff8:	03201025 */ 	or	$v0,$t9,$zero
-);
+bool func0002ded8(struct coord *arg0, struct coord *arg1, struct prop *prop)
+{
+	u8 *start;
+	u8 *end;
+	struct coord sp7c;
+	bool result = false;
+	struct coord sp6c;
+	struct coord sp60;
+	struct coord sp54;
+	f32 sp50 = 4294967296;
+	struct tile *tile;
+
+	sp7c.x = arg1->x - arg0->x;
+	sp7c.y = arg1->y - arg0->y;
+	sp7c.z = arg1->z - arg0->z;
+
+	if (propUpdateGeometry(prop, &start, &end)) {
+		if (!func0002c714(start, end, arg0, arg1, &sp7c, 0x1c, 1, 1, 0, 0, &sp50, &sp6c, &sp60, &sp54, &tile, -999)) {
+			result = true;
+			func00025254(&sp60, &sp54, &sp6c, prop, sp50, tile);
+		}
+	}
+
+	return !result;
+}
 
 GLOBAL_ASM(
 glabel func0002dffc

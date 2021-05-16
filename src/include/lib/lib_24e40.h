@@ -80,7 +80,7 @@ u32 func0002b954(void);
 bool func0002bd04(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, s32 arg5, s32 arg6, s32 arg7, f32 arg8, f32 arg9);
 u32 func0002c328(void);
 u32 func0002c528(void);
-bool func0002c714(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 arg5, s32 arg6, s32 arg7, f32 ymax, f32 ymin, f32 *arg10, u32 *arg11, struct coord *arg12, struct coord *arg13, struct tile *arg14, s32 roomnum);
+bool func0002c714(u8 *start, u8 *end, struct coord *arg2, struct coord *arg3, struct coord *arg4, u16 arg5, s32 arg6, s32 arg7, f32 ymax, f32 ymin, f32 *arg10, struct coord *arg11, struct coord *arg12, struct coord *arg13, struct tile **tile, s32 roomnum);
 bool func0002d15c(struct coord *pos, struct coord *coord2, s16 *rooms, u32 types, u16 arg4, s32 arg5, s32 arg6, f32 arg7, f32 arg8);
 s32 func0002d3b0(struct coord *arg0, struct coord *arg1, s16 *arg2, s32 types, u16 arg4, s32 arg5, s32 arg6, f32 ymax, f32 ymin);
 bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 arg5, f32 arg6);
@@ -100,7 +100,7 @@ s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u1
 s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types);
 s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5);
 s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5);
-u32 func0002ded8(void);
+bool func0002ded8(struct coord *arg0, struct coord *arg1, struct prop *prop);
 bool func0002dffc(struct tiletype2 *arg0, struct tiletype2 *arg1);
 s32 func0002e278(u8 *start, u8 *end, struct tiletype2 *ref, u16 flags);
 s32 func0002e4c4(struct tiletype2 *geo, s16 *rooms, u32 types);
