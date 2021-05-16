@@ -8054,7 +8054,8 @@ bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 ty
 	u32 sp34[4];
 
 	func00018148(pos, targetpos, rooms, sp34, sp44, 20);
-	func0002d15c(pos, targetpos, sp44, types, 4, 0, arg4, arg5, arg6);
+
+	return func0002d15c(pos, targetpos, sp44, types, 4, 0, arg4, arg5, arg6);
 }
 
 s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 arg6, f32 arg7)
@@ -8196,7 +8197,8 @@ bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, u3
 	u32 sp34[4];
 
 	func00018148(viewpos, targetpos, rooms, sp34, sp44, 20);
-	func0002d15c(viewpos, targetpos, sp44, types, arg4, 1, 1, 0, 0);
+
+	return func0002d15c(viewpos, targetpos, sp44, types, arg4, 1, 1, 0, 0);
 }
 
 bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg3)
@@ -8248,7 +8250,8 @@ s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u1
 	u32 sp34[4];
 
 	func00018148(pos, pos2, rooms, sp34, sp44, 20);
-	func0002d3b0(pos, pos2, sp44, types, arg4, 1, 1, 0, 0);
+
+	return func0002d3b0(pos, pos2, sp44, types, arg4, 1, 1, 0, 0);
 }
 
 s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types)
@@ -8256,39 +8259,14 @@ s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types)
 	return cdTestAToB4(pos, rooms, pos2, types, 0x1c);
 }
 
-GLOBAL_ASM(
-glabel func0002de34
-/*    2de34:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*    2de38:	afa60068 */ 	sw	$a2,0x68($sp)
-/*    2de3c:	00a03025 */ 	or	$a2,$a1,$zero
-/*    2de40:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    2de44:	afa50064 */ 	sw	$a1,0x64($sp)
-/*    2de48:	27ae0034 */ 	addiu	$t6,$sp,0x34
-/*    2de4c:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*    2de50:	afa40060 */ 	sw	$a0,0x60($sp)
-/*    2de54:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2de58:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    2de5c:	0c006052 */ 	jal	func00018148
-/*    2de60:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*    2de64:	44800000 */ 	mtc1	$zero,$f0
-/*    2de68:	97b80076 */ 	lhu	$t8,0x76($sp)
-/*    2de6c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*    2de70:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    2de74:	afa80018 */ 	sw	$t0,0x18($sp)
-/*    2de78:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    2de7c:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    2de80:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*    2de84:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*    2de88:	8fa70070 */ 	lw	$a3,0x70($sp)
-/*    2de8c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    2de90:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    2de94:	0c00b457 */ 	jal	func0002d15c
-/*    2de98:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*    2de9c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    2dea0:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*    2dea4:	03e00008 */ 	jr	$ra
-/*    2dea8:	00000000 */ 	nop
-);
+s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5)
+{
+	s16 rooms[21];
+
+	func00018148(arg0, arg2, arg1, arg3, rooms, 20);
+
+	return func0002d15c(arg0, arg2, rooms, types, arg5, 1, 1, 0, 0);
+}
 
 GLOBAL_ASM(
 glabel func0002deac
