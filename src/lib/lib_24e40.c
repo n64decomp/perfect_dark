@@ -1063,7 +1063,7 @@ bool cdIs2dPointInTileType2(struct tiletype2 *tile, f32 x, f32 z)
 }
 
 GLOBAL_ASM(
-glabel func00026654
+glabel cdIs2dPointInTileType3
 /*    26654:	44856000 */ 	mtc1	$a1,$f12
 /*    26658:	c484000c */ 	lwc1	$f4,0xc($a0)
 /*    2665c:	44867000 */ 	mtc1	$a2,$f14
@@ -1087,43 +1087,22 @@ glabel func00026654
 /*    266a0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000266a4
-/*    266a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    266a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    266ac:	14c00003 */ 	bnez	$a2,.L000266bc
-/*    266b0:	00c02025 */ 	or	$a0,$a2,$zero
-/*    266b4:	10000015 */ 	b	.L0002670c
-/*    266b8:	00001025 */ 	or	$v0,$zero,$zero
-.L000266bc:
-/*    266bc:	90820000 */ 	lbu	$v0,0x0($a0)
-/*    266c0:	24010002 */ 	addiu	$at,$zero,0x2
-/*    266c4:	54410008 */ 	bnel	$v0,$at,.L000266e8
-/*    266c8:	24010003 */ 	addiu	$at,$zero,0x3
-/*    266cc:	44056000 */ 	mfc1	$a1,$f12
-/*    266d0:	44067000 */ 	mfc1	$a2,$f14
-/*    266d4:	0c009948 */ 	jal	cdIs2dPointInTileType2
-/*    266d8:	00000000 */ 	nop
-/*    266dc:	1000000c */ 	b	.L00026710
-/*    266e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    266e4:	24010003 */ 	addiu	$at,$zero,0x3
-.L000266e8:
-/*    266e8:	54410008 */ 	bnel	$v0,$at,.L0002670c
-/*    266ec:	00001025 */ 	or	$v0,$zero,$zero
-/*    266f0:	44056000 */ 	mfc1	$a1,$f12
-/*    266f4:	44067000 */ 	mfc1	$a2,$f14
-/*    266f8:	0c009995 */ 	jal	func00026654
-/*    266fc:	00000000 */ 	nop
-/*    26700:	10000003 */ 	b	.L00026710
-/*    26704:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    26708:	00001025 */ 	or	$v0,$zero,$zero
-.L0002670c:
-/*    2670c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00026710:
-/*    26710:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    26714:	03e00008 */ 	jr	$ra
-/*    26718:	00000000 */ 	nop
-);
+bool func000266a4(f32 x, f32 z, struct tile *tile)
+{
+	if (tile == NULL) {
+		return false;
+	}
+
+	if (tile->type == TILETYPE_02) {
+		return cdIs2dPointInTileType2((struct tiletype2 *) tile, x, z);
+	}
+
+	if (tile->type == TILETYPE_03) {
+		return cdIs2dPointInTileType3((struct tiletype3 *) tile, x, z);
+	}
+
+	return false;
+}
 
 /**
  * For a lift or escalator step, find the props which are riding on it.
