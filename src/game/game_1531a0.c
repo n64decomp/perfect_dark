@@ -413,8 +413,8 @@ Gfx *func0f153780(Gfx *gdl)
 Gfx *gfxSetPrimColour(Gfx *gdl, u32 colour)
 {
 	gDPPipeSync(gdl++);
-    gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-    gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+	gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 
 	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 

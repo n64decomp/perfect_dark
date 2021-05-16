@@ -70,8 +70,8 @@ void __osPfsGetOneChannelData(int channel, OSContStatus *data)
 
 	ptr = (u8*)&__osPfsPifRam;
 
-    for (i = 0; i < channel; i++) {
-        ptr++;
+	for (i = 0; i < channel; i++) {
+		ptr++;
 	}
 
 	requestformat = *(__OSContRequestFormatShort *)ptr;

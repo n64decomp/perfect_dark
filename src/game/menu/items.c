@@ -5968,10 +5968,10 @@ Gfx *menuRenderItemObjectives(Gfx *gdl, struct menurendercontext *context)
 
 			position++;
 
-            if (context->item->param == 0) {
-            	y += 18;
-            } else if (context->item->param == 2) {
-            	y += PAL ? 34 : 30;
+			if (context->item->param == 0) {
+				y += 18;
+			} else if (context->item->param == 2) {
+				y += PAL ? 34 : 30;
 			} else {
 				y += 14;
 			}

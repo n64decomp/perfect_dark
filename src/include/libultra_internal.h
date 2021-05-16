@@ -4,20 +4,20 @@
 
 typedef struct
 {
-    u32 initialized; //probably something like initialized?
-    OSThread *mgrThread;
-    OSMesgQueue *unk08;
-    OSMesgQueue *unk0c;
-    OSMesgQueue *unk10;
-    s32 (*dma_func)(s32,u32,void*,size_t);
-    u64 force_align;
+	u32 initialized; //probably something like initialized?
+	OSThread *mgrThread;
+	OSMesgQueue *unk08;
+	OSMesgQueue *unk0c;
+	OSMesgQueue *unk10;
+	s32 (*dma_func)(s32,u32,void*,size_t);
+	u64 force_align;
 } OSMgrArgs;
 
 typedef struct
 {
-    /* 0x0 */ __OSInode inode;
-    /* 0x100 */ u8 bank;
-    /* 0x101 */ u8 map[256];
+	/* 0x0 */ __OSInode inode;
+	/* 0x100 */ u8 bank;
+	/* 0x101 */ u8 map[256];
 } __OSInodeCache;
 
 s32 __osDisableInt();

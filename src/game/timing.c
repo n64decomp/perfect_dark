@@ -34,7 +34,7 @@ void frametimeCalculate(void)
 	u32 diffframe60;
 	u32 diffframe240;
 
-    do {
+	do {
 		count = osGetCount();
 		thisframeticks = count - g_Vars.thisframetime;
 		g_Vars.thisframeticks = thisframeticks;
@@ -49,15 +49,15 @@ void frametimeCalculate(void)
 	} while (diffframe60 < g_Vars.mininc60);
 
 #if PAL
-    g_Vars.lostframetime = (g_Vars.lostframetime + thisframeticks) - (diffframe60 * 937500);
-    g_Vars.lostframetime240 = (g_Vars.lostframetime240 + thisframeticks) - (diffframe240 * 234375);
+	g_Vars.lostframetime = (g_Vars.lostframetime + thisframeticks) - (diffframe60 * 937500);
+	g_Vars.lostframetime240 = (g_Vars.lostframetime240 + thisframeticks) - (diffframe240 * 234375);
 #else
-    g_Vars.lostframetime = (g_Vars.lostframetime + thisframeticks) - (diffframe60 * 781250);
-    g_Vars.lostframetime240 = (g_Vars.lostframetime240 + thisframeticks) - (diffframe240 * 195312);
+	g_Vars.lostframetime = (g_Vars.lostframetime + thisframeticks) - (diffframe60 * 781250);
+	g_Vars.lostframetime240 = (g_Vars.lostframetime240 + thisframeticks) - (diffframe240 * 195312);
 #endif
 	g_Vars.mininc60 = 1;
 
-    frametimeApply(diffframe60, diffframe240, count);
+	frametimeApply(diffframe60, diffframe240, count);
 }
 
 void func0f16cf8c(s32 arg0)

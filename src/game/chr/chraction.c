@@ -9009,12 +9009,12 @@ glabel chrCanSeeEntity
 bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3)
 {
 	u32 entitytype = ENTITYTYPE_TARGET;
-    u32 entityid = 0;
+	u32 entityid = 0;
 
-    if (chr->actiontype == ACT_ATTACK) {
-        entitytype = chr->act_attack.entitytype;
-        entityid = chr->act_attack.entityid;
-    }
+	if (chr->actiontype == ACT_ATTACK) {
+		entitytype = chr->act_attack.entitytype;
+		entityid = chr->act_attack.entityid;
+	}
 
 	return chrCanSeeEntity(chr, pos, rooms, arg3, entitytype, entityid);
 }

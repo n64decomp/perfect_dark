@@ -210,9 +210,9 @@ OSMesgQueue *osScGetCmdQ(OSSched *sc)
 
 void __scMain(void *arg)
 {
-    OSMesg msg = 0;
-    OSSched *sc = (OSSched *)arg;
-    int done = 0;
+	OSMesg msg = 0;
+	OSSched *sc = (OSSched *)arg;
+	int done = 0;
 
 	bbufResetBuffers();
 

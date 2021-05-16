@@ -627,20 +627,20 @@ void func00025928(struct tile *tile, struct coord *arg1)
 		s32 sp20[3];
 
 		sp38[0] = tile0->vertices[1][0] - tile0->vertices[0][0];
-        sp38[1] = tile0->vertices[1][1] - tile0->vertices[0][1];
-        sp38[2] = tile0->vertices[1][2] - tile0->vertices[0][2];
+		sp38[1] = tile0->vertices[1][1] - tile0->vertices[0][1];
+		sp38[2] = tile0->vertices[1][2] - tile0->vertices[0][2];
 
-        sp2c[0] = tile0->vertices[2][0] - tile0->vertices[0][0];
-        sp2c[1] = tile0->vertices[2][1] - tile0->vertices[0][1];
-        sp2c[2] = tile0->vertices[2][2] - tile0->vertices[0][2];
+		sp2c[0] = tile0->vertices[2][0] - tile0->vertices[0][0];
+		sp2c[1] = tile0->vertices[2][1] - tile0->vertices[0][1];
+		sp2c[2] = tile0->vertices[2][2] - tile0->vertices[0][2];
 
-        sp20[0] = sp38[1] * sp2c[2] - sp38[2] * sp2c[1];
-        sp20[1] = sp38[2] * sp2c[0] - sp38[0] * sp2c[2];
-        sp20[2] = sp38[0] * sp2c[1] - sp38[1] * sp2c[0];
+		sp20[0] = sp38[1] * sp2c[2] - sp38[2] * sp2c[1];
+		sp20[1] = sp38[2] * sp2c[0] - sp38[0] * sp2c[2];
+		sp20[2] = sp38[0] * sp2c[1] - sp38[1] * sp2c[0];
 
-        arg1->x = sp20[0];
-        arg1->y = sp20[1];
-        arg1->z = sp20[2];
+		arg1->x = sp20[0];
+		arg1->y = sp20[1];
+		arg1->z = sp20[2];
 	} else if (tile->type == TILETYPE_01) {
 		struct tiletype1 *tile1 = (struct tiletype1 *) tile;
 		f32 sp10[3];

@@ -5,14 +5,14 @@ s32 osEPiRawWriteIo(OSPiHandle *handle, u32 devAddr, u32 data)
 {
 	u32 stat = IO_READ(PI_STATUS_REG);
 
-    while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) {
-        stat = IO_READ(PI_STATUS_REG);
+	while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) {
+		stat = IO_READ(PI_STATUS_REG);
 	}
 
-    if (__osCurrentHandle[handle->domain]->type != handle->type) {
-        OSPiHandle *cHandle = __osCurrentHandle[handle->domain];
+	if (__osCurrentHandle[handle->domain]->type != handle->type) {
+		OSPiHandle *cHandle = __osCurrentHandle[handle->domain];
 
-        if (handle->domain == PI_DOMAIN1) {
+		if (handle->domain == PI_DOMAIN1) {
 			if (cHandle->latency != handle->latency) {
 				IO_WRITE(PI_BSD_DOM1_LAT_REG, handle->latency);
 			}
@@ -28,7 +28,7 @@ s32 osEPiRawWriteIo(OSPiHandle *handle, u32 devAddr, u32 data)
 			if (cHandle->pulse != handle->pulse) {
 				IO_WRITE(PI_BSD_DOM1_PWD_REG, handle->pulse);
 			}
-        } else {
+		} else {
 			if (cHandle->latency != handle->latency) {
 				IO_WRITE(PI_BSD_DOM2_LAT_REG, handle->latency);
 			}
@@ -44,7 +44,7 @@ s32 osEPiRawWriteIo(OSPiHandle *handle, u32 devAddr, u32 data)
 			if (cHandle->pulse != handle->pulse) {
 				IO_WRITE(PI_BSD_DOM2_PWD_REG, handle->pulse);
 			}
-        }
+		}
 
 		cHandle->type = handle->type;
 		cHandle->latency = handle->latency;

@@ -15,7 +15,7 @@ void guOrthoF(float mf[4][4], float l, float r, float b, float t, float n, float
 	mf[3][3] = 1;
 
 	for (i = 0; i < 4; i++) {
-	    for (j = 0; j < 4; j++) {
+		for (j = 0; j < 4; j++) {
 			mf[i][j] *= scale;
 		}
 	}

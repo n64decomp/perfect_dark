@@ -66,7 +66,7 @@ void resetproc(void *data)
 	osViBlack(1);
 
 	// Wait about 0.048 seconds
-    prenmitime = osGetTime();
+	prenmitime = osGetTime();
 
 	while (osGetTime() < prenmitime + OS_NSEC_TO_CYCLES(48484848)) {
 		// empty

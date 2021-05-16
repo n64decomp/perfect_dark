@@ -385,65 +385,67 @@ glabel func00039718
 
 u8 __getTrackByte(ALCSeq *seq, u32 track)
 {
-    u8 theByte;
+	u8 theByte;
 
-    if (seq->curBULen[track]) {
-        theByte = *seq->curBUPtr[track];
-        seq->curBUPtr[track]++;
-        seq->curBULen[track]--;
-    } else /* need to handle backup mode */ {
-        theByte = *seq->curLoc[track];
-        seq->curLoc[track]++;
+	if (seq->curBULen[track]) {
+		theByte = *seq->curBUPtr[track];
+		seq->curBUPtr[track]++;
+		seq->curBULen[track]--;
+	} else /* need to handle backup mode */ {
+		theByte = *seq->curLoc[track];
+		seq->curLoc[track]++;
 
-        if (theByte == AL_CMIDI_BLOCK_CODE) {
-            u8 loBackUp, hiBackUp, theLen, nextByte;
-            u32 backup;
+		if (theByte == AL_CMIDI_BLOCK_CODE) {
+			u8 loBackUp, hiBackUp, theLen, nextByte;
+			u32 backup;
 
-            nextByte = *seq->curLoc[track];
-            seq->curLoc[track]++;
+			nextByte = *seq->curLoc[track];
+			seq->curLoc[track]++;
 
-            if (nextByte != AL_CMIDI_BLOCK_CODE) {
-                /* if here, then got a backup section. get the amount of
-                   backup, and the len of the section. Subtract the amount of
-                   backup from the curLoc ptr, and subtract four more, since
-                   curLoc has been advanced by four while reading the codes. */
-                hiBackUp = nextByte;
-                loBackUp = *seq->curLoc[track];
-                seq->curLoc[track]++;
-                theLen = *seq->curLoc[track];
-                seq->curLoc[track]++;
-                backup = (u32)hiBackUp;
-                backup = backup << 8;
-                backup += loBackUp;
-                seq->curBUPtr[track] = seq->curLoc[track] - (backup + 4);
-                seq->curBULen[track] = (u32)theLen;
+			if (nextByte != AL_CMIDI_BLOCK_CODE) {
+				/**
+				 * if here, then got a backup section. get the amount of
+				 * backup, and the len of the section. Subtract the amount of
+				 * backup from the curLoc ptr, and subtract four more, since
+				 * curLoc has been advanced by four while reading the codes.
+				 */
+				hiBackUp = nextByte;
+				loBackUp = *seq->curLoc[track];
+				seq->curLoc[track]++;
+				theLen = *seq->curLoc[track];
+				seq->curLoc[track]++;
+				backup = (u32)hiBackUp;
+				backup = backup << 8;
+				backup += loBackUp;
+				seq->curBUPtr[track] = seq->curLoc[track] - (backup + 4);
+				seq->curBULen[track] = (u32)theLen;
 
-                /* now get the byte */
-                theByte = *seq->curBUPtr[track];
-                seq->curBUPtr[track]++;
-                seq->curBULen[track]--;
-            }
-        }
-    }
+				/* now get the byte */
+				theByte = *seq->curBUPtr[track];
+				seq->curBUPtr[track]++;
+				seq->curBULen[track]--;
+			}
+		}
+	}
 
-    return theByte;
+	return theByte;
 }
 
 u32 __readVarLen(ALCSeq *seq, u32 track)
 {
-    u32 value;
-    u32 c;
+	u32 value;
+	u32 c;
 
-    value = (u32)__getTrackByte(seq, track);
+	value = (u32)__getTrackByte(seq, track);
 
-    if (value & 0x80) {
-        value &= 0x7f;
+	if (value & 0x80) {
+		value &= 0x7f;
 
-        do {
-            c = (u32)__getTrackByte(seq, track);
-            value = (value << 7) + (c & 0x7f);
-        } while (c & 0x80);
-    }
+		do {
+			c = (u32)__getTrackByte(seq, track);
+			value = (value << 7) + (c & 0x7f);
+		} while (c & 0x80);
+	}
 
-    return value;
+	return value;
 }

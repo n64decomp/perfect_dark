@@ -611,12 +611,12 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 
 	ret = 0;
 
-    __osSiGetAccess();
-    ret = __osPfsGetStatus(queue, channel);
-    __osSiRelAccess();
+	__osSiGetAccess();
+	ret = __osPfsGetStatus(queue, channel);
+	__osSiRelAccess();
 
-    if (ret != 0) {
-        return ret;
+	if (ret != 0) {
+		return ret;
 	}
 
 	pfs->queue = queue;

@@ -3,14 +3,14 @@
 
 void *osViGetCurrentFramebuffer(void)
 {
-    register u32 saveMask;
-    void *framep;
+	register u32 saveMask;
+	void *framep;
 
-    saveMask = __osDisableInt();
+	saveMask = __osDisableInt();
 
-    framep = __osViCurr->framep;
+	framep = __osViCurr->framep;
 
-    __osRestoreInt(saveMask);
+	__osRestoreInt(saveMask);
 
-    return framep;
+	return framep;
 }

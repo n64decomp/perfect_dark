@@ -5,8 +5,8 @@ s32 osEPiRawStartDma(OSPiHandle *handle, s32 direction, u32 devAddr, void *dramA
 {
 	u32 stat = IO_READ(PI_STATUS_REG);
 
-    while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) {
-        stat = IO_READ(PI_STATUS_REG);
+	while (stat & (PI_STATUS_IO_BUSY | PI_STATUS_DMA_BUSY)) {
+		stat = IO_READ(PI_STATUS_REG);
 	}
 
 	if (handle->type != __osCurrentHandle[handle->domain]->type) {
@@ -28,7 +28,7 @@ s32 osEPiRawStartDma(OSPiHandle *handle, s32 direction, u32 devAddr, void *dramA
 			if (cHandle->pulse != handle->pulse) {
 				IO_WRITE(PI_BSD_DOM1_PWD_REG, handle->pulse);
 			}
-        } else {
+		} else {
 			if (cHandle->latency != handle->latency) {
 				IO_WRITE(PI_BSD_DOM2_LAT_REG, handle->latency);
 			}

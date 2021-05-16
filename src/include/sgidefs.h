@@ -140,12 +140,12 @@ typedef unsigned long long  __uint64_t;
 #else
 
 typedef struct {
-        int hi32;
-        int lo32;
+	int hi32;
+	int lo32;
 } __int64_t;
 typedef struct {
-        unsigned int hi32;
-        unsigned int lo32;
+	unsigned int hi32;
+	unsigned int lo32;
 } __uint64_t;
 
 #endif /* _LONGLONG */
@@ -178,7 +178,7 @@ typedef __uint64_t __scunsigned_t;
 typedef __int32_t __scint_t;
 typedef __uint32_t __scunsigned_t;
 
-#endif 
+#endif
 
 #endif /* C || C++ */
 

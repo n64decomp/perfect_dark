@@ -497,8 +497,8 @@ ALParam *__allocParam()
 
 void __freeParam(ALParam *param)
 {
-    param->next = n_syn->drvr.paramList;
-    n_syn->drvr.paramList = param;
+	param->next = n_syn->drvr.paramList;
+	n_syn->drvr.paramList = param;
 }
 
 void _collectPVoices(void)

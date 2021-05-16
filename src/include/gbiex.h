@@ -18,7 +18,6 @@
 #define	gDPSetVerticeArray(pkt, ptr, numvertices)                   \
 {                                                                   \
 	Gfx *_g = (Gfx *)(pkt);                                         \
-                                                                    \
 	_g->words.w0 = (_SHIFTL(0x04, 24, 8)                            \
 			| _SHIFTL(numvertices - 1, 20, 4)                       \
 			| _SHIFTL(numvertices * sizeof(struct gfxvtx), 0, 20)); \
@@ -40,7 +39,6 @@
 #define	gDPSetColorArray(pkt, ptr, numcolors)     \
 {                                                 \
 	Gfx *_g = (Gfx *)(pkt);                       \
-                                                  \
 	_g->words.w0 = (_SHIFTL(0x07, 24, 8)          \
 			| _SHIFTL((numcolors - 1) * 4, 16, 8) \
 			| _SHIFTL(numcolors * 4, 0, 16));     \
@@ -72,7 +70,6 @@
 #define	gDPTri4(pkt, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4) \
 {                                        \
 	Gfx *_g = (Gfx *)(pkt);              \
-                                         \
 	_g->words.w0 = (_SHIFTL(0xb1, 24, 8) \
 			| _SHIFTL(z4, 12, 4)         \
 			| _SHIFTL(z3, 8, 4)          \
@@ -98,7 +95,6 @@
 #define	gDPSetPrimColorViaWord(pkt, m, l, rgba)     \
 {                                                   \
 	Gfx *_g = (Gfx *)(pkt);                         \
-                                                    \
 	_g->words.w0 =	(_SHIFTL(G_SETPRIMCOLOR, 24, 8) \
 			| _SHIFTL(m, 8, 8)                      \
 			| _SHIFTL(l, 0, 8));                    \

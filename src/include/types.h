@@ -13,8 +13,8 @@
 // Mtxs use a union and a long long int to force alignments. Mtxfs are not
 // aligned but still use the union for consistency with Mtx.
 typedef union {
-    f32 m[4][4];
-    s32 unused;
+	f32 m[4][4];
+	s32 unused;
 } Mtxf;
 
 // This hacky structure allows coords to be accessed using
@@ -6731,14 +6731,14 @@ struct var80067e6c {
 };
 
 struct textureconfig {
-    u32 texturenum;
-    u8 width;
-    u8 height;
-    u8 level;
-    u8 format;
-    u8 depth;
-    u8 s;
-    u8 t;
+	u32 texturenum;
+	u8 width;
+	u8 height;
+	u8 level;
+	u8 format;
+	u8 depth;
+	u8 s;
+	u8 t;
 };
 
 struct gfxvtx {

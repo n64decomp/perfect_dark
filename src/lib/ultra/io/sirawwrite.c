@@ -3,11 +3,11 @@
 
 s32 __osSiRawWriteIo(u32 devAddr, u32 data)
 {
-    if (__osSiDeviceBusy()) {
-        return -1;
+	if (__osSiDeviceBusy()) {
+		return -1;
 	}
 
-    IO_WRITE(devAddr, data);
+	IO_WRITE(devAddr, data);
 
-    return 0;
+	return 0;
 }

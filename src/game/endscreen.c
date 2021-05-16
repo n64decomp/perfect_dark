@@ -225,12 +225,12 @@ char *soloMenuTextAccuracy(struct menuitem *item)
 		accuracy = 0;
 	}
 
-    if (accuracy > 100.0f) {
-        accuracy = 100.0f;
-    }
+	if (accuracy > 100.0f) {
+		accuracy = 100.0f;
+	}
 
-    sprintf(g_StringPointer, "%s%s%.1f%%", "", "", accuracy);
-    return g_StringPointer;
+	sprintf(g_StringPointer, "%s%s%.1f%%", "", "", accuracy);
+	return g_StringPointer;
 }
 
 char *soloMenuTextMissionStatus(struct menuitem *item)
