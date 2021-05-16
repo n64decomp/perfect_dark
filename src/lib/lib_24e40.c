@@ -790,21 +790,10 @@ f32 cdFindGroundInTileType0AtVertex(struct tiletype0 *tile, f32 x, f32 z, s32 ve
 }
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00027370nb
-/*    27370:	44856000 */ 	mtc1	$a1,$f12
-/*    27374:	44867000 */ 	mtc1	$a2,$f14
-/*    27378:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    2737c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    27380:	44056000 */ 	mfc1	$a1,$f12
-/*    27384:	44067000 */ 	mfc1	$a2,$f14
-/*    27388:	0c009c15 */ 	jal	cdFindGroundInTileType0AtVertex
-/*    2738c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    27390:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    27394:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    27398:	03e00008 */ 	jr	$ra
-/*    2739c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 cdFindGroundInTileType0AtVertex1(struct tiletype0 *tile, f32 x, f32 z)
+{
+	return cdFindGroundInTileType0AtVertex(tile, x, z, 1);
+}
 #endif
 
 GLOBAL_ASM(
