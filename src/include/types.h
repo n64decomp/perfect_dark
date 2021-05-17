@@ -1741,6 +1741,32 @@ struct weaponobj { // objtype 0x08
 	/*0x64*/ struct weaponobj *dualweapon; // other weapon when dual wielding
 };
 
+struct packedchr { // objtype 0x09
+	s16 chrindex;
+	s8 unk02;
+	s8 typenum;
+	u32 spawnflags;
+	s16 chrnum;
+	u16 padnum;
+	u8 bodynum;
+	s8 headnum;
+	u16 ailistnum;
+	u16 padpreset;
+	u16 chrpreset;
+	u16 hearscale;
+	u16 viewdist;
+	u32 flags;
+	u32 flags2;
+	u8 team;
+	u8 squadron;
+	s16 chair;
+	u32 convtalk;
+	u8 tude;
+	u8 naturalanim;
+	u8 yvisang;
+	u8 teamscandist;
+};
+
 struct singlemonitorobj { // objtype 0x0a
 	struct defaultobj base;
 	/*0x5c*/ struct monitorscreen screen;
@@ -3221,7 +3247,8 @@ struct cheat {
 
 struct headorbody {
 	/*0x00*/ u16 ismale : 1;
-	/*0x00*/ u16 unk00_01 : 5;
+	/*0x00*/ u16 unk00_01 : 1;
+	/*0x00*/ u16 unk00_02 : 4;
 	/*0x00*/ u16 height : 8;
 	/*0x02*/ u16 bodyfileid;
 	/*0x04*/ f32 unk04;

@@ -30968,7 +30968,7 @@ glabel var7f1a9410
  * triggered, but the function will not attempt to spawn the chr until the next
  * time it's called.
  */
-struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *rooms, f32 arg4, u8 *ailist, u32 flags)
+struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *rooms, f32 angle, u8 *ailist, u32 spawnflags)
 {
 	struct prop *prop;
 	struct coord pos2;
@@ -30986,16 +30986,16 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 		roomsCopy(rooms, rooms2);
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (func0f04af84(20, &pos2, rooms2, arg4, (flags & 0x10) != 0, 0, 0))
+		if (func0f04af84(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0, 0))
 #else
-		if (func0f04af84(20, &pos2, rooms2, arg4, (flags & 0x10) != 0, 0))
+		if (func0f04af84(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0))
 #endif
 		{
-			struct model *model = modelAllocateChr(bodynum, headnum, flags);
+			struct model *model = modelAllocateChr(bodynum, headnum, spawnflags);
 			struct chrdata *chr;
 
 			if (model) {
-				prop = propAllocateChr(model, &pos2, rooms2, arg4, ailist);
+				prop = propAllocateChr(model, &pos2, rooms2, angle, ailist);
 
 				if (prop) {
 					propAppendToList1(prop);
@@ -31011,7 +31011,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 					chr->hidden2 |= CHRH2FLAG_0080;
 #endif
 
-					if (flags & 0x2000) {
+					if (spawnflags & SPAWNFLAG_00002000) {
 						chr->unk32c_19 = true;
 					}
 
@@ -31067,7 +31067,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 	return NULL;
 }
 
-struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 flags)
+struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 spawnflags)
 {
 	s32 resolved_pad_id = chrResolvePadId(basechr, pad_id);
 	struct pad pad;
@@ -31078,10 +31078,10 @@ struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_
 	room[0] = pad.room;
 	room[1] = -1;
 
-	return chrSpawnAtCoord(body, head, &pad.pos, &room[0], fvalue, ailist, flags);
+	return chrSpawnAtCoord(body, head, &pad.pos, &room[0], fvalue, ailist, spawnflags);
 }
 
-struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 flags)
+struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 spawnflags)
 {
 	struct chrdata *chr = chrFindById(basechr, chrnum);
 	f32 fvalue;
@@ -31090,7 +31090,7 @@ struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrn
 		fvalue = chrGetInverseTheta(chr);
 	}
 
-	return chrSpawnAtCoord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, ailist, flags);
+	return chrSpawnAtCoord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, ailist, spawnflags);
 }
 
 bool func0f04b658(struct chrdata *chr)

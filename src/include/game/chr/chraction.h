@@ -211,7 +211,7 @@ bool func0f04af84(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool a
 bool func0f04af84(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5);
 #endif
 
-struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 arg4, u8 *ailist, u32 flags);
+struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 angle, u8 *ailist, u32 spawnflags);
 bool func0f04b658(struct chrdata *chr);
 bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle, bool allowonscreen);
 bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2);
@@ -329,8 +329,8 @@ void chrSetChrPreset(struct chrdata *chr, s32 chrpreset);
 void chrSetChrPresetByChrnum(struct chrdata *chr, s32 chrnum, s32 chrpreset);
 void chrSetPadPreset(struct chrdata *chr, s32 pad_id);
 void chrSetPadPresetByChrnum(struct chrdata *chr, s32 chrnum, s32 pad_id);
-struct prop *chrSpawnAtPad(struct chrdata *chr, s32 body, s32 head, s32 pad, u8 *ailist, u32 flags);
-struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 flags);
+struct prop *chrSpawnAtPad(struct chrdata *chr, s32 body, s32 head, s32 pad, u8 *ailist, u32 spawnflags);
+struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 spawnflags);
 s16 chrGoToCover(struct chrdata *chr, u8 speed);
 void chrAddTargetToBdlist(struct chrdata *chr);
 s32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr);

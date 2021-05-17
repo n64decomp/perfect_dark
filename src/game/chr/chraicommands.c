@@ -4188,11 +4188,11 @@ glabel aiSpawnChrAtPad
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	u16 pad = cmd[5] | (cmd[4] << 8);
-//	u32 flags = (cmd[9] << 16) | (cmd[10] << 8) | cmd[11] | (cmd[8] << 24);
+//	u32 spawnflags = (cmd[9] << 16) | (cmd[10] << 8) | cmd[11] | (cmd[8] << 24);
 //	s32 ailistid = cmd[7] | (cmd[6] << 8);
 //	u8 *ailist = ailistFindById(ailistid & 0xffff);
 //
-//	if (chrSpawnAtPad(g_Vars.chrdata, cmd[2], (s8)cmd[3], pad, ailist, flags)) {
+//	if (chrSpawnAtPad(g_Vars.chrdata, cmd[2], (s8)cmd[3], pad, ailist, spawnflags)) {
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[12]);
 //	} else {
 //		g_Vars.aioffset += 13;
@@ -4207,11 +4207,11 @@ glabel aiSpawnChrAtPad
 bool aiSpawnChrAtChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u32 flags = (cmd[8] << 16) | (cmd[9] << 8) | cmd[10] | (cmd[7] << 24);
+	u32 spawnflags = (cmd[8] << 16) | (cmd[9] << 8) | cmd[10] | (cmd[7] << 24);
 	u16 ailistid = cmd[6] | (cmd[5] << 8);
 	u8 *ailist = ailistFindById(ailistid);
 
-	if (chrSpawnAtChr(g_Vars.chrdata, cmd[2], (s8)cmd[3], cmd[4], ailist, flags)) {
+	if (chrSpawnAtChr(g_Vars.chrdata, cmd[2], (s8)cmd[3], cmd[4], ailist, spawnflags)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[11]);
 	} else {
 		g_Vars.aioffset += 12;
@@ -4566,7 +4566,7 @@ bool aiTryEquipHat(void)
 bool aiDuplicateChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u32 flags = (cmd[6] << 16) | (cmd[7] << 8) | cmd[8] | (cmd[5] << 24);
+	u32 spawnflags = (cmd[6] << 16) | (cmd[7] << 8) | cmd[8] | (cmd[5] << 24);
 	u16 ailistid = cmd[4] | (cmd[3] << 8);
 	u8 *ailist = ailistFindById(ailistid);
 	bool pass = false;
@@ -4583,7 +4583,7 @@ bool aiDuplicateChr(void)
 	struct prop *cloneweapon1prop = NULL;
 
 	if (chr && (chr->chrflags & CHRCFLAG_CLONEABLE)) {
-		cloneprop = chrSpawnAtChr(g_Vars.chrdata, chr->bodynum, -1, chr->chrnum, ailist, flags);
+		cloneprop = chrSpawnAtChr(g_Vars.chrdata, chr->bodynum, -1, chr->chrnum, ailist, spawnflags);
 
 		if (cloneprop) {
 			clone = cloneprop->chr;
@@ -4633,7 +4633,7 @@ bool aiDuplicateChr(void)
 				clone->flags |= CHRFLAG0_AIVSAI;
 			}
 
-			if (flags & 0x00001000) {
+			if (spawnflags & SPAWNFLAG_HIDDEN) {
 				clone->chrflags &= CHRCFLAG_HIDDEN;
 			}
 

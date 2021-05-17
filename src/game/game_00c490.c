@@ -2926,7 +2926,7 @@ void setupParseObjects(s32 stagenum)
 					break;
 				case OBJTYPE_CHR:
 					if (withchrs) {
-						chrUnpack(stagenum, obj, index);
+						chrUnpack(stagenum, (struct packedchr *) obj, index);
 					}
 					break;
 				case OBJTYPE_DOOR:

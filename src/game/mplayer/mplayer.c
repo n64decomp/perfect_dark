@@ -10192,7 +10192,7 @@ void func0f18e558(void)
 	}
 }
 
-u32 func0f18e57c(u32 index, u32 arg1)
+u32 func0f18e57c(u32 index, s32 *headnum)
 {
 	return var800acc28[index];
 }

@@ -4502,7 +4502,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 }
 
 struct prop *func0f020b14(struct prop *prop, struct model *model,
-		struct coord *pos, s16 *rooms, f32 arg4, u8 *ailist)
+		struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
 {
 	struct chrdata *chr;
 	struct coord testpos;
@@ -4521,7 +4521,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	model->chr = chr;
 	model->unk01 = 1;
 	chr->model = model;
-	chrSetLookAngle(chr, arg4);
+	chrSetLookAngle(chr, faceangle);
 	modelSetAnimPlaySpeed(model, PALUPF(var80062968), 0);
 
 	testpos.x = pos->x;
@@ -4557,12 +4557,12 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	return prop;
 }
 
-struct prop *propAllocateChr(struct model *model, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
+struct prop *propAllocateChr(struct model *model, struct coord *pos, s16 *rooms, f32 faceangle, u8 *ailist)
 {
 	struct prop *prop = propAllocate();
 
 	if (prop) {
-		prop = func0f020b14(prop, model, pos, rooms, arg3, ailist);
+		prop = func0f020b14(prop, model, pos, rooms, faceangle, ailist);
 
 		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
 			chrSetShield(prop->chr, 8);

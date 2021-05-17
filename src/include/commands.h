@@ -1837,25 +1837,25 @@
 /**
  * Attempts to spawn a chr at the given pad.
  */
-#define try_spawn_chr_at_pad(body, head, pad, function, props, label) \
+#define try_spawn_chr_at_pad(body, head, pad, function, spawnflags, label) \
 	mkshort(0x00c6), \
 	body, \
 	head, \
 	mkshort(pad), \
 	mkshort(function), \
-	mkword(props), \
+	mkword(spawnflags), \
 	label,
 
 /**
  * Attempts to spawn a chr at the given chr.
  */
-#define try_spawn_chr_at_chr(body, head, u1, function, props, label) \
+#define try_spawn_chr_at_chr(body, head, u1, function, spawnflags, label) \
 	mkshort(0x00c7), \
 	body, \
 	head, \
 	u1, \
 	mkshort(function), \
-	mkword(props), \
+	mkword(spawnflags), \
 	label,
 
 /**
@@ -1884,11 +1884,11 @@
 	mkword(flags), \
 	label,
 
-#define try_spawn_clone2(chr, function, u1, label) \
+#define try_spawn_clone2(chr, function, spawnflags, label) \
 	mkshort(0x00ca), \
 	chr, \
 	mkshort(function), \
-	mkword(u1), \
+	mkword(spawnflags), \
 	label,
 
 /**
