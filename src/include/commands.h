@@ -62,10 +62,10 @@
  * execution is immediately passed to the start of the new list (ie. there is no
  * yield).
  */
-#define set_ailist(chr, function) \
+#define set_ailist(chr, ailist) \
 	mkshort(0x0005), \
 	chr, \
-	mkshort(function),
+	mkshort(ailist),
 
 /**
  * Sets the chr's return ailist. The return ailist can be jumped to using the
@@ -75,10 +75,10 @@
  * set_ailist to assign a new one. The new ailist should use return to jump back
  * to the original ailist.
  */
-#define set_returnlist(chr, function) \
+#define set_returnlist(chr, ailist) \
 	mkshort(0x0006), \
 	chr, \
-	mkshort(function),
+	mkshort(ailist),
 
 /**
  * Sets the list that should be assigned when the chr is shot.
@@ -90,9 +90,9 @@
  * say something and wait for their injury animation to finish before they
  * continue their regular logic.
  */
-#define set_shotlist(function) \
+#define set_shotlist(ailist) \
 	mkshort(0x0007), \
-	mkshort(function),
+	mkshort(ailist),
 
 /**
  * Assigns the chr's return list to their current one. Execution of the new list
@@ -1837,24 +1837,24 @@
 /**
  * Attempts to spawn a chr at the given pad.
  */
-#define try_spawn_chr_at_pad(body, head, pad, function, spawnflags, label) \
+#define try_spawn_chr_at_pad(body, head, pad, ailist, spawnflags, label) \
 	mkshort(0x00c6), \
 	body, \
 	head, \
 	mkshort(pad), \
-	mkshort(function), \
+	mkshort(ailist), \
 	mkword(spawnflags), \
 	label,
 
 /**
  * Attempts to spawn a chr at the given chr.
  */
-#define try_spawn_chr_at_chr(body, head, u1, function, spawnflags, label) \
+#define try_spawn_chr_at_chr(body, head, chrnum, ailist, spawnflags, label) \
 	mkshort(0x00c7), \
 	body, \
 	head, \
-	u1, \
-	mkshort(function), \
+	chrnum, \
+	mkshort(ailist), \
 	mkword(spawnflags), \
 	label,
 
@@ -1884,10 +1884,10 @@
 	mkword(flags), \
 	label,
 
-#define try_spawn_clone2(chr, function, spawnflags, label) \
+#define try_spawn_clone2(chr, ailist, spawnflags, label) \
 	mkshort(0x00ca), \
 	chr, \
-	mkshort(function), \
+	mkshort(ailist), \
 	mkword(spawnflags), \
 	label,
 
@@ -3895,9 +3895,9 @@
  * Sets the current chr's darkroom ailist. This is assigned when the lights are
  * switched off.
  */
-#define set_darkroomlist(function) \
+#define set_darkroomlist(ailist) \
 	mkshort(0x01c3), \
-	mkshort(function),
+	mkshort(ailist),
 
 /**
  * Sets the current chr's playerdead ailist. This is probably assigned when the

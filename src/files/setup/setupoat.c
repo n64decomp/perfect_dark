@@ -59,7 +59,7 @@ u8 func0404_spawn_enemies[] = {
 	set_morale(12)
 	label(0x04)
 	if_morale_lt(1, /*goto*/ 0x01)
-	try_spawn_chr_at_chr(BODY_DDSHOCK, HEAD_DDSHOCK, 0x06, AILIST_INIT_ENEMY, 0x00000010, /*goto*/ 0xa2)
+	try_spawn_chr_at_chr(BODY_DDSHOCK, HEAD_DDSHOCK, 0x06, AILIST_INIT_ENEMY, SPAWNFLAG_00000010, /*goto*/ 0xa2)
 	goto_next(0x01)
 	label(0xa2)
 	yield
@@ -99,7 +99,7 @@ u8 func0405_spawn_maians[] = {
 	set_morale(12)
 	label(0x04)
 	if_morale_lt(1, /*goto*/ 0x01)
-	try_spawn_chr_at_chr(BODY_ELVIS1, HEAD_ELVIS, 0x07, AILIST_INIT_MAIAN, 0x00000010, /*goto*/ 0xa2)
+	try_spawn_chr_at_chr(BODY_ELVIS1, HEAD_ELVIS, 0x07, AILIST_INIT_MAIAN, SPAWNFLAG_00000010, /*goto*/ 0xa2)
 	goto_next(0x01)
 	label(0xa2)
 	yield

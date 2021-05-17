@@ -33,18 +33,18 @@
 	_generic_object(0x08, scale, model, chr, flags, flags2, flags3, 1000), \
 	_mkword(_mkshort(weapon, 0), 0), 0x00ffffff, 0,
 
-#define chr(unk1, id, pad, body, head, function, target_pad, target_chr, hear_dist, view_dist, flags, bank1flags, team, group, chair, group2, associated) \
+#define chr(spawnflags, chrnum, pad, body, head, function, padpreset, chrpreset, hear_scale, view_dist, flags, flags2, team, squadron, chair, convtalk, tude, naturalanim, yvisang, teamscandist) \
 	0x09, \
-	unk1, \
-	_mkword(id, pad), \
+	spawnflags, \
+	_mkword(chrnum, pad), \
 	_mkword(_mkshort(body, head), function), \
-	_mkword(target_pad, target_chr), \
-	_mkword(hear_dist, view_dist), \
+	_mkword(padpreset, chrpreset), \
+	_mkword(hear_scale, view_dist), \
 	flags, \
-	bank1flags, \
-	_mkword(_mkshort(team, group), chair), \
-	group2, \
-	associated,
+	flags2, \
+	_mkword(_mkshort(team, squadron), chair), \
+	convtalk, \
+	_mkword(_mkshort(tude, naturalanim), _mkshort(yvisang, teamscandist)),
 
 #define singlemonitor(scale, model, pad, flags, flags2, flags3, maxdamage, image) \
 	_generic_object(0x0a, scale, model, pad, flags, flags2, flags3, maxdamage), \

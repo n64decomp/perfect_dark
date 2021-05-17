@@ -469,7 +469,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x0e)
 	dprint 'C','R','E','A','T','E',' ','S','P','A','W','N','\n',0,
-	try_spawn_clone2(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER, 0x00000000, /*goto*/ 0x13)
+	try_spawn_clone2(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER, 0, /*goto*/ 0x13)
 	dprint 'C','R','E','A','T','E',' ','F','A','I','L','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_00100000, TRUE, BANK_0, /*goto*/ 0x13)
 	set_ailist(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER)
@@ -675,7 +675,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x0e)
 	dprint 'C','R','E','A','T','E',' ','S','P','A','W','N','\n',0,
-	try_spawn_clone2(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER, 0x00000000, /*goto*/ 0x13)
+	try_spawn_clone2(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER, 0, /*goto*/ 0x13)
 	dprint 'C','R','E','A','T','E',' ','F','A','I','L','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_00100000, FALSE, BANK_0, /*goto*/ 0x16)
 	goto_first(LABEL_HEARSPAWN)
@@ -4534,7 +4534,7 @@ u8 func001f_related_to_spawning[] = {
 	set_ailist(CHR_SELF, GAILIST_RELATED_TO_SPAWNING)
 
 	label(0x0e)
-	try_spawn_clone2(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER, 0x00000000, /*goto*/ 0x13)
+	try_spawn_clone2(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER, 0, /*goto*/ 0x13)
 	set_returnlist(CHR_SELF, GAILIST_RELATED_TO_SPAWNING)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 
