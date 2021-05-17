@@ -500,22 +500,10 @@ glabel var7f1a8a84
 /*  f02d334:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f02d338
-/*  f02d338:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f02d33c:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f02d340:	93af003f */ 	lbu	$t7,0x3f($sp)
-/*  f02d344:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f02d348:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f02d34c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f02d350:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f02d354:	0fc0b3a3 */ 	jal	func0f02ce8c
-/*  f02d358:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f02d35c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f02d360:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f02d364:	03e00008 */ 	jr	$ra
-/*  f02d368:	00000000 */ 	nop
-);
+struct model *func0f02d338(u32 bodynum, u32 headnum, u32 arg2, u32 arg3, bool arg4, u8 arg5)
+{
+	return func0f02ce8c(bodynum, headnum, arg2, arg3, arg4, 0, 0, arg5);
+}
 
 struct model *modelAllocateChr(u32 bodynum, u32 headnum, u32 spawnflags)
 {
