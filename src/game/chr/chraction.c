@@ -30483,67 +30483,26 @@ bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f04aeb0
-/*  f04aeb0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f04aeb4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f04aeb8:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f04aebc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f04aec0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f04aec4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f04aec8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04aecc:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f04aed0:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f04aed4:	0fc599be */ 	jal	func0f1666f8
-/*  f04aed8:	24050000 */ 	addiu	$a1,$zero,0x0
-/*  f04aedc:	50400023 */ 	beqzl	$v0,.L0f04af6c
-/*  f04aee0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f04aee4:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f04aee8:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f04aeec:	00008825 */ 	or	$s1,$zero,$zero
-/*  f04aef0:	844f0000 */ 	lh	$t7,0x0($v0)
-/*  f04aef4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04aef8:	524f000f */ 	beql	$s2,$t7,.L0f04af38
-/*  f04aefc:	0011c040 */ 	sll	$t8,$s1,0x1
-/*  f04af00:	84440000 */ 	lh	$a0,0x0($v0)
-.L0f04af04:
-/*  f04af04:	0fc575ba */ 	jal	roomIsVisibleByAnyPlayer
-/*  f04af08:	00000000 */ 	nop
-/*  f04af0c:	50400004 */ 	beqzl	$v0,.L0f04af20
-/*  f04af10:	86040002 */ 	lh	$a0,0x2($s0)
-/*  f04af14:	10000007 */ 	b	.L0f04af34
-/*  f04af18:	8fa20034 */ 	lw	$v0,0x34($sp)
-/*  f04af1c:	86040002 */ 	lh	$a0,0x2($s0)
-.L0f04af20:
-/*  f04af20:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f04af24:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f04af28:	1644fff6 */ 	bne	$s2,$a0,.L0f04af04
-/*  f04af2c:	00000000 */ 	nop
-/*  f04af30:	8fa20034 */ 	lw	$v0,0x34($sp)
-.L0f04af34:
-/*  f04af34:	0011c040 */ 	sll	$t8,$s1,0x1
-.L0f04af38:
-/*  f04af38:	0058c821 */ 	addu	$t9,$v0,$t8
-/*  f04af3c:	87240000 */ 	lh	$a0,0x0($t9)
-/*  f04af40:	5244000a */ 	beql	$s2,$a0,.L0f04af6c
-/*  f04af44:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f04af48:	0fc56050 */ 	jal	func0f158140
-/*  f04af4c:	00000000 */ 	nop
-/*  f04af50:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f04af54:	3c054348 */ 	lui	$a1,0x4348
-/*  f04af58:	0fc2d74e */ 	jal	func0f0b5d38
-/*  f04af5c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f04af60:	2c480001 */ 	sltiu	$t0,$v0,0x1
-/*  f04af64:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f04af68:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f04af6c:
-/*  f04af6c:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f04af70:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04af74:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f04af78:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f04af7c:	03e00008 */ 	jr	$ra
-/*  f04af80:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool func0f04aeb0(struct coord *pos, s16 *rooms)
+{
+	bool result = true;
+	s32 i;
+
+	if (func0f1666f8(pos, 0)) {
+		for (i = 0; rooms[i] != -1; i++) {
+			if (roomIsVisibleByAnyPlayer(rooms[i])) {
+				break;
+			}
+		}
+
+		if (rooms[i] != -1) {
+			// Room is visible by player
+			result = !func0f0b5d38(pos, 200, func0f158140(rooms[i]));
+		}
+	}
+
+	return result;
+}
 
 /**
  * Test if a chr can be spawned into or nearby the given position, taking into

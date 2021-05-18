@@ -42,7 +42,7 @@ f32 currentPlayerGetScreenTop(void);
 f32 currentPlayerGetPerspAspect(void);
 void func0f0b5838(void);
 u32 func0f0b5b9c(void);
-u32 func0f0b5d38(void);
+bool func0f0b5d38(struct coord *pos, f32 arg1, struct var800a4640_00 *arg2);
 u32 func0f0b6260(void);
 
 #endif

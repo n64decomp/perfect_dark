@@ -7,7 +7,7 @@
 void roomMovePropsToList1(u32 roomnum, bool tintedglassonly);
 void func0f157e94(s32 room, s32 arg1, struct screenbox *arg2);
 void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2);
-struct var800a4640_00 *func0f158140(s32 index);
+struct var800a4640_00 *func0f158140(s32 roomnum);
 u32 func0f158184(void);
 u32 func0f158400(void);
 u32 func0f158884(void);

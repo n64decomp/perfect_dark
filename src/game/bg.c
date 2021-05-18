@@ -262,12 +262,12 @@ void func0f158108(s32 roomnum, u8 *arg1, u8 *arg2)
 	*arg2 = g_BgRooms[roomnum].unk11;
 }
 
-struct var800a4640_00 *func0f158140(s32 arg0)
+struct var800a4640_00 *func0f158140(s32 roomnum)
 {
 	s32 index = 60;
 
-	if (var8007fc3c == var800a4ce8[arg0].unk00) {
-		index = var800a4ce8[arg0].unk02;
+	if (var8007fc3c == var800a4ce8[roomnum].unk00) {
+		index = var800a4ce8[roomnum].unk02;
 	}
 
 	return &var800a4640.unk000[index];
