@@ -75927,45 +75927,22 @@ void alarmTick(void)
 	var80069910 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f091030
-/*  f091030:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x33c)
-/*  f091034:	8c42a2fc */ 	lw	$v0,%lo(g_Vars+0x33c)($v0)
-/*  f091038:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f09103c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f091040:	10400016 */ 	beqz	$v0,.L0f09109c
-/*  f091044:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f091048:	904e0000 */ 	lbu	$t6,0x0($v0)
-.L0f09104c:
-/*  f09104c:	54ae0011 */ 	bnel	$a1,$t6,.L0f091094
-/*  f091050:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f091054:	904f0001 */ 	lbu	$t7,0x1($v0)
-/*  f091058:	31f800c2 */ 	andi	$t8,$t7,0xc2
-/*  f09105c:	5700000d */ 	bnezl	$t8,.L0f091094
-/*  f091060:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f091064:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f091068:	90830002 */ 	lbu	$v1,0x2($a0)
-/*  f09106c:	30790040 */ 	andi	$t9,$v1,0x40
-/*  f091070:	13200007 */ 	beqz	$t9,.L0f091090
-/*  f091074:	30680080 */ 	andi	$t0,$v1,0x80
-/*  f091078:	51000006 */ 	beqzl	$t0,.L0f091094
-/*  f09107c:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f091080:	0fc1acd3 */ 	jal	func0f06b34c
-/*  f091084:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f091088:	10000005 */ 	b	.L0f0910a0
-/*  f09108c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f091090:
-/*  f091090:	8c420020 */ 	lw	$v0,0x20($v0)
-.L0f091094:
-/*  f091094:	5440ffed */ 	bnezl	$v0,.L0f09104c
-/*  f091098:	904e0000 */ 	lbu	$t6,0x0($v0)
-.L0f09109c:
-/*  f09109c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0910a0:
-/*  f0910a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0910a4:	03e00008 */ 	jr	$ra
-/*  f0910a8:	00000000 */ 	nop
-);
+void func0f091030(void)
+{
+	struct prop *prop = g_Vars.list1head;
+
+	while (prop) {
+		if (prop->type == PROPTYPE_OBJ
+				&& (prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) == 0
+				&& (prop->obj->hidden2 & OBJH2FLAG_40)
+				&& (prop->obj->hidden2 & OBJH2FLAG_80)) {
+			func0f06b34c(prop->obj, true);
+			return;
+		}
+
+		prop = prop->next;
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

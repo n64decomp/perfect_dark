@@ -12403,7 +12403,7 @@ void func0f09fa20(s32 handnum)
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
 	if (hand->rocket) {
-		func0f06b34c(hand->rocket, 1);
+		func0f06b34c(hand->rocket, true);
 		hand->rocket = NULL;
 	}
 }

@@ -43,7 +43,7 @@ void func0f015010(void)
 			case OBJTYPE_HOVERCAR:
 			case OBJTYPE_CHOPPER:
 			case OBJTYPE_ESCASTEP:
-				func0f06b34c(ptr, 1);
+				func0f06b34c(ptr, true);
 				break;
 			case OBJTYPE_DOORSCALE:
 			case OBJTYPE_CHR:

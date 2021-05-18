@@ -2620,6 +2620,7 @@
 #define OBJH2FLAG_08           0x08
 #define OBJH2FLAG_10           0x10
 #define OBJH2FLAG_40           0x40
+#define OBJH2FLAG_80           0x80
 
 #define OBJTYPE_DOOR               0x01
 #define OBJTYPE_DOORSCALE          0x02
