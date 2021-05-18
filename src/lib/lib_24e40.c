@@ -7820,7 +7820,7 @@ glabel func0002d3b0
 bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 arg5, f32 arg6)
 {
 	s16 sp44[21];
-	u32 sp34[4];
+	s16 sp34[8];
 
 	func00018148(pos, targetpos, rooms, sp34, sp44, 20);
 
@@ -7847,14 +7847,14 @@ s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2
 bool func0002d7c0(struct coord *pos, s16 *rooms, struct coord *arg2, u32 arg3, u32 arg4, f32 ymax, f32 ymin)
 {
 	s16 sp44[21];
-	u32 sp34[4];
+	s16 sp34[8];
 
 	func00018148(pos, arg2, rooms, sp34, sp44, 20);
 
 	return func0002d3b0(pos, arg2, sp44, arg3, 4, 0, arg4, ymax, ymin);
 }
 
-s32 func0002d840(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
+s32 func0002d840(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
 {
 	s16 rooms[21];
 
@@ -7907,7 +7907,7 @@ s32 cdTestAToB3(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f3
 	return result;
 }
 
-void func0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
+void func0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin)
 {
 	s16 rooms[21];
 
@@ -7915,7 +7915,7 @@ void func0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, 
 	func0002d3b0(arg0, arg2, rooms, types, 4, 0, arg5, ymax, ymin);
 }
 
-s32 func0002dac8(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, f32 width, u32 types, s32 arg6, f32 ymax, f32 ymin)
+s32 func0002dac8(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 width, u32 types, s32 arg6, f32 ymax, f32 ymin)
 {
 	s16 rooms[21];
 	struct coord sp40;
@@ -7939,7 +7939,7 @@ s32 func0002dac8(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, f
 bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, u32 types, u16 arg4)
 {
 	s16 sp44[21];
-	u32 sp34[4];
+	s16 sp34[8];
 
 	func00018148(viewpos, targetpos, rooms, sp34, sp44, 20);
 
@@ -7992,7 +7992,7 @@ bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2
 s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u16 arg4)
 {
 	s16 sp44[21];
-	u32 sp34[4];
+	s16 sp34[8];
 
 	func00018148(pos, pos2, rooms, sp34, sp44, 20);
 
@@ -8004,7 +8004,7 @@ s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types)
 	return cdTestAToB4(pos, rooms, pos2, types, 0x1c);
 }
 
-s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5)
+s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, u16 arg5)
 {
 	s16 rooms[21];
 
@@ -8013,7 +8013,7 @@ s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u
 	return func0002d15c(arg0, arg2, rooms, types, arg5, 1, 1, 0, 0);
 }
 
-s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5)
+s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types)
 {
 	return func0002de34(arg0, arg1, arg2, arg3, types, 0x1c);
 }

@@ -22,19 +22,7 @@
 void __n_CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
 void __n_setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);
 
-u32 var8009c350;
-u32 var8009c354;
-u32 var8009c358;
-u32 var8009c35c;
-u32 var8009c360;
-u32 var8009c364;
-u32 var8009c368;
-u32 var8009c36c;
-u32 var8009c370;
-u32 var8009c374;
-u32 var8009c378;
-u32 var8009c37c;
-u32 var8009c380;
+u32 var8009c350[16];
 
 u32 var8005f150 = 0x00000000;
 u32 var8005f154 = 0x00002710;

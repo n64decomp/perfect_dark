@@ -418,12 +418,12 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
-			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
 #else
-			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
+			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
@@ -457,12 +457,12 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 			slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
-			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
 #else
-			if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
+			if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
 				slpadindexes[sllen] = p;
 				sllen++;
 			}
@@ -518,12 +518,12 @@ f32 playerChooseSpawnLocation(f32 chrwidth, struct coord *dstpos, s16 *dstrooms,
 		slangles[sllen] = atan2f(pad.look.x, pad.look.z);
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
+		if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false, false)) {
 			slpadindexes[sllen] = i;
 			sllen++;
 		}
 #else
-		if (func0f04af84(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
+		if (chrAdjustPosForSpawn(chrwidth, &slpositions[sllen], slrooms[sllen], slangles[sllen], true, false)) {
 			slpadindexes[sllen] = i;
 			sllen++;
 		}

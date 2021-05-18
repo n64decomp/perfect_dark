@@ -203,12 +203,12 @@ bool chrSetPadPresetToWaypointWithinTargetQuadrant(struct chrdata *chr, u8 arg1)
 bool chrSetChrPresetToChrNearPad(u32 checktype, struct chrdata *chr, f32 distance, s32 padnum);
 bool chrSetChrPresetToChrNearPos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, s16 *room);
 bool chrSetPadPresetToPadOnRouteToTarget(struct chrdata *chr);
-u32 func0f04aeb0(void);
+bool func0f04aeb0(struct coord *pos, s16 *rooms);
 
 #if VERSION >= VERSION_NTSC_1_0
-bool func0f04af84(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);
+bool chrAdjustPosForSpawn(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5, bool arg6);
 #else
-bool func0f04af84(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5);
+bool chrAdjustPosForSpawn(f32 chrwidth, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool arg5);
 #endif
 
 struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 angle, u8 *ailist, u32 spawnflags);

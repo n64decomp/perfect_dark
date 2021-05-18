@@ -30545,419 +30545,147 @@ glabel func0f04aeb0
 /*  f04af80:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+/**
+ * Test if a chr can be spawned into or nearby the given position, taking into
+ * consideration collision checks.
+ *
+ * If the spawn can happen, the position and rooms are updated with the actual
+ * position to be used and the function returns true.
+ *
+ * If the spawn cannot happen, the function return false.
+ */
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f04af84
-.late_rodata
-glabel var7f1a9404
-.word 0x40c907a9
-glabel var7f1a9408
-.word 0x3f4907a9
-glabel var7f1a940c
-.word 0xc7c35000
-glabel var7f1a9410
-.word 0x40c907a9
-glabel var7f1a9414
-.word 0xc7c35000
-glabel var7f1a9418
-.word 0xc7c35000
-glabel var7f1a941c
-.word 0x3f4907a9
-.text
-/*  f04af84:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f04af88:	8fae00bc */ 	lw	$t6,0xbc($sp)
-/*  f04af8c:	44877000 */ 	mtc1	$a3,$f14
-/*  f04af90:	afb50068 */ 	sw	$s5,0x68($sp)
-/*  f04af94:	afb2005c */ 	sw	$s2,0x5c($sp)
-/*  f04af98:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*  f04af9c:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f04afa0:	00c0a825 */ 	or	$s5,$a2,$zero
-/*  f04afa4:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f04afa8:	afb40064 */ 	sw	$s4,0x64($sp)
-/*  f04afac:	afb30060 */ 	sw	$s3,0x60($sp)
-/*  f04afb0:	afb10058 */ 	sw	$s1,0x58($sp)
-/*  f04afb4:	afb00054 */ 	sw	$s0,0x54($sp)
-/*  f04afb8:	f7be0048 */ 	sdc1	$f30,0x48($sp)
-/*  f04afbc:	f7bc0040 */ 	sdc1	$f28,0x40($sp)
-/*  f04afc0:	f7ba0038 */ 	sdc1	$f26,0x38($sp)
-/*  f04afc4:	f7b80030 */ 	sdc1	$f24,0x30($sp)
-/*  f04afc8:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f04afcc:	e7ac00a8 */ 	swc1	$f12,0xa8($sp)
-/*  f04afd0:	11c00005 */ 	beqz	$t6,.L0f04afe8
-/*  f04afd4:	46007586 */ 	mov.s	$f22,$f14
-/*  f04afd8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f04afdc:	2410001f */ 	addiu	$s0,$zero,0x1f
-/*  f04afe0:	10000002 */ 	b	.L0f04afec
-/*  f04afe4:	afaf00b8 */ 	sw	$t7,0xb8($sp)
-.L0f04afe8:
-/*  f04afe8:	2410003f */ 	addiu	$s0,$zero,0x3f
-.L0f04afec:
-/*  f04afec:	8fb400c0 */ 	lw	$s4,0xc0($sp)
-/*  f04aff0:	3c01c348 */ 	lui	$at,0xc348
-/*  f04aff4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04aff8:	1280000f */ 	beqz	$s4,.L0f04b038
-/*  f04affc:	8fa500a8 */ 	lw	$a1,0xa8($sp)
-/*  f04b000:	3c017f1b */ 	lui	$at,%hi(var7f1a9404)
-/*  f04b004:	c43c9404 */ 	lwc1	$f28,%lo(var7f1a9404)($at)
-/*  f04b008:	3c017f1b */ 	lui	$at,%hi(var7f1a9408)
-/*  f04b00c:	c4249408 */ 	lwc1	$f4,%lo(var7f1a9408)($at)
-/*  f04b010:	3c014348 */ 	lui	$at,0x4348
-/*  f04b014:	4481f000 */ 	mtc1	$at,$f30
-/*  f04b018:	46047580 */ 	add.s	$f22,$f14,$f4
-/*  f04b01c:	4616e03e */ 	c.le.s	$f28,$f22
-/*  f04b020:	00000000 */ 	nop
-/*  f04b024:	45000002 */ 	bc1f	.L0f04b030
-/*  f04b028:	00000000 */ 	nop
-/*  f04b02c:	461cb581 */ 	sub.s	$f22,$f22,$f28
-.L0f04b030:
-/*  f04b030:	10000029 */ 	b	.L0f04b0d8
-/*  f04b034:	00000000 */ 	nop
-.L0f04b038:
-/*  f04b038:	4481a000 */ 	mtc1	$at,$f20
-/*  f04b03c:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f04b040:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04b044:	0c00a8cc */ 	jal	cdFindGroundYSimple
-/*  f04b048:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f04b04c:	3c017f1b */ 	lui	$at,%hi(var7f1a940c)
-/*  f04b050:	c426940c */ 	lwc1	$f6,%lo(var7f1a940c)($at)
-/*  f04b054:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04b058:	8fa500a8 */ 	lw	$a1,0xa8($sp)
-/*  f04b05c:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f04b060:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f04b064:	02003825 */ 	or	$a3,$s0,$zero
-/*  f04b068:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f04b06c:	4502000b */ 	bc1fl	.L0f04b09c
-/*  f04b070:	3c014348 */ 	lui	$at,0x4348
-/*  f04b074:	c6480004 */ 	lwc1	$f8,0x4($s2)
-/*  f04b078:	3c01c348 */ 	lui	$at,0xc348
-/*  f04b07c:	44815000 */ 	mtc1	$at,$f10
-/*  f04b080:	46080081 */ 	sub.s	$f2,$f0,$f8
-/*  f04b084:	460a103c */ 	c.lt.s	$f2,$f10
-/*  f04b088:	00000000 */ 	nop
-/*  f04b08c:	45020003 */ 	bc1fl	.L0f04b09c
-/*  f04b090:	3c014348 */ 	lui	$at,0x4348
-/*  f04b094:	46001506 */ 	mov.s	$f20,$f2
-/*  f04b098:	3c014348 */ 	lui	$at,0x4348
-.L0f04b09c:
-/*  f04b09c:	4481f000 */ 	mtc1	$at,$f30
-/*  f04b0a0:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f04b0a4:	e7b40018 */ 	swc1	$f20,0x18($sp)
-/*  f04b0a8:	0c00a9a1 */ 	jal	cdTestVolume
-/*  f04b0ac:	e7be0014 */ 	swc1	$f30,0x14($sp)
-/*  f04b0b0:	10400009 */ 	beqz	$v0,.L0f04b0d8
-/*  f04b0b4:	8fb900b8 */ 	lw	$t9,0xb8($sp)
-/*  f04b0b8:	17200005 */ 	bnez	$t9,.L0f04b0d0
-/*  f04b0bc:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04b0c0:	0fc12bac */ 	jal	func0f04aeb0
-/*  f04b0c4:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04b0c8:	10400003 */ 	beqz	$v0,.L0f04b0d8
-/*  f04b0cc:	00000000 */ 	nop
-.L0f04b0d0:
-/*  f04b0d0:	10000079 */ 	b	.L0f04b2b8
-/*  f04b0d4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04b0d8:
-/*  f04b0d8:	3c017f1b */ 	lui	$at,%hi(var7f1a9410)
-/*  f04b0dc:	c43c9410 */ 	lwc1	$f28,%lo(var7f1a9410)($at)
-/*  f04b0e0:	3c014270 */ 	lui	$at,0x4270
-/*  f04b0e4:	4481d000 */ 	mtc1	$at,$f26
-/*  f04b0e8:	00009825 */ 	or	$s3,$zero,$zero
-/*  f04b0ec:	27b1009c */ 	addiu	$s1,$sp,0x9c
-/*  f04b0f0:	27b00084 */ 	addiu	$s0,$sp,0x84
-.L0f04b0f4:
-/*  f04b0f4:	0c0068f7 */ 	jal	sinf
-/*  f04b0f8:	4600b306 */ 	mov.s	$f12,$f22
-/*  f04b0fc:	461a0402 */ 	mul.s	$f16,$f0,$f26
-/*  f04b100:	c6520000 */ 	lwc1	$f18,0x0($s2)
-/*  f04b104:	4600b306 */ 	mov.s	$f12,$f22
-/*  f04b108:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f04b10c:	e7a4009c */ 	swc1	$f4,0x9c($sp)
-/*  f04b110:	c6460004 */ 	lwc1	$f6,0x4($s2)
-/*  f04b114:	0c0068f4 */ 	jal	cosf
-/*  f04b118:	e7a600a0 */ 	swc1	$f6,0xa0($sp)
-/*  f04b11c:	461a0202 */ 	mul.s	$f8,$f0,$f26
-/*  f04b120:	c64a0008 */ 	lwc1	$f10,0x8($s2)
-/*  f04b124:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04b128:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04b12c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f04b130:	02003825 */ 	or	$a3,$s0,$zero
-/*  f04b134:	2408003b */ 	addiu	$t0,$zero,0x3b
-/*  f04b138:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f04b13c:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f04b140:	3c01c348 */ 	lui	$at,0xc348
-/*  f04b144:	12800009 */ 	beqz	$s4,.L0f04b16c
-/*  f04b148:	e7b000a4 */ 	swc1	$f16,0xa4($sp)
-/*  f04b14c:	44819000 */ 	mtc1	$at,$f18
-/*  f04b150:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f04b154:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f04b158:	e7be0018 */ 	swc1	$f30,0x18($sp)
-/*  f04b15c:	0c00b610 */ 	jal	func0002d840
-/*  f04b160:	e7b2001c */ 	swc1	$f18,0x1c($sp)
-/*  f04b164:	5440000b */ 	bnezl	$v0,.L0f04b194
-/*  f04b168:	3c01c348 */ 	lui	$at,0xc348
-.L0f04b16c:
-/*  f04b16c:	16800045 */ 	bnez	$s4,.L0f04b284
-/*  f04b170:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04b174:	240a0020 */ 	addiu	$t2,$zero,0x20
-/*  f04b178:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f04b17c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04b180:	02203025 */ 	or	$a2,$s1,$zero
-/*  f04b184:	0c00b7ab */ 	jal	func0002deac
-/*  f04b188:	02003825 */ 	or	$a3,$s0,$zero
-/*  f04b18c:	1040003d */ 	beqz	$v0,.L0f04b284
-/*  f04b190:	3c01c348 */ 	lui	$at,0xc348
-.L0f04b194:
-/*  f04b194:	4481a000 */ 	mtc1	$at,$f20
-/*  f04b198:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04b19c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f04b1a0:	0fc087ea */ 	jal	func0f021fa8
-/*  f04b1a4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f04b1a8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04b1ac:	8fa500a8 */ 	lw	$a1,0xa8($sp)
-/*  f04b1b0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f04b1b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04b1b8:	0c00a8cc */ 	jal	cdFindGroundYSimple
-/*  f04b1bc:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f04b1c0:	3c017f1b */ 	lui	$at,%hi(var7f1a9414)
-/*  f04b1c4:	c4249414 */ 	lwc1	$f4,%lo(var7f1a9414)($at)
-/*  f04b1c8:	46000606 */ 	mov.s	$f24,$f0
-/*  f04b1cc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04b1d0:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f04b1d4:	8fa500a8 */ 	lw	$a1,0xa8($sp)
-/*  f04b1d8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f04b1dc:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f04b1e0:	4500000a */ 	bc1f	.L0f04b20c
-/*  f04b1e4:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f04b1e8:	c6460004 */ 	lwc1	$f6,0x4($s2)
-/*  f04b1ec:	3c01c348 */ 	lui	$at,0xc348
-/*  f04b1f0:	44814000 */ 	mtc1	$at,$f8
-/*  f04b1f4:	46060081 */ 	sub.s	$f2,$f0,$f6
-/*  f04b1f8:	4608103c */ 	c.lt.s	$f2,$f8
-/*  f04b1fc:	00000000 */ 	nop
-/*  f04b200:	45020003 */ 	bc1fl	.L0f04b210
-/*  f04b204:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f04b208:	46001506 */ 	mov.s	$f20,$f2
-.L0f04b20c:
-/*  f04b20c:	afab0010 */ 	sw	$t3,0x10($sp)
-.L0f04b210:
-/*  f04b210:	e7be0014 */ 	swc1	$f30,0x14($sp)
-/*  f04b214:	0c00a9a1 */ 	jal	cdTestVolume
-/*  f04b218:	e7b40018 */ 	swc1	$f20,0x18($sp)
-/*  f04b21c:	10400019 */ 	beqz	$v0,.L0f04b284
-/*  f04b220:	8fac00b8 */ 	lw	$t4,0xb8($sp)
-/*  f04b224:	15800005 */ 	bnez	$t4,.L0f04b23c
-/*  f04b228:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04b22c:	0fc12bac */ 	jal	func0f04aeb0
-/*  f04b230:	02002825 */ 	or	$a1,$s0,$zero
-/*  f04b234:	10400013 */ 	beqz	$v0,.L0f04b284
-/*  f04b238:	00000000 */ 	nop
-.L0f04b23c:
-/*  f04b23c:	12800006 */ 	beqz	$s4,.L0f04b258
-/*  f04b240:	3c017f1b */ 	lui	$at,%hi(var7f1a9418)
-/*  f04b244:	c42a9418 */ 	lwc1	$f10,%lo(var7f1a9418)($at)
-/*  f04b248:	4618503c */ 	c.lt.s	$f10,$f24
-/*  f04b24c:	00000000 */ 	nop
-/*  f04b250:	4500000c */ 	bc1f	.L0f04b284
-/*  f04b254:	00000000 */ 	nop
-.L0f04b258:
-/*  f04b258:	c7b0009c */ 	lwc1	$f16,0x9c($sp)
-/*  f04b25c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04b260:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04b264:	e6500000 */ 	swc1	$f16,0x0($s2)
-/*  f04b268:	c7b200a0 */ 	lwc1	$f18,0xa0($sp)
-/*  f04b26c:	e6520004 */ 	swc1	$f18,0x4($s2)
-/*  f04b270:	c7a400a4 */ 	lwc1	$f4,0xa4($sp)
-/*  f04b274:	0fc195e9 */ 	jal	roomsCopy
-/*  f04b278:	e6440008 */ 	swc1	$f4,0x8($s2)
-/*  f04b27c:	1000000e */ 	b	.L0f04b2b8
-/*  f04b280:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04b284:
-/*  f04b284:	3c017f1b */ 	lui	$at,%hi(var7f1a941c)
-/*  f04b288:	c426941c */ 	lwc1	$f6,%lo(var7f1a941c)($at)
-/*  f04b28c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f04b290:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f04b294:	4606b580 */ 	add.s	$f22,$f22,$f6
-/*  f04b298:	4616e03e */ 	c.le.s	$f28,$f22
-/*  f04b29c:	00000000 */ 	nop
-/*  f04b2a0:	45000002 */ 	bc1f	.L0f04b2ac
-/*  f04b2a4:	00000000 */ 	nop
-/*  f04b2a8:	461cb581 */ 	sub.s	$f22,$f22,$f28
-.L0f04b2ac:
-/*  f04b2ac:	1661ff91 */ 	bne	$s3,$at,.L0f04b0f4
-/*  f04b2b0:	00000000 */ 	nop
-/*  f04b2b4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04b2b8:
-/*  f04b2b8:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f04b2bc:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f04b2c0:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*  f04b2c4:	d7b80030 */ 	ldc1	$f24,0x30($sp)
-/*  f04b2c8:	d7ba0038 */ 	ldc1	$f26,0x38($sp)
-/*  f04b2cc:	d7bc0040 */ 	ldc1	$f28,0x40($sp)
-/*  f04b2d0:	d7be0048 */ 	ldc1	$f30,0x48($sp)
-/*  f04b2d4:	8fb00054 */ 	lw	$s0,0x54($sp)
-/*  f04b2d8:	8fb10058 */ 	lw	$s1,0x58($sp)
-/*  f04b2dc:	8fb2005c */ 	lw	$s2,0x5c($sp)
-/*  f04b2e0:	8fb30060 */ 	lw	$s3,0x60($sp)
-/*  f04b2e4:	8fb40064 */ 	lw	$s4,0x64($sp)
-/*  f04b2e8:	8fb50068 */ 	lw	$s5,0x68($sp)
-/*  f04b2ec:	03e00008 */ 	jr	$ra
-/*  f04b2f0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-);
+bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool ignorebg, bool arg6)
+{
+	struct coord testpos;
+	s32 i;
+	u32 types;
+	s16 testrooms[8];
+	f32 ymin;
+	f32 ymax = 200;
+	f32 curangle = angle;
+	f32 ground;
+
+	if (ignorebg) {
+		types = CDTYPE_ALL & ~CDTYPE_BG;
+		arg4 = true;
+	} else {
+		types = CDTYPE_ALL;
+	}
+
+	if (arg6) {
+		// Skip testing the given pos, and just do the surrounding checks below.
+		// Add 45 degrees to the angle here, but this isn't necessary.
+		curangle += 0.7852731347084f;
+
+		if (curangle >= M_BADTAU) {
+			curangle -= M_BADTAU;
+		}
+	} else {
+		// Check that the chr isn't being spawned out of bounds, and do a volume
+		// test reaching 200cm above and below the chr's feet... unless there is
+		// ground under the chr (highly likely), in which case reduce the volume
+		// to be tested to the ground Y value. I'm not sure why this is useful,
+		// because if the chr was being spawned on top of another chr or object
+		// then the calculated ground value would be raised.
+		ymin = -200;
+		ground = cdFindGroundYSimple(pos, width, rooms, NULL, NULL);
+
+		if (ground > -100000 && ground - pos->y < -200) {
+			ymin = ground - pos->y;
+		}
+
+		if (cdTestVolume(pos, width, rooms, types, 1, ymax, ymin) != CDRESULT_COLLISION
+				&& (arg4 || func0f04aeb0(pos, rooms))) {
+			return true;
+		}
+	}
+
+	// Try 60cm in 8 directions
+	for (i = 0; i < 8; i++) {
+		testpos.x = pos->x + sinf(curangle) * 60;
+		testpos.y = pos->y;
+		testpos.z = pos->z + cosf(curangle) * 60;
+
+		if ((arg6 && func0002d840(pos, rooms, &testpos, testrooms, CDTYPE_ALL & ~CDTYPE_PLAYERS, 1, ymax, -200) != CDRESULT_COLLISION)
+				|| (!arg6 && func0002deac(pos, rooms, &testpos, testrooms, CDTYPE_BG))) {
+			func0f021fa8(NULL, &testpos, testrooms);
+			ground = cdFindGroundYSimple(&testpos, width, testrooms, 0, 0);
+			ymin = -200;
+
+			if (ground > -100000 && ground - pos->y < -200) {
+				ymin = ground - pos->y;
+			}
+
+			if (cdTestVolume(&testpos, width, testrooms, CDTYPE_ALL, 1, ymax, ymin) != CDRESULT_COLLISION
+					&& (arg4 || func0f04aeb0(&testpos, testrooms))
+					&& (!arg6 || ground > -100000)) {
+				pos->x = testpos.x;
+				pos->y = testpos.y;
+				pos->z = testpos.z;
+				roomsCopy(testrooms, rooms);
+				return true;
+			}
+		}
+
+		curangle += 0.7852731347084f;
+
+		if (curangle >= M_BADTAU) {
+			curangle -= M_BADTAU;
+		}
+	}
+
+	return false;
+}
 #else
-GLOBAL_ASM(
-glabel func0f04af84
-.late_rodata
-glabel var7f1a9404
-.word 0x3f4907a9
-glabel var7f1a9410
-.word 0x40c907a9
-.text
-/*  f04a374:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f04a378:	8fae00b4 */ 	lw	$t6,0xb4($sp)
-/*  f04a37c:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f04a380:	4487a000 */ 	mtc1	$a3,$f20
-/*  f04a384:	afb5006c */ 	sw	$s5,0x6c($sp)
-/*  f04a388:	afb20060 */ 	sw	$s2,0x60($sp)
-/*  f04a38c:	f7bc0048 */ 	sdc1	$f28,0x48($sp)
-/*  f04a390:	46006706 */ 	mov.s	$f28,$f12
-/*  f04a394:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f04a398:	00c0a825 */ 	or	$s5,$a2,$zero
-/*  f04a39c:	afbf0074 */ 	sw	$ra,0x74($sp)
-/*  f04a3a0:	afb60070 */ 	sw	$s6,0x70($sp)
-/*  f04a3a4:	afb40068 */ 	sw	$s4,0x68($sp)
-/*  f04a3a8:	afb30064 */ 	sw	$s3,0x64($sp)
-/*  f04a3ac:	afb1005c */ 	sw	$s1,0x5c($sp)
-/*  f04a3b0:	afb00058 */ 	sw	$s0,0x58($sp)
-/*  f04a3b4:	f7be0050 */ 	sdc1	$f30,0x50($sp)
-/*  f04a3b8:	f7ba0040 */ 	sdc1	$f26,0x40($sp)
-/*  f04a3bc:	f7b80038 */ 	sdc1	$f24,0x38($sp)
-/*  f04a3c0:	11c00004 */ 	beqz	$t6,.NB0f04a3d4
-/*  f04a3c4:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f04a3c8:	2407001f */ 	addiu	$a3,$zero,0x1f
-/*  f04a3cc:	10000003 */ 	beqz	$zero,.NB0f04a3dc
-/*  f04a3d0:	24160001 */ 	addiu	$s6,$zero,0x1
-.NB0f04a3d4:
-/*  f04a3d4:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f04a3d8:	8fb600b0 */ 	lw	$s6,0xb0($sp)
-.NB0f04a3dc:
-/*  f04a3dc:	3c014348 */ 	lui	$at,0x4348
-/*  f04a3e0:	4481f000 */ 	mtc1	$at,$f30
-/*  f04a3e4:	3c01c348 */ 	lui	$at,0xc348
-/*  f04a3e8:	44812000 */ 	mtc1	$at,$f4
-/*  f04a3ec:	4405e000 */ 	mfc1	$a1,$f28
-/*  f04a3f0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f04a3f4:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f04a3f8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04a3fc:	02a03025 */ 	or	$a2,$s5,$zero
-/*  f04a400:	e7be0014 */ 	swc1	$f30,0x14($sp)
-/*  f04a404:	0c00aea3 */ 	jal	cdTestVolume
-/*  f04a408:	e7a40018 */ 	swc1	$f4,0x18($sp)
-/*  f04a40c:	10400009 */ 	beqz	$v0,.NB0f04a434
-/*  f04a410:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a414:	16c00005 */ 	bnez	$s6,.NB0f04a42c
-/*  f04a418:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04a41c:	0fc128a8 */ 	jal	func0f04aeb0
-/*  f04a420:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04a424:	10400003 */ 	beqz	$v0,.NB0f04a434
-/*  f04a428:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f04a42c:
-/*  f04a42c:	10000049 */ 	beqz	$zero,.NB0f04a554
-/*  f04a430:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f04a434:
-/*  f04a434:	3c017f1a */ 	lui	$at,0x7f1a
-/*  f04a438:	c43a3734 */ 	lwc1	$f26,0x3734($at)
-/*  f04a43c:	3c017f1a */ 	lui	$at,0x7f1a
-/*  f04a440:	c4383738 */ 	lwc1	$f24,0x3738($at)
-/*  f04a444:	3c014270 */ 	lui	$at,0x4270
-/*  f04a448:	4481b000 */ 	mtc1	$at,$f22
-/*  f04a44c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f04a450:	24140008 */ 	addiu	$s4,$zero,0x8
-/*  f04a454:	27b3007c */ 	addiu	$s3,$sp,0x7c
-/*  f04a458:	27b10094 */ 	addiu	$s1,$sp,0x94
-.NB0f04a45c:
-/*  f04a45c:	0c006d55 */ 	jal	sinf
-/*  f04a460:	4600a306 */ 	mov.s	$f12,$f20
-/*  f04a464:	46160182 */ 	mul.s	$f6,$f0,$f22
-/*  f04a468:	c6480000 */ 	lwc1	$f8,0x0($s2)
-/*  f04a46c:	4600a306 */ 	mov.s	$f12,$f20
-/*  f04a470:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f04a474:	e7aa0094 */ 	swc1	$f10,0x94($sp)
-/*  f04a478:	c6500004 */ 	lwc1	$f16,0x4($s2)
-/*  f04a47c:	0c006d52 */ 	jal	cosf
-/*  f04a480:	e7b00098 */ 	swc1	$f16,0x98($sp)
-/*  f04a484:	46160482 */ 	mul.s	$f18,$f0,$f22
-/*  f04a488:	c6440008 */ 	lwc1	$f4,0x8($s2)
-/*  f04a48c:	24180020 */ 	addiu	$t8,$zero,0x20
-/*  f04a490:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f04a494:	02402025 */ 	or	$a0,$s2,$zero
-/*  f04a498:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04a49c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f04a4a0:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f04a4a4:	02603825 */ 	or	$a3,$s3,$zero
-/*  f04a4a8:	0c00bcad */ 	jal	func0002deac
-/*  f04a4ac:	e7a6009c */ 	swc1	$f6,0x9c($sp)
-/*  f04a4b0:	1040001e */ 	beqz	$v0,.NB0f04a52c
-/*  f04a4b4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04a4b8:	3c01c348 */ 	lui	$at,0xc348
-/*  f04a4bc:	44814000 */ 	mtc1	$at,$f8
-/*  f04a4c0:	4405e000 */ 	mfc1	$a1,$f28
-/*  f04a4c4:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f04a4c8:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04a4cc:	02603025 */ 	or	$a2,$s3,$zero
-/*  f04a4d0:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f04a4d4:	e7be0014 */ 	swc1	$f30,0x14($sp)
-/*  f04a4d8:	0c00aea3 */ 	jal	cdTestVolume
-/*  f04a4dc:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*  f04a4e0:	10400012 */ 	beqz	$v0,.NB0f04a52c
-/*  f04a4e4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04a4e8:	56c00006 */ 	bnezl	$s6,.NB0f04a504
-/*  f04a4ec:	c7aa0094 */ 	lwc1	$f10,0x94($sp)
-/*  f04a4f0:	0fc128a8 */ 	jal	func0f04aeb0
-/*  f04a4f4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f04a4f8:	5040000d */ 	beqzl	$v0,.NB0f04a530
-/*  f04a4fc:	461aa500 */ 	add.s	$f20,$f20,$f26
-/*  f04a500:	c7aa0094 */ 	lwc1	$f10,0x94($sp)
-.NB0f04a504:
-/*  f04a504:	02602025 */ 	or	$a0,$s3,$zero
-/*  f04a508:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f04a50c:	e64a0000 */ 	swc1	$f10,0x0($s2)
-/*  f04a510:	c7b00098 */ 	lwc1	$f16,0x98($sp)
-/*  f04a514:	e6500004 */ 	swc1	$f16,0x4($s2)
-/*  f04a518:	c7b2009c */ 	lwc1	$f18,0x9c($sp)
-/*  f04a51c:	0fc19283 */ 	jal	roomsCopy
-/*  f04a520:	e6520008 */ 	swc1	$f18,0x8($s2)
-/*  f04a524:	1000000b */ 	beqz	$zero,.NB0f04a554
-/*  f04a528:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f04a52c:
-/*  f04a52c:	461aa500 */ 	add.s	$f20,$f20,$f26
-.NB0f04a530:
-/*  f04a530:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f04a534:	4614c03e */ 	c.le.s	$f24,$f20
-/*  f04a538:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a53c:	45000002 */ 	bc1f	.NB0f04a548
-/*  f04a540:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a544:	4618a501 */ 	sub.s	$f20,$f20,$f24
-.NB0f04a548:
-/*  f04a548:	1614ffc4 */ 	bne	$s0,$s4,.NB0f04a45c
-/*  f04a54c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a550:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f04a554:
-/*  f04a554:	8fbf0074 */ 	lw	$ra,0x74($sp)
-/*  f04a558:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f04a55c:	d7b60030 */ 	ldc1	$f22,0x30($sp)
-/*  f04a560:	d7b80038 */ 	ldc1	$f24,0x38($sp)
-/*  f04a564:	d7ba0040 */ 	ldc1	$f26,0x40($sp)
-/*  f04a568:	d7bc0048 */ 	ldc1	$f28,0x48($sp)
-/*  f04a56c:	d7be0050 */ 	ldc1	$f30,0x50($sp)
-/*  f04a570:	8fb00058 */ 	lw	$s0,0x58($sp)
-/*  f04a574:	8fb1005c */ 	lw	$s1,0x5c($sp)
-/*  f04a578:	8fb20060 */ 	lw	$s2,0x60($sp)
-/*  f04a57c:	8fb30064 */ 	lw	$s3,0x64($sp)
-/*  f04a580:	8fb40068 */ 	lw	$s4,0x68($sp)
-/*  f04a584:	8fb5006c */ 	lw	$s5,0x6c($sp)
-/*  f04a588:	8fb60070 */ 	lw	$s6,0x70($sp)
-/*  f04a58c:	03e00008 */ 	jr	$ra
-/*  f04a590:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
+/**
+ * ntsc-beta's version of this function doesn't have the arg6 argument
+ * nor out of bounds checking, and lacks the reduction for the volume test.
+ */
+bool chrAdjustPosForSpawn(f32 width, struct coord *pos, s16 *rooms, f32 angle, bool arg4, bool ignorebg)
+{
+	struct coord testpos;
+	s32 i;
+	u32 types;
+	s16 testrooms[8];
+	f32 curangle = angle;
+
+	if (ignorebg) {
+		types = CDTYPE_ALL & ~CDTYPE_BG;
+		arg4 = true;
+	} else {
+		types = CDTYPE_ALL;
+	}
+
+	if (cdTestVolume(pos, width, rooms, types, 1, 200, -200) != CDRESULT_COLLISION
+			&& (arg4 || func0f04aeb0(pos, rooms))) {
+		return true;
+	}
+
+	for (i = 0; i < 8; i++) {
+		testpos.x = sinf(curangle) * 60 + pos->x;
+		testpos.y = pos->y;
+		testpos.z = cosf(curangle) * 60 + pos->z;
+
+		if (func0002deac(pos, rooms, &testpos, testrooms, CDTYPE_BG)
+				&& cdTestVolume(&testpos, width, testrooms, CDTYPE_ALL, 1, 200, -200.0f) != CDRESULT_COLLISION
+				&& (arg4 || func0f04aeb0(&testpos, testrooms))) {
+			pos->x = testpos.x;
+			pos->y = testpos.y;
+			pos->z = testpos.z;
+			roomsCopy(testrooms, rooms);
+			return true;
+		}
+
+		curangle += 0.7852731347084f;
+
+		if (curangle >= M_BADTAU) {
+			curangle -= M_BADTAU;
+		}
+	}
+
+	return false;
+}
 #endif
 
 /**
@@ -30986,9 +30714,9 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 		roomsCopy(rooms, rooms2);
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (func0f04af84(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0, 0))
+		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0, 0))
 #else
-		if (func0f04af84(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0))
+		if (chrAdjustPosForSpawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_00000010) != 0, 0))
 #endif
 		{
 			struct model *model = modelAllocateChr(bodynum, headnum, spawnflags);
@@ -31142,9 +30870,9 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 	propSetCollisionsEnabled(chr->prop, false);
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (func0f04af84(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0))
+	if (chrAdjustPosForSpawn(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen, (chr->hidden & CHRHFLAG_00000200) != 0))
 #else
-	if (func0f04af84(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen))
+	if (chrAdjustPosForSpawn(chr->chrwidth, &pos2, rooms2, angle, (chr->hidden & CHRHFLAG_00100000) != 0, allowonscreen))
 #endif
 	{
 		ground = cdFindGroundY(&pos2, chr->chrwidth, rooms2, &chr->floorcol,

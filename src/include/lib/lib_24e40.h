@@ -86,11 +86,11 @@ s32 func0002d3b0(struct coord *arg0, struct coord *arg1, s16 *arg2, s32 types, u
 bool func0002d6ac(struct coord *pos, s16 *rooms, struct coord *targetpos, u32 types, u32 arg4, f32 arg5, f32 arg6);
 s32 cdTestAToB2(struct coord *pos, s16 *rooms, struct coord *coord2, s16 *rooms2, u32 types, s32 arg5, f32 arg6, f32 arg7);
 bool func0002d7c0(struct coord *pos, s16 *rooms, struct coord *arg2, u32 arg3, u32 arg4, f32 ymax, f32 ymin);
-s32 func0002d840(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin);
+s32 func0002d840(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin);
 s32 func0002d8b8(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s32 types, bool arg5, f32 ymax, f32 ymin);
 s32 cdTestAToB3(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 arg4, s32 types, s32 arg6, f32 ymax, f32 ymin);
-void func0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin);
-s32 func0002dac8(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, f32 width, u32 types, s32 arg6, f32 ymax, f32 ymin);
+void func0002da50(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, s32 arg5, f32 ymax, f32 ymin);
+s32 func0002dac8(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, f32 width, u32 types, s32 arg6, f32 ymax, f32 ymin);
 bool func0002db98(struct coord *viewpos, s16 *rooms, struct coord *targetpos, u32 types, u16 arg4);
 bool func0002dc18(struct coord *coord, s16 *rooms, struct coord *coord2, s32 arg3);
 bool hasLineOfSight(struct coord *coord, s16 *rooms, struct coord *coord2, s16 *rooms2, s32 arg4, u16 arg5);
@@ -98,8 +98,8 @@ bool func0002dcd0(struct coord *arg0, s16 *rooms1, struct coord *arg2, s16 *room
 bool func0002dcfc(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2, s16 *rooms3, u32 types, u16 arg6);
 s32 cdTestAToB4(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types, u16 arg4);
 s32 func0002de10(struct coord *pos, s16 *rooms, struct coord *pos2, u32 types);
-s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5);
-s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, u32 *arg3, u32 types, u16 arg5);
+s32 func0002de34(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types, u16 arg5);
+s32 func0002deac(struct coord *arg0, s16 *arg1, struct coord *arg2, s16 *arg3, u32 types);
 bool func0002ded8(struct coord *arg0, struct coord *arg1, struct prop *prop);
 bool func0002dffc(struct tiletype2 *arg0, struct tiletype2 *arg1);
 s32 func0002e278(u8 *start, u8 *end, struct tiletype2 *ref, u16 flags);
