@@ -2744,32 +2744,14 @@ struct monitorthing *monitorthingGetNew(void)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f068760
-/*  f068760:	908e0002 */ 	lbu	$t6,0x2($a0)
-/*  f068764:	31cf0040 */ 	andi	$t7,$t6,0x40
-/*  f068768:	55e00010 */ 	bnezl	$t7,.L0f0687ac
-/*  f06876c:	8482004c */ 	lh	$v0,0x4c($a0)
-/*  f068770:	8498004c */ 	lh	$t8,0x4c($a0)
-/*  f068774:	8499004e */ 	lh	$t9,0x4e($a0)
-/*  f068778:	3c014040 */ 	lui	$at,0x4040
-/*  f06877c:	44982000 */ 	mtc1	$t8,$f4
-/*  f068780:	44814000 */ 	mtc1	$at,$f8
-/*  f068784:	44998000 */ 	mtc1	$t9,$f16
-/*  f068788:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f06878c:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f068790:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f068794:	46125103 */ 	div.s	$f4,$f10,$f18
-/*  f068798:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f06879c:	44023000 */ 	mfc1	$v0,$f6
-/*  f0687a0:	03e00008 */ 	jr	$ra
-/*  f0687a4:	00000000 */ 	nop
-/*  f0687a8:	8482004c */ 	lh	$v0,0x4c($a0)
-.L0f0687ac:
-/*  f0687ac:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f0687b0:	03e00008 */ 	jr	$ra
-/*  f0687b4:	00000000 */ 	nop
-);
+s32 func0f068760(struct defaultobj *obj)
+{
+	if ((obj->hidden2 & OBJH2FLAG_40) == 0) {
+		return obj->damage * 3.0f / obj->maxdamage;
+	}
+
+	return obj->damage + 4;
+}
 
 s32 func0f0687b8(struct defaultobj *obj)
 {
