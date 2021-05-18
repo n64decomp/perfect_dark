@@ -2874,46 +2874,31 @@ glabel func0f0687e4
 /*  f0688f0:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel modelFileDataFindBboxNode
-/*  f0688f4:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f0688f8:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f0688fc:	50600019 */ 	beqzl	$v1,.L0f068964
-/*  f068900:	00001025 */ 	or	$v0,$zero,$zero
-/*  f068904:	946e0000 */ 	lhu	$t6,0x0($v1)
-.L0f068908:
-/*  f068908:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f06890c:	548f0004 */ 	bnel	$a0,$t7,.L0f068920
-/*  f068910:	8c620014 */ 	lw	$v0,0x14($v1)
-/*  f068914:	03e00008 */ 	jr	$ra
-/*  f068918:	00601025 */ 	or	$v0,$v1,$zero
-/*  f06891c:	8c620014 */ 	lw	$v0,0x14($v1)
-.L0f068920:
-/*  f068920:	10400003 */ 	beqz	$v0,.L0f068930
-/*  f068924:	00000000 */ 	nop
-/*  f068928:	1000000b */ 	b	.L0f068958
-/*  f06892c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f068930:
-/*  f068930:	10600009 */ 	beqz	$v1,.L0f068958
-/*  f068934:	00000000 */ 	nop
-/*  f068938:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0f06893c:
-/*  f06893c:	50400004 */ 	beqzl	$v0,.L0f068950
-/*  f068940:	8c630008 */ 	lw	$v1,0x8($v1)
-/*  f068944:	10000004 */ 	b	.L0f068958
-/*  f068948:	00401825 */ 	or	$v1,$v0,$zero
-/*  f06894c:	8c630008 */ 	lw	$v1,0x8($v1)
-.L0f068950:
-/*  f068950:	5460fffa */ 	bnezl	$v1,.L0f06893c
-/*  f068954:	8c62000c */ 	lw	$v0,0xc($v1)
-.L0f068958:
-/*  f068958:	5460ffeb */ 	bnezl	$v1,.L0f068908
-/*  f06895c:	946e0000 */ 	lhu	$t6,0x0($v1)
-/*  f068960:	00001025 */ 	or	$v0,$zero,$zero
-.L0f068964:
-/*  f068964:	03e00008 */ 	jr	$ra
-/*  f068968:	00000000 */ 	nop
-);
+struct modelnode *modelFileDataFindBboxNode(struct modelfiledata *filedata)
+{
+	struct modelnode *node = filedata->rootnode;
+
+	while (node) {
+		if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
+			return node;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+
+	return NULL;
+}
 
 struct modelrodata_bbox *modelFileDataFindBboxRodata(struct modelfiledata *filedata)
 {
