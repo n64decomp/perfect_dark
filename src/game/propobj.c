@@ -1887,21 +1887,16 @@ glabel func0f0678f8
 /*  f067978:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f06797c
-/*  f06797c:	44856000 */ 	mtc1	$a1,$f12
-/*  f067980:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f067984:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f067988:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f06798c:	e7ac001c */ 	swc1	$f12,0x1c($sp)
-/*  f067990:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f067994:	0fc19e3e */ 	jal	func0f0678f8
-/*  f067998:	e7ac0024 */ 	swc1	$f12,0x24($sp)
-/*  f06799c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0679a0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0679a4:	03e00008 */ 	jr	$ra
-/*  f0679a8:	00000000 */ 	nop
-);
+bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum)
+{
+	f32 sp1c[3];
+
+	sp1c[0] = arg1;
+	sp1c[1] = arg1;
+	sp1c[2] = arg1;
+
+	return func0f0678f8(coord, sp1c, padnum);
+}
 
 GLOBAL_ASM(
 glabel func0f0679ac
