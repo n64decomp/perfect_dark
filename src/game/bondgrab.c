@@ -3661,7 +3661,7 @@ void bgrabTick(void)
 	if (g_Vars.currentplayer->grabbedprop) {
 		// Determine if the grabbed prop should be force released
 		f32 ydiff = g_Vars.currentplayer->grabbedprop->pos.y
-			- func0f071360(g_Vars.currentplayer->grabbedprop->obj)
+			- objGetHov04(g_Vars.currentplayer->grabbedprop->obj)
 			- g_Vars.currentplayer->vv_manground;
 
 		struct prop *grabbedprop = g_Vars.currentplayer->grabbedprop;

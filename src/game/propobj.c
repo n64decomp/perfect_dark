@@ -16885,46 +16885,29 @@ void liftGoToStop(struct liftobj *lift, s32 stopnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f071360
-/*  f071360:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f071364:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f071368:	90830003 */ 	lbu	$v1,0x3($a0)
-/*  f07136c:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f071370:	00803025 */ 	or	$a2,$a0,$zero
-/*  f071374:	14610003 */ 	bne	$v1,$at,.L0f071384
-/*  f071378:	00001025 */ 	or	$v0,$zero,$zero
-/*  f07137c:	10000005 */ 	b	.L0f071394
-/*  f071380:	2482005c */ 	addiu	$v0,$a0,0x5c
-.L0f071384:
-/*  f071384:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f071388:	14610002 */ 	bne	$v1,$at,.L0f071394
-/*  f07138c:	00000000 */ 	nop
-/*  f071390:	24c2005c */ 	addiu	$v0,$a2,0x5c
-.L0f071394:
-/*  f071394:	10400003 */ 	beqz	$v0,.L0f0713a4
-/*  f071398:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f07139c:	1000000c */ 	b	.L0f0713d0
-/*  f0713a0:	c4420004 */ 	lwc1	$f2,0x4($v0)
-.L0f0713a4:
-/*  f0713a4:	0fc1a2bd */ 	jal	objFindBboxRodata
-/*  f0713a8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0713ac:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f0713b0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0713b4:	0fc19a57 */ 	jal	func0f06695c
-/*  f0713b8:	24c5001c */ 	addiu	$a1,$a2,0x1c
-/*  f0713bc:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f0713c0:	0fc1a988 */ 	jal	func0f06a620
-/*  f0713c4:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f0713c8:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f0713cc:	46040081 */ 	sub.s	$f2,$f0,$f4
-.L0f0713d0:
-/*  f0713d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0713d4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0713d8:	46001006 */ 	mov.s	$f0,$f2
-/*  f0713dc:	03e00008 */ 	jr	$ra
-/*  f0713e0:	00000000 */ 	nop
-);
+f32 objGetHov04(struct defaultobj *obj)
+{
+	struct hov *hov = NULL;
+	f32 result;
+
+	if (obj->type == OBJTYPE_HOVERPROP) {
+		struct hoverpropobj *tmp = (struct hoverpropobj *) obj;
+		hov = &tmp->hov;
+	} else if (obj->type == OBJTYPE_HOVERBIKE) {
+		struct hoverbikeobj *tmp = (struct hoverbikeobj *) obj;
+		hov = &tmp->hov;
+	}
+
+	if (hov) {
+		result = hov->unk04;
+	} else {
+		struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
+		f32 value = func0f06695c(bbox, obj->realrot);
+		result = func0f06a620(obj) - value;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0713e4
@@ -17753,7 +17736,7 @@ glabel var7f1ab5c0pf
 /*  f0721b4:	01415824 */ 	and	$t3,$t2,$at
 /*  f0721b8:	ae2b0008 */ 	sw	$t3,0x8($s1)
 .PF0f0721bc:
-/*  f0721bc:	0fc1c57a */ 	jal	func0f071360
+/*  f0721bc:	0fc1c57a */ 	jal	objGetHov04
 /*  f0721c0:	02202025 */ 	move	$a0,$s1
 /*  f0721c4:	c6040030 */ 	lwc1	$f4,0x30($s0)
 /*  f0721c8:	8fac01d4 */ 	lw	$t4,0x1d4($sp)
@@ -18615,7 +18598,7 @@ glabel var7f1aa314
 /*  f071f30:	01415824 */ 	and	$t3,$t2,$at
 /*  f071f34:	ae2b0008 */ 	sw	$t3,0x8($s1)
 .L0f071f38:
-/*  f071f38:	0fc1c4d8 */ 	jal	func0f071360
+/*  f071f38:	0fc1c4d8 */ 	jal	objGetHov04
 /*  f071f3c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f071f40:	c6040030 */ 	lwc1	$f4,0x30($s0)
 /*  f071f44:	8fac01d4 */ 	lw	$t4,0x1d4($sp)
@@ -22999,7 +22982,7 @@ glabel var7f1ab6dcpf
 /*  f074d58:	00000000 */ 	nop
 /*  f074d5c:	45020007 */ 	bc1fl	.PF0f074d7c
 /*  f074d60:	02202025 */ 	move	$a0,$s1
-/*  f074d64:	0fc1c57a */ 	jal	func0f071360
+/*  f074d64:	0fc1c57a */ 	jal	objGetHov04
 /*  f074d68:	e7a20584 */ 	swc1	$f2,0x584($sp)
 /*  f074d6c:	c7a20584 */ 	lwc1	$f2,0x584($sp)
 /*  f074d70:	46020200 */ 	add.s	$f8,$f0,$f2
@@ -26537,7 +26520,7 @@ glabel var7f1aa438
 /*  f074ad4:	00000000 */ 	nop
 /*  f074ad8:	45020007 */ 	bc1fl	.L0f074af8
 /*  f074adc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f074ae0:	0fc1c4d8 */ 	jal	func0f071360
+/*  f074ae0:	0fc1c4d8 */ 	jal	objGetHov04
 /*  f074ae4:	e7a20584 */ 	swc1	$f2,0x584($sp)
 /*  f074ae8:	c7a20584 */ 	lwc1	$f2,0x584($sp)
 /*  f074aec:	46020180 */ 	add.s	$f6,$f0,$f2
@@ -30062,7 +30045,7 @@ glabel var7f1aa438
 /*  f073850:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f073854:	45020007 */ 	bc1fl	.NB0f073874
 /*  f073858:	02202025 */ 	or	$a0,$s1,$zero
-/*  f07385c:	0fc1c03d */ 	jal	func0f071360
+/*  f07385c:	0fc1c03d */ 	jal	objGetHov04
 /*  f073860:	e7a20584 */ 	swc1	$f2,0x584($sp)
 /*  f073864:	c7a20584 */ 	lwc1	$f2,0x584($sp)
 /*  f073868:	46020180 */ 	add.s	$f6,$f0,$f2
