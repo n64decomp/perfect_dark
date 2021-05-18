@@ -2704,31 +2704,21 @@ void func0f0685e4(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f068694
-/*  f068694:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f068698:	00001825 */ 	or	$v1,$zero,$zero
-/*  f06869c:	8c450040 */ 	lw	$a1,0x40($v0)
-/*  f0686a0:	30ae0040 */ 	andi	$t6,$a1,0x40
-/*  f0686a4:	11c00004 */ 	beqz	$t6,.L0f0686b8
-/*  f0686a8:	30b80080 */ 	andi	$t8,$a1,0x80
-/*  f0686ac:	8c4f0048 */ 	lw	$t7,0x48($v0)
-/*  f0686b0:	10000004 */ 	b	.L0f0686c4
-/*  f0686b4:	8de30044 */ 	lw	$v1,0x44($t7)
-.L0f0686b8:
-/*  f0686b8:	13000002 */ 	beqz	$t8,.L0f0686c4
-/*  f0686bc:	00000000 */ 	nop
-/*  f0686c0:	8c430048 */ 	lw	$v1,0x48($v0)
-.L0f0686c4:
-/*  f0686c4:	10600004 */ 	beqz	$v1,.L0f0686d8
-/*  f0686c8:	00000000 */ 	nop
-/*  f0686cc:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f0686d0:	37280004 */ 	ori	$t0,$t9,0x4
-/*  f0686d4:	ac680000 */ 	sw	$t0,0x0($v1)
-.L0f0686d8:
-/*  f0686d8:	03e00008 */ 	jr	$ra
-/*  f0686dc:	00000000 */ 	nop
-);
+void objSetProjectileFlag4(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+	struct projectile *projectile = NULL;
+
+	if (obj->hidden & OBJHFLAG_00000040) {
+		projectile = obj->projectile->unk044;
+	} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
+		projectile = obj->projectile;
+	}
+
+	if (projectile) {
+		projectile->flags |= PROJECTILEFLAG_00000004;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0686e0
@@ -12926,7 +12916,7 @@ glabel var7f1aa2c4
 /*  f06f6c4:	8fb801a8 */ 	lw	$t8,0x1a8($sp)
 /*  f06f6c8:	a7070062 */ 	sh	$a3,0x62($t8)
 /*  f06f6cc:	afa50194 */ 	sw	$a1,0x194($sp)
-/*  f06f6d0:	0fc1a1a5 */ 	jal	func0f068694
+/*  f06f6d0:	0fc1a1a5 */ 	jal	objSetProjectileFlag4
 /*  f06f6d4:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06f6d8:	8fa50194 */ 	lw	$a1,0x194($sp)
 /*  f06f6dc:	c7a4019c */ 	lwc1	$f4,0x19c($sp)
@@ -14135,7 +14125,7 @@ glabel var7f1aa2c4
 /*  f06f6c4:	8fb801a8 */ 	lw	$t8,0x1a8($sp)
 /*  f06f6c8:	a7070062 */ 	sh	$a3,0x62($t8)
 /*  f06f6cc:	afa50194 */ 	sw	$a1,0x194($sp)
-/*  f06f6d0:	0fc1a1a5 */ 	jal	func0f068694
+/*  f06f6d0:	0fc1a1a5 */ 	jal	objSetProjectileFlag4
 /*  f06f6d4:	8fa401b0 */ 	lw	$a0,0x1b0($sp)
 /*  f06f6d8:	8fa50194 */ 	lw	$a1,0x194($sp)
 /*  f06f6dc:	c7a4019c */ 	lwc1	$f4,0x19c($sp)
@@ -15345,7 +15335,7 @@ glabel var7f1aa2c4
 /*  f06e92c:	a4e80062 */ 	sh	$t0,0x62($a3)
 /*  f06e930:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06e934:	afa5015c */ 	sw	$a1,0x15c($sp)
-/*  f06e938:	0fc19e45 */ 	jal	func0f068694
+/*  f06e938:	0fc19e45 */ 	jal	objSetProjectileFlag4
 /*  f06e93c:	8fa40178 */ 	lw	$a0,0x178($sp)
 /*  f06e940:	8fa5015c */ 	lw	$a1,0x15c($sp)
 /*  f06e944:	c7a40164 */ 	lwc1	$f4,0x164($sp)
@@ -55747,7 +55737,7 @@ glabel var7f1aa978
 /*  f08374c:	46089101 */ 	sub.s	$f4,$f18,$f8
 /*  f083750:	0c005923 */ 	jal	func0001648c
 /*  f083754:	e7a40084 */ 	swc1	$f4,0x84($sp)
-/*  f083758:	0fc1a1a5 */ 	jal	func0f068694
+/*  f083758:	0fc1a1a5 */ 	jal	objSetProjectileFlag4
 /*  f08375c:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083760:	10000106 */ 	b	.L0f083b7c
 /*  f083764:	8fb80144 */ 	lw	$t8,0x144($sp)
@@ -56720,7 +56710,7 @@ glabel var7f1aa978
 /*  f08374c:	46089101 */ 	sub.s	$f4,$f18,$f8
 /*  f083750:	0c005923 */ 	jal	func0001648c
 /*  f083754:	e7a40084 */ 	swc1	$f4,0x84($sp)
-/*  f083758:	0fc1a1a5 */ 	jal	func0f068694
+/*  f083758:	0fc1a1a5 */ 	jal	objSetProjectileFlag4
 /*  f08375c:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083760:	10000106 */ 	b	.L0f083b7c
 /*  f083764:	8fb80144 */ 	lw	$t8,0x144($sp)

@@ -11174,7 +11174,7 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 			obj->projectile->flags |= PROJECTILEFLAG_00000001;
 			obj->projectile->unk088 = prop;
 
-			func0f068694(objprop);
+			objSetProjectileFlag4(objprop);
 			func00015d18(matrix2, (Mtxf *)&obj->projectile->unk020);
 
 			obj->projectile->unk004.x = arg4[0];
