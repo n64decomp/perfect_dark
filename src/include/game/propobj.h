@@ -49,7 +49,7 @@ f32 func0f06695c(struct modelrodata_bbox *bbox, f32 *realrot);
 u32 func0f06698c(void);
 u32 func0f0669bc(void);
 u32 func0f0669ec(void);
-u32 func0f066a1c(void);
+f32 func0f066a1c(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3);
 u32 func0f066abc(void);
 u32 func0f066b5c(void);
 u32 func0f067424(void);
