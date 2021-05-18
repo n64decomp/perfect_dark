@@ -5113,7 +5113,7 @@ bool aiHovercarBeginPath(void)
 		struct chopperobj *chopper = chopperFromHovercar(g_Vars.hovercar);
 		g_Vars.hovercar->path = path;
 		g_Vars.hovercar->nextstep = 0;
-		g_Vars.hovercar->path->flags |= PATHFLAG_04;
+		g_Vars.hovercar->path->flags |= PATHFLAG_INUSE;
 
 		if (chopper) {
 			chopper->targetvisible = false;

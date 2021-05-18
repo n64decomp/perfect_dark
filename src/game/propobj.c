@@ -19155,61 +19155,39 @@ glabel var7f1aa31c
 /*  f07264c:	27bd0488 */ 	addiu	$sp,$sp,0x488
 );
 
-GLOBAL_ASM(
-glabel func0f072650
-/*  f072650:	3c09800a */ 	lui	$t1,%hi(g_StageSetup)
-/*  f072654:	2529d030 */ 	addiu	$t1,$t1,%lo(g_StageSetup)
-/*  f072658:	8d250014 */ 	lw	$a1,0x14($t1)
-/*  f07265c:	8c830088 */ 	lw	$v1,0x88($a0)
-/*  f072660:	00651023 */ 	subu	$v0,$v1,$a1
-/*  f072664:	000270c3 */ 	sra	$t6,$v0,0x3
-/*  f072668:	25c20001 */ 	addiu	$v0,$t6,0x1
-/*  f07266c:	000278c0 */ 	sll	$t7,$v0,0x3
-/*  f072670:	00af3021 */ 	addu	$a2,$a1,$t7
-.L0f072674:
-/*  f072674:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f072678:	57000003 */ 	bnezl	$t8,.L0f072688
-/*  f07267c:	000238c0 */ 	sll	$a3,$v0,0x3
-/*  f072680:	00001025 */ 	or	$v0,$zero,$zero
-/*  f072684:	000238c0 */ 	sll	$a3,$v0,0x3
-.L0f072688:
-/*  f072688:	00e5c821 */ 	addu	$t9,$a3,$a1
-/*  f07268c:	10790015 */ 	beq	$v1,$t9,.L0f0726e4
-/*  f072690:	000250c0 */ 	sll	$t2,$v0,0x3
-/*  f072694:	00aa3021 */ 	addu	$a2,$a1,$t2
-/*  f072698:	90c80005 */ 	lbu	$t0,0x5($a2)
-/*  f07269c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0726a0:	310b0002 */ 	andi	$t3,$t0,0x2
-/*  f0726a4:	1160000d */ 	beqz	$t3,.L0f0726dc
-/*  f0726a8:	310c0004 */ 	andi	$t4,$t0,0x4
-/*  f0726ac:	1580000b */ 	bnez	$t4,.L0f0726dc
-/*  f0726b0:	00000000 */ 	nop
-/*  f0726b4:	906d0005 */ 	lbu	$t5,0x5($v1)
-/*  f0726b8:	31aefffb */ 	andi	$t6,$t5,0xfffb
-/*  f0726bc:	a06e0005 */ 	sb	$t6,0x5($v1)
-/*  f0726c0:	8d2f0014 */ 	lw	$t7,0x14($t1)
-/*  f0726c4:	00efc021 */ 	addu	$t8,$a3,$t7
-/*  f0726c8:	ac980088 */ 	sw	$t8,0x88($a0)
-/*  f0726cc:	93190005 */ 	lbu	$t9,0x5($t8)
-/*  f0726d0:	372a0004 */ 	ori	$t2,$t9,0x4
-/*  f0726d4:	03e00008 */ 	jr	$ra
-/*  f0726d8:	a30a0005 */ 	sb	$t2,0x5($t8)
-.L0f0726dc:
-/*  f0726dc:	1000ffe5 */ 	b	.L0f072674
-/*  f0726e0:	24c60008 */ 	addiu	$a2,$a2,0x8
-.L0f0726e4:
-/*  f0726e4:	03e00008 */ 	jr	$ra
-/*  f0726e8:	00000000 */ 	nop
-);
+void hovercarFindNextPath(struct hovercarobj *hovercar)
+{
+	s32 index = hovercar->path - g_StageSetup.paths + 1;
 
-void func0f0726ec(struct hovercarobj *hovercar)
+	while (true) {
+		if (g_StageSetup.paths[index].pads == NULL) {
+			index = 0;
+		}
+
+		if (&g_StageSetup.paths[index] == hovercar->path) {
+			break;
+		}
+
+		if ((g_StageSetup.paths[index].flags & PATHFLAG_FLYING)
+				&& (g_StageSetup.paths[index].flags & PATHFLAG_INUSE) == 0) {
+			hovercar->path->flags &= ~PATHFLAG_INUSE;
+			hovercar->path = &g_StageSetup.paths[index];
+			hovercar->path->flags |= PATHFLAG_INUSE;
+			return;
+		}
+
+		index++;
+	}
+}
+
+void hovercarStartNextPath(struct hovercarobj *hovercar)
 {
 	s32 *pads;
 	struct pad pad;
 	Mtxf matrix;
 	s16 rooms[2];
 
-	func0f072650(hovercar);
+	hovercarFindNextPath(hovercar);
 
 	pads = hovercar->path->pads;
 	hovercar->nextstep = 0;
@@ -19234,7 +19212,7 @@ void hovercarIncrementStep(struct hovercarobj *hovercar)
 		if (hovercar->path->flags & PATHFLAG_CIRCULAR) {
 			hovercar->nextstep = 0;
 		} else {
-			func0f0726ec(hovercar);
+			hovercarStartNextPath(hovercar);
 		}
 	}
 }
@@ -58097,7 +58075,7 @@ glabel func0f0841dc
 /*  f084408:	24850008 */ 	addiu	$a1,$a0,0x8
 /*  f08440c:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f084410:	24860028 */ 	addiu	$a2,$a0,0x28
-/*  f084414:	0fc1c9bb */ 	jal	func0f0726ec
+/*  f084414:	0fc1c9bb */ 	jal	hovercarStartNextPath
 /*  f084418:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08441c:	10000059 */ 	b	.L0f084584
 /*  f084420:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -58359,7 +58337,7 @@ glabel func0f0841dc
 /*  f084408:	24850008 */ 	addiu	$a1,$a0,0x8
 /*  f08440c:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f084410:	24860028 */ 	addiu	$a2,$a0,0x28
-/*  f084414:	0fc1c9bb */ 	jal	func0f0726ec
+/*  f084414:	0fc1c9bb */ 	jal	hovercarStartNextPath
 /*  f084418:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08441c:	10000059 */ 	b	.L0f084584
 /*  f084420:	8fbf0024 */ 	lw	$ra,0x24($sp)

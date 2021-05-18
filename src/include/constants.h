@@ -2753,7 +2753,7 @@
 
 #define PATHFLAG_CIRCULAR 1
 #define PATHFLAG_FLYING   2
-#define PATHFLAG_04       4
+#define PATHFLAG_INUSE    4
 
 #define PAUSEMODE_UNPAUSED  0
 #define PAUSEMODE_PAUSING   1
