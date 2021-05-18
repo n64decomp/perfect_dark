@@ -2510,6 +2510,7 @@
 #define OBJFLAG_20000000            0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
 #define OBJFLAG_CAMERA_DISABLED     0x20000000
 #define OBJFLAG_DOOR_OPENTOFRONT    0x20000000
+#define OBJFLAG_HOVERCAR_20000000   0x20000000
 #define OBJFLAG_40000000            0x40000000
 #define OBJFLAG_CAMERA_BONDINVIEW   0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"

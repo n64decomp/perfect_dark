@@ -19202,43 +19202,29 @@ glabel func0f072650
 /*  f0726e8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0726ec
-/*  f0726ec:	27bdff38 */ 	addiu	$sp,$sp,-200
-/*  f0726f0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0726f4:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0726f8:	0fc1c994 */ 	jal	func0f072650
-/*  f0726fc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f072700:	8e0e0088 */ 	lw	$t6,0x88($s0)
-/*  f072704:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f072708:	27a60070 */ 	addiu	$a2,$sp,0x70
-/*  f07270c:	8dc20000 */ 	lw	$v0,0x0($t6)
-/*  f072710:	ae00008c */ 	sw	$zero,0x8c($s0)
-/*  f072714:	0fc456ac */ 	jal	padUnpack
-/*  f072718:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f07271c:	2604001c */ 	addiu	$a0,$s0,0x1c
-/*  f072720:	0c005755 */ 	jal	func00015d54
-/*  f072724:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f072728:	8faf00b8 */ 	lw	$t7,0xb8($sp)
-/*  f07272c:	27a50070 */ 	addiu	$a1,$sp,0x70
-/*  f072730:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f072734:	a7b8002e */ 	sh	$t8,0x2e($sp)
-/*  f072738:	afa50010 */ 	sw	$a1,0x10($sp)
-/*  f07273c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f072740:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f072744:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f072748:	0fc1a9cc */ 	jal	func0f06a730
-/*  f07274c:	a7af002c */ 	sh	$t7,0x2c($sp)
-/*  f072750:	8e190008 */ 	lw	$t9,0x8($s0)
-/*  f072754:	3c012000 */ 	lui	$at,0x2000
-/*  f072758:	03214025 */ 	or	$t0,$t9,$at
-/*  f07275c:	ae080008 */ 	sw	$t0,0x8($s0)
-/*  f072760:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f072764:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f072768:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
-/*  f07276c:	03e00008 */ 	jr	$ra
-/*  f072770:	00000000 */ 	nop
-);
+void func0f0726ec(struct hovercarobj *hovercar)
+{
+	s32 *pads;
+	struct pad pad;
+	Mtxf matrix;
+	s16 rooms[2];
+
+	func0f072650(hovercar);
+
+	pads = hovercar->path->pads;
+	hovercar->nextstep = 0;
+
+	padUnpack(pads[0], PADFIELD_POS | PADFIELD_ROOM, &pad);
+
+	func00015d54(hovercar->base.realrot, &matrix);
+
+	rooms[0] = pad.room;
+	rooms[1] = -1;
+
+	func0f06a730(&hovercar->base, &pad, &matrix, rooms, &pad);
+
+	hovercar->base.flags |= OBJFLAG_HOVERCAR_20000000;
+}
 
 void hovercarIncrementStep(struct hovercarobj *hovercar)
 {
