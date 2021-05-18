@@ -526,7 +526,7 @@
 // chr->hidden2
 #define CHRH2FLAG_0001              0x0001
 #define CHRH2FLAG_0002              0x0002 // Equivalent to OBJFLAG3_00020000
-#define CHRH2FLAG_0008              0x0008
+#define CHRH2FLAG_BLUESIGHT         0x0008
 #define CHRH2FLAG_TICKDURINGAUTOCUT 0x0010
 #define CHRH2FLAG_0040              0x0040
 #define CHRH2FLAG_0080              0x0080
@@ -1786,6 +1786,9 @@
 #define MODELNODETYPE_HEADSPOT     0x17
 #define MODELNODETYPE_DL           0x18
 
+#define MODELPART_CHR_04            0x04
+#define MODELPART_HEAD_SUNGLASSES   0x00
+#define MODELPART_HEAD_HUDPIECE     0x04
 #define MODELPART_00                0x00
 #define MODELPART_LENS              0x00
 #define MODELPART_01                0x01
@@ -3084,22 +3087,22 @@
 #define SOUNDMODE_HEADPHONE 2
 #define SOUNDMODE_SURROUND  3
 
-#define SPAWNFLAG_00000001            0x00000001
-#define SPAWNFLAG_00000002            0x00000002
+#define SPAWNFLAG_FORCESUNGLASSES     0x00000001 // 100% chance of wearing sunglasses if head model supports it
+#define SPAWNFLAG_MAYBESUNGLASSES     0x00000002 // 50% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_INVINCIBLE          0x00000008
 #define SPAWNFLAG_00000010            0x00000010
 #define SPAWNFLAG_ONLYONA             0x00000020
 #define SPAWNFLAG_ONLYONSA            0x00000040
 #define SPAWNFLAG_ONLYONPA            0x00000080
-#define SPAWNFLAG_IGNORECOLLISION     0x00000100
+#define SPAWNFLAG_IGNORECOLLISION     0x00000100 // For initial chr placement only
 #define SPAWNFLAG_00000200            0x00000200
 #define SPAWNFLAG_ANTINONINTERACTABLE 0x00000400
 #define SPAWNFLAG_00000800            0x00000800
 #define SPAWNFLAG_HIDDEN              0x00001000
-#define SPAWNFLAG_00002000            0x00002000
-#define SPAWNFLAG_00004000            0x00004000
-#define SPAWNFLAG_00008000            0x00008000
-#define SPAWNFLAG_00010000            0x00010000
+#define SPAWNFLAG_NOBLOOD             0x00002000
+#define SPAWNFLAG_FIXEDHEIGHT         0x00004000 // By default, chr heights vary slightly. This disables it.
+#define SPAWNFLAG_RTRACKED            0x00008000
+#define SPAWNFLAG_BLUESIGHT           0x00010000
 
 #define SPECIALDIE_NONE        0
 #define SPECIALDIE_FALLBACK    1

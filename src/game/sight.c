@@ -57,7 +57,7 @@ bool sightIsPropFriendly(struct prop *prop)
 
 	if (g_Vars.normmplayerisrunning == false
 			&& prop->chr
-			&& (prop->chr->hidden2 & CHRH2FLAG_0008)) {
+			&& (prop->chr->hidden2 & CHRH2FLAG_BLUESIGHT)) {
 		return true;
 	}
 

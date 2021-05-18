@@ -41,7 +41,7 @@ struct mpsetup g_MpSetup;
 struct savefile_setup g_MpSetupSaveFile;
 u32 var800acc1c;
 struct mplockinfo g_MpLockInfo;
-u32 var800acc28[18];
+struct modelfiledata *var800acc28[18];
 
 // Forward declaractions
 struct mpweaponset g_MpWeaponSets[12];
@@ -10188,11 +10188,11 @@ void func0f18e558(void)
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(var800acc28); i++) {
-		var800acc28[i] = 0;
+		var800acc28[i] = NULL;
 	}
 }
 
-u32 func0f18e57c(u32 index, s32 *headnum)
+struct modelfiledata *func0f18e57c(s32 index, s32 *headnum)
 {
 	return var800acc28[index];
 }

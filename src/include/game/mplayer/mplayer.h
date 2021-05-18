@@ -116,6 +116,6 @@ void func0f18e39c(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *
 s32 func0f18e420(s32 arg0, s32 arg1, u16 arg2);
 s32 func0f18e4c8(s32 arg0, s32 arg1, u16 arg2);
 void func0f18e558(void);
-u32 func0f18e57c(u32 index, s32 *headnum);
+struct modelfiledata *func0f18e57c(s32 index, s32 *headnum);
 
 #endif

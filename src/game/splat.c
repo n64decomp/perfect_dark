@@ -28,7 +28,7 @@ void splatTick(struct prop *prop)
 	struct chrdata *attacker = chr->lastattacker;
 	s32 race;
 
-	if (chr->unk32c_19 || (chr->chrflags & CHRCFLAG_HIDDEN) || chr->bulletstaken == 0) {
+	if (chr->noblood || (chr->chrflags & CHRCFLAG_HIDDEN) || chr->bulletstaken == 0) {
 		return;
 	}
 

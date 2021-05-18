@@ -4491,8 +4491,8 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->poisonprop = NULL;
 	chr->lastshooter = -1;
 	chr->timeshooter = 0;
-	chr->unk32c_19 = 0;
-	chr->unk32c_20 = 0;
+	chr->noblood = false;
+	chr->rtracked = false;
 
 #if VERSION >= VERSION_NTSC_1_0
 	chr->goposhitcount = 0;
@@ -12385,7 +12385,7 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 ibh, struct coord
 		return;
 	}
 
-	if (chr->unk32c_19) {
+	if (chr->noblood) {
 		return;
 	}
 
@@ -15429,7 +15429,7 @@ void func0f028590(f32 arg0)
 						}
 
 						if (checksum != CHECKSUM_PLACEHOLDER) {
-							g_HeadsAndBodies[BODY_SKEDARKING].bodyfileid = 0;
+							g_HeadsAndBodies[BODY_SKEDARKING].filenum = 0;
 						}
 					}
 #endif

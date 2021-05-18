@@ -451,7 +451,7 @@ Gfx *radarRenderRTrackedProps(Gfx *gdl)
 		case PROPTYPE_CHR:
 			chr = prop->chr;
 
-			if (chr && chr->unk32c_20
+			if (chr && chr->rtracked
 					&& chr->actiontype != ACT_DIE
 					&& chr->actiontype != ACT_DEAD
 					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0) {

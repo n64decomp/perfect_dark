@@ -14,6 +14,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/memory.h"
+#include "lib/model.h"
 #include "lib/lib_126b0.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
@@ -156,8 +157,8 @@ u32 bodyGetRace(s32 bodynum)
 
 bool bodyLoad(s32 bodynum)
 {
-	if (!g_HeadsAndBodies[bodynum].unk0c) {
-		g_HeadsAndBodies[bodynum].unk0c = fileLoad(g_HeadsAndBodies[bodynum].bodyfileid);
+	if (!g_HeadsAndBodies[bodynum].filedata) {
+		g_HeadsAndBodies[bodynum].filedata = fileLoad(g_HeadsAndBodies[bodynum].filenum);
 		return true;
 	}
 
@@ -500,27 +501,152 @@ glabel var7f1a8a84
 /*  f02d334:	00000000 */ 	nop
 );
 
-struct model *func0f02d338(u32 bodynum, u32 headnum, u32 arg2, u32 arg3, bool arg4, u8 arg5)
+// Mismatch: The model->unk02 < headfiledata->rwdatalen statement needs to use
+// bodyfiledata instead of headfiledata, but the extra reference to bodyfiledata
+// causes bodyfiledata to be promoted from t registers to a registers, which
+// causes significant codegen changes.
+//struct model *func0f02ce8c(s32 bodynum, s32 headnum, struct modelfiledata *bodyfiledata, struct modelfiledata *headfiledata, bool sunglasses, struct model *model, bool isplayer, u8 varyheight)
+//{
+//	f32 scale = g_HeadsAndBodies[bodynum].scale * 0.1f;
+//	f32 animscale = g_HeadsAndBodies[bodynum].animscale;
+//	struct modelnode *node = NULL;
+//	u32 stack[2];
+//
+//	if (cheatIsActive(CHEAT_DKMODE)) {
+//		scale *= 0.8f;
+//	}
+//
+//	if (bodyfiledata == NULL) {
+//		if (g_HeadsAndBodies[bodynum].filedata == NULL) {
+//			g_HeadsAndBodies[bodynum].filedata = fileLoad(g_HeadsAndBodies[bodynum].filenum);
+//		}
+//
+//		bodyfiledata = g_HeadsAndBodies[bodynum].filedata;
+//	}
+//
+//	modelCalculateRwDataLen(bodyfiledata);
+//
+//	if (!g_HeadsAndBodies[bodynum].unk00_01) {
+//		if (bodyfiledata->type == &g_ModelTypeChr) {
+//			node = modelGetPart(bodyfiledata, MODELPART_CHR_04);
+//
+//			if (node != NULL) {
+//				if (headnum < 0) {
+//					headfiledata = func0f18e57c(-1 - headnum, &headnum);
+//					bodyfiledata->rwdatalen += headfiledata->rwdatalen;
+//				} else if (headnum > 0) {
+//					if (headfiledata == NULL) {
+//						if (g_Vars.normmplayerisrunning && !IS4MB()) {
+//							headfiledata = fileLoad(g_HeadsAndBodies[headnum].filenum);
+//							g_HeadsAndBodies[headnum].filedata = headfiledata;
+//							g_FileInfo[g_HeadsAndBodies[headnum].filenum].size = 0;
+//							func0f02ddbc(headfiledata, headnum, bodynum);
+//						} else {
+//							if (g_HeadsAndBodies[headnum].filedata == NULL) {
+//								g_HeadsAndBodies[headnum].filedata = fileLoad(g_HeadsAndBodies[headnum].filenum);
+//							}
+//
+//							headfiledata = g_HeadsAndBodies[headnum].filedata;
+//						}
+//					}
+//
+//					modelCalculateRwDataLen(headfiledata);
+//
+//					bodyfiledata->rwdatalen += headfiledata->rwdatalen;
+//
+//					if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight) {
+//						// Set height to between 95% and 115%
+//						f32 frac = random() * (1.0f / U32_MAX) * 0.05f;
+//						scale *= 2.0f * frac - 0.05f + 1.0f;
+//					}
+//				}
+//
+//				if (!isplayer) {
+//					if (cheatIsActive(CHEAT_SMALLCHARACTERS)) {
+//						scale *= 0.4f;
+//					}
+//
+//					if (cheatIsActive(CHEAT_DKMODE)) {
+//						scale *= 1.25f;
+//					}
+//				} else {
+//					if (cheatIsActive(CHEAT_SMALLJO)) {
+//						scale *= 0.4f;
+//					}
+//				}
+//			}
+//		} else if (bodyfiledata->type == &g_ModelTypeSkedar) {
+//			if (g_HeadsAndBodies[bodynum].canvaryheight && varyheight && bodynum == BODY_SKEDAR) {
+//				// Set height to between 65% and 85%
+//				f32 frac = random() * (1.0f / U32_MAX);
+//				scale *= 2.0f * (0.1f * frac) - 0.1f + 0.75f;
+//			}
+//		}
+//	}
+//
+//	if (model) {
+//		if (model->unk02 < bodyfiledata->rwdatalen) {
+//			// empty
+//		}
+//	} else {
+//		model = func0f0b3280(bodyfiledata);
+//	}
+//
+//	if (model) {
+//		modelSetScale(model, scale);
+//		modelSetAnimScale(model, animscale);
+//
+//		if (headfiledata && !g_HeadsAndBodies[bodynum].unk00_01) {
+//			bodyfiledata->rwdatalen -= headfiledata->rwdatalen;
+//
+//			func0f0b32a0(model, node, headfiledata);
+//
+//			if ((s16)*(s32 *)&headfiledata->type == MODELTYPE_HEAD) {
+//				struct modelnode *node2;
+//
+//				if (!sunglasses) {
+//					node2 = modelGetPart(headfiledata, MODELPART_HEAD_SUNGLASSES);
+//
+//					if (node2) {
+//						union modelrwdata *rwdata = modelGetNodeRwData(model, node2);
+//						rwdata->toggle.visible = false;
+//					}
+//				}
+//
+//				node2 = modelGetPart(headfiledata, MODELPART_HEAD_HUDPIECE);
+//
+//				if (node2) {
+//					union modelrwdata *rwdata = modelGetNodeRwData(model, node2);
+//					rwdata->toggle.visible = false;
+//				}
+//			}
+//		}
+//	}
+//
+//	return model;
+//}
+
+struct model *func0f02d338(s32 bodynum, s32 headnum, struct modelfiledata *bodyfiledata, struct modelfiledata *headfiledata, bool sunglasses, u8 varyheight)
 {
-	return func0f02ce8c(bodynum, headnum, arg2, arg3, arg4, 0, 0, arg5);
+	return func0f02ce8c(bodynum, headnum, bodyfiledata, headfiledata, sunglasses, NULL, false, varyheight);
 }
 
-struct model *modelAllocateChr(u32 bodynum, u32 headnum, u32 spawnflags)
+struct model *modelAllocateChr(s32 bodynum, s32 headnum, u32 spawnflags)
 {
-	bool a = 0;
-	u8 b = 1;
+	bool sunglasses = false;
+	u8 varyheight = true;
 
-	if (spawnflags & SPAWNFLAG_00000001) {
-		a = true;
-	} else if (spawnflags & SPAWNFLAG_00000002) {
-		a = random() % 2 == 0;
+	if (spawnflags & SPAWNFLAG_FORCESUNGLASSES) {
+		sunglasses = true;
+	} else if (spawnflags & SPAWNFLAG_MAYBESUNGLASSES) {
+		sunglasses = random() % 2 == 0;
 	}
 
-	if (spawnflags & SPAWNFLAG_00004000) {
-		b = 0;
+	if (spawnflags & SPAWNFLAG_FIXEDHEIGHT) {
+		varyheight = false;
 	}
 
-	return func0f02d338(bodynum, headnum, 0, 0, a, b);
+	return func0f02d338(bodynum, headnum, NULL, NULL, sunglasses, varyheight);
 }
 
 s32 func0f02d3f8(void)
@@ -562,7 +688,7 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	struct pad pad;
 	s16 rooms[2];
 	struct chrdata *chr;
-	s32 thing;
+	struct modelfiledata *headfiledata;
 	struct model *model;
 	struct prop *prop;
 	s32 bodynum;
@@ -596,7 +722,7 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	}
 
 	headnum = -55555;
-	thing = 0;
+	headfiledata = NULL;
 
 	if (packed->bodynum == 255) {
 		bodynum = func0f02d3f8();
@@ -616,10 +742,10 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 		index = -1 - headnum;
 
 		if (index >= 0 && index < 22) {
-			thing = func0f18e57c(index, &headnum);
+			headfiledata = func0f18e57c(index, &headnum);
 		}
 
-		model = func0f02ce8c(bodynum, headnum, 0, thing, 0, 0, 0, 0);
+		model = func0f02ce8c(bodynum, headnum, NULL, headfiledata, false, NULL, false, false);
 	} else {
 		model = modelAllocateChr(bodynum, headnum, packed->spawnflags);
 	}
@@ -642,7 +768,7 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 			chr->bodynum = bodynum;
 			chr->race = bodyGetRace(chr->bodynum);
 
-			chr->unk32c_20 = false;
+			chr->rtracked = false;
 
 			if (bodynum == BODY_DRCAROLL) {
 				chr->drcarollimage_left = 0;
@@ -680,16 +806,16 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 				chr->chrflags |= CHRCFLAG_HIDDEN;
 			}
 
-			if (packed->spawnflags & SPAWNFLAG_00008000) {
-				chr->unk32c_20 = true;
+			if (packed->spawnflags & SPAWNFLAG_RTRACKED) {
+				chr->rtracked = true;
 			}
 
-			if (packed->spawnflags & SPAWNFLAG_00002000) {
-				chr->unk32c_19 = true;
+			if (packed->spawnflags & SPAWNFLAG_NOBLOOD) {
+				chr->noblood = true;
 			}
 
-			if (packed->spawnflags & SPAWNFLAG_00010000) {
-				chr->hidden2 |= CHRH2FLAG_0008;
+			if (packed->spawnflags & SPAWNFLAG_BLUESIGHT) {
+				chr->hidden2 |= CHRH2FLAG_BLUESIGHT;
 			}
 
 			chr->flags = packed->flags;

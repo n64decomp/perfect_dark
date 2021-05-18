@@ -691,7 +691,7 @@ struct modelfiledata {
 	s16 numparts;
 	s16 nummatrices;
 	f32 unk10;
-	u16 rwdatalen; // in words
+	s16 rwdatalen; // in words
 	void *unk18;
 };
 
@@ -1457,8 +1457,8 @@ struct chrdata {
 
 	u8 p1p2 : 2;
 	u8 unk32c_18 : 1;
-	u8 unk32c_19 : 1;
-	u8 unk32c_20 : 1;
+	u8 noblood : 1;
+	u8 rtracked : 1;
 	u8 unk32c_21 : 1;
 	u8 unk32c_22 : 2;
 
@@ -3248,13 +3248,14 @@ struct cheat {
 struct headorbody {
 	/*0x00*/ u16 ismale : 1;
 	/*0x00*/ u16 unk00_01 : 1;
-	/*0x00*/ u16 unk00_02 : 4;
+	/*0x00*/ u16 canvaryheight : 1;
+	/*0x00*/ u16 unk00_03 : 3;
 	/*0x00*/ u16 height : 8;
-	/*0x02*/ u16 bodyfileid;
-	/*0x04*/ f32 unk04;
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ void *unk0c; // likely a pointer to bodyfile data if loaded
-	/*0x10*/ u16 handfileid;
+	/*0x02*/ u16 filenum;
+	/*0x04*/ f32 scale;
+	/*0x08*/ f32 animscale;
+	/*0x0c*/ void *filedata;
+	/*0x10*/ u16 handfilenum;
 };
 
 struct stagetableentry {

@@ -31011,8 +31011,8 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 					chr->hidden2 |= CHRH2FLAG_0080;
 #endif
 
-					if (spawnflags & SPAWNFLAG_00002000) {
-						chr->unk32c_19 = true;
+					if (spawnflags & SPAWNFLAG_NOBLOOD) {
+						chr->noblood = true;
 					}
 
 					return prop;
