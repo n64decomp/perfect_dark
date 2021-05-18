@@ -1043,6 +1043,13 @@
 #define HATTYPE_METAL 3
 #define HATTYPE_CLOTH 5
 
+#define HEADBODYTYPE_DEFAULT     0
+#define HEADBODYTYPE_FEMALE      1
+#define HEADBODYTYPE_FEMALEGUARD 2
+#define HEADBODYTYPE_MAIAN       3
+#define HEADBODYTYPE_CASS        4
+#define HEADBODYTYPE_MRBLONDE    5
+
 #define HEALTHSHOWMODE_HIDDEN   0 // health bar not visible
 #define HEALTHSHOWMODE_OPENING  1 // height expanding
 #define HEALTHSHOWMODE_PREVIOUS 2 // full height, showing previous health amount

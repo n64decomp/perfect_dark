@@ -6599,9 +6599,21 @@ glabel func00023108
 /*    23198:	00000000 */ 	nop
 );
 
-void func0002319c(struct modelfiledata *filedata, struct modelfiledata *filedataptr, Gfx **gdlptr)
+/**
+ * This function can be called repeatedly to iterate a model's display lists.
+ *
+ * On the first call, the value passed as nodeptr should point to a NULL value.
+ * Each time the function is called, it will update *gdlptr to point to the next
+ * display list, and will update *nodeptr to point to the current node. On
+ * subsequent calls, the same values should be passed as nodeptr and gdlptr so
+ * the function can continue correctly.
+ *
+ * Note that some node types support multiple display lists, so the function
+ * may return the same node while it iterates the display lists for that node.
+ */
+void modelIterateDisplayLists(struct modelfiledata *filedata, struct modelnode **nodeptr, Gfx **gdlptr)
 {
-	struct modelnode *node = filedataptr->rootnode;
+	struct modelnode *node = *nodeptr;
 	union modelrodata *rodata;
 	Gfx *gdl = NULL;
 
@@ -6616,7 +6628,7 @@ void func0002319c(struct modelfiledata *filedata, struct modelfiledata *filedata
 		case MODELNODETYPE_GUNDL:
 			rodata = node->rodata;
 
-			if (node != filedataptr->rootnode) {
+			if (node != *nodeptr) {
 				gdl = rodata->gundl.primary;
 			} else if (rodata->gundl.secondary != *gdlptr) {
 				gdl = rodata->gundl.secondary;
@@ -6625,7 +6637,7 @@ void func0002319c(struct modelfiledata *filedata, struct modelfiledata *filedata
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
 
-			if (node != filedataptr->rootnode) {
+			if (node != *nodeptr) {
 				gdl = rodata->dl.primary;
 			} else if (rodata->dl.secondary != *gdlptr) {
 				gdl = rodata->dl.secondary;
@@ -6634,7 +6646,7 @@ void func0002319c(struct modelfiledata *filedata, struct modelfiledata *filedata
 		case MODELNODETYPE_16:
 			rodata = node->rodata;
 
-			if (node != filedataptr->rootnode) {
+			if (node != *nodeptr) {
 				gdl = rodata->type16.unk08;
 			}
 			break;
@@ -6670,7 +6682,7 @@ void func0002319c(struct modelfiledata *filedata, struct modelfiledata *filedata
 	}
 
 	*gdlptr = gdl;
-	filedataptr->rootnode = node;
+	*nodeptr = node;
 }
 
 void modelNodeReplaceGdl(u32 arg0, struct modelnode *node, Gfx *find, Gfx *replacement)

@@ -13,6 +13,6 @@ s32 func0f02d3f8(void);
 s32 bodyChooseHead(s32 bodynum);
 void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex);
 struct prop *propAllocateEyespy(struct pad *pad, s16 room);
-void func0f02ddbc(struct modelfiledata *headfiledata, s32 headnum, s32 bodynum);
+void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s32 bodynum);
 
 #endif

@@ -78,7 +78,7 @@ s32 func0f068760(struct defaultobj *obj);
 s32 func0f0687b8(struct defaultobj *obj);
 struct modelnode *func0f0687e4(struct model *model);
 u32 func0f0688f4(void);
-f32 *func0f06896c(void *modelfiledata);
+struct modelrodata_bbox *func0f06896c(struct modelfiledata *filedata);
 u32 func0f068998(void);
 struct model08thing *func0f068aa8(struct model *model);
 u32 func0f068ad4(void);
