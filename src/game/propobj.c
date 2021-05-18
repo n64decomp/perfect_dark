@@ -69588,50 +69588,30 @@ glabel func0f08bb5c
 /*  f08bc58:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08bc5c
-/*  f08bc5c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08bc60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08bc64:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f08bc68:	8c460018 */ 	lw	$a2,0x18($v0)
-/*  f08bc6c:	50c0001d */ 	beqzl	$a2,.L0f08bce4
-/*  f08bc70:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08bc74:	8cc40008 */ 	lw	$a0,0x8($a2)
-/*  f08bc78:	3c0e8008 */ 	lui	$t6,%hi(g_ModelTypeChrGun)
-/*  f08bc7c:	25cec084 */ 	addiu	$t6,$t6,%lo(g_ModelTypeChrGun)
-/*  f08bc80:	8c8f0004 */ 	lw	$t7,0x4($a0)
-/*  f08bc84:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08bc88:	55cf0016 */ 	bnel	$t6,$t7,.L0f08bce4
-/*  f08bc8c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08bc90:	0c006a47 */ 	jal	modelGetPart
-/*  f08bc94:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08bc98:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08bc9c:	10400005 */ 	beqz	$v0,.L0f08bcb4
-/*  f08bca0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bca4:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f08bca8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08bcac:	1000000d */ 	b	.L0f08bce4
-/*  f08bcb0:	84420000 */ 	lh	$v0,0x0($v0)
-.L0f08bcb4:
-/*  f08bcb4:	8cc40008 */ 	lw	$a0,0x8($a2)
-/*  f08bcb8:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08bcbc:	0c006a47 */ 	jal	modelGetPart
-/*  f08bcc0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f08bcc4:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08bcc8:	10400005 */ 	beqz	$v0,.L0f08bce0
-/*  f08bccc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bcd0:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f08bcd4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08bcd8:	10000002 */ 	b	.L0f08bce4
-/*  f08bcdc:	8c420000 */ 	lw	$v0,0x0($v0)
-.L0f08bce0:
-/*  f08bce0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08bce4:
-/*  f08bce4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08bce8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08bcec:	03e00008 */ 	jr	$ra
-/*  f08bcf0:	00000000 */ 	nop
-);
+bool weaponIsGunfireVisible(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+	struct model *model = obj->model;
+	struct modelnode *node;
+
+	if (model && model->filedata->type == &g_ModelTypeChrGun) {
+		node = modelGetPart(model->filedata, MODELPART_CHRGUN_00);
+
+		if (node) {
+			struct modelrwdata_gunfire *rwdata = modelGetNodeRwData(model, node);
+			return rwdata->visible;
+		}
+
+		node = modelGetPart(model->filedata, MODELPART_CHRGUN_02);
+
+		if (node) {
+			struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);
+			return rwdata->visible;
+		}
+	}
+
+	return false;
+}
 
 s32 hatGetType(struct prop *prop)
 {

@@ -13946,15 +13946,15 @@ void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 	}
 }
 
-s32 func0f03f8b8(struct chrdata *chr, s32 hand)
+bool chrIsGunfireVisible(struct chrdata *chr, s32 hand)
 {
 	struct prop *prop = chrGetEquippedWeaponProp(chr, hand);
 
 	if (prop) {
-		return func0f08bc5c(prop);
+		return weaponIsGunfireVisible(prop);
 	}
 
-	return 0;
+	return false;
 }
 
 void chrStopFiring(struct chrdata *chr)

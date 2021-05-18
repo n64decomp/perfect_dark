@@ -1794,6 +1794,8 @@
 #define MODELNODETYPE_DL           0x18
 
 #define MODELPART_CHR_04            0x04
+#define MODELPART_CHRGUN_00         0x00
+#define MODELPART_CHRGUN_02         0x02
 #define MODELPART_HEAD_SUNGLASSES   0x00
 #define MODELPART_HEAD_HUDPIECE     0x04
 #define MODELPART_00                0x00
