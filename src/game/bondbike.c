@@ -170,10 +170,10 @@ void bbikeHandleActivate(void)
 	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_RUNNING
 			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < PALDOWN(25)) {
 		struct hoverbikeobj *bike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
-		struct model08thing *thing = func0f068af4(&bike->base);
+		struct modelrodata_bbox *bbox = objFindBboxRodata(&bike->base);
 
-		f32 sidedist = thing->unk04[1] * bike->base.model->scale;
-		f32 frontdist = thing->unk18 * bike->base.model->scale;
+		f32 sidedist = bbox->xmax * bike->base.model->scale;
+		f32 frontdist = bbox->zmax * bike->base.model->scale;
 		f32 diagdist = sqrtf(sidedist * sidedist + frontdist * frontdist);
 
 		g_Vars.currentplayer->walkinitmove = false;

@@ -3588,7 +3588,7 @@ glabel var7f1b94e4
 /*  f1a125c:	1420005c */ 	bnez	$at,.PF0f1a13d0
 /*  f1a1260:	00000000 */ 	nop
 .PF0f1a1264:
-/*  f1a1264:	0fc1a361 */ 	jal	func0f068af4
+/*  f1a1264:	0fc1a361 */ 	jal	objFindBboxRodata
 /*  f1a1268:	00001025 */ 	move	$v0,$zero
 /*  f1a126c:	3c038009 */ 	lui	$v1,0x8009
 /*  f1a1270:	90638d5c */ 	lbu	$v1,-0x72a4($v1)
@@ -4688,7 +4688,7 @@ glabel var7f1b94e4
 /*  f1a0148:	1420005c */ 	bnez	$at,.L0f1a02bc
 /*  f1a014c:	00000000 */ 	nop
 .L0f1a0150:
-/*  f1a0150:	0fc1a2bd */ 	jal	func0f068af4
+/*  f1a0150:	0fc1a2bd */ 	jal	objFindBboxRodata
 /*  f1a0154:	00001025 */ 	or	$v0,$zero,$zero
 /*  f1a0158:	3c038009 */ 	lui	$v1,%hi(g_FrNumSounds)
 /*  f1a015c:	9063880c */ 	lbu	$v1,%lo(g_FrNumSounds)($v1)
@@ -5801,7 +5801,7 @@ glabel var7f1b94e4
 /*  f19a150:	1420005c */ 	bnez	$at,.NB0f19a2c4
 /*  f19a154:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f19a158:
-/*  f19a158:	0fc19f5d */ 	jal	func0f068af4
+/*  f19a158:	0fc19f5d */ 	jal	objFindBboxRodata
 /*  f19a15c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f19a160:	3c038009 */ 	lui	$v1,0x8009
 /*  f19a164:	9063af7c */ 	lbu	$v1,-0x5084($v1)
@@ -6371,7 +6371,7 @@ glabel var7f1b94e4
 //	struct inventory_ammo *ammo;
 //	u8 exploding; // 123
 //	bool oldside;
-//	struct model08thing *model08thing; // 118
+//	struct modelrodata_bbox *bbox; // 118
 //	s32 tmp;
 //	f32 mult; // 110
 //	bool newside;
@@ -6618,7 +6618,7 @@ glabel var7f1b94e4
 //			// Handle target being destroyed
 //			if (exploding || (g_FrData.targets[i].maxdamage != 255 && g_FrData.targets[i].damage >= g_FrData.targets[i].maxdamage)) {
 //				// 150
-//				model08thing = func0f068af4(obj);
+//				bbox = objFindBboxRodata(obj);
 //
 //				if (g_FrNumSounds && g_FrData.targets[i].travelling) {
 //					g_FrNumSounds--;
@@ -6629,8 +6629,7 @@ glabel var7f1b94e4
 //
 //				// 1d0
 //				shardsCreate(&prop->pos, &obj->realrot[0], &obj->realrot[3], &obj->realrot[6],
-//						model08thing->unk04[0], model08thing->unk04[1], model08thing->unk04[2],
-//						model08thing->unk04[3], 2, prop);
+//						bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, 2, prop);
 //
 //				g_FrData.targetsdestroyed++;
 //

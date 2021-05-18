@@ -11443,7 +11443,7 @@ glabel func0f024738
 .L0f02495c:
 /*  f02495c:	55a00034 */ 	bnezl	$t5,.L0f024a30
 /*  f024960:	8fb90280 */ 	lw	$t9,0x280($sp)
-/*  f024964:	0fc1a2bd */ 	jal	func0f068af4
+/*  f024964:	0fc1a2bd */ 	jal	objFindBboxRodata
 /*  f024968:	02402025 */ 	or	$a0,$s2,$zero
 /*  f02496c:	8c410000 */ 	lw	$at,0x0($v0)
 /*  f024970:	2611002c */ 	addiu	$s1,$s0,0x2c

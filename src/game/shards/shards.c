@@ -22,7 +22,7 @@ bool g_ShardsActive = false;
 
 void shardCreate(s16 room, struct coord *pos, f32 rotx, f32 size, s32 type);
 
-void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 type, struct prop *prop)
+void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmin, f32 relxmax, f32 relymin, f32 relymax, s32 type, struct prop *prop)
 {
 	s32 y;
 	s32 x;
@@ -50,8 +50,8 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 arg4, 
 	spcc[1] *= 1.0f / f0;
 	spcc[2] *= 1.0f / f0;
 
-	arg4 *= f0;
-	arg5 *= f0;
+	relxmin *= f0;
+	relxmax *= f0;
 
 	spc0[0] = roty[0];
 	spc0[1] = roty[1];
@@ -63,21 +63,21 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 arg4, 
 	spc0[1] *= 1.0f / f0;
 	spc0[2] *= 1.0f / f0;
 
-	arg6 *= f0;
-	arg7 *= f0;
+	relymin *= f0;
+	relymax *= f0;
 
 	f30 = atan2f(rotz[0], rotz[2]);
 
-	f20 = arg5 - arg4;
-	spac = arg7 - arg6;
+	f20 = relxmax - relxmin;
+	spac = relymax - relymin;
 
 	spec = sqrtf(f20 * spac / (f32) (g_MaxShards / 2));
 	speci = spec;
 	speci2 = speci;
 
-	basepos.x = (pos->f[0] + (arg4 + (speci >> 1)) * spcc[0]) + spc0[0] * (arg6 + (speci >> 1));
-	basepos.y = (pos->f[1] + (arg4 + (speci >> 1)) * spcc[1]) + spc0[1] * (arg6 + (speci >> 1));
-	basepos.z = (pos->f[2] + (arg4 + (speci >> 1)) * spcc[2]) + spc0[2] * (arg6 + (speci >> 1));
+	basepos.x = (pos->f[0] + (relxmin + (speci >> 1)) * spcc[0]) + spc0[0] * (relymin + (speci >> 1));
+	basepos.y = (pos->f[1] + (relxmin + (speci >> 1)) * spcc[1]) + spc0[1] * (relymin + (speci >> 1));
+	basepos.z = (pos->f[2] + (relxmin + (speci >> 1)) * spcc[2]) + spc0[2] * (relymin + (speci >> 1));
 
 	if (type == SHARDTYPE_GLASS) {
 		func0f0939f8(NULL, NULL, SFX_GLASS_SHATTER, -1,

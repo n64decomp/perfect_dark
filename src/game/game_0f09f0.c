@@ -5613,13 +5613,13 @@ glabel var7f1b3c40pf
 /*  f0f460c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f4610:	46128102 */ 	mul.s	$f4,$f16,$f18
 /*  f0f4614:	46041203 */ 	div.s	$f8,$f2,$f4
-/*  f0f4618:	0fc1a34e */ 	jal	func0f068aa8
+/*  f0f4618:	0fc1a34e */ 	jal	modelFindBboxRodata
 /*  f0f461c:	e7a802f8 */ 	swc1	$f8,0x2f8($sp)
 /*  f0f4620:	8fb902f4 */ 	lw	$t9,0x2f4($sp)
 .PF0f0f4624:
 /*  f0f4624:	13200025 */ 	beqz	$t9,.PF0f0f46bc
 /*  f0f4628:	00000000 */ 	nop
-/*  f0f462c:	0fc1a34e */ 	jal	func0f068aa8
+/*  f0f462c:	0fc1a34e */ 	jal	modelFindBboxRodata
 /*  f0f4630:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f4634:	10400021 */ 	beqz	$v0,.PF0f0f46bc
 /*  f0f4638:	00000000 */ 	nop
@@ -7215,13 +7215,13 @@ glabel var7f1b2948
 /*  f0f3eb8:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f3ebc:	46065202 */ 	mul.s	$f8,$f10,$f6
 /*  f0f3ec0:	46081103 */ 	div.s	$f4,$f2,$f8
-/*  f0f3ec4:	0fc1a2aa */ 	jal	func0f068aa8
+/*  f0f3ec4:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f0f3ec8:	e7a402f8 */ 	swc1	$f4,0x2f8($sp)
 /*  f0f3ecc:	8faf02f4 */ 	lw	$t7,0x2f4($sp)
 .L0f0f3ed0:
 /*  f0f3ed0:	11e00025 */ 	beqz	$t7,.L0f0f3f68
 /*  f0f3ed4:	00000000 */ 	nop
-/*  f0f3ed8:	0fc1a2aa */ 	jal	func0f068aa8
+/*  f0f3ed8:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f0f3edc:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f3ee0:	10400021 */ 	beqz	$v0,.L0f0f3f68
 /*  f0f3ee4:	00000000 */ 	nop
@@ -8824,13 +8824,13 @@ glabel var7f1b2948
 /*  f0f09fc:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*  f0f0a00:	46065202 */ 	mul.s	$f8,$f10,$f6
 /*  f0f0a04:	46081103 */ 	div.s	$f4,$f2,$f8
-/*  f0f0a08:	0fc19f4a */ 	jal	func0f068aa8
+/*  f0f0a08:	0fc19f4a */ 	jal	modelFindBboxRodata
 /*  f0f0a0c:	e7a40320 */ 	swc1	$f4,0x320($sp)
 /*  f0f0a10:	8faf031c */ 	lw	$t7,0x31c($sp)
 .NB0f0f0a14:
 /*  f0f0a14:	11e00025 */ 	beqz	$t7,.NB0f0f0aac
 /*  f0f0a18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f0a1c:	0fc19f4a */ 	jal	func0f068aa8
+/*  f0f0a1c:	0fc19f4a */ 	jal	modelFindBboxRodata
 /*  f0f0a20:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*  f0f0a24:	10400021 */ 	beqz	$v0,.NB0f0f0aac
 /*  f0f0a28:	00000000 */ 	sll	$zero,$zero,0x0

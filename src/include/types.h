@@ -6168,13 +6168,6 @@ struct healthdamagetype {
 	s32 closeendframe;
 };
 
-struct model08thing {
-	u32 unk00;
-	f32 unk04[4];
-	u32 unk14;
-	f32 unk18;
-};
-
 struct optiongroup {
 	s32 offset;
 	u16 name;
