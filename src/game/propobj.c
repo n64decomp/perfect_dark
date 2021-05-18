@@ -75824,45 +75824,22 @@ glabel var7f1ab1a8
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f090d34
-/*  f090d34:	3c03800a */ 	lui	$v1,%hi(g_NumProjectiles)
-/*  f090d38:	8c63ce50 */ 	lw	$v1,%lo(g_NumProjectiles)($v1)
-/*  f090d3c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f090d40:	3c04800a */ 	lui	$a0,%hi(g_Projectiles)
-/*  f090d44:	1860000a */ 	blez	$v1,.L0f090d70
-/*  f090d48:	00032900 */ 	sll	$a1,$v1,0x4
-/*  f090d4c:	00a32821 */ 	addu	$a1,$a1,$v1
-/*  f090d50:	00052880 */ 	sll	$a1,$a1,0x2
-/*  f090d54:	00a32823 */ 	subu	$a1,$a1,$v1
-/*  f090d58:	00052880 */ 	sll	$a1,$a1,0x2
-/*  f090d5c:	8c84ce68 */ 	lw	$a0,%lo(g_Projectiles)($a0)
-.L0f090d60:
-/*  f090d60:	2442010c */ 	addiu	$v0,$v0,0x10c
-/*  f090d64:	0045082a */ 	slt	$at,$v0,$a1
-/*  f090d68:	1420fffd */ 	bnez	$at,.L0f090d60
-/*  f090d6c:	2484010c */ 	addiu	$a0,$a0,268
-.L0f090d70:
-/*  f090d70:	3c02800a */ 	lui	$v0,%hi(var8009ce40)
-/*  f090d74:	8c42ce40 */ 	lw	$v0,%lo(var8009ce40)($v0)
-/*  f090d78:	00001825 */ 	or	$v1,$zero,$zero
-/*  f090d7c:	3c04800a */ 	lui	$a0,%hi(var8009ce58)
-/*  f090d80:	1840000a */ 	blez	$v0,.L0f090dac
-/*  f090d84:	00022880 */ 	sll	$a1,$v0,0x2
-/*  f090d88:	00a22823 */ 	subu	$a1,$a1,$v0
-/*  f090d8c:	00052880 */ 	sll	$a1,$a1,0x2
-/*  f090d90:	00a22821 */ 	addu	$a1,$a1,$v0
-/*  f090d94:	000528c0 */ 	sll	$a1,$a1,0x3
-/*  f090d98:	8c84ce58 */ 	lw	$a0,%lo(var8009ce58)($a0)
-.L0f090d9c:
-/*  f090d9c:	24630068 */ 	addiu	$v1,$v1,104
-/*  f090da0:	0065082a */ 	slt	$at,$v1,$a1
-/*  f090da4:	1420fffd */ 	bnez	$at,.L0f090d9c
-/*  f090da8:	24840068 */ 	addiu	$a0,$a0,104
-.L0f090dac:
-/*  f090dac:	03e00008 */ 	jr	$ra
-/*  f090db0:	00000000 */ 	nop
-);
+void projectilesDebug(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumProjectiles; i++) {
+		if (g_Projectiles[i].flags) {
+			// empty
+		}
+	}
+
+	for (i = 0; i < var8009ce40; i++) {
+		if (var8009ce58[i].weaponnum) {
+			// empty
+		}
+	}
+}
 #endif
 
 void alarmTick(void)

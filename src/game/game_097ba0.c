@@ -24867,7 +24867,7 @@ void func0f0a6c30(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.currentplayernum == 0) {
-		func0f090d34();
+		projectilesDebug();
 	}
 #endif
 
