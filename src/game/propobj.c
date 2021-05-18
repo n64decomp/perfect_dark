@@ -59116,7 +59116,7 @@ void doorDestroyGlass(struct doorobj *door)
 	struct model *model = door->base.model;
 	union modelrodata *rodata;
 	union modelrwdata *rwdata;
-	f32 matrix[16];
+	Mtxf matrix;
 
 	rodata = modelGetPartRodata(model->filedata, 2);
 
@@ -59131,8 +59131,8 @@ void doorDestroyGlass(struct doorobj *door)
 		}
 	}
 
-	func0f08c424(door, matrix);
-	shardsCreate((struct coord *) &matrix[12], &matrix[0], &matrix[4], &matrix[8],
+	func0f08c424(door, &matrix);
+	shardsCreate((struct coord *) &matrix.m[3][0], &matrix.m[0][0], &matrix.m[1][0], &matrix.m[2][0],
 			rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
 			SHARDTYPE_GLASS, prop);
 	func0f13e40c(prop, 1);
@@ -70330,34 +70330,15 @@ glabel doorsCheckAutomatic
 //	}
 //}
 
-GLOBAL_ASM(
-glabel func0f08c424
-/*  f08c424:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08c428:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08c42c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f08c430:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f08c434:	0c005755 */ 	jal	func00015d54
-/*  f08c438:	2484001c */ 	addiu	$a0,$a0,0x1c
-/*  f08c43c:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f08c440:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f08c444:	8dc40014 */ 	lw	$a0,0x14($t6)
-/*  f08c448:	0c005775 */ 	jal	func00015dd4
-/*  f08c44c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f08c450:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f08c454:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f08c458:	95f80070 */ 	lhu	$t8,0x70($t7)
-/*  f08c45c:	33190008 */ 	andi	$t9,$t8,0x8
-/*  f08c460:	53200005 */ 	beqzl	$t9,.L0f08c478
-/*  f08c464:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08c468:	44816000 */ 	mtc1	$at,$f12
-/*  f08c46c:	0c0057b7 */ 	jal	func00015edc
-/*  f08c470:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f08c474:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08c478:
-/*  f08c478:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08c47c:	03e00008 */ 	jr	$ra
-/*  f08c480:	00000000 */ 	nop
-);
+void func0f08c424(struct doorobj *door, Mtxf *matrix)
+{
+	func00015d54(door->base.realrot, matrix);
+	func00015dd4(&door->base.prop->pos, matrix);
+
+	if (door->doorflags & DOORFLAG_FLIP) {
+		func00015edc(-1, matrix);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08c484
@@ -74657,12 +74638,12 @@ bool doorTestForInteract(struct prop *prop)
 				maybe = true;
 			} else if ((door->doorflags & (DOORFLAG_0080 | DOORFLAG_0100)) != DOORFLAG_0080) {
 				u8 stack1[0x20];
-				u8 stack2[0x40];
+				Mtxf matrix;
 
 				func0f08c484(door, stack1);
-				func0f08c424(door, stack2);
+				func0f08c424(door, &matrix);
 
-				if (func0f0675c8(&playerprop->pos, 150, stack1, stack2)) {
+				if (func0f0675c8(&playerprop->pos, 150, stack1, &matrix)) {
 					maybe = true;
 				}
 			}
