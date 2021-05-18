@@ -8210,7 +8210,7 @@ u32 var8006827c = 0x0000006b;
 u32 var80068280 = 0x0000001b;
 u32 var80068284 = 0x00000016;
 
-s32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
+bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 {
 	struct prop *prop = chr->prop;
 	struct waypoint *nextwaypoint;
@@ -9834,121 +9834,38 @@ bool chrGoToProp(struct chrdata *chr, struct prop *prop, s32 speed)
 	return false;
 }
 
+bool func0f03abd0(struct chrdata *chr, struct coord *pos, u32 flags)
+{
+	s16 roomlist1[21];
+	s16 roomlist2[21];
+
+	if (chrIsReadyForOrders(chr)) {
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f03abd0
-/*  f03abd0:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f03abd4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f03abd8:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f03abdc:	afa40088 */ 	sw	$a0,0x88($sp)
-/*  f03abe0:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*  f03abe4:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f03abe8:	afa60090 */ 	sw	$a2,0x90($sp)
-/*  f03abec:	10400026 */ 	beqz	$v0,.L0f03ac88
-/*  f03abf0:	3c0e8006 */ 	lui	$t6,%hi(var80062cbc)
-/*  f03abf4:	8dce2cbc */ 	lw	$t6,%lo(var80062cbc)($t6)
-/*  f03abf8:	8faf0088 */ 	lw	$t7,0x88($sp)
-/*  f03abfc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f03ac00:	29c10009 */ 	slti	$at,$t6,0x9
-/*  f03ac04:	14200008 */ 	bnez	$at,.L0f03ac28
-/*  f03ac08:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f03ac0c:	8df80014 */ 	lw	$t8,0x14($t7)
-/*  f03ac10:	0018ca40 */ 	sll	$t9,$t8,0x9
-/*  f03ac14:	07230005 */ 	bgezl	$t9,.L0f03ac2c
-/*  f03ac18:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f03ac1c:	8de80114 */ 	lw	$t0,0x114($t7)
-/*  f03ac20:	00084b40 */ 	sll	$t1,$t0,0xd
-/*  f03ac24:	05210018 */ 	bgez	$t1,.L0f03ac88
-.L0f03ac28:
-/*  f03ac28:	27a5005c */ 	addiu	$a1,$sp,0x5c
-.L0f03ac2c:
-/*  f03ac2c:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f03ac30:	24070014 */ 	addiu	$a3,$zero,0x14
-/*  f03ac34:	0fc58865 */ 	jal	func0f162194
-/*  f03ac38:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f03ac3c:	87aa005c */ 	lh	$t2,0x5c($sp)
-/*  f03ac40:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f03ac44:	87ab0030 */ 	lh	$t3,0x30($sp)
-/*  f03ac48:	104a0003 */ 	beq	$v0,$t2,.L0f03ac58
-/*  f03ac4c:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f03ac50:	10000004 */ 	b	.L0f03ac64
-/*  f03ac54:	27b0005c */ 	addiu	$s0,$sp,0x5c
-.L0f03ac58:
-/*  f03ac58:	104b0002 */ 	beq	$v0,$t3,.L0f03ac64
-/*  f03ac5c:	00000000 */ 	nop
-/*  f03ac60:	27b00030 */ 	addiu	$s0,$sp,0x30
-.L0f03ac64:
-/*  f03ac64:	12000008 */ 	beqz	$s0,.L0f03ac88
-/*  f03ac68:	8fa5008c */ 	lw	$a1,0x8c($sp)
-/*  f03ac6c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f03ac70:	0fc0e10f */ 	jal	chrGoToPos
-/*  f03ac74:	8fa70090 */ 	lw	$a3,0x90($sp)
-/*  f03ac78:	50400004 */ 	beqzl	$v0,.L0f03ac8c
-/*  f03ac7c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03ac80:	10000002 */ 	b	.L0f03ac8c
-/*  f03ac84:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03ac88:
-/*  f03ac88:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03ac8c:
-/*  f03ac8c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03ac90:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f03ac94:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f03ac98:	03e00008 */ 	jr	$ra
-/*  f03ac9c:	00000000 */ 	nop
-);
+		if (var80062cbc < 9
+				|| (chr->hidden & CHRHFLAG_00400000) == 0
+				|| (chr->flags & CHRCFLAG_00040000))
 #else
-GLOBAL_ASM(
-glabel func0f03abd0
-/*  f03a478:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f03a47c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f03a480:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f03a484:	afa40088 */ 	sw	$a0,0x88($sp)
-/*  f03a488:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*  f03a48c:	0fc0e4cc */ 	jal	chrIsReadyForOrders
-/*  f03a490:	afa60090 */ 	sw	$a2,0x90($sp)
-/*  f03a494:	1040001e */ 	beqz	$v0,.NB0f03a510
-/*  f03a498:	3c0e8006 */ 	lui	$t6,0x8006
-/*  f03a49c:	8dce51c0 */ 	lw	$t6,0x51c0($t6)
-/*  f03a4a0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f03a4a4:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f03a4a8:	29c1000a */ 	slti	$at,$t6,0xa
-/*  f03a4ac:	10200018 */ 	beqz	$at,.NB0f03a510
-/*  f03a4b0:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*  f03a4b4:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f03a4b8:	24070014 */ 	addiu	$a3,$zero,0x14
-/*  f03a4bc:	0fc57265 */ 	jal	func0f162194
-/*  f03a4c0:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f03a4c4:	87af005c */ 	lh	$t7,0x5c($sp)
-/*  f03a4c8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f03a4cc:	87b80030 */ 	lh	$t8,0x30($sp)
-/*  f03a4d0:	104f0003 */ 	beq	$v0,$t7,.NB0f03a4e0
-/*  f03a4d4:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f03a4d8:	10000004 */ 	beqz	$zero,.NB0f03a4ec
-/*  f03a4dc:	27b0005c */ 	addiu	$s0,$sp,0x5c
-.NB0f03a4e0:
-/*  f03a4e0:	10580002 */ 	beq	$v0,$t8,.NB0f03a4ec
-/*  f03a4e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a4e8:	27b00030 */ 	addiu	$s0,$sp,0x30
-.NB0f03a4ec:
-/*  f03a4ec:	12000008 */ 	beqz	$s0,.NB0f03a510
-/*  f03a4f0:	8fa5008c */ 	lw	$a1,0x8c($sp)
-/*  f03a4f4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f03a4f8:	0fc0df57 */ 	jal	chrGoToPos
-/*  f03a4fc:	8fa70090 */ 	lw	$a3,0x90($sp)
-/*  f03a500:	50400004 */ 	beqzl	$v0,.NB0f03a514
-/*  f03a504:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a508:	10000002 */ 	beqz	$zero,.NB0f03a514
-/*  f03a50c:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f03a510:
-/*  f03a510:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f03a514:
-/*  f03a514:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03a518:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f03a51c:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f03a520:	03e00008 */ 	jr	$ra
-/*  f03a524:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		if (var80062cbc < 10)
 #endif
+		{
+			s16 *rooms = NULL;
+
+			func0f162194(pos, roomlist1, roomlist2, 20, NULL);
+
+			if (roomlist1[0] != -1) {
+				rooms = roomlist1;
+			} else if (roomlist2[0] != -1) {
+				rooms = roomlist2;
+			}
+
+			if (rooms != NULL && chrGoToPos(chr, pos, rooms, flags)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
 {
