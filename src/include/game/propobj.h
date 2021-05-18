@@ -55,7 +55,7 @@ u32 func0f066b5c(void);
 u32 func0f067424(void);
 u32 func0f0674bc(void);
 bool func0f0675c8(struct coord *coord, f32 arg1, void *arg2, Mtxf *arg3);
-u32 func0f0677ac(void);
+bool func0f0677ac(struct coord *coord, f32 *arg1, struct coord *pos, struct coord *normal, struct coord *up, struct coord *look, f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax);
 bool func0f0678f8(struct coord *coord, f32 *arg1, s32 padnum);
 bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum);
 bool func0f0679ac(struct model *model, f32 *distance, f32 *arg2, f32 *arg3, f32 *arg4);

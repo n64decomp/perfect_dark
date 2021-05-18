@@ -1850,42 +1850,15 @@ glabel func0f0677ac
 /*  f0678f4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0678f8
-/*  f0678f8:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f0678fc:	afa40090 */ 	sw	$a0,0x90($sp)
-/*  f067900:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f067904:	afa50094 */ 	sw	$a1,0x94($sp)
-/*  f067908:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f06790c:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f067910:	0fc456ac */ 	jal	padUnpack
-/*  f067914:	2405003e */ 	addiu	$a1,$zero,0x3e
-/*  f067918:	c7a4006c */ 	lwc1	$f4,0x6c($sp)
-/*  f06791c:	c7a60070 */ 	lwc1	$f6,0x70($sp)
-/*  f067920:	c7a80074 */ 	lwc1	$f8,0x74($sp)
-/*  f067924:	c7aa0078 */ 	lwc1	$f10,0x78($sp)
-/*  f067928:	c7b0007c */ 	lwc1	$f16,0x7c($sp)
-/*  f06792c:	c7b20080 */ 	lwc1	$f18,0x80($sp)
-/*  f067930:	27ae0054 */ 	addiu	$t6,$sp,0x54
-/*  f067934:	27af0048 */ 	addiu	$t7,$sp,0x48
-/*  f067938:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f06793c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f067940:	8fa40090 */ 	lw	$a0,0x90($sp)
-/*  f067944:	8fa50094 */ 	lw	$a1,0x94($sp)
-/*  f067948:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f06794c:	27a70060 */ 	addiu	$a3,$sp,0x60
-/*  f067950:	e7a40018 */ 	swc1	$f4,0x18($sp)
-/*  f067954:	e7a6001c */ 	swc1	$f6,0x1c($sp)
-/*  f067958:	e7a80020 */ 	swc1	$f8,0x20($sp)
-/*  f06795c:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f067960:	e7b00028 */ 	swc1	$f16,0x28($sp)
-/*  f067964:	0fc19deb */ 	jal	func0f0677ac
-/*  f067968:	e7b2002c */ 	swc1	$f18,0x2c($sp)
-/*  f06796c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f067970:	27bd0090 */ 	addiu	$sp,$sp,0x90
-/*  f067974:	03e00008 */ 	jr	$ra
-/*  f067978:	00000000 */ 	nop
-);
+bool func0f0678f8(struct coord *coord, f32 *arg1, s32 padnum)
+{
+	struct pad pad;
+
+	padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+
+	return func0f0677ac(coord, arg1, &pad.pos, &pad.normal, &pad.up, &pad.look,
+			pad.bbox.xmin, pad.bbox.xmax, pad.bbox.ymin, pad.bbox.ymax, pad.bbox.zmin, pad.bbox.zmax);
+}
 
 bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum)
 {
