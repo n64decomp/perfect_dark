@@ -67,7 +67,7 @@ void func0f06803c(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
 struct defaultobj *objFindByPadNum(s32 padnum);
 u32 func0f068218(void);
 void projectileFree(struct projectile *projectile);
-void func0f0682fc(struct prop *prop);
+void projectilesUnrefOwner(struct prop *owner);
 void projectileReset(struct projectile *projectile);
 struct projectile *projectileGetNew(void);
 void func0f0685e4(struct prop *prop);

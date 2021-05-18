@@ -4630,7 +4630,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 		}
 
 		propClearReferences(prop - g_Vars.props);
-		func0f0682fc(prop);
+		projectilesUnrefOwner(prop);
 
 		if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
 			s32 i;

@@ -11172,7 +11172,7 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 
 		if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			obj->projectile->flags |= PROJECTILEFLAG_00000001;
-			obj->projectile->unk088 = prop;
+			obj->projectile->ownerprop = prop;
 
 			objSetProjectileFlag4(objprop);
 			func00015d18(matrix2, (Mtxf *)&obj->projectile->unk020);

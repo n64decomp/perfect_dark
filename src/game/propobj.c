@@ -2561,39 +2561,17 @@ void projectileFree(struct projectile *projectile)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0682fc
-/*  f0682fc:	3c03800a */ 	lui	$v1,%hi(g_NumProjectiles)
-/*  f068300:	8c63ce50 */ 	lw	$v1,%lo(g_NumProjectiles)($v1)
-/*  f068304:	00803025 */ 	or	$a2,$a0,$zero
-/*  f068308:	00002025 */ 	or	$a0,$zero,$zero
-/*  f06830c:	18600014 */ 	blez	$v1,.L0f068360
-/*  f068310:	00001025 */ 	or	$v0,$zero,$zero
-/*  f068314:	3c07800a */ 	lui	$a3,%hi(g_Projectiles)
-/*  f068318:	24e7ce68 */ 	addiu	$a3,$a3,%lo(g_Projectiles)
-/*  f06831c:	3c088000 */ 	lui	$t0,0x8000
-.L0f068320:
-/*  f068320:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f068324:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f068328:	01c42821 */ 	addu	$a1,$t6,$a0
-/*  f06832c:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*  f068330:	01e8c024 */ 	and	$t8,$t7,$t0
-/*  f068334:	57000008 */ 	bnezl	$t8,.L0f068358
-/*  f068338:	0043082a */ 	slt	$at,$v0,$v1
-/*  f06833c:	8cb90088 */ 	lw	$t9,0x88($a1)
-/*  f068340:	54d90005 */ 	bnel	$a2,$t9,.L0f068358
-/*  f068344:	0043082a */ 	slt	$at,$v0,$v1
-/*  f068348:	aca00088 */ 	sw	$zero,0x88($a1)
-/*  f06834c:	3c03800a */ 	lui	$v1,%hi(g_NumProjectiles)
-/*  f068350:	8c63ce50 */ 	lw	$v1,%lo(g_NumProjectiles)($v1)
-/*  f068354:	0043082a */ 	slt	$at,$v0,$v1
-.L0f068358:
-/*  f068358:	1420fff1 */ 	bnez	$at,.L0f068320
-/*  f06835c:	2484010c */ 	addiu	$a0,$a0,0x10c
-.L0f068360:
-/*  f068360:	03e00008 */ 	jr	$ra
-/*  f068364:	00000000 */ 	nop
-);
+void projectilesUnrefOwner(struct prop *owner)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumProjectiles; i++) {
+		if ((g_Projectiles[i].flags & PROJECTILEFLAG_FREE) == 0
+				&& g_Projectiles[i].ownerprop == owner) {
+			g_Projectiles[i].ownerprop = NULL;
+		}
+	}
+}
 
 void projectileReset(struct projectile *projectile)
 {
@@ -2609,7 +2587,7 @@ void projectileReset(struct projectile *projectile)
 	func000159b0((Mtxf *)&projectile->unk020);
 
 	projectile->unk060 = 1;
-	projectile->unk088 = 0;
+	projectile->ownerprop = NULL;
 	projectile->unk08c = 0.05f;
 	projectile->unk090 = 0;
 	projectile->unk094 = -1;
@@ -6986,7 +6964,7 @@ glabel func0f06ad2c
 .L0f06b24c:
 /*  f06b24c:	0fc083e4 */ 	jal	propClearReferences
 /*  f06b250:	00000000 */ 	nop
-/*  f06b254:	0fc1a0bf */ 	jal	func0f0682fc
+/*  f06b254:	0fc1a0bf */ 	jal	projectilesUnrefOwner
 /*  f06b258:	8e240014 */ 	lw	$a0,0x14($s1)
 /*  f06b25c:	8e240014 */ 	lw	$a0,0x14($s1)
 /*  f06b260:	0fc4f903 */ 	jal	func0f13e40c
@@ -47603,8 +47581,8 @@ s32 objTick(struct prop *prop)
 	if (obj->hidden & OBJHFLAG_AIRBORNE) {
 		struct projectile *projectile = obj->projectile;
 
-		if (projectile->unk088 && propGetPlayerNum(projectile->unk088) >= 0) {
-			sp572 = (projectile->unk088 == g_Vars.currentplayer->prop);
+		if (projectile->ownerprop && propGetPlayerNum(projectile->ownerprop) >= 0) {
+			sp572 = (projectile->ownerprop == g_Vars.currentplayer->prop);
 		}
 	}
 

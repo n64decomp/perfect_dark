@@ -1537,7 +1537,7 @@ struct projectile {
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
-	/*0x088*/ struct prop *unk088; // player prop
+	/*0x088*/ struct prop *ownerprop;
 	/*0x08c*/ f32 unk08c;
 	/*0x090*/ u32 unk090;
 	/*0x094*/ s32 unk094;
