@@ -19240,36 +19240,18 @@ glabel func0f0726ec
 /*  f072770:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f072774
-/*  f072774:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f072778:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07277c:	8c8e008c */ 	lw	$t6,0x8c($a0)
-/*  f072780:	8c820088 */ 	lw	$v0,0x88($a0)
-/*  f072784:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f072788:	ac8f008c */ 	sw	$t7,0x8c($a0)
-/*  f07278c:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f072790:	000f4080 */ 	sll	$t0,$t7,0x2
-/*  f072794:	03084821 */ 	addu	$t1,$t8,$t0
-/*  f072798:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*  f07279c:	0543000a */ 	bgezl	$t2,.L0f0727c8
-/*  f0727a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0727a4:	904b0005 */ 	lbu	$t3,0x5($v0)
-/*  f0727a8:	316c0001 */ 	andi	$t4,$t3,0x1
-/*  f0727ac:	11800003 */ 	beqz	$t4,.L0f0727bc
-/*  f0727b0:	00000000 */ 	nop
-/*  f0727b4:	10000003 */ 	b	.L0f0727c4
-/*  f0727b8:	ac80008c */ 	sw	$zero,0x8c($a0)
-.L0f0727bc:
-/*  f0727bc:	0fc1c9bb */ 	jal	func0f0726ec
-/*  f0727c0:	00000000 */ 	nop
-.L0f0727c4:
-/*  f0727c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0727c8:
-/*  f0727c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0727cc:	03e00008 */ 	jr	$ra
-/*  f0727d0:	00000000 */ 	nop
-);
+void hovercarIncrementStep(struct hovercarobj *hovercar)
+{
+	hovercar->nextstep++;
+
+	if (hovercar->path->pads[hovercar->nextstep] < 0) {
+		if (hovercar->path->flags & PATHFLAG_CIRCULAR) {
+			hovercar->nextstep = 0;
+		} else {
+			func0f0726ec(hovercar);
+		}
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -44214,7 +44196,7 @@ glabel var7f1aa6e4
 /*  f07d578:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
 /*  f07d57c:	5040000d */ 	beqzl	$v0,.L0f07d5b4
 /*  f07d580:	8fa20278 */ 	lw	$v0,0x278($sp)
-/*  f07d584:	0fc1c9dd */ 	jal	func0f072774
+/*  f07d584:	0fc1c9dd */ 	jal	hovercarIncrementStep
 /*  f07d588:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07d58c:	8e190088 */ 	lw	$t9,0x88($s0)
 /*  f07d590:	8e0a008c */ 	lw	$t2,0x8c($s0)
@@ -44873,7 +44855,7 @@ glabel var7f1aa6e4
 /*  f07df04:	00000000 */ 	nop
 /*  f07df08:	50400012 */ 	beqzl	$v0,.L0f07df54
 /*  f07df0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07df10:	0fc1c9dd */ 	jal	func0f072774
+/*  f07df10:	0fc1c9dd */ 	jal	hovercarIncrementStep
 /*  f07df14:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07df18:	1000000e */ 	b	.L0f07df54
 /*  f07df1c:	02002025 */ 	or	$a0,$s0,$zero
@@ -44888,7 +44870,7 @@ glabel var7f1aa6e4
 /*  f07df3c:	00000000 */ 	nop
 /*  f07df40:	50400004 */ 	beqzl	$v0,.L0f07df54
 /*  f07df44:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07df48:	0fc1c9dd */ 	jal	func0f072774
+/*  f07df48:	0fc1c9dd */ 	jal	hovercarIncrementStep
 /*  f07df4c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f07df50:
 /*  f07df50:	02002025 */ 	or	$a0,$s0,$zero
@@ -45180,7 +45162,7 @@ glabel var7f1aa6e4
 /*  f07d578:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
 /*  f07d57c:	5040000d */ 	beqzl	$v0,.L0f07d5b4
 /*  f07d580:	8fa20278 */ 	lw	$v0,0x278($sp)
-/*  f07d584:	0fc1c9dd */ 	jal	func0f072774
+/*  f07d584:	0fc1c9dd */ 	jal	hovercarIncrementStep
 /*  f07d588:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07d58c:	8e190088 */ 	lw	$t9,0x88($s0)
 /*  f07d590:	8e0a008c */ 	lw	$t2,0x8c($s0)
@@ -45839,7 +45821,7 @@ glabel var7f1aa6e4
 /*  f07df04:	00000000 */ 	nop
 /*  f07df08:	50400012 */ 	beqzl	$v0,.L0f07df54
 /*  f07df0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07df10:	0fc1c9dd */ 	jal	func0f072774
+/*  f07df10:	0fc1c9dd */ 	jal	hovercarIncrementStep
 /*  f07df14:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07df18:	1000000e */ 	b	.L0f07df54
 /*  f07df1c:	02002025 */ 	or	$a0,$s0,$zero
@@ -45854,7 +45836,7 @@ glabel var7f1aa6e4
 /*  f07df3c:	00000000 */ 	nop
 /*  f07df40:	50400004 */ 	beqzl	$v0,.L0f07df54
 /*  f07df44:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07df48:	0fc1c9dd */ 	jal	func0f072774
+/*  f07df48:	0fc1c9dd */ 	jal	hovercarIncrementStep
 /*  f07df4c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f07df50:
 /*  f07df50:	02002025 */ 	or	$a0,$s0,$zero
@@ -46144,7 +46126,7 @@ glabel var7f1aa6e0
 /*  f07c024:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
 /*  f07c028:	5040000d */ 	beqzl	$v0,.NB0f07c060
 /*  f07c02c:	8fa20278 */ 	lw	$v0,0x278($sp)
-/*  f07c030:	0fc1c542 */ 	jal	func0f072774
+/*  f07c030:	0fc1c542 */ 	jal	hovercarIncrementStep
 /*  f07c034:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07c038:	8e190088 */ 	lw	$t9,0x88($s0)
 /*  f07c03c:	8e0a008c */ 	lw	$t2,0x8c($s0)
@@ -46789,7 +46771,7 @@ glabel var7f1aa6e0
 /*  f07c97c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07c980:	50400012 */ 	beqzl	$v0,.NB0f07c9cc
 /*  f07c984:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07c988:	0fc1c542 */ 	jal	func0f072774
+/*  f07c988:	0fc1c542 */ 	jal	hovercarIncrementStep
 /*  f07c98c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07c990:	1000000e */ 	beqz	$zero,.NB0f07c9cc
 /*  f07c994:	02002025 */ 	or	$a0,$s0,$zero
@@ -46804,7 +46786,7 @@ glabel var7f1aa6e0
 /*  f07c9b4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07c9b8:	50400004 */ 	beqzl	$v0,.NB0f07c9cc
 /*  f07c9bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07c9c0:	0fc1c542 */ 	jal	func0f072774
+/*  f07c9c0:	0fc1c542 */ 	jal	hovercarIncrementStep
 /*  f07c9c4:	02002025 */ 	or	$a0,$s0,$zero
 .NB0f07c9c8:
 /*  f07c9c8:	02002025 */ 	or	$a0,$s0,$zero
@@ -46960,7 +46942,7 @@ glabel var7f1aa6e0
 //
 //		if ((hovercar->base.flags & OBJFLAG_20000000)
 //				&& func0f0446e0(&prop->pos, &prop->pos, &sp214, sp1f4)) {
-//			func0f072774(obj);
+//			hovercarIncrementStep(obj);
 //			padnum = &hovercar->path->pads[hovercar->nextstep];
 //			padUnpack(*padnum, PADFIELD_POS, &pad);
 //		}
@@ -47170,11 +47152,11 @@ glabel var7f1aa6e0
 //		if (hovercar->path) {
 //			if (hovercar->path->pads[hovercar->nextstep + 1] >= 0) {
 //				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
-//					func0f072774(obj);
+//					hovercarIncrementStep(obj);
 //				}
 //			} else {
 //				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
-//					func0f072774(obj);
+//					hovercarIncrementStep(obj);
 //				}
 //			}
 //		}
