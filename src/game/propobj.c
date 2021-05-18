@@ -2875,7 +2875,7 @@ glabel func0f0687e4
 );
 
 GLOBAL_ASM(
-glabel func0f0688f4
+glabel modelFileDataFindBboxNode
 /*  f0688f4:	8c830000 */ 	lw	$v1,0x0($a0)
 /*  f0688f8:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f0688fc:	50600019 */ 	beqzl	$v1,.L0f068964
@@ -2915,22 +2915,16 @@ glabel func0f0688f4
 /*  f068968:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f06896c
-/*  f06896c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f068970:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f068974:	0fc1a23d */ 	jal	func0f0688f4
-/*  f068978:	00000000 */ 	nop
-/*  f06897c:	10400003 */ 	beqz	$v0,.L0f06898c
-/*  f068980:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f068984:	10000002 */ 	b	.L0f068990
-/*  f068988:	8c420004 */ 	lw	$v0,0x4($v0)
-.L0f06898c:
-/*  f06898c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f068990:
-/*  f068990:	03e00008 */ 	jr	$ra
-/*  f068994:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+struct modelrodata_bbox *modelFileDataFindBboxRodata(struct modelfiledata *filedata)
+{
+	struct modelnode *node = modelFileDataFindBboxNode(filedata);
+
+	if (node) {
+		return &node->rodata->bbox;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel modelFindBboxNode

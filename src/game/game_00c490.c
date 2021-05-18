@@ -1580,7 +1580,7 @@ glabel var7f1a926cpf
 /*  f00e554:	196000e6 */ 	blez	$t3,.PF0f00e8f0
 /*  f00e558:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f00e55c:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f00e560:	0fc1a2ff */ 	jal	func0f06896c
+/*  f00e560:	0fc1a2ff */ 	jal	modelFileDataFindBboxRodata
 /*  f00e564:	8c84b53c */ 	lw	$a0,-0x4ac4($a0)
 /*  f00e568:	c7b20174 */ 	lwc1	$f18,0x174($sp)
 /*  f00e56c:	44800000 */ 	mtc1	$zero,$f0
@@ -1975,7 +1975,7 @@ glabel var7f1a8064
 /*  f00e56c:	196000e1 */ 	blez	$t3,.L0f00e8f4
 /*  f00e570:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f00e574:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f00e578:	0fc1a25b */ 	jal	func0f06896c
+/*  f00e578:	0fc1a25b */ 	jal	modelFileDataFindBboxRodata
 /*  f00e57c:	8c84b06c */ 	lw	$a0,%lo(g_ModelStates)($a0)
 /*  f00e580:	c7b20174 */ 	lwc1	$f18,0x174($sp)
 /*  f00e584:	44800000 */ 	mtc1	$zero,$f0
@@ -2290,7 +2290,7 @@ glabel var7f1a8064
 //		f32 sp48;
 //		f32 *floats; // 44
 //
-//		floats = func0f06896c(g_ModelStates[modelnum].filedata);
+//		floats = modelFileDataFindBboxRodata(g_ModelStates[modelnum].filedata);
 //
 //		func00016d58(sp110, 0, 0, 0,
 //				-pad.look.x, -pad.look.y, -pad.look.z,

@@ -1059,7 +1059,7 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 				}
 			} while (node);
 
-			bbox = func0f06896c(headfiledata);
+			bbox = modelFileDataFindBboxRodata(headfiledata);
 
 			if (bbox != NULL) {
 				bbox->ymin += offset;
