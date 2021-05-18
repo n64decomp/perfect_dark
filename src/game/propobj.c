@@ -67667,48 +67667,29 @@ void playerActivateRemoteMineDetonator(s32 playernum)
 	playerDetonateRemoteMines(playernum);
 }
 
-GLOBAL_ASM(
-glabel func0f08aa70
-/*  f08aa70:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08aa74:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08aa78:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f08aa7c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f08aa80:	90ae0000 */ 	lbu	$t6,0x0($a1)
-/*  f08aa84:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f08aa88:	00808825 */ 	or	$s1,$a0,$zero
-/*  f08aa8c:	55c10008 */ 	bnel	$t6,$at,.L0f08aab0
-/*  f08aa90:	8cb0001c */ 	lw	$s0,0x1c($a1)
-/*  f08aa94:	8ca30004 */ 	lw	$v1,0x4($a1)
-/*  f08aa98:	906f005c */ 	lbu	$t7,0x5c($v1)
-/*  f08aa9c:	548f0004 */ 	bnel	$a0,$t7,.L0f08aab0
-/*  f08aaa0:	8cb0001c */ 	lw	$s0,0x1c($a1)
-/*  f08aaa4:	1000000e */ 	b	.L0f08aae0
-/*  f08aaa8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f08aaac:	8cb0001c */ 	lw	$s0,0x1c($a1)
-.L0f08aab0:
-/*  f08aab0:	1200000a */ 	beqz	$s0,.L0f08aadc
-/*  f08aab4:	02202025 */ 	or	$a0,$s1,$zero
-.L0f08aab8:
-/*  f08aab8:	0fc22a9c */ 	jal	func0f08aa70
-/*  f08aabc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f08aac0:	50400004 */ 	beqzl	$v0,.L0f08aad4
-/*  f08aac4:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f08aac8:	10000006 */ 	b	.L0f08aae4
-/*  f08aacc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08aad0:	8e100020 */ 	lw	$s0,0x20($s0)
-.L0f08aad4:
-/*  f08aad4:	5600fff8 */ 	bnezl	$s0,.L0f08aab8
-/*  f08aad8:	02202025 */ 	or	$a0,$s1,$zero
-.L0f08aadc:
-/*  f08aadc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08aae0:
-/*  f08aae0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08aae4:
-/*  f08aae4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f08aae8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f08aaec:	03e00008 */ 	jr	$ra
-/*  f08aaf0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop)
+{
+	struct weaponobj *weapon;
+	struct prop *child;
+
+	if (prop->type == PROPTYPE_WEAPON && weaponnum == prop->weapon->weaponnum) {
+		return prop->weapon;
+	}
+
+	child = prop->child;
+
+	while (child) {
+		weapon = func0f08aa70(weaponnum, child);
+
+		if (weapon) {
+			return weapon;
+		}
+
+		child = child->next;
+	}
+
+	return NULL;
+}
 
 struct weaponobj *weaponFindThrown(s32 weaponnum)
 {
