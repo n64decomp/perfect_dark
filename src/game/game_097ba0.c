@@ -11216,13 +11216,13 @@ void func0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 
 /**
  * Create a thrown projectile.
  */
-struct var8009ce58 *func0f09ee18(struct chrdata *chr, struct shorthand *hand, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
+struct weaponobj *func0f09ee18(struct chrdata *chr, struct shorthand *hand, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
 {
-	struct var8009ce58 *thing = NULL;
+	struct weaponobj *thing = NULL;
 	struct weaponfunc *basefunc;
 	struct weaponfunc_throw *func;
 	struct weapon *weapon = weaponFindById(hand->weaponnum);
-	struct var8009ce58 *tmpthing;
+	struct weaponobj *tmpthing;
 	s32 playernum;
 	f32 mf[4][4];
 	u32 stack;
@@ -11257,11 +11257,11 @@ struct var8009ce58 *func0f09ee18(struct chrdata *chr, struct shorthand *hand, st
 		if (tmpthing != NULL) {
 			thing = tmpthing;
 
-			// Note: time is converted to time240 immediately below
-			thing->activatetime240 = func->activatetime60;
+			thing->unk62 = func->activatetime60;
 
-			if (thing->activatetime240 >= 2) {
-				thing->activatetime240 = PALDOWN(thing->activatetime240 * 4);
+			// Convert to 240 time
+			if (thing->unk62 >= 2) {
+				thing->unk62 = PALDOWN(thing->unk62 * 4);
 			}
 
 			if (thing->weaponnum == WEAPON_GRENADE || thing->weaponnum == WEAPON_NBOMB) {

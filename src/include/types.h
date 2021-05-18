@@ -1742,7 +1742,7 @@ struct weaponobj { // objtype 0x08
 	/**
 	 * Appears to have multiple uses:
 	 * Grenades = timer?
-	 * Proxy mines = timer? Or isarmed
+	 * Proxy mines = timer240 (counts down)
 	 * CTC briefcase = team index
 	 */
 	/*0x62*/ s16 unk62;
@@ -6906,16 +6906,6 @@ struct var800a41b0 {
 
 struct var8009cda4 {
 	s16 unk00[8];
-};
-
-// Suspect this is just a weaponobj
-struct var8009ce58 {
-	struct defaultobj base;
-	/*0x5c*/ u8 weaponnum;
-	/*0x60*/ u16 unk5e;
-	/*0x60*/ u16 unk60;
-	/*0x62*/ s16 activatetime240;
-	/*0x64*/ u32 unk64;
 };
 
 struct var8009ce60 {

@@ -115,7 +115,7 @@ extern s32 var8009ce48;
 extern s32 var8009ce4c;
 extern s32 g_NumProjectiles;
 extern s32 g_NumMonitorThings;
-extern struct var8009ce58 *var8009ce58;
+extern struct weaponobj *var8009ce58;
 extern struct defaultobj *var8009ce5c;
 extern struct var8009ce60 *var8009ce60;
 extern struct defaultobj *var8009ce64;

@@ -110,7 +110,7 @@ s32 var8009ce48;
 s32 var8009ce4c;
 s32 g_NumProjectiles;
 s32 g_NumMonitorThings;
-struct var8009ce58 *var8009ce58;
+struct weaponobj *var8009ce58;
 struct defaultobj *var8009ce5c;
 struct var8009ce60 *var8009ce60;
 struct defaultobj *var8009ce64;
@@ -69468,23 +69468,86 @@ glabel var7f1aaf24
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f08b880
-/*  f08b880:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08b884:	3c0e8007 */ 	lui	$t6,%hi(var8006ad8c)
-/*  f08b888:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08b88c:	25cead8c */ 	addiu	$t6,$t6,%lo(var8006ad8c)
-/*  f08b890:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f08b894:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f08b898:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f08b89c:	aca10000 */ 	sw	$at,0x0($a1)
-/*  f08b8a0:	0fc22d96 */ 	jal	func0f08b658
-/*  f08b8a4:	a3a7001c */ 	sb	$a3,0x1c($sp)
-/*  f08b8a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08b8ac:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08b8b0:	03e00008 */ 	jr	$ra
-/*  f08b8b4:	00000000 */ 	nop
-);
+u32 var8006ac6c = 0x01000011;
+u32 var8006ac70 = 0x00000000;
+u32 var8006ac74 = 0x00004000;
+u32 var8006ac78 = 0x00000000;
+u32 var8006ac7c = 0x00000000;
+u32 var8006ac80 = 0x00000000;
+u32 var8006ac84 = 0x00000000;
+u32 var8006ac88 = 0x3f800000;
+u32 var8006ac8c = 0x00000000;
+u32 var8006ac90 = 0x00000000;
+u32 var8006ac94 = 0x00000000;
+u32 var8006ac98 = 0x3f800000;
+u32 var8006ac9c = 0x00000000;
+u32 var8006aca0 = 0x00000000;
+u32 var8006aca4 = 0x00000000;
+u32 var8006aca8 = 0x3f800000;
+u32 var8006acac = 0x00000000;
+u32 var8006acb0 = 0x00000000;
+u32 var8006acb4 = 0x00000000;
+u32 var8006acb8 = 0x000003e8;
+u32 var8006acbc = 0xffffff00;
+u32 var8006acc0 = 0xffffff00;
+u32 var8006acc4 = 0x0fff0000;
+u32 var8006acc8 = 0x0100000d;
+u32 var8006accc = 0x00000001;
+u32 var8006acd0 = 0x00000000;
+u32 var8006acd4 = 0x00000000;
+u32 var8006acd8 = 0x00000000;
+u32 var8006acdc = 0x00000000;
+u32 var8006ace0 = 0x00000000;
+u32 var8006ace4 = 0x3f800000;
+u32 var8006ace8 = 0x00000000;
+u32 var8006acec = 0x00000000;
+u32 var8006acf0 = 0x00000000;
+u32 var8006acf4 = 0x3f800000;
+u32 var8006acf8 = 0x00000000;
+u32 var8006acfc = 0x00000000;
+u32 var8006ad00 = 0x00000000;
+u32 var8006ad04 = 0x3f800000;
+u32 var8006ad08 = 0x00000000;
+u32 var8006ad0c = 0x00000000;
+u32 var8006ad10 = 0x00000000;
+u32 var8006ad14 = 0x000003e8;
+u32 var8006ad18 = 0xffffff00;
+u32 var8006ad1c = 0xffffff00;
+u32 var8006ad20 = 0x0fff0000;
+u32 var8006ad24 = 0x01000008;
+u32 var8006ad28 = 0x0000ffff;
+u32 var8006ad2c = 0x00000001;
+u32 var8006ad30 = 0x00000000;
+u32 var8006ad34 = 0x00000000;
+u32 var8006ad38 = 0x00000000;
+u32 var8006ad3c = 0x00000000;
+u32 var8006ad40 = 0x3f800000;
+u32 var8006ad44 = 0x00000000;
+u32 var8006ad48 = 0x00000000;
+u32 var8006ad4c = 0x00000000;
+u32 var8006ad50 = 0x3f800000;
+u32 var8006ad54 = 0x00000000;
+u32 var8006ad58 = 0x00000000;
+u32 var8006ad5c = 0x00000000;
+u32 var8006ad60 = 0x3f800000;
+u32 var8006ad64 = 0x00000000;
+u32 var8006ad68 = 0x00000000;
+u32 var8006ad6c = 0x00000000;
+u32 var8006ad70 = 0x000003e8;
+u32 var8006ad74 = 0xffffff00;
+u32 var8006ad78 = 0xffffff00;
+u32 var8006ad7c = 0x0fff0000;
+u32 var8006ad80 = 0x00000000;
+u32 var8006ad84 = 0x00ffffff;
+u32 var8006ad88 = 0x00000000;
+
+struct weaponobj *func0f08b880(s32 modelnum, s32 weaponnum, struct chrdata *chr)
+{
+	struct shorthand hand = {0};
+	hand.weaponnum = weaponnum;
+
+	return func0f08b658(modelnum, &hand, chr);
+}
 
 void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 hand)
 {
@@ -77810,79 +77873,6 @@ u32 func0f091e04(u32 arg0, u32 arg1)
 	return arg0;
 }
 
-u32 var8006ac6c = 0x01000011;
-u32 var8006ac70 = 0x00000000;
-u32 var8006ac74 = 0x00004000;
-u32 var8006ac78 = 0x00000000;
-u32 var8006ac7c = 0x00000000;
-u32 var8006ac80 = 0x00000000;
-u32 var8006ac84 = 0x00000000;
-u32 var8006ac88 = 0x3f800000;
-u32 var8006ac8c = 0x00000000;
-u32 var8006ac90 = 0x00000000;
-u32 var8006ac94 = 0x00000000;
-u32 var8006ac98 = 0x3f800000;
-u32 var8006ac9c = 0x00000000;
-u32 var8006aca0 = 0x00000000;
-u32 var8006aca4 = 0x00000000;
-u32 var8006aca8 = 0x3f800000;
-u32 var8006acac = 0x00000000;
-u32 var8006acb0 = 0x00000000;
-u32 var8006acb4 = 0x00000000;
-u32 var8006acb8 = 0x000003e8;
-u32 var8006acbc = 0xffffff00;
-u32 var8006acc0 = 0xffffff00;
-u32 var8006acc4 = 0x0fff0000;
-u32 var8006acc8 = 0x0100000d;
-u32 var8006accc = 0x00000001;
-u32 var8006acd0 = 0x00000000;
-u32 var8006acd4 = 0x00000000;
-u32 var8006acd8 = 0x00000000;
-u32 var8006acdc = 0x00000000;
-u32 var8006ace0 = 0x00000000;
-u32 var8006ace4 = 0x3f800000;
-u32 var8006ace8 = 0x00000000;
-u32 var8006acec = 0x00000000;
-u32 var8006acf0 = 0x00000000;
-u32 var8006acf4 = 0x3f800000;
-u32 var8006acf8 = 0x00000000;
-u32 var8006acfc = 0x00000000;
-u32 var8006ad00 = 0x00000000;
-u32 var8006ad04 = 0x3f800000;
-u32 var8006ad08 = 0x00000000;
-u32 var8006ad0c = 0x00000000;
-u32 var8006ad10 = 0x00000000;
-u32 var8006ad14 = 0x000003e8;
-u32 var8006ad18 = 0xffffff00;
-u32 var8006ad1c = 0xffffff00;
-u32 var8006ad20 = 0x0fff0000;
-u32 var8006ad24 = 0x01000008;
-u32 var8006ad28 = 0x0000ffff;
-u32 var8006ad2c = 0x00000001;
-u32 var8006ad30 = 0x00000000;
-u32 var8006ad34 = 0x00000000;
-u32 var8006ad38 = 0x00000000;
-u32 var8006ad3c = 0x00000000;
-u32 var8006ad40 = 0x3f800000;
-u32 var8006ad44 = 0x00000000;
-u32 var8006ad48 = 0x00000000;
-u32 var8006ad4c = 0x00000000;
-u32 var8006ad50 = 0x3f800000;
-u32 var8006ad54 = 0x00000000;
-u32 var8006ad58 = 0x00000000;
-u32 var8006ad5c = 0x00000000;
-u32 var8006ad60 = 0x3f800000;
-u32 var8006ad64 = 0x00000000;
-u32 var8006ad68 = 0x00000000;
-u32 var8006ad6c = 0x00000000;
-u32 var8006ad70 = 0x000003e8;
-u32 var8006ad74 = 0xffffff00;
-u32 var8006ad78 = 0xffffff00;
-u32 var8006ad7c = 0x0fff0000;
-u32 var8006ad80 = 0x00000000;
-u32 var8006ad84 = 0x00ffffff;
-u32 var8006ad88 = 0x00000000;
-u32 var8006ad8c = 0x00000000;
 u32 var8006ad90 = 0x01000008;
 u32 var8006ad94 = 0x00000000;
 u32 var8006ad98 = 0x00004001;

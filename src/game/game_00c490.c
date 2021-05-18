@@ -196,7 +196,7 @@ void setupInit(void)
 	if (var8009ce40 == 0) {
 		var8009ce58 = NULL;
 	} else {
-		var8009ce58 = malloc(ALIGN16(var8009ce40 * sizeof(struct var8009ce58)), MEMPOOL_STAGE);
+		var8009ce58 = malloc(ALIGN16(var8009ce40 * sizeof(struct weaponobj)), MEMPOOL_STAGE);
 
 		for (i = 0; i < var8009ce40; i++) {
 			var8009ce58[i].base.prop = NULL;
