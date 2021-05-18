@@ -5671,49 +5671,25 @@ struct prop *func0f06a550(struct singlemonitorobj *monitor)
 	return func0f06a52c(monitor, g_ModelStates[monitor->base.modelnum].filedata);
 }
 
-GLOBAL_ASM(
-glabel func0f06a580
-/*  f06a580:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f06a584:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f06a588:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f06a58c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f06a590:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f06a594:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f06a598:	00808025 */ 	or	$s0,$a0,$zero
-/*  f06a59c:	8c910014 */ 	lw	$s1,0x14($a0)
-/*  f06a5a0:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f06a5a4:	0c005768 */ 	jal	func00015da0
-/*  f06a5a8:	2605001c */ 	addiu	$a1,$s0,0x1c
-/*  f06a5ac:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f06a5b0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f06a5b4:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*  f06a5b8:	e6240008 */ 	swc1	$f4,0x8($s1)
-/*  f06a5bc:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f06a5c0:	e626000c */ 	swc1	$f6,0xc($s1)
-/*  f06a5c4:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f06a5c8:	0fc19711 */ 	jal	func0f065c44
-/*  f06a5cc:	e6280010 */ 	swc1	$f8,0x10($s1)
-/*  f06a5d0:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f06a5d4:	0fc195e9 */ 	jal	roomsCopy
-/*  f06a5d8:	26250028 */ 	addiu	$a1,$s1,0x28
-/*  f06a5dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06a5e0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f06a5e4:	0fc1a71c */ 	jal	func0f069c70
-/*  f06a5e8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f06a5ec:	920e0054 */ 	lbu	$t6,0x54($s0)
-/*  f06a5f0:	920f0055 */ 	lbu	$t7,0x55($s0)
-/*  f06a5f4:	92180056 */ 	lbu	$t8,0x56($s0)
-/*  f06a5f8:	92190057 */ 	lbu	$t9,0x57($s0)
-/*  f06a5fc:	a20e0050 */ 	sb	$t6,0x50($s0)
-/*  f06a600:	a20f0051 */ 	sb	$t7,0x51($s0)
-/*  f06a604:	a2180052 */ 	sb	$t8,0x52($s0)
-/*  f06a608:	a2190053 */ 	sb	$t9,0x53($s0)
-/*  f06a60c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f06a610:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f06a614:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f06a618:	03e00008 */ 	jr	$ra
-/*  f06a61c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *rooms)
+{
+	struct prop *prop = obj->prop;
+
+	func00015da0(matrix, obj->realrot);
+
+	prop->pos.x = pos->x;
+	prop->pos.y = pos->y;
+	prop->pos.z = pos->z;
+
+	func0f065c44(prop);
+	roomsCopy(rooms, prop->rooms);
+	func0f069c70(obj, true, true);
+
+	obj->shadecol[0] = obj->nextcol[0];
+	obj->shadecol[1] = obj->nextcol[1];
+	obj->shadecol[2] = obj->nextcol[2];
+	obj->shadecol[3] = obj->nextcol[3];
+}
 
 f32 func0f06a620(struct defaultobj *obj)
 {

@@ -100,7 +100,7 @@ u32 func0f06a170(void);
 struct prop *func0f06a1ec(struct singlemonitorobj *monitor, struct modelfiledata *filedata, u32 arg2, u32 arg3);
 struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct modelfiledata *modelfiledata);
 struct prop *func0f06a550(struct singlemonitorobj *monitor);
-void func0f06a580(struct defaultobj *obj, struct coord *coord, Mtxf *matrix, s16 *rooms);
+void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *rooms);
 f32 func0f06a620(struct defaultobj *obj);
 void func0f06a730(struct defaultobj *obj, struct pad *newpad, Mtxf *matrix, s16 *arg3, struct pad *arg4);
 u32 func0f06ab60(void);
