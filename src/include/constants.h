@@ -711,7 +711,7 @@
 #define DOORFLAG_0040            0x0040
 #define DOORFLAG_0080            0x0080
 #define DOORFLAG_0100            0x0100
-#define DOORFLAG_0200            0x0200 // dataDyne secret door near lobby elevator
+#define DOORFLAG_LONGRANGE       0x0200
 #define DOORFLAG_DAMAGEONCONTACT 0x0400 // Lasers
 #define DOORFLAG_0800            0x0800 // Non-CI lasers, and floor grates
 #define DOORFLAG_4000            0x4000 // Two Investigation vertical doors after lasers

@@ -69532,58 +69532,30 @@ bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
 	return canopen;
 }
 
-GLOBAL_ASM(
-glabel func0f08bdd4
-/*  f08bdd4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f08bdd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08bddc:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f08bde0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f08bde4:	948f0070 */ 	lhu	$t7,0x70($a0)
-/*  f08bde8:	44866000 */ 	mtc1	$a2,$f12
-/*  f08bdec:	44800000 */ 	mtc1	$zero,$f0
-/*  f08bdf0:	31f80200 */ 	andi	$t8,$t7,0x200
-/*  f08bdf4:	17000003 */ 	bnez	$t8,.L0f08be04
-/*  f08bdf8:	3c0143c8 */ 	lui	$at,0x43c8
-/*  f08bdfc:	50e00005 */ 	beqzl	$a3,.L0f08be14
-/*  f08be00:	3c014348 */ 	lui	$at,0x4348
-.L0f08be04:
-/*  f08be04:	44812000 */ 	mtc1	$at,$f4
-/*  f08be08:	10000005 */ 	b	.L0f08be20
-/*  f08be0c:	46046300 */ 	add.s	$f12,$f12,$f4
-/*  f08be10:	3c014348 */ 	lui	$at,0x4348
-.L0f08be14:
-/*  f08be14:	44813000 */ 	mtc1	$at,$f6
-/*  f08be18:	00000000 */ 	nop
-/*  f08be1c:	46066300 */ 	add.s	$f12,$f12,$f6
-.L0f08be20:
-/*  f08be20:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f08be24:	e7ac001c */ 	swc1	$f12,0x1c($sp)
-/*  f08be28:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*  f08be2c:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f08be30:	97220072 */ 	lhu	$v0,0x72($t9)
-/*  f08be34:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f08be38:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f08be3c:	10410004 */ 	beq	$v0,$at,.L0f08be50
-/*  f08be40:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f08be44:	10400002 */ 	beqz	$v0,.L0f08be50
-/*  f08be48:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f08be4c:	14410007 */ 	bne	$v0,$at,.L0f08be6c
-.L0f08be50:
-/*  f08be50:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f08be54:	0fc19e3e */ 	jal	func0f0678f8
-/*  f08be58:	85060006 */ 	lh	$a2,0x6($t0)
-/*  f08be5c:	50400004 */ 	beqzl	$v0,.L0f08be70
-/*  f08be60:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08be64:	10000002 */ 	b	.L0f08be70
-/*  f08be68:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f08be6c:
-/*  f08be6c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08be70:
-/*  f08be70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08be74:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f08be78:	03e00008 */ 	jr	$ra
-/*  f08be7c:	00000000 */ 	nop
-);
+bool func0f08bdd4(struct doorobj *door, struct coord *pos, f32 distance, bool isbike)
+{
+	f32 range[3];
+
+	if ((door->doorflags & DOORFLAG_LONGRANGE) || isbike) {
+		distance += 400;
+	} else {
+		distance += 200;
+	}
+
+	range[0] = distance;
+	range[1] = 0;
+	range[2] = 0;
+
+	if (door->doortype == DOORTYPE_VERTICAL
+			|| door->doortype == DOORTYPE_SLIDING
+			|| door->doortype == DOORTYPE_SWINGING) {
+		if (func0f0678f8(pos, range, door->base.pad)) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f08be80
