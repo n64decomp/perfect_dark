@@ -5,7 +5,7 @@
 #include "types.h"
 
 void func00016110(f32 *matrix1, f32 *matrix2);
-u32 func00016140(void);
+void func00016140(f32 *realrot, f32 *arg1, f32 *arg2);
 void func000161b0(f32 *matrix, f32 src[3], f32 dest[3]);
 void func00016208(f32 *matrix, struct coord *coord);
 void func00016248(struct coord *coord, f32 angle, Mtxf *matrix);

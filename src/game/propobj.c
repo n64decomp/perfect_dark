@@ -34878,53 +34878,23 @@ void fanTick(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f078be0
-.late_rodata
-glabel var7f1aa4bc
-.word 0x40c907a9
-.text
-/*  f078be0:	27bdff50 */ 	addiu	$sp,$sp,-176
-/*  f078be4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f078be8:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f078bec:	3c017f1b */ 	lui	$at,%hi(var7f1aa4bc)
-/*  f078bf0:	c420a4bc */ 	lwc1	$f0,%lo(var7f1aa4bc)($at)
-/*  f078bf4:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4c)
-/*  f078bf8:	c426a00c */ 	lwc1	$f6,%lo(g_Vars+0x4c)($at)
-/*  f078bfc:	c4440068 */ 	lwc1	$f4,0x68($v0)
-/*  f078c00:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f078c04:	46062302 */ 	mul.s	$f12,$f4,$f6
-/*  f078c08:	460c003e */ 	c.le.s	$f0,$f12
-/*  f078c0c:	00000000 */ 	nop
-/*  f078c10:	45000006 */ 	bc1f	.L0f078c2c
-/*  f078c14:	00000000 */ 	nop
-/*  f078c18:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f078c1c:
-/*  f078c1c:	460c003e */ 	c.le.s	$f0,$f12
-/*  f078c20:	00000000 */ 	nop
-/*  f078c24:	4503fffd */ 	bc1tl	.L0f078c1c
-/*  f078c28:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f078c2c:
-/*  f078c2c:	0c0058dd */ 	jal	func00016374
-/*  f078c30:	afa200ac */ 	sw	$v0,0xac($sp)
-/*  f078c34:	27a4006c */ 	addiu	$a0,$sp,0x6c
-/*  f078c38:	0c005768 */ 	jal	func00015da0
-/*  f078c3c:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f078c40:	8fa200ac */ 	lw	$v0,0xac($sp)
-/*  f078c44:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f078c48:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f078c4c:	2447001c */ 	addiu	$a3,$v0,0x1c
-/*  f078c50:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f078c54:	0c005850 */ 	jal	func00016140
-/*  f078c58:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f078c5c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f078c60:	0c005736 */ 	jal	func00015cd8
-/*  f078c64:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f078c68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f078c6c:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-/*  f078c70:	03e00008 */ 	jr	$ra
-/*  f078c74:	00000000 */ 	nop
-);
+void fanUpdateModel(struct prop *prop)
+{
+	struct fanobj *fan = (struct fanobj *) prop->obj;
+	Mtxf sp6c;
+	f32 sp48[9];
+	f32 sp24[9];
+	f32 angle = fan->yspeed * g_Vars.lvupdate240freal;
+
+	while (angle >= M_BADTAU) {
+		angle -= M_BADTAU;
+	}
+
+	func00016374(angle, &sp6c);
+	func00015da0(&sp6c, sp48);
+	func00016140(fan->base.realrot, sp48, sp24);
+	func00015cd8(sp24, fan->base.realrot);
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -47791,7 +47761,7 @@ s32 objTick(struct prop *prop)
 		prop->flags |= PROPFLAG_40 | PROPFLAG_02;
 
 		if (obj->type == OBJTYPE_FAN) {
-			func0f078be0(prop);
+			fanUpdateModel(prop);
 		} else if (obj->model->filedata->type == &g_ModelTypeDropship) {
 			dropshipUpdateInterior(prop);
 		}

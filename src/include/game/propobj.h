@@ -169,7 +169,7 @@ void escastepTick(struct prop *escalator);
 void cameraTick(struct prop *camera);
 u32 func0f078930(void);
 void fanTick(struct prop *fan);
-void func0f078be0(struct prop *fan);
+void fanUpdateModel(struct prop *fan);
 void autogunTick(struct prop *autogun);
 u32 func0f079ca4(void);
 void func0f079f1c(struct prop *autogun);
