@@ -16016,72 +16016,26 @@ glabel func0f07079c
 /*  f070928:	27bd00c8 */ 	addiu	$sp,$sp,0xc8
 );
 
-GLOBAL_ASM(
-glabel glassCalculateOpacity
-/*  f07092c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f070930:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f070934:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f070938:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07093c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f070940:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f070944:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f070948:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f07094c:	c4461bb0 */ 	lwc1	$f6,0x1bb0($v0)
-/*  f070950:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f070954:	c44a1bb4 */ 	lwc1	$f10,0x1bb4($v0)
-/*  f070958:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f07095c:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f070960:	c4521bb8 */ 	lwc1	$f18,0x1bb8($v0)
-/*  f070964:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f070968:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f07096c:	24421bb0 */ 	addiu	$v0,$v0,7088
-/*  f070970:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f070974:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f070978:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f07097c:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f070980:	0c012974 */ 	jal	sqrtf
-/*  f070984:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f070988:	c7ae0020 */ 	lwc1	$f14,0x20($sp)
-/*  f07098c:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f070990:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f070994:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f070998:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07099c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0709a0:	45020004 */ 	bc1fl	.L0f0709b4
-/*  f0709a4:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0709a8:	1000001a */ 	b	.L0f070a14
-/*  f0709ac:	240300ff */ 	addiu	$v1,$zero,0xff
-/*  f0709b0:	4602003c */ 	c.lt.s	$f0,$f2
-.L0f0709b4:
-/*  f0709b4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0709b8:	4502000a */ 	bc1fl	.L0f0709e4
-/*  f0709bc:	44814000 */ 	mtc1	$at,$f8
-/*  f0709c0:	3c01437f */ 	lui	$at,0x437f
-/*  f0709c4:	44818000 */ 	mtc1	$at,$f16
-/*  f0709c8:	00000000 */ 	nop
-/*  f0709cc:	46106482 */ 	mul.s	$f18,$f12,$f16
-/*  f0709d0:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0709d4:	44032000 */ 	mfc1	$v1,$f4
-/*  f0709d8:	1000000e */ 	b	.L0f070a14
-/*  f0709dc:	00000000 */ 	nop
-/*  f0709e0:	44814000 */ 	mtc1	$at,$f8
-.L0f0709e4:
-/*  f0709e4:	46020181 */ 	sub.s	$f6,$f0,$f2
-/*  f0709e8:	3c01437f */ 	lui	$at,0x437f
-/*  f0709ec:	460c4281 */ 	sub.s	$f10,$f8,$f12
-/*  f0709f0:	46027481 */ 	sub.s	$f18,$f14,$f2
-/*  f0709f4:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f0709f8:	44813000 */ 	mtc1	$at,$f6
-/*  f0709fc:	46128103 */ 	div.s	$f4,$f16,$f18
-/*  f070a00:	460c2200 */ 	add.s	$f8,$f4,$f12
-/*  f070a04:	46064282 */ 	mul.s	$f10,$f8,$f6
-/*  f070a08:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f070a0c:	44038000 */ 	mfc1	$v1,$f16
-/*  f070a10:	00000000 */ 	nop
-.L0f070a14:
-/*  f070a14:	03e00008 */ 	jr	$ra
-/*  f070a18:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 glassCalculateOpacity(struct coord *pos, f32 xludist, f32 opadist, f32 arg3)
+{
+	struct coord *campos = &g_Vars.currentplayer->cam_pos;
+	s32 opacity;
+	f32 xdiff = pos->x - campos->x;
+	f32 ydiff = pos->y - campos->y;
+	f32 zdiff = pos->z - campos->z;
+
+	f32 distance = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+
+	if (distance > opadist) {
+		opacity = 255;
+	} else if (distance < xludist) {
+		opacity = arg3 * 255;
+	} else {
+		opacity = (((distance - xludist) * (1.0f - arg3)) / (opadist - xludist) + arg3) * 255;
+	}
+
+	return opacity;
+}
 
 GLOBAL_ASM(
 glabel func0f070a1c
