@@ -1953,8 +1953,9 @@ struct camera2obj { // objtype 0x2e
 
 struct tintedglassobj { // objtype 0x2f
 	struct defaultobj base;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ s16 unk60;
+	/*0x5c*/ s16 xludist;
+	/*0x5e*/ s16 opadist;
+	/*0x60*/ s16 opacity;
 	/*0x62*/ s16 portalnum;
 	/*0x64*/ f32 unk64;
 };

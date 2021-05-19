@@ -16082,7 +16082,7 @@ glabel func0f07079c
 );
 
 GLOBAL_ASM(
-glabel func0f07092c
+glabel glassCalculateOpacity
 /*  f07092c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f070930:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f070934:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
@@ -33022,7 +33022,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 	union modelrwdata *rwdata;
 
 	if (doorobj->doorflags & DOORFLAG_WINDOWED) {
-		doorobj->fadealpha = func0f07092c(&doorprop->pos, doorobj->xludist, doorobj->opadist, 0);
+		doorobj->fadealpha = glassCalculateOpacity(&doorprop->pos, doorobj->xludist, doorobj->opadist, 0);
 
 		if (doorobj->fadealpha != 255 || doorobj->frac > 0) {
 			canhide = false;
@@ -46977,64 +46977,26 @@ void dropshipUpdateInterior(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f07e0b8
-/*  f07e0b8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f07e0bc:	3c0f8007 */ 	lui	$t7,%hi(g_TintedGlassEnabled)
-/*  f07e0c0:	8def98d0 */ 	lw	$t7,%lo(g_TintedGlassEnabled)($t7)
-/*  f07e0c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07e0c8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f07e0cc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f07e0d0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f07e0d4:	11e00004 */ 	beqz	$t7,.L0f07e0e8
-/*  f07e0d8:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f07e0dc:	241800ff */ 	addiu	$t8,$zero,0xff
-/*  f07e0e0:	10000011 */ 	b	.L0f07e128
-/*  f07e0e4:	a4780060 */ 	sh	$t8,0x60($v1)
-.L0f07e0e8:
-/*  f07e0e8:	8479005c */ 	lh	$t9,0x5c($v1)
-/*  f07e0ec:	8468005e */ 	lh	$t0,0x5e($v1)
-/*  f07e0f0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f07e0f4:	44992000 */ 	mtc1	$t9,$f4
-/*  f07e0f8:	44883000 */ 	mtc1	$t0,$f6
-/*  f07e0fc:	8c670064 */ 	lw	$a3,0x64($v1)
-/*  f07e100:	46802120 */ 	cvt.s.w	$f4,$f4
-/*  f07e104:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f07e108:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f07e10c:	468031a0 */ 	cvt.s.w	$f6,$f6
-/*  f07e110:	44052000 */ 	mfc1	$a1,$f4
-/*  f07e114:	44063000 */ 	mfc1	$a2,$f6
-/*  f07e118:	0fc1c24b */ 	jal	func0f07092c
-/*  f07e11c:	00000000 */ 	nop
-/*  f07e120:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f07e124:	a4620060 */ 	sh	$v0,0x60($v1)
-.L0f07e128:
-/*  f07e128:	84640062 */ 	lh	$a0,0x62($v1)
-/*  f07e12c:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f07e130:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f07e134:	0482000e */ 	bltzl	$a0,.L0f07e170
-/*  f07e138:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f07e13c:	5521000c */ 	bnel	$t1,$at,.L0f07e170
-/*  f07e140:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f07e144:	846a0060 */ 	lh	$t2,0x60($v1)
-/*  f07e148:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f07e14c:	15410005 */ 	bne	$t2,$at,.L0f07e164
-/*  f07e150:	00000000 */ 	nop
-/*  f07e154:	0fc59392 */ 	jal	portalSetEnabled
-/*  f07e158:	00002825 */ 	or	$a1,$zero,$zero
-/*  f07e15c:	10000004 */ 	b	.L0f07e170
-/*  f07e160:	8fab0028 */ 	lw	$t3,0x28($sp)
-.L0f07e164:
-/*  f07e164:	0fc59392 */ 	jal	portalSetEnabled
-/*  f07e168:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f07e16c:	8fab0028 */ 	lw	$t3,0x28($sp)
-.L0f07e170:
-/*  f07e170:	ad600000 */ 	sw	$zero,0x0($t3)
-/*  f07e174:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07e178:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f07e17c:	03e00008 */ 	jr	$ra
-/*  f07e180:	00000000 */ 	nop
-);
+void glassUpdatePortal(struct prop *prop, s32 playercount, bool *arg2)
+{
+	struct tintedglassobj *glass = (struct tintedglassobj *) prop->obj;
+
+	if (g_TintedGlassEnabled) {
+		glass->opacity = 255;
+	} else {
+		glass->opacity = glassCalculateOpacity(&prop->pos, glass->xludist, glass->opadist, glass->unk64);
+	}
+
+	if (glass->portalnum >= 0 && playercount == 1) {
+		if (glass->opacity == 255) {
+			portalSetEnabled(glass->portalnum, false);
+		} else {
+			portalSetEnabled(glass->portalnum, true);
+		}
+	}
+
+	*arg2 = false;
+}
 
 GLOBAL_ASM(
 glabel func0f07e184
@@ -47659,7 +47621,7 @@ s32 objTick(struct prop *prop)
 	}
 
 	if (obj->type == OBJTYPE_TINTEDGLASS) {
-		func0f07e0b8(prop, playercount, &sp564);
+		glassUpdatePortal(prop, playercount, &sp564);
 	} else if (obj->type == OBJTYPE_DOOR) {
 		doorUpdatePortalIfWindowed(prop, playercount);
 	}
