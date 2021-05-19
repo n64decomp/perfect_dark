@@ -6572,7 +6572,7 @@ glabel var7f1b94e4
 //			switch (weaponnum2) {
 //			case WEAPON_GRENADE:
 //			case WEAPON_PROXIMITYMINE:
-//				coordTriggerProxies(&prop->pos, 1);
+//				coordTriggerProxies(&prop->pos, true);
 //				break;
 //			}
 //

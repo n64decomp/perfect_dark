@@ -67481,145 +67481,32 @@ void coordTriggerProxies(struct coord *pos, bool arg1)
 	}
 }
 
+void chrsTriggerProxies(void)
+{
+	s32 numchrs = getNumChrSlots();
+	s32 i;
+
+	for (i = 0; i < numchrs; i++) {
+		struct chrdata *chr = &g_ChrSlots[i];
+		struct coord pos;
+
+		if (chr->model
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f08acb0
-/*  f08acb0:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f08acb4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f08acb8:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f08acbc:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f08acc0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f08acc4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f08acc8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f08accc:	0fc07934 */ 	jal	getNumChrSlots
-/*  f08acd0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f08acd4:	1840002c */ 	blez	$v0,.L0f08ad88
-/*  f08acd8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f08acdc:	0002a8c0 */ 	sll	$s5,$v0,0x3
-/*  f08ace0:	02a2a823 */ 	subu	$s5,$s5,$v0
-/*  f08ace4:	0015a880 */ 	sll	$s5,$s5,0x2
-/*  f08ace8:	02a2a823 */ 	subu	$s5,$s5,$v0
-/*  f08acec:	0015a880 */ 	sll	$s5,$s5,0x2
-/*  f08acf0:	02a2a821 */ 	addu	$s5,$s5,$v0
-/*  f08acf4:	3c138006 */ 	lui	$s3,%hi(g_ChrSlots)
-/*  f08acf8:	26732988 */ 	addiu	$s3,$s3,%lo(g_ChrSlots)
-/*  f08acfc:	0015a8c0 */ 	sll	$s5,$s5,0x3
-/*  f08ad00:	27b20040 */ 	addiu	$s2,$sp,0x40
-/*  f08ad04:	8e6e0000 */ 	lw	$t6,0x0($s3)
-.L0f08ad08:
-/*  f08ad08:	022e8021 */ 	addu	$s0,$s1,$t6
-/*  f08ad0c:	8e0f0020 */ 	lw	$t7,0x20($s0)
-/*  f08ad10:	51e0001a */ 	beqzl	$t7,.L0f08ad7c
-/*  f08ad14:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f08ad18:	96180192 */ 	lhu	$t8,0x192($s0)
-/*  f08ad1c:	33190040 */ 	andi	$t9,$t8,0x40
-/*  f08ad20:	53200016 */ 	beqzl	$t9,.L0f08ad7c
-/*  f08ad24:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f08ad28:	8e080018 */ 	lw	$t0,0x18($s0)
-/*  f08ad2c:	31090400 */ 	andi	$t1,$t0,0x400
-/*  f08ad30:	55200012 */ 	bnezl	$t1,.L0f08ad7c
-/*  f08ad34:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f08ad38:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f08ad3c:	5040000f */ 	beqzl	$v0,.L0f08ad7c
-/*  f08ad40:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f08ad44:	904a0001 */ 	lbu	$t2,0x1($v0)
-/*  f08ad48:	314b0004 */ 	andi	$t3,$t2,0x4
-/*  f08ad4c:	5160000b */ 	beqzl	$t3,.L0f08ad7c
-/*  f08ad50:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f08ad54:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f08ad58:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08ad5c:	14400006 */ 	bnez	$v0,.L0f08ad78
-/*  f08ad60:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08ad64:	0fc0de6c */ 	jal	chrCalculatePosition
-/*  f08ad68:	02402825 */ 	or	$a1,$s2,$zero
-/*  f08ad6c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f08ad70:	0fc22af5 */ 	jal	coordTriggerProxies
-/*  f08ad74:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f08ad78:
-/*  f08ad78:	26310368 */ 	addiu	$s1,$s1,0x368
-.L0f08ad7c:
-/*  f08ad7c:	0235082a */ 	slt	$at,$s1,$s5
-/*  f08ad80:	5420ffe1 */ 	bnezl	$at,.L0f08ad08
-/*  f08ad84:	8e6e0000 */ 	lw	$t6,0x0($s3)
-.L0f08ad88:
-/*  f08ad88:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f08ad8c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f08ad90:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f08ad94:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f08ad98:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f08ad9c:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f08ada0:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f08ada4:	03e00008 */ 	jr	$ra
-/*  f08ada8:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+				&& (chr->hidden2 & CHRH2FLAG_0040)
+				&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
 #else
-GLOBAL_ASM(
-glabel func0f08acb0
-/*  f0894f8:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f0894fc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f089500:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f089504:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f089508:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f08950c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f089510:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f089514:	0fc0786c */ 	jal	getNumChrSlots
-/*  f089518:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f08951c:	18400028 */ 	blez	$v0,.NB0f0895c0
-/*  f089520:	00008825 */ 	or	$s1,$zero,$zero
-/*  f089524:	000298c0 */ 	sll	$s3,$v0,0x3
-/*  f089528:	02629823 */ 	subu	$s3,$s3,$v0
-/*  f08952c:	00139880 */ 	sll	$s3,$s3,0x2
-/*  f089530:	02629823 */ 	subu	$s3,$s3,$v0
-/*  f089534:	00139880 */ 	sll	$s3,$s3,0x2
-/*  f089538:	02629821 */ 	addu	$s3,$s3,$v0
-/*  f08953c:	3c148006 */ 	lui	$s4,0x8006
-/*  f089540:	26944e98 */ 	addiu	$s4,$s4,0x4e98
-/*  f089544:	001398c0 */ 	sll	$s3,$s3,0x3
-/*  f089548:	27b20040 */ 	addiu	$s2,$sp,0x40
-/*  f08954c:	8e8e0000 */ 	lw	$t6,0x0($s4)
-.NB0f089550:
-/*  f089550:	022e8021 */ 	addu	$s0,$s1,$t6
-/*  f089554:	8e0f0020 */ 	lw	$t7,0x20($s0)
-/*  f089558:	51e00016 */ 	beqzl	$t7,.NB0f0895b4
-/*  f08955c:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f089560:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f089564:	33190200 */ 	andi	$t9,$t8,0x200
-/*  f089568:	53200012 */ 	beqzl	$t9,.NB0f0895b4
-/*  f08956c:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f089570:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f089574:	5040000f */ 	beqzl	$v0,.NB0f0895b4
-/*  f089578:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f08957c:	90480001 */ 	lbu	$t0,0x1($v0)
-/*  f089580:	31090004 */ 	andi	$t1,$t0,0x4
-/*  f089584:	5120000b */ 	beqzl	$t1,.NB0f0895b4
-/*  f089588:	26310368 */ 	addiu	$s1,$s1,0x368
-/*  f08958c:	0fc0e4ec */ 	jal	chrIsDead
-/*  f089590:	02002025 */ 	or	$a0,$s0,$zero
-/*  f089594:	14400006 */ 	bnez	$v0,.NB0f0895b0
-/*  f089598:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08959c:	0fc0dcb4 */ 	jal	chrCalculatePosition
-/*  f0895a0:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0895a4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0895a8:	0fc22507 */ 	jal	coordTriggerProxies
-/*  f0895ac:	24050001 */ 	addiu	$a1,$zero,0x1
-.NB0f0895b0:
-/*  f0895b0:	26310368 */ 	addiu	$s1,$s1,0x368
-.NB0f0895b4:
-/*  f0895b4:	0233082a */ 	slt	$at,$s1,$s3
-/*  f0895b8:	5420ffe5 */ 	bnezl	$at,.NB0f089550
-/*  f0895bc:	8e8e0000 */ 	lw	$t6,0x0($s4)
-.NB0f0895c0:
-/*  f0895c0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0895c4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0895c8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0895cc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0895d0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0895d4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0895d8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0895dc:	03e00008 */ 	jr	$ra
-/*  f0895e0:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+				&& (chr->hidden & CHRHFLAG_00000200)
 #endif
+				&& chr->prop
+				&& (chr->prop->flags & PROPFLAG_TANGIBLE)
+				&& !chrIsDead(chr)) {
+			chrCalculatePosition(chr, &pos);
+			coordTriggerProxies(&pos, true);
+		}
+
+		if (chr);
+	}
+}
 
 void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2)
 {
@@ -75430,7 +75317,7 @@ void alarmTick(void)
 
 	func0f09054c();
 	countdownTimerTick();
-	func0f08acb0();
+	chrsTriggerProxies();
 
 	var80069910 = 0;
 }
