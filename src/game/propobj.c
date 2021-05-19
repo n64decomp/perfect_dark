@@ -13270,7 +13270,7 @@ glabel var7f1aa2c4
 /*  f06fef0:	a5f90062 */ 	sh	$t9,0x62($t7)
 /*  f06fef4:	10200025 */ 	beqz	$at,.L0f06ff8c
 /*  f06fef8:	03201825 */ 	or	$v1,$t9,$zero
-/*  f06fefc:	0fc22ad9 */ 	jal	func0f08ab64
+/*  f06fefc:	0fc22ad9 */ 	jal	weaponRegisterProxy
 /*  f06ff00:	a5e70062 */ 	sh	$a3,0x62($t7)
 /*  f06ff04:	8fb801a8 */ 	lw	$t8,0x1a8($sp)
 /*  f06ff08:	2405001f */ 	addiu	$a1,$zero,0x1f
@@ -14479,7 +14479,7 @@ glabel var7f1aa2c4
 /*  f06fef0:	a5f90062 */ 	sh	$t9,0x62($t7)
 /*  f06fef4:	10200025 */ 	beqz	$at,.L0f06ff8c
 /*  f06fef8:	03201825 */ 	or	$v1,$t9,$zero
-/*  f06fefc:	0fc22ad9 */ 	jal	func0f08ab64
+/*  f06fefc:	0fc22ad9 */ 	jal	weaponRegisterProxy
 /*  f06ff00:	a5e70062 */ 	sh	$a3,0x62($t7)
 /*  f06ff04:	8fb801a8 */ 	lw	$t8,0x1a8($sp)
 /*  f06ff08:	2405001f */ 	addiu	$a1,$zero,0x1f
@@ -15476,7 +15476,7 @@ glabel var7f1aa2c4
 /*  f06ee8c:	10200024 */ 	beqz	$at,.NB0f06ef20
 /*  f06ee90:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06ee94:	a4e80062 */ 	sh	$t0,0x62($a3)
-/*  f06ee98:	0fc224eb */ 	jal	func0f08ab64
+/*  f06ee98:	0fc224eb */ 	jal	weaponRegisterProxy
 /*  f06ee9c:	afa70170 */ 	sw	$a3,0x170($sp)
 /*  f06eea0:	8fa70170 */ 	lw	$a3,0x170($sp)
 /*  f06eea4:	2405001f */ 	addiu	$a1,$zero,0x1f
@@ -67427,25 +67427,17 @@ struct weaponobj *weaponFindThrown(s32 weaponnum)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f08ab64
-/*  f08ab64:	3c03800a */ 	lui	$v1,%hi(g_Proxies)
-/*  f08ab68:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
-/*  f08ab6c:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f08ab70:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_Proxies)
-/*  f08ab74:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f08ab78:
-/*  f08ab78:	55c00004 */ 	bnezl	$t6,.L0f08ab8c
-/*  f08ab7c:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f08ab80:	03e00008 */ 	jr	$ra
-/*  f08ab84:	ac640000 */ 	sw	$a0,0x0($v1)
-/*  f08ab88:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f08ab8c:
-/*  f08ab8c:	5462fffa */ 	bnel	$v1,$v0,.L0f08ab78
-/*  f08ab90:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f08ab94:	03e00008 */ 	jr	$ra
-/*  f08ab98:	00000000 */ 	nop
-);
+void weaponRegisterProxy(struct weaponobj *weapon)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
+		if (g_Proxies[i] == NULL) {
+			g_Proxies[i] = weapon;
+			return;
+		}
+	}
+}
 
 void weaponUnregisterProxy(struct weaponobj *weapon)
 {

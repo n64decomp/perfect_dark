@@ -274,7 +274,7 @@ u32 func0f08a88c(void);
 void playerActivateRemoteMineDetonator(s32 playernum);
 struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop);
 struct weaponobj *weaponFindThrown(s32 weaponnum);
-u32 func0f08ab64(void);
+void weaponRegisterProxy(struct weaponobj *weapon);
 void weaponUnregisterProxy(struct weaponobj *weapon);
 void coordTriggerProxies(struct coord *pos, bool arg1);
 void func0f08acb0(void);
