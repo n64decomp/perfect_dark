@@ -11257,11 +11257,11 @@ struct weaponobj *func0f09ee18(struct chrdata *chr, struct shorthand *hand, stru
 		if (tmpthing != NULL) {
 			thing = tmpthing;
 
-			thing->unk62 = func->activatetime60;
+			// Note this timer is converted to 240 time immediately below
+			thing->timer240 = func->activatetime60;
 
-			// Convert to 240 time
-			if (thing->unk62 >= 2) {
-				thing->unk62 = PALDOWN(thing->unk62 * 4);
+			if (thing->timer240 >= 2) {
+				thing->timer240 = PALDOWN(thing->timer240 * 4);
 			}
 
 			if (thing->weaponnum == WEAPON_GRENADE || thing->weaponnum == WEAPON_NBOMB) {
@@ -12389,7 +12389,7 @@ void func0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func)
 			hand->rocket = obj;
 			hand->firedrocket = false;
 
-			obj->unk62 = 1;
+			obj->timer240 = 1;
 #if VERSION >= VERSION_NTSC_1_0
 			obj->base.flags |= OBJFLAG_00800000;
 #endif
@@ -17104,7 +17104,7 @@ void currentPlayerLoseGun(struct prop *attackerprop)
 			struct weaponobj *rocket = g_Vars.currentplayer->slayerrocket;
 
 			if (rocket && rocket->base.prop) {
-				rocket->unk62 = 0;
+				rocket->timer240 = 0;
 			}
 
 			player->visionmode = VISIONMODE_NORMAL;

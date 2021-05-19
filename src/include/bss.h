@@ -108,7 +108,7 @@ extern struct var8009cda4 *var8009cda4;
 extern struct prop *var8009cda8;
 extern u32 var8009cdac;
 extern u32 var8009cdb0;
-extern struct weaponobj *g_ProxyMines[30];
+extern struct weaponobj *g_Proxies[30];
 extern s32 var8009ce40;
 extern s32 var8009ce44;
 extern s32 var8009ce48;

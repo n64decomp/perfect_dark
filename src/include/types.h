@@ -1740,12 +1740,11 @@ struct weaponobj { // objtype 0x08
 	/*0x61*/ s8 dualweaponnum;
 
 	/**
-	 * Appears to have multiple uses:
-	 * Grenades = timer?
-	 * Proxy mines = timer240 (counts down)
-	 * CTC briefcase = team index
+	 * timer240 is used for activation of proxy Dragons, grenades and proxy
+	 * mines. It ticks down to 1 where it becomes active, and set to 0 when the
+	 * item should explode.
 	 */
-	/*0x62*/ s16 unk62;
+	/*0x62*/ s16 timer240;
 
 	/*0x64*/ struct weaponobj *dualweapon; // other weapon when dual wielding
 };

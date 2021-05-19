@@ -2282,7 +2282,7 @@ glabel var7f1adb00
 .PF0f0d2558:
 /*  f0d2558:	24050001 */ 	li	$a1,0x1
 /*  f0d255c:	8de4001c */ 	lw	$a0,0x1c($t7)
-/*  f0d2560:	0fc22ac0 */ 	jal	func0f08abd4
+/*  f0d2560:	0fc22ac0 */ 	jal	coordTriggerProxies
 /*  f0d2564:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f0d2568:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .PF0f0d256c:
@@ -3894,7 +3894,7 @@ glabel var7f1adb00
 .L0f0d1fb4:
 /*  f0d1fb4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0d1fb8:	8f04001c */ 	lw	$a0,0x1c($t8)
-/*  f0d1fbc:	0fc22af5 */ 	jal	func0f08abd4
+/*  f0d1fbc:	0fc22af5 */ 	jal	coordTriggerProxies
 /*  f0d1fc0:	24840008 */ 	addiu	$a0,$a0,8
 /*  f0d1fc4:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0d1fc8:
@@ -5525,7 +5525,7 @@ glabel var7f1adb00
 .NB0f0cf780:
 /*  f0cf780:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0cf784:	8dc4001c */ 	lw	$a0,0x1c($t6)
-/*  f0cf788:	0fc22507 */ 	jal	func0f08abd4
+/*  f0cf788:	0fc22507 */ 	jal	coordTriggerProxies
 /*  f0cf78c:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f0cf790:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .NB0f0cf794:

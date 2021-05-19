@@ -101,7 +101,7 @@ const char var7f1a9fd0[] = "kkg";
 const char var7f1a9fd4[] = "kkd";
 const char var7f1a9fd8[] = "kkp";
 
-struct weaponobj *g_ProxyMines[30];
+struct weaponobj *g_Proxies[30];
 u32 var8009ce38;
 u32 var8009ce3c;
 s32 var8009ce40;
@@ -4638,7 +4638,7 @@ void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2)
 
 	prop = obj->prop;
 	func0f069630(prop, obj->nextcol, obj->floorcol);
-	func0f08abd4(&obj->prop->pos, 0);
+	coordTriggerProxies(&obj->prop->pos, false);
 }
 
 GLOBAL_ASM(
@@ -67429,10 +67429,10 @@ struct weaponobj *weaponFindThrown(s32 weaponnum)
 
 GLOBAL_ASM(
 glabel func0f08ab64
-/*  f08ab64:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
+/*  f08ab64:	3c03800a */ 	lui	$v1,%hi(g_Proxies)
 /*  f08ab68:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
 /*  f08ab6c:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f08ab70:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
+/*  f08ab70:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_Proxies)
 /*  f08ab74:	8c6e0000 */ 	lw	$t6,0x0($v1)
 .L0f08ab78:
 /*  f08ab78:	55c00004 */ 	bnezl	$t6,.L0f08ab8c
@@ -67449,10 +67449,10 @@ glabel func0f08ab64
 
 GLOBAL_ASM(
 glabel func0f08ab9c
-/*  f08ab9c:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
+/*  f08ab9c:	3c03800a */ 	lui	$v1,%hi(g_Proxies)
 /*  f08aba0:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
 /*  f08aba4:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f08aba8:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
+/*  f08aba8:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_Proxies)
 /*  f08abac:	8c6e0000 */ 	lw	$t6,0x0($v1)
 .L0f08abb0:
 /*  f08abb0:	548e0004 */ 	bnel	$a0,$t6,.L0f08abc4
@@ -67467,71 +67467,35 @@ glabel func0f08ab9c
 /*  f08abd0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08abd4
-.late_rodata
-glabel var7f1aae88
-.word 0x47742400
-.text
-/*  f08abd4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08abd8:	f7b60010 */ 	sdc1	$f22,0x10($sp)
-/*  f08abdc:	3c03800a */ 	lui	$v1,%hi(g_ProxyMines)
-/*  f08abe0:	3c017f1b */ 	lui	$at,%hi(var7f1aae88)
-/*  f08abe4:	3c0b800a */ 	lui	$t3,%hi(var8009ce38)
-/*  f08abe8:	f7b40008 */ 	sdc1	$f20,0x8($sp)
-/*  f08abec:	00803025 */ 	or	$a2,$a0,$zero
-/*  f08abf0:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f08abf4:	256bce38 */ 	addiu	$t3,$t3,%lo(var8009ce38)
-/*  f08abf8:	c436ae88 */ 	lwc1	$f22,%lo(var7f1aae88)($at)
-/*  f08abfc:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_ProxyMines)
-/*  f08ac00:	240a001e */ 	addiu	$t2,$zero,0x1e
-/*  f08ac04:	2409000f */ 	addiu	$t1,$zero,0xf
-/*  f08ac08:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f08ac0c:	8c620000 */ 	lw	$v0,0x0($v1)
-.L0f08ac10:
-/*  f08ac10:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f08ac14:	10400020 */ 	beqz	$v0,.L0f08ac98
-/*  f08ac18:	00000000 */ 	nop
-/*  f08ac1c:	844e0062 */ 	lh	$t6,0x62($v0)
-/*  f08ac20:	150e001d */ 	bne	$t0,$t6,.L0f08ac98
-/*  f08ac24:	00000000 */ 	nop
-/*  f08ac28:	9044005c */ 	lbu	$a0,0x5c($v0)
-/*  f08ac2c:	4600b006 */ 	mov.s	$f0,$f22
-/*  f08ac30:	c4cc0000 */ 	lwc1	$f12,0x0($a2)
-/*  f08ac34:	c4d00004 */ 	lwc1	$f16,0x4($a2)
-/*  f08ac38:	15240002 */ 	bne	$t1,$a0,.L0f08ac44
-/*  f08ac3c:	c4d40008 */ 	lwc1	$f20,0x8($a2)
-/*  f08ac40:	4616b000 */ 	add.s	$f0,$f22,$f22
-.L0f08ac44:
-/*  f08ac44:	8c450014 */ 	lw	$a1,0x14($v0)
-/*  f08ac48:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f08ac4c:	c4a6000c */ 	lwc1	$f6,0xc($a1)
-/*  f08ac50:	c4a80010 */ 	lwc1	$f8,0x10($a1)
-/*  f08ac54:	46046081 */ 	sub.s	$f2,$f12,$f4
-/*  f08ac58:	46068381 */ 	sub.s	$f14,$f16,$f6
-/*  f08ac5c:	46021282 */ 	mul.s	$f10,$f2,$f2
-/*  f08ac60:	4608a481 */ 	sub.s	$f18,$f20,$f8
-/*  f08ac64:	460e7102 */ 	mul.s	$f4,$f14,$f14
-/*  f08ac68:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f08ac6c:	46129202 */ 	mul.s	$f8,$f18,$f18
-/*  f08ac70:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f08ac74:	4600503c */ 	c.lt.s	$f10,$f0
-/*  f08ac78:	00000000 */ 	nop
-/*  f08ac7c:	45000006 */ 	bc1f	.L0f08ac98
-/*  f08ac80:	00000000 */ 	nop
-/*  f08ac84:	55440004 */ 	bnel	$t2,$a0,.L0f08ac98
-/*  f08ac88:	a4400062 */ 	sh	$zero,0x62($v0)
-/*  f08ac8c:	14e80002 */ 	bne	$a3,$t0,.L0f08ac98
-/*  f08ac90:	00000000 */ 	nop
-/*  f08ac94:	a4400062 */ 	sh	$zero,0x62($v0)
-.L0f08ac98:
-/*  f08ac98:	546bffdd */ 	bnel	$v1,$t3,.L0f08ac10
-/*  f08ac9c:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f08aca0:	d7b40008 */ 	ldc1	$f20,0x8($sp)
-/*  f08aca4:	d7b60010 */ 	ldc1	$f22,0x10($sp)
-/*  f08aca8:	03e00008 */ 	jr	$ra
-/*  f08acac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void coordTriggerProxies(struct coord *pos, bool arg1)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
+		struct weaponobj *weapon = g_Proxies[i];
+
+		if (weapon && weapon->timer240 == 1) {
+			f32 xdiff;
+			f32 ydiff;
+			f32 zdiff;
+			f32 range = 250 * 250;
+
+			if (weapon->weaponnum == WEAPON_DRAGON) {
+				range += range;
+			}
+
+			xdiff = pos->x - weapon->base.prop->pos.x;
+			ydiff = pos->y - weapon->base.prop->pos.y;
+			zdiff = pos->z - weapon->base.prop->pos.z;
+
+			if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff < range) {
+				if (weapon->weaponnum != WEAPON_GRENADE || arg1 == true) {
+					weapon->timer240 = 0;
+				}
+			}
+		}
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -67585,7 +67549,7 @@ glabel func0f08acb0
 /*  f08ad64:	0fc0de6c */ 	jal	chrCalculatePosition
 /*  f08ad68:	02402825 */ 	or	$a1,$s2,$zero
 /*  f08ad6c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f08ad70:	0fc22af5 */ 	jal	func0f08abd4
+/*  f08ad70:	0fc22af5 */ 	jal	coordTriggerProxies
 /*  f08ad74:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08ad78:
 /*  f08ad78:	26310368 */ 	addiu	$s1,$s1,0x368
@@ -67652,7 +67616,7 @@ glabel func0f08acb0
 /*  f08959c:	0fc0dcb4 */ 	jal	chrCalculatePosition
 /*  f0895a0:	02402825 */ 	or	$a1,$s2,$zero
 /*  f0895a4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0895a8:	0fc22507 */ 	jal	func0f08abd4
+/*  f0895a8:	0fc22507 */ 	jal	coordTriggerProxies
 /*  f0895ac:	24050001 */ 	addiu	$a1,$zero,0x1
 .NB0f0895b0:
 /*  f0895b0:	26310368 */ 	addiu	$s1,$s1,0x368

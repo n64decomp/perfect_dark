@@ -10467,7 +10467,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 	if (weapon && weapon->base.prop) {
 		modelSetScale(weapon->base.model, weapon->base.model->scale);
 		propReparent(weapon->base.prop, chr->prop);
-		weapon->unk62 = PALDOWN(720);
+		weapon->timer240 = PALDOWN(720);
 		propobjSetDropped(weapon->base.prop, DROPREASON_1);
 		chr->hidden |= CHRHFLAG_00000001;
 
@@ -22332,7 +22332,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 		weapon = weaponprop->weapon;
 		propobjSetDropped(weaponprop, DROPREASON_3);
 		chr->hidden |= CHRHFLAG_00000001;
-		weapon->unk62 = PALDOWN(240);
+		weapon->timer240 = PALDOWN(240);
 	}
 
 	frame2 = modelGetCurAnimFrame(model);
@@ -22360,7 +22360,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 		if (prop) {
 			if ((flags & 1) && prop->weapon &&
 					prop->weapon->weaponnum == WEAPON_GRENADE &&
-					prop->weapon->unk62 < PALDOWN(480)) {
+					prop->weapon->timer240 < PALDOWN(480)) {
 				pass = true;
 			}
 

@@ -514,7 +514,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 
 		if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
 			struct prop *target = chrGetTargetProp(chr);
-			rocket->unk62 = -1;
+			rocket->timer240 = -1;
 			rocket->base.projectile->unk010 = 7.5;
 			rocket->base.projectile->unk014 = b;
 			rocket->base.projectile->unk018 = a;
@@ -526,7 +526,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 					-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			if (!func0f19a6d0(chr, &chr->prop->pos, &target->pos, chr->prop->rooms, target->rooms, rocket->base.projectile)) {
-				rocket->unk62 = 0;
+				rocket->timer240 = 0; // blow up rocket
 			} else {
 				func0f19a7d0(rocket->base.projectile->waypads[0], &rocket->base.projectile->pos);
 				chr->aibot->unk044 = rocket->base.prop;

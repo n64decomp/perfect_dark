@@ -276,7 +276,7 @@ struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop);
 struct weaponobj *weaponFindThrown(s32 weaponnum);
 u32 func0f08ab64(void);
 u32 func0f08ab9c(void);
-void func0f08abd4(struct coord *pos, u32 arg1);
+void coordTriggerProxies(struct coord *pos, bool arg1);
 void func0f08acb0(void);
 void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2);
 u32 func0f08adc8(void);

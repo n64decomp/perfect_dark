@@ -332,8 +332,8 @@ void setupClearProxyMines(void)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(g_ProxyMines); i++) {
-		g_ProxyMines[i] = NULL;
+	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
+		g_Proxies[i] = NULL;
 	}
 }
 

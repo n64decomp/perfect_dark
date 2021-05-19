@@ -2997,10 +2997,10 @@ bool frIsAmmoWasted(void)
 						g_FrData.proxyendtimer -= g_Vars.lvupdate240_60;
 
 						if (g_FrData.proxyendtimer <= 0) {
-							// Timer has just hit zero - remove all mines
-							for (i = 0; i < ARRAYCOUNT(g_ProxyMines); i++) {
-								if (g_ProxyMines[i]) {
-									g_ProxyMines[i]->unk62 = 0;
+							// Timer has just hit zero - remove all proxy items
+							for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
+								if (g_Proxies[i]) {
+									g_Proxies[i]->timer240 = 0;
 								}
 							}
 
@@ -3472,7 +3472,7 @@ glabel var7f1b94e4
 /*  f1a10b4:	14610003 */ 	bne	$v1,$at,.PF0f1a10c4
 .PF0f1a10b8:
 /*  f1a10b8:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f1a10bc:	0fc22ac0 */ 	jal	func0f08abd4
+/*  f1a10bc:	0fc22ac0 */ 	jal	coordTriggerProxies
 /*  f1a10c0:	24050001 */ 	li	$a1,0x1
 .PF0f1a10c4:
 /*  f1a10c4:	920a0043 */ 	lbu	$t2,0x43($s0)
@@ -4572,7 +4572,7 @@ glabel var7f1b94e4
 /*  f19ffa0:	14610003 */ 	bne	$v1,$at,.L0f19ffb0
 .L0f19ffa4:
 /*  f19ffa4:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f19ffa8:	0fc22af5 */ 	jal	func0f08abd4
+/*  f19ffa8:	0fc22af5 */ 	jal	coordTriggerProxies
 /*  f19ffac:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f19ffb0:
 /*  f19ffb0:	920a0043 */ 	lbu	$t2,0x43($s0)
@@ -5685,7 +5685,7 @@ glabel var7f1b94e4
 /*  f199fa8:	14610003 */ 	bne	$v1,$at,.NB0f199fb8
 .NB0f199fac:
 /*  f199fac:	26240008 */ 	addiu	$a0,$s1,0x8
-/*  f199fb0:	0fc22507 */ 	jal	func0f08abd4
+/*  f199fb0:	0fc22507 */ 	jal	coordTriggerProxies
 /*  f199fb4:	24050001 */ 	addiu	$a1,$zero,0x1
 .NB0f199fb8:
 /*  f199fb8:	920b0043 */ 	lbu	$t3,0x43($s0)
@@ -6572,7 +6572,7 @@ glabel var7f1b94e4
 //			switch (weaponnum2) {
 //			case WEAPON_GRENADE:
 //			case WEAPON_PROXIMITYMINE:
-//				func0f08abd4(&prop->pos, 1);
+//				coordTriggerProxies(&prop->pos, 1);
 //				break;
 //			}
 //
