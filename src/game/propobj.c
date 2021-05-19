@@ -69046,77 +69046,39 @@ bool func0f08bdd4(struct doorobj *door, struct coord *pos, f32 distance, bool is
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f08be80
-/*  f08be80:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08be84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08be88:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f08be8c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f08be90:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f08be94:	0fc1a2bd */ 	jal	objFindBboxRodata
-/*  f08be98:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f08be9c:	44800000 */ 	mtc1	$zero,$f0
-/*  f08bea0:	c4420004 */ 	lwc1	$f2,0x4($v0)
-/*  f08bea4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f08bea8:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f08beac:	00000000 */ 	nop
-/*  f08beb0:	45020003 */ 	bc1fl	.L0f08bec0
-/*  f08beb4:	c4420008 */ 	lwc1	$f2,0x8($v0)
-/*  f08beb8:	46001006 */ 	mov.s	$f0,$f2
-/*  f08bebc:	c4420008 */ 	lwc1	$f2,0x8($v0)
-.L0f08bec0:
-/*  f08bec0:	46001087 */ 	neg.s	$f2,$f2
-/*  f08bec4:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f08bec8:	00000000 */ 	nop
-/*  f08becc:	45020003 */ 	bc1fl	.L0f08bedc
-/*  f08bed0:	c442000c */ 	lwc1	$f2,0xc($v0)
-/*  f08bed4:	46001006 */ 	mov.s	$f0,$f2
-/*  f08bed8:	c442000c */ 	lwc1	$f2,0xc($v0)
-.L0f08bedc:
-/*  f08bedc:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f08bee0:	00000000 */ 	nop
-/*  f08bee4:	45020003 */ 	bc1fl	.L0f08bef4
-/*  f08bee8:	c4420010 */ 	lwc1	$f2,0x10($v0)
-/*  f08beec:	46001006 */ 	mov.s	$f0,$f2
-/*  f08bef0:	c4420010 */ 	lwc1	$f2,0x10($v0)
-.L0f08bef4:
-/*  f08bef4:	46001087 */ 	neg.s	$f2,$f2
-/*  f08bef8:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f08befc:	00000000 */ 	nop
-/*  f08bf00:	45020003 */ 	bc1fl	.L0f08bf10
-/*  f08bf04:	c4420014 */ 	lwc1	$f2,0x14($v0)
-/*  f08bf08:	46001006 */ 	mov.s	$f0,$f2
-/*  f08bf0c:	c4420014 */ 	lwc1	$f2,0x14($v0)
-.L0f08bf10:
-/*  f08bf10:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f08bf14:	00000000 */ 	nop
-/*  f08bf18:	45020003 */ 	bc1fl	.L0f08bf28
-/*  f08bf1c:	c4420018 */ 	lwc1	$f2,0x18($v0)
-/*  f08bf20:	46001006 */ 	mov.s	$f0,$f2
-/*  f08bf24:	c4420018 */ 	lwc1	$f2,0x18($v0)
-.L0f08bf28:
-/*  f08bf28:	46001087 */ 	neg.s	$f2,$f2
-/*  f08bf2c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f08bf30:	00000000 */ 	nop
-/*  f08bf34:	45020003 */ 	bc1fl	.L0f08bf44
-/*  f08bf38:	8c6e0018 */ 	lw	$t6,0x18($v1)
-/*  f08bf3c:	46001006 */ 	mov.s	$f0,$f2
-/*  f08bf40:	8c6e0018 */ 	lw	$t6,0x18($v1)
-.L0f08bf44:
-/*  f08bf44:	8c650014 */ 	lw	$a1,0x14($v1)
-/*  f08bf48:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f08bf4c:	c5c40014 */ 	lwc1	$f4,0x14($t6)
-/*  f08bf50:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f08bf54:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f08bf58:	46040002 */ 	mul.s	$f0,$f0,$f4
-/*  f08bf5c:	44060000 */ 	mfc1	$a2,$f0
-/*  f08bf60:	0fc22f75 */ 	jal	func0f08bdd4
-/*  f08bf64:	00000000 */ 	nop
-/*  f08bf68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08bf6c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08bf70:	03e00008 */ 	jr	$ra
-/*  f08bf74:	00000000 */ 	nop
-);
+bool func0f08be80(struct doorobj *door, struct defaultobj *obj, bool isbike)
+{
+	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
+	f32 scale = 0;
+
+	if (scale < bbox->xmin) {
+		scale = bbox->xmin;
+	}
+
+	if (scale < -bbox->xmax) {
+		scale = -bbox->xmax;
+	}
+
+	if (scale < bbox->ymin) {
+		scale = bbox->ymin;
+	}
+
+	if (scale < -bbox->ymax) {
+		scale = -bbox->ymax;
+	}
+
+	if (scale < bbox->zmin) {
+		scale = bbox->zmin;
+	}
+
+	if (scale < -bbox->zmax) {
+		scale = -bbox->zmax;
+	}
+
+	scale *= obj->model->scale;
+
+	return func0f08bdd4(door, &obj->prop->pos, scale, isbike);
+}
 
 /**
  * @bug: result should be an integer. Its value can only be 0.0f or 1.0f.
