@@ -4219,7 +4219,7 @@ void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
 
 		if (chr->weapons_held[HAND_RIGHT]) {
 			prop = chr->weapons_held[HAND_RIGHT];
-			func0f08bb5c(prop, false, -1);
+			weaponSetGunfireVisible(prop, false, -1);
 			chr->weapons_held[HAND_RIGHT] = NULL;
 		} else {
 			s32 modelnum = weaponGetModel(chr->aibot->weaponnum);

@@ -13942,7 +13942,7 @@ void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 	chr->prop->unk3f_02 = firing ? 1 : 0;
 
 	if (prop) {
-		func0f08bb5c(prop, firing, chr->prop->rooms[0]);
+		weaponSetGunfireVisible(prop, firing, chr->prop->rooms[0]);
 	}
 }
 

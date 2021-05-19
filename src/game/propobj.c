@@ -67323,7 +67323,7 @@ glabel func0f08adc8
 /*  f08ade4:	a04e0000 */ 	sb	$t6,0x0($v0)
 /*  f08ade8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f08adec:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08adf0:	0fc22ed7 */ 	jal	func0f08bb5c
+/*  f08adf0:	0fc22ed7 */ 	jal	weaponSetGunfireVisible
 /*  f08adf4:	2406ffff */ 	addiu	$a2,$zero,-1
 .L0f08adf8:
 /*  f08adf8:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -67345,7 +67345,7 @@ glabel func0f08ae0c
 /*  f08ae28:	a04e0000 */ 	sb	$t6,0x0($v0)
 /*  f08ae2c:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f08ae30:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08ae34:	0fc22ed7 */ 	jal	func0f08bb5c
+/*  f08ae34:	0fc22ed7 */ 	jal	weaponSetGunfireVisible
 /*  f08ae38:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f08ae3c:	8fa4001c */ 	lw	$a0,0x1c($sp)
 .L0f08ae40:
@@ -68887,79 +68887,48 @@ glabel func0f08bb3c
 /*  f08bb58:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08bb5c
-/*  f08bb5c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f08bb60:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08bb64:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08bb68:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f08bb6c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08bb70:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f08bb74:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f08bb78:	5040002a */ 	beqzl	$v0,.L0f08bc24
-/*  f08bb7c:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f08bb80:	904e0003 */ 	lbu	$t6,0x3($v0)
-/*  f08bb84:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f08bb88:	55c10026 */ 	bnel	$t6,$at,.L0f08bc24
-/*  f08bb8c:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f08bb90:	8c500018 */ 	lw	$s0,0x18($v0)
-/*  f08bb94:	52000023 */ 	beqzl	$s0,.L0f08bc24
-/*  f08bb98:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f08bb9c:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f08bba0:	3c0f8008 */ 	lui	$t7,%hi(g_ModelTypeChrGun)
-/*  f08bba4:	25efc084 */ 	addiu	$t7,$t7,%lo(g_ModelTypeChrGun)
-/*  f08bba8:	8c980004 */ 	lw	$t8,0x4($a0)
-/*  f08bbac:	55f8001d */ 	bnel	$t7,$t8,.L0f08bc24
-/*  f08bbb0:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f08bbb4:	0c006a47 */ 	jal	modelGetPart
-/*  f08bbb8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08bbbc:	1040000a */ 	beqz	$v0,.L0f08bbe8
-/*  f08bbc0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bbc4:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f08bbc8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08bbcc:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*  f08bbd0:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f08bbd4:	a4590000 */ 	sh	$t9,0x0($v0)
-/*  f08bbd8:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f08bbdc:	51000003 */ 	beqzl	$t0,.L0f08bbec
-/*  f08bbe0:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f08bbe4:	afa90024 */ 	sw	$t1,0x24($sp)
-.L0f08bbe8:
-/*  f08bbe8:	8e040008 */ 	lw	$a0,0x8($s0)
-.L0f08bbec:
-/*  f08bbec:	0c006a47 */ 	jal	modelGetPart
-/*  f08bbf0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f08bbf4:	1040000a */ 	beqz	$v0,.L0f08bc20
-/*  f08bbf8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08bbfc:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f08bc00:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08bc04:	8faa003c */ 	lw	$t2,0x3c($sp)
-/*  f08bc08:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f08bc0c:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f08bc10:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*  f08bc14:	51600003 */ 	beqzl	$t3,.L0f08bc24
-/*  f08bc18:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f08bc1c:	afac0024 */ 	sw	$t4,0x24($sp)
-.L0f08bc20:
-/*  f08bc20:	8fad0024 */ 	lw	$t5,0x24($sp)
-.L0f08bc24:
-/*  f08bc24:	87ae0042 */ 	lh	$t6,0x42($sp)
-/*  f08bc28:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f08bc2c:	51a00007 */ 	beqzl	$t5,.L0f08bc4c
-/*  f08bc30:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08bc34:	11c10004 */ 	beq	$t6,$at,.L0f08bc48
-/*  f08bc38:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f08bc3c:	24050030 */ 	addiu	$a1,$zero,0x30
-/*  f08bc40:	0fc010e3 */ 	jal	roomAdjustLighting
-/*  f08bc44:	24060080 */ 	addiu	$a2,$zero,0x80
-.L0f08bc48:
-/*  f08bc48:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08bc4c:
-/*  f08bc4c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08bc50:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f08bc54:	03e00008 */ 	jr	$ra
-/*  f08bc58:	00000000 */ 	nop
-);
+void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
+{
+	u32 stack[4];
+	bool flash = false;
+	struct defaultobj *obj = prop->obj;
+	struct modelnode *node1;
+	struct modelnode *node2;
+	union modelrwdata *rwdata1;
+	union modelrwdata *rwdata2;
+
+	if (obj && obj->type == OBJTYPE_WEAPON) {
+		struct model *model = obj->model;
+
+		if (model && model->filedata->type == &g_ModelTypeChrGun) {
+			node1 = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
+
+			if (node1) {
+				rwdata1 = modelGetNodeRwData(model, node1);
+				rwdata1->gunfire.visible = visible;
+
+				if (visible) {
+					flash = true;
+				}
+			}
+
+			node2 = modelGetPart(model->filedata, MODELPART_CHRGUN_0002);
+
+			if (node2) {
+				rwdata2 = modelGetNodeRwData(model, node2);
+				rwdata2->toggle.visible = visible;
+
+				if (visible) {
+					flash = true;
+				}
+			}
+		}
+	}
+
+	if (flash && room != -1) {
+		roomAdjustLighting(room, 48, 128);
+	}
+}
 
 bool weaponIsGunfireVisible(struct prop *prop)
 {

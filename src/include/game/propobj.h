@@ -292,7 +292,7 @@ void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 hand);
 struct prop *func0f08b8e8(struct chrdata *chr, s32 weaponnum, s32 arg2, u32 flags, s32 arg4, s32 arg5);
 struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 flags);
 u32 func0f08bb3c(void);
-void func0f08bb5c(struct prop *prop, bool firing, s32 room);
+void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room);
 bool weaponIsGunfireVisible(struct prop *prop);
 s32 hatGetType(struct prop *prop);
 bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop);
