@@ -4261,69 +4261,30 @@ glabel var7f1aa1d8
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f069630
-/*  f069630:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f069634:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f069638:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f06963c:	30ceffff */ 	andi	$t6,$a2,0xffff
-/*  f069640:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f069644:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f069648:	0fc1a451 */ 	jal	func0f069144
-/*  f06964c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f069650:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f069654:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f069658:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f06965c:	90af0000 */ 	lbu	$t7,0x0($a1)
-/*  f069660:	90b90001 */ 	lbu	$t9,0x1($a1)
-/*  f069664:	90a90002 */ 	lbu	$t1,0x2($a1)
-/*  f069668:	000fc042 */ 	srl	$t8,$t7,0x1
-/*  f06966c:	00194042 */ 	srl	$t0,$t9,0x1
-/*  f069670:	00095042 */ 	srl	$t2,$t1,0x1
-/*  f069674:	a0b80000 */ 	sb	$t8,0x0($a1)
-/*  f069678:	a0a80001 */ 	sb	$t0,0x1($a1)
-/*  f06967c:	a0aa0002 */ 	sb	$t2,0x2($a1)
-/*  f069680:	908b0000 */ 	lbu	$t3,0x0($a0)
-/*  f069684:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f069688:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f06968c:	5561001d */ 	bnel	$t3,$at,.L0f069704
-/*  f069690:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f069694:	8c6c0298 */ 	lw	$t4,0x298($v1)
-/*  f069698:	05830005 */ 	bgezl	$t4,.L0f0696b0
-/*  f06969c:	8c6e028c */ 	lw	$t6,0x28c($v1)
-/*  f0696a0:	8c6d029c */ 	lw	$t5,0x29c($v1)
-/*  f0696a4:	05a20017 */ 	bltzl	$t5,.L0f069704
-/*  f0696a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0696ac:	8c6e028c */ 	lw	$t6,0x28c($v1)
-.L0f0696b0:
-/*  f0696b0:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f0696b4:	55c0000b */ 	bnezl	$t6,.L0f0696e4
-/*  f0696b8:	90a90000 */ 	lbu	$t1,0x0($a1)
-/*  f0696bc:	90af0000 */ 	lbu	$t7,0x0($a1)
-/*  f0696c0:	a04f00d0 */ 	sb	$t7,0xd0($v0)
-/*  f0696c4:	90b80001 */ 	lbu	$t8,0x1($a1)
-/*  f0696c8:	a05800d1 */ 	sb	$t8,0xd1($v0)
-/*  f0696cc:	90b90002 */ 	lbu	$t9,0x2($a1)
-/*  f0696d0:	a05900d2 */ 	sb	$t9,0xd2($v0)
-/*  f0696d4:	90a80003 */ 	lbu	$t0,0x3($a1)
-/*  f0696d8:	10000009 */ 	b	.L0f069700
-/*  f0696dc:	a04800d3 */ 	sb	$t0,0xd3($v0)
-/*  f0696e0:	90a90000 */ 	lbu	$t1,0x0($a1)
-.L0f0696e4:
-/*  f0696e4:	a04900d4 */ 	sb	$t1,0xd4($v0)
-/*  f0696e8:	90aa0001 */ 	lbu	$t2,0x1($a1)
-/*  f0696ec:	a04a00d5 */ 	sb	$t2,0xd5($v0)
-/*  f0696f0:	90ab0002 */ 	lbu	$t3,0x2($a1)
-/*  f0696f4:	a04b00d6 */ 	sb	$t3,0xd6($v0)
-/*  f0696f8:	90ac0003 */ 	lbu	$t4,0x3($a1)
-/*  f0696fc:	a04c00d7 */ 	sb	$t4,0xd7($v0)
-.L0f069700:
-/*  f069700:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f069704:
-/*  f069704:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f069708:	03e00008 */ 	jr	$ra
-/*  f06970c:	00000000 */ 	nop
-);
+void func0f069630(struct prop *prop, u8 *nextcol, u16 floorcol)
+{
+	func0f069144(prop, nextcol, floorcol);
+
+	nextcol[0] >>= 1;
+	nextcol[1] >>= 1;
+	nextcol[2] >>= 1;
+
+	if (prop->type == PROPTYPE_DOOR && (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)) {
+		struct doorobj *door = prop->door;
+
+		if (g_Vars.currentplayernum == 0) {
+			door->shadeinfo1[0] = nextcol[0];
+			door->shadeinfo1[1] = nextcol[1];
+			door->shadeinfo1[2] = nextcol[2];
+			door->shadeinfo1[3] = nextcol[3];
+		} else {
+			door->shadeinfo2[0] = nextcol[0];
+			door->shadeinfo2[1] = nextcol[1];
+			door->shadeinfo2[2] = nextcol[2];
+			door->shadeinfo2[3] = nextcol[3];
+		}
+	}
+}
 
 /**
  * Shift shadecol to be closer to nextcol.

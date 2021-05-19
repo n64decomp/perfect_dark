@@ -1693,8 +1693,8 @@ struct doorobj { // objtype 0x01
 	/*0xc8*/ s32 lastcalc60;
 	/*0xcc*/ u8 laserfade;
 	/*0xcd*/ u8 unusedmaybe[3];
-	/*0xd0*/ u8 shadeinfo1[4];
-	/*0xd4*/ u8 shadeinfo2[4];
+	/*0xd0*/ u8 shadeinfo1[4]; // player 1
+	/*0xd4*/ u8 shadeinfo2[4]; // player 2
 };
 
 struct doorscaleobj { // objtype 0x02
