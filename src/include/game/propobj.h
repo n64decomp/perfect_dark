@@ -138,7 +138,7 @@ void func0f07079c(struct prop *prop, bool arg1);
 s32 glassCalculateOpacity(struct coord *pos, f32 arg1, f32 arg2, f32 arg3);
 u32 func0f070a1c(void);
 u32 func0f070bd0(void);
-u32 func0f070ca0(void);
+void func0f070ca0(struct defaultobj *obj, void *ptr, s32 arg2, s32 arg3, union modelrodata *rodata);
 void liftActivate(struct prop *prop, u8 liftnum);
 struct prop *liftFindByPad(s16 padnum);
 u32 func0f070eac(void);

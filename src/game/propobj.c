@@ -4616,67 +4616,41 @@ glabel func0f069850
 /*  f069b48:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel func0f069b4c
-/*  f069b4c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f069b50:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f069b54:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f069b58:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f069b5c:	8c900044 */ 	lw	$s0,0x44($a0)
-/*  f069b60:	00808825 */ 	or	$s1,$a0,$zero
-/*  f069b64:	52000029 */ 	beqzl	$s0,.L0f069c0c
-/*  f069b68:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f069b6c:	908e0002 */ 	lbu	$t6,0x2($a0)
-/*  f069b70:	31cf0008 */ 	andi	$t7,$t6,0x8
-/*  f069b74:	51e00009 */ 	beqzl	$t7,.L0f069b9c
-/*  f069b78:	8e280018 */ 	lw	$t0,0x18($s1)
-/*  f069b7c:	8c980010 */ 	lw	$t8,0x10($a0)
-/*  f069b80:	0018c980 */ 	sll	$t9,$t8,0x6
-/*  f069b84:	07230004 */ 	bgezl	$t9,.L0f069b98
-/*  f069b88:	2610004c */ 	addiu	$s0,$s0,0x4c
-/*  f069b8c:	10000002 */ 	b	.L0f069b98
-/*  f069b90:	26100018 */ 	addiu	$s0,$s0,0x18
-/*  f069b94:	2610004c */ 	addiu	$s0,$s0,0x4c
-.L0f069b98:
-/*  f069b98:	8e280018 */ 	lw	$t0,0x18($s1)
-.L0f069b9c:
-/*  f069b9c:	24050065 */ 	addiu	$a1,$zero,0x65
-/*  f069ba0:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f069ba4:	8d040008 */ 	lw	$a0,0x8($t0)
-/*  f069ba8:	1040000c */ 	beqz	$v0,.L0f069bdc
-/*  f069bac:	00401825 */ 	or	$v1,$v0,$zero
-/*  f069bb0:	92290003 */ 	lbu	$t1,0x3($s1)
-/*  f069bb4:	2401003b */ 	addiu	$at,$zero,0x3b
-/*  f069bb8:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f069bbc:	15210002 */ 	bne	$t1,$at,.L0f069bc8
-/*  f069bc0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f069bc4:	24060023 */ 	addiu	$a2,$zero,0x23
-.L0f069bc8:
-/*  f069bc8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f069bcc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f069bd0:	0fc1c328 */ 	jal	func0f070ca0
-/*  f069bd4:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f069bd8:	26100040 */ 	addiu	$s0,$s0,0x40
-.L0f069bdc:
-/*  f069bdc:	8e2a0018 */ 	lw	$t2,0x18($s1)
-/*  f069be0:	24050066 */ 	addiu	$a1,$zero,0x66
-/*  f069be4:	0c006a6f */ 	jal	modelGetPartRodata
-/*  f069be8:	8d440008 */ 	lw	$a0,0x8($t2)
-/*  f069bec:	10400006 */ 	beqz	$v0,.L0f069c08
-/*  f069bf0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f069bf4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f069bf8:	2406001c */ 	addiu	$a2,$zero,0x1c
-/*  f069bfc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f069c00:	0fc1c328 */ 	jal	func0f070ca0
-/*  f069c04:	afa20010 */ 	sw	$v0,0x10($sp)
-.L0f069c08:
-/*  f069c08:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f069c0c:
-/*  f069c0c:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f069c10:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f069c14:	03e00008 */ 	jr	$ra
-/*  f069c18:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f069b4c(struct defaultobj *obj)
+{
+	union modelrodata *rodata;
+	u8 *ptr = (u8 *) obj->unkgeo;
+
+	if (ptr != NULL) {
+		if ((obj->hidden2 & OBJH2FLAG_08)) {
+			if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
+				ptr += sizeof(struct tiletype3);
+			} else {
+				ptr += sizeof(struct tiletype2);
+			}
+		}
+
+		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0065);
+
+		if (rodata != NULL) {
+			s32 uVar3 = 3;
+
+			if (obj->type == OBJTYPE_ESCASTEP) {
+				uVar3 = 0x23;
+			}
+
+			func0f070ca0(obj, ptr, uVar3, 0, rodata);
+
+			ptr += 0x40;
+		}
+
+		rodata = modelGetPartRodata(obj->model->filedata, MODELPART_0066);
+
+		if (rodata != NULL) {
+			func0f070ca0(obj, ptr, 0x1c, 0, rodata);
+		}
+	}
+}
 
 void func0f069c1c(struct defaultobj *obj)
 {
