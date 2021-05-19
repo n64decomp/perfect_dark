@@ -2118,24 +2118,11 @@ glabel func0f067bc4
 /*  f067d84:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func0f067d88
-/*  f067d88:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f067d8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f067d90:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f067d94:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f067d98:	0fc19ef1 */ 	jal	func0f067bc4
-/*  f067d9c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f067da0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f067da4:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f067da8:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f067dac:	0fc19ef1 */ 	jal	func0f067bc4
-/*  f067db0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f067db4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f067db8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f067dbc:	03e00008 */ 	jr	$ra
-/*  f067dc0:	00000000 */ 	nop
-);
+void func0f067d88(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+{
+	func0f067bc4(model, arg1, arg2, false);
+	func0f067bc4(model, arg3, arg4, true);
+}
 
 GLOBAL_ASM(
 glabel func0f067dc4

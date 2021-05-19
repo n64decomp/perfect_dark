@@ -59,7 +59,7 @@ bool func0f0677ac(struct coord *coord, f32 *arg1, struct coord *pos, struct coor
 bool func0f0678f8(struct coord *coord, f32 *arg1, s32 padnum);
 bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum);
 bool func0f0679ac(struct model *model, f32 *distance, f32 *arg2, f32 *arg3, f32 *arg4);
-u32 func0f067bc4(void);
+void func0f067bc4(struct model *model, f32 *arg1, f32 *arg2, bool arg5);
 void func0f067d88(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
 bool func0f067dc4(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
 bool modelSetRedBox(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
