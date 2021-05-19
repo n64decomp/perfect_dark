@@ -210,7 +210,7 @@ u32 func0f07fbf0(void);
 u32 func0f07fbf8(void);
 void func0f0809c4(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha);
 Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 size, u32 alpha);
-Gfx *func0f081220(struct defaultobj *obj, Gfx *gdl);
+Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl);
 Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha);
 u32 func0f081c18(void);
 u32 func0f081ccc(void);

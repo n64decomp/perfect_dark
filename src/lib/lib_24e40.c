@@ -4444,7 +4444,11 @@ s32 func0002a400(struct coord *pos, s16 *rooms)
 	return sp32;
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 s16 func0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr, u16 *flagsptr)
+#else
+s16 func0002a440(struct coord *pos, s16 *rooms, f32 *arg2, u16 *floorcolptr)
+#endif
 {
 	struct tile *tile;
 	s16 sp32;

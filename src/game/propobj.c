@@ -49527,142 +49527,27 @@ glabel gfxRenderRadialShadow
 /*  f08121c:	27bd0100 */ 	addiu	$sp,$sp,0x100
 );
 
+Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl)
+{
+	f32 angle;
+	f32 y;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f081220
-/*  f081220:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f081224:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f081228:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f08122c:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f081230:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f081234:	00808025 */ 	or	$s0,$a0,$zero
-/*  f081238:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f08123c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f081240:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f081244:	00003825 */ 	or	$a3,$zero,$zero
-/*  f081248:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f08124c:	0c00a910 */ 	jal	func0002a440
-/*  f081250:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f081254:	18400017 */ 	blez	$v0,.L0f0812b4
-/*  f081258:	00000000 */ 	nop
-/*  f08125c:	86030004 */ 	lh	$v1,0x4($s0)
-/*  f081260:	2401008c */ 	addiu	$at,$zero,0x8c
-/*  f081264:	10610003 */ 	beq	$v1,$at,.L0f081274
-/*  f081268:	2401008d */ 	addiu	$at,$zero,0x8d
-/*  f08126c:	14610011 */ 	bne	$v1,$at,.L0f0812b4
-/*  f081270:	00000000 */ 	nop
-.L0f081274:
-/*  f081274:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
-/*  f081278:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08127c:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f081280:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f081284:	44812000 */ 	mtc1	$at,$f4
-/*  f081288:	8c450008 */ 	lw	$a1,0x8($v0)
-/*  f08128c:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f081290:	240eff78 */ 	addiu	$t6,$zero,-136
-/*  f081294:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f081298:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f08129c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0812a0:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0812a4:	0fc203e3 */ 	jal	gfxRenderRadialShadow
-/*  f0812a8:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f0812ac:	10000012 */ 	b	.L0f0812f8
-/*  f0812b0:	00408825 */ 	or	$s1,$v0,$zero
-.L0f0812b4:
-/*  f0812b4:	58400011 */ 	blezl	$v0,.L0f0812fc
-/*  f0812b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0812bc:	0fc1c836 */ 	jal	hoverpropGetTurnAngle
-/*  f0812c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0812c4:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f0812c8:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f0812cc:	44813000 */ 	mtc1	$at,$f6
-/*  f0812d0:	8c450008 */ 	lw	$a1,0x8($v0)
-/*  f0812d4:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f0812d8:	240fff78 */ 	addiu	$t7,$zero,-136
-/*  f0812dc:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f0812e0:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f0812e4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0812e8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f0812ec:	0fc203e3 */ 	jal	gfxRenderRadialShadow
-/*  f0812f0:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f0812f4:	00408825 */ 	or	$s1,$v0,$zero
-.L0f0812f8:
-/*  f0812f8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0812fc:
-/*  f0812fc:	02201025 */ 	or	$v0,$s1,$zero
-/*  f081300:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f081304:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f081308:	03e00008 */ 	jr	$ra
-/*  f08130c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+	s32 value = func0002a440(&obj->prop->pos, obj->prop->rooms, &y, NULL, NULL);
 #else
-GLOBAL_ASM(
-glabel func0f081220
-/*  f07fc98:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f07fc9c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f07fca0:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f07fca4:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f07fca8:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f07fcac:	00808025 */ 	or	$s0,$a0,$zero
-/*  f07fcb0:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f07fcb4:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f07fcb8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f07fcbc:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f07fcc0:	0c00ae22 */ 	jal	func0002a440
-/*  f07fcc4:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f07fcc8:	18400017 */ 	blez	$v0,.NB0f07fd28
-/*  f07fccc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07fcd0:	86030004 */ 	lh	$v1,0x4($s0)
-/*  f07fcd4:	2401008c */ 	addiu	$at,$zero,0x8c
-/*  f07fcd8:	10610003 */ 	beq	$v1,$at,.NB0f07fce8
-/*  f07fcdc:	2401008d */ 	addiu	$at,$zero,0x8d
-/*  f07fce0:	14610011 */ 	bne	$v1,$at,.NB0f07fd28
-/*  f07fce4:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f07fce8:
-/*  f07fce8:	0fc1c39b */ 	jal	hoverpropGetTurnAngle
-/*  f07fcec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07fcf0:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f07fcf4:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f07fcf8:	44812000 */ 	mtc1	$at,$f4
-/*  f07fcfc:	8c450008 */ 	lw	$a1,0x8($v0)
-/*  f07fd00:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f07fd04:	240eff78 */ 	addiu	$t6,$zero,-136
-/*  f07fd08:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f07fd0c:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f07fd10:	02202025 */ 	or	$a0,$s1,$zero
-/*  f07fd14:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f07fd18:	0fc1fe81 */ 	jal	gfxRenderRadialShadow
-/*  f07fd1c:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f07fd20:	10000012 */ 	beqz	$zero,.NB0f07fd6c
-/*  f07fd24:	00408825 */ 	or	$s1,$v0,$zero
-.NB0f07fd28:
-/*  f07fd28:	58400011 */ 	blezl	$v0,.NB0f07fd70
-/*  f07fd2c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f07fd30:	0fc1c39b */ 	jal	hoverpropGetTurnAngle
-/*  f07fd34:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07fd38:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f07fd3c:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f07fd40:	44813000 */ 	mtc1	$at,$f6
-/*  f07fd44:	8c450008 */ 	lw	$a1,0x8($v0)
-/*  f07fd48:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f07fd4c:	240fff78 */ 	addiu	$t7,$zero,-136
-/*  f07fd50:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f07fd54:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f07fd58:	02202025 */ 	or	$a0,$s1,$zero
-/*  f07fd5c:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f07fd60:	0fc1fe81 */ 	jal	gfxRenderRadialShadow
-/*  f07fd64:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f07fd68:	00408825 */ 	or	$s1,$v0,$zero
-.NB0f07fd6c:
-/*  f07fd6c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f07fd70:
-/*  f07fd70:	02201025 */ 	or	$v0,$s1,$zero
-/*  f07fd74:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f07fd78:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f07fd7c:	03e00008 */ 	jr	$ra
-/*  f07fd80:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+	s32 value = func0002a440(&obj->prop->pos, obj->prop->rooms, &y, NULL);
 #endif
+
+	if (value > 0 && (obj->modelnum == MODEL_HOOVERBOT || obj->modelnum == MODEL_TESTERBOT)) {
+		angle = hoverpropGetTurnAngle(obj);
+		gdl = gfxRenderRadialShadow(gdl, obj->prop->pos.x, y, obj->prop->pos.z, angle, 20, 0xffffff78);
+	} else if (value > 0) {
+		angle = hoverpropGetTurnAngle(obj);
+		gdl = gfxRenderRadialShadow(gdl, obj->prop->pos.x, y, obj->prop->pos.z, angle, 30, 0xffffff78);
+	}
+
+	return gdl;
+}
 
 u32 var80069d90 = 0x00000007;
 u32 var80069d94 = 0x0000001d;
@@ -51180,7 +51065,7 @@ glabel var7f1aa82c
 /*  f081bbc:	54610006 */ 	bnel	$v1,$at,.L0f081bd8
 /*  f081bc0:	24010128 */ 	addiu	$at,$zero,0x128
 .L0f081bc4:
-/*  f081bc4:	0fc20488 */ 	jal	func0f081220
+/*  f081bc4:	0fc20488 */ 	jal	objRenderShadow
 /*  f081bc8:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f081bcc:	afa200fc */ 	sw	$v0,0xfc($sp)
 /*  f081bd0:	86030004 */ 	lh	$v1,0x4($s0)
@@ -51193,7 +51078,7 @@ glabel var7f1aa82c
 /*  f081be8:	000c7000 */ 	sll	$t6,$t4,0x0
 /*  f081bec:	05c30005 */ 	bgezl	$t6,.L0f081c04
 /*  f081bf0:	8fa200fc */ 	lw	$v0,0xfc($sp)
-/*  f081bf4:	0fc20488 */ 	jal	func0f081220
+/*  f081bf4:	0fc20488 */ 	jal	objRenderShadow
 /*  f081bf8:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f081bfc:	afa200fc */ 	sw	$v0,0xfc($sp)
 .L0f081c00:
@@ -51815,7 +51700,7 @@ glabel var7f1aa82c
 /*  f081bbc:	54610006 */ 	bnel	$v1,$at,.L0f081bd8
 /*  f081bc0:	24010128 */ 	addiu	$at,$zero,0x128
 .L0f081bc4:
-/*  f081bc4:	0fc20488 */ 	jal	func0f081220
+/*  f081bc4:	0fc20488 */ 	jal	objRenderShadow
 /*  f081bc8:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f081bcc:	afa200fc */ 	sw	$v0,0xfc($sp)
 /*  f081bd0:	86030004 */ 	lh	$v1,0x4($s0)
@@ -51828,7 +51713,7 @@ glabel var7f1aa82c
 /*  f081be8:	000c7000 */ 	sll	$t6,$t4,0x0
 /*  f081bec:	05c30005 */ 	bgezl	$t6,.L0f081c04
 /*  f081bf0:	8fa200fc */ 	lw	$v0,0xfc($sp)
-/*  f081bf4:	0fc20488 */ 	jal	func0f081220
+/*  f081bf4:	0fc20488 */ 	jal	objRenderShadow
 /*  f081bf8:	8fa500fc */ 	lw	$a1,0xfc($sp)
 /*  f081bfc:	afa200fc */ 	sw	$v0,0xfc($sp)
 .L0f081c00:
@@ -52088,11 +51973,11 @@ glabel var7f1aa82c
 //				|| obj->type == OBJTYPE_HOVERBIKE
 //				|| obj->modelnum == MODEL_HOOVERBOT
 //				|| obj->modelnum == MODEL_TESTERBOT) {
-//			gdl = func0f081220(obj, gdl);
+//			gdl = objRenderShadow(obj, gdl);
 //		}
 //
 //		if (obj->modelnum == MODEL_A51INTERCEPTOR && (obj->flags & OBJFLAG_80000000)) {
-//			gdl = func0f081220(obj, gdl);
+//			gdl = objRenderShadow(obj, gdl);
 //		}
 //	}
 //
