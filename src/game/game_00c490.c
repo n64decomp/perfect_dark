@@ -1079,7 +1079,7 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 
 	if (camera->lookatpadnum >= 0) {
 		struct coord lenspos;
-		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_LENS);
+		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_LENS);
 		struct pad pad;
 		f32 xdiff;
 		f32 ydiff;
@@ -1335,14 +1335,14 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			modelSetScale(monitor->base.model, monitor->base.model->scale * scale);
 			monitor->base.model->attachedto = owner->model;
 
-			if (monitor->ownerpart == MODELPART_00) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_00);
-			} else if (monitor->ownerpart == MODELPART_01) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_01);
-			} else if (monitor->ownerpart == MODELPART_02) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_02);
+			if (monitor->ownerpart == MODELPART_0000) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0000);
+			} else if (monitor->ownerpart == MODELPART_0001) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0001);
+			} else if (monitor->ownerpart == MODELPART_0002) {
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0002);
 			} else {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_03);
+				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0003);
 			}
 
 			propReparent(prop, owner->prop);

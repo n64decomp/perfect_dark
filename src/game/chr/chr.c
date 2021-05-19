@@ -11238,16 +11238,16 @@ void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 	struct modelfiledata *modelfiledata = chr->model->filedata;
 
 	if (modelfiledata->type == &g_ModelTypeChr) {
-		struct modelnode *node = modelGetPart(modelfiledata, MODELPART_HUDPIECE);
+		struct modelnode *headspotnode = modelGetPart(modelfiledata, MODELPART_CHR_HEADSPOT);
 
-		if (node && node->type == MODELNODETYPE_HEADSPOT) {
-			union modelrwdata *rwdata = modelGetNodeRwData(chr->model, node);
+		if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
+			union modelrwdata *rwdata = modelGetNodeRwData(chr->model, headspotnode);
 
 			if (rwdata->headspot.modelfiledata) {
-				struct modelnode *node2 = modelGetPart(rwdata->headspot.modelfiledata, MODELPART_HUDPIECE);
+				struct modelnode *hudpiecenode = modelGetPart(rwdata->headspot.modelfiledata, MODELPART_HEAD_HUDPIECE);
 
-				if (node2) {
-					union modelrwdata *rwdata2 = modelGetNodeRwData(chr->model, node2);
+				if (hudpiecenode) {
+					union modelrwdata *rwdata2 = modelGetNodeRwData(chr->model, hudpiecenode);
 					rwdata2->toggle.visible = visible;
 				}
 			}
@@ -12220,8 +12220,8 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 		// Set Skedar eyes open or closed
 		if (model->filedata->type == &g_ModelTypeSkedar) {
-			struct modelnode *node1 = modelGetPart(model->filedata, MODELPART_04);
-			struct modelnode *node2 = modelGetPart(model->filedata, MODELPART_05);
+			struct modelnode *node1 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESOPEN);
+			struct modelnode *node2 = modelGetPart(model->filedata, MODELPART_SKEDAR_EYESCLOSED);
 
 			if (node1 && node2) {
 				union modelrwdata *data1 = modelGetNodeRwData(model, node1);
@@ -12238,14 +12238,14 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 				|| chr->headnum == HEAD_MAIAN_S
 				|| chr->headnum == HEAD_ELVIS_GOGS) {
 			if (model->filedata->type == &g_ModelTypeChr) {
-				struct modelnode *node = modelGetPart(model->filedata, MODELPART_04);
+				struct modelnode *headspotnode = modelGetPart(model->filedata, MODELPART_CHR_HEADSPOT);
 
-				if (node && node->type == MODELNODETYPE_HEADSPOT) {
-					union modelrwdata *headrwdata = modelGetNodeRwData(model, node);
+				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
+					union modelrwdata *headrwdata = modelGetNodeRwData(model, headspotnode);
 
 					if (headrwdata->headspot.modelfiledata) {
-						struct modelnode *node1 = modelGetPart(headrwdata->headspot.modelfiledata, MODELPART_02);
-						struct modelnode *node2 = modelGetPart(headrwdata->headspot.modelfiledata, MODELPART_03);
+						struct modelnode *node1 = modelGetPart(headrwdata->headspot.modelfiledata, MODELPART_HEAD_EYESOPEN);
+						struct modelnode *node2 = modelGetPart(headrwdata->headspot.modelfiledata, MODELPART_HEAD_EYESCLOSED);
 
 						if (node1 && node2) {
 							union modelrwdata *data1 = modelGetNodeRwData(model, node1);

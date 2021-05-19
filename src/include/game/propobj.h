@@ -195,7 +195,7 @@ void chopperTickAttackMode1(struct prop *chopper);
 void hovercarTick(struct prop *hovercar);
 void hoverpropTick(struct prop *hoverprop, bool arg1);
 void hoverbikeTick(struct prop *hoverbike, bool arg1);
-void func0f07e058(struct prop *prop);
+void dropshipUpdateInterior(struct prop *prop);
 void func0f07e0b8(struct prop *glass, s32 playercount, bool *arg2);
 u32 func0f07e184(void);
 u32 func0f07e1fc(void);

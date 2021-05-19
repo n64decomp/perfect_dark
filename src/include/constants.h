@@ -1793,49 +1793,383 @@
 #define MODELNODETYPE_HEADSPOT     0x17
 #define MODELNODETYPE_DL           0x18
 
-#define MODELPART_CHR_04            0x04
-#define MODELPART_CHRGUN_00         0x00
-#define MODELPART_CHRGUN_02         0x02
-#define MODELPART_HEAD_SUNGLASSES   0x00
-#define MODELPART_HEAD_HUDPIECE     0x04
-#define MODELPART_00                0x00
-#define MODELPART_LENS              0x00
-#define MODELPART_01                0x01
-#define MODELPART_02                0x02
-#define MODELPART_ROBOTMUZZLEFLASHR 0x02
-#define MODELPART_03                0x03
-#define MODELPART_ROBOTMUZZLEFLASHL 0x03
-#define MODELPART_HUDPIECE          0x04
-#define MODELPART_04                0x04
-#define MODELPART_05                0x05
-#define MODELPART_NECKLACE          0x07
-#define MODELPART_NEWCLIP           0x28
-#define MODELPART_NEWCLIP2          0x29
-#define MODELPART_NEWCLIP3          0x2a
-#define MODELPART_NEWCLIP4          0x2b
-#define MODELPART_SCOPE             0x2c
-#define MODELPART_SILENCER          0x2d
-#define MODELPART_2E                0x2e
-#define MODELPART_2F                0x2f
-#define MODELPART_42                0x42
-#define MODELPART_MUZZLEFLASH       0x5a
-#define MODELPART_MUZZLEFLASH2      0x5b
-#define MODELPART_MUZZLEFLASH3      0x5c
-#define MODELPART_6E                0x6e
-#define MODELPART_SKGANGWAY         0xb7
+/**
+ * Models can contain "parts", which are a list of certain node addresses in the
+ * model's header. It allows the game to quickly find a certain node in the
+ * model if it's registered in the parts list.
+ *
+ * Parts are identified by a part number, and the mapping is unique to each
+ * model type. For example, for "chrgun" model types, part number 0 is the
+ * gunfire starburst.
+ *
+ * The game assumes that the part numbers refer to particular node types.
+ * For example, it assumes that chrgun part 02 is a toggle node.
+ *
+ * The names below are in the format MODELPART_{modeltype}_{part}.
+ * The comment is the node type.
+ */
+#define MODELPART_AR34_0029           0x0029 // toggle
+#define MODELPART_AR34_002A           0x002a // toggle
+#define MODELPART_AR34_0032           0x0032 // position
+#define MODELPART_AR34_0037           0x0037 // position
+#define MODELPART_AR34_003C           0x003c // position
+#define MODELPART_AR34_0042           0x0042 // toggle
+#define MODELPART_AR34_0050           0x0050 // position
+#define MODELPART_AR34_0051           0x0051 // position
+#define MODELPART_AR34_005A           0x005a // toggle
+#define MODELPART_AUTOGUN_0000        0x0000 // position
+#define MODELPART_AUTOGUN_0001        0x0001 // position
+#define MODELPART_AUTOGUN_0002        0x0002 // position
+#define MODELPART_AUTOGUN_0003        0x0003 // position
+#define MODELPART_AUTOGUN_0004        0x0004 // position
+#define MODELPART_AUTOGUN_0005        0x0005 // gunfire
+#define MODELPART_AUTOGUN_0006        0x0006 // position
+#define MODELPART_AUTOGUN_0007        0x0007 // gunfire
+#define MODELPART_BASIC_0064          0x0064 // type19
+#define MODELPART_BASIC_0065          0x0065 // type19
+#define MODELPART_BASIC_0066          0x0066 // type19
+#define MODELPART_BASIC_0067          0x0067 // bbox
+#define MODELPART_BASIC_00C8          0x00c8 // toggle
+#define MODELPART_BASIC_00C9          0x00c9 // toggle
+#define MODELPART_BASIC_00CA          0x00ca // toggle
+#define MODELPART_BASIC_00CB          0x00cb // toggle
+#define MODELPART_BASIC_00CC          0x00cc // toggle
+#define MODELPART_BASIC_00CD          0x00cd // toggle
+#define MODELPART_BASIC_00CE          0x00ce // toggle
+#define MODELPART_BASIC_00CF          0x00cf // toggle
+#define MODELPART_BASIC_00D0          0x00d0 // toggle
+#define MODELPART_BASIC_00D1          0x00d1 // toggle
+#define MODELPART_BASIC_00D2          0x00d2 // toggle
+#define MODELPART_BASIC_00D3          0x00d3 // toggle
+#define MODELPART_CALLISTO_0028       0x0028 // toggle
+#define MODELPART_CALLISTO_0032       0x0032 // position
+#define MODELPART_CALLISTO_0037       0x0037 // position
+#define MODELPART_CCTV_LENS           0x0000 // position
+#define MODELPART_CCTV_0001           0x0001 // dl
+#define MODELPART_CCTV_0002           0x0002 // bbox
+#define MODELPART_CCTV_0003           0x0003 // toggle
+#define MODELPART_CHOPPER_0000        0x0000 // position
+#define MODELPART_CHOPPER_0001        0x0001 // position
+#define MODELPART_CHOPPER_0002        0x0002 // position
+#define MODELPART_CHOPPER_0003        0x0003 // gunfire
+#define MODELPART_CHOPPER_0005        0x0005 // toggle
+#define MODELPART_CHRGUN_GUNFIRE      0x0000 // gunfire
+#define MODELPART_CHRGUN_0001         0x0001 // positionheld
+#define MODELPART_CHRGUN_0002         0x0002 // toggle
+#define MODELPART_CHR_0000            0x0000 // position
+#define MODELPART_CHR_0001            0x0001 // position
+#define MODELPART_CHR_0002            0x0002 // position
+#define MODELPART_CHR_0003            0x0003 // position
+#define MODELPART_CHR_HEADSPOT        0x0004 // headspot
+#define MODELPART_CHR_0005            0x0005 // position
+#define MODELPART_CHR_0006            0x0006 // position
+#define MODELPART_CHR_NECKLACE        0x0007 // toggle
+#define MODELPART_CIHUB_0000          0x0000 // dl
+#define MODELPART_CIHUB_0001          0x0001 // dl
+#define MODELPART_CIHUB_0002          0x0002 // dl
+#define MODELPART_CLASSICGUN_0032     0x0032 // position
+#define MODELPART_CLASSICGUN_003C     0x003c // positionheld
+#define MODELPART_CLASSICGUN_0050     0x0050 // position
+#define MODELPART_CLASSICGUN_005A     0x005a // toggle
+#define MODELPART_CMP150_002A         0x002a // toggle
+#define MODELPART_CMP150_002B         0x002b // toggle
+#define MODELPART_CMP150_0032         0x0032 // position
+#define MODELPART_CMP150_0037         0x0037 // position
+#define MODELPART_CMP150_003C         0x003c // position
+#define MODELPART_CMP150_0042         0x0042 // toggle
+#define MODELPART_CMP150_0046         0x0046 // toggle
+#define MODELPART_CMP150_0047         0x0047 // toggle
+#define MODELPART_CMP150_0050         0x0050 // position
+#define MODELPART_CMP150_0051         0x0051 // position
+#define MODELPART_CMP150_005A         0x005a // toggle
+#define MODELPART_CROSSBOW_0028       0x0028 // toggle
+#define MODELPART_CROSSBOW_0029       0x0029 // toggle
+#define MODELPART_CROSSBOW_002A       0x002a // toggle
+#define MODELPART_CROSSBOW_0037       0x0037 // position
+#define MODELPART_CROSSBOW_0042       0x0042 // toggle
+#define MODELPART_CYCLONE_0028        0x0028 // toggle
+#define MODELPART_CYCLONE_0032        0x0032 // position
+#define MODELPART_CYCLONE_0037        0x0037 // position
+#define MODELPART_CYCLONE_0050        0x0050 // position
+#define MODELPART_CYCLONE_0051        0x0051 // position
+#define MODELPART_CYCLONE_005A        0x005a // toggle
+#define MODELPART_DEVASTATOR_0028     0x0028 // position
+#define MODELPART_DEVASTATOR_0029     0x0029 // toggle
+#define MODELPART_DEVASTATOR_002A     0x002a // toggle
+#define MODELPART_DEVASTATOR_0037     0x0037 // position
+#define MODELPART_DEVASTATOR_0064     0x0064 // toggle
+#define MODELPART_DEVASTATOR_0065     0x0065 // toggle
+#define MODELPART_DEVASTATOR_0066     0x0066 // toggle
+#define MODELPART_DEVASTATOR_0067     0x0067 // toggle
+#define MODELPART_DEVASTATOR_0068     0x0068 // toggle
+#define MODELPART_DEVASTATOR_0069     0x0069 // toggle
+#define MODELPART_DEVASTATOR_006A     0x006a // toggle
+#define MODELPART_DEVASTATOR_006B     0x006b // toggle
+#define MODELPART_DRAGON_0028         0x0028 // toggle
+#define MODELPART_DRAGON_002A         0x002a // toggle
+#define MODELPART_DRAGON_0032         0x0032 // position
+#define MODELPART_DRAGON_0037         0x0037 // position
+#define MODELPART_DRAGON_003C         0x003c // position
+#define MODELPART_DRAGON_0042         0x0042 // toggle
+#define MODELPART_DRAGON_0050         0x0050 // position
+#define MODELPART_DRAGON_0051         0x0051 // position
+#define MODELPART_DRAGON_0052         0x0052 // position
+#define MODELPART_DRAGON_005A         0x005a // toggle
+#define MODELPART_DRCAROLL_0000       0x0000 // toggle
+#define MODELPART_DRCAROLL_0001       0x0001 // toggle
+#define MODELPART_DRCAROLL_0002       0x0002 // toggle
+#define MODELPART_DRCAROLL_0003       0x0003 // toggle
+#define MODELPART_DRCAROLL_0004       0x0004 // toggle
+#define MODELPART_DRCAROLL_0005       0x0005 // toggle
+#define MODELPART_DRCAROLL_0006       0x0006 // toggle
+#define MODELPART_DRCAROLL_0007       0x0007 // toggle
+#define MODELPART_DRCAROLL_0008       0x0008 // toggle
+#define MODELPART_DRCAROLL_0009       0x0009 // toggle
+#define MODELPART_DRCAROLL_000A       0x000a // toggle
+#define MODELPART_DRCAROLL_000B       0x000b // toggle
+#define MODELPART_DROPSHIP_0064       0x0064 // type19
+#define MODELPART_DROPSHIP_INTERIOR   0x006e // toggle
+#define MODELPART_ECMMINE_0037        0x0037 // position
+#define MODELPART_FALCON2_002A        0x002a // toggle
+#define MODELPART_FALCON2_002B        0x002b // toggle
+#define MODELPART_FALCON2_SCOPE       0x002c // toggle
+#define MODELPART_FALCON2_SILENCER    0x002d // toggle
+#define MODELPART_FALCON2_002E        0x002e // toggle
+#define MODELPART_FALCON2_002F        0x002f // toggle
+#define MODELPART_FALCON2_0032        0x0032 // position
+#define MODELPART_FALCON2_0033        0x0033 // position
+#define MODELPART_FALCON2_0034        0x0034 // position
+#define MODELPART_FALCON2_0037        0x0037 // position
+#define MODELPART_FALCON2_003C        0x003c // position
+#define MODELPART_FALCON2_0042        0x0042 // toggle
+#define MODELPART_FALCON2_0050        0x0050 // position
+#define MODELPART_FALCON2_0051        0x0051 // position
+#define MODELPART_FALCON2_005A        0x005a // toggle
+#define MODELPART_FARSIGHT_0028       0x0028 // toggle
+#define MODELPART_FARSIGHT_0032       0x0032 // position
+#define MODELPART_FARSIGHT_0037       0x0037 // position
+#define MODELPART_GRENADE_002B        0x002b // position
+#define MODELPART_GRENADE_0037        0x0037 // position
+#define MODELPART_GRENADE_0064        0x0064 // toggle
+#define MODELPART_HAND_0035           0x0035 // toggle
+#define MODELPART_HAND_0036           0x0036 // toggle
+#define MODELPART_HEAD_SUNGLASSES     0x0000 // toggle
+#define MODELPART_HEAD_0001           0x0001 // toggle
+#define MODELPART_HEAD_EYESOPEN       0x0002 // toggle
+#define MODELPART_HEAD_EYESCLOSED     0x0003 // toggle
+#define MODELPART_HEAD_HUDPIECE       0x0004 // toggle
+#define MODELPART_HEAD_0190           0x0190 // dl
+#define MODELPART_HEAD_0191           0x0191 // dl
+#define MODELPART_HOVERBIKE_0064      0x0064 // type19
+#define MODELPART_HUDPIECE_0000       0x0000 // gundl
+#define MODELPART_HUDPIECE_0001       0x0001 // position
+#define MODELPART_HUDPIECE_0002       0x0002 // position
+#define MODELPART_JOYPAD_0000         0x0000 // position
+#define MODELPART_JOYPAD_0001         0x0001 // position
+#define MODELPART_JOYPAD_0002         0x0002 // position
+#define MODELPART_JOYPAD_0003         0x0003 // position
+#define MODELPART_JOYPAD_0004         0x0004 // position
+#define MODELPART_JOYPAD_0005         0x0005 // position
+#define MODELPART_JOYPAD_0006         0x0006 // position
+#define MODELPART_JOYPAD_0007         0x0007 // position
+#define MODELPART_JOYPAD_0008         0x0008 // position
+#define MODELPART_JOYPAD_0009         0x0009 // position
+#define MODELPART_JOYPAD_000A         0x000a // position
+#define MODELPART_JOYPAD_000B         0x000b // position
+#define MODELPART_JOYPAD_000C         0x000c // position
+#define MODELPART_JOYPAD_000D         0x000d // toggle
+#define MODELPART_K7AVENGER_0029      0x0029 // toggle
+#define MODELPART_K7AVENGER_002A      0x002a // toggle
+#define MODELPART_K7AVENGER_0032      0x0032 // position
+#define MODELPART_K7AVENGER_0037      0x0037 // position
+#define MODELPART_K7AVENGER_003C      0x003c // position
+#define MODELPART_K7AVENGER_0042      0x0042 // toggle
+#define MODELPART_K7AVENGER_0050      0x0050 // position
+#define MODELPART_K7AVENGER_0051      0x0051 // position
+#define MODELPART_K7AVENGER_005A      0x005a // toggle
+#define MODELPART_KNIFE_0037          0x0037 // position
+#define MODELPART_KNIFE_0064          0x0064 // toggle
+#define MODELPART_LAPTOPGUN_0029      0x0029 // toggle
+#define MODELPART_LAPTOPGUN_002A      0x002a // toggle
+#define MODELPART_LAPTOPGUN_0032      0x0032 // position
+#define MODELPART_LAPTOPGUN_0037      0x0037 // position
+#define MODELPART_LAPTOPGUN_0050      0x0050 // position
+#define MODELPART_LAPTOPGUN_0051      0x0051 // position
+#define MODELPART_LAPTOPGUN_005A      0x005a // toggle
+#define MODELPART_LASER_0032          0x0032 // position
+#define MODELPART_LASER_0037          0x0037 // position
+#define MODELPART_LASER_0041          0x0041 // gundl
+#define MODELPART_LASER_0042          0x0042 // toggle
+#define MODELPART_LIFT_0000           0x0000 // bbox
+#define MODELPART_LIFT_0001           0x0001 // type19
+#define MODELPART_LIFT_0002           0x0002 // type19
+#define MODELPART_LIFT_0003           0x0003 // type19
+#define MODELPART_LIFT_0004           0x0004 // type19
+#define MODELPART_LIFT_0005           0x0005 // type19
+#define MODELPART_LIFT_0006           0x0006 // type19
+#define MODELPART_LOGO_0000           0x0000 // toggle
+#define MODELPART_LOGO_0001           0x0001 // toggle
+#define MODELPART_LOGO_0002           0x0002 // dl
+#define MODELPART_LOGO_0003           0x0003 // dl
+#define MODELPART_LOGO_0004           0x0004 // dl
+#define MODELPART_LOGO_0005           0x0005 // dl
+#define MODELPART_LOGO_0006           0x0006 // dl
+#define MODELPART_LOGO_0007           0x0007 // dl
+#define MODELPART_LOGO_0008           0x0008 // dl
+#define MODELPART_LOGO_0009           0x0009 // dl
+#define MODELPART_LOGO_0110           0x0110 // toggle
+#define MODELPART_LOGO_0500           0x0500 // toggle
+#define MODELPART_LOGO_4040           0x4040 // dl
+#define MODELPART_MAGNUM_000A         0x000a // position
+#define MODELPART_MAGNUM_000B         0x000b // position
+#define MODELPART_MAGNUM_000C         0x000c // position
+#define MODELPART_MAGNUM_000D         0x000d // position
+#define MODELPART_MAGNUM_000E         0x000e // position
+#define MODELPART_MAGNUM_000F         0x000f // position
+#define MODELPART_MAGNUM_0028         0x0028 // toggle
+#define MODELPART_MAGNUM_0029         0x0029 // toggle
+#define MODELPART_MAGNUM_002A         0x002a // toggle
+#define MODELPART_MAGNUM_002B         0x002b // toggle
+#define MODELPART_MAGNUM_002C         0x002c // toggle
+#define MODELPART_MAGNUM_002D         0x002d // toggle
+#define MODELPART_MAGNUM_0032         0x0032 // position
+#define MODELPART_MAGNUM_0037         0x0037 // position
+#define MODELPART_MAGNUM_0042         0x0042 // toggle
+#define MODELPART_MAGNUM_0050         0x0050 // position
+#define MODELPART_MAGNUM_0051         0x0051 // position
+#define MODELPART_MAGNUM_005A         0x005a // toggle
+#define MODELPART_MAIANUFO_0064       0x0064 // type19
+#define MODELPART_MAULER_002A         0x002a // toggle
+#define MODELPART_MAULER_002B         0x002b // toggle
+#define MODELPART_MAULER_0032         0x0032 // position
+#define MODELPART_MAULER_0033         0x0033 // position
+#define MODELPART_MAULER_0037         0x0037 // position
+#define MODELPART_MAULER_0050         0x0050 // position
+#define MODELPART_MAULER_005A         0x005a // toggle
+#define MODELPART_PHOENIX_0028        0x0028 // toggle
+#define MODELPART_PHOENIX_0032        0x0032 // position
+#define MODELPART_PHOENIX_0037        0x0037 // position
+#define MODELPART_PHOENIX_0042        0x0042 // toggle
+#define MODELPART_PISTOL_0029         0x0029 // toggle
+#define MODELPART_PISTOL_002A         0x002a // toggle
+#define MODELPART_PISTOL_0032         0x0032 // position
+#define MODELPART_PISTOL_0033         0x0033 // position
+#define MODELPART_PISTOL_0037         0x0037 // position
+#define MODELPART_PISTOL_003C         0x003c // position
+#define MODELPART_PISTOL_0042         0x0042 // toggle
+#define MODELPART_PISTOL_0050         0x0050 // position
+#define MODELPART_PISTOL_005A         0x005a // toggle
+#define MODELPART_RARELOGO_000B       0x000b // toggle
+#define MODELPART_RARELOGO_000C       0x000c // toggle
+#define MODELPART_RARELOGO_000D       0x000d // toggle
+#define MODELPART_RCP120_0028         0x0028 // toggle
+#define MODELPART_RCP120_0029         0x0029 // toggle
+#define MODELPART_RCP120_0032         0x0032 // position
+#define MODELPART_RCP120_0037         0x0037 // position
+#define MODELPART_RCP120_003C         0x003c // position
+#define MODELPART_RCP120_0042         0x0042 // toggle
+#define MODELPART_RCP120_0050         0x0050 // position
+#define MODELPART_RCP120_0051         0x0051 // position
+#define MODELPART_RCP120_005A         0x005a // toggle
+#define MODELPART_REAPER_001E         0x001e // position
+#define MODELPART_REAPER_001F         0x001f // position
+#define MODELPART_REAPER_0020         0x0020 // position
+#define MODELPART_REAPER_002A         0x002a // toggle
+#define MODELPART_REAPER_002B         0x002b // toggle
+#define MODELPART_REAPER_002C         0x002c // position
+#define MODELPART_REAPER_002D         0x002d // position
+#define MODELPART_REAPER_002E         0x002e // position
+#define MODELPART_REAPER_002F         0x002f // position
+#define MODELPART_REAPER_0030         0x0030 // position
+#define MODELPART_REAPER_0031         0x0031 // position
+#define MODELPART_REAPER_0037         0x0037 // position
+#define MODELPART_REAPER_0042         0x0042 // toggle
+#define MODELPART_REAPER_0050         0x0050 // position
+#define MODELPART_REAPER_0051         0x0051 // position
+#define MODELPART_REAPER_0052         0x0052 // position
+#define MODELPART_REAPER_005A         0x005a // toggle
+#define MODELPART_REAPER_005B         0x005b // toggle
+#define MODELPART_REAPER_005C         0x005c // toggle
+#define MODELPART_REMOTEMINE_0028     0x0028 // toggle
+#define MODELPART_REMOTEMINE_0029     0x0029 // toggle
+#define MODELPART_REMOTEMINE_002A     0x002a // position
+#define MODELPART_REMOTEMINE_0037     0x0037 // position
+#define MODELPART_ROBOT_0000          0x0000 // position
+#define MODELPART_ROBOT_0001          0x0001 // position
+#define MODELPART_ROBOT_RGUNFIRE      0x0002 // gunfire
+#define MODELPART_ROBOT_LGUNFIRE      0x0003 // gunfire
+#define MODELPART_ROBOT_0004          0x0004 // toggle
+#define MODELPART_ROCKET_0028         0x0028 // toggle
+#define MODELPART_ROCKET_0032         0x0032 // position
+#define MODELPART_ROCKET_0037         0x0037 // position
+#define MODELPART_ROCKET_0042         0x0042 // toggle
+#define MODELPART_SHOTGUN_002B        0x002b // toggle
+#define MODELPART_SHOTGUN_0032        0x0032 // position
+#define MODELPART_SHOTGUN_0037        0x0037 // position
+#define MODELPART_SHOTGUN_003C        0x003c // position
+#define MODELPART_SHOTGUN_0042        0x0042 // toggle
+#define MODELPART_SHOTGUN_0050        0x0050 // position
+#define MODELPART_SHOTGUN_005A        0x005a // toggle
+#define MODELPART_SKSHUTTLE_GANGWAY   0x00b7 // toggle
+#define MODELPART_SKEDAR_0000         0x0000 // position
+#define MODELPART_SKEDAR_0001         0x0001 // position
+#define MODELPART_SKEDAR_0002         0x0002 // position
+#define MODELPART_SKEDAR_0003         0x0003 // position
+#define MODELPART_SKEDAR_EYESOPEN     0x0004 // toggle
+#define MODELPART_SKEDAR_EYESCLOSED   0x0005 // toggle
+#define MODELPART_SLAYERROCKET_0032   0x0032 // position
+#define MODELPART_SLAYERROCKET_0037   0x0037 // position
+#define MODELPART_SLAYERROCKET_0042   0x0042 // toggle
+#define MODELPART_SNIPERRIFLE_0028    0x0028 // toggle
+#define MODELPART_SNIPERRIFLE_0029    0x0029 // toggle
+#define MODELPART_SNIPERRIFLE_002A    0x002a // position
+#define MODELPART_SNIPERRIFLE_002B    0x002b // position
+#define MODELPART_SNIPERRIFLE_002C    0x002c // position
+#define MODELPART_SNIPERRIFLE_002D    0x002d // position
+#define MODELPART_SNIPERRIFLE_0032    0x0032 // position
+#define MODELPART_SNIPERRIFLE_0037    0x0037 // position
+#define MODELPART_SNIPERRIFLE_003C    0x003c // position
+#define MODELPART_SNIPERRIFLE_0042    0x0042 // toggle
+#define MODELPART_SUPERDRAGON_0028    0x0028 // toggle
+#define MODELPART_SUPERDRAGON_0029    0x0029 // toggle
+#define MODELPART_SUPERDRAGON_002A    0x002a // toggle
+#define MODELPART_SUPERDRAGON_002B    0x002b // toggle
+#define MODELPART_SUPERDRAGON_0032    0x0032 // position
+#define MODELPART_SUPERDRAGON_0037    0x0037 // position
+#define MODELPART_SUPERDRAGON_003C    0x003c // position
+#define MODELPART_SUPERDRAGON_0042    0x0042 // toggle
+#define MODELPART_SUPERDRAGON_0050    0x0050 // position
+#define MODELPART_SUPERDRAGON_0051    0x0051 // position
+#define MODELPART_SUPERDRAGON_0052    0x0052 // position
+#define MODELPART_SUPERDRAGON_005A    0x005a // toggle
+#define MODELPART_TERMINAL_0000       0x0000 // dl
+#define MODELPART_TIMEDPROXYMINE_0037 0x0037 // position
+#define MODELPART_TRANQUILIZER_0028   0x0028 // toggle
+#define MODELPART_TRANQUILIZER_0029   0x0029 // toggle
+#define MODELPART_TRANQUILIZER_002A   0x002a // toggle
+#define MODELPART_TRANQUILIZER_002B   0x002b // position
+#define MODELPART_TRANQUILIZER_0032   0x0032 // position
+#define MODELPART_TRANQUILIZER_0037   0x0037 // position
+#define MODELPART_TRANQUILIZER_0042   0x0042 // toggle
+#define MODELPART_UPLINK_0037         0x0037 // position
+#define MODELPART_UZI_0032            0x0032 // position
+#define MODELPART_UZI_003C            0x003c // positionheld
+#define MODELPART_UZI_0050            0x0050 // position
+#define MODELPART_UZI_0051            0x0051 // position
+#define MODELPART_UZI_005A            0x005a // toggle
+#define MODELPART_WINDOWEDDOOR_0000   0x0000 // bbox
+#define MODELPART_WINDOWEDDOOR_0001   0x0001 // toggle
+#define MODELPART_WINDOWEDDOOR_0002   0x0002 // bbox
+#define MODELPART_WINDOWEDDOOR_0003   0x0003 // dl
 
-#define MODELPART_DRCAROLL_01 0x01
-#define MODELPART_DRCAROLL_02 0x02
-#define MODELPART_DRCAROLL_03 0x03
-#define MODELPART_DRCAROLL_04 0x04
-#define MODELPART_DRCAROLL_05 0x05
-#define MODELPART_DRCAROLL_07 0x07
-#define MODELPART_DRCAROLL_08 0x08
-#define MODELPART_DRCAROLL_09 0x09
-#define MODELPART_DRCAROLL_0A 0x0a
-#define MODELPART_DRCAROLL_0B 0x0b
-
-#define MODELPART_ELVIS_03 0x03
+// Unsure which model types these are for
+#define MODELPART_0000 0x0000
+#define MODELPART_0001 0x0001
+#define MODELPART_0002 0x0002
+#define MODELPART_0003 0x0003
+#define MODELPART_0035 0x0035
+#define MODELPART_0036 0x0036
+#define MODELPART_0042 0x0042
 
 #define MODELTYPE_BASIC          0x02
 #define MODELTYPE_CHRGUN         0x03
@@ -1883,7 +2217,7 @@
 #define MODELTYPE_CABLECAR       0x3c
 #define MODELTYPE_SUBMARINE      0x43
 #define MODELTYPE_MAIANUFO       0x44
-#define MODELTYPE_SKEDARSHUTTLE  0x45
+#define MODELTYPE_SKSHUTTLE      0x45
 #define MODELTYPE_CMP150         0x46
 #define MODELTYPE_DRAGON         0x47
 #define MODELTYPE_SUPERDRAGON    0x48

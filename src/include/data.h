@@ -351,7 +351,7 @@ extern u8 unregistered_function2[];
 extern u8 unregistered_function3[];
 extern struct ailist g_GlobalAilists[];
 extern struct modeltype g_ModelTypeDropship;
-extern struct modeltype g_ModelTypeSkedarShuttle;
+extern struct modeltype g_ModelTypeSkShuttle;
 extern struct modeltype g_ModelTypeLift;
 extern struct modeltype g_ModelTypeCctv;
 extern struct modeltype g_ModelTypeTerminal;

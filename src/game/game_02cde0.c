@@ -528,7 +528,7 @@ glabel var7f1a8a84
 //
 //	if (!g_HeadsAndBodies[bodynum].unk00_01) {
 //		if (bodyfiledata->type == &g_ModelTypeChr) {
-//			node = modelGetPart(bodyfiledata, MODELPART_CHR_04);
+//			node = modelGetPart(bodyfiledata, MODELPART_CHR_HEADSPOT);
 //
 //			if (node != NULL) {
 //				if (headnum < 0) {

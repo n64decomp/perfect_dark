@@ -4780,30 +4780,31 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union
 	case MENUOP_TICK:
 		if (bodynum == BODY_DRCAROLL) {
 			static struct modelpartvisibility vis[] = {
-				{ MODELPART_DRCAROLL_01, false },
-				{ MODELPART_DRCAROLL_02, false },
-				{ MODELPART_DRCAROLL_03, false },
-				{ MODELPART_DRCAROLL_04, false },
-				{ MODELPART_DRCAROLL_05, false },
-				{ MODELPART_DRCAROLL_07, false },
-				{ MODELPART_DRCAROLL_08, false },
-				{ MODELPART_DRCAROLL_09, false },
-				{ MODELPART_DRCAROLL_0A, false },
-				{ MODELPART_DRCAROLL_0B, false },
+				{ MODELPART_DRCAROLL_0001, false },
+				{ MODELPART_DRCAROLL_0002, false },
+				{ MODELPART_DRCAROLL_0003, false },
+				{ MODELPART_DRCAROLL_0004, false },
+				{ MODELPART_DRCAROLL_0005, false },
+				{ MODELPART_DRCAROLL_0007, false },
+				{ MODELPART_DRCAROLL_0008, false },
+				{ MODELPART_DRCAROLL_0009, false },
+				{ MODELPART_DRCAROLL_000A, false },
+				{ MODELPART_DRCAROLL_000B, false },
 				{ 255 },
 			};
+
 			g_Menus[g_MpPlayerNum].partvisibility = vis;
 			g_Menus[g_MpPlayerNum].unk89c = 318;
-
 		} else {
 			g_Menus[g_MpPlayerNum].unk89c = 106;
 		}
 
 		if (bodynum == BODY_THEKING) {
 			static struct modelpartvisibility vis[] = {
-				{ MODELPART_ELVIS_03, false },
+				{ MODELPART_CHR_0003, false },
 				{ 255 },
 			};
+
 			g_Menus[g_MpPlayerNum].partvisibility = vis;
 		}
 

@@ -14194,7 +14194,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 		model = obj->model;
 
 		if ((chr->prop->flags & PROPFLAG_02) && (weaponprop->flags & PROPFLAG_02)) {
-			if ((part0 = modelGetPart(model->filedata, MODELPART_00))) {
+			if ((part0 = modelGetPart(model->filedata, MODELPART_0000))) {
 				spac = func0001a5cc(model, part0, 0);
 				rodata = &part0->rodata->gunfire;
 
@@ -14205,7 +14205,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 				func00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
 				func00015b64(&sp6c, arg2);
 				result = true;
-			} else if ((part1 = modelGetPart(model->filedata, MODELPART_01))) {
+			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
 				sp64 = func0001a5cc(model, part1, 0);
 
 				func00015be4(currentPlayerGetUnk174c(), sp64, &sp24);
@@ -20819,9 +20819,9 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 	s32 partnum;
 
 	if (right) {
-		partnum = MODELPART_ROBOTMUZZLEFLASHR;
+		partnum = MODELPART_ROBOT_RGUNFIRE;
 	} else {
-		partnum = MODELPART_ROBOTMUZZLEFLASHL;
+		partnum = MODELPART_ROBOT_LGUNFIRE;
 	}
 
 	node = modelGetPart(chr->model->filedata, partnum);

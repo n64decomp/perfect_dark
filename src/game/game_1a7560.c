@@ -90,7 +90,7 @@ struct modeltype *g_ModelTypes[] = {
 	&g_ModelTypeCallisto,
 	&g_ModelTypeHand,
 	&g_ModelTypeRcp120,
-	&g_ModelTypeSkedarShuttle,
+	&g_ModelTypeSkShuttle,
 	&g_ModelTypeLaser,
 	&g_ModelTypeMaianUfo,
 	&g_ModelTypeGrenade,

@@ -3323,7 +3323,7 @@ u8 func100f_check_necklace_collected[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	chr_toggle_modelpart(CHR_CASS, MODELPART_NECKLACE)
+	chr_toggle_modelpart(CHR_CASS, MODELPART_CHR_NECKLACE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

@@ -299,31 +299,31 @@ struct weapon invitem_unarmed = {
 };
 
 struct modelpartvisibility invpartvisibility_falcon2[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP3,    false },
-	{ MODELPART_NEWCLIP4,    false },
-	{ MODELPART_SCOPE,       false },
-	{ MODELPART_SILENCER,    false },
-	{ MODELPART_2E,          false },
-	{ MODELPART_2F,          false },
+	{ MODELPART_FALCON2_005A,     false },
+	{ MODELPART_FALCON2_002A,     false },
+	{ MODELPART_FALCON2_002B,     false },
+	{ MODELPART_FALCON2_SCOPE,    false },
+	{ MODELPART_FALCON2_SILENCER, false },
+	{ MODELPART_FALCON2_002E,     false },
+	{ MODELPART_FALCON2_002F,     false },
 	{ 255 },
 };
 
 struct modelpartvisibility invpartvisibility_falcon2scope[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP3,    false },
-	{ MODELPART_NEWCLIP4,    false },
-	{ MODELPART_SILENCER,    false },
-	{ MODELPART_2F,          false },
+	{ MODELPART_FALCON2_005A,     false },
+	{ MODELPART_FALCON2_002A,     false },
+	{ MODELPART_FALCON2_002B,     false },
+	{ MODELPART_FALCON2_SILENCER, false },
+	{ MODELPART_FALCON2_002F,     false },
 	{ 255 },
 };
 
 struct modelpartvisibility invpartvisibility_falcon2silencer[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP3,    false },
-	{ MODELPART_NEWCLIP4,    false },
-	{ MODELPART_SCOPE,       false },
-	{ MODELPART_2E,          false },
+	{ MODELPART_FALCON2_005A,  false },
+	{ MODELPART_FALCON2_002A,  false },
+	{ MODELPART_FALCON2_002B,  false },
+	{ MODELPART_FALCON2_SCOPE, false },
+	{ MODELPART_FALCON2_002E,  false },
 	{ 255 },
 };
 
@@ -593,9 +593,9 @@ struct weapon invitem_falcon2silencer = {
 };
 
 struct modelpartvisibility invpartvisibility_magsec[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP2,    false },
-	{ MODELPART_NEWCLIP3,    false },
+	{ MODELPART_PISTOL_005A, false },
+	{ MODELPART_PISTOL_0029, false },
+	{ MODELPART_PISTOL_002A, false },
 	{ 255 },
 };
 
@@ -740,13 +740,13 @@ struct weapon invitem_magsec = {
 };
 
 struct modelpartvisibility invpartvisibility_dy357[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP,     false },
-	{ MODELPART_NEWCLIP2,    false },
-	{ MODELPART_NEWCLIP3,    false },
-	{ MODELPART_NEWCLIP4,    false },
-	{ MODELPART_SCOPE,       false }, // reused model part number
-	{ MODELPART_SILENCER,    false }, // reused model part number
+	{ MODELPART_MAGNUM_005A, false },
+	{ MODELPART_MAGNUM_0028, false },
+	{ MODELPART_MAGNUM_0029, false },
+	{ MODELPART_MAGNUM_002A, false },
+	{ MODELPART_MAGNUM_002B, false },
+	{ MODELPART_MAGNUM_002C, false },
+	{ MODELPART_MAGNUM_002D, false },
 	{ 255 },
 };
 
@@ -956,7 +956,7 @@ struct weapon invitem_dy357lx = {
 };
 
 struct modelpartvisibility invpartvisibility_phoenix[] = {
-	{ MODELPART_NEWCLIP, false },
+	{ MODELPART_PHOENIX_0028, false },
 	{ 255 },
 };
 
@@ -1076,8 +1076,8 @@ struct weapon invitem_phoenix = {
 };
 
 struct modelpartvisibility invpartvisibility_mauler[] = {
-	{ MODELPART_NEWCLIP4,    false },
-	{ MODELPART_MUZZLEFLASH, false },
+	{ MODELPART_MAULER_002B, false },
+	{ MODELPART_MAULER_005A, false },
 	{ 255 },
 };
 
@@ -1216,8 +1216,8 @@ struct weapon invitem_mauler = {
 };
 
 struct modelpartvisibility invpartvisibility_cmp150[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP4,    false },
+	{ MODELPART_CMP150_005A, false },
+	{ MODELPART_CMP150_002B, false },
 	{ 255 },
 };
 
@@ -1372,8 +1372,8 @@ struct weapon invitem_cmp150 = {
 };
 
 struct modelpartvisibility invpartvisibility_cyclone[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP,     false },
+	{ MODELPART_CYCLONE_005A, false },
+	{ MODELPART_CYCLONE_0028, false },
 	{ 255 },
 };
 
@@ -1518,8 +1518,8 @@ struct guncmd invanim_rcp120_equiporshoot[] = {
 };
 
 struct modelpartvisibility invpartvisibility_rcp120[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP2,    false },
+	{ MODELPART_RCP120_005A, false },
+	{ MODELPART_RCP120_0029, false },
 	{ 255 },
 };
 
@@ -1618,7 +1618,7 @@ struct guncmd invanim_callisto_shoot[] = {
 };
 
 struct modelpartvisibility invpartvisibility_callisto[] = {
-	{ MODELPART_NEWCLIP, false },
+	{ MODELPART_CALLISTO_0028, false },
 	{ 255 },
 };
 
@@ -1720,8 +1720,8 @@ struct inventory_typef invf_000128b8[] = {
 };
 
 struct modelpartvisibility invpartvisibility_dragon[] = {
-	{ MODELPART_NEWCLIP,     false },
-	{ MODELPART_MUZZLEFLASH, false },
+	{ MODELPART_DRAGON_0028,     false },
+	{ MODELPART_DRAGON_005A, false },
 	{ 255 },
 };
 
@@ -1823,9 +1823,9 @@ struct inventory_typef invf_00012a08[] = {
 };
 
 struct modelpartvisibility invpartvisibility_superdragon[] = {
-	{ MODELPART_NEWCLIP,     false },
-	{ MODELPART_NEWCLIP2,    false },
-	{ MODELPART_MUZZLEFLASH, false },
+	{ MODELPART_SUPERDRAGON_0028, false },
+	{ MODELPART_SUPERDRAGON_0029, false },
+	{ MODELPART_SUPERDRAGON_005A, false },
 	{ 255 },
 };
 
@@ -1980,8 +1980,8 @@ struct inventory_typef invf_00012c40[] = {
 };
 
 struct modelpartvisibility invpartvisibility_ar34[] = {
-	{ MODELPART_NEWCLIP3,    false },
-	{ MODELPART_MUZZLEFLASH, false },
+	{ MODELPART_AR34_002A, false },
+	{ MODELPART_AR34_005A, false },
 	{ 255 },
 };
 
@@ -2105,8 +2105,8 @@ struct inventory_typef invf_00012df0[] = {
 };
 
 struct modelpartvisibility invpartvisibility_k7avenger[] = {
-	{ MODELPART_NEWCLIP3,    false },
-	{ MODELPART_MUZZLEFLASH, false },
+	{ MODELPART_K7AVENGER_002A, false },
+	{ MODELPART_K7AVENGER_005A, false },
 	{ 255 },
 };
 
@@ -2245,9 +2245,9 @@ struct inventory_typef invf_00012fc8[] = {
 };
 
 struct modelpartvisibility invpartvisibility_laptopgun[] = {
-	{ MODELPART_MUZZLEFLASH, false },
-	{ MODELPART_NEWCLIP2,    false },
-	{ MODELPART_NEWCLIP3,    false },
+	{ MODELPART_LAPTOPGUN_005A, false },
+	{ MODELPART_LAPTOPGUN_0029, false },
+	{ MODELPART_LAPTOPGUN_002A, false },
 	{ 255 },
 };
 
@@ -2377,8 +2377,8 @@ struct inventory_typef invf_000131dc[] = {
 };
 
 struct modelpartvisibility invpartvisibility_shotgun[] = {
-	{ MODELPART_NEWCLIP4,    false },
-	{ MODELPART_MUZZLEFLASH, false },
+	{ MODELPART_SHOTGUN_002B, false },
+	{ MODELPART_SHOTGUN_005A, false },
 	{ 255 },
 };
 
@@ -2488,10 +2488,10 @@ f32 var8006d33c[] = {0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
 f32 var8006d36c[] = {1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
 
 struct modelpartvisibility invpartvisibility_reaper[] = {
-	{ MODELPART_MUZZLEFLASH,  false },
-	{ MODELPART_MUZZLEFLASH2, false },
-	{ MODELPART_MUZZLEFLASH3, false },
-	{ MODELPART_NEWCLIP4,     false },
+	{ MODELPART_REAPER_005A, false },
+	{ MODELPART_REAPER_005B, false },
+	{ MODELPART_REAPER_005C, false },
+	{ MODELPART_REAPER_002B, false },
 	{ 255 },
 };
 
@@ -2613,7 +2613,7 @@ struct weapon invitem_reaper = {
 };
 
 struct modelpartvisibility invpartvisibility_rocketlauncher[] = {
-	{ MODELPART_NEWCLIP, false },
+	{ MODELPART_ROCKET_0028, false },
 	{ 255 },
 };
 
@@ -2955,7 +2955,7 @@ struct inventory_ammo invammo_devastator = {
 };
 
 struct modelpartvisibility invpartvisibility_devastator[] = {
-	{ MODELPART_NEWCLIP2, false },
+	{ MODELPART_DEVASTATOR_0029, false },
 	{ 255 },
 };
 
@@ -3119,7 +3119,7 @@ struct inventory_ammo invammo_remotemine = {
 };
 
 struct modelpartvisibility invpartvisibility_remotemine[] = {
-	{ MODELPART_NEWCLIP2, false },
+	{ MODELPART_REMOTEMINE_0029, false },
 	{ 255 },
 };
 
@@ -3509,7 +3509,7 @@ struct inventory_ammo invammo_farsight = {
 };
 
 struct modelpartvisibility invpartvisibility_farsight[] = {
-	{ MODELPART_NEWCLIP, false },
+	{ MODELPART_FARSIGHT_0028, false },
 	{ 255 },
 };
 
@@ -3651,9 +3651,9 @@ struct inventory_ammo invammo_crossbow = {
 };
 
 struct modelpartvisibility invpartvisibility_crossbow[] = {
-	{ MODELPART_NEWCLIP,  false },
-	{ MODELPART_NEWCLIP2, false },
-	{ MODELPART_NEWCLIP3, false },
+	{ MODELPART_CROSSBOW_0028,  false },
+	{ MODELPART_CROSSBOW_0029, false },
+	{ MODELPART_CROSSBOW_002A, false },
 	{ 255 },
 };
 
@@ -3776,9 +3776,9 @@ struct inventory_ammo invammo_tranquilizer = {
 };
 
 struct modelpartvisibility invpartvisibility_tranquilizer[] = {
-	{ MODELPART_NEWCLIP,  false },
-	{ MODELPART_NEWCLIP2, false },
-	{ MODELPART_NEWCLIP3, false },
+	{ MODELPART_TRANQUILIZER_0028,  false },
+	{ MODELPART_TRANQUILIZER_0029, false },
+	{ MODELPART_TRANQUILIZER_002A, false },
 	{ 255 },
 };
 
@@ -3941,7 +3941,7 @@ struct inventory_ammo invammo_sniperrifle = {
 };
 
 struct modelpartvisibility invpartvisibility_sniperrifle[] = {
-	{ MODELPART_NEWCLIP2, false },
+	{ MODELPART_SNIPERRIFLE_0029, false },
 	{ 255 },
 };
 
@@ -4055,7 +4055,7 @@ struct weapon invitem_laser = {
 };
 
 struct modelpartvisibility invpartvisibility_classic[] = {
-	{ MODELPART_MUZZLEFLASH, false },
+	{ MODELPART_CLASSICGUN_005A, false },
 	{ 255 },
 };
 

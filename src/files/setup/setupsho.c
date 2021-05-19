@@ -2690,7 +2690,7 @@ u8 func0c00_intro[] = {
 	set_object_flag2(0x36, OBJFLAG2_04000000)
 	set_object_flag3(0x36, OBJFLAG3_00000010)
 	object_do_animation(0x02fa, 0x36, 0x01, 0xffff)
-	object_set_modelpart_visible(0x36, MODELPART_SKGANGWAY, FALSE)
+	object_set_modelpart_visible(0x36, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 
 	beginloop(0x0e)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2759,7 +2759,7 @@ u8 func0c00_intro[] = {
 	set_object_flag2(0x36, OBJFLAG2_04000000)
 	set_object_flag3(0x36, OBJFLAG3_00000010)
 	object_do_animation(0x0302, 0x36, 0x04, 0xffff)
-	object_set_modelpart_visible(0x36, MODELPART_SKGANGWAY, FALSE)
+	object_set_modelpart_visible(0x36, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)

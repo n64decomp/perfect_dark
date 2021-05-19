@@ -425,7 +425,7 @@ void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 {
 	struct modelnode *node;
 
-	if (partnum == 0x35 || partnum == 0x36) {
+	if (partnum == MODELPART_0035 || partnum == MODELPART_0036) {
 		if (g_Vars.currentplayer->gunctrl.unk1594) {
 			node = modelGetPart(g_Vars.currentplayer->gunctrl.unk1594, partnum);
 
@@ -489,7 +489,7 @@ void func0f098030(struct hand *hand, struct modelfiledata *arg1)
 	s32 j;
 
 	func0f097f28(hand, arg1, weapon->fptr);
-	func0f097e74(MODELPART_42, 0, hand, arg1);
+	func0f097e74(MODELPART_0042, 0, hand, arg1);
 
 	for (i = 0; i < 2; i++) {
 		if (weapon->ammos[i] && (weapon->ammos[i]->flags & WEAPONFLAG_ONEHANDED)) {

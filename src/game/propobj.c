@@ -33095,7 +33095,7 @@ void doorUpdatePortalIfWindowed(struct prop *doorprop, s32 playercount)
 		}
 
 		if (model->filedata->type == &g_ModelTypeWindowedDoor) {
-			node = modelGetPart(model->filedata, MODELPART_01);
+			node = modelGetPart(model->filedata, MODELPART_WINDOWEDDOOR_0001);
 			rwdata = modelGetNodeRwData(model, node);
 
 			if (!rwdata->toggle.visible) {
@@ -47054,12 +47054,16 @@ void hoverbikeTick(struct prop *prop, bool arg1)
 	}
 }
 
-void func0f07e058(struct prop *prop)
+/**
+ * Show or hide the CI dropship's interior features depending on whether the
+ * dropship object's deactivated flag is set.
+ */
+void dropshipUpdateInterior(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
 
-	struct modelnode *node = modelGetPart(model->filedata, MODELPART_6E);
+	struct modelnode *node = modelGetPart(model->filedata, MODELPART_DROPSHIP_INTERIOR);
 
 	if (node) {
 		union modelrwdata *data = modelGetNodeRwData(model, node);
@@ -47789,7 +47793,7 @@ s32 objTick(struct prop *prop)
 		if (obj->type == OBJTYPE_FAN) {
 			func0f078be0(prop);
 		} else if (obj->model->filedata->type == &g_ModelTypeDropship) {
-			func0f07e058(prop);
+			dropshipUpdateInterior(prop);
 		}
 
 		if (sp556 == false) {
@@ -69595,14 +69599,14 @@ bool weaponIsGunfireVisible(struct prop *prop)
 	struct modelnode *node;
 
 	if (model && model->filedata->type == &g_ModelTypeChrGun) {
-		node = modelGetPart(model->filedata, MODELPART_CHRGUN_00);
+		node = modelGetPart(model->filedata, MODELPART_CHRGUN_GUNFIRE);
 
 		if (node) {
 			struct modelrwdata_gunfire *rwdata = modelGetNodeRwData(model, node);
 			return rwdata->visible;
 		}
 
-		node = modelGetPart(model->filedata, MODELPART_CHRGUN_02);
+		node = modelGetPart(model->filedata, MODELPART_CHRGUN_0002);
 
 		if (node) {
 			struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);

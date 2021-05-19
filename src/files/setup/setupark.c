@@ -1831,7 +1831,7 @@ u8 func0409_tech_conversation[] = {
 };
 
 u8 func040d_cass_necklace[] = {
-	chr_toggle_modelpart(CHR_CASS, MODELPART_NECKLACE)
+	chr_toggle_modelpart(CHR_CASS, MODELPART_CHR_NECKLACE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2089,7 +2089,7 @@ u8 func040d_cass[] = {
 
 	label(0x2d)
 	set_chr_hiddenflag(CHR_CASS, CHRHFLAG_00100000)
-	chr_toggle_modelpart(CHR_CASS, MODELPART_NECKLACE)
+	chr_toggle_modelpart(CHR_CASS, MODELPART_CHR_NECKLACE)
 	chr_move_to_pad(CHR_CASS, 0x0205, 0x00, /*goto*/ 0x00)
 	dprint 'M','O','V','E',' ','F','A','I','L','\n',0,
 	label(0x00)
@@ -2418,7 +2418,7 @@ u8 func0412_outro[] = {
 	dprint 'c','u','t',' ','s','c','e','n','e',' ','2',0,
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE)
-	chr_toggle_modelpart(CHR_CASS, MODELPART_NECKLACE)
+	chr_toggle_modelpart(CHR_CASS, MODELPART_CHR_NECKLACE)
 	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_OUTRO_GUARD1, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_OUTRO_GUARD2, CHRCFLAG_INVINCIBLE)

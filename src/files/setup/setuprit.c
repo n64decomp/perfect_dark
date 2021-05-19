@@ -3580,7 +3580,7 @@ u8 func1019_midcutscene[] = {
 	set_object_flag2(0x19, OBJFLAG2_04000000)
 	set_object_flag3(0x19, OBJFLAG3_00000010)
 	object_do_animation(0x02e0, 0x19, 0x04, 0xffff)
-	object_set_modelpart_visible(0x19, MODELPART_SKGANGWAY, TRUE)
+	object_set_modelpart_visible(0x19, MODELPART_SKSHUTTLE_GANGWAY, TRUE)
 
 	show_object(0x37)
 	set_object_flag2(0x37, OBJFLAG2_04000000)

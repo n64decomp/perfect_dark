@@ -66,8 +66,8 @@ u16 var8007adf8[] = {
 };
 
 // 20e3c
-struct modeltype g_ModelTypeSkedarShuttle = {
-	MODELTYPE_SKEDARSHUTTLE, 18, var8007adf8,
+struct modeltype g_ModelTypeSkShuttle = {
+	MODELTYPE_SKSHUTTLE, 18, var8007adf8,
 };
 
 // 20e44
