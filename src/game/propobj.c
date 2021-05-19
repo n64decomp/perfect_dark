@@ -5558,7 +5558,7 @@ glabel func0f06a1ec
 
 struct prop *func0f06a52c(struct singlemonitorobj *monitor, struct modelfiledata *filedata)
 {
-	return func0f06a1ec(monitor, filedata, 0, 0);
+	return func0f06a1ec(&monitor->base, filedata, 0, 0);
 }
 
 struct prop *func0f06a550(struct singlemonitorobj *monitor)
@@ -65965,87 +65965,43 @@ glabel func0f089a94
 /*  f089c6c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f089c70
-/*  f089c70:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f089c74:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f089c78:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f089c7c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f089c80:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f089c84:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f089c88:	8caf0020 */ 	lw	$t7,0x20($a1)
-/*  f089c8c:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f089c90:	3c0e8008 */ 	lui	$t6,%hi(g_ModelTypeChr)
-/*  f089c94:	8df80008 */ 	lw	$t8,0x8($t7)
-/*  f089c98:	25cece40 */ 	addiu	$t6,$t6,%lo(g_ModelTypeChr)
-/*  f089c9c:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f089ca0:	8f190004 */ 	lw	$t9,0x4($t8)
-/*  f089ca4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f089ca8:	00e09025 */ 	or	$s2,$a3,$zero
-/*  f089cac:	15d90026 */ 	bne	$t6,$t9,.L0f089d48
-/*  f089cb0:	00e03025 */ 	or	$a2,$a3,$zero
-/*  f089cb4:	0fc1a87b */ 	jal	func0f06a1ec
-/*  f089cb8:	8fa70038 */ 	lw	$a3,0x38($sp)
-/*  f089cbc:	10400022 */ 	beqz	$v0,.L0f089d48
-/*  f089cc0:	00409025 */ 	or	$s2,$v0,$zero
-/*  f089cc4:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f089cc8:	50800020 */ 	beqzl	$a0,.L0f089d4c
-/*  f089ccc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f089cd0:	96080000 */ 	lhu	$t0,0x0($s0)
-/*  f089cd4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f089cd8:	44882000 */ 	mtc1	$t0,$f4
-/*  f089cdc:	05010004 */ 	bgez	$t0,.L0f089cf0
-/*  f089ce0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f089ce4:	44814000 */ 	mtc1	$at,$f8
-/*  f089ce8:	00000000 */ 	nop
-/*  f089cec:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f089cf0:
-/*  f089cf0:	3c013b80 */ 	lui	$at,0x3b80
-/*  f089cf4:	44815000 */ 	mtc1	$at,$f10
-/*  f089cf8:	c4900014 */ 	lwc1	$f16,0x14($a0)
-/*  f089cfc:	460a3002 */ 	mul.s	$f0,$f6,$f10
-/*  f089d00:	00000000 */ 	nop
-/*  f089d04:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f089d08:	44059000 */ 	mfc1	$a1,$f18
-/*  f089d0c:	0c006bd6 */ 	jal	modelSetScale
-/*  f089d10:	00000000 */ 	nop
-/*  f089d14:	8e290020 */ 	lw	$t1,0x20($s1)
-/*  f089d18:	8e0a0018 */ 	lw	$t2,0x18($s0)
-/*  f089d1c:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f089d20:	ad490018 */ 	sw	$t1,0x18($t2)
-/*  f089d24:	8e2b0020 */ 	lw	$t3,0x20($s1)
-/*  f089d28:	0c006a47 */ 	jal	modelGetPart
-/*  f089d2c:	8d640008 */ 	lw	$a0,0x8($t3)
-/*  f089d30:	8e0c0018 */ 	lw	$t4,0x18($s0)
-/*  f089d34:	02402025 */ 	or	$a0,$s2,$zero
-/*  f089d38:	ad82001c */ 	sw	$v0,0x1c($t4)
-/*  f089d3c:	0fc181a6 */ 	jal	propReparent
-/*  f089d40:	8e25001c */ 	lw	$a1,0x1c($s1)
-/*  f089d44:	ae320178 */ 	sw	$s2,0x178($s1)
-.L0f089d48:
-/*  f089d48:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f089d4c:
-/*  f089d4c:	02401025 */ 	or	$v0,$s2,$zero
-/*  f089d50:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f089d54:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f089d58:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f089d5c:	03e00008 */ 	jr	$ra
-/*  f089d60:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, u32 arg4)
+{
+	if (chr->model->filedata->type == &g_ModelTypeChr) {
+		prop = func0f06a1ec(&hat->base, filedata, prop, arg4);
 
-void func0f089d64(struct hatobj *hat, struct chrdata *chr)
+		if (prop && hat->base.model) {
+			f32 scale = hat->base.extrascale * (1.0f / 256.0f);
+
+			modelSetScale(hat->base.model, scale * hat->base.model->scale);
+
+			hat->base.model->attachedto = chr->model;
+			hat->base.model->unk1c = modelGetPart(chr->model->filedata, MODELPART_CHR_0006);
+
+			propReparent(prop, chr->prop);
+
+			chr->weapons_held[2] = prop;
+		}
+	}
+
+	if (hat);
+
+	return prop;
+}
+
+void hatLoadAndApplyToChr(struct hatobj *hat, struct chrdata *chr)
 {
 	u32 stack;
 	s32 modelnum = hat->base.modelnum;
 
 	propLoad(modelnum);
 
-	func0f089c70(hat, chr, g_ModelStates[modelnum].filedata, 0, 0);
+	hatApplyToChr(hat, chr, g_ModelStates[modelnum].filedata, NULL, 0);
 }
 
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
 {
-	func0f089d64(hat, chr);
+	hatLoadAndApplyToChr(hat, chr);
 }
 
 GLOBAL_ASM(
@@ -66139,7 +66095,7 @@ glabel chrTryEquipHat
 /*  f089f20:	84a90000 */ 	lh	$t1,0x0($a1)
 /*  f089f24:	a6490006 */ 	sh	$t1,0x6($s2)
 /*  f089f28:	afb10010 */ 	sw	$s1,0x10($sp)
-/*  f089f2c:	0fc2271c */ 	jal	func0f089c70
+/*  f089f2c:	0fc2271c */ 	jal	hatApplyToChr
 /*  f089f30:	8fa6009c */ 	lw	$a2,0x9c($sp)
 /*  f089f34:	1000000e */ 	b	.L0f089f70
 /*  f089f38:	00408025 */ 	or	$s0,$v0,$zero
