@@ -16782,68 +16782,30 @@ f32 objGetHov04(struct defaultobj *obj)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f0713e4
-.late_rodata
-glabel var7f1aa2c8
-.word 0xc6ea6000
-.text
-/*  f0713e4:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0713e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0713ec:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f0713f0:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0713f4:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
-/*  f0713f8:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
-/*  f0713fc:	8caf0038 */ 	lw	$t7,0x38($a1)
-/*  f071400:	01f8082a */ 	slt	$at,$t7,$t8
-/*  f071404:	50200029 */ 	beqzl	$at,.L0f0714ac
-/*  f071408:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07140c:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f071410:	3c014248 */ 	lui	$at,0x4248
-/*  f071414:	44814000 */ 	mtc1	$at,$f8
-/*  f071418:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f07141c:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f071420:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f071424:	27a5002c */ 	addiu	$a1,$sp,0x2c
-/*  f071428:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*  f07142c:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f071430:	c4d00008 */ 	lwc1	$f16,0x8($a2)
-/*  f071434:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f071438:	0fc195e9 */ 	jal	roomsCopy
-/*  f07143c:	e7b00028 */ 	swc1	$f16,0x28($sp)
-/*  f071440:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f071444:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f071448:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f07144c:	0fc248cf */ 	jal	func0f09233c
-/*  f071450:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f071454:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f071458:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f07145c:	3c0540a0 */ 	lui	$a1,0x40a0
-/*  f071460:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f071464:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f071468:	0c00a8cc */ 	jal	cdFindGroundYSimple
-/*  f07146c:	24e70058 */ 	addiu	$a3,$a3,0x58
-/*  f071470:	3c017f1b */ 	lui	$at,%hi(var7f1aa2c8)
-/*  f071474:	c432a2c8 */ 	lwc1	$f18,%lo(var7f1aa2c8)($at)
-/*  f071478:	46000086 */ 	mov.s	$f2,$f0
-/*  f07147c:	8fa20044 */ 	lw	$v0,0x44($sp)
-/*  f071480:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f071484:	00000000 */ 	nop
-/*  f071488:	45020003 */ 	bc1fl	.L0f071498
-/*  f07148c:	8fa20044 */ 	lw	$v0,0x44($sp)
-/*  f071490:	c4420034 */ 	lwc1	$f2,0x34($v0)
-/*  f071494:	8fa20044 */ 	lw	$v0,0x44($sp)
-.L0f071498:
-/*  f071498:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x8)
-/*  f07149c:	e4420034 */ 	swc1	$f2,0x34($v0)
-/*  f0714a0:	8f399fc8 */ 	lw	$t9,%lo(g_Vars+0x8)($t9)
-/*  f0714a4:	ac59003c */ 	sw	$t9,0x3c($v0)
-/*  f0714a8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0714ac:
-/*  f0714ac:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0714b0:	03e00008 */ 	jr	$ra
-/*  f0714b4:	00000000 */ 	nop
-);
+void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos, s16 *rooms, f32 *matrix)
+{
+	f32 ground;
+	s16 testrooms[8];
+	struct coord testpos;
+
+	if (g_Vars.lvframe60 > hov->groundnext60) {
+		testpos.x = pos->x;
+		testpos.y = pos->y - 50;
+		testpos.z = pos->z;
+
+		roomsCopy(rooms, testrooms);
+		func0f09233c(obj, &testpos, matrix, testrooms);
+
+		ground = cdFindGroundYSimple(pos, 5, testrooms, &obj->floorcol, NULL);
+
+		if (ground < -30000) {
+			ground = hov->ground;
+		}
+
+		hov->ground = ground;
+		hov->groundprev60 = g_Vars.lvframe60;
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -16932,7 +16894,7 @@ glabel var7f1ab5c0pf
 /*  f0717d4:	02002825 */ 	move	$a1,$s0
 /*  f0717d8:	afa801c0 */ 	sw	$t0,0x1c0($sp)
 /*  f0717dc:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f0717e0:	0fc1c59b */ 	jal	func0f0713e4
+/*  f0717e0:	0fc1c59b */ 	jal	hovUpdateGround
 /*  f0717e4:	24470028 */ 	addiu	$a3,$v0,0x28
 /*  f0717e8:	3c03800a */ 	lui	$v1,0x800a
 /*  f0717ec:	8c63a518 */ 	lw	$v1,-0x5ae8($v1)
@@ -17793,7 +17755,7 @@ glabel var7f1aa314
 /*  f07154c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f071550:	afa801c0 */ 	sw	$t0,0x1c0($sp)
 /*  f071554:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f071558:	0fc1c4f9 */ 	jal	func0f0713e4
+/*  f071558:	0fc1c4f9 */ 	jal	hovUpdateGround
 /*  f07155c:	24470028 */ 	addiu	$a3,$v0,0x28
 /*  f071560:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x8)
 /*  f071564:	8c639fc8 */ 	lw	$v1,%lo(g_Vars+0x8)($v1)
@@ -18793,7 +18755,7 @@ glabel var7f1aa31c
 /*  f0723d4:	27a70440 */ 	addiu	$a3,$sp,0x440
 /*  f0723d8:	ad410000 */ 	sw	$at,0x0($t2)
 /*  f0723dc:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0723e0:	0fc1c4f9 */ 	jal	func0f0713e4
+/*  f0723e0:	0fc1c4f9 */ 	jal	hovUpdateGround
 /*  f0723e4:	8fa503fc */ 	lw	$a1,0x3fc($sp)
 /*  f0723e8:	8fae03fc */ 	lw	$t6,0x3fc($sp)
 /*  f0723ec:	c7b20434 */ 	lwc1	$f18,0x434($sp)
@@ -47418,15 +47380,15 @@ s32 objTick(struct prop *prop)
 						}
 
 						if (hov) {
-							func0f0713e4(obj, hov, &prop->pos, prop->rooms, obj->realrot);
+							hovUpdateGround(obj, hov, &prop->pos, prop->rooms, obj->realrot);
 							hoverpropSetTurnAngle(obj, atan2f(sp412.m[2][0], sp412.m[2][2]));
 
 							hov->unk14 = 0;
 							hov->unk1c = 0;
 							hov->unk20 = 0;
 							hov->unk28 = 0;
-							hov->unk30 = hov->unk34;
-							hov->unk04 = prop->pos.y - hov->unk34;
+							hov->unk30 = hov->ground;
+							hov->unk04 = prop->pos.y - hov->ground;
 							hov->unk0c = 0;
 						}
 

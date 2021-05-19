@@ -1622,9 +1622,9 @@ struct hov {
 	/*0x28*/ f32 unk28;
 	/*0x2c*/ f32 unk2c;
 	/*0x30*/ f32 unk30;
-	/*0x34*/ f32 unk34;
-	/*0x38*/ s32 unk38;
-	/*0x3c*/ s32 unk3c;
+	/*0x34*/ f32 ground;
+	/*0x38*/ s32 groundnext60; // time60 of when ground should be updated next
+	/*0x3c*/ s32 groundprev60; // time60 of when ground was last updated
 };
 
 struct defaultobj {

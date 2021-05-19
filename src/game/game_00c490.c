@@ -2391,9 +2391,9 @@ void setupHov(struct defaultobj *obj, struct hov *hov)
 	hov->unk28 = 0;
 	hov->unk2c = 0;
 	hov->unk30 = 0;
-	hov->unk34 = 0;
-	hov->unk38 = -1;
-	hov->unk3c = -1;
+	hov->ground = 0;
+	hov->groundnext60 = -1;
+	hov->groundprev60 = -1;
 }
 
 #if VERSION >= VERSION_PAL_FINAL

@@ -145,7 +145,7 @@ u32 func0f070eac(void);
 void func0f070f08(struct liftobj *lift, bool arg0);
 void liftGoToStop(struct liftobj *lift, s32 stopnum);
 f32 objGetHov04(struct defaultobj *obj);
-void func0f0713e4(struct defaultobj *obj, struct hov *hov, struct coord *coord, s16 *rooms, f32 *matrix);
+void hovUpdateGround(struct defaultobj *obj, struct hov *hov, struct coord *pos, s16 *rooms, f32 *matrix);
 void func0f0714b8(struct defaultobj *obj, struct hov *hov);
 s32 objIsHoverpropOrBike(struct defaultobj *obj);
 f32 hoverpropGetTurnAngle(struct defaultobj *obj);

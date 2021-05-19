@@ -1085,9 +1085,9 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 
 		hov = bike->hov;
 
-		func0f0713e4(&bike->base, &hov, &dstpos, dstrooms, bike->base.realrot);
+		hovUpdateGround(&bike->base, &hov, &dstpos, dstrooms, bike->base.realrot);
 
-		dstpos.y += hov.unk34 - bike->hov.unk34;
+		dstpos.y += hov.ground - bike->hov.ground;
 
 		halfwidth = width * 0.5f;
 		xdiff = dstpos.x - g_Vars.currentplayer->hoverbike->pos.x;
