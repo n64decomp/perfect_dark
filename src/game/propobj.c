@@ -785,54 +785,30 @@ glabel func0f0669ec
 /*  f066a18:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f066a1c
-/*  f066a1c:	44856000 */ 	mtc1	$a1,$f12
-/*  f066a20:	44800000 */ 	mtc1	$zero,$f0
-/*  f066a24:	44867000 */ 	mtc1	$a2,$f14
-/*  f066a28:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f066a2c:	460c003e */ 	c.le.s	$f0,$f12
-/*  f066a30:	00000000 */ 	nop
-/*  f066a34:	45020006 */ 	bc1fl	.L0f066a50
-/*  f066a38:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f066a3c:	c4840004 */ 	lwc1	$f4,0x4($a0)
-/*  f066a40:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f066a44:	10000004 */ 	b	.L0f066a58
-/*  f066a48:	46060080 */ 	add.s	$f2,$f0,$f6
-/*  f066a4c:	c4880008 */ 	lwc1	$f8,0x8($a0)
-.L0f066a50:
-/*  f066a50:	460c4282 */ 	mul.s	$f10,$f8,$f12
-/*  f066a54:	460a0080 */ 	add.s	$f2,$f0,$f10
-.L0f066a58:
-/*  f066a58:	460e003e */ 	c.le.s	$f0,$f14
-/*  f066a5c:	c7a8000c */ 	lwc1	$f8,0xc($sp)
-/*  f066a60:	45020006 */ 	bc1fl	.L0f066a7c
-/*  f066a64:	c4840010 */ 	lwc1	$f4,0x10($a0)
-/*  f066a68:	c490000c */ 	lwc1	$f16,0xc($a0)
-/*  f066a6c:	460e8482 */ 	mul.s	$f18,$f16,$f14
-/*  f066a70:	10000004 */ 	b	.L0f066a84
-/*  f066a74:	46121080 */ 	add.s	$f2,$f2,$f18
-/*  f066a78:	c4840010 */ 	lwc1	$f4,0x10($a0)
-.L0f066a7c:
-/*  f066a7c:	460e2182 */ 	mul.s	$f6,$f4,$f14
-/*  f066a80:	46061080 */ 	add.s	$f2,$f2,$f6
-.L0f066a84:
-/*  f066a84:	4608003e */ 	c.le.s	$f0,$f8
-/*  f066a88:	c7a4000c */ 	lwc1	$f4,0xc($sp)
-/*  f066a8c:	45020007 */ 	bc1fl	.L0f066aac
-/*  f066a90:	c4920018 */ 	lwc1	$f18,0x18($a0)
-/*  f066a94:	c48a0014 */ 	lwc1	$f10,0x14($a0)
-/*  f066a98:	46085402 */ 	mul.s	$f16,$f10,$f8
-/*  f066a9c:	46101080 */ 	add.s	$f2,$f2,$f16
-/*  f066aa0:	03e00008 */ 	jr	$ra
-/*  f066aa4:	46001006 */ 	mov.s	$f0,$f2
-/*  f066aa8:	c4920018 */ 	lwc1	$f18,0x18($a0)
-.L0f066aac:
-/*  f066aac:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f066ab0:	46061080 */ 	add.s	$f2,$f2,$f6
-/*  f066ab4:	03e00008 */ 	jr	$ra
-/*  f066ab8:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f066a1c(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3)
+{
+	f32 sum = 0;
+
+	if (arg1 >= 0) {
+		sum += bbox->xmin * arg1;
+	} else {
+		sum += bbox->xmax * arg1;
+	}
+
+	if (arg2 >= 0) {
+		sum += bbox->ymin * arg2;
+	} else {
+		sum += bbox->ymax * arg2;
+	}
+
+	if (arg3 >= 0) {
+		sum += bbox->zmin * arg3;
+	} else {
+		sum += bbox->zmax * arg3;
+	}
+
+	return sum;
+}
 
 GLOBAL_ASM(
 glabel func0f066abc
