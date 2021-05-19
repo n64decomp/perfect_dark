@@ -66116,56 +66116,32 @@ glabel var7f1aae84
 /*  f0899d8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0899dc
-/*  f0899dc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0899e0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0899e4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0899e8:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0899ec:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f0899f0:	908f0001 */ 	lbu	$t7,0x1($a0)
-/*  f0899f4:	31f80002 */ 	andi	$t8,$t7,0x2
-/*  f0899f8:	53000022 */ 	beqzl	$t8,.L0f089a84
-/*  f0899fc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f089a00:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f089a04:	8c640018 */ 	lw	$a0,0x18($v1)
-/*  f089a08:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f089a0c:	0c006983 */ 	jal	func0001a60c
-/*  f089a10:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f089a14:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*  f089a18:	c4440038 */ 	lwc1	$f4,0x38($v0)
-/*  f089a1c:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f089a20:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f089a24:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*  f089a28:	e5240008 */ 	swc1	$f4,0x8($t1)
-/*  f089a2c:	44800000 */ 	mtc1	$zero,$f0
-/*  f089a30:	c5260008 */ 	lwc1	$f6,0x8($t1)
-/*  f089a34:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f089a38:	00000000 */ 	nop
-/*  f089a3c:	45020011 */ 	bc1fl	.L0f089a84
-/*  f089a40:	00001025 */ 	or	$v0,$zero,$zero
-/*  f089a44:	c4480030 */ 	lwc1	$f8,0x30($v0)
-/*  f089a48:	24c50004 */ 	addiu	$a1,$a2,0x4
-/*  f089a4c:	25470004 */ 	addiu	$a3,$t2,0x4
-/*  f089a50:	e5280000 */ 	swc1	$f8,0x0($t1)
-/*  f089a54:	c44a0034 */ 	lwc1	$f10,0x34($v0)
-/*  f089a58:	e52a0004 */ 	swc1	$f10,0x4($t1)
-/*  f089a5c:	e5400000 */ 	swc1	$f0,0x0($t2)
-/*  f089a60:	e5400004 */ 	swc1	$f0,0x4($t2)
-/*  f089a64:	e4c00000 */ 	swc1	$f0,0x0($a2)
-/*  f089a68:	e4c00004 */ 	swc1	$f0,0x4($a2)
-/*  f089a6c:	8c640018 */ 	lw	$a0,0x18($v1)
-/*  f089a70:	0fc19f62 */ 	jal	func0f067d88
-/*  f089a74:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f089a78:	10000002 */ 	b	.L0f089a84
-/*  f089a7c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f089a80:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089a84:
-/*  f089a84:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f089a88:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f089a8c:	03e00008 */ 	jr	$ra
-/*  f089a90:	00000000 */ 	nop
-);
+bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
+{
+	if (prop->flags & PROPFLAG_02) {
+		struct defaultobj *obj = prop->obj;
+		Mtxf *matrix = func0001a60c(obj->model);
+
+		arg1->z = matrix->m[3][2];
+
+		if (arg1->z < 0) {
+			arg1->x = matrix->m[3][0];
+			arg1->y = matrix->m[3][1];
+
+			arg3[0] = 0;
+			arg3[1] = 0;
+
+			arg2[0] = 0;
+			arg2[1] = 0;
+
+			func0f067d88(obj->model, &arg2[1], &arg2[0], &arg3[1], &arg3[0]);
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f089a94

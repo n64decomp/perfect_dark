@@ -479,13 +479,12 @@ void objectiveCheckHolograph(f32 maxdist)
 
 		if (criteria->status == OBJECTIVE_INCOMPLETE) {
 			struct defaultobj *obj = objFindByTagId(criteria->obj);
-			u32 stack;
 
 			if (obj && obj->prop
 					&& (obj->prop->flags & PROPFLAG_02)
 					&& obj->prop->z >= 0
 					&& objIsHealthy(obj)) {
-				f32 sp9c[2];
+				struct coord sp9c;
 				f32 sp94[2];
 				f32 sp8c[2];
 				f32 dist = -1;
@@ -497,10 +496,10 @@ void objectiveCheckHolograph(f32 maxdist)
 					maxdist = maxdist * maxdist;
 				}
 
-				if (dist < maxdist && func0f0899dc(obj->prop, sp9c, sp94, sp8c)) {
+				if (dist < maxdist && func0f0899dc(obj->prop, &sp9c, sp94, sp8c)) {
 					f32 sp78[2];
 					f32 sp70[2];
-					func0f06803c(sp9c, sp94, sp8c, sp78, sp70);
+					func0f06803c(&sp9c, sp94, sp8c, sp78, sp70);
 
 					if (sp78[0] > currentPlayerGetScreenLeft()
 							&& sp78[0] < currentPlayerGetScreenLeft() + currentPlayerGetScreenWidth()
