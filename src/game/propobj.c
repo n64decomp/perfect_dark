@@ -6484,53 +6484,27 @@ void objEndFlight(struct defaultobj *obj)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f06ac90
-/*  f06ac90:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f06ac94:	10800021 */ 	beqz	$a0,.L0f06ad1c
-/*  f06ac98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06ac9c:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f06aca0:	5060001f */ 	beqzl	$v1,.L0f06ad20
-/*  f06aca4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06aca8:	8c620040 */ 	lw	$v0,0x40($v1)
-/*  f06acac:	00602825 */ 	or	$a1,$v1,$zero
-/*  f06acb0:	304e0040 */ 	andi	$t6,$v0,0x40
-/*  f06acb4:	11c00015 */ 	beqz	$t6,.L0f06ad0c
-/*  f06acb8:	30580080 */ 	andi	$t8,$v0,0x80
-/*  f06acbc:	8c640048 */ 	lw	$a0,0x48($v1)
-/*  f06acc0:	5080000e */ 	beqzl	$a0,.L0f06acfc
-/*  f06acc4:	2401ffbf */ 	addiu	$at,$zero,-65
-/*  f06acc8:	8c860044 */ 	lw	$a2,0x44($a0)
-/*  f06accc:	10c00006 */ 	beqz	$a2,.L0f06ace8
-/*  f06acd0:	00000000 */ 	nop
-/*  f06acd4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f06acd8:	0fc1a0b7 */ 	jal	projectileFree
-/*  f06acdc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f06ace0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f06ace4:	8ca40048 */ 	lw	$a0,0x48($a1)
-.L0f06ace8:
-/*  f06ace8:	0fc1a1b8 */ 	jal	func0f0686e0
-/*  f06acec:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f06acf0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f06acf4:	8ca20040 */ 	lw	$v0,0x40($a1)
-/*  f06acf8:	2401ffbf */ 	addiu	$at,$zero,-65
-.L0f06acfc:
-/*  f06acfc:	00417824 */ 	and	$t7,$v0,$at
-/*  f06ad00:	aca00048 */ 	sw	$zero,0x48($a1)
-/*  f06ad04:	10000005 */ 	b	.L0f06ad1c
-/*  f06ad08:	acaf0040 */ 	sw	$t7,0x40($a1)
-.L0f06ad0c:
-/*  f06ad0c:	53000004 */ 	beqzl	$t8,.L0f06ad20
-/*  f06ad10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06ad14:	0fc1ab10 */ 	jal	objEndFlight
-/*  f06ad18:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f06ad1c:
-/*  f06ad1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f06ad20:
-/*  f06ad20:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f06ad24:	03e00008 */ 	jr	$ra
-/*  f06ad28:	00000000 */ 	nop
-);
+void func0f06ac90(struct prop *prop)
+{
+	if (prop && prop->obj) {
+		struct defaultobj *obj = prop->obj;
+
+		if (obj->hidden & OBJHFLAG_00000040) {
+			if (obj->projectile) {
+				if (obj->projectile->unk044) {
+					projectileFree(obj->projectile->unk044);
+				}
+
+				func0f0686e0(obj->projectile);
+			}
+
+			obj->projectile = NULL;
+			obj->hidden &= ~OBJHFLAG_00000040;
+		} else if (obj->hidden & OBJHFLAG_AIRBORNE) {
+			objEndFlight(obj);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f06ad2c

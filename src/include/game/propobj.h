@@ -72,7 +72,7 @@ void projectileReset(struct projectile *projectile);
 struct projectile *projectileGetNew(void);
 void func0f0685e4(struct prop *prop);
 void objSetProjectileFlag4(struct prop *prop);
-u32 func0f0686e0(void);
+void func0f0686e0(struct projectile *projectile);
 struct monitorthing *monitorthingGetNew(void);
 s32 func0f068760(struct defaultobj *obj);
 s32 func0f0687b8(struct defaultobj *obj);
