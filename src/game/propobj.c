@@ -70002,62 +70002,20 @@ void func0f08c424(struct doorobj *door, Mtxf *matrix)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f08c484
-/*  f08c484:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08c488:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08c48c:	00803025 */ 	or	$a2,$a0,$zero
-/*  f08c490:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f08c494:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08c498:	0fc1a2aa */ 	jal	modelFindBboxRodata
-/*  f08c49c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f08c4a0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f08c4a4:	8c410000 */ 	lw	$at,0x0($v0)
-/*  f08c4a8:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08c4ac:	aca10000 */ 	sw	$at,0x0($a1)
-/*  f08c4b0:	8c580004 */ 	lw	$t8,0x4($v0)
-/*  f08c4b4:	acb80004 */ 	sw	$t8,0x4($a1)
-/*  f08c4b8:	8c410008 */ 	lw	$at,0x8($v0)
-/*  f08c4bc:	aca10008 */ 	sw	$at,0x8($a1)
-/*  f08c4c0:	8c58000c */ 	lw	$t8,0xc($v0)
-/*  f08c4c4:	acb8000c */ 	sw	$t8,0xc($a1)
-/*  f08c4c8:	8c410010 */ 	lw	$at,0x10($v0)
-/*  f08c4cc:	aca10010 */ 	sw	$at,0x10($a1)
-/*  f08c4d0:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f08c4d4:	acb80014 */ 	sw	$t8,0x14($a1)
-/*  f08c4d8:	8c410018 */ 	lw	$at,0x18($v0)
-/*  f08c4dc:	aca10018 */ 	sw	$at,0x18($a1)
-/*  f08c4e0:	94d90070 */ 	lhu	$t9,0x70($a2)
-/*  f08c4e4:	33280004 */ 	andi	$t0,$t9,0x4
-/*  f08c4e8:	51000015 */ 	beqzl	$t0,.L0f08c540
-/*  f08c4ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08c4f0:	94c90072 */ 	lhu	$t1,0x72($a2)
-/*  f08c4f4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f08c4f8:	5521000a */ 	bnel	$t1,$at,.L0f08c524
-/*  f08c4fc:	c4400004 */ 	lwc1	$f0,0x4($v0)
-/*  f08c500:	c4400010 */ 	lwc1	$f0,0x10($v0)
-/*  f08c504:	c444000c */ 	lwc1	$f4,0xc($v0)
-/*  f08c508:	c4c8007c */ 	lwc1	$f8,0x7c($a2)
-/*  f08c50c:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f08c510:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f08c514:	460a0400 */ 	add.s	$f16,$f0,$f10
-/*  f08c518:	10000008 */ 	b	.L0f08c53c
-/*  f08c51c:	e4b00010 */ 	swc1	$f16,0x10($a1)
-/*  f08c520:	c4400004 */ 	lwc1	$f0,0x4($v0)
-.L0f08c524:
-/*  f08c524:	c4520008 */ 	lwc1	$f18,0x8($v0)
-/*  f08c528:	c4c6007c */ 	lwc1	$f6,0x7c($a2)
-/*  f08c52c:	46009101 */ 	sub.s	$f4,$f18,$f0
-/*  f08c530:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f08c534:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f08c538:	e4aa0004 */ 	swc1	$f10,0x4($a1)
-.L0f08c53c:
-/*  f08c53c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08c540:
-/*  f08c540:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08c544:	03e00008 */ 	jr	$ra
-/*  f08c548:	00000000 */ 	nop
-);
+void doorGetBbox(struct doorobj *door, struct modelrodata_bbox *dst)
+{
+	struct modelrodata_bbox *bbox = modelFindBboxRodata(door->base.model);
+
+	*dst = *bbox;
+
+	if (door->doorflags & DOORFLAG_0004) {
+		if (door->doortype == DOORTYPE_VERTICAL) {
+			dst->ymax = bbox->ymax + (bbox->ymin - bbox->ymax) * door->frac;
+		} else {
+			dst->xmin = bbox->xmin + (bbox->xmax - bbox->xmin) * door->frac;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08c54c
@@ -70348,7 +70306,7 @@ glabel var7f1aaf48
 .L0f08c93c:
 /*  f08c93c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f08c940:
-/*  f08c940:	0fc23121 */ 	jal	func0f08c484
+/*  f08c940:	0fc23121 */ 	jal	doorGetBbox
 /*  f08c944:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f08c948:	c604007c */ 	lwc1	$f4,0x7c($s0)
 /*  f08c94c:	c6100060 */ 	lwc1	$f16,0x60($s0)
@@ -70498,7 +70456,7 @@ glabel func0f08cb20
 /*  f08cb48:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f08cb4c:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f08cb50:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f08cb54:	0fc23121 */ 	jal	func0f08c484
+/*  f08cb54:	0fc23121 */ 	jal	doorGetBbox
 /*  f08cb58:	27a50088 */ 	addiu	$a1,$sp,0x88
 /*  f08cb5c:	968e0072 */ 	lhu	$t6,0x72($s4)
 /*  f08cb60:	24130004 */ 	addiu	$s3,$zero,0x4
@@ -74299,13 +74257,14 @@ bool doorTestForInteract(struct prop *prop)
 			if (func0f06797c(&playerprop->pos, 150, door->base.pad)) {
 				maybe = true;
 			} else if ((door->doorflags & (DOORFLAG_0080 | DOORFLAG_0100)) != DOORFLAG_0080) {
-				u8 stack1[0x20];
+				u32 stack;
+				struct modelrodata_bbox bbox;
 				Mtxf matrix;
 
-				func0f08c484(door, stack1);
+				doorGetBbox(door, &bbox);
 				func0f08c424(door, &matrix);
 
-				if (func0f0675c8(&playerprop->pos, 150, stack1, &matrix)) {
+				if (func0f0675c8(&playerprop->pos, 150, &bbox, &matrix)) {
 					maybe = true;
 				}
 			}
