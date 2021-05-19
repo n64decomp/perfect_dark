@@ -2660,13 +2660,10 @@ void objSetProjectileFlag4(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0686e0
-/*  f0686e0:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f0686e4:	35cf0001 */ 	ori	$t7,$t6,0x1
-/*  f0686e8:	03e00008 */ 	jr	$ra
-/*  f0686ec:	ac8f0000 */ 	sw	$t7,0x0($a0)
-);
+void projectileSetFlag1(struct projectile *projectile)
+{
+	projectile->flags |= PROJECTILEFLAG_00000001;
+}
 
 struct monitorthing *monitorthingGetNew(void)
 {
@@ -6495,7 +6492,7 @@ void func0f06ac90(struct prop *prop)
 					projectileFree(obj->projectile->unk044);
 				}
 
-				func0f0686e0(obj->projectile);
+				projectileSetFlag1(obj->projectile);
 			}
 
 			obj->projectile = NULL;
@@ -55067,7 +55064,7 @@ glabel var7f1aa978
 /*  f0830b0:	8c820044 */ 	lw	$v0,0x44($a0)
 /*  f0830b4:	1040000c */ 	beqz	$v0,.L0f0830e8
 /*  f0830b8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0830bc:	0fc1a1b8 */ 	jal	func0f0686e0
+/*  f0830bc:	0fc1a1b8 */ 	jal	projectileSetFlag1
 /*  f0830c0:	afa3013c */ 	sw	$v1,0x13c($sp)
 /*  f0830c4:	8fa20138 */ 	lw	$v0,0x138($sp)
 /*  f0830c8:	2401ffbf */ 	addiu	$at,$zero,-65
@@ -56040,7 +56037,7 @@ glabel var7f1aa978
 /*  f0830b0:	8c820044 */ 	lw	$v0,0x44($a0)
 /*  f0830b4:	1040000c */ 	beqz	$v0,.L0f0830e8
 /*  f0830b8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0830bc:	0fc1a1b8 */ 	jal	func0f0686e0
+/*  f0830bc:	0fc1a1b8 */ 	jal	projectileSetFlag1
 /*  f0830c0:	afa3013c */ 	sw	$v1,0x13c($sp)
 /*  f0830c4:	8fa20138 */ 	lw	$v0,0x138($sp)
 /*  f0830c8:	2401ffbf */ 	addiu	$at,$zero,-65
