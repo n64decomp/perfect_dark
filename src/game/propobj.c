@@ -6425,7 +6425,7 @@ glabel func0f06ad2c
 /*  f06ad74:	24010021 */ 	addiu	$at,$zero,0x21
 /*  f06ad78:	54410005 */ 	bnel	$v0,$at,.L0f06ad90
 /*  f06ad7c:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f06ad80:	0fc22ae7 */ 	jal	func0f08ab9c
+/*  f06ad80:	0fc22ae7 */ 	jal	weaponUnregisterProxy
 /*  f06ad84:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06ad88:	9222005c */ 	lbu	$v0,0x5c($s1)
 /*  f06ad8c:	2401000f */ 	addiu	$at,$zero,0xf
@@ -6436,7 +6436,7 @@ glabel func0f06ad2c
 /*  f06ad9c:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f06ada0:	560e0005 */ 	bnel	$s0,$t6,.L0f06adb8
 /*  f06ada4:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f06ada8:	0fc22ae7 */ 	jal	func0f08ab9c
+/*  f06ada8:	0fc22ae7 */ 	jal	weaponUnregisterProxy
 /*  f06adac:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06adb0:	9222005c */ 	lbu	$v0,0x5c($s1)
 /*  f06adb4:	2401001f */ 	addiu	$at,$zero,0x1f
@@ -6446,7 +6446,7 @@ glabel func0f06ad2c
 /*  f06adc0:	922f005f */ 	lbu	$t7,0x5f($s1)
 /*  f06adc4:	560f0005 */ 	bnel	$s0,$t7,.L0f06addc
 /*  f06adc8:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f06adcc:	0fc22ae7 */ 	jal	func0f08ab9c
+/*  f06adcc:	0fc22ae7 */ 	jal	weaponUnregisterProxy
 /*  f06add0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06add4:	9222005c */ 	lbu	$v0,0x5c($s1)
 .L0f06add8:
@@ -6457,7 +6457,7 @@ glabel func0f06ad2c
 /*  f06ade4:	9238005f */ 	lbu	$t8,0x5f($s1)
 /*  f06ade8:	56180007 */ 	bnel	$s0,$t8,.L0f06ae08
 /*  f06adec:	24010056 */ 	addiu	$at,$zero,0x56
-/*  f06adf0:	0fc22ae7 */ 	jal	func0f08ab9c
+/*  f06adf0:	0fc22ae7 */ 	jal	weaponUnregisterProxy
 /*  f06adf4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06adf8:	0fc4b9df */ 	jal	smokeClearForProp
 /*  f06adfc:	8e240014 */ 	lw	$a0,0x14($s1)
@@ -67447,25 +67447,17 @@ glabel func0f08ab64
 /*  f08ab98:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08ab9c
-/*  f08ab9c:	3c03800a */ 	lui	$v1,%hi(g_Proxies)
-/*  f08aba0:	3c02800a */ 	lui	$v0,%hi(var8009ce38)
-/*  f08aba4:	2442ce38 */ 	addiu	$v0,$v0,%lo(var8009ce38)
-/*  f08aba8:	2463cdc0 */ 	addiu	$v1,$v1,%lo(g_Proxies)
-/*  f08abac:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f08abb0:
-/*  f08abb0:	548e0004 */ 	bnel	$a0,$t6,.L0f08abc4
-/*  f08abb4:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f08abb8:	03e00008 */ 	jr	$ra
-/*  f08abbc:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f08abc0:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f08abc4:
-/*  f08abc4:	5462fffa */ 	bnel	$v1,$v0,.L0f08abb0
-/*  f08abc8:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f08abcc:	03e00008 */ 	jr	$ra
-/*  f08abd0:	00000000 */ 	nop
-);
+void weaponUnregisterProxy(struct weaponobj *weapon)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_Proxies); i++) {
+		if (g_Proxies[i] == weapon) {
+			g_Proxies[i] = NULL;
+			return;
+		}
+	}
+}
 
 void coordTriggerProxies(struct coord *pos, bool arg1)
 {
