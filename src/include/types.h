@@ -5923,10 +5923,7 @@ struct var800a4640_00 {
 
 struct var800a4640 {
 	/*0x000*/ struct var800a4640_00 unk000[60];
-	/*0x2d0*/ s16 unk2d0;
-	/*0x2d2*/ u8 unk2d2;
-	/*0x2d3*/ u8 unk2d3;
-	struct screenbox unk2d4;
+	/*0x2d0*/ struct var800a4640_00 unk2d0;
 };
 
 struct zrange {

@@ -116,7 +116,7 @@ s32 var8007fc14 = 0;
 u32 var8007fc18 = 0x01000100;
 u32 var8007fc1c = 0x00000000;
 s32 g_CamRoom = 0x00000001;
-u32 var8007fc24 = (u32) &var800a4640 + 0x2d0;
+struct var800a4640_00 *var8007fc24 = &var800a4640.unk2d0;
 u32 var8007fc28 = 0x00000000;
 u32 var8007fc2c = 0x00000000;
 s32 var8007fc30 = 0x00000000;
@@ -188,10 +188,10 @@ void func0f157e94(s32 roomnum, s32 arg1, struct screenbox *box)
 #endif
 
 		if (g_Rooms[roomnum].flags & ROOMFLAG_0800) {
-			box->xmin = var800a4640.unk2d4.xmin;
-			box->ymin = var800a4640.unk2d4.ymin;
-			box->xmax = var800a4640.unk2d4.xmax;
-			box->ymax = var800a4640.unk2d4.ymax;
+			box->xmin = var800a4640.unk2d0.box.xmin;
+			box->ymin = var800a4640.unk2d0.box.ymin;
+			box->xmax = var800a4640.unk2d0.box.xmax;
+			box->ymax = var800a4640.unk2d0.box.ymax;
 		}
 
 		if (var8007fc3c == var800a4ce8[roomnum].unk00) {
@@ -17006,16 +17006,16 @@ void func0f163e34(void)
 		var8007fc30 = 0;
 		var800a4ce6 = 0;
 		var800a4ce4 = 32767;
-		var800a4640.unk2d0 = -1;
-		var800a4640.unk2d3 = 255;
+		var800a4640.unk2d0.unk00 = -1;
+		var800a4640.unk2d0.unk03 = 255;
 		var800a4cf0.unk00 = 0;
 		var800a4cf0.index = 0;
 		var800a4cf0.unk04 = 0;
 		var800a65b8 = 0;
-		var800a4640.unk2d4.xmin = box.xmin;
-		var800a4640.unk2d4.ymin = box.ymin;
-		var800a4640.unk2d4.xmax = box.xmax;
-		var800a4640.unk2d4.ymax = box.ymax;
+		var800a4640.unk2d0.box.xmin = box.xmin;
+		var800a4640.unk2d0.box.ymin = box.ymin;
+		var800a4640.unk2d0.box.xmax = box.xmax;
+		var800a4640.unk2d0.box.ymax = box.ymax;
 
 		portalCommandsExecuteForCurrentPlayer(g_BgPortalCommands);
 

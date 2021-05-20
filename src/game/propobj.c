@@ -71246,86 +71246,48 @@ s32 doorIsOpen(struct doorobj *door)
 	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) && door->frac >= door->maxfrac;
 }
 
-GLOBAL_ASM(
-glabel func0f08e5a8
-/*  f08e5a8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f08e5ac:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f08e5b0:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f08e5b4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f08e5b8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f08e5bc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f08e5c0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08e5c4:	84860000 */ 	lh	$a2,0x0($a0)
-/*  f08e5c8:	2413ffff */ 	addiu	$s3,$zero,-1
-/*  f08e5cc:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f08e5d0:	00009025 */ 	or	$s2,$zero,$zero
-/*  f08e5d4:	10d30030 */ 	beq	$a2,$s3,.L0f08e698
-/*  f08e5d8:	00808825 */ 	or	$s1,$a0,$zero
-/*  f08e5dc:	3c148008 */ 	lui	$s4,%hi(var8007fc24)
-/*  f08e5e0:	2694fc24 */ 	addiu	$s4,$s4,%lo(var8007fc24)
-.L0f08e5e4:
-/*  f08e5e4:	0fc56050 */ 	jal	func0f158140
-/*  f08e5e8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08e5ec:	8e8e0000 */ 	lw	$t6,0x0($s4)
-/*  f08e5f0:	0012182b */ 	sltu	$v1,$zero,$s2
-/*  f08e5f4:	504e0025 */ 	beql	$v0,$t6,.L0f08e68c
-/*  f08e5f8:	86260002 */ 	lh	$a2,0x2($s1)
-/*  f08e5fc:	1060001a */ 	beqz	$v1,.L0f08e668
-/*  f08e600:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f08e604:	84430004 */ 	lh	$v1,0x4($v0)
-/*  f08e608:	860f0000 */ 	lh	$t7,0x0($s0)
-/*  f08e60c:	006f082a */ 	slt	$at,$v1,$t7
-/*  f08e610:	50200003 */ 	beqzl	$at,.L0f08e620
-/*  f08e614:	84430006 */ 	lh	$v1,0x6($v0)
-/*  f08e618:	a6030000 */ 	sh	$v1,0x0($s0)
-/*  f08e61c:	84430006 */ 	lh	$v1,0x6($v0)
-.L0f08e620:
-/*  f08e620:	86180002 */ 	lh	$t8,0x2($s0)
-/*  f08e624:	0078082a */ 	slt	$at,$v1,$t8
-/*  f08e628:	50200003 */ 	beqzl	$at,.L0f08e638
-/*  f08e62c:	84430008 */ 	lh	$v1,0x8($v0)
-/*  f08e630:	a6030002 */ 	sh	$v1,0x2($s0)
-/*  f08e634:	84430008 */ 	lh	$v1,0x8($v0)
-.L0f08e638:
-/*  f08e638:	86190004 */ 	lh	$t9,0x4($s0)
-/*  f08e63c:	0323082a */ 	slt	$at,$t9,$v1
-/*  f08e640:	50200003 */ 	beqzl	$at,.L0f08e650
-/*  f08e644:	8443000a */ 	lh	$v1,0xa($v0)
-/*  f08e648:	a6030004 */ 	sh	$v1,0x4($s0)
-/*  f08e64c:	8443000a */ 	lh	$v1,0xa($v0)
-.L0f08e650:
-/*  f08e650:	86080006 */ 	lh	$t0,0x6($s0)
-/*  f08e654:	0103082a */ 	slt	$at,$t0,$v1
-/*  f08e658:	5020000c */ 	beqzl	$at,.L0f08e68c
-/*  f08e65c:	86260002 */ 	lh	$a2,0x2($s1)
-/*  f08e660:	10000009 */ 	b	.L0f08e688
-/*  f08e664:	a6030006 */ 	sh	$v1,0x6($s0)
-.L0f08e668:
-/*  f08e668:	84490004 */ 	lh	$t1,0x4($v0)
-/*  f08e66c:	a6090000 */ 	sh	$t1,0x0($s0)
-/*  f08e670:	844a0006 */ 	lh	$t2,0x6($v0)
-/*  f08e674:	a60a0002 */ 	sh	$t2,0x2($s0)
-/*  f08e678:	844b0008 */ 	lh	$t3,0x8($v0)
-/*  f08e67c:	a60b0004 */ 	sh	$t3,0x4($s0)
-/*  f08e680:	844c000a */ 	lh	$t4,0xa($v0)
-/*  f08e684:	a60c0006 */ 	sh	$t4,0x6($s0)
-.L0f08e688:
-/*  f08e688:	86260002 */ 	lh	$a2,0x2($s1)
-.L0f08e68c:
-/*  f08e68c:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f08e690:	14d3ffd4 */ 	bne	$a2,$s3,.L0f08e5e4
-/*  f08e694:	00000000 */ 	nop
-.L0f08e698:
-/*  f08e698:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f08e69c:	02401025 */ 	or	$v0,$s2,$zero
-/*  f08e6a0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f08e6a4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08e6a8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f08e6ac:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f08e6b0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f08e6b4:	03e00008 */ 	jr	$ra
-/*  f08e6b8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+s32 func0f08e5a8(s16 *rooms2, struct screenbox *box)
+{
+	bool result = false;
+	s16 *rooms = rooms2;
+	s32 roomnum = *rooms;
+
+	while (roomnum != -1) {
+		struct var800a4640_00 *thing = func0f158140(roomnum);
+
+		if (thing != var8007fc24) {
+			if (result) {
+				if (box->xmin > thing->box.xmin) {
+					box->xmin = thing->box.xmin;
+				}
+
+				if (box->ymin > thing->box.ymin) {
+					box->ymin = thing->box.ymin;
+				}
+
+				if (box->xmax < thing->box.xmax) {
+					box->xmax = thing->box.xmax;
+				}
+
+				if (box->ymax < thing->box.ymax) {
+					box->ymax = thing->box.ymax;
+				}
+			} else {
+				box->xmin = thing->box.xmin;
+				box->ymin = thing->box.ymin;
+				box->xmax = thing->box.xmax;
+				box->ymax = thing->box.ymax;
+			}
+
+			result = true;
+		}
+
+		rooms++;
+		roomnum = *rooms;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f08e6bc
