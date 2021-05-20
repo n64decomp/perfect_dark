@@ -1477,7 +1477,7 @@ f32 func0f02dff0(s16 animnum)
 	return 1;
 }
 
-s32 func0f02e064(struct chrdata *chr)
+bool func0f02e064(struct chrdata *chr)
 {
 	if (chr->aibot) {
 		if (chr->actiontype == ACT_STAND

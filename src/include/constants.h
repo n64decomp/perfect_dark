@@ -494,7 +494,7 @@
 #define CHRHFLAG_IS_HEARING_TARGET   0x00000002 // Not used in scripts
 #define CHRHFLAG_00000004            0x00000004 // Related to firing - hand 1
 #define CHRHFLAG_00000008            0x00000008 // Related to firing - hand 0
-#define CHRHFLAG_00000010            0x00000010 // Not used in scripts
+#define CHRHFLAG_BLOCKINGDOOR        0x00000010
 #define CHRHFLAG_REAPED              0x00000020
 #define CHRHFLAG_TIMER_RUNNING       0x00000040
 #define CHRHFLAG_00000080            0x00000080 // Not used in scripts
@@ -713,7 +713,7 @@
 #define DOORFLAG_0100            0x0100
 #define DOORFLAG_LONGRANGE       0x0200
 #define DOORFLAG_DAMAGEONCONTACT 0x0400 // Lasers
-#define DOORFLAG_0800            0x0800 // Non-CI lasers, and floor grates
+#define DOORFLAG_UNBLOCKABLEOPEN 0x0800 // Skip collision checks when opening
 #define DOORFLAG_4000            0x4000 // Two Investigation vertical doors after lasers
 
 #define DOORMODE_IDLE    0

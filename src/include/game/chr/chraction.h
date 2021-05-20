@@ -15,7 +15,7 @@ extern struct animfloats var80067b30;
 extern struct animfloats var80067b78;
 
 f32 func0f02dff0(s16 animnum);
-s32 func0f02e064(struct chrdata *chr);
+bool func0f02e064(struct chrdata *chr);
 bool weaponIsOneHanded(struct prop *prop);
 f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max);
 s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage);
