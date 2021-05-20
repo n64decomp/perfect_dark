@@ -41,6 +41,7 @@
 #include "game/bg.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"
+#include "game/game_1657c0.h"
 #include "game/gfxmemory.h"
 #include "game/lv.h"
 #include "game/mplayer/setup.h"
@@ -71381,96 +71382,43 @@ glabel func0f08e794
 /*  f08e8a8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08e8ac
-.late_rodata
-glabel var7f1ab16c
-.word 0x4e742400
-.text
-/*  f08e8ac:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f08e8b0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08e8b4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08e8b8:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f08e8bc:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f08e8c0:	84820028 */ 	lh	$v0,0x28($a0)
-/*  f08e8c4:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f08e8c8:	24890028 */ 	addiu	$t1,$a0,0x28
-/*  f08e8cc:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f08e8d0:	00004025 */ 	or	$t0,$zero,$zero
-/*  f08e8d4:	1046003e */ 	beq	$v0,$a2,.L0f08e9d0
-/*  f08e8d8:	01201825 */ 	or	$v1,$t1,$zero
-/*  f08e8dc:	3c04800a */ 	lui	$a0,%hi(g_Rooms)
-/*  f08e8e0:	8c844928 */ 	lw	$a0,%lo(g_Rooms)($a0)
-/*  f08e8e4:	2405008c */ 	addiu	$a1,$zero,0x8c
-.L0f08e8e8:
-/*  f08e8e8:	00450019 */ 	multu	$v0,$a1
-/*  f08e8ec:	00007012 */ 	mflo	$t6
-/*  f08e8f0:	008e7821 */ 	addu	$t7,$a0,$t6
-/*  f08e8f4:	95f80000 */ 	lhu	$t8,0x0($t7)
-/*  f08e8f8:	33190004 */ 	andi	$t9,$t8,0x4
-/*  f08e8fc:	53200031 */ 	beqzl	$t9,.L0f08e9c4
-/*  f08e900:	84620002 */ 	lh	$v0,0x2($v1)
-/*  f08e904:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08e908:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f08e90c:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*  f08e910:	0fc599be */ 	jal	func0f1666f8
-/*  f08e914:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f08e918:	1040002d */ 	beqz	$v0,.L0f08e9d0
-/*  f08e91c:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f08e920:	8faa0054 */ 	lw	$t2,0x54($sp)
-/*  f08e924:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08e928:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f08e92c:	51400006 */ 	beqzl	$t2,.L0f08e948
-/*  f08e930:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f08e934:	0fc239e5 */ 	jal	func0f08e794
-/*  f08e938:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*  f08e93c:	10400024 */ 	beqz	$v0,.L0f08e9d0
-/*  f08e940:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f08e944:	8fa40024 */ 	lw	$a0,0x24($sp)
-.L0f08e948:
-/*  f08e948:	02002825 */ 	or	$a1,$s0,$zero
-/*  f08e94c:	0fc2d898 */ 	jal	func0f0b6260
-/*  f08e950:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f08e954:	1040001e */ 	beqz	$v0,.L0f08e9d0
-/*  f08e958:	00404025 */ 	or	$t0,$v0,$zero
-/*  f08e95c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f08e960:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f08e964:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*  f08e968:	c6080004 */ 	lwc1	$f8,0x4($s0)
-/*  f08e96c:	c4461bb0 */ 	lwc1	$f6,0x1bb0($v0)
-/*  f08e970:	c44a1bb4 */ 	lwc1	$f10,0x1bb4($v0)
-/*  f08e974:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f08e978:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f08e97c:	c4521bb8 */ 	lwc1	$f18,0x1bb8($v0)
-/*  f08e980:	3c017f1b */ 	lui	$at,%hi(var7f1ab16c)
-/*  f08e984:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f08e988:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f08e98c:	c424b16c */ 	lwc1	$f4,%lo(var7f1ab16c)($at)
-/*  f08e990:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f08e994:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f08e998:	24421bb0 */ 	addiu	$v0,$v0,7088
-/*  f08e99c:	460c6402 */ 	mul.s	$f16,$f12,$f12
-/*  f08e9a0:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f08e9a4:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f08e9a8:	4612203c */ 	c.lt.s	$f4,$f18
-/*  f08e9ac:	00000000 */ 	nop
-/*  f08e9b0:	45020008 */ 	bc1fl	.L0f08e9d4
-/*  f08e9b4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08e9b8:	10000005 */ 	b	.L0f08e9d0
-/*  f08e9bc:	00004025 */ 	or	$t0,$zero,$zero
-/*  f08e9c0:	84620002 */ 	lh	$v0,0x2($v1)
-.L0f08e9c4:
-/*  f08e9c4:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f08e9c8:	1446ffc7 */ 	bne	$v0,$a2,.L0f08e8e8
-/*  f08e9cc:	00000000 */ 	nop
-.L0f08e9d0:
-/*  f08e9d0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08e9d4:
-/*  f08e9d4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08e9d8:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f08e9dc:	03e00008 */ 	jr	$ra
-/*  f08e9e0:	01001025 */ 	or	$v0,$t0,$zero
-);
+bool func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3)
+{
+	s16 *rooms;
+	s32 roomnum;
+	bool result = false;
+	u32 stack;
+
+	rooms = prop->rooms;
+	roomnum = *rooms;
+
+	while (roomnum != -1) {
+		if (g_Rooms[roomnum].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+			if (func0f1666f8(coord, arg2) && (!arg3 || func0f08e794(coord, arg2))) {
+				result = func0f0b6260(prop->rooms, coord, arg2);
+
+				if (result) {
+					struct coord *campos = &g_Vars.currentplayer->cam_pos;
+					f32 xdiff = coord->x - campos->x;
+					f32 ydiff = coord->y - campos->y;
+					f32 zdiff = coord->z - campos->z;
+
+					if (xdiff * xdiff + ydiff * ydiff + zdiff * zdiff > 32000 * 32000) {
+						result = false;
+					}
+				}
+			}
+
+			break;
+		}
+
+		rooms++;
+		roomnum = *rooms;
+		result = false;
+	}
+
+	return result;
+}
 
 bool posIsInDrawDistance(struct coord *pos)
 {
