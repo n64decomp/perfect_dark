@@ -53420,6 +53420,10 @@ glabel var7f1aa838
 );
 #endif
 
+u32 var8006abb0 = 0x00000000;
+u32 var8006abb4 = 0x00000000;
+u32 var8006abb8 = 0x00000000;
+
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel func0f0826cc
@@ -54430,9 +54434,9 @@ glabel var7f1aa8d0
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
+#if PIRACYCHECKS
 GLOBAL_ASM(
-glabel func0f082d74
+glabel piracyRestore
 /*  f082d74:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f082d78:	27a70024 */ 	addiu	$a3,$sp,0x24
 /*  f082d7c:	30ee0007 */ 	andi	$t6,$a3,0x7
@@ -54510,6 +54514,76 @@ glabel func0f082d74
 /*  f082e7c:	03e00008 */ 	jr	$ra
 /*  f082e80:	00000000 */ 	nop
 );
+
+s8 var8006abbc = 0;
+
+//extern u8 _blankSegmentRomStart;
+
+/**
+ * This function is called whenever a player exits a lift as well as on tick
+ * whenever a player is running at max speed. Each time it is called, it
+ * attempts to DMA a payload from the ROM into a location in RAM. However, in
+ * all versions of the game the payload list is empty so it effectively does
+ * nothing.
+ *
+ * It is likely that this function would have been used to restore piracy checks
+ * in the event that a player had disabled them using memory editing or a hacked
+ * ROM. The feature may have been abandoned because it would have revealed where
+ * all the piracy checks are, or perhaps they never got around to implementing
+ * the generation of the payload list into their build system.
+ */
+// Mismatch: Goal has an extra move instruction when calculating tmp.
+//void piracyRestore(void)
+//{
+//	u32 writeaddr;
+//	s32 copylen;
+//	s32 readoffset;
+//	s32 i;
+//	u8 *ptr;
+//	s32 len;
+//	u8 stack[0x48];
+//	u32 *tmp;
+//	static s8 index = 0; // var8006abbc
+//
+//	ptr = stack;
+//
+//	// Align ptr to an 8 byte boundary
+//	while ((u32)ptr % 8) {
+//		ptr += 4;
+//	}
+//
+//	// Copy the writeaddr/copylen pairs from ROM to the stack
+//	dmaExec(ptr, (u32) &_blankSegmentRomStart, 0x40);
+//
+//	// Calculate what needs to be copied and where
+//	i = 0;
+//	readoffset = 0x40;
+//	copylen = 0;
+//
+//	while (i <= index) {
+//		tmp = (u32 *)((u32)ptr + (i << 3));
+//		readoffset += copylen;
+//		writeaddr = tmp[0];
+//		copylen = tmp[1];
+//		i++;
+//	}
+//
+//	// Copy it
+//	if (copylen != 0) {
+//		dmaExec((void *) writeaddr, (u32) &_blankSegmentRomStart + readoffset, copylen);
+//	}
+//
+//	// Increment the index, so the next time the function is called
+//	// it copies the next payload. To do this, calculate the number
+//	// of payloads so it can wrap.
+//	for (i = 0; i < 8 && *(u32 *)&ptr[i * 8]; i++);
+//
+//	index++;
+//
+//	if (index >= i) {
+//		index = 0;
+//	}
+//}
 #endif
 
 GLOBAL_ASM(
@@ -61538,10 +61612,6 @@ glabel func0f085eac
 );
 #endif
 
-u32 var8006abb0 = 0x00000000;
-u32 var8006abb4 = 0x00000000;
-u32 var8006abb8 = 0x00000000;
-u32 var8006abbc = 0x00000000;
 u32 var8006abc0 = 0x00000000;
 u32 var8006abc4 = 0x00000000;
 u32 var8006abc8 = 0x00000000;

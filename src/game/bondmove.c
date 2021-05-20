@@ -3557,7 +3557,7 @@ glabel var7f1ad8e4
 /*  f0cad80:	00000000 */ 	nop
 /*  f0cad84:	45020024 */ 	bc1fl	.L0f0cae18
 /*  f0cad88:	8cab1a24 */ 	lw	$t3,0x1a24($a1)
-/*  f0cad8c:	0fc20b5d */ 	jal	func0f082d74
+/*  f0cad8c:	0fc20b5d */ 	jal	piracyRestore
 /*  f0cad90:	00000000 */ 	nop
 /*  f0cad94:	3c013fa0 */ 	lui	$at,0x3fa0
 /*  f0cad98:	44811000 */ 	mtc1	$at,$f2
@@ -6708,7 +6708,7 @@ glabel var7f1ad8e4
 /*  f0cad80:	00000000 */ 	nop
 /*  f0cad84:	45020024 */ 	bc1fl	.L0f0cae18
 /*  f0cad88:	8cab1a24 */ 	lw	$t3,0x1a24($a1)
-/*  f0cad8c:	0fc20b5d */ 	jal	func0f082d74
+/*  f0cad8c:	0fc20b5d */ 	jal	piracyRestore
 /*  f0cad90:	00000000 */ 	nop
 /*  f0cad94:	3c013fa0 */ 	lui	$at,0x3fa0
 /*  f0cad98:	44811000 */ 	mtc1	$at,$f2
@@ -11602,7 +11602,7 @@ glabel var7f1ad8e4
 //		}
 //
 //		if (g_Vars.currentplayer->speedboost > 1.25f) {
-//			func0f082d74();
+//			piracyRestore();
 //			g_Vars.currentplayer->speedboost = 1.25f;
 //		}
 //	} else {

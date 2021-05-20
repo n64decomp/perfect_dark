@@ -1961,7 +1961,7 @@ void bwalkUpdateVertical(void)
 
 	if (g_Vars.currentplayer->inlift && newinlift == false) {
 		// Exiting a lift
-		func0f082d74();
+		piracyRestore();
 	}
 
 	if (g_Vars.currentplayer->inlift && newinlift && g_Vars.currentplayer->onladder == false) {
