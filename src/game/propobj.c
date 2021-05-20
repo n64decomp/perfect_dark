@@ -32216,7 +32216,7 @@ glabel var7f1aa43c
 .PF0f0772c0:
 /*  f0772c0:	5040002b */ 	beqzl	$v0,.PF0f077370
 /*  f0772c4:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f0772c8:	0fc22fdb */ 	jal	func0f08c040
+/*  f0772c8:	0fc22fdb */ 	jal	doorIsRangeEmpty
 /*  f0772cc:	02202025 */ 	move	$a0,$s1
 /*  f0772d0:	8e3000bc */ 	lw	$s0,0xbc($s1)
 /*  f0772d4:	52000010 */ 	beqzl	$s0,.PF0f077318
@@ -32226,7 +32226,7 @@ glabel var7f1aa43c
 /*  f0772e4:	5700000c */ 	bnezl	$t8,.PF0f077318
 /*  f0772e8:	2c590001 */ 	sltiu	$t9,$v0,0x1
 .PF0f0772ec:
-/*  f0772ec:	0fc22fdb */ 	jal	func0f08c040
+/*  f0772ec:	0fc22fdb */ 	jal	doorIsRangeEmpty
 /*  f0772f0:	02002025 */ 	move	$a0,$s0
 /*  f0772f4:	8e1000bc */ 	lw	$s0,0xbc($s0)
 /*  f0772f8:	2c430001 */ 	sltiu	$v1,$v0,0x1
@@ -32500,7 +32500,7 @@ glabel var7f1aa43c
 .L0f07706c:
 /*  f07706c:	5040002c */ 	beqzl	$v0,.L0f077120
 /*  f077070:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f077074:	0fc23010 */ 	jal	func0f08c040
+/*  f077074:	0fc23010 */ 	jal	doorIsRangeEmpty
 /*  f077078:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07707c:	8e0400bc */ 	lw	$a0,0xbc($s0)
 /*  f077080:	50800011 */ 	beqzl	$a0,.L0f0770c8
@@ -32510,7 +32510,7 @@ glabel var7f1aa43c
 /*  f077090:	5700000d */ 	bnezl	$t8,.L0f0770c8
 /*  f077094:	2c590001 */ 	sltiu	$t9,$v0,0x1
 .L0f077098:
-/*  f077098:	0fc23010 */ 	jal	func0f08c040
+/*  f077098:	0fc23010 */ 	jal	doorIsRangeEmpty
 /*  f07709c:	afa40054 */ 	sw	$a0,0x54($sp)
 /*  f0770a0:	8fa40054 */ 	lw	$a0,0x54($sp)
 /*  f0770a4:	2c430001 */ 	sltiu	$v1,$v0,0x1
@@ -32730,17 +32730,16 @@ glabel var7f1aa43c
 //		if (hasflag == false) {
 //			doorsRequestMode(door, DOORMODE_CLOSING);
 //		} else if (door->doorflags & DOORFLAG_AUTOMATIC) {
-//			// Check if any sibling has a false return value
-//			s32 pass = func0f08c040(door) == false;
+//			// Check if any sibling has anything in range
+//			bool keepopen = !doorIsRangeEmpty(door);
 //			struct doorobj *loopdoor = door->sibling;
 //
-//			while (loopdoor && loopdoor != door && !pass) {
-//				pass = func0f08c040(loopdoor) == false;
+//			while (loopdoor && loopdoor != door && !keepopen) {
+//				keepopen = !doorIsRangeEmpty(loopdoor);
 //				loopdoor = loopdoor->sibling;
 //			}
 //
-//			if (pass) {
-//				// One or all siblings is set to keep open?
+//			if (keepopen) {
 //				struct doorobj *loopdoor = door->sibling;
 //				door->lastopen60 = g_Vars.lvframe60;
 //
@@ -46753,7 +46752,7 @@ void hoverbikeTick(struct prop *prop, bool arg1)
 {
 	struct hoverbikeobj *obj = (struct hoverbikeobj *)prop->obj;
 
-	if ((obj->base.hidden & OBJHFLAG_04000000) == 0) {
+	if ((obj->base.hidden & OBJHFLAG_MOUNTED) == 0) {
 		if ((obj->base.hidden & OBJHFLAG_GRABBED) == 0
 				&& (arg1 || (prop->flags & PROPFLAG_80))) {
 			func0f0714b8(&obj->base, &obj->hov);
@@ -61895,32 +61894,32 @@ glabel var7f1aab3c
 bool currentPlayerTryMountHoverbike(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
-	bool pass = false;
+	bool mount = false;
 	u32 stack[2];
 
 	if (obj->type == OBJTYPE_HOVERBIKE
 			&& g_Vars.lvframe60 - g_Vars.currentplayer->activatetimelast < PALDOWN(30)
-			&& (obj->hidden & OBJHFLAG_04000000) == 0) {
+			&& (obj->hidden & OBJHFLAG_MOUNTED) == 0) {
 		if (obj->hidden & OBJHFLAG_GRABBED) {
 			if (bmoveGetGrabbedProp() == prop) {
-				pass = true;
+				mount = true;
 			} else {
-				pass = false;
+				mount = false;
 			}
 		} else {
-			pass = true;
+			mount = true;
 		}
 	}
 
-	if (pass && g_Vars.currentplayer->bondmovemode != MOVEMODE_GRAB) {
+	if (mount && g_Vars.currentplayer->bondmovemode != MOVEMODE_GRAB) {
 		if (g_Vars.currentplayer->bondmovemode != MOVEMODE_WALK
 				|| bmoveGetCrouchPos() != CROUCHPOS_STAND
 				|| g_Vars.currentplayer->crouchoffset != 0) {
-			pass = false;
+			mount = false;
 		}
 	}
 
-	if (pass) {
+	if (mount) {
 		f32 angle = atan2f(
 				prop->pos.x - g_Vars.currentplayer->prop->pos.x,
 				prop->pos.z - g_Vars.currentplayer->prop->pos.z);
@@ -69016,7 +69015,7 @@ bool doorIsUnlocked(struct prop *playerprop, struct prop *doorprop)
 	return canopen;
 }
 
-bool func0f08bdd4(struct doorobj *door, struct coord *pos, f32 distance, bool isbike)
+bool doorIsPosInRange(struct doorobj *door, struct coord *pos, f32 distance, bool isbike)
 {
 	f32 range[3];
 
@@ -69041,7 +69040,7 @@ bool func0f08bdd4(struct doorobj *door, struct coord *pos, f32 distance, bool is
 	return false;
 }
 
-bool func0f08be80(struct doorobj *door, struct defaultobj *obj, bool isbike)
+bool doorIsObjInRange(struct doorobj *door, struct defaultobj *obj, bool isbike)
 {
 	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
 	f32 scale = 0;
@@ -69072,7 +69071,7 @@ bool func0f08be80(struct doorobj *door, struct defaultobj *obj, bool isbike)
 
 	scale *= obj->model->scale;
 
-	return func0f08bdd4(door, &obj->prop->pos, scale, isbike);
+	return doorIsPosInRange(door, &obj->prop->pos, scale, isbike);
 }
 
 /**
@@ -69095,100 +69094,38 @@ bool vectorIsInFrontOfDoor(struct doorobj *door, struct coord *vector)
 	return result;
 }
 
-GLOBAL_ASM(
-glabel func0f08c040
-/*  f08c040:	27bdfda0 */ 	addiu	$sp,$sp,-608
-/*  f08c044:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f08c048:	00808825 */ 	or	$s1,$a0,$zero
-/*  f08c04c:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f08c050:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*  f08c054:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*  f08c058:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f08c05c:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f08c060:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f08c064:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f08c068:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f08c06c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f08c070:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f08c074:	8c840014 */ 	lw	$a0,0x14($a0)
-/*  f08c078:	27b20058 */ 	addiu	$s2,$sp,0x58
-/*  f08c07c:	02402825 */ 	or	$a1,$s2,$zero
-/*  f08c080:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f08c084:	0fc197e0 */ 	jal	roomGetProps
-/*  f08c088:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f08c08c:	87ae0058 */ 	lh	$t6,0x58($sp)
-/*  f08c090:	02408025 */ 	or	$s0,$s2,$zero
-/*  f08c094:	27af0058 */ 	addiu	$t7,$sp,0x58
-/*  f08c098:	05c0002f */ 	bltz	$t6,.L0f08c158
-/*  f08c09c:	3c1e0400 */ 	lui	$s8,0x400
-/*  f08c0a0:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f08c0a4:	4480a000 */ 	mtc1	$zero,$f20
-/*  f08c0a8:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f08c0ac:	85e30000 */ 	lh	$v1,0x0($t7)
-/*  f08c0b0:	3c170c00 */ 	lui	$s7,0xc00
-/*  f08c0b4:	24160001 */ 	addiu	$s6,$zero,0x1
-/*  f08c0b8:	24150006 */ 	addiu	$s5,$zero,0x6
-/*  f08c0bc:	24140003 */ 	addiu	$s4,$zero,0x3
-/*  f08c0c0:	24120048 */ 	addiu	$s2,$zero,0x48
-.L0f08c0c4:
-/*  f08c0c4:	00720019 */ 	multu	$v1,$s2
-/*  f08c0c8:	8e790338 */ 	lw	$t9,0x338($s3)
-/*  f08c0cc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f08c0d0:	0000c012 */ 	mflo	$t8
-/*  f08c0d4:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f08c0d8:	91020000 */ 	lbu	$v0,0x0($t0)
-/*  f08c0dc:	25050008 */ 	addiu	$a1,$t0,0x8
-/*  f08c0e0:	52820004 */ 	beql	$s4,$v0,.L0f08c0f4
-/*  f08c0e4:	4406a000 */ 	mfc1	$a2,$f20
-/*  f08c0e8:	16a20008 */ 	bne	$s5,$v0,.L0f08c10c
-/*  f08c0ec:	00000000 */ 	nop
-/*  f08c0f0:	4406a000 */ 	mfc1	$a2,$f20
-.L0f08c0f4:
-/*  f08c0f4:	0fc22f75 */ 	jal	func0f08bdd4
-/*  f08c0f8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f08c0fc:	50400013 */ 	beqzl	$v0,.L0f08c14c
-/*  f08c100:	86030002 */ 	lh	$v1,0x2($s0)
-/*  f08c104:	10000015 */ 	b	.L0f08c15c
-/*  f08c108:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08c10c:
-/*  f08c10c:	56c2000f */ 	bnel	$s6,$v0,.L0f08c14c
-/*  f08c110:	86030002 */ 	lh	$v1,0x2($s0)
-/*  f08c114:	8d050004 */ 	lw	$a1,0x4($t0)
-/*  f08c118:	02202025 */ 	or	$a0,$s1,$zero
-/*  f08c11c:	8ca20040 */ 	lw	$v0,0x40($a1)
-/*  f08c120:	00574824 */ 	and	$t1,$v0,$s7
-/*  f08c124:	11200008 */ 	beqz	$t1,.L0f08c148
-/*  f08c128:	005e3024 */ 	and	$a2,$v0,$s8
-/*  f08c12c:	0006502b */ 	sltu	$t2,$zero,$a2
-/*  f08c130:	0fc22fa0 */ 	jal	func0f08be80
-/*  f08c134:	01403025 */ 	or	$a2,$t2,$zero
-/*  f08c138:	50400004 */ 	beqzl	$v0,.L0f08c14c
-/*  f08c13c:	86030002 */ 	lh	$v1,0x2($s0)
-/*  f08c140:	10000006 */ 	b	.L0f08c15c
-/*  f08c144:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08c148:
-/*  f08c148:	86030002 */ 	lh	$v1,0x2($s0)
-.L0f08c14c:
-/*  f08c14c:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f08c150:	0461ffdc */ 	bgez	$v1,.L0f08c0c4
-/*  f08c154:	00000000 */ 	nop
-.L0f08c158:
-/*  f08c158:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f08c15c:
-/*  f08c15c:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f08c160:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*  f08c164:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f08c168:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f08c16c:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f08c170:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f08c174:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f08c178:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f08c17c:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f08c180:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*  f08c184:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*  f08c188:	03e00008 */ 	jr	$ra
-/*  f08c18c:	27bd0260 */ 	addiu	$sp,$sp,0x260
-);
+/**
+ * Return true if there are no chrs or grabbed/mounted objects within opening
+ * range of the door (for automatic doors).
+ */
+bool doorIsRangeEmpty(struct doorobj *door)
+{
+	u32 stack;
+	s16 *propnumptr;
+	s16 propnums[256];
+
+	roomGetProps(door->base.prop->rooms, propnums, 256);
+	propnumptr = propnums;
+
+	while (*propnumptr >= 0) {
+		struct prop *prop = &g_Vars.props[*propnumptr];
+
+		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
+			if (doorIsPosInRange(door, &prop->pos, 0, false)) {
+				return false;
+			}
+		} else if (prop->type == PROPTYPE_OBJ) {
+			if (prop->obj->hidden & (OBJHFLAG_MOUNTED | OBJHFLAG_GRABBED)
+					&& doorIsObjInRange(door, prop->obj, (prop->obj->hidden & OBJHFLAG_MOUNTED) != 0)) {
+				return false;
+			}
+		}
+
+		propnumptr++;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel doorsCheckAutomatic
@@ -69290,14 +69227,14 @@ glabel doorsCheckAutomatic
 /*  f08c2f8:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f08c2fc:	8dc500bc */ 	lw	$a1,0xbc($t6)
 /*  f08c300:	02803825 */ 	or	$a3,$s4,$zero
-/*  f08c304:	0fc22f75 */ 	jal	func0f08bdd4
+/*  f08c304:	0fc22f75 */ 	jal	doorIsPosInRange
 /*  f08c308:	24a50008 */ 	addiu	$a1,$a1,0x8
 /*  f08c30c:	14400007 */ 	bnez	$v0,.L0f08c32c
 /*  f08c310:	00409025 */ 	or	$s2,$v0,$zero
 /*  f08c314:	12600005 */ 	beqz	$s3,.L0f08c32c
 /*  f08c318:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f08c31c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f08c320:	0fc22fa0 */ 	jal	func0f08be80
+/*  f08c320:	0fc22fa0 */ 	jal	doorIsObjInRange
 /*  f08c324:	02803025 */ 	or	$a2,$s4,$zero
 /*  f08c328:	00409025 */ 	or	$s2,$v0,$zero
 .L0f08c32c:
@@ -69327,14 +69264,14 @@ glabel doorsCheckAutomatic
 /*  f08c380:	02002025 */ 	or	$a0,$s0,$zero
 /*  f08c384:	8f2500bc */ 	lw	$a1,0xbc($t9)
 /*  f08c388:	02803825 */ 	or	$a3,$s4,$zero
-/*  f08c38c:	0fc22f75 */ 	jal	func0f08bdd4
+/*  f08c38c:	0fc22f75 */ 	jal	doorIsPosInRange
 /*  f08c390:	24a50008 */ 	addiu	$a1,$a1,0x8
 /*  f08c394:	14400007 */ 	bnez	$v0,.L0f08c3b4
 /*  f08c398:	00409025 */ 	or	$s2,$v0,$zero
 /*  f08c39c:	12600005 */ 	beqz	$s3,.L0f08c3b4
 /*  f08c3a0:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f08c3a4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f08c3a8:	0fc22fa0 */ 	jal	func0f08be80
+/*  f08c3a8:	0fc22fa0 */ 	jal	doorIsObjInRange
 /*  f08c3ac:	02803025 */ 	or	$a2,$s4,$zero
 /*  f08c3b0:	00409025 */ 	or	$s2,$v0,$zero
 .L0f08c3b4:
@@ -69376,7 +69313,7 @@ glabel doorsCheckAutomatic
 /**
  * Find automatic doors and open them if the player is close to them.
  */
-// Mismatch: regalloc when preparing arguments for func0f08bdd4.
+// Mismatch: regalloc when preparing arguments for doorIsPosInRange.
 //void doorsCheckAutomatic(void)
 //{
 //	s16 *propnumptr;
@@ -69407,10 +69344,10 @@ glabel doorsCheckAutomatic
 //				}
 //
 //				if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, door) != vectorIsInFrontOfDoor(door, &g_Vars.currentplayer->bond2.unk00)) {
-//					canopen = func0f08bdd4(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
+//					canopen = doorIsPosInRange(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
 //
 //					if (!canopen && obj) {
-//						canopen = func0f08be80(door, obj, isbike);
+//						canopen = doorIsObjInRange(door, obj, isbike);
 //					}
 //				}
 //
@@ -69418,10 +69355,10 @@ glabel doorsCheckAutomatic
 //
 //				while (sibling && sibling != door && !canopen) {
 //					if (posIsInFrontOfDoor(&g_Vars.currentplayer->prop->pos, sibling) != vectorIsInFrontOfDoor(sibling, &g_Vars.currentplayer->bond2.unk00)) {
-//						canopen = func0f08bdd4(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
+//						canopen = doorIsPosInRange(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
 //
 //						if (!canopen && obj) {
-//							canopen = func0f08be80(door, obj, isbike);
+//							canopen = doorIsObjInRange(door, obj, isbike);
 //						}
 //					}
 //

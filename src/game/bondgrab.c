@@ -2230,7 +2230,7 @@ bool bgrabCalculateNewPositiontWithPush(struct coord *delta, f32 angle, bool arg
 			} else if (obstacle->type == PROPTYPE_OBJ) {
 				struct defaultobj *obj = obstacle->obj;
 
-				if ((obj->hidden & OBJHFLAG_04000000) == 0
+				if ((obj->hidden & OBJHFLAG_MOUNTED) == 0
 						&& (obj->hidden & OBJHFLAG_GRABBED) == 0
 						&& (obj->flags3 & OBJFLAG3_PUSHABLE)) {
 					bool canpush = true;

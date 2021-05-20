@@ -65,7 +65,7 @@ void bbikeInit(void)
 
 	func0f06ac90(g_Vars.currentplayer->hoverbike);
 
-	hoverbike->base.hidden |= OBJHFLAG_04000000;
+	hoverbike->base.hidden |= OBJHFLAG_MOUNTED;
 }
 
 void bbikeExit(void)
@@ -75,7 +75,7 @@ void bbikeExit(void)
 	struct coord coord;
 	f32 w;
 
-	obj->hidden &= ~OBJHFLAG_04000000;
+	obj->hidden &= ~OBJHFLAG_MOUNTED;
 
 	coord.x = bikeobj->speed[0];
 	coord.y = 0;
@@ -1163,7 +1163,7 @@ s32 bbikeCalculateNewPositionWithPush(struct coord *arg0, f32 arg1)
 			} else if (obstacle->type == PROPTYPE_OBJ) {
 				struct defaultobj *obj = obstacle->obj;
 
-				if ((obj->hidden & OBJHFLAG_04000000) == 0
+				if ((obj->hidden & OBJHFLAG_MOUNTED) == 0
 						&& (obj->hidden & OBJHFLAG_GRABBED) == 0
 						&& (obj->flags3 & OBJFLAG3_PUSHABLE)) {
 					bool pass = true;

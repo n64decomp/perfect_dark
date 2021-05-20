@@ -2947,7 +2947,7 @@
 #define OBJHFLAG_00800000          0x00800000
 #define OBJHFLAG_01000000          0x01000000
 #define OBJHFLAG_02000000          0x02000000
-#define OBJHFLAG_04000000          0x04000000
+#define OBJHFLAG_MOUNTED           0x04000000 // for hoverbike
 #define OBJHFLAG_GRABBED           0x08000000
 #define OBJHFLAG_20000000          0x20000000 // upper nibble might be a single 4-bit value
 

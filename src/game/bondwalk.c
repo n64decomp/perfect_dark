@@ -1637,7 +1637,7 @@ glabel bwalkCalculateNewPositionWithPush
 //				struct defaultobj *obj = obstacle->obj;
 //				bool dothething;
 //
-//				if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
+//				if ((obj->hidden & OBJHFLAG_MOUNTED) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
 //					if (g_Vars.currentplayer->unk1af0 == 0 && obj->type == OBJTYPE_TANK) {
 //						g_Vars.currentplayer->tank = obstacle;
 //					} else if (obj->flags3 & OBJFLAG3_PUSHABLE) {
