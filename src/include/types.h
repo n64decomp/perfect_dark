@@ -1689,7 +1689,7 @@ struct doorobj { // objtype 0x01
 	/*0xc0*/ s32 lastopen60;
 	/*0xc4*/ s16 portalnum;
 	/*0xc6*/ s8 soundtype;
-	/*0xc7*/ s8 fadetime60;
+	/*0xc7*/ s8 fadetime60; // counts down
 	/*0xc8*/ s32 lastcalc60;
 	/*0xcc*/ u8 laserfade;
 	/*0xcd*/ u8 unusedmaybe[3];

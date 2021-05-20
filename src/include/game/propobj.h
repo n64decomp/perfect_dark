@@ -329,7 +329,7 @@ bool func0f08e794(struct coord *coord, f32 arg1);
 bool func0f08e8ac(struct prop *prop, struct coord *coord, f32 arg2, bool arg3);
 bool posIsInDrawDistance(struct coord *arg);
 void func0f08ea50(struct doorobj *door);
-bool func0f08ed74(struct doorobj *door);
+bool doorCalcIntendedFrac(struct doorobj *door);
 void doorsCalcFrac(struct doorobj *door);
 f32 func0f08f538(f32 x, f32 y);
 u32 func0f08f604(void);
