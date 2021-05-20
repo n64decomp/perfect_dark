@@ -2662,89 +2662,44 @@ s32 func0f0687b8(struct defaultobj *obj)
 	return (obj->damage >> 2) + 1;
 }
 
-GLOBAL_ASM(
-glabel func0f0687e4
-/*  f0687e4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0687e8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0687ec:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0687f0:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0687f4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0687f8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0687fc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f068800:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f068804:	8c820008 */ 	lw	$v0,0x8($a0)
-/*  f068808:	00808825 */ 	or	$s1,$a0,$zero
-/*  f06880c:	24120008 */ 	addiu	$s2,$zero,0x8
-/*  f068810:	8c500000 */ 	lw	$s0,0x0($v0)
-/*  f068814:	24130012 */ 	addiu	$s3,$zero,0x12
-/*  f068818:	24140017 */ 	addiu	$s4,$zero,0x17
-/*  f06881c:	1200002b */ 	beqz	$s0,.L0f0688cc
-/*  f068820:	24150018 */ 	addiu	$s5,$zero,0x18
-/*  f068824:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0f068828:
-/*  f068828:	02202025 */ 	or	$a0,$s1,$zero
-/*  f06882c:	304e00ff */ 	andi	$t6,$v0,0xff
-/*  f068830:	11d2000b */ 	beq	$t6,$s2,.L0f068860
-/*  f068834:	00000000 */ 	nop
-/*  f068838:	11d3000d */ 	beq	$t6,$s3,.L0f068870
-/*  f06883c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f068840:	11d4000f */ 	beq	$t6,$s4,.L0f068880
-/*  f068844:	02202025 */ 	or	$a0,$s1,$zero
-/*  f068848:	11d50003 */ 	beq	$t6,$s5,.L0f068858
-/*  f06884c:	00000000 */ 	nop
-/*  f068850:	1000000e */ 	b	.L0f06888c
-/*  f068854:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f068858:
-/*  f068858:	1000001d */ 	b	.L0f0688d0
-/*  f06885c:	02001025 */ 	or	$v0,$s0,$zero
-.L0f068860:
-/*  f068860:	0c0071e1 */ 	jal	func0001c784
-/*  f068864:	02002825 */ 	or	$a1,$s0,$zero
-/*  f068868:	10000008 */ 	b	.L0f06888c
-/*  f06886c:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f068870:
-/*  f068870:	0c0071f4 */ 	jal	func0001c7d0
-/*  f068874:	02002825 */ 	or	$a1,$s0,$zero
-/*  f068878:	10000004 */ 	b	.L0f06888c
-/*  f06887c:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f068880:
-/*  f068880:	0c007207 */ 	jal	modelAttachHead
-/*  f068884:	02002825 */ 	or	$a1,$s0,$zero
-/*  f068888:	8e020014 */ 	lw	$v0,0x14($s0)
-.L0f06888c:
-/*  f06888c:	10400003 */ 	beqz	$v0,.L0f06889c
-/*  f068890:	00000000 */ 	nop
-/*  f068894:	1000000b */ 	b	.L0f0688c4
-/*  f068898:	00408025 */ 	or	$s0,$v0,$zero
-.L0f06889c:
-/*  f06889c:	12000009 */ 	beqz	$s0,.L0f0688c4
-/*  f0688a0:	00000000 */ 	nop
-/*  f0688a4:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0f0688a8:
-/*  f0688a8:	50400004 */ 	beqzl	$v0,.L0f0688bc
-/*  f0688ac:	8e100008 */ 	lw	$s0,0x8($s0)
-/*  f0688b0:	10000004 */ 	b	.L0f0688c4
-/*  f0688b4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0688b8:	8e100008 */ 	lw	$s0,0x8($s0)
-.L0f0688bc:
-/*  f0688bc:	5600fffa */ 	bnezl	$s0,.L0f0688a8
-/*  f0688c0:	8e02000c */ 	lw	$v0,0xc($s0)
-.L0f0688c4:
-/*  f0688c4:	5600ffd8 */ 	bnezl	$s0,.L0f068828
-/*  f0688c8:	96020000 */ 	lhu	$v0,0x0($s0)
-.L0f0688cc:
-/*  f0688cc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0688d0:
-/*  f0688d0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0688d4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0688d8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0688dc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0688e0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0688e4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0688e8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0688ec:	03e00008 */ 	jr	$ra
-/*  f0688f0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+struct modelnode *func0f0687e4(struct model *model)
+{
+	struct modelfiledata *filedata = model->filedata;
+	struct modelnode *node = filedata->rootnode;
+
+	while (node) {
+		u32 type = node->type & 0xff;
+
+		switch (type) {
+		case MODELNODETYPE_DL:
+			return node;
+		case MODELNODETYPE_DISTANCE:
+			func0001c784(model, node);
+			break;
+		case MODELNODETYPE_TOGGLE:
+			func0001c7d0(model, node);
+			break;
+		case MODELNODETYPE_HEADSPOT:
+			modelAttachHead(model, node);
+			break;
+		}
+
+		if (node->child) {
+			node = node->child;
+		} else {
+			while (node) {
+				if (node->next) {
+					node = node->next;
+					break;
+				}
+
+				node = node->parent;
+			}
+		}
+	}
+
+	return NULL;
+}
 
 struct modelnode *modelFileDataFindBboxNode(struct modelfiledata *filedata)
 {
