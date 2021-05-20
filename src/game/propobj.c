@@ -372,50 +372,6 @@ u32 var80069bc8 = 0x00000003;
 u32 var80069bcc = 0x00000014;
 u32 var80069bd0 = 0x00000078;
 
-#if VERSION < VERSION_PAL_FINAL
-u32 g_DebugDoor = 0;
-#endif
-
-struct escastepkeyframe g_EscaStepKeyframesX[] = {
-	{ 0,   { -1535.98, -511,    -5258.18 } },
-	{ 41,  { -1535.98, -505.76, -5188.43 } },
-	{ 149, { -1535.98, -504.79, -5008.75 } },
-	{ 698, { -1535.98, -100.91, -4210.86 } },
-	{ 759, { -1535.98, -98.89,  -4109.62 } },
-	{ 800, { -1535.98, -102,    -4039.06 } },
-	{ -1,  { 0,        0,       0        } },
-};
-
-struct escastepkeyframe g_EscaStepKeyframesZ[] = {
-	{ 0,   { -1932.27, -102,    -3824.58 } },
-	{ 41,  { -2002.83, -98.89,  -3824.58 } },
-	{ 102, { -2104.07, -100.91, -3824.58 } },
-	{ 651, { -2901.96, -504.79, -3824.58 } },
-	{ 759, { -3081.64, -505.76, -3824.58 } },
-	{ 800, { -3151.39, -511,    -3824.58 } },
-	{ -1,  { 0,        0,       0        } },
-};
-
-u32 var80069cb8 = 0x2b000000;
-u32 var80069cbc = 0x0e000001;
-u32 var80069cc0 = 0x00000000;
-u32 var80069cc4 = 0x00000000;
-u32 var80069cc8 = 0x00000001;
-u32 var80069ccc = 0x00000003;
-u32 var80069cd0 = 0x00000000;
-u32 var80069cd4 = 0x00000000;
-u32 var80069cd8 = 0x00000000;
-u32 var80069cdc = 0x00000000;
-u32 var80069ce0 = 0x00000000;
-u32 var80069ce4 = 0x00000000;
-u32 var80069ce8 = 0x00000000;
-u32 var80069cec = 0x00000000;
-u32 var80069cf0 = 0x00000000;
-u32 var80069cf4 = 0x00000000;
-u32 var80069cf8 = 0x00000000;
-u32 var80069cfc = 0x00000000;
-u32 var80069d00 = 0x00000000;
-
 /**
  * Attempt to call a lift from the given door.
  *
@@ -32143,665 +32099,161 @@ glabel var7f1aa438
 );
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel doorTick
-.late_rodata
-glabel var7f1aa43c
-.word 0x3e99999a
-.text
-/*  f0771cc:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0771d0:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f0771d4:	afb10048 */ 	sw	$s1,0x48($sp)
-/*  f0771d8:	afb00044 */ 	sw	$s0,0x44($sp)
-/*  f0771dc:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f0771e0:	8c910004 */ 	lw	$s1,0x4($a0)
-/*  f0771e4:	8e2f0018 */ 	lw	$t7,0x18($s1)
-/*  f0771e8:	afaf0058 */ 	sw	$t7,0x58($sp)
-/*  f0771ec:	c624007c */ 	lwc1	$f4,0x7c($s1)
-/*  f0771f0:	e7a40054 */ 	swc1	$f4,0x54($sp)
-/*  f0771f4:	8e2200c0 */ 	lw	$v0,0xc0($s1)
-/*  f0771f8:	5840005d */ 	blezl	$v0,.PF0f077370
-/*  f0771fc:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f077200:	82380084 */ 	lb	$t8,0x84($s1)
-/*  f077204:	5700005a */ 	bnezl	$t8,.PF0f077370
-/*  f077208:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f07720c:	8e390008 */ 	lw	$t9,0x8($s1)
-/*  f077210:	3c09800a */ 	lui	$t1,0x800a
-/*  f077214:	00194040 */ 	sll	$t0,$t9,0x1
-/*  f077218:	05020055 */ 	bltzl	$t0,.PF0f077370
-/*  f07721c:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f077220:	8e2a0078 */ 	lw	$t2,0x78($s1)
-/*  f077224:	2401003c */ 	li	$at,0x3c
-/*  f077228:	8d29a518 */ 	lw	$t1,-0x5ae8($t1)
-/*  f07722c:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f077230:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f077234:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f077238:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f07723c:	000b5840 */ 	sll	$t3,$t3,0x1
-/*  f077240:	0161001a */ 	div	$zero,$t3,$at
-/*  f077244:	00006012 */ 	mflo	$t4
-/*  f077248:	012c6823 */ 	subu	$t5,$t1,$t4
-/*  f07724c:	004d082a */ 	slt	$at,$v0,$t5
-/*  f077250:	50200047 */ 	beqzl	$at,.PF0f077370
-/*  f077254:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f077258:	96220070 */ 	lhu	$v0,0x70($s1)
-/*  f07725c:	8e3000bc */ 	lw	$s0,0xbc($s1)
-/*  f077260:	02202025 */ 	move	$a0,$s1
-/*  f077264:	304e0010 */ 	andi	$t6,$v0,0x10
-/*  f077268:	01c01025 */ 	move	$v0,$t6
-/*  f07726c:	1200000e */ 	beqz	$s0,.PF0f0772a8
-/*  f077270:	01c01825 */ 	move	$v1,$t6
-/*  f077274:	1211000c */ 	beq	$s0,$s1,.PF0f0772a8
-/*  f077278:	00000000 */ 	nop
-/*  f07727c:	15c0000a */ 	bnez	$t6,.PF0f0772a8
-/*  f077280:	00000000 */ 	nop
-/*  f077284:	96030070 */ 	lhu	$v1,0x70($s0)
-.PF0f077288:
-/*  f077288:	8e1000bc */ 	lw	$s0,0xbc($s0)
-/*  f07728c:	306f0010 */ 	andi	$t7,$v1,0x10
-/*  f077290:	12000005 */ 	beqz	$s0,.PF0f0772a8
-/*  f077294:	01e01825 */ 	move	$v1,$t7
-/*  f077298:	12110003 */ 	beq	$s0,$s1,.PF0f0772a8
-/*  f07729c:	00000000 */ 	nop
-/*  f0772a0:	51e0fff9 */ 	beqzl	$t7,.PF0f077288
-/*  f0772a4:	96030070 */ 	lhu	$v1,0x70($s0)
-.PF0f0772a8:
-/*  f0772a8:	14600005 */ 	bnez	$v1,.PF0f0772c0
-/*  f0772ac:	00000000 */ 	nop
-/*  f0772b0:	0fc238ed */ 	jal	doorsRequestMode
-/*  f0772b4:	24050002 */ 	li	$a1,0x2
-/*  f0772b8:	1000002d */ 	b	.PF0f077370
-/*  f0772bc:	822b0084 */ 	lb	$t3,0x84($s1)
-.PF0f0772c0:
-/*  f0772c0:	5040002b */ 	beqzl	$v0,.PF0f077370
-/*  f0772c4:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f0772c8:	0fc22fdb */ 	jal	doorIsRangeEmpty
-/*  f0772cc:	02202025 */ 	move	$a0,$s1
-/*  f0772d0:	8e3000bc */ 	lw	$s0,0xbc($s1)
-/*  f0772d4:	52000010 */ 	beqzl	$s0,.PF0f077318
-/*  f0772d8:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*  f0772dc:	1211000d */ 	beq	$s0,$s1,.PF0f077314
-/*  f0772e0:	2c580001 */ 	sltiu	$t8,$v0,0x1
-/*  f0772e4:	5700000c */ 	bnezl	$t8,.PF0f077318
-/*  f0772e8:	2c590001 */ 	sltiu	$t9,$v0,0x1
-.PF0f0772ec:
-/*  f0772ec:	0fc22fdb */ 	jal	doorIsRangeEmpty
-/*  f0772f0:	02002025 */ 	move	$a0,$s0
-/*  f0772f4:	8e1000bc */ 	lw	$s0,0xbc($s0)
-/*  f0772f8:	2c430001 */ 	sltiu	$v1,$v0,0x1
-/*  f0772fc:	52000006 */ 	beqzl	$s0,.PF0f077318
-/*  f077300:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*  f077304:	52110004 */ 	beql	$s0,$s1,.PF0f077318
-/*  f077308:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*  f07730c:	1060fff7 */ 	beqz	$v1,.PF0f0772ec
-/*  f077310:	00000000 */ 	nop
-.PF0f077314:
-/*  f077314:	2c590001 */ 	sltiu	$t9,$v0,0x1
-.PF0f077318:
-/*  f077318:	13200011 */ 	beqz	$t9,.PF0f077360
-/*  f07731c:	3c02800a */ 	lui	$v0,0x800a
-/*  f077320:	8e3000bc */ 	lw	$s0,0xbc($s1)
-/*  f077324:	2442a510 */ 	addiu	$v0,$v0,-23280
-/*  f077328:	8c480008 */ 	lw	$t0,0x8($v0)
-/*  f07732c:	1200000f */ 	beqz	$s0,.PF0f07736c
-/*  f077330:	ae2800c0 */ 	sw	$t0,0xc0($s1)
-/*  f077334:	5211000e */ 	beql	$s0,$s1,.PF0f077370
-/*  f077338:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f07733c:	8c4a0008 */ 	lw	$t2,0x8($v0)
-.PF0f077340:
-/*  f077340:	ae0a00c0 */ 	sw	$t2,0xc0($s0)
-/*  f077344:	8e1000bc */ 	lw	$s0,0xbc($s0)
-/*  f077348:	52000009 */ 	beqzl	$s0,.PF0f077370
-/*  f07734c:	822b0084 */ 	lb	$t3,0x84($s1)
-/*  f077350:	5611fffb */ 	bnel	$s0,$s1,.PF0f077340
-/*  f077354:	8c4a0008 */ 	lw	$t2,0x8($v0)
-/*  f077358:	10000005 */ 	b	.PF0f077370
-/*  f07735c:	822b0084 */ 	lb	$t3,0x84($s1)
-.PF0f077360:
-/*  f077360:	02202025 */ 	move	$a0,$s1
-/*  f077364:	0fc238ed */ 	jal	doorsRequestMode
-/*  f077368:	24050002 */ 	li	$a1,0x2
-.PF0f07736c:
-/*  f07736c:	822b0084 */ 	lb	$t3,0x84($s1)
-.PF0f077370:
-/*  f077370:	24010003 */ 	li	$at,0x3
-/*  f077374:	5561001d */ 	bnel	$t3,$at,.PF0f0773ec
-/*  f077378:	962c0072 */ 	lhu	$t4,0x72($s1)
-/*  f07737c:	8e2200bc */ 	lw	$v0,0xbc($s1)
-/*  f077380:	24030001 */ 	li	$v1,0x1
-/*  f077384:	02202025 */ 	move	$a0,$s1
-/*  f077388:	10400013 */ 	beqz	$v0,.PF0f0773d8
-/*  f07738c:	00000000 */ 	nop
-/*  f077390:	10510011 */ 	beq	$v0,$s1,.PF0f0773d8
-/*  f077394:	00000000 */ 	nop
-/*  f077398:	44800000 */ 	mtc1	$zero,$f0
-/*  f07739c:	00000000 */ 	nop
-/*  f0773a0:	80490084 */ 	lb	$t1,0x84($v0)
-.PF0f0773a4:
-/*  f0773a4:	55200007 */ 	bnezl	$t1,.PF0f0773c4
-/*  f0773a8:	00001825 */ 	move	$v1,$zero
-/*  f0773ac:	c446007c */ 	lwc1	$f6,0x7c($v0)
-/*  f0773b0:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f0773b4:	00000000 */ 	nop
-/*  f0773b8:	45020003 */ 	bc1fl	.PF0f0773c8
-/*  f0773bc:	8c4200bc */ 	lw	$v0,0xbc($v0)
-/*  f0773c0:	00001825 */ 	move	$v1,$zero
-.PF0f0773c4:
-/*  f0773c4:	8c4200bc */ 	lw	$v0,0xbc($v0)
-.PF0f0773c8:
-/*  f0773c8:	10400003 */ 	beqz	$v0,.PF0f0773d8
-/*  f0773cc:	00000000 */ 	nop
-/*  f0773d0:	5451fff4 */ 	bnel	$v0,$s1,.PF0f0773a4
-/*  f0773d4:	80490084 */ 	lb	$t1,0x84($v0)
-.PF0f0773d8:
-/*  f0773d8:	50600004 */ 	beqzl	$v1,.PF0f0773ec
-/*  f0773dc:	962c0072 */ 	lhu	$t4,0x72($s1)
-/*  f0773e0:	0fc238b4 */ 	jal	doorSetMode
-/*  f0773e4:	24050001 */ 	li	$a1,0x1
-/*  f0773e8:	962c0072 */ 	lhu	$t4,0x72($s1)
-.PF0f0773ec:
-/*  f0773ec:	24010008 */ 	li	$at,0x8
-/*  f0773f0:	1581000b */ 	bne	$t4,$at,.PF0f077420
-/*  f0773f4:	00000000 */ 	nop
-/*  f0773f8:	0fc23913 */ 	jal	doorIsClosed
-/*  f0773fc:	02202025 */ 	move	$a0,$s1
-/*  f077400:	10400007 */ 	beqz	$v0,.PF0f077420
-/*  f077404:	00000000 */ 	nop
-/*  f077408:	0fc19a0f */ 	jal	doorIsPadlockFree
-/*  f07740c:	02202025 */ 	move	$a0,$s1
-/*  f077410:	10400003 */ 	beqz	$v0,.PF0f077420
-/*  f077414:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*  f077418:	0fc23f85 */ 	jal	doorsActivate
-/*  f07741c:	00002825 */ 	move	$a1,$zero
-.PF0f077420:
-/*  f077420:	3c0e800a */ 	lui	$t6,0x800a
-/*  f077424:	8dcea518 */ 	lw	$t6,-0x5ae8($t6)
-/*  f077428:	8e2d00c8 */ 	lw	$t5,0xc8($s1)
-/*  f07742c:	3c0f800a */ 	lui	$t7,0x800a
-/*  f077430:	01ae082a */ 	slt	$at,$t5,$t6
-/*  f077434:	14200004 */ 	bnez	$at,.PF0f077448
-/*  f077438:	00000000 */ 	nop
-/*  f07743c:	8defa544 */ 	lw	$t7,-0x5abc($t7)
-/*  f077440:	55e00004 */ 	bnezl	$t7,.PF0f077454
-/*  f077444:	8fb90058 */ 	lw	$t9,0x58($sp)
-.PF0f077448:
-/*  f077448:	0fc23c12 */ 	jal	doorDoCalc
-/*  f07744c:	02202025 */ 	move	$a0,$s1
-/*  f077450:	8fb90058 */ 	lw	$t9,0x58($sp)
-.PF0f077454:
-/*  f077454:	3c188008 */ 	lui	$t8,0x8008
-/*  f077458:	2718b378 */ 	addiu	$t8,$t8,-19592
-/*  f07745c:	8f280008 */ 	lw	$t0,0x8($t9)
-/*  f077460:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f077464:	8d0a0004 */ 	lw	$t2,0x4($t0)
-/*  f077468:	570a003c */ 	bnel	$t8,$t2,.PF0f07755c
-/*  f07746c:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f077470:	c628005c */ 	lwc1	$f8,0x5c($s1)
-/*  f077474:	c42ab6e0 */ 	lwc1	$f10,-0x4920($at)
-/*  f077478:	c630007c */ 	lwc1	$f16,0x7c($s1)
-/*  f07747c:	c7b20054 */ 	lwc1	$f18,0x54($sp)
-/*  f077480:	460a4002 */ 	mul.s	$f0,$f8,$f10
-/*  f077484:	c7a40054 */ 	lwc1	$f4,0x54($sp)
-/*  f077488:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f07748c:	00000000 */ 	nop
-/*  f077490:	4502001b */ 	bc1fl	.PF0f077500
-/*  f077494:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f077498:	4600903e */ 	c.le.s	$f18,$f0
-/*  f07749c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0774a0:	00002025 */ 	move	$a0,$zero
-/*  f0774a4:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*  f0774a8:	4500002b */ 	bc1f	.PF0f077558
-/*  f0774ac:	24068014 */ 	li	$a2,-32748
-/*  f0774b0:	44810000 */ 	mtc1	$at,$f0
-/*  f0774b4:	240bffff */ 	li	$t3,-1
-/*  f0774b8:	2409000c */ 	li	$t1,0xc
-/*  f0774bc:	240cffff */ 	li	$t4,-1
-/*  f0774c0:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f0774c4:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f0774c8:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0774cc:	2407ffff */ 	li	$a3,-1
-/*  f0774d0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0774d4:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0774d8:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0774dc:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0774e0:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0774e4:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f0774e8:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f0774ec:	0fc24e3a */ 	jal	func0f0939f8
-/*  f0774f0:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f0774f4:	10000019 */ 	b	.PF0f07755c
-/*  f0774f8:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0774fc:	4604003c */ 	c.lt.s	$f0,$f4
-.PF0f077500:
-/*  f077500:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f077504:	00002025 */ 	move	$a0,$zero
-/*  f077508:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*  f07750c:	45000012 */ 	bc1f	.PF0f077558
-/*  f077510:	24068015 */ 	li	$a2,-32747
-/*  f077514:	44810000 */ 	mtc1	$at,$f0
-/*  f077518:	240dffff */ 	li	$t5,-1
-/*  f07751c:	240e000c */ 	li	$t6,0xc
-/*  f077520:	240fffff */ 	li	$t7,-1
-/*  f077524:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*  f077528:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f07752c:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f077530:	2407ffff */ 	li	$a3,-1
-/*  f077534:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f077538:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f07753c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f077540:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f077544:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f077548:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f07754c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f077550:	0fc24e3a */ 	jal	func0f0939f8
-/*  f077554:	e7a00038 */ 	swc1	$f0,0x38($sp)
-.PF0f077558:
-/*  f077558:	8fbf004c */ 	lw	$ra,0x4c($sp)
-.PF0f07755c:
-/*  f07755c:	8fb00044 */ 	lw	$s0,0x44($sp)
-/*  f077560:	8fb10048 */ 	lw	$s1,0x48($sp)
-/*  f077564:	03e00008 */ 	jr	$ra
-/*  f077568:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
-#else
-const char var7f1a9fdc[] = "debugdoor";
+void doorTick(struct prop *doorprop)
+{
+	struct doorobj *door = (struct doorobj *)doorprop->obj;
+	struct model *model = door->base.model;
+	f32 prevfrac = door->frac;
+	u32 stack[2];
 
-GLOBAL_ASM(
-glabel doorTick
-.late_rodata
-glabel var7f1aa43c
-.word 0x3e99999a
-.text
-/*  f076f30:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f076f34:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f076f38:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f076f3c:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f076f40:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f076f44:	3c047f1b */ 	lui	$a0,%hi(var7f1a9fdc)
-/*  f076f48:	3c058007 */ 	lui	$a1,%hi(g_DebugDoor)
-/*  f076f4c:	8e0f0018 */ 	lw	$t7,0x18($s0)
-/*  f076f50:	24a59bd4 */ 	addiu	$a1,$a1,%lo(g_DebugDoor)
-/*  f076f54:	24849fdc */ 	addiu	$a0,$a0,%lo(var7f1a9fdc)
-/*  f076f58:	afaf0070 */ 	sw	$t7,0x70($sp)
-/*  f076f5c:	c604007c */ 	lwc1	$f4,0x7c($s0)
-/*  f076f60:	0c0036cc */ 	jal	func0000db30
-/*  f076f64:	e7a4006c */ 	swc1	$f4,0x6c($sp)
-/*  f076f68:	3c028007 */ 	lui	$v0,%hi(g_DebugDoor)
-/*  f076f6c:	8c429bd4 */ 	lw	$v0,%lo(g_DebugDoor)($v0)
-/*  f076f70:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f076f74:	50400013 */ 	beqzl	$v0,.L0f076fc4
-/*  f076f78:	8e0200c0 */ 	lw	$v0,0xc0($s0)
-/*  f076f7c:	10410002 */ 	beq	$v0,$at,.L0f076f88
-/*  f076f80:	8fb80078 */ 	lw	$t8,0x78($sp)
-/*  f076f84:	1458000e */ 	bne	$v0,$t8,.L0f076fc0
-.L0f076f88:
-/*  f076f88:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x64)
-/*  f076f8c:	8c42a024 */ 	lw	$v0,%lo(g_Vars+0x64)($v0)
-/*  f076f90:	8fb90078 */ 	lw	$t9,0x78($sp)
-/*  f076f94:	c4481bb0 */ 	lwc1	$f8,0x1bb0($v0)
-/*  f076f98:	c7260008 */ 	lwc1	$f6,0x8($t9)
-/*  f076f9c:	c4501bb8 */ 	lwc1	$f16,0x1bb8($v0)
-/*  f076fa0:	c72a0010 */ 	lwc1	$f10,0x10($t9)
-/*  f076fa4:	46083001 */ 	sub.s	$f0,$f6,$f8
-/*  f076fa8:	46105081 */ 	sub.s	$f2,$f10,$f16
-/*  f076fac:	46000482 */ 	mul.s	$f18,$f0,$f0
-/*  f076fb0:	00000000 */ 	nop
-/*  f076fb4:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f076fb8:	0c012974 */ 	jal	sqrtf
-/*  f076fbc:	46049300 */ 	add.s	$f12,$f18,$f4
-.L0f076fc0:
-/*  f076fc0:	8e0200c0 */ 	lw	$v0,0xc0($s0)
-.L0f076fc4:
-/*  f076fc4:	58400056 */ 	blezl	$v0,.L0f077120
-/*  f076fc8:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f076fcc:	82080084 */ 	lb	$t0,0x84($s0)
-/*  f076fd0:	55000053 */ 	bnezl	$t0,.L0f077120
-/*  f076fd4:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f076fd8:	8e090008 */ 	lw	$t1,0x8($s0)
-/*  f076fdc:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x8)
-/*  f076fe0:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f076fe4:	0542004e */ 	bltzl	$t2,.L0f077120
-/*  f076fe8:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f076fec:	8d6b9fc8 */ 	lw	$t3,%lo(g_Vars+0x8)($t3)
-/*  f076ff0:	8e0c0078 */ 	lw	$t4,0x78($s0)
-/*  f076ff4:	016c6823 */ 	subu	$t5,$t3,$t4
-/*  f076ff8:	004d082a */ 	slt	$at,$v0,$t5
-/*  f076ffc:	50200048 */ 	beqzl	$at,.L0f077120
-/*  f077000:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f077004:	96020070 */ 	lhu	$v0,0x70($s0)
-/*  f077008:	8e0400bc */ 	lw	$a0,0xbc($s0)
-/*  f07700c:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f077010:	304e0010 */ 	andi	$t6,$v0,0x10
-/*  f077014:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f077018:	1080000e */ 	beqz	$a0,.L0f077054
-/*  f07701c:	01c01825 */ 	or	$v1,$t6,$zero
-/*  f077020:	1090000c */ 	beq	$a0,$s0,.L0f077054
-/*  f077024:	00000000 */ 	nop
-/*  f077028:	15c0000a */ 	bnez	$t6,.L0f077054
-/*  f07702c:	00000000 */ 	nop
-/*  f077030:	94830070 */ 	lhu	$v1,0x70($a0)
-.L0f077034:
-/*  f077034:	8c8400bc */ 	lw	$a0,0xbc($a0)
-/*  f077038:	306f0010 */ 	andi	$t7,$v1,0x10
-/*  f07703c:	10800005 */ 	beqz	$a0,.L0f077054
-/*  f077040:	01e01825 */ 	or	$v1,$t7,$zero
-/*  f077044:	10900003 */ 	beq	$a0,$s0,.L0f077054
-/*  f077048:	00000000 */ 	nop
-/*  f07704c:	51e0fff9 */ 	beqzl	$t7,.L0f077034
-/*  f077050:	94830070 */ 	lhu	$v1,0x70($a0)
-.L0f077054:
-/*  f077054:	14600005 */ 	bnez	$v1,.L0f07706c
-/*  f077058:	00000000 */ 	nop
-/*  f07705c:	0fc23922 */ 	jal	doorsRequestMode
-/*  f077060:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077064:	1000002e */ 	b	.L0f077120
-/*  f077068:	820a0084 */ 	lb	$t2,0x84($s0)
-.L0f07706c:
-/*  f07706c:	5040002c */ 	beqzl	$v0,.L0f077120
-/*  f077070:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f077074:	0fc23010 */ 	jal	doorIsRangeEmpty
-/*  f077078:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07707c:	8e0400bc */ 	lw	$a0,0xbc($s0)
-/*  f077080:	50800011 */ 	beqzl	$a0,.L0f0770c8
-/*  f077084:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*  f077088:	1090000e */ 	beq	$a0,$s0,.L0f0770c4
-/*  f07708c:	2c580001 */ 	sltiu	$t8,$v0,0x1
-/*  f077090:	5700000d */ 	bnezl	$t8,.L0f0770c8
-/*  f077094:	2c590001 */ 	sltiu	$t9,$v0,0x1
-.L0f077098:
-/*  f077098:	0fc23010 */ 	jal	doorIsRangeEmpty
-/*  f07709c:	afa40054 */ 	sw	$a0,0x54($sp)
-/*  f0770a0:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f0770a4:	2c430001 */ 	sltiu	$v1,$v0,0x1
-/*  f0770a8:	8c8400bc */ 	lw	$a0,0xbc($a0)
-/*  f0770ac:	50800006 */ 	beqzl	$a0,.L0f0770c8
-/*  f0770b0:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*  f0770b4:	50900004 */ 	beql	$a0,$s0,.L0f0770c8
-/*  f0770b8:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*  f0770bc:	1060fff6 */ 	beqz	$v1,.L0f077098
-/*  f0770c0:	00000000 */ 	nop
-.L0f0770c4:
-/*  f0770c4:	2c590001 */ 	sltiu	$t9,$v0,0x1
-.L0f0770c8:
-/*  f0770c8:	13200011 */ 	beqz	$t9,.L0f077110
-/*  f0770cc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0770d0:	8e0400bc */ 	lw	$a0,0xbc($s0)
-/*  f0770d4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0770d8:	8c480008 */ 	lw	$t0,0x8($v0)
-/*  f0770dc:	1080000f */ 	beqz	$a0,.L0f07711c
-/*  f0770e0:	ae0800c0 */ 	sw	$t0,0xc0($s0)
-/*  f0770e4:	5090000e */ 	beql	$a0,$s0,.L0f077120
-/*  f0770e8:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f0770ec:	8c490008 */ 	lw	$t1,0x8($v0)
-.L0f0770f0:
-/*  f0770f0:	ac8900c0 */ 	sw	$t1,0xc0($a0)
-/*  f0770f4:	8c8400bc */ 	lw	$a0,0xbc($a0)
-/*  f0770f8:	50800009 */ 	beqzl	$a0,.L0f077120
-/*  f0770fc:	820a0084 */ 	lb	$t2,0x84($s0)
-/*  f077100:	5490fffb */ 	bnel	$a0,$s0,.L0f0770f0
-/*  f077104:	8c490008 */ 	lw	$t1,0x8($v0)
-/*  f077108:	10000005 */ 	b	.L0f077120
-/*  f07710c:	820a0084 */ 	lb	$t2,0x84($s0)
-.L0f077110:
-/*  f077110:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077114:	0fc23922 */ 	jal	doorsRequestMode
-/*  f077118:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f07711c:
-/*  f07711c:	820a0084 */ 	lb	$t2,0x84($s0)
-.L0f077120:
-/*  f077120:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f077124:	5541001d */ 	bnel	$t2,$at,.L0f07719c
-/*  f077128:	960c0072 */ 	lhu	$t4,0x72($s0)
-/*  f07712c:	8e0200bc */ 	lw	$v0,0xbc($s0)
-/*  f077130:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f077134:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077138:	10400013 */ 	beqz	$v0,.L0f077188
-/*  f07713c:	00000000 */ 	nop
-/*  f077140:	10500011 */ 	beq	$v0,$s0,.L0f077188
-/*  f077144:	00000000 */ 	nop
-/*  f077148:	44800000 */ 	mtc1	$zero,$f0
-/*  f07714c:	00000000 */ 	nop
-/*  f077150:	804b0084 */ 	lb	$t3,0x84($v0)
-.L0f077154:
-/*  f077154:	55600007 */ 	bnezl	$t3,.L0f077174
-/*  f077158:	00001825 */ 	or	$v1,$zero,$zero
-/*  f07715c:	c446007c */ 	lwc1	$f6,0x7c($v0)
-/*  f077160:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f077164:	00000000 */ 	nop
-/*  f077168:	45020003 */ 	bc1fl	.L0f077178
-/*  f07716c:	8c4200bc */ 	lw	$v0,0xbc($v0)
-/*  f077170:	00001825 */ 	or	$v1,$zero,$zero
-.L0f077174:
-/*  f077174:	8c4200bc */ 	lw	$v0,0xbc($v0)
-.L0f077178:
-/*  f077178:	10400003 */ 	beqz	$v0,.L0f077188
-/*  f07717c:	00000000 */ 	nop
-/*  f077180:	5450fff4 */ 	bnel	$v0,$s0,.L0f077154
-/*  f077184:	804b0084 */ 	lb	$t3,0x84($v0)
-.L0f077188:
-/*  f077188:	50600004 */ 	beqzl	$v1,.L0f07719c
-/*  f07718c:	960c0072 */ 	lhu	$t4,0x72($s0)
-/*  f077190:	0fc238e9 */ 	jal	doorSetMode
-/*  f077194:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f077198:	960c0072 */ 	lhu	$t4,0x72($s0)
-.L0f07719c:
-/*  f07719c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0771a0:	1581000b */ 	bne	$t4,$at,.L0f0771d0
-/*  f0771a4:	00000000 */ 	nop
-/*  f0771a8:	0fc23948 */ 	jal	doorIsClosed
-/*  f0771ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0771b0:	10400007 */ 	beqz	$v0,.L0f0771d0
-/*  f0771b4:	00000000 */ 	nop
-/*  f0771b8:	0fc1996b */ 	jal	doorIsPadlockFree
-/*  f0771bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0771c0:	10400003 */ 	beqz	$v0,.L0f0771d0
-/*  f0771c4:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f0771c8:	0fc23fba */ 	jal	doorsActivate
-/*  f0771cc:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0771d0:
-/*  f0771d0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x8)
-/*  f0771d4:	8dce9fc8 */ 	lw	$t6,%lo(g_Vars+0x8)($t6)
-/*  f0771d8:	8e0d00c8 */ 	lw	$t5,0xc8($s0)
-/*  f0771dc:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x34)
-/*  f0771e0:	01ae082a */ 	slt	$at,$t5,$t6
-/*  f0771e4:	14200004 */ 	bnez	$at,.L0f0771f8
-/*  f0771e8:	00000000 */ 	nop
-/*  f0771ec:	8def9ff4 */ 	lw	$t7,%lo(g_Vars+0x34)($t7)
-/*  f0771f0:	55e00004 */ 	bnezl	$t7,.L0f077204
-/*  f0771f4:	8fb90070 */ 	lw	$t9,0x70($sp)
-.L0f0771f8:
-/*  f0771f8:	0fc23c47 */ 	jal	doorDoCalc
-/*  f0771fc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f077200:	8fb90070 */ 	lw	$t9,0x70($sp)
-.L0f077204:
-/*  f077204:	3c188008 */ 	lui	$t8,%hi(g_ModelType13)
-/*  f077208:	2718aea8 */ 	addiu	$t8,$t8,%lo(g_ModelType13)
-/*  f07720c:	8f280008 */ 	lw	$t0,0x8($t9)
-/*  f077210:	3c017f1b */ 	lui	$at,%hi(var7f1aa43c)
-/*  f077214:	8d090004 */ 	lw	$t1,0x4($t0)
-/*  f077218:	5709003c */ 	bnel	$t8,$t1,.L0f07730c
-/*  f07721c:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f077220:	c608005c */ 	lwc1	$f8,0x5c($s0)
-/*  f077224:	c42aa43c */ 	lwc1	$f10,%lo(var7f1aa43c)($at)
-/*  f077228:	c610007c */ 	lwc1	$f16,0x7c($s0)
-/*  f07722c:	c7b2006c */ 	lwc1	$f18,0x6c($sp)
-/*  f077230:	460a4002 */ 	mul.s	$f0,$f8,$f10
-/*  f077234:	c7a4006c */ 	lwc1	$f4,0x6c($sp)
-/*  f077238:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f07723c:	00000000 */ 	nop
-/*  f077240:	4502001b */ 	bc1fl	.L0f0772b0
-/*  f077244:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f077248:	4600903e */ 	c.le.s	$f18,$f0
-/*  f07724c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f077250:	00002025 */ 	or	$a0,$zero,$zero
-/*  f077254:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*  f077258:	4500002b */ 	bc1f	.L0f077308
-/*  f07725c:	24068014 */ 	addiu	$a2,$zero,-32748
-/*  f077260:	44810000 */ 	mtc1	$at,$f0
-/*  f077264:	240affff */ 	addiu	$t2,$zero,-1
-/*  f077268:	240b000c */ 	addiu	$t3,$zero,0xc
-/*  f07726c:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f077270:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f077274:	afab001c */ 	sw	$t3,0x1c($sp)
-/*  f077278:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f07727c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f077280:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f077284:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f077288:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f07728c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f077290:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f077294:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f077298:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f07729c:	0fc24e7e */ 	jal	func0f0939f8
-/*  f0772a0:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f0772a4:	10000019 */ 	b	.L0f07730c
-/*  f0772a8:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0772ac:	4604003c */ 	c.lt.s	$f0,$f4
-.L0f0772b0:
-/*  f0772b0:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0772b4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0772b8:	8fa50078 */ 	lw	$a1,0x78($sp)
-/*  f0772bc:	45000012 */ 	bc1f	.L0f077308
-/*  f0772c0:	24068015 */ 	addiu	$a2,$zero,-32747
-/*  f0772c4:	44810000 */ 	mtc1	$at,$f0
-/*  f0772c8:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f0772cc:	240e000c */ 	addiu	$t6,$zero,0xc
-/*  f0772d0:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0772d4:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*  f0772d8:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f0772dc:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0772e0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0772e4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0772e8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0772ec:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0772f0:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0772f4:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0772f8:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f0772fc:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f077300:	0fc24e7e */ 	jal	func0f0939f8
-/*  f077304:	e7a00038 */ 	swc1	$f0,0x38($sp)
-.L0f077308:
-/*  f077308:	8fbf004c */ 	lw	$ra,0x4c($sp)
-.L0f07730c:
-/*  f07730c:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f077310:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f077314:	03e00008 */ 	jr	$ra
-/*  f077318:	00000000 */ 	nop
-);
+#if VERSION < VERSION_PAL_FINAL
+	static u32 debugdoor = 0;
+
+	func0000db30("debugdoor", &debugdoor);
+
+	// If debugdoor is set to 1 or to the address of this door,
+	// print the distance to the door to console
+	if (debugdoor) {
+		u32 addr = (u32)doorprop;
+
+		if (debugdoor == 1 || debugdoor == addr) {
+			f32 xdiff = doorprop->pos.x - g_Vars.players[0]->cam_pos.x;
+			f32 zdiff = doorprop->pos.z - g_Vars.players[0]->cam_pos.z;
+
+			sqrtf(xdiff * xdiff + zdiff * zdiff);
+		}
+	}
 #endif
 
-// Mismatch because `g_DebugDoor == (u32)doorprop` is swapped,
-// and regalloc near 004.
-//void doorTick(struct prop *doorprop)
-//{
-//	struct doorobj *door = (struct doorobj *)doorprop->obj;
-//	struct model *model = door->base.model;
-//	f32 prevfrac = door->frac;
-//
-//	func0000db30("debugdoor", &g_DebugDoor);
-//
-//	// If g_DebugDoor is set to 1 or to the address of this door,
-//	// print the distance to the door to console
-//	if (g_DebugDoor) {
-//		if (g_DebugDoor == 1 || g_DebugDoor == (u32)doorprop) {
-//			f32 xdiff = doorprop->pos.x - g_Vars.players[0]->cam_pos.x;
-//			f32 zdiff = doorprop->pos.z - g_Vars.players[0]->cam_pos.z;
-//
-//			sqrtf(xdiff * xdiff + zdiff * zdiff);
-//		}
-//	}
-//
-//	// If door should autoclose this tick
-//	if (door->lastopen60 > 0
-//			&& door->mode == DOORMODE_IDLE
-//			&& (door->base.flags & OBJFLAG_DOOR_KEEPOPEN) == 0
-//			&& door->lastopen60 < g_Vars.lvframe60 - door->autoclosetime) {
-//		// 004
-//		// Check if any sibling has DOORFLAG_AUTOMATIC
-//		struct doorobj *loopdoor = door->sibling;
-//		s32 hasflag = door->doorflags & DOORFLAG_AUTOMATIC;
-//
-//		while (loopdoor && loopdoor != door && !hasflag) {
-//			hasflag = loopdoor->doorflags & DOORFLAG_AUTOMATIC;
-//			loopdoor = loopdoor->sibling;
-//		}
-//
-//		if (hasflag == false) {
-//			doorsRequestMode(door, DOORMODE_CLOSING);
-//		} else if (door->doorflags & DOORFLAG_AUTOMATIC) {
-//			// Check if any sibling has anything in range
-//			bool keepopen = !doorIsRangeEmpty(door);
-//			struct doorobj *loopdoor = door->sibling;
-//
-//			while (loopdoor && loopdoor != door && !keepopen) {
-//				keepopen = !doorIsRangeEmpty(loopdoor);
-//				loopdoor = loopdoor->sibling;
-//			}
-//
-//			if (keepopen) {
-//				struct doorobj *loopdoor = door->sibling;
-//				door->lastopen60 = g_Vars.lvframe60;
-//
-//				while (loopdoor && loopdoor != door) {
-//					loopdoor->lastopen60 = g_Vars.lvframe60;
-//					loopdoor = loopdoor->sibling;
-//				}
-//			} else {
-//				doorsRequestMode(door, DOORMODE_CLOSING);
-//			}
-//		}
-//	}
-//
-//	// If waiting for sibling to close, check for that
-//	if (door->mode == DOORMODE_WAITING) {
-//		s32 shouldopen = true;
-//		struct doorobj *loopdoor = door->sibling;
-//
-//		while (loopdoor && loopdoor != door) {
-//			if (loopdoor->mode != DOORMODE_IDLE || loopdoor->frac > 0) {
-//				shouldopen = false;
-//			}
-//
-//			loopdoor = loopdoor->sibling;
-//		}
-//
-//		if (shouldopen) {
-//			doorSetMode(door, DOORMODE_OPENING);
-//		}
-//	}
-//
-//	// DOORTYPE_8 is unused - not sure what this does
-//	if (door->doortype == DOORTYPE_8
-//			&& doorIsClosed(door)
-//			&& doorIsPadlockFree(door)) {
-//		doorsActivate(doorprop, false);
-//	}
-//
-//	// Update frac
-//	if (door->lastcalc60 < g_Vars.lvframe60 || g_Vars.lvupdate240 == 0) {
-//		doorDoCalc(door);
-//	}
-//
-//	// Consider playing a sound effect
-//	if (model->filedata->unk04 == &g_ModelType13) {
-//		f32 soundpoint = door->maxfrac * 0.3f;
-//
-//		if (door->frac > soundpoint) {
-//			if (prevfrac <= soundpoint) {
-//				// frac increased past the soundpoint
-//				func0f0939f8(NULL, doorprop, SFX_DOOR_8014, -1,
-//						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
-//			}
-//		} else {
-//			if (prevfrac > soundpoint) {
-//				// frac decreased past the soundpoint
-//				func0f0939f8(NULL, doorprop, SFX_DOOR_8015, -1,
-//						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
-//			}
-//		}
-//	}
-//}
+	// If door should autoclose this tick
+	if (door->lastopen60 > 0
+			&& door->mode == DOORMODE_IDLE
+			&& (door->base.flags & OBJFLAG_DOOR_KEEPOPEN) == 0
+			&& door->lastopen60 < g_Vars.lvframe60 - PALDOWN(door->autoclosetime)) {
+		// Check if any sibling is automatic
+		struct doorobj *loopdoor = door->sibling;
+		bool pass = door->doorflags & DOORFLAG_AUTOMATIC;
+
+		while (loopdoor && loopdoor != door && !pass) {
+			pass = loopdoor->doorflags & DOORFLAG_AUTOMATIC;
+			loopdoor = loopdoor->sibling;
+		}
+
+		if (!pass) {
+			// Not automatic
+			doorsRequestMode(door, DOORMODE_CLOSING);
+		} else if (door->doorflags & DOORFLAG_AUTOMATIC) {
+			// Check if any sibling has anything in range
+			pass = !doorIsRangeEmpty(door);
+			loopdoor = door->sibling;
+
+			while (loopdoor && loopdoor != door && !pass) {
+				pass = !doorIsRangeEmpty(loopdoor);
+				loopdoor = loopdoor->sibling;
+			}
+
+			if (pass) {
+				// Something is in range, so keep open
+				loopdoor = door->sibling;
+				door->lastopen60 = g_Vars.lvframe60;
+
+				while (loopdoor && loopdoor != door) {
+					loopdoor->lastopen60 = g_Vars.lvframe60;
+					loopdoor = loopdoor->sibling;
+				}
+			} else {
+				doorsRequestMode(door, DOORMODE_CLOSING);
+			}
+		}
+	}
+
+	// If waiting for sibling to close, check for that
+	if (door->mode == DOORMODE_WAITING) {
+		bool shouldopen = true;
+		struct doorobj *loopdoor = door->sibling;
+
+		while (loopdoor && loopdoor != door) {
+			if (loopdoor->mode != DOORMODE_IDLE || loopdoor->frac > 0) {
+				shouldopen = false;
+			}
+
+			loopdoor = loopdoor->sibling;
+		}
+
+		if (shouldopen) {
+			doorSetMode(door, DOORMODE_OPENING);
+		}
+	}
+
+	// DOORTYPE_8 is unused
+	if (door->doortype == DOORTYPE_8 && doorIsClosed(door) && doorIsPadlockFree(door)) {
+		doorsActivate(doorprop, false);
+	}
+
+	// Update frac
+	if (door->lastcalc60 < g_Vars.lvframe60 || g_Vars.lvupdate240 == 0) {
+		doorDoCalc(door);
+	}
+
+	// Consider playing a sound effect
+	if (model->filedata->type == &g_ModelType13) {
+		f32 soundpoint = door->maxfrac * 0.3f;
+
+		if (door->frac > soundpoint) {
+			if (prevfrac <= soundpoint) {
+				// frac increased past the soundpoint
+				func0f0939f8(NULL, doorprop, SFX_DOOR_8014, -1,
+						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+			}
+		} else {
+			if (prevfrac > soundpoint) {
+				// frac decreased past the soundpoint
+				func0f0939f8(NULL, doorprop, SFX_DOOR_8015, -1,
+						-1, 0, 0, 12, 0, -1, 0, -1, -1, -1, -1);
+			}
+		}
+	}
+}
+
+struct escastepkeyframe g_EscaStepKeyframesX[] = {
+	{ 0,   { -1535.98, -511,    -5258.18 } },
+	{ 41,  { -1535.98, -505.76, -5188.43 } },
+	{ 149, { -1535.98, -504.79, -5008.75 } },
+	{ 698, { -1535.98, -100.91, -4210.86 } },
+	{ 759, { -1535.98, -98.89,  -4109.62 } },
+	{ 800, { -1535.98, -102,    -4039.06 } },
+	{ -1,  { 0,        0,       0        } },
+};
+
+struct escastepkeyframe g_EscaStepKeyframesZ[] = {
+	{ 0,   { -1932.27, -102,    -3824.58 } },
+	{ 41,  { -2002.83, -98.89,  -3824.58 } },
+	{ 102, { -2104.07, -100.91, -3824.58 } },
+	{ 651, { -2901.96, -504.79, -3824.58 } },
+	{ 759, { -3081.64, -505.76, -3824.58 } },
+	{ 800, { -3151.39, -511,    -3824.58 } },
+	{ -1,  { 0,        0,       0        } },
+};
+
+u32 var80069cb8 = 0x2b000000;
+u32 var80069cbc = 0x0e000001;
+u32 var80069cc0 = 0x00000000;
+u32 var80069cc4 = 0x00000000;
+u32 var80069cc8 = 0x00000001;
+u32 var80069ccc = 0x00000003;
+u32 var80069cd0 = 0x00000000;
+u32 var80069cd4 = 0x00000000;
+u32 var80069cd8 = 0x00000000;
+u32 var80069cdc = 0x00000000;
+u32 var80069ce0 = 0x00000000;
+u32 var80069ce4 = 0x00000000;
+u32 var80069ce8 = 0x00000000;
+u32 var80069cec = 0x00000000;
+u32 var80069cf0 = 0x00000000;
+u32 var80069cf4 = 0x00000000;
+u32 var80069cf8 = 0x00000000;
+u32 var80069cfc = 0x00000000;
+u32 var80069d00 = 0x00000000;
 
 const char var7f1a9fe8[] = "************** RWI : Door Stuck Mate -> Sort it out\n";
 
