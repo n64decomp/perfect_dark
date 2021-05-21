@@ -7173,8 +7173,8 @@ void chrGoPosClearRestartTtl(struct chrdata *chr)
 void chrGoPosConsiderRestart(struct chrdata *chr)
 {
 	if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
-			&& chr->liftaction != LA_3
-			&& chr->liftaction != LA_1) {
+			&& chr->liftaction != LIFTACTION_WAITINGONLIFT
+			&& chr->liftaction != LIFTACTION_WAITINGFORLIFT) {
 		if (chr->act_gopos.restartttl == 0) {
 #if VERSION >= VERSION_PAL_FINAL
 			s32 value = (chrGoPosCalculateBaseTtl(chr) * 100 + 15000) / 60;
@@ -12171,8 +12171,6 @@ void chrTickDruggedDrop(struct chrdata *chr)
 
 	chrAlertOthersOfInjury(chr, true);
 }
-
-u32 var8006843c = 0x0000ffff;
 
 void chrTickDruggedKo(struct chrdata *chr)
 {
@@ -26281,7 +26279,7 @@ glabel var7f1a927c
 );
 
 GLOBAL_ASM(
-glabel func0f046648
+glabel goPosUpdateLiftAction
 /*  f046648:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f04664c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f046650:	00808025 */ 	or	$s0,$a0,$zero
@@ -26303,7 +26301,7 @@ glabel func0f046648
 /*  f04668c:	8ca40004 */ 	lw	$a0,0x4($a1)
 /*  f046690:	afa8009c */ 	sw	$t0,0x9c($sp)
 /*  f046694:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f046698:	0fc1c3ab */ 	jal	func0f070eac
+/*  f046698:	0fc1c3ab */ 	jal	liftGetY
 /*  f04669c:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f0466a0:	8fae00b4 */ 	lw	$t6,0xb4($sp)
 /*  f0466a4:	8fa30044 */ 	lw	$v1,0x44($sp)
@@ -26553,6 +26551,142 @@ glabel func0f046648
 /*  f046a2c:	00000000 */ 	nop
 );
 
+u32 var8006843c = 0x0000ffff;
+
+// Mismatch: Goal loads arrivingatlift into a0 then later copies s0 (chr) to a0.
+// The below loads arrivingatlift into v1 and copies s0 to a0 earlier.
+//bool goPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
+//{
+//	bool advance = false;
+//	struct pad nextpad;
+//	u32 nextpadflags = 0;
+//	f32 nextground;
+//	f32 lifty;
+//	struct liftobj *lift;
+//	struct prop *liftprop = liftFindByPad(curpadnum);
+//	u32 stack;
+//
+//	if (!liftprop) {
+//		return false;
+//	}
+//
+//	lift = (struct liftobj *) liftprop->obj;
+//
+//	lifty = liftGetY(lift);
+//
+//	if (nextpadnum >= 0) {
+//		padUnpack(nextpadnum, PADFIELD_POS | PADFIELD_ROOM | PADFIELD_FLAGS, &nextpad);
+//		nextpadflags = nextpad.flags;
+//	}
+//
+//	if (curpadflags & PADFLAG_AIWAITLIFT) {
+//		if (nextpadflags & PADFLAG_AIONLIFT) {
+//			if (arrivingatlift || chr->liftaction == LIFTACTION_WAITINGFORLIFT) {
+//				// Begin entering lift if lift is under 40cm above this level
+//				advance = (lifty <= chr->manground + 40);
+//
+//				// ...and (if solo mode) lift is over 1m under this level
+//				// (this logic allows MP simulants to drop down onto lifts)
+//				if (!g_Vars.normmplayerisrunning && advance) {
+//					advance = (lifty > chr->manground - 100);
+//				}
+//
+//				// ...and if the lift has a door, is at least halfway open
+//				if (advance && lift->doors[lift->levelcur] && lift->doors[lift->levelcur]->frac < 0.5f) {
+//					advance = false;
+//				}
+//			}
+//
+//			if (!advance) {
+//				if (arrivingatlift && chr->liftaction != LIFTACTION_WAITINGFORLIFT) {
+//					// Just arrived at lift
+//					chr->liftaction = LIFTACTION_WAITINGFORLIFT;
+//
+//					chrStandChooseAnimation(chr, 16);
+//
+//					if (nextpadnum >= 0) {
+//						// Call the lift
+//						chrOpenDoor(chr, &nextpad.pos);
+//					}
+//				}
+//			} else {
+//				// Enter lift
+//				chr->liftaction = LIFTACTION_NOTUSINGLIFT;
+//
+//				if (func0f02e064(chr)) {
+//					if (chr->actiontype == ACT_PATROL) {
+//						func0f038868(chr);
+//					} else {
+//						chrGoPosChooseAnimation(chr);
+//					}
+//				}
+//			}
+//		} else {
+//			// On a wait lift pad, but the next pad in the route is not on the
+//			// lift, so the chr is running past the lift without using it.
+//			if (arrivingatlift) {
+//				advance = true;
+//				chr->liftaction = LIFTACTION_NOTUSINGLIFT;
+//			}
+//		}
+//	} else if (curpadflags & PADFLAG_AIONLIFT) {
+//		if (nextpadflags & PADFLAG_AIWAITLIFT) {
+//			// Waiting for door to close or lift to arrive at destination
+//			if (arg2 || chr->liftaction == LIFTACTION_WAITINGONLIFT) {
+//				// Continue waiting
+//				s16 rooms[] = {0, -1};
+//				u32 stack2;
+//
+//				rooms[0] = nextpad.room;
+//
+//				nextground = func0002a36c(&nextpad.pos, rooms, NULL, NULL);
+//
+//				// Begin exiting lift if lift is 30cm under destination or higher
+//				advance = (lifty >= nextground - 30);
+//
+//				// ...and (if solo) lift is under 1m above destination
+//				if (!g_Vars.normmplayerisrunning && advance) {
+//					advance = (lifty < nextground + 100);
+//				}
+//
+//				// ...and if the lift has a door, is at least halfway open
+//				if (advance && lift->doors[lift->levelcur] && lift->doors[lift->levelcur]->frac < 0.5f) {
+//					advance = false;
+//				}
+//			}
+//
+//			if (!advance) {
+//				if (arg2 && chr->liftaction != LIFTACTION_WAITINGONLIFT) {
+//					// Just arrived inside lift
+//					chr->liftaction = LIFTACTION_WAITINGONLIFT;
+//					chrStandChooseAnimation(chr, 16);
+//				}
+//			} else {
+//				// Start disembarking
+//				chr->liftaction = LIFTACTION_ONLIFT;
+//
+//				if (func0f02e064(chr)) {
+//					if (chr->actiontype == ACT_PATROL) {
+//						func0f038868(chr);
+//					} else {
+//						chrGoPosChooseAnimation(chr);
+//					}
+//				}
+//			}
+//		} else {
+//			// Not our stop? Not sure why advance is true here. I guess the chr
+//			// can't go anywhere anyway because the next pad is above or below
+//			// them.
+//			if (arg2) {
+//				advance = true;
+//				chr->liftaction = LIFTACTION_ONLIFT;
+//			}
+//		}
+//	}
+//
+//	return advance;
+//}
+
 s32 chrIsUsingLift(struct chrdata *chr)
 {
 	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->liftaction > 0;
@@ -26699,7 +26833,7 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 
 		if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-			advance = func0f046648(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
+			advance = goPosUpdateLiftAction(chr, pad.flags, sp184, sp188, waypoint->padnum, chrGoPosGetNextPadNum(chr));
 		} else {
 			if (sp188 || (sp184 && (chr->inlift || (pad.flags & PADFLAG_8000)))) {
 				advance = true;
@@ -27022,7 +27156,7 @@ glabel chrTickPatrol
 /*  f047604:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*  f047608:	8fa70040 */ 	lw	$a3,0x40($sp)
 /*  f04760c:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f047610:	0fc11992 */ 	jal	func0f046648
+/*  f047610:	0fc11992 */ 	jal	goPosUpdateLiftAction
 /*  f047614:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f047618:	10000004 */ 	b	.L0f04762c
 /*  f04761c:	00401825 */ 	or	$v1,$v0,$zero
@@ -27211,7 +27345,7 @@ glabel chrTickPatrol
 /*  f047604:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*  f047608:	8fa70040 */ 	lw	$a3,0x40($sp)
 /*  f04760c:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f047610:	0fc11992 */ 	jal	func0f046648
+/*  f047610:	0fc11992 */ 	jal	goPosUpdateLiftAction
 /*  f047614:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f047618:	10000004 */ 	b	.L0f04762c
 /*  f04761c:	00401825 */ 	or	$v1,$v0,$zero

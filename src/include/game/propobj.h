@@ -141,7 +141,7 @@ u32 func0f070bd0(void);
 void func0f070ca0(struct defaultobj *obj, void *ptr, s32 arg2, s32 arg3, union modelrodata *rodata);
 void liftActivate(struct prop *prop, u8 liftnum);
 struct prop *liftFindByPad(s16 padnum);
-u32 func0f070eac(void);
+f32 liftGetY(struct liftobj *lift);
 void func0f070f08(struct liftobj *lift, bool arg0);
 void liftGoToStop(struct liftobj *lift, s32 stopnum);
 f32 objGetHov04(struct defaultobj *obj);

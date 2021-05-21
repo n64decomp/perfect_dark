@@ -16365,7 +16365,7 @@ struct prop *liftFindByPad(s16 padnum)
 }
 
 GLOBAL_ASM(
-glabel func0f070eac
+glabel liftGetY
 /*  f070eac:	808f005a */ 	lb	$t7,0x5a($a0)
 /*  f070eb0:	8c8e0014 */ 	lw	$t6,0x14($a0)
 /*  f070eb4:	19e00012 */ 	blez	$t7,.L0f070f00

@@ -92,7 +92,7 @@ void func0f0375e8(struct chrdata *chr, struct waydata *waydata, f32 arg2, struct
 void chrCalculatePosition(struct chrdata *chr, struct coord *pos);
 void chrGoPosChooseAnimation(struct chrdata *chr);
 bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 flags);
-u32 func0f038868(void);
+void func0f038868(struct chrdata *chr);
 void func0f038b9c(struct chrdata *chr, struct path *path);
 bool chrCanSeeEntity(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3, u32 entitytype, u32 entityid);
 bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3);
@@ -171,7 +171,7 @@ u32 func0f0451a8(void);
 u32 func0f045760(void);
 struct prop *chrOpenDoor(struct chrdata *chr, struct coord *coord);
 void func0f045b9c(struct chrdata *chr, struct coord *pos, struct waydata *waydata, bool arg3);
-bool func0f046648(struct chrdata *chr, u32 padflags, u32 arg2, u32 arg3, s32 padnum, u32 arg5);
+bool goPosUpdateLiftAction(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum);
 s16 chrGoPosGetNextPadNum(struct chrdata *chr);
 void chrTickGoPos(struct chrdata *chr);
 void chrTickPatrol(struct chrdata *chr);

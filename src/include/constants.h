@@ -1134,9 +1134,10 @@
 #define INVITEMTYPE_PROP 2
 #define INVITEMTYPE_DUAL 3
 
-// Lift actions
-#define LA_1 1 // either waiting for lift or in lift
-#define LA_3 3 // either waiting for lift or in lift
+#define LIFTACTION_NOTUSINGLIFT   0
+#define LIFTACTION_WAITINGFORLIFT 1
+#define LIFTACTION_ONLIFT         2
+#define LIFTACTION_WAITINGONLIFT  3
 
 #define LANGUAGE_NTSC_EN 0
 #define LANGUAGE_NTSC_JP 1
