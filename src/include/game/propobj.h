@@ -337,7 +337,7 @@ bool func0f08f968(struct doorobj *door, bool arg1);
 bool doorTestForInteract(struct prop *prop);
 void doorsActivate(struct prop *prop, bool allowliftclose);
 bool posIsInFrontOfDoor(struct coord *pos, struct doorobj *door);
-void doorsChooseSwingDirection(struct prop *playerprop, struct doorobj *door);
+void doorsChooseSwingDirection(struct prop *chrprop, struct doorobj *door);
 bool propdoorInteract(struct prop *doorprop);
 void alarmStopAudio(void);
 u32 func0f09044c(void);

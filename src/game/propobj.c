@@ -71958,10 +71958,10 @@ bool posIsInFrontOfDoor(struct coord *pos, struct doorobj *door)
 	return true;
 }
 
-void doorsChooseSwingDirection(struct prop *playerprop, struct doorobj *door)
+void doorsChooseSwingDirection(struct prop *chrprop, struct doorobj *door)
 {
 	if ((door->base.flags & OBJFLAG_DOOR_TWOWAY) && door->mode == DOORMODE_IDLE && door->frac == 0) {
-		bool infront = posIsInFrontOfDoor(&playerprop->pos, door);
+		bool infront = posIsInFrontOfDoor(&chrprop->pos, door);
 		u32 wantflag = 0;
 
 		if ((door->doorflags & DOORFLAG_FLIP) == 0) {

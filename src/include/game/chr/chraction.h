@@ -169,7 +169,7 @@ u32 func0f044b68(void);
 u32 func0f044c38(void);
 u32 func0f0451a8(void);
 u32 func0f045760(void);
-u32 func0f045a70(void);
+struct prop *chrOpenDoor(struct chrdata *chr, struct coord *coord);
 void func0f045b9c(struct chrdata *chr, struct coord *pos, struct waydata *waydata, bool arg3);
 bool func0f046648(struct chrdata *chr, u32 padflags, u32 arg2, u32 arg3, s32 padnum, u32 arg5);
 s16 chrGoPosGetNextPadNum(struct chrdata *chr);

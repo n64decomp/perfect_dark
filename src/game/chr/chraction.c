@@ -25471,189 +25471,57 @@ glabel var7f1a925c
 /*  f045a6c:	00000000 */ 	nop
 );
 
+/**
+ * Check for doors in front of the chr and open them if possible.
+ *
+ * I'm guessing the coord argument is a position in front of the chr, and the
+ * collision check is looking for doors between the chr and that point.
+ *
+ * - Multiplayer simulants can open any doors
+ * - Solo chrs cannot open doors with OBJFLAG2_AICANNOTUSE
+ * - In ntsc-beta, solo chrs can bring down lasers even if they have that flag
+ *
+ * The chr must be within 200cm of the door unless it's a laser.
+ */
+struct prop *chrOpenDoor(struct chrdata *chr, struct coord *coord)
+{
+	struct prop *doorprop = NULL;
+
+	if (func0002d7c0(&chr->prop->pos, chr->prop->rooms, coord, 0x5020, 1, 0, 0) == CDRESULT_COLLISION) {
+		doorprop = cdGetObstacle();
+	}
+
+	if (doorprop) {
+		struct doorobj *door = doorprop->door;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f045a70
-.late_rodata
-glabel var7f1a9260
-.word 0x471c4000
-.text
-/*  f045a70:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f045a74:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f045a78:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f045a7c:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f045a80:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f045a84:	44800000 */ 	mtc1	$zero,$f0
-/*  f045a88:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f045a8c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f045a90:	00008025 */ 	or	$s0,$zero,$zero
-/*  f045a94:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f045a98:	24075020 */ 	addiu	$a3,$zero,0x5020
-/*  f045a9c:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f045aa0:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f045aa4:	e7a00014 */ 	swc1	$f0,0x14($sp)
-/*  f045aa8:	0c00b5f0 */ 	jal	func0002d7c0
-/*  f045aac:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f045ab0:	14400004 */ 	bnez	$v0,.L0f045ac4
-/*  f045ab4:	00000000 */ 	nop
-/*  f045ab8:	0c0093ac */ 	jal	cdGetObstacle
-/*  f045abc:	00000000 */ 	nop
-/*  f045ac0:	00408025 */ 	or	$s0,$v0,$zero
-.L0f045ac4:
-/*  f045ac4:	12000030 */ 	beqz	$s0,.L0f045b88
-/*  f045ac8:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f045acc:	8c9802d4 */ 	lw	$t8,0x2d4($a0)
-/*  f045ad0:	8e030004 */ 	lw	$v1,0x4($s0)
-/*  f045ad4:	57000006 */ 	bnezl	$t8,.L0f045af0
-/*  f045ad8:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f045adc:	8c79000c */ 	lw	$t9,0xc($v1)
-/*  f045ae0:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f045ae4:	05020028 */ 	bltzl	$t0,.L0f045b88
-/*  f045ae8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f045aec:	8c82001c */ 	lw	$v0,0x1c($a0)
-.L0f045af0:
-/*  f045af0:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f045af4:	c6080010 */ 	lwc1	$f8,0x10($s0)
-/*  f045af8:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f045afc:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f045b00:	3c017f1b */ 	lui	$at,%hi(var7f1a9260)
-/*  f045b04:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f045b08:	c4269260 */ 	lwc1	$f6,%lo(var7f1a9260)($at)
-/*  f045b0c:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f045b10:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f045b14:	00000000 */ 	nop
-/*  f045b18:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f045b1c:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f045b20:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f045b24:	00000000 */ 	nop
-/*  f045b28:	45010005 */ 	bc1t	.L0f045b40
-/*  f045b2c:	00000000 */ 	nop
-/*  f045b30:	94690070 */ 	lhu	$t1,0x70($v1)
-/*  f045b34:	312a0400 */ 	andi	$t2,$t1,0x400
-/*  f045b38:	11400010 */ 	beqz	$t2,.L0f045b7c
-/*  f045b3c:	00000000 */ 	nop
-.L0f045b40:
-/*  f045b40:	0fc0dc87 */ 	jal	chrGoPosClearRestartTtl
-/*  f045b44:	00000000 */ 	nop
-/*  f045b48:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*  f045b4c:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f045b50:	0fc24030 */ 	jal	doorsChooseSwingDirection
-/*  f045b54:	8d64001c */ 	lw	$a0,0x1c($t3)
-/*  f045b58:	02002025 */ 	or	$a0,$s0,$zero
-/*  f045b5c:	0fc198c4 */ 	jal	doorCallLift
-/*  f045b60:	00002825 */ 	or	$a1,$zero,$zero
-/*  f045b64:	14400008 */ 	bnez	$v0,.L0f045b88
-/*  f045b68:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f045b6c:	0fc23922 */ 	jal	doorsRequestMode
-/*  f045b70:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f045b74:	10000005 */ 	b	.L0f045b8c
-/*  f045b78:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f045b7c:
-/*  f045b7c:	10000002 */ 	b	.L0f045b88
-/*  f045b80:	00008025 */ 	or	$s0,$zero,$zero
-/*  f045b84:	00008025 */ 	or	$s0,$zero,$zero
-.L0f045b88:
-/*  f045b88:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f045b8c:
-/*  f045b8c:	02001025 */ 	or	$v0,$s0,$zero
-/*  f045b90:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f045b94:	03e00008 */ 	jr	$ra
-/*  f045b98:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+		if (chr->aibot || (door->base.flags2 & OBJFLAG2_AICANNOTUSE) == 0)
 #else
-GLOBAL_ASM(
-glabel func0f045a70
-.late_rodata
-glabel var7f1a9260
-.word 0x471c4000
-.text
-/*  f04523c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f045240:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f045244:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f045248:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f04524c:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f045250:	44800000 */ 	mtc1	$zero,$f0
-/*  f045254:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f045258:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f04525c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f045260:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f045264:	24075020 */ 	addiu	$a3,$zero,0x5020
-/*  f045268:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f04526c:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f045270:	e7a00014 */ 	swc1	$f0,0x14($sp)
-/*  f045274:	0c00baf2 */ 	jal	func0002d7c0
-/*  f045278:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f04527c:	14400004 */ 	bnez	$v0,.NB0f045290
-/*  f045280:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f045284:	0c0098a4 */ 	jal	cdGetObstacle
-/*  f045288:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04528c:	00408025 */ 	or	$s0,$v0,$zero
-.NB0f045290:
-/*  f045290:	12000034 */ 	beqz	$s0,.NB0f045364
-/*  f045294:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f045298:	8c9802d4 */ 	lw	$t8,0x2d4($a0)
-/*  f04529c:	8e030004 */ 	lw	$v1,0x4($s0)
-/*  f0452a0:	5700000a */ 	bnezl	$t8,.NB0f0452cc
-/*  f0452a4:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f0452a8:	8c79000c */ 	lw	$t9,0xc($v1)
-/*  f0452ac:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f0452b0:	05030006 */ 	bgezl	$t0,.NB0f0452cc
-/*  f0452b4:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f0452b8:	94690070 */ 	lhu	$t1,0x70($v1)
-/*  f0452bc:	312a0400 */ 	andi	$t2,$t1,0x400
-/*  f0452c0:	51400028 */ 	beqzl	$t2,.NB0f045364
-/*  f0452c4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0452c8:	8c82001c */ 	lw	$v0,0x1c($a0)
-.NB0f0452cc:
-/*  f0452cc:	c6040008 */ 	lwc1	$f4,0x8($s0)
-/*  f0452d0:	c6080010 */ 	lwc1	$f8,0x10($s0)
-/*  f0452d4:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f0452d8:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f0452dc:	3c017f1a */ 	lui	$at,0x7f1a
-/*  f0452e0:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f0452e4:	c4263594 */ 	lwc1	$f6,0x3594($at)
-/*  f0452e8:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f0452ec:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f0452f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0452f4:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f0452f8:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f0452fc:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f045300:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f045304:	45010005 */ 	bc1t	.NB0f04531c
-/*  f045308:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04530c:	946b0070 */ 	lhu	$t3,0x70($v1)
-/*  f045310:	316c0400 */ 	andi	$t4,$t3,0x400
-/*  f045314:	11800010 */ 	beqz	$t4,.NB0f045358
-/*  f045318:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f04531c:
-/*  f04531c:	0fc0dacf */ 	jal	chrGoPosClearRestartTtl
-/*  f045320:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f045324:	8fad0030 */ 	lw	$t5,0x30($sp)
-/*  f045328:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f04532c:	0fc239d6 */ 	jal	doorsChooseSwingDirection
-/*  f045330:	8da4001c */ 	lw	$a0,0x1c($t5)
-/*  f045334:	02002025 */ 	or	$a0,$s0,$zero
-/*  f045338:	0fc19560 */ 	jal	doorCallLift
-/*  f04533c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f045340:	14400008 */ 	bnez	$v0,.NB0f045364
-/*  f045344:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f045348:	0fc23312 */ 	jal	doorsRequestMode
-/*  f04534c:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f045350:	10000005 */ 	beqz	$zero,.NB0f045368
-/*  f045354:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f045358:
-/*  f045358:	10000002 */ 	beqz	$zero,.NB0f045364
-/*  f04535c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f045360:	00008025 */ 	or	$s0,$zero,$zero
-.NB0f045364:
-/*  f045364:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f045368:
-/*  f045368:	02001025 */ 	or	$v0,$s0,$zero
-/*  f04536c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f045370:	03e00008 */ 	jr	$ra
-/*  f045374:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+		if (chr->aibot
+				|| (door->base.flags2 & OBJFLAG2_AICANNOTUSE) == 0
+				|| (door->doorflags & DOORFLAG_DAMAGEONCONTACT))
 #endif
+		{
+			f32 xdiff = doorprop->pos.x - chr->prop->pos.x;
+			f32 zdiff = doorprop->pos.z - chr->prop->pos.z;
+
+			if (xdiff * xdiff + zdiff * zdiff < 200 * 200 || (door->doorflags & DOORFLAG_DAMAGEONCONTACT)) {
+				chrGoPosClearRestartTtl(chr);
+				doorsChooseSwingDirection(chr->prop, doorprop->door);
+
+				if (!doorCallLift(doorprop, false)) {
+					doorsRequestMode(doorprop->door, DOORMODE_OPENING);
+				}
+			} else {
+				doorprop = NULL;
+			}
+		} else {
+			doorprop = NULL;
+		}
+	}
+
+	return doorprop;
+}
 
 GLOBAL_ASM(
 glabel func0f045b9c
@@ -26233,7 +26101,7 @@ glabel var7f1a927c
 /*  f0463a8:	00007810 */ 	mfhi	$t7
 /*  f0463ac:	55e00039 */ 	bnezl	$t7,.L0f046494
 /*  f0463b0:	82590007 */ 	lb	$t9,0x7($s2)
-/*  f0463b4:	0fc1169c */ 	jal	func0f045a70
+/*  f0463b4:	0fc1169c */ 	jal	chrOpenDoor
 /*  f0463b8:	2605002c */ 	addiu	$a1,$s0,0x2c
 /*  f0463bc:	10400011 */ 	beqz	$v0,.L0f046404
 /*  f0463c0:	00408825 */ 	or	$s1,$v0,$zero
@@ -26530,7 +26398,7 @@ glabel func0f046648
 /*  f0467f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0467f8:	07000087 */ 	bltz	$t8,.L0f046a18
 /*  f0467fc:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f046800:	0fc1169c */ 	jal	func0f045a70
+/*  f046800:	0fc1169c */ 	jal	chrOpenDoor
 /*  f046804:	afa8009c */ 	sw	$t0,0x9c($sp)
 /*  f046808:	10000083 */ 	b	.L0f046a18
 /*  f04680c:	8fa8009c */ 	lw	$t0,0x9c($sp)
