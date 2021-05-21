@@ -51191,7 +51191,7 @@ glabel var7f1aa82c
 //			node = func0f0687e4(obj->model);
 //			dldata1 = &node->data->displaylist;
 //			dldata2 = modelGetNodeRwData(obj->model, node);
-//			oldcolours = (struct colour *)(((u32)&dldata1->ptable[dldata1->pcount] + 7 | 7) ^ 7);
+//			oldcolours = (struct colour *)(((u32)&dldata1->vertices[dldata1->numvertices] + 7 | 7) ^ 7);
 //			newcolours = (struct colour *)gfxAllocateColours(dldata1->numcolours);
 //
 //			for (i = 0; i < dldata1->numcolours; i++) {
@@ -69876,43 +69876,19 @@ glabel func0f08cb20
 /*  f08d3d8:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-GLOBAL_ASM(
-glabel func0f08d3dc
-/*  f08d3dc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f08d3e0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08d3e4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08d3e8:	0fc1a6d3 */ 	jal	func0f069b4c
-/*  f08d3ec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f08d3f0:	960e0070 */ 	lhu	$t6,0x70($s0)
-/*  f08d3f4:	31cf0004 */ 	andi	$t7,$t6,0x4
-/*  f08d3f8:	51e00015 */ 	beqzl	$t7,.L0f08d450
-/*  f08d3fc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08d400:	0fc1a1f9 */ 	jal	func0f0687e4
-/*  f08d404:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08d408:	8c580004 */ 	lw	$t8,0x4($v0)
-/*  f08d40c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08d410:	afb80028 */ 	sw	$t8,0x28($sp)
-/*  f08d414:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f08d418:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08d41c:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*  f08d420:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f08d424:	0fc59e59 */ 	jal	gfxAllocateVertices
-/*  f08d428:	87240010 */ 	lh	$a0,0x10($t9)
-/*  f08d42c:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f08d430:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f08d434:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08d438:	00403025 */ 	or	$a2,$v0,$zero
-/*  f08d43c:	ad020000 */ 	sw	$v0,0x0($t0)
-/*  f08d440:	84670010 */ 	lh	$a3,0x10($v1)
-/*  f08d444:	0fc232c8 */ 	jal	func0f08cb20
-/*  f08d448:	8c65000c */ 	lw	$a1,0xc($v1)
-/*  f08d44c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08d450:
-/*  f08d450:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08d454:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f08d458:	03e00008 */ 	jr	$ra
-/*  f08d45c:	00000000 */ 	nop
-);
+void func0f08d3dc(struct doorobj *door)
+{
+	func0f069b4c(&door->base);
+
+	if (door->doorflags & DOORFLAG_0004) {
+		struct modelnode *node = func0f0687e4(door->base.model);
+		union modelrodata *rodata = node->rodata;
+		union modelrwdata *rwdata = modelGetNodeRwData(door->base.model, node);
+
+		rwdata->dl.vertices = gfxAllocateVertices(rodata->dl.numvertices);
+		func0f08cb20(door, rodata->dl.vertices, rwdata->dl.vertices, rodata->dl.numvertices);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08d460

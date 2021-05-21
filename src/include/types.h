@@ -642,21 +642,12 @@ struct modelrodata_headspot { // type 0x17
 	u16 rwdataindex;
 };
 
-struct ptableentry {
-	s16 unk00;
-	s16 unk02;
-	s16 unk04;
-	s16 unk06;
-	s16 unk08;
-	s16 unk0a;
-};
-
 struct modelrodata_dl { // type 0x18
 	/*0x00*/ Gfx *primary;
 	/*0x04*/ Gfx *secondary;
 	/*0x08*/ u32 *colourtable;
-	/*0x0c*/ struct ptableentry *ptable;
-	/*0x10*/ s16 pcount;
+	/*0x0c*/ struct gfxvtx *vertices;
+	/*0x10*/ s16 numvertices;
 	/*0x12*/ s16 mcount;
 	/*0x14*/ u16 rwdataindex;
 	/*0x16*/ u16 numcolours;
@@ -769,7 +760,7 @@ struct modelrwdata_headspot { // type 0x17
 };
 
 struct modelrwdata_dl { // type 0x18
-	struct ptableentry *ptable;
+	struct gfxvtx *vertices;
 	Gfx *gdl;
 	u32 *unk08;
 };

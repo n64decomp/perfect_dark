@@ -1053,8 +1053,8 @@ void bodyCalculateHeadOffset(struct modelfiledata *headfiledata, s32 headnum, s3
 				if (node && node != prev && node->type == MODELNODETYPE_DL) {
 					struct modelrodata_dl *rodata = &node->rodata->dl;
 
-					for (i = 0; i < rodata->pcount; i++) {
-						rodata->ptable[i].unk02 += offset;
+					for (i = 0; i < rodata->numvertices; i++) {
+						rodata->vertices[i].y += offset;
 					}
 				}
 			} while (node);

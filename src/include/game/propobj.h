@@ -304,7 +304,7 @@ void doorsCheckAutomatic(void);
 void func0f08c424(struct doorobj *door, Mtxf *matrix);
 void doorGetBbox(struct doorobj *door, struct modelrodata_bbox *dst);
 u32 func0f08c54c(struct doorobj *door);
-u32 func0f08cb20(void);
+void func0f08cb20(struct doorobj *door, struct gfxvtx *vertices1, struct gfxvtx *vertices2, s32 numvertices);
 void func0f08d3dc(struct doorobj *door);
 void func0f08d460(struct doorobj *door);
 void doorActivatePortal(struct doorobj *door);

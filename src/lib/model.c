@@ -4648,7 +4648,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 				break;
 			}
 
-			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.ptable));
+			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.vertices));
 			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.unk08));
 
 			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
@@ -4671,7 +4671,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 				modelApplyCullMode(renderdata);
 			}
 
-			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.ptable));
+			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.vertices));
 			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.unk08));
 
 			func00020248(renderdata, false);
@@ -6181,7 +6181,7 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
 			break;
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
-			PROMOTE(rodata->dl.ptable);
+			PROMOTE(rodata->dl.vertices);
 			rodata->dl.colourtable = (void *)fileramaddr;
 			break;
 		case MODELNODETYPE_DISTANCE:
@@ -6452,12 +6452,12 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
 			rwdata = modelGetNodeRwData(model, node);
-			rwdata->dl.ptable = rodata->dl.ptable;
+			rwdata->dl.vertices = rodata->dl.vertices;
 			rwdata->dl.gdl = rodata->dl.primary;
-			rwdata->dl.unk08 = (void *) ALIGN8((u32)(rodata->dl.ptable + rodata->dl.pcount));
-			if (rodata->dl.pcount);
-			if (rodata->dl.pcount);
-			if (rodata->dl.pcount);
+			rwdata->dl.unk08 = (void *) ALIGN8((u32)(rodata->dl.vertices + rodata->dl.numvertices));
+			if (rodata->dl.numvertices);
+			if (rodata->dl.numvertices);
+			if (rodata->dl.numvertices);
 			break;
 		default:
 			break;
