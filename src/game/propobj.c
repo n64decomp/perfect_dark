@@ -16364,33 +16364,22 @@ struct prop *liftFindByPad(s16 padnum)
 	return g_Lifts[pad.liftnum - 1];
 }
 
-GLOBAL_ASM(
-glabel liftGetY
-/*  f070eac:	808f005a */ 	lb	$t7,0x5a($a0)
-/*  f070eb0:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f070eb4:	19e00012 */ 	blez	$t7,.L0f070f00
-/*  f070eb8:	c5c2000c */ 	lwc1	$f2,0xc($t6)
-/*  f070ebc:	8c820044 */ 	lw	$v0,0x44($a0)
-/*  f070ec0:	1040000f */ 	beqz	$v0,.L0f070f00
-/*  f070ec4:	00000000 */ 	nop
-/*  f070ec8:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f070ecc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f070ed0:	1701000b */ 	bne	$t8,$at,.L0f070f00
-/*  f070ed4:	00000000 */ 	nop
-/*  f070ed8:	94590002 */ 	lhu	$t9,0x2($v0)
-/*  f070edc:	33280001 */ 	andi	$t0,$t9,0x1
-/*  f070ee0:	11000007 */ 	beqz	$t0,.L0f070f00
-/*  f070ee4:	00000000 */ 	nop
-/*  f070ee8:	9049000a */ 	lbu	$t1,0xa($v0)
-/*  f070eec:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f070ef0:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f070ef4:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f070ef8:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f070efc:	c5620014 */ 	lwc1	$f2,0x14($t3)
-.L0f070f00:
-/*  f070f00:	03e00008 */ 	jr	$ra
-/*  f070f04:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 liftGetY(struct liftobj *lift)
+{
+	f32 y = lift->base.prop->pos.y;
+
+	if (lift->base.numtiles > 0) {
+		struct tiletype1 *tile = lift->base.geo1;
+
+		if (tile && tile->header.type == TILETYPE_01) {
+			if (tile->header.flags & TILEFLAG_0001) {
+				y = tile->vertices[tile->ymax].y;
+			}
+		}
+	}
+
+	return y;
+}
 
 GLOBAL_ASM(
 glabel func0f070f08

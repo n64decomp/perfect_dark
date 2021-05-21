@@ -1641,6 +1641,7 @@ struct defaultobj {
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
 	union {
+		/*0x44*/ struct tiletype1 *geo1;
 		/*0x44*/ struct tiletype2 *geo2;
 		/*0x44*/ struct tiletype3 *geo3;
 		/*0x44*/ struct tiletype3 *unkgeo; // temporary, to indicate that I don't know which geo pointer is being used
