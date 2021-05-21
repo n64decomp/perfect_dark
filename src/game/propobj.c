@@ -45870,9 +45870,9 @@ glabel var7f1aa6e0
 //	f32 tmp;
 //	f32 sp138;
 //	struct coord sp12c;
-//	f32 spec[16];
-//	f32 spac[16];
-//	f32 sp6c[16];
+//	Mtxf spec;
+//	Mtxf spac;
+//	Mtxf sp6c;
 //	f32 dist;
 //	s32 *padnum;
 //
@@ -45968,7 +45968,7 @@ glabel var7f1aa6e0
 //
 //		if ((hovercar->base.flags & OBJFLAG_20000000)
 //				&& func0f0446e0(&prop->pos, &prop->pos, &sp214, sp1f4)) {
-//			hovercarIncrementStep(obj);
+//			hovercarIncrementStep(hovercar);
 //			padnum = &hovercar->path->pads[hovercar->nextstep];
 //			padUnpack(*padnum, PADFIELD_POS, &pad);
 //		}
@@ -46127,16 +46127,16 @@ glabel var7f1aa6e0
 //
 //		// cb4
 //		if (sp188 >= 0) {
-//			func00016400(sp188, sp6c);
+//			func00016400(sp188, &sp6c);
 //		} else {
-//			func00016400(sp188 + M_BADTAU, sp6c);
+//			func00016400(sp188 + M_BADTAU, &sp6c);
 //		}
 //
 //		// cf0
-//		func0001648c(&sp12c, spac);
-//		func00015f04(hovercar->base.model->scale, spac);
-//		func00015a00(spac, sp6c, spec);
-//		func00015da0(spec, sp15c);
+//		func0001648c(&sp12c, &spac);
+//		func00015f04(hovercar->base.model->scale, &spac);
+//		func00015a00(&spac, &sp6c, &spec);
+//		func00015da0(&spec, sp15c);
 //		func00015cd8(sp15c, hovercar->base.realrot);
 //
 //		sp138 = cosf(sp18c);
@@ -46146,9 +46146,9 @@ glabel var7f1aa6e0
 //		sp194.y = active ? sinf(sp1fc) : sinf(sp18c);
 //		sp194.z = cosf(sp190) * sp138;
 //
-//		sp150.x = prop->pos.x + sp194.x * (hovercar->speed * g_Vars.lvupdate240freal);
-//		sp150.y = prop->pos.y + sp194.y * (hovercar->speed * g_Vars.lvupdate240freal);
-//		sp150.z = prop->pos.z + sp194.z * (hovercar->speed * g_Vars.lvupdate240freal);
+//		sp150.x = prop->pos.f[0] + sp194.f[0] * (hovercar->speed * g_Vars.lvupdate240freal);
+//		sp150.y = prop->pos.f[1] + sp194.f[1] * (hovercar->speed * g_Vars.lvupdate240freal);
+//		sp150.z = prop->pos.f[2] + sp194.f[2] * (hovercar->speed * g_Vars.lvupdate240freal);
 //
 //		func0f065e74(&prop->pos, prop->rooms, &sp150, sp140);
 //
@@ -46157,7 +46157,7 @@ glabel var7f1aa6e0
 //			sp150.y = cdFindGroundYSimple(&sp150, 5, sp140, NULL, NULL) + 35;
 //
 //			if (sp150.y < -100000) {
-//				sp150.y = prop->pos.y + sp194.y * (hovercar->speed * g_Vars.lvupdate240freal);
+//				sp150.y = prop->pos.f[1] + sp194.f[1] * (hovercar->speed * g_Vars.lvupdate240freal);
 //			}
 //		}
 //
@@ -46178,11 +46178,11 @@ glabel var7f1aa6e0
 //		if (hovercar->path) {
 //			if (hovercar->path->pads[hovercar->nextstep + 1] >= 0) {
 //				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
-//					hovercarIncrementStep(obj);
+//					hovercarIncrementStep(hovercar);
 //				}
 //			} else {
 //				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
-//					hovercarIncrementStep(obj);
+//					hovercarIncrementStep(hovercar);
 //				}
 //			}
 //		}
