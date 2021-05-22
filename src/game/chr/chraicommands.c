@@ -418,21 +418,21 @@ bool aiChrDoAnimation(void)
 	}
 
 	if (chr && chr->model) {
-		f32 result = 1.0f / (s32)cmd[11];
+		f32 speed = 1.0f / (s32)cmd[11];
 
 		if (g_Vars.in_cutscene) {
 			if (startframe != 0xfffe) {
 #if VERSION >= VERSION_PAL_FINAL
-				fstartframe += var8009e388pf * result;
+				fstartframe += var8009e388pf * speed;
 #else
-				fstartframe += g_CutsceneFrameOverrun240 * result * 0.25f;
+				fstartframe += g_CutsceneFrameOverrun240 * speed * 0.25f;
 #endif
 			}
 
 			chr->prop->unk3a = 0;
 		}
 
-		func0f03af44(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], result);
+		chrTryStartAnim(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], speed);
 
 		if (startframe == 0xfffe) {
 			func0f0220ec(chr, 1, 1);
@@ -11532,20 +11532,20 @@ bool aiDoPresetAnimation(void)
 	};
 
 	if (cmd[2] == 255) {
-		func0f03af44(g_Vars.chrdata, anims[7 + (random() & 7)], 0, -1, 0, 15, 0.5);
+		chrTryStartAnim(g_Vars.chrdata, anims[7 + (random() & 7)], 0, -1, 0, 15, 0.5);
 	} else if (cmd[2] == 254) {
 		struct prop *prop0 = chrGetEquippedWeaponProp(g_Vars.chrdata, 1);
 		struct prop *prop1 = chrGetEquippedWeaponProp(g_Vars.chrdata, 0);
 
 		if (weaponIsOneHanded(prop0) || weaponIsOneHanded(prop1)) {
-			func0f03af44(g_Vars.chrdata, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
+			chrTryStartAnim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
 		} else {
-			func0f03af44(g_Vars.chrdata, ANIM_FIX_GUN_JAM_HARD, 0, -1, 0, 5, 0.5);
+			chrTryStartAnim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_HARD, 0, -1, 0, 5, 0.5);
 		}
 	} else if (cmd[2] == 3) {
-		func0f03af44(g_Vars.chrdata, anims[3 + (random() & 1)], 0, -1, 0, 15, 0.5);
+		chrTryStartAnim(g_Vars.chrdata, anims[3 + (random() & 1)], 0, -1, 0, 15, 0.5);
 	} else {
-		func0f03af44(g_Vars.chrdata, anims[cmd[2]], 0, -1, 0, 15, 0.5);
+		chrTryStartAnim(g_Vars.chrdata, anims[cmd[2]], 0, -1, 0, 15, 0.5);
 	}
 
 	g_Vars.aioffset += 3;

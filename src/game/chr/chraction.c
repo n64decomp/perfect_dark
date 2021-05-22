@@ -3743,123 +3743,49 @@ glabel chrAttackRoll
 /*  f030ff4:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
 
-GLOBAL_ASM(
-glabel func0f030ff8
-/*  f030ff8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f030ffc:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f031000:	00808025 */ 	or	$s0,$a0,$zero
-/*  f031004:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f031008:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f03100c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f031010:	1080005d */ 	beqz	$a0,.L0f031188
-/*  f031014:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f031018:	8c8e0020 */ 	lw	$t6,0x20($a0)
-/*  f03101c:	93a2004b */ 	lbu	$v0,0x4b($sp)
-/*  f031020:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f031024:	11c00058 */ 	beqz	$t6,.L0f031188
-/*  f031028:	304f0080 */ 	andi	$t7,$v0,0x80
-/*  f03102c:	11e00003 */ 	beqz	$t7,.L0f03103c
-/*  f031030:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*  f031034:	46002187 */ 	neg.s	$f6,$f4
-/*  f031038:	e7a60050 */ 	swc1	$f6,0x50($sp)
-.L0f03103c:
-/*  f03103c:	12000003 */ 	beqz	$s0,.L0f03104c
-/*  f031040:	00001825 */ 	or	$v1,$zero,$zero
-/*  f031044:	10000001 */ 	b	.L0f03104c
-/*  f031048:	920302fe */ 	lbu	$v1,0x2fe($s0)
-.L0f03104c:
-/*  f03104c:	10610004 */ 	beq	$v1,$at,.L0f031060
-/*  f031050:	02002025 */ 	or	$a0,$s0,$zero
-/*  f031054:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f031058:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f03105c:	8fa2002c */ 	lw	$v0,0x2c($sp)
-.L0f031060:
-/*  f031060:	24180003 */ 	addiu	$t8,$zero,0x3
-/*  f031064:	a2180007 */ 	sb	$t8,0x7($s0)
-/*  f031068:	30590002 */ 	andi	$t9,$v0,0x2
-/*  f03106c:	30490004 */ 	andi	$t1,$v0,0x4
-/*  f031070:	304b0008 */ 	andi	$t3,$v0,0x8
-/*  f031074:	304d0010 */ 	andi	$t5,$v0,0x10
-/*  f031078:	304f0040 */ 	andi	$t7,$v0,0x40
-/*  f03107c:	0019402b */ 	sltu	$t0,$zero,$t9
-/*  f031080:	0009502b */ 	sltu	$t2,$zero,$t1
-/*  f031084:	000b602b */ 	sltu	$t4,$zero,$t3
-/*  f031088:	000d702b */ 	sltu	$t6,$zero,$t5
-/*  f03108c:	000fc02b */ 	sltu	$t8,$zero,$t7
-/*  f031090:	ae08002c */ 	sw	$t0,0x2c($s0)
-/*  f031094:	ae0a0030 */ 	sw	$t2,0x30($s0)
-/*  f031098:	ae0c0034 */ 	sw	$t4,0x34($s0)
-/*  f03109c:	ae0e0038 */ 	sw	$t6,0x38($s0)
-/*  f0310a0:	ae18003c */ 	sw	$t8,0x3c($s0)
-/*  f0310a4:	a2000040 */ 	sb	$zero,0x40($s0)
-/*  f0310a8:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*  f0310ac:	30460001 */ 	andi	$a2,$v0,0x1
-/*  f0310b0:	0006402b */ 	sltu	$t0,$zero,$a2
-/*  f0310b4:	a208004a */ 	sb	$t0,0x4a($s0)
-/*  f0310b8:	a6190048 */ 	sh	$t9,0x48($s0)
-/*  f0310bc:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*  f0310c0:	01003025 */ 	or	$a2,$t0,$zero
-/*  f0310c4:	e608004c */ 	swc1	$f8,0x4c($s0)
-/*  f0310c8:	c7aa0044 */ 	lwc1	$f10,0x44($sp)
-/*  f0310cc:	e60a0050 */ 	swc1	$f10,0x50($s0)
-/*  f0310d0:	8fa2004c */ 	lw	$v0,0x4c($sp)
-/*  f0310d4:	c7b00050 */ 	lwc1	$f16,0x50($sp)
-/*  f0310d8:	44829000 */ 	mtc1	$v0,$f18
-/*  f0310dc:	e6100054 */ 	swc1	$f16,0x54($s0)
-/*  f0310e0:	46809020 */ 	cvt.s.w	$f0,$f18
-/*  f0310e4:	11c00003 */ 	beqz	$t6,.L0f0310f4
-/*  f0310e8:	e6000058 */ 	swc1	$f0,0x58($s0)
-/*  f0310ec:	10000002 */ 	b	.L0f0310f8
-/*  f0310f0:	a2020008 */ 	sb	$v0,0x8($s0)
-.L0f0310f4:
-/*  f0310f4:	a2000008 */ 	sb	$zero,0x8($s0)
-.L0f0310f8:
-/*  f0310f8:	5840000e */ 	blezl	$v0,.L0f031134
-/*  f0310fc:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*  f031100:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f031104:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f031108:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f03110c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f031110:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f031114:	10400006 */ 	beqz	$v0,.L0f031130
-/*  f031118:	c7a0002c */ 	lwc1	$f0,0x2c($sp)
-/*  f03111c:	8e0a0014 */ 	lw	$t2,0x14($s0)
-/*  f031120:	3c010020 */ 	lui	$at,0x20
-/*  f031124:	01415825 */ 	or	$t3,$t2,$at
-/*  f031128:	10000017 */ 	b	.L0f031188
-/*  f03112c:	ae0b0014 */ 	sw	$t3,0x14($s0)
-.L0f031130:
-/*  f031130:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-.L0f031134:
-/*  f031134:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f031138:	e7a00014 */ 	swc1	$f0,0x14($sp)
-/*  f03113c:	87a5003e */ 	lh	$a1,0x3e($sp)
-/*  f031140:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f031144:	0c007733 */ 	jal	modelSetAnimation
-/*  f031148:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f03114c:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f031150:	44804000 */ 	mtc1	$zero,$f8
-/*  f031154:	00000000 */ 	nop
-/*  f031158:	4606403e */ 	c.le.s	$f8,$f6
-/*  f03115c:	00000000 */ 	nop
-/*  f031160:	45020005 */ 	bc1fl	.L0f031178
-/*  f031164:	8e0c0014 */ 	lw	$t4,0x14($s0)
-/*  f031168:	44053000 */ 	mfc1	$a1,$f6
-/*  f03116c:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f031170:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f031174:	8e0c0014 */ 	lw	$t4,0x14($s0)
-.L0f031178:
-/*  f031178:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f03117c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f031180:	01816824 */ 	and	$t5,$t4,$at
-/*  f031184:	ae0d0014 */ 	sw	$t5,0x14($s0)
-.L0f031188:
-/*  f031188:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03118c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f031190:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f031194:	03e00008 */ 	jr	$ra
-/*  f031198:	00000000 */ 	nop
-);
+void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed)
+{
+	u32 stack;
+
+	if (chr && chr->model) {
+		if (flags & CHRANIMFLAG_80) {
+			speed = -speed;
+		}
+
+		if (CHRRACE(chr) != RACE_DRCAROLL) {
+			chrStopFiring(chr);
+		}
+
+		chr->actiontype = ACT_ANIM;
+
+		chr->act_anim.unk02c = (flags & CHRANIMFLAG_02) != 0;
+		chr->act_anim.holdlastframe = (flags & CHRANIMFLAG_HOLDLASTFRAME) != 0;
+		chr->act_anim.unk034 = (flags & CHRANIMFLAG_08) != 0;
+		chr->act_anim.unk038 = (flags & CHRANIMFLAG_10) != 0;
+		chr->act_anim.unk03c = (flags & CHRANIMFLAG_40) != 0;
+		chr->act_anim.unk040 = 0;
+		chr->act_anim.animnum = animnum;
+		chr->act_anim.flip = (flags & CHRANIMFLAG_FLIP) != 0;
+		chr->act_anim.startframe = startframe;
+		chr->act_anim.endframe = endframe;
+		chr->act_anim.speed = speed;
+		chr->act_anim.unk058 = arg5;
+
+		chr->sleep = chr->act_anim.unk038 ? arg5 : 0;
+
+		if (arg5 > 0 && modelIsAnimMerging(chr->model)) {
+			chr->hidden |= CHRHFLAG_NEEDANIM;
+		} else {
+			modelSetAnimation(chr->model, animnum, (flags & CHRANIMFLAG_FLIP) != 0, startframe, speed, arg5);
+
+			if (endframe >= 0) {
+				modelSetAnimEndFrame(chr->model, endframe);
+			}
+
+			chr->hidden &= ~CHRHFLAG_NEEDANIM;
+		}
+	}
+}
 
 void chrBeginDead(struct chrdata *chr)
 {
@@ -9871,10 +9797,10 @@ bool chrTryKneel(struct chrdata *chr)
 	return false;
 }
 
-bool func0f03af44(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendframe, u8 flags, u32 transition, f32 result)
+bool chrTryStartAnim(struct chrdata *chr, s32 animfnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed)
 {
 	if (chrIsReadyForOrders(chr)) {
-		func0f030ff8(chr, anim_id, fstartframe, fendframe, flags, transition, result);
+		chrStartAnim(chr, animfnum, startframe, endframe, flags, arg5, speed);
 		return true;
 	}
 
@@ -10639,7 +10565,7 @@ glabel var7f1a8ed8
 /*  f03bd94:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f03bd98:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03bd9c:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*  f03bda0:	0fc0ebd1 */ 	jal	func0f03af44
+/*  f03bda0:	0fc0ebd1 */ 	jal	chrTryStartAnim
 /*  f03bda4:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f03bda8:	10000016 */ 	b	.L0f03be04
 /*  f03bdac:	8fa30030 */ 	lw	$v1,0x30($sp)
@@ -10662,7 +10588,7 @@ glabel var7f1a8ed8
 /*  f03bdec:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f03bdf0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03bdf4:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*  f03bdf8:	0fc0ebd1 */ 	jal	func0f03af44
+/*  f03bdf8:	0fc0ebd1 */ 	jal	chrTryStartAnim
 /*  f03bdfc:	e7a40018 */ 	swc1	$f4,0x18($sp)
 /*  f03be00:	8fa30030 */ 	lw	$v1,0x30($sp)
 .L0f03be04:
@@ -10683,7 +10609,7 @@ glabel var7f1a8ed8
 /*  f03be38:	afa80010 */ 	sw	$t0,0x10($sp)
 /*  f03be3c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03be40:	8fa6003c */ 	lw	$a2,0x3c($sp)
-/*  f03be44:	0fc0ebd1 */ 	jal	func0f03af44
+/*  f03be44:	0fc0ebd1 */ 	jal	chrTryStartAnim
 /*  f03be48:	e7a60018 */ 	swc1	$f6,0x18($sp)
 /*  f03be4c:	8fa30030 */ 	lw	$v1,0x30($sp)
 /*  f03be50:	a200035e */ 	sb	$zero,0x35e($s0)
@@ -11424,7 +11350,7 @@ void chrTickAnim(struct chrdata *chr)
 		}
 
 		modelSetAnimation(chr->model, chr->act_anim.animnum, chr->act_anim.flip,
-				chr->act_anim.startframe, chr->act_anim.unk054, chr->act_anim.unk058);
+				chr->act_anim.startframe, chr->act_anim.speed, chr->act_anim.unk058);
 
 		if (chr->act_anim.endframe >= 0) {
 			modelSetAnimEndFrame(chr->model, chr->act_anim.endframe);
@@ -11433,7 +11359,7 @@ void chrTickAnim(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
-	if (chr->act_anim.unk030 == 0 && modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
+	if (!chr->act_anim.holdlastframe && modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
 		chrStand(chr);
 	}
 
@@ -32967,7 +32893,7 @@ glabel var7f1a9448
 /*  f04d3fc:	24060000 */ 	addiu	$a2,$zero,0x0
 /*  f04d400:	e7aa0018 */ 	swc1	$f10,0x18($sp)
 /*  f04d404:	44073000 */ 	mfc1	$a3,$f6
-/*  f04d408:	0fc0c3fe */ 	jal	func0f030ff8
+/*  f04d408:	0fc0c3fe */ 	jal	chrStartAnim
 /*  f04d40c:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f04d410:	10000007 */ 	b	.L0f04d430
 /*  f04d414:	02002025 */ 	or	$a0,$s0,$zero

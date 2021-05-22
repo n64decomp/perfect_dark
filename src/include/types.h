@@ -1017,7 +1017,7 @@ struct act_stand {
 
 struct act_anim {
 	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
+	/*0x30*/ bool holdlastframe;
 	/*0x34*/ u32 unk034;
 	/*0x38*/ u32 unk038;
 	/*0x3c*/ u32 unk03c;
@@ -1030,7 +1030,7 @@ struct act_anim {
 	/*0x4a*/ u8 flip;
 	/*0x4c*/ f32 startframe;
 	/*0x50*/ f32 endframe;
-	/*0x54*/ f32 unk054;
+	/*0x54*/ f32 speed;
 	/*0x58*/ f32 unk058;
 };
 
