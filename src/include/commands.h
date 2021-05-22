@@ -341,7 +341,7 @@
 
 /**
  * Assigns the given path ID to the chr for patrolling. The chr will not start
- * patrolling until start_path is used.
+ * patrolling until start_patrol is used.
  */
 #define assign_path(pathid) \
 	mkshort(0x0021), \
@@ -350,13 +350,13 @@
 /**
  * Makes the chr start patrolling.
  */
-#define start_path \
+#define start_patrol \
 	mkshort(0x0022),
 
 /**
  * Checks if the chr is patrolling.
  */
-#define if_path_started(label) \
+#define if_patrolling(label) \
 	mkshort(0x0023), \
 	label,
 

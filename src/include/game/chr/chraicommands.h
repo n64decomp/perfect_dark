@@ -38,8 +38,8 @@
 /*0x001f*/ bool aiWalkToPad(void);
 /*0x0020*/ bool aiRunToPad(void);
 /*0x0021*/ bool aiSetPath(void);
-/*0x0022*/ bool aiStartPath(void);
-/*0x0023*/ bool aiIfPathStarted(void);
+/*0x0022*/ bool aiStartPatrol(void);
+/*0x0023*/ bool aiIfPatrolling(void);
 /*0x0024*/ bool aiSurrender(void);
 /*0x0025*/ bool aiFadeOut(void);
 /*0x0026*/ bool aiRemoveChr(void);

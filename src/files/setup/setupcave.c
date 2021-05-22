@@ -1123,7 +1123,7 @@ u8 func0405_start_path15[] = {
 
 	label(0x02)
 	assign_path(15)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
@@ -1391,7 +1391,7 @@ u8 func1005_check_civilians_killed[] = {
 	set_recovery_speed(recovery) \
 	set_shield(0) \
 	assign_path(pathid) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 
 
@@ -1445,7 +1445,7 @@ u8 func0422_start_path13[] = {
 	rebuild_teams
 	rebuild_squadrons
 	assign_path(13)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
@@ -1461,7 +1461,7 @@ u8 func0423_start_path14[] = {
 	rebuild_teams
 	rebuild_squadrons
 	assign_path(14)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
@@ -1474,7 +1474,7 @@ u8 func0424_start_path15_unused[] = {
 	set_recovery_speed(30)
 	set_shield(0)
 	assign_path(15)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
@@ -3311,7 +3311,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x33)
 	dprint 'P','A','T',' ','R','E','T','\n',0,
-	start_path
+	start_patrol
 	label(0x00)
 	yield
 	if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x6c)

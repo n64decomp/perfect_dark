@@ -4851,7 +4851,7 @@ u8 func0409_holo5_guard2[] = {
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x2f)
 	restart_timer
 	assign_path(0)
-	start_path
+	start_patrol
 	label(0x08)
 	yield
 	dprint 'O','n',' ','P','a','t','r','o','l',0,

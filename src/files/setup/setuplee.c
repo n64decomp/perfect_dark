@@ -1619,7 +1619,7 @@ u8 func1009_keep_door_open_in_intro[] = {
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_RELATED_TO_SPAWNING)
 
 

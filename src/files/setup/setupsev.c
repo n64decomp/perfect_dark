@@ -887,7 +887,7 @@ u8 func0401_start_path00[] = {
 	set_recovery_speed(35)
 	set_shield(0)
 	assign_path(0)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -900,7 +900,7 @@ u8 func0402_start_path01[] = {
 	set_recovery_speed(35)
 	set_shield(0)
 	assign_path(1)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -913,7 +913,7 @@ u8 func0403_start_path02[] = {
 	set_recovery_speed(35)
 	set_shield(0)
 	assign_path(2)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -926,7 +926,7 @@ u8 func0404_start_path03[] = {
 	set_recovery_speed(35)
 	set_shield(0)
 	assign_path(3)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -939,7 +939,7 @@ u8 func0405_start_path04[] = {
 	set_recovery_speed(35)
 	set_shield(0)
 	assign_path(4)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -952,7 +952,7 @@ u8 func0406_start_path05[] = {
 	set_recovery_speed(35)
 	set_shield(0)
 	assign_path(5)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -965,7 +965,7 @@ u8 func0407_start_path06[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(6)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -978,7 +978,7 @@ u8 func0408_start_path07[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(7)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -991,7 +991,7 @@ u8 func0409_start_path08[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(8)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1004,7 +1004,7 @@ u8 func040a_start_path09[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(9)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1017,7 +1017,7 @@ u8 func040b_start_path10[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(10)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1030,7 +1030,7 @@ u8 func040c_start_path11[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(11)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1043,7 +1043,7 @@ u8 func040d_start_path12[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(12)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1056,7 +1056,7 @@ u8 func040e_start_path13[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(13)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1069,7 +1069,7 @@ u8 func040f_start_path14[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(14)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };

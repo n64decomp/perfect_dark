@@ -1162,7 +1162,7 @@ u8 func1006_check_lab_accessed[] = {
 	set_recovery_speed(recovery) \
 	set_shield(0) \
 	assign_path(pathid) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 
 

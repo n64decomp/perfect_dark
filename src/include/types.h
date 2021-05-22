@@ -1135,7 +1135,7 @@ struct waydata {
 	/*0x24*/ u32 unk24;
 	/*0x28*/ s32 age;
 	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
+	/*0x30*/ s8 unk30;
 	/*0x34*/ u32 unk34;
 
 	// These are the distances between the current waypoint and the previous
@@ -1149,6 +1149,8 @@ struct act_patrol {
 	/*0x030*/ s32 nextstep;
 	/*0x034*/ bool forward;
 	/*0x038*/ struct waydata waydata;
+	/*0x078*/ s32 unk78;
+	/*0x07c*/ f32 unk7c;
 };
 
 struct act_gopos {

@@ -4137,7 +4137,7 @@ u8 func1021_c6c4[] = {
 	set_shield(0) \
 	set_returnlist(CHR_SELF, function) \
 	assign_path(pathid) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 
 

@@ -846,7 +846,7 @@ u8 func1006_msg_elvisbeable[] = {
 	set_shield(0) \
 	set_returnlist(CHR_SELF, function) \
 	assign_path(pathid) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 
 
@@ -1134,7 +1134,7 @@ u8 func0403_init_elvis[] = {
 	set_chr_maxdamage(CHR_SELF, 1000)
 	set_self_chrflag(CHRCFLAG_RUNFASTER)
 	assign_path(12)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, AILIST_ELVIS)
 	endlist
 };
@@ -1146,9 +1146,9 @@ u8 func0404_elvis[] = {
 
 	beginloop(0x06)
 		if_chr_idle(/*goto*/ 0x31)
-		if_path_started(/*goto*/ 0x31)
+		if_patrolling(/*goto*/ 0x31)
 		restart_timer
-		start_path
+		start_patrol
 		label(0x31)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		set_target_chr(CHR_BOND)

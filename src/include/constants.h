@@ -942,7 +942,7 @@
 
 #define GOPOSFLAG_SPEED        0x03 // bits 0x01 and 0x02 combined
 #define GOPOSFLAG_INIT         0x04
-#define GOPOSFLAG_ONPRESETPATH 0x08
+#define GOPOSFLAG_FORPATHSTART 0x08
 #define GOPOSFLAG_20           0x20
 #define GOPOSFLAG_DUCK         0x40
 #define GOPOSFLAG_80           0x80

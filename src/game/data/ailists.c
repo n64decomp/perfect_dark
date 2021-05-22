@@ -218,7 +218,7 @@ u8 func0006_unalerted[] = {
 	// Can see camspy
 	label(0x16)
 	dprint 'S','E','E','E','Y','E','S','P','Y','\n',0,
-	if_path_started(/*goto*/ 0x15)
+	if_patrolling(/*goto*/ 0x15)
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
 	set_ailist(CHR_SELF, GAILIST_OBSERVE_CAMSPY)
 
@@ -249,7 +249,7 @@ u8 func0006_unalerted[] = {
 	if_rand_gt(1, /*goto*/ 0x16)
 	call_rng
 	if_rand_gt(20, /*goto*/ 0x16)
-	if_path_started(/*goto*/ 0x15)
+	if_patrolling(/*goto*/ 0x15)
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
 	set_ailist(CHR_SELF, GAILIST_DO_BORED_ANIMATION)
 
@@ -264,7 +264,7 @@ u8 func0006_unalerted[] = {
 	if_rand_gt(10, /*goto*/ 0x16)
 	call_rng
 	if_rand_gt(20, /*goto*/ 0x16)
-	if_path_started(/*goto*/ 0x15)
+	if_patrolling(/*goto*/ 0x15)
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
 	set_ailist(CHR_SELF, GAILIST_LOOK_AROUND)
 
@@ -348,7 +348,7 @@ u8 func0006_unalerted[] = {
 	goto_next(0x15)
 
 	label(0x13)
-	if_path_started(/*goto*/ 0x14)
+	if_patrolling(/*goto*/ 0x14)
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
 	set_ailist(CHR_SELF, GAILIST_CIVILIAN_SAY_COMMENT)
 	label(0x14)
@@ -3755,7 +3755,7 @@ u8 func001a_maybe_unset_disspee[] = {
 
 	// Resume walking a path
 	label(0x16)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };

@@ -84,7 +84,7 @@ u8 func0401_init_enemy[] = {
 	try_inherit_properties(0x06, /*goto*/ 0x01)
 	label(0x01)
 	assign_path(0)
-	start_path
+	start_patrol
 	set_returnlist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 	set_ailist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 	endlist
@@ -125,7 +125,7 @@ u8 func0402_init_maian[] = {
 	try_inherit_properties(0x07, /*goto*/ 0x01)
 	label(0x01)
 	assign_path(0)
-	start_path
+	start_patrol
 	set_returnlist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 	set_ailist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 	endlist

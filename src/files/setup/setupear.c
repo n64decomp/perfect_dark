@@ -841,7 +841,7 @@ s32 path13[] = {
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 
 

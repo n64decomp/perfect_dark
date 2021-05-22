@@ -7534,7 +7534,7 @@ glabel var7f1a8dac
 /*  f037868:	316c0008 */ 	andi	$t4,$t3,0x8
 /*  f03786c:	11800005 */ 	beqz	$t4,.L0f037884
 /*  f037870:	00000000 */ 	nop
-/*  f037874:	0fc0ea5a */ 	jal	chrStartPath
+/*  f037874:	0fc0ea5a */ 	jal	chrTryStartPatrol
 /*  f037878:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03787c:	10000045 */ 	b	.L0f037994
 /*  f037880:	02002025 */ 	or	$a0,$s0,$zero
@@ -7795,7 +7795,7 @@ glabel var7f1a8dac
 /*  f037868:	316c0008 */ 	andi	$t4,$t3,0x8
 /*  f03786c:	11800005 */ 	beqz	$t4,.L0f037884
 /*  f037870:	00000000 */ 	nop
-/*  f037874:	0fc0ea5a */ 	jal	chrStartPath
+/*  f037874:	0fc0ea5a */ 	jal	chrTryStartPatrol
 /*  f037878:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03787c:	10000045 */ 	b	.L0f037994
 /*  f037880:	02002025 */ 	or	$a0,$s0,$zero
@@ -8374,7 +8374,7 @@ void chrPatrolChooseAnimation(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f038b9c
+glabel chrStartPatrol
 .late_rodata
 glabel var7f1a8dd0
 .word 0x3f99999a
@@ -8623,6 +8623,113 @@ glabel var7f1a8dd0
 /*  f038f28:	03e00008 */ 	jr	$ra
 /*  f038f2c:	27bd0110 */ 	addiu	$sp,$sp,0x110
 );
+
+//void chrStartPatrol(struct chrdata *chr, struct path *path)
+//{
+//	f32 bestdistance = 0;
+//	s32 nextstep = -1;
+//	f32 xdiff;
+//	f32 zdiff;
+//	s32 i;
+//	struct pad pad; // a8
+//	struct coord nextpos; // 9c
+//	s16 nextrooms[8]; // 8c
+//	s16 rooms[8]; // 7c
+//	f32 ymax; // 78
+//	f32 ymin; // 74
+//	f32 width; // 70
+//	s16 sp60[8]; // 60
+//	struct prop *prop = chr->prop;
+//
+//	if (CHRRACE(chr) != RACE_EYESPY) {
+//		// Do some kind of collision test with the pad to resume from...
+//		// maybe a line of sight check?
+//		if (chr->patrolnextstep >= 0 && chr->patrolnextstep < path->len) {
+//			padUnpack(path->pads[chr->patrolnextstep], PADFIELD_POS | PADFIELD_ROOM, &pad);
+//
+//			rooms[0] = pad.room;
+//			rooms[1] = -1;
+//
+//			propChrGetBbox(prop, &width, &ymax, &ymin);
+//
+//			chrSetOrUnsetHiddenFlag00000100(chr, false);
+//
+//			if (func0002d840(&prop->pos, prop->rooms, &pad.pos, rooms, CDTYPE_BG, 1,
+//						ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+//				nextstep = chr->patrolnextstep;
+//			}
+//
+//			chrSetOrUnsetHiddenFlag00000100(chr, true);
+//		}
+//
+//		// If the pad to resume from is not in sight, find the closest pad
+//		// to the chr's current position and start from there.
+//		if (nextstep < 0) {
+//			for (i = 0; path->pads[i] >= 0; i++) {
+//				f32 dist;
+//				padUnpack(path->pads[i], PADFIELD_POS, &pad);
+//
+//				xdiff = pad.pos.x - prop->pos.x;
+//				zdiff = pad.pos.z - prop->pos.z;
+//				dist = xdiff * xdiff + zdiff * zdiff;
+//
+//				if (nextstep < 0 || dist < bestdistance) {
+//					bestdistance = dist;
+//					nextstep = i;
+//				}
+//			}
+//		}
+//
+//		padUnpack(path->pads[nextstep], PADFIELD_POS | PADFIELD_ROOM, &pad);
+//
+//		rooms[0] = pad.room;
+//		rooms[1] = -1;
+//
+//		// If chr has line of sight to the pad then begin the patrol,
+//		// otherwise use gopos to get to the starting pad
+//		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL, chr->chrwidth * 1.2f, CDTYPE_10 | CDTYPE_BG) != CDRESULT_COLLISION) {
+//			chrStopFiring(chr);
+//
+//			chr->actiontype = ACT_PATROL;
+//			chr->act_patrol.path = path;
+//			chr->act_patrol.nextstep = nextstep;
+//			chr->act_patrol.forward = true;
+//
+//			chr->act_patrol.waydata.age = random() % 100;
+//			chr->act_patrol.waydata.unk03 = 0;
+//
+//			chr->act_patrol.unk78 = -1;
+//			chr->act_patrol.unk7c = 0;
+//
+//			func0f037580(chr);
+//
+//			chr->sleep = 0;
+//			chr->liftaction = LIFTACTION_NOTUSINGLIFT;
+//			chr->patrolnextstep = chr->act_patrol.nextstep;
+//
+//			chrPatrolGetCurWaypointInfo(chr, &nextpos, nextrooms);
+//
+//			if (!g_Vars.normmplayerisrunning
+//					&& (chr->prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) == 0
+//					&& func0f036c08(chr, &nextpos, nextrooms)
+//					&& !chr->inlift) {
+//				chrGoPosInitCheap(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
+//			}
+//
+//			if (chr->act_patrol.waydata.unk30 != 6 && modelIsAnimMerging(chr->model)) {
+//				chr->hidden |= CHRHFLAG_NEEDANIM;
+//			} else {
+//				chrPatrolChooseAnimation(chr);
+//				chr->hidden &= ~CHRHFLAG_NEEDANIM;
+//			}
+//		} else {
+//			sp60[0] = pad.room;
+//			sp60[1] = -1;
+//
+//			chrGoToPos(chr, &pad.pos, sp60, GOPOSFLAG_FORPATHSTART);
+//		}
+//	}
+//}
 
 void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 {
@@ -9563,12 +9670,12 @@ bool chrSetPath(struct chrdata *chr, u32 path_id)
 	return true;
 }
 
-bool chrStartPath(struct chrdata *chr)
+bool chrTryStartPatrol(struct chrdata *chr)
 {
 	struct path *path = pathFindById(chr->path);
 
 	if (path && chrIsReadyForOrders(chr)) {
-		func0f038b9c(chr, path);
+		chrStartPatrol(chr, path);
 		return true;
 	}
 
@@ -26659,8 +26766,8 @@ void chrTickGoPos(struct chrdata *chr)
 		// No more waypoints - chr is finished
 		if (func0f044808(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30) ||
 				(chr->inlift && func0f0446e0(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30))) {
-			if (chr->act_gopos.flags & GOPOSFLAG_ONPRESETPATH) {
-				chrStartPath(chr);
+			if (chr->act_gopos.flags & GOPOSFLAG_FORPATHSTART) {
+				chrTryStartPatrol(chr);
 				return;
 			}
 

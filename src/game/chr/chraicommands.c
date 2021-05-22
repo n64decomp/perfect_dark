@@ -1220,9 +1220,9 @@ bool aiSetPath(void)
 /**
  * @cmd 0022
  */
-bool aiStartPath(void)
+bool aiStartPatrol(void)
 {
-	chrStartPath(g_Vars.chrdata);
+	chrTryStartPatrol(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -1246,12 +1246,12 @@ bool aiIfCanHearAlarm(void)
 /**
  * @cmd 0023
  */
-bool aiIfPathStarted(void)
+bool aiIfPatrolling(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (g_Vars.chrdata->actiontype == ACT_PATROL
-			|| (g_Vars.chrdata->actiontype == ACT_GOPOS && g_Vars.chrdata->act_gopos.flags & GOPOSFLAG_ONPRESETPATH)) {
+			|| (g_Vars.chrdata->actiontype == ACT_GOPOS && g_Vars.chrdata->act_gopos.flags & GOPOSFLAG_FORPATHSTART)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

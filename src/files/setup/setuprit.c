@@ -1990,7 +1990,7 @@ u8 func0426_start_path00[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(0)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
@@ -2004,14 +2004,14 @@ u8 func0427_start_path01[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(1)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };
 
 u8 func0428_start_path02[] = {
 	assign_path(2)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };

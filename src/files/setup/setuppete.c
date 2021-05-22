@@ -1330,7 +1330,7 @@ u8 func0412_cia[] = {
 	// Patroller
 	label(0x54)
 	dprint 'P','A','T',' ','R','E','T','\n',0,
-	start_path
+	start_patrol
 
 	// Not shot, not a patroller, or patroller who has started his path
 	label(0x10)
@@ -1737,7 +1737,7 @@ u8 func0413_bugspotter[] = {
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED) \
  \
 	beginloop(0x04) \
@@ -1782,7 +1782,7 @@ u8 func0419_init_cia1[] = {
 
 	label(0x04)
 	assign_path(12)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, AILIST_CIA)
 
 	beginloop(0x04)
@@ -1962,7 +1962,7 @@ u8 func041a_robot[] = {
 	set_chr_maxdamage(CHR_SELF, 1)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x0c)
 	assign_path(0)
-	start_path
+	start_patrol
 
 	beginloop(0x02)
 		set_target_chr(CHR_HIDDENGUY)
@@ -2001,8 +2001,8 @@ u8 func041a_robot[] = {
 		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		label(0x03)
 
-		if_path_started(/*goto*/ 0x03)
-		start_path
+		if_patrolling(/*goto*/ 0x03)
+		start_patrol
 		label(0x03)
 		reloop(0x02)
 
@@ -2053,7 +2053,7 @@ u8 func041a_robot[] = {
 
 		label(0x04)
 		set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-		start_path
+		start_patrol
 	endloop(0x02)
 
 	label(0x0c)

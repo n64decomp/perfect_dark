@@ -1126,7 +1126,7 @@ u8 func0404_init_hovercar[] = {
 
 #define do_path(path) \
 	assign_path(path) \
-	start_path \
+	start_patrol \
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004) \
 	endlist \
 };
@@ -1159,7 +1159,7 @@ u8 func040a_start_path31[] = {
 	set_shield(0)
 	set_returnlist(CHR_SELF, 0x040a)
 	assign_path(31)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1174,7 +1174,7 @@ u8 func040b_start_path32[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(32)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1189,7 +1189,7 @@ u8 func040c_start_path33[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(33)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
@@ -1204,14 +1204,14 @@ u8 func040d_start_path34[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(34)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
 
 u8 func040e_start_path35[] = {
 	assign_path(35)
-	start_path
+	start_patrol
 	set_ailist(CHR_SELF, GAILIST_UNALERTED_0004)
 	endlist
 };
