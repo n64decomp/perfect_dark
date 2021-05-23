@@ -739,7 +739,7 @@ bool ai00f0(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
-			!g_Vars.chrdata->act_attack.unk058 &&
+			!g_Vars.chrdata->act_attack.reaim &&
 			g_Vars.chrdata->act_attack.flags & ATTACKFLAG_DONTTURN) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

@@ -2309,7 +2309,7 @@ void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 		}
 	}
 
-	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, 1);
+	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, true);
 }
 
 u32 var80068024 = 0x00000000;
@@ -2375,7 +2375,7 @@ glabel chrAttackLie
 //		firing[0] = !firing[1];
 //	}
 //
-//	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, 0);
+//	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, false);
 //}
 
 void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
@@ -2425,7 +2425,7 @@ void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 		}
 	}
 
-	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, 0);
+	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, false);
 }
 
 void chrAttackWalkChooseAnimation(struct chrdata *chr)
@@ -2728,7 +2728,7 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 	chr->act_attack.dorecoil = dorecoil;
 	chr->act_attack.dooneburst = dooneburst;
 	chr->act_attack.onehanded = onehanded;
-	chr->act_attack.unk040 = 0;
+	chr->act_attack.pausecount = 0;
 	chr->act_attack.numshots = 0;
 	chr->act_attack.turning = true;
 
@@ -2748,10 +2748,10 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 
 	chr->act_attack.flags = ATTACKFLAG_AIMATTARGET;
 	chr->act_attack.entityid = 0;
-	chr->act_attack.unk054 = 1;
-	chr->act_attack.unk058 = 0;
-	chr->act_attack.unk044 = 0;
-	chr->act_attack.unk048 = 0;
+	chr->act_attack.standing = true;
+	chr->act_attack.reaim = 0;
+	chr->act_attack.lastfire60 = 0;
+	chr->act_attack.lastontarget60 = 0;
 	chr->act_attack.flip = flip;
 
 	chr->sleep = 0;
@@ -2872,7 +2872,7 @@ void func0f031254(struct chrdata *chr)
  * This function implements attack behaviour common to all the attack types,
  * such as stand, kneel and lie.
  */
-void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 attackflags, u32 entityid, u32 arg6)
+void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 attackflags, s32 entityid, bool standing)
 {
 	struct model *model = chr->model;
 	s32 i;
@@ -2979,7 +2979,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 		chr->act_attack.singleshot[HAND_RIGHT] = singleshot[HAND_RIGHT];
 		chr->act_attack.dorecoil = dorecoil;
 		chr->act_attack.dooneburst = dooneburst;
-		chr->act_attack.unk040 = 0;
+		chr->act_attack.pausecount = 0;
 		chr->act_attack.numshots = 0;
 
 		if (singleshot[HAND_LEFT] || singleshot[HAND_RIGHT]) {
@@ -3004,10 +3004,10 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 
 		chr->act_attack.flags = attackflags;
 		chr->act_attack.entityid = entityid;
-		chr->act_attack.unk054 = arg6;
-		chr->act_attack.unk058 = 0;
-		chr->act_attack.unk044 = 0;
-		chr->act_attack.unk048 = 0;
+		chr->act_attack.standing = standing;
+		chr->act_attack.reaim = 0;
+		chr->act_attack.lastfire60 = 0;
+		chr->act_attack.lastontarget60 = 0;
 		chr->act_attack.flip = flip;
 
 		chr->sleep = 0;
@@ -3041,7 +3041,7 @@ void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 max
 		firing[0] = true;
 	}
 
-	chrAttack(chr, things, false, firing, attackflags, entityid, 0);
+	chrAttack(chr, things, false, firing, attackflags, entityid, false);
 
 	chr->actiontype = ACT_ATTACKAMOUNT;
 	chr->act_attack.numshots = 0;
@@ -19980,551 +19980,100 @@ glabel var7f1a91dc
 /*  f042ff8:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel chrTickAttack
-.late_rodata
-glabel var7f1a91e0
-.word 0x3e4ccccd
-.text
-/*  f042ffc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f043000:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f043004:	00808025 */ 	or	$s0,$a0,$zero
-/*  f043008:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f04300c:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f043010:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f043014:	afa4003c */ 	sw	$a0,0x3c($sp)
-/*  f043018:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f04301c:	8e0e0014 */ 	lw	$t6,0x14($s0)
-/*  f043020:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f043024:	05e3001b */ 	bgezl	$t7,.L0f043094
-/*  f043028:	8e08002c */ 	lw	$t0,0x2c($s0)
-/*  f04302c:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f043030:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f043034:	144000e5 */ 	bnez	$v0,.L0f0433cc
-/*  f043038:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04303c:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f043040:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f043044:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f043048:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f04304c:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f043050:	3c014180 */ 	lui	$at,0x4180
-/*  f043054:	44812000 */ 	mtc1	$at,$f4
-/*  f043058:	8206003e */ 	lb	$a2,0x3e($s0)
-/*  f04305c:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f043060:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f043064:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f043068:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f04306c:	0c007733 */ 	jal	modelSetAnimation
-/*  f043070:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f043074:	0fc0c495 */ 	jal	func0f031254
-/*  f043078:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04307c:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f043080:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f043084:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f043088:	0301c824 */ 	and	$t9,$t8,$at
-/*  f04308c:	ae190014 */ 	sw	$t9,0x14($s0)
-/*  f043090:	8e08002c */ 	lw	$t0,0x2c($s0)
-.L0f043094:
-/*  f043094:	24010269 */ 	addiu	$at,$zero,0x269
-/*  f043098:	85090000 */ 	lh	$t1,0x0($t0)
-/*  f04309c:	55210019 */ 	bnel	$t1,$at,.L0f043104
-/*  f0430a0:	8e0302d4 */ 	lw	$v1,0x2d4($s0)
-/*  f0430a4:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f0430a8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0430ac:	c7a60038 */ 	lwc1	$f6,0x38($sp)
-/*  f0430b0:	3c0a8006 */ 	lui	$t2,%hi(var80067d70)
-/*  f0430b4:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f0430b8:	4606003e */ 	c.le.s	$f0,$f6
-/*  f0430bc:	254a7d70 */ 	addiu	$t2,$t2,%lo(var80067d70)
-/*  f0430c0:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f0430c4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0430c8:	4500000d */ 	bc1f	.L0f043100
-/*  f0430cc:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f0430d0:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f0430d4:	ae0a002c */ 	sw	$t2,0x2c($s0)
-/*  f0430d8:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f0430dc:	3c014180 */ 	lui	$at,0x4180
-/*  f0430e0:	44814000 */ 	mtc1	$at,$f8
-/*  f0430e4:	8206003e */ 	lb	$a2,0x3e($s0)
-/*  f0430e8:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f0430ec:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f0430f0:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f0430f4:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0430f8:	0c007733 */ 	jal	modelSetAnimation
-/*  f0430fc:	e7a80014 */ 	swc1	$f8,0x14($sp)
-.L0f043100:
-/*  f043100:	8e0302d4 */ 	lw	$v1,0x2d4($s0)
-.L0f043104:
-/*  f043104:	14600050 */ 	bnez	$v1,.L0f043248
-/*  f043108:	00000000 */ 	nop
-/*  f04310c:	8e020058 */ 	lw	$v0,0x58($s0)
-/*  f043110:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f043114:	1040004c */ 	beqz	$v0,.L0f043248
-/*  f043118:	00000000 */ 	nop
-/*  f04311c:	1441002e */ 	bne	$v0,$at,.L0f0431d8
-/*  f043120:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043124:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f043128:	44805000 */ 	mtc1	$zero,$f10
-/*  f04312c:	c4400024 */ 	lwc1	$f0,0x24($v0)
-/*  f043130:	4600503e */ 	c.le.s	$f10,$f0
-/*  f043134:	00000000 */ 	nop
-/*  f043138:	45020004 */ 	bc1fl	.L0f04314c
-/*  f04313c:	c442001c */ 	lwc1	$f2,0x1c($v0)
-/*  f043140:	10000002 */ 	b	.L0f04314c
-/*  f043144:	46000086 */ 	mov.s	$f2,$f0
-/*  f043148:	c442001c */ 	lwc1	$f2,0x1c($v0)
-.L0f04314c:
-/*  f04314c:	0c00744f */ 	jal	modelGetAnimNum
-/*  f043150:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f043154:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f043158:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f04315c:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f043160:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043164:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f043168:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f04316c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043170:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f043174:	3c014180 */ 	lui	$at,0x4180
-/*  f043178:	8c8b0020 */ 	lw	$t3,0x20($a0)
-/*  f04317c:	44818000 */ 	mtc1	$at,$f16
-/*  f043180:	44071000 */ 	mfc1	$a3,$f2
-/*  f043184:	81660008 */ 	lb	$a2,0x8($t3)
-/*  f043188:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f04318c:	87a5002e */ 	lh	$a1,0x2e($sp)
-/*  f043190:	0c007733 */ 	jal	modelSetAnimation
-/*  f043194:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f043198:	8e0c002c */ 	lw	$t4,0x2c($s0)
-/*  f04319c:	44809000 */ 	mtc1	$zero,$f18
-/*  f0431a0:	c5800014 */ 	lwc1	$f0,0x14($t4)
-/*  f0431a4:	4600903e */ 	c.le.s	$f18,$f0
-/*  f0431a8:	00000000 */ 	nop
-/*  f0431ac:	45020005 */ 	bc1fl	.L0f0431c4
-/*  f0431b0:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f0431b4:	44050000 */ 	mfc1	$a1,$f0
-/*  f0431b8:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0431bc:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0431c0:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f0431c4:
-/*  f0431c4:	ae0d0058 */ 	sw	$t5,0x58($s0)
-/*  f0431c8:	0fc0fe0a */ 	jal	chrResetAimEndProperties
-/*  f0431cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0431d0:	1000007f */ 	b	.L0f0433d0
-/*  f0431d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0431d8:
-/*  f0431d8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0431dc:	1441001a */ 	bne	$v0,$at,.L0f043248
-/*  f0431e0:	00000000 */ 	nop
-/*  f0431e4:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f0431e8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0431ec:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f0431f0:	4604003e */ 	c.le.s	$f0,$f4
-/*  f0431f4:	00000000 */ 	nop
-/*  f0431f8:	45020075 */ 	bc1fl	.L0f0433d0
-/*  f0431fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f043200:	8e0e004c */ 	lw	$t6,0x4c($s0)
-/*  f043204:	8e180054 */ 	lw	$t8,0x54($s0)
-/*  f043208:	2401ffbf */ 	addiu	$at,$zero,-65
-/*  f04320c:	01c17824 */ 	and	$t7,$t6,$at
-/*  f043210:	13000007 */ 	beqz	$t8,.L0f043230
-/*  f043214:	ae0f004c */ 	sw	$t7,0x4c($s0)
-/*  f043218:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04321c:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f043220:	0fc0c048 */ 	jal	chrAttackStand
-/*  f043224:	8e060050 */ 	lw	$a2,0x50($s0)
-/*  f043228:	10000069 */ 	b	.L0f0433d0
-/*  f04322c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f043230:
-/*  f043230:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043234:	8e05004c */ 	lw	$a1,0x4c($s0)
-/*  f043238:	0fc0c0e8 */ 	jal	chrAttackKneel
-/*  f04323c:	8e060050 */ 	lw	$a2,0x50($s0)
-/*  f043240:	10000063 */ 	b	.L0f0433d0
-/*  f043244:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f043248:
-/*  f043248:	54600020 */ 	bnezl	$v1,.L0f0432cc
-/*  f04324c:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-/*  f043250:	8e02004c */ 	lw	$v0,0x4c($s0)
-/*  f043254:	30590020 */ 	andi	$t9,$v0,0x20
-/*  f043258:	1320001b */ 	beqz	$t9,.L0f0432c8
-/*  f04325c:	30480040 */ 	andi	$t0,$v0,0x40
-/*  f043260:	1100000c */ 	beqz	$t0,.L0f043294
-/*  f043264:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043268:	3c017f1b */ 	lui	$at,%hi(var7f1a91e0)
-/*  f04326c:	c42691e0 */ 	lwc1	$f6,%lo(var7f1a91e0)($at)
-/*  f043270:	8e05002c */ 	lw	$a1,0x2c($s0)
-/*  f043274:	82060039 */ 	lb	$a2,0x39($s0)
-/*  f043278:	82070038 */ 	lb	$a3,0x38($s0)
-/*  f04327c:	0fc0fa7d */ 	jal	func0f03e9f4
-/*  f043280:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f043284:	14400051 */ 	bnez	$v0,.L0f0433cc
-/*  f043288:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f04328c:	1000004f */ 	b	.L0f0433cc
-/*  f043290:	ae090058 */ 	sw	$t1,0x58($s0)
-.L0f043294:
-/*  f043294:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f043298:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f04329c:	c7a80038 */ 	lwc1	$f8,0x38($sp)
-/*  f0432a0:	4608003e */ 	c.le.s	$f0,$f8
-/*  f0432a4:	00000000 */ 	nop
-/*  f0432a8:	45020008 */ 	bc1fl	.L0f0432cc
-/*  f0432ac:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-/*  f0432b0:	8e0a004c */ 	lw	$t2,0x4c($s0)
-/*  f0432b4:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*  f0432b8:	a20c0030 */ 	sb	$t4,0x30($s0)
-/*  f0432bc:	354b0040 */ 	ori	$t3,$t2,0x40
-/*  f0432c0:	10000042 */ 	b	.L0f0433cc
-/*  f0432c4:	ae0b004c */ 	sw	$t3,0x4c($s0)
-.L0f0432c8:
-/*  f0432c8:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-.L0f0432cc:
-/*  f0432cc:	15a0003d */ 	bnez	$t5,.L0f0433c4
-/*  f0432d0:	00000000 */ 	nop
-/*  f0432d4:	820e0036 */ 	lb	$t6,0x36($s0)
-/*  f0432d8:	15c0003a */ 	bnez	$t6,.L0f0433c4
-/*  f0432dc:	00000000 */ 	nop
-/*  f0432e0:	8e0f002c */ 	lw	$t7,0x2c($s0)
-/*  f0432e4:	44805000 */ 	mtc1	$zero,$f10
-/*  f0432e8:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*  f0432ec:	c5e00024 */ 	lwc1	$f0,0x24($t7)
-/*  f0432f0:	4600503c */ 	c.lt.s	$f10,$f0
-/*  f0432f4:	00000000 */ 	nop
-/*  f0432f8:	45000032 */ 	bc1f	.L0f0433c4
-/*  f0432fc:	00000000 */ 	nop
-/*  f043300:	4600803e */ 	c.le.s	$f16,$f0
-/*  f043304:	00000000 */ 	nop
-/*  f043308:	4500002e */ 	bc1f	.L0f0433c4
-/*  f04330c:	00000000 */ 	nop
-/*  f043310:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f043314:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043318:	c7b20038 */ 	lwc1	$f18,0x38($sp)
-/*  f04331c:	4612003e */ 	c.le.s	$f0,$f18
-/*  f043320:	00000000 */ 	nop
-/*  f043324:	45000027 */ 	bc1f	.L0f0433c4
-/*  f043328:	00000000 */ 	nop
-/*  f04332c:	0c00744f */ 	jal	modelGetAnimNum
-/*  f043330:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043334:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f043338:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f04333c:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f043340:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043344:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f043348:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f04334c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043350:	8e08002c */ 	lw	$t0,0x2c($s0)
-/*  f043354:	3c014180 */ 	lui	$at,0x4180
-/*  f043358:	8c990020 */ 	lw	$t9,0x20($a0)
-/*  f04335c:	44812000 */ 	mtc1	$at,$f4
-/*  f043360:	8d070024 */ 	lw	$a3,0x24($t0)
-/*  f043364:	83260008 */ 	lb	$a2,0x8($t9)
-/*  f043368:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f04336c:	87a5002e */ 	lh	$a1,0x2e($sp)
-/*  f043370:	0c007733 */ 	jal	modelSetAnimation
-/*  f043374:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f043378:	82090037 */ 	lb	$t1,0x37($s0)
-/*  f04337c:	5120000e */ 	beqzl	$t1,.L0f0433b8
-/*  f043380:	8e0b002c */ 	lw	$t3,0x2c($s0)
-/*  f043384:	8e0a002c */ 	lw	$t2,0x2c($s0)
-/*  f043388:	44803000 */ 	mtc1	$zero,$f6
-/*  f04338c:	c5400014 */ 	lwc1	$f0,0x14($t2)
-/*  f043390:	4600303e */ 	c.le.s	$f6,$f0
-/*  f043394:	00000000 */ 	nop
-/*  f043398:	4500000a */ 	bc1f	.L0f0433c4
-/*  f04339c:	00000000 */ 	nop
-/*  f0433a0:	44050000 */ 	mfc1	$a1,$f0
-/*  f0433a4:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0433a8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0433ac:	10000005 */ 	b	.L0f0433c4
-/*  f0433b0:	00000000 */ 	nop
-/*  f0433b4:	8e0b002c */ 	lw	$t3,0x2c($s0)
-.L0f0433b8:
-/*  f0433b8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0433bc:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0433c0:	8d65001c */ 	lw	$a1,0x1c($t3)
-.L0f0433c4:
-/*  f0433c4:	0fc10792 */ 	jal	func0f041e48
-/*  f0433c8:	02002025 */ 	or	$a0,$s0,$zero
-.L0f0433cc:
-/*  f0433cc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0433d0:
-/*  f0433d0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0433d4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0433d8:	03e00008 */ 	jr	$ra
-/*  f0433dc:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel chrTickAttack
-.late_rodata
-glabel var7f1a91e0
-.word 0x3e4ccccd
-.text
-/*  f042ffc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f043000:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f043004:	00808025 */ 	or	$s0,$a0,$zero
-/*  f043008:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f04300c:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f043010:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f043014:	afa4003c */ 	sw	$a0,0x3c($sp)
-/*  f043018:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f04301c:	8e0e0014 */ 	lw	$t6,0x14($s0)
-/*  f043020:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f043024:	05e3001b */ 	bgezl	$t7,.L0f043094
-/*  f043028:	8e08002c */ 	lw	$t0,0x2c($s0)
-/*  f04302c:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f043030:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f043034:	144000e5 */ 	bnez	$v0,.L0f0433cc
-/*  f043038:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04303c:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f043040:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f043044:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f043048:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f04304c:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f043050:	3c014180 */ 	lui	$at,0x4180
-/*  f043054:	44812000 */ 	mtc1	$at,$f4
-/*  f043058:	8206003e */ 	lb	$a2,0x3e($s0)
-/*  f04305c:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f043060:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f043064:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f043068:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f04306c:	0c007733 */ 	jal	modelSetAnimation
-/*  f043070:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f043074:	0fc0c495 */ 	jal	func0f031254
-/*  f043078:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04307c:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f043080:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f043084:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f043088:	0301c824 */ 	and	$t9,$t8,$at
-/*  f04308c:	ae190014 */ 	sw	$t9,0x14($s0)
-/*  f043090:	8e08002c */ 	lw	$t0,0x2c($s0)
-.L0f043094:
-/*  f043094:	24010269 */ 	addiu	$at,$zero,0x269
-/*  f043098:	85090000 */ 	lh	$t1,0x0($t0)
-/*  f04309c:	55210019 */ 	bnel	$t1,$at,.L0f043104
-/*  f0430a0:	8e0302d4 */ 	lw	$v1,0x2d4($s0)
-/*  f0430a4:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f0430a8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0430ac:	c7a60038 */ 	lwc1	$f6,0x38($sp)
-/*  f0430b0:	3c0a8006 */ 	lui	$t2,%hi(var80067d70)
-/*  f0430b4:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f0430b8:	4606003e */ 	c.le.s	$f0,$f6
-/*  f0430bc:	254a7d70 */ 	addiu	$t2,$t2,%lo(var80067d70)
-/*  f0430c0:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f0430c4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0430c8:	4500000d */ 	bc1f	.L0f043100
-/*  f0430cc:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f0430d0:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f0430d4:	ae0a002c */ 	sw	$t2,0x2c($s0)
-/*  f0430d8:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f0430dc:	3c014180 */ 	lui	$at,0x4180
-/*  f0430e0:	44814000 */ 	mtc1	$at,$f8
-/*  f0430e4:	8206003e */ 	lb	$a2,0x3e($s0)
-/*  f0430e8:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f0430ec:	8c470010 */ 	lw	$a3,0x10($v0)
-/*  f0430f0:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f0430f4:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0430f8:	0c007733 */ 	jal	modelSetAnimation
-/*  f0430fc:	e7a80014 */ 	swc1	$f8,0x14($sp)
-.L0f043100:
-/*  f043100:	8e0302d4 */ 	lw	$v1,0x2d4($s0)
-.L0f043104:
-/*  f043104:	14600050 */ 	bnez	$v1,.L0f043248
-/*  f043108:	00000000 */ 	nop
-/*  f04310c:	8e020058 */ 	lw	$v0,0x58($s0)
-/*  f043110:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f043114:	1040004c */ 	beqz	$v0,.L0f043248
-/*  f043118:	00000000 */ 	nop
-/*  f04311c:	1441002e */ 	bne	$v0,$at,.L0f0431d8
-/*  f043120:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043124:	8e02002c */ 	lw	$v0,0x2c($s0)
-/*  f043128:	44805000 */ 	mtc1	$zero,$f10
-/*  f04312c:	c4400024 */ 	lwc1	$f0,0x24($v0)
-/*  f043130:	4600503e */ 	c.le.s	$f10,$f0
-/*  f043134:	00000000 */ 	nop
-/*  f043138:	45020004 */ 	bc1fl	.L0f04314c
-/*  f04313c:	c442001c */ 	lwc1	$f2,0x1c($v0)
-/*  f043140:	10000002 */ 	b	.L0f04314c
-/*  f043144:	46000086 */ 	mov.s	$f2,$f0
-/*  f043148:	c442001c */ 	lwc1	$f2,0x1c($v0)
-.L0f04314c:
-/*  f04314c:	0c00744f */ 	jal	modelGetAnimNum
-/*  f043150:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f043154:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f043158:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f04315c:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f043160:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043164:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f043168:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f04316c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043170:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f043174:	3c014180 */ 	lui	$at,0x4180
-/*  f043178:	8c8b0020 */ 	lw	$t3,0x20($a0)
-/*  f04317c:	44818000 */ 	mtc1	$at,$f16
-/*  f043180:	44071000 */ 	mfc1	$a3,$f2
-/*  f043184:	81660008 */ 	lb	$a2,0x8($t3)
-/*  f043188:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f04318c:	87a5002e */ 	lh	$a1,0x2e($sp)
-/*  f043190:	0c007733 */ 	jal	modelSetAnimation
-/*  f043194:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f043198:	8e0c002c */ 	lw	$t4,0x2c($s0)
-/*  f04319c:	44809000 */ 	mtc1	$zero,$f18
-/*  f0431a0:	c5800014 */ 	lwc1	$f0,0x14($t4)
-/*  f0431a4:	4600903e */ 	c.le.s	$f18,$f0
-/*  f0431a8:	00000000 */ 	nop
-/*  f0431ac:	45020005 */ 	bc1fl	.L0f0431c4
-/*  f0431b0:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f0431b4:	44050000 */ 	mfc1	$a1,$f0
-/*  f0431b8:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0431bc:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0431c0:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f0431c4:
-/*  f0431c4:	ae0d0058 */ 	sw	$t5,0x58($s0)
-/*  f0431c8:	0fc0fe0a */ 	jal	chrResetAimEndProperties
-/*  f0431cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0431d0:	1000007f */ 	b	.L0f0433d0
-/*  f0431d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0431d8:
-/*  f0431d8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0431dc:	1441001a */ 	bne	$v0,$at,.L0f043248
-/*  f0431e0:	00000000 */ 	nop
-/*  f0431e4:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f0431e8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0431ec:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f0431f0:	4604003e */ 	c.le.s	$f0,$f4
-/*  f0431f4:	00000000 */ 	nop
-/*  f0431f8:	45020075 */ 	bc1fl	.L0f0433d0
-/*  f0431fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f043200:	8e0e004c */ 	lw	$t6,0x4c($s0)
-/*  f043204:	8e180054 */ 	lw	$t8,0x54($s0)
-/*  f043208:	2401ffbf */ 	addiu	$at,$zero,-65
-/*  f04320c:	01c17824 */ 	and	$t7,$t6,$at
-/*  f043210:	13000007 */ 	beqz	$t8,.L0f043230
-/*  f043214:	ae0f004c */ 	sw	$t7,0x4c($s0)
-/*  f043218:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04321c:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f043220:	0fc0c048 */ 	jal	chrAttackStand
-/*  f043224:	8e060050 */ 	lw	$a2,0x50($s0)
-/*  f043228:	10000069 */ 	b	.L0f0433d0
-/*  f04322c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f043230:
-/*  f043230:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043234:	8e05004c */ 	lw	$a1,0x4c($s0)
-/*  f043238:	0fc0c0e8 */ 	jal	chrAttackKneel
-/*  f04323c:	8e060050 */ 	lw	$a2,0x50($s0)
-/*  f043240:	10000063 */ 	b	.L0f0433d0
-/*  f043244:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f043248:
-/*  f043248:	54600020 */ 	bnezl	$v1,.L0f0432cc
-/*  f04324c:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-/*  f043250:	8e02004c */ 	lw	$v0,0x4c($s0)
-/*  f043254:	30590020 */ 	andi	$t9,$v0,0x20
-/*  f043258:	1320001b */ 	beqz	$t9,.L0f0432c8
-/*  f04325c:	30480040 */ 	andi	$t0,$v0,0x40
-/*  f043260:	1100000c */ 	beqz	$t0,.L0f043294
-/*  f043264:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043268:	3c017f1b */ 	lui	$at,%hi(var7f1a91e0)
-/*  f04326c:	c42691e0 */ 	lwc1	$f6,%lo(var7f1a91e0)($at)
-/*  f043270:	8e05002c */ 	lw	$a1,0x2c($s0)
-/*  f043274:	82060039 */ 	lb	$a2,0x39($s0)
-/*  f043278:	82070038 */ 	lb	$a3,0x38($s0)
-/*  f04327c:	0fc0fa7d */ 	jal	func0f03e9f4
-/*  f043280:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f043284:	14400051 */ 	bnez	$v0,.L0f0433cc
-/*  f043288:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f04328c:	1000004f */ 	b	.L0f0433cc
-/*  f043290:	ae090058 */ 	sw	$t1,0x58($s0)
-.L0f043294:
-/*  f043294:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f043298:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f04329c:	c7a80038 */ 	lwc1	$f8,0x38($sp)
-/*  f0432a0:	4608003e */ 	c.le.s	$f0,$f8
-/*  f0432a4:	00000000 */ 	nop
-/*  f0432a8:	45020008 */ 	bc1fl	.L0f0432cc
-/*  f0432ac:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-/*  f0432b0:	8e0a004c */ 	lw	$t2,0x4c($s0)
-/*  f0432b4:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*  f0432b8:	a20c0030 */ 	sb	$t4,0x30($s0)
-/*  f0432bc:	354b0040 */ 	ori	$t3,$t2,0x40
-/*  f0432c0:	10000042 */ 	b	.L0f0433cc
-/*  f0432c4:	ae0b004c */ 	sw	$t3,0x4c($s0)
-.L0f0432c8:
-/*  f0432c8:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-.L0f0432cc:
-/*  f0432cc:	15a0003d */ 	bnez	$t5,.L0f0433c4
-/*  f0432d0:	00000000 */ 	nop
-/*  f0432d4:	820e0036 */ 	lb	$t6,0x36($s0)
-/*  f0432d8:	15c0003a */ 	bnez	$t6,.L0f0433c4
-/*  f0432dc:	00000000 */ 	nop
-/*  f0432e0:	8e0f002c */ 	lw	$t7,0x2c($s0)
-/*  f0432e4:	44805000 */ 	mtc1	$zero,$f10
-/*  f0432e8:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*  f0432ec:	c5e00024 */ 	lwc1	$f0,0x24($t7)
-/*  f0432f0:	4600503c */ 	c.lt.s	$f10,$f0
-/*  f0432f4:	00000000 */ 	nop
-/*  f0432f8:	45000032 */ 	bc1f	.L0f0433c4
-/*  f0432fc:	00000000 */ 	nop
-/*  f043300:	4600803e */ 	c.le.s	$f16,$f0
-/*  f043304:	00000000 */ 	nop
-/*  f043308:	4500002e */ 	bc1f	.L0f0433c4
-/*  f04330c:	00000000 */ 	nop
-/*  f043310:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f043314:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043318:	c7b20038 */ 	lwc1	$f18,0x38($sp)
-/*  f04331c:	4612003e */ 	c.le.s	$f0,$f18
-/*  f043320:	00000000 */ 	nop
-/*  f043324:	45000027 */ 	bc1f	.L0f0433c4
-/*  f043328:	00000000 */ 	nop
-/*  f04332c:	0c00744f */ 	jal	modelGetAnimNum
-/*  f043330:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043334:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f043338:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f04333c:	a7a2002e */ 	sh	$v0,0x2e($sp)
-/*  f043340:	02002025 */ 	or	$a0,$s0,$zero
-/*  f043344:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f043348:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f04334c:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f043350:	8e08002c */ 	lw	$t0,0x2c($s0)
-/*  f043354:	3c014180 */ 	lui	$at,0x4180
-/*  f043358:	8c990020 */ 	lw	$t9,0x20($a0)
-/*  f04335c:	44812000 */ 	mtc1	$at,$f4
-/*  f043360:	8d070024 */ 	lw	$a3,0x24($t0)
-/*  f043364:	83260008 */ 	lb	$a2,0x8($t9)
-/*  f043368:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f04336c:	87a5002e */ 	lh	$a1,0x2e($sp)
-/*  f043370:	0c007733 */ 	jal	modelSetAnimation
-/*  f043374:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f043378:	82090037 */ 	lb	$t1,0x37($s0)
-/*  f04337c:	5120000e */ 	beqzl	$t1,.L0f0433b8
-/*  f043380:	8e0b002c */ 	lw	$t3,0x2c($s0)
-/*  f043384:	8e0a002c */ 	lw	$t2,0x2c($s0)
-/*  f043388:	44803000 */ 	mtc1	$zero,$f6
-/*  f04338c:	c5400014 */ 	lwc1	$f0,0x14($t2)
-/*  f043390:	4600303e */ 	c.le.s	$f6,$f0
-/*  f043394:	00000000 */ 	nop
-/*  f043398:	4500000a */ 	bc1f	.L0f0433c4
-/*  f04339c:	00000000 */ 	nop
-/*  f0433a0:	44050000 */ 	mfc1	$a1,$f0
-/*  f0433a4:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0433a8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0433ac:	10000005 */ 	b	.L0f0433c4
-/*  f0433b0:	00000000 */ 	nop
-/*  f0433b4:	8e0b002c */ 	lw	$t3,0x2c($s0)
-.L0f0433b8:
-/*  f0433b8:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f0433bc:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0433c0:	8d65001c */ 	lw	$a1,0x1c($t3)
-.L0f0433c4:
-/*  f0433c4:	0fc10792 */ 	jal	func0f041e48
-/*  f0433c8:	02002025 */ 	or	$a0,$s0,$zero
-.L0f0433cc:
-/*  f0433cc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0433d0:
-/*  f0433d0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0433d4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0433d8:	03e00008 */ 	jr	$ra
-/*  f0433dc:	00000000 */ 	nop
-);
-#endif
+void chrTickAttack(struct chrdata *chr)
+{
+	struct model *model = chr->model;
+	f32 curframe = modelGetCurAnimFrame(model);
+
+	if (chr->hidden & CHRHFLAG_NEEDANIM) {
+		if (modelIsAnimMerging(chr->model)) {
+			return;
+		}
+
+		modelSetAnimation(model, chr->act_attack.animcfg->animnum, chr->act_attack.flip,
+				chr->act_attack.animcfg->unk10, chrGetRangedSpeed(chr, 0.5f, 0.8f), 16);
+		func0f031254(chr);
+		chr->hidden &= ~CHRHFLAG_NEEDANIM;
+	}
+
+	if (chr->act_attack.animcfg->animnum == ANIM_SNIPING_GETDOWN) {
+		if (curframe >= modelGetAnimEndFrame(model)) {
+			chr->act_attack.animcfg = var80067d70;
+
+			modelSetAnimation(model, chr->act_attack.animcfg->animnum, chr->act_attack.flip,
+					chr->act_attack.animcfg->unk10, chrGetRangedSpeed(chr, 0.5f, 0.8f), 16);
+		}
+	}
+
+	if (!chr->aibot && chr->act_attack.reaim != 0) {
+		if (chr->act_attack.reaim == 1) {
+			f32 startframe;
+
+			if (chr->act_attack.animcfg->unk24 >= 0) {
+				startframe = chr->act_attack.animcfg->unk24;
+			} else {
+				startframe = chr->act_attack.animcfg->unk1c;
+			}
+
+			modelSetAnimation(model, modelGetAnimNum(model), model->anim->flip, startframe, chrGetRangedSpeed(chr, 0.5f, 0.8f), 16);
+
+			if (chr->act_attack.animcfg->unk14 >= 0) {
+				modelSetAnimEndFrame(model, chr->act_attack.animcfg->unk14);
+			}
+
+			chr->act_attack.reaim = 2;
+			chrResetAimEndProperties(chr);
+			return;
+		}
+
+		if (chr->act_attack.reaim == 2) {
+			if (curframe >= modelGetAnimEndFrame(model)) {
+				chr->act_attack.flags &= ~ATTACKFLAG_DONTTURN;
+
+				if (chr->act_attack.standing) {
+					chrAttackStand(chr, chr->act_attack.flags, chr->act_attack.entityid);
+				} else {
+					chrAttackKneel(chr, chr->act_attack.flags, chr->act_attack.entityid);
+				}
+			}
+			return;
+		}
+	}
+
+	if (!chr->aibot && (chr->act_attack.flags & ATTACKFLAG_AIMONLY)) {
+		if (chr->act_attack.flags & ATTACKFLAG_DONTTURN) {
+			if (!func0f03e9f4(chr, chr->act_attack.animcfg, chr->act_attack.firegun[HAND_LEFT], chr->act_attack.firegun[HAND_RIGHT], 0.2f)) {
+				chr->act_attack.reaim = 1;
+			}
+			return;
+		}
+
+		if (curframe >= modelGetAnimEndFrame(model)) {
+			chr->act_attack.flags |= ATTACKFLAG_DONTTURN;
+			chr->act_attack.turning = 2;
+			return;
+		}
+	}
+
+	if (!chr->aibot
+			&& chr->act_attack.dorecoil == 0
+			&& chr->act_attack.animcfg->unk24 > 0
+			&& curframe <= chr->act_attack.animcfg->unk24
+			&& curframe >= modelGetAnimEndFrame(model)) {
+		modelSetAnimation(model, modelGetAnimNum(model), model->anim->flip,
+				chr->act_attack.animcfg->unk24, chrGetRangedSpeed(chr, 0.5f, 0.8f), 16);
+
+		if (chr->act_attack.dooneburst) {
+			if (chr->act_attack.animcfg->unk14 >= 0) {
+				modelSetAnimEndFrame(model, chr->act_attack.animcfg->unk14);
+			}
+		} else {
+			modelSetAnimEndFrame(model, chr->act_attack.animcfg->unk1c);
+		}
+	}
+
+	func0f041e48(chr);
+}
 
 GLOBAL_ASM(
 glabel chrTickAttackRoll

@@ -1083,17 +1083,17 @@ struct act_attack {
 	/*0x35*/ s8 onehanded;
 	/*0x36*/ s8 dorecoil;
 	/*0x37*/ s8 dooneburst;
-	/*0x38*/ u8 firegun[2]; // whether this gun is going to attempt to fire in this anim
+	/*0x38*/ s8 firegun[2]; // whether this gun is going to attempt to fire in this anim
 	/*0x3a*/ u8 everytick[2]; // whether gun's fire rate is high enough to fire on every tick
 	/*0x3c*/ u8 singleshot[2];
 	/*0x3e*/ s8 flip;
-	/*0x40*/ u32 unk040;
-	/*0x44*/ u32 unk044;
-	/*0x48*/ u32 unk048;
+	/*0x40*/ s32 pausecount;
+	/*0x44*/ s32 lastfire60;
+	/*0x48*/ s32 lastontarget60;
 	/*0x4c*/ u32 flags;
-	/*0x50*/ u32 entityid;
-	/*0x54*/ s32 unk054;
-	/*0x58*/ u32 unk058;
+	/*0x50*/ s32 entityid;
+	/*0x54*/ s32 standing;
+	/*0x58*/ s32 reaim;
 };
 
 struct act_attackwalk {
