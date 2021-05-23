@@ -202,7 +202,7 @@ extern struct attackanimgroup *g_StandHeavyAttackAnims[][32];
 extern struct attackanimconfig var80065be0[];
 extern struct attackanimgroup *g_StandLightAttackAnims[][32];
 extern struct attackanimconfig var800663d8[];
-extern u32 g_StandDualAttackAnims;
+extern struct attackanimgroup *g_StandDualAttackAnims[][32];
 extern struct attackanimgroup *g_KneelHeavyAttackAnims[][32];
 extern struct attackanimgroup *g_KneelLightAttackAnims[][32];
 extern struct attackanimgroup *g_KneelDualAttackAnims[][32];
