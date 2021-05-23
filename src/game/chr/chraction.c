@@ -1290,16 +1290,16 @@ struct attackanimconfig var80067980[] = {
 	{ 0x0000, 0,  0, 0,               0, -1, 0,  0,  0,  0,  0,  0,  0,                0,                 0,                0,                0,   0 },
 };
 
-struct attackanimconfig var80067a10 = { 0x0030, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.3999999761581, 1.2999999523163 };
-struct attackanimconfig var80067a58 = { 0x0031, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.1000000238419, 1.2000000476837 };
-struct attackanimconfig var80067aa0 = { 0x0052, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig var80067ae8 = { 0x0055, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig var80067b30 = { 0x006c, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig var80067b78 = { 0x006e, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
-struct attackanimconfig var80067bc0 = { 0x006d, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
+struct attackanimconfig g_AttackAnimHeavyWalk       = { 0x0030, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.3999999761581, 1.2999999523163 };
+struct attackanimconfig g_AttackAnimHeavyRun        = { 0x0031, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.1000000238419, 1.2000000476837 };
+struct attackanimconfig g_AttackAnimLightWalk       = { 0x0052, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
+struct attackanimconfig g_AttackAnimLightRun        = { 0x0055, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
+struct attackanimconfig g_AttackAnimDualWalk        = { 0x006c, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
+struct attackanimconfig g_AttackAnimDualRun         = { 0x006e, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
+struct attackanimconfig g_AttackAnimDualCrossedWalk = { 0x006d, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
+struct attackanimconfig g_AttackAnimDualCrossedRun  = { 0x006f, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0,               0               };
 
-struct attackanimconfig var80067c08[] = {
-	{ 0x006f, 0, 0, 0,               0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },
+struct attackanimconfig var80067c50[] = {
 	{ 0x0057, 0, 0, 1.5707963705063, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },
 	{ 0x0056, 0, 0, 4.7123889923096, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 0, 0 },
 	{ 0x0000, 0, 0, 0,               0, -1, 0, 0, 0,  0,  0, 0, 0,                0,                 0,                0,                 0, 0 },
@@ -2432,656 +2432,154 @@ void chrAttackWalkChooseAnimation(struct chrdata *chr)
 	}
 }
 
-u32 var80068034 = 0x00000000;
-u32 var80068038 = 0x00000000;
-u32 var8006803c = 0x00000000;
-u32 var80068040 = 0x00000000;
-u32 var80068044 = 0x00000000;
-u32 var80068048 = 0x00000000;
-u32 var8006804c = 0x00000000;
-u32 var80068050 = 0x00000000;
-u32 var80068054 = 0x00000000;
-u32 var80068058 = 0x00000000;
-u32 var8006805c = 0x00000000;
-u32 var80068060 = 0x00000000;
+void chrAttackWalk(struct chrdata *chr, bool run)
+{
+	struct attackanimconfig *animcfg;
+	struct prop *leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	bool flip;
+	bool firing[] = {false, false};
+	bool everytick[] = {false, false};
+	bool singleshot[] = {false, false};
+	s32 i;
+	struct prop *prop;
+	struct weaponobj *weapon;
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel chrAttackWalk
-.late_rodata
-glabel var7f1a9f70pf
-.word 0x43a6aaaa
-.text
-/*  f030724:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f030728:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03072c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f030730:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f030734:	00808825 */ 	move	$s1,$a0
-/*  f030738:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f03073c:	0fc0a252 */ 	jal	chrGetEquippedWeaponProp
-/*  f030740:	24050001 */ 	li	$a1,0x1
-/*  f030744:	00408025 */ 	move	$s0,$v0
-/*  f030748:	02202025 */ 	move	$a0,$s1
-/*  f03074c:	0fc0a252 */ 	jal	chrGetEquippedWeaponProp
-/*  f030750:	00002825 */ 	move	$a1,$zero
-/*  f030754:	3c0f8006 */ 	lui	$t7,0x8006
-/*  f030758:	25ef7d14 */ 	addiu	$t7,$t7,0x7d14
-/*  f03075c:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f030760:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f030764:	27ae0060 */ 	addiu	$t6,$sp,0x60
-/*  f030768:	3c0a8006 */ 	lui	$t2,0x8006
-/*  f03076c:	254a7d1c */ 	addiu	$t2,$t2,0x7d1c
-/*  f030770:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f030774:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f030778:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*  f03077c:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f030780:	27a90058 */ 	addiu	$t1,$sp,0x58
-/*  f030784:	3c188006 */ 	lui	$t8,0x8006
-/*  f030788:	27187d24 */ 	addiu	$t8,$t8,0x7d24
-/*  f03078c:	ad2d0004 */ 	sw	$t5,0x4($t1)
-/*  f030790:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f030794:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f030798:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f03079c:	27b90050 */ 	addiu	$t9,$sp,0x50
-/*  f0307a0:	00402825 */ 	move	$a1,$v0
-/*  f0307a4:	af280004 */ 	sw	$t0,0x4($t9)
-/*  f0307a8:	12000048 */ 	beqz	$s0,.PF0f0308cc
-/*  f0307ac:	af210000 */ 	sw	$at,0x0($t9)
-/*  f0307b0:	10400046 */ 	beqz	$v0,.PF0f0308cc
-/*  f0307b4:	02202025 */ 	move	$a0,$s1
-/*  f0307b8:	0fc0a256 */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f0307bc:	24050001 */ 	li	$a1,0x1
-/*  f0307c0:	00408025 */ 	move	$s0,$v0
-/*  f0307c4:	02202025 */ 	move	$a0,$s1
-/*  f0307c8:	0fc0a256 */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f0307cc:	00002825 */ 	move	$a1,$zero
-/*  f0307d0:	1200000d */ 	beqz	$s0,.PF0f030808
-/*  f0307d4:	00001825 */ 	move	$v1,$zero
-/*  f0307d8:	5040000c */ 	beqzl	$v0,.PF0f03080c
-/*  f0307dc:	2c4b0001 */ 	sltiu	$t3,$v0,0x1
-/*  f0307e0:	0c004ad4 */ 	jal	random
-/*  f0307e4:	00000000 */ 	nop
-/*  f0307e8:	304c0001 */ 	andi	$t4,$v0,0x1
-/*  f0307ec:	0c004ad4 */ 	jal	random
-/*  f0307f0:	afac0068 */ 	sw	$t4,0x68($sp)
-/*  f0307f4:	24010003 */ 	li	$at,0x3
-/*  f0307f8:	0041001b */ 	divu	$zero,$v0,$at
-/*  f0307fc:	00001810 */ 	mfhi	$v1
-/*  f030800:	10000003 */ 	b	.PF0f030810
-/*  f030804:	00000000 */ 	nop
-.PF0f030808:
-/*  f030808:	2c4b0001 */ 	sltiu	$t3,$v0,0x1
-.PF0f03080c:
-/*  f03080c:	afab0068 */ 	sw	$t3,0x68($sp)
-.PF0f030810:
-/*  f030810:	14600013 */ 	bnez	$v1,.PF0f030860
-/*  f030814:	24010001 */ 	li	$at,0x1
-/*  f030818:	8fa9007c */ 	lw	$t1,0x7c($sp)
-/*  f03081c:	3c0d8006 */ 	lui	$t5,0x8006
-/*  f030820:	3c0a8006 */ 	lui	$t2,0x8006
-/*  f030824:	11200004 */ 	beqz	$t1,.PF0f030838
-/*  f030828:	25ad7780 */ 	addiu	$t5,$t5,0x7780
-/*  f03082c:	254a77c8 */ 	addiu	$t2,$t2,0x77c8
-/*  f030830:	10000002 */ 	b	.PF0f03083c
-/*  f030834:	afaa0074 */ 	sw	$t2,0x74($sp)
-.PF0f030838:
-/*  f030838:	afad0074 */ 	sw	$t5,0x74($sp)
-.PF0f03083c:
-/*  f03083c:	8faf0068 */ 	lw	$t7,0x68($sp)
-/*  f030840:	240e0001 */ 	li	$t6,0x1
-/*  f030844:	24020001 */ 	li	$v0,0x1
-/*  f030848:	11e00003 */ 	beqz	$t7,.PF0f030858
-/*  f03084c:	00000000 */ 	nop
-/*  f030850:	1000004a */ 	b	.PF0f03097c
-/*  f030854:	afae0064 */ 	sw	$t6,0x64($sp)
-.PF0f030858:
-/*  f030858:	10000048 */ 	b	.PF0f03097c
-/*  f03085c:	afa20060 */ 	sw	$v0,0x60($sp)
-.PF0f030860:
-/*  f030860:	1461000e */ 	bne	$v1,$at,.PF0f03089c
-/*  f030864:	8fac007c */ 	lw	$t4,0x7c($sp)
-/*  f030868:	8fb9007c */ 	lw	$t9,0x7c($sp)
-/*  f03086c:	3c088006 */ 	lui	$t0,0x8006
-/*  f030870:	25087810 */ 	addiu	$t0,$t0,0x7810
-/*  f030874:	13200005 */ 	beqz	$t9,.PF0f03088c
-/*  f030878:	24020001 */ 	li	$v0,0x1
-/*  f03087c:	3c188006 */ 	lui	$t8,0x8006
-/*  f030880:	27187858 */ 	addiu	$t8,$t8,0x7858
-/*  f030884:	10000002 */ 	b	.PF0f030890
-/*  f030888:	afb80074 */ 	sw	$t8,0x74($sp)
-.PF0f03088c:
-/*  f03088c:	afa80074 */ 	sw	$t0,0x74($sp)
-.PF0f030890:
-/*  f030890:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f030894:	10000039 */ 	b	.PF0f03097c
-/*  f030898:	afa20060 */ 	sw	$v0,0x60($sp)
-.PF0f03089c:
-/*  f03089c:	11800005 */ 	beqz	$t4,.PF0f0308b4
-/*  f0308a0:	24020001 */ 	li	$v0,0x1
-/*  f0308a4:	3c0b8006 */ 	lui	$t3,0x8006
-/*  f0308a8:	256b78e8 */ 	addiu	$t3,$t3,0x78e8
-/*  f0308ac:	10000004 */ 	b	.PF0f0308c0
-/*  f0308b0:	afab0074 */ 	sw	$t3,0x74($sp)
-.PF0f0308b4:
-/*  f0308b4:	3c098006 */ 	lui	$t1,0x8006
-/*  f0308b8:	252978a0 */ 	addiu	$t1,$t1,0x78a0
-/*  f0308bc:	afa90074 */ 	sw	$t1,0x74($sp)
-.PF0f0308c0:
-/*  f0308c0:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f0308c4:	1000002d */ 	b	.PF0f03097c
-/*  f0308c8:	afa20060 */ 	sw	$v0,0x60($sp)
-.PF0f0308cc:
-/*  f0308cc:	02002025 */ 	move	$a0,$s0
-/*  f0308d0:	0fc0b891 */ 	jal	weaponIsOneHanded
-/*  f0308d4:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f0308d8:	14400005 */ 	bnez	$v0,.PF0f0308f0
-/*  f0308dc:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f0308e0:	0fc0b891 */ 	jal	weaponIsOneHanded
-/*  f0308e4:	00a02025 */ 	move	$a0,$a1
-/*  f0308e8:	50400014 */ 	beqzl	$v0,.PF0f03093c
-/*  f0308ec:	8fb9007c */ 	lw	$t9,0x7c($sp)
-.PF0f0308f0:
-/*  f0308f0:	8faa007c */ 	lw	$t2,0x7c($sp)
-/*  f0308f4:	0010102b */ 	sltu	$v0,$zero,$s0
-/*  f0308f8:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f0308fc:	11400005 */ 	beqz	$t2,.PF0f030914
-/*  f030900:	3c0f8006 */ 	lui	$t7,0x8006
-/*  f030904:	3c0d8006 */ 	lui	$t5,0x8006
-/*  f030908:	25ad77c8 */ 	addiu	$t5,$t5,0x77c8
-/*  f03090c:	10000003 */ 	b	.PF0f03091c
-/*  f030910:	afad0074 */ 	sw	$t5,0x74($sp)
-.PF0f030914:
-/*  f030914:	25ef7780 */ 	addiu	$t7,$t7,0x7780
-/*  f030918:	afaf0074 */ 	sw	$t7,0x74($sp)
-.PF0f03091c:
-/*  f03091c:	10400003 */ 	beqz	$v0,.PF0f03092c
-/*  f030920:	240e0001 */ 	li	$t6,0x1
-/*  f030924:	10000015 */ 	b	.PF0f03097c
-/*  f030928:	afae0064 */ 	sw	$t6,0x64($sp)
-.PF0f03092c:
-/*  f03092c:	24020001 */ 	li	$v0,0x1
-/*  f030930:	10000012 */ 	b	.PF0f03097c
-/*  f030934:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f030938:	8fb9007c */ 	lw	$t9,0x7c($sp)
-.PF0f03093c:
-/*  f03093c:	0010102b */ 	sltu	$v0,$zero,$s0
-/*  f030940:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f030944:	13200005 */ 	beqz	$t9,.PF0f03095c
-/*  f030948:	3c088006 */ 	lui	$t0,0x8006
-/*  f03094c:	3c188006 */ 	lui	$t8,0x8006
-/*  f030950:	27187738 */ 	addiu	$t8,$t8,0x7738
-/*  f030954:	10000003 */ 	b	.PF0f030964
-/*  f030958:	afb80074 */ 	sw	$t8,0x74($sp)
-.PF0f03095c:
-/*  f03095c:	250876f0 */ 	addiu	$t0,$t0,0x76f0
-/*  f030960:	afa80074 */ 	sw	$t0,0x74($sp)
-.PF0f030964:
-/*  f030964:	10400003 */ 	beqz	$v0,.PF0f030974
-/*  f030968:	240c0001 */ 	li	$t4,0x1
-/*  f03096c:	10000003 */ 	b	.PF0f03097c
-/*  f030970:	afac0064 */ 	sw	$t4,0x64($sp)
-.PF0f030974:
-/*  f030974:	24020001 */ 	li	$v0,0x1
-/*  f030978:	afa20060 */ 	sw	$v0,0x60($sp)
-.PF0f03097c:
-/*  f03097c:	00008025 */ 	move	$s0,$zero
-/*  f030980:	00003025 */ 	move	$a2,$zero
-/*  f030984:	27a70060 */ 	addiu	$a3,$sp,0x60
-.PF0f030988:
-/*  f030988:	8ceb0000 */ 	lw	$t3,0x0($a3)
-/*  f03098c:	02202025 */ 	move	$a0,$s1
-/*  f030990:	02002825 */ 	move	$a1,$s0
-/*  f030994:	51600032 */ 	beqzl	$t3,.PF0f030a60
-/*  f030998:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f03099c:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f0309a0:	0fc0a252 */ 	jal	chrGetEquippedWeaponProp
-/*  f0309a4:	afa70030 */ 	sw	$a3,0x30($sp)
-/*  f0309a8:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f0309ac:	9064005c */ 	lbu	$a0,0x5c($v1)
-/*  f0309b0:	9065005f */ 	lbu	$a1,0x5f($v1)
-/*  f0309b4:	0fc2c8f8 */ 	jal	weaponGetNumTicksPerShot
-/*  f0309b8:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f0309bc:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f0309c0:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f0309c4:	1c400004 */ 	bgtz	$v0,.PF0f0309d8
-/*  f0309c8:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f0309cc:	24090001 */ 	li	$t1,0x1
-/*  f0309d0:	03a65021 */ 	addu	$t2,$sp,$a2
-/*  f0309d4:	ad490058 */ 	sw	$t1,0x58($t2)
-.PF0f0309d8:
-/*  f0309d8:	9062005c */ 	lbu	$v0,0x5c($v1)
-/*  f0309dc:	24010018 */ 	li	$at,0x18
-/*  f0309e0:	240d0001 */ 	li	$t5,0x1
-/*  f0309e4:	1041001c */ 	beq	$v0,$at,.PF0f030a58
-/*  f0309e8:	03a67821 */ 	addu	$t7,$sp,$a2
-/*  f0309ec:	24010034 */ 	li	$at,0x34
-/*  f0309f0:	10410019 */ 	beq	$v0,$at,.PF0f030a58
-/*  f0309f4:	24010019 */ 	li	$at,0x19
-/*  f0309f8:	10410017 */ 	beq	$v0,$at,.PF0f030a58
-/*  f0309fc:	24010017 */ 	li	$at,0x17
-/*  f030a00:	10410015 */ 	beq	$v0,$at,.PF0f030a58
-/*  f030a04:	3c04800a */ 	lui	$a0,0x800a
-/*  f030a08:	8c84a828 */ 	lw	$a0,-0x57d8($a0)
-/*  f030a0c:	24010008 */ 	li	$at,0x8
-/*  f030a10:	14800009 */ 	bnez	$a0,.PF0f030a38
-/*  f030a14:	00000000 */ 	nop
-/*  f030a18:	14410007 */ 	bne	$v0,$at,.PF0f030a38
-/*  f030a1c:	00000000 */ 	nop
-/*  f030a20:	82230006 */ 	lb	$v1,0x6($s1)
-/*  f030a24:	24010028 */ 	li	$at,0x28
-/*  f030a28:	10610003 */ 	beq	$v1,$at,.PF0f030a38
-/*  f030a2c:	24010013 */ 	li	$at,0x13
-/*  f030a30:	5461000a */ 	bnel	$v1,$at,.PF0f030a5c
-/*  f030a34:	aded0050 */ 	sw	$t5,0x50($t7)
-.PF0f030a38:
-/*  f030a38:	14800003 */ 	bnez	$a0,.PF0f030a48
-/*  f030a3c:	24010009 */ 	li	$at,0x9
-/*  f030a40:	50410006 */ 	beql	$v0,$at,.PF0f030a5c
-/*  f030a44:	aded0050 */ 	sw	$t5,0x50($t7)
-.PF0f030a48:
-/*  f030a48:	14800004 */ 	bnez	$a0,.PF0f030a5c
-/*  f030a4c:	24010013 */ 	li	$at,0x13
-/*  f030a50:	54410003 */ 	bnel	$v0,$at,.PF0f030a60
-/*  f030a54:	26100001 */ 	addiu	$s0,$s0,0x1
-.PF0f030a58:
-/*  f030a58:	aded0050 */ 	sw	$t5,0x50($t7)
-.PF0f030a5c:
-/*  f030a5c:	26100001 */ 	addiu	$s0,$s0,0x1
-.PF0f030a60:
-/*  f030a60:	24010002 */ 	li	$at,0x2
-/*  f030a64:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*  f030a68:	1601ffc7 */ 	bne	$s0,$at,.PF0f030988
-/*  f030a6c:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*  f030a70:	240e0009 */ 	li	$t6,0x9
-/*  f030a74:	a22e0007 */ 	sb	$t6,0x7($s1)
-/*  f030a78:	0c004ad4 */ 	jal	random
-/*  f030a7c:	ae200030 */ 	sw	$zero,0x30($s1)
-/*  f030a80:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f030a84:	c4249f70 */ 	lwc1	$f4,-0x6090($at)
-/*  f030a88:	3c018006 */ 	lui	$at,0x8006
-/*  f030a8c:	c426298c */ 	lwc1	$f6,0x298c($at)
-/*  f030a90:	ae200038 */ 	sw	$zero,0x38($s1)
-/*  f030a94:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f030a98:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f030a9c:	44185000 */ 	mfc1	$t8,$f10
-/*  f030aa0:	00000000 */ 	nop
-/*  f030aa4:	0058001b */ 	divu	$zero,$v0,$t8
-/*  f030aa8:	00004010 */ 	mfhi	$t0
-/*  f030aac:	250c0064 */ 	addiu	$t4,$t0,0x64
-/*  f030ab0:	ae2c0034 */ 	sw	$t4,0x34($s1)
-/*  f030ab4:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*  f030ab8:	17000002 */ 	bnez	$t8,.PF0f030ac4
-/*  f030abc:	00000000 */ 	nop
-/*  f030ac0:	0007000d */ 	break	0x7
-.PF0f030ac4:
-/*  f030ac4:	ae200040 */ 	sw	$zero,0x40($s1)
-/*  f030ac8:	0c004ad4 */ 	jal	random
-/*  f030acc:	ae2b003c */ 	sw	$t3,0x3c($s1)
-/*  f030ad0:	30490001 */ 	andi	$t1,$v0,0x1
-/*  f030ad4:	ae290044 */ 	sw	$t1,0x44($s1)
-/*  f030ad8:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f030adc:	44808000 */ 	mtc1	$zero,$f16
-/*  f030ae0:	8e2c0018 */ 	lw	$t4,0x18($s1)
-/*  f030ae4:	a22a0049 */ 	sb	$t2,0x49($s1)
-/*  f030ae8:	8fad0060 */ 	lw	$t5,0x60($sp)
-/*  f030aec:	3c017fff */ 	lui	$at,0x7fff
-/*  f030af0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f030af4:	a22d0048 */ 	sb	$t5,0x48($s1)
-/*  f030af8:	8faf005c */ 	lw	$t7,0x5c($sp)
-/*  f030afc:	01815824 */ 	and	$t3,$t4,$at
-/*  f030b00:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f030b04:	a22f004b */ 	sb	$t7,0x4b($s1)
-/*  f030b08:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f030b0c:	a22e004a */ 	sb	$t6,0x4a($s1)
-/*  f030b10:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f030b14:	a239004d */ 	sb	$t9,0x4d($s1)
-/*  f030b18:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f030b1c:	e6300054 */ 	swc1	$f16,0x54($s1)
-/*  f030b20:	a238004c */ 	sb	$t8,0x4c($s1)
-/*  f030b24:	8fa80068 */ 	lw	$t0,0x68($sp)
-/*  f030b28:	a2200008 */ 	sb	$zero,0x8($s1)
-/*  f030b2c:	ae2b0018 */ 	sw	$t3,0x18($s1)
-/*  f030b30:	0c007659 */ 	jal	modelIsAnimMerging
-/*  f030b34:	a228004e */ 	sb	$t0,0x4e($s1)
-/*  f030b38:	10400006 */ 	beqz	$v0,.PF0f030b54
-/*  f030b3c:	00000000 */ 	nop
-/*  f030b40:	8e290014 */ 	lw	$t1,0x14($s1)
-/*  f030b44:	3c010020 */ 	lui	$at,0x20
-/*  f030b48:	01215025 */ 	or	$t2,$t1,$at
-/*  f030b4c:	10000008 */ 	b	.PF0f030b70
-/*  f030b50:	ae2a0014 */ 	sw	$t2,0x14($s1)
-.PF0f030b54:
-/*  f030b54:	0fc0c1b2 */ 	jal	chrAttackWalkChooseAnimation
-/*  f030b58:	02202025 */ 	move	$a0,$s1
-/*  f030b5c:	8e2d0014 */ 	lw	$t5,0x14($s1)
-/*  f030b60:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f030b64:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f030b68:	01a17824 */ 	and	$t7,$t5,$at
-/*  f030b6c:	ae2f0014 */ 	sw	$t7,0x14($s1)
-.PF0f030b70:
-/*  f030b70:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f030b74:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f030b78:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f030b7c:	03e00008 */ 	jr	$ra
-/*  f030b80:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+	if (leftgun && rightgun) {
+		struct prop *leftgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
+		struct prop *rightgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+		s32 style = 0;
+
+		if (leftgun2 && rightgun2) {
+			flip = random() % 2;
+			style = random() % 3;
+		} else {
+			flip = (bool)rightgun2 == false;
+		}
+
+		if (style == 0) {
+			if (run) {
+				animcfg = &g_AttackAnimLightRun;
+			} else {
+				animcfg = &g_AttackAnimLightWalk;
+			}
+
+			if (flip) {
+				firing[HAND_LEFT] = true;
+			} else {
+				firing[HAND_RIGHT] = true;
+			}
+		} else if (style == 1) {
+			if (run) {
+				animcfg = &g_AttackAnimDualRun;
+			} else {
+				animcfg = &g_AttackAnimDualWalk;
+			}
+
+			firing[HAND_LEFT] = firing[HAND_RIGHT] = true;
+		} else {
+			if (run) {
+				animcfg = &g_AttackAnimDualCrossedRun;
+			} else {
+				animcfg = &g_AttackAnimDualCrossedWalk;
+			}
+
+			firing[HAND_LEFT] = firing[HAND_RIGHT] = true;
+		}
+	} else {
+		if (weaponIsOneHanded(leftgun) || weaponIsOneHanded(rightgun)) {
+			flip = (bool)leftgun != false;
+
+			if (run) {
+				animcfg = &g_AttackAnimLightRun;
+			} else {
+				animcfg = &g_AttackAnimLightWalk;
+			}
+
+			if (flip) {
+				firing[HAND_LEFT] = true;
+			} else {
+				firing[HAND_RIGHT] = true;
+			}
+		} else {
+			flip = (bool)leftgun != false;
+
+			if (run) {
+				animcfg = &g_AttackAnimHeavyRun;
+			} else {
+				animcfg = &g_AttackAnimHeavyWalk;
+			}
+
+			if (flip) {
+				firing[HAND_LEFT] = true;
+			} else {
+				firing[HAND_RIGHT] = true;
+			}
+		}
+	}
+
+	for (i = 0; i < 2; i++) {
+		if (firing[i]) {
+			prop = chrGetEquippedWeaponProp(chr, i);
+			weapon = prop->weapon;
+
+			if (weaponGetNumTicksPerShot(weapon->weaponnum, weapon->gunfunc) < 1) {
+				everytick[i] = true;
+			}
+
+			if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
+					|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34
+					|| weapon->weaponnum == WEAPON_SLAYER
+					|| weapon->weaponnum == WEAPON_DEVASTATOR
+					|| (
+						!g_Vars.normmplayerisrunning
+						&& weapon->weaponnum == WEAPON_DY357MAGNUM
+						&& chr->headnum != HEAD_JONATHAN
+						&& chr->headnum != HEAD_CHRIST)
+					|| (
+						!g_Vars.normmplayerisrunning
+						&& weapon->weaponnum == WEAPON_DY357LX)
+					|| (
+						!g_Vars.normmplayerisrunning
+						&& weapon->weaponnum == WEAPON_SHOTGUN)) {
+				singleshot[i] = true;
+			}
+		}
+	}
+
+	chr->actiontype = ACT_ATTACKWALK;
+
+	chr->act_attackwalk.unk030 = 0;
+#if PAL
+	// This is really PALDOWN(400.0f), but off by one bit :(
+	chr->act_attackwalk.unk034 = random() % (s32)(333.33331298828f * var80062cac) + PALDOWN(120);
 #else
-GLOBAL_ASM(
-glabel chrAttackWalk
-/*  f0305e0:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f0305e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0305e8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0305ec:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f0305f0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0305f4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0305f8:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f0305fc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f030600:	00408025 */ 	or	$s0,$v0,$zero
-/*  f030604:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030608:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f03060c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f030610:	3c0f8007 */ 	lui	$t7,%hi(var80068034)
-/*  f030614:	25ef8034 */ 	addiu	$t7,$t7,%lo(var80068034)
-/*  f030618:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f03061c:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f030620:	27ae0060 */ 	addiu	$t6,$sp,0x60
-/*  f030624:	3c0a8007 */ 	lui	$t2,%hi(var8006803c)
-/*  f030628:	254a803c */ 	addiu	$t2,$t2,%lo(var8006803c)
-/*  f03062c:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f030630:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f030634:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*  f030638:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f03063c:	27a90058 */ 	addiu	$t1,$sp,0x58
-/*  f030640:	3c188007 */ 	lui	$t8,%hi(var80068044)
-/*  f030644:	27188044 */ 	addiu	$t8,$t8,%lo(var80068044)
-/*  f030648:	ad2d0004 */ 	sw	$t5,0x4($t1)
-/*  f03064c:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f030650:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f030654:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f030658:	27b90050 */ 	addiu	$t9,$sp,0x50
-/*  f03065c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f030660:	af280004 */ 	sw	$t0,0x4($t9)
-/*  f030664:	12000048 */ 	beqz	$s0,.L0f030788
-/*  f030668:	af210000 */ 	sw	$at,0x0($t9)
-/*  f03066c:	10400046 */ 	beqz	$v0,.L0f030788
-/*  f030670:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030674:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f030678:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03067c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f030680:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030684:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f030688:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03068c:	1200000d */ 	beqz	$s0,.L0f0306c4
-/*  f030690:	00001825 */ 	or	$v1,$zero,$zero
-/*  f030694:	5040000c */ 	beqzl	$v0,.L0f0306c8
-/*  f030698:	2c4b0001 */ 	sltiu	$t3,$v0,0x1
-/*  f03069c:	0c004b70 */ 	jal	random
-/*  f0306a0:	00000000 */ 	nop
-/*  f0306a4:	304c0001 */ 	andi	$t4,$v0,0x1
-/*  f0306a8:	0c004b70 */ 	jal	random
-/*  f0306ac:	afac0068 */ 	sw	$t4,0x68($sp)
-/*  f0306b0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0306b4:	0041001b */ 	divu	$zero,$v0,$at
-/*  f0306b8:	00001810 */ 	mfhi	$v1
-/*  f0306bc:	10000003 */ 	b	.L0f0306cc
-/*  f0306c0:	00000000 */ 	nop
-.L0f0306c4:
-/*  f0306c4:	2c4b0001 */ 	sltiu	$t3,$v0,0x1
-.L0f0306c8:
-/*  f0306c8:	afab0068 */ 	sw	$t3,0x68($sp)
-.L0f0306cc:
-/*  f0306cc:	14600013 */ 	bnez	$v1,.L0f03071c
-/*  f0306d0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0306d4:	8fa9007c */ 	lw	$t1,0x7c($sp)
-/*  f0306d8:	3c0d8006 */ 	lui	$t5,%hi(var80067aa0)
-/*  f0306dc:	3c0a8006 */ 	lui	$t2,%hi(var80067ae8)
-/*  f0306e0:	11200004 */ 	beqz	$t1,.L0f0306f4
-/*  f0306e4:	25ad7aa0 */ 	addiu	$t5,$t5,%lo(var80067aa0)
-/*  f0306e8:	254a7ae8 */ 	addiu	$t2,$t2,%lo(var80067ae8)
-/*  f0306ec:	10000002 */ 	b	.L0f0306f8
-/*  f0306f0:	afaa0074 */ 	sw	$t2,0x74($sp)
-.L0f0306f4:
-/*  f0306f4:	afad0074 */ 	sw	$t5,0x74($sp)
-.L0f0306f8:
-/*  f0306f8:	8faf0068 */ 	lw	$t7,0x68($sp)
-/*  f0306fc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f030700:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f030704:	11e00003 */ 	beqz	$t7,.L0f030714
-/*  f030708:	00000000 */ 	nop
-/*  f03070c:	1000004a */ 	b	.L0f030838
-/*  f030710:	afae0064 */ 	sw	$t6,0x64($sp)
-.L0f030714:
-/*  f030714:	10000048 */ 	b	.L0f030838
-/*  f030718:	afa20060 */ 	sw	$v0,0x60($sp)
-.L0f03071c:
-/*  f03071c:	1461000e */ 	bne	$v1,$at,.L0f030758
-/*  f030720:	8fac007c */ 	lw	$t4,0x7c($sp)
-/*  f030724:	8fb9007c */ 	lw	$t9,0x7c($sp)
-/*  f030728:	3c088006 */ 	lui	$t0,%hi(var80067b30)
-/*  f03072c:	25087b30 */ 	addiu	$t0,$t0,%lo(var80067b30)
-/*  f030730:	13200005 */ 	beqz	$t9,.L0f030748
-/*  f030734:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f030738:	3c188006 */ 	lui	$t8,%hi(var80067b78)
-/*  f03073c:	27187b78 */ 	addiu	$t8,$t8,%lo(var80067b78)
-/*  f030740:	10000002 */ 	b	.L0f03074c
-/*  f030744:	afb80074 */ 	sw	$t8,0x74($sp)
-.L0f030748:
-/*  f030748:	afa80074 */ 	sw	$t0,0x74($sp)
-.L0f03074c:
-/*  f03074c:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f030750:	10000039 */ 	b	.L0f030838
-/*  f030754:	afa20060 */ 	sw	$v0,0x60($sp)
-.L0f030758:
-/*  f030758:	11800005 */ 	beqz	$t4,.L0f030770
-/*  f03075c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f030760:	3c0b8006 */ 	lui	$t3,%hi(var80067c08)
-/*  f030764:	256b7c08 */ 	addiu	$t3,$t3,%lo(var80067c08)
-/*  f030768:	10000004 */ 	b	.L0f03077c
-/*  f03076c:	afab0074 */ 	sw	$t3,0x74($sp)
-.L0f030770:
-/*  f030770:	3c098006 */ 	lui	$t1,%hi(var80067bc0)
-/*  f030774:	25297bc0 */ 	addiu	$t1,$t1,%lo(var80067bc0)
-/*  f030778:	afa90074 */ 	sw	$t1,0x74($sp)
-.L0f03077c:
-/*  f03077c:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f030780:	1000002d */ 	b	.L0f030838
-/*  f030784:	afa20060 */ 	sw	$v0,0x60($sp)
-.L0f030788:
-/*  f030788:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03078c:	0fc0b849 */ 	jal	weaponIsOneHanded
-/*  f030790:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f030794:	14400005 */ 	bnez	$v0,.L0f0307ac
-/*  f030798:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f03079c:	0fc0b849 */ 	jal	weaponIsOneHanded
-/*  f0307a0:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0307a4:	50400014 */ 	beqzl	$v0,.L0f0307f8
-/*  f0307a8:	8fb9007c */ 	lw	$t9,0x7c($sp)
-.L0f0307ac:
-/*  f0307ac:	8faa007c */ 	lw	$t2,0x7c($sp)
-/*  f0307b0:	0010102b */ 	sltu	$v0,$zero,$s0
-/*  f0307b4:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f0307b8:	11400005 */ 	beqz	$t2,.L0f0307d0
-/*  f0307bc:	3c0f8006 */ 	lui	$t7,%hi(var80067aa0)
-/*  f0307c0:	3c0d8006 */ 	lui	$t5,%hi(var80067ae8)
-/*  f0307c4:	25ad7ae8 */ 	addiu	$t5,$t5,%lo(var80067ae8)
-/*  f0307c8:	10000003 */ 	b	.L0f0307d8
-/*  f0307cc:	afad0074 */ 	sw	$t5,0x74($sp)
-.L0f0307d0:
-/*  f0307d0:	25ef7aa0 */ 	addiu	$t7,$t7,%lo(var80067aa0)
-/*  f0307d4:	afaf0074 */ 	sw	$t7,0x74($sp)
-.L0f0307d8:
-/*  f0307d8:	10400003 */ 	beqz	$v0,.L0f0307e8
-/*  f0307dc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0307e0:	10000015 */ 	b	.L0f030838
-/*  f0307e4:	afae0064 */ 	sw	$t6,0x64($sp)
-.L0f0307e8:
-/*  f0307e8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0307ec:	10000012 */ 	b	.L0f030838
-/*  f0307f0:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f0307f4:	8fb9007c */ 	lw	$t9,0x7c($sp)
-.L0f0307f8:
-/*  f0307f8:	0010102b */ 	sltu	$v0,$zero,$s0
-/*  f0307fc:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f030800:	13200005 */ 	beqz	$t9,.L0f030818
-/*  f030804:	3c088006 */ 	lui	$t0,%hi(var80067a10)
-/*  f030808:	3c188006 */ 	lui	$t8,%hi(var80067a58)
-/*  f03080c:	27187a58 */ 	addiu	$t8,$t8,%lo(var80067a58)
-/*  f030810:	10000003 */ 	b	.L0f030820
-/*  f030814:	afb80074 */ 	sw	$t8,0x74($sp)
-.L0f030818:
-/*  f030818:	25087a10 */ 	addiu	$t0,$t0,%lo(var80067a10)
-/*  f03081c:	afa80074 */ 	sw	$t0,0x74($sp)
-.L0f030820:
-/*  f030820:	10400003 */ 	beqz	$v0,.L0f030830
-/*  f030824:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f030828:	10000003 */ 	b	.L0f030838
-/*  f03082c:	afac0064 */ 	sw	$t4,0x64($sp)
-.L0f030830:
-/*  f030830:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f030834:	afa20060 */ 	sw	$v0,0x60($sp)
-.L0f030838:
-/*  f030838:	00008025 */ 	or	$s0,$zero,$zero
-/*  f03083c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f030840:	27a70060 */ 	addiu	$a3,$sp,0x60
-.L0f030844:
-/*  f030844:	8ceb0000 */ 	lw	$t3,0x0($a3)
-/*  f030848:	02202025 */ 	or	$a0,$s1,$zero
-/*  f03084c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f030850:	51600032 */ 	beqzl	$t3,.L0f03091c
-/*  f030854:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f030858:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f03085c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f030860:	afa70030 */ 	sw	$a3,0x30($sp)
-/*  f030864:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f030868:	9064005c */ 	lbu	$a0,0x5c($v1)
-/*  f03086c:	9065005f */ 	lbu	$a1,0x5f($v1)
-/*  f030870:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
-/*  f030874:	afa30044 */ 	sw	$v1,0x44($sp)
-/*  f030878:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f03087c:	8fa60034 */ 	lw	$a2,0x34($sp)
-/*  f030880:	1c400004 */ 	bgtz	$v0,.L0f030894
-/*  f030884:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f030888:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f03088c:	03a65021 */ 	addu	$t2,$sp,$a2
-/*  f030890:	ad490058 */ 	sw	$t1,0x58($t2)
-.L0f030894:
-/*  f030894:	9062005c */ 	lbu	$v0,0x5c($v1)
-/*  f030898:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f03089c:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0308a0:	1041001c */ 	beq	$v0,$at,.L0f030914
-/*  f0308a4:	03a67821 */ 	addu	$t7,$sp,$a2
-/*  f0308a8:	24010034 */ 	addiu	$at,$zero,0x34
-/*  f0308ac:	10410019 */ 	beq	$v0,$at,.L0f030914
-/*  f0308b0:	24010019 */ 	addiu	$at,$zero,0x19
-/*  f0308b4:	10410017 */ 	beq	$v0,$at,.L0f030914
-/*  f0308b8:	24010017 */ 	addiu	$at,$zero,0x17
-/*  f0308bc:	10410015 */ 	beq	$v0,$at,.L0f030914
-/*  f0308c0:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x318)
-/*  f0308c4:	8c84a2d8 */ 	lw	$a0,%lo(g_Vars+0x318)($a0)
-/*  f0308c8:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0308cc:	14800009 */ 	bnez	$a0,.L0f0308f4
-/*  f0308d0:	00000000 */ 	nop
-/*  f0308d4:	14410007 */ 	bne	$v0,$at,.L0f0308f4
-/*  f0308d8:	00000000 */ 	nop
-/*  f0308dc:	82230006 */ 	lb	$v1,0x6($s1)
-/*  f0308e0:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f0308e4:	10610003 */ 	beq	$v1,$at,.L0f0308f4
-/*  f0308e8:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f0308ec:	5461000a */ 	bnel	$v1,$at,.L0f030918
-/*  f0308f0:	aded0050 */ 	sw	$t5,0x50($t7)
-.L0f0308f4:
-/*  f0308f4:	14800003 */ 	bnez	$a0,.L0f030904
-/*  f0308f8:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f0308fc:	50410006 */ 	beql	$v0,$at,.L0f030918
-/*  f030900:	aded0050 */ 	sw	$t5,0x50($t7)
-.L0f030904:
-/*  f030904:	14800004 */ 	bnez	$a0,.L0f030918
-/*  f030908:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f03090c:	54410003 */ 	bnel	$v0,$at,.L0f03091c
-/*  f030910:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f030914:
-/*  f030914:	aded0050 */ 	sw	$t5,0x50($t7)
-.L0f030918:
-/*  f030918:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f03091c:
-/*  f03091c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f030920:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*  f030924:	1601ffc7 */ 	bne	$s0,$at,.L0f030844
-/*  f030928:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*  f03092c:	240e0009 */ 	addiu	$t6,$zero,0x9
-/*  f030930:	a22e0007 */ 	sb	$t6,0x7($s1)
-/*  f030934:	0c004b70 */ 	jal	random
-/*  f030938:	ae200030 */ 	sw	$zero,0x30($s1)
-/*  f03093c:	3c0143c8 */ 	lui	$at,0x43c8
-/*  f030940:	44812000 */ 	mtc1	$at,$f4
-/*  f030944:	3c018006 */ 	lui	$at,%hi(var80062cac)
-/*  f030948:	c4262cac */ 	lwc1	$f6,%lo(var80062cac)($at)
-/*  f03094c:	ae200038 */ 	sw	$zero,0x38($s1)
-/*  f030950:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f030954:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f030958:	44185000 */ 	mfc1	$t8,$f10
-/*  f03095c:	00000000 */ 	nop
-/*  f030960:	0058001b */ 	divu	$zero,$v0,$t8
-/*  f030964:	00004010 */ 	mfhi	$t0
-/*  f030968:	250c0078 */ 	addiu	$t4,$t0,0x78
-/*  f03096c:	ae2c0034 */ 	sw	$t4,0x34($s1)
-/*  f030970:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*  f030974:	17000002 */ 	bnez	$t8,.L0f030980
-/*  f030978:	00000000 */ 	nop
-/*  f03097c:	0007000d */ 	break	0x7
-.L0f030980:
-/*  f030980:	ae200040 */ 	sw	$zero,0x40($s1)
-/*  f030984:	0c004b70 */ 	jal	random
-/*  f030988:	ae2b003c */ 	sw	$t3,0x3c($s1)
-/*  f03098c:	30490001 */ 	andi	$t1,$v0,0x1
-/*  f030990:	ae290044 */ 	sw	$t1,0x44($s1)
-/*  f030994:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f030998:	44808000 */ 	mtc1	$zero,$f16
-/*  f03099c:	8e2c0018 */ 	lw	$t4,0x18($s1)
-/*  f0309a0:	a22a0049 */ 	sb	$t2,0x49($s1)
-/*  f0309a4:	8fad0060 */ 	lw	$t5,0x60($sp)
-/*  f0309a8:	3c017fff */ 	lui	$at,0x7fff
-/*  f0309ac:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f0309b0:	a22d0048 */ 	sb	$t5,0x48($s1)
-/*  f0309b4:	8faf005c */ 	lw	$t7,0x5c($sp)
-/*  f0309b8:	01815824 */ 	and	$t3,$t4,$at
-/*  f0309bc:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f0309c0:	a22f004b */ 	sb	$t7,0x4b($s1)
-/*  f0309c4:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f0309c8:	a22e004a */ 	sb	$t6,0x4a($s1)
-/*  f0309cc:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*  f0309d0:	a239004d */ 	sb	$t9,0x4d($s1)
-/*  f0309d4:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f0309d8:	e6300054 */ 	swc1	$f16,0x54($s1)
-/*  f0309dc:	a238004c */ 	sb	$t8,0x4c($s1)
-/*  f0309e0:	8fa80068 */ 	lw	$t0,0x68($sp)
-/*  f0309e4:	a2200008 */ 	sb	$zero,0x8($s1)
-/*  f0309e8:	ae2b0018 */ 	sw	$t3,0x18($s1)
-/*  f0309ec:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f0309f0:	a228004e */ 	sb	$t0,0x4e($s1)
-/*  f0309f4:	10400006 */ 	beqz	$v0,.L0f030a10
-/*  f0309f8:	00000000 */ 	nop
-/*  f0309fc:	8e290014 */ 	lw	$t1,0x14($s1)
-/*  f030a00:	3c010020 */ 	lui	$at,0x20
-/*  f030a04:	01215025 */ 	or	$t2,$t1,$at
-/*  f030a08:	10000008 */ 	b	.L0f030a2c
-/*  f030a0c:	ae2a0014 */ 	sw	$t2,0x14($s1)
-.L0f030a10:
-/*  f030a10:	0fc0c161 */ 	jal	chrAttackWalkChooseAnimation
-/*  f030a14:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030a18:	8e2d0014 */ 	lw	$t5,0x14($s1)
-/*  f030a1c:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f030a20:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f030a24:	01a17824 */ 	and	$t7,$t5,$at
-/*  f030a28:	ae2f0014 */ 	sw	$t7,0x14($s1)
-.L0f030a2c:
-/*  f030a2c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f030a30:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f030a34:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f030a38:	03e00008 */ 	jr	$ra
-/*  f030a3c:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+	chr->act_attackwalk.unk034 = random() % (s32)(400 * var80062cac) + PALDOWN(120);
 #endif
+	chr->act_attackwalk.unk038 = 0;
+	chr->act_attackwalk.animcfg = animcfg;
+	chr->act_attackwalk.unk040 = 0;
+	chr->act_attackwalk.unk044 = random() % 2;
+	chr->act_attackwalk.unk049 = firing[HAND_LEFT];
+	chr->act_attackwalk.unk048 = firing[HAND_RIGHT];
+	chr->act_attackwalk.unk04b = everytick[HAND_LEFT];
+	chr->act_attackwalk.unk04a = everytick[HAND_RIGHT];
+	chr->act_attackwalk.unk04d = singleshot[HAND_LEFT];
+	chr->act_attackwalk.unk04c = singleshot[HAND_RIGHT];
+	chr->act_attackwalk.unk054 = 0;
+	chr->act_attackwalk.flip = flip;
+
+	chr->sleep = 0;
+	chr->chrflags &= ~CHRCFLAG_INJUREDTARGET;
+
+	if (modelIsAnimMerging(chr->model)) {
+		chr->hidden |= CHRHFLAG_NEEDANIM;
+	} else {
+		chrAttackWalkChooseAnimation(chr);
+
+		chr->hidden &= ~CHRHFLAG_NEEDANIM;
+	}
+}
 
 void chrAttackRollChooseAnimation(struct chrdata *chr)
 {
@@ -3104,6 +2602,13 @@ void chrAttackRollChooseAnimation(struct chrdata *chr)
 		}
 	}
 }
+
+u32 var8006804c = 0x00000000;
+u32 var80068050 = 0x00000000;
+u32 var80068054 = 0x00000000;
+u32 var80068058 = 0x00000000;
+u32 var8006805c = 0x00000000;
+u32 var80068060 = 0x00000000;
 
 GLOBAL_ASM(
 glabel chrAttackRoll
@@ -8814,8 +8319,8 @@ bool chrTryAttackWalk(struct chrdata *chr)
 			f32 y = target->pos.y - prop->pos.y;
 			f32 z = target->pos.z - prop->pos.z;
 
-			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000000.0f) {
-				chrAttackWalk(chr, SPEED_WALK);
+			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000 * 1000) {
+				chrAttackWalk(chr, false);
 				return true;
 			}
 		}
@@ -8843,8 +8348,8 @@ bool chrTryAttackRun(struct chrdata *chr)
 			f32 y = target->pos.y - prop->pos.y;
 			f32 z = target->pos.z - prop->pos.z;
 
-			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000000.0f) {
-				chrAttackWalk(chr, SPEED_JOG);
+			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000 * 1000) {
+				chrAttackWalk(chr, true);
 				return true;
 			}
 		}

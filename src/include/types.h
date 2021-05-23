@@ -1104,9 +1104,15 @@ struct act_attackwalk {
 	/*0x3c*/ struct attackanimconfig *animcfg;
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
-	/*0x48*/ u32 unk048;
-	/*0x4c*/ u16 unk04c;
+	/*0x48*/ u8 unk048;
+	/*0x49*/ u8 unk049;
+	/*0x4a*/ u8 unk04a;
+	/*0x4b*/ u8 unk04b;
+	/*0x4c*/ u8 unk04c;
+	/*0x4d*/ u8 unk04d;
 	/*0x4e*/ u8 flip;
+	/*0x50*/ u32 unk050;
+	/*0x54*/ f32 unk054;
 };
 
 struct act_sidestep {

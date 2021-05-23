@@ -7,12 +7,12 @@
 extern struct attackanimconfig var800656c0[];
 extern struct attackanimconfig var80065be0[];
 extern struct attackanimconfig var800663d8[];
-extern struct attackanimconfig var80067a10;
-extern struct attackanimconfig var80067a58;
-extern struct attackanimconfig var80067aa0;
-extern struct attackanimconfig var80067ae8;
-extern struct attackanimconfig var80067b30;
-extern struct attackanimconfig var80067b78;
+extern struct attackanimconfig g_AttackAnimHeavyWalk;
+extern struct attackanimconfig g_AttackAnimHeavyRun;
+extern struct attackanimconfig g_AttackAnimLightWalk;
+extern struct attackanimconfig g_AttackAnimLightRun;
+extern struct attackanimconfig g_AttackAnimDualWalk;
+extern struct attackanimconfig g_AttackAnimDualRun;
 
 f32 func0f02dff0(s16 animnum);
 bool func0f02e064(struct chrdata *chr);
@@ -42,7 +42,7 @@ void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid);
 void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid);
 void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid);
 void chrAttackWalkChooseAnimation(struct chrdata *chr);
-void chrAttackWalk(struct chrdata *chr, u32 speed);
+void chrAttackWalk(struct chrdata *chr, bool run);
 void chrAttackRollChooseAnimation(struct chrdata *chr);
 void chrAttackRoll(struct chrdata *chr, bool direction);
 void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed);
