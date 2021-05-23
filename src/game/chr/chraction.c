@@ -2278,30 +2278,30 @@ void chrAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 
 			if (random() % 3 == 0) {
 				animgroup = g_StandLightAttackAnims[race];
-				firing[1] = flip;
-				firing[0] = !flip;
+				firing[HAND_LEFT] = flip;
+				firing[HAND_RIGHT] = !flip;
 			} else {
 				animgroup = g_StandDualAttackAnims[race];
-				firing[1] = true;
-				firing[0] = true;
+				firing[HAND_LEFT] = true;
+				firing[HAND_RIGHT] = true;
 			}
 		} else {
 			flip = (bool)rightgun2 == false;
 			animgroup = g_StandLightAttackAnims[race];
-			firing[1] = (bool)rightgun2 == false;
-			firing[0] = !flip;
+			firing[HAND_LEFT] = (bool)rightgun2 == false;
+			firing[HAND_RIGHT] = !flip;
 		}
 	} else {
 		if (weaponIsOneHanded(leftgun) || weaponIsOneHanded(rightgun)) {
 			flip = (bool)leftgun != false;
 			animgroup = g_StandLightAttackAnims[race];
-			firing[1] = (bool)leftgun != false;
-			firing[0] = !flip;
+			firing[HAND_LEFT] = (bool)leftgun != false;
+			firing[HAND_RIGHT] = !flip;
 		} else {
 			flip = (bool)leftgun != false;
 			animgroup = g_StandHeavyAttackAnims[race];
-			firing[1] = (bool)leftgun != false;
-			firing[0] = !flip;
+			firing[HAND_LEFT] = (bool)leftgun != false;
+			firing[HAND_RIGHT] = !flip;
 		}
 	}
 
@@ -2374,195 +2374,55 @@ glabel chrAttackLie
 //	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, 0);
 //}
 
-GLOBAL_ASM(
-glabel chrAttackKneel
-/*  f0303a0:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f0303a4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0303a8:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f0303ac:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f0303b0:	afa60060 */ 	sw	$a2,0x60($sp)
-/*  f0303b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f0303b8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0303bc:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f0303c0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f0303c4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f0303c8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0303cc:	3c0f8007 */ 	lui	$t7,%hi(var8006802c)
-/*  f0303d0:	25ef802c */ 	addiu	$t7,$t7,%lo(var8006802c)
-/*  f0303d4:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f0303d8:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f0303dc:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f0303e0:	27ae0040 */ 	addiu	$t6,$sp,0x40
-/*  f0303e4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0303e8:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f0303ec:	10c00003 */ 	beqz	$a2,.L0f0303fc
-/*  f0303f0:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f0303f4:	10000002 */ 	b	.L0f030400
-/*  f0303f8:	90c702fe */ 	lbu	$a3,0x2fe($a2)
-.L0f0303fc:
-/*  f0303fc:	00003825 */ 	or	$a3,$zero,$zero
-.L0f030400:
-/*  f030400:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f030404:	50800036 */ 	beqzl	$a0,.L0f0304e0
-/*  f030408:	afa50050 */ 	sw	$a1,0x50($sp)
-/*  f03040c:	50400034 */ 	beqzl	$v0,.L0f0304e0
-/*  f030410:	afa50050 */ 	sw	$a1,0x50($sp)
-/*  f030414:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f030418:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03041c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f030420:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f030424:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f030428:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f03042c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f030430:	00002825 */ 	or	$a1,$zero,$zero
-/*  f030434:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f030438:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f03043c:	2c460001 */ 	sltiu	$a2,$v0,0x1
-/*  f030440:	1120001f */ 	beqz	$t1,.L0f0304c0
-/*  f030444:	000741c0 */ 	sll	$t0,$a3,0x7
-/*  f030448:	1040001d */ 	beqz	$v0,.L0f0304c0
-/*  f03044c:	00000000 */ 	nop
-/*  f030450:	0c004b70 */ 	jal	random
-/*  f030454:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f030458:	30460001 */ 	andi	$a2,$v0,0x1
-/*  f03045c:	0c004b70 */ 	jal	random
-/*  f030460:	afa6004c */ 	sw	$a2,0x4c($sp)
-/*  f030464:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f030468:	0041001b */ 	divu	$zero,$v0,$at
-/*  f03046c:	00005010 */ 	mfhi	$t2
-/*  f030470:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f030474:	15400009 */ 	bnez	$t2,.L0f03049c
-/*  f030478:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f03047c:	3c0c8006 */ 	lui	$t4,%hi(g_KneelLightAttackAnims)
-/*  f030480:	258c6ef0 */ 	addiu	$t4,$t4,%lo(g_KneelLightAttackAnims)
-/*  f030484:	000759c0 */ 	sll	$t3,$a3,0x7
-/*  f030488:	2ccd0001 */ 	sltiu	$t5,$a2,0x1
-/*  f03048c:	016c2821 */ 	addu	$a1,$t3,$t4
-/*  f030490:	afa60044 */ 	sw	$a2,0x44($sp)
-/*  f030494:	1000002f */ 	b	.L0f030554
-/*  f030498:	afad0040 */ 	sw	$t5,0x40($sp)
-.L0f03049c:
-/*  f03049c:	3c188006 */ 	lui	$t8,%hi(g_KneelDualAttackAnims)
-/*  f0304a0:	27187328 */ 	addiu	$t8,$t8,%lo(g_KneelDualAttackAnims)
-/*  f0304a4:	0007c9c0 */ 	sll	$t9,$a3,0x7
-/*  f0304a8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0304ac:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0304b0:	03382821 */ 	addu	$a1,$t9,$t8
-/*  f0304b4:	afae0044 */ 	sw	$t6,0x44($sp)
-/*  f0304b8:	10000026 */ 	b	.L0f030554
-/*  f0304bc:	afaf0040 */ 	sw	$t7,0x40($sp)
-.L0f0304c0:
-/*  f0304c0:	3c098006 */ 	lui	$t1,%hi(g_KneelLightAttackAnims)
-/*  f0304c4:	25296ef0 */ 	addiu	$t1,$t1,%lo(g_KneelLightAttackAnims)
-/*  f0304c8:	2cca0001 */ 	sltiu	$t2,$a2,0x1
-/*  f0304cc:	01092821 */ 	addu	$a1,$t0,$t1
-/*  f0304d0:	afa60044 */ 	sw	$a2,0x44($sp)
-/*  f0304d4:	1000001f */ 	b	.L0f030554
-/*  f0304d8:	afaa0040 */ 	sw	$t2,0x40($sp)
-/*  f0304dc:	afa50050 */ 	sw	$a1,0x50($sp)
-.L0f0304e0:
-/*  f0304e0:	0fc0b849 */ 	jal	weaponIsOneHanded
-/*  f0304e4:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f0304e8:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*  f0304ec:	14400006 */ 	bnez	$v0,.L0f030508
-/*  f0304f0:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f0304f4:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0304f8:	0fc0b849 */ 	jal	weaponIsOneHanded
-/*  f0304fc:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f030500:	1040000b */ 	beqz	$v0,.L0f030530
-/*  f030504:	8fa7003c */ 	lw	$a3,0x3c($sp)
-.L0f030508:
-/*  f030508:	8fa20054 */ 	lw	$v0,0x54($sp)
-/*  f03050c:	3c0d8006 */ 	lui	$t5,%hi(g_KneelLightAttackAnims)
-/*  f030510:	25ad6ef0 */ 	addiu	$t5,$t5,%lo(g_KneelLightAttackAnims)
-/*  f030514:	0002302b */ 	sltu	$a2,$zero,$v0
-/*  f030518:	000761c0 */ 	sll	$t4,$a3,0x7
-/*  f03051c:	2cd90001 */ 	sltiu	$t9,$a2,0x1
-/*  f030520:	018d2821 */ 	addu	$a1,$t4,$t5
-/*  f030524:	afa60044 */ 	sw	$a2,0x44($sp)
-/*  f030528:	1000000a */ 	b	.L0f030554
-/*  f03052c:	afb90040 */ 	sw	$t9,0x40($sp)
-.L0f030530:
-/*  f030530:	8fa20054 */ 	lw	$v0,0x54($sp)
-/*  f030534:	3c0f8006 */ 	lui	$t7,%hi(g_KneelHeavyAttackAnims)
-/*  f030538:	25ef6a70 */ 	addiu	$t7,$t7,%lo(g_KneelHeavyAttackAnims)
-/*  f03053c:	0002302b */ 	sltu	$a2,$zero,$v0
-/*  f030540:	000771c0 */ 	sll	$t6,$a3,0x7
-/*  f030544:	2cc80001 */ 	sltiu	$t0,$a2,0x1
-/*  f030548:	01cf2821 */ 	addu	$a1,$t6,$t7
-/*  f03054c:	afa60044 */ 	sw	$a2,0x44($sp)
-/*  f030550:	afa80040 */ 	sw	$t0,0x40($sp)
-.L0f030554:
-/*  f030554:	8fa9005c */ 	lw	$t1,0x5c($sp)
-/*  f030558:	8faa0060 */ 	lw	$t2,0x60($sp)
-/*  f03055c:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f030560:	27a70040 */ 	addiu	$a3,$sp,0x40
-/*  f030564:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f030568:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f03056c:	0fc0c4e1 */ 	jal	chrAttack
-/*  f030570:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f030574:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030578:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f03057c:	03e00008 */ 	jr	$ra
-/*  f030580:	00000000 */ 	nop
-);
+void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
+{
+	struct prop *leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	s32 flip;
+	struct attackanimgroup **animgroup;
+	bool firing[2] = {false, false};
+	s32 race = CHRRACE(chr);
+	struct prop *leftgun2;
+	struct prop *rightgun2;
 
-//void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
-//{
-//	struct prop *leftprop = chrGetEquippedWeaponProp(chr, HAND_LEFT); // 54
-//	struct prop *rightprop = chrGetEquippedWeaponProp(chr, HAND_RIGHT); // 50
-//	s32 sp4c;
-//	s32 sp48;
-//	bool firing[2] = {false, false}; // 40, 44 (var8006802c and var80068030)
-//	s32 race = CHRRACE(chr); // 3c
-//	struct prop *leftprop2; // 38
-//	struct prop *rightprop2;
-//	struct attackanimgroup **iVar5;
-//
-//	if (leftprop && rightprop) {
-//		// Holding two items
-//		leftprop2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
-//		rightprop2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
-//
-//		if (leftprop2 && rightprop2) {
-//			// And both are capable of firing
-//			sp48 = random() % 2;
-//
-//			if (random() % 3 == 0) {
-//				// 1 in 4 chance of firing just one of them (50/50 as to which)
-//				iVar5 = g_KneelLightAttackAnims[race];
-//				firing[HAND_LEFT] = sp48;
-//				firing[HAND_RIGHT] = !firing[HAND_LEFT];
-//			} else {
-//				// 3 in 4 chance of firing both
-//				iVar5 = g_KneelDualAttackAnims[race];
-//				firing[HAND_LEFT] = true;
-//				firing[HAND_RIGHT] = true;
-//			}
-//		} else {
-//			// Fire whichever one is capable
-//			sp48 = !rightprop2;
-//			iVar5 = g_KneelLightAttackAnims[race];
-//			firing[HAND_LEFT] = !rightprop2;
-//			firing[HAND_RIGHT] = !firing[HAND_LEFT];
-//		}
-//	} else {
-//		if (weaponIsOneHanded(leftprop) || weaponIsOneHanded(rightprop)) {
-//			// Light weight weapon
-//			iVar5 = g_KneelLightAttackAnims[race];
-//			sp48 = (bool)leftprop;
-//		} else {
-//			// Heavy weapon
-//			iVar5 = g_KneelHeavyAttackAnims[race];
-//			sp48 = (bool)leftprop;
-//		}
-//
-//		firing[HAND_LEFT] = (bool)leftprop;
-//		firing[HAND_RIGHT] = !firing[HAND_LEFT];
-//	}
-//
-//	chrAttack(chr, iVar5, sp48, firing, attackflags, entityid, 0);
-//}
+	if (leftgun && rightgun) {
+		leftgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
+		rightgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+
+		if (leftgun2 && rightgun2) {
+			flip = random() % 2;
+
+			if (random() % 3 == 0) {
+				animgroup = g_KneelLightAttackAnims[race];
+				firing[HAND_LEFT] = flip;
+				firing[HAND_RIGHT] = !flip;
+			} else {
+				animgroup = g_KneelDualAttackAnims[race];
+				firing[HAND_LEFT] = true;
+				firing[HAND_RIGHT] = true;
+			}
+		} else {
+			flip = (bool)rightgun2 == false;
+			animgroup = g_KneelLightAttackAnims[race];
+			firing[HAND_LEFT] = (bool)rightgun2 == false;
+			firing[HAND_RIGHT] = !flip;
+		}
+	} else {
+		if (weaponIsOneHanded(leftgun) || weaponIsOneHanded(rightgun)) {
+			flip = (bool)leftgun != false;
+			animgroup = g_KneelLightAttackAnims[race];
+			firing[HAND_LEFT] = (bool)leftgun != false;
+			firing[HAND_RIGHT] = !flip;
+		} else {
+			flip = (bool)leftgun != false;
+			animgroup = g_KneelHeavyAttackAnims[race];
+			firing[HAND_LEFT] = (bool)leftgun != false;
+			firing[HAND_RIGHT] = !flip;
+		}
+	}
+
+	chrAttack(chr, animgroup, flip, firing, attackflags, entityid, 0);
+}
 
 void chrAttackWalkChooseAnimation(struct chrdata *chr)
 {
@@ -2572,8 +2432,6 @@ void chrAttackWalkChooseAnimation(struct chrdata *chr)
 	}
 }
 
-u32 var8006802c = 0x00000000;
-u32 var80068030 = 0x00000000;
 u32 var80068034 = 0x00000000;
 u32 var80068038 = 0x00000000;
 u32 var8006803c = 0x00000000;
