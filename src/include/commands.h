@@ -216,39 +216,37 @@
 /**
  * Makes the chr attempt to do a standing attack.
  *
- * entity_type is expected to be an ENTITYTYPE constant. It can be bitwise ORed
- * with ENTITYTYPE_AIMONLY to make the chr only aim at the entity.
+ * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
-#define try_attack_stand(entity_type, entity_id, label) \
+#define try_attack_stand(attackflags, entity_id, label) \
 	mkshort(0x0015), \
-	mkshort(entity_type), \
+	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
 
 /**
  * Makes the chr attempt to do a kneeling attack.
  *
- * entity_type is expected to be an ENTITYTYPE constant. It can be bitwise ORed
- * with ENTITYTYPE_AIMONLY to make the chr only aim at the entity.
+ * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
-#define try_attack_kneel(entity_type, entity_id, label) \
+#define try_attack_kneel(attackflags, entity_id, label) \
 	mkshort(0x0016), \
-	mkshort(entity_type), \
+	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
 
 /**
- * Modifies the target entity and the aim-only/shoot flag.
+ * Modifies the attackflags for the current attack.
  *
  * This command can only be used after try_attack_stand, try_attack_kneel,
  * try_attack_lie or try_face_entity. A common pattern is to use one of those
- * commands with the ENTITYTYPE_AIMONLY flag to point the gun at the entity, and
+ * commands with the ATTACKFLAG_AIMONLY flag to point the gun at the entity, and
  * if the label was followed then call try_modify_attack to remove the
- * ENTITYTYPE_AIMONLY flag, causing the chr to shoot.
+ * ATTACKFLAG_AIMONLY flag, causing the chr to shoot.
  */
-#define try_modify_attack(entity_type, entity_id, label) \
+#define try_modify_attack(attackflags, entity_id, label) \
 	mkshort(0x0017), \
-	mkshort(entity_type), \
+	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
 
@@ -256,11 +254,11 @@
  * Makes the chr begin facing the given entity. They will continue to face it
  * until stop_chr is used or a significantly different action is given to them.
  *
- * entity_type is expected to be an ENTITYTYPE constant.
+ * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
-#define try_face_entity(entity_type, entity_id, label) \
+#define try_face_entity(attackflags, entity_id, label) \
 	mkshort(0x0018), \
-	mkshort(entity_type), \
+	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
 
@@ -3324,7 +3322,7 @@
 	chr, \
 	label,
 
-#define play_sound_from_entity(channel, entity_id, u1, u2, entity_type) \
+#define play_sound_from_entity(channel, entity_id, u1, u2, attackflags) \
 	mkshort(0x0179), \
 	channel, \
 	entity_id, \
@@ -3332,11 +3330,11 @@
 	0x01, \
 	mkshort(u1), \
 	mkshort(u2), \
-	entity_type,
+	attackflags,
 
 /**
  * Checks if the chr can see their attack target, which should have been
- * specified in a prior attack command using entitytype and entityid.
+ * specified in a prior attack command using attackflags and entityid.
  *
  * If the chr is not currently doing an attack action, it checks if they can see
  * their normal target (same as if_can_see_target).
@@ -3811,12 +3809,11 @@
 /**
  * Makes the chr attempt to do a lying down attack.
  *
- * entity_type is expected to be an ENTITYTYPE constant. It can be bitwise ORed
- * with ENTITYTYPE_AIMONLY to make the chr only aim at the entity.
+ * attackflags is expected to be a bitfield of ATTACKFLAG constants.
  */
-#define try_attack_lie(entity_type, entity_id, label) \
+#define try_attack_lie(attackflags, entity_id, label) \
 	mkshort(0x01ba), \
-	mkshort(entity_type), \
+	mkshort(attackflags), \
 	mkshort(entity_id), \
 	label,
 

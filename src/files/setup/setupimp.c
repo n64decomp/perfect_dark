@@ -1898,10 +1898,10 @@ u8 func041f_holoclone[] = {
 	set_target_chr(holoclone) \
 	label(0x04) \
 	yield \
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0xb9) \
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0xb9) \
 	label(0xb9) \
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) \
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a) \
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0a) \
  \
 	beginloop(0x0a) \
 		if_chr_stopped(/*goto*/ 0x08) \
@@ -1987,7 +1987,7 @@ u8 func0425_hostage_thank_and_run[] = {
 	label(0x08)
 	restart_timer
 	label(0x0a)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
 		if_timer_gt(60, /*goto*/ 0x08)
@@ -2079,7 +2079,7 @@ u8 func0427_drop_devastator[] = {
 	label(0x08)
 	restart_timer
 	label(0x0a)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
 		if_timer_gt(60, /*goto*/ 0x08)
@@ -2365,10 +2365,10 @@ u8 func0432_taker_attack[] = {
 	// Healthy
 	label(0x04)
 	yield
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0xb9)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0xb9)
 	label(0xb9)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x08)

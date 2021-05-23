@@ -1020,7 +1020,7 @@ u8 func0404_scientist[] = {
 	label(0x06)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2f)
@@ -1204,7 +1204,7 @@ u8 func0406_nasty_scientist[] = {
 	label(0x13)
 	label(0x08)
 	restart_timer
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2f)
@@ -2862,9 +2862,9 @@ u8 func0402_k7_guard[] = {
 		endloop(0x04)
 
 		label(0x06)
-		try_attack_stand(ENTITYTYPE_PAD | ENTITYTYPE_AIMONLY, 0x0159, /*goto*/ 0x2f)
+		try_attack_stand(ATTACKFLAG_AIMATPAD | ATTACKFLAG_AIMONLY, 0x0159, /*goto*/ 0x2f)
 		label(0x2f)
-		try_modify_attack(ENTITYTYPE_PAD, 0x0159, /*goto*/ 0x2f)
+		try_modify_attack(ATTACKFLAG_AIMATPAD, 0x0159, /*goto*/ 0x2f)
 		label(0x2f)
 		say_quip(CHR_BOND, QUIP_ATTACK1, 0x32, 0x02, 0xff, BANK_0, 0x00, 0x00)
 

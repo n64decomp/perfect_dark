@@ -1316,7 +1316,7 @@ u8 func0411_cass_in_office[] = {
 	label(0x55)
 	stop_chr
 	yield
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x56)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x56)
 
 	beginloop(0x56)
 		if_target_in_fov_left(10, /*goto*/ 0x57)
@@ -1350,9 +1350,9 @@ u8 func0411_cass_in_office[] = {
 		reloop(0x5a)
 
 		label(0x83)
-		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x2c)
+		try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x2c)
 		label(0x2c)
-		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x82)
+		try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x82)
 
 		// Wait until shooting animation finished
 		beginloop(0x82)
@@ -1586,9 +1586,9 @@ u8 func0415_chief[] = {
 
 		// Attack while in sight
 		label(0x2c)
-		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x2c)
+		try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x2c)
 		label(0x2c)
-		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x82)
+		try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x82)
 
 		beginloop(0x82)
 			if_chr_stopped(/*goto*/ 0x06)

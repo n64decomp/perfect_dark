@@ -2315,9 +2315,9 @@ u8 func0412_cloak_guard[] = {
 		set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 		label(0x0a)
 		label(0x2c)
-		try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x2c)
+		try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x2c)
 		label(0x2c)
-		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
+		try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0b)
 
 		beginloop(0x0b)
 			if_chr_stopped(/*goto*/ 0x0c)

@@ -1005,8 +1005,8 @@ struct tilething {
 
 struct act_stand {
 	/*0x2c*/ s32 unk02c;
-	/*0x30*/ u32 face_entitytype;
-	/*0x34*/ s32 face_entityid;
+	/*0x30*/ u32 flags;
+	/*0x34*/ s32 entityid;
 	/*0x38*/ u32 unk038;
 	/*0x3c*/ s32 unk03c;
 	/*0x40*/ u32 unk040;
@@ -1090,7 +1090,7 @@ struct act_attack {
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
 	/*0x48*/ u32 unk048;
-	/*0x4c*/ u32 entitytype;
+	/*0x4c*/ u32 flags;
 	/*0x50*/ u32 entityid;
 	/*0x54*/ u32 unk054;
 	/*0x58*/ u32 unk058;
@@ -1189,7 +1189,7 @@ struct act_surprised {
 };
 
 struct act_throwgrenade {
-	/*0x2c*/ u32 entitytype;
+	/*0x2c*/ u32 flags;
 	/*0x30*/ u32 entityid;
 	/*0x34*/ u32 hand;
 	/*0x38*/ bool needsequip;

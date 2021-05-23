@@ -1209,7 +1209,7 @@ u8 func0405_president_in_room[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		// Wait for Carrington's "on this level" message to finish
@@ -1245,7 +1245,7 @@ u8 func0405_president_in_room[] = {
 	speak(CHR_TARGET, L_RIT_037, MP3_02BC, CHANNEL_7, COLOR_09_BLUE) // "Mr. President, you're in danger. Trent is trying t..."
 	restart_timer
 	stop_chr
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x78)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x78)
 
 	// In this loop the president will continue to turn to face the player
 	// because it lacks an if_target_in_fov_left check.
@@ -1326,7 +1326,7 @@ u8 func0405_president_in_room[] = {
 	set_stage_flag(STAGEFLAG_PRESIDENT_CALLED_SECURITY)
 	yield
 	increase_squadron_alertness(100)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0a)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
 	endloop(0x0a)
@@ -1338,7 +1338,7 @@ u8 func0405_president_in_room[] = {
 	stop_chr
 	speak(CHR_TARGET, L_RIT_041, MP3_02BD, CHANNEL_6, COLOR_09_BLUE) // "This is a recording of a meeting between Trent and..."
 	restart_timer
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0b)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0b)
 
 	// This loop uses an if_sound_finished check rather than a timer check,
 	// which allows the speech to be skipped.
@@ -1412,7 +1412,7 @@ u8 func0405_president_in_room[] = {
 	set_stage_flag(STAGEFLAG_PRESIDENT_STARTED_RUNNING)
 	speak(CHR_TARGET, L_RIT_039, MP3_02BE, CHANNEL_6, COLOR_09_BLUE) // "We have to get you to the escape pod. Follow me."
 	restart_timer
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0e)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0e)
 
 	beginloop(0x0e)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -1773,9 +1773,9 @@ u8 func0413_taker[] = {
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x11)
 	if_chr_dead(CHR_TARGET, /*goto*/ 0x11)
 	if_chr_knockedout(CHR_TARGET, /*goto*/ 0x11)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x06)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x06)
 	label(0x06)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x08)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x08)
 	label(0x08)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
 	say_quip(CHR_BOND, QUIP_ATTACK2, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
@@ -2755,7 +2755,7 @@ u8 func041e_blonde[] = {
 	set_self_chrflag(CHRCFLAG_00000040)
 	label(0x68)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
-	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x75)
+	try_attack_kneel(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x75)
 	label(0x06)
 	kneel
 
@@ -2781,7 +2781,7 @@ u8 func041e_blonde[] = {
 	goto_next(0x6c)
 
 	// Unreachable
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x6d)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x6d)
 	goto_next(0x6e)
 
 	// Reachable from below
@@ -2842,7 +2842,7 @@ u8 func041e_blonde[] = {
 
 	label(0x6c)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x06)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x06)
 	label(0x06)
 	goto_first(0x6d)
 
@@ -2850,10 +2850,10 @@ u8 func041e_blonde[] = {
 	goto_first(0x6e)
 
 	label(0x76)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x74)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x74)
 	label(0x74)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x06)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x06)
 	goto_next(0x2d)
 	label(0x06)
 	goto_first(0x6d)
@@ -2915,10 +2915,10 @@ u8 func0420_trent_attacking[] = {
 	// President in sight
 	label(0x06)
 	label(0x76)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x74)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x74)
 	label(0x74)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x08)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x08)
 	goto_next(0x2d)
 
 	beginloop(0x08)
@@ -3041,7 +3041,7 @@ u8 func0429_be_unalert[] = {
 	set_alertness(0)
 
 	label(0x03)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x04)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -3219,7 +3219,7 @@ u8 func0407_steward[] = {
 		endloop(0x87)
 
 		label(0x06)
-		try_face_entity(ENTITYTYPE_PAD, PAD_PRESET, /*goto*/ 0x88)
+		try_face_entity(ATTACKFLAG_AIMATPAD, PAD_PRESET, /*goto*/ 0x88)
 
 		beginloop(0x88)
 			if_chr_stopped(/*goto*/ 0x06)
@@ -3238,7 +3238,7 @@ u8 func0407_steward[] = {
 	label(0x89)
 	set_alertness(100)
 	restart_timer
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_target_in_fov_left(10, /*goto*/ 0x06)
@@ -3294,7 +3294,7 @@ u8 func0407_stewardess[] = {
 
 	// Alerted
 	label(0x2d)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_target_in_fov_left(10, /*goto*/ 0x06)

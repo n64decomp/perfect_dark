@@ -831,7 +831,7 @@ u8 func040f_top_guard[] = {
 	endloop(0x21)
 
 	label(0x00)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x1f)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x1f)
 
 	beginloop(0x1f)
 		if_distance_to_target_lt(200, /*goto*/ 0x20)
@@ -929,7 +929,7 @@ u8 func0406_general_combat[] = {
 	label(0x14)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x00)
 		label(0x20)
-		try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x10)
+		try_attack_kneel(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x10)
 		label(0x00)
 		kneel
 
@@ -1000,7 +1000,7 @@ u8 func0406_general_combat[] = {
 		say_quip(CHR_BOND, QUIP_SEEPLAYER, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 		label(0x20)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x17)
-		try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x12)
+		try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x12)
 		goto_next(0x13)
 
 		beginloop(0x12)
@@ -1059,10 +1059,10 @@ u8 func0406_general_combat[] = {
 	goto_first(0x15)
 
 	label(0x17)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x16)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x16)
 	label(0x16)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x00)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x00)
 	goto_next(0x20)
 	label(0x00)
 	goto_first(0x12)
@@ -1209,7 +1209,7 @@ u8 func0408_hovercopter[] = {
 
 	// Low shooting
 	label(0x43)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x44)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x44)
 	goto_first(0x22)
 
 	label(0x44)
@@ -1236,7 +1236,7 @@ u8 func0408_hovercopter[] = {
 	// Mid shooting
 	label(0x48)
 	dprint 'S','H','O','O','T',' ','M','I','D','\n',0,
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x49)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x49)
 	goto_first(0x24)
 
 	label(0x49)
@@ -1262,7 +1262,7 @@ u8 func0408_hovercopter[] = {
 
 	// High shooting (roof)
 	label(0x4d)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x00)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x00)
 	label(0x00)
 	set_stage_flag(STAGEFLAG_HOVERCOPTER_ON_ROOF)
 	if_stage_flag_eq(STAGEFLAG_SAID_FINAL_WARNING, TRUE, /*goto*/ 0x20)
@@ -1277,7 +1277,7 @@ u8 func0408_hovercopter[] = {
 	endloop(0x29)
 
 	label(0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x00)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x00)
 	goto_first(0x26)
 
 	label(0x00)
@@ -2094,7 +2094,7 @@ u8 func040d_cass[] = {
 	dprint 'M','O','V','E',' ','F','A','I','L','\n',0,
 	label(0x00)
 	dprint 'M','O','V','E',' ','G','O','O','D','\n',0,
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x20)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x20)
 	label(0x20)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

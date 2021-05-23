@@ -1354,7 +1354,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x56)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_target_in_fov_left(10, /*goto*/ 0x06)
@@ -1365,7 +1365,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_TARGET, L_LIP_037, MP3_032D, CHANNEL_4, COLOR_08_RED) // "Who are you?"
 	restart_timer
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x64)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x64)
 
 	// Wait until seeing Jo with a gun, or Jo has clothes
 	beginloop(0x64)
@@ -1725,7 +1725,7 @@ u8 func0418_doorman[] = {
 	label(0x03)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_target_in_fov_left(10, /*goto*/ 0x06)
@@ -1958,7 +1958,7 @@ u8 func041a_labtech_harrysmate[] = {
 	label(0x2d)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_target_in_fov_left(10, /*goto*/ 0x06)
@@ -2328,7 +2328,7 @@ u8 func0413_mechanic[] = {
 	restart_timer
 
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_target_in_fov_left(10, /*goto*/ 0x06)
@@ -2632,7 +2632,7 @@ u8 func041f_labtech_lights[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x53)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_target_in_fov_left(10, /*goto*/ 0x06)
@@ -2727,7 +2727,7 @@ u8 func041f_labtech_lights[] = {
 	label(0x06)
 	set_self_chrflag(CHRCFLAG_00000080)
 	restart_timer
-	try_face_entity(ENTITYTYPE_PAD, 0x0428, /*goto*/ 0x6e)
+	try_face_entity(ATTACKFLAG_AIMATPAD, 0x0428, /*goto*/ 0x6e)
 
 	beginloop(0x6e)
 		if_timer_gt(120, /*goto*/ 0x6f)
@@ -2859,7 +2859,7 @@ u8 func0420_labtech_doors[] = {
 	label(0x03)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_saw_injury(0x00, /*goto*/ 0x89)
@@ -2925,9 +2925,9 @@ u8 func0420_labtech_doors[] = {
 	label(0x06)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, TRUE, BANK_0, /*goto*/ 0x2d)
-	try_face_entity(ENTITYTYPE_PAD, 0x03c6, /*goto*/ 0x70)
+	try_face_entity(ATTACKFLAG_AIMATPAD, 0x03c6, /*goto*/ 0x70)
 	label(0x2d)
-	try_face_entity(ENTITYTYPE_PAD, 0x03c7, /*goto*/ 0x70)
+	try_face_entity(ATTACKFLAG_AIMATPAD, 0x03c7, /*goto*/ 0x70)
 
 	beginloop(0x70)
 		if_timer_gt(30, /*goto*/ 0x2d)
@@ -2956,7 +2956,7 @@ u8 func0420_labtech_doors[] = {
 
 	label(0x06)
 	restart_timer
-	try_face_entity(ENTITYTYPE_PAD, 0x0107, /*goto*/ 0x73)
+	try_face_entity(ATTACKFLAG_AIMATPAD, 0x0107, /*goto*/ 0x73)
 
 	beginloop(0x73)
 		if_timer_gt(30, /*goto*/ 0x06)
@@ -3094,7 +3094,7 @@ u8 func0422_labtech_records[] = {
 	label(0x2d)
 	restart_timer
 	label(0x08)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 	label(0x09)
 	yield
 	if_target_in_fov_left(10, /*goto*/ 0x06)

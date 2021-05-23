@@ -71180,7 +71180,7 @@ void doorsCalcFrac(struct doorobj *door)
 
 							if (isliftdoor) {
 								if (chr->actiontype == ACT_STAND
-										|| (chr->actiontype == ACT_ATTACK && (chr->act_attack.entitytype & ENTITYTYPE_DONTTURN))
+										|| (chr->actiontype == ACT_ATTACK && (chr->act_attack.flags & ATTACKFLAG_DONTTURN))
 										|| (chr->actiontype == ACT_GOPOS && func0f02e064(chr))) {
 									struct prop *target = chrGetTargetProp(chr);
 

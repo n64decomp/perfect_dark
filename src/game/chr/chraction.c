@@ -1618,17 +1618,17 @@ glabel var7f1a8cfc
 /*  f02e36c:	00000000 */ 	nop
 );
 
-f32 chrGetDistanceToEntity(struct chrdata *chr, u32 entitytype, s32 entityid)
+f32 chrGetDistanceToEntity(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
-	if (entitytype & ENTITYTYPE_TARGET) {
+	if (attackflags & ATTACKFLAG_AIMATTARGET) {
 		return chrGetDistanceToTarget(chr);
 	}
 
-	if (entitytype & ENTITYTYPE_CHR) {
+	if (attackflags & ATTACKFLAG_AIMATCHR) {
 		return chrGetDistanceToChr(chr, entityid);
 	}
 
-	if (entitytype & ENTITYTYPE_PAD) {
+	if (attackflags & ATTACKFLAG_AIMATPAD) {
 		return chrGetDistanceToPad(chr, entityid);
 	}
 
@@ -1818,8 +1818,8 @@ void func0f02e9a0(struct chrdata *chr, f32 arg1)
 	chrStopFiring(chr);
 	chr->actiontype = ACT_STAND;
 	chr->act_stand.unk02c = 0;
-	chr->act_stand.face_entitytype = 0;
-	chr->act_stand.face_entityid = 0;
+	chr->act_stand.flags = 0;
+	chr->act_stand.entityid = 0;
 	chr->act_stand.unk038 = 0;
 	chr->act_stand.unk03c = 2;
 	chr->act_stand.unk040 = 0;
@@ -1859,8 +1859,8 @@ void chrStand(struct chrdata *chr)
 			chrStopFiring(chr);
 			chr->actiontype = ACT_STAND;
 			chr->act_stand.unk02c = 1;
-			chr->act_stand.face_entitytype = 0;
-			chr->act_stand.face_entityid = 0;
+			chr->act_stand.flags = 0;
+			chr->act_stand.entityid = 0;
 			chr->act_stand.unk038 = 0;
 			chr->act_stand.unk03c = 2;
 			chr->act_stand.unk040 = 0;
@@ -1884,8 +1884,8 @@ void chrStand(struct chrdata *chr)
 		} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
 			chr->actiontype = ACT_STAND;
 			chr->act_stand.unk02c = 1;
-			chr->act_stand.face_entitytype = 0;
-			chr->act_stand.face_entityid = 0;
+			chr->act_stand.flags = 0;
+			chr->act_stand.entityid = 0;
 			chr->act_stand.unk038 = 0;
 			chr->act_stand.unk03c = 2;
 			chr->act_stand.unk040 = 0;
@@ -1910,10 +1910,10 @@ bool chrFaceCover(struct chrdata *chr)
 
 	chrStand(chr);
 	chr->act_stand.unk038 = 0;
-	chr->act_stand.face_entitytype = ENTITYTYPE_DIRECTION;
+	chr->act_stand.flags = ATTACKFLAG_AIMATDIRECTION;
 	chr->act_stand.unk03c = 1;
-	//chr->act_stand.face_entityid = atan2f(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
-	chr->act_stand.face_entityid = atan2f(-cover.look->x, -cover.look->z) * 10432.039f;
+	//chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
+	chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * 10432.039f;
 
 	return true;
 }
@@ -2514,14 +2514,14 @@ glabel chrAttackLie
 );
 
 // Mismatch because some instructions are swapped
-//void chrAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid)
+//void chrAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 //{
 //	u32 stack1[2];
 //	struct prop *gun = chrGetEquippedWeaponProp(chr, 0);
 //	s32 firing[2] = {false, false};
 //	u32 stack2[2];
 //
-//	if (entitytype & 0x20) {
+//	if (attackflags & 0x20) {
 //		firing[1] = false;
 //		firing[0] = false;
 //	} else {
@@ -2529,7 +2529,7 @@ glabel chrAttackLie
 //		firing[0] = !firing[1];
 //	}
 //
-//	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, entitytype, entityid, 0);
+//	chrAttack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, 0);
 //}
 
 GLOBAL_ASM(
@@ -2665,7 +2665,7 @@ glabel chrAttackKneel
 /*  f030580:	00000000 */ 	nop
 );
 
-//void chrAttackKneel(struct chrdata *chr, s32 entitytype, s32 entityid)
+//void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 //{
 //	struct prop *leftprop = chrGetEquippedWeaponProp(chr, HAND_LEFT); // 54
 //	struct prop *rightprop = chrGetEquippedWeaponProp(chr, HAND_RIGHT); // 50
@@ -2719,7 +2719,7 @@ glabel chrAttackKneel
 //		firing[HAND_RIGHT] = !firing[HAND_LEFT];
 //	}
 //
-//	chrAttack(chr, iVar5, sp48, firing, entitytype, entityid, 0);
+//	chrAttack(chr, iVar5, sp48, firing, attackflags, entityid, 0);
 //}
 
 void chrAttackWalkChooseAnimation(struct chrdata *chr)
@@ -3813,7 +3813,7 @@ void func0f031254(struct chrdata *chr)
 	struct model *model = chr->model;
 	struct attackanimconfig *animcfg = chr->act_attack.animcfg;
 
-	if (chr->act_attack.entitytype & ENTITYTYPE_AIMONLY) {
+	if (chr->act_attack.flags & ATTACKFLAG_AIMONLY) {
 		if (animcfg->unk20 >= 0 && animcfg->unk20 < animcfg->unk18) {
 			modelSetAnimEndFrame(model, animcfg->unk20);
 		} else {
@@ -3840,7 +3840,7 @@ void func0f031254(struct chrdata *chr)
  * This function implements attack behaviour common to all the attack types,
  * such as stand, kneel and lie.
  */
-void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 entitytype, u32 entityid, u32 arg6)
+void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 attackflags, u32 entityid, u32 arg6)
 {
 	struct model *model = chr->model;
 	s32 i;
@@ -3873,7 +3873,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 			}
 		} else {
 			// Non-sniping animations: Choose animation based on angle to target
-			angle = chrGetRelativeAttackAngle(chr, entitytype, entityid);
+			angle = chrGetRelativeAttackAngle(chr, attackflags, entityid);
 
 			if (flip) {
 				groupindex = (M_BADTAU - angle) * 5.0937690734863f + 0.5f;
@@ -3957,20 +3957,20 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 				chr->act_attack.maxshots = 1;
 			}
 		} else {
-			if (entitytype & ENTITYTYPE_SINGLESHOT) {
+			if (attackflags & ATTACKFLAG_SINGLESHOT) {
 				chr->act_attack.maxshots = 1;
 			} else {
 				chr->act_attack.maxshots = (random() % 4) + 2;
 			}
 
-			// @bug: ENTITYTYPE_SINGLESHOT is not respected here if both guns
+			// @bug: ATTACKFLAG_SINGLESHOT is not respected here if both guns
 			// are firing.
 			if (firing[HAND_RIGHT] && firing[HAND_LEFT]) {
 				chr->act_attack.maxshots += (random() % 4) + 2;
 			}
 		}
 
-		chr->act_attack.entitytype = entitytype;
+		chr->act_attack.flags = attackflags;
 		chr->act_attack.entityid = entityid;
 		chr->act_attack.unk054 = arg6;
 		chr->act_attack.unk058 = 0;
@@ -3994,7 +3994,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 	}
 }
 
-void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 maxshots)
+void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 maxshots)
 {
 	u32 stack;
 	struct prop *prop = chrGetEquippedWeaponProp(chr, 0);
@@ -4009,7 +4009,7 @@ void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 maxs
 		firing[0] = true;
 	}
 
-	chrAttack(chr, things, false, firing, entitytype, entityid, 0);
+	chrAttack(chr, things, false, firing, attackflags, entityid, 0);
 
 	chr->actiontype = ACT_ATTACKAMOUNT;
 	chr->act_attack.numshots = 0;
@@ -8636,15 +8636,15 @@ glabel chrCanSeeEntity
 
 bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3)
 {
-	u32 entitytype = ENTITYTYPE_TARGET;
+	u32 attackflags = ATTACKFLAG_AIMATTARGET;
 	u32 entityid = 0;
 
 	if (chr->actiontype == ACT_ATTACK) {
-		entitytype = chr->act_attack.entitytype;
+		attackflags = chr->act_attack.flags;
 		entityid = chr->act_attack.entityid;
 	}
 
-	return chrCanSeeEntity(chr, pos, rooms, arg3, entitytype, entityid);
+	return chrCanSeeEntity(chr, pos, rooms, arg3, attackflags, entityid);
 }
 
 bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
@@ -9233,7 +9233,7 @@ bool chrTryAttackAmount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8 up
 	return false;
 }
 
-bool chrTryAttackStand(struct chrdata *chr, s32 entitytype, s32 entityid)
+bool chrTryAttackStand(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -9250,7 +9250,7 @@ bool chrTryAttackStand(struct chrdata *chr, s32 entitytype, s32 entityid)
 		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 			if (chrGetEquippedWeaponPropWithCheck(chr, 0) ||
 					(chrGetEquippedWeaponPropWithCheck(chr, 1))) {
-				chrAttackStand(chr, entitytype, entityid);
+				chrAttackStand(chr, attackflags, entityid);
 				return true;
 			}
 		}
@@ -9259,13 +9259,13 @@ bool chrTryAttackStand(struct chrdata *chr, s32 entitytype, s32 entityid)
 	return false;
 }
 
-bool chrTryAttackKneel(struct chrdata *chr, s32 entitytype, s32 entityid)
+bool chrTryAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (chrIsReadyForOrders(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
-			chrAttackKneel(chr, entitytype, entityid);
+			chrAttackKneel(chr, attackflags, entityid);
 			return true;
 		}
 	}
@@ -9273,13 +9273,13 @@ bool chrTryAttackKneel(struct chrdata *chr, s32 entitytype, s32 entityid)
 	return false;
 }
 
-bool chrTryAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid)
+bool chrTryAttackLie(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (chrIsReadyForOrders(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
-			chrAttackLie(chr, entitytype, entityid);
+			chrAttackLie(chr, attackflags, entityid);
 			return true;
 		}
 	}
@@ -9287,7 +9287,7 @@ bool chrTryAttackLie(struct chrdata *chr, s32 entitytype, s32 entityid)
 	return false;
 }
 
-bool chrTryModifyAttack(struct chrdata *chr, u32 entitytype, s32 entityid)
+bool chrTryModifyAttack(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -9296,8 +9296,8 @@ bool chrTryModifyAttack(struct chrdata *chr, u32 entitytype, s32 entityid)
 	}
 
 	if (chr->actiontype == ACT_ATTACK
-			&& (chr->act_attack.entitytype & (ENTITYTYPE_AIMONLY | ENTITYTYPE_DONTTURN))) {
-		chr->act_attack.entitytype = entitytype;
+			&& (chr->act_attack.flags & (ATTACKFLAG_AIMONLY | ATTACKFLAG_DONTTURN))) {
+		chr->act_attack.flags = attackflags;
 		chr->act_attack.entityid = entityid;
 		func0f031254(chr);
 		return true;
@@ -9306,23 +9306,22 @@ bool chrTryModifyAttack(struct chrdata *chr, u32 entitytype, s32 entityid)
 	return false;
 }
 
-bool chrFaceEntity(struct chrdata *chr, u32 entitytype, u32 entityid)
+bool chrFaceEntity(struct chrdata *chr, u32 attackflags, u32 entityid)
 {
 	if (chrIsReadyForOrders(chr)) {
 		if (chr->actiontype != ACT_STAND) {
 			chrStand(chr);
 		}
 
-		if (entitytype != chr->act_stand.face_entitytype ||
-				entityid != chr->act_stand.face_entityid) {
-			chr->act_stand.face_entitytype = entitytype;
-			chr->act_stand.face_entityid = entityid;
+		if (attackflags != chr->act_stand.flags || entityid != chr->act_stand.entityid) {
+			chr->act_stand.flags = attackflags;
+			chr->act_stand.entityid = entityid;
 			chr->act_stand.unk038 = 0;
 			chr->act_stand.unk040 = 0;
 
-			if (entitytype == ENTITYTYPE_TARGET && entityid == 1) {
+			if (attackflags == ATTACKFLAG_AIMATTARGET && entityid == 1) {
 				chr->act_stand.face_target = true;
-				chr->act_stand.face_entityid = 0;
+				chr->act_stand.entityid = 0;
 			}
 		}
 
@@ -9981,7 +9980,7 @@ bool chrTryStartAlarm(struct chrdata *chr, s32 pad_id)
 	return false;
 }
 
-s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
+s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 attackflags, u32 entityid)
 {
 	bool done = false;
 
@@ -10030,7 +10029,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 
 				if (weapon->weaponnum == WEAPON_GRENADE || weapon->weaponnum == WEAPON_NBOMB) {
 					chrThrowGrenade(chr, 0, false);
-					chr->act_throwgrenade.entitytype = entitytype;
+					chr->act_throwgrenade.flags = attackflags;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
 				}
@@ -10041,7 +10040,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 
 				if (weapon->weaponnum == WEAPON_GRENADE || weapon->weaponnum == WEAPON_NBOMB) {
 					chrThrowGrenade(chr, 1, false);
-					chr->act_throwgrenade.entitytype = entitytype;
+					chr->act_throwgrenade.flags = attackflags;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
 				}
@@ -10068,7 +10067,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 					weapon = prop->weapon;
 					weapon->base.hidden |= OBJHFLAG_00000800;
 					chrThrowGrenade(chr, rightprop == NULL ? 0 : 1, true);
-					chr->act_throwgrenade.entitytype = entitytype;
+					chr->act_throwgrenade.flags = attackflags;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
 				}

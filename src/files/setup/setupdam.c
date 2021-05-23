@@ -1576,7 +1576,7 @@ u8 func040d_labtech3[] = {
 u8 func0411_labtech_alerted[] = {
 	restart_timer
 	label(0x0b)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0c)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0c)
 
 	beginloop(0x0c)
 		if_target_in_fov_left(10, /*goto*/ 0x04)
@@ -2220,9 +2220,9 @@ u8 func0404_angry_pilot[] = {
 	goto_first(0x00)
 
 	label(0x07)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x04)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x04)
 	label(0x04)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x6e)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x6e)
 
 	beginloop(0x6e)
 		if_chr_stopped(/*goto*/ 0x07)

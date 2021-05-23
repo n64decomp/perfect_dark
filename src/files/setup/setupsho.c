@@ -614,7 +614,7 @@ u8 func0402_unarmed_skedar[] = {
 	if_target_out_of_fov_left(246, /*goto*/ 0x06)
 	stop_chr
 	set_action(MA_FACING, TRUE)
-	try_face_entity(ENTITYTYPE_TARGET, 1, /*goto*/ 0x0c)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 1, /*goto*/ 0x0c)
 
 	beginloop(0x0c)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x10)
@@ -802,7 +802,7 @@ u8 func0404_miniskedar[] = {
 	restart_timer
 	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
 	stop_chr
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x0c)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x0c)
 
 	beginloop(0x0c)
 		if_timer_gt(30, /*goto*/ 0x06)
@@ -1693,7 +1693,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	label(0x5e)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 	set_target_chr(CHR_BOND)
-	try_attack_kneel(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x5f)
+	try_attack_kneel(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x5f)
 	label(0x06)
 	kneel
 
@@ -1800,10 +1800,10 @@ u8 func0409_reaper_slayer_skedar[] = {
 
 	label(0x71)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x72)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x70)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x70)
 	label(0x70)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x06)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	label(0x72)
@@ -1981,7 +1981,7 @@ u8 func040d_king_combat[] = {
 	label(LABEL_MAINLOOP)
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x04)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ LABEL_PLAYER_DEAD)
@@ -2042,10 +2042,10 @@ u8 func040d_king_combat[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	try_attack_stand(ENTITYTYPE_TARGET | ENTITYTYPE_AIMONLY, 0, /*goto*/ 0x70)
+	try_attack_stand(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0x70)
 	label(0x70)
 	say_quip(CHR_BOND, QUIP_ATTACK1, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	try_modify_attack(ENTITYTYPE_TARGET, 0, /*goto*/ 0x7b)
+	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x7b)
 	goto_next(0x2d)
 
 	label(0x06)
@@ -2161,7 +2161,7 @@ u8 func040d_king_combat[] = {
 	if_target_in_fov_left(10, /*goto*/ 0x06)
 	if_target_out_of_fov_left(246, /*goto*/ 0x06)
 	stop_chr
-	try_face_entity(ENTITYTYPE_TARGET, 0, /*goto*/ 0x09)
+	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ 0x0b)
