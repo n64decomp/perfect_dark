@@ -1097,22 +1097,19 @@ struct act_attack {
 };
 
 struct act_attackwalk {
-	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ u32 unk034;
-	/*0x38*/ u32 unk038;
+	/*0x2c*/ s32 unk02c;
+	/*0x30*/ s32 frame60count;
+	/*0x34*/ s32 frame60max;
+	/*0x38*/ bool facedtarget;
 	/*0x3c*/ struct attackanimconfig *animcfg;
-	/*0x40*/ u32 unk040;
-	/*0x44*/ u32 unk044;
-	/*0x48*/ u8 unk048;
-	/*0x49*/ u8 unk049;
-	/*0x4a*/ u8 unk04a;
-	/*0x4b*/ u8 unk04b;
-	/*0x4c*/ u8 unk04c;
-	/*0x4d*/ u8 unk04d;
+	/*0x40*/ s32 nextshot60;
+	/*0x44*/ s32 nextgun;
+	/*0x48*/ s8 firegun[2];
+	/*0x4a*/ s8 everytick[2];
+	/*0x4c*/ s8 singleshot[2];
 	/*0x4e*/ u8 flip;
-	/*0x50*/ u32 unk050;
-	/*0x54*/ f32 unk054;
+	/*0x50*/ s32 dorecoil;
+	/*0x54*/ f32 turnspeed;
 };
 
 struct act_sidestep {
