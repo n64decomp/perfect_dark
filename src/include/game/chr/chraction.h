@@ -44,7 +44,7 @@ void chrAttackKneel(struct chrdata *chr, u32 attackflags, s32 entityid);
 void chrAttackWalkChooseAnimation(struct chrdata *chr);
 void chrAttackWalk(struct chrdata *chr, bool run);
 void chrAttackRollChooseAnimation(struct chrdata *chr);
-void chrAttackRoll(struct chrdata *chr, bool direction);
+void chrAttackRoll(struct chrdata *chr, bool toleft);
 void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed);
 void func0f031254(struct chrdata *chr);
 void chrAttack(struct chrdata *chr, struct attackanimgroup **arg1, bool flip, bool *firing, u32 attackflags, u32 entityid, u32 arg6);
@@ -72,7 +72,7 @@ bool propchrHasClearLineToPos(struct prop *prop, struct coord *dstpos, struct co
 bool propchrHasClearLineInVector(struct prop *prop, struct coord *coord, f32 arg2);
 bool func0f036974(struct prop *prop, struct coord *coord);
 void chrGetSideVectorToTarget(struct chrdata *chr, bool side, struct coord *vector);
-bool chrCanRollInDirection(struct chrdata *chr, bool side, f32 distance);
+bool chrCanRollInDirection(struct chrdata *chr, bool toleft, f32 distance);
 void chrGetSideVector(struct chrdata *chr, bool side, struct coord *vector);
 bool chrCanJumpInDirection(struct chrdata *chr, bool side, f32 distance);
 s32 func0f036c08(struct chrdata *chr, struct coord *arg1, s16 *rooms);

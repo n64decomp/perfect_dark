@@ -1265,14 +1265,18 @@ struct attackanimgroup *g_KneelDualAttackAnims[][32] = {
 	},
 };
 
-struct attackanimconfig var80067428 = { 0x000b, 76, 0, 0,               20, -1,  98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072,  0.69802057743073, -0.69802057743073, 1.7000000476837, 2               };
-struct attackanimconfig var80067470 = { 0x000c, 58, 0, 0,               10, -1,  77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536,  0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             };
-struct attackanimconfig var800674b8 = { 0x000d, 61, 0, 0,               10, -1,  83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072,  0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 };
-struct attackanimconfig var80067500 = { 0x0027, 63, 0, 0,               10, -1,  73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072,  0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             };
-struct attackanimconfig var80067548 = { 0x000b, 76, 0, 0,               20, 76,  98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072,  0.69802057743073, -0.69802057743073, 1.7000000476837, 2               };
-struct attackanimconfig var80067590 = { 0x000c, 58, 0, 0,               10, 63,  77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536,  0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             };
-struct attackanimconfig var800675d8 = { 0x000d, 61, 0, 0,               10, 56,  83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072,  0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 };
-struct attackanimconfig var80067620 = { 0x0027, 63, 0, 0,               10, 50,  73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072,  0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             };
+// These 8 animations must be kept together because the code loads a pointer to
+// the heavy anims then adds 4 to get to the light anims. Using an array here
+// would be less hacky, but then the individual names would be lost.
+struct attackanimconfig g_AttackAnimRollHeavyLeft1  = { 0x000b, 76, 0, 0, 20, -1, 98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072, 0.69802057743073, -0.69802057743073, 1.7000000476837, 2               };
+struct attackanimconfig g_AttackAnimRollHeavyRight1 = { 0x000c, 58, 0, 0, 10, -1, 77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536, 0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             };
+struct attackanimconfig g_AttackAnimRollHeavyLeft2  = { 0x000d, 61, 0, 0, 10, -1, 83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072, 0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 };
+struct attackanimconfig g_AttackAnimRollHeavyRight2 = { 0x0027, 63, 0, 0, 10, -1, 73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072, 0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             };
+struct attackanimconfig g_AttackAnimRollLightLeft1  = { 0x000b, 76, 0, 0, 20, 76, 98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072, 0.69802057743073, -0.69802057743073, 1.7000000476837, 2               };
+struct attackanimconfig g_AttackAnimRollLightRight1 = { 0x000c, 58, 0, 0, 10, 63, 77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536, 0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             };
+struct attackanimconfig g_AttackAnimRollLightLeft2  = { 0x000d, 61, 0, 0, 10, 56, 83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072, 0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 };
+struct attackanimconfig g_AttackAnimRollLightRight2 = { 0x0027, 63, 0, 0, 10, 50, 73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072, 0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             };
+
 struct attackanimconfig var80067668 = { 0x0045, 0,  0, 0,               7,  64,  19, 51,  24, 46, 14, 58,  0.87252569198608, -0.69802057743073,  0.52351540327072, -0.7852731347084,  0,               0               };
 struct attackanimconfig var800676b0 = { 0x004a, 0,  0, 1.5707963705063, 14, 76,  26, 31,  31, 38, 15, 49,  0.87252569198608, -0.69802057743073,  0.52351540327072, -1.0470308065414,  0,               0               };
 struct attackanimconfig var800676f8 = { 0x004c, 26, 0, 0,               25, 89,  41, 63,  41, 51, 21, 80,  0.87252569198608, -0.69802057743073,  0.34901028871536, -1.1342834234238,  0,               0               };
@@ -2603,346 +2607,169 @@ void chrAttackRollChooseAnimation(struct chrdata *chr)
 	}
 }
 
-u32 var8006804c = 0x00000000;
-u32 var80068050 = 0x00000000;
-u32 var80068054 = 0x00000000;
-u32 var80068058 = 0x00000000;
-u32 var8006805c = 0x00000000;
-u32 var80068060 = 0x00000000;
+void chrAttackRoll(struct chrdata *chr, bool toleft)
+{
+	struct attackanimconfig *animcfg;
+	struct prop *leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+	struct prop *rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+	bool flip;
+	bool onehanded = false;
+	struct prop *prop;
+	struct weaponobj *weapon;
+	bool dorecoil = true;
+	bool firing[] = {false, false};
+	s32 i;
+	bool dooneburst = false;
+	bool everytick[] = {false, false};
+	bool singleshot[] = {false, false};
 
-GLOBAL_ASM(
-glabel chrAttackRoll
-/*  f030b48:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f030b4c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f030b50:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f030b54:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*  f030b58:	00808825 */ 	or	$s1,$a0,$zero
-/*  f030b5c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f030b60:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f030b64:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f030b68:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f030b6c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f030b70:	00408025 */ 	or	$s0,$v0,$zero
-/*  f030b74:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030b78:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f030b7c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f030b80:	3c0f8007 */ 	lui	$t7,%hi(var8006804c)
-/*  f030b84:	afa00074 */ 	sw	$zero,0x74($sp)
-/*  f030b88:	25ef804c */ 	addiu	$t7,$t7,%lo(var8006804c)
-/*  f030b8c:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f030b90:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f030b94:	27ae0060 */ 	addiu	$t6,$sp,0x60
-/*  f030b98:	3c0a8007 */ 	lui	$t2,%hi(var80068054)
-/*  f030b9c:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f030ba0:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f030ba4:	afa00058 */ 	sw	$zero,0x58($sp)
-/*  f030ba8:	254a8054 */ 	addiu	$t2,$t2,%lo(var80068054)
-/*  f030bac:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f030bb0:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*  f030bb4:	27a90050 */ 	addiu	$t1,$sp,0x50
-/*  f030bb8:	3c188007 */ 	lui	$t8,%hi(var8006805c)
-/*  f030bbc:	2718805c */ 	addiu	$t8,$t8,%lo(var8006805c)
-/*  f030bc0:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f030bc4:	ad2d0004 */ 	sw	$t5,0x4($t1)
-/*  f030bc8:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f030bcc:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f030bd0:	27b90048 */ 	addiu	$t9,$sp,0x48
-/*  f030bd4:	00409025 */ 	or	$s2,$v0,$zero
-/*  f030bd8:	24130001 */ 	addiu	$s3,$zero,0x1
-/*  f030bdc:	af280004 */ 	sw	$t0,0x4($t9)
-/*  f030be0:	12000029 */ 	beqz	$s0,.L0f030c88
-/*  f030be4:	af210000 */ 	sw	$at,0x0($t9)
-/*  f030be8:	10400027 */ 	beqz	$v0,.L0f030c88
-/*  f030bec:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030bf0:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f030bf4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f030bf8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f030bfc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030c00:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f030c04:	00002825 */ 	or	$a1,$zero,$zero
-/*  f030c08:	12000018 */ 	beqz	$s0,.L0f030c6c
-/*  f030c0c:	2c430001 */ 	sltiu	$v1,$v0,0x1
-/*  f030c10:	50400017 */ 	beqzl	$v0,.L0f030c70
-/*  f030c14:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f030c18:	0c004b70 */ 	jal	random
-/*  f030c1c:	00000000 */ 	nop
-/*  f030c20:	304c0001 */ 	andi	$t4,$v0,0x1
-/*  f030c24:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f030c28:	afac0078 */ 	sw	$t4,0x78($sp)
-/*  f030c2c:	0c004b70 */ 	jal	random
-/*  f030c30:	afab0074 */ 	sw	$t3,0x74($sp)
-/*  f030c34:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f030c38:	0041001b */ 	divu	$zero,$v0,$at
-/*  f030c3c:	00004810 */ 	mfhi	$t1
-/*  f030c40:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f030c44:	15200006 */ 	bnez	$t1,.L0f030c60
-/*  f030c48:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f030c4c:	8faa0078 */ 	lw	$t2,0x78($sp)
-/*  f030c50:	2d4d0001 */ 	sltiu	$t5,$t2,0x1
-/*  f030c54:	afad0060 */ 	sw	$t5,0x60($sp)
-/*  f030c58:	1000001f */ 	b	.L0f030cd8
-/*  f030c5c:	afaa0064 */ 	sw	$t2,0x64($sp)
-.L0f030c60:
-/*  f030c60:	afaf0064 */ 	sw	$t7,0x64($sp)
-/*  f030c64:	1000001c */ 	b	.L0f030cd8
-/*  f030c68:	afae0060 */ 	sw	$t6,0x60($sp)
-.L0f030c6c:
-/*  f030c6c:	24190001 */ 	addiu	$t9,$zero,0x1
-.L0f030c70:
-/*  f030c70:	2c780001 */ 	sltiu	$t8,$v1,0x1
-/*  f030c74:	afa30078 */ 	sw	$v1,0x78($sp)
-/*  f030c78:	afb90074 */ 	sw	$t9,0x74($sp)
-/*  f030c7c:	afa30064 */ 	sw	$v1,0x64($sp)
-/*  f030c80:	10000015 */ 	b	.L0f030cd8
-/*  f030c84:	afb80060 */ 	sw	$t8,0x60($sp)
-.L0f030c88:
-/*  f030c88:	0fc0b849 */ 	jal	weaponIsOneHanded
-/*  f030c8c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f030c90:	54400005 */ 	bnezl	$v0,.L0f030ca8
-/*  f030c94:	0010102b */ 	sltu	$v0,$zero,$s0
-/*  f030c98:	0fc0b849 */ 	jal	weaponIsOneHanded
-/*  f030c9c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f030ca0:	10400008 */ 	beqz	$v0,.L0f030cc4
-/*  f030ca4:	0010102b */ 	sltu	$v0,$zero,$s0
-.L0f030ca8:
-/*  f030ca8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f030cac:	2c4c0001 */ 	sltiu	$t4,$v0,0x1
-/*  f030cb0:	afa20078 */ 	sw	$v0,0x78($sp)
-/*  f030cb4:	afa80074 */ 	sw	$t0,0x74($sp)
-/*  f030cb8:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f030cbc:	10000006 */ 	b	.L0f030cd8
-/*  f030cc0:	afac0060 */ 	sw	$t4,0x60($sp)
-.L0f030cc4:
-/*  f030cc4:	0010102b */ 	sltu	$v0,$zero,$s0
-/*  f030cc8:	2c4b0001 */ 	sltiu	$t3,$v0,0x1
-/*  f030ccc:	afa20078 */ 	sw	$v0,0x78($sp)
-/*  f030cd0:	afa20064 */ 	sw	$v0,0x64($sp)
-/*  f030cd4:	afab0060 */ 	sw	$t3,0x60($sp)
-.L0f030cd8:
-/*  f030cd8:	8fa2008c */ 	lw	$v0,0x8c($sp)
-/*  f030cdc:	8fa90078 */ 	lw	$t1,0x78($sp)
-/*  f030ce0:	10400003 */ 	beqz	$v0,.L0f030cf0
-/*  f030ce4:	00000000 */ 	nop
-/*  f030ce8:	11200005 */ 	beqz	$t1,.L0f030d00
-/*  f030cec:	00000000 */ 	nop
-.L0f030cf0:
-/*  f030cf0:	1440000f */ 	bnez	$v0,.L0f030d30
-/*  f030cf4:	8faa0078 */ 	lw	$t2,0x78($sp)
-/*  f030cf8:	1140000d */ 	beqz	$t2,.L0f030d30
-/*  f030cfc:	00000000 */ 	nop
-.L0f030d00:
-/*  f030d00:	0c004b70 */ 	jal	random
-/*  f030d04:	00000000 */ 	nop
-/*  f030d08:	304d0001 */ 	andi	$t5,$v0,0x1
-/*  f030d0c:	11a00005 */ 	beqz	$t5,.L0f030d24
-/*  f030d10:	3c0e8006 */ 	lui	$t6,%hi(var800674b8)
-/*  f030d14:	3c0f8006 */ 	lui	$t7,%hi(var80067428)
-/*  f030d18:	25ef7428 */ 	addiu	$t7,$t7,%lo(var80067428)
-/*  f030d1c:	1000000f */ 	b	.L0f030d5c
-/*  f030d20:	afaf0084 */ 	sw	$t7,0x84($sp)
-.L0f030d24:
-/*  f030d24:	25ce74b8 */ 	addiu	$t6,$t6,%lo(var800674b8)
-/*  f030d28:	1000000c */ 	b	.L0f030d5c
-/*  f030d2c:	afae0084 */ 	sw	$t6,0x84($sp)
-.L0f030d30:
-/*  f030d30:	0c004b70 */ 	jal	random
-/*  f030d34:	00000000 */ 	nop
-/*  f030d38:	30590001 */ 	andi	$t9,$v0,0x1
-/*  f030d3c:	13200005 */ 	beqz	$t9,.L0f030d54
-/*  f030d40:	3c088006 */ 	lui	$t0,%hi(var80067500)
-/*  f030d44:	3c188006 */ 	lui	$t8,%hi(var80067470)
-/*  f030d48:	27187470 */ 	addiu	$t8,$t8,%lo(var80067470)
-/*  f030d4c:	10000003 */ 	b	.L0f030d5c
-/*  f030d50:	afb80084 */ 	sw	$t8,0x84($sp)
-.L0f030d54:
-/*  f030d54:	25087500 */ 	addiu	$t0,$t0,%lo(var80067500)
-/*  f030d58:	afa80084 */ 	sw	$t0,0x84($sp)
-.L0f030d5c:
-/*  f030d5c:	8fac0074 */ 	lw	$t4,0x74($sp)
-/*  f030d60:	00008025 */ 	or	$s0,$zero,$zero
-/*  f030d64:	00003025 */ 	or	$a2,$zero,$zero
-/*  f030d68:	11800004 */ 	beqz	$t4,.L0f030d7c
-/*  f030d6c:	27a70060 */ 	addiu	$a3,$sp,0x60
-/*  f030d70:	8fab0084 */ 	lw	$t3,0x84($sp)
-/*  f030d74:	25690120 */ 	addiu	$t1,$t3,0x120
-/*  f030d78:	afa90084 */ 	sw	$t1,0x84($sp)
-.L0f030d7c:
-/*  f030d7c:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f030d80:
-/*  f030d80:	8cea0000 */ 	lw	$t2,0x0($a3)
-/*  f030d84:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030d88:	02002825 */ 	or	$a1,$s0,$zero
-/*  f030d8c:	51400038 */ 	beqzl	$t2,.L0f030e70
-/*  f030d90:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f030d94:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f030d98:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f030d9c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f030da0:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f030da4:	9064005c */ 	lbu	$a0,0x5c($v1)
-/*  f030da8:	9065005f */ 	lbu	$a1,0x5f($v1)
-/*  f030dac:	0fc2c7ba */ 	jal	weaponGetNumTicksPerShot
-/*  f030db0:	afa3006c */ 	sw	$v1,0x6c($sp)
-/*  f030db4:	8fa3006c */ 	lw	$v1,0x6c($sp)
-/*  f030db8:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f030dbc:	1c400009 */ 	bgtz	$v0,.L0f030de4
-/*  f030dc0:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f030dc4:	03a66821 */ 	addu	$t5,$sp,$a2
-/*  f030dc8:	adb20050 */ 	sw	$s2,0x50($t5)
-/*  f030dcc:	9062005c */ 	lbu	$v0,0x5c($v1)
-/*  f030dd0:	2401001d */ 	addiu	$at,$zero,0x1d
-/*  f030dd4:	54410007 */ 	bnel	$v0,$at,.L0f030df4
-/*  f030dd8:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f030ddc:	10000004 */ 	b	.L0f030df0
-/*  f030de0:	00009825 */ 	or	$s3,$zero,$zero
-.L0f030de4:
-/*  f030de4:	afb20058 */ 	sw	$s2,0x58($sp)
-/*  f030de8:	00009825 */ 	or	$s3,$zero,$zero
-/*  f030dec:	9062005c */ 	lbu	$v0,0x5c($v1)
-.L0f030df0:
-/*  f030df0:	24010018 */ 	addiu	$at,$zero,0x18
-.L0f030df4:
-/*  f030df4:	1041001c */ 	beq	$v0,$at,.L0f030e68
-/*  f030df8:	03a67821 */ 	addu	$t7,$sp,$a2
-/*  f030dfc:	24010034 */ 	addiu	$at,$zero,0x34
-/*  f030e00:	10410019 */ 	beq	$v0,$at,.L0f030e68
-/*  f030e04:	24010019 */ 	addiu	$at,$zero,0x19
-/*  f030e08:	10410017 */ 	beq	$v0,$at,.L0f030e68
-/*  f030e0c:	24010017 */ 	addiu	$at,$zero,0x17
-/*  f030e10:	10410015 */ 	beq	$v0,$at,.L0f030e68
-/*  f030e14:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x318)
-/*  f030e18:	8c84a2d8 */ 	lw	$a0,%lo(g_Vars+0x318)($a0)
-/*  f030e1c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f030e20:	14800009 */ 	bnez	$a0,.L0f030e48
-/*  f030e24:	00000000 */ 	nop
-/*  f030e28:	14410007 */ 	bne	$v0,$at,.L0f030e48
-/*  f030e2c:	00000000 */ 	nop
-/*  f030e30:	82230006 */ 	lb	$v1,0x6($s1)
-/*  f030e34:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f030e38:	10610003 */ 	beq	$v1,$at,.L0f030e48
-/*  f030e3c:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f030e40:	5461000a */ 	bnel	$v1,$at,.L0f030e6c
-/*  f030e44:	adf20048 */ 	sw	$s2,0x48($t7)
-.L0f030e48:
-/*  f030e48:	14800003 */ 	bnez	$a0,.L0f030e58
-/*  f030e4c:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f030e50:	50410006 */ 	beql	$v0,$at,.L0f030e6c
-/*  f030e54:	adf20048 */ 	sw	$s2,0x48($t7)
-.L0f030e58:
-/*  f030e58:	14800004 */ 	bnez	$a0,.L0f030e6c
-/*  f030e5c:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f030e60:	54410003 */ 	bnel	$v0,$at,.L0f030e70
-/*  f030e64:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f030e68:
-/*  f030e68:	adf20048 */ 	sw	$s2,0x48($t7)
-.L0f030e6c:
-/*  f030e6c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f030e70:
-/*  f030e70:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f030e74:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*  f030e78:	1601ffc1 */ 	bne	$s0,$at,.L0f030d80
-/*  f030e7c:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*  f030e80:	240e000a */ 	addiu	$t6,$zero,0xa
-/*  f030e84:	a22e0007 */ 	sb	$t6,0x7($s1)
-/*  f030e88:	8fb90084 */ 	lw	$t9,0x84($sp)
-/*  f030e8c:	a2200031 */ 	sb	$zero,0x31($s1)
-/*  f030e90:	0c004b70 */ 	jal	random
-/*  f030e94:	ae39002c */ 	sw	$t9,0x2c($s1)
-/*  f030e98:	30580001 */ 	andi	$t8,$v0,0x1
-/*  f030e9c:	a2380032 */ 	sb	$t8,0x32($s1)
-/*  f030ea0:	8fa80064 */ 	lw	$t0,0x64($sp)
-/*  f030ea4:	a2280039 */ 	sb	$t0,0x39($s1)
-/*  f030ea8:	8fac0060 */ 	lw	$t4,0x60($sp)
-/*  f030eac:	a22c0038 */ 	sb	$t4,0x38($s1)
-/*  f030eb0:	8fab0054 */ 	lw	$t3,0x54($sp)
-/*  f030eb4:	a22b003b */ 	sb	$t3,0x3b($s1)
-/*  f030eb8:	8fa90050 */ 	lw	$t1,0x50($sp)
-/*  f030ebc:	a229003a */ 	sb	$t1,0x3a($s1)
-/*  f030ec0:	8faa004c */ 	lw	$t2,0x4c($sp)
-/*  f030ec4:	a22a003d */ 	sb	$t2,0x3d($s1)
-/*  f030ec8:	8fad0048 */ 	lw	$t5,0x48($sp)
-/*  f030ecc:	a2330036 */ 	sb	$s3,0x36($s1)
-/*  f030ed0:	a22d003c */ 	sb	$t5,0x3c($s1)
-/*  f030ed4:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f030ed8:	a22f0037 */ 	sb	$t7,0x37($s1)
-/*  f030edc:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*  f030ee0:	ae200040 */ 	sw	$zero,0x40($s1)
-/*  f030ee4:	a2200033 */ 	sb	$zero,0x33($s1)
-/*  f030ee8:	a2320030 */ 	sb	$s2,0x30($s1)
-/*  f030eec:	a22e0035 */ 	sb	$t6,0x35($s1)
-/*  f030ef0:	8fb9004c */ 	lw	$t9,0x4c($sp)
-/*  f030ef4:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f030ef8:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*  f030efc:	17200003 */ 	bnez	$t9,.L0f030f0c
-/*  f030f00:	00000000 */ 	nop
-/*  f030f04:	13000009 */ 	beqz	$t8,.L0f030f2c
-/*  f030f08:	00000000 */ 	nop
-.L0f030f0c:
-/*  f030f0c:	11000005 */ 	beqz	$t0,.L0f030f24
-/*  f030f10:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f030f14:	11800003 */ 	beqz	$t4,.L0f030f24
-/*  f030f18:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*  f030f1c:	10000015 */ 	b	.L0f030f74
-/*  f030f20:	a22b0034 */ 	sb	$t3,0x34($s1)
-.L0f030f24:
-/*  f030f24:	10000013 */ 	b	.L0f030f74
-/*  f030f28:	a2320034 */ 	sb	$s2,0x34($s1)
-.L0f030f2c:
-/*  f030f2c:	0c004b70 */ 	jal	random
-/*  f030f30:	00000000 */ 	nop
-/*  f030f34:	30490003 */ 	andi	$t1,$v0,0x3
-/*  f030f38:	252a0002 */ 	addiu	$t2,$t1,0x2
-/*  f030f3c:	a22a0034 */ 	sb	$t2,0x34($s1)
-/*  f030f40:	8fad0060 */ 	lw	$t5,0x60($sp)
-/*  f030f44:	8faf0064 */ 	lw	$t7,0x64($sp)
-/*  f030f48:	51a0000b */ 	beqzl	$t5,.L0f030f78
-/*  f030f4c:	240c0200 */ 	addiu	$t4,$zero,0x200
-/*  f030f50:	51e00009 */ 	beqzl	$t7,.L0f030f78
-/*  f030f54:	240c0200 */ 	addiu	$t4,$zero,0x200
-/*  f030f58:	0c004b70 */ 	jal	random
-/*  f030f5c:	00000000 */ 	nop
-/*  f030f60:	822e0034 */ 	lb	$t6,0x34($s1)
-/*  f030f64:	30590003 */ 	andi	$t9,$v0,0x3
-/*  f030f68:	01d9c021 */ 	addu	$t8,$t6,$t9
-/*  f030f6c:	27080002 */ 	addiu	$t0,$t8,0x2
-/*  f030f70:	a2280034 */ 	sb	$t0,0x34($s1)
-.L0f030f74:
-/*  f030f74:	240c0200 */ 	addiu	$t4,$zero,0x200
-.L0f030f78:
-/*  f030f78:	ae2c004c */ 	sw	$t4,0x4c($s1)
-/*  f030f7c:	ae200050 */ 	sw	$zero,0x50($s1)
-/*  f030f80:	ae320054 */ 	sw	$s2,0x54($s1)
-/*  f030f84:	ae200058 */ 	sw	$zero,0x58($s1)
-/*  f030f88:	ae200044 */ 	sw	$zero,0x44($s1)
-/*  f030f8c:	ae200048 */ 	sw	$zero,0x48($s1)
-/*  f030f90:	8fab0078 */ 	lw	$t3,0x78($sp)
-/*  f030f94:	a2200008 */ 	sb	$zero,0x8($s1)
-/*  f030f98:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f030f9c:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f030fa0:	a22b003e */ 	sb	$t3,0x3e($s1)
-/*  f030fa4:	10400006 */ 	beqz	$v0,.L0f030fc0
-/*  f030fa8:	00000000 */ 	nop
-/*  f030fac:	8e290014 */ 	lw	$t1,0x14($s1)
-/*  f030fb0:	3c010020 */ 	lui	$at,0x20
-/*  f030fb4:	01215025 */ 	or	$t2,$t1,$at
-/*  f030fb8:	10000008 */ 	b	.L0f030fdc
-/*  f030fbc:	ae2a0014 */ 	sw	$t2,0x14($s1)
-.L0f030fc0:
-/*  f030fc0:	0fc0c290 */ 	jal	chrAttackRollChooseAnimation
-/*  f030fc4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030fc8:	8e2d0014 */ 	lw	$t5,0x14($s1)
-/*  f030fcc:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f030fd0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f030fd4:	01a17824 */ 	and	$t7,$t5,$at
-/*  f030fd8:	ae2f0014 */ 	sw	$t7,0x14($s1)
-.L0f030fdc:
-/*  f030fdc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f030fe0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f030fe4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f030fe8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f030fec:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f030ff0:	03e00008 */ 	jr	$ra
-/*  f030ff4:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
+	if (leftgun && rightgun) {
+		struct prop *leftgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_LEFT);
+		struct prop *rightgun2 = chrGetEquippedWeaponPropWithCheck(chr, HAND_RIGHT);
+
+		if (leftgun2 && rightgun2) {
+			flip = random() % 2;
+			onehanded = true;
+
+			if (random() % 3 == 0) {
+				firing[HAND_LEFT] = flip;
+				firing[HAND_RIGHT] = !flip;
+			} else {
+				firing[HAND_LEFT] = true;
+				firing[HAND_RIGHT] = true;
+			}
+		} else {
+			flip = (bool)rightgun2 == false;
+			onehanded = true;
+			firing[HAND_LEFT] = flip;
+			firing[HAND_RIGHT] = !flip;
+		}
+	} else {
+		if (weaponIsOneHanded(leftgun) || weaponIsOneHanded(rightgun)) {
+			flip = (bool)leftgun != false;
+			onehanded = true;
+			firing[HAND_LEFT] = flip;
+			firing[HAND_RIGHT] = !flip;
+		} else {
+			flip = (bool)leftgun != false;
+			firing[HAND_LEFT] = flip;
+			firing[HAND_RIGHT] = !flip;
+		}
+	}
+
+	if ((toleft && !flip) || (!toleft && flip)) {
+		if (random() % 2) {
+			animcfg = &g_AttackAnimRollHeavyLeft1;
+		} else {
+			animcfg = &g_AttackAnimRollHeavyLeft2;
+		}
+	} else {
+		if (random() % 2) {
+			animcfg = &g_AttackAnimRollHeavyRight1;
+		} else {
+			animcfg = &g_AttackAnimRollHeavyRight2;
+		}
+	}
+
+	if (onehanded) {
+		// Move the animation pointer to the light-weight version of the same
+		// animation. The light-weight versions are defined immediately after
+		// the heavy versions.
+		animcfg += 4;
+	}
+
+	for (i = 0; i < 2; i++) {
+		if (firing[i]) {
+			prop = chrGetEquippedWeaponProp(chr, i);
+			weapon = prop->weapon;
+
+			if (weaponGetNumTicksPerShot(weapon->weaponnum, weapon->gunfunc) < 1) {
+				everytick[i] = true;
+
+				if (weapon->weaponnum == WEAPON_LASER) {
+					dorecoil = false;
+				}
+			} else {
+				dorecoil = false;
+				dooneburst = true;
+			}
+
+			if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
+					|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34
+					|| weapon->weaponnum == WEAPON_SLAYER
+					|| weapon->weaponnum == WEAPON_DEVASTATOR
+					|| (
+						!g_Vars.normmplayerisrunning
+						&& weapon->weaponnum == WEAPON_DY357MAGNUM
+						&& chr->headnum != HEAD_JONATHAN
+						&& chr->headnum != HEAD_CHRIST)
+					|| (
+						!g_Vars.normmplayerisrunning
+						&& weapon->weaponnum == WEAPON_DY357LX)
+					|| (
+						!g_Vars.normmplayerisrunning
+						&& weapon->weaponnum == WEAPON_SHOTGUN)) {
+				singleshot[i] = true;
+			}
+		}
+	}
+
+	chr->actiontype = ACT_ATTACKROLL;
+
+	chr->act_attack.animcfg = animcfg;
+	chr->act_attack.fired = false;
+	chr->act_attack.nextgun = random() % 2;
+	chr->act_attack.firegun[HAND_LEFT] = firing[HAND_LEFT];
+	chr->act_attack.firegun[HAND_RIGHT] = firing[HAND_RIGHT];
+	chr->act_attack.everytick[HAND_LEFT] = everytick[HAND_LEFT];
+	chr->act_attack.everytick[HAND_RIGHT] = everytick[HAND_RIGHT];
+	chr->act_attack.singleshot[HAND_LEFT] = singleshot[HAND_LEFT];
+	chr->act_attack.singleshot[HAND_RIGHT] = singleshot[HAND_RIGHT];
+	chr->act_attack.dorecoil = dorecoil;
+	chr->act_attack.dooneburst = dooneburst;
+	chr->act_attack.onehanded = onehanded;
+	chr->act_attack.unk040 = 0;
+	chr->act_attack.numshots = 0;
+	chr->act_attack.turning = true;
+
+	if (singleshot[HAND_LEFT] || singleshot[HAND_RIGHT]) {
+		if (singleshot[HAND_LEFT] && singleshot[HAND_RIGHT]) {
+			chr->act_attack.maxshots = 2;
+		} else {
+			chr->act_attack.maxshots = 1;
+		}
+	} else {
+		chr->act_attack.maxshots = (random() % 4) + 2;
+
+		if (firing[HAND_RIGHT] && firing[HAND_LEFT]) {
+			chr->act_attack.maxshots += (random() % 4) + 2;
+		}
+	}
+
+	chr->act_attack.flags = ATTACKFLAG_AIMATTARGET;
+	chr->act_attack.entityid = 0;
+	chr->act_attack.unk054 = 1;
+	chr->act_attack.unk058 = 0;
+	chr->act_attack.unk044 = 0;
+	chr->act_attack.unk048 = 0;
+	chr->act_attack.flip = flip;
+
+	chr->sleep = 0;
+
+	// @bug: CHRCFLAG_INJUREDTARGET is not unset here. This means if the chr
+	// does an attack that hits the target, then does a roll attack which
+	// misses, their AI list will incorrectly read the roll attack as a hit
+	// provided it didn't read and clear the flag between the attacks.
+	// It usually (always?) does though, so this isn't really an issue.
+
+	if (modelIsAnimMerging(chr->model)) {
+		chr->hidden |= CHRHFLAG_NEEDANIM;
+	} else {
+		chrAttackRollChooseAnimation(chr);
+
+		chr->hidden &= ~CHRHFLAG_NEEDANIM;
+	}
+}
 
 void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed)
 {
@@ -4026,10 +3853,10 @@ bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
 		} else if (chr->actiontype == ACT_ATTACKROLL
 				&& modelGetAnimNum(chr->model) == chr->act_attack.animcfg->animnum) {
 			if (chr->act_attack.onehanded) {
-				if (chr->act_attack.animcfg == &var80067548
-						|| chr->act_attack.animcfg == &var80067590
-						|| chr->act_attack.animcfg == &var800675d8
-						|| chr->act_attack.animcfg == &var80067620) {
+				if (chr->act_attack.animcfg == &g_AttackAnimRollLightLeft1
+						|| chr->act_attack.animcfg == &g_AttackAnimRollLightRight1
+						|| chr->act_attack.animcfg == &g_AttackAnimRollLightLeft2
+						|| chr->act_attack.animcfg == &g_AttackAnimRollLightRight2) {
 					endframe = chr->act_attack.animcfg->unk04 - 8;
 
 					if (chr->act_attack.animcfg->unk14 < chr->act_attack.animcfg->unk04) {
@@ -8371,16 +8198,16 @@ bool chrTryAttackRoll(struct chrdata *chr)
 			f32 z = target->pos.z - prop->pos.z;
 			f32 sqdistance = x * x + y * y + z * z;
 
-			if (sqdistance >= 40000.0f) {
-				bool side = (random() & 1) == 0;
+			if (sqdistance >= 200 * 200) {
+				bool toleft = (random() % 2) == 0;
 
-				if (chrCanRollInDirection(chr, side, 200)) {
-					chrAttackRoll(chr, side);
+				if (chrCanRollInDirection(chr, toleft, 200)) {
+					chrAttackRoll(chr, toleft);
 					return true;
 				}
 
-				if (chrCanRollInDirection(chr, !side, 200)) {
-					chrAttackRoll(chr, !side);
+				if (chrCanRollInDirection(chr, !toleft, 200)) {
+					chrAttackRoll(chr, !toleft);
 					return true;
 				}
 			}
@@ -18392,19 +18219,19 @@ glabel func0f041c44
 /*  f041c5c:	54400032 */ 	bnezl	$v0,.L0f041d28
 /*  f041c60:	00001025 */ 	or	$v0,$zero,$zero
 /*  f041c64:	8c82002c */ 	lw	$v0,0x2c($a0)
-/*  f041c68:	3c0e8006 */ 	lui	$t6,%hi(var800674b8)
-/*  f041c6c:	25ce74b8 */ 	addiu	$t6,$t6,%lo(var800674b8)
+/*  f041c68:	3c0e8006 */ 	lui	$t6,%hi(g_AttackAnimRollHeavyLeft2)
+/*  f041c6c:	25ce74b8 */ 	addiu	$t6,$t6,%lo(g_AttackAnimRollHeavyLeft2)
 /*  f041c70:	11c20004 */ 	beq	$t6,$v0,.L0f041c84
-/*  f041c74:	3c0f8006 */ 	lui	$t7,%hi(var80067500)
-/*  f041c78:	25ef7500 */ 	addiu	$t7,$t7,%lo(var80067500)
+/*  f041c74:	3c0f8006 */ 	lui	$t7,%hi(g_AttackAnimRollHeavyRight2)
+/*  f041c78:	25ef7500 */ 	addiu	$t7,$t7,%lo(g_AttackAnimRollHeavyRight2)
 /*  f041c7c:	55e2002a */ 	bnel	$t7,$v0,.L0f041d28
 /*  f041c80:	00001025 */ 	or	$v0,$zero,$zero
 .L0f041c84:
 /*  f041c84:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f041c88:	3c098006 */ 	lui	$t1,%hi(var80067470)
+/*  f041c88:	3c098006 */ 	lui	$t1,%hi(g_AttackAnimRollHeavyRight1)
 /*  f041c8c:	24080002 */ 	addiu	$t0,$zero,0x2
 /*  f041c90:	8c580020 */ 	lw	$t8,0x20($v0)
-/*  f041c94:	25297470 */ 	addiu	$t1,$t1,%lo(var80067470)
+/*  f041c94:	25297470 */ 	addiu	$t1,$t1,%lo(g_AttackAnimRollHeavyRight1)
 /*  f041c98:	3c053f33 */ 	lui	$a1,0x3f33
 /*  f041c9c:	83190008 */ 	lb	$t9,0x8($t8)
 /*  f041ca0:	3c063f8f */ 	lui	$a2,0x3f8f
@@ -18418,17 +18245,17 @@ glabel func0f041c44
 /*  f041cc0:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f041cc4:	3c0141b0 */ 	lui	$at,0x41b0
 /*  f041cc8:	44812000 */ 	mtc1	$at,$f4
-/*  f041ccc:	3c058006 */ 	lui	$a1,%hi(var80067470)
-/*  f041cd0:	3c078006 */ 	lui	$a3,%hi(var80067470+0x1c)
-/*  f041cd4:	8ce7748c */ 	lw	$a3,%lo(var80067470+0x1c)($a3)
-/*  f041cd8:	84a57470 */ 	lh	$a1,%lo(var80067470)($a1)
+/*  f041ccc:	3c058006 */ 	lui	$a1,%hi(g_AttackAnimRollHeavyRight1)
+/*  f041cd0:	3c078006 */ 	lui	$a3,%hi(g_AttackAnimRollHeavyRight1+0x1c)
+/*  f041cd4:	8ce7748c */ 	lw	$a3,%lo(g_AttackAnimRollHeavyRight1+0x1c)($a3)
+/*  f041cd8:	84a57470 */ 	lh	$a1,%lo(g_AttackAnimRollHeavyRight1)($a1)
 /*  f041cdc:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*  f041ce0:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*  f041ce4:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f041ce8:	0c007733 */ 	jal	modelSetAnimation
 /*  f041cec:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f041cf0:	3c018006 */ 	lui	$at,%hi(var80067470+0x14)
-/*  f041cf4:	c4207484 */ 	lwc1	$f0,%lo(var80067470+0x14)($at)
+/*  f041cf0:	3c018006 */ 	lui	$at,%hi(g_AttackAnimRollHeavyRight1+0x14)
+/*  f041cf4:	c4207484 */ 	lwc1	$f0,%lo(g_AttackAnimRollHeavyRight1+0x14)($at)
 /*  f041cf8:	44803000 */ 	mtc1	$zero,$f6
 /*  f041cfc:	00000000 */ 	nop
 /*  f041d00:	4600303e */ 	c.le.s	$f6,$f0
@@ -20727,19 +20554,19 @@ glabel chrTickAttackRoll
 /*  f043440:	0c00745f */ 	jal	modelGetCurAnimFrame
 /*  f043444:	afa40044 */ 	sw	$a0,0x44($sp)
 /*  f043448:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f04344c:	3c0b8006 */ 	lui	$t3,%hi(var80067548)
-/*  f043450:	256b7548 */ 	addiu	$t3,$t3,%lo(var80067548)
+/*  f04344c:	3c0b8006 */ 	lui	$t3,%hi(g_AttackAnimRollLightLeft1)
+/*  f043450:	256b7548 */ 	addiu	$t3,$t3,%lo(g_AttackAnimRollLightLeft1)
 /*  f043454:	8ce2002c */ 	lw	$v0,0x2c($a3)
-/*  f043458:	3c0c8006 */ 	lui	$t4,%hi(var80067590)
+/*  f043458:	3c0c8006 */ 	lui	$t4,%hi(g_AttackAnimRollLightRight1)
 /*  f04345c:	46000306 */ 	mov.s	$f12,$f0
 /*  f043460:	11620009 */ 	beq	$t3,$v0,.L0f043488
-/*  f043464:	258c7590 */ 	addiu	$t4,$t4,%lo(var80067590)
+/*  f043464:	258c7590 */ 	addiu	$t4,$t4,%lo(g_AttackAnimRollLightRight1)
 /*  f043468:	11820007 */ 	beq	$t4,$v0,.L0f043488
-/*  f04346c:	3c0d8006 */ 	lui	$t5,%hi(var800675d8)
-/*  f043470:	25ad75d8 */ 	addiu	$t5,$t5,%lo(var800675d8)
+/*  f04346c:	3c0d8006 */ 	lui	$t5,%hi(g_AttackAnimRollLightLeft2)
+/*  f043470:	25ad75d8 */ 	addiu	$t5,$t5,%lo(g_AttackAnimRollLightLeft2)
 /*  f043474:	11a20004 */ 	beq	$t5,$v0,.L0f043488
-/*  f043478:	3c0f8006 */ 	lui	$t7,%hi(var80067620)
-/*  f04347c:	25ef7620 */ 	addiu	$t7,$t7,%lo(var80067620)
+/*  f043478:	3c0f8006 */ 	lui	$t7,%hi(g_AttackAnimRollLightRight2)
+/*  f04347c:	25ef7620 */ 	addiu	$t7,$t7,%lo(g_AttackAnimRollLightRight2)
 /*  f043480:	15e200c8 */ 	bne	$t7,$v0,.L0f0437a4
 /*  f043484:	3c0c8006 */ 	lui	$t4,%hi(var80067668)
 .L0f043488:
@@ -20775,8 +20602,8 @@ glabel chrTickAttackRoll
 /*  f0434f8:	24630240 */ 	addiu	$v1,$v1,0x240
 /*  f0434fc:	8fa70048 */ 	lw	$a3,0x48($sp)
 .L0f043500:
-/*  f043500:	3c028006 */ 	lui	$v0,%hi(var80067428)
-/*  f043504:	24427428 */ 	addiu	$v0,$v0,%lo(var80067428)
+/*  f043500:	3c028006 */ 	lui	$v0,%hi(g_AttackAnimRollHeavyLeft1)
+/*  f043504:	24427428 */ 	addiu	$v0,$v0,%lo(g_AttackAnimRollHeavyLeft1)
 /*  f043508:	244b0240 */ 	addiu	$t3,$v0,0x240
 /*  f04350c:	146b0005 */ 	bne	$v1,$t3,.L0f043524
 /*  f043510:	00e02025 */ 	or	$a0,$a3,$zero

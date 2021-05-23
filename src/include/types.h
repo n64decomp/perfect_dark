@@ -1092,7 +1092,7 @@ struct act_attack {
 	/*0x48*/ u32 unk048;
 	/*0x4c*/ u32 flags;
 	/*0x50*/ u32 entityid;
-	/*0x54*/ u32 unk054;
+	/*0x54*/ s32 unk054;
 	/*0x58*/ u32 unk058;
 };
 
