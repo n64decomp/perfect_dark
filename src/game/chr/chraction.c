@@ -28883,6 +28883,65 @@ glabel chrGetAttackEntityPos
 /*  f048cbc:	00000000 */ 	nop
 );
 
+// Mismatch: reallgoc for targetprop in first section
+//void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms)
+//{
+//	struct prop *targetprop;
+//	struct chrdata *targetchr;
+//	struct pad pad;
+//
+//	if (attackflags & ATTACKFLAG_AIMATCHR) {
+//		// Aiming at a chr by chrnum
+//		targetchr = chrFindById(chr, entityid);
+//
+//		if (!targetchr || !targetchr->prop) {
+//			targetchr = chr;
+//		}
+//
+//		chr = targetchr;
+//
+//		pos->x = chr->prop->pos.x;
+//		pos->y = chr->prop->pos.y;
+//		pos->z = chr->prop->pos.z;
+//
+//		if (targetchr) {
+//			targetprop = targetchr->prop;
+//		} else {
+//			targetprop = chr->prop;
+//		}
+//
+//		roomsCopy(targetprop->rooms, rooms);
+//	} else if (attackflags & ATTACKFLAG_AIMATPAD) {
+//		// Aiming at a pad by padnum
+//		s32 padnum = chrResolvePadId(chr, entityid);
+//		padUnpack(padnum, PADFIELD_POS | PADFIELD_ROOM, &pad);
+//
+//		pos->x = pad.pos.x;
+//		pos->y = pad.pos.y;
+//		pos->z = pad.pos.z;
+//
+//		rooms[0] = pad.room;
+//		rooms[1] = -1;
+//	} else {
+//		// Aiming at the chr's preconfigured target
+//		targetprop = chrGetTargetProp(chr);
+//
+//		pos->x = targetprop->pos.x;
+//		pos->y = targetprop->pos.y;
+//		pos->z = targetprop->pos.z;
+//
+//		if (targetprop->type == PROPTYPE_CHR && targetprop->chr) {
+//			chr = targetprop->chr;
+//		} else {
+//			chr = NULL;
+//		}
+//
+//		if (chr);
+//
+//		roomsCopy(targetprop->rooms, rooms);
+//	}
+//}
+
 f32 chrGetAngleFromTargetsFov(struct chrdata *chr)
 {
 	f32 targetfacingangle = 0;
