@@ -1082,7 +1082,7 @@ struct act_attack {
 	/*0x34*/ s8 maxshots; // number of shots to attempt in this anim
 	/*0x35*/ s8 onehanded;
 	/*0x36*/ s8 dorecoil;
-	/*0x37*/ s8 doneburst;
+	/*0x37*/ s8 dooneburst;
 	/*0x38*/ u8 firegun[2]; // whether this gun is going to attempt to fire in this anim
 	/*0x3a*/ u8 everytick[2]; // whether gun's fire rate is high enough to fire on every tick
 	/*0x3c*/ u8 singleshot[2];

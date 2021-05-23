@@ -1563,62 +1563,33 @@ f32 chrGetRangedArghSpeed(struct chrdata *chr, f32 min, f32 max)
 	return (max - min) * arghrating * 0.01f + min;
 }
 
-GLOBAL_ASM(
-glabel chrGetRelativeAttackAngle
-.late_rodata
-glabel var7f1a8cf8
-.word 0x38c907a9
-glabel var7f1a8cfc
-.word 0x40c907a9
-.text
-/*  f02e2d0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f02e2d4:	30ae0002 */ 	andi	$t6,$a1,0x2
-/*  f02e2d8:	11c00004 */ 	beqz	$t6,.L0f02e2ec
-/*  f02e2dc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02e2e0:	44800000 */ 	mtc1	$zero,$f0
-/*  f02e2e4:	1000001f */ 	b	.L0f02e364
-/*  f02e2e8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f02e2ec:
-/*  f02e2ec:	30af0010 */ 	andi	$t7,$a1,0x10
-/*  f02e2f0:	11e00014 */ 	beqz	$t7,.L0f02e344
-/*  f02e2f4:	27a70038 */ 	addiu	$a3,$sp,0x38
-/*  f02e2f8:	44862000 */ 	mtc1	$a2,$f4
-/*  f02e2fc:	3c017f1b */ 	lui	$at,%hi(var7f1a8cf8)
-/*  f02e300:	c4288cf8 */ 	lwc1	$f8,%lo(var7f1a8cf8)($at)
-/*  f02e304:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f02e308:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f02e30c:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f02e310:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f02e314:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f02e318:	44805000 */ 	mtc1	$zero,$f10
-/*  f02e31c:	3c017f1b */ 	lui	$at,%hi(var7f1a8cfc)
-/*  f02e320:	46006081 */ 	sub.s	$f2,$f12,$f0
-/*  f02e324:	460a103c */ 	c.lt.s	$f2,$f10
-/*  f02e328:	00000000 */ 	nop
-/*  f02e32c:	45000003 */ 	bc1f	.L0f02e33c
-/*  f02e330:	00000000 */ 	nop
-/*  f02e334:	c4308cfc */ 	lwc1	$f16,%lo(var7f1a8cfc)($at)
-/*  f02e338:	46101080 */ 	add.s	$f2,$f2,$f16
-.L0f02e33c:
-/*  f02e33c:	10000008 */ 	b	.L0f02e360
-/*  f02e340:	46001006 */ 	mov.s	$f0,$f2
-.L0f02e344:
-/*  f02e344:	27b80028 */ 	addiu	$t8,$sp,0x28
-/*  f02e348:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f02e34c:	0fc122de */ 	jal	func0f048b78
-/*  f02e350:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f02e354:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f02e358:	0fc122a1 */ 	jal	chrGetAngleToPos
-/*  f02e35c:	27a50038 */ 	addiu	$a1,$sp,0x38
-.L0f02e360:
-/*  f02e360:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f02e364:
-/*  f02e364:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f02e368:	03e00008 */ 	jr	$ra
-/*  f02e36c:	00000000 */ 	nop
-);
+f32 chrGetAttackEntityRelativeAngle(struct chrdata *chr, u32 attackflags, s32 entityid)
+{
+	f32 angle;
+	struct coord pos;
+	s16 rooms[8];
 
-f32 chrGetDistanceToEntity(struct chrdata *chr, u32 attackflags, s32 entityid)
+	if (attackflags & ATTACKFLAG_AIMFORWARD) {
+		return 0;
+	}
+
+	if (attackflags & ATTACKFLAG_AIMATDIRECTION) {
+		angle = entityid * (M_BADTAU / 65536);
+		angle -= chrGetInverseTheta(chr);
+
+		if (angle < 0) {
+			angle += M_BADTAU;
+		}
+
+		return angle;
+	}
+
+	chrGetAttackEntityPos(chr, attackflags, entityid, &pos, rooms);
+
+	return chrGetAngleToPos(chr, &pos);
+}
+
+f32 chrGetAttackEntityDistance(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	if (attackflags & ATTACKFLAG_AIMATTARGET) {
 		return chrGetDistanceToTarget(chr);
@@ -3849,7 +3820,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 	struct prop *prop;
 	struct weaponobj *weapon;
 	s32 groupindex;
-	bool doneburst = false;
+	bool dooneburst = false;
 	s32 index;
 	bool everytick[] = {false, false};
 	bool singleshot[] = {false, false};
@@ -3873,7 +3844,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 			}
 		} else {
 			// Non-sniping animations: Choose animation based on angle to target
-			angle = chrGetRelativeAttackAngle(chr, attackflags, entityid);
+			angle = chrGetAttackEntityRelativeAngle(chr, attackflags, entityid);
 
 			if (flip) {
 				groupindex = (M_BADTAU - angle) * 5.0937690734863f + 0.5f;
@@ -3909,7 +3880,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 					}
 				} else {
 					dorecoil = false;
-					doneburst = true;
+					dooneburst = true;
 				}
 
 				// There's an easter egg here: Any guard with Chris T's head
@@ -3946,7 +3917,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 		chr->act_attack.singleshot[HAND_LEFT] = singleshot[HAND_LEFT];
 		chr->act_attack.singleshot[HAND_RIGHT] = singleshot[HAND_RIGHT];
 		chr->act_attack.dorecoil = dorecoil;
-		chr->act_attack.doneburst = doneburst;
+		chr->act_attack.dooneburst = dooneburst;
 		chr->act_attack.unk040 = 0;
 		chr->act_attack.numshots = 0;
 
@@ -4014,7 +3985,7 @@ void chrAttackAmount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 max
 	chr->actiontype = ACT_ATTACKAMOUNT;
 	chr->act_attack.numshots = 0;
 	chr->act_attack.maxshots = maxshots;
-	chr->act_attack.doneburst = false;
+	chr->act_attack.dooneburst = false;
 }
 
 #if PAL
@@ -8489,7 +8460,7 @@ glabel chrCanSeeEntity
 /*  f038fd8:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*  f038fdc:	8fa40078 */ 	lw	$a0,0x78($sp)
 /*  f038fe0:	8fa50088 */ 	lw	$a1,0x88($sp)
-/*  f038fe4:	0fc122de */ 	jal	func0f048b78
+/*  f038fe4:	0fc122de */ 	jal	chrGetAttackEntityPos
 /*  f038fe8:	8fa6008c */ 	lw	$a2,0x8c($sp)
 /*  f038fec:	8fa40078 */ 	lw	$a0,0x78($sp)
 /*  f038ff0:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
@@ -10702,7 +10673,7 @@ glabel var7f1a8f08
 /*  f03c2e4:	ae000030 */ 	sw	$zero,0x30($s0)
 /*  f03c2e8:	8e060034 */ 	lw	$a2,0x34($s0)
 .L0f03c2ec:
-/*  f03c2ec:	0fc0b8b4 */ 	jal	chrGetRelativeAttackAngle
+/*  f03c2ec:	0fc0b8b4 */ 	jal	chrGetAttackEntityRelativeAngle
 /*  f03c2f0:	afa300b4 */ 	sw	$v1,0xb4($sp)
 /*  f03c2f4:	3c017f1b */ 	lui	$at,%hi(var7f1a8edc)
 /*  f03c2f8:	c4308edc */ 	lwc1	$f16,%lo(var7f1a8edc)($at)
@@ -12383,7 +12354,7 @@ glabel var7f1a8f40
 .L0f03e850:
 /*  f03e850:	8e05004c */ 	lw	$a1,0x4c($s0)
 /*  f03e854:	8e060050 */ 	lw	$a2,0x50($s0)
-/*  f03e858:	0fc0b8b4 */ 	jal	chrGetRelativeAttackAngle
+/*  f03e858:	0fc0b8b4 */ 	jal	chrGetAttackEntityRelativeAngle
 /*  f03e85c:	e7ac0028 */ 	swc1	$f12,0x28($sp)
 /*  f03e860:	1000001a */ 	b	.L0f03e8cc
 /*  f03e864:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
@@ -12393,7 +12364,7 @@ glabel var7f1a8f40
 /*  f03e870:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e874:	8e050030 */ 	lw	$a1,0x30($s0)
 /*  f03e878:	8e060034 */ 	lw	$a2,0x34($s0)
-/*  f03e87c:	0fc0b8b4 */ 	jal	chrGetRelativeAttackAngle
+/*  f03e87c:	0fc0b8b4 */ 	jal	chrGetAttackEntityRelativeAngle
 /*  f03e880:	e7ac0028 */ 	swc1	$f12,0x28($sp)
 /*  f03e884:	10000011 */ 	b	.L0f03e8cc
 /*  f03e888:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
@@ -12404,7 +12375,7 @@ glabel var7f1a8f40
 /*  f03e898:	8e05002c */ 	lw	$a1,0x2c($s0)
 /*  f03e89c:	8e060030 */ 	lw	$a2,0x30($s0)
 /*  f03e8a0:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f03e8a4:	0fc0b8b4 */ 	jal	chrGetRelativeAttackAngle
+/*  f03e8a4:	0fc0b8b4 */ 	jal	chrGetAttackEntityRelativeAngle
 /*  f03e8a8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e8ac:	10000007 */ 	b	.L0f03e8cc
 /*  f03e8b0:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
@@ -13073,7 +13044,7 @@ glabel var7f1a8fc8
 /*  f03f140:	8fa40190 */ 	lw	$a0,0x190($sp)
 /*  f03f144:	8fa50184 */ 	lw	$a1,0x184($sp)
 /*  f03f148:	8fa60180 */ 	lw	$a2,0x180($sp)
-/*  f03f14c:	0fc122de */ 	jal	func0f048b78
+/*  f03f14c:	0fc122de */ 	jal	chrGetAttackEntityPos
 /*  f03f150:	27a70154 */ 	addiu	$a3,$sp,0x154
 /*  f03f154:	c7a60154 */ 	lwc1	$f6,0x154($sp)
 /*  f03f158:	c7a80134 */ 	lwc1	$f8,0x134($sp)
@@ -20411,11 +20382,11 @@ void chrTickAttackAmount(struct chrdata *chr)
 		chrResetAimEndProperties(chr);
 	}
 
-	if (frame >= chr->act_attack.animcfg->unk18 && chr->act_attack.doneburst == false) {
-		chr->act_attack.doneburst = true;
+	if (frame >= chr->act_attack.animcfg->unk18 && chr->act_attack.dooneburst == false) {
+		chr->act_attack.dooneburst = true;
 	}
 
-	if (chr->act_attack.doneburst) {
+	if (chr->act_attack.dooneburst) {
 		if (chr->act_attack.numshots++ < chr->act_attack.maxshots) {
 			func0f03f988(chr, 0, 1);
 		} else {
@@ -28818,7 +28789,7 @@ f32 chrGetAngleToTarget(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f048b78
+glabel chrGetAttackEntityPos
 /*  f048b78:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f048b7c:	30ae0004 */ 	andi	$t6,$a1,0x4
 /*  f048b80:	11c0001f */ 	beqz	$t6,.L0f048c00
