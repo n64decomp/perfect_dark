@@ -443,19 +443,19 @@ union filedataptr {
 	u32 *u32;
 };
 
-struct animfloats {
+struct attackanimconfig {
 	/*0x00*/ s16 animnum;
 	/*0x04*/ f32 unk04;
 	/*0x08*/ f32 unk08;
 	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10;
+	/*0x10*/ f32 unk10; // frame number
 	/*0x14*/ f32 unk14; // frame number
-	/*0x18*/ f32 unk18;
+	/*0x18*/ f32 unk18; // frame number
 	/*0x1c*/ f32 unk1c; // frame number
 	/*0x20*/ f32 unk20; // frame number
 	/*0x24*/ f32 unk24; // frame number
-	/*0x28*/ f32 unk28;
-	/*0x2c*/ f32 unk2c;
+	/*0x28*/ f32 unk28; // frame number
+	/*0x2c*/ f32 unk2c; // frame number
 	/*0x30*/ f32 unk30;
 	/*0x34*/ f32 unk34;
 	/*0x38*/ f32 unk38;
@@ -844,7 +844,7 @@ struct aibot {
 	 */
 	/*0x064*/ u16 unk064;
 
-	/*0x068*/ struct act_attackamount_2c *unk068;
+	/*0x068*/ struct attackanimconfig *unk068;
 	/*0x06c*/ f32 unk06c;
 	/*0x070*/ f32 unk070;
 	/*0x074*/ s8 unk074;
@@ -1074,15 +1074,18 @@ struct act_preargh {
 };
 
 struct act_attack {
-	/*0x2c*/ struct animfloats *animfloats;
-	/*0x30*/ u16 unk030;
-	/*0x32*/ u8 unk032;
-	/*0x33*/ s8 unk033;
-	/*0x34*/ s8 unk034;
-	/*0x35*/ s8 unk035;
-	/*0x36*/ s8 unk036;
-	/*0x38*/ u32 unk038;
-	/*0x3c*/ u16 unk03c;
+	/*0x2c*/ struct attackanimconfig *animcfg;
+	/*0x30*/ s8 turning;
+	/*0x31*/ u8 fired;
+	/*0x32*/ u8 nextgun;
+	/*0x33*/ s8 numshots; // number of shots fired so far in this anim
+	/*0x34*/ s8 maxshots; // number of shots to attempt in this anim
+	/*0x35*/ s8 onehanded;
+	/*0x36*/ s8 dorecoil;
+	/*0x37*/ s8 doneburst;
+	/*0x38*/ u8 firegun[2]; // whether this gun is going to attempt to fire in this anim
+	/*0x3a*/ u8 everytick[2]; // whether gun's fire rate is high enough to fire on every tick
+	/*0x3c*/ u8 singleshot[2];
 	/*0x3e*/ s8 flip;
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
@@ -1098,7 +1101,7 @@ struct act_attackwalk {
 	/*0x30*/ u32 unk030;
 	/*0x34*/ u32 unk034;
 	/*0x38*/ u32 unk038;
-	/*0x3c*/ struct animfloats *animfloats;
+	/*0x3c*/ struct attackanimconfig *animcfg;
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
 	/*0x48*/ u32 unk048;
@@ -1212,32 +1215,6 @@ struct act_druggedcomingup {
 	/*0x2c*/ s16 timer60;
 };
 
-struct act_attackamount_2c {
-	u32 unk00;
-	f32 unk04;
-	u32 unk08;
-	f32 unk0c;
-	u32 unk10;
-	f32 unk14;
-	f32 unk18;
-	f32 fstartframe1;
-	u32 unk20;
-	f32 fstartframe2;
-	f32 framestart;
-	f32 frameend;
-};
-
-struct act_attackamount {
-	/*0x2c*/ struct act_attackamount_2c *unk02c;
-	/*0x30*/ u16 unk030;
-	/*0x32*/ u8 unk032;
-	/*0x33*/ s8 unk033;
-	/*0x34*/ s8 unk034;
-	/*0x35*/ s8 unk035;
-	/*0x36*/ s8 unk036;
-	/*0x37*/ s8 unk037;
-};
-
 struct act_robotattack {
 	/*0x2c*/ f32 unk02c;
 	/*0x30*/ f32 unk030;
@@ -1321,7 +1298,7 @@ struct chrdata {
 		struct act_druggeddrop act_druggeddrop;
 		struct act_druggedko act_druggedko;
 		struct act_druggedcomingup act_druggedcomingup;
-		struct act_attackamount act_attackamount;
+		// act_attackamount uses act_attack
 		struct act_robotattack act_robotattack;
 		struct act_skjump act_skjump;
 	};
@@ -6037,9 +6014,9 @@ struct movedata {
 	/*0xa8*/ s32 analogwalk;
 };
 
-struct var80065750 {
-	struct animfloats *unk00;
-	u32 unk04;
+struct attackanimgroup {
+	struct attackanimconfig *animcfg;
+	u32 len;
 };
 
 struct modelthing {

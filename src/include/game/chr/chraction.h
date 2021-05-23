@@ -4,15 +4,15 @@
 #include "data.h"
 #include "types.h"
 
-extern struct animfloats var800656c0[];
-extern struct animfloats var80065be0[];
-extern struct animfloats var800663d8[];
-extern struct animfloats var80067a10;
-extern struct animfloats var80067a58;
-extern struct animfloats var80067aa0;
-extern struct animfloats var80067ae8;
-extern struct animfloats var80067b30;
-extern struct animfloats var80067b78;
+extern struct attackanimconfig var800656c0[];
+extern struct attackanimconfig var80065be0[];
+extern struct attackanimconfig var800663d8[];
+extern struct attackanimconfig var80067a10;
+extern struct attackanimconfig var80067a58;
+extern struct attackanimconfig var80067aa0;
+extern struct attackanimconfig var80067ae8;
+extern struct attackanimconfig var80067b30;
+extern struct attackanimconfig var80067b78;
 
 f32 func0f02dff0(s16 animnum);
 bool func0f02e064(struct chrdata *chr);
@@ -20,7 +20,7 @@ bool weaponIsOneHanded(struct prop *prop);
 f32 chrGetRangedSpeed(struct chrdata *chr, f32 min, f32 max);
 s32 chrGetPercentageOfSlowness(struct chrdata *chr, s32 percentage);
 f32 chrGetRangedArghSpeed(struct chrdata *chr, f32 min, f32 max);
-u32 func0f02e2d0(void);
+f32 chrGetRelativeAttackAngle(struct chrdata *chr, s32 entitytype, s32 entityid);
 f32 chrGetDistanceToEntity(struct chrdata *chr, u32 entitytype, s32 entityid);
 void func0f02e3dc(struct coord *a, struct coord *b, struct coord *c, struct coord *d, struct coord *dst);
 void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst);
@@ -47,8 +47,8 @@ void chrAttackRollChooseAnimation(struct chrdata *chr);
 void chrAttackRoll(struct chrdata *chr, bool direction);
 void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed);
 void func0f031254(struct chrdata *chr);
-void func0f031384(struct chrdata *chr, struct var80065750 **arg1, bool arg2, s32 *firing, u32 entitytype, u32 entityid, u32 arg6);
-void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 arg3);
+void chrAttack(struct chrdata *chr, struct attackanimgroup **arg1, bool flip, bool *firing, u32 entitytype, u32 entityid, u32 arg6);
+void chrAttackAmount(struct chrdata *chr, u32 entitytype, u32 entityid, u32 maxshots);
 void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh, struct shorthand *hand, bool knockout, s32 aplayernum);
 void chrBeginArgh(struct chrdata *chr, f32 angle, s32 ibh);
 void chrReactToDamage(struct chrdata *chr, struct coord *pos, f32 angle, s32 ibh, struct shorthand *hand, s32 playernum);
@@ -139,7 +139,7 @@ f32 chrGetInverseTheta(struct chrdata *chr);
 f32 chrGetAimAngle(struct chrdata *chr);
 f32 func0f03e754(struct chrdata *chr);
 void func0f03e788(struct chrdata *chr, s32 arg1, f32 arg2, f32 arg3, f32 arg4);
-void func0f03e9f4(struct chrdata *chr, struct act_attackamount_2c *arg1, s32 arg2, s32 arg3, f32 arg4);
+void func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, s32 arg2, s32 arg3, f32 arg4);
 u32 func0f03f778(void);
 f32 chrGetAimLimitAngle(f32 sqdist);
 void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct shorthand *hand);

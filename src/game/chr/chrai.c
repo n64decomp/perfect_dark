@@ -715,9 +715,9 @@ void chraiExecute(void *entity, s32 proptype)
 			if (g_Vars.chrdata->aishotlist >= 0
 					&& g_Vars.chrdata->cshield <= 0
 					&& (0 <= g_Vars.chrdata->damage || g_Vars.chrdata->gunprop != NULL)
-					&& animnum != ANIM_SNIPING_0269
-					&& animnum != ANIM_SNIPING_026B
-					&& animnum != ANIM_SNIPING_026A) {
+					&& animnum != ANIM_SNIPING_GETDOWN
+					&& animnum != ANIM_SNIPING_GETUP
+					&& animnum != ANIM_SNIPING_ONGROUND) {
 				// Set shot list
 				g_Vars.chrdata->chrflags &= ~CHRCFLAG_TRIGGERSHOTLIST;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishotlist);
