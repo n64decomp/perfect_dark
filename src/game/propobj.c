@@ -42398,7 +42398,7 @@ void chopperTickPatrol(struct prop *chopperprop)
 		padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
 		pad.pos.y += -250;
 
-		if (func0f0446e0(&chopperprop->pos, &chopperprop->pos, &pad.pos, 350)) {
+		if (posIsArrivingLaterallyAtPos(&chopperprop->pos, &chopperprop->pos, &pad.pos, 350)) {
 			chopper->nextstep = ((chopper->cw ? -1 : 1) + chopper->nextstep + chopper->path->len) % chopper->path->len;
 
 			padUnpack(chopper->path->pads[chopper->nextstep], PADFIELD_POS, &pad);
@@ -43207,7 +43207,7 @@ glabel var7f1aa6e4
 /*  f07d568:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f07d56c:	07030011 */ 	bgezl	$t8,.L0f07d5b4
 /*  f07d570:	8fa20278 */ 	lw	$v0,0x278($sp)
-/*  f07d574:	0fc111b8 */ 	jal	func0f0446e0
+/*  f07d574:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07d578:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
 /*  f07d57c:	5040000d */ 	beqzl	$v0,.L0f07d5b4
 /*  f07d580:	8fa20278 */ 	lw	$v0,0x278($sp)
@@ -43490,7 +43490,7 @@ glabel var7f1aa6e4
 /*  f07d998:	46020202 */ 	mul.s	$f8,$f0,$f2
 /*  f07d99c:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07d9a0:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
-/*  f07d9a4:	0fc11171 */ 	jal	func0f0445c4
+/*  f07d9a4:	0fc11171 */ 	jal	posIsMovingTowardsPosOrStoppedInRange
 /*  f07d9a8:	e7a8019c */ 	swc1	$f8,0x19c($sp)
 /*  f07d9ac:	50400006 */ 	beqzl	$v0,.L0f07d9c8
 /*  f07d9b0:	8fa201f8 */ 	lw	$v0,0x1f8($sp)
@@ -43866,7 +43866,7 @@ glabel var7f1aa6e4
 /*  f07def4:	46062202 */ 	mul.s	$f8,$f4,$f6
 /*  f07def8:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07defc:	44074000 */ 	mfc1	$a3,$f8
-/*  f07df00:	0fc111b8 */ 	jal	func0f0446e0
+/*  f07df00:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07df04:	00000000 */ 	nop
 /*  f07df08:	50400012 */ 	beqzl	$v0,.L0f07df54
 /*  f07df0c:	02002025 */ 	or	$a0,$s0,$zero
@@ -43881,7 +43881,7 @@ glabel var7f1aa6e4
 /*  f07df2c:	46045182 */ 	mul.s	$f6,$f10,$f4
 /*  f07df30:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07df34:	44073000 */ 	mfc1	$a3,$f6
-/*  f07df38:	0fc111b8 */ 	jal	func0f0446e0
+/*  f07df38:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07df3c:	00000000 */ 	nop
 /*  f07df40:	50400004 */ 	beqzl	$v0,.L0f07df54
 /*  f07df44:	02002025 */ 	or	$a0,$s0,$zero
@@ -44173,7 +44173,7 @@ glabel var7f1aa6e4
 /*  f07d568:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f07d56c:	07030011 */ 	bgezl	$t8,.L0f07d5b4
 /*  f07d570:	8fa20278 */ 	lw	$v0,0x278($sp)
-/*  f07d574:	0fc111b8 */ 	jal	func0f0446e0
+/*  f07d574:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07d578:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
 /*  f07d57c:	5040000d */ 	beqzl	$v0,.L0f07d5b4
 /*  f07d580:	8fa20278 */ 	lw	$v0,0x278($sp)
@@ -44456,7 +44456,7 @@ glabel var7f1aa6e4
 /*  f07d998:	46020202 */ 	mul.s	$f8,$f0,$f2
 /*  f07d99c:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07d9a0:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
-/*  f07d9a4:	0fc11171 */ 	jal	func0f0445c4
+/*  f07d9a4:	0fc11171 */ 	jal	posIsMovingTowardsPosOrStoppedInRange
 /*  f07d9a8:	e7a8019c */ 	swc1	$f8,0x19c($sp)
 /*  f07d9ac:	50400006 */ 	beqzl	$v0,.L0f07d9c8
 /*  f07d9b0:	8fa201f8 */ 	lw	$v0,0x1f8($sp)
@@ -44832,7 +44832,7 @@ glabel var7f1aa6e4
 /*  f07def4:	46062202 */ 	mul.s	$f8,$f4,$f6
 /*  f07def8:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07defc:	44074000 */ 	mfc1	$a3,$f8
-/*  f07df00:	0fc111b8 */ 	jal	func0f0446e0
+/*  f07df00:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07df04:	00000000 */ 	nop
 /*  f07df08:	50400012 */ 	beqzl	$v0,.L0f07df54
 /*  f07df0c:	02002025 */ 	or	$a0,$s0,$zero
@@ -44847,7 +44847,7 @@ glabel var7f1aa6e4
 /*  f07df2c:	46045182 */ 	mul.s	$f6,$f10,$f4
 /*  f07df30:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07df34:	44073000 */ 	mfc1	$a3,$f6
-/*  f07df38:	0fc111b8 */ 	jal	func0f0446e0
+/*  f07df38:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07df3c:	00000000 */ 	nop
 /*  f07df40:	50400004 */ 	beqzl	$v0,.L0f07df54
 /*  f07df44:	02002025 */ 	or	$a0,$s0,$zero
@@ -45137,7 +45137,7 @@ glabel var7f1aa6e0
 /*  f07c014:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f07c018:	07030011 */ 	bgezl	$t8,.NB0f07c060
 /*  f07c01c:	8fa20278 */ 	lw	$v0,0x278($sp)
-/*  f07c020:	0fc10fab */ 	jal	func0f0446e0
+/*  f07c020:	0fc10fab */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07c024:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
 /*  f07c028:	5040000d */ 	beqzl	$v0,.NB0f07c060
 /*  f07c02c:	8fa20278 */ 	lw	$v0,0x278($sp)
@@ -45421,7 +45421,7 @@ glabel var7f1aa6e0
 /*  f07c448:	46020102 */ 	mul.s	$f4,$f0,$f2
 /*  f07c44c:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07c450:	8fa701f4 */ 	lw	$a3,0x1f4($sp)
-/*  f07c454:	0fc10f64 */ 	jal	func0f0445c4
+/*  f07c454:	0fc10f64 */ 	jal	posIsMovingTowardsPosOrStoppedInRange
 /*  f07c458:	e7a4019c */ 	swc1	$f4,0x19c($sp)
 /*  f07c45c:	50400006 */ 	beqzl	$v0,.NB0f07c478
 /*  f07c460:	8fa201f8 */ 	lw	$v0,0x1f8($sp)
@@ -45782,7 +45782,7 @@ glabel var7f1aa6e0
 /*  f07c96c:	46044282 */ 	mul.s	$f10,$f8,$f4
 /*  f07c970:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07c974:	44075000 */ 	mfc1	$a3,$f10
-/*  f07c978:	0fc10fab */ 	jal	func0f0446e0
+/*  f07c978:	0fc10fab */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07c97c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07c980:	50400012 */ 	beqzl	$v0,.NB0f07c9cc
 /*  f07c984:	02002025 */ 	or	$a0,$s0,$zero
@@ -45797,7 +45797,7 @@ glabel var7f1aa6e0
 /*  f07c9a4:	46083102 */ 	mul.s	$f4,$f6,$f8
 /*  f07c9a8:	27a60214 */ 	addiu	$a2,$sp,0x214
 /*  f07c9ac:	44072000 */ 	mfc1	$a3,$f4
-/*  f07c9b0:	0fc10fab */ 	jal	func0f0446e0
+/*  f07c9b0:	0fc10fab */ 	jal	posIsArrivingLaterallyAtPos
 /*  f07c9b4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07c9b8:	50400004 */ 	beqzl	$v0,.NB0f07c9cc
 /*  f07c9bc:	02002025 */ 	or	$a0,$s0,$zero
@@ -45956,7 +45956,7 @@ glabel var7f1aa6e0
 //		sp214.z = pad.pos.z;
 //
 //		if ((hovercar->base.flags & OBJFLAG_20000000)
-//				&& func0f0446e0(&prop->pos, &prop->pos, &sp214, sp1f4)) {
+//				&& posIsArrivingLaterallyAtPos(&prop->pos, &prop->pos, &sp214, sp1f4)) {
 //			hovercarIncrementStep(hovercar);
 //			padnum = &hovercar->path->pads[hovercar->nextstep];
 //			padUnpack(*padnum, PADFIELD_POS, &pad);
@@ -46054,7 +46054,7 @@ glabel var7f1aa6e0
 //		sp194.y = sinf(hovercar->rotx);
 //		sp194.z = cosf(hovercar->rotx) * cosf(hovercar->roty);
 //
-//		if (func0f0445c4(&prop->pos, &sp194, &sp214, sp1f4)) {
+//		if (posIsMovingTowardsPosOrStoppedInRange(&prop->pos, &sp194, &sp214, sp1f4)) {
 //			sp200 = hovercar->roty;
 //			sp1fc = hovercar->rotx;
 //		}
@@ -46166,11 +46166,11 @@ glabel var7f1aa6e0
 //
 //		if (hovercar->path) {
 //			if (hovercar->path->pads[hovercar->nextstep + 1] >= 0) {
-//				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
+//				if (posIsArrivingLaterallyAtPos(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
 //					hovercarIncrementStep(hovercar);
 //				}
 //			} else {
-//				if (func0f0446e0(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
+//				if (posIsArrivingLaterallyAtPos(&prop->pos, &sp150, &sp214, hovercar->speed * sp1f4)) {
 //					hovercarIncrementStep(hovercar);
 //				}
 //			}

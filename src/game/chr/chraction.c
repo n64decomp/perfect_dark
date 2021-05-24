@@ -19971,25 +19971,30 @@ void chrTickAttackWalk(struct chrdata *chr)
 	}
 }
 
-bool func0f0445c4(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3)
+/**
+ * This function might be misnamed. It was named by isolating it and testing it
+ * with different inputs to see what it returns, but I couldn't determine how
+ * the range affects the latter part of the function.
+ */
+bool posIsMovingTowardsPosOrStoppedInRange(struct coord *prevpos, struct coord *moveddelta, struct coord *targetpos, f32 range)
 {
-	struct coord diff;
+	struct coord prevdist;
 	f32 tmp;
 
-	diff.x = arg2->x - arg0->x;
-	diff.z = arg2->z - arg0->z;
+	prevdist.x = targetpos->x - prevpos->x;
+	prevdist.z = targetpos->z - prevpos->z;
 
-	if (arg1->f[0] == 0 && arg1->f[2] == 0) {
-		return diff.f[0] * diff.f[0] + diff.f[2] * diff.f[2] <= arg3 * arg3;
+	if (moveddelta->f[0] == 0 && moveddelta->f[2] == 0) {
+		return prevdist.f[0] * prevdist.f[0] + prevdist.f[2] * prevdist.f[2] <= range * range;
 	}
 
-	tmp = arg1->f[0] * diff.f[0] + arg1->f[2] * diff.f[2];
+	tmp = moveddelta->f[0] * prevdist.f[0] + moveddelta->f[2] * prevdist.f[2];
 
 	if (tmp > 0) {
-		f32 a = arg1->f[0] * arg1->f[0] + arg1->f[2] * arg1->f[2];
-		f32 b = diff.f[0] * diff.f[0] + diff.f[2] * diff.f[2];
+		f32 sqmoveddist = moveddelta->f[0] * moveddelta->f[0] + moveddelta->f[2] * moveddelta->f[2];
+		f32 sqprevdist = prevdist.f[0] * prevdist.f[0] + prevdist.f[2] * prevdist.f[2];
 
-		if ((b - arg3 * arg3) * a <= tmp * tmp) {
+		if ((sqprevdist - range * range) * sqmoveddist <= tmp * tmp) {
 			return true;
 		}
 
@@ -19999,100 +20004,59 @@ bool func0f0445c4(struct coord *arg0, struct coord *arg1, struct coord *arg2, f3
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0446e0
-/*  f0446e0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0446e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0446e8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0446ec:	44876000 */ 	mtc1	$a3,$f12
-/*  f0446f0:	c4c00000 */ 	lwc1	$f0,0x0($a2)
-/*  f0446f4:	c4900000 */ 	lwc1	$f16,0x0($a0)
-/*  f0446f8:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0446fc:	460c0081 */ 	sub.s	$f2,$f0,$f12
-/*  f044700:	4602803e */ 	c.le.s	$f16,$f2
-/*  f044704:	00000000 */ 	nop
-/*  f044708:	45020009 */ 	bc1fl	.L0f044730
-/*  f04470c:	460c0080 */ 	add.s	$f2,$f0,$f12
-/*  f044710:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f044714:	4602203e */ 	c.le.s	$f4,$f2
-/*  f044718:	00000000 */ 	nop
-/*  f04471c:	45020004 */ 	bc1fl	.L0f044730
-/*  f044720:	460c0080 */ 	add.s	$f2,$f0,$f12
-/*  f044724:	10000033 */ 	b	.L0f0447f4
-/*  f044728:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04472c:	460c0080 */ 	add.s	$f2,$f0,$f12
-.L0f044730:
-/*  f044730:	4610103e */ 	c.le.s	$f2,$f16
-/*  f044734:	00000000 */ 	nop
-/*  f044738:	45020009 */ 	bc1fl	.L0f044760
-/*  f04473c:	c4c00008 */ 	lwc1	$f0,0x8($a2)
-/*  f044740:	c6060000 */ 	lwc1	$f6,0x0($s0)
-/*  f044744:	4606103e */ 	c.le.s	$f2,$f6
-/*  f044748:	00000000 */ 	nop
-/*  f04474c:	45020004 */ 	bc1fl	.L0f044760
-/*  f044750:	c4c00008 */ 	lwc1	$f0,0x8($a2)
-/*  f044754:	10000027 */ 	b	.L0f0447f4
-/*  f044758:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04475c:	c4c00008 */ 	lwc1	$f0,0x8($a2)
-.L0f044760:
-/*  f044760:	c48e0008 */ 	lwc1	$f14,0x8($a0)
-/*  f044764:	460c0081 */ 	sub.s	$f2,$f0,$f12
-/*  f044768:	4602703e */ 	c.le.s	$f14,$f2
-/*  f04476c:	00000000 */ 	nop
-/*  f044770:	45020009 */ 	bc1fl	.L0f044798
-/*  f044774:	460c0080 */ 	add.s	$f2,$f0,$f12
-/*  f044778:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f04477c:	4602403e */ 	c.le.s	$f8,$f2
-/*  f044780:	00000000 */ 	nop
-/*  f044784:	45020004 */ 	bc1fl	.L0f044798
-/*  f044788:	460c0080 */ 	add.s	$f2,$f0,$f12
-/*  f04478c:	10000019 */ 	b	.L0f0447f4
-/*  f044790:	00001025 */ 	or	$v0,$zero,$zero
-/*  f044794:	460c0080 */ 	add.s	$f2,$f0,$f12
-.L0f044798:
-/*  f044798:	460e103e */ 	c.le.s	$f2,$f14
-/*  f04479c:	00000000 */ 	nop
-/*  f0447a0:	45020009 */ 	bc1fl	.L0f0447c8
-/*  f0447a4:	c6120000 */ 	lwc1	$f18,0x0($s0)
-/*  f0447a8:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f0447ac:	460a103e */ 	c.le.s	$f2,$f10
-/*  f0447b0:	00000000 */ 	nop
-/*  f0447b4:	45020004 */ 	bc1fl	.L0f0447c8
-/*  f0447b8:	c6120000 */ 	lwc1	$f18,0x0($s0)
-/*  f0447bc:	1000000d */ 	b	.L0f0447f4
-/*  f0447c0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0447c4:	c6120000 */ 	lwc1	$f18,0x0($s0)
-.L0f0447c8:
-/*  f0447c8:	44803000 */ 	mtc1	$zero,$f6
-/*  f0447cc:	44076000 */ 	mfc1	$a3,$f12
-/*  f0447d0:	46109101 */ 	sub.s	$f4,$f18,$f16
-/*  f0447d4:	e7a60038 */ 	swc1	$f6,0x38($sp)
-/*  f0447d8:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0447dc:	e7a40034 */ 	swc1	$f4,0x34($sp)
-/*  f0447e0:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f0447e4:	c6080008 */ 	lwc1	$f8,0x8($s0)
-/*  f0447e8:	460a4481 */ 	sub.s	$f18,$f8,$f10
-/*  f0447ec:	0fc11171 */ 	jal	func0f0445c4
-/*  f0447f0:	e7b2003c */ 	swc1	$f18,0x3c($sp)
-.L0f0447f4:
-/*  f0447f4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0447f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0447fc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f044800:	03e00008 */ 	jr	$ra
-/*  f044804:	00000000 */ 	nop
-);
-
-bool func0f044808(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 arg3)
+/**
+ * Return true if:
+ * - either prevpos or curpos is within the given range of targetpos, and
+ * - the prev -> cur delta is moving towards the targetpos or is stopped inside
+ *   the range.
+ *
+ * This is a lateral check, meaning the Y value is not considered.
+ */
+bool posIsArrivingLaterallyAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range)
 {
-	if (targetpos->y - 150 >= prevpos->y && targetpos->y - 150 >= curpos->y) {
+	struct coord moveddelta;
+
+	if (prevpos->x <= targetpos->x - range && curpos->x <= targetpos->x - range) {
 		return false;
 	}
 
-	if (targetpos->y + 150 <= prevpos->y && targetpos->y + 150 <= curpos->y) {
+	if (prevpos->x >= targetpos->x + range && curpos->x >= targetpos->x + range) {
 		return false;
 	}
 
-	return func0f0446e0(prevpos, curpos, targetpos, arg3);
+	if (prevpos->z <= targetpos->z - range && curpos->z <= targetpos->z - range) {
+		return false;
+	}
+
+	if (prevpos->z >= targetpos->z + range && curpos->z >= targetpos->z + range) {
+		return false;
+	}
+
+	moveddelta.x = curpos->x - prevpos->x;
+	moveddelta.y = 0;
+	moveddelta.z = curpos->z - prevpos->z;
+
+	return posIsMovingTowardsPosOrStoppedInRange(prevpos, &moveddelta, targetpos, range);
+}
+
+/**
+ * Return true if:
+ * - either prevpos or curpos is within the given range of targetpos,
+ * - the prev -> cur delta is moving towards the targetpos or is stopped inside
+ *   the range, and
+ * - either prevpos or curpos is within 150cm vertically of targetpos.
+ */
+bool posIsArrivingAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range)
+{
+	if (prevpos->y <= targetpos->y - 150 && curpos->y <= targetpos->y - 150) {
+		return false;
+	}
+
+	if (prevpos->y >= targetpos->y + 150 && curpos->y >= targetpos->y + 150) {
+		return false;
+	}
+
+	return posIsArrivingLaterallyAtPos(prevpos, curpos, targetpos, range);
 }
 
 void chrTickRunPos(struct chrdata *chr)
@@ -20117,7 +20081,7 @@ void chrTickRunPos(struct chrdata *chr)
 
 	if (chr->invalidmove == 1
 			|| g_Vars.lvframe60 - PALDOWN(60) > chr->lastmoveok60
-			|| func0f0446e0(&chr->prevpos, &prop->pos, &chr->act_runpos.pos, chr->act_runpos.unk038)) {
+			|| posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &chr->act_runpos.pos, chr->act_runpos.unk038)) {
 		if (race == RACE_HUMAN) {
 			modelGetAnimNum(model);
 		}
@@ -23343,8 +23307,8 @@ void chrTickGoPos(struct chrdata *chr)
 
 		// Both of these functions are calculating something with the coords
 		// and are returning a boolean. There are no write operations.
-		sp188 = func0f044808(&chr->prevpos, &prop->pos, &pad.pos, 30);
-		sp184 = func0f0446e0(&chr->prevpos, &prop->pos, &pad.pos, 30);
+		sp188 = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
+		sp184 = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &pad.pos, 30);
 
 		if (pad.flags & PADFLAG_AIDUCK) {
 			chr->act_gopos.flags |= GOPOSFLAG_DUCK;
@@ -23361,8 +23325,8 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 	} else {
 		// No more waypoints - chr is finished
-		if (func0f044808(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30) ||
-				(chr->inlift && func0f0446e0(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30))) {
+		if (posIsArrivingAtPos(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30) ||
+				(chr->inlift && posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30))) {
 			if (chr->act_gopos.flags & GOPOSFLAG_FORPATHSTART) {
 				chrTryStartPatrol(chr);
 				return;
@@ -23647,13 +23611,13 @@ glabel chrTickPatrol
 /*  f047594:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f047598:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f04759c:	3c0741f0 */ 	lui	$a3,0x41f0
-/*  f0475a0:	0fc111b8 */ 	jal	func0f0446e0
+/*  f0475a0:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f0475a4:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f0475a8:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f0475ac:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f0475b0:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f0475b4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0475b8:	0fc11202 */ 	jal	func0f044808
+/*  f0475b8:	0fc11202 */ 	jal	posIsArrivingAtPos
 /*  f0475bc:	3c0741f0 */ 	lui	$a3,0x41f0
 /*  f0475c0:	8fae0064 */ 	lw	$t6,0x64($sp)
 /*  f0475c4:	afa20040 */ 	sw	$v0,0x40($sp)
@@ -23836,13 +23800,13 @@ glabel chrTickPatrol
 /*  f047594:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f047598:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f04759c:	3c0741f0 */ 	lui	$a3,0x41f0
-/*  f0475a0:	0fc111b8 */ 	jal	func0f0446e0
+/*  f0475a0:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
 /*  f0475a4:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f0475a8:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f0475ac:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f0475b0:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f0475b4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0475b8:	0fc11202 */ 	jal	func0f044808
+/*  f0475b8:	0fc11202 */ 	jal	posIsArrivingAtPos
 /*  f0475bc:	3c0741f0 */ 	lui	$a3,0x41f0
 /*  f0475c0:	8fae0064 */ 	lw	$t6,0x64($sp)
 /*  f0475c4:	afa20040 */ 	sw	$v0,0x40($sp)
