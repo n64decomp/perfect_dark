@@ -267,7 +267,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, s
 				if (oppchr != chr
 						&& value > rand
 						&& func0f06b39c(arg3, vector, &oppprop->pos, func0f0278a4(oppchr))) {
-					func0f0a7d98(&hand, oppprop, -1);
+					handPlayPropHitSound(&hand, oppprop, -1);
 
 					if (oppchr->model && chrGetShield(oppchr) > 0) {
 						chrCalculateShieldHit(oppchr, &oppprop->pos, vector, &node, &ibh, &model, &side);

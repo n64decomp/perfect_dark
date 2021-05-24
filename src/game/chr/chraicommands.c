@@ -813,7 +813,7 @@ bool ai0019(void)
 
 	if (chr && chr->prop) {
 		f32 damage = handGetDamage((struct shorthand *)&cmd[4]);
-		func0f034330(chr, damage, &pos, (struct shorthand *)&cmd[4], NULL, (s8)cmd[3]);
+		chrDamageByImpact(chr, damage, &pos, (struct shorthand *)&cmd[4], NULL, (s8)cmd[3]);
 	}
 
 	g_Vars.aioffset += 8;
@@ -847,7 +847,7 @@ bool aiChrDamageChr(void)
 			guNormalize(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
 			damage = handGetDamage((struct shorthand *)&weapon->weaponnum);
-			func0f034330(chr2, damage, &vector, (struct shorthand *)&weapon->weaponnum, chr1->prop, (s8)cmd[4]);
+			chrDamageByImpact(chr2, damage, &vector, (struct shorthand *)&weapon->weaponnum, chr1->prop, (s8)cmd[4]);
 		}
 	}
 

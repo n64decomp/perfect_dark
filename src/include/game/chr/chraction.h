@@ -62,7 +62,7 @@ bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop
 void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop);
 void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop);
 void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10);
-void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 arg5);
+void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 arg5);
 void chrDamageByExplosion(struct chrdata *chr, f32 damage, struct coord *vector, struct prop *prop, struct coord *explosionpos);
 void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 damage);
 void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *aprop, s32 ibh, bool damageshield, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg11, bool explosion, struct coord *explosionpos);
@@ -116,7 +116,7 @@ s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2);
 bool chrTryRunFromTarget(struct chrdata *chr);
 u32 func0f03b1e0(struct chrdata *chr);
 bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum);
-void func0f03ba44(struct chrdata *chr, u32 arg1, u32 arg2, u32 arg3);
+void chrPunchInflictDamage(struct chrdata *chr, s32 arg1, s32 arg2, u8 arg3);
 bool chrTryPunchOrKick(struct chrdata *chr, u32 arg1);
 struct eyespy *chrToEyespy(struct chrdata *chr);
 void chrTickStand(struct chrdata *chr);

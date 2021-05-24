@@ -9133,7 +9133,7 @@ glabel var7f1b8fc8
 /*  f197f4c:	02802025 */ 	move	$a0,$s4
 /*  f197f50:	24050002 */ 	li	$a1,0x2
 /*  f197f54:	02003025 */ 	move	$a2,$s0
-/*  f197f58:	0fc0eef2 */ 	jal	func0f03ba44
+/*  f197f58:	0fc0eef2 */ 	jal	chrPunchInflictDamage
 /*  f197f5c:	00003825 */ 	move	$a3,$zero
 /*  f197f60:	16600199 */ 	bnez	$s3,.PF0f1985c8
 /*  f197f64:	00000000 */ 	nop
@@ -12141,7 +12141,7 @@ glabel var7f1b8fc8
 /*  f196e7c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196e80:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f196e84:	02003025 */ 	or	$a2,$s0,$zero
-/*  f196e88:	0fc0ee91 */ 	jal	func0f03ba44
+/*  f196e88:	0fc0ee91 */ 	jal	chrPunchInflictDamage
 /*  f196e8c:	00003825 */ 	or	$a3,$zero,$zero
 /*  f196e90:	1660018e */ 	bnez	$s3,.L0f1974cc
 /*  f196e94:	00000000 */ 	nop

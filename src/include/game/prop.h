@@ -18,7 +18,7 @@ void propReparent(struct prop *mover, struct prop *adopter);
 void propDetach(struct prop *prop);
 Gfx *propRender(Gfx *gdl, struct prop *prop, bool withalpha);
 Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3);
-u32 func0f060984(void);
+void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop);
 u32 func0f060bac(void);
 void func0f060db8(s32 handnum, bool arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5, u32 arg6, f32 arg7, bool arg8);
 struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2);

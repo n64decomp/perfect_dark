@@ -4172,7 +4172,7 @@ void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 }
 
 /**
- * Unused, and same as func0f034330 but sets ibh to IBH_GENERAL instead of argument.
+ * Unused, and same as chrDamageByImpact but sets ibh to IBH_GENERAL instead of argument.
  */
 void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
 {
@@ -4196,7 +4196,10 @@ void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 			NULL);     // explosionpos
 }
 
-void func0f034330(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 ibh)
+/**
+ * Used for punching, but also used by AI commands to make chrs take damage.
+ */
+void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 ibh)
 {
 	struct modelnode *node = NULL;
 	struct model *model = NULL;
@@ -7662,77 +7665,6 @@ bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
 	return cansee;
 }
 
-u32 var80068298 = 0x01000000;
-u32 var8006829c = 0x0000027c;
-u32 var800682a0 = 0x00000005;
-u32 var800682a4 = 0x00140000;
-u32 var800682a8 = 0x42700000;
-u32 var800682ac = 0x0000027d;
-u32 var800682b0 = 0x00000005;
-u32 var800682b4 = 0x00140000;
-u32 var800682b8 = 0x41f80000;
-u32 var800682bc = 0x0000027e;
-u32 var800682c0 = 0x00000005;
-u32 var800682c4 = 0x00140000;
-u32 var800682c8 = 0x42400000;
-u32 var800682cc = 0x0000027f;
-u32 var800682d0 = 0x00000005;
-u32 var800682d4 = 0x00140000;
-u32 var800682d8 = 0x428a0000;
-u32 var800682dc = 0x00000212;
-u32 var800682e0 = 0x00000005;
-u32 var800682e4 = 0x00140000;
-u32 var800682e8 = 0x42800000;
-u32 var800682ec = 0x00000213;
-u32 var800682f0 = 0x00000005;
-u32 var800682f4 = 0x00140000;
-u32 var800682f8 = 0x42500000;
-u32 var800682fc = 0x00000214;
-u32 var80068300 = 0x00000005;
-u32 var80068304 = 0x00140000;
-u32 var80068308 = 0x424c0000;
-u32 var8006830c = 0x0000020e;
-u32 var80068310 = 0x00000005;
-u32 var80068314 = 0x00140000;
-u32 var80068318 = 0x42540000;
-u32 var8006831c = 0x0000020f;
-u32 var80068320 = 0x00000005;
-u32 var80068324 = 0x00140000;
-u32 var80068328 = 0x42b20000;
-u32 var8006832c = 0x00000210;
-u32 var80068330 = 0x00000005;
-u32 var80068334 = 0x00140000;
-u32 var80068338 = 0x428e0000;
-u32 var8006833c = 0x00000215;
-u32 var80068340 = 0x00000005;
-u32 var80068344 = 0x00140000;
-u32 var80068348 = 0x42780000;
-u32 var8006834c = 0x00000211;
-u32 var80068350 = 0x00000005;
-u32 var80068354 = 0x00140000;
-u32 var80068358 = 0x42900000;
-u32 var8006835c = 0x0000034c;
-u32 var80068360 = 0x0000000f;
-u32 var80068364 = 0x00190000;
-u32 var80068368 = 0x42c80000;
-u32 var8006836c = 0x0000034d;
-u32 var80068370 = 0x0000000f;
-u32 var80068374 = 0x00190000;
-u32 var80068378 = 0xbf800000;
-u32 var8006837c = 0x00000395;
-u32 var80068380 = 0x0000000f;
-u32 var80068384 = 0x00190000;
-u32 var80068388 = 0xbf800000;
-u32 var8006838c = 0x00000346;
-u32 var80068390 = 0x0000000f;
-u32 var80068394 = 0x00190000;
-u32 var80068398 = 0xbf800000;
-u32 var8006839c = 0x00000347;
-u32 var800683a0 = 0x0000000f;
-u32 var800683a4 = 0x00190000;
-u32 var800683a8 = 0xbf800000;
-u32 var800683ac = 0x0000034f;
-
 bool chrCanSeeTarget(struct chrdata *chr)
 {
 	bool cansee;
@@ -9082,109 +9014,105 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f03ba44
-/*  f03ba44:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f03ba48:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f03ba4c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f03ba50:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03ba54:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f03ba58:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f03ba5c:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f03ba60:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03ba64:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f03ba68:	3c0e8007 */ 	lui	$t6,%hi(var80068298)
-/*  f03ba6c:	8dce8298 */ 	lw	$t6,%lo(var80068298)($t6)
-/*  f03ba70:	00408825 */ 	or	$s1,$v0,$zero
-/*  f03ba74:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03ba78:	afae0040 */ 	sw	$t6,0x40($sp)
-/*  f03ba7c:	8e0302d4 */ 	lw	$v1,0x2d4($s0)
-/*  f03ba80:	24050014 */ 	addiu	$a1,$zero,0x14
-/*  f03ba84:	10600008 */ 	beqz	$v1,.L0f03baa8
-/*  f03ba88:	00000000 */ 	nop
-/*  f03ba8c:	8c6f0020 */ 	lw	$t7,0x20($v1)
-/*  f03ba90:	a3af0040 */ 	sb	$t7,0x40($sp)
-/*  f03ba94:	8e1802d4 */ 	lw	$t8,0x2d4($s0)
-/*  f03ba98:	8f19004c */ 	lw	$t9,0x4c($t8)
-/*  f03ba9c:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f03baa0:	00084fc2 */ 	srl	$t1,$t0,0x1f
-/*  f03baa4:	a3a90043 */ 	sb	$t1,0x43($sp)
-.L0f03baa8:
-/*  f03baa8:	0fc1241a */ 	jal	chrIsTargetInFov
-/*  f03baac:	93a60057 */ 	lbu	$a2,0x57($sp)
-/*  f03bab0:	5040003e */ 	beqzl	$v0,.L0f03bbac
-/*  f03bab4:	93a40040 */ 	lbu	$a0,0x40($sp)
-/*  f03bab8:	0fc12472 */ 	jal	chrGetDistanceToTarget
-/*  f03babc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03bac0:	8faa0050 */ 	lw	$t2,0x50($sp)
-/*  f03bac4:	448a2000 */ 	mtc1	$t2,$f4
-/*  f03bac8:	00000000 */ 	nop
-/*  f03bacc:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f03bad0:	4606003c */ 	c.lt.s	$f0,$f6
-/*  f03bad4:	00000000 */ 	nop
-/*  f03bad8:	45020034 */ 	bc1fl	.L0f03bbac
-/*  f03badc:	93a40040 */ 	lbu	$a0,0x40($sp)
-/*  f03bae0:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f03bae4:	26260008 */ 	addiu	$a2,$s1,0x8
-/*  f03bae8:	24070033 */ 	addiu	$a3,$zero,0x33
-/*  f03baec:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f03baf0:	0c00b706 */ 	jal	func0002dc18
-/*  f03baf4:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f03baf8:	5040002c */ 	beqzl	$v0,.L0f03bbac
-/*  f03bafc:	93a40040 */ 	lbu	$a0,0x40($sp)
-/*  f03bb00:	8e0b001c */ 	lw	$t3,0x1c($s0)
-/*  f03bb04:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f03bb08:	44809000 */ 	mtc1	$zero,$f18
-/*  f03bb0c:	c56a0008 */ 	lwc1	$f10,0x8($t3)
-/*  f03bb10:	27a40034 */ 	addiu	$a0,$sp,0x34
-/*  f03bb14:	e7b20038 */ 	swc1	$f18,0x38($sp)
-/*  f03bb18:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f03bb1c:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f03bb20:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f03bb24:	e7b00034 */ 	swc1	$f16,0x34($sp)
-/*  f03bb28:	8e0c001c */ 	lw	$t4,0x1c($s0)
-/*  f03bb2c:	c6240010 */ 	lwc1	$f4,0x10($s1)
-/*  f03bb30:	c5860010 */ 	lwc1	$f6,0x10($t4)
-/*  f03bb34:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f03bb38:	0c0011e4 */ 	jal	guNormalize
-/*  f03bb3c:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-/*  f03bb40:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f03bb44:	02202825 */ 	or	$a1,$s1,$zero
-/*  f03bb48:	0fc29f66 */ 	jal	func0f0a7d98
-/*  f03bb4c:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f03bb50:	92220000 */ 	lbu	$v0,0x0($s1)
-/*  f03bb54:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f03bb58:	10410003 */ 	beq	$v0,$at,.L0f03bb68
-/*  f03bb5c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03bb60:	54410012 */ 	bnel	$v0,$at,.L0f03bbac
-/*  f03bb64:	93a40040 */ 	lbu	$a0,0x40($sp)
-.L0f03bb68:
-/*  f03bb68:	0fc2c74a */ 	jal	handGetDamage
-/*  f03bb6c:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f03bb70:	8fad004c */ 	lw	$t5,0x4c($sp)
-/*  f03bb74:	8e0e001c */ 	lw	$t6,0x1c($s0)
-/*  f03bb78:	8e240004 */ 	lw	$a0,0x4($s1)
-/*  f03bb7c:	448d5000 */ 	mtc1	$t5,$f10
-/*  f03bb80:	240f00c8 */ 	addiu	$t7,$zero,0xc8
-/*  f03bb84:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f03bb88:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f03bb8c:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f03bb90:	27a70040 */ 	addiu	$a3,$sp,0x40
-/*  f03bb94:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f03bb98:	46100482 */ 	mul.s	$f18,$f0,$f16
-/*  f03bb9c:	44059000 */ 	mfc1	$a1,$f18
-/*  f03bba0:	0fc0d0cc */ 	jal	func0f034330
-/*  f03bba4:	00000000 */ 	nop
-/*  f03bba8:	93a40040 */ 	lbu	$a0,0x40($sp)
-.L0f03bbac:
-/*  f03bbac:	0fc18261 */ 	jal	func0f060984
-/*  f03bbb0:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f03bbb4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03bbb8:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f03bbbc:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f03bbc0:	03e00008 */ 	jr	$ra
-/*  f03bbc4:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 arg3)
+{
+	struct prop *targetprop = chrGetTargetProp(chr);
+	struct shorthand hand = {WEAPON_UNARMED, 0, 0, FUNC_PRIMARY};
+	struct coord vector;
+
+	if (chr->aibot) {
+		hand.weaponnum = chr->aibot->weaponnum;
+		hand.weaponfunc = chr->aibot->gunfunc;
+	}
+
+	if (chrIsTargetInFov(chr, 20, arg3)
+			&& chrGetDistanceToTarget(chr) < range
+			&& func0002dc18(&chr->prop->pos, chr->prop->rooms, &targetprop->pos, 0x33)) {
+		vector.x = targetprop->pos.x - chr->prop->pos.x;
+		vector.y = 0;
+		vector.z = targetprop->pos.z - chr->prop->pos.z;
+
+		guNormalize(&vector.x, &vector.y, &vector.z);
+
+		handPlayPropHitSound(&hand, targetprop, -1);
+
+		if (targetprop->type == PROPTYPE_PLAYER || targetprop->type == PROPTYPE_CHR) {
+			chrDamageByImpact(targetprop->chr, handGetDamage(&hand) * damage, &vector, &hand, chr->prop, 200);
+		}
+	}
+
+	weaponPlayWhooshSound(hand.weaponnum, chr->prop);
+}
+
+u32 var8006829c = 0x0000027c;
+u32 var800682a0 = 0x00000005;
+u32 var800682a4 = 0x00140000;
+u32 var800682a8 = 0x42700000;
+u32 var800682ac = 0x0000027d;
+u32 var800682b0 = 0x00000005;
+u32 var800682b4 = 0x00140000;
+u32 var800682b8 = 0x41f80000;
+u32 var800682bc = 0x0000027e;
+u32 var800682c0 = 0x00000005;
+u32 var800682c4 = 0x00140000;
+u32 var800682c8 = 0x42400000;
+u32 var800682cc = 0x0000027f;
+u32 var800682d0 = 0x00000005;
+u32 var800682d4 = 0x00140000;
+u32 var800682d8 = 0x428a0000;
+u32 var800682dc = 0x00000212;
+u32 var800682e0 = 0x00000005;
+u32 var800682e4 = 0x00140000;
+u32 var800682e8 = 0x42800000;
+u32 var800682ec = 0x00000213;
+u32 var800682f0 = 0x00000005;
+u32 var800682f4 = 0x00140000;
+u32 var800682f8 = 0x42500000;
+u32 var800682fc = 0x00000214;
+u32 var80068300 = 0x00000005;
+u32 var80068304 = 0x00140000;
+u32 var80068308 = 0x424c0000;
+u32 var8006830c = 0x0000020e;
+u32 var80068310 = 0x00000005;
+u32 var80068314 = 0x00140000;
+u32 var80068318 = 0x42540000;
+u32 var8006831c = 0x0000020f;
+u32 var80068320 = 0x00000005;
+u32 var80068324 = 0x00140000;
+u32 var80068328 = 0x42b20000;
+u32 var8006832c = 0x00000210;
+u32 var80068330 = 0x00000005;
+u32 var80068334 = 0x00140000;
+u32 var80068338 = 0x428e0000;
+u32 var8006833c = 0x00000215;
+u32 var80068340 = 0x00000005;
+u32 var80068344 = 0x00140000;
+u32 var80068348 = 0x42780000;
+u32 var8006834c = 0x00000211;
+u32 var80068350 = 0x00000005;
+u32 var80068354 = 0x00140000;
+u32 var80068358 = 0x42900000;
+u32 var8006835c = 0x0000034c;
+u32 var80068360 = 0x0000000f;
+u32 var80068364 = 0x00190000;
+u32 var80068368 = 0x42c80000;
+u32 var8006836c = 0x0000034d;
+u32 var80068370 = 0x0000000f;
+u32 var80068374 = 0x00190000;
+u32 var80068378 = 0xbf800000;
+u32 var8006837c = 0x00000395;
+u32 var80068380 = 0x0000000f;
+u32 var80068384 = 0x00190000;
+u32 var80068388 = 0xbf800000;
+u32 var8006838c = 0x00000346;
+u32 var80068390 = 0x0000000f;
+u32 var80068394 = 0x00190000;
+u32 var80068398 = 0xbf800000;
+u32 var8006839c = 0x00000347;
+u32 var800683a0 = 0x0000000f;
+u32 var800683a4 = 0x00190000;
+u32 var800683a8 = 0xbf800000;
+u32 var800683ac = 0x0000034f;
 
 GLOBAL_ASM(
 glabel chrTryPunchOrKick
@@ -10121,7 +10049,7 @@ void chrTickAnim(struct chrdata *chr)
 
 	if (chr->act_anim.unk040 != 0 && modelGetCurAnimFrame(chr->model) >= (s32)chr->act_anim.unk042) {
 		chr->act_anim.unk040 = 0;
-		func0f03ba44(chr, chr->act_anim.unk044, chr->act_anim.unk046, chr->act_anim.unk041);
+		chrPunchInflictDamage(chr, chr->act_anim.unk044, chr->act_anim.unk046, chr->act_anim.unk041);
 	}
 
 	// Play sneezing sound
@@ -14326,7 +14254,7 @@ glabel var7f1a9184
 .PF0f041678:
 /*  f041678:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f04167c:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f041680:	0fc2a079 */ 	jal	func0f0a7d98
+/*  f041680:	0fc2a079 */ 	jal	handPlayPropHitSound
 /*  f041684:	2406ffff */ 	li	$a2,-1
 /*  f041688:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f04168c:	8c8b0020 */ 	lw	$t3,0x20($a0)
@@ -14430,7 +14358,7 @@ glabel var7f1a9184
 /*  f0417f4:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0417f8:	8cad0004 */ 	lw	$t5,0x4($a1)
 /*  f0417fc:	2406ffff */ 	li	$a2,-1
-/*  f041800:	0fc2a079 */ 	jal	func0f0a7d98
+/*  f041800:	0fc2a079 */ 	jal	handPlayPropHitSound
 /*  f041804:	afad0070 */ 	sw	$t5,0x70($sp)
 /*  f041808:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f04180c:	8c990020 */ 	lw	$t9,0x20($a0)
@@ -14510,7 +14438,7 @@ glabel var7f1a9184
 .PF0f041920:
 /*  f041920:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041924:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f041928:	0fc2a079 */ 	jal	func0f0a7d98
+/*  f041928:	0fc2a079 */ 	jal	handPlayPropHitSound
 /*  f04192c:	2406ffff */ 	li	$a2,-1
 /*  f041930:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f041934:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -15916,7 +15844,7 @@ glabel var7f1a9184
 .L0f0414d4:
 /*  f0414d4:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0414d8:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f0414dc:	0fc29f66 */ 	jal	func0f0a7d98
+/*  f0414dc:	0fc29f66 */ 	jal	handPlayPropHitSound
 /*  f0414e0:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f0414e4:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f0414e8:	8c8e0020 */ 	lw	$t6,0x20($a0)
@@ -16020,7 +15948,7 @@ glabel var7f1a9184
 /*  f041650:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041654:	8cac0004 */ 	lw	$t4,0x4($a1)
 /*  f041658:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f04165c:	0fc29f66 */ 	jal	func0f0a7d98
+/*  f04165c:	0fc29f66 */ 	jal	handPlayPropHitSound
 /*  f041660:	afac0070 */ 	sw	$t4,0x70($sp)
 /*  f041664:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f041668:	8c8d0020 */ 	lw	$t5,0x20($a0)
@@ -16100,7 +16028,7 @@ glabel var7f1a9184
 .L0f04177c:
 /*  f04177c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041780:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f041784:	0fc29f66 */ 	jal	func0f0a7d98
+/*  f041784:	0fc29f66 */ 	jal	handPlayPropHitSound
 /*  f041788:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f04178c:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f041790:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -17500,7 +17428,7 @@ glabel var7f1a9184
 .NB0f040c9c:
 /*  f040c9c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040ca0:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f040ca4:	0fc296b1 */ 	jal	func0f0a7d98
+/*  f040ca4:	0fc296b1 */ 	jal	handPlayPropHitSound
 /*  f040ca8:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f040cac:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f040cb0:	8c8c0020 */ 	lw	$t4,0x20($a0)
@@ -17604,7 +17532,7 @@ glabel var7f1a9184
 /*  f040e18:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040e1c:	8cb90004 */ 	lw	$t9,0x4($a1)
 /*  f040e20:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f040e24:	0fc296b1 */ 	jal	func0f0a7d98
+/*  f040e24:	0fc296b1 */ 	jal	handPlayPropHitSound
 /*  f040e28:	afb90070 */ 	sw	$t9,0x70($sp)
 /*  f040e2c:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f040e30:	8c8b0020 */ 	lw	$t3,0x20($a0)
@@ -17684,7 +17612,7 @@ glabel var7f1a9184
 .NB0f040f44:
 /*  f040f44:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040f48:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f040f4c:	0fc296b1 */ 	jal	func0f0a7d98
+/*  f040f4c:	0fc296b1 */ 	jal	handPlayPropHitSound
 /*  f040f50:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f040f54:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f040f58:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -23947,7 +23875,7 @@ void chrTickSkJump(struct chrdata *chr)
 			}
 
 			if (chr->act_skjump.hit == false && chrGetDistanceToTarget(chr) < 150.0f) {
-				func0f03ba44(chr, 3, 0x96, 0);
+				chrPunchInflictDamage(chr, 3, 0x96, 0);
 				chr->act_skjump.hit = true;
 			}
 

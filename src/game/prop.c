@@ -428,7 +428,7 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f060984
+glabel weaponPlayWhooshSound
 .late_rodata
 glabel var7f1a9e44
 .word 0x4031eb85
@@ -590,7 +590,7 @@ glabel var7f1a9e50
 );
 #else
 GLOBAL_ASM(
-glabel func0f060984
+glabel weaponPlayWhooshSound
 .late_rodata
 glabel var7f1a9e44
 .word 0x4031eb85
@@ -2127,7 +2127,7 @@ glabel var7f1a9eb8
 /*  f061c64:	10000003 */ 	b	.L0f061c74
 /*  f061c68:	00000000 */ 	nop
 .L0f061c6c:
-/*  f061c6c:	0fc18261 */ 	jal	func0f060984
+/*  f061c6c:	0fc18261 */ 	jal	weaponPlayWhooshSound
 /*  f061c70:	8c6500bc */ 	lw	$a1,0xbc($v1)
 .L0f061c74:
 /*  f061c74:	10000031 */ 	b	.L0f061d3c
@@ -2655,7 +2655,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 								handCalculateShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
 								func00015b10(currentPlayerGetUnk174c(), &vector);
-								func0f0a7d98(hand, prop, -1);
+								handPlayPropHitSound(hand, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {
 									chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &ibh, &model, &side);

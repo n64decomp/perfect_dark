@@ -27645,7 +27645,7 @@ struct audiohandle **func0f0a7d5c(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0a7d98
+glabel handPlayPropHitSound
 .late_rodata
 glabel var7f1aca94
 .word 0x453b8000
@@ -28093,7 +28093,7 @@ glabel var7f1aca94
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a7d98
+glabel handPlayPropHitSound
 .late_rodata
 glabel var7f1aca94
 .word 0x453b8000
