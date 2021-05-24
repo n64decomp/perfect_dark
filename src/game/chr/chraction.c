@@ -18205,75 +18205,30 @@ glabel func0f041a74
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f041c44
-/*  f041c44:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f041c48:	10800003 */ 	beqz	$a0,.L0f041c58
-/*  f041c4c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f041c50:	10000002 */ 	b	.L0f041c5c
-/*  f041c54:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f041c58:
-/*  f041c58:	00001025 */ 	or	$v0,$zero,$zero
-.L0f041c5c:
-/*  f041c5c:	54400032 */ 	bnezl	$v0,.L0f041d28
-/*  f041c60:	00001025 */ 	or	$v0,$zero,$zero
-/*  f041c64:	8c82002c */ 	lw	$v0,0x2c($a0)
-/*  f041c68:	3c0e8006 */ 	lui	$t6,%hi(g_RollAttackAnims+0x90)
-/*  f041c6c:	25ce74b8 */ 	addiu	$t6,$t6,%lo(g_RollAttackAnims+0x90)
-/*  f041c70:	11c20004 */ 	beq	$t6,$v0,.L0f041c84
-/*  f041c74:	3c0f8006 */ 	lui	$t7,%hi(g_RollAttackAnims+0xd8)
-/*  f041c78:	25ef7500 */ 	addiu	$t7,$t7,%lo(g_RollAttackAnims+0xd8)
-/*  f041c7c:	55e2002a */ 	bnel	$t7,$v0,.L0f041d28
-/*  f041c80:	00001025 */ 	or	$v0,$zero,$zero
-.L0f041c84:
-/*  f041c84:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f041c88:	3c098006 */ 	lui	$t1,%hi(g_RollAttackAnims+0x48)
-/*  f041c8c:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f041c90:	8c580020 */ 	lw	$t8,0x20($v0)
-/*  f041c94:	25297470 */ 	addiu	$t1,$t1,%lo(g_RollAttackAnims+0x48)
-/*  f041c98:	3c053f33 */ 	lui	$a1,0x3f33
-/*  f041c9c:	83190008 */ 	lb	$t9,0x8($t8)
-/*  f041ca0:	3c063f8f */ 	lui	$a2,0x3f8f
-/*  f041ca4:	34c65c29 */ 	ori	$a2,$a2,0x5c29
-/*  f041ca8:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f041cac:	a0880030 */ 	sb	$t0,0x30($a0)
-/*  f041cb0:	ac89002c */ 	sw	$t1,0x2c($a0)
-/*  f041cb4:	a0800008 */ 	sb	$zero,0x8($a0)
-/*  f041cb8:	34a53333 */ 	ori	$a1,$a1,0x3333
-/*  f041cbc:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f041cc0:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f041cc4:	3c0141b0 */ 	lui	$at,0x41b0
-/*  f041cc8:	44812000 */ 	mtc1	$at,$f4
-/*  f041ccc:	3c058006 */ 	lui	$a1,%hi(g_RollAttackAnims+0x48)
-/*  f041cd0:	3c078006 */ 	lui	$a3,%hi(g_RollAttackAnims+0x48+0x1c)
-/*  f041cd4:	8ce7748c */ 	lw	$a3,%lo(g_RollAttackAnims+0x48+0x1c)($a3)
-/*  f041cd8:	84a57470 */ 	lh	$a1,%lo(g_RollAttackAnims+0x48)($a1)
-/*  f041cdc:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f041ce0:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f041ce4:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f041ce8:	0c007733 */ 	jal	modelSetAnimation
-/*  f041cec:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f041cf0:	3c018006 */ 	lui	$at,%hi(g_RollAttackAnims+0x48+0x14)
-/*  f041cf4:	c4207484 */ 	lwc1	$f0,%lo(g_RollAttackAnims+0x48+0x14)($at)
-/*  f041cf8:	44803000 */ 	mtc1	$zero,$f6
-/*  f041cfc:	00000000 */ 	nop
-/*  f041d00:	4600303e */ 	c.le.s	$f6,$f0
-/*  f041d04:	00000000 */ 	nop
-/*  f041d08:	45000004 */ 	bc1f	.L0f041d1c
-/*  f041d0c:	00000000 */ 	nop
-/*  f041d10:	44050000 */ 	mfc1	$a1,$f0
-/*  f041d14:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f041d18:	8fa4002c */ 	lw	$a0,0x2c($sp)
-.L0f041d1c:
-/*  f041d1c:	10000002 */ 	b	.L0f041d28
-/*  f041d20:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f041d24:	00001025 */ 	or	$v0,$zero,$zero
-.L0f041d28:
-/*  f041d28:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f041d2c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f041d30:	03e00008 */ 	jr	$ra
-/*  f041d34:	00000000 */ 	nop
-);
+bool func0f041c44(struct chrdata *chr)
+{
+	if (CHRRACE(chr) == RACE_HUMAN) {
+		if (chr->act_attack.animcfg == &g_RollAttackAnims[2] || chr->act_attack.animcfg == &g_RollAttackAnims[3]) {
+			struct model *model = chr->model;
+			struct attackanimconfig *animcfg = &g_RollAttackAnims[1];
+			bool flip = model->anim->flip;
+
+			chr->act_attack.turning = 2;
+			chr->act_attack.animcfg = animcfg;
+			chr->sleep = 0;
+
+			modelSetAnimation(model, animcfg->animnum, flip, animcfg->unk1c, chrGetRangedSpeed(chr, 0.7f, 1.12f), 22);
+
+			if (animcfg->unk14 >= 0) {
+				modelSetAnimEndFrame(model, animcfg->unk14);
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 void chrAttackAmountUpdateAnimation(struct chrdata *chr)
 {
