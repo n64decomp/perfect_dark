@@ -1076,15 +1076,15 @@ struct act_preargh {
 struct act_attack {
 	/*0x2c*/ struct attackanimconfig *animcfg;
 	/*0x30*/ s8 turning;
-	/*0x31*/ u8 fired;
-	/*0x32*/ u8 nextgun;
+	/*0x31*/ s8 fired;
+	/*0x32*/ s8 nextgun;
 	/*0x33*/ s8 numshots; // number of shots fired so far in this anim
 	/*0x34*/ s8 maxshots; // number of shots to attempt in this anim
 	/*0x35*/ s8 onehanded;
 	/*0x36*/ s8 dorecoil;
 	/*0x37*/ s8 dooneburst;
 	/*0x38*/ s8 firegun[2]; // whether this gun is going to attempt to fire in this anim
-	/*0x3a*/ u8 everytick[2]; // whether gun's fire rate is high enough to fire on every tick
+	/*0x3a*/ s8 everytick[2]; // whether gun's fire rate is high enough to fire on every tick
 	/*0x3c*/ u8 singleshot[2];
 	/*0x3e*/ s8 flip;
 	/*0x40*/ s32 pausecount;

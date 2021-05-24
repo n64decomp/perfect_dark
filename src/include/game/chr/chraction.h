@@ -138,7 +138,7 @@ void func0f03e29c(struct chrdata *chr, s32 arg1, s32 arg2, s32 arg3, struct coor
 f32 chrGetInverseTheta(struct chrdata *chr);
 f32 chrGetAimAngle(struct chrdata *chr);
 f32 func0f03e754(struct chrdata *chr);
-void func0f03e788(struct chrdata *chr, s32 arg1, f32 arg2, f32 arg3, f32 arg4);
+s32 func0f03e788(struct chrdata *chr, s32 turning, f32 arg2, f32 arg3, f32 arg4);
 bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, s32 arg2, s32 arg3, f32 arg4);
 u32 func0f03f778(void);
 f32 chrGetAimLimitAngle(f32 sqdist);
@@ -148,9 +148,9 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 void func0f04031c(struct coord *coord, f32 arg1, struct coord *coord2, f32 *arg3);
 u32 func0f0404d4(void);
 u32 func0f041a74(void);
-u32 func0f041c44(void);
+bool func0f041c44(struct chrdata *chr);
 void chrAttackAmountUpdateAnimation(struct chrdata *chr);
-void func0f041e48(struct chrdata *chr);
+void chrTickFire(struct chrdata *chr);
 void chrTickAttackAmount(struct chrdata *chr);
 void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool enabled);
 void robotAttack(struct chrdata *chr);
