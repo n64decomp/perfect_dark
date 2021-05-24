@@ -1265,33 +1265,28 @@ struct attackanimgroup *g_KneelDualAttackAnims[][32] = {
 	},
 };
 
-// These 8 animations must be kept together because the code loads a pointer to
-// the heavy anims then adds 4 to get to the light anims. Using an array here
-// would be less hacky, but then the individual names would be lost.
-struct attackanimconfig g_AttackAnimRollHeavyLeft1  = { 0x000b, 76, 0, 0, 20, -1, 98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072, 0.69802057743073, -0.69802057743073, 1.7000000476837, 2               };
-struct attackanimconfig g_AttackAnimRollHeavyRight1 = { 0x000c, 58, 0, 0, 10, -1, 77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536, 0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             };
-struct attackanimconfig g_AttackAnimRollHeavyLeft2  = { 0x000d, 61, 0, 0, 10, -1, 83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072, 0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 };
-struct attackanimconfig g_AttackAnimRollHeavyRight2 = { 0x0027, 63, 0, 0, 10, -1, 73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072, 0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             };
-struct attackanimconfig g_AttackAnimRollLightLeft1  = { 0x000b, 76, 0, 0, 20, 76, 98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072, 0.69802057743073, -0.69802057743073, 1.7000000476837, 2               };
-struct attackanimconfig g_AttackAnimRollLightRight1 = { 0x000c, 58, 0, 0, 10, 63, 77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536, 0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             };
-struct attackanimconfig g_AttackAnimRollLightLeft2  = { 0x000d, 61, 0, 0, 10, 56, 83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072, 0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 };
-struct attackanimconfig g_AttackAnimRollLightRight2 = { 0x0027, 63, 0, 0, 10, 50, 73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072, 0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             };
-
-struct attackanimconfig var80067668 = { 0x0045, 0,  0, 0,               7,  64,  19, 51,  24, 46, 14, 58,  0.87252569198608, -0.69802057743073,  0.52351540327072, -0.7852731347084,  0,               0               };
-struct attackanimconfig var800676b0 = { 0x004a, 0,  0, 1.5707963705063, 14, 76,  26, 31,  31, 38, 15, 49,  0.87252569198608, -0.69802057743073,  0.52351540327072, -1.0470308065414,  0,               0               };
-struct attackanimconfig var800676f8 = { 0x004c, 26, 0, 0,               25, 89,  41, 63,  41, 51, 21, 80,  0.87252569198608, -0.69802057743073,  0.34901028871536, -1.1342834234238,  0,               0               };
-struct attackanimconfig var80067740 = { 0x0050, 18, 0, 1.5707963705063, 11, 78,  33, 52,  35, 45, 15, 66,  0.87252569198608, -0.087252572178841, 0.69802057743073, -0.7852731347084,  1.5,             1               };
-struct attackanimconfig var80067788 = { 0x007a, 26, 0, 0,               7,  92,  28, 68,  -1, -1, 11, 73,  0.87252569198608, -0.69802057743073,  0.69802057743073, -0.69802057743073, 0,               0               };
-struct attackanimconfig var800677d0 = { 0x007b, 26, 0, 1.5707963705063, 9,  112, 38, 87,  -1, -1, 19, 98,  0.87252569198608, -0.69802057743073,  0.43626284599304, -0.43626284599304, 0,               0               };
-struct attackanimconfig var80067818 = { 0x0074, 22, 0, 0,               10, 11,  34, 87,  -1, -1, 17, 104, 0.87252569198608, -0.69802057743073,  0.61076802015305, -0.7852731347084,  0,               0               };
-struct attackanimconfig var80067860 = { 0x0075, 28, 0, 1.5707963705063, 15, 108, 34, 73,  -1, -1, 17, 93,  0.87252569198608, -0.69802057743073,  0.52351540327072, -0.7852731347084,  0,               0               };
-struct attackanimconfig var800678a8 = { 0x007a, 26, 0, 0,               7,  92,  28, 68,  -1, -1, 11, 73,  0.87252569198608, -0.69802057743073,  0.69802057743073, -0.69802057743073, 0,               0               };
-struct attackanimconfig var800678f0 = { 0x007d, 25, 0, 1.5707963705063, 10, 112, 32, 86,  -1, -1, 19, 97,  0.87252569198608, -0.69802057743073,  0.43626284599304, -0.43626284599304, 0,               0               };
-struct attackanimconfig var80067938 = { 0x0077, 25, 0, 0,               9,  92,  33, 62,  -1, -1, 18, 69,  0.87252569198608, -0.69802057743073,  0.61076802015305, -0.7852731347084,  0,               0               };
-
-struct attackanimconfig var80067980[] = {
-	{ 0x0078, 19, 0, 1.5707963705063, 3, 95, 30, 64, -1, -1, 14, 71, 0.87252569198608, -0.69802057743073, 0.52351540327072, -0.7852731347084, 1.5, 1 },
-	{ 0x0000, 0,  0, 0,               0, -1, 0,  0,  0,  0,  0,  0,  0,                0,                 0,                0,                0,   0 },
+struct attackanimconfig g_RollAttackAnims[] = {
+	{ 0x000b, 76, 0, 0,               20, -1,  98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072,  0.69802057743073, -0.69802057743073, 1.7000000476837, 2               },
+	{ 0x000c, 58, 0, 0,               10, -1,  77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536,  0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             },
+	{ 0x000d, 61, 0, 0,               10, -1,  83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072,  0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 },
+	{ 0x0027, 63, 0, 0,               10, -1,  73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072,  0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             },
+	{ 0x000b, 76, 0, 0,               20, 76,  98, 161, -1, -1, 93, 161, 0.87252569198608, -0.52351540327072,  0.69802057743073, -0.69802057743073, 1.7000000476837, 2               },
+	{ 0x000c, 58, 0, 0,               10, 63,  77, 104, -1, -1, 72, 104, 0.87252569198608, -0.34901028871536,  0.61076802015305, -0.69802057743073, 1.5499999523163, 1.5             },
+	{ 0x000d, 61, 0, 0,               10, 56,  83, 128, -1, -1, 78, 128, 0.87252569198608, -0.52351540327072,  0.87252569198608, -0.52351540327072, 1.2000000476837, 1.2999999523163 },
+	{ 0x0027, 63, 0, 0,               10, 50,  73, 114, -1, -1, 68, 114, 0.87252569198608, -0.52351540327072,  0.61076802015305, -0.61076802015305, 1.6499999761581, 1.5             },
+	{ 0x0045, 0,  0, 0,               7,  64,  19, 51,  24, 46, 14, 58,  0.87252569198608, -0.69802057743073,  0.52351540327072, -0.7852731347084,  0,               0               },
+	{ 0x004a, 0,  0, 1.5707963705063, 14, 76,  26, 31,  31, 38, 15, 49,  0.87252569198608, -0.69802057743073,  0.52351540327072, -1.0470308065414,  0,               0               },
+	{ 0x004c, 26, 0, 0,               25, 89,  41, 63,  41, 51, 21, 80,  0.87252569198608, -0.69802057743073,  0.34901028871536, -1.1342834234238,  0,               0               },
+	{ 0x0050, 18, 0, 1.5707963705063, 11, 78,  33, 52,  35, 45, 15, 66,  0.87252569198608, -0.087252572178841, 0.69802057743073, -0.7852731347084,  1.5,             1               },
+	{ 0x007a, 26, 0, 0,               7,  92,  28, 68,  -1, -1, 11, 73,  0.87252569198608, -0.69802057743073,  0.69802057743073, -0.69802057743073, 0,               0               },
+	{ 0x007b, 26, 0, 1.5707963705063, 9,  112, 38, 87,  -1, -1, 19, 98,  0.87252569198608, -0.69802057743073,  0.43626284599304, -0.43626284599304, 0,               0               },
+	{ 0x0074, 22, 0, 0,               10, 11,  34, 87,  -1, -1, 17, 104, 0.87252569198608, -0.69802057743073,  0.61076802015305, -0.7852731347084,  0,               0               },
+	{ 0x0075, 28, 0, 1.5707963705063, 15, 108, 34, 73,  -1, -1, 17, 93,  0.87252569198608, -0.69802057743073,  0.52351540327072, -0.7852731347084,  0,               0               },
+	{ 0x007a, 26, 0, 0,               7,  92,  28, 68,  -1, -1, 11, 73,  0.87252569198608, -0.69802057743073,  0.69802057743073, -0.69802057743073, 0,               0               },
+	{ 0x007d, 25, 0, 1.5707963705063, 10, 112, 32, 86,  -1, -1, 19, 97,  0.87252569198608, -0.69802057743073,  0.43626284599304, -0.43626284599304, 0,               0               },
+	{ 0x0077, 25, 0, 0,               9,  92,  33, 62,  -1, -1, 18, 69,  0.87252569198608, -0.69802057743073,  0.61076802015305, -0.7852731347084,  0,               0               },
+	{ 0x0078, 19, 0, 1.5707963705063, 3,  95,  30, 64,  -1, -1, 14, 71,  0.87252569198608, -0.69802057743073,  0.52351540327072, -0.7852731347084,  1.5,             1               },
+	{ 0x0000, 0,  0, 0,               0,  -1,  0,  0,   0,  0,  0,  0,   0,                0,                  0,                0,                 0,               0               },
 };
 
 struct attackanimconfig g_AttackAnimHeavyWalk       = { 0x0030, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0.87252569198608, -0.52351540327072, 0.52351540327072, -0.52351540327072, 1.3999999761581, 1.2999999523163 };
@@ -2658,23 +2653,25 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 	}
 
 	if ((toleft && !flip) || (!toleft && flip)) {
+		// Roll to left
 		if (random() % 2) {
-			animcfg = &g_AttackAnimRollHeavyLeft1;
+			animcfg = &g_RollAttackAnims[0];
 		} else {
-			animcfg = &g_AttackAnimRollHeavyLeft2;
+			animcfg = &g_RollAttackAnims[2];
 		}
 	} else {
+		// Roll to right
 		if (random() % 2) {
-			animcfg = &g_AttackAnimRollHeavyRight1;
+			animcfg = &g_RollAttackAnims[1];
 		} else {
-			animcfg = &g_AttackAnimRollHeavyRight2;
+			animcfg = &g_RollAttackAnims[3];
 		}
 	}
 
 	if (onehanded) {
-		// Move the animation pointer to the light-weight version of the same
-		// animation. The light-weight versions are defined immediately after
-		// the heavy versions.
+		// Move the animation pointer to the one-handed version of the same
+		// animation. The one-handed versions are in the array immediately after
+		// the four heavy-weapon versions.
 		animcfg += 4;
 	}
 
@@ -3853,10 +3850,10 @@ bool chrIsAnimPreventingArgh(struct chrdata *chr, f32 *dst)
 		} else if (chr->actiontype == ACT_ATTACKROLL
 				&& modelGetAnimNum(chr->model) == chr->act_attack.animcfg->animnum) {
 			if (chr->act_attack.onehanded) {
-				if (chr->act_attack.animcfg == &g_AttackAnimRollLightLeft1
-						|| chr->act_attack.animcfg == &g_AttackAnimRollLightRight1
-						|| chr->act_attack.animcfg == &g_AttackAnimRollLightLeft2
-						|| chr->act_attack.animcfg == &g_AttackAnimRollLightRight2) {
+				if (chr->act_attack.animcfg == &g_RollAttackAnims[4]
+						|| chr->act_attack.animcfg == &g_RollAttackAnims[5]
+						|| chr->act_attack.animcfg == &g_RollAttackAnims[6]
+						|| chr->act_attack.animcfg == &g_RollAttackAnims[7]) {
 					endframe = chr->act_attack.animcfg->unk04 - 8;
 
 					if (chr->act_attack.animcfg->unk14 < chr->act_attack.animcfg->unk04) {
@@ -18221,19 +18218,19 @@ glabel func0f041c44
 /*  f041c5c:	54400032 */ 	bnezl	$v0,.L0f041d28
 /*  f041c60:	00001025 */ 	or	$v0,$zero,$zero
 /*  f041c64:	8c82002c */ 	lw	$v0,0x2c($a0)
-/*  f041c68:	3c0e8006 */ 	lui	$t6,%hi(g_AttackAnimRollHeavyLeft2)
-/*  f041c6c:	25ce74b8 */ 	addiu	$t6,$t6,%lo(g_AttackAnimRollHeavyLeft2)
+/*  f041c68:	3c0e8006 */ 	lui	$t6,%hi(g_RollAttackAnims+0x90)
+/*  f041c6c:	25ce74b8 */ 	addiu	$t6,$t6,%lo(g_RollAttackAnims+0x90)
 /*  f041c70:	11c20004 */ 	beq	$t6,$v0,.L0f041c84
-/*  f041c74:	3c0f8006 */ 	lui	$t7,%hi(g_AttackAnimRollHeavyRight2)
-/*  f041c78:	25ef7500 */ 	addiu	$t7,$t7,%lo(g_AttackAnimRollHeavyRight2)
+/*  f041c74:	3c0f8006 */ 	lui	$t7,%hi(g_RollAttackAnims+0xd8)
+/*  f041c78:	25ef7500 */ 	addiu	$t7,$t7,%lo(g_RollAttackAnims+0xd8)
 /*  f041c7c:	55e2002a */ 	bnel	$t7,$v0,.L0f041d28
 /*  f041c80:	00001025 */ 	or	$v0,$zero,$zero
 .L0f041c84:
 /*  f041c84:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f041c88:	3c098006 */ 	lui	$t1,%hi(g_AttackAnimRollHeavyRight1)
+/*  f041c88:	3c098006 */ 	lui	$t1,%hi(g_RollAttackAnims+0x48)
 /*  f041c8c:	24080002 */ 	addiu	$t0,$zero,0x2
 /*  f041c90:	8c580020 */ 	lw	$t8,0x20($v0)
-/*  f041c94:	25297470 */ 	addiu	$t1,$t1,%lo(g_AttackAnimRollHeavyRight1)
+/*  f041c94:	25297470 */ 	addiu	$t1,$t1,%lo(g_RollAttackAnims+0x48)
 /*  f041c98:	3c053f33 */ 	lui	$a1,0x3f33
 /*  f041c9c:	83190008 */ 	lb	$t9,0x8($t8)
 /*  f041ca0:	3c063f8f */ 	lui	$a2,0x3f8f
@@ -18247,17 +18244,17 @@ glabel func0f041c44
 /*  f041cc0:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f041cc4:	3c0141b0 */ 	lui	$at,0x41b0
 /*  f041cc8:	44812000 */ 	mtc1	$at,$f4
-/*  f041ccc:	3c058006 */ 	lui	$a1,%hi(g_AttackAnimRollHeavyRight1)
-/*  f041cd0:	3c078006 */ 	lui	$a3,%hi(g_AttackAnimRollHeavyRight1+0x1c)
-/*  f041cd4:	8ce7748c */ 	lw	$a3,%lo(g_AttackAnimRollHeavyRight1+0x1c)($a3)
-/*  f041cd8:	84a57470 */ 	lh	$a1,%lo(g_AttackAnimRollHeavyRight1)($a1)
+/*  f041ccc:	3c058006 */ 	lui	$a1,%hi(g_RollAttackAnims+0x48)
+/*  f041cd0:	3c078006 */ 	lui	$a3,%hi(g_RollAttackAnims+0x48+0x1c)
+/*  f041cd4:	8ce7748c */ 	lw	$a3,%lo(g_RollAttackAnims+0x48+0x1c)($a3)
+/*  f041cd8:	84a57470 */ 	lh	$a1,%lo(g_RollAttackAnims+0x48)($a1)
 /*  f041cdc:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*  f041ce0:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*  f041ce4:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f041ce8:	0c007733 */ 	jal	modelSetAnimation
 /*  f041cec:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f041cf0:	3c018006 */ 	lui	$at,%hi(g_AttackAnimRollHeavyRight1+0x14)
-/*  f041cf4:	c4207484 */ 	lwc1	$f0,%lo(g_AttackAnimRollHeavyRight1+0x14)($at)
+/*  f041cf0:	3c018006 */ 	lui	$at,%hi(g_RollAttackAnims+0x48+0x14)
+/*  f041cf4:	c4207484 */ 	lwc1	$f0,%lo(g_RollAttackAnims+0x48+0x14)($at)
 /*  f041cf8:	44803000 */ 	mtc1	$zero,$f6
 /*  f041cfc:	00000000 */ 	nop
 /*  f041d00:	4600303e */ 	c.le.s	$f6,$f0
@@ -20075,382 +20072,131 @@ void chrTickAttack(struct chrdata *chr)
 	func0f041e48(chr);
 }
 
-GLOBAL_ASM(
-glabel chrTickAttackRoll
-/*  f0433e0:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0433e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0433e8:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f0433ec:	8c8f0014 */ 	lw	$t7,0x14($a0)
-/*  f0433f0:	000fc280 */ 	sll	$t8,$t7,0xa
-/*  f0433f4:	0703000e */ 	bgezl	$t8,.L0f043430
-/*  f0433f8:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f0433fc:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f043400:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f043404:	5440014c */ 	bnezl	$v0,.L0f043938
-/*  f043408:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04340c:	0fc0c290 */ 	jal	chrAttackRollChooseAnimation
-/*  f043410:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f043414:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f043418:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f04341c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f043420:	8c590014 */ 	lw	$t9,0x14($v0)
-/*  f043424:	03214024 */ 	and	$t0,$t9,$at
-/*  f043428:	ac480014 */ 	sw	$t0,0x14($v0)
-/*  f04342c:	8fa90048 */ 	lw	$t1,0x48($sp)
-.L0f043430:
-/*  f043430:	812a0035 */ 	lb	$t2,0x35($t1)
-/*  f043434:	1140013d */ 	beqz	$t2,.L0f04392c
-/*  f043438:	00000000 */ 	nop
-/*  f04343c:	8d240020 */ 	lw	$a0,0x20($t1)
-/*  f043440:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f043444:	afa40044 */ 	sw	$a0,0x44($sp)
-/*  f043448:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*  f04344c:	3c0b8006 */ 	lui	$t3,%hi(g_AttackAnimRollLightLeft1)
-/*  f043450:	256b7548 */ 	addiu	$t3,$t3,%lo(g_AttackAnimRollLightLeft1)
-/*  f043454:	8ce2002c */ 	lw	$v0,0x2c($a3)
-/*  f043458:	3c0c8006 */ 	lui	$t4,%hi(g_AttackAnimRollLightRight1)
-/*  f04345c:	46000306 */ 	mov.s	$f12,$f0
-/*  f043460:	11620009 */ 	beq	$t3,$v0,.L0f043488
-/*  f043464:	258c7590 */ 	addiu	$t4,$t4,%lo(g_AttackAnimRollLightRight1)
-/*  f043468:	11820007 */ 	beq	$t4,$v0,.L0f043488
-/*  f04346c:	3c0d8006 */ 	lui	$t5,%hi(g_AttackAnimRollLightLeft2)
-/*  f043470:	25ad75d8 */ 	addiu	$t5,$t5,%lo(g_AttackAnimRollLightLeft2)
-/*  f043474:	11a20004 */ 	beq	$t5,$v0,.L0f043488
-/*  f043478:	3c0f8006 */ 	lui	$t7,%hi(g_AttackAnimRollLightRight2)
-/*  f04347c:	25ef7620 */ 	addiu	$t7,$t7,%lo(g_AttackAnimRollLightRight2)
-/*  f043480:	15e200c8 */ 	bne	$t7,$v0,.L0f0437a4
-/*  f043484:	3c0c8006 */ 	lui	$t4,%hi(var80067668)
-.L0f043488:
-/*  f043488:	c4440014 */ 	lwc1	$f4,0x14($v0)
-/*  f04348c:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f043490:	4600203e */ 	c.le.s	$f4,$f0
-/*  f043494:	00000000 */ 	nop
-/*  f043498:	450000c0 */ 	bc1f	.L0f04379c
-/*  f04349c:	00000000 */ 	nop
-/*  f0434a0:	8f0e0020 */ 	lw	$t6,0x20($t8)
-/*  f0434a4:	3c014180 */ 	lui	$at,0x4180
-/*  f0434a8:	44811000 */ 	mtc1	$at,$f2
-/*  f0434ac:	81d90008 */ 	lb	$t9,0x8($t6)
-/*  f0434b0:	24430120 */ 	addiu	$v1,$v0,0x120
-/*  f0434b4:	afb90038 */ 	sw	$t9,0x38($sp)
-/*  f0434b8:	80e80039 */ 	lb	$t0,0x39($a3)
-/*  f0434bc:	11000010 */ 	beqz	$t0,.L0f043500
-/*  f0434c0:	00000000 */ 	nop
-/*  f0434c4:	80ea0038 */ 	lb	$t2,0x38($a3)
-/*  f0434c8:	1140000d */ 	beqz	$t2,.L0f043500
-/*  f0434cc:	00000000 */ 	nop
-/*  f0434d0:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0434d4:	0c004b70 */ 	jal	random
-/*  f0434d8:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f0434dc:	30490001 */ 	andi	$t1,$v0,0x1
-/*  f0434e0:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0434e4:	15200004 */ 	bnez	$t1,.L0f0434f8
-/*  f0434e8:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f0434ec:	24630120 */ 	addiu	$v1,$v1,0x120
-/*  f0434f0:	10000003 */ 	b	.L0f043500
-/*  f0434f4:	8fa70048 */ 	lw	$a3,0x48($sp)
-.L0f0434f8:
-/*  f0434f8:	24630240 */ 	addiu	$v1,$v1,0x240
-/*  f0434fc:	8fa70048 */ 	lw	$a3,0x48($sp)
-.L0f043500:
-/*  f043500:	3c028006 */ 	lui	$v0,%hi(g_AttackAnimRollHeavyLeft1)
-/*  f043504:	24427428 */ 	addiu	$v0,$v0,%lo(g_AttackAnimRollHeavyLeft1)
-/*  f043508:	244b0240 */ 	addiu	$t3,$v0,0x240
-/*  f04350c:	146b0005 */ 	bne	$v1,$t3,.L0f043524
-/*  f043510:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f043514:	3c0141c0 */ 	lui	$at,0x41c0
-/*  f043518:	44811000 */ 	mtc1	$at,$f2
-/*  f04351c:	10000043 */ 	b	.L0f04362c
-/*  f043520:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f043524:
-/*  f043524:	244c0288 */ 	addiu	$t4,$v0,0x288
-/*  f043528:	146c0005 */ 	bne	$v1,$t4,.L0f043540
-/*  f04352c:	244d02d0 */ 	addiu	$t5,$v0,0x2d0
-/*  f043530:	3c0141c0 */ 	lui	$at,0x41c0
-/*  f043534:	44811000 */ 	mtc1	$at,$f2
-/*  f043538:	1000003c */ 	b	.L0f04362c
-/*  f04353c:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f043540:
-/*  f043540:	146d0005 */ 	bne	$v1,$t5,.L0f043558
-/*  f043544:	244f0318 */ 	addiu	$t7,$v0,0x318
-/*  f043548:	3c014200 */ 	lui	$at,0x4200
-/*  f04354c:	44811000 */ 	mtc1	$at,$f2
-/*  f043550:	10000036 */ 	b	.L0f04362c
-/*  f043554:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f043558:
-/*  f043558:	146f0005 */ 	bne	$v1,$t7,.L0f043570
-/*  f04355c:	24580360 */ 	addiu	$t8,$v0,0x360
-/*  f043560:	3c014230 */ 	lui	$at,0x4230
-/*  f043564:	44811000 */ 	mtc1	$at,$f2
-/*  f043568:	10000030 */ 	b	.L0f04362c
-/*  f04356c:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f043570:
-/*  f043570:	14780005 */ 	bne	$v1,$t8,.L0f043588
-/*  f043574:	244e03a8 */ 	addiu	$t6,$v0,0x3a8
-/*  f043578:	3c0141c0 */ 	lui	$at,0x41c0
-/*  f04357c:	44811000 */ 	mtc1	$at,$f2
-/*  f043580:	1000002a */ 	b	.L0f04362c
-/*  f043584:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f043588:
-/*  f043588:	146e0005 */ 	bne	$v1,$t6,.L0f0435a0
-/*  f04358c:	245903f0 */ 	addiu	$t9,$v0,0x3f0
-/*  f043590:	3c014208 */ 	lui	$at,0x4208
-/*  f043594:	44811000 */ 	mtc1	$at,$f2
-/*  f043598:	10000024 */ 	b	.L0f04362c
-/*  f04359c:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f0435a0:
-/*  f0435a0:	14790005 */ 	bne	$v1,$t9,.L0f0435b8
-/*  f0435a4:	24480438 */ 	addiu	$t0,$v0,0x438
-/*  f0435a8:	3c014200 */ 	lui	$at,0x4200
-/*  f0435ac:	44811000 */ 	mtc1	$at,$f2
-/*  f0435b0:	1000001e */ 	b	.L0f04362c
-/*  f0435b4:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f0435b8:
-/*  f0435b8:	14680005 */ 	bne	$v1,$t0,.L0f0435d0
-/*  f0435bc:	244a0480 */ 	addiu	$t2,$v0,0x480
-/*  f0435c0:	3c014230 */ 	lui	$at,0x4230
-/*  f0435c4:	44811000 */ 	mtc1	$at,$f2
-/*  f0435c8:	10000018 */ 	b	.L0f04362c
-/*  f0435cc:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f0435d0:
-/*  f0435d0:	146a0005 */ 	bne	$v1,$t2,.L0f0435e8
-/*  f0435d4:	244904c8 */ 	addiu	$t1,$v0,0x4c8
-/*  f0435d8:	3c0141c0 */ 	lui	$at,0x41c0
-/*  f0435dc:	44811000 */ 	mtc1	$at,$f2
-/*  f0435e0:	10000012 */ 	b	.L0f04362c
-/*  f0435e4:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f0435e8:
-/*  f0435e8:	14690005 */ 	bne	$v1,$t1,.L0f043600
-/*  f0435ec:	244b0510 */ 	addiu	$t3,$v0,0x510
-/*  f0435f0:	3c014208 */ 	lui	$at,0x4208
-/*  f0435f4:	44811000 */ 	mtc1	$at,$f2
-/*  f0435f8:	1000000c */ 	b	.L0f04362c
-/*  f0435fc:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f043600:
-/*  f043600:	146b0005 */ 	bne	$v1,$t3,.L0f043618
-/*  f043604:	244c0558 */ 	addiu	$t4,$v0,0x558
-/*  f043608:	3c014200 */ 	lui	$at,0x4200
-/*  f04360c:	44811000 */ 	mtc1	$at,$f2
-/*  f043610:	10000006 */ 	b	.L0f04362c
-/*  f043614:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f043618:
-/*  f043618:	146c0003 */ 	bne	$v1,$t4,.L0f043628
-/*  f04361c:	3c014230 */ 	lui	$at,0x4230
-/*  f043620:	44811000 */ 	mtc1	$at,$f2
-/*  f043624:	00000000 */ 	nop
-.L0f043628:
-/*  f043628:	240d0002 */ 	addiu	$t5,$zero,0x2
-.L0f04362c:
-/*  f04362c:	a0ed0030 */ 	sb	$t5,0x30($a3)
-/*  f043630:	ace3002c */ 	sw	$v1,0x2c($a3)
-/*  f043634:	a0e00008 */ 	sb	$zero,0x8($a3)
-/*  f043638:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f04363c:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f043640:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f043644:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f043648:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f04364c:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f043650:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f043654:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f043658:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f04365c:	84650000 */ 	lh	$a1,0x0($v1)
-/*  f043660:	8c670010 */ 	lw	$a3,0x10($v1)
-/*  f043664:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f043668:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f04366c:	0c007733 */ 	jal	modelSetAnimation
-/*  f043670:	e7a20014 */ 	swc1	$f2,0x14($sp)
-/*  f043674:	8faf0048 */ 	lw	$t7,0x48($sp)
-/*  f043678:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f04367c:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f043680:	81f80036 */ 	lb	$t8,0x36($t7)
-/*  f043684:	53000014 */ 	beqzl	$t8,.L0f0436d8
-/*  f043688:	c4600020 */ 	lwc1	$f0,0x20($v1)
-/*  f04368c:	c4600024 */ 	lwc1	$f0,0x24($v1)
-/*  f043690:	44803000 */ 	mtc1	$zero,$f6
-/*  f043694:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f043698:	4600303e */ 	c.le.s	$f6,$f0
-/*  f04369c:	00000000 */ 	nop
-/*  f0436a0:	45020008 */ 	bc1fl	.L0f0436c4
-/*  f0436a4:	8c65001c */ 	lw	$a1,0x1c($v1)
-/*  f0436a8:	44050000 */ 	mfc1	$a1,$f0
-/*  f0436ac:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0436b0:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0436b4:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f0436b8:	1000001d */ 	b	.L0f043730
-/*  f0436bc:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f0436c0:	8c65001c */ 	lw	$a1,0x1c($v1)
-.L0f0436c4:
-/*  f0436c4:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0436c8:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f0436cc:	10000018 */ 	b	.L0f043730
-/*  f0436d0:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f0436d4:	c4600020 */ 	lwc1	$f0,0x20($v1)
-.L0f0436d8:
-/*  f0436d8:	44804000 */ 	mtc1	$zero,$f8
-/*  f0436dc:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0436e0:	4600403e */ 	c.le.s	$f8,$f0
-/*  f0436e4:	00000000 */ 	nop
-/*  f0436e8:	45020007 */ 	bc1fl	.L0f043708
-/*  f0436ec:	c4600014 */ 	lwc1	$f0,0x14($v1)
-/*  f0436f0:	44050000 */ 	mfc1	$a1,$f0
-/*  f0436f4:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f0436f8:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f0436fc:	1000000c */ 	b	.L0f043730
-/*  f043700:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f043704:	c4600014 */ 	lwc1	$f0,0x14($v1)
-.L0f043708:
-/*  f043708:	44805000 */ 	mtc1	$zero,$f10
-/*  f04370c:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f043710:	4600503e */ 	c.le.s	$f10,$f0
-/*  f043714:	00000000 */ 	nop
-/*  f043718:	45020006 */ 	bc1fl	.L0f043734
-/*  f04371c:	8fae0048 */ 	lw	$t6,0x48($sp)
-/*  f043720:	44050000 */ 	mfc1	$a1,$f0
-/*  f043724:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f043728:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f04372c:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-.L0f043730:
-/*  f043730:	8fae0048 */ 	lw	$t6,0x48($sp)
-.L0f043734:
-/*  f043734:	44808000 */ 	mtc1	$zero,$f16
-/*  f043738:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f04373c:	8dd9002c */ 	lw	$t9,0x2c($t6)
-/*  f043740:	c732000c */ 	lwc1	$f18,0xc($t9)
-/*  f043744:	46128032 */ 	c.eq.s	$f16,$f18
-/*  f043748:	00000000 */ 	nop
-/*  f04374c:	45010013 */ 	bc1t	.L0f04379c
-/*  f043750:	00000000 */ 	nop
-/*  f043754:	8c880008 */ 	lw	$t0,0x8($a0)
-/*  f043758:	8d050000 */ 	lw	$a1,0x0($t0)
-/*  f04375c:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f043760:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f043764:	c7a20034 */ 	lwc1	$f2,0x34($sp)
-/*  f043768:	e442005c */ 	swc1	$f2,0x5c($v0)
-/*  f04376c:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  f043770:	8d49002c */ 	lw	$t1,0x2c($t2)
-/*  f043774:	c524000c */ 	lwc1	$f4,0xc($t1)
-/*  f043778:	46002187 */ 	neg.s	$f6,$f4
-/*  f04377c:	46023203 */ 	div.s	$f8,$f6,$f2
-/*  f043780:	e4480058 */ 	swc1	$f8,0x58($v0)
-/*  f043784:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*  f043788:	11600004 */ 	beqz	$t3,.L0f04379c
-/*  f04378c:	00000000 */ 	nop
-/*  f043790:	c44a0058 */ 	lwc1	$f10,0x58($v0)
-/*  f043794:	46005407 */ 	neg.s	$f16,$f10
-/*  f043798:	e4500058 */ 	swc1	$f16,0x58($v0)
-.L0f04379c:
-/*  f04379c:	10000063 */ 	b	.L0f04392c
-/*  f0437a0:	00000000 */ 	nop
-.L0f0437a4:
-/*  f0437a4:	258c7668 */ 	addiu	$t4,$t4,%lo(var80067668)
-/*  f0437a8:	11820022 */ 	beq	$t4,$v0,.L0f043834
-/*  f0437ac:	3c0d8006 */ 	lui	$t5,%hi(var800676b0)
-/*  f0437b0:	25ad76b0 */ 	addiu	$t5,$t5,%lo(var800676b0)
-/*  f0437b4:	11a2001f */ 	beq	$t5,$v0,.L0f043834
-/*  f0437b8:	3c0f8006 */ 	lui	$t7,%hi(var800676f8)
-/*  f0437bc:	25ef76f8 */ 	addiu	$t7,$t7,%lo(var800676f8)
-/*  f0437c0:	11e2001c */ 	beq	$t7,$v0,.L0f043834
-/*  f0437c4:	3c188006 */ 	lui	$t8,%hi(var80067740)
-/*  f0437c8:	27187740 */ 	addiu	$t8,$t8,%lo(var80067740)
-/*  f0437cc:	13020019 */ 	beq	$t8,$v0,.L0f043834
-/*  f0437d0:	3c0e8006 */ 	lui	$t6,%hi(var80067788)
-/*  f0437d4:	25ce7788 */ 	addiu	$t6,$t6,%lo(var80067788)
-/*  f0437d8:	11c20016 */ 	beq	$t6,$v0,.L0f043834
-/*  f0437dc:	3c198006 */ 	lui	$t9,%hi(var800677d0)
-/*  f0437e0:	273977d0 */ 	addiu	$t9,$t9,%lo(var800677d0)
-/*  f0437e4:	13220013 */ 	beq	$t9,$v0,.L0f043834
-/*  f0437e8:	3c088006 */ 	lui	$t0,%hi(var80067818)
-/*  f0437ec:	25087818 */ 	addiu	$t0,$t0,%lo(var80067818)
-/*  f0437f0:	11020010 */ 	beq	$t0,$v0,.L0f043834
-/*  f0437f4:	3c0a8006 */ 	lui	$t2,%hi(var80067860)
-/*  f0437f8:	254a7860 */ 	addiu	$t2,$t2,%lo(var80067860)
-/*  f0437fc:	1142000d */ 	beq	$t2,$v0,.L0f043834
-/*  f043800:	3c098006 */ 	lui	$t1,%hi(var800678a8)
-/*  f043804:	252978a8 */ 	addiu	$t1,$t1,%lo(var800678a8)
-/*  f043808:	1122000a */ 	beq	$t1,$v0,.L0f043834
-/*  f04380c:	3c0b8006 */ 	lui	$t3,%hi(var800678f0)
-/*  f043810:	256b78f0 */ 	addiu	$t3,$t3,%lo(var800678f0)
-/*  f043814:	11620007 */ 	beq	$t3,$v0,.L0f043834
-/*  f043818:	3c0c8006 */ 	lui	$t4,%hi(var80067938)
-/*  f04381c:	258c7938 */ 	addiu	$t4,$t4,%lo(var80067938)
-/*  f043820:	11820004 */ 	beq	$t4,$v0,.L0f043834
-/*  f043824:	3c0d8006 */ 	lui	$t5,%hi(var80067980)
-/*  f043828:	25ad7980 */ 	addiu	$t5,$t5,%lo(var80067980)
-/*  f04382c:	15a2003f */ 	bne	$t5,$v0,.L0f04392c
-/*  f043830:	00000000 */ 	nop
-.L0f043834:
-/*  f043834:	80ef0036 */ 	lb	$t7,0x36($a3)
-/*  f043838:	15e0003c */ 	bnez	$t7,.L0f04392c
-/*  f04383c:	00000000 */ 	nop
-/*  f043840:	c4420024 */ 	lwc1	$f2,0x24($v0)
-/*  f043844:	44809000 */ 	mtc1	$zero,$f18
-/*  f043848:	00000000 */ 	nop
-/*  f04384c:	4602903c */ 	c.lt.s	$f18,$f2
-/*  f043850:	00000000 */ 	nop
-/*  f043854:	45000035 */ 	bc1f	.L0f04392c
-/*  f043858:	00000000 */ 	nop
-/*  f04385c:	4602003e */ 	c.le.s	$f0,$f2
-/*  f043860:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f043864:	45000031 */ 	bc1f	.L0f04392c
-/*  f043868:	00000000 */ 	nop
-/*  f04386c:	0c007468 */ 	jal	modelGetAnimEndFrame
-/*  f043870:	e7ac0040 */ 	swc1	$f12,0x40($sp)
-/*  f043874:	c7ac0040 */ 	lwc1	$f12,0x40($sp)
-/*  f043878:	460c003e */ 	c.le.s	$f0,$f12
-/*  f04387c:	00000000 */ 	nop
-/*  f043880:	4500002a */ 	bc1f	.L0f04392c
-/*  f043884:	00000000 */ 	nop
-/*  f043888:	0c00744f */ 	jal	modelGetAnimNum
-/*  f04388c:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f043890:	3c063f4c */ 	lui	$a2,0x3f4c
-/*  f043894:	34c6cccd */ 	ori	$a2,$a2,0xcccd
-/*  f043898:	a7a20026 */ 	sh	$v0,0x26($sp)
-/*  f04389c:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f0438a0:	0fc0b857 */ 	jal	chrGetRangedSpeed
-/*  f0438a4:	3c053f00 */ 	lui	$a1,0x3f00
-/*  f0438a8:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0438ac:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*  f0438b0:	3c014180 */ 	lui	$at,0x4180
-/*  f0438b4:	8c8e0020 */ 	lw	$t6,0x20($a0)
-/*  f0438b8:	8f28002c */ 	lw	$t0,0x2c($t9)
-/*  f0438bc:	44812000 */ 	mtc1	$at,$f4
-/*  f0438c0:	81c60008 */ 	lb	$a2,0x8($t6)
-/*  f0438c4:	8d070024 */ 	lw	$a3,0x24($t0)
-/*  f0438c8:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f0438cc:	87a50026 */ 	lh	$a1,0x26($sp)
-/*  f0438d0:	0c007733 */ 	jal	modelSetAnimation
-/*  f0438d4:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*  f0438d8:	8faa0048 */ 	lw	$t2,0x48($sp)
-/*  f0438dc:	8fac0048 */ 	lw	$t4,0x48($sp)
-/*  f0438e0:	81490037 */ 	lb	$t1,0x37($t2)
-/*  f0438e4:	5120000e */ 	beqzl	$t1,.L0f043920
-/*  f0438e8:	8d8d002c */ 	lw	$t5,0x2c($t4)
-/*  f0438ec:	8d4b002c */ 	lw	$t3,0x2c($t2)
-/*  f0438f0:	44803000 */ 	mtc1	$zero,$f6
-/*  f0438f4:	c5600014 */ 	lwc1	$f0,0x14($t3)
-/*  f0438f8:	4600303e */ 	c.le.s	$f6,$f0
-/*  f0438fc:	00000000 */ 	nop
-/*  f043900:	4500000a */ 	bc1f	.L0f04392c
-/*  f043904:	00000000 */ 	nop
-/*  f043908:	44050000 */ 	mfc1	$a1,$f0
-/*  f04390c:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f043910:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f043914:	10000005 */ 	b	.L0f04392c
-/*  f043918:	00000000 */ 	nop
-/*  f04391c:	8d8d002c */ 	lw	$t5,0x2c($t4)
-.L0f043920:
-/*  f043920:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f043924:	0c007787 */ 	jal	modelSetAnimEndFrame
-/*  f043928:	8da5001c */ 	lw	$a1,0x1c($t5)
-.L0f04392c:
-/*  f04392c:	0fc10792 */ 	jal	func0f041e48
-/*  f043930:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f043934:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f043938:
-/*  f043938:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f04393c:	03e00008 */ 	jr	$ra
-/*  f043940:	00000000 */ 	nop
-);
+void chrTickAttackRoll(struct chrdata *chr)
+{
+	if (chr->hidden & CHRHFLAG_NEEDANIM) {
+		if (modelIsAnimMerging(chr->model)) {
+			return;
+		}
+
+		chrAttackRollChooseAnimation(chr);
+
+		chr->hidden &= ~CHRHFLAG_NEEDANIM;
+	}
+
+	if (chr->act_attack.onehanded) {
+		struct model *model = chr->model;
+		f32 curframe = modelGetCurAnimFrame(model);
+
+		if (chr->act_attack.animcfg == &g_RollAttackAnims[4]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[5]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[6]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[7]) {
+			if (curframe >= chr->act_attack.animcfg->unk14) {
+				struct attackanimconfig *newanimcfg = chr->act_attack.animcfg + 4;
+				bool flip = model->anim->flip;
+				f32 sp34 = 16;
+
+				if (chr->act_attack.firegun[HAND_LEFT] && chr->act_attack.firegun[HAND_RIGHT]) {
+					if (random() % 2 == 0) {
+						newanimcfg += 4;
+					} else {
+						newanimcfg += 8;
+					}
+				}
+
+				if (newanimcfg == &g_RollAttackAnims[8]) {
+					sp34 = 24;
+				} else if (newanimcfg == &g_RollAttackAnims[9]) {
+					sp34 = 24;
+				} else if (newanimcfg == &g_RollAttackAnims[10]) {
+					sp34 = 32;
+				} else if (newanimcfg == &g_RollAttackAnims[11]) {
+					sp34 = 44;
+				} else if (newanimcfg == &g_RollAttackAnims[12]) {
+					sp34 = 24;
+				} else if (newanimcfg == &g_RollAttackAnims[13]) {
+					sp34 = 34;
+				} else if (newanimcfg == &g_RollAttackAnims[14]) {
+					sp34 = 32;
+				} else if (newanimcfg == &g_RollAttackAnims[15]) {
+					sp34 = 44;
+				} else if (newanimcfg == &g_RollAttackAnims[16]) {
+					sp34 = 24;
+				} else if (newanimcfg == &g_RollAttackAnims[17]) {
+					sp34 = 34;
+				} else if (newanimcfg == &g_RollAttackAnims[18]) {
+					sp34 = 32;
+				} else if (newanimcfg == &g_RollAttackAnims[19]) {
+					sp34 = 44;
+				}
+
+				chr->act_attack.turning = 2;
+				chr->act_attack.animcfg = newanimcfg;
+				chr->sleep = 0;
+
+				modelSetAnimation(model, newanimcfg->animnum, flip, newanimcfg->unk10,
+						chrGetRangedSpeed(chr, 0.5f, 0.8f), sp34);
+
+				if (chr->act_attack.dorecoil) {
+					if (newanimcfg->unk24 >= 0.0f) {
+						modelSetAnimEndFrame(model, newanimcfg->unk24);
+					} else {
+						modelSetAnimEndFrame(model, newanimcfg->unk1c);
+					}
+				} else {
+					if (newanimcfg->unk20 >= 0.0f) {
+						modelSetAnimEndFrame(model, newanimcfg->unk20);
+					} else {
+						if (newanimcfg->unk14 >= 0.0f) {
+							modelSetAnimEndFrame(model, newanimcfg->unk14);
+						}
+					}
+				}
+
+				if (chr->act_attack.animcfg->unk0c != 0.0f) {
+					union modelrwdata *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
+					rwdata->chrinfo.unk5c = sp34;
+					rwdata->chrinfo.unk58 = -chr->act_attack.animcfg->unk0c / sp34;
+
+					if (flip) {
+						rwdata->chrinfo.unk58 = -rwdata->chrinfo.unk58;
+					}
+				}
+			}
+		} else if (chr->act_attack.animcfg == &g_RollAttackAnims[8]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[9]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[10]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[11]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[12]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[13]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[14]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[15]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[16]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[17]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[18]
+				|| chr->act_attack.animcfg == &g_RollAttackAnims[19]) {
+			if (!chr->act_attack.dorecoil
+					&& chr->act_attack.animcfg->unk24 > 0
+					&& curframe <= chr->act_attack.animcfg->unk24
+					&& curframe >= modelGetAnimEndFrame(model)) {
+				modelSetAnimation(model, modelGetAnimNum(model), model->anim->flip,
+						chr->act_attack.animcfg->unk24, chrGetRangedSpeed(chr, 0.5f, 0.8f), 16);
+
+				if (chr->act_attack.dooneburst) {
+					if (chr->act_attack.animcfg->unk14 >= 0) {
+						modelSetAnimEndFrame(model, chr->act_attack.animcfg->unk14);
+					}
+				} else {
+					u32 stack;
+					modelSetAnimEndFrame(model, chr->act_attack.animcfg->unk1c);
+				}
+			}
+		}
+	}
+
+	func0f041e48(chr);
+}
 
 void propPrintDangerous(void)
 {

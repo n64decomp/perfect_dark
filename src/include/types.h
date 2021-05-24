@@ -724,7 +724,7 @@ struct modelrwdata_chrinfo { // type 0x01
 	struct coord unk34;
 	struct coord unk40; // "2" version of unk24
 	struct coord unk4c; // "2" version of unk34
-	u32 unk58;
+	f32 unk58;
 	f32 unk5c;
 };
 

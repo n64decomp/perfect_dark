@@ -206,7 +206,7 @@ extern struct attackanimgroup *g_StandDualAttackAnims[][32];
 extern struct attackanimgroup *g_KneelHeavyAttackAnims[][32];
 extern struct attackanimgroup *g_KneelLightAttackAnims[][32];
 extern struct attackanimgroup *g_KneelDualAttackAnims[][32];
-extern struct attackanimconfig g_AttackAnimRollHeavyLeft1;
+extern struct attackanimconfig g_RollAttackAnims[];
 extern struct attackanimconfig g_AttackAnimHeavyWalk;
 extern struct attackanimconfig g_AttackAnimHeavyRun;
 extern struct attackanimconfig g_AttackAnimLightWalk;
