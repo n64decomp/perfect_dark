@@ -1593,94 +1593,45 @@ void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst)
 	func0f02e3dc(&sp2c, &sp20, arg0, arg1, dst);
 }
 
+f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 arg3, f32 ymax, f32 ymin)
+{
+	struct coord sp5c;
+	struct coord sp50;
+	struct chrdata *chr = prop->chr;
+	f32 result;
+	struct coord sp3c;
+	f32 xdiff;
+	f32 zdiff;
+
+	sp5c.x = sinf(arg1);
+	sp5c.y = 0;
+	sp5c.z = cosf(arg1);
+
+	sp50.x = prop->pos.x + sp5c.f[0] * arg2;
+	sp50.y = prop->pos.y;
+	sp50.z = prop->pos.z + sp5c.f[2] * arg2;
+
+	chrSetOrUnsetHiddenFlag00000100(chr, false);
+
+	if (func0002d7c0(&prop->pos, prop->rooms, &sp50, arg3, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+		result = arg2;
+	} else {
 #if VERSION >= VERSION_PAL_FINAL
-const char var7f1a8acc[] = "chr/chraction.c";
+		cdGetPos(&sp3c, 2377, "chr/chraction.c");
 #else
-const char var7f1a8acc[] = "chraction.c";
+		cdGetPos(&sp3c, 2377, "chraction.c");
 #endif
 
-GLOBAL_ASM(
-glabel func0f02e550
-/*  f02e550:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f02e554:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f02e558:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f02e55c:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f02e560:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f02e564:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f02e568:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*  f02e56c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02e570:	c7ac006c */ 	lwc1	$f12,0x6c($sp)
-/*  f02e574:	0c0068f7 */ 	jal	sinf
-/*  f02e578:	afae004c */ 	sw	$t6,0x4c($sp)
-/*  f02e57c:	44802000 */ 	mtc1	$zero,$f4
-/*  f02e580:	e7a0005c */ 	swc1	$f0,0x5c($sp)
-/*  f02e584:	c7ac006c */ 	lwc1	$f12,0x6c($sp)
-/*  f02e588:	0c0068f4 */ 	jal	cosf
-/*  f02e58c:	e7a40060 */ 	swc1	$f4,0x60($sp)
-/*  f02e590:	c7a20070 */ 	lwc1	$f2,0x70($sp)
-/*  f02e594:	c7a6005c */ 	lwc1	$f6,0x5c($sp)
-/*  f02e598:	e7a00064 */ 	swc1	$f0,0x64($sp)
-/*  f02e59c:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f02e5a0:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f02e5a4:	c7a40064 */ 	lwc1	$f4,0x64($sp)
-/*  f02e5a8:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f02e5ac:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02e5b0:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f02e5b4:	460a4400 */ 	add.s	$f16,$f8,$f10
-/*  f02e5b8:	e7b00050 */ 	swc1	$f16,0x50($sp)
-/*  f02e5bc:	c612000c */ 	lwc1	$f18,0xc($s0)
-/*  f02e5c0:	e7b20054 */ 	swc1	$f18,0x54($sp)
-/*  f02e5c4:	c6080010 */ 	lwc1	$f8,0x10($s0)
-/*  f02e5c8:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f02e5cc:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f02e5d0:	e7aa0058 */ 	swc1	$f10,0x58($sp)
-/*  f02e5d4:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f02e5d8:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f02e5dc:	c600000c */ 	lwc1	$f0,0xc($s0)
-/*  f02e5e0:	c7b00078 */ 	lwc1	$f16,0x78($sp)
-/*  f02e5e4:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
-/*  f02e5e8:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f02e5ec:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f02e5f0:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f02e5f4:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f02e5f8:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f02e5fc:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f02e600:	8fa70074 */ 	lw	$a3,0x74($sp)
-/*  f02e604:	0c00b5f0 */ 	jal	func0002d7c0
-/*  f02e608:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f02e60c:	10400003 */ 	beqz	$v0,.L0f02e61c
-/*  f02e610:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*  f02e614:	10000011 */ 	b	.L0f02e65c
-/*  f02e618:	c7a20070 */ 	lwc1	$f2,0x70($sp)
-.L0f02e61c:
-/*  f02e61c:	3c067f1b */ 	lui	$a2,%hi(var7f1a8acc)
-/*  f02e620:	24c68acc */ 	addiu	$a2,$a2,%lo(var7f1a8acc)
-/*  f02e624:	0c0093af */ 	jal	cdGetPos
-/*  f02e628:	24050949 */ 	addiu	$a1,$zero,0x949
-/*  f02e62c:	c7a8003c */ 	lwc1	$f8,0x3c($sp)
-/*  f02e630:	c60a0008 */ 	lwc1	$f10,0x8($s0)
-/*  f02e634:	c7b00044 */ 	lwc1	$f16,0x44($sp)
-/*  f02e638:	c6120010 */ 	lwc1	$f18,0x10($s0)
-/*  f02e63c:	460a4001 */ 	sub.s	$f0,$f8,$f10
-/*  f02e640:	46128081 */ 	sub.s	$f2,$f16,$f18
-/*  f02e644:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f02e648:	00000000 */ 	nop
-/*  f02e64c:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f02e650:	0c012974 */ 	jal	sqrtf
-/*  f02e654:	46062300 */ 	add.s	$f12,$f4,$f6
-/*  f02e658:	46000086 */ 	mov.s	$f2,$f0
-.L0f02e65c:
-/*  f02e65c:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f02e660:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f02e664:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f02e668:	e7a20048 */ 	swc1	$f2,0x48($sp)
-/*  f02e66c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f02e670:	c7a20048 */ 	lwc1	$f2,0x48($sp)
-/*  f02e674:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f02e678:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f02e67c:	03e00008 */ 	jr	$ra
-/*  f02e680:	46001006 */ 	mov.s	$f0,$f2
-);
+		xdiff = sp3c.x - prop->pos.x;
+		zdiff = sp3c.z - prop->pos.z;
+
+		result = sqrtf(xdiff * xdiff + zdiff * zdiff);
+	}
+
+	chrSetOrUnsetHiddenFlag00000100(chr, true);
+
+	return result;
+}
 
 f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 {
