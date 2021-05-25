@@ -433,7 +433,7 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 
 	if (weaponnum == WEAPON_TRANQUILIZER) {
 		soundnum = SFX_04FB;
-		speed = 2.8f;
+		speed = 2.78f;
 	} else if (weaponnum == WEAPON_REAPER) {
 		// empty
 	} else if (weaponnum == WEAPON_COMBATKNIFE) {

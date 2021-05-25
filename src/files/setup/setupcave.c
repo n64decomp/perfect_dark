@@ -786,24 +786,24 @@ u8 func0401_unused_cutscene[] = {
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0170, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x0170, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	set_chr_chrflag(0x00, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x00, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x00, CHRHFLAG_00020000)
-	chr_do_animation(0x016c, -1, -1, 0x06, 0x00, 0x00, 4)
+	chr_do_animation(0x016c, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x00, 4)
 	set_chr_chrflag(0x01, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x01, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x01, CHRHFLAG_00020000)
-	chr_do_animation(0x016d, -1, -1, 0x06, 0x00, 0x01, 4)
+	chr_do_animation(0x016d, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x01, 4)
 	set_chr_chrflag(0x02, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x02, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x02, CHRHFLAG_00020000)
-	chr_do_animation(0x016e, -1, -1, 0x06, 0x00, 0x02, 4)
+	chr_do_animation(0x016e, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x02, 4)
 	set_chr_chrflag(CHR_STEWARDESS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_STEWARDESS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_STEWARDESS, CHRHFLAG_00020000)
-	chr_do_animation(0x016f, -1, -1, 0x06, 0x00, CHR_STEWARDESS, 4)
+	chr_do_animation(0x016f, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_STEWARDESS, 4)
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -846,7 +846,7 @@ u8 func0425_outro[] = {
 	set_chr_chrflag(CHR_OUTRO_NSA, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_OUTRO_NSA, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_OUTRO_NSA, CHRHFLAG_00020000)
-	chr_do_animation(0x031b, -1, -1, 0x06, 0x00, CHR_OUTRO_NSA, 4)
+	chr_do_animation(0x031b, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_OUTRO_NSA, 4)
 
 	show_object(OBJ_PLANE)
 	set_object_flag2(OBJ_PLANE, OBJFLAG2_04000000)
@@ -1239,7 +1239,7 @@ u8 func0407_stewardess[] = {
 	label(0x02)
 	speak(CHR_TARGET, L_CAVE_025, MP3_02DC, CHANNEL_4, COLOR_07_RED) // "Look out - it's an intruder..."
 	increase_squadron_alertness(100)
-	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_chr_stopped(/*goto*/ 0x02)
@@ -1255,7 +1255,7 @@ u8 func0407_stewardess[] = {
 	label(0x0b)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x31)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	chr_do_animation(ANIM_SNEEZE, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SNEEZE, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x69)
 		if_chr_stopped(/*goto*/ 0x02)
@@ -1269,7 +1269,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x62)
 		set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
-		chr_do_animation(ANIM_COWER_0229, -1, 190, 0x10, 0x0a, CHR_SELF, 2)
+		chr_do_animation(ANIM_COWER_0229, -1, 190, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 		beginloop(0x63)
 			if_chr_stopped(/*goto*/ 0x31)
@@ -1548,7 +1548,7 @@ u8 func0408_secretary[] = {
 	label(0x67)
 	increase_squadron_alertness(100)
 	restart_timer
-	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_chr_stopped(/*goto*/ 0x4f)
@@ -1556,7 +1556,7 @@ u8 func0408_secretary[] = {
 
 	label(0x4f)
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
-	chr_do_animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 	beginloop(0x0f)
 		if_chr_stopped(/*goto*/ 0x31)
@@ -1582,7 +1582,7 @@ u8 func0408_secretary[] = {
 	//
 	label(0x32)
 	speak(CHR_TARGET, L_CAVE_029, SFX_8161, CHANNEL_4, COLOR_06_WHITE) // "Good afternoon."
-	chr_do_animation(ANIM_TALKING_0231, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0231, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	restart_timer
 	set_morale(2)
 
@@ -1613,7 +1613,7 @@ u8 func0408_secretary[] = {
 	label(0x32)
 	speak(CHR_TARGET, L_CAVE_031, MP3_0273, CHANNEL_4, COLOR_06_WHITE) // "You'll have to check that weapon in here."
 	restart_timer
-	chr_do_animation(ANIM_TALKING_0232, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0232, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	set_morale(3)
 
 	beginloop(0x09)
@@ -1638,7 +1638,7 @@ u8 func0408_secretary[] = {
 	label(0x32)
 	speak(CHR_TARGET, L_CAVE_033, MP3_0274, CHANNEL_4, COLOR_06_WHITE) // "Weapons are not allowed in the base."
 	restart_timer
-	chr_do_animation(ANIM_TALKING_0233, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0233, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	set_morale(4)
 
 	beginloop(0x0a)
@@ -1671,7 +1671,7 @@ u8 func0408_secretary[] = {
 	set_stage_flag(STAGEFLAG_RECEPTIONIST_CALLED_SECURITY)
 	activate_alarm
 	restart_timer
-	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x0b)
 		if_timer_gt(180, /*goto*/ 0x02)
@@ -1688,7 +1688,7 @@ u8 func0408_secretary[] = {
 	//
 	label(0x31)
 	speak(CHR_TARGET, L_CAVE_030, MP3_0272, CHANNEL_4, COLOR_06_WHITE) // "OK, you know the way from here."
-	chr_do_animation(0x0232, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x0232, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	unlock_door(0x18, 0x02)
 
 	beginloop(0x0e)
@@ -2062,7 +2062,7 @@ u8 func0409_office1[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x42)
-	chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2092,7 +2092,7 @@ u8 func0409_office1[] = {
 
 	// Disguised and unarmed-ish
 	label(0x31)
-	chr_do_animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_0265, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	speak(CHR_TARGET, L_CAVE_041, MP3_02E6, CHANNEL_4, COLOR_08_RED) // "Are you new around here?"
 
 	beginloop(0x09)
@@ -2112,7 +2112,7 @@ u8 func0409_office1[] = {
 		reloop(0x09)
 
 		label(0x7b)
-		chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
 	endloop(0x09)
 
 	// Picked up briefcase
@@ -2157,7 +2157,7 @@ u8 func0409_office1[] = {
 	speak(CHR_TARGET, L_CAVE_040, MP3_02E5, CHANNEL_4, COLOR_08_RED) // "Hey, you - this is a restricted area."
 	increase_squadron_alertness(100)
 	restart_timer
-	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_timer_gt(180, /*goto*/ LABEL_RUN_TO_FOYER)
@@ -2199,7 +2199,7 @@ u8 func040a_office2[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x42)
-	chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x00)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x02)
@@ -2514,7 +2514,7 @@ u8 func040f_nsa[] = {
 	endloop(0x09)
 
 	label(0x02)
-	chr_do_animation(ANIM_TALKING_0098, 0, 90, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0098, 0, 90, 0, 16, CHR_SELF, 2)
 	say_quip(CHR_BOND, 0x1c, 0xff, 0x02, 0xff, 0x81, 0x00, 0x00)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 
@@ -2576,7 +2576,7 @@ u8 func040f_nsa[] = {
 	set_ailist(CHR_SELF, GAILIST_HAND_COMBAT)
 
 	label(0x07)
-	chr_do_animation(ANIM_TALKING_0098, 0, 90, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0098, 0, 90, 0, 16, CHR_SELF, 2)
 	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, 0x81, 0x00, 0x00)
 	label(0x08)
 	yield
@@ -2685,7 +2685,7 @@ u8 func0414_officeworker[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x44)
-	chr_do_animation(ANIM_SITTING_DORMANT, -1, 60, 0x14, 0x00, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_DORMANT, -1, 60, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
 
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2700,7 +2700,7 @@ u8 func0414_officeworker[] = {
 	endloop(0x00)
 
 	label(0x02)
-	chr_do_animation(ANIM_SITTING_0265, 0, 120, 0x14, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_0265, 0, 120, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	say_quip(CHR_BOND, 0x20, 0xff, 0x0a, 0xff, BANK_1, 0x00, 0x00)
 	restart_timer
 
@@ -2726,10 +2726,10 @@ u8 func0414_officeworker[] = {
 	chr_move_to_pad(0x3a, 0x00d7, 0x00, /*goto*/ 0x31)
 
 	label(0x31)
-	chr_do_animation(ANIM_SITTING_DORMANT, -1, 60, 0x14, 0x00, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_DORMANT, -1, 60, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
 
 	label(0x77)
-	chr_do_animation(ANIM_COWER_0229, -1, 60, 0x14, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_COWER_0229, -1, 60, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2759,7 +2759,7 @@ u8 func0414_officeworker[] = {
 	endloop(0x05)
 
 	label(0x79)
-	chr_do_animation(0x0229, -1, 60, 0x14, 0x0a, CHR_SELF, 2)
+	chr_do_animation(0x0229, -1, 60, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_chr_idle(/*goto*/ 0x02)
@@ -3329,23 +3329,23 @@ u8 func0419_ba8c[] = {
 	if_rand_lt(128, /*goto*/ 0x6f)
 	if_rand_lt(196, /*goto*/ 0x70)
 	set_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	chr_do_animation(ANIM_SMOKE_CIGARETTE, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_SMOKE_CIGARETTE, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x6e)
-	chr_do_animation(ANIM_SCRATCH_HEAD, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_SCRATCH_HEAD, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x6f)
-	chr_do_animation(ANIM_YAWN, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_YAWN, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x70)
-	chr_do_animation(ANIM_GRAB_CROTCH, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_GRAB_CROTCH, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x71)
-	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, 100, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, 100, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x31)
@@ -3423,7 +3423,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x4f)
 	restart_timer
-	chr_do_animation(0x025f, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x025f, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	label(0x0f)
 	yield
 	if_timer_gt(90, /*goto*/ 0x0b)
@@ -3431,7 +3431,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x02)
 	say_quip(CHR_BOND, 0x24, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
-	chr_do_animation(0x002e, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x002e, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	label(0x09)
 	yield
 	if_timer_gt(120, /*goto*/ 0x0b)
@@ -3454,7 +3454,7 @@ u8 func0419_ba8c[] = {
 	increase_squadron_alertness(100)
 	say_quip(CHR_BOND, 0x25, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x0e)
-	chr_do_animation(0x0229, -1, -1, 0x10, 0x14, CHR_SELF, 2)
+	chr_do_animation(0x0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
 	label(0x0a)
 	yield
 	if_chr_stopped(/*goto*/ 0x31)
@@ -3596,32 +3596,32 @@ u8 func1003_intro[] = {
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01e6, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x01e6, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	set_chr_chrflag(CHR_TRENT, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TRENT, CHRHFLAG_00020000)
-	chr_do_animation(0x01e7, -1, -1, 0x06, 0x00, CHR_TRENT, 4)
+	chr_do_animation(0x01e7, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TRENT, 4)
 	set_chr_chrflag(0x48, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x48, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x48, CHRHFLAG_00020000)
-	chr_do_animation(0x01e8, -1, -1, 0x06, 0x00, 0x48, 4)
+	chr_do_animation(0x01e8, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x48, 4)
 	set_chr_chrflag(0x49, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x49, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x49, CHRHFLAG_00020000)
-	chr_do_animation(0x01e9, -1, -1, 0x06, 0x00, 0x49, 4)
+	chr_do_animation(0x01e9, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x49, 4)
 	set_chr_chrflag(0x4a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x4a, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x4a, CHRHFLAG_00020000)
-	chr_do_animation(0x01ea, -1, -1, 0x06, 0x00, 0x4a, 4)
+	chr_do_animation(0x01ea, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x4a, 4)
 	set_chr_chrflag(0x4b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x4b, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x4b, CHRHFLAG_00020000)
-	chr_do_animation(0x01eb, -1, -1, 0x06, 0x00, 0x4b, 4)
+	chr_do_animation(0x01eb, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x4b, 4)
 	set_chr_chrflag(0x4c, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x4c, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x4c, CHRHFLAG_00020000)
-	chr_do_animation(0x01ec, -1, -1, 0x06, 0x00, 0x4c, 4)
+	chr_do_animation(0x01ec, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x4c, 4)
 	show_object(0x22)
 	set_object_flag2(0x22, OBJFLAG2_04000000)
 	set_object_flag3(0x22, OBJFLAG3_00000010)
@@ -3839,10 +3839,10 @@ u8 func1003_intro[] = {
 	set_chr_chrflag(0x49, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(0x49, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x49, CHRHFLAG_00020000)
-	chr_do_animation(0x01e9, -2, -1, 0x06, 0x00, 0x49, 2)
+	chr_do_animation(0x01e9, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x49, 2)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01e6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x01e6, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 	unset_object_flag2(0x22, OBJFLAG2_04000000)
 	set_object_flag3(0x22, OBJFLAG3_00000010)
@@ -4075,7 +4075,7 @@ u8 func0418_remove_or_cower[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x02)
 	label(0x62)
-	chr_do_animation(ANIM_COWER_0229, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 	beginloop(0x63)
 		if_chr_stopped(/*goto*/ 0x31)

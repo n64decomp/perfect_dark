@@ -1616,7 +1616,7 @@ u8 func0416_mechanic[] = {
 	// Not alert - at interceptor
 	label(0x04)
 		call_rng
-		chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 		beginloop(0x09)
 			chr_toggle_p1p2(CHR_SELF)
@@ -1639,7 +1639,7 @@ u8 func0416_mechanic[] = {
 
 	// In bunker
 	label(0x0e)
-		chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 		beginloop(0x0d)
 			chr_toggle_p1p2(CHR_SELF)
@@ -1784,18 +1784,18 @@ u8 func040e_outro[] = {
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	chr_do_animation(0x017f, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
+	chr_do_animation(0x017f, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 	set_chr_hudpiece_visible(CHR_P1P2, TRUE)
 
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_JONATHAN, CHRHFLAG_00020000)
-	chr_do_animation(0x017e, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
+	chr_do_animation(0x017e, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_JONATHAN, 4)
 
 	set_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_OUTRO_GUARD, CHRHFLAG_00020000)
-	chr_do_animation(0x0180, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD, 4)
+	chr_do_animation(0x0180, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_OUTRO_GUARD, 4)
 
 	restart_timer
 	show_nonessential_chrs(FALSE)
@@ -1925,7 +1925,7 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(0x32, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x32, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x32, CHRHFLAG_00020000)
-	chr_do_animation(0x0182, -1, -1, 0x06, 0x00, 0x32, 4)
+	chr_do_animation(0x0182, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x32, 4)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1969,17 +1969,17 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(0x29, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x29, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x29, CHRHFLAG_00020000)
-	chr_do_animation(0x0184, -1, -1, 0x06, 0x00, 0x29, 4)
+	chr_do_animation(0x0184, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x29, 4)
 
 	set_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2a, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2a, CHRHFLAG_00020000)
-	chr_do_animation(0x0185, -1, -1, 0x06, 0x00, 0x2a, 4)
+	chr_do_animation(0x0185, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2a, 4)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
-	chr_do_animation(0x0186, -1, -1, 0x06, 0x00, 0x2b, 4)
+	chr_do_animation(0x0186, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2b, 4)
 
 	set_object_flag2(0x2f, OBJFLAG2_04000000)
 	set_object_flag3(0x2f, OBJFLAG3_00000010)
@@ -2015,12 +2015,12 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2a, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2a, CHRHFLAG_00020000)
-	chr_do_animation(0x0189, -1, -1, 0x06, 0x00, 0x2a, 4)
+	chr_do_animation(0x0189, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2a, 4)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
-	chr_do_animation(0x018a, -1, -1, 0x06, 0x00, 0x2b, 4)
+	chr_do_animation(0x018a, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2b, 4)
 
 	set_object_flag2(0x2f, OBJFLAG2_04000000)
 	set_object_flag3(0x2f, OBJFLAG3_00000010)
@@ -2053,7 +2053,7 @@ u8 func0410_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0x54)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x00f1, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x00f1, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(0x03, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(0x03, CHRHFLAG_00020000)
 	unset_chr_chrflag(0x03, CHRCFLAG_HIDDEN)
@@ -2121,7 +2121,7 @@ u8 func0410_intro[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x00f1, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x00f1, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	unset_chr_chrflag(0x03, CHRCFLAG_UNPLAYABLE)
 	set_ailist(0x02, 0x0426)
 	set_ailist(0x03, 0x0426)
@@ -2930,7 +2930,7 @@ u8 func0421_activate_autogun[] = {
 	endloop(0x09)
 
 	label(0x2e)
-	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 120, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 120, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x2e)
@@ -2948,7 +2948,7 @@ u8 func0421_activate_autogun[] = {
 	label(0x0e)
 	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
-	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0, 16, CHR_SELF, 2)
 
 	beginloop(0x7c)
 		if_timer_gt(60, /*goto*/ 0x7d)

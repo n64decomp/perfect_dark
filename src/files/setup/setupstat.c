@@ -1075,17 +1075,17 @@ u8 func1002_intro[] = {
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x047d, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x047d, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 
 	unset_chr_chrflag(CHR_MAIAN1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_MAIAN1, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_MAIAN1, CHRHFLAG_00020000)
-	chr_do_animation(0x047e, -1, -1, 0x06, 0x00, CHR_MAIAN1, 4)
+	chr_do_animation(0x047e, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MAIAN1, 4)
 
 	unset_chr_chrflag(CHR_MAIAN2, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_MAIAN2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_MAIAN2, CHRHFLAG_00020000)
-	chr_do_animation(0x047f, -1, -1, 0x06, 0x00, CHR_MAIAN2, 4)
+	chr_do_animation(0x047f, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MAIAN2, 4)
 
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1122,15 +1122,15 @@ u8 func1002_intro[] = {
 
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x047d, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x047d, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 
 	unset_chr_chrflag(CHR_MAIAN3, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_MAIAN3, CHRHFLAG_00020000)
-	chr_do_animation(0x047e, -2, -1, 0x06, 0x00, CHR_MAIAN3, 2)
+	chr_do_animation(0x047e, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MAIAN3, 2)
 
 	unset_chr_chrflag(CHR_MAIAN4, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_MAIAN4, CHRHFLAG_00020000)
-	chr_do_animation(0x047f, -2, -1, 0x06, 0x00, CHR_MAIAN4, 2)
+	chr_do_animation(0x047f, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MAIAN4, 2)
 
 	set_ailist(CHR_MAIAN1, AILIST_INIT_MAIAN)
 	set_ailist(CHR_MAIAN2, AILIST_INIT_MAIAN)
@@ -1156,17 +1156,17 @@ u8 func040b_outro[] = {
 	unset_chr_chrflag(CHR_MAIAN3, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_MAIAN3, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_MAIAN3, CHRHFLAG_00020000)
-	chr_do_animation(0x0481, -1, -1, 0x06, 0x00, CHR_MAIAN3, 4)
+	chr_do_animation(0x0481, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MAIAN3, 4)
 
 	unset_chr_chrflag(CHR_MAIAN4, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_MAIAN4, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_MAIAN4, CHRHFLAG_00020000)
-	chr_do_animation(0x0482, -1, -1, 0x06, 0x00, CHR_MAIAN4, 4)
+	chr_do_animation(0x0482, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MAIAN4, 4)
 
 	unset_chr_chrflag(CHR_MAIAN5, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_MAIAN5, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_MAIAN5, CHRHFLAG_00020000)
-	chr_do_animation(0x0483, -1, -1, 0x06, 0x00, CHR_MAIAN5, 4)
+	chr_do_animation(0x0483, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MAIAN5, 4)
 
 	show_nonessential_chrs(FALSE)
 

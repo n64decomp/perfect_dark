@@ -1016,22 +1016,22 @@ struct act_stand {
 };
 
 struct act_anim {
-	/*0x2c*/ u32 unk02c;
-	/*0x30*/ bool holdlastframe;
-	/*0x34*/ u32 unk034;
-	/*0x38*/ u32 unk038;
-	/*0x3c*/ u32 unk03c;
-	/*0x40*/ u8 unk040;
-	/*0x41*/ u8 unk041;
-	/*0x42*/ u16 unk042;
-	/*0x44*/ u16 unk044;
-	/*0x46*/ u16 unk046;
+	/*0x2c*/ bool movewheninvis;
+	/*0x30*/ bool pauseatend;
+	/*0x34*/ bool completed;
+	/*0x38*/ bool slowupdate;
+	/*0x3c*/ bool lockpos;
+	/*0x40*/ u8 ishitanim;
+	/*0x41*/ u8 reverse;
+	/*0x42*/ u16 hitframe;
+	/*0x44*/ u16 hitdamage;
+	/*0x46*/ u16 hitradius;
 	/*0x48*/ s16 animnum;
 	/*0x4a*/ u8 flip;
 	/*0x4c*/ f32 startframe;
 	/*0x50*/ f32 endframe;
 	/*0x54*/ f32 speed;
-	/*0x58*/ f32 unk058;
+	/*0x58*/ f32 blend;
 };
 
 struct act_die {

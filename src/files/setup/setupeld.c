@@ -781,22 +781,22 @@ u8 func1002_intro[] = {
 	if_stage_flag_eq(STAGEFLAG_PLAYING_INTRO_FROM_MENU, TRUE, /*goto*/ 0x2e)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
 	label(0x2e)
-	chr_do_animation(0x0172, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x0172, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	remove_chr(CHR_NEGOTIATOR)
 	play_cutscene_track(MUSIC_VILLA_INTRO3)
 	goto_next(0x06)
 	label(0x2d)
 	play_cutscene_track(MUSIC_VILLA_INTRO2)
-	chr_do_animation(0x0172, -1, -1, 0x06, 0x00, CHR_NEGOTIATOR, 4)
+	chr_do_animation(0x0172, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_NEGOTIATOR, 4)
 	label(0x06)
 	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
-	chr_do_animation(0x0173, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
+	chr_do_animation(0x0173, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER1, 4)
 	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
-	chr_do_animation(0x0174, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
+	chr_do_animation(0x0174, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 4)
 	show_object(OBJ_DROPSHIP)
 	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_DROPSHIP, OBJFLAG3_00000010)
@@ -942,21 +942,21 @@ u8 func1002_intro[] = {
 	if_stage_flag_eq(STAGEFLAG_PLAYING_INTRO_FROM_MENU, TRUE, /*goto*/ 0x2e)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
 	label(0x2e)
-	chr_do_animation(0x01b8, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x01b8, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	goto_next(0x06)
 	label(0x2d)
-	chr_do_animation(0x01b8, -1, -1, 0x06, 0x00, CHR_NEGOTIATOR, 4)
+	chr_do_animation(0x01b8, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_NEGOTIATOR, 4)
 	label(0x06)
 
 	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
-	chr_do_animation(0x01b9, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
+	chr_do_animation(0x01b9, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER1, 4)
 
 	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
-	chr_do_animation(0x01ba, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
+	chr_do_animation(0x01ba, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 4)
 
 	restart_timer
 
@@ -1033,20 +1033,20 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_NEGOTIATOR, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_NEGOTIATOR, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_NEGOTIATOR, CHRHFLAG_00020000)
-	chr_do_animation(0x0001, -1, -1, 0x06, 0x00, CHR_NEGOTIATOR, 4)
+	chr_do_animation(0x0001, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_NEGOTIATOR, 4)
 
 	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
-	chr_do_animation(0x0001, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
+	chr_do_animation(0x0001, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER1, 4)
 
 	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
-	chr_do_animation(0x0001, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
+	chr_do_animation(0x0001, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 4)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01bc, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x01bc, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 
 	show_object(OBJ_DROPSHIP)
 	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
@@ -1101,19 +1101,19 @@ u8 func1002_intro[] = {
 
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01bc, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x01bc, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 
 	unset_chr_chrflag(CHR_NEGOTIATOR, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_NEGOTIATOR, CHRHFLAG_00020000)
-	chr_do_animation(0x01b8, -2, -1, 0x06, 0x00, CHR_NEGOTIATOR, 2)
+	chr_do_animation(0x01b8, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_NEGOTIATOR, 2)
 
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
-	chr_do_animation(0x01b9, -2, -1, 0x06, 0x00, CHR_TAKER1, 2)
+	chr_do_animation(0x01b9, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER1, 2)
 
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
-	chr_do_animation(0x01ba, -2, -1, 0x06, 0x00, CHR_TAKER2, 2)
+	chr_do_animation(0x01ba, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 2)
 
 	hide_object(OBJ_DROPSHIP)
 	stop_cutscene_track
@@ -1122,9 +1122,9 @@ u8 func1002_intro[] = {
 	unset_stage_flag(STAGEFLAG_PLAYING_INTRO_FROM_MENU)
 	enter_firstperson
 	yield
-	chr_do_animation(0x0001, -1, -1, 0x02, 0x00, CHR_NEGOTIATOR, 2)
-	chr_do_animation(0x0001, -1, -1, 0x02, 0x00, CHR_TAKER1, 2)
-	chr_do_animation(0x0001, -1, -1, 0x02, 0x00, CHR_TAKER2, 2)
+	chr_do_animation(0x0001, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_NEGOTIATOR, 2)
+	chr_do_animation(0x0001, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_TAKER1, 2)
+	chr_do_animation(0x0001, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_TAKER2, 2)
 	set_ailist(CHR_TAKER1, AILIST_INIT_TAKER)
 	set_ailist(CHR_TAKER2, AILIST_INIT_TAKER)
 	set_ailist(CHR_NEGOTIATOR, AILIST_NEGOTIATOR)
@@ -1138,15 +1138,15 @@ u8 func1002_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0x56)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01bf, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x01bf, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
-	chr_do_animation(0x01c0, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
+	chr_do_animation(0x01c0, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER1, 4)
 	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
-	chr_do_animation(0x01c1, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
+	chr_do_animation(0x01c1, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 4)
 	restart_timer
 	label(0xa6)
 	yield
@@ -1202,15 +1202,15 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_7)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01bf, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x01bf, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
 	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_00000001)
-	chr_do_animation(0x01c0, -2, -1, 0x06, 0x00, CHR_TAKER1, 2)
+	chr_do_animation(0x01c0, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER1, 2)
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_00000001)
-	chr_do_animation(0x01c1, -2, -1, 0x06, 0x00, CHR_TAKER2, 2)
+	chr_do_animation(0x01c1, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 2)
 	hide_object(OBJ_DROPSHIP)
 	stop_cutscene_track
 	stop_ambient_track
@@ -1243,12 +1243,12 @@ u8 func0408_outro[] = {
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	chr_do_animation(0x017c, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
+	chr_do_animation(0x017c, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_CARRINGTON, CHRHFLAG_00020000)
-	chr_do_animation(0x017b, -1, -1, 0x06, 0x00, CHR_CARRINGTON, 4)
+	chr_do_animation(0x017b, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CARRINGTON, 4)
 
 	show_nonessential_chrs(FALSE)
 	restart_timer
@@ -1533,7 +1533,7 @@ u8 func0402_taker[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
-	chr_do_animation(0x0202, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(0x0202, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 	beginloop(0x5f)
 		if_timer_gt(180, /*goto*/ 0x5e)
@@ -1612,10 +1612,10 @@ u8 func0402_taker[] = {
 
 	label(0x2d)
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x06)
-	chr_do_animation(0x01fd, 0, -1, 0x00, 0x0a, CHR_SELF, 2)
+	chr_do_animation(0x01fd, 0, -1, 0, 10, CHR_SELF, 2)
 	goto_next(0x0e)
 	label(0x06)
-	chr_do_animation(0x0232, 0, -1, 0x00, 0x0a, CHR_SELF, 2)
+	chr_do_animation(0x0232, 0, -1, 0, 10, CHR_SELF, 2)
 
 	beginloop(0x0e)
 		if_saw_injury(0x00, /*goto*/ 0x2e)
@@ -1849,16 +1849,16 @@ u8 func0404_sniper[] = {
 			if_rand_lt(64, /*goto*/ 0x59)
 			if_rand_lt(128, /*goto*/ 0x5a)
 			if_rand_lt(196, /*goto*/ 0x5b)
-			chr_do_animation(ANIM_LOOK_AROUND_025B, 0, -1, 0x50, 0x0a, CHR_SELF, 2)
+			chr_do_animation(ANIM_LOOK_AROUND_025B, 0, -1, CHRANIMFLAG_SLOWUPDATE | CHRANIMFLAG_LOCKPOS, 10, CHR_SELF, 2)
 			goto_next(0x0b)
 			label(0x59)
-			chr_do_animation(ANIM_LOOK_AROUND_025C, 0, -1, 0x50, 0x0a, CHR_SELF, 2)
+			chr_do_animation(ANIM_LOOK_AROUND_025C, 0, -1, CHRANIMFLAG_SLOWUPDATE | CHRANIMFLAG_LOCKPOS, 10, CHR_SELF, 2)
 			goto_next(0x0b)
 			label(0x5a)
-			chr_do_animation(ANIM_LOOK_AROUND_025D, 0, -1, 0x50, 0x0a, CHR_SELF, 2)
+			chr_do_animation(ANIM_LOOK_AROUND_025D, 0, -1, CHRANIMFLAG_SLOWUPDATE | CHRANIMFLAG_LOCKPOS, 10, CHR_SELF, 2)
 			goto_next(0x0b)
 			label(0x5b)
-			chr_do_animation(ANIM_LOOK_AROUND_025E, 0, -1, 0x50, 0x0a, CHR_SELF, 2)
+			chr_do_animation(ANIM_LOOK_AROUND_025E, 0, -1, CHRANIMFLAG_SLOWUPDATE | CHRANIMFLAG_LOCKPOS, 10, CHR_SELF, 2)
 
 			label(0x0b)
 			yield
@@ -2212,7 +2212,7 @@ u8 func0406_init_hacker[] = {
 };
 
 u8 func0405_hacker[] = {
-	chr_do_animation(ANIM_SITTING_TYPING, 0, -1, 0x14, 0x00, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_TYPING, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2957,7 +2957,7 @@ u8 func0410_carrington[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_chr_maxdamage(CHR_SELF, 1)
-	chr_do_animation(0x017b, 1, 1, 0x06, 0x00, CHR_CARRINGTON, 2)
+	chr_do_animation(0x017b, 1, 1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CARRINGTON, 2)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3169,7 +3169,7 @@ u8 func0411_cisoldier[] = {
 	chr_drop_weapon(CHR_SELF)
 	label(0x08)
 	yield
-	chr_do_animation(0x0487, -1, -1, 0x06, 0x00, CHR_CISOLDIER, 2)
+	chr_do_animation(0x0487, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CISOLDIER, 2)
 	yield
 	yield
 	yield

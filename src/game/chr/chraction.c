@@ -2719,12 +2719,12 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 	}
 }
 
-void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed)
+void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
 {
 	u32 stack;
 
 	if (chr && chr->model) {
-		if (flags & CHRANIMFLAG_80) {
+		if (chranimflags & CHRANIMFLAG_REVERSE) {
 			speed = -speed;
 		}
 
@@ -2734,25 +2734,25 @@ void chrStartAnim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe
 
 		chr->actiontype = ACT_ANIM;
 
-		chr->act_anim.unk02c = (flags & CHRANIMFLAG_02) != 0;
-		chr->act_anim.holdlastframe = (flags & CHRANIMFLAG_HOLDLASTFRAME) != 0;
-		chr->act_anim.unk034 = (flags & CHRANIMFLAG_08) != 0;
-		chr->act_anim.unk038 = (flags & CHRANIMFLAG_10) != 0;
-		chr->act_anim.unk03c = (flags & CHRANIMFLAG_40) != 0;
-		chr->act_anim.unk040 = 0;
+		chr->act_anim.movewheninvis = (chranimflags & CHRANIMFLAG_MOVEWHENINVIS) != 0;
+		chr->act_anim.pauseatend = (chranimflags & CHRANIMFLAG_PAUSEATEND) != 0;
+		chr->act_anim.completed = (chranimflags & CHRANIMFLAG_COMPLETED) != 0;
+		chr->act_anim.slowupdate = (chranimflags & CHRANIMFLAG_SLOWUPDATE) != 0;
+		chr->act_anim.lockpos = (chranimflags & CHRANIMFLAG_LOCKPOS) != 0;
+		chr->act_anim.ishitanim = false;
 		chr->act_anim.animnum = animnum;
-		chr->act_anim.flip = (flags & CHRANIMFLAG_FLIP) != 0;
+		chr->act_anim.flip = (chranimflags & CHRANIMFLAG_FLIP) != 0;
 		chr->act_anim.startframe = startframe;
 		chr->act_anim.endframe = endframe;
 		chr->act_anim.speed = speed;
-		chr->act_anim.unk058 = arg5;
+		chr->act_anim.blend = merge;
 
-		chr->sleep = chr->act_anim.unk038 ? arg5 : 0;
+		chr->sleep = chr->act_anim.slowupdate ? merge : 0;
 
-		if (arg5 > 0 && modelIsAnimMerging(chr->model)) {
+		if (merge > 0 && modelIsAnimMerging(chr->model)) {
 			chr->hidden |= CHRHFLAG_NEEDANIM;
 		} else {
-			modelSetAnimation(chr->model, animnum, (flags & CHRANIMFLAG_FLIP) != 0, startframe, speed, arg5);
+			modelSetAnimation(chr->model, animnum, (chranimflags & CHRANIMFLAG_FLIP) != 0, startframe, speed, merge);
 
 			if (endframe >= 0) {
 				modelSetAnimEndFrame(chr->model, endframe);
@@ -7772,7 +7772,7 @@ bool chrIsStopped(struct chrdata *chr)
 	}
 
 	if (chr->actiontype == ACT_ANIM) {
-		if (chr->act_anim.unk034
+		if (chr->act_anim.completed
 				|| (modelGetAnimSpeed(chr->model) >= 0 && modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model))
 				|| (modelGetAnimSpeed(chr->model) < 0 && modelGetCurAnimFrame(chr->model) <= 0)) {
 			return true;
@@ -8485,10 +8485,10 @@ bool chrTryKneel(struct chrdata *chr)
 	return false;
 }
 
-bool chrTryStartAnim(struct chrdata *chr, s32 animfnum, f32 startframe, f32 endframe, u8 flags, s32 arg5, f32 speed)
+bool chrTryStartAnim(struct chrdata *chr, s32 animfnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
 {
 	if (chrIsReadyForOrders(chr)) {
-		chrStartAnim(chr, animfnum, startframe, endframe, flags, arg5, speed);
+		chrStartAnim(chr, animfnum, startframe, endframe, chranimflags, merge, speed);
 		return true;
 	}
 
@@ -9014,7 +9014,7 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 	return false;
 }
 
-void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 arg3)
+void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 reverse)
 {
 	struct prop *targetprop = chrGetTargetProp(chr);
 	struct shorthand hand = {WEAPON_UNARMED, 0, 0, FUNC_PRIMARY};
@@ -9025,7 +9025,7 @@ void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 arg3)
 		hand.weaponfunc = chr->aibot->gunfunc;
 	}
 
-	if (chrIsTargetInFov(chr, 20, arg3)
+	if (chrIsTargetInFov(chr, 20, reverse)
 			&& chrGetDistanceToTarget(chr) < range
 			&& func0002dc18(&chr->prop->pos, chr->prop->rooms, &targetprop->pos, 0x33)) {
 		vector.x = targetprop->pos.x - chr->prop->pos.x;
@@ -9434,6 +9434,10 @@ glabel var7f1a8ed8
 /*  f03c030:	27bd0058 */ 	addiu	$sp,$sp,0x58
 /*  f03c034:	03e00008 */ 	jr	$ra
 /*  f03c038:	00000000 */ 	nop
+);
+
+GLOBAL_ASM(
+glabel func0f03c03c
 /*  f03c03c:	03e00008 */ 	jr	$ra
 /*  f03c040:	00000000 */ 	nop
 );
@@ -10020,7 +10024,7 @@ void chrTickKneel(struct chrdata *chr)
 {
 	chr->sleep = 0;
 
-	if ((chr->hidden & CHRHFLAG_NEEDANIM) && modelIsAnimMerging(chr->model) == 0) {
+	if ((chr->hidden & CHRHFLAG_NEEDANIM) && !modelIsAnimMerging(chr->model)) {
 		chrKneelChooseAnimation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
@@ -10034,7 +10038,7 @@ void chrTickAnim(struct chrdata *chr)
 		}
 
 		modelSetAnimation(chr->model, chr->act_anim.animnum, chr->act_anim.flip,
-				chr->act_anim.startframe, chr->act_anim.speed, chr->act_anim.unk058);
+				chr->act_anim.startframe, chr->act_anim.speed, chr->act_anim.blend);
 
 		if (chr->act_anim.endframe >= 0) {
 			modelSetAnimEndFrame(chr->model, chr->act_anim.endframe);
@@ -10043,32 +10047,32 @@ void chrTickAnim(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
-	if (!chr->act_anim.holdlastframe && modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
+	if (!chr->act_anim.pauseatend && modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
 		chrStand(chr);
 	}
 
-	if (chr->act_anim.unk040 != 0 && modelGetCurAnimFrame(chr->model) >= (s32)chr->act_anim.unk042) {
-		chr->act_anim.unk040 = 0;
-		chrPunchInflictDamage(chr, chr->act_anim.unk044, chr->act_anim.unk046, chr->act_anim.unk041);
+	if (chr->act_anim.ishitanim && modelGetCurAnimFrame(chr->model) >= (s32)chr->act_anim.hitframe) {
+		chr->act_anim.ishitanim = false;
+		chrPunchInflictDamage(chr, chr->act_anim.hitdamage, chr->act_anim.hitradius, chr->act_anim.reverse);
 	}
 
 	// Play sneezing sound
 	if (CHRRACE(chr) == RACE_HUMAN
 			&& modelGetAnimNum(chr->model) == ANIM_SNEEZE
 			&& modelGetCurAnimFrame(chr->model) >= 42
-			&& (g_Vars.lvframenum & 1) == 0
+			&& (g_Vars.lvframenum % 2) == 0
 			&& chrGetDistanceToCurrentPlayer(chr) < 800) {
 		func0f0939f8(NULL, chr->prop, SFX_0037, -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 	}
 
-	if (chr->sleep <= 0 && chr->act_anim.unk038 != 0) {
+	if (chr->sleep <= 0 && chr->act_anim.slowupdate) {
 		chr->sleep = 14 + (random() % 5);
 	}
 
 	if (modelGetAnimNum(chr->model) == ANIM_RELOAD_0209) {
-		chrSetFiring(chr, 0, false);
-		chrSetFiring(chr, 1, false);
+		chrSetFiring(chr, HAND_RIGHT, false);
+		chrSetFiring(chr, HAND_LEFT, false);
 	}
 }
 

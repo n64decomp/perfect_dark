@@ -122,15 +122,15 @@
  *
  * endframe may be 0 or higher for that frame number, or -1 for the last frame.
  *
- * flags is expected to be a CHRANIMFLAG constant.
+ * chranimflags is expected to be a CHRANIMFLAG constant.
  */
-#define chr_do_animation(animation, startframe, endframe, flags, transition, chr, animspeed) \
+#define chr_do_animation(animation, startframe, endframe, chranimflags, timemerge, chr, animspeed) \
 	mkshort(0x000b), \
 	mkshort(animation), \
 	mkshort(startframe), \
 	mkshort(endframe), \
-	flags, \
-	transition, \
+	chranimflags, \
+	timemerge, \
 	chr, \
 	animspeed,
 

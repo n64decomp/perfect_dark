@@ -2704,14 +2704,14 @@ s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
 	return frame;
 }
 
-void modelCopyAnimForMerge(struct model *model, f32 arg1)
+void modelCopyAnimForMerge(struct model *model, f32 merge)
 {
 	struct anim *anim = model->anim;
 	struct modelnode *node;
 	u32 nodetype;
 
 	if (anim) {
-		if (arg1 > 0 && anim->animnum) {
+		if (merge > 0 && anim->animnum) {
 			if (anim->animnum2 && anim->fracmerge == 1) {
 				return;
 			}
@@ -2748,7 +2748,7 @@ void modelCopyAnimForMerge(struct model *model, f32 arg1)
 	}
 }
 
-void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 arg5)
+void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 merge)
 {
 	struct anim *anim = model->anim;
 
@@ -2757,7 +2757,7 @@ void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f
 		s32 type;
 
 		if (anim->animnum2) {
-			anim->timemerge = arg5;
+			anim->timemerge = merge;
 			anim->elapsemerge = 0;
 			anim->fracmerge = 1;
 		} else {
@@ -2921,34 +2921,34 @@ bool modelIsAnimMerging(struct model *model)
 	return false;
 }
 
-void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 arg5, bool newmerge)
+void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 timemerge, bool domerge)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
 				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
 				&& (g_Anims[animnum].flags & ANIMFLAG_02) == 0) {
-			arg5 = 0;
+			timemerge = 0;
 		}
 
-		if (newmerge) {
-			modelCopyAnimForMerge(model, arg5);
+		if (domerge) {
+			modelCopyAnimForMerge(model, timemerge);
 		}
 
-		func0001d62c(model, animnum, flip, startframe, speed, arg5);
+		func0001d62c(model, animnum, flip, startframe, speed, timemerge);
 	}
 }
 
-void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 speed, f32 arg5)
+void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 speed, f32 merge)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
 				&& (g_Anims[model->anim->animnum].flags & ANIMFLAG_02)
 				&& (g_Anims[animnum].flags & ANIMFLAG_02) == 0) {
-			arg5 = 0;
+			merge = 0;
 		}
 
-		modelCopyAnimForMerge(model, arg5);
-		func0001d62c(model, animnum, flip, startframe, speed, arg5);
+		modelCopyAnimForMerge(model, merge);
+		func0001d62c(model, animnum, flip, startframe, speed, merge);
 	}
 }
 

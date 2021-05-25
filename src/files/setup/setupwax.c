@@ -1281,7 +1281,7 @@ u8 func0411_cass_in_office[] = {
 	set_shotlist(AILIST_CASS_RUNNING)
 	restart_timer
 	speak(CHR_TARGET, L_WAX_008, MP3_0523, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
-	chr_do_animation(0x0226, -1, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x0226, -1, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	yield
 
 	// Wait 3 seconds
@@ -1304,7 +1304,7 @@ u8 func0411_cass_in_office[] = {
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x2c)
-	chr_do_animation(0x00a0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x00a0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x54)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1326,7 +1326,7 @@ u8 func0411_cass_in_office[] = {
 	// Draw weapon
 	label(0x57)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	chr_do_animation(0x0245, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x0245, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x2c)
 	label(0x2c)
 	speak(CHR_TARGET, L_WAX_007, SFX_81A3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
@@ -1942,7 +1942,7 @@ u8 func0416_intro[] = {
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0473, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x0473, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
@@ -2003,7 +2003,7 @@ u8 func0416_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0473, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x0473, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	stop_cutscene_track
 	stop_ambient_track
 	enter_firstperson
@@ -2066,7 +2066,7 @@ u8 func100e_cass_speech[] = {
 	label(0x2c)
 	restart_timer
 	speak(CHR_CASS, L_WAX_013, MP3_02F5 | 0x4000 | 0x2000, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
-	chr_do_animation(0x00a0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x00a0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x09)
 		if_timer_gt(80, /*goto*/ 0x06)

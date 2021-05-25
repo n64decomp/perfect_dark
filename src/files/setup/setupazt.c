@@ -409,7 +409,7 @@ u8 func1002_intro[] = {
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01b6, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x01b6, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 
 	restart_timer
@@ -514,7 +514,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01b6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x01b6, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	stop_cutscene_track
 	stop_ambient_track
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
@@ -567,36 +567,36 @@ u8 func0402_outro[] = {
 	set_chr_chrflag(CHR_TARGET, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TARGET, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_00020000)
-	chr_do_animation(0x01df, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
+	chr_do_animation(0x01df, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TARGET, 4)
 
 	set_chr_chrflag(CHR_SKEDAR, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_SKEDAR, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_SKEDAR, CHRHFLAG_00020000)
-	chr_do_animation(0x01da, -1, -1, 0x06, 0x00, CHR_SKEDAR, 4)
+	chr_do_animation(0x01da, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR, 4)
 
 	set_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS_OUTRO, CHRHFLAG_00020000)
-	chr_do_animation(0x01db, -1, -1, 0x06, 0x00, CHR_ELVIS_OUTRO, 4)
+	chr_do_animation(0x01db, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS_OUTRO, 4)
 
 	set_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_TRENT, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TRENT, CHRHFLAG_00020000)
-	chr_do_animation(0x01dc, -1, -1, 0x06, 0x00, CHR_TRENT, 4)
+	chr_do_animation(0x01dc, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TRENT, 4)
 
 	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_MRBLONDE, CHRHFLAG_00020000)
-	chr_do_animation(0x01dd, -1, -1, 0x06, 0x00, CHR_MRBLONDE, 4)
+	chr_do_animation(0x01dd, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MRBLONDE, 4)
 
 	set_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_PRESIDENT_OUTRO, CHRHFLAG_00020000)
-	chr_do_animation(0x01de, -1, -1, 0x06, 0x00, CHR_PRESIDENT_OUTRO, 4)
+	chr_do_animation(0x01de, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_PRESIDENT_OUTRO, 4)
 
 	show_object(0x00)
 	set_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
@@ -1180,19 +1180,19 @@ u8 func0404_elvis[] = {
 	if_rand_lt(196, /*goto*/ 0x9b)
 
 	set_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	chr_do_animation(ANIM_LOOK_AROUND_025B, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_LOOK_AROUND_025B, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x31)
 
 	label(0x99)
-	chr_do_animation(ANIM_LOOK_AROUND_025C, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_LOOK_AROUND_025C, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x31)
 
 	label(0x9a)
-	chr_do_animation(ANIM_LOOK_AROUND_025D, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_LOOK_AROUND_025D, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	goto_next(0x31)
 
 	label(0x9b)
-	chr_do_animation(ANIM_LOOK_AROUND_025E, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_LOOK_AROUND_025E, 0, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 	label(0x31)
 	goto_first(0x04)
@@ -1438,7 +1438,7 @@ u8 func041a_pres_clone[] = {
 	stop_chr
 
 	label(0xa5)
-	chr_do_animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x31)
@@ -1721,7 +1721,7 @@ u8 func041e_trent_waiting[] = {
 	label(0x08)
 	restart_timer
 	speak(CHR_P1P2, L_AZT_024, MP3_02CA, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now!"
-	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0231, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_timer_gt(120, /*goto*/ 0x08)
@@ -1772,7 +1772,7 @@ u8 func041f_trent_shooting[] = {
 
 	label(0x0b)
 	restart_timer
-	chr_do_animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0231, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x0c)
 		if_timer_gt(120, /*goto*/ 0x08)

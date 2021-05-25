@@ -432,12 +432,12 @@
 #define CHR_SELF          0xfd
 
 #define CHRANIMFLAG_FLIP          0x01
-#define CHRANIMFLAG_02            0x02
-#define CHRANIMFLAG_HOLDLASTFRAME 0x04
-#define CHRANIMFLAG_08            0x08
-#define CHRANIMFLAG_10            0x10
-#define CHRANIMFLAG_40            0x40
-#define CHRANIMFLAG_80            0x80
+#define CHRANIMFLAG_MOVEWHENINVIS 0x02
+#define CHRANIMFLAG_PAUSEATEND    0x04
+#define CHRANIMFLAG_COMPLETED     0x08
+#define CHRANIMFLAG_SLOWUPDATE    0x10
+#define CHRANIMFLAG_LOCKPOS       0x40
+#define CHRANIMFLAG_REVERSE       0x80
 
 // chr->flags
 #define CHRFLAG0_CANT_ALERT_GROUP   0x00000001 // Don't set group alertness when becoming aware

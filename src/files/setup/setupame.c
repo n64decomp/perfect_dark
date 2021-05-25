@@ -1039,14 +1039,14 @@ s32 path29[] = {
 u8 func0401_do_some_animation[] = {
 	// Do some animation
 	restart_timer
-	chr_do_animation(0x0066, 0, 1, 0x04, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x0066, 0, 1, CHRANIMFLAG_PAUSEATEND, 16, CHR_SELF, 2)
 
 	beginloop(0x08)
 		if_timer_gt(0, /*goto*/ 0x2c)
 	endloop(0x08)
 
 	label(0x2c)
-	chr_do_animation(0x0066, 1, -1, 0x04, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x0066, 1, -1, CHRANIMFLAG_PAUSEATEND, 16, CHR_SELF, 2)
 
 	beginloop(0x85)
 	endloop(0x85)
@@ -1233,7 +1233,7 @@ u8 func040f_cass[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2c)
-	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	// Wait for player to enter room
 	beginloop(0x59)
@@ -1268,7 +1268,7 @@ u8 func040f_cass[] = {
 	label(0x5c)
 	speak(CHR_TARGET, L_AME_021, MP3_02F4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
 	restart_timer
-	chr_do_animation(ANIM_TALKING_0098, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_0098, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x5d)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x5e)
@@ -1277,7 +1277,7 @@ u8 func040f_cass[] = {
 	// Walk backwards for 4 seconds
 	label(0x5e)
 	stop_chr
-	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x5f)
@@ -1313,7 +1313,7 @@ u8 func040f_cass[] = {
 
 	label(0x2c)
 	speak(CHR_TARGET, L_AME_023, MP3_02F5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
-	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x66)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x67)
@@ -1333,7 +1333,7 @@ u8 func040f_cass[] = {
 	goto_next(0x68)
 
 	label(0x2c)
-	chr_do_animation(ANIM_TALKING_00A3, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_00A3, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	speak(CHR_TARGET, L_AME_024, MP3_02F6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
 
 	beginloop(0x68)
@@ -1385,7 +1385,7 @@ u8 func040f_cass[] = {
 	label(0x2c)
 	speak(CHR_TARGET, L_AME_025, MP3_02F7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
 	label(0x06)
-	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x6a)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1414,7 +1414,7 @@ u8 func040f_cass[] = {
 		label(0x6d)
 		restart_timer
 		say_quip(CHR_TARGET, 0x00, 0xff, 0x00, 0xff, BANK_1, 0x01, 0x04) // "How dare you disturb me","You will regret this intrusion girl","If I were you I'd leave, now"
-		chr_do_animation(ANIM_TALKING_00A3, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_TALKING_00A3, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 		beginloop(0x6e)
 			if_timer_gt(100, /*goto*/ 0x6f)
@@ -1457,7 +1457,7 @@ u8 func0411_secretary[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2c)
-	chr_do_animation(0x00a1, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x00a1, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x72)
 		set_target_chr(CHR_BOND)
@@ -1493,7 +1493,7 @@ u8 func0411_secretary[] = {
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2c)
 	speak(CHR_TARGET, L_AME_022, MP3_02ED, CHANNEL_5, COLOR_07_RED) // "Look out! She's got a gun."
 	label(0x2c)
-	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x75)
 		if_timer_gt(60, /*goto*/ 0x76)
@@ -1508,7 +1508,7 @@ u8 func0411_secretary[] = {
 	endloop(0x77)
 
 	label(0x78)
-		chr_do_animation(ANIM_COWER_01F5, -1, -1, 0x50, 0x14, CHR_SELF, 2)
+		chr_do_animation(ANIM_COWER_01F5, -1, -1, CHRANIMFLAG_SLOWUPDATE | CHRANIMFLAG_LOCKPOS, 20, CHR_SELF, 2)
 
 		beginloop(0x79)
 			if_distance_to_target_gt(500, /*goto*/ 0x06)
@@ -1518,7 +1518,7 @@ u8 func0411_secretary[] = {
 
 		label(0x7e)
 		restart_timer
-		chr_do_animation(ANIM_COWER_01F5, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+		chr_do_animation(ANIM_COWER_01F5, -1, -1, CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 		yield
 		goto_next(0x81)
 
@@ -1533,14 +1533,14 @@ u8 func0411_secretary[] = {
 		label(0x81)
 		restart_timer
 		say_quip(CHR_TARGET, 0x01, 0xff, 0x00, 0xff, BANK_1, 0x02, 0x07) // "Please don't kill me","Don't shoot!"
-		chr_do_animation(ANIM_SURRENDER_002E, 0, -1, 0x18, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_SURRENDER_002E, 0, -1, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 		beginloop(0x82)
 			if_timer_gt(180, /*goto*/ 0x83)
 		endloop(0x82)
 
 		label(0x83)
-		chr_do_animation(ANIM_COWER_0229, -1, -1, 0x10, 0x14, CHR_SELF, 2)
+		chr_do_animation(ANIM_COWER_0229, -1, -1, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
 
 		beginloop(0x84)
 			call_rng
@@ -1657,7 +1657,7 @@ u8 func0414_programmer[] = {
 	restart_timer
 	speak(CHR_TARGET, L_AME_068, VERSION >= VERSION_NTSC_1_0 ? 0x8104 : 0x8103, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
 	restart_timer
-	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x08)
 		pause_timer
@@ -1742,7 +1742,7 @@ u8 func0414_programmer[] = {
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x06)
 		speak(CHR_TARGET, L_AME_036, MP3_0300, CHANNEL_3, COLOR_03_RED) // "HELP - Intruder!"
-		chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 		beginloop(0xa3)
 			if_sound_finished(CHANNEL_3, /*goto*/ 0x06)
@@ -1789,7 +1789,7 @@ u8 func0414_programmer[] = {
 		set_stage_flag(STAGEFLAG_PROGRAMMER_INJURED)
 		restart_timer
 		unlock_door(OBJ_LAPTOPGUNDOOR, 0x02)
-		chr_do_animation(ANIM_COWER_01F5, 0, -1, 0x50, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_COWER_01F5, 0, -1, CHRANIMFLAG_SLOWUPDATE | CHRANIMFLAG_LOCKPOS, 16, CHR_SELF, 2)
 
 		beginloop(0x0d)
 			if_timer_gt(300, /*goto*/ 0xb5)
@@ -1840,7 +1840,7 @@ u8 func0414_programmer[] = {
 	endloop(0x9b)
 
 	label(0x06)
-	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_sound_finished(CHANNEL_3, /*goto*/ 0x06)
@@ -1854,7 +1854,7 @@ u8 func0414_programmer[] = {
 	label(0x2c)
 	speak(CHR_TARGET, L_AME_073, MP3_02FE, CHANNEL_5, COLOR_03_RED) // "Don't shoot, don't shoot!"
 	label(0x06)
-	chr_do_animation(ANIM_DONT_SHOOT, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_DONT_SHOOT, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x9f)
 		if_sound_finished(CHANNEL_5, /*goto*/ 0x9d)
@@ -1898,7 +1898,7 @@ u8 func0414_programmer[] = {
 	label(0x2c)
 	speak(CHR_TARGET, L_AME_109, MP3_0304, CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
 	label(0x06)
-	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	speak(CHR_TARGET, -1, VERSION >= VERSION_NTSC_1_0 ? 0x8116 : 0x8115, -1, COLOR_00_GREEN)
 
 	beginloop(0xae)
@@ -1908,7 +1908,7 @@ u8 func0414_programmer[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
-	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	set_stage_flag(STAGEFLAG_PROGRAMMER_LOGGED_IN)
 	if_detected_chr(CHR_TARGET, /*goto*/ 0x2c)
 	speak(CHR_TARGET, L_AME_041, MP3_0302, CHANNEL_3, COLOR_03_RED) // "Okay, I'm in..."
@@ -1928,7 +1928,7 @@ u8 func0414_programmer[] = {
 	if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
 	set_stage_flag(STAGEFLAG_PERSONALITY_DELETED)
 	set_chr_maxdamage(CHR_SELF, 1)
-	chr_do_animation(ANIM_TALKING_003D, 0, 193, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_TALKING_003D, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	speak(CHR_TARGET, L_AME_042, MP3_0303, CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
 	if_stage_flag_eq(STAGEFLAG_DOWNLOAD_COMPLETE, TRUE, /*goto*/ 0x2c)
 	set_stage_flag(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
@@ -2909,7 +2909,7 @@ u8 func0422_intro_0424[] = {
 	unset_chr_chrflag(CHR_SECRETARY, CHRCFLAG_HIDDEN)
 #endif
 	set_chr_hiddenflag(CHR_SECRETARY, CHRHFLAG_00020000)
-	chr_do_animation(0x00fe, -1, -1, 0x06, 0x00, CHR_SECRETARY, 4)
+	chr_do_animation(0x00fe, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SECRETARY, 4)
 
 	wait_for_camera_finished
 
@@ -3091,7 +3091,7 @@ u8 func0422_intro_042a[] = {
 	object_do_animation(0x0108, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0109, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x0109, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
 	set_object_flag3(OBJ_ROPE, OBJFLAG3_00000010)
@@ -3119,7 +3119,7 @@ u8 func0422_intro_042b[] = {
 	object_do_animation(0x010c, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x010d, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x010d, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
 	set_object_flag3(OBJ_ROPE, OBJFLAG3_00000010)
@@ -3158,7 +3158,7 @@ u8 func0422_intro_042d[] = {
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0156, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x0156, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 
 	wait_for_camera_finished
@@ -3177,7 +3177,7 @@ u8 func0422_intro_042d[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0156, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x0156, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
@@ -3215,7 +3215,7 @@ u8 func0416_outro[] = {
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	chr_do_animation(0x00f3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
+	chr_do_animation(0x00f3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 	restart_timer
 	unset_stage_flag(STAGEFLAG_LAB_ELEVATOR_CLOSED)
 	set_door_open(OBJ_LABLIFTDOOR1)
@@ -3829,7 +3829,7 @@ u8 func042f_surrendering_guard[] = {
 	// Be surprised
 	label(0x2c)
 	say_quip(CHR_BOND, QUIP_SURPRISED, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0, 16, CHR_SELF, 2)
 
 	// Wait 1 second
 	beginloop(0x08)
