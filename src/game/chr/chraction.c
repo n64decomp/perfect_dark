@@ -9177,11 +9177,10 @@ bool chrTryPunch(struct chrdata *chr, u8 reverse)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f03c03c
-/*  f03c03c:	03e00008 */ 	jr	$ra
-/*  f03c040:	00000000 */ 	nop
-);
+void func0f03c03c(void)
+{
+	// empty
+}
 
 /**
  * Verifies that the given chr struct is actually an eyespy and returns the
