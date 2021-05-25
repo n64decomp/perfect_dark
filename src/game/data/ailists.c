@@ -1426,7 +1426,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x5b)
 
 	label(0x16)
-	if_self_flag_bankx_eq(CHRFLAG0_00000080, TRUE, BANK_0, /*goto*/ 0x13)
+	if_self_flag_bankx_eq(CHRFLAG0_CHUCKNORRIS, TRUE, BANK_0, /*goto*/ 0x13)
 	call_rng
 	if_rand_gt(100, /*goto*/ 0x13)
 	if_within_targets_fovx_by_angle(30, /*goto*/ 0x16)
@@ -5130,7 +5130,7 @@ u8 func0025_pointless[] = {
 u8 func0026_init_psychosis[] = {
 	set_shotlist(GAILIST_INIT_PSYCHOSIS)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
-	set_self_flag_bankx(CHRFLAG1_80000000, BANK_1)
+	set_self_flag_bankx(CHRFLAG1_PUNCHHARDER, BANK_1)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_PUSHABLE)
 	set_self_flag_bankx(CHRFLAG1_00100000, BANK_1)

@@ -447,7 +447,7 @@
 #define CHRFLAG0_00000010           0x00000010 // Globals, Skedar Ruins
 #define CHRFLAG0_SAID_INJURY_QUIP   0x00000020
 #define CHRFLAG0_00000040           0x00000040 // Globals - related to cover?
-#define CHRFLAG0_00000080           0x00000080 // Globals, Chicago, Air Base
+#define CHRFLAG0_CHUCKNORRIS        0x00000080 // Makes punch animation faster, and damage is multiplied by the chr's morale then doubled. Must also have CHRFLAG1_ADJUSTPUNCHSPEED
 #define CHRFLAG0_CAN_BACKOFF        0x00000100
 #define CHRFLAG0_CAN_RETREAT        0x00000200
 #define CHRFLAG0_UNSURPRISABLE      0x00000400 // may also be "can uncover disguise"
@@ -481,7 +481,7 @@
 #define CHRFLAG1_00000010                  0x00000010 // Globals - If set, avoids try_attack_amount
 #define CHRFLAG1_00000020                  0x00000020 // Globals, AF1, Defense - related to reload animation
 #define CHRFLAG1_CAN_SNIPE                 0x00000040
-#define CHRFLAG1_00000080                  0x00000080 // Not used in scripts
+#define CHRFLAG1_ADJUSTPUNCHSPEED          0x00000080 // Makes chr punch slower, unless chr also has CHRFLAG0_CHUCKNORRIS
 #define CHRFLAG1_DOINGIDLEANIMATION        0x00000100
 #define CHRFLAG1_WARNED                    0x00000200
 #define CHRFLAG1_00000400                  0x00000400 // Globals
@@ -505,7 +505,7 @@
 #define CHRFLAG1_10000000                  0x10000000 // Some kind of param for searching
 #define CHRFLAG1_CAN_DRAW_PISTOL           0x20000000
 #define CHRFLAG1_40000000                  0x40000000 // Globals
-#define CHRFLAG1_80000000                  0x80000000 // Globals
+#define CHRFLAG1_PUNCHHARDER               0x80000000 // Punches deal 6x the usual damage. Must not have CHRFLAG0_CHUCKNORRIS
 
 // chr->hidden
 #define CHRHFLAG_00000001            0x00000001 // Set when chr drops weapon

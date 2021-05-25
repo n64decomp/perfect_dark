@@ -12997,8 +12997,8 @@ glabel var7f1ad6ac
 //
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
-//										chr->flags |= CHRFLAG0_00002000 | CHRFLAG0_00000080;
-//										chr->flags2 |= CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000 | CHRFLAG1_00000080 | CHRFLAG1_00000001;
+//										chr->flags |= CHRFLAG0_00002000 | CHRFLAG0_CHUCKNORRIS;
+//										chr->flags2 |= CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000 | CHRFLAG1_ADJUSTPUNCHSPEED | CHRFLAG1_00000001;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->teamscandist = 100;
@@ -13044,7 +13044,7 @@ glabel var7f1ad6ac
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
 //										chr->flags |= CHRFLAG0_00002000;
-//										chr->flags2 |= CHRFLAG1_80000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000;
+//										chr->flags2 |= CHRFLAG1_PUNCHHARDER | CHRFLAG1_00200000 | CHRFLAG1_00100000;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;
@@ -13141,7 +13141,7 @@ glabel var7f1ad6ac
 //									if (prop) {
 //										struct chrdata *chr = prop->chr;
 //										chr->flags |= CHRFLAG0_00002000;
-//										chr->flags2 |= CHRFLAG1_80000000 | CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000;
+//										chr->flags2 |= CHRFLAG1_PUNCHHARDER | CHRFLAG1_40000000 | CHRFLAG1_00200000 | CHRFLAG1_00100000;
 //										chr->team = TEAM_ALLY;
 //										chr->squadron = SQUADRON_01;
 //										chr->hidden |= CHRHFLAG_PSYCHOSISED;

@@ -1470,7 +1470,7 @@ u8 func0412_cia[] = {
 		endloop(0x3a)
 
 		label(0x04)
-		set_self_flag_bankx(CHRFLAG0_00000080, BANK_0)
+		set_self_flag_bankx(CHRFLAG0_CHUCKNORRIS, BANK_0)
 		set_squadron(SQUADRON_03)
 	endloop(0x38)
 
@@ -1488,7 +1488,7 @@ u8 func0412_cia[] = {
 	// Alerted
 	label(0x0c)
 	set_action(MA_NORMAL, FALSE)
-	if_self_flag_bankx_eq(CHRFLAG0_00000080, FALSE, BANK_0, /*goto*/ 0x03)
+	if_self_flag_bankx_eq(CHRFLAG0_CHUCKNORRIS, FALSE, BANK_0, /*goto*/ 0x03)
 	set_squadron(SQUADRON_04)
 	rebuild_teams
 	rebuild_squadrons

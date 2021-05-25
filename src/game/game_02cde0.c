@@ -860,7 +860,8 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 			}
 
 			if (random() % 5 == 0) {
-				chr->flags2 |= CHRFLAG1_00000080;
+				// Make chr punch slower
+				chr->flags2 |= CHRFLAG1_ADJUSTPUNCHSPEED;
 			}
 
 			if (CHRRACE(chr) == RACE_SKEDAR) {

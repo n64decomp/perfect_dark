@@ -11017,7 +11017,7 @@ bool aiPunchOrKick(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata && chrTryPunchOrKick(g_Vars.chrdata, cmd[2])) {
+	if (g_Vars.chrdata && chrTryPunch(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
