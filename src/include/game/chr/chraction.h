@@ -88,7 +88,7 @@ s16 chrPatrolCalculatePadNum(struct chrdata *chr, s32 numsteps);
 void chrPatrolGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 *flags);
 void func0f037580(struct chrdata *chr);
 void func0f0375b0(struct chrdata *chr);
-void func0f0375e8(struct chrdata *chr, struct waydata *waydata, f32 arg2, struct coord *arg3, s16 *rooms);
+void chrGoPosTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, struct coord *arg3, s16 *rooms);
 void chrCalculatePosition(struct chrdata *chr, struct coord *pos);
 void chrGoPosChooseAnimation(struct chrdata *chr);
 bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, u32 flags);
