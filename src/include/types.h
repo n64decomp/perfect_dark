@@ -129,7 +129,7 @@ struct g_vars {
 	/*0002b4*/ u32 knockoutcount;
 	/*0002b8*/ struct textoverride *textoverrides;
 	/*0002bc*/ s32 roomcount;
-	/*0002c0*/ u32 unk0002c0;
+	/*0002c0*/ u32 hitboundscount;
 	/*0002c4*/ u32 unk0002c4;
 	/*0002c8*/ u32 unk0002c8;
 	/*0002cc*/ u32 unk0002cc;
@@ -1004,15 +1004,15 @@ struct tilething {
 };
 
 struct act_stand {
-	/*0x2c*/ s32 unk02c;
+	/*0x2c*/ s32 prestand;
 	/*0x30*/ u32 flags;
 	/*0x34*/ s32 entityid;
-	/*0x38*/ u32 unk038;
-	/*0x3c*/ s32 unk03c;
-	/*0x40*/ u32 unk040;
-	/*0x44*/ u32 unk044;
-	/*0x48*/ f32 unk048;
-	/*0x4c*/ s8 face_target;
+	/*0x38*/ u32 reaim;
+	/*0x3c*/ s32 turning;
+	/*0x40*/ u32 checkfacingwall;
+	/*0x44*/ u32 wallcount;
+	/*0x48*/ f32 mergetime;
+	/*0x4c*/ s8 playwalkanim;
 };
 
 struct act_anim {
@@ -1045,10 +1045,10 @@ struct act_die {
 };
 
 struct act_dead {
-	/*0x2c*/ bool allowfade;
-	/*0x30*/ bool allowreap;
-	/*0x34*/ s32 reaptimer;
-	/*0x38*/ s32 fadetimer;
+	/*0x2c*/ bool fadenow;
+	/*0x30*/ bool fadewheninvis;
+	/*0x34*/ s32 invistimer60;
+	/*0x38*/ s32 fadetimer60;
 	/*0x3c*/ s32 notifychrindex;
 };
 
@@ -1066,9 +1066,9 @@ struct shorthand {
 };
 
 struct act_preargh {
-	/*0x2c*/ struct coord pos;
-	/*0x38*/ f32 angle;
-	/*0x3c*/ s32 ibh;
+	/*0x2c*/ struct coord dir;
+	/*0x38*/ f32 relshotdir;
+	/*0x3c*/ s32 hitpart;
 	/*0x40*/ struct shorthand hand;
 	/*0x44*/ s32 aplayernum;
 };
@@ -1122,17 +1122,17 @@ struct act_jumpout {
 
 struct act_runpos {
 	/*0x2c*/ struct coord pos;
-	/*0x38*/ f32 unk038;
-	/*0x3c*/ s32 unk03c;
-	/*0x40*/ f32 unk040;
+	/*0x38*/ f32 neardist;
+	/*0x3c*/ s32 eta60;
+	/*0x40*/ f32 turnspeed;
 };
 
 struct waydata {
 	/*0x00*/ s8 mode;
-	/*0x01*/ u8 unk01;
-	/*0x02*/ u8 unk02;
-	/*0x03*/ u8 unk03;
-	/*0x04*/ struct coord pos;
+	/*0x01*/ u8 iter;
+	/*0x02*/ u8 gotaimpos;
+	/*0x03*/ u8 gotaimposobj;
+	/*0x04*/ struct coord aimpos;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
@@ -1140,14 +1140,15 @@ struct waydata {
 	/*0x20*/ u32 unk20;
 	/*0x24*/ u32 unk24;
 	/*0x28*/ s32 age;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ s8 unk30;
+	/*0x2c*/ u32 aimposobj;
+	/*0x30*/ s8 unk30_test;
 	/*0x34*/ u32 unk34;
 
 	// These are the distances between the current waypoint and the previous
-	// when using cheap mode.
-	/*0x38*/ f32 segdistdone;
-	/*0x3c*/ f32 segdisttotal;
+	// when using magic mode.
+	/*0x38*/ f32 magicdone;
+	/*0x3c*/ f32 magictotal;
+	/*0x40*/ s32 lastvisible60;
 };
 
 struct act_patrol {
@@ -1155,13 +1156,12 @@ struct act_patrol {
 	/*0x030*/ s32 nextstep;
 	/*0x034*/ bool forward;
 	/*0x038*/ struct waydata waydata;
-	/*0x078*/ s32 unk78;
-	/*0x07c*/ f32 unk7c;
+	/*0x07c*/ f32 turnspeed;
 };
 
 struct act_gopos {
-	/*0x02c*/ struct coord pos;        // Target pos
-	/*0x038*/ s16 rooms[8];            // Target rooms
+	/*0x02c*/ struct coord endpos;
+	/*0x038*/ s16 endrooms[8];
 	/*0x048*/ struct waypoint *target; // Target/final waypoint
 
 	// Array of pointers to the next couple of waypoints. Recalculated each time
@@ -1183,8 +1183,7 @@ struct act_gopos {
 
 	/*0x066*/ u16 restartttl;
 	/*0x068*/ struct waydata waydata;
-	/*0x0a8*/ s32 cheapend60; // lvframe60 time that the chr exited cheap method of wayfinding
-	/*0x0ac*/ f32 unk0ac;
+	/*0x0ac*/ f32 turnspeed;
 };
 
 struct act_surprised {
@@ -1198,59 +1197,29 @@ struct act_throwgrenade {
 	/*0x38*/ bool needsequip;
 };
 
-// This struct likely doesn't exist - act_die was used instead
-struct act_druggeddrop {
-	/*0x2c*/ s32 notifychrindex;
-	/*0x30*/ f32 thudframe1;
-	/*0x34*/ f32 thudframe2;
-};
-
-// This struct likely doesn't exist - act_dead was used instead
-struct act_druggedko {
-	/*0x2c*/ bool allowfade;
-	/*0x30*/ bool allowreap;
-	/*0x34*/ s32 reaptimer;
-	/*0x38*/ s32 fadetimer;
-	/*0x3c*/ u32 unk03c;
-};
-
 struct act_druggedcomingup {
 	/*0x2c*/ s16 timer60;
 };
 
 struct act_robotattack {
-	/*0x2c*/ f32 unk02c;
-	/*0x30*/ f32 unk030;
-	/*0x34*/ f32 unk034;
-	/*0x38*/ f32 unk038;
-	/*0x3c*/ f32 unk03c;
-	/*0x40*/ f32 unk040;
-	/*0x44*/ f32 unk044;
-	/*0x48*/ f32 unk048;
-	/*0x4c*/ f32 unk04c;
-	/*0x50*/ f32 unk050;
-	/*0x54*/ f32 unk054;
-	/*0x58*/ f32 unk058;
-	/*0x5c*/ u32 unk05c;
-	/*0x60*/ u32 unk060;
-	/*0x64*/ u32 unk064;
-	/*0x68*/ u32 unk068;
-	/*0x6c*/ u8 unk06c;
-	/*0x6d*/ u8 unk06d;
-	/*0x6e*/ u8 unk06e;
+	/*0x2c*/ struct coord pos[2];
+	/*0x44*/ struct coord dir[2];
+	/*0x5c*/ u32 guntype[2];
+	/*0x64*/ u32 numshots[2];
+	/*0x6c*/ u8 firing[2];
+	/*0x6e*/ u8 finished;
 };
 
 struct act_skjump {
 	/*0x2c*/ u8 state;
 	/*0x2d*/ u8 needsnewanim;
 	/*0x2e*/ u8 hit;
-	/*0x30*/ f32 xspeed;
-	/*0x34*/ f32 zspeed;
-	/*0x38*/ f32 angle;
-	/*0x3c*/ s32 unk03c;
-	/*0x40*/ struct coord newpos;
-	/*0x4c*/ s32 unk04c;
-	/*0x50*/ f32 y;
+	/*0x30*/ f32 vel[2];
+	/*0x38*/ f32 roty;
+	/*0x3c*/ s32 timer60; // counts down
+	/*0x40*/ struct coord pos;
+	/*0x4c*/ s32 total60;
+	/*0x50*/ f32 ground;
 };
 
 struct chrdata {
@@ -1298,8 +1267,8 @@ struct chrdata {
 		// act_bot_attackstand uses act_attack
 		// act_bot_attackkneel uses act_attack
 		// act_bot_attackstrafe uses act_attack
-		struct act_druggeddrop act_druggeddrop;
-		struct act_druggedko act_druggedko;
+		// act_druggeddrop uses act_die
+		// act_druggedko uses act_dead
 		struct act_druggedcomingup act_druggedcomingup;
 		// act_attackamount uses act_attack
 		struct act_robotattack act_robotattack;
@@ -1681,7 +1650,7 @@ struct keyobj { // objtype 0x04
 	u32 keyflags;
 };
 
-struct cameraobj { // objtype 0x06
+struct cctvobj { // objtype 0x06
 	struct defaultobj base;
 
 	// Note y is being used as an abbreviation for yaw
@@ -1770,27 +1739,27 @@ struct hangingmonitorsobj { // objtype 0x0c
 struct autogunobj { // objtype 0x0d
 	struct defaultobj base;
 	/*0x5c*/ s16 targetpad;
-	/*0x5e*/ u8 unk5e;
-	/*0x5f*/ u8 unk5f;
-	/*0x60*/ f32 angleh;
-	/*0x64*/ f32 unk64;
-	/*0x68*/ f32 unk68;
-	/*0x6c*/ f32 unk6c;
-	/*0x70*/ f32 unk70;
-	/*0x74*/ f32 anglev;
-	/*0x78*/ f32 unk78;
-	/*0x7c*/ f32 unk7c;
-	/*0x80*/ f32 unk80;
-	/*0x84*/ f32 unk84;
-	/*0x88*/ f32 unk88;
-	/*0x8c*/ f32 unk8c;
-	/*0x90*/ s32 unk90;
-	/*0x94*/ s32 unk94;
-	/*0x98*/ s32 unk98;
+	/*0x5e*/ u8 firing;
+	/*0x5f*/ u8 firecount;
+	/*0x60*/ f32 yzero;
+	/*0x64*/ f32 ymaxleft;
+	/*0x68*/ f32 ymaxright;
+	/*0x6c*/ f32 yrot;
+	/*0x70*/ f32 yspeed;
+	/*0x74*/ f32 xzero;
+	/*0x78*/ f32 xrot;
+	/*0x7c*/ f32 xspeed;
+	/*0x80*/ f32 maxspeed;
+	/*0x84*/ f32 aimdist;
+	/*0x88*/ f32 barrelspeed;
+	/*0x8c*/ f32 barrelrot;
+	/*0x90*/ s32 lastseebond60;
+	/*0x94*/ s32 lastaimbond60;
+	/*0x98*/ s32 allowsoundframe;
 	/*0x9c*/ struct beam *beam;
-	/*0xa0*/ f32 unka0;
+	/*0xa0*/ f32 shotbondsum;
 	/*0xa4*/ u32 unka4;
-	/*0xa8*/ u8 autogun_type;
+	/*0xa8*/ u8 targetteam;
 	/*0xa9*/ u8 ammoquantity;
 };
 
@@ -1915,13 +1884,14 @@ struct safeitemobj {
 	struct safeitemobj *next;
 };
 
-struct camera2obj { // objtype 0x2e
-	u32 unk00;
-	f32 unk04;
-	f32 unk08;
-	f32 unk0c;
-	f32 unk10;
-	f32 unk14;
+struct cameraposobj { // objtype 0x2e
+	s32 type;
+	f32 x;
+	f32 y;
+	f32 z;
+	f32 theta;
+	f32 verta;
+	s32 pad;
 };
 
 struct tintedglassobj { // objtype 0x2f
@@ -2236,9 +2206,9 @@ struct hand {
 	/*0x0810*/ s32 lastshootframe60;
 	/*0x0814*/ struct beam beam;
 	/*0x0840*/ f32 noiseradius;
-	/*0x0844*/ u32 unk0844;
-	/*0x0848*/ u32 unk0848;
-	/*0x084c*/ u32 unk084c;
+	/*0x0844*/ u32 fingerroty;
+	/*0x0848*/ u32 slidetrans;
+	/*0x084c*/ u32 slideinc;
 	/*0x0850*/ struct weaponobj *rocket;
 	/*0x0854*/ bool firedrocket;
 	/*0x0858*/ s32 loadedammo[2];
@@ -2252,30 +2222,8 @@ struct hand {
 	/*0x0880*/ u32 unk0880;
 	/*0x0884*/ u32 unk0884;
 	/*0x0888*/ f32 loadslide;
-	/*0x088c*/ f32 unk088c;
-	/*0x0890*/ f32 unk0890;
-	/*0x0894*/ u32 unk0894;
-	/*0x0898*/ u32 unk0898;
-	/*0x089c*/ u32 unk089c;
-	/*0x08a0*/ u32 unk08a0;
-	/*0x08a4*/ u32 unk08a4;
-	/*0x08a8*/ u32 unk08a8;
-	/*0x08ac*/ u32 unk08ac;
-	/*0x08b0*/ u32 unk08b0;
-	/*0x08b4*/ u32 unk08b4;
-	/*0x08b8*/ u32 unk08b8;
-	/*0x08bc*/ f32 unk08bc;
-	/*0x08c0*/ f32 unk08c0;
-	/*0x08c4*/ u32 unk08c4;
-	/*0x08c8*/ u32 unk08c8;
-	/*0x08cc*/ u32 unk08cc;
-	/*0x08d0*/ u32 unk08d0;
-	/*0x08d4*/ u32 unk08d4;
-	/*0x08d8*/ u32 unk08d8;
-	/*0x08dc*/ u32 unk08dc;
-	/*0x08e0*/ u32 unk08e0;
-	/*0x08e4*/ u32 unk08e4;
-	/*0x08e8*/ u32 unk08e8;
+	/*0x088c*/ f32 upgrademult[12];
+	/*0x08bc*/ f32 finalmult[12];
 	/*0x08ec*/ Mtxf cammtx;
 	/*0x092c*/ Mtxf posmtx;
 	/*0x096c*/ Mtxf prevmtx;
@@ -2330,11 +2278,11 @@ struct hand {
 	/*0x0c24*/ struct coord lastshootpos;
 	/*0x0c30*/ s32 shotstotake;
 	/*0x0c34*/ f32 shotremainder;
-	/*0x0c38*/ u32 unk0c38;
+	/*0x0c38*/ u32 hitspershot;
 	/*0x0c3c*/ s32 state;
 	/*0x0c40*/ s32 stateminor;
 	/*0x0c44*/ u32 stateflags;
-	/*0x0c48*/ u32 unk0c48;
+	/*0x0c48*/ u32 statemode;
 	/*0x0c4c*/ s32 stateframes;
 	/*0x0c50*/ s32 statecycles;
 	/*0x0c54*/ s32 statelastframe;
@@ -2365,9 +2313,8 @@ struct hand {
 	/*0x0cc8*/ u8 unk0cc8_08 : 1;
 	/*0x0cc9*/ u8 animloopcount;
 	/*0x0ccc*/ f32 crosspos[2];
-	/*0x0cd4*/ f32 unk0cd4;
-	/*0x0cd8*/ f32 unk0cd8;
-	/*0x0cdc*/ u32 unk0cdc;
+	/*0x0cd4*/ f32 guncrosspossum[2];
+	/*0x0cdc*/ u32 statejob;
 	/*0x0ce0*/ s32 statevar1;
 	/*0x0ce4*/ s32 attacktype;
 	/*0x0ce8*/ struct guncmd *unk0ce8;
@@ -2409,7 +2356,7 @@ struct hand {
 	/*0x0d6c*/ u32 unk0d6c;
 	/*0x0d70*/ u32 unk0d70;
 	/*0x0d74*/ u16 gunroundsspent[4];
-	/*0x0d7c*/ u32 unk0d7c;
+	/*0x0d7c*/ u32 ispare1;
 	/*0x0d80*/ struct guncmd *unk0d80;
 	/*0x0d84*/ struct audiohandle *audiohandle;
 	/*0x0d88*/ u32 ispare4;
@@ -2463,7 +2410,7 @@ struct gunctrl {
 	/*0x1590*/ u32 unk1590;
 	/*0x1594*/ struct modelfiledata *unk1594;
 	/*0x1598*/ s32 unk1598;
-	/*0x159c*/ u16 unk159c;
+	/*0x159c*/ u16 handfilenum;
 	/*0x15a0*/ s32 unk15a0;
 	/*0x15a4*/ s32 unk15a4;
 	/*0x15a8*/ u32 unk15a8;
@@ -2503,8 +2450,8 @@ struct player {
 	/*0x0014*/ s32 memcamroom;
 	/*0x0018*/ struct coord eraserpos;
 	/*0x0024*/ f32 eraserpropdist;
-	/*0x0028*/ u32 unk0028;
-	/*0x002c*/ u32 unk002c;
+	/*0x0028*/ u32 eraserbgdist;
+	/*0x002c*/ u32 eraserdepth;
 	/*0x0030*/ bool isfalling;
 	/*0x0034*/ s32 fallstart;
 	/*0x0038*/ struct coord globaldrawworldoffset;
@@ -2539,7 +2486,7 @@ struct player {
 	/*0x00c0*/ bool bondperimenabled;
 	/*0x00c4*/ u32 devicesactive;
 	/*0x00c8*/ s32 badrockettime;
-	/*0x00cc*/ u32 unk00cc;
+	/*0x00cc*/ u32 gunspeed;
 	/*0x00d0*/ s32 bondactivateorreload;
 	/*0x00d4*/ u32 unk00d4;
 	/*0x00d8*/ bool isdead;
@@ -2553,7 +2500,7 @@ struct player {
 	/*0x00f8*/ f32 healthshowtime;
 	/*0x00fc*/ u32 healthshowmode;
 	/*0x0100*/ s32 docentreupdown;
-	/*0x0104*/ u32 unk0104;
+	/*0x0104*/ u32 lastupdown60;
 	/*0x0108*/ s32 prevupdown;
 	/*0x010c*/ s32 movecentrerelease;
 	/*0x0110*/ bool lookaheadcentreenabled;
@@ -2605,9 +2552,9 @@ struct player {
 	/*0x024c*/ s16 invdowntime;
 	/*0x024e*/ s16 usedowntime;
 	/*0x0250*/ u8 activemenumode;
-	/*0x0251*/ u8 unk0251;
-	/*0x0252*/ u8 unk0252;
-	/*0x0253*/ u8 unk0253;
+	/*0x0251*/ u8 ecol_1;
+	/*0x0252*/ u8 ecol_2;
+	/*0x0253*/ u8 ecol_3;
 	/*0x0254*/ s32 erasertime; // related to FarSight's auto tracking
 	/*0x0258*/ f32 autoeraserdist;
 	/*0x025c*/ struct prop *autoerasertarget;
@@ -2659,7 +2606,7 @@ struct player {
 	/*0x036c*/ struct playerbond bond2;
 	/*0x03a0*/ bool resetheadpos;
 	/*0x03a4*/ bool resetheadrot;
-	/*0x03a8*/ bool unk03a8;
+	/*0x03a8*/ bool resetheadtick;
 	/*0x03ac*/ s32 headanim;
 	/*0x03b0*/ f32 headdamp;
 	/*0x03b4*/ s32 headwalkingtime60;
@@ -2686,41 +2633,8 @@ struct player {
 	/*0x0490*/ s32 eyespydarts;
 	/*0x0494*/ union modelrwdata *bondheadsave[30];
 	/*0x050c*/ u32 unk050c;
-	/*0x0510*/ Mtxf unk0510;
-	/*0x0550*/ Mtxf unk0550;
-	/*0x0590*/ u32 unk0590;
-	/*0x0594*/ u32 unk0594;
-	/*0x0598*/ u32 unk0598;
-	/*0x059c*/ u32 unk059c;
-	/*0x05a0*/ u32 unk05a0;
-	/*0x05a4*/ u32 unk05a4;
-	/*0x05a8*/ u32 unk05a8;
-	/*0x05ac*/ u32 unk05ac;
-	/*0x05b0*/ u32 unk05b0;
-	/*0x05b4*/ u32 unk05b4;
-	/*0x05b8*/ u32 unk05b8;
-	/*0x05bc*/ u32 unk05bc;
-	/*0x05c0*/ u32 unk05c0;
-	/*0x05c4*/ u32 unk05c4;
-	/*0x05c8*/ u32 unk05c8;
-	/*0x05cc*/ u32 unk05cc;
-	/*0x05d0*/ u32 unk05d0;
-	/*0x05d4*/ u32 unk05d4;
-	/*0x05d8*/ u32 unk05d8;
-	/*0x05dc*/ u32 unk05dc;
-	/*0x05e0*/ u32 unk05e0;
-	/*0x05e4*/ u32 unk05e4;
-	/*0x05e8*/ u32 unk05e8;
-	/*0x05ec*/ u32 unk05ec;
-	/*0x05f0*/ u32 unk05f0;
-	/*0x05f4*/ u32 unk05f4;
-	/*0x05f8*/ u32 unk05f8;
-	/*0x05fc*/ u32 unk05fc;
-	/*0x0600*/ u32 unk0600;
-	/*0x0604*/ u32 unk0604;
-	/*0x0608*/ u32 unk0608;
-	/*0x060c*/ u32 unk060c;
-	/*0x0610*/ struct player0610 unk0610[2];
+	/*0x0510*/ Mtxf bondheadmatrices[4];
+	/*0x0610*/ struct player0610 viewport[2];
 	/*0x0630*/ s16 viewx;    // 320 lo-res, 640 hi-res
 	/*0x0632*/ s16 viewy;    // 220 regardless of res
 	/*0x0634*/ s16 viewleft; // 0
@@ -2743,38 +2657,18 @@ struct player {
 	/*0x1624*/ struct threat lookingatprop;
 	/*0x1630*/ struct threat cmpfollowprops[4];
 	/*0x1660*/ f32 crosspos[2];
-	/*0x1668*/ f32 unk1668;
-	/*0x166c*/ f32 unk166c;
-	/*0x1670*/ f32 unk1670;
-	/*0x1674*/ f32 unk1674;
-	/*0x1678*/ f32 unk1678;
-	/*0x167c*/ f32 unk167c;
-	/*0x1680*/ f32 unk1680;
-	/*0x1684*/ f32 unk1684;
-	/*0x1688*/ f32 unk1688;
-	/*0x168c*/ f32 unk168c;
-	/*0x1690*/ f32 unk1690;
-	/*0x1694*/ u32 unk1694;
-	/*0x1698*/ u32 unk1698;
-	/*0x169c*/ u32 unk169c;
-	/*0x16a0*/ u32 unk16a0;
-	/*0x16a4*/ u32 unk16a4;
-	/*0x16a8*/ u32 unk16a8;
-	/*0x16ac*/ u32 unk16ac;
-	/*0x16b0*/ u32 unk16b0;
-	/*0x16b4*/ u32 unk16b4;
-	/*0x16b8*/ u32 unk16b8;
-	/*0x16bc*/ u32 unk16bc;
-	/*0x16c0*/ u32 unk16c0;
-	/*0x16c4*/ u32 unk16c4;
-	/*0x16c8*/ u32 unk16c8;
-	/*0x16cc*/ u32 unk16cc;
-	/*0x16d0*/ u32 unk16d0;
-	/*0x16d4*/ u32 unk16d4;
-	/*0x16d8*/ u32 unk16d8;
-	/*0x16dc*/ f32 unk16dc;
-	/*0x16e0*/ f32 unk16e0;
-	/*0x16e4*/ f32 unk16e4;
+	/*0x1668*/ f32 crosspossum[2];
+	/*0x1670*/ f32 guncrossdamp;
+	/*0x1674*/ f32 crosspos2[2];
+	/*0x167c*/ f32 crosssum2[2];
+	/*0x1684*/ f32 gunaimdamp;
+	/*0x1688*/ struct coord aimangle;
+	/*0x1694*/ Mtxf aimanglemat;
+	/*0x16d4*/ bool copiedgoldeneye;
+	/*0x16d8*/ u32 gunammooff;
+	/*0x16dc*/ f32 gunsync;
+	/*0x16e0*/ f32 syncchange;
+	/*0x16e4*/ f32 synccount;
 	/*0x16e8*/ s32 syncoffset;
 	/*0x16ec*/ f32 cyclesum;
 	/*0x16f0*/ f32 gunampsum;
@@ -2830,8 +2724,8 @@ struct player {
 	/*0x1850*/ f32 zoominfovynew;
 	/*0x1854*/ f32 fovy;
 	/*0x1858*/ f32 aspect;
-	/*0x185c*/ u32 flags;
-	/*0x1860*/ s32 unk1860;
+	/*0x185c*/ u32 hudmessoff;
+	/*0x1860*/ s32 bondmesscnt;
 	/*0x1864*/ struct invitem *weapons; // circular linked list, sorted
 	/*0x1868*/ struct invitem *equipment; // slots, allocated, unsorted
 	/*0x186c*/ s32 equipmaxitems;
@@ -2900,15 +2794,15 @@ struct player {
 	/*0x1a2c*/ struct coord grabbedposextra;
 	/*0x1a38*/ f32 grabbedrotextrasum;
 	/*0x1a3c*/ struct coord grabbedposextrasum;
-	/*0x1a48*/ f32 unk1a48;
-	/*0x1a4c*/ f32 unk1a4c;
-	/*0x1a50*/ f32 unk1a50;
-	/*0x1a54*/ f32 unk1a54;
-	/*0x1a58*/ f32 unk1a58;
-	/*0x1a5c*/ f32 unk1a5c;
-	/*0x1a60*/ f32 unk1a60;
-	/*0x1a64*/ f32 unk1a64;
-	/*0x1a68*/ s32 unk1a68;
+	/*0x1a48*/ f32 bondtankthetaspeedsum;
+	/*0x1a4c*/ f32 bondtankverta;
+	/*0x1a50*/ f32 bondtankvertasum;
+	/*0x1a54*/ f32 bondturrettheta;
+	/*0x1a58*/ f32 bondturretthetasum;
+	/*0x1a5c*/ f32 bondturretspeedsum;
+	/*0x1a60*/ f32 bondturretside;
+	/*0x1a64*/ f32 bondturretchange;
+	/*0x1a68*/ s32 bondtankslowtime;
 	/*0x1a6c*/ struct prop *hoverbike;
 	/*0x1a70*/ struct coord bondvehicleoffset;
 	/*0x1a7c*/ s32 bondvehiclemode;
@@ -2925,7 +2819,7 @@ struct player {
 	/*0x1ae8*/ f32 bondonground;
 	/*0x1aec*/ struct prop *tank;
 	/*0x1af0*/ struct prop *unk1af0;
-	/*0x1af4*/ u32 unk1af4;
+	/*0x1af4*/ u32 bondonturret;
 	/*0x1af8*/ s32 walkinitmove;
 	/*0x1afc*/ struct coord walkinitpos;
 	/*0x1b08*/ Mtxf walkinitmtx;
@@ -2933,7 +2827,7 @@ struct player {
 	/*0x1b4c*/ f32 walkinitt2;
 	/*0x1b50*/ struct coord walkinitstart;
 	/*0x1b5c*/ struct prop *grabbedprop;
-	/*0x1b60*/ f32 unk1b60;
+	/*0x1b60*/ f32 bondgrabthetaspeedsum;
 	/*0x1b64*/ s32 grabstarttime;
 	/*0x1b68*/ f32 autoaimdamp;
 	/*0x1b6c*/ struct coord bondforcespeed;
@@ -2985,13 +2879,11 @@ struct player {
 	/*0x1c38*/ s32 unk1c38;
 	/*0x1c3c*/ s32 unk1c3c;
 	/*0x1c40*/ u32 joybutinhibit;
-	/*0x1c44*/ f32 unk1c44;
-	/*0x1c48*/ f32 unk1c48;
-	/*0x1c4c*/ f32 unk1c4c;
+	/*0x1c44*/ struct coord bondextrapos;
 	/*0x1c50*/ u8 unk1c50_01 : 1;
 	/*0x1c51*/ u8 disguised : 1;
 	/*0x1c54*/ u32 devicesinhibit;
-	/*0x1c58*/ f32 unk1c58;
+	/*0x1c58*/ f32 grabbedforcez;
 	/*0x1c5c*/ f32 stealhealth;
 	/*0x1c60*/ s32 unk1c60;
 	/*0x1c64*/ s32 unk1c64;

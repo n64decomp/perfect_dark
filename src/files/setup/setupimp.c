@@ -730,9 +730,11 @@ u8 func0413_defend_pad[] = {
 
 u8 func100b_setup_autoguns[] = {
 	yield
-	set_autoturret_type(OBJ_AUTOGUN1, 0xef)
-	set_autoturret_type(OBJ_AUTOGUN2, 0xef)
-	set_autoturret_type(OBJ_AUTOGUN3, 0xef)
+
+	// Make autoguns shoot at everyone except good people
+	set_autogun_target_team(OBJ_AUTOGUN1, 0xff & ~TEAM_ALLY)
+	set_autogun_target_team(OBJ_AUTOGUN2, 0xff & ~TEAM_ALLY)
+	set_autogun_target_team(OBJ_AUTOGUN3, 0xff & ~TEAM_ALLY)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2f)
 
 	// SA and PA only

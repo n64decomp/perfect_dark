@@ -18,7 +18,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex);
 void setupHat(struct hatobj *hat, s32 cmdindex);
 void setupKey(struct keyobj *key, s32 cmdindex);
 void setupMine(struct mineobj *mine, s32 cmdindex);
-void setupCamera(struct cameraobj *camera, s32 cmdindex);
+void setupCctv(struct cctvobj *camera, s32 cmdindex);
 void setupAutogun(struct autogunobj *autogun, s32 cmdindex);
 void setupHangingMonitors(struct hangingmonitorsobj *monitors, s32 cmdindex);
 void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex);

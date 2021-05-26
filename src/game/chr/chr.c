@@ -114,9 +114,9 @@ void func0f01e250(void)
 	s32 value;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
-		g_Vars.players[i]->unk1c44 = 0;
-		g_Vars.players[i]->unk1c48 = 0;
-		g_Vars.players[i]->unk1c4c = 0;
+		g_Vars.players[i]->bondextrapos.x = 0;
+		g_Vars.players[i]->bondextrapos.y = 0;
+		g_Vars.players[i]->bondextrapos.z = 0;
 	}
 
 	func0f02c9b0();
@@ -15515,8 +15515,8 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 		chr->geo.ymax = chr->manground + chr->chrheight;
 
 		if (chr->actiontype == ACT_SKJUMP) {
-			if (chr->manground > chr->act_skjump.y) {
-				chr->geo.ymin = chr->act_skjump.y;
+			if (chr->manground > chr->act_skjump.ground) {
+				chr->geo.ymin = chr->act_skjump.ground;
 			}
 		}
 
@@ -15549,8 +15549,8 @@ void propChrGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	*ymax = chr->manground + chr->chrheight;
 	*ymin = chr->manground + 20;
 
-	if (chr->actiontype == ACT_SKJUMP && chr->act_skjump.y < chr->manground) {
-		*ymin = chr->act_skjump.y + 20;
+	if (chr->actiontype == ACT_SKJUMP && chr->act_skjump.ground < chr->manground) {
+		*ymin = chr->act_skjump.ground + 20;
 	}
 }
 

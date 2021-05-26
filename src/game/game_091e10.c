@@ -33,7 +33,7 @@ u32 setupGetCommandLength(u32 *cmd)
 	case OBJTYPE_24:                 return 23;
 	case OBJTYPE_KEY:                return 24;
 	case OBJTYPE_ALARM:              return 23;
-	case OBJTYPE_CAMERA:             return 49;
+	case OBJTYPE_CCTV:             return 49;
 	case OBJTYPE_AMMOCRATE:          return 24;
 	case OBJTYPE_WEAPON:             return 26;
 	case OBJTYPE_SINGLEMONITOR:      return 53;
@@ -66,7 +66,7 @@ u32 setupGetCommandLength(u32 *cmd)
 	case OBJTYPE_TRUCK:              return 34;
 	case OBJTYPE_HELI:               return 35;
 	case OBJTYPE_TANK:               return 32;
-	case OBJTYPE_CAMERA2:            return 7;
+	case OBJTYPE_CAMERAPOS:            return 7;
 	case OBJTYPE_LIFT:               return 37;
 	case OBJTYPE_CONDITIONALSCENERY: return 5;
 	case OBJTYPE_BLOCKEDPATH:        return 4;
@@ -317,7 +317,7 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_BASIC:
 		case OBJTYPE_KEY:
 		case OBJTYPE_ALARM:
-		case OBJTYPE_CAMERA:
+		case OBJTYPE_CCTV:
 		case OBJTYPE_AMMOCRATE:
 		case OBJTYPE_WEAPON:
 		case OBJTYPE_SINGLEMONITOR:
@@ -366,7 +366,7 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_RENAMEOBJ:
 		case OBJTYPE_PADLOCKEDDOOR:
 		case OBJTYPE_SAFEITEM:
-		case OBJTYPE_CAMERA2:
+		case OBJTYPE_CAMERAPOS:
 		case OBJTYPE_CONDITIONALSCENERY:
 		case OBJTYPE_BLOCKEDPATH:
 		case OBJTYPE_PADEFFECT:

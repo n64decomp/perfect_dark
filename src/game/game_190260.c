@@ -1096,7 +1096,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 		return 3;
 	case OBJTYPE_BASIC:
 	case OBJTYPE_ALARM:
-	case OBJTYPE_CAMERA:
+	case OBJTYPE_CCTV:
 	case OBJTYPE_CHR:
 	case OBJTYPE_SINGLEMONITOR:
 	case OBJTYPE_MULTIMONITOR:
@@ -1121,7 +1121,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_SAFE:
 	case OBJTYPE_SAFEITEM:
 	case OBJTYPE_TANK:
-	case OBJTYPE_CAMERA2:
+	case OBJTYPE_CAMERAPOS:
 	case OBJTYPE_TINTEDGLASS:
 		break;
 	}
@@ -3970,7 +3970,7 @@ f32 aibotCalculateMaxSpeed(struct chrdata *chr)
 		speed *= 0.5f;
 	} else if (chr->actiontype == ACT_GOPOS
 			&& chr->act_gopos.waypoints[chr->act_gopos.curindex] == NULL
-			&& chrGetLateralDistanceToCoord(chr, &chr->act_gopos.pos) < 200) {
+			&& chrGetLateralDistanceToCoord(chr, &chr->act_gopos.endpos) < 200) {
 		speed *= 0.5f;
 	}
 
@@ -12640,6 +12640,6 @@ void func0f197544(struct chrdata *chr)
 	}
 
 	if (!pass) {
-		chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.flags);
+		chrGoToPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 	}
 }

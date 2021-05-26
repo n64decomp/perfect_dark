@@ -173,13 +173,13 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 				&& chr->prop
 				&& (chr->prop->flags & PROPFLAG_80) == 0
 				&& chr->actiontype == ACT_DEAD
-				&& chr->act_dead.allowreap == false) {
+				&& chr->act_dead.fadewheninvis == false) {
 			if (tally < 6) {
 				chrs[tally] = chr;
 				tally++;
 			} else {
 				rand = random() % tally;
-				chrEnableReap(chrs[rand]);
+				chrFadeCorpseWhenOffScreen(chrs[rand]);
 				chrs[rand] = chr;
 			}
 		}
@@ -194,7 +194,7 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 		i = random() % tally;
 
 		if (chrs[i]) {
-			chrEnableReap(chrs[i]);
+			chrFadeCorpseWhenOffScreen(chrs[i]);
 			chrs[i] = NULL;
 			rand--;
 		}
@@ -351,7 +351,7 @@ glabel func0f12955c
 .NB0f1243bc:
 /*  f1243bc:	028fc821 */ 	addu	$t9,$s4,$t7
 /*  f1243c0:	00608825 */ 	or	$s1,$v1,$zero
-/*  f1243c4:	0fc0f140 */ 	jal	chrEnableReap
+/*  f1243c4:	0fc0f140 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f1243c8:	8f240000 */ 	lw	$a0,0x0($t9)
 /*  f1243cc:	0011c080 */ 	sll	$t8,$s1,0x2
 /*  f1243d0:	02984021 */ 	addu	$t0,$s4,$t8
@@ -382,7 +382,7 @@ glabel func0f12955c
 /*  f124420:	11600006 */ 	beqz	$t3,.NB0f12443c
 /*  f124424:	00036080 */ 	sll	$t4,$v1,0x2
 /*  f124428:	028c8021 */ 	addu	$s0,$s4,$t4
-/*  f12442c:	0fc0f140 */ 	jal	chrEnableReap
+/*  f12442c:	0fc0f140 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f124430:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f124434:	ae000000 */ 	sw	$zero,0x0($s0)
 /*  f124438:	2631ffff */ 	addiu	$s1,$s1,-1

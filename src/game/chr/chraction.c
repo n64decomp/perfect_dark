@@ -1644,7 +1644,7 @@ f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 	return func0f02e550(prop, arg1, arg2, CDTYPE_ALL, ymax, ymin);
 }
 
-void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
+void chrStandChooseAnimation(struct chrdata *chr, f32 mergetime)
 {
 	struct prop *gun1 = chrGetEquippedWeaponProp(chr, 1);
 	struct prop *gun2 = chrGetEquippedWeaponProp(chr, 0);
@@ -1660,7 +1660,7 @@ void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
 	}
 
 	if (race == RACE_EYESPY) {
-		modelSetAnimation(chr->model, 0x13e, 0, 0, 0, arg1);
+		modelSetAnimation(chr->model, 0x13e, 0, 0, 0, mergetime);
 	} else if (race == RACE_HUMAN) {
 		if (prevanimnum == ANIM_SNIPING_GETDOWN
 				|| prevanimnum == ANIM_SNIPING_GETUP
@@ -1669,40 +1669,40 @@ void chrStandChooseAnimation(struct chrdata *chr, f32 arg1)
 		} else if ((gun1 && gun2) || (!gun1 && !gun2)
 				|| weaponIsOneHanded(gun1)
 				|| weaponIsOneHanded(gun2)) {
-			modelSetAnimation(chr->model, 0x6a, random() % 2, 0, 0.25, arg1);
+			modelSetAnimation(chr->model, 0x6a, random() % 2, 0, 0.25, mergetime);
 			modelSetAnimLooping(chr->model, 0, 16);
 		} else if (gun2 || gun1) {
-			modelSetAnimation(chr->model, 0x01, gun1 != NULL, 0, 0.25, arg1);
+			modelSetAnimation(chr->model, 0x01, gun1 != NULL, 0, 0.25, mergetime);
 			modelSetAnimLooping(chr->model, 0, 16);
 			modelSetAnimEndFrame(chr->model, 120);
 		}
 	} else if (race == RACE_SKEDAR) {
-		modelSetAnimation(chr->model, 0xc0, random() % 2, 0, 0.5, arg1);
+		modelSetAnimation(chr->model, 0xc0, random() % 2, 0, 0.5, mergetime);
 	} else if (race == RACE_DRCAROLL) {
-		modelSetAnimation(chr->model, 0x13e, 0, 0, 0.5, arg1);
+		modelSetAnimation(chr->model, 0x13e, 0, 0, 0.5, mergetime);
 	} else if (race == RACE_ROBOT) {
-		modelSetAnimation(chr->model, 0x237, 0, 0, 0.5, arg1);
+		modelSetAnimation(chr->model, 0x237, 0, 0, 0.5, mergetime);
 	}
 }
 
-void func0f02e9a0(struct chrdata *chr, f32 arg1)
+void func0f02e9a0(struct chrdata *chr, f32 mergetime)
 {
 	f32 limit = 127;
 	f32 fsleep;
 
 	chrStopFiring(chr);
 	chr->actiontype = ACT_STAND;
-	chr->act_stand.unk02c = 0;
+	chr->act_stand.prestand = false;
 	chr->act_stand.flags = 0;
 	chr->act_stand.entityid = 0;
-	chr->act_stand.unk038 = 0;
-	chr->act_stand.unk03c = 2;
-	chr->act_stand.unk040 = 0;
-	chr->act_stand.unk044 = random() % 120 + 180; // 180 to 299
-	chr->act_stand.unk048 = arg1;
-	chr->act_stand.face_target = false;
+	chr->act_stand.reaim = 0;
+	chr->act_stand.turning = 2;
+	chr->act_stand.checkfacingwall = false;
+	chr->act_stand.wallcount = random() % 120 + 180; // 180 to 299
+	chr->act_stand.mergetime = mergetime;
+	chr->act_stand.playwalkanim = false;
 
-	fsleep = arg1;
+	fsleep = mergetime;
 
 	if (chr->model->anim->playspeed != PALUPF(1.0f)) {
 		fsleep *= PALUPF(1.0f) / chr->model->anim->playspeed;
@@ -1717,7 +1717,7 @@ void func0f02e9a0(struct chrdata *chr, f32 arg1)
 	if (modelIsAnimMerging(chr->model) && !chr->aibot) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chrStandChooseAnimation(chr, arg1);
+		chrStandChooseAnimation(chr, mergetime);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
@@ -1732,16 +1732,17 @@ void chrStand(struct chrdata *chr)
 
 		if (race == RACE_HUMAN && chr->actiontype == ACT_KNEEL) {
 			chrStopFiring(chr);
+
 			chr->actiontype = ACT_STAND;
-			chr->act_stand.unk02c = 1;
+			chr->act_stand.prestand = true;
 			chr->act_stand.flags = 0;
 			chr->act_stand.entityid = 0;
-			chr->act_stand.unk038 = 0;
-			chr->act_stand.unk03c = 2;
-			chr->act_stand.unk040 = 0;
-			chr->act_stand.unk044 = random() % 120 + 180;
+			chr->act_stand.reaim = 0;
+			chr->act_stand.turning = 2;
+			chr->act_stand.checkfacingwall = 0;
+			chr->act_stand.wallcount = random() % 120 + 180;
 			chr->sleep = 0;
-			chr->act_stand.face_target = false;
+			chr->act_stand.playwalkanim = false;
 
 			if (chr->aibot == NULL) {
 				if (modelGetAnimNum(chr->model) == ANIM_KNEEL_SHOOT_RIGHT_HAND) {
@@ -1758,15 +1759,15 @@ void chrStand(struct chrdata *chr)
 			}
 		} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
 			chr->actiontype = ACT_STAND;
-			chr->act_stand.unk02c = 1;
+			chr->act_stand.prestand = true;
 			chr->act_stand.flags = 0;
 			chr->act_stand.entityid = 0;
-			chr->act_stand.unk038 = 0;
-			chr->act_stand.unk03c = 2;
-			chr->act_stand.unk040 = 0;
-			chr->act_stand.unk044 = random() % 120 + 180;
+			chr->act_stand.reaim = 0;
+			chr->act_stand.turning = 2;
+			chr->act_stand.checkfacingwall = false;
+			chr->act_stand.wallcount = random() % 120 + 180;
 			chr->sleep = 0;
-			chr->act_stand.face_target = false;
+			chr->act_stand.playwalkanim = false;
 
 			func0f02e9a0(chr, 16);
 		} else {
@@ -1784,25 +1785,27 @@ bool chrFaceCover(struct chrdata *chr)
 	}
 
 	chrStand(chr);
-	chr->act_stand.unk038 = 0;
+	chr->act_stand.reaim = 0;
 	chr->act_stand.flags = ATTACKFLAG_AIMATDIRECTION;
-	chr->act_stand.unk03c = 1;
+	chr->act_stand.turning = 1;
 	//chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
 	chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * 10432.039f;
 
 	return true;
 }
 
-void func0f02ed28(struct chrdata *chr, f32 arg1)
+void func0f02ed28(struct chrdata *chr, f32 mergetime)
 {
-	func0f02e9a0(chr, arg1);
-	chr->act_stand.unk040 = 1;
+	func0f02e9a0(chr, mergetime);
+
+	chr->act_stand.checkfacingwall = true;
 }
 
 void chrStop(struct chrdata *chr)
 {
 	chrStand(chr);
-	chr->act_stand.unk040 = 1;
+
+	chr->act_stand.checkfacingwall = true;
 }
 
 void chrKneelChooseAnimation(struct chrdata *chr)
@@ -2166,26 +2169,26 @@ void chrRunPosChooseAnimation(struct chrdata *chr)
 		if (heavy) {
 			f32 mult = 0.5;
 #if PAL
-			chr->act_runpos.unk03c = 1.0f / (func0f02dff0(0x2a) * mult) * distance * 0.83333331346512f;
+			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(0x2a) * mult) * distance * 0.83333331346512f;
 #else
-			chr->act_runpos.unk03c = 1.0f / (func0f02dff0(0x2a) * mult) * distance;
+			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(0x2a) * mult) * distance;
 #endif
 			modelSetAnimation(chr->model, 0x2a, flip, 0, mult, 16);
 		} else {
 			f32 mult = 0.5;
 #if PAL
-			chr->act_runpos.unk03c = 1.0f / (func0f02dff0(0x59) * mult) * distance * 0.83333331346512f;
+			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(0x59) * mult) * distance * 0.83333331346512f;
 #else
-			chr->act_runpos.unk03c = 1.0f / (func0f02dff0(0x59) * mult) * distance;
+			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(0x59) * mult) * distance;
 #endif
 			modelSetAnimation(chr->model, 0x59, flip, 0, mult, 16);
 		}
 	} else if (race == RACE_SKEDAR) {
 		f32 mult = 0.5;
 #if PAL
-		chr->act_runpos.unk03c = 1.0f / (func0f02dff0(0x394) * mult) * distance * 0.83333331346512f;
+		chr->act_runpos.eta60 = 1.0f / (func0f02dff0(0x394) * mult) * distance * 0.83333331346512f;
 #else
-		chr->act_runpos.unk03c = 1.0f / (func0f02dff0(0x394) * mult) * distance;
+		chr->act_runpos.eta60 = 1.0f / (func0f02dff0(0x394) * mult) * distance;
 #endif
 		modelSetAnimation(chr->model, 0x394, flip, 0, mult, 16);
 	}
@@ -2199,8 +2202,8 @@ void chrRunToPos(struct chrdata *chr, struct coord *pos)
 	chr->act_runpos.pos.y = pos->y;
 	chr->act_runpos.pos.z = pos->z;
 	chr->sleep = 0;
-	chr->act_runpos.unk038 = 30;
-	chr->act_runpos.unk040 = 0;
+	chr->act_runpos.neardist = 30;
+	chr->act_runpos.turnspeed = 0;
 
 	if (modelIsAnimMerging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
@@ -2774,10 +2777,10 @@ void chrBeginDead(struct chrdata *chr)
 		}
 
 		chr->actiontype = ACT_DEAD;
-		chr->act_dead.fadetimer = chr->aibot ? 0 : -1;
-		chr->act_dead.allowfade = false;
-		chr->act_dead.allowreap = false;
-		chr->act_dead.reaptimer = 0;
+		chr->act_dead.fadetimer60 = chr->aibot ? 0 : -1;
+		chr->act_dead.fadenow = false;
+		chr->act_dead.fadewheninvis = false;
+		chr->act_dead.invistimer60 = 0;
 		chr->act_dead.notifychrindex = 0;
 		chr->sleep = 0;
 
@@ -5081,11 +5084,11 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 							}
 
 							chr->actiontype = ACT_PREARGH;
-							chr->act_preargh.pos.x = vector->x;
-							chr->act_preargh.pos.y = vector->y;
-							chr->act_preargh.pos.z = vector->z;
-							chr->act_preargh.angle = angle;
-							chr->act_preargh.ibh = ibh;
+							chr->act_preargh.dir.x = vector->x;
+							chr->act_preargh.dir.y = vector->y;
+							chr->act_preargh.dir.z = vector->z;
+							chr->act_preargh.relshotdir = angle;
+							chr->act_preargh.hitpart = ibh;
 							chr->act_preargh.aplayernum = aplayernum;
 							chr->act_preargh.hand.weaponnum = hand->weaponnum;
 							chr->act_preargh.hand.unk0639 = hand->unk0639;
@@ -5749,7 +5752,7 @@ glabel func0f036c08
 /*  f036ee0:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
+void chrGoPosInitMagic(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
 {
 	f32 xdiff1 = padpos->x - chr->prop->pos.x;
 	f32 zdiff1 = padpos->z - chr->prop->pos.z;
@@ -5759,10 +5762,10 @@ void chrGoPosInitCheap(struct chrdata *chr, struct waydata *waydata, struct coor
 	f32 xdiff2 = padpos->x - chrpos->x;
 	f32 zdiff2 = padpos->z - chrpos->z;
 
-	waydata->mode = WAYMODE_CHEAP;
+	waydata->mode = WAYMODE_MAGIC;
 
-	waydata->segdisttotal = sqrtf(xdiff1 * xdiff1 + zdiff1 * zdiff1);
-	waydata->segdistdone = waydata->segdisttotal - sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
+	waydata->magictotal = sqrtf(xdiff1 * xdiff1 + zdiff1 * zdiff1);
+	waydata->magicdone = waydata->magictotal - sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
 
 	chrSetLookAngle(chr, angle);
 }
@@ -5786,11 +5789,11 @@ void chrGoPosGetCurWaypointInfoWithFlags(struct chrdata *chr, struct coord *pos,
 			*flags = pad.flags;
 		}
 	} else {
-		pos->x = chr->act_gopos.pos.x;
-		pos->y = chr->act_gopos.pos.y;
-		pos->z = chr->act_gopos.pos.z;
+		pos->x = chr->act_gopos.endpos.x;
+		pos->y = chr->act_gopos.endpos.y;
+		pos->z = chr->act_gopos.endpos.z;
 
-		rooms[0] = chr->act_gopos.rooms[0];
+		rooms[0] = chr->act_gopos.endrooms[0];
 		rooms[1] = -1;
 
 		if (flags) {
@@ -5860,7 +5863,7 @@ void chrGoPosClearRestartTtl(struct chrdata *chr)
 
 void chrGoPosConsiderRestart(struct chrdata *chr)
 {
-	if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
+	if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
 			&& chr->liftaction != LIFTACTION_WAITINGONLIFT
 			&& chr->liftaction != LIFTACTION_WAITINGFORLIFT) {
 		if (chr->act_gopos.restartttl == 0) {
@@ -5879,7 +5882,7 @@ void chrGoPosConsiderRestart(struct chrdata *chr)
 			if (chr->aibot) {
 				func0f197544(chr);
 			} else {
-				chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.flags);
+				chrGoToPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 			}
 		} else {
 			chr->act_gopos.restartttl -= (u16)g_Vars.lvupdate240_60;
@@ -5895,11 +5898,11 @@ void chrGoPosInitExpensive(struct chrdata *chr)
 	chrGoPosGetCurWaypointInfo(chr, &pos, rooms);
 
 	chr->act_gopos.waydata.mode = WAYMODE_EXPENSIVE;
-	chr->act_gopos.waydata.unk01 = 0;
-	chr->act_gopos.waydata.unk02 = 0;
-	chr->act_gopos.waydata.pos.x = pos.x;
-	chr->act_gopos.waydata.pos.y = pos.y;
-	chr->act_gopos.waydata.pos.z = pos.z;
+	chr->act_gopos.waydata.iter = 0;
+	chr->act_gopos.waydata.gotaimpos = false;
+	chr->act_gopos.waydata.aimpos.x = pos.x;
+	chr->act_gopos.waydata.aimpos.y = pos.y;
+	chr->act_gopos.waydata.aimpos.z = pos.z;
 
 	chrGoPosClearRestartTtl(chr);
 }
@@ -6035,10 +6038,10 @@ void func0f037580(struct chrdata *chr)
 	s16 rooms[8];
 
 	chr->act_patrol.waydata.mode = WAYMODE_EXPENSIVE;
-	chr->act_patrol.waydata.unk01 = 0;
-	chr->act_patrol.waydata.unk02 = 0;
+	chr->act_patrol.waydata.iter = 0;
+	chr->act_patrol.waydata.gotaimpos = false;
 
-	chrPatrolGetCurWaypointInfo(chr, &chr->act_patrol.waydata.pos, rooms);
+	chrPatrolGetCurWaypointInfo(chr, &chr->act_patrol.waydata.aimpos, rooms);
 }
 
 void func0f0375b0(struct chrdata *chr)
@@ -6203,7 +6206,7 @@ glabel var7f1a8dac
 /*  f037820:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037824:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037828:	27a600dc */ 	addiu	$a2,$sp,0xdc
-/*  f03782c:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
+/*  f03782c:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
 /*  f037830:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f037834:	10000057 */ 	b	.L0f037994
 /*  f037838:	02002025 */ 	or	$a0,$s0,$zero
@@ -6276,7 +6279,7 @@ glabel var7f1a8dac
 /*  f037928:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03792c:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037930:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f037934:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
+/*  f037934:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
 /*  f037938:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f03793c:	10000015 */ 	b	.L0f037994
 /*  f037940:	02002025 */ 	or	$a0,$s0,$zero
@@ -6464,7 +6467,7 @@ glabel var7f1a8dac
 /*  f037820:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037824:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037828:	27a600dc */ 	addiu	$a2,$sp,0xdc
-/*  f03782c:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
+/*  f03782c:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
 /*  f037830:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f037834:	10000057 */ 	b	.L0f037994
 /*  f037838:	02002025 */ 	or	$a0,$s0,$zero
@@ -6537,7 +6540,7 @@ glabel var7f1a8dac
 /*  f037928:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03792c:	8fa5012c */ 	lw	$a1,0x12c($sp)
 /*  f037930:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f037934:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
+/*  f037934:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
 /*  f037938:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*  f03793c:	10000015 */ 	b	.L0f037994
 /*  f037940:	02002025 */ 	or	$a0,$s0,$zero
@@ -6576,9 +6579,9 @@ glabel var7f1a8dac
 #endif
 
 /**
- * Calculate the chr's position when using the cheap method of navigating.
+ * Calculate the chr's position when using the magic method of navigating.
  *
- * The cheap method is used when the chr is off-screen. It measures the distance
+ * The magic method is used when the chr is off-screen. It measures the distance
  * between two consecutive pads in the route and simply increments a distance
  * value along that segment on each tick, ignoring collisions. Meanwhile, the
  * chr's prop->pos is left as the original location where this segment started.
@@ -6595,22 +6598,22 @@ void chrCalculatePosition(struct chrdata *chr, struct coord *pos)
 	s16 rooms[8];
 	f32 frac;
 
-	if (chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_CHEAP) {
+	if (chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_MAGIC) {
 		chrPatrolGetCurWaypointInfo(chr, pos, rooms);
 
-		if (!(chr->act_patrol.waydata.segdistdone >= chr->act_patrol.waydata.segdisttotal)
-				&& chr->act_patrol.waydata.segdisttotal > 0) {
-			frac = chr->act_patrol.waydata.segdistdone / chr->act_patrol.waydata.segdisttotal;
+		if (!(chr->act_patrol.waydata.magicdone >= chr->act_patrol.waydata.magictotal)
+				&& chr->act_patrol.waydata.magictotal > 0) {
+			frac = chr->act_patrol.waydata.magicdone / chr->act_patrol.waydata.magictotal;
 			pos->x = (pos->x - chr->prop->pos.x) * frac + chr->prop->pos.x;
 			pos->y = (pos->y - chr->prop->pos.y) * frac + chr->prop->pos.y;
 			pos->z = (pos->z - chr->prop->pos.z) * frac + chr->prop->pos.z;
 		}
-	} else if (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_CHEAP) {
+	} else if (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
 		chrGoPosGetCurWaypointInfo(chr, pos, rooms);
 
-		if (!(chr->act_gopos.waydata.segdistdone >= chr->act_gopos.waydata.segdisttotal)
-				&& chr->act_gopos.waydata.segdisttotal > 0) {
-			frac = chr->act_gopos.waydata.segdistdone / chr->act_gopos.waydata.segdisttotal;
+		if (!(chr->act_gopos.waydata.magicdone >= chr->act_gopos.waydata.magictotal)
+				&& chr->act_gopos.waydata.magictotal > 0) {
+			frac = chr->act_gopos.waydata.magicdone / chr->act_gopos.waydata.magictotal;
 			pos->x = (pos->x - chr->prop->pos.x) * frac + chr->prop->pos.x;
 			pos->y = (pos->y - chr->prop->pos.y) * frac + chr->prop->pos.y;
 			pos->z = (pos->z - chr->prop->pos.z) * frac + chr->prop->pos.z;
@@ -6906,7 +6909,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 	s32 isgopos = chr->actiontype == ACT_GOPOS
 		&& (chr->act_gopos.flags & GOPOSFLAG_SPEED) == (flags & 0xff & GOPOSFLAG_SPEED)
 		&& !func0f02e064(chr);
-	s32 ischeap = isgopos && chr->act_gopos.waydata.mode == WAYMODE_CHEAP;
+	s32 ismagic = isgopos && chr->act_gopos.waydata.mode == WAYMODE_MAGIC;
 	struct coord prevpos;
 	s32 numwaypoints = 0;
 
@@ -6916,7 +6919,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 
 	chr->oldrooms[i] = -1;
 
-	if (isgopos && ischeap && chr->act_gopos.waypoints[chr->act_gopos.curindex]) {
+	if (isgopos && ismagic && chr->act_gopos.waypoints[chr->act_gopos.curindex]) {
 		nextwaypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 	} else {
 		nextwaypoint = waypointFindClosestToPos(&prop->pos, prop->rooms);
@@ -6933,7 +6936,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 	}
 
 	if (numwaypoints > 1) {
-		if (isgopos && ischeap) {
+		if (isgopos && ismagic) {
 			chrCalculatePosition(chr, &prevpos);
 		} else {
 			prevpos.x = prop->pos.x;
@@ -6944,21 +6947,21 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 		chrStopFiring(chr);
 
 		chr->actiontype = ACT_GOPOS;
-		chr->act_gopos.pos.x = pos->x;
-		chr->act_gopos.pos.y = pos->y;
-		chr->act_gopos.pos.z = pos->z;
-		roomsCopy(room, chr->act_gopos.rooms);
+		chr->act_gopos.endpos.x = pos->x;
+		chr->act_gopos.endpos.y = pos->y;
+		chr->act_gopos.endpos.z = pos->z;
+		roomsCopy(room, chr->act_gopos.endrooms);
 
 		chr->act_gopos.target = lastwaypoint;
 		chr->act_gopos.curindex = 0;
 		chr->act_gopos.flags = flags | GOPOSFLAG_INIT;
-		chr->act_gopos.unk0ac = 0;
+		chr->act_gopos.turnspeed = 0;
 		chr->unk32c_21 = 0;
 		chr->act_gopos.waydata.age = random() % 100;
-		chr->act_gopos.waydata.unk03 = 0;
+		chr->act_gopos.waydata.gotaimposobj = 0;
 
 		if (!isgopos) {
-			chr->act_gopos.cheapend60 = -1;
+			chr->act_gopos.waydata.lastvisible60 = -1;
 		}
 
 		for (i = 0; i < MAX_CHRWAYPOINTS; i++) {
@@ -6974,15 +6977,15 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 		chr->act_gopos.flags &= ~(GOPOSFLAG_80 | GOPOSFLAG_DUCK | GOPOSFLAG_20);
 		chrGoPosGetCurWaypointInfo(chr, &curwppos, curwprooms);
 
-		if ((!isgopos || ischeap)
+		if ((!isgopos || ismagic)
 				&& g_Vars.normmplayerisrunning == false
 				&& (prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0
 				&& func0f036c08(chr, &curwppos, curwprooms)
 				&& chr->inlift == false) {
-			chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
+			chrGoPosInitMagic(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
 		}
 
-		if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
+		if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
 				&& modelIsAnimMerging(chr->model) && !chr->aibot) {
 			chr->hidden |= CHRHFLAG_NEEDANIM;
 			return true;
@@ -7264,7 +7267,7 @@ glabel var7f1a8dd0
 /*  f038e84:	26650038 */ 	addiu	$a1,$s3,0x38
 /*  f038e88:	05a00003 */ 	bltz	$t5,.L0f038e98
 /*  f038e8c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f038e90:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
+/*  f038e90:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
 /*  f038e94:	8fa70054 */ 	lw	$a3,0x54($sp)
 .L0f038e98:
 /*  f038e98:	826e0068 */ 	lb	$t6,0x68($s3)
@@ -7384,7 +7387,7 @@ glabel var7f1a8dd0
 //			chr->act_patrol.forward = true;
 //
 //			chr->act_patrol.waydata.age = random() % 100;
-//			chr->act_patrol.waydata.unk03 = 0;
+//			chr->act_patrol.waydata.gotaimposobj = 0;
 //
 //			chr->act_patrol.unk78 = -1;
 //			chr->act_patrol.unk7c = 0;
@@ -7401,7 +7404,7 @@ glabel var7f1a8dd0
 //					&& (chr->prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) == 0
 //					&& func0f036c08(chr, &nextpos, nextrooms)
 //					&& !chr->inlift) {
-//				chrGoPosInitCheap(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
+//				chrGoPosInitMagic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
 //			}
 //
 //			if (chr->act_patrol.waydata.unk30 != 6 && modelIsAnimMerging(chr->model)) {
@@ -7756,7 +7759,7 @@ bool chrIsStopped(struct chrdata *chr)
 		return true;
 	}
 
-	if (chr->actiontype == ACT_ROBOTATTACK && chr->act_robotattack.unk06e) {
+	if (chr->actiontype == ACT_ROBOTATTACK && chr->act_robotattack.finished) {
 		return true;
 	}
 
@@ -7765,9 +7768,9 @@ bool chrIsStopped(struct chrdata *chr)
 	}
 
 	if (chr->actiontype == ACT_STAND
-			&& chr->act_stand.unk02c == 0
-			&& chr->act_stand.unk038 == 0
-			&& chr->act_stand.unk03c != 1) {
+			&& !chr->act_stand.prestand
+			&& !chr->act_stand.reaim
+			&& chr->act_stand.turning != 1) {
 		return true;
 	}
 
@@ -7868,7 +7871,7 @@ bool chrIsReadyForOrders(struct chrdata *chr)
 		break;
 #endif
 	case ACT_ROBOTATTACK:
-		if (!chr->act_robotattack.unk06e) {
+		if (!chr->act_robotattack.finished) {
 			return false;
 		}
 		break;
@@ -8228,11 +8231,11 @@ bool chrFaceEntity(struct chrdata *chr, u32 attackflags, u32 entityid)
 		if (attackflags != chr->act_stand.flags || entityid != chr->act_stand.entityid) {
 			chr->act_stand.flags = attackflags;
 			chr->act_stand.entityid = entityid;
-			chr->act_stand.unk038 = 0;
-			chr->act_stand.unk040 = 0;
+			chr->act_stand.reaim = 0;
+			chr->act_stand.checkfacingwall = false;
 
 			if (attackflags == ATTACKFLAG_AIMATTARGET && entityid == 1) {
-				chr->act_stand.face_target = true;
+				chr->act_stand.playwalkanim = true;
 				chr->act_stand.entityid = 0;
 			}
 		}
@@ -9850,14 +9853,14 @@ void chrTickSurrender(struct chrdata *chr)
 void chrFadeCorpse(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DRUGGEDKO) {
-		chr->act_dead.allowfade = true;
+		chr->act_dead.fadenow = true;
 	}
 }
 
-void chrEnableReap(struct chrdata *chr)
+void chrFadeCorpseWhenOffScreen(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD) {
-		chr->act_dead.allowreap = true;
+		chr->act_dead.fadewheninvis = true;
 	}
 }
 
@@ -9866,10 +9869,10 @@ void chrTickDead(struct chrdata *chr)
 	struct aibot *aibot = chr->aibot;
 
 	// If fade is active, handle it
-	if (chr->act_dead.fadetimer >= 0) {
-		chr->act_dead.fadetimer += g_Vars.lvupdate240_60;
+	if (chr->act_dead.fadetimer60 >= 0) {
+		chr->act_dead.fadetimer60 += g_Vars.lvupdate240_60;
 
-		if (chr->act_dead.fadetimer >= PALDOWN(90)) {
+		if (chr->act_dead.fadetimer60 >= PALDOWN(90)) {
 			// Fade finished
 			chr->fadealpha = 0;
 
@@ -9880,24 +9883,24 @@ void chrTickDead(struct chrdata *chr)
 			}
 		} else {
 			// Still fading
-			chr->fadealpha = (PALDOWN(90) - chr->act_dead.fadetimer) * 255 / PALDOWN(90);
+			chr->fadealpha = (PALDOWN(90) - chr->act_dead.fadetimer60) * 255 / PALDOWN(90);
 		}
 	} else {
 		// If fade has been triggered (this can happen when the corpse is on
 		// screen and there's lots of other chrs around)
-		if (chr->act_dead.allowfade) {
-			chr->act_dead.fadetimer = 0;
+		if (chr->act_dead.fadenow) {
+			chr->act_dead.fadetimer60 = 0;
 			chrDropWeapons(chr);
 		}
 
 		if (chr->prop->flags & PROPFLAG_80) {
 			// Keep corpse for now
-			chr->act_dead.reaptimer = 0;
+			chr->act_dead.invistimer60 = 0;
 		} else {
-			chr->act_dead.reaptimer += g_Vars.lvupdate240_60;
+			chr->act_dead.invistimer60 += g_Vars.lvupdate240_60;
 		}
 
-		if (chr->act_dead.allowreap && chr->act_dead.reaptimer >= PALDOWN(120)) {
+		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= PALDOWN(120)) {
 			// Remove corpse (off-screen)
 			if (aibot == NULL) {
 				chr->hidden |= CHRHFLAG_REAPED;
@@ -10344,8 +10347,8 @@ glabel chrTickDruggedComingUp
 //					&& g_AnimTablesByRace[race][i].deathanimcount > 0) {
 //				struct animtablerow *row = &g_AnimTablesByRace[race][i].deathanims[random() % g_AnimTablesByRace[race][i].deathanimcount];
 //
-//				chr->act_druggeddrop.thudframe1 = row->thudframe1;
-//				chr->act_druggeddrop.thudframe2 = row->thudframe2;
+//				chr->act_die.thudframe1 = row->thudframe1;
+//				chr->act_die.thudframe2 = row->thudframe2;
 //
 //				modelSetAnimationWithMerge(model, row->animnum, row->flip, 0, row->speed, 16, true);
 //
@@ -10404,7 +10407,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 	static s32 thudindex = 0;
 
 	// If due, play thud 1 sound
-	if (chr->act_druggeddrop.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_druggeddrop.thudframe1) {
+	if (chr->act_die.thudframe1 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe1) {
 		func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
@@ -10414,11 +10417,11 @@ void chrTickDruggedDrop(struct chrdata *chr)
 			thudindex = 0;
 		}
 
-		chr->act_druggeddrop.thudframe1 = -1;
+		chr->act_die.thudframe1 = -1;
 	}
 
 	// If due, play thud 2 sound
-	if (chr->act_druggeddrop.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_druggeddrop.thudframe2) {
+	if (chr->act_die.thudframe2 >= 0 && modelGetCurAnimFrame(model) >= chr->act_die.thudframe2) {
 		func0f0939f8(NULL, chr->prop, thuds[thudindex], -1,
 				-1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
@@ -10428,17 +10431,17 @@ void chrTickDruggedDrop(struct chrdata *chr)
 			thudindex = 0;
 		}
 
-		chr->act_druggeddrop.thudframe2 = -1;
+		chr->act_die.thudframe2 = -1;
 	}
 
 	// If falling animation finished, assign ACT_DRUGGEDKO
 	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
 		chr->actiontype = ACT_DRUGGEDKO;
-		chr->act_druggedko.fadetimer = chr->aibot ? 0 : -1;
-		chr->act_druggedko.allowfade = false;
-		chr->act_druggedko.allowreap = false;
-		chr->act_druggedko.reaptimer = 0;
-		chr->act_druggedko.unk03c = 0;
+		chr->act_dead.fadetimer60 = chr->aibot ? 0 : -1;
+		chr->act_dead.fadenow = false;
+		chr->act_dead.fadewheninvis = false;
+		chr->act_dead.invistimer60 = 0;
+		chr->act_dead.notifychrindex = 0;
 		chr->sleep = 0;
 	}
 
@@ -10450,26 +10453,26 @@ void chrTickDruggedKo(struct chrdata *chr)
 	bool reap = false;
 
 	// If fade is active, handle it
-	if (chr->act_druggedko.fadetimer >= 0) {
-		chr->act_druggedko.fadetimer += g_Vars.lvupdate240_60;
+	if (chr->act_dead.fadetimer60 >= 0) {
+		chr->act_dead.fadetimer60 += g_Vars.lvupdate240_60;
 
-		if (chr->act_druggedko.fadetimer >= PALDOWN(90)) {
+		if (chr->act_dead.fadetimer60 >= PALDOWN(90)) {
 			reap = true;
 		} else {
-			chr->fadealpha = (PALDOWN(90) - chr->act_druggedko.fadetimer) * 255 / PALDOWN(90);
+			chr->fadealpha = (PALDOWN(90) - chr->act_dead.fadetimer60) * 255 / PALDOWN(90);
 		}
 	} else if ((chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0) {
-		if (chr->act_druggedko.allowfade) {
-			chr->act_druggedko.fadetimer = 0;
+		if (chr->act_dead.fadenow) {
+			chr->act_dead.fadetimer60 = 0;
 		}
 
 		if (chr->prop->flags & PROPFLAG_80) {
-			chr->act_druggedko.reaptimer = 0;
+			chr->act_dead.invistimer60 = 0;
 		} else {
-			chr->act_druggedko.reaptimer += g_Vars.lvupdate240_60;
+			chr->act_dead.invistimer60 += g_Vars.lvupdate240_60;
 		}
 
-		if (chr->act_druggedko.allowreap && chr->act_druggedko.reaptimer >= PALDOWN(120)) {
+		if (chr->act_dead.fadewheninvis && chr->act_dead.invistimer60 >= PALDOWN(120)) {
 			reap = true;
 		}
 	}
@@ -10508,14 +10511,14 @@ void chrTickPreArgh(struct chrdata *chr)
 	struct model *model = chr->model;
 
 	if (modelGetCurAnimFrame(model) >= modelGetAnimEndFrame(model)) {
-		struct coord pos;
-		pos.x = chr->act_preargh.pos.x;
-		pos.y = chr->act_preargh.pos.y;
-		pos.z = chr->act_preargh.pos.z;
+		struct coord dir;
+		dir.x = chr->act_preargh.dir.x;
+		dir.y = chr->act_preargh.dir.y;
+		dir.z = chr->act_preargh.dir.z;
 
-		chrReactToDamage(chr, &pos,
-				chr->act_preargh.angle,
-				chr->act_preargh.ibh,
+		chrReactToDamage(chr, &dir,
+				chr->act_preargh.relshotdir,
+				chr->act_preargh.hitpart,
 				&chr->act_preargh.hand,
 				chr->act_preargh.aplayernum);
 	}
@@ -18108,7 +18111,7 @@ void robotSetMuzzleFlash(struct chrdata *chr, bool right, bool visible)
 
 void robotAttack(struct chrdata *chr)
 {
-	u32 rand = random() % 20;
+	u32 numshots = random() % 20;
 
 	if (chr->unk348 && chr->unk34c) {
 		chr->actiontype = ACT_ROBOTATTACK;
@@ -18127,14 +18130,14 @@ void robotAttack(struct chrdata *chr)
 
 		chr->unk348->unk14 = 0.0f;
 
-		chr->act_robotattack.unk02c = 0.0f;
-		chr->act_robotattack.unk030 = 0.0f;
-		chr->act_robotattack.unk034 = 0.0f;
-		chr->act_robotattack.unk044 = 0.0f;
-		chr->act_robotattack.unk048 = 0.0f;
-		chr->act_robotattack.unk04c = 0.0f;
-		chr->act_robotattack.unk05c = 90;
-		chr->act_robotattack.unk06c = 0;
+		chr->act_robotattack.pos[0].x = 0.0f;
+		chr->act_robotattack.pos[0].y = 0.0f;
+		chr->act_robotattack.pos[0].z = 0.0f;
+		chr->act_robotattack.dir[0].x = 0.0f;
+		chr->act_robotattack.dir[0].y = 0.0f;
+		chr->act_robotattack.dir[0].z = 0.0f;
+		chr->act_robotattack.guntype[0] = 90;
+		chr->act_robotattack.firing[0] = false;
 
 		chr->unk34c->beam->age = -1;
 		chr->unk34c->unk00 = random() % 3;
@@ -18144,17 +18147,17 @@ void robotAttack(struct chrdata *chr)
 		chr->unk34c->unk10 = 0.2f;
 		chr->unk34c->unk14 = 0.0f;
 
-		chr->act_robotattack.unk060 = 90;
-		chr->act_robotattack.unk06d = 0;
-		chr->act_robotattack.unk06e = 0;
-		chr->act_robotattack.unk064 = rand;
-		chr->act_robotattack.unk068 = rand;
-		chr->act_robotattack.unk038 = 0.0f;
-		chr->act_robotattack.unk03c = 0.0f;
-		chr->act_robotattack.unk040 = 0.0f;
-		chr->act_robotattack.unk050 = 0.0f;
-		chr->act_robotattack.unk054 = 0.0f;
-		chr->act_robotattack.unk058 = 0.0f;
+		chr->act_robotattack.guntype[1] = 90;
+		chr->act_robotattack.firing[1] = false;
+		chr->act_robotattack.finished = false;
+		chr->act_robotattack.numshots[0] = numshots;
+		chr->act_robotattack.numshots[1] = numshots;
+		chr->act_robotattack.pos[1].x = 0.0f;
+		chr->act_robotattack.pos[1].y = 0.0f;
+		chr->act_robotattack.pos[1].z = 0.0f;
+		chr->act_robotattack.dir[1].x = 0.0f;
+		chr->act_robotattack.dir[1].y = 0.0f;
+		chr->act_robotattack.dir[1].z = 0.0f;
 
 		chrStandChooseAnimation(chr, 16);
 	}
@@ -19700,7 +19703,7 @@ void chrTickRunPos(struct chrdata *chr)
 
 	if (chr->invalidmove == 1
 			|| g_Vars.lvframe60 - PALDOWN(60) > chr->lastmoveok60
-			|| posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &chr->act_runpos.pos, chr->act_runpos.unk038)) {
+			|| posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &chr->act_runpos.pos, chr->act_runpos.neardist)) {
 		if (race == RACE_HUMAN) {
 			modelGetAnimNum(model);
 		}
@@ -19732,10 +19735,10 @@ void chrTickRunPos(struct chrdata *chr)
 		return;
 	}
 
-	func0f043f2c(chr, &chr->act_runpos.pos, 1, &chr->act_runpos.unk040);
+	func0f043f2c(chr, &chr->act_runpos.pos, 1, &chr->act_runpos.turnspeed);
 
-	if (chr->act_runpos.unk03c > 0) {
-		chr->act_runpos.unk03c -= g_Vars.lvupdate240_60;
+	if (chr->act_runpos.eta60 > 0) {
+		chr->act_runpos.eta60 -= g_Vars.lvupdate240_60;
 	} else {
 		fVar7 = 1;
 
@@ -19749,7 +19752,7 @@ void chrTickRunPos(struct chrdata *chr)
 			fVar7 = func0f02dff0(ANIM_SKEDAR_RUNNING);
 		}
 
-		chr->act_runpos.unk038 += fVar7 * g_Vars.lvupdate240freal * modelGetAbsAnimSpeed(model);
+		chr->act_runpos.neardist += fVar7 * g_Vars.lvupdate240freal * modelGetAbsAnimSpeed(model);
 	}
 }
 
@@ -22810,7 +22813,7 @@ void chrTickGoPos(struct chrdata *chr)
 	struct coord pos;
 	s16 rooms[8];
 	struct prop *prop = chr->prop;
-	bool enteringcheap = false;
+	bool enteringmagic = false;
 	struct pad pad;
 	bool sp240 = true;
 	struct coord curwppos;
@@ -22846,23 +22849,23 @@ void chrTickGoPos(struct chrdata *chr)
 #endif
 
 		// Goposforce was not set - restart the action to try and find a new route
-		chrGoToPos(chr, &chr->act_gopos.pos, chr->act_gopos.rooms, chr->act_gopos.flags);
+		chrGoToPos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 	}
 
 	chrGoPosConsiderRestart(chr);
 	chrGoPosGetCurWaypointInfoWithFlags(chr, &curwppos, curwprooms, &curwpflags);
 
-	// If cheap mode ended over 3 seconds ago, not multiplayer, not in view of
-	// eyespy, pad is nothing special and not in lift, then enter the cheap move
+	// If magic mode ended over 3 seconds ago, not multiplayer, not in view of
+	// eyespy, pad is nothing special and not in lift, then enter the magic move
 	// mode.
-	if (chr->act_gopos.waydata.mode != WAYMODE_CHEAP
-			&& chr->act_gopos.cheapend60 + PALDOWN(180) < g_Vars.lvframe60
+	if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
+			&& chr->act_gopos.waydata.lastvisible60 + PALDOWN(180) < g_Vars.lvframe60
 			&& g_Vars.normmplayerisrunning == false
 			&& func0f036c08(chr, &curwppos, curwprooms) // related to eyespy
 			&& (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& chr->inlift == false) {
-		enteringcheap = true;
-		chrGoPosInitCheap(chr, &chr->act_gopos.waydata, &curwppos, &prop->pos);
+		enteringmagic = true;
+		chrGoPosInitMagic(chr, &chr->act_gopos.waydata, &curwppos, &prop->pos);
 	}
 
 	if (var80062cbc >= 9
@@ -22889,18 +22892,18 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 #endif
 
-	if (chr->act_gopos.waydata.mode == WAYMODE_CHEAP) {
-		// Check if chr needs to exit cheap mode
-		if ((!enteringcheap && ((prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) || !func0f036c08(chr, &curwppos, curwprooms)))
+	// Check if chr needs to exit magic mode
+	if (chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) || !func0f036c08(chr, &curwppos, curwprooms)))
 				|| (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
-			// Exiting cheap mode
+			// Exiting magic mode
 			chrGoPosInitExpensive(chr);
-			chr->act_gopos.cheapend60 = g_Vars.lvframe60;
+			chr->act_gopos.waydata.lastvisible60 = g_Vars.lvframe60;
 			return;
 		}
 
-		// Tick the cheap mode
+		// Tick the magic mode
 		func0f0375e8(chr, &chr->act_gopos.waydata, func0f0370a8(chr), &curwppos, curwprooms);
 		return;
 	}
@@ -22944,8 +22947,8 @@ void chrTickGoPos(struct chrdata *chr)
 		}
 	} else {
 		// No more waypoints - chr is finished
-		if (posIsArrivingAtPos(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30) ||
-				(chr->inlift && posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &chr->act_gopos.pos, 30))) {
+		if (posIsArrivingAtPos(&chr->prevpos, &prop->pos, &chr->act_gopos.endpos, 30) ||
+				(chr->inlift && posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &chr->act_gopos.endpos, 30))) {
 			if (chr->act_gopos.flags & GOPOSFLAG_FORPATHSTART) {
 				chrTryStartPatrol(chr);
 				return;
@@ -22996,11 +22999,11 @@ void chrTickGoPos(struct chrdata *chr)
 							rooms[0] = pad.room;
 							rooms[1] = -1;
 						} else {
-							pos.x = chr->act_gopos.pos.x;
-							pos.y = chr->act_gopos.pos.y;
-							pos.z = chr->act_gopos.pos.z;
+							pos.x = chr->act_gopos.endpos.x;
+							pos.y = chr->act_gopos.endpos.y;
+							pos.z = chr->act_gopos.endpos.z;
 
-							roomsCopy(chr->act_gopos.rooms, rooms);
+							roomsCopy(chr->act_gopos.endrooms, rooms);
 						}
 
 						// Some bbox related check
@@ -23041,11 +23044,11 @@ void chrTickGoPos(struct chrdata *chr)
 					rooms[0] = pad2.room;
 					rooms[1] = -1;
 				} else {
-					pos.x = chr->act_gopos.pos.x;
-					pos.y = chr->act_gopos.pos.y;
-					pos.z = chr->act_gopos.pos.z;
+					pos.x = chr->act_gopos.endpos.x;
+					pos.y = chr->act_gopos.endpos.y;
+					pos.z = chr->act_gopos.endpos.z;
 
-					roomsCopy(chr->act_gopos.rooms, rooms);
+					roomsCopy(chr->act_gopos.endrooms, rooms);
 				}
 
 				// I suspect this is making the chr turn to face the next pad
@@ -23089,9 +23092,9 @@ void chrTickGoPos(struct chrdata *chr)
 		pos.y = pad.pos.y;
 		pos.z = pad.pos.z;
 	} else {
-		pos.x = chr->act_gopos.pos.x;
-		pos.y = chr->act_gopos.pos.y;
-		pos.z = chr->act_gopos.pos.z;
+		pos.x = chr->act_gopos.endpos.x;
+		pos.y = chr->act_gopos.endpos.y;
+		pos.z = chr->act_gopos.endpos.z;
 
 		if (chr->aibot && chr->myaction == MA_AIBOTGETITEM) {
 			sp240 = false;
@@ -23168,7 +23171,7 @@ glabel chrTickPatrol
 /*  f0474b8:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0474bc:	afaa0068 */ 	sw	$t2,0x68($sp)
 /*  f0474c0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
+/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
 /*  f0474c8:	24e70008 */ 	addiu	$a3,$a3,0x8
 .L0f0474cc:
 /*  f0474cc:	820b0038 */ 	lb	$t3,0x38($s0)
@@ -23357,7 +23360,7 @@ glabel chrTickPatrol
 /*  f0474b8:	8fa7006c */ 	lw	$a3,0x6c($sp)
 /*  f0474bc:	afaa0068 */ 	sw	$t2,0x68($sp)
 /*  f0474c0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoPosInitCheap
+/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
 /*  f0474c8:	24e70008 */ 	addiu	$a3,$a3,0x8
 .L0f0474cc:
 /*  f0474cc:	820b0038 */ 	lb	$t3,0x38($s0)
@@ -23504,7 +23507,7 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 	f32 distance = chrGetDistanceToCoord(chr, &target->pos);
 	f32 diffs[2];
 	f32 thing;
-	s32 hspeed;
+	s32 time60;
 
 	if (distance < 200 || distance > 550 || !target) {
 		return false;
@@ -23522,19 +23525,19 @@ bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 		diffs[0] = target->pos.x - chr->prop->pos.x;
 		diffs[1] = target->pos.z - chr->prop->pos.z;
 		thing = sqrtf(diffs[0] * diffs[0] + diffs[1] * diffs[1]) * 2.5f / PALUPF(21.0f);
-		hspeed = thing;
+		time60 = thing;
 
-		if (hspeed < PALDOWN(10)) {
-			hspeed = PALDOWN(10);
+		if (time60 < PALDOWN(10)) {
+			time60 = PALDOWN(10);
 		}
 
-		chr->act_skjump.xspeed = diffs[0] / hspeed;
-		chr->act_skjump.zspeed = diffs[1] / hspeed;
-		chr->act_skjump.angle = chrGetInverseTheta(chr) + chrGetAngleToPos(chr, &target->pos);
+		chr->act_skjump.vel[0] = diffs[0] / time60;
+		chr->act_skjump.vel[1] = diffs[1] / time60;
+		chr->act_skjump.roty = chrGetInverseTheta(chr) + chrGetAngleToPos(chr, &target->pos);
 		chr->act_skjump.hit = false;
-		chr->act_skjump.unk03c = hspeed;
-		chr->act_skjump.unk04c = hspeed;
-		chr->act_skjump.y = cdFindGroundYSimple(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, NULL, NULL);
+		chr->act_skjump.timer60 = time60;
+		chr->act_skjump.total60 = time60;
+		chr->act_skjump.ground = cdFindGroundYSimple(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, NULL, NULL);
 	} else {
 		return false;
 	}
@@ -23586,7 +23589,7 @@ void chrTickSkJump(struct chrdata *chr)
 		switch (chr->act_skjump.state) {
 		case SKJUMPSTATE_TAKEOFF:
 			fVar6 = chrGetInverseTheta(chr);
-			fVar5 = func0001afe8(fVar6, chr->act_skjump.angle, 0.35);
+			fVar5 = func0001afe8(fVar6, chr->act_skjump.roty, 0.35);
 			chrSetLookAngle(chr, fVar5);
 			frame = modelGetCurAnimFrame(chr->model);
 
@@ -23596,31 +23599,31 @@ void chrTickSkJump(struct chrdata *chr)
 			}
 			break;
 		case SKJUMPSTATE_AIRBORNE:
-			chr->act_skjump.newpos.x = chr->act_skjump.xspeed * g_Vars.lvupdate240_60 + chr->prop->pos.x;
-			chr->act_skjump.newpos.z = chr->act_skjump.zspeed * g_Vars.lvupdate240_60 + chr->prop->pos.z;
+			chr->act_skjump.pos.x = chr->act_skjump.vel[0] * g_Vars.lvupdate240_60 + chr->prop->pos.x;
+			chr->act_skjump.pos.z = chr->act_skjump.vel[1] * g_Vars.lvupdate240_60 + chr->prop->pos.z;
 
-			if (chr->act_skjump.unk04c > 0) {
-				fVar6 = 1.0f - chr->act_skjump.unk03c / (f32)chr->act_skjump.unk04c;
+			if (chr->act_skjump.total60 > 0) {
+				fVar6 = 1.0f - chr->act_skjump.timer60 / (f32)chr->act_skjump.total60;
 				fVar7 = sinf(M_PI * fVar6);
-				fVar7 = fVar7 * 160.0f + chr->act_skjump.y;
+				fVar7 = fVar7 * 160.0f + chr->act_skjump.ground;
 			} else {
 				fVar6 = 1;
-				fVar7 = chr->act_skjump.y;
+				fVar7 = chr->act_skjump.ground;
 			}
 
-			chr->act_skjump.newpos.y = fVar7 - chr->prop->pos.y;
+			chr->act_skjump.pos.y = fVar7 - chr->prop->pos.y;
 
-			if (fVar6 < 0.5f && chr->act_skjump.newpos.y < 0.0f) {
-				chr->act_skjump.newpos.y = 0;
+			if (fVar6 < 0.5f && chr->act_skjump.pos.y < 0.0f) {
+				chr->act_skjump.pos.y = 0;
 			}
 
-			if (chr->act_skjump.hit == false && chrGetDistanceToTarget(chr) < 150.0f) {
+			if (!chr->act_skjump.hit && chrGetDistanceToTarget(chr) < 150.0f) {
 				chrPunchInflictDamage(chr, 3, 150, false);
 				chr->act_skjump.hit = true;
 			}
 
-			if (chr->act_skjump.unk03c > 0) {
-				chr->act_skjump.unk03c -= g_Vars.lvupdate240_60;
+			if (chr->act_skjump.timer60 > 0) {
+				chr->act_skjump.timer60 -= g_Vars.lvupdate240_60;
 			} else {
 				chrTryStop(chr);
 			}
@@ -24194,7 +24197,7 @@ glabel func0f048398
 /*  f048900:	0007000d */ 	break	0x7
 .L0f048904:
 /*  f048904:	8c8400b8 */ 	lw	$a0,0xb8($a0)
-/*  f048908:	0fc0f341 */ 	jal	chrEnableReap
+/*  f048908:	0fc0f341 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f04890c:	00000000 */ 	nop
 /*  f048910:	8fa30048 */ 	lw	$v1,0x48($sp)
 /*  f048914:	00105080 */ 	sll	$t2,$s0,0x2
@@ -24240,7 +24243,7 @@ glabel func0f048398
 /*  f0489a8:	028a1021 */ 	addu	$v0,$s4,$t2
 /*  f0489ac:	8c440000 */ 	lw	$a0,0x0($v0)
 /*  f0489b0:	afa50048 */ 	sw	$a1,0x48($sp)
-/*  f0489b4:	0fc0f341 */ 	jal	chrEnableReap
+/*  f0489b4:	0fc0f341 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f0489b8:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f0489bc:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f0489c0:	8fa20044 */ 	lw	$v0,0x44($sp)
@@ -24654,7 +24657,7 @@ glabel func0f048398
 /*  f048900:	0007000d */ 	break	0x7
 .L0f048904:
 /*  f048904:	8c8400b8 */ 	lw	$a0,0xb8($a0)
-/*  f048908:	0fc0f341 */ 	jal	chrEnableReap
+/*  f048908:	0fc0f341 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f04890c:	00000000 */ 	nop
 /*  f048910:	8fa30048 */ 	lw	$v1,0x48($sp)
 /*  f048914:	00105080 */ 	sll	$t2,$s0,0x2
@@ -24700,7 +24703,7 @@ glabel func0f048398
 /*  f0489a8:	028a1021 */ 	addu	$v0,$s4,$t2
 /*  f0489ac:	8c440000 */ 	lw	$a0,0x0($v0)
 /*  f0489b0:	afa50048 */ 	sw	$a1,0x48($sp)
-/*  f0489b4:	0fc0f341 */ 	jal	chrEnableReap
+/*  f0489b4:	0fc0f341 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f0489b8:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f0489bc:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f0489c0:	8fa20044 */ 	lw	$v0,0x44($sp)
@@ -24969,7 +24972,7 @@ glabel func0f048398
 /*  f047e1c:	0007000d */ 	break	0x7
 .NB0f047e20:
 /*  f047e20:	8d440000 */ 	lw	$a0,0x0($t2)
-/*  f047e24:	0fc0f140 */ 	jal	chrEnableReap
+/*  f047e24:	0fc0f140 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f047e28:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f047e2c:	8fa30048 */ 	lw	$v1,0x48($sp)
 /*  f047e30:	00116080 */ 	sll	$t4,$s1,0x2
@@ -25012,7 +25015,7 @@ glabel func0f048398
 /*  f047eb8:	00117080 */ 	sll	$t6,$s1,0x2
 /*  f047ebc:	02ae1021 */ 	addu	$v0,$s5,$t6
 /*  f047ec0:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f047ec4:	0fc0f140 */ 	jal	chrEnableReap
+/*  f047ec4:	0fc0f140 */ 	jal	chrFadeCorpseWhenOffScreen
 /*  f047ec8:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f047ecc:	8fa20044 */ 	lw	$v0,0x44($sp)
 /*  f047ed0:	8e0ffffc */ 	lw	$t7,-0x4($s0)
@@ -25200,14 +25203,14 @@ glabel func0f048398
 //				if (chr->actiontype == ACT_DEAD
 //						|| (chr->actiontype == ACT_DRUGGEDKO && chr->prop && (chr->chrflags & CHRCFLAG_KEEPCORPSEKO) == 0)) {
 //					if (chr->prop->flags & PROPFLAG_80) {
-//						if (chr->act_dead.fadetimer < 0 && !chr->act_dead.allowfade) {
+//						if (chr->act_dead.fadetimer60 < 0 && !chr->act_dead.fadenow) {
 //							numreapablewithpropflag80++;
 //
 //							if (sp74 < numreapablewithpropflag80 || chr->aibot) {
 //								chrFadeCorpse(chr);
 //								numreapablewithpropflag80--;
 //							} else {
-//								if (chr->act_dead.allowreap == 0) {
+//								if (chr->act_dead.fadewheninvis == 0) {
 //									spb8[s1len] = chr;
 //									s1len++;
 //
@@ -25215,7 +25218,7 @@ glabel func0f048398
 //										writeindex = random() % s1len;
 //
 //
-//										chrEnableReap(spb8[writeindex]);
+//										chrFadeCorpseWhenOffScreen(spb8[writeindex]);
 //										spb8[writeindex] = spb8[s1len - 1];
 //										s1len--;
 //									}
@@ -25224,7 +25227,7 @@ glabel func0f048398
 //						}
 //					} else {
 //						// 938
-//						if (chr->act_dead.allowreap == 0) {
+//						if (chr->act_dead.fadewheninvis == 0) {
 //							spa4[s2len] = chr;
 //							s2len++;
 //
@@ -25236,7 +25239,7 @@ glabel func0f048398
 //									chrBeginDead(spa4[writeindex]);
 //								}
 //
-//								chrEnableReap(spa4[writeindex]);
+//								chrFadeCorpseWhenOffScreen(spa4[writeindex]);
 //								spa4[writeindex] = spa4[s2len - 1];
 //								s2len--;
 //							}
@@ -26809,7 +26812,7 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 						) {
 					// If we've found a chr that's ready to be reaped, great.
 					// Bail out of the loop.
-					if (g_ChrSlots[index].act_dead.reaptimer >= PALDOWN(120)) {
+					if (g_ChrSlots[index].act_dead.invistimer60 >= PALDOWN(120)) {
 						replacechr = &g_ChrSlots[index];
 						break;
 					}
@@ -26827,8 +26830,8 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 		} while (index != startindex);
 
 		if (replacechr) {
-			replacechr->act_dead.allowreap = true;
-			replacechr->act_dead.allowfade = true;
+			replacechr->act_dead.fadewheninvis = true;
+			replacechr->act_dead.fadenow = true;
 		}
 	}
 

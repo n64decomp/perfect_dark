@@ -25,8 +25,8 @@ void hudmsgCreate(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
 		u32 textcolour, u32 shadowcolour,
 		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags);
 void hudmsgsTick(void);
-void currentPlayerUnsetFlag(u32 flag);
-void currentPlayerSetFlag(u32 flag);
+void currentPlayerSetHudmsgsOn(u32 reason);
+void currentPlayerSetHudmsgsOff(u32 reason);
 void hudmsgRemoveForDeadPlayer(s32 playernum);
 Gfx *hudmsgsRender(Gfx *gdl);
 void hudmsgsReset(void);

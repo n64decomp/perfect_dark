@@ -265,7 +265,7 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->healthshowmode = HEALTHSHOWMODE_HIDDEN;
 
 	g_Vars.players[index]->docentreupdown = false;
-	g_Vars.players[index]->unk0104 = 0;
+	g_Vars.players[index]->lastupdown60 = 0;
 	g_Vars.players[index]->prevupdown = 0;
 	g_Vars.players[index]->movecentrerelease = 0;
 	g_Vars.players[index]->lookaheadcentreenabled = true;
@@ -326,7 +326,7 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->controldef = 2;
 	g_Vars.players[index]->resetheadpos = true;
 	g_Vars.players[index]->resetheadrot = true;
-	g_Vars.players[index]->unk03a8 = true;
+	g_Vars.players[index]->resetheadtick = true;
 
 	g_Vars.players[index]->headanim = 0;
 	g_Vars.players[index]->headdamp = (PAL ? 0.9166f : 0.93f);
@@ -380,15 +380,15 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->floorflags = 0;
 
 	for (i = 0; i < 2; i++) {
-		g_Vars.players[index]->unk0610[i].unk00 = 640;
-		g_Vars.players[index]->unk0610[i].unk02 = (PAL ? 544 : 480);
-		g_Vars.players[index]->unk0610[i].unk04 = 511;
-		g_Vars.players[index]->unk0610[i].unk06 = 0;
+		g_Vars.players[index]->viewport[i].unk00 = 640;
+		g_Vars.players[index]->viewport[i].unk02 = (PAL ? 544 : 480);
+		g_Vars.players[index]->viewport[i].unk04 = 511;
+		g_Vars.players[index]->viewport[i].unk06 = 0;
 
-		g_Vars.players[index]->unk0610[i].unk08 = 640;
-		g_Vars.players[index]->unk0610[i].unk0a = (PAL ? 544 : 480);
-		g_Vars.players[index]->unk0610[i].unk0c = 511;
-		g_Vars.players[index]->unk0610[i].unk0e = 0;
+		g_Vars.players[index]->viewport[i].unk08 = 640;
+		g_Vars.players[index]->viewport[i].unk0a = (PAL ? 544 : 480);
+		g_Vars.players[index]->viewport[i].unk0c = 511;
+		g_Vars.players[index]->viewport[i].unk0e = 0;
 	}
 
 	g_Vars.players[index]->viewx = 100;
@@ -438,34 +438,34 @@ void playerAllocate(s32 index)
 
 	g_Vars.players[index]->crosspos[0] = 0;
 	g_Vars.players[index]->crosspos[1] = 0;
-	g_Vars.players[index]->unk1668 = 0;
-	g_Vars.players[index]->unk166c = 0;
-	g_Vars.players[index]->unk1670 = 0.9f;
+	g_Vars.players[index]->crosspossum[0] = 0;
+	g_Vars.players[index]->crosspossum[1] = 0;
+	g_Vars.players[index]->guncrossdamp = 0.9f;
 
 	g_Vars.players[index]->hands[HAND_LEFT].crosspos[0] = 0;
 	g_Vars.players[index]->hands[HAND_LEFT].crosspos[1] = 0;
-	g_Vars.players[index]->hands[HAND_LEFT].unk0cd4 = 0;
-	g_Vars.players[index]->hands[HAND_LEFT].unk0cd8 = 0;
+	g_Vars.players[index]->hands[HAND_LEFT].guncrosspossum[0] = 0;
+	g_Vars.players[index]->hands[HAND_LEFT].guncrosspossum[1] = 0;
 
 	g_Vars.players[index]->hands[HAND_RIGHT].crosspos[0] = 0;
 	g_Vars.players[index]->hands[HAND_RIGHT].crosspos[1] = 0;
-	g_Vars.players[index]->hands[HAND_RIGHT].unk0cd4 = 0;
-	g_Vars.players[index]->hands[HAND_RIGHT].unk0cd8 = 0;
+	g_Vars.players[index]->hands[HAND_RIGHT].guncrosspossum[0] = 0;
+	g_Vars.players[index]->hands[HAND_RIGHT].guncrosspossum[1] = 0;
 
-	g_Vars.players[index]->unk1674 = 0;
-	g_Vars.players[index]->unk1678 = 0;
-	g_Vars.players[index]->unk167c = 0;
-	g_Vars.players[index]->unk1680 = 0;
-	g_Vars.players[index]->unk1684 = 0.9f;
-	g_Vars.players[index]->unk1688 = 0;
-	g_Vars.players[index]->unk168c = -M_PI;
-	g_Vars.players[index]->unk1690 = 0;
+	g_Vars.players[index]->crosspos2[0] = 0;
+	g_Vars.players[index]->crosspos2[1] = 0;
+	g_Vars.players[index]->crosssum2[0] = 0;
+	g_Vars.players[index]->crosssum2[1] = 0;
+	g_Vars.players[index]->gunaimdamp = 0.9f;
+	g_Vars.players[index]->aimangle.x = 0;
+	g_Vars.players[index]->aimangle.y = -M_PI;
+	g_Vars.players[index]->aimangle.z = 0;
 
-	g_Vars.players[index]->unk16d4 = 0;
-	g_Vars.players[index]->unk16d8 = 0;
-	g_Vars.players[index]->unk16dc = 0;
-	g_Vars.players[index]->unk16e0 = 0;
-	g_Vars.players[index]->unk16e4 = 0;
+	g_Vars.players[index]->copiedgoldeneye = 0;
+	g_Vars.players[index]->gunammooff = 0;
+	g_Vars.players[index]->gunsync = 0;
+	g_Vars.players[index]->syncchange = 0;
+	g_Vars.players[index]->synccount = 0;
 	g_Vars.players[index]->syncoffset = 0;
 	g_Vars.players[index]->cyclesum = 0;
 	g_Vars.players[index]->gunampsum = 0;
@@ -529,8 +529,8 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->zoominfovynew = 60;
 	g_Vars.players[index]->fovy = 60;
 	g_Vars.players[index]->aspect = 640.0f / (PAL ? 544.0f : 480.0f);
-	g_Vars.players[index]->flags = 0;
-	g_Vars.players[index]->unk1860 = -1;
+	g_Vars.players[index]->hudmessoff = 0;
+	g_Vars.players[index]->bondmesscnt = -1;
 
 	g_Vars.players[index]->weapons = NULL;
 	g_Vars.players[index]->equipment = NULL;
@@ -567,21 +567,21 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->activatetimethis = 0;
 	g_Vars.players[index]->bondmovemode = MOVEMODE_WALK;
 
-	g_Vars.players[index]->unk1a48 = 0;
-	g_Vars.players[index]->unk1a4c = 0;
-	g_Vars.players[index]->unk1a50 = 0;
-	g_Vars.players[index]->unk1a54 = 0;
-	g_Vars.players[index]->unk1a58 = 0;
-	g_Vars.players[index]->unk1a5c = 0;
-	g_Vars.players[index]->unk1a60 = 0;
-	g_Vars.players[index]->unk1a64 = 0;
-	g_Vars.players[index]->unk1a68 = 0;
+	g_Vars.players[index]->bondtankthetaspeedsum = 0;
+	g_Vars.players[index]->bondtankverta = 0;
+	g_Vars.players[index]->bondtankvertasum = 0;
+	g_Vars.players[index]->bondturrettheta = 0;
+	g_Vars.players[index]->bondturretthetasum = 0;
+	g_Vars.players[index]->bondturretspeedsum = 0;
+	g_Vars.players[index]->bondturretside = 0;
+	g_Vars.players[index]->bondturretchange = 0;
+	g_Vars.players[index]->bondtankslowtime = 0;
 
 	g_Vars.players[index]->hoverbike = NULL;
 	g_Vars.players[index]->bondonground = false;
 	g_Vars.players[index]->tank = NULL;
 	g_Vars.players[index]->unk1af0 = NULL;
-	g_Vars.players[index]->unk1af4 = 0;
+	g_Vars.players[index]->bondonturret = 0;
 	g_Vars.players[index]->grabbedprop = NULL;
 	g_Vars.players[index]->bondtankexplode = false;
 	g_Vars.players[index]->tickdiefinished = false;
@@ -633,9 +633,9 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->footstepdist = 0;
 
 	g_Vars.players[index]->unk1c64 = 0;
-	g_Vars.players[index]->unk1c44 = 0;
-	g_Vars.players[index]->unk1c48 = 0;
-	g_Vars.players[index]->unk1c4c = 0;
+	g_Vars.players[index]->bondextrapos.x = 0;
+	g_Vars.players[index]->bondextrapos.y = 0;
+	g_Vars.players[index]->bondextrapos.z = 0;
 
 	g_Vars.players[index]->disguised = false;
 	g_Vars.players[index]->dostartnewlife = false;

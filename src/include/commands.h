@@ -3793,10 +3793,13 @@
 	bool_enable, \
 	bool_unknown,
 
-#define set_autoturret_type(object, type) \
+/**
+ * Define the team that an autogun should shoot at.
+ */
+#define set_autogun_target_team(object, team) \
 	mkshort(0x01b8), \
 	object, \
-	type,
+	team,
 
 /**
  * Shuffle the generator switches in Pelagic II.

@@ -4296,9 +4296,9 @@ u8 unregistered_function1[] = {
 
 u8 func1026_setup_autoguns[] = {
 	yield
-	set_autoturret_type(0xa8, 0x12)
-	set_autoturret_type(0xa9, 0x12)
-	set_autoturret_type(0xaa, 0x12)
+	set_autogun_target_team(0xa8, TEAM_ENEMY | TEAM_ALLY)
+	set_autogun_target_team(0xa9, TEAM_ENEMY | TEAM_ALLY)
+	set_autogun_target_team(0xaa, TEAM_ENEMY | TEAM_ALLY)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

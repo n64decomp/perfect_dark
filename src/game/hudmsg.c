@@ -6088,14 +6088,14 @@ glabel var7f1aded8
 );
 #endif
 
-void currentPlayerUnsetFlag(u32 flag)
+void currentPlayerSetHudmsgsOn(u32 reason)
 {
-	g_Vars.currentplayer->flags &= ~flag;
+	g_Vars.currentplayer->hudmessoff &= ~reason;
 }
 
-void currentPlayerSetFlag(u32 flag)
+void currentPlayerSetHudmsgsOff(u32 reason)
 {
-	g_Vars.currentplayer->flags |= flag;
+	g_Vars.currentplayer->hudmessoff |= reason;
 }
 
 void hudmsgRemoveForDeadPlayer(s32 playernum)

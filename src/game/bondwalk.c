@@ -35,7 +35,7 @@ void bwalkInit(void)
 	g_Vars.currentplayer->bondonground = 0;
 	g_Vars.currentplayer->tank = NULL;
 	g_Vars.currentplayer->unk1af0 = NULL;
-	g_Vars.currentplayer->unk1af4 = 0;
+	g_Vars.currentplayer->bondonturret = false;
 
 	g_Vars.currentplayer->swaypos = 0;
 	g_Vars.currentplayer->swayoffset = 0;
@@ -3342,7 +3342,7 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 	struct coord sp100;
 	struct coord sp88;
 
-	g_Vars.currentplayer->unk1af4 = 0;
+	g_Vars.currentplayer->bondonturret = false;
 	g_Vars.currentplayer->autocrouchpos = CROUCHPOS_STAND;
 
 	bwalk0f0c4d98();

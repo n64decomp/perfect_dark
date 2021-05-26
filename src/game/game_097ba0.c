@@ -6069,7 +6069,7 @@ glabel var7f1ac320
 /*  f09a828:	a2060005 */ 	sb	$a2,0x5($s0)
 .L0f09a82c:
 /*  f09a82c:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f09a830:	0fc288c2 */ 	jal	func0f0a2308
+/*  f09a830:	0fc288c2 */ 	jal	handResetSlideInc
 /*  f09a834:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a838:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f09a83c:	44803000 */ 	mtc1	$zero,$f6
@@ -6399,7 +6399,7 @@ glabel var7f1ac320
 /*  f09a828:	a2060005 */ 	sb	$a2,0x5($s0)
 .L0f09a82c:
 /*  f09a82c:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f09a830:	0fc288c2 */ 	jal	func0f0a2308
+/*  f09a830:	0fc288c2 */ 	jal	handResetSlideInc
 /*  f09a834:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a838:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f09a83c:	44803000 */ 	mtc1	$zero,$f6
@@ -6729,7 +6729,7 @@ glabel var7f1ac320
 /*  f098864:	a2060005 */ 	sb	$a2,0x5($s0)
 .NB0f098868:
 /*  f098868:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f09886c:	0fc28021 */ 	jal	func0f0a2308
+/*  f09886c:	0fc28021 */ 	jal	handResetSlideInc
 /*  f098870:	afa7005c */ 	sw	$a3,0x5c($sp)
 /*  f098874:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f098878:	44803000 */ 	mtc1	$zero,$f6
@@ -7009,7 +7009,7 @@ const char var7f1ab898[] = "rofftime";
 //		hand->flashon = true;
 //	}
 //
-//	func0f0a2308(handnum);
+//	handResetSlideInc(handnum);
 //
 //	hand->loadslide = 0;
 //
@@ -7307,7 +7307,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 
 			if (autofunc->unk48 != NULL && autofunc->unk4c != NULL) {
 				func0f097b64(autofunc->unk48, autofunc->unk4c, hand->gs_float1, auStack68);
-				func0f097b40(&hand->unk088c, auStack68, &hand->unk08bc);
+				func0f097b40(hand->upgrademult, auStack68, hand->finalmult);
 			}
 		}
 
@@ -9602,30 +9602,30 @@ void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 		player->syncoffset++;
 	}
 
-	player->unk16e4 += g_Vars.lvupdate240freal;
+	player->synccount += g_Vars.lvupdate240freal;
 
-	if (player->unk16e4 > 60.0f) {
-		player->unk16e4 = 0.0f;
-		player->unk16e0 = (random() * (1.0f / U32_MAX) - 0.5f) * 0.2f / 60.0f;
+	if (player->synccount > 60.0f) {
+		player->synccount = 0.0f;
+		player->syncchange = (random() * (1.0f / U32_MAX) - 0.5f) * 0.2f / 60.0f;
 	}
 
-	if (player->unk16e0 + sp4c > 0.0f) {
-		player->unk16dc += player->unk16e0;
+	if (player->syncchange + sp4c > 0.0f) {
+		player->gunsync += player->syncchange;
 	}
 
-	if (player->unk16dc > 0.5f) {
-		player->unk16dc = 0.5f;
-	} else if (player->unk16dc < -0.5f) {
-		player->unk16dc = -0.5f;
-	} else if (player->unk16dc < 0.1f && player->unk16dc > -0.1f) {
-		if (player->unk16dc > 0.0f) {
-			player->unk16dc = -0.1f;
+	if (player->gunsync > 0.5f) {
+		player->gunsync = 0.5f;
+	} else if (player->gunsync < -0.5f) {
+		player->gunsync = -0.5f;
+	} else if (player->gunsync < 0.1f && player->gunsync > -0.1f) {
+		if (player->gunsync > 0.0f) {
+			player->gunsync = -0.1f;
 		} else {
-			player->unk16dc = 0.1f;
+			player->gunsync = 0.1f;
 		}
 	}
 
-	dampt[1] = dampt[0] + player->syncoffset + player->unk16dc;
+	dampt[1] = dampt[0] + player->syncoffset + player->gunsync;
 
 	while (dampt[1] >= 1.0f) {
 		func0f09d140(HAND_LEFT);
@@ -16448,9 +16448,9 @@ void handSetAdjustPos(f32 angle)
 	player->hands[1].adjustpos.z = (1 - cosf(angle)) * 5;
 }
 
-void func0f0a2308(s32 handnum)
+void handResetSlideInc(s32 handnum)
 {
-	g_Vars.currentplayer->hands[handnum].unk084c = 1;
+	g_Vars.currentplayer->hands[handnum].slideinc = 1;
 }
 
 GLOBAL_ASM(
@@ -24893,9 +24893,9 @@ void func0f0a6c30(void)
 		}
 
 		player->visionmode = VISIONMODE_XRAY;
-		player->unk0251 = 24;
-		player->unk0252 = 8;
-		player->unk0253 = 24;
+		player->ecol_1 = 24;
+		player->ecol_2 = 8;
+		player->ecol_3 = 24;
 		player->epcol_0 = 2;
 		player->epcol_1 = 0;
 		player->epcol_2 = 1;
@@ -24910,9 +24910,9 @@ void func0f0a6c30(void)
 				}
 
 				player->visionmode = VISIONMODE_XRAY;
-				player->unk0251 = 16;
-				player->unk0252 = 24;
-				player->unk0253 = 8;
+				player->ecol_1 = 16;
+				player->ecol_2 = 24;
+				player->ecol_3 = 8;
 				player->epcol_0 = 0;
 				player->epcol_1 = 1;
 				player->epcol_2 = 2;
@@ -30369,12 +30369,12 @@ void func0f0a94d0(u32 operation, struct coord *pos, struct coord *rot)
 	}
 }
 
-void func0f0a95ec(u32 arg0, bool enable)
+void currentPlayerSetGunAmmoVisible(u32 reason, bool enable)
 {
 	if (enable) {
-		g_Vars.currentplayer->unk16d8 &= ~arg0;
+		g_Vars.currentplayer->gunammooff &= ~reason;
 	} else {
-		g_Vars.currentplayer->unk16d8 |= arg0;
+		g_Vars.currentplayer->gunammooff |= reason;
 	}
 }
 
@@ -36797,10 +36797,10 @@ void func0f0abd30(s32 handnum)
 		}
 	}
 
-	hand->unk088c = 1;
-	hand->unk0890 = 1;
-	hand->unk08bc = 1;
-	hand->unk08c0 = 1;
+	hand->upgrademult[0] = 1;
+	hand->upgrademult[1] = 1;
+	hand->finalmult[0] = 1;
+	hand->finalmult[1] = 1;
 
 	if (gunctrl->ammotypes[0] >= 0) {
 		abmagReset(&hand->abmag);

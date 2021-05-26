@@ -1071,13 +1071,13 @@ void setupMine(struct mineobj *mine, s32 cmdindex)
 	mine->base.prop->unk3f_02 = 1;
 }
 
-void setupCamera(struct cameraobj *camera, s32 cmdindex)
+void setupCctv(struct cctvobj *cctv, s32 cmdindex)
 {
-	struct defaultobj *obj = &camera->base;
+	struct defaultobj *obj = &cctv->base;
 
 	setupGenericObject(obj, cmdindex);
 
-	if (camera->lookatpadnum >= 0) {
+	if (cctv->lookatpadnum >= 0) {
 		struct coord lenspos;
 		union modelrodata *lens = modelGetPartRodata(obj->model->filedata, MODELPART_CCTV_LENS);
 		struct pad pad;
@@ -1085,7 +1085,7 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 		f32 ydiff;
 		f32 zdiff;
 
-		padUnpack(camera->lookatpadnum, PADFIELD_POS, &pad);
+		padUnpack(cctv->lookatpadnum, PADFIELD_POS, &pad);
 
 		lenspos.x = lens->position.pos.x;
 		lenspos.y = lens->position.pos.y;
@@ -1105,25 +1105,25 @@ void setupCamera(struct cameraobj *camera, s32 cmdindex)
 			// empty
 		}
 
-		func00016d58(&camera->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
-		func00015f04(obj->model->scale, &camera->camrotm);
+		func00016d58(&cctv->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
+		func00015f04(obj->model->scale, &cctv->camrotm);
 
-		camera->toleft = 0;
-		camera->yleft = *(s32 *)&camera->yleft * M_BADTAU / 65536.0f;
-		camera->yright = *(s32 *)&camera->yright * M_BADTAU / 65536.0f;
-		camera->yspeed = 0.0f;
-		camera->ymaxspeed = *(s32 *)&camera->ymaxspeed * M_BADTAU / 65536.0f;
-		camera->maxdist = *(s32 *)&camera->maxdist;
-		camera->yrot = camera->yleft;
+		cctv->toleft = 0;
+		cctv->yleft = *(s32 *)&cctv->yleft * M_BADTAU / 65536.0f;
+		cctv->yright = *(s32 *)&cctv->yright * M_BADTAU / 65536.0f;
+		cctv->yspeed = 0.0f;
+		cctv->ymaxspeed = *(s32 *)&cctv->ymaxspeed * M_BADTAU / 65536.0f;
+		cctv->maxdist = *(s32 *)&cctv->maxdist;
+		cctv->yrot = cctv->yleft;
 
-		camera->yzero = atan2f(xdiff, zdiff);
-		camera->xzero = M_BADTAU - atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		cctv->yzero = atan2f(xdiff, zdiff);
+		cctv->xzero = M_BADTAU - atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 
 		if (xdiff || zdiff) {
 			// empty
 		}
 
-		camera->seebondtime60 = 0;
+		cctv->seebondtime60 = 0;
 	}
 }
 
@@ -1251,27 +1251,27 @@ void setupAutogun(struct autogunobj *autogun, s32 cmdindex)
 {
 	setupGenericObject(&autogun->base, cmdindex);
 
-	autogun->unk5f = 0;
-	autogun->unk90 = -1;
-	autogun->unk94 = -1;
-	autogun->unk98 = -1;
-	autogun->unk6c = 0;
-	autogun->unk70 = 0;
-	autogun->angleh = 0;
-	autogun->unk78 = 0;
-	autogun->unk7c = 0;
-	autogun->anglev = 0;
-	autogun->unk88 = 0;
-	autogun->unk8c = 0;
-	autogun->unk80 = *(s32 *)&autogun->unk80 * M_BADTAU / 65536.0f;
-	autogun->unk84 = *(s32 *)&autogun->unk84 * 100.0f / 65536.0f;
-	autogun->unk64 = *(s32 *)&autogun->unk64 * M_BADTAU / 65536.0f;
-	autogun->unk68 = *(s32 *)&autogun->unk68 * M_BADTAU / 65536.0f;
+	autogun->firecount = 0;
+	autogun->lastseebond60 = -1;
+	autogun->lastaimbond60 = -1;
+	autogun->allowsoundframe = -1;
+	autogun->yrot = 0;
+	autogun->yspeed = 0;
+	autogun->yzero = 0;
+	autogun->xrot = 0;
+	autogun->xspeed = 0;
+	autogun->xzero = 0;
+	autogun->barrelspeed = 0;
+	autogun->barrelrot = 0;
+	autogun->maxspeed = *(s32 *)&autogun->maxspeed * M_BADTAU / 65536.0f;
+	autogun->aimdist = *(s32 *)&autogun->aimdist * 100.0f / 65536.0f;
+	autogun->ymaxleft = *(s32 *)&autogun->ymaxleft * M_BADTAU / 65536.0f;
+	autogun->ymaxright = *(s32 *)&autogun->ymaxright * M_BADTAU / 65536.0f;
 	autogun->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
 	autogun->beam->age = -1;
-	autogun->unk5e = 0;
+	autogun->firing = false;
 	autogun->ammoquantity = 255;
-	autogun->unka0 = 0;
+	autogun->shotbondsum = 0;
 
 	if (autogun->targetpad >= 0) {
 		u32 stack1;
@@ -1287,11 +1287,11 @@ void setupAutogun(struct autogunobj *autogun, s32 cmdindex)
 		ydiff = pad.pos.y - autogun->base.prop->pos.y;
 		zdiff = pad.pos.z - autogun->base.prop->pos.z;
 
-		autogun->angleh = atan2f(xdiff, zdiff);
-		autogun->anglev = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		autogun->yzero = atan2f(xdiff, zdiff);
+		autogun->xzero = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 	} else if (autogun->base.modelnum == MODEL_CETROOFGUN) {
 		// Deep Sea roofgun
-		autogun->anglev = -1.5705462694168f;
+		autogun->xzero = -1.5705462694168f;
 	}
 }
 #endif
@@ -2781,7 +2781,7 @@ void setupLoadFiles(s32 stagenum)
 		total += setupCountCommandType(OBJTYPE_KEY);
 		total += setupCountCommandType(OBJTYPE_HAT);
 		total += setupCountCommandType(OBJTYPE_DOOR);
-		total += setupCountCommandType(OBJTYPE_CAMERA);
+		total += setupCountCommandType(OBJTYPE_CCTV);
 		total += setupCountCommandType(OBJTYPE_AUTOGUN);
 		total += setupCountCommandType(OBJTYPE_HANGINGMONITORS);
 		total += setupCountCommandType(OBJTYPE_SINGLEMONITOR);
@@ -2955,9 +2955,9 @@ void setupParseObjects(s32 stagenum)
 						setupHat((struct hatobj *)obj, index);
 					}
 					break;
-				case OBJTYPE_CAMERA:
+				case OBJTYPE_CCTV:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
-						setupCamera((struct cameraobj *)obj, index);
+						setupCctv((struct cctvobj *)obj, index);
 					}
 					break;
 				case OBJTYPE_AUTOGUN:
@@ -3362,14 +3362,14 @@ void setupParseObjects(s32 stagenum)
 						}
 					}
 					break;
-				case OBJTYPE_CAMERA2:
+				case OBJTYPE_CAMERAPOS:
 					{
-						struct camera2obj *camera = (struct camera2obj *)obj;
-						camera->unk04 = *(s32 *)&camera->unk04 / 100.0f;
-						camera->unk08 = *(s32 *)&camera->unk08 / 100.0f;
-						camera->unk0c = *(s32 *)&camera->unk0c / 100.0f;
-						camera->unk10 = *(s32 *)&camera->unk10 / 65536.0f;
-						camera->unk14 = *(s32 *)&camera->unk14 / 65536.0f;
+						struct cameraposobj *camera = (struct cameraposobj *)obj;
+						camera->x = *(s32 *)&camera->x / 100.0f;
+						camera->y = *(s32 *)&camera->y / 100.0f;
+						camera->z = *(s32 *)&camera->z / 100.0f;
+						camera->theta = *(s32 *)&camera->theta / 65536.0f;
+						camera->verta = *(s32 *)&camera->verta / 65536.0f;
 					}
 					break;
 				case OBJTYPE_BEGINOBJECTIVE:

@@ -148,7 +148,7 @@ void func0f010bb0(void)
 	}
 
 	g_Vars.currentplayer->gunctrl.unk158c = malloc(i, MEMPOOL_STAGE);
-	g_Vars.currentplayer->gunctrl.unk159c = 0;
+	g_Vars.currentplayer->gunctrl.handfilenum = 0;
 	g_Vars.currentplayer->gunctrl.unk15a0 = 0;
 	g_Vars.currentplayer->gunctrl.unk15a4 = 0;
 	g_Vars.currentplayer->gunctrl.unk15b0 = 0;
@@ -210,22 +210,22 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->aimtype = 0;
 	g_Vars.currentplayer->crosspos[0] = 0;
 	g_Vars.currentplayer->crosspos[1] = 0;
-	g_Vars.currentplayer->unk1668 = 0;
-	g_Vars.currentplayer->unk166c = 0;
-	g_Vars.currentplayer->unk1670 = 0.9f;
-	g_Vars.currentplayer->unk1674 = 0;
-	g_Vars.currentplayer->unk1678 = 0;
-	g_Vars.currentplayer->unk167c = 0;
-	g_Vars.currentplayer->unk1680 = 0;
-	g_Vars.currentplayer->unk1684 = 0.9f;
-	g_Vars.currentplayer->unk1688 = 0;
-	g_Vars.currentplayer->unk168c = -M_PI;
-	g_Vars.currentplayer->unk1690 = 0;
-	g_Vars.currentplayer->unk16d4 = 0;
+	g_Vars.currentplayer->crosspossum[0] = 0;
+	g_Vars.currentplayer->crosspossum[1] = 0;
+	g_Vars.currentplayer->guncrossdamp = 0.9f;
+	g_Vars.currentplayer->crosspos2[0] = 0;
+	g_Vars.currentplayer->crosspos2[1] = 0;
+	g_Vars.currentplayer->crosssum2[0] = 0;
+	g_Vars.currentplayer->crosssum2[1] = 0;
+	g_Vars.currentplayer->gunaimdamp = 0.9f;
+	g_Vars.currentplayer->aimangle.x = 0;
+	g_Vars.currentplayer->aimangle.y = -M_PI;
+	g_Vars.currentplayer->aimangle.z = 0;
+	g_Vars.currentplayer->copiedgoldeneye = false;
 	g_Vars.currentplayer->magnetattracttime = -1;
-	g_Vars.currentplayer->unk16dc = 0;
-	g_Vars.currentplayer->unk16e0 = 0;
-	g_Vars.currentplayer->unk16e4 = 0;
+	g_Vars.currentplayer->gunsync = 0;
+	g_Vars.currentplayer->syncchange = 0;
+	g_Vars.currentplayer->synccount = 0;
 	g_Vars.currentplayer->syncoffset = 0;
 	g_Vars.currentplayer->cyclesum = 0;
 	g_Vars.currentplayer->gunampsum = 0;
@@ -237,7 +237,7 @@ void func0f010bb0(void)
 	func0f09d140(HAND_LEFT);
 	func0f09d140(HAND_LEFT);
 
-	g_Vars.currentplayer->unk16d8 = 0;
+	g_Vars.currentplayer->gunammooff = 0;
 	g_Vars.currentplayer->gunsightoff = GUNSIGHTREASON_AIMING;
 	g_Vars.currentplayer->gunzoomfovs[0] = 15;
 	g_Vars.currentplayer->gunzoomfovs[1] = 60;

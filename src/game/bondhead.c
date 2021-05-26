@@ -148,7 +148,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			struct coord modelpos = {0, 0, 0};
 			bool somebool = func0001e2a8();
 
-			g_Vars.currentplayer->unk03a8 = false;
+			g_Vars.currentplayer->resetheadtick = false;
 
 			func0001e29c(false);
 			func0001ee18(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
@@ -157,7 +157,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			func000159b0(&sp40);
 
 			sp80.matrix = &sp40;
-			sp80.unk10 = &g_Vars.currentplayer->unk0510;
+			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;
 			func0001cebc(&sp80, &g_Vars.currentplayer->model);
 
 			g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
@@ -166,35 +166,35 @@ void bheadUpdate(f32 arg0, f32 arg1)
 
 			modelGetRootPosition(&g_Vars.currentplayer->model, &modelpos);
 
-			modelpos.x -= g_Vars.currentplayer->unk0510.m[3][0];
-			modelpos.z -= g_Vars.currentplayer->unk0510.m[3][2];
+			modelpos.x -= g_Vars.currentplayer->bondheadmatrices[0].m[3][0];
+			modelpos.z -= g_Vars.currentplayer->bondheadmatrices[0].m[3][2];
 
 			modelSetRootPosition(&g_Vars.currentplayer->model, &modelpos);
 		}
 	}
 
 	if (animspeed > 0) {
-		g_Vars.currentplayer->unk0510.m[3][0] += arg1;
-		g_Vars.currentplayer->unk0510.m[3][2] *= arg0;
+		g_Vars.currentplayer->bondheadmatrices[0].m[3][0] += arg1;
+		g_Vars.currentplayer->bondheadmatrices[0].m[3][2] *= arg0;
 
 		if (g_Vars.lvupdate240 > 0) {
-			g_Vars.currentplayer->unk0510.m[3][0] /= g_Vars.lvupdate240freal;
-			g_Vars.currentplayer->unk0510.m[3][2] /= g_Vars.lvupdate240freal;
+			g_Vars.currentplayer->bondheadmatrices[0].m[3][0] /= g_Vars.lvupdate240freal;
+			g_Vars.currentplayer->bondheadmatrices[0].m[3][2] /= g_Vars.lvupdate240freal;
 		}
 
-		headpos.x = g_Vars.currentplayer->unk0510.m[3][0] * g_Vars.currentplayer->headamplitude;
-		headpos.y = (g_Vars.currentplayer->unk0510.m[3][1] - g_Vars.currentplayer->standheight) *
+		headpos.x = g_Vars.currentplayer->bondheadmatrices[0].m[3][0] * g_Vars.currentplayer->headamplitude;
+		headpos.y = (g_Vars.currentplayer->bondheadmatrices[0].m[3][1] - g_Vars.currentplayer->standheight) *
 			g_Vars.currentplayer->headamplitude + g_Vars.currentplayer->standheight;
-		headpos.z = g_Vars.currentplayer->unk0510.m[3][2] * g_Vars.currentplayer->headamplitude;
+		headpos.z = g_Vars.currentplayer->bondheadmatrices[0].m[3][2] * g_Vars.currentplayer->headamplitude;
 
 		if (g_Vars.currentplayer->headanim >= 0) {
-			lookvel.x = g_Vars.currentplayer->unk0510.m[2][0] * g_Vars.currentplayer->sideamplitude;
-			lookvel.y = g_Vars.currentplayer->unk0510.m[2][1] * g_Vars.currentplayer->headamplitude;
-			lookvel.z = (g_Vars.currentplayer->unk0510.m[2][2] - 1.0f) * g_Vars.currentplayer->headamplitude + 1.0f;
+			lookvel.x = g_Vars.currentplayer->bondheadmatrices[0].m[2][0] * g_Vars.currentplayer->sideamplitude;
+			lookvel.y = g_Vars.currentplayer->bondheadmatrices[0].m[2][1] * g_Vars.currentplayer->headamplitude;
+			lookvel.z = (g_Vars.currentplayer->bondheadmatrices[0].m[2][2] - 1.0f) * g_Vars.currentplayer->headamplitude + 1.0f;
 
-			upvel.x = g_Vars.currentplayer->unk0510.m[1][0] * g_Vars.currentplayer->headamplitude;
-			upvel.y = (g_Vars.currentplayer->unk0510.m[1][1] - 1.0f) * g_Vars.currentplayer->headamplitude + 1.0f;
-			upvel.z = g_Vars.currentplayer->unk0510.m[1][2] * g_Vars.currentplayer->headamplitude;
+			upvel.x = g_Vars.currentplayer->bondheadmatrices[0].m[1][0] * g_Vars.currentplayer->headamplitude;
+			upvel.y = (g_Vars.currentplayer->bondheadmatrices[0].m[1][1] - 1.0f) * g_Vars.currentplayer->headamplitude + 1.0f;
+			upvel.z = g_Vars.currentplayer->bondheadmatrices[0].m[1][2] * g_Vars.currentplayer->headamplitude;
 
 			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate240_60;
 
@@ -204,13 +204,13 @@ void bheadUpdate(f32 arg0, f32 arg1)
 				bheadSetdamp(PAL ? 0.99699f : 0.99748998880386f);
 			}
 		} else {
-			lookvel.x = g_Vars.currentplayer->unk0510.m[2][0];
-			lookvel.y = g_Vars.currentplayer->unk0510.m[2][1];
-			lookvel.z = g_Vars.currentplayer->unk0510.m[2][2];
+			lookvel.x = g_Vars.currentplayer->bondheadmatrices[0].m[2][0];
+			lookvel.y = g_Vars.currentplayer->bondheadmatrices[0].m[2][1];
+			lookvel.z = g_Vars.currentplayer->bondheadmatrices[0].m[2][2];
 
-			upvel.x = g_Vars.currentplayer->unk0510.m[1][0];
-			upvel.y = g_Vars.currentplayer->unk0510.m[1][1];
-			upvel.z = g_Vars.currentplayer->unk0510.m[1][2];
+			upvel.x = g_Vars.currentplayer->bondheadmatrices[0].m[1][0];
+			upvel.y = g_Vars.currentplayer->bondheadmatrices[0].m[1][1];
+			upvel.z = g_Vars.currentplayer->bondheadmatrices[0].m[1][2];
 
 			bheadSetdamp(PAL ? 0.952f : 0.96f);
 		}

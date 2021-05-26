@@ -657,7 +657,7 @@ glabel var7f1ad568
 /*  f0b73b4:	8e4a0284 */ 	lw	$t2,0x284($s2)
 /*  f0b73b8:	ad4016d8 */ 	sw	$zero,0x16d8($t2)
 /*  f0b73bc:	8e4c0284 */ 	lw	$t4,0x284($s2)
-/*  f0b73c0:	0fc37e87 */ 	jal	currentPlayerUnsetFlag
+/*  f0b73c0:	0fc37e87 */ 	jal	currentPlayerSetHudmsgsOn
 /*  f0b73c4:	ad8b17a4 */ 	sw	$t3,0x17a4($t4)
 /*  f0b73c8:	8e4d0284 */ 	lw	$t5,0x284($s2)
 /*  f0b73cc:	3c0141f0 */ 	lui	$at,0x41f0
@@ -978,7 +978,7 @@ glabel var7f1ad568
 //	g_Vars.currentplayer->unk16d8 = 0;
 //	g_Vars.currentplayer->gunsightoff = 2;
 //
-//	currentPlayerUnsetFlag(0xffffffff);
+//	currentPlayerSetHudmsgsOn(0xffffffff);
 //
 //	angle = M_BADTAU - scenarioChooseSpawnLocation(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
 //
@@ -1193,7 +1193,7 @@ void currentPlayerResetToDefault(void)
 	g_Vars.currentplayer->bondshotspeed[2] = 0;
 
 	g_Vars.currentplayer->docentreupdown = 0;
-	g_Vars.currentplayer->unk0104 = 0;
+	g_Vars.currentplayer->lastupdown60 = 0;
 	g_Vars.currentplayer->prevupdown = 0;
 	g_Vars.currentplayer->movecentrerelease = 0;
 	g_Vars.currentplayer->lookaheadcentreenabled = true;
@@ -5488,7 +5488,7 @@ glabel var7f1ad6ac
 /*  f0be1e4:	0fc54d39 */ 	jal	optionsGetAmmoOnScreen
 /*  f0be1e8:	8da40070 */ 	lw	$a0,0x70($t5)
 /*  f0be1ec:	02a02025 */ 	move	$a0,$s5
-/*  f0be1f0:	0fc2a68e */ 	jal	func0f0a95ec
+/*  f0be1f0:	0fc2a68e */ 	jal	currentPlayerSetGunAmmoVisible
 /*  f0be1f4:	00402825 */ 	move	$a1,$v0
 /*  f0be1f8:	02a02025 */ 	move	$a0,$s5
 /*  f0be1fc:	0fc2b04c */ 	jal	currentPlayerSetGunSightVisible
@@ -7889,7 +7889,7 @@ glabel var7f1ad6ac
 /*  f0bdc78:	0fc54a0d */ 	jal	optionsGetAmmoOnScreen
 /*  f0bdc7c:	8dc40070 */ 	lw	$a0,0x70($t6)
 /*  f0bdc80:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0bdc84:	0fc2a57b */ 	jal	func0f0a95ec
+/*  f0bdc84:	0fc2a57b */ 	jal	currentPlayerSetGunAmmoVisible
 /*  f0bdc88:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0bdc8c:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f0bdc90:	0fc2af1d */ 	jal	currentPlayerSetGunSightVisible
@@ -10290,7 +10290,7 @@ glabel var7f1ad6ac
 /*  f0bb8e0:	0fc533c9 */ 	jal	optionsGetAmmoOnScreen
 /*  f0bb8e4:	8dc40070 */ 	lw	$a0,0x70($t6)
 /*  f0bb8e8:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f0bb8ec:	0fc29ce3 */ 	jal	func0f0a95ec
+/*  f0bb8ec:	0fc29ce3 */ 	jal	currentPlayerSetGunAmmoVisible
 /*  f0bb8f0:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0bb8f4:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f0bb8f8:	0fc2a675 */ 	jal	currentPlayerSetGunSightVisible
@@ -12450,7 +12450,7 @@ glabel var7f1ad6ac
 //	bmoveSetAutoAimY(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 //	bmoveSetAutoAimX(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));
 //	bmoveSetAutoMoveCentreEnabled(optionsGetLookAhead(g_Vars.currentplayerstats->mpindex));
-//	func0f0a95ec(1, optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex));
+//	currentPlayerSetGunAmmoVisible(GUNAMMOREASON_OPTION, optionsGetAmmoOnScreen(g_Vars.currentplayerstats->mpindex));
 //	currentPlayerSetGunSightVisible(GUNSIGHTREASON_1, true);
 //
 //	// dc9c

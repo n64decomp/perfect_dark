@@ -109,7 +109,7 @@ void currentPlayerInitAnimation(void)
 	g_Vars.currentplayer->headupsum.z = 0;
 	g_Vars.currentplayer->resetheadpos = true;
 	g_Vars.currentplayer->resetheadrot = true;
-	g_Vars.currentplayer->unk03a8 = true;
+	g_Vars.currentplayer->resetheadtick = true;
 	g_Vars.currentplayer->headbodyoffset.x = 0;
 	g_Vars.currentplayer->headbodyoffset.y = 0;
 	g_Vars.currentplayer->headbodyoffset.z = 0;
@@ -147,14 +147,14 @@ void currentPlayerInitAnimation(void)
 		func0001b3bc(&g_Vars.currentplayer->model);
 		func000159b0(&sp48);
 		sp88.matrix = &sp48;
-		sp88.unk10 = &g_Vars.currentplayer->unk0510;
+		sp88.unk10 = g_Vars.currentplayer->bondheadmatrices;
 		func0001cebc(&sp88, &g_Vars.currentplayer->model);
 
-		g_Vars.currentplayer->standheight = g_Vars.currentplayer->unk0510.m[3][1];
+		g_Vars.currentplayer->standheight = g_Vars.currentplayer->bondheadmatrices[0].m[3][1];
 
 		g_Vars.currentplayer->standbodyoffset.x = 0;
-		g_Vars.currentplayer->standbodyoffset.y = g_Vars.currentplayer->unk0550.m[3][1] - g_Vars.currentplayer->unk0510.m[3][1];
-		g_Vars.currentplayer->standbodyoffset.z = g_Vars.currentplayer->unk0550.m[3][2] - g_Vars.currentplayer->unk0510.m[3][2];
+		g_Vars.currentplayer->standbodyoffset.y = g_Vars.currentplayer->bondheadmatrices[1].m[3][1] - g_Vars.currentplayer->bondheadmatrices[0].m[3][1];
+		g_Vars.currentplayer->standbodyoffset.z = g_Vars.currentplayer->bondheadmatrices[1].m[3][2] - g_Vars.currentplayer->bondheadmatrices[0].m[3][2];
 
 		modelSetAnimation(&g_Vars.currentplayer->model,
 				var80075c00[g_Vars.currentplayer->headanim].animnum,

@@ -644,6 +644,9 @@
 #define CONTROLMODE_23 6
 #define CONTROLMODE_24 7
 
+#define COUNTDOWNTIMERREASON_AI        0x01
+#define COUNTDOWNTIMERREASON_NOCONTROL 0x10
+
 #define COVERFLAG_0001            0x0001
 #define COVERFLAG_INUSE           0x0002
 #define COVERFLAG_AIMSAMEROOM     0x0004 // look + 6 metres is in the same room
@@ -976,6 +979,9 @@
 #define GUNMEMOWNER_10 10
 #define GUNMEMOWNER_11 11
 
+#define GUNAMMOREASON_OPTION     0x01
+#define GUNAMMOREASON_NOCONTROL  0x02
+
 #define GUNSIGHTREASON_1         0x01
 #define GUNSIGHTREASON_AIMING    0x02
 #define GUNSIGHTREASON_NOCONTROL 0x04
@@ -1070,6 +1076,8 @@
 #define HUDMSGFLAG_2           0x2
 #define HUDMSGFLAG_4           0x4
 #define HUDMSGFLAG_ALLOWDUPES  0x8
+
+#define HUDMSGREASON_NOCONTROL 0x00000002
 
 #define HUDMSGSTATE_FREE      0
 #define HUDMSGSTATE_QUEUED    1
@@ -2975,7 +2983,7 @@
 #define OBJTYPE_BASIC              0x03
 #define OBJTYPE_KEY                0x04
 #define OBJTYPE_ALARM              0x05
-#define OBJTYPE_CAMERA             0x06
+#define OBJTYPE_CCTV               0x06
 #define OBJTYPE_AMMOCRATE          0x07
 #define OBJTYPE_WEAPON             0x08
 #define OBJTYPE_CHR                0x09
@@ -3015,7 +3023,7 @@
 #define OBJTYPE_SAFE               0x2b
 #define OBJTYPE_SAFEITEM           0x2c
 #define OBJTYPE_TANK               0x2d
-#define OBJTYPE_CAMERA2            0x2e
+#define OBJTYPE_CAMERAPOS          0x2e
 #define OBJTYPE_TINTEDGLASS        0x2f
 #define OBJTYPE_LIFT               0x30
 #define OBJTYPE_CONDITIONALSCENERY 0x31
@@ -3113,8 +3121,6 @@
 #define PDMODEPROP_HEALTH   1
 #define PDMODEPROP_DAMAGE   2
 #define PDMODEPROP_ACCURACY 3
-
-#define PLAYERFLAG_NOCONTROL 0x00000002
 
 #define PORTALCMD_END              0x00
 #define PORTALCMD_PUSH             0x01
@@ -3756,7 +3762,7 @@
 #define VOICEBOX_FEMALE 3
 
 #define WAYMODE_EXPENSIVE 0
-#define WAYMODE_CHEAP     6
+#define WAYMODE_MAGIC     6
 
 #define WEAPON_NONE              0x00
 #define WEAPON_UNARMED           0x01

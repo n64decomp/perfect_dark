@@ -48,12 +48,12 @@ void bgrabInit(void)
 
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_GRAB;
 
-	g_Vars.currentplayer->unk1b60 = 0;
+	g_Vars.currentplayer->bondgrabthetaspeedsum = 0;
 	g_Vars.currentplayer->grabbedprevpos.x = prop->pos.x;
 	g_Vars.currentplayer->grabbedprevpos.y = prop->pos.y;
 	g_Vars.currentplayer->grabbedprevpos.z = prop->pos.z;
 	g_Vars.currentplayer->grabbedrotoffset = 0;
-	g_Vars.currentplayer->unk1c58 = 0;
+	g_Vars.currentplayer->grabbedforcez = 0;
 	g_Vars.currentplayer->grabbedposoffset.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
 	g_Vars.currentplayer->grabbedposoffset.y = prop->pos.y - g_Vars.currentplayer->prop->pos.y;
 	g_Vars.currentplayer->grabbedposoffset.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
@@ -78,7 +78,7 @@ void bgrabInit(void)
 	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
 		struct defaultobj *obj = prop->obj;
 		struct hov *hov = NULL;
-		bool setthething;
+		bool withforce;
 
 		if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			struct projectile *projectile = obj->projectile;
@@ -109,17 +109,17 @@ void bgrabInit(void)
 		obj->hidden |= OBJHFLAG_GRABBED;
 
 		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-			setthething = func000276c8(obj->geo3,
+			withforce = func000276c8(obj->geo3,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z, 45, 0, 0);
 		} else {
-			setthething = func000274e0(obj->geo2,
+			withforce = func000274e0(obj->geo2,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z, 45, 0, 0);
 		}
 
-		if (setthething) {
-			g_Vars.currentplayer->unk1c58 = 15;
+		if (withforce) {
+			g_Vars.currentplayer->grabbedforcez = 15;
 		}
 	}
 
@@ -2815,10 +2815,10 @@ void bgrabUpdateSpeedTheta(void)
 	s32 i;
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
-		g_Vars.currentplayer->unk1b60 = g_Vars.currentplayer->unk1b60 * mult + speedtheta;
+		g_Vars.currentplayer->bondgrabthetaspeedsum = g_Vars.currentplayer->bondgrabthetaspeedsum * mult + speedtheta;
 	}
 
-	g_Vars.currentplayer->speedtheta = g_Vars.currentplayer->unk1b60 * (PAL ? 0.024800002574921f : 0.01529997587204f);
+	g_Vars.currentplayer->speedtheta = g_Vars.currentplayer->bondgrabthetaspeedsum * (PAL ? 0.024800002574921f : 0.01529997587204f);
 }
 
 u32 var80070ea8 = 0x00000000;

@@ -4015,7 +4015,7 @@ bool aiIfTimerGreaterThan(void)
  */
 bool aiShowCountdownTimer(void)
 {
-	countdownTimerSetVisible(1, true);
+	countdownTimerSetVisible(COUNTDOWNTIMERREASON_AI, true);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -4026,7 +4026,7 @@ bool aiShowCountdownTimer(void)
  */
 bool aiHideCountdownTimer(void)
 {
-	countdownTimerSetVisible(1, false);
+	countdownTimerSetVisible(COUNTDOWNTIMERREASON_AI, false);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -5564,14 +5564,14 @@ bool aiRevokeControl(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 		currentPlayerSetGunSightVisible(GUNSIGHTREASON_NOCONTROL, false);
-		func0f0a95ec(2, false);
+		currentPlayerSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, false);
 
 		if ((cmd[3] & 2) == 0) {
-			currentPlayerSetFlag(PLAYERFLAG_NOCONTROL);
+			currentPlayerSetHudmsgsOff(HUDMSGREASON_NOCONTROL);
 		}
 
 		if ((cmd[3] & 4) == 0) {
-			countdownTimerSetVisible(16, false);
+			countdownTimerSetVisible(COUNTDOWNTIMERREASON_NOCONTROL, false);
 		}
 
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
@@ -5595,9 +5595,9 @@ bool aiGrantControl(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
 		currentPlayerSetGunSightVisible(GUNSIGHTREASON_NOCONTROL, true);
-		func0f0a95ec(2, true);
-		currentPlayerUnsetFlag(PLAYERFLAG_NOCONTROL);
-		countdownTimerSetVisible(16, true);
+		currentPlayerSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, true);
+		currentPlayerSetHudmsgsOn(HUDMSGREASON_NOCONTROL);
+		countdownTimerSetVisible(COUNTDOWNTIMERREASON_NOCONTROL, true);
 		g_PlayersWithControl[g_Vars.currentplayernum] = true;
 		setCurrentPlayerNum(prevplayernum);
 	}
@@ -11850,7 +11850,7 @@ bool aiSetAutogunType(void)
 
 	if (obj && obj->prop && obj->type == OBJTYPE_AUTOGUN) {
 		struct autogunobj *autogun = (struct autogunobj *)obj;
-		autogun->autogun_type = cmd[3];
+		autogun->targetteam = cmd[3];
 		autogun->unka4 = 0;
 	}
 
@@ -12584,10 +12584,10 @@ bool aiChrKill(void)
 
 	if (chr) {
 		chr->actiontype = ACT_DEAD;
-		chr->act_dead.fadetimer = -1;
-		chr->act_dead.allowfade = false;
-		chr->act_dead.allowreap = false;
-		chr->act_dead.reaptimer = 0;
+		chr->act_dead.fadetimer60 = -1;
+		chr->act_dead.fadenow = false;
+		chr->act_dead.fadewheninvis = false;
+		chr->act_dead.invistimer60 = 0;
 		chr->act_dead.notifychrindex = 0;
 		chr->sleep = 0;
 		chr->chrflags |= CHRCFLAG_KEEPCORPSEKO | CHRCFLAG_00010000;

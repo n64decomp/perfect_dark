@@ -5878,9 +5878,9 @@ u8 func1000_jo_typing[] = {
 u8 func1040_lift_door_sounds[] = {
 	// Disable autoguns
 	yield
-	set_autoturret_type(0x8b, 0x02)
-	set_autoturret_type(0x8c, 0x02)
-	set_autoturret_type(0x8d, 0x02)
+	set_autogun_target_team(0x8b, TEAM_ENEMY)
+	set_autogun_target_team(0x8c, TEAM_ENEMY)
+	set_autogun_target_team(0x8d, TEAM_ENEMY)
 	restart_timer
 
 	beginloop(0x57)

@@ -33744,9 +33744,9 @@ void escastepTick(struct prop *prop)
 	}
 }
 
-void cameraTick(struct prop *camprop)
+void cctvTick(struct prop *camprop)
 {
-	struct cameraobj *camera = (struct cameraobj *)camprop->obj;
+	struct cctvobj *camera = (struct cctvobj *)camprop->obj;
 	struct defaultobj *obj = camprop->obj;
 	f32 yaw;
 	struct prop *playerprop;
@@ -46827,8 +46827,8 @@ s32 objTick(struct prop *prop)
 
 		if (obj->type == OBJTYPE_DOOR) {
 			doorTick(prop);
-		} else if (obj->type == OBJTYPE_CAMERA && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
-			cameraTick(prop);
+		} else if (obj->type == OBJTYPE_CCTV && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
+			cctvTick(prop);
 		} else if (obj->type == OBJTYPE_FAN) {
 			fanTick(prop);
 		} else if (obj->type == OBJTYPE_AUTOGUN && (obj->flags & OBJFLAG_DEACTIVATED) == 0) {
@@ -58125,7 +58125,7 @@ bool func0f085158(struct defaultobj *obj)
 	case OBJTYPE_DOOR:
 	case OBJTYPE_BASIC:
 	case OBJTYPE_ALARM:
-	case OBJTYPE_CAMERA:
+	case OBJTYPE_CCTV:
 	case OBJTYPE_SINGLEMONITOR:
 	case OBJTYPE_MULTIMONITOR:
 	case OBJTYPE_HANGINGMONITORS:
@@ -72458,18 +72458,18 @@ glabel var7f1ab19c
 );
 #endif
 
-void countdownTimerSetVisible(u32 flag, bool show)
+void countdownTimerSetVisible(u32 reason, bool visible)
 {
-	if (show) {
-		g_CountdownTimerVisible &= ~flag;
+	if (visible) {
+		g_CountdownTimerVisible &= ~reason;
 	} else {
-		g_CountdownTimerVisible |= flag;
+		g_CountdownTimerVisible |= reason;
 	}
 }
 
 bool countdownTimerIsHidden(void)
 {
-	return g_CountdownTimerVisible < 1;
+	return !g_CountdownTimerVisible;
 }
 
 void countdownTimerSetValue(f32 frames)
