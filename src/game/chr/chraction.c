@@ -22688,385 +22688,78 @@ void chrTickGoPos(struct chrdata *chr)
 	}
 }
 
-#if PAL
-GLOBAL_ASM(
-glabel chrTickPatrol
-/*  f0473cc:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0473d0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0473d4:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0473d8:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f0473dc:	afa00064 */ 	sw	$zero,0x64($sp)
-/*  f0473e0:	afa00068 */ 	sw	$zero,0x68($sp)
-/*  f0473e4:	afae006c */ 	sw	$t6,0x6c($sp)
-/*  f0473e8:	8c8f0014 */ 	lw	$t7,0x14($a0)
-/*  f0473ec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0473f0:	000fc280 */ 	sll	$t8,$t7,0xa
-/*  f0473f4:	0703000d */ 	bgezl	$t8,.L0f04742c
-/*  f0473f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0473fc:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f047400:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f047404:	54400099 */ 	bnezl	$v0,.L0f04766c
-/*  f047408:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f04740c:	0fc0e21a */ 	jal	chrPatrolChooseAnimation
-/*  f047410:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047414:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f047418:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f04741c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f047420:	03214024 */ 	and	$t0,$t9,$at
-/*  f047424:	ae080014 */ 	sw	$t0,0x14($s0)
-/*  f047428:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04742c:
-/*  f04742c:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047430:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f047434:	0fc0dd39 */ 	jal	chrPatrolGetCurWaypointInfoWithFlags
-/*  f047438:	27a70064 */ 	addiu	$a3,$sp,0x64
-/*  f04743c:	8e090060 */ 	lw	$t1,0x60($s0)
-/*  f047440:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f047444:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f047448:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*  f04744c:	1161001f */ 	beq	$t3,$at,.L0f0474cc
-/*  f047450:	ae0a0060 */ 	sw	$t2,0x60($s0)
-/*  f047454:	8e0d0078 */ 	lw	$t5,0x78($s0)
-/*  f047458:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x8)
-/*  f04745c:	8d8c9fc8 */ 	lw	$t4,%lo(g_Vars+0x8)($t4)
-/*  f047460:	25ae00b4 */ 	addiu	$t6,$t5,0x96
-/*  f047464:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x318)
-/*  f047468:	01cc082a */ 	slt	$at,$t6,$t4
-/*  f04746c:	50200018 */ 	beqzl	$at,.L0f0474d0
-/*  f047470:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f047474:	8defa2d8 */ 	lw	$t7,%lo(g_Vars+0x318)($t7)
-/*  f047478:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04747c:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047480:	55e00013 */ 	bnezl	$t7,.L0f0474d0
-/*  f047484:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f047488:	0fc0db02 */ 	jal	func0f036c08
-/*  f04748c:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f047490:	1040000e */ 	beqz	$v0,.L0f0474cc
-/*  f047494:	8fb80064 */ 	lw	$t8,0x64($sp)
-/*  f047498:	33190c00 */ 	andi	$t9,$t8,0xc00
-/*  f04749c:	5720000c */ 	bnezl	$t9,.L0f0474d0
-/*  f0474a0:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f0474a4:	8209032d */ 	lb	$t1,0x32d($s0)
-/*  f0474a8:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0474ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0474b0:	05200006 */ 	bltz	$t1,.L0f0474cc
-/*  f0474b4:	26050038 */ 	addiu	$a1,$s0,0x38
-/*  f0474b8:	8fa7006c */ 	lw	$a3,0x6c($sp)
-/*  f0474bc:	afaa0068 */ 	sw	$t2,0x68($sp)
-/*  f0474c0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
-/*  f0474c8:	24e70008 */ 	addiu	$a3,$a3,0x8
-.L0f0474cc:
-/*  f0474cc:	820b0038 */ 	lb	$t3,0x38($s0)
-.L0f0474d0:
-/*  f0474d0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0474d4:	260400c8 */ 	addiu	$a0,$s0,0xc8
-/*  f0474d8:	1561002b */ 	bne	$t3,$at,.L0f047588
-/*  f0474dc:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f0474e0:	8fad0068 */ 	lw	$t5,0x68($sp)
-/*  f0474e4:	8fac006c */ 	lw	$t4,0x6c($sp)
-/*  f0474e8:	55a0000c */ 	bnezl	$t5,.L0f04751c
-/*  f0474ec:	8fb80064 */ 	lw	$t8,0x64($sp)
-/*  f0474f0:	918e0001 */ 	lbu	$t6,0x1($t4)
-/*  f0474f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0474f8:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f0474fc:	31cf00c2 */ 	andi	$t7,$t6,0xc2
-/*  f047500:	15e0000d */ 	bnez	$t7,.L0f047538
-/*  f047504:	00000000 */ 	nop
-/*  f047508:	0fc0db02 */ 	jal	func0f036c08
-/*  f04750c:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f047510:	10400009 */ 	beqz	$v0,.L0f047538
-/*  f047514:	00000000 */ 	nop
-/*  f047518:	8fb80064 */ 	lw	$t8,0x64($sp)
-.L0f04751c:
-/*  f04751c:	33190c00 */ 	andi	$t9,$t8,0xc00
-/*  f047520:	17200005 */ 	bnez	$t9,.L0f047538
-/*  f047524:	00000000 */ 	nop
-/*  f047528:	8209032d */ 	lb	$t1,0x32d($s0)
-/*  f04752c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047530:	260b0038 */ 	addiu	$t3,$s0,0x38
-/*  f047534:	05210007 */ 	bgez	$t1,.L0f047554
-.L0f047538:
-/*  f047538:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x8)
-/*  f04753c:	8d4a9fc8 */ 	lw	$t2,%lo(g_Vars+0x8)($t2)
-/*  f047540:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047544:	0fc0dd60 */ 	jal	func0f037580
-/*  f047548:	ae0a0078 */ 	sw	$t2,0x78($s0)
-/*  f04754c:	1000000a */ 	b	.L0f047578
-/*  f047550:	00000000 */ 	nop
-.L0f047554:
-/*  f047554:	0fc0dc2a */ 	jal	func0f0370a8
-/*  f047558:	afab0030 */ 	sw	$t3,0x30($sp)
-/*  f04755c:	44060000 */ 	mfc1	$a2,$f0
-/*  f047560:	27ad0048 */ 	addiu	$t5,$sp,0x48
-/*  f047564:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f047568:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04756c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f047570:	0fc0dd7a */ 	jal	chrGoPosTickMagic
-/*  f047574:	27a70058 */ 	addiu	$a3,$sp,0x58
-.L0f047578:
-/*  f047578:	0fc01948 */ 	jal	func0f006520
-/*  f04757c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047580:	1000003a */ 	b	.L0f04766c
-/*  f047584:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f047588:
-/*  f047588:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f04758c:	260c0038 */ 	addiu	$t4,$s0,0x38
-/*  f047590:	afac0030 */ 	sw	$t4,0x30($sp)
-/*  f047594:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f047598:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f04759c:	3c0741f0 */ 	lui	$a3,0x41f0
-/*  f0475a0:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
-/*  f0475a4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0475a8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f0475ac:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f0475b0:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f0475b4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0475b8:	0fc11202 */ 	jal	posIsArrivingAtPos
-/*  f0475bc:	3c0741f0 */ 	lui	$a3,0x41f0
-/*  f0475c0:	8fae0064 */ 	lw	$t6,0x64($sp)
-/*  f0475c4:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f0475c8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0475cc:	31cf0400 */ 	andi	$t7,$t6,0x400
-/*  f0475d0:	15e00002 */ 	bnez	$t7,.L0f0475dc
-/*  f0475d4:	31d80800 */ 	andi	$t8,$t6,0x800
-/*  f0475d8:	13000011 */ 	beqz	$t8,.L0f047620
-.L0f0475dc:
-/*  f0475dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475e0:	0fc0dd28 */ 	jal	chrPatrolCalculatePadNum
-/*  f0475e4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0475e8:	a7a20034 */ 	sh	$v0,0x34($sp)
-/*  f0475ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475f0:	0fc0dd28 */ 	jal	chrPatrolCalculatePadNum
-/*  f0475f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0475f8:	87b90034 */ 	lh	$t9,0x34($sp)
-/*  f0475fc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047600:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*  f047604:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*  f047608:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f04760c:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f047610:	0fc11992 */ 	jal	goPosUpdateLiftAction
-/*  f047614:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f047618:	10000004 */ 	b	.L0f04762c
-/*  f04761c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f047620:
-/*  f047620:	10400002 */ 	beqz	$v0,.L0f04762c
-/*  f047624:	00000000 */ 	nop
-/*  f047628:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f04762c:
-/*  f04762c:	50600008 */ 	beqzl	$v1,.L0f047650
-/*  f047630:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047634:	0fc0dd6c */ 	jal	func0f0375b0
-/*  f047638:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04763c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047640:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047644:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
-/*  f047648:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f04764c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f047650:
-/*  f047650:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047654:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f047658:	0fc116e7 */ 	jal	func0f045b9c
-/*  f04765c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f047660:	0fc01877 */ 	jal	func0f0061dc
-/*  f047664:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047668:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f04766c:
-/*  f04766c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f047670:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f047674:	03e00008 */ 	jr	$ra
-/*  f047678:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel chrTickPatrol
-/*  f0473cc:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0473d0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0473d4:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0473d8:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f0473dc:	afa00064 */ 	sw	$zero,0x64($sp)
-/*  f0473e0:	afa00068 */ 	sw	$zero,0x68($sp)
-/*  f0473e4:	afae006c */ 	sw	$t6,0x6c($sp)
-/*  f0473e8:	8c8f0014 */ 	lw	$t7,0x14($a0)
-/*  f0473ec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0473f0:	000fc280 */ 	sll	$t8,$t7,0xa
-/*  f0473f4:	0703000d */ 	bgezl	$t8,.L0f04742c
-/*  f0473f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0473fc:	0c0076e5 */ 	jal	modelIsAnimMerging
-/*  f047400:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f047404:	54400099 */ 	bnezl	$v0,.L0f04766c
-/*  f047408:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f04740c:	0fc0e21a */ 	jal	chrPatrolChooseAnimation
-/*  f047410:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047414:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f047418:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f04741c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f047420:	03214024 */ 	and	$t0,$t9,$at
-/*  f047424:	ae080014 */ 	sw	$t0,0x14($s0)
-/*  f047428:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04742c:
-/*  f04742c:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047430:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f047434:	0fc0dd39 */ 	jal	chrPatrolGetCurWaypointInfoWithFlags
-/*  f047438:	27a70064 */ 	addiu	$a3,$sp,0x64
-/*  f04743c:	8e090060 */ 	lw	$t1,0x60($s0)
-/*  f047440:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f047444:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f047448:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*  f04744c:	1161001f */ 	beq	$t3,$at,.L0f0474cc
-/*  f047450:	ae0a0060 */ 	sw	$t2,0x60($s0)
-/*  f047454:	8e0d0078 */ 	lw	$t5,0x78($s0)
-/*  f047458:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x8)
-/*  f04745c:	8d8c9fc8 */ 	lw	$t4,%lo(g_Vars+0x8)($t4)
-/*  f047460:	25ae00b4 */ 	addiu	$t6,$t5,0xb4
-/*  f047464:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x318)
-/*  f047468:	01cc082a */ 	slt	$at,$t6,$t4
-/*  f04746c:	50200018 */ 	beqzl	$at,.L0f0474d0
-/*  f047470:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f047474:	8defa2d8 */ 	lw	$t7,%lo(g_Vars+0x318)($t7)
-/*  f047478:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04747c:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047480:	55e00013 */ 	bnezl	$t7,.L0f0474d0
-/*  f047484:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f047488:	0fc0db02 */ 	jal	func0f036c08
-/*  f04748c:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f047490:	1040000e */ 	beqz	$v0,.L0f0474cc
-/*  f047494:	8fb80064 */ 	lw	$t8,0x64($sp)
-/*  f047498:	33190c00 */ 	andi	$t9,$t8,0xc00
-/*  f04749c:	5720000c */ 	bnezl	$t9,.L0f0474d0
-/*  f0474a0:	820b0038 */ 	lb	$t3,0x38($s0)
-/*  f0474a4:	8209032d */ 	lb	$t1,0x32d($s0)
-/*  f0474a8:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0474ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0474b0:	05200006 */ 	bltz	$t1,.L0f0474cc
-/*  f0474b4:	26050038 */ 	addiu	$a1,$s0,0x38
-/*  f0474b8:	8fa7006c */ 	lw	$a3,0x6c($sp)
-/*  f0474bc:	afaa0068 */ 	sw	$t2,0x68($sp)
-/*  f0474c0:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0474c4:	0fc0dbb9 */ 	jal	chrGoPosInitMagic
-/*  f0474c8:	24e70008 */ 	addiu	$a3,$a3,0x8
-.L0f0474cc:
-/*  f0474cc:	820b0038 */ 	lb	$t3,0x38($s0)
-.L0f0474d0:
-/*  f0474d0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0474d4:	260400c8 */ 	addiu	$a0,$s0,0xc8
-/*  f0474d8:	1561002b */ 	bne	$t3,$at,.L0f047588
-/*  f0474dc:	8fa5006c */ 	lw	$a1,0x6c($sp)
-/*  f0474e0:	8fad0068 */ 	lw	$t5,0x68($sp)
-/*  f0474e4:	8fac006c */ 	lw	$t4,0x6c($sp)
-/*  f0474e8:	55a0000c */ 	bnezl	$t5,.L0f04751c
-/*  f0474ec:	8fb80064 */ 	lw	$t8,0x64($sp)
-/*  f0474f0:	918e0001 */ 	lbu	$t6,0x1($t4)
-/*  f0474f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0474f8:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f0474fc:	31cf00c2 */ 	andi	$t7,$t6,0xc2
-/*  f047500:	15e0000d */ 	bnez	$t7,.L0f047538
-/*  f047504:	00000000 */ 	nop
-/*  f047508:	0fc0db02 */ 	jal	func0f036c08
-/*  f04750c:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f047510:	10400009 */ 	beqz	$v0,.L0f047538
-/*  f047514:	00000000 */ 	nop
-/*  f047518:	8fb80064 */ 	lw	$t8,0x64($sp)
-.L0f04751c:
-/*  f04751c:	33190c00 */ 	andi	$t9,$t8,0xc00
-/*  f047520:	17200005 */ 	bnez	$t9,.L0f047538
-/*  f047524:	00000000 */ 	nop
-/*  f047528:	8209032d */ 	lb	$t1,0x32d($s0)
-/*  f04752c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047530:	260b0038 */ 	addiu	$t3,$s0,0x38
-/*  f047534:	05210007 */ 	bgez	$t1,.L0f047554
-.L0f047538:
-/*  f047538:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x8)
-/*  f04753c:	8d4a9fc8 */ 	lw	$t2,%lo(g_Vars+0x8)($t2)
-/*  f047540:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047544:	0fc0dd60 */ 	jal	func0f037580
-/*  f047548:	ae0a0078 */ 	sw	$t2,0x78($s0)
-/*  f04754c:	1000000a */ 	b	.L0f047578
-/*  f047550:	00000000 */ 	nop
-.L0f047554:
-/*  f047554:	0fc0dc2a */ 	jal	func0f0370a8
-/*  f047558:	afab0030 */ 	sw	$t3,0x30($sp)
-/*  f04755c:	44060000 */ 	mfc1	$a2,$f0
-/*  f047560:	27ad0048 */ 	addiu	$t5,$sp,0x48
-/*  f047564:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f047568:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04756c:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f047570:	0fc0dd7a */ 	jal	chrGoPosTickMagic
-/*  f047574:	27a70058 */ 	addiu	$a3,$sp,0x58
-.L0f047578:
-/*  f047578:	0fc01948 */ 	jal	func0f006520
-/*  f04757c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047580:	1000003a */ 	b	.L0f04766c
-/*  f047584:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f047588:
-/*  f047588:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f04758c:	260c0038 */ 	addiu	$t4,$s0,0x38
-/*  f047590:	afac0030 */ 	sw	$t4,0x30($sp)
-/*  f047594:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f047598:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f04759c:	3c0741f0 */ 	lui	$a3,0x41f0
-/*  f0475a0:	0fc111b8 */ 	jal	posIsArrivingLaterallyAtPos
-/*  f0475a4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0475a8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f0475ac:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f0475b0:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f0475b4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f0475b8:	0fc11202 */ 	jal	posIsArrivingAtPos
-/*  f0475bc:	3c0741f0 */ 	lui	$a3,0x41f0
-/*  f0475c0:	8fae0064 */ 	lw	$t6,0x64($sp)
-/*  f0475c4:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f0475c8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0475cc:	31cf0400 */ 	andi	$t7,$t6,0x400
-/*  f0475d0:	15e00002 */ 	bnez	$t7,.L0f0475dc
-/*  f0475d4:	31d80800 */ 	andi	$t8,$t6,0x800
-/*  f0475d8:	13000011 */ 	beqz	$t8,.L0f047620
-.L0f0475dc:
-/*  f0475dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475e0:	0fc0dd28 */ 	jal	chrPatrolCalculatePadNum
-/*  f0475e4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0475e8:	a7a20034 */ 	sh	$v0,0x34($sp)
-/*  f0475ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0475f0:	0fc0dd28 */ 	jal	chrPatrolCalculatePadNum
-/*  f0475f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0475f8:	87b90034 */ 	lh	$t9,0x34($sp)
-/*  f0475fc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047600:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*  f047604:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*  f047608:	8fa70040 */ 	lw	$a3,0x40($sp)
-/*  f04760c:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f047610:	0fc11992 */ 	jal	goPosUpdateLiftAction
-/*  f047614:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f047618:	10000004 */ 	b	.L0f04762c
-/*  f04761c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f047620:
-/*  f047620:	10400002 */ 	beqz	$v0,.L0f04762c
-/*  f047624:	00000000 */ 	nop
-/*  f047628:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f04762c:
-/*  f04762c:	50600008 */ 	beqzl	$v1,.L0f047650
-/*  f047630:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047634:	0fc0dd6c */ 	jal	func0f0375b0
-/*  f047638:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04763c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047640:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047644:	0fc0dd58 */ 	jal	chrPatrolGetCurWaypointInfo
-/*  f047648:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f04764c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f047650:
-/*  f047650:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f047654:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f047658:	0fc116e7 */ 	jal	func0f045b9c
-/*  f04765c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f047660:	0fc01877 */ 	jal	func0f0061dc
-/*  f047664:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047668:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f04766c:
-/*  f04766c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f047670:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f047674:	03e00008 */ 	jr	$ra
-/*  f047678:	00000000 */ 	nop
-);
-#endif
+void chrTickPatrol(struct chrdata *chr)
+{
+	struct prop *prop = chr->prop;
+	bool enteringmagic;
+	u32 flags = 0;
+	struct coord sp58;
+	s16 sp48[8];
+	s32 arrivinglaterally;
+	s32 arriving;
+	bool advance;
+
+	enteringmagic = 0;
+
+	if (chr->hidden & CHRHFLAG_NEEDANIM) {
+		if (modelIsAnimMerging(chr->model)) {
+			return;
+		}
+
+		chrPatrolChooseAnimation(chr);
+		chr->hidden &= ~CHRHFLAG_NEEDANIM;
+	}
+
+	chrPatrolGetCurWaypointInfoWithFlags(chr, &sp58, sp48, &flags);
+
+	chr->act_patrol.waydata.age++;
+
+	// Consider starting magic
+	if (chr->act_patrol.waydata.mode != WAYMODE_MAGIC
+			&& g_Vars.lvframe60 > chr->act_patrol.waydata.lastvisible60 + PALDOWN(180)
+			&& !g_Vars.normmplayerisrunning
+			&& func0f036c08(chr, &sp58, sp48)
+			&& (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
+			&& !chr->inlift) {
+		enteringmagic = true;
+		chrGoPosInitMagic(chr, &chr->act_patrol.waydata, &sp58, &prop->pos);
+	}
+
+	if (chr->act_patrol.waydata.mode == WAYMODE_MAGIC) {
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) || !func0f036c08(chr, &sp58, sp48)))
+				|| (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
+				|| chr->inlift) {
+			// Exit magic for lifts
+			chr->act_patrol.waydata.lastvisible60 = g_Vars.lvframe60;
+			func0f037580(chr);
+		} else {
+			// Continue magic
+			chrGoPosTickMagic(chr, &chr->act_patrol.waydata, func0f0370a8(chr), &sp58, sp48);
+		}
+
+		func0f006520(chr);
+	} else {
+		arrivinglaterally = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &sp58, 30);
+		arriving = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &sp58, 30);
+		advance = false;
+
+		if ((flags & PADFLAG_AIWAITLIFT) || (flags & PADFLAG_AIONLIFT)) {
+			advance = goPosUpdateLiftAction(chr, flags, arrivinglaterally, arriving,
+					chrPatrolCalculatePadNum(chr, 0),
+					chrPatrolCalculatePadNum(chr, 1));
+		} else if (arriving) {
+			advance = true;
+		}
+
+		if (advance) {
+			func0f0375b0(chr);
+			chrPatrolGetCurWaypointInfo(chr, &sp58, sp48);
+		}
+
+		func0f045b9c(chr, &sp58, &chr->act_patrol.waydata, 1);
+		func0f0061dc(chr);
+	}
+}
 
 bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
