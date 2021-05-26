@@ -738,46 +738,46 @@ struct animtablerow g_SpecialDieAnims[] = {
 
 struct animtable g_AnimTablesHuman[] = {
 	{ 0,            NULL,                      NULL,                       0, 0 },
-	{ IBH_LFOOT,    g_DeathAnimsHumanLfoot,    g_InjuryAnimsHumanLfoot,    0, 0 },
-	{ IBH_LSHIN,    g_DeathAnimsHumanLshin,    g_InjuryAnimsHumanLshin,    0, 0 },
-	{ IBH_LTHIGH,   g_DeathAnimsHumanLthigh,   g_InjuryAnimsHumanLthigh,   0, 0 },
-	{ IBH_RFOOT,    g_DeathAnimsHumanRfoot,    g_InjuryAnimsHumanRfoot,    0, 0 },
-	{ IBH_RSHIN,    g_DeathAnimsHumanRshin,    g_InjuryAnimsHumanRshin,    0, 0 },
-	{ IBH_RTHIGH,   g_DeathAnimsHumanRthigh,   g_InjuryAnimsHumanRthigh,   0, 0 },
-	{ IBH_PELVIS,   g_DeathAnimsHumanPelvis,   g_InjuryAnimsHumanPelvis,   0, 0 },
-	{ IBH_HEAD,     g_DeathAnimsHumanHead,     g_InjuryAnimsHumanHead,     0, 0 },
-	{ IBH_LHAND,    g_DeathAnimsHumanLhand,    g_InjuryAnimsHumanLhand,    0, 0 },
-	{ IBH_LFOREARM, g_DeathAnimsHumanForearm,  g_InjuryAnimsHumanForearm,  0, 0 },
-	{ IBH_LBICEP,   g_DeathAnimsHumanLbicep,   g_InjuryAnimsHumanLbicep,   0, 0 },
-	{ IBH_RHAND,    g_DeathAnimsHumanRhand,    g_InjuryAnimsHumanRhand,    0, 0 },
-	{ IBH_RFOREARM, g_DeathAnimsHumanRforearm, g_InjuryAnimsHumanRforearm, 0, 0 },
-	{ IBH_RBICEP,   g_DeathAnimsHumanRbicep,   g_InjuryAnimsHumanRbicep,   0, 0 },
-	{ IBH_TORSO,    g_DeathAnimsHumanTorso,    g_InjuryAnimsHumanTorso,    0, 0 },
-	{ IBH_GUN,      g_DeathAnimsHumanGun,      g_InjuryAnimsHumanGun,      0, 0 },
-	{ IBH_HAT,      NULL,                      NULL,                       0, 0 },
+	{ HITPART_LFOOT,    g_DeathAnimsHumanLfoot,    g_InjuryAnimsHumanLfoot,    0, 0 },
+	{ HITPART_LSHIN,    g_DeathAnimsHumanLshin,    g_InjuryAnimsHumanLshin,    0, 0 },
+	{ HITPART_LTHIGH,   g_DeathAnimsHumanLthigh,   g_InjuryAnimsHumanLthigh,   0, 0 },
+	{ HITPART_RFOOT,    g_DeathAnimsHumanRfoot,    g_InjuryAnimsHumanRfoot,    0, 0 },
+	{ HITPART_RSHIN,    g_DeathAnimsHumanRshin,    g_InjuryAnimsHumanRshin,    0, 0 },
+	{ HITPART_RTHIGH,   g_DeathAnimsHumanRthigh,   g_InjuryAnimsHumanRthigh,   0, 0 },
+	{ HITPART_PELVIS,   g_DeathAnimsHumanPelvis,   g_InjuryAnimsHumanPelvis,   0, 0 },
+	{ HITPART_HEAD,     g_DeathAnimsHumanHead,     g_InjuryAnimsHumanHead,     0, 0 },
+	{ HITPART_LHAND,    g_DeathAnimsHumanLhand,    g_InjuryAnimsHumanLhand,    0, 0 },
+	{ HITPART_LFOREARM, g_DeathAnimsHumanForearm,  g_InjuryAnimsHumanForearm,  0, 0 },
+	{ HITPART_LBICEP,   g_DeathAnimsHumanLbicep,   g_InjuryAnimsHumanLbicep,   0, 0 },
+	{ HITPART_RHAND,    g_DeathAnimsHumanRhand,    g_InjuryAnimsHumanRhand,    0, 0 },
+	{ HITPART_RFOREARM, g_DeathAnimsHumanRforearm, g_InjuryAnimsHumanRforearm, 0, 0 },
+	{ HITPART_RBICEP,   g_DeathAnimsHumanRbicep,   g_InjuryAnimsHumanRbicep,   0, 0 },
+	{ HITPART_TORSO,    g_DeathAnimsHumanTorso,    g_InjuryAnimsHumanTorso,    0, 0 },
+	{ HITPART_GUN,      g_DeathAnimsHumanGun,      g_InjuryAnimsHumanGun,      0, 0 },
+	{ HITPART_HAT,      NULL,                      NULL,                       0, 0 },
 	{ -1,           NULL,                      NULL,                       0, 0 },
 };
 
 struct animtable g_AnimTablesSkedar[] = {
 	{ 0,            NULL,                       NULL,                        0, 0 },
-	{ IBH_LFOOT,    g_DeathAnimsSkedarLfoot,    g_InjuryAnimsSkedarLfoot,    0, 0 },
-	{ IBH_LSHIN,    g_DeathAnimsSkedarLshin,    g_InjuryAnimsSkedarLshin,    0, 0 },
-	{ IBH_LTHIGH,   g_DeathAnimsSkedarLthigh,   g_InjuryAnimsSkedarLthigh,   0, 0 },
-	{ IBH_RFOOT,    g_DeathAnimsSkedarRfoot,    g_InjuryAnimsSkedarRfoot,    0, 0 },
-	{ IBH_RSHIN,    g_DeathAnimsSkedarRshin,    g_InjuryAnimsSkedarRshin,    0, 0 },
-	{ IBH_RTHIGH,   g_DeathAnimsSkedarRthigh,   g_InjuryAnimsSkedarRthigh,   0, 0 },
-	{ IBH_PELVIS,   g_DeathAnimsSkedarPelvis,   g_InjuryAnimsSkedarPelvis,   0, 0 },
-	{ IBH_HEAD,     g_DeathAnimsSkedarHead,     g_InjuryAnimsSkedarHead,     0, 0 },
-	{ IBH_LHAND,    g_DeathAnimsSkedarLhand,    g_InjuryAnimsSkedarLhand,    0, 0 },
-	{ IBH_LFOREARM, g_DeathAnimsSkedarLforearm, g_InjuryAnimsSkedarLforearm, 0, 0 },
-	{ IBH_LBICEP,   g_DeathAnimsSkedarLbicep,   g_InjuryAnimsSkedarLbicep,   0, 0 },
-	{ IBH_RHAND,    g_DeathAnimsSkedarRhand,    g_InjuryAnimsSkedarRhand,    0, 0 },
-	{ IBH_RFOREARM, g_DeathAnimsSkedarRforearm, g_InjuryAnimsSkedarRforearm, 0, 0 },
-	{ IBH_RBICEP,   g_DeathAnimsSkedarRbicep,   g_InjuryAnimsSkedarRbicep,   0, 0 },
-	{ IBH_TORSO,    g_DeathAnimsSkedarTorso,    g_InjuryAnimsSkedarTorso,    0, 0 },
-	{ IBH_GUN,      g_DeathAnimsSkedarGun,      g_InjuryAnimsSkedarGun,      0, 0 },
-	{ IBH_HAT,      g_DeathAnimsSkedarHead,     g_InjuryAnimsSkedarHead,     0, 0 },
-	{ IBH_TAIL,     g_DeathAnimsSkedarTail,     g_InjuryAnimsSkedarTail,     0, 0 },
+	{ HITPART_LFOOT,    g_DeathAnimsSkedarLfoot,    g_InjuryAnimsSkedarLfoot,    0, 0 },
+	{ HITPART_LSHIN,    g_DeathAnimsSkedarLshin,    g_InjuryAnimsSkedarLshin,    0, 0 },
+	{ HITPART_LTHIGH,   g_DeathAnimsSkedarLthigh,   g_InjuryAnimsSkedarLthigh,   0, 0 },
+	{ HITPART_RFOOT,    g_DeathAnimsSkedarRfoot,    g_InjuryAnimsSkedarRfoot,    0, 0 },
+	{ HITPART_RSHIN,    g_DeathAnimsSkedarRshin,    g_InjuryAnimsSkedarRshin,    0, 0 },
+	{ HITPART_RTHIGH,   g_DeathAnimsSkedarRthigh,   g_InjuryAnimsSkedarRthigh,   0, 0 },
+	{ HITPART_PELVIS,   g_DeathAnimsSkedarPelvis,   g_InjuryAnimsSkedarPelvis,   0, 0 },
+	{ HITPART_HEAD,     g_DeathAnimsSkedarHead,     g_InjuryAnimsSkedarHead,     0, 0 },
+	{ HITPART_LHAND,    g_DeathAnimsSkedarLhand,    g_InjuryAnimsSkedarLhand,    0, 0 },
+	{ HITPART_LFOREARM, g_DeathAnimsSkedarLforearm, g_InjuryAnimsSkedarLforearm, 0, 0 },
+	{ HITPART_LBICEP,   g_DeathAnimsSkedarLbicep,   g_InjuryAnimsSkedarLbicep,   0, 0 },
+	{ HITPART_RHAND,    g_DeathAnimsSkedarRhand,    g_InjuryAnimsSkedarRhand,    0, 0 },
+	{ HITPART_RFOREARM, g_DeathAnimsSkedarRforearm, g_InjuryAnimsSkedarRforearm, 0, 0 },
+	{ HITPART_RBICEP,   g_DeathAnimsSkedarRbicep,   g_InjuryAnimsSkedarRbicep,   0, 0 },
+	{ HITPART_TORSO,    g_DeathAnimsSkedarTorso,    g_InjuryAnimsSkedarTorso,    0, 0 },
+	{ HITPART_GUN,      g_DeathAnimsSkedarGun,      g_InjuryAnimsSkedarGun,      0, 0 },
+	{ HITPART_HAT,      g_DeathAnimsSkedarHead,     g_InjuryAnimsSkedarHead,     0, 0 },
+	{ HITPART_TAIL,     g_DeathAnimsSkedarTail,     g_InjuryAnimsSkedarTail,     0, 0 },
 	{ -1,           NULL,                       NULL,                        0, 0 },
 };
 
@@ -3019,7 +3019,7 @@ u8 var80068080 = 50;
  * - Updating kill statistics
  * - Dropping items
  */
-void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh, struct shorthand *hand, bool knockout, s32 aplayernum)
+void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hitpart, struct shorthand *hand, bool knockout, s32 aplayernum)
 {
 	bool overridden = false;
 	bool instant;
@@ -3133,8 +3133,8 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh
 	// instant = whether to merge into death animation or switch to it instantly
 	instant = chr->actiontype == ACT_ARGH && chr->act_argh.lvframe60 == g_Vars.lvframe60;
 
-	for (i = 0; g_AnimTablesByRace[race][i].ibh != -1; i++) {
-		if (g_AnimTablesByRace[race][i].ibh == ibh) {
+	for (i = 0; g_AnimTablesByRace[race][i].hitpart != -1; i++) {
+		if (g_AnimTablesByRace[race][i].hitpart == hitpart) {
 			index = i;
 			break;
 		}
@@ -3265,10 +3265,10 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh
 
 				overridden = true;
 
-				if (ibh == IBH_LBICEP || ibh == IBH_RBICEP) {
+				if (hitpart == HITPART_LBICEP || hitpart == HITPART_RBICEP) {
 					row = &rows[0];
 
-					if (ibh == IBH_LBICEP) {
+					if (hitpart == HITPART_LBICEP) {
 						flip = true;
 					} else {
 						flip = false;
@@ -3440,7 +3440,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 ibh
 	}
 }
 
-void chrBeginArgh(struct chrdata *chr, f32 angle, s32 ibh)
+void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 {
 	bool doneanim = false;
 	s32 instant;
@@ -3477,12 +3477,12 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 ibh)
 
 	instant = chr->actiontype == ACT_ARGH && chr->act_argh.lvframe60 == g_Vars.lvframe60;
 
-	for (i = 0; g_AnimTablesByRace[race][i].ibh != -1; i++) {
-		if (g_AnimTablesByRace[race][i].ibh == ibh) {
+	for (i = 0; g_AnimTablesByRace[race][i].hitpart != -1; i++) {
+		if (g_AnimTablesByRace[race][i].hitpart == hitpart) {
 			index = i;
 
-			if (chr->ivebeenhit == 0) {
-				chr->ivebeenhit = ibh;
+			if (chr->hitpart == 0) {
+				chr->hitpart = hitpart;
 			}
 
 			break;
@@ -3491,7 +3491,7 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 ibh)
 
 	// If shot in the butt from behind, 2 in 5 chance of doing a special anim
 	if (race == RACE_HUMAN
-			&& ibh == IBH_PELVIS
+			&& hitpart == HITPART_PELVIS
 			&& angle > 2.3558194637299f
 			&& angle < 3.9263656139374f
 			&& random() % 5 < 2) {
@@ -3568,7 +3568,7 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 ibh)
 	}
 }
 
-void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 ibh, struct shorthand *hand, s32 aplayernum)
+void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 hitpart, struct shorthand *hand, s32 aplayernum)
 {
 	s32 race = CHRRACE(chr);
 	bool knockedout = false;
@@ -3603,7 +3603,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 	}
 
 	if (chr->damage >= chr->maxdamage) {
-		chrBeginDeath(chr, vector, angle, ibh, hand, false, aplayernum);
+		chrBeginDeath(chr, vector, angle, hitpart, hand, false, aplayernum);
 	} else if (animnum == ANIM_SNIPING_GETDOWN
 			|| animnum == ANIM_SNIPING_GETUP
 			|| animnum == ANIM_SNIPING_ONGROUND) {
@@ -3633,7 +3633,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 			chrBeginArgh(chr, 0, 0);
 		}
 	} else if (!knockedout) {
-		chrBeginArgh(chr, angle, ibh);
+		chrBeginArgh(chr, angle, hitpart);
 	}
 }
 
@@ -3750,7 +3750,7 @@ s32 handGetBlurAmount(struct shorthand *hand)
 	return amount;
 }
 
-void chrKnockOut(struct chrdata *chr, f32 angle, s32 ibh, struct shorthand *hand)
+void chrKnockOut(struct chrdata *chr, f32 angle, s32 hitpart, struct shorthand *hand)
 {
 	if (chr->actiontype != ACT_DRUGGEDCOMINGUP
 			&& chr->actiontype != ACT_DRUGGEDDROP
@@ -4137,7 +4137,7 @@ bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop
  */
 void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
 {
-	chrDamage(chr, damage, vector, hand, prop, IBH_GENERAL,
+	chrDamage(chr, damage, vector, hand, prop, HITPART_GENERAL,
 			false,     // damageshield
 			NULL,      // prop2
 			NULL,      // node
@@ -4150,7 +4150,7 @@ void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, stru
 
 void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
 {
-	chrDamage(chr, damage, vector, hand, prop, IBH_GENERAL,
+	chrDamage(chr, damage, vector, hand, prop, HITPART_GENERAL,
 			true,      // damageshield
 			chr->prop, // prop2
 			NULL,      // node
@@ -4161,9 +4161,9 @@ void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, str
 			NULL);     // explosionpos
 }
 
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 ibh, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10)
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 hitpart, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10)
 {
-	chrDamage(chr, damage, vector, hand, prop, ibh,
+	chrDamage(chr, damage, vector, hand, prop, hitpart,
 			true,      // damageshield
 			prop2,     // prop2
 			node,      // node
@@ -4175,20 +4175,20 @@ void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 }
 
 /**
- * Unused, and same as chrDamageByImpact but sets ibh to IBH_GENERAL instead of argument.
+ * Unused, and same as chrDamageByImpact but sets hitpart to HITPART_GENERAL instead of argument.
  */
 void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
 {
 	struct modelnode *node = NULL;
 	struct model *model = NULL;
 	s32 side = 0;
-	s32 ibh = IBH_GENERAL;
+	s32 hitpart = HITPART_GENERAL;
 
 	if (chrGetShield(chr) >= 0 && chr->model) {
-		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &ibh, &model, &side);
+		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &hitpart, &model, &side);
 	}
 
-	chrDamage(chr, damage, vector, hand, prop, IBH_GENERAL,
+	chrDamage(chr, damage, vector, hand, prop, HITPART_GENERAL,
 			true,      // damageshield
 			chr->prop, // prop2
 			node,      // node
@@ -4202,17 +4202,17 @@ void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 /**
  * Used for punching, but also used by AI commands to make chrs take damage.
  */
-void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 ibh)
+void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 hitpart)
 {
 	struct modelnode *node = NULL;
 	struct model *model = NULL;
 	s32 side = 0;
 
 	if (chrGetShield(chr) >= 0 && chr->model) {
-		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &ibh, &model, &side);
+		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &hitpart, &model, &side);
 	}
 
-	chrDamage(chr, damage, vector, hand, prop, ibh,
+	chrDamage(chr, damage, vector, hand, prop, hitpart,
 			true,      // damageshield
 			chr->prop, // prop2
 			node,      // node
@@ -4225,7 +4225,7 @@ void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, st
 
 void chrDamageByExplosion(struct chrdata *chr, f32 damage, struct coord *vector, struct prop *prop, struct coord *explosionpos)
 {
-	chrDamage(chr, damage, vector, NULL, prop, IBH_GENERAL,
+	chrDamage(chr, damage, vector, NULL, prop, HITPART_GENERAL,
 			true,      // damageshield
 			chr->prop, // prop2
 			NULL,      // node
@@ -4271,7 +4271,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
  * vector - position of the attacker?
  * hand - shorthand struct defining the weapon and gun function being used
  * aprop - the attacker's prop struct
- * ibh - "i've been hit" value, ie. the body part (see IBH constants)
+ * hitpart - "i've been hit" value, ie. the body part (see HITPART constants)
  * damageshield - false if attack should bypass shield if any
  * prop2 - ?
  * node - if shielded, model node (of type bbox) which was hit
@@ -4282,7 +4282,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
  * explosionpos - position of said explosion
  */
 void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand,
-		struct prop *aprop, s32 ibh, bool damageshield, struct prop *prop2,
+		struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2,
 		struct modelnode *node, struct model *model, s32 side, s16 *arg11,
 		bool explosion, struct coord *explosionpos)
 {
@@ -4308,7 +4308,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 	s32 aplayernum = -1;
 	s32 choketype = CHOKETYPE_NONE;
 
-	if (ibh == IBH_HEAD) {
+	if (hitpart == HITPART_HEAD) {
 		choketype = CHOKETYPE_GURGLE;
 	}
 
@@ -4605,12 +4605,12 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 	}
 
 	// Handle hat shots. This is left over from GE, as hats don't exist in PD
-	if (damage > 0 && ibh == IBH_HAT && chr->weapons_held[2]) {
+	if (damage > 0 && hitpart == HITPART_HAT && chr->weapons_held[2]) {
 		s32 type = hatGetType(chr->weapons_held[2]);
 
 		if (type == HATTYPE_CLOTH) {
 			// Hat remains on head and damages the chr (eg. Moonraker Elite)
-			ibh = IBH_HEAD;
+			hitpart = HITPART_HEAD;
 		} else if (type != HATTYPE_METAL) {
 			// Normal hat
 			damage = 0;
@@ -4642,19 +4642,19 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 			alreadydead = true;
 		}
 
-		if (!alreadydead && ibh) {
-			switch (ibh) {
-			case IBH_HEAD:
+		if (!alreadydead && hitpart) {
+			switch (hitpart) {
+			case HITPART_HEAD:
 				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_HEAD);
 				break;
-			case IBH_GUN:
+			case HITPART_GUN:
 				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_GUN);
 				break;
-			case IBH_HAT:
+			case HITPART_HAT:
 				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_HAT);
 				break;
-			case IBH_PELVIS:
-			case IBH_TORSO:
+			case HITPART_PELVIS:
+			case HITPART_TORSO:
 				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_BODY);
 				break;
 			default:
@@ -4675,7 +4675,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 	// If chr is dying or already dead, consider making their head flinch
 	// then we're done
 	if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {
-		if (ibh == IBH_HEAD && chr->actiontype == ACT_DIE && race != RACE_SKEDAR && isfar) {
+		if (hitpart == HITPART_HEAD && chr->actiontype == ACT_DIE && race != RACE_SKEDAR && isfar) {
 			struct coord pos;
 			pos.x = vprop->pos.x - vector->x;
 			pos.y = vprop->pos.y - vector->y;
@@ -4726,24 +4726,24 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 			forceapplydamage = true;
 		}
 
-		if (ibh == IBH_GENERAL) {
+		if (hitpart == HITPART_GENERAL) {
 			// Halve the damage because it's doubled for torso below
-			ibh = IBH_TORSO;
+			hitpart = HITPART_TORSO;
 			damage *= 0.5f;
-		} else if (ibh == IBH_GENERALHALF) {
+		} else if (hitpart == HITPART_GENERALHALF) {
 			// Likewise, quarter it here so it becomes half below
-			ibh = IBH_TORSO;
+			hitpart = HITPART_TORSO;
 			damage *= 0.25f;
 		}
 
 		// Hits to a Skedar's tail are 10x more lethal
-		if (race == RACE_SKEDAR && ibh == IBH_TAIL) {
+		if (race == RACE_SKEDAR && hitpart == HITPART_TAIL) {
 			damage *= 10;
 		}
 
 		// Apply damage multipliers based on which body parts were hit,
 		// and flinch head if shot in the head
-		if (ibh == IBH_HEAD) {
+		if (hitpart == HITPART_HEAD) {
 			if (race == RACE_SKEDAR) {
 				damage += damage;
 				chrFlinchHead(chr, angle);
@@ -4759,14 +4759,14 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 					}
 				}
 			}
-		} else if (ibh == IBH_TORSO) {
+		} else if (hitpart == HITPART_TORSO) {
 			// Double damage for torso hits
 			damage += damage;
-		} else if (ibh == IBH_GUN) {
+		} else if (hitpart == HITPART_GUN) {
 			// No damage for gun hits
 			damage = 0;
 			makedizzy = false;
-		} else if (ibh == IBH_HAT) {
+		} else if (hitpart == HITPART_HAT) {
 			// No damage for hat hits
 			damage = 0;
 			makedizzy = false;
@@ -4956,7 +4956,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 			// Handle one-hit knockouts
 			if (onehitko && chr->aibot == NULL && race == RACE_HUMAN) {
-				chrKnockOut(chr, angle, ibh, hand);
+				chrKnockOut(chr, angle, hitpart, hand);
 				func0f0926bc(chr->prop, 9, 0);
 
 				if (canchoke) {
@@ -5013,7 +5013,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 						chr->damage = chr->maxdamage;
 
 						if (race == RACE_DRCAROLL || race == RACE_EYESPY || race == RACE_ROBOT) {
-							chrBeginDeath(chr, vector, angle, ibh, hand, false, aplayernum);
+							chrBeginDeath(chr, vector, angle, hitpart, hand, false, aplayernum);
 						} else {
 							chrYeetFromPos(chr, explosionpos, explosionforce);
 						}
@@ -5063,7 +5063,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 					if (makedizzy && chr->damage >= chr->maxdamage) {
 						chr->damage = chr->maxdamage - 0.1f;
-						chrKnockOut(chr, angle, ibh, hand);
+						chrKnockOut(chr, angle, hitpart, hand);
 					}
 
 					// If chr has armour or the weapon doesn't stun
@@ -5074,7 +5074,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 						if (!chrIsAnimPreventingArgh(chr, &endframe)) {
 							chrFlinchBody(chr);
 						}
-					} else if (ibh != IBH_HAT) {
+					} else if (hitpart != HITPART_HAT) {
 						// Cancel current animation and prepare for argh
 						f32 endframe = -1;
 
@@ -5088,7 +5088,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 							chr->act_preargh.dir.y = vector->y;
 							chr->act_preargh.dir.z = vector->z;
 							chr->act_preargh.relshotdir = angle;
-							chr->act_preargh.hitpart = ibh;
+							chr->act_preargh.hitpart = hitpart;
 							chr->act_preargh.aplayernum = aplayernum;
 							chr->act_preargh.hand.weaponnum = hand->weaponnum;
 							chr->act_preargh.hand.unk0639 = hand->unk0639;
@@ -5097,7 +5097,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 							chr->sleep = 0;
 						} else {
-							chrReactToDamage(chr, vector, angle, ibh, hand, aplayernum);
+							chrReactToDamage(chr, vector, angle, hitpart, hand, aplayernum);
 						}
 					}
 				}
@@ -6675,20 +6675,20 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 			if (heavy) {
 				if (gospeed == SPEED_RUN) {
 					// Human, heavy weapon, running
-					if (chr->ivebeenhit == IBH_LFOOT
-							|| chr->ivebeenhit == IBH_LSHIN
-							|| chr->ivebeenhit == IBH_LTHIGH
-							|| chr->ivebeenhit == IBH_RFOOT
-							|| chr->ivebeenhit == IBH_RSHIN
-							|| chr->ivebeenhit == IBH_RTHIGH) {
+					if (chr->hitpart == HITPART_LFOOT
+							|| chr->hitpart == HITPART_LSHIN
+							|| chr->hitpart == HITPART_LTHIGH
+							|| chr->hitpart == HITPART_RFOOT
+							|| chr->hitpart == HITPART_RSHIN
+							|| chr->hitpart == HITPART_RTHIGH) {
 						anim = 0x20a;
 						speed = 0.4;
-					} else if (chr->ivebeenhit == IBH_LHAND
-							|| chr->ivebeenhit == IBH_LFOREARM
-							|| chr->ivebeenhit == IBH_LBICEP
-							|| chr->ivebeenhit == IBH_RHAND
-							|| chr->ivebeenhit == IBH_RFOREARM
-							|| chr->ivebeenhit == IBH_RBICEP) {
+					} else if (chr->hitpart == HITPART_LHAND
+							|| chr->hitpart == HITPART_LFOREARM
+							|| chr->hitpart == HITPART_LBICEP
+							|| chr->hitpart == HITPART_RHAND
+							|| chr->hitpart == HITPART_RFOREARM
+							|| chr->hitpart == HITPART_RBICEP) {
 						anim = 0x20d;
 						speed = 0.4;
 					} else {
@@ -6705,38 +6705,38 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 					}
 				} else if (gospeed == SPEED_JOG) {
 					// Human, heavy weapon, jogging
-					if (chr->ivebeenhit == IBH_LFOOT
-							|| chr->ivebeenhit == IBH_LSHIN
-							|| chr->ivebeenhit == IBH_LTHIGH
-							|| chr->ivebeenhit == IBH_RFOOT
-							|| chr->ivebeenhit == IBH_RSHIN
-							|| chr->ivebeenhit == IBH_RTHIGH) {
+					if (chr->hitpart == HITPART_LFOOT
+							|| chr->hitpart == HITPART_LSHIN
+							|| chr->hitpart == HITPART_LTHIGH
+							|| chr->hitpart == HITPART_RFOOT
+							|| chr->hitpart == HITPART_RSHIN
+							|| chr->hitpart == HITPART_RTHIGH) {
 						anim = 0x1f9;
-					} else if (chr->ivebeenhit == IBH_LHAND
-							|| chr->ivebeenhit == IBH_LFOREARM
-							|| chr->ivebeenhit == IBH_LBICEP
-							|| chr->ivebeenhit == IBH_RHAND
-							|| chr->ivebeenhit == IBH_RFOREARM
-							|| chr->ivebeenhit == IBH_RBICEP) {
+					} else if (chr->hitpart == HITPART_LHAND
+							|| chr->hitpart == HITPART_LFOREARM
+							|| chr->hitpart == HITPART_LBICEP
+							|| chr->hitpart == HITPART_RHAND
+							|| chr->hitpart == HITPART_RFOREARM
+							|| chr->hitpart == HITPART_RBICEP) {
 						anim = 0x1f8;
 					} else {
 						anim = 0x2a;
 					}
 				} else {
 					// Human, heavy weapon, walking
-					if (chr->ivebeenhit == IBH_LFOOT
-							|| chr->ivebeenhit == IBH_LSHIN
-							|| chr->ivebeenhit == IBH_LTHIGH
-							|| chr->ivebeenhit == IBH_RFOOT
-							|| chr->ivebeenhit == IBH_RSHIN
-							|| chr->ivebeenhit == IBH_RTHIGH) {
+					if (chr->hitpart == HITPART_LFOOT
+							|| chr->hitpart == HITPART_LSHIN
+							|| chr->hitpart == HITPART_LTHIGH
+							|| chr->hitpart == HITPART_RFOOT
+							|| chr->hitpart == HITPART_RSHIN
+							|| chr->hitpart == HITPART_RTHIGH) {
 						anim = 0x1f9;
-					} else if (chr->ivebeenhit == IBH_LHAND
-							|| chr->ivebeenhit == IBH_LFOREARM
-							|| chr->ivebeenhit == IBH_LBICEP
-							|| chr->ivebeenhit == IBH_RHAND
-							|| chr->ivebeenhit == IBH_RFOREARM
-							|| chr->ivebeenhit == IBH_RBICEP) {
+					} else if (chr->hitpart == HITPART_LHAND
+							|| chr->hitpart == HITPART_LFOREARM
+							|| chr->hitpart == HITPART_LBICEP
+							|| chr->hitpart == HITPART_RHAND
+							|| chr->hitpart == HITPART_RFOREARM
+							|| chr->hitpart == HITPART_RBICEP) {
 						anim = 0x1f8;
 					} else {
 						if (random() % 2) {
@@ -6749,27 +6749,27 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 			} else {
 				if (gospeed == SPEED_RUN) {
 					// Human, light weapon, running
-					if (chr->ivebeenhit == IBH_LFOOT
-							|| chr->ivebeenhit == IBH_LSHIN
-							|| chr->ivebeenhit == IBH_LTHIGH) {
+					if (chr->hitpart == HITPART_LFOOT
+							|| chr->hitpart == HITPART_LSHIN
+							|| chr->hitpart == HITPART_LTHIGH) {
 						anim = 0x20a;
 						flip = true;
 						speed = 0.4;
-					} else if (chr->ivebeenhit == IBH_RFOOT
-							|| chr->ivebeenhit == IBH_RSHIN
-							|| chr->ivebeenhit == IBH_RTHIGH) {
+					} else if (chr->hitpart == HITPART_RFOOT
+							|| chr->hitpart == HITPART_RSHIN
+							|| chr->hitpart == HITPART_RTHIGH) {
 						anim = 0x20a;
 						speed = 0.4;
 						flip = false;
-					} else if (chr->ivebeenhit == IBH_LHAND
-							|| chr->ivebeenhit == IBH_LFOREARM
-							|| chr->ivebeenhit == IBH_LBICEP) {
+					} else if (chr->hitpart == HITPART_LHAND
+							|| chr->hitpart == HITPART_LFOREARM
+							|| chr->hitpart == HITPART_LBICEP) {
 						anim = 0x20d;
 						speed = 0.4;
 						flip = true;
-					} else if (chr->ivebeenhit == IBH_RHAND
-							|| chr->ivebeenhit == IBH_RFOREARM
-							|| chr->ivebeenhit == IBH_RBICEP) {
+					} else if (chr->hitpart == HITPART_RHAND
+							|| chr->hitpart == HITPART_RFOREARM
+							|| chr->hitpart == HITPART_RBICEP) {
 						anim = 0x20d;
 						speed = 0.4;
 						flip = false;
@@ -6801,24 +6801,24 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 					}
 				} else if (gospeed == SPEED_JOG) {
 					// Human, light weapon, jogging
-					if (chr->ivebeenhit == IBH_LFOOT
-							|| chr->ivebeenhit == IBH_LSHIN
-							|| chr->ivebeenhit == IBH_LTHIGH) {
+					if (chr->hitpart == HITPART_LFOOT
+							|| chr->hitpart == HITPART_LSHIN
+							|| chr->hitpart == HITPART_LTHIGH) {
 						anim = 0x1f9;
 						flip = false;
-					} else if (chr->ivebeenhit == IBH_RFOOT
-							|| chr->ivebeenhit == IBH_RSHIN
-							|| chr->ivebeenhit == IBH_RTHIGH) {
+					} else if (chr->hitpart == HITPART_RFOOT
+							|| chr->hitpart == HITPART_RSHIN
+							|| chr->hitpart == HITPART_RTHIGH) {
 						anim = 0x1f9;
 						flip = true;
-					} else if (chr->ivebeenhit == IBH_LHAND
-							|| chr->ivebeenhit == IBH_LFOREARM
-							|| chr->ivebeenhit == IBH_LBICEP) {
+					} else if (chr->hitpart == HITPART_LHAND
+							|| chr->hitpart == HITPART_LFOREARM
+							|| chr->hitpart == HITPART_LBICEP) {
 						anim = 0x1f8;
 						flip = false;
-					} else if (chr->ivebeenhit == IBH_RHAND
-							|| chr->ivebeenhit == IBH_RFOREARM
-							|| chr->ivebeenhit == IBH_RBICEP) {
+					} else if (chr->hitpart == HITPART_RHAND
+							|| chr->hitpart == HITPART_RFOREARM
+							|| chr->hitpart == HITPART_RBICEP) {
 						anim = 0x1f8;
 						flip = true;
 					} else if (stageGetIndex(g_Vars.stagenum) == STAGE_MAIANSOS) {
@@ -6844,24 +6844,24 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 					// Human, light weapon, walking
 					s32 anims[] = {0x6b, 0x1b, 0x16};
 
-					if (chr->ivebeenhit == IBH_LFOOT
-							|| chr->ivebeenhit == IBH_LSHIN
-							|| chr->ivebeenhit == IBH_LTHIGH) {
+					if (chr->hitpart == HITPART_LFOOT
+							|| chr->hitpart == HITPART_LSHIN
+							|| chr->hitpart == HITPART_LTHIGH) {
 						anim = 0x1f9;
 						flip = false;
-					} else if (chr->ivebeenhit == IBH_RFOOT
-							|| chr->ivebeenhit == IBH_RSHIN
-							|| chr->ivebeenhit == IBH_RTHIGH) {
+					} else if (chr->hitpart == HITPART_RFOOT
+							|| chr->hitpart == HITPART_RSHIN
+							|| chr->hitpart == HITPART_RTHIGH) {
 						anim = 0x1f9;
 						flip = true;
-					} else if (chr->ivebeenhit == IBH_LHAND
-							|| chr->ivebeenhit == IBH_LFOREARM
-							|| chr->ivebeenhit == IBH_LBICEP) {
+					} else if (chr->hitpart == HITPART_LHAND
+							|| chr->hitpart == HITPART_LFOREARM
+							|| chr->hitpart == HITPART_LBICEP) {
 						anim = 0x1f8;
 						flip = false;
-					} else if (chr->ivebeenhit == IBH_RHAND
-							|| chr->ivebeenhit == IBH_RFOREARM
-							|| chr->ivebeenhit == IBH_RBICEP) {
+					} else if (chr->hitpart == HITPART_RHAND
+							|| chr->hitpart == HITPART_RFOREARM
+							|| chr->hitpart == HITPART_RBICEP) {
 						anim = 0x1f8;
 						flip = true;
 					} else if (male) {
@@ -10362,7 +10362,7 @@ glabel chrTickDruggedComingUp
 //			if (!done) {
 //				i++;
 //
-//				if (g_AnimTablesByRace[race][i].ibh == -1) {
+//				if (g_AnimTablesByRace[race][i].hitpart == -1) {
 //					done = true;
 //				}
 //			}
@@ -12505,14 +12505,14 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
  * Shield hits are calculated using the bounding box of each body part.
  * This gives a bit of padding around the chr which can register as a hit.
  *
- * nodeptr  - will be populated with a pointer to the bbox model node.
- * ibhptr   - will be populated with the IBH value. See the IBH constants.
- * modelptr - will be populated with a pointer to the chr's model.
- * sideptr  - will be populated with an index in the range 0-5 which
- *            represents which side of the node's bounding box was hit.
+ * nodeptr    - will be populated with a pointer to the bbox model node.
+ * hitpartptr - will be populated with the HITPART constant value.
+ * modelptr   - will be populated with a pointer to the chr's model.
+ * sideptr    - will be populated with an index in the range 0-5 which
+ *              represents which side of the node's bounding box was hit.
  */
 void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord *vector,
-		struct modelnode **nodeptr, s32 *ibhptr, struct model **modelptr, s32 *sideptr)
+		struct modelnode **nodeptr, s32 *hitpartptr, struct model **modelptr, s32 *sideptr)
 {
 	u32 stack1;
 	struct prop *prop = chr->prop;
@@ -12594,7 +12594,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 					Mtxf sp48;
 					struct modelrodata_bbox *rodata = &bestnode->rodata->bbox;
 
-					*ibhptr = rodata->ibh;
+					*hitpartptr = rodata->hitpart;
 					*nodeptr = bestnode;
 					*modelptr = chr->model;
 					*sideptr = 0;
@@ -12641,8 +12641,8 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 				if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
 					struct modelrodata_bbox *rodata = &node->rodata->bbox;
 
-					if (rodata->ibh == IBH_TORSO) {
-						*ibhptr = rodata->ibh;
+					if (rodata->hitpart == HITPART_TORSO) {
+						*hitpartptr = rodata->hitpart;
 						*nodeptr = node;
 						*modelptr = chr->model;
 						*sideptr = 0;

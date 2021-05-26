@@ -36,7 +36,7 @@ bool func0f024b18(struct model *model, struct modelnode *node);
 void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha, struct chrdata *chr);
 void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2);
 Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha);
-void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 ibh, struct coord *coord, struct coord *coord2, struct chrdata *chr2);
+void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct coord *coord, struct coord *coord2, struct chrdata *chr2);
 u32 func0f0260c4(void);
 u32 func0f0268bc(void);
 u32 func0f0270f4(void);

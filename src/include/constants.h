@@ -1072,6 +1072,27 @@
 #define HEALTHSHOWMODE_CURRENT  4 // full height, showing current amount
 #define HEALTHSHOWMODE_CLOSING  5 // height collapsing
 
+#define HITPART_LFOOT       1
+#define HITPART_LSHIN       2
+#define HITPART_LTHIGH      3
+#define HITPART_RFOOT       4
+#define HITPART_RSHIN       5
+#define HITPART_RTHIGH      6
+#define HITPART_PELVIS      7
+#define HITPART_HEAD        8
+#define HITPART_LHAND       9
+#define HITPART_LFOREARM    10
+#define HITPART_LBICEP      11
+#define HITPART_RHAND       12
+#define HITPART_RFOREARM    13
+#define HITPART_RBICEP      14
+#define HITPART_TORSO       15
+#define HITPART_TAIL        16
+#define HITPART_GUN         100
+#define HITPART_HAT         110
+#define HITPART_GENERAL     200
+#define HITPART_GENERALHALF 201
+
 #define HUDMSGFLAG_ONLYIFALIVE 0x1
 #define HUDMSGFLAG_2           0x2
 #define HUDMSGFLAG_4           0x4
@@ -1094,28 +1115,6 @@
 #define HUDMSGTYPE_MPSCENARIO        9
 #define HUDMSGTYPE_TRAINING          10
 #define HUDMSGTYPE_11                11
-
-// chr->ivebeenhit values
-#define IBH_LFOOT       1
-#define IBH_LSHIN       2
-#define IBH_LTHIGH      3
-#define IBH_RFOOT       4
-#define IBH_RSHIN       5
-#define IBH_RTHIGH      6
-#define IBH_PELVIS      7
-#define IBH_HEAD        8
-#define IBH_LHAND       9
-#define IBH_LFOREARM    10
-#define IBH_LBICEP      11
-#define IBH_RHAND       12
-#define IBH_RFOREARM    13
-#define IBH_RBICEP      14
-#define IBH_TORSO       15
-#define IBH_TAIL        16
-#define IBH_GUN         100
-#define IBH_HAT         110
-#define IBH_GENERAL     200
-#define IBH_GENERALHALF 201
 
 #define IDLEACTION_STANDING        0x01
 #define IDLEACTION_SITTING_TYPING  0x02

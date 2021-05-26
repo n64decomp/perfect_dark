@@ -4461,7 +4461,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->extraspeed.x = 0;
 	chr->extraspeed.y = 0;
 	chr->extraspeed.z = 0;
-	chr->ivebeenhit = 0;
+	chr->hitpart = 0;
 	chr->voicebox = 0;
 	chr->pushspeed[0] = 0;
 	chr->pushspeed[1] = 0;
@@ -12354,7 +12354,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool withalpha)
 
 struct var80062a8c *var80062a8c = NULL;
 
-void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 ibh, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
+void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
 {
 	struct prop *chrprop = chr->prop;
 	s32 race;
@@ -12372,8 +12372,8 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 ibh, struct coord
 	if (prop->type == PROPTYPE_OBJ
 			|| prop->type == PROPTYPE_WEAPON
 			|| prop->type == PROPTYPE_DOOR
-			|| ibh == IBH_GUN
-			|| ibh == IBH_HAT) {
+			|| hitpart == HITPART_GUN
+			|| hitpart == HITPART_HAT) {
 		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
 		return;
 	}

@@ -268,7 +268,7 @@
 #define damage_chr(chr, weapon) \
 	mkshort(0x0019), \
 	chr, \
-	IBH_HEAD, \
+	HITPART_HEAD, \
 	weapon, \
 	0, \
 	0, \
@@ -279,14 +279,14 @@
  * done, nor is any bullet beam shown and the chrs don't even need line of sight
  * to each other.
  *
- * The ibh value is the body part the victim is shot in.
- * It's expected to be an IBH constant.
+ * The hitpart value is the body part the victim is shot in.
+ * It's expected to be a HITPART constant.
  */
-#define chr_damage_chr(achr, vchr, ibh) \
+#define chr_damage_chr(achr, vchr, hitpart) \
 	mkshort(0x001a), \
 	achr, \
 	vchr, \
-	ibh,
+	hitpart,
 
 /**
  * Makes the chr consider throwing a grenade, using their grenade probability

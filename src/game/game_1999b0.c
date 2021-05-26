@@ -237,7 +237,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, s
 			struct modelnode *node = NULL;
 			struct model *model = NULL;
 			s32 side = -1;
-			s32 ibh = IBH_GENERAL;
+			s32 hitpart = HITPART_GENERAL;
 			struct shorthand hand = {WEAPON_FARSIGHT, 0, 0, FUNC_PRIMARY};
 			f32 damage = handGetDamage(&hand);
 			s32 fallback = 30;
@@ -270,11 +270,11 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, s
 					handPlayPropHitSound(&hand, oppprop, -1);
 
 					if (oppchr->model && chrGetShield(oppchr) > 0) {
-						chrCalculateShieldHit(oppchr, &oppprop->pos, vector, &node, &ibh, &model, &side);
+						chrCalculateShieldHit(oppchr, &oppprop->pos, vector, &node, &hitpart, &model, &side);
 					}
 
-					chrEmitSparks(oppchr, oppprop, ibh, &oppprop->pos, vector, chr);
-					func0f0341dc(oppchr, damage, vector, &hand, chr->prop, IBH_GENERAL, oppprop, node, model, side, 0);
+					chrEmitSparks(oppchr, oppprop, hitpart, &oppprop->pos, vector, chr);
+					func0f0341dc(oppchr, damage, vector, &hand, chr->prop, HITPART_GENERAL, oppprop, node, model, side, 0);
 				}
 			}
 

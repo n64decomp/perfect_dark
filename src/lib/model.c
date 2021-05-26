@@ -6112,7 +6112,7 @@ s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, st
 
 			if (func000220fc(rodata, mtx, arg1, arg2)) {
 				*startnode = node;
-				return rodata->bbox.ibh;
+				return rodata->bbox.hitpart;
 			}
 
 			dochildren = false;

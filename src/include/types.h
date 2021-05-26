@@ -561,7 +561,7 @@ struct modelrodata_reorder { // type 0x09
 };
 
 struct modelrodata_bbox { // type 0x0a
-	s32 ibh;
+	s32 hitpart;
 	f32 xmin;
 	f32 xmax;
 	f32 ymin;
@@ -1387,7 +1387,7 @@ struct chrdata {
 	/*0x2ec*/ f32 elapseextra;
 	/*0x2f0*/ struct coord extraspeed;
 	/*0x2fc*/ u8 yvisang;
-	/*0x2fd*/ u8 ivebeenhit;
+	/*0x2fd*/ u8 hitpart;
 	/*0x2fe*/ u8 race;
 	/*0x2ff*/ u8 blurnumtimesdied;
 	/*0x300*/ struct prop *gunprop;
@@ -5056,7 +5056,7 @@ struct animtablerow {
 };
 
 struct animtable {
-	s32 ibh;
+	s32 hitpart;
 	struct animtablerow *deathanims;
 	struct animtablerow *injuryanims;
 	s32 deathanimcount;

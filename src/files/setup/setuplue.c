@@ -1556,22 +1556,22 @@ u8 func0417_traitor[] = {
 
 		label(0x0c)
 		if_chr_death_animation_finished(0x2f, /*goto*/ 0x2e)
-		chr_damage_chr(CHR_SELF, 0x2f, IBH_HEAD)
+		chr_damage_chr(CHR_SELF, 0x2f, HITPART_HEAD)
 		goto_next(0x06)
 
 		label(0x2e)
 		if_chr_death_animation_finished(0x2e, /*goto*/ 0x2e)
-		chr_damage_chr(CHR_SELF, 0x2e, IBH_HEAD)
+		chr_damage_chr(CHR_SELF, 0x2e, HITPART_HEAD)
 		goto_next(0x06)
 
 		label(0x2e)
 		if_chr_death_animation_finished(0x2d, /*goto*/ 0x2e)
-		chr_damage_chr(CHR_SELF, 0x2d, IBH_HEAD)
+		chr_damage_chr(CHR_SELF, 0x2d, HITPART_HEAD)
 		goto_next(0x06)
 
 		label(0x2e)
 		if_chr_death_animation_finished(0x2c, /*goto*/ 0x06)
-		chr_damage_chr(CHR_SELF, 0x2c, IBH_HEAD)
+		chr_damage_chr(CHR_SELF, 0x2c, HITPART_HEAD)
 		label(0x06)
 	goto_first(0x09)
 
