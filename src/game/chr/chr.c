@@ -6862,7 +6862,7 @@ void chrTickPoisoned(struct chrdata *chr)
 	if (chr->poisoncounter > 0) {
 		struct coord coord = {0, 0, 0};
 
-		struct shorthand hand = { WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON };
+		struct gset gset = { WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON };
 
 		if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DIE) {
 			// Dying chr
@@ -6895,7 +6895,7 @@ void chrTickPoisoned(struct chrdata *chr)
 
 			if (chr->poisoncounter <= 0) {
 				if (!g_Vars.normmplayerisrunning) {
-					chrDamageByMisc(chr, 100, &coord, &hand, chr->poisonprop);
+					chrDamageByMisc(chr, 100, &coord, &gset, chr->poisonprop);
 					chrFlinchHead(chr, M_PI);
 				}
 
@@ -6906,7 +6906,7 @@ void chrTickPoisoned(struct chrdata *chr)
 
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter / PALDOWN(720) != (chr->poisoncounter + g_Vars.lvupdate240) / PALDOWN(720)) {
-					chrDamageByMisc(chr, 1.3f, &coord, &hand, chr->poisonprop);
+					chrDamageByMisc(chr, 1.3f, &coord, &gset, chr->poisonprop);
 				}
 			}
 		}
@@ -14482,7 +14482,7 @@ glabel func0f027e1c
 /*  f027e30:	00a08825 */ 	or	$s1,$a1,$zero
 /*  f027e34:	afb00034 */ 	sw	$s0,0x34($sp)
 /*  f027e38:	a3a0008f */ 	sb	$zero,0x8f($sp)
-/*  f027e3c:	0fc2c41f */ 	jal	handGetWeaponFunction
+/*  f027e3c:	0fc2c41f */ 	jal	gsetGetWeaponFunction
 /*  f027e40:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f027e44:	50400009 */ 	beqzl	$v0,.L0f027e6c
 /*  f027e48:	8e300004 */ 	lw	$s0,0x4($s1)
@@ -14540,7 +14540,7 @@ glabel func0f027e1c
 /*  f027f0c:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f027f10:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f027f14:	8e250004 */ 	lw	$a1,0x4($s1)
-/*  f027f18:	0fc29f66 */ 	jal	handPlayPropHitSound
+/*  f027f18:	0fc29f66 */ 	jal	gsetPlayPropHitSound
 /*  f027f1c:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f027f20:	8fa200f8 */ 	lw	$v0,0xf8($sp)
 /*  f027f24:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x284)
@@ -14573,7 +14573,7 @@ glabel func0f027e1c
 /*  f027f90:	0fc0cfe8 */ 	jal	chrGetShield
 /*  f027f94:	a7ab0094 */ 	sh	$t3,0x94($sp)
 /*  f027f98:	e7a00084 */ 	swc1	$f0,0x84($sp)
-/*  f027f9c:	0fc2c74a */ 	jal	handGetDamage
+/*  f027f9c:	0fc2c74a */ 	jal	gsetGetDamage
 /*  f027fa0:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f027fa4:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x284)
 /*  f027fa8:	8d8ca244 */ 	lw	$t4,%lo(g_Vars+0x284)($t4)
@@ -14676,7 +14676,7 @@ glabel func0f027e1c
 /*  f028118:	8d4b0014 */ 	lw	$t3,0x14($t2)
 /*  f02811c:	356c0001 */ 	ori	$t4,$t3,0x1
 /*  f028120:	ad4c0014 */ 	sw	$t4,0x14($t2)
-/*  f028124:	0fc2c74a */ 	jal	handGetDamage
+/*  f028124:	0fc2c74a */ 	jal	gsetGetDamage
 /*  f028128:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f02812c:	8fad00f8 */ 	lw	$t5,0xf8($sp)
 /*  f028130:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x28c)
@@ -14925,7 +14925,7 @@ glabel func0f027e1c
 /*  f02784c:	00a08825 */ 	or	$s1,$a1,$zero
 /*  f027850:	afb00034 */ 	sw	$s0,0x34($sp)
 /*  f027854:	a3a0008f */ 	sb	$zero,0x8f($sp)
-/*  f027858:	0fc2bb77 */ 	jal	handGetWeaponFunction
+/*  f027858:	0fc2bb77 */ 	jal	gsetGetWeaponFunction
 /*  f02785c:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f027860:	50400009 */ 	beqzl	$v0,.NB0f027888
 /*  f027864:	8e300004 */ 	lw	$s0,0x4($s1)
@@ -14983,7 +14983,7 @@ glabel func0f027e1c
 /*  f027928:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f02792c:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f027930:	8e250004 */ 	lw	$a1,0x4($s1)
-/*  f027934:	0fc296b1 */ 	jal	handPlayPropHitSound
+/*  f027934:	0fc296b1 */ 	jal	gsetPlayPropHitSound
 /*  f027938:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f02793c:	8fa200f8 */ 	lw	$v0,0xf8($sp)
 /*  f027940:	3c0a800a */ 	lui	$t2,0x800a
@@ -15016,7 +15016,7 @@ glabel func0f027e1c
 /*  f0279ac:	0fc0ce2a */ 	jal	chrGetShield
 /*  f0279b0:	a7a90094 */ 	sh	$t1,0x94($sp)
 /*  f0279b4:	e7a00084 */ 	swc1	$f0,0x84($sp)
-/*  f0279b8:	0fc2bea2 */ 	jal	handGetDamage
+/*  f0279b8:	0fc2bea2 */ 	jal	gsetGetDamage
 /*  f0279bc:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f0279c0:	3c0a800a */ 	lui	$t2,0x800a
 /*  f0279c4:	8d4ae944 */ 	lw	$t2,-0x16bc($t2)
@@ -15119,7 +15119,7 @@ glabel func0f027e1c
 /*  f027b34:	8dcf0014 */ 	lw	$t7,0x14($t6)
 /*  f027b38:	35f80001 */ 	ori	$t8,$t7,0x1
 /*  f027b3c:	add80014 */ 	sw	$t8,0x14($t6)
-/*  f027b40:	0fc2bea2 */ 	jal	handGetDamage
+/*  f027b40:	0fc2bea2 */ 	jal	gsetGetDamage
 /*  f027b44:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f027b48:	8fb900f8 */ 	lw	$t9,0xf8($sp)
 /*  f027b4c:	3c09800a */ 	lui	$t1,0x800a

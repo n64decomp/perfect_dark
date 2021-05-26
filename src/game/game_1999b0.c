@@ -238,8 +238,8 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, s
 			struct model *model = NULL;
 			s32 side = -1;
 			s32 hitpart = HITPART_GENERAL;
-			struct shorthand hand = {WEAPON_FARSIGHT, 0, 0, FUNC_PRIMARY};
-			f32 damage = handGetDamage(&hand);
+			struct gset gset = {WEAPON_FARSIGHT, 0, 0, FUNC_PRIMARY};
+			f32 damage = gsetGetDamage(&gset);
 			s32 fallback = 30;
 			s32 value = fallback;
 
@@ -267,14 +267,14 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, s
 				if (oppchr != chr
 						&& value > rand
 						&& func0f06b39c(arg3, vector, &oppprop->pos, func0f0278a4(oppchr))) {
-					handPlayPropHitSound(&hand, oppprop, -1);
+					gsetPlayPropHitSound(&gset, oppprop, -1);
 
 					if (oppchr->model && chrGetShield(oppchr) > 0) {
 						chrCalculateShieldHit(oppchr, &oppprop->pos, vector, &node, &hitpart, &model, &side);
 					}
 
 					chrEmitSparks(oppchr, oppprop, hitpart, &oppprop->pos, vector, chr);
-					func0f0341dc(oppchr, damage, vector, &hand, chr->prop, HITPART_GENERAL, oppprop, node, model, side, 0);
+					func0f0341dc(oppchr, damage, vector, &gset, chr->prop, HITPART_GENERAL, oppprop, node, model, side, 0);
 				}
 			}
 
@@ -352,13 +352,13 @@ void func0f19a37c(struct chrdata *chr)
 	Mtxf sp84;
 	f32 sp80 = chrGetAimAngle(chr);
 	u32 stack;
-	struct shorthand hand = {0};
+	struct gset gset = {0};
 	struct prop *target = chrGetTargetProp(chr);
 	struct coord sp56;
 	f32 mult;
 
-	hand.weaponnum = chr->aibot->weaponnum;
-	hand.weaponfunc = chr->aibot->gunfunc;
+	gset.weaponnum = chr->aibot->weaponnum;
+	gset.weaponfunc = chr->aibot->gunfunc;
 
 	if (chrIsTargetInFov(chr, WEAPON_GRENADE, 0)) {
 		sp56.x = target->pos.x;
@@ -403,9 +403,9 @@ void func0f19a37c(struct chrdata *chr)
 	func00016374(sp80, &sp84);
 	func00015be0(&sp84, &sp164);
 
-	func0f09ee18(chr, &hand, &prop->pos, prop->rooms, &sp164, &sp228);
+	func0f09ee18(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
 
-	if (hand.weaponnum == WEAPON_REMOTEMINE) {
+	if (gset.weaponnum == WEAPON_REMOTEMINE) {
 		chr->aibot->unk064 |= 0x1000;
 	}
 }

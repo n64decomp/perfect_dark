@@ -2618,7 +2618,7 @@ glabel var7f1b8e7cpf
 .PF0f16af54:
 /*  f16af54:	26040638 */ 	addiu	$a0,$s0,0x638
 .PF0f16af58:
-/*  f16af58:	0fc2c8e8 */ 	jal	handHasFunctionFlags
+/*  f16af58:	0fc2c8e8 */ 	jal	gsetHasFunctionFlags
 /*  f16af5c:	3c050008 */ 	lui	$a1,0x8
 /*  f16af60:	10400005 */ 	beqz	$v0,.PF0f16af78
 /*  f16af64:	00000000 */ 	nop
@@ -3929,7 +3929,7 @@ Gfx *lvRender(Gfx *gdl)
 					g_Vars.currentplayer->lookingatprop.prop = NULL;
 				}
 
-				if (handHasFunctionFlags(&g_Vars.currentplayer->hands[0].base, FUNCFLAG_THREATDETECTOR)) {
+				if (gsetHasFunctionFlags(&g_Vars.currentplayer->hands[0].gset, FUNCFLAG_THREATDETECTOR)) {
 					lvFindThreats();
 				} else if (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
@@ -3976,12 +3976,12 @@ Gfx *lvRender(Gfx *gdl)
 						}
 					} else { // EYESPYMODE_BOMBSPY
 						struct coord vel = {0, 0, 0};
-						struct shorthand hand = {WEAPON_GRENADE, 0, 0, 0};
+						struct gset gset = {WEAPON_GRENADE, 0, 0, FUNC_PRIMARY};
 						explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
 								&g_Vars.currentplayer->eyespy->prop->pos,
 								g_Vars.currentplayer->eyespy->prop->rooms,
 								EXPLOSIONTYPE_23, 0);
-						chrBeginDeath(g_Vars.currentplayer->eyespy->prop->chr, &vel, 0, 0, &hand, false, 0);
+						chrBeginDeath(g_Vars.currentplayer->eyespy->prop->chr, &vel, 0, 0, &gset, false, 0);
 					}
 				}
 
@@ -5206,7 +5206,7 @@ glabel var7f1b1fd4nb
 .NB0f164c64:
 /*  f164c64:	26040638 */ 	addiu	$a0,$s0,0x638
 .NB0f164c68:
-/*  f164c68:	0fc2bf02 */ 	jal	handHasFunctionFlags
+/*  f164c68:	0fc2bf02 */ 	jal	gsetHasFunctionFlags
 /*  f164c6c:	3c050008 */ 	lui	$a1,0x8
 /*  f164c70:	10400005 */ 	beqz	$v0,.NB0f164c88
 /*  f164c74:	00000000 */ 	sll	$zero,$zero,0x0

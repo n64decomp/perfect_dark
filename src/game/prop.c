@@ -885,7 +885,7 @@ glabel var7f1a9eb8
 /*  f060e88:	c4e80008 */ 	lwc1	$f8,0x8($a3)
 /*  f060e8c:	0fc2c6bc */ 	jal	handPopulateFromCurrentPlayer
 /*  f060e90:	e7a80210 */ 	swc1	$f8,0x210($sp)
-/*  f060e94:	0fc2c41f */ 	jal	handGetWeaponFunction
+/*  f060e94:	0fc2c41f */ 	jal	gsetGetWeaponFunction
 /*  f060e98:	27a40214 */ 	addiu	$a0,$sp,0x214
 /*  f060e9c:	10400013 */ 	beqz	$v0,.L0f060eec
 /*  f060ea0:	afa201f0 */ 	sw	$v0,0x1f0($sp)
@@ -924,7 +924,7 @@ glabel var7f1a9eb8
 .L0f060f18:
 /*  f060f18:	53000006 */ 	beqzl	$t8,.L0f060f34
 /*  f060f1c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f060f20:	0fc2c71e */ 	jal	handGetSingleUnk3c
+/*  f060f20:	0fc2c71e */ 	jal	gsetGetSingleUnk3c
 /*  f060f24:	27a40214 */ 	addiu	$a0,$sp,0x214
 /*  f060f28:	10000003 */ 	b	.L0f060f38
 /*  f060f2c:	afa20234 */ 	sw	$v0,0x234($sp)
@@ -2267,7 +2267,7 @@ glabel func0f061fa8
 /*  f06226c:	00000000 */ 	nop
 );
 
-void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
+void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 {
 	s32 someval;
 	struct prop **ptr;
@@ -2312,7 +2312,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 			struct defaultobj *obj = prop->obj;
 			bool isbreakableobj = false;
 
-			if (obj && hand->weaponnum != WEAPON_TRANQUILIZER) {
+			if (obj && gset->weaponnum != WEAPON_TRANQUILIZER) {
 				isbreakableobj = obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS;
 			}
 
@@ -2332,7 +2332,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 				f32 spfc[2];
 				f32 spf4[2];
 				struct model *model;
-				struct weaponfunc *func = handGetWeaponFunction(hand);
+				struct weaponfunc *func = gsetGetWeaponFunction(gset);
 
 				if ((func->type & 0xff) == 3) {
 					struct weaponfunc_close *closefunc = (struct weaponfunc_close *)func;
@@ -2371,10 +2371,10 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 							handCalculateShotSpread(&spd8, &spcc, handnum, true);
 
 							if (func000225d4(model, &spd8, &spcc, &node) > 0) {
-								f32 damage = handGetDamage(hand) * 2.5f;
+								f32 damage = gsetGetDamage(gset) * 2.5f;
 								skipthething = true;
 								func0f0a8404(&playerprop->pos, playerprop->rooms, -1);
-								func0f085270(obj, damage, &prop->pos, hand->weaponnum, g_Vars.currentplayernum);
+								func0f085270(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
 								func0f070698(prop, false);
 							}
 						} else if (arg2) {
@@ -2391,7 +2391,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 								handCalculateShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
 								func00015b10(currentPlayerGetUnk174c(), &vector);
-								handPlayPropHitSound(hand, prop, -1);
+								gsetPlayPropHitSound(gset, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {
 									chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &hitpart, &model, &side);
@@ -2405,7 +2405,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2)
 									hitpart = HITPART_TORSO;
 								}
 
-								func0f0341dc(chr, handGetDamage(hand), &vector, hand,
+								func0f0341dc(chr, gsetGetDamage(gset), &vector, gset,
 										g_Vars.currentplayer->prop, hitpart, chr->prop, node, model, side, 0);
 							}
 						}
@@ -2450,7 +2450,7 @@ void handTickAttack(s32 handnum)
 
 		g_Vars.currentplayer->hands[handnum].unk0d0f_03 = false;
 
-		handPopulateFromCurrentPlayer(handnum, (struct shorthand *)&tmpweaponnum);
+		handPopulateFromCurrentPlayer(handnum, (struct gset *)&tmpweaponnum);
 		frIncrementNumShots();
 
 		switch (type) {
@@ -2459,7 +2459,7 @@ void handTickAttack(s32 handnum)
 			// right hand is not (ie. prevent firing both guns on the same tick)
 			if (handnum == HAND_RIGHT || !handIsFiring(HAND_RIGHT)) {
 				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-				mpstatsIncrementPlayerShotCount2((struct shorthand *)&tmpweaponnum, 0);
+				mpstatsIncrementPlayerShotCount2((struct gset *)&tmpweaponnum, 0);
 
 				if (weaponnum == WEAPON_SHOTGUN) {
 					handCreateBulletRaycast(handnum, true, true, 1, true);
@@ -2477,10 +2477,10 @@ void handTickAttack(s32 handnum)
 			break;
 		case HANDATTACKTYPE_CLOSERANGE:
 			chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
-			handInflictCloseRangeDamage(handnum, (struct shorthand *)&tmpweaponnum, false);
+			handInflictCloseRangeDamage(handnum, (struct gset *)&tmpweaponnum, false);
 			break;
 		case HANDATTACKTYPE_CLOSERANGENOUNCLOAK:
-			handInflictCloseRangeDamage(handnum, (struct shorthand *)&tmpweaponnum, true);
+			handInflictCloseRangeDamage(handnum, (struct gset *)&tmpweaponnum, true);
 			break;
 		case HANDATTACKTYPE_DETONATE:
 			playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
@@ -2505,7 +2505,7 @@ void handTickAttack(s32 handnum)
 			}
 			break;
 		case HANDATTACKTYPE_THROWPROJECTILE:
-			handCreateThrownProjectile(handnum, (struct shorthand *)&tmpweaponnum);
+			handCreateThrownProjectile(handnum, (struct gset *)&tmpweaponnum);
 			break;
 		case HANDATTACKTYPE_RCP120CLOAK:
 			cloaked = (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120) != 0;
@@ -6520,7 +6520,7 @@ void autoaimTick(void)
 	}
 
 	if (handGetWeaponNum(HAND_RIGHT) == WEAPON_CMP150
-			&& g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponfunc == FUNC_SECONDARY) {
+			&& g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY) {
 		iscmpsec = true;
 	}
 

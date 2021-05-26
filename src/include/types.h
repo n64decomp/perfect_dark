@@ -1057,8 +1057,8 @@ struct act_argh {
 	/*0x30*/ s32 lvframe60;
 };
 
-// The first 4 bytes of the hand struct
-struct shorthand {
+// Gun settings
+struct gset {
 	u8 weaponnum;
 	u8 unk0639;
 	u8 unk063a;
@@ -1069,7 +1069,7 @@ struct act_preargh {
 	/*0x2c*/ struct coord dir;
 	/*0x38*/ f32 relshotdir;
 	/*0x3c*/ s32 hitpart;
-	/*0x40*/ struct shorthand hand;
+	/*0x40*/ struct gset gset;
 	/*0x44*/ s32 aplayernum;
 };
 
@@ -2154,7 +2154,7 @@ struct abmag {
 
 // Weapon data per hand
 struct hand {
-	struct shorthand base;
+	struct gset gset;
 	/*0x063c*/ s8 firing;
 	/*0x063d*/ s8 flashon;
 	/*0x063e*/ u8 gunon;

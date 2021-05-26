@@ -402,7 +402,7 @@ bool func0f097df0(struct inventory_typef *arg0, struct hand *hand)
 
 	switch (arg0->unk00) {
 	case 4:
-		if (((hand->base.unk0639 >> arg0->unk02) & 1) == 0) {
+		if (((hand->gset.unk0639 >> arg0->unk02) & 1) == 0) {
 			result = false;
 		}
 		break;
@@ -484,7 +484,7 @@ void func0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inve
 
 void func0f098030(struct hand *hand, struct modelfiledata *arg1)
 {
-	struct weapon *weapon = weaponFindById(hand->base.weaponnum);
+	struct weapon *weapon = weaponFindById(hand->gset.weaponnum);
 	s32 i;
 	s32 j;
 
@@ -2027,7 +2027,7 @@ glabel var7f1ac1b0
 );
 #endif
 
-bool func0f098884(struct guncmd *cmd, struct shorthand *hand)
+bool func0f098884(struct guncmd *cmd, struct gset *gset)
 {
 	s32 result = false;
 
@@ -2039,7 +2039,7 @@ bool func0f098884(struct guncmd *cmd, struct shorthand *hand)
 		result = true;
 	}
 
-	if (cmd->unk01 == 2 && hand->weaponfunc == FUNC_SECONDARY) {
+	if (cmd->unk01 == 2 && gset->weaponfunc == FUNC_SECONDARY) {
 		result = true;
 	}
 
@@ -2054,7 +2054,7 @@ void func0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
 		u32 rand = random() % 100;
 
 		while (loopcmd->type != GUNCMD_END) {
-			if (func0f098884(loopcmd, &hand->base) && !done) {
+			if (func0f098884(loopcmd, &hand->gset) && !done) {
 				if (loopcmd->type == GUNCMD_INCLUDE) {
 					done = true;
 					func0f0988e0((struct guncmd *)loopcmd->unk04, handnum, hand);
@@ -2185,7 +2185,7 @@ void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum)
 s32 func0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 {
 	s32 result = 3;
-	struct weaponfunc *func = weaponGetFunction(&hand->base, funcnum);
+	struct weaponfunc *func = weaponGetFunction(&hand->gset, funcnum);
 
 	if (!func) {
 		return -1;
@@ -2457,7 +2457,7 @@ void func0f098f8c(struct handweaponinfo *info, struct hand *hand)
 	s32 i;
 
 	for (i = 0; i < 2; i++) {
-		if (weaponGetFunction(&hand->base, i)) {
+		if (weaponGetFunction(&hand->gset, i)) {
 			func0f098df8(i, info, hand, 0, 1);
 		}
 	}
@@ -2521,8 +2521,8 @@ bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 
 bool func0f099188(struct hand *hand, s32 gunfunc)
 {
-	struct weaponfunc *func = weaponGetFunction(&hand->base, gunfunc);
-	struct weapon *weapon = weaponFindById(hand->base.weaponnum);
+	struct weaponfunc *func = weaponGetFunction(&hand->gset, gunfunc);
+	struct weapon *weapon = weaponFindById(hand->gset.weaponnum);
 
 	if (currentPlayerIsUsingSecondaryFunction() == gunfunc) {
 		return false;
@@ -3337,20 +3337,20 @@ glabel handTickIncIdle
 //		return lvupdate;
 //	}
 //
-//	if (gunfunc == hand->base.weaponfunc) {
+//	if (gunfunc == hand->gset.weaponfunc) {
 //		hand->unk0cc8_07 = false;
 //	}
 //
 //	hand->unk0cc8_08 = false;
 //
 //	if (hand->inuse) {
-//		sp34 = func0f098ca0(hand->base.weaponfunc, info, hand);
+//		sp34 = func0f098ca0(hand->gset.weaponfunc, info, hand);
 //
 //		// Handle changing gun function
-//		if (gunfunc != hand->base.weaponfunc && hand->modenext != HANDMODE_RELOAD) {
+//		if (gunfunc != hand->gset.weaponfunc && hand->modenext != HANDMODE_RELOAD) {
 //			changefunc = true;
 //
-//			if (hand->unk0cc8_07 && func0f098ca0(1 - hand->base.weaponfunc, info, hand) < 0) {
+//			if (hand->unk0cc8_07 && func0f098ca0(1 - hand->gset.weaponfunc, info, hand) < 0) {
 //				changefunc = false;
 //			}
 //
@@ -3358,7 +3358,7 @@ glabel handTickIncIdle
 //				if (sp34 == 0) {
 //					hand->count60 = 0;
 //					hand->count = 0;
-//					hand->base.weaponfunc = gunfunc;
+//					hand->gset.weaponfunc = gunfunc;
 //
 //					if (handSetState(handnum, HANDSTATE_RELOAD)) {
 //						return lvupdate;
@@ -3395,12 +3395,12 @@ glabel handTickIncIdle
 //				&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)));
 //
 //			if (usesec == gunfunc) {
-//				sp30 = func0f098ca0(1 - hand->base.weaponfunc, info, hand);
+//				sp30 = func0f098ca0(1 - hand->gset.weaponfunc, info, hand);
 //
-//				if (func0f099188(hand, 1 - hand->base.weaponfunc)
+//				if (func0f099188(hand, 1 - hand->gset.weaponfunc)
 //						&& info->weaponnum != WEAPON_REAPER) {
 //					if (info->gunctrl->wantammo) {
-//						func = weaponGetFunction(&hand->base, 1 - hand->base.weaponfunc);
+//						func = weaponGetFunction(&hand->gset, 1 - hand->gset.weaponfunc);
 //
 //						if ((func->type & 0xff) != INVENTORYFUNCTYPE_CLOSE) {
 //							sp30 = -1;
@@ -3414,7 +3414,7 @@ glabel handTickIncIdle
 //					hand->unk0cc8_08 = true;
 //				} else {
 //					if (!weaponHasFlag(info->weaponnum, WEAPONFLAG_04000000)
-//							|| hand->base.weaponfunc == FUNC_SECONDARY) {
+//							|| hand->gset.weaponfunc == FUNC_SECONDARY) {
 //						hand->unk0cc8_07 = true;
 //
 //						if (handSetState(handnum, HANDSTATE_CHANGEFUNC)) {
@@ -3441,7 +3441,7 @@ glabel handTickIncIdle
 //			}
 //		} else {
 //			// Clip has ammo
-//			if (hand->triggeron || (hand->unk0d0f_03 && hand->base.weaponfunc == FUNC_SECONDARY)) {
+//			if (hand->triggeron || (hand->unk0d0f_03 && hand->gset.weaponfunc == FUNC_SECONDARY)) {
 //				if (info->weaponnum != WEAPON_NONE) {
 //					g_Vars.currentplayer->doautoselect = false;
 //
@@ -3556,11 +3556,11 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 			someval = func0f098ca0(gunfunc, info, hand);
 
 			if (info->weaponnum == WEAPON_TIMEDMINE || info->weaponnum == WEAPON_PROXIMITYMINE) {
-				hand->base.weaponfunc = gunfunc;
+				hand->gset.weaponfunc = gunfunc;
 			}
 
 			if (info->weaponnum == WEAPON_REMOTEMINE
-					&& gunfunc != hand->base.weaponfunc
+					&& gunfunc != hand->gset.weaponfunc
 					&& handSetState(handnum, HANDSTATE_CHANGEFUNC)) {
 				return lvupdate;
 			}
@@ -3581,7 +3581,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 						ready = false;
 					}
 
-					if (func0f099188(otherhand, otherhand->base.weaponfunc)) {
+					if (func0f099188(otherhand, otherhand->gset.weaponfunc)) {
 						ready = true;
 					}
 				}
@@ -3829,7 +3829,7 @@ glabel var7f1ac31c
 /*  f099c58:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f099c5c:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f099c60:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f099c64:	0fc2c41f */ 	jal	handGetWeaponFunction
+/*  f099c64:	0fc2c41f */ 	jal	gsetGetWeaponFunction
 /*  f099c68:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f099c6c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f099c70:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
@@ -4489,7 +4489,7 @@ glabel var7f1ac31c
 /*  f099c58:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f099c5c:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f099c60:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f099c64:	0fc2c41f */ 	jal	handGetWeaponFunction
+/*  f099c64:	0fc2c41f */ 	jal	gsetGetWeaponFunction
 /*  f099c68:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f099c6c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f099c70:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
@@ -5147,7 +5147,7 @@ glabel var7f1ac31c
 /*  f099c58:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f099c5c:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f099c60:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f099c64:	0fc2c41f */ 	jal	handGetWeaponFunction
+/*  f099c64:	0fc2c41f */ 	jal	gsetGetWeaponFunction
 /*  f099c68:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f099c6c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f099c70:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
@@ -5620,7 +5620,7 @@ glabel var7f1ac31c
 // Mismatch: Branch logic near e9c is different (but functionally the same)
 //s32 handTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 //{
-//	struct weaponfunc *func = handGetWeaponFunction(&hand->base);
+//	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
 //
 //	if (g_Vars.currentplayer->isdead) {
 //		hand->animmode = HANDANIMMODE_IDLE;
@@ -5689,9 +5689,9 @@ glabel var7f1ac31c
 //					if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
 //						s32 value;
 //
-//						func0f098df8(hand->base.weaponfunc, info, hand, 1, 0);
+//						func0f098df8(hand->gset.weaponfunc, info, hand, 1, 0);
 //						hand->stateflags |= HANDSTATEFLAG_00000010;
-//						value = func0f098ca0(hand->base.weaponfunc, info, hand);
+//						value = func0f098ca0(hand->gset.weaponfunc, info, hand);
 //
 //						if (value >= 2) {
 //							hand->unk0cc8_03 = false;
@@ -5711,7 +5711,7 @@ glabel var7f1ac31c
 //			} else {
 //				if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
 //					if (func0f098a44(hand, 1)) {
-//						func0f098df8(hand->base.weaponfunc, info, hand, 0, 0);
+//						func0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
 //						hand->stateflags |= HANDSTATEFLAG_00000010;
 //					}
 //				}
@@ -5749,7 +5749,7 @@ glabel var7f1ac31c
 //			}
 //
 //			if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
-//				func0f098df8(hand->base.weaponfunc, info, hand, 0, 0);
+//				func0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
 //			}
 //
 //			if (g_Vars.lvupdate240 > 0
@@ -5823,12 +5823,12 @@ s32 handTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand 
 	bool more = false;
 
 	if (hand->statecycles == 0) {
-		if (hand->base.weaponfunc == FUNC_PRIMARY) {
-			cmd = handGetPriToSecAnim(&hand->base);
-			hand->base.weaponfunc = FUNC_SECONDARY;
+		if (hand->gset.weaponfunc == FUNC_PRIMARY) {
+			cmd = gsetGetPriToSecAnim(&hand->gset);
+			hand->gset.weaponfunc = FUNC_SECONDARY;
 		} else {
-			cmd = handGetSecToPriAnim(&hand->base);
-			hand->base.weaponfunc = FUNC_PRIMARY;
+			cmd = gsetGetSecToPriAnim(&hand->gset);
+			hand->gset.weaponfunc = FUNC_PRIMARY;
 		}
 
 		more = false;
@@ -5918,7 +5918,7 @@ s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func)
 			if (hand->burstbullets > 0) {
 				s32 delay = 3;
 
-				if (hand->base.weaponnum == WEAPON_SHOTGUN) {
+				if (hand->gset.weaponnum == WEAPON_SHOTGUN) {
 					delay = PALDOWN(13);
 				}
 
@@ -6137,7 +6137,7 @@ glabel var7f1ac320
 .L0f09a920:
 /*  f09a920:	1040009b */ 	beqz	$v0,.L0f09ab90
 /*  f09a924:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09a928:	0fc2c78a */ 	jal	handGetSingleUnk38
+/*  f09a928:	0fc2c78a */ 	jal	gsetGetSingleUnk38
 /*  f09a92c:	afa00044 */ 	sw	$zero,0x44($sp)
 /*  f09a930:	1840001e */ 	blez	$v0,.L0f09a9ac
 /*  f09a934:	8fa30044 */ 	lw	$v1,0x44($sp)
@@ -6162,7 +6162,7 @@ glabel var7f1ac320
 /*  f09a980:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f09a984:	1020000d */ 	beqz	$at,.L0f09a9bc
 /*  f09a988:	00000000 */ 	nop
-/*  f09a98c:	0fc2c78a */ 	jal	handGetSingleUnk38
+/*  f09a98c:	0fc2c78a */ 	jal	gsetGetSingleUnk38
 /*  f09a990:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09a994:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
 /*  f09a998:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
@@ -6207,7 +6207,7 @@ glabel var7f1ac320
 /*  f09aa28:	0c00cec9 */ 	jal	audioStop
 /*  f09aa2c:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
 .L0f09aa30:
-/*  f09aa30:	0fc2c79a */ 	jal	handGetSingleShootSound
+/*  f09aa30:	0fc2c79a */ 	jal	gsetGetSingleShootSound
 /*  f09aa34:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aa38:	50400053 */ 	beqzl	$v0,.L0f09ab88
 /*  f09aa3c:	00002025 */ 	or	$a0,$zero,$zero
@@ -6215,7 +6215,7 @@ glabel var7f1ac320
 /*  f09aa44:	00002025 */ 	or	$a0,$zero,$zero
 /*  f09aa48:	55400017 */ 	bnezl	$t2,.L0f09aaa8
 /*  f09aa4c:	8e0e01d0 */ 	lw	$t6,0x1d0($s0)
-/*  f09aa50:	0fc2c79a */ 	jal	handGetSingleShootSound
+/*  f09aa50:	0fc2c79a */ 	jal	gsetGetSingleShootSound
 /*  f09aa54:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aa58:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f09aa5c:	44814000 */ 	mtc1	$at,$f8
@@ -6240,7 +6240,7 @@ glabel var7f1ac320
 .L0f09aaa8:
 /*  f09aaa8:	55c00016 */ 	bnezl	$t6,.L0f09ab04
 /*  f09aaac:	920b0000 */ 	lbu	$t3,0x0($s0)
-/*  f09aab0:	0fc2c79a */ 	jal	handGetSingleShootSound
+/*  f09aab0:	0fc2c79a */ 	jal	gsetGetSingleShootSound
 /*  f09aab4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aab8:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f09aabc:	44815000 */ 	mtc1	$at,$f10
@@ -6467,7 +6467,7 @@ glabel var7f1ac320
 .L0f09a920:
 /*  f09a920:	1040009b */ 	beqz	$v0,.L0f09ab90
 /*  f09a924:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09a928:	0fc2c78a */ 	jal	handGetSingleUnk38
+/*  f09a928:	0fc2c78a */ 	jal	gsetGetSingleUnk38
 /*  f09a92c:	afa00044 */ 	sw	$zero,0x44($sp)
 /*  f09a930:	1840001e */ 	blez	$v0,.L0f09a9ac
 /*  f09a934:	8fa30044 */ 	lw	$v1,0x44($sp)
@@ -6492,7 +6492,7 @@ glabel var7f1ac320
 /*  f09a980:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f09a984:	1020000d */ 	beqz	$at,.L0f09a9bc
 /*  f09a988:	00000000 */ 	nop
-/*  f09a98c:	0fc2c78a */ 	jal	handGetSingleUnk38
+/*  f09a98c:	0fc2c78a */ 	jal	gsetGetSingleUnk38
 /*  f09a990:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09a994:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
 /*  f09a998:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
@@ -6537,7 +6537,7 @@ glabel var7f1ac320
 /*  f09aa28:	0c00cec9 */ 	jal	audioStop
 /*  f09aa2c:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
 .L0f09aa30:
-/*  f09aa30:	0fc2c79a */ 	jal	handGetSingleShootSound
+/*  f09aa30:	0fc2c79a */ 	jal	gsetGetSingleShootSound
 /*  f09aa34:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aa38:	50400053 */ 	beqzl	$v0,.L0f09ab88
 /*  f09aa3c:	00002025 */ 	or	$a0,$zero,$zero
@@ -6545,7 +6545,7 @@ glabel var7f1ac320
 /*  f09aa44:	00002025 */ 	or	$a0,$zero,$zero
 /*  f09aa48:	55400017 */ 	bnezl	$t2,.L0f09aaa8
 /*  f09aa4c:	8e0e01d0 */ 	lw	$t6,0x1d0($s0)
-/*  f09aa50:	0fc2c79a */ 	jal	handGetSingleShootSound
+/*  f09aa50:	0fc2c79a */ 	jal	gsetGetSingleShootSound
 /*  f09aa54:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aa58:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f09aa5c:	44814000 */ 	mtc1	$at,$f8
@@ -6570,7 +6570,7 @@ glabel var7f1ac320
 .L0f09aaa8:
 /*  f09aaa8:	55c00016 */ 	bnezl	$t6,.L0f09ab04
 /*  f09aaac:	920b0000 */ 	lbu	$t3,0x0($s0)
-/*  f09aab0:	0fc2c79a */ 	jal	handGetSingleShootSound
+/*  f09aab0:	0fc2c79a */ 	jal	gsetGetSingleShootSound
 /*  f09aab4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09aab8:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f09aabc:	44815000 */ 	mtc1	$at,$f10
@@ -6797,7 +6797,7 @@ glabel var7f1ac320
 .NB0f09895c:
 /*  f09895c:	1040008f */ 	beqz	$v0,.NB0f098b9c
 /*  f098960:	02002025 */ 	or	$a0,$s0,$zero
-/*  f098964:	0fc2bee2 */ 	jal	handGetSingleUnk38
+/*  f098964:	0fc2bee2 */ 	jal	gsetGetSingleUnk38
 /*  f098968:	afa0003c */ 	sw	$zero,0x3c($sp)
 /*  f09896c:	1840001e */ 	blez	$v0,.NB0f0989e8
 /*  f098970:	8fa3003c */ 	lw	$v1,0x3c($sp)
@@ -6822,7 +6822,7 @@ glabel var7f1ac320
 /*  f0989bc:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f0989c0:	1020000d */ 	beqz	$at,.NB0f0989f8
 /*  f0989c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0989c8:	0fc2bee2 */ 	jal	handGetSingleUnk38
+/*  f0989c8:	0fc2bee2 */ 	jal	gsetGetSingleUnk38
 /*  f0989cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0989d0:	3c18800a */ 	lui	$t8,0x800a
 /*  f0989d4:	8f18e6c8 */ 	lw	$t8,-0x1938($t8)
@@ -6858,7 +6858,7 @@ glabel var7f1ac320
 /*  f098a40:	0c00d428 */ 	jal	audioStop
 /*  f098a44:	8e0401d0 */ 	lw	$a0,0x1d0($s0)
 .NB0f098a48:
-/*  f098a48:	0fc2bef2 */ 	jal	handGetSingleShootSound
+/*  f098a48:	0fc2bef2 */ 	jal	gsetGetSingleShootSound
 /*  f098a4c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f098a50:	50400053 */ 	beqzl	$v0,.NB0f098ba0
 /*  f098a54:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -6866,7 +6866,7 @@ glabel var7f1ac320
 /*  f098a5c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f098a60:	55400017 */ 	bnezl	$t2,.NB0f098ac0
 /*  f098a64:	8e0e01d0 */ 	lw	$t6,0x1d0($s0)
-/*  f098a68:	0fc2bef2 */ 	jal	handGetSingleShootSound
+/*  f098a68:	0fc2bef2 */ 	jal	gsetGetSingleShootSound
 /*  f098a6c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f098a70:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f098a74:	44814000 */ 	mtc1	$at,$f8
@@ -6891,7 +6891,7 @@ glabel var7f1ac320
 .NB0f098ac0:
 /*  f098ac0:	55c00016 */ 	bnezl	$t6,.NB0f098b1c
 /*  f098ac4:	920b0000 */ 	lbu	$t3,0x0($s0)
-/*  f098ac8:	0fc2bef2 */ 	jal	handGetSingleShootSound
+/*  f098ac8:	0fc2bef2 */ 	jal	gsetGetSingleShootSound
 /*  f098acc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f098ad0:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f098ad4:	44815000 */ 	mtc1	$at,$f10
@@ -6996,7 +6996,7 @@ const char var7f1ab898[] = "rofftime";
 //	} else {
 //		hand->shotstotake = 1;
 //
-//		if (hand->base.weaponnum == WEAPON_LASER) {
+//		if (hand->gset.weaponnum == WEAPON_LASER) {
 //			usesammo = false;
 //		}
 //	}
@@ -7044,10 +7044,10 @@ const char var7f1ab898[] = "rofftime";
 //	if (hand->firing) {
 //		bool playsound = false;
 //
-//		if (handGetSingleUnk38(&hand->base) > 0) {
+//		if (gsetGetSingleUnk38(&hand->gset) > 0) {
 //			if (g_Vars.lvframe60 != g_Vars.currentplayer->hands[1 - handnum].lastshootframe60
 //					&& g_Vars.lvframe60 > hand->allowshootframe) {
-//				hand->allowshootframe = g_Vars.lvframe60 + handGetSingleUnk38(&hand->base);
+//				hand->allowshootframe = g_Vars.lvframe60 + gsetGetSingleUnk38(&hand->gset);
 //				playsound = true;
 //			}
 //		} else {
@@ -7072,13 +7072,13 @@ const char var7f1ab898[] = "rofftime";
 //				audioStop(hand->audiohandle3);
 //			}
 //
-//			if (handGetSingleShootSound(&hand->base)) {
+//			if (gsetGetSingleShootSound(&hand->gset)) {
 //				handle = NULL;
 //
 //				if (hand->audiohandle2 == NULL) {
-//					handle = sndStart(var80095200, handGetSingleShootSound(&hand->base), &hand->audiohandle2, -1, -1, -1, -1, -1);
+//					handle = sndStart(var80095200, gsetGetSingleShootSound(&hand->gset), &hand->audiohandle2, -1, -1, -1, -1, -1);
 //				} else if (hand->audiohandle3 == NULL) {
-//					handle = sndStart(var80095200, handGetSingleShootSound(&hand->base), &hand->audiohandle3, -1, -1, -1, -1, -1);
+//					handle = sndStart(var80095200, gsetGetSingleShootSound(&hand->gset), &hand->audiohandle3, -1, -1, -1, -1, -1);
 //				}
 //			}
 //
@@ -7089,7 +7089,7 @@ const char var7f1ab898[] = "rofftime";
 //			 * because the branch above (which clears handle) should always be
 //			 * taken for the Mauler.
 //			 */
-//			if (hand->base.weaponnum == WEAPON_MAULER && handle) {
+//			if (hand->gset.weaponnum == WEAPON_MAULER && handle) {
 //				f32 frac = (s32)hand->matmot1 / 3.0f;
 //				f32 tmp;
 //
@@ -7262,7 +7262,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 {
 	static u32 var80070128 = 99;
 
-	struct weaponfunc *func = handGetWeaponFunction(&hand->base);
+	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
 	bool sp68;
 	s32 sp64;
 	s32 sp60;
@@ -7339,7 +7339,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 			sp68 = true;
 		}
 
-		if (hand->base.weaponnum == WEAPON_SHOTGUN && hand->animmode == HANDANIMMODE_BUSY) {
+		if (hand->gset.weaponnum == WEAPON_SHOTGUN && hand->animmode == HANDANIMMODE_BUSY) {
 			sp68 = false;
 		}
 
@@ -7349,7 +7349,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 			hand->matmot2 = 0;
 		}
 
-		if (hand->base.weaponnum == WEAPON_MAULER) {
+		if (hand->gset.weaponnum == WEAPON_MAULER) {
 			hand->matmot1 = 0;
 		}
 
@@ -7361,7 +7361,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 
 bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 {
-	struct weaponfunc_throw *func = (struct weaponfunc_throw *) handGetWeaponFunction(&hand->base);
+	struct weaponfunc_throw *func = (struct weaponfunc_throw *) gsetGetWeaponFunction(&hand->gset);
 
 	if (func == NULL) {
 		return true;
@@ -7370,7 +7370,7 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	if (hand->stateminor == 0) {
 		if (hand->statecycles == 0) {
 			if (func->base.flags & FUNCFLAG_DISCARDWEAPON) {
-				invRemoveItemByNum(hand->base.weaponnum);
+				invRemoveItemByNum(hand->gset.weaponnum);
 				g_Vars.currentplayer->gunctrl.unk1583_04 = true;
 #if VERSION >= VERSION_NTSC_1_0
 				func0f0a1ab0();
@@ -7414,7 +7414,7 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 			return true;
 		}
 
-		if (hand->base.weaponnum == WEAPON_REMOTEMINE
+		if (hand->gset.weaponnum == WEAPON_REMOTEMINE
 				&& currentPlayerIsUsingSecondaryFunction() == true
 				&& hand->triggerreleased
 				&& hand->triggeron) {
@@ -7440,8 +7440,8 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	hand->primetimer = hand->stateframes;
 
 	// If held a grenade too long, force throw it and enter the wait state
-	if (hand->base.weaponnum == WEAPON_GRENADE
-			&& hand->base.weaponfunc == FUNC_PRIMARY
+	if (hand->gset.weaponnum == WEAPON_GRENADE
+			&& hand->gset.weaponfunc == FUNC_PRIMARY
 			&& hand->primetimer > PALDOWN(func->activatetime60)) {
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
@@ -7700,13 +7700,13 @@ u32 var8007035c = 0x0029002a;
 
 bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 {
-	struct weaponfunc *func = handGetWeaponFunction(&hand->base);
+	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
 
 	if (func == NULL) {
 		return true;
 	}
 
-	if (hand->base.weaponnum == WEAPON_REAPER) {
+	if (hand->gset.weaponnum == WEAPON_REAPER) {
 		if (hand->statecycles == 0) {
 			hand->matmot2 = 0.1f;
 			hand->burstbullets = 0;
@@ -7768,7 +7768,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 		hand->firing = true;
 		hand->attacktype = HANDATTACKTYPE_CLOSERANGE;
 
-		if (hand->base.weaponnum == WEAPON_TRANQUILIZER && func->ammoindex >= 0) {
+		if (hand->gset.weaponnum == WEAPON_TRANQUILIZER && func->ammoindex >= 0) {
 			if (hand->loadedammo[func->ammoindex] > weaponGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY)) {
 				hand->loadedammo[func->ammoindex] -= weaponGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
 			} else {
@@ -7796,7 +7796,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 			return true;
 		}
 
-		if (cheatIsActive(CHEAT_HURRICANEFISTS) && hand->base.weaponnum == WEAPON_UNARMED) {
+		if (cheatIsActive(CHEAT_HURRICANEFISTS) && hand->gset.weaponnum == WEAPON_UNARMED) {
 			return true;
 		}
 
@@ -7812,7 +7812,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 
 bool handTickIncAttackingSpecial(struct hand *hand)
 {
-	struct weaponfunc_special *func = (struct weaponfunc_special *) handGetWeaponFunction(&hand->base);
+	struct weaponfunc_special *func = (struct weaponfunc_special *) gsetGetWeaponFunction(&hand->gset);
 
 	if (!func) {
 		return true;
@@ -7883,7 +7883,7 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				struct weaponfunc *func = NULL;
 
 				if (info->definition) {
-					func = handGetWeaponFunction(&hand->base);
+					func = gsetGetWeaponFunction(&hand->gset);
 				}
 
 				if (func && func->fire_animation) {
@@ -8013,7 +8013,7 @@ s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 	u32 stack2;
 
 	if (info->definition) {
-		func = handGetWeaponFunction(&hand->base);
+		func = gsetGetWeaponFunction(&hand->gset);
 	}
 
 	if (func != NULL) {
@@ -8034,8 +8034,8 @@ s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 	}
 
 	if (finished) {
-		if (hand->base.weaponnum == WEAPON_REAPER && hand->triggeron) {
-			hand->base.weaponfunc = FUNC_SECONDARY;
+		if (hand->gset.weaponnum == WEAPON_REAPER && hand->triggeron) {
+			hand->gset.weaponfunc = FUNC_SECONDARY;
 			finished = false;
 		}
 
@@ -8056,7 +8056,7 @@ bool handIsReadyToSwitch(s32 handnum)
 
 	// Dont switch if... something firing range related
 	if (g_FrIsValidWeapon
-			&& frGetWeaponBySlot(frGetSlot()) == player->hands[HAND_RIGHT].base.weaponnum
+			&& frGetWeaponBySlot(frGetSlot()) == player->hands[HAND_RIGHT].gset.weaponnum
 			&& g_Vars.currentplayer->gunctrl.unk1583_04 == false) {
 		return false;
 	}
@@ -8238,7 +8238,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				if (g_Vars.currentplayer->gunctrl.unk1583_04 == 1 && hand->inuse) {
 					hand->firing = true;
 					hand->attacktype = HANDATTACKTYPE_THROWPROJECTILE;
-					hand->base.weaponfunc = FUNC_SECONDARY;
+					hand->gset.weaponfunc = FUNC_SECONDARY;
 				}
 			}
 		} else {
@@ -8287,7 +8287,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 			delay = PALDOWN(12);
 		}
 
-		if (weaponHasFlag(hand->base.weaponnum, WEAPONFLAG_00004000)) {
+		if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00004000)) {
 			hand->animmode = HANDANIMMODE_IDLE;
 		} else if (weapon->equip_animation) {
 			delay = 1;
@@ -8456,7 +8456,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 			hand->mode = HANDMODE_NONE;
 			hand->stateminor++;
 
-			if (weaponHasFlag(hand->base.weaponnum, WEAPONFLAG_00004000) == 0) {
+			if (weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00004000) == 0) {
 				hand->unk0cc8_02 = false;
 			}
 
@@ -8469,7 +8469,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 	// Wait for equip animation to finish then go to idle state
 	if (hand->stateminor == 4) {
-		if (info->definition->equip_animation && !weaponHasFlag(hand->base.weaponnum, WEAPONFLAG_00004000)) {
+		if (info->definition->equip_animation && !weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00004000)) {
 			if (hand->animmode == HANDANIMMODE_IDLE) {
 				if (handSetState(handnum, HANDSTATE_IDLE)) {
 					return lvupdate;
@@ -8557,7 +8557,7 @@ bool handSetState(s32 handnum, s32 state)
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
 	// Sanity check - don't allow changing function if there is no other
-	if (state == HANDSTATE_CHANGEFUNC && weaponGetFunction(&hand->base, 1 - hand->base.weaponfunc) == NULL) {
+	if (state == HANDSTATE_CHANGEFUNC && weaponGetFunction(&hand->gset, 1 - hand->gset.weaponfunc) == NULL) {
 		valid = false;
 	}
 
@@ -8713,8 +8713,8 @@ void currentPlayerDecreaseNoiseRadius(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 consideramount;
-	struct shorthand shortleft;
-	struct shorthand shortright;
+	struct gset shortleft;
+	struct gset shortright;
 	f32 sp3c[5];
 	f32 sp28[5];
 	f32 subamount;
@@ -10514,7 +10514,7 @@ glabel func0f09e4e0
 .L0f09e818:
 /*  f09e818:	02802025 */ 	or	$a0,$s4,$zero
 /*  f09e81c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f09e820:	0fc2c40f */ 	jal	handGetWeaponFunction2
+/*  f09e820:	0fc2c40f */ 	jal	gsetGetWeaponFunction2
 /*  f09e824:	2415ffff */ 	addiu	$s5,$zero,-1
 /*  f09e828:	00408025 */ 	or	$s0,$v0,$zero
 /*  f09e82c:	0fc2c3f4 */ 	jal	weaponFindById
@@ -10921,7 +10921,7 @@ glabel func0f09e4e0
 .NB0f09c6c4:
 /*  f09c6c4:	02802025 */ 	or	$a0,$s4,$zero
 /*  f09c6c8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f09c6cc:	0fc2bb67 */ 	jal	handGetWeaponFunction2
+/*  f09c6cc:	0fc2bb67 */ 	jal	gsetGetWeaponFunction2
 /*  f09c6d0:	2415ffff */ 	addiu	$s5,$zero,-1
 /*  f09c6d4:	00408025 */ 	or	$s0,$v0,$zero
 /*  f09c6d8:	0fc2bb4c */ 	jal	weaponFindById
@@ -11216,12 +11216,12 @@ void func0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 
 /**
  * Create a thrown projectile.
  */
-struct weaponobj *func0f09ee18(struct chrdata *chr, struct shorthand *hand, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
+struct weaponobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
 {
 	struct weaponobj *thing = NULL;
 	struct weaponfunc *basefunc;
 	struct weaponfunc_throw *func;
-	struct weapon *weapon = weaponFindById(hand->weaponnum);
+	struct weapon *weapon = weaponFindById(gset->weaponnum);
 	struct weaponobj *tmpthing;
 	s32 playernum;
 	f32 mf[4][4];
@@ -11231,28 +11231,28 @@ struct weaponobj *func0f09ee18(struct chrdata *chr, struct shorthand *hand, stru
 		return false;
 	}
 
-	basefunc = weapon->functions[hand->weaponfunc];
+	basefunc = weapon->functions[gset->weaponfunc];
 	func = (struct weaponfunc_throw *) basefunc;
 
 	if (func == NULL) {
 		return false;
 	}
 
-	if (hand->weaponnum == WEAPON_COMBATKNIFE) {
+	if (gset->weaponnum == WEAPON_COMBATKNIFE) {
 		guRotateF(mf, 90.0f / (random() * (1.0f / U32_MAX) + 12.1f),
 				arg4->m[1][0], arg4->m[1][1], arg4->m[1][2]);
 	} else {
 		func0f096360(mf);
 	}
 
-	if (hand->weaponnum == WEAPON_LAPTOPGUN) {
-		tmpthing = func0f08b27c(func->projectilemodelnum, hand, chr);
+	if (gset->weaponnum == WEAPON_LAPTOPGUN) {
+		tmpthing = func0f08b27c(func->projectilemodelnum, gset, chr);
 
 		if (tmpthing != NULL) {
 			thing = tmpthing;
 		}
 	} else {
-		tmpthing = func0f08b658(func->projectilemodelnum, hand, chr);
+		tmpthing = func0f08b658(func->projectilemodelnum, gset, chr);
 
 		if (tmpthing != NULL) {
 			thing = tmpthing;
@@ -11482,7 +11482,7 @@ glabel var7f1ac72c
 /*  f09f34c:	100000a9 */ 	b	.L0f09f5f4
 /*  f09f350:	e7a8023c */ 	swc1	$f8,0x23c($sp)
 .L0f09f354:
-/*  f09f354:	0fc2c7aa */ 	jal	handHasFunctionFlags
+/*  f09f354:	0fc2c7aa */ 	jal	gsetHasFunctionFlags
 /*  f09f358:	3c050080 */ 	lui	$a1,0x80
 /*  f09f35c:	10400087 */ 	beqz	$v0,.L0f09f57c
 /*  f09f360:	3c017f1b */ 	lui	$at,%hi(var7f1ac714)
@@ -11998,7 +11998,7 @@ glabel var7f1ac72c
 /*  f09f34c:	100000a9 */ 	b	.L0f09f5f4
 /*  f09f350:	e7a8023c */ 	swc1	$f8,0x23c($sp)
 .L0f09f354:
-/*  f09f354:	0fc2c7aa */ 	jal	handHasFunctionFlags
+/*  f09f354:	0fc2c7aa */ 	jal	gsetHasFunctionFlags
 /*  f09f358:	3c050080 */ 	lui	$a1,0x80
 /*  f09f35c:	10400087 */ 	beqz	$v0,.L0f09f57c
 /*  f09f360:	3c017f1b */ 	lui	$at,%hi(var7f1ac714)
@@ -12523,7 +12523,7 @@ glabel var7f1ac740
 /*  f09ff04:	00000000 */ 	nop
 /*  f09ff08:	46803420 */ 	cvt.s.w	$f16,$f6
 /*  f09ff0c:	46008282 */ 	mul.s	$f10,$f16,$f0
-/*  f09ff10:	0fc2c8e8 */ 	jal	handHasFunctionFlags
+/*  f09ff10:	0fc2c8e8 */ 	jal	gsetHasFunctionFlags
 /*  f09ff14:	e7aa025c */ 	swc1	$f10,0x25c($sp)
 /*  f09ff18:	1040007a */ 	beqz	$v0,.PF0f0a0104
 /*  f09ff1c:	00002025 */ 	move	$a0,$zero
@@ -13158,7 +13158,7 @@ glabel var7f1ac740
 /*  f09fc00:	00000000 */ 	nop
 /*  f09fc04:	46803420 */ 	cvt.s.w	$f16,$f6
 /*  f09fc08:	46008282 */ 	mul.s	$f10,$f16,$f0
-/*  f09fc0c:	0fc2c7aa */ 	jal	handHasFunctionFlags
+/*  f09fc0c:	0fc2c7aa */ 	jal	gsetHasFunctionFlags
 /*  f09fc10:	e7aa025c */ 	swc1	$f10,0x25c($sp)
 /*  f09fc14:	1040007a */ 	beqz	$v0,.L0f09fe00
 /*  f09fc18:	00002025 */ 	or	$a0,$zero,$zero
@@ -13784,7 +13784,7 @@ glabel var7f1ac740
 /*  f09da74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09da78:	46803420 */ 	cvt.s.w	$f16,$f6
 /*  f09da7c:	46008282 */ 	mul.s	$f10,$f16,$f0
-/*  f09da80:	0fc2bf02 */ 	jal	handHasFunctionFlags
+/*  f09da80:	0fc2bf02 */ 	jal	gsetHasFunctionFlags
 /*  f09da84:	e7aa025c */ 	swc1	$f10,0x25c($sp)
 /*  f09da88:	1040007a */ 	beqz	$v0,.NB0f09dc74
 /*  f09da8c:	00002025 */ 	or	$a0,$zero,$zero
@@ -15803,11 +15803,11 @@ void func0f0a1528(void)
 				player->hands[i].loadslide = 0.0f;
 				player->hands[i].allowshootframe = 0;
 				player->hands[i].lastshootframe60 = 0;
-				player->hands[i].base.weaponfunc = FUNC_PRIMARY;
+				player->hands[i].gset.weaponfunc = FUNC_PRIMARY;
 
-				player->hands[i].base.weaponnum = ctrl->weaponnum;
+				player->hands[i].gset.weaponnum = ctrl->weaponnum;
 
-				player->hands[i].base.unk0639 = (ctrl->upgradewant >> (i * 4)) & 0xf;
+				player->hands[i].gset.unk0639 = (ctrl->upgradewant >> (i * 4)) & 0xf;
 				player->hands[i].ganstarot = 0.0f;
 
 				func0f0abd30(i);
@@ -16906,7 +16906,7 @@ bool func0f0a27c8(void)
 	struct weaponfunc *func;
 
 	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
-	func = handGetWeaponFunction2(&hand->base);
+	func = gsetGetWeaponFunction2(&hand->gset);
 
 	if (func
 			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
@@ -16920,7 +16920,7 @@ bool func0f0a27c8(void)
 	hand = &g_Vars.currentplayer->hands[HAND_LEFT];
 
 	if (hand->inuse) {
-		func = handGetWeaponFunction2(&hand->base);
+		func = gsetGetWeaponFunction2(&hand->gset);
 
 		if (func
 				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
@@ -16946,7 +16946,7 @@ bool func0f0a28d8(void)
 	struct weaponfunc *func;
 
 	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
-	func = handGetWeaponFunction2(&hand->base);
+	func = gsetGetWeaponFunction2(&hand->gset);
 
 	if (func
 			&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
@@ -16959,7 +16959,7 @@ bool func0f0a28d8(void)
 	hand = &g_Vars.currentplayer->hands[HAND_LEFT];
 
 	if (hand->inuse) {
-		func = handGetWeaponFunction2(&hand->base);
+		func = gsetGetWeaponFunction2(&hand->gset);
 
 		if (func
 				&& (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE
@@ -17019,7 +17019,7 @@ bool weaponIsMissionCritical(s32 weaponnum)
 void currentPlayerLoseGun(struct prop *attackerprop)
 {
 	struct player *player = g_Vars.currentplayer;
-	s32 weaponnum = player->hands[0].base.weaponnum;
+	s32 weaponnum = player->hands[0].gset.weaponnum;
 	struct chrdata *chr;
 	s32 modelnum;
 	s32 i;
@@ -17057,13 +17057,13 @@ void currentPlayerLoseGun(struct prop *attackerprop)
 		// Or drop it at player's feet with the pin pulled maybe...
 		if (weaponnum == WEAPON_GRENADE || weaponnum == WEAPON_NBOMB) {
 			for (i = 0; i < 2; i++) {
-				struct weaponfunc *func = handGetWeaponFunction(&player->hands[i].base);
+				struct weaponfunc *func = gsetGetWeaponFunction(&player->hands[i].gset);
 
 				if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW
 						&& player->hands[i].state == HANDSTATE_ATTACK
 						&& player->hands[i].stateminor == 0) {
 					drop = false;
-					handCreateThrownProjectile(i + 2, &player->hands[i].base);
+					handCreateThrownProjectile(i + 2, &player->hands[i].gset);
 				}
 			}
 		}
@@ -17404,7 +17404,7 @@ void playerDetonateRemoteMines(s32 playernum)
 	s32 prevplayernum = g_Vars.currentplayernum;
 	setCurrentPlayerNum(playernum);
 
-	if (g_Vars.currentplayer->hands[HAND_LEFT].base.weaponnum == WEAPON_REMOTEMINE) {
+	if (g_Vars.currentplayer->hands[HAND_LEFT].gset.weaponnum == WEAPON_REMOTEMINE) {
 		func0f0988e0(var80070200, 1, &g_Vars.currentplayer->hands[HAND_LEFT]);
 	}
 
@@ -19837,7 +19837,7 @@ glabel var7f1ac8c4
 
 void func0f0a4334(struct hand *hand)
 {
-	if (hand->firing && hand->base.weaponfunc == FUNC_SECONDARY) {
+	if (hand->firing && hand->gset.weaponfunc == FUNC_SECONDARY) {
 		if (hand->audiohandle == NULL && g_Vars.lvupdate240 != 0) {
 			sndStart(var80095200, SFX_LASER_STREAM, &hand->audiohandle, -1, -1, -1, -1, -1);
 		}
@@ -21920,7 +21920,7 @@ glabel var7f1add20pf
 /*  f0a593c:	00000000 */ 	nop
 /*  f0a5940:	afaf01c0 */ 	sw	$t7,0x1c0($sp)
 .PF0f0a5944:
-/*  f0a5944:	0fc2c53f */ 	jal	handGetWeaponFunction2
+/*  f0a5944:	0fc2c53f */ 	jal	gsetGetWeaponFunction2
 /*  f0a5948:	02002025 */ 	move	$a0,$s0
 /*  f0a594c:	10400007 */ 	beqz	$v0,.PF0f0a596c
 /*  f0a5950:	afa201d8 */ 	sw	$v0,0x1d8($sp)
@@ -23459,7 +23459,7 @@ glabel var7f1aca70
 /*  f0a5624:	00000000 */ 	nop
 /*  f0a5628:	afaf01b8 */ 	sw	$t7,0x1b8($sp)
 .L0f0a562c:
-/*  f0a562c:	0fc2c40f */ 	jal	handGetWeaponFunction2
+/*  f0a562c:	0fc2c40f */ 	jal	gsetGetWeaponFunction2
 /*  f0a5630:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a5634:	10400007 */ 	beqz	$v0,.L0f0a5654
 /*  f0a5638:	afa201d0 */ 	sw	$v0,0x1d0($sp)
@@ -24794,7 +24794,7 @@ void handsTickMaulerCharge(void)
 			if (handIsReloading(hand)) {
 				// Reloading - reset charge amount
 				hand->matmot1 = 0;
-			} else if (hand->base.weaponfunc == FUNC_SECONDARY) {
+			} else if (hand->gset.weaponfunc == FUNC_SECONDARY) {
 				// Charging or fully charged
 				s32 oldvalue = hand->matmot1;
 				s32 newvalue;
@@ -24901,7 +24901,7 @@ void func0f0a6c30(void)
 		player->epcol_2 = 1;
 	} else {
 		if (player->gunsightoff == 0) {
-			if (player->hands[HAND_RIGHT].base.weaponnum == WEAPON_FARSIGHT) {
+			if (player->hands[HAND_RIGHT].gset.weaponnum == WEAPON_FARSIGHT) {
 				// Aiming with the Farsight
 				if (player->visionmode != VISIONMODE_XRAY) {
 					player->erasertime = 0;
@@ -27645,7 +27645,7 @@ struct audiohandle **func0f0a7d5c(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel handPlayPropHitSound
+glabel gsetPlayPropHitSound
 .late_rodata
 glabel var7f1aca94
 .word 0x453b8000
@@ -28093,7 +28093,7 @@ glabel var7f1aca94
 );
 #else
 GLOBAL_ASM(
-glabel handPlayPropHitSound
+glabel gsetPlayPropHitSound
 .late_rodata
 glabel var7f1aca94
 .word 0x453b8000
@@ -30264,7 +30264,7 @@ void handsTick(bool triggeron)
 			struct hand *lhand = &g_Vars.currentplayer->hands[HAND_LEFT];
 			struct hand *rhand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
-			weapon = weaponFindById(rhand->base.weaponnum);
+			weapon = weaponFindById(rhand->gset.weaponnum);
 
 			for (i = 0; i != 2; i++) {
 				if (weapon && weapon->ammos[i] &&
@@ -30470,7 +30470,7 @@ s32 currentPlayerGetAmmoCountWithCheck(s32 ammotype)
 	for (i = 0; i < 2; i++) {
 		if (player->hands[i].inuse) {
 			for (j = 0; j < 2; j++) {
-				if (player->gunctrl.ammotypes[j] == ammotype && func0f0b184c(player->hands[i].base.weaponnum, j, 0x00000001)) {
+				if (player->gunctrl.ammotypes[j] == ammotype && func0f0b184c(player->hands[i].gset.weaponnum, j, 0x00000001)) {
 					total = total + player->hands[i].loadedammo[j];
 				}
 			}
@@ -36366,7 +36366,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //
 //	// a9c
 //	fncolour = 0xff000040;
-//	funcnum = hand->base.weaponfunc;
+//	funcnum = hand->gset.weaponfunc;
 //	fnfaderinc = PALUP(g_Vars.lvupdate240 * 2);
 //
 //#if VERSION >= VERSION_NTSC_1_0
@@ -36423,9 +36423,9 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	// Render weapon name and function name
 //	if (optionsGetShowGunFunction(g_Vars.currentplayerstats->mpindex)) {
 //#if VERSION >= VERSION_NTSC_1_0
-//		func = weaponGetFunctionById(hand->base.weaponnum, funcnum);
+//		func = weaponGetFunctionById(hand->gset.weaponnum, funcnum);
 //#else
-//		func = weaponGetFunctionById(hand->base.weaponnum, hand->base.weaponfunc);
+//		func = weaponGetFunctionById(hand->gset.weaponnum, hand->gset.weaponfunc);
 //#endif
 //		nameid = invGetNameIdByIndex(invGetCurrentIndex());
 //		str = langGet(nameid);
@@ -36513,11 +36513,11 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //					colour |= 0x00ff0000;
 //				}
 //#else
-//				if (hand->base.weaponfunc == FUNC_SECONDARY && func->name == ctrl->curfnstr) {
+//				if (hand->gset.weaponfunc == FUNC_SECONDARY && func->name == ctrl->curfnstr) {
 //					colour |= 0x00ff0000;
 //				}
 //
-//				if (hand->base.weaponfunc == FUNC_PRIMARY && func->name != ctrl->curfnstr) {
+//				if (hand->gset.weaponfunc == FUNC_PRIMARY && func->name != ctrl->curfnstr) {
 //					colour |= 0x00ff0000;
 //				}
 //#endif
@@ -36557,13 +36557,13 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	}
 //
 //	// 2b8
-//	if (weapon && weapon->functions[hand->base.weaponfunc] != NULL) {
-//		ammoindex = ((struct weaponfunc *)(weapon->functions[hand->base.weaponfunc]))->ammoindex;
+//	if (weapon && weapon->functions[hand->gset.weaponfunc] != NULL) {
+//		ammoindex = ((struct weaponfunc *)(weapon->functions[hand->gset.weaponfunc]))->ammoindex;
 //	}
 //
 //	if (ammoindex == -1) {
-//		if (weapon->functions[1 - hand->base.weaponfunc] != NULL) {
-//			ammoindex = ((struct weaponfunc *)(weapon->functions[1 - hand->base.weaponfunc]))->ammoindex;
+//		if (weapon->functions[1 - hand->gset.weaponfunc] != NULL) {
+//			ammoindex = ((struct weaponfunc *)(weapon->functions[1 - hand->gset.weaponfunc]))->ammoindex;
 //		}
 //
 //		if (ammoindex == -1) {
@@ -36584,7 +36584,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	// Left hand - mag
 //	if (lefthand->inuse
 //			&& weapon->ammos[ammoindex] != NULL
-//			&& lefthand->base.weaponnum != WEAPON_REMOTEMINE) {
+//			&& lefthand->gset.weaponnum != WEAPON_REMOTEMINE) {
 //		xpos = viGetViewLeft() / g_ScaleX + 24;
 //
 //		if (playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
@@ -36662,7 +36662,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //
 //		// 8b8
 //		// Combat boost timer
-//		if (hand->base.weaponnum == WEAPON_COMBATBOOST) {
+//		if (hand->gset.weaponnum == WEAPON_COMBATBOOST) {
 //			mins = g_Vars.speedpilltime / 3600;
 //
 //			// 91c
@@ -36774,7 +36774,7 @@ void func0f0abd30(s32 handnum)
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand = &player->hands[handnum];
 	struct gunctrl *gunctrl = &player->gunctrl;
-	struct weapon *weapon = weaponFindById(hand->base.weaponnum);
+	struct weapon *weapon = weaponFindById(hand->gset.weaponnum);
 	s32 i;
 
 	for (i = 0; i < 2; i++) {
@@ -36789,7 +36789,7 @@ void func0f0abd30(s32 handnum)
 
 			hand->clipsizes[i] = weapon->ammos[i]->clipsize;
 
-			if (handnum == HAND_LEFT && hand->base.weaponnum == WEAPON_REMOTEMINE) {
+			if (handnum == HAND_LEFT && hand->gset.weaponnum == WEAPON_REMOTEMINE) {
 				hand->clipsizes[i] = 0;
 			}
 

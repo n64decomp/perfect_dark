@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-void mpstatsIncrementPlayerShotCount(struct shorthand *hand, s32 region);
-void mpstatsIncrementPlayerShotCount2(struct shorthand *hand, s32 region);
+void mpstatsIncrementPlayerShotCount(struct gset *gset, s32 region);
+void mpstatsIncrementPlayerShotCount2(struct gset *gset, s32 region);
 void mpstats0f0b0520(void);
 s32 mpstatsGetPlayerShotCountByRegion(u32 type);
 void mpstatsIncrementTotalKillCount(void);

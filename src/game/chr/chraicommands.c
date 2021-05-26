@@ -812,8 +812,8 @@ bool ai0019(void)
 	struct coord pos = {0, 0, 0};
 
 	if (chr && chr->prop) {
-		f32 damage = handGetDamage((struct shorthand *)&cmd[4]);
-		chrDamageByImpact(chr, damage, &pos, (struct shorthand *)&cmd[4], NULL, (s8)cmd[3]);
+		f32 damage = gsetGetDamage((struct gset *)&cmd[4]);
+		chrDamageByImpact(chr, damage, &pos, (struct gset *)&cmd[4], NULL, (s8)cmd[3]);
 	}
 
 	g_Vars.aioffset += 8;
@@ -846,8 +846,8 @@ bool aiChrDamageChr(void)
 			vector.z = chr2->prop->pos.z - chr1->prop->pos.z;
 			guNormalize(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
-			damage = handGetDamage((struct shorthand *)&weapon->weaponnum);
-			chrDamageByImpact(chr2, damage, &vector, (struct shorthand *)&weapon->weaponnum, chr1->prop, (s8)cmd[4]);
+			damage = gsetGetDamage((struct gset *)&weapon->weaponnum);
+			chrDamageByImpact(chr2, damage, &vector, (struct gset *)&weapon->weaponnum, chr1->prop, (s8)cmd[4]);
 		}
 	}
 
@@ -10739,8 +10739,8 @@ bool aiDamageChrByAmount(void)
 
 	if (chr && chr->prop) {
 		if (cmd[4] == 2) {
-			struct shorthand hand = {WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON};
-			chrDamageByMisc(chr, (s32)cmd[3] * 0.03125f, &coord, &hand, NULL);
+			struct gset gset = {WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON};
+			chrDamageByMisc(chr, (s32)cmd[3] * 0.03125f, &coord, &gset, NULL);
 		} else if (cmd[4] == 0) {
 			chrDamageByMisc(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
 		} else {

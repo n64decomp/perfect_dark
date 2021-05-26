@@ -24,7 +24,7 @@ void func0f060db8(s32 handnum, bool arg1, struct coord *arg2, struct coord *arg3
 struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2);
 void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4);
 u32 func0f061fa8(void);
-void handInflictCloseRangeDamage(s32 handnum, struct shorthand *hand, bool arg2);
+void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2);
 void handTickAttack(s32 handnum);
 void handsTickAttack(void);
 void func0f062b64(struct prop *prop, s32 arg1);

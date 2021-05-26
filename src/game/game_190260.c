@@ -2625,7 +2625,7 @@ s32 mpchrGetWeaponNum(struct chrdata *chr)
 		return chr->aibot->weaponnum;
 	}
 
-	return g_Vars.players[propGetPlayerNum(chr->prop)]->hands[HAND_RIGHT].base.weaponnum;
+	return g_Vars.players[propGetPlayerNum(chr->prop)]->hands[HAND_RIGHT].gset.weaponnum;
 }
 
 u8 mpchrGetTargetsWeaponNum(struct chrdata *chr)

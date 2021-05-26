@@ -40,31 +40,31 @@ struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which)
 	return NULL;
 }
 
-struct weaponfunc *handGetWeaponFunction2(struct shorthand *hand)
+struct weaponfunc *gsetGetWeaponFunction2(struct gset *gset)
 {
-	struct weapon *weapon = weaponFindById(hand->weaponnum);
+	struct weapon *weapon = weaponFindById(gset->weaponnum);
 
 	if (weapon) {
-		return weapon->functions[hand->weaponfunc];
+		return weapon->functions[gset->weaponfunc];
 	}
 
 	return NULL;
 }
 
-struct weaponfunc *handGetWeaponFunction(struct shorthand *hand)
+struct weaponfunc *gsetGetWeaponFunction(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[hand->weaponnum];
+	struct weapon *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
-		return weapon->functions[hand->weaponfunc];
+		return weapon->functions[gset->weaponfunc];
 	}
 
 	return NULL;
 }
 
-struct weaponfunc *weaponGetFunction(struct shorthand *hand, s32 which)
+struct weaponfunc *weaponGetFunction(struct gset *gset, s32 which)
 {
-	struct weapon *weapon = g_Weapons[hand->weaponnum];
+	struct weapon *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->functions[which];
@@ -75,10 +75,10 @@ struct weaponfunc *weaponGetFunction(struct shorthand *hand, s32 which)
 
 struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand)
 {
-	struct weapon *weapon = weaponFindById(g_Vars.currentplayer->hands[hand].base.weaponnum);
+	struct weapon *weapon = weaponFindById(g_Vars.currentplayer->hands[hand].gset.weaponnum);
 
 	if (weapon) {
-		return weapon->functions[g_Vars.currentplayer->hands[hand].base.weaponfunc];
+		return weapon->functions[g_Vars.currentplayer->hands[hand].gset.weaponfunc];
 	}
 
 	return NULL;
@@ -102,9 +102,9 @@ u32 weaponGetNumFunctions(u32 weaponnum)
 	return 2;
 }
 
-struct inventory_class *func0f0b11bc(struct shorthand *hand)
+struct inventory_class *func0f0b11bc(struct gset *gset)
 {
-	struct weapon *weapon = weaponFindById(hand->weaponnum);
+	struct weapon *weapon = weaponFindById(gset->weaponnum);
 
 	if (weapon) {
 		return weapon->eptr;
@@ -496,26 +496,26 @@ glabel handPopulateFromCurrentPlayer
 );
 
 // Mismatch: regalloc
-//void handPopulateFromCurrentPlayer(s32 handnum, struct shorthand *hand)
+//void handPopulateFromCurrentPlayer(s32 handnum, struct gset *gset)
 //{
-//	hand->weaponnum = g_Vars.currentplayer->weaponnum;
-//	hand->weaponfunc = g_Vars.currentplayer->hands[handnum].weaponfunc;
-//	hand->unk063a = g_Vars.currentplayer->hands[handnum].unk063a;
-//	hand->unk0639 = g_Vars.currentplayer->hands[handnum].unk0639;
+//	gset->weaponnum = g_Vars.currentplayer->weaponnum;
+//	gset->weaponfunc = g_Vars.currentplayer->hands[handnum].weaponfunc;
+//	gset->unk063a = g_Vars.currentplayer->hands[handnum].unk063a;
+//	gset->unk0639 = g_Vars.currentplayer->hands[handnum].unk0639;
 //
-//	if (hand->weaponnum == WEAPON_MAULER) {
-//		hand->unk063a = g_Vars.currentplayer->hands[handnum].matmot1 * 10.0f;
+//	if (gset->weaponnum == WEAPON_MAULER) {
+//		gset->unk063a = g_Vars.currentplayer->hands[handnum].matmot1 * 10.0f;
 //	}
 //
-//	if (hand->weaponnum == WEAPON_LASER) {
-//		hand->unk063a = g_Vars.currentplayer->hands[handnum].burstbullets;
+//	if (gset->weaponnum == WEAPON_LASER) {
+//		gset->unk063a = g_Vars.currentplayer->hands[handnum].burstbullets;
 //	}
 //}
 
-struct inventory_ammo *handGetAmmoDefinition(struct shorthand *hand)
+struct inventory_ammo *gsetGetAmmoDefinition(struct gset *gset)
 {
-	struct weaponfunc *func = handGetWeaponFunction(hand);
-	struct weapon *weapon = weaponFindById(hand->weaponnum);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
+	struct weapon *weapon = weaponFindById(gset->weaponnum);
 
 	if (func && func->ammoindex >= 0) {
 		return weapon->ammos[func->ammoindex];
@@ -524,9 +524,9 @@ struct inventory_ammo *handGetAmmoDefinition(struct shorthand *hand)
 	return NULL;
 }
 
-u8 handGetSingleUnk3c(struct shorthand *hand)
+u8 gsetGetSingleUnk3c(struct gset *gset)
 {
-	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
 		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
@@ -536,10 +536,10 @@ u8 handGetSingleUnk3c(struct shorthand *hand)
 	return 0;
 }
 
-u32 handGetCasingEject(struct shorthand *hand)
+u32 handGetCasingEject(struct gset *gset)
 {
 	u32 result = 0;
-	struct inventory_ammo *ammo = handGetAmmoDefinition(hand);
+	struct inventory_ammo *ammo = gsetGetAmmoDefinition(gset);
 
 	if (ammo) {
 		result = ammo->casingeject;
@@ -548,9 +548,9 @@ u32 handGetCasingEject(struct shorthand *hand)
 	return result;
 }
 
-f32 handGetStrength(struct shorthand *hand)
+f32 gsetGetStrength(struct gset *gset)
 {
-	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 	f32 result = 0;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
@@ -561,9 +561,9 @@ f32 handGetStrength(struct shorthand *hand)
 	return result;
 }
 
-f32 handGetDamage(struct shorthand *hand)
+f32 gsetGetDamage(struct gset *gset)
 {
-	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 	f32 damage = 0;
 
 	if (func) {
@@ -576,7 +576,7 @@ f32 handGetDamage(struct shorthand *hand)
 			struct weaponfunc_close *fullfunc = (struct weaponfunc_close *)func;
 			damage = fullfunc->damage;
 
-			if (hand->weaponnum == WEAPON_REAPER) {
+			if (gset->weaponnum == WEAPON_REAPER) {
 #if VERSION >= VERSION_PAL_FINAL
 				damage *= g_Vars.lvupdate240freal;
 #else
@@ -591,8 +591,8 @@ f32 handGetDamage(struct shorthand *hand)
 		}
 	}
 
-	if (hand->weaponnum == WEAPON_MAULER) {
-		damage = (hand->unk063a / 3.0f + 1.0f) * damage;
+	if (gset->weaponnum == WEAPON_MAULER) {
+		damage = (gset->unk063a / 3.0f + 1.0f) * damage;
 	}
 
 	if (handIsFiring(HAND_LEFT) && handIsFiring(HAND_RIGHT)) {
@@ -602,10 +602,10 @@ f32 handGetDamage(struct shorthand *hand)
 	return damage;
 }
 
-u8 handGetSingleUnk38(struct shorthand *hand)
+u8 gsetGetSingleUnk38(struct gset *gset)
 {
 #if VERSION >= VERSION_PAL_FINAL
-	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 	u8 result = 0;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
@@ -619,7 +619,7 @@ u8 handGetSingleUnk38(struct shorthand *hand)
 
 	return result;
 #else
-	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
 		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
@@ -630,9 +630,9 @@ u8 handGetSingleUnk38(struct shorthand *hand)
 #endif
 }
 
-u16 handGetSingleShootSound(struct shorthand *hand)
+u16 gsetGetSingleShootSound(struct gset *gset)
 {
-	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
 		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
@@ -642,9 +642,9 @@ u16 handGetSingleShootSound(struct shorthand *hand)
 	return 0;
 }
 
-bool handHasFunctionFlags(struct shorthand *hand, u32 flags)
+bool gsetHasFunctionFlags(struct gset *gset, u32 flags)
 {
-	struct weaponfunc *func = handGetWeaponFunction(hand);
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
 
 	if (func) {
 		return (func->flags & flags) == flags;
@@ -676,8 +676,8 @@ s8 weaponGetNumTicksPerShot(u32 weaponnum, u32 funcindex)
 u32 currentPlayerGetSight(void)
 {
 	struct weaponfunc *func = weaponGetFunctionById(
-			g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum,
-			g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponfunc);
+			g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum,
+			g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
 		return SIGHT_NONE;
@@ -687,7 +687,7 @@ u32 currentPlayerGetSight(void)
 		return SIGHT_CLASSIC;
 	}
 
-	switch (g_Vars.currentplayer->hands[HAND_RIGHT].base.weaponnum) {
+	switch (g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum) {
 	case WEAPON_HORIZONSCANNER:
 		return SIGHT_NONE;
 	case WEAPON_NONE:
@@ -749,7 +749,7 @@ glabel func0f0b201c
 /*  f0b201c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0b2020:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b2024:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0b2028:	0fc2c41f */ 	jal	handGetWeaponFunction
+/*  f0b2028:	0fc2c41f */ 	jal	gsetGetWeaponFunction
 /*  f0b202c:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f0b2030:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*  f0b2034:	10400002 */ 	beqz	$v0,.L0f0b2040
@@ -777,9 +777,9 @@ glabel func0f0b201c
 /*  f0b2084:	00000000 */ 	nop
 );
 
-struct guncmd *handGetEquipAnim(struct shorthand *hand)
+struct guncmd *handGetEquipAnim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[hand->weaponnum];
+	struct weapon *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->equip_animation;
@@ -788,9 +788,9 @@ struct guncmd *handGetEquipAnim(struct shorthand *hand)
 	return NULL;
 }
 
-struct guncmd *handGetUnequipAnim(struct shorthand *hand)
+struct guncmd *handGetUnequipAnim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[hand->weaponnum];
+	struct weapon *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->unequip_animation;
@@ -799,9 +799,9 @@ struct guncmd *handGetUnequipAnim(struct shorthand *hand)
 	return NULL;
 }
 
-struct guncmd *handGetPriToSecAnim(struct shorthand *hand)
+struct guncmd *gsetGetPriToSecAnim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[hand->weaponnum];
+	struct weapon *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->pritosec_animation;
@@ -810,9 +810,9 @@ struct guncmd *handGetPriToSecAnim(struct shorthand *hand)
 	return NULL;
 }
 
-struct guncmd *handGetSecToPriAnim(struct shorthand *hand)
+struct guncmd *gsetGetSecToPriAnim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[hand->weaponnum];
+	struct weapon *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->sectopri_animation;

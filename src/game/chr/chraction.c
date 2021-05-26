@@ -3019,7 +3019,7 @@ u8 var80068080 = 50;
  * - Updating kill statistics
  * - Dropping items
  */
-void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hitpart, struct shorthand *hand, bool knockout, s32 aplayernum)
+void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hitpart, struct gset *gset, bool knockout, s32 aplayernum)
 {
 	bool overridden = false;
 	bool instant;
@@ -3167,7 +3167,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 
 	// Handle robots and Dr Caroll then return early
 	if (race == RACE_ROBOT || race == RACE_DRCAROLL) {
-		mult1 = handGetStrength(hand) * 0.5f;
+		mult1 = gsetGetStrength(gset) * 0.5f;
 
 		if (mult1 <= 0) {
 			mult1 = 3;
@@ -3339,7 +3339,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 						modelSetAnimEndFrame(model, row->endframe);
 					}
 
-					mult2 = handGetStrength(hand);
+					mult2 = gsetGetStrength(gset);
 
 					if (mult2 <= 0 && (chr->chrflags & CHRCFLAG_00008000)) {
 						mult2 = 6;
@@ -3392,7 +3392,7 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 				modelSetAnimEndFrame(model, row->endframe);
 			}
 
-			mult3 = handGetStrength(hand);
+			mult3 = gsetGetStrength(gset);
 
 			if (mult3 <= 0 && (chr->chrflags & CHRCFLAG_00008000)) {
 				mult3 = 6;
@@ -3568,7 +3568,7 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 	}
 }
 
-void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 hitpart, struct shorthand *hand, s32 aplayernum)
+void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 hitpart, struct gset *gset, s32 aplayernum)
 {
 	s32 race = CHRRACE(chr);
 	bool knockedout = false;
@@ -3586,7 +3586,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 	}
 
 	if (race == RACE_EYESPY) {
-		f32 strength = handGetStrength(hand);
+		f32 strength = gsetGetStrength(gset);
 		struct eyespy *eyespy = chrToEyespy(chr);
 
 		if (eyespy) {
@@ -3603,7 +3603,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 	}
 
 	if (chr->damage >= chr->maxdamage) {
-		chrBeginDeath(chr, vector, angle, hitpart, hand, false, aplayernum);
+		chrBeginDeath(chr, vector, angle, hitpart, gset, false, aplayernum);
 	} else if (animnum == ANIM_SNIPING_GETDOWN
 			|| animnum == ANIM_SNIPING_GETUP
 			|| animnum == ANIM_SNIPING_ONGROUND) {
@@ -3611,7 +3611,7 @@ void chrReactToDamage(struct chrdata *chr, struct coord *vector, f32 angle, s32 
 	} else if (race == RACE_EYESPY) {
 		// empty
 	} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
-		f32 strength = handGetStrength(hand);
+		f32 strength = gsetGetStrength(gset);
 
 		if (race == RACE_DRCAROLL) {
 			strength *= 0.5f;
@@ -3727,7 +3727,7 @@ void chrYeetFromPos(struct chrdata *chr, struct coord *exppos, f32 force)
 	}
 }
 
-s32 handGetBlurAmount(struct shorthand *hand)
+s32 gsetGetBlurAmount(struct gset *gset)
 {
 	s32 amount = PALDOWN(1000);
 
@@ -3735,22 +3735,22 @@ s32 handGetBlurAmount(struct shorthand *hand)
 		amount = PALDOWN(250);
 	}
 
-	if (hand->weaponnum == WEAPON_TRANQUILIZER) {
+	if (gset->weaponnum == WEAPON_TRANQUILIZER) {
 		amount = PALDOWN(2000);
 	}
 
-	if (hand->weaponnum == WEAPON_BOLT) {
+	if (gset->weaponnum == WEAPON_BOLT) {
 		amount = PALDOWN(5000);
 	}
 
-	if (hand->weaponnum == WEAPON_NBOMB) {
+	if (gset->weaponnum == WEAPON_NBOMB) {
 		amount = PALDOWN(100);
 	}
 
 	return amount;
 }
 
-void chrKnockOut(struct chrdata *chr, f32 angle, s32 hitpart, struct shorthand *hand)
+void chrKnockOut(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gset)
 {
 	if (chr->actiontype != ACT_DRUGGEDCOMINGUP
 			&& chr->actiontype != ACT_DRUGGEDDROP
@@ -4135,9 +4135,9 @@ bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop
  *
  * Used for knife poison, nbomb damage, Investigation radioactivity and Escape gas.
  */
-void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
+void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
 {
-	chrDamage(chr, damage, vector, hand, prop, HITPART_GENERAL,
+	chrDamage(chr, damage, vector, gset, prop, HITPART_GENERAL,
 			false,     // damageshield
 			NULL,      // prop2
 			NULL,      // node
@@ -4148,9 +4148,9 @@ void chrDamageByMisc(struct chrdata *chr, f32 damage, struct coord *vector, stru
 			NULL);     // explosionpos
 }
 
-void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
+void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
 {
-	chrDamage(chr, damage, vector, hand, prop, HITPART_GENERAL,
+	chrDamage(chr, damage, vector, gset, prop, HITPART_GENERAL,
 			true,      // damageshield
 			chr->prop, // prop2
 			NULL,      // node
@@ -4161,9 +4161,9 @@ void chrDamageByLaser(struct chrdata *chr, f32 damage, struct coord *vector, str
 			NULL);     // explosionpos
 }
 
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, u32 hitpart, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10)
+void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, u32 hitpart, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10)
 {
-	chrDamage(chr, damage, vector, hand, prop, hitpart,
+	chrDamage(chr, damage, vector, gset, prop, hitpart,
 			true,      // damageshield
 			prop2,     // prop2
 			node,      // node
@@ -4177,7 +4177,7 @@ void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 /**
  * Unused, and same as chrDamageByImpact but sets hitpart to HITPART_GENERAL instead of argument.
  */
-void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop)
+void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
 {
 	struct modelnode *node = NULL;
 	struct model *model = NULL;
@@ -4188,7 +4188,7 @@ void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &hitpart, &model, &side);
 	}
 
-	chrDamage(chr, damage, vector, hand, prop, HITPART_GENERAL,
+	chrDamage(chr, damage, vector, gset, prop, HITPART_GENERAL,
 			true,      // damageshield
 			chr->prop, // prop2
 			node,      // node
@@ -4202,7 +4202,7 @@ void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 /**
  * Used for punching, but also used by AI commands to make chrs take damage.
  */
-void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand, struct prop *prop, s32 hitpart)
+void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart)
 {
 	struct modelnode *node = NULL;
 	struct model *model = NULL;
@@ -4212,7 +4212,7 @@ void chrDamageByImpact(struct chrdata *chr, f32 damage, struct coord *vector, st
 		chrCalculateShieldHit(chr, &chr->prop->pos, vector, &node, &hitpart, &model, &side);
 	}
 
-	chrDamage(chr, damage, vector, hand, prop, hitpart,
+	chrDamage(chr, damage, vector, gset, prop, hitpart,
 			true,      // damageshield
 			chr->prop, // prop2
 			node,      // node
@@ -4269,7 +4269,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
  * chr - the chr being damaged
  * damage - the base amount of damage to deal, prior to scaling factors
  * vector - position of the attacker?
- * hand - shorthand struct defining the weapon and gun function being used
+ * gset - gun settings struct
  * aprop - the attacker's prop struct
  * hitpart - "i've been hit" value, ie. the body part (see HITPART constants)
  * damageshield - false if attack should bypass shield if any
@@ -4281,7 +4281,7 @@ void playerUpdateDamageStats(struct prop *attacker, struct prop *victim, f32 dam
  * explosion - true if damage is coming from an explosion
  * explosionpos - position of said explosion
  */
-void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct shorthand *hand,
+void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset,
 		struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2,
 		struct modelnode *node, struct model *model, s32 side, s16 *arg11,
 		bool explosion, struct coord *explosionpos)
@@ -4296,7 +4296,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 	bool usedshield = false;
 	bool showshield = false;
 	bool showdamage = false;
-	struct shorthand hand2 = {0};
+	struct gset gset2 = {0};
 	f32 explosionforce = damage;
 	f32 healthscale = 1;
 	f32 armourscale = 1;
@@ -4312,17 +4312,17 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 		choketype = CHOKETYPE_GURGLE;
 	}
 
-	if (hand) {
-		if (hand->weaponnum == WEAPON_COMBATKNIFE) {
-			if (hand->weaponfunc == FUNC_2) {
+	if (gset) {
+		if (gset->weaponnum == WEAPON_COMBATKNIFE) {
+			if (gset->weaponfunc == FUNC_2) {
 				canchoke = false;
 			}
 
-			if (hand->weaponfunc == FUNC_POISON) {
+			if (gset->weaponfunc == FUNC_POISON) {
 				choketype = CHOKETYPE_COUGH;
 			}
-		} else if (hand->weaponnum == WEAPON_TRANQUILIZER) {
-			if (hand->weaponfunc == FUNC_SECONDARY) {
+		} else if (gset->weaponnum == WEAPON_TRANQUILIZER) {
+			if (gset->weaponfunc == FUNC_SECONDARY) {
 				choketype = CHOKETYPE_GURGLE;
 			}
 		}
@@ -4375,13 +4375,13 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 		return;
 	}
 
-	if (hand == NULL) {
-		hand = &hand2;
+	if (gset == NULL) {
+		gset = &gset2;
 	}
 
-	func = handGetWeaponFunction(hand);
+	func = gsetGetWeaponFunction(gset);
 	isclose = func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE;
-	makedizzy = race != RACE_DRCAROLL && handHasFunctionFlags(hand, FUNCFLAG_MAKEDIZZY);
+	makedizzy = race != RACE_DRCAROLL && gsetHasFunctionFlags(gset, FUNCFLAG_MAKEDIZZY);
 
 	if (chr->prop == g_Vars.currentplayer->prop && g_Vars.currentplayer->invincible) {
 		return;
@@ -4403,8 +4403,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 	}
 
 	// Disarm only hurts the victim in solo missions and if the victim is an NPC
-	if (handHasFunctionFlags(hand, FUNCFLAG_DROPWEAPON)
-			&& hand->weaponnum == WEAPON_UNARMED
+	if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)
+			&& gset->weaponnum == WEAPON_UNARMED
 			&& (vprop->type == PROPTYPE_PLAYER || g_Vars.normmplayerisrunning)) {
 		damage = 0;
 	}
@@ -4535,7 +4535,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 	}
 
 	// If using the shotgun, scale the damage based on distance
-	if (aprop && aprop->type == PROPTYPE_CHR && hand->weaponnum == WEAPON_SHOTGUN) {
+	if (aprop && aprop->type == PROPTYPE_CHR && gset->weaponnum == WEAPON_SHOTGUN) {
 		f32 xdiff = aprop->pos.x - vprop->pos.x;
 		f32 ydiff = aprop->pos.y - vprop->pos.y;
 		f32 zdiff = aprop->pos.z - vprop->pos.z;
@@ -4554,7 +4554,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 	// damageshield is an argument to this function,
 	// but is forced on if using the Farsight.
-	if (hand && hand->weaponnum == WEAPON_FARSIGHT) {
+	if (gset && gset->weaponnum == WEAPON_FARSIGHT) {
 		damageshield = true;
 		damage *= 10;
 	}
@@ -4645,20 +4645,20 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 		if (!alreadydead && hitpart) {
 			switch (hitpart) {
 			case HITPART_HEAD:
-				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_HEAD);
+				mpstatsIncrementPlayerShotCount2(gset, SHOTREGION_HEAD);
 				break;
 			case HITPART_GUN:
-				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_GUN);
+				mpstatsIncrementPlayerShotCount2(gset, SHOTREGION_GUN);
 				break;
 			case HITPART_HAT:
-				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_HAT);
+				mpstatsIncrementPlayerShotCount2(gset, SHOTREGION_HAT);
 				break;
 			case HITPART_PELVIS:
 			case HITPART_TORSO:
-				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_BODY);
+				mpstatsIncrementPlayerShotCount2(gset, SHOTREGION_BODY);
 				break;
 			default:
-				mpstatsIncrementPlayerShotCount2(hand, SHOTREGION_LIMB);
+				mpstatsIncrementPlayerShotCount2(gset, SHOTREGION_LIMB);
 				break;
 			}
 		}
@@ -4698,8 +4698,8 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 		angle = chrGetAngleToPos(chr, &sp9c);
 
 		// Knife in the back to an unalerted chr is lethal
-		if (hand->weaponnum == WEAPON_COMBATKNIFE
-				&& hand->weaponfunc == FUNC_PRIMARY
+		if (gset->weaponnum == WEAPON_COMBATKNIFE
+				&& gset->weaponfunc == FUNC_PRIMARY
 				&& angle > 2.0940616130829f
 				&& angle < 4.1881237030029f
 				&& (chr->alertness < 100 || chr->lastseetarget60 == 0)) {
@@ -4707,7 +4707,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 		}
 
 		// Punching and pistol whipping is less effective from the front
-		if (handHasFunctionFlags(hand, FUNCFLAG_BLUNTIMPACT)) {
+		if (gsetHasFunctionFlags(gset, FUNCFLAG_BLUNTIMPACT)) {
 			if (angle < 1.0470308065414f || angle > 5.2351541519165f) {
 				damage *= 0.4f;
 			} else if (angle < 2.0940616130829f || angle > 4.1881237030029f) {
@@ -4754,7 +4754,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 					chrFlinchHead(chr, angle);
 					damage *= headshotdamagescale;
 
-					if (hand->weaponnum == WEAPON_COMBATKNIFE && hand->weaponfunc != FUNC_POISON) {
+					if (gset->weaponnum == WEAPON_COMBATKNIFE && gset->weaponfunc != FUNC_POISON) {
 						damage += damage;
 					}
 				}
@@ -4785,7 +4785,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 				f32 boostscale;
 
 				// Handle player losing gun
-				if (handHasFunctionFlags(hand, FUNCFLAG_DROPWEAPON)) {
+				if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)) {
 					currentPlayerLoseGun(aprop);
 				}
 
@@ -4804,9 +4804,9 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 					if (!achr
 							|| !achr->aibot
-							|| !handHasFunctionFlags(hand, FUNCFLAG_00400000)
+							|| !gsetHasFunctionFlags(gset, FUNCFLAG_00400000)
 							|| chr->blurdrugamount < PALDOWN(4500)) {
-						chr->blurdrugamount += handGetBlurAmount(hand) * blurscale;
+						chr->blurdrugamount += gsetGetBlurAmount(gset) * blurscale;
 					}
 
 					chr->blurnumtimesdied = 0;
@@ -4851,7 +4851,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 				}
 
 				// Handle player boost
-				if (isclose && hand->weaponnum == WEAPON_REAPER) {
+				if (isclose && gset->weaponnum == WEAPON_REAPER) {
 					boostscale = 0.1f;
 				} else if (g_Vars.normmplayerisrunning) {
 					boostscale = 0.75f;
@@ -4888,7 +4888,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 		// NPC was alive prior to being shot.
 
 		// Handle aibot/chr losing gun
-		if (handHasFunctionFlags(hand, FUNCFLAG_DROPWEAPON)
+		if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)
 				&& ((chr->flags & CHRFLAG0_CANLOSEGUN) || chr->aibot)) {
 			if (chr->aibot) {
 				aibotLoseGun(chr, aprop);
@@ -4920,10 +4920,10 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 			// Handle chr dizziness and psychosis
 			if (makedizzy && race != RACE_DRCAROLL && race != RACE_ROBOT) {
-				if (handHasFunctionFlags(hand, FUNCFLAG_PSYCHOSIS)) {
+				if (gsetHasFunctionFlags(gset, FUNCFLAG_PSYCHOSIS)) {
 					chr->hidden |= CHRHFLAG_PSYCHOSISED;
 				} else {
-					chr->blurdrugamount += handGetBlurAmount(hand);
+					chr->blurdrugamount += gsetGetBlurAmount(gset);
 					chr->blurnumtimesdied = 0;
 
 					if (!chr->aibot && chr->blurdrugamount >= PALDOWN(5000)) {
@@ -4936,7 +4936,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 			if (chr->aibot) {
 				f32 boostscale;
 
-				if (isclose && hand->weaponnum == WEAPON_REAPER) {
+				if (isclose && gset->weaponnum == WEAPON_REAPER) {
 					boostscale = 0.1f;
 				} else {
 					boostscale = 0.75f;
@@ -4946,24 +4946,24 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 				chr->aibot->shotspeed.z += vector->z * boostscale;
 			}
 
-			if (hand->weaponnum == WEAPON_UNARMED) {
+			if (gset->weaponnum == WEAPON_UNARMED) {
 				sp80 = 2;
 			}
 
-			if (hand->weaponnum == WEAPON_TRANQUILIZER || hand->weaponnum == WEAPON_PSYCHOSISGUN) {
+			if (gset->weaponnum == WEAPON_TRANQUILIZER || gset->weaponnum == WEAPON_PSYCHOSISGUN) {
 				forceapplydamage = true;
 			}
 
 			// Handle one-hit knockouts
 			if (onehitko && chr->aibot == NULL && race == RACE_HUMAN) {
-				chrKnockOut(chr, angle, hitpart, hand);
+				chrKnockOut(chr, angle, hitpart, gset);
 				func0f0926bc(chr->prop, 9, 0);
 
 				if (canchoke) {
 					chrChoke(chr, choketype);
 				}
 
-				if (hand->weaponnum == WEAPON_UNARMED && chr->actiontype != ACT_DRUGGEDKO) {
+				if (gset->weaponnum == WEAPON_UNARMED && chr->actiontype != ACT_DRUGGEDKO) {
 					return;
 				}
 
@@ -5013,7 +5013,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 						chr->damage = chr->maxdamage;
 
 						if (race == RACE_DRCAROLL || race == RACE_EYESPY || race == RACE_ROBOT) {
-							chrBeginDeath(chr, vector, angle, hitpart, hand, false, aplayernum);
+							chrBeginDeath(chr, vector, angle, hitpart, gset, false, aplayernum);
 						} else {
 							chrYeetFromPos(chr, explosionpos, explosionforce);
 						}
@@ -5063,12 +5063,12 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 
 					if (makedizzy && chr->damage >= chr->maxdamage) {
 						chr->damage = chr->maxdamage - 0.1f;
-						chrKnockOut(chr, angle, hitpart, hand);
+						chrKnockOut(chr, angle, hitpart, gset);
 					}
 
 					// If chr has armour or the weapon doesn't stun
 					if (chr->damage < 0 ||
-							(handHasFunctionFlags(hand, FUNCFLAG_NOSTUN) && chr->damage < chr->maxdamage)) {
+							(gsetHasFunctionFlags(gset, FUNCFLAG_NOSTUN) && chr->damage < chr->maxdamage)) {
 						f32 endframe = -1;
 
 						if (!chrIsAnimPreventingArgh(chr, &endframe)) {
@@ -5090,14 +5090,14 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct sho
 							chr->act_preargh.relshotdir = angle;
 							chr->act_preargh.hitpart = hitpart;
 							chr->act_preargh.aplayernum = aplayernum;
-							chr->act_preargh.hand.weaponnum = hand->weaponnum;
-							chr->act_preargh.hand.unk0639 = hand->unk0639;
-							chr->act_preargh.hand.unk063a = hand->unk063a;
-							chr->act_preargh.hand.weaponfunc = hand->weaponfunc;
+							chr->act_preargh.gset.weaponnum = gset->weaponnum;
+							chr->act_preargh.gset.unk0639 = gset->unk0639;
+							chr->act_preargh.gset.unk063a = gset->unk063a;
+							chr->act_preargh.gset.weaponfunc = gset->weaponfunc;
 
 							chr->sleep = 0;
 						} else {
-							chrReactToDamage(chr, vector, angle, hitpart, hand, aplayernum);
+							chrReactToDamage(chr, vector, angle, hitpart, gset, aplayernum);
 						}
 					}
 				}
@@ -9020,12 +9020,12 @@ bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum)
 void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 reverse)
 {
 	struct prop *targetprop = chrGetTargetProp(chr);
-	struct shorthand hand = {WEAPON_UNARMED, 0, 0, FUNC_PRIMARY};
+	struct gset gset = {WEAPON_UNARMED, 0, 0, FUNC_PRIMARY};
 	struct coord vector;
 
 	if (chr->aibot) {
-		hand.weaponnum = chr->aibot->weaponnum;
-		hand.weaponfunc = chr->aibot->gunfunc;
+		gset.weaponnum = chr->aibot->weaponnum;
+		gset.weaponfunc = chr->aibot->gunfunc;
 	}
 
 	if (chrIsTargetInFov(chr, 20, reverse)
@@ -9037,14 +9037,14 @@ void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 revers
 
 		guNormalize(&vector.x, &vector.y, &vector.z);
 
-		handPlayPropHitSound(&hand, targetprop, -1);
+		gsetPlayPropHitSound(&gset, targetprop, -1);
 
 		if (targetprop->type == PROPTYPE_PLAYER || targetprop->type == PROPTYPE_CHR) {
-			chrDamageByImpact(targetprop->chr, handGetDamage(&hand) * damage, &vector, &hand, chr->prop, 200);
+			chrDamageByImpact(targetprop->chr, gsetGetDamage(&gset) * damage, &vector, &gset, chr->prop, 200);
 		}
 	}
 
-	weaponPlayWhooshSound(hand.weaponnum, chr->prop);
+	weaponPlayWhooshSound(gset.weaponnum, chr->prop);
 }
 
 struct punchanim {
@@ -10519,7 +10519,7 @@ void chrTickPreArgh(struct chrdata *chr)
 		chrReactToDamage(chr, &dir,
 				chr->act_preargh.relshotdir,
 				chr->act_preargh.hitpart,
-				&chr->act_preargh.hand,
+				&chr->act_preargh.gset,
 				chr->act_preargh.aplayernum);
 	}
 }
@@ -10636,10 +10636,10 @@ glabel func0f03e29c
 /*  f03e2c8:	904e005c */ 	lbu	$t6,0x5c($v0)
 /*  f03e2cc:	2444005c */ 	addiu	$a0,$v0,0x5c
 /*  f03e2d0:	afa4004c */ 	sw	$a0,0x4c($sp)
-/*  f03e2d4:	0fc2c78a */ 	jal	handGetSingleUnk38
+/*  f03e2d4:	0fc2c78a */ 	jal	gsetGetSingleUnk38
 /*  f03e2d8:	afae005c */ 	sw	$t6,0x5c($sp)
 /*  f03e2dc:	8fa4004c */ 	lw	$a0,0x4c($sp)
-/*  f03e2e0:	0fc2c79a */ 	jal	handGetSingleShootSound
+/*  f03e2e0:	0fc2c79a */ 	jal	gsetGetSingleShootSound
 /*  f03e2e4:	a3a20057 */ 	sb	$v0,0x57($sp)
 /*  f03e2e8:	8faa0068 */ 	lw	$t2,0x68($sp)
 /*  f03e2ec:	8faf006c */ 	lw	$t7,0x6c($sp)
@@ -10759,10 +10759,10 @@ glabel func0f03e29c
 /*  f03dac8:	904e005c */ 	lbu	$t6,0x5c($v0)
 /*  f03dacc:	2444005c */ 	addiu	$a0,$v0,0x5c
 /*  f03dad0:	afa40054 */ 	sw	$a0,0x54($sp)
-/*  f03dad4:	0fc2bee2 */ 	jal	handGetSingleUnk38
+/*  f03dad4:	0fc2bee2 */ 	jal	gsetGetSingleUnk38
 /*  f03dad8:	afae0064 */ 	sw	$t6,0x64($sp)
 /*  f03dadc:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f03dae0:	0fc2bef2 */ 	jal	handGetSingleShootSound
+/*  f03dae0:	0fc2bef2 */ 	jal	gsetGetSingleShootSound
 /*  f03dae4:	a3a2005f */ 	sb	$v0,0x5f($sp)
 /*  f03dae8:	8faf0074 */ 	lw	$t7,0x74($sp)
 /*  f03daec:	3049ffff */ 	andi	$t1,$v0,0xffff
@@ -12300,7 +12300,7 @@ f32 chrGetAimLimitAngle(f32 sqdist)
  * is within range, and writes to the hit argument to indicate if the target is
  * being hit or not.
  */
-void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct shorthand *hand)
+void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gset *gset)
 {
 	struct prop *prop;
 	struct prop *target;
@@ -12344,7 +12344,7 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct sh
 	*hit = false;
 
 	// Determine the distance at which accuracy starts to taper off
-	switch (hand->weaponnum) {
+	switch (gset->weaponnum) {
 	case WEAPON_FALCON2:
 	case WEAPON_FALCON2_SILENCER:
 	case WEAPON_MAULER:
@@ -12429,12 +12429,12 @@ void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct sh
 
 		// If the weapon fires more than once per tick, double the value to
 		// account for it. No weapons meet this criteria, however.
-		if (weaponGetNumTicksPerShot(hand->weaponnum, hand->weaponfunc) <= 0) {
+		if (weaponGetNumTicksPerShot(gset->weaponnum, gset->weaponfunc) <= 0) {
 			accuracy += accuracy;
 		}
 
 		// Shotgun doubles the value due to more bullets
-		if (hand->weaponnum == WEAPON_SHOTGUN) {
+		if (gset->weaponnum == WEAPON_SHOTGUN) {
 			accuracy += accuracy;
 		}
 
@@ -13936,7 +13936,7 @@ glabel var7f1a9184
 /*  f041590:	8faf01cc */ 	lw	$t7,0x1cc($sp)
 /*  f041594:	11c00065 */ 	beqz	$t6,.PF0f04172c
 /*  f041598:	00000000 */ 	nop
-/*  f04159c:	0fc2c87a */ 	jal	handGetDamage
+/*  f04159c:	0fc2c87a */ 	jal	gsetGetDamage
 /*  f0415a0:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0415a4:	8faa025c */ 	lw	$t2,0x25c($sp)
 /*  f0415a8:	240dffff */ 	li	$t5,-1
@@ -13997,7 +13997,7 @@ glabel var7f1a9184
 .PF0f041678:
 /*  f041678:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f04167c:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f041680:	0fc2a079 */ 	jal	handPlayPropHitSound
+/*  f041680:	0fc2a079 */ 	jal	gsetPlayPropHitSound
 /*  f041684:	2406ffff */ 	li	$a2,-1
 /*  f041688:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f04168c:	8c8b0020 */ 	lw	$t3,0x20($a0)
@@ -14094,14 +14094,14 @@ glabel var7f1a9184
 /*  f0417d8:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f0417dc:	afb8007c */ 	sw	$t8,0x7c($sp)
 /*  f0417e0:	afac0078 */ 	sw	$t4,0x78($sp)
-/*  f0417e4:	0fc2c87a */ 	jal	handGetDamage
+/*  f0417e4:	0fc2c87a */ 	jal	gsetGetDamage
 /*  f0417e8:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0417ec:	8fa501cc */ 	lw	$a1,0x1cc($sp)
 /*  f0417f0:	e7a00074 */ 	swc1	$f0,0x74($sp)
 /*  f0417f4:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0417f8:	8cad0004 */ 	lw	$t5,0x4($a1)
 /*  f0417fc:	2406ffff */ 	li	$a2,-1
-/*  f041800:	0fc2a079 */ 	jal	handPlayPropHitSound
+/*  f041800:	0fc2a079 */ 	jal	gsetPlayPropHitSound
 /*  f041804:	afad0070 */ 	sw	$t5,0x70($sp)
 /*  f041808:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f04180c:	8c990020 */ 	lw	$t9,0x20($a0)
@@ -14181,7 +14181,7 @@ glabel var7f1a9184
 .PF0f041920:
 /*  f041920:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041924:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f041928:	0fc2a079 */ 	jal	handPlayPropHitSound
+/*  f041928:	0fc2a079 */ 	jal	gsetPlayPropHitSound
 /*  f04192c:	2406ffff */ 	li	$a2,-1
 /*  f041930:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f041934:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -14227,7 +14227,7 @@ glabel var7f1a9184
 /*  f0419cc:	5540002e */ 	bnezl	$t2,.PF0f041a88
 /*  f0419d0:	93ad0260 */ 	lbu	$t5,0x260($sp)
 .PF0f0419d4:
-/*  f0419d4:	0fc2c87a */ 	jal	handGetDamage
+/*  f0419d4:	0fc2c87a */ 	jal	gsetGetDamage
 /*  f0419d8:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0419dc:	8faf0068 */ 	lw	$t7,0x68($sp)
 /*  f0419e0:	44050000 */ 	mfc1	$a1,$f0
@@ -15526,7 +15526,7 @@ glabel var7f1a9184
 /*  f0413ec:	8faa01cc */ 	lw	$t2,0x1cc($sp)
 /*  f0413f0:	13200065 */ 	beqz	$t9,.L0f041588
 /*  f0413f4:	00000000 */ 	nop
-/*  f0413f8:	0fc2c74a */ 	jal	handGetDamage
+/*  f0413f8:	0fc2c74a */ 	jal	gsetGetDamage
 /*  f0413fc:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041400:	8fab025c */ 	lw	$t3,0x25c($sp)
 /*  f041404:	240cffff */ 	addiu	$t4,$zero,-1
@@ -15587,7 +15587,7 @@ glabel var7f1a9184
 .L0f0414d4:
 /*  f0414d4:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0414d8:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f0414dc:	0fc29f66 */ 	jal	handPlayPropHitSound
+/*  f0414dc:	0fc29f66 */ 	jal	gsetPlayPropHitSound
 /*  f0414e0:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f0414e4:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f0414e8:	8c8e0020 */ 	lw	$t6,0x20($a0)
@@ -15684,14 +15684,14 @@ glabel var7f1a9184
 /*  f041634:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f041638:	afaf007c */ 	sw	$t7,0x7c($sp)
 /*  f04163c:	afb80078 */ 	sw	$t8,0x78($sp)
-/*  f041640:	0fc2c74a */ 	jal	handGetDamage
+/*  f041640:	0fc2c74a */ 	jal	gsetGetDamage
 /*  f041644:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041648:	8fa501cc */ 	lw	$a1,0x1cc($sp)
 /*  f04164c:	e7a00074 */ 	swc1	$f0,0x74($sp)
 /*  f041650:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041654:	8cac0004 */ 	lw	$t4,0x4($a1)
 /*  f041658:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f04165c:	0fc29f66 */ 	jal	handPlayPropHitSound
+/*  f04165c:	0fc29f66 */ 	jal	gsetPlayPropHitSound
 /*  f041660:	afac0070 */ 	sw	$t4,0x70($sp)
 /*  f041664:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f041668:	8c8d0020 */ 	lw	$t5,0x20($a0)
@@ -15771,7 +15771,7 @@ glabel var7f1a9184
 .L0f04177c:
 /*  f04177c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041780:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f041784:	0fc29f66 */ 	jal	handPlayPropHitSound
+/*  f041784:	0fc29f66 */ 	jal	gsetPlayPropHitSound
 /*  f041788:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f04178c:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f041790:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -15817,7 +15817,7 @@ glabel var7f1a9184
 /*  f041828:	5560002e */ 	bnezl	$t3,.L0f0418e4
 /*  f04182c:	93ac0260 */ 	lbu	$t4,0x260($sp)
 .L0f041830:
-/*  f041830:	0fc2c74a */ 	jal	handGetDamage
+/*  f041830:	0fc2c74a */ 	jal	gsetGetDamage
 /*  f041834:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041838:	8faa0068 */ 	lw	$t2,0x68($sp)
 /*  f04183c:	44050000 */ 	mfc1	$a1,$f0
@@ -17110,7 +17110,7 @@ glabel var7f1a9184
 /*  f040bb4:	8fad01cc */ 	lw	$t5,0x1cc($sp)
 /*  f040bb8:	13000065 */ 	beqz	$t8,.NB0f040d50
 /*  f040bbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f040bc0:	0fc2bea2 */ 	jal	handGetDamage
+/*  f040bc0:	0fc2bea2 */ 	jal	gsetGetDamage
 /*  f040bc4:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040bc8:	8fae025c */ 	lw	$t6,0x25c($sp)
 /*  f040bcc:	2419ffff */ 	addiu	$t9,$zero,-1
@@ -17171,7 +17171,7 @@ glabel var7f1a9184
 .NB0f040c9c:
 /*  f040c9c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040ca0:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f040ca4:	0fc296b1 */ 	jal	handPlayPropHitSound
+/*  f040ca4:	0fc296b1 */ 	jal	gsetPlayPropHitSound
 /*  f040ca8:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f040cac:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f040cb0:	8c8c0020 */ 	lw	$t4,0x20($a0)
@@ -17268,14 +17268,14 @@ glabel var7f1a9184
 /*  f040dfc:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f040e00:	afaa007c */ 	sw	$t2,0x7c($sp)
 /*  f040e04:	afaf0078 */ 	sw	$t7,0x78($sp)
-/*  f040e08:	0fc2bea2 */ 	jal	handGetDamage
+/*  f040e08:	0fc2bea2 */ 	jal	gsetGetDamage
 /*  f040e0c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040e10:	8fa501cc */ 	lw	$a1,0x1cc($sp)
 /*  f040e14:	e7a00074 */ 	swc1	$f0,0x74($sp)
 /*  f040e18:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040e1c:	8cb90004 */ 	lw	$t9,0x4($a1)
 /*  f040e20:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f040e24:	0fc296b1 */ 	jal	handPlayPropHitSound
+/*  f040e24:	0fc296b1 */ 	jal	gsetPlayPropHitSound
 /*  f040e28:	afb90070 */ 	sw	$t9,0x70($sp)
 /*  f040e2c:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f040e30:	8c8b0020 */ 	lw	$t3,0x20($a0)
@@ -17355,7 +17355,7 @@ glabel var7f1a9184
 .NB0f040f44:
 /*  f040f44:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040f48:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f040f4c:	0fc296b1 */ 	jal	handPlayPropHitSound
+/*  f040f4c:	0fc296b1 */ 	jal	gsetPlayPropHitSound
 /*  f040f50:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f040f54:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f040f58:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -17401,7 +17401,7 @@ glabel var7f1a9184
 /*  f040ff0:	55c0002e */ 	bnezl	$t6,.NB0f0410ac
 /*  f040ff4:	93b90260 */ 	lbu	$t9,0x260($sp)
 .NB0f040ff8:
-/*  f040ff8:	0fc2bea2 */ 	jal	handGetDamage
+/*  f040ff8:	0fc2bea2 */ 	jal	gsetGetDamage
 /*  f040ffc:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041000:	8fad0068 */ 	lw	$t5,0x68($sp)
 /*  f041004:	44050000 */ 	mfc1	$a1,$f0
