@@ -118,7 +118,7 @@ u32 func0f06c28c(void);
 u32 func0f06c8ac(void);
 u32 func0f06cd00(void);
 u32 func0f06d37c(void);
-void func0f06d90c(f32 *frac, f32 maxfrac, f32 *fracspeed, f32 accel, f32 decel, f32 maxspeed);
+void applySpeed(f32 *distdone, f32 maxdist, f32 *speed, f32 accel, f32 decel, f32 maxspeed);
 void func0f06db00(f32 *arg0, f32 arg1, f32 *arg2, f32 arg3, f32 arg4, f32 arg5);
 u32 func0f06dbd8(void);
 u32 func0f06e87c(void);

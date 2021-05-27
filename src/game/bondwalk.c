@@ -3293,7 +3293,7 @@ void bwalkUpdateCrouchOffset(void)
 		f32 prevcrouchoffsetrealsmall = g_Vars.currentplayer->crouchoffsetrealsmall;
 
 		// f32 *frac, f32 maxfrac, f32 *fracspeed, f32 accel, f32 decel, f32 maxspeed
-		func0f06d90c(&g_Vars.currentplayer->crouchoffset, targetoffset,
+		applySpeed(&g_Vars.currentplayer->crouchoffset, targetoffset,
 				&g_Vars.currentplayer->crouchspeed, PALUPF(0.5f), PALUPF(0.5f), PALUPF(5.0f));
 
 		bwalkUpdateCrouchOffsetReal();

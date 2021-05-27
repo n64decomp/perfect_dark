@@ -10360,149 +10360,78 @@ glabel var7f1aa26c
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f06d90c
-/*  f06d90c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f06d910:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f06d914:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f06d918:	8c6e0038 */ 	lw	$t6,0x38($v1)
-/*  f06d91c:	f7b40008 */ 	sdc1	$f20,0x8($sp)
-/*  f06d920:	4487a000 */ 	mtc1	$a3,$f20
-/*  f06d924:	f7ba0020 */ 	sdc1	$f26,0x20($sp)
-/*  f06d928:	f7b80018 */ 	sdc1	$f24,0x18($sp)
-/*  f06d92c:	f7b60010 */ 	sdc1	$f22,0x10($sp)
-/*  f06d930:	44857000 */ 	mtc1	$a1,$f14
-/*  f06d934:	c4c00000 */ 	lwc1	$f0,0x0($a2)
-/*  f06d938:	19c0006a */ 	blez	$t6,.L0f06dae4
-/*  f06d93c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f06d940:	3c013f00 */ 	lui	$at,0x3f00
-/*  f06d944:	4481d000 */ 	mtc1	$at,$f26
-/*  f06d948:	4480c000 */ 	mtc1	$zero,$f24
-/*  f06d94c:	c7b2003c */ 	lwc1	$f18,0x3c($sp)
-/*  f06d950:	c7a20038 */ 	lwc1	$f2,0x38($sp)
-/*  f06d954:	c4900000 */ 	lwc1	$f16,0x0($a0)
-.L0f06d958:
-/*  f06d958:	46107301 */ 	sub.s	$f12,$f14,$f16
-/*  f06d95c:	460cc03c */ 	c.lt.s	$f24,$f12
-/*  f06d960:	00000000 */ 	nop
-/*  f06d964:	4502002e */ 	bc1fl	.L0f06da20
-/*  f06d968:	4618003c */ 	c.lt.s	$f0,$f24
-/*  f06d96c:	4600c03c */ 	c.lt.s	$f24,$f0
-/*  f06d970:	00000000 */ 	nop
-/*  f06d974:	45020011 */ 	bc1fl	.L0f06d9bc
-/*  f06d978:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f06d97c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f06d980:	00000000 */ 	nop
-/*  f06d984:	461a2182 */ 	mul.s	$f6,$f4,$f26
-/*  f06d988:	46023203 */ 	div.s	$f8,$f6,$f2
-/*  f06d98c:	4608603e */ 	c.le.s	$f12,$f8
-/*  f06d990:	00000000 */ 	nop
-/*  f06d994:	45000008 */ 	bc1f	.L0f06d9b8
-/*  f06d998:	00000000 */ 	nop
-/*  f06d99c:	46020001 */ 	sub.s	$f0,$f0,$f2
-/*  f06d9a0:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f06d9a4:	00000000 */ 	nop
-/*  f06d9a8:	45020014 */ 	bc1fl	.L0f06d9fc
-/*  f06d9ac:	4600603e */ 	c.le.s	$f12,$f0
-/*  f06d9b0:	10000011 */ 	b	.L0f06d9f8
-/*  f06d9b4:	46001006 */ 	mov.s	$f0,$f2
-.L0f06d9b8:
-/*  f06d9b8:	4612003c */ 	c.lt.s	$f0,$f18
-.L0f06d9bc:
-/*  f06d9bc:	00000000 */ 	nop
-/*  f06d9c0:	4502000e */ 	bc1fl	.L0f06d9fc
-/*  f06d9c4:	4600603e */ 	c.le.s	$f12,$f0
-/*  f06d9c8:	4618003c */ 	c.lt.s	$f0,$f24
-/*  f06d9cc:	00000000 */ 	nop
-/*  f06d9d0:	45020004 */ 	bc1fl	.L0f06d9e4
-/*  f06d9d4:	46140000 */ 	add.s	$f0,$f0,$f20
-/*  f06d9d8:	10000002 */ 	b	.L0f06d9e4
-/*  f06d9dc:	46020000 */ 	add.s	$f0,$f0,$f2
-/*  f06d9e0:	46140000 */ 	add.s	$f0,$f0,$f20
-.L0f06d9e4:
-/*  f06d9e4:	4600903c */ 	c.lt.s	$f18,$f0
-/*  f06d9e8:	00000000 */ 	nop
-/*  f06d9ec:	45020003 */ 	bc1fl	.L0f06d9fc
-/*  f06d9f0:	4600603e */ 	c.le.s	$f12,$f0
-/*  f06d9f4:	46009006 */ 	mov.s	$f0,$f18
-.L0f06d9f8:
-/*  f06d9f8:	4600603e */ 	c.le.s	$f12,$f0
-.L0f06d9fc:
-/*  f06d9fc:	00000000 */ 	nop
-/*  f06da00:	45020004 */ 	bc1fl	.L0f06da14
-/*  f06da04:	46008280 */ 	add.s	$f10,$f16,$f0
-/*  f06da08:	10000036 */ 	b	.L0f06dae4
-/*  f06da0c:	e48e0000 */ 	swc1	$f14,0x0($a0)
-/*  f06da10:	46008280 */ 	add.s	$f10,$f16,$f0
-.L0f06da14:
-/*  f06da14:	1000002e */ 	b	.L0f06dad0
-/*  f06da18:	e48a0000 */ 	swc1	$f10,0x0($a0)
-/*  f06da1c:	4618003c */ 	c.lt.s	$f0,$f24
-.L0f06da20:
-/*  f06da20:	00000000 */ 	nop
-/*  f06da24:	45020012 */ 	bc1fl	.L0f06da70
-/*  f06da28:	46009587 */ 	neg.s	$f22,$f18
-/*  f06da2c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f06da30:	46006287 */ 	neg.s	$f10,$f12
-/*  f06da34:	461a2182 */ 	mul.s	$f6,$f4,$f26
-/*  f06da38:	46023203 */ 	div.s	$f8,$f6,$f2
-/*  f06da3c:	4608503e */ 	c.le.s	$f10,$f8
-/*  f06da40:	00000000 */ 	nop
-/*  f06da44:	4502000a */ 	bc1fl	.L0f06da70
-/*  f06da48:	46009587 */ 	neg.s	$f22,$f18
-/*  f06da4c:	46020000 */ 	add.s	$f0,$f0,$f2
-/*  f06da50:	46001587 */ 	neg.s	$f22,$f2
-/*  f06da54:	4600b03c */ 	c.lt.s	$f22,$f0
-/*  f06da58:	00000000 */ 	nop
-/*  f06da5c:	45020015 */ 	bc1fl	.L0f06dab4
-/*  f06da60:	460c003e */ 	c.le.s	$f0,$f12
-/*  f06da64:	10000012 */ 	b	.L0f06dab0
-/*  f06da68:	4600b006 */ 	mov.s	$f0,$f22
-/*  f06da6c:	46009587 */ 	neg.s	$f22,$f18
-.L0f06da70:
-/*  f06da70:	4600b03c */ 	c.lt.s	$f22,$f0
-/*  f06da74:	00000000 */ 	nop
-/*  f06da78:	4502000e */ 	bc1fl	.L0f06dab4
-/*  f06da7c:	460c003e */ 	c.le.s	$f0,$f12
-/*  f06da80:	4600c03c */ 	c.lt.s	$f24,$f0
-/*  f06da84:	00000000 */ 	nop
-/*  f06da88:	45020004 */ 	bc1fl	.L0f06da9c
-/*  f06da8c:	46140001 */ 	sub.s	$f0,$f0,$f20
-/*  f06da90:	10000002 */ 	b	.L0f06da9c
-/*  f06da94:	46020001 */ 	sub.s	$f0,$f0,$f2
-/*  f06da98:	46140001 */ 	sub.s	$f0,$f0,$f20
-.L0f06da9c:
-/*  f06da9c:	4616003c */ 	c.lt.s	$f0,$f22
-/*  f06daa0:	00000000 */ 	nop
-/*  f06daa4:	45020003 */ 	bc1fl	.L0f06dab4
-/*  f06daa8:	460c003e */ 	c.le.s	$f0,$f12
-/*  f06daac:	4600b006 */ 	mov.s	$f0,$f22
-.L0f06dab0:
-/*  f06dab0:	460c003e */ 	c.le.s	$f0,$f12
-.L0f06dab4:
-/*  f06dab4:	00000000 */ 	nop
-/*  f06dab8:	45020004 */ 	bc1fl	.L0f06dacc
-/*  f06dabc:	46008100 */ 	add.s	$f4,$f16,$f0
-/*  f06dac0:	10000008 */ 	b	.L0f06dae4
-/*  f06dac4:	e48e0000 */ 	swc1	$f14,0x0($a0)
-/*  f06dac8:	46008100 */ 	add.s	$f4,$f16,$f0
-.L0f06dacc:
-/*  f06dacc:	e4840000 */ 	swc1	$f4,0x0($a0)
-.L0f06dad0:
-/*  f06dad0:	8c6f0038 */ 	lw	$t7,0x38($v1)
-/*  f06dad4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f06dad8:	004f082a */ 	slt	$at,$v0,$t7
-/*  f06dadc:	5420ff9e */ 	bnezl	$at,.L0f06d958
-/*  f06dae0:	c4900000 */ 	lwc1	$f16,0x0($a0)
-.L0f06dae4:
-/*  f06dae4:	e4c00000 */ 	swc1	$f0,0x0($a2)
-/*  f06dae8:	d7ba0020 */ 	ldc1	$f26,0x20($sp)
-/*  f06daec:	d7b80018 */ 	ldc1	$f24,0x18($sp)
-/*  f06daf0:	d7b60010 */ 	ldc1	$f22,0x10($sp)
-/*  f06daf4:	d7b40008 */ 	ldc1	$f20,0x8($sp)
-/*  f06daf8:	03e00008 */ 	jr	$ra
-/*  f06dafc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+/**
+ * Update a speed and distance travelled, factoring in acceleration,
+ * deceleration and the global update multiplier.
+ *
+ * The new speed and distance done are written back to those pointers.
+ */
+void applySpeed(f32 *distdone, f32 maxdist, f32 *speedptr, f32 accel, f32 decel, f32 maxspeed)
+{
+	f32 speed = *speedptr;
+	s32 i;
+
+	for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+		f32 limit = speed * speed * 0.5f / decel;
+		f32 distremaining = maxdist - *distdone;
+
+		if (distremaining > 0.0f) {
+			if (speed > 0.0f && distremaining <= limit) {
+				// Slow down for end
+				speed -= decel;
+
+				if (speed < decel) {
+					speed = decel;
+				}
+			} else if (speed < maxspeed) {
+				// Accelerate
+				if (speed < 0.0f) {
+					speed += decel;
+				} else {
+					speed += accel;
+				}
+
+				if (speed > maxspeed) {
+					speed = maxspeed;
+				}
+			}
+
+			if (speed >= distremaining) {
+				*distdone = maxdist;
+				break;
+			}
+
+			*distdone += speed;
+		} else {
+			if (speed < 0.0f && -distremaining <= limit) {
+				speed += decel;
+
+				if (speed > -decel) {
+					speed = -decel;
+				}
+			} else if (speed > -maxspeed) {
+				if (speed > 0.0f) {
+					speed -= decel;
+				} else {
+					speed -= accel;
+				}
+
+				if (speed < -maxspeed) {
+					speed = -maxspeed;
+				}
+			}
+
+			if (speed <= distremaining) {
+				*distdone = maxdist;
+				break;
+			}
+
+			*distdone += speed;
+		}
+	}
+
+	*speedptr = speed;
+}
 
 GLOBAL_ASM(
 glabel func0f06db00
@@ -10551,7 +10480,7 @@ glabel var7f1aa280
 /*  f06db6c:	44056000 */ 	mfc1	$a1,$f12
 /*  f06db70:	e7b00010 */ 	swc1	$f16,0x10($sp)
 /*  f06db74:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f06db78:	0fc1b643 */ 	jal	func0f06d90c
+/*  f06db78:	0fc1b643 */ 	jal	applySpeed
 /*  f06db7c:	e7b20014 */ 	swc1	$f18,0x14($sp)
 /*  f06db80:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f06db84:	44802000 */ 	mtc1	$zero,$f4
@@ -16984,7 +16913,7 @@ glabel var7f1ab5c0pf
 /*  f071bdc:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f071be0:	c5c60010 */ 	lwc1	$f6,0x10($t6)
 /*  f071be4:	44070000 */ 	mfc1	$a3,$f0
-/*  f071be8:	0fc1b6e5 */ 	jal	func0f06d90c
+/*  f071be8:	0fc1b6e5 */ 	jal	applySpeed
 /*  f071bec:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f071bf0:	8fa200c0 */ 	lw	$v0,0xc0($sp)
 /*  f071bf4:	c6000008 */ 	lwc1	$f0,0x8($s0)
@@ -17845,7 +17774,7 @@ glabel var7f1aa314
 /*  f071954:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f071958:	c5c60010 */ 	lwc1	$f6,0x10($t6)
 /*  f07195c:	44070000 */ 	mfc1	$a3,$f0
-/*  f071960:	0fc1b643 */ 	jal	func0f06d90c
+/*  f071960:	0fc1b643 */ 	jal	applySpeed
 /*  f071964:	e7a60014 */ 	swc1	$f6,0x14($sp)
 /*  f071968:	8fa200c0 */ 	lw	$v0,0xc0($sp)
 /*  f07196c:	c6000008 */ 	lwc1	$f0,0x8($s0)
@@ -33605,7 +33534,7 @@ void liftTick(struct prop *prop)
 			prevdist = lift->dist;
 #endif
 
-			func0f06d90c(&lift->dist, segdist, &lift->speed, lift->accel, lift->accel, lift->maxspeed);
+			applySpeed(&lift->dist, segdist, &lift->speed, lift->accel, lift->accel, lift->maxspeed);
 
 			// If arriving at the destination, set the distance explicitly
 			if (lift->speed < 1 && lift->speed > -1) {
@@ -39261,7 +39190,7 @@ glabel var7f1aa610
 /*  f07b7fc:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f07b800:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07b804:	e7ae0014 */ 	swc1	$f14,0x14($sp)
-/*  f07b808:	0fc1b643 */ 	jal	func0f06d90c
+/*  f07b808:	0fc1b643 */ 	jal	applySpeed
 /*  f07b80c:	e7ae002c */ 	swc1	$f14,0x2c($sp)
 /*  f07b810:	c7b00110 */ 	lwc1	$f16,0x110($sp)
 /*  f07b814:	c7a800ec */ 	lwc1	$f8,0xec($sp)
@@ -39296,7 +39225,7 @@ glabel var7f1aa610
 /*  f07b880:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f07b884:	e7ae0014 */ 	swc1	$f14,0x14($sp)
 /*  f07b888:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f07b88c:	0fc1b643 */ 	jal	func0f06d90c
+/*  f07b88c:	0fc1b643 */ 	jal	applySpeed
 /*  f07b890:	e7a2010c */ 	swc1	$f2,0x10c($sp)
 /*  f07b894:	c7a2010c */ 	lwc1	$f2,0x10c($sp)
 /*  f07b898:	c7a800e8 */ 	lwc1	$f8,0xe8($sp)
@@ -39722,7 +39651,7 @@ glabel var7f1aa610
 /*  f07b7fc:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f07b800:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f07b804:	e7ae0014 */ 	swc1	$f14,0x14($sp)
-/*  f07b808:	0fc1b643 */ 	jal	func0f06d90c
+/*  f07b808:	0fc1b643 */ 	jal	applySpeed
 /*  f07b80c:	e7ae002c */ 	swc1	$f14,0x2c($sp)
 /*  f07b810:	c7b00110 */ 	lwc1	$f16,0x110($sp)
 /*  f07b814:	c7a800ec */ 	lwc1	$f8,0xec($sp)
@@ -39757,7 +39686,7 @@ glabel var7f1aa610
 /*  f07b880:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f07b884:	e7ae0014 */ 	swc1	$f14,0x14($sp)
 /*  f07b888:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f07b88c:	0fc1b643 */ 	jal	func0f06d90c
+/*  f07b88c:	0fc1b643 */ 	jal	applySpeed
 /*  f07b890:	e7a2010c */ 	swc1	$f2,0x10c($sp)
 /*  f07b894:	c7a2010c */ 	lwc1	$f2,0x10c($sp)
 /*  f07b898:	c7a800e8 */ 	lwc1	$f8,0xe8($sp)
@@ -46007,6 +45936,11 @@ glabel var7f1aa6e0
 //	}
 //
 //	// 7ac
+//	// @bug: To calculate the speed correctly, the code needs to iterate the
+//	// lvupdate multiplier, then adjust the speed and test for reaching the
+//	// speedaim within each iteration. Or at least test for exceeding the
+//	// speedaim after updating it. With the below implementation, a lag frame
+//	// during acceleration can cause the hovercar to exceed its max speed.
 //	if (hovercar->speedtime60 >= 0) {
 //		if (hovercar->speedtime60 <= g_Vars.lvupdate240freal) {
 //			hovercar->speed = hovercar->speedaim;
@@ -71074,7 +71008,7 @@ bool doorCalcIntendedFrac(struct doorobj *door)
 			}
 		}
 
-		func0f06d90c(&door->frac, end, &door->fracspeed, door->accel, door->decel, door->maxspeed);
+		applySpeed(&door->frac, end, &door->fracspeed, door->accel, door->decel, door->maxspeed);
 
 		if (door->frac >= door->maxfrac) {
 			door->frac = door->maxfrac;
