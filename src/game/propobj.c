@@ -46937,12 +46937,11 @@ Gfx *propsRenderBeams(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel tvscreenSetImage
-/*  f07f918:	ac850000 */ 	sw	$a1,0x0($a0)
-/*  f07f91c:	03e00008 */ 	jr	$ra
-/*  f07f920:	a4800004 */ 	sh	$zero,0x4($a0)
-);
+void tvscreenSetImage(struct tvscreen *screen, void *image)
+{
+	screen->image = image;
+	screen->offset = 0;
+}
 
 u32 g_TvImage00 = 0x00000007;
 u32 var80069d94 = 0x0000001d;

@@ -204,7 +204,7 @@ bool propCanRegen(struct prop *prop);
 u32 func0f07e474(struct prop *prop);
 s32 objTick(struct prop *prop);
 Gfx *propsRenderBeams(Gfx *gdl);
-void tvscreenSetImage(struct tvscreen *screen, void *arg1);
+void tvscreenSetImage(struct tvscreen *screen, void *image);
 void tvscreenSetImageByNum(struct tvscreen *screen, s32 imagenum);
 u32 func0f07fbf0(void);
 u32 func0f07fbf8(void);
