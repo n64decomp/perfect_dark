@@ -45,99 +45,129 @@ u32 var8009cc38;
 u32 var8009cc3c;
 
 struct tvscreen var80061a80 = {
-	(u32) &g_TvImage00,
-	0x0000ffff,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x3f800000,
-	0x3f800000,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x3f800000,
-	0x3f000000,
-	0x00000000,
-	0x00000000,
-	0x3f000000,
-	0x3f000000,
-	0x3f000000,
-	0x00000000,
-	0x00000000,
-	0x3f000000,
-	0x3f000000,
-	0xffffffff,
-	0xffffffff,
-	0xffffffff,
-	0x3f800000,
-	0x00000000,
+	&g_TvImage00, // image
+	0,            // offset
+	0xffff,       // pause60
+	0,            // unk08
+	0,            // rot
+	1,            // xscale
+	0,            // xscalefrac
+	0,            // xscaleinc
+	1,            // xscaleold
+	1,            // xscalenew
+	1,            // yscale
+	0,            // yscalefrac
+	0,            // yscaleinc
+	1,            // yscaleold
+	1,            // yscalenew
+	0.5,          // xmid
+	0,            // xmidfrac
+	0,            // xmidinc
+	0.5,          // xmidold
+	0.5,          // xmidnew
+	0.5,          // ymid
+	0,            // ymidfrac
+	0,            // ymidinc
+	0.5,          // ymidold
+	0.5,          // ymidnew
+	0xff,         // red
+	0xff,         // redold
+	0xff,         // rednew
+	0xff,         // green
+	0xff,         // greenold
+	0xff,         // greennew
+	0xff,         // blue
+	0xff,         // blueold
+	0xff,         // bluenew
+	0xff,         // alpha
+	0xff,         // alphaold
+	0xff,         // alphanew
+	1,            // colfrac
+	0,            // colinc
 };
 
 struct tvscreen var80061af4 = {
-	(u32) &var8006aaa0,
-	0x0000ffff,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x3f800000,
-	0x3f800000,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x3f800000,
-	0x3f000000,
-	0x00000000,
-	0x00000000,
-	0x3f000000,
-	0x3f000000,
-	0x3f000000,
-	0x00000000,
-	0x00000000,
-	0x3f000000,
-	0x3f000000,
-	0xffffffff,
-	0xffffffff,
-	0xffffffff,
-	0x3f800000,
-	0x00000000,
+	&var8006aaa0, // image
+	0,            // offset
+	0xffff,       // pause60
+	0,            // unk08
+	0,            // rot
+	1,            // xscale
+	0,            // xscalefrac
+	0,            // xscaleinc
+	1,            // xscaleold
+	1,            // xscalenew
+	1,            // yscale
+	0,            // yscalefrac
+	0,            // yscaleinc
+	1,            // yscaleold
+	1,            // yscalenew
+	0.5,          // xmid
+	0,            // xmidfrac
+	0,            // xmidinc
+	0.5,          // xmidold
+	0.5,          // xmidnew
+	0.5,          // ymid
+	0,            // ymidfrac
+	0,            // ymidinc
+	0.5,          // ymidold
+	0.5,          // ymidnew
+	0xff,         // red
+	0xff,         // redold
+	0xff,         // rednew
+	0xff,         // green
+	0xff,         // greenold
+	0xff,         // greennew
+	0xff,         // blue
+	0xff,         // blueold
+	0xff,         // bluenew
+	0xff,         // alpha
+	0xff,         // alphaold
+	0xff,         // alphanew
+	1,            // colfrac
+	0,            // colinc
 };
 
 struct tvscreen var80061b68 = {
-	(u32) &var8006aae4,
-	0x0000ffff,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x3f800000,
-	0x3f800000,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x3f800000,
-	0x3f000000,
-	0x00000000,
-	0x00000000,
-	0x3f000000,
-	0x3f000000,
-	0x3f000000,
-	0x00000000,
-	0x00000000,
-	0x3f000000,
-	0x3f000000,
-	0xffffffff,
-	0xffffffff,
-	0xffffffff,
-	0x3f800000,
-	0x00000000,
+	&var8006aae4, // image
+	0,            // offset
+	0xffff,       // pause60
+	0,            // unk08
+	0,            // rot
+	1,            // xscale
+	0,            // xscalefrac
+	0,            // xscaleinc
+	1,            // xscaleold
+	1,            // xscalenew
+	1,            // yscale
+	0,            // yscalefrac
+	0,            // yscaleinc
+	1,            // yscaleold
+	1,            // yscalenew
+	0.5,          // xmid
+	0,            // xmidfrac
+	0,            // xmidinc
+	0.5,          // xmidold
+	0.5,          // xmidnew
+	0.5,          // ymid
+	0,            // ymidfrac
+	0,            // ymidinc
+	0.5,          // ymidold
+	0.5,          // ymidnew
+	0xff,         // red
+	0xff,         // redold
+	0xff,         // rednew
+	0xff,         // green
+	0xff,         // greenold
+	0xff,         // greennew
+	0xff,         // blue
+	0xff,         // blueold
+	0xff,         // bluenew
+	0xff,         // alpha
+	0xff,         // alphaold
+	0xff,         // alphanew
+	1,            // colfrac
+	0,            // colinc
 };
 
 u32 var80061bdc = 0x00000000;
