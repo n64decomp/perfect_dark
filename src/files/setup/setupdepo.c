@@ -571,8 +571,8 @@ u8 func1008_check_generator[] = {
 		// Generator activated
 		label(0x08)
 		if_stage_flag_eq(STAGEFLAG_GENERATOR_SHUT_DOWN2, TRUE, /*goto*/ 0x09)
-		set_object_image(OBJ_GENERATOR, 0x00, 0x14)
-		set_object_image(OBJ_GENERATOR, 0x01, 0x14)
+		set_object_image(OBJ_GENERATOR, 0, TVIMAGE_14)
+		set_object_image(OBJ_GENERATOR, 1, TVIMAGE_14)
 		mute_channel(CHANNEL_4)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_8147, CHANNEL_0)
@@ -609,7 +609,7 @@ u8 func1003_laser_switch_1[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, TRUE, /*goto*/ 0x09)
 
 		// Deactivated
-		set_object_image(OBJ_LASERSWITCH1, 0x00, 0x14)
+		set_object_image(OBJ_LASERSWITCH1, 0, TVIMAGE_14)
 		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET1_DISABLED)
 		open_door(OBJ_LASER_1A)
@@ -632,7 +632,7 @@ u8 func1003_laser_switch_1[] = {
 		label(0x09)
 		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET1_DISABLED)
-		set_object_image(OBJ_LASERSWITCH1, 0x00, 0x13)
+		set_object_image(OBJ_LASERSWITCH1, 0, TVIMAGE_13)
 		close_door(OBJ_LASER_1A)
 		close_door(OBJ_LASER_1B)
 		close_door(OBJ_LASER_1C)
@@ -676,7 +676,7 @@ u8 func1004_laser_switch_2[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, TRUE, /*goto*/ 0x09)
 
 		// Deactivated
-		set_object_image(OBJ_LASERSWITCH2, 0x00, 0x14)
+		set_object_image(OBJ_LASERSWITCH2, 0, TVIMAGE_14)
 		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET2_DISABLED)
 		open_door(OBJ_LASER_2A)
@@ -697,7 +697,7 @@ u8 func1004_laser_switch_2[] = {
 
 		// Activated
 		label(0x09)
-		set_object_image(OBJ_LASERSWITCH2, 0x00, 0x13)
+		set_object_image(OBJ_LASERSWITCH2, 0, TVIMAGE_13)
 		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET2_DISABLED)
 		close_door(OBJ_LASER_2A)
@@ -742,7 +742,7 @@ u8 func1005_laser_switch_3[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, TRUE, /*goto*/ 0x09)
 
 		// Deactivated
-		set_object_image(OBJ_LASERSWITCH3, 0x00, 0x14)
+		set_object_image(OBJ_LASERSWITCH3, 0, TVIMAGE_14)
 		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET3_DISABLED)
 		open_door(OBJ_LASER_3A)
@@ -763,7 +763,7 @@ u8 func1005_laser_switch_3[] = {
 
 		// Activated
 		label(0x09)
-		set_object_image(OBJ_LASERSWITCH3, 0x00, 0x13)
+		set_object_image(OBJ_LASERSWITCH3, 0, TVIMAGE_13)
 		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET3_DISABLED)
 		close_door(OBJ_LASER_3A)
@@ -808,7 +808,7 @@ u8 func1006_laser_switch_4[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, TRUE, /*goto*/ 0x09)
 
 		// Deactivated
-		set_object_image(OBJ_LASERSWITCH4, 0x00, 0x14)
+		set_object_image(OBJ_LASERSWITCH4, 0, TVIMAGE_14)
 		show_hudmsg(CHR_P1P2, L_DEPO_027) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET4_DISABLED)
 		open_door(OBJ_LASER_4A)
@@ -829,7 +829,7 @@ u8 func1006_laser_switch_4[] = {
 
 		// Activated
 		label(0x09)
-		set_object_image(OBJ_LASERSWITCH4, 0x00, 0x13)
+		set_object_image(OBJ_LASERSWITCH4, 0, TVIMAGE_13)
 		show_hudmsg(CHR_P1P2, L_DEPO_028) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET4_DISABLED)
 		close_door(OBJ_LASER_4A)
@@ -899,10 +899,10 @@ u8 func1007_init_lasers[] = {
 
 	// Agent - take down lasers
 	label(0x0d)
-	set_object_image(OBJ_LASERSWITCH1, 0x00, 0x14)
-	set_object_image(OBJ_LASERSWITCH2, 0x00, 0x14)
-	set_object_image(OBJ_LASERSWITCH3, 0x00, 0x14)
-	set_object_image(OBJ_LASERSWITCH4, 0x00, 0x14)
+	set_object_image(OBJ_LASERSWITCH1, 0, TVIMAGE_14)
+	set_object_image(OBJ_LASERSWITCH2, 0, TVIMAGE_14)
+	set_object_image(OBJ_LASERSWITCH3, 0, TVIMAGE_14)
+	set_object_image(OBJ_LASERSWITCH4, 0, TVIMAGE_14)
 	open_door(OBJ_LASER_1A)
 	open_door(OBJ_LASER_2A)
 	open_door(OBJ_LASER_3A)
@@ -2727,7 +2727,7 @@ u8 func1022_light_switch[] = {
 		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIGHTSWITCH, 0x012c, 0x0190, 0x00)
 		yield
-		set_object_image(OBJ_LIGHTSWITCH, 0x00, 0x14)
+		set_object_image(OBJ_LIGHTSWITCH, 0, TVIMAGE_14)
 		play_sound(SFX_8147, -1)
 		set_lights_state(0x000b, LIGHTOP_3, 0xff, 0x06, 0x78)
 		set_lights_state(0x000c, LIGHTOP_3, 0xff, 0x06, 0x78)
@@ -2790,7 +2790,7 @@ u8 func1022_light_switch[] = {
 		play_sound_from_entity(CHANNEL_7, OBJ_LIGHTSWITCH, 0x012c, 0x0190, 0x00)
 		yield
 		play_sound(SFX_8148, -1)
-		set_object_image(0x3d, 0x00, 0x06)
+		set_object_image(0x3d, 0, TVIMAGE_06)
 		set_lights_state(0x000b, LIGHTOP_3, 0x06, 0xff, 0x78)
 		set_lights_state(0x000c, LIGHTOP_3, 0x06, 0xff, 0x78)
 		set_lights_state(0x000d, LIGHTOP_3, 0x06, 0xff, 0x78)

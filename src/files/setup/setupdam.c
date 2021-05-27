@@ -1123,9 +1123,9 @@ u8 func100a_reactor_switch[] = {
 	assign_sound(SFX_8147, CHANNEL_0)
 	control_sound_from_object(CHANNEL_0, OBJ_REACTOR_SWITCH, TRUE)
 	set_lights_state(0x007f, LIGHTOP_3, 0xff, 0x06, 0x78)
-	set_object_image(OBJ_REACTOR_SWITCH, 0x00, 0x12)
-	set_object_image(OBJ_REACTOR_SWITCH, 0x01, 0x12)
-	set_object_image(OBJ_REACTOR_SWITCH, 0x02, 0x12)
+	set_object_image(OBJ_REACTOR_SWITCH, 0, TVIMAGE_12)
+	set_object_image(OBJ_REACTOR_SWITCH, 1, TVIMAGE_12)
+	set_object_image(OBJ_REACTOR_SWITCH, 2, TVIMAGE_12)
 	show_hudmsg(CHR_P1P2, L_DAM_018) // "Reactor has been shut down."
 	set_stage_flag(STAGEFLAG_REACTOR_SHUT_DOWN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2292,21 +2292,21 @@ u8 func1015_shuffle_hatchswitches[] = {
 	shuffle_pelagic_switches
 	yield
 	yield
-	set_object_image(OBJ_BADHATCHSWITCH1, 0x00, 0x12)
+	set_object_image(OBJ_BADHATCHSWITCH1, 0, TVIMAGE_12)
 	yield
-	set_object_image(OBJ_BADHATCHSWITCH2, 0x00, 0x12)
+	set_object_image(OBJ_BADHATCHSWITCH2, 0, TVIMAGE_12)
 	yield
-	set_object_image(OBJ_BADHATCHSWITCH3, 0x00, 0x12)
+	set_object_image(OBJ_BADHATCHSWITCH3, 0, TVIMAGE_12)
 	yield
-	set_object_image(OBJ_BADHATCHSWITCH4, 0x00, 0x12)
+	set_object_image(OBJ_BADHATCHSWITCH4, 0, TVIMAGE_12)
 	yield
-	set_object_image(OBJ_HATCHSWITCH1, 0x00, 0x13)
+	set_object_image(OBJ_HATCHSWITCH1, 0, TVIMAGE_13)
 	yield
-	set_object_image(OBJ_HATCHSWITCH2, 0x00, 0x13)
+	set_object_image(OBJ_HATCHSWITCH2, 0, TVIMAGE_13)
 	yield
-	set_object_image(OBJ_HATCHSWITCH3, 0x00, 0x13)
+	set_object_image(OBJ_HATCHSWITCH3, 0, TVIMAGE_13)
 	yield
-	set_object_image(OBJ_HATCHSWITCH4, 0x00, 0x13)
+	set_object_image(OBJ_HATCHSWITCH4, 0, TVIMAGE_13)
 	yield
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2324,7 +2324,7 @@ u8 func1015_shuffle_hatchswitches[] = {
 	label(0x07) \
 	assign_sound(SFX_043A, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, switch, TRUE) \
-	set_object_image(switch, 0x00, 0x14) \
+	set_object_image(switch, 0, TVIMAGE_14) \
 	set_stage_flag(flag) \
  \
 	beginloop(0x0b) \
@@ -2332,7 +2332,7 @@ u8 func1015_shuffle_hatchswitches[] = {
 	endloop(0x0b) \
  \
 	label(0x07) \
-	set_object_image(switch, 0x00, 0x13) \
+	set_object_image(switch, 0, TVIMAGE_13) \
 	yield \
 	yield \
 	yield \
@@ -2384,7 +2384,7 @@ u8 func101a_badhatchswitches[] = {
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH1, FALSE)
-	set_object_image(OBJ_BADHATCHSWITCH1, 0x00, 0x0f)
+	set_object_image(OBJ_BADHATCHSWITCH1, 0, TVIMAGE_0F)
 	goto_next(0x04)
 
 	// 2
@@ -2394,7 +2394,7 @@ u8 func101a_badhatchswitches[] = {
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH2, FALSE)
-	set_object_image(OBJ_BADHATCHSWITCH2, 0x00, 0x0f)
+	set_object_image(OBJ_BADHATCHSWITCH2, 0, TVIMAGE_0F)
 	goto_next(0x04)
 
 	// 3
@@ -2404,7 +2404,7 @@ u8 func101a_badhatchswitches[] = {
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH3, FALSE)
-	set_object_image(OBJ_BADHATCHSWITCH3, 0x00, 0x0f)
+	set_object_image(OBJ_BADHATCHSWITCH3, 0, TVIMAGE_0F)
 	goto_next(0x04)
 
 	// 4
@@ -2414,7 +2414,7 @@ u8 func101a_badhatchswitches[] = {
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, OBJ_BADHATCHSWITCH4, FALSE)
-	set_object_image(OBJ_BADHATCHSWITCH4, 0x00, 0x0f)
+	set_object_image(OBJ_BADHATCHSWITCH4, 0, TVIMAGE_0F)
 	goto_next(0x04)
 
 	label(0x04)
@@ -2429,10 +2429,10 @@ u8 func101a_badhatchswitches[] = {
 	label(0x04)
 	mute_channel(CHANNEL_6)
 	unset_stage_flag(STAGEFLAG_HATCHSWITCHES_RESETTING)
-	set_object_image(OBJ_BADHATCHSWITCH1, 0x00, 0x12)
-	set_object_image(OBJ_BADHATCHSWITCH2, 0x00, 0x12)
-	set_object_image(OBJ_BADHATCHSWITCH3, 0x00, 0x12)
-	set_object_image(OBJ_BADHATCHSWITCH4, 0x00, 0x12)
+	set_object_image(OBJ_BADHATCHSWITCH1, 0, TVIMAGE_12)
+	set_object_image(OBJ_BADHATCHSWITCH2, 0, TVIMAGE_12)
+	set_object_image(OBJ_BADHATCHSWITCH3, 0, TVIMAGE_12)
+	set_object_image(OBJ_BADHATCHSWITCH4, 0, TVIMAGE_12)
 	goto_first(0x00)
 
 	endlist
@@ -2855,11 +2855,11 @@ u8 func101e_alarm_images[] = {
 	set_object_flag(0x28, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(0x27, OBJFLAG2_INVISIBLE)
 	set_object_flag2(0x28, OBJFLAG2_INVISIBLE)
-	set_object_image(0x21, 0x00, 0x0f)
-	set_object_image(0x22, 0x00, 0x0f)
-	set_object_image(0x23, 0x00, 0x0f)
-	set_object_image(0x24, 0x00, 0x0f)
-	set_object_image(0x25, 0x00, 0x0f)
+	set_object_image(0x21, 0, TVIMAGE_0F)
+	set_object_image(0x22, 0, TVIMAGE_0F)
+	set_object_image(0x23, 0, TVIMAGE_0F)
+	set_object_image(0x24, 0, TVIMAGE_0F)
+	set_object_image(0x25, 0, TVIMAGE_0F)
 
 	beginloop(0x0b)
 		if_alarm_active(/*goto*/ 0x07)
@@ -2869,11 +2869,11 @@ u8 func101e_alarm_images[] = {
 	endloop(0x0b)
 
 	label(0x04)
-	set_object_image(0x21, 0x00, 0x14)
-	set_object_image(0x22, 0x00, 0x14)
-	set_object_image(0x23, 0x00, 0x14)
-	set_object_image(0x24, 0x00, 0x14)
-	set_object_image(0x25, 0x00, 0x14)
+	set_object_image(0x21, 0, TVIMAGE_14)
+	set_object_image(0x22, 0, TVIMAGE_14)
+	set_object_image(0x23, 0, TVIMAGE_14)
+	set_object_image(0x24, 0, TVIMAGE_14)
+	set_object_image(0x25, 0, TVIMAGE_14)
 	goto_first(0x00)
 
 	endlist

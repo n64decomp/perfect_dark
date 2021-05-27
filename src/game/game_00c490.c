@@ -44,8 +44,8 @@ u32 var8009cc34;
 u32 var8009cc38;
 u32 var8009cc3c;
 
-struct monitorscreen var80061a80 = {
-	(u32) &var80069d90,
+struct tvscreen var80061a80 = {
+	(u32) &g_TvImage00,
 	0x0000ffff,
 	0x00000000,
 	0x00000000,
@@ -76,7 +76,7 @@ struct monitorscreen var80061a80 = {
 	0x00000000,
 };
 
-struct monitorscreen var80061af4 = {
+struct tvscreen var80061af4 = {
 	(u32) &var8006aaa0,
 	0x0000ffff,
 	0x00000000,
@@ -108,7 +108,7 @@ struct monitorscreen var80061af4 = {
 	0x00000000,
 };
 
-struct monitorscreen var80061b68 = {
+struct tvscreen var80061b68 = {
 	(u32) &var8006aae4,
 	0x0000ffff,
 	0x00000000,
@@ -314,9 +314,9 @@ void addBlockedPath(struct blockedpathobj *blockedpath)
 
 void func0f00cc8c(void)
 {
-	struct monitorscreen tmp1;
-	struct monitorscreen tmp2;
-	struct monitorscreen tmp3;
+	struct tvscreen tmp1;
+	struct tvscreen tmp2;
+	struct tvscreen tmp3;
 
 	tmp1 = var80061a80;
 	var8009ce98 = tmp1;
@@ -1306,7 +1306,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 	u32 stack[2];
 
 	monitor->screen = var8009ce98;
-	imageSlotSetImage(&monitor->screen, monitor->imagenum);
+	tvscreenSetImageByNum(&monitor->screen, monitor->imagenum);
 
 	// The setup files never place any monitors on a -1 pad, so this code is
 	// unreachable. It appears to allow attaching monitors to other objects.
@@ -1369,16 +1369,16 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 void setupMultiMonitor(struct multimonitorobj *monitor, s32 cmdindex)
 {
 	monitor->screens[0] = var8009ce98;
-	imageSlotSetImage(&monitor->screens[0], monitor->imagenums[0]);
+	tvscreenSetImageByNum(&monitor->screens[0], monitor->imagenums[0]);
 
 	monitor->screens[1] = var8009ce98;
-	imageSlotSetImage(&monitor->screens[1], monitor->imagenums[1]);
+	tvscreenSetImageByNum(&monitor->screens[1], monitor->imagenums[1]);
 
 	monitor->screens[2] = var8009ce98;
-	imageSlotSetImage(&monitor->screens[2], monitor->imagenums[2]);
+	tvscreenSetImageByNum(&monitor->screens[2], monitor->imagenums[2]);
 
 	monitor->screens[3] = var8009ce98;
-	imageSlotSetImage(&monitor->screens[3], monitor->imagenums[3]);
+	tvscreenSetImageByNum(&monitor->screens[3], monitor->imagenums[3]);
 
 	setupGenericObject(&monitor->base, cmdindex);
 }

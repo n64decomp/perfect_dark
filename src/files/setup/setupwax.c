@@ -1658,7 +1658,7 @@ u8 func1007_bomb_logic[] = {
 	assign_sound(SFX_8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_PLANTED_BOMB, 0x0258, 0x04b0)
 	unset_object_flag2(OBJ_PLANTED_BOMB, OBJFLAG2_INVISIBLE)
-	set_object_image(OBJ_PLANTED_BOMB, 0x00, 0x0f)
+	set_object_image(OBJ_PLANTED_BOMB, 0, TVIMAGE_0F)
 	unset_object_flag(OBJ_PLANTED_BOMB, OBJFLAG_INVINCIBLE)
 
 	// Start 4 minute timer

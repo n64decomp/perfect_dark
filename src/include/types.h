@@ -1517,7 +1517,7 @@ struct monitorthing {
 	/*0x044*/ struct projectile *unk044;
 };
 
-struct monitorscreen {
+struct tvscreen {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
@@ -1719,7 +1719,7 @@ struct packedchr { // objtype 0x09
 
 struct singlemonitorobj { // objtype 0x0a
 	struct defaultobj base;
-	/*0x5c*/ struct monitorscreen screen;
+	/*0x5c*/ struct tvscreen screen;
 	/*0xd0*/ s16 owneroffset;
 	/*0xd2*/ s8 ownerpart;
 	/*0xd3*/ u8 imagenum;
@@ -1727,7 +1727,7 @@ struct singlemonitorobj { // objtype 0x0a
 
 struct multimonitorobj { // objtype 0x0b
 	struct defaultobj base;
-	struct monitorscreen screens[4];
+	struct tvscreen screens[4];
 	u8 imagenums[4];
 };
 

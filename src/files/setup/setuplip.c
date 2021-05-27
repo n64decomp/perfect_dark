@@ -3176,7 +3176,7 @@ u8 func1018_disable_chambers[] = {
 		assign_sound(SFX_043A, CHANNEL_7) \
 		control_sound_from_object(CHANNEL_7, switch, TRUE) \
 		show_hudmsg(CHR_P1P2, 0x2a42) /* "Containment unit raised up." */ \
-		set_object_image(switch, 0x00, 0x13) \
+		set_object_image(switch, 0, TVIMAGE_13) \
 		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		set_stage_flag(stageflag) \
 		restart_timer \
@@ -3200,7 +3200,7 @@ u8 func1018_disable_chambers[] = {
 		assign_sound(SFX_043A, CHANNEL_7) \
 		control_sound_from_object(CHANNEL_7, switch, TRUE) \
 		show_hudmsg(CHR_P1P2, 0x2a43) /* "Containment unit lowered down." */ \
-		set_object_image(switch, 0x00, 0x12) \
+		set_object_image(switch, 0, TVIMAGE_12) \
 		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		unset_stage_flag(stageflag) \
 		restart_timer \
@@ -3237,7 +3237,7 @@ u8 func1019_chamber1[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
-		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x13)
+		set_object_image(OBJ_CHAMBER1_SWITCH, 0, TVIMAGE_13)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
@@ -3273,7 +3273,7 @@ u8 func1019_chamber1[] = {
 		set_chr_chrflag(CHR_ALIEN, CHRCFLAG_HIDDEN)
 		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
-		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x12)
+		set_object_image(OBJ_CHAMBER1_SWITCH, 0, TVIMAGE_12)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
@@ -3308,7 +3308,7 @@ u8 func101a_chamber2[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
-		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x13)
+		set_object_image(OBJ_CHAMBER2_SWITCH, 0, TVIMAGE_13)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
@@ -3333,7 +3333,7 @@ u8 func101a_chamber2[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
-		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x12)
+		set_object_image(OBJ_CHAMBER2_SWITCH, 0, TVIMAGE_12)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
@@ -3396,7 +3396,7 @@ u8 func1020_chamber8[] = {
 		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
-		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x13)
+		set_object_image(OBJ_CHAMBER8_SWITCH, 0, TVIMAGE_13)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
 		restart_timer
@@ -3422,7 +3422,7 @@ u8 func1020_chamber8[] = {
 		assign_sound(SFX_043A, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
-		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x12)
+		set_object_image(OBJ_CHAMBER8_SWITCH, 0, TVIMAGE_12)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
 		restart_timer

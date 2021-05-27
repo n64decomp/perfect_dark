@@ -1147,7 +1147,7 @@ u8 func100a_autopilot_switch[] = {
 	label(0x06)
 	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_AUTOPILOT_SWITCH, TRUE)
-	set_object_image(OBJ_AUTOPILOT_SWITCH, 0x00, 0x13)
+	set_object_image(OBJ_AUTOPILOT_SWITCH, 0, TVIMAGE_13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	yield
 	show_hudmsg(CHR_P1P2, L_RIT_024) // "Air Force One has been stabilized."
@@ -1879,7 +1879,7 @@ u8 func100c_cockpit[] = {
 	label(0x06)
 	label(0x10)
 	set_stage_flag(STAGEFLAG_PLANE_NOSEDIVING)
-	set_object_image(OBJ_AUTOPILOT_SWITCH, 0x00, 0x0f)
+	set_object_image(OBJ_AUTOPILOT_SWITCH, 0, TVIMAGE_0F)
 
 	// Wait 10 seconds
 	label(0x09)
@@ -1929,7 +1929,7 @@ u8 func100c_cockpit[] = {
 	// Unreachable
 	label(0x7c)
 	label(0x2d)
-	set_object_image(0x03, 0x00, 0x13)
+	set_object_image(0x03, 0, TVIMAGE_13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	show_hudmsg(CHR_BOND, L_RIT_028) // "Pilots have been saved."
 	stop_ambient_track
@@ -2209,7 +2209,7 @@ u8 func1002_intro[] = {
 u8 func1010_dumbwaiter1[] = {
 	label(0x03)
 	set_object_flag(OBJ_DUMBWAITER1, OBJFLAG_DEACTIVATED)
-	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0x00, 0x12)
+	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0, TVIMAGE_12)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2218,7 +2218,7 @@ u8 func1010_dumbwaiter1[] = {
 
 	label(0x2d)
 	play_sound(SFX_043A, CHANNEL_7)
-	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0x00, 0x13)
+	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0, TVIMAGE_13)
 	unset_object_flag(OBJ_DUMBWAITER1, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -2270,7 +2270,7 @@ u8 func1010_dumbwaiter1[] = {
 u8 func1011_dumbwaiter2[] = {
 	label(0x03)
 	set_object_flag(OBJ_DUMBWAITER2, OBJFLAG_DEACTIVATED)
-	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0x00, 0x12)
+	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0, TVIMAGE_12)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2279,7 +2279,7 @@ u8 func1011_dumbwaiter2[] = {
 
 	label(0x2d)
 	play_sound(SFX_043A, CHANNEL_7)
-	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0x00, 0x13)
+	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0, TVIMAGE_13)
 	unset_object_flag(OBJ_DUMBWAITER2, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -3622,7 +3622,7 @@ u8 func1019_midcutscene_from_menu[] = {
 
 u8 func101a_equipment_switch[] = {
 	set_object_flag(0x1b, OBJFLAG_DEACTIVATED)
-	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x12)
+	set_object_image(OBJ_EQUIPMENT_SWITCH, 0, TVIMAGE_12)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -3644,7 +3644,7 @@ u8 func101a_equipment_switch[] = {
 
 	// Switch activated with keycard
 	label(0x2d)
-	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x13)
+	set_object_image(OBJ_EQUIPMENT_SWITCH, 0, TVIMAGE_13)
 	set_stage_flag(STAGEFLAG_EQUIPMENT_RAISED)
 	open_door(0x1c)
 	show_hudmsg(CHR_P1P2, L_RIT_061) // "Cargo bay has been raised."
@@ -3665,7 +3665,7 @@ u8 func101a_equipment_switch[] = {
 
 	label(0x06)
 	set_object_flag(0x1b, OBJFLAG_DEACTIVATED)
-	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x12)
+	set_object_image(OBJ_EQUIPMENT_SWITCH, 0, TVIMAGE_12)
 
 	beginloop(0x09)
 		if_door_state(0x1c, DOORSTATE_CLOSING, /*goto*/ 0x2d)
@@ -3681,7 +3681,7 @@ u8 func101a_equipment_switch[] = {
 u8 func101b_hoverbike_switch[] = {
 	unset_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
 	set_object_flag(0x1f, OBJFLAG_DEACTIVATED)
-	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x12)
+	set_object_image(OBJ_HOVERBIKE_SWITCH, 0, TVIMAGE_12)
 	label(0x08)
 	open_door(0x20)
 
@@ -3709,7 +3709,7 @@ u8 func101b_hoverbike_switch[] = {
 
 	// Activated with keycard
 	label(0x2d)
-	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x13)
+	set_object_image(OBJ_HOVERBIKE_SWITCH, 0, TVIMAGE_13)
 	show_hudmsg(CHR_P1P2, L_RIT_060) // "Cargo bay has been lowered."
 	set_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
 	assign_sound(SFX_043A, CHANNEL_7)
@@ -3730,7 +3730,7 @@ u8 func101b_hoverbike_switch[] = {
 
 	label(0x06)
 	set_object_flag(0x1f, OBJFLAG_DEACTIVATED)
-	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x12)
+	set_object_image(OBJ_HOVERBIKE_SWITCH, 0, TVIMAGE_12)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

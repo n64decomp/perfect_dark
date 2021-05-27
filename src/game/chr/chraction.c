@@ -6408,7 +6408,7 @@ void chrGoPosChooseAnimation(struct chrdata *chr)
 							|| chr->hitpart == HITPART_RBICEP) {
 						anim = 0x1f8;
 						flip = true;
-					} else if (stageGetIndex(g_Vars.stagenum) == STAGE_MAIANSOS) {
+					} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
 						anim = 0x5f;
 					} else if (male) {
 						if (random() % 2) {

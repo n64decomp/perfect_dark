@@ -257,7 +257,7 @@ extern struct autogunobj *g_ThrownLaptops;
 extern struct var8006996c *var8006996c;
 extern s32 g_MaxThrownLaptops;
 extern struct prop *g_Lifts[MAX_LIFTS];
-extern u32 var80069d90;
+extern u32 g_TvImage00;
 extern u32 var8006aaa0;
 extern u32 var8006aae4;
 extern struct audiochannel *g_AudioChannels;

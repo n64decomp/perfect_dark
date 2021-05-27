@@ -5221,12 +5221,12 @@ bool aiSetObjImage(void)
 	if (obj && obj->prop) {
 		if (obj->type == OBJTYPE_SINGLEMONITOR) {
 			struct singlemonitorobj *sm = (struct singlemonitorobj *) obj;
-			imageSlotSetImage(&sm->screen, cmd[4]);
+			tvscreenSetImageByNum(&sm->screen, cmd[4]);
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
 			u8 slot = cmd[3];
 			if (slot < 4) {
 				struct multimonitorobj *mm = (struct multimonitorobj *) obj;
-				imageSlotSetImage(&mm->screens[slot], cmd[4]);
+				tvscreenSetImageByNum(&mm->screens[slot], cmd[4]);
 			}
 		}
 	}
