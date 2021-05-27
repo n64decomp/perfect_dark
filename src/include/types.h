@@ -1205,7 +1205,7 @@ struct act_robotattack {
 	/*0x2c*/ struct coord pos[2];
 	/*0x44*/ struct coord dir[2];
 	/*0x5c*/ u32 guntype[2];
-	/*0x64*/ u32 numshots[2];
+	/*0x64*/ s32 numshots[2];
 	/*0x6c*/ u8 firing[2];
 	/*0x6e*/ u8 finished;
 };
@@ -1426,8 +1426,7 @@ struct chrdata {
 	/*0x33a*/ u8 deaddropsplatsadded;
 	/*0x33b*/ s8 aimtesttimer60;
 	/*0x33c*/ struct coord lastdroppos;
-	/*0x348*/ struct fireslotthing *unk348;
-	/*0x34c*/ struct fireslotthing *unk34c;
+	/*0x348*/ struct fireslotthing *unk348[2];
 	/*0x350*/ struct chrdata *lastattacker;
 	/*0x354*/ s16 aipunchdodgelist;
 	/*0x356*/ s16 aishootingatmelist;
@@ -3645,7 +3644,7 @@ struct room {
 
 struct fireslotthing {
 	/*0x00*/ u8 unk00;
-	/*0x01*/ u8 unk01;
+	/*0x01*/ s8 unk01;
 	/*0x04*/ struct beam *beam;
 	/*0x08*/ s32 unk08;
 	/*0x0c*/ f32 unk0c;

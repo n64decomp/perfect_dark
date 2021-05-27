@@ -17700,22 +17700,22 @@ void robotAttack(struct chrdata *chr)
 {
 	u32 numshots = random() % 20;
 
-	if (chr->unk348 && chr->unk34c) {
+	if (chr->unk348[0] && chr->unk348[1]) {
 		chr->actiontype = ACT_ROBOTATTACK;
 
-		chr->unk348->beam->age = -1;
-		chr->unk348->unk00 = random() % 3;
-		chr->unk348->unk01 = 0;
-		chr->unk348->unk08 = -1;
-		chr->unk348->unk0c = 0.85f;
+		chr->unk348[0]->beam->age = -1;
+		chr->unk348[0]->unk00 = random() % 3;
+		chr->unk348[0]->unk01 = 0;
+		chr->unk348[0]->unk08 = -1;
+		chr->unk348[0]->unk0c = 0.85f;
 
 		if ((lvGetDifficulty() == DIFF_PA) * 0.2f) {
-			chr->unk348->unk10 = 2.0f;
+			chr->unk348[0]->unk10 = 2.0f;
 		} else {
-			chr->unk348->unk10 = 1.0f;
+			chr->unk348[0]->unk10 = 1.0f;
 		}
 
-		chr->unk348->unk14 = 0.0f;
+		chr->unk348[0]->unk14 = 0.0f;
 
 		chr->act_robotattack.pos[0].x = 0.0f;
 		chr->act_robotattack.pos[0].y = 0.0f;
@@ -17726,13 +17726,13 @@ void robotAttack(struct chrdata *chr)
 		chr->act_robotattack.guntype[0] = 90;
 		chr->act_robotattack.firing[0] = false;
 
-		chr->unk34c->beam->age = -1;
-		chr->unk34c->unk00 = random() % 3;
-		chr->unk34c->unk01 = 0;
-		chr->unk34c->unk08 = -1;
-		chr->unk34c->unk0c = 0.85f;
-		chr->unk34c->unk10 = 0.2f;
-		chr->unk34c->unk14 = 0.0f;
+		chr->unk348[1]->beam->age = -1;
+		chr->unk348[1]->unk00 = random() % 3;
+		chr->unk348[1]->unk01 = 0;
+		chr->unk348[1]->unk08 = -1;
+		chr->unk348[1]->unk0c = 0.85f;
+		chr->unk348[1]->unk10 = 0.2f;
+		chr->unk348[1]->unk14 = 0.0f;
 
 		chr->act_robotattack.guntype[1] = 90;
 		chr->act_robotattack.firing[1] = false;
@@ -18185,6 +18185,146 @@ glabel var7f1a91dc
 /*  f042ff4:	03e00008 */ 	jr	$ra
 /*  f042ff8:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
+
+// Mismatch: float regalloc near first atan2f and too much stack usage.
+//void chrTickRobotAttack(struct chrdata *chr)
+//{
+//	f32 f26 = 0;
+//	f32 f28 = 0;
+//	struct prop *targetprop = chrGetTargetProp(chr);
+//	bool firing;
+//	f32 f20;
+//	f32 f24;
+//	f32 invtheta = chrGetInverseTheta(chr);
+//	union modelrodata *rodata;
+//	f32 aimy;
+//	struct act_robotattack *act = &chr->act_robotattack;
+//	struct coord spe4;
+//	Mtxf spa4;
+//	s32 i;
+//	f32 xdiff;
+//	f32 zdiff;
+//
+//	func0f0429d8(chr, 0.085f, invtheta);
+//
+//	if (chr->model->filedata->type != &g_ModelTypeRobot) {
+//		act->finished = true;
+//		return;
+//	}
+//
+//	for (i = 0; i < 2; i++) {
+//		bool empty = false;
+//
+//		if (act->numshots[i] > 0) {
+//			chr->unk348[i]->unk01 = !(chr->unk348[i]->unk00 % 3);
+//			firing = !(chr->unk348[i]->unk00 % 2);
+//		} else {
+//			chr->unk348[i]->unk01 = 0;
+//			firing = false;
+//		}
+//
+//		act->firing[i] = firing;
+//
+//		if (act->numshots[0] <= 0 && act->numshots[1] <= 0) {
+//			empty = true;
+//
+//			if (ABS(chr->gunroty[0]) < 0.03f
+//					&& ABS(chr->gunrotx[0]) < 0.03f
+//					&& ABS(chr->gunroty[1]) < 0.03f
+//					&& ABS(chr->gunrotx[1]) < 0.03f) {
+//				act->finished = true;
+//			}
+//		}
+//
+//		if (!empty) {
+//			aimy = targetprop->pos.y - 20;
+//			rodata = modelGetPartRodata(chr->model->filedata, (i ? MODELPART_ROBOT_0000 : MODELPART_ROBOT_0001));
+//
+//			act->pos[i].x = rodata->position.pos.x;
+//			act->pos[i].y = rodata->position.pos.y - 300;
+//			act->pos[i].z = rodata->position.pos.z;
+//
+//			func00016374(invtheta, &spa4);
+//			func00015b14(&spa4, &act->pos[i], &spe4);
+//
+//			spe4.x *= chr->model->scale;
+//			spe4.y *= chr->model->scale;
+//			spe4.z *= chr->model->scale;
+//
+//			act->pos[i].x = chr->prop->pos.x + spe4.x;
+//			act->pos[i].y = chr->prop->pos.y + spe4.y;
+//			act->pos[i].z = chr->prop->pos.z + spe4.z;
+//
+//			f26 = atan2f(targetprop->pos.x - act->pos[i].x, targetprop->pos.z - act->pos[i].z) - invtheta;
+//
+//			if (f26 < 0.0f) {
+//				f26 += M_BADTAU;
+//			}
+//
+//			if (f26 > M_BADPI) {
+//				f26 -= M_BADTAU;
+//			}
+//
+//			if (f26 < -0.524f) {
+//				f26 = -0.524f;
+//			}
+//
+//			if (f26 > 0.524f) {
+//				f26 = 0.524f;
+//			}
+//
+//			xdiff = targetprop->pos.x - act->pos[i].x;
+//			zdiff = targetprop->pos.z - act->pos[i].z;
+//			f28 = M_BADTAU - atan2f(aimy - act->pos[i].y, sqrtf(xdiff * xdiff + zdiff * zdiff));
+//
+//			if (f28 > M_BADPI) {
+//				f28 -= M_BADTAU;
+//			}
+//
+//			if (f28 < -0.524f) {
+//				f28 = -0.524f;
+//			}
+//
+//			if (f28 > 0.524f) {
+//				f28 = 0.524f;
+//			}
+//		}
+//
+//		chr->gunroty[i] += (f26 - chr->gunroty[i]) * 0.15f;
+//		chr->gunrotx[i] += (f28 - chr->gunrotx[i]) * 0.15f;
+//
+//		if (!empty) {
+//			if (firing) {
+//				f24 = chr->gunrotx[i];
+//				f20 = chr->gunroty[i];
+//
+//				if (f24 < 0.0f) {
+//					f24 += M_BADTAU;
+//				}
+//
+//				if (f20 < 0.0f) {
+//					f20 += M_BADTAU;
+//				}
+//
+//				f20 += invtheta;
+//
+//				if (f20 >= M_BADTAU) {
+//					f20 -= M_BADTAU;
+//				}
+//
+//				act->dir[i].x = sinf(f20) * cosf(f24);
+//				act->dir[i].y = -sinf(f24);
+//				act->dir[i].z = cosf(f20) * cosf(f24);
+//
+//				robotSetMuzzleFlash(chr, i, true);
+//
+//				act->numshots[i]--;
+//			}
+//
+//			chr->unk348[i]->unk00++;
+//		}
+//	}
+//}
 
 void chrTickAttack(struct chrdata *chr)
 {

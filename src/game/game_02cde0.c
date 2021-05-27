@@ -776,12 +776,12 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 				chr->chrheight = 185;
 				chr->chrwidth = 30;
 			} else if (bodynum == BODY_CHICROB) {
-				chr->unk348 = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
-				chr->unk34c = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
-				chr->unk348->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
-				chr->unk34c->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
-				chr->unk348->beam->age = -1;
-				chr->unk34c->beam->age = -1;
+				chr->unk348[0] = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
+				chr->unk348[1] = malloc(sizeof(struct fireslotthing), MEMPOOL_STAGE);
+				chr->unk348[0]->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
+				chr->unk348[1]->beam = malloc(ALIGN16(sizeof(struct beam)), MEMPOOL_STAGE);
+				chr->unk348[0]->beam->age = -1;
+				chr->unk348[1]->beam->age = -1;
 				chr->chrheight = 200;
 				chr->chrwidth = 42;
 			}

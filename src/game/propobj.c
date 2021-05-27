@@ -46962,8 +46962,8 @@ Gfx *propsRenderBeams(Gfx *gdl)
 			struct chrdata *chr = prop->chr;
 
 			if (CHRRACE(chr) == RACE_ROBOT) {
-				gdl = func0f0acb90(gdl, chr->unk348->beam, true, true);
-				gdl = func0f0acb90(gdl, chr->unk34c->beam, true, true);
+				gdl = func0f0acb90(gdl, chr->unk348[0]->beam, true, true);
+				gdl = func0f0acb90(gdl, chr->unk348[1]->beam, true, true);
 			} else {
 				if (chr->fireslot[0] >= 0) {
 					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[0]].beam, true, false);

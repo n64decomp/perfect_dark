@@ -4469,8 +4469,8 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->gunrotx[0] = 0;
 	chr->gunroty[1] = 0;
 	chr->gunrotx[1] = 0;
-	chr->unk348 = 0;
-	chr->unk34c = 0;
+	chr->unk348[0] = 0;
+	chr->unk348[1] = 0;
 	chr->onladder = 0;
 	chr->laddernormal.x = 0;
 	chr->laddernormal.y = 0;
