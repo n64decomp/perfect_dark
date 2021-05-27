@@ -232,7 +232,7 @@ void doorDestroyGlass(struct doorobj *door);
 void func0f084f64(struct defaultobj *obj);
 void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s32 arg4);
 bool objIsCollectableByDefault(struct defaultobj *obj);
-u32 func0f0851ec(void);
+bool func0f0851ec(struct defaultobj *obj);
 void func0f085270(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum);
 void func0f0852ac(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum);
 u32 func0f0859a0(void);

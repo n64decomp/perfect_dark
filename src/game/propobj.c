@@ -57852,6 +57852,7 @@ bool func0f085158(struct defaultobj *obj)
 	return false;
 }
 
+// Misnamed
 bool objIsCollectableByDefault(struct defaultobj *obj)
 {
 	switch (obj->type) {
@@ -57868,46 +57869,22 @@ bool objIsCollectableByDefault(struct defaultobj *obj)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0851ec
-/*  f0851ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0851f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0851f4:	908e0003 */ 	lbu	$t6,0x3($a0)
-/*  f0851f8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0851fc:	15c10003 */ 	bne	$t6,$at,.L0f08520c
-/*  f085200:	00000000 */ 	nop
-/*  f085204:	10000016 */ 	b	.L0f085260
-/*  f085208:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08520c:
-/*  f08520c:	0fc21465 */ 	jal	objIsCollectableByDefault
-/*  f085210:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f085214:	1040000b */ 	beqz	$v0,.L0f085244
-/*  f085218:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f08521c:	908f0003 */ 	lbu	$t7,0x3($a0)
-/*  f085220:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f085224:	51e10008 */ 	beql	$t7,$at,.L0f085248
-/*  f085228:	8c880008 */ 	lw	$t0,0x8($a0)
-/*  f08522c:	8c980008 */ 	lw	$t8,0x8($a0)
-/*  f085230:	0018cbc0 */ 	sll	$t9,$t8,0xf
-/*  f085234:	0722000a */ 	bltzl	$t9,.L0f085260
-/*  f085238:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f08523c:	10000008 */ 	b	.L0f085260
-/*  f085240:	00001025 */ 	or	$v0,$zero,$zero
-.L0f085244:
-/*  f085244:	8c880008 */ 	lw	$t0,0x8($a0)
-.L0f085248:
-/*  f085248:	00084b80 */ 	sll	$t1,$t0,0xe
-/*  f08524c:	05230004 */ 	bgezl	$t1,.L0f085260
-/*  f085250:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f085254:	10000002 */ 	b	.L0f085260
-/*  f085258:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08525c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f085260:
-/*  f085260:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f085264:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f085268:	03e00008 */ 	jr	$ra
-/*  f08526c:	00000000 */ 	nop
-);
+bool func0f0851ec(struct defaultobj *obj)
+{
+	if (obj->type == OBJTYPE_DOOR) {
+		return false;
+	}
+
+	if (objIsCollectableByDefault(obj) && obj->type != OBJTYPE_SHIELD) {
+		if ((obj->flags & OBJFLAG_00010000) == 0) {
+			return false;
+		}
+	} else if (obj->flags & OBJFLAG_INVINCIBLE) {
+		return false;
+	}
+
+	return true;
+}
 
 void func0f085270(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum)
 {
