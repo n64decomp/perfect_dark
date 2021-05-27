@@ -69824,45 +69824,20 @@ void func0f08d3dc(struct doorobj *door)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f08d460
-/*  f08d460:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f08d464:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08d468:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08d46c:	948e0070 */ 	lhu	$t6,0x70($a0)
-/*  f08d470:	24010084 */ 	addiu	$at,$zero,0x84
-/*  f08d474:	00808025 */ 	or	$s0,$a0,$zero
-/*  f08d478:	31cf0084 */ 	andi	$t7,$t6,0x84
-/*  f08d47c:	55e10016 */ 	bnel	$t7,$at,.L0f08d4d8
-/*  f08d480:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08d484:	0fc1a1f9 */ 	jal	func0f0687e4
-/*  f08d488:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f08d48c:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f08d490:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08d494:	00402825 */ 	or	$a1,$v0,$zero
-/*  f08d498:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f08d49c:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f08d4a0:	8e0600a4 */ 	lw	$a2,0xa4($s0)
-/*  f08d4a4:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f08d4a8:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f08d4ac:	00404025 */ 	or	$t0,$v0,$zero
-/*  f08d4b0:	10d80007 */ 	beq	$a2,$t8,.L0f08d4d0
-/*  f08d4b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08d4b8:	8c65000c */ 	lw	$a1,0xc($v1)
-/*  f08d4bc:	84670010 */ 	lh	$a3,0x10($v1)
-/*  f08d4c0:	0fc232c8 */ 	jal	func0f08cb20
-/*  f08d4c4:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f08d4c8:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f08d4cc:	8e0600a4 */ 	lw	$a2,0xa4($s0)
-.L0f08d4d0:
-/*  f08d4d0:	ad060000 */ 	sw	$a2,0x0($t0)
-/*  f08d4d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08d4d8:
-/*  f08d4d8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08d4dc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f08d4e0:	03e00008 */ 	jr	$ra
-/*  f08d4e4:	00000000 */ 	nop
-);
+void func0f08d460(struct doorobj *door)
+{
+	if ((door->doorflags & (DOORFLAG_0004 | DOORFLAG_0080)) == (DOORFLAG_0004 | DOORFLAG_0080)) {
+		struct modelnode *node = func0f0687e4(door->base.model);
+		union modelrodata *rodata = node->rodata;
+		union modelrwdata *rwdata = modelGetNodeRwData(door->base.model, node);
+
+		if (rwdata->dl.vertices != door->unka4) {
+			func0f08cb20(door, rodata->dl.vertices, door->unka4, rodata->dl.numvertices);
+		}
+
+		rwdata->dl.vertices = door->unka4;
+	}
+}
 
 void doorActivatePortal(struct doorobj *door)
 {

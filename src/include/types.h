@@ -1621,7 +1621,7 @@ struct doorobj { // objtype 0x01
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u32 unk9c;
 	/*0xa0*/ u32 unka0;
-	/*0xa4*/ u32 unka4;
+	/*0xa4*/ struct gfxvtx *unka4;
 	/*0xa8*/ u32 unka8;
 	/*0xac*/ u32 unkac;
 	/*0xb0*/ u32 unkb0;
