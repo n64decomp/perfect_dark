@@ -1734,8 +1734,8 @@ u8 func1007_console_activation[] = {
 
 	label(0x02)
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
-	set_object_image(OBJ_CONSOLE, 0, TVIMAGE_0F)
-	set_object_image(OBJ_CONSOLE, 1, TVIMAGE_0F)
+	set_object_image(OBJ_CONSOLE, 0, TVCMDLIST_0F)
+	set_object_image(OBJ_CONSOLE, 1, TVCMDLIST_0F)
 	set_chr_flag_bankx(0x12, CHRFLAG0_00002000, BANK_0)
 	show_hudmsg(CHR_P1P2, L_CAVE_035) // "System shutdown initiated..."
 	mute_channel(CHANNEL_1)
@@ -1752,7 +1752,7 @@ u8 func1007_console_activation[] = {
 	endloop(0x04)
 
 	label(0x02)
-	set_object_image(OBJ_CONSOLE, 0, TVIMAGE_14)
+	set_object_image(OBJ_CONSOLE, 0, TVCMDLIST_14)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_0479, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
@@ -1766,7 +1766,7 @@ u8 func1007_console_activation[] = {
 	endloop(0x05)
 
 	label(0x31)
-	set_object_image(OBJ_CONSOLE, 1, TVIMAGE_14)
+	set_object_image(OBJ_CONSOLE, 1, TVCMDLIST_14)
 	play_x_track(XREASON_DEFAULT, 88, 88)
 
 	beginloop(0x06)

@@ -1314,7 +1314,7 @@ u8 func1005_devicetraining_xray[] = {
 	if_object_flag2(0x38, OBJFLAG2_00000001, /*goto*/ 0x87)
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_041) // "Laser Grid 1 has been deactivated."
-	set_object_image(0x38, 0, TVIMAGE_12)
+	set_object_image(0x38, 0, TVCMDLIST_12)
 	set_object_flag2(0x38, OBJFLAG2_00000001)
 	open_door(0x3a)
 	label(0x87)
@@ -1330,7 +1330,7 @@ u8 func1005_devicetraining_xray[] = {
 
 	label(0x5c)
 	if_object_flag2(0x39, OBJFLAG2_00000001, /*goto*/ 0x88)
-	set_object_image(0x39, 0, TVIMAGE_12)
+	set_object_image(0x39, 0, TVCMDLIST_12)
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_042) // "Laser Grid 2 has been deactivated."
 	set_object_flag2(0x39, OBJFLAG2_00000001)
@@ -3620,7 +3620,7 @@ u8 func101c_holo1_main[] = {
 	endloop(0x8f) \
  \
 	label(0x2f) \
-	set_object_image(object, 0, TVIMAGE_12) \
+	set_object_image(object, 0, TVCMDLIST_12) \
 	unset_object_flag2(object, OBJFLAG2_00040000) \
  \
 	beginloop(0x04) \
@@ -3632,7 +3632,7 @@ u8 func101c_holo1_main[] = {
 	endloop(0x04) \
  \
 	label(0x2f) \
-	set_object_image(object, 0, TVIMAGE_13) \
+	set_object_image(object, 0, TVCMDLIST_13) \
 	set_object_flag2(object, OBJFLAG2_00040000) \
 	assign_sound(SFX_043A, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
@@ -3662,7 +3662,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	endloop(0x8f)
 
 	label(0x2f)
-	set_object_image(0x4f, 0, TVIMAGE_12)
+	set_object_image(0x4f, 0, TVCMDLIST_12)
 	unset_object_flag2(0x4f, OBJFLAG2_00040000)
 
 	beginloop(0x04)
@@ -3674,7 +3674,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	set_object_image(0x4f, 0, TVIMAGE_13)
+	set_object_image(0x4f, 0, TVCMDLIST_13)
 	set_object_flag2(0x4f, OBJFLAG2_00040000)
 	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x4f, TRUE)
@@ -3713,8 +3713,8 @@ u8 func1020_holo1_monitor_switches[] = {
 	goto_first(0x04) \
  \
 	label(0x2f) \
-	set_object_image(object2, 0, TVIMAGE_12) \
-	set_object_image(object1, 0, TVIMAGE_13) \
+	set_object_image(object2, 0, TVCMDLIST_12) \
+	set_object_image(object1, 0, TVCMDLIST_13) \
 	remove_hudmsgs \
 	show_hudmsg(CHR_BOND, msg) \
 	assign_sound(SFX_DOOR_81B0, CHANNEL_7) \
@@ -3744,7 +3744,7 @@ u8 func1020_holo1_monitor_switches[] = {
 
 u8 func1021_holo1_code1[] = {
 	label(0x8f)
-	set_object_image(0x48, 0, TVIMAGE_12)
+	set_object_image(0x48, 0, TVCMDLIST_12)
 	unset_object_flag2(0x4c, OBJFLAG2_00000001)
 
 	holo1_code_thing_p1(0x48, 0x4c, 0x0240)
@@ -3761,7 +3761,7 @@ u8 func1021_holo1_code1[] = {
 
 u8 func1021_holo1_code2[] = {
 	label(0x8f)
-	set_object_image(0x49, 0, TVIMAGE_12)
+	set_object_image(0x49, 0, TVCMDLIST_12)
 	unset_object_flag2(0x4d, OBJFLAG2_00000001)
 
 	holo1_code_thing_p1(0x49, 0x4d, 0x0241)
@@ -3777,7 +3777,7 @@ u8 func1021_holo1_code2[] = {
 u8 func1021_holo1_code3[] = {
 	label(0x8f)
 	unset_object_flag2(0x4e, OBJFLAG2_00000001)
-	set_object_image(0x4a, 0, TVIMAGE_12)
+	set_object_image(0x4a, 0, TVCMDLIST_12)
 
 	holo1_code_thing_p1(0x4a, 0x4e, 0x0242)
 
@@ -3792,7 +3792,7 @@ u8 func1021_holo1_code3[] = {
 u8 func1021_holo1_code4[] = {
 	label(0x8f)
 	unset_object_flag2(0x4f, OBJFLAG2_00000001)
-	set_object_image(0x4b, 0, TVIMAGE_12)
+	set_object_image(0x4b, 0, TVCMDLIST_12)
 
 	holo1_code_thing_p1(0x4b, 0x4f, 0x0243)
 
@@ -3883,10 +3883,10 @@ u8 func1022_holo2_main[] = {
 	unset_object_flag2(0x55, OBJFLAG2_00000001)
 	unset_object_flag2(0x56, OBJFLAG2_00000001)
 	unset_object_flag2(0x57, OBJFLAG2_00000001)
-	set_object_image(0x54, 0, TVIMAGE_14)
-	set_object_image(0x55, 0, TVIMAGE_14)
-	set_object_image(0x56, 0, TVIMAGE_14)
-	set_object_image(0x57, 0, TVIMAGE_14)
+	set_object_image(0x54, 0, TVCMDLIST_14)
+	set_object_image(0x55, 0, TVCMDLIST_14)
+	set_object_image(0x56, 0, TVCMDLIST_14)
+	set_object_image(0x57, 0, TVCMDLIST_14)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
@@ -3974,14 +3974,14 @@ u8 func1022_holo2_main[] = {
 		reloop(0x04) \
  \
 		label(0x06) \
-		set_object_image(object, 0, TVIMAGE_14) \
+		set_object_image(object, 0, TVCMDLIST_14) \
 		unset_object_flag2(object, OBJFLAG2_00000001) \
 	endloop(0x04) \
  \
 	label(0x2f) \
 	assign_sound(SFX_043A, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
-	set_object_image(object, 0, TVIMAGE_13) \
+	set_object_image(object, 0, TVCMDLIST_13) \
 	set_object_flag2(object, OBJFLAG2_00000001) \
 	set_returnlist(CHR_SELF, function) \
 	set_ailist(CHR_SELF, 0x041b)
@@ -4066,10 +4066,10 @@ u8 func042f_holo2_part2[] = {
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_105) // "Training failed - you must face forward."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
-	set_object_image(0x54, 0, TVIMAGE_12)
-	set_object_image(0x55, 0, TVIMAGE_12)
-	set_object_image(0x56, 0, TVIMAGE_12)
-	set_object_image(0x57, 0, TVIMAGE_12)
+	set_object_image(0x54, 0, TVCMDLIST_12)
+	set_object_image(0x55, 0, TVCMDLIST_12)
+	set_object_image(0x56, 0, TVCMDLIST_12)
+	set_object_image(0x57, 0, TVCMDLIST_12)
 
 	beginloop(0x08)
 		if_timer_gt(120, /*goto*/ 0x2f)
@@ -4142,8 +4142,8 @@ u8 func1027_holo3_main[] = {
 	label(0x2f)
 	unset_object_flag2(0x65, OBJFLAG2_00000001)
 	unset_object_flag2(0x66, OBJFLAG2_00000001)
-	set_object_image(0x65, 0, TVIMAGE_14)
-	set_object_image(0x66, 0, TVIMAGE_14)
+	set_object_image(0x65, 0, TVCMDLIST_14)
+	set_object_image(0x66, 0, TVCMDLIST_14)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
@@ -4355,7 +4355,7 @@ u8 func102c_holo3_object1[] = {
 	label(0x2f)
 	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
-	set_object_image(0x65, 0, TVIMAGE_13)
+	set_object_image(0x65, 0, TVCMDLIST_13)
 	set_object_flag2(0x65, OBJFLAG2_00000001)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT1)
 	set_ailist(CHR_SELF, AILIST_HOLO3_CHECK_DONE)
@@ -4370,7 +4370,7 @@ u8 func102d_holo3_object2[] = {
 	label(0x2f)
 	assign_sound(SFX_043A, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
-	set_object_image(0x66, 0, TVIMAGE_13)
+	set_object_image(0x66, 0, TVCMDLIST_13)
 	set_object_flag2(0x66, OBJFLAG2_00000001)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT2)
 	set_ailist(CHR_SELF, AILIST_HOLO3_CHECK_DONE)

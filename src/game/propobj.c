@@ -59,6 +59,7 @@
 #include "game/wallhit.h"
 #include "game/shards.h"
 #include "bss.h"
+#include "tvcmds.h"
 #include "lib/lib_09a80.h"
 #include "lib/dma.h"
 #include "lib/main.h"
@@ -46937,969 +46938,629 @@ Gfx *propsRenderBeams(Gfx *gdl)
 	return gdl;
 }
 
-void tvscreenSetImage(struct tvscreen *screen, void *image)
+void tvscreenSetCmdlist(struct tvscreen *screen, u32 *cmdlist)
 {
-	screen->image = image;
+	screen->cmdlist = cmdlist;
 	screen->offset = 0;
 }
 
-u32 g_TvImage00 = 0x00000007;
-u32 var80069d94 = 0x0000001d;
-u32 var80069d98 = 0x0000000d;
-u32 var80069d9c = 0x008000ff;
-u32 var80069da0 = 0x00000001;
-u32 var80069da4 = 0x00000002;
-u32 var80069da8 = 0xfffffe00;
-u32 var80069dac = 0x00000050;
-u32 var80069db0 = 0x00000008;
-u32 var80069db4 = 0x00000078;
-u32 var80069db8 = 0x00000002;
-u32 var80069dbc = 0xffffff00;
-u32 var80069dc0 = 0x00000014;
-u32 var80069dc4 = 0x00000008;
-u32 var80069dc8 = 0x00000078;
-u32 var80069dcc = 0x00000002;
-u32 var80069dd0 = 0xffffff80;
-u32 var80069dd4 = 0x0000000a;
-u32 var80069dd8 = 0x00000008;
-u32 var80069ddc = 0x00000028;
-u32 var80069de0 = 0x00000002;
-u32 var80069de4 = 0xfffffe00;
-u32 var80069de8 = 0x00000028;
-u32 var80069dec = 0x00000008;
-u32 var80069df0 = 0x0000003c;
-u32 var80069df4 = 0x00000002;
-u32 var80069df8 = 0xffffffc0;
-u32 var80069dfc = 0x0000001e;
-u32 var80069e00 = 0x00000008;
-u32 var80069e04 = 0x00000078;
-u32 var80069e08 = 0x0000000b;
-u32 g_TvImage01 = 0x0000000d;
-u32 var80069e10 = 0x202020ff;
-u32 var80069e14 = 0x00000001;
-u32 var80069e18 = 0x00000007;
-u32 var80069e1c = 0x0000001c;
-u32 var80069e20 = 0x00000001;
-u32 var80069e24 = 0x00000800;
-u32 var80069e28 = 0x00000078;
-u32 var80069e2c = 0x00000008;
-u32 var80069e30 = 0x00000078;
-u32 var80069e34 = 0x00000005;
-u32 var80069e38 = 0x00000100;
-u32 var80069e3c = 0x00000001;
-u32 var80069e40 = 0x00000006;
-u32 var80069e44 = 0x00000200;
-u32 var80069e48 = 0x0000003c;
-u32 var80069e4c = 0x00000001;
-u32 var80069e50 = 0xffffe000;
-u32 var80069e54 = 0x00000078;
-u32 var80069e58 = 0x00000008;
-u32 var80069e5c = 0x00000078;
-u32 var80069e60 = 0x00000005;
-u32 var80069e64 = 0x00000400;
-u32 var80069e68 = 0x00000001;
-u32 var80069e6c = 0x00000006;
-u32 var80069e70 = 0x00000400;
-u32 var80069e74 = 0x0000003c;
-u32 var80069e78 = 0x00000006;
-u32 var80069e7c = 0x00000400;
-u32 var80069e80 = 0x0000003c;
-u32 var80069e84 = 0x00000001;
-u32 var80069e88 = 0x00000800;
-u32 var80069e8c = 0x00000078;
-u32 var80069e90 = 0x00000008;
-u32 var80069e94 = 0x00000078;
-u32 var80069e98 = 0x00000005;
-u32 var80069e9c = 0x00000080;
-u32 var80069ea0 = 0x00000001;
-u32 var80069ea4 = 0x00000006;
-u32 var80069ea8 = 0x00000800;
-u32 var80069eac = 0x0000003c;
-u32 var80069eb0 = 0x00000006;
-u32 var80069eb4 = 0x00000400;
-u32 var80069eb8 = 0x00000078;
-u32 var80069ebc = 0x00000002;
-u32 var80069ec0 = 0x00000400;
-u32 var80069ec4 = 0x0000003c;
-u32 var80069ec8 = 0x00000001;
-u32 var80069ecc = 0x00000200;
-u32 var80069ed0 = 0x00000078;
-u32 var80069ed4 = 0x00000008;
-u32 var80069ed8 = 0x00000078;
-u32 var80069edc = 0x0000000b;
-u32 g_TvImage02 = 0x0000000d;
-u32 var80069ee4 = 0x202020ff;
-u32 var80069ee8 = 0x00000001;
-u32 var80069eec = 0x00000007;
-u32 var80069ef0 = 0x0000001c;
-u32 var80069ef4 = 0x00000005;
-u32 var80069ef8 = 0x00000080;
-u32 var80069efc = 0x00000001;
-u32 var80069f00 = 0x00000006;
-u32 var80069f04 = 0x00000800;
-u32 var80069f08 = 0x0000003c;
-u32 var80069f0c = 0x00000006;
-u32 var80069f10 = 0x00000400;
-u32 var80069f14 = 0x00000078;
-u32 var80069f18 = 0x00000002;
-u32 var80069f1c = 0x00000400;
-u32 var80069f20 = 0x0000000a;
-u32 var80069f24 = 0x00000001;
-u32 var80069f28 = 0x00000200;
-u32 var80069f2c = 0x00000028;
-u32 var80069f30 = 0x00000008;
-u32 var80069f34 = 0x00000078;
-u32 var80069f38 = 0x0000000b;
-u32 g_TvImage03 = 0x00000007;
-u32 var80069f40 = 0x0000001d;
-u32 var80069f44 = 0x0000000d;
-u32 var80069f48 = 0x008000ff;
-u32 var80069f4c = 0x00000001;
-u32 var80069f50 = 0x00000002;
-u32 var80069f54 = 0xfffffe00;
-u32 var80069f58 = 0x00000050;
-u32 var80069f5c = 0x00000008;
-u32 var80069f60 = 0x00000078;
-u32 var80069f64 = 0x00000002;
-u32 var80069f68 = 0xffffff00;
-u32 var80069f6c = 0x00000014;
-u32 var80069f70 = 0x00000008;
-u32 var80069f74 = 0x00000078;
-u32 var80069f78 = 0x00000002;
-u32 var80069f7c = 0xffffff80;
-u32 var80069f80 = 0x0000000a;
-u32 var80069f84 = 0x00000008;
-u32 var80069f88 = 0x00000028;
-u32 var80069f8c = 0x00000002;
-u32 var80069f90 = 0xfffffe00;
-u32 var80069f94 = 0x00000028;
-u32 var80069f98 = 0x00000008;
-u32 var80069f9c = 0x0000003c;
-u32 var80069fa0 = 0x00000002;
-u32 var80069fa4 = 0xffffffc0;
-u32 var80069fa8 = 0x0000001e;
-u32 var80069fac = 0x00000008;
-u32 var80069fb0 = 0x00000078;
-u32 var80069fb4 = 0x0000000b;
-u32 g_TvImage15 = 0x00000007;
-u32 var80069fbc = 0x00000032;
-u32 var80069fc0 = 0x0000000d;
-u32 var80069fc4 = 0x008000fe;
-u32 var80069fc8 = 0x00000001;
-u32 var80069fcc = 0x00000002;
-u32 var80069fd0 = 0xfffffe00;
-u32 var80069fd4 = 0x00000050;
-u32 var80069fd8 = 0x00000008;
-u32 var80069fdc = 0x00000078;
-u32 var80069fe0 = 0x00000002;
-u32 var80069fe4 = 0xffffff00;
-u32 var80069fe8 = 0x00000014;
-u32 var80069fec = 0x00000008;
-u32 var80069ff0 = 0x00000078;
-u32 var80069ff4 = 0x00000002;
-u32 var80069ff8 = 0xffffff80;
-u32 var80069ffc = 0x0000000a;
-u32 var8006a000 = 0x00000008;
-u32 var8006a004 = 0x00000028;
-u32 var8006a008 = 0x00000002;
-u32 var8006a00c = 0xfffffe00;
-u32 var8006a010 = 0x00000028;
-u32 var8006a014 = 0x00000008;
-u32 var8006a018 = 0x0000003c;
-u32 var8006a01c = 0x00000002;
-u32 var8006a020 = 0xffffffc0;
-u32 var8006a024 = 0x0000001e;
-u32 var8006a028 = 0x00000008;
-u32 var8006a02c = 0x00000078;
-u32 var8006a030 = 0x0000000b;
-u32 g_TvImage04 = 0x00000007;
-u32 var8006a038 = 0x0000001d;
-u32 var8006a03c = 0x0000000d;
-u32 var8006a040 = 0x280000ff;
-u32 var8006a044 = 0x00000001;
-u32 var8006a048 = 0x00000002;
-u32 var8006a04c = 0x00000200;
-u32 var8006a050 = 0x00000050;
-u32 var8006a054 = 0x00000008;
-u32 var8006a058 = 0x00000078;
-u32 var8006a05c = 0x00000002;
-u32 var8006a060 = 0x00000100;
-u32 var8006a064 = 0x00000014;
-u32 var8006a068 = 0x00000008;
-u32 var8006a06c = 0x00000078;
-u32 var8006a070 = 0x00000002;
-u32 var8006a074 = 0x00000080;
-u32 var8006a078 = 0x0000000a;
-u32 var8006a07c = 0x00000008;
-u32 var8006a080 = 0x00000028;
-u32 var8006a084 = 0x00000002;
-u32 var8006a088 = 0x00000200;
-u32 var8006a08c = 0x00000028;
-u32 var8006a090 = 0x00000008;
-u32 var8006a094 = 0x0000003c;
-u32 var8006a098 = 0x00000002;
-u32 var8006a09c = 0x00000040;
-u32 var8006a0a0 = 0x0000001e;
-u32 var8006a0a4 = 0x00000008;
-u32 var8006a0a8 = 0x00000078;
-u32 var8006a0ac = 0x00000002;
-u32 var8006a0b0 = 0x00000100;
-u32 var8006a0b4 = 0x00000014;
-u32 var8006a0b8 = 0x00000008;
-u32 var8006a0bc = 0x00000078;
-u32 var8006a0c0 = 0x00000002;
-u32 var8006a0c4 = 0x00000080;
-u32 var8006a0c8 = 0x0000000a;
-u32 var8006a0cc = 0x0000000b;
-u32 g_TvImage05 = 0x00000007;
-u32 var8006a0d4 = 0x0000001d;
-u32 var8006a0d8 = 0x0000000d;
-u32 var8006a0dc = 0x003c00ff;
-u32 var8006a0e0 = 0x00000001;
-u32 var8006a0e4 = 0x00000002;
-u32 var8006a0e8 = 0x00000200;
-u32 var8006a0ec = 0x00000050;
-u32 var8006a0f0 = 0x00000008;
-u32 var8006a0f4 = 0x00000078;
-u32 var8006a0f8 = 0x00000002;
-u32 var8006a0fc = 0x00000080;
-u32 var8006a100 = 0x0000000a;
-u32 var8006a104 = 0x00000008;
-u32 var8006a108 = 0x00000028;
-u32 var8006a10c = 0x00000002;
-u32 var8006a110 = 0x00000100;
-u32 var8006a114 = 0x00000014;
-u32 var8006a118 = 0x00000008;
-u32 var8006a11c = 0x00000078;
-u32 var8006a120 = 0x00000002;
-u32 var8006a124 = 0x00000080;
-u32 var8006a128 = 0x0000000a;
-u32 var8006a12c = 0x00000008;
-u32 var8006a130 = 0x00000028;
-u32 var8006a134 = 0x00000002;
-u32 var8006a138 = 0x00000200;
-u32 var8006a13c = 0x00000028;
-u32 var8006a140 = 0x00000008;
-u32 var8006a144 = 0x0000003c;
-u32 var8006a148 = 0x00000002;
-u32 var8006a14c = 0x00000040;
-u32 var8006a150 = 0x0000001e;
-u32 var8006a154 = 0x00000008;
-u32 var8006a158 = 0x00000078;
-u32 var8006a15c = 0x0000000b;
-u32 g_TvImage06 = 0x00000007;
-u32 var8006a164 = 0x0000001e;
-u32 var8006a168 = 0x0000000d;
-u32 var8006a16c = 0x404000ff;
-u32 var8006a170 = 0x00000001;
-u32 var8006a174 = 0x00000001;
-u32 var8006a178 = 0x00000280;
-u32 var8006a17c = 0x00000001;
-u32 var8006a180 = 0x00000008;
-u32 var8006a184 = 0x0000000a;
-u32 var8006a188 = 0x0000000b;
-u32 g_TvImage07 = 0x00000007;
-u32 var8006a190 = 0x0000001e;
-u32 var8006a194 = 0x0000000d;
-u32 var8006a198 = 0x004040ff;
-u32 var8006a19c = 0x00000001;
-u32 var8006a1a0 = 0x00000001;
-u32 var8006a1a4 = 0x00000280;
-u32 var8006a1a8 = 0x00000001;
-u32 var8006a1ac = 0x00000008;
-u32 var8006a1b0 = 0x0000000a;
-u32 var8006a1b4 = 0x0000000b;
-u32 g_TvImage08 = 0x00000007;
-u32 var8006a1bc = 0x0000001e;
-u32 var8006a1c0 = 0x0000000d;
-u32 var8006a1c4 = 0x008000ff;
-u32 var8006a1c8 = 0x00000001;
-u32 var8006a1cc = 0x00000001;
-u32 var8006a1d0 = 0xfffffd80;
-u32 var8006a1d4 = 0x00000001;
-u32 var8006a1d8 = 0x00000008;
-u32 var8006a1dc = 0x0000000a;
-u32 var8006a1e0 = 0x0000000b;
-u32 g_TvImage0F = 0x00000007;
-u32 var8006a1e8 = 0x00000031;
-u32 var8006a1ec = 0x00000005;
-u32 var8006a1f0 = 0x00000200;
-u32 var8006a1f4 = 0x00000000;
-u32 var8006a1f8 = 0x00000006;
-u32 var8006a1fc = 0x00000200;
-u32 var8006a200 = 0x00000000;
-u32 var8006a204 = 0x0000000d;
-u32 var8006a208 = 0xdc2828ff;
-u32 var8006a20c = 0x0000003c;
-u32 var8006a210 = 0x00000008;
-u32 var8006a214 = 0x0000003c;
-u32 var8006a218 = 0x0000000d;
-u32 var8006a21c = 0x323232ff;
-u32 var8006a220 = 0x0000000a;
-u32 var8006a224 = 0x00000008;
-u32 var8006a228 = 0x0000000a;
-u32 var8006a22c = 0x0000000b;
-u32 g_TvImage10 = 0x00000007;
-u32 var8006a234 = 0x00000031;
-u32 var8006a238 = 0x00000005;
-u32 var8006a23c = 0x00000200;
-u32 var8006a240 = 0x00000000;
-u32 var8006a244 = 0x00000006;
-u32 var8006a248 = 0x00000200;
-u32 var8006a24c = 0x00000000;
-u32 var8006a250 = 0x0000000d;
-u32 var8006a254 = 0x32c832ff;
-u32 var8006a258 = 0x0000003c;
-u32 var8006a25c = 0x00000008;
-u32 var8006a260 = 0x0000003c;
-u32 var8006a264 = 0x0000000d;
-u32 var8006a268 = 0x323232ff;
-u32 var8006a26c = 0x0000000a;
-u32 var8006a270 = 0x00000008;
-u32 var8006a274 = 0x0000000a;
-u32 var8006a278 = 0x0000000b;
-u32 g_TvImage11 = 0x00000007;
-u32 var8006a280 = 0x00000031;
-u32 var8006a284 = 0x00000005;
-u32 var8006a288 = 0x00000200;
-u32 var8006a28c = 0x00000000;
-u32 var8006a290 = 0x00000006;
-u32 var8006a294 = 0x00000200;
-u32 var8006a298 = 0x00000000;
-u32 var8006a29c = 0x0000000d;
-u32 var8006a2a0 = 0x323232ff;
-u32 var8006a2a4 = 0x0000000a;
-u32 var8006a2a8 = 0x00000008;
-u32 var8006a2ac = 0x0000000a;
-u32 var8006a2b0 = 0x0000000b;
-u32 g_TvImage12 = 0x00000007;
-u32 var8006a2b8 = 0x00000031;
-u32 var8006a2bc = 0x00000005;
-u32 var8006a2c0 = 0x00000200;
-u32 var8006a2c4 = 0x00000000;
-u32 var8006a2c8 = 0x00000006;
-u32 var8006a2cc = 0x00000200;
-u32 var8006a2d0 = 0x00000000;
-u32 var8006a2d4 = 0x0000000d;
-u32 var8006a2d8 = 0xdc2828ff;
-u32 var8006a2dc = 0x0000000a;
-u32 var8006a2e0 = 0x00000008;
-u32 var8006a2e4 = 0x0000000a;
-u32 var8006a2e8 = 0x0000000b;
-u32 g_TvImage13 = 0x00000007;
-u32 var8006a2f0 = 0x00000031;
-u32 var8006a2f4 = 0x00000005;
-u32 var8006a2f8 = 0x00000200;
-u32 var8006a2fc = 0x00000000;
-u32 var8006a300 = 0x00000006;
-u32 var8006a304 = 0x00000200;
-u32 var8006a308 = 0x00000000;
-u32 var8006a30c = 0x0000000d;
-u32 var8006a310 = 0x32c832ff;
-u32 var8006a314 = 0x0000000a;
-u32 var8006a318 = 0x00000008;
-u32 var8006a31c = 0x0000000a;
-u32 var8006a320 = 0x0000000b;
-u32 g_TvImage16 = 0x00000007;
-u32 var8006a328 = 0x00000033;
-u32 var8006a32c = 0x0000000d;
-u32 var8006a330 = 0xffffffff;
-u32 var8006a334 = 0x00000001;
-u32 var8006a338 = 0x00000008;
-u32 var8006a33c = 0x0000000a;
-u32 var8006a340 = 0x0000000b;
-u32 g_TvImage17 = 0x00000007;
-u32 var8006a348 = 0x00000048;
-u32 var8006a34c = 0x0000000d;
-u32 var8006a350 = 0xffffffff;
-u32 var8006a354 = 0x00000001;
-u32 var8006a358 = 0x00000008;
-u32 var8006a35c = 0x0000000a;
-u32 var8006a360 = 0x0000000b;
-u32 g_TvImage18 = 0x00000007;
-u32 var8006a368 = 0x00000049;
-u32 var8006a36c = 0x0000000d;
-u32 var8006a370 = 0xffffffff;
-u32 var8006a374 = 0x00000001;
-u32 var8006a378 = 0x00000008;
-u32 var8006a37c = 0x0000000a;
-u32 var8006a380 = 0x0000000b;
-u32 g_TvImage19 = 0x00000007;
-u32 var8006a388 = 0x0000004a;
-u32 var8006a38c = 0x0000000d;
-u32 var8006a390 = 0xffffffff;
-u32 var8006a394 = 0x00000001;
-u32 var8006a398 = 0x00000008;
-u32 var8006a39c = 0x0000000a;
-u32 var8006a3a0 = 0x0000000b;
-u32 g_TvImage1A = 0x00000007;
-u32 var8006a3a8 = 0x0000004b;
-u32 var8006a3ac = 0x0000000d;
-u32 var8006a3b0 = 0xffffffff;
-u32 var8006a3b4 = 0x00000001;
-u32 var8006a3b8 = 0x00000008;
-u32 var8006a3bc = 0x0000000a;
-u32 var8006a3c0 = 0x0000000b;
-u32 g_TvImage1B = 0x00000007;
-u32 var8006a3c8 = 0x0000004c;
-u32 var8006a3cc = 0x0000000d;
-u32 var8006a3d0 = 0xffffffff;
-u32 var8006a3d4 = 0x00000001;
-u32 var8006a3d8 = 0x00000008;
-u32 var8006a3dc = 0x0000000a;
-u32 var8006a3e0 = 0x0000000b;
-u32 g_TvImage1C = 0x00000007;
-u32 var8006a3e8 = 0x0000004d;
-u32 var8006a3ec = 0x0000000d;
-u32 var8006a3f0 = 0xffffffff;
-u32 var8006a3f4 = 0x00000001;
-u32 var8006a3f8 = 0x00000008;
-u32 var8006a3fc = 0x0000000a;
-u32 var8006a400 = 0x0000000b;
-u32 g_TvImage24 = 0x0000000d;
-u32 var8006a408 = 0x000000ff;
-u32 var8006a40c = 0x00000001;
-u32 var8006a410 = 0x00000007;
-u32 var8006a414 = 0x0000004b;
-u32 var8006a418 = 0x00000008;
-u32 var8006a41c = 0x00000001;
-u32 var8006a420 = 0x0000000d;
-u32 var8006a424 = 0xffffffff;
-u32 var8006a428 = 0x000000b4;
-u32 var8006a42c = 0x00000008;
-u32 var8006a430 = 0x00000168;
-u32 var8006a434 = 0x0000000d;
-u32 var8006a438 = 0x000000ff;
-u32 var8006a43c = 0x0000001e;
-u32 var8006a440 = 0x00000008;
-u32 var8006a444 = 0x0000001e;
-u32 var8006a448 = 0x00000007;
-u32 var8006a44c = 0x0000004c;
-u32 var8006a450 = 0x00000008;
-u32 var8006a454 = 0x00000001;
-u32 var8006a458 = 0x0000000d;
-u32 var8006a45c = 0xffffffff;
-u32 var8006a460 = 0x000000b4;
-u32 var8006a464 = 0x00000008;
-u32 var8006a468 = 0x00000168;
-u32 var8006a46c = 0x0000000d;
-u32 var8006a470 = 0x000000ff;
-u32 var8006a474 = 0x0000001e;
-u32 var8006a478 = 0x00000008;
-u32 var8006a47c = 0x0000001e;
-u32 var8006a480 = 0x00000007;
-u32 var8006a484 = 0x0000004d;
-u32 var8006a488 = 0x00000008;
-u32 var8006a48c = 0x00000001;
-u32 var8006a490 = 0x0000000d;
-u32 var8006a494 = 0xffffffff;
-u32 var8006a498 = 0x000000b4;
-u32 var8006a49c = 0x00000008;
-u32 var8006a4a0 = 0x00000168;
-u32 var8006a4a4 = 0x0000000d;
-u32 var8006a4a8 = 0x000000ff;
-u32 var8006a4ac = 0x0000001d;
-u32 var8006a4b0 = 0x00000008;
-u32 var8006a4b4 = 0x0000001d;
-u32 var8006a4b8 = 0x0000000b;
-u32 g_TvImage1D = 0x00000007;
-u32 var8006a4c0 = 0x0000004e;
-u32 var8006a4c4 = 0x0000000d;
-u32 var8006a4c8 = 0xffffffff;
-u32 var8006a4cc = 0x00000001;
-u32 var8006a4d0 = 0x00000008;
-u32 var8006a4d4 = 0x0000000a;
-u32 var8006a4d8 = 0x0000000b;
-u32 var8006a4dc = 0x00000007;
-u32 var8006a4e0 = 0x00000034;
-u32 var8006a4e4 = 0x0000000d;
-u32 var8006a4e8 = 0xffffffff;
-u32 var8006a4ec = 0x00000001;
-u32 var8006a4f0 = 0x00000008;
-u32 var8006a4f4 = 0x00000005;
-u32 var8006a4f8 = 0x00000007;
-u32 var8006a4fc = 0x00000035;
-u32 var8006a500 = 0x00000008;
-u32 var8006a504 = 0x00000005;
-u32 var8006a508 = 0x00000007;
-u32 var8006a50c = 0x00000036;
-u32 var8006a510 = 0x00000008;
-u32 var8006a514 = 0x00000005;
-u32 var8006a518 = 0x00000007;
-u32 var8006a51c = 0x00000037;
-u32 var8006a520 = 0x00000008;
-u32 var8006a524 = 0x00000005;
-u32 var8006a528 = 0x0000000b;
-u32 var8006a52c = 0x00000007;
-u32 var8006a530 = 0x0000004f;
-u32 var8006a534 = 0x0000000d;
-u32 var8006a538 = 0xffffffff;
-u32 var8006a53c = 0x00000001;
-u32 var8006a540 = 0x00000008;
-u32 var8006a544 = 0x00000005;
-u32 var8006a548 = 0x00000007;
-u32 var8006a54c = 0x00000050;
-u32 var8006a550 = 0x00000008;
-u32 var8006a554 = 0x00000005;
-u32 var8006a558 = 0x00000007;
-u32 var8006a55c = 0x00000051;
-u32 var8006a560 = 0x00000008;
-u32 var8006a564 = 0x00000005;
-u32 var8006a568 = 0x00000007;
-u32 var8006a56c = 0x00000052;
-u32 var8006a570 = 0x00000008;
-u32 var8006a574 = 0x00000005;
-u32 var8006a578 = 0x0000000b;
-u32 var8006a57c = 0x00000007;
-u32 var8006a580 = 0x00000038;
-u32 var8006a584 = 0x0000000d;
-u32 var8006a588 = 0xffffffff;
-u32 var8006a58c = 0x00000001;
-u32 var8006a590 = 0x00000008;
-u32 var8006a594 = 0x0000000a;
-u32 var8006a598 = 0x00000007;
-u32 var8006a59c = 0x00000039;
-u32 var8006a5a0 = 0x00000008;
-u32 var8006a5a4 = 0x0000000a;
-u32 var8006a5a8 = 0x00000007;
-u32 var8006a5ac = 0x0000003a;
-u32 var8006a5b0 = 0x00000008;
-u32 var8006a5b4 = 0x0000000a;
-u32 var8006a5b8 = 0x00000007;
-u32 var8006a5bc = 0x0000003b;
-u32 var8006a5c0 = 0x00000008;
-u32 var8006a5c4 = 0x0000000a;
-u32 var8006a5c8 = 0x0000000b;
-u32 var8006a5cc = 0x00000007;
-u32 var8006a5d0 = 0x0000003c;
-u32 var8006a5d4 = 0x0000000d;
-u32 var8006a5d8 = 0xffffffff;
-u32 var8006a5dc = 0x00000001;
-u32 var8006a5e0 = 0x00000008;
-u32 var8006a5e4 = 0x0000000f;
-u32 var8006a5e8 = 0x00000007;
-u32 var8006a5ec = 0x0000003d;
-u32 var8006a5f0 = 0x00000008;
-u32 var8006a5f4 = 0x0000000f;
-u32 var8006a5f8 = 0x0000000b;
-u32 var8006a5fc = 0x00000007;
-u32 var8006a600 = 0x0000003e;
-u32 var8006a604 = 0x0000000d;
-u32 var8006a608 = 0xffffffff;
-u32 var8006a60c = 0x00000001;
-u32 var8006a610 = 0x00000008;
-u32 var8006a614 = 0x0000000a;
-u32 var8006a618 = 0x00000007;
-u32 var8006a61c = 0x0000003f;
-u32 var8006a620 = 0x00000008;
-u32 var8006a624 = 0x0000000a;
-u32 var8006a628 = 0x00000007;
-u32 var8006a62c = 0x00000040;
-u32 var8006a630 = 0x00000008;
-u32 var8006a634 = 0x0000000a;
-u32 var8006a638 = 0x00000007;
-u32 var8006a63c = 0x00000041;
-u32 var8006a640 = 0x00000008;
-u32 var8006a644 = 0x0000000a;
-u32 var8006a648 = 0x00000007;
-u32 var8006a64c = 0x00000042;
-u32 var8006a650 = 0x00000008;
-u32 var8006a654 = 0x0000000a;
-u32 var8006a658 = 0x0000000b;
-u32 var8006a65c = 0x00000007;
-u32 var8006a660 = 0x00000043;
-u32 var8006a664 = 0x0000000d;
-u32 var8006a668 = 0xffffffff;
-u32 var8006a66c = 0x00000001;
-u32 var8006a670 = 0x00000008;
-u32 var8006a674 = 0x0000000a;
-u32 var8006a678 = 0x00000007;
-u32 var8006a67c = 0x00000044;
-u32 var8006a680 = 0x00000008;
-u32 var8006a684 = 0x0000000a;
-u32 var8006a688 = 0x00000007;
-u32 var8006a68c = 0x00000045;
-u32 var8006a690 = 0x00000008;
-u32 var8006a694 = 0x0000000a;
-u32 var8006a698 = 0x00000007;
-u32 var8006a69c = 0x00000046;
-u32 var8006a6a0 = 0x00000008;
-u32 var8006a6a4 = 0x0000000a;
-u32 var8006a6a8 = 0x00000007;
-u32 var8006a6ac = 0x00000047;
-u32 var8006a6b0 = 0x00000008;
-u32 var8006a6b4 = 0x0000000a;
-u32 var8006a6b8 = 0x0000000b;
-u32 g_TvImage25 = 0x00000007;
-u32 var8006a6c0 = 0x00000053;
-u32 var8006a6c4 = 0x0000000d;
-u32 var8006a6c8 = 0xffffffff;
-u32 var8006a6cc = 0x00000001;
-u32 var8006a6d0 = 0x00000008;
-u32 var8006a6d4 = 0x0000000a;
-u32 var8006a6d8 = 0x0000000b;
-u32 g_TvImage26 = 0x00000007;
-u32 var8006a6e0 = 0x00000054;
-u32 var8006a6e4 = 0x0000000d;
-u32 var8006a6e8 = 0xffffffff;
-u32 var8006a6ec = 0x00000001;
-u32 var8006a6f0 = 0x00000008;
-u32 var8006a6f4 = 0x0000000a;
-u32 var8006a6f8 = 0x0000000b;
-u32 g_TvImage27 = 0x00000007;
-u32 var8006a700 = 0x00000055;
-u32 var8006a704 = 0x0000000d;
-u32 var8006a708 = 0x008000ff;
-u32 var8006a70c = 0x00000001;
-u32 var8006a710 = 0x00000002;
-u32 var8006a714 = 0xfffffe00;
-u32 var8006a718 = 0x00000050;
-u32 var8006a71c = 0x00000008;
-u32 var8006a720 = 0x00000050;
-u32 var8006a724 = 0x0000000b;
-u32 g_TvImage28 = 0x00000007;
-u32 var8006a72c = 0x00000055;
-u32 var8006a730 = 0x0000000d;
-u32 var8006a734 = 0x0032c8ff;
-u32 var8006a738 = 0x00000001;
-u32 var8006a73c = 0x00000002;
-u32 var8006a740 = 0x00000200;
-u32 var8006a744 = 0x00000050;
-u32 var8006a748 = 0x00000008;
-u32 var8006a74c = 0x00000050;
-u32 var8006a750 = 0x0000000b;
-u32 g_TvImage29 = 0x00000007;
-u32 var8006a758 = 0x00000056;
-u32 var8006a75c = 0x0000000d;
-u32 var8006a760 = 0xffffffff;
-u32 var8006a764 = 0x00000001;
-u32 var8006a768 = 0x00000008;
-u32 var8006a76c = 0x0000000a;
-u32 var8006a770 = 0x0000000b;
-u32 g_TvImage2A = 0x00000007;
-u32 var8006a778 = 0x00000056;
-u32 var8006a77c = 0x0000000d;
-u32 var8006a780 = 0xffffffff;
-u32 var8006a784 = 0x00000001;
-u32 var8006a788 = 0x00000002;
-u32 var8006a78c = 0xfffffe00;
-u32 var8006a790 = 0x00000050;
-u32 var8006a794 = 0x00000008;
-u32 var8006a798 = 0x00000050;
-u32 var8006a79c = 0x0000000b;
-u32 g_TvImage2B = 0x00000007;
-u32 var8006a7a4 = 0x00000057;
-u32 var8006a7a8 = 0x0000000d;
-u32 var8006a7ac = 0x008000ff;
-u32 var8006a7b0 = 0x00000001;
-u32 var8006a7b4 = 0x00000002;
-u32 var8006a7b8 = 0xfffffe00;
-u32 var8006a7bc = 0x00000050;
-u32 var8006a7c0 = 0x00000008;
-u32 var8006a7c4 = 0x00000050;
-u32 var8006a7c8 = 0x0000000b;
-u32 g_TvImage2C = 0x00000007;
-u32 var8006a7d0 = 0x00000057;
-u32 var8006a7d4 = 0x0000000d;
-u32 var8006a7d8 = 0x0032c8ff;
-u32 var8006a7dc = 0x00000001;
-u32 var8006a7e0 = 0x00000002;
-u32 var8006a7e4 = 0x00000200;
-u32 var8006a7e8 = 0x00000050;
-u32 var8006a7ec = 0x00000008;
-u32 var8006a7f0 = 0x00000050;
-u32 var8006a7f4 = 0x0000000b;
-u32 g_TvImage2D = 0x00000007;
-u32 var8006a7fc = 0x00000058;
-u32 var8006a800 = 0x0000000d;
-u32 var8006a804 = 0xffffffff;
-u32 var8006a808 = 0x00000001;
-u32 var8006a80c = 0x00000008;
-u32 var8006a810 = 0x0000000a;
-u32 var8006a814 = 0x0000000b;
-u32 g_TvImage2E = 0x00000007;
-u32 var8006a81c = 0x00000059;
-u32 var8006a820 = 0x0000000d;
-u32 var8006a824 = 0x007f00ff;
-u32 var8006a828 = 0x00000001;
-u32 var8006a82c = 0x00000002;
-u32 var8006a830 = 0xfffffe00;
-u32 var8006a834 = 0x00000050;
-u32 var8006a838 = 0x00000008;
-u32 var8006a83c = 0x00000078;
-u32 var8006a840 = 0x00000002;
-u32 var8006a844 = 0xffffff00;
-u32 var8006a848 = 0x00000014;
-u32 var8006a84c = 0x00000008;
-u32 var8006a850 = 0x00000078;
-u32 var8006a854 = 0x00000002;
-u32 var8006a858 = 0xffffff80;
-u32 var8006a85c = 0x0000000a;
-u32 var8006a860 = 0x00000008;
-u32 var8006a864 = 0x00000028;
-u32 var8006a868 = 0x00000002;
-u32 var8006a86c = 0xfffffe00;
-u32 var8006a870 = 0x00000028;
-u32 var8006a874 = 0x00000008;
-u32 var8006a878 = 0x0000003c;
-u32 var8006a87c = 0x00000002;
-u32 var8006a880 = 0xffffffc0;
-u32 var8006a884 = 0x0000001e;
-u32 var8006a888 = 0x00000008;
-u32 var8006a88c = 0x00000078;
-u32 var8006a890 = 0x0000000b;
-u32 g_TvImage2F = 0x00000007;
-u32 var8006a898 = 0x00000059;
-u32 var8006a89c = 0x0000000d;
-u32 var8006a8a0 = 0xff7f00ff;
-u32 var8006a8a4 = 0x00000001;
-u32 var8006a8a8 = 0x00000002;
-u32 var8006a8ac = 0x00000200;
-u32 var8006a8b0 = 0x00000050;
-u32 var8006a8b4 = 0x00000008;
-u32 var8006a8b8 = 0x00000078;
-u32 var8006a8bc = 0x00000002;
-u32 var8006a8c0 = 0x00000100;
-u32 var8006a8c4 = 0x00000014;
-u32 var8006a8c8 = 0x00000008;
-u32 var8006a8cc = 0x00000078;
-u32 var8006a8d0 = 0x00000002;
-u32 var8006a8d4 = 0x00000080;
-u32 var8006a8d8 = 0x0000000a;
-u32 var8006a8dc = 0x00000008;
-u32 var8006a8e0 = 0x00000028;
-u32 var8006a8e4 = 0x00000002;
-u32 var8006a8e8 = 0x00000200;
-u32 var8006a8ec = 0x00000028;
-u32 var8006a8f0 = 0x00000008;
-u32 var8006a8f4 = 0x0000003c;
-u32 var8006a8f8 = 0x00000002;
-u32 var8006a8fc = 0x00000040;
-u32 var8006a900 = 0x0000001e;
-u32 var8006a904 = 0x00000008;
-u32 var8006a908 = 0x00000078;
-u32 var8006a90c = 0x0000000b;
-u32 g_TvImage30 = 0x00000007;
-u32 var8006a914 = 0x0000005a;
-u32 var8006a918 = 0x0000000d;
-u32 var8006a91c = 0xffffffff;
-u32 var8006a920 = 0x00000001;
-u32 var8006a924 = 0x00000008;
-u32 var8006a928 = 0x0000000a;
-u32 var8006a92c = 0x0000000b;
-u32 g_TvImage31 = 0x00000007;
-u32 var8006a934 = 0x0000005b;
-u32 var8006a938 = 0x0000000d;
-u32 var8006a93c = 0xffffffff;
-u32 var8006a940 = 0x00000001;
-u32 var8006a944 = 0x00000008;
-u32 var8006a948 = 0x0000000a;
-u32 var8006a94c = 0x0000000b;
-u32 g_TvImage32 = 0x00000007;
-u32 var8006a954 = 0x0000005c;
-u32 var8006a958 = 0x0000000d;
-u32 var8006a95c = 0xffffffff;
-u32 var8006a960 = 0x00000001;
-u32 var8006a964 = 0x00000008;
-u32 var8006a968 = 0x0000000a;
-u32 var8006a96c = 0x0000000b;
-u32 g_TvImage33 = 0x0000000d;
-u32 var8006a974 = 0x000000ff;
-u32 var8006a978 = 0x00000001;
-u32 var8006a97c = 0x00000007;
-u32 var8006a980 = 0x0000005a;
-u32 var8006a984 = 0x00000008;
-u32 var8006a988 = 0x00000001;
-u32 var8006a98c = 0x0000000d;
-u32 var8006a990 = 0xffffffff;
-u32 var8006a994 = 0x000000b4;
-u32 var8006a998 = 0x00000008;
-u32 var8006a99c = 0x00000168;
-u32 var8006a9a0 = 0x0000000d;
-u32 var8006a9a4 = 0x000000ff;
-u32 var8006a9a8 = 0x0000001e;
-u32 var8006a9ac = 0x00000008;
-u32 var8006a9b0 = 0x0000001e;
-u32 var8006a9b4 = 0x00000007;
-u32 var8006a9b8 = 0x0000005b;
-u32 var8006a9bc = 0x00000008;
-u32 var8006a9c0 = 0x00000001;
-u32 var8006a9c4 = 0x0000000d;
-u32 var8006a9c8 = 0xffffffff;
-u32 var8006a9cc = 0x000000b4;
-u32 var8006a9d0 = 0x00000008;
-u32 var8006a9d4 = 0x00000168;
-u32 var8006a9d8 = 0x0000000d;
-u32 var8006a9dc = 0x000000ff;
-u32 var8006a9e0 = 0x0000001e;
-u32 var8006a9e4 = 0x00000008;
-u32 var8006a9e8 = 0x0000001e;
-u32 var8006a9ec = 0x00000007;
-u32 var8006a9f0 = 0x0000005c;
-u32 var8006a9f4 = 0x00000008;
-u32 var8006a9f8 = 0x00000001;
-u32 var8006a9fc = 0x0000000d;
-u32 var8006aa00 = 0xffffffff;
-u32 var8006aa04 = 0x000000b4;
-u32 var8006aa08 = 0x00000008;
-u32 var8006aa0c = 0x00000168;
-u32 var8006aa10 = 0x0000000d;
-u32 var8006aa14 = 0x000000ff;
-u32 var8006aa18 = 0x0000001d;
-u32 var8006aa1c = 0x00000008;
-u32 var8006aa20 = 0x0000001d;
-u32 var8006aa24 = 0x0000000b;
-u32 g_TvImage34 = 0x00000007;
-u32 var8006aa2c = 0x0000005d;
-u32 var8006aa30 = 0x0000000d;
-u32 var8006aa34 = 0xffffffff;
-u32 var8006aa38 = 0x00000001;
-u32 var8006aa3c = 0x00000008;
-u32 var8006aa40 = 0x0000000a;
-u32 var8006aa44 = 0x0000000b;
-u32 g_TvImage35 = 0x00000007;
-u32 var8006aa4c = 0x0000005e;
-u32 var8006aa50 = 0x0000000d;
-u32 var8006aa54 = 0xffffffff;
-u32 var8006aa58 = 0x00000001;
-u32 var8006aa5c = 0x00000008;
-u32 var8006aa60 = 0x0000000a;
-u32 var8006aa64 = 0x0000000b;
-u32 g_TvImage36 = 0x00000007;
-u32 var8006aa6c = 0x0000005f;
-u32 var8006aa70 = 0x0000000d;
-u32 var8006aa74 = 0xffffffff;
-u32 var8006aa78 = 0x00000001;
-u32 var8006aa7c = 0x00000008;
-u32 var8006aa80 = 0x0000000a;
-u32 var8006aa84 = 0x0000000b;
-u32 g_TvImage14 = 0x00000007;
-u32 var8006aa8c = 0x00000000;
-u32 var8006aa90 = 0x0000000d;
-u32 var8006aa94 = 0x000000ff;
-u32 var8006aa98 = 0x00000000;
-u32 var8006aa9c = 0x0000000c;
-u32 var8006aaa0 = 0x00000005;
-u32 var8006aaa4 = 0x00000400;
-u32 var8006aaa8 = 0x00000000;
-u32 var8006aaac = 0x00000006;
-u32 var8006aab0 = 0x00000400;
-u32 var8006aab4 = 0x00000000;
-u32 var8006aab8 = 0x00000008;
-u32 var8006aabc = 0x00000001;
-u32 var8006aac0 = 0x00000005;
-u32 var8006aac4 = 0x00001000;
-u32 var8006aac8 = 0x00000014;
-u32 var8006aacc = 0x00000006;
-u32 var8006aad0 = 0x00001000;
-u32 var8006aad4 = 0x00000014;
-u32 var8006aad8 = 0x00000008;
-u32 var8006aadc = 0x00000014;
-u32 var8006aae0 = 0x0000000b;
-u32 var8006aae4 = 0x00000007;
-u32 var8006aae8 = 0x00000000;
-u32 var8006aaec = 0x00000001;
-u32 var8006aaf0 = 0x00000400;
-u32 var8006aaf4 = 0x00000014;
-u32 var8006aaf8 = 0x00000008;
-u32 var8006aafc = 0x00000014;
-u32 var8006ab00 = 0x00000002;
-u32 var8006ab04 = 0x00000400;
-u32 var8006ab08 = 0x00000014;
-u32 var8006ab0c = 0x0000000d;
-u32 var8006ab10 = 0x000000ff;
-u32 var8006ab14 = 0x00000014;
-u32 var8006ab18 = 0x00000008;
-u32 var8006ab1c = 0x00000014;
-u32 var8006ab20 = 0x00000005;
-u32 var8006ab24 = 0x00000200;
-u32 var8006ab28 = 0x00000014;
-u32 var8006ab2c = 0x00000006;
-u32 var8006ab30 = 0x00000200;
-u32 var8006ab34 = 0x00000014;
-u32 var8006ab38 = 0x0000000d;
-u32 var8006ab3c = 0xffffffff;
-u32 var8006ab40 = 0x00000014;
-u32 var8006ab44 = 0x00000008;
-u32 var8006ab48 = 0x00000014;
-u32 var8006ab4c = 0x00000005;
-u32 var8006ab50 = 0x00000400;
-u32 var8006ab54 = 0x00000014;
-u32 var8006ab58 = 0x00000006;
-u32 var8006ab5c = 0x00000400;
-u32 var8006ab60 = 0x00000014;
-u32 var8006ab64 = 0x00000008;
-u32 var8006ab68 = 0x00000014;
-u32 var8006ab6c = 0x0000000b;
+u32 g_TvCmdlist00[] = {
+	tvcmd_settexture(29),
+	tvcmd_setcolour(0x008000ff, 1),
+	tvcmd_scrollrely(-512, 80),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(-512, 40),
+	tvcmd_pause(60),
+	tvcmd_scrollrely(-64, 30),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist01[] = {
+	tvcmd_setcolour(0x202020ff, 1),
+	tvcmd_settexture(28),
+	tvcmd_scrollrelx(2048, 120),
+	tvcmd_pause(120),
+	tvcmd_scaleabsx(256, 1),
+	tvcmd_scaleabsy(512, 60),
+	tvcmd_scrollrelx(-8192, 120),
+	tvcmd_pause(120),
+	tvcmd_scaleabsx(1024, 1),
+	tvcmd_scaleabsy(1024, 60),
+	tvcmd_scaleabsy(1024, 60),
+	tvcmd_scrollrelx(2048, 120),
+	tvcmd_pause(120),
+	tvcmd_scaleabsx(128, 1),
+	tvcmd_scaleabsy(2048, 60),
+	tvcmd_scaleabsy(1024, 120),
+	tvcmd_scrollrely(1024, 60),
+	tvcmd_scrollrelx(512, 120),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist02[] = {
+	tvcmd_setcolour(0x202020ff, 1),
+	tvcmd_settexture(28),
+	tvcmd_scaleabsx(128, 1),
+	tvcmd_scaleabsy(2048, 60),
+	tvcmd_scaleabsy(1024, 120),
+	tvcmd_scrollrely(1024, 10),
+	tvcmd_scrollrelx(512, 40),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist03[] = {
+	tvcmd_settexture(29),
+	tvcmd_setcolour(0x008000ff, 1),
+	tvcmd_scrollrely(-512, 80),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(-512, 40),
+	tvcmd_pause(60),
+	tvcmd_scrollrely(-64, 30),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist15[] = {
+	tvcmd_settexture(50),
+	tvcmd_setcolour(0x008000fe, 1),
+	tvcmd_scrollrely(-512, 80),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(-512, 40),
+	tvcmd_pause(60),
+	tvcmd_scrollrely(-64, 30),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist04[] = {
+	tvcmd_settexture(29),
+	tvcmd_setcolour(0x280000ff, 1),
+	tvcmd_scrollrely(512, 80),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(512, 40),
+	tvcmd_pause(60),
+	tvcmd_scrollrely(64, 30),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(128, 10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist05[] = {
+	tvcmd_settexture(29),
+	tvcmd_setcolour(0x003c00ff, 1),
+	tvcmd_scrollrely(512, 80),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(512, 40),
+	tvcmd_pause(60),
+	tvcmd_scrollrely(64, 30),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist06[] = {
+	tvcmd_settexture(30),
+	tvcmd_setcolour(0x404000ff, 1),
+	tvcmd_scrollrelx(640, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist07[] = {
+	tvcmd_settexture(30),
+	tvcmd_setcolour(0x004040ff, 1),
+	tvcmd_scrollrelx(640, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist08[] = {
+	tvcmd_settexture(30),
+	tvcmd_setcolour(0x008000ff, 1),
+	tvcmd_scrollrelx(-640, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist0F[] = {
+	tvcmd_settexture(49),
+	tvcmd_scaleabsx(512, 0),
+	tvcmd_scaleabsy(512, 0),
+	tvcmd_setcolour(0xdc2828ff, 60),
+	tvcmd_pause(60),
+	tvcmd_setcolour(0x323232ff, 10),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist10[] = {
+	tvcmd_settexture(49),
+	tvcmd_scaleabsx(512, 0),
+	tvcmd_scaleabsy(512, 0),
+	tvcmd_setcolour(0x32c832ff, 60),
+	tvcmd_pause(60),
+	tvcmd_setcolour(0x323232ff, 10),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist11[] = {
+	tvcmd_settexture(49),
+	tvcmd_scaleabsx(512, 0),
+	tvcmd_scaleabsy(512, 0),
+	tvcmd_setcolour(0x323232ff, 10),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist12[] = {
+	tvcmd_settexture(49),
+	tvcmd_scaleabsx(512, 0),
+	tvcmd_scaleabsy(512, 0),
+	tvcmd_setcolour(0xdc2828ff, 10),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist13[] = {
+	tvcmd_settexture(49),
+	tvcmd_scaleabsx(512, 0),
+	tvcmd_scaleabsy(512, 0),
+	tvcmd_setcolour(0x32c832ff, 10),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist16[] = {
+	tvcmd_settexture(51),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist17[] = {
+	tvcmd_settexture(72),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist18[] = {
+	tvcmd_settexture(73),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist19[] = {
+	tvcmd_settexture(74),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist1A[] = {
+	tvcmd_settexture(75),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist1B[] = {
+	tvcmd_settexture(76),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist1C[] = {
+	tvcmd_settexture(77),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist24[] = {
+	tvcmd_setcolour(0x000000ff, 1),
+	tvcmd_settexture(75),
+	tvcmd_pause(1),
+	tvcmd_setcolour(0xffffffff, 180),
+	tvcmd_pause(360),
+	tvcmd_setcolour(0x000000ff, 30),
+	tvcmd_pause(30),
+	tvcmd_settexture(76),
+	tvcmd_pause(1),
+	tvcmd_setcolour(0xffffffff, 180),
+	tvcmd_pause(360),
+	tvcmd_setcolour(0x000000ff, 30),
+	tvcmd_pause(30),
+	tvcmd_settexture(77),
+	tvcmd_pause(1),
+	tvcmd_setcolour(0xffffffff, 180),
+	tvcmd_pause(360),
+	tvcmd_setcolour(0x000000ff, 29),
+	tvcmd_pause(29),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist1D[] = {
+	tvcmd_settexture(78),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 var8006a4dc[] = {
+	tvcmd_settexture(52),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(5),
+	tvcmd_settexture(53),
+	tvcmd_pause(5),
+	tvcmd_settexture(54),
+	tvcmd_pause(5),
+	tvcmd_settexture(55),
+	tvcmd_pause(5),
+	tvcmd_restart(),
+};
+
+u32 var8006a52c[] = {
+	tvcmd_settexture(79),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(5),
+	tvcmd_settexture(80),
+	tvcmd_pause(5),
+	tvcmd_settexture(81),
+	tvcmd_pause(5),
+	tvcmd_settexture(82),
+	tvcmd_pause(5),
+	tvcmd_restart(),
+};
+
+u32 var8006a57c[] = {
+	tvcmd_settexture(56),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_settexture(57),
+	tvcmd_pause(10),
+	tvcmd_settexture(58),
+	tvcmd_pause(10),
+	tvcmd_settexture(59),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 var8006a5cc[] = {
+	tvcmd_settexture(60),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(15),
+	tvcmd_settexture(61),
+	tvcmd_pause(15),
+	tvcmd_restart(),
+};
+
+u32 var8006a5fc[] = {
+	tvcmd_settexture(62),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_settexture(63),
+	tvcmd_pause(10),
+	tvcmd_settexture(64),
+	tvcmd_pause(10),
+	tvcmd_settexture(65),
+	tvcmd_pause(10),
+	tvcmd_settexture(66),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 var8006a65c[] = {
+	tvcmd_settexture(67),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_settexture(68),
+	tvcmd_pause(10),
+	tvcmd_settexture(69),
+	tvcmd_pause(10),
+	tvcmd_settexture(70),
+	tvcmd_pause(10),
+	tvcmd_settexture(71),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist25[] = {
+	tvcmd_settexture(83),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist26[] = {
+	tvcmd_settexture(84),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist27[] = {
+	tvcmd_settexture(85),
+	tvcmd_setcolour(0x008000ff, 1),
+	tvcmd_scrollrely(-512, 80),
+	tvcmd_pause(80),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist28[] = {
+	tvcmd_settexture(85),
+	tvcmd_setcolour(0x0032c8ff, 1),
+	tvcmd_scrollrely(512, 80),
+	tvcmd_pause(80),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist29[] = {
+	tvcmd_settexture(86),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist2A[] = {
+	tvcmd_settexture(86),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_scrollrely(-512, 80),
+	tvcmd_pause(80),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist2B[] = {
+	tvcmd_settexture(87),
+	tvcmd_setcolour(0x008000ff, 1),
+	tvcmd_scrollrely(-512, 80),
+	tvcmd_pause(80),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist2C[] = {
+	tvcmd_settexture(87),
+	tvcmd_setcolour(0x0032c8ff, 1),
+	tvcmd_scrollrely(512, 80),
+	tvcmd_pause(80),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist2D[] = {
+	tvcmd_settexture(88),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist2E[] = {
+	tvcmd_settexture(89),
+	tvcmd_setcolour(0x007f00ff, 1),
+	tvcmd_scrollrely(-512, 80),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(-128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(-512, 40),
+	tvcmd_pause(60),
+	tvcmd_scrollrely(-64, 30),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist2F[] = {
+	tvcmd_settexture(89),
+	tvcmd_setcolour(0xff7f00ff, 1),
+	tvcmd_scrollrely(512, 80),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(256, 20),
+	tvcmd_pause(120),
+	tvcmd_scrollrely(128, 10),
+	tvcmd_pause(40),
+	tvcmd_scrollrely(512, 40),
+	tvcmd_pause(60),
+	tvcmd_scrollrely(64, 30),
+	tvcmd_pause(120),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist30[] = {
+	tvcmd_settexture(90),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist31[] = {
+	tvcmd_settexture(91),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist32[] = {
+	tvcmd_settexture(92),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist33[] = {
+	tvcmd_setcolour(0x000000ff, 1),
+	tvcmd_settexture(90),
+	tvcmd_pause(1),
+	tvcmd_setcolour(0xffffffff, 180),
+	tvcmd_pause(360),
+	tvcmd_setcolour(0x000000ff, 30),
+	tvcmd_pause(30),
+	tvcmd_settexture(91),
+	tvcmd_pause(1),
+	tvcmd_setcolour(0xffffffff, 180),
+	tvcmd_pause(360),
+	tvcmd_setcolour(0x000000ff, 30),
+	tvcmd_pause(30),
+	tvcmd_settexture(92),
+	tvcmd_pause(1),
+	tvcmd_setcolour(0xffffffff, 180),
+	tvcmd_pause(360),
+	tvcmd_setcolour(0x000000ff, 29),
+	tvcmd_pause(29),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist34[] = {
+	tvcmd_settexture(93),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist35[] = {
+	tvcmd_settexture(94),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist36[] = {
+	tvcmd_settexture(95),
+	tvcmd_setcolour(0xffffffff, 1),
+	tvcmd_pause(10),
+	tvcmd_restart(),
+};
+
+u32 g_TvCmdlist14[] = {
+	tvcmd_settexture(0),
+	tvcmd_setcolour(0x000000ff, 0),
+	tvcmd_yield(),
+	// flow on to next cmdlist
+};
+
+u32 var8006aaa0[] = {
+	tvcmd_scaleabsx(1024, 0),
+	tvcmd_scaleabsy(1024, 0),
+	tvcmd_pause(1),
+	tvcmd_scaleabsx(4096, 20),
+	tvcmd_scaleabsy(4096, 20),
+	tvcmd_pause(20),
+	tvcmd_restart(),
+};
+
+u32 var8006aae4[] = {
+	tvcmd_settexture(0),
+	tvcmd_scrollrelx(1024, 20),
+	tvcmd_pause(20),
+	tvcmd_scrollrely(1024, 20),
+	tvcmd_setcolour(0x000000ff, 20),
+	tvcmd_pause(20),
+	tvcmd_scaleabsx(512, 20),
+	tvcmd_scaleabsy(512, 20),
+	tvcmd_setcolour(0xffffffff, 20),
+	tvcmd_pause(20),
+	tvcmd_scaleabsx(1024, 20),
+	tvcmd_scaleabsy(1024, 20),
+	tvcmd_pause(20),
+	tvcmd_restart(),
+};
 
 void tvscreenSetImageByNum(struct tvscreen *screen, s32 imagenum)
 {
-	u32 *image = &g_TvImage00;
+	u32 *image = g_TvCmdlist00;
 
 	switch (imagenum) {
-	case TVIMAGE_01: image = &g_TvImage01; break;
-	case TVIMAGE_02: image = &g_TvImage02; break;
-	case TVIMAGE_03: image = &g_TvImage03; break;
-	case TVIMAGE_04: image = &g_TvImage04; break;
-	case TVIMAGE_05: image = &g_TvImage05; break;
-	case TVIMAGE_06: image = &g_TvImage06; break;
-	case TVIMAGE_07: image = &g_TvImage07; break;
-	case TVIMAGE_08: image = &g_TvImage08; break;
-	case TVIMAGE_09: image = &g_TvImage03; break;
-	case TVIMAGE_0A: image = &g_TvImage03; break;
-	case TVIMAGE_0B: image = &g_TvImage03; break;
-	case TVIMAGE_0C: image = &g_TvImage03; break;
-	case TVIMAGE_0D: image = &g_TvImage03; break;
-	case TVIMAGE_0E: image = &g_TvImage03; break;
-	case TVIMAGE_0F: image = &g_TvImage0F; break;
-	case TVIMAGE_10: image = &g_TvImage10; break;
-	case TVIMAGE_11: image = &g_TvImage11; break;
-	case TVIMAGE_12: image = &g_TvImage12; break;
-	case TVIMAGE_13: image = &g_TvImage13; break;
-	case TVIMAGE_14: image = &g_TvImage14; break;
-	case TVIMAGE_15: image = &g_TvImage15; break;
-	case TVIMAGE_16: image = &g_TvImage16; break;
-	case TVIMAGE_17: image = &g_TvImage17; break;
-	case TVIMAGE_18: image = &g_TvImage18; break;
-	case TVIMAGE_19: image = &g_TvImage19; break;
-	case TVIMAGE_1A: image = &g_TvImage1A; break;
-	case TVIMAGE_1B: image = &g_TvImage1B; break;
-	case TVIMAGE_1C: image = &g_TvImage1C; break;
-	case TVIMAGE_1D: image = &g_TvImage1D; break;
-	case TVIMAGE_24: image = &g_TvImage24; break;
-	case TVIMAGE_1E: image = &g_TvImage08; break;
-	case TVIMAGE_1F: image = &g_TvImage08; break;
-	case TVIMAGE_20: image = &g_TvImage08; break;
-	case TVIMAGE_21: image = &g_TvImage08; break;
-	case TVIMAGE_22: image = &g_TvImage08; break;
-	case TVIMAGE_23: image = &g_TvImage08; break;
-	case TVIMAGE_25: image = &g_TvImage25; break;
-	case TVIMAGE_26: image = &g_TvImage26; break;
-	case TVIMAGE_27: image = &g_TvImage27; break;
-	case TVIMAGE_28: image = &g_TvImage28; break;
-	case TVIMAGE_29: image = &g_TvImage29; break;
-	case TVIMAGE_2A: image = &g_TvImage2A; break;
-	case TVIMAGE_2B: image = &g_TvImage2B; break;
-	case TVIMAGE_2C: image = &g_TvImage2C; break;
-	case TVIMAGE_2D: image = &g_TvImage2D; break;
-	case TVIMAGE_2E: image = &g_TvImage2E; break;
-	case TVIMAGE_2F: image = &g_TvImage2F; break;
-	case TVIMAGE_30: image = &g_TvImage30; break;
-	case TVIMAGE_31: image = &g_TvImage31; break;
-	case TVIMAGE_32: image = &g_TvImage32; break;
-	case TVIMAGE_33: image = &g_TvImage33; break;
-	case TVIMAGE_34: image = &g_TvImage34; break;
-	case TVIMAGE_35: image = &g_TvImage35; break;
-	case TVIMAGE_36: image = &g_TvImage36; break;
-	case TVIMAGE_00:
+	case TVCMDLIST_01: image = g_TvCmdlist01; break;
+	case TVCMDLIST_02: image = g_TvCmdlist02; break;
+	case TVCMDLIST_03: image = g_TvCmdlist03; break;
+	case TVCMDLIST_04: image = g_TvCmdlist04; break;
+	case TVCMDLIST_05: image = g_TvCmdlist05; break;
+	case TVCMDLIST_06: image = g_TvCmdlist06; break;
+	case TVCMDLIST_07: image = g_TvCmdlist07; break;
+	case TVCMDLIST_08: image = g_TvCmdlist08; break;
+	case TVCMDLIST_09: image = g_TvCmdlist03; break;
+	case TVCMDLIST_0A: image = g_TvCmdlist03; break;
+	case TVCMDLIST_0B: image = g_TvCmdlist03; break;
+	case TVCMDLIST_0C: image = g_TvCmdlist03; break;
+	case TVCMDLIST_0D: image = g_TvCmdlist03; break;
+	case TVCMDLIST_0E: image = g_TvCmdlist03; break;
+	case TVCMDLIST_0F: image = g_TvCmdlist0F; break;
+	case TVCMDLIST_10: image = g_TvCmdlist10; break;
+	case TVCMDLIST_11: image = g_TvCmdlist11; break;
+	case TVCMDLIST_12: image = g_TvCmdlist12; break;
+	case TVCMDLIST_13: image = g_TvCmdlist13; break;
+	case TVCMDLIST_14: image = g_TvCmdlist14; break;
+	case TVCMDLIST_15: image = g_TvCmdlist15; break;
+	case TVCMDLIST_16: image = g_TvCmdlist16; break;
+	case TVCMDLIST_17: image = g_TvCmdlist17; break;
+	case TVCMDLIST_18: image = g_TvCmdlist18; break;
+	case TVCMDLIST_19: image = g_TvCmdlist19; break;
+	case TVCMDLIST_1A: image = g_TvCmdlist1A; break;
+	case TVCMDLIST_1B: image = g_TvCmdlist1B; break;
+	case TVCMDLIST_1C: image = g_TvCmdlist1C; break;
+	case TVCMDLIST_1D: image = g_TvCmdlist1D; break;
+	case TVCMDLIST_24: image = g_TvCmdlist24; break;
+	case TVCMDLIST_1E: image = g_TvCmdlist08; break;
+	case TVCMDLIST_1F: image = g_TvCmdlist08; break;
+	case TVCMDLIST_20: image = g_TvCmdlist08; break;
+	case TVCMDLIST_21: image = g_TvCmdlist08; break;
+	case TVCMDLIST_22: image = g_TvCmdlist08; break;
+	case TVCMDLIST_23: image = g_TvCmdlist08; break;
+	case TVCMDLIST_25: image = g_TvCmdlist25; break;
+	case TVCMDLIST_26: image = g_TvCmdlist26; break;
+	case TVCMDLIST_27: image = g_TvCmdlist27; break;
+	case TVCMDLIST_28: image = g_TvCmdlist28; break;
+	case TVCMDLIST_29: image = g_TvCmdlist29; break;
+	case TVCMDLIST_2A: image = g_TvCmdlist2A; break;
+	case TVCMDLIST_2B: image = g_TvCmdlist2B; break;
+	case TVCMDLIST_2C: image = g_TvCmdlist2C; break;
+	case TVCMDLIST_2D: image = g_TvCmdlist2D; break;
+	case TVCMDLIST_2E: image = g_TvCmdlist2E; break;
+	case TVCMDLIST_2F: image = g_TvCmdlist2F; break;
+	case TVCMDLIST_30: image = g_TvCmdlist30; break;
+	case TVCMDLIST_31: image = g_TvCmdlist31; break;
+	case TVCMDLIST_32: image = g_TvCmdlist32; break;
+	case TVCMDLIST_33: image = g_TvCmdlist33; break;
+	case TVCMDLIST_34: image = g_TvCmdlist34; break;
+	case TVCMDLIST_35: image = g_TvCmdlist35; break;
+	case TVCMDLIST_36: image = g_TvCmdlist36; break;
+	case TVCMDLIST_00:
 		break;
 	}
 
-	tvscreenSetImage(screen, image);
+	tvscreenSetCmdlist(screen, image);
 }
 
 GLOBAL_ASM(
-glabel func0f07fbf0
+glabel tvscreenSetTexture
 /*  f07fbf0:	03e00008 */ 	jr	$ra
 /*  f07fbf4:	ac850008 */ 	sw	$a1,0x8($a0)
 );
@@ -48202,7 +47863,7 @@ glabel var7f1aa824
 /*  f07ff80:	1000008b */ 	b	.L0f0801b0
 /*  f07ff84:	e6120034 */ 	swc1	$f18,0x34($s0)
 /*  f07ff88:	02002025 */ 	or	$a0,$s0,$zero
-/*  f07ff8c:	0fc1fefc */ 	jal	func0f07fbf0
+/*  f07ff8c:	0fc1fefc */ 	jal	tvscreenSetTexture
 /*  f07ff90:	8c650004 */ 	lw	$a1,0x4($v1)
 /*  f07ff94:	960e0004 */ 	lhu	$t6,0x4($s0)
 /*  f07ff98:	3c017f1b */ 	lui	$at,%hi(var7f1aa814)
@@ -48234,7 +47895,7 @@ glabel var7f1aa824
 /*  f07fff8:	1000006d */ 	b	.L0f0801b0
 /*  f07fffc:	a60c0006 */ 	sh	$t4,0x6($s0)
 /*  f080000:	02002025 */ 	or	$a0,$s0,$zero
-/*  f080004:	0fc1fe46 */ 	jal	tvscreenSetImage
+/*  f080004:	0fc1fe46 */ 	jal	tvscreenSetCmdlist
 /*  f080008:	8c650004 */ 	lw	$a1,0x4($v1)
 /*  f08000c:	3c017f1b */ 	lui	$at,%hi(var7f1aa818)
 /*  f080010:	3c06800a */ 	lui	$a2,%hi(g_Vars)
@@ -48250,7 +47911,7 @@ glabel var7f1aa824
 /*  f080038:	01ae082b */ 	sltu	$at,$t5,$t6
 /*  f08003c:	50200006 */ 	beqzl	$at,.L0f080058
 /*  f080040:	960f0004 */ 	lhu	$t7,0x4($s0)
-/*  f080044:	0fc1fe46 */ 	jal	tvscreenSetImage
+/*  f080044:	0fc1fe46 */ 	jal	tvscreenSetCmdlist
 /*  f080048:	8c650004 */ 	lw	$a1,0x4($v1)
 /*  f08004c:	10000004 */ 	b	.L0f080060
 /*  f080050:	00000000 */ 	nop
@@ -48895,6 +48556,302 @@ glabel var7f1aa824
 /*  f0809bc:	03e00008 */ 	jr	$ra
 /*  f0809c0:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
+
+// Mismatch: Several issues, but main one is the float variables near the cosf
+// and sinf calls. Appears to be functionally identical.
+//Gfx *tvscreenRender(struct model *model, struct modelnode *node, struct tvscreen *screen, Gfx *gdl, s32 arg4, s32 arg5)
+//{
+//	struct textureconfig *tconfig;
+//
+//	if (node && (node->type & 0xff) == MODELNODETYPE_DL) {
+//		struct gfxvtx *vertices = gfxAllocateVertices(4); // b4
+//		u8 *colours = gfxAllocateColours(1); // b0
+//		Gfx *savedgdl = gdl++; // ac
+//		union modelrodata *rodata = node->rodata; // a8
+//		union modelrwdata *rwdata = modelGetNodeRwData(model, node); // a4
+//		bool yielding = false;
+//
+//		while (!yielding) {
+//			u32 *cmd = &screen->cmdlist[screen->offset];
+//
+//			switch (cmd[0]) {
+//			case TVCMD_STOPSCROLL: // f07fce4
+//				screen->xmidinc = 0;
+//				screen->ymidinc = 0;
+//				screen->offset++;
+//				break;
+//			case TVCMD_SCROLLRELX: // f07fcf8
+//				screen->xmidfrac = 0;
+//				screen->xmidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+//				screen->xmidold = screen->xmid;
+//				screen->xmidnew = screen->xmid + (s32)cmd[1] * (1.0f / 1024.0f);
+//				screen->offset += 3;
+//				break;
+//			case TVCMD_SCROLLRELY: // f07fd68
+//				screen->ymidfrac = 0;
+//				screen->ymidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+//				screen->ymidold = screen->ymid;
+//				screen->ymidnew = screen->ymid + (s32)cmd[1] * (1.0f / 1024.0f);
+//				screen->offset += 3;
+//				break;
+//			case TVCMD_SCROLLABSX: // f07fdd8
+//				screen->xmidfrac = 0;
+//				screen->xmidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+//				screen->xmidold = screen->xmid;
+//				screen->xmidnew = (s32)cmd[1] * (1.0f / 1024.0f);
+//				screen->offset += 3;
+//				break;
+//			case TVCMD_SCROLLABSY: // f07fe44
+//				screen->ymidfrac = 0;
+//				screen->ymidinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+//				screen->ymidold = screen->ymid;
+//				screen->ymidnew = (s32)cmd[1] * (1.0f / 1024.0f);
+//				screen->offset += 3;
+//				break;
+//			case TVCMD_SCALEABSX: // f07feb0
+//				screen->xscalefrac = 0;
+//				screen->xscaleinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+//				screen->xscaleold = screen->xscale;
+//				screen->xscalenew = (s32)cmd[1] * (1.0f / 1024.0f);
+//				screen->offset += 3;
+//				break;
+//			case TVCMD_SCALEABSY: // f07ff1c
+//				screen->yscalefrac = 0;
+//				screen->yscaleinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+//				screen->yscaleold = screen->yscale;
+//				screen->yscalenew = (s32)cmd[1] * (1.0f / 1024.0f);
+//				screen->offset += 3;
+//				break;
+//			case TVCMD_SETTEXTURE: // f07ff88
+//				tvscreenSetTexture(screen, cmd[1]);
+//				screen->offset += 2;
+//				break;
+//			case TVCMD_PAUSE: // f07ffb4
+//				if (screen->pause60 >= 0) {
+//					screen->pause60 -= g_Vars.lvupdate240_60;
+//
+//					if (screen->pause60 >= 0) {
+//						yielding = true;
+//					} else {
+//						screen->offset += 2;
+//					}
+//				} else {
+//					yielding = true;
+//					screen->pause60 = cmd[1];
+//				}
+//				break;
+//			case TVCMD_SETCMDLIST: // f080000
+//				tvscreenSetCmdlist(screen, (u32 *) cmd[1]);
+//				break;
+//			case TVCMD_RANDSETCMDLIST: // f080020
+//				if ((random() >> 16) < cmd[2]) {
+//					tvscreenSetCmdlist(screen, (u32 *) cmd[1]);
+//				} else {
+//					screen->offset += 3;
+//				}
+//				break;
+//			case TVCMD_RESTART: // f080074
+//				screen->offset = 0;
+//				break;
+//			case TVCMD_YIELD: // f08007c
+//				yielding = true;
+//				break;
+//			case TVCMD_SETCOLOUR: // f080084
+//				screen->colfrac = 0;
+//				screen->colinc = cmd[2] == 0 ? 1.0f : 1.0f / cmd[2];
+//
+//				screen->redold = screen->red;
+//				screen->rednew = (cmd[1] >> 24);
+//
+//				screen->greenold = screen->green;
+//				screen->greennew = (cmd[1] >> 16);
+//
+//				screen->blueold = screen->blue;
+//				screen->bluenew = (cmd[1] >> 8);
+//
+//				screen->alphaold = screen->alpha;
+//				screen->alphanew = cmd[1];
+//
+//				screen->offset += 3;
+//				break;
+//			case TVCMD_ROTATEABS: // f08011c
+//				screen->rot = (s32)cmd[1] * (M_BADTAU / 65536.0f);
+//				screen->offset += 2;
+//				break;
+//			case TVCMD_ROTATEREL: // f080140
+//				screen->rot += g_Vars.lvupdate240f * (s32)cmd[1] * (M_BADTAU / 65536.0f);
+//
+//				if (screen->rot >= M_BADTAU) {
+//					screen->rot -= M_BADTAU;
+//				}
+//
+//				if (screen->rot < 0) {
+//					screen->rot += M_BADTAU;
+//				}
+//
+//				screen->offset += 2;
+//				break;
+//			}
+//		}
+//
+//		// Increment X scale
+//		if (screen->xscaleinc > 0) {
+//			screen->xscalefrac += screen->xscaleinc * g_Vars.lvupdate240f;
+//
+//			if (screen->xscalefrac < 1.0f) {
+//				screen->xscale = screen->xscaleold + (screen->xscalenew - screen->xscaleold) * screen->xscalefrac;
+//			} else {
+//				screen->xscalefrac = 1.0f;
+//				screen->xscaleinc = 0;
+//				screen->xscale = screen->xscalenew;
+//			}
+//		}
+//
+//		// Increment Y scale
+//		if (screen->yscaleinc > 0) {
+//			screen->yscalefrac += screen->yscaleinc * g_Vars.lvupdate240f;
+//
+//			if (screen->yscalefrac < 1.0f) {
+//				screen->yscale = screen->yscaleold + (screen->yscalenew - screen->yscaleold) * screen->yscalefrac;
+//			} else {
+//				screen->yscalefrac = 1.0f;
+//				screen->yscaleinc = 0;
+//				screen->yscale = screen->yscalenew;
+//			}
+//		}
+//
+//		// Increment X scroll
+//		if (screen->xmidinc > 0) {
+//			screen->xmidfrac += screen->xmidinc * g_Vars.lvupdate240f;
+//
+//			if (screen->xmidfrac < 1.0f) {
+//				screen->xmid = screen->xmidold + (screen->xmidnew - screen->xmidold) * screen->xmidfrac;
+//			} else {
+//				screen->xmidfrac = 1.0f;
+//				screen->xmidinc = 0;
+//				screen->xmid = screen->xmidnew;
+//			}
+//		}
+//
+//		// Increment Y scroll
+//		if (screen->ymidinc > 0) {
+//			screen->ymidfrac += screen->ymidinc * g_Vars.lvupdate240f;
+//
+//			if (screen->ymidfrac < 1.0f) {
+//				screen->ymid = screen->ymidold + (screen->ymidnew - screen->ymidold) * screen->ymidfrac;
+//			} else {
+//				screen->ymidfrac = 1.0f;
+//				screen->ymidinc = 0;
+//				screen->ymid = screen->ymidnew;
+//			}
+//		}
+//
+//		// Increment colour change
+//		// 370
+//		if (screen->colinc > 0) {
+//			screen->colfrac += screen->colinc * g_Vars.lvupdate240f;
+//
+//			// 398
+//			if (screen->colfrac < 1.0f) {
+//				s32 r;
+//				s32 g;
+//				s32 b;
+//				s32 a;
+//				r = screen->colfrac * (screen->rednew - screen->redold);
+//				g = screen->colfrac * (screen->greennew - screen->greenold);
+//				screen->red = r + screen->redold;
+//				screen->green = g + screen->greenold;
+//				b = screen->colfrac * (screen->bluenew - screen->blueold);
+//				a = screen->colfrac * (screen->alphanew - screen->alphaold);
+//				screen->blue = b + screen->blueold;
+//				screen->alpha = a + screen->alphaold;
+//			} else {
+//				screen->colfrac = 1.0f;
+//				screen->colinc = 0;
+//				screen->red = screen->rednew;
+//				screen->green = screen->greennew;
+//				screen->blue = screen->bluenew;
+//				screen->alpha = screen->alphanew;
+//			}
+//		}
+//
+//		// Set up everything for rendering
+//		rwdata->dl.vertices = vertices;
+//		rwdata->dl.unk08 = (u32 *) colours;
+//		rwdata->dl.gdl = gdl;
+//
+//		vertices[0] = rodata->dl.vertices[0];
+//		vertices[1] = rodata->dl.vertices[1];
+//		vertices[2] = rodata->dl.vertices[2];
+//		vertices[3] = rodata->dl.vertices[3];
+//
+//		if ((u32)screen->tconfig < 100) {
+//			tconfig = &var800ab594[(u32)screen->tconfig];
+//		} else {
+//			tconfig = screen->tconfig;
+//		}
+//
+//		if (tconfig != NULL) {
+//			f32 f20 = screen->xscale * 0.5f;
+//			f32 f24 = screen->yscale * 0.5f;
+//			f32 f14 = f20;
+//			f32 f16 = f24;
+//
+//			if (screen->rot != 0) {
+//				f32 f22 = cosf(screen->rot) * 1.4141999483109f;
+//				f32 f2 = sinf(screen->rot) * 1.4141999483109f;
+//
+//				f20 *= f22;
+//				f24 *= f2;
+//				f14 *= f2;
+//				f16 *= f22;
+//			}
+//
+//			vertices[0].unk08 = tconfig->width * (screen->xmid + f20) * 32;
+//			vertices[0].unk0a = tconfig->height * (screen->ymid + f24) * 32;
+//			vertices[1].unk08 = tconfig->width * (screen->xmid - f14) * 32;
+//			vertices[1].unk0a = tconfig->height * (screen->ymid + f16) * 32;
+//			vertices[2].unk08 = tconfig->width * (screen->xmid - f20) * 32;
+//			vertices[2].unk0a = tconfig->height * (screen->ymid - f24) * 32;
+//			vertices[3].unk08 = tconfig->width * (screen->xmid + f14) * 32;
+//			vertices[3].unk0a = tconfig->height * (screen->ymid - f16) * 32;
+//		}
+//
+//		if (tconfig);
+//
+//		colours[0] = screen->red;
+//		colours[1] = screen->green;
+//		colours[2] = screen->blue;
+//		colours[3] = screen->alpha;
+//
+//		vertices[0].s = 0;
+//		vertices[1].s = 0;
+//		vertices[2].s = 0;
+//		vertices[3].s = 0;
+//
+//		if (screen->alpha < 255) {
+//			arg5 = 2;
+//		}
+//
+//		// Render the image
+//		gSPSetGeometryMode(gdl++, G_CULL_BACK);
+//
+//		func0f0b39c0(&gdl, tconfig, arg5, arg4, 2, 1, 0);
+//
+//		gSPMatrix(gdl++, osVirtualToPhysical(model->matrices), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+//
+//		gMoveWd(gdl++, 1, 6, osVirtualToPhysical(vertices));
+//		gDPSetColorArray(gdl++, osVirtualToPhysical(colours), 1);
+//		gDPSetVerticeArray(gdl++, 0x04000000, 4);
+//
+//		gDPTri2(gdl++, 0, 1, 2, 0, 2, 3);
+//		gSPEndDisplayList(gdl++);
+//
+//		gSPBranchList(savedgdl++, gdl);
+//	}
+//
+//	return gdl;
+//}
 
 void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha)
 {
@@ -57854,16 +57811,16 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 			struct singlemonitorobj *monitor = (struct singlemonitorobj *) obj;
 
 			if (func0f0687b8(obj) == 1) {
-				tvscreenSetImage(&monitor->screen, &g_TvImage14);
+				tvscreenSetCmdlist(&monitor->screen, g_TvCmdlist14);
 			}
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
 			struct multimonitorobj *monitor = (struct multimonitorobj *) obj;
 
 			if (func0f0687b8(obj) == 1) {
-				tvscreenSetImage(&monitor->screens[0], &g_TvImage14);
-				tvscreenSetImage(&monitor->screens[1], &g_TvImage14);
-				tvscreenSetImage(&monitor->screens[2], &g_TvImage14);
-				tvscreenSetImage(&monitor->screens[3], &g_TvImage14);
+				tvscreenSetCmdlist(&monitor->screens[0], g_TvCmdlist14);
+				tvscreenSetCmdlist(&monitor->screens[1], g_TvCmdlist14);
+				tvscreenSetCmdlist(&monitor->screens[2], g_TvCmdlist14);
+				tvscreenSetCmdlist(&monitor->screens[3], g_TvCmdlist14);
 			}
 		} else if (obj->type == OBJTYPE_24) {
 			if (func0f0687b8(obj) == 1) {

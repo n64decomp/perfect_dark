@@ -1518,29 +1518,29 @@ struct monitorthing {
 };
 
 struct tvscreen {
-	/*0x00*/ void *image;
+	/*0x00*/ u32 *cmdlist;
 	/*0x04*/ u16 offset;
-	/*0x06*/ u16 pause60;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 rot;
+	/*0x06*/ s16 pause60;
+	/*0x08*/ struct textureconfig *tconfig;
+	/*0x0c*/ f32 rot;
 	/*0x10*/ f32 xscale;
-	/*0x14*/ u32 xscalefrac;
-	/*0x18*/ u32 xscaleinc;
+	/*0x14*/ f32 xscalefrac;
+	/*0x18*/ f32 xscaleinc;
 	/*0x1c*/ f32 xscaleold;
 	/*0x20*/ f32 xscalenew;
 	/*0x24*/ f32 yscale;
-	/*0x28*/ u32 yscalefrac;
-	/*0x2c*/ u32 yscaleinc;
+	/*0x28*/ f32 yscalefrac;
+	/*0x2c*/ f32 yscaleinc;
 	/*0x30*/ f32 yscaleold;
 	/*0x34*/ f32 yscalenew;
 	/*0x38*/ f32 xmid;
-	/*0x3c*/ u32 xmidfrac;
-	/*0x40*/ u32 xmidinc;
+	/*0x3c*/ f32 xmidfrac;
+	/*0x40*/ f32 xmidinc;
 	/*0x44*/ f32 xmidold;
 	/*0x48*/ f32 xmidnew;
 	/*0x4c*/ f32 ymid;
-	/*0x50*/ u32 ymidfrac;
-	/*0x54*/ u32 ymidinc;
+	/*0x50*/ f32 ymidfrac;
+	/*0x54*/ f32 ymidinc;
 	/*0x58*/ f32 ymidold;
 	/*0x5c*/ f32 ymidnew;
 	/*0x60*/ u8 red;
@@ -1556,7 +1556,7 @@ struct tvscreen {
 	/*0x6a*/ u8 alphaold;
 	/*0x6b*/ u8 alphanew;
 	/*0x6c*/ f32 colfrac;
-	/*0x70*/ u32 colinc;
+	/*0x70*/ f32 colinc;
 };
 
 struct hov {

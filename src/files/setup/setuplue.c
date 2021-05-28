@@ -991,7 +991,7 @@ u8 func100c_maingate_switch[] = {
 		goto_next(0x06)
 
 		label(0x2e)
-		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVIMAGE_12)
+		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVCMDLIST_12)
 		label(0x06)
 		if_chr_activated_object(CHR_P1P2, OBJ_MAINGATE_SWITCH, /*goto*/ 0x2e)
 		reloop(0x04)
@@ -999,7 +999,7 @@ u8 func100c_maingate_switch[] = {
 		label(0x2e)
 		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
-		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVIMAGE_13)
+		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVCMDLIST_13)
 		if_door_state(OBJ_MAINGATE1, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
 		show_hudmsg(CHR_P1P2, L_LUE_043) // "Main gate has been opened."
 		open_door(OBJ_MAINGATE1)
@@ -1016,7 +1016,7 @@ u8 func100c_maingate_switch[] = {
 		label(0x2e)
 		assign_sound(SFX_043F, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
-		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVIMAGE_12)
+		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVCMDLIST_12)
 		show_hudmsg(CHR_P1P2, L_LUE_044) // "Main gate has been closed."
 		close_door(OBJ_MAINGATE1)
 		close_door(OBJ_MAINGATE2)
@@ -1137,7 +1137,7 @@ u8 func1405_antenna_switch[] = {
 		if_stage_flag_eq(STAGEFLAG_ANTENNA_LOWERED, TRUE, /*goto*/ 0x06)
 		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, 0x00, 0x00)
 		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, 0x00, 0x02)
-		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVIMAGE_12)
+		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVCMDLIST_12)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		show_hudmsg(CHR_P1P2, L_LUE_030) // "Antenna lowered."
 		set_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
@@ -1160,7 +1160,7 @@ u8 func1405_antenna_switch[] = {
 		label(0x06)
 		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, 0x00, 0x00)
 		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, 0x00, 0x02)
-		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVIMAGE_13)
+		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVCMDLIST_13)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
 		show_hudmsg(CHR_P1P2, L_LUE_029) // "Antenna raised."
@@ -1198,7 +1198,7 @@ u8 func1006_lift_switches[] = {
 		goto_next(0x0b)
 
 		label(0x2e)
-		set_object_image(OBJ_LIFT1_SWITCH, 0, TVIMAGE_13)
+		set_object_image(OBJ_LIFT1_SWITCH, 0, TVCMDLIST_13)
 		if_stage_flag_eq(STAGEFLAG_LIFT1_CALLED, TRUE, /*goto*/ 0x06)
 		set_stage_flag(STAGEFLAG_LIFT1_CALLED)
 		open_door(0x0e)
@@ -1224,7 +1224,7 @@ u8 func1006_lift_switches[] = {
 		goto_next(0x0b)
 
 		label(0x2e)
-		set_object_image(OBJ_LIFT2_SWITCH, 0, TVIMAGE_13)
+		set_object_image(OBJ_LIFT2_SWITCH, 0, TVCMDLIST_13)
 		if_stage_flag_eq(STAGEFLAG_LIFT2_CALLED, TRUE, /*goto*/ 0x06)
 		set_stage_flag(STAGEFLAG_LIFT2_CALLED)
 		open_door(0x0f)
