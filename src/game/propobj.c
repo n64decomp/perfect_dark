@@ -47559,11 +47559,10 @@ void tvscreenSetImageByNum(struct tvscreen *screen, s32 imagenum)
 	tvscreenSetCmdlist(screen, image);
 }
 
-GLOBAL_ASM(
-glabel tvscreenSetTexture
-/*  f07fbf0:	03e00008 */ 	jr	$ra
-/*  f07fbf4:	ac850008 */ 	sw	$a1,0x8($a0)
-);
+void tvscreenSetTexture(struct tvscreen *screen, s32 texturenum)
+{
+	screen->tconfig = (struct textureconfig *)texturenum;
+}
 
 GLOBAL_ASM(
 glabel tvscreenRender
