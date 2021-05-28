@@ -1053,7 +1053,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 					shield->base.modelnum = MODEL_CHRSHIELD;
 					shield->base.type = OBJTYPE_SHIELD;
 					shield->base.flags |= OBJFLAG_01000000 | OBJFLAG_INVINCIBLE;
-					shield->base.flags2 |= OBJFLAG2_00200000 | OBJFLAG2_00004000;
+					shield->base.flags2 |= OBJFLAG2_00200000 | OBJFLAG2_IMMUNETOGUNFIRE;
 					shield->initialamount = 1;
 					shield->amount = 1;
 					setupGenericObject(&shield->base, cmdindex);
@@ -1357,7 +1357,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			monitor->base.hidden2 |= OBJH2FLAG_04;
 		}
 
-		prop = func0f06a550(monitor);
+		prop = func0f06a550(&monitor->base);
 		monitor->base.monitorthing = monitorthingGetNew();
 
 		if (prop && monitor->base.monitorthing) {
@@ -3200,18 +3200,18 @@ void setupParseObjects(s32 stagenum)
 							ammoqty = mpweapon->weapon1ammoqty;
 
 							if (mpweapon->weapon1ammotypeminusone > 0 && mpweapon->weapon1ammotypeminusone < 20) {
-								crate->quantities[mpweapon->weapon1ammotypeminusone - 1].unk02 = ammoqty;
+								crate->slots[mpweapon->weapon1ammotypeminusone - 1].quantity = ammoqty;
 							}
 
 							if (mpweapon->weapon2ammotypeminusone > 0 && mpweapon->weapon2ammotypeminusone < 20) {
-								crate->quantities[mpweapon->weapon2ammotypeminusone - 1].unk02 = mpweapon->weapon2ammoqty;
+								crate->slots[mpweapon->weapon2ammotypeminusone - 1].quantity = mpweapon->weapon2ammoqty;
 							}
 						}
 
 						if (ammoqty > 0 && withobjs && (obj->flags2 & diffflag) == 0) {
 							for (i = 0; i < 19; i++) {
-								if (crate->quantities[i].unk02 > 0 && crate->quantities[i].unk00 != 0xffff) {
-									propLoad(crate->quantities[i].unk00);
+								if (crate->slots[i].quantity > 0 && crate->slots[i].modelnum != 0xffff) {
+									propLoad(crate->slots[i].modelnum);
 								}
 							}
 

@@ -208,7 +208,7 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *ptr = (s32 *)&func0f084cf0;
+		s32 *ptr = (s32 *)&glassDestroy;
 
 		while (ptr < end) {
 			checksum ^= *ptr;

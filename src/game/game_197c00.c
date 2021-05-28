@@ -284,7 +284,7 @@ bool aibotGiveProp(struct chrdata *chr, struct prop *prop)
 		struct multiammocrateobj *multi = (struct multiammocrateobj *)prop->obj;
 
 		for (i = 0; i < 0x13; i++) {
-			if (multi->quantities[i].unk02 > 0) {
+			if (multi->slots[i].quantity > 0) {
 				s32 weaponnum = ammotypeGetWeapon(i + 1);
 
 				if (weaponnum > 0) {

@@ -1022,7 +1022,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			dprint();
 
 			for (i = 0; i != 19; i++) {
-				qty = crate->quantities[i].unk02;
+				qty = crate->slots[i].quantity;
 
 				if (qty) {
 					dprint();
@@ -1525,7 +1525,7 @@ glabel var7f1b8ea8
 /*  f190c50:	1000014b */ 	b	.L0f191180
 /*  f190c54:	00001025 */ 	or	$v0,$zero,$zero
 .L0f190c58:
-/*  f190c58:	0fc21465 */ 	jal	objIsCollectableByDefault
+/*  f190c58:	0fc21465 */ 	jal	func0f085194
 /*  f190c5c:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f190c60:	5040000d */ 	beqzl	$v0,.L0f190c98
 /*  f190c64:	8fa20084 */ 	lw	$v0,0x84($sp)
@@ -1931,7 +1931,7 @@ glabel var7f1b8ea8
 /*  f18ad4c:	10000147 */ 	beqz	$zero,.NB0f18b26c
 /*  f18ad50:	00001025 */ 	or	$v0,$zero,$zero
 .NB0f18ad54:
-/*  f18ad54:	0fc20e86 */ 	jal	objIsCollectableByDefault
+/*  f18ad54:	0fc20e86 */ 	jal	func0f085194
 /*  f18ad58:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f18ad5c:	5040000d */ 	beqzl	$v0,.NB0f18ad94
 /*  f18ad60:	8fa20084 */ 	lw	$v0,0x84($sp)
@@ -2335,7 +2335,7 @@ glabel var7f1b8ea8
 //		return false;
 //	}
 //
-//	if (objIsCollectableByDefault(obj) && obj->type != OBJTYPE_HAT) {
+//	if (func0f085194(obj) && obj->type != OBJTYPE_HAT) {
 //		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
 //			return false;
 //		}
@@ -2412,7 +2412,7 @@ glabel var7f1b8ea8
 //		for (i = 0; i < 0x13; i++) {
 //			weaponnum = ammotypeGetWeapon(i + 1);
 //
-//			if (crate2->quantities[i].unk02 > 0) {
+//			if (crate2->slots[i].quantity > 0) {
 //				if (aibotGetAmmoQuantityByType(chr->aibot, i + 1, false) < ammotypeGetMaxCapacity(i + 1)) {
 //					ignore1 = false;
 //

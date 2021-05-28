@@ -2374,7 +2374,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 								f32 damage = gsetGetDamage(gset) * 2.5f;
 								skipthething = true;
 								func0f0a8404(&playerprop->pos, playerprop->rooms, -1);
-								func0f085270(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
+								objTakeGunfire(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
 								func0f070698(prop, false);
 							}
 						} else if (arg2) {
@@ -6772,7 +6772,7 @@ bool propIsOfCdType(struct prop *prop, u32 types)
 
 			if ((types & CDTYPE_OBJSWITHFLAG)
 					&& (obj->flags & OBJFLAG_INVINCIBLE) == 0
-					&& (obj->flags2 & OBJFLAG2_00004000) == 0) {
+					&& (obj->flags2 & OBJFLAG2_IMMUNETOGUNFIRE) == 0) {
 				result = false;
 			}
 

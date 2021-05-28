@@ -1679,7 +1679,7 @@ struct cctvobj { // objtype 0x06
 
 struct ammocrateobj { // objtype 0x07
 	struct defaultobj base;
-	/*0x5c*/ u32 ammotype;
+	/*0x5c*/ s32 ammotype;
 };
 
 struct weaponobj { // objtype 0x08
@@ -1797,13 +1797,13 @@ struct linkliftdoorobj {
 };
 
 struct multiammocrateslot {
-	u16 unk00;
-	u16 unk02;
+	u16 modelnum;
+	u16 quantity;
 };
 
 struct multiammocrateobj { // objtype 0x14
 	struct defaultobj base;
-	/*0x5c*/ struct multiammocrateslot quantities[19]; // indexed by ammotype minus 1
+	/*0x5c*/ struct multiammocrateslot slots[19]; // indexed by ammotype minus 1
 };
 
 struct shieldobj { // objtype 0x15

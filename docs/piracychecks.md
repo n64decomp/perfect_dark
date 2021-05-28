@@ -1,6 +1,6 @@
 # Piracy Checks
 
-Perfect Dark contains several checks to determine if the game is running in unusual conditions, such as with modified boot loader or with modified functions. The functions which check for these are in various places throughout the code and some even occur during gameplay. Many of these functions are themselves checked by other functions. In other words, the game detects if you've defeated the first measure then applies a second measure.
+Perfect Dark contains several checks to determine if the game is running in unusual conditions, such as with a modified boot loader or with modified functions. The functions which check for these are in various places throughout the code and some even occur during gameplay. Many of these functions are themselves checked by other functions. In other words, the game detects if you've defeated the first measure then applies a second measure.
 
 If piracy is detected, the game will either corrupt certain functions in memory which causes instability and crashes, or it will alter things within the game to annoy you.
 
@@ -22,7 +22,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `init` to make sure it hasn't been modified.
 
-**Piracy Condition:** Writes 40 bytes of 0xff to 0x80095210. This appears to be related to sound effects but has no obvious effect.
+**Payload:** Writes 40 bytes of 0xff to 0x80095210. This appears to be related to sound effects but has no obvious effect.
 
 ### cheatMenuHandleDialog
 
@@ -150,7 +150,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### func0f084cf0
+### glassDestroy
 
 **When Called:** When the player breaks glass.
 
@@ -162,6 +162,6 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When there's an explosion.
 
-**What It Checks:** Checksums `func0f084cf0` to make sure it hasn't been modified.
+**What It Checks:** Checksums `glassDestroy` to make sure it hasn't been modified.
 
 **Payload:** Makes all explosions huge.

@@ -2258,7 +2258,7 @@ bool aiDestroyObject(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->prop && func0f0687b8(obj) == 0) {
+	if (obj && obj->prop && !func0f0687b8(obj)) {
 		struct defaultobj *entity = obj->prop->obj;
 
 		if (entity->modelnum == MODEL_ELVIS_SAUCER) {
@@ -2267,7 +2267,7 @@ bool aiDestroyObject(void)
 			smokeCreateAtProp(entity->prop, SMOKETYPE_UFO);
 		} else {
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
-			func0f0852ac(obj, damage, &obj->prop->pos, 0x22, -1);
+			objDamage(obj, damage, &obj->prop->pos, WEAPON_REMOTEMINE, -1);
 		}
 	}
 
