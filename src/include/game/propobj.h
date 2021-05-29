@@ -279,7 +279,7 @@ void weaponUnregisterProxy(struct weaponobj *weapon);
 void coordTriggerProxies(struct coord *pos, bool arg1);
 void chrsTriggerProxies(void);
 void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2);
-u32 func0f08adc8(void);
+struct prop *func0f08adc8(struct weaponobj *weapon, struct modelfiledata *filedata, struct prop *prop, struct model *model);
 u32 func0f08ae0c(void);
 u32 func0f08ae54(struct defaultobj *obj, struct chrdata *chr);
 struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modelfiledata *modelfiledata, struct prop *prop, struct model *model);

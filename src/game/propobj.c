@@ -65530,78 +65530,38 @@ glabel func0f08ae54
 /*  f08b104:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f08b108
-/*  f08b108:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08b10c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f08b110:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f08b114:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f08b118:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08b11c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f08b120:	00e03025 */ 	or	$a2,$a3,$zero
-/*  f08b124:	00808025 */ 	or	$s0,$a0,$zero
-/*  f08b128:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f08b12c:	0fc22b72 */ 	jal	func0f08adc8
-/*  f08b130:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f08b134:	10400022 */ 	beqz	$v0,.L0f08b1c0
-/*  f08b138:	00408825 */ 	or	$s1,$v0,$zero
-/*  f08b13c:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08b140:	1080001f */ 	beqz	$a0,.L0f08b1c0
-/*  f08b144:	00000000 */ 	nop
-/*  f08b148:	960e0000 */ 	lhu	$t6,0x0($s0)
-/*  f08b14c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f08b150:	448e2000 */ 	mtc1	$t6,$f4
-/*  f08b154:	05c10004 */ 	bgez	$t6,.L0f08b168
-/*  f08b158:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f08b15c:	44814000 */ 	mtc1	$at,$f8
-/*  f08b160:	00000000 */ 	nop
-/*  f08b164:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f08b168:
-/*  f08b168:	3c013b80 */ 	lui	$at,0x3b80
-/*  f08b16c:	44815000 */ 	mtc1	$at,$f10
-/*  f08b170:	c4900014 */ 	lwc1	$f16,0x14($a0)
-/*  f08b174:	460a3002 */ 	mul.s	$f0,$f6,$f10
-/*  f08b178:	00000000 */ 	nop
-/*  f08b17c:	46008482 */ 	mul.s	$f18,$f16,$f0
-/*  f08b180:	44059000 */ 	mfc1	$a1,$f18
-/*  f08b184:	0c006bd6 */ 	jal	modelSetScale
-/*  f08b188:	00000000 */ 	nop
-/*  f08b18c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08b190:	0fc22b95 */ 	jal	func0f08ae54
-/*  f08b194:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f08b198:	54400016 */ 	bnezl	$v0,.L0f08b1f4
-/*  f08b19c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08b1a0:	0fc1810e */ 	jal	propFree
-/*  f08b1a4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f08b1a8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f08b1ac:	ae000014 */ 	sw	$zero,0x14($s0)
-/*  f08b1b0:	0fc2cc33 */ 	jal	modelFree
-/*  f08b1b4:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08b1b8:	1000000d */ 	b	.L0f08b1f0
-/*  f08b1bc:	ae000018 */ 	sw	$zero,0x18($s0)
-.L0f08b1c0:
-/*  f08b1c0:	50400006 */ 	beqzl	$v0,.L0f08b1dc
-/*  f08b1c4:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08b1c8:	0fc1810e */ 	jal	propFree
-/*  f08b1cc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f08b1d0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f08b1d4:	ae000014 */ 	sw	$zero,0x14($s0)
-/*  f08b1d8:	8e040018 */ 	lw	$a0,0x18($s0)
-.L0f08b1dc:
-/*  f08b1dc:	50800005 */ 	beqzl	$a0,.L0f08b1f4
-/*  f08b1e0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08b1e4:	0fc2cc33 */ 	jal	modelFree
-/*  f08b1e8:	00000000 */ 	nop
-/*  f08b1ec:	ae000018 */ 	sw	$zero,0x18($s0)
-.L0f08b1f0:
-/*  f08b1f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08b1f4:
-/*  f08b1f4:	02201025 */ 	or	$v0,$s1,$zero
-/*  f08b1f8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f08b1fc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f08b200:	03e00008 */ 	jr	$ra
-/*  f08b204:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
+{
+	prop = func0f08adc8(weapon, filedata, prop, model);
+
+	if (prop && weapon->base.model) {
+		f32 scale = weapon->base.extrascale * (1.0f / 256.0f);
+
+		modelSetScale(weapon->base.model, weapon->base.model->scale * scale);
+
+		if (!func0f08ae54(&weapon->base, chr)) {
+			propFree(prop);
+			prop = NULL;
+			weapon->base.prop = NULL;
+
+			modelFree(weapon->base.model);
+			weapon->base.model = NULL;
+		}
+	} else {
+		if (prop) {
+			propFree(prop);
+			prop = NULL;
+			weapon->base.prop = NULL;
+		}
+
+		if (weapon->base.model) {
+			modelFree(weapon->base.model);
+			weapon->base.model = NULL;
+		}
+	}
+
+	return prop;
+}
 
 void func0f08b208(struct weaponobj *weapon, struct chrdata *chr)
 {
