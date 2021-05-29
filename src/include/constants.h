@@ -2968,7 +2968,7 @@
 #define OBJHFLAG_ACTIVATED_BY_COOP 0x00040000
 #define OBJHFLAG_HASOWNER          0x00080000
 #define OBJHFLAG_00100000          0x00100000
-#define OBJHFLAG_00200000          0x00200000 // Occupied chair?
+#define OBJHFLAG_OCCUPIEDCHAIR     0x00200000
 #define OBJHFLAG_00400000          0x00400000
 #define OBJHFLAG_00800000          0x00800000
 #define OBJHFLAG_01000000          0x01000000
@@ -3933,7 +3933,7 @@
 #define WEAPON_GRENADEROUND      0x55
 #define WEAPON_BOLT              0x56
 #define WEAPON_BRIEFCASE2        0x57
-#define WEAPON_ROCKET2           0x58
+#define WEAPON_SKROCKET          0x58
 #define WEAPON_59                0x59
 #define WEAPON_5A                0x5a
 #define WEAPON_MPSHIELD          0x5b

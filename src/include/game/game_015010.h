@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void func0f015010(void);
+void objsReset(void);
 
 #endif

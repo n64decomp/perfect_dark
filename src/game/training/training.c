@@ -2084,7 +2084,7 @@ void frInitTargets(void)
 		if (prop) {
 			obj = prop->obj;
 
-			func0f06ad2c(obj, false, true);
+			objRemove2(obj, false, true);
 
 			obj->damage = 0;
 			prop->timetoregen = 0;
@@ -2191,7 +2191,7 @@ glabel var7f1b3a44
 /*  f1984e4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1984e8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1984ec:	8e510004 */ 	lw	$s1,0x4($s2)
-/*  f1984f0:	0fc1a7e4 */ 	jal	func0f06ad2c
+/*  f1984f0:	0fc1a7e4 */ 	jal	objRemove2
 /*  f1984f4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1984f8:	a620004c */ 	sh	$zero,0x4c($s1)
 /*  f1984fc:	a6400002 */ 	sh	$zero,0x2($s2)
@@ -2662,8 +2662,8 @@ void frEndSession(bool hidetargets)
 			frHideAllTargets();
 		}
 
-		if (g_ThrownLaptops->base.prop) {
-			func0f06b34c(g_ThrownLaptops, true);
+		if (g_ThrownLaptops[0].base.prop) {
+			objRemove(&g_ThrownLaptops[0].base, true);
 		}
 
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
@@ -2686,7 +2686,7 @@ void frEndSession(bool hidetargets)
 
 				if (prop->type == PROPTYPE_WEAPON) {
 					if (obj->type == OBJTYPE_AUTOGUN) {
-						func0f06b34c(obj, true);
+						objRemove(obj, true);
 					}
 
 					if (obj->type == OBJTYPE_WEAPON) {
@@ -2702,10 +2702,10 @@ void frEndSession(bool hidetargets)
 								|| weapon->weaponnum == WEAPON_REMOTEMINE
 								|| weapon->weaponnum == WEAPON_ROCKET
 								|| weapon->weaponnum == WEAPON_TIMEDMINE
-								|| weapon->weaponnum == WEAPON_ROCKET2
+								|| weapon->weaponnum == WEAPON_SKROCKET
 								|| (weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY)
 								|| (weapon->weaponnum == WEAPON_LAPTOPGUN && weapon->gunfunc == FUNC_SECONDARY)) {
-							func0f06b34c(obj, true);
+							objRemove(obj, true);
 						}
 					}
 				}
@@ -7451,7 +7451,7 @@ void dtRestorePlayer(void)
 	playersSetPassiveMode(true);
 
 	if (g_DtData.obj) {
-		func0f06b34c(g_DtData.obj, true);
+		objRemove(g_DtData.obj, true);
 	}
 
 	g_DtData.obj = NULL;
@@ -7870,7 +7870,7 @@ void htEnd(void)
 			struct defaultobj *obj = prop->obj;
 
 			if (obj->type == OBJTYPE_WEAPON) {
-				func0f06b34c(obj, true);
+				objRemove(obj, true);
 			}
 		}
 

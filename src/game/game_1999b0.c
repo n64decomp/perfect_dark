@@ -487,7 +487,7 @@ void func0f19a7d0(u16 padnum, struct coord *pos)
 
 void aibotCreateSlayerRocket(struct chrdata *chr)
 {
-	struct weaponobj *rocket = func0f08b880(MODEL_CHRSKROCKETMIS, WEAPON_ROCKET2, chr);
+	struct weaponobj *rocket = func0f08b880(MODEL_CHRSKROCKETMIS, WEAPON_SKROCKET, chr);
 
 	if (rocket) {
 		Mtxf sp260;
@@ -529,7 +529,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 				rocket->timer240 = 0; // blow up rocket
 			} else {
 				func0f19a7d0(rocket->base.projectile->waypads[0], &rocket->base.projectile->pos);
-				chr->aibot->unk044 = rocket->base.prop;
+				chr->aibot->skrocket = rocket->base.prop;
 			}
 		}
 	}

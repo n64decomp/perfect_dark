@@ -152,7 +152,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 
 					aibot->aibotnum = aibotnum;
 					aibot->unk064 = 0;
-					aibot->prop = NULL;
+					aibot->fetchprop = NULL;
 					aibot->unk02c[0] = 0;
 					aibot->unk02c[1] = 0;
 					aibot->unk034 = 0;
@@ -189,7 +189,7 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 
 					aibot->unk04d[0] = 0;
 					aibot->unk04d[1] = 0;
-					aibot->unk044 = NULL;
+					aibot->skrocket = NULL;
 					aibot->unk0a0 = 0;
 
 					aibot->gunfunc = 0;

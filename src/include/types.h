@@ -801,7 +801,7 @@ struct aibot {
 	/*0x008*/ s16 attackingplayernum;
 	/*0x00a*/ s16 followingplayernum;
 	/*0x00c*/ s16 dangerouspropnum; // index into g_DangerousProps
-	/*0x010*/ struct prop *prop;
+	/*0x010*/ struct prop *fetchprop;
 	/*0x014*/ struct invitem *items;
 	/*0x018*/ s8 maxitems;
 	/*0x01c*/ s32 *ammoheld;
@@ -814,7 +814,7 @@ struct aibot {
 	/*0x03c*/ u16 unk03c;
 	/*0x03e*/ s16 unk03e;
 	/*0x040*/ f32 unk040;
-	/*0x044*/ struct prop *unk044; // obj
+	/*0x044*/ struct prop *skrocket;
 	/*0x048*/ s16 unk048;
 	/*0x04a*/ s16 unk04a;
 	/*0x04c*/ u8 unk04c_00 : 1;

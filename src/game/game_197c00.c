@@ -110,7 +110,7 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x55*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_GRENADEROUND
 	/*0x56*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BOLT
 	/*0x57*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE2
-	/*0x58*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_ROCKET2
+	/*0x58*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SKROCKET
 	/*0x59*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_59
 	/*0x5a*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_5A
 	/*0x5b*/ { 220, 220, 0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_MPSHIELD
@@ -837,7 +837,7 @@ void aibotTickInventory(struct chrdata *chr)
 			&& aibot->unk04d[0] <= 0
 			&& aibot->unk0e0[1] <= 0
 			&& aibot->unk0e0[0] <= 0
-			&& aibot->unk044 == NULL) {
+			&& aibot->skrocket == NULL) {
 		if (chr->myaction == MA_AIBOTDOWNLOAD) {
 			keepcurrentweapon = true;
 		}

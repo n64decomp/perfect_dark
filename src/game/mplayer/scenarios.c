@@ -10391,7 +10391,7 @@ glabel chrGiveBriefcase
 .PF0f187b48:
 /*  f187b48:	00002825 */ 	move	$a1,$zero
 /*  f187b4c:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f187b50:	0fc1abed */ 	jal	func0f06ad2c
+/*  f187b50:	0fc1abed */ 	jal	objRemove2
 /*  f187b54:	01e03025 */ 	move	$a2,$t7
 /*  f187b58:	100001af */ 	b	.PF0f188218
 /*  f187b5c:	24020001 */ 	li	$v0,0x1
@@ -10852,7 +10852,7 @@ glabel chrGiveBriefcase
 /*  f1881c4:	00002825 */ 	move	$a1,$zero
 /*  f1881c8:	90860002 */ 	lbu	$a2,0x2($a0)
 /*  f1881cc:	30ca0004 */ 	andi	$t2,$a2,0x4
-/*  f1881d0:	0fc1abed */ 	jal	func0f06ad2c
+/*  f1881d0:	0fc1abed */ 	jal	objRemove2
 /*  f1881d4:	01403025 */ 	move	$a2,$t2
 /*  f1881d8:	1000000f */ 	b	.PF0f188218
 /*  f1881dc:	24020001 */ 	li	$v0,0x1
@@ -11076,7 +11076,7 @@ glabel chrGiveBriefcase
 .L0f186b44:
 /*  f186b44:	00002825 */ 	or	$a1,$zero,$zero
 /*  f186b48:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f186b4c:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f186b4c:	0fc1ab4b */ 	jal	objRemove2
 /*  f186b50:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f186b54:	100001c7 */ 	b	.L0f187274
 /*  f186b58:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -11561,7 +11561,7 @@ glabel chrGiveBriefcase
 /*  f187220:	00002825 */ 	or	$a1,$zero,$zero
 /*  f187224:	90860002 */ 	lbu	$a2,0x2($a0)
 /*  f187228:	30ca0004 */ 	andi	$t2,$a2,0x4
-/*  f18722c:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f18722c:	0fc1ab4b */ 	jal	objRemove2
 /*  f187230:	01403025 */ 	or	$a2,$t2,$zero
 /*  f187234:	1000000f */ 	b	.L0f187274
 /*  f187238:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -12458,7 +12458,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 			func0f087d10(WEAPON_DATAUPLINK);
 
 #if VERSION >= VERSION_NTSC_1_0
-			func0f06ad2c(obj, 0, obj->hidden2 & OBJH2FLAG_04);
+			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
 			return 1;
 #else
 			return 4;

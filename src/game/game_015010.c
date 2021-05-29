@@ -7,7 +7,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f015010(void)
+void objsReset(void)
 {
 	u32 *ptr = g_StageSetup.props;
 
@@ -43,7 +43,7 @@ void func0f015010(void)
 			case OBJTYPE_HOVERCAR:
 			case OBJTYPE_CHOPPER:
 			case OBJTYPE_ESCASTEP:
-				func0f06b34c(ptr, true);
+				objRemove((struct defaultobj *) ptr, true);
 				break;
 			case OBJTYPE_DOORSCALE:
 			case OBJTYPE_CHR:

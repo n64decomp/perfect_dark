@@ -9837,7 +9837,7 @@ void lvReset(void)
 	shardsReset();
 	stub0f0153f0();
 	alarmReset();
-	func0f015010(); // props/setup related
+	objsReset(); // props/setup related
 	weatherReset();
 	objectivesAutocomplete();
 	stub0f015260();

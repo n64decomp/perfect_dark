@@ -6387,7 +6387,7 @@ glabel aiRemoveObjectAtPropPreset
 //{
 //	if (g_Vars.chrdata->proppreset1 >= 0) {
 //		struct defaultobj *obj = g_Vars.props[g_Vars.chrdata->proppreset1].obj;
-//		obj->hidden &= ~OBJHFLAG_00200000;
+//		obj->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
 //	}
 //
 //	g_Vars.chrdata->proppreset1 = -1;
