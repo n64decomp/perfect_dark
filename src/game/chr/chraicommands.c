@@ -4040,7 +4040,7 @@ bool aiSetCountdownTimerValue(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 seconds = cmd[3] | (cmd[2] << 8);
 
-	countdownTimerSetValue(seconds * 60);
+	countdownTimerSetValue60(seconds * 60);
 	g_Vars.aioffset += 4;
 
 	return false;
@@ -4092,7 +4092,7 @@ bool aiIfCountdownTimerLessThan(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 value = cmd[3] | (cmd[2] << 8);
 
-	if (countdownTimerGetValue() < value * 60) {
+	if (countdownTimerGetValue60() < value * 60) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -4109,7 +4109,7 @@ bool aiIfCountdownTimerGreaterThan(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 value = cmd[3] | (cmd[2] << 8);
 
-	if (countdownTimerGetValue() > value * 60) {
+	if (countdownTimerGetValue60() > value * 60) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;

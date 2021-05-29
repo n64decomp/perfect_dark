@@ -216,9 +216,9 @@ void setupInit(void)
 	g_GasSoundTimer240 = 0;
 	g_GasAudioHandle = NULL;
 
-	g_CountdownTimerVisible = true;
+	g_CountdownTimerOff = COUNTDOWNTIMERREASON_AI;
 	g_CountdownTimerRunning = false;
-	g_CountdownTimerValue = 0;
+	g_CountdownTimerValue60 = 0;
 
 	var80069910 = 0;
 	g_TintedGlassEnabled = false;

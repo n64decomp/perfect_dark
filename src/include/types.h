@@ -105,7 +105,7 @@ struct g_vars {
 	/*000040*/ s32 diffframe240;
 	/*000044*/ f32 lvupdate240f;
 	/*000048*/ f32 diffframe240f;
-	/*00004c*/ f32 lvupdate240freal;
+	/*00004c*/ f32 lvupdate240freal; // actually a 60 value?
 	/*000050*/ f32 lvupdate240frealprev;
 	/*000054*/ s32 lastframe240;
 	/*000058*/ s32 thisframe240;

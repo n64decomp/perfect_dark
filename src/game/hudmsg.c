@@ -181,7 +181,7 @@ glabel hudRenderMissionTimer
 /*  f0dd020:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f0dd024:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f0dd028:	afa9004c */ 	sw	$t1,0x4c($sp)
-/*  f0dd02c:	0fc24211 */ 	jal	countdownTimerIsHidden
+/*  f0dd02c:	0fc24211 */ 	jal	countdownTimerIsVisible
 /*  f0dd030:	afaa0044 */ 	sw	$t2,0x44($sp)
 /*  f0dd034:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0dd038:	8fa60050 */ 	lw	$a2,0x50($sp)
@@ -382,7 +382,7 @@ glabel hudRenderMissionTimer
 //
 //	// fe0
 //	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL)
-//			&& countdownTimerIsHidden()) {
+//			&& countdownTimerIsVisible()) {
 //		sp80 -= 8;
 //	}
 //
@@ -527,7 +527,7 @@ glabel hudRenderZoomRange
 /*  f0dd3d8:	afa30058 */ 	sw	$v1,0x58($sp)
 /*  f0dd3dc:	afa4005c */ 	sw	$a0,0x5c($sp)
 /*  f0dd3e0:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f0dd3e4:	0fc24211 */ 	jal	countdownTimerIsHidden
+/*  f0dd3e4:	0fc24211 */ 	jal	countdownTimerIsVisible
 /*  f0dd3e8:	afa70050 */ 	sw	$a3,0x50($sp)
 /*  f0dd3ec:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0dd3f0:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
@@ -911,7 +911,7 @@ glabel hudRenderZoomRange
 /*  f0dd3b8:	afa30058 */ 	sw	$v1,0x58($sp)
 /*  f0dd3bc:	afa4005c */ 	sw	$a0,0x5c($sp)
 /*  f0dd3c0:	afa50054 */ 	sw	$a1,0x54($sp)
-/*  f0dd3c4:	0fc24211 */ 	jal	countdownTimerIsHidden
+/*  f0dd3c4:	0fc24211 */ 	jal	countdownTimerIsVisible
 /*  f0dd3c8:	afa70050 */ 	sw	$a3,0x50($sp)
 /*  f0dd3cc:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0dd3d0:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
@@ -6918,7 +6918,7 @@ glabel hudmsgsRender
 /*  f0e0cf8:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e0cfc:	00409025 */ 	move	$s2,$v0
 .PF0f0e0d00:
-/*  f0e0d00:	0fc241f9 */ 	jal	func0f0908b8
+/*  f0e0d00:	0fc241f9 */ 	jal	countdownTimerRender
 /*  f0e0d04:	02402025 */ 	move	$a0,$s2
 /*  f0e0d08:	00409025 */ 	move	$s2,$v0
 .PF0f0e0d0c:
@@ -7776,7 +7776,7 @@ glabel var7f1adef4
 /*  f0e06bc:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e06c0:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e06c4:
-/*  f0e06c4:	0fc2422e */ 	jal	func0f0908b8
+/*  f0e06c4:	0fc2422e */ 	jal	countdownTimerRender
 /*  f0e06c8:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e06cc:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e06d0:
@@ -8644,7 +8644,7 @@ glabel var7f1adef4
 /*  f0ddac4:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0ddac8:	00409025 */ 	or	$s2,$v0,$zero
 .NB0f0ddacc:
-/*  f0ddacc:	0fc23bd4 */ 	jal	func0f0908b8
+/*  f0ddacc:	0fc23bd4 */ 	jal	countdownTimerRender
 /*  f0ddad0:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0ddad4:	00409025 */ 	or	$s2,$v0,$zero
 .NB0f0ddad8:
@@ -8921,7 +8921,7 @@ glabel var7f1adef4
 //			gdl = hudRenderZoomRange(gdl, timerthing);
 //		}
 //
-//		gdl = func0f0908b8(gdl);
+//		gdl = countdownTimerRender(gdl);
 //	}
 //
 //	gdl = func0f153780(gdl);

@@ -30621,24 +30621,24 @@ Gfx *handRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 va
 
 	textMeasure(&textheight, &textwidth, text, g_FontNumeric1, g_FontNumeric2, 0);
 
-	if (halign == 1) { // left
+	if (halign == HUDHALIGN_LEFT) { // left
 		x2 = x + textwidth;
 		x1 = x;
-	} else if (halign == 0) { // right
+	} else if (halign == HUDHALIGN_RIGHT) { // right
 		x1 = x - textwidth;
 		x2 = x;
-	} else if (halign == 2) { // middle
+	} else if (halign == HUDHALIGN_MIDDLE) { // middle
 		x2 = x + textwidth / 2;
 		x1 = x2 - textwidth;
 	}
 
-	if (valign == 1) { // top
+	if (valign == HUDVALIGN_TOP) { // top
 		y2 = y + textheight;
 		y1 = y;
-	} else if (valign == 0) { // bottom
+	} else if (valign == HUDVALIGN_BOTTOM) { // bottom
 		y1 = y - textheight;
 		y2 = y;
-	} else if (valign == 2) { // middle
+	} else if (valign == HUDVALIGN_MIDDLE) { // middle
 		y2 = y + textheight / 2;
 		y1 = y2 - textheight;
 	}
