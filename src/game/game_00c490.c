@@ -940,7 +940,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 				// NTSC 1.0 and newer simplifies the Marqis logic
 #if VERSION >= VERSION_NTSC_1_0
 				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
-				weapon->base.flags |= OBJFLAG_20000000;
+				weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
 				weaponLoadProjectileModels(weapon->weaponnum);
 				func0f08b25c(weapon, chr);
 #else
@@ -951,7 +951,7 @@ void weaponAssignToHome(struct weaponobj *weapon, s32 cmdindex)
 					func0f08b25c(weapon, chr);
 				} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
 					weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
-					weapon->base.flags |= OBJFLAG_20000000;
+					weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
 					weaponLoadProjectileModels(weapon->weaponnum);
 					func0f08b25c(weapon, chr);
 				} else {
@@ -1363,16 +1363,16 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		if (prop && monitor->base.monitorthing) {
 			monitor->base.hidden |= OBJHFLAG_00000040;
 			modelSetScale(monitor->base.model, monitor->base.model->scale * scale);
-			monitor->base.model->attachedto = owner->model;
+			monitor->base.model->attachedtomodel = owner->model;
 
 			if (monitor->ownerpart == MODELPART_0000) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0000);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0000);
 			} else if (monitor->ownerpart == MODELPART_0001) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0001);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0001);
 			} else if (monitor->ownerpart == MODELPART_0002) {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0002);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0002);
 			} else {
-				monitor->base.model->unk1c = modelGetPart(owner->model->filedata, MODELPART_0003);
+				monitor->base.model->attachedtonode = modelGetPart(owner->model->filedata, MODELPART_0003);
 			}
 
 			propReparent(prop, owner->prop);

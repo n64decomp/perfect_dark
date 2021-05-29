@@ -15,7 +15,7 @@ void currentPlayerSetViewPosition(s32 viewleft, s32 viewtop);
 void currentPlayerSetFovY(f32 fovy);
 void currentPlayerSetAspectRatio(f32 aspect);
 s32 weaponGetModel(s32 weapon);
-void currentPlayerSetWeaponFlag4(s32 hand);
+void currentPlayerSetWeaponReapable(s32 hand);
 void func0f128d20(s32 hand);
 void randomisePlayerOrder(void);
 s32 getPlayerByOrderNum(s32 arg0);

@@ -12434,7 +12434,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (chr->aibot || i != playernum) {
 				setCurrentPlayerNum(i);
-				func0f0ddfa4(message, 9, 1);
+				func0f0ddfa4(message, HUDMSGTYPE_MPSCENARIO, 1);
 			}
 		}
 
@@ -12446,9 +12446,9 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 			chr->aibot->unk04c_05 = true;
 
 #if VERSION >= VERSION_NTSC_1_0
-			obj->hidden |= OBJHFLAG_00000004;
+			obj->hidden |= OBJHFLAG_REAPABLE;
 #else
-			prop->obj->hidden |= OBJHFLAG_00000004;
+			prop->obj->hidden |= OBJHFLAG_REAPABLE;
 #endif
 
 			return 0;

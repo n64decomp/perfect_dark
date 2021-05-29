@@ -508,7 +508,7 @@ void objUpdateLinkedScenery(struct defaultobj *obj)
 				func0f06a170();
 
 				link->trigger->flags2 |= OBJFLAG2_INVISIBLE;
-				link->trigger->hidden |= OBJHFLAG_00000004;
+				link->trigger->hidden |= OBJHFLAG_REAPABLE;
 
 				if (link->unexp) {
 					link->unexp->flags2 |= OBJFLAG2_INVISIBLE;
@@ -2533,7 +2533,7 @@ struct projectile *projectileGetNew(void)
 				func0f06ac90(g_Projectiles[bestindex].obj->prop);
 			}
 
-			g_Projectiles[bestindex].obj->hidden |= OBJHFLAG_00000004;
+			g_Projectiles[bestindex].obj->hidden |= OBJHFLAG_REAPABLE;
 		}
 
 		projectileReset(&g_Projectiles[bestindex]);
@@ -12015,7 +12015,7 @@ void func0f06f504(struct prop *prop)
 
 	if (obj->flags & OBJFLAG_DEACTIVATED) {
 		func0f06f314(prop, EXPLOSIONTYPE_12);
-		obj->hidden |= OBJHFLAG_00000004;
+		obj->hidden |= OBJHFLAG_REAPABLE;
 	}
 }
 
@@ -15339,7 +15339,7 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	struct defaultobj *obj = prop->obj;
 	struct prop *child;
 
-	if (obj->hidden & OBJHFLAG_00000004) {
+	if (obj->hidden & OBJHFLAG_REAPABLE) {
 		objRemove2(obj, true, obj->hidden2 & OBJH2FLAG_04);
 	} else {
 		prop->flags &= ~PROPFLAG_02;
@@ -45421,7 +45421,7 @@ glabel var7f1aa6e0
 //
 //		func0f0926bc(prop, 1, 0xffff);
 //		explosionCreate(NULL, &prop->pos, prop->rooms, EXPLOSIONTYPE_7, g_Vars.currentplayernum, true, &sp1e4, sp1d6, &sp1d8);
-//		hovercar->base.hidden |= OBJHFLAG_00000004;
+//		hovercar->base.hidden |= OBJHFLAG_REAPABLE;
 //		return;
 //	}
 //
@@ -46129,7 +46129,7 @@ s32 objTick(struct prop *prop)
 		return 3;
 	}
 
-	if (obj->hidden & OBJHFLAG_00000004) {
+	if (obj->hidden & OBJHFLAG_REAPABLE) {
 		pass = false;
 
 		if (obj->type == OBJTYPE_TINTEDGLASS) {
@@ -53043,8 +53043,8 @@ void objDetach(struct prop *prop)
 
 		propDetach(prop);
 
-		model->attachedto = NULL;
-		model->unk1c = NULL;
+		model->attachedtomodel = NULL;
+		model->attachedtonode = NULL;
 
 		obj->hidden &= ~OBJHFLAG_HASOWNER;
 
@@ -56999,7 +56999,7 @@ void glassDestroy(struct defaultobj *obj)
 #endif
 
 	obj->damage = 0;
-	obj->hidden |= OBJHFLAG_00000004;
+	obj->hidden |= OBJHFLAG_REAPABLE;
 	obj->hidden2 |= OBJH2FLAG_40;
 }
 
@@ -57217,7 +57217,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 
 			if (obj->flags2 & OBJFLAG2_AICANNOTUSE) {
 				func0f06f314(obj->prop, EXPLOSIONTYPE_12);
-				obj->hidden |= OBJHFLAG_00000004;
+				obj->hidden |= OBJHFLAG_REAPABLE;
 			}
 
 			// If damaging an explosive item, make it explode immediately by
@@ -59654,7 +59654,7 @@ bool propobjInteract(struct prop *prop)
 			}
 
 			if (playernum >= 0 && laptop == &g_ThrownLaptops[playernum]) {
-				obj->hidden |= OBJHFLAG_00000004;
+				obj->hidden |= OBJHFLAG_REAPABLE;
 				invGiveSingleWeapon(WEAPON_LAPTOPGUN);
 				currentPlayerQueuePickupWeaponHudmsg(WEAPON_LAPTOPGUN, false);
 				func0f087d10(WEAPON_LAPTOPGUN);
@@ -63615,8 +63615,8 @@ struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct model
 
 			modelSetScale(hat->base.model, scale * hat->base.model->scale);
 
-			hat->base.model->attachedto = chr->model;
-			hat->base.model->unk1c = modelGetPart(chr->model->filedata, MODELPART_CHR_0006);
+			hat->base.model->attachedtomodel = chr->model;
+			hat->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_CHR_0006);
 
 			propReparent(prop, chr->prop);
 
@@ -64926,196 +64926,72 @@ struct prop *func0f08ae0c(struct weaponobj *weapon, struct modelfiledata *fileda
 	return prop;
 }
 
-GLOBAL_ASM(
-glabel func0f08ae54
-/*  f08ae54:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f08ae58:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08ae5c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08ae60:	8c830008 */ 	lw	$v1,0x8($a0)
-/*  f08ae64:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f08ae68:	00803025 */ 	or	$a2,$a0,$zero
-/*  f08ae6c:	000370c0 */ 	sll	$t6,$v1,0x3
-/*  f08ae70:	05c10003 */ 	bgez	$t6,.L0f08ae80
-/*  f08ae74:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08ae78:	10000001 */ 	b	.L0f08ae80
-/*  f08ae7c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f08ae80:
-/*  f08ae80:	8ccf0014 */ 	lw	$t7,0x14($a2)
-/*  f08ae84:	11e00099 */ 	beqz	$t7,.L0f08b0ec
-/*  f08ae88:	00000000 */ 	nop
-/*  f08ae8c:	8cd80018 */ 	lw	$t8,0x18($a2)
-/*  f08ae90:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x314)
-/*  f08ae94:	13000095 */ 	beqz	$t8,.L0f08b0ec
-/*  f08ae98:	00000000 */ 	nop
-/*  f08ae9c:	8f39a2d4 */ 	lw	$t9,%lo(g_Vars+0x314)($t9)
-/*  f08aea0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08aea4:	53200012 */ 	beqzl	$t9,.L0f08aef0
-/*  f08aea8:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f08aeac:	afa50038 */ 	sw	$a1,0x38($sp)
-/*  f08aeb0:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f08aeb4:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08aeb8:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f08aebc:	3c010fff */ 	lui	$at,0xfff
-/*  f08aec0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f08aec4:	8cc90040 */ 	lw	$t1,0x40($a2)
-/*  f08aec8:	00026700 */ 	sll	$t4,$v0,0x1c
-/*  f08aecc:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f08aed0:	01215024 */ 	and	$t2,$t1,$at
-/*  f08aed4:	3c01f000 */ 	lui	$at,0xf000
-/*  f08aed8:	01816824 */ 	and	$t5,$t4,$at
-/*  f08aedc:	014d7025 */ 	or	$t6,$t2,$t5
-/*  f08aee0:	acca0040 */ 	sw	$t2,0x40($a2)
-/*  f08aee4:	acce0040 */ 	sw	$t6,0x40($a2)
-/*  f08aee8:	8cc30008 */ 	lw	$v1,0x8($a2)
-/*  f08aeec:	00037880 */ 	sll	$t7,$v1,0x2
-.L0f08aef0:
-/*  f08aef0:	05e00048 */ 	bltz	$t7,.L0f08b014
-/*  f08aef4:	00053880 */ 	sll	$a3,$a1,0x2
-/*  f08aef8:	02074021 */ 	addu	$t0,$s0,$a3
-/*  f08aefc:	8d030170 */ 	lw	$v1,0x170($t0)
-/*  f08af00:	1060000d */ 	beqz	$v1,.L0f08af38
-/*  f08af04:	00000000 */ 	nop
-/*  f08af08:	8e1802d4 */ 	lw	$t8,0x2d4($s0)
-/*  f08af0c:	13000008 */ 	beqz	$t8,.L0f08af30
-/*  f08af10:	00000000 */ 	nop
-/*  f08af14:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f08af18:	00001825 */ 	or	$v1,$zero,$zero
-/*  f08af1c:	8c590040 */ 	lw	$t9,0x40($v0)
-/*  f08af20:	37290004 */ 	ori	$t1,$t9,0x4
-/*  f08af24:	ac490040 */ 	sw	$t1,0x40($v0)
-/*  f08af28:	10000003 */ 	b	.L0f08af38
-/*  f08af2c:	ad000170 */ 	sw	$zero,0x170($t0)
-.L0f08af30:
-/*  f08af30:	10000070 */ 	b	.L0f08b0f4
-/*  f08af34:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08af38:
-/*  f08af38:	54600037 */ 	bnezl	$v1,.L0f08b018
-/*  f08af3c:	8cc40014 */ 	lw	$a0,0x14($a2)
-/*  f08af40:	8e020020 */ 	lw	$v0,0x20($s0)
-/*  f08af44:	3c0c8008 */ 	lui	$t4,%hi(g_ModelTypeChr)
-/*  f08af48:	258cce40 */ 	addiu	$t4,$t4,%lo(g_ModelTypeChr)
-/*  f08af4c:	8c4a0008 */ 	lw	$t2,0x8($v0)
-/*  f08af50:	3c0d8008 */ 	lui	$t5,%hi(g_ModelTypeSkedar)
-/*  f08af54:	25adce98 */ 	addiu	$t5,$t5,%lo(g_ModelTypeSkedar)
-/*  f08af58:	8d430004 */ 	lw	$v1,0x4($t2)
-/*  f08af5c:	15830032 */ 	bne	$t4,$v1,.L0f08b028
-/*  f08af60:	00000000 */ 	nop
-/*  f08af64:	8ccb0018 */ 	lw	$t3,0x18($a2)
-/*  f08af68:	14e0000e */ 	bnez	$a3,.L0f08afa4
-/*  f08af6c:	ad620018 */ 	sw	$v0,0x18($t3)
-/*  f08af70:	8e0d0020 */ 	lw	$t5,0x20($s0)
-/*  f08af74:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f08af78:	8da40008 */ 	lw	$a0,0x8($t5)
-/*  f08af7c:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f08af80:	afa70028 */ 	sw	$a3,0x28($sp)
-/*  f08af84:	0c006a47 */ 	jal	modelGetPart
-/*  f08af88:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08af8c:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f08af90:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f08af94:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f08af98:	8cce0018 */ 	lw	$t6,0x18($a2)
-/*  f08af9c:	1000000d */ 	b	.L0f08afd4
-/*  f08afa0:	adc2001c */ 	sw	$v0,0x1c($t6)
-.L0f08afa4:
-/*  f08afa4:	8e0f0020 */ 	lw	$t7,0x20($s0)
-/*  f08afa8:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f08afac:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f08afb0:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f08afb4:	afa70028 */ 	sw	$a3,0x28($sp)
-/*  f08afb8:	0c006a47 */ 	jal	modelGetPart
-/*  f08afbc:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08afc0:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f08afc4:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f08afc8:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f08afcc:	8cd80018 */ 	lw	$t8,0x18($a2)
-/*  f08afd0:	af02001c */ 	sw	$v0,0x1c($t8)
-.L0f08afd4:
-/*  f08afd4:	8cd90014 */ 	lw	$t9,0x14($a2)
-/*  f08afd8:	00076023 */ 	negu	$t4,$a3
-/*  f08afdc:	020c5821 */ 	addu	$t3,$s0,$t4
-/*  f08afe0:	ad190170 */ 	sw	$t9,0x170($t0)
-/*  f08afe4:	8cc90008 */ 	lw	$t1,0x8($a2)
-/*  f08afe8:	00095000 */ 	sll	$t2,$t1,0x0
-/*  f08afec:	0543000a */ 	bgezl	$t2,.L0f08b018
-/*  f08aff0:	8cc40014 */ 	lw	$a0,0x14($a2)
-/*  f08aff4:	8d620174 */ 	lw	$v0,0x174($t3)
-/*  f08aff8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08affc:	50400006 */ 	beqzl	$v0,.L0f08b018
-/*  f08b000:	8cc40014 */ 	lw	$a0,0x14($a2)
-/*  f08b004:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f08b008:	0fc22b6b */ 	jal	propweaponSetDual
-/*  f08b00c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08b010:	8fa60040 */ 	lw	$a2,0x40($sp)
-.L0f08b014:
-/*  f08b014:	8cc40014 */ 	lw	$a0,0x14($a2)
-.L0f08b018:
-/*  f08b018:	0fc181a6 */ 	jal	propReparent
-/*  f08b01c:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f08b020:	10000034 */ 	b	.L0f08b0f4
-/*  f08b024:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f08b028:
-/*  f08b028:	15a3002e */ 	bne	$t5,$v1,.L0f08b0e4
-/*  f08b02c:	00000000 */ 	nop
-/*  f08b030:	8cce0018 */ 	lw	$t6,0x18($a2)
-/*  f08b034:	14e0000e */ 	bnez	$a3,.L0f08b070
-/*  f08b038:	adc20018 */ 	sw	$v0,0x18($t6)
-/*  f08b03c:	8e0f0020 */ 	lw	$t7,0x20($s0)
-/*  f08b040:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f08b044:	8de40008 */ 	lw	$a0,0x8($t7)
-/*  f08b048:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f08b04c:	afa70028 */ 	sw	$a3,0x28($sp)
-/*  f08b050:	0c006a47 */ 	jal	modelGetPart
-/*  f08b054:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08b058:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f08b05c:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f08b060:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f08b064:	8cd80018 */ 	lw	$t8,0x18($a2)
-/*  f08b068:	1000000d */ 	b	.L0f08b0a0
-/*  f08b06c:	af02001c */ 	sw	$v0,0x1c($t8)
-.L0f08b070:
-/*  f08b070:	8e190020 */ 	lw	$t9,0x20($s0)
-/*  f08b074:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f08b078:	8f240008 */ 	lw	$a0,0x8($t9)
-/*  f08b07c:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f08b080:	afa70028 */ 	sw	$a3,0x28($sp)
-/*  f08b084:	0c006a47 */ 	jal	modelGetPart
-/*  f08b088:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08b08c:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f08b090:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f08b094:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f08b098:	8cc90018 */ 	lw	$t1,0x18($a2)
-/*  f08b09c:	ad22001c */ 	sw	$v0,0x1c($t1)
-.L0f08b0a0:
-/*  f08b0a0:	8cca0014 */ 	lw	$t2,0x14($a2)
-/*  f08b0a4:	00076823 */ 	negu	$t5,$a3
-/*  f08b0a8:	020d7021 */ 	addu	$t6,$s0,$t5
-/*  f08b0ac:	ad0a0170 */ 	sw	$t2,0x170($t0)
-/*  f08b0b0:	8ccc0008 */ 	lw	$t4,0x8($a2)
-/*  f08b0b4:	000c5800 */ 	sll	$t3,$t4,0x0
-/*  f08b0b8:	0563ffd7 */ 	bgezl	$t3,.L0f08b018
-/*  f08b0bc:	8cc40014 */ 	lw	$a0,0x14($a2)
-/*  f08b0c0:	8dc20174 */ 	lw	$v0,0x174($t6)
-/*  f08b0c4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08b0c8:	5040ffd3 */ 	beqzl	$v0,.L0f08b018
-/*  f08b0cc:	8cc40014 */ 	lw	$a0,0x14($a2)
-/*  f08b0d0:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f08b0d4:	0fc22b6b */ 	jal	propweaponSetDual
-/*  f08b0d8:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f08b0dc:	1000ffcd */ 	b	.L0f08b014
-/*  f08b0e0:	8fa60040 */ 	lw	$a2,0x40($sp)
-.L0f08b0e4:
-/*  f08b0e4:	10000003 */ 	b	.L0f08b0f4
-/*  f08b0e8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08b0ec:
-/*  f08b0ec:	10000001 */ 	b	.L0f08b0f4
-/*  f08b0f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08b0f4:
-/*  f08b0f4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08b0f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08b0fc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f08b100:	03e00008 */ 	jr	$ra
-/*  f08b104:	00000000 */ 	nop
-);
+bool chrEquipWeapon(struct weaponobj *weapon, struct chrdata *chr)
+{
+	u32 stack1;
+	s32 handnum = (weapon->base.flags & OBJFLAG_WEAPON_LEFTHANDED) ? HAND_LEFT : HAND_RIGHT;
+	u32 stack2[2];
+
+	if (weapon->base.prop && weapon->base.model) {
+		if (g_Vars.mplayerisrunning) {
+			s32 playernum = mpPlayerGetIndex(chr);
+
+			weapon->base.hidden &= 0x0fffffff;
+			weapon->base.hidden |= (playernum << 28) & 0xf0000000;
+		}
+
+		if ((weapon->base.flags & OBJFLAG_WEAPON_AICANNOTUSE) == 0) {
+			if (chr->weapons_held[handnum]) {
+				if (chr->aibot) {
+					chr->weapons_held[handnum]->weapon->base.hidden |= OBJHFLAG_REAPABLE;
+					chr->weapons_held[handnum] = NULL;
+				} else {
+					return false;
+				}
+			}
+
+			if (!chr->weapons_held[handnum]) {
+				if (chr->model->filedata->type == &g_ModelTypeChr) {
+					weapon->base.model->attachedtomodel = chr->model;
+
+					if (handnum == HAND_RIGHT) {
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_CHR_RIGHTHAND);
+					} else {
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_CHR_LEFTHAND);
+					}
+
+					chr->weapons_held[handnum] = weapon->base.prop;
+
+					if ((weapon->base.flags & OBJFLAG_80000000) && chr->weapons_held[1 - handnum]) {
+						propweaponSetDual(weapon, chr->weapons_held[1 - handnum]->weapon);
+					}
+				} else if (chr->model->filedata->type == &g_ModelTypeSkedar) {
+					weapon->base.model->attachedtomodel = chr->model;
+
+					if (handnum == HAND_RIGHT) {
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_SKEDAR_RIGHTHAND);
+					} else {
+						weapon->base.model->attachedtonode = modelGetPart(chr->model->filedata, MODELPART_SKEDAR_LEFTHAND);
+					}
+
+					chr->weapons_held[handnum] = weapon->base.prop;
+
+					if ((weapon->base.flags & OBJFLAG_80000000) && chr->weapons_held[1 - handnum]) {
+						propweaponSetDual(weapon, chr->weapons_held[1 - handnum]->weapon);
+					}
+				} else {
+					return false;
+				}
+			}
+		}
+
+		propReparent(weapon->base.prop, chr->prop);
+	} else {
+		return false;
+	}
+
+	return true;
+}
 
 struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
 {
@@ -65126,7 +65002,7 @@ struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct 
 
 		modelSetScale(weapon->base.model, weapon->base.model->scale * scale);
 
-		if (!func0f08ae54(&weapon->base, chr)) {
+		if (!chrEquipWeapon(weapon, chr)) {
 			propFree(prop);
 			prop = NULL;
 			weapon->base.prop = NULL;
@@ -65786,11 +65662,11 @@ struct weaponobj *func0f08b880(s32 modelnum, s32 weaponnum, struct chrdata *chr)
 	return func0f08b658(modelnum, &gset, chr);
 }
 
-void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 hand)
+void chrSetWeaponReapable(struct chrdata *chr, s32 hand)
 {
 	if (chr && chr->weapons_held[hand]) {
 		struct defaultobj *obj = chr->weapons_held[hand]->obj;
-		obj->hidden |= OBJHFLAG_00000004;
+		obj->hidden |= OBJHFLAG_REAPABLE;
 	}
 }
 
@@ -69849,8 +69725,8 @@ void func0f0910ac(void)
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	s32 i;
 
-	chrSetObjHiddenFlag4OnWeapon(chr, HAND_RIGHT);
-	chrSetObjHiddenFlag4OnWeapon(chr, HAND_LEFT);
+	chrSetWeaponReapable(chr, HAND_RIGHT);
+	chrSetWeaponReapable(chr, HAND_LEFT);
 
 	for (i = WEAPON_UNARMED; i <= WEAPON_SUICIDEPILL; i++) {
 		if (weaponGetModel(i) >= 0 && invHasSingleWeaponExcAllGuns(i)) {

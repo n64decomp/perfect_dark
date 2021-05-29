@@ -1884,9 +1884,9 @@
 #define MODELPART_CHR_0000            0x0000 // position
 #define MODELPART_CHR_0001            0x0001 // position
 #define MODELPART_CHR_0002            0x0002 // position
-#define MODELPART_CHR_0003            0x0003 // position
+#define MODELPART_CHR_RIGHTHAND       0x0003 // position
 #define MODELPART_CHR_HEADSPOT        0x0004 // headspot
-#define MODELPART_CHR_0005            0x0005 // position
+#define MODELPART_CHR_LEFTHAND        0x0005 // position
 #define MODELPART_CHR_0006            0x0006 // position
 #define MODELPART_CHR_NECKLACE        0x0007 // toggle
 #define MODELPART_CIHUB_0000          0x0000 // dl
@@ -2139,8 +2139,8 @@
 #define MODELPART_SKSHUTTLE_GANGWAY   0x00b7 // toggle
 #define MODELPART_SKEDAR_0000         0x0000 // position
 #define MODELPART_SKEDAR_0001         0x0001 // position
-#define MODELPART_SKEDAR_0002         0x0002 // position
-#define MODELPART_SKEDAR_0003         0x0003 // position
+#define MODELPART_SKEDAR_RIGHTHAND    0x0002 // position
+#define MODELPART_SKEDAR_LEFTHAND     0x0003 // position
 #define MODELPART_SKEDAR_EYESOPEN     0x0004 // toggle
 #define MODELPART_SKEDAR_EYESCLOSED   0x0005 // toggle
 #define MODELPART_SLAYERROCKET_0032   0x0032 // position
@@ -2869,12 +2869,13 @@
 #define OBJFLAG_08000000            0x08000000 // Not used in scripts
 #define OBJFLAG_DEACTIVATED         0x10000000
 #define OBJFLAG_DOOR_HASPORTAL      0x10000000
-#define OBJFLAG_WEAPON_10000000     0x10000000
+#define OBJFLAG_WEAPON_LEFTHANDED   0x10000000
 #define OBJFLAG_ESCSTEP_ZALIGNED    0x10000000
 #define OBJFLAG_20000000            0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
 #define OBJFLAG_CAMERA_DISABLED     0x20000000
 #define OBJFLAG_DOOR_OPENTOFRONT    0x20000000
 #define OBJFLAG_HOVERCAR_20000000   0x20000000
+#define OBJFLAG_WEAPON_AICANNOTUSE  0x20000000
 #define OBJFLAG_40000000            0x40000000
 #define OBJFLAG_CAMERA_BONDINVIEW   0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"
@@ -2953,7 +2954,7 @@
 
 // obj->hidden
 #define OBJHFLAG_LIFTDOOR          0x00000001
-#define OBJHFLAG_00000004          0x00000004
+#define OBJHFLAG_REAPABLE          0x00000004
 #define OBJHFLAG_00000008          0x00000008
 #define OBJHFLAG_TAGGED            0x00000010
 #define OBJHFLAG_00000040          0x00000040

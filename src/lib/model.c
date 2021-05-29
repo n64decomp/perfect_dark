@@ -6492,8 +6492,8 @@ void modelInit(struct model *model, struct modelfiledata *filedata, union modelr
 	model->rwdatas = rwdatas;
 	model->unk02 = -1;
 	model->scale = 1;
-	model->attachedto = NULL;
-	model->unk1c = NULL;
+	model->attachedtomodel = NULL;
+	model->attachedtonode = NULL;
 
 	node = filedata->rootnode;
 

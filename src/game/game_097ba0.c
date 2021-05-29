@@ -3541,7 +3541,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 
 		if (handIsReadyToSwitch(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
 			if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-				currentPlayerSetWeaponFlag4(handnum);
+				currentPlayerSetWeaponReapable(handnum);
 			}
 
 			func0f09fa20(handnum);
@@ -8226,7 +8226,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 		if (hand->stateframes >= delay) {
 			if (!somebool) {
 				if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-					currentPlayerSetWeaponFlag4(handnum);
+					currentPlayerSetWeaponReapable(handnum);
 				}
 
 				func0f09fa20(handnum);
@@ -15695,11 +15695,8 @@ void func0f0a134c(s32 handnum)
 		}
 	}
 
-	// @bug? Presence of 8MB check suggests the flag 4 feature requires a bit of
-	// memory, but if the system has 4MB then shouldn't the playercount check be
-	// inverted?
 	if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
-		currentPlayerSetWeaponFlag4(handnum);
+		currentPlayerSetWeaponReapable(handnum);
 	}
 
 	func0f09fa20(handnum);
@@ -17068,8 +17065,8 @@ void currentPlayerLoseGun(struct prop *attackerprop)
 			}
 		}
 
-		chrSetObjHiddenFlag4OnWeapon(chr, HAND_RIGHT);
-		chrSetObjHiddenFlag4OnWeapon(chr, HAND_LEFT);
+		chrSetWeaponReapable(chr, HAND_RIGHT);
+		chrSetWeaponReapable(chr, HAND_LEFT);
 
 		// Actually drop the weapon
 		modelnum = weaponGetModel(weaponnum);

@@ -1003,9 +1003,9 @@ glabel var7f1b522c
 //	return -1;
 //}
 
-void currentPlayerSetWeaponFlag4(s32 hand)
+void currentPlayerSetWeaponReapable(s32 hand)
 {
-	chrSetObjHiddenFlag4OnWeapon(g_Vars.currentplayer->prop->chr, hand);
+	chrSetWeaponReapable(g_Vars.currentplayer->prop->chr, hand);
 }
 
 void func0f128d20(s32 hand)

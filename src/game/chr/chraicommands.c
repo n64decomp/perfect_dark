@@ -2385,7 +2385,7 @@ bool aiGiveObjectToChr(void)
 				propHide(obj->prop);
 			}
 
-			if (obj->type != OBJTYPE_WEAPON || func0f08ae54(obj, chr) == 0) {
+			if (obj->type != OBJTYPE_WEAPON || chrEquipWeapon((struct weaponobj *) obj, chr) == 0) {
 				propReparent(obj->prop, chr->prop);
 			}
 		}
@@ -4239,7 +4239,7 @@ bool aiTryEquipWeapon(void)
 			if (g_Vars.chrdata->bodynum != BODY_CASSANDRA || mainGetStageNum() != STAGE_MBR)
 #endif
 			{
-				flags &= ~OBJFLAG_WEAPON_10000000;
+				flags &= ~OBJFLAG_WEAPON_LEFTHANDED;
 				flags |= OBJFLAG_20000000;
 			}
 
@@ -4605,7 +4605,7 @@ bool aiDuplicateChr(void)
 
 			if (srcweapon1prop) {
 				srcweapon1 = srcweapon1prop->weapon;
-				cloneweapon1prop = chrGiveWeapon(clone, srcweapon1->base.modelnum, srcweapon1->weaponnum, OBJFLAG_WEAPON_10000000);
+				cloneweapon1prop = chrGiveWeapon(clone, srcweapon1->base.modelnum, srcweapon1->weaponnum, OBJFLAG_WEAPON_LEFTHANDED);
 
 				if (cloneweapon1prop) {
 					cloneweapon1 = cloneweapon1prop->weapon;
@@ -5831,7 +5831,7 @@ bool ai00e9(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		chrSetObjHiddenFlag4OnWeapon(chr, cmd[3]);
+		chrSetWeaponReapable(chr, cmd[3]);
 	}
 
 	g_Vars.aioffset += 4;
@@ -10856,7 +10856,7 @@ glabel ai0172
 /*  f05caec:	0fc180c0 */ 	jal	propHide
 /*  f05caf0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05caf4:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f05caf8:	0fc22b95 */ 	jal	func0f08ae54
+/*  f05caf8:	0fc22b95 */ 	jal	chrEquipWeapon
 /*  f05cafc:	8e250424 */ 	lw	$a1,0x424($s1)
 /*  f05cb00:	8faa0024 */ 	lw	$t2,0x24($sp)
 .L0f05cb04:
@@ -10884,7 +10884,7 @@ glabel ai0172
 //		func0f065c44(prop);
 //		propRemoveFromCurrentList(prop);
 //		propHide(prop);
-//		func0f08ae54(prop->obj, g_Vars.chrdata);
+//		chrEquipWeapon(prop->obj, g_Vars.chrdata);
 //	}
 //
 //	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -12153,8 +12153,8 @@ bool aiChrSetCutsceneWeapon(void)
 					}
 
 					if (valid) {
-						chrSetObjHiddenFlag4OnWeapon(chr, 1);
-						chrSetObjHiddenFlag4OnWeapon(chr, 0);
+						chrSetWeaponReapable(chr, HAND_LEFT);
+						chrSetWeaponReapable(chr, HAND_RIGHT);
 					}
 				}
 			} else {
@@ -12163,8 +12163,8 @@ bool aiChrSetCutsceneWeapon(void)
 				}
 			}
 		} else {
-			chrSetObjHiddenFlag4OnWeapon(chr, 1);
-			chrSetObjHiddenFlag4OnWeapon(chr, 0);
+			chrSetWeaponReapable(chr, HAND_LEFT);
+			chrSetWeaponReapable(chr, HAND_RIGHT);
 
 			if (model_id >= 0) {
 				weaponCreateForChr(chr, model_id, cmd[3], 0, 0, 0);

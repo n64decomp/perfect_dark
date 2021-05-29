@@ -963,7 +963,7 @@ glabel var7f1ad568
 //			struct defaultobj *obj = prop->obj;
 //
 //			if (obj) {
-//				obj->hidden |= OBJHFLAG_00000004;
+//				obj->hidden |= OBJHFLAG_REAPABLE;
 //			}
 //
 //			prop = prop->next;
@@ -13115,7 +13115,7 @@ glabel var7f1ad6ac
 //										chr->cloakfadefrac = 0;
 //
 //										chrGiveWeapon(chr, MODEL_CHRDY357TRENT, WEAPON_DY357LX, 0);
-//										chrGiveWeapon(chr, MODEL_CHRDY357, WEAPON_DY357MAGNUM, OBJFLAG_WEAPON_10000000);
+//										chrGiveWeapon(chr, MODEL_CHRDY357, WEAPON_DY357MAGNUM, OBJFLAG_WEAPON_LEFTHANDED);
 //									}
 //								}
 //

@@ -708,8 +708,8 @@ struct model {
 	/*0x0c*/ Mtxf *matrices;
 	/*0x10*/ union modelrwdata **rwdatas;
 	/*0x14*/ f32 scale;
-	/*0x18*/ struct model *attachedto;
-	/*0x1c*/ struct modelnode *unk1c;
+	/*0x18*/ struct model *attachedtomodel;
+	/*0x1c*/ struct modelnode *attachedtonode;
 	/*0x20*/ struct anim *anim;
 };
 

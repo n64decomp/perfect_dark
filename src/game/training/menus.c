@@ -4801,7 +4801,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union
 
 		if (bodynum == BODY_THEKING) {
 			static struct modelpartvisibility vis[] = {
-				{ MODELPART_CHR_0003, false },
+				{ MODELPART_CHR_RIGHTHAND, false },
 				{ 255 },
 			};
 

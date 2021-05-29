@@ -530,7 +530,7 @@ s32 invGiveWeaponsByProp(struct prop *prop)
 			otherweapon = weapon->dualweapon;
 
 			if (otherweapon) {
-				if (weapon->base.flags & OBJFLAG_WEAPON_10000000) {
+				if (weapon->base.flags & OBJFLAG_WEAPON_LEFTHANDED) {
 					numgiven = invHasDoubleWeaponExcAllGuns(otherweapon->weaponnum, weaponnum) == 0;
 				} else {
 					numgiven = invHasDoubleWeaponExcAllGuns(weaponnum, otherweapon->weaponnum) == 0;
@@ -540,7 +540,7 @@ s32 invGiveWeaponsByProp(struct prop *prop)
 				weapon->dualweapon->dualweapon = NULL;
 				weapon->dualweapon = NULL;
 			} else if (weapon->dualweaponnum >= 0) {
-				if (weapon->base.flags & OBJFLAG_WEAPON_10000000) {
+				if (weapon->base.flags & OBJFLAG_WEAPON_LEFTHANDED) {
 					if (invGiveDoubleWeapon(weapon->dualweaponnum, weaponnum)) {
 						numgiven = 2;
 					} else {

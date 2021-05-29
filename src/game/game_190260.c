@@ -917,7 +917,7 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 			obj = prop->obj;
 
 			if (obj) {
-				obj->hidden |= OBJHFLAG_00000004;
+				obj->hidden |= OBJHFLAG_REAPABLE;
 			}
 
 			prop = prop->next;
@@ -2347,7 +2347,7 @@ glabel var7f1b8ea8
 //
 //	dprint();
 //
-//	if ((obj->hidden & OBJHFLAG_00000004) || (obj->flags & OBJFLAG_00080000)) {
+//	if ((obj->hidden & OBJHFLAG_REAPABLE) || (obj->flags & OBJFLAG_00080000)) {
 //		return false;
 //	}
 //
@@ -4213,7 +4213,7 @@ void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
 		if (chr->weapons_held[HAND_LEFT]) {
 			obj = chr->weapons_held[HAND_LEFT]->obj;
 
-			obj->hidden |= OBJHFLAG_00000004;
+			obj->hidden |= OBJHFLAG_REAPABLE;
 			chr->weapons_held[HAND_LEFT] = NULL;
 		}
 

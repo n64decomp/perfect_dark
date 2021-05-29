@@ -16239,8 +16239,8 @@ s32 func0f02932c(struct prop *prop, s32 arg1)
 
 		if (node2) {
 			result = func0f028e18(prop2, node2, model, prop);
-		} else if (prop2->parent && model->attachedto && model->unk1c) {
-			result = func0f028e18(prop2->parent, model->unk1c, model->attachedto, prop);
+		} else if (prop2->parent && model->attachedtomodel && model->attachedtonode) {
+			result = func0f028e18(prop2->parent, model->attachedtonode, model->attachedtomodel, prop);
 		}
 	}
 

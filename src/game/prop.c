@@ -2541,7 +2541,7 @@ void func0f062b64(struct prop *prop, s32 arg1)
 
 			obj->damage = 0;
 			obj->hidden |= OBJHFLAG_00000800;
-			obj->hidden &= ~OBJHFLAG_00000004;
+			obj->hidden &= ~OBJHFLAG_REAPABLE;
 			obj->hidden2 &= ~OBJH2FLAG_40;
 
 			func0f065c44(prop);
