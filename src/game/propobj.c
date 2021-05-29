@@ -64914,28 +64914,17 @@ struct prop *func0f08adc8(struct weaponobj *weapon, struct modelfiledata *fileda
 	return prop;
 }
 
-GLOBAL_ASM(
-glabel func0f08ae0c
-/*  f08ae0c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08ae10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08ae14:	0fc1a94b */ 	jal	func0f06a52c
-/*  f08ae18:	00000000 */ 	nop
-/*  f08ae1c:	10400008 */ 	beqz	$v0,.L0f08ae40
-/*  f08ae20:	00402025 */ 	or	$a0,$v0,$zero
-/*  f08ae24:	240e0004 */ 	addiu	$t6,$zero,0x4
-/*  f08ae28:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f08ae2c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f08ae30:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08ae34:	0fc22ed7 */ 	jal	weaponSetGunfireVisible
-/*  f08ae38:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f08ae3c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-.L0f08ae40:
-/*  f08ae40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08ae44:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08ae48:	00801025 */ 	or	$v0,$a0,$zero
-/*  f08ae4c:	03e00008 */ 	jr	$ra
-/*  f08ae50:	00000000 */ 	nop
-);
+struct prop *func0f08ae0c(struct weaponobj *weapon, struct modelfiledata *filedata)
+{
+	struct prop *prop = func0f06a52c(&weapon->base, filedata);
+
+	if (prop) {
+		prop->type = PROPTYPE_WEAPON;
+		weaponSetGunfireVisible(prop, false, -1);
+	}
+
+	return prop;
+}
 
 GLOBAL_ASM(
 glabel func0f08ae54
