@@ -397,7 +397,7 @@ glabel var7f1a7f80
 /*  f00cef0:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f00cef4:	afa5014c */ 	sw	$a1,0x14c($sp)
 /*  f00cef8:	84840004 */ 	lh	$a0,0x4($a0)
-/*  f00cefc:	0fc2486d */ 	jal	propLoad
+/*  f00cefc:	0fc2486d */ 	jal	modelLoad
 /*  f00cf00:	afa40140 */ 	sw	$a0,0x140($sp)
 /*  f00cf04:	960e0000 */ 	lhu	$t6,0x0($s0)
 /*  f00cf08:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -1349,7 +1349,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		Mtxf sp64;
 		Mtxf sp24;
 
-		propLoad(modelnum);
+		modelLoad(modelnum);
 
 		scale = monitor->base.extrascale * (1.0f / 256.0f);
 
@@ -1482,7 +1482,7 @@ glabel var7f1a926cpf
 /*  f00e364:	84840004 */ 	lh	$a0,0x4($a0)
 /*  f00e368:	240effff */ 	li	$t6,-1
 /*  f00e36c:	afae01bc */ 	sw	$t6,0x1bc($sp)
-/*  f00e370:	0fc2482d */ 	jal	propLoad
+/*  f00e370:	0fc2482d */ 	jal	modelLoad
 /*  f00e374:	afa401c0 */ 	sw	$a0,0x1c0($sp)
 /*  f00e378:	960f0070 */ 	lhu	$t7,0x70($s0)
 /*  f00e37c:	31f80040 */ 	andi	$t8,$t7,0x40
@@ -1877,7 +1877,7 @@ glabel var7f1a8064
 /*  f00e37c:	84840004 */ 	lh	$a0,0x4($a0)
 /*  f00e380:	240effff */ 	addiu	$t6,$zero,-1
 /*  f00e384:	afae01bc */ 	sw	$t6,0x1bc($sp)
-/*  f00e388:	0fc2486d */ 	jal	propLoad
+/*  f00e388:	0fc2486d */ 	jal	modelLoad
 /*  f00e38c:	afa401c0 */ 	sw	$a0,0x1c0($sp)
 /*  f00e390:	960f0070 */ 	lhu	$t7,0x70($s0)
 /*  f00e394:	31f80040 */ 	andi	$t8,$t7,0x40
@@ -2263,7 +2263,7 @@ glabel var7f1a8064
 //	s32 portalnum = -1; // 1bc
 //	struct pad pad; // 168
 //
-//	propLoad(modelnum);
+//	modelLoad(modelnum);
 //
 //	if (door->doorflags & DOORFLAG_0040) {
 //		func0f116068(door->base.pad);
@@ -3053,7 +3053,7 @@ void setupParseObjects(s32 stagenum)
 						}
 
 						obj->numtiles = 1;
-						propLoad(modelnum);
+						modelLoad(modelnum);
 						modelstate = &g_ModelStates[modelnum];
 
 						if (modelstate->filedata) {
@@ -3211,7 +3211,7 @@ void setupParseObjects(s32 stagenum)
 						if (ammoqty > 0 && withobjs && (obj->flags2 & diffflag) == 0) {
 							for (i = 0; i < 19; i++) {
 								if (crate->slots[i].quantity > 0 && crate->slots[i].modelnum != 0xffff) {
-									propLoad(crate->slots[i].modelnum);
+									modelLoad(crate->slots[i].modelnum);
 								}
 							}
 

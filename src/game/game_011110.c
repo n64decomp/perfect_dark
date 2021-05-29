@@ -365,13 +365,13 @@ bool weaponLoadProjectileModels(s32 weaponnum)
 				struct weaponfunc_shootprojectile *func = (struct weaponfunc_shootprojectile *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					result |= propLoad(func->projectilemodelnum);
+					result |= modelLoad(func->projectilemodelnum);
 				}
 			} else if (genericfunc->type == INVENTORYFUNCTYPE_THROW) {
 				struct weaponfunc_throw *func = (struct weaponfunc_throw *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					result |= propLoad(func->projectilemodelnum);
+					result |= modelLoad(func->projectilemodelnum);
 				}
 			}
 		}

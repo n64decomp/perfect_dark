@@ -17075,7 +17075,7 @@ void currentPlayerLoseGun(struct prop *attackerprop)
 		modelnum = weaponGetModel(weaponnum);
 
 		if (modelnum >= 0 && drop) {
-			struct prop *prop2 = func0f08b8e8(chr, modelnum, weaponnum, 0x20000000, 0, 0);
+			struct prop *prop2 = weaponCreateForChr(chr, modelnum, weaponnum, 0x20000000, 0, 0);
 
 			if (prop2 && prop2->obj) {
 				struct defaultobj *obj = prop2->obj;

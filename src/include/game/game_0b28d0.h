@@ -7,9 +7,9 @@
 u32 func0f0b28d0(void);
 void func0f0b2904(void);
 u32 func0f0b2b64(void);
-struct model *func0f0b30ac(void *modelfiledata);
+struct model *modelInstantiate(struct modelfiledata *modelfiledata);
 void modelFree(struct model *model);
-struct model *func0f0b3280(void *modelfiledata);
+struct model *func0f0b3280(struct modelfiledata *modelfiledata);
 void func0f0b32a0(struct model *model, struct modelnode *node, struct modelfiledata *headfiledata);
 struct anim *func0f0b32e4(void);
 void animTurnOff(struct anim *anim);

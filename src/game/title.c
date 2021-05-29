@@ -1593,7 +1593,7 @@ glabel titleInitPdLogo
 /*  f016ee0:	024c9023 */ 	subu	$s2,$s2,$t4
 /*  f016ee4:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f016ee8:	8e240268 */ 	lw	$a0,0x268($s1)
-/*  f016eec:	0fc2cc2b */ 	jal	func0f0b30ac
+/*  f016eec:	0fc2cc2b */ 	jal	modelInstantiate
 /*  f016ef0:	8e240268 */ 	lw	$a0,0x268($s1)
 /*  f016ef4:	3c038006 */ 	lui	$v1,%hi(var80062508)
 /*  f016ef8:	24632508 */ 	addiu	$v1,$v1,%lo(var80062508)
@@ -1629,7 +1629,7 @@ glabel titleInitPdLogo
 /*  f016f70:	02489023 */ 	subu	$s2,$s2,$t0
 /*  f016f74:	0c008b49 */ 	jal	modelCalculateRwDataLen
 /*  f016f78:	8e240270 */ 	lw	$a0,0x270($s1)
-/*  f016f7c:	0fc2cc2b */ 	jal	func0f0b30ac
+/*  f016f7c:	0fc2cc2b */ 	jal	modelInstantiate
 /*  f016f80:	8e240270 */ 	lw	$a0,0x270($s1)
 /*  f016f84:	3c038006 */ 	lui	$v1,%hi(var8006250c)
 /*  f016f88:	2463250c */ 	addiu	$v1,$v1,%lo(var8006250c)
@@ -1735,7 +1735,7 @@ glabel titleInitPdLogo
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTWO].filedata);
 //
-//		var80062508 = func0f0b30ac(g_ModelStates[MODEL_PDTWO].filedata);
+//		var80062508 = modelInstantiate(g_ModelStates[MODEL_PDTWO].filedata);
 //		modelSetScale(var80062508, 1);
 //		modelSetRootPosition(var80062508, &coord);
 //	}
@@ -1748,7 +1748,7 @@ glabel titleInitPdLogo
 //		remaining -= size;
 //		modelCalculateRwDataLen(g_ModelStates[MODEL_PDTHREE].filedata);
 //
-//		var8006250c = func0f0b30ac(g_ModelStates[MODEL_PDTHREE].filedata);
+//		var8006250c = modelInstantiate(g_ModelStates[MODEL_PDTHREE].filedata);
 //		modelSetScale(var8006250c, 1);
 //		modelSetRootPosition(var8006250c, &coord);
 //	}
@@ -5349,7 +5349,7 @@ void titleInitNintendoLogo(void)
 		g_ModelStates[MODEL_NINTENDOLOGO].filedata = func0f1a7794(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, 0x47800, 0);
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
-		g_TitleModel = func0f0b30ac(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
+		g_TitleModel = modelInstantiate(g_ModelStates[MODEL_NINTENDOLOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 		var800624f4 = 1;
@@ -6030,7 +6030,7 @@ void titleInitRareLogo(void)
 		g_ModelStates[MODEL_RARELOGO].filedata = func0f1a7794(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, 0x47800, 0);
 
 		modelCalculateRwDataLen(g_ModelStates[MODEL_RARELOGO].filedata);
-		g_TitleModel = func0f0b30ac(g_ModelStates[MODEL_RARELOGO].filedata);
+		g_TitleModel = modelInstantiate(g_ModelStates[MODEL_RARELOGO].filedata);
 		modelSetScale(g_TitleModel, 1);
 		modelSetRootPosition(g_TitleModel, &coord);
 

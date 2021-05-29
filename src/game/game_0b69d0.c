@@ -2323,7 +2323,7 @@ glabel var7f1ad5b4
 /*  f0b948c:	8fa6006c */ 	lw	$a2,0x6c($sp)
 /*  f0b9490:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0b9494:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0b9498:	0fc22e3a */ 	jal	func0f08b8e8
+/*  f0b9498:	0fc22e3a */ 	jal	weaponCreateForChr
 /*  f0b949c:	afa90014 */ 	sw	$t1,0x14($sp)
 .L0f0b94a0:
 /*  f0b94a0:	0fc29c3e */ 	jal	func0f0a70f8
@@ -2965,7 +2965,7 @@ glabel var7f1ad5b4
 /*  f0b7168:	8fa6006c */ 	lw	$a2,0x6c($sp)
 /*  f0b716c:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0b7170:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0b7174:	0fc22844 */ 	jal	func0f08b8e8
+/*  f0b7174:	0fc22844 */ 	jal	weaponCreateForChr
 /*  f0b7178:	afb80014 */ 	sw	$t8,0x14($sp)
 .NB0f0b717c:
 /*  f0b717c:	0fc2938f */ 	jal	func0f0a70f8
@@ -13115,7 +13115,7 @@ glabel var7f1ad6ac
 //										chr->cloakfadefrac = 0;
 //
 //										chrGiveWeapon(chr, MODEL_CHRDY357TRENT, WEAPON_DY357LX, 0);
-//										chrGiveWeapon(chr, MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000);
+//										chrGiveWeapon(chr, MODEL_CHRDY357, WEAPON_DY357MAGNUM, OBJFLAG_WEAPON_10000000);
 //									}
 //								}
 //

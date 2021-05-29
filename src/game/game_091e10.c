@@ -198,7 +198,7 @@ glabel setupGetCommandOffset
 /*  f0921b0:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-bool propLoad(s32 propnum)
+bool modelLoad(s32 propnum)
 {
 	if (g_ModelStates[propnum].filedata == NULL) {
 		g_ModelStates[propnum].filedata = fileLoad(g_ModelStates[propnum].fileid);

@@ -609,7 +609,7 @@ glabel func0f0b2b64
 );
 
 GLOBAL_ASM(
-glabel func0f0b30ac
+glabel modelInstantiate
 /*  f0b30ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b30b0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b30b4:	0fc2cad9 */ 	jal	func0f0b2b64

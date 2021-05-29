@@ -522,7 +522,7 @@ glabel debugLoadAllAilistModels
 /*  f00c120:	92080003 */ 	lbu	$t0,0x3($s0)
 /*  f00c124:	0018ca00 */ 	sll	$t9,$t8,0x8
 /*  f00c128:	03281025 */ 	or	$v0,$t9,$t0
-/*  f00c12c:	0fc2486d */ 	jal	propLoad
+/*  f00c12c:	0fc2486d */ 	jal	modelLoad
 /*  f00c130:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f00c134:	5040002a */ 	beqzl	$v0,.L0f00c1e0
 /*  f00c138:	02002025 */ 	or	$a0,$s0,$zero
@@ -556,7 +556,7 @@ glabel debugLoadAllAilistModels
 .L0f00c1a0:
 /*  f00c1a0:	920c0003 */ 	lbu	$t4,0x3($s0)
 /*  f00c1a4:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f00c1a8:	0fc2486d */ 	jal	propLoad
+/*  f00c1a8:	0fc2486d */ 	jal	modelLoad
 /*  f00c1ac:	016c2025 */ 	or	$a0,$t3,$t4
 /*  f00c1b0:	0fc04558 */ 	jal	weaponLoadProjectileModels
 /*  f00c1b4:	92040004 */ 	lbu	$a0,0x4($s0)
@@ -568,7 +568,7 @@ glabel debugLoadAllAilistModels
 .L0f00c1cc:
 /*  f00c1cc:	920f0003 */ 	lbu	$t7,0x3($s0)
 /*  f00c1d0:	000d7200 */ 	sll	$t6,$t5,0x8
-/*  f00c1d4:	0fc2486d */ 	jal	propLoad
+/*  f00c1d4:	0fc2486d */ 	jal	modelLoad
 /*  f00c1d8:	01cf2025 */ 	or	$a0,$t6,$t7
 /*  f00c1dc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f00c1e0:
@@ -617,7 +617,7 @@ glabel debugLoadAllAilistModels
 //			case AICMD_DROPITEM: // 120
 //				id = cmd[3] | (cmd[2] << 8);
 //
-//				if (propLoad(id & 0xffff)) {
+//				if (modelLoad(id & 0xffff)) {
 //					// empty
 //				}
 //				break;
@@ -638,7 +638,7 @@ glabel debugLoadAllAilistModels
 //				}
 //				break;
 //			case AICMD_EQUIPWEAPON: // 19c
-//				if (propLoad(cmd[3] | (cmd[2] << 8))) {
+//				if (modelLoad(cmd[3] | (cmd[2] << 8))) {
 //					// empty
 //				}
 //				if (weaponLoadProjectileModels(cmd[4])) {
@@ -646,7 +646,7 @@ glabel debugLoadAllAilistModels
 //				}
 //				break;
 //			case AICMD_EQUIPHAT: // 1c8
-//				if (propLoad(cmd[3] | (cmd[2] << 8))) {
+//				if (modelLoad(cmd[3] | (cmd[2] << 8))) {
 //					// empty
 //				}
 //				break;

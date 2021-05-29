@@ -1029,7 +1029,7 @@ void func0f128d20(s32 hand)
 				flags = 0x10000000;
 			}
 
-			func0f08b8e8(chr, modelnum, weaponnum, flags, 0, 0);
+			weaponCreateForChr(chr, modelnum, weaponnum, flags, 0, 0);
 		}
 	}
 }

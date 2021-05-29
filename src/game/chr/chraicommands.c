@@ -4239,8 +4239,8 @@ bool aiTryEquipWeapon(void)
 			if (g_Vars.chrdata->bodynum != BODY_CASSANDRA || mainGetStageNum() != STAGE_MBR)
 #endif
 			{
-				flags &= ~0x10000000;
-				flags |= 0x20000000;
+				flags &= ~OBJFLAG_WEAPON_10000000;
+				flags |= OBJFLAG_20000000;
 			}
 
 			prop = chrGiveWeapon(g_Vars.chrdata, model, cmd[4], flags);
@@ -4605,7 +4605,7 @@ bool aiDuplicateChr(void)
 
 			if (srcweapon1prop) {
 				srcweapon1 = srcweapon1prop->weapon;
-				cloneweapon1prop = chrGiveWeapon(clone, srcweapon1->base.modelnum, srcweapon1->weaponnum, 0x10000000);
+				cloneweapon1prop = chrGiveWeapon(clone, srcweapon1->base.modelnum, srcweapon1->weaponnum, OBJFLAG_WEAPON_10000000);
 
 				if (cloneweapon1prop) {
 					cloneweapon1 = cloneweapon1prop->weapon;
@@ -12159,7 +12159,7 @@ bool aiChrSetCutsceneWeapon(void)
 				}
 			} else {
 				if (chr->weapons_held[0] == NULL && chr->weapons_held[1] == NULL && fallback_model_id >= 0) {
-					func0f08b8e8(chr, fallback_model_id, cmd[4], 0, 0, 0);
+					weaponCreateForChr(chr, fallback_model_id, cmd[4], 0, 0, 0);
 				}
 			}
 		} else {
@@ -12167,11 +12167,11 @@ bool aiChrSetCutsceneWeapon(void)
 			chrSetObjHiddenFlag4OnWeapon(chr, 0);
 
 			if (model_id >= 0) {
-				func0f08b8e8(chr, model_id, cmd[3], 0, 0, 0);
+				weaponCreateForChr(chr, model_id, cmd[3], 0, 0, 0);
 			}
 
 			if (fallback_model_id >= 0) {
-				func0f08b8e8(chr, fallback_model_id, cmd[4], 0x10000000, 0, 0);
+				weaponCreateForChr(chr, fallback_model_id, cmd[4], 0x10000000, 0, 0);
 			}
 		}
 	}

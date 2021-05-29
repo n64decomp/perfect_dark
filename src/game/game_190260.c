@@ -4225,7 +4225,7 @@ void aibotLoseGun(struct chrdata *chr, struct prop *attackerprop)
 			s32 modelnum = weaponGetModel(chr->aibot->weaponnum);
 
 			if (modelnum >= 0) {
-				prop = func0f08b8e8(chr, modelnum, chr->aibot->weaponnum, 0x20000000, 0, 0);
+				prop = weaponCreateForChr(chr, modelnum, chr->aibot->weaponnum, 0x20000000, 0, 0);
 			}
 		}
 

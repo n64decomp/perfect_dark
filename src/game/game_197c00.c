@@ -994,7 +994,7 @@ bool aibotSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 		// This function assumes weaponGetModel returns a negative value for
 		// WEAPON_UNARMED which is a dangerous assumption to make, but correct.
 		if (modelnum >= 0 && item && item->type == INVITEMTYPE_DUAL && chr->weapons_held[1] == NULL) {
-			chrGiveWeapon(chr, modelnum, weaponnum, 0x10000000);
+			chrGiveWeapon(chr, modelnum, weaponnum, OBJFLAG_WEAPON_10000000);
 			aibotReloadWeapon(chr, HAND_LEFT, false);
 		}
 	}
@@ -1036,7 +1036,7 @@ void func0f19978c(struct chrdata *chr, s32 weaponnum, u8 arg2)
 				s32 modelnum = weaponGetModel(item->type_weap.weapon1);
 
 				if (modelnum > 0) {
-					struct prop *prop = func0f08b8e8(chr, modelnum, item->type_weap.weapon1, 0x20000000, 0, 0);
+					struct prop *prop = weaponCreateForChr(chr, modelnum, item->type_weap.weapon1, 0x20000000, 0, 0);
 
 					if (prop) {
 						propobjSetDropped(prop, DROPREASON_1);
