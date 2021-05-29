@@ -63997,10 +63997,10 @@ glabel func0f089a94
 /*  f089c6c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, u32 arg4)
+struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model)
 {
 	if (chr->model->filedata->type == &g_ModelTypeChr) {
-		prop = func0f06a1ec(&hat->base, filedata, prop, arg4);
+		prop = func0f06a1ec(&hat->base, filedata, prop, model);
 
 		if (prop && hat->base.model) {
 			f32 scale = hat->base.extrascale * (1.0f / 256.0f);
@@ -64028,7 +64028,7 @@ void hatLoadAndApplyToChr(struct hatobj *hat, struct chrdata *chr)
 
 	modelLoad(modelnum);
 
-	hatApplyToChr(hat, chr, g_ModelStates[modelnum].filedata, NULL, 0);
+	hatApplyToChr(hat, chr, g_ModelStates[modelnum].filedata, NULL, NULL);
 }
 
 void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
@@ -64036,127 +64036,78 @@ void hatAssignToChr(struct hatobj *hat, struct chrdata *chr)
 	hatLoadAndApplyToChr(hat, chr);
 }
 
-GLOBAL_ASM(
-glabel chrTryEquipHat
-/*  f089dd8:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f089ddc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f089de0:	afa400a0 */ 	sw	$a0,0xa0($sp)
-/*  f089de4:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f089de8:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f089dec:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f089df0:	afa500a4 */ 	sw	$a1,0xa4($sp)
-/*  f089df4:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*  f089df8:	0fc2486d */ 	jal	modelLoad
-/*  f089dfc:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f089e00:	8fae00a4 */ 	lw	$t6,0xa4($sp)
-/*  f089e04:	3c188008 */ 	lui	$t8,%hi(g_ModelStates)
-/*  f089e08:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f089e0c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f089e10:	8f18b06c */ 	lw	$t8,%lo(g_ModelStates)($t8)
-/*  f089e14:	0fc180d6 */ 	jal	propAllocate
-/*  f089e18:	afb8009c */ 	sw	$t8,0x9c($sp)
-/*  f089e1c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f089e20:	0fc2cc2b */ 	jal	modelInstantiate
-/*  f089e24:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*  f089e28:	00408825 */ 	or	$s1,$v0,$zero
-/*  f089e2c:	2e040001 */ 	sltiu	$a0,$s0,0x1
-/*  f089e30:	2c450001 */ 	sltiu	$a1,$v0,0x1
-/*  f089e34:	0fc228e3 */ 	jal	func0f08a38c
-/*  f089e38:	8fa6009c */ 	lw	$a2,0x9c($sp)
-/*  f089e3c:	16000004 */ 	bnez	$s0,.L0f089e50
-/*  f089e40:	00409025 */ 	or	$s2,$v0,$zero
-/*  f089e44:	0fc180d6 */ 	jal	propAllocate
-/*  f089e48:	00000000 */ 	nop
-/*  f089e4c:	00408025 */ 	or	$s0,$v0,$zero
-.L0f089e50:
-/*  f089e50:	16200004 */ 	bnez	$s1,.L0f089e64
-/*  f089e54:	00000000 */ 	nop
-/*  f089e58:	0fc2cc2b */ 	jal	modelInstantiate
-/*  f089e5c:	8fa4009c */ 	lw	$a0,0x9c($sp)
-/*  f089e60:	00408825 */ 	or	$s1,$v0,$zero
-.L0f089e64:
-/*  f089e64:	12400035 */ 	beqz	$s2,.L0f089f3c
-/*  f089e68:	00000000 */ 	nop
-/*  f089e6c:	12000033 */ 	beqz	$s0,.L0f089f3c
-/*  f089e70:	00000000 */ 	nop
-/*  f089e74:	12200031 */ 	beqz	$s1,.L0f089f3c
-/*  f089e78:	27a20034 */ 	addiu	$v0,$sp,0x34
-/*  f089e7c:	3c198007 */ 	lui	$t9,%hi(var8006ac6c)
-/*  f089e80:	2739ac6c */ 	addiu	$t9,$t9,%lo(var8006ac6c)
-/*  f089e84:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f089e88:	27290054 */ 	addiu	$t1,$t9,0x54
-/*  f089e8c:	00405025 */ 	or	$t2,$v0,$zero
-.L0f089e90:
-/*  f089e90:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f089e94:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f089e98:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f089e9c:	ad41fff4 */ 	sw	$at,-0xc($t2)
-/*  f089ea0:	8f21fff8 */ 	lw	$at,-0x8($t9)
-/*  f089ea4:	ad41fff8 */ 	sw	$at,-0x8($t2)
-/*  f089ea8:	8f21fffc */ 	lw	$at,-0x4($t9)
-/*  f089eac:	1729fff8 */ 	bne	$t9,$t1,.L0f089e90
-/*  f089eb0:	ad41fffc */ 	sw	$at,-0x4($t2)
-/*  f089eb4:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f089eb8:	00406825 */ 	or	$t5,$v0,$zero
-/*  f089ebc:	02407025 */ 	or	$t6,$s2,$zero
-/*  f089ec0:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f089ec4:	8f290004 */ 	lw	$t1,0x4($t9)
-/*  f089ec8:	244c0054 */ 	addiu	$t4,$v0,0x54
-/*  f089ecc:	ad490004 */ 	sw	$t1,0x4($t2)
-.L0f089ed0:
-/*  f089ed0:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f089ed4:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f089ed8:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f089edc:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f089ee0:	8da1fff8 */ 	lw	$at,-0x8($t5)
-/*  f089ee4:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f089ee8:	8da1fffc */ 	lw	$at,-0x4($t5)
-/*  f089eec:	15acfff8 */ 	bne	$t5,$t4,.L0f089ed0
-/*  f089ef0:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f089ef4:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f089ef8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f089efc:	02003825 */ 	or	$a3,$s0,$zero
-/*  f089f00:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f089f04:	8dac0004 */ 	lw	$t4,0x4($t5)
-/*  f089f08:	adcc0004 */ 	sw	$t4,0x4($t6)
-/*  f089f0c:	8faf00a4 */ 	lw	$t7,0xa4($sp)
-/*  f089f10:	a64f0004 */ 	sh	$t7,0x4($s2)
-/*  f089f14:	8fb800a8 */ 	lw	$t8,0xa8($sp)
-/*  f089f18:	37084000 */ 	ori	$t0,$t8,0x4000
-/*  f089f1c:	ae480008 */ 	sw	$t0,0x8($s2)
-/*  f089f20:	84a90000 */ 	lh	$t1,0x0($a1)
-/*  f089f24:	a6490006 */ 	sh	$t1,0x6($s2)
-/*  f089f28:	afb10010 */ 	sw	$s1,0x10($sp)
-/*  f089f2c:	0fc2271c */ 	jal	hatApplyToChr
-/*  f089f30:	8fa6009c */ 	lw	$a2,0x9c($sp)
-/*  f089f34:	1000000e */ 	b	.L0f089f70
-/*  f089f38:	00408025 */ 	or	$s0,$v0,$zero
-.L0f089f3c:
-/*  f089f3c:	12200003 */ 	beqz	$s1,.L0f089f4c
-/*  f089f40:	00000000 */ 	nop
-/*  f089f44:	0fc2cc33 */ 	jal	modelFree
-/*  f089f48:	02202025 */ 	or	$a0,$s1,$zero
-.L0f089f4c:
-/*  f089f4c:	12000004 */ 	beqz	$s0,.L0f089f60
-/*  f089f50:	00000000 */ 	nop
-/*  f089f54:	0fc1810e */ 	jal	propFree
-/*  f089f58:	02002025 */ 	or	$a0,$s0,$zero
-/*  f089f5c:	00008025 */ 	or	$s0,$zero,$zero
-.L0f089f60:
-/*  f089f60:	52400004 */ 	beqzl	$s2,.L0f089f74
-/*  f089f64:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f089f68:	ae400014 */ 	sw	$zero,0x14($s2)
-/*  f089f6c:	ae400018 */ 	sw	$zero,0x18($s2)
-.L0f089f70:
-/*  f089f70:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f089f74:
-/*  f089f74:	02001025 */ 	or	$v0,$s0,$zero
-/*  f089f78:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f089f7c:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f089f80:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f089f84:	03e00008 */ 	jr	$ra
-/*  f089f88:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-);
+struct prop *hatCreateForChr(struct chrdata *chr, s32 modelnum, u32 flags)
+{
+	struct modelfiledata *filedata;
+	struct prop *prop;
+	struct model *model;
+	struct hatobj *obj;
+
+	modelLoad(modelnum);
+	filedata = g_ModelStates[modelnum].filedata;
+	prop = propAllocate();
+	model = modelInstantiate(filedata);
+	obj = func0f08a38c(prop == NULL, model == NULL, filedata);
+
+	if (prop == NULL) {
+		prop = propAllocate();
+	}
+
+	if (model == NULL) {
+		model = modelInstantiate(filedata);
+	}
+
+	if (obj && prop && model) {
+		struct hatobj tmp = {
+			256,                    // extrascale
+			0,                      // hidden2
+			OBJTYPE_HAT,            // type
+			0,                      // modelnum
+			0,                      // pad
+			OBJFLAG_ASSIGNEDTOCHR,  // flags
+			0,                      // flags2
+			0,                      // flags3
+			NULL,                   // prop
+			NULL,                   // model
+			1, 0, 0,                // realrot
+			0, 1, 0,
+			0, 0, 1,
+			0,                      // hidden
+			NULL,                   // geo
+			NULL,                   // projectile
+			0,                      // damage
+			1000,                   // maxdamage
+			0xff, 0xff, 0xff, 0x00, // shadecol
+			0xff, 0xff, 0xff, 0x00, // nextcol
+			0x0fff,                 // floorcol
+			0,                      // tiles
+		};
+
+		*obj = tmp;
+
+		obj->base.modelnum = modelnum;
+		obj->base.flags = flags | OBJFLAG_ASSIGNEDTOCHR;
+		obj->base.pad = chr->chrnum;
+
+		prop = hatApplyToChr(obj, chr, filedata, prop, model);
+	} else {
+		if (model) {
+			modelFree(model);
+		}
+
+		if (prop) {
+			propFree(prop);
+			prop = NULL;
+		}
+
+		if (obj) {
+			obj->base.prop = NULL;
+			obj->base.model = NULL;
+		}
+	}
+
+	return prop;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -66671,29 +66622,6 @@ glabel var7f1aaf24
 );
 #endif
 
-u32 var8006ac6c = 0x01000011;
-u32 var8006ac70 = 0x00000000;
-u32 var8006ac74 = 0x00004000;
-u32 var8006ac78 = 0x00000000;
-u32 var8006ac7c = 0x00000000;
-u32 var8006ac80 = 0x00000000;
-u32 var8006ac84 = 0x00000000;
-u32 var8006ac88 = 0x3f800000;
-u32 var8006ac8c = 0x00000000;
-u32 var8006ac90 = 0x00000000;
-u32 var8006ac94 = 0x00000000;
-u32 var8006ac98 = 0x3f800000;
-u32 var8006ac9c = 0x00000000;
-u32 var8006aca0 = 0x00000000;
-u32 var8006aca4 = 0x00000000;
-u32 var8006aca8 = 0x3f800000;
-u32 var8006acac = 0x00000000;
-u32 var8006acb0 = 0x00000000;
-u32 var8006acb4 = 0x00000000;
-u32 var8006acb8 = 0x000003e8;
-u32 var8006acbc = 0xffffff00;
-u32 var8006acc0 = 0xffffff00;
-u32 var8006acc4 = 0x0fff0000;
 u32 var8006acc8 = 0x0100000d;
 u32 var8006accc = 0x00000001;
 u32 var8006acd0 = 0x00000000;

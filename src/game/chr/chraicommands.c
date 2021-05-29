@@ -4544,14 +4544,14 @@ bool aiTryEquipHat(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
-	u32 thing = cmd[3] | (cmd[2] << 8);
-	bool ok = false;
+	u32 modelnum = cmd[3] | (cmd[2] << 8);
+	struct prop *prop = NULL;
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->model) {
-		ok = chrTryEquipHat(g_Vars.chrdata, thing, flags);
+		prop = hatCreateForChr(g_Vars.chrdata, modelnum, flags);
 	}
 
-	if (ok) {
+	if (prop) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
 	} else {
 		g_Vars.aioffset += 9;
@@ -4620,7 +4620,7 @@ bool aiDuplicateChr(void)
 
 			if (chr->weapons_held[2]) {
 				struct defaultobj *obj = chr->weapons_held[2]->obj;
-				chrTryEquipHat(clone, obj->modelnum, 0);
+				hatCreateForChr(clone, obj->modelnum, 0);
 			}
 
 			clone->flags = chr->flags;

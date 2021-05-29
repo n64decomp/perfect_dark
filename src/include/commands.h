@@ -1877,16 +1877,13 @@
 	label,
 
 /**
- * Makes the chr equip the given hat.
+ * Makes the chr equip the given model as a hat.
  *
- * Perfect Dark has no hats, but you can assign a weapon ID if you want the chr
- * to wear a weapon like a hat.
- *
- * Will cause crashes if the weapon's model file lacks positional information.
+ * Will cause crashes if the model file lacks positional information.
  */
-#define try_equip_hat(u1, flags, label) \
+#define try_equip_hat(model, flags, label) \
 	mkshort(0x00c9), \
-	mkshort(u1), \
+	mkshort(model), \
 	mkword(flags), \
 	label,
 
