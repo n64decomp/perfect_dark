@@ -70939,46 +70939,25 @@ void func0f0910ac(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f091250
-/*  f091250:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f091254:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f091258:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f09125c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f091260:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f091264:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f091268:	8df80004 */ 	lw	$t8,0x4($t7)
-/*  f09126c:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f091270:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f091274:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f091278:	00402825 */ 	or	$a1,$v0,$zero
-/*  f09127c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f091280:	3c072000 */ 	lui	$a3,0x2000
-/*  f091284:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f091288:	0fc22e3a */ 	jal	func0f08b8e8
-/*  f09128c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f091290:	1040000e */ 	beqz	$v0,.L0f0912cc
-/*  f091294:	00402025 */ 	or	$a0,$v0,$zero
-/*  f091298:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f09129c:	0fc20a59 */ 	jal	propobjSetDropped
-/*  f0912a0:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f0912a4:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f0912a8:	0fc20c1f */ 	jal	func0f08307c
-/*  f0912ac:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0912b0:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*  f0912b4:	24010057 */ 	addiu	$at,$zero,0x57
-/*  f0912b8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0912bc:	57210004 */ 	bnel	$t9,$at,.L0f0912d0
-/*  f0912c0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0912c4:	0fc61ca2 */ 	jal	func0f187288
-/*  f0912c8:	8fa50028 */ 	lw	$a1,0x28($sp)
-.L0f0912cc:
-/*  f0912cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0912d0:
-/*  f0912d0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0912d4:	03e00008 */ 	jr	$ra
-/*  f0912d8:	00000000 */ 	nop
-);
+void func0f091250(s32 weaponnum)
+{
+	u32 stack;
+	struct prop *prop;
+	struct chrdata *chr;
+	u32 stack2;
+
+	chr = g_Vars.currentplayer->prop->chr;
+	prop = func0f08b8e8(chr, weaponGetModel(weaponnum), weaponnum, 0x20000000, 0, 0);
+
+	if (prop) {
+		propobjSetDropped(prop, DROPREASON_1);
+		func0f08307c(prop, true);
+
+		if (weaponnum == WEAPON_BRIEFCASE2) {
+			func0f187288(chr, prop);
+		}
+	}
+}
 
 #if PAL
 GLOBAL_ASM(
