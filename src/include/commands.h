@@ -545,7 +545,13 @@
 	mkshort(0x003a), \
 	label,
 
-#define cmd003b(label) \
+/**
+ * Checks if gas has been released from a gas bottle. This is different to the
+ * gas that is released in Escape.
+ *
+ * Gas bottles aren't used in PD. This command is a leftover from GoldenEye.
+ */
+#define if_gas_active(label) \
 	mkshort(0x003b), \
 	label,
 

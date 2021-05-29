@@ -1278,9 +1278,9 @@ bool aiIfAlarmActive(void)
 /**
  * @cmd 003b
  */
-bool ai003b(void)
+bool aiIfGasActive(void)
 {
-	if (func0f090520()) {
+	if (gasIsActive()) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

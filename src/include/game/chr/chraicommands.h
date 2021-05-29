@@ -63,7 +63,7 @@
 /*0x0038*/ bool aiIfRandomGreaterThan(void);
 /*0x0039*/ bool aiIfCanHearAlarm(void);
 /*0x003a*/ bool aiIfAlarmActive(void);
-/*0x003b*/ bool ai003b(void);
+/*0x003b*/ bool aiIfGasActive(void);
 /*0x003c*/ bool aiIfHearsTarget(void);
 /*0x003d*/ bool aiIfSawInjury(void);
 /*0x003e*/ bool aiIfSawDeath(void);

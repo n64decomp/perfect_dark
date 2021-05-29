@@ -207,14 +207,14 @@ void setupInit(void)
 	g_AlarmAudioHandle = NULL;
 	g_AlarmSpeakerWeight = 64;
 
-	var800698e4 = 0;
-	g_GasReleased = false;
+	g_GasReleaseTimer240 = 0;
+	g_GasReleasing = false;
 	g_GasPos.x = 0;
 	g_GasPos.y = 0;
 	g_GasPos.z = 0;
-	var800698f8 = 0;
-	var800698fc = 0;
-	var80069900 = 0;
+	g_GasLastCough60 = 0;
+	g_GasSoundTimer240 = 0;
+	g_GasAudioHandle = NULL;
 
 	g_CountdownTimerVisible = true;
 	g_CountdownTimerRunning = false;

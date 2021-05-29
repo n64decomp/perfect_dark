@@ -27,5 +27,5 @@ void chrsReset(void)
 void alarmReset(void)
 {
 	alarmDeactivate();
-	func0f0904e0();
+	gasStopAudio();
 }

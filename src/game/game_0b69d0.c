@@ -3933,7 +3933,7 @@ void func0f0bace0(void)
 	s32 i;
 
 	alarmStopAudio();
-	func0f0904e0();
+	gasStopAudio();
 
 	for (i = 0; i < 2; i++) {
 		hand = &g_Vars.currentplayer->hands[i];
