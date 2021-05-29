@@ -349,7 +349,7 @@ void projectilesDebug(void);
 void alarmTick(void);
 void func0f091030(void);
 void func0f0910ac(void);
-u32 func0f091250(void);
+void func0f091250(s32 weaponnum);
 void projectileCreate(struct prop *fromprop, u32 arg1, struct coord *pos, struct coord *direction, s32 weaponnum, struct prop *targetprop);
 void objSetModelPartVisible(struct defaultobj *obj, s32 partnum, bool visible);
 
