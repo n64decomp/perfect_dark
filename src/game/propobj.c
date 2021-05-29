@@ -4555,35 +4555,30 @@ void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2)
 	coordTriggerProxies(&obj->prop->pos, false);
 }
 
-GLOBAL_ASM(
-glabel func0f069cd8
-/*  f069cd8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f069cdc:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f069ce0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f069ce4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f069ce8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f069cec:	8c910018 */ 	lw	$s1,0x18($a0)
-/*  f069cf0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f069cf4:	24120014 */ 	addiu	$s2,$zero,0x14
-.L0f069cf8:
-/*  f069cf8:	8e240008 */ 	lw	$a0,0x8($s1)
-/*  f069cfc:	0c006a47 */ 	jal	modelGetPart
-/*  f069d00:	260500c9 */ 	addiu	$a1,$s0,0xc9
-/*  f069d04:	10400006 */ 	beqz	$v0,.L0f069d20
-/*  f069d08:	00402825 */ 	or	$a1,$v0,$zero
-/*  f069d0c:	0c006a87 */ 	jal	modelGetNodeRwData
-/*  f069d10:	02202025 */ 	or	$a0,$s1,$zero
-/*  f069d14:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f069d18:	1612fff7 */ 	bne	$s0,$s2,.L0f069cf8
-/*  f069d1c:	ac400000 */ 	sw	$zero,0x0($v0)
-.L0f069d20:
-/*  f069d20:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f069d24:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f069d28:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f069d2c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f069d30:	03e00008 */ 	jr	$ra
-/*  f069d34:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+/**
+ * Iterate the model parts in range 201 to 220 (0xc9 to 0xdc) and disable them,
+ * stopping when any part doesn't exist.
+ *
+ * This range of part numbers is a special range that is hidden when the object
+ * is initialised.
+ */
+void objInitToggleNodes(struct defaultobj *obj)
+{
+	struct model *model = obj->model;
+	union modelrwdata *rwdata;
+	s32 i;
+
+	for (i = 0; i < 20; i++) {
+		struct modelnode *node = modelGetPart(model->filedata, 201 + i);
+
+		if (!node) {
+			return;
+		}
+
+		rwdata = modelGetNodeRwData(model, node);
+		rwdata->toggle.visible = false;
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -5305,7 +5300,7 @@ struct prop *objInitialise(struct defaultobj *obj, struct modelfiledata *filedat
 		prop->pos.y = 0;
 		prop->pos.z = 0;
 
-		func0f069cd8(obj);
+		objInitToggleNodes(obj);
 
 		if (obj->flags3 & OBJFLAG3_00040000) {
 			prop->flags |= PROPFLAG_01;

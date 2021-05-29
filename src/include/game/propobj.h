@@ -94,7 +94,7 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 *realrot, struc
 void func0f069b4c(struct defaultobj *obj);
 void func0f069c1c(struct defaultobj *obj);
 void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2);
-void func0f069cd8(struct defaultobj *obj);
+void objInitToggleNodes(struct defaultobj *obj);
 u32 func0f069d38(void);
 u32 func0f06a170(void);
 struct prop *objInitialise(struct defaultobj *obj, struct modelfiledata *filedata, struct prop *prop, struct model *model);
