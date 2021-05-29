@@ -11216,16 +11216,16 @@ void func0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 
 /**
  * Create a thrown projectile.
  */
-struct weaponobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
+struct defaultobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
 {
-	struct weaponobj *thing = NULL;
+	struct defaultobj *obj = NULL;
 	struct weaponfunc *basefunc;
 	struct weaponfunc_throw *func;
 	struct weapon *weapon = weaponFindById(gset->weaponnum);
-	struct weaponobj *tmpthing;
-	s32 playernum;
+	struct weaponobj *weaponobj;
+	struct autogunobj *autogun;
 	f32 mf[4][4];
-	u32 stack;
+	s32 playernum;
 
 	if (weapon == NULL) {
 		return false;
@@ -11246,41 +11246,41 @@ struct weaponobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct co
 	}
 
 	if (gset->weaponnum == WEAPON_LAPTOPGUN) {
-		tmpthing = func0f08b27c(func->projectilemodelnum, gset, chr);
+		autogun = laptopDeploy(func->projectilemodelnum, gset, chr);
 
-		if (tmpthing != NULL) {
-			thing = tmpthing;
+		if (autogun != NULL) {
+			obj = &autogun->base;
 		}
 	} else {
-		tmpthing = func0f08b658(func->projectilemodelnum, gset, chr);
+		weaponobj = func0f08b658(func->projectilemodelnum, gset, chr);
 
-		if (tmpthing != NULL) {
-			thing = tmpthing;
+		if (weaponobj != NULL) {
+			obj = &weaponobj->base;
 
 			// Note this timer is converted to 240 time immediately below
-			thing->timer240 = func->activatetime60;
+			weaponobj->timer240 = func->activatetime60;
 
-			if (thing->timer240 >= 2) {
-				thing->timer240 = PALDOWN(thing->timer240 * 4);
+			if (weaponobj->timer240 >= 2) {
+				weaponobj->timer240 = PALDOWN(weaponobj->timer240 * 4);
 			}
 
-			if (thing->weaponnum == WEAPON_GRENADE || thing->weaponnum == WEAPON_NBOMB) {
-				propSetDangerous(thing->base.prop);
+			if (weaponobj->weaponnum == WEAPON_GRENADE || weaponobj->weaponnum == WEAPON_NBOMB) {
+				propSetDangerous(weaponobj->base.prop);
 			}
 
 			if (func->projectilemodelnum == MODEL_CHRREMOTEMINE
 					|| func->projectilemodelnum == MODEL_CHRTIMEDMINE
 					|| func->projectilemodelnum == MODEL_CHRPROXIMITYMINE
 					|| func->projectilemodelnum == MODEL_CHRECMMINE) {
-				thing->base.flags3 |= OBJFLAG3_00000008;
+				weaponobj->base.flags3 |= OBJFLAG3_00000008;
 			}
 		}
 	}
 
-	if (thing != NULL) {
-		func0f09ebcc(&thing->base, pos, rooms, arg4, (f32 *)arg5, (Mtxf *)mf, chr->prop, pos);
+	if (obj != NULL) {
+		func0f09ebcc(obj, pos, rooms, arg4, (f32 *)arg5, (Mtxf *)mf, chr->prop, pos);
 
-		thing->base.hidden &= 0x0fffffff;
+		obj->hidden &= 0x0fffffff;
 
 		if (g_Vars.normmplayerisrunning) {
 			playernum = mpPlayerGetIndex(chr);
@@ -11288,19 +11288,19 @@ struct weaponobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct co
 			playernum = propGetPlayerNum(chr->prop);
 		}
 
-		thing->base.hidden |= playernum << 28;
+		obj->hidden |= playernum << 28;
 
-		if (thing->base.hidden & OBJHFLAG_AIRBORNE) {
-			thing->base.projectile->flags |= PROJECTILEFLAG_00000002;
-			thing->base.projectile->unk08c = 0.1f;
-			thing->base.projectile->unk0b4 = PALDOWN(240);
+		if (obj->hidden & OBJHFLAG_AIRBORNE) {
+			obj->projectile->flags |= PROJECTILEFLAG_00000002;
+			obj->projectile->unk08c = 0.1f;
+			obj->projectile->unk0b4 = PALDOWN(240);
 
-			func0f0939f8(NULL, thing->base.prop, SFX_THROW, -1,
+			func0f0939f8(NULL, obj->prop, SFX_THROW, -1,
 					-1, 0, 0, 0, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 	}
 
-	return thing;
+	return obj;
 }
 
 #if PAL
@@ -30582,7 +30582,7 @@ s32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func)
 	return 0;
 }
 
-void currentPlayerGiveAmmoForWeapon(u32 weaponnum, u32 func, u32 quantity)
+void currentPlayerSetAmmoQtyForWeapon(u32 weaponnum, u32 func, u32 quantity)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);
 

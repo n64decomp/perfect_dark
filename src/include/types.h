@@ -1770,6 +1770,7 @@ struct autogunobj { // objtype 0x0d
 	/*0xa4*/ u32 unka4;
 	/*0xa8*/ u8 targetteam;
 	/*0xa9*/ u8 ammoquantity;
+	/*0xaa*/ u16 nextchrtest;
 };
 
 struct linkgunsobj { // objtype 0x0e
@@ -6783,20 +6784,6 @@ struct var8009cda4 {
 struct var8009ce60 {
 	struct defaultobj base;
 	/*0x5c*/ u32 unk5c;
-};
-
-struct var8006996c {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
 };
 
 struct nbomb {

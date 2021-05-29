@@ -14,7 +14,7 @@ extern f32 var8006994c;
 extern f32 var80069950;
 extern f32 var80069954;
 extern f32 var80069958;
-extern struct var8006996c *var8006996c;
+extern struct beam *g_ThrownLaptopBeams;
 
 void alarmActivate(void);
 void alarmDeactivate(void);
@@ -285,7 +285,7 @@ u32 func0f08ae54(struct defaultobj *obj, struct chrdata *chr);
 struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modelfiledata *modelfiledata, struct prop *prop, struct model *model);
 void func0f08b208(struct weaponobj *weapon, struct chrdata *chr);
 void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr);
-struct weaponobj *func0f08b27c(s32 modelnum, struct gset *gset, struct chrdata *chr);
+struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata *chr);
 struct weaponobj *func0f08b658(s32 modelnum, struct gset *gset, struct chrdata *chr);
 struct weaponobj *func0f08b880(s32 modelnum, s32 weaponnum, struct chrdata *chr);
 void chrSetObjHiddenFlag4OnWeapon(struct chrdata *chr, s32 hand);

@@ -254,7 +254,7 @@ extern f32 g_AmmoMultiplier;
 extern struct padeffectobj *var80069960;
 extern s32 var80069964;
 extern struct autogunobj *g_ThrownLaptops;
-extern struct var8006996c *var8006996c;
+extern struct beam *g_ThrownLaptopBeams;
 extern s32 g_MaxThrownLaptops;
 extern struct prop *g_Lifts[MAX_LIFTS];
 extern u32 g_TvCmdlist00[];

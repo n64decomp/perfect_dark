@@ -305,7 +305,7 @@ void setupInit(void)
 	g_MaxThrownLaptops = g_Vars.normmplayerisrunning ? 12 : PLAYERCOUNT();
 
 	g_ThrownLaptops = malloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct autogunobj)), MEMPOOL_STAGE);
-	var8006996c = malloc(ALIGN16(g_MaxThrownLaptops * 0x2c), MEMPOOL_STAGE);
+	g_ThrownLaptopBeams = malloc(ALIGN16(g_MaxThrownLaptops * sizeof(struct beam)), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_MaxThrownLaptops; i++) {
 		g_ThrownLaptops[i].base.prop = NULL;
