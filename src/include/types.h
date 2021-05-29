@@ -699,7 +699,11 @@ struct model {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x02*/ s16 unk02;
-	/*0x04*/ struct chrdata *chr;
+	/*0x04*/
+	union {
+		struct chrdata *chr;
+		struct defaultobj *obj;
+	};
 	/*0x08*/ struct modelfiledata *filedata;
 	/*0x0c*/ Mtxf *matrices;
 	/*0x10*/ union modelrwdata **rwdatas;
