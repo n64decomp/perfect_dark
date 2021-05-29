@@ -340,7 +340,7 @@ bool posIsInFrontOfDoor(struct coord *pos, struct doorobj *door);
 void doorsChooseSwingDirection(struct prop *chrprop, struct doorobj *door);
 bool propdoorInteract(struct prop *doorprop);
 void alarmStopAudio(void);
-void func0f09044c(struct coord *pos);
+void gasReleaseFromPos(struct coord *pos);
 void func0f0904e0(void);
 bool func0f090520(void);
 void func0f09054c(void);

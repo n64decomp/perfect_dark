@@ -127,6 +127,9 @@
 #define briefing(value, text) \
 	0x23, value, text, 0,
 
+#define gasbottle(scale, model, pad, flags, flags2, flags3, maxdamage) \
+	_generic_object(0x24, scale, model, pad, flags, flags2, flags3, maxdamage),
+
 #define rename_object(objoffset, weapon, text, text2, text3, text4, text5) \
 	0x25, objoffset, weapon, text, text2, text3, text4, text5, 0, 0,
 

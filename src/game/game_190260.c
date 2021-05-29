@@ -1111,7 +1111,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_TAG:
 	case OBJTYPE_22:
 	case OBJTYPE_BRIEFING:
-	case OBJTYPE_24:
+	case OBJTYPE_GASBOTTLE:
 	case OBJTYPE_RENAMEOBJ:
 	case OBJTYPE_PADLOCKEDDOOR:
 	case OBJTYPE_TRUCK:

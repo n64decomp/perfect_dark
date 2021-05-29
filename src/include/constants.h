@@ -3013,7 +3013,7 @@
 #define OBJECTIVETYPE_ATTACHOBJ    0x21
 #define OBJTYPE_22                 0x22
 #define OBJTYPE_BRIEFING           0x23
-#define OBJTYPE_24                 0x24
+#define OBJTYPE_GASBOTTLE          0x24
 #define OBJTYPE_RENAMEOBJ          0x25
 #define OBJTYPE_PADLOCKEDDOOR      0x26
 #define OBJTYPE_TRUCK              0x27

@@ -208,10 +208,10 @@ void setupInit(void)
 	g_AlarmSpeakerWeight = 64;
 
 	var800698e4 = 0;
-	var800698e8 = 0;
-	var800698ec[0] = 0;
-	var800698ec[1] = 0;
-	var800698ec[2] = 0;
+	g_GasReleased = false;
+	g_GasPos.x = 0;
+	g_GasPos.y = 0;
+	g_GasPos.z = 0;
 	var800698f8 = 0;
 	var800698fc = 0;
 	var80069900 = 0;
@@ -2823,7 +2823,7 @@ void setupLoadFiles(s32 stagenum)
 		total += setupCountCommandType(OBJTYPE_TINTEDGLASS);
 		total += setupCountCommandType(OBJTYPE_SAFE);
 		total += setupCountCommandType(OBJTYPE_29);
-		total += setupCountCommandType(OBJTYPE_24);
+		total += setupCountCommandType(OBJTYPE_GASBOTTLE);
 		total += setupCountCommandType(OBJTYPE_ALARM);
 		total += setupCountCommandType(OBJTYPE_AMMOCRATE);
 		total += setupCountCommandType(OBJTYPE_MULTIAMMOCRATE);
@@ -3182,7 +3182,7 @@ void setupParseObjects(s32 stagenum)
 				case OBJTYPE_ALARM:
 				case OBJTYPE_AMMOCRATE:
 				case OBJTYPE_DEBRIS:
-				case OBJTYPE_24:
+				case OBJTYPE_GASBOTTLE:
 				case OBJTYPE_29:
 				case OBJTYPE_SAFE:
 					if (withobjs && (obj->flags2 & diffflag) == 0) {
@@ -3496,7 +3496,7 @@ void setupParseObjects(s32 stagenum)
 				case OBJTYPE_DEBRIS:
 				case OBJTYPE_MULTIAMMOCRATE:
 				case OBJTYPE_SHIELD:
-				case OBJTYPE_24:
+				case OBJTYPE_GASBOTTLE:
 				case OBJTYPE_29:
 				case OBJTYPE_GLASS:
 				case OBJTYPE_SAFE:

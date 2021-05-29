@@ -105,7 +105,7 @@ const char var7f1a9fd4[] = "kkd";
 const char var7f1a9fd8[] = "kkp";
 
 struct weaponobj *g_Proxies[30];
-u32 var8009ce38;
+f32 var8009ce38;
 u32 var8009ce3c;
 s32 var8009ce40;
 s32 var8009ce44;
@@ -126,8 +126,8 @@ struct audiohandle *g_AlarmAudioHandle = NULL;
 f32 g_AlarmSpeakerWeight = 64;
 f32 g_AlarmSpeakerDirection = 1;
 f32 var800698e4 = 0;
-s32 var800698e8 = 0;
-f32 var800698ec[3] = {0};
+bool g_GasReleased = false;
+struct coord g_GasPos = {0};
 u32 var800698f8 = 0x00000000;
 f32 var800698fc = 0;
 struct audiohandle *var80069900 = NULL;
@@ -57496,7 +57496,7 @@ bool func0f085158(struct defaultobj *obj)
 	case OBJTYPE_HANGINGMONITORS:
 	case OBJTYPE_AUTOGUN:
 	case OBJTYPE_DEBRIS:
-	case OBJTYPE_24:
+	case OBJTYPE_GASBOTTLE:
 	case OBJTYPE_29:
 	case OBJTYPE_GLASS:
 	case OBJTYPE_SAFE:
@@ -57587,7 +57587,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 	obj->hidden |= (playernum << 28) & 0xf0000000;
 #endif
 
-	if (obj->type == OBJTYPE_24 && func0f0687b8(obj) == 1) {
+	if (obj->type == OBJTYPE_GASBOTTLE && func0f0687b8(obj) == 1) {
 		return;
 	}
 
@@ -57787,9 +57787,9 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 				tvscreenSetCmdlist(&monitor->screens[2], g_TvCmdlist14);
 				tvscreenSetCmdlist(&monitor->screens[3], g_TvCmdlist14);
 			}
-		} else if (obj->type == OBJTYPE_24) {
+		} else if (obj->type == OBJTYPE_GASBOTTLE) {
 			if (func0f0687b8(obj) == 1) {
-				func0f09044c(&obj->prop->pos);
+				gasReleaseFromPos(&obj->prop->pos);
 			}
 		} else if (obj->type == OBJTYPE_SHIELD) {
 			struct shieldobj *shield = (struct shieldobj *) obj;
@@ -70573,48 +70573,25 @@ bool alarmIsActive(void)
 	return g_AlarmTimer > 0;
 }
 
-GLOBAL_ASM(
-glabel func0f09044c
-/*  f09044c:	44802000 */ 	mtc1	$zero,$f4
-/*  f090450:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f090454:	3c018007 */ 	lui	$at,%hi(var800698e8)
-/*  f090458:	ac2e98e8 */ 	sw	$t6,%lo(var800698e8)($at)
-/*  f09045c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f090460:	3c018007 */ 	lui	$at,%hi(var800698fc)
-/*  f090464:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f090468:	e42498fc */ 	swc1	$f4,%lo(var800698fc)($at)
-/*  f09046c:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f090470:	3c028007 */ 	lui	$v0,%hi(var800698ec)
-/*  f090474:	244298ec */ 	addiu	$v0,$v0,%lo(var800698ec)
-/*  f090478:	e4460000 */ 	swc1	$f6,0x0($v0)
-/*  f09047c:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f090480:	e4480004 */ 	swc1	$f8,0x4($v0)
-/*  f090484:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f090488:	0c003a61 */ 	jal	mainGetStageNum
-/*  f09048c:	e44a0008 */ 	swc1	$f10,0x8($v0)
-/*  f090490:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f090494:	14410007 */ 	bne	$v0,$at,.L0f0904b4
-/*  f090498:	3c0142f0 */ 	lui	$at,0x42f0
-/*  f09049c:	44818000 */ 	mtc1	$at,$f16
-/*  f0904a0:	3c01800a */ 	lui	$at,%hi(var8009ce38)
-/*  f0904a4:	e430ce38 */ 	swc1	$f16,%lo(var8009ce38)($at)
-/*  f0904a8:	3c01800a */ 	lui	$at,%hi(var8009ce3c)
-/*  f0904ac:	10000008 */ 	b	.L0f0904d0
-/*  f0904b0:	ac20ce3c */ 	sw	$zero,%lo(var8009ce3c)($at)
-.L0f0904b4:
-/*  f0904b4:	3c014561 */ 	lui	$at,0x4561
-/*  f0904b8:	44819000 */ 	mtc1	$at,$f18
-/*  f0904bc:	3c01800a */ 	lui	$at,%hi(var8009ce38)
-/*  f0904c0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0904c4:	e432ce38 */ 	swc1	$f18,%lo(var8009ce38)($at)
-/*  f0904c8:	3c01800a */ 	lui	$at,%hi(var8009ce3c)
-/*  f0904cc:	ac2fce3c */ 	sw	$t7,%lo(var8009ce3c)($at)
-.L0f0904d0:
-/*  f0904d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0904d4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0904d8:	03e00008 */ 	jr	$ra
-/*  f0904dc:	00000000 */ 	nop
-);
+void gasReleaseFromPos(struct coord *pos)
+{
+	g_GasReleased = true;
+	var800698fc = 0;
+
+	g_GasPos.x = pos->x;
+	g_GasPos.y = pos->y;
+	g_GasPos.z = pos->z;
+
+	// Gas objects don't exist in PD, so this stage number might have carried
+	// over from GoldenEye.
+	if (mainGetStageNum() == STAGE_MP_G5BUILDING) {
+		var8009ce38 = 120;
+		var8009ce3c = false;
+	} else {
+		var8009ce38 = 3600;
+		var8009ce3c = true;
+	}
+}
 
 void func0f0904e0(void)
 {
@@ -70635,8 +70612,8 @@ glabel func0f09054c
 glabel var7f1ab19c
 .word 0x453b8000
 .text
-/*  f09054c:	3c028007 */ 	lui	$v0,%hi(var800698e8)
-/*  f090550:	244298e8 */ 	addiu	$v0,$v0,%lo(var800698e8)
+/*  f09054c:	3c028007 */ 	lui	$v0,%hi(g_GasReleased)
+/*  f090550:	244298e8 */ 	addiu	$v0,$v0,%lo(g_GasReleased)
 /*  f090554:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f090558:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f09055c:	44808000 */ 	mtc1	$zero,$f16
@@ -70779,8 +70756,8 @@ glabel var7f1ab19c
 .L0f090774:
 /*  f090774:	3c048007 */ 	lui	$a0,%hi(var80069900)
 /*  f090778:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
-/*  f09077c:	3c058007 */ 	lui	$a1,%hi(var800698ec)
-/*  f090780:	24a598ec */ 	addiu	$a1,$a1,%lo(var800698ec)
+/*  f09077c:	3c058007 */ 	lui	$a1,%hi(g_GasPos)
+/*  f090780:	24a598ec */ 	addiu	$a1,$a1,%lo(g_GasPos)
 /*  f090784:	1080001c */ 	beqz	$a0,.L0f0907f8
 /*  f090788:	3c0643c8 */ 	lui	$a2,0x43c8
 /*  f09078c:	3c017f1b */ 	lui	$at,%hi(var7f1ab19c)
@@ -70825,8 +70802,8 @@ glabel func0f09054c
 glabel var7f1ab19c
 .word 0x453b8000
 .text
-/*  f09054c:	3c028007 */ 	lui	$v0,%hi(var800698e8)
-/*  f090550:	244298e8 */ 	addiu	$v0,$v0,%lo(var800698e8)
+/*  f09054c:	3c028007 */ 	lui	$v0,%hi(g_GasReleased)
+/*  f090550:	244298e8 */ 	addiu	$v0,$v0,%lo(g_GasReleased)
 /*  f090554:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f090558:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f09055c:	44808000 */ 	mtc1	$zero,$f16
@@ -70969,8 +70946,8 @@ glabel var7f1ab19c
 .L0f090774:
 /*  f090774:	3c048007 */ 	lui	$a0,%hi(var80069900)
 /*  f090778:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
-/*  f09077c:	3c058007 */ 	lui	$a1,%hi(var800698ec)
-/*  f090780:	24a598ec */ 	addiu	$a1,$a1,%lo(var800698ec)
+/*  f09077c:	3c058007 */ 	lui	$a1,%hi(g_GasPos)
+/*  f090780:	24a598ec */ 	addiu	$a1,$a1,%lo(g_GasPos)
 /*  f090784:	1080001c */ 	beqz	$a0,.L0f0907f8
 /*  f090788:	3c0643c8 */ 	lui	$a2,0x43c8
 /*  f09078c:	3c017f1b */ 	lui	$at,%hi(var7f1ab19c)

@@ -28,7 +28,7 @@ void func0f015010(void)
 			case OBJTYPE_HAT:
 			case OBJTYPE_MULTIAMMOCRATE:
 			case OBJTYPE_SHIELD:
-			case OBJTYPE_24:
+			case OBJTYPE_GASBOTTLE:
 			case OBJTYPE_TRUCK:
 			case OBJTYPE_HELI:
 			case OBJTYPE_29:
