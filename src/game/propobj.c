@@ -64902,27 +64902,17 @@ void propweaponSetDual(struct weaponobj *weapon1, struct weaponobj *weapon2)
 	weapon2->dualweapon = weapon1;
 }
 
-GLOBAL_ASM(
-glabel func0f08adc8
-/*  f08adc8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08adcc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08add0:	0fc1a87b */ 	jal	objInitialise
-/*  f08add4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08add8:	10400007 */ 	beqz	$v0,.L0f08adf8
-/*  f08addc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f08ade0:	240e0004 */ 	addiu	$t6,$zero,0x4
-/*  f08ade4:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f08ade8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f08adec:	00002825 */ 	or	$a1,$zero,$zero
-/*  f08adf0:	0fc22ed7 */ 	jal	weaponSetGunfireVisible
-/*  f08adf4:	2406ffff */ 	addiu	$a2,$zero,-1
-.L0f08adf8:
-/*  f08adf8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08adfc:	02001025 */ 	or	$v0,$s0,$zero
-/*  f08ae00:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08ae04:	03e00008 */ 	jr	$ra
-/*  f08ae08:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+struct prop *func0f08adc8(struct weaponobj *weapon, struct modelfiledata *filedata, struct prop *prop, struct model *model)
+{
+	prop = objInitialise(&weapon->base, filedata, prop, model);
+
+	if (prop) {
+		prop->type = PROPTYPE_WEAPON;
+		weaponSetGunfireVisible(prop, false, -1);
+	}
+
+	return prop;
+}
 
 GLOBAL_ASM(
 glabel func0f08ae0c
