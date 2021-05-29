@@ -212,7 +212,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 Gfx *gfxRenderRadialShadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 size, u32 alpha);
 Gfx *objRenderShadow(struct defaultobj *obj, Gfx *gdl);
 Gfx *objRender(struct prop *prop, Gfx *gdl, bool withalpha);
-u32 func0f081c18(void);
+bool modelIsNodeNotTvscreen(struct modelfiledata *filedata, struct modelnode *node);
 u32 func0f081ccc(void);
 u32 func0f0826cc(void);
 void propobjSetDropped(struct prop *prop, u32 reason);

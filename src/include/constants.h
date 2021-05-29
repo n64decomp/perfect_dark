@@ -1884,6 +1884,7 @@
 #define MODELPART_CIHUB_0000          0x0000 // dl
 #define MODELPART_CIHUB_0001          0x0001 // dl
 #define MODELPART_CIHUB_0002          0x0002 // dl
+#define MODELPART_CIHUB_0003          0x0003 // dl
 #define MODELPART_CLASSICGUN_0032     0x0032 // position
 #define MODELPART_CLASSICGUN_003C     0x003c // positionheld
 #define MODELPART_CLASSICGUN_0050     0x0050 // position
