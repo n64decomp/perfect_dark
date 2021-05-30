@@ -3299,7 +3299,7 @@ void setupParseObjects(s32 stagenum)
 						chopper->nextstep = 0;
 						chopper->target = -1;
 						chopper->targetvisible = false;
-						chopper->attackmode = 0;
+						chopper->attackmode = CHOPPERMODE_PATROL;
 						chopper->vz = 0;
 						chopper->vy = 0;
 						chopper->vx = 0;

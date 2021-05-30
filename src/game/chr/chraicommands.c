@@ -5117,7 +5117,7 @@ bool aiHovercarBeginPath(void)
 
 		if (chopper) {
 			chopper->targetvisible = false;
-			chopper->attackmode = 0;
+			chopper->attackmode = CHOPPERMODE_PATROL;
 			chopper->turnrot60 = 0;
 			chopper->roty = 0;
 			chopper->rotx = 0;

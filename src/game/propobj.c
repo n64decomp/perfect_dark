@@ -38341,7 +38341,7 @@ bool chopperAttack(struct chopperobj *obj)
 	struct chopperobj *chopper = chopperFromHovercar(obj);
 
 	if (chopper) {
-		chopper->attackmode = 1;
+		chopper->attackmode = CHOPPERMODE_COMBAT;
 		chopper->patroltimer60 = PALDOWN(240);
 
 		return true;
@@ -38355,7 +38355,7 @@ bool chopperStop(struct chopperobj *obj)
 	struct chopperobj *chopper = chopperFromHovercar(obj);
 
 	if (chopper) {
-		chopper->attackmode = 0;
+		chopper->attackmode = CHOPPERMODE_PATROL;
 		chopper->patroltimer60 = PALDOWN(120);
 		chopper->power = 0;
 
@@ -40488,7 +40488,7 @@ glabel var7f1aa668
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel chopperTickAttackMode2
+glabel chopperTickFall
 .late_rodata
 glabel var7f1aa66c
 .word 0xbf333333
@@ -40965,7 +40965,7 @@ glabel var7f1aa698
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel chopperTickAttackMode2
+glabel chopperTickFall
 .late_rodata
 glabel var7f1aa66c
 .word 0xbf333333
@@ -41442,7 +41442,7 @@ glabel var7f1aa698
 );
 #else
 GLOBAL_ASM(
-glabel chopperTickAttackMode2
+glabel chopperTickFall
 .late_rodata
 glabel var7f1aa66c
 .word 0xbf333333
@@ -41918,7 +41918,186 @@ glabel var7f1aa698
 );
 #endif
 
-void func0f07c7b0(struct prop *prop)
+// Mismatch: Something weird with the chopper->fall property.
+// Might be the start of a new struct using a union
+//void chopperTickFall(struct prop *chopperprop)
+//{
+//	struct defaultobj *obj = chopperprop->obj;
+//	struct chopperobj *chopper = (struct chopperobj *) obj;
+//	f32 sp174;
+//	f32 sp164;
+//	f32 sp160;
+//	struct coord sp15c;
+//	struct pad nextpad;
+//	struct pad prevpad;
+//	s32 i;
+//	struct coord sp98;
+//	struct coord sp8c;
+//
+//	// I guess the timer is set explicitly to 2 when the chopper is destroyed,
+//	// otherwise there's no guarantee that that the timer will land on this
+//	// value when ticking down normally. So this code is run once when entering
+//	// fall mode.
+//	if (chopper->timer60 == 2) {
+//		// Figure out what direction to fall in
+//		f32 spac = 0;
+//		f32 spa8 = 0;
+//		s32 nextstep;
+//		f32 tmp;
+//
+//		chopper->timer60 -= g_Vars.lvupdate240_60;
+//
+//		if (chopper->path) {
+//			for (i = 0; i < chopper->path->len; i++) {
+//				if (chopper->cw) {
+//					nextstep = i;
+//				} else {
+//					nextstep = (i + 1) % chopper->path->len;
+//				}
+//
+//				if (nextstep == chopper->nextstep) {
+//					break;
+//				}
+//			}
+//
+//			if (chopper->cw) {
+//				nextstep = (i + 1) % chopper->path->len;
+//			} else {
+//				nextstep = i;
+//			}
+//
+//			padUnpack(chopper->path->pads[nextstep], PADFIELD_POS, &nextpad);
+//
+//			if (chopper->cw) {
+//				nextstep = i;
+//			} else {
+//				nextstep = (i + 1) % chopper->path->len;
+//			}
+//
+//			padUnpack(chopper->path->pads[nextstep], PADFIELD_POS, &prevpad);
+//
+//			spac = nextpad.pos.x - prevpad.pos.x;
+//			spa8 = nextpad.pos.z - prevpad.pos.z;
+//
+//			tmp = 0.25f / sqrtf(spac * spac + spa8 * spa8);
+//
+//			spac *= tmp;
+//			spa8 *= tmp;
+//		}
+//
+//		chopper->fall.f[0] = -spa8;
+//		chopper->fall.f[1] = 0;
+//		chopper->fall.f[2] = spac;
+//	} else if (chopper->timer60 >= 0) {
+//		// Haven't started falling yet
+//		chopper->timer60 -= g_Vars.lvupdate240_60;
+//	} else if (chopper->fall.f[1] > -0.7f) {
+//		// Increase fall speed
+//		chopper->fall.f[1] -= 0.009f * g_Vars.lvupdate240f;
+//	}
+//
+//	sp15c.x = chopper->fall.f[0];
+//	sp15c.y = chopper->fall.f[1];
+//	sp15c.z = chopper->fall.f[2];
+//	sp174 = chopper->roty + sp15c.x + sp15c.z;
+//
+//	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_EXTRACTION) {
+//		// The Extraction chopper falls without any collision checks and is
+//		// reaped once it reaches the lower barrier
+//		if (chopperprop->pos.y < -30000) {
+//			func0f0926bc(chopperprop, 1, 0xffff);
+//			obj->hidden |= OBJHFLAG_REAPABLE;
+//		} else {
+//			func0f07ba38(chopperprop, sp174, chopper->rotx < 0 ? M_PI : -M_PI, &sp15c, 0);
+//		}
+//	} else {
+//		// Area 51 interceptors do collision checks
+//		// and explode once they hit the ground.
+//		f32 mult = 0.98f;
+//		f32 bob;
+//		s32 i;
+//
+//		for (i = 1; i < g_Vars.lvupdate240_60; i++) {
+//			mult *= 0.98f;
+//		}
+//
+//		bob = chopper->bob + 0.052358999848366f;
+//
+//		if (bob > M_BADTAU) {
+//			bob = 0;
+//
+//			chopper->bobstrength = (random() % 8 + 2) * 0.01f;
+//
+//			if (obj->flags & OBJFLAG_80000000) {
+//				chopper->bobstrength *= 0.15f;
+//			}
+//		}
+//
+//		sp160 += chopper->bobstrength * sinf(bob);
+//
+//		sp8c.f[0] = mult * (sp15c.f[0] * chopper->power + chopper->vx);
+//		sp8c.f[1] = mult * (sp15c.f[1] * chopper->power + chopper->vy);
+//		sp8c.f[2] = mult * (sp15c.f[2] * chopper->power + chopper->vz);
+//
+//		sp98.f[0] = sp8c.f[0] * g_Vars.lvupdate240freal + chopperprop->pos.x;
+//		sp98.f[1] = sp8c.f[1] * g_Vars.lvupdate240freal + chopperprop->pos.y;
+//		sp98.f[2] = sp8c.f[2] * g_Vars.lvupdate240freal + chopperprop->pos.z;
+//
+//		if (func0002de10(&chopperprop->pos, chopperprop->rooms, &sp98, CDTYPE_BG) == CDRESULT_COLLISION) {
+//			struct coord sp74;
+//			s16 room;
+//			struct coord sp64;
+//			f32 sp60;
+//			s16 sp50[8];
+//
+//			chopperprop->pos.y += 100;
+//			sp60 = cdFindGroundYSimple(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
+//			chopperprop->pos.y -= 100;
+//
+//#if VERSION >= VERSION_PAL_FINAL
+//			cdGetPos(&sp64, 12449, "prop/propobj.c");
+//#else
+//			cdGetPos(&sp64, 12449, "propobj.c");
+//#endif
+//
+//			sp98.x = sp64.x;
+//			sp98.y = sp60 + 20;
+//			sp98.z = sp64.z;
+//
+//			func0f065e74(&chopperprop->pos, chopperprop->rooms, &sp98, sp50);
+//
+//			chopperprop->pos.x = sp98.x;
+//			chopperprop->pos.y = sp98.y;
+//			chopperprop->pos.z = sp98.z;
+//
+//			func0f065c44(chopperprop);
+//			roomsCopy(sp50, chopperprop->rooms);
+//			func0f069c70(obj, false, true);
+//
+//			// Move to CHOPPERMODE_DEAD
+//			chopper->attackmode++;
+//
+//			func0f081ccc(chopper, 8);
+//
+//			room = chopperprop->rooms[0];
+//			sp74.x = 0;
+//			sp74.y = 1;
+//			sp74.z = 0;
+//
+//			func0f0926bc(chopperprop, 1, 0xffff);
+//
+//			explosionCreate(NULL, &chopperprop->pos, chopperprop->rooms, EXPLOSIONTYPE_13,
+//					0, true, &sp98, room, &sp74);
+//
+//			chopper->dead = true;
+//		} else {
+//			smokeCreateSimple(&chopperprop->pos, chopperprop->rooms, SMOKETYPE_3);
+//			func0f07ba38(chopperprop, sp174, chopper->rotx < 0 ? M_PI : -M_PI, &sp15c, 0);
+//		}
+//	}
+//}
+
+void chopperTickIdle(struct prop *prop)
 {
 	struct chopperobj *chopper = (struct chopperobj *)prop->obj;
 	u32 stack;
@@ -41998,7 +42177,7 @@ void chopperTickPatrol(struct prop *chopperprop)
 }
 
 GLOBAL_ASM(
-glabel chopperTickAttackMode1
+glabel chopperTickCombat
 .late_rodata
 glabel var7f1aa69c
 .word 0x49f42400
@@ -46407,22 +46586,20 @@ s32 objTick(struct prop *prop)
 
 			if (!chopper->dead) {
 				if (!lvIsPaused()) {
-					if (chopper->attackmode == 3) {
+					if (chopper->attackmode == CHOPPERMODE_DEAD) {
 						// empty
-					} else if (chopper->attackmode == 2) {
+					} else if (chopper->attackmode == CHOPPERMODE_FALL) {
 						if (obj->flags & OBJFLAG_CHOPPER_INACTIVE) {
 							chopper->dead = true;
 						} else {
-							chopperTickAttackMode2(prop);
+							chopperTickFall(prop);
 						}
-					} else {
-						if (obj->flags & OBJFLAG_CHOPPER_INACTIVE) {
-							func0f07c7b0(prop);
-						} else if (chopper->attackmode == 0) {
-							chopperTickPatrol(prop);
-						} else if (chopper->attackmode == 1) {
-							chopperTickAttackMode1(prop);
-						}
+					} else if (obj->flags & OBJFLAG_CHOPPER_INACTIVE) {
+						chopperTickIdle(prop);
+					} else if (chopper->attackmode == CHOPPERMODE_PATROL) {
+						chopperTickPatrol(prop);
+					} else if (chopper->attackmode == CHOPPERMODE_COMBAT) {
+						chopperTickCombat(prop);
 					}
 				}
 			} else {
@@ -57391,8 +57568,8 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 		} else if (obj->type == OBJTYPE_CHOPPER) {
 			struct chopperobj *chopper = (struct chopperobj *) obj;
 
-			if (chopper->attackmode != 2) {
-				chopper->attackmode = 1;
+			if (chopper->attackmode != CHOPPERMODE_FALL) {
+				chopper->attackmode = CHOPPERMODE_COMBAT;
 			}
 		} else if (obj->type == OBJTYPE_AUTOGUN) {
 			obj->flags |= OBJFLAG_40000000;
