@@ -250,7 +250,7 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->periminfo.width = 0;
 
 	g_Vars.players[index]->bondactivateorreload = 0;
-	g_Vars.players[index]->unk00d4 = 0;
+	g_Vars.players[index]->model00d4 = 0;
 	g_Vars.players[index]->isdead = false;
 	g_Vars.players[index]->aborted = false;
 	g_Vars.players[index]->bondhealth = 1;
@@ -555,8 +555,8 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->lastkilltime60_4 = -1;
 	g_Vars.players[index]->healthdisplaytime60 = 0;
 
-	g_Vars.players[index]->unk1994 = 0;
-	g_Vars.players[index]->unk1998 = 0;
+	g_Vars.players[index]->chrmuzzlelast[0] = 0;
+	g_Vars.players[index]->chrmuzzlelast[1] = 0;
 	g_Vars.players[index]->healthscale = 1;
 	g_Vars.players[index]->armourscale = 1;
 

@@ -931,8 +931,8 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
 		chr->aibot->unk0a4 = func0001ae44(chr->model);
-		chr->aibot->unk0a8 = 0;
-		chr->aibot->unk0ac = 0;
+		chr->aibot->angleoffset = 0;
+		chr->aibot->speedtheta = 0;
 		chr->aibot->unk0b0 = func0001ae44(chr->model);
 		chr->aibot->unk0b4 = 0;
 		chr->aibot->unk0b8 = 0;
@@ -2582,8 +2582,8 @@ bool func0f191448(struct chrdata *chr)
 {
 	struct aibot *aibot;
 	u32 stack;
-	f32 a;
-	f32 b;
+	f32 speedforwards;
+	f32 speedsideways;
 	f32 angle;
 	f32 angle2;
 
@@ -2599,12 +2599,12 @@ bool func0f191448(struct chrdata *chr)
 		angle += M_BADTAU;
 	}
 
-	a = aibot->unk06c * cosf(angle) - sinf(angle) * aibot->unk070;
-	b = aibot->unk06c * sinf(angle) + cosf(angle) * aibot->unk070;
+	speedforwards = aibot->unk06c * cosf(angle) - sinf(angle) * aibot->unk070;
+	speedsideways = aibot->unk06c * sinf(angle) + cosf(angle) * aibot->unk070;
 
-	func0f0c2a58(chr, chrGuessCrouchPos(chr), b, a, aibot->unk0ac, &aibot->unk0a8, &aibot->unk068);
+	func0f0c2a58(chr, chrGuessCrouchPos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->unk068);
 
-	angle2 = chrGetInverseTheta(chr) - aibot->unk0a8;
+	angle2 = chrGetInverseTheta(chr) - aibot->angleoffset;
 
 	if (angle2 < 0) {
 		angle2 += M_BADTAU;
@@ -3857,18 +3857,18 @@ glabel var7f1b8ef0
 //				}
 //			}
 //
-//			aibot->unk0ac = newangle - oldangle;
+//			aibot->speedtheta = newangle - oldangle;
 //
-//			if (aibot->unk0ac < 0) {
-//				aibot->unk0ac += M_BADTAU;
+//			if (aibot->speedtheta < 0) {
+//				aibot->speedtheta += M_BADTAU;
 //			}
 //
-//			if (aibot->unk0ac >= M_BADPI) {
-//				aibot->unk0ac -= M_BADTAU;
+//			if (aibot->speedtheta >= M_BADPI) {
+//				aibot->speedtheta -= M_BADTAU;
 //			}
 //
-//			aibot->unk0ac /= g_Vars.lvupdate240freal;
-//			aibot->unk0ac *= 16.236389160156f;
+//			aibot->speedtheta /= g_Vars.lvupdate240freal;
+//			aibot->speedtheta *= 16.236389160156f;
 //
 //			while (newangle >= M_BADTAU) {
 //				newangle -= M_BADTAU;
@@ -4367,7 +4367,7 @@ void func0f192a74(struct chrdata *chr)
 			aibot->unk1d4 -= g_Vars.diffframe60;
 		}
 
-		tmp = g_SimDifficulties[diff].unk10 * (aibot->unk0ac * g_Vars.lvupdate240f);
+		tmp = g_SimDifficulties[diff].unk10 * (aibot->speedtheta * g_Vars.lvupdate240f);
 
 		if (tmp < 0) {
 			tmp = -tmp;

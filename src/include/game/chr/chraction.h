@@ -140,7 +140,7 @@ f32 chrGetAimAngle(struct chrdata *chr);
 f32 func0f03e754(struct chrdata *chr);
 s32 func0f03e788(struct chrdata *chr, s32 turning, f32 arg2, f32 arg3, f32 arg4);
 bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, s32 arg2, s32 arg3, f32 arg4);
-u32 func0f03f778(void);
+void func0f03f778(struct chrdata *chr, struct attackanimconfig *animcfg, bool hasleftgun, bool hasrightgun, f32 shootrotx);
 f32 chrGetAimLimitAngle(f32 sqdist);
 void chrCalculateHit(struct chrdata *chr, bool *angleokptr, bool *hit, struct gset *gset);
 bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2);

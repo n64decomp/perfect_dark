@@ -874,8 +874,8 @@ struct aibot {
 	/*0x09d*/ u8 unk09d;
 	/*0x0a0*/ s32 unk0a0;
 	/*0x0a4*/ f32 unk0a4;
-	/*0x0a8*/ f32 unk0a8;
-	/*0x0ac*/ f32 unk0ac;
+	/*0x0a8*/ f32 angleoffset;
+	/*0x0ac*/ f32 speedtheta;
 	/*0x0b0*/ f32 unk0b0; // likely to be the turn angle to 360 degrees, in radians
 	/*0x0b4*/ f32 unk0b4;
 	/*0x0b8*/ f32 unk0b8;
@@ -1201,6 +1201,10 @@ struct act_throwgrenade {
 	/*0x38*/ bool needsequip;
 };
 
+struct act_bondmulti {
+	/*0x2c*/ struct attackanimconfig *animcfg;
+};
+
 struct act_druggedcomingup {
 	/*0x2c*/ s16 timer60;
 };
@@ -1268,6 +1272,7 @@ struct chrdata {
 		struct act_gopos act_gopos;
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;
+		struct act_bondmulti act_bondmulti;
 		// act_bot_attackstand uses act_attack
 		// act_bot_attackkneel uses act_attack
 		// act_bot_attackstrafe uses act_attack
@@ -2507,7 +2512,7 @@ struct player {
 	/*0x00c8*/ s32 badrockettime;
 	/*0x00cc*/ u32 gunspeed;
 	/*0x00d0*/ s32 bondactivateorreload;
-	/*0x00d4*/ u32 unk00d4;
+	/*0x00d4*/ struct model *model00d4;
 	/*0x00d8*/ bool isdead;
 	/*0x00dc*/ f32 bondhealth; // frac (range 0-1)
 	/*0x00e0*/ struct audiohandle *chokehandle;
@@ -2778,14 +2783,8 @@ struct player {
 	/*0x1970*/ f32 shootroty;
 	/*0x1974*/ char *award1;
 	/*0x1978*/ char *award2;
-	/*0x197c*/ u32 unk197c;
-	/*0x1980*/ u32 unk1980;
-	/*0x1984*/ u32 unk1984;
-	/*0x1988*/ u16 unk1988;
-	/*0x198c*/ u32 unk198c;
-	/*0x1990*/ u32 unk1990;
-	/*0x1994*/ u32 unk1994;
-	/*0x1998*/ u32 unk1998;
+	/*0x197c*/ struct coord chrmuzzlelastpos[2];
+	/*0x1994*/ s32 chrmuzzlelast[2];
 	/*0x199c*/ f32 healthscale;
 	/*0x19a0*/ f32 armourscale;
 	/*0x19a4*/ f32 speedgo;

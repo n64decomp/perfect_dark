@@ -519,7 +519,7 @@
 #define CHRHFLAG_00000100            0x00000100 // Not used in scripts
 #define CHRHFLAG_00000200            0x00000200 // Not used in scripts
 #define CHRHFLAG_PASSIVE             0x00000400
-#define CHRHFLAG_KEEP_CORPSE         0x00000800 // Appears to be misnamed
+#define CHRHFLAG_00000800            0x00000800
 #define CHRHFLAG_UNTARGETABLE        0x00001000
 #define CHRHFLAG_00002000            0x00002000 // Globals, Rescue guards once disguised
 #define CHRHFLAG_TRIGGER_BUDDY_WARP  0x00004000
@@ -544,6 +544,7 @@
 // chr->hidden2
 #define CHRH2FLAG_0001              0x0001
 #define CHRH2FLAG_0002              0x0002 // Equivalent to OBJFLAG3_00020000
+#define CHRH2FLAG_0004              0x0004
 #define CHRH2FLAG_BLUESIGHT         0x0008
 #define CHRH2FLAG_TICKDURINGAUTOCUT 0x0010
 #define CHRH2FLAG_0040              0x0040

@@ -6415,7 +6415,7 @@ void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 
 	if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
-			chr->hidden &= ~CHRHFLAG_KEEP_CORPSE;
+			chr->hidden &= ~CHRHFLAG_00000800;
 		}
 
 		if (model->anim
@@ -6429,7 +6429,7 @@ void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
 	if (chr->chrflags & CHRCFLAG_20000000) {
 		chr->chrflags &= ~CHRCFLAG_20000000;
 	} else if (arg2) {
-		if ((chr->hidden & CHRHFLAG_KEEP_CORPSE) == 0) {
+		if ((chr->hidden & CHRHFLAG_00000800) == 0) {
 			modelGetRootPosition(model, &chr->prevpos);
 			func0001ee18(model, arg1, 1);
 			func0001b3bc(model);
