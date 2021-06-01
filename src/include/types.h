@@ -7012,4 +7012,11 @@ struct rdptask {
 	u32 unk5c;
 };
 
+struct var8009ddec {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ struct coord pos;
+	/*0x10*/ f32 look[2];
+	/*0x18*/ s32 pad;
+};
+
 #endif

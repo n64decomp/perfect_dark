@@ -2868,7 +2868,7 @@ glabel var7f1b8e7cpf
 /*  f16b2f4:	24010002 */ 	li	$at,0x2
 /*  f16b2f8:	17210005 */ 	bne	$t9,$at,.PF0f16b310
 /*  f16b2fc:	00000000 */ 	nop
-/*  f16b300:	0fc3034d */ 	jal	func0f0c07c8
+/*  f16b300:	0fc3034d */ 	jal	currentPlayerRenderHud
 /*  f16b304:	02602025 */ 	move	$a0,$s3
 /*  f16b308:	1000000b */ 	b	.PF0f16b338
 /*  f16b30c:	00409825 */ 	move	$s3,$v0
@@ -4010,7 +4010,7 @@ Gfx *lvRender(Gfx *gdl)
 				}
 
 				if (var80075d60 == 2) {
-					gdl = func0f0c07c8(gdl);
+					gdl = currentPlayerRenderHud(gdl);
 				} else {
 					gdl = func0f0aeed8(gdl);
 
@@ -5458,7 +5458,7 @@ glabel var7f1b1fd4nb
 /*  f16500c:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f165010:	15e10007 */ 	bne	$t7,$at,.NB0f165030
 /*  f165014:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f165018:	0fc2f8ed */ 	jal	func0f0c07c8
+/*  f165018:	0fc2f8ed */ 	jal	currentPlayerRenderHud
 /*  f16501c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f165020:	0fc58d05 */ 	jal	func7f163414nb
 /*  f165024:	00402025 */ 	or	$a0,$v0,$zero

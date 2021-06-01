@@ -5282,7 +5282,7 @@ bool aiWarpJoToPad(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	warpBondToPad(pad_id);
+	currentPlayerPrepareWarpToPad(pad_id);
 
 	g_Vars.aioffset += 4;
 
@@ -5541,8 +5541,8 @@ bool ai00df(void)
 		s32 cmdindex = tagGetCommandIndex(tag);
 
 		if (cmdindex >= 0) {
-			u32 *ptr = setupGetPtrToCommandByIndex(cmdindex + tag->cmdoffset);
-			func0f0b9bac(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
+			void *ptr = setupGetPtrToCommandByIndex(cmdindex + tag->cmdoffset);
+			currentPlayerPrepareWarpType2(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
 		}
 	}
 
@@ -6018,7 +6018,7 @@ bool ai00f4(void)
 	s16 e = cmd[11] | (cmd[10] << 8);
 	s32 f = cmd[13] | (cmd[12] << 8);
 
-	func0f0b9c1c(f * M_BADTAU / 65536, c * M_BADTAU / 65536, a, b, e, d);
+	currentPlayerPrepareWarpType3(f * M_BADTAU / 65536, c * M_BADTAU / 65536, a, b, e, d);
 
 	g_Vars.aioffset += 14;
 

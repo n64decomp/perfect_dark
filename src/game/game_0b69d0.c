@@ -83,14 +83,14 @@ f32 var8009dddc;
 f32 var8009dde0;
 f32 var8009dde4;
 s16 g_WarpPadId;
-u32 *var8009ddec;
+struct var8009ddec *var8009ddec;
 f32 var8009ddf0;
 f32 var8009ddf4;
 f32 var8009ddf8;
 f32 var8009ddfc;
 f32 var8009de00;
 u32 var8009de04;
-u32 var8009de08;
+s32 var8009de08;
 u32 var8009de0c;
 s32 g_CutsceneCurAnimFrame60;
 
@@ -3317,7 +3317,7 @@ void func0f0b9afc(void)
 	}
 }
 
-void warpBondToPad(s16 pad)
+void currentPlayerPrepareWarpToPad(s16 pad)
 {
 	setTickMode(TICKMODE_WARP);
 	var80070744 = 0;
@@ -3326,7 +3326,7 @@ void warpBondToPad(s16 pad)
 	g_WarpPadId = pad;
 }
 
-void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2)
+void currentPlayerPrepareWarpType2(struct var8009ddec *cmd, s32 arg1, s32 arg2)
 {
 	setTickMode(TICKMODE_WARP);
 	var80070744 = 0;
@@ -3338,7 +3338,7 @@ void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2)
 	var8009de0c = arg2;
 }
 
-void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
+void currentPlayerPrepareWarpType3(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
 {
 	setTickMode(TICKMODE_WARP);
 	var80070744 = 0;
@@ -3355,7 +3355,7 @@ void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
 }
 
 GLOBAL_ASM(
-glabel func0f0b9cbc
+glabel currentPlayerExecutePreparedWarp
 .late_rodata
 glabel var7f1ad5cc
 .word 0x40c907a9
@@ -3581,6 +3581,88 @@ glabel var7f1ad5cc
 /*  f0ba008:	03e00008 */ 	jr	$ra
 /*  f0ba00c:	00000000 */ 	nop
 );
+
+// Mismatch: Can't match the last section's pos
+//void currentPlayerExecutePreparedWarp(void)
+//{
+//	struct pad pad; // 64
+//	struct coord pos = {0, 0, 0}; // 58
+//	struct coord look = {0, 0, 1}; // 4c
+//	struct coord up = {0, 1, 0}; // 40
+//	s32 room; // 3c
+//	struct coord memcampos; // 30
+//
+//	currentPlayerSetCameraMode(CAMERAMODE_THIRDPERSON);
+//
+//	// d4c
+//	if (g_WarpPadId >= 0) {
+//		// Used by device and holo training to warp player back to room
+//		padUnpack(g_WarpPadId, PADFIELD_POS | PADFIELD_ROOM, &pad);
+//
+//		pos.x = pad.pos.x;
+//		pos.y = pad.pos.y;
+//		pos.z = pad.pos.z;
+//
+//		memcampos.x = pad.pos.x;
+//		memcampos.y = pad.pos.y;
+//		memcampos.z = pad.pos.z;
+//
+//		room = pad.room;
+//	} else /*d98*/ if (var8009ddec) {
+//		// Used by AI command 00df, but that command is not used
+//		pos.x = var8009ddec->pos.x;
+//		pos.y = var8009ddec->pos.y;
+//		pos.z = var8009ddec->pos.z;
+//
+//		padUnpack(var8009ddec->pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+//
+//		room = pad.room;
+//
+//		memcampos.x = pad.pos.x;
+//		memcampos.y = pad.pos.y;
+//		memcampos.z = pad.pos.z;
+//
+//		if (var8009de08 != 1) {
+//			look.x = cosf(var8009ddec->look[1]) * sinf(var8009ddec->look[0]);
+//			look.y = sinf(var8009ddec->look[1]);
+//			look.z = cosf(var8009ddec->look[1]) * cosf(var8009ddec->look[0]);
+//		}
+//	} else {
+//		// e5c
+//		// Used by AI command 00f4, but that command is not used
+//		padUnpack(var8009de04, PADFIELD_POS | PADFIELD_ROOM, &pad);
+//
+//		room = pad.room;
+//
+//		memcampos.f[0] = pad.pos.f[0];
+//		memcampos.f[1] = pad.pos.f[1];
+//		memcampos.f[2] = pad.pos.f[2];
+//
+//		pos.f[0] = sinf(var8009ddf0); cosf(var8009ddf0);
+//		pos.f[0] = pos.f[0] * var8009ddf8 + memcampos.f[0];
+//		pos.f[1] = memcampos.f[1] + var8009de00 + var8009ddfc;
+//		pos.f[2] = cosf(var8009ddf0); sinf(var8009ddf0);
+//		pos.f[2] = pos.f[2] * var8009ddf8 + memcampos.f[2];
+//
+//		cosf(var8009ddf0);
+//		look.x = memcampos.f[0] - pos.f[0];
+//		look.y = memcampos.f[1] + var8009de00 - pos.f[1];
+//		sinf(var8009ddf0);
+//		look.z = memcampos.f[2] - pos.f[2];
+//
+//		var8009ddf0 += var8009ddf4 * g_Vars.lvupdate240freal;
+//
+//		while (var8009ddf0 >= M_BADTAU) {
+//			var8009ddf0 -= M_BADTAU;
+//		}
+//
+//		while (var8009ddf0 < 0) {
+//			var8009ddf0 += M_BADTAU;
+//		}
+//	}
+//
+//	func0f0c1ba4(&pos, &up, &look, &memcampos, room);
+//}
 
 void func0f0ba010(void)
 {
@@ -5878,7 +5960,7 @@ glabel var7f1ad6ac
 /*  f0be77c:	24070001 */ 	li	$a3,0x1
 /*  f0be780:	0fc3307a */ 	jal	bmoveTick
 /*  f0be784:	a438e358 */ 	sh	$t8,-0x1ca8($at)
-/*  f0be788:	0fc2e877 */ 	jal	func0f0b9cbc
+/*  f0be788:	0fc2e877 */ 	jal	currentPlayerExecutePreparedWarp
 /*  f0be78c:	00000000 */ 	nop
 /*  f0be790:	100005c3 */ 	b	.PF0f0bfea0
 /*  f0be794:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -7196,7 +7278,7 @@ glabel var7f1ad6ac
 /*  f0bfaf0:	00003025 */ 	move	$a2,$zero
 /*  f0bfaf4:	0fc3307a */ 	jal	bmoveTick
 /*  f0bfaf8:	24070001 */ 	li	$a3,0x1
-/*  f0bfafc:	0fc2e877 */ 	jal	func0f0b9cbc
+/*  f0bfafc:	0fc2e877 */ 	jal	currentPlayerExecutePreparedWarp
 /*  f0bfb00:	00000000 */ 	nop
 /*  f0bfb04:	100000e6 */ 	b	.PF0f0bfea0
 /*  f0bfb08:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -8279,7 +8361,7 @@ glabel var7f1ad6ac
 /*  f0be210:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f0be214:	0fc32f16 */ 	jal	bmoveTick
 /*  f0be218:	a439dde8 */ 	sh	$t9,%lo(g_WarpPadId)($at)
-/*  f0be21c:	0fc2e72f */ 	jal	func0f0b9cbc
+/*  f0be21c:	0fc2e72f */ 	jal	currentPlayerExecutePreparedWarp
 /*  f0be220:	00000000 */ 	nop
 /*  f0be224:	100005c3 */ 	b	.L0f0bf934
 /*  f0be228:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -9597,7 +9679,7 @@ glabel var7f1ad6ac
 /*  f0bf584:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0bf588:	0fc32f16 */ 	jal	bmoveTick
 /*  f0bf58c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0bf590:	0fc2e72f */ 	jal	func0f0b9cbc
+/*  f0bf590:	0fc2e72f */ 	jal	currentPlayerExecutePreparedWarp
 /*  f0bf594:	00000000 */ 	nop
 /*  f0bf598:	100000e6 */ 	b	.L0f0bf934
 /*  f0bf59c:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -10639,7 +10721,7 @@ glabel var7f1ad6ac
 /*  f0bbde8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f0bbdec:	0fc32522 */ 	jal	bmoveTick
 /*  f0bbdf0:	a42e25c8 */ 	sh	$t6,0x25c8($at)
-/*  f0bbdf4:	0fc2de66 */ 	jal	func0f0b9cbc
+/*  f0bbdf4:	0fc2de66 */ 	jal	currentPlayerExecutePreparedWarp
 /*  f0bbdf8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bbdfc:	100005c1 */ 	beqz	$zero,.NB0f0bd504
 /*  f0bbe00:	00000000 */ 	sll	$zero,$zero,0x0
@@ -11953,7 +12035,7 @@ glabel var7f1ad6ac
 /*  f0bd154:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0bd158:	0fc32522 */ 	jal	bmoveTick
 /*  f0bd15c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0bd160:	0fc2de66 */ 	jal	func0f0b9cbc
+/*  f0bd160:	0fc2de66 */ 	jal	currentPlayerExecutePreparedWarp
 /*  f0bd164:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bd168:	100000e6 */ 	beqz	$zero,.NB0f0bd504
 /*  f0bd16c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -12600,7 +12682,7 @@ glabel var7f1ad6ac
 //				func0f0b8ba0();
 //				g_WarpPadId = g_Vars.currentplayer->teleportcamerapad;
 //				bmoveTick(0, 0, 0, 1);
-//				func0f0b9cbc();
+//				currentPlayerExecutePreparedWarp();
 //			} else {
 //				// e230
 //				if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET) {
@@ -13187,7 +13269,7 @@ glabel var7f1ad6ac
 //					} else if (g_Vars.tickmode == TICKMODE_WARP) {
 //						func0f0b8ba0();
 //						bmoveTick(0, 0, 0, 1);
-//						func0f0b9cbc();
+//						currentPlayerExecutePreparedWarp();
 //					} else if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
 //						struct pad pad;
 //						f32 sp216;
@@ -14121,7 +14203,7 @@ Gfx *currentPlayerRenderShield(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *func0f0c07c8(Gfx *gdl)
+Gfx *currentPlayerRenderHud(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->cameramode == CAMERAMODE_THIRDPERSON) {
 		gdl = func0f0aeed8(gdl);
@@ -15160,7 +15242,7 @@ void allPlayersClearMemCamRoom(void)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-void func0f0c1e54(struct prop *prop, bool enable)
+void currentPlayerSetPerimEnabled(struct prop *prop, bool enable)
 {
 	u32 playernum = propGetPlayerNum(prop);
 

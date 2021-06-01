@@ -630,7 +630,7 @@ bool eyespyTryLaunch(void)
 	g_Vars.currentplayer->eyespy->vels[1] = 0;
 	g_Vars.currentplayer->eyespy->pitch = 0;
 
-	func0f0c1e54(g_Vars.currentplayer->prop, 0);
+	currentPlayerSetPerimEnabled(g_Vars.currentplayer->prop, false);
 
 	if (insafe || !cdTestAToB4(&testfrompos, g_Vars.currentplayer->prop->rooms,
 				&g_Vars.currentplayer->eyespy->prop->pos, CDTYPE_ALL, 15)) {
@@ -667,7 +667,7 @@ bool eyespyTryLaunch(void)
 #endif
 	}
 
-	func0f0c1e54(g_Vars.currentplayer->prop, true);
+	currentPlayerSetPerimEnabled(g_Vars.currentplayer->prop, true);
 	func0f065c44(g_Vars.currentplayer->eyespy->prop);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);

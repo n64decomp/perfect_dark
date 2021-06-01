@@ -33412,13 +33412,13 @@ void cctvTick(struct prop *camprop)
 
 	// Check line of sight
 	if (canseeplayer) {
-		func0f0c1e54(playerprop, false);
+		currentPlayerSetPerimEnabled(playerprop, false);
 
 		if (!hasLineOfSight(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms, 315, 8)) {
 			canseeplayer = false;
 		}
 
-		func0f0c1e54(playerprop, true);
+		currentPlayerSetPerimEnabled(playerprop, true);
 	}
 
 	if (canseeplayer) {

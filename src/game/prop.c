@@ -6633,7 +6633,7 @@ void propSetCollisionsEnabled(struct prop *prop, s32 enable)
 	if (prop->type == PROPTYPE_CHR) {
 		chrSetOrUnsetHiddenFlag00000100(prop->chr, enable);
 	} else if (prop->type == PROPTYPE_PLAYER) {
-		func0f0c1e54(prop, enable);
+		currentPlayerSetPerimEnabled(prop, enable);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
 		propObjSetOrUnsetHiddenFlag00400000(prop, enable);
 	}
@@ -6984,7 +6984,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 		if (sp4c) {
 			playerprop = g_Vars.currentplayer->prop;
 
-			func0f0c1e54(playerprop, false);
+			currentPlayerSetPerimEnabled(playerprop, false);
 
 			if (arg5) {
 				lVar3 = func0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x32, 16);
@@ -7025,7 +7025,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 				}
 			}
 
-			func0f0c1e54(playerprop, true);
+			currentPlayerSetPerimEnabled(playerprop, true);
 		}
 	}
 
