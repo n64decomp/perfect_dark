@@ -2468,7 +2468,7 @@ glabel var7f1b8e7cpf
 /*  f16ad38:	00409825 */ 	move	$s3,$v0
 /*  f16ad3c:	0fc010c5 */ 	jal	func0f004314
 /*  f16ad40:	00000000 */ 	nop
-/*  f16ad44:	0fc18ca3 */ 	jal	func0f06302c
+/*  f16ad44:	0fc18ca3 */ 	jal	propsTick
 /*  f16ad48:	02202025 */ 	move	$a0,$s1
 /*  f16ad4c:	0fc619c9 */ 	jal	scenarioCallback14
 /*  f16ad50:	00002025 */ 	move	$a0,$zero
@@ -3882,7 +3882,7 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = func0f11f984(gdl);
 				roomsTick();
 				func0f004314();
-				func0f06302c(islastplayer);
+				propsTick(islastplayer);
 				scenarioCallback14(NULL);
 				func0f0601b0();
 				autoaimTick();
@@ -5054,7 +5054,7 @@ glabel var7f1b1fd4nb
 /*  f164a40:	00409825 */ 	or	$s3,$v0,$zero
 /*  f164a44:	0fc01017 */ 	jal	func0f004314
 /*  f164a48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164a4c:	0fc188ac */ 	jal	func0f06302c
+/*  f164a4c:	0fc188ac */ 	jal	propsTick
 /*  f164a50:	02202025 */ 	or	$a0,$s1,$zero
 /*  f164a54:	0fc5ff30 */ 	jal	scenarioCallback14
 /*  f164a58:	00002025 */ 	or	$a0,$zero,$zero
@@ -8137,7 +8137,7 @@ glabel var7f1b8ed0pf
 /*  f16d878:	8f39d670 */ 	lw	$t9,-0x2990($t9)
 /*  f16d87c:	17200003 */ 	bnez	$t9,.PF0f16d88c
 /*  f16d880:	00000000 */ 	nop
-/*  f16d884:	0fc078dc */ 	jal	func0f01e250
+/*  f16d884:	0fc078dc */ 	jal	propsTick2
 /*  f16d888:	00000000 */ 	nop
 .PF0f16d88c:
 /*  f16d88c:	0c0046c5 */ 	jal	func00011d84
@@ -8514,8 +8514,8 @@ void lvTick(void)
 		menuTickAll();
 		scenarioTick();
 
-		if (var8005d9d0 == 0) {
-			func0f01e250();
+		if (!g_MainIsEndscreen) {
+			propsTick2();
 		}
 
 		func00011d84();
@@ -9737,7 +9737,7 @@ glabel lvTick
 /*  f1677e4:	8deff2f0 */ 	lw	$t7,-0xd10($t7)
 /*  f1677e8:	15e00003 */ 	bnez	$t7,.NB0f1677f8
 /*  f1677ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1677f0:	0fc077cc */ 	jal	func0f01e250
+/*  f1677f0:	0fc077cc */ 	jal	propsTick2
 /*  f1677f4:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f1677f8:
 /*  f1677f8:	0c004848 */ 	jal	func00011d84

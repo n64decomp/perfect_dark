@@ -32,16 +32,16 @@ void gvarsInitProps(void)
 	func0f00c390();
 
 	if (g_Vars.normmplayerisrunning) {
-		g_Vars.numpropstateindexes = 4;
+		g_Vars.numpropstates = 4;
 	} else {
-		g_Vars.numpropstateindexes = 7;
+		g_Vars.numpropstates = 7;
 	}
 
-	g_Vars.nextpropstateindex = 0;
-	g_Vars.unk00035a = 0;
-	g_Vars.unk00035b = 0;
-	g_Vars.unk00035c = 0xfffe;
-	g_Vars.unk00035e = 0xffff;
+	g_Vars.allocstateindex = 0;
+	g_Vars.runstateindex = 0;
+	g_Vars.alwaystick = 0;
+	g_Vars.updateframe = 0xfffe;
+	g_Vars.prevupdateframe = 0xffff;
 
 	for (i = 0; i < ARRAYCOUNT(g_Vars.propstates); i++) {
 		g_Vars.propstates[i].propcount = 0;

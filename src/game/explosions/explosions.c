@@ -399,7 +399,7 @@ glabel var7f1b5584
 /*  f12a184:	001080c0 */ 	sll	$s0,$s0,0x3
 /*  f12a188:	01f0c021 */ 	addu	$t8,$t7,$s0
 /*  f12a18c:	8f040000 */ 	lw	$a0,0x0($t8)
-/*  f12a190:	0fc18ad9 */ 	jal	func0f062b64
+/*  f12a190:	0fc18ad9 */ 	jal	propExecuteTickOperation
 /*  f12a194:	00e02825 */ 	or	$a1,$a3,$zero
 /*  f12a198:	8e390000 */ 	lw	$t9,0x0($s1)
 /*  f12a19c:	03306021 */ 	addu	$t4,$t9,$s0
@@ -5093,7 +5093,7 @@ glabel var7f1b55a8
 );
 #endif
 
-u32 explosionUpdateZ(struct prop *prop)
+u32 explosionTick(struct prop *prop)
 {
 	Mtxf *matrix = currentPlayerGetMatrix1740();
 
@@ -5107,7 +5107,7 @@ u32 explosionUpdateZ(struct prop *prop)
 
 	prop->flags |= PROPFLAG_40 | PROPFLAG_02;
 
-	return 0;
+	return TICKOP_NONE;
 }
 
 Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)

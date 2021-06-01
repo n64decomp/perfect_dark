@@ -3338,8 +3338,8 @@ glabel var7f1ad8e4
 .L0f0caa4c:
 /*  f0caa4c:	8f281a24 */ 	lw	$t0,0x1a24($t9)
 /*  f0caa50:	150000b5 */ 	bnez	$t0,.L0f0cad28
-/*  f0caa54:	3c098006 */ 	lui	$t1,%hi(var8005d9d0)
-/*  f0caa58:	8d29d9d0 */ 	lw	$t1,%lo(var8005d9d0)($t1)
+/*  f0caa54:	3c098006 */ 	lui	$t1,%hi(g_MainIsEndscreen)
+/*  f0caa58:	8d29d9d0 */ 	lw	$t1,%lo(g_MainIsEndscreen)($t1)
 /*  f0caa5c:	3c014270 */ 	lui	$at,0x4270
 /*  f0caa60:	152000b1 */ 	bnez	$t1,.L0f0cad28
 /*  f0caa64:	00000000 */ 	nop
@@ -6489,8 +6489,8 @@ glabel var7f1ad8e4
 .L0f0caa4c:
 /*  f0caa4c:	8f281a24 */ 	lw	$t0,0x1a24($t9)
 /*  f0caa50:	150000b5 */ 	bnez	$t0,.L0f0cad28
-/*  f0caa54:	3c098006 */ 	lui	$t1,%hi(var8005d9d0)
-/*  f0caa58:	8d29d9d0 */ 	lw	$t1,%lo(var8005d9d0)($t1)
+/*  f0caa54:	3c098006 */ 	lui	$t1,%hi(g_MainIsEndscreen)
+/*  f0caa58:	8d29d9d0 */ 	lw	$t1,%lo(g_MainIsEndscreen)($t1)
 /*  f0caa5c:	3c014270 */ 	lui	$at,0x4270
 /*  f0caa60:	152000b1 */ 	bnez	$t1,.L0f0cad28
 /*  f0caa64:	00000000 */ 	nop
@@ -11535,7 +11535,7 @@ glabel var7f1ad8e4
 //	}
 //
 //	// aa48
-//	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && var8005d9d0 == 0) {
+//	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && g_MainIsEndscreen == 0) {
 //		spb0 = 60;
 //
 //		// FarSight in secondary function

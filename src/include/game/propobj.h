@@ -106,7 +106,7 @@ void func0f06a730(struct defaultobj *obj, struct pad *newpad, Mtxf *matrix, s16 
 u32 func0f06ab60(void);
 void objEndFlight(struct defaultobj *obj);
 void func0f06ac90(struct prop *prop);
-void objRemove2(struct defaultobj *obj, bool freeprop, bool onlyunref);
+void objRemove2(struct defaultobj *obj, bool freeprop, bool regen);
 void objRemove(struct defaultobj *obj, bool freeprop);
 u32 func0f06b36c(void);
 bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3);

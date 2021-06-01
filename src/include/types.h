@@ -46,11 +46,11 @@ struct propstate {
 	/*0x02*/ u16 chrpropcount;
 	/*0x04*/ u16 foregroundpropcount;
 	/*0x06*/ u16 foregroundchrpropcount;
-	/*0x08*/ u32 updatetime;
-	/*0x0c*/ u32 chrupdatetime;
-	/*0x10*/ u32 slotupdate240;
-	/*0x14*/ u32 slotupdate60error;
-	/*0x18*/ u32 lastupdateframe;
+	/*0x08*/ s32 updatetime;
+	/*0x0c*/ s32 chrupdatetime;
+	/*0x10*/ s32 slotupdate240;
+	/*0x14*/ s32 slotupdate60error;
+	/*0x18*/ u16 lastupdateframe;
 };
 
 struct playerstats {
@@ -167,12 +167,12 @@ struct g_vars {
 	/*00034c*/ struct prop **unk00034c;
 	/*000350*/ struct prop *unk000350;
 	/*000354*/ struct prop *list2head; // prev pointer points to list1tail
-	/*000358*/ u8 numpropstateindexes;
-	/*000359*/ u8 nextpropstateindex;
-	/*00035a*/ u8 unk00035a;
-	/*00035b*/ u8 unk00035b;
-	/*00035c*/ u16 unk00035c;
-	/*00035e*/ u16 unk00035e;
+	/*000358*/ u8 numpropstates;
+	/*000359*/ u8 allocstateindex;
+	/*00035a*/ u8 runstateindex;
+	/*00035b*/ u8 alwaystick;
+	/*00035c*/ u16 updateframe;
+	/*00035e*/ u16 prevupdateframe;
 	/*000360*/ struct propstate propstates[7];
 	/*000424*/ struct chrdata *chrdata;
 	/*000428*/ struct truckobj *truck;
@@ -409,13 +409,13 @@ struct prop {
 	/*0x20*/ struct prop *next;
 	/*0x24*/ struct prop *prev;
 	/*0x28*/ s16 rooms[8];
-	/*0x38*/ u16 unk38;
-	/*0x3a*/ s16 unk3a;
-	/*0x3c*/ u8 unk3c;
+	/*0x38*/ u16 lastupdateframe;
+	/*0x3a*/ u16 propupdate240;
+	/*0x3c*/ u8 propupdate60err;
 	/*0x3d*/ u8 propstateindex;
 	/*0x3e*/ u8 unk3e;
-	/*0x3f*/ u8 unk3f_00 : 1;
-	/*0x3f*/ u8 unk3f_01 : 1;
+	/*0x3f*/ u8 forcetick : 1;
+	/*0x3f*/ u8 backgrounded : 1;
 	/*0x3f*/ u8 unk3f_02 : 1;
 	/*0x3f*/ u8 inlist1 : 1;
 	/*0x3f*/ u8 unk3f_04 : 1;

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f01e250(void);
+void propsTick2(void);
 void chrSetChrnum(struct chrdata *chr, s16 chrnum);
 void chrDeregister(s32 chrnum);
 void chrCalculatePushPos(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3);
@@ -25,8 +25,8 @@ void chrUpdateCloak(struct chrdata *chr);
 s32 func0f022be4(struct chrdata *chr);
 void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop);
 void chrTickPoisoned(struct chrdata *chr);
-bool propchrDoFireslotThing(struct prop *prop);
-bool func0f023098(struct prop *prop);
+bool chrTickBeams(struct prop *prop);
+s32 func0f023098(struct prop *prop);
 void chrDropItems(struct chrdata *chr);
 void chrSetHudpieceVisible(struct chrdata *chr, bool visible);
 void chrDropWeapons(struct chrdata *chr);

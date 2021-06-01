@@ -23211,9 +23211,9 @@ void func0f0482cc(u32 ailistid)
 	prop = g_Vars.list1head;
 
 	while (prop) {
-		prop->unk38 = 0xffff;
-		prop->unk3a = 0;
-		prop->unk3c = 2;
+		prop->lastupdateframe = 0xffff;
+		prop->propupdate240 = 0;
+		prop->propupdate60err = 2;
 
 		prop = prop->next;
 	}

@@ -13,7 +13,7 @@ void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u3
 void smokeClearForProp(struct prop *prop);
 struct smoke *smokeCreateSimple(struct coord *pos, s16 *rooms, s16 type);
 u32 func0f12e848(struct prop *prop);
-u32 smokeUpdateZ(struct prop *prop);
+u32 smokeTick(struct prop *prop);
 Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha);
 void smokeClearSomeTypes(void);
 

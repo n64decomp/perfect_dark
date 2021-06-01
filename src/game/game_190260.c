@@ -986,7 +986,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
+			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 
 			if (qty) {
 				dprint();
@@ -1037,7 +1037,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			func0f0939f8(NULL, prop, SFX_PICKUP_AMMO, -1,
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
+			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		}
 		return 2;
 	case OBJTYPE_WEAPON:
@@ -1078,7 +1078,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 					result = 1;
 				}
 
-				objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
+				objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 			}
 
 			return result;
@@ -1091,7 +1091,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 
 			chrSetShield(chr, shield->amount * 8);
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
+			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		}
 		return 3;
 	case OBJTYPE_BASIC:
@@ -2549,7 +2549,7 @@ void func0f19124c(struct chrdata *chr)
 							|| obj->projectile->unk090) {
 						if (mpObjIsSafe(obj)) {
 							if (func0f190be4(prop, chr)) {
-								func0f062b64(prop, 1);
+								propExecuteTickOperation(prop, 1);
 							} else {
 								dprint();
 							}
@@ -3737,11 +3737,11 @@ glabel var7f1b8ef0
 #endif
 
 // Mismatch: updateable is calculated differently
-//bool aibotTick(struct prop *prop)
+//s32 aibotTick(struct prop *prop)
 //{
 //	struct chrdata *chr = prop->chr;
 //	struct aibot *aibot = chr->aibot;
-//	bool result = false;
+//	s32 result = TICKOP_NONE;
 //	bool updateable;
 //	f32 oldangle;
 //	f32 newangle;

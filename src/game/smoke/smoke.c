@@ -2033,7 +2033,7 @@ glabel func0f12e848
 /*  f12f180:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
 
-u32 smokeUpdateZ(struct prop *prop)
+u32 smokeTick(struct prop *prop)
 {
 	Mtxf *matrix = currentPlayerGetMatrix1740();
 
@@ -2047,7 +2047,7 @@ u32 smokeUpdateZ(struct prop *prop)
 
 	prop->flags |= PROPFLAG_40 | PROPFLAG_02;
 
-	return 0;
+	return TICKOP_NONE;
 }
 
 Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool withalpha)

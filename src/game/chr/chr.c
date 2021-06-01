@@ -104,14 +104,14 @@ u32 var800629cc = 0x00000000;
 u32 var800629d0 = 0x00000000;
 u32 var800629d4 = 0x00000000;
 
-void func0f01e250(void)
+void propsTick2(void)
 {
 	s32 i;
 	struct prop *prop;
 	struct prop *next;
 	struct prop *next2;
 	s32 done;
-	s32 value;
+	s32 tickop;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		g_Vars.players[i]->bondextrapos.x = 0;
@@ -127,27 +127,27 @@ void func0f01e250(void)
 	do {
 		next = prop->next;
 		done = next == g_Vars.list2head;
-		value = 0;
+		tickop = TICKOP_NONE;
 
 		if (prop->type == PROPTYPE_CHR) {
-			value = propchrDoFireslotThing(prop);
+			tickop = chrTickBeams(prop);
 		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-			value = func0f07e474(prop);
+			tickop = func0f07e474(prop);
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			value = func0f12bbdc(prop);
+			tickop = func0f12bbdc(prop);
 		} else if (prop->type == PROPTYPE_SMOKE) {
-			value = func0f12e848(prop);
+			tickop = func0f12e848(prop);
 		} else if (prop->type == PROPTYPE_PLAYER) {
-			value = func0f0c228c(prop);
+			tickop = playerTickBeams(prop);
 		}
 
-		if (value == 5) {
+		if (tickop == TICKOP_5) {
 			next2 = next;
 		} else {
 			next2 = prop->next;
 			done = next2 == g_Vars.list2head;
 
-			if (value == 3) {
+			if (tickop == TICKOP_RETICK) {
 				propRemoveFromCurrentList(prop);
 				propAppendToList1(prop);
 
@@ -156,7 +156,7 @@ void func0f01e250(void)
 					done = false;
 				}
 			} else {
-				func0f062b64(prop, value);
+				propExecuteTickOperation(prop, tickop);
 			}
 		}
 
@@ -6939,7 +6939,7 @@ u32 var80062a40 = 0x00000000;
 u32 var80062a44 = 0x00000000;
 u8 var80062a48[] = { 64, 10, 10 };
 
-bool propchrDoFireslotThing(struct prop *prop)
+bool chrTickBeams(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
 

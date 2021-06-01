@@ -2987,7 +2987,7 @@
 // obj->hidden2
 #define OBJH2FLAG_RENDEROPAQUE 0x01
 #define OBJH2FLAG_RENDERALPHA  0x02 // must be immediately after OBJH2FLAG_RENDEROPAQUE
-#define OBJH2FLAG_04           0x04
+#define OBJH2FLAG_CANREGEN     0x04
 #define OBJH2FLAG_08           0x08
 #define OBJH2FLAG_10           0x10
 #define OBJH2FLAG_40           0x40
@@ -3713,6 +3713,13 @@
 #define TICKMODE_5        5
 #define TICKMODE_CUTSCENE 6
 #define TICKMODE_AUTOWALK 7
+
+#define TICKOP_NONE         0
+#define TICKOP_FREE         1
+#define TICKOP_DISABLE      2
+#define TICKOP_RETICK       3
+#define TICKOP_GIVETOPLAYER 4
+#define TICKOP_5            5
 
 #define TILEFLAG_0001           0x0001 // Editor: Traversable
 #define TILEFLAG_0002           0x0002

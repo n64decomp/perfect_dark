@@ -4536,7 +4536,7 @@ bool func0f0bc4c0(void)
 		return true;
 	}
 
-	return (g_InCutscene && !var8005d9d0) || menuGetRoot() == MENUROOT_COOPCONTINUE;
+	return (g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE;
 }
 #endif
 
@@ -4547,7 +4547,7 @@ s16 currentPlayerGetViewportWidth(void)
 #if VERSION >= VERSION_NTSC_1_0
 	if (func0f0bc4c0() == 0)
 #else
-	if ((!g_InCutscene || var8005d9d0) && menuGetRoot() != MENUROOT_COOPCONTINUE)
+	if ((!g_InCutscene || g_MainIsEndscreen) && menuGetRoot() != MENUROOT_COOPCONTINUE)
 #endif
 	{
 		if (PLAYERCOUNT() >= 3) {
@@ -4586,7 +4586,7 @@ s16 currentPlayerGetViewportLeft(void)
 #if VERSION >= VERSION_NTSC_1_0
 	s32 something = !func0f0bc4c0();
 #else
-	s32 something = !((g_InCutscene && !var8005d9d0) || menuGetRoot() == MENUROOT_COOPCONTINUE);
+	s32 something = !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
 #endif
 	s16 left;
 
@@ -4627,7 +4627,7 @@ s16 currentPlayerGetViewportHeight(void)
 #if VERSION >= VERSION_NTSC_1_0
 			&& !func0f0bc4c0()
 #else
-			&& !((g_InCutscene && !var8005d9d0) || menuGetRoot() == MENUROOT_COOPCONTINUE)
+			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
 			) {
 		s16 tmp = g_ViModes[g_ViMode].fullheight;
@@ -4679,7 +4679,7 @@ s16 currentPlayerGetViewportTop(void)
 #if VERSION >= VERSION_NTSC_1_0
 			&& !func0f0bc4c0()
 #else
-			&& !((g_InCutscene && !var8005d9d0) || menuGetRoot() == MENUROOT_COOPCONTINUE)
+			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
 			) {
 		top = g_ViModes[g_ViMode].fulltop;
@@ -7901,10 +7901,10 @@ glabel var7f1ad6ac
 .L0f0bdca8:
 /*  f0bdca8:	3c0f8007 */ 	lui	$t7,%hi(g_InCutscene)
 /*  f0bdcac:	8def0764 */ 	lw	$t7,%lo(g_InCutscene)($t7)
-/*  f0bdcb0:	3c188006 */ 	lui	$t8,%hi(var8005d9d0)
+/*  f0bdcb0:	3c188006 */ 	lui	$t8,%hi(g_MainIsEndscreen)
 /*  f0bdcb4:	55e0000a */ 	bnezl	$t7,.L0f0bdce0
 /*  f0bdcb8:	8e6b0284 */ 	lw	$t3,0x284($s3)
-/*  f0bdcbc:	8f18d9d0 */ 	lw	$t8,%lo(var8005d9d0)($t8)
+/*  f0bdcbc:	8f18d9d0 */ 	lw	$t8,%lo(g_MainIsEndscreen)($t8)
 /*  f0bdcc0:	57000007 */ 	bnezl	$t8,.L0f0bdce0
 /*  f0bdcc4:	8e6b0284 */ 	lw	$t3,0x284($s3)
 /*  f0bdcc8:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -12456,7 +12456,7 @@ glabel var7f1ad6ac
 //	// dc9c
 //	if ((g_Vars.tickmode == TICKMODE_0 || g_Vars.tickmode == TICKMODE_NORMAL)
 //			&& g_InCutscene == 0
-//			&& var8005d9d0 == 0) {
+//			&& g_MainIsEndscreen == 0) {
 //		g_Vars.currentplayer->bondviewlevtime60 += g_Vars.lvupdate240_60;
 //	}
 //
@@ -15300,7 +15300,7 @@ s32 getMissionTime(void)
 #endif
 }
 
-s32 func0f0c228c(struct prop *prop)
+s32 playerTickBeams(struct prop *prop)
 {
 	beamTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[0].beam);
 	beamTick(&g_Vars.players[propGetPlayerNum(prop)]->hands[1].beam);
@@ -15322,7 +15322,7 @@ s32 func0f0c228c(struct prop *prop)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0c2364
+glabel playerTick
 .late_rodata
 glabel var7f1ad700
 .word 0x40c907a9
@@ -15816,7 +15816,7 @@ glabel var7f1ad710
 );
 #else
 GLOBAL_ASM(
-glabel func0f0c2364
+glabel playerTick
 .late_rodata
 glabel var7f1ad700
 .word 0x40c907a9

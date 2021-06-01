@@ -175,23 +175,23 @@ struct prop *propAllocate(void)
 		prop->timetoregen = 0;
 		prop->rooms[0] = -1;
 		prop->chr = NULL;
-		prop->propstateindex = g_Vars.nextpropstateindex;
+		prop->propstateindex = g_Vars.allocstateindex;
 		prop->unk3e = 0;
-		prop->unk3f_00 = 1;
+		prop->forcetick = true;
 		prop->unk3f_02 = 0;
 		prop->inlist1 = false;
-		prop->unk3f_01 = 0;
-		prop->unk38 = 0xffff;
-		prop->unk3a = 0;
-		prop->unk3c = 2;
+		prop->backgrounded = false;
+		prop->lastupdateframe = 0xffff;
+		prop->propupdate240 = 0;
+		prop->propupdate60err = 2;
 		prop->unk40 = 0;
 		prop->unk44 = 0;
 		g_Vars.propstates[prop->propstateindex].propcount++;
 
-		g_Vars.nextpropstateindex++;
+		g_Vars.allocstateindex++;
 
-		if (g_Vars.nextpropstateindex >= g_Vars.numpropstateindexes) {
-			g_Vars.nextpropstateindex = 0;
+		if (g_Vars.allocstateindex >= g_Vars.numpropstates) {
+			g_Vars.allocstateindex = 0;
 		}
 
 		return prop;
@@ -2530,11 +2530,11 @@ void handsTickAttack(void)
 	}
 }
 
-void func0f062b64(struct prop *prop, s32 arg1)
+void propExecuteTickOperation(struct prop *prop, s32 op)
 {
-	if (arg1 == 1) {
+	if (op == TICKOP_FREE) {
 		if ((prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ)
-				&& prop->obj && (prop->obj->hidden2 & OBJH2FLAG_04)) {
+				&& prop->obj && (prop->obj->hidden2 & OBJH2FLAG_CANREGEN)) {
 			struct defaultobj *obj = prop->obj;
 
 			prop->timetoregen = PALDOWN(1200);
@@ -2556,11 +2556,11 @@ void func0f062b64(struct prop *prop, s32 arg1)
 			propHide(prop);
 			propFree(prop);
 		}
-	} else if (arg1 == 2) {
+	} else if (op == TICKOP_DISABLE) {
 		func0f065c44(prop);
 		propRemoveFromCurrentList(prop);
 		propHide(prop);
-	} else if (arg1 == 4) {
+	} else if (op == TICKOP_GIVETOPLAYER) {
 		func0f065c44(prop);
 		propRemoveFromCurrentList(prop);
 		propHide(prop);
@@ -2721,7 +2721,7 @@ void func0f062dd0(void)
 bool currentPlayerInteract(bool eyespy)
 {
 	struct prop *prop;
-	bool value = false;
+	bool op = TICKOP_NONE;
 
 	prop = currentPlayerFindPropForInteract(eyespy);
 
@@ -2729,10 +2729,10 @@ bool currentPlayerInteract(bool eyespy)
 		switch (prop->type) {
 		case PROPTYPE_OBJ:
 		case PROPTYPE_WEAPON:
-			value = propobjInteract(prop);
+			op = propobjInteract(prop);
 			break;
 		case PROPTYPE_DOOR:
-			value = propdoorInteract(prop);
+			op = propdoorInteract(prop);
 			break;
 		case PROPTYPE_CHR:
 		case PROPTYPE_EYESPY:
@@ -2742,7 +2742,7 @@ bool currentPlayerInteract(bool eyespy)
 			break;
 		}
 
-		func0f062b64(prop, value);
+		propExecuteTickOperation(prop, op);
 
 		return false;
 	}
@@ -2810,25 +2810,74 @@ void propMoveFromList2To1(struct prop *prop)
 	propPrependToList1(prop);
 }
 
-u32 var80069884 = 0x00000001;
-u32 var80069888 = 0x01010101;
-u32 var8006988c = 0x01000101;
-u32 var80069890 = 0x01010100;
-u32 var80069894 = 0x00010101;
-u32 var80069898 = 0x01010000;
-u32 var8006989c = 0x00000000;
-u32 var800698a0 = 0x00000100;
-u32 var800698a4 = 0x00000000;
-u32 var800698a8 = 0x01010000;
-u32 var800698ac = 0x00000101;
-u32 var800698b0 = 0x01000101;
-u32 var800698b4 = 0x00000000;
-u32 var800698b8 = 0x00000100;
-u32 var800698bc = 0x00000001;
+// 0 = will tick when backgrounded
+// 1 = will not tick when backgrounded
+u8 g_ObjsPausedWhenBackgrounded[] = {
+	0, // dummy element because objects are 1-indexed
+	0, // OBJTYPE_DOOR
+	0, // OBJTYPE_DOORSCALE
+	1, // OBJTYPE_BASIC
+	1, // OBJTYPE_KEY
+	1, // OBJTYPE_ALARM
+	1, // OBJTYPE_CCTV
+	1, // OBJTYPE_AMMOCRATE
+	1, // OBJTYPE_WEAPON
+	0, // OBJTYPE_CHR
+	1, // OBJTYPE_SINGLEMONITOR
+	1, // OBJTYPE_MULTIMONITOR
+	1, // OBJTYPE_HANGINGMONITORS
+	1, // OBJTYPE_AUTOGUN
+	1, // OBJTYPE_LINKGUNS
+	0, // OBJTYPE_DEBRIS
+	0, // OBJTYPE_10
+	1, // OBJTYPE_HAT
+	1, // OBJTYPE_GRENADEPROB
+	1, // OBJTYPE_LINKLIFTDOOR
+	1, // OBJTYPE_MULTIAMMOCRATE
+	1, // OBJTYPE_SHIELD
+	0, // OBJTYPE_TAG
+	0, // OBJTYPE_BEGINOBJECTIVE
+	0, // OBJTYPE_ENDOBJECTIVE
+	0, // OBJECTIVETYPE_DESTROYOBJ
+	0, // OBJECTIVETYPE_COMPFLAGS
+	0, // OBJECTIVETYPE_FAILFLAGS
+	0, // OBJECTIVETYPE_COLLECTOBJ
+	0, // OBJECTIVETYPE_THROWOBJ
+	1, // OBJECTIVETYPE_HOLOGRAPH
+	0, // OBJECTIVETYPE_1F
+	0, // OBJECTIVETYPE_ENTERROOM
+	0, // OBJECTIVETYPE_ATTACHOBJ
+	0, // OBJTYPE_22
+	0, // OBJTYPE_BRIEFING
+	1, // OBJTYPE_GASBOTTLE
+	1, // OBJTYPE_RENAMEOBJ
+	0, // OBJTYPE_PADLOCKEDDOOR
+	0, // OBJTYPE_TRUCK
+	0, // OBJTYPE_HELI
+	0, // OBJTYPE_29
+	1, // OBJTYPE_GLASS
+	1, // OBJTYPE_SAFE
+	1, // OBJTYPE_SAFEITEM
+	0, // OBJTYPE_TANK
+	1, // OBJTYPE_CAMERAPOS
+	1, // OBJTYPE_TINTEDGLASS
+	0, // OBJTYPE_LIFT
+	0, // OBJTYPE_CONDITIONALSCENERY
+	0, // OBJTYPE_BLOCKEDPATH
+	0, // OBJTYPE_HOVERBIKE
+	0, // OBJTYPE_END
+	0, // OBJTYPE_HOVERPROP
+	1, // OBJTYPE_FAN
+	0, // OBJTYPE_HOVERCAR
+	0, // OBJTYPE_PADEFFECT
+	0, // OBJTYPE_CHOPPER
+	0, // OBJTYPE_MINE
+	1, // OBJTYPE_ESCASTEP
+};
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f06302c
+glabel propsTick
 .late_rodata
 glabel var7f1ab184pf
 .word 0x3f99999a
@@ -3221,7 +3270,7 @@ glabel var7f1ab190pf
 .PF0f0637e0:
 /*  f0637e0:	54610006 */ 	bnel	$v1,$at,.PF0f0637fc
 /*  f0637e4:	24010008 */ 	li	$at,0x8
-/*  f0637e8:	0fc4b436 */ 	jal	explosionUpdateZ
+/*  f0637e8:	0fc4b436 */ 	jal	explosionTick
 /*  f0637ec:	02002025 */ 	move	$a0,$s0
 /*  f0637f0:	10000010 */ 	b	.PF0f063834
 /*  f0637f4:	00403025 */ 	move	$a2,$v0
@@ -3229,7 +3278,7 @@ glabel var7f1ab190pf
 .PF0f0637fc:
 /*  f0637fc:	54610006 */ 	bnel	$v1,$at,.PF0f063818
 /*  f063800:	24010006 */ 	li	$at,0x6
-/*  f063804:	0fc4bf31 */ 	jal	smokeUpdateZ
+/*  f063804:	0fc4bf31 */ 	jal	smokeTick
 /*  f063808:	02002025 */ 	move	$a0,$s0
 /*  f06380c:	10000009 */ 	b	.PF0f063834
 /*  f063810:	00403025 */ 	move	$a2,$v0
@@ -3239,7 +3288,7 @@ glabel var7f1ab190pf
 /*  f06381c:	962e035e */ 	lhu	$t6,0x35e($s1)
 /*  f063820:	0fc5260c */ 	jal	splatTick
 /*  f063824:	02002025 */ 	move	$a0,$s0
-/*  f063828:	0fc30a3b */ 	jal	func0f0c2364
+/*  f063828:	0fc30a3b */ 	jal	playerTick
 /*  f06382c:	02002025 */ 	move	$a0,$s0
 /*  f063830:	00403025 */ 	move	$a2,$v0
 .PF0f063834:
@@ -3396,7 +3445,7 @@ glabel var7f1ab190pf
 .PF0f063a60:
 /*  f063a60:	54610006 */ 	bnel	$v1,$at,.PF0f063a7c
 /*  f063a64:	24010008 */ 	li	$at,0x8
-/*  f063a68:	0fc4b436 */ 	jal	explosionUpdateZ
+/*  f063a68:	0fc4b436 */ 	jal	explosionTick
 /*  f063a6c:	02002025 */ 	move	$a0,$s0
 /*  f063a70:	10000010 */ 	b	.PF0f063ab4
 /*  f063a74:	00403025 */ 	move	$a2,$v0
@@ -3404,7 +3453,7 @@ glabel var7f1ab190pf
 .PF0f063a7c:
 /*  f063a7c:	54610006 */ 	bnel	$v1,$at,.PF0f063a98
 /*  f063a80:	24010006 */ 	li	$at,0x6
-/*  f063a84:	0fc4bf31 */ 	jal	smokeUpdateZ
+/*  f063a84:	0fc4bf31 */ 	jal	smokeTick
 /*  f063a88:	02002025 */ 	move	$a0,$s0
 /*  f063a8c:	10000009 */ 	b	.PF0f063ab4
 /*  f063a90:	00403025 */ 	move	$a2,$v0
@@ -3414,7 +3463,7 @@ glabel var7f1ab190pf
 /*  f063a9c:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f063aa0:	0fc5260c */ 	jal	splatTick
 /*  f063aa4:	02002025 */ 	move	$a0,$s0
-/*  f063aa8:	0fc30a3b */ 	jal	func0f0c2364
+/*  f063aa8:	0fc30a3b */ 	jal	playerTick
 /*  f063aac:	02002025 */ 	move	$a0,$s0
 /*  f063ab0:	00403025 */ 	move	$a2,$v0
 .PF0f063ab4:
@@ -3484,7 +3533,7 @@ glabel var7f1ab190pf
 /*  f063b9c:	10000004 */ 	b	.PF0f063bb0
 /*  f063ba0:	afa0004c */ 	sw	$zero,0x4c($sp)
 .PF0f063ba4:
-/*  f063ba4:	0fc18b71 */ 	jal	func0f062b64
+/*  f063ba4:	0fc18b71 */ 	jal	propExecuteTickOperation
 /*  f063ba8:	afa20060 */ 	sw	$v0,0x60($sp)
 /*  f063bac:	8fa20060 */ 	lw	$v0,0x60($sp)
 .PF0f063bb0:
@@ -3827,7 +3876,7 @@ glabel var7f1ab190pf
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f06302c
+glabel propsTick
 /*  f06302c:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f063030:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f063034:	3c11800a */ 	lui	$s1,%hi(g_Vars)
@@ -4207,7 +4256,7 @@ glabel func0f06302c
 .L0f063574:
 /*  f063574:	54610006 */ 	bnel	$v1,$at,.L0f063590
 /*  f063578:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f06357c:	0fc4b16a */ 	jal	explosionUpdateZ
+/*  f06357c:	0fc4b16a */ 	jal	explosionTick
 /*  f063580:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063584:	10000010 */ 	b	.L0f0635c8
 /*  f063588:	00403025 */ 	or	$a2,$v0,$zero
@@ -4215,7 +4264,7 @@ glabel func0f06302c
 .L0f063590:
 /*  f063590:	54610006 */ 	bnel	$v1,$at,.L0f0635ac
 /*  f063594:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f063598:	0fc4bc61 */ 	jal	smokeUpdateZ
+/*  f063598:	0fc4bc61 */ 	jal	smokeTick
 /*  f06359c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0635a0:	10000009 */ 	b	.L0f0635c8
 /*  f0635a4:	00403025 */ 	or	$a2,$v0,$zero
@@ -4225,7 +4274,7 @@ glabel func0f06302c
 /*  f0635b0:	962e035e */ 	lhu	$t6,0x35e($s1)
 /*  f0635b4:	0fc522e0 */ 	jal	splatTick
 /*  f0635b8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0635bc:	0fc308d9 */ 	jal	func0f0c2364
+/*  f0635bc:	0fc308d9 */ 	jal	playerTick
 /*  f0635c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0635c4:	00403025 */ 	or	$a2,$v0,$zero
 .L0f0635c8:
@@ -4345,10 +4394,10 @@ glabel func0f06302c
 /*  f063768:	24010007 */ 	addiu	$at,$zero,0x7
 .L0f06376c:
 /*  f06376c:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f063770:	3c188007 */ 	lui	$t8,%hi(var80069884)
+/*  f063770:	3c188007 */ 	lui	$t8,%hi(g_ObjsPausedWhenBackgrounded)
 /*  f063774:	90590003 */ 	lbu	$t9,0x3($v0)
 /*  f063778:	0319c021 */ 	addu	$t8,$t8,$t9
-/*  f06377c:	93189884 */ 	lbu	$t8,%lo(var80069884)($t8)
+/*  f06377c:	93189884 */ 	lbu	$t8,%lo(g_ObjsPausedWhenBackgrounded)($t8)
 /*  f063780:	57000006 */ 	bnezl	$t8,.L0f06379c
 /*  f063784:	860d0002 */ 	lh	$t5,0x2($s0)
 /*  f063788:	0fc1f9d6 */ 	jal	objTick
@@ -4376,7 +4425,7 @@ glabel func0f06302c
 .L0f0637dc:
 /*  f0637dc:	54610006 */ 	bnel	$v1,$at,.L0f0637f8
 /*  f0637e0:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0637e4:	0fc4b16a */ 	jal	explosionUpdateZ
+/*  f0637e4:	0fc4b16a */ 	jal	explosionTick
 /*  f0637e8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0637ec:	10000010 */ 	b	.L0f063830
 /*  f0637f0:	00403025 */ 	or	$a2,$v0,$zero
@@ -4384,7 +4433,7 @@ glabel func0f06302c
 .L0f0637f8:
 /*  f0637f8:	54610006 */ 	bnel	$v1,$at,.L0f063814
 /*  f0637fc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f063800:	0fc4bc61 */ 	jal	smokeUpdateZ
+/*  f063800:	0fc4bc61 */ 	jal	smokeTick
 /*  f063804:	02002025 */ 	or	$a0,$s0,$zero
 /*  f063808:	10000009 */ 	b	.L0f063830
 /*  f06380c:	00403025 */ 	or	$a2,$v0,$zero
@@ -4394,7 +4443,7 @@ glabel func0f06302c
 /*  f063818:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f06381c:	0fc522e0 */ 	jal	splatTick
 /*  f063820:	02002025 */ 	or	$a0,$s0,$zero
-/*  f063824:	0fc308d9 */ 	jal	func0f0c2364
+/*  f063824:	0fc308d9 */ 	jal	playerTick
 /*  f063828:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06382c:	00403025 */ 	or	$a2,$v0,$zero
 .L0f063830:
@@ -4461,7 +4510,7 @@ glabel func0f06302c
 /*  f06390c:	10000004 */ 	b	.L0f063920
 /*  f063910:	afa0004c */ 	sw	$zero,0x4c($sp)
 .L0f063914:
-/*  f063914:	0fc18ad9 */ 	jal	func0f062b64
+/*  f063914:	0fc18ad9 */ 	jal	propExecuteTickOperation
 /*  f063918:	afa20060 */ 	sw	$v0,0x60($sp)
 /*  f06391c:	8fa20060 */ 	lw	$v0,0x60($sp)
 .L0f063920:
@@ -4804,7 +4853,7 @@ glabel func0f06302c
 );
 #else
 GLOBAL_ASM(
-glabel func0f06302c
+glabel propsTick
 /*  f0622b0:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0622b4:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f0622b8:	3c11800a */ 	lui	$s1,0x800a
@@ -5180,7 +5229,7 @@ glabel func0f06302c
 .NB0f0627e8:
 /*  f0627e8:	54610006 */ 	bnel	$v1,$at,.NB0f062804
 /*  f0627ec:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f0627f0:	0fc49c4e */ 	jal	explosionUpdateZ
+/*  f0627f0:	0fc49c4e */ 	jal	explosionTick
 /*  f0627f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0627f8:	10000010 */ 	beqz	$zero,.NB0f06283c
 /*  f0627fc:	00403025 */ 	or	$a2,$v0,$zero
@@ -5188,7 +5237,7 @@ glabel func0f06302c
 .NB0f062804:
 /*  f062804:	54610006 */ 	bnel	$v1,$at,.NB0f062820
 /*  f062808:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f06280c:	0fc4a745 */ 	jal	smokeUpdateZ
+/*  f06280c:	0fc4a745 */ 	jal	smokeTick
 /*  f062810:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062814:	10000009 */ 	beqz	$zero,.NB0f06283c
 /*  f062818:	00403025 */ 	or	$a2,$v0,$zero
@@ -5198,7 +5247,7 @@ glabel func0f06302c
 /*  f062824:	962e035e */ 	lhu	$t6,0x35e($s1)
 /*  f062828:	0fc50cd4 */ 	jal	splatTick
 /*  f06282c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062830:	0fc2ffcb */ 	jal	func0f0c2364
+/*  f062830:	0fc2ffcb */ 	jal	playerTick
 /*  f062834:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062838:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f06283c:
@@ -5349,7 +5398,7 @@ glabel func0f06302c
 .NB0f062a50:
 /*  f062a50:	54610006 */ 	bnel	$v1,$at,.NB0f062a6c
 /*  f062a54:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f062a58:	0fc49c4e */ 	jal	explosionUpdateZ
+/*  f062a58:	0fc49c4e */ 	jal	explosionTick
 /*  f062a5c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062a60:	10000010 */ 	beqz	$zero,.NB0f062aa4
 /*  f062a64:	00403025 */ 	or	$a2,$v0,$zero
@@ -5357,7 +5406,7 @@ glabel func0f06302c
 .NB0f062a6c:
 /*  f062a6c:	54610006 */ 	bnel	$v1,$at,.NB0f062a88
 /*  f062a70:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f062a74:	0fc4a745 */ 	jal	smokeUpdateZ
+/*  f062a74:	0fc4a745 */ 	jal	smokeTick
 /*  f062a78:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062a7c:	10000009 */ 	beqz	$zero,.NB0f062aa4
 /*  f062a80:	00403025 */ 	or	$a2,$v0,$zero
@@ -5367,7 +5416,7 @@ glabel func0f06302c
 /*  f062a8c:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f062a90:	0fc50cd4 */ 	jal	splatTick
 /*  f062a94:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062a98:	0fc2ffcb */ 	jal	func0f0c2364
+/*  f062a98:	0fc2ffcb */ 	jal	playerTick
 /*  f062a9c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062aa0:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f062aa4:
@@ -5434,7 +5483,7 @@ glabel func0f06302c
 /*  f062b80:	10000004 */ 	beqz	$zero,.NB0f062b94
 /*  f062b84:	afa0004c */ 	sw	$zero,0x4c($sp)
 .NB0f062b88:
-/*  f062b88:	0fc1877a */ 	jal	func0f062b64
+/*  f062b88:	0fc1877a */ 	jal	propExecuteTickOperation
 /*  f062b8c:	afa20060 */ 	sw	$v0,0x60($sp)
 /*  f062b90:	8fa20060 */ 	lw	$v0,0x60($sp)
 .NB0f062b94:
@@ -5776,6 +5825,546 @@ glabel func0f06302c
 /*  f06303c:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
 #endif
+
+/**
+ * Figure out which props need to update their state on this tick, and do so.
+ *
+ * Props are split into two classes: foreground and background props. Foreground
+ * props are generally props that are near the player. These ones are updated on
+ * every tick. Background props are props elsewhere in the stage. These ones are
+ * updated less frequently by assigning them to one of 7 timeslots and only
+ * updating one timeslot per frame (in multiplayer, only 4 timeslots are used).
+ *
+ * Timeslots and propstates are the same thing. It is likely that the original
+ * code called them propstates. The propstate structs are used to track timing
+ * information so all props in that timeslot can be updated using the correct
+ * multipliers.
+ *
+ * Each time all timeslots have been updated (ie. every 7 or 4 frames) the
+ * timeslots are redistributed among the props, to handle situations where props
+ * have been allocated or freed during gameplay. This redistribution is done by
+ * categorising each prop into one of four categories:
+ *
+ *     - foreground chrs
+ *     - background chrs
+ *     - foreground non-chrs
+ *     - background non-chrs
+ *
+ * Timeslots are then assigned evenly within those categories. This method
+ * ensures that there aren't an uneven amount of props being updated on any
+ * given frame, which helps give a consistent frame rate.
+ */
+// Mismatch:
+// 290: Duplicate write of &g_Vars.propstates[index] (t2) to sp34
+// 6fc and 864: Uses two instructions to reload addres of g_Vars.lvupdate240freal even though s1 could be used
+// 938: Loads s4 and s1 loaded with constant values despite them already having those values
+//void propsTick(u32 islastplayer)
+//{
+//	struct prop *prop;
+//	struct prop *end;
+//	s32 savedlvupdate240;
+//	s32 savedlvupdate240_60;
+//	f32 savedlvupdate240f;
+//	f32 savedlvupdate240freal;
+//	s32 savedslotupdate240;
+//	s32 savedslotupdate240_60;
+//	f32 savedslotupdate240f;
+//	struct prop *sp60; // 60
+//	struct prop *next; // 5c
+//	s32 op;
+//	u8 index;
+//	u8 flags;
+//	s32 score;
+//	bool done; // 4c
+//	s32 i;
+//
+//	g_Vars.unk00043c = 0;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	var8009cdac = 0;
+//	var8009cdb0 = 0;
+//#endif
+//
+//	// 068
+//	if (islastplayer) {
+//		g_Vars.prevupdateframe = g_Vars.updateframe;
+//		g_Vars.updateframe++;
+//
+//		if (g_Vars.updateframe == 0xffffffff) {
+//			g_Vars.updateframe = 0;
+//		}
+//	}
+//
+//	// 090
+//	savedlvupdate240 = g_Vars.lvupdate240;
+//	savedlvupdate240_60 = g_Vars.lvupdate240_60;
+//	savedlvupdate240f = g_Vars.lvupdate240f;
+//	savedlvupdate240freal = g_Vars.lvupdate240freal;
+//
+//	for (i = 0; i < g_Vars.numpropstates; i++) {
+//		g_Vars.propstates[i].slotupdate240 += g_Vars.lvupdate240;
+//	}
+//
+//	// 0ec
+//	g_Vars.runstateindex++;
+//
+//	// 108
+//	if (g_Vars.runstateindex >= g_Vars.numpropstates) {
+//		g_Vars.runstateindex = 0;
+//	}
+//
+//	index = g_Vars.runstateindex;
+//
+//	// 118
+//	g_Vars.propstates[index].slotupdate60error = (g_Vars.propstates[index].slotupdate240 + g_Vars.propstates[index].slotupdate60error) & 3;
+//	savedslotupdate240 = g_Vars.propstates[index].slotupdate240;
+//	savedslotupdate240_60 = savedslotupdate240 + 2;
+//	savedslotupdate240_60 >>= 2;
+//	savedslotupdate240f = savedslotupdate240 * 0.25f;
+//
+//	for (i = 0; i < g_Vars.numpropstates; i++) {
+//		// 184
+//		g_Vars.propstates[i].propcount = 0;
+//		g_Vars.propstates[i].chrpropcount = 0;
+//		g_Vars.propstates[i].foregroundpropcount = 0;
+//		g_Vars.propstates[i].foregroundchrpropcount = 0;
+//	}
+//
+//	// 1ac
+//	if (g_Vars.currentplayerindex == 0) {
+//		prop = g_Vars.props;
+//		end = &g_Vars.props[g_Vars.maxprops];
+//
+//		while (prop < end) {
+//			flags = prop->flags;
+//
+//			if (flags & PROPFLAG_02) {
+//				flags &= ~PROPFLAG_02;
+//			}
+//
+//			if (flags & PROPFLAG_40) {
+//				flags |= PROPFLAG_80;
+//				flags &= ~PROPFLAG_40;
+//			} else if (flags & PROPFLAG_80) {
+//				flags &= ~PROPFLAG_80;
+//			}
+//
+//			(prop++)->flags = flags | PROPFLAG_08;
+//		}
+//	} else {
+//		// 23c
+//		prop = g_Vars.props;
+//		end = &g_Vars.props[g_Vars.maxprops];
+//
+//		while (prop < end) {
+//			flags = prop->flags;
+//
+//			if (flags & PROPFLAG_02) {
+//				flags &= ~PROPFLAG_02;
+//			}
+//
+//			prop->flags = flags;
+//			prop++;
+//		}
+//	}
+//
+//	// 294
+//	done = false;
+//	prop = g_Vars.list1head;
+//
+//	while (!done) {
+//		s16 *rooms;
+//		op = TICKOP_NONE;
+//		next = prop->next;
+//		done = prop->next == g_Vars.list2head;
+//
+//		if (g_Vars.tickmode != TICKMODE_NORMAL) {
+//			score = 1;
+//		} else {
+//			score = g_Vars.alwaystick;
+//		}
+//
+//		rooms = prop->rooms;
+//
+//		for (i = 0; *rooms != -1; i++) {
+//			if (g_Rooms[*rooms].flags & ROOMFLAG_VISIBLEBYPLAYER) {
+//				score++;
+//			}
+//			rooms++;
+//		}
+//
+//		if (score == 0) {
+//			if (prop->type == PROPTYPE_PLAYER) {
+//				score++;
+//			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+//				if (prop->obj->hidden & OBJHFLAG_AIRBORNE) {
+//					score++;
+//				}
+//			}
+//
+//			if (score == 0) {
+//				if ((prop->flags & (PROPFLAG_TANGIBLE | PROPFLAG_80)) == (PROPFLAG_TANGIBLE | PROPFLAG_80)) {
+//					score++;
+//				} else if (prop->forcetick) {
+//					score++;
+//					prop->forcetick = false;
+//				} else if (prop->unk3f_02) {
+//					score++;
+//				} else {
+//					rooms = prop->rooms;
+//
+//					for (i = 0; *rooms != -1; i++) {
+//						if (g_Rooms[*rooms].flags & ROOMFLAG_VISIBLEBYAIBOT) {
+//							break;
+//						}
+//
+//						rooms++;
+//					}
+//
+//					if (*rooms != -1) {
+//						score++;
+//					}
+//				}
+//			}
+//		}
+//
+//		prop->propupdate240 += g_Vars.lvupdate240;
+//
+//		// 41c
+//		if (score > 0) {
+//			// The prop is in the foreground
+//			if (prop->lastupdateframe != g_Vars.prevupdateframe) {
+//				g_Vars.lvupdate240 = prop->propupdate240;
+//				g_Vars.lvupdate240_60 = prop->propupdate240 + prop->propupdate60err;
+//				prop->propupdate60err = g_Vars.lvupdate240_60 & 3;
+//				g_Vars.lvupdate240_60 >>= 2;
+//				g_Vars.lvupdate240f = g_Vars.lvupdate240 * 0.25f;
+//				g_Vars.lvupdate240freal = PALUPF(g_Vars.lvupdate240f);
+//			} else {
+//				g_Vars.lvupdate240 = savedlvupdate240;
+//				g_Vars.lvupdate240_60 = savedlvupdate240_60;
+//				g_Vars.lvupdate240f = savedlvupdate240f;
+//				g_Vars.lvupdate240freal = savedlvupdate240freal;
+//			}
+//
+//			// 4a8
+//			prop->unk3e = 0;
+//
+//			if (prop->type == PROPTYPE_CHR) {
+//				struct chrdata *chr = prop->chr;
+//
+//				splatTick(prop);
+//
+//				if (chr && chr->aibot) {
+//					op = aibotTick(prop);
+//				} else {
+//					op = func0f023098(prop);
+//				}
+//
+//				g_Vars.propstates[prop->propstateindex].foregroundchrpropcount++;
+//			} else {
+//				g_Vars.propstates[prop->propstateindex].foregroundpropcount++;
+//
+//				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+//					op = objTick(prop);
+//				} else if (prop->type == PROPTYPE_EXPLOSION) {
+//					op = explosionTick(prop);
+//				} else if (prop->type == PROPTYPE_SMOKE) {
+//					op = smokeTick(prop);
+//				} else if (prop->type == PROPTYPE_PLAYER) {
+//					splatTick(prop);
+//					op = playerTick(prop);
+//				}
+//			}
+//
+//			if (prop->lastupdateframe != g_Vars.prevupdateframe) {
+//				g_Vars.lvupdate240 = savedlvupdate240;
+//				g_Vars.lvupdate240_60 = savedlvupdate240_60;
+//				g_Vars.lvupdate240f = savedlvupdate240f;
+//				g_Vars.lvupdate240freal = savedlvupdate240f;
+//			}
+//
+//			prop->lastupdateframe = g_Vars.updateframe;
+//			prop->propupdate240 = 0;
+//			prop->backgrounded = false;
+//		} else {
+//			// The prop is in the background
+//			// 61c
+//			if (prop->type == PROPTYPE_CHR) {
+//				g_Vars.propstates[prop->propstateindex].chrpropcount++;
+//			} else {
+//				g_Vars.propstates[prop->propstateindex].propcount++;
+//			}
+//
+//			// 670
+//			if (index == prop->propstateindex) {
+//				if (prop->lastupdateframe != g_Vars.propstates[index].lastupdateframe) {
+//					g_Vars.lvupdate240 = prop->propupdate240;
+//					g_Vars.lvupdate240_60 = prop->propupdate240 + prop->propupdate60err;
+//					prop->propupdate60err = g_Vars.lvupdate240_60 & 3;
+//					g_Vars.lvupdate240_60 >>= 2;
+//					g_Vars.lvupdate240f = g_Vars.lvupdate240 * 0.25f;
+//					g_Vars.lvupdate240freal = PALUPF(g_Vars.lvupdate240f);
+//				} else {
+//					g_Vars.lvupdate240 = savedslotupdate240;
+//					g_Vars.lvupdate240_60 = savedslotupdate240_60;
+//					g_Vars.lvupdate240f = savedslotupdate240f;
+//					g_Vars.lvupdate240freal = PALUPF(savedslotupdate240f);
+//				}
+//
+//				// 704
+//				if (prop->type == PROPTYPE_CHR) {
+//					struct chrdata *chr = prop->chr;
+//
+//					splatTick(prop);
+//
+//					if (chr && chr->aibot) {
+//						op = aibotTick(prop);
+//					} else {
+//						op = func0f023098(prop);
+//					}
+//				} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+//					struct defaultobj *obj = prop->obj;
+//
+//					if (!g_ObjsPausedWhenBackgrounded[obj->type]) {
+//						op = objTick(prop);
+//					} else if (prop->timetoregen <= 0) {
+//						prop->unk3e++;
+//
+//						if (prop->unk3e > g_Vars.numpropstates - 1) {
+//							propPrependToList2(prop);
+//							op = TICKOP_5;
+//						}
+//					}
+//				} else if (prop->type == PROPTYPE_EXPLOSION) {
+//					op = explosionTick(prop);
+//				} else if (prop->type == PROPTYPE_SMOKE) {
+//					op = smokeTick(prop);
+//				} else if (prop->type == PROPTYPE_PLAYER) {
+//					splatTick(prop);
+//					op = playerTick(prop);
+//				}
+//
+//				// 844
+//				if (g_Vars.propstates[index].lastupdateframe != prop->lastupdateframe) {
+//					g_Vars.lvupdate240 = savedslotupdate240;
+//					g_Vars.lvupdate240_60 = savedslotupdate240_60;
+//					g_Vars.lvupdate240f = savedslotupdate240f;
+//					g_Vars.lvupdate240freal = PALUPF(savedslotupdate240f);
+//				}
+//
+//				prop->lastupdateframe = g_Vars.updateframe;
+//				prop->propupdate240 = 0;
+//				prop->backgrounded = true;
+//			}
+//		}
+//
+//		g_Vars.lvupdate240 = savedlvupdate240;
+//		g_Vars.lvupdate240_60 = savedlvupdate240_60;
+//		g_Vars.lvupdate240f = savedlvupdate240f;
+//		g_Vars.lvupdate240freal = savedlvupdate240freal;
+//
+//		// 8a0
+//		if (op == TICKOP_5) {
+//			// Use the prop->next value that was taken at the start of the tick
+//			sp60 = next;
+//		} else {
+//			// Use the current prop->next value
+//			sp60 = prop->next;
+//			done = sp60 == g_Vars.list2head;
+//
+//			if (op == TICKOP_RETICK) {
+//				prop->lastupdateframe = 0xffff;
+//				prop->forcetick = true;
+//
+//				propRemoveFromCurrentList(prop);
+//				propAppendToList1(prop);
+//
+//				if (done) {
+//					sp60 = prop;
+//					done = false;
+//				}
+//			} else {
+//				propExecuteTickOperation(prop, op);
+//			}
+//		}
+//
+//		prop = sp60;
+//	}
+//
+//	// 93c
+//	// Redistribute propstates
+//	if (g_Vars.currentplayerindex == 0 && g_Vars.runstateindex == 0) {
+//		u16 least;
+//		u16 most;
+//		u8 mostindex;
+//		u8 leastindex;
+//
+//		// 958
+//		// propcount
+//		leastindex = mostindex = g_Vars.numpropstates;
+//		least = 0x7fff;
+//		most = 0;
+//
+//		for (i = 0; i < g_Vars.numpropstates; i++) {
+//			if (g_Vars.propstates[i].propcount < least) {
+//				least = g_Vars.propstates[i].propcount;
+//				leastindex = i;
+//			}
+//
+//			if (g_Vars.propstates[i].propcount > most) {
+//				most = g_Vars.propstates[i].propcount;
+//				mostindex = i;
+//			}
+//		}
+//
+//		// 9c4
+//		i = (g_Vars.propstates[(s32)mostindex].propcount - g_Vars.propstates[(s32)leastindex].propcount) >> 1;
+//
+//		// 9f0
+//		if (i != 0) {
+//			prop = g_Vars.list1head;
+//
+//			while (prop != g_Vars.list2head) {
+//				if (prop->propstateindex == mostindex && prop->backgrounded == 1 && prop->type != PROPTYPE_CHR) {
+//					prop->propstateindex = leastindex;
+//					i--;
+//
+//					if (i == 0) {
+//						break;
+//					}
+//				}
+//
+//				prop = prop->next;
+//			}
+//		}
+//
+//		// a60
+//		// foregroundpropcount
+//		leastindex = mostindex = g_Vars.numpropstates;
+//		least = 0x7fff;
+//		most = 0;
+//
+//		for (i = 0; i < g_Vars.numpropstates; i++) {
+//			if (g_Vars.propstates[i].foregroundpropcount < least) {
+//				least = g_Vars.propstates[i].foregroundpropcount;
+//				leastindex = i;
+//			}
+//
+//			if (g_Vars.propstates[i].foregroundpropcount > most) {
+//				most = g_Vars.propstates[i].foregroundpropcount;
+//				mostindex = i;
+//			}
+//		}
+//
+//		i = (g_Vars.propstates[(s32)mostindex].foregroundpropcount - g_Vars.propstates[(s32)leastindex].foregroundpropcount) >> 1;
+//
+//		if (i != 0) {
+//			prop = g_Vars.list1head;
+//
+//			while (prop != g_Vars.list2head) {
+//				if (mostindex == prop->propstateindex && prop->backgrounded == 0 && prop->type != PROPTYPE_CHR) {
+//					prop->propstateindex = leastindex;
+//					i--;
+//
+//					if (i == 0) {
+//						break;
+//					}
+//				}
+//
+//				prop = prop->next;
+//			}
+//		}
+//
+//		// chrpropcount
+//		leastindex = mostindex = g_Vars.numpropstates;
+//		least = 0x7fff;
+//		most = 0;
+//
+//		for (i = 0; i < g_Vars.numpropstates; i++) {
+//			if (g_Vars.propstates[i].chrpropcount < least) {
+//				least = g_Vars.propstates[i].chrpropcount;
+//				leastindex = i;
+//			}
+//
+//			if (g_Vars.propstates[i].chrpropcount > most) {
+//				most = g_Vars.propstates[i].chrpropcount;
+//				mostindex = i;
+//			}
+//		}
+//
+//		i = (g_Vars.propstates[(s32)mostindex].chrpropcount - g_Vars.propstates[(s32)leastindex].chrpropcount) >> 1;
+//
+//		if (i != 0) {
+//			prop = g_Vars.list1head;
+//
+//			while (prop != g_Vars.list2head) {
+//				if (mostindex == prop->propstateindex && prop->backgrounded == 1 && prop->type == PROPTYPE_CHR) {
+//					prop->propstateindex = leastindex;
+//					i--;
+//
+//					if (i == 0) {
+//						break;
+//					}
+//				}
+//
+//				prop = prop->next;
+//			}
+//		}
+//
+//		// foregroundchrpropcount
+//		leastindex = mostindex = g_Vars.numpropstates;
+//		least = 0x7fff;
+//		most = 0;
+//
+//		for (i = 0; i < g_Vars.numpropstates; i++) {
+//			if (g_Vars.propstates[i].foregroundchrpropcount < least) {
+//				least = g_Vars.propstates[i].foregroundchrpropcount;
+//				leastindex = i;
+//			}
+//
+//			if (g_Vars.propstates[i].foregroundchrpropcount > most) {
+//				most = g_Vars.propstates[i].foregroundchrpropcount;
+//				mostindex = i;
+//			}
+//		}
+//
+//		i = (g_Vars.propstates[(s32)mostindex].foregroundchrpropcount - g_Vars.propstates[(s32)leastindex].foregroundchrpropcount) >> 1;
+//
+//		if (i != 0) {
+//			prop = g_Vars.list1head;
+//
+//			while (prop != g_Vars.list2head) {
+//				if (mostindex == prop->propstateindex && prop->backgrounded == 0 && prop->type == PROPTYPE_CHR) {
+//					prop->propstateindex = leastindex;
+//					i--;
+//
+//					if (i == 0) {
+//						break;
+//					}
+//				}
+//
+//				prop = prop->next;
+//			}
+//		}
+//	}
+//
+//	g_Vars.lvupdate240 = savedlvupdate240;
+//	g_Vars.lvupdate240_60 = savedlvupdate240_60;
+//	g_Vars.lvupdate240f = savedlvupdate240f;
+//	g_Vars.lvupdate240freal = savedlvupdate240freal;
+//
+//	g_Vars.propstates[index].slotupdate240 = 0;
+//	g_Vars.propstates[index].lastupdateframe = g_Vars.updateframe;
+//
+//	if (islastplayer) {
+//		alarmTick();
+//		func0f093508();
+//		func0f066054();
+//	}
+//
+//	func0f02472c();
+//}
 
 GLOBAL_ASM(
 glabel func0f063dcc
@@ -6163,7 +6752,7 @@ glabel var7f1a9f4c
 /*  f06434c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f064350:	00402825 */ 	or	$a1,$v0,$zero
 .L0f064354:
-/*  f064354:	0fc18ad9 */ 	jal	func0f062b64
+/*  f064354:	0fc18ad9 */ 	jal	propExecuteTickOperation
 /*  f064358:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06435c:	86220002 */ 	lh	$v0,0x2($s1)
 /*  f064360:	26310002 */ 	addiu	$s1,$s1,0x2
@@ -6290,7 +6879,7 @@ glabel var7f1a9f4c
 /*  f0635b4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0635b8:	00402825 */ 	or	$a1,$v0,$zero
 .NB0f0635bc:
-/*  f0635bc:	0fc1877a */ 	jal	func0f062b64
+/*  f0635bc:	0fc1877a */ 	jal	propExecuteTickOperation
 /*  f0635c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0635c4:	86220002 */ 	lh	$v0,0x2($s1)
 /*  f0635c8:	26310002 */ 	addiu	$s1,$s1,0x2

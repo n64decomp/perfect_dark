@@ -634,7 +634,7 @@ void mpPushPauseDialog(void)
 	u32 prevplayernum = g_MpPlayerNum;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (g_MpSetup.paused != MPPAUSEMODE_GAMEOVER && var8005d9d0 == 0)
+	if (g_MpSetup.paused != MPPAUSEMODE_GAMEOVER && g_MainIsEndscreen == 0)
 #endif
 	{
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;

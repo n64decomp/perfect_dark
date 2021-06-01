@@ -37,7 +37,7 @@ extern u32 _osShutdown;
 extern u32 __osGlobalIntMask;
 extern u32 var8005cf84;
 extern u8 g_LoadType;
-extern s32 var8005d9d0;
+extern s32 g_MainIsEndscreen;
 extern s32 var8005dd18;
 extern u32 var8005dd58;
 extern bool g_SndDisabled;

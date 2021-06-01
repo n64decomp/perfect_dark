@@ -2059,8 +2059,8 @@ glabel mpRenderModalText
 /*  f189928:	100000e0 */ 	b	.L0f189cac
 /*  f18992c:	afa200a0 */ 	sw	$v0,0xa0($sp)
 .L0f189930:
-/*  f189930:	3c098006 */ 	lui	$t1,%hi(var8005d9d0)
-/*  f189934:	8d29d9d0 */ 	lw	$t1,%lo(var8005d9d0)($t1)
+/*  f189930:	3c098006 */ 	lui	$t1,%hi(g_MainIsEndscreen)
+/*  f189934:	8d29d9d0 */ 	lw	$t1,%lo(g_MainIsEndscreen)($t1)
 /*  f189938:	552000dd */ 	bnezl	$t1,.L0f189cb0
 /*  f18993c:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f189940:	144000da */ 	bnez	$v0,.L0f189cac
@@ -2434,8 +2434,8 @@ glabel mpRenderModalText
 /*  f189928:	100000e0 */ 	b	.L0f189cac
 /*  f18992c:	afa200a0 */ 	sw	$v0,0xa0($sp)
 .L0f189930:
-/*  f189930:	3c098006 */ 	lui	$t1,%hi(var8005d9d0)
-/*  f189934:	8d29d9d0 */ 	lw	$t1,%lo(var8005d9d0)($t1)
+/*  f189930:	3c098006 */ 	lui	$t1,%hi(g_MainIsEndscreen)
+/*  f189934:	8d29d9d0 */ 	lw	$t1,%lo(g_MainIsEndscreen)($t1)
 /*  f189938:	552000dd */ 	bnezl	$t1,.L0f189cb0
 /*  f18993c:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f189940:	144000da */ 	bnez	$v0,.L0f189cac

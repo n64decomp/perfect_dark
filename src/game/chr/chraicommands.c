@@ -429,7 +429,7 @@ bool aiChrDoAnimation(void)
 #endif
 			}
 
-			chr->prop->unk3a = 0;
+			chr->prop->propupdate240 = 0;
 		}
 
 		chrTryStartAnim(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], speed);
@@ -2372,7 +2372,7 @@ bool aiGiveObjectToChr(void)
 #endif
 
 			something = func0f088840(obj->prop, 0);
-			func0f062b64(obj->prop, something);
+			propExecuteTickOperation(obj->prop, something);
 			playernum = propGetPlayerNum(chr->prop);
 			obj2->hidden = (playernum << 28) | (obj2->hidden & 0x0fffffff);
 			setCurrentPlayerNum(prevplayernum);

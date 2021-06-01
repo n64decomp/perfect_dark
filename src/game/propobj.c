@@ -6202,7 +6202,7 @@ void func0f06ac90(struct prop *prop)
  * Child objects such as attached knives and mines will always have their props
  * freed.
  */
-void objRemove2(struct defaultobj *obj, bool freeprop, bool onlyunref)
+void objRemove2(struct defaultobj *obj, bool freeprop, bool regen)
 {
 	struct prop *child;
 
@@ -6343,7 +6343,7 @@ void objRemove2(struct defaultobj *obj, bool freeprop, bool onlyunref)
 			child = next;
 		}
 
-		if (!onlyunref) {
+		if (!regen) {
 			if (obj->prop->parent) {
 				objDetach(obj->prop);
 			}
@@ -15364,7 +15364,7 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	struct prop *child;
 
 	if (obj->hidden & OBJHFLAG_REAPABLE) {
-		objRemove2(obj, true, obj->hidden2 & OBJH2FLAG_04);
+		objRemove2(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 	} else {
 		prop->flags &= ~PROPFLAG_02;
 		func0f07063c(prop, arg1);
@@ -46304,7 +46304,7 @@ u32 func0f07e474(struct prop *prop)
 		escastepTick(prop);
 	}
 
-	return 0;
+	return TICKOP_NONE;
 }
 
 s32 objTick(struct prop *prop)
@@ -46316,7 +46316,7 @@ s32 objTick(struct prop *prop)
 	bool pass2;
 	struct prop *child;
 	struct prop *next;
-	s32 result = 0;
+	s32 result = TICKOP_NONE;
 	bool sp572 = false;
 	u32 playercount = PLAYERCOUNT();
 	bool sp564 = true;
@@ -46329,7 +46329,7 @@ s32 objTick(struct prop *prop)
 	} else if ((obj->hidden & OBJHFLAG_AIRBORNE) && (obj->projectile->flags & PROJECTILEFLAG_00000800) == 0) {
 		prop->flags &= ~PROPFLAG_02;
 		obj->hidden |= OBJHFLAG_00000008;
-		return 3;
+		return TICKOP_RETICK;
 	}
 
 	if (obj->hidden & OBJHFLAG_REAPABLE) {
@@ -46353,8 +46353,8 @@ s32 objTick(struct prop *prop)
 
 		if (!pass) {
 			func0f070698(prop, true);
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
-			return 1;
+			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+			return TICKOP_FREE;
 		}
 	}
 
@@ -46567,7 +46567,7 @@ s32 objTick(struct prop *prop)
 			sp592 = func0f073c6c(obj, &sp560);
 
 			if (sp560) {
-				result = 5;
+				result = TICKOP_5;
 			}
 		}
 
@@ -62913,7 +62913,7 @@ glabel var7f1aae70
 //
 //	// fa4
 //	if (v0 == 1 && (obj->hidden & OBJHFLAG_TAGGED) == 0) {
-//		objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
+//		objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 //		return 1;
 //	}
 //
@@ -69596,7 +69596,7 @@ bool propdoorInteract(struct prop *doorprop)
 		door->base.flags2 |= OBJFLAG2_00000008;
 	}
 
-	return false;
+	return TICKOP_NONE;
 }
 
 void alarmActivate(void)

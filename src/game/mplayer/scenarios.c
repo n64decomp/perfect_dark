@@ -12458,7 +12458,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 			func0f087d10(WEAPON_DATAUPLINK);
 
 #if VERSION >= VERSION_NTSC_1_0
-			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_04);
+			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 			return 1;
 #else
 			return 4;

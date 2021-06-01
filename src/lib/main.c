@@ -69,7 +69,7 @@ s32 var8005d9c0 = 0;
 s32 var8005d9c4 = 0;
 s32 var8005d9c8 = 1;
 u32 var8005d9cc = 0;
-s32 var8005d9d0 = 0;
+bool g_MainIsEndscreen = false;
 s32 g_DoBootPakMenu = 0;
 
 struct stageallocation g_StageAllocations8Mb[] = {
@@ -1782,7 +1782,7 @@ void mainLoop(void)
 		var8005d9cc = 0;
 		var8005d9c8 = 1;
 		msg = NULL;
-		var8005d9d0 = 0;
+		g_MainIsEndscreen = false;
 
 		if (var8005d9b0 && var8005d9c4 == 0) {
 			index = -1;
@@ -3045,7 +3045,7 @@ void mainEndStage(void)
 {
 	sndStopNosedive();
 
-	if (var8005d9d0 == 0) {
+	if (!g_MainIsEndscreen) {
 #if VERSION >= VERSION_NTSC_1_0
 		func0f11c6d0();
 #endif
@@ -3081,7 +3081,7 @@ void mainEndStage(void)
 		}
 	}
 
-	var8005d9d0 = 1;
+	g_MainIsEndscreen = true;
 }
 
 void mainSetStageNum(s32 stagenum)

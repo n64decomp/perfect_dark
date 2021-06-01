@@ -1354,7 +1354,7 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 		scale = monitor->base.extrascale * (1.0f / 256.0f);
 
 		if (g_Vars.normmplayerisrunning || g_Vars.lvmpbotlevel) {
-			monitor->base.hidden2 |= OBJH2FLAG_04;
+			monitor->base.hidden2 |= OBJH2FLAG_CANREGEN;
 		}
 
 		prop = func0f06a550(&monitor->base);
