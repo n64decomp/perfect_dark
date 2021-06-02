@@ -7725,9 +7725,12 @@ glabel func0f066054
 /*  f0661f0:	8fb30014 */ 	lw	$s3,0x14($sp)
 /*  f0661f4:	03e00008 */ 	jr	$ra
 /*  f0661f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0661fc:	03e00008 */ 	jr	$ra
-/*  f066200:	00000000 */ 	nop
 );
+
+void func0f0661fc(void)
+{
+	// empty
+}
 
 void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
