@@ -6384,267 +6384,86 @@ glabel propsTick
 //	func0f02472c();
 //}
 
-GLOBAL_ASM(
-glabel func0f063dcc
-.late_rodata
-glabel var7f1a9f18
-.word func0f063dcc+0xa8 # f063e74
-glabel var7f1a9f1c
-.word func0f063dcc+0x364 # f064130
-glabel var7f1a9f20
-.word func0f063dcc+0x2fc # f0640c8
-glabel var7f1a9f24
-.word func0f063dcc+0xa8 # f063e74
-glabel var7f1a9f28
-.word func0f063dcc+0x2fc # f0640c8
-glabel var7f1a9f2c
-.word func0f063dcc+0x2d4 # f0640a0
-.text
-/*  f063dcc:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*  f063dd0:	3c028007 */ 	lui	$v0,%hi(var80069964)
-/*  f063dd4:	8c429964 */ 	lw	$v0,%lo(var80069964)($v0)
-/*  f063dd8:	afbf006c */ 	sw	$ra,0x6c($sp)
-/*  f063ddc:	afb60068 */ 	sw	$s6,0x68($sp)
-/*  f063de0:	afb50064 */ 	sw	$s5,0x64($sp)
-/*  f063de4:	afb40060 */ 	sw	$s4,0x60($sp)
-/*  f063de8:	afb3005c */ 	sw	$s3,0x5c($sp)
-/*  f063dec:	afb20058 */ 	sw	$s2,0x58($sp)
-/*  f063df0:	afb10054 */ 	sw	$s1,0x54($sp)
-/*  f063df4:	afb00050 */ 	sw	$s0,0x50($sp)
-/*  f063df8:	044000d4 */ 	bltz	$v0,.L0f06414c
-/*  f063dfc:	f7b40048 */ 	sdc1	$f20,0x48($sp)
-/*  f063e00:	044000d2 */ 	bltz	$v0,.L0f06414c
-/*  f063e04:	0000b025 */ 	or	$s6,$zero,$zero
-/*  f063e08:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f063e0c:	4481a000 */ 	mtc1	$at,$f20
-/*  f063e10:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f063e14:	27b5008c */ 	addiu	$s5,$sp,0x8c
-/*  f063e18:	27b300b8 */ 	addiu	$s3,$sp,0xb8
-/*  f063e1c:	27b20090 */ 	addiu	$s2,$sp,0x90
-/*  f063e20:	27b100a0 */ 	addiu	$s1,$sp,0xa0
-.L0f063e24:
-/*  f063e24:	3c0e8007 */ 	lui	$t6,%hi(var80069960)
-/*  f063e28:	8dce9960 */ 	lw	$t6,%lo(var80069960)($t6)
-/*  f063e2c:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f063e30:	02203025 */ 	or	$a2,$s1,$zero
-/*  f063e34:	028e8021 */ 	addu	$s0,$s4,$t6
-/*  f063e38:	0fc456ac */ 	jal	padUnpack
-/*  f063e3c:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f063e40:	0fc575ba */ 	jal	roomIsVisibleByAnyPlayer
-/*  f063e44:	8fa400e8 */ 	lw	$a0,0xe8($sp)
-/*  f063e48:	104000b9 */ 	beqz	$v0,.L0f064130
-/*  f063e4c:	00000000 */ 	nop
-/*  f063e50:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f063e54:	2c410006 */ 	sltiu	$at,$v0,0x6
-/*  f063e58:	102000b5 */ 	beqz	$at,.L0f064130
-/*  f063e5c:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f063e60:	3c017f1b */ 	lui	$at,%hi(var7f1a9f18)
-/*  f063e64:	002f0821 */ 	addu	$at,$at,$t7
-/*  f063e68:	8c2f9f18 */ 	lw	$t7,%lo(var7f1a9f18)($at)
-/*  f063e6c:	01e00008 */ 	jr	$t7
-/*  f063e70:	00000000 */ 	nop
-/*  f063e74:	8fb800e8 */ 	lw	$t8,0xe8($sp)
-/*  f063e78:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f063e7c:	a7b9008e */ 	sh	$t9,0x8e($sp)
-/*  f063e80:	a7b8008c */ 	sh	$t8,0x8c($sp)
-/*  f063e84:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f063e88:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f063e8c:	0fc456ac */ 	jal	padUnpack
-/*  f063e90:	02203025 */ 	or	$a2,$s1,$zero
-/*  f063e94:	c7a400b8 */ 	lwc1	$f4,0xb8($sp)
-/*  f063e98:	c7a800bc */ 	lwc1	$f8,0xbc($sp)
-/*  f063e9c:	c7b000c0 */ 	lwc1	$f16,0xc0($sp)
-/*  f063ea0:	46002187 */ 	neg.s	$f6,$f4
-/*  f063ea4:	46004287 */ 	neg.s	$f10,$f8
-/*  f063ea8:	46008487 */ 	neg.s	$f18,$f16
-/*  f063eac:	e7a60090 */ 	swc1	$f6,0x90($sp)
-/*  f063eb0:	e7aa0094 */ 	swc1	$f10,0x94($sp)
-/*  f063eb4:	0c004b70 */ 	jal	random
-/*  f063eb8:	e7b20098 */ 	swc1	$f18,0x98($sp)
-/*  f063ebc:	304907ff */ 	andi	$t1,$v0,0x7ff
-/*  f063ec0:	2d210033 */ 	sltiu	$at,$t1,0x33
-/*  f063ec4:	1020001e */ 	beqz	$at,.L0f063f40
-/*  f063ec8:	87a4008c */ 	lh	$a0,0x8c($sp)
-/*  f063ecc:	240a0009 */ 	addiu	$t2,$zero,0x9
-/*  f063ed0:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f063ed4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f063ed8:	02203025 */ 	or	$a2,$s1,$zero
-/*  f063edc:	02403825 */ 	or	$a3,$s2,$zero
-/*  f063ee0:	0fc4be7c */ 	jal	sparksCreate
-/*  f063ee4:	afb30010 */ 	sw	$s3,0x10($sp)
-/*  f063ee8:	0fc25480 */ 	jal	func0f095200
-/*  f063eec:	00000000 */ 	nop
-/*  f063ef0:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f063ef4:	00065c03 */ 	sra	$t3,$a2,0x10
-/*  f063ef8:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f063efc:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f063f00:	afad002c */ 	sw	$t5,0x2c($sp)
-/*  f063f04:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f063f08:	01603025 */ 	or	$a2,$t3,$zero
-/*  f063f0c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f063f10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f063f14:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f063f18:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f063f1c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f063f20:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f063f24:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f063f28:	e7b40024 */ 	swc1	$f20,0x24($sp)
-/*  f063f2c:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f063f30:	e7b40030 */ 	swc1	$f20,0x30($sp)
-/*  f063f34:	e7b40034 */ 	swc1	$f20,0x34($sp)
-/*  f063f38:	0fc24e7e */ 	jal	func0f0939f8
-/*  f063f3c:	e7b40038 */ 	swc1	$f20,0x38($sp)
-.L0f063f40:
-/*  f063f40:	0c004b70 */ 	jal	random
-/*  f063f44:	00000000 */ 	nop
-/*  f063f48:	304e07ff */ 	andi	$t6,$v0,0x7ff
-/*  f063f4c:	2dc10010 */ 	sltiu	$at,$t6,0x10
-/*  f063f50:	10200026 */ 	beqz	$at,.L0f063fec
-/*  f063f54:	87a4008c */ 	lh	$a0,0x8c($sp)
-/*  f063f58:	240f0009 */ 	addiu	$t7,$zero,0x9
-/*  f063f5c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f063f60:	00002825 */ 	or	$a1,$zero,$zero
-/*  f063f64:	02203025 */ 	or	$a2,$s1,$zero
-/*  f063f68:	02403825 */ 	or	$a3,$s2,$zero
-/*  f063f6c:	0fc4be7c */ 	jal	sparksCreate
-/*  f063f70:	afb30010 */ 	sw	$s3,0x10($sp)
-/*  f063f74:	2418000a */ 	addiu	$t8,$zero,0xa
-/*  f063f78:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f063f7c:	87a4008c */ 	lh	$a0,0x8c($sp)
-/*  f063f80:	00002825 */ 	or	$a1,$zero,$zero
-/*  f063f84:	02203025 */ 	or	$a2,$s1,$zero
-/*  f063f88:	02403825 */ 	or	$a3,$s2,$zero
-/*  f063f8c:	0fc4be7c */ 	jal	sparksCreate
-/*  f063f90:	afb30010 */ 	sw	$s3,0x10($sp)
-/*  f063f94:	0fc25480 */ 	jal	func0f095200
-/*  f063f98:	00000000 */ 	nop
-/*  f063f9c:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f063fa0:	0006cc03 */ 	sra	$t9,$a2,0x10
-/*  f063fa4:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f063fa8:	240affff */ 	addiu	$t2,$zero,-1
-/*  f063fac:	afaa002c */ 	sw	$t2,0x2c($sp)
-/*  f063fb0:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f063fb4:	03203025 */ 	or	$a2,$t9,$zero
-/*  f063fb8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f063fbc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f063fc0:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f063fc4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f063fc8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f063fcc:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f063fd0:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f063fd4:	e7b40024 */ 	swc1	$f20,0x24($sp)
-/*  f063fd8:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f063fdc:	e7b40030 */ 	swc1	$f20,0x30($sp)
-/*  f063fe0:	e7b40034 */ 	swc1	$f20,0x34($sp)
-/*  f063fe4:	0fc24e7e */ 	jal	func0f0939f8
-/*  f063fe8:	e7b40038 */ 	swc1	$f20,0x38($sp)
-.L0f063fec:
-/*  f063fec:	0c004b70 */ 	jal	random
-/*  f063ff0:	00000000 */ 	nop
-/*  f063ff4:	304b07ff */ 	andi	$t3,$v0,0x7ff
-/*  f063ff8:	2d610006 */ 	sltiu	$at,$t3,0x6
-/*  f063ffc:	1020004c */ 	beqz	$at,.L0f064130
-/*  f064000:	87a4008c */ 	lh	$a0,0x8c($sp)
-/*  f064004:	240c0009 */ 	addiu	$t4,$zero,0x9
-/*  f064008:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f06400c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f064010:	02203025 */ 	or	$a2,$s1,$zero
-/*  f064014:	02403825 */ 	or	$a3,$s2,$zero
-/*  f064018:	0fc4be7c */ 	jal	sparksCreate
-/*  f06401c:	afb30010 */ 	sw	$s3,0x10($sp)
-/*  f064020:	240d000b */ 	addiu	$t5,$zero,0xb
-/*  f064024:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f064028:	87a4008c */ 	lh	$a0,0x8c($sp)
-/*  f06402c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f064030:	02203025 */ 	or	$a2,$s1,$zero
-/*  f064034:	02403825 */ 	or	$a3,$s2,$zero
-/*  f064038:	0fc4be7c */ 	jal	sparksCreate
-/*  f06403c:	afb30010 */ 	sw	$s3,0x10($sp)
-/*  f064040:	0fc25480 */ 	jal	func0f095200
-/*  f064044:	00000000 */ 	nop
-/*  f064048:	00023400 */ 	sll	$a2,$v0,0x10
-/*  f06404c:	00067403 */ 	sra	$t6,$a2,0x10
-/*  f064050:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f064054:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f064058:	afb8002c */ 	sw	$t8,0x2c($sp)
-/*  f06405c:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f064060:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f064064:	00002025 */ 	or	$a0,$zero,$zero
-/*  f064068:	00002825 */ 	or	$a1,$zero,$zero
-/*  f06406c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f064070:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f064074:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f064078:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f06407c:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f064080:	e7b40024 */ 	swc1	$f20,0x24($sp)
-/*  f064084:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f064088:	e7b40030 */ 	swc1	$f20,0x30($sp)
-/*  f06408c:	e7b40034 */ 	swc1	$f20,0x34($sp)
-/*  f064090:	0fc24e7e */ 	jal	func0f0939f8
-/*  f064094:	e7b40038 */ 	swc1	$f20,0x38($sp)
-/*  f064098:	10000025 */ 	b	.L0f064130
-/*  f06409c:	00000000 */ 	nop
-/*  f0640a0:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x2ac)
-/*  f0640a4:	8f39a26c */ 	lw	$t9,%lo(g_Vars+0x2ac)($t9)
-/*  f0640a8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0640ac:	57210028 */ 	bnel	$t9,$at,.L0f064150
-/*  f0640b0:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f0640b4:	0fc256d9 */ 	jal	objectiveIsAllComplete
-/*  f0640b8:	00000000 */ 	nop
-/*  f0640bc:	50400024 */ 	beqzl	$v0,.L0f064150
-/*  f0640c0:	8fbf006c */ 	lw	$ra,0x6c($sp)
-/*  f0640c4:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f0640c8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0640cc:	10410007 */ 	beq	$v0,$at,.L0f0640ec
-/*  f0640d0:	24080014 */ 	addiu	$t0,$zero,0x14
-/*  f0640d4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0640d8:	10410003 */ 	beq	$v0,$at,.L0f0640e8
-/*  f0640dc:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0640e0:	54410003 */ 	bnel	$v0,$at,.L0f0640f0
-/*  f0640e4:	8fa900e8 */ 	lw	$t1,0xe8($sp)
-.L0f0640e8:
-/*  f0640e8:	24080015 */ 	addiu	$t0,$zero,0x15
-.L0f0640ec:
-/*  f0640ec:	8fa900e8 */ 	lw	$t1,0xe8($sp)
-.L0f0640f0:
-/*  f0640f0:	240affff */ 	addiu	$t2,$zero,-1
-/*  f0640f4:	a7aa008a */ 	sh	$t2,0x8a($sp)
-/*  f0640f8:	a7a90088 */ 	sh	$t1,0x88($sp)
-/*  f0640fc:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f064100:	afa80084 */ 	sw	$t0,0x84($sp)
-/*  f064104:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f064108:	0fc456ac */ 	jal	padUnpack
-/*  f06410c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f064110:	8fa80084 */ 	lw	$t0,0x84($sp)
-/*  f064114:	02002025 */ 	or	$a0,$s0,$zero
-/*  f064118:	02202825 */ 	or	$a1,$s1,$zero
-/*  f06411c:	00083c00 */ 	sll	$a3,$t0,0x10
-/*  f064120:	00075c03 */ 	sra	$t3,$a3,0x10
-/*  f064124:	01603825 */ 	or	$a3,$t3,$zero
-/*  f064128:	0fc4b9d3 */ 	jal	func0f12e74c
-/*  f06412c:	27a60088 */ 	addiu	$a2,$sp,0x88
-.L0f064130:
-/*  f064130:	3c0c8007 */ 	lui	$t4,%hi(var80069964)
-/*  f064134:	8d8c9964 */ 	lw	$t4,%lo(var80069964)($t4)
-/*  f064138:	26d60001 */ 	addiu	$s6,$s6,0x1
-/*  f06413c:	2694000c */ 	addiu	$s4,$s4,0xc
-/*  f064140:	0196082a */ 	slt	$at,$t4,$s6
-/*  f064144:	1020ff37 */ 	beqz	$at,.L0f063e24
-/*  f064148:	00000000 */ 	nop
-.L0f06414c:
-/*  f06414c:	8fbf006c */ 	lw	$ra,0x6c($sp)
-.L0f064150:
-/*  f064150:	d7b40048 */ 	ldc1	$f20,0x48($sp)
-/*  f064154:	8fb00050 */ 	lw	$s0,0x50($sp)
-/*  f064158:	8fb10054 */ 	lw	$s1,0x54($sp)
-/*  f06415c:	8fb20058 */ 	lw	$s2,0x58($sp)
-/*  f064160:	8fb3005c */ 	lw	$s3,0x5c($sp)
-/*  f064164:	8fb40060 */ 	lw	$s4,0x60($sp)
-/*  f064168:	8fb50064 */ 	lw	$s5,0x64($sp)
-/*  f06416c:	8fb60068 */ 	lw	$s6,0x68($sp)
-/*  f064170:	03e00008 */ 	jr	$ra
-/*  f064174:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-);
+void propsTickPadEffects(void)
+{
+	s32 i;
+	struct pad pad;
+	u32 stack;
+	struct coord up;
+	s16 rooms[2];
+	s16 rooms2[2];
+	s32 type;
+
+	if (g_LastPadEffectIndex >= 0) {
+		for (i = 0; i <= g_LastPadEffectIndex; i++) {
+			struct padeffectobj *effect = &g_PadEffects[i];
+
+			padUnpack(effect->pad, PADFIELD_ROOM, &pad);
+
+			if (roomIsVisibleByAnyPlayer(pad.room)) {
+				switch (effect->effect) {
+				case PADEFFECT_SPARKS:
+				case PADEFFECT_SPARKS2:
+					rooms[0] = pad.room;
+					rooms[1] = -1;
+
+					padUnpack(effect->pad, PADFIELD_POS | PADFIELD_UP, &pad);
+
+					up.x = -pad.up.x;
+					up.y = -pad.up.y;
+					up.z = -pad.up.z;
+
+					if ((random() % 2048) <= 50) {
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, 9);
+						func0f0939f8(NULL, NULL, func0f095200(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+					}
+
+					if ((random() % 2048) <= 15) {
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, 9);
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, 10);
+						func0f0939f8(NULL, NULL, func0f095200(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+					}
+
+					if ((random() % 2048) <= 5) {
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, 9);
+						sparksCreate(rooms[0], NULL, &pad.pos, &up, &pad.up, 11);
+						func0f0939f8(NULL, NULL, func0f095200(), -1, -1, 0, 0, 0, &pad.pos, -1, rooms, -1, -1, -1, -1);
+					}
+					break;
+				case PADEFFECT_OUTROSMOKE:
+					if (g_Vars.tickmode != TICKMODE_CUTSCENE || !objectiveIsAllComplete()) {
+						// @bug: This should be a break rather than a return.
+						// Because of this, subsequent pad effects won't tick.
+						return;
+					}
+					// fall-through
+				case PADEFFECT_SPLASH:
+				case PADEFFECT_SMOKE:
+					type = SMOKETYPE_WATER;
+
+					switch (effect->effect) {
+					case PADEFFECT_SPLASH:
+						type = SMOKETYPE_WATER;
+						break;
+					case PADEFFECT_SMOKE:
+					case PADEFFECT_OUTROSMOKE:
+						type = SMOKETYPE_DEBRIS;
+						break;
+					}
+
+					rooms2[0] = pad.room;
+					rooms2[1] = -1;
+
+					padUnpack(effect->pad, PADFIELD_POS | PADFIELD_UP, &pad);
+					smokeCreateAtPadEffect(effect, &pad.pos, rooms2, type);
+					break;
+				case PADEFFECT_01:
+					break;
+				}
+			}
+		}
+	}
+}
 
 void propSetCollisionsEnabled(struct prop *prop, s32 enable)
 {

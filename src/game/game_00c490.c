@@ -2710,8 +2710,8 @@ void setupLoadFiles(s32 stagenum)
 	u16 filenum;
 	bool modified;
 
-	var80069960 = 0;
-	var80069964 = 0xffffffff;
+	g_PadEffects = NULL;
+	g_LastPadEffectIndex = -1;
 
 	g_DoorScale = 1;
 
@@ -3426,10 +3426,10 @@ void setupParseObjects(s32 stagenum)
 				case OBJTYPE_PADEFFECT:
 					{
 						struct padeffectobj *padeffect = (struct padeffectobj *)obj;
-						if (var80069964 == -1) {
-							var80069960 = padeffect;
+						if (g_LastPadEffectIndex == -1) {
+							g_PadEffects = padeffect;
 						}
-						var80069964++;
+						g_LastPadEffectIndex++;
 					}
 					break;
 				case OBJTYPE_MINE:

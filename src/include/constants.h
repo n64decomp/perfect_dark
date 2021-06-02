@@ -3090,12 +3090,12 @@
 
 #define PAD_PRESET 9000
 
-#define PADEFFECT_SPARKS          0x00
-#define PADEFFECT_01              0x01 // used only in Escape on a pad containing nothing
-#define PADEFFECT_SPLASH          0x02
-#define PADEFFECT_SPARKS2         0x03
-#define PADEFFECT_SMOKE           0x04
-#define PADEFFECT_SMOKE_TEMPORARY 0x05
+#define PADEFFECT_SPARKS     0
+#define PADEFFECT_01         1 // Unimplemented
+#define PADEFFECT_SPLASH     2
+#define PADEFFECT_SPARKS2    3 // Same as PADEFFECT_SPARKS
+#define PADEFFECT_SMOKE      4
+#define PADEFFECT_OUTROSMOKE 5 // Like smoke, but only shows in cutscenes and only if all objectives are complete
 
 #define PADFIELD_POS    0x0002
 #define PADFIELD_LOOK   0x0004

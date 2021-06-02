@@ -1276,14 +1276,14 @@ glabel smokeCreate
 //			smoke->prop = prop;
 //			smoke->age = 0;
 //			smoke->type = type;
-//			smoke->srcprop = NULL;
+//			smoke->source = NULL;
 //		}
 //	}
 //
 //	return smoke;
 //}
 
-bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4)
+bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 srcispadeffect)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -1291,7 +1291,7 @@ bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4)
 
 	for (i = 0; i < g_MaxSmokes; i++) {
 		if (g_Smokes[i].prop
-				&& g_Smokes[i].unk06_07 == arg4
+				&& g_Smokes[i].srcispadeffect == srcispadeffect
 				&& g_Smokes[i].type >= SMOKETYPE_MUZZLE_PISTOL
 				&& g_Smokes[i].type <= SMOKETYPE_MUZZLE_REAPER) {
 			bool fail = false;
@@ -1313,7 +1313,7 @@ bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4)
 	smoke = smokeCreate(pos, rooms, type);
 
 	if (smoke) {
-		smoke->unk06_07 = arg4;
+		smoke->srcispadeffect = srcispadeffect;
 		return true;
 	}
 
@@ -1325,7 +1325,7 @@ bool func0f12e454(struct coord *pos, s16 *rooms, s16 type, u32 arg4)
  * smoke parts have a size of zero. Perhaps the caller is supposed to check if
  * this function returns false and reuse the zero-sized smoke parts if so?
  */
-bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4)
+bool smokeCreateWithSource(void *source, struct coord *pos, s16 *rooms, s16 type, bool srcispadeffect)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -1338,7 +1338,7 @@ bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *roo
 
 	if (checksmokes) {
 		for (i = 0; i < g_MaxSmokes; i++) {
-			if (g_Smokes[i].prop && g_Smokes[i].srcprop == prop) {
+			if (g_Smokes[i].prop && g_Smokes[i].source == source) {
 				bool fail = false;
 
 				if (g_Smokes[i].age < g_SmokeTypes[g_Smokes[i].type].duration) {
@@ -1359,8 +1359,8 @@ bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *roo
 	smoke = smokeCreate(pos, rooms, type);
 
 	if (smoke) {
-		smoke->srcprop = prop;
-		smoke->unk06_07 = arg4;
+		smoke->source = source;
+		smoke->srcispadeffect = srcispadeffect;
 		return true;
 	}
 
@@ -1369,12 +1369,12 @@ bool smokeCreateAtPropIfNecessary(struct prop *prop, struct coord *pos, s16 *roo
 
 void smokeCreateAtProp(struct prop *prop, s16 type)
 {
-	smokeCreateAtPropIfNecessary(prop, &prop->pos, prop->rooms, type, false);
+	smokeCreateWithSource(prop, &prop->pos, prop->rooms, type, false);
 }
 
-void func0f12e74c(struct prop *prop, struct coord *pos, s16 *rooms, s16 type, u32 arg4)
+void smokeCreateAtPadEffect(struct padeffectobj *effect, struct coord *pos, s16 *rooms, s16 type)
 {
-	smokeCreateAtPropIfNecessary(prop, pos, rooms, type, true);
+	smokeCreateWithSource(effect, pos, rooms, type, true);
 }
 
 void smokeClearForProp(struct prop *prop)
@@ -1382,9 +1382,9 @@ void smokeClearForProp(struct prop *prop)
 	s32 i;
 
 	for (i = 0; i < g_MaxSmokes; i++) {
-		if (g_Smokes[i].prop && g_Smokes[i].srcprop == prop && g_Smokes[i].unk06_07 == false) {
+		if (g_Smokes[i].prop && g_Smokes[i].source == prop && g_Smokes[i].srcispadeffect == false) {
 			g_Smokes[i].age = g_SmokeTypes[g_Smokes[i].type].duration;
-			g_Smokes[i].srcprop = NULL;
+			g_Smokes[i].source = NULL;
 		}
 	}
 }

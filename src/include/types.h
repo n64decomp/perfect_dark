@@ -2004,6 +2004,8 @@ struct hovercarobj { // objtype 0x37
 
 struct padeffectobj { // objtype 0x38
 	u32 unk00;
+	s32 effect;
+	s32 pad;
 };
 
 struct chopperobj { // objtype 0x39
@@ -4930,10 +4932,10 @@ struct smoke {
 	/*0x000*/ struct prop *prop; // Prop of the smoke itself
 	/*0x004*/ s16 age;
 	/*0x006*/ u16 type : 7;
-	/*0x006*/ u16 unk06_07 : 1;
+	/*0x006*/ u16 srcispadeffect : 1;
 	/*0x007*/ u16 unk06_08 : 8;
 	/*0x008*/ struct smokepart parts[10];
-	/*0x198*/ struct prop *srcprop; // Prop of the thing generating smoke
+	/*0x198*/ void *source; // The thing generating smoke. Can be prop or padeffect
 };
 
 struct textoverride {

@@ -34,7 +34,7 @@ bool currentPlayerInteract(bool eyespy);
 void propPause(struct prop *prop);
 void propUnpause(struct prop *prop);
 void propsTick(u32 islastplayer);
-void func0f063dcc(void);
+void propsTickPadEffects(void);
 void propSetCollisionsEnabled(struct prop *prop, bool enable);
 void func0f0641f4(void);
 f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5, bool cangangsta, s32 arg7);

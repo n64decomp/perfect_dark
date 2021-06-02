@@ -8144,7 +8144,7 @@ glabel var7f1b8ed0pf
 /*  f16d890:	00000000 */ 	nop
 /*  f16d894:	0fc0764c */ 	jal	func0f01d860
 /*  f16d898:	00000000 */ 	nop
-/*  f16d89c:	0fc19017 */ 	jal	func0f063dcc
+/*  f16d89c:	0fc19017 */ 	jal	propsTickPadEffects
 /*  f16d8a0:	00000000 */ 	nop
 /*  f16d8a4:	0c0039b9 */ 	jal	mainGetStageNum
 /*  f16d8a8:	00000000 */ 	nop
@@ -8520,7 +8520,7 @@ void lvTick(void)
 
 		func00011d84();
 		func0f01d860();
-		func0f063dcc();
+		propsTickPadEffects();
 
 		if (mainGetStageNum() == STAGE_CITRAINING) {
 			struct trainingdata *trainingdata = dtGetData();
@@ -9744,7 +9744,7 @@ glabel lvTick
 /*  f1677fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167800:	0fc07550 */ 	jal	func0f01d860
 /*  f167804:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167808:	0fc18c10 */ 	jal	func0f063dcc
+/*  f167808:	0fc18c10 */ 	jal	propsTickPadEffects
 /*  f16780c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167810:	0c003c59 */ 	jal	mainGetStageNum
 /*  f167814:	00000000 */ 	sll	$zero,$zero,0x0
