@@ -7329,13 +7329,13 @@ glabel arrayIntersects
 /*  f0658e4:	00000000 */ 	nop
 );
 
-bool func0f0658e8(s16 arg0, s32 arg1)
+bool func0f0658e8(s16 propnum, s32 arg1)
 {
 	s32 i;
 
 	for (i = 0; i < 7; i++) {
-		if (var8009cda4[arg1].unk00[i] < 0) {
-			var8009cda4[arg1].unk00[i] = arg0;
+		if (var8009cda4[arg1].propnums[i] < 0) {
+			var8009cda4[arg1].propnums[i] = propnum;
 			return true;
 		}
 	}
@@ -7393,76 +7393,31 @@ glabel func0f06593c
 /*  f0659e0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0659e4
-/*  f0659e4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0659e8:	00053c00 */ 	sll	$a3,$a1,0x10
-/*  f0659ec:	00077403 */ 	sra	$t6,$a3,0x10
-/*  f0659f0:	01c03825 */ 	or	$a3,$t6,$zero
-/*  f0659f4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0659f8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0659fc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f065a00:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f065a04:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f065a08:	05c0002f */ 	bltz	$t6,.L0f065ac8
-/*  f065a0c:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f065a10:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f065a14:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f065a18:	8c4f02bc */ 	lw	$t7,0x2bc($v0)
-/*  f065a1c:	3c18800a */ 	lui	$t8,%hi(var8009cda0)
-/*  f065a20:	000ec840 */ 	sll	$t9,$t6,0x1
-/*  f065a24:	01cf082a */ 	slt	$at,$t6,$t7
-/*  f065a28:	50200028 */ 	beqzl	$at,.L0f065acc
-/*  f065a2c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f065a30:	8c490338 */ 	lw	$t1,0x338($v0)
-/*  f065a34:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f065a38:	8f18cda0 */ 	lw	$t8,%lo(var8009cda0)($t8)
-/*  f065a3c:	00899023 */ 	subu	$s2,$a0,$t1
-/*  f065a40:	0241001a */ 	div	$zero,$s2,$at
-/*  f065a44:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f065a48:	85100000 */ 	lh	$s0,0x0($t0)
-/*  f065a4c:	00005012 */ 	mflo	$t2
-/*  f065a50:	000a5c00 */ 	sll	$t3,$t2,0x10
-/*  f065a54:	06000013 */ 	bltz	$s0,.L0f065aa4
-/*  f065a58:	000b9403 */ 	sra	$s2,$t3,0x10
-/*  f065a5c:	3c11800a */ 	lui	$s1,%hi(var8009cda4)
-/*  f065a60:	2631cda4 */ 	addiu	$s1,$s1,%lo(var8009cda4)
-/*  f065a64:	a7ae002e */ 	sh	$t6,0x2e($sp)
-/*  f065a68:	00122400 */ 	sll	$a0,$s2,0x10
-.L0f065a6c:
-/*  f065a6c:	00046c03 */ 	sra	$t5,$a0,0x10
-/*  f065a70:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f065a74:	0fc1963a */ 	jal	func0f0658e8
-/*  f065a78:	02002825 */ 	or	$a1,$s0,$zero
-/*  f065a7c:	54400013 */ 	bnezl	$v0,.L0f065acc
-/*  f065a80:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f065a84:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f065a88:	00107900 */ 	sll	$t7,$s0,0x4
-/*  f065a8c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f065a90:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f065a94:	8710000e */ 	lh	$s0,0xe($t8)
-/*  f065a98:	0603fff4 */ 	bgezl	$s0,.L0f065a6c
-/*  f065a9c:	00122400 */ 	sll	$a0,$s2,0x10
-/*  f065aa0:	87a7002e */ 	lh	$a3,0x2e($sp)
-.L0f065aa4:
-/*  f065aa4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f065aa8:	0fc1964f */ 	jal	func0f06593c
-/*  f065aac:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f065ab0:	04400005 */ 	bltz	$v0,.L0f065ac8
-/*  f065ab4:	00122400 */ 	sll	$a0,$s2,0x10
-/*  f065ab8:	0004cc03 */ 	sra	$t9,$a0,0x10
-/*  f065abc:	03202025 */ 	or	$a0,$t9,$zero
-/*  f065ac0:	0fc1963a */ 	jal	func0f0658e8
-/*  f065ac4:	00402825 */ 	or	$a1,$v0,$zero
-.L0f065ac8:
-/*  f065ac8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f065acc:
-/*  f065acc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f065ad0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f065ad4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f065ad8:	03e00008 */ 	jr	$ra
-/*  f065adc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f0659e4(struct prop *prop, s16 room)
+{
+	s32 prev = -1;
+	s32 i;
+
+	if (room >= 0 && room < g_Vars.roomcount) {
+		s32 value = var8009cda0[room];
+		s16 propnum = prop - g_Vars.props;
+
+		for (i = 0; value >= 0; i++) {
+			if (func0f0658e8(propnum, value)) {
+				return;
+			}
+
+			prev = value;
+			value = var8009cda4[value].propnums[7];
+		}
+
+		value = func0f06593c(room, prev);
+
+		if (value >= 0) {
+			func0f0658e8(propnum, value);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f065ae0

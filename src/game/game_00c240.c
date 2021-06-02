@@ -66,10 +66,10 @@ void func0f00c390(void)
 	}
 
 	for (i = 0; i < 256; i++) {
-		var8009cda4[i].unk00[0] = -2;
+		var8009cda4[i].propnums[0] = -2;
 
-		for (j = 1; j < ARRAYCOUNT(var8009cda4[i].unk00); j++) {
-			var8009cda4[i].unk00[j] = -1;
+		for (j = 1; j < ARRAYCOUNT(var8009cda4[i].propnums); j++) {
+			var8009cda4[i].propnums[j] = -1;
 		}
 	}
 }

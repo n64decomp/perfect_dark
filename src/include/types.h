@@ -6798,7 +6798,7 @@ struct var800a41b0 {
 };
 
 struct var8009cda4 {
-	s16 unk00[8];
+	s16 propnums[8];
 };
 
 struct var8009ce60 {
