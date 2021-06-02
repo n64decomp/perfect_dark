@@ -7343,55 +7343,29 @@ bool func0f0658e8(s16 propnum, s32 arg1)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f06593c
-/*  f06593c:	00803025 */ 	or	$a2,$a0,$zero
-/*  f065940:	3c02800a */ 	lui	$v0,%hi(var8009cda4)
-/*  f065944:	8c42cda4 */ 	lw	$v0,%lo(var8009cda4)($v0)
-/*  f065948:	2404fffe */ 	addiu	$a0,$zero,-2
-/*  f06594c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f065950:	24070100 */ 	addiu	$a3,$zero,0x100
-.L0f065954:
-/*  f065954:	844e0000 */ 	lh	$t6,0x0($v0)
-/*  f065958:	548e001d */ 	bnel	$a0,$t6,.L0f0659d0
-/*  f06595c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f065960:	3c02800a */ 	lui	$v0,%hi(var8009cda4)
-/*  f065964:	2442cda4 */ 	addiu	$v0,$v0,%lo(var8009cda4)
-/*  f065968:	00002025 */ 	or	$a0,$zero,$zero
-/*  f06596c:	24080010 */ 	addiu	$t0,$zero,0x10
-/*  f065970:	2407ffff */ 	addiu	$a3,$zero,-1
-.L0f065974:
-/*  f065974:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f065978:	0003c100 */ 	sll	$t8,$v1,0x4
-/*  f06597c:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f065980:	03244821 */ 	addu	$t1,$t9,$a0
-/*  f065984:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  f065988:	1488fffa */ 	bne	$a0,$t0,.L0f065974
-/*  f06598c:	a5270000 */ 	sh	$a3,0x0($t1)
-/*  f065990:	04a00007 */ 	bltz	$a1,.L0f0659b0
-/*  f065994:	00000000 */ 	nop
-/*  f065998:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f06599c:	00055900 */ 	sll	$t3,$a1,0x4
-/*  f0659a0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0659a4:	014b6021 */ 	addu	$t4,$t2,$t3
-/*  f0659a8:	03e00008 */ 	jr	$ra
-/*  f0659ac:	a583000e */ 	sh	$v1,0xe($t4)
-.L0f0659b0:
-/*  f0659b0:	3c0d800a */ 	lui	$t5,%hi(var8009cda0)
-/*  f0659b4:	8dadcda0 */ 	lw	$t5,%lo(var8009cda0)($t5)
-/*  f0659b8:	00067040 */ 	sll	$t6,$a2,0x1
-/*  f0659bc:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f0659c0:	a5e30000 */ 	sh	$v1,0x0($t7)
-/*  f0659c4:	03e00008 */ 	jr	$ra
-/*  f0659c8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0659cc:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0659d0:
-/*  f0659d0:	1467ffe0 */ 	bne	$v1,$a3,.L0f065954
-/*  f0659d4:	24420010 */ 	addiu	$v0,$v0,16
-/*  f0659d8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0659dc:	03e00008 */ 	jr	$ra
-/*  f0659e0:	00000000 */ 	nop
-);
+s32 func0f06593c(s32 room, s32 arg1)
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 256; i++) {
+		if (var8009cda4[i].propnums[0] == -2) {
+			for (j = 0; j < 8; j++) {
+				var8009cda4[i].propnums[j] = -1;
+			}
+
+			if (arg1 >= 0) {
+				var8009cda4[arg1].propnums[7] = i;
+			} else {
+				var8009cda0[room] = i;
+			}
+
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 void func0f0659e4(struct prop *prop, s16 room)
 {
