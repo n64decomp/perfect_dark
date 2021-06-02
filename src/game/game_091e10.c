@@ -302,9 +302,9 @@ void func0f09233c(struct defaultobj *obj, struct coord *pos, f32 *realrot, s16 *
 
 void func0f0923d4(struct defaultobj *obj)
 {
-	func0f065c44(obj->prop);
+	propDeregisterRooms(obj->prop);
 	func0f09233c(obj, &obj->prop->pos, obj->realrot, obj->prop->rooms);
-	func0f065cb0(obj->prop);
+	propRegisterRooms(obj->prop);
 }
 
 struct defaultobj *setupCommandGetObject(u32 cmdindex)

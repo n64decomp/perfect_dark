@@ -6797,7 +6797,15 @@ struct var800a41b0 {
 	/*0x78*/ u32 unk78;
 };
 
-struct var8009cda4 {
+/**
+ * This struct is used as a pretend linked list.
+ *
+ * The final item in the propnums array is not a propnum; it's the index of the
+ * next chunk in the chunks array.
+ *
+ * The first item in the propnums array is -2 if this chunk is unallocated.
+ */
+struct roomproplistchunk {
 	s16 propnums[8];
 };
 

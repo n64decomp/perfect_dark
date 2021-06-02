@@ -735,7 +735,7 @@ glabel var7f1ad568
 /*  f0b74ec:	8d2a00bc */ 	lw	$t2,0xbc($t1)
 /*  f0b74f0:	e5420010 */ 	swc1	$f2,0x10($t2)
 /*  f0b74f4:	8e4b0284 */ 	lw	$t3,0x284($s2)
-/*  f0b74f8:	0fc19711 */ 	jal	func0f065c44
+/*  f0b74f8:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0b74fc:	8d6400bc */ 	lw	$a0,0xbc($t3)
 /*  f0b7500:	8e4d0284 */ 	lw	$t5,0x284($s2)
 /*  f0b7504:	87ac00fc */ 	lh	$t4,0xfc($sp)
@@ -1008,7 +1008,7 @@ glabel var7f1ad568
 //	g_Vars.currentplayer->bondprevpos.z = pos.z;
 //	g_Vars.currentplayer->prop->pos.z = pos.z;
 //
-//	func0f065c44(g_Vars.currentplayer->prop);
+//	propDeregisterRooms(g_Vars.currentplayer->prop);
 //
 //	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 //	g_Vars.currentplayer->prop->rooms[1] = -1;
@@ -1366,7 +1366,7 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 		g_Vars.currentplayer->bond2.width = hostchr->chrwidth;
 
 		func0f020d44(hostprop, true);
-		func0f065c44(hostprop);
+		propDeregisterRooms(hostprop);
 		propDelist(hostprop);
 		propDisable(hostprop);
 		propFree(hostprop);

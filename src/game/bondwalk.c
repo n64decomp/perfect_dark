@@ -412,7 +412,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 
 	if (result == CDRESULT_NOCOLLISION) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
-		func0f065c44(g_Vars.currentplayer->prop);
+		propDeregisterRooms(g_Vars.currentplayer->prop);
 		roomsCopy(rooms, g_Vars.currentplayer->prop->rooms);
 	}
 
@@ -522,7 +522,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		g_Vars.currentplayer->prop->pos.z = dstpos.z;
 
 		if (copyrooms) {
-			func0f065c44(g_Vars.currentplayer->prop);
+			propDeregisterRooms(g_Vars.currentplayer->prop);
 			roomsCopy(dstrooms, g_Vars.currentplayer->prop->rooms);
 		}
 	}
@@ -828,7 +828,7 @@ glabel var7f1a7ad8nb
 /*  f0c1e08:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f0c1e0c:	8e0a0284 */ 	lw	$t2,0x284($s0)
 /*  f0c1e10:	8d4400bc */ 	lw	$a0,0xbc($t2)
-/*  f0c1e14:	0fc193ab */ 	jal	func0f065c44
+/*  f0c1e14:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f0c1e18:	afa300b4 */ 	sw	$v1,0xb4($sp)
 /*  f0c1e1c:	8e0b0284 */ 	lw	$t3,0x284($s0)
 /*  f0c1e20:	27a40094 */ 	addiu	$a0,$sp,0x94
@@ -1072,7 +1072,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c4594:	c7a4006c */ 	lwc1	$f4,0x6c($sp)
 /*  f0c4598:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f0c459c:	c7a60070 */ 	lwc1	$f6,0x70($sp)
-/*  f0c45a0:	0fc19711 */ 	jal	func0f065c44
+/*  f0c45a0:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0c45a4:	e4860010 */ 	swc1	$f6,0x10($a0)
 /*  f0c45a8:	8fa500a0 */ 	lw	$a1,0xa0($sp)
 /*  f0c45ac:	27a40058 */ 	addiu	$a0,$sp,0x58
@@ -1415,7 +1415,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c4594:	c7a4006c */ 	lwc1	$f4,0x6c($sp)
 /*  f0c4598:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f0c459c:	c7a60070 */ 	lwc1	$f6,0x70($sp)
-/*  f0c45a0:	0fc19711 */ 	jal	func0f065c44
+/*  f0c45a0:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0c45a4:	e4860010 */ 	swc1	$f6,0x10($a0)
 /*  f0c45a8:	8fa500a0 */ 	lw	$a1,0xa0($sp)
 /*  f0c45ac:	27a40058 */ 	addiu	$a0,$sp,0x58
@@ -1622,7 +1622,7 @@ glabel bwalkCalculateNewPositionWithPush
 //							obstacle->pos.y = newpos.y;
 //							obstacle->pos.z = newpos.z;
 //
-//							func0f065c44(obstacle);
+//							propDeregisterRooms(obstacle);
 //							roomsCopy(newrooms, obstacle->rooms);
 //							func0f0220ac(chr);
 //							modelSetRootPosition(chr->model, &newpos);
@@ -2287,7 +2287,7 @@ void bwalkUpdateVertical(void)
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
 		g_Vars.currentplayer->prop->pos.z = newpos.z;
 
-		func0f065c44(g_Vars.currentplayer->prop);
+		propDeregisterRooms(g_Vars.currentplayer->prop);
 		roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
 	}
 }
@@ -3230,7 +3230,7 @@ glabel var7f1a7b20nb
 /*  f0c3910:	8dcd00bc */ 	lw	$t5,0xbc($t6)
 /*  f0c3914:	e5aa0010 */ 	swc1	$f10,0x10($t5)
 /*  f0c3918:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f0c391c:	0fc193ab */ 	jal	func0f065c44
+/*  f0c391c:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f0c3920:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f0c3924:	8e180284 */ 	lw	$t8,0x284($s0)
 /*  f0c3928:	27a40098 */ 	addiu	$a0,$sp,0x98
@@ -6606,7 +6606,7 @@ void bwalkTick(void)
 #if VERSION >= VERSION_NTSC_1_0
 	for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
 		if (g_Vars.currentplayer->floorroom == g_Vars.currentplayer->prop->rooms[i]) {
-			func0f065c44(g_Vars.currentplayer->prop);
+			propDeregisterRooms(g_Vars.currentplayer->prop);
 			g_Vars.currentplayer->prop->rooms[0] = g_Vars.currentplayer->floorroom;
 			g_Vars.currentplayer->prop->rooms[1] = -1;
 			break;

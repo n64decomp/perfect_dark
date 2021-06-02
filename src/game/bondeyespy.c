@@ -103,7 +103,7 @@ s32 eyespyTryMoveUpwards(f32 yvel)
 
 	if (result == CDRESULT_NOCOLLISION) {
 		prop->pos.y = dstpos.y;
-		func0f065c44(prop);
+		propDeregisterRooms(prop);
 		roomsCopy(dstrooms, prop->rooms);
 	}
 
@@ -203,7 +203,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 			eyespyprop->pos.y = dstpos.y;
 			eyespyprop->pos.z = dstpos.z;
 
-			func0f065c44(eyespyprop);
+			propDeregisterRooms(eyespyprop);
 
 			roomsCopy(dstrooms, eyespyprop->rooms);
 		}
@@ -668,7 +668,7 @@ bool eyespyTryLaunch(void)
 	}
 
 	currentPlayerSetPerimEnabled(g_Vars.currentplayer->prop, true);
-	func0f065c44(g_Vars.currentplayer->eyespy->prop);
+	propDeregisterRooms(g_Vars.currentplayer->eyespy->prop);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);
 

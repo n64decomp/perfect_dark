@@ -1153,7 +1153,7 @@ glabel var7f1a827c
 /*  f012294:	8d4e00bc */ 	lw	$t6,0xbc($t2)
 /*  f012298:	e5c20010 */ 	swc1	$f2,0x10($t6)
 /*  f01229c:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f0122a0:	0fc197b5 */ 	jal	func0f065c44
+/*  f0122a0:	0fc197b5 */ 	jal	propDeregisterRooms
 /*  f0122a4:	8d6400bc */ 	lw	$a0,0xbc($t3)
 /*  f0122a8:	8e2d0284 */ 	lw	$t5,0x284($s1)
 /*  f0122ac:	87a9008c */ 	lh	$t1,0x8c($sp)
@@ -1974,7 +1974,7 @@ glabel var7f1a827c
 /*  f012270:	8d4e00bc */ 	lw	$t6,0xbc($t2)
 /*  f012274:	e5c20010 */ 	swc1	$f2,0x10($t6)
 /*  f012278:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f01227c:	0fc19711 */ 	jal	func0f065c44
+/*  f01227c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f012280:	8d6400bc */ 	lw	$a0,0xbc($t3)
 /*  f012284:	8e2d0284 */ 	lw	$t5,0x284($s1)
 /*  f012288:	87a9008c */ 	lh	$t1,0x8c($sp)
@@ -2787,7 +2787,7 @@ glabel var7f1a827c
 /*  f011f94:	8d4e00bc */ 	lw	$t6,0xbc($t2)
 /*  f011f98:	e5c20010 */ 	swc1	$f2,0x10($t6)
 /*  f011f9c:	8e2b0284 */ 	lw	$t3,0x284($s1)
-/*  f011fa0:	0fc193ab */ 	jal	func0f065c44
+/*  f011fa0:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f011fa4:	8d6400bc */ 	lw	$a0,0xbc($t3)
 /*  f011fa8:	8e2d0284 */ 	lw	$t5,0x284($s1)
 /*  f011fac:	87a9008c */ 	lh	$t1,0x8c($sp)
@@ -3227,7 +3227,7 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->bondprevpos.z = (tmp = pos.z);
 //	g_Vars.currentplayer->prop->pos.z = tmp;
 //
-//	func0f065c44(g_Vars.currentplayer->prop);
+//	propDeregisterRooms(g_Vars.currentplayer->prop);
 //
 //	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 //	g_Vars.currentplayer->prop->rooms[1] = -1;

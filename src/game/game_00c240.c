@@ -29,7 +29,7 @@ void gvarsInitProps(void)
 		g_Vars.props[i].next = &g_Vars.props[i + 1];
 	}
 
-	func0f00c390();
+	gvarsInitRoomProps();
 
 	if (g_Vars.normmplayerisrunning) {
 		g_Vars.numpropstates = 4;
@@ -53,23 +53,23 @@ void gvarsInitProps(void)
 	}
 }
 
-void func0f00c390(void)
+void gvarsInitRoomProps(void)
 {
 	s32 i;
 	s32 j;
 
-	var8009cda0 = malloc(ALIGN16(g_Vars.roomcount * 2), MEMPOOL_STAGE);
-	var8009cda4 = malloc(256 * sizeof(struct var8009cda4), MEMPOOL_STAGE);
+	g_RoomPropListChunkIndexes = malloc(ALIGN16(g_Vars.roomcount * sizeof(s16)), MEMPOOL_STAGE);
+	g_RoomPropListChunks = malloc(256 * sizeof(struct roomproplistchunk), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		var8009cda0[i] = -1;
+		g_RoomPropListChunkIndexes[i] = -1;
 	}
 
 	for (i = 0; i < 256; i++) {
-		var8009cda4[i].propnums[0] = -2;
+		g_RoomPropListChunks[i].propnums[0] = -2;
 
-		for (j = 1; j < ARRAYCOUNT(var8009cda4[i].propnums); j++) {
-			var8009cda4[i].propnums[j] = -1;
+		for (j = 1; j < ARRAYCOUNT(g_RoomPropListChunks[i].propnums); j++) {
+			g_RoomPropListChunks[i].propnums[j] = -1;
 		}
 	}
 }

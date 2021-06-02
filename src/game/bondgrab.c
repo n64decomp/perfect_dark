@@ -512,7 +512,7 @@ bool bgrabTryMoveUpwards(f32 y)
 
 	if (result == CDRESULT_NOCOLLISION) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
-		func0f065c44(g_Vars.currentplayer->prop);
+		propDeregisterRooms(g_Vars.currentplayer->prop);
 		roomsCopy(rooms, g_Vars.currentplayer->prop->rooms);
 	}
 
@@ -1033,7 +1033,7 @@ glabel var7f1ad9c4
 /*  f0cd8c4:	5160000a */ 	beqzl	$t3,.L0f0cd8f0
 /*  f0cd8c8:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0cd8cc:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0cd8d0:	0fc19711 */ 	jal	func0f065c44
+/*  f0cd8d0:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0cd8d4:	8d8400bc */ 	lw	$a0,0xbc($t4)
 /*  f0cd8d8:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0cd8dc:	27a400cc */ 	addiu	$a0,$sp,0xcc
@@ -1591,7 +1591,7 @@ glabel var7f1ad9c4
 /*  f0cd8c4:	5160000a */ 	beqzl	$t3,.L0f0cd8f0
 /*  f0cd8c8:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0cd8cc:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0cd8d0:	0fc19711 */ 	jal	func0f065c44
+/*  f0cd8d0:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0cd8d4:	8d8400bc */ 	lw	$a0,0xbc($t4)
 /*  f0cd8d8:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0cd8dc:	27a400cc */ 	addiu	$a0,$sp,0xcc
@@ -2169,7 +2169,7 @@ glabel var7f1ad9c4
 /*  f0cb138:	51e0000a */ 	beqzl	$t7,.NB0f0cb164
 /*  f0cb13c:	8e080284 */ 	lw	$t0,0x284($s0)
 /*  f0cb140:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0cb144:	0fc193ab */ 	jal	func0f065c44
+/*  f0cb144:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f0cb148:	8f0400bc */ 	lw	$a0,0xbc($t8)
 /*  f0cb14c:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0cb150:	27a400c4 */ 	addiu	$a0,$sp,0xc4
@@ -3629,7 +3629,7 @@ void bgrabTick(void)
 #if VERSION >= VERSION_NTSC_1_0
 	for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
 		if (g_Vars.currentplayer->prop->rooms[i] == g_Vars.currentplayer->floorroom) {
-			func0f065c44(g_Vars.currentplayer->prop);
+			propDeregisterRooms(g_Vars.currentplayer->prop);
 			g_Vars.currentplayer->prop->rooms[0] = g_Vars.currentplayer->floorroom;
 			g_Vars.currentplayer->prop->rooms[1] = -1;
 			break;

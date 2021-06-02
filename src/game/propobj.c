@@ -5370,7 +5370,7 @@ void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, s16 *
 	prop->pos.y = pos->y;
 	prop->pos.z = pos->z;
 
-	func0f065c44(prop);
+	propDeregisterRooms(prop);
 	roomsCopy(rooms, prop->rooms);
 	func0f069c70(obj, true, true);
 
@@ -6348,7 +6348,7 @@ void objRemove2(struct defaultobj *obj, bool freeprop, bool regen)
 				objDetach(obj->prop);
 			}
 
-			func0f065c44(obj->prop);
+			propDeregisterRooms(obj->prop);
 
 			if (obj->prop->type != PROPTYPE_DOOR) {
 				func0f089a94(true, obj->model);
@@ -9279,7 +9279,7 @@ glabel var7f1aa26c
 /*  f06d4c8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06d4cc:	e610000c */ 	swc1	$f16,0xc($s0)
 /*  f06d4d0:	c7b20088 */ 	lwc1	$f18,0x88($sp)
-/*  f06d4d4:	0fc19711 */ 	jal	func0f065c44
+/*  f06d4d4:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f06d4d8:	e6120010 */ 	swc1	$f18,0x10($s0)
 /*  f06d4dc:	27a40070 */ 	addiu	$a0,$sp,0x70
 /*  f06d4e0:	0fc195e9 */ 	jal	roomsCopy
@@ -9530,7 +9530,7 @@ glabel var7f1aa26c
 /*  f06d85c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06d860:	e606000c */ 	swc1	$f6,0xc($s0)
 /*  f06d864:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*  f06d868:	0fc19711 */ 	jal	func0f065c44
+/*  f06d868:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f06d86c:	e6080010 */ 	swc1	$f8,0x10($s0)
 /*  f06d870:	27a40070 */ 	addiu	$a0,$sp,0x70
 /*  f06d874:	0fc195e9 */ 	jal	roomsCopy
@@ -9562,7 +9562,7 @@ glabel var7f1aa26c
 /*  f06d8d4:	e7a80054 */ 	swc1	$f8,0x54($sp)
 /*  f06d8d8:	c7aa0050 */ 	lwc1	$f10,0x50($sp)
 /*  f06d8dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06d8e0:	0fc19711 */ 	jal	func0f065c44
+/*  f06d8e0:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f06d8e4:	e60a000c */ 	swc1	$f10,0xc($s0)
 /*  f06d8e8:	27a40070 */ 	addiu	$a0,$sp,0x70
 /*  f06d8ec:	0fc195e9 */ 	jal	roomsCopy
@@ -9670,7 +9670,7 @@ glabel var7f1aa26c
 /*  f06d4c8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06d4cc:	e610000c */ 	swc1	$f16,0xc($s0)
 /*  f06d4d0:	c7b20088 */ 	lwc1	$f18,0x88($sp)
-/*  f06d4d4:	0fc19711 */ 	jal	func0f065c44
+/*  f06d4d4:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f06d4d8:	e6120010 */ 	swc1	$f18,0x10($s0)
 /*  f06d4dc:	27a40070 */ 	addiu	$a0,$sp,0x70
 /*  f06d4e0:	0fc195e9 */ 	jal	roomsCopy
@@ -9921,7 +9921,7 @@ glabel var7f1aa26c
 /*  f06d85c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f06d860:	e606000c */ 	swc1	$f6,0xc($s0)
 /*  f06d864:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*  f06d868:	0fc19711 */ 	jal	func0f065c44
+/*  f06d868:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f06d86c:	e6080010 */ 	swc1	$f8,0x10($s0)
 /*  f06d870:	27a40070 */ 	addiu	$a0,$sp,0x70
 /*  f06d874:	0fc195e9 */ 	jal	roomsCopy
@@ -9953,7 +9953,7 @@ glabel var7f1aa26c
 /*  f06d8d4:	e7a80054 */ 	swc1	$f8,0x54($sp)
 /*  f06d8d8:	c7aa0050 */ 	lwc1	$f10,0x50($sp)
 /*  f06d8dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06d8e0:	0fc19711 */ 	jal	func0f065c44
+/*  f06d8e0:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f06d8e4:	e60a000c */ 	swc1	$f10,0xc($s0)
 /*  f06d8e8:	27a40070 */ 	addiu	$a0,$sp,0x70
 /*  f06d8ec:	0fc195e9 */ 	jal	roomsCopy
@@ -11657,7 +11657,7 @@ glabel func0f06ef44
 /*  f06ef98:	8e190040 */ 	lw	$t9,0x40($s0)
 /*  f06ef9c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06efa0:	37280040 */ 	ori	$t0,$t9,0x40
-/*  f06efa4:	0fc19711 */ 	jal	func0f065c44
+/*  f06efa4:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f06efa8:	ae080040 */ 	sw	$t0,0x40($s0)
 /*  f06efac:	0fc18171 */ 	jal	propDelist
 /*  f06efb0:	02202025 */ 	or	$a0,$s1,$zero
@@ -18233,7 +18233,7 @@ glabel var7f1aa31c
 /*  f072548:	8fa400e8 */ 	lw	$a0,0xe8($sp)
 /*  f07254c:	e4840008 */ 	swc1	$f4,0x8($a0)
 /*  f072550:	c7a80458 */ 	lwc1	$f8,0x458($sp)
-/*  f072554:	0fc19711 */ 	jal	func0f065c44
+/*  f072554:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f072558:	e4880010 */ 	swc1	$f8,0x10($a0)
 /*  f07255c:	27a40440 */ 	addiu	$a0,$sp,0x440
 /*  f072560:	0fc195e9 */ 	jal	roomsCopy
@@ -20093,7 +20093,7 @@ glabel func0f0732d4
 /*  f073400:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
 /*  f073404:	e60a000c */ 	swc1	$f10,0xc($s0)
 /*  f073408:	c7b00090 */ 	lwc1	$f16,0x90($sp)
-/*  f07340c:	0fc19711 */ 	jal	func0f065c44
+/*  f07340c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f073410:	e6100010 */ 	swc1	$f16,0x10($s0)
 /*  f073414:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f073418:	03c02825 */ 	or	$a1,$s8,$zero
@@ -20389,7 +20389,7 @@ glabel var7f1aa3d0
 /*  f073818:	c7a60078 */ 	lwc1	$f6,0x78($sp)
 /*  f07381c:	e666000c */ 	swc1	$f6,0xc($s3)
 /*  f073820:	c7b0007c */ 	lwc1	$f16,0x7c($sp)
-/*  f073824:	0fc19711 */ 	jal	func0f065c44
+/*  f073824:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f073828:	e6700010 */ 	swc1	$f16,0x10($s3)
 /*  f07382c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f073830:	0fc195e9 */ 	jal	roomsCopy
@@ -20846,7 +20846,7 @@ glabel var7f1aa3d0
 /*  f073818:	c7a60078 */ 	lwc1	$f6,0x78($sp)
 /*  f07381c:	e666000c */ 	swc1	$f6,0xc($s3)
 /*  f073820:	c7b0007c */ 	lwc1	$f16,0x7c($sp)
-/*  f073824:	0fc19711 */ 	jal	func0f065c44
+/*  f073824:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f073828:	e6700010 */ 	swc1	$f16,0x10($s3)
 /*  f07382c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f073830:	0fc195e9 */ 	jal	roomsCopy
@@ -21090,7 +21090,7 @@ glabel func0f073ae8
 /*  f073b90:	c66600c8 */ 	lwc1	$f6,0xc8($s3)
 /*  f073b94:	e626000c */ 	swc1	$f6,0xc($s1)
 /*  f073b98:	c66800cc */ 	lwc1	$f8,0xcc($s3)
-/*  f073b9c:	0fc19711 */ 	jal	func0f065c44
+/*  f073b9c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f073ba0:	e6280010 */ 	swc1	$f8,0x10($s1)
 /*  f073ba4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f073ba8:	0fc195e9 */ 	jal	roomsCopy
@@ -21127,7 +21127,7 @@ glabel func0f073ae8
 /*  f073c1c:	e630000c */ 	swc1	$f16,0xc($s1)
 /*  f073c20:	8fa90068 */ 	lw	$t1,0x68($sp)
 /*  f073c24:	c5320008 */ 	lwc1	$f18,0x8($t1)
-/*  f073c28:	0fc19711 */ 	jal	func0f065c44
+/*  f073c28:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f073c2c:	e6320010 */ 	swc1	$f18,0x10($s1)
 /*  f073c30:	27a40034 */ 	addiu	$a0,$sp,0x34
 /*  f073c34:	0fc195e9 */ 	jal	roomsCopy
@@ -23638,7 +23638,7 @@ glabel var7f1ab6dcpf
 /*  f076264:	c7a805e0 */ 	lwc1	$f8,0x5e0($sp)
 /*  f076268:	e648000c */ 	swc1	$f8,0xc($s2)
 /*  f07626c:	c7aa05e4 */ 	lwc1	$f10,0x5e4($sp)
-/*  f076270:	0fc197b5 */ 	jal	func0f065c44
+/*  f076270:	0fc197b5 */ 	jal	propDeregisterRooms
 /*  f076274:	e64a0010 */ 	swc1	$f10,0x10($s2)
 /*  f076278:	27a4013c */ 	addiu	$a0,$sp,0x13c
 /*  f07627c:	0fc1968d */ 	jal	roomsCopy
@@ -23680,7 +23680,7 @@ glabel var7f1ab6dcpf
 /*  f0762f8:	c7a805e0 */ 	lwc1	$f8,0x5e0($sp)
 /*  f0762fc:	e648000c */ 	swc1	$f8,0xc($s2)
 /*  f076300:	c7aa05e4 */ 	lwc1	$f10,0x5e4($sp)
-/*  f076304:	0fc197b5 */ 	jal	func0f065c44
+/*  f076304:	0fc197b5 */ 	jal	propDeregisterRooms
 /*  f076308:	e64a0010 */ 	swc1	$f10,0x10($s2)
 /*  f07630c:	27a4012c */ 	addiu	$a0,$sp,0x12c
 /*  f076310:	0fc1968d */ 	jal	roomsCopy
@@ -23803,7 +23803,7 @@ glabel var7f1ab6dcpf
 /*  f0764d4:	02402025 */ 	move	$a0,$s2
 /*  f0764d8:	e64a000c */ 	swc1	$f10,0xc($s2)
 /*  f0764dc:	c7a605d0 */ 	lwc1	$f6,0x5d0($sp)
-/*  f0764e0:	0fc197b5 */ 	jal	func0f065c44
+/*  f0764e0:	0fc197b5 */ 	jal	propDeregisterRooms
 /*  f0764e4:	e6460010 */ 	swc1	$f6,0x10($s2)
 /*  f0764e8:	27a405b8 */ 	addiu	$a0,$sp,0x5b8
 /*  f0764ec:	0fc1968d */ 	jal	roomsCopy
@@ -24598,7 +24598,7 @@ glabel var7f1ab6dcpf
 /*  f077068:	264e0008 */ 	addiu	$t6,$s2,0x8
 /*  f07706c:	02402025 */ 	move	$a0,$s2
 /*  f077070:	e6460010 */ 	swc1	$f6,0x10($s2)
-/*  f077074:	0fc197b5 */ 	jal	func0f065c44
+/*  f077074:	0fc197b5 */ 	jal	propDeregisterRooms
 /*  f077078:	afae0070 */ 	sw	$t6,0x70($sp)
 /*  f07707c:	27a405b8 */ 	addiu	$a0,$sp,0x5b8
 /*  f077080:	0fc1968d */ 	jal	roomsCopy
@@ -27176,7 +27176,7 @@ glabel var7f1aa438
 /*  f075fe0:	c7a605e0 */ 	lwc1	$f6,0x5e0($sp)
 /*  f075fe4:	e646000c */ 	swc1	$f6,0xc($s2)
 /*  f075fe8:	c7a805e4 */ 	lwc1	$f8,0x5e4($sp)
-/*  f075fec:	0fc19711 */ 	jal	func0f065c44
+/*  f075fec:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f075ff0:	e6480010 */ 	swc1	$f8,0x10($s2)
 /*  f075ff4:	27a4013c */ 	addiu	$a0,$sp,0x13c
 /*  f075ff8:	0fc195e9 */ 	jal	roomsCopy
@@ -27218,7 +27218,7 @@ glabel var7f1aa438
 /*  f076074:	c7a605e0 */ 	lwc1	$f6,0x5e0($sp)
 /*  f076078:	e646000c */ 	swc1	$f6,0xc($s2)
 /*  f07607c:	c7a805e4 */ 	lwc1	$f8,0x5e4($sp)
-/*  f076080:	0fc19711 */ 	jal	func0f065c44
+/*  f076080:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f076084:	e6480010 */ 	swc1	$f8,0x10($s2)
 /*  f076088:	27a4012c */ 	addiu	$a0,$sp,0x12c
 /*  f07608c:	0fc195e9 */ 	jal	roomsCopy
@@ -27341,7 +27341,7 @@ glabel var7f1aa438
 /*  f076250:	02402025 */ 	or	$a0,$s2,$zero
 /*  f076254:	e648000c */ 	swc1	$f8,0xc($s2)
 /*  f076258:	c7a405d0 */ 	lwc1	$f4,0x5d0($sp)
-/*  f07625c:	0fc19711 */ 	jal	func0f065c44
+/*  f07625c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f076260:	e6440010 */ 	swc1	$f4,0x10($s2)
 /*  f076264:	27a405b8 */ 	addiu	$a0,$sp,0x5b8
 /*  f076268:	0fc195e9 */ 	jal	roomsCopy
@@ -28130,7 +28130,7 @@ glabel var7f1aa438
 /*  f076dcc:	264e0008 */ 	addiu	$t6,$s2,0x8
 /*  f076dd0:	02402025 */ 	or	$a0,$s2,$zero
 /*  f076dd4:	e64a0010 */ 	swc1	$f10,0x10($s2)
-/*  f076dd8:	0fc19711 */ 	jal	func0f065c44
+/*  f076dd8:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f076ddc:	afae0070 */ 	sw	$t6,0x70($sp)
 /*  f076de0:	27a405b8 */ 	addiu	$a0,$sp,0x5b8
 /*  f076de4:	0fc195e9 */ 	jal	roomsCopy
@@ -30679,7 +30679,7 @@ glabel var7f1aa438
 /*  f074d10:	c7a605e0 */ 	lwc1	$f6,0x5e0($sp)
 /*  f074d14:	e646000c */ 	swc1	$f6,0xc($s2)
 /*  f074d18:	c7a805e4 */ 	lwc1	$f8,0x5e4($sp)
-/*  f074d1c:	0fc193ab */ 	jal	func0f065c44
+/*  f074d1c:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f074d20:	e6480010 */ 	swc1	$f8,0x10($s2)
 /*  f074d24:	27a4013c */ 	addiu	$a0,$sp,0x13c
 /*  f074d28:	0fc19283 */ 	jal	roomsCopy
@@ -30721,7 +30721,7 @@ glabel var7f1aa438
 /*  f074da4:	c7a605e0 */ 	lwc1	$f6,0x5e0($sp)
 /*  f074da8:	e646000c */ 	swc1	$f6,0xc($s2)
 /*  f074dac:	c7a805e4 */ 	lwc1	$f8,0x5e4($sp)
-/*  f074db0:	0fc193ab */ 	jal	func0f065c44
+/*  f074db0:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f074db4:	e6480010 */ 	swc1	$f8,0x10($s2)
 /*  f074db8:	27a4012c */ 	addiu	$a0,$sp,0x12c
 /*  f074dbc:	0fc19283 */ 	jal	roomsCopy
@@ -31564,7 +31564,7 @@ glabel var7f1aa438
 /*  f0759f4:	264e0008 */ 	addiu	$t6,$s2,0x8
 /*  f0759f8:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0759fc:	e6460010 */ 	swc1	$f6,0x10($s2)
-/*  f075a00:	0fc193ab */ 	jal	func0f065c44
+/*  f075a00:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f075a04:	afae0074 */ 	sw	$t6,0x74($sp)
 /*  f075a08:	27a405b8 */ 	addiu	$a0,$sp,0x5b8
 /*  f075a0c:	0fc19283 */ 	jal	roomsCopy
@@ -32121,7 +32121,7 @@ glabel var7f1aa454
 /*  f0777cc:	c6a60008 */ 	lwc1	$f6,0x8($s5)
 /*  f0777d0:	46083401 */ 	sub.s	$f16,$f6,$f8
 /*  f0777d4:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f0777d8:	0fc19711 */ 	jal	func0f065c44
+/*  f0777d8:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0777dc:	e6320010 */ 	swc1	$f18,0x10($s1)
 /*  f0777e0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0777e4:	02802825 */ 	or	$a1,$s4,$zero
@@ -32181,7 +32181,7 @@ glabel var7f1aa454
 /*  f0778b8:	c6a40008 */ 	lwc1	$f4,0x8($s5)
 /*  f0778bc:	46062401 */ 	sub.s	$f16,$f4,$f6
 /*  f0778c0:	46109200 */ 	add.s	$f8,$f18,$f16
-/*  f0778c4:	0fc19711 */ 	jal	func0f065c44
+/*  f0778c4:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0778c8:	e6280010 */ 	swc1	$f8,0x10($s1)
 /*  f0778cc:	26320008 */ 	addiu	$s2,$s1,0x8
 /*  f0778d0:	02403025 */ 	or	$a2,$s2,$zero
@@ -32334,7 +32334,7 @@ glabel var7f1aa454
 /*  f077b10:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
 /*  f077b14:	e624000c */ 	swc1	$f4,0xc($s1)
 /*  f077b18:	c7a60080 */ 	lwc1	$f6,0x80($sp)
-/*  f077b1c:	0fc19711 */ 	jal	func0f065c44
+/*  f077b1c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f077b20:	e6260010 */ 	swc1	$f6,0x10($s1)
 /*  f077b24:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*  f077b28:	0fc195e9 */ 	jal	roomsCopy
@@ -32507,7 +32507,7 @@ glabel var7f1aa454
 /*  f0777cc:	c6a60008 */ 	lwc1	$f6,0x8($s5)
 /*  f0777d0:	46083401 */ 	sub.s	$f16,$f6,$f8
 /*  f0777d4:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f0777d8:	0fc19711 */ 	jal	func0f065c44
+/*  f0777d8:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0777dc:	e6320010 */ 	swc1	$f18,0x10($s1)
 /*  f0777e0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0777e4:	02802825 */ 	or	$a1,$s4,$zero
@@ -32567,7 +32567,7 @@ glabel var7f1aa454
 /*  f0778b8:	c6a40008 */ 	lwc1	$f4,0x8($s5)
 /*  f0778bc:	46062401 */ 	sub.s	$f16,$f4,$f6
 /*  f0778c0:	46109200 */ 	add.s	$f8,$f18,$f16
-/*  f0778c4:	0fc19711 */ 	jal	func0f065c44
+/*  f0778c4:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0778c8:	e6280010 */ 	swc1	$f8,0x10($s1)
 /*  f0778cc:	26320008 */ 	addiu	$s2,$s1,0x8
 /*  f0778d0:	02403025 */ 	or	$a2,$s2,$zero
@@ -32720,7 +32720,7 @@ glabel var7f1aa454
 /*  f077b10:	c7a4007c */ 	lwc1	$f4,0x7c($sp)
 /*  f077b14:	e624000c */ 	swc1	$f4,0xc($s1)
 /*  f077b18:	c7a60080 */ 	lwc1	$f6,0x80($sp)
-/*  f077b1c:	0fc19711 */ 	jal	func0f065c44
+/*  f077b1c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f077b20:	e6260010 */ 	swc1	$f6,0x10($s1)
 /*  f077b24:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*  f077b28:	0fc195e9 */ 	jal	roomsCopy
@@ -32890,7 +32890,7 @@ glabel var7f1aa454
 /*  f0763c4:	c6460008 */ 	lwc1	$f6,0x8($s2)
 /*  f0763c8:	46083401 */ 	sub.s	$f16,$f6,$f8
 /*  f0763cc:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f0763d0:	0fc193ab */ 	jal	func0f065c44
+/*  f0763d0:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f0763d4:	e6320010 */ 	swc1	$f18,0x10($s1)
 /*  f0763d8:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f0763dc:	02c02825 */ 	or	$a1,$s6,$zero
@@ -32950,7 +32950,7 @@ glabel var7f1aa454
 /*  f0764b0:	c6440008 */ 	lwc1	$f4,0x8($s2)
 /*  f0764b4:	46062401 */ 	sub.s	$f16,$f4,$f6
 /*  f0764b8:	46109200 */ 	add.s	$f8,$f18,$f16
-/*  f0764bc:	0fc193ab */ 	jal	func0f065c44
+/*  f0764bc:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f0764c0:	e6280010 */ 	swc1	$f8,0x10($s1)
 /*  f0764c4:	26340008 */ 	addiu	$s4,$s1,0x8
 /*  f0764c8:	02803025 */ 	or	$a2,$s4,$zero
@@ -33217,7 +33217,7 @@ void liftTick(struct prop *prop)
 			prop->pos.y = newpos.y;
 			prop->pos.z = newpos.z;
 
-			func0f065c44(prop);
+			propDeregisterRooms(prop);
 			roomsCopy(newrooms, prop->rooms);
 			func0f069c70(obj, true, true);
 			func0f070f08(lift, lift->levelcur == lift->levelaim);
@@ -39911,7 +39911,7 @@ glabel var7f1aa668
 /*  f07c074:	c7a60158 */ 	lwc1	$f6,0x158($sp)
 /*  f07c078:	e486000c */ 	swc1	$f6,0xc($a0)
 /*  f07c07c:	c7b2015c */ 	lwc1	$f18,0x15c($sp)
-/*  f07c080:	0fc19711 */ 	jal	func0f065c44
+/*  f07c080:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07c084:	e4920010 */ 	swc1	$f18,0x10($a0)
 /*  f07c088:	27a40160 */ 	addiu	$a0,$sp,0x160
 /*  f07c08c:	0fc195e9 */ 	jal	roomsCopy
@@ -40435,7 +40435,7 @@ glabel var7f1aa668
 /*  f07c074:	c7a60158 */ 	lwc1	$f6,0x158($sp)
 /*  f07c078:	e486000c */ 	swc1	$f6,0xc($a0)
 /*  f07c07c:	c7b2015c */ 	lwc1	$f18,0x15c($sp)
-/*  f07c080:	0fc19711 */ 	jal	func0f065c44
+/*  f07c080:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07c084:	e4920010 */ 	swc1	$f18,0x10($a0)
 /*  f07c088:	27a40160 */ 	addiu	$a0,$sp,0x160
 /*  f07c08c:	0fc195e9 */ 	jal	roomsCopy
@@ -40888,7 +40888,7 @@ glabel var7f1aa698
 /*  f07c690:	c7a4009c */ 	lwc1	$f4,0x9c($sp)
 /*  f07c694:	e624000c */ 	swc1	$f4,0xc($s1)
 /*  f07c698:	c7aa00a0 */ 	lwc1	$f10,0xa0($sp)
-/*  f07c69c:	0fc19711 */ 	jal	func0f065c44
+/*  f07c69c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07c6a0:	e62a0010 */ 	swc1	$f10,0x10($s1)
 /*  f07c6a4:	27a40050 */ 	addiu	$a0,$sp,0x50
 /*  f07c6a8:	0fc195e9 */ 	jal	roomsCopy
@@ -41365,7 +41365,7 @@ glabel var7f1aa698
 /*  f07c690:	c7a4009c */ 	lwc1	$f4,0x9c($sp)
 /*  f07c694:	e624000c */ 	swc1	$f4,0xc($s1)
 /*  f07c698:	c7aa00a0 */ 	lwc1	$f10,0xa0($sp)
-/*  f07c69c:	0fc19711 */ 	jal	func0f065c44
+/*  f07c69c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07c6a0:	e62a0010 */ 	swc1	$f10,0x10($s1)
 /*  f07c6a4:	27a40050 */ 	addiu	$a0,$sp,0x50
 /*  f07c6a8:	0fc195e9 */ 	jal	roomsCopy
@@ -41841,7 +41841,7 @@ glabel var7f1aa698
 /*  f07b13c:	c7a6009c */ 	lwc1	$f6,0x9c($sp)
 /*  f07b140:	e626000c */ 	swc1	$f6,0xc($s1)
 /*  f07b144:	c7b200a0 */ 	lwc1	$f18,0xa0($sp)
-/*  f07b148:	0fc193ab */ 	jal	func0f065c44
+/*  f07b148:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f07b14c:	e6320010 */ 	swc1	$f18,0x10($s1)
 /*  f07b150:	27a40050 */ 	addiu	$a0,$sp,0x50
 /*  f07b154:	0fc19283 */ 	jal	roomsCopy
@@ -42070,7 +42070,7 @@ glabel var7f1aa698
 //			chopperprop->pos.y = sp98.y;
 //			chopperprop->pos.z = sp98.z;
 //
-//			func0f065c44(chopperprop);
+//			propDeregisterRooms(chopperprop);
 //			roomsCopy(sp50, chopperprop->rooms);
 //			func0f069c70(obj, false, true);
 //
@@ -42888,7 +42888,7 @@ glabel var7f1aa6e4
 /*  f07d484:	c7a401c4 */ 	lwc1	$f4,0x1c4($sp)
 /*  f07d488:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f07d48c:	c7aa01c8 */ 	lwc1	$f10,0x1c8($sp)
-/*  f07d490:	0fc19711 */ 	jal	func0f065c44
+/*  f07d490:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07d494:	e48a0010 */ 	swc1	$f10,0x10($a0)
 /*  f07d498:	27a401b0 */ 	addiu	$a0,$sp,0x1b0
 /*  f07d49c:	0fc195e9 */ 	jal	roomsCopy
@@ -43575,7 +43575,7 @@ glabel var7f1aa6e4
 /*  f07de74:	c7a60154 */ 	lwc1	$f6,0x154($sp)
 /*  f07de78:	e486000c */ 	swc1	$f6,0xc($a0)
 /*  f07de7c:	c7a80158 */ 	lwc1	$f8,0x158($sp)
-/*  f07de80:	0fc19711 */ 	jal	func0f065c44
+/*  f07de80:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07de84:	e4880010 */ 	swc1	$f8,0x10($a0)
 /*  f07de88:	27a40140 */ 	addiu	$a0,$sp,0x140
 /*  f07de8c:	0fc195e9 */ 	jal	roomsCopy
@@ -43854,7 +43854,7 @@ glabel var7f1aa6e4
 /*  f07d484:	c7a401c4 */ 	lwc1	$f4,0x1c4($sp)
 /*  f07d488:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f07d48c:	c7aa01c8 */ 	lwc1	$f10,0x1c8($sp)
-/*  f07d490:	0fc19711 */ 	jal	func0f065c44
+/*  f07d490:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07d494:	e48a0010 */ 	swc1	$f10,0x10($a0)
 /*  f07d498:	27a401b0 */ 	addiu	$a0,$sp,0x1b0
 /*  f07d49c:	0fc195e9 */ 	jal	roomsCopy
@@ -44541,7 +44541,7 @@ glabel var7f1aa6e4
 /*  f07de74:	c7a60154 */ 	lwc1	$f6,0x154($sp)
 /*  f07de78:	e486000c */ 	swc1	$f6,0xc($a0)
 /*  f07de7c:	c7a80158 */ 	lwc1	$f8,0x158($sp)
-/*  f07de80:	0fc19711 */ 	jal	func0f065c44
+/*  f07de80:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f07de84:	e4880010 */ 	swc1	$f8,0x10($a0)
 /*  f07de88:	27a40140 */ 	addiu	$a0,$sp,0x140
 /*  f07de8c:	0fc195e9 */ 	jal	roomsCopy
@@ -44818,7 +44818,7 @@ glabel var7f1aa6e0
 /*  f07bf30:	c7a401c4 */ 	lwc1	$f4,0x1c4($sp)
 /*  f07bf34:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f07bf38:	c7aa01c8 */ 	lwc1	$f10,0x1c8($sp)
-/*  f07bf3c:	0fc193ab */ 	jal	func0f065c44
+/*  f07bf3c:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f07bf40:	e48a0010 */ 	swc1	$f10,0x10($a0)
 /*  f07bf44:	27a401b0 */ 	addiu	$a0,$sp,0x1b0
 /*  f07bf48:	0fc19283 */ 	jal	roomsCopy
@@ -45491,7 +45491,7 @@ glabel var7f1aa6e0
 /*  f07c8ec:	c7a40154 */ 	lwc1	$f4,0x154($sp)
 /*  f07c8f0:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f07c8f4:	c7aa0158 */ 	lwc1	$f10,0x158($sp)
-/*  f07c8f8:	0fc193ab */ 	jal	func0f065c44
+/*  f07c8f8:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f07c8fc:	e48a0010 */ 	swc1	$f10,0x10($a0)
 /*  f07c900:	27a40140 */ 	addiu	$a0,$sp,0x140
 /*  f07c904:	0fc19283 */ 	jal	roomsCopy
@@ -45666,7 +45666,7 @@ glabel var7f1aa6e0
 //				prop->pos.y = sp1c0.y;
 //				prop->pos.z = sp1c0.z;
 //
-//				func0f065c44(prop);
+//				propDeregisterRooms(prop);
 //				roomsCopy(sp1b0, prop->rooms);
 //				func0f069c70(&hovercar->base, false, true);
 //			}
@@ -45901,7 +45901,7 @@ glabel var7f1aa6e0
 //		prop->pos.y = sp150.y;
 //		prop->pos.z = sp150.z;
 //
-//		func0f065c44(prop);
+//		propDeregisterRooms(prop);
 //		roomsCopy(sp140, prop->rooms);
 //
 //		hovercar->roty = sp190;
@@ -46243,7 +46243,7 @@ u32 func0f07e474(struct prop *prop)
 			// 1 second left - time to start fading in
 			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_40) == 0) {
 				if (obj->flags & OBJFLAG_00008000) {
-					func0f065c44(prop);
+					propDeregisterRooms(prop);
 					propDelist(prop);
 					obj->hidden &= ~OBJHFLAG_00000800;
 					cmdoffset = setupGetCommandOffset(prop);
@@ -46428,7 +46428,7 @@ s32 objTick(struct prop *prop)
 						prop->pos.y = sp400.y;
 						prop->pos.z = sp400.z;
 
-						func0f065c44(prop);
+						propDeregisterRooms(prop);
 						roomsCopy(sp384, prop->rooms);
 
 						if (obj->type == OBJTYPE_HOVERPROP) {
@@ -46540,7 +46540,7 @@ s32 objTick(struct prop *prop)
 				prop->pos.x = sp236.x;
 				prop->pos.z = sp236.z;
 
-				func0f065c44(prop);
+				propDeregisterRooms(prop);
 				roomsCopy(sp220, prop->rooms);
 
 				if (sp148 <= sp144) {
@@ -54189,7 +54189,7 @@ glabel var7f1aa978
 /*  f083cd8:	c7a40124 */ 	lwc1	$f4,0x124($sp)
 /*  f083cdc:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f083ce0:	c7a80128 */ 	lwc1	$f8,0x128($sp)
-/*  f083ce4:	0fc19711 */ 	jal	func0f065c44
+/*  f083ce4:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f083ce8:	e4880010 */ 	swc1	$f8,0x10($a0)
 /*  f083cec:	8fa50140 */ 	lw	$a1,0x140($sp)
 /*  f083cf0:	27a400d4 */ 	addiu	$a0,$sp,0xd4
@@ -55162,7 +55162,7 @@ glabel var7f1aa978
 /*  f083cd8:	c7a40124 */ 	lwc1	$f4,0x124($sp)
 /*  f083cdc:	e484000c */ 	swc1	$f4,0xc($a0)
 /*  f083ce0:	c7a80128 */ 	lwc1	$f8,0x128($sp)
-/*  f083ce4:	0fc19711 */ 	jal	func0f065c44
+/*  f083ce4:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f083ce8:	e4880010 */ 	swc1	$f8,0x10($a0)
 /*  f083cec:	8fa50140 */ 	lw	$a1,0x140($sp)
 /*  f083cf0:	27a400d4 */ 	addiu	$a0,$sp,0xd4
@@ -67700,7 +67700,7 @@ glabel var7f1aaf78
 /*  f08d70c:	c4c60004 */ 	lwc1	$f6,0x4($a2)
 /*  f08d710:	e486000c */ 	swc1	$f6,0xc($a0)
 /*  f08d714:	c4ca0008 */ 	lwc1	$f10,0x8($a2)
-/*  f08d718:	0fc19711 */ 	jal	func0f065c44
+/*  f08d718:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f08d71c:	e48a0010 */ 	swc1	$f10,0x10($a0)
 /*  f08d720:	8fa5007c */ 	lw	$a1,0x7c($sp)
 /*  f08d724:	27a40028 */ 	addiu	$a0,$sp,0x28

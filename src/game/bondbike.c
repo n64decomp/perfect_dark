@@ -1139,7 +1139,7 @@ s32 bbikeCalculateNewPosition(struct coord *vel, f32 angledelta)
 		g_Vars.currentplayer->hoverbike->pos.x = dstpos.x;
 		g_Vars.currentplayer->hoverbike->pos.z = dstpos.z;
 
-		func0f065c44(g_Vars.currentplayer->hoverbike);
+		propDeregisterRooms(g_Vars.currentplayer->hoverbike);
 		roomsCopy(dstrooms, g_Vars.currentplayer->hoverbike->rooms);
 
 		bike->hov = hov;
@@ -1234,7 +1234,7 @@ void bbikeUpdateVertical(struct coord *arg0)
 #endif
 
 	bmove0f0cb79c(g_Vars.currentplayer, arg0, newrooms);
-	func0f065c44(g_Vars.currentplayer->prop);
+	propDeregisterRooms(g_Vars.currentplayer->prop);
 	roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
 
 	g_Vars.currentplayer->vv_theta = (M_BADTAU - angle) * 360.0f / M_BADTAU;
@@ -1670,7 +1670,7 @@ void bbikeTick(void)
 #if VERSION >= VERSION_NTSC_1_0
 		for (i = 0; prop->rooms[i] != -1; i++) {
 			if (prop->rooms[i] == g_Vars.currentplayer->floorroom) {
-				func0f065c44(prop);
+				propDeregisterRooms(prop);
 				g_Vars.currentplayer->prop->rooms[0] = g_Vars.currentplayer->floorroom;
 				g_Vars.currentplayer->prop->rooms[1] = -1;
 				break;

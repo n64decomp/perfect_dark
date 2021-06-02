@@ -5,6 +5,6 @@
 #include "types.h"
 
 void gvarsInitProps(void);
-void func0f00c390(void);
+void gvarsInitRoomProps(void);
 
 #endif

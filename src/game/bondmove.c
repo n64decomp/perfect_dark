@@ -11890,9 +11890,9 @@ void bmove0f0cb89c(struct player *player, s16 *rooms)
 
 void bmove0f0cb8c4(struct player *player)
 {
-	func0f065c44(player->prop);
+	propDeregisterRooms(player->prop);
 	bmove0f0cb89c(player, player->prop->rooms);
-	func0f065cb0(player->prop);
+	propRegisterRooms(player->prop);
 }
 
 void bmove0f0cb904(struct coord *arg0)

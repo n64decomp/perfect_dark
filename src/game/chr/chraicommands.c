@@ -2380,7 +2380,7 @@ bool aiGiveObjectToChr(void)
 			if (obj->prop->parent) {
 				objDetach(obj->prop);
 			} else {
-				func0f065c44(obj->prop);
+				propDeregisterRooms(obj->prop);
 				propDelist(obj->prop);
 				propDisable(obj->prop);
 			}
@@ -5454,7 +5454,7 @@ bool aiDisableChr(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
-		func0f065c44(chr->prop);
+		propDeregisterRooms(chr->prop);
 		propDelist(chr->prop);
 		propDisable(chr->prop);
 	}
@@ -5508,7 +5508,7 @@ bool aiDisableObj(void)
 			if (obj->prop->parent) {
 				objDetach(obj->prop);
 			} else {
-				func0f065c44(obj->prop);
+				propDeregisterRooms(obj->prop);
 				propDelist(obj->prop);
 				propDisable(obj->prop);
 			}
@@ -5517,7 +5517,7 @@ bool aiDisableObj(void)
 		if (obj->prop->parent) {
 			objDetach(obj->prop);
 		} else {
-			func0f065c44(obj->prop);
+			propDeregisterRooms(obj->prop);
 			propDelist(obj->prop);
 			propDisable(obj->prop);
 		}
@@ -10849,7 +10849,7 @@ glabel ai0172
 /*  f05cad0:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f05cad4:	5521000b */ 	bnel	$t1,$at,.L0f05cb04
 /*  f05cad8:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f05cadc:	0fc19711 */ 	jal	func0f065c44
+/*  f05cadc:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f05cae0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05cae4:	0fc18171 */ 	jal	propDelist
 /*  f05cae8:	02002025 */ 	or	$a0,$s0,$zero
@@ -10881,7 +10881,7 @@ glabel ai0172
 //	g_Vars.chrdata->gunprop = NULL;
 //
 //	if (prop && prop->obj && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
-//		func0f065c44(prop);
+//		propDeregisterRooms(prop);
 //		propDelist(prop);
 //		propDisable(prop);
 //		chrEquipWeapon(prop->obj, g_Vars.chrdata);

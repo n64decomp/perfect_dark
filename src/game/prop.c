@@ -38,8 +38,8 @@
 #include "data.h"
 #include "types.h"
 
-s16 *var8009cda0;
-struct var8009cda4 *var8009cda4;
+s16 *g_RoomPropListChunkIndexes;
+struct roomproplistchunk *g_RoomPropListChunks;
 struct prop *var8009cda8;
 u32 var8009cdac;
 u32 var8009cdb0;
@@ -2542,24 +2542,24 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 			obj->hidden &= ~OBJHFLAG_REAPABLE;
 			obj->hidden2 &= ~OBJH2FLAG_40;
 
-			func0f065c44(prop);
+			propDeregisterRooms(prop);
 			propDisable(prop);
 
 			if (!prop->active) {
 				propUnpause(prop);
 			}
 		} else {
-			func0f065c44(prop);
+			propDeregisterRooms(prop);
 			propDelist(prop);
 			propDisable(prop);
 			propFree(prop);
 		}
 	} else if (op == TICKOP_DISABLE) {
-		func0f065c44(prop);
+		propDeregisterRooms(prop);
 		propDelist(prop);
 		propDisable(prop);
 	} else if (op == TICKOP_GIVETOPLAYER) {
-		func0f065c44(prop);
+		propDeregisterRooms(prop);
 		propDelist(prop);
 		propDisable(prop);
 		objDetach(prop);
@@ -7329,13 +7329,13 @@ glabel arrayIntersects
 /*  f0658e4:	00000000 */ 	nop
 );
 
-bool func0f0658e8(s16 propnum, s32 arg1)
+bool propTryAddToChunk(s16 propnum, s32 chunkindex)
 {
 	s32 i;
 
 	for (i = 0; i < 7; i++) {
-		if (var8009cda4[arg1].propnums[i] < 0) {
-			var8009cda4[arg1].propnums[i] = propnum;
+		if (g_RoomPropListChunks[chunkindex].propnums[i] < 0) {
+			g_RoomPropListChunks[chunkindex].propnums[i] = propnum;
 			return true;
 		}
 	}
@@ -7343,21 +7343,21 @@ bool func0f0658e8(s16 propnum, s32 arg1)
 	return false;
 }
 
-s32 func0f06593c(s32 room, s32 arg1)
+s32 roomAllocatePropListChunk(s32 room, s32 prevchunkindex)
 {
 	s32 i;
 	s32 j;
 
 	for (i = 0; i < 256; i++) {
-		if (var8009cda4[i].propnums[0] == -2) {
+		if (g_RoomPropListChunks[i].propnums[0] == -2) {
 			for (j = 0; j < 8; j++) {
-				var8009cda4[i].propnums[j] = -1;
+				g_RoomPropListChunks[i].propnums[j] = -1;
 			}
 
-			if (arg1 >= 0) {
-				var8009cda4[arg1].propnums[7] = i;
+			if (prevchunkindex >= 0) {
+				g_RoomPropListChunks[prevchunkindex].propnums[7] = i;
 			} else {
-				var8009cda0[room] = i;
+				g_RoomPropListChunkIndexes[room] = i;
 			}
 
 			return i;
@@ -7367,94 +7367,110 @@ s32 func0f06593c(s32 room, s32 arg1)
 	return -1;
 }
 
-void func0f0659e4(struct prop *prop, s16 room)
+void propRegisterRoom(struct prop *prop, s16 room)
 {
 	s32 prev = -1;
 	s32 i;
 
 	if (room >= 0 && room < g_Vars.roomcount) {
-		s32 value = var8009cda0[room];
+		// Find which chunk to start at
+		s32 chunkindex = g_RoomPropListChunkIndexes[room];
 		s16 propnum = prop - g_Vars.props;
 
-		for (i = 0; value >= 0; i++) {
-			if (func0f0658e8(propnum, value)) {
+		for (i = 0; chunkindex >= 0; i++) {
+			if (propTryAddToChunk(propnum, chunkindex)) {
 				return;
 			}
 
-			prev = value;
-			value = var8009cda4[value].propnums[7];
+			prev = chunkindex;
+			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
 		}
 
-		value = func0f06593c(room, prev);
+		// Allocate a new chunk
+		chunkindex = roomAllocatePropListChunk(room, prev);
 
-		if (value >= 0) {
-			func0f0658e8(propnum, value);
+		if (chunkindex >= 0) {
+			propTryAddToChunk(propnum, chunkindex);
 		}
 	}
 }
 
-void func0f065ae0(struct prop *prop, s16 room)
+void propDeregisterRoom(struct prop *prop, s16 room)
 {
 	bool removed = false;
 	s32 prev = -1;
 
 	if (room >= 0 && room < g_Vars.roomcount) {
-		s32 value = var8009cda0[room];
+		// Find which chunk to start at
+		s32 chunkindex = g_RoomPropListChunkIndexes[room];
 		s16 propnum = prop - g_Vars.props;
 
-		while (value >= 0) {
+		while (chunkindex >= 0) {
 			bool populated = false;
 			s32 j;
 
+			// Iterate propnums in this chunk
 			for (j = 0; j < 7; j++) {
-				if (var8009cda4[value].propnums[j] == propnum) {
-					var8009cda4[value].propnums[j] = -1;
+				if (g_RoomPropListChunks[chunkindex].propnums[j] == propnum) {
+					g_RoomPropListChunks[chunkindex].propnums[j] = -1;
 					removed = true;
-				} else if (!populated && var8009cda4[value].propnums[j] >= 0) {
+				} else if (!populated && g_RoomPropListChunks[chunkindex].propnums[j] >= 0) {
 					populated = true;
 				}
 			}
 
 			if (!populated) {
-				var8009cda4[value].propnums[0] = -2;
+				// This chunk is empty, so it can be marked as available
+				g_RoomPropListChunks[chunkindex].propnums[0] = -2;
 
 				if (prev >= 0) {
-					var8009cda4[prev].propnums[7] = var8009cda4[value].propnums[7];
+					g_RoomPropListChunks[prev].propnums[7] = g_RoomPropListChunks[chunkindex].propnums[7];
 				} else {
-					var8009cda0[room] = var8009cda4[value].propnums[7];
+					g_RoomPropListChunkIndexes[room] = g_RoomPropListChunks[chunkindex].propnums[7];
 				}
 			} else {
-				prev = value;
+				prev = chunkindex;
 			}
 
 			if (removed) {
 				return;
 			}
 
-			value = var8009cda4[value].propnums[7];
+			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
 		}
 	}
 }
 
-void func0f065c44(struct prop *prop)
+/**
+ * Remove a prop from the room registration system.
+ * The prop's rooms list is unchanged.
+ *
+ * Room registration is used to look up props by room number.
+ */
+void propDeregisterRooms(struct prop *prop)
 {
 	s16 *rooms = prop->rooms;
 	s16 room = *rooms;
 
 	while (room != -1) {
-		func0f065ae0(prop, room);
+		propDeregisterRoom(prop, room);
 		rooms++;
 		room = *rooms;
 	}
 }
 
-void func0f065cb0(struct prop *prop)
+/**
+ * Add a prop to the room registration system based on its rooms list.
+ *
+ * Room registration is used to look up props by room number.
+ */
+void propRegisterRooms(struct prop *prop)
 {
 	s16 *rooms = prop->rooms;
 	s16 room = *rooms;
 
 	while (room != -1) {
-		func0f0659e4(prop, room);
+		propRegisterRoom(prop, room);
 		rooms++;
 		room = *rooms;
 	}
@@ -7537,70 +7553,66 @@ void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2
 	}
 }
 
-GLOBAL_ASM(
-glabel roomGetProps
-/*  f065f80:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f065f84:	84830000 */ 	lh	$v1,0x0($a0)
-/*  f065f88:	240affff */ 	addiu	$t2,$zero,-1
-/*  f065f8c:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f065f90:	106a002e */ 	beq	$v1,$t2,.L0f06604c
-/*  f065f94:	240c000e */ 	addiu	$t4,$zero,0xe
-/*  f065f98:	3c0b800a */ 	lui	$t3,%hi(var8009cda0)
-/*  f065f9c:	256bcda0 */ 	addiu	$t3,$t3,%lo(var8009cda0)
-/*  f065fa0:	8d6e0000 */ 	lw	$t6,0x0($t3)
-.L0f065fa4:
-/*  f065fa4:	00037840 */ 	sll	$t7,$v1,0x1
-/*  f065fa8:	3c07800a */ 	lui	$a3,%hi(var8009cda4)
-/*  f065fac:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f065fb0:	87060000 */ 	lh	$a2,0x0($t8)
-/*  f065fb4:	04c20022 */ 	bltzl	$a2,.L0f066040
-/*  f065fb8:	84830002 */ 	lh	$v1,0x2($a0)
-/*  f065fbc:	8ce7cda4 */ 	lw	$a3,%lo(var8009cda4)($a3)
-/*  f065fc0:	00004025 */ 	or	$t0,$zero,$zero
-.L0f065fc4:
-/*  f065fc4:	0006c900 */ 	sll	$t9,$a2,0x4
-.L0f065fc8:
-/*  f065fc8:	00f96821 */ 	addu	$t5,$a3,$t9
-/*  f065fcc:	01a87021 */ 	addu	$t6,$t5,$t0
-/*  f065fd0:	85c30000 */ 	lh	$v1,0x0($t6)
-/*  f065fd4:	25080002 */ 	addiu	$t0,$t0,0x2
-/*  f065fd8:	00a2082b */ 	sltu	$at,$a1,$v0
-/*  f065fdc:	04600010 */ 	bltz	$v1,.L0f066020
-/*  f065fe0:	00000000 */ 	nop
-/*  f065fe4:	10200008 */ 	beqz	$at,.L0f066008
-/*  f065fe8:	00a04825 */ 	or	$t1,$a1,$zero
-/*  f065fec:	852f0000 */ 	lh	$t7,0x0($t1)
-.L0f065ff0:
-/*  f065ff0:	106f0005 */ 	beq	$v1,$t7,.L0f066008
-/*  f065ff4:	00000000 */ 	nop
-/*  f065ff8:	25290002 */ 	addiu	$t1,$t1,0x2
-/*  f065ffc:	0122082b */ 	sltu	$at,$t1,$v0
-/*  f066000:	5420fffb */ 	bnezl	$at,.L0f065ff0
-/*  f066004:	852f0000 */ 	lh	$t7,0x0($t1)
-.L0f066008:
-/*  f066008:	15220005 */ 	bne	$t1,$v0,.L0f066020
-/*  f06600c:	00000000 */ 	nop
-/*  f066010:	a4430000 */ 	sh	$v1,0x0($v0)
-/*  f066014:	3c07800a */ 	lui	$a3,%hi(var8009cda4)
-/*  f066018:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f06601c:	8ce7cda4 */ 	lw	$a3,%lo(var8009cda4)($a3)
-.L0f066020:
-/*  f066020:	550cffe9 */ 	bnel	$t0,$t4,.L0f065fc8
-/*  f066024:	0006c900 */ 	sll	$t9,$a2,0x4
-/*  f066028:	0006c100 */ 	sll	$t8,$a2,0x4
-/*  f06602c:	00f8c821 */ 	addu	$t9,$a3,$t8
-/*  f066030:	8726000e */ 	lh	$a2,0xe($t9)
-/*  f066034:	04c3ffe3 */ 	bgezl	$a2,.L0f065fc4
-/*  f066038:	00004025 */ 	or	$t0,$zero,$zero
-/*  f06603c:	84830002 */ 	lh	$v1,0x2($a0)
-.L0f066040:
-/*  f066040:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  f066044:	546affd7 */ 	bnel	$v1,$t2,.L0f065fa4
-/*  f066048:	8d6e0000 */ 	lw	$t6,0x0($t3)
-.L0f06604c:
-/*  f06604c:	03e00008 */ 	jr	$ra
-/*  f066050:	a44a0000 */ 	sh	$t2,0x0($v0)
-);
+/**
+ * Given a list of rooms (terminated by -1), and a pointer to an empty
+ * allocation of propnums, populate the propnums list based on which props are
+ * in any of those rooms.
+ *
+ * @dangerous: The len argument is ignored, so array overflow will occur if
+ * there are too many props in a small area. In most (if not all) invocations,
+ * the caller uses an array that can hold 256 propnums, so if you can find a way
+ * to get 256 props in a small space without exhausing the memory of the
+ * console, you could potentially achieve arbitrary code execution.
+ */
+void roomGetProps(s16 *rooms, s16 *propnums, s32 len)
+{
+	s16 *writeptr = propnums;
+	s32 room;
+	s32 i;
+	s32 j;
+
+	room = *rooms;
+
+	// Iterate rooms
+	while (room != -1) {
+		// Find the chunk to start at
+		s32 chunkindex = g_RoomPropListChunkIndexes[room];
+
+		// Iterate the chunks
+		while (chunkindex >= 0) {
+			// Iterate the propnums within each chunk
+			for (i = 0; i < 7; i++) {
+				s16 propnum = g_RoomPropListChunks[chunkindex].propnums[i];
+
+				if (propnum >= 0) {
+					// Check if it's in the list already
+					s16 *ptr = propnums;
+
+					while (ptr < writeptr) {
+						if (*ptr == propnum) {
+							break;
+						}
+
+						ptr++;
+					}
+
+					if (ptr == writeptr) {
+						// Prop is not in the list, so insert it
+						writeptr++;
+						writeptr[-1] = propnum;
+					}
+				}
+			}
+
+			chunkindex = g_RoomPropListChunks[chunkindex].propnums[7];
+		}
+
+		rooms++;
+		room = *rooms;
+	}
+
+	*writeptr = -1;
+}
 
 GLOBAL_ASM(
 glabel func0f066054
@@ -7613,10 +7625,10 @@ glabel func0f066054
 /*  f06606c:	afb00008 */ 	sw	$s0,0x8($sp)
 /*  f066070:	1860005c */ 	blez	$v1,.L0f0661e4
 /*  f066074:	00001025 */ 	or	$v0,$zero,$zero
-/*  f066078:	3c0d800a */ 	lui	$t5,%hi(var8009cda4)
-/*  f06607c:	3c0c800a */ 	lui	$t4,%hi(var8009cda0)
-/*  f066080:	258ccda0 */ 	addiu	$t4,$t4,%lo(var8009cda0)
-/*  f066084:	25adcda4 */ 	addiu	$t5,$t5,%lo(var8009cda4)
+/*  f066078:	3c0d800a */ 	lui	$t5,%hi(g_RoomPropListChunks)
+/*  f06607c:	3c0c800a */ 	lui	$t4,%hi(g_RoomPropListChunkIndexes)
+/*  f066080:	258ccda0 */ 	addiu	$t4,$t4,%lo(g_RoomPropListChunkIndexes)
+/*  f066084:	25adcda4 */ 	addiu	$t5,$t5,%lo(g_RoomPropListChunks)
 /*  f066088:	00002825 */ 	or	$a1,$zero,$zero
 /*  f06608c:	2413000e */ 	addiu	$s3,$zero,0xe
 /*  f066090:	2412fffe */ 	addiu	$s2,$zero,-2

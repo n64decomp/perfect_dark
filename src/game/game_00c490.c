@@ -3670,4 +3670,3 @@ void setupParseObjects(s32 stagenum)
 
 	stageAllocateBgChrs();
 }
-//#endif

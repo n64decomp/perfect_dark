@@ -6110,9 +6110,9 @@ void chrGoPosTickMagic(struct chrdata *chr, struct waydata *waydata, f32 speed, 
 			chr->floortype = floortype;
 			chr->floorroom = floorroom;
 
-			func0f065c44(prop);
+			propDeregisterRooms(prop);
 			roomsCopy(sp118, prop->rooms);
-			func0f065cb0(prop);
+			propRegisterRooms(prop);
 
 			modelSetRootPosition(chr->model, &prop->pos);
 
@@ -26344,7 +26344,7 @@ bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 angle,
 		chr->prop->pos.y = pos2.y;
 		chr->prop->pos.z = pos2.z;
 
-		func0f065c44(chr->prop);
+		propDeregisterRooms(chr->prop);
 		roomsCopy(rooms2, chr->prop->rooms);
 		func0f0220ac(chr);
 		modelSetRootPosition(chr->model, &pos2);

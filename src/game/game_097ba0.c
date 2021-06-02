@@ -12359,7 +12359,7 @@ void func0f09f848(s32 handnum)
 
 				func00015f04(obj->model->scale, &mtx);
 				func0f06a580(obj, &hand->muzzlepos, &mtx, playerprop->rooms);
-				func0f065c44(objprop);
+				propDeregisterRooms(objprop);
 			}
 
 			model->matrices = gfxAllocate(model->filedata->nummatrices * sizeof(Mtxf));

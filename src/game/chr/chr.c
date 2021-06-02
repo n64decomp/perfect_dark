@@ -1807,7 +1807,7 @@ glabel var7f1a992cpf
 /*  f020590:	8fa9012c */ 	lw	$t1,0x12c($sp)
 /*  f020594:	e5200000 */ 	swc1	$f0,0x0($t1)
 .PF0f020598:
-/*  f020598:	0fc197b5 */ 	jal	func0f065c44
+/*  f020598:	0fc197b5 */ 	jal	propDeregisterRooms
 /*  f02059c:	00000000 */ 	nop
 /*  f0205a0:	27a400fc */ 	addiu	$a0,$sp,0xfc
 /*  f0205a4:	0fc1968d */ 	jal	roomsCopy
@@ -1827,7 +1827,7 @@ glabel var7f1a992cpf
 .PF0f0205dc:
 /*  f0205dc:	5483000a */ 	bnel	$a0,$v1,.PF0f020608
 /*  f0205e0:	8443002a */ 	lh	$v1,0x2a($v0)
-/*  f0205e4:	0fc197b5 */ 	jal	func0f065c44
+/*  f0205e4:	0fc197b5 */ 	jal	propDeregisterRooms
 /*  f0205e8:	00c02025 */ 	move	$a0,$a2
 /*  f0205ec:	8fac0118 */ 	lw	$t4,0x118($sp)
 /*  f0205f0:	860d02b2 */ 	lh	$t5,0x2b2($s0)
@@ -3083,7 +3083,7 @@ glabel var7f1a8720
 /*  f020484:	8fa9012c */ 	lw	$t1,0x12c($sp)
 /*  f020488:	e5200000 */ 	swc1	$f0,0x0($t1)
 .L0f02048c:
-/*  f02048c:	0fc19711 */ 	jal	func0f065c44
+/*  f02048c:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f020490:	00000000 */ 	nop
 /*  f020494:	27a400fc */ 	addiu	$a0,$sp,0xfc
 /*  f020498:	0fc195e9 */ 	jal	roomsCopy
@@ -3103,7 +3103,7 @@ glabel var7f1a8720
 .L0f0204d0:
 /*  f0204d0:	5483000a */ 	bnel	$a0,$v1,.L0f0204fc
 /*  f0204d4:	8443002a */ 	lh	$v1,0x2a($v0)
-/*  f0204d8:	0fc19711 */ 	jal	func0f065c44
+/*  f0204d8:	0fc19711 */ 	jal	propDeregisterRooms
 /*  f0204dc:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f0204e0:	8fac0118 */ 	lw	$t4,0x118($sp)
 /*  f0204e4:	860d02b2 */ 	lh	$t5,0x2b2($s0)
@@ -4209,7 +4209,7 @@ glabel var7f1a8720
 /*  f020030:	8fae00fc */ 	lw	$t6,0xfc($sp)
 /*  f020034:	e5c00000 */ 	swc1	$f0,0x0($t6)
 .NB0f020038:
-/*  f020038:	0fc193ab */ 	jal	func0f065c44
+/*  f020038:	0fc193ab */ 	jal	propDeregisterRooms
 /*  f02003c:	8fa400e8 */ 	lw	$a0,0xe8($sp)
 /*  f020040:	27a400cc */ 	addiu	$a0,$sp,0xcc
 /*  f020044:	0fc19283 */ 	jal	roomsCopy
@@ -4536,7 +4536,7 @@ struct prop *func0f020b14(struct prop *prop, struct model *model,
 	prop->pos.y = ground + 100;
 	prop->pos.z = testpos.z;
 
-	func0f065c44(prop);
+	propDeregisterRooms(prop);
 	roomsCopy(rooms, prop->rooms);
 	func0f0220ac(chr);
 	modelSetRootPosition(model, &prop->pos);
@@ -4596,7 +4596,7 @@ void func0f020d44(struct prop *prop, bool removechr)
 	func0f0926bc(prop, 1, 0xffff);
 	func0f0292bc(prop);
 	func0f089a94(0, model);
-	func0f065c44(prop);
+	propDeregisterRooms(prop);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
 		eyespyobj = objFindByTagId(0x26);
@@ -6404,9 +6404,9 @@ void func0f022084(struct chrdata *chr, s16 *room)
 
 void func0f0220ac(struct chrdata *chr)
 {
-	func0f065c44(chr->prop);
+	propDeregisterRooms(chr->prop);
 	func0f022084(chr, chr->prop->rooms);
-	func0f065cb0(chr->prop);
+	propRegisterRooms(chr->prop);
 }
 
 void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2)
