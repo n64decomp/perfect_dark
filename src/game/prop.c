@@ -7589,59 +7589,25 @@ void func0f065cb0(struct prop *prop)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f065d1c
-/*  f065d1c:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f065d20:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f065d24:	8fae0068 */ 	lw	$t6,0x68($sp)
-/*  f065d28:	8faf006c */ 	lw	$t7,0x6c($sp)
-/*  f065d2c:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f065d30:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f065d34:	00e09825 */ 	or	$s3,$a3,$zero
-/*  f065d38:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f065d3c:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f065d40:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f065d44:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f065d48:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f065d4c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f065d50:	02402825 */ 	or	$a1,$s2,$zero
-/*  f065d54:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*  f065d58:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f065d5c:	0c006052 */ 	jal	func00018148
-/*  f065d60:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f065d64:	87b80048 */ 	lh	$t8,0x48($sp)
-/*  f065d68:	2414ffff */ 	addiu	$s4,$zero,-1
-/*  f065d6c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f065d70:	1298000e */ 	beq	$s4,$t8,.L0f065dac
-/*  f065d74:	27b00048 */ 	addiu	$s0,$sp,0x48
-/*  f065d78:	86050000 */ 	lh	$a1,0x0($s0)
-.L0f065d7c:
-/*  f065d7c:	0fc586b7 */ 	jal	roomContainsCoord
-/*  f065d80:	02402025 */ 	or	$a0,$s2,$zero
-/*  f065d84:	10400005 */ 	beqz	$v0,.L0f065d9c
-/*  f065d88:	00114840 */ 	sll	$t1,$s1,0x1
-/*  f065d8c:	86080000 */ 	lh	$t0,0x0($s0)
-/*  f065d90:	02695021 */ 	addu	$t2,$s3,$t1
-/*  f065d94:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f065d98:	a5480000 */ 	sh	$t0,0x0($t2)
-.L0f065d9c:
-/*  f065d9c:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f065da0:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f065da4:	1685fff5 */ 	bne	$s4,$a1,.L0f065d7c
-/*  f065da8:	00000000 */ 	nop
-.L0f065dac:
-/*  f065dac:	00115840 */ 	sll	$t3,$s1,0x1
-/*  f065db0:	026b6021 */ 	addu	$t4,$s3,$t3
-/*  f065db4:	a5940000 */ 	sh	$s4,0x0($t4)
-/*  f065db8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f065dbc:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f065dc0:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f065dc4:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f065dc8:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f065dcc:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f065dd0:	03e00008 */ 	jr	$ra
-/*  f065dd4:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+void func0f065d1c(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms, s16 *morerooms, u32 arg5)
+{
+	s16 stackrooms[8];
+	s32 index;
+	s32 i;
+
+	func00018148(pos, newpos, rooms, stackrooms, morerooms, arg5);
+
+	index = 0;
+
+	for (i = 0; stackrooms[i] != -1; i++) {
+		if (roomContainsCoord(newpos, stackrooms[i])) {
+			newrooms[index] = stackrooms[i];
+			index++;
+		}
+	}
+
+	newrooms[index] = -1;
+}
 
 void func0f065dd8(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms)
 {
