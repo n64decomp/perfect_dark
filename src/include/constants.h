@@ -3184,14 +3184,14 @@
 #define PROJECTILEFLAG_00004000 0x00004000
 #define PROJECTILEFLAG_FREE     0x80000000
 
-#define PROPFLAG_01       0x01
-#define PROPFLAG_ONSCREEN       0x02
-#define PROPFLAG_ENABLED 0x04
-#define PROPFLAG_08       0x08
-#define PROPFLAG_DONTPAUSE       0x10
-#define PROPFLAG_20       0x20
-#define PROPFLAG_40       0x40
-#define PROPFLAG_80       0x80
+#define PROPFLAG_01        0x01
+#define PROPFLAG_ONSCREEN  0x02
+#define PROPFLAG_ENABLED   0x04
+#define PROPFLAG_08        0x08
+#define PROPFLAG_DONTPAUSE 0x10
+#define PROPFLAG_20        0x20
+#define PROPFLAG_40        0x40
+#define PROPFLAG_80        0x80
 
 #define PROPTYPE_OBJ       1
 #define PROPTYPE_DOOR      2

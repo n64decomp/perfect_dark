@@ -1717,14 +1717,14 @@ void lvFindThreats(void)
 	struct prop *prop;
 	f32 distances[] = {0, 0, 0, 0};
 	s32 activeslots[] = {false, false, false, false};
-	struct prop **propptr = g_Vars.endenabledprops - 1;
+	struct prop **propptr = g_Vars.endonscreenprops - 1;
 	struct coord campos;
 
 	campos.x = g_Vars.currentplayer->cam_pos.x;
 	campos.y = g_Vars.currentplayer->cam_pos.y;
 	campos.z = g_Vars.currentplayer->cam_pos.z;
 
-	while (propptr >= g_Vars.enabledprops) {
+	while (propptr >= g_Vars.onscreenprops) {
 		prop = *propptr;
 
 		if (prop) {
@@ -1742,9 +1742,9 @@ void lvFindThreats(void)
 		}
 	}
 
-	propptr = g_Vars.endenabledprops - 1;
+	propptr = g_Vars.endonscreenprops - 1;
 
-	while (propptr >= g_Vars.enabledprops) {
+	while (propptr >= g_Vars.onscreenprops) {
 		prop = *propptr;
 
 		if (prop) {
@@ -2472,7 +2472,7 @@ glabel var7f1b8e7cpf
 /*  f16ad48:	02202025 */ 	move	$a0,$s1
 /*  f16ad4c:	0fc619c9 */ 	jal	scenarioCallback14
 /*  f16ad50:	00002025 */ 	move	$a0,$zero
-/*  f16ad54:	0fc18104 */ 	jal	func0f0601b0
+/*  f16ad54:	0fc18104 */ 	jal	propsSort
 /*  f16ad58:	00000000 */ 	nop
 /*  f16ad5c:	0fc193de */ 	jal	autoaimTick
 /*  f16ad60:	00000000 */ 	nop
@@ -3884,7 +3884,7 @@ Gfx *lvRender(Gfx *gdl)
 				func0f004314();
 				propsTick(islastplayer);
 				scenarioCallback14(NULL);
-				func0f0601b0();
+				propsSort();
 				autoaimTick();
 				handsTickAttack();
 
@@ -5058,7 +5058,7 @@ glabel var7f1b1fd4nb
 /*  f164a50:	02202025 */ 	or	$a0,$s1,$zero
 /*  f164a54:	0fc5ff30 */ 	jal	scenarioCallback14
 /*  f164a58:	00002025 */ 	or	$a0,$zero,$zero
-/*  f164a5c:	0fc17d1c */ 	jal	func0f0601b0
+/*  f164a5c:	0fc17d1c */ 	jal	propsSort
 /*  f164a60:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f164a64:	0fc18fd4 */ 	jal	autoaimTick
 /*  f164a68:	00000000 */ 	sll	$zero,$zero,0x0

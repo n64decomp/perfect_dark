@@ -163,9 +163,9 @@ struct g_vars {
 	/*00033c*/ struct prop *activeprops; // head of a doubly linked list
 	/*000340*/ struct prop *activepropstail; // next pointer points to pausedprops
 	/*000344*/ struct prop *freeprops; // head of a singularly linked list
-	/*000348*/ struct prop **enabledprops;
-	/*00034c*/ struct prop **endenabledprops;
-	/*000350*/ struct prop *unk000350;
+	/*000348*/ struct prop **onscreenprops; // sorted by distance, furthest first
+	/*00034c*/ struct prop **endonscreenprops;
+	/*000350*/ s32 numonscreenprops;
 	/*000354*/ struct prop *pausedprops; // head of a doubly linked list, prev pointer points to activepropstail
 	/*000358*/ u8 numpropstates;
 	/*000359*/ u8 allocstateindex;

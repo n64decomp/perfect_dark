@@ -49,98 +49,59 @@ u32 var8009cdbc;
 
 f32 var80069880 = 1;
 
-GLOBAL_ASM(
-glabel func0f0601b0
-/*  f0601b0:	3c0c800a */ 	lui	$t4,%hi(g_Vars)
-/*  f0601b4:	258c9fc0 */ 	addiu	$t4,$t4,%lo(g_Vars)
-/*  f0601b8:	8d83033c */ 	lw	$v1,0x33c($t4)
-/*  f0601bc:	8d840354 */ 	lw	$a0,0x354($t4)
-/*  f0601c0:	27bdfcb8 */ 	addiu	$sp,$sp,-840
-/*  f0601c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0601c8:	10640012 */ 	beq	$v1,$a0,.L0f060214
-/*  f0601cc:	27ad000c */ 	addiu	$t5,$sp,0xc
-/*  f0601d0:	24060006 */ 	addiu	$a2,$zero,0x6
-/*  f0601d4:	906e0001 */ 	lbu	$t6,0x1($v1)
-.L0f0601d8:
-/*  f0601d8:	31cf0006 */ 	andi	$t7,$t6,0x6
-/*  f0601dc:	54cf000b */ 	bnel	$a2,$t7,.L0f06020c
-/*  f0601e0:	8c630020 */ 	lw	$v1,0x20($v1)
-/*  f0601e4:	c4640014 */ 	lwc1	$f4,0x14($v1)
-/*  f0601e8:	00022880 */ 	sll	$a1,$v0,0x2
-/*  f0601ec:	01a5c021 */ 	addu	$t8,$t5,$a1
-/*  f0601f0:	e7040000 */ 	swc1	$f4,0x0($t8)
-/*  f0601f4:	8d990348 */ 	lw	$t9,0x348($t4)
-/*  f0601f8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0601fc:	03257021 */ 	addu	$t6,$t9,$a1
-/*  f060200:	adc30000 */ 	sw	$v1,0x0($t6)
-/*  f060204:	8d840354 */ 	lw	$a0,0x354($t4)
-/*  f060208:	8c630020 */ 	lw	$v1,0x20($v1)
-.L0f06020c:
-/*  f06020c:	5464fff2 */ 	bnel	$v1,$a0,.L0f0601d8
-/*  f060210:	906e0001 */ 	lbu	$t6,0x1($v1)
-.L0f060214:
-/*  f060214:	8d8f0348 */ 	lw	$t7,0x348($t4)
-/*  f060218:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f06021c:	ad820350 */ 	sw	$v0,0x350($t4)
-/*  f060220:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f060224:	af200000 */ 	sw	$zero,0x0($t9)
-/*  f060228:	8d8f0348 */ 	lw	$t7,0x348($t4)
-/*  f06022c:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f060230:	27ad000c */ 	addiu	$t5,$sp,0xc
-/*  f060234:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f060238:	ad98034c */ 	sw	$t8,0x34c($t4)
-/*  f06023c:	1840002a */ 	blez	$v0,.L0f0602e8
-/*  f060240:	00002825 */ 	or	$a1,$zero,$zero
-/*  f060244:	3c01cf80 */ 	lui	$at,0xcf80
-/*  f060248:	44816000 */ 	mtc1	$at,$f12
-/*  f06024c:	00000000 */ 	nop
-/*  f060250:	00a2082a */ 	slt	$at,$a1,$v0
-.L0f060254:
-/*  f060254:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f060258:	46006006 */ 	mov.s	$f0,$f12
-/*  f06025c:	1020000d */ 	beqz	$at,.L0f060294
-/*  f060260:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f060264:	0003c880 */ 	sll	$t9,$v1,0x2
-/*  f060268:	01b92021 */ 	addu	$a0,$t5,$t9
-.L0f06026c:
-/*  f06026c:	c4820000 */ 	lwc1	$f2,0x0($a0)
-/*  f060270:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f060274:	00000000 */ 	nop
-/*  f060278:	45020004 */ 	bc1fl	.L0f06028c
-/*  f06027c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f060280:	46001006 */ 	mov.s	$f0,$f2
-/*  f060284:	00603025 */ 	or	$a2,$v1,$zero
-/*  f060288:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f06028c:
-/*  f06028c:	1462fff7 */ 	bne	$v1,$v0,.L0f06026c
-/*  f060290:	24840004 */ 	addiu	$a0,$a0,0x4
-.L0f060294:
-/*  f060294:	04c00011 */ 	bltz	$a2,.L0f0602dc
-/*  f060298:	00053880 */ 	sll	$a3,$a1,0x2
-/*  f06029c:	8d840348 */ 	lw	$a0,0x348($t4)
-/*  f0602a0:	00065080 */ 	sll	$t2,$a2,0x2
-/*  f0602a4:	01a74821 */ 	addu	$t1,$t5,$a3
-/*  f0602a8:	008a7021 */ 	addu	$t6,$a0,$t2
-/*  f0602ac:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*  f0602b0:	00874021 */ 	addu	$t0,$a0,$a3
-/*  f0602b4:	8d030000 */ 	lw	$v1,0x0($t0)
-/*  f0602b8:	c5200000 */ 	lwc1	$f0,0x0($t1)
-/*  f0602bc:	ad0f0000 */ 	sw	$t7,0x0($t0)
-/*  f0602c0:	01aa5821 */ 	addu	$t3,$t5,$t2
-/*  f0602c4:	c5660000 */ 	lwc1	$f6,0x0($t3)
-/*  f0602c8:	8d980348 */ 	lw	$t8,0x348($t4)
-/*  f0602cc:	e5260000 */ 	swc1	$f6,0x0($t1)
-/*  f0602d0:	030ac821 */ 	addu	$t9,$t8,$t2
-/*  f0602d4:	af230000 */ 	sw	$v1,0x0($t9)
-/*  f0602d8:	e5600000 */ 	swc1	$f0,0x0($t3)
-.L0f0602dc:
-/*  f0602dc:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0602e0:	54a2ffdc */ 	bnel	$a1,$v0,.L0f060254
-/*  f0602e4:	00a2082a */ 	slt	$at,$a1,$v0
-.L0f0602e8:
-/*  f0602e8:	03e00008 */ 	jr	$ra
-/*  f0602ec:	27bd0348 */ 	addiu	$sp,$sp,0x348
-);
+/**
+ * Populate g_Vars.onscreenprops. This is an array of prop pointers, filtered by
+ * props that are on screen and sorted by distance descending (furthest first).
+ */
+void propsSort(void)
+{
+	s32 count = 0;
+	struct prop *prop = g_Vars.activeprops;
+	s32 swapindex;
+	f32 depth;
+	s32 i;
+	s32 j;
+	f32 depths[201];
+
+	// Populate onscreenprops with the list of props
+	while (prop != g_Vars.pausedprops) {
+		if ((prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_ENABLED)) == (PROPFLAG_ONSCREEN | PROPFLAG_ENABLED)) {
+			depths[count] = prop->z;
+			g_Vars.onscreenprops[count] = prop;
+			count++;
+		}
+
+		prop = prop->next;
+	}
+
+	g_Vars.numonscreenprops = count;
+	g_Vars.onscreenprops[count] = NULL;
+	g_Vars.endonscreenprops = &g_Vars.onscreenprops[count];
+
+	// Sort the onscreenprops list
+	for (i = 0; i < count; i++) {
+		swapindex = -1;
+		depth = -4294967296;
+
+		for (j = i; j < count; j++) {
+			if (depths[j] > depth) {
+				depth = depths[j];
+				swapindex = j;
+			}
+		}
+
+		if (swapindex >= 0) {
+			prop = g_Vars.onscreenprops[i];
+			depth = depths[i];
+
+			g_Vars.onscreenprops[i] = g_Vars.onscreenprops[swapindex];
+			depths[i] = depths[swapindex];
+
+			g_Vars.onscreenprops[swapindex] = prop;
+			depths[swapindex] = depth;
+		}
+	}
+}
 
 /**
  * Enable a prop. This is the opposite of disabling (see propDisable below).
@@ -164,7 +125,7 @@ void propDisable(struct prop *prop)
 
 	prop->flags &= ~PROPFLAG_ENABLED;
 
-	for (ptr = g_Vars.enabledprops; ptr < g_Vars.endenabledprops; ptr++) {
+	for (ptr = g_Vars.onscreenprops; ptr < g_Vars.endonscreenprops; ptr++) {
 		if (*ptr == prop) {
 			*ptr = NULL;
 		}
@@ -414,13 +375,13 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 	s16 *tmp;
 
 	if (arg2 == 0 || arg2 == 2) {
-		// Render tangible list in reverse
-		ptr = g_Vars.endenabledprops - 1;
+		// Iterate onscreen props near to far
+		ptr = g_Vars.endonscreenprops - 1;
 
-		tmp = arg3 + (g_Vars.endenabledprops - g_Vars.enabledprops);
+		tmp = arg3 + (g_Vars.endonscreenprops - g_Vars.onscreenprops);
 		tmp--;
 
-		while (ptr >= g_Vars.enabledprops) {
+		while (ptr >= g_Vars.onscreenprops) {
 			if (arg1 == *tmp) {
 				prop = *ptr;
 
@@ -436,11 +397,11 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 			tmp--;
 		}
 	} else {
-		// Render tangible list forwards
-		ptr = g_Vars.enabledprops;
+		// Iterate onscreen props far to near
+		ptr = g_Vars.onscreenprops;
 		tmp = arg3;
 
-		while (ptr < g_Vars.endenabledprops) {
+		while (ptr < g_Vars.endonscreenprops) {
 			if (arg1 == *tmp) {
 				prop = *ptr;
 
@@ -2312,11 +2273,11 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 	bool skipthething;
 
 	playerprop = g_Vars.currentplayer->prop;
-	ptr = g_Vars.endenabledprops - 1;
+	ptr = g_Vars.endonscreenprops - 1;
 	skipthething = false;
 
-	// Iterate tangible list in reverse
-	while (ptr >= g_Vars.enabledprops) {
+	// Iterate onscreen props near to far
+	while (ptr >= g_Vars.onscreenprops) {
 		struct prop *prop = *ptr;
 
 		if (prop && prop->z < 500) {
@@ -2701,11 +2662,11 @@ glabel currentPlayerFindPropForInteract
 //	bool result;
 //
 //	var8009cda8 = NULL;
-//	ptr = g_Vars.endenabledprops - 1;
+//	ptr = g_Vars.endonscreenprops - 1;
 //	result = true;
 //
-//	// Iterate tangible list in reverse
-//	while (ptr >= g_Vars.enabledprops) {
+//	// Iterate onscreen list near to far
+//	while (ptr >= g_Vars.onscreenprops) {
 //		struct prop *prop = *ptr;
 //
 //		if (prop) {
@@ -2734,11 +2695,11 @@ glabel currentPlayerFindPropForInteract
 
 void func0f062dd0(void)
 {
-	struct prop **ptr = g_Vars.endenabledprops - 1;
+	struct prop **ptr = g_Vars.endonscreenprops - 1;
 	bool result = true;
 
-	// Iterate tangible list in reverse
-	while (ptr >= g_Vars.enabledprops) {
+	// Iterate onscreen props near to far
+	while (ptr >= g_Vars.onscreenprops) {
 		struct prop *prop = *ptr;
 
 		if (prop) {
@@ -7269,10 +7230,10 @@ void autoaimTick(void)
 		f32 sp84[2];
 		struct chrdata *chr;
 		f32 sp78[2];
-		struct prop **ptr = g_Vars.endenabledprops - 1;
+		struct prop **ptr = g_Vars.endonscreenprops - 1;
 
-		// Iterate tangible list in reverse
-		while (ptr >= g_Vars.enabledprops) {
+		// Iterate onscreen props near to far
+		while (ptr >= g_Vars.onscreenprops) {
 			prop = *ptr;
 
 			if (prop && prop->chr) {

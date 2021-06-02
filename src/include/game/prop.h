@@ -6,7 +6,7 @@
 
 extern f32 var80069880;
 
-void func0f0601b0(void);
+void propsSort(void);
 void propEnable(struct prop *prop);
 void propDisable(struct prop *prop);
 struct prop *propAllocate(void);

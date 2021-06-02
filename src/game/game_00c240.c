@@ -12,17 +12,17 @@ void gvarsInitProps(void)
 	s32 i;
 
 	g_Vars.props = malloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
-	g_Vars.enabledprops = malloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
+	g_Vars.onscreenprops = malloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
 
 	var80069880 = 1;
 
-	g_Vars.activeprops = NULL;
-	g_Vars.activepropstail = NULL;
-	g_Vars.pausedprops = g_Vars.unk000350 = NULL;
+	g_Vars.activeprops = g_Vars.activepropstail = NULL;
+	g_Vars.pausedprops = NULL;
 
-	g_Vars.enabledprops[0] = NULL;
+	g_Vars.numonscreenprops = 0;
+	g_Vars.onscreenprops[0] = NULL;
+	g_Vars.endonscreenprops = g_Vars.onscreenprops;
 
-	g_Vars.endenabledprops = g_Vars.enabledprops;
 	g_Vars.freeprops = g_Vars.props;
 
 	for (i = 0; i < g_Vars.maxprops - 1; i++) {
