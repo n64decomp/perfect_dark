@@ -142,24 +142,39 @@ glabel func0f0601b0
 /*  f0602ec:	27bd0348 */ 	addiu	$sp,$sp,0x348
 );
 
-void propShow(struct prop *prop)
+/**
+ * Enable a prop. This is the opposite of disabling (see propDisable below).
+ */
+void propEnable(struct prop *prop)
 {
-	prop->flags |= PROPFLAG_TANGIBLE;
+	prop->flags |= PROPFLAG_ENABLED;
 }
 
-void propHide(struct prop *prop)
+/**
+ * Disable the given prop. Disabled props do not tick, do not render and do not
+ * have any collision checks. This is commonly used for chrs who "spawn" later
+ * in the level.
+ *
+ * Due to a probable bug, these props can be damaged by explosives which causes
+ * them to become enabled.
+ */
+void propDisable(struct prop *prop)
 {
 	struct prop **ptr;
 
-	prop->flags &= ~PROPFLAG_TANGIBLE;
+	prop->flags &= ~PROPFLAG_ENABLED;
 
-	for (ptr = g_Vars.tangibleprops; ptr < g_Vars.unk00034c; ptr++) {
+	for (ptr = g_Vars.enabledprops; ptr < g_Vars.endenabledprops; ptr++) {
 		if (*ptr == prop) {
 			*ptr = NULL;
 		}
 	}
 }
 
+/**
+ * Allocate a prop. The prop is taken from the head of the freeprops list and
+ * initialised.
+ */
 struct prop *propAllocate(void)
 {
 	struct prop *prop = g_Vars.freeprops;
@@ -176,10 +191,10 @@ struct prop *propAllocate(void)
 		prop->rooms[0] = -1;
 		prop->chr = NULL;
 		prop->propstateindex = g_Vars.allocstateindex;
-		prop->unk3e = 0;
-		prop->forcetick = true;
-		prop->unk3f_02 = 0;
-		prop->inlist1 = false;
+		prop->backgroundedframes = 0;
+		prop->forceonetick = true;
+		prop->forcetick = false;
+		prop->active = false;
 		prop->backgrounded = false;
 		prop->lastupdateframe = 0xffff;
 		prop->propupdate240 = 0;
@@ -200,6 +215,12 @@ struct prop *propAllocate(void)
 	return NULL;
 }
 
+/**
+ * Free the given prop. The prop must not be in any list prior to calling this
+ * function.
+ *
+ * The prop is inserted to the head of the freeprops list.
+ */
 void propFree(struct prop *prop)
 {
 	if (prop->type == PROPTYPE_CHR) {
@@ -215,83 +236,99 @@ void propFree(struct prop *prop)
 	g_Vars.freeprops = prop;
 }
 
-void propPrependToList1(struct prop *prop)
+/**
+ * Insert the prop to the head of activeprops. The prop must not be in any list
+ * prior to calling this function.
+ *
+ * If this function is being called from propsTick (which iterates active props)
+ * then the prop will do its next tick on the next frame, due to it being
+ * inserted at the head.
+ */
+void propActivate(struct prop *prop)
 {
-	if (g_Vars.list1head && g_Vars.list1head != g_Vars.list2head) {
-		if (prop != g_Vars.list1head && !prop->prev) {
-			g_Vars.list1head->prev = prop;
-			prop->next = g_Vars.list1head;
+	if (g_Vars.activeprops && g_Vars.activeprops != g_Vars.pausedprops) {
+		if (prop != g_Vars.activeprops && !prop->prev) {
+			g_Vars.activeprops->prev = prop;
+			prop->next = g_Vars.activeprops;
 			prop->prev = NULL;
-			g_Vars.list1head = prop;
+			g_Vars.activeprops = prop;
 		}
 	} else {
-		prop->next = g_Vars.list2head;
+		prop->next = g_Vars.pausedprops;
 
 		if (prop->next) {
 			prop->next->prev = prop;
 		}
 
 		prop->prev = NULL;
-		g_Vars.list1head = prop;
-		g_Vars.list1tail = g_Vars.list1head;
+		g_Vars.activeprops = prop;
+		g_Vars.activepropstail = g_Vars.activeprops;
 	}
 
-	prop->unk3e = 0;
-	prop->inlist1 = true;
+	prop->backgroundedframes = 0;
+	prop->active = true;
 }
 
-void propAppendToList1(struct prop *prop)
+/**
+ * Similar to propActivate, but the prop inserted to the tail of the activeprops
+ * list. This makes the prop tick on the current frame if called from propsTick,
+ * because propsTick iterates the activeprops list from head to tail.
+ */
+void propActivateThisFrame(struct prop *prop)
 {
-	if (g_Vars.list1tail && g_Vars.list1tail != g_Vars.list2head) {
-		if (prop != g_Vars.list1tail && !prop->next) {
-			prop->prev = g_Vars.list1tail;
-			prop->next = g_Vars.list1tail->next;
+	if (g_Vars.activepropstail && g_Vars.activepropstail != g_Vars.pausedprops) {
+		if (prop != g_Vars.activepropstail && !prop->next) {
+			prop->prev = g_Vars.activepropstail;
+			prop->next = g_Vars.activepropstail->next;
 
 			if (prop->next) {
 				prop->next->prev = prop;
 			}
 
-			g_Vars.list1tail->next = prop;
-			g_Vars.list1tail = prop;
+			g_Vars.activepropstail->next = prop;
+			g_Vars.activepropstail = prop;
 		}
 	} else {
-		prop->next = g_Vars.list2head;
+		prop->next = g_Vars.pausedprops;
 
 		if (prop->next) {
 			prop->next->prev = prop;
 		}
 
 		prop->prev = NULL;
-		g_Vars.list1head = prop;
-		g_Vars.list1tail = g_Vars.list1head;
+		g_Vars.activeprops = prop;
+		g_Vars.activepropstail = g_Vars.activeprops;
 	}
 
-	prop->unk3e = 0;
-	prop->inlist1 = true;
+	prop->backgroundedframes = 0;
+	prop->active = true;
 }
 
-void propRemoveFromCurrentList(struct prop *prop)
+/**
+ * Remove the prop from its current list (activeprops or pausedprops).
+ */
+void propDelist(struct prop *prop)
 {
-	if (prop->inlist1) {
-		if (prop == g_Vars.list1head) {
-			g_Vars.list1head = prop->next;
+	if (prop->active) {
+		if (prop == g_Vars.activeprops) {
+			g_Vars.activeprops = prop->next;
 		}
 
-		if (prop == g_Vars.list1tail) {
-			if (g_Vars.list1head == g_Vars.list2head) {
-				g_Vars.list1tail = g_Vars.list2head;
+		if (prop == g_Vars.activepropstail) {
+			if (g_Vars.activeprops == g_Vars.pausedprops) {
+				g_Vars.activepropstail = g_Vars.pausedprops;
 			} else {
-				g_Vars.list1tail = prop->prev;
+				g_Vars.activepropstail = prop->prev;
 			}
 		}
 	} else {
-		if (prop == g_Vars.list2head) {
-			if (g_Vars.list1head == g_Vars.list2head) {
-				g_Vars.list1tail = prop->next;
-				g_Vars.list1head = g_Vars.list1tail;
+		if (prop == g_Vars.pausedprops) {
+			if (g_Vars.activeprops == g_Vars.pausedprops) {
+				g_Vars.activepropstail = prop->next;
+				g_Vars.activeprops = g_Vars.activepropstail;
 			}
 
-			g_Vars.list2head = prop->next;
+			g_Vars.pausedprops = prop->next;
 		}
 	}
 
@@ -305,8 +342,8 @@ void propRemoveFromCurrentList(struct prop *prop)
 
 	prop->next = NULL;
 	prop->prev = NULL;
-	prop->inlist1 = false;
-	prop->unk3e = 0;
+	prop->active = false;
+	prop->backgroundedframes = 0;
 }
 
 void propReparent(struct prop *mover, struct prop *adopter)
@@ -378,12 +415,12 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 
 	if (arg2 == 0 || arg2 == 2) {
 		// Render tangible list in reverse
-		ptr = g_Vars.unk00034c - 1;
+		ptr = g_Vars.endenabledprops - 1;
 
-		tmp = arg3 + (g_Vars.unk00034c - g_Vars.tangibleprops);
+		tmp = arg3 + (g_Vars.endenabledprops - g_Vars.enabledprops);
 		tmp--;
 
-		while (ptr >= g_Vars.tangibleprops) {
+		while (ptr >= g_Vars.enabledprops) {
 			if (arg1 == *tmp) {
 				prop = *ptr;
 
@@ -400,10 +437,10 @@ Gfx *propsRender(Gfx *gdl, s16 arg1, s32 arg2, s16 *arg3)
 		}
 	} else {
 		// Render tangible list forwards
-		ptr = g_Vars.tangibleprops;
+		ptr = g_Vars.enabledprops;
 		tmp = arg3;
 
-		while (ptr < g_Vars.unk00034c) {
+		while (ptr < g_Vars.endenabledprops) {
 			if (arg1 == *tmp) {
 				prop = *ptr;
 
@@ -2275,11 +2312,11 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 	bool skipthething;
 
 	playerprop = g_Vars.currentplayer->prop;
-	ptr = g_Vars.unk00034c - 1;
+	ptr = g_Vars.endenabledprops - 1;
 	skipthething = false;
 
 	// Iterate tangible list in reverse
-	while (ptr >= g_Vars.tangibleprops) {
+	while (ptr >= g_Vars.enabledprops) {
 		struct prop *prop = *ptr;
 
 		if (prop && prop->z < 500) {
@@ -2545,25 +2582,25 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 			obj->hidden2 &= ~OBJH2FLAG_40;
 
 			func0f065c44(prop);
-			propHide(prop);
+			propDisable(prop);
 
-			if (!prop->inlist1) {
-				propMoveFromList2To1(prop);
+			if (!prop->active) {
+				propUnpause(prop);
 			}
 		} else {
 			func0f065c44(prop);
-			propRemoveFromCurrentList(prop);
-			propHide(prop);
+			propDelist(prop);
+			propDisable(prop);
 			propFree(prop);
 		}
 	} else if (op == TICKOP_DISABLE) {
 		func0f065c44(prop);
-		propRemoveFromCurrentList(prop);
-		propHide(prop);
+		propDelist(prop);
+		propDisable(prop);
 	} else if (op == TICKOP_GIVETOPLAYER) {
 		func0f065c44(prop);
-		propRemoveFromCurrentList(prop);
-		propHide(prop);
+		propDelist(prop);
+		propDisable(prop);
 		objDetach(prop);
 		func0f06ac90(prop);
 		propReparent(prop, g_Vars.currentplayer->prop);
@@ -2664,11 +2701,11 @@ glabel currentPlayerFindPropForInteract
 //	bool result;
 //
 //	var8009cda8 = NULL;
-//	ptr = g_Vars.unk00034c - 1;
+//	ptr = g_Vars.endenabledprops - 1;
 //	result = true;
 //
 //	// Iterate tangible list in reverse
-//	while (ptr >= g_Vars.tangibleprops) {
+//	while (ptr >= g_Vars.enabledprops) {
 //		struct prop *prop = *ptr;
 //
 //		if (prop) {
@@ -2697,11 +2734,11 @@ glabel currentPlayerFindPropForInteract
 
 void func0f062dd0(void)
 {
-	struct prop **ptr = g_Vars.unk00034c - 1;
+	struct prop **ptr = g_Vars.endenabledprops - 1;
 	bool result = true;
 
 	// Iterate tangible list in reverse
-	while (ptr >= g_Vars.tangibleprops) {
+	while (ptr >= g_Vars.enabledprops) {
 		struct prop *prop = *ptr;
 
 		if (prop) {
@@ -2750,50 +2787,67 @@ bool currentPlayerInteract(bool eyespy)
 	return true;
 }
 
-void propPrependToList2(struct prop *prop)
+/**
+ * Pause a prop. Paused props still exist in the stage, but are not near the
+ * player and do not tick.
+ *
+ * The prop is removed from its current list (activeprops or pausedprops)
+ * if any, and is then inserted to the head of pausedprops.
+ */
+void propPause(struct prop *prop)
 {
-	if ((prop->flags & PROPFLAG_10) == 0) {
-		propRemoveFromCurrentList(prop);
+	if ((prop->flags & PROPFLAG_DONTPAUSE) == 0) {
+		propDelist(prop);
 
-		if (g_Vars.list2head) {
-			prop->prev = g_Vars.list2head->prev;
+		if (g_Vars.pausedprops) {
+			prop->prev = g_Vars.pausedprops->prev;
 
 			if (prop->prev) {
 				prop->prev->next = prop;
 			}
 
-			g_Vars.list2head->prev = prop;
-			prop->next = g_Vars.list2head;
+			g_Vars.pausedprops->prev = prop;
+			prop->next = g_Vars.pausedprops;
 
-			if (g_Vars.list1head == g_Vars.list2head) {
-				g_Vars.list1head = g_Vars.list1tail = prop;
+			if (g_Vars.activeprops == g_Vars.pausedprops) {
+				g_Vars.activeprops = g_Vars.activepropstail = prop;
 			}
 
-			g_Vars.list2head = prop;
+			g_Vars.pausedprops = prop;
 		} else {
 			prop->next = NULL;
 
-			if (g_Vars.list1tail) {
-				prop->prev = g_Vars.list1tail;
-				g_Vars.list1tail->next = prop;
+			if (g_Vars.activepropstail) {
+				prop->prev = g_Vars.activepropstail;
+				g_Vars.activepropstail->next = prop;
 			} else {
-				g_Vars.list1tail = prop;
-				g_Vars.list1head = prop;
+				g_Vars.activepropstail = prop;
+				g_Vars.activeprops = prop;
 			}
 
-			g_Vars.list2head = prop;
+			g_Vars.pausedprops = prop;
 		}
 	}
 }
 
-void propMoveFromList2To1(struct prop *prop)
+/**
+ * Unpause a prop. The prop will begin ticking.
+ *
+ * The prop is removed from its current list (activeprops or pausedprops)
+ * if any, and is then inserted to the head of activeprops.
+ *
+ * If this function is being called from propsTick (which iterates active props)
+ * then the prop will do its next tick on the next frame, due to it being
+ * inserted at the head.
+ */
+void propUnpause(struct prop *prop)
 {
-	if (prop == g_Vars.list2head) {
-		if (g_Vars.list1head == g_Vars.list2head) {
-			g_Vars.list1head = g_Vars.list1tail = prop->next;
+	if (prop == g_Vars.pausedprops) {
+		if (g_Vars.activeprops == g_Vars.pausedprops) {
+			g_Vars.activeprops = g_Vars.activepropstail = prop->next;
 		}
 
-		g_Vars.list2head = prop->next;
+		g_Vars.pausedprops = prop->next;
 	}
 
 	if (prop->next) {
@@ -2807,12 +2861,12 @@ void propMoveFromList2To1(struct prop *prop)
 	prop->next = NULL;
 	prop->prev = NULL;
 
-	propPrependToList1(prop);
+	propActivate(prop);
 }
 
 // 0 = will tick when backgrounded
 // 1 = will not tick when backgrounded
-u8 g_ObjsPausedWhenBackgrounded[] = {
+u8 g_PausableObjs[] = {
 	0, // dummy element because objects are 1-indexed
 	0, // OBJTYPE_DOOR
 	0, // OBJTYPE_DOORSCALE
@@ -3437,7 +3491,7 @@ glabel var7f1ab190pf
 /*  f063a40:	01b9082a */ 	slt	$at,$t5,$t9
 /*  f063a44:	5020001c */ 	beqzl	$at,.PF0f063ab8
 /*  f063a48:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f063a4c:	0fc18c56 */ 	jal	propPrependToList2
+/*  f063a4c:	0fc18c56 */ 	jal	propPause
 /*  f063a50:	02002025 */ 	move	$a0,$s0
 /*  f063a54:	10000017 */ 	b	.PF0f063ab4
 /*  f063a58:	24060005 */ 	li	$a2,0x5
@@ -3521,9 +3575,9 @@ glabel var7f1ab190pf
 /*  f063b6c:	35ee0080 */ 	ori	$t6,$t7,0x80
 /*  f063b70:	a20e003f */ 	sb	$t6,0x3f($s0)
 /*  f063b74:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f063b78:	0fc18209 */ 	jal	propRemoveFromCurrentList
+/*  f063b78:	0fc18209 */ 	jal	propDelist
 /*  f063b7c:	02002025 */ 	move	$a0,$s0
-/*  f063b80:	0fc181e6 */ 	jal	propAppendToList1
+/*  f063b80:	0fc181e6 */ 	jal	propActivateThisFrame
 /*  f063b84:	02002025 */ 	move	$a0,$s0
 /*  f063b88:	8fb8004c */ 	lw	$t8,0x4c($sp)
 /*  f063b8c:	8fa20060 */ 	lw	$v0,0x60($sp)
@@ -4394,10 +4448,10 @@ glabel propsTick
 /*  f063768:	24010007 */ 	addiu	$at,$zero,0x7
 .L0f06376c:
 /*  f06376c:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f063770:	3c188007 */ 	lui	$t8,%hi(g_ObjsPausedWhenBackgrounded)
+/*  f063770:	3c188007 */ 	lui	$t8,%hi(g_PausableObjs)
 /*  f063774:	90590003 */ 	lbu	$t9,0x3($v0)
 /*  f063778:	0319c021 */ 	addu	$t8,$t8,$t9
-/*  f06377c:	93189884 */ 	lbu	$t8,%lo(g_ObjsPausedWhenBackgrounded)($t8)
+/*  f06377c:	93189884 */ 	lbu	$t8,%lo(g_PausableObjs)($t8)
 /*  f063780:	57000006 */ 	bnezl	$t8,.L0f06379c
 /*  f063784:	860d0002 */ 	lh	$t5,0x2($s0)
 /*  f063788:	0fc1f9d6 */ 	jal	objTick
@@ -4417,7 +4471,7 @@ glabel propsTick
 /*  f0637bc:	01b9082a */ 	slt	$at,$t5,$t9
 /*  f0637c0:	5020001c */ 	beqzl	$at,.L0f063834
 /*  f0637c4:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f0637c8:	0fc18bbe */ 	jal	propPrependToList2
+/*  f0637c8:	0fc18bbe */ 	jal	propPause
 /*  f0637cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0637d0:	10000017 */ 	b	.L0f063830
 /*  f0637d4:	24060005 */ 	addiu	$a2,$zero,0x5
@@ -4498,9 +4552,9 @@ glabel propsTick
 /*  f0638dc:	35ee0080 */ 	ori	$t6,$t7,0x80
 /*  f0638e0:	a20e003f */ 	sb	$t6,0x3f($s0)
 /*  f0638e4:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f0638e8:	0fc18171 */ 	jal	propRemoveFromCurrentList
+/*  f0638e8:	0fc18171 */ 	jal	propDelist
 /*  f0638ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0638f0:	0fc1814e */ 	jal	propAppendToList1
+/*  f0638f0:	0fc1814e */ 	jal	propActivateThisFrame
 /*  f0638f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0638f8:	8fb8004c */ 	lw	$t8,0x4c($sp)
 /*  f0638fc:	8fa20060 */ 	lw	$v0,0x60($sp)
@@ -5390,7 +5444,7 @@ glabel propsTick
 /*  f062a30:	01b9082a */ 	slt	$at,$t5,$t9
 /*  f062a34:	5020001c */ 	beqzl	$at,.NB0f062aa8
 /*  f062a38:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f062a3c:	0fc1885f */ 	jal	propPrependToList2
+/*  f062a3c:	0fc1885f */ 	jal	propPause
 /*  f062a40:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062a44:	10000017 */ 	beqz	$zero,.NB0f062aa4
 /*  f062a48:	24060005 */ 	addiu	$a2,$zero,0x5
@@ -5471,9 +5525,9 @@ glabel propsTick
 /*  f062b50:	35ee0080 */ 	ori	$t6,$t7,0x80
 /*  f062b54:	a20e003f */ 	sb	$t6,0x3f($s0)
 /*  f062b58:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f062b5c:	0fc17e21 */ 	jal	propRemoveFromCurrentList
+/*  f062b5c:	0fc17e21 */ 	jal	propDelist
 /*  f062b60:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062b64:	0fc17dfe */ 	jal	propAppendToList1
+/*  f062b64:	0fc17dfe */ 	jal	propActivateThisFrame
 /*  f062b68:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062b6c:	8fb8004c */ 	lw	$t8,0x4c($sp)
 /*  f062b70:	8fa20060 */ 	lw	$v0,0x60($sp)
@@ -5938,8 +5992,8 @@ glabel propsTick
 //		while (prop < end) {
 //			flags = prop->flags;
 //
-//			if (flags & PROPFLAG_02) {
-//				flags &= ~PROPFLAG_02;
+//			if (flags & PROPFLAG_ONSCREEN) {
+//				flags &= ~PROPFLAG_ONSCREEN;
 //			}
 //
 //			if (flags & PROPFLAG_40) {
@@ -5959,8 +6013,8 @@ glabel propsTick
 //		while (prop < end) {
 //			flags = prop->flags;
 //
-//			if (flags & PROPFLAG_02) {
-//				flags &= ~PROPFLAG_02;
+//			if (flags & PROPFLAG_ONSCREEN) {
+//				flags &= ~PROPFLAG_ONSCREEN;
 //			}
 //
 //			prop->flags = flags;
@@ -5970,13 +6024,13 @@ glabel propsTick
 //
 //	// 294
 //	done = false;
-//	prop = g_Vars.list1head;
+//	prop = g_Vars.activeprops;
 //
 //	while (!done) {
 //		s16 *rooms;
 //		op = TICKOP_NONE;
 //		next = prop->next;
-//		done = prop->next == g_Vars.list2head;
+//		done = prop->next == g_Vars.pausedprops;
 //
 //		if (g_Vars.tickmode != TICKMODE_NORMAL) {
 //			score = 1;
@@ -6003,12 +6057,12 @@ glabel propsTick
 //			}
 //
 //			if (score == 0) {
-//				if ((prop->flags & (PROPFLAG_TANGIBLE | PROPFLAG_80)) == (PROPFLAG_TANGIBLE | PROPFLAG_80)) {
+//				if ((prop->flags & (PROPFLAG_ENABLED | PROPFLAG_80)) == (PROPFLAG_ENABLED | PROPFLAG_80)) {
 //					score++;
+//				} else if (prop->forceonetick) {
+//					score++;
+//					prop->forceonetick = false;
 //				} else if (prop->forcetick) {
-//					score++;
-//					prop->forcetick = false;
-//				} else if (prop->unk3f_02) {
 //					score++;
 //				} else {
 //					rooms = prop->rooms;
@@ -6048,7 +6102,7 @@ glabel propsTick
 //			}
 //
 //			// 4a8
-//			prop->unk3e = 0;
+//			prop->backgroundedframes = 0;
 //
 //			if (prop->type == PROPTYPE_CHR) {
 //				struct chrdata *chr = prop->chr;
@@ -6126,13 +6180,16 @@ glabel propsTick
 //				} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
 //					struct defaultobj *obj = prop->obj;
 //
-//					if (!g_ObjsPausedWhenBackgrounded[obj->type]) {
+//					if (!g_PausableObjs[obj->type]) {
 //						op = objTick(prop);
 //					} else if (prop->timetoregen <= 0) {
-//						prop->unk3e++;
+//						// The prop does not regenerate. If we've done a full
+//						// cycle of propstates while backgrounded and the prop
+//						// hasn't moved to the foreground, pause it.
+//						prop->backgroundedframes++;
 //
-//						if (prop->unk3e > g_Vars.numpropstates - 1) {
-//							propPrependToList2(prop);
+//						if (prop->backgroundedframes > g_Vars.numpropstates - 1) {
+//							propPause(prop);
 //							op = TICKOP_5;
 //						}
 //					}
@@ -6171,14 +6228,14 @@ glabel propsTick
 //		} else {
 //			// Use the current prop->next value
 //			sp60 = prop->next;
-//			done = sp60 == g_Vars.list2head;
+//			done = sp60 == g_Vars.pausedprops;
 //
 //			if (op == TICKOP_RETICK) {
 //				prop->lastupdateframe = 0xffff;
-//				prop->forcetick = true;
+//				prop->forceonetick = true;
 //
-//				propRemoveFromCurrentList(prop);
-//				propAppendToList1(prop);
+//				propDelist(prop);
+//				propActivateThisFrame(prop);
 //
 //				if (done) {
 //					sp60 = prop;
@@ -6223,9 +6280,9 @@ glabel propsTick
 //
 //		// 9f0
 //		if (i != 0) {
-//			prop = g_Vars.list1head;
+//			prop = g_Vars.activeprops;
 //
-//			while (prop != g_Vars.list2head) {
+//			while (prop != g_Vars.pausedprops) {
 //				if (prop->propstateindex == mostindex && prop->backgrounded == 1 && prop->type != PROPTYPE_CHR) {
 //					prop->propstateindex = leastindex;
 //					i--;
@@ -6260,9 +6317,9 @@ glabel propsTick
 //		i = (g_Vars.propstates[(s32)mostindex].foregroundpropcount - g_Vars.propstates[(s32)leastindex].foregroundpropcount) >> 1;
 //
 //		if (i != 0) {
-//			prop = g_Vars.list1head;
+//			prop = g_Vars.activeprops;
 //
-//			while (prop != g_Vars.list2head) {
+//			while (prop != g_Vars.pausedprops) {
 //				if (mostindex == prop->propstateindex && prop->backgrounded == 0 && prop->type != PROPTYPE_CHR) {
 //					prop->propstateindex = leastindex;
 //					i--;
@@ -6296,9 +6353,9 @@ glabel propsTick
 //		i = (g_Vars.propstates[(s32)mostindex].chrpropcount - g_Vars.propstates[(s32)leastindex].chrpropcount) >> 1;
 //
 //		if (i != 0) {
-//			prop = g_Vars.list1head;
+//			prop = g_Vars.activeprops;
 //
-//			while (prop != g_Vars.list2head) {
+//			while (prop != g_Vars.pausedprops) {
 //				if (mostindex == prop->propstateindex && prop->backgrounded == 1 && prop->type == PROPTYPE_CHR) {
 //					prop->propstateindex = leastindex;
 //					i--;
@@ -6332,9 +6389,9 @@ glabel propsTick
 //		i = (g_Vars.propstates[(s32)mostindex].foregroundchrpropcount - g_Vars.propstates[(s32)leastindex].foregroundchrpropcount) >> 1;
 //
 //		if (i != 0) {
-//			prop = g_Vars.list1head;
+//			prop = g_Vars.activeprops;
 //
-//			while (prop != g_Vars.list2head) {
+//			while (prop != g_Vars.pausedprops) {
 //				if (mostindex == prop->propstateindex && prop->backgrounded == 0 && prop->type == PROPTYPE_CHR) {
 //					prop->propstateindex = leastindex;
 //					i--;
@@ -7047,7 +7104,7 @@ void farsightChooseTarget(void)
 			struct prop *prop = g_ChrSlots[i].prop;
 
 			if (prop && prop->chr) {
-				if (prop->type == PROPTYPE_CHR && (prop->flags & PROPFLAG_TANGIBLE)
+				if (prop->type == PROPTYPE_CHR && (prop->flags & PROPFLAG_ENABLED)
 						|| (prop->type == PROPTYPE_PLAYER && propGetPlayerNum(prop) != g_Vars.currentplayernum)) {
 					struct chrdata *chr = prop->chr;
 
@@ -7137,7 +7194,7 @@ void autoaimTick(void)
 					aimpos[0] = (threat->x2 + threat->x1) / 2;
 					aimpos[1] = (threat->y2 + threat->y1) / 2;
 
-					if (bestprop->flags & PROPFLAG_02) {
+					if (bestprop->flags & PROPFLAG_ONSCREEN) {
 						struct defaultobj *obj = bestprop->obj;
 						Mtxf *mtx = func0001a60c(obj->model);
 						struct coord spac;
@@ -7212,10 +7269,10 @@ void autoaimTick(void)
 		f32 sp84[2];
 		struct chrdata *chr;
 		f32 sp78[2];
-		struct prop **ptr = g_Vars.unk00034c - 1;
+		struct prop **ptr = g_Vars.endenabledprops - 1;
 
 		// Iterate tangible list in reverse
-		while (ptr >= g_Vars.tangibleprops) {
+		while (ptr >= g_Vars.enabledprops) {
 			prop = *ptr;
 
 			if (prop && prop->chr) {

@@ -134,7 +134,7 @@ void func0f0b65f8(void)
 			func0f0b63b0(i, 1);
 		}
 
-		prop = g_Vars.list1head;
+		prop = g_Vars.activeprops;
 
 		while (prop) {
 			if (prop->type == PROPTYPE_OBJ) {

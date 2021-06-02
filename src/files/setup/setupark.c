@@ -2411,7 +2411,7 @@ u8 func0412_outro[] = {
 	play_temporary_track(MUSIC_EXTRACTION_OUTRO_SFX)
 	camera_movement(0x0157)
 	set_object_flag2(OBJ_HOVERCOPTER, OBJFLAG2_INVISIBLE)
-	hide_object(OBJ_HOVERCOPTER)
+	disable_object(OBJ_HOVERCOPTER)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
@@ -2454,7 +2454,7 @@ u8 func0412_outro[] = {
 	set_chr_hiddenflag(CHR_OUTRO_GUARD2, CHRHFLAG_00020000)
 	chr_do_animation(0x015c, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_OUTRO_GUARD2, 4)
 
-	show_object(OBJ_JUMPSHIP)
+	enable_object(OBJ_JUMPSHIP)
 	set_object_flag3(OBJ_JUMPSHIP, OBJFLAG3_00000010)
 	set_object_flag2(OBJ_JUMPSHIP, OBJFLAG2_04000000)
 	object_do_animation(0x015e, OBJ_JUMPSHIP, 0x04, 0xffff)
@@ -2616,7 +2616,7 @@ u8 func0412_outro[] = {
 	endloop(0x21)
 
 	label(0x5d)
-	hide_object(OBJ_JUMPSHIP)
+	disable_object(OBJ_JUMPSHIP)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

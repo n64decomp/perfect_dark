@@ -277,10 +277,10 @@
 /*0x0111*/ bool aiSetCameraAnimation(void);
 /*0x0112*/ bool aiObjectDoAnimation(void);
 /*0x0113*/ bool aiIfInCutscene(void);
-/*0x0114*/ bool aiShowChr(void);
-/*0x0115*/ bool aiHideChr(void);
-/*0x0116*/ bool aiShowObj(void);
-/*0x0117*/ bool aiHideObj(void);
+/*0x0114*/ bool aiEnableChr(void);
+/*0x0115*/ bool aiDisableChr(void);
+/*0x0116*/ bool aiEnableObj(void);
+/*0x0117*/ bool aiDisableObj(void);
 /*0x0118*/ bool aiSetObjFlag3(void);
 /*0x0119*/ bool aiUnsetObjFlag3(void);
 /*0x011a*/ bool aiIfObjHasFlag3(void);

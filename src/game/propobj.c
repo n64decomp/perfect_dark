@@ -2363,7 +2363,7 @@ glabel func0f06803c
 
 struct defaultobj *objFindByPadNum(s32 padnum)
 {
-	struct prop *prop = g_Vars.list1head;
+	struct prop *prop = g_Vars.activeprops;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ) {
@@ -5333,7 +5333,7 @@ struct prop *objInitialise(struct defaultobj *obj, struct modelfiledata *filedat
 				g_ScenarioData.htb.token = prop;
 			}
 
-			prop->unk3f_02 = true;
+			prop->forcetick = true;
 			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_00400000;
 			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
 		} else if (weapon->weaponnum == WEAPON_DATAUPLINK) {
@@ -5341,7 +5341,7 @@ struct prop *objInitialise(struct defaultobj *obj, struct modelfiledata *filedat
 				g_ScenarioData.htm.uplink = prop;
 			}
 
-			prop->unk3f_02 = true;
+			prop->forcetick = true;
 			obj->flags |= OBJFLAG_INVINCIBLE | OBJFLAG_00400000;
 			obj->flags2 |= OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_00200000;
 		}
@@ -6357,8 +6357,8 @@ void objRemove2(struct defaultobj *obj, bool freeprop, bool regen)
 			modelFree(obj->model);
 
 			if (freeprop) {
-				propRemoveFromCurrentList(obj->prop);
-				propHide(obj->prop);
+				propDelist(obj->prop);
+				propDisable(obj->prop);
 				propFree(obj->prop);
 			}
 
@@ -11659,9 +11659,9 @@ glabel func0f06ef44
 /*  f06efa0:	37280040 */ 	ori	$t0,$t9,0x40
 /*  f06efa4:	0fc19711 */ 	jal	func0f065c44
 /*  f06efa8:	ae080040 */ 	sw	$t0,0x40($s0)
-/*  f06efac:	0fc18171 */ 	jal	propRemoveFromCurrentList
+/*  f06efac:	0fc18171 */ 	jal	propDelist
 /*  f06efb0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f06efb4:	0fc180c0 */ 	jal	propHide
+/*  f06efb4:	0fc180c0 */ 	jal	propDisable
 /*  f06efb8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06efbc:	8fa90180 */ 	lw	$t1,0x180($sp)
 /*  f06efc0:	8e0a0018 */ 	lw	$t2,0x18($s0)
@@ -15366,7 +15366,7 @@ void func0f0706f8(struct prop *prop, bool arg1)
 	if (obj->hidden & OBJHFLAG_REAPABLE) {
 		objRemove2(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 	} else {
-		prop->flags &= ~PROPFLAG_02;
+		prop->flags &= ~PROPFLAG_ONSCREEN;
 		func0f07063c(prop, arg1);
 
 		// Recurse into children
@@ -46244,7 +46244,7 @@ u32 func0f07e474(struct prop *prop)
 			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_40) == 0) {
 				if (obj->flags & OBJFLAG_00008000) {
 					func0f065c44(prop);
-					propRemoveFromCurrentList(prop);
+					propDelist(prop);
 					obj->hidden &= ~OBJHFLAG_00000800;
 					cmdoffset = setupGetCommandOffset(prop);
 
@@ -46259,7 +46259,7 @@ u32 func0f07e474(struct prop *prop)
 						silent = true;
 					}
 				} else {
-					propShow(prop);
+					propEnable(prop);
 					func0f0923d4(obj);
 					obj->hidden &= ~OBJHFLAG_00000800;
 				}
@@ -46327,7 +46327,7 @@ s32 objTick(struct prop *prop)
 	if (obj->hidden & OBJHFLAG_00000008) {
 		obj->hidden &= ~OBJHFLAG_00000008;
 	} else if ((obj->hidden & OBJHFLAG_AIRBORNE) && (obj->projectile->flags & PROJECTILEFLAG_00000800) == 0) {
-		prop->flags &= ~PROPFLAG_02;
+		prop->flags &= ~PROPFLAG_ONSCREEN;
 		obj->hidden |= OBJHFLAG_00000008;
 		return TICKOP_RETICK;
 	}
@@ -46646,7 +46646,7 @@ s32 objTick(struct prop *prop)
 			}
 		}
 
-		prop->flags |= PROPFLAG_40 | PROPFLAG_02;
+		prop->flags |= PROPFLAG_40 | PROPFLAG_ONSCREEN;
 
 		if (obj->type == OBJTYPE_FAN) {
 			fanUpdateModel(prop);
@@ -46670,7 +46670,7 @@ s32 objTick(struct prop *prop)
 			child = next;
 		}
 	} else {
-		prop->flags &= ~PROPFLAG_02;
+		prop->flags &= ~PROPFLAG_ONSCREEN;
 		func0f07063c(prop, sp572);
 		child = prop->child;
 
@@ -46699,7 +46699,7 @@ s32 objTick(struct prop *prop)
 
 Gfx *propsRenderBeams(Gfx *gdl)
 {
-	struct prop *prop = g_Vars.list1head;
+	struct prop *prop = g_Vars.activeprops;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_CHR) {
@@ -48663,7 +48663,7 @@ glabel var7f1aa824
 
 void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha)
 {
-	if (prop->flags & PROPFLAG_02) {
+	if (prop->flags & PROPFLAG_ONSCREEN) {
 		struct defaultobj *obj = prop->obj;
 		struct model *model = obj->model;
 		bool sp6c;
@@ -54179,9 +54179,9 @@ glabel var7f1aa978
 .L0f083cb4:
 /*  f083cb4:	0fc20be2 */ 	jal	objDetach
 /*  f083cb8:	8fa40140 */ 	lw	$a0,0x140($sp)
-/*  f083cbc:	0fc1812f */ 	jal	propPrependToList1
+/*  f083cbc:	0fc1812f */ 	jal	propActivate
 /*  f083cc0:	8fa40140 */ 	lw	$a0,0x140($sp)
-/*  f083cc4:	0fc180bc */ 	jal	propShow
+/*  f083cc4:	0fc180bc */ 	jal	propEnable
 /*  f083cc8:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083ccc:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083cd0:	c7b20120 */ 	lwc1	$f18,0x120($sp)
@@ -55152,9 +55152,9 @@ glabel var7f1aa978
 .L0f083cb4:
 /*  f083cb4:	0fc20be2 */ 	jal	objDetach
 /*  f083cb8:	8fa40140 */ 	lw	$a0,0x140($sp)
-/*  f083cbc:	0fc1812f */ 	jal	propPrependToList1
+/*  f083cbc:	0fc1812f */ 	jal	propActivate
 /*  f083cc0:	8fa40140 */ 	lw	$a0,0x140($sp)
-/*  f083cc4:	0fc180bc */ 	jal	propShow
+/*  f083cc4:	0fc180bc */ 	jal	propEnable
 /*  f083cc8:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083ccc:	8fa40140 */ 	lw	$a0,0x140($sp)
 /*  f083cd0:	c7b20120 */ 	lwc1	$f18,0x120($sp)
@@ -57247,7 +57247,7 @@ void func0f084f64(struct defaultobj *obj)
 	Mtxf *sp7c;
 	Mtxf matrix;
 
-	if (prop->flags & PROPFLAG_02) {
+	if (prop->flags & PROPFLAG_ONSCREEN) {
 		rodata = modelGetPartRodata(model->filedata, 2);
 		sp7c = func0001a5cc(model, modelGetPart(model->filedata, 1), 0);
 		func00015be4(currentPlayerGetUnk174c(), sp7c, &matrix);
@@ -63644,7 +63644,7 @@ glabel var7f1aae84
 
 bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
 {
-	if (prop->flags & PROPFLAG_02) {
+	if (prop->flags & PROPFLAG_ONSCREEN) {
 		struct defaultobj *obj = prop->obj;
 		Mtxf *matrix = func0001a60c(obj->model);
 
@@ -64999,7 +64999,7 @@ struct weaponobj *func0f08aa70(s32 weaponnum, struct prop *prop)
 
 struct weaponobj *weaponFindThrown(s32 weaponnum)
 {
-	struct prop *prop = g_Vars.list1head;
+	struct prop *prop = g_Vars.activeprops;
 
 	while (prop) {
 		struct weaponobj *weapon = func0f08aa70(weaponnum, prop);
@@ -65085,7 +65085,7 @@ void chrsTriggerProxies(void)
 				&& (chr->hidden & CHRHFLAG_00000200)
 #endif
 				&& chr->prop
-				&& (chr->prop->flags & PROPFLAG_TANGIBLE)
+				&& (chr->prop->flags & PROPFLAG_ENABLED)
 				&& !chrIsDead(chr)) {
 			chrCalculatePosition(chr, &pos);
 			coordTriggerProxies(&pos, true);
@@ -65360,7 +65360,7 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 			laptop->ymaxright = -12.56f;
 			laptop->maxspeed = PALUPF(0.0697f);
 
-			prop->unk3f_02 = true;
+			prop->forcetick = true;
 
 			laptop->base.hidden |= OBJHFLAG_TAGGED;
 			laptop->base.flags |= OBJFLAG_00080000 | OBJFLAG_01000000 | OBJFLAG_20000000;
@@ -69415,7 +69415,7 @@ bool doorTestForInteract(struct prop *prop)
 
 	if ((door->base.flags & OBJFLAG_CANNOT_ACTIVATE) == 0
 			&& door->maxfrac > 0
-			&& (prop->flags & PROPFLAG_02)) {
+			&& (prop->flags & PROPFLAG_ONSCREEN)) {
 		bool maybe = false;
 		bool usingeyespy = g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active;
 		struct prop *playerprop = usingeyespy ? g_Vars.currentplayer->eyespy->prop : g_Vars.currentplayer->prop;
@@ -69906,11 +69906,11 @@ void alarmTick(void)
 
 void func0f091030(void)
 {
-	struct prop *prop = g_Vars.list1head;
+	struct prop *prop = g_Vars.activeprops;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ
-				&& (prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) == 0
+				&& (prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0
 				&& (prop->obj->hidden2 & OBJH2FLAG_40)
 				&& (prop->obj->hidden2 & OBJH2FLAG_80)) {
 			objRemove(prop->obj, true);

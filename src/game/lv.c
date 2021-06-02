@@ -1209,7 +1209,7 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 				}
 			}
 
-			if ((threat->prop->flags & PROPFLAG_02)
+			if ((threat->prop->flags & PROPFLAG_ONSCREEN)
 					&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0) {
 				struct model *model = chr->model;
 				sp72 = -1;
@@ -1225,7 +1225,7 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 			return false;
 		case PROPTYPE_OBJ:
 		case PROPTYPE_WEAPON:
-			if (threat->prop->flags & PROPFLAG_02) {
+			if (threat->prop->flags & PROPFLAG_ONSCREEN) {
 				struct defaultobj *obj = threat->prop->obj;
 				struct model *model = obj->model;
 				sp72 = -1;
@@ -1544,7 +1544,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 	}
 
 	if (prop->obj
-			&& (prop->flags & PROPFLAG_02)
+			&& (prop->flags & PROPFLAG_ONSCREEN)
 			&& (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON)
 			&& condition) {
 		pass = false;
@@ -1665,7 +1665,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 
 	for (i = 0; i != 4; i++) {
 		if (g_Vars.currentplayer->cmpfollowprops[i].prop == prop
-				&& (prop->flags & PROPFLAG_02)) {
+				&& (prop->flags & PROPFLAG_ONSCREEN)) {
 			model = NULL;
 
 			if (prop->type == PROPTYPE_OBJ
@@ -1717,14 +1717,14 @@ void lvFindThreats(void)
 	struct prop *prop;
 	f32 distances[] = {0, 0, 0, 0};
 	s32 activeslots[] = {false, false, false, false};
-	struct prop **propptr = g_Vars.unk00034c - 1;
+	struct prop **propptr = g_Vars.endenabledprops - 1;
 	struct coord campos;
 
 	campos.x = g_Vars.currentplayer->cam_pos.x;
 	campos.y = g_Vars.currentplayer->cam_pos.y;
 	campos.z = g_Vars.currentplayer->cam_pos.z;
 
-	while (propptr >= g_Vars.tangibleprops) {
+	while (propptr >= g_Vars.enabledprops) {
 		prop = *propptr;
 
 		if (prop) {
@@ -1742,9 +1742,9 @@ void lvFindThreats(void)
 		}
 	}
 
-	propptr = g_Vars.unk00034c - 1;
+	propptr = g_Vars.endenabledprops - 1;
 
-	while (propptr >= g_Vars.tangibleprops) {
+	while (propptr >= g_Vars.enabledprops) {
 		prop = *propptr;
 
 		if (prop) {

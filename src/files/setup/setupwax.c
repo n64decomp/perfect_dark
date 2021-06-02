@@ -1653,8 +1653,8 @@ u8 func1007_bomb_logic[] = {
 	show_hudmsg(CHR_BOND, L_WAX_022) // "Skedar bomb has been placed successfully."
 	remove_weapon_from_inventory(WEAPON_SKEDARBOMB)
 	set_stage_flag(STAGEFLAG_BOMB_PLANTED)
-	hide_object(OBJ_BOND_BOMB)
-	hide_object(OBJ_COOP_BOMB)
+	disable_object(OBJ_BOND_BOMB)
+	disable_object(OBJ_COOP_BOMB)
 	assign_sound(SFX_8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_PLANTED_BOMB, 0x0258, 0x04b0)
 	unset_object_flag2(OBJ_PLANTED_BOMB, OBJFLAG2_INVISIBLE)
@@ -1759,26 +1759,26 @@ u8 func1008_check_bomb_unplantable[] = {
 };
 
 u8 func1009_toggle_top_guards[] = {
-	hide_chr(0x00)
-	hide_chr(0x0b)
-	hide_chr(0x09)
-	hide_chr(0x1e)
-	hide_chr(0x1f)
-	hide_chr(0x20)
-	hide_chr(0x07)
-	hide_chr(0x0a)
-	hide_chr(0x0c)
-	hide_chr(0x18)
-	hide_chr(0x19)
-	hide_chr(0x1a)
-	hide_chr(0x1b)
-	hide_chr(0x1c)
-	hide_chr(0x1d)
-	hide_chr(0x08)
-	hide_chr(0x0d)
-	hide_chr(0x17)
-	hide_chr(0x06)
-	hide_chr(0x05)
+	disable_chr(0x00)
+	disable_chr(0x0b)
+	disable_chr(0x09)
+	disable_chr(0x1e)
+	disable_chr(0x1f)
+	disable_chr(0x20)
+	disable_chr(0x07)
+	disable_chr(0x0a)
+	disable_chr(0x0c)
+	disable_chr(0x18)
+	disable_chr(0x19)
+	disable_chr(0x1a)
+	disable_chr(0x1b)
+	disable_chr(0x1c)
+	disable_chr(0x1d)
+	disable_chr(0x08)
+	disable_chr(0x0d)
+	disable_chr(0x17)
+	disable_chr(0x06)
+	disable_chr(0x05)
 
 	// Wait until player above -4100
 	beginloop(0x04)
@@ -1790,45 +1790,45 @@ u8 func1009_toggle_top_guards[] = {
 
 	// Show chrs
 	label(0x06)
-	show_chr(0x00)
+	enable_chr(0x00)
 	yield
-	show_chr(0x0b)
+	enable_chr(0x0b)
 	yield
-	show_chr(0x09)
+	enable_chr(0x09)
 	yield
-	show_chr(0x1e)
+	enable_chr(0x1e)
 	yield
-	show_chr(0x1f)
+	enable_chr(0x1f)
 	yield
-	show_chr(0x20)
+	enable_chr(0x20)
 	yield
-	show_chr(0x07)
+	enable_chr(0x07)
 	yield
-	show_chr(0x0a)
+	enable_chr(0x0a)
 	yield
-	show_chr(0x0c)
+	enable_chr(0x0c)
 	yield
-	show_chr(0x18)
+	enable_chr(0x18)
 	yield
-	show_chr(0x19)
+	enable_chr(0x19)
 	yield
-	show_chr(0x1a)
+	enable_chr(0x1a)
 	yield
-	show_chr(0x1b)
+	enable_chr(0x1b)
 	yield
-	show_chr(0x1c)
+	enable_chr(0x1c)
 	yield
-	show_chr(0x1d)
+	enable_chr(0x1d)
 	yield
-	show_chr(0x08)
+	enable_chr(0x08)
 	yield
-	show_chr(0x0d)
+	enable_chr(0x0d)
 	yield
-	show_chr(0x17)
+	enable_chr(0x17)
 	yield
-	show_chr(0x06)
+	enable_chr(0x06)
 	yield
-	show_chr(0x05)
+	enable_chr(0x05)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1992,8 +1992,8 @@ u8 func0416_intro[] = {
 
 	// Controller button pressed or cutscene finished
 	label(0xba)
-	hide_object(OBJ_LOBBYDOOR_LEFT)
-	hide_object(OBJ_LOBBYDOOR_RIGHT)
+	disable_object(OBJ_LOBBYDOOR_LEFT)
+	disable_object(OBJ_LOBBYDOOR_RIGHT)
 	unset_object_flag2(0x61, OBJFLAG2_INVISIBLE)
 	unset_object_flag2(0x62, OBJFLAG2_INVISIBLE)
 	set_object_flag(0x61, OBJFLAG_00000100)
@@ -2013,7 +2013,7 @@ u8 func0416_intro[] = {
 
 u8 func0417_outro[] = {
 	set_invincible(CHR_BOND)
-	hide_object(OBJ_SHUTTLE1)
+	disable_object(OBJ_SHUTTLE1)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	play_cutscene_track(MUSIC_G5_OUTRO)
@@ -2023,7 +2023,7 @@ u8 func0417_outro[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE)
-	show_object(OBJ_SHUTTLE2)
+	enable_object(OBJ_SHUTTLE2)
 	set_object_flag2(OBJ_SHUTTLE2, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_SHUTTLE2, OBJFLAG3_00000010)
 	object_do_animation(0x0475, OBJ_SHUTTLE2, 0x04, 0xffff)
@@ -2040,7 +2040,7 @@ u8 func0417_outro[] = {
 	endloop(0x08)
 
 	label(0xba)
-	hide_object(OBJ_SHUTTLE2)
+	disable_object(OBJ_SHUTTLE2)
 
 	label(0x06)
 	end_level
@@ -2118,7 +2118,7 @@ u8 func1010_init_lighting[] = {
 
 u8 func1011_shuttle_animation[] = {
 	yield
-	show_object(OBJ_SHUTTLE1)
+	enable_object(OBJ_SHUTTLE1)
 	set_object_flag3(OBJ_SHUTTLE1, OBJFLAG3_00000010)
 	object_set_modelpart_visible(OBJ_SHUTTLE1, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 	label(0x09)

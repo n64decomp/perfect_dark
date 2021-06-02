@@ -695,21 +695,21 @@ u8 func0402_init_elvis[] = {
 
 u8 func1006_hijack[] = {
 	yield
-	hide_chr(0x1d)
-	hide_chr(0x1e)
-	hide_chr(0x1f)
-	hide_chr(0x20)
-	hide_chr(0x21)
-	hide_chr(0x22)
-	hide_chr(0x23)
-	hide_chr(0x24)
-	hide_chr(0x25)
-	hide_chr(0x26)
-	hide_chr(0x27)
-	hide_chr(0x28)
-	hide_chr(0x29)
-	hide_chr(CHR_TAKER1)
-	hide_chr(CHR_TAKER2)
+	disable_chr(0x1d)
+	disable_chr(0x1e)
+	disable_chr(0x1f)
+	disable_chr(0x20)
+	disable_chr(0x21)
+	disable_chr(0x22)
+	disable_chr(0x23)
+	disable_chr(0x24)
+	disable_chr(0x25)
+	disable_chr(0x26)
+	disable_chr(0x27)
+	disable_chr(0x28)
+	disable_chr(0x29)
+	disable_chr(CHR_TAKER1)
+	disable_chr(CHR_TAKER2)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_PRESIDENT_STARTED_RUNNING, TRUE, /*goto*/ 0x06)
@@ -779,7 +779,7 @@ u8 func1006_hijack[] = {
 	yield
 
 	#define enable_stripes_chr(chr, function) \
-		show_chr(chr) \
+		enable_chr(chr) \
 		set_ailist(chr, function) \
 		unset_chr_chrflag(chr, CHRCFLAG_HIDDEN) \
 		set_chr_hiddenflag(chr, CHRHFLAG_00400000) \
@@ -1069,10 +1069,10 @@ u8 func101e_blow_mines[] = {
 	destroy_object(0x32)
 
 	yield
-	hide_object(0x2f)
-	hide_object(0x30)
-	hide_object(0x31)
-	hide_object(0x32)
+	disable_object(0x2f)
+	disable_object(0x30)
+	disable_object(0x31)
+	disable_object(0x32)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1385,8 +1385,8 @@ u8 func0405_president_in_room[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	rebuild_teams
 	rebuild_squadrons
-	hide_object(OBJ_EXTERIOR_DOOR)
-	hide_object(OBJ_FLOORHATCH)
+	disable_object(OBJ_EXTERIOR_DOOR)
+	disable_object(OBJ_FLOORHATCH)
 	set_object_flag(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG_00000100)
 	unset_object_flag2(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG2_INVISIBLE)
 	unset_object_flag2(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG2_INVISIBLE)
@@ -3004,9 +3004,9 @@ u8 func1012_check_blondes_dead[] = {
 
 u8 func1013_unhide_trent_and_blondes[] = {
 	yield
-	hide_chr(CHR_TRENT)
-	hide_chr(CHR_BLONDE1)
-	hide_chr(CHR_BLONDE2)
+	disable_chr(CHR_TRENT)
+	disable_chr(CHR_BLONDE1)
+	disable_chr(CHR_BLONDE2)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -3018,11 +3018,11 @@ u8 func1013_unhide_trent_and_blondes[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	show_chr(CHR_TRENT)
+	enable_chr(CHR_TRENT)
 	set_ailist(CHR_TRENT, AILIST_TRENT_WAITING)
-	show_chr(CHR_BLONDE1)
+	enable_chr(CHR_BLONDE1)
 	set_ailist(CHR_BLONDE1, AILIST_INIT_BLONDE)
-	show_chr(CHR_BLONDE2)
+	enable_chr(CHR_BLONDE2)
 	set_ailist(CHR_BLONDE2, AILIST_INIT_BLONDE)
 	yield
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
@@ -3454,19 +3454,19 @@ u8 func0423_outro[] = {
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	chr_do_animation(0x02d9, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
-	show_object(0x19)
+	enable_object(0x19)
 	set_object_flag2(0x19, OBJFLAG2_04000000)
 	set_object_flag3(0x19, OBJFLAG3_00000010)
 	object_do_animation(0x02db, 0x19, 0x04, 0xffff)
-	show_object(0x1a)
+	enable_object(0x1a)
 	set_object_flag2(0x1a, OBJFLAG2_04000000)
 	set_object_flag3(0x1a, OBJFLAG3_00000010)
 	object_do_animation(0x02dc, 0x1a, 0x04, 0xffff)
-	show_object(0x23)
+	enable_object(0x23)
 	set_object_flag2(0x23, OBJFLAG2_04000000)
 	set_object_flag3(0x23, OBJFLAG3_00000010)
 	object_do_animation(0x02dd, 0x23, 0x04, 0xffff)
-	show_object(0x37)
+	enable_object(0x37)
 	set_object_flag2(0x37, OBJFLAG2_04000000)
 	set_object_flag3(0x37, OBJFLAG3_00000010)
 	object_do_animation(0x02de, 0x37, 0x04, 0xffff)
@@ -3553,8 +3553,8 @@ u8 func0423_outro[] = {
 	label(0x06)
 	stop_cutscene_track
 	configure_environment(0x0000, AIENVCMD_STOPNOSEDIVE, 0)
-	hide_object(0x19)
-	hide_object(0x1a)
+	disable_object(0x19)
+	disable_object(0x1a)
 	set_chr_hudpiece_visible(CHR_TARGET, FALSE)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3576,13 +3576,13 @@ u8 func1019_midcutscene[] = {
 	label(0x2d)
 	camera_movement(0x02df)
 
-	show_object(0x19)
+	enable_object(0x19)
 	set_object_flag2(0x19, OBJFLAG2_04000000)
 	set_object_flag3(0x19, OBJFLAG3_00000010)
 	object_do_animation(0x02e0, 0x19, 0x04, 0xffff)
 	object_set_modelpart_visible(0x19, MODELPART_SKSHUTTLE_GANGWAY, TRUE)
 
-	show_object(0x37)
+	enable_object(0x37)
 	set_object_flag2(0x37, OBJFLAG2_04000000)
 	set_object_flag3(0x37, OBJFLAG3_00000010)
 	object_do_animation(0x02e1, 0x37, 0x04, 0xffff)
@@ -3602,8 +3602,8 @@ u8 func1019_midcutscene[] = {
 	endloop(0x09)
 
 	label(0x5f)
-	hide_object(0x37)
-	hide_object(0x19)
+	disable_object(0x37)
+	disable_object(0x19)
 	label(0x06)
 	set_stage_flag(STAGEFLAG_MIDCUTSCENE_FINISHED)
 	stop_cutscene_track
@@ -3821,7 +3821,7 @@ u8 func101d_handle_early_president_death[] = {
 	endloop(0x04)
 
 	label(0x06)
-	hide_object(OBJ_EXTERIOR_DOOR)
+	disable_object(OBJ_EXTERIOR_DOOR)
 	unset_object_flag2(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG2_INVISIBLE)
 	set_object_flag(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG_00000100)
 
@@ -3993,7 +3993,7 @@ u8 func1026_buddy_floor_hatch[] = {
 
 	// Maybe the AI has difficulty opening the floor hatch so they removed it?
 	label(0x2d)
-	hide_object(OBJ_FLOORHATCH)
+	disable_object(OBJ_FLOORHATCH)
 	set_object_flag(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG_00000100)
 	unset_object_flag2(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

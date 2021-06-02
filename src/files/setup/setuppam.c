@@ -1505,7 +1505,7 @@ u8 func0c01_midcutscene[] = {
 	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
 	chr_do_animation(0x01d7, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 4)
-	show_object(0xbb)
+	enable_object(0xbb)
 	set_object_flag2(0xbb, OBJFLAG2_04000000)
 	set_object_flag3(0xbb, OBJFLAG3_00000010)
 	object_do_animation(0x01d8, 0xbb, 0x04, 0xffff)
@@ -1819,7 +1819,7 @@ u8 func0c01_midcutscene[] = {
 	mute_channel(CHANNEL_0)
 	fade_to_color(0xffffffff, 0)
 	fade_to_color(0x00000000, 15)
-	hide_object(0xbb)
+	disable_object(0xbb)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
@@ -1897,7 +1897,7 @@ u8 func0c02_outro[] = {
 		endloop(loopid) \
 		label(0x2e) \
 		dprint msg, '\n', 0, \
-		show_object(mine) \
+		enable_object(mine) \
 		yield \
 		move_object_to_pad(mine, pad) \
 		yield \
@@ -1909,7 +1909,7 @@ u8 func0c02_outro[] = {
 		endloop(loopid) \
 		label(0x2e) \
 		dprint msg1, msg2, '\n', 0, \
-		show_object(mine) \
+		enable_object(mine) \
 		yield \
 		move_object_to_pad(mine, pad) \
 		yield \
@@ -2203,7 +2203,7 @@ u8 func1002_intro[] = {
 	goto_next(0x46)
 
 	label(0x45)
-	hide_object(0x07)
+	disable_object(0x07)
 	label(0x46)
 	stop_cutscene_track
 	stop_ambient_track
@@ -4695,8 +4695,8 @@ u8 func1433_setup_environment[] = {
 u8 func1034_enable_blondes[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0d)
 	yield
-	hide_chr(CHR_BLONDE1)
-	hide_chr(CHR_BLONDE2)
+	disable_chr(CHR_BLONDE1)
+	disable_chr(CHR_BLONDE2)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -4704,8 +4704,8 @@ u8 func1034_enable_blondes[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	show_chr(CHR_BLONDE1)
-	show_chr(CHR_BLONDE2)
+	enable_chr(CHR_BLONDE1)
+	enable_chr(CHR_BLONDE2)
 	set_ailist(CHR_BLONDE1, AILIST_BLONDE)
 	set_ailist(CHR_BLONDE2, AILIST_BLONDE)
 	label(0x0d)

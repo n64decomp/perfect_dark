@@ -47,7 +47,7 @@ struct var8007e3d0 var8007e3d0[] = {
 void func0f129210(union modelrwdata *find, union modelrwdata *replacement)
 {
 	u32 stack;
-	struct prop *prop = g_Vars.list1head;
+	struct prop *prop = g_Vars.activeprops;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ) {

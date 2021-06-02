@@ -481,7 +481,7 @@ void objectiveCheckHolograph(f32 maxdist)
 			struct defaultobj *obj = objFindByTagId(criteria->obj);
 
 			if (obj && obj->prop
-					&& (obj->prop->flags & PROPFLAG_02)
+					&& (obj->prop->flags & PROPFLAG_ONSCREEN)
 					&& obj->prop->z >= 0
 					&& objIsHealthy(obj)) {
 				struct coord sp9c;

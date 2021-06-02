@@ -122,11 +122,11 @@ void propsTick2(void)
 	func0f02c9b0();
 	func0f048398();
 
-	prop = g_Vars.list1head;
+	prop = g_Vars.activeprops;
 
 	do {
 		next = prop->next;
-		done = next == g_Vars.list2head;
+		done = next == g_Vars.pausedprops;
 		tickop = TICKOP_NONE;
 
 		if (prop->type == PROPTYPE_CHR) {
@@ -145,11 +145,11 @@ void propsTick2(void)
 			next2 = next;
 		} else {
 			next2 = prop->next;
-			done = next2 == g_Vars.list2head;
+			done = next2 == g_Vars.pausedprops;
 
 			if (tickop == TICKOP_RETICK) {
-				propRemoveFromCurrentList(prop);
-				propAppendToList1(prop);
+				propDelist(prop);
+				propActivateThisFrame(prop);
 
 				if (done) {
 					next2 = prop;
@@ -11954,7 +11954,7 @@ glabel var7f1a87f8
  */
 void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool withalpha, struct chrdata *chr)
 {
-	if (prop->flags & PROPFLAG_02) {
+	if (prop->flags & PROPFLAG_ONSCREEN) {
 		u32 stack;
 		struct defaultobj *obj = prop->obj;
 		struct model *model = obj->model;

@@ -797,7 +797,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	chr_do_animation(0x0174, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 4)
-	show_object(OBJ_DROPSHIP)
+	enable_object(OBJ_DROPSHIP)
 	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_DROPSHIP, OBJFLAG3_00000010)
 	object_do_animation(0x0175, OBJ_DROPSHIP, 0x04, 0xffff)
@@ -1048,7 +1048,7 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x01bc, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 
-	show_object(OBJ_DROPSHIP)
+	enable_object(OBJ_DROPSHIP)
 	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_DROPSHIP, OBJFLAG3_00000010)
 	object_do_animation(0x01bd, OBJ_DROPSHIP, 0x04, 0xffff)
@@ -1115,7 +1115,7 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	chr_do_animation(0x01ba, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 2)
 
-	hide_object(OBJ_DROPSHIP)
+	disable_object(OBJ_DROPSHIP)
 	stop_cutscene_track
 	stop_ambient_track
 	play_x_track(XREASON_DEFAULT, 10, 30)
@@ -1134,7 +1134,7 @@ u8 func1002_intro[] = {
 	label(0x4f)
 	camera_movement(0x01be)
 	cmd0175(60)
-	hide_object(OBJ_DROPSHIP)
+	disable_object(OBJ_DROPSHIP)
 	if_controller_button_pressed(/*goto*/ 0x56)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
@@ -1211,7 +1211,7 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_00000001)
 	chr_do_animation(0x01c1, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TAKER2, 2)
-	hide_object(OBJ_DROPSHIP)
+	disable_object(OBJ_DROPSHIP)
 	stop_cutscene_track
 	stop_ambient_track
 	play_x_track(XREASON_DEFAULT, 10, 30)
@@ -1403,8 +1403,8 @@ u8 func1003_give_items[] = {
 	give_object_to_chr(0x89, CHR_COOP)
 	chr_draw_weapon(CHR_BOND, WEAPON_UNARMED)
 	chr_draw_weapon(CHR_COOP, WEAPON_UNARMED)
-	hide_object(0x02)
-	hide_object(0x8a)
+	disable_object(0x02)
+	disable_object(0x8a)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x08)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1414,15 +1414,15 @@ u8 func1003_give_items[] = {
 	give_object_to_chr(0x8a, CHR_COOP)
 	chr_draw_weapon(CHR_BOND, WEAPON_SNIPERRIFLE)
 	chr_draw_weapon(CHR_COOP, WEAPON_SNIPERRIFLE)
-	hide_object(0x01)
-	hide_object(0x89)
+	disable_object(0x01)
+	disable_object(0x89)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x08)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Velvet doesn't exist
 	label(0x08)
-	hide_object(0x8a)
-	hide_object(0x89)
+	disable_object(0x8a)
+	disable_object(0x89)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1694,14 +1694,14 @@ u8 func1005_toggle_snipers[] = {
 
 	// A and SA
 	label(0x2d)
-	hide_chr(CHR_SNIPER1)
-	hide_chr(CHR_SNIPER2)
-	hide_chr(CHR_SNIPER3)
-	hide_chr(CHR_SNIPER4)
-	hide_chr(CHR_SNIPER5)
-	hide_chr(CHR_SNIPER6)
-	hide_chr(CHR_SNIPER7)
-	hide_chr(CHR_SNIPER8)
+	disable_chr(CHR_SNIPER1)
+	disable_chr(CHR_SNIPER2)
+	disable_chr(CHR_SNIPER3)
+	disable_chr(CHR_SNIPER4)
+	disable_chr(CHR_SNIPER5)
+	disable_chr(CHR_SNIPER6)
+	disable_chr(CHR_SNIPER7)
+	disable_chr(CHR_SNIPER8)
 
 	beginloop(0x08)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1710,12 +1710,12 @@ u8 func1005_toggle_snipers[] = {
 
 	// PA
 	label(0x2e)
-	hide_chr(CHR_SNIPER1)
-	hide_chr(CHR_SNIPER2)
-	hide_chr(CHR_SNIPER3)
-	hide_chr(CHR_SNIPER4)
-	hide_chr(CHR_SNIPER6)
-	hide_chr(CHR_SNIPER7)
+	disable_chr(CHR_SNIPER1)
+	disable_chr(CHR_SNIPER2)
+	disable_chr(CHR_SNIPER3)
+	disable_chr(CHR_SNIPER4)
+	disable_chr(CHR_SNIPER6)
+	disable_chr(CHR_SNIPER7)
 	set_ailist(CHR_SNIPER5, AILIST_ENABLE_SNIPER)
 	set_ailist(CHR_SNIPER8, AILIST_ENABLE_SNIPER)
 
@@ -1735,17 +1735,17 @@ u8 func1005_toggle_snipers[] = {
 
 	// All difficulties
 	label(0x06)
-	show_chr(CHR_SNIPER1)
+	enable_chr(CHR_SNIPER1)
 	yield
-	show_chr(CHR_SNIPER2)
+	enable_chr(CHR_SNIPER2)
 	yield
-	show_chr(CHR_SNIPER3)
+	enable_chr(CHR_SNIPER3)
 	yield
-	show_chr(CHR_SNIPER4)
+	enable_chr(CHR_SNIPER4)
 	yield
-	show_chr(CHR_SNIPER6)
+	enable_chr(CHR_SNIPER6)
 	yield
-	show_chr(CHR_SNIPER7)
+	enable_chr(CHR_SNIPER7)
 	yield
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
 	goto_next(0x06)
@@ -1753,9 +1753,9 @@ u8 func1005_toggle_snipers[] = {
 	// A and SA
 	label(0x2d)
 	yield
-	show_chr(CHR_SNIPER5)
+	enable_chr(CHR_SNIPER5)
 	yield
-	show_chr(CHR_SNIPER8)
+	enable_chr(CHR_SNIPER8)
 	rebuild_teams
 	rebuild_squadrons
 
@@ -2141,9 +2141,9 @@ u8 func100b_invoke_hackers[] = {
 	yield
 	yield
 	yield
-	hide_chr(CHR_HACKER1)
-	hide_chr(CHR_HACKER2)
-	hide_chr(CHR_HACKER3)
+	disable_chr(CHR_HACKER1)
+	disable_chr(CHR_HACKER2)
+	disable_chr(CHR_HACKER3)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
 	goto_next(0x04)
 
@@ -2169,11 +2169,11 @@ u8 func100b_invoke_hackers[] = {
 	set_stage_flag(STAGEFLAG_HACKERS_STARTED)
 	set_object_flag3(0x0b, OBJFLAG3_RTRACKED_YELLOW)
 	set_object_flag3(0x0d, OBJFLAG3_RTRACKED_YELLOW)
-	show_chr(CHR_HACKER1)
+	enable_chr(CHR_HACKER1)
 	yield
-	show_chr(CHR_HACKER2)
+	enable_chr(CHR_HACKER2)
 	yield
-	show_chr(CHR_HACKER3)
+	enable_chr(CHR_HACKER3)
 	yield
 	set_ailist(CHR_HACKER1, AILIST_HACKER)
 	set_ailist(CHR_HACKER2, AILIST_HACKER)
@@ -2629,15 +2629,15 @@ u8 func040f_start_path01[] = {
 u8 func101b_toggle_basement_chrs[] = {
 	yield
 	yield
-	hide_chr(CHR_BASEMENT1)
-	hide_chr(CHR_BASEMENT2)
-	hide_chr(CHR_BASEMENT3)
-	hide_chr(CHR_BASEMENT4)
-	hide_chr(CHR_BASEMENT5)
-	hide_chr(CHR_BASEMENT6)
-	hide_chr(CHR_BASEMENT7)
-	hide_chr(CHR_BASEMENT8)
-	hide_chr(CHR_CARRINGTON)
+	disable_chr(CHR_BASEMENT1)
+	disable_chr(CHR_BASEMENT2)
+	disable_chr(CHR_BASEMENT3)
+	disable_chr(CHR_BASEMENT4)
+	disable_chr(CHR_BASEMENT5)
+	disable_chr(CHR_BASEMENT6)
+	disable_chr(CHR_BASEMENT7)
+	disable_chr(CHR_BASEMENT8)
+	disable_chr(CHR_CARRINGTON)
 
 	// Not sure which room 0x0087 is
 	beginloop(0x04)
@@ -2646,24 +2646,24 @@ u8 func101b_toggle_basement_chrs[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	show_chr(CHR_BASEMENT1)
+	enable_chr(CHR_BASEMENT1)
 	yield
-	show_chr(CHR_BASEMENT2)
+	enable_chr(CHR_BASEMENT2)
 	yield
-	show_chr(CHR_BASEMENT3)
+	enable_chr(CHR_BASEMENT3)
 	yield
-	show_chr(CHR_BASEMENT4)
+	enable_chr(CHR_BASEMENT4)
 	yield
-	show_chr(CHR_BASEMENT5)
+	enable_chr(CHR_BASEMENT5)
 	yield
-	show_chr(CHR_BASEMENT6)
+	enable_chr(CHR_BASEMENT6)
 	yield
-	show_chr(CHR_BASEMENT7)
+	enable_chr(CHR_BASEMENT7)
 	yield
-	show_chr(CHR_BASEMENT8)
+	enable_chr(CHR_BASEMENT8)
 	yield
 	yield
-	show_chr(CHR_CARRINGTON)
+	enable_chr(CHR_CARRINGTON)
 	yield
 	rebuild_teams
 	rebuild_squadrons
@@ -2804,38 +2804,38 @@ u8 func101c_toggle_villa_guards[] = {
 
 	// A and SA
 	label(0x2d)
-	hide_chr(0x23)
-	hide_chr(0x24)
-	hide_chr(0x25)
-	hide_chr(0x26)
-	hide_chr(0x27)
-	hide_chr(0x28)
-	hide_chr(0x29)
-	hide_chr(0x2a)
-	hide_chr(0x2b)
-	hide_chr(0x2c)
-	hide_chr(0x2d)
-	hide_chr(0x2e)
-	hide_chr(0x2f)
-	hide_chr(0x30)
-	hide_chr(0x31)
-	hide_chr(0x32)
-	hide_chr(0x33)
-	hide_chr(0x34)
-	hide_chr(0x35)
-	hide_chr(0x36)
-	hide_chr(0x37)
-	hide_chr(0x38)
-	hide_chr(0x39)
-	hide_chr(0x3a)
-	hide_chr(0x3b)
-	hide_chr(0x3c)
-	hide_chr(0x3d)
-	hide_chr(0x3e)
-	hide_chr(0x3f)
-	hide_chr(0x40)
-	hide_chr(0x41)
-	hide_chr(0x42)
+	disable_chr(0x23)
+	disable_chr(0x24)
+	disable_chr(0x25)
+	disable_chr(0x26)
+	disable_chr(0x27)
+	disable_chr(0x28)
+	disable_chr(0x29)
+	disable_chr(0x2a)
+	disable_chr(0x2b)
+	disable_chr(0x2c)
+	disable_chr(0x2d)
+	disable_chr(0x2e)
+	disable_chr(0x2f)
+	disable_chr(0x30)
+	disable_chr(0x31)
+	disable_chr(0x32)
+	disable_chr(0x33)
+	disable_chr(0x34)
+	disable_chr(0x35)
+	disable_chr(0x36)
+	disable_chr(0x37)
+	disable_chr(0x38)
+	disable_chr(0x39)
+	disable_chr(0x3a)
+	disable_chr(0x3b)
+	disable_chr(0x3c)
+	disable_chr(0x3d)
+	disable_chr(0x3e)
+	disable_chr(0x3f)
+	disable_chr(0x40)
+	disable_chr(0x41)
+	disable_chr(0x42)
 
 	// @bug: It is possible to cross room 0x002a in a single frame on coop if
 	// hugging the corner tightly, which means the guards will not be unhidden.
@@ -2845,69 +2845,69 @@ u8 func101c_toggle_villa_guards[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	show_chr(0x23)
+	enable_chr(0x23)
 	yield
-	show_chr(0x24)
+	enable_chr(0x24)
 	yield
-	show_chr(0x25)
+	enable_chr(0x25)
 	yield
-	show_chr(0x26)
+	enable_chr(0x26)
 	yield
-	show_chr(0x27)
+	enable_chr(0x27)
 	yield
-	show_chr(0x28)
+	enable_chr(0x28)
 	yield
-	show_chr(0x29)
+	enable_chr(0x29)
 	yield
-	show_chr(0x2a)
+	enable_chr(0x2a)
 	yield
-	show_chr(0x2b)
+	enable_chr(0x2b)
 	yield
-	show_chr(0x2c)
+	enable_chr(0x2c)
 	yield
-	show_chr(0x2d)
+	enable_chr(0x2d)
 	yield
-	show_chr(0x2e)
+	enable_chr(0x2e)
 	yield
-	show_chr(0x2f)
+	enable_chr(0x2f)
 	yield
-	show_chr(0x30)
+	enable_chr(0x30)
 	yield
-	show_chr(0x31)
+	enable_chr(0x31)
 	yield
-	show_chr(0x32)
+	enable_chr(0x32)
 	yield
-	show_chr(0x33)
+	enable_chr(0x33)
 	yield
-	show_chr(0x34)
+	enable_chr(0x34)
 	yield
-	show_chr(0x35)
+	enable_chr(0x35)
 	yield
-	show_chr(0x36)
+	enable_chr(0x36)
 	yield
-	show_chr(0x37)
+	enable_chr(0x37)
 	yield
-	show_chr(0x38)
+	enable_chr(0x38)
 	yield
-	show_chr(0x39)
+	enable_chr(0x39)
 	yield
-	show_chr(0x3a)
+	enable_chr(0x3a)
 	yield
-	show_chr(0x3b)
+	enable_chr(0x3b)
 	yield
-	show_chr(0x3c)
+	enable_chr(0x3c)
 	yield
-	show_chr(0x3d)
+	enable_chr(0x3d)
 	yield
-	show_chr(0x3e)
+	enable_chr(0x3e)
 	yield
-	show_chr(0x3f)
+	enable_chr(0x3f)
 	yield
-	show_chr(0x40)
+	enable_chr(0x40)
 	yield
-	show_chr(0x41)
+	enable_chr(0x41)
 	yield
-	show_chr(0x42)
+	enable_chr(0x42)
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_IDLE)

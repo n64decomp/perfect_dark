@@ -2796,7 +2796,7 @@ u8 func0c01_outro[] = {
 	label(0x2c)
 	set_target_chr(CHR_COOP)
 	label(0x06)
-	hide_object(0x2c)
+	disable_object(0x2c)
 	camera_movement(0x01e1)
 	play_cutscene_track(MUSIC_ATTACKSHIP_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -2815,7 +2815,7 @@ u8 func0c01_outro[] = {
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	chr_do_animation(0x01e3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
 
-	show_object(OBJ_OUTRO_SHUTTLE)
+	enable_object(OBJ_OUTRO_SHUTTLE)
 	set_object_flag2(OBJ_OUTRO_SHUTTLE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_SHUTTLE, OBJFLAG3_00000010)
 	object_do_animation(0x01e4, OBJ_OUTRO_SHUTTLE, 0x04, 0xffff)
@@ -3373,7 +3373,7 @@ u8 func1018_place_elvis_in_hangar[] = {
 
 u8 func1002_hangar_shuttle[] = {
 	yield
-	show_object(OBJ_HANGAR_SHUTTLE)
+	enable_object(OBJ_HANGAR_SHUTTLE)
 	set_object_flag3(OBJ_HANGAR_SHUTTLE, OBJFLAG3_00000010)
 	object_set_modelpart_visible(OBJ_HANGAR_SHUTTLE, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 
@@ -3390,7 +3390,7 @@ u8 func1002_hangar_shuttle[] = {
 	goto_first(0x09)
 
 	label(0x06)
-	hide_object(OBJ_HANGAR_SHUTTLE)
+	disable_object(OBJ_HANGAR_SHUTTLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3521,13 +3521,13 @@ u8 func101f_enable_bridge_skedar[] = {
 	unset_object_flag2(0x42, OBJFLAG2_LOCKEDFRONT)
 	unset_object_flag2(0x41, OBJFLAG2_AICANNOTUSE)
 	unset_object_flag2(0x42, OBJFLAG2_AICANNOTUSE)
-	show_chr(0x21)
-	show_chr(0x22)
-	show_chr(CHR_BRIDGE1)
-	show_chr(CHR_BRIDGE2)
-	show_chr(CHR_BRIDGE3)
-	show_chr(CHR_BRIDGESPAWNER1)
-	show_chr(CHR_BRIDGESPAWNER2)
+	enable_chr(0x21)
+	enable_chr(0x22)
+	enable_chr(CHR_BRIDGE1)
+	enable_chr(CHR_BRIDGE2)
+	enable_chr(CHR_BRIDGE3)
+	enable_chr(CHR_BRIDGESPAWNER1)
+	enable_chr(CHR_BRIDGESPAWNER2)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3622,41 +3622,41 @@ u8 func1423_setup_environment[] = {
 
 u8 func1025_toggle_chrs[] = {
 	yield
-	hide_chr(0x0b)
-	hide_chr(0x0c)
-	hide_chr(CHR_SUSPENDEDANIM1)
-	hide_chr(CHR_SUSPENDEDANIM2)
-	hide_chr(CHR_SUSPENDEDANIM3)
-	hide_chr(CHR_SUSPENDEDANIM4)
-	hide_chr(0x11)
-	hide_chr(0x12)
-	hide_chr(0x13)
-	hide_chr(0x14)
-	hide_chr(0x15)
-	hide_chr(0x16)
-	hide_chr(0x17)
-	hide_chr(0x18)
-	hide_chr(0x19)
-	hide_chr(0x1a)
-	hide_chr(0x1b)
-	hide_chr(0x1c)
-	hide_chr(0x1d)
-	hide_chr(0x1e)
-	hide_chr(0x1f)
-	hide_chr(0x20)
-	hide_chr(0x27)
-	hide_chr(0x28)
-	hide_chr(0x29)
-	hide_chr(0x2a)
-	hide_chr(0x2b)
-	hide_chr(0x2c)
-	hide_chr(0x21)
-	hide_chr(0x22)
-	hide_chr(CHR_BRIDGE1)
-	hide_chr(CHR_BRIDGE2)
-	hide_chr(CHR_BRIDGE3)
-	hide_chr(CHR_BRIDGESPAWNER1)
-	hide_chr(CHR_BRIDGESPAWNER2)
+	disable_chr(0x0b)
+	disable_chr(0x0c)
+	disable_chr(CHR_SUSPENDEDANIM1)
+	disable_chr(CHR_SUSPENDEDANIM2)
+	disable_chr(CHR_SUSPENDEDANIM3)
+	disable_chr(CHR_SUSPENDEDANIM4)
+	disable_chr(0x11)
+	disable_chr(0x12)
+	disable_chr(0x13)
+	disable_chr(0x14)
+	disable_chr(0x15)
+	disable_chr(0x16)
+	disable_chr(0x17)
+	disable_chr(0x18)
+	disable_chr(0x19)
+	disable_chr(0x1a)
+	disable_chr(0x1b)
+	disable_chr(0x1c)
+	disable_chr(0x1d)
+	disable_chr(0x1e)
+	disable_chr(0x1f)
+	disable_chr(0x20)
+	disable_chr(0x27)
+	disable_chr(0x28)
+	disable_chr(0x29)
+	disable_chr(0x2a)
+	disable_chr(0x2b)
+	disable_chr(0x2c)
+	disable_chr(0x21)
+	disable_chr(0x22)
+	disable_chr(CHR_BRIDGE1)
+	disable_chr(CHR_BRIDGE2)
+	disable_chr(CHR_BRIDGE3)
+	disable_chr(CHR_BRIDGESPAWNER1)
+	disable_chr(CHR_BRIDGESPAWNER2)
 
 	beginloop(0x08)
 		chr_toggle_p1p2(CHR_SELF)
@@ -3667,61 +3667,61 @@ u8 func1025_toggle_chrs[] = {
 	endloop(0x08)
 
 	label(0x06)
-	show_chr(0x0b)
+	enable_chr(0x0b)
 	yield
-	show_chr(0x0c)
+	enable_chr(0x0c)
 	yield
-	show_chr(CHR_SUSPENDEDANIM1)
+	enable_chr(CHR_SUSPENDEDANIM1)
 	yield
-	show_chr(CHR_SUSPENDEDANIM2)
+	enable_chr(CHR_SUSPENDEDANIM2)
 	yield
-	show_chr(CHR_SUSPENDEDANIM3)
+	enable_chr(CHR_SUSPENDEDANIM3)
 	yield
-	show_chr(CHR_SUSPENDEDANIM4)
+	enable_chr(CHR_SUSPENDEDANIM4)
 	yield
-	show_chr(0x11)
+	enable_chr(0x11)
 	yield
-	show_chr(0x12)
+	enable_chr(0x12)
 	yield
-	show_chr(0x13)
+	enable_chr(0x13)
 	yield
-	show_chr(0x14)
+	enable_chr(0x14)
 	yield
-	show_chr(0x15)
+	enable_chr(0x15)
 	yield
-	show_chr(0x16)
+	enable_chr(0x16)
 	yield
-	show_chr(0x17)
+	enable_chr(0x17)
 	yield
-	show_chr(0x18)
+	enable_chr(0x18)
 	yield
-	show_chr(0x19)
+	enable_chr(0x19)
 	yield
-	show_chr(0x1a)
+	enable_chr(0x1a)
 	yield
-	show_chr(0x1b)
+	enable_chr(0x1b)
 	yield
-	show_chr(0x1c)
+	enable_chr(0x1c)
 	yield
-	show_chr(0x1d)
+	enable_chr(0x1d)
 	yield
-	show_chr(0x1e)
+	enable_chr(0x1e)
 	yield
-	show_chr(0x1f)
+	enable_chr(0x1f)
 	yield
-	show_chr(0x20)
+	enable_chr(0x20)
 	yield
-	show_chr(0x27)
+	enable_chr(0x27)
 	yield
-	show_chr(0x28)
+	enable_chr(0x28)
 	yield
-	show_chr(0x29)
+	enable_chr(0x29)
 	yield
-	show_chr(0x2a)
+	enable_chr(0x2a)
 	yield
-	show_chr(0x2b)
+	enable_chr(0x2b)
 	yield
-	show_chr(0x2c)
+	enable_chr(0x2c)
 	yield
 	set_ailist(CHR_MAIAN1, AILIST_CLOAK_AND_REMOVE)
 	set_ailist(CHR_MAIAN2, AILIST_CLOAK_AND_REMOVE)
@@ -3767,7 +3767,7 @@ u8 func1026_hide_necklace[] = {
 
 	// A and SA
 	label(0x2c)
-	hide_object(OBJ_NECKLACE)
+	disable_object(OBJ_NECKLACE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

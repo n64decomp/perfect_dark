@@ -2367,7 +2367,7 @@ bool aiGiveObjectToChr(void)
 			if (obj->prop->parent) {
 				objDetach(obj->prop);
 				func0f06ac90(obj->prop);
-				propPrependToList1(obj->prop);
+				propActivate(obj->prop);
 			}
 #endif
 
@@ -2381,8 +2381,8 @@ bool aiGiveObjectToChr(void)
 				objDetach(obj->prop);
 			} else {
 				func0f065c44(obj->prop);
-				propRemoveFromCurrentList(obj->prop);
-				propHide(obj->prop);
+				propDelist(obj->prop);
+				propDisable(obj->prop);
 			}
 
 			if (obj->type != OBJTYPE_WEAPON || chrEquipWeapon((struct weaponobj *) obj, chr) == 0) {
@@ -5429,14 +5429,14 @@ bool aiObjectDoAnimation(void)
 /**
  * @cmd 0114
  */
-bool aiShowChr(void)
+bool aiEnableChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
-		propPrependToList1(chr->prop);
-		propShow(chr->prop);
+		propActivate(chr->prop);
+		propEnable(chr->prop);
 		func0f0220ac(chr);
 	}
 
@@ -5448,15 +5448,15 @@ bool aiShowChr(void)
 /**
  * @cmd 0115
  */
-bool aiHideChr(void)
+bool aiDisableChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->model) {
 		func0f065c44(chr->prop);
-		propRemoveFromCurrentList(chr->prop);
-		propHide(chr->prop);
+		propDelist(chr->prop);
+		propDisable(chr->prop);
 	}
 
 	g_Vars.aioffset += 3;
@@ -5467,14 +5467,14 @@ bool aiHideChr(void)
 /**
  * @cmd 0116
  */
-bool aiShowObj(void)
+bool aiEnableObj(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->model) {
-		propPrependToList1(obj->prop);
-		propShow(obj->prop);
+		propActivate(obj->prop);
+		propEnable(obj->prop);
 
 		if (g_Vars.currentplayer->eyespy == NULL && obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = (struct weaponobj *) obj;
@@ -5493,7 +5493,7 @@ bool aiShowObj(void)
 /**
  * @cmd 0117
  */
-bool aiHideObj(void)
+bool aiDisableObj(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
@@ -5509,8 +5509,8 @@ bool aiHideObj(void)
 				objDetach(obj->prop);
 			} else {
 				func0f065c44(obj->prop);
-				propRemoveFromCurrentList(obj->prop);
-				propHide(obj->prop);
+				propDelist(obj->prop);
+				propDisable(obj->prop);
 			}
 		}
 #else
@@ -5518,8 +5518,8 @@ bool aiHideObj(void)
 			objDetach(obj->prop);
 		} else {
 			func0f065c44(obj->prop);
-			propRemoveFromCurrentList(obj->prop);
-			propHide(obj->prop);
+			propDelist(obj->prop);
+			propDisable(obj->prop);
 		}
 #endif
 	}
@@ -10851,9 +10851,9 @@ glabel ai0172
 /*  f05cad8:	8faa0024 */ 	lw	$t2,0x24($sp)
 /*  f05cadc:	0fc19711 */ 	jal	func0f065c44
 /*  f05cae0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f05cae4:	0fc18171 */ 	jal	propRemoveFromCurrentList
+/*  f05cae4:	0fc18171 */ 	jal	propDelist
 /*  f05cae8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f05caec:	0fc180c0 */ 	jal	propHide
+/*  f05caec:	0fc180c0 */ 	jal	propDisable
 /*  f05caf0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05caf4:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f05caf8:	0fc22b95 */ 	jal	chrEquipWeapon
@@ -10882,8 +10882,8 @@ glabel ai0172
 //
 //	if (prop && prop->obj && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
 //		func0f065c44(prop);
-//		propRemoveFromCurrentList(prop);
-//		propHide(prop);
+//		propDelist(prop);
+//		propDisable(prop);
 //		chrEquipWeapon(prop->obj, g_Vars.chrdata);
 //	}
 //

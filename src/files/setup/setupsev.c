@@ -1668,8 +1668,8 @@ u8 func100e_break_glass[] = {
 	endloop(0x04)
 
 	label(0x0d)
-	hide_object(0x4f)
-	hide_object(0x50)
+	disable_object(0x4f)
+	disable_object(0x50)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist
 };

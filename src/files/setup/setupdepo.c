@@ -1182,7 +1182,7 @@ u8 func100a_give_keycards[] = {
 	label(0x2c)
 	set_object_flag2(OBJ_CROSSBOW, OBJFLAG2_INVISIBLE)
 	set_object_flag(OBJ_CROSSBOW, OBJFLAG_UNCOLLECTABLE)
-	hide_object(OBJ_CROSSBOW)
+	disable_object(OBJ_CROSSBOW)
 
 	beginloop(0x08)
 		dprint 'C','H','E','C','K',' ','D','E','A','D',0,
@@ -2083,8 +2083,8 @@ u8 func040e_meeting_cutscene[] = {
 };
 
 u8 func040f_outro_from_menu[] = {
-	hide_object(OBJ_MINE1)
-	hide_object(OBJ_MINE2)
+	disable_object(OBJ_MINE1)
+	disable_object(OBJ_MINE2)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
 	endlist
 };
@@ -2567,13 +2567,13 @@ u8 func101d_init_mines[] = {
 	label(0x06)
 	if_savefile_flag_is_unset(SAVEFILEFLAG_G5_MINE, /*goto*/ 0x06)
 
-	hide_object(OBJ_MINE1)
+	disable_object(OBJ_MINE1)
 	dprint 'E','P','R','O','M','F','L','A','G',' ','N','O','T','S','E','T',0,
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x06)
 	dprint 'E','P','R','O','M','F','L','A','G',' ','S','E','T',0,
-	hide_object(OBJ_MINE2)
+	disable_object(OBJ_MINE2)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2853,7 +2853,7 @@ u8 func1023_hide_nbomb_crate[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x06)
-	hide_object(OBJ_NBOMB_CRATE)
+	disable_object(OBJ_NBOMB_CRATE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

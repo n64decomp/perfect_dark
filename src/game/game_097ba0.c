@@ -11150,8 +11150,8 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 	struct prop *objprop = obj->prop;
 
 	if (objprop) {
-		propPrependToList1(objprop);
-		propShow(objprop);
+		propActivate(objprop);
+		propEnable(objprop);
 		func00015f04(obj->model->scale, matrix1);
 		func0f06a580(obj, coord, matrix1, rooms);
 
@@ -12367,7 +12367,7 @@ void func0f09f848(s32 handnum)
 			func00015d18(&hand->muzzlemat, &model->matrices[0]);
 			func0001cb0c(model, model->filedata->rootnode);
 
-			objprop->flags |= PROPFLAG_40 | PROPFLAG_02;
+			objprop->flags |= PROPFLAG_40 | PROPFLAG_ONSCREEN;
 			objprop->z = -model->matrices[0].m[3][2];
 		}
 	}

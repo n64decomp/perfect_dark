@@ -965,10 +965,10 @@ glabel var7f1a827c
 /*  f011fd0:	8f0e00bc */ 	lw	$t6,0xbc($t8)
 /*  f011fd4:	a1d90000 */ 	sb	$t9,0x0($t6)
 /*  f011fd8:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f011fdc:	0fc181c7 */ 	jal	propPrependToList1
+/*  f011fdc:	0fc181c7 */ 	jal	propActivate
 /*  f011fe0:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f011fe4:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f011fe8:	0fc18154 */ 	jal	propShow
+/*  f011fe8:	0fc18154 */ 	jal	propEnable
 /*  f011fec:	8d2400bc */ 	lw	$a0,0xbc($t1)
 /*  f011ff0:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f011ff4:	00002825 */ 	move	$a1,$zero
@@ -1786,10 +1786,10 @@ glabel var7f1a827c
 /*  f011fac:	8f0e00bc */ 	lw	$t6,0xbc($t8)
 /*  f011fb0:	a1d90000 */ 	sb	$t9,0x0($t6)
 /*  f011fb4:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f011fb8:	0fc1812f */ 	jal	propPrependToList1
+/*  f011fb8:	0fc1812f */ 	jal	propActivate
 /*  f011fbc:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f011fc0:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f011fc4:	0fc180bc */ 	jal	propShow
+/*  f011fc4:	0fc180bc */ 	jal	propEnable
 /*  f011fc8:	8d2400bc */ 	lw	$a0,0xbc($t1)
 /*  f011fcc:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f011fd0:	00002825 */ 	or	$a1,$zero,$zero
@@ -2599,10 +2599,10 @@ glabel var7f1a827c
 /*  f011cd0:	8f0e00bc */ 	lw	$t6,0xbc($t8)
 /*  f011cd4:	a1d90000 */ 	sb	$t9,0x0($t6)
 /*  f011cd8:	8e2f0284 */ 	lw	$t7,0x284($s1)
-/*  f011cdc:	0fc17ddf */ 	jal	propPrependToList1
+/*  f011cdc:	0fc17ddf */ 	jal	propActivate
 /*  f011ce0:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f011ce4:	8e290284 */ 	lw	$t1,0x284($s1)
-/*  f011ce8:	0fc17d6c */ 	jal	propShow
+/*  f011ce8:	0fc17d6c */ 	jal	propEnable
 /*  f011cec:	8d2400bc */ 	lw	$a0,0xbc($t1)
 /*  f011cf0:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f011cf4:	00002825 */ 	or	$a1,$zero,$zero
@@ -3164,8 +3164,8 @@ glabel var7f1a827c
 //	g_Vars.currentplayer->prop->chr = NULL;
 //	g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
 //
-//	propPrependToList1(g_Vars.currentplayer->prop);
-//	propShow(g_Vars.currentplayer->prop);
+//	propActivate(g_Vars.currentplayer->prop);
+//	propEnable(g_Vars.currentplayer->prop);
 //	chrInit(g_Vars.currentplayer->prop, NULL);
 //
 //	if (g_Vars.coopplayernum >= 0) {

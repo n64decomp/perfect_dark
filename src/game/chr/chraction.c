@@ -6566,7 +6566,7 @@ bool chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 flags)
 
 		if ((!isgopos || ismagic)
 				&& g_Vars.normmplayerisrunning == false
-				&& (prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0
+				&& (prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_ONSCREEN)) == 0
 				&& func0f036c08(chr, &curwppos, curwprooms)
 				&& chr->inlift == false) {
 			chrGoPosInitMagic(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
@@ -6988,7 +6988,7 @@ glabel var7f1a8dd0
 //			chrPatrolGetCurWaypointInfo(chr, &nextpos, nextrooms);
 //
 //			if (!g_Vars.normmplayerisrunning
-//					&& (chr->prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) == 0
+//					&& (chr->prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0
 //					&& func0f036c08(chr, &nextpos, nextrooms)
 //					&& !chr->inlift) {
 //				chrGoPosInitMagic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
@@ -9536,7 +9536,7 @@ void chrAlertOthersOfInjury(struct chrdata *chr, bool dying)
 	for (; index < numchrs && numinrange < 7; index++) {
 		struct chrdata *loopchr = &g_ChrSlots[index];
 
-		if (loopchr->model && loopchr->prop && (loopchr->prop->flags & PROPFLAG_TANGIBLE)) {
+		if (loopchr->model && loopchr->prop && (loopchr->prop->flags & PROPFLAG_ENABLED)) {
 			f32 xdiff = loopchr->prop->pos.x - chr->prop->pos.x;
 			f32 ydiff = loopchr->prop->pos.y - chr->prop->pos.y;
 			f32 zdiff = loopchr->prop->pos.z - chr->prop->pos.z;
@@ -11800,7 +11800,7 @@ void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 {
 	struct prop *prop = chrGetEquippedWeaponProp(chr, hand);
 
-	chr->prop->unk3f_02 = firing ? 1 : 0;
+	chr->prop->forcetick = firing ? true : false;
 
 	if (prop) {
 		weaponSetGunfireVisible(prop, firing, chr->prop->rooms[0]);
@@ -12056,7 +12056,7 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 		obj = weaponprop->obj;
 		model = obj->model;
 
-		if ((chr->prop->flags & PROPFLAG_02) && (weaponprop->flags & PROPFLAG_02)) {
+		if ((chr->prop->flags & PROPFLAG_ONSCREEN) && (weaponprop->flags & PROPFLAG_ONSCREEN)) {
 			if ((part0 = modelGetPart(model->filedata, MODELPART_0000))) {
 				spac = func0001a5cc(model, part0, 0);
 				rodata = &part0->rodata->gunfire;
@@ -12124,7 +12124,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 	u32 stack3;
 
 	if (prop->type != PROPTYPE_PLAYER || g_Vars.normmplayerisrunning || chrGetShield(chr) > 0) {
-		if (prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) {
+		if (prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) {
 			bestnode = NULL;
 			bestvolume = MAXFLOAT;
 			lVar4 = func0f0b5050(chr->model->matrices);
@@ -22621,7 +22621,7 @@ void chrTickGoPos(struct chrdata *chr)
 
 	// Check if chr needs to exit magic mode
 	if (chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) || !func0f036c08(chr, &curwppos, curwprooms)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_ONSCREEN)) || !func0f036c08(chr, &curwppos, curwprooms)))
 				|| (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exiting magic mode
@@ -22866,7 +22866,7 @@ void chrTickPatrol(struct chrdata *chr)
 	}
 
 	if (chr->act_patrol.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_02 | PROPFLAG_40 | PROPFLAG_80)) || !func0f036c08(chr, &sp58, sp48)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) || !func0f036c08(chr, &sp58, sp48)))
 				|| (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exit magic for lifts
@@ -23208,7 +23208,7 @@ void func0f0482cc(u32 ailistid)
 	g_CutsceneSkipRequested = false;
 	g_CutsceneCurTotalFrame60f = 0;
 
-	prop = g_Vars.list1head;
+	prop = g_Vars.activeprops;
 
 	while (prop) {
 		prop->lastupdateframe = 0xffff;
@@ -26185,8 +26185,8 @@ struct prop *chrSpawnAtCoord(s32 bodynum, s32 headnum, struct coord *pos, s16 *r
 				prop = propAllocateChr(model, &pos2, rooms2, angle, ailist);
 
 				if (prop) {
-					propAppendToList1(prop);
-					propShow(prop);
+					propActivateThisFrame(prop);
+					propEnable(prop);
 
 					chr = prop->chr;
 					chr->headnum = headnum;

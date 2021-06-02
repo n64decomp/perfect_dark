@@ -755,8 +755,8 @@ void chrUnpack(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 		prop = propAllocateChr(model, &pad.pos, rooms, angle, ailistFindById(packed->ailistnum));
 
 		if (prop != NULL) {
-			propPrependToList1(prop);
-			propShow(prop);
+			propActivate(prop);
+			propEnable(prop);
 
 			chr = prop->chr;
 			chrSetChrnum(chr, packed->chrnum);
@@ -915,8 +915,8 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 		prop = propAllocateChr(model, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
 
 		if (prop) {
-			propPrependToList1(prop);
-			propShow(prop);
+			propActivate(prop);
+			propEnable(prop);
 			chr = prop->chr;
 			chrSetChrnum(chr, getNextUnusedChrnum());
 			chr->bodynum = BODY_EYESPY;

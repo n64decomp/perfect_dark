@@ -1367,8 +1367,8 @@ bool currentPlayerAssumeChrForAnti(struct chrdata *hostchr, bool force)
 
 		func0f020d44(hostprop, true);
 		func0f065c44(hostprop);
-		propRemoveFromCurrentList(hostprop);
-		propHide(hostprop);
+		propDelist(hostprop);
+		propDisable(hostprop);
 		propFree(hostprop);
 
 		return true;
@@ -1447,7 +1447,7 @@ void currentPlayerSpawn(void)
 						&& (g_ChrSlots[i].chrflags & CHRCFLAG_HIDDEN) == 0
 						&& g_ChrSlots[i].prop->type == PROPTYPE_CHR
 						&& !chrIsDead(&g_ChrSlots[i])
-						&& (g_ChrSlots[i].prop->flags & PROPFLAG_TANGIBLE)) {
+						&& (g_ChrSlots[i].prop->flags & PROPFLAG_ENABLED)) {
 					if (g_Vars.bond->prop) {
 						xdiff = g_ChrSlots[i].prop->pos.x - g_Vars.bond->prop->pos.x;
 						ydiff = g_ChrSlots[i].prop->pos.y - g_Vars.bond->prop->pos.y;
@@ -15442,7 +15442,7 @@ s32 playerTick(struct prop *prop)
 
 			func0f0220ac(prop->chr);
 
-			if (prop->flags & PROPFLAG_02) {
+			if (prop->flags & PROPFLAG_ONSCREEN) {
 				if (player->model00d4->filedata->type == &g_ModelTypeChr) {
 					spe8 = player->model00d4->matrices;
 				} else {
@@ -15587,7 +15587,7 @@ s32 playerTick(struct prop *prop)
 		}
 	}
 
-	prop->flags &= ~PROPFLAG_02;
+	prop->flags &= ~PROPFLAG_ONSCREEN;
 
 	return TICKOP_NONE;
 }

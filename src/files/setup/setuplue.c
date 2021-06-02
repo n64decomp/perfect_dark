@@ -1772,7 +1772,7 @@ u8 func040d_90c8[] = {
 
 u8 func040e_outro[] = {
 	open_door(0x11)
-	hide_object(OBJ_HOVERBIKE)
+	disable_object(OBJ_HOVERBIKE)
 	camera_movement(0x017d)
 	play_cutscene_track(MUSIC_INFILTRATION_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -2117,7 +2117,7 @@ u8 func0410_intro[] = {
 	remove_chr(0x29)
 	remove_chr(0x2a)
 	remove_chr(0x2b)
-	hide_object(0x2f)
+	disable_object(0x2f)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
@@ -2330,13 +2330,13 @@ u8 func1013_bunker_lasers[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x03)
 
 	// Agent - hide lasers
-	hide_object(0x1e)
-	hide_object(0x1f)
-	hide_object(0x20)
-	hide_object(0x21)
-	hide_object(0x22)
-	hide_object(0x23)
-	hide_object(0x24)
+	disable_object(0x1e)
+	disable_object(0x1f)
+	disable_object(0x20)
+	disable_object(0x21)
+	disable_object(0x22)
+	disable_object(0x23)
+	disable_object(0x24)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// SA and PA
@@ -2436,7 +2436,7 @@ u8 func1011_bunker_explosives[] = {
 	unset_object_flag(OBJ_RADAR_TERMINAL, OBJFLAG_INVINCIBLE)
 	yield
 	move_object_to_pad(0x25, 0x036b)
-	hide_object(OBJ_EXPLOSIVE_BRICK)
+	disable_object(OBJ_EXPLOSIVE_BRICK)
 	unset_object_flag(0x25, OBJFLAG_INVINCIBLE)
 	destroy_object(0x25)
 	destroy_object(OBJ_RADAR_TERMINAL)
@@ -3142,7 +3142,7 @@ u8 func0423_a5e8[] = {
 	endloop(0x7e) \
  \
 	label(0x06) \
-	hide_object(laser) \
+	disable_object(laser) \
 	set_ailist(CHR_SELF, AILIST_ACTIVATE_LASERS)
 
 

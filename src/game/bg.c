@@ -135,7 +135,7 @@ u32 g_PortalMode = 0x00000000;
 u32 var8007fcb0 = 0x00000190;
 f32 var8007fcb4 = 0;
 
-void roomMovePropsToList1(u32 roomnum, bool tintedglassonly)
+void roomUnpauseProps(u32 roomnum, bool tintedglassonly)
 {
 	struct prop *prop;
 	struct defaultobj *obj;
@@ -153,7 +153,7 @@ void roomMovePropsToList1(u32 roomnum, bool tintedglassonly)
 	while (*propnumptr >= 0) {
 		prop = &g_Vars.props[*propnumptr];
 
-		if (!prop->inlist1) {
+		if (!prop->active) {
 			if (tintedglassonly) {
 				/**
 				 * @bug: A missing prop->type check means this is inadvertently
@@ -163,10 +163,10 @@ void roomMovePropsToList1(u32 roomnum, bool tintedglassonly)
 				obj = prop->obj;
 
 				if (obj->type == OBJTYPE_TINTEDGLASS) {
-					propMoveFromList2To1(prop);
+					propUnpause(prop);
 				}
 			} else {
-				propMoveFromList2To1(prop);
+				propUnpause(prop);
 			}
 		}
 
@@ -242,7 +242,7 @@ void func0f157e94(s32 roomnum, s32 arg1, struct screenbox *box)
 				var8007fc2c = var8007fc30;
 			}
 
-			roomMovePropsToList1(roomnum, false);
+			roomUnpauseProps(roomnum, false);
 
 			if (g_Rooms[roomnum].unk02 == 0 && var8007fc10 > 0) {
 				var8007fc10--;
@@ -16143,7 +16143,7 @@ glabel func0f162d9c
 /*  f1630d0:	a6180000 */ 	sh	$t8,0x0($s0)
 /*  f1630d4:	00d98821 */ 	addu	$s1,$a2,$t9
 /*  f1630d8:	a6320000 */ 	sh	$s2,0x0($s1)
-/*  f1630dc:	0fc55f6c */ 	jal	roomMovePropsToList1
+/*  f1630dc:	0fc55f6c */ 	jal	roomUnpauseProps
 /*  f1630e0:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1630e4:	8ea80000 */ 	lw	$t0,0x0($s5)
 /*  f1630e8:	c7a40088 */ 	lwc1	$f4,0x88($sp)
@@ -16708,7 +16708,7 @@ glabel func0f16397c
 /*  f163a64:	25ae0001 */ 	addiu	$t6,$t5,0x1
 /*  f163a68:	ae0e0000 */ 	sw	$t6,0x0($s0)
 .L0f163a6c:
-/*  f163a6c:	0fc55f6c */ 	jal	roomMovePropsToList1
+/*  f163a6c:	0fc55f6c */ 	jal	roomUnpauseProps
 /*  f163a70:	afab003c */ 	sw	$t3,0x3c($sp)
 /*  f163a74:	8eea0000 */ 	lw	$t2,0x0($s7)
 /*  f163a78:	8fab003c */ 	lw	$t3,0x3c($sp)
@@ -16806,7 +16806,7 @@ glabel func0f16397c
 /*  f163bd4:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f163bd8:	ae180000 */ 	sw	$t8,0x0($s0)
 .L0f163bdc:
-/*  f163bdc:	0fc55f6c */ 	jal	roomMovePropsToList1
+/*  f163bdc:	0fc55f6c */ 	jal	roomUnpauseProps
 /*  f163be0:	afac0048 */ 	sw	$t4,0x48($sp)
 /*  f163be4:	8eea0000 */ 	lw	$t2,0x0($s7)
 /*  f163be8:	8fac0048 */ 	lw	$t4,0x48($sp)

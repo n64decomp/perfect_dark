@@ -879,7 +879,7 @@ u8 func0c01_outro[] = {
 	chr_do_animation(0x01a3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	#define show_object_with_animation(object, animation) \
-		show_object(object) \
+		enable_object(object) \
 		set_object_flag2(object, OBJFLAG2_04000000) \
 		set_object_flag3(object, OBJFLAG3_00000010) \
 		object_do_animation(animation, object, 0x04, 0xffff)
@@ -894,7 +894,7 @@ u8 func0c01_outro[] = {
 	show_object_with_animation(0x13, 0x01a9)
 	show_object_with_animation(0x14, 0x01aa)
 
-	show_object(0x0d)
+	enable_object(0x0d)
 	unset_object_flag(0x0d, OBJFLAG_DEACTIVATED)
 	set_object_flag2(0x0d, OBJFLAG2_04000000)
 	set_object_flag3(0x0d, OBJFLAG3_00000010)
@@ -944,7 +944,7 @@ u8 func0c01_outro[] = {
 
 	label(0xb8)
 	mute_channel(CHANNEL_10)
-	hide_object(0x0d)
+	disable_object(0x0d)
 	camera_movement(0x01ac)
 	unset_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_SKEDAR2, CHRCFLAG_HIDDEN)
@@ -991,7 +991,7 @@ u8 func0c01_outro[] = {
 	show_object_with_animation(0x14, 0x030d)
 	show_object_with_animation(0x0d, 0x030f)
 
-	show_object(0x16)
+	enable_object(0x16)
 	set_object_flag2(0x16, OBJFLAG2_04000000)
 	set_object_flag3(0x16, OBJFLAG3_00000010)
 	object_do_animation(0x01b1, 0x16, 0x02, 0xffff)
@@ -1181,7 +1181,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(0x1a, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x1a, CHRHFLAG_00020000)
 	chr_do_animation(0x02c0, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x1a, 4)
-	show_object(0x0d)
+	enable_object(0x0d)
 	set_object_flag2(0x0d, OBJFLAG2_04000000)
 	set_object_flag3(0x0d, OBJFLAG3_00000010)
 	object_do_animation(0x02c1, 0x0d, 0x04, 0xffff)
@@ -1416,11 +1416,11 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x02c4, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
-	show_object(0x52)
+	enable_object(0x52)
 	set_object_flag2(0x52, OBJFLAG2_04000000)
 	set_object_flag3(0x52, OBJFLAG3_00000010)
 	object_do_animation(0x02c5, 0x52, 0x04, 0xffff)
-	show_object(0x53)
+	enable_object(0x53)
 	set_object_flag2(0x53, OBJFLAG2_04000000)
 	set_object_flag3(0x53, OBJFLAG3_00000010)
 	object_do_animation(0x02c6, 0x53, 0x04, 0xffff)
@@ -1515,11 +1515,11 @@ u8 func1002_intro[] = {
 	set_object_flag(0x0d, OBJFLAG_DEACTIVATED)
 	set_object_flag3(0x0d, OBJFLAG3_00000010)
 	object_do_animation(0x01b4, 0x0d, 0x01, 0xffff)
-	show_object(0x52)
+	enable_object(0x52)
 	set_object_flag2(0x52, OBJFLAG2_04000000)
 	set_object_flag3(0x52, OBJFLAG3_00000010)
 	object_do_animation(0x02c5, 0x52, 0x04, 0xfffe)
-	show_object(0x53)
+	enable_object(0x53)
 	set_object_flag2(0x53, OBJFLAG2_04000000)
 	set_object_flag3(0x53, OBJFLAG3_00000010)
 	object_do_animation(0x02c6, 0x53, 0x04, 0xfffe)
@@ -3200,7 +3200,7 @@ u8 func1022_skedar_shuttle[] = {
 	endloop(0x71)
 
 	label(0x08)
-	show_object(OBJ_SKEDAR_SHUTTLE)
+	enable_object(OBJ_SKEDAR_SHUTTLE)
 	set_object_flag2(OBJ_SKEDAR_SHUTTLE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	object_do_animation(0x045a, OBJ_SKEDAR_SHUTTLE, 0x04, 0xffff)

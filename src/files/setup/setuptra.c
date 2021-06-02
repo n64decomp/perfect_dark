@@ -1889,7 +1889,7 @@ u8 func100b_check_jonathan_dead[] = {
 	goto_next(0x04)
 
 	label(0x32)
-	hide_object(OBJ_MEDPACK_COOP)
+	disable_object(OBJ_MEDPACK_COOP)
 
 	// All difficulties
 	beginloop(0x04)
@@ -2317,16 +2317,16 @@ u8 func1016_enable_guards_after_meetup[] = {
 	endloop(0x04)
 
 	label(0x06)
-	show_chr(0x0d)
-	show_chr(0x0e)
-	show_chr(0x0f)
-	show_chr(0x10)
-	show_chr(0x11)
-	show_chr(0x12)
-	show_chr(0x13)
-	show_chr(0x14)
-	show_chr(0x15)
-	show_chr(0x16)
+	enable_chr(0x0d)
+	enable_chr(0x0e)
+	enable_chr(0x0f)
+	enable_chr(0x10)
+	enable_chr(0x11)
+	enable_chr(0x12)
+	enable_chr(0x13)
+	enable_chr(0x14)
+	enable_chr(0x15)
+	enable_chr(0x16)
 	unset_chr_chrflag(0x0d, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x0d, CHRCFLAG_INVINCIBLE)
 	set_ailist(0x0d, AILIST_INIT_SUPERDRAGON_GUARD)
@@ -2803,7 +2803,7 @@ u8 func0c01_midcutscene[] = {
 	play_cutscene_track(MUSIC_ESCAPE_MIDCUTSCENE)
 	camera_movement(0x01cb)
 	cmd0175(60)
-	hide_object(OBJ_HOVERBED)
+	disable_object(OBJ_HOVERBED)
 	set_target_chr(CHR_BOND)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x33)
 	if_chr_dead(CHR_BOND, /*goto*/ 0x33)
@@ -3019,9 +3019,9 @@ u8 func0c02_outro[] = {
 	play_cutscene_track(MUSIC_ESCAPE_OUTRO_LONG)
 	camera_movement(0x02d2)
 	label(0x32)
-	hide_object(OBJ_UFO2)
+	disable_object(OBJ_UFO2)
 
-	show_object(OBJ_UFO1)
+	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
 	object_do_animation(0x02d3, OBJ_UFO1, 0x04, 0xffff)
@@ -3046,7 +3046,7 @@ u8 func0c02_outro[] = {
 	label(0x32)
 	camera_movement(0x02d4)
 
-	show_object(OBJ_UFO1)
+	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
 	object_do_animation(0x02d5, OBJ_UFO1, 0x04, 0xffff)
@@ -3070,7 +3070,7 @@ u8 func0c02_outro[] = {
 
 	label(0x69)
 	label(0x06)
-	hide_object(OBJ_UFO2)
+	disable_object(OBJ_UFO2)
 	if_stage_flag_eq(STAGEFLAG_JO_DOING_TERMINALS, FALSE, /*goto*/ 0x32)
 	stop_cutscene_track
 	stop_ambient_track
@@ -3103,8 +3103,8 @@ u8 func0c02_outro[] = {
  */
 u8 func0415_ufo_exit[] = {
 	configure_environment(0x0000, AIENVCMD_PLAYUFOHUM, 5)
-	hide_object(OBJ_UFO2)
-	show_object(OBJ_UFO1)
+	disable_object(OBJ_UFO2)
+	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
 	object_do_animation(0x02d3, OBJ_UFO1, 0x04, 0xffff)
@@ -3124,7 +3124,7 @@ u8 func0415_ufo_exit[] = {
 	label(0x06)
 	configure_environment(0x0000, AIENVCMD_STOPUFOHUM, 0)
 	stop_ambient_track
-	hide_object(OBJ_UFO1)
+	disable_object(OBJ_UFO1)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3167,7 +3167,7 @@ u8 func1021_jo_escaping[] = {
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 
-	show_object(OBJ_UFO1)
+	enable_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
 	object_do_animation(0x02d5, OBJ_UFO1, 0x04, 0xffff)
@@ -3522,7 +3522,7 @@ u8 unregistered_function8[] = {
 };
 
 u8 func1026_ufo_spinning[] = {
-	show_object(OBJ_UFO2)
+	enable_object(OBJ_UFO2)
 	set_object_flag2(OBJ_UFO2, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO2, OBJFLAG3_00000010)
 

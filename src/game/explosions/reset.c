@@ -16,8 +16,8 @@ void explosionsReset(void)
 	if (g_Explosions) {
 		for (i = 0; i < 6; i++) {
 			if (g_Explosions[i].prop) {
-				propRemoveFromCurrentList(g_Explosions[i].prop);
-				propHide(g_Explosions[i].prop);
+				propDelist(g_Explosions[i].prop);
+				propDisable(g_Explosions[i].prop);
 				propFree(g_Explosions[i].prop);
 
 				g_Explosions[i].prop = NULL;

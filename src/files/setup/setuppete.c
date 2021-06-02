@@ -479,7 +479,7 @@ s32 path13[] = {
 };
 
 #define chicago_car_do_animation(object, animation) \
-	show_object(object) \
+	enable_object(object) \
 	set_object_flag2(object, OBJFLAG2_04000000) \
 	set_object_flag3(object, OBJFLAG3_00000010) \
 	object_do_animation(animation, object, 0x04, 0xffff)
@@ -516,10 +516,10 @@ u8 func0401_3ae8[] = {
 	chicago_wait_for_camera
 
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
-	hide_object(OBJ_CAR1)
-	hide_object(OBJ_CAR2)
-	hide_object(OBJ_CAR3)
-	hide_object(OBJ_CAR4)
+	disable_object(OBJ_CAR1)
+	disable_object(OBJ_CAR2)
+	disable_object(OBJ_CAR3)
+	disable_object(OBJ_CAR4)
 	unset_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 	label(0x00)
 	return
@@ -543,10 +543,10 @@ u8 func0402_3bb4[] = {
 	chicago_wait_for_camera
 
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
-	hide_object(OBJ_CAR1)
-	hide_object(OBJ_CAR2)
-	hide_object(OBJ_CAR4)
-	hide_object(OBJ_CAR5)
+	disable_object(OBJ_CAR1)
+	disable_object(OBJ_CAR2)
+	disable_object(OBJ_CAR4)
+	disable_object(OBJ_CAR5)
 	unset_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 	label(0x00)
 	return
@@ -557,7 +557,7 @@ u8 func0403_3c74[] = {
 	if_controller_button_pressed(/*goto*/ 0x00)
 	camera_movement(0x00d1)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
-	show_object(OBJ_CAR4)
+	enable_object(OBJ_CAR4)
 	set_object_flag2(OBJ_CAR4, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CAR4, OBJFLAG3_00000010)
 	object_do_animation(0x00de, OBJ_CAR4, 0x04, 0xffff)
@@ -570,7 +570,7 @@ u8 func0403_3c74[] = {
 	chicago_wait_for_camera
 
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
-	hide_object(OBJ_CAR4)
+	disable_object(OBJ_CAR4)
 	unset_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 	label(0x00)
 	return
@@ -578,7 +578,7 @@ u8 func0403_3c74[] = {
 };
 
 u8 func0404_3ce0[] = {
-	show_object(OBJ_WIREFENCE)
+	enable_object(OBJ_WIREFENCE)
 	set_object_flag2(OBJ_WIREFENCE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_WIREFENCE, OBJFLAG3_00000010)
 	object_do_animation(0x0470, OBJ_WIREFENCE, 0x01, 0xffff)
@@ -2441,9 +2441,9 @@ u8 func1400_give_briefcases[] = {
 
 	// Velvet doesn't exist
 	label(0x03)
-	hide_object(OBJ_BRIEFCASE3)
-	hide_object(OBJ_BRIEFCASE5)
-	hide_object(OBJ_BRIEFCASE6)
+	disable_object(OBJ_BRIEFCASE3)
+	disable_object(OBJ_BRIEFCASE5)
+	disable_object(OBJ_BRIEFCASE6)
 	set_ailist(CHR_SELF, GAILIST_REBUILD_GROUPS)
 	endlist
 };
@@ -2680,12 +2680,12 @@ u8 func040b_outro[] = {
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 	set_door_open(0x10)
 	set_door_open(0x11)
-	hide_object(OBJ_TAXI)
-	hide_object(OBJ_LIMO)
-	hide_chr(CHR_SEALER1)
-	hide_chr(CHR_SEALER2)
-	hide_chr(CHR_SEALER3)
-	hide_chr(CHR_SEALER4)
+	disable_object(OBJ_TAXI)
+	disable_object(OBJ_LIMO)
+	disable_chr(CHR_SEALER1)
+	disable_chr(CHR_SEALER2)
+	disable_chr(CHR_SEALER3)
+	disable_chr(CHR_SEALER4)
 
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
@@ -3117,7 +3117,7 @@ u8 func040d_limo_flags[] = {
 	endloop(0x2d)
 
 	label(0x03)
-	hide_object(OBJ_LIMO)
+	disable_object(OBJ_LIMO)
 	set_object_flag(OBJ_LIMO, OBJFLAG_INVINCIBLE)
 	set_object_flag2(OBJ_LIMO, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

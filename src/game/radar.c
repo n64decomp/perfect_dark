@@ -421,7 +421,7 @@ Gfx *radarRender(Gfx *gdl)
 
 Gfx *radarRenderRTrackedProps(Gfx *gdl)
 {
-	struct prop *prop = g_Vars.list1head;
+	struct prop *prop = g_Vars.activeprops;
 	struct coord *playerpos = &g_Vars.currentplayer->prop->pos;
 	struct defaultobj *obj;
 	struct chrdata *chr;

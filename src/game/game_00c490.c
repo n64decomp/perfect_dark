@@ -902,15 +902,15 @@ glabel var7f1a7f80
 /*  f00d630:	31f88000 */ 	andi	$t8,$t7,0x8000
 /*  f00d634:	13000005 */ 	beqz	$t8,.L0f00d64c
 /*  f00d638:	00000000 */ 	nop
-/*  f00d63c:	0fc1814e */ 	jal	propAppendToList1
+/*  f00d63c:	0fc1814e */ 	jal	propActivateThisFrame
 /*  f00d640:	8fa4007c */ 	lw	$a0,0x7c($sp)
 /*  f00d644:	10000003 */ 	b	.L0f00d654
 /*  f00d648:	00000000 */ 	nop
 .L0f00d64c:
-/*  f00d64c:	0fc1812f */ 	jal	propPrependToList1
+/*  f00d64c:	0fc1812f */ 	jal	propActivate
 /*  f00d650:	8fa4007c */ 	lw	$a0,0x7c($sp)
 .L0f00d654:
-/*  f00d654:	0fc180bc */ 	jal	propShow
+/*  f00d654:	0fc180bc */ 	jal	propEnable
 /*  f00d658:	8fa4007c */ 	lw	$a0,0x7c($sp)
 .L0f00d65c:
 /*  f00d65c:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -1098,7 +1098,7 @@ void setupMine(struct mineobj *mine, s32 cmdindex)
 		mine->base.hidden = mine->base.hidden & 0x0fffffff | OBJHFLAG_20000000;
 	}
 
-	mine->base.prop->unk3f_02 = 1;
+	mine->base.prop->forcetick = true;
 }
 
 void setupCctv(struct cctvobj *cctv, s32 cmdindex)
@@ -1843,9 +1843,9 @@ glabel var7f1a926cpf
 /*  f00e8d0:	0c006b3a */ 	jal	modelSetScale
 /*  f00e8d4:	00000000 */ 	nop
 .PF0f00e8d8:
-/*  f00e8d8:	0fc181c7 */ 	jal	propPrependToList1
+/*  f00e8d8:	0fc181c7 */ 	jal	propActivate
 /*  f00e8dc:	8fa4010c */ 	lw	$a0,0x10c($sp)
-/*  f00e8e0:	0fc18154 */ 	jal	propShow
+/*  f00e8e0:	0fc18154 */ 	jal	propEnable
 /*  f00e8e4:	8fa4010c */ 	lw	$a0,0x10c($sp)
 /*  f00e8e8:	10000003 */ 	b	.PF0f00e8f8
 /*  f00e8ec:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -2233,9 +2233,9 @@ glabel var7f1a8064
 /*  f00e8d4:	0c006bd6 */ 	jal	modelSetScale
 /*  f00e8d8:	00000000 */ 	nop
 .L0f00e8dc:
-/*  f00e8dc:	0fc1812f */ 	jal	propPrependToList1
+/*  f00e8dc:	0fc1812f */ 	jal	propActivate
 /*  f00e8e0:	8fa4010c */ 	lw	$a0,0x10c($sp)
-/*  f00e8e4:	0fc180bc */ 	jal	propShow
+/*  f00e8e4:	0fc180bc */ 	jal	propEnable
 /*  f00e8e8:	8fa4010c */ 	lw	$a0,0x10c($sp)
 /*  f00e8ec:	10000003 */ 	b	.L0f00e8fc
 /*  f00e8f0:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -2400,8 +2400,8 @@ glabel var7f1a8064
 //			modelSetScale(door->base.model, door->base.model->scale * mult);
 //		}
 //
-//		propPrependToList1(prop);
-//		propShow(prop);
+//		propActivate(prop);
+//		propEnable(prop);
 //	} else {
 //		door->base.prop = NULL;
 //	}
@@ -3273,7 +3273,7 @@ void setupParseObjects(s32 stagenum)
 							prop->pos.y = func0002a36c(&prop->pos, prop->rooms, NULL, 0) + 30;
 						}
 
-						prop->unk3f_02 = true;
+						prop->forcetick = true;
 					}
 					break;
 				case OBJTYPE_CHOPPER:
@@ -3283,7 +3283,7 @@ void setupParseObjects(s32 stagenum)
 						setupGenericObject(obj, index);
 
 						obj->flags |= OBJFLAG_20000000;
-						obj->prop->unk3f_02 = true;
+						obj->prop->forcetick = true;
 
 						chopper->turnrot60 = 0;
 						chopper->roty = 0;

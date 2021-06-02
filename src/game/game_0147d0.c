@@ -73,8 +73,8 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 		prop = propAllocateChr(model, &pos, rooms, 0.0f, ailistFindById(GAILIST_AI_BOT_INIT));
 
 		if (prop != NULL) {
-			propPrependToList1(prop);
-			propShow(prop);
+			propActivate(prop);
+			propEnable(prop);
 
 			chr = prop->chr;
 

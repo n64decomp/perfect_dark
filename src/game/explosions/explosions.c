@@ -190,7 +190,7 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 				&& chrGetTargetProp(&g_ChrSlots[i]) == g_Vars.currentplayer->prop
 				&& g_ChrSlots[i].prop
 				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR
-				&& (g_ChrSlots[i].prop->flags & PROPFLAG_TANGIBLE)) {
+				&& (g_ChrSlots[i].prop->flags & PROPFLAG_ENABLED)) {
 			f32 distance = chrGetDistanceToCoord(&g_ChrSlots[i], noisepos);
 
 			if (distance == 0) {
@@ -482,9 +482,9 @@ glabel var7f1b5584
 /*  f12a2c0:	03196021 */ 	addu	$t4,$t8,$t9
 /*  f12a2c4:	afac009c */ 	sw	$t4,0x9c($sp)
 /*  f12a2c8:	afaa0158 */ 	sw	$t2,0x158($sp)
-/*  f12a2cc:	0fc1814e */ 	jal	propAppendToList1
+/*  f12a2cc:	0fc1814e */ 	jal	propActivateThisFrame
 /*  f12a2d0:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f12a2d4:	0fc180bc */ 	jal	propShow
+/*  f12a2d4:	0fc180bc */ 	jal	propEnable
 /*  f12a2d8:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f12a2dc:	8faa0158 */ 	lw	$t2,0x158($sp)
 /*  f12a2e0:	3c188008 */ 	lui	$t8,%hi(g_ExplosionTypes+0x2c)
@@ -5105,7 +5105,7 @@ u32 explosionTick(struct prop *prop)
 		prop->z -= 100;
 	}
 
-	prop->flags |= PROPFLAG_40 | PROPFLAG_02;
+	prop->flags |= PROPFLAG_40 | PROPFLAG_ONSCREEN;
 
 	return TICKOP_NONE;
 }

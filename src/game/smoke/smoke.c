@@ -1188,9 +1188,9 @@ glabel smokeCreate
 .L0f12e3f8:
 /*  f12e3f8:	02397021 */ 	addu	$t6,$s1,$t9
 /*  f12e3fc:	a5c60028 */ 	sh	$a2,0x28($t6)
-/*  f12e400:	0fc1814e */ 	jal	propAppendToList1
+/*  f12e400:	0fc1814e */ 	jal	propActivateThisFrame
 /*  f12e404:	02202025 */ 	or	$a0,$s1,$zero
-/*  f12e408:	0fc180bc */ 	jal	propShow
+/*  f12e408:	0fc180bc */ 	jal	propEnable
 /*  f12e40c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f12e410:	8faf002c */ 	lw	$t7,0x2c($sp)
 /*  f12e414:	00107040 */ 	sll	$t6,$s0,0x1
@@ -1270,8 +1270,8 @@ glabel smokeCreate
 //			}
 //
 //			prop->rooms[i] = -1;
-//			propAppendToList1(prop);
-//			propShow(prop);
+//			propActivateThisFrame(prop);
+//			propEnable(prop);
 //
 //			smoke->prop = prop;
 //			smoke->age = 0;
@@ -2045,7 +2045,7 @@ u32 smokeTick(struct prop *prop)
 		prop->z -= 100;
 	}
 
-	prop->flags |= PROPFLAG_40 | PROPFLAG_02;
+	prop->flags |= PROPFLAG_40 | PROPFLAG_ONSCREEN;
 
 	return TICKOP_NONE;
 }

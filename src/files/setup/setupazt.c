@@ -531,17 +531,17 @@ u8 func0402_outro_from_menu[] = {
 #if VERSION >= VERSION_NTSC_FINAL
 	set_ailist(CHR_TRENT, GAILIST_IDLE)
 #endif
-	hide_chr(CHR_ROBOT1)
-	hide_chr(CHR_ROBOT2)
-	hide_chr(CHR_ROBOT3)
-	hide_chr(CHR_ROBOT4)
+	disable_chr(CHR_ROBOT1)
+	disable_chr(CHR_ROBOT2)
+	disable_chr(CHR_ROBOT3)
+	disable_chr(CHR_ROBOT4)
 	set_ailist(CHR_SELF, AILIST_OUTRO)
 	endlist
 };
 
 u8 func0402_outro[] = {
 	set_stage_flag(STAGEFLAG_OUTRO_STARTED)
-	hide_object(OBJ_HOVERBIKE)
+	disable_object(OBJ_HOVERBIKE)
 	set_ailist(CHR_PRESIDENT, GAILIST_IDLE)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x31)
 	set_target_chr(CHR_BOND)
@@ -598,7 +598,7 @@ u8 func0402_outro[] = {
 	set_chr_hiddenflag(CHR_PRESIDENT_OUTRO, CHRHFLAG_00020000)
 	chr_do_animation(0x01de, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_PRESIDENT_OUTRO, 4)
 
-	show_object(0x00)
+	enable_object(0x00)
 	set_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
 	object_do_animation(0x01e0, OBJ_CRATE, 0x04, 0xffff)
@@ -1926,7 +1926,7 @@ u8 func1013_setup_rtracker[] = {
 u8 func1016_hide_hoverbike[] = {
 	yield
 	if_savefile_flag_is_set(SAVEFILEFLAG_CRASHSITE_BIKE, /*goto*/ 0x08)
-	hide_object(OBJ_HOVERBIKE)
+	disable_object(OBJ_HOVERBIKE)
 	label(0x08)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1934,7 +1934,7 @@ u8 func1016_hide_hoverbike[] = {
 
 u8 func1014_setup_skedar_shuttle[] = {
 	yield
-	show_object(OBJ_SKEDAR_SHUTTLE)
+	enable_object(OBJ_SKEDAR_SHUTTLE)
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	object_set_modelpart_visible(OBJ_SKEDAR_SHUTTLE, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 	object_do_animation(0x0486, OBJ_SKEDAR_SHUTTLE, 0x01, 0xffff)

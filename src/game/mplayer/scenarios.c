@@ -869,7 +869,7 @@ void scenarioHtbTick(void)
 	g_ScenarioData.htb.token = NULL;
 
 	// Check if briefcase is on the ground
-	prop = g_Vars.list1head;
+	prop = g_Vars.activeprops;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_WEAPON) {
@@ -5243,7 +5243,7 @@ void scenarioHtmTick(void)
 	g_ScenarioData.htm.uplink = NULL;
 
 	// Check if uplink is on the ground
-	prop = g_Vars.list1head;
+	prop = g_Vars.activeprops;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_WEAPON) {
@@ -10144,10 +10144,10 @@ glabel func0f186508
 /*  f186684:	0fc033b9 */ 	jal	setupGenericObject
 /*  f186688:	a0490002 */ 	sb	$t1,0x2($v0)
 /*  f18668c:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*  f186690:	0fc1812f */ 	jal	propPrependToList1
+/*  f186690:	0fc1812f */ 	jal	propActivate
 /*  f186694:	8da40014 */ 	lw	$a0,0x14($t5)
 /*  f186698:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*  f18669c:	0fc180bc */ 	jal	propShow
+/*  f18669c:	0fc180bc */ 	jal	propEnable
 /*  f1866a0:	8f240014 */ 	lw	$a0,0x14($t9)
 /*  f1866a4:	8fb80018 */ 	lw	$t8,0x18($sp)
 /*  f1866a8:	8fbf0014 */ 	lw	$ra,0x14($sp)

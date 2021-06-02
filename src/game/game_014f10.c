@@ -17,8 +17,8 @@ void chrsReset(void)
 				&& g_ChrSlots[i].prop
 				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR) {
 			func0f020d44(g_ChrSlots[i].prop, true);
-			propRemoveFromCurrentList(g_ChrSlots[i].prop);
-			propHide(g_ChrSlots[i].prop);
+			propDelist(g_ChrSlots[i].prop);
+			propDisable(g_ChrSlots[i].prop);
 			propFree(g_ChrSlots[i].prop);
 		}
 	}

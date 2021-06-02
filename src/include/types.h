@@ -159,14 +159,14 @@ struct g_vars {
 	/*00032c*/ bool enableslopes;
 	/*000330*/ u32 padrandomroutes;
 	/*000334*/ s32 maxprops;
-	/*000338*/ struct prop *props; // pointer to array
-	/*00033c*/ struct prop *list1head;
-	/*000340*/ struct prop *list1tail; // next pointer points to list2head
-	/*000344*/ struct prop *freeprops;
-	/*000348*/ struct prop **tangibleprops;
-	/*00034c*/ struct prop **unk00034c;
+	/*000338*/ struct prop *props; // pointer to array of structs
+	/*00033c*/ struct prop *activeprops; // head of a doubly linked list
+	/*000340*/ struct prop *activepropstail; // next pointer points to pausedprops
+	/*000344*/ struct prop *freeprops; // head of a singularly linked list
+	/*000348*/ struct prop **enabledprops;
+	/*00034c*/ struct prop **endenabledprops;
 	/*000350*/ struct prop *unk000350;
-	/*000354*/ struct prop *list2head; // prev pointer points to list1tail
+	/*000354*/ struct prop *pausedprops; // head of a doubly linked list, prev pointer points to activepropstail
 	/*000358*/ u8 numpropstates;
 	/*000359*/ u8 allocstateindex;
 	/*00035a*/ u8 runstateindex;
@@ -413,15 +413,11 @@ struct prop {
 	/*0x3a*/ u16 propupdate240;
 	/*0x3c*/ u8 propupdate60err;
 	/*0x3d*/ u8 propstateindex;
-	/*0x3e*/ u8 unk3e;
-	/*0x3f*/ u8 forcetick : 1;
+	/*0x3e*/ u8 backgroundedframes;
+	/*0x3f*/ u8 forceonetick : 1;
 	/*0x3f*/ u8 backgrounded : 1;
-	/*0x3f*/ u8 unk3f_02 : 1;
-	/*0x3f*/ u8 inlist1 : 1;
-	/*0x3f*/ u8 unk3f_04 : 1;
-	/*0x3f*/ u8 unk3f_05 : 1;
-	/*0x3f*/ u8 unk3f_06 : 1;
-	/*0x3f*/ u8 unk3f_07 : 1;
+	/*0x3f*/ u8 forcetick : 1;
+	/*0x3f*/ u8 active : 1;
 	/*0x40*/ struct var800a41b0 *unk40;
 	/*0x44*/ struct var800a41b0 *unk44;
 };
@@ -2121,10 +2117,24 @@ struct gunheld {
 };
 
 struct playerbond {
+
+	// unk00.x = look vector x (-1 to +1)
+	// unk00.y = always 0?
+	// unk00.z = look vector z (-1 to +1)
 	/*0x0338 0x036c*/ struct coord unk00;
-	/*0x0344 0x0378*/ f32 width;
+
+	/*0x0344 0x0378*/ f32 width; // always 30?
+
 	/*0x0348 0x037c*/ struct coord unk10;
+
+	// unk1c.x = affected by both left/right and up/down looking
+	// unk1c.y = vertical look vector (-1 for down, 1 for up)
+	// unk1c.z = affected by both left/right and up/down looking
 	/*0x0354 0x0388*/ struct coord unk1c;
+
+	// unk28.x = affected by both horiz and vertical angle
+	// unk28.y = 0 when looking up or down, .999 when looking horizontal
+	// unk28.z = pos.z
 	/*0x0360 0x0394*/ struct coord unk28;
 };
 
@@ -2469,7 +2479,7 @@ struct gunctrl {
 
 struct player {
 	/*0x0000*/ s32 cameramode;
-	/*0x0004*/ struct coord memcampos;
+	/*0x0004*/ struct coord memcampos; // Room that the camera is in (differs from the player's room during cutscenes and Slayer rocket)
 	/*0x0010*/ u16 visionmode;
 	/*0x0014*/ s32 memcamroom;
 	/*0x0018*/ struct coord eraserpos;
@@ -2477,7 +2487,7 @@ struct player {
 	/*0x0028*/ u32 eraserbgdist;
 	/*0x002c*/ u32 eraserdepth;
 	/*0x0030*/ bool isfalling;
-	/*0x0034*/ s32 fallstart;
+	/*0x0034*/ s32 fallstart; // lvframe60 when player started falling
 	/*0x0038*/ struct coord globaldrawworldoffset;
 	/*0x0044*/ struct coord globaldrawcameraoffset;
 	/*0x0050*/ struct coord globaldrawworldbgoffset;
@@ -2493,9 +2503,9 @@ struct player {
 
 	// These crouch fields are related to recovering after a fall - not actual crouching
 	/*0x0088*/ f32 sumcrouch;
-	/*0x008c*/ f32 crouchheight;
-	/*0x0090*/ s32 crouchtime240;
-	/*0x0094*/ f32 crouchfall;
+	/*0x008c*/ f32 crouchheight; // Negative, is Y offset to regular standing height
+	/*0x0090*/ s32 crouchtime240; // Set to 60 when landing, counts down
+	/*0x0094*/ f32 crouchfall; // -90 when slowing the descent, increments back to 0 while returning to stand
 
 	/*0x0098*/ s32 swaypos;
 	/*0x009c*/ f32 swayoffset;
@@ -2558,7 +2568,7 @@ struct player {
 	/*0x016c*/ f32 speedstrafe;
 	/*0x0170*/ f32 speedforwards;    // range -1 to 1
 	/*0x0174*/ f32 speedboost;       // speed multiplier - ranges from 1 to 1.25 - kicks in after 3 seconds of full speed
-	/*0x0178*/ u32 speedmaxtime60;   // amount of time player has held full forward speed - 60 is 1 second
+	/*0x0178*/ u32 speedmaxtime60;   // amount of time player has held full forward speed
 	/*0x017c*/ f32 bondshotspeed[3];
 	/*0x0188*/ f32 bondfadetime60;
 	/*0x018c*/ f32 bondfadetimemax60;

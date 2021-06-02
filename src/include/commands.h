@@ -1613,7 +1613,7 @@
 /**
  * Sets a flag on the object's flags property (object struct offset 0x08).
  *
- * Expects an OBJECTFLAG constant.
+ * Expects an OBJFLAG constant.
  */
 #define set_object_flag(object, objectflag) \
 	mkshort(0x00aa), \
@@ -1644,7 +1644,7 @@
 /**
  * Sets a flag on the object's flags2 property (object struct offset 0x0c).
  *
- * Expects an OBJECTFLAG2 constant.
+ * Expects an OBJFLAG2 constant.
  */
 #define set_object_flag2(object, objectflag2) \
 	mkshort(0x00ad), \
@@ -2498,37 +2498,42 @@
 	label,
 
 /**
- * Shows the given chr.
+ * Enables the given chr. The chr will become visible, will tick and will be
+ * considered in collision checks.
  */
-#define show_chr(chr) \
+#define enable_chr(chr) \
 	mkshort(0x0114), \
 	chr,
 
 /**
- * Hides the given chr.
+ * Disables the given chr. Disabled chrs are invisible, do not tick and are not
+ * considered in collision checks. Disabled chrs can still be damaged by
+ * explosives, at which point they become enabled (and die) automatically.
  */
-#define hide_chr(chr) \
+#define disable_chr(chr) \
 	mkshort(0x0115), \
 	chr,
 
 /**
- * Shows the given object.
+ * Enables the given object. The object will become visible, will tick and will
+ * be considered in collision checks.
  */
-#define show_object(object) \
+#define enable_object(object) \
 	mkshort(0x0116), \
 	object,
 
 /**
- * Hides the given object.
+ * Disables the given object. Disabled object are invisible, do not tick and are
+ * not considered in collision checks.
  */
-#define hide_object(object) \
+#define disable_object(object) \
 	mkshort(0x0117), \
 	object,
 
 /**
  * Sets a flag on the object's flags3 property (object struct offset 0x10).
  *
- * Expects an OBJECTFLAG3 constant.
+ * Expects an OBJFLAG3 constant.
  */
 #define set_object_flag3(object, objectflag3) \
 	mkshort(0x0118), \

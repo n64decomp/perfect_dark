@@ -848,7 +848,7 @@ u8 func0425_outro[] = {
 	set_chr_hiddenflag(CHR_OUTRO_NSA, CHRHFLAG_00020000)
 	chr_do_animation(0x031b, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_OUTRO_NSA, 4)
 
-	show_object(OBJ_PLANE)
+	enable_object(OBJ_PLANE)
 	set_object_flag2(OBJ_PLANE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_PLANE, OBJFLAG3_00000010)
 	object_do_animation(0x031c, OBJ_PLANE, 0x04, 0xffff)
@@ -907,7 +907,7 @@ u8 func0425_outro[] = {
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 #if VERSION < VERSION_PAL_FINAL
-	hide_object(OBJ_PLANE)
+	disable_object(OBJ_PLANE)
 #endif
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -932,52 +932,52 @@ u8 func1004_guard_activation[] = {
 	set_object_flag2(OBJ_REMOTEMINE, OBJFLAG2_INVISIBLE)
 	yield
 	yield
-	hide_chr(0x13)
-	hide_chr(0x15)
-	hide_chr(0x17)
-	hide_chr(0x19)
-	hide_chr(0x1b)
-	hide_chr(0x1d)
-	hide_chr(0x1f)
-	hide_chr(0x21)
-	hide_chr(0x23)
-	hide_chr(0x25)
-	hide_chr(0x27)
-	hide_chr(0x2a)
-	hide_chr(0x2c)
-	hide_chr(0x2e)
-	hide_chr(0x30)
-	hide_chr(0x32)
-	hide_chr(0x34)
-	hide_chr(0x36)
-	hide_chr(0x42)
-	hide_chr(0x43)
-	hide_chr(0x14)
-	hide_chr(0x16)
-	hide_chr(0x18)
-	hide_chr(0x1a)
-	hide_chr(0x1c)
-	hide_chr(0x1e)
-	hide_chr(0x20)
-	hide_chr(0x22)
-	hide_chr(0x24)
-	hide_chr(0x26)
-	hide_chr(0x28)
-	hide_chr(0x2b)
-	hide_chr(0x2d)
-	hide_chr(0x2f)
-	hide_chr(0x31)
-	hide_chr(0x33)
-	hide_chr(0x35)
-	hide_chr(0x37)
+	disable_chr(0x13)
+	disable_chr(0x15)
+	disable_chr(0x17)
+	disable_chr(0x19)
+	disable_chr(0x1b)
+	disable_chr(0x1d)
+	disable_chr(0x1f)
+	disable_chr(0x21)
+	disable_chr(0x23)
+	disable_chr(0x25)
+	disable_chr(0x27)
+	disable_chr(0x2a)
+	disable_chr(0x2c)
+	disable_chr(0x2e)
+	disable_chr(0x30)
+	disable_chr(0x32)
+	disable_chr(0x34)
+	disable_chr(0x36)
+	disable_chr(0x42)
+	disable_chr(0x43)
+	disable_chr(0x14)
+	disable_chr(0x16)
+	disable_chr(0x18)
+	disable_chr(0x1a)
+	disable_chr(0x1c)
+	disable_chr(0x1e)
+	disable_chr(0x20)
+	disable_chr(0x22)
+	disable_chr(0x24)
+	disable_chr(0x26)
+	disable_chr(0x28)
+	disable_chr(0x2b)
+	disable_chr(0x2d)
+	disable_chr(0x2f)
+	disable_chr(0x31)
+	disable_chr(0x33)
+	disable_chr(0x35)
+	disable_chr(0x37)
 
 	beginloop(0x00)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x02)
 	endloop(0x00)
 
 	label(0x02)
-	hide_object(0x27)
-	hide_object(0x28)
+	disable_object(0x27)
+	disable_object(0x28)
 	unset_object_flag(0x29, OBJFLAG_INVINCIBLE)
 	unset_object_flag2(0x29, OBJFLAG2_INVISIBLE)
 	set_object_flag(0x29, OBJFLAG_00000100)
@@ -1035,7 +1035,7 @@ u8 func1004_guard_activation[] = {
 	set_ailist(0x11, AILIST_INIT_POSTTAKEOVER_GUARD)
 
 	#define enable_takeover_guard2(chr, function) \
-		show_chr(chr) \
+		enable_chr(chr) \
 		set_ailist(chr, function) \
 		unset_chr_hiddenflag(chr, CHRHFLAG_ANTINONINTERACTABLE) \
 		unset_chr_chrflag(chr, CHRCFLAG_HIDDEN) \
@@ -1057,11 +1057,11 @@ u8 func1004_guard_activation[] = {
 	enable_takeover_guard2(0x34, AILIST_INIT_POSTTAKEOVER_GUARD)
 	enable_takeover_guard2(0x36, AILIST_INIT_POSTTAKEOVER_GUARD)
 
-	show_chr(0x42)
+	enable_chr(0x42)
 	set_ailist(0x42, AILIST_FOYER_SPAWNER)
 	yield
 
-	show_chr(0x43)
+	enable_chr(0x43)
 	set_ailist(0x43, AILIST_FOYER_SPAWNER)
 	yield
 
@@ -1087,7 +1087,7 @@ u8 func1004_guard_activation[] = {
 	endloop(0x6d)
 
 	#define enable_bottom_guard(chr) \
-		show_chr(chr) \
+		enable_chr(chr) \
 		set_ailist(chr, AILIST_INIT_POSTTAKEOVER_GUARD) \
 		unset_chr_hiddenflag(chr, CHRHFLAG_ANTINONINTERACTABLE) \
 		unset_chr_chrflag(chr, CHRCFLAG_HIDDEN) \
@@ -2874,7 +2874,7 @@ u8 func1017_laser5[] = {
 
 	label(0x04)
 	restart_timer
-	hide_object(0x13)
+	disable_object(0x13)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Unreachable
@@ -2907,10 +2907,10 @@ u8 func0403_unused[] = {
 u8 func1015_unhide_laser_guards[] = {
 	// These are all invalid chrs. They must have been removed.
 	// They would have appeared when the lasers were overloaded.
-	hide_chr(0x3e)
-	hide_chr(0x3f)
-	hide_chr(0x40)
-	hide_chr(0x41)
+	disable_chr(0x3e)
+	disable_chr(0x3f)
+	disable_chr(0x40)
+	disable_chr(0x41)
 	set_chr_chrflag(0x3e, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x3f, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
@@ -2927,13 +2927,13 @@ u8 func1015_unhide_laser_guards[] = {
 	unset_chr_chrflag(0x3f, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x41, CHRCFLAG_HIDDEN)
-	show_chr(0x3e)
+	enable_chr(0x3e)
 	set_ailist(0x3e, 0x0404)
-	show_chr(0x3f)
+	enable_chr(0x3f)
 	set_ailist(0x3f, GAILIST_ALERTED)
-	show_chr(0x40)
+	enable_chr(0x40)
 	set_ailist(0x40, GAILIST_ALERTED)
-	show_chr(0x41)
+	enable_chr(0x41)
 	set_ailist(0x41, GAILIST_ALERTED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3622,11 +3622,11 @@ u8 func1003_intro[] = {
 	unset_chr_chrflag(0x4c, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x4c, CHRHFLAG_00020000)
 	chr_do_animation(0x01ec, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x4c, 4)
-	show_object(0x22)
+	enable_object(0x22)
 	set_object_flag2(0x22, OBJFLAG2_04000000)
 	set_object_flag3(0x22, OBJFLAG3_00000010)
 	object_do_animation(0x01ed, 0x22, 0x04, 0xffff)
-	show_object(0x2f)
+	enable_object(0x2f)
 	set_object_flag2(0x2f, OBJFLAG2_04000000)
 	set_object_flag3(0x2f, OBJFLAG3_00000010)
 	object_do_animation(0x01ee, 0x2f, 0x04, 0xffff)
@@ -3820,8 +3820,8 @@ u8 func1003_intro[] = {
 	mute_channel(CHANNEL_4)
 	mute_channel(CHANNEL_0)
 	mute_channel(CHANNEL_10)
-	hide_object(0x22)
-	hide_object(0x2f)
+	disable_object(0x22)
+	disable_object(0x2f)
 	label(0x02)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -4123,7 +4123,7 @@ u8 func141b_setup_lifts_and_doors[] = {
 
 	// Agent
 	label(0x31)
-	hide_object(0x09)
+	disable_object(0x09)
 	label(0x02)
 	set_object_flag(OBJ_DIAGONAL_LIFT, OBJFLAG_DEACTIVATED)
 	set_object_flag(OBJ_VERTICAL_LIFT, OBJFLAG_DEACTIVATED)
@@ -4319,27 +4319,27 @@ u8 func1032_unhide_guards_near_plane[] = {
 	endloop(0x00)
 
 	label(0x31)
-	show_chr(0x1b)
+	enable_chr(0x1b)
 	set_ailist(0x1b, 0x0422)
 	unset_chr_hiddenflag(0x1b, CHRHFLAG_ANTINONINTERACTABLE)
 	unset_chr_chrflag(0x1b, CHRCFLAG_HIDDEN)
 	yield
-	show_chr(0x19)
+	enable_chr(0x19)
 	set_ailist(0x19, AILIST_INIT_POSTTAKEOVER_GUARD)
 	unset_chr_hiddenflag(0x19, CHRHFLAG_ANTINONINTERACTABLE)
 	unset_chr_chrflag(0x19, CHRCFLAG_HIDDEN)
 	yield
-	show_chr(0x1d)
+	enable_chr(0x1d)
 	set_ailist(0x1d, AILIST_INIT_POSTTAKEOVER_GUARD)
 	unset_chr_hiddenflag(0x1d, CHRHFLAG_ANTINONINTERACTABLE)
 	unset_chr_chrflag(0x1d, CHRCFLAG_HIDDEN)
 	yield
-	show_chr(0x1e)
+	enable_chr(0x1e)
 	set_ailist(0x1e, AILIST_INIT_POSTTAKEOVER_GUARD)
 	unset_chr_hiddenflag(0x1e, CHRHFLAG_ANTINONINTERACTABLE)
 	unset_chr_chrflag(0x1e, CHRCFLAG_HIDDEN)
 	yield
-	show_chr(0x20)
+	enable_chr(0x20)
 	set_ailist(0x20, AILIST_INIT_POSTTAKEOVER_GUARD)
 	unset_chr_hiddenflag(0x20, CHRHFLAG_ANTINONINTERACTABLE)
 	unset_chr_chrflag(0x20, CHRCFLAG_HIDDEN)
