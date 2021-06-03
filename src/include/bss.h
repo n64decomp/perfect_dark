@@ -105,7 +105,7 @@ extern u32 g_ActiveMaleHeads[8];
 extern u32 g_ActiveFemaleHeads[8];
 extern s16 *g_RoomPropListChunkIndexes;
 extern struct roomproplistchunk *g_RoomPropListChunks;
-extern struct prop *var8009cda8;
+extern struct prop *g_InteractProp;
 extern u32 var8009cdac;
 extern u32 var8009cdb0;
 extern struct weaponobj *g_Proxies[30];

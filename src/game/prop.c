@@ -40,7 +40,7 @@
 
 s16 *g_RoomPropListChunkIndexes;
 struct roomproplistchunk *g_RoomPropListChunks;
-struct prop *var8009cda8;
+struct prop *g_InteractProp;
 u32 var8009cdac;
 u32 var8009cdb0;
 u32 var8009cdb4;
@@ -2484,7 +2484,7 @@ void handTickAttack(s32 handnum)
 			playerActivateRemoteMineDetonator(g_Vars.currentplayernum);
 			break;
 		case HANDATTACKTYPE_UPLINK:
-			func0f062dd0();
+			propFindForUplink();
 			break;
 		case HANDATTACKTYPE_BOOST:
 			cboostBoost();
@@ -2568,135 +2568,49 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 	}
 }
 
-GLOBAL_ASM(
-glabel currentPlayerFindPropForInteract
-/*  f062cbc:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f062cc0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f062cc4:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f062cc8:	3c01800a */ 	lui	$at,%hi(var8009cda8)
-/*  f062ccc:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f062cd0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f062cd4:	ac20cda8 */ 	sw	$zero,%lo(var8009cda8)($at)
-/*  f062cd8:	8e30034c */ 	lw	$s0,0x34c($s1)
-/*  f062cdc:	8e2e0348 */ 	lw	$t6,0x348($s1)
-/*  f062ce0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f062ce4:	2610fffc */ 	addiu	$s0,$s0,-4
-/*  f062ce8:	020e082b */ 	sltu	$at,$s0,$t6
-/*  f062cec:	00809025 */ 	or	$s2,$a0,$zero
-/*  f062cf0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f062cf4:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f062cf8:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f062cfc:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f062d00:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f062d04:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f062d08:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f062d0c:	14200022 */ 	bnez	$at,.L0f062d98
-/*  f062d10:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f062d14:	241e0008 */ 	addiu	$s8,$zero,0x8
-/*  f062d18:	24160002 */ 	addiu	$s6,$zero,0x2
-/*  f062d1c:	24150004 */ 	addiu	$s5,$zero,0x4
-/*  f062d20:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f062d24:	24130003 */ 	addiu	$s3,$zero,0x3
-/*  f062d28:	8e040000 */ 	lw	$a0,0x0($s0)
-.L0f062d2c:
-/*  f062d2c:	50800016 */ 	beqzl	$a0,.L0f062d88
-/*  f062d30:	8e2f0348 */ 	lw	$t7,0x348($s1)
-/*  f062d34:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f062d38:	12620010 */ 	beq	$s3,$v0,.L0f062d7c
-/*  f062d3c:	00000000 */ 	nop
-/*  f062d40:	12820003 */ 	beq	$s4,$v0,.L0f062d50
-/*  f062d44:	00000000 */ 	nop
-/*  f062d48:	16a20007 */ 	bne	$s5,$v0,.L0f062d68
-/*  f062d4c:	00000000 */ 	nop
-.L0f062d50:
-/*  f062d50:	1640000a */ 	bnez	$s2,.L0f062d7c
-/*  f062d54:	00000000 */ 	nop
-/*  f062d58:	0fc21a73 */ 	jal	func0f0869cc
-/*  f062d5c:	00000000 */ 	nop
-/*  f062d60:	10000006 */ 	b	.L0f062d7c
-/*  f062d64:	00401825 */ 	or	$v1,$v0,$zero
-.L0f062d68:
-/*  f062d68:	16c20004 */ 	bne	$s6,$v0,.L0f062d7c
-/*  f062d6c:	00000000 */ 	nop
-/*  f062d70:	0fc23f2e */ 	jal	doorTestForInteract
-/*  f062d74:	00000000 */ 	nop
-/*  f062d78:	00401825 */ 	or	$v1,$v0,$zero
-.L0f062d7c:
-/*  f062d7c:	50600007 */ 	beqzl	$v1,.L0f062d9c
-/*  f062d80:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f062d84:	8e2f0348 */ 	lw	$t7,0x348($s1)
-.L0f062d88:
-/*  f062d88:	2610fffc */ 	addiu	$s0,$s0,-4
-/*  f062d8c:	020f082b */ 	sltu	$at,$s0,$t7
-/*  f062d90:	5020ffe6 */ 	beqzl	$at,.L0f062d2c
-/*  f062d94:	8e040000 */ 	lw	$a0,0x0($s0)
-.L0f062d98:
-/*  f062d98:	8fbf003c */ 	lw	$ra,0x3c($sp)
-.L0f062d9c:
-/*  f062d9c:	3c02800a */ 	lui	$v0,%hi(var8009cda8)
-/*  f062da0:	8c42cda8 */ 	lw	$v0,%lo(var8009cda8)($v0)
-/*  f062da4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f062da8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f062dac:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f062db0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f062db4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f062db8:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f062dbc:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f062dc0:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f062dc4:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f062dc8:	03e00008 */ 	jr	$ra
-/*  f062dcc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+struct prop *propFindForInteract(bool usingeyespy)
+{
+	struct prop **ptr;
+	bool checkmore = true;
 
-// Mismatch due to regalloc.
-// It's likely a switch was used, and using one comes close but doesn't match
-// as well. Another problem is that 8 (PROPTYPE_SMOKE) needs to be loaded into
-// a register, but referencing prop an extra time time promotes it to s0. This
-// is resolved below by passing *ptr to those functions instead of prop, but
-// this seems unlikely.
-// If attempting to use a switch, note that the door part needs to be an if
-// statement inside the default case.
-//struct prop *currentPlayerFindPropForInteract(bool usingeyespy)
-//{
-//	struct prop **ptr;
-//	bool result;
-//
-//	var8009cda8 = NULL;
-//	ptr = g_Vars.endonscreenprops - 1;
-//	result = true;
-//
-//	// Iterate onscreen list near to far
-//	while (ptr >= g_Vars.onscreenprops) {
-//		struct prop *prop = *ptr;
-//
-//		if (prop) {
-//			if (prop->type != PROPTYPE_CHR) {
-//				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
-//					if (!usingeyespy) {
-//						result = func0f0869cc(*ptr);
-//					}
-//				} else if (prop->type == PROPTYPE_DOOR) {
-//					result = doorTestForInteract(*ptr);
-//
-//					if (prop->type == PROPTYPE_SMOKE);
-//				}
-//			}
-//
-//			if (!result) {
-//				break;
-//			}
-//		}
-//
-//		ptr--;
-//	}
-//
-//	return var8009cda8;
-//}
+	g_InteractProp = NULL;
 
-void func0f062dd0(void)
+	// Iterate onscreen list near to far
+	for (ptr = g_Vars.endonscreenprops - 1; ptr >= g_Vars.onscreenprops; ptr--) {
+		struct prop *prop = *ptr;
+
+		if (prop) {
+			if (prop->type == PROPTYPE_CHR) {
+				// empty
+			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
+				if (!usingeyespy) {
+					checkmore = objTestForInteract(prop);
+				}
+			} else if (prop->type == PROPTYPE_DOOR) {
+				checkmore = doorTestForInteract(prop);
+			} else if (prop->type == PROPTYPE_EXPLOSION) {
+				// empty
+			} else if (prop->type == PROPTYPE_SMOKE) {
+				// empty
+			}
+
+			if (!checkmore) {
+				break;
+			}
+		}
+	}
+
+	return g_InteractProp;
+}
+
+/**
+ * While this function is called, it doesn't return anything and doesn't appear
+ * to be useful. Uplinking still works when this function is empty.
+ */
+void propFindForUplink(void)
 {
 	struct prop **ptr = g_Vars.endonscreenprops - 1;
-	bool result = true;
+	bool checkmore = true;
 
 	// Iterate onscreen props near to far
 	while (ptr >= g_Vars.onscreenprops) {
@@ -2704,10 +2618,10 @@ void func0f062dd0(void)
 
 		if (prop) {
 			if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
-				result = func0f0869cc(prop);
+				checkmore = objTestForInteract(prop);
 			}
 
-			if (!result) {
+			if (!checkmore) {
 				return;
 			}
 		}
@@ -2721,7 +2635,7 @@ bool currentPlayerInteract(bool eyespy)
 	struct prop *prop;
 	bool op = TICKOP_NONE;
 
-	prop = currentPlayerFindPropForInteract(eyespy);
+	prop = propFindForInteract(eyespy);
 
 	if (prop) {
 		switch (prop->type) {

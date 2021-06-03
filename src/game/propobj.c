@@ -59462,7 +59462,7 @@ bool objIsHealthy(struct defaultobj *obj)
 }
 
 GLOBAL_ASM(
-glabel func0f0869cc
+glabel objTestForInteract
 .late_rodata
 glabel var7f1aab34
 .word 0x40c907a9
@@ -59708,8 +59708,8 @@ glabel var7f1aab3c
 /*  f086d3c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f086d40:
 /*  f086d40:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*  f086d44:	3c01800a */ 	lui	$at,%hi(var8009cda8)
-/*  f086d48:	ac2bcda8 */ 	sw	$t3,%lo(var8009cda8)($at)
+/*  f086d44:	3c01800a */ 	lui	$at,%hi(g_InteractProp)
+/*  f086d48:	ac2bcda8 */ 	sw	$t3,%lo(g_InteractProp)($at)
 .L0f086d4c:
 /*  f086d4c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f086d50:
@@ -69168,8 +69168,8 @@ glabel var7f1ab194
 .word 0x404907a9
 .text
 /*  f08f968:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f08f96c:	3c0f800a */ 	lui	$t7,%hi(var8009cda8)
-/*  f08f970:	8defcda8 */ 	lw	$t7,%lo(var8009cda8)($t7)
+/*  f08f96c:	3c0f800a */ 	lui	$t7,%hi(g_InteractProp)
+/*  f08f970:	8defcda8 */ 	lw	$t7,%lo(g_InteractProp)($t7)
 /*  f08f974:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f08f978:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f08f97c:	00808825 */ 	or	$s1,$a0,$zero
@@ -69271,10 +69271,10 @@ glabel var7f1ab194
 /*  f08fae4:	00000000 */ 	nop
 /*  f08fae8:	8e2c0014 */ 	lw	$t4,0x14($s1)
 .L0f08faec:
-/*  f08faec:	3c01800a */ 	lui	$at,%hi(var8009cda8)
+/*  f08faec:	3c01800a */ 	lui	$at,%hi(g_InteractProp)
 /*  f08faf0:	afa0005c */ 	sw	$zero,0x5c($sp)
 /*  f08faf4:	1000006a */ 	b	.L0f08fca0
-/*  f08faf8:	ac2ccda8 */ 	sw	$t4,%lo(var8009cda8)($at)
+/*  f08faf8:	ac2ccda8 */ 	sw	$t4,%lo(g_InteractProp)($at)
 .L0f08fafc:
 /*  f08fafc:	3c017f1b */ 	lui	$at,%hi(var7f1ab190)
 /*  f08fb00:	c42eb190 */ 	lwc1	$f14,%lo(var7f1ab190)($at)
@@ -69294,13 +69294,13 @@ glabel var7f1ab194
 /*  f08fb38:	4502000a */ 	bc1fl	.L0f08fb64
 /*  f08fb3c:	8e3000bc */ 	lw	$s0,0xbc($s1)
 /*  f08fb40:	460e503e */ 	c.le.s	$f10,$f14
-/*  f08fb44:	3c01800a */ 	lui	$at,%hi(var8009cda8)
+/*  f08fb44:	3c01800a */ 	lui	$at,%hi(g_InteractProp)
 /*  f08fb48:	45020006 */ 	bc1fl	.L0f08fb64
 /*  f08fb4c:	8e3000bc */ 	lw	$s0,0xbc($s1)
 /*  f08fb50:	8e2d0014 */ 	lw	$t5,0x14($s1)
 /*  f08fb54:	afa0005c */ 	sw	$zero,0x5c($sp)
 /*  f08fb58:	10000051 */ 	b	.L0f08fca0
-/*  f08fb5c:	ac2dcda8 */ 	sw	$t5,%lo(var8009cda8)($at)
+/*  f08fb5c:	ac2dcda8 */ 	sw	$t5,%lo(g_InteractProp)($at)
 /*  f08fb60:	8e3000bc */ 	lw	$s0,0xbc($s1)
 .L0f08fb64:
 /*  f08fb64:	5200003a */ 	beqzl	$s0,.L0f08fc50
@@ -69384,9 +69384,9 @@ glabel var7f1ab194
 /*  f08fc88:	45020006 */ 	bc1fl	.L0f08fca4
 /*  f08fc8c:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f08fc90:	8e2f0014 */ 	lw	$t7,0x14($s1)
-/*  f08fc94:	3c01800a */ 	lui	$at,%hi(var8009cda8)
+/*  f08fc94:	3c01800a */ 	lui	$at,%hi(g_InteractProp)
 /*  f08fc98:	afa0005c */ 	sw	$zero,0x5c($sp)
-/*  f08fc9c:	ac2fcda8 */ 	sw	$t7,%lo(var8009cda8)($at)
+/*  f08fc9c:	ac2fcda8 */ 	sw	$t7,%lo(g_InteractProp)($at)
 .L0f08fca0:
 /*  f08fca0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f08fca4:
@@ -69401,12 +69401,12 @@ glabel var7f1ab194
  * This function is used to help find the door that should be opened when
  * interacting. The argument given is a door to be tested.
  *
- * A pointer to the best candidate is stored at var8009cda8. This function
+ * A pointer to the best candidate is stored at g_InteractProp. This function
  * doesn't write to it directly so it must be done by one of the called
  * functions.
  *
  * This function should return true if more doors and objects should be tested,
- * or false if the thing at var8009cda8 is certain to be final.
+ * or false if the prop at g_InteractProp is certain to be final.
  */
 bool doorTestForInteract(struct prop *prop)
 {
