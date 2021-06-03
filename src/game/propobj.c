@@ -2603,18 +2603,27 @@ struct monitorthing *monitorthingGetNew(void)
 	return NULL;
 }
 
-s32 func0f068760(struct defaultobj *obj)
+/**
+ * Return 0 if obj is less than 1/3 destroyed.
+ * Return 1 if obj is less than 2/3 destroyed.
+ * Return 2 if obj is less than fully destroyed.
+ * Return damage + 4 if fully destroyed.
+ */
+s32 objGetDestroyedThird(struct defaultobj *obj)
 {
-	if ((obj->hidden2 & OBJH2FLAG_40) == 0) {
+	if ((obj->hidden2 & OBJH2FLAG_DESTROYED) == 0) {
 		return obj->damage * 3.0f / obj->maxdamage;
 	}
 
 	return obj->damage + 4;
 }
 
-s32 func0f0687b8(struct defaultobj *obj)
+/**
+ * Return a positive value if obj is destroyed (roughly 1/4 of its damage).
+ */
+s32 objGetDestroyedValue(struct defaultobj *obj)
 {
-	if ((obj->hidden2 & OBJH2FLAG_40) == 0) {
+	if ((obj->hidden2 & OBJH2FLAG_DESTROYED) == 0) {
 		return 0;
 	}
 
@@ -46241,7 +46250,7 @@ u32 func0f07e474(struct prop *prop)
 			}
 		} else if (prop->timetoregen < PALDOWN(60) && !regenning) {
 			// 1 second left - time to start fading in
-			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_40) == 0) {
+			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0) {
 				if (obj->flags & OBJFLAG_00008000) {
 					propDeregisterRooms(prop);
 					propDelist(prop);
@@ -46272,7 +46281,7 @@ u32 func0f07e474(struct prop *prop)
 				}
 
 				obj->damage = 0;
-				obj->hidden2 &= ~OBJH2FLAG_40;
+				obj->hidden2 &= ~OBJH2FLAG_DESTROYED;
 				func0f089a94(1, obj->model);
 			}
 
@@ -48739,7 +48748,7 @@ void objRenderProp(struct prop *prop, struct modelrenderdata *renderdata, bool w
 				renderdata->envcolour &= 0xffffff00;
 			}
 		} else {
-			s32 mult = func0f0687b8(obj);
+			s32 mult = objGetDestroyedValue(obj);
 
 			renderdata->cullmode = CULLMODE_NONE;
 
@@ -49473,7 +49482,7 @@ glabel var7f1aa82c
 /*  f081988:	afa30094 */ 	sw	$v1,0x94($sp)
 /*  f08198c:	afa00094 */ 	sw	$zero,0x94($sp)
 .L0f081990:
-/*  f081990:	0fc1a1d8 */ 	jal	func0f068760
+/*  f081990:	0fc1a1d8 */ 	jal	objGetDestroyedThird
 /*  f081994:	02002025 */ 	or	$a0,$s0,$zero
 /*  f081998:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f08199c:	01c27021 */ 	addu	$t6,$t6,$v0
@@ -50108,7 +50117,7 @@ glabel var7f1aa82c
 /*  f081988:	afa30094 */ 	sw	$v1,0x94($sp)
 /*  f08198c:	afa00094 */ 	sw	$zero,0x94($sp)
 .L0f081990:
-/*  f081990:	0fc1a1d8 */ 	jal	func0f068760
+/*  f081990:	0fc1a1d8 */ 	jal	objGetDestroyedThird
 /*  f081994:	02002025 */ 	or	$a0,$s0,$zero
 /*  f081998:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f08199c:	01c27021 */ 	addu	$t6,$t6,$v0
@@ -50482,7 +50491,7 @@ glabel var7f1aa82c
 //		}
 //	}
 //
-//	iVar8 = func0f068760(obj);
+//	iVar8 = objGetDestroyedThird(obj);
 //	iVar13 = 0xff - (iVar8 * 21);
 //
 //	if (iVar13 < 0) {
@@ -50847,7 +50856,7 @@ glabel var7f1aa838
 /*  f0820b0:	968f0014 */ 	lhu	$t7,0x14($s4)
 /*  f0820b4:	8d8d0010 */ 	lw	$t5,0x10($t4)
 /*  f0820b8:	000f7080 */ 	sll	$t6,$t7,0x2
-/*  f0820bc:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f0820bc:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f0820c0:	01ae9821 */ 	addu	$s3,$t5,$t6
 /*  f0820c4:	86840010 */ 	lh	$a0,0x10($s4)
 /*  f0820c8:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -51551,7 +51560,7 @@ glabel var7f1aa838
 /*  f080b08:	968f0014 */ 	lhu	$t7,0x14($s4)
 /*  f080b0c:	8d8d0010 */ 	lw	$t5,0x10($t4)
 /*  f080b10:	000f7080 */ 	sll	$t6,$t7,0x2
-/*  f080b14:	0fc19e8e */ 	jal	func0f0687b8
+/*  f080b14:	0fc19e8e */ 	jal	objGetDestroyedValue
 /*  f080b18:	01ae9821 */ 	addu	$s3,$t5,$t6
 /*  f080b1c:	86840010 */ 	lh	$a0,0x10($s4)
 /*  f080b20:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -56082,7 +56091,7 @@ glabel func0f0841dc
 /*  f0841fc:	01cf082a */ 	slt	$at,$t6,$t7
 /*  f084200:	54200006 */ 	bnezl	$at,.L0f08421c
 /*  f084204:	86180004 */ 	lh	$t8,0x4($s0)
-/*  f084208:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f084208:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f08420c:	00000000 */ 	nop
 /*  f084210:	504000dc */ 	beqzl	$v0,.L0f084584
 /*  f084214:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -56118,7 +56127,7 @@ glabel func0f0841dc
 /*  f08427c:	afa30068 */ 	sw	$v1,0x68($sp)
 .L0f084280:
 /*  f084280:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f084284:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f084284:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f084288:	a7a60066 */ 	sh	$a2,0x66($sp)
 /*  f08428c:	14400079 */ 	bnez	$v0,.L0f084474
 /*  f084290:	8fa30068 */ 	lw	$v1,0x68($sp)
@@ -56252,7 +56261,7 @@ glabel func0f0841dc
 /*  f084470:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f084474:
 /*  f084474:	02002025 */ 	or	$a0,$s0,$zero
-/*  f084478:	0fc1a1d8 */ 	jal	func0f068760
+/*  f084478:	0fc1a1d8 */ 	jal	objGetDestroyedThird
 /*  f08447c:	afa30068 */ 	sw	$v1,0x68($sp)
 /*  f084480:	304c0003 */ 	andi	$t4,$v0,0x3
 /*  f084484:	8fa30068 */ 	lw	$v1,0x68($sp)
@@ -56286,7 +56295,7 @@ glabel func0f0841dc
 /*  f0844f0:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f0844f4:	afaf0010 */ 	sw	$t7,0x10($sp)
 .L0f0844f8:
-/*  f0844f8:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f0844f8:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f0844fc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f084500:	58400012 */ 	blezl	$v0,.L0f08454c
 /*  f084504:	8fad0030 */ 	lw	$t5,0x30($sp)
@@ -56344,7 +56353,7 @@ glabel func0f0841dc
 /*  f0841fc:	01cf082a */ 	slt	$at,$t6,$t7
 /*  f084200:	54200006 */ 	bnezl	$at,.L0f08421c
 /*  f084204:	86180004 */ 	lh	$t8,0x4($s0)
-/*  f084208:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f084208:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f08420c:	00000000 */ 	nop
 /*  f084210:	504000dc */ 	beqzl	$v0,.L0f084584
 /*  f084214:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -56380,7 +56389,7 @@ glabel func0f0841dc
 /*  f08427c:	afa30068 */ 	sw	$v1,0x68($sp)
 .L0f084280:
 /*  f084280:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f084284:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f084284:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f084288:	a7a60066 */ 	sh	$a2,0x66($sp)
 /*  f08428c:	14400079 */ 	bnez	$v0,.L0f084474
 /*  f084290:	8fa30068 */ 	lw	$v1,0x68($sp)
@@ -56514,7 +56523,7 @@ glabel func0f0841dc
 /*  f084470:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f084474:
 /*  f084474:	02002025 */ 	or	$a0,$s0,$zero
-/*  f084478:	0fc1a1d8 */ 	jal	func0f068760
+/*  f084478:	0fc1a1d8 */ 	jal	objGetDestroyedThird
 /*  f08447c:	afa30068 */ 	sw	$v1,0x68($sp)
 /*  f084480:	304c0003 */ 	andi	$t4,$v0,0x3
 /*  f084484:	8fa30068 */ 	lw	$v1,0x68($sp)
@@ -56548,7 +56557,7 @@ glabel func0f0841dc
 /*  f0844f0:	0fc4a640 */ 	jal	explosionCreateSimple
 /*  f0844f4:	afaf0010 */ 	sw	$t7,0x10($sp)
 .L0f0844f8:
-/*  f0844f8:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f0844f8:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f0844fc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f084500:	58400012 */ 	blezl	$v0,.L0f08454c
 /*  f084504:	8fad0030 */ 	lw	$t5,0x30($sp)
@@ -57201,7 +57210,7 @@ void glassDestroy(struct defaultobj *obj)
 
 	obj->damage = 0;
 	obj->hidden |= OBJHFLAG_REAPABLE;
-	obj->hidden2 |= OBJH2FLAG_40;
+	obj->hidden2 |= OBJH2FLAG_DESTROYED;
 }
 
 void doorDestroyGlass(struct doorobj *door)
@@ -57396,7 +57405,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 	obj->hidden |= (playernum << 28) & 0xf0000000;
 #endif
 
-	if (obj->type == OBJTYPE_GASBOTTLE && func0f0687b8(obj) == 1) {
+	if (obj->type == OBJTYPE_GASBOTTLE && objGetDestroyedValue(obj) == 1) {
 		return;
 	}
 
@@ -57472,14 +57481,14 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 		damage *= 0.25f;
 	}
 
-	if (!func0f0687b8(obj)) {
+	if (!objGetDestroyedValue(obj)) {
 		damage *= 250;
 
 		if (damage < 1) {
 			damage = 1;
 		}
 	} else {
-		f32 max = 4 - (func0f068760(obj) % 4);
+		f32 max = 4 - (objGetDestroyedThird(obj) % 4);
 
 		if (damage > max) {
 			damage = max;
@@ -57512,7 +57521,7 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 		// This code appears to be unused...
 		// It appears to handle spawning a weapon when the ammo crate is shot.
 		if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
-			if (func0f0687b8(obj) == 1) {
+			if (objGetDestroyedValue(obj) == 1) {
 				u32 stack;
 				struct multiammocrateobj *crate = (struct multiammocrateobj *) obj;
 				s32 startindex = random() % ARRAYCOUNT(crate->slots);
@@ -57572,45 +57581,45 @@ void objDamage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapon
 				chopper->attackmode = CHOPPERMODE_COMBAT;
 			}
 		} else if (obj->type == OBJTYPE_AUTOGUN) {
-			obj->flags |= OBJFLAG_40000000;
+			obj->flags |= OBJFLAG_AUTOGUN_ALERTED;
 
-			if (func0f0687b8(obj) == 1) {
+			if (objGetDestroyedValue(obj) == 1) {
 				obj->flags |= OBJFLAG_DEACTIVATED;
 			}
 		} else if (obj->type == OBJTYPE_CCTV) {
-			if (func0f0687b8(obj) == 1) {
+			if (objGetDestroyedValue(obj) == 1) {
 				obj->flags |= OBJFLAG_DEACTIVATED;
 			}
 		} else if (obj->type == OBJTYPE_SINGLEMONITOR) {
 			struct singlemonitorobj *monitor = (struct singlemonitorobj *) obj;
 
-			if (func0f0687b8(obj) == 1) {
+			if (objGetDestroyedValue(obj) == 1) {
 				tvscreenSetCmdlist(&monitor->screen, g_TvCmdlist14);
 			}
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
 			struct multimonitorobj *monitor = (struct multimonitorobj *) obj;
 
-			if (func0f0687b8(obj) == 1) {
+			if (objGetDestroyedValue(obj) == 1) {
 				tvscreenSetCmdlist(&monitor->screens[0], g_TvCmdlist14);
 				tvscreenSetCmdlist(&monitor->screens[1], g_TvCmdlist14);
 				tvscreenSetCmdlist(&monitor->screens[2], g_TvCmdlist14);
 				tvscreenSetCmdlist(&monitor->screens[3], g_TvCmdlist14);
 			}
 		} else if (obj->type == OBJTYPE_GASBOTTLE) {
-			if (func0f0687b8(obj) == 1) {
+			if (objGetDestroyedValue(obj) == 1) {
 				gasReleaseFromPos(&obj->prop->pos);
 			}
 		} else if (obj->type == OBJTYPE_SHIELD) {
 			struct shieldobj *shield = (struct shieldobj *) obj;
 
-			if (!func0f0687b8(obj)) {
+			if (!objGetDestroyedValue(obj)) {
 				shield->amount = shield->initialamount * (f32)(obj->maxdamage - obj->damage) / (f32)obj->maxdamage;
 			} else {
 				shield->amount = 0;
 			}
 		}
 
-		if (func0f0687b8(obj) == 1) {
+		if (objGetDestroyedValue(obj) == 1) {
 			struct prop *child = obj->prop->child;
 
 			while (child) {
@@ -59458,266 +59467,84 @@ u32 propobjGetCiTagId(struct prop *prop)
 
 bool objIsHealthy(struct defaultobj *obj)
 {
-	return func0f0687b8(obj) == 0;
+	return objGetDestroyedValue(obj) == 0;
 }
 
-GLOBAL_ASM(
-glabel objTestForInteract
-.late_rodata
-glabel var7f1aab34
-.word 0x40c907a9
-glabel var7f1aab38
-.word 0x404907a9
-glabel var7f1aab3c
-.word 0x3ec907a9
-.text
-/*  f0869cc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0869d0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0869d4:	8c860004 */ 	lw	$a2,0x4($a0)
-/*  f0869d8:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f0869dc:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0869e0:	0fc21a46 */ 	jal	propobjGetCiTagId
-/*  f0869e4:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0869e8:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0869ec:	10400003 */ 	beqz	$v0,.L0f0869fc
-/*  f0869f0:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f0869f4:	10000049 */ 	b	.L0f086b1c
-/*  f0869f8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0869fc:
-/*  f0869fc:	90c20003 */ 	lbu	$v0,0x3($a2)
-/*  f086a00:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f086a04:	10410010 */ 	beq	$v0,$at,.L0f086a48
-/*  f086a08:	00000000 */ 	nop
-/*  f086a0c:	8cce0008 */ 	lw	$t6,0x8($a2)
-/*  f086a10:	000e7b00 */ 	sll	$t7,$t6,0xc
-/*  f086a14:	05e0000c */ 	bltz	$t7,.L0f086a48
-/*  f086a18:	00000000 */ 	nop
-/*  f086a1c:	8cc30010 */ 	lw	$v1,0x10($a2)
-/*  f086a20:	3c010001 */ 	lui	$at,0x1
-/*  f086a24:	34212000 */ 	ori	$at,$at,0x2000
-/*  f086a28:	0061c024 */ 	and	$t8,$v1,$at
-/*  f086a2c:	17000006 */ 	bnez	$t8,.L0f086a48
-/*  f086a30:	00000000 */ 	nop
-/*  f086a34:	8cd90040 */ 	lw	$t9,0x40($a2)
-/*  f086a38:	24010033 */ 	addiu	$at,$zero,0x33
-/*  f086a3c:	33280003 */ 	andi	$t0,$t9,0x3
-/*  f086a40:	11000003 */ 	beqz	$t0,.L0f086a50
-/*  f086a44:	00000000 */ 	nop
-.L0f086a48:
-/*  f086a48:	10000034 */ 	b	.L0f086b1c
-/*  f086a4c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f086a50:
-/*  f086a50:	1441001c */ 	bne	$v0,$at,.L0f086ac4
-/*  f086a54:	306b0002 */ 	andi	$t3,$v1,0x2
-/*  f086a58:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x284)
-/*  f086a5c:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
-/*  f086a60:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f086a64:	8d2201b0 */ 	lw	$v0,0x1b0($t1)
-/*  f086a68:	14410003 */ 	bne	$v0,$at,.L0f086a78
-/*  f086a6c:	00000000 */ 	nop
-/*  f086a70:	1000002a */ 	b	.L0f086b1c
-/*  f086a74:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f086a78:
-/*  f086a78:	14400028 */ 	bnez	$v0,.L0f086b1c
-/*  f086a7c:	00000000 */ 	nop
-/*  f086a80:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f086a84:	0fc331a0 */ 	jal	bmoveGetCrouchPos
-/*  f086a88:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f086a8c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f086a90:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f086a94:	14410021 */ 	bne	$v0,$at,.L0f086b1c
-/*  f086a98:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f086a9c:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f086aa0:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f086aa4:	44802000 */ 	mtc1	$zero,$f4
-/*  f086aa8:	c54600b4 */ 	lwc1	$f6,0xb4($t2)
-/*  f086aac:	46062032 */ 	c.eq.s	$f4,$f6
-/*  f086ab0:	00000000 */ 	nop
-/*  f086ab4:	45000019 */ 	bc1f	.L0f086b1c
-/*  f086ab8:	00000000 */ 	nop
-/*  f086abc:	10000017 */ 	b	.L0f086b1c
-/*  f086ac0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f086ac4:
-/*  f086ac4:	11600015 */ 	beqz	$t3,.L0f086b1c
-/*  f086ac8:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x284)
-/*  f086acc:	8d8ca244 */ 	lw	$t4,%lo(g_Vars+0x284)($t4)
-/*  f086ad0:	8d8d01b0 */ 	lw	$t5,0x1b0($t4)
-/*  f086ad4:	15a00011 */ 	bnez	$t5,.L0f086b1c
-/*  f086ad8:	00000000 */ 	nop
-/*  f086adc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f086ae0:	0fc331a0 */ 	jal	bmoveGetCrouchPos
-/*  f086ae4:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f086ae8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f086aec:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f086af0:	1441000a */ 	bne	$v0,$at,.L0f086b1c
-/*  f086af4:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f086af8:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f086afc:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f086b00:	44804000 */ 	mtc1	$zero,$f8
-/*  f086b04:	c5ca00b4 */ 	lwc1	$f10,0xb4($t6)
-/*  f086b08:	460a4032 */ 	c.eq.s	$f8,$f10
-/*  f086b0c:	00000000 */ 	nop
-/*  f086b10:	45000002 */ 	bc1f	.L0f086b1c
-/*  f086b14:	00000000 */ 	nop
-/*  f086b18:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f086b1c:
-/*  f086b1c:	10a0000e */ 	beqz	$a1,.L0f086b58
-/*  f086b20:	00000000 */ 	nop
-/*  f086b24:	8ccf0040 */ 	lw	$t7,0x40($a2)
-/*  f086b28:	000fc140 */ 	sll	$t8,$t7,0x5
-/*  f086b2c:	0701000a */ 	bgez	$t8,.L0f086b58
-/*  f086b30:	00000000 */ 	nop
-/*  f086b34:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f086b38:	0fc31f26 */ 	jal	bmoveGetHoverbike
-/*  f086b3c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f086b40:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*  f086b44:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f086b48:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f086b4c:	14590002 */ 	bne	$v0,$t9,.L0f086b58
-/*  f086b50:	00000000 */ 	nop
-/*  f086b54:	00002825 */ 	or	$a1,$zero,$zero
-.L0f086b58:
-/*  f086b58:	10a0007c */ 	beqz	$a1,.L0f086d4c
-/*  f086b5c:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f086b60:	91090001 */ 	lbu	$t1,0x1($t0)
-/*  f086b64:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f086b68:	312a0002 */ 	andi	$t2,$t1,0x2
-/*  f086b6c:	51400078 */ 	beqzl	$t2,.L0f086d50
-/*  f086b70:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f086b74:	0fc21a6a */ 	jal	objIsHealthy
-/*  f086b78:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f086b7c:	10400073 */ 	beqz	$v0,.L0f086d4c
-/*  f086b80:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f086b84:	8ccb0008 */ 	lw	$t3,0x8($a2)
-/*  f086b88:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f086b8c:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x284)
-/*  f086b90:	000b6180 */ 	sll	$t4,$t3,0x6
-/*  f086b94:	0580006d */ 	bltz	$t4,.L0f086d4c
-/*  f086b98:	240100c8 */ 	addiu	$at,$zero,0xc8
-/*  f086b9c:	8dada244 */ 	lw	$t5,%lo(g_Vars+0x284)($t5)
-/*  f086ba0:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f086ba4:	c4880010 */ 	lwc1	$f8,0x10($a0)
-/*  f086ba8:	8da300bc */ 	lw	$v1,0xbc($t5)
-/*  f086bac:	84c20004 */ 	lh	$v0,0x4($a2)
-/*  f086bb0:	c484000c */ 	lwc1	$f4,0xc($a0)
-/*  f086bb4:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f086bb8:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f086bbc:	c466000c */ 	lwc1	$f6,0xc($v1)
-/*  f086bc0:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f086bc4:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f086bc8:	460c6402 */ 	mul.s	$f16,$f12,$f12
-/*  f086bcc:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f086bd0:	460e7482 */ 	mul.s	$f18,$f14,$f14
-/*  f086bd4:	14410004 */ 	bne	$v0,$at,.L0f086be8
-/*  f086bd8:	3c0143fa */ 	lui	$at,0x43fa
-/*  f086bdc:	44810000 */ 	mtc1	$at,$f0
-/*  f086be0:	10000018 */ 	b	.L0f086c44
-/*  f086be4:	00000000 */ 	nop
-.L0f086be8:
-/*  f086be8:	24010086 */ 	addiu	$at,$zero,0x86
-/*  f086bec:	14410004 */ 	bne	$v0,$at,.L0f086c00
-/*  f086bf0:	3c014396 */ 	lui	$at,0x4396
-/*  f086bf4:	44810000 */ 	mtc1	$at,$f0
-/*  f086bf8:	10000012 */ 	b	.L0f086c44
-/*  f086bfc:	00000000 */ 	nop
-.L0f086c00:
-/*  f086c00:	24010190 */ 	addiu	$at,$zero,0x190
-/*  f086c04:	14410004 */ 	bne	$v0,$at,.L0f086c18
-/*  f086c08:	3c01438c */ 	lui	$at,0x438c
-/*  f086c0c:	44810000 */ 	mtc1	$at,$f0
-/*  f086c10:	1000000c */ 	b	.L0f086c44
-/*  f086c14:	00000000 */ 	nop
-.L0f086c18:
-/*  f086c18:	8cce0010 */ 	lw	$t6,0x10($a2)
-/*  f086c1c:	3c014348 */ 	lui	$at,0x4348
-/*  f086c20:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f086c24:	05e30006 */ 	bgezl	$t7,.L0f086c40
-/*  f086c28:	44810000 */ 	mtc1	$at,$f0
-/*  f086c2c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f086c30:	44810000 */ 	mtc1	$at,$f0
-/*  f086c34:	10000003 */ 	b	.L0f086c44
-/*  f086c38:	00000000 */ 	nop
-/*  f086c3c:	44810000 */ 	mtc1	$at,$f0
-.L0f086c40:
-/*  f086c40:	00000000 */ 	nop
-.L0f086c44:
-/*  f086c44:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f086c48:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f086c4c:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f086c50:	00000000 */ 	nop
-/*  f086c54:	4502003e */ 	bc1fl	.L0f086d50
-/*  f086c58:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f086c5c:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f086c60:	00000000 */ 	nop
-/*  f086c64:	4502003a */ 	bc1fl	.L0f086d50
-/*  f086c68:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f086c6c:	46000207 */ 	neg.s	$f8,$f0
-/*  f086c70:	4602403c */ 	c.lt.s	$f8,$f2
-/*  f086c74:	00000000 */ 	nop
-/*  f086c78:	45020035 */ 	bc1fl	.L0f086d50
-/*  f086c7c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f086c80:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f086c84:	0fc259d4 */ 	jal	atan2f
-/*  f086c88:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f086c8c:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f086c90:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f086c94:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f086c98:	44816000 */ 	mtc1	$at,$f12
-/*  f086c9c:	c70a0144 */ 	lwc1	$f10,0x144($t8)
-/*  f086ca0:	3c017f1b */ 	lui	$at,%hi(var7f1aab34)
-/*  f086ca4:	c42eab34 */ 	lwc1	$f14,%lo(var7f1aab34)($at)
-/*  f086ca8:	460a6401 */ 	sub.s	$f16,$f12,$f10
-/*  f086cac:	44803000 */ 	mtc1	$zero,$f6
-/*  f086cb0:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f086cb4:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f086cb8:	460e8482 */ 	mul.s	$f18,$f16,$f14
-/*  f086cbc:	3c017f1b */ 	lui	$at,%hi(var7f1aab38)
-/*  f086cc0:	460c9103 */ 	div.s	$f4,$f18,$f12
-/*  f086cc4:	46040081 */ 	sub.s	$f2,$f0,$f4
-/*  f086cc8:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f086ccc:	00000000 */ 	nop
-/*  f086cd0:	45000002 */ 	bc1f	.L0f086cdc
-/*  f086cd4:	00000000 */ 	nop
-/*  f086cd8:	460e1080 */ 	add.s	$f2,$f2,$f14
-.L0f086cdc:
-/*  f086cdc:	c428ab38 */ 	lwc1	$f8,%lo(var7f1aab38)($at)
-/*  f086ce0:	3c017f1b */ 	lui	$at,%hi(var7f1aab3c)
-/*  f086ce4:	4602403c */ 	c.lt.s	$f8,$f2
-/*  f086ce8:	00000000 */ 	nop
-/*  f086cec:	45000002 */ 	bc1f	.L0f086cf8
-/*  f086cf0:	00000000 */ 	nop
-/*  f086cf4:	46027081 */ 	sub.s	$f2,$f14,$f2
-.L0f086cf8:
-/*  f086cf8:	c42aab3c */ 	lwc1	$f10,%lo(var7f1aab3c)($at)
-/*  f086cfc:	460a103e */ 	c.le.s	$f2,$f10
-/*  f086d00:	00000000 */ 	nop
-/*  f086d04:	45020012 */ 	bc1fl	.L0f086d50
-/*  f086d08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f086d0c:	8cd9000c */ 	lw	$t9,0xc($a2)
-/*  f086d10:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f086d14:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f086d18:	33280800 */ 	andi	$t0,$t9,0x800
-/*  f086d1c:	11000008 */ 	beqz	$t0,.L0f086d40
-/*  f086d20:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f086d24:	240a0020 */ 	addiu	$t2,$zero,0x20
-/*  f086d28:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f086d2c:	25260008 */ 	addiu	$a2,$t1,0x8
-/*  f086d30:	0c00b734 */ 	jal	func0002dcd0
-/*  f086d34:	25270028 */ 	addiu	$a3,$t1,0x28
-/*  f086d38:	50400005 */ 	beqzl	$v0,.L0f086d50
-/*  f086d3c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f086d40:
-/*  f086d40:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*  f086d44:	3c01800a */ 	lui	$at,%hi(g_InteractProp)
-/*  f086d48:	ac2bcda8 */ 	sw	$t3,%lo(g_InteractProp)($at)
-.L0f086d4c:
-/*  f086d4c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f086d50:
-/*  f086d50:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f086d54:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f086d58:	03e00008 */ 	jr	$ra
-/*  f086d5c:	00000000 */ 	nop
-);
+bool objTestForInteract(struct prop *prop)
+{
+	u32 stack;
+	struct defaultobj *obj = prop->obj;
+	bool maybe = false;
+
+	if (propobjGetCiTagId(prop)) {
+		maybe = true;
+	} else if (obj->type == OBJTYPE_ALARM
+			|| (obj->flags & OBJFLAG_THROWNLAPTOP)
+			|| (obj->flags3 & (OBJHFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE))
+			|| (obj->hidden & (OBJHFLAG_LIFTDOOR | OBJHFLAG_00000002))) {
+		maybe = true;
+	} else if (obj->type == OBJTYPE_HOVERBIKE) {
+		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
+			maybe = true;
+		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
+				&& bmoveGetCrouchPos() == CROUCHPOS_STAND
+				&& g_Vars.currentplayer->crouchoffset == 0.0f) {
+			maybe = true;
+		}
+	} else if ((obj->flags3 & OBJFLAG3_GRABBABLE)
+			&& g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
+			&& bmoveGetCrouchPos() == CROUCHPOS_STAND
+			&& g_Vars.currentplayer->crouchoffset == 0.0f) {
+		maybe = true;
+	}
+
+	if (maybe && (obj->hidden & OBJHFLAG_MOUNTED) && prop == bmoveGetHoverbike()) {
+		maybe = false;
+	}
+
+	if (maybe
+			&& (prop->flags & PROPFLAG_ONSCREEN)
+			&& objIsHealthy(obj)
+			&& (obj->flags & OBJFLAG_CANNOT_ACTIVATE) == 0) {
+		struct prop *playerprop = g_Vars.currentplayer->prop;
+		f32 x = prop->pos.x - playerprop->pos.x;
+		f32 y = prop->pos.y - playerprop->pos.y;
+		f32 z = prop->pos.z - playerprop->pos.z;
+		f32 range;
+
+		if (obj->modelnum == MODEL_SK_SHUTTLE) {
+			range = 500;
+		} else if (obj->modelnum == MODEL_TAXICAB) {
+			range = 300;
+		} else if (obj->modelnum == MODEL_PRESCAPSULE) {
+			range = 280;
+		} else if (obj->flags3 & OBJFLAG3_INTERACTSHORTRANGE) {
+			range = 100;
+		} else {
+			range = 200;
+		}
+
+		if (x * x + z * z < range * range && y < range && y > -range) {
+			f32 angle = atan2f(x, z) - (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
+
+			if (angle < 0.0f) {
+				angle += M_BADTAU;
+			}
+
+			if (angle > M_BADPI) {
+				angle = M_BADTAU - angle;
+			}
+
+			if (angle <= 0.3926365673542f) {
+				if ((obj->flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0 || func0002dcd0(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x20)) {
+					g_InteractProp = prop;
+				}
+			}
+		}
+	}
+
+	return true;
+}
 
 bool currentPlayerTryMountHoverbike(struct prop *prop)
 {
@@ -59842,7 +59669,7 @@ bool propobjInteract(struct prop *prop)
 		} else {
 			alarmActivate();
 		}
-	} else if (obj->flags & OBJFLAG_00080000) {
+	} else if (obj->flags & OBJFLAG_THROWNLAPTOP) {
 		// Thrown laptop
 		if (obj->type == OBJTYPE_AUTOGUN) {
 			struct autogunobj *laptop = (struct autogunobj *)obj;
@@ -63317,7 +63144,7 @@ glabel var7f1aae84
 /*  f089544:	8d300004 */ 	lw	$s0,0x4($t1)
 /*  f089548:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f08954c:	afaa0064 */ 	sw	$t2,0x64($sp)
-/*  f089550:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f089550:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f089554:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f089558:	10400003 */ 	beqz	$v0,.L0f089568
 /*  f08955c:	02001825 */ 	or	$v1,$s0,$zero
@@ -65363,8 +65190,8 @@ struct autogunobj *laptopDeploy(s32 modelnum, struct gset *gset, struct chrdata 
 			prop->forcetick = true;
 
 			laptop->base.hidden |= OBJHFLAG_TAGGED;
-			laptop->base.flags |= OBJFLAG_00080000 | OBJFLAG_01000000 | OBJFLAG_20000000;
-			laptop->base.flags3 |= OBJFLAG3_00010000 | OBJFLAG3_08000000;
+			laptop->base.flags |= OBJFLAG_THROWNLAPTOP | OBJFLAG_01000000 | OBJFLAG_20000000;
+			laptop->base.flags3 |= OBJFLAG3_INTERACTABLE | OBJFLAG3_08000000;
 		} else {
 			if (model) {
 				modelFree(model);
@@ -69444,7 +69271,7 @@ bool doorTestForInteract(struct prop *prop)
 		}
 
 		if (maybe) {
-			if ((door->base.flags2 & OBJFLAG2_00000800) == 0
+			if ((door->base.flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
 					|| func0002dcd0(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x20)) {
 				checkmore = func0f08f968(door, false);
 
@@ -69565,7 +69392,7 @@ bool propdoorInteract(struct prop *doorprop)
 		doorsChooseSwingDirection(playerprop, door);
 		doorsActivate(doorprop, true);
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
-		if ((door->base.flags2 & OBJFLAG2_00000004) == 0) {
+		if ((door->base.flags2 & OBJFLAG2_SKIPDOORLOCKEDMSG) == 0) {
 			struct textoverride *override = invGetTextOverrideForObj(&door->base);
 			u8 intraining = false;
 
@@ -69911,7 +69738,7 @@ void func0f091030(void)
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ
 				&& (prop->flags & (PROPFLAG_ONSCREEN | PROPFLAG_40 | PROPFLAG_80)) == 0
-				&& (prop->obj->hidden2 & OBJH2FLAG_40)
+				&& (prop->obj->hidden2 & OBJH2FLAG_DESTROYED)
 				&& (prop->obj->hidden2 & OBJH2FLAG_80)) {
 			objRemove(prop->obj, true);
 			return;

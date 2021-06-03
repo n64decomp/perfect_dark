@@ -2865,7 +2865,7 @@
 #define OBJFLAG_00010000            0x00010000 // Not used in scripts
 #define OBJFLAG_INVINCIBLE          0x00020000
 #define OBJFLAG_COLLECTABLE         0x00040000
-#define OBJFLAG_00080000            0x00080000 // Thrown laptop?
+#define OBJFLAG_THROWNLAPTOP        0x00080000
 #define OBJFLAG_UNCOLLECTABLE       0x00100000
 #define OBJFLAG_00200000            0x00200000 // Editor: "Bounce and Destroy If Shot"
 #define OBJFLAG_00400000            0x00400000 // Not used in scripts
@@ -2884,6 +2884,7 @@
 #define OBJFLAG_HOVERCAR_20000000   0x20000000
 #define OBJFLAG_WEAPON_AICANNOTUSE  0x20000000
 #define OBJFLAG_40000000            0x40000000
+#define OBJFLAG_AUTOGUN_ALERTED     0x40000000
 #define OBJFLAG_CAMERA_BONDINVIEW   0x40000000
 #define OBJFLAG_DOOR_KEEPOPEN       0x40000000 // Editor: "Door open by default/Empty weapon"
 #define OBJFLAG_LIFT_TRIGGERDISABLE 0x40000000
@@ -2892,38 +2893,38 @@
 #define OBJFLAG_CHOPPER_INACTIVE    0x80000000 // Or lift disabled, or hovercar something
 
 // obj->flags2
-#define OBJFLAG2_00000001        0x00000001 // Used only in CI Training
-#define OBJFLAG2_00000002        0x00000002 // Ruins spikes
-#define OBJFLAG2_00000004        0x00000004 // Defense hostage doors - openable by AI?
-#define OBJFLAG2_00000008        0x00000008 // Editor: "Don't load in Multiplayer"
-#define OBJFLAG2_EXCLUDE_A       0x00000010
-#define OBJFLAG2_EXCLUDE_SA      0x00000020
-#define OBJFLAG2_EXCLUDE_PA      0x00000040
-#define OBJFLAG2_EXCLUDE_PD      0x00000080
-#define OBJFLAG2_00000100        0x00000100 // Editor: "Immobile"
-#define OBJFLAG2_00000200        0x00000200 // Editor: "Mines"
-#define OBJFLAG2_LINKEDTOSAFE    0x00000400 // Applied to safe door and item
-#define OBJFLAG2_00000800        0x00000800 // Editor: "Don't activate if clipping gap Jo/Object"
-#define OBJFLAG2_00001000        0x00001000 // Investigation CMP150s, Air Base safe item and shield
-#define OBJFLAG2_00002000        0x00002000 // Ruins commhub - used as a "shown message" flag
-#define OBJFLAG2_IMMUNETOGUNFIRE 0x00004000
-#define OBJFLAG2_SHOOTTHROUGH    0x00008000
-#define OBJFLAG2_DRAWONTOP       0x00010000
-#define OBJFLAG2_00020000        0x00020000 // G5 mine, Air Base mine
-#define OBJFLAG2_00040000        0x00040000 // Only used in CI training
-#define OBJFLAG2_INVISIBLE       0x00080000
-#define OBJFLAG2_00100000        0x00100000 // Editor: "Bulletproof Glass"
-#define OBJFLAG2_00200000        0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
-#define OBJFLAG2_EXCLUDE_2P      0x00400000
-#define OBJFLAG2_EXCLUDE_3P      0x00800000
-#define OBJFLAG2_EXCLUDE_4P      0x01000000
-#define OBJFLAG2_THROWTHROUGH    0x02000000 // Rockets/mines/grenades etc pass through object
-#define OBJFLAG2_04000000        0x04000000 // Used quite a lot - gravity?
-#define OBJFLAG2_LOCKEDFRONT     0x08000000 // One-way door lock
-#define OBJFLAG2_LOCKEDBACK      0x10000000 // One-way door lock
-#define OBJFLAG2_AICANNOTUSE     0x20000000
-#define OBJFLAG2_AIRLOCKDOOR     0x40000000 // Door waits for sibling to close before it can open
-#define OBJFLAG2_80000000        0x80000000 // Attack Ship glass
+#define OBJFLAG2_00000001          0x00000001 // Used only in CI Training
+#define OBJFLAG2_00000002          0x00000002 // Ruins spikes
+#define OBJFLAG2_SKIPDOORLOCKEDMSG 0x00000004
+#define OBJFLAG2_00000008          0x00000008 // Editor: "Don't load in Multiplayer"
+#define OBJFLAG2_EXCLUDE_A         0x00000010
+#define OBJFLAG2_EXCLUDE_SA        0x00000020
+#define OBJFLAG2_EXCLUDE_PA        0x00000040
+#define OBJFLAG2_EXCLUDE_PD        0x00000080
+#define OBJFLAG2_00000100          0x00000100 // Editor: "Immobile"
+#define OBJFLAG2_00000200          0x00000200 // Editor: "Mines"
+#define OBJFLAG2_LINKEDTOSAFE      0x00000400 // Applied to safe door and item
+#define OBJFLAG2_INTERACTCHECKLOS  0x00000800 // Check line of sight when attempting to interact with object
+#define OBJFLAG2_00001000          0x00001000 // Investigation CMP150s, Air Base safe item and shield
+#define OBJFLAG2_00002000          0x00002000 // Ruins commhub - used as a "shown message" flag
+#define OBJFLAG2_IMMUNETOGUNFIRE   0x00004000
+#define OBJFLAG2_SHOOTTHROUGH      0x00008000
+#define OBJFLAG2_DRAWONTOP         0x00010000
+#define OBJFLAG2_00020000          0x00020000 // G5 mine, Air Base mine
+#define OBJFLAG2_00040000          0x00040000 // Only used in CI training
+#define OBJFLAG2_INVISIBLE         0x00080000
+#define OBJFLAG2_00100000          0x00100000 // Editor: "Bulletproof Glass"
+#define OBJFLAG2_00200000          0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
+#define OBJFLAG2_EXCLUDE_2P        0x00400000
+#define OBJFLAG2_EXCLUDE_3P        0x00800000
+#define OBJFLAG2_EXCLUDE_4P        0x01000000
+#define OBJFLAG2_THROWTHROUGH      0x02000000 // Rockets/mines/grenades etc pass through object
+#define OBJFLAG2_04000000          0x04000000 // Used quite a lot - gravity?
+#define OBJFLAG2_LOCKEDFRONT       0x08000000 // One-way door lock
+#define OBJFLAG2_LOCKEDBACK        0x10000000 // One-way door lock
+#define OBJFLAG2_AICANNOTUSE       0x20000000
+#define OBJFLAG2_AIRLOCKDOOR       0x40000000 // Door waits for sibling to close before it can open
+#define OBJFLAG2_80000000          0x80000000 // Attack Ship glass
 
 // obj->flags3
 #define OBJFLAG3_PUSHABLE           0x00000001
@@ -2939,15 +2940,15 @@
 #define OBJFLAG3_WALKTHROUGH        0x00000400
 #define OBJFLAG3_RTRACKED_BLUE      0x00000800
 #define OBJFLAG3_SHOWSHIELD         0x00001000 // Show shield effect around object (always)
-#define OBJFLAG3_00002000           0x00002000 // Not used in scripts
+#define OBJHFLAG3_HTMTERMINAL       0x00002000 // Terminal for Hacker Central scenario (HTM = Hack That Mac)
 #define OBJFLAG3_00004000           0x00004000 // Not used in scripts
 #define OBJFLAG3_00008000           0x00008000 // Not used in scripts
-#define OBJFLAG3_00010000           0x00010000 // Editor: "Can be activated"
+#define OBJFLAG3_INTERACTABLE       0x00010000
 #define OBJFLAG3_00020000           0x00020000 // Equivalent to CHRH2FLAG_0002
 #define OBJFLAG3_00040000           0x00040000 // Not used in scripts
 #define OBJFLAG3_00080000           0x00080000 // Not used in scripts
 #define OBJFLAG3_00100000           0x00100000 // Ruins spikes
-#define OBJFLAG3_00200000           0x00200000 // Not used in scripts
+#define OBJFLAG3_INTERACTSHORTRANGE 0x00200000
 #define OBJFLAG3_00400000           0x00400000 // Investigation tech items
 #define OBJFLAG3_00800000           0x00800000 // Not used in scripts
 #define OBJFLAG3_01000000           0x01000000 // Not used in scripts
@@ -2961,6 +2962,7 @@
 
 // obj->hidden
 #define OBJHFLAG_LIFTDOOR          0x00000001
+#define OBJHFLAG_00000002          0x00000002
 #define OBJHFLAG_REAPABLE          0x00000004
 #define OBJHFLAG_00000008          0x00000008
 #define OBJHFLAG_TAGGED            0x00000010
@@ -2991,7 +2993,7 @@
 #define OBJH2FLAG_CANREGEN     0x04
 #define OBJH2FLAG_08           0x08
 #define OBJH2FLAG_10           0x10
-#define OBJH2FLAG_40           0x40
+#define OBJH2FLAG_DESTROYED           0x40
 #define OBJH2FLAG_80           0x80
 
 #define OBJTYPE_DOOR               0x01

@@ -12477,7 +12477,7 @@ void scenarioHtmActivateUplink(struct chrdata *chr, struct prop *terminal)
 	if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 		struct defaultobj *obj = terminal->obj;
 
-		if (obj->flags3 & OBJFLAG3_00002000) {
+		if (obj->flags3 & OBJHFLAG3_HTMTERMINAL) {
 			u32 mpindex = mpPlayerGetIndex(chr);
 
 			if ((obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND) == 0) {

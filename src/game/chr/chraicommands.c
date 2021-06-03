@@ -2258,7 +2258,7 @@ bool aiDestroyObject(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->prop && !func0f0687b8(obj)) {
+	if (obj && obj->prop && !objGetDestroyedValue(obj)) {
 		struct defaultobj *entity = obj->prop->obj;
 
 		if (entity->modelnum == MODEL_ELVIS_SAUCER) {

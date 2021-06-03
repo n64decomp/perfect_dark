@@ -1688,7 +1688,7 @@ glabel var7f1b8ea8
 /*  f190ea8:	8df00004 */ 	lw	$s0,0x4($t7)
 /*  f190eac:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f190eb0:	afb80064 */ 	sw	$t8,0x64($sp)
-/*  f190eb4:	0fc1a1ee */ 	jal	func0f0687b8
+/*  f190eb4:	0fc1a1ee */ 	jal	objGetDestroyedValue
 /*  f190eb8:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f190ebc:	10400005 */ 	beqz	$v0,.L0f190ed4
 /*  f190ec0:	02001825 */ 	or	$v1,$s0,$zero
@@ -2089,7 +2089,7 @@ glabel var7f1b8ea8
 /*  f18af94:	8dd00004 */ 	lw	$s0,0x4($t6)
 /*  f18af98:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f18af9c:	afaf0064 */ 	sw	$t7,0x64($sp)
-/*  f18afa0:	0fc19e8e */ 	jal	func0f0687b8
+/*  f18afa0:	0fc19e8e */ 	jal	objGetDestroyedValue
 /*  f18afa4:	8fa40084 */ 	lw	$a0,0x84($sp)
 /*  f18afa8:	10400005 */ 	beqz	$v0,.NB0f18afc0
 /*  f18afac:	02001825 */ 	or	$v1,$s0,$zero
@@ -2347,7 +2347,7 @@ glabel var7f1b8ea8
 //
 //	dprint();
 //
-//	if ((obj->hidden & OBJHFLAG_REAPABLE) || (obj->flags & OBJFLAG_00080000)) {
+//	if ((obj->hidden & OBJHFLAG_REAPABLE) || (obj->flags & OBJFLAG_THROWNLAPTOP)) {
 //		return false;
 //	}
 //
@@ -2404,7 +2404,7 @@ glabel var7f1b8ea8
 //		crate2 = (struct multiammocrateobj *)prop->obj;
 //		ignore1 = true;
 //
-//		if (func0f0687b8(obj)) {
+//		if (objGetDestroyedValue(obj)) {
 //			dprint();
 //			return false;
 //		}

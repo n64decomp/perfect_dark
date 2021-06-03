@@ -2540,7 +2540,7 @@ void propExecuteTickOperation(struct prop *prop, s32 op)
 			obj->damage = 0;
 			obj->hidden |= OBJHFLAG_00000800;
 			obj->hidden &= ~OBJHFLAG_REAPABLE;
-			obj->hidden2 &= ~OBJH2FLAG_40;
+			obj->hidden2 &= ~OBJH2FLAG_DESTROYED;
 
 			propDeregisterRooms(prop);
 			propDisable(prop);

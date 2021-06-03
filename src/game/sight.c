@@ -122,7 +122,7 @@ bool sightIsReactiveToProp(struct prop *prop)
 			return true;
 		}
 
-		if (func0f0687b8(obj) > 0) {
+		if (objGetDestroyedValue(obj) > 0) {
 			return false;
 		}
 	} else if (prop->type == PROPTYPE_CHR) {
