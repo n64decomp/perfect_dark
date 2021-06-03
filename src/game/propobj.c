@@ -65797,17 +65797,10 @@ struct prop *func0f08baf4(struct chrdata *chr, s32 weaponnum, u32 flags)
 	return weaponCreateForChr(chr, weaponGetModel(weaponnum), weaponnum, flags, NULL, NULL);
 }
 
-GLOBAL_ASM(
-glabel func0f08bb3c
-/*  f08bb3c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08bb40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08bb44:	0fc22405 */ 	jal	func0f089014
-/*  f08bb48:	00000000 */ 	nop
-/*  f08bb4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08bb50:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08bb54:	03e00008 */ 	jr	$ra
-/*  f08bb58:	00000000 */ 	nop
-);
+s32 func0f08bb3c(struct prop *prop)
+{
+	return func0f089014(prop);
+}
 
 void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)
 {
