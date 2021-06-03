@@ -2371,7 +2371,7 @@ bool aiGiveObjectToChr(void)
 			}
 #endif
 
-			something = func0f088840(obj->prop, 0);
+			something = propPickupByPlayer(obj->prop, 0);
 			propExecuteTickOperation(obj->prop, something);
 			playernum = propGetPlayerNum(chr->prop);
 			obj2->hidden = (playernum << 28) | (obj2->hidden & 0x0fffffff);

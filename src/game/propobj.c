@@ -59693,7 +59693,7 @@ bool propobjInteract(struct prop *prop)
 				}
 			}
 		} else {
-			result = func0f088840(prop, 1);
+			result = propPickupByPlayer(prop, 1);
 		}
 	} else if (currentPlayerTryMountHoverbike(prop) == false
 			&& (obj->flags3 & OBJFLAG3_GRABBABLE)
@@ -61155,98 +61155,98 @@ const char var7f1aa140[] = "autodoorcanclose:      blocking door\n\n";
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f088840
+glabel propPickupByPlayer
 .late_rodata
 glabel var7f1aadc0
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadc4
-.word func0f088840+0x74 # f0888b4
+.word propPickupByPlayer+0x74 # f0888b4
 glabel var7f1aadc8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadcc
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadd0
-.word func0f088840+0xf4 # f088934
+.word propPickupByPlayer+0xf4 # f088934
 glabel var7f1aadd4
-.word func0f088840+0x1f4 # f088a34
+.word propPickupByPlayer+0x1f4 # f088a34
 glabel var7f1aadd8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aaddc
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aade0
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aade4
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aade8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadec
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadf0
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadf4
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadf8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadfc
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae00
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae04
-.word func0f088840+0x134 # f088974
+.word propPickupByPlayer+0x134 # f088974
 glabel var7f1aae08
-.word func0f088840+0x590 # f088dd0
+.word propPickupByPlayer+0x590 # f088dd0
 glabel var7f1aae0c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae10
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae14
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae18
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae1c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae20
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae24
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae28
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae2c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae30
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae34
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae38
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae3c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae40
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae44
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae48
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae4c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae50
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae54
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae58
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae5c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae60
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae64
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae68
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae6c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae70
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 .text
 /*  f088840:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f088844:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -61802,98 +61802,98 @@ glabel var7f1aae70
 );
 #else
 GLOBAL_ASM(
-glabel func0f088840
+glabel propPickupByPlayer
 .late_rodata
 glabel var7f1aadc0
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadc4
-.word func0f088840+0x74 # f0888b4
+.word propPickupByPlayer+0x74 # f0888b4
 glabel var7f1aadc8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadcc
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadd0
-.word func0f088840+0xf4 # f088934
+.word propPickupByPlayer+0xf4 # f088934
 glabel var7f1aadd4
-.word func0f088840+0x1f4 # f088a34
+.word propPickupByPlayer+0x1f4 # f088a34
 glabel var7f1aadd8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aaddc
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aade0
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aade4
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aade8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadec
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadf0
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadf4
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadf8
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aadfc
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae00
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae04
-.word func0f088840+0x134 # f088974
+.word propPickupByPlayer+0x134 # f088974
 glabel var7f1aae08
-.word func0f088840+0x590 # f088dd0
+.word propPickupByPlayer+0x590 # f088dd0
 glabel var7f1aae0c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae10
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae14
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae18
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae1c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae20
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae24
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae28
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae2c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae30
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae34
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae38
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae3c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae40
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae44
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae48
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae4c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae50
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae54
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae58
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae5c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae60
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae64
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae68
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae6c
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 glabel var7f1aae70
-.word func0f088840+0x6e0 # f088f20
+.word propPickupByPlayer+0x6e0 # f088f20
 .text
 /*  f088840:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f088844:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -62449,7 +62449,7 @@ glabel var7f1aae70
 );
 #endif
 
-//u32 func0f088840(struct prop *prop, bool showhudmsg)
+//u32 propPickupByPlayer(struct prop *prop, bool showhudmsg)
 //{
 //	struct defaultobj *obj = prop->obj; // sp156
 //	u32 sp148[2];
@@ -62756,718 +62756,238 @@ glabel var7f1aae70
 //	return 0;
 //}
 
-GLOBAL_ASM(
-glabel func0f089014
-.late_rodata
-glabel var7f1aae74
-.word 0x40c907a9
-glabel var7f1aae78
-.word 0xbf4907a9
-glabel var7f1aae7c
-.word 0x47ef4200
-glabel var7f1aae80
-.word 0x471c4000
-glabel var7f1aae84
-.word 0x461c4000
-.text
-/*  f089014:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f089018:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f08901c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f089020:	afa40088 */ 	sw	$a0,0x88($sp)
-/*  f089024:	8c850004 */ 	lw	$a1,0x4($a0)
-/*  f089028:	8caf0040 */ 	lw	$t7,0x40($a1)
-/*  f08902c:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f089030:	31f80004 */ 	andi	$t8,$t7,0x4
-/*  f089034:	13000003 */ 	beqz	$t8,.L0f089044
-/*  f089038:	00000000 */ 	nop
-/*  f08903c:	10000262 */ 	b	.L0f0899c8
-/*  f089040:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089044:
-/*  f089044:	0fc21465 */ 	jal	func0f085194
-/*  f089048:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f08904c:	1040000b */ 	beqz	$v0,.L0f08907c
-/*  f089050:	8fa40084 */ 	lw	$a0,0x84($sp)
-/*  f089054:	90990003 */ 	lbu	$t9,0x3($a0)
-/*  f089058:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f08905c:	53210008 */ 	beql	$t9,$at,.L0f089080
-/*  f089060:	8fa40084 */ 	lw	$a0,0x84($sp)
-/*  f089064:	8c820008 */ 	lw	$v0,0x8($a0)
-/*  f089068:	00024ac0 */ 	sll	$t1,$v0,0xb
-/*  f08906c:	0523000b */ 	bgezl	$t1,.L0f08909c
-/*  f089070:	00025b00 */ 	sll	$t3,$v0,0xc
-/*  f089074:	10000254 */ 	b	.L0f0899c8
-/*  f089078:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08907c:
-/*  f08907c:	8fa40084 */ 	lw	$a0,0x84($sp)
-.L0f089080:
-/*  f089080:	8c820008 */ 	lw	$v0,0x8($a0)
-/*  f089084:	00025340 */ 	sll	$t2,$v0,0xd
-/*  f089088:	05420004 */ 	bltzl	$t2,.L0f08909c
-/*  f08908c:	00025b00 */ 	sll	$t3,$v0,0xc
-/*  f089090:	1000024d */ 	b	.L0f0899c8
-/*  f089094:	00001025 */ 	or	$v0,$zero,$zero
-/*  f089098:	00025b00 */ 	sll	$t3,$v0,0xc
-.L0f08909c:
-/*  f08909c:	05630004 */ 	bgezl	$t3,.L0f0890b0
-/*  f0890a0:	8c8c0040 */ 	lw	$t4,0x40($a0)
-/*  f0890a4:	10000248 */ 	b	.L0f0899c8
-/*  f0890a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0890ac:	8c8c0040 */ 	lw	$t4,0x40($a0)
-.L0f0890b0:
-/*  f0890b0:	318d0080 */ 	andi	$t5,$t4,0x80
-/*  f0890b4:	11a00014 */ 	beqz	$t5,.L0f089108
-/*  f0890b8:	00000000 */ 	nop
-/*  f0890bc:	8c820048 */ 	lw	$v0,0x48($a0)
-/*  f0890c0:	8c4e00b4 */ 	lw	$t6,0xb4($v0)
-/*  f0890c4:	19c00010 */ 	blez	$t6,.L0f089108
-/*  f0890c8:	00000000 */ 	nop
-/*  f0890cc:	8c430108 */ 	lw	$v1,0x108($v0)
-/*  f0890d0:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f0890d4:	14600006 */ 	bnez	$v1,.L0f0890f0
-/*  f0890d8:	00000000 */ 	nop
-/*  f0890dc:	8c4f0090 */ 	lw	$t7,0x90($v0)
-/*  f0890e0:	15e00009 */ 	bnez	$t7,.L0f089108
-/*  f0890e4:	00000000 */ 	nop
-/*  f0890e8:	10000237 */ 	b	.L0f0899c8
-/*  f0890ec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0890f0:
-/*  f0890f0:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f0890f4:	8f1900bc */ 	lw	$t9,0xbc($t8)
-/*  f0890f8:	13230003 */ 	beq	$t9,$v1,.L0f089108
-/*  f0890fc:	00000000 */ 	nop
-/*  f089100:	10000231 */ 	b	.L0f0899c8
-/*  f089104:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089108:
-/*  f089108:	0fc19990 */ 	jal	objPassesSafePickupChecks
-/*  f08910c:	00000000 */ 	nop
-/*  f089110:	14400003 */ 	bnez	$v0,.L0f089120
-/*  f089114:	8fa50084 */ 	lw	$a1,0x84($sp)
-/*  f089118:	1000022b */ 	b	.L0f0899c8
-/*  f08911c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089120:
-/*  f089120:	90a20003 */ 	lbu	$v0,0x3($a1)
-/*  f089124:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f089128:	8fa90088 */ 	lw	$t1,0x88($sp)
-/*  f08912c:	544100b4 */ 	bnel	$v0,$at,.L0f089400
-/*  f089130:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f089134:	8d270004 */ 	lw	$a3,0x4($t1)
-/*  f089138:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f08913c:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f089140:	10810007 */ 	beq	$a0,$at,.L0f089160
-/*  f089144:	24010055 */ 	addiu	$at,$zero,0x55
-/*  f089148:	10810005 */ 	beq	$a0,$at,.L0f089160
-/*  f08914c:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f089150:	10810003 */ 	beq	$a0,$at,.L0f089160
-/*  f089154:	24010058 */ 	addiu	$at,$zero,0x58
-/*  f089158:	5481000b */ 	bnel	$a0,$at,.L0f089188
-/*  f08915c:	24010022 */ 	addiu	$at,$zero,0x22
-.L0f089160:
-/*  f089160:	84ea0062 */ 	lh	$t2,0x62($a3)
-/*  f089164:	05410005 */ 	bgez	$t2,.L0f08917c
-/*  f089168:	00000000 */ 	nop
-/*  f08916c:	8cab0040 */ 	lw	$t3,0x40($a1)
-/*  f089170:	316c0004 */ 	andi	$t4,$t3,0x4
-/*  f089174:	51800004 */ 	beqzl	$t4,.L0f089188
-/*  f089178:	24010022 */ 	addiu	$at,$zero,0x22
-.L0f08917c:
-/*  f08917c:	10000212 */ 	b	.L0f0899c8
-/*  f089180:	00001025 */ 	or	$v0,$zero,$zero
-/*  f089184:	24010022 */ 	addiu	$at,$zero,0x22
-.L0f089188:
-/*  f089188:	10810013 */ 	beq	$a0,$at,.L0f0891d8
-/*  f08918c:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f089190:	10810011 */ 	beq	$a0,$at,.L0f0891d8
-/*  f089194:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f089198:	1081000f */ 	beq	$a0,$at,.L0f0891d8
-/*  f08919c:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f0891a0:	54810005 */ 	bnel	$a0,$at,.L0f0891b8
-/*  f0891a4:	2401003e */ 	addiu	$at,$zero,0x3e
-/*  f0891a8:	90ed005f */ 	lbu	$t5,0x5f($a3)
-/*  f0891ac:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0891b0:	11a10009 */ 	beq	$t5,$at,.L0f0891d8
-/*  f0891b4:	2401003e */ 	addiu	$at,$zero,0x3e
-.L0f0891b8:
-/*  f0891b8:	10810007 */ 	beq	$a0,$at,.L0f0891d8
-/*  f0891bc:	2401003f */ 	addiu	$at,$zero,0x3f
-/*  f0891c0:	10810005 */ 	beq	$a0,$at,.L0f0891d8
-/*  f0891c4:	2401003d */ 	addiu	$at,$zero,0x3d
-/*  f0891c8:	10810003 */ 	beq	$a0,$at,.L0f0891d8
-/*  f0891cc:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f0891d0:	5481000b */ 	bnel	$a0,$at,.L0f089200
-/*  f0891d4:	24010053 */ 	addiu	$at,$zero,0x53
-.L0f0891d8:
-/*  f0891d8:	84ee0062 */ 	lh	$t6,0x62($a3)
-/*  f0891dc:	05c10005 */ 	bgez	$t6,.L0f0891f4
-/*  f0891e0:	00000000 */ 	nop
-/*  f0891e4:	8caf0040 */ 	lw	$t7,0x40($a1)
-/*  f0891e8:	31f80004 */ 	andi	$t8,$t7,0x4
-/*  f0891ec:	53000004 */ 	beqzl	$t8,.L0f089200
-/*  f0891f0:	24010053 */ 	addiu	$at,$zero,0x53
-.L0f0891f4:
-/*  f0891f4:	100001f4 */ 	b	.L0f0899c8
-/*  f0891f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0891fc:	24010053 */ 	addiu	$at,$zero,0x53
-.L0f089200:
-/*  f089200:	10810007 */ 	beq	$a0,$at,.L0f089220
-/*  f089204:	24010054 */ 	addiu	$at,$zero,0x54
-/*  f089208:	10810005 */ 	beq	$a0,$at,.L0f089220
-/*  f08920c:	24010056 */ 	addiu	$at,$zero,0x56
-/*  f089210:	10810003 */ 	beq	$a0,$at,.L0f089220
-/*  f089214:	2401001a */ 	addiu	$at,$zero,0x1a
-/*  f089218:	14810007 */ 	bne	$a0,$at,.L0f089238
-/*  f08921c:	00000000 */ 	nop
-.L0f089220:
-/*  f089220:	8cb90040 */ 	lw	$t9,0x40($a1)
-/*  f089224:	33290080 */ 	andi	$t1,$t9,0x80
-/*  f089228:	11200003 */ 	beqz	$t1,.L0f089238
-/*  f08922c:	00000000 */ 	nop
-/*  f089230:	100001e5 */ 	b	.L0f0899c8
-/*  f089234:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089238:
-/*  f089238:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f08923c:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f089240:	1040013c */ 	beqz	$v0,.L0f089734
-/*  f089244:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f089248:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f08924c:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f089250:	0fc2a685 */ 	jal	weaponGetAmmoType
-/*  f089254:	00002825 */ 	or	$a1,$zero,$zero
-/*  f089258:	10400136 */ 	beqz	$v0,.L0f089734
-/*  f08925c:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f089260:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f089264:	0fc41b99 */ 	jal	cheatIsActive
-/*  f089268:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f08926c:	14400006 */ 	bnez	$v0,.L0f089288
-/*  f089270:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f089274:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f089278:	0fc41b99 */ 	jal	cheatIsActive
-/*  f08927c:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f089280:	10400003 */ 	beqz	$v0,.L0f089290
-/*  f089284:	8fa70080 */ 	lw	$a3,0x80($sp)
-.L0f089288:
-/*  f089288:	1000000e */ 	b	.L0f0892c4
-/*  f08928c:	00008025 */ 	or	$s0,$zero,$zero
-.L0f089290:
-/*  f089290:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f089294:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f089298:	0fc2a69d */ 	jal	currentPlayerGetAmmoQuantityForWeapon
-/*  f08929c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0892a0:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0892a4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0892a8:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f0892ac:	0fc2a6c4 */ 	jal	weaponGetAmmoCapacity
-/*  f0892b0:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f0892b4:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f0892b8:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0892bc:	0062802a */ 	slt	$s0,$v1,$v0
-/*  f0892c0:	3a100001 */ 	xori	$s0,$s0,0x1
-.L0f0892c4:
-/*  f0892c4:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f0892c8:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f0892cc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0892d0:	1481000e */ 	bne	$a0,$at,.L0f08930c
-/*  f0892d4:	00000000 */ 	nop
-/*  f0892d8:	0fc2a69d */ 	jal	currentPlayerGetAmmoQuantityForWeapon
-/*  f0892dc:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0892e0:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0892e4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0892e8:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f0892ec:	0fc2a6c4 */ 	jal	weaponGetAmmoCapacity
-/*  f0892f0:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f0892f4:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f0892f8:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0892fc:	0062082a */ 	slt	$at,$v1,$v0
-/*  f089300:	10200002 */ 	beqz	$at,.L0f08930c
-/*  f089304:	00000000 */ 	nop
-/*  f089308:	00008025 */ 	or	$s0,$zero,$zero
-.L0f08930c:
-/*  f08930c:	12000109 */ 	beqz	$s0,.L0f089734
-/*  f089310:	00000000 */ 	nop
-/*  f089314:	8ce20064 */ 	lw	$v0,0x64($a3)
-/*  f089318:	14400005 */ 	bnez	$v0,.L0f089330
-/*  f08931c:	00000000 */ 	nop
-/*  f089320:	80ea0061 */ 	lb	$t2,0x61($a3)
-/*  f089324:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x318)
-/*  f089328:	05400015 */ 	bltz	$t2,.L0f089380
-/*  f08932c:	00000000 */ 	nop
-.L0f089330:
-/*  f089330:	10400004 */ 	beqz	$v0,.L0f089344
-/*  f089334:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f089338:	9045005c */ 	lbu	$a1,0x5c($v0)
-/*  f08933c:	10000003 */ 	b	.L0f08934c
-/*  f089340:	00a03025 */ 	or	$a2,$a1,$zero
-.L0f089344:
-/*  f089344:	80e50061 */ 	lb	$a1,0x61($a3)
-/*  f089348:	00a03025 */ 	or	$a2,$a1,$zero
-.L0f08934c:
-/*  f08934c:	8ceb0008 */ 	lw	$t3,0x8($a3)
-/*  f089350:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f089354:	05830004 */ 	bgezl	$t4,.L0f089368
-/*  f089358:	00803025 */ 	or	$a2,$a0,$zero
-/*  f08935c:	10000002 */ 	b	.L0f089368
-/*  f089360:	00802825 */ 	or	$a1,$a0,$zero
-/*  f089364:	00803025 */ 	or	$a2,$a0,$zero
-.L0f089368:
-/*  f089368:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
-/*  f08936c:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f089370:	104000f0 */ 	beqz	$v0,.L0f089734
-/*  f089374:	00000000 */ 	nop
-/*  f089378:	10000193 */ 	b	.L0f0899c8
-/*  f08937c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089380:
-/*  f089380:	8dada2d8 */ 	lw	$t5,%lo(g_Vars+0x318)($t5)
-/*  f089384:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*  f089388:	11a0001a */ 	beqz	$t5,.L0f0893f4
-/*  f08938c:	00000000 */ 	nop
-/*  f089390:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f089394:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f089398:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f08939c:	10400015 */ 	beqz	$v0,.L0f0893f4
-/*  f0893a0:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0893a4:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f0893a8:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0893ac:	0fc446ac */ 	jal	invHasDoubleWeaponExcAllGuns
-/*  f0893b0:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0893b4:	1440000f */ 	bnez	$v0,.L0f0893f4
-/*  f0893b8:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0893bc:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f0893c0:	0fc44674 */ 	jal	invFindSingleWeapon
-/*  f0893c4:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f0893c8:	10400005 */ 	beqz	$v0,.L0f0893e0
-/*  f0893cc:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f0893d0:	84ee0006 */ 	lh	$t6,0x6($a3)
-/*  f0893d4:	844f0006 */ 	lh	$t7,0x6($v0)
-/*  f0893d8:	11cf0004 */ 	beq	$t6,$t7,.L0f0893ec
-/*  f0893dc:	00000000 */ 	nop
-.L0f0893e0:
-/*  f0893e0:	84f80006 */ 	lh	$t8,0x6($a3)
-/*  f0893e4:	070100d3 */ 	bgez	$t8,.L0f089734
-/*  f0893e8:	00000000 */ 	nop
-.L0f0893ec:
-/*  f0893ec:	10000176 */ 	b	.L0f0899c8
-/*  f0893f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0893f4:
-/*  f0893f4:	10000174 */ 	b	.L0f0899c8
-/*  f0893f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0893fc:	24010007 */ 	addiu	$at,$zero,0x7
-.L0f089400:
-/*  f089400:	1441004d */ 	bne	$v0,$at,.L0f089538
-/*  f089404:	8fb90088 */ 	lw	$t9,0x88($sp)
-/*  f089408:	8f300004 */ 	lw	$s0,0x4($t9)
-/*  f08940c:	0fc2a5dc */ 	jal	currentPlayerGetAmmoCountWithCheck
-/*  f089410:	8e04005c */ 	lw	$a0,0x5c($s0)
-/*  f089414:	8e04005c */ 	lw	$a0,0x5c($s0)
-/*  f089418:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
-/*  f08941c:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f089420:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f089424:	0062082a */ 	slt	$at,$v1,$v0
-/*  f089428:	142000c2 */ 	bnez	$at,.L0f089734
-/*  f08942c:	00000000 */ 	nop
-/*  f089430:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f089434:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f089438:	54410007 */ 	bnel	$v0,$at,.L0f089458
-/*  f08943c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f089440:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089444:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*  f089448:	104000ba */ 	beqz	$v0,.L0f089734
-/*  f08944c:	00000000 */ 	nop
-/*  f089450:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f089454:	24010014 */ 	addiu	$at,$zero,0x14
-.L0f089458:
-/*  f089458:	54410007 */ 	bnel	$v0,$at,.L0f089478
-/*  f08945c:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f089460:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089464:	24040031 */ 	addiu	$a0,$zero,0x31
-/*  f089468:	104000b2 */ 	beqz	$v0,.L0f089734
-/*  f08946c:	00000000 */ 	nop
-/*  f089470:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f089474:	24010015 */ 	addiu	$at,$zero,0x15
-.L0f089478:
-/*  f089478:	54410007 */ 	bnel	$v0,$at,.L0f089498
-/*  f08947c:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f089480:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089484:	24040023 */ 	addiu	$a0,$zero,0x23
-/*  f089488:	104000aa */ 	beqz	$v0,.L0f089734
-/*  f08948c:	00000000 */ 	nop
-/*  f089490:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f089494:	24010012 */ 	addiu	$at,$zero,0x12
-.L0f089498:
-/*  f089498:	54410007 */ 	bnel	$v0,$at,.L0f0894b8
-/*  f08949c:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f0894a0:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f0894a4:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*  f0894a8:	104000a2 */ 	beqz	$v0,.L0f089734
-/*  f0894ac:	00000000 */ 	nop
-/*  f0894b0:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f0894b4:	2401000c */ 	addiu	$at,$zero,0xc
-.L0f0894b8:
-/*  f0894b8:	54410007 */ 	bnel	$v0,$at,.L0f0894d8
-/*  f0894bc:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f0894c0:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f0894c4:	24040022 */ 	addiu	$a0,$zero,0x22
-/*  f0894c8:	1040009a */ 	beqz	$v0,.L0f089734
-/*  f0894cc:	00000000 */ 	nop
-/*  f0894d0:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f0894d4:	2401000d */ 	addiu	$at,$zero,0xd
-.L0f0894d8:
-/*  f0894d8:	54410007 */ 	bnel	$v0,$at,.L0f0894f8
-/*  f0894dc:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f0894e0:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f0894e4:	24040021 */ 	addiu	$a0,$zero,0x21
-/*  f0894e8:	10400092 */ 	beqz	$v0,.L0f089734
-/*  f0894ec:	00000000 */ 	nop
-/*  f0894f0:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f0894f4:	2401000e */ 	addiu	$at,$zero,0xe
-.L0f0894f8:
-/*  f0894f8:	54410007 */ 	bnel	$v0,$at,.L0f089518
-/*  f0894fc:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f089500:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089504:	24040020 */ 	addiu	$a0,$zero,0x20
-/*  f089508:	1040008a */ 	beqz	$v0,.L0f089734
-/*  f08950c:	00000000 */ 	nop
-/*  f089510:	8e02005c */ 	lw	$v0,0x5c($s0)
-/*  f089514:	24010009 */ 	addiu	$at,$zero,0x9
-.L0f089518:
-/*  f089518:	14410005 */ 	bne	$v0,$at,.L0f089530
-/*  f08951c:	00000000 */ 	nop
-/*  f089520:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089524:	2404001a */ 	addiu	$a0,$zero,0x1a
-/*  f089528:	10400082 */ 	beqz	$v0,.L0f089734
-/*  f08952c:	00000000 */ 	nop
-.L0f089530:
-/*  f089530:	10000125 */ 	b	.L0f0899c8
-/*  f089534:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089538:
-/*  f089538:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f08953c:	1441005c */ 	bne	$v0,$at,.L0f0896b0
-/*  f089540:	8fa90088 */ 	lw	$t1,0x88($sp)
-/*  f089544:	8d300004 */ 	lw	$s0,0x4($t1)
-/*  f089548:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f08954c:	afaa0064 */ 	sw	$t2,0x64($sp)
-/*  f089550:	0fc1a1ee */ 	jal	objGetDestroyedValue
-/*  f089554:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f089558:	10400003 */ 	beqz	$v0,.L0f089568
-/*  f08955c:	02001825 */ 	or	$v1,$s0,$zero
-/*  f089560:	10000119 */ 	b	.L0f0899c8
-/*  f089564:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089568:
-/*  f089568:	00001025 */ 	or	$v0,$zero,$zero
-.L0f08956c:
-/*  f08956c:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f089570:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f089574:	946b005e */ 	lhu	$t3,0x5e($v1)
-/*  f089578:	24500001 */ 	addiu	$s0,$v0,0x1
-/*  f08957c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f089580:	59600041 */ 	blezl	$t3,.L0f089688
-/*  f089584:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f089588:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f08958c:	0fc2a5dc */ 	jal	currentPlayerGetAmmoCountWithCheck
-/*  f089590:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f089594:	02002025 */ 	or	$a0,$s0,$zero
-/*  f089598:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
-/*  f08959c:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f0895a0:	8fa30030 */ 	lw	$v1,0x30($sp)
-/*  f0895a4:	0062082a */ 	slt	$at,$v1,$v0
-/*  f0895a8:	50200004 */ 	beqzl	$at,.L0f0895bc
-/*  f0895ac:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f0895b0:	1000003a */ 	b	.L0f08969c
-/*  f0895b4:	afa00064 */ 	sw	$zero,0x64($sp)
-/*  f0895b8:	24010007 */ 	addiu	$at,$zero,0x7
-.L0f0895bc:
-/*  f0895bc:	56010005 */ 	bnel	$s0,$at,.L0f0895d4
-/*  f0895c0:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f0895c4:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f0895c8:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*  f0895cc:	1040002b */ 	beqz	$v0,.L0f08967c
-/*  f0895d0:	24010014 */ 	addiu	$at,$zero,0x14
-.L0f0895d4:
-/*  f0895d4:	56010005 */ 	bnel	$s0,$at,.L0f0895ec
-/*  f0895d8:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f0895dc:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f0895e0:	24040031 */ 	addiu	$a0,$zero,0x31
-/*  f0895e4:	10400025 */ 	beqz	$v0,.L0f08967c
-/*  f0895e8:	24010015 */ 	addiu	$at,$zero,0x15
-.L0f0895ec:
-/*  f0895ec:	56010005 */ 	bnel	$s0,$at,.L0f089604
-/*  f0895f0:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f0895f4:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f0895f8:	24040023 */ 	addiu	$a0,$zero,0x23
-/*  f0895fc:	1040001f */ 	beqz	$v0,.L0f08967c
-/*  f089600:	24010012 */ 	addiu	$at,$zero,0x12
-.L0f089604:
-/*  f089604:	56010005 */ 	bnel	$s0,$at,.L0f08961c
-/*  f089608:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f08960c:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089610:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*  f089614:	10400019 */ 	beqz	$v0,.L0f08967c
-/*  f089618:	2401000c */ 	addiu	$at,$zero,0xc
-.L0f08961c:
-/*  f08961c:	56010005 */ 	bnel	$s0,$at,.L0f089634
-/*  f089620:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f089624:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089628:	24040022 */ 	addiu	$a0,$zero,0x22
-/*  f08962c:	10400013 */ 	beqz	$v0,.L0f08967c
-/*  f089630:	2401000d */ 	addiu	$at,$zero,0xd
-.L0f089634:
-/*  f089634:	56010005 */ 	bnel	$s0,$at,.L0f08964c
-/*  f089638:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f08963c:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089640:	24040021 */ 	addiu	$a0,$zero,0x21
-/*  f089644:	1040000d */ 	beqz	$v0,.L0f08967c
-/*  f089648:	2401000e */ 	addiu	$at,$zero,0xe
-.L0f08964c:
-/*  f08964c:	56010005 */ 	bnel	$s0,$at,.L0f089664
-/*  f089650:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f089654:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089658:	24040020 */ 	addiu	$a0,$zero,0x20
-/*  f08965c:	10400007 */ 	beqz	$v0,.L0f08967c
-/*  f089660:	24010009 */ 	addiu	$at,$zero,0x9
-.L0f089664:
-/*  f089664:	56010008 */ 	bnel	$s0,$at,.L0f089688
-/*  f089668:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f08966c:	0fc4468a */ 	jal	invHasSingleWeaponExcAllGuns
-/*  f089670:	2404001a */ 	addiu	$a0,$zero,0x1a
-/*  f089674:	54400004 */ 	bnezl	$v0,.L0f089688
-/*  f089678:	8fa20060 */ 	lw	$v0,0x60($sp)
-.L0f08967c:
-/*  f08967c:	10000007 */ 	b	.L0f08969c
-/*  f089680:	afa00064 */ 	sw	$zero,0x64($sp)
-/*  f089684:	8fa20060 */ 	lw	$v0,0x60($sp)
-.L0f089688:
-/*  f089688:	8fa30028 */ 	lw	$v1,0x28($sp)
-/*  f08968c:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f089690:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f089694:	1441ffb5 */ 	bne	$v0,$at,.L0f08956c
-/*  f089698:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f08969c:
-/*  f08969c:	8fac0064 */ 	lw	$t4,0x64($sp)
-/*  f0896a0:	11800024 */ 	beqz	$t4,.L0f089734
-/*  f0896a4:	00000000 */ 	nop
-/*  f0896a8:	100000c7 */ 	b	.L0f0899c8
-/*  f0896ac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0896b0:
-/*  f0896b0:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f0896b4:	1441001f */ 	bne	$v0,$at,.L0f089734
-/*  f0896b8:	8fad0088 */ 	lw	$t5,0x88($sp)
-/*  f0896bc:	8dae0004 */ 	lw	$t6,0x4($t5)
-/*  f0896c0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0896c4:	0fc30869 */ 	jal	currentPlayerGetShieldFrac
-/*  f0896c8:	afae0058 */ 	sw	$t6,0x58($sp)
-/*  f0896cc:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f0896d0:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x318)
-/*  f0896d4:	c5e40060 */ 	lwc1	$f4,0x60($t7)
-/*  f0896d8:	4600203e */ 	c.le.s	$f4,$f0
-/*  f0896dc:	00000000 */ 	nop
-/*  f0896e0:	45000003 */ 	bc1f	.L0f0896f0
-/*  f0896e4:	00000000 */ 	nop
-/*  f0896e8:	1000000e */ 	b	.L0f089724
-/*  f0896ec:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f0896f0:
-/*  f0896f0:	8f18a2d8 */ 	lw	$t8,%lo(g_Vars+0x318)($t8)
-/*  f0896f4:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x10)
-/*  f0896f8:	1300000a */ 	beqz	$t8,.L0f089724
-/*  f0896fc:	00000000 */ 	nop
-/*  f089700:	9339cb98 */ 	lbu	$t9,%lo(g_MpSetup+0x10)($t9)
-/*  f089704:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f089708:	17210006 */ 	bne	$t9,$at,.L0f089724
-/*  f08970c:	00000000 */ 	nop
-/*  f089710:	0fc44a11 */ 	jal	invHasBriefcase
-/*  f089714:	00000000 */ 	nop
-/*  f089718:	10400002 */ 	beqz	$v0,.L0f089724
-/*  f08971c:	00000000 */ 	nop
-/*  f089720:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f089724:
-/*  f089724:	12000003 */ 	beqz	$s0,.L0f089734
-/*  f089728:	00000000 */ 	nop
-/*  f08972c:	100000a6 */ 	b	.L0f0899c8
-/*  f089730:	00001025 */ 	or	$v0,$zero,$zero
-.L0f089734:
-/*  f089734:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f089738:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f08973c:	3c017f1b */ 	lui	$at,%hi(var7f1aae74)
-/*  f089740:	c428ae74 */ 	lwc1	$f8,%lo(var7f1aae74)($at)
-/*  f089744:	c4460154 */ 	lwc1	$f6,0x154($v0)
-/*  f089748:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f08974c:	44818000 */ 	mtc1	$at,$f16
-/*  f089750:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f089754:	3c017f1b */ 	lui	$at,%hi(var7f1aae78)
-/*  f089758:	c424ae78 */ 	lwc1	$f4,%lo(var7f1aae78)($at)
-/*  f08975c:	8fa50084 */ 	lw	$a1,0x84($sp)
-/*  f089760:	8faa0088 */ 	lw	$t2,0x88($sp)
-/*  f089764:	3c012000 */ 	lui	$at,0x2000
-/*  f089768:	46105483 */ 	div.s	$f18,$f10,$f16
-/*  f08976c:	4604903c */ 	c.lt.s	$f18,$f4
-/*  f089770:	00000000 */ 	nop
-/*  f089774:	45020007 */ 	bc1fl	.L0f089794
-/*  f089778:	8c4800bc */ 	lw	$t0,0xbc($v0)
-/*  f08977c:	8c4918f0 */ 	lw	$t1,0x18f0($v0)
-/*  f089780:	05230004 */ 	bgezl	$t1,.L0f089794
-/*  f089784:	8c4800bc */ 	lw	$t0,0xbc($v0)
-/*  f089788:	1000008f */ 	b	.L0f0899c8
-/*  f08978c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f089790:	8c4800bc */ 	lw	$t0,0xbc($v0)
-.L0f089794:
-/*  f089794:	8ca30010 */ 	lw	$v1,0x10($a1)
-/*  f089798:	c5460008 */ 	lwc1	$f6,0x8($t2)
-/*  f08979c:	c54a000c */ 	lwc1	$f10,0xc($t2)
-/*  f0897a0:	c5520010 */ 	lwc1	$f18,0x10($t2)
-/*  f0897a4:	c5080008 */ 	lwc1	$f8,0x8($t0)
-/*  f0897a8:	c510000c */ 	lwc1	$f16,0xc($t0)
-/*  f0897ac:	c5040010 */ 	lwc1	$f4,0x10($t0)
-/*  f0897b0:	00615824 */ 	and	$t3,$v1,$at
-/*  f0897b4:	000b182b */ 	sltu	$v1,$zero,$t3
-/*  f0897b8:	46083081 */ 	sub.s	$f2,$f6,$f8
-/*  f0897bc:	46105381 */ 	sub.s	$f14,$f10,$f16
-/*  f0897c0:	10600018 */ 	beqz	$v1,.L0f089824
-/*  f0897c4:	46049301 */ 	sub.s	$f12,$f18,$f4
-/*  f0897c8:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f0897cc:	afa80050 */ 	sw	$t0,0x50($sp)
-/*  f0897d0:	e7a2004c */ 	swc1	$f2,0x4c($sp)
-/*  f0897d4:	e7ac0044 */ 	swc1	$f12,0x44($sp)
-/*  f0897d8:	0fc41b99 */ 	jal	cheatIsActive
-/*  f0897dc:	e7ae0048 */ 	swc1	$f14,0x48($sp)
-/*  f0897e0:	0002182b */ 	sltu	$v1,$zero,$v0
-/*  f0897e4:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f0897e8:	c7a2004c */ 	lwc1	$f2,0x4c($sp)
-/*  f0897ec:	c7ac0044 */ 	lwc1	$f12,0x44($sp)
-/*  f0897f0:	1460000c */ 	bnez	$v1,.L0f089824
-/*  f0897f4:	c7ae0048 */ 	lwc1	$f14,0x48($sp)
-/*  f0897f8:	24040011 */ 	addiu	$a0,$zero,0x11
-/*  f0897fc:	afa80050 */ 	sw	$t0,0x50($sp)
-/*  f089800:	e7a2004c */ 	swc1	$f2,0x4c($sp)
-/*  f089804:	e7ac0044 */ 	swc1	$f12,0x44($sp)
-/*  f089808:	0fc41b99 */ 	jal	cheatIsActive
-/*  f08980c:	e7ae0048 */ 	swc1	$f14,0x48($sp)
-/*  f089810:	8fa80050 */ 	lw	$t0,0x50($sp)
-/*  f089814:	c7a2004c */ 	lwc1	$f2,0x4c($sp)
-/*  f089818:	c7ac0044 */ 	lwc1	$f12,0x44($sp)
-/*  f08981c:	c7ae0048 */ 	lwc1	$f14,0x48($sp)
-/*  f089820:	0002182b */ 	sltu	$v1,$zero,$v0
-.L0f089824:
-/*  f089824:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x284)
-/*  f089828:	8dada244 */ 	lw	$t5,%lo(g_Vars+0x284)($t5)
-/*  f08982c:	8fa50084 */ 	lw	$a1,0x84($sp)
-/*  f089830:	00602025 */ 	or	$a0,$v1,$zero
-/*  f089834:	8dae18f0 */ 	lw	$t6,0x18f0($t5)
-/*  f089838:	29c1003c */ 	slti	$at,$t6,0x3c
-/*  f08983c:	14200022 */ 	bnez	$at,.L0f0898c8
-/*  f089840:	00000000 */ 	nop
-/*  f089844:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f089848:	3c017f1b */ 	lui	$at,%hi(var7f1aae7c)
-/*  f08984c:	c430ae7c */ 	lwc1	$f16,%lo(var7f1aae7c)($at)
-/*  f089850:	460c6202 */ 	mul.s	$f8,$f12,$f12
-/*  f089854:	3c01c3fa */ 	lui	$at,0xc3fa
-/*  f089858:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08985c:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f089860:	4610503e */ 	c.le.s	$f10,$f16
-/*  f089864:	00000000 */ 	nop
-/*  f089868:	45000002 */ 	bc1f	.L0f089874
-/*  f08986c:	00000000 */ 	nop
-/*  f089870:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f089874:
-/*  f089874:	10400012 */ 	beqz	$v0,.L0f0898c0
-/*  f089878:	00401825 */ 	or	$v1,$v0,$zero
-/*  f08987c:	44819000 */ 	mtc1	$at,$f18
-/*  f089880:	3c0143fa */ 	lui	$at,0x43fa
-/*  f089884:	00001025 */ 	or	$v0,$zero,$zero
-/*  f089888:	460e903e */ 	c.le.s	$f18,$f14
-/*  f08988c:	00000000 */ 	nop
-/*  f089890:	45000002 */ 	bc1f	.L0f08989c
-/*  f089894:	00000000 */ 	nop
-/*  f089898:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f08989c:
-/*  f08989c:	10400008 */ 	beqz	$v0,.L0f0898c0
-/*  f0898a0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0898a4:	44812000 */ 	mtc1	$at,$f4
-/*  f0898a8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0898ac:	4604703e */ 	c.le.s	$f14,$f4
-/*  f0898b0:	00000000 */ 	nop
-/*  f0898b4:	45000002 */ 	bc1f	.L0f0898c0
-/*  f0898b8:	00000000 */ 	nop
-/*  f0898bc:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0898c0:
-/*  f0898c0:	10000026 */ 	b	.L0f08995c
-/*  f0898c4:	00608025 */ 	or	$s0,$v1,$zero
-.L0f0898c8:
-/*  f0898c8:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f0898cc:	3c017f1b */ 	lui	$at,%hi(var7f1aae80)
-/*  f0898d0:	460c6202 */ 	mul.s	$f8,$f12,$f12
-/*  f0898d4:	10600004 */ 	beqz	$v1,.L0f0898e8
-/*  f0898d8:	00000000 */ 	nop
-/*  f0898dc:	3c017f1b */ 	lui	$at,%hi(var7f1aae84)
-/*  f0898e0:	10000002 */ 	b	.L0f0898ec
-/*  f0898e4:	c420ae80 */ 	lwc1	$f0,%lo(var7f1aae80)($at)
-.L0f0898e8:
-/*  f0898e8:	c420ae84 */ 	lwc1	$f0,%lo(var7f1aae84)($at)
-.L0f0898ec:
-/*  f0898ec:	46083400 */ 	add.s	$f16,$f6,$f8
-/*  f0898f0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0898f4:	3c01c348 */ 	lui	$at,0xc348
-/*  f0898f8:	4600803e */ 	c.le.s	$f16,$f0
-/*  f0898fc:	00000000 */ 	nop
-/*  f089900:	45000002 */ 	bc1f	.L0f08990c
-/*  f089904:	00000000 */ 	nop
-/*  f089908:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f08990c:
-/*  f08990c:	10400012 */ 	beqz	$v0,.L0f089958
-/*  f089910:	00401825 */ 	or	$v1,$v0,$zero
-/*  f089914:	44815000 */ 	mtc1	$at,$f10
-/*  f089918:	3c014348 */ 	lui	$at,0x4348
-/*  f08991c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f089920:	460e503e */ 	c.le.s	$f10,$f14
-/*  f089924:	00000000 */ 	nop
-/*  f089928:	45000002 */ 	bc1f	.L0f089934
-/*  f08992c:	00000000 */ 	nop
-/*  f089930:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f089934:
-/*  f089934:	10400008 */ 	beqz	$v0,.L0f089958
-/*  f089938:	00401825 */ 	or	$v1,$v0,$zero
-/*  f08993c:	44819000 */ 	mtc1	$at,$f18
-/*  f089940:	00001825 */ 	or	$v1,$zero,$zero
-/*  f089944:	4612703e */ 	c.le.s	$f14,$f18
-/*  f089948:	00000000 */ 	nop
-/*  f08994c:	45020003 */ 	bc1fl	.L0f08995c
-/*  f089950:	00608025 */ 	or	$s0,$v1,$zero
-/*  f089954:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f089958:
-/*  f089958:	00608025 */ 	or	$s0,$v1,$zero
-.L0f08995c:
-/*  f08995c:	10600013 */ 	beqz	$v1,.L0f0899ac
-/*  f089960:	00000000 */ 	nop
-/*  f089964:	8caf000c */ 	lw	$t7,0xc($a1)
-/*  f089968:	31f81000 */ 	andi	$t8,$t7,0x1000
-/*  f08996c:	1700000f */ 	bnez	$t8,.L0f0899ac
-/*  f089970:	00000000 */ 	nop
-/*  f089974:	1480000d */ 	bnez	$a0,.L0f0899ac
-/*  f089978:	25050028 */ 	addiu	$a1,$t0,0x28
-/*  f08997c:	8fb90088 */ 	lw	$t9,0x88($sp)
-/*  f089980:	24090022 */ 	addiu	$t1,$zero,0x22
-/*  f089984:	240a001c */ 	addiu	$t2,$zero,0x1c
-/*  f089988:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f08998c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f089990:	25040008 */ 	addiu	$a0,$t0,0x8
-/*  f089994:	27260008 */ 	addiu	$a2,$t9,0x8
-/*  f089998:	0c00b70f */ 	jal	hasLineOfSight
-/*  f08999c:	27270028 */ 	addiu	$a3,$t9,0x28
-/*  f0899a0:	14400002 */ 	bnez	$v0,.L0f0899ac
-/*  f0899a4:	00000000 */ 	nop
-/*  f0899a8:	00008025 */ 	or	$s0,$zero,$zero
-.L0f0899ac:
-/*  f0899ac:	12000006 */ 	beqz	$s0,.L0f0899c8
-/*  f0899b0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0899b4:	8fa40088 */ 	lw	$a0,0x88($sp)
-/*  f0899b8:	0fc22210 */ 	jal	func0f088840
-/*  f0899bc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0899c0:	10000002 */ 	b	.L0f0899cc
-/*  f0899c4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0899c8:
-/*  f0899c8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f0899cc:
-/*  f0899cc:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0899d0:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f0899d4:	03e00008 */ 	jr	$ra
-/*  f0899d8:	00000000 */ 	nop
-);
+s32 objTestForPickup(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if (obj->hidden & OBJHFLAG_REAPABLE) {
+		return TICKOP_NONE;
+	}
+
+	if (func0f085194(obj) && obj->type != OBJTYPE_HAT) {
+		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
+			return TICKOP_NONE;
+		}
+	} else {
+		if ((obj->flags & OBJFLAG_COLLECTABLE) == 0) {
+			return TICKOP_NONE;
+		}
+	}
+
+	if (obj->flags & OBJFLAG_THROWNLAPTOP) {
+		return TICKOP_NONE;
+	}
+
+	if ((obj->hidden & OBJHFLAG_AIRBORNE) && obj->projectile->unk0b4 > 0) {
+		if (obj->projectile->unk108 == NULL) {
+			if (obj->projectile->unk090 == 0) {
+				return TICKOP_NONE;
+			}
+		} else {
+			if (obj->projectile->unk108 != g_Vars.currentplayer->prop) {
+				return TICKOP_NONE;
+			}
+		}
+	}
+
+	if (!objPassesSafePickupChecks(obj)) {
+		return TICKOP_NONE;
+	}
+
+	if (obj->type == OBJTYPE_WEAPON) {
+		struct weaponobj *weapon = prop->weapon;
+		bool maybe = true;
+		s32 leftweaponnum;
+		s32 rightweaponnum;
+
+		if (weapon->weaponnum == WEAPON_GRENADE
+				|| weapon->weaponnum == WEAPON_GRENADEROUND
+				|| weapon->weaponnum == WEAPON_NBOMB
+				|| weapon->weaponnum == WEAPON_SKROCKET) {
+			if (weapon->timer240 >= 0 || (obj->hidden & OBJHFLAG_REAPABLE)) {
+				return TICKOP_NONE;
+			}
+		}
+
+		if (weapon->weaponnum == WEAPON_REMOTEMINE
+				|| weapon->weaponnum == WEAPON_PROXIMITYMINE
+				|| weapon->weaponnum == WEAPON_TIMEDMINE
+				|| (weapon->weaponnum == WEAPON_DRAGON && weapon->gunfunc == FUNC_SECONDARY)
+				|| weapon->weaponnum == WEAPON_TRACERBUG
+				|| weapon->weaponnum == WEAPON_TARGETAMPLIFIER
+				|| weapon->weaponnum == WEAPON_COMMSRIDER
+				|| weapon->weaponnum == WEAPON_ECMMINE) {
+			if (weapon->timer240 >= 0 || (obj->hidden & OBJHFLAG_REAPABLE)) {
+				return TICKOP_NONE;
+			}
+		}
+
+		if (weapon->weaponnum == WEAPON_ROCKET
+				|| weapon->weaponnum == WEAPON_HOMINGROCKET
+				|| weapon->weaponnum == WEAPON_BOLT
+				|| weapon->weaponnum == WEAPON_COMBATKNIFE) {
+			if (obj->hidden & OBJHFLAG_AIRBORNE) {
+				return TICKOP_NONE;
+			}
+		}
+
+		if (invHasSingleWeaponExcAllGuns(weapon->weaponnum) && weaponGetAmmoType(weapon->weaponnum, FUNC_PRIMARY)) {
+			if (cheatIsActive(CHEAT_UNLIMITEDAMMO) || cheatIsActive(CHEAT_UNLIMITEDAMMONORELOADS)) {
+				maybe = false;
+			} else {
+				maybe = currentPlayerGetAmmoQuantityForWeapon(weapon->weaponnum, FUNC_PRIMARY) >= weaponGetAmmoCapacity(weapon->weaponnum, FUNC_PRIMARY);
+			}
+
+			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
+				if (currentPlayerGetAmmoQuantityForWeapon(weapon->weaponnum, FUNC_SECONDARY) < weaponGetAmmoCapacity(weapon->weaponnum, FUNC_SECONDARY)) {
+					maybe = false;
+				}
+			}
+
+			if (maybe) {
+				if (weapon->dualweapon || weapon->dualweaponnum >= 0) {
+					if (weapon->dualweapon) {
+						leftweaponnum = rightweaponnum = weapon->dualweapon->weaponnum;
+					} else {
+						leftweaponnum = rightweaponnum = weapon->dualweaponnum;
+					}
+
+					if ((weapon->base.flags & OBJFLAG_DEACTIVATED)) {
+						rightweaponnum = weapon->weaponnum;
+					} else {
+						leftweaponnum = weapon->weaponnum;
+					}
+
+					if (invHasDoubleWeaponExcAllGuns(leftweaponnum, rightweaponnum)) {
+						return TICKOP_NONE;
+					}
+				} else {
+					if (g_Vars.normmplayerisrunning
+							&& weaponHasFlag(weapon->weaponnum, WEAPONFLAG_DUALWIELD)
+							&& !invHasDoubleWeaponExcAllGuns(weapon->weaponnum, weapon->weaponnum)) {
+						struct invitem *item = invFindSingleWeapon(weapon->weaponnum);
+
+						if ((item && item->type_weap.pickuppad == weapon->base.pad) || weapon->base.pad < 0) {
+							return TICKOP_NONE;
+						}
+					} else {
+						return TICKOP_NONE;
+					}
+				}
+			}
+		}
+	} else if (obj->type == OBJTYPE_AMMOCRATE) {
+		struct ammocrateobj *crate = (struct ammocrateobj *) prop->obj;
+
+		if (currentPlayerGetAmmoCountWithCheck(crate->ammotype) >= ammotypeGetMaxCapacity(crate->ammotype)) {
+			if ((crate->ammotype != AMMOTYPE_GRENADE || invHasSingleWeaponExcAllGuns(WEAPON_GRENADE))
+					&& (crate->ammotype != AMMOTYPE_CLOAK || invHasSingleWeaponExcAllGuns(WEAPON_CLOAKINGDEVICE))
+					&& (crate->ammotype != AMMOTYPE_BOOST || invHasSingleWeaponExcAllGuns(WEAPON_COMBATBOOST))
+					&& (crate->ammotype != AMMOTYPE_NBOMB || invHasSingleWeaponExcAllGuns(WEAPON_NBOMB))
+					&& (crate->ammotype != AMMOTYPE_REMOTE_MINE || invHasSingleWeaponExcAllGuns(WEAPON_REMOTEMINE))
+					&& (crate->ammotype != AMMOTYPE_PROXY_MINE || invHasSingleWeaponExcAllGuns(WEAPON_PROXIMITYMINE))
+					&& (crate->ammotype != AMMOTYPE_TIMED_MINE || invHasSingleWeaponExcAllGuns(WEAPON_TIMEDMINE))
+					&& (crate->ammotype != AMMOTYPE_KNIFE || invHasSingleWeaponExcAllGuns(WEAPON_COMBATKNIFE))) {
+				return TICKOP_NONE;
+			}
+		}
+	} else if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
+		struct multiammocrateobj *crate = (struct multiammocrateobj *) prop->obj;
+		bool ignore = true;
+		s32 i;
+
+		if (objGetDestroyedValue(obj)) {
+			return TICKOP_NONE;
+		}
+
+		for (i = 0; i <= AMMOTYPE_NBOMB; i++) {
+			s32 ammotype = i + 1;
+
+			if (crate->slots[i].quantity > 0) {
+				if (currentPlayerGetAmmoCountWithCheck(ammotype) < ammotypeGetMaxCapacity(ammotype)) {
+					ignore = false;
+					break;
+				}
+
+				if ((ammotype == AMMOTYPE_GRENADE && !invHasSingleWeaponExcAllGuns(WEAPON_GRENADE))
+						|| (ammotype == AMMOTYPE_CLOAK && !invHasSingleWeaponExcAllGuns(WEAPON_CLOAKINGDEVICE))
+						|| (ammotype == AMMOTYPE_BOOST && !invHasSingleWeaponExcAllGuns(WEAPON_COMBATBOOST))
+						|| (ammotype == AMMOTYPE_NBOMB && !invHasSingleWeaponExcAllGuns(WEAPON_NBOMB))
+						|| (ammotype == AMMOTYPE_REMOTE_MINE && !invHasSingleWeaponExcAllGuns(WEAPON_REMOTEMINE))
+						|| (ammotype == AMMOTYPE_PROXY_MINE && !invHasSingleWeaponExcAllGuns(WEAPON_PROXIMITYMINE))
+						|| (ammotype == AMMOTYPE_TIMED_MINE && !invHasSingleWeaponExcAllGuns(WEAPON_TIMEDMINE))
+						|| (ammotype == AMMOTYPE_KNIFE && !invHasSingleWeaponExcAllGuns(WEAPON_COMBATKNIFE))) {
+					ignore = false;
+					break;
+				}
+			}
+		}
+
+		if (ignore) {
+			return TICKOP_NONE;
+		}
+	} else if (obj->type == OBJTYPE_SHIELD) {
+		struct shieldobj *shield = (struct shieldobj *) prop->obj;
+		bool ignore = false;
+
+		if (shield->amount <= currentPlayerGetShieldFrac()) {
+			ignore = true;
+		} else if (g_Vars.normmplayerisrunning
+				&& g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE
+				&& invHasBriefcase()) {
+			ignore = true;
+		}
+
+		if (ignore) {
+			return TICKOP_NONE;
+		}
+	}
+
+	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < -0.7852731347084f) {
+		if (g_Vars.currentplayer->magnetattracttime < 0) {
+			return TICKOP_NONE;
+		}
+	}
+
+	{
+		struct prop *playerprop = g_Vars.currentplayer->prop;
+		f32 xdiff = prop->pos.x - playerprop->pos.x;
+		f32 ydiff = prop->pos.y - playerprop->pos.y;
+		f32 zdiff = prop->pos.z - playerprop->pos.z;
+		f32 range;
+		bool usebigrange;
+		bool pickup;
+		u32 stack;
+
+		usebigrange = (obj->flags3 & OBJFLAG3_20000000)
+			&& (cheatIsActive(CHEAT_SMALLJO) || cheatIsActive(CHEAT_PLAYASELVIS));
+
+		if (g_Vars.currentplayer->magnetattracttime >= 60) {
+			pickup = xdiff * xdiff + zdiff * zdiff <= 350 * 350 && ydiff >= -500 && ydiff <= 500;
+		} else {
+			if (usebigrange) {
+				range = 200 * 200;
+			} else {
+				range = 100 * 100;
+			}
+
+			pickup = xdiff * xdiff + zdiff * zdiff <= range && ydiff >= -200 && ydiff <= 200;
+		}
+
+		if (pickup
+				&& (obj->flags2 & OBJFLAG2_00001000) == 0
+				&& !usebigrange
+				&& hasLineOfSight(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x22, 0x1c) == 0) {
+			pickup = false;
+		}
+
+		if (pickup) {
+			return propPickupByPlayer(prop, 1);
+		}
+	}
+
+	return TICKOP_NONE;
+}
 
 bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
 {
@@ -65797,9 +65317,9 @@ struct prop *func0f08baf4(struct chrdata *chr, s32 weaponnum, u32 flags)
 	return weaponCreateForChr(chr, weaponGetModel(weaponnum), weaponnum, flags, NULL, NULL);
 }
 
-s32 func0f08bb3c(struct prop *prop)
+s32 weaponTestForPickup(struct prop *prop)
 {
-	return func0f089014(prop);
+	return objTestForPickup(prop);
 }
 
 void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room)

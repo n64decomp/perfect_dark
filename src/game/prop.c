@@ -6178,10 +6178,10 @@ void func0f0641f4(void)
 			{
 				switch (prop->type) {
 				case PROPTYPE_OBJ:
-					op = func0f089014(prop);
+					op = objTestForPickup(prop);
 					break;
 				case PROPTYPE_WEAPON:
-					op = func0f08bb3c(prop);
+					op = weaponTestForPickup(prop);
 					break;
 				case PROPTYPE_DOOR:
 				case PROPTYPE_CHR:
