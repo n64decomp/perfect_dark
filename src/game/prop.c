@@ -6145,264 +6145,60 @@ void propSetCollisionsEnabled(struct prop *prop, s32 enable)
 	}
 }
 
+void func0f0641f4(void)
+{
+	s16 *propnumptr;
+	s32 i;
+	s16 propnums[256];
+	s16 allrooms[21];
+	s16 tmp[11];
+
+	if (g_Vars.currentplayer->bondmovemode != MOVEMODE_CUTSCENE
+			&& !g_PlayerInvincible
+			&& g_Vars.currentplayer != g_Vars.anti) {
+		roomsCopy(g_Vars.currentplayer->prop->rooms, allrooms);
+
+		for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
+			roomGetNeighbours(g_Vars.currentplayer->prop->rooms[i], tmp, 10);
+			roomsAppend(tmp, allrooms, 20);
+		}
+
+		roomGetProps(allrooms, propnums, 256);
+		propnumptr = propnums;
+
+		while (*propnumptr >= 0) {
+			struct prop *prop = &g_Vars.props[*propnumptr];
+			s32 op = TICKOP_NONE;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0641f4
-.late_rodata
-glabel var7f1a9f30
-.word func0f0641f4+0x144 # f064338
-glabel var7f1a9f34
-.word func0f0641f4+0x160 # f064354
-glabel var7f1a9f38
-.word func0f0641f4+0x160 # f064354
-glabel var7f1a9f3c
-.word func0f0641f4+0x154 # f064348
-glabel var7f1a9f40
-.word func0f0641f4+0x160 # f064354
-glabel var7f1a9f44
-.word func0f0641f4+0x160 # f064354
-glabel var7f1a9f48
-.word func0f0641f4+0x160 # f064354
-glabel var7f1a9f4c
-.word func0f0641f4+0x160 # f064354
-.text
-/*  f0641f4:	27bdfd70 */ 	addiu	$sp,$sp,-656
-/*  f0641f8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0641fc:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f064200:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f064204:	8e820284 */ 	lw	$v0,0x284($s4)
-/*  f064208:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f06420c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f064210:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f064214:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f064218:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f06421c:	8c4e01b0 */ 	lw	$t6,0x1b0($v0)
-/*  f064220:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f064224:	3c0f8007 */ 	lui	$t7,%hi(g_PlayerInvincible)
-/*  f064228:	51c10051 */ 	beql	$t6,$at,.L0f064370
-/*  f06422c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f064230:	8def0760 */ 	lw	$t7,%lo(g_PlayerInvincible)($t7)
-/*  f064234:	55e0004e */ 	bnezl	$t7,.L0f064370
-/*  f064238:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f06423c:	8e9802a8 */ 	lw	$t8,0x2a8($s4)
-/*  f064240:	27b3005c */ 	addiu	$s3,$sp,0x5c
-/*  f064244:	5302004a */ 	beql	$t8,$v0,.L0f064370
-/*  f064248:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f06424c:	8c4400bc */ 	lw	$a0,0xbc($v0)
-/*  f064250:	02602825 */ 	or	$a1,$s3,$zero
-/*  f064254:	0fc195e9 */ 	jal	roomsCopy
-/*  f064258:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f06425c:	8e990284 */ 	lw	$t9,0x284($s4)
-/*  f064260:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f064264:	00008025 */ 	or	$s0,$zero,$zero
-/*  f064268:	8f2200bc */ 	lw	$v0,0xbc($t9)
-/*  f06426c:	27b10044 */ 	addiu	$s1,$sp,0x44
-/*  f064270:	84480028 */ 	lh	$t0,0x28($v0)
-/*  f064274:	52480011 */ 	beql	$s2,$t0,.L0f0642bc
-/*  f064278:	27b00088 */ 	addiu	$s0,$sp,0x88
-/*  f06427c:	84440028 */ 	lh	$a0,0x28($v0)
-/*  f064280:	02202825 */ 	or	$a1,$s1,$zero
-.L0f064284:
-/*  f064284:	0fc5916a */ 	jal	roomGetNeighbours
-/*  f064288:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f06428c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f064290:	02602825 */ 	or	$a1,$s3,$zero
-/*  f064294:	0fc195f6 */ 	jal	roomsAppend
-/*  f064298:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f06429c:	8e890284 */ 	lw	$t1,0x284($s4)
-/*  f0642a0:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0642a4:	8d2a00bc */ 	lw	$t2,0xbc($t1)
-/*  f0642a8:	01505821 */ 	addu	$t3,$t2,$s0
-/*  f0642ac:	85640028 */ 	lh	$a0,0x28($t3)
-/*  f0642b0:	5644fff4 */ 	bnel	$s2,$a0,.L0f064284
-/*  f0642b4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0642b8:	27b00088 */ 	addiu	$s0,$sp,0x88
-.L0f0642bc:
-/*  f0642bc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0642c0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0642c4:	0fc197e0 */ 	jal	roomGetProps
-/*  f0642c8:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f0642cc:	87ac0088 */ 	lh	$t4,0x88($sp)
-/*  f0642d0:	02008825 */ 	or	$s1,$s0,$zero
-/*  f0642d4:	27ad0088 */ 	addiu	$t5,$sp,0x88
-/*  f0642d8:	05800024 */ 	bltz	$t4,.L0f06436c
-/*  f0642dc:	24120048 */ 	addiu	$s2,$zero,0x48
-/*  f0642e0:	85a20000 */ 	lh	$v0,0x0($t5)
-.L0f0642e4:
-/*  f0642e4:	00520019 */ 	multu	$v0,$s2
-/*  f0642e8:	8e8f0338 */ 	lw	$t7,0x338($s4)
-/*  f0642ec:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0642f0:	00007012 */ 	mflo	$t6
-/*  f0642f4:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f0642f8:	86180002 */ 	lh	$t8,0x2($s0)
-/*  f0642fc:	1f000015 */ 	bgtz	$t8,.L0f064354
-/*  f064300:	00000000 */ 	nop
-/*  f064304:	8e190004 */ 	lw	$t9,0x4($s0)
-/*  f064308:	13200012 */ 	beqz	$t9,.L0f064354
-/*  f06430c:	00000000 */ 	nop
-/*  f064310:	92080000 */ 	lbu	$t0,0x0($s0)
-/*  f064314:	2509ffff */ 	addiu	$t1,$t0,-1
-/*  f064318:	2d210008 */ 	sltiu	$at,$t1,0x8
-/*  f06431c:	1020000d */ 	beqz	$at,.L0f064354
-/*  f064320:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f064324:	3c017f1b */ 	lui	$at,%hi(var7f1a9f30)
-/*  f064328:	00290821 */ 	addu	$at,$at,$t1
-/*  f06432c:	8c299f30 */ 	lw	$t1,%lo(var7f1a9f30)($at)
-/*  f064330:	01200008 */ 	jr	$t1
-/*  f064334:	00000000 */ 	nop
-/*  f064338:	0fc22405 */ 	jal	func0f089014
-/*  f06433c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f064340:	10000004 */ 	b	.L0f064354
-/*  f064344:	00402825 */ 	or	$a1,$v0,$zero
-/*  f064348:	0fc22ecf */ 	jal	func0f08bb3c
-/*  f06434c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f064350:	00402825 */ 	or	$a1,$v0,$zero
-.L0f064354:
-/*  f064354:	0fc18ad9 */ 	jal	propExecuteTickOperation
-/*  f064358:	02002025 */ 	or	$a0,$s0,$zero
-/*  f06435c:	86220002 */ 	lh	$v0,0x2($s1)
-/*  f064360:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f064364:	0441ffdf */ 	bgez	$v0,.L0f0642e4
-/*  f064368:	00000000 */ 	nop
-.L0f06436c:
-/*  f06436c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f064370:
-/*  f064370:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f064374:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f064378:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f06437c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f064380:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f064384:	03e00008 */ 	jr	$ra
-/*  f064388:	27bd0290 */ 	addiu	$sp,$sp,0x290
-);
+			if (prop->timetoregen <= 0 && prop->obj)
 #else
-GLOBAL_ASM(
-glabel func0f0641f4
-.late_rodata
-glabel var7f1a9f30
-.word func0f0641f4+0x138
-glabel var7f1a9f34
-.word func0f0641f4+0x154
-glabel var7f1a9f38
-.word func0f0641f4+0x154
-glabel var7f1a9f3c
-.word func0f0641f4+0x148
-glabel var7f1a9f40
-.word func0f0641f4+0x154
-glabel var7f1a9f44
-.word func0f0641f4+0x154
-glabel var7f1a9f48
-.word func0f0641f4+0x154
-glabel var7f1a9f4c
-.word func0f0641f4+0x154
-.text
-/*  f063468:	27bdfd70 */ 	addiu	$sp,$sp,-656
-/*  f06346c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f063470:	3c14800a */ 	lui	$s4,0x800a
-/*  f063474:	2694e6c0 */ 	addiu	$s4,$s4,-6464
-/*  f063478:	8e820284 */ 	lw	$v0,0x284($s4)
-/*  f06347c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f063480:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f063484:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f063488:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f06348c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f063490:	8c4e01b0 */ 	lw	$t6,0x1b0($v0)
-/*  f063494:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f063498:	3c0f8007 */ 	lui	$t7,0x8007
-/*  f06349c:	51c1004e */ 	beql	$t6,$at,.NB0f0635d8
-/*  f0634a0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0634a4:	8def2e20 */ 	lw	$t7,0x2e20($t7)
-/*  f0634a8:	55e0004b */ 	bnezl	$t7,.NB0f0635d8
-/*  f0634ac:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0634b0:	8e9802a8 */ 	lw	$t8,0x2a8($s4)
-/*  f0634b4:	27b3005c */ 	addiu	$s3,$sp,0x5c
-/*  f0634b8:	53020047 */ 	beql	$t8,$v0,.NB0f0635d8
-/*  f0634bc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0634c0:	8c4400bc */ 	lw	$a0,0xbc($v0)
-/*  f0634c4:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0634c8:	0fc19283 */ 	jal	roomsCopy
-/*  f0634cc:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f0634d0:	8e990284 */ 	lw	$t9,0x284($s4)
-/*  f0634d4:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f0634d8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0634dc:	8f2200bc */ 	lw	$v0,0xbc($t9)
-/*  f0634e0:	27b10044 */ 	addiu	$s1,$sp,0x44
-/*  f0634e4:	84480028 */ 	lh	$t0,0x28($v0)
-/*  f0634e8:	52480011 */ 	beql	$s2,$t0,.NB0f063530
-/*  f0634ec:	27b00088 */ 	addiu	$s0,$sp,0x88
-/*  f0634f0:	84440028 */ 	lh	$a0,0x28($v0)
-/*  f0634f4:	02202825 */ 	or	$a1,$s1,$zero
-.NB0f0634f8:
-/*  f0634f8:	0fc57b6a */ 	jal	roomGetNeighbours
-/*  f0634fc:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f063500:	02202025 */ 	or	$a0,$s1,$zero
-/*  f063504:	02602825 */ 	or	$a1,$s3,$zero
-/*  f063508:	0fc19290 */ 	jal	roomsAppend
-/*  f06350c:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f063510:	8e890284 */ 	lw	$t1,0x284($s4)
-/*  f063514:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f063518:	8d2a00bc */ 	lw	$t2,0xbc($t1)
-/*  f06351c:	01505821 */ 	addu	$t3,$t2,$s0
-/*  f063520:	85640028 */ 	lh	$a0,0x28($t3)
-/*  f063524:	5644fff4 */ 	bnel	$s2,$a0,.NB0f0634f8
-/*  f063528:	02202825 */ 	or	$a1,$s1,$zero
-/*  f06352c:	27b00088 */ 	addiu	$s0,$sp,0x88
-.NB0f063530:
-/*  f063530:	02002825 */ 	or	$a1,$s0,$zero
-/*  f063534:	02602025 */ 	or	$a0,$s3,$zero
-/*  f063538:	0fc1947a */ 	jal	roomGetProps
-/*  f06353c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f063540:	87ac0088 */ 	lh	$t4,0x88($sp)
-/*  f063544:	02008825 */ 	or	$s1,$s0,$zero
-/*  f063548:	27ad0088 */ 	addiu	$t5,$sp,0x88
-/*  f06354c:	05800021 */ 	bltz	$t4,.NB0f0635d4
-/*  f063550:	24120048 */ 	addiu	$s2,$zero,0x48
-/*  f063554:	85a20000 */ 	lh	$v0,0x0($t5)
-.NB0f063558:
-/*  f063558:	00520019 */ 	multu	$v0,$s2
-/*  f06355c:	8e8f0338 */ 	lw	$t7,0x338($s4)
-/*  f063560:	00002825 */ 	or	$a1,$zero,$zero
-/*  f063564:	00007012 */ 	mflo	$t6
-/*  f063568:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f06356c:	86180002 */ 	lh	$t8,0x2($s0)
-/*  f063570:	1f000012 */ 	bgtz	$t8,.NB0f0635bc
-/*  f063574:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f063578:	92190000 */ 	lbu	$t9,0x0($s0)
-/*  f06357c:	2728ffff */ 	addiu	$t0,$t9,-1
-/*  f063580:	2d010008 */ 	sltiu	$at,$t0,0x8
-/*  f063584:	1020000d */ 	beqz	$at,.NB0f0635bc
-/*  f063588:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f06358c:	3c017f1a */ 	lui	$at,0x7f1a
-/*  f063590:	00280821 */ 	addu	$at,$at,$t0
-/*  f063594:	8c284250 */ 	lw	$t0,0x4250($at)
-/*  f063598:	01000008 */ 	jr	$t0
-/*  f06359c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0635a0:	0fc21e1c */ 	jal	func0f089014
-/*  f0635a4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0635a8:	10000004 */ 	beqz	$zero,.NB0f0635bc
-/*  f0635ac:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0635b0:	0fc228d9 */ 	jal	func0f08bb3c
-/*  f0635b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0635b8:	00402825 */ 	or	$a1,$v0,$zero
-.NB0f0635bc:
-/*  f0635bc:	0fc1877a */ 	jal	propExecuteTickOperation
-/*  f0635c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0635c4:	86220002 */ 	lh	$v0,0x2($s1)
-/*  f0635c8:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f0635cc:	0441ffe2 */ 	bgez	$v0,.NB0f063558
-/*  f0635d0:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f0635d4:
-/*  f0635d4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f0635d8:
-/*  f0635d8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0635dc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0635e0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0635e4:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0635e8:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0635ec:	03e00008 */ 	jr	$ra
-/*  f0635f0:	27bd0290 */ 	addiu	$sp,$sp,0x290
-);
+			if (prop->timetoregen <= 0)
 #endif
+			{
+				switch (prop->type) {
+				case PROPTYPE_OBJ:
+					op = func0f089014(prop);
+					break;
+				case PROPTYPE_WEAPON:
+					op = func0f08bb3c(prop);
+					break;
+				case PROPTYPE_DOOR:
+				case PROPTYPE_CHR:
+				case PROPTYPE_EYESPY:
+				case PROPTYPE_PLAYER:
+				case PROPTYPE_EXPLOSION:
+				case PROPTYPE_SMOKE:
+					break;
+				}
+			}
+
+			propExecuteTickOperation(prop, op);
+
+			propnumptr++;
+		}
+	}
+}
 
 f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5, bool cangangsta, s32 arg7)
 {

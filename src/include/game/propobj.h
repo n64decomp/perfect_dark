@@ -260,7 +260,7 @@ s32 weaponGetPickupAmmoQty(struct weaponobj *weapon);
 void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual);
 void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual);
 u32 func0f088840(struct prop *prop, bool showhudmsg);
-u32 func0f089014(void);
+s32 func0f089014(struct prop *prop);
 bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3);
 void func0f089a94(bool arg0, struct model *model);
 struct prop *hatApplyToChr(struct hatobj *hat, struct chrdata *chr, struct modelfiledata *filedata, struct prop *prop, struct model *model);
@@ -291,7 +291,7 @@ struct weaponobj *func0f08b880(s32 modelnum, s32 weaponnum, struct chrdata *chr)
 void chrSetWeaponReapable(struct chrdata *chr, s32 hand);
 struct prop *weaponCreateForChr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *obj, struct modelfiledata *filedata);
 struct prop *chrGiveWeapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 flags);
-u32 func0f08bb3c(void);
+s32 func0f08bb3c(struct prop *prop);
 void weaponSetGunfireVisible(struct prop *prop, bool visible, s16 room);
 bool weaponIsGunfireVisible(struct prop *prop);
 s32 hatGetType(struct prop *prop);
