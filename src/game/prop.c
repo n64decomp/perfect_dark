@@ -6615,56 +6615,24 @@ void roomsCopy(s16 *src, s16 *dst)
 	*dstptr = -1;
 }
 
-GLOBAL_ASM(
-glabel roomsAppend
-/*  f0657d8:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f0657dc:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f0657e0:	848e0000 */ 	lh	$t6,0x0($a0)
-/*  f0657e4:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f0657e8:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f0657ec:	110e0021 */ 	beq	$t0,$t6,.L0f065874
-/*  f0657f0:	00803025 */ 	or	$a2,$a0,$zero
-/*  f0657f4:	84af0000 */ 	lh	$t7,0x0($a1)
-.L0f0657f8:
-/*  f0657f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0657fc:	510f000f */ 	beql	$t0,$t7,.L0f06583c
-/*  f065800:	00024840 */ 	sll	$t1,$v0,0x1
-/*  f065804:	84c70000 */ 	lh	$a3,0x0($a2)
-/*  f065808:	84b80000 */ 	lh	$t8,0x0($a1)
-/*  f06580c:	0000c840 */ 	sll	$t9,$zero,0x1
-/*  f065810:	00b91821 */ 	addu	$v1,$a1,$t9
-/*  f065814:	53070009 */ 	beql	$t8,$a3,.L0f06583c
-/*  f065818:	00024840 */ 	sll	$t1,$v0,0x1
-/*  f06581c:	84640002 */ 	lh	$a0,0x2($v1)
-.L0f065820:
-/*  f065820:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f065824:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f065828:	51040004 */ 	beql	$t0,$a0,.L0f06583c
-/*  f06582c:	00024840 */ 	sll	$t1,$v0,0x1
-/*  f065830:	5487fffb */ 	bnel	$a0,$a3,.L0f065820
-/*  f065834:	84640002 */ 	lh	$a0,0x2($v1)
-/*  f065838:	00024840 */ 	sll	$t1,$v0,0x1
-.L0f06583c:
-/*  f06583c:	00a91821 */ 	addu	$v1,$a1,$t1
-/*  f065840:	846a0000 */ 	lh	$t2,0x0($v1)
-/*  f065844:	0050082a */ 	slt	$at,$v0,$s0
-/*  f065848:	550a0007 */ 	bnel	$t0,$t2,.L0f065868
-/*  f06584c:	84cc0002 */ 	lh	$t4,0x2($a2)
-/*  f065850:	50200005 */ 	beqzl	$at,.L0f065868
-/*  f065854:	84cc0002 */ 	lh	$t4,0x2($a2)
-/*  f065858:	84cb0000 */ 	lh	$t3,0x0($a2)
-/*  f06585c:	a4680002 */ 	sh	$t0,0x2($v1)
-/*  f065860:	a46b0000 */ 	sh	$t3,0x0($v1)
-/*  f065864:	84cc0002 */ 	lh	$t4,0x2($a2)
-.L0f065868:
-/*  f065868:	24c60002 */ 	addiu	$a2,$a2,0x2
-/*  f06586c:	550cffe2 */ 	bnel	$t0,$t4,.L0f0657f8
-/*  f065870:	84af0000 */ 	lh	$t7,0x0($a1)
-.L0f065874:
-/*  f065874:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f065878:	03e00008 */ 	jr	$ra
-/*  f06587c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+/**
+ * Append newrooms to dstrooms without duplicates.
+ */
+void roomsAppend(s16 *newrooms, s16 *dstrooms, s32 maxlen)
+{
+	s32 i;
+
+	for (i = 0; newrooms[i] != -1; i++) {
+		s32 j;
+
+		for (j = 0; dstrooms[j] != -1 && dstrooms[j] != newrooms[i]; j++);
+
+		if (dstrooms[j] == -1 && j < maxlen) {
+			dstrooms[j] = newrooms[i];
+			dstrooms[j + 1] = -1;
+		}
+	}
+}
 
 bool arrayIntersects(s16 *a, s16 *b)
 {

@@ -43,7 +43,7 @@ void autoaimTick(void);
 u32 propDoorGetCdTypes(struct prop *prop);
 bool propIsOfCdType(struct prop *prop, u32 types);
 void roomsCopy(s16 *srcrooms, s16 *dstrooms);
-void roomsAppend(s16 *newrooms, s16 *rooms, u32 arg2);
+void roomsAppend(s16 *newrooms, s16 *dstrooms, s32 maxlen);
 bool arrayIntersects(s16 *a, s16 *b);
 bool propTryAddToChunk(s16 propnum, s32 chunkindex);
 s32 roomAllocatePropListChunk(s32 room, s32 arg1);
