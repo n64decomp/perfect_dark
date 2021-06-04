@@ -1689,117 +1689,24 @@ glabel var7f1a9eb8
 /*  f061d50:	00c01025 */ 	or	$v0,$a2,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f061d54
-.late_rodata
-glabel var7f1a9ebc
-.word 0x4f7ffe00
-.text
-/*  f061d54:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f061d58:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f061d5c:	afa40070 */ 	sw	$a0,0x70($sp)
-/*  f061d60:	afa50074 */ 	sw	$a1,0x74($sp)
-/*  f061d64:	afa60078 */ 	sw	$a2,0x78($sp)
-/*  f061d68:	8fa70078 */ 	lw	$a3,0x78($sp)
-/*  f061d6c:	8fa60070 */ 	lw	$a2,0x70($sp)
-/*  f061d70:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f061d74:	0fc2832c */ 	jal	handCalculateShotSpread
-/*  f061d78:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f061d7c:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*  f061d80:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f061d84:	15c10018 */ 	bne	$t6,$at,.L0f061de8
-/*  f061d88:	00000000 */ 	nop
-/*  f061d8c:	0fc2866a */ 	jal	handGetWeaponNum
-/*  f061d90:	00002025 */ 	or	$a0,$zero,$zero
-/*  f061d94:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f061d98:	14410013 */ 	bne	$v0,$at,.L0f061de8
-/*  f061d9c:	00000000 */ 	nop
-/*  f061da0:	0c004b70 */ 	jal	random
-/*  f061da4:	00000000 */ 	nop
-/*  f061da8:	44822000 */ 	mtc1	$v0,$f4
-/*  f061dac:	3c014f80 */ 	lui	$at,0x4f80
-/*  f061db0:	04410004 */ 	bgez	$v0,.L0f061dc4
-/*  f061db4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f061db8:	44814000 */ 	mtc1	$at,$f8
-/*  f061dbc:	00000000 */ 	nop
-/*  f061dc0:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f061dc4:
-/*  f061dc4:	3c012f80 */ 	lui	$at,0x2f80
-/*  f061dc8:	44815000 */ 	mtc1	$at,$f10
-/*  f061dcc:	3c014170 */ 	lui	$at,0x4170
-/*  f061dd0:	44819000 */ 	mtc1	$at,$f18
-/*  f061dd4:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f061dd8:	c7a8005c */ 	lwc1	$f8,0x5c($sp)
-/*  f061ddc:	46109102 */ 	mul.s	$f4,$f18,$f16
-/*  f061de0:	46044181 */ 	sub.s	$f6,$f8,$f4
-/*  f061de4:	e7a6005c */ 	swc1	$f6,0x5c($sp)
-.L0f061de8:
-/*  f061de8:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f061dec:	00000000 */ 	nop
-/*  f061df0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f061df4:	27a50058 */ 	addiu	$a1,$sp,0x58
-/*  f061df8:	0c0056da */ 	jal	func00015b68
-/*  f061dfc:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f061e00:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
-/*  f061e04:	00000000 */ 	nop
-/*  f061e08:	00402025 */ 	or	$a0,$v0,$zero
-/*  f061e0c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f061e10:	0c0056c5 */ 	jal	func00015b14
-/*  f061e14:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f061e18:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f061e1c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f061e20:	8c4f006c */ 	lw	$t7,0x6c($v0)
-/*  f061e24:	8fa40070 */ 	lw	$a0,0x70($sp)
-/*  f061e28:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*  f061e2c:	11e00003 */ 	beqz	$t7,.L0f061e3c
-/*  f061e30:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f061e34:	10000002 */ 	b	.L0f061e40
-/*  f061e38:	24090001 */ 	addiu	$t1,$zero,0x1
-.L0f061e3c:
-/*  f061e3c:	00004825 */ 	or	$t1,$zero,$zero
-.L0f061e40:
-/*  f061e40:	8c580068 */ 	lw	$t8,0x68($v0)
-/*  f061e44:	27a70064 */ 	addiu	$a3,$sp,0x64
-/*  f061e48:	27ab0040 */ 	addiu	$t3,$sp,0x40
-/*  f061e4c:	13000003 */ 	beqz	$t8,.L0f061e5c
-/*  f061e50:	27ac004c */ 	addiu	$t4,$sp,0x4c
-/*  f061e54:	10000002 */ 	b	.L0f061e60
-/*  f061e58:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f061e5c:
-/*  f061e5c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f061e60:
-/*  f061e60:	8c590064 */ 	lw	$t9,0x64($v0)
-/*  f061e64:	3c017f1b */ 	lui	$at,%hi(var7f1a9ebc)
-/*  f061e68:	00004025 */ 	or	$t0,$zero,$zero
-/*  f061e6c:	13200003 */ 	beqz	$t9,.L0f061e7c
-/*  f061e70:	00000000 */ 	nop
-/*  f061e74:	10000001 */ 	b	.L0f061e7c
-/*  f061e78:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f061e7c:
-/*  f061e7c:	8c4a0070 */ 	lw	$t2,0x70($v0)
-/*  f061e80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f061e84:	11400003 */ 	beqz	$t2,.L0f061e94
-/*  f061e88:	00000000 */ 	nop
-/*  f061e8c:	10000001 */ 	b	.L0f061e94
-/*  f061e90:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f061e94:
-/*  f061e94:	00486821 */ 	addu	$t5,$v0,$t0
-/*  f061e98:	01a37021 */ 	addu	$t6,$t5,$v1
-/*  f061e9c:	01c97821 */ 	addu	$t7,$t6,$t1
-/*  f061ea0:	c42a9ebc */ 	lwc1	$f10,%lo(var7f1a9ebc)($at)
-/*  f061ea4:	29f80002 */ 	slti	$t8,$t7,0x2
-/*  f061ea8:	3b180001 */ 	xori	$t8,$t8,0x1
-/*  f061eac:	afb80020 */ 	sw	$t8,0x20($sp)
-/*  f061eb0:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f061eb4:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f061eb8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f061ebc:	0fc1836e */ 	jal	func0f060db8
-/*  f061ec0:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f061ec4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f061ec8:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f061ecc:	03e00008 */ 	jr	$ra
-/*  f061ed0:	00000000 */ 	nop
-);
+struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
+{
+	struct coord sp64;
+	struct coord sp58;
+	struct coord sp4c;
+	struct coord sp40;
+
+	handCalculateShotSpread(&sp58, &sp64, handnum, arg2);
+
+	if (arg2 == 2 && handGetWeaponNum(HAND_RIGHT) == WEAPON_REAPER) {
+		sp58.y -= 15 * (random() * (1.0f / U32_MAX));
+	}
+
+	func00015b68(currentPlayerGetUnk174c(), &sp58, &sp40);
+	func00015b14(currentPlayerGetUnk174c(), &sp64, &sp4c);
+
+	func0f060db8(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
+}
 
 void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
 {
