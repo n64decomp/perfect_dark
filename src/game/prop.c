@@ -6666,40 +6666,31 @@ glabel roomsAppend
 /*  f06587c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel arrayIntersects
-/*  f065880:	84830000 */ 	lh	$v1,0x0($a0)
-/*  f065884:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f065888:	00801025 */ 	or	$v0,$a0,$zero
-/*  f06588c:	50680014 */ 	beql	$v1,$t0,.L0f0658e0
-/*  f065890:	00001025 */ 	or	$v0,$zero,$zero
-/*  f065894:	84a70000 */ 	lh	$a3,0x0($a1)
-/*  f065898:	00073400 */ 	sll	$a2,$a3,0x10
-.L0f06589c:
-/*  f06589c:	00067403 */ 	sra	$t6,$a2,0x10
-/*  f0658a0:	01c03025 */ 	or	$a2,$t6,$zero
-/*  f0658a4:	11c80009 */ 	beq	$t6,$t0,.L0f0658cc
-/*  f0658a8:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f0658ac:
-/*  f0658ac:	54660004 */ 	bnel	$v1,$a2,.L0f0658c0
-/*  f0658b0:	84860002 */ 	lh	$a2,0x2($a0)
-/*  f0658b4:	03e00008 */ 	jr	$ra
-/*  f0658b8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0658bc:	84860002 */ 	lh	$a2,0x2($a0)
-.L0f0658c0:
-/*  f0658c0:	24840002 */ 	addiu	$a0,$a0,0x2
-/*  f0658c4:	14c8fff9 */ 	bne	$a2,$t0,.L0f0658ac
-/*  f0658c8:	00000000 */ 	nop
-.L0f0658cc:
-/*  f0658cc:	84430002 */ 	lh	$v1,0x2($v0)
-/*  f0658d0:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f0658d4:	5468fff1 */ 	bnel	$v1,$t0,.L0f06589c
-/*  f0658d8:	00073400 */ 	sll	$a2,$a3,0x10
-/*  f0658dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0658e0:
-/*  f0658e0:	03e00008 */ 	jr	$ra
-/*  f0658e4:	00000000 */ 	nop
-);
+bool arrayIntersects(s16 *a, s16 *b)
+{
+	s16 *aptr = a;
+	s16 aval = *aptr;
+	s16 *bptr;
+	s16 bval;
+
+	while (aval != -1) {
+		bptr = b; bval = *bptr;
+
+		while (bval != -1) {
+			if (aval == bval) {
+				return true;
+			}
+
+			bptr++;
+			bval = *bptr;
+		}
+
+		aptr++;
+		aval = *aptr;
+	}
+
+	return false;
+}
 
 bool propTryAddToChunk(s16 propnum, s32 chunkindex)
 {
