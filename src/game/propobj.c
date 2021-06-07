@@ -57935,54 +57935,23 @@ glabel func0f0859a0
 /*  f085dfc:	27bd0128 */ 	addiu	$sp,$sp,0x128
 );
 
-GLOBAL_ASM(
-glabel func0f085e00
-/*  f085e00:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f085e04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f085e08:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f085e0c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f085e10:	8c840004 */ 	lw	$a0,0x4($a0)
-/*  f085e14:	8c8f0018 */ 	lw	$t7,0x18($a0)
-/*  f085e18:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f085e1c:	0fc1a2bd */ 	jal	objFindBboxRodata
-/*  f085e20:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*  f085e24:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f085e28:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f085e2c:	93190001 */ 	lbu	$t9,0x1($t8)
-/*  f085e30:	33280002 */ 	andi	$t0,$t9,0x2
-/*  f085e34:	5100001a */ 	beqzl	$t0,.L0f085ea0
-/*  f085e38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f085e3c:	8c890040 */ 	lw	$t1,0x40($a0)
-/*  f085e40:	312a1000 */ 	andi	$t2,$t1,0x1000
-/*  f085e44:	55400016 */ 	bnezl	$t2,.L0f085ea0
-/*  f085e48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f085e4c:	8c8b000c */ 	lw	$t3,0xc($a0)
-/*  f085e50:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f085e54:	316c8000 */ 	andi	$t4,$t3,0x8000
-/*  f085e58:	15800010 */ 	bnez	$t4,.L0f085e9c
-/*  f085e5c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f085e60:	0fc19a33 */ 	jal	func0f0668cc
-/*  f085e64:	8da5000c */ 	lw	$a1,0xc($t5)
-/*  f085e68:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f085e6c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f085e70:	8dcf000c */ 	lw	$t7,0xc($t6)
-/*  f085e74:	c4a60034 */ 	lwc1	$f6,0x34($a1)
-/*  f085e78:	c5e40038 */ 	lwc1	$f4,0x38($t7)
-/*  f085e7c:	46040080 */ 	add.s	$f2,$f0,$f4
-/*  f085e80:	46001087 */ 	neg.s	$f2,$f2
-/*  f085e84:	4606103e */ 	c.le.s	$f2,$f6
-/*  f085e88:	00000000 */ 	nop
-/*  f085e8c:	45020004 */ 	bc1fl	.L0f085ea0
-/*  f085e90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f085e94:	0fc21668 */ 	jal	func0f0859a0
-/*  f085e98:	8fa40028 */ 	lw	$a0,0x28($sp)
-.L0f085e9c:
-/*  f085e9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f085ea0:
-/*  f085ea0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f085ea4:	03e00008 */ 	jr	$ra
-/*  f085ea8:	00000000 */ 	nop
-);
+void func0f085e00(struct prop *prop, struct shotdata *shotdata)
+{
+	f32 tmp;
+	struct defaultobj *obj = prop->obj;
+	struct model *model = obj->model;
+	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
+
+	if ((prop->flags & PROPFLAG_ONSCREEN)
+			&& (obj->hidden & OBJHFLAG_00001000) == 0
+			&& (obj->flags2 & OBJFLAG2_SHOOTTHROUGH) == 0) {
+		tmp = -(model->matrices[0].m[3][2] + func0f0668cc(bbox, model->matrices));
+
+		if (tmp <= shotdata->unk34) {
+			func0f0859a0(prop, shotdata);
+		}
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
