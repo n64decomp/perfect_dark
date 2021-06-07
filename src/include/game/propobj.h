@@ -50,7 +50,7 @@ u32 func0f06698c(void);
 u32 func0f0669bc(void);
 u32 func0f0669ec(void);
 f32 func0f066a1c(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3);
-u32 func0f066abc(void);
+f32 func0f066abc(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3);
 u32 func0f066b5c(void);
 u32 func0f067424(void);
 u32 func0f0674bc(void);
