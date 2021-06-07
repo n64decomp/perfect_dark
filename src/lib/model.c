@@ -28,7 +28,7 @@ u32 var8005efb0 = 0;
 bool g_ModelDistanceDisabled = false;
 f32 g_ModelDistanceScale = 1;
 bool var8005efbc = false;
-u32 var8005efc0 = 0x00000000;
+f32 var8005efc0 = 0;
 bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
 
 #if VERSION >= VERSION_PAL_FINAL

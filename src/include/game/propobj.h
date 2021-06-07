@@ -113,7 +113,7 @@ bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f3
 u32 func0f06b488(void);
 u32 func0f06b610(void);
 u32 func0f06be44(void);
-u32 func0f06bea0(void);
+bool func0f06bea0(struct model *model, struct modelnode *arg1, struct modelnode *arg2, struct coord *arg3, struct coord *arg4, void *arg5, void *arg6, void *arg7, void *arg8, void *arg9, void *arg10);
 u32 func0f06c28c(void);
 u32 func0f06c8ac(void);
 u32 func0f06cd00(void);
@@ -224,7 +224,7 @@ void func0f08307c(struct prop *prop, bool arg1);
 u32 func0f083db0(void);
 u32 func0f0840ac(void);
 void func0f0841dc(struct defaultobj *obj, struct coord *pos, s32 playernum);
-u32 func0f084594(void);
+bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg2, struct coord *arg3, void *arg4, void *arg5, void *arg6);
 u32 func0f0849dc(void);
 u32 add43214321(u32 value);
 void glassDestroy(struct defaultobj *obj);
