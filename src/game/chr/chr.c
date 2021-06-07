@@ -12360,12 +12360,12 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 	s32 race;
 
 	if (chrIsUsingPaintball(chr2)) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 25);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_19);
 		return;
 	}
 
 	if (chrGetShield(chr) > 0.0f) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_00);
 		return;
 	}
 
@@ -12374,14 +12374,14 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 			|| prop->type == PROPTYPE_DOOR
 			|| hitpart == HITPART_GUN
 			|| hitpart == HITPART_HAT) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 0);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_00);
 		return;
 	}
 
 	race = CHRRACE(chr);
 
 	if (race == RACE_DRCAROLL || race == RACE_ROBOT || race == RACE_EYESPY) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 1);
+		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_01);
 		return;
 	}
 
@@ -12395,11 +12395,11 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 		coord3.y = coord2->y * 42.0f + coord->y;
 		coord3.z = coord2->z * 42.0f + coord->z;
 
-		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, 4);
+		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, SPARKTYPE_04);
 	}
 
-	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 2);
-	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, 3);
+	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_02);
+	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_03);
 }
 
 GLOBAL_ASM(
@@ -14710,9 +14710,9 @@ glabel func0f027e1c
 /*  f028190:	2861000f */ 	slti	$at,$v1,0xf
 /*  f028194:	10200029 */ 	beqz	$at,.L0f02823c
 /*  f028198:	00036080 */ 	sll	$t4,$v1,0x2
-/*  f02819c:	3c088008 */ 	lui	$t0,%hi(somethings)
+/*  f02819c:	3c088008 */ 	lui	$t0,%hi(g_SurfaceTypes)
 /*  f0281a0:	010c4021 */ 	addu	$t0,$t0,$t4
-/*  f0281a4:	8d084458 */ 	lw	$t0,%lo(somethings)($t0)
+/*  f0281a4:	8d084458 */ 	lw	$t0,%lo(g_SurfaceTypes)($t0)
 /*  f0281a8:	850a000a */ 	lh	$t2,0xa($t0)
 /*  f0281ac:	59400024 */ 	blezl	$t2,.L0f028240
 /*  f0281b0:	8d2f02d4 */ 	lw	$t7,0x2d4($t1)
@@ -14777,22 +14777,22 @@ glabel func0f027e1c
 /*  f02828c:	15c10035 */ 	bne	$t6,$at,.L0f028364
 /*  f028290:	00000000 */ 	nop
 /*  f028294:	8622003a */ 	lh	$v0,0x3a($s1)
-/*  f028298:	3c038008 */ 	lui	$v1,%hi(somethings)
+/*  f028298:	3c038008 */ 	lui	$v1,%hi(g_SurfaceTypes)
 /*  f02829c:	3c0f800b */ 	lui	$t7,%hi(g_Textures)
 /*  f0282a0:	04410003 */ 	bgez	$v0,.L0f0282b0
 /*  f0282a4:	00000000 */ 	nop
 /*  f0282a8:	1000000a */ 	b	.L0f0282d4
-/*  f0282ac:	8c634458 */ 	lw	$v1,%lo(somethings)($v1)
+/*  f0282ac:	8c634458 */ 	lw	$v1,%lo(g_SurfaceTypes)($v1)
 .L0f0282b0:
 /*  f0282b0:	8defabc0 */ 	lw	$t7,%lo(g_Textures)($t7)
 /*  f0282b4:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f0282b8:	3c038008 */ 	lui	$v1,%hi(somethings)
+/*  f0282b8:	3c038008 */ 	lui	$v1,%hi(g_SurfaceTypes)
 /*  f0282bc:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f0282c0:	932b0000 */ 	lbu	$t3,0x0($t9)
 /*  f0282c4:	316a000f */ 	andi	$t2,$t3,0xf
 /*  f0282c8:	000a6880 */ 	sll	$t5,$t2,0x2
 /*  f0282cc:	006d1821 */ 	addu	$v1,$v1,$t5
-/*  f0282d0:	8c634458 */ 	lw	$v1,%lo(somethings)($v1)
+/*  f0282d0:	8c634458 */ 	lw	$v1,%lo(g_SurfaceTypes)($v1)
 .L0f0282d4:
 /*  f0282d4:	0c004b70 */ 	jal	random
 /*  f0282d8:	afa30070 */ 	sw	$v1,0x70($sp)

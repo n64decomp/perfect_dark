@@ -45652,7 +45652,7 @@ glabel var7f1aa6e0
 //						-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 //
 //				// Create sparks
-//				sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, 0);
+//				sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_00);
 //			}
 //		} else {
 //			// 3e8
@@ -58359,25 +58359,25 @@ glabel func0f085eac
 /*  f0863f8:	14200004 */ 	bnez	$at,.L0f08640c
 /*  f0863fc:	3c0f800b */ 	lui	$t7,%hi(g_Textures)
 .L0f086400:
-/*  f086400:	3c068008 */ 	lui	$a2,%hi(somethings)
+/*  f086400:	3c068008 */ 	lui	$a2,%hi(g_SurfaceTypes)
 /*  f086404:	1000000f */ 	b	.L0f086444
-/*  f086408:	8cc64458 */ 	lw	$a2,%lo(somethings)($a2)
+/*  f086408:	8cc64458 */ 	lw	$a2,%lo(g_SurfaceTypes)($a2)
 .L0f08640c:
 /*  f08640c:	8defabc0 */ 	lw	$t7,%lo(g_Textures)($t7)
 /*  f086410:	0003c8c0 */ 	sll	$t9,$v1,0x3
-/*  f086414:	3c068008 */ 	lui	$a2,%hi(somethings)
+/*  f086414:	3c068008 */ 	lui	$a2,%hi(g_SurfaceTypes)
 /*  f086418:	01f95821 */ 	addu	$t3,$t7,$t9
 /*  f08641c:	91620000 */ 	lbu	$v0,0x0($t3)
 /*  f086420:	3058000f */ 	andi	$t8,$v0,0xf
 /*  f086424:	2f01000f */ 	sltiu	$at,$t8,0xf
 /*  f086428:	10200005 */ 	beqz	$at,.L0f086440
 /*  f08642c:	00186080 */ 	sll	$t4,$t8,0x2
-/*  f086430:	3c068008 */ 	lui	$a2,%hi(somethings)
+/*  f086430:	3c068008 */ 	lui	$a2,%hi(g_SurfaceTypes)
 /*  f086434:	00cc3021 */ 	addu	$a2,$a2,$t4
 /*  f086438:	10000002 */ 	b	.L0f086444
-/*  f08643c:	8cc64458 */ 	lw	$a2,%lo(somethings)($a2)
+/*  f08643c:	8cc64458 */ 	lw	$a2,%lo(g_SurfaceTypes)($a2)
 .L0f086440:
-/*  f086440:	8cc64458 */ 	lw	$a2,%lo(somethings)($a2)
+/*  f086440:	8cc64458 */ 	lw	$a2,%lo(g_SurfaceTypes)($a2)
 .L0f086444:
 /*  f086444:	84cd000a */ 	lh	$t5,0xa($a2)
 /*  f086448:	19a0005f */ 	blez	$t5,.L0f0865c8

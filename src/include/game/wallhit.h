@@ -13,7 +13,7 @@ void func0f13e640(struct var800a41b0 *thing, u32 arg1);
 u32 func0f13e744(void);
 u32 func0f13e994(void);
 void func0f13eb44(void);
-u32 func0f13f3f4(void);
+void func0f13f3f4(struct coord *arg0, struct coord *arg1, struct coord *arg2, u32 arg3, u32 arg4, u32 arg5, s32 room, u32 arg7, s32 arg8, u32 arg9, struct chrdata *chr, bool arg11);
 u32 func0f13f504(void);
 s32 func0f140750(struct coord *coord);
 u32 func0f1408a8(void);

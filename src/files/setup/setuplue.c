@@ -1840,7 +1840,7 @@ u8 func040e_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_JONATHAN, FALSE)
 
 	wait_until(296, 0x79)
-	play_sound(SFX_8076, CHANNEL_10)
+	play_sound(SFX_HIT_CHR, CHANNEL_10)
 
 	wait_until(310, 0x7a)
 	play_sound(SFX_ARGH_MALE_0090, CHANNEL_10)

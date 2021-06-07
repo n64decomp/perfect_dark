@@ -7935,7 +7935,7 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				struct audiohandle *handle;
 #endif
 
-				handle = sndStart(var80095200, SFX_FIREEMPTY_MAIAN, NULL, -1, -1, -1, -1, -1);
+				handle = sndStart(var80095200, SFX_HIT_WATER, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
 					func00033e50(handle, 16, *(s32 *)&speed);
@@ -27667,13 +27667,13 @@ glabel var7f1aca94
 /*  f0a7ddc:	3c0f800b */ 	lui	$t7,%hi(g_Textures)
 /*  f0a7de0:	8defabc0 */ 	lw	$t7,%lo(g_Textures)($t7)
 /*  f0a7de4:	0003c0c0 */ 	sll	$t8,$v1,0x3
-/*  f0a7de8:	3c0b8008 */ 	lui	$t3,%hi(somethings)
+/*  f0a7de8:	3c0b8008 */ 	lui	$t3,%hi(g_SurfaceTypes)
 /*  f0a7dec:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f0a7df0:	8f280000 */ 	lw	$t0,0x0($t9)
 /*  f0a7df4:	00084f02 */ 	srl	$t1,$t0,0x1c
 /*  f0a7df8:	00095080 */ 	sll	$t2,$t1,0x2
 /*  f0a7dfc:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0a7e00:	8d6b4458 */ 	lw	$t3,%lo(somethings)($t3)
+/*  f0a7e00:	8d6b4458 */ 	lw	$t3,%lo(g_SurfaceTypes)($t3)
 /*  f0a7e04:	856c0008 */ 	lh	$t4,0x8($t3)
 /*  f0a7e08:	5180017b */ 	beqzl	$t4,.L0f0a83f8
 /*  f0a7e0c:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -27999,14 +27999,14 @@ glabel var7f1aca94
 /*  f0a82ac:	3c0d800b */ 	lui	$t5,%hi(g_Textures)
 /*  f0a82b0:	8dadabc0 */ 	lw	$t5,%lo(g_Textures)($t5)
 /*  f0a82b4:	000218c0 */ 	sll	$v1,$v0,0x3
-/*  f0a82b8:	3c0a8008 */ 	lui	$t2,%hi(somethings)
+/*  f0a82b8:	3c0a8008 */ 	lui	$t2,%hi(g_SurfaceTypes)
 /*  f0a82bc:	01a3c821 */ 	addu	$t9,$t5,$v1
 /*  f0a82c0:	8f2c0000 */ 	lw	$t4,0x0($t9)
 /*  f0a82c4:	240bffff */ 	addiu	$t3,$zero,-1
 /*  f0a82c8:	000c4702 */ 	srl	$t0,$t4,0x1c
 /*  f0a82cc:	00084880 */ 	sll	$t1,$t0,0x2
 /*  f0a82d0:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f0a82d4:	8d4a4458 */ 	lw	$t2,%lo(somethings)($t2)
+/*  f0a82d4:	8d4a4458 */ 	lw	$t2,%lo(g_SurfaceTypes)($t2)
 /*  f0a82d8:	51400047 */ 	beqzl	$t2,.L0f0a83f8
 /*  f0a82dc:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0a82e0:	a7ab005e */ 	sh	$t3,0x5e($sp)
@@ -28017,14 +28017,14 @@ glabel var7f1aca94
 /*  f0a82f4:	afa200bc */ 	sw	$v0,0xbc($sp)
 /*  f0a82f8:	3c0e800b */ 	lui	$t6,%hi(g_Textures)
 /*  f0a82fc:	8dceabc0 */ 	lw	$t6,%lo(g_Textures)($t6)
-/*  f0a8300:	3c048008 */ 	lui	$a0,%hi(somethings)
+/*  f0a8300:	3c048008 */ 	lui	$a0,%hi(g_SurfaceTypes)
 /*  f0a8304:	8fac00c0 */ 	lw	$t4,0xc0($sp)
 /*  f0a8308:	01c3c021 */ 	addu	$t8,$t6,$v1
 /*  f0a830c:	8f0f0000 */ 	lw	$t7,0x0($t8)
 /*  f0a8310:	000f6f02 */ 	srl	$t5,$t7,0x1c
 /*  f0a8314:	000dc880 */ 	sll	$t9,$t5,0x2
 /*  f0a8318:	00992021 */ 	addu	$a0,$a0,$t9
-/*  f0a831c:	8c844458 */ 	lw	$a0,%lo(somethings)($a0)
+/*  f0a831c:	8c844458 */ 	lw	$a0,%lo(g_SurfaceTypes)($a0)
 /*  f0a8320:	84850008 */ 	lh	$a1,0x8($a0)
 /*  f0a8324:	58a0001e */ 	blezl	$a1,.L0f0a83a0
 /*  f0a8328:	8fb900bc */ 	lw	$t9,0xbc($sp)
@@ -28588,10 +28588,10 @@ void func0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
 		struct audiohandle **handle = func0f0a7d5c();
 
 		if (handle) {
-			sndStart(var80095200, SFX_PUNCH_GLASS, handle, -1, -1, -1, -1, -1);
+			sndStart(var80095200, SFX_HIT_GLASS, handle, -1, -1, -1, -1, -1);
 
 			if (*handle) {
-				func0f09505c(*handle, pos, 400, 2500, 3000, rooms, SFX_PUNCH_GLASS, 0x7fff, 0);
+				func0f09505c(*handle, pos, 400, 2500, 3000, rooms, SFX_HIT_GLASS, 0x7fff, 0);
 			}
 		}
 	}
@@ -28627,13 +28627,13 @@ glabel var7f1acaa0
 /*  f0a8510:	3c0f800b */ 	lui	$t7,%hi(g_Textures)
 /*  f0a8514:	8defabc0 */ 	lw	$t7,%lo(g_Textures)($t7)
 /*  f0a8518:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f0a851c:	3c0c8008 */ 	lui	$t4,%hi(somethings)
+/*  f0a851c:	3c0c8008 */ 	lui	$t4,%hi(g_SurfaceTypes)
 /*  f0a8520:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f0a8524:	8f290000 */ 	lw	$t1,0x0($t9)
 /*  f0a8528:	00095702 */ 	srl	$t2,$t1,0x1c
 /*  f0a852c:	000a5880 */ 	sll	$t3,$t2,0x2
 /*  f0a8530:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f0a8534:	8d8c4458 */ 	lw	$t4,%lo(somethings)($t4)
+/*  f0a8534:	8d8c4458 */ 	lw	$t4,%lo(g_SurfaceTypes)($t4)
 /*  f0a8538:	858d0008 */ 	lh	$t5,0x8($t4)
 /*  f0a853c:	11a000f0 */ 	beqz	$t5,.L0f0a8900
 .L0f0a8540:
@@ -28831,14 +28831,14 @@ glabel var7f1acaa0
 /*  f0a8810:	3c0f800b */ 	lui	$t7,%hi(g_Textures)
 /*  f0a8814:	8defabc0 */ 	lw	$t7,%lo(g_Textures)($t7)
 /*  f0a8818:	000370c0 */ 	sll	$t6,$v1,0x3
-/*  f0a881c:	3c028008 */ 	lui	$v0,%hi(somethings)
+/*  f0a881c:	3c028008 */ 	lui	$v0,%hi(g_SurfaceTypes)
 /*  f0a8820:	01eec021 */ 	addu	$t8,$t7,$t6
 /*  f0a8824:	8f0b0000 */ 	lw	$t3,0x0($t8)
 /*  f0a8828:	240affff */ 	addiu	$t2,$zero,-1
 /*  f0a882c:	000bcf02 */ 	srl	$t9,$t3,0x1c
 /*  f0a8830:	00194880 */ 	sll	$t1,$t9,0x2
 /*  f0a8834:	00491021 */ 	addu	$v0,$v0,$t1
-/*  f0a8838:	8c424458 */ 	lw	$v0,%lo(somethings)($v0)
+/*  f0a8838:	8c424458 */ 	lw	$v0,%lo(g_SurfaceTypes)($v0)
 /*  f0a883c:	84480008 */ 	lh	$t0,0x8($v0)
 /*  f0a8840:	59000030 */ 	blezl	$t0,.L0f0a8904
 /*  f0a8844:	8fbf002c */ 	lw	$ra,0x2c($sp)

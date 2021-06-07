@@ -4618,7 +4618,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 			chr->hidden |= CHRHFLAG_00000001;
 		} else {
 			// Metal helmets don't fall off and make a metallic chink noise when shot
-			u16 sounds[] = { SFX_HATHIT_807B, SFX_HATHIT_8079, SFX_HATHIT_807C };
+			u16 sounds[] = { SFX_HIT_METAL_807B, SFX_HIT_METAL_8079, SFX_HATHIT_807C };
 			damage = 0;
 
 			func0f0939f8(NULL, chr->prop, sounds[random() % 3], -1,
@@ -9650,7 +9650,7 @@ void chrTickDie(struct chrdata *chr)
 			var80068080 -= 5;
 			func0f0939f8(NULL, prop, SFX_SHIELD_DAMAGE, -1,
 					-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, 1);
+			sparksCreate(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_01);
 		}
 
 		return;
@@ -28677,6 +28677,6 @@ void chrDrCarollEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
 		func0f0939f8(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, 1);
+		sparksCreate(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, SPARKTYPE_01);
 	}
 }

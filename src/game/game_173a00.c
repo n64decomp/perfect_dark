@@ -12,125 +12,139 @@ u32 var800ab5b4;
 struct var800ab5b8 var800ab5b8[8];
 struct var800ab718 var800ab718[8];
 
-u32 var80084330 = 0x80878088;
-u32 var80084334 = 0x06000000;
+// Default
+u16 g_SurfaceTypeDefaultSounds[] = { SFX_HIT_STONE_8087, SFX_HIT_STONE_8088 };
+u8 var80084334[] = { 6 };
 
-struct something something_2a358 = {
-	&var80084330, &var80084334, 0x00020001,
+struct surfacetype g_SurfaceTypeDefault = {
+	g_SurfaceTypeDefaultSounds, var80084334, 2, 1,
 };
 
-u32 var80084344 = 0x80878088;
-u32 var80084348 = 0x01000000;
+// Stone
+u16 var80084344[] = { SFX_HIT_STONE_8087, SFX_HIT_STONE_8088 };
+u8 var80084348[] = { 1 };
 
-struct something something_2a36c = {
-	&var80084344, &var80084348, 0x00020001,
+struct surfacetype g_SurfaceTypeStone = {
+	var80084344, var80084348, 2, 1,
 };
 
-u32 var80084358 = 0x807e807f;
-u32 var8008435c = 0x10000000;
+// Wood
+u16 g_SurfaceTypeWoodSounds[] = { SFX_HIT_WOOD_807E, SFX_HIT_WOOD_807F };
+u8 var8008435c[] = { 0x10 };
 
-struct something something_2a380 = {
-	&var80084358, &var8008435c, 0x00020001,
+struct surfacetype g_SurfaceTypeWood = {
+	g_SurfaceTypeWoodSounds, var8008435c, 2, 1,
 };
 
-u32 var8008436c = 0x8079807b;
-u32 var80084370 = 0x11000000;
+// Metal
+u16 g_SurfaceTypeMetalSounds[] = { SFX_HIT_METAL_8079, SFX_HIT_METAL_807B };
+u8 var80084370[] = { 0x11 };
 
-struct something something_2a394 = {
-	&var8008436c, &var80084370, 0x00020001,
+struct surfacetype g_SurfaceTypeMetal = {
+	g_SurfaceTypeMetalSounds, var80084370, 2, 1,
 };
 
-u32 var80084380 = 0x80770000;
-u32 var80084384 = 0x03040500;
+// Glass
+u16 g_SurfaceTypeGlassSounds[] = { SFX_HIT_GLASS };
+u8 var80084384[] = { 3, 4, 5 };
 
-struct something something_2a3a8 = {
-	&var80084380, &var80084384, 0x00010003,
+struct surfacetype g_SurfaceTypeGlass = {
+	g_SurfaceTypeGlassSounds, var80084384, 1, 3,
 };
 
-u32 var80084394 = 0x807d0000;
-u32 var80084398 = 0x01000000;
+// Snow
+u16 g_SurfaceTypeSnowSounds[] = { SFX_HIT_SNOW };
+u8 var80084398[] = { 1 };
 
-struct something something_2a3bc = {
-	&var80084394, &var80084398, 0x00010001,
+struct surfacetype g_SurfaceTypeSnow = {
+	g_SurfaceTypeSnowSounds, var80084398, 1, 1,
 };
 
-u32 var800843a8 = 0x80848085;
-u32 var800843ac = 0x02000000;
+// Dirt
+u16 g_SurfaceTypeDirtSounds[] = { SFX_HIT_DIRT_8084, SFX_HIT_DIRT_8085 };
+u8 var800843ac[] = { 2 };
 
-struct something something_2a3d0 = {
-	&var800843a8, &var800843ac, 0x00020001,
+struct surfacetype g_SurfaceTypeDirt = {
+	g_SurfaceTypeDirtSounds, var800843ac, 2, 1,
 };
 
-u32 var800843bc = 0x80818082;
-u32 var800843c0 = 0x80830000;
-u32 var800843c4 = 0x02000000;
+// Mud
+u16 g_SurfaceTypeMudSounds[] = { SFX_HIT_MUD_8081, SFX_HIT_MUD_8082, SFX_HIT_MUD_8083 };
+u8 var800843c4[] = { 2 };
 
-struct something something_2a3e8 = {
-	&var800843bc, &var800843c4, 0x00030001,
+struct surfacetype g_SurfaceTypeMud = {
+	g_SurfaceTypeMudSounds, var800843c4, 3, 1,
 };
 
-u32 var800843d4 = 0x80860000;
-u32 var800843d8 = 0x01000000;
+// Tile
+u16 g_SurfaceTypeTileSounds[] = { SFX_HIT_TILE };
+u8 var800843d8[] = { 1 };
 
-struct something something_2a3fc = {
-	&var800843d4, &var800843d8, 0x00010001,
+struct surfacetype g_SurfaceTypeTile = {
+	g_SurfaceTypeTileSounds, var800843d8, 1, 1,
 };
 
-u32 var800843e8 = 0x8089808a;
-u32 var800843ec = 0x01060000;
+// Metal obj
+u16 g_SurfaceTypeMetalObjSounds[] = { SFX_HIT_METALOBJ_8089, SFX_HIT_METALOBJ_808A };
+u8 var800843ec[] = { 1, 6 };
 
-struct something something_2a410 = {
-	&var800843e8, &var800843ec, 0x00020002,
+struct surfacetype g_SurfaceTypeMetalObj = {
+	g_SurfaceTypeMetalObjSounds, var800843ec, 2, 2,
 };
 
-u32 var800843fc = 0x80760000;
-u32 var80084400 = 0x02000000;
+// Chr
+u16 g_SurfaceTypeChrSounds[] = { SFX_HIT_CHR };
+u8 var80084400[] = { 2 };
 
-struct something something_2a424 = {
-	&var800843fc, &var80084400, 0x00010001,
+struct surfacetype g_SurfaceTypeChr = {
+	g_SurfaceTypeChrSounds, var80084400, 1, 1,
 };
 
-u32 var80084410 = 0x80770000;
-u32 var80084414 = 0x03040500;
+// Glass XLU
+u16 g_SurfaceTypeGlassXluSounds[] = { SFX_HIT_GLASS };
+u8 var80084414[] = { 3, 4, 5 };
 
-struct something something_2a438 = {
-	&var80084410, &var80084414, 0x00010003,
+struct surfacetype g_SurfaceTypeGlassXlu = {
+	g_SurfaceTypeGlassXluSounds, var80084414, 1, 3,
 };
 
-struct something something_2a444 = {
-	NULL, NULL, 0x00000000,
+// None
+struct surfacetype g_SurfaceTypeNone = {
+	NULL, NULL, 0, 0,
 };
 
-u32 var80084430 = 0x80800000;
-u32 var80084434 = 0x00000000;
+// Shallow water
+u16 g_SurfaceTypeShallowWaterSounds[] = { SFX_HIT_WATER };
+u8 var80084434[] = { 0 };
 
-struct something something_2a458 = {
-	&var80084430, &var80084434, 0x00010001,
+struct surfacetype g_SurfaceTypeShallowWater = {
+	g_SurfaceTypeShallowWaterSounds, var80084434, 1, 1,
 };
 
-u32 var80084444 = 0x80800000;
-u32 var80084448 = 0x00000000;
+// Deep water
+u16 g_SurfaceTypeDeepWaterSounds[] = { SFX_HIT_WATER };
+u8 var80084448[] = { 0 };
 
-struct something something_2a46c = {
-	&var80084444, &var80084448, 0x00010001,
+struct surfacetype g_SurfaceTypeDeepWater = {
+	g_SurfaceTypeDeepWaterSounds, var80084448, 1, 1,
 };
 
-struct something *somethings[] = {
-	/* 0*/ &something_2a358,
-	/* 1*/ &something_2a36c,
-	/* 2*/ &something_2a380,
-	/* 3*/ &something_2a394,
-	/* 4*/ &something_2a3a8,
-	/* 5*/ &something_2a458,
-	/* 6*/ &something_2a3bc,
-	/* 7*/ &something_2a3d0,
-	/* 8*/ &something_2a3e8,
-	/* 9*/ &something_2a3fc,
-	/*10*/ &something_2a410,
-	/*11*/ &something_2a424,
-	/*12*/ &something_2a438,
-	/*13*/ &something_2a444,
-	/*14*/ &something_2a46c,
+struct surfacetype *g_SurfaceTypes[] = {
+	/* 0*/ &g_SurfaceTypeDefault,
+	/* 1*/ &g_SurfaceTypeStone,
+	/* 2*/ &g_SurfaceTypeWood,
+	/* 3*/ &g_SurfaceTypeMetal,
+	/* 4*/ &g_SurfaceTypeGlass,
+	/* 5*/ &g_SurfaceTypeShallowWater,
+	/* 6*/ &g_SurfaceTypeSnow,
+	/* 7*/ &g_SurfaceTypeDirt,
+	/* 8*/ &g_SurfaceTypeMud,
+	/* 9*/ &g_SurfaceTypeTile,
+	/*10*/ &g_SurfaceTypeMetalObj,
+	/*11*/ &g_SurfaceTypeChr,
+	/*12*/ &g_SurfaceTypeGlassXlu,
+	/*13*/ &g_SurfaceTypeNone,
+	/*14*/ &g_SurfaceTypeDeepWater,
 };
 
 char *var80084494[] = {

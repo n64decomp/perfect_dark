@@ -487,7 +487,7 @@ extern bool g_Jpn;
 #if VERSION >= VERSION_PAL_FINAL
 extern s32 g_LanguageId;
 #endif
-extern struct something *somethings[];
+extern struct surfacetype *g_SurfaceTypes[15];
 extern void *var800844f0;
 extern f32 var800845d4;
 extern u32 var800845dc;

@@ -779,6 +779,7 @@
 #define DROPREASON_6 6
 
 #define EXPLOSIONTYPE_0  0
+#define EXPLOSIONTYPE_1  1
 #define EXPLOSIONTYPE_2  2
 #define EXPLOSIONTYPE_3  3
 #define EXPLOSIONTYPE_5  5
@@ -788,6 +789,7 @@
 #define EXPLOSIONTYPE_13 13
 #define EXPLOSIONTYPE_14 14
 #define EXPLOSIONTYPE_18 18
+#define EXPLOSIONTYPE_22 22
 #define EXPLOSIONTYPE_23 23
 #define EXPLOSIONTYPE_25 25
 
@@ -3469,6 +3471,20 @@
 #define SOUNDMODE_HEADPHONE 2
 #define SOUNDMODE_SURROUND  3
 
+#define SPARKTYPE_00 0x00
+#define SPARKTYPE_01 0x01
+#define SPARKTYPE_02 0x02
+#define SPARKTYPE_03 0x03
+#define SPARKTYPE_04 0x04
+#define SPARKTYPE_09 0x09
+#define SPARKTYPE_0A 0x0a
+#define SPARKTYPE_0B 0x0b
+#define SPARKTYPE_0F 0x0f
+#define SPARKTYPE_16 0x16
+#define SPARKTYPE_17 0x17
+#define SPARKTYPE_18 0x18
+#define SPARKTYPE_19 0x19
+
 #define SPAWNFLAG_FORCESUNGLASSES     0x00000001 // 100% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_MAYBESUNGLASSES     0x00000002 // 50% chance of wearing sunglasses if head model supports it
 #define SPAWNFLAG_INVINCIBLE          0x00000008
@@ -3676,6 +3692,22 @@
 #define STAGEINDEX_TEST_MP18     0x3a
 #define STAGEINDEX_TEST_MP19     0x3b
 #define STAGEINDEX_TEST_MP20     0x3c
+
+#define SURFACETYPE_DEFAULT      0
+#define SURFACETYPE_STONE        1
+#define SURFACETYPE_WOOD         2
+#define SURFACETYPE_METAL        3
+#define SURFACETYPE_GLASS        4
+#define SURFACETYPE_SHALLOWWATER 5
+#define SURFACETYPE_SNOW         6
+#define SURFACETYPE_DIRT         7
+#define SURFACETYPE_MUD          8
+#define SURFACETYPE_TILE         9
+#define SURFACETYPE_METALOBJ     10
+#define SURFACETYPE_CHR          11
+#define SURFACETYPE_GLASSXLU     12
+#define SURFACETYPE_NONE         13
+#define SURFACETYPE_DEEPWATER    14
 
 #define TEAM_00        0x00
 #define TEAM_01        0x01

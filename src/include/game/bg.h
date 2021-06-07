@@ -70,7 +70,7 @@ u32 func0f15f560(void);
 u32 func0f15ffdc(void);
 u32 func0f160a38(void);
 u32 func0f1612e4(void);
-u32 func0f161520(void);
+bool func0f161520(struct coord *arg0, struct coord *arg1, s16 room, struct coord *arg3);
 s32 func0f161ab4(s32 room);
 bool roomContainsCoord(struct coord *pos, s16 roomnum);
 bool func0f161c08(struct coord *arg0, s16 roomnum);

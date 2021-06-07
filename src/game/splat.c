@@ -506,8 +506,8 @@ glabel var7f1b6030
 /*  f1496dc:	8c640000 */ 	lw	$a0,0x0($v1)
 .L0f1496e0:
 /*  f1496e0:	3c06800b */ 	lui	$a2,%hi(g_Textures)
-/*  f1496e4:	3c058008 */ 	lui	$a1,%hi(somethings)
-/*  f1496e8:	24a54458 */ 	addiu	$a1,$a1,%lo(somethings)
+/*  f1496e4:	3c058008 */ 	lui	$a1,%hi(g_SurfaceTypes)
+/*  f1496e8:	24a54458 */ 	addiu	$a1,$a1,%lo(g_SurfaceTypes)
 /*  f1496ec:	24c6abc0 */ 	addiu	$a2,$a2,%lo(g_Textures)
 /*  f1496f0:	27a200a0 */ 	addiu	$v0,$sp,0xa0
 /*  f1496f4:	27a704b0 */ 	addiu	$a3,$sp,0x4b0

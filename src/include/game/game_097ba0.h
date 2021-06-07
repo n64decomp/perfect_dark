@@ -139,7 +139,7 @@ void func0f0a7138(Gfx **gdl);
 struct audiohandle **func0f0a7d5c(void);
 void gsetPlayPropHitSound(struct gset *gset, struct prop *prop, s32 arg2);
 void func0f0a8404(struct coord *pos, s16 *rooms, s32 arg2);
-u32 func0f0a84c8(void);
+void func0f0a84c8(struct gset *gset, struct coord *arg1, s16 arg2, s16 *arg3);
 void handSetTriggerOn(s32 handnum, bool on);
 s32 currentPlayerConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2);
 void func0f0a8c50(void);

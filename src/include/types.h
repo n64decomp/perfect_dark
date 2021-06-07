@@ -3500,10 +3500,11 @@ struct twowords {
 	u32 unk04;
 };
 
-struct something {
-	u32 *unk00;
-	u32 *unk04;
-	u32 unk08;
+struct surfacetype {
+	u16 *sounds;
+	u8 *unk04;
+	s16 numsounds;
+	s16 num04;
 };
 
 union soundnumhack {
@@ -5788,10 +5789,11 @@ struct weatherparticledata {
 };
 
 struct texture {
-	u8 unk00;
+	u8 unk00_00 : 4;
+	u8 surfacetype : 4;
 	u8 unk01;
 	u16 dataoffset;
-	u32 unk08;
+	u32 unk04;
 };
 
 struct var800aabb8 {
@@ -7037,6 +7039,56 @@ struct var8009ddec {
 	/*0x04*/ struct coord pos;
 	/*0x10*/ f32 look[2];
 	/*0x18*/ s32 pad;
+};
+
+struct hitthing {
+	struct coord unk00;
+	struct coord unk0c;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	s16 unk28;
+	s16 unk2a;
+	s16 unk2c;
+	s16 unk2e;
+};
+
+struct hit {
+	/*0x00*/ f32 distance;
+	/*0x04*/ struct prop *prop;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ s8 unk4c;
+	/*0x4d*/ s8 unk4d;
+	/*0x50*/ struct coord pos;
+	/*0x5c*/ struct coord dir;
+};
+
+struct shotdata {
+	/*0x00*/ struct coord unk00;
+	/*0x0c*/ struct coord unk0c;
+	/*0x18*/ struct gset gset;
+	/*0x1c*/ struct coord gunpos;
+	/*0x28*/ struct coord dir;
+	/*0x34*/ f32 unk34;
+	/*0x38*/ s32 unk38;
+	/*0x3c*/ struct hit hits[10];
 };
 
 #endif
