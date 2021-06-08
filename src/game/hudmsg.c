@@ -31,7 +31,7 @@ const char var7f1adea8[] = "";
 
 u32 g_NextHudMessageId;
 
-u8 var80070fb0 = 0;
+u8 g_HudmsgsActive = 0;
 
 u32 g_Colours[] = {
 	/* 0*/ 0x00ff0000, // green
@@ -78,10 +78,10 @@ u32 var8007118c = 0x00000000;
 
 u8 func0f0dcdb0(void)
 {
-	return var80070fb0;
+	return g_HudmsgsActive;
 }
 
-s32 hudIsZoomRangeVisible(void)
+s32 hudmsgIsZoomRangeVisible(void)
 {
 	return optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
 		&& (PLAYERCOUNT() == 1
@@ -95,7 +95,7 @@ s32 hudIsZoomRangeVisible(void)
 }
 
 GLOBAL_ASM(
-glabel hudRenderMissionTimer
+glabel hudmsgRenderMissionTimer
 /*  f0dcef4:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0dcef8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f0dcefc:	afa40090 */ 	sw	$a0,0x90($sp)
@@ -220,7 +220,7 @@ glabel hudRenderMissionTimer
 /*  f0dd0b0:	01c87821 */ 	addu	$t7,$t6,$t0
 /*  f0dd0b4:	01ea1821 */ 	addu	$v1,$t7,$t2
 /*  f0dd0b8:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0dd0bc:	0fc3736f */ 	jal	hudIsZoomRangeVisible
+/*  f0dd0bc:	0fc3736f */ 	jal	hudmsgIsZoomRangeVisible
 /*  f0dd0c0:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f0dd0c4:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f0dd0c8:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -357,7 +357,7 @@ glabel hudRenderMissionTimer
 /*  f0dd2a8:	00000000 */ 	nop
 );
 
-//Gfx *hudRenderMissionTimer(Gfx *gdl, u32 arg1)
+//Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 arg1)
 //{
 //	s32 sp8c;
 //	s32 sp88;
@@ -388,7 +388,7 @@ glabel hudRenderMissionTimer
 //
 //	// 054
 //	if ((IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || playercount >= 3)
-//			&& hudIsZoomRangeVisible()) {
+//			&& hudmsgIsZoomRangeVisible()) {
 //		sp80 -= 8;
 //	}
 //
@@ -439,7 +439,7 @@ glabel hudRenderMissionTimer
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
-glabel hudRenderZoomRange
+glabel hudmsgRenderZoomRange
 /*  f0dd2ac:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f0dd2b0:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0dd2b4:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -823,7 +823,7 @@ glabel hudRenderZoomRange
 );
 #else
 GLOBAL_ASM(
-glabel hudRenderZoomRange
+glabel hudmsgRenderZoomRange
 /*  f0dd28c:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f0dd290:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0dd294:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -1207,200 +1207,50 @@ glabel hudRenderZoomRange
 );
 #endif
 
-GLOBAL_ASM(
-glabel hudRenderMessageBox
-.late_rodata
-glabel var7f1adeac
-.word 0x40490fdb
-.text
-/*  f0dd848:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0dd84c:	3c018007 */ 	lui	$at,%hi(var80070fb0)
-/*  f0dd850:	a02e0fb0 */ 	sb	$t6,%lo(var80070fb0)($at)
-/*  f0dd854:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0dd858:	3c0142b4 */ 	lui	$at,0x42b4
-/*  f0dd85c:	44812000 */ 	mtc1	$at,$f4
-/*  f0dd860:	c7a60084 */ 	lwc1	$f6,0x84($sp)
-/*  f0dd864:	3c017f1b */ 	lui	$at,%hi(var7f1adeac)
-/*  f0dd868:	c42adeac */ 	lwc1	$f10,%lo(var7f1adeac)($at)
-/*  f0dd86c:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0dd870:	3c014334 */ 	lui	$at,0x4334
-/*  f0dd874:	44819000 */ 	mtc1	$at,$f18
-/*  f0dd878:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f0dd87c:	afb30048 */ 	sw	$s3,0x48($sp)
-/*  f0dd880:	afb20044 */ 	sw	$s2,0x44($sp)
-/*  f0dd884:	afb10040 */ 	sw	$s1,0x40($sp)
-/*  f0dd888:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0dd88c:	afb0003c */ 	sw	$s0,0x3c($sp)
-/*  f0dd890:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0dd894:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f0dd898:	00e09025 */ 	or	$s2,$a3,$zero
-/*  f0dd89c:	00c09825 */ 	or	$s3,$a2,$zero
-/*  f0dd8a0:	f7b80030 */ 	sdc1	$f24,0x30($sp)
-/*  f0dd8a4:	f7b60028 */ 	sdc1	$f22,0x28($sp)
-/*  f0dd8a8:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f0dd8ac:	0c0068f7 */ 	jal	sinf
-/*  f0dd8b0:	46128303 */ 	div.s	$f12,$f16,$f18
-/*  f0dd8b4:	8fb80080 */ 	lw	$t8,0x80($sp)
-/*  f0dd8b8:	02517823 */ 	subu	$t7,$s2,$s1
-/*  f0dd8bc:	448f2000 */ 	mtc1	$t7,$f4
-/*  f0dd8c0:	0313c823 */ 	subu	$t9,$t8,$s3
-/*  f0dd8c4:	44994000 */ 	mtc1	$t9,$f8
-/*  f0dd8c8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0dd8cc:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0dd8d0:	4481c000 */ 	mtc1	$at,$f24
-/*  f0dd8d4:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0dd8d8:	46183582 */ 	mul.s	$f22,$f6,$f24
-/*  f0dd8dc:	4618003c */ 	c.lt.s	$f0,$f24
-/*  f0dd8e0:	46185502 */ 	mul.s	$f20,$f10,$f24
-/*  f0dd8e4:	45020007 */ 	bc1fl	.L0f0dd904
-/*  f0dd8e8:	46180081 */ 	sub.s	$f2,$f0,$f24
-/*  f0dd8ec:	46000400 */ 	add.s	$f16,$f0,$f0
-/*  f0dd8f0:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0dd8f4:	4610b582 */ 	mul.s	$f22,$f22,$f16
-/*  f0dd8f8:	10000005 */ 	b	.L0f0dd910
-/*  f0dd8fc:	00000000 */ 	nop
-/*  f0dd900:	46180081 */ 	sub.s	$f2,$f0,$f24
-.L0f0dd904:
-/*  f0dd904:	46021480 */ 	add.s	$f18,$f2,$f2
-/*  f0dd908:	4612a502 */ 	mul.s	$f20,$f20,$f18
-/*  f0dd90c:	00000000 */ 	nop
-.L0f0dd910:
-/*  f0dd910:	0fc351e7 */ 	jal	func0f0d479c
-/*  f0dd914:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0dd918:	8fb00088 */ 	lw	$s0,0x88($sp)
-/*  f0dd91c:	26630001 */ 	addiu	$v1,$s3,0x1
-/*  f0dd920:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0dd924:	afa30058 */ 	sw	$v1,0x58($sp)
-/*  f0dd928:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0dd92c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0dd930:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0dd934:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0dd938:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0dd93c:	0fc38bd7 */ 	jal	renderFilledRect
-/*  f0dd940:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0dd944:	8fa60080 */ 	lw	$a2,0x80($sp)
-/*  f0dd948:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0dd94c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0dd950:	24c30001 */ 	addiu	$v1,$a2,0x1
-/*  f0dd954:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f0dd958:	afa30054 */ 	sw	$v1,0x54($sp)
-/*  f0dd95c:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0dd960:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0dd964:	0fc38bd7 */ 	jal	renderFilledRect
-/*  f0dd968:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0dd96c:	8fa80080 */ 	lw	$t0,0x80($sp)
-/*  f0dd970:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0dd974:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0dd978:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f0dd97c:	26270001 */ 	addiu	$a3,$s1,0x1
-/*  f0dd980:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0dd984:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0dd988:	0fc38bd7 */ 	jal	renderFilledRect
-/*  f0dd98c:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0dd990:	8fa90054 */ 	lw	$t1,0x54($sp)
-/*  f0dd994:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0dd998:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0dd99c:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0dd9a0:	26470001 */ 	addiu	$a3,$s2,0x1
-/*  f0dd9a4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0dd9a8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0dd9ac:	0fc38bd7 */ 	jal	renderFilledRect
-/*  f0dd9b0:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0dd9b4:	0fc35272 */ 	jal	func0f0d49c8
-/*  f0dd9b8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0dd9bc:	c7ae008c */ 	lwc1	$f14,0x8c($sp)
-/*  f0dd9c0:	44802000 */ 	mtc1	$zero,$f4
-/*  f0dd9c4:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0dd9c8:	02325021 */ 	addu	$t2,$s1,$s2
-/*  f0dd9cc:	460e203c */ 	c.lt.s	$f4,$f14
-/*  f0dd9d0:	00000000 */ 	nop
-/*  f0dd9d4:	45020047 */ 	bc1fl	.L0f0ddaf4
-/*  f0dd9d8:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0dd9dc:	448a3000 */ 	mtc1	$t2,$f6
-/*  f0dd9e0:	8fad0080 */ 	lw	$t5,0x80($sp)
-/*  f0dd9e4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0dd9e8:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f0dd9ec:	026d7021 */ 	addu	$t6,$s3,$t5
-/*  f0dd9f0:	448e2000 */ 	mtc1	$t6,$f4
-/*  f0dd9f4:	44816000 */ 	mtc1	$at,$f12
-/*  f0dd9f8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0dd9fc:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0dda00:	46184002 */ 	mul.s	$f0,$f8,$f24
-/*  f0dda04:	3c028008 */ 	lui	$v0,%hi(g_ScaleX)
-/*  f0dda08:	8c42fac0 */ 	lw	$v0,%lo(g_ScaleX)($v0)
-/*  f0dda0c:	3c014300 */ 	lui	$at,0x4300
-/*  f0dda10:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0dda14:	46183082 */ 	mul.s	$f2,$f6,$f24
-/*  f0dda18:	46160281 */ 	sub.s	$f10,$f0,$f22
-/*  f0dda1c:	460c5400 */ 	add.s	$f16,$f10,$f12
-/*  f0dda20:	46141201 */ 	sub.s	$f8,$f2,$f20
-/*  f0dda24:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f0dda28:	460c4280 */ 	add.s	$f10,$f8,$f12
-/*  f0dda2c:	440c9000 */ 	mfc1	$t4,$f18
-/*  f0dda30:	46160480 */ 	add.s	$f18,$f0,$f22
-/*  f0dda34:	01820019 */ 	multu	$t4,$v0
-/*  f0dda38:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f0dda3c:	44815000 */ 	mtc1	$at,$f10
-/*  f0dda40:	3c014f00 */ 	lui	$at,0x4f00
-/*  f0dda44:	46141180 */ 	add.s	$f6,$f2,$f20
-/*  f0dda48:	44068000 */ 	mfc1	$a2,$f16
-/*  f0dda4c:	460e5402 */ 	mul.s	$f16,$f10,$f14
-/*  f0dda50:	4600910d */ 	trunc.w.s	$f4,$f18
-/*  f0dda54:	00002812 */ 	mflo	$a1
-/*  f0dda58:	44192000 */ 	mfc1	$t9,$f4
-/*  f0dda5c:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f0dda60:	03220019 */ 	multu	$t9,$v0
-/*  f0dda64:	444af800 */ 	cfc1	$t2,$31
-/*  f0dda68:	44cbf800 */ 	ctc1	$t3,$31
-/*  f0dda6c:	44094000 */ 	mfc1	$t1,$f8
-/*  f0dda70:	460084a4 */ 	cvt.w.s	$f18,$f16
-/*  f0dda74:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0dda78:	444bf800 */ 	cfc1	$t3,$31
-/*  f0dda7c:	00003812 */ 	mflo	$a3
-/*  f0dda80:	316b0078 */ 	andi	$t3,$t3,0x78
-/*  f0dda84:	51600013 */ 	beqzl	$t3,.L0f0ddad4
-/*  f0dda88:	440b9000 */ 	mfc1	$t3,$f18
-/*  f0dda8c:	44819000 */ 	mtc1	$at,$f18
-/*  f0dda90:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0dda94:	46128481 */ 	sub.s	$f18,$f16,$f18
-/*  f0dda98:	44cbf800 */ 	ctc1	$t3,$31
-/*  f0dda9c:	00000000 */ 	nop
-/*  f0ddaa0:	460094a4 */ 	cvt.w.s	$f18,$f18
-/*  f0ddaa4:	444bf800 */ 	cfc1	$t3,$31
-/*  f0ddaa8:	00000000 */ 	nop
-/*  f0ddaac:	316b0078 */ 	andi	$t3,$t3,0x78
-/*  f0ddab0:	15600005 */ 	bnez	$t3,.L0f0ddac8
-/*  f0ddab4:	00000000 */ 	nop
-/*  f0ddab8:	440b9000 */ 	mfc1	$t3,$f18
-/*  f0ddabc:	3c018000 */ 	lui	$at,0x8000
-/*  f0ddac0:	10000007 */ 	b	.L0f0ddae0
-/*  f0ddac4:	01615825 */ 	or	$t3,$t3,$at
-.L0f0ddac8:
-/*  f0ddac8:	10000005 */ 	b	.L0f0ddae0
-/*  f0ddacc:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f0ddad0:	440b9000 */ 	mfc1	$t3,$f18
-.L0f0ddad4:
-/*  f0ddad4:	00000000 */ 	nop
-/*  f0ddad8:	0560fffb */ 	bltz	$t3,.L0f0ddac8
-/*  f0ddadc:	00000000 */ 	nop
-.L0f0ddae0:
-/*  f0ddae0:	44caf800 */ 	ctc1	$t2,$31
-/*  f0ddae4:	0fc54e8d */ 	jal	func0f153a34
-/*  f0ddae8:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f0ddaec:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0ddaf0:	8fbf004c */ 	lw	$ra,0x4c($sp)
-.L0f0ddaf4:
-/*  f0ddaf4:	02001025 */ 	or	$v0,$s0,$zero
-/*  f0ddaf8:	8fb0003c */ 	lw	$s0,0x3c($sp)
-/*  f0ddafc:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f0ddb00:	d7b60028 */ 	ldc1	$f22,0x28($sp)
-/*  f0ddb04:	d7b80030 */ 	ldc1	$f24,0x30($sp)
-/*  f0ddb08:	8fb10040 */ 	lw	$s1,0x40($sp)
-/*  f0ddb0c:	8fb20044 */ 	lw	$s2,0x44($sp)
-/*  f0ddb10:	8fb30048 */ 	lw	$s3,0x48($sp)
-/*  f0ddb14:	03e00008 */ 	jr	$ra
-/*  f0ddb18:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u32 bordercolour, f32 textopacity)
+{
+	f32 f0;
+	f32 f20;
+	f32 f22;
+
+	if (x1);
+
+	g_HudmsgsActive = true;
+
+	f0 = sinf(90 * bgopacity * M_PI / 180.0f);
+	f22 = (x2 - x1) * 0.5f;
+	f20 = (y2 - y1) * 0.5f;
+
+	if (f0 < 0.5f) {
+		f20 = 0.0f;
+		f22 *= f0 + f0;
+	} else {
+		f20 *= (f0 - 0.5f) + (f0 - 0.5f);
+	}
+
+	gdl = func0f0d479c(gdl);
+
+	gdl = renderFilledRect(gdl, x1, y1, x2, y1 + 1, bordercolour, bordercolour);
+	gdl = renderFilledRect(gdl, x1, y2, x2, y2 + 1, bordercolour, bordercolour);
+	gdl = renderFilledRect(gdl, x1, y1 + 1, x1 + 1, y2, bordercolour, bordercolour);
+	gdl = renderFilledRect(gdl, x2, y1, x2 + 1, y2 + 1, bordercolour, bordercolour);
+
+	gdl = func0f0d49c8(gdl);
+
+	if (textopacity > 0.0f) {
+		f32 width = (x1 + x2) * 0.5f;
+		f32 height = (y1 + y2) * 0.5f;
+
+		gdl = func0f153a34(gdl,
+				(s32)((width - f22) + 1.0f) * g_ScaleX,
+				(height - f20) + 1.0f,
+				(s32)(width + f22) * g_ScaleX,
+				height + f20,
+				128.0f * textopacity);
+	}
+
+	return gdl;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -5201,7 +5051,7 @@ glabel var7f1aded8
 /*  f0df36c:	8dce06c8 */ 	lw	$t6,%lo(g_ViMode)($t6)
 /*  f0df370:	afb20030 */ 	sw	$s2,0x30($sp)
 /*  f0df374:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f0df378:	3c018007 */ 	lui	$at,%hi(var80070fb0)
+/*  f0df378:	3c018007 */ 	lui	$at,%hi(g_HudmsgsActive)
 /*  f0df37c:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f0df380:	afb60040 */ 	sw	$s6,0x40($sp)
 /*  f0df384:	afb5003c */ 	sw	$s5,0x3c($sp)
@@ -5210,7 +5060,7 @@ glabel var7f1aded8
 /*  f0df390:	afb1002c */ 	sw	$s1,0x2c($sp)
 /*  f0df394:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f0df398:	164e0005 */ 	bne	$s2,$t6,.L0f0df3b0
-/*  f0df39c:	a0200fb0 */ 	sb	$zero,%lo(var80070fb0)($at)
+/*  f0df39c:	a0200fb0 */ 	sb	$zero,%lo(g_HudmsgsActive)($at)
 /*  f0df3a0:	240f0002 */ 	addiu	$t7,$zero,0x2
 /*  f0df3a4:	3c018008 */ 	lui	$at,%hi(g_ScaleX)
 /*  f0df3a8:	10000003 */ 	b	.L0f0df3b8
@@ -6468,7 +6318,7 @@ glabel hudmsgsRender
 /*  f0e0648:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e064c:	02402025 */ 	move	$a0,$s2
 /*  f0e0650:	2706fffd */ 	addiu	$a2,$t8,-3
-/*  f0e0654:	0fc37776 */ 	jal	hudRenderMessageBox
+/*  f0e0654:	0fc37776 */ 	jal	hudmsgRenderBox
 /*  f0e0658:	25c5fffd */ 	addiu	$a1,$t6,-3
 /*  f0e065c:	0c002e53 */ 	jal	viGetWidth
 /*  f0e0660:	00409025 */ 	move	$s2,$v0
@@ -6571,7 +6421,7 @@ glabel hudmsgsRender
 /*  f0e07d0:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0e07d4:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e07d8:	02402025 */ 	move	$a0,$s2
-/*  f0e07dc:	0fc37776 */ 	jal	hudRenderMessageBox
+/*  f0e07dc:	0fc37776 */ 	jal	hudmsgRenderBox
 /*  f0e07e0:	2566fffd */ 	addiu	$a2,$t3,-3
 /*  f0e07e4:	0c002e53 */ 	jal	viGetWidth
 /*  f0e07e8:	00409025 */ 	move	$s2,$v0
@@ -6736,7 +6586,7 @@ glabel hudmsgsRender
 /*  f0e0a44:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e0a48:	02402025 */ 	move	$a0,$s2
 /*  f0e0a4c:	2565fffd */ 	addiu	$a1,$t3,-3
-/*  f0e0a50:	0fc37776 */ 	jal	hudRenderMessageBox
+/*  f0e0a50:	0fc37776 */ 	jal	hudmsgRenderBox
 /*  f0e0a54:	2586fffd */ 	addiu	$a2,$t4,-3
 /*  f0e0a58:	0c002e53 */ 	jal	viGetWidth
 /*  f0e0a5c:	00409025 */ 	move	$s2,$v0
@@ -6906,15 +6756,15 @@ glabel hudmsgsRender
 /*  f0e0ccc:	00000000 */ 	nop
 /*  f0e0cd0:	10410004 */ 	beq	$v0,$at,.PF0f0e0ce4
 /*  f0e0cd4:	02402025 */ 	move	$a0,$s2
-/*  f0e0cd8:	0fc37521 */ 	jal	hudRenderMissionTimer
+/*  f0e0cd8:	0fc37521 */ 	jal	hudmsgRenderMissionTimer
 /*  f0e0cdc:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e0ce0:	00409025 */ 	move	$s2,$v0
 .PF0f0e0ce4:
-/*  f0e0ce4:	0fc374d3 */ 	jal	hudIsZoomRangeVisible
+/*  f0e0ce4:	0fc374d3 */ 	jal	hudmsgIsZoomRangeVisible
 /*  f0e0ce8:	00000000 */ 	nop
 /*  f0e0cec:	10400004 */ 	beqz	$v0,.PF0f0e0d00
 /*  f0e0cf0:	02402025 */ 	move	$a0,$s2
-/*  f0e0cf4:	0fc3760f */ 	jal	hudRenderZoomRange
+/*  f0e0cf4:	0fc3760f */ 	jal	hudmsgRenderZoomRange
 /*  f0e0cf8:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e0cfc:	00409025 */ 	move	$s2,$v0
 .PF0f0e0d00:
@@ -7326,7 +7176,7 @@ glabel var7f1adef4
 /*  f0e000c:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e0010:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e0014:	2706fffd */ 	addiu	$a2,$t8,-3
-/*  f0e0018:	0fc37612 */ 	jal	hudRenderMessageBox
+/*  f0e0018:	0fc37612 */ 	jal	hudmsgRenderBox
 /*  f0e001c:	25c5fffd */ 	addiu	$a1,$t6,-3
 /*  f0e0020:	0c002f02 */ 	jal	viGetWidth
 /*  f0e0024:	00409025 */ 	or	$s2,$v0,$zero
@@ -7429,7 +7279,7 @@ glabel var7f1adef4
 /*  f0e0194:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0e0198:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e019c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e01a0:	0fc37612 */ 	jal	hudRenderMessageBox
+/*  f0e01a0:	0fc37612 */ 	jal	hudmsgRenderBox
 /*  f0e01a4:	2566fffd */ 	addiu	$a2,$t3,-3
 /*  f0e01a8:	0c002f02 */ 	jal	viGetWidth
 /*  f0e01ac:	00409025 */ 	or	$s2,$v0,$zero
@@ -7594,7 +7444,7 @@ glabel var7f1adef4
 /*  f0e0408:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0e040c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e0410:	2565fffd */ 	addiu	$a1,$t3,-3
-/*  f0e0414:	0fc37612 */ 	jal	hudRenderMessageBox
+/*  f0e0414:	0fc37612 */ 	jal	hudmsgRenderBox
 /*  f0e0418:	2586fffd */ 	addiu	$a2,$t4,-3
 /*  f0e041c:	0c002f02 */ 	jal	viGetWidth
 /*  f0e0420:	00409025 */ 	or	$s2,$v0,$zero
@@ -7764,15 +7614,15 @@ glabel var7f1adef4
 /*  f0e0690:	00000000 */ 	nop
 /*  f0e0694:	10410004 */ 	beq	$v0,$at,.L0f0e06a8
 /*  f0e0698:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e069c:	0fc373bd */ 	jal	hudRenderMissionTimer
+/*  f0e069c:	0fc373bd */ 	jal	hudmsgRenderMissionTimer
 /*  f0e06a0:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e06a4:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e06a8:
-/*  f0e06a8:	0fc3736f */ 	jal	hudIsZoomRangeVisible
+/*  f0e06a8:	0fc3736f */ 	jal	hudmsgIsZoomRangeVisible
 /*  f0e06ac:	00000000 */ 	nop
 /*  f0e06b0:	10400004 */ 	beqz	$v0,.L0f0e06c4
 /*  f0e06b4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0e06b8:	0fc374ab */ 	jal	hudRenderZoomRange
+/*  f0e06b8:	0fc374ab */ 	jal	hudmsgRenderZoomRange
 /*  f0e06bc:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0e06c0:	00409025 */ 	or	$s2,$v0,$zero
 .L0f0e06c4:
@@ -8194,7 +8044,7 @@ glabel var7f1adef4
 /*  f0dd414:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0dd418:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0dd41c:	25e6fffd */ 	addiu	$a2,$t7,-3
-/*  f0dd420:	0fc36b96 */ 	jal	hudRenderMessageBox
+/*  f0dd420:	0fc36b96 */ 	jal	hudmsgRenderBox
 /*  f0dd424:	2705fffd */ 	addiu	$a1,$t8,-3
 /*  f0dd428:	0c002f77 */ 	jal	viGetWidth
 /*  f0dd42c:	00409025 */ 	or	$s2,$v0,$zero
@@ -8297,7 +8147,7 @@ glabel var7f1adef4
 /*  f0dd59c:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f0dd5a0:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0dd5a4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0dd5a8:	0fc36b96 */ 	jal	hudRenderMessageBox
+/*  f0dd5a8:	0fc36b96 */ 	jal	hudmsgRenderBox
 /*  f0dd5ac:	2546fffd */ 	addiu	$a2,$t2,-3
 /*  f0dd5b0:	0c002f77 */ 	jal	viGetWidth
 /*  f0dd5b4:	00409025 */ 	or	$s2,$v0,$zero
@@ -8462,7 +8312,7 @@ glabel var7f1adef4
 /*  f0dd810:	e7b40014 */ 	swc1	$f20,0x14($sp)
 /*  f0dd814:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0dd818:	2545fffd */ 	addiu	$a1,$t2,-3
-/*  f0dd81c:	0fc36b96 */ 	jal	hudRenderMessageBox
+/*  f0dd81c:	0fc36b96 */ 	jal	hudmsgRenderBox
 /*  f0dd820:	2506fffd */ 	addiu	$a2,$t0,-3
 /*  f0dd824:	0c002f77 */ 	jal	viGetWidth
 /*  f0dd828:	00409025 */ 	or	$s2,$v0,$zero
@@ -8632,15 +8482,15 @@ glabel var7f1adef4
 /*  f0dda98:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dda9c:	10410004 */ 	beq	$v0,$at,.NB0f0ddab0
 /*  f0ddaa0:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0ddaa4:	0fc36941 */ 	jal	hudRenderMissionTimer
+/*  f0ddaa4:	0fc36941 */ 	jal	hudmsgRenderMissionTimer
 /*  f0ddaa8:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0ddaac:	00409025 */ 	or	$s2,$v0,$zero
 .NB0f0ddab0:
-/*  f0ddab0:	0fc368f3 */ 	jal	hudIsZoomRangeVisible
+/*  f0ddab0:	0fc368f3 */ 	jal	hudmsgIsZoomRangeVisible
 /*  f0ddab4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ddab8:	10400004 */ 	beqz	$v0,.NB0f0ddacc
 /*  f0ddabc:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0ddac0:	0fc36a2f */ 	jal	hudRenderZoomRange
+/*  f0ddac0:	0fc36a2f */ 	jal	hudmsgRenderZoomRange
 /*  f0ddac4:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f0ddac8:	00409025 */ 	or	$s2,$v0,$zero
 .NB0f0ddacc:
@@ -8807,7 +8657,7 @@ glabel var7f1adef4
 //				// fd8
 //				if (msg->boxed) {
 //					// fe0
-//					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
+//					gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
 //					// 020
 //					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 //				} else {
@@ -8834,7 +8684,7 @@ glabel var7f1adef4
 //				}
 //
 //				// 1a0
-//				gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
+//				gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
 //				// 1f0
 //				gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 //			} else {
@@ -8881,7 +8731,7 @@ glabel var7f1adef4
 //				// 3d8
 //				if (msg->boxed) {
 //					// 414
-//					gdl = hudRenderMessageBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
+//					gdl = hudmsgRenderBox(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
 //					// 464
 //					gdl = textRenderProjected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, viGetWidth(), viGetHeight(), 0, 0);
 //				} else {
@@ -8914,11 +8764,11 @@ glabel var7f1adef4
 //				&& g_Vars.stagenum != STAGE_CITRAINING
 //				&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 //				&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON) {
-//			gdl = hudRenderMissionTimer(gdl, timerthing);
+//			gdl = hudmsgRenderMissionTimer(gdl, timerthing);
 //		}
 //
-//		if (hudIsZoomRangeVisible()) {
-//			gdl = hudRenderZoomRange(gdl, timerthing);
+//		if (hudmsgIsZoomRangeVisible()) {
+//			gdl = hudmsgRenderZoomRange(gdl, timerthing);
 //		}
 //
 //		gdl = countdownTimerRender(gdl);

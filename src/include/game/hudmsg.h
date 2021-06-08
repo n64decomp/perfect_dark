@@ -5,10 +5,10 @@
 #include "types.h"
 
 u8 func0f0dcdb0(void);
-s32 hudIsZoomRangeVisible(void);
-Gfx *hudRenderMissionTimer(Gfx *gdl, u32 arg1);
-Gfx *hudRenderZoomRange(Gfx *gdl, s32 arg1);
-Gfx *hudRenderMessageBox(Gfx *gdl, s32 x, s32 y, s32 width, s32 height, f32 bgopacity, u32 bordercolour, f32 textopacity);
+s32 hudmsgIsZoomRangeVisible(void);
+Gfx *hudmsgRenderMissionTimer(Gfx *gdl, u32 arg1);
+Gfx *hudmsgRenderZoomRange(Gfx *gdl, s32 arg1);
+Gfx *hudmsgRenderBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, u32 bordercolour, f32 textopacity);
 s32 func0f0ddb1c(u32 *arg0, u32 arg1);
 void func0f0ddd44(s32 value);
 void hudmsgsInit(void);
