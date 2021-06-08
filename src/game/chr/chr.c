@@ -14177,19 +14177,12 @@ void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool 
 			s32 spc0 = 0;
 			struct modelnode *node = NULL;
 			s32 spb8 = 0;
-			u32 stack1;
-			u32 stack2;
-			u32 stack3;
-			u32 stack4;
-			u32 stack5;
-			struct prop *child;
-			struct coord sp94;
-			struct coord sp88;
+			struct hitthing sp88;
 			s32 sp84 = 0;
-			s32 sp80 = 0;
+			struct modelnode *sp80 = NULL;
 			Mtxf *iVar5 = func0001a60c(model);
 			struct prop *next;
-			u32 stack6;
+			struct prop *child;
 			s32 sp70;
 			Mtxf *mtx;
 			f32 sp68;
@@ -14217,9 +14210,9 @@ void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool 
 
 					while (spc0 > 0) {
 						if (func0f084594(model, node, &shotdata->unk00, &shotdata->unk0c, &sp88, &sp84, &sp80)) {
-							func00015b68(&model->matrices[sp84], &sp88, &spdc);
+							func00015b68(&model->matrices[sp84], &sp88.unk00, &spdc);
 							func00015b64(currentPlayerGetUnk174c(), &spdc);
-							func00015b14(&model->matrices[sp84], &sp94, &spd0);
+							func00015b14(&model->matrices[sp84], &sp88.unk0c, &spd0);
 							func00015b10(currentPlayerGetUnk174c(), &spd0);
 							break;
 						}
@@ -14230,11 +14223,10 @@ void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool 
 					spc0 = func000225d4(model, &shotdata->unk00, &shotdata->unk0c, &node);
 
 					if (spc0 > 0) {
-
 						if (func0f06bea0(model, model->filedata->rootnode, model->filedata->rootnode, &shotdata->unk00,
-									&shotdata->unk0c, &sp88, &sp70, &node, &spc0, &sp84, &sp80)) {
-							func00015b68(currentPlayerGetUnk174c(), &sp88, &spdc);
-							func00015b14(currentPlayerGetUnk174c(), &sp94, &spd0);
+									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &spc0, &sp84, &sp80)) {
+							func00015b68(currentPlayerGetUnk174c(), &sp88.unk00, &spdc);
+							func00015b14(currentPlayerGetUnk174c(), &sp88.unk0c, &spd0);
 						} else {
 							spc0 = 0;
 						}
@@ -14252,7 +14244,7 @@ void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool 
 				sp68 = -sp68;
 
 				if (sp68 < shotdata->unk34) {
-					func0f061fa8(shotdata, prop, sp68, spc0, node, &sp88, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
+					func0f061fa8(shotdata, prop, sp68, spc0, node, &sp88.unk00, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
 				}
 			}
 
