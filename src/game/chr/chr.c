@@ -14244,7 +14244,7 @@ void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool 
 				sp68 = -sp68;
 
 				if (sp68 < shotdata->unk34) {
-					func0f061fa8(shotdata, prop, sp68, spc0, node, &sp88.unk00, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
+					func0f061fa8(shotdata, prop, sp68, spc0, node, &sp88, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
 				}
 			}
 

@@ -635,7 +635,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	for (i = 0; i != 10; i++) {
 		shotdata.hits[i].prop = NULL;
 		shotdata.hits[i].unk08 = 0;
-		shotdata.hits[i].unk0c = 0;
+		shotdata.hits[i].node = NULL;
 	}
 
 	if (laserstream) {
@@ -993,203 +993,93 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f061fa8
-/*  f061fa8:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f061fac:	8fae006c */ 	lw	$t6,0x6c($sp)
-/*  f061fb0:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f061fb4:	4486a000 */ 	mtc1	$a2,$f20
-/*  f061fb8:	00803025 */ 	or	$a2,$a0,$zero
-/*  f061fbc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f061fc0:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f061fc4:	11c00045 */ 	beqz	$t6,.L0f0620dc
-/*  f061fc8:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f061fcc:	44806000 */ 	mtc1	$zero,$f12
-/*  f061fd0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f061fd4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f061fd8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f061fdc:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f061fe0:	46006086 */ 	mov.s	$f2,$f12
-.L0f061fe4:
-/*  f061fe4:	8c4f0040 */ 	lw	$t7,0x40($v0)
-/*  f061fe8:	51e0000e */ 	beqzl	$t7,.L0f062024
-/*  f061fec:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f061ff0:	80580088 */ 	lb	$t8,0x88($v0)
-/*  f061ff4:	5300000b */ 	beqzl	$t8,.L0f062024
-/*  f061ff8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f061ffc:	c440003c */ 	lwc1	$f0,0x3c($v0)
-/*  f062000:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f062004:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f062008:	00000000 */ 	nop
-/*  f06200c:	45020005 */ 	bc1fl	.L0f062024
-/*  f062010:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f062014:	46001306 */ 	mov.s	$f12,$f2
-/*  f062018:	46000086 */ 	mov.s	$f2,$f0
-/*  f06201c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f062020:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f062024:
-/*  f062024:	2881000a */ 	slti	$at,$a0,0xa
-/*  f062028:	1420ffee */ 	bnez	$at,.L0f061fe4
-/*  f06202c:	24420068 */ 	addiu	$v0,$v0,0x68
-/*  f062030:	8cc20038 */ 	lw	$v0,0x38($a2)
-/*  f062034:	0005c880 */ 	sll	$t9,$a1,0x2
-/*  f062038:	0325c823 */ 	subu	$t9,$t9,$a1
-/*  f06203c:	0062082a */ 	slt	$at,$v1,$v0
-/*  f062040:	1420001e */ 	bnez	$at,.L0f0620bc
-/*  f062044:	246b0001 */ 	addiu	$t3,$v1,0x1
-/*  f062048:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f06204c:	4614603c */ 	c.lt.s	$f12,$f20
-/*  f062050:	0325c821 */ 	addu	$t9,$t9,$a1
-/*  f062054:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f062058:	00d94021 */ 	addu	$t0,$a2,$t9
-/*  f06205c:	ad000040 */ 	sw	$zero,0x40($t0)
-/*  f062060:	45000002 */ 	bc1f	.L0f06206c
-/*  f062064:	e4cc0034 */ 	swc1	$f12,0x34($a2)
-/*  f062068:	e4d40034 */ 	swc1	$f20,0x34($a2)
-.L0f06206c:
-/*  f06206c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f062070:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f062074:	24040410 */ 	addiu	$a0,$zero,0x410
-.L0f062078:
-/*  f062078:	8c490040 */ 	lw	$t1,0x40($v0)
-/*  f06207c:	24630068 */ 	addiu	$v1,$v1,0x68
-/*  f062080:	1120000a */ 	beqz	$t1,.L0f0620ac
-/*  f062084:	00000000 */ 	nop
-/*  f062088:	804a0088 */ 	lb	$t2,0x88($v0)
-/*  f06208c:	15400007 */ 	bnez	$t2,.L0f0620ac
-/*  f062090:	00000000 */ 	nop
-/*  f062094:	c444003c */ 	lwc1	$f4,0x3c($v0)
-/*  f062098:	4604603c */ 	c.lt.s	$f12,$f4
-/*  f06209c:	00000000 */ 	nop
-/*  f0620a0:	45000002 */ 	bc1f	.L0f0620ac
-/*  f0620a4:	00000000 */ 	nop
-/*  f0620a8:	ac400040 */ 	sw	$zero,0x40($v0)
-.L0f0620ac:
-/*  f0620ac:	1464fff2 */ 	bne	$v1,$a0,.L0f062078
-/*  f0620b0:	24420068 */ 	addiu	$v0,$v0,0x68
-/*  f0620b4:	1000000a */ 	b	.L0f0620e0
-/*  f0620b8:	8fa50070 */ 	lw	$a1,0x70($sp)
-.L0f0620bc:
-/*  f0620bc:	55620008 */ 	bnel	$t3,$v0,.L0f0620e0
-/*  f0620c0:	8fa50070 */ 	lw	$a1,0x70($sp)
-/*  f0620c4:	c4c60034 */ 	lwc1	$f6,0x34($a2)
-/*  f0620c8:	4606a03c */ 	c.lt.s	$f20,$f6
-/*  f0620cc:	00000000 */ 	nop
-/*  f0620d0:	45020003 */ 	bc1fl	.L0f0620e0
-/*  f0620d4:	8fa50070 */ 	lw	$a1,0x70($sp)
-/*  f0620d8:	e4d40034 */ 	swc1	$f20,0x34($a2)
-.L0f0620dc:
-/*  f0620dc:	8fa50070 */ 	lw	$a1,0x70($sp)
-.L0f0620e0:
-/*  f0620e0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0620e4:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f0620e8:	10a0000e */ 	beqz	$a1,.L0f062124
-/*  f0620ec:	24040410 */ 	addiu	$a0,$zero,0x410
-.L0f0620f0:
-/*  f0620f0:	8c4c0040 */ 	lw	$t4,0x40($v0)
-/*  f0620f4:	24630068 */ 	addiu	$v1,$v1,0x68
-/*  f0620f8:	11800007 */ 	beqz	$t4,.L0f062118
-/*  f0620fc:	00000000 */ 	nop
-/*  f062100:	c448003c */ 	lwc1	$f8,0x3c($v0)
-/*  f062104:	4608a03c */ 	c.lt.s	$f20,$f8
-/*  f062108:	00000000 */ 	nop
-/*  f06210c:	45000002 */ 	bc1f	.L0f062118
-/*  f062110:	00000000 */ 	nop
-/*  f062114:	ac400040 */ 	sw	$zero,0x40($v0)
-.L0f062118:
-/*  f062118:	1464fff5 */ 	bne	$v1,$a0,.L0f0620f0
-/*  f06211c:	24420068 */ 	addiu	$v0,$v0,0x68
-/*  f062120:	e4d40034 */ 	swc1	$f20,0x34($a2)
-.L0f062124:
-/*  f062124:	00001825 */ 	or	$v1,$zero,$zero
-/*  f062128:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f06212c:	24040410 */ 	addiu	$a0,$zero,0x410
-.L0f062130:
-/*  f062130:	8c4d0040 */ 	lw	$t5,0x40($v0)
-/*  f062134:	24630068 */ 	addiu	$v1,$v1,0x68
-/*  f062138:	15a00046 */ 	bnez	$t5,.L0f062254
-/*  f06213c:	00000000 */ 	nop
-/*  f062140:	8fa30074 */ 	lw	$v1,0x74($sp)
-/*  f062144:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f062148:	e454003c */ 	swc1	$f20,0x3c($v0)
-/*  f06214c:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*  f062150:	ac470044 */ 	sw	$a3,0x44($v0)
-/*  f062154:	00404825 */ 	or	$t1,$v0,$zero
-/*  f062158:	ac4e0040 */ 	sw	$t6,0x40($v0)
-/*  f06215c:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f062160:	ac4f0048 */ 	sw	$t7,0x48($v0)
-/*  f062164:	8fb8005c */ 	lw	$t8,0x5c($sp)
-/*  f062168:	27080030 */ 	addiu	$t0,$t8,0x30
-.L0f06216c:
-/*  f06216c:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f062170:	2718000c */ 	addiu	$t8,$t8,0xc
-/*  f062174:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f062178:	ad210040 */ 	sw	$at,0x40($t1)
-/*  f06217c:	8f01fff8 */ 	lw	$at,-0x8($t8)
-/*  f062180:	ad210044 */ 	sw	$at,0x44($t1)
-/*  f062184:	8f01fffc */ 	lw	$at,-0x4($t8)
-/*  f062188:	1708fff8 */ 	bne	$t8,$t0,.L0f06216c
-/*  f06218c:	ad210048 */ 	sw	$at,0x48($t1)
-/*  f062190:	8faa0060 */ 	lw	$t2,0x60($sp)
-/*  f062194:	ac4a007c */ 	sw	$t2,0x7c($v0)
-/*  f062198:	8fab0064 */ 	lw	$t3,0x64($sp)
-/*  f06219c:	ac4b0080 */ 	sw	$t3,0x80($v0)
-/*  f0621a0:	8fac0068 */ 	lw	$t4,0x68($sp)
-/*  f0621a4:	ac4c0084 */ 	sw	$t4,0x84($v0)
-/*  f0621a8:	8fad006c */ 	lw	$t5,0x6c($sp)
-/*  f0621ac:	a0450089 */ 	sb	$a1,0x89($v0)
-/*  f0621b0:	a04d0088 */ 	sb	$t5,0x88($v0)
-/*  f0621b4:	c46a0000 */ 	lwc1	$f10,0x0($v1)
-/*  f0621b8:	e44a008c */ 	swc1	$f10,0x8c($v0)
-/*  f0621bc:	c4720004 */ 	lwc1	$f18,0x4($v1)
-/*  f0621c0:	e4520090 */ 	swc1	$f18,0x90($v0)
-/*  f0621c4:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f0621c8:	e4440094 */ 	swc1	$f4,0x94($v0)
-/*  f0621cc:	c4820000 */ 	lwc1	$f2,0x0($a0)
-/*  f0621d0:	c48e0004 */ 	lwc1	$f14,0x4($a0)
-/*  f0621d4:	c4800008 */ 	lwc1	$f0,0x8($a0)
-/*  f0621d8:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f0621dc:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0621e0:	460e7202 */ 	mul.s	$f8,$f14,$f14
-/*  f0621e4:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0621e8:	46000482 */ 	mul.s	$f18,$f0,$f0
-/*  f0621ec:	0c012974 */ 	jal	sqrtf
-/*  f0621f0:	460a9300 */ 	add.s	$f12,$f18,$f10
-/*  f0621f4:	44808000 */ 	mtc1	$zero,$f16
-/*  f0621f8:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f0621fc:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f062200:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f062204:	3c013f80 */ 	lui	$at,0x3f80
-/*  f062208:	2443003c */ 	addiu	$v1,$v0,0x3c
-/*  f06220c:	4502000d */ 	bc1fl	.L0f062244
-/*  f062210:	44813000 */ 	mtc1	$at,$f6
-/*  f062214:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f062218:	2443003c */ 	addiu	$v1,$v0,0x3c
-/*  f06221c:	46002183 */ 	div.s	$f6,$f4,$f0
-/*  f062220:	e466005c */ 	swc1	$f6,0x5c($v1)
-/*  f062224:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f062228:	46004483 */ 	div.s	$f18,$f8,$f0
-/*  f06222c:	e4720060 */ 	swc1	$f18,0x60($v1)
-/*  f062230:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f062234:	46005103 */ 	div.s	$f4,$f10,$f0
-/*  f062238:	10000008 */ 	b	.L0f06225c
-/*  f06223c:	e4640064 */ 	swc1	$f4,0x64($v1)
-/*  f062240:	44813000 */ 	mtc1	$at,$f6
-.L0f062244:
-/*  f062244:	e470005c */ 	swc1	$f16,0x5c($v1)
-/*  f062248:	e4700060 */ 	swc1	$f16,0x60($v1)
-/*  f06224c:	10000003 */ 	b	.L0f06225c
-/*  f062250:	e4660064 */ 	swc1	$f6,0x64($v1)
-.L0f062254:
-/*  f062254:	1464ffb6 */ 	bne	$v1,$a0,.L0f062130
-/*  f062258:	24420068 */ 	addiu	$v0,$v0,0x68
-.L0f06225c:
-/*  f06225c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f062260:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f062264:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f062268:	03e00008 */ 	jr	$ra
-/*  f06226c:	00000000 */ 	nop
-);
+void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 arg3, struct modelnode *node, struct hitthing *hitthing, s32 arg6, struct modelnode *arg7, struct model *model, bool arg9, s32 arg10, struct coord *arg11, struct coord *arg12)
+{
+	s32 i;
+	f32 fVar8;
+
+	if (arg9) {
+		s32 bestindex = 0;
+		s32 count = 0;
+		f32 mostdist = 0;
+		f32 prevmostdist = 0;
+
+		for (i = 0; i < 10; i++) {
+			if (shotdata->hits[i].prop && shotdata->hits[i].unk4c) {
+				count++;
+
+				if (shotdata->hits[i].distance > mostdist) {
+					prevmostdist = mostdist;
+					mostdist = shotdata->hits[i].distance;
+					bestindex = i;
+				}
+			}
+		}
+
+		if (count >= shotdata->unk38) {
+			shotdata->hits[bestindex].prop = NULL;
+			shotdata->unk34 = prevmostdist;
+
+			if (shotdata->unk34 < arg2) {
+				shotdata->unk34 = arg2;
+			}
+
+			for (i = 0; i < 10; i++) {
+				if (shotdata->hits[i].prop && !shotdata->hits[i].unk4c && shotdata->hits[i].distance > prevmostdist) {
+					shotdata->hits[i].prop = NULL;
+				}
+			}
+		} else if (count + 1 == shotdata->unk38) {
+			if (shotdata->unk34 > arg2) {
+				shotdata->unk34 = arg2;
+			}
+		}
+	}
+
+	if (arg10) {
+		for (i = 0; i < 10; i++) {
+			if (shotdata->hits[i].prop && shotdata->hits[i].distance > arg2) {
+				shotdata->hits[i].prop = NULL;
+			}
+		}
+
+		shotdata->unk34 = arg2;
+	}
+
+	for (i = 0; i < 10; i++) {
+		if (shotdata->hits[i].prop == NULL) {
+			struct hit *hit = &shotdata->hits[i];
+
+			hit->distance = arg2;
+			hit->prop = prop;
+			hit->unk08 = arg3;
+			hit->node = node;
+			hit->hitthing = *hitthing;
+			hit->unk40 = arg6;
+			hit->unk44 = arg7;
+			hit->model = model;
+			hit->unk4c = arg9;
+			hit->unk4d = arg10;
+			hit->pos.x = arg11->x;
+			hit->pos.y = arg11->y;
+			hit->pos.z = arg11->z;
+
+			fVar8 = sqrtf(arg12->f[0] * arg12->f[0] + arg12->f[1] * arg12->f[1] + arg12->f[2] * arg12->f[2]);
+
+			if (fVar8 > 0) {
+				hit->dir.x = arg12->x / fVar8;
+				hit->dir.y = arg12->y / fVar8;
+				hit->dir.z = arg12->z / fVar8;
+			} else {
+				hit->dir.x = 0;
+				hit->dir.y = 0;
+				hit->dir.z = 1;
+			}
+
+			break;
+		}
+	}
+}
 
 void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 {
