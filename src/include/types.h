@@ -5166,7 +5166,7 @@ struct hudmessageconfig {
 struct hudmessage {
 	/*0x000*/ u8 state;
 	/*0x001*/ u8 boxed;
-	/*0x002*/ u8 unk002;
+	/*0x002*/ u8 allowfadein;
 	/*0x003*/ u8 flash;
 	/*0x004*/ u8 opacity;
 	/*0x006*/ u16 timer;
@@ -5179,10 +5179,10 @@ struct hudmessage {
 	/*0x01c*/ u16 width;
 	/*0x01e*/ u16 height;
 	/*0x020*/ char text[400];
-	/*0x1b0*/ s32 unk1b0;
+	/*0x1b0*/ s32 channelnum;
 	/*0x1b4*/ u32 type;
 	/*0x1b8*/ s32 id;
-	/*0x1bc*/ u32 unk1bc; // duration
+	/*0x1bc*/ s32 showduration;
 	/*0x1c0*/ s32 playernum;
 	/*0x1c4*/ u32 flags;
 	/*0x1c8*/ u8 alignh;

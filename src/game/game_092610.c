@@ -365,7 +365,7 @@ void func0f092a98(s32 channelnum)
 #endif
 
 	if (channel->flags & AUDIOCHANNELFLAG_0200) {
-		func0f0ddd44(channelnum);
+		hudmsgsHideByChannel(channelnum);
 	}
 
 	if (channel->flags & AUDIOCHANNELFLAG_0008) {
@@ -1099,7 +1099,7 @@ glabel var7f1ab740
 .PF0f093364:
 /*  f093364:	53200004 */ 	beqzl	$t9,.PF0f093378
 /*  f093368:	240a0001 */ 	li	$t2,0x1
-/*  f09336c:	0fc378de */ 	jal	func0f0ddd44
+/*  f09336c:	0fc378de */ 	jal	hudmsgsHideByChannel
 /*  f093370:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f093374:	240a0001 */ 	li	$t2,0x1
 .PF0f093378:
@@ -1753,7 +1753,7 @@ glabel var7f1ab740
 .L0f093474:
 /*  f093474:	51400004 */ 	beqzl	$t2,.L0f093488
 /*  f093478:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f09347c:	0fc37751 */ 	jal	func0f0ddd44
+/*  f09347c:	0fc37751 */ 	jal	hudmsgsHideByChannel
 /*  f093480:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f093484:	240b0001 */ 	addiu	$t3,$zero,0x1
 .L0f093488:
@@ -2333,7 +2333,7 @@ glabel var7f1ab740
 .NB0f0919b4:
 /*  f0919b4:	51a0000e */ 	beqzl	$t5,.NB0f0919f0
 /*  f0919b8:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f0919bc:	0fc36cd5 */ 	jal	func0f0ddd44
+/*  f0919bc:	0fc36cd5 */ 	jal	hudmsgsHideByChannel
 /*  f0919c0:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f0919c4:	1000000a */ 	beqz	$zero,.NB0f0919f0
 /*  f0919c8:	24190001 */ 	addiu	$t9,$zero,0x1

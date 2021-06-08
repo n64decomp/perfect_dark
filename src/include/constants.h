@@ -1106,28 +1106,30 @@
 #define HUDHALIGN_LEFT   1
 #define HUDHALIGN_MIDDLE 2
 
-#define HUDMSGFLAG_ONLYIFALIVE 0x1
-#define HUDMSGFLAG_2           0x2
-#define HUDMSGFLAG_4           0x4
-#define HUDMSGFLAG_ALLOWDUPES  0x8
+#define HUDMSGFLAG_ONLYIFALIVE 0x01
+#define HUDMSGFLAG_FORCEOFF    0x02 // for subtitles - turn off message immediately rather than when audio finishes
+#define HUDMSGFLAG_NOCHANNEL   0x04 // not linked to audio
+#define HUDMSGFLAG_ALLOWDUPES  0x08
+#define HUDMSGFLAG_DELAY       0x10 // wait minimum 3 frames before showing
 
 #define HUDMSGREASON_NOCONTROL 0x00000002
 
-#define HUDMSGSTATE_FREE      0
-#define HUDMSGSTATE_QUEUED    1
-#define HUDMSGSTATE_FADINGIN  3
-#define HUDMSGSTATE_ONSCREEN  4
-#define HUDMSGSTATE_FADINGOUT 5
+#define HUDMSGSTATE_FREE             0
+#define HUDMSGSTATE_QUEUED           1
+#define HUDMSGSTATE_CHOOSETRANSITION 2
+#define HUDMSGSTATE_FADINGIN         3
+#define HUDMSGSTATE_ONSCREEN         4
+#define HUDMSGSTATE_FADINGOUT        5
 
 #define HUDMSGTYPE_DEFAULT           0
 #define HUDMSGTYPE_OBJECTIVECOMPLETE 1
 #define HUDMSGTYPE_OBJECTIVEFAILED   2
 #define HUDMSGTYPE_3                 3
 #define HUDMSGTYPE_4                 4
-#define HUDMSGTYPE_SUBTITLE          6
+#define HUDMSGTYPE_INGAMESUBTITLE    6
 #define HUDMSGTYPE_MPSCENARIO        9
 #define HUDMSGTYPE_TRAINING          10
-#define HUDMSGTYPE_11                11
+#define HUDMSGTYPE_CUTSCENESUBTITLE  11
 
 #define HUDVALIGN_BOTTOM 0
 #define HUDVALIGN_TOP    1
