@@ -1929,35 +1929,24 @@ glabel func0f0de160
 /*  f0de780:	8fbe0068 */ 	lw	$s8,0x68($sp)
 /*  f0de784:	03e00008 */ 	jr	$ra
 /*  f0de788:	27bd04c0 */ 	addiu	$sp,$sp,0x4c0
-/*  f0de78c:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0de790:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f0de794:	8faf005c */ 	lw	$t7,0x5c($sp)
-/*  f0de798:	8fb80060 */ 	lw	$t8,0x60($sp)
-/*  f0de79c:	8fb90064 */ 	lw	$t9,0x64($sp)
-/*  f0de7a0:	8fa80068 */ 	lw	$t0,0x68($sp)
-/*  f0de7a4:	8fa9006c */ 	lw	$t1,0x6c($sp)
-/*  f0de7a8:	8faa0070 */ 	lw	$t2,0x70($sp)
-/*  f0de7ac:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*  f0de7b0:	8fac0078 */ 	lw	$t4,0x78($sp)
-/*  f0de7b4:	8fad007c */ 	lw	$t5,0x7c($sp)
-/*  f0de7b8:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0de7bc:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f0de7c0:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0de7c4:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0de7c8:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0de7cc:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0de7d0:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f0de7d4:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f0de7d8:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f0de7dc:	afab002c */ 	sw	$t3,0x2c($sp)
-/*  f0de7e0:	afac0030 */ 	sw	$t4,0x30($sp)
-/*  f0de7e4:	0fc37baf */ 	jal	hudmsgCreateFromArgs
-/*  f0de7e8:	afad0034 */ 	sw	$t5,0x34($sp)
-/*  f0de7ec:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0de7f0:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0de7f4:	03e00008 */ 	jr	$ra
-/*  f0de7f8:	00000000 */ 	nop
 );
+
+void hudmsgCreateFromArgsWithoutFlags(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02, struct hudmessagething *conf04, struct hudmessagething *conf08, u32 textcolour, u32 shadowcolour, u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14)
+{
+	hudmsgCreateFromArgs(text, type,
+			conf00,
+			conf01,
+			conf02,
+			conf04,
+			conf08,
+			textcolour,
+			shadowcolour,
+			alignh,
+			conf16,
+			alignv,
+			conf18,
+			arg14, 0);
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void hudmsgCalculatePosition(struct hudmessage *msg)
