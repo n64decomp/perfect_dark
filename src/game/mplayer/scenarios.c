@@ -949,7 +949,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			if (g_Vars.currentplayerstats->tokenheldtime >= PALDOWN(7200)) {
 				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
-				func0f0ddfa4(langGet(L_MPWEAPONS_024), 9, 1); // "1 Point!"
+				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
 		} else {
@@ -3000,12 +3000,12 @@ glabel var7f1b8950
 /*  f1831e4:	24045416 */ 	li	$a0,0x5416
 /*  f1831e8:	00402025 */ 	move	$a0,$v0
 /*  f1831ec:	24050009 */ 	li	$a1,0x9
-/*  f1831f0:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f1831f0:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f1831f4:	24060001 */ 	li	$a2,0x1
 /*  f1831f8:	10000004 */ 	b	.PF0f18320c
 /*  f1831fc:	8e98006c */ 	lw	$t8,0x6c($s4)
 .PF0f183200:
-/*  f183200:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f183200:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f183204:	24060001 */ 	li	$a2,0x1
 /*  f183208:	8e98006c */ 	lw	$t8,0x6c($s4)
 .PF0f18320c:
@@ -3138,7 +3138,7 @@ glabel var7f1b8950
 /*  f1833dc:	24045415 */ 	li	$a0,0x5415
 /*  f1833e0:	00402025 */ 	move	$a0,$v0
 /*  f1833e4:	24050009 */ 	li	$a1,0x9
-/*  f1833e8:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f1833e8:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f1833ec:	24060001 */ 	li	$a2,0x1
 .PF0f1833f0:
 /*  f1833f0:	3c0d800b */ 	lui	$t5,0x800b
@@ -3692,12 +3692,12 @@ glabel var7f1b8950
 /*  f1821e0:	24045415 */ 	addiu	$a0,$zero,0x5415
 /*  f1821e4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1821e8:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1821ec:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f1821ec:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f1821f0:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1821f4:	10000004 */ 	b	.L0f182208
 /*  f1821f8:	8e98006c */ 	lw	$t8,0x6c($s4)
 .L0f1821fc:
-/*  f1821fc:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f1821fc:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f182200:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f182204:	8e98006c */ 	lw	$t8,0x6c($s4)
 .L0f182208:
@@ -3828,7 +3828,7 @@ glabel var7f1b8950
 /*  f1823d0:	24045414 */ 	addiu	$a0,$zero,0x5414
 /*  f1823d4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1823d8:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1823dc:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f1823dc:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f1823e0:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0f1823e4:
 /*  f1823e4:	3c0d800b */ 	lui	$t5,%hi(g_MpNumPlayers)
@@ -5385,7 +5385,7 @@ glabel var7f1b8960
 /*  f1834bc:	24045412 */ 	addiu	$a0,$zero,0x5413
 /*  f1834c0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1834c4:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1834c8:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f1834c8:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f1834cc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1834d0:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData+0xd4)
 /*  f1834d4:	8f18c1e4 */ 	lw	$t8,%lo(g_ScenarioData+0xd4)($t8)
@@ -5422,7 +5422,7 @@ glabel var7f1b8960
 /*  f18354c:	24045413 */ 	addiu	$a0,$zero,0x5414
 /*  f183550:	00402025 */ 	or	$a0,$v0,$zero
 /*  f183554:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f183558:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f183558:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f18355c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f183560:	3c013f80 */ 	lui	$at,0x3f80
 /*  f183564:	44812000 */ 	mtc1	$at,$f4
@@ -5613,7 +5613,7 @@ glabel var7f1b8960
 /*  f183814:	24045411 */ 	addiu	$a0,$zero,0x5412
 /*  f183818:	00402025 */ 	or	$a0,$v0,$zero
 /*  f18381c:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f183820:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f183820:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f183824:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f183828:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData+0xd4)
 /*  f18382c:	8f18c1e4 */ 	lw	$t8,%lo(g_ScenarioData+0xd4)($t8)
@@ -5668,7 +5668,7 @@ glabel var7f1b8960
 /*  f1838e8:	24045410 */ 	addiu	$a0,$zero,0x5411
 /*  f1838ec:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1838f0:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1838f4:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f1838f4:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f1838f8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1838fc:	3c0c800b */ 	lui	$t4,%hi(g_ScenarioData+0xd4)
 /*  f183900:	8d8cc1e4 */ 	lw	$t4,%lo(g_ScenarioData+0xd4)($t4)
@@ -5816,7 +5816,7 @@ glabel var7f1b8960
 /*  f1834bc:	24045412 */ 	addiu	$a0,$zero,0x5412
 /*  f1834c0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1834c4:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1834c8:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f1834c8:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f1834cc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1834d0:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData+0xd4)
 /*  f1834d4:	8f18c1e4 */ 	lw	$t8,%lo(g_ScenarioData+0xd4)($t8)
@@ -5853,7 +5853,7 @@ glabel var7f1b8960
 /*  f18354c:	24045413 */ 	addiu	$a0,$zero,0x5413
 /*  f183550:	00402025 */ 	or	$a0,$v0,$zero
 /*  f183554:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f183558:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f183558:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f18355c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f183560:	3c013f80 */ 	lui	$at,0x3f80
 /*  f183564:	44812000 */ 	mtc1	$at,$f4
@@ -6044,7 +6044,7 @@ glabel var7f1b8960
 /*  f183814:	24045411 */ 	addiu	$a0,$zero,0x5411
 /*  f183818:	00402025 */ 	or	$a0,$v0,$zero
 /*  f18381c:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f183820:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f183820:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f183824:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f183828:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData+0xd4)
 /*  f18382c:	8f18c1e4 */ 	lw	$t8,%lo(g_ScenarioData+0xd4)($t8)
@@ -6099,7 +6099,7 @@ glabel var7f1b8960
 /*  f1838e8:	24045410 */ 	addiu	$a0,$zero,0x5410
 /*  f1838ec:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1838f0:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1838f4:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f1838f4:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f1838f8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1838fc:	3c0c800b */ 	lui	$t4,%hi(g_ScenarioData+0xd4)
 /*  f183900:	8d8cc1e4 */ 	lw	$t4,%lo(g_ScenarioData+0xd4)($t4)
@@ -8905,10 +8905,10 @@ void mpCreateMatchStartHudmsgs(void)
 			setCurrentPlayerNum(i);
 
 			if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
-				func0f0ddfa4(challengename, HUDMSGTYPE_DEFAULT, 1);
+				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 			}
 
-			func0f0ddfa4(scenarioname, HUDMSGTYPE_DEFAULT, 1);
+			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 		}
 	}
 
@@ -10162,7 +10162,7 @@ void mpCreateScenarioHudmsg(s32 playernum, char *message)
 		s32 prevplayernum = g_Vars.currentplayernum;
 
 		setCurrentPlayerNum(playernum);
-		func0f0ddfa4(message, HUDMSGTYPE_MPSCENARIO, 1);
+		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 		setCurrentPlayerNum(prevplayernum);
 	}
 }
@@ -10334,7 +10334,7 @@ glabel chrGiveBriefcase
 /*  f187a80:	02002025 */ 	move	$a0,$s0
 /*  f187a84:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f187a88:	24050009 */ 	li	$a1,0x9
-/*  f187a8c:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f187a8c:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f187a90:	24060001 */ 	li	$a2,0x1
 /*  f187a94:	3c09800a */ 	lui	$t1,0x800a
 /*  f187a98:	3c08800a */ 	lui	$t0,0x800a
@@ -10590,7 +10590,7 @@ glabel chrGiveBriefcase
 /*  f187e20:	160a0006 */ 	bne	$s0,$t2,.PF0f187e3c
 /*  f187e24:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f187e28:	24050009 */ 	li	$a1,0x9
-/*  f187e2c:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f187e2c:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f187e30:	24060001 */ 	li	$a2,0x1
 /*  f187e34:	10000011 */ 	b	.PF0f187e7c
 /*  f187e38:	8e2c006c */ 	lw	$t4,0x6c($s1)
@@ -10604,12 +10604,12 @@ glabel chrGiveBriefcase
 /*  f187e54:	170d0006 */ 	bne	$t8,$t5,.PF0f187e70
 /*  f187e58:	00000000 */ 	nop
 /*  f187e5c:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f187e60:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f187e60:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f187e64:	24050009 */ 	li	$a1,0x9
 /*  f187e68:	10000004 */ 	b	.PF0f187e7c
 /*  f187e6c:	8e2c006c */ 	lw	$t4,0x6c($s1)
 .PF0f187e70:
-/*  f187e70:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f187e70:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f187e74:	24060001 */ 	li	$a2,0x1
 /*  f187e78:	8e2c006c */ 	lw	$t4,0x6c($s1)
 .PF0f187e7c:
@@ -10773,7 +10773,7 @@ glabel chrGiveBriefcase
 /*  f1880ac:	16180006 */ 	bne	$s0,$t8,.PF0f1880c8
 /*  f1880b0:	27a40054 */ 	addiu	$a0,$sp,0x54
 /*  f1880b4:	24050009 */ 	li	$a1,0x9
-/*  f1880b8:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f1880b8:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f1880bc:	24060001 */ 	li	$a2,0x1
 /*  f1880c0:	10000011 */ 	b	.PF0f188108
 /*  f1880c4:	8e39006c */ 	lw	$t9,0x6c($s1)
@@ -10787,12 +10787,12 @@ glabel chrGiveBriefcase
 /*  f1880e0:	158f0006 */ 	bne	$t4,$t7,.PF0f1880fc
 /*  f1880e4:	00000000 */ 	nop
 /*  f1880e8:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f1880ec:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f1880ec:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f1880f0:	24050009 */ 	li	$a1,0x9
 /*  f1880f4:	10000004 */ 	b	.PF0f188108
 /*  f1880f8:	8e39006c */ 	lw	$t9,0x6c($s1)
 .PF0f1880fc:
-/*  f1880fc:	0fc37976 */ 	jal	func0f0ddfa4
+/*  f1880fc:	0fc37976 */ 	jal	hudmsgCreateWithFlags
 /*  f188100:	24060001 */ 	li	$a2,0x1
 /*  f188104:	8e39006c */ 	lw	$t9,0x6c($s1)
 .PF0f188108:
@@ -11019,7 +11019,7 @@ glabel chrGiveBriefcase
 /*  f186a7c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f186a80:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f186a84:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f186a88:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f186a88:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f186a8c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f186a90:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x6c)
 /*  f186a94:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x68)
@@ -11287,7 +11287,7 @@ glabel chrGiveBriefcase
 /*  f186e4c:	160a0006 */ 	bne	$s0,$t2,.L0f186e68
 /*  f186e50:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f186e54:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f186e58:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f186e58:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f186e5c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f186e60:	10000011 */ 	b	.L0f186ea8
 /*  f186e64:	8e2c006c */ 	lw	$t4,0x6c($s1)
@@ -11301,12 +11301,12 @@ glabel chrGiveBriefcase
 /*  f186e80:	170d0006 */ 	bne	$t8,$t5,.L0f186e9c
 /*  f186e84:	00000000 */ 	nop
 /*  f186e88:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f186e8c:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f186e8c:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f186e90:	24050009 */ 	addiu	$a1,$zero,0x9
 /*  f186e94:	10000004 */ 	b	.L0f186ea8
 /*  f186e98:	8e2c006c */ 	lw	$t4,0x6c($s1)
 .L0f186e9c:
-/*  f186e9c:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f186e9c:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f186ea0:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f186ea4:	8e2c006c */ 	lw	$t4,0x6c($s1)
 .L0f186ea8:
@@ -11482,7 +11482,7 @@ glabel chrGiveBriefcase
 /*  f187108:	16180006 */ 	bne	$s0,$t8,.L0f187124
 /*  f18710c:	27a40054 */ 	addiu	$a0,$sp,0x54
 /*  f187110:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f187114:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f187114:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f187118:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f18711c:	10000011 */ 	b	.L0f187164
 /*  f187120:	8e39006c */ 	lw	$t9,0x6c($s1)
@@ -11496,12 +11496,12 @@ glabel chrGiveBriefcase
 /*  f18713c:	158f0006 */ 	bne	$t4,$t7,.L0f187158
 /*  f187140:	00000000 */ 	nop
 /*  f187144:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f187148:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f187148:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f18714c:	24050009 */ 	addiu	$a1,$zero,0x9
 /*  f187150:	10000004 */ 	b	.L0f187164
 /*  f187154:	8e39006c */ 	lw	$t9,0x6c($s1)
 .L0f187158:
-/*  f187158:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f187158:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f18715c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f187160:	8e39006c */ 	lw	$t9,0x6c($s1)
 .L0f187164:
@@ -11728,7 +11728,7 @@ glabel chrGiveBriefcase
 /*  f180ee4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f180ee8:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f180eec:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f180ef0:	0fc36d6f */ 	jal	func0f0ddfa4
+/*  f180ef0:	0fc36d6f */ 	jal	hudmsgCreateWithFlags
 /*  f180ef4:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f180ef8:	3c09800a */ 	lui	$t1,0x800a
 /*  f180efc:	3c08800a */ 	lui	$t0,0x800a
@@ -11990,7 +11990,7 @@ glabel chrGiveBriefcase
 /*  f18129c:	160f0006 */ 	bne	$s0,$t7,.NB0f1812b8
 /*  f1812a0:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f1812a4:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f1812a8:	0fc36d6f */ 	jal	func0f0ddfa4
+/*  f1812a8:	0fc36d6f */ 	jal	hudmsgCreateWithFlags
 /*  f1812ac:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1812b0:	10000011 */ 	beqz	$zero,.NB0f1812f8
 /*  f1812b4:	8e2b006c */ 	lw	$t3,0x6c($s1)
@@ -12004,12 +12004,12 @@ glabel chrGiveBriefcase
 /*  f1812d0:	170c0006 */ 	bne	$t8,$t4,.NB0f1812ec
 /*  f1812d4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1812d8:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f1812dc:	0fc36d6f */ 	jal	func0f0ddfa4
+/*  f1812dc:	0fc36d6f */ 	jal	hudmsgCreateWithFlags
 /*  f1812e0:	24050009 */ 	addiu	$a1,$zero,0x9
 /*  f1812e4:	10000004 */ 	beqz	$zero,.NB0f1812f8
 /*  f1812e8:	8e2b006c */ 	lw	$t3,0x6c($s1)
 .NB0f1812ec:
-/*  f1812ec:	0fc36d6f */ 	jal	func0f0ddfa4
+/*  f1812ec:	0fc36d6f */ 	jal	hudmsgCreateWithFlags
 /*  f1812f0:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1812f4:	8e2b006c */ 	lw	$t3,0x6c($s1)
 .NB0f1812f8:
@@ -12185,7 +12185,7 @@ glabel chrGiveBriefcase
 /*  f181558:	16180006 */ 	bne	$s0,$t8,.NB0f181574
 /*  f18155c:	27a40054 */ 	addiu	$a0,$sp,0x54
 /*  f181560:	24050009 */ 	addiu	$a1,$zero,0x9
-/*  f181564:	0fc36d6f */ 	jal	func0f0ddfa4
+/*  f181564:	0fc36d6f */ 	jal	hudmsgCreateWithFlags
 /*  f181568:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f18156c:	10000011 */ 	beqz	$zero,.NB0f1815b4
 /*  f181570:	8e39006c */ 	lw	$t9,0x6c($s1)
@@ -12199,12 +12199,12 @@ glabel chrGiveBriefcase
 /*  f18158c:	156e0006 */ 	bne	$t3,$t6,.NB0f1815a8
 /*  f181590:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f181594:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*  f181598:	0fc36d6f */ 	jal	func0f0ddfa4
+/*  f181598:	0fc36d6f */ 	jal	hudmsgCreateWithFlags
 /*  f18159c:	24050009 */ 	addiu	$a1,$zero,0x9
 /*  f1815a0:	10000004 */ 	beqz	$zero,.NB0f1815b4
 /*  f1815a4:	8e39006c */ 	lw	$t9,0x6c($s1)
 .NB0f1815a8:
-/*  f1815a8:	0fc36d6f */ 	jal	func0f0ddfa4
+/*  f1815a8:	0fc36d6f */ 	jal	hudmsgCreateWithFlags
 /*  f1815ac:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1815b0:	8e39006c */ 	lw	$t9,0x6c($s1)
 .NB0f1815b4:
@@ -12434,7 +12434,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (chr->aibot || i != playernum) {
 				setCurrentPlayerNum(i);
-				func0f0ddfa4(message, HUDMSGTYPE_MPSCENARIO, 1);
+				hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 			}
 		}
 

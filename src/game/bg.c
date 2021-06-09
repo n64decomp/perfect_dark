@@ -8818,8 +8818,8 @@ Gfx *currentPlayerScissorToViewport(Gfx *gdl)
 	return currentPlayerScissorWithinViewport(gdl,
 			g_Vars.currentplayer->viewleft,
 			g_Vars.currentplayer->viewtop,
-			g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx,
-			g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewy);
+			g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewwidth,
+			g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight);
 }
 
 Gfx *currentPlayerScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom)
@@ -8839,12 +8839,12 @@ Gfx *currentPlayerScissorWithinViewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32
 		viewtop = g_Vars.currentplayer->viewtop;
 	}
 
-	if (viewright > g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx) {
-		viewright = g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx;
+	if (viewright > g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewwidth) {
+		viewright = g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewwidth;
 	}
 
-	if (viewbottom > g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewy) {
-		viewbottom = g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewy;
+	if (viewbottom > g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight) {
+		viewbottom = g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight;
 	}
 
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, viewleft, viewtop, viewright, viewbottom);

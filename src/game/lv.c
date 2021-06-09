@@ -3727,7 +3727,7 @@ Gfx *lvRender(Gfx *gdl)
 		setCurrentPlayerNum(0);
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
-				g_Vars.currentplayer->viewx, g_Vars.currentplayer->viewy);
+				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		func00016748(1);
 
 		gdl = func0000b1d0(gdl);
@@ -3742,7 +3742,7 @@ Gfx *lvRender(Gfx *gdl)
 		setCurrentPlayerNum(0);
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
-				g_Vars.currentplayer->viewx, g_Vars.currentplayer->viewy);
+				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		func00016748(1);
 
 		gdl = func0000b1d0(gdl);
@@ -3760,7 +3760,7 @@ Gfx *lvRender(Gfx *gdl)
 		setCurrentPlayerNum(0);
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
-				g_Vars.currentplayer->viewx, g_Vars.currentplayer->viewy);
+				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		func00016748(1);
 
 		gdl = func0000b1a8(gdl);
@@ -3836,7 +3836,7 @@ Gfx *lvRender(Gfx *gdl)
 
 			viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 			viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
-					g_Vars.currentplayer->viewx, g_Vars.currentplayer->viewy);
+					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 			func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 			func0f1657f8();
 			func0f176298();
@@ -7716,7 +7716,7 @@ glabel var7f1b8ed0pf
 /*  f16d284:	0fc5bdaa */ 	jal	langGet
 /*  f16d288:	24045807 */ 	li	$a0,0x5807
 /*  f16d28c:	00402025 */ 	move	$a0,$v0
-/*  f16d290:	0fc37954 */ 	jal	hudmsgCreateViaPreset
+/*  f16d290:	0fc37954 */ 	jal	hudmsgCreate
 /*  f16d294:	00002825 */ 	move	$a1,$zero
 /*  f16d298:	8e8c006c */ 	lw	$t4,0x6c($s4)
 /*  f16d29c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -8391,7 +8391,7 @@ void lvTick(void)
 
 				for (i = 0; i < PLAYERCOUNT(); i++) {
 					setCurrentPlayerNum(i);
-					hudmsgCreateViaPreset(langGet(L_MISC_068), 0); // "One minute left."
+					hudmsgCreate(langGet(L_MISC_068), HUDMSGTYPE_DEFAULT); // "One minute left."
 				}
 			}
 
@@ -9346,7 +9346,7 @@ glabel lvTick
 /*  f167268:	0fc5a4dd */ 	jal	langGet
 /*  f16726c:	24045844 */ 	addiu	$a0,$zero,0x5844
 /*  f167270:	00402025 */ 	or	$a0,$v0,$zero
-/*  f167274:	0fc36d4d */ 	jal	hudmsgCreateViaPreset
+/*  f167274:	0fc36d4d */ 	jal	hudmsgCreate
 /*  f167278:	00002825 */ 	or	$a1,$zero,$zero
 /*  f16727c:	8e98006c */ 	lw	$t8,0x6c($s4)
 /*  f167280:	26100001 */ 	addiu	$s0,$s0,0x1

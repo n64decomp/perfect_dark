@@ -2624,7 +2624,7 @@ void mainTick(void)
 						viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 						viSetFovAspectAndSize(
 								g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
-								g_Vars.currentplayer->viewx, g_Vars.currentplayer->viewy);
+								g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 					}
 
 					lvRecordDistanceMoved();

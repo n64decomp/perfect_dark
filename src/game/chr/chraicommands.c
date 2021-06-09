@@ -4674,7 +4674,7 @@ bool aiShowHudmsg(void)
 	}
 
 	setCurrentPlayerNum(playernum);
-	hudmsgCreateViaPreset(text, 0);
+	hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 	setCurrentPlayerNum(prevplayernum);
 
 	g_Vars.aioffset += 5;
@@ -4692,11 +4692,11 @@ bool aiShowHudmsgMiddle(void)
 	if (cmd[2] == 0) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
 		char *text = langGet(text_id);
-		hudmsgCreateViaPresetWithColour(text, 7, cmd[3]);
+		hudmsgCreateWithColour(text, HUDMSGTYPE_7, cmd[3]);
 	} else if (cmd[2] == 1) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
 		char *text = langGet(text_id);
-		hudmsgCreateViaPresetWithColour(text, 8, cmd[3]);
+		hudmsgCreateWithColour(text, HUDMSGTYPE_8, cmd[3]);
 	} else {
 		hudmsgRemoveAll();
 	}
@@ -4723,7 +4723,7 @@ bool aiShowHudmsgTopMiddle(void)
 	}
 
 	setCurrentPlayerNum(playernum);
-	hudmsgCreateViaPresetWithColour(text, 6, cmd[5]);
+	hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[5]);
 	setCurrentPlayerNum(prevplayernum);
 
 	g_Vars.aioffset += 6;
@@ -7999,7 +7999,7 @@ glabel var7f1a9d64
 /*  f05aaa4:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05aaa8:	8fae009c */ 	lw	$t6,0x9c($sp)
 /*  f05aaac:	24050006 */ 	li	$a1,0x6
-/*  f05aab0:	0fc3799a */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f05aab0:	0fc3799a */ 	jal	hudmsgCreateWithColour
 /*  f05aab4:	91c60009 */ 	lbu	$a2,0x9($t6)
 /*  f05aab8:	100000be */ 	b	.PF0f05adb4
 /*  f05aabc:	00000000 */ 	nop
@@ -8022,7 +8022,7 @@ glabel var7f1a9d64
 /*  f05aafc:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05ab00:	8fac009c */ 	lw	$t4,0x9c($sp)
 /*  f05ab04:	24050006 */ 	li	$a1,0x6
-/*  f05ab08:	0fc3799a */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f05ab08:	0fc3799a */ 	jal	hudmsgCreateWithColour
 /*  f05ab0c:	91860009 */ 	lbu	$a2,0x9($t4)
 /*  f05ab10:	100000a8 */ 	b	.PF0f05adb4
 /*  f05ab14:	00000000 */ 	nop
@@ -8190,7 +8190,7 @@ glabel var7f1a9d64
 /*  f05ad70:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05ad74:	8fab009c */ 	lw	$t3,0x9c($sp)
 /*  f05ad78:	24050006 */ 	li	$a1,0x6
-/*  f05ad7c:	0fc3799a */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f05ad7c:	0fc3799a */ 	jal	hudmsgCreateWithColour
 /*  f05ad80:	91660009 */ 	lbu	$a2,0x9($t3)
 /*  f05ad84:	1000000b */ 	b	.PF0f05adb4
 /*  f05ad88:	00000000 */ 	nop
@@ -8660,7 +8660,7 @@ glabel var7f1a9d64
 /*  f05a8a0:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05a8a4:	8fae009c */ 	lw	$t6,0x9c($sp)
 /*  f05a8a8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f05a8ac:	0fc3780d */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f05a8ac:	0fc3780d */ 	jal	hudmsgCreateWithColour
 /*  f05a8b0:	91c60009 */ 	lbu	$a2,0x9($t6)
 /*  f05a8b4:	100000be */ 	b	.L0f05abb0
 /*  f05a8b8:	00000000 */ 	nop
@@ -8683,7 +8683,7 @@ glabel var7f1a9d64
 /*  f05a8f8:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05a8fc:	8fac009c */ 	lw	$t4,0x9c($sp)
 /*  f05a900:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f05a904:	0fc3780d */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f05a904:	0fc3780d */ 	jal	hudmsgCreateWithColour
 /*  f05a908:	91860009 */ 	lbu	$a2,0x9($t4)
 /*  f05a90c:	100000a8 */ 	b	.L0f05abb0
 /*  f05a910:	00000000 */ 	nop
@@ -8851,7 +8851,7 @@ glabel var7f1a9d64
 /*  f05ab6c:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05ab70:	8fab009c */ 	lw	$t3,0x9c($sp)
 /*  f05ab74:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f05ab78:	0fc3780d */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f05ab78:	0fc3780d */ 	jal	hudmsgCreateWithColour
 /*  f05ab7c:	91660009 */ 	lbu	$a2,0x9($t3)
 /*  f05ab80:	1000000b */ 	b	.L0f05abb0
 /*  f05ab84:	00000000 */ 	nop
@@ -9317,7 +9317,7 @@ glabel var7f1a9d64
 /*  f059cf8:	8fae009c */ 	lw	$t6,0x9c($sp)
 /*  f059cfc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f059d00:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f059d04:	0fc36d93 */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f059d04:	0fc36d93 */ 	jal	hudmsgCreateWithColour
 /*  f059d08:	91c60009 */ 	lbu	$a2,0x9($t6)
 /*  f059d0c:	100000b6 */ 	beqz	$zero,.NB0f059fe8
 /*  f059d10:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9336,7 +9336,7 @@ glabel var7f1a9d64
 /*  f059d40:	8fac009c */ 	lw	$t4,0x9c($sp)
 /*  f059d44:	00402025 */ 	or	$a0,$v0,$zero
 /*  f059d48:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f059d4c:	0fc36d93 */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f059d4c:	0fc36d93 */ 	jal	hudmsgCreateWithColour
 /*  f059d50:	91860009 */ 	lbu	$a2,0x9($t4)
 /*  f059d54:	100000a4 */ 	beqz	$zero,.NB0f059fe8
 /*  f059d58:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9500,7 +9500,7 @@ glabel var7f1a9d64
 /*  f059fa4:	8fab009c */ 	lw	$t3,0x9c($sp)
 /*  f059fa8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f059fac:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f059fb0:	0fc36d93 */ 	jal	hudmsgCreateViaPresetWithColour
+/*  f059fb0:	0fc36d93 */ 	jal	hudmsgCreateWithColour
 /*  f059fb4:	91660009 */ 	lbu	$a2,0x9($t3)
 /*  f059fb8:	1000000b */ 	beqz	$zero,.NB0f059fe8
 /*  f059fbc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9710,14 +9710,14 @@ glabel var7f1a9d64
 //
 //					if (!sndIsFiltered(audioid)) {
 //						// 8ac
-//						hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
+//						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
 //					}
 //				} else if (cmd[8]) {
 //					text = langGet(g_QuipTexts[cmd[8] - 1][1 + g_Vars.chrdata->tude]);
 //
 //					if (!sndIsFiltered(audioid)) {
 //						// 904
-//						hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
+//						hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
 //					}
 //				}
 //			} else {
@@ -9771,7 +9771,7 @@ glabel var7f1a9d64
 //
 //						if (!sndIsFiltered(audioid)) {
 //							// b78
-//							hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
+//							hudmsgCreateWithColour(text, HUDMSGTYPE_INGAMESUBTITLE, cmd[9]);
 //						}
 //					}
 //				} else {

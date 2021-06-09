@@ -60480,7 +60480,7 @@ void currentPlayerQueuePickupAmmoHudmsg(s32 ammotype, s32 pickupqty)
 	char buffer[100] = "";
 
 	ammotypeGetPickupMessage(buffer, ammotype, pickupqty);
-	func0f0ddfa4(buffer, HUDMSGTYPE_DEFAULT, 1);
+	hudmsgCreateWithFlags(buffer, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 }
 
 GLOBAL_ASM(
@@ -60879,7 +60879,7 @@ void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual)
 	char buffer[100] = "";
 
 	weaponGetPickupText(buffer, weaponnum, dual);
-	func0f0ddfa4(buffer, HUDMSGTYPE_DEFAULT, 9);
+	hudmsgCreateWithFlags(buffer, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 }
 
 const char var7f1aa140[] = "autodoorcanclose:      blocking door\n\n";
@@ -61040,7 +61040,7 @@ glabel var7f1aae70
 /*  f08891c:	00402025 */ 	or	$a0,$v0,$zero
 .L0f088920:
 /*  f088920:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088924:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088924:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088928:	24060009 */ 	addiu	$a2,$zero,0x9
 .L0f08892c:
 /*  f08892c:	1000019d */ 	b	.L0f088fa4
@@ -61189,7 +61189,7 @@ glabel var7f1aae70
 /*  f088b40:	10400006 */ 	beqz	$v0,.L0f088b5c
 /*  f088b44:	00402025 */ 	or	$a0,$v0,$zero
 /*  f088b48:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088b4c:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088b4c:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088b50:	24060009 */ 	addiu	$a2,$zero,0x9
 /*  f088b54:	10000008 */ 	b	.L0f088b78
 /*  f088b58:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -61246,7 +61246,7 @@ glabel var7f1aae70
 /*  f088c0c:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f088c10:	afb90070 */ 	sw	$t9,0x70($sp)
 /*  f088c14:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088c18:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088c18:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088c1c:	24060009 */ 	addiu	$a2,$zero,0x9
 /*  f088c20:	1000000a */ 	b	.L0f088c4c
 /*  f088c24:	240c0001 */ 	addiu	$t4,$zero,0x1
@@ -61453,7 +61453,7 @@ glabel var7f1aae70
 /*  f088f00:	00402025 */ 	or	$a0,$v0,$zero
 .L0f088f04:
 /*  f088f04:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088f08:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088f08:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088f0c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f088f10:	240e0001 */ 	addiu	$t6,$zero,0x1
 .L0f088f14:
@@ -61491,7 +61491,7 @@ glabel var7f1aae70
 /*  f088f88:	00402025 */ 	or	$a0,$v0,$zero
 .L0f088f8c:
 /*  f088f8c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088f90:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088f90:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088f94:	24060009 */ 	addiu	$a2,$zero,0x9
 /*  f088f98:	240b0004 */ 	addiu	$t3,$zero,0x4
 .L0f088f9c:
@@ -61687,7 +61687,7 @@ glabel var7f1aae70
 /*  f08891c:	00402025 */ 	or	$a0,$v0,$zero
 .L0f088920:
 /*  f088920:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088924:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088924:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088928:	24060009 */ 	addiu	$a2,$zero,0x9
 .L0f08892c:
 /*  f08892c:	1000019d */ 	b	.L0f088fa4
@@ -61836,7 +61836,7 @@ glabel var7f1aae70
 /*  f088b40:	10400006 */ 	beqz	$v0,.L0f088b5c
 /*  f088b44:	00402025 */ 	or	$a0,$v0,$zero
 /*  f088b48:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088b4c:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088b4c:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088b50:	24060009 */ 	addiu	$a2,$zero,0x9
 /*  f088b54:	10000008 */ 	b	.L0f088b78
 /*  f088b58:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -61893,7 +61893,7 @@ glabel var7f1aae70
 /*  f088c0c:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f088c10:	afb90070 */ 	sw	$t9,0x70($sp)
 /*  f088c14:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088c18:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088c18:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088c1c:	24060009 */ 	addiu	$a2,$zero,0x9
 /*  f088c20:	1000000a */ 	b	.L0f088c4c
 /*  f088c24:	240c0001 */ 	addiu	$t4,$zero,0x1
@@ -62100,7 +62100,7 @@ glabel var7f1aae70
 /*  f088f00:	00402025 */ 	or	$a0,$v0,$zero
 .L0f088f04:
 /*  f088f04:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088f08:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088f08:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088f0c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f088f10:	240e0001 */ 	addiu	$t6,$zero,0x1
 .L0f088f14:
@@ -62138,7 +62138,7 @@ glabel var7f1aae70
 /*  f088f88:	00402025 */ 	or	$a0,$v0,$zero
 .L0f088f8c:
 /*  f088f8c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088f90:	0fc377e9 */ 	jal	func0f0ddfa4
+/*  f088f90:	0fc377e9 */ 	jal	hudmsgCreateWithFlags
 /*  f088f94:	24060009 */ 	addiu	$a2,$zero,0x9
 /*  f088f98:	240b0004 */ 	addiu	$t3,$zero,0x4
 .L0f088f9c:
@@ -62208,7 +62208,7 @@ glabel var7f1aae70
 //				text = langGet(L_PROPOBJ_040); // "Picked up a key."
 //			}
 //
-//			func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//			hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 //		}
 //
 //		result = TICKOP_GIVETOPLAYER;
@@ -62289,7 +62289,7 @@ glabel var7f1aae70
 //					char *text = invGetActivatedTextByObj(obj);
 //
 //					if (text) {
-//						func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//						hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 //					} else {
 //						currentPlayerQueuePickupWeaponHudmsg(weapon->weaponnum, count == 2);
 //					}
@@ -62322,7 +62322,7 @@ glabel var7f1aae70
 //
 //						if (text) {
 //							sp112 = true;
-//							func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//							hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 //						} else {
 //							if (sp112) {
 //								currentPlayerQueuePickupWeaponHudmsg(weapon->weaponnum, count == 2);
@@ -62405,7 +62405,7 @@ glabel var7f1aae70
 //					}
 //				}
 //
-//				func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 1);
+//				hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 //			}
 //
 //			sp94[1] = TICKOP_FREE;
@@ -62464,7 +62464,7 @@ glabel var7f1aae70
 //				text = langGet(L_PROPOBJ_043); // "Picked up something."
 //			}
 //
-//			func0f0ddfa4(text, HUDMSGTYPE_DEFAULT, 9);
+//			hudmsgCreateWithFlags(text, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_ALLOWDUPES);
 //		}
 //
 //		sp94[1] = TICKOP_GIVETOPLAYER;
@@ -68653,11 +68653,11 @@ bool propdoorInteract(struct prop *doorprop)
 			}
 
 			if (override && override->activatetextid) {
-				func0f0ddfa4(langGet(override->activatetextid), 0, 1);
+				hudmsgCreateWithFlags(langGet(override->activatetextid), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 			} else if (intraining) {
-				func0f0ddfa4(langGet(L_DISH_080), 0, 1); // "Cannot exit while training is in progress."
+				hudmsgCreateWithFlags(langGet(L_DISH_080), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE); // "Cannot exit while training is in progress."
 			} else {
-				func0f0ddfa4(langGet(PAL ? L_PROPOBJ_041 : L_PROPOBJ_044), 0, 1); // "This door is locked."
+				hudmsgCreateWithFlags(langGet(PAL ? L_PROPOBJ_041 : L_PROPOBJ_044), HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE); // "This door is locked."
 			}
 		}
 

@@ -1181,7 +1181,7 @@ void frExecuteHelpScript(void)
 			g_FrData.helpscriptenabled = false;
 			break;
 		case FRCMD_HUDMSG:
-			hudmsgCreateViaPreset(frGetInstructionalText(script[offset + 1]), HUDMSGTYPE_TRAINING);
+			hudmsgCreate(frGetInstructionalText(script[offset + 1]), HUDMSGTYPE_TRAINING);
 			g_FrData.helpscriptoffset += 2;
 			break;
 		case FRCMD_HELPWAITSECONDS:

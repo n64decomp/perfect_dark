@@ -391,8 +391,8 @@ void playerAllocate(s32 index)
 		g_Vars.players[index]->viewport[i].unk0e = 0;
 	}
 
-	g_Vars.players[index]->viewx = 100;
-	g_Vars.players[index]->viewy = 100;
+	g_Vars.players[index]->viewwidth = 100;
+	g_Vars.players[index]->viewheight = 100;
 	g_Vars.players[index]->viewleft = 0;
 	g_Vars.players[index]->viewtop = 0;
 
@@ -679,10 +679,10 @@ s32 propGetPlayerNum(struct prop *prop)
 	return -1;
 }
 
-void currentPlayerSetViewSize(s32 viewx, s32 viewy)
+void currentPlayerSetViewSize(s32 width, s32 height)
 {
-	g_Vars.currentplayer->viewx = viewx;
-	g_Vars.currentplayer->viewy = viewy;
+	g_Vars.currentplayer->viewwidth = width;
+	g_Vars.currentplayer->viewheight = height;
 }
 
 void currentPlayerSetViewPosition(s32 viewleft, s32 viewtop)

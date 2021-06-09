@@ -94,7 +94,7 @@ void mpstatsRecordPlayerKill(void)
 		// Show HUD message
 		// "Kill count: %d"
 		sprintf(text, "%s: %d\n", langGet(L_GUN_001), g_Vars.currentplayerstats->killcount);
-		hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
+		hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 
 		// Update slowest/fastest two kills
 		if (g_Vars.currentplayerstats->killcount > 1) {
@@ -161,7 +161,7 @@ void mpstatsRecordPlayerDeath(void)
 					langGet(L_GUN_004)); // "times"
 		}
 
-		hudmsgCreateViaPreset(buffer, HUDMSGTYPE_DEFAULT);
+		hudmsgCreate(buffer, HUDMSGTYPE_DEFAULT);
 	}
 }
 
@@ -187,7 +187,7 @@ void mpstatsRecordPlayerSuicide(void)
 		// Show HUD message
 		// "Suicide count: %d"
 		sprintf(text, "%s: %d\n", langGet(L_GUN_005), mpchr->killcounts[mpindex]);
-		hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
+		hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 
 		// Update slowest/fastest two kills
 		if (g_Vars.currentplayerstats->killcount > 1) {
@@ -294,7 +294,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 				if (g_Vars.normmplayerisrunning && aplayernum >= 0) {
 					// "Killed by %s"
 					sprintf(text, "%s %s", langGet(L_MISC_183), var800ac500[aplayernum]->name);
-					hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
+					hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 				}
 
 				mpstatsRecordPlayerDeath();
@@ -314,7 +314,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 			if (g_Vars.normmplayerisrunning && vplayernum >= 0) {
 				// "Killed %s"
 				sprintf(text, "%s %s", langGet(L_MISC_184), var800ac500[vplayernum]->name);
-				hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
+				hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 			}
 
 			mpstatsRecordPlayerKill();

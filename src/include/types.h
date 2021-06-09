@@ -2671,10 +2671,10 @@ struct player {
 	/*0x050c*/ u32 unk050c;
 	/*0x0510*/ Mtxf bondheadmatrices[4];
 	/*0x0610*/ struct player0610 viewport[2];
-	/*0x0630*/ s16 viewx;    // 320 lo-res, 640 hi-res
-	/*0x0632*/ s16 viewy;    // 220 regardless of res
-	/*0x0634*/ s16 viewleft; // 0
-	/*0x0636*/ s16 viewtop;  // 0
+	/*0x0630*/ s16 viewwidth;  // 320 lo-res, 640 hi-res
+	/*0x0632*/ s16 viewheight; // 220 regardless of res
+	/*0x0634*/ s16 viewleft;   // 0
+	/*0x0636*/ s16 viewtop;    // 0
 	/*0x0638*/ struct hand hands[2];
 	struct gunctrl gunctrl;
 	/*0x15f8*/ f32 gunposamplitude;
@@ -5148,7 +5148,7 @@ struct hudmessagething {
 	s32 unk00;
 };
 
-struct hudmessageconfig {
+struct hudmsgtype {
 	/*0x00*/ u8 unk00;
 	/*0x01*/ u8 unk01;
 	/*0x02*/ u8 unk02;
@@ -5187,9 +5187,9 @@ struct hudmessage {
 	/*0x1c4*/ u32 flags;
 	/*0x1c8*/ u8 alignh;
 	/*0x1c9*/ u8 alignv;
-	/*0x1cc*/ u32 unk1cc;
-	/*0x1d0*/ u32 unk1d0;
-	/*0x1d4*/ u32 unk1d4;
+	/*0x1cc*/ u32 xmarginextra;
+	/*0x1d0*/ u32 xmargin;
+	/*0x1d4*/ u32 ymargin;
 	/*0x1d8*/ u32 hash;
 };
 

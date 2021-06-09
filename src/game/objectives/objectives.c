@@ -369,7 +369,7 @@ void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
 		setCurrentPlayerNum(i);
 
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
-			func0f0ddfa4(buffer, hudmsgtype, 24);
+			hudmsgCreateWithFlags(buffer, hudmsgtype, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
 		}
 	}
 
@@ -409,13 +409,13 @@ void objectivesCheckAll(void)
 #else
 					if (status == OBJECTIVE_COMPLETE) {
 						strcat(buffer, langGet(L_MISC_045)); // "Completed"
-						func0f0ddfa4(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, 24);
+						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
 					} else if (status == OBJECTIVE_INCOMPLETE) {
 						strcat(buffer, langGet(L_MISC_046)); // "Incomplete"
-						func0f0ddfa4(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, 24);
+						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
 					} else if (status == OBJECTIVE_FAILED) {
 						strcat(buffer, langGet(L_MISC_047)); // "Failed"
-						func0f0ddfa4(buffer, HUDMSGTYPE_OBJECTIVEFAILED, 24);
+						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVEFAILED, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
 					}
 #endif
 				}

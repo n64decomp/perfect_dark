@@ -1106,6 +1106,16 @@
 #define HUDHALIGN_LEFT   1
 #define HUDHALIGN_MIDDLE 2
 
+#define HUDMSGALIGN_SCREENLEFT    0
+#define HUDMSGALIGN_LEFT          1
+#define HUDMSGALIGN_RIGHT         2
+#define HUDMSGALIGN_XMIDDLE       3
+#define HUDMSGALIGN_SCREENTOP     4
+#define HUDMSGALIGN_TOP           5
+#define HUDMSGALIGN_BOTTOM        6
+#define HUDMSGALIGN_YMIDDLE       7
+#define HUDMSGALIGN_BELOWVIEWPORT 8
+
 #define HUDMSGFLAG_ONLYIFALIVE 0x01
 #define HUDMSGFLAG_FORCEOFF    0x02 // for subtitles - turn off message immediately rather than when audio finishes
 #define HUDMSGFLAG_NOCHANNEL   0x04 // not linked to audio
@@ -1126,7 +1136,10 @@
 #define HUDMSGTYPE_OBJECTIVEFAILED   2
 #define HUDMSGTYPE_3                 3
 #define HUDMSGTYPE_4                 4
+#define HUDMSGTYPE_5                 5
 #define HUDMSGTYPE_INGAMESUBTITLE    6
+#define HUDMSGTYPE_7                 7
+#define HUDMSGTYPE_8                 8
 #define HUDMSGTYPE_MPSCENARIO        9
 #define HUDMSGTYPE_TRAINING          10
 #define HUDMSGTYPE_CUTSCENESUBTITLE  11

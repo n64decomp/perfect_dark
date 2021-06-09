@@ -645,7 +645,7 @@ bool eyespyTryLaunch(void)
 
 		// "Not enough room to launch "
 		sprintf(text, "%s%s", langGet(L_MISC_218), weaponGetName(WEAPON_EYESPY));
-		hudmsgCreateViaPreset(text, HUDMSGTYPE_DEFAULT);
+		hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
 		launched = false;
 	} else {
 		// Launch successful
