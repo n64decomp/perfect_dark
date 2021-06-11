@@ -1,0 +1,1906 @@
+[
+    {
+        "id": "L_MISC_000",
+        "text": "Invincible"
+    },
+    {
+        "id": "L_MISC_001",
+        "text": "All Guns"
+    },
+    {
+        "id": "L_MISC_002",
+        "text": "Super x2 Health"
+    },
+    {
+        "id": "L_MISC_003",
+        "text": "Super x2 Armor"
+    },
+    {
+        "id": "L_MISC_004",
+        "text": "Bond Invisible"
+    },
+    {
+        "id": "L_MISC_005",
+        "text": "Bond Phase"
+    },
+    {
+        "id": "L_MISC_006",
+        "text": "Infinite Ammo"
+    },
+    {
+        "id": "L_MISC_007",
+        "text": "DK Mode"
+    },
+    {
+        "id": "L_MISC_008",
+        "text": "Tiny Bond"
+    },
+    {
+        "id": "L_MISC_009",
+        "text": "Super x10 Health"
+    },
+    {
+        "id": "L_MISC_010",
+        "text": "Magnum"
+    },
+    {
+        "id": "L_MISC_011",
+        "text": "Laser"
+    },
+    {
+        "id": "L_MISC_012",
+        "text": "Golden Gun"
+    },
+    {
+        "id": "L_MISC_013",
+        "text": "Silver PP7"
+    },
+    {
+        "id": "L_MISC_014",
+        "text": "Gold PP7"
+    },
+    {
+        "id": "L_MISC_015",
+        "text": "invincibility on\n"
+    },
+    {
+        "id": "L_MISC_016",
+        "text": "All Guns On\n"
+    },
+    {
+        "id": "L_MISC_017",
+        "text": "Maximum Ammo\n"
+    },
+    {
+        "id": "L_MISC_018",
+        "text": "Super x2 Health\n"
+    },
+    {
+        "id": "L_MISC_019",
+        "text": "Super x2 Armor\n"
+    },
+    {
+        "id": "L_MISC_020",
+        "text": "Invisibility On\n"
+    },
+    {
+        "id": "L_MISC_021",
+        "text": "Bond Phase On\n"
+    },
+    {
+        "id": "L_MISC_022",
+        "text": "Infinite Ammo On\n"
+    },
+    {
+        "id": "L_MISC_023",
+        "text": "DK Mode On\n"
+    },
+    {
+        "id": "L_MISC_024",
+        "text": "Extra Weapons\n"
+    },
+    {
+        "id": "L_MISC_025",
+        "text": "Tiny Bond On\n"
+    },
+    {
+        "id": "L_MISC_026",
+        "text": "Paintball Mode On\n"
+    },
+    {
+        "id": "L_MISC_027",
+        "text": "Super x10 Health\n"
+    },
+    {
+        "id": "L_MISC_028",
+        "text": "Happy Now Karl?\n"
+    },
+    {
+        "id": "L_MISC_029",
+        "text": "Fast Mode On\n"
+    },
+    {
+        "id": "L_MISC_030",
+        "text": "Invincibility Off\n"
+    },
+    {
+        "id": "L_MISC_031",
+        "text": "All Guns Off\n"
+    },
+    {
+        "id": "L_MISC_032",
+        "text": "Invisibility Off\n"
+    },
+    {
+        "id": "L_MISC_033",
+        "text": "Bond Phase Off\n"
+    },
+    {
+        "id": "L_MISC_034",
+        "text": "Infinite Ammo Off\n"
+    },
+    {
+        "id": "L_MISC_035",
+        "text": "DK Mode Off\n"
+    },
+    {
+        "id": "L_MISC_036",
+        "text": "Tiny Bond Off\n"
+    },
+    {
+        "id": "L_MISC_037",
+        "text": "Paintball Mode Off\n"
+    },
+    {
+        "id": "L_MISC_038",
+        "text": "Radar On\n"
+    },
+    {
+        "id": "L_MISC_039",
+        "text": "Fast Mode Off\n"
+    },
+    {
+        "id": "L_MISC_040",
+        "text": "NO NAME"
+    },
+    {
+        "id": "L_MISC_041",
+        "text": "E R R O R\n"
+    },
+    {
+        "id": "L_MISC_042",
+        "text": "No briefing for this mission\n"
+    },
+    {
+        "id": "L_MISC_043",
+        "text": "\n"
+    },
+    {
+        "id": "L_MISC_044",
+        "text": "Objective"
+    },
+    {
+        "id": "L_MISC_045",
+        "text": "Completed\n"
+    },
+    {
+        "id": "L_MISC_046",
+        "text": "Incomplete\n"
+    },
+    {
+        "id": "L_MISC_047",
+        "text": "Failed\n"
+    },
+    {
+        "id": "L_MISC_048",
+        "text": "Slowest Motion\n"
+    },
+    {
+        "id": "L_MISC_049",
+        "text": "Very Slow Motion\n"
+    },
+    {
+        "id": "L_MISC_050",
+        "text": "Slow Motion\n"
+    },
+    {
+        "id": "L_MISC_051",
+        "text": "Normal Motion\n"
+    },
+    {
+        "id": "L_MISC_052",
+        "text": "Fast Motion\n"
+    },
+    {
+        "id": "L_MISC_053",
+        "text": "Very Fast Motion\n"
+    },
+    {
+        "id": "L_MISC_054",
+        "text": "Fastest Motion\n"
+    },
+    {
+        "id": "L_MISC_055",
+        "text": "Line Mode"
+    },
+    {
+        "id": "L_MISC_056",
+        "text": "Paintball Mode"
+    },
+    {
+        "id": "L_MISC_057",
+        "text": "Enemy Rockets"
+    },
+    {
+        "id": "L_MISC_058",
+        "text": "2x Rocket L."
+    },
+    {
+        "id": "L_MISC_059",
+        "text": "2x Grenade L."
+    },
+    {
+        "id": "L_MISC_060",
+        "text": "2x RC-P90"
+    },
+    {
+        "id": "L_MISC_061",
+        "text": "2x Throwing Knife"
+    },
+    {
+        "id": "L_MISC_062",
+        "text": "2x Hunting Knife"
+    },
+    {
+        "id": "L_MISC_063",
+        "text": "2x Laser"
+    },
+    {
+        "id": "L_MISC_064",
+        "text": "Turbo Mode"
+    },
+    {
+        "id": "L_MISC_065",
+        "text": "Fast Animation"
+    },
+    {
+        "id": "L_MISC_066",
+        "text": "Slow Animation"
+    },
+    {
+        "id": "L_MISC_067",
+        "text": "No Radar [Multi]"
+    },
+    {
+        "id": "L_MISC_068",
+        "text": "One minute left.\n"
+    },
+    {
+        "id": "L_MISC_069",
+        "text": "OBJECTIVES FAILED - Abort mission.\n"
+    },
+    {
+        "id": "L_MISC_070",
+        "text": "Guard Greeting\n"
+    },
+    {
+        "id": "L_MISC_071",
+        "text": "What's that gun\n"
+    },
+    {
+        "id": "L_MISC_072",
+        "text": "Don't point that gun at me\n"
+    },
+    {
+        "id": "L_MISC_073",
+        "text": "S/MPS"
+    },
+    {
+        "id": "L_MISC_074",
+        "text": "H/M"
+    },
+    {
+        "id": "L_MISC_075",
+        "text": "Y/D"
+    },
+    {
+        "id": "L_MISC_076",
+        "text": "P/D"
+    },
+    {
+        "id": "L_MISC_077",
+        "text": "CI 2023"
+    },
+    {
+        "id": "L_MISC_078",
+        "text": "BN: 161176"
+    },
+    {
+        "id": "L_MISC_079",
+        "text": "EYESPY"
+    },
+    {
+        "id": "L_MISC_080",
+        "text": "MODEL 1.2"
+    },
+    {
+        "id": "L_MISC_081",
+        "text": "GYROSTAT"
+    },
+    {
+        "id": "L_MISC_082",
+        "text": "Meat"
+    },
+    {
+        "id": "L_MISC_083",
+        "text": "Easy"
+    },
+    {
+        "id": "L_MISC_084",
+        "text": "Normal"
+    },
+    {
+        "id": "L_MISC_085",
+        "text": "Hard"
+    },
+    {
+        "id": "L_MISC_086",
+        "text": "Perfect"
+    },
+    {
+        "id": "L_MISC_087",
+        "text": "Dark"
+    },
+    {
+        "id": "L_MISC_088",
+        "text": "MeatSim"
+    },
+    {
+        "id": "L_MISC_089",
+        "text": "EasySim"
+    },
+    {
+        "id": "L_MISC_090",
+        "text": "NormalSim"
+    },
+    {
+        "id": "L_MISC_091",
+        "text": "HardSim"
+    },
+    {
+        "id": "L_MISC_092",
+        "text": "PerfectSim"
+    },
+    {
+        "id": "L_MISC_093",
+        "text": "DarkSim"
+    },
+    {
+        "id": "L_MISC_094",
+        "text": "PacifistSim"
+    },
+    {
+        "id": "L_MISC_095",
+        "text": "ShieldSim"
+    },
+    {
+        "id": "L_MISC_096",
+        "text": "RocketSim"
+    },
+    {
+        "id": "L_MISC_097",
+        "text": "KamikazeSim"
+    },
+    {
+        "id": "L_MISC_098",
+        "text": "FistSim"
+    },
+    {
+        "id": "L_MISC_099",
+        "text": "PredatorSim"
+    },
+    {
+        "id": "L_MISC_100",
+        "text": "CowardSim"
+    },
+    {
+        "id": "L_MISC_101",
+        "text": "JusticeSim"
+    },
+    {
+        "id": "L_MISC_102",
+        "text": "VendettaSim"
+    },
+    {
+        "id": "L_MISC_103",
+        "text": "CheetahSim"
+    },
+    {
+        "id": "L_MISC_104",
+        "text": "TurtleSim"
+    },
+    {
+        "id": "L_MISC_105",
+        "text": "RevengeSim"
+    },
+    {
+        "id": "L_MISC_106",
+        "text": "MeatSim:  This is the easiest of all the simulants to defeat and is therefore the best choice for the beginner.  It is not very intelligent and its shooting skills are very poor.\n"
+    },
+    {
+        "id": "L_MISC_107",
+        "text": "EasySim:  This simulant has basic skills & intelligence, but it can still be dangerous.\n"
+    },
+    {
+        "id": "L_MISC_108",
+        "text": "NormalSim:  This simulant is as skilled as the average human player.\n"
+    },
+    {
+        "id": "L_MISC_109",
+        "text": "HardSim:  This simulant is as skilled as a good human player.\n"
+    },
+    {
+        "id": "L_MISC_110",
+        "text": "PerfectSim: The ultimate adversary, the most intelligent and skilled simulant.  Most players will eventually want to use PerfectSim all the time as their skills improve.\n"
+    },
+    {
+        "id": "L_MISC_111",
+        "text": "DarkSim: Prototype cyborg developed by dataDyne to counteract Carrington operatives.  Remember that this simulant, unlike all the others, is not human.  This means that it may be able to do things which a human cannot.\n"
+    },
+    {
+        "id": "L_MISC_112",
+        "text": "PacifistSim:  These simulants are scientists which protest the use of weapons.  They will go around the level hunting for guns that are lying around and horde them so that players cannot use them.  Of course, if you were to shoot them they might just drop a few!\n"
+    },
+    {
+        "id": "L_MISC_113",
+        "text": "ShieldSim:  Always goes for maximum shield protection.  If this simulant loses any shield energy it will go and search for a new shield.  Not much use if there are no shields on the level!\n"
+    },
+    {
+        "id": "L_MISC_114",
+        "text": "RocketSim:  This simulant loves to see things blow up.  It prefers weapons which make big explosions over conventional handguns or automatics.  This also extends to weapons which have explosive secondary functions!\n"
+    },
+    {
+        "id": "L_MISC_115",
+        "text": "KamiKazeSim:  This simulant will stop at nothing to destroy it's target.  It is very aggressive and never keeps it's distance (even if it's holding a grenade!).  Be very careful of an adversary who is not afraid to die.\n"
+    },
+    {
+        "id": "L_MISC_116",
+        "text": "FistSim:  This simulant protests the use of weapons in a similar way to the PacifistSims.  However it has no such reservations when it comes to unarmed combat.  It will always try to use it's fists to attack or disarm it's opponent.\n"
+    },
+    {
+        "id": "L_MISC_117",
+        "text": "PredatorSim:  This simulant prefers to prey on the weak in order to get easier kills.  It will look for players who have just respawned, have an inferior weapon or are low on health.\n"
+    },
+    {
+        "id": "L_MISC_118",
+        "text": "CowardSim:  This simulant does not really want to fight and will try and survive by running away.  It may sometimes attack but only if the opponent has an inferior weapon.  Draw out a better gun or shoot it and it will run away!\n"
+    },
+    {
+        "id": "L_MISC_119",
+        "text": "JusticeSim:  This simulant has a strong sense of justice and dispises the tactics of the PredatorSim.  It will always try and kill the winning player in order to even up the score.\n"
+    },
+    {
+        "id": "L_MISC_120",
+        "text": "VendettaSim:  Once this simulant picks a target, that player had better watch out!  A VendettaSim will pursue the player until the game is over!  Even if it is killed it will bear its grudge.\n"
+    },
+    {
+        "id": "L_MISC_121",
+        "text": "CheetahSim:  These simulants have been trained for speed.  They can easily out-run a human player so it's no use  running away from a CheetahSim unless you know some good short-cuts!\n"
+    },
+    {
+        "id": "L_MISC_122",
+        "text": "TurtleSim:  This simulant wears a prototype shield generator developed by dataDyne scientists.  The generator projects a protective shield around its host which has twice the strength of a normal shield.  Unfortunately this restricts the hosts movement so it can only move at a slow pace.  TurtleSims carry this shield as standard even if there are no shields on the level.\n"
+    },
+    {
+        "id": "L_MISC_123",
+        "text": "RevengeSim:  Be careful if you shoot or kill a RevengeSim because it always attacks the player who last killed it."
+    },
+    {
+        "id": "L_MISC_124",
+        "text": "Dark Combat"
+    },
+    {
+        "id": "L_MISC_125",
+        "text": "Skedar Mystery"
+    },
+    {
+        "id": "L_MISC_126",
+        "text": "CI Operative"
+    },
+    {
+        "id": "L_MISC_127",
+        "text": "dataDyne Action"
+    },
+    {
+        "id": "L_MISC_128",
+        "text": "Maian Tears"
+    },
+    {
+        "id": "L_MISC_129",
+        "text": "Alien Conflict"
+    },
+    {
+        "id": "L_MISC_130",
+        "text": "Carrington Institute"
+    },
+    {
+        "id": "L_MISC_131",
+        "text": "dD Central"
+    },
+    {
+        "id": "L_MISC_132",
+        "text": "dD Central X"
+    },
+    {
+        "id": "L_MISC_133",
+        "text": "dD Research"
+    },
+    {
+        "id": "L_MISC_134",
+        "text": "dD Research X"
+    },
+    {
+        "id": "L_MISC_135",
+        "text": "dD Extraction"
+    },
+    {
+        "id": "L_MISC_136",
+        "text": "dD Extraction X"
+    },
+    {
+        "id": "L_MISC_137",
+        "text": "Carrington Villa"
+    },
+    {
+        "id": "L_MISC_138",
+        "text": "Carrington Villa X"
+    },
+    {
+        "id": "L_MISC_139",
+        "text": "Chicago"
+    },
+    {
+        "id": "L_MISC_140",
+        "text": "Chicago X"
+    },
+    {
+        "id": "L_MISC_141",
+        "text": "G5 Building"
+    },
+    {
+        "id": "L_MISC_142",
+        "text": "G5 Building X"
+    },
+    {
+        "id": "L_MISC_143",
+        "text": "A-51 Infiltration"
+    },
+    {
+        "id": "L_MISC_144",
+        "text": "A-51 Infiltration X"
+    },
+    {
+        "id": "L_MISC_145",
+        "text": "A-51 Rescue"
+    },
+    {
+        "id": "L_MISC_146",
+        "text": "A-51 Rescue X"
+    },
+    {
+        "id": "L_MISC_147",
+        "text": "A-51 Escape"
+    },
+    {
+        "id": "L_MISC_148",
+        "text": "A-51 Escape X"
+    },
+    {
+        "id": "L_MISC_149",
+        "text": "Air Base"
+    },
+    {
+        "id": "L_MISC_150",
+        "text": "Air Base X"
+    },
+    {
+        "id": "L_MISC_151",
+        "text": "Air Force One"
+    },
+    {
+        "id": "L_MISC_152",
+        "text": "Air Force One X"
+    },
+    {
+        "id": "L_MISC_153",
+        "text": "Crash Site"
+    },
+    {
+        "id": "L_MISC_154",
+        "text": "Crash Site X"
+    },
+    {
+        "id": "L_MISC_155",
+        "text": "Pelagic II"
+    },
+    {
+        "id": "L_MISC_156",
+        "text": "Pelagic II X"
+    },
+    {
+        "id": "L_MISC_157",
+        "text": "Deep Sea"
+    },
+    {
+        "id": "L_MISC_158",
+        "text": "Deep Sea X"
+    },
+    {
+        "id": "L_MISC_159",
+        "text": "Institute Defense"
+    },
+    {
+        "id": "L_MISC_160",
+        "text": "Institute Defense X"
+    },
+    {
+        "id": "L_MISC_161",
+        "text": "Attack Ship"
+    },
+    {
+        "id": "L_MISC_162",
+        "text": "Attack Ship X"
+    },
+    {
+        "id": "L_MISC_163",
+        "text": "Skedar Ruins"
+    },
+    {
+        "id": "L_MISC_164",
+        "text": "Skedar Ruins X"
+    },
+    {
+        "id": "L_MISC_165",
+        "text": "End Credits"
+    },
+    {
+        "id": "L_MISC_166",
+        "text": "Random\n"
+    },
+    {
+        "id": "L_MISC_167",
+        "text": "Select All\n"
+    },
+    {
+        "id": "L_MISC_168",
+        "text": "Select None\n"
+    },
+    {
+        "id": "L_MISC_169",
+        "text": "Randomise\n"
+    },
+    {
+        "id": "L_MISC_170",
+        "text": "Weapon"
+    },
+    {
+        "id": "L_MISC_171",
+        "text": "Function"
+    },
+    {
+        "id": "L_MISC_172",
+        "text": "Orders"
+    },
+    {
+        "id": "L_MISC_173",
+        "text": "No Weapon"
+    },
+    {
+        "id": "L_MISC_174",
+        "text": "Pick Target\n"
+    },
+    {
+        "id": "L_MISC_175",
+        "text": "Follow"
+    },
+    {
+        "id": "L_MISC_176",
+        "text": "Attack"
+    },
+    {
+        "id": "L_MISC_177",
+        "text": "Defend"
+    },
+    {
+        "id": "L_MISC_178",
+        "text": "Hold"
+    },
+    {
+        "id": "L_MISC_179",
+        "text": "Normal"
+    },
+    {
+        "id": "L_MISC_180",
+        "text": "Download"
+    },
+    {
+        "id": "L_MISC_181",
+        "text": "Get Flag"
+    },
+    {
+        "id": "L_MISC_182",
+        "text": "Tag Box"
+    },
+    {
+        "id": "L_MISC_183",
+        "text": "Killed by"
+    },
+    {
+        "id": "L_MISC_184",
+        "text": "Killed"
+    },
+    {
+        "id": "L_MISC_185",
+        "text": "Beginner:21\n"
+    },
+    {
+        "id": "L_MISC_186",
+        "text": "Trainee:20\n"
+    },
+    {
+        "id": "L_MISC_187",
+        "text": "Amateur:19\n"
+    },
+    {
+        "id": "L_MISC_188",
+        "text": "Rookie:18\n"
+    },
+    {
+        "id": "L_MISC_189",
+        "text": "Novice:17\n"
+    },
+    {
+        "id": "L_MISC_190",
+        "text": "Trooper:16\n"
+    },
+    {
+        "id": "L_MISC_191",
+        "text": "Agent:15\n"
+    },
+    {
+        "id": "L_MISC_192",
+        "text": "Star Agent:14\n"
+    },
+    {
+        "id": "L_MISC_193",
+        "text": "Special Agent:13\n"
+    },
+    {
+        "id": "L_MISC_194",
+        "text": "Expert:12\n"
+    },
+    {
+        "id": "L_MISC_195",
+        "text": "Veteran:11\n"
+    },
+    {
+        "id": "L_MISC_196",
+        "text": "Professional:10\n"
+    },
+    {
+        "id": "L_MISC_197",
+        "text": "Dangerous:9\n"
+    },
+    {
+        "id": "L_MISC_198",
+        "text": "Deadly:8\n"
+    },
+    {
+        "id": "L_MISC_199",
+        "text": "Killer:7\n"
+    },
+    {
+        "id": "L_MISC_200",
+        "text": "Assassin:6\n"
+    },
+    {
+        "id": "L_MISC_201",
+        "text": "Lethal:5\n"
+    },
+    {
+        "id": "L_MISC_202",
+        "text": "Elite:4\n"
+    },
+    {
+        "id": "L_MISC_203",
+        "text": "Invincible:3\n"
+    },
+    {
+        "id": "L_MISC_204",
+        "text": "Near Perfect:2\n"
+    },
+    {
+        "id": "L_MISC_205",
+        "text": "Perfect:1\n"
+    },
+    {
+        "id": "L_MISC_206",
+        "text": "DARTAMMO"
+    },
+    {
+        "id": "L_MISC_207",
+        "text": "MODEL 1.4"
+    },
+    {
+        "id": "L_MISC_208",
+        "text": "BN: 200959"
+    },
+    {
+        "id": "L_MISC_209",
+        "text": "Save Flag"
+    },
+    {
+        "id": "L_MISC_210",
+        "text": "Def Hill"
+    },
+    {
+        "id": "L_MISC_211",
+        "text": "Hold Hill"
+    },
+    {
+        "id": "L_MISC_212",
+        "text": "Get Case"
+    },
+    {
+        "id": "L_MISC_213",
+        "text": "Pop Cap"
+    },
+    {
+        "id": "L_MISC_214",
+        "text": "Protect"
+    },
+    {
+        "id": "L_MISC_215",
+        "text": "All Simulants"
+    },
+    {
+        "id": "L_MISC_216",
+        "text": "MODEL 1.3"
+    },
+    {
+        "id": "L_MISC_217",
+        "text": "BN: 261069"
+    },
+    {
+        "id": "L_MISC_218",
+        "text": "Not enough room to launch "
+    },
+    {
+        "id": "L_MISC_219",
+        "text": "Joanna Dark\n"
+    },
+    {
+        "id": "L_MISC_220",
+        "text": "Human (Female)\n"
+    },
+    {
+        "id": "L_MISC_221",
+        "text": "23 years 2 months\n"
+    },
+    {
+        "id": "L_MISC_222",
+        "text": "|CI File #027 -\n\nTraining Status: Complete\nTraining Grade: A++\nActive Status: Assigned\n\n|Profile -\n\nHighly trained but inexperienced. Reactions superb. Proficient with a variety of weapons. Very competent all-round agent. Highest recorded training scores resulted in the creation of a new class of training grade. The embodiment of the Carrington Institute's ideal agent, hence the callsign 'Perfect Dark'.\n"
+    },
+    {
+        "id": "L_MISC_223",
+        "text": "Jonathan\n"
+    },
+    {
+        "id": "L_MISC_224",
+        "text": "Human (Male)\n"
+    },
+    {
+        "id": "L_MISC_225",
+        "text": "28 years 5 months\n"
+    },
+    {
+        "id": "L_MISC_226",
+        "text": "|CI File #009 -\n\nTraining Status: Complete\nTraining Grade: A+\nActive Status: Undercover\n\n|Profile -\n\nOur most experienced undercover agent. Highly accurate with his chosen weapon (a Magnum Revolver). Perfectly suited to undercover missions. Less suited to out-and-out combat. Before Joanna Dark he held the honour of having the highest recorded training scores.\n"
+    },
+    {
+        "id": "L_MISC_227",
+        "text": "Daniel Carrington\n"
+    },
+    {
+        "id": "L_MISC_228",
+        "text": "Human (Male)\n"
+    },
+    {
+        "id": "L_MISC_229",
+        "text": "62 years 8 months\n"
+    },
+    {
+        "id": "L_MISC_230",
+        "text": "|CI File #000 -\n\nTraining Status: N/A\nTraining Grade: N/A\nActive Status: N/A\n\n|Profile -\n\nIntelligent patriarchal scientist/entrepreneur, and founder of the Carrington Institute. Plans all missions carried out by his agents, runs each operation direct from a link in his office. Strange taste in clothes.\n"
+    },
+    {
+        "id": "L_MISC_231",
+        "text": "Cassandra De Vries\n"
+    },
+    {
+        "id": "L_MISC_232",
+        "text": "Human (Female)\n"
+    },
+    {
+        "id": "L_MISC_233",
+        "text": "39 years ? months\n"
+    },
+    {
+        "id": "L_MISC_234",
+        "text": "|Analyst note -\n\nThe head of dataDyne Corp. Addicted to power, dislikes being anybody's underling. Hates it when she loses the initiative. Is prepared to do extremely unscrupulous things in order to get ahead of her competition, to whit Daniel Carrington, whom she hates. \n\n[source: WALL STREET JOURNAL]\n"
+    },
+    {
+        "id": "L_MISC_235",
+        "text": "Trent Easton\n"
+    },
+    {
+        "id": "L_MISC_236",
+        "text": "Human (Male)\n"
+    },
+    {
+        "id": "L_MISC_237",
+        "text": "46 years ? months\n"
+    },
+    {
+        "id": "L_MISC_238",
+        "text": "|Analyst note -\n\nHead of the National Security Agency. Has a friendship of sorts with Cassandra De Vries although it operates more like a partnership of interest. He will tend to do what Cassandra says, possibly because although he has a dominant personality, it is not as dominant as hers. Figurehead for some of the rogue elements in the NSA.\n"
+    },
+    {
+        "id": "L_MISC_239",
+        "text": "Dr. Caroll\n"
+    },
+    {
+        "id": "L_MISC_240",
+        "text": "The Caroll Sapient (AI)\n"
+    },
+    {
+        "id": "L_MISC_241",
+        "text": "6 months\n"
+    },
+    {
+        "id": "L_MISC_242",
+        "text": "|Profile -\n\nAn artificial intelligence created by the dataDyne corp with an emphasis on language skills and code-breaking. Fortunately he has morals, and due to his formidable level of intelligence has guessed some of dataDyne's future plans. The voice is highly precise and educated, and simulates the character of an academic.\n"
+    },
+    {
+        "id": "L_MISC_243",
+        "text": "Elvis\n"
+    },
+    {
+        "id": "L_MISC_244",
+        "text": "Maian (Male)\n"
+    },
+    {
+        "id": "L_MISC_245",
+        "text": "320 years\n"
+    },
+    {
+        "id": "L_MISC_246",
+        "text": "|Profile -\n\nAn alien from the Maian race. He is a 'Protector' (bodyguard) for the Maian ambassador who travels to Earth at Daniel Carrington's request. Protectors are trained to excel in the use of an assortment of weaponry. Elvis is a terraphile, finding Earth and everything about it fascinating.\n"
+    },
+    {
+        "id": "L_MISC_247",
+        "text": "Mr Blonde\n"
+    },
+    {
+        "id": "L_MISC_248",
+        "text": "Human (Male)\n"
+    },
+    {
+        "id": "L_MISC_249",
+        "text": "Late 20's\n"
+    },
+    {
+        "id": "L_MISC_250",
+        "text": "|Profile -\n\nA striking blonde young human male whose the voice is dull, annoying, and cringeworthy. Very tall. Appears to be masterminding the conspiracy in which Cassandra and Trent are involved. Little else is known.\n"
+    },
+    {
+        "id": "L_MISC_251",
+        "text": "Mr Blonde\n"
+    },
+    {
+        "id": "L_MISC_252",
+        "text": "Skedar (disguised)\n"
+    },
+    {
+        "id": "L_MISC_253",
+        "text": "unknown\n"
+    },
+    {
+        "id": "L_MISC_254",
+        "text": "|Updated Profile -\n\nThis is a Skedar Warrior lurking within a holographic projection of a striking blonde young human male in his late 20's.  The oral modulation unit gives the Skedar a precise, persuasive, and intelligent voice. It is a propaganda and manipulation tool for the Skedar, and an unusually subtle one.\n"
+    },
+    {
+        "id": "L_MISC_255",
+        "text": "The US President\n"
+    },
+    {
+        "id": "L_MISC_256",
+        "text": "Human (Male)\n"
+    },
+    {
+        "id": "L_MISC_257",
+        "text": "50 years\n"
+    },
+    {
+        "id": "L_MISC_258",
+        "text": "|Profile -\n\nA highly educated, shrewd African-American who is trying to do what is right but is surrounded by people like Trent Easton. He believes he has Trent under control after refusing the request for the loan of the Pelagic II to the dataDyne Corp. Perceived as being easily led by the majority of political commentators which is perhaps unfair.\n"
+    },
+    {
+        "id": "L_MISC_259",
+        "text": "Maians\n"
+    },
+    {
+        "id": "L_MISC_260",
+        "text": "The Maians are the race of aliens that have come to be known on Earth as 'Greys'. They have been monitoring Earth for a long time - several centuries - and are benevolent towards mankind, sensing great potential in the human race. Their contact on Earth is Daniel Carrington, a formal political contact has yet to be made.\n"
+    },
+    {
+        "id": "L_MISC_261",
+        "text": "Skedar Warrior\n"
+    },
+    {
+        "id": "L_MISC_262",
+        "text": "The Skedar are a warlike alien race who have fought the Maians for centuries and have only recently agreed to a ceasefire. Tend to use huge mechanized armatures to walk about and fight in, since they are in actual fact smaller, snakelike creatures. Very aggressive -  they have made war a religion, and are extremely devout.\n"
+    },
+    {
+        "id": "L_MISC_263",
+        "text": "Background\n"
+    },
+    {
+        "id": "L_MISC_264",
+        "text": "Millions of years ago, a battlecruiser of immense power was scuttled in the Pacific ocean by a race of aliens called Cetans. It was equipped with an untried weapon - the weak nuclear force de-coupler, which could in theory cause the bonds which held molecules together to fail. So that watching eyes would believe in the destruction of the ship, a message pod was sent back to the home system and vital parts of the drive systems were destroyed in the star system they had chosen to hide in.\n\nMaian aliens encounter life on Earth. They see potential, but decide to leave the primitive race of Humans alone to develop.\n\nThe Maians meet the Skedar and they have a fight that turns into a protracted war. After hundreds of years of fighting an uneasy peace develops. Fanatical Skedar continually test the boundaries of this peace with terrorist activities, but the Maians refuse to be drawn.\n\nThe Maians are wary of humans sensing that too many crises have arisen on Earth as a result of technology and 'outside context situations'.  They fear that announcing their presence may well precipitate further wars on the planet, and therefore decide to observe the race until it becomes more mature.\n\nDaniel Carrington jumps the gun by contacting a Maian ship in orbit above Earth. He has a plan that would help both parties, resulting in accelerated contact between humans and Maians. Having agreed that his plan is sound, and that he is a person of integrity, the Maians help Daniel Carrington to release their technology into the public domain.\n\nThe Skedar fanatics find a message pod from the Cetan battlecruiser. They immediately scout Earth in a particularly heavy-handed way, abducting people and mutilating animals in an attempt to find out where the battlecruiser is. Their tests direct them to the pacific ocean where they locate the ship. However, they need help to get to it.\n\nThey perform their own study of Earth and come up with a shortlist of companies with the resources to help them recover the sunken ship. At the top of the list is the dataDyne corporation. They contact the head of the corporation, Cassandra De Vries, and present her with a deal that sounds too good to be true - which it is. They say that in return for helping the Skedar raise 'their' ship from the ocean floor, they will give dataDyne enough technology to become the biggest corporation on the planet. All that dataDyne have to do is build an AI unit with language and code-breaking abilities.  This is tricky, but within their means. Work commences on the project.\n\nCassandra De Vries approaches the head of the NSA, Trent Easton, with the details. He attempts to get Presidential approval for the loan of a deep-sea research vessel to dataDyne but is refused by the president.  There is no way that the Skedar or dataDyne could steal the vessel without triggering the wrath of the US government so they settle on a plan of replacing the President with a clone that they can control. This promises to have extra rewards for Trent and Cassandra after the Skedar operation is finished.\n\nHowever, they will not have an awful lot of time to gloat. The Skedar plan to test the weak nuclear force de-coupler on Earth before wiping the Maians out of existence. Cassandra is blinded to the possibility of being double-crossed by the enormous gain in power she will have. This affliction also affects Trent Easton.\n\nBut dataDyne have made the one thing that can see such dangers emerge from the sea of facts around itself - the sapient AI created to crack the access codes of the Cetan battlecruiser. When it expresses concern about the mission it is being created for the response of Cassandra De Vries is to order its personality removed. Clearly it is thinking too much. In desperation it contacts the Carrington organisation with a plea for help, under the pseudonym Dr. Caroll...\n"
+    },
+    {
+        "id": "L_MISC_265",
+        "text": "The Story\n"
+    },
+    {
+        "id": "L_MISC_266",
+        "text": "Untried agent Joanna Dark is assigned the mission to extract a scientist from the high security research area below the dataDyne skyscraper. She is surprised to discover that 'Dr. Caroll' is an AI created by the corporation, but continues with the mission to get him/it to a place of safety. With the alarm raised Joanna has to fight her way up the tower to get to the helipad for the extraction by dropship.\n\nIn response to this dataDyne targets Daniel Carrington and takes him hostage two days later at his private villa. They demand the return of the AI - their 'property' - in exchange for Daniel Carrington's life. Unknown to them, the AI is at the villa. Carrington had been talking with it to find out about dataDyne's future plans. Joanna rescues Daniel but is unable to prevent dataDyne from recovering Dr. Caroll but her boss has heard enough from the AI to prompt him into summoning a team of Maian specialists to Earth.\n\nJoanna is dispatched to Chicago to spy on a conspirators' meeting at the G5 building, a front for the dataDyne corp. She learns of the involvement of Trent Easton, the head of the NSA, and of the strange Nordic men that seem to be in control of the whole scheme. Once the plan to move on the President is disclosed by Trent, Jo calls in with the news but finds out there is another, more urgent job for her to complete first.\n\nThe specialists' have been intercepted by the conspirators, and the survivors of the crash and the crash wreckage itself have been taken to Area 51 in Nevada. Joanna is dropped in to link up with another Carrington Institute agent to rescue any survivors and to retrieve any of their equipment. When she breaks into the medlab Joanna discovers the Carrington Institute's secret - their allies are Maians, the aliens known as Greys. The particular alien she rescues is called Elvis. He was a bodyguard for the Ambassador who was coming in as the head of the team of specialists.\n\nHaving aided the remnants of the Maian delegation Joanna can turn to the matter of the President and dataDyne's designs against him. She poses as a member of the president's entourage to gain access to the airbase where Air Force One is stationed and manages to conceal herself on board the airplane. Once it is in the air Trent and the cloaked Skedar make their move - but Joanna is there to stop him. She gets the President to a safety capsule while a team of Trent's men scour the aircraft for him, intent on dragging the hapless politician aboard the Skedar UFO, now docked to AF1 via an umbilical. Jo weakens the umbilical but is unable to break it. She calls on Elvis, who decides to crash into it. All three craft go down in the Alaskan wilderness and the escape pod is launched.\n\nJo wakes up and tries to report in but finds her communications being jammed by a transmission from the Skedar craft. She sets off through the snow to find the President and Elvis. She comes across teams of cloaked Skedar who are searching for the President, Elvis, herself and some of the President's belongings. She tracks one group back to the downed Skedar ship where she discovers a clone of the President. She destroys this and shuts down the jamming device, then calls in the cavalry. The Skedar have been thwarted again, the President is saved, and Trent is killed horribly by the Skedar for failing to be competent in the first place.\n\nThrowing caution to the wind, dataDyne and the Skedar steal the Government's deep sea research vessel 'Pelagic II' and head out to the crash site. Joanna goes out with Elvis to disrupt activity on board the ship and to find out what the big project is. After crippling the diving operations on the ship and recalling the submersible they head down to the ocean floor, where they get their first sight of the sunken Cetan battlecruiser. Entering the ship through the portal the Skedar have made they come across a dead skedar warrior... clearly the assault team didn't have it all their own way. After fighting off the Skedar and avoiding the Cetans, Joanna and Elvis get to the core of the ship where they find the AI that was once Dr. Caroll. Once his personality is restored he urges Joanna and Elvis to leave the ship, which he intends to destroy for good.\n\nBack at the Carrington Institute, Joanna is about to leave for a Presidential reception at the White House when all hell breaks loose. The surviving Skedar assault team vent their anger on the people responsible for their failure to recover the Cetan ship. Joanna runs around the Institute trying to escort CI employees to the hangars while the Skedar attack different parts of the building. Joanna holds them off while the majority of the employees escape, before getting knocked unconscious and captured by the Skedar.\n\nShe wakes up in a holding cell on board the Skedar assault ship with Cassandra De Vries for company. The dataDyne CEO dies while creating a distraction for Joanna to break out. Jo manages to get through to lower the docking bay shields and Elvis brings a few friends in for a shooting party.\n\nThe captured ship enters orbit above the Skedar battle shrine, which gives Elvis a shock since the Maians could never find this Skedar holiest of holy places. If the Shrine is destroyed the Skedar morale would be dealt a fatal blow and there would be true peace instead of an uneasy ceasefire. Jo sets her sights on the leader of the Skedar, the high priest of the battle shrine, while Elvis returns to the Assault ship to summon the Maian fleet.\n\nThe game finishes with the temple in ruins... Elvis calls for a lull in the bombardment so that he can find Joanna. She is alive, held under a pile of rubble by a Skedar that grabbed her foot before she could get clear. Elvis lends her a gun to help convince the Skedar to let go, and they depart for orbit.\n"
+    },
+    {
+        "id": "L_MISC_267",
+        "text": "dataDyne Corporation\n"
+    },
+    {
+        "id": "L_MISC_268",
+        "text": "dataDyne are nasty\n"
+    },
+    {
+        "id": "L_MISC_269",
+        "text": "Carrington Institute\n"
+    },
+    {
+        "id": "L_MISC_270",
+        "text": "The Carrington Institute is lovely\n"
+    },
+    {
+        "id": "L_MISC_271",
+        "text": "Description\n- A tiny remote camera for stealthy exploration. Equipped for spectroscopic holography. Opens doors by projecting a human sized pulse of heat.\n\nTraining Instructions\n- Holograph the Hackers terminal next door in the Info room.\n\nOperation\n- Press Z to take a holograph. Pressing B will open any doors in the way.Hold down R to look around.\n"
+    },
+    {
+        "id": "L_MISC_272",
+        "text": "Description\n- Enhances any visible light to produce an image of the surrounding area. Also highlights lifeforms. Overloads in normal light conditons, 'whiting out' the display.\n\nTraining Instructions\n- Head into the darkness, find the light switch and activate it to turn the lights back on.\n\nOperation\n- Select the Nightvision from your inventory to activate it. Reselect to deactivate.\n"
+    },
+    {
+        "id": "L_MISC_273",
+        "text": "Description\n\n- Standalone code-breaking device. Attaches to the control panel and sifts through the possible combinations until the lock is opened.\n\nTraining Instructions\n- Find the pad by the locked door and use the door decoder on it to unlock the door.\n\nOperation\n- Stand next to the door pad and press B while holding the door decoder to use it.\n"
+    },
+    {
+        "id": "L_MISC_274",
+        "text": "Description\n\n- Used to look through otherwise solid walls and objects. Can see things that the night vision and IR goggles can not.\n\nTraining Instructions\n- With the Xray Scanner on, search for the 2 hidden switches and activate them to turn off the laser grid.\n\nOperation\n- Select the Xray Scanner from your inventory to activate it. Reselect to deactivate.\n"
+    },
+    {
+        "id": "L_MISC_275",
+        "text": "Description\n\n- Allay suspicion by the use of a disguise. But, always be alert for the possibility of being unmasked by a quick witted enemy.\n\nTraining Instructions\n- Grimshaw has a cloaking device waiting to be serviced. Head next door and 'aquire' it from him.\n\nOperation\n- To wear the disguise simply select it from your inventory.\n"
+    },
+    {
+        "id": "L_MISC_276",
+        "text": "Drscription\n\n- Translates thermal data into visible images. Can be used in darkness and will also reveal anomalies such as hidden doors and weak wall sections.\n\nTraining Instructions\n- Turning on the IR scanner, find the hidden door and open it.\n\nOperation\n- Select the IR Scanner from your inventory to activate it. Reselect to deactivate.\n"
+    },
+    {
+        "id": "L_MISC_277",
+        "text": "Description\n- Locates a particular object on a HUD radar map. Shows the relative bearing and distance.\n\nTraining Instructions\n- Activate the tracker and follow the radar signature to retrieve the item.\n\nOperation\n- Selecting the Tracker from your inventory will activate it. Reselect to deactivate.\n"
+    },
+    {
+        "id": "L_MISC_278",
+        "text": "Description\n- Distrupts the radiation field around the wearer, creating a chameleon type effect. This field is disrupted when the wearer fires.\n\nTraining Instructions\n- Activate the cloaking device and head to Carringtons office to suprise him!\n\nOperation\n- Selecting the Cloaking Device from your inventory will activate it. Reselect to deactivate.\n"
+    },
+    {
+        "id": "L_MISC_279",
+        "text": "Description\n- Emits a constantly shifting signal designed to jam any electronic communications device. Must be placed on the object to be effective.\n\nTraining Instructions\n- Throw the ECM mine onto the lighting hub located through the secret door.\n\nOperation\n- Press Z to throw the mine. Hold down R and move the stick to fine tune your aim before throwing.\n"
+    },
+    {
+        "id": "L_MISC_280",
+        "text": "Description\n- Provides a link from the field agent to the Institute hackers back at HQ, who can then download data or crack electronic locks remotely.\n\nTraining Instructions\n- Use the Comms Uplink to hack the terminal in the corner, unlocking a secret door.\n\nOperation\n- Stand next to the terminal and press B when holding Comms Uplink.\n"
+    },
+    {
+        "id": "L_MISC_281",
+        "text": "FIRING\n Press Z to fire gun\n"
+    },
+    {
+        "id": "L_MISC_282",
+        "text": "AUTO RELOAD\n Release Z to reload when magazine empty\n"
+    },
+    {
+        "id": "L_MISC_283",
+        "text": "MANUAL RELOAD\n Press B to reload early if magazine not full\n"
+    },
+    {
+        "id": "L_MISC_284",
+        "text": "Aiming: hold down R to enter aim mode\n"
+    },
+    {
+        "id": "L_MISC_285",
+        "text": "Use analog stick to move aiming sight\n"
+    },
+    {
+        "id": "L_MISC_286",
+        "text": "AUTO FIRE\n Hold Z to repeatedly fire automatically\n"
+    },
+    {
+        "id": "L_MISC_287",
+        "text": "ALTER AIM\n Press up C or down C to move sight up/down\n"
+    },
+    {
+        "id": "L_MISC_288",
+        "text": "ZOOM\n Hold R to enter Zoom mode\n"
+    },
+    {
+        "id": "L_MISC_289",
+        "text": "FAST FIRE\n Press Z quickly to fire faster\n"
+    },
+    {
+        "id": "L_MISC_290",
+        "text": "ELVIS IS DEAD OR FALLEN OUT OF THE BACKGROUND\n"
+    },
+    {
+        "id": "L_MISC_291",
+        "text": "Carrington Institute\u0000|Main building and base of operations\n"
+    },
+    {
+        "id": "L_MISC_292",
+        "text": "Lucerne Tower\u0000|Global Headquarters\n"
+    },
+    {
+        "id": "L_MISC_293",
+        "text": "Laboratory Basement\u0000|Underground research labs\n"
+    },
+    {
+        "id": "L_MISC_294",
+        "text": "Carrington Villa\u0000|Private coastal retreat\n"
+    },
+    {
+        "id": "L_MISC_295",
+        "text": "Chicago\u0000|Backstreets of the city\n"
+    },
+    {
+        "id": "L_MISC_296",
+        "text": "G5 Building\u0000|dataDyne front corporation\n"
+    },
+    {
+        "id": "L_MISC_297",
+        "text": "Area 51\u0000|Near Groom Dry Lake, Nevada\n"
+    },
+    {
+        "id": "L_MISC_298",
+        "text": "Alaskan Airbase\u0000|Brooks Range, Alaska\n"
+    },
+    {
+        "id": "L_MISC_299",
+        "text": "Air Force One\u0000|The President's Airplane\n"
+    },
+    {
+        "id": "L_MISC_300",
+        "text": "Crash Site\u0000|Victoria Island 71N 118W\n"
+    },
+    {
+        "id": "L_MISC_301",
+        "text": "Pelagic 2\u0000|Specialised Deep Sea Research Ship\n"
+    },
+    {
+        "id": "L_MISC_302",
+        "text": "Cetan Ship\u0000|The most alien environment on Earth\n"
+    },
+    {
+        "id": "L_MISC_303",
+        "text": "Skedar Assault Ship\u0000|Troop Carrying spacecraft\n"
+    },
+    {
+        "id": "L_MISC_304",
+        "text": "Skedar Homeworld\u0000|The planet of the Battle Shrine\n"
+    },
+    {
+        "id": "L_MISC_305",
+        "text": "Dropship\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_306",
+        "text": "HoverCrate\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_307",
+        "text": "HoverBike\u0000|subtitle here\n"
+    },
+    {
+        "id": "L_MISC_308",
+        "text": "Cleaning Hovbot\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_309",
+        "text": "Hovercopter\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_310",
+        "text": "G5 Robot\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_311",
+        "text": "A51 Interceptor\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_312",
+        "text": "Maian Vessel\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_313",
+        "text": "Skedar Shuttle\u0000|Insert subtitle here\n"
+    },
+    {
+        "id": "L_MISC_314",
+        "text": "The Institute building comprises many different areas: offices and laboratories, workshops and hangars. It is quite isolated from the outside world, which helps keep the operations covert.\n"
+    },
+    {
+        "id": "L_MISC_315",
+        "text": "In the midst of the business district, the austere skyscraper of the dataDyne Corporation stands out from the surroundings.\n"
+    },
+    {
+        "id": "L_MISC_316",
+        "text": "These heavily guarded, well hidden labs hold the key to dataDyne's future. Within them, techs work on top secret projects aimed at putting dataDyne on the top of the heap.\n"
+    },
+    {
+        "id": "L_MISC_317",
+        "text": "Owned by the Institute, this secluded residence is used by Daniel Carrington as a retreat from the pressures of the Institute. As well as an observatory, it has a power generator and an extensive wine cellar.\n"
+    },
+    {
+        "id": "L_MISC_318",
+        "text": "A seedy, grimy part of the city of Chicago, now closed to ground traffic. It is here that the G5 corporation has their headquarters.\n"
+    },
+    {
+        "id": "L_MISC_319",
+        "text": "Inside the G5 building is a meeting room protected by anti-recording safeguards. This is the safest place for dataDyne to formulate confidential plans.\n"
+    },
+    {
+        "id": "L_MISC_320",
+        "text": "This section of the extensive facility known as Area 51 is based in the foothills around Groom Dry Lake. Exterior helipads and communication towers hint at the size of the complex beneath ground level.\n"
+    },
+    {
+        "id": "L_MISC_321",
+        "text": "One of a series of reinforced airbases available as staging posts for Air Force One. Typically, the airbase is remote, in an inhospitable region, far away from prying eyes.\n"
+    },
+    {
+        "id": "L_MISC_322",
+        "text": "This particular Air Force One is optimised for cold climates, useful when it is based in the north of Alaska. The flight destination is Oslo, Norway.\n"
+    },
+    {
+        "id": "L_MISC_323",
+        "text": "In the rocky snow-covered landscape of the Arctic Circle the wreckage of the stricken plane has come to rest.\n"
+    },
+    {
+        "id": "L_MISC_324",
+        "text": "Owned by the US government, the Pelagic 2 is capable of staging deep sea diving operations in all weathers. It is the only fully integrated ocean floor research vessel in the world.\n"
+    },
+    {
+        "id": "L_MISC_325",
+        "text": "A huge ship of alien construction that has lain on the ocean floor for millions of years.\n"
+    },
+    {
+        "id": "L_MISC_326",
+        "text": "An interplanetary assault ship that carries Skedar Warriors to their war zones. Part of the much-reduced Skedar battle fleet.\n"
+    },
+    {
+        "id": "L_MISC_327",
+        "text": "A highly arid planet, wracked by earthquakes, sandstorms and hurricanes. It is part of a complex solar system that includes three suns.\n"
+    },
+    {
+        "id": "L_MISC_328",
+        "text": "that thing in the first cutscene\n"
+    },
+    {
+        "id": "L_MISC_329",
+        "text": "a floating crate\n"
+    },
+    {
+        "id": "L_MISC_330",
+        "text": "a floating bike\n"
+    },
+    {
+        "id": "L_MISC_331",
+        "text": "a floating hoover\n"
+    },
+    {
+        "id": "L_MISC_332",
+        "text": "a cool ship with startling AI and realistic dynamic movement\n"
+    },
+    {
+        "id": "L_MISC_333",
+        "text": "a superb attack drone with lovely rotating guns and brilliant AI\n"
+    },
+    {
+        "id": "L_MISC_334",
+        "text": "just as cool as the hovercopter, especially when it crashes\n"
+    },
+    {
+        "id": "L_MISC_335",
+        "text": "ooh! shiny\n"
+    },
+    {
+        "id": "L_MISC_336",
+        "text": "skedar shuttle thing\n"
+    },
+    {
+        "id": "L_MISC_337",
+        "text": "Description\n- A good agent notices everything around them.\n\nTraining Instructions\n- Examine all of the objects by looking directly at them.\n\nOperation\n-Look up- Press Down C\n-Look down- Press Up C\n-Free Look- Hold down R to enter aim mode and use the stick to look.\n"
+    },
+    {
+        "id": "L_MISC_338",
+        "text": "Description\n- Proverb type saying about movement 1 here.\n\nTraining Instructions\n- Activate All Of The Switches In Front. Be Quick Though, As Each Switch Will Reset On A Time Limit.\n\nOperation\n- Sidestep left- Left C\n- Sidestep right- Right C\n\n"
+    },
+    {
+        "id": "L_MISC_339",
+        "text": "Description\n- Proverb type saying about movement 2 here.\n\nTraining Instructions\n- Work your way through the obstacles using the moves available to you. Activate The Switches.\n\nOperation\n- Duck- Hold R then press down C.\n- Crouch- When ducking, Hold R then press down C.\n- Get Up- Tap R.\n\n"
+    },
+    {
+        "id": "L_MISC_340",
+        "text": "Description\n- Proverb type saying about unarmed combat 1 here.\n\nTraining Instructions\n- Knock out all enemies without getting hit.\n\nOperation\n- Punch - Press Z repeatedly when unarmed to launch a flurry of punches.\n\n"
+    },
+    {
+        "id": "L_MISC_341",
+        "text": "Description\n- Proverb type saying about unarmed combat 2 here.\n\nTraining Instructions\n- Knockout/Disarm all enemies without getting hit.\n\nOperation\n- Disarm - Hold B then press Z to disarm an enemy.\n- Knockout Punch - punch an unaware enemy from behind.\n"
+    },
+    {
+        "id": "L_MISC_342",
+        "text": "Description\n- Proverb type saying about combat test 1 here.\n\nTraining Instructions\n- Beat all the unarmed enemies without getting hit.\n\n"
+    },
+    {
+        "id": "L_MISC_343",
+        "text": "Description\n- Proverb type saying about combat test 2 here.\n\nTraining Instructions\n- Beat all the armed enemies without getting hit.\n\n"
+    },
+    {
+        "id": "L_MISC_344",
+        "text": "holo_tips1\n"
+    },
+    {
+        "id": "L_MISC_345",
+        "text": "holo_tips2\n"
+    },
+    {
+        "id": "L_MISC_346",
+        "text": "holo_tips3\n"
+    },
+    {
+        "id": "L_MISC_347",
+        "text": "holo_tips4\n"
+    },
+    {
+        "id": "L_MISC_348",
+        "text": "holo_tips5\n"
+    },
+    {
+        "id": "L_MISC_349",
+        "text": "holo_tips6\n"
+    },
+    {
+        "id": "L_MISC_350",
+        "text": "holo_tips7\n"
+    },
+    {
+        "id": "L_MISC_351",
+        "text": "holo_advice1\n"
+    },
+    {
+        "id": "L_MISC_352",
+        "text": "holo_advice2\n"
+    },
+    {
+        "id": "L_MISC_353",
+        "text": "holo_advice3\n"
+    },
+    {
+        "id": "L_MISC_354",
+        "text": "holo_advice4\n"
+    },
+    {
+        "id": "L_MISC_355",
+        "text": "holo_advice5\n"
+    },
+    {
+        "id": "L_MISC_356",
+        "text": "holo_advice6\n"
+    },
+    {
+        "id": "L_MISC_357",
+        "text": "holo_advice7\n"
+    },
+    {
+        "id": "L_MISC_358",
+        "text": "device_tips1\n"
+    },
+    {
+        "id": "L_MISC_359",
+        "text": "device_tips2\n"
+    },
+    {
+        "id": "L_MISC_360",
+        "text": "device_tips3\n"
+    },
+    {
+        "id": "L_MISC_361",
+        "text": "device_tips4\n"
+    },
+    {
+        "id": "L_MISC_362",
+        "text": "device_tips5\n"
+    },
+    {
+        "id": "L_MISC_363",
+        "text": "device_tips6\n"
+    },
+    {
+        "id": "L_MISC_364",
+        "text": "device_tips7\n"
+    },
+    {
+        "id": "L_MISC_365",
+        "text": "device_tips8\n"
+    },
+    {
+        "id": "L_MISC_366",
+        "text": "device_tips9\n"
+    },
+    {
+        "id": "L_MISC_367",
+        "text": "device_tips10\n"
+    },
+    {
+        "id": "L_MISC_368",
+        "text": "device_advice1\n"
+    },
+    {
+        "id": "L_MISC_369",
+        "text": "device_advice2\n"
+    },
+    {
+        "id": "L_MISC_370",
+        "text": "device_advice3\n"
+    },
+    {
+        "id": "L_MISC_371",
+        "text": "device_advice4\n"
+    },
+    {
+        "id": "L_MISC_372",
+        "text": "device_advice5\n"
+    },
+    {
+        "id": "L_MISC_373",
+        "text": "device_advice6\n"
+    },
+    {
+        "id": "L_MISC_374",
+        "text": "device_advice7\n"
+    },
+    {
+        "id": "L_MISC_375",
+        "text": "device_advice8\n"
+    },
+    {
+        "id": "L_MISC_376",
+        "text": "device_advice9\n"
+    },
+    {
+        "id": "L_MISC_377",
+        "text": "device_advice10\n"
+    },
+    {
+        "id": "L_MISC_378",
+        "text": "Instructions for falcon2\n"
+    },
+    {
+        "id": "L_MISC_379",
+        "text": "Instructions for falcon2scope\n"
+    },
+    {
+        "id": "L_MISC_380",
+        "text": "Instructions for falcon2silenced\n"
+    },
+    {
+        "id": "L_MISC_381",
+        "text": "Instructions for leegun1\n"
+    },
+    {
+        "id": "L_MISC_382",
+        "text": "Instructions for skedarpistol\n"
+    },
+    {
+        "id": "L_MISC_383",
+        "text": "Instructions for maianpistol\n"
+    },
+    {
+        "id": "L_MISC_384",
+        "text": "Instructions for dy357\n"
+    },
+    {
+        "id": "L_MISC_385",
+        "text": "Instructions for dy357_trent\n"
+    },
+    {
+        "id": "L_MISC_386",
+        "text": "Instructions for cmp150\n"
+    },
+    {
+        "id": "L_MISC_387",
+        "text": "Instructions for cyclone\n"
+    },
+    {
+        "id": "L_MISC_388",
+        "text": "Instructions for maiansmg\n"
+    },
+    {
+        "id": "L_MISC_389",
+        "text": "Instructions for anothersmg\n"
+    },
+    {
+        "id": "L_MISC_390",
+        "text": "Instructions for pcgun\n"
+    },
+    {
+        "id": "L_MISC_391",
+        "text": "Instructions for dydragon\n"
+    },
+    {
+        "id": "L_MISC_392",
+        "text": "Instructions for k7avenger\n"
+    },
+    {
+        "id": "L_MISC_393",
+        "text": "Instructions for ar34\n"
+    },
+    {
+        "id": "L_MISC_394",
+        "text": "Instructions for dysuperdragon\n"
+    },
+    {
+        "id": "L_MISC_395",
+        "text": "Instructions for shotgun\n"
+    },
+    {
+        "id": "L_MISC_396",
+        "text": "Instructions for sniperrifle\n"
+    },
+    {
+        "id": "L_MISC_397",
+        "text": "Instructions for z2020\n"
+    },
+    {
+        "id": "L_MISC_398",
+        "text": "Instructions for crossbow\n"
+    },
+    {
+        "id": "L_MISC_399",
+        "text": "Instructions for druggun\n"
+    },
+    {
+        "id": "L_MISC_400",
+        "text": "Instructions for skedarminigun\n"
+    },
+    {
+        "id": "L_MISC_401",
+        "text": "Instructions for dydevastator\n"
+    },
+    {
+        "id": "L_MISC_402",
+        "text": "Instructions for dyrocket\n"
+    },
+    {
+        "id": "L_MISC_403",
+        "text": "Instructions for skedarrocket\n"
+    },
+    {
+        "id": "L_MISC_404",
+        "text": "Instructions for knife\n"
+    },
+    {
+        "id": "L_MISC_405",
+        "text": "Instructions for laser\n"
+    },
+    {
+        "id": "L_MISC_406",
+        "text": "Instructions for grenade\n"
+    },
+    {
+        "id": "L_MISC_407",
+        "text": "Instructions for nbomb\n"
+    },
+    {
+        "id": "L_MISC_408",
+        "text": "Instructions for timedmine\n"
+    },
+    {
+        "id": "L_MISC_409",
+        "text": "Instructions for proximitymine\n"
+    },
+    {
+        "id": "L_MISC_410",
+        "text": "Instructions for remotemine\n"
+    },
+    {
+        "id": "L_MISC_411",
+        "text": "Style 1"
+    },
+    {
+        "id": "L_MISC_412",
+        "text": "Style 2"
+    },
+    {
+        "id": "L_MISC_413",
+        "text": "Style 3"
+    },
+    {
+        "id": "L_MISC_414",
+        "text": "Style 4"
+    },
+    {
+        "id": "L_MISC_415",
+        "text": "Blond"
+    },
+    {
+        "id": "L_MISC_416",
+        "text": "Black"
+    },
+    {
+        "id": "L_MISC_417",
+        "text": "Auburn"
+    },
+    {
+        "id": "L_MISC_418",
+        "text": "Blue Rinse"
+    },
+    {
+        "id": "L_MISC_419",
+        "text": "Player"
+    },
+    {
+        "id": "L_MISC_420",
+        "text": ""
+    },
+    {
+        "id": "L_MISC_421",
+        "text": "Identify\n"
+    },
+    {
+        "id": "L_MISC_422",
+        "text": "Sim"
+    },
+    {
+        "id": "L_MISC_423",
+        "text": "Challenges\n"
+    },
+    {
+        "id": "L_MISC_424",
+        "text": "Load/Preset Games\n"
+    },
+    {
+        "id": "L_MISC_425",
+        "text": "Quick Start\n"
+    },
+    {
+        "id": "L_MISC_426",
+        "text": "Advanced Setup\n"
+    },
+    {
+        "id": "L_MISC_427",
+        "text": "Combat Simulator\n"
+    },
+    {
+        "id": "L_MISC_428",
+        "text": "Carrington Institute\n"
+    },
+    {
+        "id": "L_MISC_429",
+        "text": "Team Score\n"
+    },
+    {
+        "id": "L_MISC_430",
+        "text": "Finished Setup\n"
+    },
+    {
+        "id": "L_MISC_431",
+        "text": "Player 1 Team\n"
+    },
+    {
+        "id": "L_MISC_432",
+        "text": "Player 2 Team\n"
+    },
+    {
+        "id": "L_MISC_433",
+        "text": "Player 3 Team\n"
+    },
+    {
+        "id": "L_MISC_434",
+        "text": "Player 4 Team\n"
+    },
+    {
+        "id": "L_MISC_435",
+        "text": "Number Of Sims\n"
+    },
+    {
+        "id": "L_MISC_436",
+        "text": "Sims Per Team\n"
+    },
+    {
+        "id": "L_MISC_437",
+        "text": "Sim Difficulty\n"
+    },
+    {
+        "id": "L_MISC_438",
+        "text": "Start Game\n"
+    },
+    {
+        "id": "L_MISC_439",
+        "text": "Drop Out\n"
+    },
+    {
+        "id": "L_MISC_440",
+        "text": "Player Settings\n"
+    },
+    {
+        "id": "L_MISC_441",
+        "text": "Game Settings\n"
+    },
+    {
+        "id": "L_MISC_442",
+        "text": "Quick Go\n"
+    },
+    {
+        "id": "L_MISC_443",
+        "text": "Ready!\n"
+    },
+    {
+        "id": "L_MISC_444",
+        "text": "Quick Team\n"
+    },
+    {
+        "id": "L_MISC_445",
+        "text": "Players Only\n"
+    },
+    {
+        "id": "L_MISC_446",
+        "text": "Players and Simulants\n"
+    },
+    {
+        "id": "L_MISC_447",
+        "text": "Player Teams\n"
+    },
+    {
+        "id": "L_MISC_448",
+        "text": "Players versus Simulants\n"
+    },
+    {
+        "id": "L_MISC_449",
+        "text": "Player-Simulant Teams\n"
+    },
+    {
+        "id": "L_MISC_450",
+        "text": null
+    },
+    {
+        "id": "L_MISC_451",
+        "text": null
+    },
+    {
+        "id": "L_MISC_452",
+        "text": null
+    },
+    {
+        "id": "L_MISC_453",
+        "text": null
+    },
+    {
+        "id": "L_MISC_454",
+        "text": null
+    },
+    {
+        "id": "L_MISC_455",
+        "text": null
+    },
+    {
+        "id": "L_MISC_456",
+        "text": null
+    },
+    {
+        "id": "L_MISC_457",
+        "text": null
+    },
+    {
+        "id": "L_MISC_458",
+        "text": null
+    },
+    {
+        "id": "L_MISC_459",
+        "text": null
+    },
+    {
+        "id": "L_MISC_460",
+        "text": null
+    },
+    {
+        "id": "L_MISC_461",
+        "text": null
+    },
+    {
+        "id": "L_MISC_462",
+        "text": null
+    },
+    {
+        "id": "L_MISC_463",
+        "text": null
+    },
+    {
+        "id": "L_MISC_464",
+        "text": null
+    },
+    {
+        "id": "L_MISC_465",
+        "text": null
+    },
+    {
+        "id": "L_MISC_466",
+        "text": null
+    },
+    {
+        "id": "L_MISC_467",
+        "text": null
+    },
+    {
+        "id": "L_MISC_468",
+        "text": null
+    },
+    {
+        "id": "L_MISC_469",
+        "text": null
+    },
+    {
+        "id": "L_MISC_470",
+        "text": null
+    },
+    {
+        "id": "L_MISC_471",
+        "text": null
+    },
+    {
+        "id": "L_MISC_472",
+        "text": null
+    },
+    {
+        "id": "L_MISC_473",
+        "text": null
+    },
+    {
+        "id": "L_MISC_474",
+        "text": null
+    },
+    {
+        "id": "L_MISC_475",
+        "text": null
+    }
+]

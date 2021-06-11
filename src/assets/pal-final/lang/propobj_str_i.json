@@ -1,0 +1,354 @@
+[
+    {
+        "id": "L_PROPOBJ_000",
+        "text": "Preso %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_001",
+        "text": "Presa %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_002",
+        "text": "Presa %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_003",
+        "text": "Preso %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_004",
+        "text": "Presi %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_005",
+        "text": "Prese %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_006",
+        "text": "Prese %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_007",
+        "text": "Prese %s\n"
+    },
+    {
+        "id": "L_PROPOBJ_008",
+        "text": "Doppio "
+    },
+    {
+        "id": "L_PROPOBJ_009",
+        "text": "munizioni"
+    },
+    {
+        "id": "L_PROPOBJ_010",
+        "text": "cartuccia"
+    },
+    {
+        "id": "L_PROPOBJ_011",
+        "text": "pallottola magnum"
+    },
+    {
+        "id": "L_PROPOBJ_012",
+        "text": "pallottola d'oro"
+    },
+    {
+        "id": "L_PROPOBJ_013",
+        "text": "granata"
+    },
+    {
+        "id": "L_PROPOBJ_014",
+        "text": "granata a giro"
+    },
+    {
+        "id": "L_PROPOBJ_015",
+        "text": "missile"
+    },
+    {
+        "id": "L_PROPOBJ_016",
+        "text": "missile di ritorno"
+    },
+    {
+        "id": "L_PROPOBJ_017",
+        "text": "mina a distanza"
+    },
+    {
+        "id": "L_PROPOBJ_018",
+        "text": "mina di prossimità"
+    },
+    {
+        "id": "L_PROPOBJ_019",
+        "text": "mina a tempo"
+    },
+    {
+        "id": "L_PROPOBJ_020",
+        "text": "pugnale da lotta"
+    },
+    {
+        "id": "L_PROPOBJ_021",
+        "text": "pugnali da lotta"
+    },
+    {
+        "id": "L_PROPOBJ_022",
+        "text": "freccia"
+    },
+    {
+        "id": "L_PROPOBJ_023",
+        "text": "bomba-n"
+    },
+    {
+        "id": "L_PROPOBJ_024",
+        "text": "sedativi"
+    },
+    {
+        "id": "L_PROPOBJ_025",
+        "text": "penna esplosiva"
+    },
+    {
+        "id": "L_PROPOBJ_026",
+        "text": "cassa esplosiva"
+    },
+    {
+        "id": "L_PROPOBJ_027",
+        "text": "fiamma"
+    },
+    {
+        "id": "L_PROPOBJ_028",
+        "text": "chiodo"
+    },
+    {
+        "id": "L_PROPOBJ_029",
+        "text": "di dinamite"
+    },
+    {
+        "id": "L_PROPOBJ_030",
+        "text": "carica "
+    },
+    {
+        "id": "L_PROPOBJ_031",
+        "text": "cariche "
+    },
+    {
+        "id": "L_PROPOBJ_032",
+        "text": "cimice"
+    },
+    {
+        "id": "L_PROPOBJ_033",
+        "text": "microcamera"
+    },
+    {
+        "id": "L_PROPOBJ_034",
+        "text": "chiave GoldenEye"
+    },
+    {
+        "id": "L_PROPOBJ_035",
+        "text": "buono"
+    },
+    {
+        "id": "L_PROPOBJ_036",
+        "text": "plastica"
+    },
+    {
+        "id": "L_PROPOBJ_037",
+        "text": "Presa chiave.\n"
+    },
+    {
+        "id": "L_PROPOBJ_038",
+        "text": "Preso scudo.\n"
+    },
+    {
+        "id": "L_PROPOBJ_039",
+        "text": "uno scudo.\n"
+    },
+    {
+        "id": "L_PROPOBJ_040",
+        "text": "Preso qualcosa.\n"
+    },
+    {
+        "id": "L_PROPOBJ_041",
+        "text": "La porta è chiusa.\n"
+    },
+    {
+        "id": "L_PROPOBJ_042",
+        "text": "dardo"
+    },
+    {
+        "id": "L_PROPOBJ_043",
+        "text": "globo"
+    },
+    {
+        "id": "L_PROPOBJ_044",
+        "text": "munizioni Falciatore"
+    },
+    {
+        "id": "L_PROPOBJ_045",
+        "text": "Dispositivo mimetico"
+    },
+    {
+        "id": "L_PROPOBJ_046",
+        "text": "Pillola booster"
+    },
+    {
+        "id": "L_PROPOBJ_047",
+        "text": "la "
+    },
+    {
+        "id": "L_PROPOBJ_048",
+        "text": "La "
+    },
+    {
+        "id": "L_PROPOBJ_049",
+        "text": "dei "
+    },
+    {
+        "id": "L_PROPOBJ_050",
+        "text": "Presi "
+    },
+    {
+        "id": "L_PROPOBJ_051",
+        "text": "delle "
+    },
+    {
+        "id": "L_PROPOBJ_052",
+        "text": "Prese "
+    },
+    {
+        "id": "L_PROPOBJ_053",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_054",
+        "text": "Prese "
+    },
+    {
+        "id": "L_PROPOBJ_055",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_056",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_057",
+        "text": "un "
+    },
+    {
+        "id": "L_PROPOBJ_058",
+        "text": "Un "
+    },
+    {
+        "id": "L_PROPOBJ_059",
+        "text": "una "
+    },
+    {
+        "id": "L_PROPOBJ_060",
+        "text": "Una "
+    },
+    {
+        "id": "L_PROPOBJ_061",
+        "text": "un'"
+    },
+    {
+        "id": "L_PROPOBJ_062",
+        "text": "Un'"
+    },
+    {
+        "id": "L_PROPOBJ_063",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_064",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_065",
+        "text": "dardi"
+    },
+    {
+        "id": "L_PROPOBJ_066",
+        "text": "globi"
+    },
+    {
+        "id": "L_PROPOBJ_067",
+        "text": "munizioni Falciatore"
+    },
+    {
+        "id": "L_PROPOBJ_068",
+        "text": "Dispositivo mimetico"
+    },
+    {
+        "id": "L_PROPOBJ_069",
+        "text": "Pillole booster"
+    },
+    {
+        "id": "L_PROPOBJ_070",
+        "text": "munizioni"
+    },
+    {
+        "id": "L_PROPOBJ_071",
+        "text": "cartucce"
+    },
+    {
+        "id": "L_PROPOBJ_072",
+        "text": "pallottole magnum"
+    },
+    {
+        "id": "L_PROPOBJ_073",
+        "text": "pallottole d'oro"
+    },
+    {
+        "id": "L_PROPOBJ_074",
+        "text": "granate"
+    },
+    {
+        "id": "L_PROPOBJ_075",
+        "text": "granate a giro"
+    },
+    {
+        "id": "L_PROPOBJ_076",
+        "text": "missili"
+    },
+    {
+        "id": "L_PROPOBJ_077",
+        "text": "missili a giro"
+    },
+    {
+        "id": "L_PROPOBJ_078",
+        "text": "mine a distanza"
+    },
+    {
+        "id": "L_PROPOBJ_079",
+        "text": "mine di prossimità"
+    },
+    {
+        "id": "L_PROPOBJ_080",
+        "text": "mine a tempo"
+    },
+    {
+        "id": "L_PROPOBJ_081",
+        "text": "frecce"
+    },
+    {
+        "id": "L_PROPOBJ_082",
+        "text": "bombe-n"
+    },
+    {
+        "id": "L_PROPOBJ_083",
+        "text": "sedativi"
+    },
+    {
+        "id": "L_PROPOBJ_084",
+        "text": "gettoni"
+    },
+    {
+        "id": "L_PROPOBJ_085",
+        "text": null
+    },
+    {
+        "id": "L_PROPOBJ_086",
+        "text": null
+    },
+    {
+        "id": "L_PROPOBJ_087",
+        "text": null
+    }
+]

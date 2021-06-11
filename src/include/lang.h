@@ -80,14 +80,6 @@
 #define LANGBANK_MP20      0x44
 
 /**
- * This macro moves the bank number to the upper 7 bits.
- *
- * This is used by the enum lists in each bank's header file to start the enum
- * from the correct value.
- */
-#define LANG_FIRST(bankid) (bankid << 9)
-
-/**
  * Include each lang header, which defines their enums.
  */
 #include "lang/ame.h"

@@ -1,0 +1,354 @@
+[
+    {
+        "id": "L_PROPOBJ_000",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_001",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_002",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_003",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_004",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_005",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_006",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_007",
+        "text": "%s aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_008",
+        "text": "Doppel "
+    },
+    {
+        "id": "L_PROPOBJ_009",
+        "text": "Munition"
+    },
+    {
+        "id": "L_PROPOBJ_010",
+        "text": "Magazin"
+    },
+    {
+        "id": "L_PROPOBJ_011",
+        "text": "Magnum-Kugel"
+    },
+    {
+        "id": "L_PROPOBJ_012",
+        "text": "goldene Kugel"
+    },
+    {
+        "id": "L_PROPOBJ_013",
+        "text": "Granate"
+    },
+    {
+        "id": "L_PROPOBJ_014",
+        "text": "Granatwerfer-Munition"
+    },
+    {
+        "id": "L_PROPOBJ_015",
+        "text": "Rakete"
+    },
+    {
+        "id": "L_PROPOBJ_016",
+        "text": "Zielsuch-Rakete"
+    },
+    {
+        "id": "L_PROPOBJ_017",
+        "text": "Fernzünder-Mine"
+    },
+    {
+        "id": "L_PROPOBJ_018",
+        "text": "Annäherungs-Mine"
+    },
+    {
+        "id": "L_PROPOBJ_019",
+        "text": "Zeitzünder-Mine"
+    },
+    {
+        "id": "L_PROPOBJ_020",
+        "text": "Kampfmesser"
+    },
+    {
+        "id": "L_PROPOBJ_021",
+        "text": "Kampfmesser"
+    },
+    {
+        "id": "L_PROPOBJ_022",
+        "text": "Pfeil"
+    },
+    {
+        "id": "L_PROPOBJ_023",
+        "text": "N-Bombe"
+    },
+    {
+        "id": "L_PROPOBJ_024",
+        "text": "Betäubungsgeschoss"
+    },
+    {
+        "id": "L_PROPOBJ_025",
+        "text": "Explosiver Kugelschreiber"
+    },
+    {
+        "id": "L_PROPOBJ_026",
+        "text": "Explosiver Koffer"
+    },
+    {
+        "id": "L_PROPOBJ_027",
+        "text": "Leuchtkugel"
+    },
+    {
+        "id": "L_PROPOBJ_028",
+        "text": "Felshaken"
+    },
+    {
+        "id": "L_PROPOBJ_029",
+        "text": "Dynamit-"
+    },
+    {
+        "id": "L_PROPOBJ_030",
+        "text": "Stab "
+    },
+    {
+        "id": "L_PROPOBJ_031",
+        "text": "Stäbe "
+    },
+    {
+        "id": "L_PROPOBJ_032",
+        "text": "Peilsender"
+    },
+    {
+        "id": "L_PROPOBJ_033",
+        "text": "Mikro-Kamera"
+    },
+    {
+        "id": "L_PROPOBJ_034",
+        "text": "GoldenEye-Schlüssel"
+    },
+    {
+        "id": "L_PROPOBJ_035",
+        "text": "Symbol"
+    },
+    {
+        "id": "L_PROPOBJ_036",
+        "text": "Plastik"
+    },
+    {
+        "id": "L_PROPOBJ_037",
+        "text": "Schlüssel aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_038",
+        "text": "Schild aufgenommen\n"
+    },
+    {
+        "id": "L_PROPOBJ_039",
+        "text": "Ein Schild\n"
+    },
+    {
+        "id": "L_PROPOBJ_040",
+        "text": "Etwas wurde aufgenommen.\n"
+    },
+    {
+        "id": "L_PROPOBJ_041",
+        "text": "Diese Tür ist verschlossen.\n"
+    },
+    {
+        "id": "L_PROPOBJ_042",
+        "text": "Bolzen"
+    },
+    {
+        "id": "L_PROPOBJ_043",
+        "text": "Kraftzelle"
+    },
+    {
+        "id": "L_PROPOBJ_044",
+        "text": "Reaper-Munition"
+    },
+    {
+        "id": "L_PROPOBJ_045",
+        "text": "Tarnkappe"
+    },
+    {
+        "id": "L_PROPOBJ_046",
+        "text": "Stärkungs-Pille"
+    },
+    {
+        "id": "L_PROPOBJ_047",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_048",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_049",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_050",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_051",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_052",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_053",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_054",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_055",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_056",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_057",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_058",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_059",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_060",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_061",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_062",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_063",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_064",
+        "text": ""
+    },
+    {
+        "id": "L_PROPOBJ_065",
+        "text": "Bolzen"
+    },
+    {
+        "id": "L_PROPOBJ_066",
+        "text": "Kraftzellen"
+    },
+    {
+        "id": "L_PROPOBJ_067",
+        "text": "Reaper-Munition"
+    },
+    {
+        "id": "L_PROPOBJ_068",
+        "text": "Tarnkappen"
+    },
+    {
+        "id": "L_PROPOBJ_069",
+        "text": "Stärkungs-Pillen"
+    },
+    {
+        "id": "L_PROPOBJ_070",
+        "text": "Munition"
+    },
+    {
+        "id": "L_PROPOBJ_071",
+        "text": "Magazin"
+    },
+    {
+        "id": "L_PROPOBJ_072",
+        "text": "Magnum-Kugeln"
+    },
+    {
+        "id": "L_PROPOBJ_073",
+        "text": "Goldkugeln"
+    },
+    {
+        "id": "L_PROPOBJ_074",
+        "text": "Granaten"
+    },
+    {
+        "id": "L_PROPOBJ_075",
+        "text": "Granatwerfer-Munition"
+    },
+    {
+        "id": "L_PROPOBJ_076",
+        "text": "Raketen"
+    },
+    {
+        "id": "L_PROPOBJ_077",
+        "text": "Zielsuch-Raketen"
+    },
+    {
+        "id": "L_PROPOBJ_078",
+        "text": "Fernzünder-Minen"
+    },
+    {
+        "id": "L_PROPOBJ_079",
+        "text": "Annäherungs-Minen"
+    },
+    {
+        "id": "L_PROPOBJ_080",
+        "text": "Zeitzünder-Minen"
+    },
+    {
+        "id": "L_PROPOBJ_081",
+        "text": "Pfeile"
+    },
+    {
+        "id": "L_PROPOBJ_082",
+        "text": "N-Bomben"
+    },
+    {
+        "id": "L_PROPOBJ_083",
+        "text": "Betäubungsgeschosse"
+    },
+    {
+        "id": "L_PROPOBJ_084",
+        "text": "Jetons"
+    },
+    {
+        "id": "L_PROPOBJ_085",
+        "text": null
+    },
+    {
+        "id": "L_PROPOBJ_086",
+        "text": null
+    },
+    {
+        "id": "L_PROPOBJ_087",
+        "text": null
+    }
+]

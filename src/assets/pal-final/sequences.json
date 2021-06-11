@@ -1,0 +1,478 @@
+[
+    {
+        "id": "MUSIC_NONE",
+        "file": "dummy.seq"
+    },
+    {
+        "id": "MUSIC_TITLE2",
+        "file": "title-part1.seq"
+    },
+    {
+        "id": "MUSIC_EXTRACTION",
+        "file": "extraction-pri.seq"
+    },
+    {
+        "id": "MUSIC_PAUSEMENU",
+        "file": "pause.seq"
+    },
+    {
+        "id": "MUSIC_DEFENSE",
+        "file": "defense-pri.seq"
+    },
+    {
+        "id": "MUSIC_INVESTIGATION_SFX",
+        "file": "investigation-amb.seq"
+    },
+    {
+        "id": "MUSIC_ESCAPE",
+        "file": "escape-pri.seq"
+    },
+    {
+        "id": "MUSIC_DEEPSEA",
+        "file": "deepsea-pri.seq"
+    },
+    {
+        "id": "MUSIC_DDTOWER_SFX",
+        "file": "defection-amb.seq"
+    },
+    {
+        "id": "MUSIC_DEFECTION",
+        "file": "defection-pri.seq"
+    },
+    {
+        "id": "MUSIC_DEATH_SOLO",
+        "file": "solodeath.seq"
+    },
+    {
+        "id": "MUSIC_DEFECTION_INTRO_SFX",
+        "file": "defection-intro-effects.seq"
+    },
+    {
+        "id": "MUSIC_VILLA",
+        "file": "villa-pri.seq"
+    },
+    {
+        "id": "MUSIC_CI",
+        "file": "training-pri.seq"
+    },
+    {
+        "id": "MUSIC_CHICAGO",
+        "file": "chicago-pri.seq"
+    },
+    {
+        "id": "MUSIC_G5",
+        "file": "g5building-pri.seq"
+    },
+    {
+        "id": "MUSIC_DEFECTION_X",
+        "file": "defection-nrg.seq"
+    },
+    {
+        "id": "MUSIC_EXTRACTION_X",
+        "file": "extraction-nrg.seq"
+    },
+    {
+        "id": "MUSIC_INVESTIGATION",
+        "file": "investigation-pri.seq"
+    },
+    {
+        "id": "MUSIC_INVESTIGATION_X",
+        "file": "investigation-nrg.seq"
+    },
+    {
+        "id": "MUSIC_INFILTRATION",
+        "file": "infiltration-pri.seq"
+    },
+    {
+        "id": "MUSIC_DEATH_BETA",
+        "file": "mpdeath-beta.seq"
+    },
+    {
+        "id": "MUSIC_RESCUE",
+        "file": "rescue-pri.seq"
+    },
+    {
+        "id": "MUSIC_AIRBASE",
+        "file": "airbase-pri.seq"
+    },
+    {
+        "id": "MUSIC_AIRFORCEONE",
+        "file": "afo-pri.seq"
+    },
+    {
+        "id": "MUSIC_DEATH_MP",
+        "file": "mpdeath.seq"
+    },
+    {
+        "id": "MUSIC_EXTRACTION_OUTRO_SFX",
+        "file": "villa-intro.seq"
+    },
+    {
+        "id": "MUSIC_MISSION_UNKNOWN",
+        "file": "endscreen-missing.seq"
+    },
+    {
+        "id": "MUSIC_PELAGIC",
+        "file": "pelagic-pri.seq"
+    },
+    {
+        "id": "MUSIC_CRASHSITE",
+        "file": "crashsite-pri.seq"
+    },
+    {
+        "id": "MUSIC_CRASHSITE_X",
+        "file": "crashsite-nrg.seq"
+    },
+    {
+        "id": "MUSIC_ATTACKSHIP",
+        "file": "attackship-pri.seq"
+    },
+    {
+        "id": "MUSIC_ATTACKSHIP_X",
+        "file": "attackship-nrg.seq"
+    },
+    {
+        "id": "MUSIC_SKEDARRUINS",
+        "file": "skedarruins-pri.seq"
+    },
+    {
+        "id": "MUSIC_DEFECTION_INTRO",
+        "file": "defection-intro.seq"
+    },
+    {
+        "id": "MUSIC_DEFECTION_OUTRO",
+        "file": "defection-outro.seq"
+    },
+    {
+        "id": "MUSIC_DEFENSE_X",
+        "file": "defense-nrg.seq"
+    },
+    {
+        "id": "MUSIC_INVESTIGATION_INTRO",
+        "file": "investigation-intro.seq"
+    },
+    {
+        "id": "MUSIC_INVESTIGATION_OUTRO",
+        "file": "investigation-outro.seq"
+    },
+    {
+        "id": "MUSIC_VILLA_X",
+        "file": "villa-nrg.seq"
+    },
+    {
+        "id": "MUSIC_CHICAGO_X",
+        "file": "chicago-nrg.seq"
+    },
+    {
+        "id": "MUSIC_G5_X",
+        "file": "g5building-nrg.seq"
+    },
+    {
+        "id": "MUSIC_INFILTRATION_X",
+        "file": "infiltration-nrg.seq"
+    },
+    {
+        "id": "MUSIC_CHICAGO_OUTRO",
+        "file": "chicago-outro.seq"
+    },
+    {
+        "id": "MUSIC_EXTRACTION_OUTRO",
+        "file": "extraction-outro.seq"
+    },
+    {
+        "id": "MUSIC_EXTRACTION_INTRO",
+        "file": "extraction-intro.seq"
+    },
+    {
+        "id": "MUSIC_G5_INTRO",
+        "file": "g5building-intro.seq"
+    },
+    {
+        "id": "MUSIC_CHICAGO_INTRO",
+        "file": "chicago-intro.seq"
+    },
+    {
+        "id": "MUSIC_VILLA_INTRO1",
+        "file": "villa-intro-v1.seq"
+    },
+    {
+        "id": "MUSIC_INFILTRATION_INTRO",
+        "file": "infiltration-intro.seq"
+    },
+    {
+        "id": "MUSIC_RESCUE_X",
+        "file": "rescue-nrg.seq"
+    },
+    {
+        "id": "MUSIC_ESCAPE_X",
+        "file": "escape-nrg.seq"
+    },
+    {
+        "id": "MUSIC_AIRBASE_X",
+        "file": "airbase-nrg.seq"
+    },
+    {
+        "id": "MUSIC_AIRFORCEONE_X",
+        "file": "afo-nrg.seq"
+    },
+    {
+        "id": "MUSIC_PELAGIC_X",
+        "file": "pelagic-nrg.seq"
+    },
+    {
+        "id": "MUSIC_DEEPSEA_X",
+        "file": "deepsea-nrg.seq"
+    },
+    {
+        "id": "MUSIC_SKEDARRUINS_X",
+        "file": "skedarruins-nrg.seq"
+    },
+    {
+        "id": "MUSIC_AIRBASE_OUTRO_LONG",
+        "file": "airbase-intro-part2.seq"
+    },
+    {
+        "id": "MUSIC_DARK_COMBAT",
+        "file": "darkcombat.seq"
+    },
+    {
+        "id": "MUSIC_SKEDAR_MYSTERY",
+        "file": "skedarmystery.seq"
+    },
+    {
+        "id": "MUSIC_DEEPSEA_BETA",
+        "file": "crashsite-intro-amb.seq"
+    },
+    {
+        "id": "MUSIC_CI_OPERATIVE",
+        "file": "cioperative.seq"
+    },
+    {
+        "id": "MUSIC_DATADYNE_ACTION",
+        "file": "datadyneaction.seq"
+    },
+    {
+        "id": "MUSIC_MAIAN_TEARS",
+        "file": "maiantears.seq"
+    },
+    {
+        "id": "MUSIC_ALIEN_CONFLICT",
+        "file": "alienconflict.seq"
+    },
+    {
+        "id": "MUSIC_ESCAPE_INTRO",
+        "file": "escape-intro.seq"
+    },
+    {
+        "id": "MUSIC_RESCUE_OUTRO",
+        "file": "rescue-outro.seq"
+    },
+    {
+        "id": "MUSIC_VILLA_INTRO2",
+        "file": "villa-intro-v2.seq"
+    },
+    {
+        "id": "MUSIC_VILLA_INTRO3",
+        "file": "villa-intro-v3.seq"
+    },
+    {
+        "id": "MUSIC_G5_OUTRO",
+        "file": "g5building-outro.seq"
+    },
+    {
+        "id": "MUSIC_G5_MIDCUTSCENE",
+        "file": "g5building-special.seq"
+    },
+    {
+        "id": "MUSIC_MISSION_FAILED",
+        "file": "endscreen-failed.seq"
+    },
+    {
+        "id": "MUSIC_COMBATSIM_MENU",
+        "file": "mpsetup.seq"
+    },
+    {
+        "id": "MUSIC_MISSION_SUCCESS",
+        "file": "endscreen-completed.seq"
+    },
+    {
+        "id": "MUSIC_CRASHSITE_INTRO",
+        "file": "crashsite-intro.seq"
+    },
+    {
+        "id": "MUSIC_AIRBASE_INTRO",
+        "file": "airbase-intro.seq"
+    },
+    {
+        "id": "MUSIC_ATTACKSHIP_INTRO",
+        "file": "attackship-intro.seq"
+    },
+    {
+        "id": "MUSIC_DEEPSEA_MIDCUTSCENE",
+        "file": "deepsea-special.seq"
+    },
+    {
+        "id": "MUSIC_AIRFORCEONE_INTRO",
+        "file": "afo-intro.seq"
+    },
+    {
+        "id": "MUSIC_ATTACKSHIP_OUTRO",
+        "file": "attackship-outro.seq"
+    },
+    {
+        "id": "MUSIC_ESCAPE_MIDCUTSCENE",
+        "file": "escape-specical.seq"
+    },
+    {
+        "id": "MUSIC_RESCUE_INTRO",
+        "file": "rescue-intro.seq"
+    },
+    {
+        "id": "MUSIC_DEEPSEA_INTRO",
+        "file": "deepsea-intro.seq"
+    },
+    {
+        "id": "MUSIC_INFILTRATION_OUTRO",
+        "file": "infiltration-outro.seq"
+    },
+    {
+        "id": "MUSIC_PELAGIC_INTRO",
+        "file": "pelagic-intro.seq"
+    },
+    {
+        "id": "MUSIC_ESCAPE_OUTRO_LONG",
+        "file": "escape-outro-long.seq"
+    },
+    {
+        "id": "MUSIC_DEFENSE_INTRO",
+        "file": "defense-intro.seq"
+    },
+    {
+        "id": "MUSIC_CRASHSITE_OUTRO",
+        "file": "crashsite-outro.seq"
+    },
+    {
+        "id": "MUSIC_CREDITS",
+        "file": "credits.seq"
+    },
+    {
+        "id": "MUSIC_MAINMENU",
+        "file": "mainmenu.seq"
+    },
+    {
+        "id": "MUSIC_DEEPSEA_OUTRO",
+        "file": "deepsea-outro.seq"
+    },
+    {
+        "id": "MUSIC_AIRFORCEONE_MIDCUTSCENE",
+        "file": "afo-special.seq"
+    },
+    {
+        "id": "MUSIC_PELAGIC_OUTRO",
+        "file": "pelagic-outro.seq"
+    },
+    {
+        "id": "MUSIC_AIRFORCEONE_OUTRO",
+        "file": "afo-outro.seq"
+    },
+    {
+        "id": "MUSIC_SKEDARRUINS_INTRO",
+        "file": "skedarruins-intro.seq"
+    },
+    {
+        "id": "MUSIC_BETA_NOTE",
+        "file": "bloop.seq"
+    },
+    {
+        "id": "MUSIC_AIRBASE_OUTRO",
+        "file": "airbase-outro.seq"
+    },
+    {
+        "id": "MUSIC_DEFENSE_OUTRO",
+        "file": "defense-outro.seq"
+    },
+    {
+        "id": "MUSIC_SKEDARRUINS_OUTRO",
+        "file": "skedarruins-outro.seq"
+    },
+    {
+        "id": "MUSIC_VILLA_OUTRO",
+        "file": "villa-outro.seq"
+    },
+    {
+        "id": "MUSIC_SKEDARRUINS_KING",
+        "file": "skedarruins-king.seq"
+    },
+    {
+        "id": "MUSIC_CI_TRAINING",
+        "file": "training-session.seq"
+    },
+    {
+        "id": "MUSIC_CRASHSITE_WIND",
+        "file": "crashsite-amb.seq"
+    },
+    {
+        "id": "MUSIC_COMBATSIM_COMPLETE",
+        "file": "mpendscreen-completed.seq"
+    },
+    {
+        "id": "MUSIC_OCEAN",
+        "file": "ocean.seq"
+    },
+    {
+        "id": "MUSIC_WIND",
+        "file": "airbase-wind.seq"
+    },
+    {
+        "id": "MUSIC_TRAFFIC",
+        "file": "chicago-traffic.seq"
+    },
+    {
+        "id": "MUSIC_TITLE1",
+        "file": "title-part2.seq"
+    },
+    {
+        "id": "MUSIC_CI_INTRO",
+        "file": "training-intro.seq"
+    },
+    {
+        "id": "MUSIC_INFILTRATION_SFX",
+        "file": "infiltration-amb.seq"
+    },
+    {
+        "id": "MUSIC_DEEPSEA_SFX",
+        "file": "deepsea-amb.seq"
+    },
+    {
+        "id": "MUSIC_AIRFORCEONE_SFX",
+        "file": "afo-amb.seq"
+    },
+    {
+        "id": "MUSIC_ATTACKSHIP_SFX",
+        "file": "attackship-amb.seq"
+    },
+    {
+        "id": "MUSIC_SKEDAR_WIND",
+        "file": "skedarruins-amb.seq"
+    },
+    {
+        "id": "MUSIC_ESCAPE_OUTRO_SFX",
+        "file": "escape-outro-ufo.seq"
+    },
+    {
+        "id": "MUSIC_A51_LOUDSPEAKER1",
+        "file": "rescue-amb.seq"
+    },
+    {
+        "id": "MUSIC_A51_LOUDSPEAKER2",
+        "file": "escape-amb.seq"
+    },
+    {
+        "id": "MUSIC_BETA_MELODY",
+        "file": "jingle.seq"
+    },
+    {
+        "id": "MUSIC_ESCAPE_OUTRO_SHORT",
+        "file": "escape-outro-short.seq"
+    }
+]

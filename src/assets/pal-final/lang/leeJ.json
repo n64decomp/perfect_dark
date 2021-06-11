@@ -1,0 +1,226 @@
+[
+    {
+        "id": "L_LEE_000",
+        "text": "|Background - \n\nKnocked unconscious during the evacuation of the Carrington Institute, Joanna wakes to find herself a prisoner aboard a Skedar Assault Ship.\n\n|Carrington - Not Available.\n\n|Elvis - \n\nJoanna! I'm following the Assault Ship that is holding you! With me are two Maian protectors from the delegation at the White House. If you can get us aboard we can help you take over the ship.\n\n|Objective One: - Disable Shield System\n\nThe shield system prevents any docking manoeuvres from taking place. Drop the shields so Elvis and his companions can start an approach.\n\n|Objective Two: - Open Hangar Doors\n\nThe docking system is normally controlled automatically - it must have been overridden from the bridge. Open the doors using the local controls overlooking the hangar and Elvis can finish the landing cycle.\n\n|Objective Three: - Access Navigational Systems\n\nGet Elvis to the Starmap so that he can find out where the Assault Ship is heading. There might also be the locations of Skedar strongholds within the Starmap - this information can be used for decisive strikes by the Maian Fleet.\n\n|Objective Four: - Sabotage Engine Systems\n\nThe plan to take over the Assault Ship might go awry if the Commander alters from the set course. Tamper with the engines so that the ship comes to a halt.\n\n|Objective Five: - Gain Control Of Bridge\n\nOnce the Bridge is taken, the ship is no longer under Skedar control. Only the Commander remains inside.\n\nEND\n"
+    },
+    {
+        "id": "L_LEE_001",
+        "text": "SKEDAR ASSAULT SHIP\n"
+    },
+    {
+        "id": "L_LEE_002",
+        "text": "|Background - \n\nKnocked unconscious during the evacuation of the Carrington Institute, Joanna wakes to find herself a prisoner aboard a Skedar Assault Ship.\n\n|Carrington - Not Available.\n\n|Elvis - \n\nJoanna! I'm following the Assault Ship that is holding you! With me are two Maian protectors from the delegation at the White House. If you can get us aboard we can help you take over the ship.\n\n|Objective One: - Disable Shield System\n\nThe shield system prevents any docking manoeuvres from taking place. Drop the shields so Elvis and his companions can start an approach.\n\n|Objective Two: - Access Navigational Systems\n\nGet Elvis to the Starmap so that he can find out where the Assault Ship is heading. There might also be the locations of Skedar strongholds within the Starmap - this information can be used for decisive strikes by the Maian Fleet.\n\n|Objective Three: - Sabotage Engine Systems\n\nThe plan to take over the Assault Ship might go awry if the Commander alters from the set course. Tamper with the engines so that the ship comes to a halt.\n\n|Objective Four: - Gain Control Of Bridge\n\nOnce the Bridge is taken, the ship is no longer under Skedar control. Only the Commander remains inside.\n\nEND\n"
+    },
+    {
+        "id": "L_LEE_003",
+        "text": "|Background - \n\nKnocked unconscious during the evacuation of the Carrington Institute, Joanna wakes to find herself a prisoner aboard a Skedar Assault Ship.\n\n|Carrington - Not Available.\n\n|Elvis - \n\nJoanna! I'm following the Assault Ship that is holding you! With me are two Maian protectors from the delegation at the White House. If you can get us aboard we can help you take over the ship.\n\n|Objective One: - Disable Shield System\n\nThe shield system prevents any docking manoeuvres from taking place. Drop the shields so Elvis and his companions can start an approach.\n\n|Objective Two: - Access Navigational Systems\n\nGet Elvis to the Starmap so that he can find out where the Assault Ship is heading. There might also be the locations of Skedar strongholds within the Starmap - this information can be used for decisive strikes by the Maian Fleet.\n\n|Objective Three: - Gain Control Of Bridge\n\nOnce the Bridge is taken, the ship is no longer under Skedar control. Only the Commander remains inside.\n\nEND\n"
+    },
+    {
+        "id": "L_LEE_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_LEE_005",
+        "text": "Disable Shield System\n"
+    },
+    {
+        "id": "L_LEE_006",
+        "text": "Open Hangar Doors\n"
+    },
+    {
+        "id": "L_LEE_007",
+        "text": "Access Navigational Systems\n"
+    },
+    {
+        "id": "L_LEE_008",
+        "text": "Sabotage Engine Systems\n"
+    },
+    {
+        "id": "L_LEE_009",
+        "text": "Gain Control Of Bridge\n"
+    },
+    {
+        "id": "L_LEE_010",
+        "text": "Ships Shields Have Been Lowered\n"
+    },
+    {
+        "id": "L_LEE_011",
+        "text": "Hangar doors have been opened\n"
+    },
+    {
+        "id": "L_LEE_012",
+        "text": "Elvis has been killed\n"
+    },
+    {
+        "id": "L_LEE_013",
+        "text": "Navigational Information Has Been Retrieved\n"
+    },
+    {
+        "id": "L_LEE_014",
+        "text": "Lift has been activated\n"
+    },
+    {
+        "id": "L_LEE_015",
+        "text": "All hanagar skedar have been killed.\n"
+    },
+    {
+        "id": "L_LEE_016",
+        "text": "We're outside Joanna. Get the shields down and\nwe can help you.\n"
+    },
+    {
+        "id": "L_LEE_017",
+        "text": "You've got to open the hangar doors so we can dock.\n"
+    },
+    {
+        "id": "L_LEE_018",
+        "text": "Okay, we're in. I'll meet you in the hangar.\n"
+    },
+    {
+        "id": "L_LEE_019",
+        "text": "Good to see you Joanna.\n"
+    },
+    {
+        "id": "L_LEE_020",
+        "text": "Take this, you should find it useful...\n"
+    },
+    {
+        "id": "L_LEE_021",
+        "text": "Recieved AR34 Assault RIfle\n"
+    },
+    {
+        "id": "L_LEE_022",
+        "text": "Time to head upwards. I'll take this lift,\nyou take the other one\n"
+    },
+    {
+        "id": "L_LEE_023",
+        "text": "Engines have been disabled.\n"
+    },
+    {
+        "id": "L_LEE_024",
+        "text": "Heads up Jo. I think we've made them angry...\n"
+    },
+    {
+        "id": "L_LEE_025",
+        "text": "Bridge has been captured.\n"
+    },
+    {
+        "id": "L_LEE_026",
+        "text": "Okay Jo, you head upwards. I'll stop any pursuit.\n"
+    },
+    {
+        "id": "L_LEE_027",
+        "text": "I've got to get those shields down to let Elvis\nin. I need all the help I can get.\n"
+    },
+    {
+        "id": "L_LEE_028",
+        "text": "Now only the hangar bay doors are in the way.\n"
+    },
+    {
+        "id": "L_LEE_029",
+        "text": "This machine contains the Skedar star maps.\n"
+    },
+    {
+        "id": "L_LEE_030",
+        "text": "If we control the bridge then the ship is ours.\n"
+    },
+    {
+        "id": "L_LEE_031",
+        "text": "Time to head upwards....\n"
+    },
+    {
+        "id": "L_LEE_032",
+        "text": "Oohhh... I'd better not be where I think I am."
+    },
+    {
+        "id": "L_LEE_033",
+        "text": "And it's worse than that, my dear. Just look who you've got for company."
+    },
+    {
+        "id": "L_LEE_034",
+        "text": "You! I thought you'd managed to escape. We found no trace of you at all."
+    },
+    {
+        "id": "L_LEE_035",
+        "text": "You couldn't find me. But there was no hiding from the Skedar. As you and Mr. Carrington just discovered."
+    },
+    {
+        "id": "L_LEE_036",
+        "text": "This is it. Wait there! I'll make a distraction; it will give you a chance to get out. Use it or we'll both die."
+    },
+    {
+        "id": "L_LEE_037",
+        "text": "Why are you doing this, Cassandra?"
+    },
+    {
+        "id": "L_LEE_038",
+        "text": "The Skedar used me, Joanna. You are my best chance for revenge."
+    },
+    {
+        "id": "L_LEE_039",
+        "text": "Eeeeaaarrrrggghhh!!!"
+    },
+    {
+        "id": "L_LEE_040",
+        "text": "Wow. That's the first time I've seen another planet from space. It's beautiful."
+    },
+    {
+        "id": "L_LEE_041",
+        "text": "Hmmmm?"
+    },
+    {
+        "id": "L_LEE_042",
+        "text": "I don't... I don't believe it!"
+    },
+    {
+        "id": "L_LEE_043",
+        "text": "Elvis? what is it?"
+    },
+    {
+        "id": "L_LEE_044",
+        "text": "Where are you going?"
+    },
+    {
+        "id": "L_LEE_045",
+        "text": "We have to get down to the surface! Follow me!"
+    },
+    {
+        "id": "L_LEE_046",
+        "text": null
+    },
+    {
+        "id": "L_LEE_047",
+        "text": null
+    },
+    {
+        "id": "L_LEE_048",
+        "text": null
+    },
+    {
+        "id": "L_LEE_049",
+        "text": null
+    },
+    {
+        "id": "L_LEE_050",
+        "text": null
+    },
+    {
+        "id": "L_LEE_051",
+        "text": null
+    },
+    {
+        "id": "L_LEE_052",
+        "text": null
+    },
+    {
+        "id": "L_LEE_053",
+        "text": null
+    },
+    {
+        "id": "L_LEE_054",
+        "text": null
+    },
+    {
+        "id": "L_LEE_055",
+        "text": null
+    }
+]

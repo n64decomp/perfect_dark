@@ -1,0 +1,258 @@
+[
+    {
+        "id": "L_IMP_000",
+        "text": "|Briefing - \n\nEn réponse de la mise en échec de leurs plans, les Skedars ont attaqué la source de leurs problèmes, l'Institut Carrington. Il est du devoir de Joanna de sauver l'Institut de la destruction totale.\n\n|Carrington - \n\nIls nous ont pris par surprise, Joanna! Sauvez qui vous pouvez et enfuyez-vous. Après tout, l'Institut c'est le personnel, pas l'immeuble.\n\n|Objectif 1: - Réactiver les défenses automatiques\n\nIl y a des fusils automatiques situés à des points stratégiques de l'Institut Carrington. Ils sont en ce moment désactivés mais si vous accédez au panneau de contrôle pour les brancher, ils dérouteront bon nombre d'ennemis.\n\n|Objectif 2: - Libérer les otages\n\nCertains des soldats ennemis détiennent du personnel important de l'Institut. Sauvez un maximum d'otages. Fouillez les labos des étages supérieurs.\n\n|Objectif 3: - Récupérer l'arme expérimentale\n\nDans le labo d'armement de Foster se trouve le prototype d'un mitrailleur que nous ne pouvons laisser à l'ennemi. Cette arme est capable de créer une occultation temporaire. Trouvez-la et 'testez-la' en milieu hostile.\n\n|Objectif 4: - Détruire les informations sensibles\n\nLe coffre du bureau de Daniel contient un algorithme utilisé il y a des années pour briser les codes de communications Maian. Il doit être détruit à tout prix avant que la dataDyne ou les Skedars s'en emparent. Utilisez le laser pour percer la porte.\n\n|Objectif 5: - Désactiver la bombe\n\nNos relevés indiquent la présence d'une bombe dans l'appareil Skedar au point d'atterrissage! Seul le récepteur peut vous aider: approchez-vous du vaisseau et utilisez-le pour installer un virus. Il décollera alors et s'éloignera de l'Institut. La bombe explosera ainsi sans blesser personne.\n\nFIN\n"
+    },
+    {
+        "id": "L_IMP_001",
+        "text": "INSTITUT CARRINGTON\n"
+    },
+    {
+        "id": "L_IMP_002",
+        "text": "|Briefing - \n\nEn réponse de la mise en échec de leurs plans, les Skedars ont attaqué la source de leurs problèmes, l'Institut Carrington. Il est du devoir de Joanna de sauver l'Institut de la destruction totale.\n\n|Carrington - \n\nIls nous ont pris par surprise, Joanna! Sauvez qui vous pouvez et enfuyez-vous. Après tout, l'Institut c'est le personnel, pas l'immeuble.\n\n|Objectif 1: - Réactiver les défenses automatiques\n\nIl y a des fusils automatiques situés à des points stratégiques de l'Institut Carrington. Ils sont en ce moment désactivés mais si vous accédez au panneau de contrôle pour les brancher, ils dérouteront bon nombre d'ennemis.\n\n|Objectif 2: - Libérer les otages\n\nCertains des soldats ennemis détiennent du personnel important de l'Institut. Sauvez un maximum d'otages. Fouillez les labos des étages supérieurs.\n\n|Objectif 3: - Récupérer l'arme expérimentale\n\nDans le labo d'armement de Foster se trouve le prototype d'un mitrailleur que nous ne pouvons laisser à l'ennemi. Cette arme est capable de créer une occultation temporaire. Trouvez-la et 'testez-la' en milieu hostile.\n\n|Objectif 4: - Désactiver la bombe\n\nNos relevés indiquent la présence d'une bombe dans l'appareil Skedar au point d'atterrissage! Seul le récepteur peut vous aider: approchez-vous du vaisseau et utilisez-le pour installer un virus. Il décollera alors et s'éloignera de l'Institut. La bombe explosera ainsi sans blesser personne.\n\nFIN\n"
+    },
+    {
+        "id": "L_IMP_003",
+        "text": "|Briefing - \n\nEn réponse de la mise en échec de leurs plans, les Skedars ont attaqué la source de leurs problèmes, l'Institut Carrington. Il est du devoir de Joanna de sauver l'Institut de la destruction totale.\n\n|Carrington - \n\nIls nous ont pris par surprise, Joanna! Sauvez qui vous pouvez et enfuyez-vous. Après tout, l'Institut c'est le personnel, pas l'immeuble.\n\n|Objectif 1: - Libérer les otages\n\nCertains des soldats ennemis détiennent du personnel important de l'Institut. Sauvez un maximum d'otages. Fouillez les labos des étages supérieurs.\n\n|Objectif 2: - Récupérer l'arme expérimentale\n\nDans le labo d'armement de Foster se trouve le prototype d'un mitrailleur que nous ne pouvons laisser à l'ennemi. Cette arme est capable de créer une occultation temporaire. Trouvez-la et 'testez-la' en milieu hostile.\n\n|Objectif 3: - Désactiver la bombe\n\nNos relevés indiquent la présence d'une bombe dans l'appareil Skedar au point d'atterrissage! Seul le récepteur peut vous aider: approchez-vous du vaisseau et utilisez-le pour installer un virus. Il décollera alors et s'éloignera de l'Institut. La bombe explosera ainsi sans blesser personne.\n\nFIN\n"
+    },
+    {
+        "id": "L_IMP_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_IMP_005",
+        "text": "Réactiver les défenses automatiques\n"
+    },
+    {
+        "id": "L_IMP_006",
+        "text": "Libérer les otages\n"
+    },
+    {
+        "id": "L_IMP_007",
+        "text": "Récupérer l'arme expérimentale\n"
+    },
+    {
+        "id": "L_IMP_008",
+        "text": "Détruire les informations sensibles\n"
+    },
+    {
+        "id": "L_IMP_009",
+        "text": "Désactiver la bombe\n"
+    },
+    {
+        "id": "L_IMP_010",
+        "text": "Obtenir infos sensibles.\n"
+    },
+    {
+        "id": "L_IMP_011",
+        "text": "Garde: \n"
+    },
+    {
+        "id": "L_IMP_012",
+        "text": "Infos sensibles\n"
+    },
+    {
+        "id": "L_IMP_013",
+        "text": "Infos sensibles\n"
+    },
+    {
+        "id": "L_IMP_014",
+        "text": "Infos sensibles obtenues.\n"
+    },
+    {
+        "id": "L_IMP_015",
+        "text": "Fusils automatiques activés.\n"
+    },
+    {
+        "id": "L_IMP_016",
+        "text": "Trop d'otages abattus.\n"
+    },
+    {
+        "id": "L_IMP_017",
+        "text": "Otages sauvés.\n"
+    },
+    {
+        "id": "L_IMP_018",
+        "text": "Informations sensibles détruites.\n"
+    },
+    {
+        "id": "L_IMP_019",
+        "text": "Carrington abattu.\n"
+    },
+    {
+        "id": "L_IMP_020",
+        "text": "Joanna - nous sommes attaqués. \n"
+    },
+    {
+        "id": "L_IMP_021",
+        "text": "Branchez les fusils - vite.\n"
+    },
+    {
+        "id": "L_IMP_022",
+        "text": "Les Skedars ont pris des otages. \n"
+    },
+    {
+        "id": "L_IMP_023",
+        "text": "Montez aux bureaux et sauvez-les.\n"
+    },
+    {
+        "id": "L_IMP_024",
+        "text": "Ils utilisent un nouveau système de bouclier. \n"
+    },
+    {
+        "id": "L_IMP_025",
+        "text": "Foster travaillait sur une nouvelle arme qui \npeut être utile.\n"
+    },
+    {
+        "id": "L_IMP_026",
+        "text": "Bon sang. Mon bureau... S'ils y ont accès...\n"
+    },
+    {
+        "id": "L_IMP_027",
+        "text": "Allez-y en premier, Joanna, et détruisez les fichiers.\n"
+    },
+    {
+        "id": "L_IMP_028",
+        "text": "Il y a urgence. Ils ont placé une bombe. \n"
+    },
+    {
+        "id": "L_IMP_029",
+        "text": "Trouvez-la et sortez de l'immeuble.\n"
+    },
+    {
+        "id": "L_IMP_030",
+        "text": "Accès refusé - Echec autorisation. \n"
+    },
+    {
+        "id": "L_IMP_031",
+        "text": "Mesures d'urgences lancées.\n"
+    },
+    {
+        "id": "L_IMP_032",
+        "text": "Beau boulot, Joanna. C'est presque fini...\n"
+    },
+    {
+        "id": "L_IMP_033",
+        "text": "La dernière navette vous attend. Faites vite.\n"
+    },
+    {
+        "id": "L_IMP_034",
+        "text": "Objet crucial détruit.\n"
+    },
+    {
+        "id": "L_IMP_035",
+        "text": "Les défenses automatiques vont m'aider.\n"
+    },
+    {
+        "id": "L_IMP_036",
+        "text": "Voilà sur quoi Foster travaillait.\n"
+    },
+    {
+        "id": "L_IMP_037",
+        "text": "Je dois y aller doucement... Les otages \ncomptent sur moi.\n"
+    },
+    {
+        "id": "L_IMP_038",
+        "text": "Au moins je ne saurai pas s'y je m'y \nprends mal.\n"
+    },
+    {
+        "id": "L_IMP_039",
+        "text": "La bombe a explosé...\n"
+    },
+    {
+        "id": "L_IMP_040",
+        "text": "Vous recevez un Devastator.\n"
+    },
+    {
+        "id": "L_IMP_041",
+        "text": "Prête, Joanna? Nous ne pouvons pas faire attendre la délégation maian. Le Président non plus, bien sûr.\n"
+    },
+    {
+        "id": "L_IMP_042",
+        "text": "Moi prête? Pardon? Je suis prête depuis une demi-heure! C'est moi qui vous attends!\n"
+    },
+    {
+        "id": "L_IMP_043",
+        "text": "Vous savez ce que c'est, Joanna: il fallait que je me coiffe, que j'arrange mon costume...\n"
+    },
+    {
+        "id": "L_IMP_044",
+        "text": "Vous avez combien de miroirs chez vous? Nerveux?\n"
+    },
+    {
+        "id": "L_IMP_045",
+        "text": "Très. J'attends ce moment depuis si longtemps. L'Institut a été fondé pour faciliter les contacts entre humains et Maians. Et dans quelques minutes nous serons à la Maison Blanche... Le rêve deviendra alors réalité...\n"
+    },
+    {
+        "id": "L_IMP_046",
+        "text": "D'où cela venait-il?\n"
+    },
+    {
+        "id": "L_IMP_047",
+        "text": "Du rez-de-chaussée...\n"
+    },
+    {
+        "id": "L_IMP_048",
+        "text": "Il y en a qui ne savent pas s'arrêter. Tout le monde doit évacuer!\n"
+    },
+    {
+        "id": "L_IMP_049",
+        "text": "Mettez-vous à l'abri! Je vais les retenir! Venez me chercher plus tard!\n"
+    },
+    {
+        "id": "L_IMP_050",
+        "text": "J'espère juste que vous le pourrez.\n"
+    },
+    {
+        "id": "L_IMP_051",
+        "text": "Il vous faut le récepteur.\n"
+    },
+    {
+        "id": "L_IMP_052",
+        "text": "Connexion établie.\n"
+    },
+    {
+        "id": "L_IMP_053",
+        "text": "Dérivation systèmes de sécurité.\n"
+    },
+    {
+        "id": "L_IMP_054",
+        "text": "Virus téléchargé avec succès.\n"
+    },
+    {
+        "id": "L_IMP_055",
+        "text": "Moteurs du vaisseau activés.\n"
+    },
+    {
+        "id": "L_IMP_056",
+        "text": "Connexion au vaisseau perdue.\n"
+    },
+    {
+        "id": "L_IMP_057",
+        "text": "Obtenir récepteur.\n"
+    },
+    {
+        "id": "L_IMP_058",
+        "text": "\n"
+    },
+    {
+        "id": "L_IMP_059",
+        "text": "Récepteur\n"
+    },
+    {
+        "id": "L_IMP_060",
+        "text": "Un récepteur\n"
+    },
+    {
+        "id": "L_IMP_061",
+        "text": "Récepteur obtenu.\n"
+    },
+    {
+        "id": "L_IMP_062",
+        "text": null
+    },
+    {
+        "id": "L_IMP_063",
+        "text": null
+    }
+]

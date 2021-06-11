@@ -1,0 +1,882 @@
+[
+    {
+        "id": "L_MISC_000",
+        "text": "E R R O R E\n"
+    },
+    {
+        "id": "L_MISC_001",
+        "text": "Nessuna informazione per questa missione\n"
+    },
+    {
+        "id": "L_MISC_002",
+        "text": "\n"
+    },
+    {
+        "id": "L_MISC_003",
+        "text": "Obiettivo"
+    },
+    {
+        "id": "L_MISC_004",
+        "text": "Completato\n"
+    },
+    {
+        "id": "L_MISC_005",
+        "text": "Incompleto\n"
+    },
+    {
+        "id": "L_MISC_006",
+        "text": "Fallito\n"
+    },
+    {
+        "id": "L_MISC_007",
+        "text": "Ancora un minuto.\n"
+    },
+    {
+        "id": "L_MISC_008",
+        "text": "OBIETTIVI FALLITI: interrompi missione!\n"
+    },
+    {
+        "id": "L_MISC_009",
+        "text": "Saluto guardia\n"
+    },
+    {
+        "id": "L_MISC_010",
+        "text": "Cos'è quella pistola?\n"
+    },
+    {
+        "id": "L_MISC_011",
+        "text": "Non puntarla a me.\n"
+    },
+    {
+        "id": "L_MISC_012",
+        "text": "v/ms"
+    },
+    {
+        "id": "L_MISC_013",
+        "text": "h/m"
+    },
+    {
+        "id": "L_MISC_014",
+        "text": "i/g"
+    },
+    {
+        "id": "L_MISC_015",
+        "text": "t/g"
+    },
+    {
+        "id": "L_MISC_016",
+        "text": "CI 2023"
+    },
+    {
+        "id": "L_MISC_017",
+        "text": "YKK: 95935"
+    },
+    {
+        "id": "L_MISC_018",
+        "text": "TELESPIA"
+    },
+    {
+        "id": "L_MISC_019",
+        "text": "MODELLO 1.2"
+    },
+    {
+        "id": "L_MISC_020",
+        "text": "GYROSTAT"
+    },
+    {
+        "id": "L_MISC_021",
+        "text": "Pappa"
+    },
+    {
+        "id": "L_MISC_022",
+        "text": "Facile"
+    },
+    {
+        "id": "L_MISC_023",
+        "text": "Normal"
+    },
+    {
+        "id": "L_MISC_024",
+        "text": "Tosto"
+    },
+    {
+        "id": "L_MISC_025",
+        "text": "Perfect"
+    },
+    {
+        "id": "L_MISC_026",
+        "text": "Dark"
+    },
+    {
+        "id": "L_MISC_027",
+        "text": "RepPappa"
+    },
+    {
+        "id": "L_MISC_028",
+        "text": "RepFacile"
+    },
+    {
+        "id": "L_MISC_029",
+        "text": "RepNormal"
+    },
+    {
+        "id": "L_MISC_030",
+        "text": "RepTosto"
+    },
+    {
+        "id": "L_MISC_031",
+        "text": "RepPerfect"
+    },
+    {
+        "id": "L_MISC_032",
+        "text": "RepDark"
+    },
+    {
+        "id": "L_MISC_033",
+        "text": "RepPace"
+    },
+    {
+        "id": "L_MISC_034",
+        "text": "RepScudo"
+    },
+    {
+        "id": "L_MISC_035",
+        "text": "RepMissile"
+    },
+    {
+        "id": "L_MISC_036",
+        "text": "RepKaze"
+    },
+    {
+        "id": "L_MISC_037",
+        "text": "RepPugno"
+    },
+    {
+        "id": "L_MISC_038",
+        "text": "RepPreda"
+    },
+    {
+        "id": "L_MISC_039",
+        "text": "RepCodardo"
+    },
+    {
+        "id": "L_MISC_040",
+        "text": "RegGiusto"
+    },
+    {
+        "id": "L_MISC_041",
+        "text": "RepLite"
+    },
+    {
+        "id": "L_MISC_042",
+        "text": "RepAgile"
+    },
+    {
+        "id": "L_MISC_043",
+        "text": "RepTarta"
+    },
+    {
+        "id": "L_MISC_044",
+        "text": "RepVendika"
+    },
+    {
+        "id": "L_MISC_045",
+        "text": "RepPappa:  È il replicante più facile da battere, un vero pappamolle e quindi il migliore per i principianti.  Non è molto intelligente e quasi incapace di sparare.\n"
+    },
+    {
+        "id": "L_MISC_046",
+        "text": "RepFacile:  È dotato di abilità e intelligenza elementari, ma può rivelarsi pericoloso.\n"
+    },
+    {
+        "id": "L_MISC_047",
+        "text": "RepNormal:  Le sue abilità sono come quelle di un giocatore umano medio.\n"
+    },
+    {
+        "id": "L_MISC_048",
+        "text": "RepTosto: Le sue abilità sono come quelle di un giocatore umano bravo.\n"
+    },
+    {
+        "id": "L_MISC_049",
+        "text": "RepPerfect: L'avversario ultimo: il più intelligente e abile. Da usarsi per un miglioramento continuo delle proprie capacità.\n"
+    },
+    {
+        "id": "L_MISC_050",
+        "text": "RepDark: Prototipo cibernetico sviluppato dalla dataDyne per contrastare gli agenti di Carrington. Ricorda che questo replicante al contrario degli altri non è umano, quindi potrebbe avere abilità sovrumane!\n"
+    },
+    {
+        "id": "L_MISC_051",
+        "text": "RepPace:  È un replicante-scienziato che protesta contro l'uso delle armi. Va in giro per i piani allaricerca di armi per nasconderle in modo che il giocatore non possa usarle. Sparandogli è probabile che glienecadano alcune!\n"
+    },
+    {
+        "id": "L_MISC_052",
+        "text": "RepScudo:  È sempre alla ricerca del massimo scudo protettivo. Se perde energia, andrà alla ricerca di unnuovo scudo. Peggio per lui se su quel piano non ci sono scudi!\n"
+    },
+    {
+        "id": "L_MISC_053",
+        "text": "RepMissile:  Adora le esplosioni: preferisce le armi che provocano violente deflagrazioni alle pistole convenzionali e alle mitragliatrici. Questo vale anche per le armi con funzioni esplosive secondarie!\n"
+    },
+    {
+        "id": "L_MISC_054",
+        "text": "RepKaze:  Il suo scopo è distruggere l'avversario ad ogni costo. È molto aggressivo e non prende maile distanze... neanche da una granata! Non ha paura di morire e perciò è molto pericoloso.\n"
+    },
+    {
+        "id": "L_MISC_055",
+        "text": "RepPugno:  Come il RepPace anche questo replicante è contro l'uso delle armi. Tuttavia non è contro la lotta corpo a corpo:usa i pugni per cercare di stendere o disarmare l'avversario.\n"
+    },
+    {
+        "id": "L_MISC_056",
+        "text": "RepPreda:  Preferisce scagliarsi su avversari deboli per vincere facilmente. Cerca avversariprincipianti, muniti di arma meno potente o in cattiva salute.\n"
+    },
+    {
+        "id": "L_MISC_057",
+        "text": "RepCodardo:  Piuttosto che combattere preferisce cercare scampo nella fuga. Attacca raramente e solo se l'avversario ha un'arma meno potente. Sfoderando un'arma migliore o sparando, scapperà!\n"
+    },
+    {
+        "id": "L_MISC_058",
+        "text": "RepGiusto:  Ha un forte senso della giustizia e disprezza la strategia del RepPreda. Cerca sempre di colpireil giocatore in vantaggio per pareggiare il risultato.\n"
+    },
+    {
+        "id": "L_MISC_059",
+        "text": "RepLite:  Una volta che ha identificato un bersaglio, meglio tenere gli occhi aperti!  Un RepLiteinseguirà quel giocatore fino alla fine! Serba rancore anche dopo la morte.\n"
+    },
+    {
+        "id": "L_MISC_060",
+        "text": "RepAgile:  È agilissimo e velocissimo: corre molto più veloce del giocatore umano, quindi è inutile cercare di sfuggirgli a meno che si conosca una scorciatoia!\n"
+    },
+    {
+        "id": "L_MISC_061",
+        "text": "RepTarta:  Indossa il prototipo del generatore scudo creato dagli scienziati dataDyne. Il generatore proietta attorno al suo corpo uno scudo protettivo due volte più potente di uno scudo normale. Questo però lo impedisce nei movimenti, per cui è molto lento. Il RepTarta è dotato di questo scudo anche se non ci sono scudi su quel piano.\n"
+    },
+    {
+        "id": "L_MISC_062",
+        "text": "RepVendika:  Sparando o uccidendo un RepVendika, gli altri attaccheranno l'ultimo giocatore che l'ha attaccato o ucciso."
+    },
+    {
+        "id": "L_MISC_063",
+        "text": "Lotta Dark"
+    },
+    {
+        "id": "L_MISC_064",
+        "text": "Mistero Skedar"
+    },
+    {
+        "id": "L_MISC_065",
+        "text": "CI Operative"
+    },
+    {
+        "id": "L_MISC_066",
+        "text": "Azione dataDyne"
+    },
+    {
+        "id": "L_MISC_067",
+        "text": "Lacrime Maian"
+    },
+    {
+        "id": "L_MISC_068",
+        "text": "Conflitto Alieno"
+    },
+    {
+        "id": "L_MISC_069",
+        "text": "Carrington Institute"
+    },
+    {
+        "id": "L_MISC_070",
+        "text": "Quartier Generale dD"
+    },
+    {
+        "id": "L_MISC_071",
+        "text": "Quartier Generale dD X"
+    },
+    {
+        "id": "L_MISC_072",
+        "text": "Ricerca dD"
+    },
+    {
+        "id": "L_MISC_073",
+        "text": "Ricerca dD X"
+    },
+    {
+        "id": "L_MISC_074",
+        "text": "Estrazione dD"
+    },
+    {
+        "id": "L_MISC_075",
+        "text": "Estrazione dD X"
+    },
+    {
+        "id": "L_MISC_076",
+        "text": "Villa Carrington"
+    },
+    {
+        "id": "L_MISC_077",
+        "text": "Villa Carrington X"
+    },
+    {
+        "id": "L_MISC_078",
+        "text": "Chicago"
+    },
+    {
+        "id": "L_MISC_079",
+        "text": "Chicago X"
+    },
+    {
+        "id": "L_MISC_080",
+        "text": "Edificio G5"
+    },
+    {
+        "id": "L_MISC_081",
+        "text": "Edificio G5 X"
+    },
+    {
+        "id": "L_MISC_082",
+        "text": "Infiltrazione A51"
+    },
+    {
+        "id": "L_MISC_083",
+        "text": "Infiltrazione A51 X"
+    },
+    {
+        "id": "L_MISC_084",
+        "text": "Salvataggio A51"
+    },
+    {
+        "id": "L_MISC_085",
+        "text": "Salvataggio A51 X"
+    },
+    {
+        "id": "L_MISC_086",
+        "text": "Fuga A51"
+    },
+    {
+        "id": "L_MISC_087",
+        "text": "Fuga A51 X"
+    },
+    {
+        "id": "L_MISC_088",
+        "text": "Base aerea"
+    },
+    {
+        "id": "L_MISC_089",
+        "text": "Base aerea X"
+    },
+    {
+        "id": "L_MISC_090",
+        "text": "Air Force One"
+    },
+    {
+        "id": "L_MISC_091",
+        "text": "Air Force One X"
+    },
+    {
+        "id": "L_MISC_092",
+        "text": "Luogo del disastro"
+    },
+    {
+        "id": "L_MISC_093",
+        "text": "Luogo del disastro X"
+    },
+    {
+        "id": "L_MISC_094",
+        "text": "Pelagic II"
+    },
+    {
+        "id": "L_MISC_095",
+        "text": "Pelagic II X"
+    },
+    {
+        "id": "L_MISC_096",
+        "text": "Abissi oceanici"
+    },
+    {
+        "id": "L_MISC_097",
+        "text": "Abissi oceanici X"
+    },
+    {
+        "id": "L_MISC_098",
+        "text": "Difesa dell'istituto"
+    },
+    {
+        "id": "L_MISC_099",
+        "text": "Difesa dell'istituto X"
+    },
+    {
+        "id": "L_MISC_100",
+        "text": "Astronave d'assalto"
+    },
+    {
+        "id": "L_MISC_101",
+        "text": "Astronave d'assalto X"
+    },
+    {
+        "id": "L_MISC_102",
+        "text": "Rovine Skedar"
+    },
+    {
+        "id": "L_MISC_103",
+        "text": "Rovine Skedar X"
+    },
+    {
+        "id": "L_MISC_104",
+        "text": "Titoli di coda"
+    },
+    {
+        "id": "L_MISC_105",
+        "text": "A caso\n"
+    },
+    {
+        "id": "L_MISC_106",
+        "text": "Seleziona tutto\n"
+    },
+    {
+        "id": "L_MISC_107",
+        "text": "Nessuna selezione\n"
+    },
+    {
+        "id": "L_MISC_108",
+        "text": "Non in sequenza\n"
+    },
+    {
+        "id": "L_MISC_109",
+        "text": "Arma\n"
+    },
+    {
+        "id": "L_MISC_110",
+        "text": "Funzione\n"
+    },
+    {
+        "id": "L_MISC_111",
+        "text": "Ordini\n"
+    },
+    {
+        "id": "L_MISC_112",
+        "text": "No armi\n"
+    },
+    {
+        "id": "L_MISC_113",
+        "text": "Scegli obiettivo\n"
+    },
+    {
+        "id": "L_MISC_114",
+        "text": "Segui\n"
+    },
+    {
+        "id": "L_MISC_115",
+        "text": "Attacca\n"
+    },
+    {
+        "id": "L_MISC_116",
+        "text": "Difendi\n"
+    },
+    {
+        "id": "L_MISC_117",
+        "text": "Fisso\n"
+    },
+    {
+        "id": "L_MISC_118",
+        "text": "Normale\n"
+    },
+    {
+        "id": "L_MISC_119",
+        "text": "Scarica\n"
+    },
+    {
+        "id": "L_MISC_120",
+        "text": "Prendi cassa\n"
+    },
+    {
+        "id": "L_MISC_121",
+        "text": "Box\n"
+    },
+    {
+        "id": "L_MISC_122",
+        "text": "Eliminato da"
+    },
+    {
+        "id": "L_MISC_123",
+        "text": "Eliminato"
+    },
+    {
+        "id": "L_MISC_124",
+        "text": "Principiante:21\n"
+    },
+    {
+        "id": "L_MISC_125",
+        "text": "Addestrato:20\n"
+    },
+    {
+        "id": "L_MISC_126",
+        "text": "Amatore:19\n"
+    },
+    {
+        "id": "L_MISC_127",
+        "text": "Recluta:18\n"
+    },
+    {
+        "id": "L_MISC_128",
+        "text": "Novello:17\n"
+    },
+    {
+        "id": "L_MISC_129",
+        "text": "Truppa:16\n"
+    },
+    {
+        "id": "L_MISC_130",
+        "text": "Agente:15\n"
+    },
+    {
+        "id": "L_MISC_131",
+        "text": "Agente di grado:14\n"
+    },
+    {
+        "id": "L_MISC_132",
+        "text": "Agente speciale:13\n"
+    },
+    {
+        "id": "L_MISC_133",
+        "text": "Esperto:12\n"
+    },
+    {
+        "id": "L_MISC_134",
+        "text": "Veterano:11\n"
+    },
+    {
+        "id": "L_MISC_135",
+        "text": "Professionista:10\n"
+    },
+    {
+        "id": "L_MISC_136",
+        "text": "Pericoloso:9\n"
+    },
+    {
+        "id": "L_MISC_137",
+        "text": "Micidiale:8\n"
+    },
+    {
+        "id": "L_MISC_138",
+        "text": "Killer:7\n"
+    },
+    {
+        "id": "L_MISC_139",
+        "text": "Assassino:6\n"
+    },
+    {
+        "id": "L_MISC_140",
+        "text": "Letale:5\n"
+    },
+    {
+        "id": "L_MISC_141",
+        "text": "Elite:4\n"
+    },
+    {
+        "id": "L_MISC_142",
+        "text": "Invulnerabile:3\n"
+    },
+    {
+        "id": "L_MISC_143",
+        "text": "Quasi Perfect:2\n"
+    },
+    {
+        "id": "L_MISC_144",
+        "text": "Perfect:1\n"
+    },
+    {
+        "id": "L_MISC_145",
+        "text": "FRECCE"
+    },
+    {
+        "id": "L_MISC_146",
+        "text": "MODELLO 1.4"
+    },
+    {
+        "id": "L_MISC_147",
+        "text": "JM: 201172"
+    },
+    {
+        "id": "L_MISC_148",
+        "text": "Salva cassa\n"
+    },
+    {
+        "id": "L_MISC_149",
+        "text": "Difendi colle\n"
+    },
+    {
+        "id": "L_MISC_150",
+        "text": "Tieni colle\n"
+    },
+    {
+        "id": "L_MISC_151",
+        "text": "Prendi cassa\n"
+    },
+    {
+        "id": "L_MISC_152",
+        "text": "Tutti contro 1\n"
+    },
+    {
+        "id": "L_MISC_153",
+        "text": "Proteggi\n"
+    },
+    {
+        "id": "L_MISC_154",
+        "text": "Tutti replic.\n"
+    },
+    {
+        "id": "L_MISC_155",
+        "text": "MODELLO 1.3"
+    },
+    {
+        "id": "L_MISC_156",
+        "text": "BNC: 15877"
+    },
+    {
+        "id": "L_MISC_157",
+        "text": "Spazio insufficiente per il lancio"
+    },
+    {
+        "id": "L_MISC_158",
+        "text": "OBIETTIVI:"
+    },
+    {
+        "id": "L_MISC_159",
+        "text": "PUNTEGGIO:"
+    },
+    {
+        "id": "L_MISC_160",
+        "text": "PRECISIONE IN MIN:"
+    },
+    {
+        "id": "L_MISC_161",
+        "text": "SPARA PER INIZIARE\n"
+    },
+    {
+        "id": "L_MISC_162",
+        "text": "PRONTI!\n"
+    },
+    {
+        "id": "L_MISC_163",
+        "text": "LIMITE:"
+    },
+    {
+        "id": "L_MISC_164",
+        "text": "ZONA 3\n"
+    },
+    {
+        "id": "L_MISC_165",
+        "text": "ZONA 2\n"
+    },
+    {
+        "id": "L_MISC_166",
+        "text": "ZONA 1\n"
+    },
+    {
+        "id": "L_MISC_167",
+        "text": "CENTRO\n"
+    },
+    {
+        "id": "L_MISC_168",
+        "text": "ESPLOSO\n"
+    },
+    {
+        "id": "L_MISC_169",
+        "text": "Elvis è morto.\n"
+    },
+    {
+        "id": "L_MISC_170",
+        "text": "Modalità 1"
+    },
+    {
+        "id": "L_MISC_171",
+        "text": "Modalità 2"
+    },
+    {
+        "id": "L_MISC_172",
+        "text": "Modalità 3"
+    },
+    {
+        "id": "L_MISC_173",
+        "text": "Modalità 4"
+    },
+    {
+        "id": "L_MISC_174",
+        "text": "Biondo"
+    },
+    {
+        "id": "L_MISC_175",
+        "text": "Nero"
+    },
+    {
+        "id": "L_MISC_176",
+        "text": "Castano"
+    },
+    {
+        "id": "L_MISC_177",
+        "text": "Cachet blu"
+    },
+    {
+        "id": "L_MISC_178",
+        "text": "Nome"
+    },
+    {
+        "id": "L_MISC_179",
+        "text": ""
+    },
+    {
+        "id": "L_MISC_180",
+        "text": "Identifica\n"
+    },
+    {
+        "id": "L_MISC_181",
+        "text": "non in uso"
+    },
+    {
+        "id": "L_MISC_182",
+        "text": "Sfide\n"
+    },
+    {
+        "id": "L_MISC_183",
+        "text": "Carica/Imposta giochi\n"
+    },
+    {
+        "id": "L_MISC_184",
+        "text": "Avvio rapido\n"
+    },
+    {
+        "id": "L_MISC_185",
+        "text": "Impostaz. avanzate\n"
+    },
+    {
+        "id": "L_MISC_186",
+        "text": "Simulatore lotta\n"
+    },
+    {
+        "id": "L_MISC_187",
+        "text": "Carrington Institute\n"
+    },
+    {
+        "id": "L_MISC_188",
+        "text": "Punti squadra\n"
+    },
+    {
+        "id": "L_MISC_189",
+        "text": "Fine impostazioni\n"
+    },
+    {
+        "id": "L_MISC_190",
+        "text": "Squadra 1 giocatore\n"
+    },
+    {
+        "id": "L_MISC_191",
+        "text": "Squadra 2 giocatori\n"
+    },
+    {
+        "id": "L_MISC_192",
+        "text": "Squadra 3 giocatori\n"
+    },
+    {
+        "id": "L_MISC_193",
+        "text": "Squadra 4 giocatori\n"
+    },
+    {
+        "id": "L_MISC_194",
+        "text": "Numero di replicanti\n"
+    },
+    {
+        "id": "L_MISC_195",
+        "text": "Replicanti per squadra\n"
+    },
+    {
+        "id": "L_MISC_196",
+        "text": "Difficoltà replicanti\n"
+    },
+    {
+        "id": "L_MISC_197",
+        "text": "Avvia gioco\n"
+    },
+    {
+        "id": "L_MISC_198",
+        "text": "Esci\n"
+    },
+    {
+        "id": "L_MISC_199",
+        "text": "Impostaz. giocatori\n"
+    },
+    {
+        "id": "L_MISC_200",
+        "text": "Impostazioni gioco\n"
+    },
+    {
+        "id": "L_MISC_201",
+        "text": "Scelta rapida\n"
+    },
+    {
+        "id": "L_MISC_202",
+        "text": "Pronti!\n"
+    },
+    {
+        "id": "L_MISC_203",
+        "text": "Avvio rapido\n"
+    },
+    {
+        "id": "L_MISC_204",
+        "text": "Solo giocatori\n"
+    },
+    {
+        "id": "L_MISC_205",
+        "text": "Giocatori e replicanti\n"
+    },
+    {
+        "id": "L_MISC_206",
+        "text": "Squadre di giocatori\n"
+    },
+    {
+        "id": "L_MISC_207",
+        "text": "Giocatori contro replicanti\n"
+    },
+    {
+        "id": "L_MISC_208",
+        "text": "Squadre giocatori-replicanti\n"
+    },
+    {
+        "id": "L_MISC_209",
+        "text": "CAPSUSPIA"
+    },
+    {
+        "id": "L_MISC_210",
+        "text": "BOMBASPIA"
+    },
+    {
+        "id": "L_MISC_211",
+        "text": "Ripeti missione precedente\n"
+    },
+    {
+        "id": "L_MISC_212",
+        "text": "Olografia\n"
+    },
+    {
+        "id": "L_MISC_213",
+        "text": "Aggressivo\n"
+    },
+    {
+        "id": "L_MISC_214",
+        "text": "Passivo\n"
+    },
+    {
+        "id": "L_MISC_215",
+        "text": "Amici Perfect\n"
+    },
+    {
+        "id": "L_MISC_216",
+        "text": "In incognito\n"
+    },
+    {
+        "id": "L_MISC_217",
+        "text": null
+    },
+    {
+        "id": "L_MISC_218",
+        "text": null
+    },
+    {
+        "id": "L_MISC_219",
+        "text": null
+    }
+]

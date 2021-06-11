@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import assetmgr
+import json
+import os
+
+def main():
+    fd = open('src/assets/%s/textures.json' % os.environ['ROMID'], 'r')
+    data = fd.read()
+    fd.close()
+
+    rows = json.loads(data)
+
+    make_objects(rows)
+    make_header(rows)
+
+def make_header(rows):
+    typename = 'texturenum'
+    enums = [row['id'] for row in rows]
+    filename = 'textures.h'
+    terminator = 'TEXTURE_END'
+    assetmgr.write_enums(typename, enums, filename, terminator)
+
+def make_objects(rows):
+    databinary = bytes()
+    listbinary = bytes()
+    pos = 0
+
+    for row in rows:
+        contents = getcontents('src/assets/%s/textures/%s' % (os.environ['ROMID'], row['file']))
+        flags = ((row['flag00'] & 0x0f) << 4) | (row['surfacetype'] & 0x0f)
+
+        databinary += contents
+
+        listbinary += flags.to_bytes(1, 'big')
+        listbinary += pos.to_bytes(3, 'big')
+        listbinary += b'\x00\x00\x00\x00'
+
+        pos += len(contents)
+
+    listbinary += pos.to_bytes(4, 'big')
+
+    assetmgr.write_object(databinary, 'texturesdata.o')
+    assetmgr.write_object(listbinary, 'textureslist.o')
+
+def getcontents(filename):
+    with open(filename, 'rb') as fd:
+        return fd.read()
+
+main()

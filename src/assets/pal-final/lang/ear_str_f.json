@@ -1,0 +1,434 @@
+[
+    {
+        "id": "L_EAR_000",
+        "text": "|Briefing - \n\nUn scientifique de la dataDyne se faisant appeler Dr. Caroll a contacté l'Institut Carrington: il demande à être évacué des quartiers généraux de la dataDyne ce soir. Après avoir critiqué les implications morales du dernier projet de la dataDyne, celle-ci décida de le conditionner mentalement plutôt que de l'éliminer. Cette opération devrait ainsi le rendre plus coopératif.\n\n|Carrington - \n\nIl vous faudra utiliser le transmetteur pour passer la porte menant à la zone du labo du Dr. Caroll. Malheureusement, nous avons détecté un très haut niveau d'interférences électromagnétiques autour des laboratoires. Elles perturbent nos équipements de communication. Obligez les scientifiques à interrompre leurs expériences. Souvenez-vous qu'ils ne sont pas hostiles, alors ne les abattez pas. N'oubliez pas non plus votre récepteur, il vous sera sûrement utile.\n\n|Objectif 1: - Holographier l'isotope radioactif\n\nUtilisez la CamSpy pour obtenir une image spectrographique de l'isotope testé dans les laboratoires souterrains de la dataDyne. Le Dr. Caroll a lié l'isotope à une amélioration du système de bouclier expérimental, un objet également présent dans les laboratoires.\n\n|Objectif 2: - Dérouter cycle maintenance\n\nReprogrammez les robots de nettoyage dans la zone de service pour les faire travailler sur les systèmes de sécurité. Ceci vous permettra de progresser dans le complexe scientifique. Restez aux côtés du robot pour ne pas subir de dégâts.\n\n|Objectif 3: - Arrêter les expériences\n\nLes expériences des laboratoires du secteur 2 provoquent des interférences avec nos communications, empêchant nos pirates de briser le code de sécurité. Forcez les scientifiques présents à les interrompre. Vous pouvez vous risquer à cette manoeuvre mais l'alarme se déclenchera probablement. Epargnez les scientifiques.\n\n|Objectif 4: - Obtenir échantillons tech.\n\nDr. Caroll nous informe que trois autres projets majeurs sont sur le point d'être achevés dans les laboratoires voisins du sien. Récupérez les prototypes des trois expériences et rapportez-les à l'Institut Carrington pour une étude.\n\n|Objectif 5: - Trouver le Dr. Caroll\n\nLe sous-sol est divisé en 4 zones de sécurité. Le Dr. Caroll se trouve dans la dernière de ces zones: le secteur 4. Un dispositif barrant la route aux intrus est déployé entre chaque secteur. Trouvez un moyen de passer outre.\n\nFIN\n"
+    },
+    {
+        "id": "L_EAR_001",
+        "text": "LABORATOIRE SOUTERRAIN\n"
+    },
+    {
+        "id": "L_EAR_002",
+        "text": "|Briefing - \n\nUn scientifique de la dataDyne se faisant appeler Dr. Caroll a contacté l'Institut Carrington: il demande à être évacué des quartiers généraux de la dataDyne ce soir. Après avoir critiqué les implications morales du dernier projet de la dataDyne, celle-ci décida de le conditionner mentalement plutôt que de l'éliminer. Cette opération devrait ainsi le rendre plus coopératif.\n\n|Carrington - \n\nIl vous faudra utiliser le transmetteur pour passer la porte menant à la zone du labo du Dr. Caroll. Malheureusement, nous avons détecté un très haut niveau d'interférences électromagnétiques autour des laboratoires. Elles perturbent nos équipements de communication. Obligez les scientifiques à interrompre leurs expériences. Souvenez-vous qu'ils ne sont pas hostiles, alors ne les abattez pas. N'oubliez pas non plus votre récepteur, il vous sera sûrement utile.\n\n|Objectif 1: - Holographier l'isotope radioactif\n\nUtilisez la CamSpy pour obtenir une image spectrographique de l'isotope testé dans les laboratoires souterrains de la dataDyne. Le Dr. Caroll a lié l'isotope à une amélioration du système de bouclier expérimental, un objet également présent dans les laboratoires.\n\n|Objectif 2: - Dérouter cycle maintenance\n\nReprogrammez les robots de nettoyage dans la zone de service pour les faire travailler sur les systèmes de sécurité. Ceci vous permettra de progresser dans le complexe scientifique. Restez aux côtés du robot pour ne pas subir de dégâts.\n\n|Objectif 3: - Arrêter les expériences\n\nLes expériences des laboratoires du secteur 2 provoquent des interférences avec nos communications, empêchant nos pirates de briser le code de sécurité. Forcez les scientifiques présents à les interrompre. Vous pouvez vous risquer à cette manoeuvre mais l'alarme se déclenchera probablement. Epargnez les scientifiques.\n\n|Objectif 4: - Trouver le Dr. Caroll\n\nLe sous-sol est divisé en 4 zones de sécurité. Le Dr. Caroll se trouve dans la dernière de ces zones: le secteur 4. Un dispositif barrant la route aux intrus est déployé entre chaque secteur. Trouvez un moyen de passer outre.\n\nFIN\n"
+    },
+    {
+        "id": "L_EAR_003",
+        "text": "|Briefing - \n\nUn scientifique de la dataDyne se faisant appeler Dr. Caroll a contacté l'Institut Carrington: il demande à être évacué des quartiers généraux de la dataDyne ce soir. Après avoir critiqué les implications morales du dernier projet de la dataDyne, celle-ci décida de le conditionner mentalement plutôt que de l'éliminer. Cette opération devrait ainsi le rendre plus coopératif.\n\n|Carrington - \n\nIl vous faudra utiliser le transmetteur pour passer la porte menant à la zone du labo du Dr. Caroll. Malheureusement, nous avons détecté un très haut niveau d'interférences électromagnétiques autour des laboratoires. Elles perturbent nos équipements de communication. Obligez les scientifiques à interrompre leurs expériences. Souvenez-vous qu'ils ne sont pas hostiles, alors ne les abattez pas. N'oubliez pas non plus votre récepteur, il vous sera sûrement utile.\n\n|Objectif 1: - Holographier l'isotope radioactif\n\nUtilisez la CamSpy pour obtenir une image spectrographique de l'isotope testé dans les laboratoires souterrains de la dataDyne. Le Dr. Caroll a lié l'isotope à une amélioration du système de bouclier expérimental, un objet également présent dans les laboratoires.\n\n|Objectif 2: - Trouver le Dr. Caroll\n\nLe sous-sol est divisé en 4 zones de sécurité. Le Dr. Caroll se trouve dans la dernière de ces zones: le secteur 4. Un dispositif barrant la route aux intrus est déployé entre chaque secteur. Trouvez un moyen de passer outre.\n\nFIN\n"
+    },
+    {
+        "id": "L_EAR_004",
+        "text": null
+    },
+    {
+        "id": "L_EAR_005",
+        "text": null
+    },
+    {
+        "id": "L_EAR_006",
+        "text": null
+    },
+    {
+        "id": "L_EAR_007",
+        "text": null
+    },
+    {
+        "id": "L_EAR_008",
+        "text": null
+    },
+    {
+        "id": "L_EAR_009",
+        "text": "Trouver le Dr. Caroll\n"
+    },
+    {
+        "id": "L_EAR_010",
+        "text": "Arrêter les expériences\n"
+    },
+    {
+        "id": "L_EAR_011",
+        "text": "Dérouter cycle maintenance\n"
+    },
+    {
+        "id": "L_EAR_012",
+        "text": "Obtenir échantillons tech.\n"
+    },
+    {
+        "id": "L_EAR_013",
+        "text": "Holographier l'isotope radioactif\n"
+    },
+    {
+        "id": "L_EAR_014",
+        "text": "Effets sons mécanisme.\n"
+    },
+    {
+        "id": "L_EAR_015",
+        "text": "Robots de maintenance activés.\n"
+    },
+    {
+        "id": "L_EAR_016",
+        "text": "Robots de maintenance reprogrammés.\n"
+    },
+    {
+        "id": "L_EAR_017",
+        "text": "Portes sécurité déverrouillées.\n"
+    },
+    {
+        "id": "L_EAR_018",
+        "text": "Cycle de maintenance activé.\n"
+    },
+    {
+        "id": "L_EAR_019",
+        "text": "Cycle nettoyage activé.\n"
+    },
+    {
+        "id": "L_EAR_020",
+        "text": "Opération refusée - robots occupés.\n"
+    },
+    {
+        "id": "L_EAR_021",
+        "text": "Robots de maintenance désactivés.\n"
+    },
+    {
+        "id": "L_EAR_022",
+        "text": "Objet crucial détruit.\n"
+    },
+    {
+        "id": "L_EAR_023",
+        "text": "Système robots maintenance désactivé.\n"
+    },
+    {
+        "id": "L_EAR_024",
+        "text": "MISSION ECHOUEE \n - objectifs inatteignables.\n"
+    },
+    {
+        "id": "L_EAR_025",
+        "text": "Qui êtes-vous?\n"
+    },
+    {
+        "id": "L_EAR_026",
+        "text": "Pertes inacceptables de scientifiques.\n"
+    },
+    {
+        "id": "L_EAR_027",
+        "text": "Terminal inactif.\n"
+    },
+    {
+        "id": "L_EAR_028",
+        "text": "Coupure des systèmes actifs.\n"
+    },
+    {
+        "id": "L_EAR_029",
+        "text": "Expérience interrompue.\n"
+    },
+    {
+        "id": "L_EAR_030",
+        "text": "Alarme activée.\n"
+    },
+    {
+        "id": "L_EAR_031",
+        "text": "Alarme désactivée.\n"
+    },
+    {
+        "id": "L_EAR_032",
+        "text": "Ne me tuez pas! Je vais vous aider.\n"
+    },
+    {
+        "id": "L_EAR_033",
+        "text": "Qu'est-ce que vous foutez ici?\n"
+    },
+    {
+        "id": "L_EAR_034",
+        "text": "Je vais vous aider...\n"
+    },
+    {
+        "id": "L_EAR_035",
+        "text": "Zut alors. J'ai fait une bêtise.\n"
+    },
+    {
+        "id": "L_EAR_036",
+        "text": "ACCES REFUSE - code de sécurité requis.\n"
+    },
+    {
+        "id": "L_EAR_037",
+        "text": "Recherche mot de passe.\n"
+    },
+    {
+        "id": "L_EAR_038",
+        "text": "."
+    },
+    {
+        "id": "L_EAR_039",
+        "text": "Mot de passe localisé - dérivation serrure.\n"
+    },
+    {
+        "id": "L_EAR_040",
+        "text": "Contact rompu - rétablissement connexion.\n"
+    },
+    {
+        "id": "L_EAR_041",
+        "text": "Porte de sécurité déjà déverrouillée.\n"
+    },
+    {
+        "id": "L_EAR_042",
+        "text": "Expérience déjà interrompue.\n"
+    },
+    {
+        "id": "L_EAR_043",
+        "text": "Etrange - l'expérience est déjà arrêtée!\n"
+    },
+    {
+        "id": "L_EAR_044",
+        "text": "Quelqu'un a cassé mon PC!\n"
+    },
+    {
+        "id": "L_EAR_045",
+        "text": "Obtenir Vue nocturne.\n"
+    },
+    {
+        "id": "L_EAR_046",
+        "text": "Cassandra De Vries: \n"
+    },
+    {
+        "id": "L_EAR_047",
+        "text": "Vue nocturne\n"
+    },
+    {
+        "id": "L_EAR_048",
+        "text": "Mallette de De Vries\n"
+    },
+    {
+        "id": "L_EAR_049",
+        "text": "Vue nocturne obtenue.\n"
+    },
+    {
+        "id": "L_EAR_050",
+        "text": "Obtenir objet de tech bouclier.\n"
+    },
+    {
+        "id": "L_EAR_051",
+        "text": "Cassandra De Vries: \n"
+    },
+    {
+        "id": "L_EAR_052",
+        "text": "Objet de tech bouclier\n"
+    },
+    {
+        "id": "L_EAR_053",
+        "text": "Mallette de De Vries\n"
+    },
+    {
+        "id": "L_EAR_054",
+        "text": "objet de tech bouclier obtenu.\n"
+    },
+    {
+        "id": "L_EAR_055",
+        "text": "Obtenir récepteur.\n"
+    },
+    {
+        "id": "L_EAR_056",
+        "text": "\n"
+    },
+    {
+        "id": "L_EAR_057",
+        "text": "Récepteur\n"
+    },
+    {
+        "id": "L_EAR_058",
+        "text": "Un récepteur\n"
+    },
+    {
+        "id": "L_EAR_059",
+        "text": "Récepteur obtenu.\n"
+    },
+    {
+        "id": "L_EAR_060",
+        "text": "Connexion établie.\n"
+    },
+    {
+        "id": "L_EAR_061",
+        "text": "Sas de maintenance ouvert.\n"
+    },
+    {
+        "id": "L_EAR_062",
+        "text": "Sas de maintenance déjà ouvert.\n"
+    },
+    {
+        "id": "L_EAR_063",
+        "text": "ATTENTION - radioactivité détectée.\n"
+    },
+    {
+        "id": "L_EAR_064",
+        "text": "Que faites-vous dans mon labo?\n"
+    },
+    {
+        "id": "L_EAR_065",
+        "text": "Je ne vous connais pas...\n"
+    },
+    {
+        "id": "L_EAR_066",
+        "text": "Vous êtes qui, bordel?\n"
+    },
+    {
+        "id": "L_EAR_067",
+        "text": "Arrêtez l'expérience.\n"
+    },
+    {
+        "id": "L_EAR_068",
+        "text": "Eteignez-moi tout ça. MAINTENANT!\n"
+    },
+    {
+        "id": "L_EAR_069",
+        "text": "Coupez ce truc.\n"
+    },
+    {
+        "id": "L_EAR_070",
+        "text": "Je vais l'éteindre.\n"
+    },
+    {
+        "id": "L_EAR_071",
+        "text": "Ne me faites pas de mal!\n"
+    },
+    {
+        "id": "L_EAR_072",
+        "text": "Je vais vous aider.\n"
+    },
+    {
+        "id": "L_EAR_073",
+        "text": "Mes expériences!\n"
+    },
+    {
+        "id": "L_EAR_074",
+        "text": "Voilà. C'est éteint.\n"
+    },
+    {
+        "id": "L_EAR_075",
+        "text": "Partez... TOUT DE SUITE!\n"
+    },
+    {
+        "id": "L_EAR_076",
+        "text": "Sécurité!\n"
+    },
+    {
+        "id": "L_EAR_077",
+        "text": "J'appelle la sécurité.\n"
+    },
+    {
+        "id": "L_EAR_078",
+        "text": "Oups. Je me suis trompé...\n"
+    },
+    {
+        "id": "L_EAR_079",
+        "text": "Comment s'est arrivé?\n"
+    },
+    {
+        "id": "L_EAR_080",
+        "text": "C'est déjà éteint on dirait.\n"
+    },
+    {
+        "id": "L_EAR_081",
+        "text": "Vous avez joué avec ça, ou quoi?\n"
+    },
+    {
+        "id": "L_EAR_082",
+        "text": "On a tout cassé mon équipement!\n"
+    },
+    {
+        "id": "L_EAR_083",
+        "text": "Qu'est-il arrivé à mon terminal?\n"
+    },
+    {
+        "id": "L_EAR_084",
+        "text": "Racaille, va! Tout est fichu!\n"
+    },
+    {
+        "id": "L_EAR_085",
+        "text": "Connexion perdue - expériences en cours.\n"
+    },
+    {
+        "id": "L_EAR_086",
+        "text": "Objet expérimental 1 obtenu.\n"
+    },
+    {
+        "id": "L_EAR_087",
+        "text": "Objet expérimental 2 obtenu.\n"
+    },
+    {
+        "id": "L_EAR_088",
+        "text": "Objet expérimental 3 obtenu.\n"
+    },
+    {
+        "id": "L_EAR_089",
+        "text": "Obtenir CamSpy.\n"
+    },
+    {
+        "id": "L_EAR_090",
+        "text": "Dr. Caroll: \n"
+    },
+    {
+        "id": "L_EAR_091",
+        "text": "CamSpy\n"
+    },
+    {
+        "id": "L_EAR_092",
+        "text": "Une CamSpy\n"
+    },
+    {
+        "id": "L_EAR_093",
+        "text": "CamSpy obtenue.\n"
+    },
+    {
+        "id": "L_EAR_094",
+        "text": "C'est le secteur le plus protégé - Le Dr. Caroll \ndoit s'y trouver.\n"
+    },
+    {
+        "id": "L_EAR_095",
+        "text": "Quelque chose dans les environs consomme beaucoup d'énergie.\n"
+    },
+    {
+        "id": "L_EAR_096",
+        "text": "Reprogrammez ce robot de nettoyage - \nil vous fera entrer.\n"
+    },
+    {
+        "id": "L_EAR_097",
+        "text": "Sortez, Joanna! La radioactivité est élevée. \nUtilisez la CamSpy.\n"
+    },
+    {
+        "id": "L_EAR_098",
+        "text": "Compartiment armes secrètes ouvert.\n"
+    },
+    {
+        "id": "L_EAR_099",
+        "text": "Ennemi détecté - coffre d'armes fermé.\n"
+    },
+    {
+        "id": "L_EAR_100",
+        "text": "Dr. Caroll?\n"
+    },
+    {
+        "id": "L_EAR_101",
+        "text": "Dr. Caroll, êtes-vous ici?\n"
+    },
+    {
+        "id": "L_EAR_102",
+        "text": "Tout...tout danger est écarté?\n"
+    },
+    {
+        "id": "L_EAR_103",
+        "text": "Oui. Tout va bien.\n"
+    },
+    {
+        "id": "L_EAR_104",
+        "text": "M...Mais... vous...\n"
+    },
+    {
+        "id": "L_EAR_105",
+        "text": "Belle manoeuvre, mon enfant. Il n'y a pas de\ntemps à perdre. Nous devons partir!\n"
+    },
+    {
+        "id": "L_EAR_106",
+        "text": "Allons. J'ai des informations vitales à \nrévéler et vous devez me protéger.\n"
+    },
+    {
+        "id": "L_EAR_107",
+        "text": null
+    }
+]

@@ -1,0 +1,306 @@
+[
+    {
+        "id": "L_ARK_000",
+        "text": "|Hintergrund - \n\nDer Alarm wurde ausgelöst, und dataDyne Einsatztruppen sind im gesamten Gebäude verteilt. Aufgrund der Truppenkonzentration im Bereich des Foyers ist es unmöglich, das Gebäude durch den Haupteingang zu verlassen. Der Transporter wird Sie und Dr. Caroll vom Helipad abholen.\n\n|Carrington - \n\nIch muss Sie wohl nicht daran erinnern, Dr. Caroll unter allen Umständen zu beschützen. Cassandra und dataDyne werden alle ihnen zur Verfügung stehenden Mittel einsetzen, um zu verhindern, dass Sie und Dr. Caroll entkommen. Viel Glück.\n\n|1. Ziel: - Erreichen Sie die oberen Stockwerke!\n\nKämpfen Sie sich am Foyer vorbei, bis Sie einen der Aufzüge erreichen, die Sie und Dr. Caroll zu den oberen Stockwerken des Gebäudes bringen.\n\n|2. Ziel: - Reaktivieren Sie den Aufzug!\n\nWir konnten herausfinden, dass der einzige erreichbare Aufzug von einem PC aus blockiert wird. Dieser PC befindet sich im tiefstgelegenen Bürotrakt. Sie müssen diesen PC finden, um den Aufzug wieder in Gang zu setzen.\n\n|3. Ziel: - Vernichten Sie das dataDyne Gunship!\n\nEin dataDyne Gunship umkreist das Gebäude. Es besteht die Gefahr, dass diese Einheit Ihr Fluchtfahrzeug angreift und vom Himmel holt. Bei der Terminierung dieser Einheit müssen Sie mit äußerster Vorsicht vorgehen, da das Gunship auch das gleiche mit Ihnen versuchen wird.\n\n|4. Ziel: - Neutralisieren Sie Cassandras Bodyguards!\n\nWir vermuten, dass Cassandra ihre Bodyguards ausgesandt hat, um den Weg zum Helipad zu blockieren. Es steht so gut wie fest, dass Sie den Kontakt mit ihnen nicht vermeiden können. Bereiten Sie sich auf ernstzunehmenden Widerstand vor!\n\n|5. Ziel: - Erreichen Sie das Helipad, um zu evakuieren!\n\nKämpfen Sie sich zum Helipad vor, wo Ihr Fluchtschiff auf Sie wartet, und vergessen Sie bloß nicht Dr. Caroll!\n\nENDE\n"
+    },
+    {
+        "id": "L_ARK_001",
+        "text": "LUCERNE TOWER\n"
+    },
+    {
+        "id": "L_ARK_002",
+        "text": "|Hintergrund - \n\nDer Alarm wurde ausgelöst, und dataDyne Einsatztruppen sind im gesamten Gebäude verteilt. Aufgrund der Truppenkonzentration im Bereich des Foyers ist es unmöglich, das Gebäude durch den Haupteingang zu verlassen. Der Transporter wird Sie und Dr. Caroll vom Helipad abholen.\n\n|Carrington - \n\nIch muss Sie wohl nicht daran erinnern, Dr. Caroll unter allen Umständen zu beschützen. Cassandra und dataDyne werden alle ihnen zur Verfügung stehenden Mittel einsetzen, um zu verhindern, dass Sie und Dr. Caroll entkommen. Viel Glück.\n\n|1. Ziel: - Erreichen Sie die oberen Stockwerke!\n\nKämpfen Sie sich am Foyer vorbei, bis Sie einen der Aufzüge erreichen, die Sie und Dr. Caroll zu den oberen Stockwerken des Gebäudes bringen.\n\n|2. Ziel: - Vernichten Sie das dataDyne Gunship!\n\nEin dataDyne Gunship umkreist das Gebäude. Es besteht die Gefahr, dass diese Einheit Ihr Fluchtfahrzeug angreift und vom Himmel holt. Bei der Terminierung dieser Einheit müssen Sie mit äußerster Vorsicht vorgehen, da das Gunship auch das gleiche mit Ihnen versuchen wird.\n\n|3. Ziel: - Neutralisieren Sie Cassandras Bodyguards!\n\nWir vermuten, dass Cassandra ihre Bodyguards ausgesandt hat, um den Weg zum Helipad zu blockieren. Es steht so gut wie fest, dass Sie den Kontakt mit ihnen nicht vermeiden können. Bereiten Sie sich auf ernstzunehmenden Widerstand vor!\n\n|4. Ziel: - Erreichen Sie das Helipad, um zu evakuieren!\n\nKämpfen Sie sich zum Helipad vor, wo Ihr Fluchtschiff auf Sie wartet, und vergessen Sie bloß nicht Dr. Caroll!\n\nENDE\n"
+    },
+    {
+        "id": "L_ARK_003",
+        "text": "|Hintergrund - \n\nDer Alarm wurde ausgelöst, und dataDyne Einsatztruppen sind im gesamten Gebäude verteilt. Aufgrund der Truppenkonzentration im Bereich des Foyers ist es unmöglich, das Gebäude durch den Haupteingang zu verlassen. Der Transporter wird Sie und Dr. Caroll vom Helipad abholen.\n\n|Carrington - \n\nIch muss Sie wohl nicht daran erinnern, Dr. Caroll unter allen Umständen zu beschützen. Cassandra und dataDyne werden alle ihnen zur Verfügung stehenden Mittel einsetzen, um zu verhindern, dass Sie und Dr. Caroll entkommen. Viel Glück.\n\n|1. Ziel: - Erreichen Sie die oberen Stockwerke!\n\nKämpfen Sie sich am Foyer vorbei, bis Sie einen der Aufzüge erreichen, die Sie und Dr. Caroll zu den oberen Stockwerken des Gebäudes bringen.\n\n|2. Ziel: - Neutralisieren Sie Cassandras Bodyguards!\n\nWir vermuten, dass Cassandra ihre Bodyguards ausgesandt hat, um den Weg zum Helipad zu blockieren. Es steht so gut wie fest, dass Sie den Kontakt mit ihnen nicht vermeiden können. Bereiten Sie sich auf ernstzunehmenden Widerstand vor!\n\n|3. Ziel: - Erreichen Sie das Helipad, um zu evakuieren!\n\nKämpfen Sie sich zum Helipad vor, wo Ihr Fluchtschiff auf Sie wartet, und vergessen Sie bloß nicht Dr. Caroll!\n\nENDE\n"
+    },
+    {
+        "id": "L_ARK_004",
+        "text": null
+    },
+    {
+        "id": "L_ARK_005",
+        "text": null
+    },
+    {
+        "id": "L_ARK_006",
+        "text": null
+    },
+    {
+        "id": "L_ARK_007",
+        "text": null
+    },
+    {
+        "id": "L_ARK_008",
+        "text": null
+    },
+    {
+        "id": "L_ARK_009",
+        "text": "Erlangen Sie Zugang zum Foyer-Aufzug!\n"
+    },
+    {
+        "id": "L_ARK_010",
+        "text": "Reaktivieren Sie den Büro-Aufzug!\n"
+    },
+    {
+        "id": "L_ARK_011",
+        "text": "Zerstören Sie das dataDyne-Gunship!\n"
+    },
+    {
+        "id": "L_ARK_012",
+        "text": "Neutralisieren Sie De Vries Bodyguards!\n"
+    },
+    {
+        "id": "L_ARK_013",
+        "text": "Erreichen Sie das Helipad!\n"
+    },
+    {
+        "id": "L_ARK_014",
+        "text": "Zugriff auf die Aufzüge erfolgt...\n"
+    },
+    {
+        "id": "L_ARK_015",
+        "text": "BELEUCHTUNG AKTIVIERT!\n"
+    },
+    {
+        "id": "L_ARK_016",
+        "text": "Dr. Caroll erlitt einen kritischen Treffer!\n"
+    },
+    {
+        "id": "L_ARK_017",
+        "text": "Dr. Caroll wird angegriffen!\n"
+    },
+    {
+        "id": "L_ARK_018",
+        "text": "Dr. Caroll wurde beschädigt!\n"
+    },
+    {
+        "id": "L_ARK_019",
+        "text": "Zu spät! Sie ist hier...\n"
+    },
+    {
+        "id": "L_ARK_020",
+        "text": "Du wirst langsam richtig lästig...\n"
+    },
+    {
+        "id": "L_ARK_021",
+        "text": "Gute Nacht, Ms. Dark.\n"
+    },
+    {
+        "id": "L_ARK_022",
+        "text": "BELEUCHTUNG AKTIVIERT\n"
+    },
+    {
+        "id": "L_ARK_023",
+        "text": "BELEUCHTUNG DEAKTIVIERT\n"
+    },
+    {
+        "id": "L_ARK_024",
+        "text": "MISSION FEHLGESCHLAGEN\n"
+    },
+    {
+        "id": "L_ARK_025",
+        "text": "MISSION ERFOLGREICH\n"
+    },
+    {
+        "id": "L_ARK_026",
+        "text": "Gunship-Warnung!!!\n"
+    },
+    {
+        "id": "L_ARK_027",
+        "text": "Erlangen Sie das Nachtsichtgerät!\n"
+    },
+    {
+        "id": "L_ARK_028",
+        "text": "Cassandra De Vries\n"
+    },
+    {
+        "id": "L_ARK_029",
+        "text": "Nachtsichtgerät\n"
+    },
+    {
+        "id": "L_ARK_030",
+        "text": "Nachtsichtgerät\n"
+    },
+    {
+        "id": "L_ARK_031",
+        "text": "Nachtsichtgerät aufgenommen.\n"
+    },
+    {
+        "id": "L_ARK_032",
+        "text": "So trifft man sich wieder, Kleine!\n"
+    },
+    {
+        "id": "L_ARK_033",
+        "text": "Foyer-Aufzug betreten.\n"
+    },
+    {
+        "id": "L_ARK_034",
+        "text": "Tür zum Büro-Aufzug entriegelt.\n"
+    },
+    {
+        "id": "L_ARK_035",
+        "text": "dataDyne Gunship eliminiert.\n"
+    },
+    {
+        "id": "L_ARK_036",
+        "text": "Cassandras Bodyguards wurden neutralisiert.\n"
+    },
+    {
+        "id": "L_ARK_037",
+        "text": "So funktioniert das nicht.\n"
+    },
+    {
+        "id": "L_ARK_038",
+        "text": "Doch, tut es.\n"
+    },
+    {
+        "id": "L_ARK_039",
+        "text": "Gib das her - du machst das falsch!\n"
+    },
+    {
+        "id": "L_ARK_040",
+        "text": "Hör auf mich zu nerven.\n"
+    },
+    {
+        "id": "L_ARK_041",
+        "text": "Würdest du dich bitte beeilen?\n"
+    },
+    {
+        "id": "L_ARK_042",
+        "text": "Oh nein, ...zu spät!\n"
+    },
+    {
+        "id": "L_ARK_043",
+        "text": "Sie ist hier...\n"
+    },
+    {
+        "id": "L_ARK_044",
+        "text": "Schnappt sie!\n"
+    },
+    {
+        "id": "L_ARK_045",
+        "text": "Wichtiges Objekt zerstört. \n"
+    },
+    {
+        "id": "L_ARK_046",
+        "text": "Erlangen Sie den CamSpy.\n"
+    },
+    {
+        "id": "L_ARK_047",
+        "text": "Dr. Carolls\n"
+    },
+    {
+        "id": "L_ARK_048",
+        "text": "CamSpy\n"
+    },
+    {
+        "id": "L_ARK_049",
+        "text": "Ein CamSpy\n"
+    },
+    {
+        "id": "L_ARK_050",
+        "text": "CamSpy aufgenommen.\n"
+    },
+    {
+        "id": "L_ARK_051",
+        "text": "Der Zugang zum Parterre wurde verriegelt. - \nRasch zum Aufzug!\n"
+    },
+    {
+        "id": "L_ARK_052",
+        "text": "Dieses Gunship muss vernichtet werden, sonst \nwird das Fluchtfahrzeug angegriffen!\n"
+    },
+    {
+        "id": "L_ARK_053",
+        "text": "Ich muss mich noch um die Bodyguards kümmern.\n"
+    },
+    {
+        "id": "L_ARK_054",
+        "text": "Lassen Sie das Fluchtfahrzeug nicht warten! - \nZurück zum Helipad!\n"
+    },
+    {
+        "id": "L_ARK_055",
+        "text": "Erlangen Sie die Alpha-Schlüsselkarte!\n"
+    },
+    {
+        "id": "L_ARK_056",
+        "text": "Wachen\n"
+    },
+    {
+        "id": "L_ARK_057",
+        "text": "Büro-Schlüsselkarte\n"
+    },
+    {
+        "id": "L_ARK_058",
+        "text": "Büro-Schlüsselkarte\n"
+    },
+    {
+        "id": "L_ARK_059",
+        "text": "Cassandras Büro-Schlusselkarte aufgenommen.\n"
+    },
+    {
+        "id": "L_ARK_060",
+        "text": "Gebt Alarm - sie ist hier!\n"
+    },
+    {
+        "id": "L_ARK_061",
+        "text": "Licht AUS!\n"
+    },
+    {
+        "id": "L_ARK_062",
+        "text": "Was zum...?\n"
+    },
+    {
+        "id": "L_ARK_063",
+        "text": "Na, wohin willst du denn?\n"
+    },
+    {
+        "id": "L_ARK_064",
+        "text": "Kann ich etwas für dich tun, alte Frau?\n"
+    },
+    {
+        "id": "L_ARK_065",
+        "text": "Geben Sie uns den Sapienten sofort zurück! Sie wissen \nnicht, was Sie da tun!\n"
+    },
+    {
+        "id": "L_ARK_066",
+        "text": "Doch, das tue ich. Ich verschwinde.\n"
+    },
+    {
+        "id": "L_ARK_067",
+        "text": "Letzte Chance: Geben Sie ihn zurück, und Sie\nkönnten vielleicht in Zukunft für mich arbeiten.\n"
+    },
+    {
+        "id": "L_ARK_068",
+        "text": "Tut mir leid, ich bin in Eile.\n"
+    },
+    {
+        "id": "L_ARK_069",
+        "text": "Sie müssen uns das Ding zurückbringen. Wir können \nsonst nicht fortfahren.\n"
+    },
+    {
+        "id": "L_ARK_070",
+        "text": "Das weiß ich!\n"
+    },
+    {
+        "id": "L_ARK_071",
+        "text": "Ich weiß auch, mit wem ich sprechen muss... \nMr. Carrington.\n"
+    },
+    {
+        "id": "L_ARK_072",
+        "text": "Die Aufzugstüren sind auf diesem Stockwerk inaktiv.\n"
+    },
+    {
+        "id": "L_ARK_073",
+        "text": null
+    },
+    {
+        "id": "L_ARK_074",
+        "text": null
+    },
+    {
+        "id": "L_ARK_075",
+        "text": null
+    }
+]

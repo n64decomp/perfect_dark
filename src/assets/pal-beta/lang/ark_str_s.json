@@ -1,0 +1,306 @@
+[
+    {
+        "id": "L_ARK_000",
+        "text": "|Antecedentes - \n\nLa alarma ha sido activada, y hay tropas de choque de dataDyne preparadas por todo el edificio. Salir por el vestíbulo es imposible debido al gran número de tropas presentes. El transporte os recogerá a ti y al Dr. Caroll en el helipuerto.\n\n|Carrington - \n\nNo creo que necesite recordarte que debes proteger al Dr. Caroll a toda costa, Joanna. Cassandra y dataDyne pondrán todos los obstáculos que puedan en tu camino para impedir que saques al Dr. Caroll de allí. Buena suerte.\n\n|Objetivo Uno: - Acceder a los Pisos Superiores\n\nAvanza por el vestíbulo hasta que tengas acceso a uno de los ascensores que os llevarán a ti y al Dr. Caroll a los pisos superiores del edificio.\n\n|Objetivo Dos: - Reactivar Ascensor\n\nHemos interceptado una orden de cerrar el único ascensor accesible enviada a un PC situado en el piso de oficinas más bajo. Tienes que encontrar ese PC y cambiar la orden para hacer que el ascensor funcione de nuevo.\n\n|Objetivo Tres: - Destruir Helicóptero Gunship de dataDyne\n\nHay un helicóptero de seguridad de dataDyne dando vueltas alrededor del edificio que os supera en armamento y no dudará en derribaros. Acaba con el helicóptero sin prejuicios, ya que él intentará hacer lo mismo contigo.\n\n|Objetivo Cuatro: - Derrotar a las Guardaespaldas de Cassandra\n\nSospechamos que Cassandra ha desplegado a sus guardaespaldas para bloquear la ruta al helipuerto. Es casi seguro que no serás capaz de evitarlas, así que espera fiera resistencia cuando las encuentres.\n\n|Objetivo Cinco: - Volver al Helipuerto para Evacuación\n\nVe al helipuerto donde tu nave de recogida te aguarda. Y no te olvides del Dr. Caroll.\n\nFIN\n"
+    },
+    {
+        "id": "L_ARK_001",
+        "text": "EDIFICIO LUCERNE\n"
+    },
+    {
+        "id": "L_ARK_002",
+        "text": "|Antecedentes - \n\nLa alarma ha sido activada, y hay tropas de choque de dataDyne preparadas por todo el edificio. Salir por el vestíbulo es imposible debido al gran número de tropas presentes. El transporte os recogerá a ti y al Dr. Caroll en el helipuerto.\n\n|Carrington - \n\nNo creo que necesite recordarte que debes proteger al Dr. Caroll a toda costa, Joanna. Cassandra y dataDyne pondrán todos los obstáculos que puedan en tu camino para impedir que saques al Dr. Caroll de allí. Buena suerte.\n\n|Objetivo Uno: - Acceder a los Pisos Superiores\n\nAvanza por el vestíbulo hasta que tengas acceso a uno de los ascensores que os llevarán a ti y al Dr. Caroll a los pisos superiores del edificio.\n\n|Objetivo Dos: - Destruir Helicóptero Gunship de dataDyne\n\nHay un helicóptero de seguridad de dataDyne dando vueltas alrededor del edificio que os supera en armamento y no dudará en derribaros. Acaba con el helicóptero sin prejuicios, ya que él intentará hacer lo mismo contigo.\n\n|Objetivo Tres: - Derrotar a las Guardaespaldas de Cassandra\n\nSospechamos que Cassandra ha desplegado a sus guardaespaldas para bloquear la ruta al helipuerto. Es casi seguro que no serás capaz de evitarlas, así que espera fiera resistencia cuando las encuentres.\n\n|Objetivo Cuatro: - Volver al Helipuerto para Evacuación\n\nVe al helipuerto donde tu nave de recogida te aguarda. Y no te olvides del Dr. Caroll.\n\nFIN\n"
+    },
+    {
+        "id": "L_ARK_003",
+        "text": "|Antecedentes - \n\nLa alarma ha sido activada, y hay tropas de choque de dataDyne preparadas por todo el edificio. Salir por el vestíbulo es imposible debido al gran número de tropas presentes. El transporte os recogerá a ti y al Dr. Caroll en el helipuerto.\n\n|Carrington - \n\nNo creo que necesite recordarte que debes proteger al Dr. Caroll a toda costa, Joanna. Cassandra y dataDyne pondrán todos los obstáculos que puedan en tu camino para impedir que saques al Dr. Caroll de allí. Buena suerte.\n\n|Objetivo Uno: - Acceder a los Pisos Superiores\n\nAvanza por el vestíbulo hasta que tengas acceso a uno de los ascensores que os llevarán a ti y al Dr. Caroll a los pisos superiores del edificio.\n\n|Objetivo Dos: - Derrotar a las Guardaespaldas de Cassandra\n\nSospechamos que Cassandra ha desplegado a sus guardaespaldas para bloquear la ruta al helipuerto. Es casi seguro que no serás capaz de evitarlas, así que espera fiera resistencia cuando las encuentres.\n\n|Objetivo Tres: - Volver al Helipuerto para Evacuación\n\nVe al helipuerto donde tu nave de recogida te aguarda. Y no te olvides del Dr. Caroll.\n\nFIN\n"
+    },
+    {
+        "id": "L_ARK_004",
+        "text": null
+    },
+    {
+        "id": "L_ARK_005",
+        "text": null
+    },
+    {
+        "id": "L_ARK_006",
+        "text": null
+    },
+    {
+        "id": "L_ARK_007",
+        "text": null
+    },
+    {
+        "id": "L_ARK_008",
+        "text": null
+    },
+    {
+        "id": "L_ARK_009",
+        "text": "Acceder al ascensor del vestíbulo\n"
+    },
+    {
+        "id": "L_ARK_010",
+        "text": "Reactivar ascensor de las oficinas\n"
+    },
+    {
+        "id": "L_ARK_011",
+        "text": "Destruir helicóptero de dataDyne\n"
+    },
+    {
+        "id": "L_ARK_012",
+        "text": "Derrotar a las guard. de Cassandra\n"
+    },
+    {
+        "id": "L_ARK_013",
+        "text": "Encuentro en el helipuerto\n"
+    },
+    {
+        "id": "L_ARK_014",
+        "text": "Accediendo a los controles del ascensor...\n"
+    },
+    {
+        "id": "L_ARK_015",
+        "text": "¡LUCES ENCENDIDAS!\n"
+    },
+    {
+        "id": "L_ARK_016",
+        "text": "¡El Dr. Caroll ha muerto!\n"
+    },
+    {
+        "id": "L_ARK_017",
+        "text": "¡Están atacando al Dr. Caroll!\n"
+    },
+    {
+        "id": "L_ARK_018",
+        "text": "¡El Dr. Caroll ha sido dañado!\n"
+    },
+    {
+        "id": "L_ARK_019",
+        "text": "¡Demasiado tarde! Ella está aquí...\n"
+    },
+    {
+        "id": "L_ARK_020",
+        "text": "Estás empezando a ser un fastidio...\n"
+    },
+    {
+        "id": "L_ARK_021",
+        "text": "Buenas noches, Srta. Dark.\n"
+    },
+    {
+        "id": "L_ARK_022",
+        "text": "LUCES ENCENDIDAS\n"
+    },
+    {
+        "id": "L_ARK_023",
+        "text": "LUCES APAGADAS\n"
+    },
+    {
+        "id": "L_ARK_024",
+        "text": "MISIÓN FALLADA\n"
+    },
+    {
+        "id": "L_ARK_025",
+        "text": "MISIÓN CUMPLIDA\n"
+    },
+    {
+        "id": "L_ARK_026",
+        "text": "Aviso del Helicóptero va aquí.\n"
+    },
+    {
+        "id": "L_ARK_027",
+        "text": "Obtén Visión Nocturna.\n"
+    },
+    {
+        "id": "L_ARK_028",
+        "text": "Cassandra De Vries:\n"
+    },
+    {
+        "id": "L_ARK_029",
+        "text": "Visión Nocturna\n"
+    },
+    {
+        "id": "L_ARK_030",
+        "text": "Visión Nocturna\n"
+    },
+    {
+        "id": "L_ARK_031",
+        "text": "Visión Nocturna obtenida.\n"
+    },
+    {
+        "id": "L_ARK_032",
+        "text": "¡Nos vemos de nuevo, chica!\n"
+    },
+    {
+        "id": "L_ARK_033",
+        "text": "Accediste al ascensor del vestíbulo.\n"
+    },
+    {
+        "id": "L_ARK_034",
+        "text": "La puerta del ascensor a las oficinas ha sido abierta.\n"
+    },
+    {
+        "id": "L_ARK_035",
+        "text": "Helicóptero de dataDyne eliminado.\n"
+    },
+    {
+        "id": "L_ARK_036",
+        "text": "Las guardaespaldas de Cassandra han sido derrotadas.\n"
+    },
+    {
+        "id": "L_ARK_037",
+        "text": "Así no es como va.\n"
+    },
+    {
+        "id": "L_ARK_038",
+        "text": "Sí, así es.\n"
+    },
+    {
+        "id": "L_ARK_039",
+        "text": "Dámelo. Lo estás haciendo mal.\n"
+    },
+    {
+        "id": "L_ARK_040",
+        "text": "Deja de molestarme.\n"
+    },
+    {
+        "id": "L_ARK_041",
+        "text": "¡Debemos darnos prisa!\n"
+    },
+    {
+        "id": "L_ARK_042",
+        "text": "Oh, no... demasiado tarde.\n"
+    },
+    {
+        "id": "L_ARK_043",
+        "text": "Ella está aquí...\n"
+    },
+    {
+        "id": "L_ARK_044",
+        "text": "¡Cogedla!\n"
+    },
+    {
+        "id": "L_ARK_045",
+        "text": "Objeto crítico de la misión destruido. \n"
+    },
+    {
+        "id": "L_ARK_046",
+        "text": "Obtén la Cámara Espía.\n"
+    },
+    {
+        "id": "L_ARK_047",
+        "text": "Dr. Caroll:\n"
+    },
+    {
+        "id": "L_ARK_048",
+        "text": "Cámara Espía\n"
+    },
+    {
+        "id": "L_ARK_049",
+        "text": "Una Cámara Espía\n"
+    },
+    {
+        "id": "L_ARK_050",
+        "text": "Cámara Espía obtenida.\n"
+    },
+    {
+        "id": "L_ARK_051",
+        "text": "Han cerrado la planta baja: \n¡Ve al ascensor!\n"
+    },
+    {
+        "id": "L_ARK_052",
+        "text": "¡Necesitamos acabar con ese helicóptero, \no derribará la nave de escape!\n"
+    },
+    {
+        "id": "L_ARK_053",
+        "text": "No puedo dejar ninguna guardaespaldas en pie.\n"
+    },
+    {
+        "id": "L_ARK_054",
+        "text": "No hagas esperar a la nave de escape: \nvuelve a la zona de aterrizaje.\n"
+    },
+    {
+        "id": "L_ARK_055",
+        "text": "Obtén la llave magnética alfa.\n"
+    },
+    {
+        "id": "L_ARK_056",
+        "text": "Guarda:\n"
+    },
+    {
+        "id": "L_ARK_057",
+        "text": "Llave magnética de la oficina\n"
+    },
+    {
+        "id": "L_ARK_058",
+        "text": "Llave magnética de la oficina\n"
+    },
+    {
+        "id": "L_ARK_059",
+        "text": "Llave magnética de la oficina de Cassandra obtenida.\n"
+    },
+    {
+        "id": "L_ARK_060",
+        "text": "Activa la alarma: ¡ella está aquí!\n"
+    },
+    {
+        "id": "L_ARK_061",
+        "text": "¡Luces fuera!\n"
+    },
+    {
+        "id": "L_ARK_062",
+        "text": "¿Qué dem...?\n"
+    },
+    {
+        "id": "L_ARK_063",
+        "text": "¿Vas a alguna parte?\n"
+    },
+    {
+        "id": "L_ARK_064",
+        "text": "¿Puedo hacer algo por ti, anciana?\n"
+    },
+    {
+        "id": "L_ARK_065",
+        "text": "¡Devuelve nuestra IA inmediatamente! No sabes \nlo que estás haciendo.\n"
+    },
+    {
+        "id": "L_ARK_066",
+        "text": "Sí lo sé. Me largo.\n"
+    },
+    {
+        "id": "L_ARK_067",
+        "text": "¡Otra oportunidad! Devuélvelo, y podrás \ntrabajar para mí.\n"
+    },
+    {
+        "id": "L_ARK_068",
+        "text": "¡Lo siento! ¿Lo pillas?\n"
+    },
+    {
+        "id": "L_ARK_069",
+        "text": "Debes traer de vuelta la IA. No podemos \navanzar sin ella.\n"
+    },
+    {
+        "id": "L_ARK_070",
+        "text": "¡Ya lo sé!\n"
+    },
+    {
+        "id": "L_ARK_071",
+        "text": "También sé con quién hablar... \ncon el Sr. Carrington.\n"
+    },
+    {
+        "id": "L_ARK_072",
+        "text": "La puerta del ascensor no funciona en este piso.\n"
+    },
+    {
+        "id": "L_ARK_073",
+        "text": null
+    },
+    {
+        "id": "L_ARK_074",
+        "text": null
+    },
+    {
+        "id": "L_ARK_075",
+        "text": null
+    }
+]

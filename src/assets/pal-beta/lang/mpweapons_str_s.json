@@ -1,0 +1,1090 @@
+[
+    {
+        "id": "L_MPWEAPONS_000",
+        "text": "%stiene el/la\nConector de Datos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_001",
+        "text": "%stiene el/la\nMaletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_002",
+        "text": "%stiene el/la %s Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_003",
+        "text": "%stiene nuestra\nMaletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_004",
+        "text": "Atrapó el/la %s Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_005",
+        "text": "Has capturado\nel/la %s Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_006",
+        "text": "%scapturado nuestra\nMaletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_007",
+        "text": "%scapturado\nel/la %s Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_008",
+        "text": "¡Un punto por sobrevivir!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_009",
+        "text": "¡Se supone que debes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_010",
+        "text": "proteger a tus amigos!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_011",
+        "text": "¡Bien hecho!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_012",
+        "text": "¡Tú la llevas!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_013",
+        "text": "Obtienes 2 Puntos...\n"
+    },
+    {
+        "id": "L_MPWEAPONS_014",
+        "text": "¡Eres la víctima!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_015",
+        "text": "¡Protege a %s!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_016",
+        "text": "¡Coge %s!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_017",
+        "text": "Descarga completada.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_018",
+        "text": "Conexión perdida.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_019",
+        "text": "Comenzando descarga.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_020",
+        "text": "Necesitas usar el Conector de Datos.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_021",
+        "text": "¡Rey de\nla Colina!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_022",
+        "text": "¡Tenemos\nla Colina!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_023",
+        "text": "¡%sha capturado\nla Colina!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_024",
+        "text": "%ds/Punto\n"
+    },
+    {
+        "id": "L_MPWEAPONS_025",
+        "text": "¡1 Punto!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_026",
+        "text": "Sin Escudo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_027",
+        "text": "Automáticas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_028",
+        "text": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_029",
+        "text": "Simulantes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_030",
+        "text": "Rey de la Colina\n"
+    },
+    {
+        "id": "L_MPWEAPONS_031",
+        "text": "Complejo FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_032",
+        "text": "Mantén el Maletín\n"
+    },
+    {
+        "id": "L_MPWEAPONS_033",
+        "text": "Pistola mata de Un Tiro\n"
+    },
+    {
+        "id": "L_MPWEAPONS_034",
+        "text": "Captura la Maleta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_035",
+        "text": "Ocultación\n"
+    },
+    {
+        "id": "L_MPWEAPONS_036",
+        "text": "Explosivos del Templo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_037",
+        "text": "Asesino\n"
+    },
+    {
+        "id": "L_MPWEAPONS_038",
+        "text": "Tranquilizante\n"
+    },
+    {
+        "id": "L_MPWEAPONS_039",
+        "text": "Cámara Lenta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_040",
+        "text": "Pulsa START\n"
+    },
+    {
+        "id": "L_MPWEAPONS_041",
+        "text": "Pausa\n"
+    },
+    {
+        "id": "L_MPWEAPONS_042",
+        "text": "Personalizado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_043",
+        "text": "Aleatorio\n"
+    },
+    {
+        "id": "L_MPWEAPONS_044",
+        "text": "Cinco Aleatorias\n"
+    },
+    {
+        "id": "L_MPWEAPONS_045",
+        "text": "Cuerpo a Cuerpo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_046",
+        "text": "Minas de Proximidad\n"
+    },
+    {
+        "id": "L_MPWEAPONS_047",
+        "text": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_048",
+        "text": "Lanzagranadas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_049",
+        "text": "Explosivos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_050",
+        "text": "Magnum Dorada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_051",
+        "text": "Armas Pesadas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_052",
+        "text": "Tranquilizantes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_053",
+        "text": "FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_054",
+        "text": "Fuerza Bruta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_055",
+        "text": "Automáticas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_056",
+        "text": "Pistolas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_057",
+        "text": "Test\n"
+    },
+    {
+        "id": "L_MPWEAPONS_058",
+        "text": "Test 4mb\n"
+    },
+    {
+        "id": "L_MPWEAPONS_059",
+        "text": "Nada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_060",
+        "text": "Escudo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_061",
+        "text": "Desactivado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_062",
+        "text": "Objetivos Completados\n"
+    },
+    {
+        "id": "L_MPWEAPONS_063",
+        "text": "Desconocido\n"
+    },
+    {
+        "id": "L_MPWEAPONS_064",
+        "text": "Desaparecido\n"
+    },
+    {
+        "id": "L_MPWEAPONS_065",
+        "text": "Controller Pak Dañado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_066",
+        "text": "está dañado o\n"
+    },
+    {
+        "id": "L_MPWEAPONS_067",
+        "text": "mal insertado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_068",
+        "text": "Intentar Reparar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_069",
+        "text": "Reintentar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_070",
+        "text": "Continuar sin usar\nel Controller Pak\n"
+    },
+    {
+        "id": "L_MPWEAPONS_071",
+        "text": "Controller Pak Lleno\n"
+    },
+    {
+        "id": "L_MPWEAPONS_072",
+        "text": "Está demasiado lleno. Se\nnecesitan 1 nota y 28\npáginas para guardar.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_073",
+        "text": "Entra en el Menú del\nController Pak para liberar\nespacio (pulsa  START\nmientras enciendes.)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_074",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPWEAPONS_075",
+        "text": "----------\n"
+    },
+    {
+        "id": "L_MPWEAPONS_076",
+        "text": "Puñetazos Huracán\n"
+    },
+    {
+        "id": "L_MPWEAPONS_077",
+        "text": "Dispositivo de Ocultación\n"
+    },
+    {
+        "id": "L_MPWEAPONS_078",
+        "text": "Invencible\n"
+    },
+    {
+        "id": "L_MPWEAPONS_079",
+        "text": "Todas las Armas en Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_080",
+        "text": "Munición Ilimitada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_081",
+        "text": "Munición Ilimitada sin Recargas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_082",
+        "text": "Un jugador Cámara Lenta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_083",
+        "text": "Modo DK\n"
+    },
+    {
+        "id": "L_MPWEAPONS_084",
+        "text": "Magnum de Trent\n"
+    },
+    {
+        "id": "L_MPWEAPONS_085",
+        "text": "FarSight\n"
+    },
+    {
+        "id": "L_MPWEAPONS_086",
+        "text": "Mini-Joanna\n"
+    },
+    {
+        "id": "L_MPWEAPONS_087",
+        "text": "Mini-Personajes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_088",
+        "text": "Escudo de Enemigos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_089",
+        "text": "Escudo de Joanna\n"
+    },
+    {
+        "id": "L_MPWEAPONS_090",
+        "text": "Súper Escudo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_091",
+        "text": "Mirilla Clásica\n"
+    },
+    {
+        "id": "L_MPWEAPONS_092",
+        "text": "Sólo Jefes de Equipo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_093",
+        "text": "Jugar como Elvis\n"
+    },
+    {
+        "id": "L_MPWEAPONS_094",
+        "text": "Cohetes Enemigos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_095",
+        "text": "Munición Ilimitada - Arma PC Centinela\n"
+    },
+    {
+        "id": "L_MPWEAPONS_096",
+        "text": "Reglas del Marqués de Queensbury\n"
+    },
+    {
+        "id": "L_MPWEAPONS_097",
+        "text": "Oscuridad Perfecta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_098",
+        "text": "Pugilista\n"
+    },
+    {
+        "id": "L_MPWEAPONS_099",
+        "text": "Disparo Caliente\n"
+    },
+    {
+        "id": "L_MPWEAPONS_100",
+        "text": "Golpea y Corre\n"
+    },
+    {
+        "id": "L_MPWEAPONS_101",
+        "text": "Alienígena\n"
+    },
+    {
+        "id": "L_MPWEAPONS_102",
+        "text": "Rastreador/Localización de armas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_103",
+        "text": "Lanzacohetes\n"
+    },
+    {
+        "id": "L_MPWEAPONS_104",
+        "text": "Rifle Francotirador\n"
+    },
+    {
+        "id": "L_MPWEAPONS_105",
+        "text": "Escáner de Rayos-X\n"
+    },
+    {
+        "id": "L_MPWEAPONS_106",
+        "text": "SuperDragón\n"
+    },
+    {
+        "id": "L_MPWEAPONS_107",
+        "text": "Arma PC\n"
+    },
+    {
+        "id": "L_MPWEAPONS_108",
+        "text": "Phoenix\n"
+    },
+    {
+        "id": "L_MPWEAPONS_109",
+        "text": "Pistola Psicosis\n"
+    },
+    {
+        "id": "L_MPWEAPONS_110",
+        "text": "PP9i\n"
+    },
+    {
+        "id": "L_MPWEAPONS_111",
+        "text": "CC13\n"
+    },
+    {
+        "id": "L_MPWEAPONS_112",
+        "text": "Klo1313\n"
+    },
+    {
+        "id": "L_MPWEAPONS_113",
+        "text": "KF7 Especial\n"
+    },
+    {
+        "id": "L_MPWEAPONS_114",
+        "text": "ZZT (9mm)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_115",
+        "text": "DMC\n"
+    },
+    {
+        "id": "L_MPWEAPONS_116",
+        "text": "AR53\n"
+    },
+    {
+        "id": "L_MPWEAPONS_117",
+        "text": "RC-P45\n"
+    },
+    {
+        "id": "L_MPWEAPONS_118",
+        "text": "Velvet Dark\n"
+    },
+    {
+        "id": "L_MPWEAPONS_119",
+        "text": "Diversión\n"
+    },
+    {
+        "id": "L_MPWEAPONS_120",
+        "text": "Jugabilidad\n"
+    },
+    {
+        "id": "L_MPWEAPONS_121",
+        "text": "Armas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_122",
+        "text": "Compañeros\n"
+    },
+    {
+        "id": "L_MPWEAPONS_123",
+        "text": "Armas para Joanna en Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_124",
+        "text": "Armas Clásicas para Joanna en Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_125",
+        "text": "Entrando en dataDyne"
+    },
+    {
+        "id": "L_MPWEAPONS_126",
+        "text": "Extracción de dataDyne"
+    },
+    {
+        "id": "L_MPWEAPONS_127",
+        "text": "Infiltración en A51"
+    },
+    {
+        "id": "L_MPWEAPONS_128",
+        "text": "Rescate en A51"
+    },
+    {
+        "id": "L_MPWEAPONS_129",
+        "text": "Escape de A51"
+    },
+    {
+        "id": "L_MPWEAPONS_130",
+        "text": "Dificultad:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_131",
+        "text": "Trucos en Misiones Solo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_132",
+        "text": "Trucos en Simulador de Combate\n"
+    },
+    {
+        "id": "L_MPWEAPONS_133",
+        "text": "Trucos en Cooperativo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_134",
+        "text": "Trucos en Contra-Operativa\n"
+    },
+    {
+        "id": "L_MPWEAPONS_135",
+        "text": "Sin honor\n"
+    },
+    {
+        "id": "L_MPWEAPONS_136",
+        "text": "Trucada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_137",
+        "text": "Truco disponible"
+    },
+    {
+        "id": "L_MPWEAPONS_138",
+        "text": "Completa"
+    },
+    {
+        "id": "L_MPWEAPONS_139",
+        "text": "para el truco:"
+    },
+    {
+        "id": "L_MPWEAPONS_140",
+        "text": "en"
+    },
+    {
+        "id": "L_MPWEAPONS_141",
+        "text": "por debajo de"
+    },
+    {
+        "id": "L_MPWEAPONS_142",
+        "text": " o inserta Perfect Dark de Game Boy (r) en un Transfer Pak (tm), conecta el Transfer Pak a cualquier mando, y sal y vuelve a entrar en el menú"
+    },
+    {
+        "id": "L_MPWEAPONS_143",
+        "text": "Elige truco para más información\n"
+    },
+    {
+        "id": "L_MPWEAPONS_144",
+        "text": "Camarada disponible"
+    },
+    {
+        "id": "L_MPWEAPONS_145",
+        "text": "Gana Oros en las pruebas de tiro para activar las armas clásicas.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_146",
+        "text": "Mirilla en Pantalla\n"
+    },
+    {
+        "id": "L_MPWEAPONS_147",
+        "text": "Blanco\n"
+    },
+    {
+        "id": "L_MPWEAPONS_148",
+        "text": "Alcance de Zoom\n"
+    },
+    {
+        "id": "L_MPWEAPONS_149",
+        "text": "Mostrar Munición\n"
+    },
+    {
+        "id": "L_MPWEAPONS_150",
+        "text": "Funciones del Arma\n"
+    },
+    {
+        "id": "L_MPWEAPONS_151",
+        "text": "Bolas de Pintura\n"
+    },
+    {
+        "id": "L_MPWEAPONS_152",
+        "text": "Subtítulos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_153",
+        "text": "Tiempo de la Misión\n"
+    },
+    {
+        "id": "L_MPWEAPONS_154",
+        "text": "Modo\n"
+    },
+    {
+        "id": "L_MPWEAPONS_155",
+        "text": "Corte\n"
+    },
+    {
+        "id": "L_MPWEAPONS_156",
+        "text": "¿Quieres interrumpir\nla misión?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_157",
+        "text": "Joanna en Piel\n"
+    },
+    {
+        "id": "L_MPWEAPONS_158",
+        "text": "Joanna Negociadora\n"
+    },
+    {
+        "id": "L_MPWEAPONS_159",
+        "text": "Elvis (Chaleco)\n"
+    },
+    {
+        "id": "L_MPWEAPONS_160",
+        "text": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_161",
+        "text": "No se puede borrar el fichero\nya que se está usando.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_162",
+        "text": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_163",
+        "text": "Límite Tiempo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_164",
+        "text": "Límite Puntos:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_165",
+        "text": "Límite P. Equipo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_166",
+        "text": "¡Desafío Completado!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_167",
+        "text": "¡Desafío Fallado!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_168",
+        "text": "¡Desafío Trucado!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_169",
+        "text": "Subtítulos en Escenas\n"
+    },
+    {
+        "id": "L_MPWEAPONS_170",
+        "text": "Subtítulos en el Juego\n"
+    },
+    {
+        "id": "L_MPWEAPONS_171",
+        "text": "Pantalla de Título Alternativa\n"
+    },
+    {
+        "id": "L_MPWEAPONS_172",
+        "text": "Empezar Desafío\n"
+    },
+    {
+        "id": "L_MPWEAPONS_173",
+        "text": "Investigación dataDyne"
+    },
+    {
+        "id": "L_MPWEAPONS_174",
+        "text": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_175",
+        "text": "El Controller Pak\nha sido quitado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_176",
+        "text": "Intentar Reparación\n"
+    },
+    {
+        "id": "L_MPWEAPONS_177",
+        "text": "¿Estás seguro de que quieres\nintentar reparar este\nController Pak?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_178",
+        "text": "¡Puedes perder datos!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_179",
+        "text": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_180",
+        "text": "Reparar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_181",
+        "text": "Reparado con Éxito\n"
+    },
+    {
+        "id": "L_MPWEAPONS_182",
+        "text": "El Controller Pak ha\nsido reparado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_183",
+        "text": "Reparación Fallada\n"
+    },
+    {
+        "id": "L_MPWEAPONS_184",
+        "text": "El Controller Pak \nno puede ser reparado.\nNo podrás cargar o\nguardar en este\nController Pak.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_185",
+        "text": "Handicaps Jugador\n"
+    },
+    {
+        "id": "L_MPWEAPONS_186",
+        "text": "BOTONES L/R: "
+    },
+    {
+        "id": "L_MPWEAPONS_187",
+        "text": "BOTÓN C ARRIBA: "
+    },
+    {
+        "id": "L_MPWEAPONS_188",
+        "text": "BOTONES C I./D.: "
+    },
+    {
+        "id": "L_MPWEAPONS_189",
+        "text": "BOTÓN C ABAJO: "
+    },
+    {
+        "id": "L_MPWEAPONS_190",
+        "text": "BOTÓN A: "
+    },
+    {
+        "id": "L_MPWEAPONS_191",
+        "text": "BOTÓN B: "
+    },
+    {
+        "id": "L_MPWEAPONS_192",
+        "text": "STICK C.: "
+    },
+    {
+        "id": "L_MPWEAPONS_193",
+        "text": "BÓTON Z: "
+    },
+    {
+        "id": "L_MPWEAPONS_194",
+        "text": "+ PANEL C.: "
+    },
+    {
+        "id": "L_MPWEAPONS_195",
+        "text": "APUNTAR"
+    },
+    {
+        "id": "L_MPWEAPONS_196",
+        "text": "CAMBIAR A PUNTAR"
+    },
+    {
+        "id": "L_MPWEAPONS_197",
+        "text": "MIRAR ARRIBA"
+    },
+    {
+        "id": "L_MPWEAPONS_198",
+        "text": "MIRAR ABAJO"
+    },
+    {
+        "id": "L_MPWEAPONS_199",
+        "text": "MIRAR ABAJO"
+    },
+    {
+        "id": "L_MPWEAPONS_200",
+        "text": "MIRAR ARRIBA"
+    },
+    {
+        "id": "L_MPWEAPONS_201",
+        "text": "ADELANTE"
+    },
+    {
+        "id": "L_MPWEAPONS_202",
+        "text": "ATRÁS"
+    },
+    {
+        "id": "L_MPWEAPONS_203",
+        "text": "DESP. LATERAL"
+    },
+    {
+        "id": "L_MPWEAPONS_204",
+        "text": "ARMA"
+    },
+    {
+        "id": "L_MPWEAPONS_205",
+        "text": "ACCIÓN/RECARGA"
+    },
+    {
+        "id": "L_MPWEAPONS_206",
+        "text": "DISPARO"
+    },
+    {
+        "id": "L_MPWEAPONS_207",
+        "text": "CAMINAR/VOLVER"
+    },
+    {
+        "id": "L_MPWEAPONS_208",
+        "text": "MIRAR"
+    },
+    {
+        "id": "L_MPWEAPONS_209",
+        "text": "CAMINAR/DESP."
+    },
+    {
+        "id": "L_MPWEAPONS_210",
+        "text": "MIRAR/DESP."
+    },
+    {
+        "id": "L_MPWEAPONS_211",
+        "text": "COMO BOTONES C"
+    },
+    {
+        "id": "L_MPWEAPONS_212",
+        "text": "Mando 1:"
+    },
+    {
+        "id": "L_MPWEAPONS_213",
+        "text": "Mando 2:"
+    },
+    {
+        "id": "L_MPWEAPONS_214",
+        "text": "Estilo de Control %s %s\n"
+    },
+    {
+        "id": "L_MPWEAPONS_215",
+        "text": "(1 Mando)"
+    },
+    {
+        "id": "L_MPWEAPONS_216",
+        "text": "(2 Mandos)"
+    },
+    {
+        "id": "L_MPWEAPONS_217",
+        "text": "Mantén Arma para el menú rápido.\nMantén Acción para cambiar función.\nAcción+Disparo cambia temp. la función.\nApuntar aporta una mayor precisión.\nApuntar + Botón C Abajo te agacha.\nApuntar + Botón C Arriba te levanta.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_218",
+        "text": "Desactiva todos los Trucos\n"
+    },
+    {
+        "id": "L_MPWEAPONS_219",
+        "text": "Filtro de Lenguaje\n"
+    },
+    {
+        "id": "L_MPWEAPONS_220",
+        "text": "USUARIO:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_221",
+        "text": "CLAVE:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_222",
+        "text": "Oscuridad Perfecta\n"
+    },
+    {
+        "id": "L_MPWEAPONS_223",
+        "text": "Elige Opciones:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_224",
+        "text": "Velocidad de Reacción Enemiga:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_225",
+        "text": "Salud del Enemigo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_226",
+        "text": "Daño del Enemigo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_227",
+        "text": "Precisión del Enemigo:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_228",
+        "text": "Aceptar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_229",
+        "text": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_230",
+        "text": "Controller Pak No Encontrado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_231",
+        "text": "Nombre:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_232",
+        "text": "Lugar:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_233",
+        "text": "Nombre de Fichero Duplicado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_234",
+        "text": "ya tiene\n"
+    },
+    {
+        "id": "L_MPWEAPONS_235",
+        "text": "un fichero nombrado\n"
+    },
+    {
+        "id": "L_MPWEAPONS_236",
+        "text": "Renombrar Fichero\n"
+    },
+    {
+        "id": "L_MPWEAPONS_237",
+        "text": "Cambiar Lugar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_238",
+        "text": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_239",
+        "text": "Cambiar Nombre de Fichero\n"
+    },
+    {
+        "id": "L_MPWEAPONS_240",
+        "text": "Introduce nuevo nombre:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_241",
+        "text": "El fichero que estás copiando\nno puede ser borrado.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_242",
+        "text": "SimShock:%d\n"
+    },
+    {
+        "id": "L_MPWEAPONS_243",
+        "text": "Tiempo Requerido:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_244",
+        "text": "¡Nuevo Truco Disponible!:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_245",
+        "text": "Continua\n"
+    },
+    {
+        "id": "L_MPWEAPONS_246",
+        "text": "Volver a Jugar el Nivel\n"
+    },
+    {
+        "id": "L_MPWEAPONS_247",
+        "text": "Guardar Jugador\n"
+    },
+    {
+        "id": "L_MPWEAPONS_248",
+        "text": "¿Guardar Nuevo jugador\ny estadísticas?\n"
+    },
+    {
+        "id": "L_MPWEAPONS_249",
+        "text": "Guardar Ahora\n"
+    },
+    {
+        "id": "L_MPWEAPONS_250",
+        "text": "¡No Gracias!\n"
+    },
+    {
+        "id": "L_MPWEAPONS_251",
+        "text": "Confirmar nombre de jugador:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_252",
+        "text": "El fichero guardado ha\nsido borrado debido\na datos corruptos\no dañados.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_253",
+        "text": "Continuar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_254",
+        "text": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_255",
+        "text": "No se puede acceder al Cartucho de GB.\nComprueba las conexiones y asegúrate\nde que estás usando el cartucho de\nGame Boy correcto.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_256",
+        "text": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_257",
+        "text": "Error\n"
+    },
+    {
+        "id": "L_MPWEAPONS_258",
+        "text": "Los datos guardados\n"
+    },
+    {
+        "id": "L_MPWEAPONS_259",
+        "text": "han sido borrados\n"
+    },
+    {
+        "id": "L_MPWEAPONS_260",
+        "text": "porque estaban dañados.\n"
+    },
+    {
+        "id": "L_MPWEAPONS_261",
+        "text": "Cancelar\n"
+    },
+    {
+        "id": "L_MPWEAPONS_262",
+        "text": "Elige tu idioma:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_263",
+        "text": "Inglés\n"
+    },
+    {
+        "id": "L_MPWEAPONS_264",
+        "text": "Francés\n"
+    },
+    {
+        "id": "L_MPWEAPONS_265",
+        "text": "Alemán\n"
+    },
+    {
+        "id": "L_MPWEAPONS_266",
+        "text": "Italiano\n"
+    },
+    {
+        "id": "L_MPWEAPONS_267",
+        "text": "Español\n"
+    },
+    {
+        "id": "L_MPWEAPONS_268",
+        "text": "I. Americano\n"
+    },
+    {
+        "id": "L_MPWEAPONS_269",
+        "text": "Idioma:\n"
+    },
+    {
+        "id": "L_MPWEAPONS_270",
+        "text": "Idioma\n"
+    },
+    {
+        "id": "L_MPWEAPONS_271",
+        "text": null
+    }
+]

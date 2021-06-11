@@ -165,6 +165,7 @@ CFLAGS = -DVERSION=$(VERSION) \
 	-woff 581,649,819,820,821,838,852 \
 	-w2 \
 	-I src/include \
+	-I src/generated/$(ROMID) \
 	$(OPT_LVL) \
 	$(MIPSISET)
 
@@ -179,27 +180,31 @@ S_FILES := $(shell find src/lib src/game -name '*.s')
 # folder at src/assets/$(ROMID) folder. Currently the former is just setup and
 # tile files.
 ASSET_FILES := \
-	$(patsubst $(A_DIR)/files/audio/%.mp3,        $(B_DIR)/assets/files/A%M,             $(shell find $(A_DIR)/files/audio -name '*.mp3')) \
-	$(patsubst $(A_DIR)/files/chrs/%.bin,         $(B_DIR)/assets/files/C%Z,             $(shell find $(A_DIR)/files/chrs -name '*.bin')) \
-	$(patsubst $(A_DIR)/files/guns/%.bin,         $(B_DIR)/assets/files/G%Z,             $(shell find $(A_DIR)/files/guns -name '*.bin')) \
-	$(patsubst $(A_DIR)/files/props/%.bin,        $(B_DIR)/assets/files/P%Z,             $(shell find $(A_DIR)/files/props -name '*.bin')) \
-	$(patsubst src/files/setup/%.c,               $(B_DIR)/assets/files/U%Z,             $(shell find src/files/setup -name '*.c')) \
-	$(patsubst $(A_DIR)/files/setup/%.bin,        $(B_DIR)/assets/files/U%Z,             $(shell find $(A_DIR)/files/setup -name '*.bin')) \
-	$(patsubst $(A_DIR)/files/bgdata/%.seg,       $(B_DIR)/assets/files/bgdata/%.seg,    $(shell find $(A_DIR)/files/bgdata -name '*.seg')) \
-	$(patsubst $(A_DIR)/files/bgdata/%_pads.bin,  $(B_DIR)/assets/files/bgdata/%_padsZ,  $(shell find $(A_DIR)/files/bgdata -name 'bg_*_pads.bin')) \
-	$(patsubst src/files/bgdata/%_tiles.s,        $(B_DIR)/assets/files/bgdata/%_tilesZ, $(shell find src/files/bgdata -name 'bg_*_tiles.s')) \
-	$(patsubst $(A_DIR)/files/bgdata/%_tiles.bin, $(B_DIR)/assets/files/bgdata/%_tilesZ, $(shell find $(A_DIR)/files/bgdata -name 'bg_*_tiles.bin')) \
-	$(patsubst $(A_DIR)/files/lang/%.c,           $(B_DIR)/assets/files/L%,              $(shell find $(A_DIR)/files/lang -name '*[EJP].c')) \
-	$(patsubst $(A_DIR)/files/lang/%.c,           $(B_DIR)/assets/files/L%Z,             $(shell find $(A_DIR)/files/lang -name '*_str_[fgis].c')) \
+	$(patsubst $(A_DIR)/files/audio/%.mp3,        $(B_DIR)/assets/files/A%M,               $(shell find $(A_DIR)/files/audio -name '*.mp3')) \
+	$(patsubst $(A_DIR)/files/chrs/%.bin,         $(B_DIR)/assets/files/C%Z,               $(shell find $(A_DIR)/files/chrs -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/guns/%.bin,         $(B_DIR)/assets/files/G%Z,               $(shell find $(A_DIR)/files/guns -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/props/%.bin,        $(B_DIR)/assets/files/P%Z,               $(shell find $(A_DIR)/files/props -name '*.bin')) \
+	$(patsubst src/files/setup/%.c,               $(B_DIR)/assets/files/U%Z,               $(shell find src/files/setup -name '*.c')) \
+	$(patsubst $(A_DIR)/files/setup/%.bin,        $(B_DIR)/assets/files/U%Z,               $(shell find $(A_DIR)/files/setup -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/bgdata/%.seg,       $(B_DIR)/assets/files/bgdata/%.seg,      $(shell find $(A_DIR)/files/bgdata -name '*.seg')) \
+	$(patsubst src/files/bgdata/%_tiles.s,        $(B_DIR)/assets/files/bgdata/%_tilesZ,   $(shell find src/files/bgdata -name 'bg_*_tiles.s')) \
+	$(patsubst $(A_DIR)/files/bgdata/%_tiles.bin, $(B_DIR)/assets/files/bgdata/%_tilesZ,   $(shell find $(A_DIR)/files/bgdata -name 'bg_*_tiles.bin')) \
 	$(B_DIR)/assets/files/ob/ob_mid.seg.o
+
+LANG_JSON_FILES := $(shell find $(A_DIR)/lang -name '*.json')
+PADS_JSON_FILES := $(shell find $(A_DIR)/pads -name '*.json')
+
+LANG_O_FILES := $(patsubst $(A_DIR)/lang/%.json, $(B_DIR)/assets/files/L%.o, $(LANG_JSON_FILES))
+PADS_O_FILES := $(patsubst $(A_DIR)/pads/%.json, $(B_DIR)/assets/files/bgdata/bg_%_padsZ.o, $(PADS_JSON_FILES))
 
 O_FILES := \
 	$(patsubst src/%.c, $(B_DIR)/%.o, $(C_FILES)) \
 	$(patsubst src/%.s, $(B_DIR)/%.o, $(S_FILES)) \
 	$(patsubst %, %.o, $(ASSET_FILES)) \
-	$(patsubst $(A_DIR)/animations/%.bin, $(B_DIR)/assets/animations/%.o, $(shell find $(A_DIR)/animations -name '*.bin')) \
-	$(B_DIR)/assets/animations/list.o \
+	$(LANG_O_FILES) \
+	$(PADS_O_FILES) \
 	$(B_DIR)/bootloader.o \
+	$(B_DIR)/assets/animations.o \
 	$(B_DIR)/assets/copyrightZ.o \
 	$(B_DIR)/assets/files/list.o \
 	$(B_DIR)/firingrange.o \
@@ -232,7 +237,6 @@ O_FILES := \
 	$(B_DIR)/assets/sequences.o \
 	$(B_DIR)/assets/sfx.ctl.o \
 	$(B_DIR)/assets/sfx.tbl.o \
-	$(B_DIR)/assets/texturesdata.o \
 	$(B_DIR)/assets/textureslist.o \
 	$(B_DIR)/assets/textures/config.o \
 	$(B_DIR)/romheader.o
@@ -281,24 +285,9 @@ $(B_DIR)/pd.z64: $(B_DIR)/stage3.bin
 # This works a little backwards, in that the ROM has to be built to at least
 # stage 2, then extract-segment is used to slice out the segments.
 
-CHECK_FILES := \
-	$(B_DIR)/segments/filenames.bin \
-	$(B_DIR)/segments/firingrange.bin \
-	$(B_DIR)/segments/game.bin \
-	$(B_DIR)/segments/data.bin \
-	$(B_DIR)/segments/lib.bin \
-	$(B_DIR)/segments/inflate.bin \
-	$(B_DIR)/segments/mpconfigs.bin \
-	$(B_DIR)/segments/mpstringsE.bin \
-	$(B_DIR)/segments/mpstringsJ.bin \
-	$(B_DIR)/segments/mpstringsP.bin \
-	$(B_DIR)/segments/mpstringsG.bin \
-	$(B_DIR)/segments/mpstringsF.bin \
-	$(B_DIR)/segments/mpstringsS.bin \
-	$(B_DIR)/segments/mpstringsI.bin \
-	$(B_DIR)/segments/textureconfig.bin
+CHECK_FILES := $(shell awk '{print $$2}' checksums.$(ROMID).md5)
 
-test: rom $(CHECK_FILES) $(ASSET_FILES)
+test: $(CHECK_FILES)
 	@md5sum --quiet -c checksums.$(ROMID).md5
 
 $(B_DIR)/segments/%.bin: $(B_DIR)/stage2.bin
@@ -326,8 +315,43 @@ $(B_DIR)/assets/sfx.ctl.o: $(A_DIR)/sfx.ctl
 $(B_DIR)/assets/sfx.tbl.o: $(A_DIR)/sfx.tbl
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/textures.o: $(A_DIR)/textures.bin
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+################################################################################
+# Asset Manager
+
+ASSETMGR_O_FILES := \
+	$(B_DIR)/assets/animations.o \
+	$(LANG_O_FILES) \
+	$(PADS_O_FILES) \
+	$(B_DIR)/assets/sequences.o \
+	$(B_DIR)/assets/textureslist.o \
+
+# Anims
+$(B_DIR)/assets/animations.o: $(A_DIR)/animations.json
+	tools/assetmgr/mkanims
+
+# Lang
+$(B_DIR)/assets/files/L%.o: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $<
+
+# Lang - but this is the zipped non-obj, for make test
+$(B_DIR)/assets/files/L%: $(A_DIR)/lang/%.json
+	tools/assetmgr/mklang $<
+
+# Pads
+$(B_DIR)/assets/files/bgdata/bg_%_padsZ.o: $(A_DIR)/pads/%.json
+	tools/assetmgr/mkpads $<
+
+# Pads - but this is the zipped non-obj, for make test
+$(B_DIR)/assets/files/bgdata/bg_%_padsZ: $(A_DIR)/pads/%.json
+	tools/assetmgr/mkpads $<
+
+# Sequences
+$(B_DIR)/assets/sequences.o: $(A_DIR)/sequences.json
+	tools/assetmgr/mksequences
+
+# Textures
+$(B_DIR)/assets/textureslist.o: $(A_DIR)/textures.json
+	tools/assetmgr/mktextures
 
 ################################################################################
 # Files
@@ -341,11 +365,6 @@ $(B_DIR)/assets/files/A%M: $(A_DIR)/files/audio/%.mp3
 $(B_DIR)/assets/files/bgdata/bg_%.seg: $(A_DIR)/files/bgdata/bg_%.seg
 	@mkdir -p $(B_DIR)/assets/files/bgdata
 	cp $< $@
-
-# BG pads
-$(B_DIR)/assets/files/bgdata/bg_%_padsZ: $(A_DIR)/files/bgdata/bg_%_pads.bin
-	@mkdir -p $(B_DIR)/assets/files/bgdata
-	tools/rarezip $< > $@
 
 # BG tiles
 # src/assets/files/bgdata/bg_foo_tiles.s
@@ -374,38 +393,6 @@ $(B_DIR)/assets/files/C%Z: $(A_DIR)/files/chrs/%.bin
 # Guns
 $(B_DIR)/assets/files/G%Z: $(A_DIR)/files/guns/%.bin
 	@mkdir -p $(B_DIR)/assets/files
-	tools/rarezip $< > $@
-
-# Lang
-$(B_DIR)/assets/files/lang/%.o: $(A_DIR)/files/lang/%.c
-	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
-
-$(B_DIR)/assets/files/lang/%.elf: $(B_DIR)/assets/files/lang/%.o
-	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
-
-$(B_DIR)/assets/files/lang/%.bin: $(B_DIR)/assets/files/lang/%.elf
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-
-$(B_DIR)/assets/files/L%E: $(B_DIR)/assets/files/lang/%E.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/L%J: $(B_DIR)/assets/files/lang/%J.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/L%P: $(B_DIR)/assets/files/lang/%P.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/L%_str_fZ: $(B_DIR)/assets/files/lang/%_str_f.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/L%_str_gZ: $(B_DIR)/assets/files/lang/%_str_g.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/L%_str_iZ: $(B_DIR)/assets/files/lang/%_str_i.bin
-	tools/rarezip $< > $@
-
-$(B_DIR)/assets/files/L%_str_sZ: $(B_DIR)/assets/files/lang/%_str_s.bin
 	tools/rarezip $< > $@
 
 # OB seg
@@ -475,32 +462,6 @@ $(B_DIR)/rsp/%.o: $(E_DIR)/rsp/%.bin
 	@mkdir -p $(dir $@)
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/assets/sequences.bin: $(A_DIR)/sequences/sequences.py
-	ROMID=$(ROMID) tools/mksequences
-
-$(B_DIR)/assets/sequences.o: $(B_DIR)/assets/sequences.bin
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
-
-$(B_DIR)/assets/texturesdata.bin: $(A_DIR)/textures/textures.py
-	tools/mktextures
-
-$(B_DIR)/assets/textureslist.bin: $(A_DIR)/textures/textures.py
-	tools/mktextures
-
-$(B_DIR)/assets/texturesdata.o: $(B_DIR)/assets/texturesdata.bin
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
-
-$(B_DIR)/assets/textureslist.o: $(B_DIR)/assets/textureslist.bin
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
-
-$(B_DIR)/assets/animations/%.o: $(A_DIR)/animations/%.bin
-	@mkdir -p $(dir $@)
-	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@ 0x1
-
-$(B_DIR)/assets/animations/list.o: $(A_DIR)/animations/list.c
-	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
-
 $(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
@@ -528,12 +489,12 @@ $(B_DIR)/lib/ultra/gu/scale.o: src/lib/ultra/gu/scale.c
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
-$(B_DIR)/lib/%.o: src/lib/%.c
+$(B_DIR)/lib/%.o: src/lib/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-$(B_DIR)/game/%.o: src/game/%.c
+$(B_DIR)/game/%.o: src/game/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
@@ -544,7 +505,7 @@ $(B_DIR)/game/chr/chraction.o: src/game/chr/chraction.c
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-$(B_DIR)/%.o: src/%.c
+$(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 

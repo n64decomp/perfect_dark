@@ -1,0 +1,2002 @@
+[
+    {
+        "id": "L_MPMENU_000",
+        "text": "Most Suicidal\n"
+    },
+    {
+        "id": "L_MPMENU_001",
+        "text": "Who Needs Ammo?\n"
+    },
+    {
+        "id": "L_MPMENU_002",
+        "text": "Least Shielded\n"
+    },
+    {
+        "id": "L_MPMENU_003",
+        "text": "Best Protected\n"
+    },
+    {
+        "id": "L_MPMENU_004",
+        "text": "Marksmanship\n"
+    },
+    {
+        "id": "L_MPMENU_005",
+        "text": "Most Professional\n"
+    },
+    {
+        "id": "L_MPMENU_006",
+        "text": "Most Deadly\n"
+    },
+    {
+        "id": "L_MPMENU_007",
+        "text": "Most Harmless\n"
+    },
+    {
+        "id": "L_MPMENU_008",
+        "text": "Most Cowardly\n"
+    },
+    {
+        "id": "L_MPMENU_009",
+        "text": "Most Frantic\n"
+    },
+    {
+        "id": "L_MPMENU_010",
+        "text": "Most Honorable\n"
+    },
+    {
+        "id": "L_MPMENU_011",
+        "text": "Most Dishonorable\n"
+    },
+    {
+        "id": "L_MPMENU_012",
+        "text": "Shortest Life\n"
+    },
+    {
+        "id": "L_MPMENU_013",
+        "text": "Longest Life\n"
+    },
+    {
+        "id": "L_MPMENU_014",
+        "text": "Double Kill\n"
+    },
+    {
+        "id": "L_MPMENU_015",
+        "text": "Triple Kill\n"
+    },
+    {
+        "id": "L_MPMENU_016",
+        "text": "Quad Kill\n"
+    },
+    {
+        "id": "L_MPMENU_017",
+        "text": "Game Setup\n"
+    },
+    {
+        "id": "L_MPMENU_018",
+        "text": "Load Settings\n"
+    },
+    {
+        "id": "L_MPMENU_019",
+        "text": "Scenario\n"
+    },
+    {
+        "id": "L_MPMENU_020",
+        "text": "Arena\n"
+    },
+    {
+        "id": "L_MPMENU_021",
+        "text": "Options\n"
+    },
+    {
+        "id": "L_MPMENU_022",
+        "text": "Teams\n"
+    },
+    {
+        "id": "L_MPMENU_023",
+        "text": "Weapons\n"
+    },
+    {
+        "id": "L_MPMENU_024",
+        "text": "Limits\n"
+    },
+    {
+        "id": "L_MPMENU_025",
+        "text": "Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_026",
+        "text": "Save Settings\n"
+    },
+    {
+        "id": "L_MPMENU_027",
+        "text": "Abort Game\n"
+    },
+    {
+        "id": "L_MPMENU_028",
+        "text": "Player Setup\n"
+    },
+    {
+        "id": "L_MPMENU_029",
+        "text": "Load Player\n"
+    },
+    {
+        "id": "L_MPMENU_030",
+        "text": "Name\n"
+    },
+    {
+        "id": "L_MPMENU_031",
+        "text": "Character\n"
+    },
+    {
+        "id": "L_MPMENU_032",
+        "text": "Handicap\n"
+    },
+    {
+        "id": "L_MPMENU_033",
+        "text": "Control\n"
+    },
+    {
+        "id": "L_MPMENU_034",
+        "text": "Player Options\n"
+    },
+    {
+        "id": "L_MPMENU_035",
+        "text": "Statistics\n"
+    },
+    {
+        "id": "L_MPMENU_036",
+        "text": "Start Game\n"
+    },
+    {
+        "id": "L_MPMENU_037",
+        "text": "Drop Out\n"
+    },
+    {
+        "id": "L_MPMENU_038",
+        "text": "Save Player\n"
+    },
+    {
+        "id": "L_MPMENU_039",
+        "text": "Save Copy of Player\n"
+    },
+    {
+        "id": "L_MPMENU_040",
+        "text": "Stuff\n"
+    },
+    {
+        "id": "L_MPMENU_041",
+        "text": "Soundtrack\n"
+    },
+    {
+        "id": "L_MPMENU_042",
+        "text": "Team Names\n"
+    },
+    {
+        "id": "L_MPMENU_043",
+        "text": "Ratio\n"
+    },
+    {
+        "id": "L_MPMENU_044",
+        "text": "Lock\n"
+    },
+    {
+        "id": "L_MPMENU_045",
+        "text": "None\n"
+    },
+    {
+        "id": "L_MPMENU_046",
+        "text": "Last Winner\n"
+    },
+    {
+        "id": "L_MPMENU_047",
+        "text": "Last Loser\n"
+    },
+    {
+        "id": "L_MPMENU_048",
+        "text": "Random\n"
+    },
+    {
+        "id": "L_MPMENU_049",
+        "text": "Challenge\n"
+    },
+    {
+        "id": "L_MPMENU_050",
+        "text": "Combat Challenges\n"
+    },
+    {
+        "id": "L_MPMENU_051",
+        "text": "Abort Challenge\n"
+    },
+    {
+        "id": "L_MPMENU_052",
+        "text": "Abort\n"
+    },
+    {
+        "id": "L_MPMENU_053",
+        "text": "Are you sure you want\nto abort the game?\n"
+    },
+    {
+        "id": "L_MPMENU_054",
+        "text": "Abort\n"
+    },
+    {
+        "id": "L_MPMENU_055",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_056",
+        "text": "%s\n"
+    },
+    {
+        "id": "L_MPMENU_057",
+        "text": "Accept\n"
+    },
+    {
+        "id": "L_MPMENU_058",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_059",
+        "text": "Team Names\n"
+    },
+    {
+        "id": "L_MPMENU_060",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_061",
+        "text": "Change Team Name\n"
+    },
+    {
+        "id": "L_MPMENU_062",
+        "text": "Soundtrack\n"
+    },
+    {
+        "id": "L_MPMENU_063",
+        "text": "Current:\n"
+    },
+    {
+        "id": "L_MPMENU_064",
+        "text": "Multiple Tunes\n"
+    },
+    {
+        "id": "L_MPMENU_065",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_066",
+        "text": "Multiple Tunes\n"
+    },
+    {
+        "id": "L_MPMENU_067",
+        "text": "Random\n"
+    },
+    {
+        "id": "L_MPMENU_068",
+        "text": "Select Tunes\n"
+    },
+    {
+        "id": "L_MPMENU_069",
+        "text": "Select Tune\n"
+    },
+    {
+        "id": "L_MPMENU_070",
+        "text": "Team Control\n"
+    },
+    {
+        "id": "L_MPMENU_071",
+        "text": "Teams Enabled\n"
+    },
+    {
+        "id": "L_MPMENU_072",
+        "text": "Teams:\n"
+    },
+    {
+        "id": "L_MPMENU_073",
+        "text": "Auto Team...\n"
+    },
+    {
+        "id": "L_MPMENU_074",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_075",
+        "text": "Auto Team\n"
+    },
+    {
+        "id": "L_MPMENU_076",
+        "text": "Two Teams\n"
+    },
+    {
+        "id": "L_MPMENU_077",
+        "text": "Three Teams\n"
+    },
+    {
+        "id": "L_MPMENU_078",
+        "text": "Four Teams\n"
+    },
+    {
+        "id": "L_MPMENU_079",
+        "text": "Maximum Teams\n"
+    },
+    {
+        "id": "L_MPMENU_080",
+        "text": "Humans vs. Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_081",
+        "text": "Human-Simulant Pairs\n"
+    },
+    {
+        "id": "L_MPMENU_082",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_083",
+        "text": "Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_084",
+        "text": "Add Simulant...\n"
+    },
+    {
+        "id": "L_MPMENU_085",
+        "text": "1:\n"
+    },
+    {
+        "id": "L_MPMENU_086",
+        "text": "2:\n"
+    },
+    {
+        "id": "L_MPMENU_087",
+        "text": "3:\n"
+    },
+    {
+        "id": "L_MPMENU_088",
+        "text": "4:\n"
+    },
+    {
+        "id": "L_MPMENU_089",
+        "text": "5:\n"
+    },
+    {
+        "id": "L_MPMENU_090",
+        "text": "6:\n"
+    },
+    {
+        "id": "L_MPMENU_091",
+        "text": "7:\n"
+    },
+    {
+        "id": "L_MPMENU_092",
+        "text": "8:\n"
+    },
+    {
+        "id": "L_MPMENU_093",
+        "text": "Clear All\n"
+    },
+    {
+        "id": "L_MPMENU_094",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_095",
+        "text": "Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_096",
+        "text": "Change Type...\n"
+    },
+    {
+        "id": "L_MPMENU_097",
+        "text": "Character...\n"
+    },
+    {
+        "id": "L_MPMENU_098",
+        "text": "Delete Simulant\n"
+    },
+    {
+        "id": "L_MPMENU_099",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_100",
+        "text": "Simulant Character\n"
+    },
+    {
+        "id": "L_MPMENU_101",
+        "text": "Add Simulant\n"
+    },
+    {
+        "id": "L_MPMENU_102",
+        "text": "Change Simulant\n"
+    },
+    {
+        "id": "L_MPMENU_103",
+        "text": "Normal Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_104",
+        "text": "Special Simulants\n"
+    },
+    {
+        "id": "L_MPMENU_105",
+        "text": "Ready!\n"
+    },
+    {
+        "id": "L_MPMENU_106",
+        "text": "...and waiting\n"
+    },
+    {
+        "id": "L_MPMENU_107",
+        "text": "Limits\n"
+    },
+    {
+        "id": "L_MPMENU_108",
+        "text": "Time\n"
+    },
+    {
+        "id": "L_MPMENU_109",
+        "text": "Score\n"
+    },
+    {
+        "id": "L_MPMENU_110",
+        "text": "Restore Defaults\n"
+    },
+    {
+        "id": "L_MPMENU_111",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_112",
+        "text": "No Limit\n"
+    },
+    {
+        "id": "L_MPMENU_113",
+        "text": "%d\n"
+    },
+    {
+        "id": "L_MPMENU_114",
+        "text": "%d Min\n"
+    },
+    {
+        "id": "L_MPMENU_115",
+        "text": "Arena\n"
+    },
+    {
+        "id": "L_MPMENU_116",
+        "text": "Dark\n"
+    },
+    {
+        "id": "L_MPMENU_117",
+        "text": "Classic\n"
+    },
+    {
+        "id": "L_MPMENU_118",
+        "text": "Random\n"
+    },
+    {
+        "id": "L_MPMENU_119",
+        "text": "Skedar"
+    },
+    {
+        "id": "L_MPMENU_120",
+        "text": "Pipes"
+    },
+    {
+        "id": "L_MPMENU_121",
+        "text": "Ravine"
+    },
+    {
+        "id": "L_MPMENU_122",
+        "text": "G5 Building"
+    },
+    {
+        "id": "L_MPMENU_123",
+        "text": "Sewers"
+    },
+    {
+        "id": "L_MPMENU_124",
+        "text": "Warehouse"
+    },
+    {
+        "id": "L_MPMENU_125",
+        "text": "Grid"
+    },
+    {
+        "id": "L_MPMENU_126",
+        "text": "Ruins"
+    },
+    {
+        "id": "L_MPMENU_127",
+        "text": "Area 52"
+    },
+    {
+        "id": "L_MPMENU_128",
+        "text": "Base"
+    },
+    {
+        "id": "L_MPMENU_129",
+        "text": "Rooftop"
+    },
+    {
+        "id": "L_MPMENU_130",
+        "text": "Fortress"
+    },
+    {
+        "id": "L_MPMENU_131",
+        "text": "Villa"
+    },
+    {
+        "id": "L_MPMENU_132",
+        "text": "Car Parking Lot"
+    },
+    {
+        "id": "L_MPMENU_133",
+        "text": "Temple"
+    },
+    {
+        "id": "L_MPMENU_134",
+        "text": "Complex"
+    },
+    {
+        "id": "L_MPMENU_135",
+        "text": "Felicity"
+    },
+    {
+        "id": "L_MPMENU_136",
+        "text": "Random"
+    },
+    {
+        "id": "L_MPMENU_137",
+        "text": "Load Player\n"
+    },
+    {
+        "id": "L_MPMENU_138",
+        "text": "B Button to cancel\n"
+    },
+    {
+        "id": "L_MPMENU_139",
+        "text": "Load Game Settings\n"
+    },
+    {
+        "id": "L_MPMENU_140",
+        "text": "%s:  Scenario: %s   Arena: %s    Simulants: %d"
+    },
+    {
+        "id": "L_MPMENU_141",
+        "text": "Presets\n"
+    },
+    {
+        "id": "L_MPMENU_142",
+        "text": "Player Name\n"
+    },
+    {
+        "id": "L_MPMENU_143",
+        "text": "Character\n"
+    },
+    {
+        "id": "L_MPMENU_144",
+        "text": "Load Head...\n"
+    },
+    {
+        "id": "L_MPMENU_145",
+        "text": "Statistics\n"
+    },
+    {
+        "id": "L_MPMENU_146",
+        "text": "Kills:\n"
+    },
+    {
+        "id": "L_MPMENU_147",
+        "text": "Deaths:\n"
+    },
+    {
+        "id": "L_MPMENU_148",
+        "text": "Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_149",
+        "text": "Head Shots:\n"
+    },
+    {
+        "id": "L_MPMENU_150",
+        "text": "Ammo Used:\n"
+    },
+    {
+        "id": "L_MPMENU_151",
+        "text": "Damage Dealt:\n"
+    },
+    {
+        "id": "L_MPMENU_152",
+        "text": "Pain Received:\n"
+    },
+    {
+        "id": "L_MPMENU_153",
+        "text": "Games Played:\n"
+    },
+    {
+        "id": "L_MPMENU_154",
+        "text": "Games Won:\n"
+    },
+    {
+        "id": "L_MPMENU_155",
+        "text": "Games Lost:\n"
+    },
+    {
+        "id": "L_MPMENU_156",
+        "text": "Time Spent:\n"
+    },
+    {
+        "id": "L_MPMENU_157",
+        "text": "Distance:\n"
+    },
+    {
+        "id": "L_MPMENU_158",
+        "text": "Medals Won:\n"
+    },
+    {
+        "id": "L_MPMENU_159",
+        "text": "   Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_160",
+        "text": "   Head Shot:\n"
+    },
+    {
+        "id": "L_MPMENU_161",
+        "text": "   KillMaster:\n"
+    },
+    {
+        "id": "L_MPMENU_162",
+        "text": "   Survivor:\n"
+    },
+    {
+        "id": "L_MPMENU_163",
+        "text": "Your Title:\n"
+    },
+    {
+        "id": "L_MPMENU_164",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_165",
+        "text": "Completed Challenges\n"
+    },
+    {
+        "id": "L_MPMENU_166",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_167",
+        "text": "Options\n"
+    },
+    {
+        "id": "L_MPMENU_168",
+        "text": "Highlight Pickups\n"
+    },
+    {
+        "id": "L_MPMENU_169",
+        "text": "Highlight Players\n"
+    },
+    {
+        "id": "L_MPMENU_170",
+        "text": "Highlight Teams\n"
+    },
+    {
+        "id": "L_MPMENU_171",
+        "text": "Radar\n"
+    },
+    {
+        "id": "L_MPMENU_172",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_173",
+        "text": "Weapons\n"
+    },
+    {
+        "id": "L_MPMENU_174",
+        "text": "Set:\n"
+    },
+    {
+        "id": "L_MPMENU_175",
+        "text": "Current Weapon Setup:\n"
+    },
+    {
+        "id": "L_MPMENU_176",
+        "text": "1:\n"
+    },
+    {
+        "id": "L_MPMENU_177",
+        "text": "2:\n"
+    },
+    {
+        "id": "L_MPMENU_178",
+        "text": "3:\n"
+    },
+    {
+        "id": "L_MPMENU_179",
+        "text": "4:\n"
+    },
+    {
+        "id": "L_MPMENU_180",
+        "text": "5:\n"
+    },
+    {
+        "id": "L_MPMENU_181",
+        "text": "6:\n"
+    },
+    {
+        "id": "L_MPMENU_182",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_183",
+        "text": "Save Game Setup\n"
+    },
+    {
+        "id": "L_MPMENU_184",
+        "text": "Do you want to save over\nyour original game file?\n"
+    },
+    {
+        "id": "L_MPMENU_185",
+        "text": "Save Over Original\n"
+    },
+    {
+        "id": "L_MPMENU_186",
+        "text": "Save Copy\n"
+    },
+    {
+        "id": "L_MPMENU_187",
+        "text": "Do Not Save\n"
+    },
+    {
+        "id": "L_MPMENU_188",
+        "text": "Game File Name\n"
+    },
+    {
+        "id": "L_MPMENU_189",
+        "text": "Enter a name for your\ngame setup file:\n"
+    },
+    {
+        "id": "L_MPMENU_190",
+        "text": "Confirm\n"
+    },
+    {
+        "id": "L_MPMENU_191",
+        "text": "Your player file is\nalways saved\nautomatically.\n"
+    },
+    {
+        "id": "L_MPMENU_192",
+        "text": "Save a copy now?\n"
+    },
+    {
+        "id": "L_MPMENU_193",
+        "text": "No\n"
+    },
+    {
+        "id": "L_MPMENU_194",
+        "text": "Yes\n"
+    },
+    {
+        "id": "L_MPMENU_195",
+        "text": "Drop Out\n"
+    },
+    {
+        "id": "L_MPMENU_196",
+        "text": "Are you sure you\nwant to drop out?\n"
+    },
+    {
+        "id": "L_MPMENU_197",
+        "text": "Drop Out\n"
+    },
+    {
+        "id": "L_MPMENU_198",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_199",
+        "text": "Control\n"
+    },
+    {
+        "id": "L_MPMENU_200",
+        "text": "Control Style\n"
+    },
+    {
+        "id": "L_MPMENU_201",
+        "text": "Reverse Pitch\n"
+    },
+    {
+        "id": "L_MPMENU_202",
+        "text": "Look Ahead\n"
+    },
+    {
+        "id": "L_MPMENU_203",
+        "text": "Head Roll\n"
+    },
+    {
+        "id": "L_MPMENU_204",
+        "text": "Auto-Aim\n"
+    },
+    {
+        "id": "L_MPMENU_205",
+        "text": "Aim Control\n"
+    },
+    {
+        "id": "L_MPMENU_206",
+        "text": "Sight on Screen\n"
+    },
+    {
+        "id": "L_MPMENU_207",
+        "text": "Show Target\n"
+    },
+    {
+        "id": "L_MPMENU_208",
+        "text": "Zoom Range\n"
+    },
+    {
+        "id": "L_MPMENU_209",
+        "text": "Ammo on Screen\n"
+    },
+    {
+        "id": "L_MPMENU_210",
+        "text": "Gun Function\n"
+    },
+    {
+        "id": "L_MPMENU_211",
+        "text": "Paintball\n"
+    },
+    {
+        "id": "L_MPMENU_212",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_213",
+        "text": "Hold\n"
+    },
+    {
+        "id": "L_MPMENU_214",
+        "text": "Toggle\n"
+    },
+    {
+        "id": "L_MPMENU_215",
+        "text": "Combat Options\n"
+    },
+    {
+        "id": "L_MPMENU_216",
+        "text": "Briefcase Options\n"
+    },
+    {
+        "id": "L_MPMENU_217",
+        "text": "Hacker Options\n"
+    },
+    {
+        "id": "L_MPMENU_218",
+        "text": "Pop a Cap Options\n"
+    },
+    {
+        "id": "L_MPMENU_219",
+        "text": "Hill Options\n"
+    },
+    {
+        "id": "L_MPMENU_220",
+        "text": "Capture Options\n"
+    },
+    {
+        "id": "L_MPMENU_221",
+        "text": "Boxes Options\n"
+    },
+    {
+        "id": "L_MPMENU_222",
+        "text": "One-Hit Kills\n"
+    },
+    {
+        "id": "L_MPMENU_223",
+        "text": "Slow Motion\n"
+    },
+    {
+        "id": "L_MPMENU_224",
+        "text": "Fast Movement\n"
+    },
+    {
+        "id": "L_MPMENU_225",
+        "text": "Display Team\n"
+    },
+    {
+        "id": "L_MPMENU_226",
+        "text": "No Radar\n"
+    },
+    {
+        "id": "L_MPMENU_227",
+        "text": "No Auto-Aim\n"
+    },
+    {
+        "id": "L_MPMENU_228",
+        "text": "No Player Highlight\n"
+    },
+    {
+        "id": "L_MPMENU_229",
+        "text": "No Pickup Highlight\n"
+    },
+    {
+        "id": "L_MPMENU_230",
+        "text": "Highlight Target\n"
+    },
+    {
+        "id": "L_MPMENU_231",
+        "text": "Highlight Terminal\n"
+    },
+    {
+        "id": "L_MPMENU_232",
+        "text": "Boxes on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_233",
+        "text": "Hill on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_234",
+        "text": "Mobile Hill\n"
+    },
+    {
+        "id": "L_MPMENU_235",
+        "text": "Time\n"
+    },
+    {
+        "id": "L_MPMENU_236",
+        "text": "Show on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_237",
+        "text": "Highlight Briefcase\n"
+    },
+    {
+        "id": "L_MPMENU_238",
+        "text": "Show on Radar\n"
+    },
+    {
+        "id": "L_MPMENU_239",
+        "text": "Back\n"
+    },
+    {
+        "id": "L_MPMENU_240",
+        "text": "Off\n"
+    },
+    {
+        "id": "L_MPMENU_241",
+        "text": "On\n"
+    },
+    {
+        "id": "L_MPMENU_242",
+        "text": "Smart\n"
+    },
+    {
+        "id": "L_MPMENU_243",
+        "text": "Scenario\n"
+    },
+    {
+        "id": "L_MPMENU_244",
+        "text": "Free for All!\n"
+    },
+    {
+        "id": "L_MPMENU_245",
+        "text": "-Teamwork-\n"
+    },
+    {
+        "id": "L_MPMENU_246",
+        "text": "Combat"
+    },
+    {
+        "id": "L_MPMENU_247",
+        "text": "Hold the Briefcase"
+    },
+    {
+        "id": "L_MPMENU_248",
+        "text": "Hacker Central"
+    },
+    {
+        "id": "L_MPMENU_249",
+        "text": "Pop a Cap"
+    },
+    {
+        "id": "L_MPMENU_250",
+        "text": "King of the Hill"
+    },
+    {
+        "id": "L_MPMENU_251",
+        "text": "Capture the Case"
+    },
+    {
+        "id": "L_MPMENU_252",
+        "text": "Touch That Box"
+    },
+    {
+        "id": "L_MPMENU_253",
+        "text": "Combat"
+    },
+    {
+        "id": "L_MPMENU_254",
+        "text": "Briefcase"
+    },
+    {
+        "id": "L_MPMENU_255",
+        "text": "Hacker"
+    },
+    {
+        "id": "L_MPMENU_256",
+        "text": "Pop"
+    },
+    {
+        "id": "L_MPMENU_257",
+        "text": "Hill"
+    },
+    {
+        "id": "L_MPMENU_258",
+        "text": "Capture"
+    },
+    {
+        "id": "L_MPMENU_259",
+        "text": "Boxes"
+    },
+    {
+        "id": "L_MPMENU_260",
+        "text": "Game Over\n"
+    },
+    {
+        "id": "L_MPMENU_261",
+        "text": "Title:\n"
+    },
+    {
+        "id": "L_MPMENU_262",
+        "text": "Weapon of Choice:\n"
+    },
+    {
+        "id": "L_MPMENU_263",
+        "text": "Awards:\n"
+    },
+    {
+        "id": "L_MPMENU_264",
+        "text": "1st\n"
+    },
+    {
+        "id": "L_MPMENU_265",
+        "text": "2nd\n"
+    },
+    {
+        "id": "L_MPMENU_266",
+        "text": "3rd\n"
+    },
+    {
+        "id": "L_MPMENU_267",
+        "text": "4th\n"
+    },
+    {
+        "id": "L_MPMENU_268",
+        "text": "5th\n"
+    },
+    {
+        "id": "L_MPMENU_269",
+        "text": "6th\n"
+    },
+    {
+        "id": "L_MPMENU_270",
+        "text": "7th\n"
+    },
+    {
+        "id": "L_MPMENU_271",
+        "text": "8th\n"
+    },
+    {
+        "id": "L_MPMENU_272",
+        "text": "9th\n"
+    },
+    {
+        "id": "L_MPMENU_273",
+        "text": "10th\n"
+    },
+    {
+        "id": "L_MPMENU_274",
+        "text": "11th\n"
+    },
+    {
+        "id": "L_MPMENU_275",
+        "text": "12th\n"
+    },
+    {
+        "id": "L_MPMENU_276",
+        "text": "Player Ranking\n"
+    },
+    {
+        "id": "L_MPMENU_277",
+        "text": "Deaths\n"
+    },
+    {
+        "id": "L_MPMENU_278",
+        "text": "Score\n"
+    },
+    {
+        "id": "L_MPMENU_279",
+        "text": "Team Ranking\n"
+    },
+    {
+        "id": "L_MPMENU_280",
+        "text": "Stats for %s"
+    },
+    {
+        "id": "L_MPMENU_281",
+        "text": "Suicides\n"
+    },
+    {
+        "id": "L_MPMENU_282",
+        "text": "Deaths\n"
+    },
+    {
+        "id": "L_MPMENU_283",
+        "text": "Kills\n"
+    },
+    {
+        "id": "L_MPMENU_284",
+        "text": "Inventory\n"
+    },
+    {
+        "id": "L_MPMENU_285",
+        "text": "Control\n"
+    },
+    {
+        "id": "L_MPMENU_286",
+        "text": "Game Time:\n"
+    },
+    {
+        "id": "L_MPMENU_287",
+        "text": "End Game\n"
+    },
+    {
+        "id": "L_MPMENU_288",
+        "text": "Pause\n"
+    },
+    {
+        "id": "L_MPMENU_289",
+        "text": "Unpause\n"
+    },
+    {
+        "id": "L_MPMENU_290",
+        "text": "End Game\n"
+    },
+    {
+        "id": "L_MPMENU_291",
+        "text": "Are you sure?\n"
+    },
+    {
+        "id": "L_MPMENU_292",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_293",
+        "text": "End Game\n"
+    },
+    {
+        "id": "L_MPMENU_294",
+        "text": "PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_295",
+        "text": "Load A Saved Head\n"
+    },
+    {
+        "id": "L_MPMENU_296",
+        "text": "Make A New Head\n"
+    },
+    {
+        "id": "L_MPMENU_297",
+        "text": "Edit A Loaded Head\n"
+    },
+    {
+        "id": "L_MPMENU_298",
+        "text": "Edit A PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_299",
+        "text": "Choose slot to edit:\n"
+    },
+    {
+        "id": "L_MPMENU_300",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_301",
+        "text": "Make A New Head\n"
+    },
+    {
+        "id": "L_MPMENU_302",
+        "text": "Load A Saved Head\n"
+    },
+    {
+        "id": "L_MPMENU_303",
+        "text": "Where do you want to be able\n"
+    },
+    {
+        "id": "L_MPMENU_304",
+        "text": "to use this head?\n"
+    },
+    {
+        "id": "L_MPMENU_305",
+        "text": "Combat Simulator\n"
+    },
+    {
+        "id": "L_MPMENU_306",
+        "text": "All Missions\n"
+    },
+    {
+        "id": "L_MPMENU_307",
+        "text": "Both\n"
+    },
+    {
+        "id": "L_MPMENU_308",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_309",
+        "text": "Camera Setup\n"
+    },
+    {
+        "id": "L_MPMENU_310",
+        "text": "Insert your camera into your\n"
+    },
+    {
+        "id": "L_MPMENU_311",
+        "text": "Game Boy Pak.\n"
+    },
+    {
+        "id": "L_MPMENU_312",
+        "text": "Then, insert your Game Boy Pak\n"
+    },
+    {
+        "id": "L_MPMENU_313",
+        "text": "into any controller.\n"
+    },
+    {
+        "id": "L_MPMENU_314",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_315",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_316",
+        "text": "Error\n"
+    },
+    {
+        "id": "L_MPMENU_317",
+        "text": "Game Boy Camera Not Detected!\n"
+    },
+    {
+        "id": "L_MPMENU_318",
+        "text": "Please check all connections\n"
+    },
+    {
+        "id": "L_MPMENU_319",
+        "text": "and try again.\n"
+    },
+    {
+        "id": "L_MPMENU_320",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_321",
+        "text": "Choose Camera\n"
+    },
+    {
+        "id": "L_MPMENU_322",
+        "text": "More than one camera detected.\n"
+    },
+    {
+        "id": "L_MPMENU_323",
+        "text": "Please select which camera you\nwant to use\n"
+    },
+    {
+        "id": "L_MPMENU_324",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_325",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_326",
+        "text": "PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_327",
+        "text": "Take A Picture Now\n"
+    },
+    {
+        "id": "L_MPMENU_328",
+        "text": "Load Picture From Camera\n"
+    },
+    {
+        "id": "L_MPMENU_329",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_330",
+        "text": "Load From Camera\n"
+    },
+    {
+        "id": "L_MPMENU_331",
+        "text": "Choose picture to read from camera:\n"
+    },
+    {
+        "id": "L_MPMENU_332",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_333",
+        "text": "Take Picture\n"
+    },
+    {
+        "id": "L_MPMENU_334",
+        "text": "Shoot!\n"
+    },
+    {
+        "id": "L_MPMENU_335",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_336",
+        "text": "Keep Picture\n"
+    },
+    {
+        "id": "L_MPMENU_337",
+        "text": "Try Again\n"
+    },
+    {
+        "id": "L_MPMENU_338",
+        "text": "Load PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_339",
+        "text": "Insert the Controller Pak\n"
+    },
+    {
+        "id": "L_MPMENU_340",
+        "text": "containing the head you\n"
+    },
+    {
+        "id": "L_MPMENU_341",
+        "text": "wish to load into any\n"
+    },
+    {
+        "id": "L_MPMENU_342",
+        "text": "controller.\n"
+    },
+    {
+        "id": "L_MPMENU_343",
+        "text": "Controller Pak:\n"
+    },
+    {
+        "id": "L_MPMENU_344",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_345",
+        "text": "Source:\n"
+    },
+    {
+        "id": "L_MPMENU_346",
+        "text": "Pak 1"
+    },
+    {
+        "id": "L_MPMENU_347",
+        "text": "Pak 2"
+    },
+    {
+        "id": "L_MPMENU_348",
+        "text": "Pak 3"
+    },
+    {
+        "id": "L_MPMENU_349",
+        "text": "Pak 4"
+    },
+    {
+        "id": "L_MPMENU_350",
+        "text": "<none>"
+    },
+    {
+        "id": "L_MPMENU_351",
+        "text": "PerfectHead Editor\n"
+    },
+    {
+        "id": "L_MPMENU_352",
+        "text": "Take Another Picture\n"
+    },
+    {
+        "id": "L_MPMENU_353",
+        "text": "Change Head\n"
+    },
+    {
+        "id": "L_MPMENU_354",
+        "text": "Position Picture\n"
+    },
+    {
+        "id": "L_MPMENU_355",
+        "text": "Color Face & Hair\n"
+    },
+    {
+        "id": "L_MPMENU_356",
+        "text": "Shape Head\n"
+    },
+    {
+        "id": "L_MPMENU_357",
+        "text": "Remove Head\n"
+    },
+    {
+        "id": "L_MPMENU_358",
+        "text": "Cancel Changes\n"
+    },
+    {
+        "id": "L_MPMENU_359",
+        "text": "Keep Changes\n"
+    },
+    {
+        "id": "L_MPMENU_360",
+        "text": "Shape Head\n"
+    },
+    {
+        "id": "L_MPMENU_361",
+        "text": "Depth\n"
+    },
+    {
+        "id": "L_MPMENU_362",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_363",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_364",
+        "text": "Position Image\n"
+    },
+    {
+        "id": "L_MPMENU_365",
+        "text": "Brightness\n"
+    },
+    {
+        "id": "L_MPMENU_366",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_367",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_368",
+        "text": "Choose Head\n"
+    },
+    {
+        "id": "L_MPMENU_369",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_370",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_371",
+        "text": "Remove PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_372",
+        "text": "Are you sure you want to\n"
+    },
+    {
+        "id": "L_MPMENU_373",
+        "text": "remove this head from memory?\n"
+    },
+    {
+        "id": "L_MPMENU_374",
+        "text": "Delete\n"
+    },
+    {
+        "id": "L_MPMENU_375",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_376",
+        "text": "Cancel Changes\n"
+    },
+    {
+        "id": "L_MPMENU_377",
+        "text": "Are you sure you want to\n"
+    },
+    {
+        "id": "L_MPMENU_378",
+        "text": "throw away your changes?\n"
+    },
+    {
+        "id": "L_MPMENU_379",
+        "text": "Throw Away\n"
+    },
+    {
+        "id": "L_MPMENU_380",
+        "text": "Go Back To Editor\n"
+    },
+    {
+        "id": "L_MPMENU_381",
+        "text": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_382",
+        "text": "You have edited this head.\n"
+    },
+    {
+        "id": "L_MPMENU_383",
+        "text": "Do you want to keep your changes?\n"
+    },
+    {
+        "id": "L_MPMENU_384",
+        "text": "Keep\n"
+    },
+    {
+        "id": "L_MPMENU_385",
+        "text": "Revert\n"
+    },
+    {
+        "id": "L_MPMENU_386",
+        "text": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_387",
+        "text": "Your changes will be kept in memory.\n"
+    },
+    {
+        "id": "L_MPMENU_388",
+        "text": "Would you like to save your changes\n"
+    },
+    {
+        "id": "L_MPMENU_389",
+        "text": "to the controller pak?\n"
+    },
+    {
+        "id": "L_MPMENU_390",
+        "text": "Save\n"
+    },
+    {
+        "id": "L_MPMENU_391",
+        "text": "Don't Save\n"
+    },
+    {
+        "id": "L_MPMENU_392",
+        "text": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_393",
+        "text": "You can now save your head on to\n"
+    },
+    {
+        "id": "L_MPMENU_394",
+        "text": "a controller pak if you wish.\n"
+    },
+    {
+        "id": "L_MPMENU_395",
+        "text": "If you want to do this, please\n"
+    },
+    {
+        "id": "L_MPMENU_396",
+        "text": "ensure a controller pak is inserted\n"
+    },
+    {
+        "id": "L_MPMENU_397",
+        "text": "and choose \"Save\".\n"
+    },
+    {
+        "id": "L_MPMENU_398",
+        "text": "Save\n"
+    },
+    {
+        "id": "L_MPMENU_399",
+        "text": "Don't Save\n"
+    },
+    {
+        "id": "L_MPMENU_400",
+        "text": "Head Complete!\n"
+    },
+    {
+        "id": "L_MPMENU_401",
+        "text": "To use your head in the combat simulator,\n"
+    },
+    {
+        "id": "L_MPMENU_402",
+        "text": "select the head from the character menu\n"
+    },
+    {
+        "id": "L_MPMENU_403",
+        "text": "of the player/simulant settings menu.\n"
+    },
+    {
+        "id": "L_MPMENU_404",
+        "text": "Your Mission heads will now appear\n"
+    },
+    {
+        "id": "L_MPMENU_405",
+        "text": "in any of the missions you play.\n"
+    },
+    {
+        "id": "L_MPMENU_406",
+        "text": "You can now edit your head further if you wish.\n"
+    },
+    {
+        "id": "L_MPMENU_407",
+        "text": "Finish\n"
+    },
+    {
+        "id": "L_MPMENU_408",
+        "text": "Edit Head\n"
+    },
+    {
+        "id": "L_MPMENU_409",
+        "text": "Head Color\n"
+    },
+    {
+        "id": "L_MPMENU_410",
+        "text": "Face:\n"
+    },
+    {
+        "id": "L_MPMENU_411",
+        "text": "Hairstyle:\n"
+    },
+    {
+        "id": "L_MPMENU_412",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_413",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_414",
+        "text": "Press the B Button to go back.\n"
+    },
+    {
+        "id": "L_MPMENU_415",
+        "text": "Hangar Information\n"
+    },
+    {
+        "id": "L_MPMENU_416",
+        "text": "Holotraining\n"
+    },
+    {
+        "id": "L_MPMENU_417",
+        "text": "Device List\n"
+    },
+    {
+        "id": "L_MPMENU_418",
+        "text": "Information\n"
+    },
+    {
+        "id": "L_MPMENU_419",
+        "text": "Locations\n"
+    },
+    {
+        "id": "L_MPMENU_420",
+        "text": "Vehicles\n"
+    },
+    {
+        "id": "L_MPMENU_421",
+        "text": "Character Profiles\n"
+    },
+    {
+        "id": "L_MPMENU_422",
+        "text": "Other Information\n"
+    },
+    {
+        "id": "L_MPMENU_423",
+        "text": "Training Stats\n"
+    },
+    {
+        "id": "L_MPMENU_424",
+        "text": "Time Taken:\n"
+    },
+    {
+        "id": "L_MPMENU_425",
+        "text": "Completed!\n"
+    },
+    {
+        "id": "L_MPMENU_426",
+        "text": "Failed!\n"
+    },
+    {
+        "id": "L_MPMENU_427",
+        "text": "Ok\n"
+    },
+    {
+        "id": "L_MPMENU_428",
+        "text": "Resume\n"
+    },
+    {
+        "id": "L_MPMENU_429",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_430",
+        "text": "Abort\n"
+    },
+    {
+        "id": "L_MPMENU_431",
+        "text": "Character Profile\n"
+    },
+    {
+        "id": "L_MPMENU_432",
+        "text": "Name:\n"
+    },
+    {
+        "id": "L_MPMENU_433",
+        "text": "Age:\n"
+    },
+    {
+        "id": "L_MPMENU_434",
+        "text": "Race:\n"
+    },
+    {
+        "id": "L_MPMENU_435",
+        "text": "Press the B Button to go back.\n"
+    },
+    {
+        "id": "L_MPMENU_436",
+        "text": "Cheats\n"
+    },
+    {
+        "id": "L_MPMENU_437",
+        "text": "It is now safe to turn off your computer.\n"
+    },
+    {
+        "id": "L_MPMENU_438",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_439",
+        "text": "Bronze\n"
+    },
+    {
+        "id": "L_MPMENU_440",
+        "text": "Silver\n"
+    },
+    {
+        "id": "L_MPMENU_441",
+        "text": "Gold\n"
+    },
+    {
+        "id": "L_MPMENU_442",
+        "text": "Difficulty\n"
+    },
+    {
+        "id": "L_MPMENU_443",
+        "text": "Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_444",
+        "text": "Select Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_445",
+        "text": "   \n"
+    },
+    {
+        "id": "L_MPMENU_446",
+        "text": "Weapon\n"
+    },
+    {
+        "id": "L_MPMENU_447",
+        "text": "Training Info\n"
+    },
+    {
+        "id": "L_MPMENU_448",
+        "text": "Training Stats\n"
+    },
+    {
+        "id": "L_MPMENU_449",
+        "text": "Completed!\n"
+    },
+    {
+        "id": "L_MPMENU_450",
+        "text": "Score:\n"
+    },
+    {
+        "id": "L_MPMENU_451",
+        "text": "Targets Destroyed:\n"
+    },
+    {
+        "id": "L_MPMENU_452",
+        "text": "Difficulty:\n"
+    },
+    {
+        "id": "L_MPMENU_453",
+        "text": "Time Taken:\n"
+    },
+    {
+        "id": "L_MPMENU_454",
+        "text": "Weapon:\n"
+    },
+    {
+        "id": "L_MPMENU_455",
+        "text": "Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_456",
+        "text": "Not Failed\n"
+    },
+    {
+        "id": "L_MPMENU_457",
+        "text": "Out of Ammo\n"
+    },
+    {
+        "id": "L_MPMENU_458",
+        "text": "Time Over\n"
+    },
+    {
+        "id": "L_MPMENU_459",
+        "text": "Score Unattainable\n"
+    },
+    {
+        "id": "L_MPMENU_460",
+        "text": "Too Inaccurate\n"
+    },
+    {
+        "id": "L_MPMENU_461",
+        "text": "Bull's-eye\n"
+    },
+    {
+        "id": "L_MPMENU_462",
+        "text": "Zone 1\n"
+    },
+    {
+        "id": "L_MPMENU_463",
+        "text": "Zone 2\n"
+    },
+    {
+        "id": "L_MPMENU_464",
+        "text": "Zone 3\n"
+    },
+    {
+        "id": "L_MPMENU_465",
+        "text": "Hit total\n"
+    },
+    {
+        "id": "L_MPMENU_466",
+        "text": "Scoring\n"
+    },
+    {
+        "id": "L_MPMENU_467",
+        "text": "10\n"
+    },
+    {
+        "id": "L_MPMENU_468",
+        "text": "5\n"
+    },
+    {
+        "id": "L_MPMENU_469",
+        "text": "2\n"
+    },
+    {
+        "id": "L_MPMENU_470",
+        "text": "1\n"
+    },
+    {
+        "id": "L_MPMENU_471",
+        "text": "Ammo Limit:\n"
+    },
+    {
+        "id": "L_MPMENU_472",
+        "text": "Time Limit:\n"
+    },
+    {
+        "id": "L_MPMENU_473",
+        "text": "Min Accuracy:\n"
+    },
+    {
+        "id": "L_MPMENU_474",
+        "text": "Goal Targets:\n"
+    },
+    {
+        "id": "L_MPMENU_475",
+        "text": "Goal Score:\n"
+    },
+    {
+        "id": "L_MPMENU_476",
+        "text": "Cheats\n"
+    },
+    {
+        "id": "L_MPMENU_477",
+        "text": "Done\n"
+    },
+    {
+        "id": "L_MPMENU_478",
+        "text": "Warning\n"
+    },
+    {
+        "id": "L_MPMENU_479",
+        "text": "If you activate any cheats, then you\nwill be unable to progress further in the game\nwhile those cheats are active.\n"
+    },
+    {
+        "id": "L_MPMENU_480",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_481",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_482",
+        "text": "Player %d: "
+    },
+    {
+        "id": "L_MPMENU_483",
+        "text": "Press START!\n"
+    },
+    {
+        "id": "L_MPMENU_484",
+        "text": "Searching for Camera!\n"
+    },
+    {
+        "id": "L_MPMENU_485",
+        "text": "Calibrating Camera\n"
+    },
+    {
+        "id": "L_MPMENU_486",
+        "text": "Downloading Image\n"
+    },
+    {
+        "id": "L_MPMENU_487",
+        "text": "Loading Image\n"
+    },
+    {
+        "id": "L_MPMENU_488",
+        "text": "Saving Image\n"
+    },
+    {
+        "id": "L_MPMENU_489",
+        "text": "Transfering Image\n"
+    },
+    {
+        "id": "L_MPMENU_490",
+        "text": "Uploading Segment\n"
+    },
+    {
+        "id": "L_MPMENU_491",
+        "text": "Initializing Controller Pak\n"
+    },
+    {
+        "id": "L_MPMENU_492",
+        "text": "Getting PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_493",
+        "text": "Saving PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_494",
+        "text": "Auto Camera Adjustment\n"
+    },
+    {
+        "id": "L_MPMENU_495",
+        "text": "Please Wait...\n"
+    },
+    {
+        "id": "L_MPMENU_496",
+        "text": null
+    },
+    {
+        "id": "L_MPMENU_497",
+        "text": null
+    },
+    {
+        "id": "L_MPMENU_498",
+        "text": null
+    },
+    {
+        "id": "L_MPMENU_499",
+        "text": null
+    }
+]

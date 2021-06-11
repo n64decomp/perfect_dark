@@ -1,0 +1,66 @@
+[
+    {
+        "id": "L_SEV_000",
+        "text": "|Briefing - \n\nProtocole de capture d'urgence activé. Appareil XD-310372 a subit de gros dégâts après le crash. Protecteur maian (Aelphaeis Mangarae) seul survivant. Rapport statut planète: paranoïa degré 'B+,' intolérance degré 'B,' xénophobie degré 'A.' Détruire équipement afin d'empêcher toute étude de technologie maian par les habitants de cette planète.\n\n|Objectif 1: - Saboter le labo d'expérimentation ennemi\n\nDes expériences sont conduites sur le corps de l'ambassadeur. Je dois mener à bien ma tâche de Protecteur, pour cela je dois détruire ce corps.\n\n|Objectif 2: - Détruire le vaisseau maian capturé\n\nMon dernier objectif sera de détruire les restes du vaisseau avec lequel je suis arrivé sur Terre. Si quelqu'un découvre la ressemblance entre nos technologies et celles de l'Institut Carrington nos alliés seront en danger et j'aurai échoué dans ma mission.\n\n|Objectif 3: - Envoyer un message de détresse aux alliés\n\nL'Institut Carrington peut m'aider. Si je peux leur faire parvenir un message, ils connaîtront ma position et ma situation. Ils pourront ainsi détruire tout élément hors de ma portée.\n\nFIN\n"
+    },
+    {
+        "id": "L_SEV_001",
+        "text": "SECTEUR 51, NEVADA, TERRE\n"
+    },
+    {
+        "id": "L_SEV_002",
+        "text": "|Briefing - \n\nProtocole de capture d'urgence activé. Appareil XD-310372 a subit de gros dégâts après le crash. Protecteur maian (Aelphaeis Mangarae) seul survivant. Rapport statut planète: paranoïa degré 'B+,' intolérance degré 'B,' xénophobie degré 'A.' Détruire équipement afin d'empêcher toute étude de technologie maian par les habitants de cette planète.\n\n|Objectif 1: - Saboter le labo d'expérimentation ennemi\n\nDes expériences sont conduites sur le corps de l'ambassadeur. Je dois mener à bien ma tâche de Protecteur, pour cela je dois détruire ce corps.\n\n|Objectif 2: - Envoyer un message de détresse aux alliés\n\nL'Institut Carrington peut m'aider. Si je peux leur faire parvenir un message, ils connaîtront ma position et ma situation. Ils pourront ainsi détruire tout élément hors de ma portée.\n\nFIN\n"
+    },
+    {
+        "id": "L_SEV_003",
+        "text": "|Briefing - \n\nProtocole de capture d'urgence activé. Appareil XD-310372 a subit de gros dégâts après le crash. Protecteur maian (Aelphaeis Mangarae) seul survivant. Rapport statut planète: paranoïa degré 'B+,' intolérance degré 'B,' xénophobie degré 'A.' Détruire équipement afin d'empêcher toute étude de technologie maian par les habitants de cette planète.\n\n|Objectif 1: - Envoyer un message de détresse aux alliés\n\nL'Institut Carrington peut m'aider. Si je peux leur faire parvenir un message, ils connaîtront ma position et ma situation. Ils pourront ainsi détruire tout élément hors de ma portée.\n\nFIN\n"
+    },
+    {
+        "id": "L_SEV_004",
+        "text": "Saboter labo de tests\n"
+    },
+    {
+        "id": "L_SEV_005",
+        "text": "Détruire vaisseau maian capturé\n"
+    },
+    {
+        "id": "L_SEV_006",
+        "text": "Activer le signal de détresse\n"
+    },
+    {
+        "id": "L_SEV_007",
+        "text": "Labo de tests saboté.\n"
+    },
+    {
+        "id": "L_SEV_008",
+        "text": "Vaisseau maian capturé détruit.\n"
+    },
+    {
+        "id": "L_SEV_009",
+        "text": "Signal de détresse activé.\n"
+    },
+    {
+        "id": "L_SEV_010",
+        "text": "Objet crucial détruit.\n"
+    },
+    {
+        "id": "L_SEV_011",
+        "text": "Mission échouée - impossible de quitter labo de tests.\n"
+    },
+    {
+        "id": "L_SEV_012",
+        "text": "Voie de sortie alternative activée.\n"
+    },
+    {
+        "id": "L_SEV_013",
+        "text": null
+    },
+    {
+        "id": "L_SEV_014",
+        "text": null
+    },
+    {
+        "id": "L_SEV_015",
+        "text": null
+    }
+]

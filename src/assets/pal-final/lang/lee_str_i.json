@@ -1,0 +1,226 @@
+[
+    {
+        "id": "L_LEE_000",
+        "text": "|Situazione:\n\nSvenuta in seguito ad un'aggressione durante l'evacuamento dal Carrington Institute, Joanna si sveglia prigioniera degli Skedar a bordo della loro astronave d'assalto.\n\n|Carrington:\n\nIrreperibile.\n\n|Elvis:\n\nJoanna! Sto seguendo l'astronave che ti tiene prigioniera! Con me ci sono due difensori Maian della delegazione della Casa Bianca. Se riesci a farci salire a bordo, ti aiuteremo a prendere il controllo dell'astronave.\n\n|Obiettivo 1: - Disattiva il sistema scudo\n\nIl sistema scudo impedisce qualsiasi tentativo di attracco da parte di un altro mezzo. Disattiva gli scudi in modo che Elvis e i suoi compagni possano tentare la manovra di avvicinamento.\n\n|Obiettivo 2: - Apri le porte dell'hangar\n\nIl sistema di attracco è normalmente comandato in automatico e deve quindi essere disattivato dal ponte. Apri le porte azionando i comandi collocati sopra all'hangar, in modo che Elvis possa portare a termine la manovra di atterraggio.\n\n|Obiettivo 3: - Accedi al sistema di navigazione\n\nPorta Elvis alla mappa astronomica in modo che riesca a scoprire in che direzione è diretta l'astronave. Tale mappa potrebbe anche rivelare la posizione della roccaforte Skedar: un'informazione fondamentale per un'azione decisiva da parte della flotta Maian.\n\n|Obiettivo 4: - Sabotaggio al sistema motore\n\nIl piano per prendere il sopravvento sull'astronave può fallire se il comandante modifica la rotta stabilita. Manometti i motori in modo che l'astronave si fermi.\n\n|Obiettivo 5: - Assumi il controllo del ponte\n\nUna volta assunto il controllo del ponte, l'astronave non può più essere comandata dagli Skedar. Rimane lì solo il comandante.\n\nFINE\n"
+    },
+    {
+        "id": "L_LEE_001",
+        "text": "ASTRONAVE D'ASSALTO SKEDAR\n"
+    },
+    {
+        "id": "L_LEE_002",
+        "text": "|Situazione:\n\nSvenuta in seguito ad un'aggressione durante l'evacuamento dal Carrington Institute, Joanna si sveglia prigioniera degli Skedar a bordo della loro astronave d'assalto.\n\n|Carrington:\n\nIrreperibile.\n\n|Elvis:\n\nJoanna! Sto seguendo l'astronave che ti tiene prigioniera! Con me ci sono due difensori Maian della delegazione della Casa Bianca. Se riesci a farci salire a bordo, ti aiuteremo a prendere il controllo dell'astronave.\n\n|Obiettivo 1: - Disattiva il sistema scudo\n\nIl sistema scudo impedisce qualsiasi tentativo di attracco da parte di un altro mezzo. Disattiva gli scudi in modo che Elvis e i suoi compagni possano tentare la manovra di avvicinamento.\n\n|Obiettivo 2: - Accedi al sistema di navigazione\n\nPorta Elvis alla mappa astronomica in modo che riesca a scoprire in che direzione è diretta l'astronave. Tale mappa potrebbe anche rivelare la posizione della roccaforte Skedar: un'informazione fondamentale per un'azione decisiva da parte della flotta Maian.\n\n|Obiettivo 3: - Sabotaggio al sistema motore\n\nIl piano per prendere il sopravvento sull'astronave può fallire se il comandante modifica la rotta stabilita. Manometti i motori in modo che l'astronave si fermi.\n\n|Obiettivo 4: - Assumi il controllo del ponte\n\nUna volta assunto il controllo del ponte, l'astronave non può più essere comandata dagli Skedar. Rimane lì solo il comandante.\n\nFINE\n"
+    },
+    {
+        "id": "L_LEE_003",
+        "text": "|Situazione:\n\nSvenuta in seguito ad un'aggressione durante l'evacuamento dal Carrington Institute, Joanna si sveglia prigioniera degli Skedar a bordo della loro astronave d'assalto.\n\n|Carrington:\n\nIrreperibile.\n\n|Elvis:\n\nJoanna! Sto seguendo l'astronave che ti tiene prigioniera! Con me ci sono due difensori Maian della delegazione della Casa Bianca. Se riesci a farci salire a bordo, ti aiuteremo a prendere il controllo dell'astronave.\n\n|Obiettivo 1: - Disattiva il sistema scudo\n\nIl sistema scudo impedisce qualsiasi tentativo di attracco da parte di un altro mezzo. Disattiva gli scudi in modo che Elvis e i suoi compagni possano tentare la manovra di avvicinamento.\n\n|Obiettivo 2: - Accedi al sistema di navigazione\n\nPorta Elvis alla mappa astronomica in modo che riesca a scoprire in che direzione è diretta l'astronave. Tale mappa potrebbe anche rivelare la posizione della roccaforte Skedar: un'informazione fondamentale per un'azione decisiva da parte della flotta Maian.\n\n|Obiettivo 3: - Assumi il controllo del ponte\n\nUna volta assunto il controllo del ponte, l'astronave non può più essere comandata dagli Skedar. Rimane lì solo il comandante.\n\nFINE\n"
+    },
+    {
+        "id": "L_LEE_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_LEE_005",
+        "text": "Disattiva il sistema scudo\n"
+    },
+    {
+        "id": "L_LEE_006",
+        "text": "Apri le porte dell'hangar\n"
+    },
+    {
+        "id": "L_LEE_007",
+        "text": "Accedi al sistema di navigazione\n"
+    },
+    {
+        "id": "L_LEE_008",
+        "text": "Sabotaggio al sistema motore\n"
+    },
+    {
+        "id": "L_LEE_009",
+        "text": "Assumi il controllo del ponte\n"
+    },
+    {
+        "id": "L_LEE_010",
+        "text": "Abbassati gli scudi dell'astronave.\n"
+    },
+    {
+        "id": "L_LEE_011",
+        "text": "Aperte le porte dell'hangar.\n"
+    },
+    {
+        "id": "L_LEE_012",
+        "text": "Elvis è stato ucciso.\n"
+    },
+    {
+        "id": "L_LEE_013",
+        "text": "Recuperate informazioni di navigazione.\n"
+    },
+    {
+        "id": "L_LEE_014",
+        "text": "Attivato l'ascensore.\n"
+    },
+    {
+        "id": "L_LEE_015",
+        "text": "Uccisi tutti gli Skedar nell'hangar.\n"
+    },
+    {
+        "id": "L_LEE_016",
+        "text": "Avanti, Joanna! Disattiva gli scudi \ncosì potremo aiutarti!\n"
+    },
+    {
+        "id": "L_LEE_017",
+        "text": "Devi aprire le porte dell'hangar affinché possiamo attraccare!\n"
+    },
+    {
+        "id": "L_LEE_018",
+        "text": "Bene, ci siamo! Ci vediamo nell'hangar.\n"
+    },
+    {
+        "id": "L_LEE_019",
+        "text": "Vedo che stai bene, Joanna!\n"
+    },
+    {
+        "id": "L_LEE_020",
+        "text": "Ecco, tieni! Ti sarà utile!\n"
+    },
+    {
+        "id": "L_LEE_021",
+        "text": "Preso il fucile d'assalto AR34.\n"
+    },
+    {
+        "id": "L_LEE_022",
+        "text": "È ora di salire, forza! Io prendo quest'ascensore, \ntu prendi quell'altro.\n"
+    },
+    {
+        "id": "L_LEE_023",
+        "text": "I motori sono stati disattivati.\n"
+    },
+    {
+        "id": "L_LEE_024",
+        "text": "Attenta, Joanna! Mi sembrano leggermente irritati...\n"
+    },
+    {
+        "id": "L_LEE_025",
+        "text": "Assunto controllo del ponte.\n"
+    },
+    {
+        "id": "L_LEE_026",
+        "text": "Va avanti tu, Jo! Io ti copro le spalle! \nCi vediamo dopo!\n"
+    },
+    {
+        "id": "L_LEE_027",
+        "text": "Devo disattivare quegli scudi per far entrare Elvis. \nMi serve aiuto!\n"
+    },
+    {
+        "id": "L_LEE_028",
+        "text": "Ora mi restano solo le porte dell'hangar.\n"
+    },
+    {
+        "id": "L_LEE_029",
+        "text": "Questa macchina contiene la mappa astronomica Skedar.\n"
+    },
+    {
+        "id": "L_LEE_030",
+        "text": "Se riusciamo a prendere il controllo del ponte, \nl'astronave sarà nostra.\n"
+    },
+    {
+        "id": "L_LEE_031",
+        "text": "È ora di salire...\n"
+    },
+    {
+        "id": "L_LEE_032",
+        "text": "Ops... Sono sicuramente nel posto sbagliato al momento sbagliato.\n"
+    },
+    {
+        "id": "L_LEE_033",
+        "text": "E c'è di peggio, immagino! Guarda un po' chi c'è qui!!!\n"
+    },
+    {
+        "id": "L_LEE_034",
+        "text": "Lei! Pensavo che fosse riuscita a squagliarsela. È sparita senza lasciare traccia!!!\n"
+    },
+    {
+        "id": "L_LEE_035",
+        "text": "Non mi avete trovato VOI! Ma dagli Skedar non si scappa, come avrete sicuramente notato tu e Carrington!\n"
+    },
+    {
+        "id": "L_LEE_036",
+        "text": "Prendi questo e aspetta lì! Se riesco a distrarli, avrai la possibilità di uscire di qua! Forza, usalo o moriremo entrambe!\n"
+    },
+    {
+        "id": "L_LEE_037",
+        "text": "Perché lo fa, Cassandra?\n"
+    },
+    {
+        "id": "L_LEE_038",
+        "text": "Gli Skedar mi hanno usata, Joanna e tu sei la mia unica possibilità di vendetta!\n"
+    },
+    {
+        "id": "L_LEE_039",
+        "text": "Aaaaargh!!!\n"
+    },
+    {
+        "id": "L_LEE_040",
+        "text": "Ehi! È la prima volta che vedo un altro pianeta dallo spazio! È fantastico!\n"
+    },
+    {
+        "id": "L_LEE_041",
+        "text": "Eeeeeh?\n"
+    },
+    {
+        "id": "L_LEE_042",
+        "text": "Non... non ci posso credere!\n"
+    },
+    {
+        "id": "L_LEE_043",
+        "text": "Elvis? Che roba è?\n"
+    },
+    {
+        "id": "L_LEE_044",
+        "text": "Che fai? Dove vai?\n"
+    },
+    {
+        "id": "L_LEE_045",
+        "text": "Dobbiamo raggiungere la superficie! Dai, vieni!\n"
+    },
+    {
+        "id": "L_LEE_046",
+        "text": "Dobbiamo uscire di qua!\n"
+    },
+    {
+        "id": "L_LEE_047",
+        "text": "Porte hangar bloccate - Scudi ancora attivi.\n"
+    },
+    {
+        "id": "L_LEE_048",
+        "text": "Distrutto strumento essenziale alla missione.\n"
+    },
+    {
+        "id": "L_LEE_049",
+        "text": "Finite le munizioni - Impossibile distruggere quadro comandi.\n"
+    },
+    {
+        "id": "L_LEE_050",
+        "text": "Collana di De Vries.\n"
+    },
+    {
+        "id": "L_LEE_051",
+        "text": "Cassandra De Vries:\n"
+    },
+    {
+        "id": "L_LEE_052",
+        "text": "Collana\n"
+    },
+    {
+        "id": "L_LEE_053",
+        "text": "Collana di De Vries\n"
+    },
+    {
+        "id": "L_LEE_054",
+        "text": "Presa collana di De Vries.\n"
+    },
+    {
+        "id": "L_LEE_055",
+        "text": null
+    }
+]

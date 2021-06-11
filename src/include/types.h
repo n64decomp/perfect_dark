@@ -4,6 +4,7 @@
 #include "constants.h"
 #include "gbiex.h"
 #include "lang.h"
+#include "pads.h"
 
 #define bool s32
 #define ubool u32

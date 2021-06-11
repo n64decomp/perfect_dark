@@ -1,0 +1,338 @@
+[
+    {
+        "id": "L_DEPO_000",
+        "text": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly softly, Joanna.\n\n|Objective One: - Disable Damping Field Generator\n\nA device in the car garage section of the building is preventing the operation of any recording equipment. Locate it and shut it down.\n\n|Objective Two: - De-activate Laser Grid Systems\n\nAn examination of the power grid of the G5 building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Three: - Record Meeting\n\nThe Eye-Spy device is an excellent way to record the meeting without alerting the De Vries and the other conspirators.\n\n|Objective Four: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 building. If we can obtain it it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Five: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside and you may save yourself some time.\n\nEND\n"
+    },
+    {
+        "id": "L_DEPO_001",
+        "text": "G5 BUILDING\n"
+    },
+    {
+        "id": "L_DEPO_002",
+        "text": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly softly, Joanna.\n\n|Objective One: - De-activate Laser Grid Systems\n\nAn examination of the power grid of the G5 building indicates a network of laser grids. These grids are placed specifically to deny a route into the meeting room, but if you can turn them off, the way is clear.\n\n|Objective Two: - Record Meeting\n\nThe Eye-Spy device is an excellent way to record the meeting without alerting the De Vries and the other conspirators.\n\n|Objective Three: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 building. If we can obtain it it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Four: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside and you may save yourself some time.\n\nEND\n"
+    },
+    {
+        "id": "L_DEPO_003",
+        "text": "|Background - \n\nOnce inside G5 Headquarters, proceed into the heart of the building where the meeting should be taking place. Obtain a visual record of the meeting and get out as quickly as possible.\n\n|Carrington - \n\nThe G5 building has an integrated alarm system. Watch out for any guards who see you, as they're sure to try and activate it. This will alert the conspirators, who will almost certainly not go ahead with the meeting under such circumstances. Softly softly, Joanna.\n\n|Objective One: - Record Meeting\n\nThe Eye-Spy device is an excellent way to record the meeting without alerting the De Vries and the other conspirators.\n\n|Objective Two: - Retrieve Backup From Safe\n\nDr. Caroll informed Daniel of a backup personality that is stored in a safe in the G5 building. If we can obtain it it would mean that we could restore the personality to Dr. Caroll at a later date.\n\n|Objective Three: - Exit Building\n\nDestroy the blocked-up door to create your exit. If you remember which level of the fire escape is outside and you may save yourself some time.\n\nEND\n"
+    },
+    {
+        "id": "L_DEPO_004",
+        "text": null
+    },
+    {
+        "id": "L_DEPO_005",
+        "text": null
+    },
+    {
+        "id": "L_DEPO_006",
+        "text": null
+    },
+    {
+        "id": "L_DEPO_007",
+        "text": null
+    },
+    {
+        "id": "L_DEPO_008",
+        "text": null
+    },
+    {
+        "id": "L_DEPO_009",
+        "text": "Disable Damping Field Generator\n"
+    },
+    {
+        "id": "L_DEPO_010",
+        "text": "De-activate Laser Grid Systems\n"
+    },
+    {
+        "id": "L_DEPO_011",
+        "text": "Photograph Meeting Conspirators\n"
+    },
+    {
+        "id": "L_DEPO_012",
+        "text": "Retrieve Dr Caroll Backup From Safe\n"
+    },
+    {
+        "id": "L_DEPO_013",
+        "text": "Exit Building\n"
+    },
+    {
+        "id": "L_DEPO_014",
+        "text": "Obtain Alpha Keycard\n"
+    },
+    {
+        "id": "L_DEPO_015",
+        "text": "Guards\n"
+    },
+    {
+        "id": "L_DEPO_016",
+        "text": "Level 1 Keycard\n"
+    },
+    {
+        "id": "L_DEPO_017",
+        "text": "Guards Keycard\n"
+    },
+    {
+        "id": "L_DEPO_018",
+        "text": "Picked up Guards Keycard.\n"
+    },
+    {
+        "id": "L_DEPO_019",
+        "text": "Obtain Alpha Keycard\n"
+    },
+    {
+        "id": "L_DEPO_020",
+        "text": "Guards\n"
+    },
+    {
+        "id": "L_DEPO_021",
+        "text": "Level 2 Keycard\n"
+    },
+    {
+        "id": "L_DEPO_022",
+        "text": "Guards Keycard\n"
+    },
+    {
+        "id": "L_DEPO_023",
+        "text": "Picked up Guards Keycard.\n"
+    },
+    {
+        "id": "L_DEPO_024",
+        "text": "Mission Critical Object Destroyed\n"
+    },
+    {
+        "id": "L_DEPO_025",
+        "text": "Damping Field Generator Shut Down\n"
+    },
+    {
+        "id": "L_DEPO_026",
+        "text": "Generator Cannot Be Restarted\n"
+    },
+    {
+        "id": "L_DEPO_027",
+        "text": "Laser Grid Unit Shut Down\n"
+    },
+    {
+        "id": "L_DEPO_028",
+        "text": "Laser Grid Unit Activated\n"
+    },
+    {
+        "id": "L_DEPO_029",
+        "text": "All Laser Grid Systems Shut Down\n"
+    },
+    {
+        "id": "L_DEPO_030",
+        "text": "Obtain Dat Tape\n"
+    },
+    {
+        "id": "L_DEPO_031",
+        "text": "Dr Carolls\n"
+    },
+    {
+        "id": "L_DEPO_032",
+        "text": "Backup Disk\n"
+    },
+    {
+        "id": "L_DEPO_033",
+        "text": "Backup Disk\n"
+    },
+    {
+        "id": "L_DEPO_034",
+        "text": "Picked up Backup Disc\n"
+    },
+    {
+        "id": "L_DEPO_035",
+        "text": "Door Decoder Attached To Access Pad\n"
+    },
+    {
+        "id": "L_DEPO_036",
+        "text": "Initiating Cracking Routines\n"
+    },
+    {
+        "id": "L_DEPO_037",
+        "text": "Door Decoder Finished - Door Unlocked\n"
+    },
+    {
+        "id": "L_DEPO_038",
+        "text": "INTRUDER ALERT - all security to the safe\n"
+    },
+    {
+        "id": "L_DEPO_039",
+        "text": "Door Decoder Placed Correctly\n"
+    },
+    {
+        "id": "L_DEPO_040",
+        "text": "Door Decoder Incorrectly Positioned\n"
+    },
+    {
+        "id": "L_DEPO_041",
+        "text": "Conspirators Have Been Alerted\n"
+    },
+    {
+        "id": "L_DEPO_042",
+        "text": "Alarm Activated\n"
+    },
+    {
+        "id": "L_DEPO_043",
+        "text": "Alarm Deactivated\n"
+    },
+    {
+        "id": "L_DEPO_044",
+        "text": "Safe Door Is Locked\n"
+    },
+    {
+        "id": "L_DEPO_045",
+        "text": "Door Decoder attached\n"
+    },
+    {
+        "id": "L_DEPO_046",
+        "text": "Obtain Door Exploder\n"
+    },
+    {
+        "id": "L_DEPO_047",
+        "text": "Dr Carolls\n"
+    },
+    {
+        "id": "L_DEPO_048",
+        "text": "Door Exploder\n"
+    },
+    {
+        "id": "L_DEPO_049",
+        "text": "Door Exploder\n"
+    },
+    {
+        "id": "L_DEPO_050",
+        "text": "Picked up Door Exploder\n"
+    },
+    {
+        "id": "L_DEPO_051",
+        "text": "Objectives Incomplete - MISSION FAILED\n"
+    },
+    {
+        "id": "L_DEPO_052",
+        "text": "MISSION SUCCESSFUL\n"
+    },
+    {
+        "id": "L_DEPO_053",
+        "text": "Communications Bug Placed Correctly\n"
+    },
+    {
+        "id": "L_DEPO_054",
+        "text": "Communications Bug Placed Incorrectly\n"
+    },
+    {
+        "id": "L_DEPO_055",
+        "text": "Obtain Eye Spy\n"
+    },
+    {
+        "id": "L_DEPO_056",
+        "text": "Dr Carolls\n"
+    },
+    {
+        "id": "L_DEPO_057",
+        "text": "Eye Spy\n"
+    },
+    {
+        "id": "L_DEPO_058",
+        "text": "An Eye Spy\n"
+    },
+    {
+        "id": "L_DEPO_059",
+        "text": "Picked up an Eye Spy\n"
+    },
+    {
+        "id": "L_DEPO_060",
+        "text": "There's no way through while those \nlasers are active.\n"
+    },
+    {
+        "id": "L_DEPO_061",
+        "text": "I can't go any further, but the Eye-Spy can.\n"
+    },
+    {
+        "id": "L_DEPO_062",
+        "text": "A safe that big will be heavily encrypted.\nThe decoder will take longer than usual.\n"
+    },
+    {
+        "id": "L_DEPO_063",
+        "text": "Time to leave! Let's get to the door I set \nup earlier.\n"
+    },
+    {
+        "id": "L_DEPO_064",
+        "text": "Mission Critical Object Destroyed\n"
+    },
+    {
+        "id": "L_DEPO_065",
+        "text": "Stand back Joanna, we'll create your escape\nroute.\n"
+    },
+    {
+        "id": "L_DEPO_066",
+        "text": "\n"
+    },
+    {
+        "id": "L_DEPO_067",
+        "text": "\n"
+    },
+    {
+        "id": "L_DEPO_068",
+        "text": "Detonator\n"
+    },
+    {
+        "id": "L_DEPO_069",
+        "text": "Detonator\n"
+    },
+    {
+        "id": "L_DEPO_070",
+        "text": "Picked up Detonator\n"
+    },
+    {
+        "id": "L_DEPO_071",
+        "text": "EyeSpy Has Been Destroyed - Abort Mission\n"
+    },
+    {
+        "id": "L_DEPO_072",
+        "text": "We've recovered the sapient from Carrington and altered its programming. It no longer has a personality, so there will be no further incidents."
+    },
+    {
+        "id": "L_DEPO_073",
+        "text": "This will reduce its efficency. My team will have to take it to the core themselves. This will endanger them. You should have anticipated that the sapient might develop a troublesome moral code."
+    },
+    {
+        "id": "L_DEPO_074",
+        "text": "No-one could have predicted that! And I resent being singled out for blame! What about him?"
+    },
+    {
+        "id": "L_DEPO_075",
+        "text": "The President turned down your request for the loan of the Pelagic 2?"
+    },
+    {
+        "id": "L_DEPO_076",
+        "text": "Could it be you over-estimated your influence over him?"
+    },
+    {
+        "id": "L_DEPO_077",
+        "text": "No! Perhaps I underestimated his resolve. We have a contingency plan ready to go, and will move as soon as the presidential entourage arrives at the airbase. All I need from the President is a tissue sample."
+    },
+    {
+        "id": "L_DEPO_078",
+        "text": "Ha! Assuming you don't get any interference. If Carrington has pieced together enough of this he will have called for reinforcements."
+    },
+    {
+        "id": "L_DEPO_079",
+        "text": "There will be no outside help for Mr. Carrington. The technology you gave us is installed in Nevada and fully operational. We can intercept any craft they use."
+    },
+    {
+        "id": "L_DEPO_080",
+        "text": "Then the devices we gave you are working correctly? Good. Because we believe that anything which does not work correctly should be destroyed. Consider that as you follow your 'back-up plans'."
+    },
+    {
+        "id": "L_DEPO_081",
+        "text": "Agent Dark reporting in! Prepare to receive a download of the meeting data. Priority request for an Institute Support Team to protect the President before he goes to Alaska."
+    },
+    {
+        "id": "L_DEPO_082",
+        "text": "No time for that now, Agent Dark. There's been a development during radio silence. The craft carrying those 'friends' I was talking about was shot down over Nevada. The weapon responsible was fired from Area 51; that's where the survivors and debris will have been taken. You're to prep for immediate despatch when you return here. Carrington out."
+    },
+    {
+        "id": "L_DEPO_083",
+        "text": "Area 51? But what about the President?"
+    }
+]

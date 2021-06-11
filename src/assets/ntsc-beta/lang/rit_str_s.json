@@ -1,0 +1,354 @@
+[
+    {
+        "id": "L_RIT_000",
+        "text": "|Background - \n\nTrent Easton's plan to abduct the President is in motion. The Carrington Institute response hinges on removing the President from Air Force One before Trent can do the same.\n\n|Carrington - \n\nTime is short, Joanna. In order to foil Trent's plan, you have to get the President off the plane. That means convincing him of Trent's betrayal, which in turn means getting the evidence from the baggage hold and showing it to the President.\n\n|Objective One: - Locate and Retrieve Equipment\n\nFind the equipment hidden in the baggage hold at the bottom of the aircraft and get it back. Remember that Presidential security are neutral and are not to be harmed.\n\n|Objective Two: - Locate President\n\nThe exact whereabouts of the Presidential office are not known. Once you find the office, present the evidence to the President. Make sure you get there before Trent does, or you can be sure he will manipulate the situation to his advantage.\n\n|Objective Three: - Get President to Escape Capsule\n\nThere is an emergency escape capsule on the lowest deck of the aircraft. Escort the President to the capsule, ensuring that no harm comes to him.\n\n|Objective Four: - Secure Air Force One Flight Path\n\nThe specifics of Trent's plan are not known, but it is believed that the flight crew will be in danger. Get to the cockpit and make sure of their well-being. If the worst has happened, then activate the autopilot.\n\n|Objective Five: - Detach UFO From Air Force One\n\nGet that umbilical connector off Air Force One! The quickest way to do it would be to detonate a mine in the connector itself. \n\nEND\n"
+    },
+    {
+        "id": "L_RIT_001",
+        "text": "AIR FORCE ONE\n"
+    },
+    {
+        "id": "L_RIT_002",
+        "text": "|Background - \n\nTrent Easton's plan to abduct the President is in motion. The Carrington Institute response hinges on removing the President from Air Force One before Trent can do the same.\n\n|Carrington - \n\nTime is short, Joanna. In order to foil Trent's plan, you have to get the President off the plane. That means convincing him of Trent's betrayal, which in turn means getting the evidence from the baggage hold and showing it to the President.\n\n|Objective One: - Locate and Retrieve Equipment\n\nFind the equipment hidden in the baggage hold at the bottom of the aircraft and get it back. Remember thatPresidential security are neutral and are not to beharmed.\n\n|Objective Two: - Locate President\n\nThe exact whereabouts of the Presidential office are not known. Once you find the office, present the evidence to the President. Make sure you get there before Trent does, or you can be sure he will manipulate the situation to his advantage.\n\n|Objective Three: - Get President to Escape Capsule\n\nThere is an emergency escape capsule on the lowest deck of the aircraft. Escort the President to the capsule, ensuring that no harm comes to him.\n\n|Objective Four: - Detach UFO From Air Force One\n\nGet that umbilical connector off Air Force One! The quickest way to do it would be to detonate a mine in the connector itself. \n\nEND\n"
+    },
+    {
+        "id": "L_RIT_003",
+        "text": "|Background - \n\nTrent Easton's plan to abduct the President is in motion. The Carrington Institute response hinges on removing the President from Air Force One before Trent can do the same.\n\n|Carrington - \n\nTime is short, Joanna. In order to foil Trent's plan, you have to get the President off the plane. That means convincing him of Trent's betrayal, which in turn means showing the evidence to the President.\n\n|Objective One: - Locate President\n\nThe exact whereabouts of the Presidential office are not known. Once you find the office, present the evidence to the President. Make sure you get there before Trent does, or you can be sure he will manipulate the situation to his advantage.\n\n|Objective Two: - Get President to Escape Capsule\n\nThere is an emergency escape capsule on the lowest deck of the aircraft. Escort the President to the capsule, ensuring that no harm comes to him.\n\n|Objective Three: - Detach UFO From Air Force One\n\nGet that umbilical connector off Air Force One! The quickest way to do it would be to detonate a mine in the connector itself. \n\nEND\n"
+    },
+    {
+        "id": "L_RIT_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_005",
+        "text": "Locate and retrieve equipment\n"
+    },
+    {
+        "id": "L_RIT_006",
+        "text": "Locate President\n"
+    },
+    {
+        "id": "L_RIT_007",
+        "text": "Get President to escape capsule\n"
+    },
+    {
+        "id": "L_RIT_008",
+        "text": "Secure Air Force One flight path\n"
+    },
+    {
+        "id": "L_RIT_009",
+        "text": "Detach UFO from Air Force One\n"
+    },
+    {
+        "id": "L_RIT_010",
+        "text": "Obtain Suitcase.\n"
+    },
+    {
+        "id": "L_RIT_011",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_012",
+        "text": "Suitcase\n"
+    },
+    {
+        "id": "L_RIT_013",
+        "text": "Suitcase\n"
+    },
+    {
+        "id": "L_RIT_014",
+        "text": "Picked up a Suitcase.\n"
+    },
+    {
+        "id": "L_RIT_015",
+        "text": "Obtain Crossbow.\n"
+    },
+    {
+        "id": "L_RIT_016",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_017",
+        "text": "Crossbow\n"
+    },
+    {
+        "id": "L_RIT_018",
+        "text": "Crossbow\n"
+    },
+    {
+        "id": "L_RIT_019",
+        "text": "Picked up a Crossbow.\n"
+    },
+    {
+        "id": "L_RIT_020",
+        "text": "Too many neutral casualties inflicted.\n"
+    },
+    {
+        "id": "L_RIT_021",
+        "text": "UFO attachment destroyed.\n"
+    },
+    {
+        "id": "L_RIT_022",
+        "text": "Unable to detach UFO.\n"
+    },
+    {
+        "id": "L_RIT_023",
+        "text": "Autopilot has been activated.\n"
+    },
+    {
+        "id": "L_RIT_024",
+        "text": "Air Force One has been stabilized.\n"
+    },
+    {
+        "id": "L_RIT_025",
+        "text": "Autopilot systems have been destroyed.\n"
+    },
+    {
+        "id": "L_RIT_026",
+        "text": "The President has been incapacitated.\n"
+    },
+    {
+        "id": "L_RIT_027",
+        "text": "Pilots have been killed.\n"
+    },
+    {
+        "id": "L_RIT_028",
+        "text": "Pilots have been saved.\n"
+    },
+    {
+        "id": "L_RIT_029",
+        "text": "Air Force One is about to crash.\n"
+    },
+    {
+        "id": "L_RIT_030",
+        "text": "Obtain remote mine.\n"
+    },
+    {
+        "id": "L_RIT_031",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_032",
+        "text": "Remote mine\n"
+    },
+    {
+        "id": "L_RIT_033",
+        "text": "Remote mine\n"
+    },
+    {
+        "id": "L_RIT_034",
+        "text": "Picked up a remote mine.\n"
+    },
+    {
+        "id": "L_RIT_035",
+        "text": "Who are you, young lady?\n"
+    },
+    {
+        "id": "L_RIT_036",
+        "text": "Security, SECURITY!!\n"
+    },
+    {
+        "id": "L_RIT_037",
+        "text": "Mr. President, you're in danger. Trent is trying to \nkidnap you.\n"
+    },
+    {
+        "id": "L_RIT_038",
+        "text": "What the hell was that!\n"
+    },
+    {
+        "id": "L_RIT_039",
+        "text": "We must get to the escape pod. Follow me.\n"
+    },
+    {
+        "id": "L_RIT_040",
+        "text": "You can't make accusations like that without evidence.\n I assume that you have some?\n"
+    },
+    {
+        "id": "L_RIT_041",
+        "text": "This is a recording of a meeting between\nTrent and the other conspirators.\n"
+    },
+    {
+        "id": "L_RIT_042",
+        "text": "Seems overwhelming... I'm in your hands.\nWhat do we do now?\n"
+    },
+    {
+        "id": "L_RIT_043",
+        "text": "Hey, that's not...\n"
+    },
+    {
+        "id": "L_RIT_044",
+        "text": "It's an intruder...\n"
+    },
+    {
+        "id": "L_RIT_045",
+        "text": "How the hell did you get on board?\n"
+    },
+    {
+        "id": "L_RIT_046",
+        "text": "Now, let's retrieve the evidence.\n"
+    },
+    {
+        "id": "L_RIT_047",
+        "text": "The President's room is on this \nlevel, Joanna.\n"
+    },
+    {
+        "id": "L_RIT_048",
+        "text": "Something's wrong... You have to get to the cockpit!\n"
+    },
+    {
+        "id": "L_RIT_049",
+        "text": "Maybe a mine will detach the UFO.\n"
+    },
+    {
+        "id": "L_RIT_050",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_051",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_052",
+        "text": "Adrenaline pill\n"
+    },
+    {
+        "id": "L_RIT_053",
+        "text": "Adrenaline pill\n"
+    },
+    {
+        "id": "L_RIT_054",
+        "text": "Picked up an adrenaline pill.\n"
+    },
+    {
+        "id": "L_RIT_055",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_056",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_057",
+        "text": "Key card\n"
+    },
+    {
+        "id": "L_RIT_058",
+        "text": "Key card\n"
+    },
+    {
+        "id": "L_RIT_059",
+        "text": "Picked up a key card.\n"
+    },
+    {
+        "id": "L_RIT_060",
+        "text": "Cargo bay has been lowered.\n"
+    },
+    {
+        "id": "L_RIT_061",
+        "text": "Cargo bay has been raised.\n"
+    },
+    {
+        "id": "L_RIT_062",
+        "text": "Mission critical object has been destroyed.\n"
+    },
+    {
+        "id": "L_RIT_063",
+        "text": "Access denied - lift key card required.\n"
+    },
+    {
+        "id": "L_RIT_064",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_065",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_066",
+        "text": "Lift key card\n"
+    },
+    {
+        "id": "L_RIT_067",
+        "text": "Lift key card\n"
+    },
+    {
+        "id": "L_RIT_068",
+        "text": "Picked up a lift key card.\n"
+    },
+    {
+        "id": "L_RIT_069",
+        "text": "Timed mine has been wasted.\n"
+    },
+    {
+        "id": "L_RIT_070",
+        "text": "Ha, Ha, Ha, Ha, Ha.\n"
+    },
+    {
+        "id": "L_RIT_071",
+        "text": "You'll never save him now.\n"
+    },
+    {
+        "id": "L_RIT_072",
+        "text": "The President is under attack.\n"
+    },
+    {
+        "id": "L_RIT_073",
+        "text": "Have you thought any more about that proposal I gave you, sir?\n"
+    },
+    {
+        "id": "L_RIT_074",
+        "text": "My answer remains the same: I'm sorry, Trent, but no. I won't loan the Pelagic II to dataDyne. Now please, can we move on to other matters?\n"
+    },
+    {
+        "id": "L_RIT_075",
+        "text": "But this is a golden opportunity to show that America has faith in its industries and will back them...\n"
+    },
+    {
+        "id": "L_RIT_076",
+        "text": "Damn it, man, I say no and I mean no! I'm not gonna change my mind on this! I need my advisors to be unbiased, and recently you've not been giving me the impartiality I require. Let it go, and we'll say no more. This is your last chance.\n"
+    },
+    {
+        "id": "L_RIT_077",
+        "text": "As you wish, sir.\n"
+    },
+    {
+        "id": "L_RIT_078",
+        "text": "My last chance? Ha! You fool. That was yours.\n"
+    },
+    {
+        "id": "L_RIT_079",
+        "text": "Elvis! Elvis! I can't detach that tube from the fuselage! Can you take it out?\n"
+    },
+    {
+        "id": "L_RIT_080",
+        "text": "Piece of cake, Joanna. Watch this!\n"
+    },
+    {
+        "id": "L_RIT_081",
+        "text": "Uh-oh.\n"
+    },
+    {
+        "id": "L_RIT_082",
+        "text": "Watch what? Will you stop playing around and shoot!\n"
+    },
+    {
+        "id": "L_RIT_083",
+        "text": "Out of options... Joanna, brace yourself for impact!\n"
+    },
+    {
+        "id": "L_RIT_084",
+        "text": "The pilots have stablised Air Force One.\n"
+    },
+    {
+        "id": "L_RIT_085",
+        "text": null
+    },
+    {
+        "id": "L_RIT_086",
+        "text": null
+    },
+    {
+        "id": "L_RIT_087",
+        "text": null
+    }
+]

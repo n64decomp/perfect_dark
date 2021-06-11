@@ -1,0 +1,354 @@
+[
+    {
+        "id": "L_TRA_000",
+        "text": "|Background - \n\nA craft carrying Institute advisors has been shot down in Nevada. Debris from the crash and the bodies of the advisors have been taken to Area 51. A spy inside the base has managed to get footage to the Institute of a possible survivor. This mission is to rescue that survivor.\n\n|Carrington - \n\nI know you have questions, Jo, and I'm afraid that this isn't the time to answer them. I can tell you that the little fellow you just rescued is a Maian, and he is a bodyguard for the ambassador whose ship was shot down. Other details and background can wait until later.\n\n|Objective One: - Locate Alien AutoSurgeon Device\n\nAll Maian craft carry a device called an AutoSurgeon. Using this is the fastest and safest way of waking him up since they are designed to work on Maian Physiology. It should be amongst the wreckage of the ship, or if not, with the items taken to the labs for analysis.\n\n|Objective Two: - Rendezvous With Agent\n\nJohnathan reports that he is now under suspicion, and expects to be arrested in a matter of minutes. Find him before the patrols do.\n\n|Objective Three: - Gain Entry To Secret Hangar\n\nOur agent has been unable to get into the secret hangar before because that would have meant blowing his cover, but the time for such worries is past. keep the guards off Johnathan as he hacks into the door to the hangar where we suspect an intact Maian ship is kept.\n\n|Objective Four: - Revive Maian Bodyguard\n\nWake the Maian up before trying to get out - a hoverbed is not the easiest thing to steer even in normal situations. Once he's up and about, he should be able to fly the Maian craft out of Area 51.\n\n|Objective Five: - Escape From Area 51\n\nThat is, get the Maian bodyguard to the ship first. Then you and Johnathan get aboard the craft with him, and you should be able to fly out past the air defences you took care of earlier.\n\nEND\n"
+    },
+    {
+        "id": "L_TRA_001",
+        "text": "AREA 51 - ESCAPE\n"
+    },
+    {
+        "id": "L_TRA_002",
+        "text": "|Background - \n\nA craft carrying Institute advisors has been shot down in Nevada. Debris from the crash and the bodies of the advisors have been taken to Area 51. A spy inside the base has managed to get footage to the Institute of a possible survivor. This mission is to rescue that survivor.\n\n|Carrington - \n\nI know you have questions, Jo, and I'm afraid that this isn't the time to answer them. I can tell you that the little fellow you just rescued is a Maian, and he is a bodyguard for the ambassador whose ship was shot down. Other details and background can wait until later.\n\n|Objective One: - Rendezvous With Agent\n\nJohnathan reports that he is now under suspicion, and expects to be arrested in a matter of minutes. Find him before the patrols do.\n\n|Objective Two: - Gain Entry To Secret Hangar\n\nOur agent has been unable to get into the secret hangar before because that would have meant blowing his cover, but the time for such worries is past. keep the guards off Johnathan as he hacks into the door to the hangar where we suspect an intact Maian ship is kept.\n\n|Objective Three: - Revive Maian Bodyguard\n\nWake the Maian up before trying to get out - a hoverbed is not the easiest thing to steer even in normal situations. Once he's up and about, he should be able to fly the Maian craft out of Area 51.\n\n|Objective Four: - Escape From Area 51\n\nThat is, get the Maian bodyguard to the ship first. Then you and Johnathan get aboard the craft with him, and you should be able to fly out past the air defences you took care of earlier.\n\nEND\n"
+    },
+    {
+        "id": "L_TRA_003",
+        "text": "|Background - \n\nA craft carrying Institute advisors has been shot down in Nevada. Debris from the crash and the bodies of the advisors have been taken to Area 51. A spy inside the base has managed to get footage to the Institute of a possible survivor. This mission is to rescue that survivor.\n\n|Carrington - \n\nI know you have questions, Jo, and I'm afraid that this isn't the time to answer them. I can tell you that the little fellow you just rescued is a Maian, and he is a bodyguard for the ambassador whose ship was shot down. Other details and background can wait until later.\n\n|Objective One: - Rendezvous With Agent\n\nJohnathan reports that he is now under suspicion, and expects to be arrested in a matter of minutes. Find him before the patrols do.\n\n|Objective Two: - Gain Entry To Secret Hangar\n\nOur agent has been unable to get into the secret hangar before because that would have meant blowing his cover, but the time for such worries is past. keep the guards off Johnathan as he hacks into the door to the hangar where we suspect an intact Maian ship is kept.\n\n|Objective Three: - Escape From Area 51\n\nThat is, get the Maian bodyguard to the ship first. Then you and Johnathan get aboard the craft with him, and you should be able to fly out past the air defences you took care of earlier.\n\nEND\n"
+    },
+    {
+        "id": "L_TRA_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_TRA_005",
+        "text": "\n"
+    },
+    {
+        "id": "L_TRA_006",
+        "text": "\n"
+    },
+    {
+        "id": "L_TRA_007",
+        "text": "\n"
+    },
+    {
+        "id": "L_TRA_008",
+        "text": "\n"
+    },
+    {
+        "id": "L_TRA_009",
+        "text": "Locate Alien Tech Medpack\n"
+    },
+    {
+        "id": "L_TRA_010",
+        "text": "Rendezvous With CI Spy\n"
+    },
+    {
+        "id": "L_TRA_011",
+        "text": "Revive Elvis Using Medpack\n"
+    },
+    {
+        "id": "L_TRA_012",
+        "text": "Locate Secret Hangar\n"
+    },
+    {
+        "id": "L_TRA_013",
+        "text": "Escape From Area 51\n"
+    },
+    {
+        "id": "L_TRA_014",
+        "text": "Joanna - This is Jonathan. You're in grave danger.\n"
+    },
+    {
+        "id": "L_TRA_015",
+        "text": "The've flooded the area with nerve gas.\n"
+    },
+    {
+        "id": "L_TRA_016",
+        "text": "Get our friend to the containment lab.\nThere's a hiding place there.\n"
+    },
+    {
+        "id": "L_TRA_017",
+        "text": "I'll contact you when you get there - Good Luck!\n"
+    },
+    {
+        "id": "L_TRA_018",
+        "text": "Good work Jo. We need to meet up. They're \ngetting suspicious of me.\n"
+    },
+    {
+        "id": "L_TRA_019",
+        "text": "Use the maintenance hatch I've openend \nin one of the containment labs. Hurry.\n"
+    },
+    {
+        "id": "L_TRA_020",
+        "text": "Obtain Alien Medpack\n"
+    },
+    {
+        "id": "L_TRA_021",
+        "text": "Cassandra De Vries'\n"
+    },
+    {
+        "id": "L_TRA_022",
+        "text": "Alien MedPack\n"
+    },
+    {
+        "id": "L_TRA_023",
+        "text": ""
+    },
+    {
+        "id": "L_TRA_024",
+        "text": "Picked up an Alien Medpack\n"
+    },
+    {
+        "id": "L_TRA_025",
+        "text": "Joanna - over here\n"
+    },
+    {
+        "id": "L_TRA_026",
+        "text": "We need to get back to our friend.\n"
+    },
+    {
+        "id": "L_TRA_027",
+        "text": "Right we're near. Cover me Jo...\n"
+    },
+    {
+        "id": "L_TRA_028",
+        "text": "Okay - Stand Back\n"
+    },
+    {
+        "id": "L_TRA_029",
+        "text": "Jonathan has been killed\n"
+    },
+    {
+        "id": "L_TRA_030",
+        "text": "Elvis has been killed\n"
+    },
+    {
+        "id": "L_TRA_031",
+        "text": "The Secret Hangar Has Been Located.\n"
+    },
+    {
+        "id": "L_TRA_032",
+        "text": "Okay Jo - lets go.\n"
+    },
+    {
+        "id": "L_TRA_033",
+        "text": "Alien Medpack Activated\n"
+    },
+    {
+        "id": "L_TRA_034",
+        "text": "Alien Medpack Operation Aborted\n"
+    },
+    {
+        "id": "L_TRA_035",
+        "text": "Alien Medpack Has Been Administered\n"
+    },
+    {
+        "id": "L_TRA_036",
+        "text": "Mission Critical Object Destroyed\n"
+    },
+    {
+        "id": "L_TRA_037",
+        "text": "Outer Hangar Door Is Opening\n"
+    },
+    {
+        "id": "L_TRA_038",
+        "text": "Outer Hangar Door Is Closing\n"
+    },
+    {
+        "id": "L_TRA_039",
+        "text": "Inner Hangar Door Is Opening\n"
+    },
+    {
+        "id": "L_TRA_040",
+        "text": "Inner Hangar Door Is Closing\n"
+    },
+    {
+        "id": "L_TRA_041",
+        "text": "It's the only way out of here.\n"
+    },
+    {
+        "id": "L_TRA_042",
+        "text": "You're the only one who can fly it, Elvis, so get in.\n"
+    },
+    {
+        "id": "L_TRA_043",
+        "text": "But we can't leave you behind.\n"
+    },
+    {
+        "id": "L_TRA_044",
+        "text": "There must be a way out of here.\n"
+    },
+    {
+        "id": "L_TRA_045",
+        "text": "One of us will have to stay behind and open the \nhangar door.\n"
+    },
+    {
+        "id": "L_TRA_046",
+        "text": "I'll get out on that jetbike. Cover me while i \nopen the doors.\n"
+    },
+    {
+        "id": "L_TRA_047",
+        "text": "Jonathan go with Elvis. I'll see to the consoles.\n"
+    },
+    {
+        "id": "L_TRA_048",
+        "text": "It's dangerous Jo..\n"
+    },
+    {
+        "id": "L_TRA_049",
+        "text": "I can handle it..Trust me\n"
+    },
+    {
+        "id": "L_TRA_050",
+        "text": "....okay\n"
+    },
+    {
+        "id": "L_TRA_051",
+        "text": "Damn it Joanna... Cover me!\n"
+    },
+    {
+        "id": "L_TRA_052",
+        "text": "I'll cover the stairs - you take the ramp.\n"
+    },
+    {
+        "id": "L_TRA_053",
+        "text": "The hangar doors are now open.\n"
+    },
+    {
+        "id": "L_TRA_054",
+        "text": "Medical Containment doors unlocked.\n"
+    },
+    {
+        "id": "L_TRA_055",
+        "text": "The medpack's got to be somewhere around here.\n"
+    },
+    {
+        "id": "L_TRA_056",
+        "text": "Time to hook up with Jonathan, before he gets\ninto any more trouble.\n"
+    },
+    {
+        "id": "L_TRA_057",
+        "text": "That smell... oil... I smelt that in the other \nhangars.\n"
+    },
+    {
+        "id": "L_TRA_058",
+        "text": "The jetbike should get me out before they lock\nthe base down.\n"
+    },
+    {
+        "id": "L_TRA_059",
+        "text": "Oh no! We have a problem. It's a single seater!\n"
+    },
+    {
+        "id": "L_TRA_060",
+        "text": "Two can get in but no more.\n"
+    },
+    {
+        "id": "L_TRA_061",
+        "text": "Plus it's got no style - know what I'm saying?\n"
+    },
+    {
+        "id": "L_TRA_062",
+        "text": "I'm not having this. That specimen is government property and should not leave the base."
+    },
+    {
+        "id": "L_TRA_063",
+        "text": "Let's see how that over-confident thief deals with our gas defense system. She'll think twice before messing with me again!"
+    },
+    {
+        "id": "L_TRA_064",
+        "text": "What's that noise? Can't be... gas!"
+    },
+    {
+        "id": "L_TRA_065",
+        "text": "Noooo, that wasn't meant to happen!"
+    },
+    {
+        "id": "L_TRA_066",
+        "text": "Please stop! I'm not supposed to die, she... arggghhh!"
+    },
+    {
+        "id": "L_TRA_067",
+        "text": "You idiot! We'd better get out of here."
+    },
+    {
+        "id": "L_TRA_068",
+        "text": "gasps, chokes and wheezes"
+    },
+    {
+        "id": "L_TRA_069",
+        "text": "***aahh...! aahaa...! aaaaahhh!  aha.  ahh.***"
+    },
+    {
+        "id": "L_TRA_070",
+        "text": "I'm alive. I thought I'd be chopped up like the others by now. You're from the Institute, aren't you? I recognise you from before. You helped me. Thank you."
+    },
+    {
+        "id": "L_TRA_071",
+        "text": "You... You speak our language?"
+    },
+    {
+        "id": "L_TRA_072",
+        "text": "Watch her, she's sharp."
+    },
+    {
+        "id": "L_TRA_073",
+        "text": "Earrggghh... eerggh..."
+    },
+    {
+        "id": "L_TRA_074",
+        "text": "What's wrong?"
+    },
+    {
+        "id": "L_TRA_075",
+        "text": "I have a headache. And with a head this big, that's no joke."
+    },
+    {
+        "id": "L_TRA_076",
+        "text": "Can you walk? We must leave before they get organised and hunt us down."
+    },
+    {
+        "id": "L_TRA_077",
+        "text": "I think so. What's your name?"
+    },
+    {
+        "id": "L_TRA_078",
+        "text": "I'm Agent Dark. Or Joanna, if you prefer."
+    },
+    {
+        "id": "L_TRA_079",
+        "text": "Well, Joanna, I'm Protector One. But you can call me... Elvis!"
+    },
+    {
+        "id": "L_TRA_080",
+        "text": null
+    },
+    {
+        "id": "L_TRA_081",
+        "text": null
+    },
+    {
+        "id": "L_TRA_082",
+        "text": null
+    },
+    {
+        "id": "L_TRA_083",
+        "text": null
+    },
+    {
+        "id": "L_TRA_084",
+        "text": null
+    },
+    {
+        "id": "L_TRA_085",
+        "text": null
+    },
+    {
+        "id": "L_TRA_086",
+        "text": null
+    },
+    {
+        "id": "L_TRA_087",
+        "text": null
+    }
+]

@@ -1,0 +1,66 @@
+[
+    {
+        "id": "L_SEV_000",
+        "text": "|Background - \n\nEmergency capture protocols activated. Ship XD-310372 suffered hostile planetfall. Maian Protector One (Aelphaeis Mangarae) sole survivor. Planet designated pre-contact status; paranoia grade 'B+,' intolerance grade 'B,' xenophobia grade 'A.' Destroy equipment remaining; prevent examination of Maian technology and/or personnel.\n\n|Objective One: - Sabotage Enemy Medical Experiment\n\nThe body of my charge, the Maian Ambassador to Earth, is being experimented on. To complete my duty as a Maian Protector, I must ensure that the body is destroyed.\n\n|Objective Two: - Destroy Captured Maian Craft\n\nMy final act of duty will be to destroy what remains of the vehicle in which I arrived on Earth. If anyone discovers that the technology within is similar to the Carrington Institute 'inventions,' then our allies on earth will be endangered, and I will have failed.\n\n|Objective Three: - Send Distress Signal to Allies\n\nThe Carrington Institute might be able to help me. If I can get a message out to them, they will know of my location and status. Any equipment I am unable to reach and destroy, they will.\n\nEND\n"
+    },
+    {
+        "id": "L_SEV_001",
+        "text": "AREA 51, NEVADA, EARTH\n"
+    },
+    {
+        "id": "L_SEV_002",
+        "text": "|Background - \n\nEmergency capture protocols activated. Ship XD-310372 suffered hostile planetfall. Maian Protector One (Aelphaeis Mangarae) sole survivor. Planet designated pre-contact status; paranoia grade 'B+,' intolerance grade 'B,' xenophobia grade 'A.' Destroy equipment remaining; prevent examination of Maian technology and/or personnel.\n\n|Objective One: - Sabotage Enemy Medical Experiment\n\nThe body of my charge, the Maian Ambassador to Earth, is being experimented on. To complete my duty as a Maian Protector, I must ensure that the body is destroyed.\n\n|Objective Two: - Send Distress Signal to Allies\n\nThe Carrington Institute might be able to help me. If I can get a message out to them, they will know of my location and status. Any equipment I am unable to reach and destroy, they will.\n\nEND\n"
+    },
+    {
+        "id": "L_SEV_003",
+        "text": "|Background - \n\nEmergency capture protocols activated. Ship XD-310372 suffered hostile planetfall. Maian Protector One (Aelphaeis Mangarae) sole survivor. Planet designated pre-contact status; paranoia grade 'B+,' intolerance grade 'B,' xenophobia grade 'A.' Destroy equipment remaining; prevent examination of Maian technology and/or personnel.\n\n|Objective One: - Send Distress Signal to Allies\n\nThe Carrington Institute might be able to help me. If I can get a message out to them, they will know of my location and status. Any equipment I am unable to reach and destroy, they will.\n\nEND\n"
+    },
+    {
+        "id": "L_SEV_004",
+        "text": "Sabotage enemy medical experiment\n"
+    },
+    {
+        "id": "L_SEV_005",
+        "text": "Destroy captured Maian saucer\n"
+    },
+    {
+        "id": "L_SEV_006",
+        "text": "Activate distress signal\n"
+    },
+    {
+        "id": "L_SEV_007",
+        "text": "Medical experiment has been sabotaged.\n"
+    },
+    {
+        "id": "L_SEV_008",
+        "text": "Captured Maian saucer has been destroyed.\n"
+    },
+    {
+        "id": "L_SEV_009",
+        "text": "Distress signal has been sent.\n"
+    },
+    {
+        "id": "L_SEV_010",
+        "text": "Critical mission object has been destroyed.\n"
+    },
+    {
+        "id": "L_SEV_011",
+        "text": "Mission failed - cannot escape from medlab.\n"
+    },
+    {
+        "id": "L_SEV_012",
+        "text": "Alternative escape route found.\n"
+    },
+    {
+        "id": "L_SEV_013",
+        "text": null
+    },
+    {
+        "id": "L_SEV_014",
+        "text": null
+    },
+    {
+        "id": "L_SEV_015",
+        "text": null
+    }
+]

@@ -1,0 +1,210 @@
+[
+    {
+        "id": "L_ELD_000",
+        "text": "|Background - \n\nDaniel Carrington is being held hostage at his private villa. A message from Cassandra De Vries has laid out the terms: Daniel's life for the return of the AI known as Dr. Caroll. What dataDyne doesn't know is that the AI was at the villa when they struck. Our guess is that Daniel concealed it safely before they found him.\n\n |Carrington - \n\nNot Available.\n\n|Objective One: - Eliminate Rooftop Snipers\n\nAs soon as we got the ransom demand we did a recon overflight of the villa. An examination of the data revealed that there are several snipers on the rooftops - if you are to move around safely you'll have to take them out.\n\n|Objective Two: - Activate Wind Generator\n\nThe wind generator and power storage device are not active - we suspect Daniel shut them down to deny the dataDyne hit squad access to the villa's systems.Once the power is restored, all of the doors will be open to you. Unfortunately, they will also be open to the hit squad.\n\n|Objective Three: - Locate and Stop dataDyne Hackers\n\nThere have been sporadic attempts in the past from dataDyne hackers trying to gain entry to Institute files. Their job would be much easier if they tried anything inside the villa, due to the direct link between there and the Institute. If such an attempt is made you would need to respond swiftly. Make sure that the terminals are not damaged as they contain data that is vital to the Institute.\n\n|Objective Four: - Capture Enemy Guard\n\nCapturing a member of the dataDyne assault team will give us an idea of what their real goals are. Remember not to kill them - knock them unconscious if possible, or if you're really good get them to give up.\n\n|Objective Five: - Rescue Carrington\n\nOnly Daniel knows the exact whereabouts of Dr. Caroll. Sooner or later dataDyne will figure this out, and get to work on Daniel to make him tell them what they want to know. Once they know where the AI is, Daniel's life is forfeit.\n\nEND\n"
+    },
+    {
+        "id": "L_ELD_001",
+        "text": "CARRINGTON VILLA\n"
+    },
+    {
+        "id": "L_ELD_002",
+        "text": "|Background - \n\nDaniel Carrington is being held hostage at his private villa. A message from Cassandra De Vries has laid out the terms: Daniel's life for the return of the AI known as Dr. Caroll. What dataDyne don't know is that the AI was at the villa when they struck. Our guess is that Daniel concealed it safely before they found him.\n\n |Carrington - \n\nNot Available.\n\n|Objective One: - Save the Negotiator\n\nA member of the Institute's staff has volunteered to be used as a distraction to help you get in. She will almost certainly be shot by dataDyne soldiers unless you take out those soldiers quickly. Hit the ground moving.\n\n|Objective Two: - Eliminate Rooftop Snipers\n\nAs soon as we got the ransom demand we did a recon overflight of the villa. An examination of the data revealed that there are several snipers on the rooftops - if you are to move around safely you'll have to take them out.\n\n|Objective Three: - Activate Wind Generator\n\nThe wind generator and power storage device are not active - we suspect Daniel shut them down to deny the dataDyne hit squad access to the villa's systems.Once the power is restored, all of the doors will be open to you. Unfortunately, they will also be open to the hit squad.\n\n|Objective Four: - Rescue Carrington\n\nOnly Daniel knows the exact whereabouts of Dr. Caroll. Sooner or later dataDyne will figure this out, and get to work on Daniel to make him tell them what they want to know. Once they know where the AI is, Daniel's life is forfeit.\n\nEND\n"
+    },
+    {
+        "id": "L_ELD_003",
+        "text": "|Background - \n\nDaniel Carrington is being held hostage at his private villa. A message from Cassandra De Vries has laid out the terms: Daniel's life for the return of the AI known as Dr. Caroll. What dataDyne don't know is that the AI was at the villa when they struck. Our guess is that Daniel concealed it safely before they found him.\n\n |Carrington - \n\nNot Available.\n\n|Objective One: - Save the Negotiator\n\nA member of the Institute's staff has volunteered to be used as a distraction to help you get in. She will almost certainly be shot by dataDyne soldiers unless you take out those soldiers quickly. Hit the ground moving.\n\n|Objective Two: - Activate Wind Generator\n\nThe wind generator and power storage device are not active - we suspect Daniel shut them down to deny the dataDyne hit squad access to the villa's systems.Once the power is restored, all of the doors will be open to you. Unfortunately, they will also be open to the hit squad.\n\n|Objective Three: - Rescue Carrington\n\nOnly Daniel knows the exact whereabouts of Dr. Caroll. Sooner or later dataDyne will figure this out, and get to work on Daniel to make him tell them what they want to know. Once they know where the AI is, Daniel's life is forfeit.\n\nEND\n"
+    },
+    {
+        "id": "L_ELD_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_ELD_005",
+        "text": "Save the Negotiator\n"
+    },
+    {
+        "id": "L_ELD_006",
+        "text": "Eliminate Rooftop Snipers\n"
+    },
+    {
+        "id": "L_ELD_007",
+        "text": "Activate Wind Generator\n"
+    },
+    {
+        "id": "L_ELD_008",
+        "text": "Locate and Eliminate Datadyne Hackers\n"
+    },
+    {
+        "id": "L_ELD_009",
+        "text": "Rescue Carrington\n"
+    },
+    {
+        "id": "L_ELD_010",
+        "text": "Capture Datadyne Guard\n"
+    },
+    {
+        "id": "L_ELD_011",
+        "text": "Negotiator has been killed\n"
+    },
+    {
+        "id": "L_ELD_012",
+        "text": "Snipers have been eliminated\n"
+    },
+    {
+        "id": "L_ELD_013",
+        "text": "Negotiator has escaped to safety.\n"
+    },
+    {
+        "id": "L_ELD_014",
+        "text": "Cooling Systems Have Been Activated.\n"
+    },
+    {
+        "id": "L_ELD_015",
+        "text": "Cooling Systems Have Been De-Activated.\n"
+    },
+    {
+        "id": "L_ELD_016",
+        "text": "Power Systems Have Been Activated.\n"
+    },
+    {
+        "id": "L_ELD_017",
+        "text": "Power Systems Have Been De-Activated.\n"
+    },
+    {
+        "id": "L_ELD_018",
+        "text": "Windmill Has Been Re-Activated.\n"
+    },
+    {
+        "id": "L_ELD_019",
+        "text": "Windmill Has Been De-Activated.\n"
+    },
+    {
+        "id": "L_ELD_020",
+        "text": "Electicity Has Been Restored To The Villa.\n"
+    },
+    {
+        "id": "L_ELD_021",
+        "text": "Critical Mission Object Has Been Destroyed.\n"
+    },
+    {
+        "id": "L_ELD_022",
+        "text": "Joanna! It's Grimshaw. We've got hackers at \n the villa! You've got to stop them\n before they get to our files.\n"
+    },
+    {
+        "id": "L_ELD_023",
+        "text": "Hackers have uploaded vital data.\n"
+    },
+    {
+        "id": "L_ELD_024",
+        "text": "Hackers have been eliminated.\n"
+    },
+    {
+        "id": "L_ELD_025",
+        "text": "Carrington Has Been Rescued\n"
+    },
+    {
+        "id": "L_ELD_026",
+        "text": "All objectives not completed - mission failed.\n"
+    },
+    {
+        "id": "L_ELD_027",
+        "text": "PC gun\n"
+    },
+    {
+        "id": "L_ELD_028",
+        "text": "Sniper RIfle\n"
+    },
+    {
+        "id": "L_ELD_029",
+        "text": "Enemy guard has been subdued.\n"
+    },
+    {
+        "id": "L_ELD_030",
+        "text": "Obtain Door Key\n"
+    },
+    {
+        "id": "L_ELD_031",
+        "text": "Guards\n"
+    },
+    {
+        "id": "L_ELD_032",
+        "text": "Door Key\n"
+    },
+    {
+        "id": "L_ELD_033",
+        "text": "Door Key\n"
+    },
+    {
+        "id": "L_ELD_034",
+        "text": "Picked up a door key.\n"
+    },
+    {
+        "id": "L_ELD_035",
+        "text": "If I get the wind generator back online,\nI'll get power to the lower basement.\n"
+    },
+    {
+        "id": "L_ELD_036",
+        "text": "I've got to be quick or they'll kill\nthe negotiator!\n"
+    },
+    {
+        "id": "L_ELD_037",
+        "text": "Here's where they must be holding Daniel.\n"
+    },
+    {
+        "id": "L_ELD_038",
+        "text": "Those hackers have to be stopped before\nI rescue Daniel.\n"
+    },
+    {
+        "id": "L_ELD_039",
+        "text": "Agent Dark Mission Log, 1846 hours. Last night we got a call from Cassandra de Vries. A dataDyne team have taken Daniel Carrington hostage at his private villa on the coast, and they say they will spare his life in exchange for the AI."
+    },
+    {
+        "id": "L_ELD_040",
+        "text": "Unfortunately we don't have it. Daniel and Dr. Caroll were at the villa to discuss 'matters of mutual interest'. It looks like Daniel found a way to hide Dr. Caroll inside the villa when the dataDyne hit squad arrived."
+    },
+    {
+        "id": "L_ELD_041",
+        "text": "Hopefully our phoney negotiator ploy will give me a chance to surprise the dataDyne squad. This time it's not just my life on the line."
+    },
+    {
+        "id": "L_ELD_042",
+        "text": "Sir? Are you injured?"
+    },
+    {
+        "id": "L_ELD_043",
+        "text": "No Joanna, I'm okay, but those dataDyne thugs made me tell them where I'd hidden Dr. Caroll. If only I'd held out for a few minutes more..."
+    },
+    {
+        "id": "L_ELD_044",
+        "text": "It's not your fault sir. I should have been quicker."
+    },
+    {
+        "id": "L_ELD_045",
+        "text": "Don't blame yourself, Joanna. Dr. Caroll told me that he expected this to happen. Actually, when they recaptured him, the dataDyne team got over-confident and let slip a few facts when they thought I was unconscious. They mentioned a meeting in the G5 building in Chicago, Illinois tonight. I want you to be there, but that doesn't leave you a lot of time to get ready."
+    },
+    {
+        "id": "L_ELD_046",
+        "text": "That won't be a problem, sir. So, did Dr. Caroll have any useful information for you?"
+    },
+    {
+        "id": "L_ELD_047",
+        "text": "Oh, yes, indeed. He certainly did, and I'll brief you when you're on route to Chicago. We might still be able to help him, even after those butchers remove his personality. He thinks they'll keep a copy of it in a safe place. It's about time I called in some friends to deal with dataDyne."
+    },
+    {
+        "id": "L_ELD_048",
+        "text": null
+    },
+    {
+        "id": "L_ELD_049",
+        "text": null
+    },
+    {
+        "id": "L_ELD_050",
+        "text": null
+    },
+    {
+        "id": "L_ELD_051",
+        "text": null
+    }
+]

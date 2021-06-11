@@ -1,0 +1,114 @@
+[
+    {
+        "id": "L_WAX_000",
+        "text": "|Situazione - \n\nQuell'incompetente di Cassandra de Vries della dataDyne Corporation ha ostacolato la causa Skedar fin troppo a lungo. Entra nel suo ufficio e catturala, in modo da poterla portare davanti alla corte di giustizia Skedar.\n\n|Obiettivo 1: - Piazza ordigno esplosivo in ascensore\n\nImpedisci a questi inetti scienziati della dataDyne Corporation di continuare la ricerca con la nostra tecnologia: piazza una bomba nell'ascensore in modo da distruggere tutti i dati della loro ricerca e qualsiasi altra prova fisica rimasta.\n\n|Obiettivo 2: - Elimina il presidente dataDyne\n\nElimina questo squallido individuo per prevenire ogni possibile tentativo di rappresaglia da parte di elementi residuali di questa azienda traditrice. Per quanto possa essere assurdo pensare che una sola persona possa distruggere la razza, non dobbiamo sottovalutare la forza dell'odio e della vendetta.\n\n|Obiettivo 3: - Scova e scorta De Vries all'eliporto\n\nPer essere sicuri che questa vigliacca paghi per i suoi crimini contro di noi, dovrai costringerla ad andare all'eliporto sul tetto, dove sarà prelevata da una navetta. La vogliamo viva: impediscile di fare sciocchezze!\n\nFINE\n"
+    },
+    {
+        "id": "L_WAX_001",
+        "text": "LUCERNE TOWER\n"
+    },
+    {
+        "id": "L_WAX_002",
+        "text": "|Situazione - \n\nQuell'incompetente di Cassandra de Vries della dataDyne Corporation ha ostacolato la causa Skedar fin troppo a lungo. Entra nel suo ufficio e catturala, in modo da poterla portare davanti alla corte di giustizia Skedar.\n\n|Obiettivo 1: - Piazza ordigno esplosivo in ascensore\n\nImpedisci a questi inetti scienziati della dataDyne Corporation di continuare la ricerca con la nostra tecnologia: piazza una bomba nell'ascensore in modo da distruggere tutti i dati della loro ricerca e qualsiasi altra prova fisica rimasta.\n\n|Obiettivo 2: - Scova e scorta De Vries all'eliporto\n\nPer essere sicuri che questa vigliacca paghi per i suoi crimini contro di noi, dovrai costringerla ad andare all'eliporto sul tetto, dove sarà prelevata da una navetta. La vogliamo viva: impediscile di fare sciocchezze!\n\nFINE\n"
+    },
+    {
+        "id": "L_WAX_003",
+        "text": "|Situazione - \n\nQuell'incompetente di Cassandra de Vries della dataDyne Corporation ha ostacolato la causa Skedar fin troppo a lungo. Entra nel suo ufficio e catturala, in modo da poterla portare davanti alla corte di giustizia Skedar.\n\n|Obiettivo 1: - Scova e scorta De Vries all'eliporto\n\nPer essere sicuri che questa vigliacca paghi per i suoi crimini contro di noi, dovrai costringerla ad andare all'eliporto sul tetto, dove sarà prelevata da una navetta. La vogliamo viva: impediscile di fare sciocchezze!\n\nFINE\n"
+    },
+    {
+        "id": "L_WAX_004",
+        "text": "Scova e scorta De Vries all'eliporto\n"
+    },
+    {
+        "id": "L_WAX_005",
+        "text": "Piazza ordigno esplosivo in ascensore\n"
+    },
+    {
+        "id": "L_WAX_006",
+        "text": "Elimina il presidente dataDyne\n"
+    },
+    {
+        "id": "L_WAX_007",
+        "text": "Esci subito dal mio ufficio...\n"
+    },
+    {
+        "id": "L_WAX_008",
+        "text": "Va all'eliporto se tieni alla pelle!\n"
+    },
+    {
+        "id": "L_WAX_009",
+        "text": "Non vorrai mica spararmi...\n"
+    },
+    {
+        "id": "L_WAX_010",
+        "text": "Come osi disturbarmi!\n"
+    },
+    {
+        "id": "L_WAX_011",
+        "text": "Te ne pentirai amaramente, sfacciata!\n"
+    },
+    {
+        "id": "L_WAX_012",
+        "text": "Se fossi in te girerei al largo!\n"
+    },
+    {
+        "id": "L_WAX_013",
+        "text": "Non vorrai mica spararmi...\n"
+    },
+    {
+        "id": "L_WAX_014",
+        "text": "Cassandra è immobilizzata!\n"
+    },
+    {
+        "id": "L_WAX_015",
+        "text": "Cassandra è stata catturata!\n"
+    },
+    {
+        "id": "L_WAX_016",
+        "text": "Il capo della sicurezza è stato eliminato.\n"
+    },
+    {
+        "id": "L_WAX_017",
+        "text": "\n"
+    },
+    {
+        "id": "L_WAX_018",
+        "text": "\n"
+    },
+    {
+        "id": "L_WAX_019",
+        "text": "Bomba Skedar\n"
+    },
+    {
+        "id": "L_WAX_020",
+        "text": "Bomba Skedar\n"
+    },
+    {
+        "id": "L_WAX_021",
+        "text": "Presa bomba Skedar\n"
+    },
+    {
+        "id": "L_WAX_022",
+        "text": "La bomba Skedar è in posizione corretta.\n"
+    },
+    {
+        "id": "L_WAX_023",
+        "text": "La bomba Skedar è esplosa.\n"
+    },
+    {
+        "id": "L_WAX_024",
+        "text": "Porte ascensore bloccate: impossibile piazzare bomba.\n"
+    },
+    {
+        "id": "L_WAX_025",
+        "text": "L'ascensore è stato disattivato.\n"
+    },
+    {
+        "id": "L_WAX_026",
+        "text": null
+    },
+    {
+        "id": "L_WAX_027",
+        "text": null
+    }
+]

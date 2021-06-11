@@ -347,31 +347,10 @@ SECTIONS
 	 */
 
 	__rompos = _inflateSegmentRomEnd + ROMALLOCATION_GAME;
-	__refpos = .;
 
-#define ANIM(id, filename) \
-	anim##id = . - __refpos; \
-	build/ROMID/assets/animations/filename (.data)
-
-	BEGIN_SEG(animations) SUBALIGN(1)
+	BEGIN_SEG(animations)
 	{
-
-#if VERSION == VERSION_JPN_FINAL
-#include "../src/assets/jpn-final/animations/list.ld"
-#elif VERSION == VERSION_PAL_FINAL
-#include "../src/assets/pal-final/animations/list.ld"
-#elif VERSION == VERSION_PAL_BETA
-#include "../src/assets/pal-beta/animations/list.ld"
-#elif VERSION == VERSION_NTSC_FINAL
-#include "../src/assets/ntsc-final/animations/list.ld"
-#elif VERSION == VERSION_NTSC_1_0
-#include "../src/assets/ntsc-1.0/animations/list.ld"
-#elif VERSION == VERSION_NTSC_BETA
-#include "../src/assets/ntsc-beta/animations/list.ld"
-#endif
-
-		. = ALIGN(0x10);
-		build/ROMID/assets/animations/list.o (.data);
+		build/ROMID/assets/animations.o (.data);
 	}
 	END_SEG(animations)
 

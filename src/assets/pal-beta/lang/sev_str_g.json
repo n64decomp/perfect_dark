@@ -1,0 +1,66 @@
+[
+    {
+        "id": "L_SEV_000",
+        "text": "|Hintergrund - \n\nNotfall-Aufzeichnung aktiviert. Schiff XD-310372 wurde gezwungen, auf einem unerforschten Planeten notzulanden. Der einzige Überlebende ist der Maianische Protektor Nr. 1 (Aelphaeis Mangarae). Die Klassifizierung weist den Planeten als eine Welt im Prä-Kontakt-Status aus. Paranoia Grad 'B+', Intoleranz Grad 'B', Xenophobie Grad 'A'. Zerstören Sie die verbleibenden Ausrüstungsgegenstände, und verhindern Sie die Bergung von Maianischer Technologie und/oder Personal.\n\n|1. Ziel: - Sabotieren Sie das gegnerische medizinische Experiment!\n\nBei der Person, für die ich verantwortlich war, handelte es sich um den Maianischen Botschafter. Derzeit sollen an seinem Körper Experimente durchgeführt werden. Um meine Pflicht als Maianischer Protektor zu erfüllen, muss ich dafür Sorge tragen, dass der Körper zerstört wird.\n\n|2. Ziel: - Zerstören Sie das Maianische Schiff!\n\nMein letzter Akt der Pflichterfüllung besteht darin, das Schiff, mit dem ich die Erde erreicht habe, zu zerstören. Sollte irgendjemand feststellen, dass die sich an Bord befindliche Technologie der des Carrington Instituts ähnlich ist, geraten unsere Verbündeten auf der Erde in Gefahr, und meine Mission ist gescheitert.\n\n|3. Ziel: - Senden Sie ein Notsignal an Ihre Verbündeten!\n\nDas Carrington Institut kann mir eventuell helfen. Wenn es mir gelingt, eine Nachricht an sie zu schicken, können sie meine Position feststellen. Um die technische Ausrüstung, die ich nicht finde, wird sich dann das Institut kümmern.\n\nENDE\n"
+    },
+    {
+        "id": "L_SEV_001",
+        "text": "AREA 51, NEVADA, ERDE\n"
+    },
+    {
+        "id": "L_SEV_002",
+        "text": "|Hintergrund - \n\nNotfall-Aufzeichnung aktiviert. Schiff XD-310372 wurde gezwungen, auf einem unerforschten Planeten notzulanden. Der einzige Überlebende ist der Maianische Protektor Nr. 1 (Aelphaeis Mangarae). Die Klassifizierung weist den Planeten als eine Welt im Prä-Kontakt-Status aus. Paranoia Grad 'B+', Intoleranz Grad 'B', Xenophobie Grad 'A'. Zerstören Sie die verbleibenden Ausrüstungsgegenstände, und verhindern Sie die Bergung von Maianischer Technologie und/oder Personal.\n\n|1. Ziel: - Sabotieren Sie das gegnerische medizinische Experiment!\n\nBei der Person, für die ich verantwortlich war, handelte es sich um den Maianischen Botschafter. Derzeit sollen an seinem Körper Experimente durchgeführt werden. Um meine Pflicht als Maianischer Protektor zu erfüllen, muss ich dafür Sorge tragen, dass der Körper zerstört wird.\n\n|2. Ziel: - Senden Sie ein Notsignal an Ihre Verbündeten!\n\nDas Carrington Institut kann mir eventuell helfen. Wenn es mir gelingt, eine Nachricht an sie zu schicken, können sie meine Position feststellen. Um die technische Ausrüstung, die ich nicht finde, wird sich dann das Institut kümmern.\n\nENDE\n"
+    },
+    {
+        "id": "L_SEV_003",
+        "text": "|Hintergrund - \n\nNotfall-Aufzeichnung aktiviert. Schiff XD-310372 wurde gezwungen, auf einem unerforschten Planeten notzulanden. Der einzige Überlebende ist der Maianische Protektor Nr. 1 (Aelphaeis Mangarae). Die Klassifizierung weist den Planeten als eine Welt im Prä-Kontakt-Status aus. Paranoia Grad 'B+', Intoleranz Grad 'B', Xenophobie Grad 'A'. Zerstören Sie die verbleibenden Ausrüstungsgegenstände, und verhindern Sie die Bergung von Maianischer Technologie und/oder Personal.\n\n|1. Ziel: - Senden Sie ein Notsignal an Ihre Verbündeten!\n\nDas Carrington Institut kann mir eventuell helfen. Wenn es mir gelingt, eine Nachricht an sie zu schicken, können sie meine Position feststellen. Um die technische Ausrüstung, die ich nicht finde, wird sich dann das Institut kümmern.\n\nENDE\n"
+    },
+    {
+        "id": "L_SEV_004",
+        "text": "Sabotieren Sie das Experiment!\n"
+    },
+    {
+        "id": "L_SEV_005",
+        "text": "Zerstören Sie das Maianische Schiff!\n"
+    },
+    {
+        "id": "L_SEV_006",
+        "text": "Senden Sie ein Notsignal!\n"
+    },
+    {
+        "id": "L_SEV_007",
+        "text": "Medizinisches Experiment wurde sabotiert.\n"
+    },
+    {
+        "id": "L_SEV_008",
+        "text": "Das Maianische Schiff wurde zerstört.\n"
+    },
+    {
+        "id": "L_SEV_009",
+        "text": "Notsignal wurde gesendet.\n"
+    },
+    {
+        "id": "L_SEV_010",
+        "text": "Wichtiges Objekt wurde zerstört.\n"
+    },
+    {
+        "id": "L_SEV_011",
+        "text": "MISSION FEHLGESCHLAGEN - Flucht ist nicht mehr möglich.\n"
+    },
+    {
+        "id": "L_SEV_012",
+        "text": "Es wurde eine alternative Fluchtroute gefunden.\n"
+    },
+    {
+        "id": "L_SEV_013",
+        "text": null
+    },
+    {
+        "id": "L_SEV_014",
+        "text": null
+    },
+    {
+        "id": "L_SEV_015",
+        "text": null
+    }
+]

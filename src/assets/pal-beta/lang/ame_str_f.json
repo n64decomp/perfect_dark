@@ -1,0 +1,450 @@
+[
+    {
+        "id": "L_AME_000",
+        "text": "|Briefing - \n\nUn scientifique de la dataDyne se faisant appeler Dr. Caroll a contacté l'Institut Carrington: il demande à être évacué des quartiers généraux de la dataDyne ce soir. Il affirme avoir critiqué les implications morales du dernier projet de la dataDyne et celle-ci compte le conditionner mentalement plutôt que de l'éliminer. Cette opération devrait ainsi le rendre plus coopératif.\n\n|Carrington - \n\nVoici votre première mission, Joanna, elle est d'une haute importance. Il nous faut récupérer le Dr. Caroll avant qu'il ne soit en danger et en apprendre plus sur les projets de la dataDyne. Notre protocole d'action: épargner les civils désarmés. Souvenez-vous: les clés codées ne fonctionnent que si leurs détenteurs sont en vie.\n\n|Objectif 1: - Brouiller le relais de communications\n\nIl est situé sur l'un des toits de l'immeuble, loin des interférences du trafic au sol. Utilisez une mine CME sur le relais pour brouiller les caméras de surveillance. La mine doit être fixé sur le relais pour fonctionner. Faites vite, l'effet ne dure qu' une minute environ.\n\n|Objectif 2: - Trouver le collier-clé de De Vries\n\nCassandra De Vries porte la clé d'accès aux zones interdites de l'immeuble sur son collier. Il est connecté à ses pulsations et cessera de fonctionner si elle vient à mourir. Prenez le collier et neutralisez-la sans la tuer.\n\n|Objectif 3: - Accéder aux fichiers ordi dirigeant\n\nLe sort du Dr. Caroll est à l'ordre du jour d'une réunion, dans l'un des bureaux. Le dirigeant chargé du projet du Dr. Caroll sera présent. Suivez-le jusqu'à son bureau et accédez à ses fichiers, puis téléchargez-les grâce à votre récepteur.\n\n|Objectif 4: - Brouiller les communications extérieures\n\nAchevez le brouillage des communications en plaçant une autre mine CME sur le matériel de la salle de surveillance à la base de l'immeuble. Ils ne pourront ainsi appeler des renforts extérieurs.\n\n|Objectif 5: - Trouver l'ascenseur secret\n\nAtteignez l'ascenseur de sécurité menant au laboratoire souterrain où le Dr. Caroll est détenu. Sa position exacte est inconnue, mais il doit se situer non loin du hall.\n\nFIN\n"
+    },
+    {
+        "id": "L_AME_001",
+        "text": "TOUR LUCERNE\n"
+    },
+    {
+        "id": "L_AME_002",
+        "text": "|Briefing - \n\nUn scientifique de la dataDyne se faisant appeler Dr. Caroll a contacté l'Institut Carrington: il demande à être évacué des quartiers généraux de la dataDyne ce soir. Il affirme avoir critiqué les implications morales du dernier projet de la dataDyne et celle-ci compte le conditionner mentalement plutôt que de l'éliminer. Cette opération devrait ainsi le rendre plus coopératif.\n\n|Carrington - \n\nVoici votre première mission, Joanna, et elle est d'une haute importance. Il nous faut récupérer le Dr. Caroll avant qu'il ne soit en danger et en apprendre plus sur les projets de la dataDyne. Notre protocole d'action: épargner les civils désarmés. Souvenez-vous: les clés codées ne fonctionnent que si leurs détenteurs sont en vie.\n\n|Objectif 1: - Brouiller le relais de communications\n\nIl est situé sur l'un des toits de l'immeuble, loin des interférences du trafic au sol. Utilisez une mine CME sur le relais pour brouiller les caméras de surveillance. La mine doit être appliquée sur le relais pour fonctionner. Faites vite, l'effet ne dure qu'une minute environ.\n\n|Objectif 2: - Trouver le collier-clé de De Vries\n\nCassandra De Vries porte sa clé d'accès aux zones interdites de l'immeuble sur son collier. Il est connecté à ses pulsations et cessera de fonctionner si elle vient à mourir. Prenez le collier et neutralisez-la sans la tuer.\n\n|Objectif 3: - Brouiller les communications extérieures\n\nAchevez le brouillage des communications en plaçant une autre mine CME sur le matériel de la salle de surveillance à la base de l'immeuble. Ils ne pourront ainsi appeler des renforts extérieurs.\n\n|Objectif 4: - Trouver l'ascenseur secret\n\nAtteignez l'ascenseur de sécurité menant au laboratoire souterrain où le Dr. Caroll est détenu. Sa position exacte est inconnue, mais il doit se situer non loin du hall.\n\nFIN\n"
+    },
+    {
+        "id": "L_AME_003",
+        "text": "|Briefing - \n\nUn scientifique de la dataDyne se faisant appeler Dr. Caroll a contacté l'Institut Carrington: il demande à être évacué des quartiers généraux de la dataDyne ce soir. Il affirme avoir critiqué les implications morales du dernier projet de la dataDyne et celle-ci compte le conditionner mentalement plutôt que de l'éliminer. Cette opération devrait ainsi le rendre plus coopératif.\n\n|Carrington - \n\nVoici votre première mission, Joanna, elle est d'une haute importance. Il nous faut récupérer le Dr. Caroll avant qu'il ne soit en danger et en apprendre plus sur les projets de la dataDyne. Notre protocole d'action: épargner les civils désarmés. Souvenez-vous: les clés codées ne fonctionnent que si leurs détenteurs sont en vie.\n\n|Objectif 1: - Trouver l'ascenseur secret\n\nAtteignez l'ascenseur de sécurité menant au laboratoire souterrain où le Dr. Caroll est détenu. Sa position exacte est inconnue, mais il doit se situer non loin du hall.\n\nFIN\n"
+    },
+    {
+        "id": "L_AME_004",
+        "text": "    NULL3"
+    },
+    {
+        "id": "L_AME_005",
+        "text": "    NULL4"
+    },
+    {
+        "id": "L_AME_006",
+        "text": "    NULL5"
+    },
+    {
+        "id": "L_AME_007",
+        "text": "    NULL6"
+    },
+    {
+        "id": "L_AME_008",
+        "text": "    NULL7"
+    },
+    {
+        "id": "L_AME_009",
+        "text": "dataDyne:\nQG central Chicago IL USA."
+    },
+    {
+        "id": "L_AME_010",
+        "text": "Heure: 02:30 15 AOUT 2023\n"
+    },
+    {
+        "id": "L_AME_011",
+        "text": "Obtenir collier de De Vries.\n"
+    },
+    {
+        "id": "L_AME_012",
+        "text": "Cassandra De Vries\n"
+    },
+    {
+        "id": "L_AME_013",
+        "text": "Collier\n"
+    },
+    {
+        "id": "L_AME_014",
+        "text": "Collier de De Vries\n"
+    },
+    {
+        "id": "L_AME_015",
+        "text": "Collier de De Vries obtenu.\n"
+    },
+    {
+        "id": "L_AME_016",
+        "text": "Neutraliser relais intérieur\n"
+    },
+    {
+        "id": "L_AME_017",
+        "text": "Obtenir collier-clé\n"
+    },
+    {
+        "id": "L_AME_018",
+        "text": "Télécharger fichiers\n"
+    },
+    {
+        "id": "L_AME_019",
+        "text": "Neutraliser relais extérieur\n"
+    },
+    {
+        "id": "L_AME_020",
+        "text": "Accéder au laboratoire\n"
+    },
+    {
+        "id": "L_AME_021",
+        "text": "Qui êtes-vous? Que faites-vous là?\n"
+    },
+    {
+        "id": "L_AME_022",
+        "text": "Attention! Elle est armée!\n"
+    },
+    {
+        "id": "L_AME_023",
+        "text": "Vous n'oserez pas... Jeune sotte!\n"
+    },
+    {
+        "id": "L_AME_024",
+        "text": "Savez-vous qui je suis?\n"
+    },
+    {
+        "id": "L_AME_025",
+        "text": "J'appelle la sécurité.\n"
+    },
+    {
+        "id": "L_AME_026",
+        "text": "PITIE!!!!  Ne me tuez pas!\n"
+    },
+    {
+        "id": "L_AME_027",
+        "text": "Un conseil: partez, MAINTENANT!\n"
+    },
+    {
+        "id": "L_AME_028",
+        "text": "Mine CME mal placée.\n"
+    },
+    {
+        "id": "L_AME_029",
+        "text": "Mine CME placée correctement.\n"
+    },
+    {
+        "id": "L_AME_030",
+        "text": "MISSION ECHOUEE - objectifs incomplets.\n"
+    },
+    {
+        "id": "L_AME_031",
+        "text": "       MISSION ACCOMPLIE      \n"
+    },
+    {
+        "id": "L_AME_032",
+        "text": "Objectifs inatteignables.\n"
+    },
+    {
+        "id": "L_AME_033",
+        "text": "Il est temps d'effacer les fichiers.\n"
+    },
+    {
+        "id": "L_AME_034",
+        "text": "Ordinateur dirigeant effacé.\n"
+    },
+    {
+        "id": "L_AME_035",
+        "text": "Je ferai ce que vous voulez!\n"
+    },
+    {
+        "id": "L_AME_036",
+        "text": "A L'AIDE - Intrus!\n"
+    },
+    {
+        "id": "L_AME_037",
+        "text": "Vous parlez trop.\n"
+    },
+    {
+        "id": "L_AME_038",
+        "text": "AU SECOURS! A MOI!\n"
+    },
+    {
+        "id": "L_AME_039",
+        "text": "Je ferai ce que vous voulez...\n"
+    },
+    {
+        "id": "L_AME_040",
+        "text": "Je me connecte...\n"
+    },
+    {
+        "id": "L_AME_041",
+        "text": "OK. Connexion terminée...\n"
+    },
+    {
+        "id": "L_AME_042",
+        "text": "Adieu, Dr. Caroll.\n"
+    },
+    {
+        "id": "L_AME_043",
+        "text": "La fin est proche, sale traître!\n"
+    },
+    {
+        "id": "L_AME_044",
+        "text": "Téléchargement en cours.\n"
+    },
+    {
+        "id": "L_AME_045",
+        "text": "Téléchargement complet.\n"
+    },
+    {
+        "id": "L_AME_046",
+        "text": "ACCES REFUSE - mot de passe requis.\n"
+    },
+    {
+        "id": "L_AME_047",
+        "text": "Porte déverrouillée.\n"
+    },
+    {
+        "id": "L_AME_048",
+        "text": "HEIN?!\n"
+    },
+    {
+        "id": "L_AME_049",
+        "text": "Erreur télécharg. - Récepteur absent.\n"
+    },
+    {
+        "id": "L_AME_050",
+        "text": "LUMIERES ON\n"
+    },
+    {
+        "id": "L_AME_051",
+        "text": "LUMIERES OFF\n"
+    },
+    {
+        "id": "L_AME_052",
+        "text": "Effacez la conversation du Dr. Caroll.\n"
+    },
+    {
+        "id": "L_AME_053",
+        "text": "Ne...ne tirez pas!\n"
+    },
+    {
+        "id": "L_AME_054",
+        "text": "Objet crucial détruit.\n"
+    },
+    {
+        "id": "L_AME_055",
+        "text": "Pertes civiles inacceptables.\n"
+    },
+    {
+        "id": "L_AME_056",
+        "text": "MISSION ECHOUEE \n - objectifs inatteignables.\n"
+    },
+    {
+        "id": "L_AME_057",
+        "text": "Personnel crucial tué.\n"
+    },
+    {
+        "id": "L_AME_058",
+        "text": "Obtenir mines CME.\n"
+    },
+    {
+        "id": "L_AME_059",
+        "text": "Dr. Caroll: \n"
+    },
+    {
+        "id": "L_AME_060",
+        "text": "Mine CME\n"
+    },
+    {
+        "id": "L_AME_061",
+        "text": "Une Mine CME\n"
+    },
+    {
+        "id": "L_AME_062",
+        "text": "Mine CME obtenue.\n"
+    },
+    {
+        "id": "L_AME_063",
+        "text": "Obtenir récepteur.\n"
+    },
+    {
+        "id": "L_AME_064",
+        "text": "\n"
+    },
+    {
+        "id": "L_AME_065",
+        "text": "Récepteur\n"
+    },
+    {
+        "id": "L_AME_066",
+        "text": "Un récepteur\n"
+    },
+    {
+        "id": "L_AME_067",
+        "text": "Récepteur obtenu.\n"
+    },
+    {
+        "id": "L_AME_068",
+        "text": "Oui, oui, je suis d'accord. On peut se passer\n de sa personnalité.\n"
+    },
+    {
+        "id": "L_AME_069",
+        "text": "Non, je peux y travailler depuis mon ordinateur\n de bureau et effacer les fichiers\n en même temps.\n"
+    },
+    {
+        "id": "L_AME_070",
+        "text": "Je m'y mets tout de suite. Au revoir.\n"
+    },
+    {
+        "id": "L_AME_071",
+        "text": "Au pied!\n"
+    },
+    {
+        "id": "L_AME_072",
+        "text": "J'ai un problème de mot de passe, et vous\nallez le résoudre.\n"
+    },
+    {
+        "id": "L_AME_073",
+        "text": "Ne tirez pas! Ne tirez pas!\n"
+    },
+    {
+        "id": "L_AME_074",
+        "text": "Transfert interrompu - connexion perdue.\n"
+    },
+    {
+        "id": "L_AME_075",
+        "text": "Erreur transfert - téléchargement incomplet.\n"
+    },
+    {
+        "id": "L_AME_076",
+        "text": "Système de sécurité temporairement annulé.\n"
+    },
+    {
+        "id": "L_AME_077",
+        "text": "Communications extérieures coupées.\n"
+    },
+    {
+        "id": "L_AME_078",
+        "text": "Ascenseur du laboratoire localisé.\n"
+    },
+    {
+        "id": "L_AME_079",
+        "text": "Sécurité!!! A l'aide!\n"
+    },
+    {
+        "id": "L_AME_080",
+        "text": "Mine CME requise pour brouiller sécurité.\n"
+    },
+    {
+        "id": "L_AME_081",
+        "text": "Mine CME requise pour brouiller coms.\n"
+    },
+    {
+        "id": "L_AME_082",
+        "text": "Leurre\n"
+    },
+    {
+        "id": "L_AME_083",
+        "text": "Vous osez me déranger?\n"
+    },
+    {
+        "id": "L_AME_084",
+        "text": "Vous allez le regretter, jeune fille!\n"
+    },
+    {
+        "id": "L_AME_085",
+        "text": "Un conseil: partez...MAINTENANT!\n"
+    },
+    {
+        "id": "L_AME_086",
+        "text": "Ne me tuez pas!\n"
+    },
+    {
+        "id": "L_AME_087",
+        "text": "Pitié!\n"
+    },
+    {
+        "id": "L_AME_088",
+        "text": "Obtenir CamSpy.\n"
+    },
+    {
+        "id": "L_AME_089",
+        "text": "La CamSpy du\n"
+    },
+    {
+        "id": "L_AME_090",
+        "text": "Dr. Caroll\n"
+    },
+    {
+        "id": "L_AME_091",
+        "text": "Une CamSpy\n"
+    },
+    {
+        "id": "L_AME_092",
+        "text": "CamSpy obtenue.\n"
+    },
+    {
+        "id": "L_AME_093",
+        "text": "Signal positif -\nle relais de com intérieur est proche.\n"
+    },
+    {
+        "id": "L_AME_094",
+        "text": "Le bureau de Cassandra est à \ncet étage.\n"
+    },
+    {
+        "id": "L_AME_095",
+        "text": "L'autre relais doit être dans la\nsalle de surveillance.\n"
+    },
+    {
+        "id": "L_AME_096",
+        "text": "L'ascenseur souterrain doit être dans\nle coin.\n"
+    },
+    {
+        "id": "L_AME_097",
+        "text": "Système de sécurité opérationnel.\n"
+    },
+    {
+        "id": "L_AME_098",
+        "text": "Bravo...ça ne marche plus!\n"
+    },
+    {
+        "id": "L_AME_099",
+        "text": "2023, H: 22:14 Tour Lucerne - QG dataDyne\n"
+    },
+    {
+        "id": "L_AME_100",
+        "text": "Pourquoi agir si vite?\n"
+    },
+    {
+        "id": "L_AME_101",
+        "text": "Si le Dr. Caroll n'est pas sauvé ce soir, \nses supérieurs conditionneront son \nesprit et nous ne pourrons découvrir \nles plans de la dataDyne. \n"
+    },
+    {
+        "id": "L_AME_102",
+        "text": "Peut-on les éliminer?\n"
+    },
+    {
+        "id": "L_AME_103",
+        "text": "Pas de bêtises: une clé de sécurité ne \nfonctionne que si le détenteur est \nen vie. Ne tuez donc pas n'importe \nqui. Vous pouvez vous occuper des \ngardes armés...\n"
+    },
+    {
+        "id": "L_AME_104",
+        "text": "Où se trouve la cible?\n"
+    },
+    {
+        "id": "L_AME_105",
+        "text": "Descendez l'immeuble jusqu'aux niveaux \ninférieurs. Le Dr. Caroll se trouve \ndans un laboratoire souterrain.\n"
+    },
+    {
+        "id": "L_AME_106",
+        "text": "Comment le reconnaître?\n"
+    },
+    {
+        "id": "L_AME_107",
+        "text": "Nous n'avons aucune photo, ni document \nd'archive. Nous ne connaissons que \nson nom. Bonne chance, Perfect Dark.\n"
+    },
+    {
+        "id": "L_AME_108",
+        "text": "OK. J'y suis...\n"
+    },
+    {
+        "id": "L_AME_109",
+        "text": "Je...Je me connecte.\n"
+    },
+    {
+        "id": "L_AME_110",
+        "text": null
+    },
+    {
+        "id": "L_AME_111",
+        "text": null
+    }
+]

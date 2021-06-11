@@ -1,0 +1,514 @@
+[
+    {
+        "id": "L_DISH_000",
+        "text": null
+    },
+    {
+        "id": "L_DISH_001",
+        "text": null
+    },
+    {
+        "id": "L_DISH_002",
+        "text": null
+    },
+    {
+        "id": "L_DISH_003",
+        "text": null
+    },
+    {
+        "id": "L_DISH_004",
+        "text": null
+    },
+    {
+        "id": "L_DISH_005",
+        "text": null
+    },
+    {
+        "id": "L_DISH_006",
+        "text": null
+    },
+    {
+        "id": "L_DISH_007",
+        "text": null
+    },
+    {
+        "id": "L_DISH_008",
+        "text": "Collect Night Sight From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_009",
+        "text": "Activate The Night Sight\nLocate The Light Switch\nTurn The Lights Back On\n"
+    },
+    {
+        "id": "L_DISH_010",
+        "text": "Collect Data Uplink From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_011",
+        "text": "Stand next to the terminal and use the uplink\n"
+    },
+    {
+        "id": "L_DISH_012",
+        "text": "You Need To Be Holding The Data Uplink\n"
+    },
+    {
+        "id": "L_DISH_013",
+        "text": "Connection Established...\n"
+    },
+    {
+        "id": "L_DISH_014",
+        "text": "Terminal Has Been Successfully Hacked\n"
+    },
+    {
+        "id": "L_DISH_015",
+        "text": "Connection Broken - Too Far From PC\n"
+    },
+    {
+        "id": "L_DISH_016",
+        "text": "Collect ECM Mine From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_017",
+        "text": "Locate Hub And Throw ECM Mine Onto Hub\n"
+    },
+    {
+        "id": "L_DISH_018",
+        "text": "ECM Mine Has Been Placed Incorrectly\n"
+    },
+    {
+        "id": "L_DISH_019",
+        "text": "ECM Mine Has Been Placed Correctly\n"
+    },
+    {
+        "id": "L_DISH_020",
+        "text": "Collect Eye-Spy From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_021",
+        "text": "Locate Info Room PC and Holograph It\n"
+    },
+    {
+        "id": "L_DISH_022",
+        "text": "Info Room PC Successfully Holographed\n"
+    },
+    {
+        "id": "L_DISH_023",
+        "text": "Lights Have Been Re-activated\n"
+    },
+    {
+        "id": "L_DISH_024",
+        "text": "Collect Door Decoder From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_025",
+        "text": "Use Decoder On Door Pad To Unlock It\n"
+    },
+    {
+        "id": "L_DISH_026",
+        "text": "You Need To Be Holding The Door Decoder\n"
+    },
+    {
+        "id": "L_DISH_027",
+        "text": "Decoder Attached. Initiating Cracking Routines..\n"
+    },
+    {
+        "id": "L_DISH_028",
+        "text": "Decoding Complete. Door Has Been Unlocked.\n"
+    },
+    {
+        "id": "L_DISH_029",
+        "text": "Collect Tracker From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_030",
+        "text": "Locate IR Scanner Using Tracker\n"
+    },
+    {
+        "id": "L_DISH_031",
+        "text": "IR Scanner Has Been Successfully Located\n"
+    },
+    {
+        "id": "L_DISH_032",
+        "text": "Collect IR Scanner From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_033",
+        "text": "Locate Secret Door Using IR Scanner\n"
+    },
+    {
+        "id": "L_DISH_034",
+        "text": "Secret Door Has Been Successfully Located\n"
+    },
+    {
+        "id": "L_DISH_035",
+        "text": "Collect XRay Scanner From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_036",
+        "text": "Find Hidden Switches To Shutdown Laser Grid\n"
+    },
+    {
+        "id": "L_DISH_037",
+        "text": "All Laser Grids Have Been Deactivated\n"
+    },
+    {
+        "id": "L_DISH_038",
+        "text": "Collect Disguise From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_039",
+        "text": "Fool Someone Into Giving You Cloaking Device\n"
+    },
+    {
+        "id": "L_DISH_040",
+        "text": "Cloaking Device Successfully Retrieved\n"
+    },
+    {
+        "id": "L_DISH_041",
+        "text": "Laser Grid 1 Has Been Deactivated\n"
+    },
+    {
+        "id": "L_DISH_042",
+        "text": "Laser Grid 2 Has Been Deactivated\n"
+    },
+    {
+        "id": "L_DISH_043",
+        "text": "I'm Here To Pick The Equipment\n"
+    },
+    {
+        "id": "L_DISH_044",
+        "text": "Go away Joanna, you don't fool me!\n"
+    },
+    {
+        "id": "L_DISH_045",
+        "text": "Here you go. Don't drop it now.\n"
+    },
+    {
+        "id": "L_DISH_046",
+        "text": "Cloaking Device Has Been Secured Successfully\n"
+    },
+    {
+        "id": "L_DISH_047",
+        "text": "You're Meant To Use The Disguise, remember?\n"
+    },
+    {
+        "id": "L_DISH_048",
+        "text": "You'll Have To Try Harder Than That Joanna\n"
+    },
+    {
+        "id": "L_DISH_049",
+        "text": "Joanna - Where Did You Spring From?\n"
+    },
+    {
+        "id": "L_DISH_050",
+        "text": "You Have Been Detected By The Camera\n"
+    },
+    {
+        "id": "L_DISH_051",
+        "text": "Collect Cloaking Device From Table To Begin\n"
+    },
+    {
+        "id": "L_DISH_052",
+        "text": "Use Cloaking Device And Locate Carrington\n"
+    },
+    {
+        "id": "L_DISH_053",
+        "text": "I think we can safely say you're training\nis now complete!\n"
+    },
+    {
+        "id": "L_DISH_054",
+        "text": "Mission Accomplished - Device Training Complete!\n"
+    },
+    {
+        "id": "L_DISH_055",
+        "text": "Mission Failed - You Have Been Detected\n"
+    },
+    {
+        "id": "L_DISH_056",
+        "text": "Select The Uplink\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Data Uplink And Release A\n"
+    },
+    {
+        "id": "L_DISH_057",
+        "text": "Select The EyeSpy\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Eye-Spy And Release A\n"
+    },
+    {
+        "id": "L_DISH_058",
+        "text": "Select The Night Vision\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Night Vision And Release A\n"
+    },
+    {
+        "id": "L_DISH_059",
+        "text": "Select The Door Decoder\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight DoorDecoder And Release A\n"
+    },
+    {
+        "id": "L_DISH_060",
+        "text": "Select The X-Ray Scanner\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight X-Ray Scanner And Release A\n"
+    },
+    {
+        "id": "L_DISH_061",
+        "text": "Select The Disguise\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Disguise And Release A\n"
+    },
+    {
+        "id": "L_DISH_062",
+        "text": "Select The IR Scanner\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight IR Scanner And Release A\n"
+    },
+    {
+        "id": "L_DISH_063",
+        "text": "Select The Tracker\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Tracker And Release A\n"
+    },
+    {
+        "id": "L_DISH_064",
+        "text": "Select The Cloaking Device\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight Device And Release A\n"
+    },
+    {
+        "id": "L_DISH_065",
+        "text": "Select The ECM Mine\n- Hold A\n- Use Analogue Stick To Change Selecion\n- Highlight ECM Mine And Release A\n"
+    },
+    {
+        "id": "L_DISH_066",
+        "text": "Joanna, It's good to see you.\n"
+    },
+    {
+        "id": "L_DISH_067",
+        "text": "Come with me Joanna.\nI'll walk you to the training room.\n"
+    },
+    {
+        "id": "L_DISH_068",
+        "text": "The information centre is through this door.\n"
+    },
+    {
+        "id": "L_DISH_069",
+        "text": "In here we have the device lab.\n"
+    },
+    {
+        "id": "L_DISH_070",
+        "text": "This leads to the simulant training room.\n"
+    },
+    {
+        "id": "L_DISH_071",
+        "text": "This is the firing range Jo.\n"
+    },
+    {
+        "id": "L_DISH_072",
+        "text": "This corridor leads down to the hangar.\n"
+    },
+    {
+        "id": "L_DISH_073",
+        "text": "HOVERCRATE\nPress B next to Hovcrate to grab it...\n"
+    },
+    {
+        "id": "L_DISH_074",
+        "text": "Press B when crate grabbed to release it.\n"
+    },
+    {
+        "id": "L_DISH_075",
+        "text": "HOVERBIKE\nDouble Tap B next to Hovbike to ride it...\n"
+    },
+    {
+        "id": "L_DISH_076",
+        "text": "Double Tap B when on Hovbike to dismount.\n"
+    },
+    {
+        "id": "L_DISH_077",
+        "text": "OPENING DOORS\nPress B next to door to open it.\n"
+    },
+    {
+        "id": "L_DISH_078",
+        "text": "B will also activate any object nearby.\n"
+    },
+    {
+        "id": "L_DISH_079",
+        "text": "ELEVATORS\nPress B next to door to call elevator.\n"
+    },
+    {
+        "id": "L_DISH_080",
+        "text": "Cannot Exit While Training Is In Progress\n"
+    },
+    {
+        "id": "L_DISH_081",
+        "text": "Switch Code 1 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_082",
+        "text": "Switch Code 2 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_083",
+        "text": "Switch Code 3 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_084",
+        "text": "Switch Code 4 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_085",
+        "text": "LOOK UP\n- Press Down C To Look Up At The Target.\n"
+    },
+    {
+        "id": "L_DISH_086",
+        "text": "LOOK DOWN\n- Press Up C To Look Down At The Target.\n"
+    },
+    {
+        "id": "L_DISH_087",
+        "text": "Holoprogram 2 Has Been Completed Successfully.\n"
+    },
+    {
+        "id": "L_DISH_088",
+        "text": "Holoprogram 4 Has Been Completed Successfully.\n"
+    },
+    {
+        "id": "L_DISH_089",
+        "text": "Holoprogram 5 Has Been Completed Successfully.\n"
+    },
+    {
+        "id": "L_DISH_090",
+        "text": "Guard Has Been Successfully Disarmed.\n"
+    },
+    {
+        "id": "L_DISH_091",
+        "text": "Guard Has Been Successfully Knocked Out.\n"
+    },
+    {
+        "id": "L_DISH_092",
+        "text": "Disarm This Live Target If You Can.\n"
+    },
+    {
+        "id": "L_DISH_093",
+        "text": "Knock Out This Target - Stealth Is The Key.\n"
+    },
+    {
+        "id": "L_DISH_094",
+        "text": "and the final guard....\n"
+    },
+    {
+        "id": "L_DISH_095",
+        "text": "DUCK\n- Hold R Then Press Down C To Duck.\n"
+    },
+    {
+        "id": "L_DISH_096",
+        "text": "CROUCH\n- When Ducking, Hold R Then Press Down C To Duck.\n"
+    },
+    {
+        "id": "L_DISH_097",
+        "text": "Holoprogram 3 Has Been Completed Successfully.\n"
+    },
+    {
+        "id": "L_DISH_098",
+        "text": "Activate All The Switches.\n"
+    },
+    {
+        "id": "L_DISH_099",
+        "text": "Activate All Of The Wall Switches.\n- Be Quick, As They Will Quickly Reset.\n"
+    },
+    {
+        "id": "L_DISH_100",
+        "text": "Get The Access Codes By Examining Terminals.\n- Use The Codes On The Wall Terminals.\n"
+    },
+    {
+        "id": "L_DISH_101",
+        "text": "Code 1 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_102",
+        "text": "Code 2 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_103",
+        "text": "Code 3 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_104",
+        "text": "Code 4 Has Been Obtained.\n"
+    },
+    {
+        "id": "L_DISH_105",
+        "text": "Training Failed - You Must Face Forward.\n"
+    },
+    {
+        "id": "L_DISH_106",
+        "text": "Holoprogram 1 Has Been Completed Successfully.\n"
+    },
+    {
+        "id": "L_DISH_107",
+        "text": "Unarmed Combat - Knock Out The Target.\n- Press Z repeatedly to punch.\n"
+    },
+    {
+        "id": "L_DISH_108",
+        "text": "Now Try Against A Moving Target...\n"
+    },
+    {
+        "id": "L_DISH_109",
+        "text": "And Finally Against A Target That Fights Back.\n"
+    },
+    {
+        "id": "L_DISH_110",
+        "text": "Defeat All Enemies Without Getting Hit.\n"
+    },
+    {
+        "id": "L_DISH_111",
+        "text": "Training Failed - You Have Been Hit.\n"
+    },
+    {
+        "id": "L_DISH_112",
+        "text": "Holoprogram 6 Has Been Completed Successfully.\n"
+    },
+    {
+        "id": "L_DISH_113",
+        "text": "Holoprogram 7 Has Been Completed Successfully.\n"
+    },
+    {
+        "id": "L_DISH_114",
+        "text": "TERMINALS\n- Press B next to terminal to use it.\n"
+    },
+    {
+        "id": "L_DISH_115",
+        "text": "Now Activate The Red Terminals On The Wall.\n"
+    },
+    {
+        "id": "L_DISH_116",
+        "text": null
+    },
+    {
+        "id": "L_DISH_117",
+        "text": null
+    },
+    {
+        "id": "L_DISH_118",
+        "text": null
+    },
+    {
+        "id": "L_DISH_119",
+        "text": null
+    },
+    {
+        "id": "L_DISH_120",
+        "text": null
+    },
+    {
+        "id": "L_DISH_121",
+        "text": null
+    },
+    {
+        "id": "L_DISH_122",
+        "text": null
+    },
+    {
+        "id": "L_DISH_123",
+        "text": null
+    },
+    {
+        "id": "L_DISH_124",
+        "text": null
+    },
+    {
+        "id": "L_DISH_125",
+        "text": null
+    },
+    {
+        "id": "L_DISH_126",
+        "text": null
+    },
+    {
+        "id": "L_DISH_127",
+        "text": null
+    }
+]

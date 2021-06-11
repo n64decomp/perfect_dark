@@ -1,0 +1,1986 @@
+[
+    {
+        "id": "L_MPMENU_000",
+        "text": "Der Suizidalste\n"
+    },
+    {
+        "id": "L_MPMENU_001",
+        "text": "Wer braucht Muni?\n"
+    },
+    {
+        "id": "L_MPMENU_002",
+        "text": "Am wenigsten beschildet\n"
+    },
+    {
+        "id": "L_MPMENU_003",
+        "text": "Bestgeschützter\n"
+    },
+    {
+        "id": "L_MPMENU_004",
+        "text": "Der Treffsicherste\n"
+    },
+    {
+        "id": "L_MPMENU_005",
+        "text": "Der Professionellste\n"
+    },
+    {
+        "id": "L_MPMENU_006",
+        "text": "Der Gefährlichste\n"
+    },
+    {
+        "id": "L_MPMENU_007",
+        "text": "Der Harmloseste\n"
+    },
+    {
+        "id": "L_MPMENU_008",
+        "text": "Der Feigste\n"
+    },
+    {
+        "id": "L_MPMENU_009",
+        "text": "Der Verzweifeltste\n"
+    },
+    {
+        "id": "L_MPMENU_010",
+        "text": "Der Ehrenhafteste\n"
+    },
+    {
+        "id": "L_MPMENU_011",
+        "text": "Der Unehrenhafteste\n"
+    },
+    {
+        "id": "L_MPMENU_012",
+        "text": "Eintagsfliege\n"
+    },
+    {
+        "id": "L_MPMENU_013",
+        "text": "Methusalem\n"
+    },
+    {
+        "id": "L_MPMENU_014",
+        "text": "Doppel-Treffer\n"
+    },
+    {
+        "id": "L_MPMENU_015",
+        "text": "Dreifach-Treffer\n"
+    },
+    {
+        "id": "L_MPMENU_016",
+        "text": "Vierfach-Treffer\n"
+    },
+    {
+        "id": "L_MPMENU_017",
+        "text": "Spiel-Einstellungen\n"
+    },
+    {
+        "id": "L_MPMENU_018",
+        "text": "Einstellungen laden\n"
+    },
+    {
+        "id": "L_MPMENU_019",
+        "text": "Szenario\n"
+    },
+    {
+        "id": "L_MPMENU_020",
+        "text": "Arena\n"
+    },
+    {
+        "id": "L_MPMENU_021",
+        "text": "Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_022",
+        "text": "Teams\n"
+    },
+    {
+        "id": "L_MPMENU_023",
+        "text": "Waffen\n"
+    },
+    {
+        "id": "L_MPMENU_024",
+        "text": "Limits\n"
+    },
+    {
+        "id": "L_MPMENU_025",
+        "text": "Simulanten\n"
+    },
+    {
+        "id": "L_MPMENU_026",
+        "text": "Einstellungen speichern\n"
+    },
+    {
+        "id": "L_MPMENU_027",
+        "text": "Spiel abbrechen\n"
+    },
+    {
+        "id": "L_MPMENU_028",
+        "text": "Spieler-Einstellungen\n"
+    },
+    {
+        "id": "L_MPMENU_029",
+        "text": "Spieler laden\n"
+    },
+    {
+        "id": "L_MPMENU_030",
+        "text": "Name\n"
+    },
+    {
+        "id": "L_MPMENU_031",
+        "text": "Charakter\n"
+    },
+    {
+        "id": "L_MPMENU_032",
+        "text": "Handicap\n"
+    },
+    {
+        "id": "L_MPMENU_033",
+        "text": "Steuerung\n"
+    },
+    {
+        "id": "L_MPMENU_034",
+        "text": "Spieler-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_035",
+        "text": "Statistik\n"
+    },
+    {
+        "id": "L_MPMENU_036",
+        "text": "Spielstart\n"
+    },
+    {
+        "id": "L_MPMENU_037",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_038",
+        "text": "Spieler speichern\n"
+    },
+    {
+        "id": "L_MPMENU_039",
+        "text": "Spieler nochmals speichern\n"
+    },
+    {
+        "id": "L_MPMENU_040",
+        "text": "Zeugs\n"
+    },
+    {
+        "id": "L_MPMENU_041",
+        "text": "Soundtrack\n"
+    },
+    {
+        "id": "L_MPMENU_042",
+        "text": "Team-Namen\n"
+    },
+    {
+        "id": "L_MPMENU_043",
+        "text": "Rate\n"
+    },
+    {
+        "id": "L_MPMENU_044",
+        "text": "Sperre\n"
+    },
+    {
+        "id": "L_MPMENU_045",
+        "text": "keine\n"
+    },
+    {
+        "id": "L_MPMENU_046",
+        "text": "Letzter Gewinner\n"
+    },
+    {
+        "id": "L_MPMENU_047",
+        "text": "Letzter Verlierer\n"
+    },
+    {
+        "id": "L_MPMENU_048",
+        "text": "zufällig\n"
+    },
+    {
+        "id": "L_MPMENU_049",
+        "text": "Challenge\n"
+    },
+    {
+        "id": "L_MPMENU_050",
+        "text": "Kampf-Challenge\n"
+    },
+    {
+        "id": "L_MPMENU_051",
+        "text": "Challenge abbrechen\n"
+    },
+    {
+        "id": "L_MPMENU_052",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_053",
+        "text": "Sind Sie sicher, dass Sie\ndas Spiel abbrechen möchten?\n"
+    },
+    {
+        "id": "L_MPMENU_054",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_055",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_056",
+        "text": "%s\n"
+    },
+    {
+        "id": "L_MPMENU_057",
+        "text": "Annehmen\n"
+    },
+    {
+        "id": "L_MPMENU_058",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_059",
+        "text": "Team-Namen\n"
+    },
+    {
+        "id": "L_MPMENU_060",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_061",
+        "text": "Team-Name ändern\n"
+    },
+    {
+        "id": "L_MPMENU_062",
+        "text": "Soundtrack\n"
+    },
+    {
+        "id": "L_MPMENU_063",
+        "text": "Derzeit:\n"
+    },
+    {
+        "id": "L_MPMENU_064",
+        "text": "Multiple Soundtracks\n"
+    },
+    {
+        "id": "L_MPMENU_065",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_066",
+        "text": "Multiple Soundtracks\n"
+    },
+    {
+        "id": "L_MPMENU_067",
+        "text": "zufällig\n"
+    },
+    {
+        "id": "L_MPMENU_068",
+        "text": "Wähle Soundtracks\n"
+    },
+    {
+        "id": "L_MPMENU_069",
+        "text": "Wähle Soundtrack\n"
+    },
+    {
+        "id": "L_MPMENU_070",
+        "text": "Team-Steuerung\n"
+    },
+    {
+        "id": "L_MPMENU_071",
+        "text": "Teams ermächtigt\n"
+    },
+    {
+        "id": "L_MPMENU_072",
+        "text": "Teams:\n"
+    },
+    {
+        "id": "L_MPMENU_073",
+        "text": "Auto-Team...\n"
+    },
+    {
+        "id": "L_MPMENU_074",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_075",
+        "text": "Auto-Team\n"
+    },
+    {
+        "id": "L_MPMENU_076",
+        "text": "Zwei Teams\n"
+    },
+    {
+        "id": "L_MPMENU_077",
+        "text": "Drei Teams\n"
+    },
+    {
+        "id": "L_MPMENU_078",
+        "text": "Vier Teams\n"
+    },
+    {
+        "id": "L_MPMENU_079",
+        "text": "Maximum Teams\n"
+    },
+    {
+        "id": "L_MPMENU_080",
+        "text": "Menschen vs. Simulanten\n"
+    },
+    {
+        "id": "L_MPMENU_081",
+        "text": "Menschen-Simulanten Paare\n"
+    },
+    {
+        "id": "L_MPMENU_082",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_083",
+        "text": "Simulanten\n"
+    },
+    {
+        "id": "L_MPMENU_084",
+        "text": "Simulant hinzufügen...\n"
+    },
+    {
+        "id": "L_MPMENU_085",
+        "text": "1:\n"
+    },
+    {
+        "id": "L_MPMENU_086",
+        "text": "2:\n"
+    },
+    {
+        "id": "L_MPMENU_087",
+        "text": "3:\n"
+    },
+    {
+        "id": "L_MPMENU_088",
+        "text": "4:\n"
+    },
+    {
+        "id": "L_MPMENU_089",
+        "text": "5:\n"
+    },
+    {
+        "id": "L_MPMENU_090",
+        "text": "6:\n"
+    },
+    {
+        "id": "L_MPMENU_091",
+        "text": "7:\n"
+    },
+    {
+        "id": "L_MPMENU_092",
+        "text": "8:\n"
+    },
+    {
+        "id": "L_MPMENU_093",
+        "text": "Alle löschen\n"
+    },
+    {
+        "id": "L_MPMENU_094",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_095",
+        "text": "Schwierigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_096",
+        "text": "Typ wechseln...\n"
+    },
+    {
+        "id": "L_MPMENU_097",
+        "text": "Charakter...\n"
+    },
+    {
+        "id": "L_MPMENU_098",
+        "text": "Simulant löschen\n"
+    },
+    {
+        "id": "L_MPMENU_099",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_100",
+        "text": "Simulanten-Charakter\n"
+    },
+    {
+        "id": "L_MPMENU_101",
+        "text": "Simulant hinzufügen\n"
+    },
+    {
+        "id": "L_MPMENU_102",
+        "text": "Simulant wechseln\n"
+    },
+    {
+        "id": "L_MPMENU_103",
+        "text": "Normale Simulanten\n"
+    },
+    {
+        "id": "L_MPMENU_104",
+        "text": "Spezielle Simulanten\n"
+    },
+    {
+        "id": "L_MPMENU_105",
+        "text": "Fertig!\n"
+    },
+    {
+        "id": "L_MPMENU_106",
+        "text": "...und bereit\n"
+    },
+    {
+        "id": "L_MPMENU_107",
+        "text": "Limits\n"
+    },
+    {
+        "id": "L_MPMENU_108",
+        "text": "Zeit\n"
+    },
+    {
+        "id": "L_MPMENU_109",
+        "text": "Score\n"
+    },
+    {
+        "id": "L_MPMENU_110",
+        "text": "Grundeinstellung\n"
+    },
+    {
+        "id": "L_MPMENU_111",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_112",
+        "text": "Unbegr.\n"
+    },
+    {
+        "id": "L_MPMENU_113",
+        "text": "%d\n"
+    },
+    {
+        "id": "L_MPMENU_114",
+        "text": "%d Min\n"
+    },
+    {
+        "id": "L_MPMENU_115",
+        "text": "Arena\n"
+    },
+    {
+        "id": "L_MPMENU_116",
+        "text": "Dark\n"
+    },
+    {
+        "id": "L_MPMENU_117",
+        "text": "Classic\n"
+    },
+    {
+        "id": "L_MPMENU_118",
+        "text": "zufällig\n"
+    },
+    {
+        "id": "L_MPMENU_119",
+        "text": "Skedar"
+    },
+    {
+        "id": "L_MPMENU_120",
+        "text": "Rohre"
+    },
+    {
+        "id": "L_MPMENU_121",
+        "text": "Graben"
+    },
+    {
+        "id": "L_MPMENU_122",
+        "text": "G5-Building"
+    },
+    {
+        "id": "L_MPMENU_123",
+        "text": "Kanäle"
+    },
+    {
+        "id": "L_MPMENU_124",
+        "text": "Lagerhaus"
+    },
+    {
+        "id": "L_MPMENU_125",
+        "text": "Netz"
+    },
+    {
+        "id": "L_MPMENU_126",
+        "text": "Ruinen"
+    },
+    {
+        "id": "L_MPMENU_127",
+        "text": "Area 52"
+    },
+    {
+        "id": "L_MPMENU_128",
+        "text": "Basis"
+    },
+    {
+        "id": "L_MPMENU_129",
+        "text": "Dächer"
+    },
+    {
+        "id": "L_MPMENU_130",
+        "text": "Festung"
+    },
+    {
+        "id": "L_MPMENU_131",
+        "text": "Villa"
+    },
+    {
+        "id": "L_MPMENU_132",
+        "text": "Parkdeck"
+    },
+    {
+        "id": "L_MPMENU_133",
+        "text": "Tempel"
+    },
+    {
+        "id": "L_MPMENU_134",
+        "text": "Komplex"
+    },
+    {
+        "id": "L_MPMENU_135",
+        "text": "Glückseligkeit"
+    },
+    {
+        "id": "L_MPMENU_136",
+        "text": "Zufällig"
+    },
+    {
+        "id": "L_MPMENU_137",
+        "text": "Spieler laden\n"
+    },
+    {
+        "id": "L_MPMENU_138",
+        "text": "B-Knopf für Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_139",
+        "text": "Spieleinstellungen laden\n"
+    },
+    {
+        "id": "L_MPMENU_140",
+        "text": "%s:  Szenario: %s   Arena: %s    Simulanten: %d"
+    },
+    {
+        "id": "L_MPMENU_141",
+        "text": "Voreinstellungen\n"
+    },
+    {
+        "id": "L_MPMENU_142",
+        "text": "Spieler-Name\n"
+    },
+    {
+        "id": "L_MPMENU_143",
+        "text": "Charakter\n"
+    },
+    {
+        "id": "L_MPMENU_144",
+        "text": "Kopf laden...\n"
+    },
+    {
+        "id": "L_MPMENU_145",
+        "text": "Statistik für %s\n"
+    },
+    {
+        "id": "L_MPMENU_146",
+        "text": "Treff.:\n"
+    },
+    {
+        "id": "L_MPMENU_147",
+        "text": "Versuche:\n"
+    },
+    {
+        "id": "L_MPMENU_148",
+        "text": "Genauigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_149",
+        "text": "Kopftreffer:\n"
+    },
+    {
+        "id": "L_MPMENU_150",
+        "text": "Verbrauchte Muni:\n"
+    },
+    {
+        "id": "L_MPMENU_151",
+        "text": "Schaden verursacht:\n"
+    },
+    {
+        "id": "L_MPMENU_152",
+        "text": "Schmerzen ertragen:\n"
+    },
+    {
+        "id": "L_MPMENU_153",
+        "text": "Spiele gesamt:\n"
+    },
+    {
+        "id": "L_MPMENU_154",
+        "text": "Gewinne:\n"
+    },
+    {
+        "id": "L_MPMENU_155",
+        "text": "Verluste:\n"
+    },
+    {
+        "id": "L_MPMENU_156",
+        "text": "Zeit:\n"
+    },
+    {
+        "id": "L_MPMENU_157",
+        "text": "Distanz:\n"
+    },
+    {
+        "id": "L_MPMENU_158",
+        "text": "Medaillen:\n"
+    },
+    {
+        "id": "L_MPMENU_159",
+        "text": "   Genauigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_160",
+        "text": "   Kopftreffer:\n"
+    },
+    {
+        "id": "L_MPMENU_161",
+        "text": "   Meisterschütze:\n"
+    },
+    {
+        "id": "L_MPMENU_162",
+        "text": "   Überlebender:\n"
+    },
+    {
+        "id": "L_MPMENU_163",
+        "text": "Ihr Titel:\n"
+    },
+    {
+        "id": "L_MPMENU_164",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_165",
+        "text": "Challenges komplettiert\n"
+    },
+    {
+        "id": "L_MPMENU_166",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_167",
+        "text": "Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_168",
+        "text": "Items anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_169",
+        "text": "Spieler anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_170",
+        "text": "Teams anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_171",
+        "text": "Radar\n"
+    },
+    {
+        "id": "L_MPMENU_172",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_173",
+        "text": "Bewaffnung\n"
+    },
+    {
+        "id": "L_MPMENU_174",
+        "text": "Einstellung:\n"
+    },
+    {
+        "id": "L_MPMENU_175",
+        "text": "Aktuelle Einstellung:\n"
+    },
+    {
+        "id": "L_MPMENU_176",
+        "text": "1:\n"
+    },
+    {
+        "id": "L_MPMENU_177",
+        "text": "2:\n"
+    },
+    {
+        "id": "L_MPMENU_178",
+        "text": "3:\n"
+    },
+    {
+        "id": "L_MPMENU_179",
+        "text": "4:\n"
+    },
+    {
+        "id": "L_MPMENU_180",
+        "text": "5:\n"
+    },
+    {
+        "id": "L_MPMENU_181",
+        "text": "6:\n"
+    },
+    {
+        "id": "L_MPMENU_182",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_183",
+        "text": "Einstellungen speichern\n"
+    },
+    {
+        "id": "L_MPMENU_184",
+        "text": "Möchten Sie das \nbestehende File\nüberschreiben?\n"
+    },
+    {
+        "id": "L_MPMENU_185",
+        "text": "Überschreiben\n"
+    },
+    {
+        "id": "L_MPMENU_186",
+        "text": "Kopieren\n"
+    },
+    {
+        "id": "L_MPMENU_187",
+        "text": "Nicht speichern\n"
+    },
+    {
+        "id": "L_MPMENU_188",
+        "text": "File-Name\n"
+    },
+    {
+        "id": "L_MPMENU_189",
+        "text": "Bitte benennen Sie\nIhr File:\n"
+    },
+    {
+        "id": "L_MPMENU_190",
+        "text": "Bestätigen\n"
+    },
+    {
+        "id": "L_MPMENU_191",
+        "text": "Ihr Spieler-File wird\nimmer automatisch\ngespeichert.\n"
+    },
+    {
+        "id": "L_MPMENU_192",
+        "text": "Kopie speichern?\n"
+    },
+    {
+        "id": "L_MPMENU_193",
+        "text": "Nein\n"
+    },
+    {
+        "id": "L_MPMENU_194",
+        "text": "Ja\n"
+    },
+    {
+        "id": "L_MPMENU_195",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_196",
+        "text": "Sind Sie sicher, dass\nSie abbrechen wollen?\n"
+    },
+    {
+        "id": "L_MPMENU_197",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_MPMENU_198",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_199",
+        "text": "Steuerung\n"
+    },
+    {
+        "id": "L_MPMENU_200",
+        "text": "Steuerungsart\n"
+    },
+    {
+        "id": "L_MPMENU_201",
+        "text": "Blick vertauschen\n"
+    },
+    {
+        "id": "L_MPMENU_202",
+        "text": "Vorausschauen\n"
+    },
+    {
+        "id": "L_MPMENU_203",
+        "text": "Kopfneigung\n"
+    },
+    {
+        "id": "L_MPMENU_204",
+        "text": "Auto-Ziel\n"
+    },
+    {
+        "id": "L_MPMENU_205",
+        "text": "Ziel-Steuerung\n"
+    },
+    {
+        "id": "L_MPMENU_206",
+        "text": "Screen-Anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_207",
+        "text": "Ziel zeigen\n"
+    },
+    {
+        "id": "L_MPMENU_208",
+        "text": "Zoom-Bereich\n"
+    },
+    {
+        "id": "L_MPMENU_209",
+        "text": "Munition anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_210",
+        "text": "Funktion anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_211",
+        "text": "Paintball\n"
+    },
+    {
+        "id": "L_MPMENU_212",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_213",
+        "text": "Halten\n"
+    },
+    {
+        "id": "L_MPMENU_214",
+        "text": "Umschalten\n"
+    },
+    {
+        "id": "L_MPMENU_215",
+        "text": "Kampf-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_216",
+        "text": "Aktenkoffer-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_217",
+        "text": "Hacker-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_218",
+        "text": "Pop a Cap-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_219",
+        "text": "Hügel-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_220",
+        "text": "Fang-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_221",
+        "text": "Boxen-Optionen\n"
+    },
+    {
+        "id": "L_MPMENU_222",
+        "text": "Ein Treffer\n"
+    },
+    {
+        "id": "L_MPMENU_223",
+        "text": "Zeitlupe\n"
+    },
+    {
+        "id": "L_MPMENU_224",
+        "text": "Zeitraffer\n"
+    },
+    {
+        "id": "L_MPMENU_225",
+        "text": "Team anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_226",
+        "text": "Kein Radar\n"
+    },
+    {
+        "id": "L_MPMENU_227",
+        "text": "Kein Auto-Ziel\n"
+    },
+    {
+        "id": "L_MPMENU_228",
+        "text": "Spieler nicht anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_229",
+        "text": "Items nicht anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_230",
+        "text": "Ziel anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_231",
+        "text": "Terminal anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_232",
+        "text": "Boxen am Radar zeigen\n"
+    },
+    {
+        "id": "L_MPMENU_233",
+        "text": "Hügel am Radar zeigen\n"
+    },
+    {
+        "id": "L_MPMENU_234",
+        "text": "Mobiler Hügel\n"
+    },
+    {
+        "id": "L_MPMENU_235",
+        "text": "Zeit\n"
+    },
+    {
+        "id": "L_MPMENU_236",
+        "text": "Am Radar zeigen\n"
+    },
+    {
+        "id": "L_MPMENU_237",
+        "text": "Aktenkoffer anzeigen\n"
+    },
+    {
+        "id": "L_MPMENU_238",
+        "text": "Am Radar zeigen\n"
+    },
+    {
+        "id": "L_MPMENU_239",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_240",
+        "text": "Aus\n"
+    },
+    {
+        "id": "L_MPMENU_241",
+        "text": "Ein\n"
+    },
+    {
+        "id": "L_MPMENU_242",
+        "text": "Smart\n"
+    },
+    {
+        "id": "L_MPMENU_243",
+        "text": "Szenario\n"
+    },
+    {
+        "id": "L_MPMENU_244",
+        "text": "Frei für alle!\n"
+    },
+    {
+        "id": "L_MPMENU_245",
+        "text": "-Teamwork-\n"
+    },
+    {
+        "id": "L_MPMENU_246",
+        "text": "Kampf"
+    },
+    {
+        "id": "L_MPMENU_247",
+        "text": "Verteidigen Sie den Aktenkoffer"
+    },
+    {
+        "id": "L_MPMENU_248",
+        "text": "Hacker-Zentrale"
+    },
+    {
+        "id": "L_MPMENU_249",
+        "text": "Pop a Cap"
+    },
+    {
+        "id": "L_MPMENU_250",
+        "text": "Herr des Hügels"
+    },
+    {
+        "id": "L_MPMENU_251",
+        "text": "Schnapp den Koffer"
+    },
+    {
+        "id": "L_MPMENU_252",
+        "text": "Berühr die Box"
+    },
+    {
+        "id": "L_MPMENU_253",
+        "text": "Kampf"
+    },
+    {
+        "id": "L_MPMENU_254",
+        "text": "Aktenkoffer"
+    },
+    {
+        "id": "L_MPMENU_255",
+        "text": "Hacker"
+    },
+    {
+        "id": "L_MPMENU_256",
+        "text": "Pop"
+    },
+    {
+        "id": "L_MPMENU_257",
+        "text": "Hügel"
+    },
+    {
+        "id": "L_MPMENU_258",
+        "text": "Fang"
+    },
+    {
+        "id": "L_MPMENU_259",
+        "text": "Boxen"
+    },
+    {
+        "id": "L_MPMENU_260",
+        "text": "Game Over\n"
+    },
+    {
+        "id": "L_MPMENU_261",
+        "text": "Titel:\n"
+    },
+    {
+        "id": "L_MPMENU_262",
+        "text": "Bevorzugte Waffe:\n"
+    },
+    {
+        "id": "L_MPMENU_263",
+        "text": "Preise:\n"
+    },
+    {
+        "id": "L_MPMENU_264",
+        "text": "1.\n"
+    },
+    {
+        "id": "L_MPMENU_265",
+        "text": "2.\n"
+    },
+    {
+        "id": "L_MPMENU_266",
+        "text": "3.\n"
+    },
+    {
+        "id": "L_MPMENU_267",
+        "text": "4.\n"
+    },
+    {
+        "id": "L_MPMENU_268",
+        "text": "5.\n"
+    },
+    {
+        "id": "L_MPMENU_269",
+        "text": "6.\n"
+    },
+    {
+        "id": "L_MPMENU_270",
+        "text": "7.\n"
+    },
+    {
+        "id": "L_MPMENU_271",
+        "text": "8.\n"
+    },
+    {
+        "id": "L_MPMENU_272",
+        "text": "9.\n"
+    },
+    {
+        "id": "L_MPMENU_273",
+        "text": "10.\n"
+    },
+    {
+        "id": "L_MPMENU_274",
+        "text": "11.\n"
+    },
+    {
+        "id": "L_MPMENU_275",
+        "text": "12.\n"
+    },
+    {
+        "id": "L_MPMENU_276",
+        "text": "Spieler-Bewertung\n"
+    },
+    {
+        "id": "L_MPMENU_277",
+        "text": "Versuche\n"
+    },
+    {
+        "id": "L_MPMENU_278",
+        "text": "Score\n"
+    },
+    {
+        "id": "L_MPMENU_279",
+        "text": "Team-Bewertung\n"
+    },
+    {
+        "id": "L_MPMENU_280",
+        "text": "Statistik für %s"
+    },
+    {
+        "id": "L_MPMENU_281",
+        "text": "Selber Schuld\n"
+    },
+    {
+        "id": "L_MPMENU_282",
+        "text": "Versuche\n"
+    },
+    {
+        "id": "L_MPMENU_283",
+        "text": "Treffer\n"
+    },
+    {
+        "id": "L_MPMENU_284",
+        "text": "Inventar\n"
+    },
+    {
+        "id": "L_MPMENU_285",
+        "text": "Steuerung\n"
+    },
+    {
+        "id": "L_MPMENU_286",
+        "text": "Spielzeit:\n"
+    },
+    {
+        "id": "L_MPMENU_287",
+        "text": "Spiel beenden\n"
+    },
+    {
+        "id": "L_MPMENU_288",
+        "text": "Pause\n"
+    },
+    {
+        "id": "L_MPMENU_289",
+        "text": "Pause beenden\n"
+    },
+    {
+        "id": "L_MPMENU_290",
+        "text": "Spiel beenden\n"
+    },
+    {
+        "id": "L_MPMENU_291",
+        "text": "Sind Sie sicher?\n"
+    },
+    {
+        "id": "L_MPMENU_292",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_293",
+        "text": "Spiel beenden\n"
+    },
+    {
+        "id": "L_MPMENU_294",
+        "text": "PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_295",
+        "text": "Gespeicherten Kopf laden\n"
+    },
+    {
+        "id": "L_MPMENU_296",
+        "text": "Neuen Kopf erstellen\n"
+    },
+    {
+        "id": "L_MPMENU_297",
+        "text": "Kopf editieren\n"
+    },
+    {
+        "id": "L_MPMENU_298",
+        "text": "PerfectHead editieren\n"
+    },
+    {
+        "id": "L_MPMENU_299",
+        "text": "Wähle den Kopf:\n"
+    },
+    {
+        "id": "L_MPMENU_300",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_301",
+        "text": "Neuen Kopf erstellen\n"
+    },
+    {
+        "id": "L_MPMENU_302",
+        "text": "Gespeicherten Kopf laden\n"
+    },
+    {
+        "id": "L_MPMENU_303",
+        "text": "Wo möchtest du diesen\n"
+    },
+    {
+        "id": "L_MPMENU_304",
+        "text": "Kopf einsetzen?\n"
+    },
+    {
+        "id": "L_MPMENU_305",
+        "text": "Kampfsimulator\n"
+    },
+    {
+        "id": "L_MPMENU_306",
+        "text": "Alle Missionen\n"
+    },
+    {
+        "id": "L_MPMENU_307",
+        "text": "Beide\n"
+    },
+    {
+        "id": "L_MPMENU_308",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_309",
+        "text": "Camera Setup\n"
+    },
+    {
+        "id": "L_MPMENU_310",
+        "text": "Insert your camera into your\n"
+    },
+    {
+        "id": "L_MPMENU_311",
+        "text": "Game Boy Pak.\n"
+    },
+    {
+        "id": "L_MPMENU_312",
+        "text": "Then, insert your Game Boy Pak\n"
+    },
+    {
+        "id": "L_MPMENU_313",
+        "text": "into any controller.\n"
+    },
+    {
+        "id": "L_MPMENU_314",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_315",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_316",
+        "text": "Error\n"
+    },
+    {
+        "id": "L_MPMENU_317",
+        "text": "Game Boy Camera Not Detected!\n"
+    },
+    {
+        "id": "L_MPMENU_318",
+        "text": "Please check all connections\n"
+    },
+    {
+        "id": "L_MPMENU_319",
+        "text": "and try again.\n"
+    },
+    {
+        "id": "L_MPMENU_320",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_321",
+        "text": "Choose Camera\n"
+    },
+    {
+        "id": "L_MPMENU_322",
+        "text": "More than one camera detected.\n"
+    },
+    {
+        "id": "L_MPMENU_323",
+        "text": "Please select which camera you\nwant to use\n"
+    },
+    {
+        "id": "L_MPMENU_324",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_325",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_326",
+        "text": "PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_327",
+        "text": "Take A Picture Now\n"
+    },
+    {
+        "id": "L_MPMENU_328",
+        "text": "Load Picture From Camera\n"
+    },
+    {
+        "id": "L_MPMENU_329",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_330",
+        "text": "Load From Camera\n"
+    },
+    {
+        "id": "L_MPMENU_331",
+        "text": "Choose picture to read from camera:\n"
+    },
+    {
+        "id": "L_MPMENU_332",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_333",
+        "text": "Take Picture\n"
+    },
+    {
+        "id": "L_MPMENU_334",
+        "text": "Shoot!\n"
+    },
+    {
+        "id": "L_MPMENU_335",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_336",
+        "text": "Keep Picture\n"
+    },
+    {
+        "id": "L_MPMENU_337",
+        "text": "Try Again\n"
+    },
+    {
+        "id": "L_MPMENU_338",
+        "text": "PerfectHead laden\n"
+    },
+    {
+        "id": "L_MPMENU_339",
+        "text": "Legen Sie das Controller Pak\n"
+    },
+    {
+        "id": "L_MPMENU_340",
+        "text": "mit dem Kopf, den Sie laden\n"
+    },
+    {
+        "id": "L_MPMENU_341",
+        "text": "möchten in einen beliebigen\n"
+    },
+    {
+        "id": "L_MPMENU_342",
+        "text": "Controller ein.\n"
+    },
+    {
+        "id": "L_MPMENU_343",
+        "text": "Controller Pak:\n"
+    },
+    {
+        "id": "L_MPMENU_344",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_345",
+        "text": "Quelle:\n"
+    },
+    {
+        "id": "L_MPMENU_346",
+        "text": "Pak 1"
+    },
+    {
+        "id": "L_MPMENU_347",
+        "text": "Pak 2"
+    },
+    {
+        "id": "L_MPMENU_348",
+        "text": "Pak 3"
+    },
+    {
+        "id": "L_MPMENU_349",
+        "text": "Pak 4"
+    },
+    {
+        "id": "L_MPMENU_350",
+        "text": "<none>"
+    },
+    {
+        "id": "L_MPMENU_351",
+        "text": "PerfectHead Editor\n"
+    },
+    {
+        "id": "L_MPMENU_352",
+        "text": "Take Another Picture\n"
+    },
+    {
+        "id": "L_MPMENU_353",
+        "text": "Change Head\n"
+    },
+    {
+        "id": "L_MPMENU_354",
+        "text": "Position Picture\n"
+    },
+    {
+        "id": "L_MPMENU_355",
+        "text": "Color Face & Hair\n"
+    },
+    {
+        "id": "L_MPMENU_356",
+        "text": "Shape Head\n"
+    },
+    {
+        "id": "L_MPMENU_357",
+        "text": "Remove Head\n"
+    },
+    {
+        "id": "L_MPMENU_358",
+        "text": "Cancel Changes\n"
+    },
+    {
+        "id": "L_MPMENU_359",
+        "text": "Keep Changes\n"
+    },
+    {
+        "id": "L_MPMENU_360",
+        "text": "Shape Head\n"
+    },
+    {
+        "id": "L_MPMENU_361",
+        "text": "Depth\n"
+    },
+    {
+        "id": "L_MPMENU_362",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_363",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_364",
+        "text": "Position Image\n"
+    },
+    {
+        "id": "L_MPMENU_365",
+        "text": "Brightness\n"
+    },
+    {
+        "id": "L_MPMENU_366",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_367",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_368",
+        "text": "Choose Head\n"
+    },
+    {
+        "id": "L_MPMENU_369",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_370",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_371",
+        "text": "Remove PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_372",
+        "text": "Are you sure you want to\n"
+    },
+    {
+        "id": "L_MPMENU_373",
+        "text": "remove this head from memory?\n"
+    },
+    {
+        "id": "L_MPMENU_374",
+        "text": "Delete\n"
+    },
+    {
+        "id": "L_MPMENU_375",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_MPMENU_376",
+        "text": "Cancel Changes\n"
+    },
+    {
+        "id": "L_MPMENU_377",
+        "text": "Are you sure you want to\n"
+    },
+    {
+        "id": "L_MPMENU_378",
+        "text": "throw away your changes?\n"
+    },
+    {
+        "id": "L_MPMENU_379",
+        "text": "Throw Away\n"
+    },
+    {
+        "id": "L_MPMENU_380",
+        "text": "Go Back To Editor\n"
+    },
+    {
+        "id": "L_MPMENU_381",
+        "text": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_382",
+        "text": "You have edited this head.\n"
+    },
+    {
+        "id": "L_MPMENU_383",
+        "text": "Do you want to keep your changes?\n"
+    },
+    {
+        "id": "L_MPMENU_384",
+        "text": "Keep\n"
+    },
+    {
+        "id": "L_MPMENU_385",
+        "text": "Revert\n"
+    },
+    {
+        "id": "L_MPMENU_386",
+        "text": "Save PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_387",
+        "text": "Your changes will be kept in memory.\n"
+    },
+    {
+        "id": "L_MPMENU_388",
+        "text": "Would you like to save your changes\n"
+    },
+    {
+        "id": "L_MPMENU_389",
+        "text": "to the controller pak?\n"
+    },
+    {
+        "id": "L_MPMENU_390",
+        "text": "Save\n"
+    },
+    {
+        "id": "L_MPMENU_391",
+        "text": "Don't Save\n"
+    },
+    {
+        "id": "L_MPMENU_392",
+        "text": "PerfectHead speichern\n"
+    },
+    {
+        "id": "L_MPMENU_393",
+        "text": "Sie können jetzt den Kopf auf\n"
+    },
+    {
+        "id": "L_MPMENU_394",
+        "text": "ein Controller Pak speichern.\n"
+    },
+    {
+        "id": "L_MPMENU_395",
+        "text": "In diesem Fall stellen Sie bitte\n"
+    },
+    {
+        "id": "L_MPMENU_396",
+        "text": "sicher, dass ein Controller Pak\n"
+    },
+    {
+        "id": "L_MPMENU_397",
+        "text": "eingelegt ist. Wählen Sie \"Speichern\".\n"
+    },
+    {
+        "id": "L_MPMENU_398",
+        "text": "Speichern\n"
+    },
+    {
+        "id": "L_MPMENU_399",
+        "text": "Nicht speichern\n"
+    },
+    {
+        "id": "L_MPMENU_400",
+        "text": "Kopf wurde erstellt!\n"
+    },
+    {
+        "id": "L_MPMENU_401",
+        "text": "Um diesen Kopf im Kampsimulator einzusetzen,\n"
+    },
+    {
+        "id": "L_MPMENU_402",
+        "text": "wählen Sie ihn aus dem Charakter-Menü vom\n"
+    },
+    {
+        "id": "L_MPMENU_403",
+        "text": "Spieler/Simulanten-Einstellungs-Menü.\n"
+    },
+    {
+        "id": "L_MPMENU_404",
+        "text": "Die gewünschten Köpfe erscheinen nun\n"
+    },
+    {
+        "id": "L_MPMENU_405",
+        "text": "in allen Missionen, die Sie spielen.\n"
+    },
+    {
+        "id": "L_MPMENU_406",
+        "text": "Sie können den Kopf nun noch weiter editieren.\n"
+    },
+    {
+        "id": "L_MPMENU_407",
+        "text": "Beenden\n"
+    },
+    {
+        "id": "L_MPMENU_408",
+        "text": "Kopf editieren\n"
+    },
+    {
+        "id": "L_MPMENU_409",
+        "text": "Farbe des Kopfes:\n"
+    },
+    {
+        "id": "L_MPMENU_410",
+        "text": "Gesicht:\n"
+    },
+    {
+        "id": "L_MPMENU_411",
+        "text": "Frisur:\n"
+    },
+    {
+        "id": "L_MPMENU_412",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_413",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_414",
+        "text": "Drücken Sie den B-Knopf, um zurückzukehren.\n"
+    },
+    {
+        "id": "L_MPMENU_415",
+        "text": "Hangar Information\n"
+    },
+    {
+        "id": "L_MPMENU_416",
+        "text": "Holotraining\n"
+    },
+    {
+        "id": "L_MPMENU_417",
+        "text": "Geräte-Liste\n"
+    },
+    {
+        "id": "L_MPMENU_418",
+        "text": "Information\n"
+    },
+    {
+        "id": "L_MPMENU_419",
+        "text": "Örtlichkeiten\n"
+    },
+    {
+        "id": "L_MPMENU_420",
+        "text": "Fahrzeuge\n"
+    },
+    {
+        "id": "L_MPMENU_421",
+        "text": "Character-Profile\n"
+    },
+    {
+        "id": "L_MPMENU_422",
+        "text": "Weitere Informationen\n"
+    },
+    {
+        "id": "L_MPMENU_423",
+        "text": "Trainings-Statistik\n"
+    },
+    {
+        "id": "L_MPMENU_424",
+        "text": "benötigte Zeit:\n"
+    },
+    {
+        "id": "L_MPMENU_425",
+        "text": "Abgeschlossen!\n"
+    },
+    {
+        "id": "L_MPMENU_426",
+        "text": "Durchgefallen!\n"
+    },
+    {
+        "id": "L_MPMENU_427",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_428",
+        "text": "Weiter\n"
+    },
+    {
+        "id": "L_MPMENU_429",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_430",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_431",
+        "text": "Character-Profile\n"
+    },
+    {
+        "id": "L_MPMENU_432",
+        "text": "Name:\n"
+    },
+    {
+        "id": "L_MPMENU_433",
+        "text": "Alter:\n"
+    },
+    {
+        "id": "L_MPMENU_434",
+        "text": "Rasse:\n"
+    },
+    {
+        "id": "L_MPMENU_435",
+        "text": "Drücken Sie den B-Knopf, um zurückzukehren.\n"
+    },
+    {
+        "id": "L_MPMENU_436",
+        "text": "Cheats\n"
+    },
+    {
+        "id": "L_MPMENU_437",
+        "text": "Sie können das Gerät jetzt abschalten.\n"
+    },
+    {
+        "id": "L_MPMENU_438",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_MPMENU_439",
+        "text": "Bronze\n"
+    },
+    {
+        "id": "L_MPMENU_440",
+        "text": "Silber\n"
+    },
+    {
+        "id": "L_MPMENU_441",
+        "text": "Gold\n"
+    },
+    {
+        "id": "L_MPMENU_442",
+        "text": "Schwierigkeit\n"
+    },
+    {
+        "id": "L_MPMENU_443",
+        "text": "Schwierigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_444",
+        "text": "Wählen Sie die Schwierigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_445",
+        "text": "   \n"
+    },
+    {
+        "id": "L_MPMENU_446",
+        "text": "Waffe\n"
+    },
+    {
+        "id": "L_MPMENU_447",
+        "text": "Trainings-Info\n"
+    },
+    {
+        "id": "L_MPMENU_448",
+        "text": "Trainings-Statistik\n"
+    },
+    {
+        "id": "L_MPMENU_449",
+        "text": "Abgeschlossen!\n"
+    },
+    {
+        "id": "L_MPMENU_450",
+        "text": "Score:\n"
+    },
+    {
+        "id": "L_MPMENU_451",
+        "text": "Getroffene Ziele:\n"
+    },
+    {
+        "id": "L_MPMENU_452",
+        "text": "Schwierigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_453",
+        "text": "benötigte Zeit:\n"
+    },
+    {
+        "id": "L_MPMENU_454",
+        "text": "Waffe:\n"
+    },
+    {
+        "id": "L_MPMENU_455",
+        "text": "Genauigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_456",
+        "text": "Nicht durchgefallen\n"
+    },
+    {
+        "id": "L_MPMENU_457",
+        "text": "Keine Munition\n"
+    },
+    {
+        "id": "L_MPMENU_458",
+        "text": "Zeit abgelaufen\n"
+    },
+    {
+        "id": "L_MPMENU_459",
+        "text": "Score unerreichbar\n"
+    },
+    {
+        "id": "L_MPMENU_460",
+        "text": "Zu ungenau\n"
+    },
+    {
+        "id": "L_MPMENU_461",
+        "text": "Bingo\n"
+    },
+    {
+        "id": "L_MPMENU_462",
+        "text": "Zone 1\n"
+    },
+    {
+        "id": "L_MPMENU_463",
+        "text": "Zone 2\n"
+    },
+    {
+        "id": "L_MPMENU_464",
+        "text": "Zone 3\n"
+    },
+    {
+        "id": "L_MPMENU_465",
+        "text": "Total\n"
+    },
+    {
+        "id": "L_MPMENU_466",
+        "text": "Scoring\n"
+    },
+    {
+        "id": "L_MPMENU_467",
+        "text": "10\n"
+    },
+    {
+        "id": "L_MPMENU_468",
+        "text": "5\n"
+    },
+    {
+        "id": "L_MPMENU_469",
+        "text": "2\n"
+    },
+    {
+        "id": "L_MPMENU_470",
+        "text": "1\n"
+    },
+    {
+        "id": "L_MPMENU_471",
+        "text": "Munitions-Limit:\n"
+    },
+    {
+        "id": "L_MPMENU_472",
+        "text": "Zeit-Limit:\n"
+    },
+    {
+        "id": "L_MPMENU_473",
+        "text": "Min. Genauigkeit:\n"
+    },
+    {
+        "id": "L_MPMENU_474",
+        "text": "Ziele:\n"
+    },
+    {
+        "id": "L_MPMENU_475",
+        "text": "Score:\n"
+    },
+    {
+        "id": "L_MPMENU_476",
+        "text": "Cheats\n"
+    },
+    {
+        "id": "L_MPMENU_477",
+        "text": "Fertig\n"
+    },
+    {
+        "id": "L_MPMENU_478",
+        "text": "Warnung!\n"
+    },
+    {
+        "id": "L_MPMENU_479",
+        "text": "Sollten Sie Cheats aktivieren, können Sie nicht\nweiter ins Spiel vordringen, solange\ndiese Cheats aktiv sind.\n"
+    },
+    {
+        "id": "L_MPMENU_480",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_MPMENU_481",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_MPMENU_482",
+        "text": "Spieler %d: "
+    },
+    {
+        "id": "L_MPMENU_483",
+        "text": "Drücken Sie START!\n"
+    },
+    {
+        "id": "L_MPMENU_484",
+        "text": "Searching for Camera!\n"
+    },
+    {
+        "id": "L_MPMENU_485",
+        "text": "Calibrating Camera\n"
+    },
+    {
+        "id": "L_MPMENU_486",
+        "text": "Downloading Image\n"
+    },
+    {
+        "id": "L_MPMENU_487",
+        "text": "Loading Image\n"
+    },
+    {
+        "id": "L_MPMENU_488",
+        "text": "Saving Image\n"
+    },
+    {
+        "id": "L_MPMENU_489",
+        "text": "Transfering Image\n"
+    },
+    {
+        "id": "L_MPMENU_490",
+        "text": "Uploading Segment\n"
+    },
+    {
+        "id": "L_MPMENU_491",
+        "text": "Controller Pak wird geprüft\n"
+    },
+    {
+        "id": "L_MPMENU_492",
+        "text": "Getting PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_493",
+        "text": "Saving PerfectHead\n"
+    },
+    {
+        "id": "L_MPMENU_494",
+        "text": "Auto Camera Adjustment\n"
+    },
+    {
+        "id": "L_MPMENU_495",
+        "text": "Please Wait...\n"
+    }
+]

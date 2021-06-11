@@ -1,0 +1,1986 @@
+[
+    {
+        "id": "L_OPTIONS_000",
+        "text": "Komplettiert\n"
+    },
+    {
+        "id": "L_OPTIONS_001",
+        "text": "Nicht komplettiert\n"
+    },
+    {
+        "id": "L_OPTIONS_002",
+        "text": "Fehlgeschlagen\n"
+    },
+    {
+        "id": "L_OPTIONS_003",
+        "text": "\n"
+    },
+    {
+        "id": "L_OPTIONS_004",
+        "text": ""
+    },
+    {
+        "id": "L_OPTIONS_005",
+        "text": "Die Erde:"
+    },
+    {
+        "id": "L_OPTIONS_006",
+        "text": "   ...in prähistorischer Zeit"
+    },
+    {
+        "id": "L_OPTIONS_007",
+        "text": "Rare präsentiert"
+    },
+    {
+        "id": "L_OPTIONS_008",
+        "text": "Rot\n"
+    },
+    {
+        "id": "L_OPTIONS_009",
+        "text": "Gelb\n"
+    },
+    {
+        "id": "L_OPTIONS_010",
+        "text": "Blau\n"
+    },
+    {
+        "id": "L_OPTIONS_011",
+        "text": "Magenta\n"
+    },
+    {
+        "id": "L_OPTIONS_012",
+        "text": "Cyan\n"
+    },
+    {
+        "id": "L_OPTIONS_013",
+        "text": "Orange\n"
+    },
+    {
+        "id": "L_OPTIONS_014",
+        "text": "Pink\n"
+    },
+    {
+        "id": "L_OPTIONS_015",
+        "text": "Braun\n"
+    },
+    {
+        "id": "L_OPTIONS_016",
+        "text": "Joanna im Kampfanzug\n"
+    },
+    {
+        "id": "L_OPTIONS_017",
+        "text": "Joanna im Trenchcoat\n"
+    },
+    {
+        "id": "L_OPTIONS_018",
+        "text": "Joanna im Partykleid\n"
+    },
+    {
+        "id": "L_OPTIONS_019",
+        "text": "Joanna im Kleid (zerrissen)\n"
+    },
+    {
+        "id": "L_OPTIONS_020",
+        "text": "Joanna als Stewardess\n"
+    },
+    {
+        "id": "L_OPTIONS_021",
+        "text": "Joanna im Neoprenanzug\n"
+    },
+    {
+        "id": "L_OPTIONS_022",
+        "text": "Joanna - Tauchgerät\n"
+    },
+    {
+        "id": "L_OPTIONS_023",
+        "text": "Joanna im arktischen Outfit\n"
+    },
+    {
+        "id": "L_OPTIONS_024",
+        "text": "Joanna als Labortechniker\n"
+    },
+    {
+        "id": "L_OPTIONS_025",
+        "text": "Elvis\n"
+    },
+    {
+        "id": "L_OPTIONS_026",
+        "text": "Maianer\n"
+    },
+    {
+        "id": "L_OPTIONS_027",
+        "text": "Daniel Carrington\n"
+    },
+    {
+        "id": "L_OPTIONS_028",
+        "text": "Carrington im Anzug\n"
+    },
+    {
+        "id": "L_OPTIONS_029",
+        "text": "Mr. Blond\n"
+    },
+    {
+        "id": "L_OPTIONS_030",
+        "text": "Cassandra De Vries\n"
+    },
+    {
+        "id": "L_OPTIONS_031",
+        "text": "Trent Easton\n"
+    },
+    {
+        "id": "L_OPTIONS_032",
+        "text": "Jonathan\n"
+    },
+    {
+        "id": "L_OPTIONS_033",
+        "text": "Männlicher CI-Labortechniker\n"
+    },
+    {
+        "id": "L_OPTIONS_034",
+        "text": "Weiblicher CI-Labortechniker\n"
+    },
+    {
+        "id": "L_OPTIONS_035",
+        "text": "CI-Soldat\n"
+    },
+    {
+        "id": "L_OPTIONS_036",
+        "text": "dataDyne Elitesoldat\n"
+    },
+    {
+        "id": "L_OPTIONS_037",
+        "text": "Weibliche dataDyne Wache\n"
+    },
+    {
+        "id": "L_OPTIONS_038",
+        "text": "dataDyne Security-Mann\n"
+    },
+    {
+        "id": "L_OPTIONS_039",
+        "text": "dataDyne Infanterist\n"
+    },
+    {
+        "id": "L_OPTIONS_040",
+        "text": "dataDyne Soldat\n"
+    },
+    {
+        "id": "L_OPTIONS_041",
+        "text": "Sekretärin\n"
+    },
+    {
+        "id": "L_OPTIONS_042",
+        "text": "Bürokleidung\n"
+    },
+    {
+        "id": "L_OPTIONS_043",
+        "text": "lockere Bürokleidung\n"
+    },
+    {
+        "id": "L_OPTIONS_044",
+        "text": "Unterhändlerin\n"
+    },
+    {
+        "id": "L_OPTIONS_045",
+        "text": "dataDyne Scharfschütze\n"
+    },
+    {
+        "id": "L_OPTIONS_046",
+        "text": "G5-Wache\n"
+    },
+    {
+        "id": "L_OPTIONS_047",
+        "text": "G5-SWAT-Wache\n"
+    },
+    {
+        "id": "L_OPTIONS_048",
+        "text": "CIA Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_049",
+        "text": "FBI Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_050",
+        "text": "Area 51 Wache\n"
+    },
+    {
+        "id": "L_OPTIONS_051",
+        "text": "Area 51 Soldat\n"
+    },
+    {
+        "id": "L_OPTIONS_052",
+        "text": "Pilot\n"
+    },
+    {
+        "id": "L_OPTIONS_053",
+        "text": "Overalls\n"
+    },
+    {
+        "id": "L_OPTIONS_054",
+        "text": "NSA Bodyguard\n"
+    },
+    {
+        "id": "L_OPTIONS_055",
+        "text": "Männlicher Labortechniker\n"
+    },
+    {
+        "id": "L_OPTIONS_056",
+        "text": "Weiblicher Labortechniker\n"
+    },
+    {
+        "id": "L_OPTIONS_057",
+        "text": "dataDyne Labortechniker\n"
+    },
+    {
+        "id": "L_OPTIONS_058",
+        "text": "Biotechniker\n"
+    },
+    {
+        "id": "L_OPTIONS_059",
+        "text": "Alaska-Wache\n"
+    },
+    {
+        "id": "L_OPTIONS_060",
+        "text": "Air Force One Pilot\n"
+    },
+    {
+        "id": "L_OPTIONS_061",
+        "text": "Steward\n"
+    },
+    {
+        "id": "L_OPTIONS_062",
+        "text": "Stewardess\n"
+    },
+    {
+        "id": "L_OPTIONS_063",
+        "text": "Chef-Stewardess\n"
+    },
+    {
+        "id": "L_OPTIONS_064",
+        "text": "Der Präsident\n"
+    },
+    {
+        "id": "L_OPTIONS_065",
+        "text": "NSA Lakai\n"
+    },
+    {
+        "id": "L_OPTIONS_066",
+        "text": "Präsidentenwache\n"
+    },
+    {
+        "id": "L_OPTIONS_067",
+        "text": "Präsident\"en Klon\n"
+    },
+    {
+        "id": "L_OPTIONS_068",
+        "text": "Pelagic II Wache\n"
+    },
+    {
+        "id": "L_OPTIONS_069",
+        "text": "Maianischer Soldat\n"
+    },
+    {
+        "id": "L_OPTIONS_070",
+        "text": "Dinner Jacket\n"
+    },
+    {
+        "id": "L_OPTIONS_071",
+        "text": "- Kein Controller in Controller-Port 1 -"
+    },
+    {
+        "id": "L_OPTIONS_072",
+        "text": "Schalten Sie aus und schließen Sie einen Controller an."
+    },
+    {
+        "id": "L_OPTIONS_073",
+        "text": "GEFUNDEN"
+    },
+    {
+        "id": "L_OPTIONS_074",
+        "text": "NICHT GEFUNDEN"
+    },
+    {
+        "id": "L_OPTIONS_075",
+        "text": "tm"
+    },
+    {
+        "id": "L_OPTIONS_076",
+        "text": "N64 EXPANSION PAK"
+    },
+    {
+        "id": "L_OPTIONS_077",
+        "text": "Nintendo 64 Product Identification\n"
+    },
+    {
+        "id": "L_OPTIONS_078",
+        "text": "Product ID:\n"
+    },
+    {
+        "id": "L_OPTIONS_079",
+        "text": "Product Code:\n"
+    },
+    {
+        "id": "L_OPTIONS_080",
+        "text": "Variant:\n"
+    },
+    {
+        "id": "L_OPTIONS_081",
+        "text": "Developer:\n"
+    },
+    {
+        "id": "L_OPTIONS_082",
+        "text": "Perfect Dark\n"
+    },
+    {
+        "id": "L_OPTIONS_083",
+        "text": "NUS-NPDE-USA\n"
+    },
+    {
+        "id": "L_OPTIONS_084",
+        "text": "NTSC version 5.2 beta\n"
+    },
+    {
+        "id": "L_OPTIONS_085",
+        "text": "Rare Ltd. (twycross)\n"
+    },
+    {
+        "id": "L_OPTIONS_086",
+        "text": "Copyright Rare Ltd. 2000\n"
+    },
+    {
+        "id": "L_OPTIONS_087",
+        "text": "The Rareware Logo and Perfect Dark are trademarks of Rare Ltd.\n"
+    },
+    {
+        "id": "L_OPTIONS_088",
+        "text": "Presented in Dolby Surround.  Dolby and the double-D\nsymbol are trademarks of Dolby Laboratories."
+    },
+    {
+        "id": "L_OPTIONS_089",
+        "text": "Uses Miles Sound System Copyright 1991-1999 RAD Game Tools Inc.\nMPEG Layer-3 playback supplied with the Miles Sound System from\nRAD Game Tools, Inc. MPEG Layer-3 audio compression technology\nlicensed by Fraunhofer IIS and THOMSON multimedia\n"
+    },
+    {
+        "id": "L_OPTIONS_090",
+        "text": ""
+    },
+    {
+        "id": "L_OPTIONS_091",
+        "text": ""
+    },
+    {
+        "id": "L_OPTIONS_092",
+        "text": ""
+    },
+    {
+        "id": "L_OPTIONS_093",
+        "text": "rare designs on the future <<<\n"
+    },
+    {
+        "id": "L_OPTIONS_094",
+        "text": "Published by Rareware.\n"
+    },
+    {
+        "id": "L_OPTIONS_095",
+        "text": "Perfect Dark\n"
+    },
+    {
+        "id": "L_OPTIONS_096",
+        "text": "Wähle deine Wahrheit\n"
+    },
+    {
+        "id": "L_OPTIONS_097",
+        "text": "Neu...\n"
+    },
+    {
+        "id": "L_OPTIONS_098",
+        "text": "Neuer Agent...\n"
+    },
+    {
+        "id": "L_OPTIONS_099",
+        "text": "Speicherstände\n"
+    },
+    {
+        "id": "L_OPTIONS_100",
+        "text": "Kopieren:\n"
+    },
+    {
+        "id": "L_OPTIONS_101",
+        "text": "Löschen:\n"
+    },
+    {
+        "id": "L_OPTIONS_102",
+        "text": "Spielstand wird gelöscht...\n"
+    },
+    {
+        "id": "L_OPTIONS_103",
+        "text": "Solo-Missionen Speicherstände\n"
+    },
+    {
+        "id": "L_OPTIONS_104",
+        "text": "Kampfsimulator-Einstellung Speicherstände\n"
+    },
+    {
+        "id": "L_OPTIONS_105",
+        "text": "Kampfsimulator-Spielerdaten\n"
+    },
+    {
+        "id": "L_OPTIONS_106",
+        "text": "PerfectHead-Speicherstände\n"
+    },
+    {
+        "id": "L_OPTIONS_107",
+        "text": "Controller Pak Menü\n"
+    },
+    {
+        "id": "L_OPTIONS_108",
+        "text": "Dieses Menü dient dazu, Speicherstände von den\n Controller Paks zu löschen.\n"
+    },
+    {
+        "id": "L_OPTIONS_109",
+        "text": "Wählen sie das Controller Pak:\n"
+    },
+    {
+        "id": "L_OPTIONS_110",
+        "text": "Exit\n"
+    },
+    {
+        "id": "L_OPTIONS_111",
+        "text": "Spielmodul\n"
+    },
+    {
+        "id": "L_OPTIONS_112",
+        "text": "Controller Pak 1\n"
+    },
+    {
+        "id": "L_OPTIONS_113",
+        "text": "Controller Pak 2\n"
+    },
+    {
+        "id": "L_OPTIONS_114",
+        "text": "Controller Pak 3\n"
+    },
+    {
+        "id": "L_OPTIONS_115",
+        "text": "Controller Pak 4\n"
+    },
+    {
+        "id": "L_OPTIONS_116",
+        "text": "Perfect Menü\n"
+    },
+    {
+        "id": "L_OPTIONS_117",
+        "text": "Solo-Missionen\n"
+    },
+    {
+        "id": "L_OPTIONS_118",
+        "text": "Multiplayer\n"
+    },
+    {
+        "id": "L_OPTIONS_119",
+        "text": "Teamwork\n"
+    },
+    {
+        "id": "L_OPTIONS_120",
+        "text": "Counter Operative-Modus\n"
+    },
+    {
+        "id": "L_OPTIONS_121",
+        "text": "Filmsequenzen\n"
+    },
+    {
+        "id": "L_OPTIONS_122",
+        "text": "Missionsauswahl\n"
+    },
+    {
+        "id": "L_OPTIONS_123",
+        "text": "Mission 1\n"
+    },
+    {
+        "id": "L_OPTIONS_124",
+        "text": "Mission 2\n"
+    },
+    {
+        "id": "L_OPTIONS_125",
+        "text": "Mission 3\n"
+    },
+    {
+        "id": "L_OPTIONS_126",
+        "text": "Mission 4\n"
+    },
+    {
+        "id": "L_OPTIONS_127",
+        "text": "Mission 5\n"
+    },
+    {
+        "id": "L_OPTIONS_128",
+        "text": "Mission 6\n"
+    },
+    {
+        "id": "L_OPTIONS_129",
+        "text": "Mission 7\n"
+    },
+    {
+        "id": "L_OPTIONS_130",
+        "text": "Mission 8\n"
+    },
+    {
+        "id": "L_OPTIONS_131",
+        "text": "Mission 9\n"
+    },
+    {
+        "id": "L_OPTIONS_132",
+        "text": "Spezialmissionen\n"
+    },
+    {
+        "id": "L_OPTIONS_133",
+        "text": "dataDyne"
+    },
+    {
+        "id": "L_OPTIONS_134",
+        "text": "- Abtrünnig"
+    },
+    {
+        "id": "L_OPTIONS_135",
+        "text": "dataDyne"
+    },
+    {
+        "id": "L_OPTIONS_136",
+        "text": "- Ermittlung"
+    },
+    {
+        "id": "L_OPTIONS_137",
+        "text": "dataDyne"
+    },
+    {
+        "id": "L_OPTIONS_138",
+        "text": "- Ausbruch"
+    },
+    {
+        "id": "L_OPTIONS_139",
+        "text": "Carrington Villa"
+    },
+    {
+        "id": "L_OPTIONS_140",
+        "text": "- Geisel Nr. 1"
+    },
+    {
+        "id": "L_OPTIONS_141",
+        "text": "Chicago"
+    },
+    {
+        "id": "L_OPTIONS_142",
+        "text": "- Unter Tarnung"
+    },
+    {
+        "id": "L_OPTIONS_143",
+        "text": "G5-Building"
+    },
+    {
+        "id": "L_OPTIONS_144",
+        "text": "- Aufklärung"
+    },
+    {
+        "id": "L_OPTIONS_145",
+        "text": "Area 51"
+    },
+    {
+        "id": "L_OPTIONS_146",
+        "text": "- Infiltration"
+    },
+    {
+        "id": "L_OPTIONS_147",
+        "text": "Area 51"
+    },
+    {
+        "id": "L_OPTIONS_148",
+        "text": "- Rettung"
+    },
+    {
+        "id": "L_OPTIONS_149",
+        "text": "Area 51"
+    },
+    {
+        "id": "L_OPTIONS_150",
+        "text": "- Flucht"
+    },
+    {
+        "id": "L_OPTIONS_151",
+        "text": "Stützpunkt"
+    },
+    {
+        "id": "L_OPTIONS_152",
+        "text": "- Spionage"
+    },
+    {
+        "id": "L_OPTIONS_153",
+        "text": "Air Force One"
+    },
+    {
+        "id": "L_OPTIONS_154",
+        "text": "- Antiterrorismus"
+    },
+    {
+        "id": "L_OPTIONS_155",
+        "text": "Absturzstelle"
+    },
+    {
+        "id": "L_OPTIONS_156",
+        "text": "- Konfrontation"
+    },
+    {
+        "id": "L_OPTIONS_157",
+        "text": "Pelagic II"
+    },
+    {
+        "id": "L_OPTIONS_158",
+        "text": "- Erforschung"
+    },
+    {
+        "id": "L_OPTIONS_159",
+        "text": "Tiefsee"
+    },
+    {
+        "id": "L_OPTIONS_160",
+        "text": "- Abwendung"
+    },
+    {
+        "id": "L_OPTIONS_161",
+        "text": "Carrington Institut"
+    },
+    {
+        "id": "L_OPTIONS_162",
+        "text": "- Verteidigung"
+    },
+    {
+        "id": "L_OPTIONS_163",
+        "text": "Das Schiff"
+    },
+    {
+        "id": "L_OPTIONS_164",
+        "text": "- Verdeckter Angriff"
+    },
+    {
+        "id": "L_OPTIONS_165",
+        "text": "Skedar-Ruinen"
+    },
+    {
+        "id": "L_OPTIONS_166",
+        "text": "- Der Schrein"
+    },
+    {
+        "id": "L_OPTIONS_167",
+        "text": "Mr. Blonds Rache"
+    },
+    {
+        "id": "L_OPTIONS_168",
+        "text": "Maianisches SOS"
+    },
+    {
+        "id": "L_OPTIONS_169",
+        "text": "Die Übernahme"
+    },
+    {
+        "id": "L_OPTIONS_170",
+        "text": "KRIEG!"
+    },
+    {
+        "id": "L_OPTIONS_171",
+        "text": "Das Duell"
+    },
+    {
+        "id": "L_OPTIONS_172",
+        "text": "Status\n"
+    },
+    {
+        "id": "L_OPTIONS_173",
+        "text": "Abbruch!\n"
+    },
+    {
+        "id": "L_OPTIONS_174",
+        "text": "ACHTUNG!\n"
+    },
+    {
+        "id": "L_OPTIONS_175",
+        "text": "Möchten Sie die Mission wirklich abbrechen?\n"
+    },
+    {
+        "id": "L_OPTIONS_176",
+        "text": "NEIN\n"
+    },
+    {
+        "id": "L_OPTIONS_177",
+        "text": "JA\n"
+    },
+    {
+        "id": "L_OPTIONS_178",
+        "text": "Inventar\n"
+    },
+    {
+        "id": "L_OPTIONS_179",
+        "text": "Verfügbare Waffen\n"
+    },
+    {
+        "id": "L_OPTIONS_180",
+        "text": "Optionen\n"
+    },
+    {
+        "id": "L_OPTIONS_181",
+        "text": "Audio\n"
+    },
+    {
+        "id": "L_OPTIONS_182",
+        "text": "Video\n"
+    },
+    {
+        "id": "L_OPTIONS_183",
+        "text": "Steuerung\n"
+    },
+    {
+        "id": "L_OPTIONS_184",
+        "text": "Display\n"
+    },
+    {
+        "id": "L_OPTIONS_185",
+        "text": "Cheats\n"
+    },
+    {
+        "id": "L_OPTIONS_186",
+        "text": "Spiel speichern\n"
+    },
+    {
+        "id": "L_OPTIONS_187",
+        "text": "Agent wechseln...\n"
+    },
+    {
+        "id": "L_OPTIONS_188",
+        "text": "ACHTUNG!\n"
+    },
+    {
+        "id": "L_OPTIONS_189",
+        "text": "Möchten Sie wirklich andere Agenten-Daten laden?\n"
+    },
+    {
+        "id": "L_OPTIONS_190",
+        "text": "Ja\n"
+    },
+    {
+        "id": "L_OPTIONS_191",
+        "text": "Nein\n"
+    },
+    {
+        "id": "L_OPTIONS_192",
+        "text": "Steuerungsoptionen\n"
+    },
+    {
+        "id": "L_OPTIONS_193",
+        "text": "Steuerung Spieler 2\n"
+    },
+    {
+        "id": "L_OPTIONS_194",
+        "text": "Art der Steuerung\n"
+    },
+    {
+        "id": "L_OPTIONS_195",
+        "text": "Blick nach oben/unten vertauschen\n"
+    },
+    {
+        "id": "L_OPTIONS_196",
+        "text": "Geradeausschauen\n"
+    },
+    {
+        "id": "L_OPTIONS_197",
+        "text": "Kopfbewegung\n"
+    },
+    {
+        "id": "L_OPTIONS_198",
+        "text": "Automatisches anvisieren\n"
+    },
+    {
+        "id": "L_OPTIONS_199",
+        "text": "Fadenkreuz-Ausrichtung\n"
+    },
+    {
+        "id": "L_OPTIONS_200",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_OPTIONS_201",
+        "text": "Halten\n"
+    },
+    {
+        "id": "L_OPTIONS_202",
+        "text": "Umschalten\n"
+    },
+    {
+        "id": "L_OPTIONS_203",
+        "text": "Display-Optionen\n"
+    },
+    {
+        "id": "L_OPTIONS_204",
+        "text": "Spieler 2 anzeigen\n"
+    },
+    {
+        "id": "L_OPTIONS_205",
+        "text": "Sicht on-screen\n"
+    },
+    {
+        "id": "L_OPTIONS_206",
+        "text": "Ziel immer anzeigen\n"
+    },
+    {
+        "id": "L_OPTIONS_207",
+        "text": "Zoom-Bereich anzeigen\n"
+    },
+    {
+        "id": "L_OPTIONS_208",
+        "text": "Munition on-screen\n"
+    },
+    {
+        "id": "L_OPTIONS_209",
+        "text": "Waffenfunktion anzeigen\n"
+    },
+    {
+        "id": "L_OPTIONS_210",
+        "text": "Farbklecks\n"
+    },
+    {
+        "id": "L_OPTIONS_211",
+        "text": "Untertitel\n"
+    },
+    {
+        "id": "L_OPTIONS_212",
+        "text": "Missionszeit anzeigen\n"
+    },
+    {
+        "id": "L_OPTIONS_213",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_OPTIONS_214",
+        "text": "Video-Optionen\n"
+    },
+    {
+        "id": "L_OPTIONS_215",
+        "text": "Screen-Größe\n"
+    },
+    {
+        "id": "L_OPTIONS_216",
+        "text": "Verhältnis\n"
+    },
+    {
+        "id": "L_OPTIONS_217",
+        "text": "Hi-Res\n"
+    },
+    {
+        "id": "L_OPTIONS_218",
+        "text": "2-Spieler Splitscreen\n"
+    },
+    {
+        "id": "L_OPTIONS_219",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_OPTIONS_220",
+        "text": "Vollbild\n"
+    },
+    {
+        "id": "L_OPTIONS_221",
+        "text": "Breitbild\n"
+    },
+    {
+        "id": "L_OPTIONS_222",
+        "text": "Cinema\n"
+    },
+    {
+        "id": "L_OPTIONS_223",
+        "text": "Normal\n"
+    },
+    {
+        "id": "L_OPTIONS_224",
+        "text": "16:9\n"
+    },
+    {
+        "id": "L_OPTIONS_225",
+        "text": "Horizontal\n"
+    },
+    {
+        "id": "L_OPTIONS_226",
+        "text": "Vertikal\n"
+    },
+    {
+        "id": "L_OPTIONS_227",
+        "text": "Audio-Optionen\n"
+    },
+    {
+        "id": "L_OPTIONS_228",
+        "text": "Soundeffekte\n"
+    },
+    {
+        "id": "L_OPTIONS_229",
+        "text": "Musik\n"
+    },
+    {
+        "id": "L_OPTIONS_230",
+        "text": "Sound\n"
+    },
+    {
+        "id": "L_OPTIONS_231",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_OPTIONS_232",
+        "text": "Mono"
+    },
+    {
+        "id": "L_OPTIONS_233",
+        "text": "Stereo"
+    },
+    {
+        "id": "L_OPTIONS_234",
+        "text": "Kopfhörer"
+    },
+    {
+        "id": "L_OPTIONS_235",
+        "text": "Surround"
+    },
+    {
+        "id": "L_OPTIONS_236",
+        "text": "Steuerung\n"
+    },
+    {
+        "id": "L_OPTIONS_237",
+        "text": "Einfach\n"
+    },
+    {
+        "id": "L_OPTIONS_238",
+        "text": "Doppelt\n"
+    },
+    {
+        "id": "L_OPTIONS_239",
+        "text": "1.1"
+    },
+    {
+        "id": "L_OPTIONS_240",
+        "text": "1.2"
+    },
+    {
+        "id": "L_OPTIONS_241",
+        "text": "1.3"
+    },
+    {
+        "id": "L_OPTIONS_242",
+        "text": "1.4"
+    },
+    {
+        "id": "L_OPTIONS_243",
+        "text": "2.1"
+    },
+    {
+        "id": "L_OPTIONS_244",
+        "text": "2.2"
+    },
+    {
+        "id": "L_OPTIONS_245",
+        "text": "2.3"
+    },
+    {
+        "id": "L_OPTIONS_246",
+        "text": "2.4"
+    },
+    {
+        "id": "L_OPTIONS_247",
+        "text": "Briefing\n"
+    },
+    {
+        "id": "L_OPTIONS_248",
+        "text": "Wähle den Schwierigkeitsgrad\n"
+    },
+    {
+        "id": "L_OPTIONS_249",
+        "text": "Schwierigkeitsgrad\n"
+    },
+    {
+        "id": "L_OPTIONS_250",
+        "text": "Beste Zeit\n"
+    },
+    {
+        "id": "L_OPTIONS_251",
+        "text": "Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_252",
+        "text": "Spezialagent\n"
+    },
+    {
+        "id": "L_OPTIONS_253",
+        "text": "Perfekter Agent\n"
+    },
+    {
+        "id": "L_OPTIONS_254",
+        "text": "Cancel\n"
+    },
+    {
+        "id": "L_OPTIONS_255",
+        "text": "Teamwork-Optionen\n"
+    },
+    {
+        "id": "L_OPTIONS_256",
+        "text": "Radar Ein\n"
+    },
+    {
+        "id": "L_OPTIONS_257",
+        "text": "Teamspieler verletzbar\n"
+    },
+    {
+        "id": "L_OPTIONS_258",
+        "text": "Perfekter Kumpel\n"
+    },
+    {
+        "id": "L_OPTIONS_259",
+        "text": "Weiter\n"
+    },
+    {
+        "id": "L_OPTIONS_260",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_261",
+        "text": "Menschlich"
+    },
+    {
+        "id": "L_OPTIONS_262",
+        "text": "1 Simulant"
+    },
+    {
+        "id": "L_OPTIONS_263",
+        "text": "2 Simulanten"
+    },
+    {
+        "id": "L_OPTIONS_264",
+        "text": "3 Simulanten"
+    },
+    {
+        "id": "L_OPTIONS_265",
+        "text": "4 Simulanten"
+    },
+    {
+        "id": "L_OPTIONS_266",
+        "text": "Counter Operative-Optionen\n"
+    },
+    {
+        "id": "L_OPTIONS_267",
+        "text": "Radar Ein\n"
+    },
+    {
+        "id": "L_OPTIONS_268",
+        "text": "Counter Operative\n"
+    },
+    {
+        "id": "L_OPTIONS_269",
+        "text": "Weiter\n"
+    },
+    {
+        "id": "L_OPTIONS_270",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_271",
+        "text": "Spieler 1"
+    },
+    {
+        "id": "L_OPTIONS_272",
+        "text": "Spieler 2"
+    },
+    {
+        "id": "L_OPTIONS_273",
+        "text": "Überblick\n"
+    },
+    {
+        "id": "L_OPTIONS_274",
+        "text": "Annehmen\n"
+    },
+    {
+        "id": "L_OPTIONS_275",
+        "text": "Ablehnen\n"
+    },
+    {
+        "id": "L_OPTIONS_276",
+        "text": "Komplettiert\n"
+    },
+    {
+        "id": "L_OPTIONS_277",
+        "text": "Fehlgeschlagen\n"
+    },
+    {
+        "id": "L_OPTIONS_278",
+        "text": "Missions-Status:\n"
+    },
+    {
+        "id": "L_OPTIONS_279",
+        "text": "Status der Agentin:\n"
+    },
+    {
+        "id": "L_OPTIONS_280",
+        "text": "Missions-Zeit:\n"
+    },
+    {
+        "id": "L_OPTIONS_281",
+        "text": "Bevorzugte Waffe:\n"
+    },
+    {
+        "id": "L_OPTIONS_282",
+        "text": "Eliminierungen:\n"
+    },
+    {
+        "id": "L_OPTIONS_283",
+        "text": "Genauigkeit:\n"
+    },
+    {
+        "id": "L_OPTIONS_284",
+        "text": "Abgefeuerte Schüsse:\n"
+    },
+    {
+        "id": "L_OPTIONS_285",
+        "text": "    Kopftreffer:\n"
+    },
+    {
+        "id": "L_OPTIONS_286",
+        "text": "    Rumpftreffer:\n"
+    },
+    {
+        "id": "L_OPTIONS_287",
+        "text": "    Gliedmaßen:\n"
+    },
+    {
+        "id": "L_OPTIONS_288",
+        "text": "    Andere:\n"
+    },
+    {
+        "id": "L_OPTIONS_289",
+        "text": "Drücke START\n"
+    },
+    {
+        "id": "L_OPTIONS_290",
+        "text": "Gefallen\n"
+    },
+    {
+        "id": "L_OPTIONS_291",
+        "text": "Überlebt\n"
+    },
+    {
+        "id": "L_OPTIONS_292",
+        "text": "Mission abgebrochen\n"
+    },
+    {
+        "id": "L_OPTIONS_293",
+        "text": "Fehlgeschlagen\n"
+    },
+    {
+        "id": "L_OPTIONS_294",
+        "text": "Komplettiert\n"
+    },
+    {
+        "id": "L_OPTIONS_295",
+        "text": "Mission abgebrochen\n"
+    },
+    {
+        "id": "L_OPTIONS_296",
+        "text": "Neuer Versuch"
+    },
+    {
+        "id": "L_OPTIONS_297",
+        "text": "Nächste Mission"
+    },
+    {
+        "id": "L_OPTIONS_298",
+        "text": "Akzeptieren\n"
+    },
+    {
+        "id": "L_OPTIONS_299",
+        "text": "Ablehnen\n"
+    },
+    {
+        "id": "L_OPTIONS_300",
+        "text": "Ziele\n"
+    },
+    {
+        "id": "L_OPTIONS_301",
+        "text": "Drücke START\n"
+    },
+    {
+        "id": "L_OPTIONS_302",
+        "text": "Kleines aber feines Menü\n"
+    },
+    {
+        "id": "L_OPTIONS_303",
+        "text": "Kampfsimulator\n"
+    },
+    {
+        "id": "L_OPTIONS_304",
+        "text": "Training\n"
+    },
+    {
+        "id": "L_OPTIONS_305",
+        "text": "Audio/Video\n"
+    },
+    {
+        "id": "L_OPTIONS_306",
+        "text": "Agent wechseln\n"
+    },
+    {
+        "id": "L_OPTIONS_307",
+        "text": "Audio/Video\n"
+    },
+    {
+        "id": "L_OPTIONS_308",
+        "text": "Sound\n"
+    },
+    {
+        "id": "L_OPTIONS_309",
+        "text": "Musik\n"
+    },
+    {
+        "id": "L_OPTIONS_310",
+        "text": "Sound\n"
+    },
+    {
+        "id": "L_OPTIONS_311",
+        "text": "Verhältnis\n"
+    },
+    {
+        "id": "L_OPTIONS_312",
+        "text": "Zurück\n"
+    },
+    {
+        "id": "L_OPTIONS_313",
+        "text": "< Leer >\n"
+    },
+    {
+        "id": "L_OPTIONS_314",
+        "text": "ENTF"
+    },
+    {
+        "id": "L_OPTIONS_315",
+        "text": "SHIFT"
+    },
+    {
+        "id": "L_OPTIONS_316",
+        "text": "ABBR"
+    },
+    {
+        "id": "L_OPTIONS_317",
+        "text": "OK"
+    },
+    {
+        "id": "L_OPTIONS_318",
+        "text": "Kampfsimulator-Köpfe\n"
+    },
+    {
+        "id": "L_OPTIONS_319",
+        "text": "Köpfe in den Missionen\n"
+    },
+    {
+        "id": "L_OPTIONS_320",
+        "text": "Fehler\n"
+    },
+    {
+        "id": "L_OPTIONS_321",
+        "text": "Abbruch\n"
+    },
+    {
+        "id": "L_OPTIONS_322",
+        "text": "Es wurde kein Controller Pak\nin den Controllern gefunden.\n"
+    },
+    {
+        "id": "L_OPTIONS_323",
+        "text": "Spielstand wurde nicht gespeichert.\n"
+    },
+    {
+        "id": "L_OPTIONS_324",
+        "text": "Spielstand wurde nicht geladen.\n"
+    },
+    {
+        "id": "L_OPTIONS_325",
+        "text": "Spielstand konnte nicht gelöscht werden.\n"
+    },
+    {
+        "id": "L_OPTIONS_326",
+        "text": "Zu wenig Speicherplatz.\n"
+    },
+    {
+        "id": "L_OPTIONS_327",
+        "text": "Diese Daten sind bereits\ngeladen worden.\n"
+    },
+    {
+        "id": "L_OPTIONS_328",
+        "text": "wurde entfernt.\n"
+    },
+    {
+        "id": "L_OPTIONS_329",
+        "text": "Controller Pak ist beschädigt oder nicht richtig eingelegt.\n"
+    },
+    {
+        "id": "L_OPTIONS_330",
+        "text": "Löschvorgang konnte nicht durchgeführt werden.\n"
+    },
+    {
+        "id": "L_OPTIONS_331",
+        "text": "Fehler während des Ladens.\n"
+    },
+    {
+        "id": "L_OPTIONS_332",
+        "text": "Fehler während des Speicherns.\n"
+    },
+    {
+        "id": "L_OPTIONS_333",
+        "text": "Fehler während des Ladens der Spielerdaten.\n"
+    },
+    {
+        "id": "L_OPTIONS_334",
+        "text": "Fehler während des Speicherns der Spielerdaten.\n"
+    },
+    {
+        "id": "L_OPTIONS_335",
+        "text": "Fehler während des Ladens von PerfectHead.\n"
+    },
+    {
+        "id": "L_OPTIONS_336",
+        "text": "Fehler während des Speicherns von PerfectHead.\n"
+    },
+    {
+        "id": "L_OPTIONS_337",
+        "text": "Fehler während des Lesevorgangs.\n"
+    },
+    {
+        "id": "L_OPTIONS_338",
+        "text": "Fehler während des Schreibvorgangs.\n"
+    },
+    {
+        "id": "L_OPTIONS_339",
+        "text": "Fehler\n"
+    },
+    {
+        "id": "L_OPTIONS_340",
+        "text": "Löschvorgang nicht erfolgreich.\n"
+    },
+    {
+        "id": "L_OPTIONS_341",
+        "text": "Spielstand konnte nicht gelöscht werden.\n"
+    },
+    {
+        "id": "L_OPTIONS_342",
+        "text": "- Überprüfen Sie, ob das Controller Pak is\nkorrekt eingelegt ist.\n"
+    },
+    {
+        "id": "L_OPTIONS_343",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_344",
+        "text": "Es ist nicht genug Platz vorhanden.\n"
+    },
+    {
+        "id": "L_OPTIONS_345",
+        "text": "Cool!\n"
+    },
+    {
+        "id": "L_OPTIONS_346",
+        "text": "Spielstand wurde gespeichert.\n"
+    },
+    {
+        "id": "L_OPTIONS_347",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_348",
+        "text": "Während des Speicherns ereignete\nsich ein Fehler.\n"
+    },
+    {
+        "id": "L_OPTIONS_349",
+        "text": "Versuche es nochmals.\n"
+    },
+    {
+        "id": "L_OPTIONS_350",
+        "text": "Anderen Speicherplatz wählen\n"
+    },
+    {
+        "id": "L_OPTIONS_351",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_352",
+        "text": "Während des Ladens ereignete\nsich ein Fehler.\n"
+    },
+    {
+        "id": "L_OPTIONS_353",
+        "text": "Wiederholen\n"
+    },
+    {
+        "id": "L_OPTIONS_354",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_355",
+        "text": "Es wird Platz für den Kopf benötigt.\n"
+    },
+    {
+        "id": "L_OPTIONS_356",
+        "text": "Wählen Sie einen Kopf, der überschrieben werden soll:\n"
+    },
+    {
+        "id": "L_OPTIONS_357",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_358",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_359",
+        "text": "Speichern\n"
+    },
+    {
+        "id": "L_OPTIONS_360",
+        "text": "Möchten Sie die Daten\nwoanders speichern?\n"
+    },
+    {
+        "id": "L_OPTIONS_361",
+        "text": "Ja\n"
+    },
+    {
+        "id": "L_OPTIONS_362",
+        "text": "Nein\n"
+    },
+    {
+        "id": "L_OPTIONS_363",
+        "text": "Bitte legen Sie das\nController Pak\nmit dem %s ein.\n"
+    },
+    {
+        "id": "L_OPTIONS_364",
+        "text": "Bitte legen Sie das\nController Pak ein,\nauf dem Sie speichern möchten.\n"
+    },
+    {
+        "id": "L_OPTIONS_365",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_366",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_367",
+        "text": "Wähle den Speicherplatz\n"
+    },
+    {
+        "id": "L_OPTIONS_368",
+        "text": "Wo!\n"
+    },
+    {
+        "id": "L_OPTIONS_369",
+        "text": "Plätze\n"
+    },
+    {
+        "id": "L_OPTIONS_370",
+        "text": "Speicherstände löschen...\n"
+    },
+    {
+        "id": "L_OPTIONS_371",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_372",
+        "text": "Voll"
+    },
+    {
+        "id": "L_OPTIONS_373",
+        "text": "Spielstand kopieren\n"
+    },
+    {
+        "id": "L_OPTIONS_374",
+        "text": "Wählen Sie den zu kopierenden Spielstand:\n"
+    },
+    {
+        "id": "L_OPTIONS_375",
+        "text": "Drücken Sie den B-Knopf, um abzubrechen.\n"
+    },
+    {
+        "id": "L_OPTIONS_376",
+        "text": "Spielstand löschen\n"
+    },
+    {
+        "id": "L_OPTIONS_377",
+        "text": "Wählen Sie den zu löschenden Spielstand:\n"
+    },
+    {
+        "id": "L_OPTIONS_378",
+        "text": "Drücken Sie den B-Knopf, um abzubrechen.\n"
+    },
+    {
+        "id": "L_OPTIONS_379",
+        "text": "ACHTUNG!\n"
+    },
+    {
+        "id": "L_OPTIONS_380",
+        "text": "Möchten Sie diesen Spielstand\nwirklich löschen?\n"
+    },
+    {
+        "id": "L_OPTIONS_381",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_OPTIONS_382",
+        "text": "OK\n"
+    },
+    {
+        "id": "L_OPTIONS_383",
+        "text": "Spielerdaten löschen\n"
+    },
+    {
+        "id": "L_OPTIONS_384",
+        "text": "Möchten Sie diese Spielerdaten\nwirklich löschen?\n"
+    },
+    {
+        "id": "L_OPTIONS_385",
+        "text": "Nein\n"
+    },
+    {
+        "id": "L_OPTIONS_386",
+        "text": "Ja\n"
+    },
+    {
+        "id": "L_OPTIONS_387",
+        "text": "Spielerdaten\n"
+    },
+    {
+        "id": "L_OPTIONS_388",
+        "text": "Spielerdaten löschen:\n"
+    },
+    {
+        "id": "L_OPTIONS_389",
+        "text": "Daten\n"
+    },
+    {
+        "id": "L_OPTIONS_390",
+        "text": "Seiten\n"
+    },
+    {
+        "id": "L_OPTIONS_391",
+        "text": "Drücken Sie den B-Knopf, um abzubrechen.\n"
+    },
+    {
+        "id": "L_OPTIONS_392",
+        "text": "Frei\n"
+    },
+    {
+        "id": "L_OPTIONS_393",
+        "text": "--\n"
+    },
+    {
+        "id": "L_OPTIONS_394",
+        "text": "Freie Plätze: \n"
+    },
+    {
+        "id": "L_OPTIONS_395",
+        "text": "Freie Plätze: %d\n"
+    },
+    {
+        "id": "L_OPTIONS_396",
+        "text": "Belegte Plätze: \n"
+    },
+    {
+        "id": "L_OPTIONS_397",
+        "text": "Belegte Plätze: %d\n"
+    },
+    {
+        "id": "L_OPTIONS_398",
+        "text": "Es existiert bereits ein Speicherstand.\n"
+    },
+    {
+        "id": "L_OPTIONS_399",
+        "text": "Es steht ausreichend freier\nSpeicher zur Verfügung.\n"
+    },
+    {
+        "id": "L_OPTIONS_400",
+        "text": "Das Controller Pak ist zu voll, um\ndas Spiel zu speichern. Es werden 28 freie Plätze benötigt.\n"
+    },
+    {
+        "id": "L_OPTIONS_401",
+        "text": "Geben Sie den Namen des Agenten ein!\n"
+    },
+    {
+        "id": "L_OPTIONS_402",
+        "text": "Neu...\n"
+    },
+    {
+        "id": "L_OPTIONS_403",
+        "text": "Neuer Agent...\n"
+    },
+    {
+        "id": "L_OPTIONS_404",
+        "text": "Neuer Rekrut"
+    },
+    {
+        "id": "L_OPTIONS_405",
+        "text": "Missionszeit:"
+    },
+    {
+        "id": "L_OPTIONS_406",
+        "text": "Challenge 1"
+    },
+    {
+        "id": "L_OPTIONS_407",
+        "text": "Challenge 2"
+    },
+    {
+        "id": "L_OPTIONS_408",
+        "text": "Challenge 3"
+    },
+    {
+        "id": "L_OPTIONS_409",
+        "text": "Challenge 4"
+    },
+    {
+        "id": "L_OPTIONS_410",
+        "text": "Challenge 5"
+    },
+    {
+        "id": "L_OPTIONS_411",
+        "text": "Challenge 6"
+    },
+    {
+        "id": "L_OPTIONS_412",
+        "text": "Challenge 7"
+    },
+    {
+        "id": "L_OPTIONS_413",
+        "text": "Challenge 8"
+    },
+    {
+        "id": "L_OPTIONS_414",
+        "text": "Challenge 9"
+    },
+    {
+        "id": "L_OPTIONS_415",
+        "text": "Challenge 10"
+    },
+    {
+        "id": "L_OPTIONS_416",
+        "text": "Challenge 11"
+    },
+    {
+        "id": "L_OPTIONS_417",
+        "text": "Challenge 12"
+    },
+    {
+        "id": "L_OPTIONS_418",
+        "text": "Challenge 13"
+    },
+    {
+        "id": "L_OPTIONS_419",
+        "text": "Challenge 14"
+    },
+    {
+        "id": "L_OPTIONS_420",
+        "text": "Challenge 15"
+    },
+    {
+        "id": "L_OPTIONS_421",
+        "text": "Challenge 16"
+    },
+    {
+        "id": "L_OPTIONS_422",
+        "text": "Challenge 17"
+    },
+    {
+        "id": "L_OPTIONS_423",
+        "text": "Challenge 18"
+    },
+    {
+        "id": "L_OPTIONS_424",
+        "text": "Challenge 19"
+    },
+    {
+        "id": "L_OPTIONS_425",
+        "text": "Challenge 20"
+    },
+    {
+        "id": "L_OPTIONS_426",
+        "text": "Challenge 21"
+    },
+    {
+        "id": "L_OPTIONS_427",
+        "text": "Challenge 22"
+    },
+    {
+        "id": "L_OPTIONS_428",
+        "text": "Challenge 23"
+    },
+    {
+        "id": "L_OPTIONS_429",
+        "text": "Challenge 24"
+    },
+    {
+        "id": "L_OPTIONS_430",
+        "text": "Challenge 25"
+    },
+    {
+        "id": "L_OPTIONS_431",
+        "text": "Challenge 26"
+    },
+    {
+        "id": "L_OPTIONS_432",
+        "text": "Challenge 27"
+    },
+    {
+        "id": "L_OPTIONS_433",
+        "text": "Challenge 28"
+    },
+    {
+        "id": "L_OPTIONS_434",
+        "text": "Challenge 29"
+    },
+    {
+        "id": "L_OPTIONS_435",
+        "text": "Challenge 30"
+    },
+    {
+        "id": "L_OPTIONS_436",
+        "text": "Special\n"
+    },
+    {
+        "id": "L_OPTIONS_437",
+        "text": "Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_438",
+        "text": "Mission 1 - dataDyne Zentrale\n"
+    },
+    {
+        "id": "L_OPTIONS_439",
+        "text": "Mission 2 - Carrington Villa\n"
+    },
+    {
+        "id": "L_OPTIONS_440",
+        "text": "Mission 3 - G5-Building\n"
+    },
+    {
+        "id": "L_OPTIONS_441",
+        "text": "Mission 4 - Area 51\n"
+    },
+    {
+        "id": "L_OPTIONS_442",
+        "text": "Mission 5 - Air Force One\n"
+    },
+    {
+        "id": "L_OPTIONS_443",
+        "text": "Mission 6 - Pelagic II\n"
+    },
+    {
+        "id": "L_OPTIONS_444",
+        "text": "Mission 7 - Carrington Institut\n"
+    },
+    {
+        "id": "L_OPTIONS_445",
+        "text": "Mission 8 - Skedar Schiff\n"
+    },
+    {
+        "id": "L_OPTIONS_446",
+        "text": "Mission 9 - Skedar Ruinen\n"
+    },
+    {
+        "id": "L_OPTIONS_447",
+        "text": "Finale\n"
+    },
+    {
+        "id": "L_OPTIONS_448",
+        "text": "Zeig mir alles!\n"
+    },
+    {
+        "id": "L_OPTIONS_449",
+        "text": "Intro\n"
+    },
+    {
+        "id": "L_OPTIONS_450",
+        "text": "1:1 Intro - Die Dunkelheit\n"
+    },
+    {
+        "id": "L_OPTIONS_451",
+        "text": "1:1 Outro - Ein rascher Abstieg\n"
+    },
+    {
+        "id": "L_OPTIONS_452",
+        "text": "1:2 Intro - Abwärts!\n"
+    },
+    {
+        "id": "L_OPTIONS_453",
+        "text": "1:2 Outro - Das Treffen\n"
+    },
+    {
+        "id": "L_OPTIONS_454",
+        "text": "1:3 Intro - Licht aus\n"
+    },
+    {
+        "id": "L_OPTIONS_455",
+        "text": "1:3 Outro - Wohin geht´s?\n"
+    },
+    {
+        "id": "L_OPTIONS_456",
+        "text": "2:1 Intro - Verhandle DARÜBER!\n"
+    },
+    {
+        "id": "L_OPTIONS_457",
+        "text": "2:1 Intro 2 - Am seidenen Faden\n"
+    },
+    {
+        "id": "L_OPTIONS_458",
+        "text": "2:1 Outro - Carringtons Rettung\n"
+    },
+    {
+        "id": "L_OPTIONS_459",
+        "text": "3:1 Intro - Dunkle Gassen\n"
+    },
+    {
+        "id": "L_OPTIONS_460",
+        "text": "3:1 Outro - Das Eindringen\n"
+    },
+    {
+        "id": "L_OPTIONS_461",
+        "text": "3:2 Intro - Die Perfektion\n"
+    },
+    {
+        "id": "L_OPTIONS_462",
+        "text": "3:2 Special - Die Verschwörung\n"
+    },
+    {
+        "id": "L_OPTIONS_463",
+        "text": "3:2 Outro - Über die Feuerleiter\n"
+    },
+    {
+        "id": "L_OPTIONS_464",
+        "text": "4:1 Intro - Video-Gemeinheiten\n"
+    },
+    {
+        "id": "L_OPTIONS_465",
+        "text": "4:1 Outro - Lose Enden\n"
+    },
+    {
+        "id": "L_OPTIONS_466",
+        "text": "4:2 Intro - Perlen der Weisheit\n"
+    },
+    {
+        "id": "L_OPTIONS_467",
+        "text": "4:2 Outro - Unterm Messer\n"
+    },
+    {
+        "id": "L_OPTIONS_468",
+        "text": "4:3 Intro - Gas!\n"
+    },
+    {
+        "id": "L_OPTIONS_469",
+        "text": "4:3 Special - Das Erwachen\n"
+    },
+    {
+        "id": "L_OPTIONS_470",
+        "text": "4:3 Outro - Die Flucht\n"
+    },
+    {
+        "id": "L_OPTIONS_471",
+        "text": "5:1 Intro - Über den Wolken\n"
+    },
+    {
+        "id": "L_OPTIONS_472",
+        "text": "5:1 Outro - Der Abflug\n"
+    },
+    {
+        "id": "L_OPTIONS_473",
+        "text": "5:2 Intro - Die letzte Chance\n"
+    },
+    {
+        "id": "L_OPTIONS_474",
+        "text": "5:2 Special - Das Andockmanöver\n"
+    },
+    {
+        "id": "L_OPTIONS_475",
+        "text": "5:2 Outro - Keine Wahl\n"
+    },
+    {
+        "id": "L_OPTIONS_476",
+        "text": "5:3 Intro - Roter Horizont\n"
+    },
+    {
+        "id": "L_OPTIONS_477",
+        "text": "5:3 Outro - Der blonde Freak\n"
+    },
+    {
+        "id": "L_OPTIONS_478",
+        "text": "6:1 Intro - Wer schleicht da?\n"
+    },
+    {
+        "id": "L_OPTIONS_479",
+        "text": "6:1 Outro - In der Tiefe\n"
+    },
+    {
+        "id": "L_OPTIONS_480",
+        "text": "6:2 Intro - Noch tiefer\n"
+    },
+    {
+        "id": "L_OPTIONS_481",
+        "text": "6:2 Special - Virus!\n"
+    },
+    {
+        "id": "L_OPTIONS_482",
+        "text": "6:2 Outro - Der Weg nach oben\n"
+    },
+    {
+        "id": "L_OPTIONS_483",
+        "text": "7:1 Intro - Salut\n"
+    },
+    {
+        "id": "L_OPTIONS_484",
+        "text": "7:1 Outro - In die Freiheit\n"
+    },
+    {
+        "id": "L_OPTIONS_485",
+        "text": "8:1 Intro - Entführt\n"
+    },
+    {
+        "id": "L_OPTIONS_486",
+        "text": "8:1 Outro - Ärger voraus\n"
+    },
+    {
+        "id": "L_OPTIONS_487",
+        "text": "9:1 Intro - Ruhe vor dem Sturm\n"
+    },
+    {
+        "id": "L_OPTIONS_488",
+        "text": "9:1 Outro - Hab dich!\n"
+    },
+    {
+        "id": "L_OPTIONS_489",
+        "text": "Endsequenz\n"
+    },
+    {
+        "id": "L_OPTIONS_490",
+        "text": "Cinema\n"
+    },
+    {
+        "id": "L_OPTIONS_491",
+        "text": "Tarnung %d\n"
+    },
+    {
+        "id": "L_OPTIONS_492",
+        "text": "Zielauswahl\n"
+    },
+    {
+        "id": "L_OPTIONS_493",
+        "text": "Treffer\n"
+    },
+    {
+        "id": "L_OPTIONS_494",
+        "text": null
+    },
+    {
+        "id": "L_OPTIONS_495",
+        "text": null
+    }
+]

@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+import assetmgr
+import json
+import os
+
+def main():
+    fd = open('src/assets/%s/animations.json' % os.environ['ROMID'], 'r')
+    data = fd.read()
+    fd.close()
+
+    rows = json.loads(data)
+
+    make_object(rows)
+    make_header(rows)
+
+def make_header(rows):
+    typename = 'animnum'
+    enums = [row['id'] for row in rows]
+    filename = 'animations.h'
+    terminator = 'ANIM_END'
+    assetmgr.write_enums(typename, enums, filename, terminator)
+
+def make_object(rows):
+    binary = bytes()
+    table = len(rows).to_bytes(4, 'big')
+    pos = 0
+
+    for row in rows:
+        # Append data to the binary
+        data = getcontents('src/assets/%s/animations/%s' % (os.environ['ROMID'], row['file']))
+        binary += data
+
+        # Append the table to a different variable,
+        # which we'll append to binary at the end
+        flags = 0
+        if row['flag01']: flags |= 0x01
+        if row['flag02']: flags |= 0x02
+        if row['flag04']: flags |= 0x04
+        if row['flag08']: flags |= 0x08
+
+        table += row['numframes'].to_bytes(2, 'big')
+        table += row['bytesperframe'].to_bytes(2, 'big')
+        table += pos.to_bytes(4, 'big')
+        table += row['unk08'].to_bytes(2, 'big')
+        table += row['unk0a'].to_bytes(1, 'big')
+        table += flags.to_bytes(1, 'big')
+
+        pos += len(data)
+
+    binary = assetmgr.pad16(binary)
+    binary += table
+    binary = assetmgr.pad16(binary)
+
+    assetmgr.write_object(binary, 'animations.o')
+
+def getcontents(filename):
+    with open(filename, 'rb') as fd:
+        return fd.read()
+
+main()

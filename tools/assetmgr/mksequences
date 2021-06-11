@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+
+import assetmgr
+import json
+import os
+
+def main():
+    fd = open('src/assets/%s/sequences.json' % os.environ['ROMID'], 'r')
+    data = fd.read()
+    fd.close()
+
+    rows = json.loads(data)
+
+    make_object(rows)
+    make_header(rows)
+
+def make_header(rows):
+    typename = 'music'
+    enums = [row['id'] for row in rows]
+    filename = 'sequences.h'
+    terminator = 'MUSIC_END'
+    assetmgr.write_enums(typename, enums, filename, terminator)
+
+def make_object(rows):
+    binary = len(rows).to_bytes(2, 'big') + b'\x00\x00'
+    datasection = bytes()
+    pos = 4 + len(rows) * 8
+
+    for row in rows:
+        contents = getcontents('src/assets/%s/sequences/%s' % (os.environ['ROMID'], row['file']))
+        zipped = assetmgr.zip(contents)
+
+        if len(zipped) % 2:
+            zipped += b'\x0a'
+
+        binary += pos.to_bytes(4, 'big')
+        binary += len(contents).to_bytes(2, 'big')
+        binary += len(zipped).to_bytes(2, 'big')
+
+        datasection += zipped
+        pos += len(zipped)
+
+    binary += datasection
+
+    assetmgr.write_object(binary, 'sequences.o')
+
+def getcontents(filename):
+    with open(filename, 'rb') as fd:
+        return fd.read()
+
+main()

@@ -1,0 +1,882 @@
+[
+    {
+        "id": "L_MISC_000",
+        "text": "E R R O R\n"
+    },
+    {
+        "id": "L_MISC_001",
+        "text": "No briefing for this mission\n"
+    },
+    {
+        "id": "L_MISC_002",
+        "text": "\n"
+    },
+    {
+        "id": "L_MISC_003",
+        "text": "Objective"
+    },
+    {
+        "id": "L_MISC_004",
+        "text": "Completed\n"
+    },
+    {
+        "id": "L_MISC_005",
+        "text": "Incomplete\n"
+    },
+    {
+        "id": "L_MISC_006",
+        "text": "Failed\n"
+    },
+    {
+        "id": "L_MISC_007",
+        "text": "One minute left.\n"
+    },
+    {
+        "id": "L_MISC_008",
+        "text": "OBJECTIVES FAILED - abort mission.\n"
+    },
+    {
+        "id": "L_MISC_009",
+        "text": "Guard Greeting\n"
+    },
+    {
+        "id": "L_MISC_010",
+        "text": "What's that gun?\n"
+    },
+    {
+        "id": "L_MISC_011",
+        "text": "Don't point that gun at me.\n"
+    },
+    {
+        "id": "L_MISC_012",
+        "text": "S/MPS"
+    },
+    {
+        "id": "L_MISC_013",
+        "text": "H/M"
+    },
+    {
+        "id": "L_MISC_014",
+        "text": "Y/D"
+    },
+    {
+        "id": "L_MISC_015",
+        "text": "P/D"
+    },
+    {
+        "id": "L_MISC_016",
+        "text": "CI 2023"
+    },
+    {
+        "id": "L_MISC_017",
+        "text": "YKK: 95935"
+    },
+    {
+        "id": "L_MISC_018",
+        "text": "CAMSPY"
+    },
+    {
+        "id": "L_MISC_019",
+        "text": "MODEL 1.2"
+    },
+    {
+        "id": "L_MISC_020",
+        "text": "GYROSTAT"
+    },
+    {
+        "id": "L_MISC_021",
+        "text": "Meat"
+    },
+    {
+        "id": "L_MISC_022",
+        "text": "Easy"
+    },
+    {
+        "id": "L_MISC_023",
+        "text": "Normal"
+    },
+    {
+        "id": "L_MISC_024",
+        "text": "Hard"
+    },
+    {
+        "id": "L_MISC_025",
+        "text": "Perfect"
+    },
+    {
+        "id": "L_MISC_026",
+        "text": "Dark"
+    },
+    {
+        "id": "L_MISC_027",
+        "text": "MeatSim"
+    },
+    {
+        "id": "L_MISC_028",
+        "text": "EasySim"
+    },
+    {
+        "id": "L_MISC_029",
+        "text": "NormalSim"
+    },
+    {
+        "id": "L_MISC_030",
+        "text": "HardSim"
+    },
+    {
+        "id": "L_MISC_031",
+        "text": "PerfectSim"
+    },
+    {
+        "id": "L_MISC_032",
+        "text": "DarkSim"
+    },
+    {
+        "id": "L_MISC_033",
+        "text": "PeaceSim"
+    },
+    {
+        "id": "L_MISC_034",
+        "text": "ShieldSim"
+    },
+    {
+        "id": "L_MISC_035",
+        "text": "RocketSim"
+    },
+    {
+        "id": "L_MISC_036",
+        "text": "KazeSim"
+    },
+    {
+        "id": "L_MISC_037",
+        "text": "FistSim"
+    },
+    {
+        "id": "L_MISC_038",
+        "text": "PreySim"
+    },
+    {
+        "id": "L_MISC_039",
+        "text": "CowardSim"
+    },
+    {
+        "id": "L_MISC_040",
+        "text": "JudgeSim"
+    },
+    {
+        "id": "L_MISC_041",
+        "text": "FeudSim"
+    },
+    {
+        "id": "L_MISC_042",
+        "text": "SpeedSim"
+    },
+    {
+        "id": "L_MISC_043",
+        "text": "TurtleSim"
+    },
+    {
+        "id": "L_MISC_044",
+        "text": "VengeSim"
+    },
+    {
+        "id": "L_MISC_045",
+        "text": "MeatSim:  This is the easiest of all the simulants to defeat and is, therefore, the best choice for the beginner.  It is not very intelligent, and its shooting skills are very poor.\n"
+    },
+    {
+        "id": "L_MISC_046",
+        "text": "EasySim:  This simulant has basic skills and intelligence, but it can still be dangerous.\n"
+    },
+    {
+        "id": "L_MISC_047",
+        "text": "NormalSim:  This simulant is as skilled as the average human player.\n"
+    },
+    {
+        "id": "L_MISC_048",
+        "text": "HardSim:  This simulant is as skilled as a good human player.\n"
+    },
+    {
+        "id": "L_MISC_049",
+        "text": "PerfectSim: The ultimate adversary, the most intelligent and skilled simulant.  Most players will eventually want to use PerfectSim all the time as their skills improve.\n"
+    },
+    {
+        "id": "L_MISC_050",
+        "text": "DarkSim: Prototype cyborg developed by dataDyne to counteract Carrington operatives.  Remember that this simulant, unlike all the others, is not human.  This means that it may be able to do things which a human cannot.\n"
+    },
+    {
+        "id": "L_MISC_051",
+        "text": "PeaceSim:  These simulants are scientists who protest the use of weapons.  They will go around the level hunting for guns that are lying around and hoard them so that players cannot use them.  Of course, if you were to shoot them, they might just drop a few!\n"
+    },
+    {
+        "id": "L_MISC_052",
+        "text": "ShieldSim:  Always goes for maximum shield protection.  If this simulant loses any shield energy, it will go and search for a new shield.  Not much use if there are no shields on the level!\n"
+    },
+    {
+        "id": "L_MISC_053",
+        "text": "RocketSim:  This simulant loves to see things blow up.  It prefers weapons which make big explosions over conventional handguns or automatics.  This also extends to weapons which have explosive secondary functions!\n"
+    },
+    {
+        "id": "L_MISC_054",
+        "text": "KazeSim:  This simulant will stop at nothing to destroy its target.  It is very aggressive and never keeps its distance - even if it's holding a grenade!  Be very careful of an adversary who is not afraid to die.\n"
+    },
+    {
+        "id": "L_MISC_055",
+        "text": "FistSim:  This simulant protests the use of weapons in a similar way to the PeaceSims.  However, it has no such reservations when it comes to unarmed combat.  It will always try to use its fists to attack or disarm its opponent.\n"
+    },
+    {
+        "id": "L_MISC_056",
+        "text": "PreySim:  This simulant prefers to prey on the weak in order to get easier kills.  It will look for players who have just respawned, have an inferior weapon, or are low on health.\n"
+    },
+    {
+        "id": "L_MISC_057",
+        "text": "CowardSim:  This simulant does not really want to fight and will try to survive by running away.  It may sometimes attack, but only if the opponent has an inferior weapon.  Draw out a better gun or shoot it, and it will run away!\n"
+    },
+    {
+        "id": "L_MISC_058",
+        "text": "JudgeSim:  This simulant has a strong sense of justice and despises the tactics of the PreySim.  It will always try to kill the winning player in order to even up the score.\n"
+    },
+    {
+        "id": "L_MISC_059",
+        "text": "FeudSim:  Once this simulant picks a target, that player had better watch out!  A FeudSim will pursue the player until the game is over!  Even if it is killed, it will bear its grudge.\n"
+    },
+    {
+        "id": "L_MISC_060",
+        "text": "SpeedSim:  These simulants have been trained for speed.  They can easily outrun a human player, so it's no use  running away from a SpeedSim unless you know some good shortcuts!\n"
+    },
+    {
+        "id": "L_MISC_061",
+        "text": "TurtleSim:  This simulant wears a prototype shield generator developed by dataDyne scientists.  The generator projects a protective shield around its host which has twice the strength of a normal shield.  Unfortunately, this restricts the host's movement, so it can only move at a slow pace.  TurtleSims carry this shield as standard even if there are no shields on the level.\n"
+    },
+    {
+        "id": "L_MISC_062",
+        "text": "VengeSim:  Be careful if you shoot or kill a VengeSim because it always attacks the player who last killed it."
+    },
+    {
+        "id": "L_MISC_063",
+        "text": "Dark Combat"
+    },
+    {
+        "id": "L_MISC_064",
+        "text": "Skedar Mystery"
+    },
+    {
+        "id": "L_MISC_065",
+        "text": "CI Operative"
+    },
+    {
+        "id": "L_MISC_066",
+        "text": "dataDyne Action"
+    },
+    {
+        "id": "L_MISC_067",
+        "text": "Maian Tears"
+    },
+    {
+        "id": "L_MISC_068",
+        "text": "Alien Conflict"
+    },
+    {
+        "id": "L_MISC_069",
+        "text": "Carrington Institute"
+    },
+    {
+        "id": "L_MISC_070",
+        "text": "dD Central"
+    },
+    {
+        "id": "L_MISC_071",
+        "text": "dD Central X"
+    },
+    {
+        "id": "L_MISC_072",
+        "text": "dD Research"
+    },
+    {
+        "id": "L_MISC_073",
+        "text": "dD Research X"
+    },
+    {
+        "id": "L_MISC_074",
+        "text": "dD Extraction"
+    },
+    {
+        "id": "L_MISC_075",
+        "text": "dD Extraction X"
+    },
+    {
+        "id": "L_MISC_076",
+        "text": "Carrington Villa"
+    },
+    {
+        "id": "L_MISC_077",
+        "text": "Carrington Villa X"
+    },
+    {
+        "id": "L_MISC_078",
+        "text": "Chicago"
+    },
+    {
+        "id": "L_MISC_079",
+        "text": "Chicago X"
+    },
+    {
+        "id": "L_MISC_080",
+        "text": "G5 Building"
+    },
+    {
+        "id": "L_MISC_081",
+        "text": "G5 Building X"
+    },
+    {
+        "id": "L_MISC_082",
+        "text": "A51 Infiltration"
+    },
+    {
+        "id": "L_MISC_083",
+        "text": "A51 Infiltration X"
+    },
+    {
+        "id": "L_MISC_084",
+        "text": "A51 Rescue"
+    },
+    {
+        "id": "L_MISC_085",
+        "text": "A51 Rescue X"
+    },
+    {
+        "id": "L_MISC_086",
+        "text": "A51 Escape"
+    },
+    {
+        "id": "L_MISC_087",
+        "text": "A51 Escape X"
+    },
+    {
+        "id": "L_MISC_088",
+        "text": "Air Base"
+    },
+    {
+        "id": "L_MISC_089",
+        "text": "Air Base X"
+    },
+    {
+        "id": "L_MISC_090",
+        "text": "Air Force One"
+    },
+    {
+        "id": "L_MISC_091",
+        "text": "Air Force One X"
+    },
+    {
+        "id": "L_MISC_092",
+        "text": "Crash Site"
+    },
+    {
+        "id": "L_MISC_093",
+        "text": "Crash Site X"
+    },
+    {
+        "id": "L_MISC_094",
+        "text": "Pelagic II"
+    },
+    {
+        "id": "L_MISC_095",
+        "text": "Pelagic II X"
+    },
+    {
+        "id": "L_MISC_096",
+        "text": "Deep Sea"
+    },
+    {
+        "id": "L_MISC_097",
+        "text": "Deep Sea X"
+    },
+    {
+        "id": "L_MISC_098",
+        "text": "Institute Defense"
+    },
+    {
+        "id": "L_MISC_099",
+        "text": "Institute Defense X"
+    },
+    {
+        "id": "L_MISC_100",
+        "text": "Attack Ship"
+    },
+    {
+        "id": "L_MISC_101",
+        "text": "Attack Ship X"
+    },
+    {
+        "id": "L_MISC_102",
+        "text": "Skedar Ruins"
+    },
+    {
+        "id": "L_MISC_103",
+        "text": "Skedar Ruins X"
+    },
+    {
+        "id": "L_MISC_104",
+        "text": "End Credits"
+    },
+    {
+        "id": "L_MISC_105",
+        "text": "Random\n"
+    },
+    {
+        "id": "L_MISC_106",
+        "text": "Select All\n"
+    },
+    {
+        "id": "L_MISC_107",
+        "text": "Select None\n"
+    },
+    {
+        "id": "L_MISC_108",
+        "text": "Randomize\n"
+    },
+    {
+        "id": "L_MISC_109",
+        "text": "Weapon\n"
+    },
+    {
+        "id": "L_MISC_110",
+        "text": "Function\n"
+    },
+    {
+        "id": "L_MISC_111",
+        "text": "Orders\n"
+    },
+    {
+        "id": "L_MISC_112",
+        "text": "No Weapon\n"
+    },
+    {
+        "id": "L_MISC_113",
+        "text": "Pick Target\n"
+    },
+    {
+        "id": "L_MISC_114",
+        "text": "Follow\n"
+    },
+    {
+        "id": "L_MISC_115",
+        "text": "Attack\n"
+    },
+    {
+        "id": "L_MISC_116",
+        "text": "Defend\n"
+    },
+    {
+        "id": "L_MISC_117",
+        "text": "Hold\n"
+    },
+    {
+        "id": "L_MISC_118",
+        "text": "Normal\n"
+    },
+    {
+        "id": "L_MISC_119",
+        "text": "Download\n"
+    },
+    {
+        "id": "L_MISC_120",
+        "text": "Get Case\n"
+    },
+    {
+        "id": "L_MISC_121",
+        "text": "Tag Box\n"
+    },
+    {
+        "id": "L_MISC_122",
+        "text": "Killed by"
+    },
+    {
+        "id": "L_MISC_123",
+        "text": "Killed"
+    },
+    {
+        "id": "L_MISC_124",
+        "text": "Beginner:21\n"
+    },
+    {
+        "id": "L_MISC_125",
+        "text": "Trainee:20\n"
+    },
+    {
+        "id": "L_MISC_126",
+        "text": "Amateur:19\n"
+    },
+    {
+        "id": "L_MISC_127",
+        "text": "Rookie:18\n"
+    },
+    {
+        "id": "L_MISC_128",
+        "text": "Novice:17\n"
+    },
+    {
+        "id": "L_MISC_129",
+        "text": "Trooper:16\n"
+    },
+    {
+        "id": "L_MISC_130",
+        "text": "Agent:15\n"
+    },
+    {
+        "id": "L_MISC_131",
+        "text": "Star Agent:14\n"
+    },
+    {
+        "id": "L_MISC_132",
+        "text": "Special Agent:13\n"
+    },
+    {
+        "id": "L_MISC_133",
+        "text": "Expert:12\n"
+    },
+    {
+        "id": "L_MISC_134",
+        "text": "Veteran:11\n"
+    },
+    {
+        "id": "L_MISC_135",
+        "text": "Professional:10\n"
+    },
+    {
+        "id": "L_MISC_136",
+        "text": "Dangerous:9\n"
+    },
+    {
+        "id": "L_MISC_137",
+        "text": "Deadly:8\n"
+    },
+    {
+        "id": "L_MISC_138",
+        "text": "Killer:7\n"
+    },
+    {
+        "id": "L_MISC_139",
+        "text": "Assassin:6\n"
+    },
+    {
+        "id": "L_MISC_140",
+        "text": "Lethal:5\n"
+    },
+    {
+        "id": "L_MISC_141",
+        "text": "Elite:4\n"
+    },
+    {
+        "id": "L_MISC_142",
+        "text": "Invincible:3\n"
+    },
+    {
+        "id": "L_MISC_143",
+        "text": "Near Perfect:2\n"
+    },
+    {
+        "id": "L_MISC_144",
+        "text": "Perfect:1\n"
+    },
+    {
+        "id": "L_MISC_145",
+        "text": "DARTAMMO"
+    },
+    {
+        "id": "L_MISC_146",
+        "text": "MODEL 1.4"
+    },
+    {
+        "id": "L_MISC_147",
+        "text": "JM: 201172"
+    },
+    {
+        "id": "L_MISC_148",
+        "text": "Save Case\n"
+    },
+    {
+        "id": "L_MISC_149",
+        "text": "Def Hill\n"
+    },
+    {
+        "id": "L_MISC_150",
+        "text": "Hold Hill\n"
+    },
+    {
+        "id": "L_MISC_151",
+        "text": "Get Case\n"
+    },
+    {
+        "id": "L_MISC_152",
+        "text": "Pop Cap\n"
+    },
+    {
+        "id": "L_MISC_153",
+        "text": "Protect\n"
+    },
+    {
+        "id": "L_MISC_154",
+        "text": "All Simulants\n"
+    },
+    {
+        "id": "L_MISC_155",
+        "text": "MODEL 1.3"
+    },
+    {
+        "id": "L_MISC_156",
+        "text": "BNC: 15877"
+    },
+    {
+        "id": "L_MISC_157",
+        "text": "Not enough room to launch "
+    },
+    {
+        "id": "L_MISC_158",
+        "text": "GOAL TARGETS:"
+    },
+    {
+        "id": "L_MISC_159",
+        "text": "GOAL SCORE:"
+    },
+    {
+        "id": "L_MISC_160",
+        "text": "MIN ACCURACY:"
+    },
+    {
+        "id": "L_MISC_161",
+        "text": "FIRE TO START\n"
+    },
+    {
+        "id": "L_MISC_162",
+        "text": "GET READY!\n"
+    },
+    {
+        "id": "L_MISC_163",
+        "text": "LIMIT:"
+    },
+    {
+        "id": "L_MISC_164",
+        "text": "ZONE 3\n"
+    },
+    {
+        "id": "L_MISC_165",
+        "text": "ZONE 2\n"
+    },
+    {
+        "id": "L_MISC_166",
+        "text": "ZONE 1\n"
+    },
+    {
+        "id": "L_MISC_167",
+        "text": "BULL'S-EYE\n"
+    },
+    {
+        "id": "L_MISC_168",
+        "text": "EXPLODED\n"
+    },
+    {
+        "id": "L_MISC_169",
+        "text": "Elvis is dead.\n"
+    },
+    {
+        "id": "L_MISC_170",
+        "text": "Style 1"
+    },
+    {
+        "id": "L_MISC_171",
+        "text": "Style 2"
+    },
+    {
+        "id": "L_MISC_172",
+        "text": "Style 3"
+    },
+    {
+        "id": "L_MISC_173",
+        "text": "Style 4"
+    },
+    {
+        "id": "L_MISC_174",
+        "text": "Blonde"
+    },
+    {
+        "id": "L_MISC_175",
+        "text": "Black"
+    },
+    {
+        "id": "L_MISC_176",
+        "text": "Auburn"
+    },
+    {
+        "id": "L_MISC_177",
+        "text": "Blue Rinse"
+    },
+    {
+        "id": "L_MISC_178",
+        "text": "Player"
+    },
+    {
+        "id": "L_MISC_179",
+        "text": ""
+    },
+    {
+        "id": "L_MISC_180",
+        "text": "Identify\n"
+    },
+    {
+        "id": "L_MISC_181",
+        "text": "unused"
+    },
+    {
+        "id": "L_MISC_182",
+        "text": "Challenges\n"
+    },
+    {
+        "id": "L_MISC_183",
+        "text": "Load/Preset Games\n"
+    },
+    {
+        "id": "L_MISC_184",
+        "text": "Quick Start\n"
+    },
+    {
+        "id": "L_MISC_185",
+        "text": "Advanced Setup\n"
+    },
+    {
+        "id": "L_MISC_186",
+        "text": "Combat Simulator\n"
+    },
+    {
+        "id": "L_MISC_187",
+        "text": "Carrington Institute\n"
+    },
+    {
+        "id": "L_MISC_188",
+        "text": "Team Score\n"
+    },
+    {
+        "id": "L_MISC_189",
+        "text": "Finished Setup\n"
+    },
+    {
+        "id": "L_MISC_190",
+        "text": "Player 1 Team\n"
+    },
+    {
+        "id": "L_MISC_191",
+        "text": "Player 2 Team\n"
+    },
+    {
+        "id": "L_MISC_192",
+        "text": "Player 3 Team\n"
+    },
+    {
+        "id": "L_MISC_193",
+        "text": "Player 4 Team\n"
+    },
+    {
+        "id": "L_MISC_194",
+        "text": "Number Of Simulants\n"
+    },
+    {
+        "id": "L_MISC_195",
+        "text": "Simulants Per Team\n"
+    },
+    {
+        "id": "L_MISC_196",
+        "text": "Simulant Difficulty\n"
+    },
+    {
+        "id": "L_MISC_197",
+        "text": "Start Game\n"
+    },
+    {
+        "id": "L_MISC_198",
+        "text": "Drop Out\n"
+    },
+    {
+        "id": "L_MISC_199",
+        "text": "Player Settings\n"
+    },
+    {
+        "id": "L_MISC_200",
+        "text": "Game Settings\n"
+    },
+    {
+        "id": "L_MISC_201",
+        "text": "Quick Go\n"
+    },
+    {
+        "id": "L_MISC_202",
+        "text": "Ready!\n"
+    },
+    {
+        "id": "L_MISC_203",
+        "text": "Quick Team\n"
+    },
+    {
+        "id": "L_MISC_204",
+        "text": "Players Only\n"
+    },
+    {
+        "id": "L_MISC_205",
+        "text": "Players and Simulants\n"
+    },
+    {
+        "id": "L_MISC_206",
+        "text": "Player Teams\n"
+    },
+    {
+        "id": "L_MISC_207",
+        "text": "Players vs. Simulants\n"
+    },
+    {
+        "id": "L_MISC_208",
+        "text": "Player-Simulant Teams\n"
+    },
+    {
+        "id": "L_MISC_209",
+        "text": "DRUGSPY"
+    },
+    {
+        "id": "L_MISC_210",
+        "text": "BOMBSPY"
+    },
+    {
+        "id": "L_MISC_211",
+        "text": "Replay Previous Mission\n"
+    },
+    {
+        "id": "L_MISC_212",
+        "text": "Holograph\n"
+    },
+    {
+        "id": "L_MISC_213",
+        "text": "Aggressive\n"
+    },
+    {
+        "id": "L_MISC_214",
+        "text": "Passive\n"
+    },
+    {
+        "id": "L_MISC_215",
+        "text": "Perfect Buddies\n"
+    },
+    {
+        "id": "L_MISC_216",
+        "text": "Stealth\n"
+    },
+    {
+        "id": "L_MISC_217",
+        "text": null
+    },
+    {
+        "id": "L_MISC_218",
+        "text": null
+    },
+    {
+        "id": "L_MISC_219",
+        "text": null
+    }
+]

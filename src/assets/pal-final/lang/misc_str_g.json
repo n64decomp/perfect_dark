@@ -1,0 +1,882 @@
+[
+    {
+        "id": "L_MISC_000",
+        "text": "E R R O R\n"
+    },
+    {
+        "id": "L_MISC_001",
+        "text": "Für diese Mission gibt es kein Briefing.\n"
+    },
+    {
+        "id": "L_MISC_002",
+        "text": "\n"
+    },
+    {
+        "id": "L_MISC_003",
+        "text": "Ziel"
+    },
+    {
+        "id": "L_MISC_004",
+        "text": "erreicht\n"
+    },
+    {
+        "id": "L_MISC_005",
+        "text": "nicht erreicht\n"
+    },
+    {
+        "id": "L_MISC_006",
+        "text": "versagt\n"
+    },
+    {
+        "id": "L_MISC_007",
+        "text": "Noch eine Minute.\n"
+    },
+    {
+        "id": "L_MISC_008",
+        "text": "ZIELERREICHUNG UNGENÜGEND - Mission abbrechen.\n"
+    },
+    {
+        "id": "L_MISC_009",
+        "text": "Wachgruß.\n"
+    },
+    {
+        "id": "L_MISC_010",
+        "text": "Was soll die Waffe?\n"
+    },
+    {
+        "id": "L_MISC_011",
+        "text": "Zielen Sie nicht auf mich!\n"
+    },
+    {
+        "id": "L_MISC_012",
+        "text": "S/MPS"
+    },
+    {
+        "id": "L_MISC_013",
+        "text": "H/M"
+    },
+    {
+        "id": "L_MISC_014",
+        "text": "Y/D"
+    },
+    {
+        "id": "L_MISC_015",
+        "text": "P/D"
+    },
+    {
+        "id": "L_MISC_016",
+        "text": "CI 2023"
+    },
+    {
+        "id": "L_MISC_017",
+        "text": "YKK: 95935"
+    },
+    {
+        "id": "L_MISC_018",
+        "text": "CAMSPY"
+    },
+    {
+        "id": "L_MISC_019",
+        "text": "MODEL 1.2"
+    },
+    {
+        "id": "L_MISC_020",
+        "text": "GYROSTAT"
+    },
+    {
+        "id": "L_MISC_021",
+        "text": "Opfer"
+    },
+    {
+        "id": "L_MISC_022",
+        "text": "Leicht"
+    },
+    {
+        "id": "L_MISC_023",
+        "text": "Normal"
+    },
+    {
+        "id": "L_MISC_024",
+        "text": "Schwer"
+    },
+    {
+        "id": "L_MISC_025",
+        "text": "Perfekt"
+    },
+    {
+        "id": "L_MISC_026",
+        "text": "Dark"
+    },
+    {
+        "id": "L_MISC_027",
+        "text": "OpferSim"
+    },
+    {
+        "id": "L_MISC_028",
+        "text": "LeichtSim"
+    },
+    {
+        "id": "L_MISC_029",
+        "text": "NormalSim"
+    },
+    {
+        "id": "L_MISC_030",
+        "text": "SchwerSim"
+    },
+    {
+        "id": "L_MISC_031",
+        "text": "PerfektSim"
+    },
+    {
+        "id": "L_MISC_032",
+        "text": "DarkSim"
+    },
+    {
+        "id": "L_MISC_033",
+        "text": "PazifistSim"
+    },
+    {
+        "id": "L_MISC_034",
+        "text": "SchildSim"
+    },
+    {
+        "id": "L_MISC_035",
+        "text": "RaketenSim"
+    },
+    {
+        "id": "L_MISC_036",
+        "text": "SuizidSim"
+    },
+    {
+        "id": "L_MISC_037",
+        "text": "FaustSim"
+    },
+    {
+        "id": "L_MISC_038",
+        "text": "JägerSim"
+    },
+    {
+        "id": "L_MISC_039",
+        "text": "FeiglingSim"
+    },
+    {
+        "id": "L_MISC_040",
+        "text": "JustizSim"
+    },
+    {
+        "id": "L_MISC_041",
+        "text": "VendetSim"
+    },
+    {
+        "id": "L_MISC_042",
+        "text": "SpeedSim"
+    },
+    {
+        "id": "L_MISC_043",
+        "text": "TurtleSim"
+    },
+    {
+        "id": "L_MISC_044",
+        "text": "RacheSim"
+    },
+    {
+        "id": "L_MISC_045",
+        "text": "OpferSim:  Der am leichtesten zu besiegende Simulant. Eignet sich daher hervorragend für Einsteiger.  Der Simulant ist nicht sonderlich intelligent und ist zudem ein mäßiger Schütze.\n"
+    },
+    {
+        "id": "L_MISC_046",
+        "text": "LeichtSim:  Der Simulant verfügt zwar nur über Basis-Intelligenz und -Fähigkeiten, ist aber trotzdem nicht ungefährlich.\n"
+    },
+    {
+        "id": "L_MISC_047",
+        "text": "NormalSim:  Der Simulant verfügt über das Geschick eines menschlichen Spielers.\n"
+    },
+    {
+        "id": "L_MISC_048",
+        "text": "SchwerSim:  Der Simulant verfügt über das Geschick eines guten menschlichen Spielers.\n"
+    },
+    {
+        "id": "L_MISC_049",
+        "text": "PerfektSim: Der ultimative Gegner. Äußerst intelligent und unberechenbar. Viele Spieler werden bevorzugt gegen ihn antreten, da sich ihre eigenen Fähigkeiten dadurch ständig verbessern.\n"
+    },
+    {
+        "id": "L_MISC_050",
+        "text": "DarkSim: Ein Cyborg-Prototyp, der von dataDyne entwickelt wurde, um gegen das Institut vorzugehen. Beachten Sie, dass dieser Simulant, im Gegensatz zu den anderen, nicht menschlich ist. Daher kann er Dinge tun, die Menschen nicht tun können.\n"
+    },
+    {
+        "id": "L_MISC_051",
+        "text": "PazifistSim:  Diese Simulanten sind Wissenschaftler, die keine Waffen einsetzen. Sie gehen durch die Level, um herumliegende Waffen einzusammeln, sodass der Spieler sie nicht finden kann. Wenn Sie aber auf sie schießen, lassen sie vielleicht die Waffen fallen.\n"
+    },
+    {
+        "id": "L_MISC_052",
+        "text": "SchildSim:  Achtet immer auf maximalen Schild-Schutz. Verliert dieser Simulant seinen Schild, zieht er los,  um einen neuen zu suchen. Das hat natürlich wenig Sinn, wenn keine Schilde vorhanden sind!\n"
+    },
+    {
+        "id": "L_MISC_053",
+        "text": "RaketenSim:  Dieser Simulant liebt es, Dinge in die Luft zu jagen. Er zieht Explosions-Waffen gegenüber Pistolen und Automatik-Gewehren vor. Zu ersteren gehören auch Waffen, die eine 'explosive' Sekundär-Funktion haben.\n"
+    },
+    {
+        "id": "L_MISC_054",
+        "text": "SuizidSim:  Dieser Simulant lässt sich durch nichts aufhalten. Er ist sehr aggressiv und hält keine Distanz zum Gegner. Auch nicht, wenn er eine Granate hält!  Seien Sie äußerst vorsichtig, denn dieser Gegner kennt keine Angst.\n"
+    },
+    {
+        "id": "L_MISC_055",
+        "text": "FaustSim:  Dieser Simulant verwendet, ähnlich wie der PazifistSim, keine Waffen.  Kommt es aber zum Kampf, wird er seine Fäuste einsetzen.  Er wird ständig versuchen, seinen Gegner zu entwaffnen.\n"
+    },
+    {
+        "id": "L_MISC_056",
+        "text": "JägerSim:  Dieser Simulant jagt bevorzugt schwächere Gegner.  Er sucht nach Spielern, die die gerade erst erschienen sind, über schwache Bewaffnung verfügen oder wenig Energie haben.\n"
+    },
+    {
+        "id": "L_MISC_057",
+        "text": "FeiglingSim:  Dieser Simulant wird eher sein Heil in der Flucht suchen, als zu kämpfen.  Er kann zwar hin und wieder attackieren, aber nur, wenn sein Gegner über eine schwache Waffe verfügt.  Ziehen Sie eine stärkere Waffe, und er wird flüchten!\n"
+    },
+    {
+        "id": "L_MISC_058",
+        "text": "JustizSim:  Dieser Simulant hat einen starken Gerechtigkeitssinn. Daher verurteilt er die Taktiken des JägerSim.  Er wird immer den stärksten Spieler verfolgen, um für einen gleichmäßigen Score zu sorgen.\n"
+    },
+    {
+        "id": "L_MISC_059",
+        "text": "VendetSim:  Hat sich dieser Simulant ein Opfer ausgesucht, sollte der Spieler sehr vorsichtig sein!  Ein VendetSim verfolgt diesen Spieler, bis das Spiel vorüber ist!  Er schreckt eventuell auch nicht vor einem Kamikaze-Angriff zurück.\n"
+    },
+    {
+        "id": "L_MISC_060",
+        "text": "SpeedSim:  Diese Simulanten sind unglaublich schnell.  In Punkto Geschwindigkeit sind sie jedem Menschen überlegen, daher hat  es keinen Sinn, vor ihnen zu flüchten. (Es sei denn, Sie kennen eine Abkürzung.)\n"
+    },
+    {
+        "id": "L_MISC_061",
+        "text": "TurtleSim:  Dieser Simulant verfügt über eine von dataDyne entwickelte Schildtechnologie.  Der Generator projiziert ein Schutzschild um seinen Träger, der doppelt so stark ist, wie ein normaler Schild.  Leider wird dadurch auch die Bewegungsfreiheit eingeschränkt, und er kann sich nur langsam bewegen.  TurtleSims tragen diesen Schild als  Standard-Ausrüstung, sogar, wenn es im aktuellen Level keine Schilde gibt.\n"
+    },
+    {
+        "id": "L_MISC_062",
+        "text": "RacheSim:  Seien Sie vorsichtig, wenn Sie auf einen RacheSim schießen, da er danach nur seinen Bezwinger angreift."
+    },
+    {
+        "id": "L_MISC_063",
+        "text": "Dark Combat"
+    },
+    {
+        "id": "L_MISC_064",
+        "text": "Skedar-Mysterium"
+    },
+    {
+        "id": "L_MISC_065",
+        "text": "CI-Operator"
+    },
+    {
+        "id": "L_MISC_066",
+        "text": "dataDyne Action"
+    },
+    {
+        "id": "L_MISC_067",
+        "text": "Maianische Tränen"
+    },
+    {
+        "id": "L_MISC_068",
+        "text": "Alien-Konflikt"
+    },
+    {
+        "id": "L_MISC_069",
+        "text": "Carrington Institut"
+    },
+    {
+        "id": "L_MISC_070",
+        "text": "dD Zentrale"
+    },
+    {
+        "id": "L_MISC_071",
+        "text": "dD Zentrale X"
+    },
+    {
+        "id": "L_MISC_072",
+        "text": "dD Forschung"
+    },
+    {
+        "id": "L_MISC_073",
+        "text": "dD Forschung X"
+    },
+    {
+        "id": "L_MISC_074",
+        "text": "dD Extraktion"
+    },
+    {
+        "id": "L_MISC_075",
+        "text": "dD Extraktion X"
+    },
+    {
+        "id": "L_MISC_076",
+        "text": "Carrington Villa"
+    },
+    {
+        "id": "L_MISC_077",
+        "text": "Carrington Villa X"
+    },
+    {
+        "id": "L_MISC_078",
+        "text": "Chicago"
+    },
+    {
+        "id": "L_MISC_079",
+        "text": "Chicago X"
+    },
+    {
+        "id": "L_MISC_080",
+        "text": "G5-Building"
+    },
+    {
+        "id": "L_MISC_081",
+        "text": "G5-Building X"
+    },
+    {
+        "id": "L_MISC_082",
+        "text": "A-51 Infiltration"
+    },
+    {
+        "id": "L_MISC_083",
+        "text": "A-51 Infiltration X"
+    },
+    {
+        "id": "L_MISC_084",
+        "text": "A-51 Rettung"
+    },
+    {
+        "id": "L_MISC_085",
+        "text": "A-51 Rettung X"
+    },
+    {
+        "id": "L_MISC_086",
+        "text": "A-51 Flucht"
+    },
+    {
+        "id": "L_MISC_087",
+        "text": "A-51 Flucht X"
+    },
+    {
+        "id": "L_MISC_088",
+        "text": "Stützpunkt"
+    },
+    {
+        "id": "L_MISC_089",
+        "text": "Stützpunkt X"
+    },
+    {
+        "id": "L_MISC_090",
+        "text": "Air Force One"
+    },
+    {
+        "id": "L_MISC_091",
+        "text": "Air Force One X"
+    },
+    {
+        "id": "L_MISC_092",
+        "text": "Absturzstelle"
+    },
+    {
+        "id": "L_MISC_093",
+        "text": "Absturzstelle X"
+    },
+    {
+        "id": "L_MISC_094",
+        "text": "Pelagic II"
+    },
+    {
+        "id": "L_MISC_095",
+        "text": "Pelagic II X"
+    },
+    {
+        "id": "L_MISC_096",
+        "text": "Tiefsee"
+    },
+    {
+        "id": "L_MISC_097",
+        "text": "Tiefsee X"
+    },
+    {
+        "id": "L_MISC_098",
+        "text": "Verteidigung"
+    },
+    {
+        "id": "L_MISC_099",
+        "text": "Verteidigung X"
+    },
+    {
+        "id": "L_MISC_100",
+        "text": "Feindliches Schiff"
+    },
+    {
+        "id": "L_MISC_101",
+        "text": "Feindliches Schiff X"
+    },
+    {
+        "id": "L_MISC_102",
+        "text": "Skedar Ruinen"
+    },
+    {
+        "id": "L_MISC_103",
+        "text": "Skedar Ruinen X"
+    },
+    {
+        "id": "L_MISC_104",
+        "text": "End Credits"
+    },
+    {
+        "id": "L_MISC_105",
+        "text": "Zufällig\n"
+    },
+    {
+        "id": "L_MISC_106",
+        "text": "Alle\n"
+    },
+    {
+        "id": "L_MISC_107",
+        "text": "Keine\n"
+    },
+    {
+        "id": "L_MISC_108",
+        "text": "Zufallsgenerator\n"
+    },
+    {
+        "id": "L_MISC_109",
+        "text": "Waffe\n"
+    },
+    {
+        "id": "L_MISC_110",
+        "text": "Funktion\n"
+    },
+    {
+        "id": "L_MISC_111",
+        "text": "Befehle\n"
+    },
+    {
+        "id": "L_MISC_112",
+        "text": "Keine Waffe\n"
+    },
+    {
+        "id": "L_MISC_113",
+        "text": "Zielauswahl\n"
+    },
+    {
+        "id": "L_MISC_114",
+        "text": "Folgen\n"
+    },
+    {
+        "id": "L_MISC_115",
+        "text": "Attackieren\n"
+    },
+    {
+        "id": "L_MISC_116",
+        "text": "Verteidigen\n"
+    },
+    {
+        "id": "L_MISC_117",
+        "text": "Halten\n"
+    },
+    {
+        "id": "L_MISC_118",
+        "text": "Normal\n"
+    },
+    {
+        "id": "L_MISC_119",
+        "text": "Download\n"
+    },
+    {
+        "id": "L_MISC_120",
+        "text": "Schnapp den Koffer\n"
+    },
+    {
+        "id": "L_MISC_121",
+        "text": "Tag Box\n"
+    },
+    {
+        "id": "L_MISC_122",
+        "text": "Besiegt von:"
+    },
+    {
+        "id": "L_MISC_123",
+        "text": "Besiegt wurde:"
+    },
+    {
+        "id": "L_MISC_124",
+        "text": "Anfänger:21\n"
+    },
+    {
+        "id": "L_MISC_125",
+        "text": "Azubi:20\n"
+    },
+    {
+        "id": "L_MISC_126",
+        "text": "Amateur:19\n"
+    },
+    {
+        "id": "L_MISC_127",
+        "text": "Normal:18\n"
+    },
+    {
+        "id": "L_MISC_128",
+        "text": "Neuling:17\n"
+    },
+    {
+        "id": "L_MISC_129",
+        "text": "Soldat:16\n"
+    },
+    {
+        "id": "L_MISC_130",
+        "text": "Agent:15\n"
+    },
+    {
+        "id": "L_MISC_131",
+        "text": "Star-Agent:14\n"
+    },
+    {
+        "id": "L_MISC_132",
+        "text": "Spec-Agent:13\n"
+    },
+    {
+        "id": "L_MISC_133",
+        "text": "Experte:12\n"
+    },
+    {
+        "id": "L_MISC_134",
+        "text": "Veteran:11\n"
+    },
+    {
+        "id": "L_MISC_135",
+        "text": "Profi:10\n"
+    },
+    {
+        "id": "L_MISC_136",
+        "text": "Gefährlich:9\n"
+    },
+    {
+        "id": "L_MISC_137",
+        "text": "Letal:8\n"
+    },
+    {
+        "id": "L_MISC_138",
+        "text": "Tödlich:7\n"
+    },
+    {
+        "id": "L_MISC_139",
+        "text": "Verheerend:6\n"
+    },
+    {
+        "id": "L_MISC_140",
+        "text": "Zerstörer:5\n"
+    },
+    {
+        "id": "L_MISC_141",
+        "text": "Elite:4\n"
+    },
+    {
+        "id": "L_MISC_142",
+        "text": "Berserker:3\n"
+    },
+    {
+        "id": "L_MISC_143",
+        "text": "Fast Perfekt:2\n"
+    },
+    {
+        "id": "L_MISC_144",
+        "text": "Perfekt:1\n"
+    },
+    {
+        "id": "L_MISC_145",
+        "text": "DARTMUNI"
+    },
+    {
+        "id": "L_MISC_146",
+        "text": "MODEL 1.4"
+    },
+    {
+        "id": "L_MISC_147",
+        "text": "JM: 201172"
+    },
+    {
+        "id": "L_MISC_148",
+        "text": "Vert. Koffer\n"
+    },
+    {
+        "id": "L_MISC_149",
+        "text": "Vert. Hügel\n"
+    },
+    {
+        "id": "L_MISC_150",
+        "text": "Halte Hügel\n"
+    },
+    {
+        "id": "L_MISC_151",
+        "text": "Erl. Koffer\n"
+    },
+    {
+        "id": "L_MISC_152",
+        "text": "Pop Cap\n"
+    },
+    {
+        "id": "L_MISC_153",
+        "text": "Beschütze\n"
+    },
+    {
+        "id": "L_MISC_154",
+        "text": "Alle Simulanten\n"
+    },
+    {
+        "id": "L_MISC_155",
+        "text": "MODEL 1.3"
+    },
+    {
+        "id": "L_MISC_156",
+        "text": "BNC: 15877"
+    },
+    {
+        "id": "L_MISC_157",
+        "text": "Nicht genügend Platz für den "
+    },
+    {
+        "id": "L_MISC_158",
+        "text": "ZIELE:"
+    },
+    {
+        "id": "L_MISC_159",
+        "text": "SCORE:"
+    },
+    {
+        "id": "L_MISC_160",
+        "text": "MIN GENAUIGKEIT:"
+    },
+    {
+        "id": "L_MISC_161",
+        "text": "FEUER, UM LOSZULEGEN\n"
+    },
+    {
+        "id": "L_MISC_162",
+        "text": "FERTIG!\n"
+    },
+    {
+        "id": "L_MISC_163",
+        "text": "LIMIT:"
+    },
+    {
+        "id": "L_MISC_164",
+        "text": "ZONE 3\n"
+    },
+    {
+        "id": "L_MISC_165",
+        "text": "ZONE 2\n"
+    },
+    {
+        "id": "L_MISC_166",
+        "text": "ZONE 1\n"
+    },
+    {
+        "id": "L_MISC_167",
+        "text": "BULL'S-EYE\n"
+    },
+    {
+        "id": "L_MISC_168",
+        "text": "EXPLODIERT\n"
+    },
+    {
+        "id": "L_MISC_169",
+        "text": "Elvis wurde eliminiert.\n"
+    },
+    {
+        "id": "L_MISC_170",
+        "text": "Style 1"
+    },
+    {
+        "id": "L_MISC_171",
+        "text": "Style 2"
+    },
+    {
+        "id": "L_MISC_172",
+        "text": "Style 3"
+    },
+    {
+        "id": "L_MISC_173",
+        "text": "Style 4"
+    },
+    {
+        "id": "L_MISC_174",
+        "text": "Blonde"
+    },
+    {
+        "id": "L_MISC_175",
+        "text": "Black"
+    },
+    {
+        "id": "L_MISC_176",
+        "text": "Auburn"
+    },
+    {
+        "id": "L_MISC_177",
+        "text": "Blue Rinse"
+    },
+    {
+        "id": "L_MISC_178",
+        "text": "Spieler"
+    },
+    {
+        "id": "L_MISC_179",
+        "text": ""
+    },
+    {
+        "id": "L_MISC_180",
+        "text": "Identifizieren\n"
+    },
+    {
+        "id": "L_MISC_181",
+        "text": "nicht verwendet"
+    },
+    {
+        "id": "L_MISC_182",
+        "text": "Challenges\n"
+    },
+    {
+        "id": "L_MISC_183",
+        "text": "Laden/Voreinstellung\n"
+    },
+    {
+        "id": "L_MISC_184",
+        "text": "Schnellstart\n"
+    },
+    {
+        "id": "L_MISC_185",
+        "text": "Erweitertes Setup\n"
+    },
+    {
+        "id": "L_MISC_186",
+        "text": "Kampf-Simulator\n"
+    },
+    {
+        "id": "L_MISC_187",
+        "text": "Carrington Institut\n"
+    },
+    {
+        "id": "L_MISC_188",
+        "text": "Team-Score\n"
+    },
+    {
+        "id": "L_MISC_189",
+        "text": "Setup abgeschlossen\n"
+    },
+    {
+        "id": "L_MISC_190",
+        "text": "Spieler 1 Team\n"
+    },
+    {
+        "id": "L_MISC_191",
+        "text": "Spieler 2 Team\n"
+    },
+    {
+        "id": "L_MISC_192",
+        "text": "Spieler 3 Team\n"
+    },
+    {
+        "id": "L_MISC_193",
+        "text": "Spieler 4 Team\n"
+    },
+    {
+        "id": "L_MISC_194",
+        "text": "Anzahl der Simulanten\n"
+    },
+    {
+        "id": "L_MISC_195",
+        "text": "Simulanten pro Team\n"
+    },
+    {
+        "id": "L_MISC_196",
+        "text": "Sim-Schwierigkeit\n"
+    },
+    {
+        "id": "L_MISC_197",
+        "text": "Start\n"
+    },
+    {
+        "id": "L_MISC_198",
+        "text": "Abbrechen\n"
+    },
+    {
+        "id": "L_MISC_199",
+        "text": "Spieler-Einstellungen\n"
+    },
+    {
+        "id": "L_MISC_200",
+        "text": "Spiel-Einstellungen\n"
+    },
+    {
+        "id": "L_MISC_201",
+        "text": "Quick Go\n"
+    },
+    {
+        "id": "L_MISC_202",
+        "text": "Fertig!\n"
+    },
+    {
+        "id": "L_MISC_203",
+        "text": "Quick-Team\n"
+    },
+    {
+        "id": "L_MISC_204",
+        "text": "Nur Spieler\n"
+    },
+    {
+        "id": "L_MISC_205",
+        "text": "Spieler und Simulanten\n"
+    },
+    {
+        "id": "L_MISC_206",
+        "text": "Spieler-Teams\n"
+    },
+    {
+        "id": "L_MISC_207",
+        "text": "Spieler vs. Simulanten\n"
+    },
+    {
+        "id": "L_MISC_208",
+        "text": "Spieler-Simulanten-Teams\n"
+    },
+    {
+        "id": "L_MISC_209",
+        "text": "DRUGSPY"
+    },
+    {
+        "id": "L_MISC_210",
+        "text": "BOMBSPY"
+    },
+    {
+        "id": "L_MISC_211",
+        "text": "Mission wiederholen\n"
+    },
+    {
+        "id": "L_MISC_212",
+        "text": "Holografie\n"
+    },
+    {
+        "id": "L_MISC_213",
+        "text": "Aggressiv\n"
+    },
+    {
+        "id": "L_MISC_214",
+        "text": "Passiv\n"
+    },
+    {
+        "id": "L_MISC_215",
+        "text": "Perfekte Kumpels\n"
+    },
+    {
+        "id": "L_MISC_216",
+        "text": "Tarnung\n"
+    },
+    {
+        "id": "L_MISC_217",
+        "text": null
+    },
+    {
+        "id": "L_MISC_218",
+        "text": null
+    },
+    {
+        "id": "L_MISC_219",
+        "text": null
+    }
+]

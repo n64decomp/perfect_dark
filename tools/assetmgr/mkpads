@@ -1,0 +1,331 @@
+#!/usr/bin/env python3
+
+import assetmgr
+import json
+import os
+import re
+import struct
+import sys
+
+class App():
+    def run(self):
+        self.load_data()
+
+        self.pad_names = self.make_names(self.json['pads'])
+        self.waypoint_names = self.make_names(self.json['waypoints'])
+        self.waygroup_names = self.make_names(self.json['waygroups'])
+
+        self.populate_waygroup_waypoints()
+
+        self.make_header()
+        self.make_object()
+
+    def load_data(self):
+        fd = open(sys.argv[1], 'r')
+        data = fd.read()
+        fd.close()
+
+        self.json = json.loads(data)
+
+        self.shortname = os.path.basename(sys.argv[1]).replace('.json', '')
+
+    def make_names(self, items):
+        names = {}
+
+        for index, item in enumerate(items):
+            names[item['id']] = index
+
+        return names
+
+    def populate_waygroup_waypoints(self):
+        for index, waygroup in enumerate(self.json['waygroups']):
+            self.json['waygroups'][index]['waypoints'] = []
+
+        for waypoint in self.json['waypoints']:
+            index = self.waygroup_names[waypoint['waygroup']]
+            self.json['waygroups'][index]['waypoints'].append(waypoint['id'])
+
+    def make_header(self):
+        typename = 'pad_%s' % self.shortname
+        enums = [row['id'] for row in self.json['pads']]
+        filename = 'pads/%s.h' % self.shortname
+        terminator = 'PAD_%s_END' % self.shortname.upper()
+        assetmgr.write_enums(typename, enums, filename, terminator)
+
+    def make_object(self):
+        binary = self.make_binary()
+        zipped = assetmgr.zip(binary)
+
+        # Write the zipped file, purely so `make test` can verify it
+        assetmgr.writefile('build/%s/assets/files/bgdata/bg_%s_padsZ' % (os.environ['ROMID'], self.shortname), zipped)
+
+        filename = 'files/bgdata/bg_%s_padsZ.o' % self.shortname
+        assetmgr.write_object(zipped, filename)
+
+    # Order of stuff:
+    # - 0x00: header
+    # - 0x14: array of pad offsets (variable length)
+    # - Pads
+    # - Waypoint list
+    # - Waypoint neighbours
+    # - Waygroup list
+    # - Waygroup neighbours
+    # - Waygroup waypoints
+    # - Cover
+    def make_binary(self):
+        pads = self.make_pads()
+
+        waypoints_start = 0x14 + len(pads)
+        waypoints = self.make_waypoints(waypoints_start)
+
+        waygroups_start = waypoints_start + len(waypoints)
+        waygroups = self.make_waygroups(waygroups_start)
+
+        cover_start = waygroups_start + len(waygroups)
+        cover = self.make_cover()
+
+        output = bytes()
+        output += len(self.json['pads']).to_bytes(4, 'big')
+        output += len(self.json['cover']).to_bytes(4, 'big')
+        output += waypoints_start.to_bytes(4, 'big')
+        output += waygroups_start.to_bytes(4, 'big')
+        output += cover_start.to_bytes(4, 'big')
+
+        output += pads
+        output += waypoints
+        output += waygroups
+        output += cover
+
+        output = assetmgr.pad16(output)
+
+        return output
+
+    def make_pads(self):
+        output = bytes()
+        offsets = bytes()
+        start = pos = assetmgr.align4(0x14 + len(self.json['pads']) * 2)
+
+        for pad in self.json['pads']:
+            # flags, room and liftnum
+            # ffffffff ffffffff ffrrrrrr rrrrllll
+            flags = self.make_pad_flags(pad)
+
+            word = (flags << 14) | 0x3ff0 | (pad['liftnum'] & 0x0f)
+
+            output += word.to_bytes(4, 'big')
+
+            if flags & PADFLAG_INTPOS:
+                output += self.make_unsigned(pad['pos'][0]).to_bytes(2, 'big')
+                output += self.make_unsigned(pad['pos'][1]).to_bytes(2, 'big')
+                output += self.make_unsigned(pad['pos'][2]).to_bytes(2, 'big')
+                output += b'\x00\x00'
+            else:
+                output += self.make_float(pad['pos'][0])
+                output += self.make_float(pad['pos'][1])
+                output += self.make_float(pad['pos'][2])
+
+            if (flags & 0x0e) == 0:
+                output += self.make_float(pad['up'][0])
+                output += self.make_float(pad['up'][1])
+                output += self.make_float(pad['up'][2])
+
+            if (flags & 0xe0) == 0:
+                output += self.make_float(pad['dir'][0])
+                output += self.make_float(pad['dir'][1])
+                output += self.make_float(pad['dir'][2])
+
+            if flags & PADFLAG_HASBBOXDATA:
+                output += self.make_float(pad['xmin'])
+                output += self.make_float(pad['xmax'])
+                output += self.make_float(pad['ymin'])
+                output += self.make_float(pad['ymax'])
+                output += self.make_float(pad['zmin'])
+                output += self.make_float(pad['zmax'])
+
+            output = assetmgr.pad4(output)
+
+            offsets += pos.to_bytes(2, 'big')
+            pos = start + len(output)
+
+        offsets = assetmgr.pad4(offsets)
+
+        return offsets + output
+
+    # Some pads need to store 0x80000000 (negative 0), but this isn't supported
+    # in JSON, nor does it appear to be a thing in Python, hence this hack.
+    # For -0 values, the JSON uses a string which we check for here.
+    def make_float(self, value):
+        if value == '-0':
+            return b'\x80\x00\x00\x00'
+
+        return struct.pack('>f', value)
+
+    def make_pad_flags(self, pad):
+        flags = 0
+
+        if isinstance(pad['pos'][0], int) and isinstance(pad['pos'][1], int) and isinstance(pad['pos'][2], int):
+            flags |= PADFLAG_INTPOS
+        if abs(pad['up'][0]) == 1 and pad['up'][1] == 0 and pad['up'][2] == 0:
+            flags |= PADFLAG_UPALIGNTOX
+        if pad['up'][0] == 0 and abs(pad['up'][1]) == 1 and pad['up'][2] == 0:
+            flags |= PADFLAG_UPALIGNTOY
+        if pad['up'][0] == 0 and pad['up'][1] == 0 and abs(pad['up'][2]) == 1:
+            flags |= PADFLAG_UPALIGNTOZ
+        if (flags & 0x0e) and sum(pad['up']) == -1:
+            flags |= PADFLAG_UPALIGNINVERT
+        if abs(pad['dir'][0]) == 1 and pad['dir'][1] == 0 and pad['dir'][2] == 0:
+            flags |= PADFLAG_LOOKALIGNTOX
+        if pad['dir'][0] == 0 and abs(pad['dir'][1]) == 1 and pad['dir'][2] == 0:
+            flags |= PADFLAG_LOOKALIGNTOY
+        if pad['dir'][0] == 0 and pad['dir'][1] == 0 and abs(pad['dir'][2]) == 1:
+            flags |= PADFLAG_LOOKALIGNTOZ
+        if (flags & 0xe0) and sum(pad['dir']) == -1:
+            flags |= PADFLAG_LOOKALIGNINVERT
+        if pad['xmin'] != -100 or pad['xmax'] != 100 or pad['ymin'] != -100 or pad['ymax'] != 100 or pad['zmin'] != -100 or pad['zmax'] != 100:
+            flags |= PADFLAG_HASBBOXDATA
+        if pad['aiwaitlift']:
+            flags |= PADFLAG_AIWAITLIFT
+        if pad['aionlift']:
+            flags |= PADFLAG_AIONLIFT
+        if pad['aiwalkdirect']:
+            flags |= PADFLAG_AIWALKDIRECT
+        if pad['aidrop']:
+            flags |= PADFLAG_AIDROP
+        if pad['aiduck']:
+            flags |= PADFLAG_AIDUCK
+        if pad['flag00008000']:
+            flags |= PADFLAG_8000
+        if pad['flag00010000']:
+            flags |= PADFLAG_10000
+
+        return flags
+
+    def make_unsigned(self, value):
+        if value < 0:
+            value = 0x10000 - abs(value)
+        return value
+
+    def make_waypoints(self, start):
+        output = bytes()
+        neighbours = bytes()
+        pos = start + len(self.json['waypoints']) * 0x10 + 0x10
+
+        for row in self.json['waypoints']:
+            output += self.pad_names[row['pad']].to_bytes(4, 'big')
+            output += pos.to_bytes(4, 'big')
+            output += self.waygroup_names[row['waygroup']].to_bytes(4, 'big')
+            output += b'\x00\x00\x00\x00'
+
+            neighbours += self.make_waypoint_neighbours_list(row['neighbours'])
+            pos += len(row['neighbours']) * 4 + 4
+
+        # Terminator record
+        output += b'\xff\xff\xff\xff'
+        output += b'\x00\x00\x00\x00'
+        output += b'\x00\x00\x00\x00'
+        output += b'\x00\x00\x00\x00'
+
+        return output + neighbours
+
+    def make_waygroups(self, start):
+        neighbours = bytes()
+        waypoints = bytes()
+
+        for row in self.json['waygroups']:
+            neighbours += self.make_waygroup_neighbours_list(row['neighbours'])
+            waypoints += self.make_list(row['waypoints'])
+
+        output = bytes()
+        wpos = start + len(self.json['waygroups']) * 0x0c + 0x0c
+        npos = wpos + len(waypoints)
+
+        for row in self.json['waygroups']:
+            output += npos.to_bytes(4, 'big')
+            npos += len(row['neighbours']) * 4 + 4
+
+            output += wpos.to_bytes(4, 'big')
+            wpos += len(row['waypoints']) * 4 + 4
+
+            output += b'\x00\x00\x00\x00'
+
+        # Terminator record
+        output += b'\x00\x00\x00\x00'
+        output += b'\x00\x00\x00\x00'
+        output += b'\x00\x00\x00\x00'
+
+        return output + waypoints + neighbours
+
+    def make_cover(self):
+        output = bytes()
+
+        for row in self.json['cover']:
+            output += self.make_float(row['pos'][0])
+            output += self.make_float(row['pos'][1])
+            output += self.make_float(row['pos'][2])
+            output += self.make_float(row['dir'][0])
+            output += self.make_float(row['dir'][1])
+            output += self.make_float(row['dir'][2])
+            output += row['unk18'].to_bytes(4, 'big')
+
+        return output
+
+    def make_list(self, items):
+        output = bytes()
+
+        for value in items:
+            if 'WAYPOINT_' in value:
+                output += self.waypoint_names[value].to_bytes(4, 'big')
+            elif 'WAYGROUP_' in value:
+                output += self.waygroup_names[value].to_bytes(4, 'big')
+
+        output += b'\xff\xff\xff\xff'
+        return output
+
+    def make_waypoint_neighbours_list(self, items):
+        output = bytes()
+
+        for item in items:
+            value = self.waypoint_names[item['waypoint']]
+
+            if item['flag8000']: value |= 0x8000
+            if item['flag4000']: value |= 0x4000
+
+            output += value.to_bytes(4, 'big')
+
+        output += b'\xff\xff\xff\xff'
+        return output
+
+    def make_waygroup_neighbours_list(self, items):
+        output = bytes()
+
+        for item in items:
+            value = self.waygroup_names[item['waygroup']]
+
+            if item['flag8000']: value |= 0x8000
+            if item['flag4000']: value |= 0x4000
+
+            output += value.to_bytes(4, 'big')
+
+        output += b'\xff\xff\xff\xff'
+        return output
+
+PADFLAG_INTPOS          = 0x0001
+PADFLAG_UPALIGNTOX      = 0x0002
+PADFLAG_UPALIGNTOY      = 0x0004
+PADFLAG_UPALIGNTOZ      = 0x0008
+PADFLAG_UPALIGNINVERT   = 0x0010
+PADFLAG_LOOKALIGNTOX    = 0x0020
+PADFLAG_LOOKALIGNTOY    = 0x0040
+PADFLAG_LOOKALIGNTOZ    = 0x0080
+PADFLAG_LOOKALIGNINVERT = 0x0100
+PADFLAG_HASBBOXDATA     = 0x0200
+PADFLAG_AIWAITLIFT      = 0x0400
+PADFLAG_AIONLIFT        = 0x0800
+PADFLAG_AIWALKDIRECT    = 0x1000
+PADFLAG_AIDROP          = 0x2000
+PADFLAG_AIDUCK          = 0x4000
+PADFLAG_8000            = 0x8000
+PADFLAG_10000           = 0x10000
+
+app = App()
+app.run()

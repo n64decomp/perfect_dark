@@ -1,0 +1,882 @@
+[
+    {
+        "id": "L_MISC_000",
+        "text": "E R R E U R\n"
+    },
+    {
+        "id": "L_MISC_001",
+        "text": "Pas de briefing pour cette mission\n"
+    },
+    {
+        "id": "L_MISC_002",
+        "text": "\n"
+    },
+    {
+        "id": "L_MISC_003",
+        "text": "Objectif"
+    },
+    {
+        "id": "L_MISC_004",
+        "text": "Succès\n"
+    },
+    {
+        "id": "L_MISC_005",
+        "text": "Incomplet\n"
+    },
+    {
+        "id": "L_MISC_006",
+        "text": "Echec\n"
+    },
+    {
+        "id": "L_MISC_007",
+        "text": "Plus qu'une minute.\n"
+    },
+    {
+        "id": "L_MISC_008",
+        "text": "OBJECTIFS NON ATTEINTS - abandonner mission.\n"
+    },
+    {
+        "id": "L_MISC_009",
+        "text": "Salutations Garde\n"
+    },
+    {
+        "id": "L_MISC_010",
+        "text": "C'est quoi ce flingue?\n"
+    },
+    {
+        "id": "L_MISC_011",
+        "text": "Ne pointe pas ça sur moi.\n"
+    },
+    {
+        "id": "L_MISC_012",
+        "text": "Vit/MPS"
+    },
+    {
+        "id": "L_MISC_013",
+        "text": "Hau/M"
+    },
+    {
+        "id": "L_MISC_014",
+        "text": "Dev/D"
+    },
+    {
+        "id": "L_MISC_015",
+        "text": "Ang/D"
+    },
+    {
+        "id": "L_MISC_016",
+        "text": "IC 2023"
+    },
+    {
+        "id": "L_MISC_017",
+        "text": "YKK: 95935"
+    },
+    {
+        "id": "L_MISC_018",
+        "text": "CAMSPY"
+    },
+    {
+        "id": "L_MISC_019",
+        "text": "MODELE 1.2"
+    },
+    {
+        "id": "L_MISC_020",
+        "text": "GYROSTAT"
+    },
+    {
+        "id": "L_MISC_021",
+        "text": "Cool"
+    },
+    {
+        "id": "L_MISC_022",
+        "text": "Facile"
+    },
+    {
+        "id": "L_MISC_023",
+        "text": "Normal"
+    },
+    {
+        "id": "L_MISC_024",
+        "text": "Difficile"
+    },
+    {
+        "id": "L_MISC_025",
+        "text": "Perfect"
+    },
+    {
+        "id": "L_MISC_026",
+        "text": "Dark"
+    },
+    {
+        "id": "L_MISC_027",
+        "text": "Cool-Sim"
+    },
+    {
+        "id": "L_MISC_028",
+        "text": "Facile-Sim"
+    },
+    {
+        "id": "L_MISC_029",
+        "text": "Normal-Sim"
+    },
+    {
+        "id": "L_MISC_030",
+        "text": "Difficile-Sim"
+    },
+    {
+        "id": "L_MISC_031",
+        "text": "Perfect-Sim"
+    },
+    {
+        "id": "L_MISC_032",
+        "text": "Dark-Sim"
+    },
+    {
+        "id": "L_MISC_033",
+        "text": "Peace-Sim"
+    },
+    {
+        "id": "L_MISC_034",
+        "text": "Bouclier-Sim"
+    },
+    {
+        "id": "L_MISC_035",
+        "text": "Roquette-Sim"
+    },
+    {
+        "id": "L_MISC_036",
+        "text": "Kaze-Sim"
+    },
+    {
+        "id": "L_MISC_037",
+        "text": "Poing-Sim"
+    },
+    {
+        "id": "L_MISC_038",
+        "text": "Proie-Sim"
+    },
+    {
+        "id": "L_MISC_039",
+        "text": "Lâche-Sim"
+    },
+    {
+        "id": "L_MISC_040",
+        "text": "Juge-Sim"
+    },
+    {
+        "id": "L_MISC_041",
+        "text": "Vendetta-Sim"
+    },
+    {
+        "id": "L_MISC_042",
+        "text": "Speed-Sim"
+    },
+    {
+        "id": "L_MISC_043",
+        "text": "Tortue-Sim"
+    },
+    {
+        "id": "L_MISC_044",
+        "text": "Vengeance-Sim"
+    },
+    {
+        "id": "L_MISC_045",
+        "text": "Cool-Sim:  c'est le plus facile des simulants. Un excellent choix pour un débutant.  Il n'est pas très malin et vise très mal.\n"
+    },
+    {
+        "id": "L_MISC_046",
+        "text": "Facile-Sim:  Ce simulant a des capacités de base mais il peut être dangereux.\n"
+    },
+    {
+        "id": "L_MISC_047",
+        "text": "Normal-Sim:  Ce simulant a les mêmes capacités que le joueur humain moyen.\n"
+    },
+    {
+        "id": "L_MISC_048",
+        "text": "Difficile-Sim:  Ce simulant a les mêmes capacités qu'un bon joueur humain.\n"
+    },
+    {
+        "id": "L_MISC_049",
+        "text": "Perfect-Sim: L'adversaire ultime, le plus intelligent et habile des simulants.  Les joueurs choisissent souvent le Perfect-Sim pour améliorer leurs capacités.\n"
+    },
+    {
+        "id": "L_MISC_050",
+        "text": "Dark-Sim: Prototype de cyborg développé par la dataDyne pour affronter les agents Carrington. Attention: ce simulant n'est pas humain. Il peut donc faire ce qui est humainement impossible.\n"
+    },
+    {
+        "id": "L_MISC_051",
+        "text": "Peace-Sim:  Un scientifique refusant d'utiliser une arme.  Il recherche et récupère les armes dans le niveau pour que les joueurs ne les utilisent pas. Vous pouvez bien sûr lui tirer dessus et il en fera peut-être tomber!\n"
+    },
+    {
+        "id": "L_MISC_052",
+        "text": "Bouclier-Sim:  Il cherche toujours la meilleure protection.  Si ce simulant perd de l'énergie, Il ira chercher un nouveau bouclier. Cela n'a aucun intérêt s'il n'y a pas de bouclier dans le niveau!\n"
+    },
+    {
+        "id": "L_MISC_053",
+        "text": "Roquette-Sim:  Ce simulant adore tout faire sauter. Il préfère l'armement explosif plutôt que des pistolets ou des automatiques. C'est aussi vrai pour les armes au tir secondaire explosif!\n"
+    },
+    {
+        "id": "L_MISC_054",
+        "text": "Kaze-Sim:  Ce simulant ne recule devant rien pour détruire sa cible.  Il est très aggressif et ne garde jamais ses distances - même s'il tient une grenade! Faites attention à quelqu'un qui n'a pas peur de mourir.\n"
+    },
+    {
+        "id": "L_MISC_055",
+        "text": "Poing-Sim:  Tout comme le Peace-Sim, ce simulant déteste les armes mais il est en revanche un adversaire teigneux. Il tentera sans arrêt d'assommer ou de désarmer ses adversaires à mains nues.\n"
+    },
+    {
+        "id": "L_MISC_056",
+        "text": "Proie-Sim:  Ce simulant préfère attaquer les faibles pour tuer plus de monde. Il recherche les joueurs neufs et désarmés ou encore ceux affaiblis par un combat.\n"
+    },
+    {
+        "id": "L_MISC_057",
+        "text": "Lâche-Sim:  Ce simulant ne veut pas combattre et préfère fuir pour survivre. Il peut attaquer de temps en temps mais seulement si l'adversaire a un armement inférieur au sien. Utilisez une arme puissante ou tirez-lui dessus et il s'enfuira!\n"
+    },
+    {
+        "id": "L_MISC_058",
+        "text": "Juge-Sim:  Ce simulant est loyal et il déteste les méthodes du Proie-Sim. Il essaiera de tuer le joueur en tête pour arrondir les scores.\n"
+    },
+    {
+        "id": "L_MISC_059",
+        "text": "Vendetta-Sim:  Si ce simulant choisit une cible, celle-ci doit faire attention! Un Vendetta-Sim poursuit un joueur jusqu'à la fin de la partie! Même tué, il reviendra à la charge.\n"
+    },
+    {
+        "id": "L_MISC_060",
+        "text": "Speed-Sim:  Ce simulant est un as de la vitesse. Il est plus rapide qu'un joueur humain, il est alors inutile, à moins de connaître un raccourci, d'essayer de le semer!\n"
+    },
+    {
+        "id": "L_MISC_061",
+        "text": "Tortue-Sim:  Ce simulant porte un générateur de bouclier développé par les scientifiques de la dataDyne. Le générateur projète un bouclier deux fois plus résistant qu'un bouclier normal. Malheureusement, il réduit les mouvements de l'utilisateur. Le Tortue-Sim porte cet appareil même s'il n'y a aucun bouclier dans le niveau.\n"
+    },
+    {
+        "id": "L_MISC_062",
+        "text": "Vengeance-Sim:  Ce simulant attaquera toujours le dernier joueur à l'avoir attaqué ou tué. Réfléchissez avant de tirer."
+    },
+    {
+        "id": "L_MISC_063",
+        "text": "Combat Dark"
+    },
+    {
+        "id": "L_MISC_064",
+        "text": "Mystère skedar"
+    },
+    {
+        "id": "L_MISC_065",
+        "text": "Agent IC"
+    },
+    {
+        "id": "L_MISC_066",
+        "text": "Action dataDyne"
+    },
+    {
+        "id": "L_MISC_067",
+        "text": "Pleurs maians"
+    },
+    {
+        "id": "L_MISC_068",
+        "text": "Conflit extrater."
+    },
+    {
+        "id": "L_MISC_069",
+        "text": "Institut Carrington"
+    },
+    {
+        "id": "L_MISC_070",
+        "text": "Centre dD"
+    },
+    {
+        "id": "L_MISC_071",
+        "text": "Centre dD X"
+    },
+    {
+        "id": "L_MISC_072",
+        "text": "Recherche dD"
+    },
+    {
+        "id": "L_MISC_073",
+        "text": "Recherche dD X"
+    },
+    {
+        "id": "L_MISC_074",
+        "text": "Extraction dD"
+    },
+    {
+        "id": "L_MISC_075",
+        "text": "Extraction dD X"
+    },
+    {
+        "id": "L_MISC_076",
+        "text": "Villa Carrington"
+    },
+    {
+        "id": "L_MISC_077",
+        "text": "Villa Carrington X"
+    },
+    {
+        "id": "L_MISC_078",
+        "text": "Chicago"
+    },
+    {
+        "id": "L_MISC_079",
+        "text": "Chicago X"
+    },
+    {
+        "id": "L_MISC_080",
+        "text": "Immeuble G5"
+    },
+    {
+        "id": "L_MISC_081",
+        "text": "Immeuble G5 X"
+    },
+    {
+        "id": "L_MISC_082",
+        "text": "Infiltration S-51"
+    },
+    {
+        "id": "L_MISC_083",
+        "text": "Infiltration S-51 X"
+    },
+    {
+        "id": "L_MISC_084",
+        "text": "Sauvetage S-51"
+    },
+    {
+        "id": "L_MISC_085",
+        "text": "Sauvetage S-51 X"
+    },
+    {
+        "id": "L_MISC_086",
+        "text": "Fuite S-51"
+    },
+    {
+        "id": "L_MISC_087",
+        "text": "Fuite S-51 X"
+    },
+    {
+        "id": "L_MISC_088",
+        "text": "Base aérienne"
+    },
+    {
+        "id": "L_MISC_089",
+        "text": "Base aérienne X"
+    },
+    {
+        "id": "L_MISC_090",
+        "text": "Air Force One"
+    },
+    {
+        "id": "L_MISC_091",
+        "text": "Air Force One X"
+    },
+    {
+        "id": "L_MISC_092",
+        "text": "Site du crash"
+    },
+    {
+        "id": "L_MISC_093",
+        "text": "Site du crash X"
+    },
+    {
+        "id": "L_MISC_094",
+        "text": "Pelagic II"
+    },
+    {
+        "id": "L_MISC_095",
+        "text": "Pelagic II X"
+    },
+    {
+        "id": "L_MISC_096",
+        "text": "Sous-marin"
+    },
+    {
+        "id": "L_MISC_097",
+        "text": "Sous-marin X"
+    },
+    {
+        "id": "L_MISC_098",
+        "text": "Défense Institut"
+    },
+    {
+        "id": "L_MISC_099",
+        "text": "Défense Institut X"
+    },
+    {
+        "id": "L_MISC_100",
+        "text": "Croiseur"
+    },
+    {
+        "id": "L_MISC_101",
+        "text": "Croiseur X"
+    },
+    {
+        "id": "L_MISC_102",
+        "text": "Ruines Skedars"
+    },
+    {
+        "id": "L_MISC_103",
+        "text": "Ruines Skedars X"
+    },
+    {
+        "id": "L_MISC_104",
+        "text": "Générique de fin"
+    },
+    {
+        "id": "L_MISC_105",
+        "text": "Hasard\n"
+    },
+    {
+        "id": "L_MISC_106",
+        "text": "Choisir: tout\n"
+    },
+    {
+        "id": "L_MISC_107",
+        "text": "Choisir: rien\n"
+    },
+    {
+        "id": "L_MISC_108",
+        "text": "Au hasard\n"
+    },
+    {
+        "id": "L_MISC_109",
+        "text": "Armes\n"
+    },
+    {
+        "id": "L_MISC_110",
+        "text": "Fonctions\n"
+    },
+    {
+        "id": "L_MISC_111",
+        "text": "Ordres\n"
+    },
+    {
+        "id": "L_MISC_112",
+        "text": "Pas d'arme\n"
+    },
+    {
+        "id": "L_MISC_113",
+        "text": "Choix cible\n"
+    },
+    {
+        "id": "L_MISC_114",
+        "text": "Suivre\n"
+    },
+    {
+        "id": "L_MISC_115",
+        "text": "Attaquer\n"
+    },
+    {
+        "id": "L_MISC_116",
+        "text": "Défendre\n"
+    },
+    {
+        "id": "L_MISC_117",
+        "text": "Tenir\n"
+    },
+    {
+        "id": "L_MISC_118",
+        "text": "Normal\n"
+    },
+    {
+        "id": "L_MISC_119",
+        "text": "Télécharger\n"
+    },
+    {
+        "id": "L_MISC_120",
+        "text": "Obtenir mallette\n"
+    },
+    {
+        "id": "L_MISC_121",
+        "text": "Marquer boîte\n"
+    },
+    {
+        "id": "L_MISC_122",
+        "text": "Tué(e) par"
+    },
+    {
+        "id": "L_MISC_123",
+        "text": "Tué"
+    },
+    {
+        "id": "L_MISC_124",
+        "text": "Débutant:21\n"
+    },
+    {
+        "id": "L_MISC_125",
+        "text": "Stagiaire:20\n"
+    },
+    {
+        "id": "L_MISC_126",
+        "text": "Amateur:19\n"
+    },
+    {
+        "id": "L_MISC_127",
+        "text": "Bleu:18\n"
+    },
+    {
+        "id": "L_MISC_128",
+        "text": "Novice:17\n"
+    },
+    {
+        "id": "L_MISC_129",
+        "text": "2ème classe:16\n"
+    },
+    {
+        "id": "L_MISC_130",
+        "text": "Agent:15\n"
+    },
+    {
+        "id": "L_MISC_131",
+        "text": "Agent chef:14\n"
+    },
+    {
+        "id": "L_MISC_132",
+        "text": "Agent Spécial:13\n"
+    },
+    {
+        "id": "L_MISC_133",
+        "text": "Expert:12\n"
+    },
+    {
+        "id": "L_MISC_134",
+        "text": "Vétéran:11\n"
+    },
+    {
+        "id": "L_MISC_135",
+        "text": "Professionnel:10\n"
+    },
+    {
+        "id": "L_MISC_136",
+        "text": "Dangereux:9\n"
+    },
+    {
+        "id": "L_MISC_137",
+        "text": "Mortel:8\n"
+    },
+    {
+        "id": "L_MISC_138",
+        "text": "Tueur:7\n"
+    },
+    {
+        "id": "L_MISC_139",
+        "text": "Assassin:6\n"
+    },
+    {
+        "id": "L_MISC_140",
+        "text": "Fatal:5\n"
+    },
+    {
+        "id": "L_MISC_141",
+        "text": "Elite:4\n"
+    },
+    {
+        "id": "L_MISC_142",
+        "text": "Invincible:3\n"
+    },
+    {
+        "id": "L_MISC_143",
+        "text": "Quasi-Perfect:2\n"
+    },
+    {
+        "id": "L_MISC_144",
+        "text": "Perfect:1\n"
+    },
+    {
+        "id": "L_MISC_145",
+        "text": "MUNI.FLECHETTE"
+    },
+    {
+        "id": "L_MISC_146",
+        "text": "MODELE 1.4"
+    },
+    {
+        "id": "L_MISC_147",
+        "text": "JM: 201172"
+    },
+    {
+        "id": "L_MISC_148",
+        "text": "Sauv. mallette\n"
+    },
+    {
+        "id": "L_MISC_149",
+        "text": "Déf. zone\n"
+    },
+    {
+        "id": "L_MISC_150",
+        "text": "Tenir zone\n"
+    },
+    {
+        "id": "L_MISC_151",
+        "text": "Prendre mallette\n"
+    },
+    {
+        "id": "L_MISC_152",
+        "text": "Décapsuleur\n"
+    },
+    {
+        "id": "L_MISC_153",
+        "text": "Protéger\n"
+    },
+    {
+        "id": "L_MISC_154",
+        "text": "Tous simulants\n"
+    },
+    {
+        "id": "L_MISC_155",
+        "text": "MODELE 1.3"
+    },
+    {
+        "id": "L_MISC_156",
+        "text": "BNC: 15877"
+    },
+    {
+        "id": "L_MISC_157",
+        "text": "Espace insuffisant pour lancer "
+    },
+    {
+        "id": "L_MISC_158",
+        "text": "OBJECTIF:"
+    },
+    {
+        "id": "L_MISC_159",
+        "text": "SCORE LIMITE:"
+    },
+    {
+        "id": "L_MISC_160",
+        "text": "PRECISION MIN:"
+    },
+    {
+        "id": "L_MISC_161",
+        "text": "TIREZ POUR COMMENCER\n"
+    },
+    {
+        "id": "L_MISC_162",
+        "text": "PRET!\n"
+    },
+    {
+        "id": "L_MISC_163",
+        "text": "LIMITE:"
+    },
+    {
+        "id": "L_MISC_164",
+        "text": "ZONE 3\n"
+    },
+    {
+        "id": "L_MISC_165",
+        "text": "ZONE 2\n"
+    },
+    {
+        "id": "L_MISC_166",
+        "text": "ZONE 1\n"
+    },
+    {
+        "id": "L_MISC_167",
+        "text": "CENTRE\n"
+    },
+    {
+        "id": "L_MISC_168",
+        "text": "EXPLOSé\n"
+    },
+    {
+        "id": "L_MISC_169",
+        "text": "Elvis est mort.\n"
+    },
+    {
+        "id": "L_MISC_170",
+        "text": "Style 1"
+    },
+    {
+        "id": "L_MISC_171",
+        "text": "Style 2"
+    },
+    {
+        "id": "L_MISC_172",
+        "text": "Style 3"
+    },
+    {
+        "id": "L_MISC_173",
+        "text": "Style 4"
+    },
+    {
+        "id": "L_MISC_174",
+        "text": "Blonds"
+    },
+    {
+        "id": "L_MISC_175",
+        "text": "Noirs"
+    },
+    {
+        "id": "L_MISC_176",
+        "text": "Auburn"
+    },
+    {
+        "id": "L_MISC_177",
+        "text": "Rinçage bleu"
+    },
+    {
+        "id": "L_MISC_178",
+        "text": "Joueur"
+    },
+    {
+        "id": "L_MISC_179",
+        "text": ""
+    },
+    {
+        "id": "L_MISC_180",
+        "text": "Identifier\n"
+    },
+    {
+        "id": "L_MISC_181",
+        "text": "Inutilisé"
+    },
+    {
+        "id": "L_MISC_182",
+        "text": "Challenges\n"
+    },
+    {
+        "id": "L_MISC_183",
+        "text": "Charger jeu prédéfini\n"
+    },
+    {
+        "id": "L_MISC_184",
+        "text": "Démarrage rapide\n"
+    },
+    {
+        "id": "L_MISC_185",
+        "text": "Réglages avancés\n"
+    },
+    {
+        "id": "L_MISC_186",
+        "text": "Simulateur de combat\n"
+    },
+    {
+        "id": "L_MISC_187",
+        "text": "Institut Carrington\n"
+    },
+    {
+        "id": "L_MISC_188",
+        "text": "S. équipe\n"
+    },
+    {
+        "id": "L_MISC_189",
+        "text": "Réglages terminés\n"
+    },
+    {
+        "id": "L_MISC_190",
+        "text": "Equipe Joueur 1\n"
+    },
+    {
+        "id": "L_MISC_191",
+        "text": "Equipe Joueur 2\n"
+    },
+    {
+        "id": "L_MISC_192",
+        "text": "Equipe Joueur 3\n"
+    },
+    {
+        "id": "L_MISC_193",
+        "text": "Equipe Joueur 4\n"
+    },
+    {
+        "id": "L_MISC_194",
+        "text": "Nombre de Simulants\n"
+    },
+    {
+        "id": "L_MISC_195",
+        "text": "Simulants par équipe\n"
+    },
+    {
+        "id": "L_MISC_196",
+        "text": "Difficulté des Simulants\n"
+    },
+    {
+        "id": "L_MISC_197",
+        "text": "Commencer partie\n"
+    },
+    {
+        "id": "L_MISC_198",
+        "text": "Quitter\n"
+    },
+    {
+        "id": "L_MISC_199",
+        "text": "Réglages joueur\n"
+    },
+    {
+        "id": "L_MISC_200",
+        "text": "Réglages jeu\n"
+    },
+    {
+        "id": "L_MISC_201",
+        "text": "Lancer\n"
+    },
+    {
+        "id": "L_MISC_202",
+        "text": "Prêt!\n"
+    },
+    {
+        "id": "L_MISC_203",
+        "text": "Equipe rapide\n"
+    },
+    {
+        "id": "L_MISC_204",
+        "text": "Joueurs seulement\n"
+    },
+    {
+        "id": "L_MISC_205",
+        "text": "Joueurs et simulants\n"
+    },
+    {
+        "id": "L_MISC_206",
+        "text": "Equipes de joueurs\n"
+    },
+    {
+        "id": "L_MISC_207",
+        "text": "Joueurs contre simulants\n"
+    },
+    {
+        "id": "L_MISC_208",
+        "text": "Equipes joueurs-simulants\n"
+    },
+    {
+        "id": "L_MISC_209",
+        "text": "DRUGSPY"
+    },
+    {
+        "id": "L_MISC_210",
+        "text": "BOMBSPY"
+    },
+    {
+        "id": "L_MISC_211",
+        "text": "Rejouer mission précédente\n"
+    },
+    {
+        "id": "L_MISC_212",
+        "text": "Holographe\n"
+    },
+    {
+        "id": "L_MISC_213",
+        "text": "Agressif\n"
+    },
+    {
+        "id": "L_MISC_214",
+        "text": "Passif\n"
+    },
+    {
+        "id": "L_MISC_215",
+        "text": "Perfect Pote\n"
+    },
+    {
+        "id": "L_MISC_216",
+        "text": "Furtif\n"
+    },
+    {
+        "id": "L_MISC_217",
+        "text": null
+    },
+    {
+        "id": "L_MISC_218",
+        "text": null
+    },
+    {
+        "id": "L_MISC_219",
+        "text": null
+    }
+]

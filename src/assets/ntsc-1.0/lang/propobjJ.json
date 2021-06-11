@@ -1,0 +1,210 @@
+[
+    {
+        "id": "L_PROPOBJ_000",
+        "text": "Picked up "
+    },
+    {
+        "id": "L_PROPOBJ_001",
+        "text": "Double "
+    },
+    {
+        "id": "L_PROPOBJ_002",
+        "text": "some "
+    },
+    {
+        "id": "L_PROPOBJ_003",
+        "text": "Some "
+    },
+    {
+        "id": "L_PROPOBJ_004",
+        "text": "a "
+    },
+    {
+        "id": "L_PROPOBJ_005",
+        "text": "A "
+    },
+    {
+        "id": "L_PROPOBJ_006",
+        "text": "an "
+    },
+    {
+        "id": "L_PROPOBJ_007",
+        "text": "An "
+    },
+    {
+        "id": "L_PROPOBJ_008",
+        "text": "the "
+    },
+    {
+        "id": "L_PROPOBJ_009",
+        "text": "The "
+    },
+    {
+        "id": "L_PROPOBJ_010",
+        "text": "ammo"
+    },
+    {
+        "id": "L_PROPOBJ_011",
+        "text": "cartridge"
+    },
+    {
+        "id": "L_PROPOBJ_012",
+        "text": "magnum bullet"
+    },
+    {
+        "id": "L_PROPOBJ_013",
+        "text": "golden bullet"
+    },
+    {
+        "id": "L_PROPOBJ_014",
+        "text": "hand grenade"
+    },
+    {
+        "id": "L_PROPOBJ_015",
+        "text": "grenade round"
+    },
+    {
+        "id": "L_PROPOBJ_016",
+        "text": "rocket"
+    },
+    {
+        "id": "L_PROPOBJ_017",
+        "text": "homing rocket"
+    },
+    {
+        "id": "L_PROPOBJ_018",
+        "text": "remote mine"
+    },
+    {
+        "id": "L_PROPOBJ_019",
+        "text": "proximity mine"
+    },
+    {
+        "id": "L_PROPOBJ_020",
+        "text": "timed mine"
+    },
+    {
+        "id": "L_PROPOBJ_021",
+        "text": "combat "
+    },
+    {
+        "id": "L_PROPOBJ_022",
+        "text": "knife"
+    },
+    {
+        "id": "L_PROPOBJ_023",
+        "text": "knives"
+    },
+    {
+        "id": "L_PROPOBJ_024",
+        "text": "s"
+    },
+    {
+        "id": "L_PROPOBJ_025",
+        "text": "dart"
+    },
+    {
+        "id": "L_PROPOBJ_026",
+        "text": "n-bomb"
+    },
+    {
+        "id": "L_PROPOBJ_027",
+        "text": "drugs"
+    },
+    {
+        "id": "L_PROPOBJ_028",
+        "text": "explosive pen"
+    },
+    {
+        "id": "L_PROPOBJ_029",
+        "text": "explosive case"
+    },
+    {
+        "id": "L_PROPOBJ_030",
+        "text": "flare"
+    },
+    {
+        "id": "L_PROPOBJ_031",
+        "text": "piton"
+    },
+    {
+        "id": "L_PROPOBJ_032",
+        "text": "of dynamite"
+    },
+    {
+        "id": "L_PROPOBJ_033",
+        "text": "stick "
+    },
+    {
+        "id": "L_PROPOBJ_034",
+        "text": "sticks "
+    },
+    {
+        "id": "L_PROPOBJ_035",
+        "text": "bug"
+    },
+    {
+        "id": "L_PROPOBJ_036",
+        "text": "micro camera"
+    },
+    {
+        "id": "L_PROPOBJ_037",
+        "text": "GoldenEye key"
+    },
+    {
+        "id": "L_PROPOBJ_038",
+        "text": "token"
+    },
+    {
+        "id": "L_PROPOBJ_039",
+        "text": "plastique"
+    },
+    {
+        "id": "L_PROPOBJ_040",
+        "text": "Picked up a key.\n"
+    },
+    {
+        "id": "L_PROPOBJ_041",
+        "text": "Picked up a shield.\n"
+    },
+    {
+        "id": "L_PROPOBJ_042",
+        "text": "A shield.\n"
+    },
+    {
+        "id": "L_PROPOBJ_043",
+        "text": "Picked up something.\n"
+    },
+    {
+        "id": "L_PROPOBJ_044",
+        "text": "This door is locked.\n"
+    },
+    {
+        "id": "L_PROPOBJ_045",
+        "text": "bolt"
+    },
+    {
+        "id": "L_PROPOBJ_046",
+        "text": "orb"
+    },
+    {
+        "id": "L_PROPOBJ_047",
+        "text": "Reaper ammo"
+    },
+    {
+        "id": "L_PROPOBJ_048",
+        "text": "cloaking device"
+    },
+    {
+        "id": "L_PROPOBJ_049",
+        "text": "speed pill"
+    },
+    {
+        "id": "L_PROPOBJ_050",
+        "text": "your "
+    },
+    {
+        "id": "L_PROPOBJ_051",
+        "text": "YOUR "
+    }
+]

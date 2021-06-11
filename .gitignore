@@ -17,3 +17,4 @@ src/assets/*/files/ob/ob_mid.seg
 src/assets/*/fonts/*.bin
 src/assets/*/sequences/*.seq
 src/assets/*/textures/*.bin
+src/generated

@@ -1,0 +1,450 @@
+[
+    {
+        "id": "L_AME_000",
+        "text": "|Situazione:\n\nUno scienziato dataDyne che si fa chiamare Dr. Caroll ha contattato il Carrington Institute chiedendo di essere portato via dal quartier generale dataDyne questa notte. Sostiene di aver protestato per le implicazioni morali del suo progetto, ma invece di congedarlo, gli manipoleranno il cervello finché non accetterà la natura del progetto.\n\n|Carrington:\n\nJoanna, questa è la tua prima missione ed è di vitale importanza per noi. Dobbiamo salvare il Dr. Caroll prima che gli succeda qualcosa e dobbiamo scoprire di più sui piani futuri della dataDyne. Attieniti alle nostre regole standard: non uccidere civili disarmati. Ricorda che le chiavi magnetiche funzionano solo se i loro possessori sono in vita.\n\n|Obiettivo 1: - Disattiva sistema di sicurezza interno\n\nSi trova in uno dei piani superiori dell'edificio lontano dalle interferenze del traffico stradale. Usa una mina ECM per mandare in tilt la centralina e le telecamere di sicurezza. Devi attaccare la mina alla centralina perché abbia effetto. Fa presto! La mina dura solamente un minuto circa.\n\n|Obiettivo 2: - Prendi la collana-chiave di De Vries\n\nCassandra De Vries tiene al collo la chiave d'accesso alle aree di sicurezza dell'edificio. La collana è connessa ad un sensore del suo stato di salute e si disattiverà in caso di morte. Se vuoi prenderle la collana dovrai tramortirla senza ucciderla.\n\n|Obiettivo 3: - Trova i file nel PC del direttore\n\nIn uno dei piani dell'edificio principale si tiene una riunione per decidere del futuro del Dr. Caroll, vi partecipa anche il direttore responsabile del suo progetto. Seguilo nel suo ufficio e trova i file di tale progetto, scaricali sulla nostra rete usando il tuo Connettore Dati.\n\n|Obiettivo 4: - Disattiva sistema di sicurezza esterno\n\nMetti un'altra mina ECM sulla strumentazione nella Stanza di Sicurezza al piano terra: questo manderà in tilt la richiesta automatica d'aiuto esterno, mettendo così totalmente fuori uso il sistema di sicurezza.\n\n|Obiettivo 5: - Trova l'ascensore segreto\n\nTrova l'ascensore segreto per il laboratorio sotterraneo dov'è rinchiuso il Dr. Caroll. La sua posizione esatta è sconosciuta ma dovrebbe essere sul piano dell'atrio.\n\nFINE\n"
+    },
+    {
+        "id": "L_AME_001",
+        "text": "LUCERNE TOWER\n"
+    },
+    {
+        "id": "L_AME_002",
+        "text": "|Situazione:\n\nUno scienziato dataDyne che si fa chiamare Dr. Caroll ha contattato il Carrington Institute chiedendo di essere portato via dal quartier generale dataDyne questa notte. Sostiene di aver protestato per le implicazioni morali del suo progetto, ma invece di congedarlo, gli manipoleranno il cervello finché non accetterà la natura del progetto.\n\n|Carrington:\n\nJoanna, questa è la tua prima missione ed è di vitale importanza per noi. Dobbiamo salvare il Dr. Caroll prima che gli succeda qualcosa e dobbiamo scoprire di più sui piani futuri della dataDyne. Attieniti alle nostre regole standard: non uccidere civili disarmati. Ricorda che le chiavi magnetiche funzionano solo se i loro possessori sono in vita.\n\n|Obiettivo 1: - Disattiva sistema di sicurezza interno\n\n Si trova in uno dei piani superiori dell'edificio lontano dalle interferenze del traffico stradale. Usa una mina ECM per mandare in tilt la centralina e le telecamere di sicurezza. Devi attaccare la mina alla centralina perché abbia effetto. Fa presto! La mina dura solamente un minuto circa.\n\n|Obiettivo 2: - Prendi la collana-chiave di De Vries\n\nCassandra De Vries tiene al collo la chiave d'accesso alle aree di sicurezza dell'edificio. La collana è connessa ad un sensore del suo stato di salute e si disattiverà in caso di morte. Se vuoi prenderle la collana dovrai tramortirla senza ucciderla.\n\n|Obiettivo 3: - Disattiva sistema di sicurezza esterno\n\n Metti un'altra mina ECM sulla strumentazione nella Stanza di Sicurezza al piano terra: questo manderà in tilt la richiesta automatica d'aiuto esterno, mettendo così totalmente fuori uso il sistema di sicurezza.\n\n|Obiettivo 4: - Trova l'ascensore segreto\n\n Trova l'ascensore segreto per il laboratorio sotterraneo dov'è rinchiuso il Dr. Caroll. La sua posizione esatta è sconosciuta ma dovrebbe essere sul piano dell'atrio.\n\nFINE\n"
+    },
+    {
+        "id": "L_AME_003",
+        "text": "|Situazione:\n\nUno scienziato dataDyne che si fa chiamare Dr. Caroll ha contattato il Carrington Institute chiedendo di essere portato via dal quartier generale dataDyne questa notte. Sostiene di aver protestato per le implicazioni morali del suo progetto, ma invece di congedarlo, gli manipoleranno il cervello finché non accetterà la natura del progetto.\n\n|Carrington:\n\nJoanna, questa è la tua prima missione ed è di vitale importanza per noi. Dobbiamo salvare il Dr. Caroll prima che gli succeda qualcosa e dobbiamo scoprire di più sui piani futuri della dataDyne. Attieniti alle nostre regole standard: non uccidere civili disarmati. Ricorda che le chiavi magnetiche funzionano solo se i loro possessori sono in vita.\n\n|Obiettivo 1: - Trova l'ascensore segreto\n\n Trova l'ascensore segreto per il laboratorio sotterraneo dov'è rinchiuso il Dr. Caroll. La sua posizione esatta è sconosciuta ma dovrebbe essere sul piano dell'atrio.\n\nFINE\n"
+    },
+    {
+        "id": "L_AME_004",
+        "text": "    NULL3"
+    },
+    {
+        "id": "L_AME_005",
+        "text": "    NULL4"
+    },
+    {
+        "id": "L_AME_006",
+        "text": "    NULL5"
+    },
+    {
+        "id": "L_AME_007",
+        "text": "    NULL6"
+    },
+    {
+        "id": "L_AME_008",
+        "text": "    NULL7"
+    },
+    {
+        "id": "L_AME_009",
+        "text": "dataDyne\nQG Div. Centrale Chicago IL USA."
+    },
+    {
+        "id": "L_AME_010",
+        "text": "Ore 0230  15 AGO 2023\n"
+    },
+    {
+        "id": "L_AME_011",
+        "text": "Prendi collana di De Vries.\n"
+    },
+    {
+        "id": "L_AME_012",
+        "text": "Cassandra De Vries:\n"
+    },
+    {
+        "id": "L_AME_013",
+        "text": "Collana\n"
+    },
+    {
+        "id": "L_AME_014",
+        "text": "Collana di De Vries\n"
+    },
+    {
+        "id": "L_AME_015",
+        "text": "Presa collana di De Vries.\n"
+    },
+    {
+        "id": "L_AME_016",
+        "text": "Disattiva sistema di sicurezza interno\n"
+    },
+    {
+        "id": "L_AME_017",
+        "text": "Prendi collana-chiave\n"
+    },
+    {
+        "id": "L_AME_018",
+        "text": "Scarica file del progetto\n"
+    },
+    {
+        "id": "L_AME_019",
+        "text": "Disattiva sistema di sicurezza esterno\n"
+    },
+    {
+        "id": "L_AME_020",
+        "text": "Cerca di entrare nel laboratorio\n"
+    },
+    {
+        "id": "L_AME_021",
+        "text": "Chi sei e che ci fai qui?\n"
+    },
+    {
+        "id": "L_AME_022",
+        "text": "Attenzione! È armata.\n"
+    },
+    {
+        "id": "L_AME_023",
+        "text": "Non lo farei se fossi in te!\n"
+    },
+    {
+        "id": "L_AME_024",
+        "text": "Tu non sai chi sono io!\n"
+    },
+    {
+        "id": "L_AME_025",
+        "text": "Vediamo come fai con la sicurezza.\n"
+    },
+    {
+        "id": "L_AME_026",
+        "text": "TI PREGO!!!  Non sparare!\n"
+    },
+    {
+        "id": "L_AME_027",
+        "text": "Se fossi in te girerei i tacchi!\n"
+    },
+    {
+        "id": "L_AME_028",
+        "text": "Mina in posizione errata\n"
+    },
+    {
+        "id": "L_AME_029",
+        "text": "Mina piazzata correttamente\n"
+    },
+    {
+        "id": "L_AME_030",
+        "text": "MISSIONE FALLITA - Obiettivi incompleti\n"
+    },
+    {
+        "id": "L_AME_031",
+        "text": "      MISSIONE COMPIUTA      \n"
+    },
+    {
+        "id": "L_AME_032",
+        "text": "IMPOSSIBILE completare obiettivi!\n"
+    },
+    {
+        "id": "L_AME_033",
+        "text": "È ora di cancellare i file.\n"
+    },
+    {
+        "id": "L_AME_034",
+        "text": "Cancellato PC direttore.\n"
+    },
+    {
+        "id": "L_AME_035",
+        "text": "Farò quel che vuoi!\n"
+    },
+    {
+        "id": "L_AME_036",
+        "text": "ALLARME - Intrusione!\n"
+    },
+    {
+        "id": "L_AME_037",
+        "text": "Tu parli troppo!\n"
+    },
+    {
+        "id": "L_AME_038",
+        "text": "AIUTO! AIUTO!\n"
+    },
+    {
+        "id": "L_AME_039",
+        "text": "Farò quel che vuoi...\n"
+    },
+    {
+        "id": "L_AME_040",
+        "text": "Connessione in corso...\n"
+    },
+    {
+        "id": "L_AME_041",
+        "text": "Bene, ci sono...\n"
+    },
+    {
+        "id": "L_AME_042",
+        "text": "Arrivederci, Dr. Caroll.\n"
+    },
+    {
+        "id": "L_AME_043",
+        "text": "Comincia a pregare, verme!\n"
+    },
+    {
+        "id": "L_AME_044",
+        "text": "Scaricamento in corso\n"
+    },
+    {
+        "id": "L_AME_045",
+        "text": "Scaricamento completato\n"
+    },
+    {
+        "id": "L_AME_046",
+        "text": "ACCESSO NEGATO: inserire password\n"
+    },
+    {
+        "id": "L_AME_047",
+        "text": "Aperta la porta!\n"
+    },
+    {
+        "id": "L_AME_048",
+        "text": "TOH!\n"
+    },
+    {
+        "id": "L_AME_049",
+        "text": "Impossibile scaricare: serve Connettore Dati\n"
+    },
+    {
+        "id": "L_AME_050",
+        "text": "LUCI ACCESE\n"
+    },
+    {
+        "id": "L_AME_051",
+        "text": "LUCI SPENTE\n"
+    },
+    {
+        "id": "L_AME_052",
+        "text": "Cancellare conversazione con Dr. Caroll\n"
+    },
+    {
+        "id": "L_AME_053",
+        "text": "Non sparare! Non sparare!\n"
+    },
+    {
+        "id": "L_AME_054",
+        "text": "Distrutto strumento essenziale alla missione\n"
+    },
+    {
+        "id": "L_AME_055",
+        "text": "Vittime civili inaccettabili\n"
+    },
+    {
+        "id": "L_AME_056",
+        "text": "MISSIONE FALLITA - \n Impossibile completare obiettivi\n"
+    },
+    {
+        "id": "L_AME_057",
+        "text": "Ucciso personale essenziale alla missione\n"
+    },
+    {
+        "id": "L_AME_058",
+        "text": "Procurati mina ECM.\n"
+    },
+    {
+        "id": "L_AME_059",
+        "text": "Dr. Caroll:\n"
+    },
+    {
+        "id": "L_AME_060",
+        "text": "Mina ECM\n"
+    },
+    {
+        "id": "L_AME_061",
+        "text": "Mina ECM\n"
+    },
+    {
+        "id": "L_AME_062",
+        "text": "Presa mina ECM\n"
+    },
+    {
+        "id": "L_AME_063",
+        "text": "Procurati Connettore Dati.\n"
+    },
+    {
+        "id": "L_AME_064",
+        "text": "\n"
+    },
+    {
+        "id": "L_AME_065",
+        "text": "C. Dati\n"
+    },
+    {
+        "id": "L_AME_066",
+        "text": "Un Connettore Dati\n"
+    },
+    {
+        "id": "L_AME_067",
+        "text": "Preso Connettore Dati.\n"
+    },
+    {
+        "id": "L_AME_068",
+        "text": "Sì, sì! Sono d'accordo. Possibili vittime\n sono giustificate.\n"
+    },
+    {
+        "id": "L_AME_069",
+        "text": "No, posso iniziare dal terminale del mio\n ufficio e cancellare i file necessari\n al tempo stesso.\n"
+    },
+    {
+        "id": "L_AME_070",
+        "text": "Inizierò subito. A dopo.\n"
+    },
+    {
+        "id": "L_AME_071",
+        "text": "Muoviti!\n"
+    },
+    {
+        "id": "L_AME_072",
+        "text": "Ho problemi con la password, e tu sei \nl'unico che può aiutarmi.\n"
+    },
+    {
+        "id": "L_AME_073",
+        "text": "Non sparare! Non sparare!\n"
+    },
+    {
+        "id": "L_AME_074",
+        "text": "Errore datalink: connessione terminata\n"
+    },
+    {
+        "id": "L_AME_075",
+        "text": "Errore datalink: scaricamento incompleto\n"
+    },
+    {
+        "id": "L_AME_076",
+        "text": "Sistema di sicurezza interno temp. fuori uso.\n"
+    },
+    {
+        "id": "L_AME_077",
+        "text": "Sistema di sicurezza esterno fuori uso.\n"
+    },
+    {
+        "id": "L_AME_078",
+        "text": "Ascensore laboratorio localizzato.\n"
+    },
+    {
+        "id": "L_AME_079",
+        "text": "Sicurezza... Aiuto!\n"
+    },
+    {
+        "id": "L_AME_080",
+        "text": "Serve mina ECM per disattivare sicurezza interno\n"
+    },
+    {
+        "id": "L_AME_081",
+        "text": "Serve mina ECM per disattivare sicurezza esterno\n"
+    },
+    {
+        "id": "L_AME_082",
+        "text": "Idiota\n"
+    },
+    {
+        "id": "L_AME_083",
+        "text": "Come osi disturbarmi!\n"
+    },
+    {
+        "id": "L_AME_084",
+        "text": "Te ne pentirai amaramente, sfacciata!\n"
+    },
+    {
+        "id": "L_AME_085",
+        "text": "Se fossi in te starei alla larga!\n"
+    },
+    {
+        "id": "L_AME_086",
+        "text": "Ti prego, risparmiami!\n"
+    },
+    {
+        "id": "L_AME_087",
+        "text": "Non sparare!\n"
+    },
+    {
+        "id": "L_AME_088",
+        "text": "Procurati TeleSpia.\n"
+    },
+    {
+        "id": "L_AME_089",
+        "text": "Dr. Caroll:\n"
+    },
+    {
+        "id": "L_AME_090",
+        "text": "TeleSpia\n"
+    },
+    {
+        "id": "L_AME_091",
+        "text": "TeleSpia\n"
+    },
+    {
+        "id": "L_AME_092",
+        "text": "Presa la TeleSpia.\n"
+    },
+    {
+        "id": "L_AME_093",
+        "text": "Siamo sulla pista giusta! Siamo \nvicini al sistema di sicurezza\n interno.\n"
+    },
+    {
+        "id": "L_AME_094",
+        "text": "Sei sul piano dell'ufficio di \nCassandra.\n"
+    },
+    {
+        "id": "L_AME_095",
+        "text": "L'altra centralina dev'essere \nnella Stanza di Sicurezza.\n"
+    },
+    {
+        "id": "L_AME_096",
+        "text": "L'ascensore dev'essere qui da \nqualche parte.\n"
+    },
+    {
+        "id": "L_AME_097",
+        "text": "Il sistema di sicurezza funziona ora.\n"
+    },
+    {
+        "id": "L_AME_098",
+        "text": "L'hai rotto, maledizione!\n"
+    },
+    {
+        "id": "L_AME_099",
+        "text": "AD 2023, ore 2214  Lucerne Tower - QG dataDyne\n"
+    },
+    {
+        "id": "L_AME_100",
+        "text": "Cos'è tutta 'sta fretta?\n"
+    },
+    {
+        "id": "L_AME_101",
+        "text": "Se non salviamo il Dr. Caroll stanotte, \ndataDyne gli farà il lavaggio del \ncervello e noi non sapremo mai \nquali sono i loro piani. \n\n"
+    },
+    {
+        "id": "L_AME_102",
+        "text": "Posso fare piazza pulita?\n"
+    },
+    {
+        "id": "L_AME_103",
+        "text": "Attenta, Joanna! Qui non si scherza! \nLa chiave funziona solo se chi la porta è \nancora vivo; altrimenti si disattiverà. \nCerto, con le guardie armate \nè tutta un'altra storia! \n"
+    },
+    {
+        "id": "L_AME_104",
+        "text": "Dove si trova l'obiettivo?\n"
+    },
+    {
+        "id": "L_AME_105",
+        "text": "Fatti strada fino al piano terra: il \nDr. Caroll si trova nel laboratorio \nal piano sotterraneo dell'edificio.\n"
+    },
+    {
+        "id": "L_AME_106",
+        "text": "Come faccio a riconoscerlo?\n"
+    },
+    {
+        "id": "L_AME_107",
+        "text": "Non abbiamo né sue foto, né file \nufficiali. Tutto ciò che abbiamo è il \nsuo nome. Buona fortuna, Perfect Dark.\n"
+    },
+    {
+        "id": "L_AME_108",
+        "text": "Ok, ci sono...\n"
+    },
+    {
+        "id": "L_AME_109",
+        "text": "Sto... sto entrando!\n"
+    },
+    {
+        "id": "L_AME_110",
+        "text": null
+    },
+    {
+        "id": "L_AME_111",
+        "text": null
+    }
+]

@@ -1,0 +1,194 @@
+[
+    {
+        "id": "L_DAM_000",
+        "text": "|Background - \n\nThe conspirators have thrown caution to the winds and have committed an act of piracy, taking over the Pelagic 2 and commencing hurried diving operations in the Pacific Ocean. Both dataDyne and their strange allies are involved in what appears to be a joint operation.\n\n|Carrington - \n\nAlthough this move seems reckless, it only serves to highlight how important the operation on the seabed must be to dataDyne and their allies. Disrupt the operation as extensively as possible but remember our minimum force rules for non-combatants.\n\n|Objective One: - Disable Primary Power Source\n\nShutting down the Primary Power Source will help cause the ship to wander from the operating location, but it will also cause blackouts in non-essential sections of the ship.\n\n|Objective Two: - Secure Laboratories And Research Data\n\nWe want any information that dataDyne have amassed on this project. Secure the labs on the science deck and remember to stun the scientists and technicians working there; we will want to interrogate them later.\n\n|Objective Three: - Deactivate GPS And AutoPilot\n\ngetting both the GPS location system and the ship's Autopilot offline will cause the ship to drift off station; if only one is shut down it will not be enough to prevent the diving operations from continuing.\n\n|Objective Four: - Activate Moon Pool Lift\n\nThis will activate the automatic pilot on the deep submersible, recalling it for you and Elvis to use. The controls are in the sub hangar.\n\n|Objective Five: - Rendezvous And Escape With Elvis\n\nfind Elvis and return to the Moon pool to prep both the deep submersible and yourselves for the dive to the seafloor.\n\nEND\n"
+    },
+    {
+        "id": "L_DAM_001",
+        "text": "Cetan Ship\n"
+    },
+    {
+        "id": "L_DAM_002",
+        "text": "|Background - \n\nThe conspirators have thrown caution to the winds and have committed an act of piracy, taking over the Pelagic 2 and commencing hurried diving operations in the Pacific Ocean. Both dataDyne and their strange allies are involved in what appears to be a joint operation.\n\n|Carrington - \n\nAlthough this move seems reckless, it only serves to highlight how important the operation on the seabed must be to dataDyne and their allies. Disrupt the operation as extensively as possible but remember our minimum force rules for non-combatants.\n\n|Objective One: - Disable Primary Power Source\n\nShutting down the Primary Power Source will help cause the ship to wander from the operating location, but it will also cause blackouts in non-essential sections of the ship.\n\n|Objective Two: - Deactivate GPS And AutoPilot\n\ngetting both the GPS location system and the ship's Autopilot offline will cause the ship to drift off station; if only one is shut down it will not be enough to prevent the diving operations from continuing.\n\n|Objective Three: - Activate Moon Pool Lift\n\nThis will activate the automatic pilot on the deep submersible, recalling it for you and Elvis to use. The controls are in the sub hangar.\n\n|Objective Four: - Rendezvous And Escape With Elvis\n\nfind Elvis and return to the Moon pool to prep both the deep submersible and yourselves for the dive to the seafloor.\n\nEND\n"
+    },
+    {
+        "id": "L_DAM_003",
+        "text": "|Background - \n\nThe conspirators have thrown caution to the winds and have committed an act of piracy, taking over the Pelagic 2 and commencing hurried diving operations in the Pacific Ocean. Both dataDyne and their strange allies are involved in what appears to be a joint operation.\n\n|Carrington - \n\nAlthough this move seems reckless, it only serves to highlight how important the operation on the seabed must be to dataDyne and their allies. Disrupt the operation as extensively as possible but remember our minimum force rules for non-combatants.\n\n|Objective One: - Disable Primary Power Source\n\nShutting down the Primary Power Source will help cause the ship to wander from the operating location, but it will also cause blackouts in non-essential sections of the ship.\n\n|Objective Two: - Deactivate GPS And AutoPilot\n\ngetting both the GPS location system and the ship's Autopilot offline will cause the ship to drift off station; if only one is shut down it will not be enough to prevent the diving operations from continuing.\n\n|Objective Three: - Rendezvous And Escape With Elvis\n\nfind Elvis and return to the Moon pool to prep both the deep submersible and yourselves for the dive to the seafloor.\n\nEND\n"
+    },
+    {
+        "id": "L_DAM_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_DAM_005",
+        "text": "Deactivate GPS And AutoPilot\n"
+    },
+    {
+        "id": "L_DAM_006",
+        "text": "Disable Primary Power Source\n"
+    },
+    {
+        "id": "L_DAM_007",
+        "text": "Secure Laboratories And Research Data\n"
+    },
+    {
+        "id": "L_DAM_008",
+        "text": "Activate Moon Pool Lift\n"
+    },
+    {
+        "id": "L_DAM_009",
+        "text": "Rendezvous And Escape With Elvis\n"
+    },
+    {
+        "id": "L_DAM_010",
+        "text": "Cripple the engines and the ship will \ndrift... Perfect!\n"
+    },
+    {
+        "id": "L_DAM_011",
+        "text": "This must be where the sub's controlled from.\n"
+    },
+    {
+        "id": "L_DAM_012",
+        "text": "Without the autopilot and the GPS, the ship\nwill wander off station.\n"
+    },
+    {
+        "id": "L_DAM_013",
+        "text": "They'll be unable to conduct any operations\nwithout any power.\n"
+    },
+    {
+        "id": "L_DAM_014",
+        "text": "Autopilot System Has Been Deactivated.\n"
+    },
+    {
+        "id": "L_DAM_015",
+        "text": "GPS System Has Been Deactivated.\n"
+    },
+    {
+        "id": "L_DAM_016",
+        "text": "Critical Mission Object Has Been Destroyed.\n"
+    },
+    {
+        "id": "L_DAM_017",
+        "text": "Reactor Shutdown Control Hatch Opened.\n"
+    },
+    {
+        "id": "L_DAM_018",
+        "text": "Reactor Has Been Shut Down.\n"
+    },
+    {
+        "id": "L_DAM_019",
+        "text": "Diving Control Centre Has Been Located.\n"
+    },
+    {
+        "id": "L_DAM_020",
+        "text": "Critical Mission Personnel Killed.\n"
+    },
+    {
+        "id": "L_DAM_021",
+        "text": "Research Data Has Been Secured.\n"
+    },
+    {
+        "id": "L_DAM_022",
+        "text": "\n"
+    },
+    {
+        "id": "L_DAM_023",
+        "text": "\n"
+    },
+    {
+        "id": "L_DAM_024",
+        "text": "Research Data Disk\n"
+    },
+    {
+        "id": "L_DAM_025",
+        "text": "A Research Data Disk\n"
+    },
+    {
+        "id": "L_DAM_026",
+        "text": "Picked up a Research Data Disk\n"
+    },
+    {
+        "id": "L_DAM_027",
+        "text": "Critical Mission Personnel Have Been Killed.\n"
+    },
+    {
+        "id": "L_DAM_028",
+        "text": "LIft Door Has Been Unlocked.\n"
+    },
+    {
+        "id": "L_DAM_029",
+        "text": "LIft Has Been Activated.\n"
+    },
+    {
+        "id": "L_DAM_030",
+        "text": "Operation Denied - Hangar Doors Still Closed.\n"
+    },
+    {
+        "id": "L_DAM_031",
+        "text": "Unlocking Sequence Has Been Reset.\n"
+    },
+    {
+        "id": "L_DAM_032",
+        "text": "You go on ahead Jo, I'll secure the perimeter.\nWe'll meet up later.\n"
+    },
+    {
+        "id": "L_DAM_033",
+        "text": "Elvis Has Been Killed.\n"
+    },
+    {
+        "id": "L_DAM_034",
+        "text": "Joanna..what took you so long?. Follow me,\nlets get out of this old tub.\n"
+    },
+    {
+        "id": "L_DAM_035",
+        "text": "Civilians Have Been Killed.\n"
+    },
+    {
+        "id": "L_DAM_036",
+        "text": "Critical Mission Objects Has Been Destroyed.\n"
+    },
+    {
+        "id": "L_DAM_037",
+        "text": "Alarm Has Been Activated.\n"
+    },
+    {
+        "id": "L_DAM_038",
+        "text": "Alarm Has Been De-Activated.\n"
+    },
+    {
+        "id": "L_DAM_039",
+        "text": "Right. The diving operation has been disrupted on the surface. Time for a swim."
+    },
+    {
+        "id": "L_DAM_040",
+        "text": "I hope the government don't want to use this ship anytime soon."
+    },
+    {
+        "id": "L_DAM_041",
+        "text": "Do you think we were a little heavy-handed?"
+    },
+    {
+        "id": "L_DAM_042",
+        "text": "Naaahhhh."
+    },
+    {
+        "id": "L_DAM_043",
+        "text": null
+    },
+    {
+        "id": "L_DAM_044",
+        "text": null
+    },
+    {
+        "id": "L_DAM_045",
+        "text": null
+    },
+    {
+        "id": "L_DAM_046",
+        "text": null
+    },
+    {
+        "id": "L_DAM_047",
+        "text": null
+    }
+]

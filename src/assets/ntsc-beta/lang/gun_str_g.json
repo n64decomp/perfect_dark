@@ -1,0 +1,962 @@
+[
+    {
+        "id": "L_GUN_000",
+        "text": "\n"
+    },
+    {
+        "id": "L_GUN_001",
+        "text": "Kill count"
+    },
+    {
+        "id": "L_GUN_002",
+        "text": "Died once\n"
+    },
+    {
+        "id": "L_GUN_003",
+        "text": "Died"
+    },
+    {
+        "id": "L_GUN_004",
+        "text": "times"
+    },
+    {
+        "id": "L_GUN_005",
+        "text": "Suicide count"
+    },
+    {
+        "id": "L_GUN_006",
+        "text": "Unarmed\n"
+    },
+    {
+        "id": "L_GUN_007",
+        "text": "Falcon 2\n"
+    },
+    {
+        "id": "L_GUN_008",
+        "text": "Falcon 2 (silencer)\n"
+    },
+    {
+        "id": "L_GUN_009",
+        "text": "Falcon 2 (scope)\n"
+    },
+    {
+        "id": "L_GUN_010",
+        "text": "MagSec 4\n"
+    },
+    {
+        "id": "L_GUN_011",
+        "text": "Mauler\n"
+    },
+    {
+        "id": "L_GUN_012",
+        "text": "DY357 Magnum\n"
+    },
+    {
+        "id": "L_GUN_013",
+        "text": "DY357-LX\n"
+    },
+    {
+        "id": "L_GUN_014",
+        "text": "Phoenix\n"
+    },
+    {
+        "id": "L_GUN_015",
+        "text": "CMP150\n"
+    },
+    {
+        "id": "L_GUN_016",
+        "text": "AR34\n"
+    },
+    {
+        "id": "L_GUN_017",
+        "text": "Dragon\n"
+    },
+    {
+        "id": "L_GUN_018",
+        "text": "SuperDragon\n"
+    },
+    {
+        "id": "L_GUN_019",
+        "text": "K7 Avenger\n"
+    },
+    {
+        "id": "L_GUN_020",
+        "text": "Cyclone\n"
+    },
+    {
+        "id": "L_GUN_021",
+        "text": "MagSec SMG\n"
+    },
+    {
+        "id": "L_GUN_022",
+        "text": "RC-P120\n"
+    },
+    {
+        "id": "L_GUN_023",
+        "text": "Callisto NTG\n"
+    },
+    {
+        "id": "L_GUN_024",
+        "text": "Laptop Gun\n"
+    },
+    {
+        "id": "L_GUN_025",
+        "text": "Shotgun\n"
+    },
+    {
+        "id": "L_GUN_026",
+        "text": "Reaper\n"
+    },
+    {
+        "id": "L_GUN_027",
+        "text": "Rocket Launcher\n"
+    },
+    {
+        "id": "L_GUN_028",
+        "text": "Devastator\n"
+    },
+    {
+        "id": "L_GUN_029",
+        "text": "Slayer\n"
+    },
+    {
+        "id": "L_GUN_030",
+        "text": "MaianGrenade\n"
+    },
+    {
+        "id": "L_GUN_031",
+        "text": "FarSight XR-20\n"
+    },
+    {
+        "id": "L_GUN_032",
+        "text": "Sniper Rifle\n"
+    },
+    {
+        "id": "L_GUN_033",
+        "text": "Crossbow\n"
+    },
+    {
+        "id": "L_GUN_034",
+        "text": "Tranquilizer\n"
+    },
+    {
+        "id": "L_GUN_035",
+        "text": "Combat Knife\n"
+    },
+    {
+        "id": "L_GUN_036",
+        "text": "Grenade\n"
+    },
+    {
+        "id": "L_GUN_037",
+        "text": "N-Bomb\n"
+    },
+    {
+        "id": "L_GUN_038",
+        "text": "Timed Mine\n"
+    },
+    {
+        "id": "L_GUN_039",
+        "text": "Proximity Mine\n"
+    },
+    {
+        "id": "L_GUN_040",
+        "text": "Remote Mine\n"
+    },
+    {
+        "id": "L_GUN_041",
+        "text": "ECM Mine\n"
+    },
+    {
+        "id": "L_GUN_042",
+        "text": "FlashBang\n"
+    },
+    {
+        "id": "L_GUN_043",
+        "text": "Disguise\n"
+    },
+    {
+        "id": "L_GUN_044",
+        "text": "Rocket\n"
+    },
+    {
+        "id": "L_GUN_045",
+        "text": "Homing Rocket\n"
+    },
+    {
+        "id": "L_GUN_046",
+        "text": "Grenade Round\n"
+    },
+    {
+        "id": "L_GUN_047",
+        "text": "Laser\n"
+    },
+    {
+        "id": "L_GUN_048",
+        "text": "Bolt\n"
+    },
+    {
+        "id": "L_GUN_049",
+        "text": "Psychosis Gun\n"
+    },
+    {
+        "id": "L_GUN_050",
+        "text": "PP9i\n"
+    },
+    {
+        "id": "L_GUN_051",
+        "text": "CC13\n"
+    },
+    {
+        "id": "L_GUN_052",
+        "text": "Klobb\n"
+    },
+    {
+        "id": "L_GUN_053",
+        "text": "KF7 Special\n"
+    },
+    {
+        "id": "L_GUN_054",
+        "text": "ZZT (9mm)\n"
+    },
+    {
+        "id": "L_GUN_055",
+        "text": "D5K\n"
+    },
+    {
+        "id": "L_GUN_056",
+        "text": "AR53\n"
+    },
+    {
+        "id": "L_GUN_057",
+        "text": "RC-P45\n"
+    },
+    {
+        "id": "L_GUN_058",
+        "text": "Tester\n"
+    },
+    {
+        "id": "L_GUN_059",
+        "text": "Night Sight\n"
+    },
+    {
+        "id": "L_GUN_060",
+        "text": "CamSpy\n"
+    },
+    {
+        "id": "L_GUN_061",
+        "text": "DrugSpy\n"
+    },
+    {
+        "id": "L_GUN_062",
+        "text": "BombSpy\n"
+    },
+    {
+        "id": "L_GUN_063",
+        "text": "Door Decoder\n"
+    },
+    {
+        "id": "L_GUN_064",
+        "text": "Explosives\n"
+    },
+    {
+        "id": "L_GUN_065",
+        "text": "X-Ray Scanner\n"
+    },
+    {
+        "id": "L_GUN_066",
+        "text": "Alien Medpack\n"
+    },
+    {
+        "id": "L_GUN_067",
+        "text": "Suitcase\n"
+    },
+    {
+        "id": "L_GUN_068",
+        "text": "Disguise\n"
+    },
+    {
+        "id": "L_GUN_069",
+        "text": "IR Scanner\n"
+    },
+    {
+        "id": "L_GUN_070",
+        "text": "R-Tracker\n"
+    },
+    {
+        "id": "L_GUN_071",
+        "text": "Briefcase\n"
+    },
+    {
+        "id": "L_GUN_072",
+        "text": "Suicide Pill\n"
+    },
+    {
+        "id": "L_GUN_073",
+        "text": "Cloaking Device\n"
+    },
+    {
+        "id": "L_GUN_074",
+        "text": "Combat Boost\n"
+    },
+    {
+        "id": "L_GUN_075",
+        "text": "Data Uplink\n"
+    },
+    {
+        "id": "L_GUN_076",
+        "text": "Horizon Scanner\n"
+    },
+    {
+        "id": "L_GUN_077",
+        "text": "Falcon 2 (s)\n"
+    },
+    {
+        "id": "L_GUN_078",
+        "text": "Falcon 2 (+)\n"
+    },
+    {
+        "id": "L_GUN_079",
+        "text": "FarSight\n"
+    },
+    {
+        "id": "L_GUN_080",
+        "text": "R-Launcher\n"
+    },
+    {
+        "id": "L_GUN_081",
+        "text": "Proxy Mine\n"
+    },
+    {
+        "id": "L_GUN_082",
+        "text": "Psychosis\n"
+    },
+    {
+        "id": "L_GUN_083",
+        "text": "Knife\n"
+    },
+    {
+        "id": "L_GUN_084",
+        "text": "DY357\n"
+    },
+    {
+        "id": "L_GUN_085",
+        "text": "Single Shot\n"
+    },
+    {
+        "id": "L_GUN_086",
+        "text": "Rapid Fire\n"
+    },
+    {
+        "id": "L_GUN_087",
+        "text": "Burst Fire\n"
+    },
+    {
+        "id": "L_GUN_088",
+        "text": "Reapage\n"
+    },
+    {
+        "id": "L_GUN_089",
+        "text": "Shotgun Fire\n"
+    },
+    {
+        "id": "L_GUN_090",
+        "text": "Rail-gun effect\n"
+    },
+    {
+        "id": "L_GUN_091",
+        "text": "Rocket Launch\n"
+    },
+    {
+        "id": "L_GUN_092",
+        "text": "Targetted Rocket\n"
+    },
+    {
+        "id": "L_GUN_093",
+        "text": "Fly-By-Wire Rocket\n"
+    },
+    {
+        "id": "L_GUN_094",
+        "text": "Pistol Whip\n"
+    },
+    {
+        "id": "L_GUN_095",
+        "text": "Explosive Shells\n"
+    },
+    {
+        "id": "L_GUN_096",
+        "text": "Guided Shots\n"
+    },
+    {
+        "id": "L_GUN_097",
+        "text": "Magazine Discharge\n"
+    },
+    {
+        "id": "L_GUN_098",
+        "text": "Grenade Launcher\n"
+    },
+    {
+        "id": "L_GUN_099",
+        "text": "Wall Hugger\n"
+    },
+    {
+        "id": "L_GUN_100",
+        "text": "Punch\n"
+    },
+    {
+        "id": "L_GUN_101",
+        "text": "Disarm\n"
+    },
+    {
+        "id": "L_GUN_102",
+        "text": "Follow Lock-On\n"
+    },
+    {
+        "id": "L_GUN_103",
+        "text": "Use Scope\n"
+    },
+    {
+        "id": "L_GUN_104",
+        "text": "Half Magazine Discharge\n"
+    },
+    {
+        "id": "L_GUN_105",
+        "text": "Double Blast\n"
+    },
+    {
+        "id": "L_GUN_106",
+        "text": "Grinder\n"
+    },
+    {
+        "id": "L_GUN_107",
+        "text": "Sedate\n"
+    },
+    {
+        "id": "L_GUN_108",
+        "text": "Lethal Injection\n"
+    },
+    {
+        "id": "L_GUN_109",
+        "text": "Knife Slash\n"
+    },
+    {
+        "id": "L_GUN_110",
+        "text": "Throw Poison Knife\n"
+    },
+    {
+        "id": "L_GUN_111",
+        "text": "Target Locator\n"
+    },
+    {
+        "id": "L_GUN_112",
+        "text": "Instant Kill\n"
+    },
+    {
+        "id": "L_GUN_113",
+        "text": "Boost\n"
+    },
+    {
+        "id": "L_GUN_114",
+        "text": "Revert\n"
+    },
+    {
+        "id": "L_GUN_115",
+        "text": "High Impact Shells\n"
+    },
+    {
+        "id": "L_GUN_116",
+        "text": "Cloak\n"
+    },
+    {
+        "id": "L_GUN_117",
+        "text": "Deploy as Sentry Gun\n"
+    },
+    {
+        "id": "L_GUN_118",
+        "text": "Proximity Self Destruct\n"
+    },
+    {
+        "id": "L_GUN_119",
+        "text": "Threat Detector\n"
+    },
+    {
+        "id": "L_GUN_120",
+        "text": "Timed Explosive\n"
+    },
+    {
+        "id": "L_GUN_121",
+        "text": "Proximity Explosive\n"
+    },
+    {
+        "id": "L_GUN_122",
+        "text": "Remote Explosive\n"
+    },
+    {
+        "id": "L_GUN_123",
+        "text": "Detonate\n"
+    },
+    {
+        "id": "L_GUN_124",
+        "text": "4-Second Fuse\n"
+    },
+    {
+        "id": "L_GUN_125",
+        "text": "Proximity Pinball\n"
+    },
+    {
+        "id": "L_GUN_126",
+        "text": "Timed Detonation\n"
+    },
+    {
+        "id": "L_GUN_127",
+        "text": "Proximity Detonation\n"
+    },
+    {
+        "id": "L_GUN_128",
+        "text": "3-Round Burst\n"
+    },
+    {
+        "id": "L_GUN_129",
+        "text": "Charge-Up Shot\n"
+    },
+    {
+        "id": "L_GUN_130",
+        "text": "Crouch\n"
+    },
+    {
+        "id": "L_GUN_131",
+        "text": "Infect\n"
+    },
+    {
+        "id": "L_GUN_132",
+        "text": "Pulse Fire\n"
+    },
+    {
+        "id": "L_GUN_133",
+        "text": "Short Range Stream\n"
+    },
+    {
+        "id": "L_GUN_134",
+        "text": "Impact Detonation\n"
+    },
+    {
+        "id": "L_GUN_135",
+        "text": "Light Amplifier\n"
+    },
+    {
+        "id": "L_GUN_136",
+        "text": "Mobile Camera\n"
+    },
+    {
+        "id": "L_GUN_137",
+        "text": "X-Ray Vision\n"
+    },
+    {
+        "id": "L_GUN_138",
+        "text": "Thermal Imager\n"
+    },
+    {
+        "id": "L_GUN_139",
+        "text": "Zoom\n"
+    },
+    {
+        "id": "L_GUN_140",
+        "text": "Jamming Device\n"
+    },
+    {
+        "id": "L_GUN_141",
+        "text": "Connect\n"
+    },
+    {
+        "id": "L_GUN_142",
+        "text": "Identify Targets\n"
+    },
+    {
+        "id": "L_GUN_143",
+        "text": "Wear Disguise\n"
+    },
+    {
+        "id": "L_GUN_144",
+        "text": "Place Explosives\n"
+    },
+    {
+        "id": "L_GUN_145",
+        "text": "Telescopic Sight\n"
+    },
+    {
+        "id": "L_GUN_146",
+        "text": "Silencer\n"
+    },
+    {
+        "id": "L_GUN_147",
+        "text": "Magazine Extension\n"
+    },
+    {
+        "id": "L_GUN_148",
+        "text": "Laser Sight\n"
+    },
+    {
+        "id": "L_GUN_149",
+        "text": "dataDyne\n"
+    },
+    {
+        "id": "L_GUN_150",
+        "text": "Carrington\n"
+    },
+    {
+        "id": "L_GUN_151",
+        "text": "Chesluk Industries\n"
+    },
+    {
+        "id": "L_GUN_152",
+        "text": "Skedar\n"
+    },
+    {
+        "id": "L_GUN_153",
+        "text": "Maian\n"
+    },
+    {
+        "id": "L_GUN_154",
+        "text": "JonesCorp\n"
+    },
+    {
+        "id": "L_GUN_155",
+        "text": "Even without a weapon, you are still a worthy adversary. Use your fists to knock your opponents out or disarm them and use their weapons against them.\n"
+    },
+    {
+        "id": "L_GUN_156",
+        "text": "Accurate and trustworthy, this gun is the workhorse of the Institute's operations. Use the laser sight to place bullets with deadly effect, or pistol-whip adversaries to knock them out.\n"
+    },
+    {
+        "id": "L_GUN_157",
+        "text": "An upgraded Falcon 2, which has the added benefit of being silent, but deadly.\n"
+    },
+    {
+        "id": "L_GUN_158",
+        "text": "An upgraded Falcon 2, featuring a 2x magnification scope which allows you to take advantage of the Falcon's superior accuracy.\n"
+    },
+    {
+        "id": "L_GUN_159",
+        "text": "A state-of-the-art military pistol, largely used by peacekeeping forces. It has a slight zoom capability, and boasts a 3-round burst secondary fire mode.\n"
+    },
+    {
+        "id": "L_GUN_160",
+        "text": "If you see a Skedar coming at you, the chances are it's carrying one of these. A large magazine and a bladed barrel make the pistol a formidable handgun, but the killer blow comes from the secondary function - charge the shot up for extra power at the cost of a few rounds of ammo.\n"
+    },
+    {
+        "id": "L_GUN_161",
+        "text": "The dataDyne DY357 is the most powerful handgun in the world. Each round has an impressive penetration factor and knocks the target back with the weight and power of the shot. Custom models are made for valued clients; NSA director Trent Easton is rumored to have a gold plated variant.\n"
+    },
+    {
+        "id": "L_GUN_162",
+        "text": "The DY357-LX was custom built for NSA director Trent Easton. Besides boasting an attractive genuine tiger skin grip, this golden gun features a velocity optimized barrel, meaning that each bullet always meets its target with fatal force.\n"
+    },
+    {
+        "id": "L_GUN_163",
+        "text": "The Maian standard issue sidearm. A flexible gun, the pistol fires standard shots, or explosive shots at no cost to the rest of the magazine.\n"
+    },
+    {
+        "id": "L_GUN_164",
+        "text": "A dataDyne classic, and a bestseller, this submachine gun boasts a 32 rnd mag and a special feature - the ability to designate and lock on to targets in the line of sight. It turns an average marksman into an excellent one, provided he or she is clever enough to operate the gun. Average fire rate: 900 rpm.\n"
+    },
+    {
+        "id": "L_GUN_165",
+        "text": "The Carrington Institute's main assault rifle. A good range and magazine size make it a useful weapon; the secondary mode enables the user to move while zoomed in on a target. Average fire rate: 750 rpm.\n"
+    },
+    {
+        "id": "L_GUN_166",
+        "text": "A standard assault rifle with an evil twist - when the secondary mode is activated, it becomes a proximity-activated mine that looks like a gun. Average fire rate: 700 rpm.\n"
+    },
+    {
+        "id": "L_GUN_167",
+        "text": "A variant of the Dragon assault rifle - instead of a proximity explosive, it has a small grenade launcher. Excellent support weapon. Average fire rate: 700 rpm.\n"
+    },
+    {
+        "id": "L_GUN_168",
+        "text": "Another piece of high-tech kit from dataDyne. Ordinarily an assault rifle with a smallish magazine and a powerful punch, it has a threat detection mode that highlights explosives, wallguns, and similar hazards. Average fire rate: 950 rpm.\n"
+    },
+    {
+        "id": "L_GUN_169",
+        "text": "Designed for use by bodyguards, the Cyclone has been adopted by Presidential Security due to its excellent capability when used for suppression. In extreme circumstances, it can more than double the fire rate, discharging the magazine in a second. Average fire rate: 900 rpm. Unloads at 2000 rpm.\n"
+    },
+    {
+        "id": "L_GUN_170",
+        "text": "The Carrington Institute secret weapon. It fires at a phenomenal rate and has a huge magazine capacity. The secondary mode is a cloaking device that runs off the ammunition in the magazine. A devastating weapon. Average fire rate: 1100 rpm.\n"
+    },
+    {
+        "id": "L_GUN_171",
+        "text": "Another example of excellent Maian firearm design. It can fire standard shots as fast as any other SMG, or it can fire high velocity rounds which will easily penetrate objects to find targets hiding in cover. The only drawbacks with the secondary fire mode are that the fire rate is lower and the accuracy suffers from the power of the shot. Average fire rate: 900 rpm (s/f:300 rpm).\n"
+    },
+    {
+        "id": "L_GUN_172",
+        "text": "A submachine gun made to look like a laptop PC. In disguised form, the gun cannot fire, but when activated, it unfolds into shape. The PC gun will not bear close inspection; it will boot up, but the memory is a quarter of what it is supposed to be. Average fire rate: 1000 rpm.\n"
+    },
+    {
+        "id": "L_GUN_173",
+        "text": "A dataDyne weapon manufactured for security forces. A nine-cartridge magazine combined with single or double fire modes make it a dangerous close-quarters weapon.\n"
+    },
+    {
+        "id": "L_GUN_174",
+        "text": "A truly terrifying weapon in the hands of someone strong enough to control the massive recoil; for anyone else, a highly unwieldy but effective corridor clearance weapon. Maximum fire rate: 1800 rpm.\n"
+    },
+    {
+        "id": "L_GUN_175",
+        "text": "A cumbersome weapon. Fires either a standard rocket or a slower, homing rocket when locked on to the unfortunate target.\n"
+    },
+    {
+        "id": "L_GUN_176",
+        "text": "A long range grenade delivery system manufactured by dataDyne. The secondary fire mode coats the grenades with a sticky substance; when fired, the bomb attaches itself to wall or ceiling. After a few seconds, it detaches to fall to the ground, where it detonates.\n"
+    },
+    {
+        "id": "L_GUN_177",
+        "text": "The Skedar enjoy seeing the terror of their enemies. It seems natural that they should have a remote-controlled rocket as a secondary fire mode on their basic rocket launcher, so that they can take pleasure from the prey's vain attempts to escape the closing projectile.\n"
+    },
+    {
+        "id": "L_GUN_178",
+        "text": "The FarSight rifle is a Maian hybrid of an X-ray scanning device coupled with a rifle that can shoot through solid objects. The scope can lock onto and track life sources, though the device does not pan as fast as a running enemy can move.\n"
+    },
+    {
+        "id": "L_GUN_179",
+        "text": "With a powerful zoom and a high velocity bullet, this Carrington Institute weapon is one of the best sniper rifles ever made. Crouch down for perfectaccuracy.\n"
+    },
+    {
+        "id": "L_GUN_180",
+        "text": "This crossbow is a short-range 'pistol' sized example, mounted on a Carrington Institute agent's wrist. It folds up to aid concealment and can fire up to five bolts, either the more usual drugged shots, or a lethal bolt.\n"
+    },
+    {
+        "id": "L_GUN_181",
+        "text": "A rapid-fire device, it can be used as a weapon in an emergency, but it is designed primarily as a dermal spray injector for sedative drugs. Users are advised that a full discharge of the drug reservoir can be fatal.\n"
+    },
+    {
+        "id": "L_GUN_182",
+        "text": "A large and vicious combat knife. It contains a vial of poison that shatters when thrown, usually killing the target in approximately six seconds. A dataDyne weapon through and through.\n"
+    },
+    {
+        "id": "L_GUN_183",
+        "text": "An updated version of the trusty grenade. Can be thrown with a four-second fuse or used as a bouncing proximity bomb.\n"
+    },
+    {
+        "id": "L_GUN_184",
+        "text": "A hand-held, small area effect neutron bomb. It can either detonate on impact or be set to proximity detonation.\n"
+    },
+    {
+        "id": "L_GUN_185",
+        "text": "A mine with a short timed fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n"
+    },
+    {
+        "id": "L_GUN_186",
+        "text": "A mine with a proximity fuse. It has a threat detection/evaluation sensor that can be activated as a secondary mode.\n"
+    },
+    {
+        "id": "L_GUN_187",
+        "text": "A mine that can be triggered remotely. The activate command is the secondary mode.\n"
+    },
+    {
+        "id": "L_GUN_188",
+        "text": "A focused white-noise jamming device, capable of simulating one of many common electrical faults in any system to which it is directly attached.\n"
+    },
+    {
+        "id": "L_GUN_189",
+        "text": "The laser is wrist-mounted and deadly accurate. It can either fire long-range pulses, or it can sustain a constant, concentrated stream of energy at short range.\n"
+    },
+    {
+        "id": "L_GUN_190",
+        "text": "Geneered stimulants designed for combat applications. When administered, they seem to slow down the passage of time to give a reaction window.\n"
+    },
+    {
+        "id": "L_GUN_191",
+        "text": "The latest of a line of 'starlight' scopes that enhance visible light to produce a clearer picture of the surrounding environment. Uses a target-movement algorithm to highlight possible threats.\n"
+    },
+    {
+        "id": "L_GUN_192",
+        "text": "Using the smallest application yet of anti-grav technology, this is the ultimate snooping device. Has a video/audio link with a recording function and an onboard facility for spectroscopic holography.\n"
+    },
+    {
+        "id": "L_GUN_193",
+        "text": "A short-range scope that can see through any material - even lead - producing a simplified chromatic representation of the environment.\n"
+    },
+    {
+        "id": "L_GUN_194",
+        "text": "This scope uses infra-red scanning modulated with ultrasonic data to provide not only a clearer picture of the surrounding area, but also a location of any structural irregularities. It can also locate enemies using cloaking technology or other optical baffles.\n"
+    },
+    {
+        "id": "L_GUN_195",
+        "text": "Uses the light-warping qualities of an alien crystal to create a refractive field around the wearer. Functions as long as there is little kinetic disturbance within the field boundary; the act of firing a gun is enough to cause a return to visibility.\n"
+    },
+    {
+        "id": "L_GUN_196",
+        "text": "A binocular-input long range visual scanner. The visor shows a composite image of the two input sources. Also has a zoom function.\n"
+    },
+    {
+        "id": "L_GUN_197",
+        "text": "Capable of remote interrogation of almost any type of stored data, which is sent directly back to the Institute computer hackers. A variant of this device provides the hackers with a direct link into the local system.\n"
+    },
+    {
+        "id": "L_GUN_198",
+        "text": "A powerful tracking device that can be customized to fit any set of parameters: people, weapons, objects, and locations are some of the possibilities.\n"
+    },
+    {
+        "id": "L_GUN_199",
+        "text": "A modified medical scanner that contains the most up-to-date record of the President's state of health and a library of past conditions and treatments. It can detect the vital functions of the President from a distance, even when the target is in the middle of a crowd.\n"
+    },
+    {
+        "id": "L_GUN_200",
+        "text": "A safecracker, pure and simple. Breaks electronic encoded locks, usually in a matter of seconds, though this, of course, depends on the individual lock.\n"
+    },
+    {
+        "id": "L_GUN_201",
+        "text": "Maian medical marvel, can auto-diagnose and perform surgical procedures without the need of incisions. One drawback is that it only works on Maians; the other drawback is the lack of a bedside manner.\n"
+    },
+    {
+        "id": "L_GUN_202",
+        "text": "A small plastic explosive charge, complete with sealed tamper-proof timer, and embedded with teflon-coated shrapnel. Nasty.\n"
+    },
+    {
+        "id": "L_GUN_203",
+        "text": "As you are aware, this is a directional fusion bomb, to be placed so that the charge is directed downwards. This will obliterate the dataDyne research labs and cause the rest of the building to collapse into the hole.\n"
+    },
+    {
+        "id": "L_GUN_204",
+        "text": "A small bug that is attached to any part of a communication relay. It 'piggybacks' the official signal, enabling the link between Institute and agent to be maintained through intensive local countermeasures; to all intents and purposes, it is part of the target location's comms setup.\n"
+    },
+    {
+        "id": "L_GUN_205",
+        "text": "The inner workings of this bug are a closely guarded secret - the self-destruct mechanism forms a large part of the device. It is speculated that this is an example of quantum molecular communication, which explains the phenomenal reliability of the device in field use.\n"
+    },
+    {
+        "id": "L_GUN_206",
+        "text": "Uses quantum communication technology to provide supremely accurate targetting infomation to orbital weapons, helping to minimize collateral damage. The same technology is used in the Carrington Institute tracker bugs.\n"
+    },
+    {
+        "id": "L_GUN_207",
+        "text": "Details of the flight path and communication codes and frequencies for Air Force One - also current encryption keys.\n"
+    },
+    {
+        "id": "L_GUN_208",
+        "text": "All data pertaining to ocean floor research carried out by dataDyne on the pirated deep sea diving operations vessel Pelagic II. Contents  sonar mapping, geological data, alien artifact data, hull samples, etc.\n"
+    },
+    {
+        "id": "L_GUN_209",
+        "text": "The last personality-state recording of the artificial intelligence, self-designated Dr. Caroll, prior to memory wipe and cerebral restructuring. Use for case study, theoretical projections only. Morally incorrupt, and therefore dangerous. dataDyne I.S.C.E.O. 23/6/23\n"
+    },
+    {
+        "id": "L_GUN_210",
+        "text": "A chemical cocktail that warps the perceived reality of the target. Good becomes bad, bad becomes good; enemies and friends change places. Another one of the darker research projects from Trent Easton's Area 51.\n"
+    },
+    {
+        "id": "L_GUN_211",
+        "text": "Not your normal outfit. Wear it to pretend not to be you.\n"
+    },
+    {
+        "id": "L_GUN_212",
+        "text": "PROXY\n"
+    },
+    {
+        "id": "L_GUN_213",
+        "text": "TIMED\n"
+    },
+    {
+        "id": "L_GUN_214",
+        "text": "REMOTE\n"
+    },
+    {
+        "id": "L_GUN_215",
+        "text": "AUTOGUN\n"
+    },
+    {
+        "id": "L_GUN_216",
+        "text": "IMPACT\n"
+    },
+    {
+        "id": "L_GUN_217",
+        "text": "Big King Rocket\n"
+    },
+    {
+        "id": "L_GUN_218",
+        "text": "Data Uplink\n"
+    },
+    {
+        "id": "L_GUN_219",
+        "text": "President Scanner\n"
+    },
+    {
+        "id": "L_GUN_220",
+        "text": "AutoSurgeon\n"
+    },
+    {
+        "id": "L_GUN_221",
+        "text": "Skedar Bomb\n"
+    },
+    {
+        "id": "L_GUN_222",
+        "text": "Comms Rider\n"
+    },
+    {
+        "id": "L_GUN_223",
+        "text": "Tracer Bug\n"
+    },
+    {
+        "id": "L_GUN_224",
+        "text": "Target Amplifier\n"
+    },
+    {
+        "id": "L_GUN_225",
+        "text": "Flight Plans\n"
+    },
+    {
+        "id": "L_GUN_226",
+        "text": "Research Tape\n"
+    },
+    {
+        "id": "L_GUN_227",
+        "text": "Backup Disk\n"
+    },
+    {
+        "id": "L_GUN_228",
+        "text": "Key Card\n"
+    },
+    {
+        "id": "L_GUN_229",
+        "text": "Briefcase\n"
+    },
+    {
+        "id": "L_GUN_230",
+        "text": "Necklace\n"
+    },
+    {
+        "id": "L_GUN_231",
+        "text": "PresidentScan\n"
+    },
+    {
+        "id": "L_GUN_232",
+        "text": null
+    },
+    {
+        "id": "L_GUN_233",
+        "text": null
+    },
+    {
+        "id": "L_GUN_234",
+        "text": null
+    },
+    {
+        "id": "L_GUN_235",
+        "text": null
+    },
+    {
+        "id": "L_GUN_236",
+        "text": null
+    },
+    {
+        "id": "L_GUN_237",
+        "text": null
+    },
+    {
+        "id": "L_GUN_238",
+        "text": null
+    },
+    {
+        "id": "L_GUN_239",
+        "text": null
+    }
+]

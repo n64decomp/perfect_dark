@@ -1,0 +1,210 @@
+[
+    {
+        "id": "L_ELD_000",
+        "text": "|Situazione - \n\nDaniel Carrington è tenuto in ostaggio nella sua villa privata. Un messaggio di Cassandra De Vries pone le condizioni: la vita di Daniel in cambio dell'automa noto come Dr. Caroll. Ciò che la dataDyne ancora non sa è che l'automa si trovava nella villa almomento della loro incursione. Presupponiamo che Daniel l'abbia nascosto in un posto sicuro prima che lo scoprissero.\n\n |Carrington - \n\nIrreperibile.\n\n|Obiettivo 1: - Elimina i cecchini sul tetto\n\nAppena ricevuta la richiesta di riscatto abbiamo compiuto un volo di ricognizione attorno alla villa. Un attento esame dei dati ha rivelato la presenza di numerosi cecchini sul tetto. Per muoverti liberamente dovrai eliminarli.\n\n|Obiettivo 2: - Attiva il generatore eolico\n\nIl generatore eolico e l'accumulatore energetico non sono attivi. Sospettiamo che siano stati disattivati da Daniel per impedire alla squadra d'assalto dataDyne di accedere ai sistemi della villa. Dopo averli riattivati troverai aperte tutte le porte del sotterraneo inferiore della villa.\n\n|Obiettivo 3: - Localizza e blocca gli hacker dataDyne\n\nIn passato gli hacker dataDyne hanno effettuato sporadici tentativi di accedere ai file dell'istituto. Ora avrebbero la vita molto più facile provando dall'interno della villa, grazie al nostro collegamento diretto con l'istituto. Se agiscono in tal senso dovrai rispondere repentinamente! Evita qualsiasi danno ai terminali poiché contengono dati di fondamentale importanza per l'istituto.\n\n|Obiettivo 4: - Cattura la guardia dataDyne\n\nSe riuscissimo a catturare un componente della squadra d'assalto dataDyne, saremmo in grado di farci finalmente un'idea in merito ai loro obiettivi. Ricorda di non ucciderli: colpiscili facendo perdere loro i sensi, in modo da impedirne la fuga.\n\n|Obiettivo 5: - Salva Carrington\n\nDaniel è l'unico che conosce il luogo in cui è nascosto il Dr. Caroll. Prima o poi la dataDyne lo scoprirà e si lavoreranno Daniel per farlo parlare e fargli dire quello che vogliono sapere. Una volta scoperto il nascondiglio dell'automa la vita di Daniel è bell'e perduta!\n\nFINE\n"
+    },
+    {
+        "id": "L_ELD_001",
+        "text": "VILLA DI CARRINGTON \n"
+    },
+    {
+        "id": "L_ELD_002",
+        "text": "|Situazione - \n\nDaniel Carrington è tenuto in ostaggio nella sua villa privata. Un messaggio di Cassandra De Vries pone le condizioni: la vita di Daniel in cambio dell'automa noto come Dr. Caroll. Ciò che la dataDyne ancora non sa è che l'automa si trovava nella villa almomento della loro incursione. Presupponiamo che Daniel l'abbia nascosto in un posto sicuro prima che lo scoprissero.\n\n |Carrington - \n\nIrreperibile.\n\n|Obiettivo 1: - Salva la mediatrice\n\nUna dipendente dell'istituto si è offerta volontaria per distrarre i soldati dataDyne e permetterti di entrare. Sarà sicuramente uccisa, se non elimini quei soldati alla svelta. La sua vita è nelle tue mani! Tieni la situazione sotto controllo!\n\n|Obiettivo 2: - Elimina i cecchini sul tetto\n\nAppena ricevuta la richiesta di riscatto abbiamo compiuto un volo di ricognizione attorno alla villa. Un attento esame dei dati ha rivelato la presenza di numerosi cecchini sul tetto. Per muoverti liberamente dovrai eliminarli.\n\n|Obiettivo 3: - Attiva il generatore eolico\n\nIl generatore eolico e l'accumulatore energetico non sono attivi. Sospettiamo che siano stati disattivati da Daniel per impedire alla squadra d'assalto dataDyne di accedere ai sistemi della villa. Dopo averli riattivati troverai aperte tutte le porte del sotterraneo inferiore della villa.\n\n|Obiettivo 4: - Salva Carrington\n\nDaniel è l'unico che conosce il luogo in cui è nascosto il Dr. Caroll. Prima o poi la dataDyne lo scoprirà e si lavoreranno Daniel per farlo parlare e fargli dire quello che vogliono sapere. Una volta scoperto il nascondiglio dell'automa la vita di Daniel è bell'e perduta!\n\nFINE\n"
+    },
+    {
+        "id": "L_ELD_003",
+        "text": "|Situazione - \n\nDaniel Carrington è tenuto in ostaggio nella sua villa privata. Un messaggio di Cassandra De Vries pone le condizioni: la vita di Daniel in cambio dell'automa noto come Dr. Caroll. Ciò che la dataDyne ancora non sa è che l'automa si trovava nella villa almomento della loro incursione. Presupponiamo che Daniel l'abbia nascosto in un posto sicuro prima che lo scoprissero.\n\n |Carrington - \n\nIrreperibile.\n\n|Obiettivo 1: - Salva la mediatrice\n\nUna dipendente dell'istituto si è offerta volontaria per distrarre i soldati dataDyne e permetterti di entrare. Sarà sicuramente uccisa, se non elimini quei soldati alla svelta. La sua vita è nelle tue mani! Tieni la situazione sotto controllo!\n\n|Obiettivo 2: - Attiva il generatore eolico\n\nIl generatore eolico e l'accumulatore energetico non sono attivi. Sospettiamo che siano stati disattivati da Daniel per impedire alla squadra d'assalto dataDyne di accedere ai sistemi della villa. Dopo averli riattivati troverai aperte tutte le porte del sotterraneo inferiore della villa.\n\n|Obiettivo 3: - Salva Carrington\n\nDaniel è l'unico che conosce il luogo in cui è nascosto il Dr. Caroll. Prima o poi la dataDyne lo scoprirà e si lavoreranno Daniel per farlo parlare e fargli dire quello che vogliono sapere. Una volta scoperto il il nascondiglio dell'automa la vita di Daniel è bell'e perduta!\n\nFINE\n"
+    },
+    {
+        "id": "L_ELD_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_ELD_005",
+        "text": "Salva la mediatrice\n"
+    },
+    {
+        "id": "L_ELD_006",
+        "text": "Elimina i cecchini sul tetto\n"
+    },
+    {
+        "id": "L_ELD_007",
+        "text": "Attiva il generatore eolico\n"
+    },
+    {
+        "id": "L_ELD_008",
+        "text": "Localizza e blocca gli hacker dataDyne\n"
+    },
+    {
+        "id": "L_ELD_009",
+        "text": "Salva Carrington\n"
+    },
+    {
+        "id": "L_ELD_010",
+        "text": "Cattura la guardia dataDyne\n"
+    },
+    {
+        "id": "L_ELD_011",
+        "text": "La mediatrice è stata uccisa.\n"
+    },
+    {
+        "id": "L_ELD_012",
+        "text": "I cecchini sono stati eliminati.\n"
+    },
+    {
+        "id": "L_ELD_013",
+        "text": "La mediatrice si è messa in salvo.\n"
+    },
+    {
+        "id": "L_ELD_014",
+        "text": "Attivato l'impianto di raffreddamento\n"
+    },
+    {
+        "id": "L_ELD_015",
+        "text": "Disattivato l'impianto di raffreddamento\n"
+    },
+    {
+        "id": "L_ELD_016",
+        "text": "Attivati gli accumulatori energetici\n"
+    },
+    {
+        "id": "L_ELD_017",
+        "text": "Disattivati gli accumulatori energetici\n"
+    },
+    {
+        "id": "L_ELD_018",
+        "text": "Riattivato il generatore eolico\n"
+    },
+    {
+        "id": "L_ELD_019",
+        "text": "Disattivato il generatore eolico\n"
+    },
+    {
+        "id": "L_ELD_020",
+        "text": "Ristabilita l'elettricità nella villa\n"
+    },
+    {
+        "id": "L_ELD_021",
+        "text": "Distrutto strumento essenziale alla missione.\n"
+    },
+    {
+        "id": "L_ELD_022",
+        "text": "Joanna! Sono Grimshaw. Ci sono degli hacker \nnella villa! Devi fermarli prima che \n mettano le mani sui file.\n"
+    },
+    {
+        "id": "L_ELD_023",
+        "text": "Gli hacker hanno scaricato dati essenziali.\n"
+    },
+    {
+        "id": "L_ELD_024",
+        "text": "Gli hacker sono stati eliminati.\n"
+    },
+    {
+        "id": "L_ELD_025",
+        "text": "Carrington è stato salvato.\n"
+    },
+    {
+        "id": "L_ELD_026",
+        "text": "MISSIONE FALLITA - Obiettivi incompleti\n"
+    },
+    {
+        "id": "L_ELD_027",
+        "text": "Pistola Laptop\n"
+    },
+    {
+        "id": "L_ELD_028",
+        "text": "Fucile cecchino\n"
+    },
+    {
+        "id": "L_ELD_029",
+        "text": "Sconfitta la guardia nemica\n"
+    },
+    {
+        "id": "L_ELD_030",
+        "text": "Procurati chiave porta\n"
+    },
+    {
+        "id": "L_ELD_031",
+        "text": "Guardia:\n"
+    },
+    {
+        "id": "L_ELD_032",
+        "text": "Chiave porta\n"
+    },
+    {
+        "id": "L_ELD_033",
+        "text": "Chiave porta\n"
+    },
+    {
+        "id": "L_ELD_034",
+        "text": "Presa chiave porta\n"
+    },
+    {
+        "id": "L_ELD_035",
+        "text": "Riattivando il generatore eolico, \npotrò portare l'elettricità \nnel sotterraneo inferiore.\n"
+    },
+    {
+        "id": "L_ELD_036",
+        "text": "Devo fare alla svelta o \nuccideranno la mediatrice!\n"
+    },
+    {
+        "id": "L_ELD_037",
+        "text": "Daniel dev'essere imprigionato qui!\n"
+    },
+    {
+        "id": "L_ELD_038",
+        "text": "Devo fermare gli hacker prima \ndi salvare Daniel!\n"
+    },
+    {
+        "id": "L_ELD_039",
+        "text": "Missione dell'Agente Dark, ore 18.46. La notte\nscorsa abbiamo ricevuto una chiamata di Cassandra \nde Vries. Una squadra dataDyne ha preso in ostaggio \nDaniel Carrington nella sua villa sulla costa. \nDicono che lo risparmieranno in cambio \ndell'automa.\n"
+    },
+    {
+        "id": "L_ELD_040",
+        "text": "Sfortunatamente, non ce l'abbiamo noi. \nDaniel e il Dr. Caroll erano alla villa \nper discutere 'questioni di interesse \nreciproco'. Sembra che Daniel abbia trovato \nil modo di nascondere il Dr. Caroll prima \nche arrivasse la squadra dataDyne.\n"
+    },
+    {
+        "id": "L_ELD_041",
+        "text": "Speriamo che il nostro piano della falsa \nmediatrice mi permetta di sorprendere la \nsquadra dataDyne. Stavolta non c'è solo \nla mia vita in gioco!\n"
+    },
+    {
+        "id": "L_ELD_042",
+        "text": "È ferito, Signore?\n"
+    },
+    {
+        "id": "L_ELD_043",
+        "text": "No, Joanna, tutto bene, ma quelle bestie \ndella dataDyne mi hanno costretto a dir loro \ndove ho nascosto il Dr. Caroll. Se solo \navessi resistito qualche minuto in più...\n"
+    },
+    {
+        "id": "L_ELD_044",
+        "text": "Non è colpa sua, Signore! Avrei \ndovuto fare più in fretta io!\n"
+    },
+    {
+        "id": "L_ELD_045",
+        "text": "Non essere troppo dura con te stessa, Jo. \nIl Dr. Caroll si aspettava una cosa del \ngenere. Anzi, dopo averlo catturato la \nsquadra dataDyne ha guadagnato sicurezza \ne, credendomi svenuto, si è lasciata \nsfuggire un paio di cosette interessanti. \nHanno parlato di una riunione prevista per\nquesta notte nell'Edificio G5 a Chicago, \nIllinois! Voglio che tu sia lì, ma certo\nnon ti resta molto tempo per prepararti! \n"
+    },
+    {
+        "id": "L_ELD_046",
+        "text": "Non c'è problema, Signore! Allora, \nil Dr. Caroll le ha dato informazioni \nutili?\n"
+    },
+    {
+        "id": "L_ELD_047",
+        "text": "Oh, certo, eccome! Ti racconterò ogni \nparticolare durante il tuo viaggio verso \nChicago. Possiamo ancora salvarlo, anche \nse quei macellai riescono a manipolargli \nil cervello. Ritiene che ne conservino una \ncopia in un posto sicuro. È proprio ora \ndi contattare alcuni amici perché si \noccupino della dataDyne!\n"
+    },
+    {
+        "id": "L_ELD_048",
+        "text": "OPERAZIONE IMPOSSIBILE - Generatore attivo\n"
+    },
+    {
+        "id": "L_ELD_049",
+        "text": "MISSIONE FALLITA - Guardia nemica non catturata\n"
+    },
+    {
+        "id": "L_ELD_050",
+        "text": null
+    },
+    {
+        "id": "L_ELD_051",
+        "text": null
+    }
+]

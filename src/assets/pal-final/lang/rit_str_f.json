@@ -1,0 +1,354 @@
+[
+    {
+        "id": "L_RIT_000",
+        "text": "|Briefing - \n\nLe plan de Trent Easton pour kidnapper le Président est commencé. L'institut Carrington veut parer cette manoeuvre en déplaçant le Président de Air Force One avant l'intervention de Trent.\n\n|Carrington - \n\nLe temps nous est compté, Joanna. Pour déjouer les plans de Trent il faut que vous déplaciez le Président de cet avion. Cela veut dire qu'il faudra le convaincre de la trahison de Trent. Pour cela vous devrez trouver des preuves dans la soute à bagages afin de les montrer au Président.\n\n|Objectif 1: - Localiser et récupérer l'équipement\n\nTrouvez l'équipement dissimulé dans la soute à bagages au fond de l'appareil et ramenez-le. Souvenez-vous que l'équipe de sécurité du Président est neutre et qu'elle ne doit pas être attaquée.\n\n|Objectif 2: - Localiser le Président\n\nL'emplacement exact du Président ne nous est pas connu. Une fois que vous aurez trouvé son bureau, montrez-lui les preuves. Assurez-vous que vous ferez cela avant l'intervention de Trent sinon il risque de pouvoir influencer et manipuler la situation à son avantage.\n\n|Objectif 3: - Placer le Président dans la capsule\n\nIl y a une capsule d'évacuation placée à l'arrière de l'appareil. Escortez le Président jusqu'à cette capsule en vous assurant qu'aucun mal ne lui sera fait.\n\n|Objectif 4: - Sécurisez le plan de vol de Air Force One\n\nLes détails du plan de Trent sont encore inconnus, mais nous pensons que l'équipage de l'avion sera en danger. Vous devrez accéder à la cabine de pilotage pour découvrir ce qu'il prépare. Si la situation échappe à votre contrôle, activez l'auto-pilote.\n\n|Objectif 5: - Détacher l'OVNI de Air Force One\n\nVous devrez retirer la connexion reliée à Air Force One. La façon la plus rapide serait de faire exploser une mine dans le connecteur lui-même. \n\nFIN\n"
+    },
+    {
+        "id": "L_RIT_001",
+        "text": "AIR FORCE ONE\n"
+    },
+    {
+        "id": "L_RIT_002",
+        "text": "|Briefing - \n\nLe plan de Trent Easton pour kidnapper le Président est commencé. L'institut Carrington veut parer cette manoeuvre en déplaçant le Président de Air Force One avant l'intervention de Trent.\n\n|Carrington - \n\nLe temps nous est compté, Joanna. Pour déjouer les plans de Trent il faut que vous déplaciez le Président de cet avion. Cela veut dire qu'il faudra le convaincre de la trahison de Trent. Pour cela vous devrez trouver des preuves dans la soute à bagages afin de les montrer au Président.\n\n|Objectif 1: - Localiser et récupérer l'équipement\n\nTrouvez l'équipement dissimulé dans la soute à bagages au fond de l'appareil et ramenez-le. Souvenez-vous que l'équipe de sécurité du Président est neutre et qu'elle ne doit pas être attaquée.\n\n|Objectif 2: - Localiser le Président\n\nL'emplacement exact du Président ne nous est pas connu. Une fois que vous aurez trouvé son bureau, montrez-lui les preuves. Assurez-vous que vous ferez cela avant l'intervention de Trent sinon il risque de pouvoir influencer et manipuler la situation à son avantage.\n\n|Objectif 3: - Placer le Président dans la capsule\n\nIl y a une capsule d'évacuation placée à l'arrière de l'appareil. Escortez le Président jusqu'à cette capsule en vous assurant qu'aucun mal ne lui sera fait.\n\n|Objectif 4: - Détacher l'OVNI de Air Force One\n\nVous devrez retirer la connexion reliée à Air Force One. La façon la plus rapide serait de faire exploser une mine dans le connecteur lui-même. \n\nFIN\n"
+    },
+    {
+        "id": "L_RIT_003",
+        "text": "|Briefing - \n\nLe plan de Trent Easton pour kidnapper le Président est commencé. L'institut Carrington veut parer cette manoeuvre en déplaçant le Président de Air Force One avant l'intervention de Trent.\n\n|Carrington - \n\nLe temps nous est compté, Joanna. Pour déjouer les plans de Trent il faut que vous déplaciez le Président de cet avion. Cela veut dire qu'il faudra le convaincre de la trahison de Trent. Pour cela vous devrez trouver des preuves dans la soute à bagages afin de les montrer au Président.\n\n|Objectif 1: - Localiser le Président\n\nL'emplacement exact du Président ne nous est pas connu. Une fois que vous aurez trouvé son bureau, montrez-lui les preuves. Assurez-vous que vous ferez cela avant l'intervention de Trent sinon il risque de pouvoir influencer et manipuler la situation à son avantage.\n\n|Objectif 2: - Placer le Président dans la capsule\n\nIl y a une capsule d'évacuation placée à l'arrière de l'appareil. Escortez le Président jusqu'à cette capsule en vous assurant qu'aucun mal ne lui sera fait.\n\n|Objectif 3: - Détacher l'OVNI de Air Force One\n\nVous devrez retirer la connexion reliée à Air Force One. La façon la plus rapide serait de faire exploser une mine dans le connecteur lui-même. \n\nFIN\n"
+    },
+    {
+        "id": "L_RIT_004",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_005",
+        "text": "Localiser et récupérer équipement\n"
+    },
+    {
+        "id": "L_RIT_006",
+        "text": "Localiser Président\n"
+    },
+    {
+        "id": "L_RIT_007",
+        "text": "Placer Président dans capsule\n"
+    },
+    {
+        "id": "L_RIT_008",
+        "text": "Sécuriser plan de vol de Air Force One\n"
+    },
+    {
+        "id": "L_RIT_009",
+        "text": "Détacher OVNI de Air Force One\n"
+    },
+    {
+        "id": "L_RIT_010",
+        "text": "Obtenir mallette.\n"
+    },
+    {
+        "id": "L_RIT_011",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_012",
+        "text": "Mallette\n"
+    },
+    {
+        "id": "L_RIT_013",
+        "text": "Mallette\n"
+    },
+    {
+        "id": "L_RIT_014",
+        "text": "Mallette obtenue.\n"
+    },
+    {
+        "id": "L_RIT_015",
+        "text": "Obtenir Arbalète.\n"
+    },
+    {
+        "id": "L_RIT_016",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_017",
+        "text": "Arbalète\n"
+    },
+    {
+        "id": "L_RIT_018",
+        "text": "Arbalète\n"
+    },
+    {
+        "id": "L_RIT_019",
+        "text": "Arbalète obtenue.\n"
+    },
+    {
+        "id": "L_RIT_020",
+        "text": "Trop de victimes neutres.\n"
+    },
+    {
+        "id": "L_RIT_021",
+        "text": "Connexion à l'OVNI détruite.\n"
+    },
+    {
+        "id": "L_RIT_022",
+        "text": "Impossible de détruire connexion OVNI.\n"
+    },
+    {
+        "id": "L_RIT_023",
+        "text": "Auto-pilote enclenché.\n"
+    },
+    {
+        "id": "L_RIT_024",
+        "text": "Air Force One stabilisé.\n"
+    },
+    {
+        "id": "L_RIT_025",
+        "text": "Système Auto-pilote détruit.\n"
+    },
+    {
+        "id": "L_RIT_026",
+        "text": "Le Président est K.O.\n"
+    },
+    {
+        "id": "L_RIT_027",
+        "text": "Pilotes tués.\n"
+    },
+    {
+        "id": "L_RIT_028",
+        "text": "Pilotes sauvés.\n"
+    },
+    {
+        "id": "L_RIT_029",
+        "text": "Air Force One va s'écraser.\n"
+    },
+    {
+        "id": "L_RIT_030",
+        "text": "Obtenir mine télécom.\n"
+    },
+    {
+        "id": "L_RIT_031",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_032",
+        "text": "Mine télécom.\n"
+    },
+    {
+        "id": "L_RIT_033",
+        "text": "Mine télécom.\n"
+    },
+    {
+        "id": "L_RIT_034",
+        "text": "Mine télécom. obtenue.\n"
+    },
+    {
+        "id": "L_RIT_035",
+        "text": "Qui êtes-vous, jeune fille?\n"
+    },
+    {
+        "id": "L_RIT_036",
+        "text": "Securité, SECURITE!!\n"
+    },
+    {
+        "id": "L_RIT_037",
+        "text": "Mr. le Président, vous êtes en danger. Trent va essayer \nde vous kidnapper.\n"
+    },
+    {
+        "id": "L_RIT_038",
+        "text": "Mais? Que se passe-t-il?!\n"
+    },
+    {
+        "id": "L_RIT_039",
+        "text": "Vous devez gagner sans tarder la capsule de secours! \nSuivez-moi!\n"
+    },
+    {
+        "id": "L_RIT_040",
+        "text": "Avez-vous des preuves pour avancer de tels propos?\n Vos accusations sont très graves.\n"
+    },
+    {
+        "id": "L_RIT_041",
+        "text": "Voici l'enregistrement de la réunion entre \nTrent et ses sbires conspirateurs.\n"
+    },
+    {
+        "id": "L_RIT_042",
+        "text": "C'est effrayant... Je vous crois. \nQue fait-on maintenant?\n"
+    },
+    {
+        "id": "L_RIT_043",
+        "text": "Hé, ce n'est pas...\n"
+    },
+    {
+        "id": "L_RIT_044",
+        "text": "C'est un intrus...\n"
+    },
+    {
+        "id": "L_RIT_045",
+        "text": "Comment avez-vous fait pour monter à bord?\n"
+    },
+    {
+        "id": "L_RIT_046",
+        "text": "Bon, récupérons les preuves.\n"
+    },
+    {
+        "id": "L_RIT_047",
+        "text": "Le bureau du Président est dans \nle secteur, Joanna.\n"
+    },
+    {
+        "id": "L_RIT_048",
+        "text": "Il y a quelque chose de bizarre... Foncez à la cabine de pilotage! \n"
+    },
+    {
+        "id": "L_RIT_049",
+        "text": "Peut-être une mine pourrait détruire la connexion à l'OVNI.\n"
+    },
+    {
+        "id": "L_RIT_050",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_051",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_052",
+        "text": "Pilule d'adrénaline\n"
+    },
+    {
+        "id": "L_RIT_053",
+        "text": "Pilule d'adrénaline\n"
+    },
+    {
+        "id": "L_RIT_054",
+        "text": "Pilule d'adrénaline obtenue.\n"
+    },
+    {
+        "id": "L_RIT_055",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_056",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_057",
+        "text": "Carte\n"
+    },
+    {
+        "id": "L_RIT_058",
+        "text": "Carte\n"
+    },
+    {
+        "id": "L_RIT_059",
+        "text": "Carte obtenue.\n"
+    },
+    {
+        "id": "L_RIT_060",
+        "text": "Soute baissée.\n"
+    },
+    {
+        "id": "L_RIT_061",
+        "text": "Soute levée.\n"
+    },
+    {
+        "id": "L_RIT_062",
+        "text": "Objet crucial détruit.\n"
+    },
+    {
+        "id": "L_RIT_063",
+        "text": "Accès refusé - Carte ascenseur requise.\n"
+    },
+    {
+        "id": "L_RIT_064",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_065",
+        "text": "\n"
+    },
+    {
+        "id": "L_RIT_066",
+        "text": "Carte ascenseur\n"
+    },
+    {
+        "id": "L_RIT_067",
+        "text": "Carte ascenseur \n"
+    },
+    {
+        "id": "L_RIT_068",
+        "text": "Carte ascenseur obtenue.\n"
+    },
+    {
+        "id": "L_RIT_069",
+        "text": "Mine retardement.\n"
+    },
+    {
+        "id": "L_RIT_070",
+        "text": "Ha, Ha, Ha, Ha, Ha.\n"
+    },
+    {
+        "id": "L_RIT_071",
+        "text": "C'est trop tard, tu ne pourras pas le sauver.\n"
+    },
+    {
+        "id": "L_RIT_072",
+        "text": "Le Président est attaqué.\n"
+    },
+    {
+        "id": "L_RIT_073",
+        "text": "Avez-vous réfléchi à la proposition que je vous ai présentée, monsieur?\n"
+    },
+    {
+        "id": "L_RIT_074",
+        "text": "Ma réponse est toujours la même: désolé Trent, c'est non. Je ne confierai pas le Pelagic II à la dataDyne. Changeons de sujet, voulez-vous!\n"
+    },
+    {
+        "id": "L_RIT_075",
+        "text": "Mais c'est l'occasion en or de montrer que l'Amérique a foi en son industrie et que vous êtes prêt à les...\n"
+    },
+    {
+        "id": "L_RIT_076",
+        "text": "Ca suffit, quand je dis non c'est non! Je ne vais pas changer d'avis sur ce sujet! Je veux que mes conseillers soient impartiaux, et vous ne me donnez pas cette impression, Trent. Le sujet est clos. C'est votre dernière chance. Je ne reviendrai pas sur ma décision.\n"
+    },
+    {
+        "id": "L_RIT_077",
+        "text": "Comme vous voulez, monsieur.\n"
+    },
+    {
+        "id": "L_RIT_078",
+        "text": "Ma dernière chance? Ha! Pauvre fou. C'était plutôt la tienne, crétin!\n"
+    },
+    {
+        "id": "L_RIT_079",
+        "text": "Elvis! Elvis! Je n'arrive pas à détacher ce tube du fuselage! Peux-tu t'en charger?\n"
+    },
+    {
+        "id": "L_RIT_080",
+        "text": "Un jeu d'enfant, Joanna. Regarde-moi faire!\n"
+    },
+    {
+        "id": "L_RIT_081",
+        "text": "Oh-oh.\n"
+    },
+    {
+        "id": "L_RIT_082",
+        "text": "Regarder quoi? Et si tu faisais dans l'efficace pour une fois, ouvre le feu!\n"
+    },
+    {
+        "id": "L_RIT_083",
+        "text": "Je n'ai plus le choix... Joanna, accroche-toi, ça va secouer!\n"
+    },
+    {
+        "id": "L_RIT_084",
+        "text": "Les pilotes ont stabilisé Air Force One.\n"
+    },
+    {
+        "id": "L_RIT_085",
+        "text": null
+    },
+    {
+        "id": "L_RIT_086",
+        "text": null
+    },
+    {
+        "id": "L_RIT_087",
+        "text": null
+    }
+]

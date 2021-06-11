@@ -1,0 +1,1298 @@
+[
+    {
+        "id": "L_DISH_000",
+        "text": null
+    },
+    {
+        "id": "L_DISH_001",
+        "text": null
+    },
+    {
+        "id": "L_DISH_002",
+        "text": null
+    },
+    {
+        "id": "L_DISH_003",
+        "text": null
+    },
+    {
+        "id": "L_DISH_004",
+        "text": null
+    },
+    {
+        "id": "L_DISH_005",
+        "text": null
+    },
+    {
+        "id": "L_DISH_006",
+        "text": null
+    },
+    {
+        "id": "L_DISH_007",
+        "text": null
+    },
+    {
+        "id": "L_DISH_008",
+        "text": "Recoge la Visión Nocturna de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_009",
+        "text": "Activa la Visión Nocturna.\nLocaliza el interruptor de la luz.\nEnciende las luces.\n"
+    },
+    {
+        "id": "L_DISH_010",
+        "text": "Recoge el Conector de Datos de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_011",
+        "text": "Sitúate cerca de la terminal y usa el Conector.\n"
+    },
+    {
+        "id": "L_DISH_012",
+        "text": "Necesitas sostener el Conector de Datos.\n"
+    },
+    {
+        "id": "L_DISH_013",
+        "text": "Conexión establecida...\n"
+    },
+    {
+        "id": "L_DISH_014",
+        "text": "La Terminal ha sido intervenida con éxito.\n"
+    },
+    {
+        "id": "L_DISH_015",
+        "text": "Conexión perdida: demasiado lejos del PC.\n"
+    },
+    {
+        "id": "L_DISH_016",
+        "text": "Recoge la Mina ECM de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_017",
+        "text": "Localiza el Puerto y conéctale una Mina ECM.\n"
+    },
+    {
+        "id": "L_DISH_018",
+        "text": "La Mina ECM ha sido colocada incorrectamente.\n"
+    },
+    {
+        "id": "L_DISH_019",
+        "text": "La Mina ECM ha sido colocada correctamente.\n"
+    },
+    {
+        "id": "L_DISH_020",
+        "text": "Recoge la Cámara Espía de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_021",
+        "text": "Localiza la Sala del PC de Información y holografíala.\n"
+    },
+    {
+        "id": "L_DISH_022",
+        "text": "Sala del PC de Información holografíada correctamente.\n"
+    },
+    {
+        "id": "L_DISH_023",
+        "text": "Las luces han sido reactivadas.\n"
+    },
+    {
+        "id": "L_DISH_024",
+        "text": "Recoge el Decodificador de Puertas de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_025",
+        "text": "Usa el Decodificador en la puerta para desbloquearla.\n"
+    },
+    {
+        "id": "L_DISH_026",
+        "text": "Necesitas estar sujetando el Decodificador de Puertas.\n"
+    },
+    {
+        "id": "L_DISH_027",
+        "text": "Decodificador colocado. Iniciando rutinas de 'crackeo'...\n"
+    },
+    {
+        "id": "L_DISH_028",
+        "text": "Decodificación completada. La puerta ha sido desbloqueada.\n"
+    },
+    {
+        "id": "L_DISH_029",
+        "text": "Recoge el Rastreador de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_030",
+        "text": "Localiza el Escáner de Infrarrojos con el Rastreador.\n"
+    },
+    {
+        "id": "L_DISH_031",
+        "text": "El Escáner de Infrarrojos ha sido localizado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_032",
+        "text": "Recoge el Escáner de Infrarrojos de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_033",
+        "text": "Localiza la puerta secreta usando el Escáner de Infrarrojos.\n"
+    },
+    {
+        "id": "L_DISH_034",
+        "text": "La puerta secreta ha sido localizada con éxito.\n"
+    },
+    {
+        "id": "L_DISH_035",
+        "text": "Recoge el Escáner de Rayos-X de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_036",
+        "text": "Encuentra los interruptores ocultos para apagar la rejilla láser.\n"
+    },
+    {
+        "id": "L_DISH_037",
+        "text": "Todas las rejillas láser han sido desactivadas.\n"
+    },
+    {
+        "id": "L_DISH_038",
+        "text": "Recoge el Disfraz de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_039",
+        "text": "Engaña a alguien para que te dé el Dispositivo de Ocultación.\n"
+    },
+    {
+        "id": "L_DISH_040",
+        "text": "Dispositivo de Ocultación recuperado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_041",
+        "text": "Rejilla Láser 1 desactivada.\n"
+    },
+    {
+        "id": "L_DISH_042",
+        "text": "Rejilla Láser 2 desactivada.\n"
+    },
+    {
+        "id": "L_DISH_043",
+        "text": "Estoy aquí para recoger el equipo.\n"
+    },
+    {
+        "id": "L_DISH_044",
+        "text": "Vete, Joanna. ¡No engañas a nadie!\n"
+    },
+    {
+        "id": "L_DISH_045",
+        "text": "Aquí lo tienes. No lo dejes caer.\n"
+    },
+    {
+        "id": "L_DISH_046",
+        "text": "El Dispositivo de Ocultación ha sido asegurado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_047",
+        "text": "Se supone que debes usar el Disfraz, ¿recuerdas?\n"
+    },
+    {
+        "id": "L_DISH_048",
+        "text": "Lo tienes que hacer bastante mejor, Joanna.\n"
+    },
+    {
+        "id": "L_DISH_049",
+        "text": "Joanna, ¿de dónde has salido?\n"
+    },
+    {
+        "id": "L_DISH_050",
+        "text": "Has sido detectado por la cámara.\n"
+    },
+    {
+        "id": "L_DISH_051",
+        "text": "Recoge el Dispositivo de Ocultación de la mesa para empezar.\n"
+    },
+    {
+        "id": "L_DISH_052",
+        "text": "Usa el Dispositivo de Ocultación y localiza a Carrington.\n"
+    },
+    {
+        "id": "L_DISH_053",
+        "text": "¡Creo que podemos asegurar que tu entrenamiento\nha sido completado!\n"
+    },
+    {
+        "id": "L_DISH_054",
+        "text": "Misión completada - ¡Entrenamiento de Dispositivos pasado!\n"
+    },
+    {
+        "id": "L_DISH_055",
+        "text": "Misión fallada: Has sido detectada.\n"
+    },
+    {
+        "id": "L_DISH_056",
+        "text": "Elegir el Conector.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina el Conector de Datos y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_057",
+        "text": "Elegir la Cámara Espía.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina la Cámara Espía y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_058",
+        "text": "Elegir la Visión Nocturna.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina la Visión Nocturna y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_059",
+        "text": "Elegir el Decodificador de Puertas.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina el Decodificador y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_060",
+        "text": "Elegir el Escáner de Rayos-X.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina el Escáner de Rayos-X y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_061",
+        "text": "Elegir el Disfraz.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina el Disfraz y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_062",
+        "text": "Elegir el Escáner de Infrarrojos.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina el Escáner de IR y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_063",
+        "text": "Elegir el Rastreador.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina el Rastreador y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_064",
+        "text": "Elegir el Dispositivo de Ocultación.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina el Dispositivo y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_065",
+        "text": "Elegir la Mina ECM.\n- Mantén pulsado el Botón A.\n- Usa el Stick de Control para seleccionar.\n- Ilumina la Mina ECM y suelta el Botón A.\n"
+    },
+    {
+        "id": "L_DISH_066",
+        "text": "Joanna, por fin te encuentro.\n"
+    },
+    {
+        "id": "L_DISH_067",
+        "text": "Ven conmigo.\nTe conduciré a las salas de entrenamiento.\n"
+    },
+    {
+        "id": "L_DISH_068",
+        "text": "El centro de información está tras esta puerta.\n"
+    },
+    {
+        "id": "L_DISH_069",
+        "text": "Aquí tenemos el laboratorio de dispositivos.\n"
+    },
+    {
+        "id": "L_DISH_070",
+        "text": "Esto conduce a la sala de entrenamiento de simulantes.\n"
+    },
+    {
+        "id": "L_DISH_071",
+        "text": "Éste es el campo de tiro, Joanna.\n"
+    },
+    {
+        "id": "L_DISH_072",
+        "text": "Este corredor conduce al hangar.\n"
+    },
+    {
+        "id": "L_DISH_073",
+        "text": "ANTIGRAV\nPulsa el Botón B cerca del Antigrav para cogerlo...\n"
+    },
+    {
+        "id": "L_DISH_074",
+        "text": "Cogiendo la caja, pulsa el Botón B para soltarla.\n"
+    },
+    {
+        "id": "L_DISH_075",
+        "text": "AEROMOTO\nPulsa dos veces B cerca de una Aeromoto para subir.\n"
+    },
+    {
+        "id": "L_DISH_076",
+        "text": "Pulsa dos veces B en la Aeromoto para bajar.\n"
+    },
+    {
+        "id": "L_DISH_077",
+        "text": "ABRIENDO PUERTAS\nPulsa el Botón B cerca de una puerta para abrirla.\n"
+    },
+    {
+        "id": "L_DISH_078",
+        "text": "El Botón B también activará cualquier objeto cercano.\n"
+    },
+    {
+        "id": "L_DISH_079",
+        "text": "ASCENSORES\nPulsa el Botón B cerca de la puerta\npara llamar al ascensor.\n"
+    },
+    {
+        "id": "L_DISH_080",
+        "text": "No se puede salir cuando el entrenamiento está en marcha.\n"
+    },
+    {
+        "id": "L_DISH_081",
+        "text": "Has obtenido el Código Interruptor 1.\n"
+    },
+    {
+        "id": "L_DISH_082",
+        "text": "Has obtenido el Código Interruptor 2.\n"
+    },
+    {
+        "id": "L_DISH_083",
+        "text": "Has obtenido el Código Interruptor 3.\n"
+    },
+    {
+        "id": "L_DISH_084",
+        "text": "Has obtenido el Código Interruptor 4.\n"
+    },
+    {
+        "id": "L_DISH_085",
+        "text": "MIRAR ARRIBA\n- Pulsa el Botón C Abajo para mirar hacia arriba.\n"
+    },
+    {
+        "id": "L_DISH_086",
+        "text": "MIRAR ABAJO\n- Pulsa el Botón C Arriba para mirar hacia abajo.\n"
+    },
+    {
+        "id": "L_DISH_087",
+        "text": "El Holoprograma 2 ha sido completado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_088",
+        "text": "El Holoprograma 4 ha sido completado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_089",
+        "text": "El Holoprograma 5 ha sido completado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_090",
+        "text": "El guarda ha sido desarmado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_091",
+        "text": "El guarda ha sido derribado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_092",
+        "text": "Desarma a este objetivo vivo si puedes.\n"
+    },
+    {
+        "id": "L_DISH_093",
+        "text": "Derriba a este objetivo: ocultarse es la clave.\n"
+    },
+    {
+        "id": "L_DISH_094",
+        "text": "Y el guarda final...\n"
+    },
+    {
+        "id": "L_DISH_095",
+        "text": "AGACHARSE\n- Mantén el Botón R, entonces pulsa el Botón C Abajo para agacharte.\n"
+    },
+    {
+        "id": "L_DISH_096",
+        "text": "ARRASTRARSE\n- Una vez agachado, mantén el Botón R, entonces pulsa el Botón C abajo para arrastrarte.\n"
+    },
+    {
+        "id": "L_DISH_097",
+        "text": "El Holoprograma 3 ha sido completado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_098",
+        "text": "Activa todos los interruptores.\n"
+    },
+    {
+        "id": "L_DISH_099",
+        "text": "Activa todos los interruptores del muro.\n- Date prisa, ya que se reinician rápidamente.\n"
+    },
+    {
+        "id": "L_DISH_100",
+        "text": "Obtén los códigos de acceso examinando los terminales. \n- Usa los códigos en los terminales del muro.\n"
+    },
+    {
+        "id": "L_DISH_101",
+        "text": "El Código 1 ha sido obtenido.\n"
+    },
+    {
+        "id": "L_DISH_102",
+        "text": "El Código 2 ha sido obtenido.\n"
+    },
+    {
+        "id": "L_DISH_103",
+        "text": "El Código 3 ha sido obtenido.\n"
+    },
+    {
+        "id": "L_DISH_104",
+        "text": "El Código 4 ha sido obtenido.\n"
+    },
+    {
+        "id": "L_DISH_105",
+        "text": "Entrenamiento fallado: debes mirar al frente.\n"
+    },
+    {
+        "id": "L_DISH_106",
+        "text": "El Holoprograma 1 ha sido completado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_107",
+        "text": "Combate sin armas: derriba al objetivo.\n- Pulsa el Botón Z repetidamente para golpear.\n"
+    },
+    {
+        "id": "L_DISH_108",
+        "text": "Ahora inténtalo contra un objetivo en movimiento...\n"
+    },
+    {
+        "id": "L_DISH_109",
+        "text": "Y por último contra un objetivo que contraataca.\n"
+    },
+    {
+        "id": "L_DISH_110",
+        "text": "Derrota a todos los enemigos sin ser alcanzado.\n"
+    },
+    {
+        "id": "L_DISH_111",
+        "text": "Entrenamiento fallado: te han acertado.\n"
+    },
+    {
+        "id": "L_DISH_112",
+        "text": "El Holoprograma 6 ha sido completado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_113",
+        "text": "El Holoprograma 7 ha sido completado con éxito.\n"
+    },
+    {
+        "id": "L_DISH_114",
+        "text": "TERMINALES\n- Pulsa el Botón B cerca de la terminal\npara usarla.\n"
+    },
+    {
+        "id": "L_DISH_115",
+        "text": "Ahora activa las terminales rojas del muro.\n"
+    },
+    {
+        "id": "L_DISH_116",
+        "text": "PP7\n"
+    },
+    {
+        "id": "L_DISH_117",
+        "text": "TT33\n"
+    },
+    {
+        "id": "L_DISH_118",
+        "text": "Skorpion\n"
+    },
+    {
+        "id": "L_DISH_119",
+        "text": "AK47\n"
+    },
+    {
+        "id": "L_DISH_120",
+        "text": "Uzi 9mm\n"
+    },
+    {
+        "id": "L_DISH_121",
+        "text": "MP5K\n"
+    },
+    {
+        "id": "L_DISH_122",
+        "text": "M-16\n"
+    },
+    {
+        "id": "L_DISH_123",
+        "text": "FNP90\n"
+    },
+    {
+        "id": "L_DISH_124",
+        "text": "Bien, Joanna, te dejo. Prepárate para la misión.\n"
+    },
+    {
+        "id": "L_DISH_125",
+        "text": "Joanna Dark\n"
+    },
+    {
+        "id": "L_DISH_126",
+        "text": "Humano (Mujer)\n"
+    },
+    {
+        "id": "L_DISH_127",
+        "text": "23 años 2 meses\n"
+    },
+    {
+        "id": "L_DISH_128",
+        "text": "|Fichero IC #027 -\n\nEstatus Entrenamiento: Completado\nGrado de Entrenamiento: A++\nEstatus Actual: Asignado\n\n|Perfil -\n\nAltamente entrenada pero sin experiencia. Reacción excelente. Experta en gran variedad de armas. Agente muy competente en todo momento. La más alta puntuación en entrenamiento, lo que llevó a la creación de un nuevo nivel. Es la encarnación del agente ideal del Instituto Carrington, de ahí su nombre clave: 'Perfect Dark'.\n"
+    },
+    {
+        "id": "L_DISH_129",
+        "text": "Jonathan\n"
+    },
+    {
+        "id": "L_DISH_130",
+        "text": "Humano (Hombre)\n"
+    },
+    {
+        "id": "L_DISH_131",
+        "text": "28 años 5 meses\n"
+    },
+    {
+        "id": "L_DISH_132",
+        "text": "|Fichero IC #009 -\n\nEstatus Entrenamiento: Completado\nGrado de Entrenamiento: A+\nEstatus Actual: Secreto\n\n|Perfil -\n\nNuestro agente secreto con mayor experiencia. Muy preciso con su arma favorita (un Revólver Magnum). Perfectamente preparado para misiones secretas. Menos preparado en combate normal. Tras Joanna Dark, tiene el honor de tener la puntuación más alta en entrenamiento.\n"
+    },
+    {
+        "id": "L_DISH_133",
+        "text": "Daniel Carrington\n"
+    },
+    {
+        "id": "L_DISH_134",
+        "text": "Humano (Hombre)\n"
+    },
+    {
+        "id": "L_DISH_135",
+        "text": "62 años 8 meses\n"
+    },
+    {
+        "id": "L_DISH_136",
+        "text": "|Fichero IC #000 -\n\nEstatus Entrenamiento: N/D\nGrado de Entrenamiento: N/D\nEstatus Actual: N/D\n\n|Perfil -\n\nInteligente y patriarcal científico/empresario, fundador del Instituto Carrington. Planifica todas las misiones de sus agentes y controla cada operación desde su oficina. Con un gusto un tanto personal en la ropa.\n"
+    },
+    {
+        "id": "L_DISH_137",
+        "text": "Cassandra De Vries\n"
+    },
+    {
+        "id": "L_DISH_138",
+        "text": "Humano (Mujer)\n"
+    },
+    {
+        "id": "L_DISH_139",
+        "text": "39 años ? meses\n"
+    },
+    {
+        "id": "L_DISH_140",
+        "text": "|Análisis -\n\nDirectora de la Corporación dataDyne. Adicta al poder; detesta ser subordinada de nadie. Odia perder la iniciativa. No muestra ninguna clase de escrúpulos si con ello consigue superarse en su competición con Daniel Carrington, al cual aborrece.\n"
+    },
+    {
+        "id": "L_DISH_141",
+        "text": "Trent Easton\n"
+    },
+    {
+        "id": "L_DISH_142",
+        "text": "Humano (Hombre)\n"
+    },
+    {
+        "id": "L_DISH_143",
+        "text": "46 años ? meses\n"
+    },
+    {
+        "id": "L_DISH_144",
+        "text": "|Análisis -\n\nDirector de la Agencia Nacional de Seguridad. Tiene una cierta amistad con Cassandra De Vries, aunque parece más una unión de interés. Tiende a hacer lo que dice Cassandra, ya que aunque tiene una personalidad dominante, no lo es tanto como la de ella. Cabeza visible de los elementos más granujas de la ANS.\n"
+    },
+    {
+        "id": "L_DISH_145",
+        "text": "Dr. Caroll\n"
+    },
+    {
+        "id": "L_DISH_146",
+        "text": "La Inteligencia Caroll (IA)\n"
+    },
+    {
+        "id": "L_DISH_147",
+        "text": "6 meses\n"
+    },
+    {
+        "id": "L_DISH_148",
+        "text": "|Perfil -\n\nInteligencia artificial creada por la Corporación dataDyne con habilidades de lenguaje y apertura de códigos. Afortunadamente, tiene moral, y debido a su formidable nivel de inteligencia, ha adivinado algunos de los planes futuros de dataDyne. Su voz es muy precisa y educada y simula la personalidad de un académico.\n"
+    },
+    {
+        "id": "L_DISH_149",
+        "text": "Elvis\n"
+    },
+    {
+        "id": "L_DISH_150",
+        "text": "Maian (Macho)\n"
+    },
+    {
+        "id": "L_DISH_151",
+        "text": "320 años\n"
+    },
+    {
+        "id": "L_DISH_152",
+        "text": "|Perfil -\n\nAlienígena de la raza Maian. Es un 'Protector' (guardaespaldas) del embajador Maian que viaja a la Tierra a petición de Daniel Carrington. Los Protectores están entrenados para dominar una gran variedad de armamento. Elvis es un terrófilo, es decir, está fascinado por el planeta Tierra y todo lo que contiene.\n"
+    },
+    {
+        "id": "L_DISH_153",
+        "text": "Mr. Blonde\n"
+    },
+    {
+        "id": "L_DISH_154",
+        "text": "Humano (Hombre)\n"
+    },
+    {
+        "id": "L_DISH_155",
+        "text": "Unos 30 años\n"
+    },
+    {
+        "id": "L_DISH_156",
+        "text": "|Perfil -\n\nEs un sorprendente hombre rubio. Muy alto, viste ropa blanca, habitualmente una gabardina. Parece ser la cabeza pensante de la conspiración en la que Cassandra y Trent están involucrados. Poco más se sabe.\n"
+    },
+    {
+        "id": "L_DISH_157",
+        "text": "Mr. Blonde\n"
+    },
+    {
+        "id": "L_DISH_158",
+        "text": "Skedar (disfrazado)\n"
+    },
+    {
+        "id": "L_DISH_159",
+        "text": "desconocida\n"
+    },
+    {
+        "id": "L_DISH_160",
+        "text": "|Perfil Actualizado -\n\nSe trata de un guerrero Skedar disfrazado con la proyección holográfica de un impresionante humano rubio de unos 30 años.  Su unidad de modulación oral da al Skedar una precisa, persuasiva, e inteligente voz. Es un instrumento de propaganda y manipulación de los Skedar, inusualmente sutil.\n"
+    },
+    {
+        "id": "L_DISH_161",
+        "text": "Presidente de EE.UU.\n"
+    },
+    {
+        "id": "L_DISH_162",
+        "text": "Humano (Hombre)\n"
+    },
+    {
+        "id": "L_DISH_163",
+        "text": "50 años\n"
+    },
+    {
+        "id": "L_DISH_164",
+        "text": "|Perfil -\n\nAltamente educado, es un perspicaz afroamericano que intenta hacer lo correcto, pero que está rodeado de gente como Trent Easton. Cree que tiene a Trent bajo control tras rechazar la petición de préstamo del Pelagic II a la Corporación dataDyne. La mayoría de comentaristas políticos piensa que es fácil de controlar, lo cual quizás sea injusto.\n"
+    },
+    {
+        "id": "L_DISH_165",
+        "text": "Maian\n"
+    },
+    {
+        "id": "L_DISH_166",
+        "text": "Los Maian son la raza de alienígenas conocida en la Tierra como los 'Grises'. Han vigilado la Tierra durante largo tiempo, bastantes siglos, y han sido benevolentes con la humanidad, siendo conscientes del potencial de la raza humana. Su contacto en la Tierra es Daniel Carrington. Todavía debe hacerse un contacto político formal.\n"
+    },
+    {
+        "id": "L_DISH_167",
+        "text": "Guerreros Skedar\n"
+    },
+    {
+        "id": "L_DISH_168",
+        "text": "Los Skedar son una raza alienígena guerrera que luchó con los Maian durante siglos y sólo ahora han aceptado un alto el fuego. Suelen usar armaduras para caminar y luchar, ya que son criaturas bastante pequeñas y con forma de serpiente. Son muy agresivos y extremadamente devotos; han hecho de la Guerra una religión.\n"
+    },
+    {
+        "id": "L_DISH_169",
+        "text": "Antecedentes\n"
+    },
+    {
+        "id": "L_DISH_170",
+        "text": "Hace millones de años, una gigantesca nave alienígena de inmenso poder, creada por una raza alienígena llamada Cetan, se hundió en el Océano Pacífico. Estaba equipada con una nueva arma devastadoramente peligrosa: la 'fuerza nuclear de acople débil', que en teoría puede causar que las cadenas que unen las moléculas fallen. Aunque algunos hubieran creído en la innegable destrucción de la nave, un mensaje-cápsula fue enviado a casa, y partes vitales de los sistemas de navegación fueron destruidas en el sistema estelar que eligieron como escondite.\n\n Esta nave era un Cetan, una gigantesca, criatura alienígena centinela.\n\nOtra raza extraterrestre, los Maian, encontró vida en la Tierra en el 2000 AC. Detectaron un gran potencial, pero decidieron dejar a la primitiva raza humana desarrollarse sin intromisiones.\n\nLos Maian encontraron a los Skedar cerca de Delta Eridanus en el 1650 DC (fecha terráquea), y la escaramuza resultante pronto floreció en una guerra total. Sólo tras cientos de años de lucha se logró un tratado de paz, aunque los fanáticos Skedar se saltaban continuamente los acuerdos de esta paz con actividades terroristas. Afortunadamente, los Maian rehusaron abandonar.\n\nLa humanidad, también, continuó siendo una causa que concernía a los Maian, los cuales veían con decepción cómo la Tierra sufría más y más crisis debido al crecimiento de la tecnología y a 'situaciones fuera de contexto'. Sintieron que anunciar su presencia sólo precipitaría guerras futuras en el planeta, y tranquilamente decidieron continuar en observación hasta que la raza madurara más.\n\nDaniel Carrington se adelantó a todos en el 1985 DC al contactar con una nave Maian en órbita sobre la Tierra. Propuso un plan que podía ayudar a ambas partes, resultando así un contacto acelerado entre Humanos y Maian. Viendo que su plan era sensato, y que se trataba de una persona íntegra, los Maian permitieron a Carrington lanzar su tecnología al dominio público a través de sus grandes empresas de Investigación y Desarrollo.\n\nEntonces, en el 2006 DC, los fanáticos Skedar dieron con la cápsula-mensaje Cetan. Inmediatamente comenzaron a rastrear la Tierra de un modo particularmente duro, abduciendo gente y mutilando animales en un intento de determinar la localización del crucero de batalla perdido. Con el tiempo, sus pruebas les condujeron inevitablemente al lecho marino del Océano Pacífico; de todos modos, para alcanzarla, necesitarían ayuda de los nativos.\n\nLlevando a cabo su propio estudio de la Tierra, los Skedar confeccionaron una corta lista de compañías que poseían los recursos para ayudarles a recuperar la nave hundida. En lo más alto de esa lista estaba la Corporación dataDyne. Contactaron con su directora, Cassandra De Vries, y se presentaron con un trato que sonaba demasiado bien para ser cierto: el cual, por cierto, lo era. A cambio de su ayuda para levantar 'su' nave del lecho marino, los Skedar prometieron dotar a dataDyne con suficiente tecnología alienígena para convertirse en la mayor corporación  sobre la faz del planeta. Todo lo que dataDyne tenía que hacer era construir una unidad de IA con habilidades de lenguaje y 'rotura' de códigos, que era justo lo que necesitaban. Se comenzó a trabajar en el proyecto inmediatamente.\n\nCassandra De Vries le mostró al director de la ANS, Trent Easton, los detalles del plan, pero sus intentos de conseguir la aprobación Presidencial para el préstamo de una nave de investigación a profundidad, fueron repetidamente rechazados. No existía la posibilidad de que los Skedar o dataDyne pudieran robar la nave sin desatar la ira del Gobierno de los EE.UU., así que decidieron trazar un plan bastante más siniestro para reemplazar al Presidente con un clon que ellos pudieran controlar. Por supuesto, esto prometía recompensas extra para Trent y Cassandra cuando la operación Skedar pasara a la historia.\n\nDe todas formas, no tuvieron mucho tiempo para regodearse. El plan último de los fanáticos Skedar era probar la 'fuerza nuclear de acople-débil' en la Tierra antes de eliminar a los Maian, y tanto Cassandra como Trent permanecieron ciegos ante la posibilidad de ser traicionados, así que enamorados de las visiones de poder y lujo, continuaron adelante.\n\nPero dataDyne había creado inconscientemente algo que podía ver demasiado claro el peligro que implicaba una conspiración de tal magnitud: la sabia IA construida para abrir los códigos de acceso de la nave Cetan. Cuando se mostró disconforme con la misión para la que había sido diseñada, la respuesta de Cassandra fue ordenar que su personalidad fuera eliminada. Claramente, pensaba demasiado. En su desesperación, y en un movimiento que podría sellar o romper un mejor trato que el 'pacto' entre dataDyne y los Skedar, la IA adoptó el seudónimo de Dr. Caroll y contactó con el Instituto Carrington con una súplica de ayuda...\n"
+    },
+    {
+        "id": "L_DISH_171",
+        "text": "La Historia\n"
+    },
+    {
+        "id": "L_DISH_172",
+        "text": "A la inexperta agente Joanna Dark se le asignó una misión relacionada con la 'extracción' de un científico de un área de desarrollo de alta seguridad sita bajo el rascacielos de dataDyne. Después del encuentro, se sorprende al descubrir que el 'Dr. Caroll' es una IA creada por la propia dataDyne, pero ella continua con su tarea de escoltarle/lo a un lugar seguro. Cuando salta la alarma, Joanna tiene que abrirse camino hacia lo alto del edificio para alcanzar el helipuerto y la lanzadera que supone su única vía de escape.\n\nEn respuesta a esta incursión, dataDyne marca a Daniel Carrington como un objetivo personal y lo toma como rehén dos días después en su villa privada. Demandan la devolución de la IA, su 'propiedad', a cambio de su vida. No lo saben, pero la IA ya está en la villa, donde fue interrogada por Carrington sobre los planes de futuro de dataDyne. Finalmente, Joanna rescata al director del Instituto pero es incapaz de evitar que dataDyne se apodere de nuevo del Dr. Caroll. De todas formas, Carrington conoce lo suficiente como para dar el paso drástico de reclamar en la Tierra un equipo de especialistas Maian.\n\nJoanna es enviada para espiar la reunión de los conspiradores en el Edificio G5, una tapadera de la Corporación dataDyne. Es aquí donde averigua que Trent Easton, director de la ANS, y aquellos hombres nórdicos, que parecen tener el control del mortal plan, están involucrados. Cuando Trent revela el plan de usurpar la posición Presidencial, Joanna comunica por radio las novedades a la base, sólo para descubrir que otra tarea todavía más urgente requiere de ella, antes incluso de llevar a cabo cualquier acción contra Trent.\n\nLos especialistas Maian han sido interceptados y derribados por los conspiradores, y los supervivientes y los restos del accidente son transportados al Área 51, en Nevada. Con la misión de rescatar supervivientes y recuperar sus equipos, Joanna es 'introducida' para enlazar con otro agente del Instituto Carrington. Cuando irrumpe en el laboratorio médico, Joanna descubre finalmente el secreto del Instituto, sus aliados son los Maian, la raza alienígena comúnmente conocida como los 'Grises'. El Maian en particular que ella rescata responde al nombre de Elvis. Fue un guardaespaldas del Embajador que viajaba a la cabeza del equipo de especialistas.\n\nHabiendo asistido al resto de la delegación Maian, Joanna puede volver al asunto del Presidente y a los planes de dataDyne en su contra. Se hace pasar por miembro del séquito Presidencial para acceder a la base aérea donde el Air Force One está ubicado, y consigue colarse con éxito en el avión. Nada más despegar, Trent y el Skedar disfrazado mueven pieza, pero Joanna está allí para detenerles. Apresura al Presidente a la cápsula de escape mientras un equipo de hombres de Trent registran detenidamente el avión, en un intento de arrastrar al desgraciado político a bordo del OVNI Skedar, unido al AF1 por un tubo. Joanna debilita el tubo pero es incapaz de romperlo, y en última instancia Elvis intenta romper el tubo estrellándose contra él a gran velocidad. Las tres naves caen en picado sobre la 'inexplorada' Alaska, y la cápsula de escape del AF1 se eyecta.\n\nUna vez consciente, Joanna intenta informar por radio pero las comunicaciones están bloqueadas debido a interferencias provenientes de la nave Skedar. Vagando por la nieve en busca del Presidente y de Elvis, se encuentra con grupos de Skedar ocultos que la buscan a ella, al Presidente, a Elvis y las pertenencias del Presidente. Localiza un grupo de vuelta a la nave Skedar derribada, donde descubre un clon del Presidente: rápidamente lo destruye, apaga el origen de las interferencias y pide ayuda a la 'caballería'. Los planes Skedar han vuelto a ser frustrados, el Presidente está seguro y la incompetencia de Trent le ha llevado a un sucio destino a manos de sus 'aliados'.\n\nPero aquí no acaba la cosa. Descuidando toda precaución, dataDyne y los Skedar roban el navío de investigación del Gobierno, el 'Pelagic II', y se ponen en marcha hacia el lugar del siniestro en el Pacífico. Joanna y Elvis acuden para desbaratar la actividad a bordo y averiguar qué se esconde tras el gran plan Skedar. Después de paralizar las operaciones de inmersión del navío y replegar el sumergible, bajan al fondo oceánico, donde hacen el primer avistamiento del crucero de batalla Cetan derribado. Un portal hecho por los Skedar les permite el acceso a la nave, donde se encuentran con el cadáver de un guerrero Skedar... Parece que el equipo de asalto no las tenía todas consigo. Venciendo a los restantes vengativos Skedar y evitando a los Cetan, Joanna y Elvis se abren camino hasta el corazón de la nave, donde encuentran la IA que una vez fue Dr. Caroll. Se las apañan para restaurarle la personalidad, después de lo cual les ayuda a abandonar la nave para poder destruirla por el bien de todos.\n\nMás tarde, de vuelta en el Instituto Carrington, Joanna está a punto de salir hacia una recepción Presidencial en la Casa Blanca cuando se arma un gran revuelo. Los supervivientes del equipo de asalto Skedar están descargando su ira en aquellos en los que piensan recae la responsabilidad de su error al perder la nave Cetan. Joanna corre por el Instituto, ayudando a los empleados del IC a alcanzar la seguridad de los hangares, mientras los Skedar lanzan ataques en varias partes del edificio: la mayoría de los empleados pudieron ponerse a salvo mientras Joanna mantenía la resistencia, pero finalmente es golpeada e inconsciente es tomada como prisionera.\n\nJoanna despierta en una celda a bordo de la nave de asalto Skedar, con Cassandra De Vries como única compañía. Por sorpresa, la directora de dataDyne, de buena gana da su vida para crear la distracción necesaria para que Joanna escape. Luchando a través de la nave, logra localizar y desactivar los escudos de la bahía de carga, permitiendo a Elvis llevar a unos cuantos amigos a la tan esperada 'fiesta' de la nave.\n\nLa ya capturada nave de asalto entra en órbita sobre el Templo de Batalla Skedar, lo que sorprende a Elvis ya que los Maian nunca antes habían encontrado 'el más sagrado' lugar Skedar en todos los años de Guerra interracial. Si el Templo es destruido, la moral Skedar será abatida, y se logrará una paz verdadera en vez de un inútil 'alto el fuego'. Joanna busca al líder Skedar, el más alto sacerdote del Templo de Batalla, mientras Elvis regresa a la nave de asalto para traer a la flota Maian.\n\nAl despertar de tan culminante batalla, el templo está devastado. Elvis pide que se pare el bombardeo para encontrar a Joanna. Está viva pero retenida bajo una pila de escombros donde un tenaz Skedar la atrapa durante los últimos segundos de su intento de escapar. Elvis le entrega rápidamente un arma para convencer al Skedar de que la deje irse, y con el trabajo ya hecho, el Templo y la moral Skedar en ruinas y la conspiración desbaratada, los dos parten a la órbita más cercana.\n"
+    },
+    {
+        "id": "L_DISH_173",
+        "text": "Corporación dataDyne\n"
+    },
+    {
+        "id": "L_DISH_174",
+        "text": "La monolítica corporación que dataDyne ha llegado a ser comenzó su negocio como programadora de sistemas de IA. Cuando de verdad comenzó a crecer, fue cuando consiguió trabajos como contratista de los militares norteamericanos, y su joven y dinámica gerente Cassandra De Vries empezó a cerrar tratos con fabricantes de armas, mientras ignoraba las ofertas de Daniel Carrington y el Instituto para colaborar en el desarrollo de ordenadores cuánticos e IAs. Cuando la tercera compañía armamentística fue comprada por dataDyne, los beneficos se tornaron astronómicos. Tras recibir un contrato del gobierno para el desarrollo de armas, Cassandra De Vries fue promocionada a Directora. Una significativa parte de los beneficios de la corporación fueron redirigidos a desarrollo de IAs, con resultados excelentes.\n"
+    },
+    {
+        "id": "L_DISH_175",
+        "text": "Instituto Carrington\n"
+    },
+    {
+        "id": "L_DISH_176",
+        "text": "Brevemente considerado como inventor chiflado, Daniel Carrington fue el primero en crear la tecnología anti-gravedad. Las ganancias obtenidas, así como su desarrollo, le permitieron crear el Instituto Carrington, un remanso de creadores de tecnología situado en un remoto lugar de los EE.UU. De hecho, el Instituto es un campo de entrenamiento para agentes que son enviados por todo el planeta para seguir el desarrollo tecnológico actual, por razones que sólo conoce el propio Daniel Carrington.\n"
+    },
+    {
+        "id": "L_DISH_177",
+        "text": "Descripción\n- Una pequeña cámara remota para exploración sigilosa. Realiza holografías espectroscópicas. Abre puertas proyectando un impulso de calor del tamaño de un humano.\n\nInstrucciones de Entrenamiento\n- Crea un holograma del terminal hacker de al lado de la Sala de Información.\n\nOperativa\n- El Botón Z toma una holografía. El Botón B abrirá cualquier puerta en el camino. Mantén el Botón R para mirar.\n"
+    },
+    {
+        "id": "L_DISH_178",
+        "text": "Descripción\n- Mejora la luz visible para producir una imagen del área circundante. También refleja formas de vida. En niveles normales de luz se produce una sobrecarga que 'blanquea' el visor.\n\nInstrucciones de Entrenamiento\n- Busca el interruptor de la luz en la oscuridad y actívalo.\n\nOperativa\n- Selecciona la Visión Nocturna de tu inventario para activarla. Hazlo de nuevo para desactivarla.\n"
+    },
+    {
+        "id": "L_DISH_179",
+        "text": "Descripción\n- Dispositivo para apertura de códigos. Se aplica sobre el panel de control y busca la combinación hasta que la puerta se abra.\n\nInstrucciones de Entrenamiento\n- Encuentra el panel de la puerta cerrada y usa el Descodificador de Puertas en él hasta que la abras.\n\nOperativa\n- Sitúate cerca del panel de la puerta y pulsa el Botón B mientras sujetas el Descodificador para usarlo.\n"
+    },
+    {
+        "id": "L_DISH_180",
+        "text": "Descripción\n- Se usa para ver a través de muros sólidos y objetos. Puede ver cosas que la Visión Nocturna y el Escáner de Infrarrojos no pueden.\n\nInstrucciones de Entrenamiento\n- Con el Escáner de Rayos-X, busca los dos interruptores ocultos y actívalos para apagar la cuadrícula láser.\n\nOperativa\n- Elige el Escáner de Rayos-X de tu inventario para activarlo. Selecciónalo otra vez para desactivarlo.\n"
+    },
+    {
+        "id": "L_DISH_181",
+        "text": "Descripción\n- Evita problemas al usar un disfraz. Pero, siempre debes estar alerta ante la posibilidad de ser desenmascarado por un enemigo espabilado.\n\nInstrucciones de Entrenamiento\n- Grimshaw tiene un Dispositivo de Ocultación esperándote. Ve a la puerta de al lado para 'hacerte' con uno.\n\nOperativa\n- Para llevar el disfraz, simplemente elígelo en tu inventario.\n"
+    },
+    {
+        "id": "L_DISH_182",
+        "text": "Descripción\n- Traslada datos termales en imágenes visibles. Puede ser usado en la oscuridad y también revela anomalías como puertas ocultas o muros debilitados.\n\nInstrucciones de Entrenamiento\n- Enciende el Escáner de Infrarrojos, encuentra la puerta oculta y ábrela.\n\nOperativa\n- Elige el Escáner de Infrarrojos en tu inventario para activarlo. Reelígelo para desactivarlo.\n"
+    },
+    {
+        "id": "L_DISH_183",
+        "text": "Descripción\n- Localiza un objeto en el mapa radar del visor. Muestra la posición relativa y la distancia.\n\nInstrucciones de Entrenamiento\n- Activa el Rastreador y sigue la señal de radar hasta obtener el objeto.\n\nOperativa\n- Selecciona el Rastreador en tu inventario para activarlo. Reelígelo para desactivarlo.\n"
+    },
+    {
+        "id": "L_DISH_184",
+        "text": "Descripción\n- Trastorna el espectro visible de luz alrededor del portador, creando un efecto camaleónico. Este campo desaparece cuando el portador dispara.\n\nInstrucciones de Entrenamiento\n- Activa el Dispositivo de Ocultación y dirígete a la oficina de Carrington para sorprenderle.\n\nOperativa\n- Selecciona el Dispositivo de Ocultación para activarlo. Reelígelo para desactivarlo.\n"
+    },
+    {
+        "id": "L_DISH_185",
+        "text": "Descripción\n- Emite una señal constante que sirve para bloquear cualquier dispositivo de comunicación electrónica. Debe ser colocado en el objeto para ser efectivo.\n\nInstrucciones de Entrenamiento\n- Lanza la Mina ECM en el Puerto tras la puerta secreta.\n\nOperativa\n- Pulsa el Botón Z para lanzar la mina. Mantén el Botón R y mueve el Stick de Control para afinar tu puntería antes de lanzar.\n"
+    },
+    {
+        "id": "L_DISH_186",
+        "text": "Descripción\n- Comunica al agente de campo con los hackers del Instituto sitos en el CG, quienes pueden romper cerraduras electrónicas a distancia.\n\nInstrucciones de Entrenamiento\n- Usa el Conector de Datos para 'hackear' la terminal de la esquina, abriendo así una puerta secreta.\n\nOperativa\n- Sitúate en la terminal y pulsa el Botón B mientras sujetas el Conector de Datos.\n"
+    },
+    {
+        "id": "L_DISH_187",
+        "text": "DISPARAR\n Pulsa el Botón Z para disparar el arma.\n"
+    },
+    {
+        "id": "L_DISH_188",
+        "text": "RECARGA AUTOMÁTICA\n Suelta el Botón Z cuando no tengas munición.\n"
+    },
+    {
+        "id": "L_DISH_189",
+        "text": "RECARGA MANUAL\n Pulsa el Botón B para recargar en cualquier momento.\n"
+    },
+    {
+        "id": "L_DISH_190",
+        "text": "Apuntar: Mantén el Botón R para entrar en el modo Apuntar.\n"
+    },
+    {
+        "id": "L_DISH_191",
+        "text": "Usa el Stick de Control para mover la mirilla.\n"
+    },
+    {
+        "id": "L_DISH_192",
+        "text": "AUTODISPARO\n Mantén el Botón Z para disparar automáticamente.\n"
+    },
+    {
+        "id": "L_DISH_193",
+        "text": "ALTERAR VISTA\n Pulsa el Botón C Arriba o el Botón C Abajo para mover la vista arriba/abajo.\n"
+    },
+    {
+        "id": "L_DISH_194",
+        "text": "ZOOM\n Mantén el Botón R para entrar en el modo Zoom.\n"
+    },
+    {
+        "id": "L_DISH_195",
+        "text": "FUEGO RÁPIDO\n Pulsa el Botón Z rápido para disparar más velozmente.\n"
+    },
+    {
+        "id": "L_DISH_196",
+        "text": "Instituto Carrington\u0000|Base de operaciones\n"
+    },
+    {
+        "id": "L_DISH_197",
+        "text": "Edificio Lucerne\u0000|Cuartel General Global\n"
+    },
+    {
+        "id": "L_DISH_198",
+        "text": "Sótano Laboratorio\u0000|Laboratotios subterráneos\n"
+    },
+    {
+        "id": "L_DISH_199",
+        "text": "Villa Carrington\u0000|Propiedad privada en la costa\n"
+    },
+    {
+        "id": "L_DISH_200",
+        "text": "Chicago\u0000|Barrios Bajos de la ciudad\n"
+    },
+    {
+        "id": "L_DISH_201",
+        "text": "Edificio G5\u0000|Edificio de la Corporación dataDyne\n"
+    },
+    {
+        "id": "L_DISH_202",
+        "text": "Área 51\u0000|Cerca del Lago Seco, Nevada\n"
+    },
+    {
+        "id": "L_DISH_203",
+        "text": "Base Aérea Alaska\u0000|Brooks Range, Alaska\n"
+    },
+    {
+        "id": "L_DISH_204",
+        "text": "Air Force One\u0000|Avión del Presidente\n"
+    },
+    {
+        "id": "L_DISH_205",
+        "text": "Lugar del Impacto\u0000|Isla Victoria 71ºN 118ºO\n"
+    },
+    {
+        "id": "L_DISH_206",
+        "text": "Pelagic II\u0000|Navío especializado de profundidad\n"
+    },
+    {
+        "id": "L_DISH_207",
+        "text": "Nave Cetan\u0000|Nave alienígena en la Tierra\n"
+    },
+    {
+        "id": "L_DISH_208",
+        "text": "Nave de Asalto Skedar\u0000|Nave espacial de transporte\n"
+    },
+    {
+        "id": "L_DISH_209",
+        "text": "Mundo Skedar\u0000|El planeta del Templo de Batalla\n"
+    },
+    {
+        "id": "L_DISH_210",
+        "text": "Lanzadera\u0000|Ágil transporte de tropas\n"
+    },
+    {
+        "id": "L_DISH_211",
+        "text": "AntiGrav\u0000|Dispositivo de Antigravedad\n"
+    },
+    {
+        "id": "L_DISH_212",
+        "text": "Aeromoto\u0000|Vehículo aéreo de baja altitud\n"
+    },
+    {
+        "id": "L_DISH_213",
+        "text": "Bot de Limpieza\u0000|Tu ayudante especial\n"
+    },
+    {
+        "id": "L_DISH_214",
+        "text": "Hovercóptero\u0000|Nave de asalto urbana\n"
+    },
+    {
+        "id": "L_DISH_215",
+        "text": "Robot G5\u0000|Droide urbano de combate\n"
+    },
+    {
+        "id": "L_DISH_216",
+        "text": "Interceptor A51\u0000|Interceptor aéreo robótico\n"
+    },
+    {
+        "id": "L_DISH_217",
+        "text": "Nave Maian\u0000|Nave de reconocimiento y patrulla\n"
+    },
+    {
+        "id": "L_DISH_218",
+        "text": "Lanzadera Skedar\u0000|Nave alienígena de tropas\n"
+    },
+    {
+        "id": "L_DISH_219",
+        "text": "El edificio del Instituto comprende diferentes áreas: oficinas y laboratorios, talleres y hangares. Está bastante aislado del mundo exterior, lo que ayuda a mantener las operaciones en secreto.\n"
+    },
+    {
+        "id": "L_DISH_220",
+        "text": "En el centro del distrito financiero, el austero rascacielos de la Corporación dataDyne destaca sobre sus vecinos.\n"
+    },
+    {
+        "id": "L_DISH_221",
+        "text": "Fuertemente guardados, estos bien escondidos laboratorios son la clave del futuro de dataDyne. En ellos, los técnicos trabajan secretamente para situar a dataDyne en lo más alto.\n"
+    },
+    {
+        "id": "L_DISH_222",
+        "text": "Pertenceciente al Instituto, esta apartada residencia es utilizada por Daniel Carrington como retiro de su trabajo en el Instituto. También tiene un observatorio, su propio generador eléctrico y una amplía bodega.\n"
+    },
+    {
+        "id": "L_DISH_223",
+        "text": "Es una sórdida y mugrienta parte de Chicago, ahora cerrada al tráfico. Es aquí donde la Corporación G5 tiene su cuartel general.\n"
+    },
+    {
+        "id": "L_DISH_224",
+        "text": "Dentro del Edificio G5 hay una sala de reuniones protegida por sistemas antigrabación. Para dataDyne es el lugar más seguro para formular sus planes confidenciales.\n"
+    },
+    {
+        "id": "L_DISH_225",
+        "text": "Esta sección de la gigantesca instalación conocida como Área 51 está situada al pie de las colinas del Lago Seco. Helipuertos exteriores y torres de comunicación indican el posible tamaño del complejo subterráneo.\n"
+    },
+    {
+        "id": "L_DISH_226",
+        "text": "Una de las muchas bases aéreas reforzadas para acoger al Air Force One cuando reposta. Normalmente, estas bases aéreas están en lugares remotos en regiones inhóspitas, lejos de ojos entrometidos.\n"
+    },
+    {
+        "id": "L_DISH_227",
+        "text": "Este Air Force One en particular está optimizado para climas fríos, siendo muy útil cuando se usa en el norte de Alaska. El destino del vuelo es Oslo, Noruega.\n"
+    },
+    {
+        "id": "L_DISH_228",
+        "text": "En este rocoso paisaje cubierto de nieve en pleno Círculo Ártico, descansan los restos de un avión destrozado.\n"
+    },
+    {
+        "id": "L_DISH_229",
+        "text": "Propiedad del gobierno norteamericano, el Pelagic II es capaz de consumar operaciones a muy baja profundidad en cualquier condición. Es el único navío de desarrollo a baja profundidad del mundo.\n"
+    },
+    {
+        "id": "L_DISH_230",
+        "text": "Se trata de una nave gigantesca de construcción alienígena que reposa en el fondo oceánico desde hace millones de años.\n"
+    },
+    {
+        "id": "L_DISH_231",
+        "text": "Es una nave de asalto interplanetaria que transporta guerreros Skedar a zonas de guerra. Pertenece a la muy reducida flota de batalla Skedar.\n"
+    },
+    {
+        "id": "L_DISH_232",
+        "text": "Se trata de un planeta extremadamente árido, asolado por terremotos, tormentas de arena y huracanes. Es parte de un complejo sistema solar que incluye tres soles.\n"
+    },
+    {
+        "id": "L_DISH_233",
+        "text": "Este pequeño, rápido, y altamente manejable transporte de agentes ha sido diseñado para uso en áreas urbanas. Puede ser controlado por ordenador o remotamente. Tiene espacio suficiente en su interior para tres o cuatro agentes, más su equipamiento.\n"
+    },
+    {
+        "id": "L_DISH_234",
+        "text": "Este dispositivo anti-gravedad fue diseñado para ayudar en los almacenes. Se aplica en el lateral de una caja. Cuando se activa, el campo antigravitatorio levanta el cajón y le quita algo de inercia.\n"
+    },
+    {
+        "id": "L_DISH_235",
+        "text": "Es una moto de patrulla de baja altitud. Usa una pequeña unidad antigravedad para elevarse, y una poderosa turbina para moverse y proveer de control direccional.\n"
+    },
+    {
+        "id": "L_DISH_236",
+        "text": "Mantiene el lugar limpio y ordenado. Suele tener acceso a todas las áreas de un edificio. Los agentes han sido adiestrados en mantener estos robots intactos, ya que pueden conseguir acceso a zonas sensibles.\n"
+    },
+    {
+        "id": "L_DISH_237",
+        "text": "Vehículo de patrulla urbana y eliminación, con tripulación de dos hombres, y armado con un cañón en el morro, y dos sistemas de misiles en las alas. Puede ser eliminado con fuego sostenido, o preferentemente, un cohete bien dirigido.\n"
+    },
+    {
+        "id": "L_DISH_238",
+        "text": "Es un robot de combate diseñado para guerrilla urbana. Usa una unidad anti-gravedad. Está fuertemente armado. Se suele usar para mantener lejos a visitantes no deseados, gracias a su programación de '1° dispara, después pregunta'.\n"
+    },
+    {
+        "id": "L_DISH_239",
+        "text": "Variación robótica de la Aeromoto, con mayor poder gravitatorio y de turbina; puede alcanzar velocidad Mach 2 fácilmente y avanzar durante horas a velocidad de crucero. Aunque bien armada, se basa en su manejabilidad más que en el escudo.\n"
+    },
+    {
+        "id": "L_DISH_240",
+        "text": "Está diseñada para llevar a un único piloto Maian. Un pasajero se puede sentir atorado:  si éste es humano, puede ser aún peor.\n"
+    },
+    {
+        "id": "L_DISH_241",
+        "text": "Es capaz de llevar a la batalla a diez guerreros Skedar completamente armados. Es indetectable por el radar convencional. Puede emitir señales de bloqueo sobre áreas considerables: éstas interrumpen las comunicaciones así como los equipos de detección.\n"
+    },
+    {
+        "id": "L_DISH_242",
+        "text": "Descripción\n- Un buen agente siempre observa lo que hay a su alrededor.\n\nInstrucciones de Entrenamiento\n- Examina todos los objetos mirándolos directamente.\n\nOperativa\n-Mirar arriba: Pulsa el Botón C Abajo\n-Mirar abajo: Pulsa el Botón C Arriba\n-Vista Libre: Mantén pulsado el Botón R para entrar en el modo Apuntar, y usa el Stick de Control para mirar.\n"
+    },
+    {
+        "id": "L_DISH_243",
+        "text": "Descripción\n- Esquivar y eludir te puede sacar de muchos problemas.\n\nInstrucciones de Entrenamiento\n- Activa todos los interruptores. Sé rápida, ya que cada botón se reiniciará en un tiempo límite.\n\nOperativa\n- Esquivar Izquierda: Botón C Izquierda\n- Esquivar Derecha: Botón C Derecha\n\n"
+    },
+    {
+        "id": "L_DISH_244",
+        "text": "Descripción\n- Agacharse puede abrir nuevas áreas de exploración.\n\nInstrucciones de Entrenamiento\n- Avanza evitando los obstáculos utilizando los movimientos disponibles. Activa los interruptores.\n\nOperativa\n- Agacharse: Mantén el Botón R, y pulsa el Botón C Abajo.\n- Arrastrarse: Una vez agachado, mantén el Botón R, y pulsa el Botón C Abajo.\n- Levantarse: Presiona el Botón R.\n\n"
+    },
+    {
+        "id": "L_DISH_245",
+        "text": "Descripción\n- Luchar contra múltiples oponentes en combates mano a mano puede ser difícil.\n\nInstrucciones de Entrenamiento\n- Derriba a todos los enemigos sin ser golpeado.\n\nOperativa\n- Puñetazo: Pulsa el Botón Z repetidamente cuando estés desarmado para lanzar una ráfaga de puñetazos.\n\n"
+    },
+    {
+        "id": "L_DISH_246",
+        "text": "Descripción\n- Desarmar a un enemigo te puede proporcionar una nueva arma.\n\nInstrucciones de Entrenamiento\n- Derriba/desarma a todos los enemigos sin ser golpeado.\n\nOperativa\n- Desarmar: Mantén el Botón B, entonces pulsa el Botón Z para desarmar al enemigo.\n- Puñetazo KO: Golpea a un enemigo desprevenido por detrás.\n"
+    },
+    {
+        "id": "L_DISH_247",
+        "text": "Descripción\n- Lucha contra múltiples oponentes en combate mano a mano.\n\nInstrucciones de Entrenamiento\n- Derrota a todos los enemigos sin ser golpeado.\n\n"
+    },
+    {
+        "id": "L_DISH_248",
+        "text": "Descripción\n- Lucha contra múltiples oponentes, unos armados y otros no.\n\nInstrucciones de Entrenamiento\n- Derrota a todos los enemigos sin ser golpeado.\n\n"
+    },
+    {
+        "id": "L_DISH_249",
+        "text": "Para mayor precisión y libertad cuando mires alrededor, usa el modo Apuntar.\n"
+    },
+    {
+        "id": "L_DISH_250",
+        "text": "Piensa dónde quieres ir antes de intentar la prueba. Establece tu posición en un lugar que requiera la menor cantidad de movimiento posible entre objetivos.\n"
+    },
+    {
+        "id": "L_DISH_251",
+        "text": "Agacharse permite alcanzar lugares normalmente inaccesibles para ti, pero recuerda que te mueves más rápido cuando estás en pie. Para avanzar lo más rápido posible, intenta agacharte sólo cuando lo necesites.\n"
+    },
+    {
+        "id": "L_DISH_252",
+        "text": "Atacar a los enemigos por detrás no es muy honorable, pero hará bastante más fácil derribarlos. Sólo debes acercarte a distancia de lucha cuando tengas que hacerlo, y estate preparada para salir de su alcance cuando te ataquen.\n"
+    },
+    {
+        "id": "L_DISH_253",
+        "text": "Sólo debes estar cerca el tiempo suficiente para coger el arma. Sal de su alcance, y usa tu nueva arma.\n"
+    },
+    {
+        "id": "L_DISH_254",
+        "text": "No esperes a ser alcanzada, ¡muévete! No te centres en un solo oponente; intenta situar dónde se encuentran todos. Si no puedes ver a todos, muévete hasta que sea posible.\n"
+    },
+    {
+        "id": "L_DISH_255",
+        "text": "Ve a por los oponentes armados sólo si estás segura de tus habilidades cuerpo a cuerpo. Retrocede con los enemigos desarmados y usa sus armas antes de que puedan acercarse demasiado a ti.\n"
+    },
+    {
+        "id": "L_DISH_256",
+        "text": "Para mayor precisión y libertad cuando mires alrededor, usa el modo Apuntar.\n"
+    },
+    {
+        "id": "L_DISH_257",
+        "text": "Esquivar y eludir te puede sacar de muchos problemas.\n"
+    },
+    {
+        "id": "L_DISH_258",
+        "text": "Agacharse permite alcanzar lugares normalmente inaccesibles para ti, pero recuerda que te mueves más rápido cuando estás en pie. Para avanzar lo más rápido posible, intenta agacharte sólo cuando lo necesites.\n"
+    },
+    {
+        "id": "L_DISH_259",
+        "text": "Atacar a los enemigos por detrás no es muy honorable, pero hará bastante más fácil derribarlos. Sólo debes acercarte a distancia de lucha cuando tengas que hacerlo, y estate preparada para salir de su alcance cuando te ataquen.\n"
+    },
+    {
+        "id": "L_DISH_260",
+        "text": "Sólo debes estar cerca el tiempo suficiente para coger el arma. Sal de su alcance, y usa tu nuevo arma.\n"
+    },
+    {
+        "id": "L_DISH_261",
+        "text": "No esperes a ser alcanzada; ¡muévete! No te centres en un solo oponente; intenta situar dónde se encuentran todos. Si no puedes ver a todos, muévete hasta que sea posible.\n"
+    },
+    {
+        "id": "L_DISH_262",
+        "text": "Ve a por los oponentes armados sólo si estás seguro de tus habilidades cuerpo a cuerpo. Retrocede con los enemigos desarmados y usa sus armas antes de que puedan acercarse demasiado a ti.\n"
+    },
+    {
+        "id": "L_DISH_263",
+        "text": "Siempre debes mantener el objetivo a la vista cuando uses el Conector de Datos, y mantenerte cerca para evitar que se rompa la conexión.\n"
+    },
+    {
+        "id": "L_DISH_264",
+        "text": "Asegúrate de que la mina aterriza en el sitio correcto acercándote tanto como puedas al objetivo. Ajusta tu mirilla usando los Botones C o el modo Apuntar del Botón R.\n"
+    },
+    {
+        "id": "L_DISH_265",
+        "text": "La Cámara Espía puede ser difícil de controlar, así que tómate tu tiempo.\n"
+    },
+    {
+        "id": "L_DISH_266",
+        "text": "Es útil en combate, pero puede causar problemas cuando se sobrecarga.\n"
+    },
+    {
+        "id": "L_DISH_267",
+        "text": "Si tienes problemas para usar el Decodificador, intenta acercarte más al objetivo poniéndote cara a cara.\n"
+    },
+    {
+        "id": "L_DISH_268",
+        "text": "El Rastreador sólo indica la dirección y altura relativa; no muestra un mapa que te guíe al blanco. Presta atención a tus alrededores, y prepárate a explorar.\n"
+    },
+    {
+        "id": "L_DISH_269",
+        "text": "El visor estrecha tu visión periférica, lo cual puede causar problemas en combate. Asegúrate de tu situación antes de usarlo.\n"
+    },
+    {
+        "id": "L_DISH_270",
+        "text": "Si usas este dispositivo en un momento equivocado, te puede costar la vida, ya que no podrás ver nada a cierta distancia. Úsalo con moderación.\n"
+    },
+    {
+        "id": "L_DISH_271",
+        "text": "Un disfraz no es sólo la ropa, es la manera en que una persona lo lleva. No actúes de manera diferente a la de la persona que estás intentando ser.\n"
+    },
+    {
+        "id": "L_DISH_272",
+        "text": "Preserva tu Dispositivo de Ocultación cuando no hay nadie alrededor que pueda observarte.\n"
+    },
+    {
+        "id": "L_DISH_273",
+        "text": "Siempre debes mantener el objetivo a la vista cuando uses el Conector de Datos, y mantenerte cerca para evitar que se rompa la conexión.\n"
+    },
+    {
+        "id": "L_DISH_274",
+        "text": "Asegúrate de que la mina aterriza en el sitio correcto acercándote tanto como puedas al objetivo. Ajusta tu mirilla usando los Botones C o el modo Apuntar del Botón R.\n"
+    },
+    {
+        "id": "L_DISH_275",
+        "text": "La Cámara Espía no es invisible: los enemigos la pueden descubrir, así que ten cuidado cuando entres en un área habitada.  Recuerda que la Cámara Espía se quedará donde la dejes hasta que la recojas.\n"
+    },
+    {
+        "id": "L_DISH_276",
+        "text": "Es útil en combate, pero puede causar problemas cuando se sobrecarga. Intenta anticiparte a las situaciones y reacciona antes que el enemigo.\n"
+    },
+    {
+        "id": "L_DISH_277",
+        "text": "Si tienes problemas para usar el Decodificador, intenta acercarte más al objetivo poniéndote cara a cara.\n"
+    },
+    {
+        "id": "L_DISH_278",
+        "text": "El Rastreador sólo indica la dirección y altura relativa; no muestra un mapa que te guíe al objetivo. Presta atención a tus alrededores, y prepárate a explorar.\n"
+    },
+    {
+        "id": "L_DISH_279",
+        "text": "El visor estrecha tu visión periférica, lo cual puede causar problemas en combate. Asegúrate de tu situación antes de usarlo.\n"
+    },
+    {
+        "id": "L_DISH_280",
+        "text": "Si usas este dispositivo en un momento equivocado, te puede costar la vida, ya que no podrás ver nada a cierta distancia. Úsalo con moderación.\n"
+    },
+    {
+        "id": "L_DISH_281",
+        "text": "Un disfraz no es sólo la ropa, es la manera en que una persona lo lleva. No actúes de manera diferente a la de la persona que estás intentando ser.\n"
+    },
+    {
+        "id": "L_DISH_282",
+        "text": "Preserva tu Dispositivo de Ocultación cuando no hay nadie alrededor que pueda observarte. Evita disparar a menos que sea absolutamente necesario, y sólo si estás seguro del éxito de tu ataque.\n"
+    },
+    {
+        "id": "L_DISH_283",
+        "text": "La Falcon 2 es una pistola muy precisa, así que cualquier error será tuyo. El modo secundario es golpear con su culata y es, por lo tanto, inútil en una prueba de tiro.\n"
+    },
+    {
+        "id": "L_DISH_284",
+        "text": "Para hacer un mejor uso de la precision de la Falcon 2, una mira ha sido puesta en la pistola. Como en la Falcon 2 sin modificar, el modo secundario de golpear con la culata es inútil durante la prueba de tiro.\n"
+    },
+    {
+        "id": "L_DISH_285",
+        "text": "La version con silenciador de la Falcon 2 es una excelente arma, diseñada para darte la ventaja de la sorpresa sobre tus oponentes. Prueba tu precision para asegurarte que nunca derrocharás tus oportunidades.\n"
+    },
+    {
+        "id": "L_DISH_286",
+        "text": "La Magsec 4 tiene un excelente poder de disparo a costa de la precisión, especialmente cuando se usa el modo secundario de ráfaga de 3 tiros. La única desventaja seria es el tamaño limitado de su cargador.\n"
+    },
+    {
+        "id": "L_DISH_287",
+        "text": "Esta típica arma Skedar es brutal y poderosa. Sacrificando algo del cartucho, el disparo puede ser cargado para crear una explosión devastadora. Su capacidad de recarga es alta.\n"
+    },
+    {
+        "id": "L_DISH_288",
+        "text": "Esta versátil pistola ofrece dos diferentes sistemas de disparo para su munición: un disparo estándar o una descarga explosiva. Los ingenieros Maian lo han conseguido sin comprometer el uso de energía del arma, aunque el ritmo de disparo es reducido.\n"
+    },
+    {
+        "id": "L_DISH_289",
+        "text": "La clave del uso del DY357 es saber cuándo recargar. Un cartucho de seis balas implica estar siempre alerta en un tiroteo. El peso del arma puede ser muy útil si tienes que golpear a alguien con ella.\n"
+    },
+    {
+        "id": "L_DISH_290",
+        "text": "Trent Easton siempre busca facilidades extra, y este arma no es una excepción. Las balas son tan especiales como el resto del arma; han sido diseñadas para hacerse añicos en el interior del oponente y así tumbarle rápidamente.\n"
+    },
+    {
+        "id": "L_DISH_291",
+        "text": "Esta fiable y efectiva metralleta no es difícil de encontrar ya que es el arma más vendida de dataDyne en los últimos dos años, incluso si su modo secundario no se tiene en cuenta. Su sistema de adquisición de objetivos es excelente, y deberás familiarizarte con todas las posibilidades de este arma.\n"
+    },
+    {
+        "id": "L_DISH_292",
+        "text": "La metralleta Ciclón fue diseñada específicamente para NO ser precisa, aunque vale la pena practicar. Puede disparar una gran cantidad de balas en poco tiempo, por ello, es una excelente arma de supresión.\n"
+    },
+    {
+        "id": "L_DISH_293",
+        "text": "La flexibilidad Maian respecto al diseño ha creado esta metralleta con un interesante modo secundario: una bala de alta velocidad que puede atravesar objetos fácilmente. El ritmo de disparo, como en la Phoenix, se reduce durante el modo secundario; esto se debe a que se intenta prevenir daño en el mecanismo de disparo y en el cañón.\n"
+    },
+    {
+        "id": "L_DISH_294",
+        "text": "La RC-P120 dispara una bala mineral especial que, acompañada de un ritmo de disparo rápido y un amplio cargador, hace de este arma una herramienta perfecta para ser usada contra los Skedar. Las balas pueden ser usadas para recargar un prototipo de Dispositivo de Ocultación: el entrenamiento ha sido alterado para reflejar esta característica en particular.\n"
+    },
+    {
+        "id": "L_DISH_295",
+        "text": "Este arma no sólo se parece a un ordenador PC portátil, sino que puede ser utilizada como arma centinela en el modo secundario para cubrir una ruta de escape o proteger un lugar.\n"
+    },
+    {
+        "id": "L_DISH_296",
+        "text": "Éste es el modelo que dataDyne presentó con éxito a los militares de EE.UU., aunque todavía tiene que ser aprobado. Siguiendo la tendencia de dataDyne de dar a la gente desagradables sorpresas, el modelo básico del rifle de asalto lleva una mina de proximidad debajo del cañón. Usar el modo secundario obviamente implica que debes lanzar tu arma.\n"
+    },
+    {
+        "id": "L_DISH_297",
+        "text": "Tan lejos como podemos establecer, el modo secundario del arma parece ser que identifica trampas, minas dirigidas, dispositivos explosivos ocultos (como el Dragón en modo secundario), y armas automáticas. Aunque poderoso, el cartucho de este rifle de asalto es pequeño. \n"
+    },
+    {
+        "id": "L_DISH_298",
+        "text": "Como primera arma con apoyo del Instituto, el AR34 es un rifle de asalto bastante básico. El modo secundario es un zoom permamente. Probar a sujetarlo vale como entrenamiento de precisión.\n"
+    },
+    {
+        "id": "L_DISH_299",
+        "text": "Se trata de la variante pesada del Dragón sin mina de proximidad, la cual ha sido reemplazada por un lanzagranadas. Adoptada por los militares norteamericanos como arma de apoyo de brigada pesada: se nota el porqué... Practica para hacerte con la trayectoria de las granadas.\n"
+    },
+    {
+        "id": "L_DISH_300",
+        "text": "La delicadeza no es una opción aquí. Hay dos modos, explosión simple o doble. El cartucho es amplio para una escopeta, pero ten cuidado con el largo tiempo de recarga, y planea tus movimientos en consonancia.\n"
+    },
+    {
+        "id": "L_DISH_301",
+        "text": "Esta fina pieza de ingeniería es un rifle de francotirador con silenciador con un zoom de alta tecnología. Lo único que puede interferir en la precisión de este arma es el zoom de francotirador. Asegúrate de agacharte y mantener tu mirilla en el modo secundario.\n"
+    },
+    {
+        "id": "L_DISH_302",
+        "text": "Aunque las técnicas actuales de ingeniería nos superan, todavía podemos apreciar los efectos del rifle FarSight. Su disparo es imparable, y puede penetrar muros a bastante profundidad, alcanzando objetivos si se necesita.\n"
+    },
+    {
+        "id": "L_DISH_303",
+        "text": "La función primaria de la ballesta es un disparo de sedante no letal, mientras que el secundario es la muerte instantánea. Es un arma principalmente sigilosa, pero su largo tiempo de recarga puede ser un inconveniente durante un tiroteo.\n"
+    },
+    {
+        "id": "L_DISH_304",
+        "text": "La pistola tranquilizante es muy común, pudiendo ser encontrada en laboratorios médicos y hospitales de todo el mundo. Puede ser usada con perdigones tranquilizantes, o con dosis letales, que usan bastante más cantidad de la reserva de sedantes.\n"
+    },
+    {
+        "id": "L_DISH_305",
+        "text": "Intenta controlar este arma lo mejor que puedas. Fue diseñada para usuarios bastante más fuertes que los humanos. Arrodillarse puede ayudar a apuntar el arma, pero no a perfeccionar el tiro. Si algún oponente logra esquivar la lluvia de balas, sus cañones pueden usarse como trituradoras para infringir daño.\n"
+    },
+    {
+        "id": "L_DISH_306",
+        "text": "Este reciente producto de dataDyne, cuenta con tecnología muy interesante en su interior. El modo secundario activa un campo magnético alrededor de la bomba, lo que le permite adherirse durante un limitado periodo de tiempo. Cuando ese tiempo pasa, la bomba cae, impacta y explota.\n"
+    },
+    {
+        "id": "L_DISH_307",
+        "text": "Es un compacto lanzamisiles reutilizable: recarga tras cada tiro. El modo secundario usa una variante del sistema de blancos de la metralleta CMP150. El misil viaja lentamente lo que le permite seguir al objetivo, así que tenlo en cuenta y planea tus disparos cuidadosamente.\n"
+    },
+    {
+        "id": "L_DISH_308",
+        "text": "Este lanzador portátil de mísiles Skedar puede disparar tanto cohetes sin guía, como por control remoto. A los Skedar les produce una perversa satisfacción cuando la cámara se acerca al objetivo, pero un agente del IC está más allá de esas cosas. Los cohetes guiados aceleran automáticamente, pero pueden ser decelerados para más maniobrabilidad. La detonación ocurre por contacto o cuando se aprieta el gatillo.\n"
+    },
+    {
+        "id": "L_DISH_309",
+        "text": "Este cuchillo finamente pulido, está equilibrado para ser lanzado. La práctica es esencial para acostumbrarse al alcance y trayectoria de la hoja lanzada.\n"
+    },
+    {
+        "id": "L_DISH_310",
+        "text": "El departamento de armas experimentales ha creado este pequeño pero efectivo láser de muñeca con dos diferentes rayos. El modo primario genera una explosión a gran distancia, mientras que el secundario provee de un rayo continuo hasta que el gatillo es soltado.\n"
+    },
+    {
+        "id": "L_DISH_311",
+        "text": "Cuatro segundos pasan desde la activación a la detonación de la granada de fragmentación antipersonal en el modo básico. Para tu deleite y entretenimiento, se ha incluido un modo secundario: pinball de proximidad. La granada rebotará hasta que la carga explote cuando su detector de proximidad se active.\n"
+    },
+    {
+        "id": "L_DISH_312",
+        "text": "Esta granada Maian hace estragos con las neuronas de las criaturas. Si caes en su radio de explosión, tu visión se volverá borrosa y no podrás agarrar lo que lleves. La granada puede ser activada por lanzamiento o por proximidad. Asegúrate de lanzarla cuando estés lo suficientemente lejos.\n"
+    },
+    {
+        "id": "L_DISH_313",
+        "text": "Se necesita bastante criterio para un uso efectivo de las minas de tiempo, de otro modo, la explosión no afectará al objetivo, y éste irá detrás tuyo. Mejorar tu habilidad en  las pruebas evitará errores críticos. La función secundaria es un detector de trampas idéntico al encontrado en el rifle de asalto Vengador K7.\n"
+    },
+    {
+        "id": "L_DISH_314",
+        "text": "La clave de la colocación correcta de las minas de proximidad es situarlas donde tus oponentes no se esperen encontrarlas. Si tú mismo no quieres tener problemas, usa el modo secundario de detección de trampas para asegurar tus alrededores. Puede que te haga perder el tiempo, pero si no es así, podrá salvar tu vida.\n"
+    },
+    {
+        "id": "L_DISH_315",
+        "text": "La última variedad de minas remotas detonables, es esencialmente igual a las que ya tenías. El modo primario es poner las minas, mientras que el secundario es dar las órdenes de explosión. Si no puedes ver la mina, deberás confiar en el viejo método de prueba y error. \n"
+    },
+    {
+        "id": "L_DISH_316",
+        "text": "Holo 1 - Mirar alrededor\n"
+    },
+    {
+        "id": "L_DISH_317",
+        "text": "Holo 2 - Movimiento 1\n"
+    },
+    {
+        "id": "L_DISH_318",
+        "text": "Holo 3 - Movimiento 2\n"
+    },
+    {
+        "id": "L_DISH_319",
+        "text": "Holo 4 - Comb. sin armas 1\n"
+    },
+    {
+        "id": "L_DISH_320",
+        "text": "Holo 5 - Comb. sin armas 2\n"
+    },
+    {
+        "id": "L_DISH_321",
+        "text": "Holo 6 - Comb. Directo 1\n"
+    },
+    {
+        "id": "L_DISH_322",
+        "text": "Holo 7 - Comb. Directo 2\n"
+    },
+    {
+        "id": "L_DISH_323",
+        "text": null
+    }
+]

@@ -1,0 +1,306 @@
+[
+    {
+        "id": "L_ARK_000",
+        "text": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Reactivate Elevator\n\nWe traced an order to shut down the only accessible elevator to a PC on the lowest floor of offices. You have to find that PC and change the order to get the elevator going again.\n\n|Objective Three: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Four: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Five: - Return to Helipad for Evac\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n"
+    },
+    {
+        "id": "L_ARK_001",
+        "text": "LUCERNE TOWER\n"
+    },
+    {
+        "id": "L_ARK_002",
+        "text": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Destroy dataDyne Gunship\n\nThere is a dataDyne security gunship circling the building which outguns your jumpship and will shoot you out of the sky. Terminate it with extreme prejudice, since it will be trying to do the same thing to you.\n\n|Objective Three: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Four: - Return to Helipad for Evac\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n"
+    },
+    {
+        "id": "L_ARK_003",
+        "text": "|Background - \n\nThe alarm has been given, and there are dataDyne shock troops ready for you throughout the building. Exit via the foyer is impossible due to the number of ground troops present. The transport will collect you and Dr. Caroll from the helipad.\n\n|Carrington - \n\nI don't have to remind you to protect Dr. Caroll at all costs, Joanna. Cassandra and dataDyne are going to be throwing all the obstacles they can in your path to prevent you from getting Dr. Caroll out. Good luck.\n\n|Objective One: - Gain Access to Upper Floors\n\nFight your way around the foyer until you can get access to one of the lifts that will take you and Dr. Caroll to the upper floors of the building.\n\n|Objective Two: - Defeat Cassandra's Bodyguards\n\nWe suspect that Cassandra has deployed her bodyguards to block the route to the helipad. It is almost certain that you'll be unable to avoid them, so expect serious resistance when you encounter them.\n\n|Objective Three: - Return to Helipad for Evac\n\nGet to the helipad where your dropship will be waiting. And don't forget Dr. Caroll.\n\nEND\n"
+    },
+    {
+        "id": "L_ARK_004",
+        "text": null
+    },
+    {
+        "id": "L_ARK_005",
+        "text": null
+    },
+    {
+        "id": "L_ARK_006",
+        "text": null
+    },
+    {
+        "id": "L_ARK_007",
+        "text": null
+    },
+    {
+        "id": "L_ARK_008",
+        "text": null
+    },
+    {
+        "id": "L_ARK_009",
+        "text": "Access foyer elevator\n"
+    },
+    {
+        "id": "L_ARK_010",
+        "text": "Reactivate office elevator\n"
+    },
+    {
+        "id": "L_ARK_011",
+        "text": "Destroy dataDyne hovercopter\n"
+    },
+    {
+        "id": "L_ARK_012",
+        "text": "Defeat Cassandra's bodyguards\n"
+    },
+    {
+        "id": "L_ARK_013",
+        "text": "Rendezvous at helipad\n"
+    },
+    {
+        "id": "L_ARK_014",
+        "text": "Accessing elevator controls...\n"
+    },
+    {
+        "id": "L_ARK_015",
+        "text": "LIGHTS ARE NOW ON!\n"
+    },
+    {
+        "id": "L_ARK_016",
+        "text": "Dr. Caroll has been killed!\n"
+    },
+    {
+        "id": "L_ARK_017",
+        "text": "Dr. Caroll is under attack!\n"
+    },
+    {
+        "id": "L_ARK_018",
+        "text": "Dr. Caroll has been damaged!\n"
+    },
+    {
+        "id": "L_ARK_019",
+        "text": "Too late! She's here...\n"
+    },
+    {
+        "id": "L_ARK_020",
+        "text": "You've become quite an annoyance...\n"
+    },
+    {
+        "id": "L_ARK_021",
+        "text": "Good night, Ms. Dark.\n"
+    },
+    {
+        "id": "L_ARK_022",
+        "text": "LIGHTS NOW ON\n"
+    },
+    {
+        "id": "L_ARK_023",
+        "text": "LIGHTS NOW OFF\n"
+    },
+    {
+        "id": "L_ARK_024",
+        "text": "MISSION FAILED\n"
+    },
+    {
+        "id": "L_ARK_025",
+        "text": "MISSION SUCCESSFUL\n"
+    },
+    {
+        "id": "L_ARK_026",
+        "text": "Helichopper warning goes here.\n"
+    },
+    {
+        "id": "L_ARK_027",
+        "text": "Obtain Night Vision.\n"
+    },
+    {
+        "id": "L_ARK_028",
+        "text": "Cassandra De Vries'\n"
+    },
+    {
+        "id": "L_ARK_029",
+        "text": "Night Vision\n"
+    },
+    {
+        "id": "L_ARK_030",
+        "text": "Night Vision\n"
+    },
+    {
+        "id": "L_ARK_031",
+        "text": "Picked up Night Vision.\n"
+    },
+    {
+        "id": "L_ARK_032",
+        "text": "We meet again, girl!\n"
+    },
+    {
+        "id": "L_ARK_033",
+        "text": "Foyer elevator accessed.\n"
+    },
+    {
+        "id": "L_ARK_034",
+        "text": "Office elevator door has been unlocked.\n"
+    },
+    {
+        "id": "L_ARK_035",
+        "text": "DataDyne Hovercopter eliminated.\n"
+    },
+    {
+        "id": "L_ARK_036",
+        "text": "Cassandra's bodyguards have been defeated.\n"
+    },
+    {
+        "id": "L_ARK_037",
+        "text": "That's not how it goes.\n"
+    },
+    {
+        "id": "L_ARK_038",
+        "text": "Yes, it is.\n"
+    },
+    {
+        "id": "L_ARK_039",
+        "text": "Give it to me - you're doing it wrong.\n"
+    },
+    {
+        "id": "L_ARK_040",
+        "text": "Stop annoying me.\n"
+    },
+    {
+        "id": "L_ARK_041",
+        "text": "Will you just hurry up!\n"
+    },
+    {
+        "id": "L_ARK_042",
+        "text": "Oh, no...too late.\n"
+    },
+    {
+        "id": "L_ARK_043",
+        "text": "She's here...\n"
+    },
+    {
+        "id": "L_ARK_044",
+        "text": "Get her!\n"
+    },
+    {
+        "id": "L_ARK_045",
+        "text": "Critical mission object destroyed. \n"
+    },
+    {
+        "id": "L_ARK_046",
+        "text": "Obtain CamSpy.\n"
+    },
+    {
+        "id": "L_ARK_047",
+        "text": "Dr. Caroll's\n"
+    },
+    {
+        "id": "L_ARK_048",
+        "text": "CamSpy\n"
+    },
+    {
+        "id": "L_ARK_049",
+        "text": "A CamSpy\n"
+    },
+    {
+        "id": "L_ARK_050",
+        "text": "Picked up a CamSpy.\n"
+    },
+    {
+        "id": "L_ARK_051",
+        "text": "They've locked down the ground floor - \nget to the elevator!\n"
+    },
+    {
+        "id": "L_ARK_052",
+        "text": "That copter needs to be taken out, or \nthe jumpship'll get shot down!\n"
+    },
+    {
+        "id": "L_ARK_053",
+        "text": "I can't leave any bodyguards standing.\n"
+    },
+    {
+        "id": "L_ARK_054",
+        "text": "Don't keep the jumpship waiting - \nget back to the landing pad.\n"
+    },
+    {
+        "id": "L_ARK_055",
+        "text": "Obtain alpha key card.\n"
+    },
+    {
+        "id": "L_ARK_056",
+        "text": "Guard's\n"
+    },
+    {
+        "id": "L_ARK_057",
+        "text": "Office key card\n"
+    },
+    {
+        "id": "L_ARK_058",
+        "text": "Office key card\n"
+    },
+    {
+        "id": "L_ARK_059",
+        "text": "Picked up Cassandra's office key card.\n"
+    },
+    {
+        "id": "L_ARK_060",
+        "text": "Sound the alarm - she's here!\n"
+    },
+    {
+        "id": "L_ARK_061",
+        "text": "Lights out!\n"
+    },
+    {
+        "id": "L_ARK_062",
+        "text": "What the...?\n"
+    },
+    {
+        "id": "L_ARK_063",
+        "text": "Going somewhere?\n"
+    },
+    {
+        "id": "L_ARK_064",
+        "text": "Something I can do for you, old woman?\n"
+    },
+    {
+        "id": "L_ARK_065",
+        "text": "Return our sapient immediately! You don't\nknow what you're doing.\n"
+    },
+    {
+        "id": "L_ARK_066",
+        "text": "Yes I do. I'm leaving.\n"
+    },
+    {
+        "id": "L_ARK_067",
+        "text": "One more chance! Give it back, and you\ncould come and work for me.\n"
+    },
+    {
+        "id": "L_ARK_068",
+        "text": "Sorry! Gotta shoot.\n"
+    },
+    {
+        "id": "L_ARK_069",
+        "text": "You must get the sapient back. We cannot \nproceed without it.\n"
+    },
+    {
+        "id": "L_ARK_070",
+        "text": "I know that!\n"
+    },
+    {
+        "id": "L_ARK_071",
+        "text": "I also know who to talk to...\nMr. Carrington.\n"
+    },
+    {
+        "id": "L_ARK_072",
+        "text": "Elevator door is inactive on this floor.\n"
+    },
+    {
+        "id": "L_ARK_073",
+        "text": null
+    },
+    {
+        "id": "L_ARK_074",
+        "text": null
+    },
+    {
+        "id": "L_ARK_075",
+        "text": null
+    }
+]
