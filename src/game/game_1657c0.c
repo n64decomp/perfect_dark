@@ -150,14 +150,10 @@ glabel func0f1657cc
 /*  f1657e0:	c4201050 */ 	lwc1	$f0,%lo(var80081050)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f1657e4
-/*  f1657e4:	3c018008 */ 	lui	$at,%hi(var80081050)
-/*  f1657e8:	c4221050 */ 	lwc1	$f2,%lo(var80081050)($at)
-/*  f1657ec:	46021002 */ 	mul.s	$f0,$f2,$f2
-/*  f1657f0:	03e00008 */ 	jr	$ra
-/*  f1657f4:	00000000 */ 	nop
-);
+f32 func0f1657e4(void)
+{
+	return var80081050 * var80081050;
+}
 
 GLOBAL_ASM(
 glabel func0f1657f8
