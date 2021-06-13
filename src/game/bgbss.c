@@ -95,4 +95,4 @@ u32 var800a65d8;
 u32 var800a65dc;
 u32 g_FogDisabled;
 u32 var800a65e4;
-u32 var800a65e8;
+struct coord *var800a65e8;

@@ -3249,6 +3249,32 @@ struct mission {
 	u16 name;
 };
 
+struct var80081058 {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u8 sky_r;
+	/*0x09*/ u8 sky_g;
+	/*0x0a*/ u8 sky_b;
+	/*0x0b*/ u8 sky_enabled;
+	/*0x0c*/ struct sun *sun;
+	/*0x10*/ u8 clouds_enabled;
+	/*0x14*/ f32 unk14;
+	/*0x18*/ u16 unk18;
+	/*0x1c*/ f32 clouds_r;
+	/*0x20*/ f32 clouds_g;
+	/*0x24*/ f32 clouds_b;
+	/*0x28*/ u8 unk28;
+	/*0x2c*/ f32 unk2c;
+	/*0x30*/ u16 water_enabled;
+	/*0x34*/ f32 water_r;
+	/*0x38*/ f32 water_g;
+	/*0x3c*/ f32 water_b;
+	/*0x40*/ f32 unk40;
+	/*0x44*/ f32 unk44;
+	/*0x48*/ f32 unk48;
+	/*0x4c*/ f32 unk4c;
+};
+
 struct sun {
 	u8 lens_flare;
 	u8 red;
@@ -3262,35 +3288,34 @@ struct sun {
 };
 
 struct smallsky {
-	// len 0x2c
-	s16 stage;
-	u16 blend_multiplier;
-	u16 sky_far;
-	u16 unk06;
-	u16 unk08;
-	u16 unk0a;
-	u16 unk0c;
-	u16 unk0e;
-	u8 sky_r;
-	u8 sky_g;
-	u8 sky_b;
-	u8 sky_enabled;
-	struct sun *sun;
-	u8 clouds_enabled;
-	u8 unk19; // pad
-	u16 unk1a;
-	u8 unk1c;
-	u8 clouds_r;
-	u8 clouds_g;
-	u8 clouds_b;
-	u16 unk20;
-	u8 unk22;
-	u8 unk23;
-	u8 water_enabled;
-	u8 water_r;
-	u8 water_g;
-	u8 water_b;
-	u8 unk28;
+	/*0x00*/ s16 stage;
+	/*0x02*/ s16 blend_multiplier;
+	/*0x04*/ s16 sky_far;
+	/*0x06*/ s16 unk06;
+	/*0x08*/ s16 unk08;
+	/*0x0a*/ s16 unk0a;
+	/*0x0c*/ s16 unk0c;
+	/*0x0e*/ s16 unk0e;
+	/*0x10*/ u8 sky_r;
+	/*0x11*/ u8 sky_g;
+	/*0x12*/ u8 sky_b;
+	/*0x13*/ u8 sky_enabled;
+	/*0x14*/ struct sun *sun;
+	/*0x18*/ u8 clouds_enabled;
+	/*0x19*/ u8 unk19; // pad
+	/*0x1a*/ s16 unk1a;
+	/*0x1c*/ u8 unk1c;
+	/*0x1d*/ u8 clouds_r;
+	/*0x1e*/ u8 clouds_g;
+	/*0x1f*/ u8 clouds_b;
+	/*0x20*/ u8 unk20;
+	/*0x21*/ u8 unk21;
+	/*0x22*/ s16 unk22;
+	/*0x24*/ u8 water_enabled;
+	/*0x25*/ u8 water_r;
+	/*0x26*/ u8 water_g;
+	/*0x27*/ u8 water_b;
+	/*0x28*/ u8 unk28;
 };
 
 struct sky {
