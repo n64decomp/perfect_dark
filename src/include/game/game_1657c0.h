@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f1657cc(void);
+struct var80081058 *func0f1657cc(void);
 f32 func0f1657e4(void);
 void func0f1657f8(void);
 void func0f16598c(struct smallsky *sky);
