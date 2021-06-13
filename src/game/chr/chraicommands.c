@@ -5270,7 +5270,7 @@ bool aiEndLevel(void)
  */
 bool ai00dd(void)
 {
-	func0f0b9afc();
+	currentPlayerEndCutscene();
 	g_Vars.aioffset += 2;
 	return false;
 }
