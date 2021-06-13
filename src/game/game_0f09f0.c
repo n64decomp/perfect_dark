@@ -28159,6 +28159,7 @@ struct menudialog g_PakFullMenuDialog = {
 	NULL,
 };
 
+#if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_PakCannotReadGameBoyMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_254, 0x00000000, NULL }, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
@@ -28193,3 +28194,4 @@ struct menudialog g_PakDataLostMenuDialog = {
 	0x00000020,
 	NULL,
 };
+#endif

@@ -8437,7 +8437,9 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				case WEAPON_KEYCARD4B:
 				case WEAPON_KEYCARD4C:
 				case WEAPON_SUITCASE:
+#if VERSION >= VERSION_NTSC_1_0
 				case WEAPON_BRIEFCASE:
+#endif
 				case WEAPON_NECKLACE:
 				case WEAPON_BRIEFCASE2:
 					// No equip sound

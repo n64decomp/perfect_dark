@@ -2608,7 +2608,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_AME_004F",
+            "id": "PAD_AME_0274FE06",
             "pos": [
                 -832,
                 -1464,
@@ -2641,7 +2641,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_AME_0050",
+            "id": "PAD_AME_ED915460",
             "pos": [
                 -636,
                 -1464,
@@ -21463,7 +21463,7 @@
         },
         {
             "id": "WAYPOINT_AME_004B",
-            "pad": "PAD_AME_004F",
+            "pad": "PAD_AME_0274FE06",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_AME_004C",
@@ -21485,7 +21485,7 @@
         },
         {
             "id": "WAYPOINT_AME_004C",
-            "pad": "PAD_AME_0050",
+            "pad": "PAD_AME_ED915460",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_AME_003F",

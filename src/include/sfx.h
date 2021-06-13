@@ -1796,7 +1796,9 @@ enum sfx {
 	SFX_FOOTSTEP_80F4,
 	SFX_FOOTSTEP_80F5,
 	SFX_80F6,
+#if VERSION >= VERSION_NTSC_1_0
 	SFX_M0_HOLY_SHH,
+#endif
 	SFX_M0_WHAT_THE_HELL,
 	SFX_M0_DAMN_IT_MISSED,
 	SFX_M0_GODS_SAKE_SOMEONE_HIT_HER,
@@ -1847,13 +1849,17 @@ enum sfx {
 	SFX_M1_OH_GOD_IM_HIT,
 	SFX_M1_MY_GOD,
 	SFX_M1_NOOO,
+#if VERSION >= VERSION_NTSC_1_0
 	SFX_M1_OH_GOD_HES_DEAD,
+#endif
 	SFX_M1_BLOODY_STUPID_GUN,
 	SFX_M1_DAMN_IT,
 	SFX_M1_DAMN_SHES_GOOD,
 	SFX_M1_COVER_MY_ASS,
 	SFX_M1_SCREAM,
+#if VERSION >= VERSION_NTSC_1_0
 	SFX_F_DAMN_SHES_GOOD,
+#endif
 	SFX_F_MY_GOD,
 	SFX_M2_GEEZ_THAT_HURT,
 	SFX_M2_DAMN_IT_IM_TAKING_FIRE,
@@ -1864,7 +1870,9 @@ enum sfx {
 	SFX_M2_HELL_SHES_GOOD,
 	SFX_M2_LETS_GET_THE_HELL_OUT_OF_HERE,
 	SFX_M2_NOOO,
+#if VERSION >= VERSION_NTSC_1_0
 	SFX_813B,
+#endif
 	SFX_M2_OH_GOD_IM_DYING,
 	SFX_M2_GOD_RUN,
 	SFX_813E,
@@ -1882,9 +1890,11 @@ enum sfx {
 	SFX_CIV_OH_MY_GOD,
 	SFX_814B,
 	SFX_814C,
+#if VERSION >= VERSION_NTSC_1_0
 	SFX_814D,
 	SFX_814E,
 	SFX_814F,
+#endif
 	SFX_8150,
 	SFX_8151,
 	SFX_8152,
@@ -2165,9 +2175,15 @@ enum sfx {
 #define MP3_0308                         (FILE_AEXEC12M | 0x1000)
 #define MP3_0309                         (FILE_AEXEC13M | 0x1000)
 #define MP3_030A                         (FILE_AEXEC14M | 0x1000)
+#if VERSION >= VERSION_NTSC_1_0
 #define MP3_030B                         (FILE_AHELIC01M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
 #define MP3_030C                         (FILE_AHELIC02M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
 #define MP3_030D                         (FILE_AHELIC03M | 0x0800 | 0x1000 | 0x2000 | 0x4000)
+#else
+#define MP3_030B                         (FILE_AHELIC01M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_030C                         (FILE_AHELIC02M | 0x1000 | 0x2000 | 0x4000)
+#define MP3_030D                         (FILE_AHELIC03M | 0x1000 | 0x2000 | 0x4000)
+#endif
 #define MP3_030E                         (FILE_AHOLOGD01M | 0x0800 | 0x1000)
 #define MP3_030F                         (FILE_AHOLOHOPKM | 0x0800 | 0x1000)
 #define MP3_0310                         (FILE_AINVCAR01M | 0x1000)

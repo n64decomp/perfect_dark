@@ -3070,7 +3070,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_005D",
+            "id": "PAD_MP9_82BB783A",
             "pos": [
                 -2366,
                 389,
@@ -4357,7 +4357,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0084",
+            "id": "PAD_MP9_0085",
             "pos": [
                 -1969,
                 412,
@@ -4390,7 +4390,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0085",
+            "id": "PAD_MP9_0086",
             "pos": [
                 -1786,
                 266,
@@ -4423,7 +4423,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0086",
+            "id": "PAD_MP9_057D7D01",
             "pos": [
                 -2499,
                 389,
@@ -4456,7 +4456,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0087",
+            "id": "PAD_MP9_0088",
             "pos": [
                 -2206,
                 412,
@@ -4489,7 +4489,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0088",
+            "id": "PAD_MP9_72BC19C4",
             "pos": [
                 -2352,
                 389,
@@ -4522,7 +4522,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0089",
+            "id": "PAD_MP9_AB421369",
             "pos": [
                 -2366,
                 389,
@@ -4555,7 +4555,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_008A",
+            "id": "PAD_MP9_008B",
             "pos": [
                 -1895,
                 -274,
@@ -4588,7 +4588,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_008B",
+            "id": "PAD_MP9_008C",
             "pos": [
                 -1912,
                 -504,
@@ -4621,7 +4621,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_008C",
+            "id": "PAD_MP9_008D",
             "pos": [
                 -1166,
                 -274,
@@ -4654,7 +4654,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_008D",
+            "id": "PAD_MP9_008E",
             "pos": [
                 -1274,
                 -274,
@@ -4687,7 +4687,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_008E",
+            "id": "PAD_MP9_008F",
             "pos": [
                 -1274,
                 -274,
@@ -4720,7 +4720,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_008F",
+            "id": "PAD_MP9_0090",
             "pos": [
                 -1654,
                 -274,
@@ -4753,7 +4753,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0090",
+            "id": "PAD_MP9_0091",
             "pos": [
                 201,
                 -274,
@@ -4786,7 +4786,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0091",
+            "id": "PAD_MP9_0092",
             "pos": [
                 441,
                 -274,
@@ -4819,7 +4819,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0092",
+            "id": "PAD_MP9_0093",
             "pos": [
                 328,
                 -274,
@@ -4852,7 +4852,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0093",
+            "id": "PAD_MP9_0094",
             "pos": [
                 328,
                 -274,
@@ -4885,7 +4885,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0094",
+            "id": "PAD_MP9_0095",
             "pos": [
                 450,
                 -274,
@@ -4918,7 +4918,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0095",
+            "id": "PAD_MP9_0096",
             "pos": [
                 478,
                 -274,
@@ -4951,7 +4951,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0096",
+            "id": "PAD_MP9_0097",
             "pos": [
                 86,
                 -634,
@@ -4984,43 +4984,10 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_0097",
+            "id": "PAD_MP9_0098",
             "pos": [
                 1645,
                 -634,
-                1631
-            ],
-            "dir": [
-                1,
-                0,
-                0
-            ],
-            "up": [
-                0,
-                1,
-                0
-            ],
-            "xmin": -100,
-            "xmax": 100,
-            "ymin": -100,
-            "ymax": 100,
-            "zmin": -100,
-            "zmax": 100,
-            "flags": 0,
-            "aiwaitlift": false,
-            "aionlift": false,
-            "aiwalkdirect": false,
-            "aidrop": false,
-            "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
-            "liftnum": 0
-        },
-        {
-            "id": "PAD_MP9_0098",
-            "pos": [
-                2728,
-                -274,
                 1631
             ],
             "dir": [
@@ -5054,12 +5021,12 @@
             "pos": [
                 2728,
                 -274,
-                1987
+                1631
             ],
             "dir": [
                 1,
                 0,
-                9.999999974752427e-7
+                0
             ],
             "up": [
                 0,
@@ -5085,7 +5052,7 @@
         {
             "id": "PAD_MP9_009A",
             "pos": [
-                1389,
+                2728,
                 -274,
                 1987
             ],
@@ -5120,12 +5087,12 @@
             "pos": [
                 1389,
                 -274,
-                500
+                1987
             ],
             "dir": [
                 1,
                 0,
-                0
+                9.999999974752427e-7
             ],
             "up": [
                 0,
@@ -5151,9 +5118,9 @@
         {
             "id": "PAD_MP9_009C",
             "pos": [
-                2314,
+                1389,
                 -274,
-                -55
+                500
             ],
             "dir": [
                 1,
@@ -5186,7 +5153,7 @@
             "pos": [
                 2314,
                 -274,
-                500
+                -55
             ],
             "dir": [
                 1,
@@ -5216,6 +5183,39 @@
         },
         {
             "id": "PAD_MP9_009E",
+            "pos": [
+                2314,
+                -274,
+                500
+            ],
+            "dir": [
+                1,
+                0,
+                0
+            ],
+            "up": [
+                0,
+                1,
+                0
+            ],
+            "xmin": -100,
+            "xmax": 100,
+            "ymin": -100,
+            "ymax": 100,
+            "zmin": -100,
+            "zmax": 100,
+            "flags": 0,
+            "aiwaitlift": false,
+            "aionlift": false,
+            "aiwalkdirect": false,
+            "aidrop": false,
+            "aiduck": false,
+            "flag00008000": false,
+            "flag00010000": false,
+            "liftnum": 0
+        },
+        {
+            "id": "PAD_MP9_009F",
             "pos": [
                 657,
                 135,
@@ -5248,7 +5248,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_009F",
+            "id": "PAD_MP9_00A0",
             "pos": [
                 843,
                 135,
@@ -5281,7 +5281,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00A0",
+            "id": "PAD_MP9_00A1",
             "pos": [
                 849,
                 135,
@@ -5314,7 +5314,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00A1",
+            "id": "PAD_MP9_00A2",
             "pos": [
                 1438,
                 -9,
@@ -5347,7 +5347,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00A2",
+            "id": "PAD_MP9_00A3",
             "pos": [
                 531,
                 135,
@@ -5380,7 +5380,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00A3",
+            "id": "PAD_MP9_00A4",
             "pos": [
                 1389,
                 -274,
@@ -5413,7 +5413,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00A4",
+            "id": "PAD_MP9_00A5",
             "pos": [
                 1343,
                 195,
@@ -5446,7 +5446,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00A5",
+            "id": "PAD_MP9_00A6",
             "pos": [
                 148,
                 135,
@@ -5479,42 +5479,9 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00A6",
-            "pos": [
-                461,
-                135,
-                893
-            ],
-            "dir": [
-                1,
-                0,
-                0
-            ],
-            "up": [
-                0,
-                1,
-                0
-            ],
-            "xmin": -100,
-            "xmax": 100,
-            "ymin": -100,
-            "ymax": 100,
-            "zmin": -100,
-            "zmax": 100,
-            "flags": 0,
-            "aiwaitlift": false,
-            "aionlift": false,
-            "aiwalkdirect": false,
-            "aidrop": false,
-            "aiduck": false,
-            "flag00008000": false,
-            "flag00010000": false,
-            "liftnum": 0
-        },
-        {
             "id": "PAD_MP9_00A7",
             "pos": [
-                843,
+                461,
                 135,
                 893
             ],
@@ -5547,7 +5514,7 @@
         {
             "id": "PAD_MP9_00A8",
             "pos": [
-                1194,
+                843,
                 135,
                 893
             ],
@@ -5580,6 +5547,39 @@
         {
             "id": "PAD_MP9_00A9",
             "pos": [
+                1194,
+                135,
+                893
+            ],
+            "dir": [
+                1,
+                0,
+                0
+            ],
+            "up": [
+                0,
+                1,
+                0
+            ],
+            "xmin": -100,
+            "xmax": 100,
+            "ymin": -100,
+            "ymax": 100,
+            "zmin": -100,
+            "zmax": 100,
+            "flags": 0,
+            "aiwaitlift": false,
+            "aionlift": false,
+            "aiwalkdirect": false,
+            "aidrop": false,
+            "aiduck": false,
+            "flag00008000": false,
+            "flag00010000": false,
+            "liftnum": 0
+        },
+        {
+            "id": "PAD_MP9_00AA",
+            "pos": [
                 461,
                 135,
                 647
@@ -5611,7 +5611,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00AA",
+            "id": "PAD_MP9_00AB",
             "pos": [
                 450,
                 -217,
@@ -5644,7 +5644,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00AB",
+            "id": "PAD_MP9_00AC",
             "pos": [
                 461,
                 135,
@@ -5677,7 +5677,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00AC",
+            "id": "PAD_MP9_00AD",
             "pos": [
                 450,
                 -217,
@@ -5710,7 +5710,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00AD",
+            "id": "PAD_MP9_00AE",
             "pos": [
                 -697,
                 -274,
@@ -5743,7 +5743,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00AE",
+            "id": "PAD_MP9_00AF",
             "pos": [
                 -694,
                 -274,
@@ -5776,7 +5776,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00AF",
+            "id": "PAD_MP9_00B0",
             "pos": [
                 396,
                 -274,
@@ -5809,7 +5809,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B0",
+            "id": "PAD_MP9_00B1",
             "pos": [
                 -1508,
                 -274,
@@ -5842,7 +5842,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B1",
+            "id": "PAD_MP9_00B2",
             "pos": [
                 -1589,
                 -543,
@@ -5875,7 +5875,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B2",
+            "id": "PAD_MP9_00B3",
             "pos": [
                 -1365,
                 -543,
@@ -5908,7 +5908,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B3",
+            "id": "PAD_MP9_00B4",
             "pos": [
                 -1760,
                 -314,
@@ -5941,7 +5941,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B4",
+            "id": "PAD_MP9_00B5",
             "pos": [
                 -1760,
                 -314,
@@ -5974,7 +5974,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B5",
+            "id": "PAD_MP9_00B6",
             "pos": [
                 -1319,
                 -673,
@@ -6007,7 +6007,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B6",
+            "id": "PAD_MP9_00B7",
             "pos": [
                 -1319,
                 -673,
@@ -6040,7 +6040,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B7",
+            "id": "PAD_MP9_00B8",
             "pos": [
                 -2860,
                 -314,
@@ -6073,7 +6073,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP9_00B8",
+            "id": "PAD_MP9_00B9",
             "pos": [
                 -2860,
                 -314,
@@ -6513,7 +6513,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0011",
-            "pad": "PAD_MP9_005D",
+            "pad": "PAD_MP9_82BB783A",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0012",
@@ -7321,7 +7321,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0038",
-            "pad": "PAD_MP9_0084",
+            "pad": "PAD_MP9_0085",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0010",
@@ -7338,7 +7338,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0039",
-            "pad": "PAD_MP9_0085",
+            "pad": "PAD_MP9_0086",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0038",
@@ -7355,7 +7355,7 @@
         },
         {
             "id": "WAYPOINT_MP9_003A",
-            "pad": "PAD_MP9_0086",
+            "pad": "PAD_MP9_057D7D01",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_003D",
@@ -7372,7 +7372,7 @@
         },
         {
             "id": "WAYPOINT_MP9_003B",
-            "pad": "PAD_MP9_0087",
+            "pad": "PAD_MP9_0088",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_003C",
@@ -7389,7 +7389,7 @@
         },
         {
             "id": "WAYPOINT_MP9_003C",
-            "pad": "PAD_MP9_0088",
+            "pad": "PAD_MP9_72BC19C4",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_003B",
@@ -7406,7 +7406,7 @@
         },
         {
             "id": "WAYPOINT_MP9_003D",
-            "pad": "PAD_MP9_0089",
+            "pad": "PAD_MP9_AB421369",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0011",
@@ -7428,7 +7428,7 @@
         },
         {
             "id": "WAYPOINT_MP9_003E",
-            "pad": "PAD_MP9_008A",
+            "pad": "PAD_MP9_008B",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0043",
@@ -7445,7 +7445,7 @@
         },
         {
             "id": "WAYPOINT_MP9_003F",
-            "pad": "PAD_MP9_008B",
+            "pad": "PAD_MP9_008C",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_002A",
@@ -7462,7 +7462,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0040",
-            "pad": "PAD_MP9_008C",
+            "pad": "PAD_MP9_008D",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0042",
@@ -7479,7 +7479,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0041",
-            "pad": "PAD_MP9_008D",
+            "pad": "PAD_MP9_008E",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0043",
@@ -7501,7 +7501,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0042",
-            "pad": "PAD_MP9_008E",
+            "pad": "PAD_MP9_008F",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0043",
@@ -7523,7 +7523,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0043",
-            "pad": "PAD_MP9_008F",
+            "pad": "PAD_MP9_0090",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0042",
@@ -7545,7 +7545,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0044",
-            "pad": "PAD_MP9_0090",
+            "pad": "PAD_MP9_0091",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0046",
@@ -7562,7 +7562,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0045",
-            "pad": "PAD_MP9_0091",
+            "pad": "PAD_MP9_0092",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0047",
@@ -7589,7 +7589,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0046",
-            "pad": "PAD_MP9_0092",
+            "pad": "PAD_MP9_0093",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0047",
@@ -7611,7 +7611,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0047",
-            "pad": "PAD_MP9_0093",
+            "pad": "PAD_MP9_0094",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0041",
@@ -7638,7 +7638,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0048",
-            "pad": "PAD_MP9_0094",
+            "pad": "PAD_MP9_0095",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0060",
@@ -7660,7 +7660,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0049",
-            "pad": "PAD_MP9_0095",
+            "pad": "PAD_MP9_0096",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0045",
@@ -7677,7 +7677,7 @@
         },
         {
             "id": "WAYPOINT_MP9_004A",
-            "pad": "PAD_MP9_0096",
+            "pad": "PAD_MP9_0097",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0044",
@@ -7699,7 +7699,7 @@
         },
         {
             "id": "WAYPOINT_MP9_004B",
-            "pad": "PAD_MP9_0097",
+            "pad": "PAD_MP9_0098",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_004A",
@@ -7716,7 +7716,7 @@
         },
         {
             "id": "WAYPOINT_MP9_004C",
-            "pad": "PAD_MP9_0098",
+            "pad": "PAD_MP9_0099",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_004B",
@@ -7733,7 +7733,7 @@
         },
         {
             "id": "WAYPOINT_MP9_004D",
-            "pad": "PAD_MP9_0099",
+            "pad": "PAD_MP9_009A",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_004C",
@@ -7750,7 +7750,7 @@
         },
         {
             "id": "WAYPOINT_MP9_004E",
-            "pad": "PAD_MP9_009A",
+            "pad": "PAD_MP9_009B",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_004D",
@@ -7767,7 +7767,7 @@
         },
         {
             "id": "WAYPOINT_MP9_004F",
-            "pad": "PAD_MP9_009B",
+            "pad": "PAD_MP9_009C",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0057",
@@ -7784,7 +7784,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0050",
-            "pad": "PAD_MP9_009C",
+            "pad": "PAD_MP9_009D",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0051",
@@ -7801,7 +7801,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0051",
-            "pad": "PAD_MP9_009D",
+            "pad": "PAD_MP9_009E",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_004F",
@@ -7818,7 +7818,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0052",
-            "pad": "PAD_MP9_009E",
+            "pad": "PAD_MP9_009F",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0053",
@@ -7835,7 +7835,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0053",
-            "pad": "PAD_MP9_009F",
+            "pad": "PAD_MP9_00A0",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0054",
@@ -7857,7 +7857,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0054",
-            "pad": "PAD_MP9_00A0",
+            "pad": "PAD_MP9_00A1",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0055",
@@ -7874,7 +7874,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0055",
-            "pad": "PAD_MP9_00A1",
+            "pad": "PAD_MP9_00A2",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0050",
@@ -7891,7 +7891,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0056",
-            "pad": "PAD_MP9_00A2",
+            "pad": "PAD_MP9_00A3",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0052",
@@ -7908,7 +7908,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0057",
-            "pad": "PAD_MP9_00A3",
+            "pad": "PAD_MP9_00A4",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_004E",
@@ -7930,7 +7930,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0058",
-            "pad": "PAD_MP9_00A4",
+            "pad": "PAD_MP9_00A5",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_005C",
@@ -7947,7 +7947,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0059",
-            "pad": "PAD_MP9_00A5",
+            "pad": "PAD_MP9_00A6",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_001A",
@@ -7964,7 +7964,7 @@
         },
         {
             "id": "WAYPOINT_MP9_005A",
-            "pad": "PAD_MP9_00A6",
+            "pad": "PAD_MP9_00A7",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0059",
@@ -7986,7 +7986,7 @@
         },
         {
             "id": "WAYPOINT_MP9_005B",
-            "pad": "PAD_MP9_00A7",
+            "pad": "PAD_MP9_00A8",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0053",
@@ -8008,7 +8008,7 @@
         },
         {
             "id": "WAYPOINT_MP9_005C",
-            "pad": "PAD_MP9_00A8",
+            "pad": "PAD_MP9_00A9",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_005B",
@@ -8025,7 +8025,7 @@
         },
         {
             "id": "WAYPOINT_MP9_005D",
-            "pad": "PAD_MP9_00A9",
+            "pad": "PAD_MP9_00AA",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_005F",
@@ -8042,7 +8042,7 @@
         },
         {
             "id": "WAYPOINT_MP9_005E",
-            "pad": "PAD_MP9_00AA",
+            "pad": "PAD_MP9_00AB",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_005F",
@@ -8059,7 +8059,7 @@
         },
         {
             "id": "WAYPOINT_MP9_005F",
-            "pad": "PAD_MP9_00AB",
+            "pad": "PAD_MP9_00AC",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_005D",
@@ -8076,7 +8076,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0060",
-            "pad": "PAD_MP9_00AC",
+            "pad": "PAD_MP9_00AD",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_005E",
@@ -8093,7 +8093,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0061",
-            "pad": "PAD_MP9_00AD",
+            "pad": "PAD_MP9_00AE",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0064",
@@ -8115,7 +8115,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0062",
-            "pad": "PAD_MP9_00AE",
+            "pad": "PAD_MP9_00AF",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0063",
@@ -8137,7 +8137,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0063",
-            "pad": "PAD_MP9_00AF",
+            "pad": "PAD_MP9_00B0",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0056",
@@ -8169,7 +8169,7 @@
         },
         {
             "id": "WAYPOINT_MP9_0064",
-            "pad": "PAD_MP9_00B0",
+            "pad": "PAD_MP9_00B1",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP9_0063",

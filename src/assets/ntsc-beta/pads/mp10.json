@@ -100,7 +100,7 @@
             "liftnum": 1
         },
         {
-            "id": "PAD_MP10_0003",
+            "id": "PAD_MP10_BB9DC759",
             "pos": [
                 -1122,
                 144,
@@ -2014,7 +2014,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP10_003D",
+            "id": "PAD_MP10_F68E4B69",
             "pos": [
                 -2186,
                 -915,
@@ -2773,7 +2773,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP10_0054",
+            "id": "PAD_MP10_F4709C44",
             "pos": [
                 -2242,
                 200,
@@ -3169,7 +3169,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP10_0060",
+            "id": "PAD_MP10_B77574AE",
             "pos": [
                 -1236,
                 144,
@@ -3202,7 +3202,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP10_0061",
+            "id": "PAD_MP10_2D971FDB",
             "pos": [
                 -1236,
                 144,
@@ -3235,7 +3235,7 @@
             "liftnum": 1
         },
         {
-            "id": "PAD_MP10_0062",
+            "id": "PAD_MP10_3D47DC58",
             "pos": [
                 -1092,
                 144,
@@ -3268,7 +3268,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_MP10_0063",
+            "id": "PAD_MP10_3BEA6004",
             "pos": [
                 -1949,
                 144,
@@ -6198,7 +6198,7 @@
         },
         {
             "id": "WAYPOINT_MP10_0003",
-            "pad": "PAD_MP10_0003",
+            "pad": "PAD_MP10_BB9DC759",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP10_0004",
@@ -7319,7 +7319,7 @@
         },
         {
             "id": "WAYPOINT_MP10_003D",
-            "pad": "PAD_MP10_003D",
+            "pad": "PAD_MP10_F68E4B69",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP10_003C",
@@ -7745,7 +7745,7 @@
         },
         {
             "id": "WAYPOINT_MP10_0054",
-            "pad": "PAD_MP10_0054",
+            "pad": "PAD_MP10_F4709C44",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP10_0053",
@@ -7999,7 +7999,7 @@
         },
         {
             "id": "WAYPOINT_MP10_0060",
-            "pad": "PAD_MP10_0060",
+            "pad": "PAD_MP10_B77574AE",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP10_0063",
@@ -8016,7 +8016,7 @@
         },
         {
             "id": "WAYPOINT_MP10_0061",
-            "pad": "PAD_MP10_0061",
+            "pad": "PAD_MP10_2D971FDB",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP10_0003",
@@ -8038,7 +8038,7 @@
         },
         {
             "id": "WAYPOINT_MP10_0062",
-            "pad": "PAD_MP10_0062",
+            "pad": "PAD_MP10_3D47DC58",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP10_0061",
@@ -8055,7 +8055,7 @@
         },
         {
             "id": "WAYPOINT_MP10_0063",
-            "pad": "PAD_MP10_0063",
+            "pad": "PAD_MP10_3BEA6004",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_MP10_005D",

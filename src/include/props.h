@@ -146,8 +146,8 @@
 #define safeitem(item, safe, door) \
 	0x2c, item, safe, door,
 
-#define camera2(scale, u1, u2, u3, u4, u5, u6) \
-	_mkword(scale, 0x2e), u1, u2, u3, u4, u5, u6,
+#define camera2(scale, u1, u2, u3, u4, u5, pad) \
+	_mkword(scale, 0x2e), u1, u2, u3, u4, u5, pad,
 
 #define tinted_glass(scale, model, pad, flags, flags2, flags3, maxdamage, unk5c) \
 	_generic_object(0x2f, scale, model, pad, flags, flags2, flags3, maxdamage), \

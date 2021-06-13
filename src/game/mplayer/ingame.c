@@ -754,11 +754,10 @@ struct menudialog g_MpEndscreenChallengeFailedMenuDialog = {
 	&g_MpEndscreenIndGameOverMenuDialog,
 };
 
+#if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_MpEndscreenConfirmNameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_250, 0x00000000, NULL }, // "Confirm player name:"
-#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandler00178bf4 },
-#endif
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -786,3 +785,4 @@ struct menudialog g_MpEndscreenSavePlayerMenuDialog = {
 	0x00000004,
 	NULL,
 };
+#endif

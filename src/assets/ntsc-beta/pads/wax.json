@@ -2146,7 +2146,7 @@
             "liftnum": 2
         },
         {
-            "id": "PAD_WAX_0041",
+            "id": "PAD_WAX_3C27C3D9",
             "pos": [
                 -872,
                 -1464,
@@ -2179,7 +2179,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_WAX_0042",
+            "id": "PAD_WAX_3B53DDE5",
             "pos": [
                 -636,
                 -1464,
@@ -2542,7 +2542,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_WAX_004D",
+            "id": "PAD_WAX_E1D5B066",
             "pos": [
                 -636,
                 -1464,
@@ -2575,7 +2575,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_WAX_004E",
+            "id": "PAD_WAX_01076C1F",
             "pos": [
                 -832,
                 -1464,
@@ -2608,7 +2608,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_WAX_004F",
+            "id": "PAD_WAX_0274FE06",
             "pos": [
                 -832,
                 -1464,
@@ -2641,7 +2641,7 @@
             "liftnum": 0
         },
         {
-            "id": "PAD_WAX_0050",
+            "id": "PAD_WAX_ED915460",
             "pos": [
                 -636,
                 -1464,
@@ -21155,7 +21155,7 @@
         },
         {
             "id": "WAYPOINT_WAX_003D",
-            "pad": "PAD_WAX_0041",
+            "pad": "PAD_WAX_3C27C3D9",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_WAX_004A",
@@ -21172,7 +21172,7 @@
         },
         {
             "id": "WAYPOINT_WAX_003E",
-            "pad": "PAD_WAX_0042",
+            "pad": "PAD_WAX_3B53DDE5",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_WAX_003F",
@@ -21414,7 +21414,7 @@
         },
         {
             "id": "WAYPOINT_WAX_0049",
-            "pad": "PAD_WAX_004D",
+            "pad": "PAD_WAX_E1D5B066",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_WAX_0044",
@@ -21441,7 +21441,7 @@
         },
         {
             "id": "WAYPOINT_WAX_004A",
-            "pad": "PAD_WAX_004E",
+            "pad": "PAD_WAX_01076C1F",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_WAX_0043",
@@ -21463,7 +21463,7 @@
         },
         {
             "id": "WAYPOINT_WAX_004B",
-            "pad": "PAD_WAX_004F",
+            "pad": "PAD_WAX_0274FE06",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_WAX_004C",
@@ -21485,7 +21485,7 @@
         },
         {
             "id": "WAYPOINT_WAX_004C",
-            "pad": "PAD_WAX_0050",
+            "pad": "PAD_WAX_ED915460",
             "neighbours": [
                 {
                     "waypoint": "WAYPOINT_WAX_003F",

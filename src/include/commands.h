@@ -3199,14 +3199,13 @@
  *
  * Typically used to make terminals hum.
  */
-#define play_sound_from_object(channel, object, sound, u1) \
+#define play_sound_from_object(channel, object, u1, u2, u3) \
 	mkshort(0x016b), \
 	channel, \
 	object, \
-	0x00, \
-	0x01, \
-	mkshort(sound), \
-	mkshort(u1),
+	mkshort(u1), \
+	mkshort(u2), \
+	mkshort(u3),
 
 #define noop016c \
 	mkshort(0x016c),

@@ -993,7 +993,7 @@ glabel var7f1b522c
 //	case WEAPON_RCP45:            return MODEL_CHRFNP90;
 //	case WEAPON_COMBATBOOST:      return -1;
 //	case WEAPON_HAMMER:           return MODEL_CHRLUMPHAMMER;
-//	case WEAPON_52:               return MODEL_CHRSONICSCREWER;
+//	case WEAPON_SCREWDRIVER:      return MODEL_CHRSONICSCREWER;
 //	}
 //
 //	if (weapon <= WEAPON_PSYCHOSISGUN) {

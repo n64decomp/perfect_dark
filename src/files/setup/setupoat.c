@@ -29,7 +29,7 @@ u32 props[] = {
 };
 
 s32 intro[] = {
-	spawn(0x0063)
+	spawn(PAD_OAT_0063)
 	outfit(OUTFIT_DEFAULT)
 	intro_weapon(WEAPON_FALCON2, -1)
 	intro_weapon(WEAPON_CMP150, -1)
@@ -217,43 +217,43 @@ struct ailist ailists[] = {
 };
 
 s32 path00[] = {
-	0x0014,
-	0x0015,
+	PAD_OAT_0014,
+	PAD_OAT_0015,
 	-1,
 };
 
 s32 path01[] = {
-	0x0064,
-	0x0066,
+	PAD_OAT_0064,
+	PAD_OAT_0066,
 	-1,
 };
 
 s32 path02[] = {
-	0x0037,
-	0x0033,
-	0x0034,
+	PAD_OAT_0037,
+	PAD_OAT_0033,
+	PAD_OAT_0034,
 	-1,
 };
 
 s32 path03[] = {
-	0x0038,
-	0x0039,
-	0x003a,
+	PAD_OAT_0038,
+	PAD_OAT_0039,
+	PAD_OAT_003A,
 	-1,
 };
 
 s32 path04[] = {
-	0x0033,
-	0x0037,
-	0x0036,
-	0x003d,
-	0x003e,
-	0x003f,
-	0x0045,
-	0x0048,
-	0x003b,
-	0x003a,
-	0x0039,
+	PAD_OAT_0033,
+	PAD_OAT_0037,
+	PAD_OAT_0036,
+	PAD_OAT_003D,
+	PAD_OAT_003E,
+	PAD_OAT_003F,
+	PAD_OAT_0045,
+	PAD_OAT_0048,
+	PAD_OAT_003B,
+	PAD_OAT_003A,
+	PAD_OAT_0039,
 	-1,
 };
 

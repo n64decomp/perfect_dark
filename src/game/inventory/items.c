@@ -5852,10 +5852,17 @@ struct weapon invitem_shield = {
 	1, // unk38
 	NULL, // fptr
 	NULL, // part visibility
+#if VERSION >= VERSION_NTSC_1_0
 	L_GUN_240, // short name
 	L_GUN_240, // name
 	L_GUN_000, // manufacturer
 	L_GUN_241, // description
+#else
+	L_GUN_000, // short name
+	L_GUN_000, // name
+	L_GUN_000, // manufacturer
+	L_GUN_000, // description
+#endif
 	WEAPONFLAG_08000000,
 };
 
@@ -6088,7 +6095,9 @@ struct weapon *g_Weapons[] = {
 	&invitem_keycard,
 	&invitem_keycard,
 	&invitem_suitcase,
+#if VERSION >= VERSION_NTSC_1_0
 	&invitem_briefcase,
+#endif
 	&invitem_shield,
 	&invitem_necklace,
 	&invitem_hammer,
