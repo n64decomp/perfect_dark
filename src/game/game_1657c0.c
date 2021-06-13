@@ -10,12 +10,8 @@
 
 struct coord var800a65f0;
 u32 var800a65fc;
-u32 var800a6600;
-u32 var800a6604;
-u32 var800a6608;
-u32 var800a660c;
-u32 var800a6610;
-u32 var800a6614;
+
+struct var800a6600 var800a6600;
 u32 var800a6618;
 u32 var800a661c;
 struct smallsky *var800a6620;
@@ -1057,67 +1053,32 @@ glabel func0f1667e8
 /*  f1667f0:	8c4265e8 */ 	lw	$v0,%lo(var800a65e8)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f1667f4
-/*  f1667f4:	3c0e800a */ 	lui	$t6,%hi(g_FogDisabled)
-/*  f1667f8:	8dce65e0 */ 	lw	$t6,%lo(g_FogDisabled)($t6)
-/*  f1667fc:	55c00004 */ 	bnezl	$t6,.L0f166810
-/*  f166800:	44801000 */ 	mtc1	$zero,$f2
-/*  f166804:	03e00008 */ 	jr	$ra
-/*  f166808:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f16680c:	44801000 */ 	mtc1	$zero,$f2
-.L0f166810:
-/*  f166810:	c4840014 */ 	lwc1	$f4,0x14($a0)
-/*  f166814:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f166818:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f16681c:	00000000 */ 	nop
-/*  f166820:	45000003 */ 	bc1f	.L0f166830
-/*  f166824:	00000000 */ 	nop
-/*  f166828:	03e00008 */ 	jr	$ra
-/*  f16682c:	24020002 */ 	addiu	$v0,$zero,0x2
-.L0f166830:
-/*  f166830:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f166834:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f166838:	3c028008 */ 	lui	$v0,%hi(var80081058)
-/*  f16683c:	95f80010 */ 	lhu	$t8,0x10($t7)
-/*  f166840:	24421058 */ 	addiu	$v0,$v0,%lo(var80081058)
-/*  f166844:	57010004 */ 	bnel	$t8,$at,.L0f166858
-/*  f166848:	c4460044 */ 	lwc1	$f6,0x44($v0)
-/*  f16684c:	03e00008 */ 	jr	$ra
-/*  f166850:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f166854:	c4460044 */ 	lwc1	$f6,0x44($v0)
-.L0f166858:
-/*  f166858:	3c03800a */ 	lui	$v1,%hi(var800a6600)
-/*  f16685c:	24636600 */ 	addiu	$v1,$v1,%lo(var800a6600)
-/*  f166860:	e4a60000 */ 	swc1	$f6,0x0($a1)
-/*  f166864:	c4480048 */ 	lwc1	$f8,0x48($v0)
-/*  f166868:	3c013f80 */ 	lui	$at,0x3f80
-/*  f16686c:	e4a80004 */ 	swc1	$f8,0x4($a1)
-/*  f166870:	c44a004c */ 	lwc1	$f10,0x4c($v0)
-/*  f166874:	e4aa0008 */ 	swc1	$f10,0x8($a1)
-/*  f166878:	c4920014 */ 	lwc1	$f18,0x14($a0)
-/*  f16687c:	c4700010 */ 	lwc1	$f16,0x10($v1)
-/*  f166880:	c4660014 */ 	lwc1	$f6,0x14($v1)
-/*  f166884:	46128103 */ 	div.s	$f4,$f16,$f18
-/*  f166888:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f16688c:	e4a8000c */ 	swc1	$f8,0xc($a1)
-/*  f166890:	c4a0000c */ 	lwc1	$f0,0xc($a1)
-/*  f166894:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f166898:	00000000 */ 	nop
-/*  f16689c:	45020004 */ 	bc1fl	.L0f1668b0
-/*  f1668a0:	44815000 */ 	mtc1	$at,$f10
-/*  f1668a4:	03e00008 */ 	jr	$ra
-/*  f1668a8:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f1668ac:	44815000 */ 	mtc1	$at,$f10
-.L0f1668b0:
-/*  f1668b0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1668b4:	4600503c */ 	c.lt.s	$f10,$f0
-/*  f1668b8:	00000000 */ 	nop
-/*  f1668bc:	45000003 */ 	bc1f	.L0f1668cc
-/*  f1668c0:	00000000 */ 	nop
-/*  f1668c4:	03e00008 */ 	jr	$ra
-/*  f1668c8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1668cc:
-/*  f1668cc:	03e00008 */ 	jr	$ra
-/*  f1668d0:	00000000 */ 	nop
-);
+s32 func0f1667f4(struct prop *prop, f32 *arg1)
+{
+	if (!g_FogDisabled) {
+		return 2;
+	}
+
+	if (prop->z < 0.0f) {
+		return 2;
+	}
+
+	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+		return 2;
+	}
+
+	arg1[0] = var80081058.unk44;
+	arg1[1] = var80081058.unk48;
+	arg1[2] = var80081058.unk4c;
+	arg1[3] = var800a6600.unk14 + var800a6600.unk10 / prop->z;
+
+	if (arg1[3] < 0.0f) {
+		return 2;
+	}
+
+	if (arg1[3] > 1.0f) {
+		return 0;
+	}
+
+	return 1;
+}

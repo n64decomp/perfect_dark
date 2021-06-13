@@ -3249,6 +3249,15 @@ struct mission {
 	u16 name;
 };
 
+struct var800a6600 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	f32 unk10;
+	f32 unk14;
+};
+
 struct var80081058 {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
