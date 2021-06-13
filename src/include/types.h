@@ -3263,7 +3263,7 @@ struct sun {
 
 struct smallsky {
 	// len 0x2c
-	u16 stage;
+	s16 stage;
 	u16 blend_multiplier;
 	u16 sky_far;
 	u16 unk06;

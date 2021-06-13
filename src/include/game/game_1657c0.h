@@ -7,10 +7,10 @@
 u32 func0f1657cc(void);
 f32 func0f1657e4(void);
 void func0f1657f8(void);
-u32 func0f16598c(void);
-u32 func0f165c4c(void);
+void func0f16598c(struct smallsky *sky);
+void func0f165c4c(struct sky *sky);
 void func0f165ee4(s32 stagenum);
-void func0f165eec(s32 stagenum, s32 arg1);
+void func0f165eec(s32 stagenum, bool arg1);
 void func0f1660a4(f32 arg0);
 Gfx *func0f1664a0(Gfx *gdl, u32 arg1);
 Gfx *gfxConsiderDisableFog(Gfx *gdl);

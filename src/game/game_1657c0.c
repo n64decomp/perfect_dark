@@ -8,10 +8,6 @@
 #include "data.h"
 #include "types.h"
 
-const u32 var7f1b76e0[] = {0x3a83126f};
-const u32 var7f1b76e4[] = {0x3a83126f};
-const u32 var7f1b76e8[] = {0x7f7fffff};
-
 u32 var800a65f0;
 u32 var800a65f4;
 u32 var800a65f8;
@@ -24,9 +20,9 @@ u32 var800a6610;
 u32 var800a6614;
 u32 var800a6618;
 u32 var800a661c;
-u32 var800a6620;
-u32 var800a6624;
-u32 var800a6628;
+struct smallsky *var800a6620;
+struct smallsky *var800a6624;
+struct smallsky *var800a6628;
 u32 var800a662c;
 u32 var800a6630;
 u32 var800a6634;
@@ -41,8 +37,8 @@ u32 var800a6654;
 u32 var800a6658;
 u32 var800a665c;
 
-u32 var80081050 = 0x7f7fffff;
-u32 var80081054 = 0x00000000;
+f32 var80081050 = MAXFLOAT;
+f32 var80081054 = 0;
 u32 var80081058 = 0x00000384;
 u32 var8008105c = 0x000003e8;
 u32 var80081060 = 0x00000000;
@@ -77,26 +73,26 @@ struct sun sun_06        = { 1, 0xff, 0xff, 0xff,   400000,  600000,  1000000, 1
 struct sun sun_crashsite = { 1, 0xff, 0xd7, 0xf2,  1900000,  300000, -1400000, 22, 48 };
 struct sun sun_airbase   = { 1, 0xff, 0xd7, 0xf2, -1200000,  200000,   150000, 30, 60 };
 
-struct smallsky smallskies[] = {
+struct smallsky g_SmallSkies[] = {
 	//                                                             |------ sky ------|                  |-------------- clouds --------------|                      |-------- water --------|
-	// stage            blend  far  06    08   0a      0c      0e     r     g     b  e  sun             e    19     1a    1c     r     g     b    20      22    23  e     r     g     b    28
-	{ STAGE_CRASHSITE, 15, 10000,    0,    0,   0, 0x03e2, 0x03e8, 0x9b, 0x2d, 0x1e, 1, &sun_crashsite, 1, 0x00,  1500, 0x00, 0xfa, 0xfa, 0x00, 0x0000, 0xec, 0x78, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ STAGE_PELAGIC,   15, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x2d, 0x3e, 0x60, 0, NULL,           1, 0x00,  5000, 0x00, 0xf0, 0xf0, 0xf0, 0x0000, 0xf8, 0x30, 0, 0x14, 0x21, 0x2b, 0x00 },
-	{ STAGE_VILLA,     15, 20000,    0,    0,   0, 0x03d5, 0x0417, 0x46, 0xa0, 0xff, 1, &sun_villa,     1, 0x00,  5000, 0x00, 0xff, 0xff, 0xff, 0x0000, 0xf8, 0xc6, 1, 0x00, 0xff, 0xff, 0x00 },
-	{ 0x03a5,          30, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x10, 0x30, 0x60, 0, NULL,           1, 0x00,  5000, 0x00, 0xff, 0xff, 0xff, 0x0000, 0xfc, 0x18, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x0024,           2, 25000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           1, 0x00, 10000, 0x00, 0xff, 0xff, 0xff, 0x0000, 0x00, 0x00, 1, 0x00, 0xff, 0xff, 0x07 },
-	{ 0x002b,           2,  2000, 2500, 3055, 750, 0x03bd, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1, 0x00,  5000, 0x00, 0x3a, 0x11, 0x00, 0x0000, 0xfc, 0x18, 1, 0x00, 0xff, 0xff, 0x14 },
-	{ 0x03af,           2,  8000, 6000, 8000, 800, 0x03df, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1, 0x00,  5000, 0x00, 0x3a, 0x11, 0x00, 0x0000, 0xfc, 0x18, 1, 0x00, 0xff, 0xff, 0x00 },
-	{ 0x00ee,          10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0x0000, 0xfe, 0x0c, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x0152,          10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0x0000, 0xfe, 0x0c, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x01b6,          10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0x0000, 0xfe, 0x0c, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x00c8,          10,  7500,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x012c,          10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x0190,          10,  5000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x0000,           0,     0,    0,    0,   0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
+	// stage                 blend  far  06    08   0a      0c      0e     r     g     b  e  sun             e    19     1a    1c     r     g     b    20      22    23  e     r     g     b    28
+	{ STAGE_CRASHSITE,        15, 10000,    0,    0,   0, 0x03e2, 0x03e8, 0x9b, 0x2d, 0x1e, 1, &sun_crashsite, 1, 0x00,  1500, 0x00, 0xfa, 0xfa, 0x00, 0x0000, 0xec, 0x78, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ STAGE_PELAGIC,          15, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x2d, 0x3e, 0x60, 0, NULL,           1, 0x00,  5000, 0x00, 0xf0, 0xf0, 0xf0, 0x0000, 0xf8, 0x30, 0, 0x14, 0x21, 0x2b, 0x00 },
+	{ STAGE_VILLA,            15, 20000,    0,    0,   0, 0x03d5, 0x0417, 0x46, 0xa0, 0xff, 1, &sun_villa,     1, 0x00,  5000, 0x00, 0xff, 0xff, 0xff, 0x0000, 0xf8, 0xc6, 1, 0x00, 0xff, 0xff, 0x00 },
+	{ STAGE_PELAGIC + 900,    30, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x10, 0x30, 0x60, 0, NULL,           1, 0x00,  5000, 0x00, 0xff, 0xff, 0xff, 0x0000, 0xfc, 0x18, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ STAGE_24,                2, 25000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           1, 0x00, 10000, 0x00, 0xff, 0xff, 0xff, 0x0000, 0x00, 0x00, 1, 0x00, 0xff, 0xff, 0x07 },
+	{ STAGE_2B,                2,  2000, 2500, 3055, 750, 0x03bd, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1, 0x00,  5000, 0x00, 0x3a, 0x11, 0x00, 0x0000, 0xfc, 0x18, 1, 0x00, 0xff, 0xff, 0x14 },
+	{ STAGE_2B + 900,          2,  8000, 6000, 8000, 800, 0x03df, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1, 0x00,  5000, 0x00, 0x3a, 0x11, 0x00, 0x0000, 0xfc, 0x18, 1, 0x00, 0xff, 0xff, 0x00 },
+	{ 0x00ee,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0x0000, 0xfe, 0x0c, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x0152,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0x0000, 0xfe, 0x0c, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x01b6,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0x0000, 0xfe, 0x0c, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x00c8,                 10,  7500,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x012c,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x0190,                 10,  5000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x0000,                  0,     0,    0,    0,   0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00, 0, 0x00, 0x00, 0x00, 0x00 },
 };
 
-struct sky skies[] = {
+struct sky g_Skies[] = {
 	//                                                                         |-------- clouds --------|     |------------ water ------------|
 	// stage               04  06    08 0c     r     g     b     sun           e     r     g     b  scale 20  e     r     g     b   scale  type 30 34
 	{ -1,                  15, 10000, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
@@ -186,6 +182,12 @@ glabel func0f1657e4
 
 GLOBAL_ASM(
 glabel func0f1657f8
+.late_rodata
+glabel var7f1b76e0
+.word 0x3a83126f
+glabel var7f1b76e4
+.word 0x3a83126f
+.text
 /*  f1657f8:	3c0e800a */ 	lui	$t6,%hi(g_FogDisabled)
 /*  f1657fc:	8dce65e0 */ 	lw	$t6,%lo(g_FogDisabled)($t6)
 /*  f165800:	27bdffc0 */ 	addiu	$sp,$sp,-64
@@ -669,137 +671,55 @@ glabel func0f165ee4
 /*  f165ee8:	afa40000 */ 	sw	$a0,0x0($sp)
 );
 
-GLOBAL_ASM(
-glabel func0f165eec
-/*  f165eec:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f165ef0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f165ef4:	8c4e006c */ 	lw	$t6,0x6c($v0)
-/*  f165ef8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f165efc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f165f00:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f165f04:	00803025 */ 	or	$a2,$a0,$zero
-/*  f165f08:	11c00003 */ 	beqz	$t6,.L0f165f18
-/*  f165f0c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f165f10:	10000002 */ 	b	.L0f165f1c
-/*  f165f14:	8c4f0068 */ 	lw	$t7,0x68($v0)
-.L0f165f18:
-/*  f165f18:	8c4f0068 */ 	lw	$t7,0x68($v0)
-.L0f165f1c:
-/*  f165f1c:	44803000 */ 	mtc1	$zero,$f6
-/*  f165f20:	3c017f1b */ 	lui	$at,%hi(var7f1b76e8)
-/*  f165f24:	11e00003 */ 	beqz	$t7,.L0f165f34
-/*  f165f28:	3c058008 */ 	lui	$a1,%hi(smallskies)
-/*  f165f2c:	10000002 */ 	b	.L0f165f38
-/*  f165f30:	8c580064 */ 	lw	$t8,0x64($v0)
-.L0f165f34:
-/*  f165f34:	8c580064 */ 	lw	$t8,0x64($v0)
-.L0f165f38:
-/*  f165f38:	24a31164 */ 	addiu	$v1,$a1,%lo(smallskies)
-/*  f165f3c:	13000003 */ 	beqz	$t8,.L0f165f4c
-/*  f165f40:	00000000 */ 	nop
-/*  f165f44:	10000002 */ 	b	.L0f165f50
-/*  f165f48:	8c590070 */ 	lw	$t9,0x70($v0)
-.L0f165f4c:
-/*  f165f4c:	8c590070 */ 	lw	$t9,0x70($v0)
-.L0f165f50:
-/*  f165f50:	13200003 */ 	beqz	$t9,.L0f165f60
-/*  f165f54:	00000000 */ 	nop
-/*  f165f58:	10000001 */ 	b	.L0f165f60
-/*  f165f5c:	00000000 */ 	nop
-.L0f165f60:
-/*  f165f60:	c42476e8 */ 	lwc1	$f4,%lo(var7f1b76e8)($at)
-/*  f165f64:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f165f68:	3c018008 */ 	lui	$at,%hi(var80081050)
-/*  f165f6c:	e4241050 */ 	swc1	$f4,%lo(var80081050)($at)
-/*  f165f70:	3c018008 */ 	lui	$at,%hi(var80081054)
-/*  f165f74:	11000018 */ 	beqz	$t0,.L0f165fd8
-/*  f165f78:	e4261054 */ 	swc1	$f6,%lo(var80081054)($at)
-/*  f165f7c:	84690000 */ 	lh	$t1,0x0($v1)
-/*  f165f80:	3c0a8008 */ 	lui	$t2,%hi(smallskies)
-/*  f165f84:	254a1164 */ 	addiu	$t2,$t2,%lo(smallskies)
-/*  f165f88:	11200013 */ 	beqz	$t1,.L0f165fd8
-/*  f165f8c:	24c40384 */ 	addiu	$a0,$a2,0x384
-/*  f165f90:	85420000 */ 	lh	$v0,0x0($t2)
-.L0f165f94:
-/*  f165f94:	1482000c */ 	bne	$a0,$v0,.L0f165fc8
-/*  f165f98:	3c02800a */ 	lui	$v0,%hi(var800a6620)
-/*  f165f9c:	24426620 */ 	addiu	$v0,$v0,%lo(var800a6620)
-/*  f165fa0:	ac430000 */ 	sw	$v1,0x0($v0)
-/*  f165fa4:	3c01800a */ 	lui	$at,%hi(var800a6624)
-/*  f165fa8:	ac236624 */ 	sw	$v1,%lo(var800a6624)($at)
-/*  f165fac:	3c01800a */ 	lui	$at,%hi(var800a6628)
-/*  f165fb0:	246b002c */ 	addiu	$t3,$v1,0x2c
-/*  f165fb4:	ac2b6628 */ 	sw	$t3,%lo(var800a6628)($at)
-/*  f165fb8:	0fc59663 */ 	jal	func0f16598c
-/*  f165fbc:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f165fc0:	10000035 */ 	b	.L0f166098
-/*  f165fc4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f165fc8:
-/*  f165fc8:	8462002c */ 	lh	$v0,0x2c($v1)
-/*  f165fcc:	2463002c */ 	addiu	$v1,$v1,0x2c
-/*  f165fd0:	1440fff0 */ 	bnez	$v0,.L0f165f94
-/*  f165fd4:	00000000 */ 	nop
-.L0f165fd8:
-/*  f165fd8:	3c058008 */ 	lui	$a1,%hi(smallskies)
-/*  f165fdc:	24a31164 */ 	addiu	$v1,$a1,%lo(smallskies)
-/*  f165fe0:	846c0000 */ 	lh	$t4,0x0($v1)
-/*  f165fe4:	3c0d8008 */ 	lui	$t5,%hi(smallskies)
-/*  f165fe8:	25ad1164 */ 	addiu	$t5,$t5,%lo(smallskies)
-/*  f165fec:	11800012 */ 	beqz	$t4,.L0f166038
-/*  f165ff0:	3c01800a */ 	lui	$at,%hi(var800a6624)
-/*  f165ff4:	85a20000 */ 	lh	$v0,0x0($t5)
-.L0f165ff8:
-/*  f165ff8:	14c2000b */ 	bne	$a2,$v0,.L0f166028
-/*  f165ffc:	3c02800a */ 	lui	$v0,%hi(var800a6620)
-/*  f166000:	24426620 */ 	addiu	$v0,$v0,%lo(var800a6620)
-/*  f166004:	ac430000 */ 	sw	$v1,0x0($v0)
-/*  f166008:	ac236624 */ 	sw	$v1,%lo(var800a6624)($at)
-/*  f16600c:	3c01800a */ 	lui	$at,%hi(var800a6628)
-/*  f166010:	246e002c */ 	addiu	$t6,$v1,0x2c
-/*  f166014:	ac2e6628 */ 	sw	$t6,%lo(var800a6628)($at)
-/*  f166018:	0fc59663 */ 	jal	func0f16598c
-/*  f16601c:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f166020:	1000001d */ 	b	.L0f166098
-/*  f166024:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f166028:
-/*  f166028:	8462002c */ 	lh	$v0,0x2c($v1)
-/*  f16602c:	2463002c */ 	addiu	$v1,$v1,0x2c
-/*  f166030:	1440fff1 */ 	bnez	$v0,.L0f165ff8
-/*  f166034:	00000000 */ 	nop
-.L0f166038:
-/*  f166038:	3c048008 */ 	lui	$a0,%hi(skies)
-/*  f16603c:	248413cc */ 	addiu	$a0,$a0,%lo(skies)
-/*  f166040:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*  f166044:	3c188008 */ 	lui	$t8,%hi(skies)
-/*  f166048:	271813cc */ 	addiu	$t8,$t8,%lo(skies)
-/*  f16604c:	11e00009 */ 	beqz	$t7,.L0f166074
-/*  f166050:	00801825 */ 	or	$v1,$a0,$zero
-/*  f166054:	8f020000 */ 	lw	$v0,0x0($t8)
-.L0f166058:
-/*  f166058:	54c20003 */ 	bnel	$a2,$v0,.L0f166068
-/*  f16605c:	8c620038 */ 	lw	$v0,0x38($v1)
-/*  f166060:	00603825 */ 	or	$a3,$v1,$zero
-/*  f166064:	8c620038 */ 	lw	$v0,0x38($v1)
-.L0f166068:
-/*  f166068:	24630038 */ 	addiu	$v1,$v1,0x38
-/*  f16606c:	1440fffa */ 	bnez	$v0,.L0f166058
-/*  f166070:	00000000 */ 	nop
-.L0f166074:
-/*  f166074:	14e00002 */ 	bnez	$a3,.L0f166080
-/*  f166078:	00000000 */ 	nop
-/*  f16607c:	00803825 */ 	or	$a3,$a0,$zero
-.L0f166080:
-/*  f166080:	0fc59713 */ 	jal	func0f165c4c
-/*  f166084:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f166088:	3c02800a */ 	lui	$v0,%hi(var800a6620)
-/*  f16608c:	24426620 */ 	addiu	$v0,$v0,%lo(var800a6620)
-/*  f166090:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f166094:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f166098:
-/*  f166098:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16609c:	03e00008 */ 	jr	$ra
-/*  f1660a0:	00000000 */ 	nop
-);
+void func0f165eec(s32 stagenum, bool arg1)
+{
+	struct sky *finalsky = NULL;
+	struct sky *sky;
+	struct smallsky *smallsky;
+
+	if (PLAYERCOUNT());
+
+	var80081050 = MAXFLOAT;
+	var80081054 = 0;
+
+	if (arg1) {
+		for (smallsky = &g_SmallSkies[0]; smallsky->stage != 0; smallsky++) {
+			if (smallsky->stage == stagenum + 900) {
+				var800a6620 = smallsky;
+				var800a6624 = smallsky;
+				var800a6628 = smallsky+ 1;
+				func0f16598c(var800a6620);
+				return;
+			}
+		}
+	}
+
+	for (smallsky = &g_SmallSkies[0]; smallsky->stage != 0; smallsky++) {
+		if (smallsky->stage == stagenum) {
+			var800a6620 = smallsky;
+			var800a6624 = smallsky;
+			var800a6628 = smallsky + 1;
+			func0f16598c(var800a6620);
+			return;
+		}
+	}
+
+	for (sky = &g_Skies[0]; sky->stage != 0; sky++) {
+		if (sky->stage == stagenum) {
+			finalsky = sky;
+		}
+	}
+
+	if (sky);
+
+	if (finalsky == NULL) {
+		finalsky = &g_Skies[0];
+	}
+
+	func0f165c4c(finalsky);
+
+	var800a6620 = NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f1660a4

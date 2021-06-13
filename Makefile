@@ -505,6 +505,11 @@ $(B_DIR)/game/chr/chraction.o: src/game/chr/chraction.c
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
+$(B_DIR)/game/game_1657c0.o: src/game/game_1657c0.c
+	@mkdir -p $(dir $@)
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
 $(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
