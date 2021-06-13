@@ -1046,12 +1046,10 @@ glabel func0f1666f8
 /*  f1667e4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f1667e8
-/*  f1667e8:	3c02800a */ 	lui	$v0,%hi(var800a65e8)
-/*  f1667ec:	03e00008 */ 	jr	$ra
-/*  f1667f0:	8c4265e8 */ 	lw	$v0,%lo(var800a65e8)($v0)
-);
+struct coord *func0f1667e8(void)
+{
+	return var800a65e8;
+}
 
 s32 func0f1667f4(struct prop *prop, f32 *arg1)
 {

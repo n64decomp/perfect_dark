@@ -15,7 +15,7 @@ void func0f1660a4(f32 arg0);
 Gfx *func0f1664a0(Gfx *gdl, u32 arg1);
 Gfx *gfxConsiderDisableFog(Gfx *gdl);
 bool func0f1666f8(struct coord *pos, f32 arg1);
-u32 func0f1667e8(void);
+struct coord *func0f1667e8(void);
 s32 func0f1667f4(struct prop *prop, f32 *arg1);
 
 #endif
