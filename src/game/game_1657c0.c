@@ -145,10 +145,12 @@ glabel func0f1657cc
 /*  f1657cc:	3c028008 */ 	lui	$v0,%hi(var80081058)
 /*  f1657d0:	03e00008 */ 	jr	$ra
 /*  f1657d4:	24421058 */ 	addiu	$v0,$v0,%lo(var80081058)
-/*  f1657d8:	3c018008 */ 	lui	$at,%hi(var80081050)
-/*  f1657dc:	03e00008 */ 	jr	$ra
-/*  f1657e0:	c4201050 */ 	lwc1	$f0,%lo(var80081050)($at)
 );
+
+f32 func0f1657d8(void)
+{
+	return var80081050;
+}
 
 f32 func0f1657e4(void)
 {
