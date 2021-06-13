@@ -83,7 +83,7 @@ Gfx *currentPlayerLoadMatrix(Gfx *gdl);
 void func0f0c3320(Mtxf *matrices, s32 count);
 void setTickMode(s32 tickmode);
 void func0f0b9650(void);
-void func0f0b9674(void);
+void playersBeginMpSwirl(void);
 void func0f0b9a20(void);
 void currentPlayerEndCutscene(void);
 void currentPlayerPrepareWarpToPad(s16 pad_id);

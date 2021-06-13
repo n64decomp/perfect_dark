@@ -2982,11 +2982,12 @@ void func0f0b9650(void)
 	var80070744 = 0;
 }
 
-void func0f0b9674(void)
+void playersBeginMpSwirl(void)
 {
 	setTickMode(TICKMODE_MPSWIRL);
 	var80070744 = 0;
 	bmoveSetMode(MOVEMODE_WALK);
+
 	g_MpSwirlRotateSpeed = 0;
 	g_MpSwirlAngleDegrees = -90;
 	g_MpSwirlForwardSpeed = 0;
@@ -14518,488 +14519,104 @@ void currentPlayerSetCameraMode(s32 mode)
 	g_Vars.currentplayer->cameramode = mode;
 }
 
+void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, s16 *rooms2)
+{
+	bool done = false;
+	s32 room;
+	s16 sp90[20];
+	s16 tmp;
+	s16 sp64[20];
+	s16 sp54[8];
+	s16 sp52;
+	s32 i;
+
+	if (rooms2 != NULL && *rooms2 != -1) {
+		func00018148(pos2, pos, rooms2, sp54, NULL, 0);
+
+		// Remove values from sp54 (room numbers) if that room doesn't contain
+		// the coord, and shuffle the array back when removing values.
+		for (i = 0; sp54[i] != -1; i++) {
+			if (!roomContainsCoord(pos, sp54[i])) {
+				s32 j;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0c1840
-/*  f0c1840:	27bdff40 */ 	addiu	$sp,$sp,-192
-/*  f0c1844:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0c1848:	8fb000d0 */ 	lw	$s0,0xd0($sp)
-/*  f0c184c:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f0c1850:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f0c1854:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0c1858:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f0c185c:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f0c1860:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f0c1864:	afa500c4 */ 	sw	$a1,0xc4($sp)
-/*  f0c1868:	afa600c8 */ 	sw	$a2,0xc8($sp)
-/*  f0c186c:	1200007f */ 	beqz	$s0,.L0f0c1a6c
-/*  f0c1870:	afa000bc */ 	sw	$zero,0xbc($sp)
-/*  f0c1874:	860e0000 */ 	lh	$t6,0x0($s0)
-/*  f0c1878:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f0c187c:	27b20054 */ 	addiu	$s2,$sp,0x54
-/*  f0c1880:	122e007a */ 	beq	$s1,$t6,.L0f0c1a6c
-/*  f0c1884:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0c1888:	02802825 */ 	or	$a1,$s4,$zero
-/*  f0c188c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0c1890:	02403825 */ 	or	$a3,$s2,$zero
-/*  f0c1894:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0c1898:	0c006052 */ 	jal	func00018148
-/*  f0c189c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0c18a0:	87af0054 */ 	lh	$t7,0x54($sp)
-/*  f0c18a4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0c18a8:	27b00054 */ 	addiu	$s0,$sp,0x54
-/*  f0c18ac:	522f001e */ 	beql	$s1,$t7,.L0f0c1928
-/*  f0c18b0:	87ab0054 */ 	lh	$t3,0x54($sp)
-/*  f0c18b4:	86050000 */ 	lh	$a1,0x0($s0)
-/*  f0c18b8:	02802025 */ 	or	$a0,$s4,$zero
-.L0f0c18bc:
-/*  f0c18bc:	0fc586b7 */ 	jal	roomContainsCoord
-/*  f0c18c0:	afa6004c */ 	sw	$a2,0x4c($sp)
-/*  f0c18c4:	14400012 */ 	bnez	$v0,.L0f0c1910
-/*  f0c18c8:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f0c18cc:	86190002 */ 	lh	$t9,0x2($s0)
-/*  f0c18d0:	24c40001 */ 	addiu	$a0,$a2,0x1
-/*  f0c18d4:	24c6ffff */ 	addiu	$a2,$a2,-1
-/*  f0c18d8:	1239000a */ 	beq	$s1,$t9,.L0f0c1904
-/*  f0c18dc:	2610fffe */ 	addiu	$s0,$s0,-2
-/*  f0c18e0:	00044040 */ 	sll	$t0,$a0,0x1
-/*  f0c18e4:	02481021 */ 	addu	$v0,$s2,$t0
-/*  f0c18e8:	84430000 */ 	lh	$v1,0x0($v0)
-/*  f0c18ec:	a443fffe */ 	sh	$v1,-0x2($v0)
-.L0f0c18f0:
-/*  f0c18f0:	84430002 */ 	lh	$v1,0x2($v0)
-/*  f0c18f4:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f0c18f8:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f0c18fc:	5623fffc */ 	bnel	$s1,$v1,.L0f0c18f0
-/*  f0c1900:	a443fffe */ 	sh	$v1,-0x2($v0)
-.L0f0c1904:
-/*  f0c1904:	00044840 */ 	sll	$t1,$a0,0x1
-/*  f0c1908:	02495021 */ 	addu	$t2,$s2,$t1
-/*  f0c190c:	a551fffe */ 	sh	$s1,-0x2($t2)
-.L0f0c1910:
-/*  f0c1910:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0c1914:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f0c1918:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0c191c:	5625ffe7 */ 	bnel	$s1,$a1,.L0f0c18bc
-/*  f0c1920:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1924:	87ab0054 */ 	lh	$t3,0x54($sp)
-.L0f0c1928:
-/*  f0c1928:	87ac0056 */ 	lh	$t4,0x56($sp)
-/*  f0c192c:	522b000a */ 	beql	$s1,$t3,.L0f0c1958
-/*  f0c1930:	8fae00bc */ 	lw	$t6,0xbc($sp)
-/*  f0c1934:	162c0007 */ 	bne	$s1,$t4,.L0f0c1954
-/*  f0c1938:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c193c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1940:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1944:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0c1948:	01603825 */ 	or	$a3,$t3,$zero
-/*  f0c194c:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0c1950:	afad00bc */ 	sw	$t5,0xbc($sp)
-.L0f0c1954:
-/*  f0c1954:	8fae00bc */ 	lw	$t6,0xbc($sp)
-.L0f0c1958:
-/*  f0c1958:	87af0054 */ 	lh	$t7,0x54($sp)
-/*  f0c195c:	55c00021 */ 	bnezl	$t6,.L0f0c19e4
-/*  f0c1960:	8fad00bc */ 	lw	$t5,0xbc($sp)
-/*  f0c1964:	122f001e */ 	beq	$s1,$t7,.L0f0c19e0
-/*  f0c1968:	27b00054 */ 	addiu	$s0,$sp,0x54
-/*  f0c196c:	3c12800a */ 	lui	$s2,%hi(g_Rooms)
-/*  f0c1970:	26524928 */ 	addiu	$s2,$s2,%lo(g_Rooms)
-/*  f0c1974:	86050000 */ 	lh	$a1,0x0($s0)
-/*  f0c1978:	2413008c */ 	addiu	$s3,$zero,0x8c
-.L0f0c197c:
-/*  f0c197c:	00b30019 */ 	multu	$a1,$s3
-/*  f0c1980:	8e590000 */ 	lw	$t9,0x0($s2)
-/*  f0c1984:	00004012 */ 	mflo	$t0
-/*  f0c1988:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f0c198c:	952a0000 */ 	lhu	$t2,0x0($t1)
-/*  f0c1990:	314c0010 */ 	andi	$t4,$t2,0x10
-/*  f0c1994:	5580000f */ 	bnezl	$t4,.L0f0c19d4
-/*  f0c1998:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0c199c:	0fc5884a */ 	jal	func0f162128
-/*  f0c19a0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c19a4:	5040000b */ 	beqzl	$v0,.L0f0c19d4
-/*  f0c19a8:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0c19ac:	86070000 */ 	lh	$a3,0x0($s0)
-/*  f0c19b0:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0c19b4:	afab00bc */ 	sw	$t3,0xbc($sp)
-/*  f0c19b8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c19bc:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c19c0:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0c19c4:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c19c8:	10000006 */ 	b	.L0f0c19e4
-/*  f0c19cc:	8fad00bc */ 	lw	$t5,0xbc($sp)
-/*  f0c19d0:	86050002 */ 	lh	$a1,0x2($s0)
-.L0f0c19d4:
-/*  f0c19d4:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0c19d8:	1625ffe8 */ 	bne	$s1,$a1,.L0f0c197c
-/*  f0c19dc:	00000000 */ 	nop
-.L0f0c19e0:
-/*  f0c19e0:	8fad00bc */ 	lw	$t5,0xbc($sp)
-.L0f0c19e4:
-/*  f0c19e4:	3c12800a */ 	lui	$s2,%hi(g_Rooms)
-/*  f0c19e8:	26524928 */ 	addiu	$s2,$s2,%lo(g_Rooms)
-/*  f0c19ec:	15a0001f */ 	bnez	$t5,.L0f0c1a6c
-/*  f0c19f0:	2413008c */ 	addiu	$s3,$zero,0x8c
-/*  f0c19f4:	87ae0054 */ 	lh	$t6,0x54($sp)
-/*  f0c19f8:	27b00054 */ 	addiu	$s0,$sp,0x54
-/*  f0c19fc:	522e001c */ 	beql	$s1,$t6,.L0f0c1a70
-/*  f0c1a00:	8fab00bc */ 	lw	$t3,0xbc($sp)
-/*  f0c1a04:	86050000 */ 	lh	$a1,0x0($s0)
-.L0f0c1a08:
-/*  f0c1a08:	00b30019 */ 	multu	$a1,$s3
-/*  f0c1a0c:	8e580000 */ 	lw	$t8,0x0($s2)
-/*  f0c1a10:	0000c812 */ 	mflo	$t9
-/*  f0c1a14:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f0c1a18:	95090000 */ 	lhu	$t1,0x0($t0)
-/*  f0c1a1c:	312a0010 */ 	andi	$t2,$t1,0x10
-/*  f0c1a20:	5140000f */ 	beqzl	$t2,.L0f0c1a60
-/*  f0c1a24:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0c1a28:	0fc5884a */ 	jal	func0f162128
-/*  f0c1a2c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1a30:	5040000b */ 	beqzl	$v0,.L0f0c1a60
-/*  f0c1a34:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0c1a38:	86070000 */ 	lh	$a3,0x0($s0)
-/*  f0c1a3c:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f0c1a40:	afac00bc */ 	sw	$t4,0xbc($sp)
-/*  f0c1a44:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1a48:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1a4c:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0c1a50:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1a54:	10000006 */ 	b	.L0f0c1a70
-/*  f0c1a58:	8fab00bc */ 	lw	$t3,0xbc($sp)
-/*  f0c1a5c:	86050002 */ 	lh	$a1,0x2($s0)
-.L0f0c1a60:
-/*  f0c1a60:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0c1a64:	1625ffe8 */ 	bne	$s1,$a1,.L0f0c1a08
-/*  f0c1a68:	00000000 */ 	nop
-.L0f0c1a6c:
-/*  f0c1a6c:	8fab00bc */ 	lw	$t3,0xbc($sp)
-.L0f0c1a70:
-/*  f0c1a70:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f0c1a74:	27b00090 */ 	addiu	$s0,$sp,0x90
-/*  f0c1a78:	15600042 */ 	bnez	$t3,.L0f0c1b84
-/*  f0c1a7c:	27b20064 */ 	addiu	$s2,$sp,0x64
-/*  f0c1a80:	27ad0052 */ 	addiu	$t5,$sp,0x52
-/*  f0c1a84:	afad0010 */ 	sw	$t5,0x10($sp)
-/*  f0c1a88:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1a8c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0c1a90:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0c1a94:	0fc58865 */ 	jal	func0f162194
-/*  f0c1a98:	24070014 */ 	addiu	$a3,$zero,0x14
-/*  f0c1a9c:	87ae0090 */ 	lh	$t6,0x90($sp)
-/*  f0c1aa0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1aa4:	87b80064 */ 	lh	$t8,0x64($sp)
-/*  f0c1aa8:	122e0014 */ 	beq	$s1,$t6,.L0f0c1afc
-/*  f0c1aac:	00000000 */ 	nop
-/*  f0c1ab0:	0c00a900 */ 	jal	func0002a400
-/*  f0c1ab4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0c1ab8:	00023c00 */ 	sll	$a3,$v0,0x10
-/*  f0c1abc:	00077c03 */ 	sra	$t7,$a3,0x10
-/*  f0c1ac0:	18400007 */ 	blez	$v0,.L0f0c1ae0
-/*  f0c1ac4:	01e03825 */ 	or	$a3,$t7,$zero
-/*  f0c1ac8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1acc:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1ad0:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0c1ad4:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1ad8:	1000002b */ 	b	.L0f0c1b88
-/*  f0c1adc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0c1ae0:
-/*  f0c1ae0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1ae4:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1ae8:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1aec:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0c1af0:	87a70090 */ 	lh	$a3,0x90($sp)
-/*  f0c1af4:	10000024 */ 	b	.L0f0c1b88
-/*  f0c1af8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0c1afc:
-/*  f0c1afc:	12380015 */ 	beq	$s1,$t8,.L0f0c1b54
-/*  f0c1b00:	87a70052 */ 	lh	$a3,0x52($sp)
-/*  f0c1b04:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1b08:	0c00a900 */ 	jal	func0002a400
-/*  f0c1b0c:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0c1b10:	00023c00 */ 	sll	$a3,$v0,0x10
-/*  f0c1b14:	0007cc03 */ 	sra	$t9,$a3,0x10
-/*  f0c1b18:	18400007 */ 	blez	$v0,.L0f0c1b38
-/*  f0c1b1c:	03203825 */ 	or	$a3,$t9,$zero
-/*  f0c1b20:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1b24:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1b28:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0c1b2c:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1b30:	10000015 */ 	b	.L0f0c1b88
-/*  f0c1b34:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0c1b38:
-/*  f0c1b38:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1b3c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1b40:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1b44:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0c1b48:	87a70064 */ 	lh	$a3,0x64($sp)
-/*  f0c1b4c:	1000000e */ 	b	.L0f0c1b88
-/*  f0c1b50:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0c1b54:
-/*  f0c1b54:	10f10007 */ 	beq	$a3,$s1,.L0f0c1b74
-/*  f0c1b58:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1b5c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0c1b60:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1b64:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0c1b68:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1b6c:	10000006 */ 	b	.L0f0c1b88
-/*  f0c1b70:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0c1b74:
-/*  f0c1b74:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1b78:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1b7c:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0c1b80:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f0c1b84:
-/*  f0c1b84:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.L0f0c1b88:
-/*  f0c1b88:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0c1b8c:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0c1b90:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0c1b94:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f0c1b98:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f0c1b9c:	03e00008 */ 	jr	$ra
-/*  f0c1ba0:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
-);
+				for (j = i + 1; sp54[j] != -1; j++) {
+					sp54[j - 1] = sp54[j];
+				}
+
+				sp54[j - 1] = -1;
+				i--;
 #else
-GLOBAL_ASM(
-glabel func0f0c1840
-/*  f0bf41c:	27bdff40 */ 	addiu	$sp,$sp,-192
-/*  f0bf420:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0bf424:	8fb000d0 */ 	lw	$s0,0xd0($sp)
-/*  f0bf428:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f0bf42c:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f0bf430:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f0bf434:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f0bf438:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f0bf43c:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f0bf440:	afa500c4 */ 	sw	$a1,0xc4($sp)
-/*  f0bf444:	afa600c8 */ 	sw	$a2,0xc8($sp)
-/*  f0bf448:	1200007a */ 	beqz	$s0,.NB0f0bf634
-/*  f0bf44c:	afa000bc */ 	sw	$zero,0xbc($sp)
-/*  f0bf450:	860e0000 */ 	lh	$t6,0x0($s0)
-/*  f0bf454:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f0bf458:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0bf45c:	122e0075 */ 	beq	$s1,$t6,.NB0f0bf634
-/*  f0bf460:	02802825 */ 	or	$a1,$s4,$zero
-/*  f0bf464:	02003025 */ 	or	$a2,$s0,$zero
-/*  f0bf468:	27a70054 */ 	addiu	$a3,$sp,0x54
-/*  f0bf46c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0bf470:	0c006486 */ 	jal	func00018148
-/*  f0bf474:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0bf478:	87af0054 */ 	lh	$t7,0x54($sp)
-/*  f0bf47c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0bf480:	27b00054 */ 	addiu	$s0,$sp,0x54
-/*  f0bf484:	522f001a */ 	beql	$s1,$t7,.NB0f0bf4f0
-/*  f0bf488:	87aa0054 */ 	lh	$t2,0x54($sp)
-/*  f0bf48c:	86050000 */ 	lh	$a1,0x0($s0)
-/*  f0bf490:	02802025 */ 	or	$a0,$s4,$zero
-.NB0f0bf494:
-/*  f0bf494:	0fc570b7 */ 	jal	roomContainsCoord
-/*  f0bf498:	afa6004c */ 	sw	$a2,0x4c($sp)
-/*  f0bf49c:	1440000e */ 	bnez	$v0,.NB0f0bf4d8
-/*  f0bf4a0:	8fa6004c */ 	lw	$a2,0x4c($sp)
-/*  f0bf4a4:	86190002 */ 	lh	$t9,0x2($s0)
-/*  f0bf4a8:	24c40001 */ 	addiu	$a0,$a2,0x1
-/*  f0bf4ac:	00044040 */ 	sll	$t0,$a0,0x1
-/*  f0bf4b0:	12390008 */ 	beq	$s1,$t9,.NB0f0bf4d4
-/*  f0bf4b4:	27a90054 */ 	addiu	$t1,$sp,0x54
-/*  f0bf4b8:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f0bf4bc:	84430000 */ 	lh	$v1,0x0($v0)
-/*  f0bf4c0:	a443fffe */ 	sh	$v1,-0x2($v0)
-.NB0f0bf4c4:
-/*  f0bf4c4:	84430002 */ 	lh	$v1,0x2($v0)
-/*  f0bf4c8:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f0bf4cc:	5623fffd */ 	bnel	$s1,$v1,.NB0f0bf4c4
-/*  f0bf4d0:	a443fffe */ 	sh	$v1,-0x2($v0)
-.NB0f0bf4d4:
-/*  f0bf4d4:	a6110000 */ 	sh	$s1,0x0($s0)
-.NB0f0bf4d8:
-/*  f0bf4d8:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0bf4dc:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f0bf4e0:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0bf4e4:	5625ffeb */ 	bnel	$s1,$a1,.NB0f0bf494
-/*  f0bf4e8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf4ec:	87aa0054 */ 	lh	$t2,0x54($sp)
-.NB0f0bf4f0:
-/*  f0bf4f0:	87ab0056 */ 	lh	$t3,0x56($sp)
-/*  f0bf4f4:	522a000a */ 	beql	$s1,$t2,.NB0f0bf520
-/*  f0bf4f8:	8fad00bc */ 	lw	$t5,0xbc($sp)
-/*  f0bf4fc:	162b0007 */ 	bne	$s1,$t3,.NB0f0bf51c
-/*  f0bf500:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf504:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf508:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf50c:	0fc2fdfb */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0bf510:	01403825 */ 	or	$a3,$t2,$zero
-/*  f0bf514:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f0bf518:	afac00bc */ 	sw	$t4,0xbc($sp)
-.NB0f0bf51c:
-/*  f0bf51c:	8fad00bc */ 	lw	$t5,0xbc($sp)
-.NB0f0bf520:
-/*  f0bf520:	87ae0054 */ 	lh	$t6,0x54($sp)
-/*  f0bf524:	55a00021 */ 	bnezl	$t5,.NB0f0bf5ac
-/*  f0bf528:	8fac00bc */ 	lw	$t4,0xbc($sp)
-/*  f0bf52c:	122e001e */ 	beq	$s1,$t6,.NB0f0bf5a8
-/*  f0bf530:	27b00054 */ 	addiu	$s0,$sp,0x54
-/*  f0bf534:	3c12800b */ 	lui	$s2,0x800b
-/*  f0bf538:	265290a8 */ 	addiu	$s2,$s2,-28504
-/*  f0bf53c:	86050000 */ 	lh	$a1,0x0($s0)
-/*  f0bf540:	2413008c */ 	addiu	$s3,$zero,0x8c
-.NB0f0bf544:
-/*  f0bf544:	00b30019 */ 	multu	$a1,$s3
-/*  f0bf548:	8e580000 */ 	lw	$t8,0x0($s2)
-/*  f0bf54c:	0000c812 */ 	mflo	$t9
-/*  f0bf550:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f0bf554:	95090000 */ 	lhu	$t1,0x0($t0)
-/*  f0bf558:	312b0010 */ 	andi	$t3,$t1,0x10
-/*  f0bf55c:	5560000f */ 	bnezl	$t3,.NB0f0bf59c
-/*  f0bf560:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0bf564:	0fc5724a */ 	jal	func0f162128
-/*  f0bf568:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf56c:	5040000b */ 	beqzl	$v0,.NB0f0bf59c
-/*  f0bf570:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0bf574:	86070000 */ 	lh	$a3,0x0($s0)
-/*  f0bf578:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0bf57c:	afaa00bc */ 	sw	$t2,0xbc($sp)
-/*  f0bf580:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf584:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf588:	0fc2fdfb */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0bf58c:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf590:	10000006 */ 	beqz	$zero,.NB0f0bf5ac
-/*  f0bf594:	8fac00bc */ 	lw	$t4,0xbc($sp)
-/*  f0bf598:	86050002 */ 	lh	$a1,0x2($s0)
-.NB0f0bf59c:
-/*  f0bf59c:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0bf5a0:	1625ffe8 */ 	bne	$s1,$a1,.NB0f0bf544
-/*  f0bf5a4:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f0bf5a8:
-/*  f0bf5a8:	8fac00bc */ 	lw	$t4,0xbc($sp)
-.NB0f0bf5ac:
-/*  f0bf5ac:	3c12800b */ 	lui	$s2,0x800b
-/*  f0bf5b0:	265290a8 */ 	addiu	$s2,$s2,-28504
-/*  f0bf5b4:	1580001f */ 	bnez	$t4,.NB0f0bf634
-/*  f0bf5b8:	2413008c */ 	addiu	$s3,$zero,0x8c
-/*  f0bf5bc:	87ad0054 */ 	lh	$t5,0x54($sp)
-/*  f0bf5c0:	27b00054 */ 	addiu	$s0,$sp,0x54
-/*  f0bf5c4:	522d001c */ 	beql	$s1,$t5,.NB0f0bf638
-/*  f0bf5c8:	8faa00bc */ 	lw	$t2,0xbc($sp)
-/*  f0bf5cc:	86050000 */ 	lh	$a1,0x0($s0)
-.NB0f0bf5d0:
-/*  f0bf5d0:	00b30019 */ 	multu	$a1,$s3
-/*  f0bf5d4:	8e4f0000 */ 	lw	$t7,0x0($s2)
-/*  f0bf5d8:	0000c012 */ 	mflo	$t8
-/*  f0bf5dc:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f0bf5e0:	97280000 */ 	lhu	$t0,0x0($t9)
-/*  f0bf5e4:	31090010 */ 	andi	$t1,$t0,0x10
-/*  f0bf5e8:	5120000f */ 	beqzl	$t1,.NB0f0bf628
-/*  f0bf5ec:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0bf5f0:	0fc5724a */ 	jal	func0f162128
-/*  f0bf5f4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf5f8:	5040000b */ 	beqzl	$v0,.NB0f0bf628
-/*  f0bf5fc:	86050002 */ 	lh	$a1,0x2($s0)
-/*  f0bf600:	86070000 */ 	lh	$a3,0x0($s0)
-/*  f0bf604:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0bf608:	afab00bc */ 	sw	$t3,0xbc($sp)
-/*  f0bf60c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf610:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf614:	0fc2fdfb */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0bf618:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf61c:	10000006 */ 	beqz	$zero,.NB0f0bf638
-/*  f0bf620:	8faa00bc */ 	lw	$t2,0xbc($sp)
-/*  f0bf624:	86050002 */ 	lh	$a1,0x2($s0)
-.NB0f0bf628:
-/*  f0bf628:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f0bf62c:	1625ffe8 */ 	bne	$s1,$a1,.NB0f0bf5d0
-/*  f0bf630:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f0bf634:
-/*  f0bf634:	8faa00bc */ 	lw	$t2,0xbc($sp)
-.NB0f0bf638:
-/*  f0bf638:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f0bf63c:	27b00090 */ 	addiu	$s0,$sp,0x90
-/*  f0bf640:	15400042 */ 	bnez	$t2,.NB0f0bf74c
-/*  f0bf644:	27b20064 */ 	addiu	$s2,$sp,0x64
-/*  f0bf648:	27ac0052 */ 	addiu	$t4,$sp,0x52
-/*  f0bf64c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0bf650:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf654:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0bf658:	02403025 */ 	or	$a2,$s2,$zero
-/*  f0bf65c:	0fc57265 */ 	jal	func0f162194
-/*  f0bf660:	24070014 */ 	addiu	$a3,$zero,0x14
-/*  f0bf664:	87ad0090 */ 	lh	$t5,0x90($sp)
-/*  f0bf668:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf66c:	87af0064 */ 	lh	$t7,0x64($sp)
-/*  f0bf670:	122d0014 */ 	beq	$s1,$t5,.NB0f0bf6c4
-/*  f0bf674:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bf678:	0c00ae12 */ 	jal	func0002a400
-/*  f0bf67c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0bf680:	00023c00 */ 	sll	$a3,$v0,0x10
-/*  f0bf684:	00077403 */ 	sra	$t6,$a3,0x10
-/*  f0bf688:	18400007 */ 	blez	$v0,.NB0f0bf6a8
-/*  f0bf68c:	01c03825 */ 	or	$a3,$t6,$zero
-/*  f0bf690:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf694:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf698:	0fc2fdfb */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0bf69c:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf6a0:	1000002b */ 	beqz	$zero,.NB0f0bf750
-/*  f0bf6a4:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.NB0f0bf6a8:
-/*  f0bf6a8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf6ac:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf6b0:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf6b4:	0fc2fdfb */ 	jal	currentPlayerSetCamPropertiesWithRoom
-/*  f0bf6b8:	87a70090 */ 	lh	$a3,0x90($sp)
-/*  f0bf6bc:	10000024 */ 	beqz	$zero,.NB0f0bf750
-/*  f0bf6c0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.NB0f0bf6c4:
-/*  f0bf6c4:	122f0015 */ 	beq	$s1,$t7,.NB0f0bf71c
-/*  f0bf6c8:	87a70052 */ 	lh	$a3,0x52($sp)
-/*  f0bf6cc:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf6d0:	0c00ae12 */ 	jal	func0002a400
-/*  f0bf6d4:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0bf6d8:	00023c00 */ 	sll	$a3,$v0,0x10
-/*  f0bf6dc:	0007c403 */ 	sra	$t8,$a3,0x10
-/*  f0bf6e0:	18400007 */ 	blez	$v0,.NB0f0bf700
-/*  f0bf6e4:	03003825 */ 	or	$a3,$t8,$zero
-/*  f0bf6e8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf6ec:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf6f0:	0fc2fe0f */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0bf6f4:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf6f8:	10000015 */ 	beqz	$zero,.NB0f0bf750
-/*  f0bf6fc:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.NB0f0bf700:
-/*  f0bf700:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf704:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf708:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf70c:	0fc2fe0f */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0bf710:	87a70064 */ 	lh	$a3,0x64($sp)
-/*  f0bf714:	1000000e */ 	beqz	$zero,.NB0f0bf750
-/*  f0bf718:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.NB0f0bf71c:
-/*  f0bf71c:	10f10007 */ 	beq	$a3,$s1,.NB0f0bf73c
-/*  f0bf720:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf724:	02802025 */ 	or	$a0,$s4,$zero
-/*  f0bf728:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf72c:	0fc2fe0f */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0bf730:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf734:	10000006 */ 	beqz	$zero,.NB0f0bf750
-/*  f0bf738:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.NB0f0bf73c:
-/*  f0bf73c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0bf740:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0bf744:	0fc2fe0f */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
-/*  f0bf748:	24070001 */ 	addiu	$a3,$zero,0x1
-.NB0f0bf74c:
-/*  f0bf74c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-.NB0f0bf750:
-/*  f0bf750:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0bf754:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0bf758:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0bf75c:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f0bf760:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f0bf764:	03e00008 */ 	jr	$ra
-/*  f0bf768:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
-);
+				// ntsc-beta corrupts the array by overwriting the first shifted
+				// value with -1, and leaving a duplicate at the end.
+				for (j = i + 1; sp54[j] != -1; j++) {
+					sp54[j - 1] = sp54[j];
+				}
+
+				sp54[i] = -1;
 #endif
+			}
+		}
+
+		if (sp54[0] != -1 && sp54[1] == -1) {
+			currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp54[0]);
+			done = true;
+		}
+
+		if (!done) {
+			for (i = 0; sp54[i] != -1; i++) {
+				if ((g_Rooms[sp54[i]].flags & ROOMFLAG_0010) == 0) {
+					if (func0f162128(pos, sp54[i])) {
+						currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
+						done = true;
+						break;
+					}
+				}
+			}
+		}
+
+		// The same thing again but inverted flag check
+		if (!done) {
+			for (i = 0; sp54[i] != -1; i++) {
+				if (g_Rooms[sp54[i]].flags & ROOMFLAG_0010) {
+					if (func0f162128(pos, sp54[i])) {
+						currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
+						done = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	if (!done) {
+		func0f162194(pos, sp90, sp64, 20, &sp52);
+
+		if (sp90[0] != -1) {
+			tmp = room = func0002a400(pos, sp90);
+
+			if (room > 0) {
+				currentPlayerSetCamPropertiesWithRoom(pos, up, look, tmp);
+			} else {
+				currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp90[0]);
+			}
+		} else if (sp64[0] != -1) {
+			tmp = room = func0002a400(pos, sp64);
+
+			if (room > 0) {
+				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, tmp);
+			} else {
+				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, sp64[0]);
+			}
+		} else {
+			if (sp52 != -1) {
+				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, sp52);
+			} else {
+				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, 1);
+			}
+		}
+	}
+}
 
 void func0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
 {

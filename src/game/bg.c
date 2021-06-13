@@ -14792,13 +14792,13 @@ glabel func0f161d30
 /*  f162124:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-void func0f162128(struct coord *arg0, s16 roomnum)
+bool func0f162128(struct coord *arg0, s16 roomnum)
 {
 	if (g_Rooms[roomnum].flags & ROOMFLAG_0010) {
-		func0f161d30(arg0, roomnum);
-	} else {
-		func0f161c08(arg0, roomnum);
+		return func0f161d30(arg0, roomnum);
 	}
+
+	return func0f161c08(arg0, roomnum);
 }
 
 GLOBAL_ASM(

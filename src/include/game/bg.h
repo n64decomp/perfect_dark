@@ -74,8 +74,8 @@ bool func0f161520(struct coord *arg0, struct coord *arg1, s16 room, struct coord
 s32 func0f161ab4(s32 room);
 bool roomContainsCoord(struct coord *pos, s16 roomnum);
 bool func0f161c08(struct coord *arg0, s16 roomnum);
-void func0f161d30(struct coord *arg0, s16 roomnum);
-void func0f162128(struct coord *arg0, s16 roomnum);
+bool func0f161d30(struct coord *arg0, s16 roomnum);
+bool func0f162128(struct coord *arg0, s16 roomnum);
 void func0f162194(struct coord *pos, s16 *rooms1, s16 *rooms2, s32 len, s16 *arg4);
 bool portalPushValue(bool value);
 bool portalPopValue(void);
