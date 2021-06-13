@@ -133,12 +133,10 @@ struct sky g_Skies[] = {
 	{ 0 },
 };
 
-GLOBAL_ASM(
-glabel func0f1657c0
-/*  f1657c0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1657c4:	03e00008 */ 	jr	$ra
-/*  f1657c8:	afa50004 */ 	sw	$a1,0x4($sp)
-);
+void func0f1657c0(s32 arg0, s32 arg1)
+{
+	// empty
+}
 
 struct var80081058 *func0f1657cc(void)
 {
