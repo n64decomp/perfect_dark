@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/chr/chraction.h"
 #include "game/ceil.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0e0770.h"

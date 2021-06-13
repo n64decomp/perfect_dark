@@ -6,7 +6,7 @@
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
 #include "game/game_095320.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
@@ -5093,7 +5093,7 @@ glabel var7f1b2e44
 /*  f106088:	3c018007 */ 	lui	$at,%hi(var80073544)
 /*  f10608c:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f106090:	a0243544 */ 	sb	$a0,%lo(var80073544)($at)
-/*  f106094:	0fc28857 */ 	jal	weaponGetName
+/*  f106094:	0fc28857 */ 	jal	bgunGetName
 /*  f106098:	00402025 */ 	or	$a0,$v0,$zero
 /*  f10609c:	10000033 */ 	b	.L0f10616c
 /*  f1060a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -5255,18 +5255,18 @@ glabel var7f1b2e84
 /*  f106260:	10400009 */ 	beqz	$v0,.L0f106288
 /*  f106264:	00002025 */ 	or	$a0,$zero,$zero
 /*  f106268:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10626c:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
+/*  f10626c:	0fc28824 */ 	jal	bgunEquipWeapon2
 /*  f106270:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f106274:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106278:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
+/*  f106278:	0fc28824 */ 	jal	bgunEquipWeapon2
 /*  f10627c:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f106280:	10000007 */ 	b	.L0f1062a0
 /*  f106284:	8fad0028 */ 	lw	$t5,0x28($sp)
 .L0f106288:
-/*  f106288:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
+/*  f106288:	0fc28824 */ 	jal	bgunEquipWeapon2
 /*  f10628c:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f106290:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106294:	0fc28824 */ 	jal	currentPlayerEquipWeaponWrapper
+/*  f106294:	0fc28824 */ 	jal	bgunEquipWeapon2
 /*  f106298:	00002825 */ 	or	$a1,$zero,$zero
 /*  f10629c:	8fad0028 */ 	lw	$t5,0x28($sp)
 .L0f1062a0:

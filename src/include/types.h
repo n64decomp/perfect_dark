@@ -2979,7 +2979,7 @@ struct inventory_class {
 };
 
 struct inventory_typef {
-	// See related functions: func0f097f28 and func0f097df0
+	// See related functions: bgun0f097f28 and bgun0f097df0
 
 	// unk00 - Some kind of condition field
 	// 0 = terminator

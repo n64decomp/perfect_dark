@@ -8,7 +8,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/game_096ca0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b69d0.h"
 #include "game/bondhead.h"
@@ -1755,8 +1755,8 @@ void bbikeTick(void)
 		sp70 = -1.0f;
 	}
 
-	func0f09d8dc(breathing, 0, sp70, 0.0f, g_Vars.currentplayer->speedsideways);
-	handSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
+	bgun0f09d8dc(breathing, 0, sp70, 0.0f, g_Vars.currentplayer->speedsideways);
+	bgunSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 	currentPlayerUpdatePerimInfo();
 	bmove0f0cb8c4(g_Vars.currentplayer);
 	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);

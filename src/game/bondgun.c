@@ -13,7 +13,7 @@
 #include "game/game_096b20.h"
 #include "game/game_096ca0.h"
 #include "game/game_097aa0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
@@ -126,7 +126,7 @@ u32 var80070118 = 0x78000000;
 u32 var8007011c = 0x00000000;
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f097ba0(s32 handnum, s32 weaponnum)
+void bgun0f097ba0(s32 handnum, s32 weaponnum)
 {
 	u32 stack;
 	s32 contpadtouse1;
@@ -178,7 +178,7 @@ void func0f097ba0(s32 handnum, s32 weaponnum)
 }
 #else
 GLOBAL_ASM(
-glabel func0f097ba0
+glabel bgun0f097ba0
 /*  f095b30:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f095b34:	3c08800a */ 	lui	$t0,0x800a
 /*  f095b38:	2508e6c0 */ 	addiu	$t0,$t0,-6464
@@ -346,7 +346,7 @@ glabel func0f097ba0
 );
 #endif
 
-s32 weaponGetUnequippedReloadIndex(s32 weaponnum)
+s32 bgunGetUnequippedReloadIndex(s32 weaponnum)
 {
 	if (weaponnum == WEAPON_CROSSBOW) {
 		return 0;
@@ -376,7 +376,7 @@ s32 weaponGetUnequippedReloadIndex(s32 weaponnum)
  * The gunroundsspent value is actually a countdown timer,
  * not the number of rounds as the name suggests.
  */
-void handsTickUnequippedReload(void)
+void bgunTickUnequippedReload(void)
 {
 	s32 i;
 	s32 j;
@@ -396,7 +396,7 @@ void handsTickUnequippedReload(void)
 	}
 }
 
-bool func0f097df0(struct inventory_typef *arg0, struct hand *hand)
+bool bgun0f097df0(struct inventory_typef *arg0, struct hand *hand)
 {
 	bool result = true;
 
@@ -421,7 +421,7 @@ bool func0f097df0(struct inventory_typef *arg0, struct hand *hand)
 	return result;
 }
 
-void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata *arg3)
+void bgun0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata *arg3)
 {
 	struct modelnode *node;
 
@@ -446,7 +446,7 @@ void func0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 	}
 }
 
-void func0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inventory_typef *arg2)
+void bgun0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inventory_typef *arg2)
 {
 	struct inventory_typef *thing = arg2;
 	bool done = false;
@@ -456,21 +456,21 @@ void func0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inve
 	}
 
 	while (!done) {
-		if (func0f097df0(thing, hand)) {
+		if (bgun0f097df0(thing, hand)) {
 			if (thing->unk04 == 0) {
-				func0f097e74(thing->partnum, 1, hand, filedata);
+				bgun0f097e74(thing->partnum, 1, hand, filedata);
 			}
 
 			if (thing->unk04 == 1) {
-				func0f097e74(thing->partnum, 0, hand, filedata);
+				bgun0f097e74(thing->partnum, 0, hand, filedata);
 			}
 
 			if (thing->unk04 == 3) {
-				func0f097e74(thing->partnum, 1, hand, filedata);
+				bgun0f097e74(thing->partnum, 1, hand, filedata);
 			}
 		} else {
 			if (thing->unk04 == 3) {
-				func0f097e74(thing->partnum, 0, hand, filedata);
+				bgun0f097e74(thing->partnum, 0, hand, filedata);
 			}
 		}
 
@@ -482,29 +482,29 @@ void func0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inve
 	}
 }
 
-void func0f098030(struct hand *hand, struct modelfiledata *arg1)
+void bgun0f098030(struct hand *hand, struct modelfiledata *arg1)
 {
 	struct weapon *weapon = weaponFindById(hand->gset.weaponnum);
 	s32 i;
 	s32 j;
 
-	func0f097f28(hand, arg1, weapon->fptr);
-	func0f097e74(MODELPART_0042, 0, hand, arg1);
+	bgun0f097f28(hand, arg1, weapon->fptr);
+	bgun0f097e74(MODELPART_0042, 0, hand, arg1);
 
 	for (i = 0; i < 2; i++) {
 		if (weapon->ammos[i] && (weapon->ammos[i]->flags & WEAPONFLAG_ONEHANDED)) {
 			for (j = 0; j < hand->clipsizes[i]; j++) {
 				if (j >= hand->loadedammo[i]) {
-					func0f097e74(j + 100, 0, hand, arg1);
+					bgun0f097e74(j + 100, 0, hand, arg1);
 				} else {
-					func0f097e74(j + 100, 1, hand, arg1);
+					bgun0f097e74(j + 100, 1, hand, arg1);
 				}
 			}
 		}
 	}
 }
 
-f32 func0f09815c(struct hand *hand)
+f32 bgun0f09815c(struct hand *hand)
 {
 	if (hand->animmode == HANDANIMMODE_BUSY && hand->unk0ce8 != NULL) {
 		if (hand->unk0ce8->unk04 < 0) {
@@ -519,7 +519,7 @@ f32 func0f09815c(struct hand *hand)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0981e8
+glabel bgun0f0981e8
 .late_rodata
 glabel var7f1ad398pf
 .word 0x461c4000
@@ -550,7 +550,7 @@ glabel var7f1ad3acpf
 /*  f09813c:	00809025 */ 	move	$s2,$a0
 /*  f098140:	1701000f */ 	bne	$t8,$at,.PF0f098180
 /*  f098144:	a08f0690 */ 	sb	$t7,0x690($a0)
-/*  f098148:	0fc2601f */ 	jal	func0f09815c
+/*  f098148:	0fc2601f */ 	jal	bgun0f09815c
 /*  f09814c:	00000000 */ 	nop
 /*  f098150:	46000506 */ 	mov.s	$f20,$f0
 /*  f098154:	0c0073fa */ 	jal	modelGetNumAnimFrames
@@ -690,7 +690,7 @@ glabel var7f1ad3acpf
 /*  f09834c:	ae400684 */ 	sw	$zero,0x684($s2)
 /*  f098350:	e6420688 */ 	swc1	$f2,0x688($s2)
 .PF0f098354:
-/*  f098354:	0fc2601f */ 	jal	func0f09815c
+/*  f098354:	0fc2601f */ 	jal	bgun0f09815c
 /*  f098358:	02402025 */ 	move	$a0,$s2
 /*  f09835c:	44809000 */ 	mtc1	$zero,$f18
 /*  f098360:	c6500688 */ 	lwc1	$f16,0x688($s2)
@@ -820,7 +820,7 @@ glabel var7f1ad3acpf
 /*  f09851c:	00000000 */ 	nop
 /*  f098520:	45020060 */ 	bc1fl	.PF0f0986a4
 /*  f098524:	8fac014c */ 	lw	$t4,0x14c($sp)
-/*  f098528:	0fc2601f */ 	jal	func0f09815c
+/*  f098528:	0fc2601f */ 	jal	bgun0f09815c
 /*  f09852c:	02402025 */ 	move	$a0,$s2
 /*  f098530:	962a0002 */ 	lhu	$t2,0x2($s1)
 /*  f098534:	3c014f80 */ 	lui	$at,0x4f80
@@ -939,7 +939,7 @@ glabel var7f1ad3acpf
 /*  f0986d4:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f0986d8:	afa2007c */ 	sw	$v0,0x7c($sp)
 /*  f0986dc:	02403025 */ 	move	$a2,$s2
-/*  f0986e0:	0fc25f65 */ 	jal	func0f097e74
+/*  f0986e0:	0fc25f65 */ 	jal	bgun0f097e74
 /*  f0986e4:	8fa70164 */ 	lw	$a3,0x164($sp)
 /*  f0986e8:	8fa2007c */ 	lw	$v0,0x7c($sp)
 /*  f0986ec:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -959,7 +959,7 @@ glabel var7f1ad3acpf
 /*  f09871c:	8e450684 */ 	lw	$a1,0x684($s2)
 /*  f098720:	0c007afa */ 	jal	func0001ee18
 /*  f098724:	24060001 */ 	li	$a2,0x1
-/*  f098728:	0fc2601f */ 	jal	func0f09815c
+/*  f098728:	0fc2601f */ 	jal	bgun0f09815c
 /*  f09872c:	02402025 */ 	move	$a0,$s2
 /*  f098730:	8e4306b0 */ 	lw	$v1,0x6b0($s2)
 /*  f098734:	46000386 */ 	mov.s	$f14,$f0
@@ -1092,7 +1092,7 @@ glabel var7f1ad3acpf
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0981e8
+glabel bgun0f0981e8
 .late_rodata
 glabel var7f1ac1a8
 .word 0x461c4000
@@ -1116,7 +1116,7 @@ glabel var7f1ac1b0
 /*  f098218:	00809825 */ 	or	$s3,$a0,$zero
 /*  f09821c:	1701000f */ 	bne	$t8,$at,.L0f09825c
 /*  f098220:	a08f0690 */ 	sb	$t7,0x690($a0)
-/*  f098224:	0fc26057 */ 	jal	func0f09815c
+/*  f098224:	0fc26057 */ 	jal	bgun0f09815c
 /*  f098228:	00000000 */ 	nop
 /*  f09822c:	e7a00060 */ 	swc1	$f0,0x60($sp)
 /*  f098230:	0c007486 */ 	jal	modelGetNumAnimFrames
@@ -1244,7 +1244,7 @@ glabel var7f1ac1b0
 /*  f0983f8:	00000000 */ 	nop
 /*  f0983fc:	ae600684 */ 	sw	$zero,0x684($s3)
 .L0f098400:
-/*  f098400:	0fc26057 */ 	jal	func0f09815c
+/*  f098400:	0fc26057 */ 	jal	bgun0f09815c
 /*  f098404:	02602025 */ 	or	$a0,$s3,$zero
 /*  f098408:	4600018d */ 	trunc.w.s	$f6,$f0
 /*  f09840c:	8e6b0684 */ 	lw	$t3,0x684($s3)
@@ -1351,7 +1351,7 @@ glabel var7f1ac1b0
 /*  f098570:	10200043 */ 	beqz	$at,.L0f098680
 /*  f098574:	00000000 */ 	nop
 /*  f098578:	02602025 */ 	or	$a0,$s3,$zero
-/*  f09857c:	0fc26057 */ 	jal	func0f09815c
+/*  f09857c:	0fc26057 */ 	jal	bgun0f09815c
 /*  f098580:	afa90144 */ 	sw	$t1,0x144($sp)
 /*  f098584:	4600010d */ 	trunc.w.s	$f4,$f0
 /*  f098588:	962f0002 */ 	lhu	$t7,0x2($s1)
@@ -1437,7 +1437,7 @@ glabel var7f1ac1b0
 /*  f0986ac:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f0986b0:	afa20074 */ 	sw	$v0,0x74($sp)
 /*  f0986b4:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0986b8:	0fc25f9d */ 	jal	func0f097e74
+/*  f0986b8:	0fc25f9d */ 	jal	bgun0f097e74
 /*  f0986bc:	8fa7015c */ 	lw	$a3,0x15c($sp)
 /*  f0986c0:	8fa20074 */ 	lw	$v0,0x74($sp)
 /*  f0986c4:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -1452,7 +1452,7 @@ glabel var7f1ac1b0
 /*  f0986e0:	8e650684 */ 	lw	$a1,0x684($s3)
 /*  f0986e4:	0c007cc5 */ 	jal	func0001f314
 /*  f0986e8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0986ec:	0fc26057 */ 	jal	func0f09815c
+/*  f0986ec:	0fc26057 */ 	jal	bgun0f09815c
 /*  f0986f0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0986f4:	4600020d */ 	trunc.w.s	$f8,$f0
 /*  f0986f8:	8e6306b0 */ 	lw	$v1,0x6b0($s3)
@@ -1566,7 +1566,7 @@ glabel var7f1ac1b0
 );
 #else
 GLOBAL_ASM(
-glabel func0f0981e8
+glabel bgun0f0981e8
 .late_rodata
 glabel var7f1ac1a8
 .word 0x461c4000
@@ -1590,7 +1590,7 @@ glabel var7f1ac1b0
 /*  f096284:	00809825 */ 	or	$s3,$a0,$zero
 /*  f096288:	1701000f */ 	bne	$t8,$at,.NB0f0962c8
 /*  f09628c:	a08f0690 */ 	sb	$t7,0x690($a0)
-/*  f096290:	0fc25872 */ 	jal	func0f09815c
+/*  f096290:	0fc25872 */ 	jal	bgun0f09815c
 /*  f096294:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f096298:	e7a00054 */ 	swc1	$f0,0x54($sp)
 /*  f09629c:	0c0078a6 */ 	jal	modelGetNumAnimFrames
@@ -1718,7 +1718,7 @@ glabel var7f1ac1b0
 /*  f096464:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f096468:	ae600684 */ 	sw	$zero,0x684($s3)
 .NB0f09646c:
-/*  f09646c:	0fc25872 */ 	jal	func0f09815c
+/*  f09646c:	0fc25872 */ 	jal	bgun0f09815c
 /*  f096470:	02602025 */ 	or	$a0,$s3,$zero
 /*  f096474:	4600018d */ 	trunc.w.s	$f6,$f0
 /*  f096478:	8e6b0684 */ 	lw	$t3,0x684($s3)
@@ -1825,7 +1825,7 @@ glabel var7f1ac1b0
 /*  f0965dc:	10200043 */ 	beqz	$at,.NB0f0966ec
 /*  f0965e0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0965e4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0965e8:	0fc25872 */ 	jal	func0f09815c
+/*  f0965e8:	0fc25872 */ 	jal	bgun0f09815c
 /*  f0965ec:	afa9013c */ 	sw	$t1,0x13c($sp)
 /*  f0965f0:	4600010d */ 	trunc.w.s	$f4,$f0
 /*  f0965f4:	962f0002 */ 	lhu	$t7,0x2($s1)
@@ -1911,7 +1911,7 @@ glabel var7f1ac1b0
 /*  f096718:	afa30048 */ 	sw	$v1,0x48($sp)
 /*  f09671c:	afa2006c */ 	sw	$v0,0x6c($sp)
 /*  f096720:	02603025 */ 	or	$a2,$s3,$zero
-/*  f096724:	0fc257b8 */ 	jal	func0f097e74
+/*  f096724:	0fc257b8 */ 	jal	bgun0f097e74
 /*  f096728:	8fa70154 */ 	lw	$a3,0x154($sp)
 /*  f09672c:	8fa2006c */ 	lw	$v0,0x6c($sp)
 /*  f096730:	8fa30048 */ 	lw	$v1,0x48($sp)
@@ -1926,7 +1926,7 @@ glabel var7f1ac1b0
 /*  f09674c:	8e650684 */ 	lw	$a1,0x684($s3)
 /*  f096750:	0c0080eb */ 	jal	func0001f314
 /*  f096754:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f096758:	0fc25872 */ 	jal	func0f09815c
+/*  f096758:	0fc25872 */ 	jal	bgun0f09815c
 /*  f09675c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f096760:	4600020d */ 	trunc.w.s	$f8,$f0
 /*  f096764:	8e6306b0 */ 	lw	$v1,0x6b0($s3)
@@ -2027,7 +2027,7 @@ glabel var7f1ac1b0
 );
 #endif
 
-bool func0f098884(struct guncmd *cmd, struct gset *gset)
+bool bgun0f098884(struct guncmd *cmd, struct gset *gset)
 {
 	s32 result = false;
 
@@ -2046,7 +2046,7 @@ bool func0f098884(struct guncmd *cmd, struct gset *gset)
 	return result;
 }
 
-void func0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
+void bgun0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
 {
 	if (cmd->type != GUNCMD_PLAYANIMATION) {
 		struct guncmd *loopcmd = cmd;
@@ -2054,14 +2054,14 @@ void func0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
 		u32 rand = random() % 100;
 
 		while (loopcmd->type != GUNCMD_END) {
-			if (func0f098884(loopcmd, &hand->gset) && !done) {
+			if (bgun0f098884(loopcmd, &hand->gset) && !done) {
 				if (loopcmd->type == GUNCMD_INCLUDE) {
 					done = true;
-					func0f0988e0((struct guncmd *)loopcmd->unk04, handnum, hand);
+					bgun0f0988e0((struct guncmd *)loopcmd->unk04, handnum, hand);
 				} else if (loopcmd->type == GUNCMD_RANDOM) {
 					if ((struct guncmd *)loopcmd->unk04 != hand->unk0d80 && loopcmd->unk02 > rand) {
 						done = true;
-						func0f0988e0((struct guncmd *)loopcmd->unk04, handnum, hand);
+						bgun0f0988e0((struct guncmd *)loopcmd->unk04, handnum, hand);
 					}
 				}
 			}
@@ -2081,7 +2081,7 @@ void func0f0988e0(struct guncmd *cmd, s32 handnum, struct hand *hand)
 	}
 }
 
-bool func0f098a44(struct hand *hand, s32 time)
+bool bgun0f098a44(struct hand *hand, s32 time)
 {
 	struct guncmd *cmd = hand->unk0ce8;
 	s32 waittimekeyframe = -1;
@@ -2105,24 +2105,24 @@ bool func0f098a44(struct hand *hand, s32 time)
 
 	if (waittimekeyframe >= 0) {
 #if VERSION >= VERSION_PAL_FINAL
-		if (hand->unk0cc8_01 && func0f09815c(hand) <= zreleasekeyframe) {
+		if (hand->unk0cc8_01 && bgun0f09815c(hand) <= zreleasekeyframe) {
 			return false;
 		}
 
-		return (func0f09815c(hand) + hand->animframeincfreal >= waittimekeyframe);
+		return (bgun0f09815c(hand) + hand->animframeincfreal >= waittimekeyframe);
 #else
-		if (hand->unk0cc8_01 && (s32)func0f09815c(hand) <= zreleasekeyframe) {
+		if (hand->unk0cc8_01 && (s32)bgun0f09815c(hand) <= zreleasekeyframe) {
 			return false;
 		}
 
-		return (func0f09815c(hand) + hand->animframeinc >= waittimekeyframe);
+		return (bgun0f09815c(hand) + hand->animframeinc >= waittimekeyframe);
 #endif
 	}
 
 	return true;
 }
 
-s32 func0f098b80(struct hand *hand, s32 arg1)
+s32 bgun0f098b80(struct hand *hand, s32 arg1)
 {
 	struct guncmd *cmd = hand->unk0ce8;
 	s32 keyframe = -1;
@@ -2148,12 +2148,12 @@ s32 func0f098b80(struct hand *hand, s32 arg1)
 	return keyframe;
 }
 
-bool handIsAnimBusy(struct hand *hand)
+bool bgunIsAnimBusy(struct hand *hand)
 {
 	return hand->animmode != HANDANIMMODE_IDLE;
 }
 
-void handResetAnim(struct hand *hand)
+void bgunResetAnim(struct hand *hand)
 {
 	hand->animload = -1;
 	hand->animmode = HANDANIMMODE_IDLE;
@@ -2165,9 +2165,9 @@ void handResetAnim(struct hand *hand)
 	hand->unk0d0e_07 = false;
 }
 
-void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum)
+void bgunGetWeaponInfo(struct handweaponinfo *info, s32 handnum)
 {
-	s32 weaponnum = getCurrentPlayerWeaponIdWrapper(handnum);
+	s32 weaponnum = bgunGetWeaponNum2(handnum);
 
 	info->weaponnum = weaponnum;
 	info->definition = g_Weapons[weaponnum];
@@ -2182,7 +2182,7 @@ void handGetWeaponInfo(struct handweaponinfo *info, s32 handnum)
  * 2 = has ammo in clip but none in reserve
  * 3 = gun doesn't use ammo or clip is full
  */
-s32 func0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
+s32 bgun0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 {
 	s32 result = 3;
 	struct weaponfunc *func = weaponGetFunction(&hand->gset, funcnum);
@@ -2203,7 +2203,7 @@ s32 func0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 			}
 
 			if (info->weaponnum == WEAPON_TRANQUILIZER && funcnum == FUNC_SECONDARY) {
-				minqty = weaponGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
+				minqty = bgunGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
 			}
 
 			result = 1;
@@ -2227,7 +2227,7 @@ s32 func0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f098df8
+glabel bgun0f098df8
 /*  f098e78:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f098e7c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f098e80:	00a08025 */ 	move	$s0,$a1
@@ -2260,7 +2260,7 @@ glabel func0f098df8
 /*  f098eec:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f098ef0:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f098ef4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f098ef8:	0fc25f0b */ 	jal	weaponGetUnequippedReloadIndex
+/*  f098ef8:	0fc25f0b */ 	jal	bgunGetUnequippedReloadIndex
 /*  f098efc:	afa50030 */ 	sw	$a1,0x30($sp)
 /*  f098f00:	3c0b8009 */ 	lui	$t3,0x8009
 /*  f098f04:	916b8d54 */ 	lbu	$t3,-0x72ac($t3)
@@ -2341,7 +2341,7 @@ glabel func0f098df8
 );
 #else
 GLOBAL_ASM(
-glabel func0f098df8
+glabel bgun0f098df8
 /*  f098df8:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f098dfc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f098e00:	00a08025 */ 	or	$s0,$a1,$zero
@@ -2374,7 +2374,7 @@ glabel func0f098df8
 /*  f098e6c:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f098e70:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f098e74:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f098e78:	0fc25f43 */ 	jal	weaponGetUnequippedReloadIndex
+/*  f098e78:	0fc25f43 */ 	jal	bgunGetUnequippedReloadIndex
 /*  f098e7c:	afa50030 */ 	sw	$a1,0x30($sp)
 /*  f098e80:	3c0b8009 */ 	lui	$t3,%hi(g_FrIsValidWeapon)
 /*  f098e84:	916b8804 */ 	lbu	$t3,%lo(g_FrIsValidWeapon)($t3)
@@ -2452,35 +2452,35 @@ glabel func0f098df8
 );
 #endif
 
-void func0f098f8c(struct handweaponinfo *info, struct hand *hand)
+void bgun0f098f8c(struct handweaponinfo *info, struct hand *hand)
 {
 	s32 i;
 
 	for (i = 0; i < 2; i++) {
 		if (weaponGetFunction(&hand->gset, i)) {
-			func0f098df8(i, info, hand, 0, 1);
+			bgun0f098df8(i, info, hand, 0, 1);
 		}
 	}
 }
 
-bool func0f099008(s32 handnum)
+bool bgun0f099008(s32 handnum)
 {
 	struct handweaponinfo info;
 
-	handGetWeaponInfo(&info, handnum);
+	bgunGetWeaponInfo(&info, handnum);
 
-	if (func0f098ca0(0, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
+	if (bgun0f098ca0(0, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
 		return true;
 	}
 
-	if (func0f098ca0(1, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
+	if (bgun0f098ca0(1, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
 		return true;
 	}
 
 	return false;
 }
 
-bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
+bool bgun0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 {
 	if (!basefunc) {
 		return true;
@@ -2512,46 +2512,46 @@ bool func0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 
 	if (basefunc->ammoindex >= 0
 			&& weapon->ammos[basefunc->ammoindex]
-			&& currentPlayerGetAmmoCount(weapon->ammos[basefunc->ammoindex]->type) <= 0) {
+			&& bgunGetAmmoCount(weapon->ammos[basefunc->ammoindex]->type) <= 0) {
 		return true;
 	}
 
 	return false;
 }
 
-bool func0f099188(struct hand *hand, s32 gunfunc)
+bool bgun0f099188(struct hand *hand, s32 gunfunc)
 {
 	struct weaponfunc *func = weaponGetFunction(&hand->gset, gunfunc);
 	struct weapon *weapon = weaponFindById(hand->gset.weaponnum);
 
-	if (currentPlayerIsUsingSecondaryFunction() == gunfunc) {
+	if (bgunIsUsingSecondaryFunction() == gunfunc) {
 		return false;
 	}
 
-	return func0f0990b0(func, weapon);
+	return bgun0f0990b0(func, weapon);
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel handTickIncIdle
+glabel bgunTickIncIdle
 /*  f099270:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f099274:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f099278:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f09927c:	00c08025 */ 	move	$s0,$a2
 /*  f099280:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f099284:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f099288:	0fc2a432 */ 	jal	currentPlayerIsUsingSecondaryFunction
+/*  f099288:	0fc2a432 */ 	jal	bgunIsUsingSecondaryFunction
 /*  f09928c:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f099290:	44802000 */ 	mtc1	$zero,$f4
 /*  f099294:	afa20038 */ 	sw	$v0,0x38($sp)
 /*  f099298:	a20005dc */ 	sb	$zero,0x5dc($s0)
 /*  f09929c:	ae000558 */ 	sw	$zero,0x558($s0)
 /*  f0992a0:	e60405fc */ 	swc1	$f4,0x5fc($s0)
-/*  f0992a4:	0fc26ffc */ 	jal	handIsReadyToSwitch
+/*  f0992a4:	0fc26ffc */ 	jal	bgunIsReadyToSwitch
 /*  f0992a8:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0992ac:	10400007 */ 	beqz	$v0,.PF0f0992cc
 /*  f0992b0:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0992b4:	0fc273ec */ 	jal	handSetState
+/*  f0992b4:	0fc273ec */ 	jal	bgunSetState
 /*  f0992b8:	24050005 */ 	li	$a1,0x5
 /*  f0992bc:	50400004 */ 	beqzl	$v0,.PF0f0992d0
 /*  f0992c0:	8fae0038 */ 	lw	$t6,0x38($sp)
@@ -2574,7 +2574,7 @@ glabel handTickIncIdle
 /*  f0992f8:	11600106 */ 	beqz	$t3,.PF0f099714
 /*  f0992fc:	a20a0690 */ 	sb	$t2,0x690($s0)
 /*  f099300:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f099304:	0fc26348 */ 	jal	func0f098ca0
+/*  f099304:	0fc26348 */ 	jal	bgun0f098ca0
 /*  f099308:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f09930c:	92030003 */ 	lbu	$v1,0x3($s0)
 /*  f099310:	8fac0038 */ 	lw	$t4,0x38($sp)
@@ -2594,7 +2594,7 @@ glabel handTickIncIdle
 /*  f099348:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f09934c:	02003025 */ 	move	$a2,$s0
 /*  f099350:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f099354:	0fc26348 */ 	jal	func0f098ca0
+/*  f099354:	0fc26348 */ 	jal	bgun0f098ca0
 /*  f099358:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f09935c:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f099360:	04410002 */ 	bgez	$v0,.PF0f09936c
@@ -2616,7 +2616,7 @@ glabel handTickIncIdle
 /*  f09939c:	a20b0003 */ 	sb	$t3,0x3($s0)
 /*  f0993a0:	afa80034 */ 	sw	$t0,0x34($sp)
 /*  f0993a4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f0993a8:	0fc273ec */ 	jal	handSetState
+/*  f0993a8:	0fc273ec */ 	jal	bgunSetState
 /*  f0993ac:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0993b0:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f0993b4:	10400006 */ 	beqz	$v0,.PF0f0993d0
@@ -2635,7 +2635,7 @@ glabel handTickIncIdle
 /*  f0993e0:	318dfffd */ 	andi	$t5,$t4,0xfffd
 /*  f0993e4:	a20d0690 */ 	sb	$t5,0x690($s0)
 /*  f0993e8:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f0993ec:	0fc273ec */ 	jal	handSetState
+/*  f0993ec:	0fc273ec */ 	jal	bgunSetState
 /*  f0993f0:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0993f4:	10400003 */ 	beqz	$v0,.PF0f099404
 /*  f0993f8:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -2658,7 +2658,7 @@ glabel handTickIncIdle
 /*  f099438:	13210007 */ 	beq	$t9,$at,.PF0f099458
 /*  f09943c:	00000000 */ 	nop
 .PF0f099440:
-/*  f099440:	0fc273ec */ 	jal	handSetState
+/*  f099440:	0fc273ec */ 	jal	bgunSetState
 /*  f099444:	24050008 */ 	li	$a1,0x8
 /*  f099448:	10400003 */ 	beqz	$v0,.PF0f099458
 /*  f09944c:	00000000 */ 	nop
@@ -2700,13 +2700,13 @@ glabel handTickIncIdle
 /*  f0994d0:	8fae0044 */ 	lw	$t6,0x44($sp)
 /*  f0994d4:	920c0003 */ 	lbu	$t4,0x3($s0)
 /*  f0994d8:	240d0001 */ 	li	$t5,0x1
-/*  f0994dc:	0fc26348 */ 	jal	func0f098ca0
+/*  f0994dc:	0fc26348 */ 	jal	bgun0f098ca0
 /*  f0994e0:	01ac2023 */ 	subu	$a0,$t5,$t4
 /*  f0994e4:	920e0003 */ 	lbu	$t6,0x3($s0)
 /*  f0994e8:	24190001 */ 	li	$t9,0x1
 /*  f0994ec:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f0994f0:	02002025 */ 	move	$a0,$s0
-/*  f0994f4:	0fc26485 */ 	jal	func0f099188
+/*  f0994f4:	0fc26485 */ 	jal	bgun0f099188
 /*  f0994f8:	032e2823 */ 	subu	$a1,$t9,$t6
 /*  f0994fc:	1040001a */ 	beqz	$v0,.PF0f099568
 /*  f099500:	8fa30030 */ 	lw	$v1,0x30($sp)
@@ -2757,7 +2757,7 @@ glabel handTickIncIdle
 /*  f0995a8:	24050007 */ 	li	$a1,0x7
 /*  f0995ac:	358e0002 */ 	ori	$t6,$t4,0x2
 /*  f0995b0:	a20e0690 */ 	sb	$t6,0x690($s0)
-/*  f0995b4:	0fc273ec */ 	jal	handSetState
+/*  f0995b4:	0fc273ec */ 	jal	bgunSetState
 /*  f0995b8:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0995bc:	50400056 */ 	beqzl	$v0,.PF0f099718
 /*  f0995c0:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -2778,7 +2778,7 @@ glabel handTickIncIdle
 /*  f0995f8:	24050003 */ 	li	$a1,0x3
 /*  f0995fc:	314bff7f */ 	andi	$t3,$t2,0xff7f
 /*  f099600:	a20b0690 */ 	sb	$t3,0x690($s0)
-/*  f099604:	0fc273ec */ 	jal	handSetState
+/*  f099604:	0fc273ec */ 	jal	bgunSetState
 /*  f099608:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f09960c:	50400042 */ 	beqzl	$v0,.PF0f099718
 /*  f099610:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -2787,7 +2787,7 @@ glabel handTickIncIdle
 /*  f09961c:	ae00001c */ 	sw	$zero,0x1c($s0)
 .PF0f099620:
 /*  f099620:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f099624:	0fc273ec */ 	jal	handSetState
+/*  f099624:	0fc273ec */ 	jal	bgunSetState
 /*  f099628:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f09962c:	5040003a */ 	beqzl	$v0,.PF0f099718
 /*  f099630:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -2823,7 +2823,7 @@ glabel handTickIncIdle
 /*  f0996a0:	ae000014 */ 	sw	$zero,0x14($s0)
 /*  f0996a4:	a21906d7 */ 	sb	$t9,0x6d7($s0)
 /*  f0996a8:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f0996ac:	0fc273ec */ 	jal	handSetState
+/*  f0996ac:	0fc273ec */ 	jal	bgunSetState
 /*  f0996b0:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0996b4:	10400003 */ 	beqz	$v0,.PF0f0996c4
 /*  f0996b8:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -2845,7 +2845,7 @@ glabel handTickIncIdle
 /*  f0996f0:	8fae0044 */ 	lw	$t6,0x44($sp)
 /*  f0996f4:	05000007 */ 	bltz	$t0,.PF0f099714
 /*  f0996f8:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0996fc:	0fc273ec */ 	jal	handSetState
+/*  f0996fc:	0fc273ec */ 	jal	bgunSetState
 /*  f099700:	24050001 */ 	li	$a1,0x1
 /*  f099704:	50400004 */ 	beqzl	$v0,.PF0f099718
 /*  f099708:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -2866,7 +2866,7 @@ glabel handTickIncIdle
 /*  f09973c:	00095f40 */ 	sll	$t3,$t1,0x1d
 /*  f099740:	05610005 */ 	bgez	$t3,.PF0f099758
 /*  f099744:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f099748:	0fc2884a */ 	jal	currentPlayerAutoSwitchWeapon
+/*  f099748:	0fc2884a */ 	jal	bgunAutoSwitchWeapon
 /*  f09974c:	00000000 */ 	nop
 /*  f099750:	10000027 */ 	b	.PF0f0997f0
 /*  f099754:	00001025 */ 	move	$v0,$zero
@@ -2900,7 +2900,7 @@ glabel handTickIncIdle
 /*  f0997b8:	51a00005 */ 	beqzl	$t5,.PF0f0997d0
 /*  f0997bc:	904c0690 */ 	lbu	$t4,0x690($v0)
 .PF0f0997c0:
-/*  f0997c0:	0fc2884a */ 	jal	currentPlayerAutoSwitchWeapon
+/*  f0997c0:	0fc2884a */ 	jal	bgunAutoSwitchWeapon
 /*  f0997c4:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f0997c8:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f0997cc:	904c0690 */ 	lbu	$t4,0x690($v0)
@@ -2922,14 +2922,14 @@ glabel handTickIncIdle
 );
 #else
 GLOBAL_ASM(
-glabel handTickIncIdle
+glabel bgunTickIncIdle
 /*  f0991e4:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0991e8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0991ec:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0991f0:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f0991f4:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f0991f8:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0991fc:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
+/*  f0991fc:	0fc2a31f */ 	jal	bgunIsUsingSecondaryFunction
 /*  f099200:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f099204:	afa20038 */ 	sw	$v0,0x38($sp)
 /*  f099208:	8e0e0684 */ 	lw	$t6,0x684($s0)
@@ -2938,11 +2938,11 @@ glabel handTickIncIdle
 /*  f099214:	ae000558 */ 	sw	$zero,0x558($s0)
 /*  f099218:	ae0e0688 */ 	sw	$t6,0x688($s0)
 /*  f09921c:	e60405fc */ 	swc1	$f4,0x5fc($s0)
-/*  f099220:	0fc26f56 */ 	jal	handIsReadyToSwitch
+/*  f099220:	0fc26f56 */ 	jal	bgunIsReadyToSwitch
 /*  f099224:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099228:	10400007 */ 	beqz	$v0,.L0f099248
 /*  f09922c:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f099230:	0fc27346 */ 	jal	handSetState
+/*  f099230:	0fc27346 */ 	jal	bgunSetState
 /*  f099234:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f099238:	50400004 */ 	beqzl	$v0,.L0f09924c
 /*  f09923c:	8faf0038 */ 	lw	$t7,0x38($sp)
@@ -2965,7 +2965,7 @@ glabel handTickIncIdle
 /*  f099274:	11800106 */ 	beqz	$t4,.L0f099690
 /*  f099278:	a20b0690 */ 	sb	$t3,0x690($s0)
 /*  f09927c:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f099280:	0fc26328 */ 	jal	func0f098ca0
+/*  f099280:	0fc26328 */ 	jal	bgun0f098ca0
 /*  f099284:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f099288:	92030003 */ 	lbu	$v1,0x3($s0)
 /*  f09928c:	8fad0038 */ 	lw	$t5,0x38($sp)
@@ -2985,7 +2985,7 @@ glabel handTickIncIdle
 /*  f0992c4:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f0992c8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f0992cc:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f0992d0:	0fc26328 */ 	jal	func0f098ca0
+/*  f0992d0:	0fc26328 */ 	jal	bgun0f098ca0
 /*  f0992d4:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f0992d8:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f0992dc:	04410002 */ 	bgez	$v0,.L0f0992e8
@@ -3007,7 +3007,7 @@ glabel handTickIncIdle
 /*  f099318:	a20c0003 */ 	sb	$t4,0x3($s0)
 /*  f09931c:	afa80034 */ 	sw	$t0,0x34($sp)
 /*  f099320:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f099324:	0fc27346 */ 	jal	handSetState
+/*  f099324:	0fc27346 */ 	jal	bgunSetState
 /*  f099328:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f09932c:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f099330:	10400006 */ 	beqz	$v0,.L0f09934c
@@ -3026,7 +3026,7 @@ glabel handTickIncIdle
 /*  f09935c:	31aefffd */ 	andi	$t6,$t5,0xfffd
 /*  f099360:	a20e0690 */ 	sb	$t6,0x690($s0)
 /*  f099364:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f099368:	0fc27346 */ 	jal	handSetState
+/*  f099368:	0fc27346 */ 	jal	bgunSetState
 /*  f09936c:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099370:	10400003 */ 	beqz	$v0,.L0f099380
 /*  f099374:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -3049,7 +3049,7 @@ glabel handTickIncIdle
 /*  f0993b4:	11210007 */ 	beq	$t1,$at,.L0f0993d4
 /*  f0993b8:	00000000 */ 	nop
 .L0f0993bc:
-/*  f0993bc:	0fc27346 */ 	jal	handSetState
+/*  f0993bc:	0fc27346 */ 	jal	bgunSetState
 /*  f0993c0:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f0993c4:	10400003 */ 	beqz	$v0,.L0f0993d4
 /*  f0993c8:	00000000 */ 	nop
@@ -3091,13 +3091,13 @@ glabel handTickIncIdle
 /*  f09944c:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f099450:	920d0003 */ 	lbu	$t5,0x3($s0)
 /*  f099454:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f099458:	0fc26328 */ 	jal	func0f098ca0
+/*  f099458:	0fc26328 */ 	jal	bgun0f098ca0
 /*  f09945c:	01cd2023 */ 	subu	$a0,$t6,$t5
 /*  f099460:	920f0003 */ 	lbu	$t7,0x3($s0)
 /*  f099464:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f099468:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f09946c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f099470:	0fc26462 */ 	jal	func0f099188
+/*  f099470:	0fc26462 */ 	jal	bgun0f099188
 /*  f099474:	012f2823 */ 	subu	$a1,$t1,$t7
 /*  f099478:	1040001a */ 	beqz	$v0,.L0f0994e4
 /*  f09947c:	8fa30030 */ 	lw	$v1,0x30($sp)
@@ -3148,7 +3148,7 @@ glabel handTickIncIdle
 /*  f099524:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f099528:	35af0002 */ 	ori	$t7,$t5,0x2
 /*  f09952c:	a20f0690 */ 	sb	$t7,0x690($s0)
-/*  f099530:	0fc27346 */ 	jal	handSetState
+/*  f099530:	0fc27346 */ 	jal	bgunSetState
 /*  f099534:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099538:	50400056 */ 	beqzl	$v0,.L0f099694
 /*  f09953c:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3169,7 +3169,7 @@ glabel handTickIncIdle
 /*  f099574:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f099578:	316cff7f */ 	andi	$t4,$t3,0xff7f
 /*  f09957c:	a20c0690 */ 	sb	$t4,0x690($s0)
-/*  f099580:	0fc27346 */ 	jal	handSetState
+/*  f099580:	0fc27346 */ 	jal	bgunSetState
 /*  f099584:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099588:	50400042 */ 	beqzl	$v0,.L0f099694
 /*  f09958c:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3178,7 +3178,7 @@ glabel handTickIncIdle
 /*  f099598:	ae00001c */ 	sw	$zero,0x1c($s0)
 .L0f09959c:
 /*  f09959c:	ae000018 */ 	sw	$zero,0x18($s0)
-/*  f0995a0:	0fc27346 */ 	jal	handSetState
+/*  f0995a0:	0fc27346 */ 	jal	bgunSetState
 /*  f0995a4:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f0995a8:	5040003a */ 	beqzl	$v0,.L0f099694
 /*  f0995ac:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3214,7 +3214,7 @@ glabel handTickIncIdle
 /*  f09961c:	ae000014 */ 	sw	$zero,0x14($s0)
 /*  f099620:	a20906d7 */ 	sb	$t1,0x6d7($s0)
 /*  f099624:	afa80034 */ 	sw	$t0,0x34($sp)
-/*  f099628:	0fc27346 */ 	jal	handSetState
+/*  f099628:	0fc27346 */ 	jal	bgunSetState
 /*  f09962c:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f099630:	10400003 */ 	beqz	$v0,.L0f099640
 /*  f099634:	8fa80034 */ 	lw	$t0,0x34($sp)
@@ -3236,7 +3236,7 @@ glabel handTickIncIdle
 /*  f09966c:	8faf0044 */ 	lw	$t7,0x44($sp)
 /*  f099670:	05000007 */ 	bltz	$t0,.L0f099690
 /*  f099674:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f099678:	0fc27346 */ 	jal	handSetState
+/*  f099678:	0fc27346 */ 	jal	bgunSetState
 /*  f09967c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099680:	50400004 */ 	beqzl	$v0,.L0f099694
 /*  f099684:	8faf0044 */ 	lw	$t7,0x44($sp)
@@ -3257,7 +3257,7 @@ glabel handTickIncIdle
 /*  f0996b8:	000a6740 */ 	sll	$t4,$t2,0x1d
 /*  f0996bc:	05810005 */ 	bgez	$t4,.L0f0996d4
 /*  f0996c0:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f0996c4:	0fc2877d */ 	jal	currentPlayerAutoSwitchWeapon
+/*  f0996c4:	0fc2877d */ 	jal	bgunAutoSwitchWeapon
 /*  f0996c8:	00000000 */ 	nop
 /*  f0996cc:	10000027 */ 	b	.L0f09976c
 /*  f0996d0:	00001025 */ 	or	$v0,$zero,$zero
@@ -3291,7 +3291,7 @@ glabel handTickIncIdle
 /*  f099734:	51c00005 */ 	beqzl	$t6,.L0f09974c
 /*  f099738:	904d0690 */ 	lbu	$t5,0x690($v0)
 .L0f09973c:
-/*  f09973c:	0fc2877d */ 	jal	currentPlayerAutoSwitchWeapon
+/*  f09973c:	0fc2877d */ 	jal	bgunAutoSwitchWeapon
 /*  f099740:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f099744:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f099748:	904d0690 */ 	lbu	$t5,0x690($v0)
@@ -3314,10 +3314,10 @@ glabel handTickIncIdle
 #endif
 
 // Mismatch: regalloc
-//s32 handTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+//s32 bgunTickIncIdle(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 //{
 //	bool usesec;
-//	s32 gunfunc = currentPlayerIsUsingSecondaryFunction();
+//	s32 gunfunc = bgunIsUsingSecondaryFunction();
 //	s32 sp34;
 //	s32 sp30;
 //	bool changefunc;
@@ -3333,7 +3333,7 @@ glabel handTickIncIdle
 //	hand->shotremainder = 0;
 //
 //	// If ready to change gun due to manual switch, just do that
-//	if (handIsReadyToSwitch(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
+//	if (bgunIsReadyToSwitch(handnum) && bgunSetState(handnum, HANDSTATE_CHANGEGUN)) {
 //		return lvupdate;
 //	}
 //
@@ -3344,13 +3344,13 @@ glabel handTickIncIdle
 //	hand->unk0cc8_08 = false;
 //
 //	if (hand->inuse) {
-//		sp34 = func0f098ca0(hand->gset.weaponfunc, info, hand);
+//		sp34 = bgun0f098ca0(hand->gset.weaponfunc, info, hand);
 //
 //		// Handle changing gun function
 //		if (gunfunc != hand->gset.weaponfunc && hand->modenext != HANDMODE_RELOAD) {
 //			changefunc = true;
 //
-//			if (hand->unk0cc8_07 && func0f098ca0(1 - hand->gset.weaponfunc, info, hand) < 0) {
+//			if (hand->unk0cc8_07 && bgun0f098ca0(1 - hand->gset.weaponfunc, info, hand) < 0) {
 //				changefunc = false;
 //			}
 //
@@ -3360,7 +3360,7 @@ glabel handTickIncIdle
 //					hand->count = 0;
 //					hand->gset.weaponfunc = gunfunc;
 //
-//					if (handSetState(handnum, HANDSTATE_RELOAD)) {
+//					if (bgunSetState(handnum, HANDSTATE_RELOAD)) {
 //						return lvupdate;
 //					}
 //				} else {
@@ -3373,7 +3373,7 @@ glabel handTickIncIdle
 //			if (changefunc) {
 //				hand->unk0cc8_07 = false;
 //
-//				if (handSetState(handnum, HANDSTATE_CHANGEFUNC)) {
+//				if (bgunSetState(handnum, HANDSTATE_CHANGEFUNC)) {
 //					return lvupdate;
 //				}
 //			}
@@ -3385,7 +3385,7 @@ glabel handTickIncIdle
 //			// Consider switching to another weapon
 //			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_00000001)
 //					&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
-//					&& handSetState(handnum, HANDSTATE_AUTOSWITCH)) {
+//					&& bgunSetState(handnum, HANDSTATE_AUTOSWITCH)) {
 //				return lvupdate;
 //			}
 //
@@ -3395,9 +3395,9 @@ glabel handTickIncIdle
 //				&& (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->gunctrl.weaponnum - 1) >> 3] & (1 << (g_Vars.currentplayer->gunctrl.weaponnum - 1 & 7)));
 //
 //			if (usesec == gunfunc) {
-//				sp30 = func0f098ca0(1 - hand->gset.weaponfunc, info, hand);
+//				sp30 = bgun0f098ca0(1 - hand->gset.weaponfunc, info, hand);
 //
-//				if (func0f099188(hand, 1 - hand->gset.weaponfunc)
+//				if (bgun0f099188(hand, 1 - hand->gset.weaponfunc)
 //						&& info->weaponnum != WEAPON_REAPER) {
 //					if (info->gunctrl->wantammo) {
 //						func = weaponGetFunction(&hand->gset, 1 - hand->gset.weaponfunc);
@@ -3417,7 +3417,7 @@ glabel handTickIncIdle
 //							|| hand->gset.weaponfunc == FUNC_SECONDARY) {
 //						hand->unk0cc8_07 = true;
 //
-//						if (handSetState(handnum, HANDSTATE_CHANGEFUNC)) {
+//						if (bgunSetState(handnum, HANDSTATE_CHANGEFUNC)) {
 //							return lvupdate;
 //						}
 //					}
@@ -3428,14 +3428,14 @@ glabel handTickIncIdle
 //			if (hand->triggeron && info->weaponnum != WEAPON_NONE) {
 //				hand->unk0cc8_01 = false;
 //
-//				if (handSetState(handnum, HANDSTATE_ATTACKEMPTY)) {
+//				if (bgunSetState(handnum, HANDSTATE_ATTACKEMPTY)) {
 //					return lvupdate;
 //				}
 //			} else {
 //				hand->count60 = 0;
 //				hand->count = 0;
 //
-//				if (handSetState(handnum, HANDSTATE_RELOAD)) {
+//				if (bgunSetState(handnum, HANDSTATE_RELOAD)) {
 //					return lvupdate;
 //				}
 //			}
@@ -3452,7 +3452,7 @@ glabel handTickIncIdle
 //
 //					hand->unk0d0f_03 = false;
 //
-//					if (handSetState(handnum, HANDSTATE_ATTACK)) {
+//					if (bgunSetState(handnum, HANDSTATE_ATTACK)) {
 //						return lvupdate;
 //					}
 //				}
@@ -3469,7 +3469,7 @@ glabel handTickIncIdle
 //				hand->modenext = HANDMODE_NONE;
 //
 //				if (next == HANDMODE_RELOAD && sp34 < 2 && sp34 >= 0) {
-//					if (handSetState(handnum, HANDSTATE_RELOAD)) {
+//					if (bgunSetState(handnum, HANDSTATE_RELOAD)) {
 //						return lvupdate;
 //					}
 //				}
@@ -3480,14 +3480,14 @@ glabel handTickIncIdle
 //	// 698
 //	if (handnum == HAND_RIGHT) {
 //		if (info->gunctrl->wantammo) {
-//			currentPlayerAutoSwitchWeapon();
+//			bgunAutoSwitchWeapon();
 //		} else {
 //			lhand = &g_Vars.currentplayer->hands[1] - handnum;
 //
 //			if ((hand->unk0cc8_08 || !hand->inuse)
 //					&& (lhand->unk0cc8_08 || !lhand->inuse)
 //					&& (hand->triggeron || lhand->triggeron)) {
-//				currentPlayerAutoSwitchWeapon();
+//				bgunAutoSwitchWeapon();
 //			}
 //
 //			hand->unk0cc8_08 = lhand->unk0cc8_08 = false;
@@ -3497,7 +3497,7 @@ glabel handTickIncIdle
 //	return 0;
 //}
 
-void func0f099780(struct hand *hand, f32 angle)
+void bgun0f099780(struct hand *hand, f32 angle)
 {
 	hand->useposrot = true;
 
@@ -3508,13 +3508,13 @@ void func0f099780(struct hand *hand, f32 angle)
 	hand->posrotmtx.m[3][2] = sinf(angle) * 15.0f;
 }
 
-s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgunTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
 	s32 someval;
-	s32 gunfunc = currentPlayerIsUsingSecondaryFunction();
+	s32 gunfunc = bgunIsUsingSecondaryFunction();
 
-	if (!hand->inuse && handSetState(handnum, HANDSTATE_IDLE)) {
+	if (!hand->inuse && bgunSetState(handnum, HANDSTATE_IDLE)) {
 		return lvupdate;
 	}
 
@@ -3528,7 +3528,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 		if (hand->stateframes >= delay) {
 			hand->stateminor++;
 		} else {
-			func0f099780(hand, hand->stateframes * 0.87252569198608f / delay);
+			bgun0f099780(hand, hand->stateframes * 0.87252569198608f / delay);
 		}
 	}
 
@@ -3539,12 +3539,12 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 #endif
 		hand->shotremainder = 0;
 
-		if (handIsReadyToSwitch(handnum) && handSetState(handnum, HANDSTATE_CHANGEGUN)) {
+		if (bgunIsReadyToSwitch(handnum) && bgunSetState(handnum, HANDSTATE_CHANGEGUN)) {
 			if (g_Vars.mplayerisrunning && (IS8MB() || PLAYERCOUNT() != 1)) {
 				currentPlayerSetWeaponReapable(handnum);
 			}
 
-			func0f09fa20(handnum);
+			bgun0f09fa20(handnum);
 
 			hand->mode = HANDMODE_6;
 			hand->stateminor = 2;
@@ -3553,7 +3553,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 		}
 
 		if (hand->inuse) {
-			someval = func0f098ca0(gunfunc, info, hand);
+			someval = bgun0f098ca0(gunfunc, info, hand);
 
 			if (info->weaponnum == WEAPON_TIMEDMINE || info->weaponnum == WEAPON_PROXIMITYMINE) {
 				hand->gset.weaponfunc = gunfunc;
@@ -3561,7 +3561,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 
 			if (info->weaponnum == WEAPON_REMOTEMINE
 					&& gunfunc != hand->gset.weaponfunc
-					&& handSetState(handnum, HANDSTATE_CHANGEFUNC)) {
+					&& bgunSetState(handnum, HANDSTATE_CHANGEFUNC)) {
 				return lvupdate;
 			}
 
@@ -3570,18 +3570,18 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 				struct handweaponinfo otherinfo;
 				bool ready = true;
 
-				handGetWeaponInfo(&otherinfo, 1 - handnum);
+				bgunGetWeaponInfo(&otherinfo, 1 - handnum);
 
 				if (otherhand->inuse) {
-					if (func0f098ca0(0, &otherinfo, otherhand) >= 0) {
+					if (bgun0f098ca0(0, &otherinfo, otherhand) >= 0) {
 						ready = false;
 					}
 
-					if (func0f098ca0(1, &otherinfo, otherhand) >= 0) {
+					if (bgun0f098ca0(1, &otherinfo, otherhand) >= 0) {
 						ready = false;
 					}
 
-					if (func0f099188(otherhand, otherhand->gset.weaponfunc)) {
+					if (bgun0f099188(otherhand, otherhand->gset.weaponfunc)) {
 						ready = true;
 					}
 				}
@@ -3591,7 +3591,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 				}
 
 				if (ready) {
-					currentPlayerAutoSwitchWeapon();
+					bgunAutoSwitchWeapon();
 				}
 			}
 
@@ -3600,7 +3600,7 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 					hand->count60 = 0;
 					hand->count = 0;
 
-					if (handSetState(handnum, HANDSTATE_RELOAD)) {
+					if (bgunSetState(handnum, HANDSTATE_RELOAD)) {
 						if (info->weaponnum == WEAPON_COMBATKNIFE) {
 							hand->mode = HANDMODE_11;
 							hand->pausetime60 = PALDOWN(17);
@@ -3622,13 +3622,13 @@ s32 handTickIncAutoSwitch(struct handweaponinfo *info, s32 handnum, struct hand 
 			}
 		}
 
-		func0f099780(hand, 0.87252569198608f);
+		bgun0f099780(hand, 0.87252569198608f);
 	}
 
 	return 0;
 }
 
-bool handIsReloading(struct hand *hand)
+bool bgunIsReloading(struct hand *hand)
 {
 	if (hand->state == HANDSTATE_RELOAD) {
 		return true;
@@ -3639,186 +3639,186 @@ bool handIsReloading(struct hand *hand)
 
 #if PAL
 GLOBAL_ASM(
-glabel handTickIncReload
+glabel bgunTickIncReload
 .late_rodata
 glabel var7f1ac1b8
 .word 0x3f5f5dd8
 glabel var7f1ac1bc
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac1c0
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac1c4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1c8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1cc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1dc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1ec
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1fc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac200
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac204
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac208
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac20c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac210
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac214
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac218
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac21c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac220
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac224
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac228
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac22c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac230
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac234
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac238
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac23c
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac240
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac244
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac248
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac24c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac250
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac254
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac258
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac25c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac260
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac264
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac268
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac26c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac270
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac274
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac278
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac27c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac280
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac284
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac288
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac28c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac290
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac294
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac298
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac29c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2ac
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2b0
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2b4
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2b8
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2bc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2cc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2dc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2ec
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2fc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac300
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac304
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac308
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac30c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac310
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac314
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac318
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac31c
 .word 0x3f5f5dd8
 .text
@@ -3841,7 +3841,7 @@ glabel var7f1ac31c
 /*  f099c88:	8e190618 */ 	lw	$t9,0x618($s0)
 /*  f099c8c:	ae00068c */ 	sw	$zero,0x68c($s0)
 /*  f099c90:	ae180680 */ 	sw	$t8,0x680($s0)
-/*  f099c94:	0fc27346 */ 	jal	handSetState
+/*  f099c94:	0fc27346 */ 	jal	bgunSetState
 /*  f099c98:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099c9c:	50400004 */ 	beqzl	$v0,.L0f099cb0
 /*  f099ca0:	8e190618 */ 	lw	$t9,0x618($s0)
@@ -3941,7 +3941,7 @@ glabel var7f1ac31c
 /*  f099dfc:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f099e00:	1141001e */ 	beq	$t2,$at,.L0f099e7c
 /*  f099e04:	00000000 */ 	nop
-/*  f099e08:	0fc26238 */ 	jal	func0f0988e0
+/*  f099e08:	0fc26238 */ 	jal	bgun0f0988e0
 /*  f099e0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099e10:	920b06d6 */ 	lbu	$t3,0x6d6($s0)
 /*  f099e14:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -3976,7 +3976,7 @@ glabel var7f1ac31c
 /*  f099e7c:	10000007 */ 	b	.L0f099e9c
 /*  f099e80:	ae090608 */ 	sw	$t1,0x608($s0)
 .L0f099e84:
-/*  f099e84:	0fc27346 */ 	jal	handSetState
+/*  f099e84:	0fc27346 */ 	jal	bgunSetState
 /*  f099e88:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099e8c:	10400003 */ 	beqz	$v0,.L0f099e9c
 /*  f099e90:	00000000 */ 	nop
@@ -3997,7 +3997,7 @@ glabel var7f1ac31c
 /*  f099ec4:	332d0004 */ 	andi	$t5,$t9,0x4
 /*  f099ec8:	51a0002b */ 	beqzl	$t5,.L0f099f78
 /*  f099ecc:	8e18060c */ 	lw	$t8,0x60c($s0)
-/*  f099ed0:	0fc26291 */ 	jal	func0f098a44
+/*  f099ed0:	0fc26291 */ 	jal	bgun0f098a44
 /*  f099ed4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099ed8:	5040001f */ 	beqzl	$v0,.L0f099f58
 /*  f099edc:	ae00060c */ 	sw	$zero,0x60c($s0)
@@ -4008,14 +4008,14 @@ glabel var7f1ac31c
 /*  f099ef0:	17000019 */ 	bnez	$t8,.L0f099f58
 /*  f099ef4:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f099ef8:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f099efc:	0fc2637e */ 	jal	func0f098df8
+/*  f099efc:	0fc2637e */ 	jal	bgun0f098df8
 /*  f099f00:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f099f04:	8e0a060c */ 	lw	$t2,0x60c($s0)
 /*  f099f08:	92040003 */ 	lbu	$a0,0x3($s0)
 /*  f099f0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099f10:	35480010 */ 	ori	$t0,$t2,0x10
 /*  f099f14:	ae08060c */ 	sw	$t0,0x60c($s0)
-/*  f099f18:	0fc26328 */ 	jal	func0f098ca0
+/*  f099f18:	0fc26328 */ 	jal	bgun0f098ca0
 /*  f099f1c:	8fa50038 */ 	lw	$a1,0x38($sp)
 /*  f099f20:	28410002 */ 	slti	$at,$v0,0x2
 /*  f099f24:	54200005 */ 	bnezl	$at,.L0f099f3c
@@ -4047,14 +4047,14 @@ glabel var7f1ac31c
 /*  f099f7c:	330a0010 */ 	andi	$t2,$t8,0x10
 /*  f099f80:	5540000e */ 	bnezl	$t2,.L0f099fbc
 /*  f099f84:	8e0b068c */ 	lw	$t3,0x68c($s0)
-/*  f099f88:	0fc26291 */ 	jal	func0f098a44
+/*  f099f88:	0fc26291 */ 	jal	bgun0f098a44
 /*  f099f8c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099f90:	10400009 */ 	beqz	$v0,.L0f099fb8
 /*  f099f94:	8fa50038 */ 	lw	$a1,0x38($sp)
 /*  f099f98:	92040003 */ 	lbu	$a0,0x3($s0)
 /*  f099f9c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f099fa0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f099fa4:	0fc2637e */ 	jal	func0f098df8
+/*  f099fa4:	0fc2637e */ 	jal	bgun0f098df8
 /*  f099fa8:	00003825 */ 	or	$a3,$zero,$zero
 /*  f099fac:	8e08060c */ 	lw	$t0,0x60c($s0)
 /*  f099fb0:	350e0010 */ 	ori	$t6,$t0,0x10
@@ -4066,7 +4066,7 @@ glabel var7f1ac31c
 /*  f099fc0:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099fc4:	51610008 */ 	beql	$t3,$at,.L0f099fe8
 /*  f099fc8:	8e030608 */ 	lw	$v1,0x608($s0)
-/*  f099fcc:	0fc27346 */ 	jal	handSetState
+/*  f099fcc:	0fc27346 */ 	jal	bgunSetState
 /*  f099fd0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099fd4:	50400004 */ 	beqzl	$v0,.L0f099fe8
 /*  f099fd8:	8e030608 */ 	lw	$v1,0x608($s0)
@@ -4106,7 +4106,7 @@ glabel var7f1ac31c
 /*  f09a050:	46083282 */ 	mul.s	$f10,$f6,$f8
 /*  f09a054:	46105483 */ 	div.s	$f18,$f10,$f16
 /*  f09a058:	44059000 */ 	mfc1	$a1,$f18
-/*  f09a05c:	0fc265e0 */ 	jal	func0f099780
+/*  f09a05c:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a060:	00000000 */ 	nop
 /*  f09a064:	8e030608 */ 	lw	$v1,0x608($s0)
 .L0f09a068:
@@ -4134,7 +4134,7 @@ glabel var7f1ac31c
 /*  f09a0b8:	8de4000c */ 	lw	$a0,0xc($t7)
 /*  f09a0bc:	50800007 */ 	beqzl	$a0,.L0f09a0dc
 /*  f09a0c0:	8e0a060c */ 	lw	$t2,0x60c($s0)
-/*  f09a0c4:	0fc26238 */ 	jal	func0f0988e0
+/*  f09a0c4:	0fc26238 */ 	jal	bgun0f0988e0
 /*  f09a0c8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09a0cc:	920d0690 */ 	lbu	$t5,0x690($s0)
 /*  f09a0d0:	35a90040 */ 	ori	$t1,$t5,0x40
@@ -4147,7 +4147,7 @@ glabel var7f1ac31c
 /*  f09a0e8:	15000004 */ 	bnez	$t0,.L0f09a0fc
 /*  f09a0ec:	00003825 */ 	or	$a3,$zero,$zero
 /*  f09a0f0:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f09a0f4:	0fc2637e */ 	jal	func0f098df8
+/*  f09a0f4:	0fc2637e */ 	jal	bgun0f098df8
 /*  f09a0f8:	afa00010 */ 	sw	$zero,0x10($sp)
 .L0f09a0fc:
 /*  f09a0fc:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x34)
@@ -4160,7 +4160,7 @@ glabel var7f1ac31c
 /*  f09a118:	8dcb0000 */ 	lw	$t3,0x0($t6)
 /*  f09a11c:	51610027 */ 	beql	$t3,$at,.L0f09a1bc
 /*  f09a120:	8e0e001c */ 	lw	$t6,0x1c($s0)
-/*  f09a124:	0fc2775f */ 	jal	func0f09dd7c
+/*  f09a124:	0fc2775f */ 	jal	bgun0f09dd7c
 /*  f09a128:	00000000 */ 	nop
 /*  f09a12c:	10400022 */ 	beqz	$v0,.L0f09a1b8
 /*  f09a130:	3c0c8007 */ 	lui	$t4,%hi(g_PlayerInvincible)
@@ -4220,7 +4220,7 @@ glabel var7f1ac31c
 /*  f09a1fc:	10000004 */ 	b	.L0f09a210
 /*  f09a200:	ae000018 */ 	sw	$zero,0x18($s0)
 .L0f09a204:
-/*  f09a204:	0fc265e0 */ 	jal	func0f099780
+/*  f09a204:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a208:	34a55dd8 */ 	ori	$a1,$a1,0x5dd8
 /*  f09a20c:	8e030608 */ 	lw	$v1,0x608($s0)
 .L0f09a210:
@@ -4266,7 +4266,7 @@ glabel var7f1ac31c
 /*  f09a298:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09a29c:	ae000018 */ 	sw	$zero,0x18($s0)
 /*  f09a2a0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f09a2a4:	0fc27346 */ 	jal	handSetState
+/*  f09a2a4:	0fc27346 */ 	jal	bgunSetState
 /*  f09a2a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09a2ac:	50400013 */ 	beqzl	$v0,.L0f09a2fc
 /*  f09a2b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -4286,7 +4286,7 @@ glabel var7f1ac31c
 /*  f09a2e4:	460a4402 */ 	mul.s	$f16,$f8,$f10
 /*  f09a2e8:	46128103 */ 	div.s	$f4,$f16,$f18
 /*  f09a2ec:	44052000 */ 	mfc1	$a1,$f4
-/*  f09a2f0:	0fc265e0 */ 	jal	func0f099780
+/*  f09a2f0:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a2f4:	00000000 */ 	nop
 .L0f09a2f8:
 /*  f09a2f8:	00001025 */ 	or	$v0,$zero,$zero
@@ -4299,186 +4299,186 @@ glabel var7f1ac31c
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel handTickIncReload
+glabel bgunTickIncReload
 .late_rodata
 glabel var7f1ac1b8
 .word 0x3f5f5dd8
 glabel var7f1ac1bc
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac1c0
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac1c4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1c8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1cc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1dc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1ec
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1fc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac200
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac204
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac208
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac20c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac210
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac214
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac218
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac21c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac220
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac224
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac228
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac22c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac230
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac234
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac238
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac23c
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac240
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac244
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac248
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac24c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac250
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac254
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac258
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac25c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac260
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac264
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac268
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac26c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac270
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac274
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac278
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac27c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac280
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac284
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac288
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac28c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac290
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac294
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac298
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac29c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2ac
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2b0
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2b4
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2b8
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2bc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2cc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2dc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2ec
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2fc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac300
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac304
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac308
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac30c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac310
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac314
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac318
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac31c
 .word 0x3f5f5dd8
 .text
@@ -4501,7 +4501,7 @@ glabel var7f1ac31c
 /*  f099c88:	8e190618 */ 	lw	$t9,0x618($s0)
 /*  f099c8c:	ae00068c */ 	sw	$zero,0x68c($s0)
 /*  f099c90:	ae180680 */ 	sw	$t8,0x680($s0)
-/*  f099c94:	0fc27346 */ 	jal	handSetState
+/*  f099c94:	0fc27346 */ 	jal	bgunSetState
 /*  f099c98:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099c9c:	50400004 */ 	beqzl	$v0,.L0f099cb0
 /*  f099ca0:	8e190618 */ 	lw	$t9,0x618($s0)
@@ -4601,7 +4601,7 @@ glabel var7f1ac31c
 /*  f099dfc:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f099e00:	1141001e */ 	beq	$t2,$at,.L0f099e7c
 /*  f099e04:	00000000 */ 	nop
-/*  f099e08:	0fc26238 */ 	jal	func0f0988e0
+/*  f099e08:	0fc26238 */ 	jal	bgun0f0988e0
 /*  f099e0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099e10:	920b06d6 */ 	lbu	$t3,0x6d6($s0)
 /*  f099e14:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -4636,7 +4636,7 @@ glabel var7f1ac31c
 /*  f099e7c:	10000007 */ 	b	.L0f099e9c
 /*  f099e80:	ae090608 */ 	sw	$t1,0x608($s0)
 .L0f099e84:
-/*  f099e84:	0fc27346 */ 	jal	handSetState
+/*  f099e84:	0fc27346 */ 	jal	bgunSetState
 /*  f099e88:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099e8c:	10400003 */ 	beqz	$v0,.L0f099e9c
 /*  f099e90:	00000000 */ 	nop
@@ -4657,7 +4657,7 @@ glabel var7f1ac31c
 /*  f099ec4:	332d0004 */ 	andi	$t5,$t9,0x4
 /*  f099ec8:	51a0002b */ 	beqzl	$t5,.L0f099f78
 /*  f099ecc:	8e18060c */ 	lw	$t8,0x60c($s0)
-/*  f099ed0:	0fc26291 */ 	jal	func0f098a44
+/*  f099ed0:	0fc26291 */ 	jal	bgun0f098a44
 /*  f099ed4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099ed8:	5040001f */ 	beqzl	$v0,.L0f099f58
 /*  f099edc:	ae00060c */ 	sw	$zero,0x60c($s0)
@@ -4668,14 +4668,14 @@ glabel var7f1ac31c
 /*  f099ef0:	17000019 */ 	bnez	$t8,.L0f099f58
 /*  f099ef4:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f099ef8:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f099efc:	0fc2637e */ 	jal	func0f098df8
+/*  f099efc:	0fc2637e */ 	jal	bgun0f098df8
 /*  f099f00:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f099f04:	8e0a060c */ 	lw	$t2,0x60c($s0)
 /*  f099f08:	92040003 */ 	lbu	$a0,0x3($s0)
 /*  f099f0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099f10:	35480010 */ 	ori	$t0,$t2,0x10
 /*  f099f14:	ae08060c */ 	sw	$t0,0x60c($s0)
-/*  f099f18:	0fc26328 */ 	jal	func0f098ca0
+/*  f099f18:	0fc26328 */ 	jal	bgun0f098ca0
 /*  f099f1c:	8fa50038 */ 	lw	$a1,0x38($sp)
 /*  f099f20:	28410002 */ 	slti	$at,$v0,0x2
 /*  f099f24:	54200005 */ 	bnezl	$at,.L0f099f3c
@@ -4707,14 +4707,14 @@ glabel var7f1ac31c
 /*  f099f7c:	330a0010 */ 	andi	$t2,$t8,0x10
 /*  f099f80:	5540000e */ 	bnezl	$t2,.L0f099fbc
 /*  f099f84:	8e0b068c */ 	lw	$t3,0x68c($s0)
-/*  f099f88:	0fc26291 */ 	jal	func0f098a44
+/*  f099f88:	0fc26291 */ 	jal	bgun0f098a44
 /*  f099f8c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099f90:	10400009 */ 	beqz	$v0,.L0f099fb8
 /*  f099f94:	8fa50038 */ 	lw	$a1,0x38($sp)
 /*  f099f98:	92040003 */ 	lbu	$a0,0x3($s0)
 /*  f099f9c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f099fa0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f099fa4:	0fc2637e */ 	jal	func0f098df8
+/*  f099fa4:	0fc2637e */ 	jal	bgun0f098df8
 /*  f099fa8:	00003825 */ 	or	$a3,$zero,$zero
 /*  f099fac:	8e08060c */ 	lw	$t0,0x60c($s0)
 /*  f099fb0:	350e0010 */ 	ori	$t6,$t0,0x10
@@ -4726,7 +4726,7 @@ glabel var7f1ac31c
 /*  f099fc0:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099fc4:	51610008 */ 	beql	$t3,$at,.L0f099fe8
 /*  f099fc8:	8e030608 */ 	lw	$v1,0x608($s0)
-/*  f099fcc:	0fc27346 */ 	jal	handSetState
+/*  f099fcc:	0fc27346 */ 	jal	bgunSetState
 /*  f099fd0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099fd4:	50400004 */ 	beqzl	$v0,.L0f099fe8
 /*  f099fd8:	8e030608 */ 	lw	$v1,0x608($s0)
@@ -4766,7 +4766,7 @@ glabel var7f1ac31c
 /*  f09a050:	46083282 */ 	mul.s	$f10,$f6,$f8
 /*  f09a054:	46105483 */ 	div.s	$f18,$f10,$f16
 /*  f09a058:	44059000 */ 	mfc1	$a1,$f18
-/*  f09a05c:	0fc265e0 */ 	jal	func0f099780
+/*  f09a05c:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a060:	00000000 */ 	nop
 /*  f09a064:	8e030608 */ 	lw	$v1,0x608($s0)
 .L0f09a068:
@@ -4794,7 +4794,7 @@ glabel var7f1ac31c
 /*  f09a0b8:	8de4000c */ 	lw	$a0,0xc($t7)
 /*  f09a0bc:	50800007 */ 	beqzl	$a0,.L0f09a0dc
 /*  f09a0c0:	8e0a060c */ 	lw	$t2,0x60c($s0)
-/*  f09a0c4:	0fc26238 */ 	jal	func0f0988e0
+/*  f09a0c4:	0fc26238 */ 	jal	bgun0f0988e0
 /*  f09a0c8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09a0cc:	920d0690 */ 	lbu	$t5,0x690($s0)
 /*  f09a0d0:	35a90040 */ 	ori	$t1,$t5,0x40
@@ -4807,7 +4807,7 @@ glabel var7f1ac31c
 /*  f09a0e8:	15000004 */ 	bnez	$t0,.L0f09a0fc
 /*  f09a0ec:	00003825 */ 	or	$a3,$zero,$zero
 /*  f09a0f0:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f09a0f4:	0fc2637e */ 	jal	func0f098df8
+/*  f09a0f4:	0fc2637e */ 	jal	bgun0f098df8
 /*  f09a0f8:	afa00010 */ 	sw	$zero,0x10($sp)
 .L0f09a0fc:
 /*  f09a0fc:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x34)
@@ -4820,7 +4820,7 @@ glabel var7f1ac31c
 /*  f09a118:	8dcb0000 */ 	lw	$t3,0x0($t6)
 /*  f09a11c:	51610027 */ 	beql	$t3,$at,.L0f09a1bc
 /*  f09a120:	8e0e001c */ 	lw	$t6,0x1c($s0)
-/*  f09a124:	0fc2775f */ 	jal	func0f09dd7c
+/*  f09a124:	0fc2775f */ 	jal	bgun0f09dd7c
 /*  f09a128:	00000000 */ 	nop
 /*  f09a12c:	10400022 */ 	beqz	$v0,.L0f09a1b8
 /*  f09a130:	3c0c8007 */ 	lui	$t4,%hi(g_PlayerInvincible)
@@ -4880,7 +4880,7 @@ glabel var7f1ac31c
 /*  f09a1fc:	10000004 */ 	b	.L0f09a210
 /*  f09a200:	ae000018 */ 	sw	$zero,0x18($s0)
 .L0f09a204:
-/*  f09a204:	0fc265e0 */ 	jal	func0f099780
+/*  f09a204:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a208:	34a55dd8 */ 	ori	$a1,$a1,0x5dd8
 /*  f09a20c:	8e030608 */ 	lw	$v1,0x608($s0)
 .L0f09a210:
@@ -4926,7 +4926,7 @@ glabel var7f1ac31c
 /*  f09a298:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09a29c:	ae000018 */ 	sw	$zero,0x18($s0)
 /*  f09a2a0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f09a2a4:	0fc27346 */ 	jal	handSetState
+/*  f09a2a4:	0fc27346 */ 	jal	bgunSetState
 /*  f09a2a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09a2ac:	50400013 */ 	beqzl	$v0,.L0f09a2fc
 /*  f09a2b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -4946,7 +4946,7 @@ glabel var7f1ac31c
 /*  f09a2e4:	460a4402 */ 	mul.s	$f16,$f8,$f10
 /*  f09a2e8:	46128103 */ 	div.s	$f4,$f16,$f18
 /*  f09a2ec:	44052000 */ 	mfc1	$a1,$f4
-/*  f09a2f0:	0fc265e0 */ 	jal	func0f099780
+/*  f09a2f0:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a2f4:	00000000 */ 	nop
 .L0f09a2f8:
 /*  f09a2f8:	00001025 */ 	or	$v0,$zero,$zero
@@ -4959,184 +4959,184 @@ glabel var7f1ac31c
 );
 #else
 GLOBAL_ASM(
-glabel handTickIncReload
+glabel bgunTickIncReload
 .late_rodata
 glabel var7f1ac1b8
 .word 0x3f5f5dd8
 glabel var7f1ac1bc
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac1c0
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac1c4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1c8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1cc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1d8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1dc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1e8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1ec
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1f8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac1fc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac200
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac204
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac208
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac20c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac210
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac214
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac218
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac21c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac220
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac224
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac228
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac22c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac230
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac234
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac238
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac23c
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac240
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac244
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac248
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac24c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac250
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac254
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac258
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac25c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac260
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac264
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac268
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac26c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac270
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac274
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac278
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac27c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac280
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac284
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac288
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac28c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac290
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac294
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac298
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac29c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2a8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2ac
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2b0
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2b4
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2b8
-.word handTickIncReload+0x570 # f09a1b8
+.word bgunTickIncReload+0x570 # f09a1b8
 glabel var7f1ac2bc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2c8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2cc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2d8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2dc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2e8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2ec
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f0
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f4
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2f8
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac2fc
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac300
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac304
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac308
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac30c
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac310
-.word handTickIncReload+0x534 # f09a17c
+.word bgunTickIncReload+0x534 # f09a17c
 glabel var7f1ac314
-.word handTickIncReload+0x570
+.word bgunTickIncReload+0x570
 glabel var7f1ac31c
 .word 0x3f5f5dd8
 .text
@@ -5159,7 +5159,7 @@ glabel var7f1ac31c
 /*  f099c88:	8e190618 */ 	lw	$t9,0x618($s0)
 /*  f099c8c:	ae00068c */ 	sw	$zero,0x68c($s0)
 /*  f099c90:	ae180680 */ 	sw	$t8,0x680($s0)
-/*  f099c94:	0fc27346 */ 	jal	handSetState
+/*  f099c94:	0fc27346 */ 	jal	bgunSetState
 /*  f099c98:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099c9c:	50400004 */ 	beqzl	$v0,.L0f099cb0
 /*  f099ca0:	8e190618 */ 	lw	$t9,0x618($s0)
@@ -5259,7 +5259,7 @@ glabel var7f1ac31c
 /*  f099dfc:	8fa5003c */ 	lw	$a1,0x3c($sp)
 /*  f099e00:	1141001e */ 	beq	$t2,$at,.L0f099e7c
 /*  f099e04:	00000000 */ 	nop
-/*  f099e08:	0fc26238 */ 	jal	func0f0988e0
+/*  f099e08:	0fc26238 */ 	jal	bgun0f0988e0
 /*  f099e0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099e10:	920b06d6 */ 	lbu	$t3,0x6d6($s0)
 /*  f099e14:	8fa30038 */ 	lw	$v1,0x38($sp)
@@ -5294,7 +5294,7 @@ glabel var7f1ac31c
 /*  f099e7c:	10000007 */ 	b	.L0f099e9c
 /*  f099e80:	ae090608 */ 	sw	$t1,0x608($s0)
 .L0f099e84:
-/*  f099e84:	0fc27346 */ 	jal	handSetState
+/*  f099e84:	0fc27346 */ 	jal	bgunSetState
 /*  f099e88:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099e8c:	10400003 */ 	beqz	$v0,.L0f099e9c
 /*  f099e90:	00000000 */ 	nop
@@ -5315,7 +5315,7 @@ glabel var7f1ac31c
 /*  f099ec4:	332d0004 */ 	andi	$t5,$t9,0x4
 /*  f099ec8:	51a0002b */ 	beqzl	$t5,.L0f099f78
 /*  f099ecc:	8e18060c */ 	lw	$t8,0x60c($s0)
-/*  f099ed0:	0fc26291 */ 	jal	func0f098a44
+/*  f099ed0:	0fc26291 */ 	jal	bgun0f098a44
 /*  f099ed4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099ed8:	5040001f */ 	beqzl	$v0,.L0f099f58
 /*  f099edc:	ae00060c */ 	sw	$zero,0x60c($s0)
@@ -5326,14 +5326,14 @@ glabel var7f1ac31c
 /*  f099ef0:	17000019 */ 	bnez	$t8,.L0f099f58
 /*  f099ef4:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f099ef8:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f099efc:	0fc2637e */ 	jal	func0f098df8
+/*  f099efc:	0fc2637e */ 	jal	bgun0f098df8
 /*  f099f00:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f099f04:	8e0a060c */ 	lw	$t2,0x60c($s0)
 /*  f099f08:	92040003 */ 	lbu	$a0,0x3($s0)
 /*  f099f0c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f099f10:	35480010 */ 	ori	$t0,$t2,0x10
 /*  f099f14:	ae08060c */ 	sw	$t0,0x60c($s0)
-/*  f099f18:	0fc26328 */ 	jal	func0f098ca0
+/*  f099f18:	0fc26328 */ 	jal	bgun0f098ca0
 /*  f099f1c:	8fa50038 */ 	lw	$a1,0x38($sp)
 /*  f099f20:	28410002 */ 	slti	$at,$v0,0x2
 /*  f099f24:	54200005 */ 	bnezl	$at,.L0f099f3c
@@ -5365,14 +5365,14 @@ glabel var7f1ac31c
 /*  f099f7c:	330a0010 */ 	andi	$t2,$t8,0x10
 /*  f099f80:	5540000e */ 	bnezl	$t2,.L0f099fbc
 /*  f099f84:	8e0b068c */ 	lw	$t3,0x68c($s0)
-/*  f099f88:	0fc26291 */ 	jal	func0f098a44
+/*  f099f88:	0fc26291 */ 	jal	bgun0f098a44
 /*  f099f8c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f099f90:	10400009 */ 	beqz	$v0,.L0f099fb8
 /*  f099f94:	8fa50038 */ 	lw	$a1,0x38($sp)
 /*  f099f98:	92040003 */ 	lbu	$a0,0x3($s0)
 /*  f099f9c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f099fa0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f099fa4:	0fc2637e */ 	jal	func0f098df8
+/*  f099fa4:	0fc2637e */ 	jal	bgun0f098df8
 /*  f099fa8:	00003825 */ 	or	$a3,$zero,$zero
 /*  f099fac:	8e08060c */ 	lw	$t0,0x60c($s0)
 /*  f099fb0:	350e0010 */ 	ori	$t6,$t0,0x10
@@ -5384,7 +5384,7 @@ glabel var7f1ac31c
 /*  f099fc0:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f099fc4:	51610008 */ 	beql	$t3,$at,.L0f099fe8
 /*  f099fc8:	8e030608 */ 	lw	$v1,0x608($s0)
-/*  f099fcc:	0fc27346 */ 	jal	handSetState
+/*  f099fcc:	0fc27346 */ 	jal	bgunSetState
 /*  f099fd0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f099fd4:	50400004 */ 	beqzl	$v0,.L0f099fe8
 /*  f099fd8:	8e030608 */ 	lw	$v1,0x608($s0)
@@ -5424,7 +5424,7 @@ glabel var7f1ac31c
 /*  f09a050:	46083282 */ 	mul.s	$f10,$f6,$f8
 /*  f09a054:	46105483 */ 	div.s	$f18,$f10,$f16
 /*  f09a058:	44059000 */ 	mfc1	$a1,$f18
-/*  f09a05c:	0fc265e0 */ 	jal	func0f099780
+/*  f09a05c:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a060:	00000000 */ 	nop
 /*  f09a064:	8e030608 */ 	lw	$v1,0x608($s0)
 .L0f09a068:
@@ -5452,7 +5452,7 @@ glabel var7f1ac31c
 /*  f09a0b8:	8de4000c */ 	lw	$a0,0xc($t7)
 /*  f09a0bc:	50800007 */ 	beqzl	$a0,.L0f09a0dc
 /*  f09a0c0:	8e0a060c */ 	lw	$t2,0x60c($s0)
-/*  f09a0c4:	0fc26238 */ 	jal	func0f0988e0
+/*  f09a0c4:	0fc26238 */ 	jal	bgun0f0988e0
 /*  f09a0c8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f09a0cc:	920d0690 */ 	lbu	$t5,0x690($s0)
 /*  f09a0d0:	35a90040 */ 	ori	$t1,$t5,0x40
@@ -5465,7 +5465,7 @@ glabel var7f1ac31c
 /*  f09a0e8:	15000004 */ 	bnez	$t0,.L0f09a0fc
 /*  f09a0ec:	00003825 */ 	or	$a3,$zero,$zero
 /*  f09a0f0:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f09a0f4:	0fc2637e */ 	jal	func0f098df8
+/*  f09a0f4:	0fc2637e */ 	jal	bgun0f098df8
 /*  f09a0f8:	afa00010 */ 	sw	$zero,0x10($sp)
 .L0f09a0fc:
 /*  f09a0fc:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x34)
@@ -5478,7 +5478,7 @@ glabel var7f1ac31c
 /*  f09a118:	8dcb0000 */ 	lw	$t3,0x0($t6)
 /*  f09a11c:	51610027 */ 	beql	$t3,$at,.L0f09a1bc
 /*  f09a120:	8e0e001c */ 	lw	$t6,0x1c($s0)
-/*  f09a124:	0fc2775f */ 	jal	func0f09dd7c
+/*  f09a124:	0fc2775f */ 	jal	bgun0f09dd7c
 /*  f09a128:	00000000 */ 	nop
 /*  f09a12c:	10400022 */ 	beqz	$v0,.L0f09a1b8
 /*  f09a130:	3c0c8007 */ 	lui	$t4,%hi(g_PlayerInvincible)
@@ -5538,7 +5538,7 @@ glabel var7f1ac31c
 /*  f09a1fc:	10000004 */ 	b	.L0f09a210
 /*  f09a200:	ae000018 */ 	sw	$zero,0x18($s0)
 .L0f09a204:
-/*  f09a204:	0fc265e0 */ 	jal	func0f099780
+/*  f09a204:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a208:	34a55dd8 */ 	ori	$a1,$a1,0x5dd8
 /*  f09a20c:	8e030608 */ 	lw	$v1,0x608($s0)
 .L0f09a210:
@@ -5584,7 +5584,7 @@ glabel var7f1ac31c
 /*  f09a298:	ae00001c */ 	sw	$zero,0x1c($s0)
 /*  f09a29c:	ae000018 */ 	sw	$zero,0x18($s0)
 /*  f09a2a0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f09a2a4:	0fc27346 */ 	jal	handSetState
+/*  f09a2a4:	0fc27346 */ 	jal	bgunSetState
 /*  f09a2a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f09a2ac:	50400013 */ 	beqzl	$v0,.L0f09a2fc
 /*  f09a2b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -5604,7 +5604,7 @@ glabel var7f1ac31c
 /*  f09a2e4:	460a4402 */ 	mul.s	$f16,$f8,$f10
 /*  f09a2e8:	46128103 */ 	div.s	$f4,$f16,$f18
 /*  f09a2ec:	44052000 */ 	mfc1	$a1,$f4
-/*  f09a2f0:	0fc265e0 */ 	jal	func0f099780
+/*  f09a2f0:	0fc265e0 */ 	jal	bgun0f099780
 /*  f09a2f4:	00000000 */ 	nop
 .L0f09a2f8:
 /*  f09a2f8:	00001025 */ 	or	$v0,$zero,$zero
@@ -5618,7 +5618,7 @@ glabel var7f1ac31c
 #endif
 
 // Mismatch: Branch logic near e9c is different (but functionally the same)
-//s32 handTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+//s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 //{
 //	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
 //
@@ -5626,7 +5626,7 @@ glabel var7f1ac31c
 //		hand->animmode = HANDANIMMODE_IDLE;
 //		hand->animload = -1;
 //
-//		if (handSetState(handnum, HANDSTATE_IDLE)) {
+//		if (bgunSetState(handnum, HANDSTATE_IDLE)) {
 //			return lvupdate;
 //		}
 //	}
@@ -5661,7 +5661,7 @@ glabel var7f1ac31c
 //			if (func && (func->ammoindex == 0 || func->ammoindex == 1)) {
 //				if (info->definition->ammos[func->ammoindex]->reload_animation
 //						&& info->weaponnum != WEAPON_COMBATKNIFE) {
-//					func0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
+//					bgun0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
 //
 //					hand->unk0d0e_07 = true;
 //
@@ -5676,7 +5676,7 @@ glabel var7f1ac31c
 //					hand->stateminor++;
 //				}
 //			} else {
-//				if (handSetState(handnum, HANDSTATE_IDLE)) {
+//				if (bgunSetState(handnum, HANDSTATE_IDLE)) {
 //					return lvupdate;
 //				}
 //			}
@@ -5685,13 +5685,13 @@ glabel var7f1ac31c
 //			if (hand);
 //		} else {
 //			if (info->definition->ammos[func->ammoindex]->flags & 4) {
-//				if (func0f098a44(hand, 1)) {
+//				if (bgun0f098a44(hand, 1)) {
 //					if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
 //						s32 value;
 //
-//						func0f098df8(hand->gset.weaponfunc, info, hand, 1, 0);
+//						bgun0f098df8(hand->gset.weaponfunc, info, hand, 1, 0);
 //						hand->stateflags |= HANDSTATEFLAG_00000010;
-//						value = func0f098ca0(hand->gset.weaponfunc, info, hand);
+//						value = bgun0f098ca0(hand->gset.weaponfunc, info, hand);
 //
 //						if (value >= 2) {
 //							hand->unk0cc8_03 = false;
@@ -5710,15 +5710,15 @@ glabel var7f1ac31c
 //				}
 //			} else {
 //				if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
-//					if (func0f098a44(hand, 1)) {
-//						func0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
+//					if (bgun0f098a44(hand, 1)) {
+//						bgun0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
 //						hand->stateflags |= HANDSTATEFLAG_00000010;
 //					}
 //				}
 //			}
 //
 //			if (hand->animmode != HANDANIMMODE_BUSY) {
-//				if (handSetState(handnum, HANDSTATE_IDLE)) {
+//				if (bgunSetState(handnum, HANDSTATE_IDLE)) {
 //					return lvupdate;
 //				}
 //			}
@@ -5735,7 +5735,7 @@ glabel var7f1ac31c
 //			hand->count60 = 0;
 //			hand->count = 0;
 //		} else {
-//			func0f099780(hand, (hand->count60 * 0.87252569198608f) / PALDOWN(16));
+//			bgun0f099780(hand, (hand->count60 * 0.87252569198608f) / PALDOWN(16));
 //		}
 //	}
 //
@@ -5744,17 +5744,17 @@ glabel var7f1ac31c
 //			if (info->weaponnum == WEAPON_COMBATKNIFE
 //					&& func->ammoindex >= 0
 //					&& info->definition->ammos[func->ammoindex]->reload_animation) {
-//				func0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
+//				bgun0f0988e0(info->definition->ammos[func->ammoindex]->reload_animation, handnum, hand);
 //				hand->unk0cc8_02 = true;
 //			}
 //
 //			if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
-//				func0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
+//				bgun0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
 //			}
 //
 //			if (g_Vars.lvupdate240 > 0
 //					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
-//					&& func0f09dd7c()
+//					&& bgun0f09dd7c()
 //					&& !g_PlayerInvincible
 //					&& !g_Vars.currentplayer->isdead) {
 //				switch (info->weaponnum) {
@@ -5785,7 +5785,7 @@ glabel var7f1ac31c
 //			hand->count60 = 0;
 //			hand->count = 0;
 //		} else {
-//			func0f099780(hand, 0.87252569198608f);
+//			bgun0f099780(hand, 0.87252569198608f);
 //		}
 //	}
 //
@@ -5806,18 +5806,18 @@ glabel var7f1ac31c
 //			hand->count60 = 0;
 //			hand->count = 0;
 //
-//			if (handSetState(handnum, HANDSTATE_IDLE)) {
+//			if (bgunSetState(handnum, HANDSTATE_IDLE)) {
 //				return lvupdate;
 //			}
 //		} else {
-//			func0f099780(hand, (PALDOWN(23) - hand->count60) * 0.87252569198608f / PALDOWN(23));
+//			bgun0f099780(hand, (PALDOWN(23) - hand->count60) * 0.87252569198608f / PALDOWN(23));
 //		}
 //	}
 //
 //	return 0;
 //}
 
-s32 handTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgunTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	struct guncmd *cmd;
 	bool more = false;
@@ -5834,7 +5834,7 @@ s32 handTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand 
 		more = false;
 
 		if (cmd != NULL) {
-			func0f0988e0(cmd, handnum, hand);
+			bgun0f0988e0(cmd, handnum, hand);
 			more = true;
 			g_Vars.currentplayer->hands[HAND_RIGHT].unk0dd4 = -1;
 		}
@@ -5844,14 +5844,14 @@ s32 handTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand 
 		}
 	}
 
-	if (!more && handSetState(handnum, HANDSTATE_IDLE)) {
+	if (!more && bgunSetState(handnum, HANDSTATE_IDLE)) {
 		return lvupdate;
 	}
 
 	return 0;
 }
 
-s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func)
+s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 {
 	bool burst = false;
 	bool smallburst = false;
@@ -5981,7 +5981,7 @@ s32 func0f09a3f8(struct hand *hand, struct weaponfunc *func)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f09a6f8
+glabel bgun0f09a6f8
 .late_rodata
 glabel var7f1ac320
 .word 0x3ecccccd
@@ -6069,7 +6069,7 @@ glabel var7f1ac320
 /*  f09a828:	a2060005 */ 	sb	$a2,0x5($s0)
 .L0f09a82c:
 /*  f09a82c:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f09a830:	0fc288c2 */ 	jal	handResetSlideInc
+/*  f09a830:	0fc288c2 */ 	jal	bgunResetSlideInc
 /*  f09a834:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a838:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f09a83c:	44803000 */ 	mtc1	$zero,$f6
@@ -6086,7 +6086,7 @@ glabel var7f1ac320
 /*  f09a868:	8fad0058 */ 	lw	$t5,0x58($sp)
 /*  f09a86c:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*  f09a870:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f09a874:	0fc25ee8 */ 	jal	func0f097ba0
+/*  f09a874:	0fc25ee8 */ 	jal	bgun0f097ba0
 /*  f09a878:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a87c:	8fae0054 */ 	lw	$t6,0x54($sp)
 /*  f09a880:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6311,7 +6311,7 @@ glabel var7f1ac320
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f09a6f8
+glabel bgun0f09a6f8
 .late_rodata
 glabel var7f1ac320
 .word 0x3ecccccd
@@ -6399,7 +6399,7 @@ glabel var7f1ac320
 /*  f09a828:	a2060005 */ 	sb	$a2,0x5($s0)
 .L0f09a82c:
 /*  f09a82c:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f09a830:	0fc288c2 */ 	jal	handResetSlideInc
+/*  f09a830:	0fc288c2 */ 	jal	bgunResetSlideInc
 /*  f09a834:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a838:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f09a83c:	44803000 */ 	mtc1	$zero,$f6
@@ -6416,7 +6416,7 @@ glabel var7f1ac320
 /*  f09a868:	8fad0058 */ 	lw	$t5,0x58($sp)
 /*  f09a86c:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*  f09a870:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f09a874:	0fc25ee8 */ 	jal	func0f097ba0
+/*  f09a874:	0fc25ee8 */ 	jal	bgun0f097ba0
 /*  f09a878:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a87c:	8fae0054 */ 	lw	$t6,0x54($sp)
 /*  f09a880:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6641,7 +6641,7 @@ glabel var7f1ac320
 );
 #else
 GLOBAL_ASM(
-glabel func0f09a6f8
+glabel bgun0f09a6f8
 .late_rodata
 glabel var7f1ac320
 .word 0x3ecccccd
@@ -6729,7 +6729,7 @@ glabel var7f1ac320
 /*  f098864:	a2060005 */ 	sb	$a2,0x5($s0)
 .NB0f098868:
 /*  f098868:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f09886c:	0fc28021 */ 	jal	handResetSlideInc
+/*  f09886c:	0fc28021 */ 	jal	bgunResetSlideInc
 /*  f098870:	afa7005c */ 	sw	$a3,0x5c($sp)
 /*  f098874:	82020004 */ 	lb	$v0,0x4($s0)
 /*  f098878:	44803000 */ 	mtc1	$zero,$f6
@@ -6746,7 +6746,7 @@ glabel var7f1ac320
 /*  f0988a4:	8fad0050 */ 	lw	$t5,0x50($sp)
 /*  f0988a8:	8fa40054 */ 	lw	$a0,0x54($sp)
 /*  f0988ac:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f0988b0:	0fc256cc */ 	jal	func0f097ba0
+/*  f0988b0:	0fc256cc */ 	jal	bgun0f097ba0
 /*  f0988b4:	afa7005c */ 	sw	$a3,0x5c($sp)
 /*  f0988b8:	8fae004c */ 	lw	$t6,0x4c($sp)
 /*  f0988bc:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6963,7 +6963,7 @@ u32 var80070124 = 4;
 const char var7f1ab890[] = "rontime";
 const char var7f1ab898[] = "rofftime";
 
-//void func0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, struct weaponfunc *func)
+//void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, struct weaponfunc *func)
 //{
 //	bool usesammo = true;
 //
@@ -7009,7 +7009,7 @@ const char var7f1ab898[] = "rofftime";
 //		hand->flashon = true;
 //	}
 //
-//	handResetSlideInc(handnum);
+//	bgunResetSlideInc(handnum);
 //
 //	hand->loadslide = 0;
 //
@@ -7018,7 +7018,7 @@ const char var7f1ab898[] = "rofftime";
 //		hand->stateflags |= HANDSTATEFLAG_00000020;
 //		hand->stateflags |= HANDSTATEFLAG_00000010;
 //
-//		func0f097ba0(handnum, info->weaponnum);
+//		bgun0f097ba0(handnum, info->weaponnum);
 //
 //		if (usesammo && func->ammoindex >= 0) {
 //			hand->loadedammo[func->ammoindex] -= hand->shotstotake;
@@ -7109,7 +7109,7 @@ const char var7f1ab898[] = "rofftime";
 //	}
 //}
 
-bool func0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func)
+bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func)
 {
 	s32 unk24;
 	s32 unk25;
@@ -7258,7 +7258,7 @@ bool func0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	return false;
 }
 
-bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct hand *hand)
+bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct hand *hand)
 {
 	static u32 var80070128 = 99;
 
@@ -7280,14 +7280,14 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 			hand->gs_float1 = 0;
 
 			if (func->fire_animation) {
-				func0f0988e0(func->fire_animation, handnum, hand);
+				bgun0f0988e0(func->fire_animation, handnum, hand);
 				hand->unk0cc8_01 = true;
 			}
 
 			hand->burstbullets = 0;
 		}
 
-		if (!func0f098a44(hand, 2)) {
+		if (!bgun0f098a44(hand, 2)) {
 			sp64 = 0;
 		}
 
@@ -7299,7 +7299,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 	}
 
 	if (hand->stateminor == 1) {
-		sp60 = func0f09a3f8(hand, func);
+		sp60 = bgun0f09a3f8(hand, func);
 
 		if ((func->type & 0xff00) == 0x100) {
 			struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
@@ -7312,7 +7312,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 		}
 
 		if (sp60 > 0) {
-			func0f09a6f8(info, handnum, hand, func);
+			bgun0f09a6f8(info, handnum, hand, func);
 		}
 
 		if (sp60 < 0 || sp60 == 2) {
@@ -7334,7 +7334,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 
 	if (hand->stateminor == 2) {
 		if (hand->stateflags & HANDSTATEFLAG_00000020) {
-			sp68 = func0f09aba4(hand, info, handnum, (struct weaponfunc_shoot *) func);
+			sp68 = bgun0f09aba4(hand, info, handnum, (struct weaponfunc_shoot *) func);
 		} else {
 			sp68 = true;
 		}
@@ -7359,7 +7359,7 @@ bool handTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 	return false;
 }
 
-bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
+bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand)
 {
 	struct weaponfunc_throw *func = (struct weaponfunc_throw *) gsetGetWeaponFunction(&hand->gset);
 
@@ -7373,16 +7373,16 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 				invRemoveItemByNum(hand->gset.weaponnum);
 				g_Vars.currentplayer->gunctrl.unk1583_04 = true;
 #if VERSION >= VERSION_NTSC_1_0
-				func0f0a1ab0();
+				bgun0f0a1ab0();
 #else
-				currentPlayerAutoSwitchWeapon();
+				bgunAutoSwitchWeapon();
 #endif
 				hand->primetimer = 0;
 				return true;
 			}
 
 			if (func->base.fire_animation) {
-				func0f0988e0(func->base.fire_animation, handnum, hand);
+				bgun0f0988e0(func->base.fire_animation, handnum, hand);
 				hand->unk0cc8_01 = true;
 			}
 		}
@@ -7392,7 +7392,7 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 				hand->unk0cc8_01 = false;
 			}
 
-			if (func0f098a44(hand, 2)) {
+			if (bgun0f098a44(hand, 2)) {
 				hand->stateminor = 1;
 				hand->unk0cc8_01 = false;
 			}
@@ -7415,7 +7415,7 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 		}
 
 		if (hand->gset.weaponnum == WEAPON_REMOTEMINE
-				&& currentPlayerIsUsingSecondaryFunction() == true
+				&& bgunIsUsingSecondaryFunction() == true
 				&& hand->triggerreleased
 				&& hand->triggeron) {
 			return true;
@@ -7428,7 +7428,7 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	// hand. It waits 4 seconds before finishing, which means the player won't
 	// pull out another grenade until the flames have cleared.
 	if (hand->stateminor == 55) {
-		handResetAnim(hand);
+		bgunResetAnim(hand);
 
 		if (hand->stateframes > PALDOWN(func->activatetime60 + 240)) {
 			return true;
@@ -7454,7 +7454,7 @@ bool handTickIncAttackingThrow(s32 handnum, struct hand *hand)
 	return false;
 }
 
-s32 weaponGetMinClipQty(s32 weaponnum, s32 funcnum)
+s32 bgunGetMinClipQty(s32 weaponnum, s32 funcnum)
 {
 	if (weaponnum == WEAPON_TRANQUILIZER && funcnum == FUNC_SECONDARY) {
 		return 4;
@@ -7698,7 +7698,7 @@ u32 var80070354 = 0x00250026;
 u32 var80070358 = 0x00270028;
 u32 var8007035c = 0x0029002a;
 
-bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
+bool bgunTickIncAttackingClose(s32 handnum, struct hand *hand)
 {
 	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
 
@@ -7740,7 +7740,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 			hand->attacktype = HANDATTACKTYPE_CLOSERANGENOUNCLOAK;
 
 			if (func->fire_animation) {
-				func0f0988e0(func->fire_animation, handnum, hand);
+				bgun0f0988e0(func->fire_animation, handnum, hand);
 				hand->unk0cc8_01 = true;
 			}
 		}
@@ -7750,7 +7750,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 				hand->unk0cc8_01 = false;
 			}
 
-			if (func0f098a44(hand, 2)) {
+			if (bgun0f098a44(hand, 2)) {
 				hand->stateminor = 1;
 				hand->unk0cc8_01 = false;
 			}
@@ -7759,7 +7759,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 		}
 	}
 
-	if (hand->stateminor == 3 && func0f098a44(hand, 3)) {
+	if (hand->stateminor == 3 && bgun0f098a44(hand, 3)) {
 		hand->stateminor = 1;
 		hand->unk0cc8_01 = false;
 	}
@@ -7769,15 +7769,15 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 		hand->attacktype = HANDATTACKTYPE_CLOSERANGE;
 
 		if (hand->gset.weaponnum == WEAPON_TRANQUILIZER && func->ammoindex >= 0) {
-			if (hand->loadedammo[func->ammoindex] > weaponGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY)) {
-				hand->loadedammo[func->ammoindex] -= weaponGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
+			if (hand->loadedammo[func->ammoindex] > bgunGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY)) {
+				hand->loadedammo[func->ammoindex] -= bgunGetMinClipQty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
 			} else {
 				hand->loadedammo[func->ammoindex] = 0;
 			}
 		}
 
 		if (func->fire_animation) {
-			if (func->fire_animation && !func0f098a44(hand, 3)) {
+			if (func->fire_animation && !bgun0f098a44(hand, 3)) {
 				hand->stateminor = 3;
 			} else {
 				hand->stateminor = 2;
@@ -7792,7 +7792,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 	}
 
 	if (hand->stateminor == 2) {
-		if (!handIsAnimBusy(hand)) {
+		if (!bgunIsAnimBusy(hand)) {
 			return true;
 		}
 
@@ -7810,7 +7810,7 @@ bool handTickIncAttackingClose(s32 handnum, struct hand *hand)
 	return false;
 }
 
-bool handTickIncAttackingSpecial(struct hand *hand)
+bool bgunTickIncAttackingSpecial(struct hand *hand)
 {
 	struct weaponfunc_special *func = (struct weaponfunc_special *) gsetGetWeaponFunction(&hand->gset);
 
@@ -7845,7 +7845,7 @@ bool handTickIncAttackingSpecial(struct hand *hand)
 	return false;
 }
 
-s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
 	bool playsound = false;
@@ -7873,7 +7873,7 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 			hand->stateframes -= PALDOWN(25);
 			hand->stateflags = 0;
 
-			handResetAnim(hand);
+			bgunResetAnim(hand);
 		}
 
 		if (hand->animmode != HANDANIMMODE_BUSY) {
@@ -7887,7 +7887,7 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				}
 
 				if (func && func->fire_animation) {
-					func0f0988e0(func->fire_animation, handnum, hand);
+					bgun0f0988e0(func->fire_animation, handnum, hand);
 					restartedanim = true;
 				}
 			}
@@ -7895,7 +7895,7 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 			if (!restartedanim && hand->stateframes > PALDOWN(25)) {
 				playsound = true;
 			}
-		} else if (func0f098a44(hand, 5)) {
+		} else if (bgun0f098a44(hand, 5)) {
 			playsound = true;
 		}
 		break;
@@ -7908,7 +7908,7 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 			hand->stateframes -= PALDOWN(25);
 			hand->stateflags = 0;
 
-			handResetAnim(hand);
+			bgunResetAnim(hand);
 		}
 	}
 
@@ -7995,17 +7995,17 @@ s32 handTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 		hand->count60 = 0;
 		hand->count = 0;
 
-		if (handSetState(handnum, HANDSTATE_IDLE)) {
+		if (bgunSetState(handnum, HANDSTATE_IDLE)) {
 			return lvupdate;
 		}
 
-		handResetAnim(hand);
+		bgunResetAnim(hand);
 	}
 
 	return 0;
 }
 
-s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgunTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
 	struct weaponfunc *func = NULL;
@@ -8019,16 +8019,16 @@ s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 	if (func != NULL) {
 		switch (func->type & 0xff) {
 		case INVENTORYFUNCTYPE_SHOOT:
-			finished = handTickIncAttackingShoot(info, handnum, hand);
+			finished = bgunTickIncAttackingShoot(info, handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_THROW:
-			finished = handTickIncAttackingThrow(handnum, hand);
+			finished = bgunTickIncAttackingThrow(handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_CLOSE:
-			finished = handTickIncAttackingClose(handnum, hand);
+			finished = bgunTickIncAttackingClose(handnum, hand);
 			break;
 		case INVENTORYFUNCTYPE_SPECIAL:
-			finished = handTickIncAttackingSpecial(hand);
+			finished = bgunTickIncAttackingSpecial(hand);
 			break;
 		}
 	}
@@ -8039,7 +8039,7 @@ s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 			finished = false;
 		}
 
-		if (finished && handSetState(handnum, HANDSTATE_IDLE)) {
+		if (finished && bgunSetState(handnum, HANDSTATE_IDLE)) {
 			return lvupdate;
 		}
 	}
@@ -8050,7 +8050,7 @@ s32 handTickIncAttack(struct handweaponinfo *info, s32 handnum, struct hand *han
 	return 0;
 }
 
-bool handIsReadyToSwitch(s32 handnum)
+bool bgunIsReadyToSwitch(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -8100,7 +8100,7 @@ bool handIsReadyToSwitch(s32 handnum)
 	return false;
 }
 
-bool func0f09bec8(s32 handnum)
+bool bgun0f09bec8(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -8114,12 +8114,12 @@ bool func0f09bec8(s32 handnum)
 	return false;
 }
 
-bool func0f09bf44(s32 handnum)
+bool bgun0f09bf44(s32 handnum)
 {
 	bool result = true;
 	struct player *player = g_Vars.currentplayer;
 
-	if (!func0f09dd7c()) {
+	if (!bgun0f09dd7c()) {
 		result = false;
 	}
 
@@ -8142,7 +8142,7 @@ bool func0f09bf44(s32 handnum)
 	return result;
 }
 
-s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
 	struct weapon *weapon = info->definition;
@@ -8161,7 +8161,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 		if (weaponHasFlag(info->weaponnum, WEAPONFLAG_00000001)
 				&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
-				&& func0f098ca0(0, info, hand) < 0) {
+				&& bgun0f098ca0(0, info, hand) < 0) {
 			skipanim = true;
 		}
 
@@ -8172,7 +8172,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					&& hand->inuse == true
 					&& (!hand->unk0d0e_00 || hand->unk0d0e_04)) {
 				if (hand->statecycles == 0) {
-					func0f0988e0(weapon->unequip_animation, handnum, hand);
+					bgun0f0988e0(weapon->unequip_animation, handnum, hand);
 				} else if (hand->animmode == HANDANIMMODE_IDLE) {
 					hand->stateminor++;
 				}
@@ -8229,11 +8229,11 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					currentPlayerSetWeaponReapable(handnum);
 				}
 
-				func0f09fa20(handnum);
+				bgun0f09fa20(handnum);
 				hand->mode = HANDMODE_6;
 				hand->stateminor++;
 			} else {
-				func0f099780(hand, 0.87252569198608f);
+				bgun0f099780(hand, 0.87252569198608f);
 
 				if (g_Vars.currentplayer->gunctrl.unk1583_04 == 1 && hand->inuse) {
 					hand->firing = true;
@@ -8242,7 +8242,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				}
 			}
 		} else {
-			func0f099780(hand, hand->stateframes * 0.87252569198608f / delay);
+			bgun0f099780(hand, hand->stateframes * 0.87252569198608f / delay);
 		}
 	}
 
@@ -8252,17 +8252,17 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 		if (hand->pausechange == 0 || hand->pausetime60 <= hand->count60) {
 			if (hand->mode == HANDMODE_6) {
-				if (func0f09bf44(handnum)) {
+				if (bgun0f09bf44(handnum)) {
 					hand->mode = HANDMODE_7;
 
-					if (!hand->inuse && handSetState(handnum, HANDSTATE_IDLE)) {
+					if (!hand->inuse && bgunSetState(handnum, HANDSTATE_IDLE)) {
 						return lvupdate;
 					}
 				}
 			} else {
-				if (func0f09dd7c()) {
+				if (bgun0f09dd7c()) {
 					if (info->definition->equip_animation) {
-						func0f0988e0(info->definition->equip_animation, handnum, hand);
+						bgun0f0988e0(info->definition->equip_animation, handnum, hand);
 						hand->unk0cc8_02 = true;
 					}
 
@@ -8275,7 +8275,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 		}
 
 		if (hand->mode == HANDMODE_6 || hand->mode == HANDMODE_7) {
-			func0f099780(hand, 0.87252569198608f);
+			bgun0f099780(hand, 0.87252569198608f);
 		}
 	}
 
@@ -8298,12 +8298,12 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				func0f128d20(handnum);
 			}
 
-			func0f098f8c(info, hand);
+			bgun0f098f8c(info, hand);
 
 			if (weaponHasFlag(info->weaponnum, WEAPONFLAG_00000001)
 					&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
-					&& func0f098ca0(0, info, hand) < 0
-					&& handSetState(handnum, HANDSTATE_AUTOSWITCH)) {
+					&& bgun0f098ca0(0, info, hand) < 0
+					&& bgunSetState(handnum, HANDSTATE_AUTOSWITCH)) {
 				hand->stateminor = 1;
 				return lvupdate;
 			}
@@ -8312,7 +8312,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 
 			if (g_Vars.lvupdate240 > 0
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
-					&& func0f09dd7c()
+					&& bgun0f09dd7c()
 					&& !g_PlayerInvincible
 					&& !g_Vars.currentplayer->isdead) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -8465,7 +8465,7 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 			hand->count60 = 0;
 			hand->count = 0;
 		} else {
-			func0f099780(hand, (delay - hand->count60) * 0.87252569198608f / delay);
+			bgun0f099780(hand, (delay - hand->count60) * 0.87252569198608f / delay);
 		}
 	}
 
@@ -8473,12 +8473,12 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 	if (hand->stateminor == 4) {
 		if (info->definition->equip_animation && !weaponHasFlag(hand->gset.weaponnum, WEAPONFLAG_00004000)) {
 			if (hand->animmode == HANDANIMMODE_IDLE) {
-				if (handSetState(handnum, HANDSTATE_IDLE)) {
+				if (bgunSetState(handnum, HANDSTATE_IDLE)) {
 					return lvupdate;
 				}
 			}
 		} else {
-			if (handSetState(handnum, HANDSTATE_IDLE)) {
+			if (bgunSetState(handnum, HANDSTATE_IDLE)) {
 				return lvupdate;
 			}
 		}
@@ -8492,12 +8492,12 @@ s32 handTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
  * be held at the side of the screen, pointed upwards. The feature was shown in
  * a demo video but doesn't exist in any public version of the game.
  */
-s32 handTickIncState2(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgunTickIncState2(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	return 0;
 }
 
-s32 handTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
+s32 bgunTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 {
 	s32 result = 0;
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
@@ -8516,28 +8516,28 @@ s32 handTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 
 	switch (hand->state) {
 	case HANDSTATE_IDLE:
-		result = handTickIncIdle(info, handnum, hand, lvupdate);
+		result = bgunTickIncIdle(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_RELOAD:
-		result = handTickIncReload(info, handnum, hand, lvupdate);
+		result = bgunTickIncReload(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_ATTACK:
-		result = handTickIncAttack(info, handnum, hand, lvupdate);
+		result = bgunTickIncAttack(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_2:
-		result = handTickIncState2(info, handnum, hand, lvupdate);
+		result = bgunTickIncState2(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_CHANGEGUN:
-		result = handTickIncChangeGun(info, handnum, hand, lvupdate);
+		result = bgunTickIncChangeGun(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_ATTACKEMPTY:
-		result = handTickIncAttackEmpty(info, handnum, hand, lvupdate);
+		result = bgunTickIncAttackEmpty(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_AUTOSWITCH:
-		result = handTickIncAutoSwitch(info, handnum, hand, lvupdate);
+		result = bgunTickIncAutoSwitch(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_CHANGEFUNC:
-		result = handTickIncChangeFunc(info, handnum, hand, lvupdate);
+		result = bgunTickIncChangeFunc(info, handnum, hand, lvupdate);
 		break;
 	}
 
@@ -8553,7 +8553,7 @@ s32 handTickInc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 	return result;
 }
 
-bool handSetState(s32 handnum, s32 state)
+bool bgunSetState(s32 handnum, s32 state)
 {
 	bool valid = true;
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
@@ -8577,7 +8577,7 @@ bool handSetState(s32 handnum, s32 state)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel handTick
+glabel bgunTick
 .late_rodata
 glabel var7f1ad810pf
 .word 0x3f99999a
@@ -8604,7 +8604,7 @@ glabel var7f1ad810pf
 /*  f09d0a8:	24110014 */ 	li	$s1,0x14
 /*  f09d0ac:	02602025 */ 	move	$a0,$s3
 /*  f09d0b0:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f09d0b4:	0fc26333 */ 	jal	handGetWeaponInfo
+/*  f09d0b4:	0fc26333 */ 	jal	bgunGetWeaponInfo
 /*  f09d0b8:	02402825 */ 	move	$a1,$s2
 /*  f09d0bc:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f09d0c0:	3c02800a */ 	lui	$v0,0x800a
@@ -8626,7 +8626,7 @@ glabel var7f1ad810pf
 /*  f09d100:	02602025 */ 	move	$a0,$s3
 .PF0f09d104:
 /*  f09d104:	02402825 */ 	move	$a1,$s2
-/*  f09d108:	0fc2737d */ 	jal	handTickInc
+/*  f09d108:	0fc2737d */ 	jal	bgunTickInc
 /*  f09d10c:	02003025 */ 	move	$a2,$s0
 /*  f09d110:	00408025 */ 	move	$s0,$v0
 /*  f09d114:	18400003 */ 	blez	$v0,.PF0f09d124
@@ -8643,7 +8643,7 @@ glabel var7f1ad810pf
 /*  f09d13c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 #else
-void handTick(s32 handnum)
+void bgunTick(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 	struct handweaponinfo info;
@@ -8655,7 +8655,7 @@ void handTick(s32 handnum)
 	if (handnum);
 	if (handnum);
 
-	handGetWeaponInfo(&info, handnum);
+	bgunGetWeaponInfo(&info, handnum);
 
 	lvupdate = g_Vars.lvupdate240_60;
 
@@ -8667,7 +8667,7 @@ void handTick(s32 handnum)
 #endif
 
 	while (i >= 0) {
-		lvupdate = handTickInc(&info, handnum, lvupdate);
+		lvupdate = bgunTickInc(&info, handnum, lvupdate);
 		i--;
 
 		if (lvupdate <= 0) {
@@ -8677,12 +8677,12 @@ void handTick(s32 handnum)
 }
 #endif
 
-void func0f09ce8c(void)
+void bgun0f09ce8c(void)
 {
-	func0f0a1528();
+	bgun0f0a1528();
 }
 
-void func0f09ceac(void)
+void bgun0f09ceac(void)
 {
 	struct hand *hand;
 	s32 i;
@@ -8706,12 +8706,12 @@ void func0f09ceac(void)
 	}
 }
 
-f32 handGetNoiseRadius(s32 handnum)
+f32 bgunGetNoiseRadius(s32 handnum)
 {
 	return g_Vars.currentplayer->hands[handnum].noiseradius;
 }
 
-void currentPlayerDecreaseNoiseRadius(void)
+void bgunDecreaseNoiseRadius(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 consideramount;
@@ -8728,7 +8728,7 @@ void currentPlayerDecreaseNoiseRadius(void)
 	func0f0b201c(&shortright, sp28);
 
 	// Right hand
-	if (handIsFiring(HAND_RIGHT)) {
+	if (bgunIsFiring(HAND_RIGHT)) {
 		player->hands[HAND_RIGHT].noiseradius += sp28[2];
 
 		if (player->hands[HAND_RIGHT].noiseradius > sp28[1]) {
@@ -8750,7 +8750,7 @@ void currentPlayerDecreaseNoiseRadius(void)
 	}
 
 	// Left hand
-	if (handIsFiring(HAND_LEFT)) {
+	if (bgunIsFiring(HAND_LEFT)) {
 		player->hands[HAND_LEFT].noiseradius += sp3c[2];
 
 		if (player->hands[HAND_LEFT].noiseradius > sp3c[1]) {
@@ -8773,7 +8773,7 @@ void currentPlayerDecreaseNoiseRadius(void)
 }
 
 GLOBAL_ASM(
-glabel func0f09d140
+glabel bgun0f09d140
 .late_rodata
 glabel var7f1ac614
 .word 0x3da3d70a
@@ -8792,7 +8792,7 @@ glabel var7f1ac620
 /*  f09d154:	afb00024 */ 	sw	$s0,0x24($sp)
 /*  f09d158:	f7b60018 */ 	sdc1	$f22,0x18($sp)
 /*  f09d15c:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f09d160:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f09d160:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f09d164:	afa40068 */ 	sw	$a0,0x68($sp)
 /*  f09d168:	0fc2c3f4 */ 	jal	weaponFindById
 /*  f09d16c:	00402025 */ 	or	$a0,$v0,$zero
@@ -9061,7 +9061,7 @@ glabel var7f1ac620
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f09d550
+glabel bgun0f09d550
 .late_rodata
 glabel var7f1ac624
 .word 0x3f7c154d
@@ -9303,7 +9303,7 @@ glabel var7f1ac628
 );
 #else
 GLOBAL_ASM(
-glabel func0f09d550
+glabel bgun0f09d550
 .late_rodata
 glabel var7f1ac624
 .word 0x3f7cb924
@@ -9545,7 +9545,7 @@ glabel var7f1ac628
 );
 #endif
 
-void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
+void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 {
 	f32 dampt[2];
 	struct player *player = g_Vars.currentplayer;
@@ -9599,7 +9599,7 @@ void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 	dampt[0] = player->hands[0].dampt + sp4c;
 
 	while (dampt[0] >= 1.0f) {
-		func0f09d140(HAND_RIGHT);
+		bgun0f09d140(HAND_RIGHT);
 		dampt[0] -= 1.0f;
 		player->syncoffset++;
 	}
@@ -9630,7 +9630,7 @@ void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 	dampt[1] = dampt[0] + player->syncoffset + player->gunsync;
 
 	while (dampt[1] >= 1.0f) {
-		func0f09d140(HAND_LEFT);
+		bgun0f09d140(HAND_LEFT);
 		dampt[1] -= 1.0f;
 		player->syncoffset--;
 	}
@@ -9642,7 +9642,7 @@ void func0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4)
 	}
 }
 
-bool func0f09dd7c(void)
+bool bgun0f09dd7c(void)
 {
 	if (g_Vars.currentplayer->gunctrl.gunmemowner) {
 		return false;
@@ -9652,22 +9652,22 @@ bool func0f09dd7c(void)
 		|| (g_Vars.currentplayer->gunctrl.gunmemnew < 0 && g_Vars.currentplayer->gunctrl.unk15b0 == 4);
 }
 
-u32 func0f09ddcc(void)
+u32 bgun0f09ddcc(void)
 {
 	return g_Vars.currentplayer->gunctrl.gunmemtype;
 }
 
-u32 func0f09dddc(void)
+u32 bgun0f09dddc(void)
 {
 	return g_Vars.currentplayer->gunctrl.unk1590;
 }
 
-u8 *func0f09ddec(void)
+u8 *bgun0f09ddec(void)
 {
 	return g_Vars.currentplayer->gunctrl.unk158c;
 }
 
-u32 func0f09ddfc(void)
+u32 bgun0f09ddfc(void)
 {
 	if (IS4MB() && PLAYERCOUNT() == 2) {
 		return var800700ac;
@@ -9687,12 +9687,12 @@ u32 func0f09ddfc(void)
 	return var800700a8;
 }
 
-void func0f09df50(void)
+void bgun0f09df50(void)
 {
 	g_Vars.currentplayer->gunctrl.gunmemowner = GUNMEMOWNER_11;
 }
 
-void func0f09df64(s32 arg0)
+void bgun0f09df64(s32 arg0)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -9707,7 +9707,7 @@ void func0f09df64(s32 arg0)
 }
 
 GLOBAL_ASM(
-glabel func0f09df9c
+glabel bgun0f09df9c
 /*  f09df9c:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f09dfa0:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
 /*  f09dfa4:	8c8f0284 */ 	lw	$t7,0x284($a0)
@@ -9737,7 +9737,7 @@ glabel func0f09df9c
 /*  f09e000:	ac200524 */ 	sw	$zero,%lo(g_CasingsActive)($at)
 );
 
-//void func0f09df9c(void)
+//void bgun0f09df9c(void)
 //{
 //	s32 i;
 //
@@ -9755,7 +9755,7 @@ glabel func0f09df9c
 //	g_CasingsActive = 0;
 //}
 
-bool func0f09e004(s32 newowner)
+bool bgun0f09e004(s32 newowner)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -9781,7 +9781,7 @@ bool func0f09e004(s32 newowner)
 			}
 
 			player->gunctrl.gunmemtype = -1;
-			func0f09df9c();
+			bgun0f09df9c();
 			player->gunctrl.unk1583_06 = true;
 			unlock = true;
 			break;
@@ -9819,7 +9819,7 @@ bool func0f09e004(s32 newowner)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f09e144
+glabel bgun0f09e144
 /*  f09e144:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f09e148:	afb20028 */ 	sw	$s2,0x28($sp)
 /*  f09e14c:	3c12800a */ 	lui	$s2,%hi(g_Vars+0x284)
@@ -10066,7 +10066,7 @@ glabel func0f09e144
 );
 #else
 GLOBAL_ASM(
-glabel func0f09e144
+glabel bgun0f09e144
 /*  f09c060:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f09c064:	afb40030 */ 	sw	$s4,0x30($sp)
 /*  f09c068:	3c14800a */ 	lui	$s4,0x800a
@@ -10284,7 +10284,7 @@ glabel func0f09e144
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f09e4e0
+glabel bgun0f09e4e0
 /*  f09e4e0:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09e4e4:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09e4e8:	3c15800a */ 	lui	$s5,%hi(g_Vars)
@@ -10300,7 +10300,7 @@ glabel func0f09e4e0
 /*  f09e510:	924e15ea */ 	lbu	$t6,0x15ea($s2)
 /*  f09e514:	51c00006 */ 	beqzl	$t6,.L0f09e530
 /*  f09e518:	8e421584 */ 	lw	$v0,0x1584($s2)
-/*  f09e51c:	0fc27801 */ 	jal	func0f09e004
+/*  f09e51c:	0fc27801 */ 	jal	bgun0f09e004
 /*  f09e520:	00002025 */ 	or	$a0,$zero,$zero
 /*  f09e524:	50400151 */ 	beqzl	$v0,.L0f09ea6c
 /*  f09e528:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -10402,9 +10402,9 @@ glabel func0f09e4e0
 /*  f09e680:	925915b1 */ 	lbu	$t9,0x15b1($s2)
 /*  f09e684:	1720000f */ 	bnez	$t9,.L0f09e6c4
 /*  f09e688:	00000000 */ 	nop
-/*  f09e68c:	0fc2777b */ 	jal	func0f09ddec
+/*  f09e68c:	0fc2777b */ 	jal	bgun0f09ddec
 /*  f09e690:	00000000 */ 	nop
-/*  f09e694:	0fc2777f */ 	jal	func0f09ddfc
+/*  f09e694:	0fc2777f */ 	jal	bgun0f09ddfc
 /*  f09e698:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09e69c:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f09e6a0:	26491594 */ 	addiu	$t1,$s2,0x1594
@@ -10417,7 +10417,7 @@ glabel func0f09e4e0
 /*  f09e6bc:	ae4a15b8 */ 	sw	$t2,0x15b8($s2)
 /*  f09e6c0:	ae4b15bc */ 	sw	$t3,0x15bc($s2)
 .L0f09e6c4:
-/*  f09e6c4:	0fc27851 */ 	jal	func0f09e144
+/*  f09e6c4:	0fc27851 */ 	jal	bgun0f09e144
 /*  f09e6c8:	00000000 */ 	nop
 /*  f09e6cc:	924c15b1 */ 	lbu	$t4,0x15b1($s2)
 /*  f09e6d0:	568c00e6 */ 	bnel	$s4,$t4,.L0f09ea6c
@@ -10426,9 +10426,9 @@ glabel func0f09e4e0
 /*  f09e6dc:	a651159c */ 	sh	$s1,0x159c($s2)
 /*  f09e6e0:	a640159c */ 	sh	$zero,0x159c($s2)
 .L0f09e6e4:
-/*  f09e6e4:	0fc2777b */ 	jal	func0f09ddec
+/*  f09e6e4:	0fc2777b */ 	jal	bgun0f09ddec
 /*  f09e6e8:	ae401594 */ 	sw	$zero,0x1594($s2)
-/*  f09e6ec:	0fc2777f */ 	jal	func0f09ddfc
+/*  f09e6ec:	0fc2777f */ 	jal	bgun0f09ddfc
 /*  f09e6f0:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09e6f4:	ae4215a4 */ 	sw	$v0,0x15a4($s2)
 .L0f09e6f8:
@@ -10456,7 +10456,7 @@ glabel func0f09e4e0
 /*  f09e744:	ae4f15a8 */ 	sw	$t7,0x15a8($s2)
 /*  f09e748:	ae5815ac */ 	sw	$t8,0x15ac($s2)
 .L0f09e74c:
-/*  f09e74c:	0fc27851 */ 	jal	func0f09e144
+/*  f09e74c:	0fc27851 */ 	jal	bgun0f09e144
 /*  f09e750:	00000000 */ 	nop
 /*  f09e754:	924b15b1 */ 	lbu	$t3,0x15b1($s2)
 /*  f09e758:	240c0003 */ 	addiu	$t4,$zero,0x3
@@ -10576,7 +10576,7 @@ glabel func0f09e4e0
 .L0f09e8ec:
 /*  f09e8ec:	10600005 */ 	beqz	$v1,.L0f09e904
 /*  f09e8f0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f09e8f4:	0fc27851 */ 	jal	func0f09e144
+/*  f09e8f4:	0fc27851 */ 	jal	bgun0f09e144
 /*  f09e8f8:	00000000 */ 	nop
 /*  f09e8fc:	1000005b */ 	b	.L0f09ea6c
 /*  f09e900:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -10605,7 +10605,7 @@ glabel func0f09e4e0
 /*  f09e950:	ae0b0794 */ 	sw	$t3,0x794($s0)
 /*  f09e954:	8e4c1590 */ 	lw	$t4,0x1590($s2)
 /*  f09e958:	8e4615a8 */ 	lw	$a2,0x15a8($s2)
-/*  f09e95c:	0fc28ba5 */ 	jal	func0f0a2e94
+/*  f09e95c:	0fc28ba5 */ 	jal	bgun0f0a2e94
 /*  f09e960:	8d850000 */ 	lw	$a1,0x0($t4)
 /*  f09e964:	8e4d15a8 */ 	lw	$t5,0x15a8($s2)
 /*  f09e968:	8e4f15ac */ 	lw	$t7,0x15ac($s2)
@@ -10620,7 +10620,7 @@ glabel func0f09e4e0
 /*  f09e98c:	8e491594 */ 	lw	$t1,0x1594($s2)
 /*  f09e990:	8e4615a8 */ 	lw	$a2,0x15a8($s2)
 /*  f09e994:	26040534 */ 	addiu	$a0,$s0,0x534
-/*  f09e998:	0fc28ba5 */ 	jal	func0f0a2e94
+/*  f09e998:	0fc28ba5 */ 	jal	bgun0f0a2e94
 /*  f09e99c:	8d250000 */ 	lw	$a1,0x0($t1)
 /*  f09e9a0:	8e4a15a8 */ 	lw	$t2,0x15a8($s2)
 /*  f09e9a4:	8e4c15ac */ 	lw	$t4,0x15ac($s2)
@@ -10654,7 +10654,7 @@ glabel func0f09e4e0
 /*  f09ea10:	ae4f0dd8 */ 	sw	$t7,0xdd8($s2)
 /*  f09ea14:	ae400dd8 */ 	sw	$zero,0xdd8($s2)
 .L0f09ea18:
-/*  f09ea18:	0fc2777f */ 	jal	func0f09ddfc
+/*  f09ea18:	0fc2777f */ 	jal	bgun0f09ddfc
 /*  f09ea1c:	00000000 */ 	nop
 /*  f09ea20:	240a0004 */ 	addiu	$t2,$zero,0x4
 /*  f09ea24:	a24a15b0 */ 	sb	$t2,0x15b0($s2)
@@ -10691,7 +10691,7 @@ glabel func0f09e4e0
 );
 #else
 GLOBAL_ASM(
-glabel func0f09e4e0
+glabel bgun0f09e4e0
 /*  f09c38c:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f09c390:	afb5002c */ 	sw	$s5,0x2c($sp)
 /*  f09c394:	3c15800a */ 	lui	$s5,0x800a
@@ -10707,7 +10707,7 @@ glabel func0f09e4e0
 /*  f09c3bc:	924e15ea */ 	lbu	$t6,0x15ea($s2)
 /*  f09c3c0:	51c00006 */ 	beqzl	$t6,.NB0f09c3dc
 /*  f09c3c4:	8e421584 */ 	lw	$v0,0x1584($s2)
-/*  f09c3c8:	0fc26fc8 */ 	jal	func0f09e004
+/*  f09c3c8:	0fc26fc8 */ 	jal	bgun0f09e004
 /*  f09c3cc:	00002025 */ 	or	$a0,$zero,$zero
 /*  f09c3d0:	5040014b */ 	beqzl	$v0,.NB0f09c900
 /*  f09c3d4:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -10809,9 +10809,9 @@ glabel func0f09e4e0
 /*  f09c52c:	924815b1 */ 	lbu	$t0,0x15b1($s2)
 /*  f09c530:	1500000f */ 	bnez	$t0,.NB0f09c570
 /*  f09c534:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09c538:	0fc26f42 */ 	jal	func0f09ddec
+/*  f09c538:	0fc26f42 */ 	jal	bgun0f09ddec
 /*  f09c53c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09c540:	0fc26f46 */ 	jal	func0f09ddfc
+/*  f09c540:	0fc26f46 */ 	jal	bgun0f09ddfc
 /*  f09c544:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09c548:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f09c54c:	264a1594 */ 	addiu	$t2,$s2,0x1594
@@ -10824,7 +10824,7 @@ glabel func0f09e4e0
 /*  f09c568:	ae4b15b8 */ 	sw	$t3,0x15b8($s2)
 /*  f09c56c:	ae4c15bc */ 	sw	$t4,0x15bc($s2)
 .NB0f09c570:
-/*  f09c570:	0fc27018 */ 	jal	func0f09e144
+/*  f09c570:	0fc27018 */ 	jal	bgun0f09e144
 /*  f09c574:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c578:	924d15b1 */ 	lbu	$t5,0x15b1($s2)
 /*  f09c57c:	568d00e0 */ 	bnel	$s4,$t5,.NB0f09c900
@@ -10833,9 +10833,9 @@ glabel func0f09e4e0
 /*  f09c588:	a651159c */ 	sh	$s1,0x159c($s2)
 /*  f09c58c:	a640159c */ 	sh	$zero,0x159c($s2)
 .NB0f09c590:
-/*  f09c590:	0fc26f42 */ 	jal	func0f09ddec
+/*  f09c590:	0fc26f42 */ 	jal	bgun0f09ddec
 /*  f09c594:	ae401594 */ 	sw	$zero,0x1594($s2)
-/*  f09c598:	0fc26f46 */ 	jal	func0f09ddfc
+/*  f09c598:	0fc26f46 */ 	jal	bgun0f09ddfc
 /*  f09c59c:	ae4215a0 */ 	sw	$v0,0x15a0($s2)
 /*  f09c5a0:	ae4215a4 */ 	sw	$v0,0x15a4($s2)
 .NB0f09c5a4:
@@ -10863,7 +10863,7 @@ glabel func0f09e4e0
 /*  f09c5f0:	ae5815a8 */ 	sw	$t8,0x15a8($s2)
 /*  f09c5f4:	ae5915ac */ 	sw	$t9,0x15ac($s2)
 .NB0f09c5f8:
-/*  f09c5f8:	0fc27018 */ 	jal	func0f09e144
+/*  f09c5f8:	0fc27018 */ 	jal	bgun0f09e144
 /*  f09c5fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c600:	924c15b1 */ 	lbu	$t4,0x15b1($s2)
 /*  f09c604:	240d0003 */ 	addiu	$t5,$zero,0x3
@@ -10983,7 +10983,7 @@ glabel func0f09e4e0
 .NB0f09c798:
 /*  f09c798:	10600005 */ 	beqz	$v1,.NB0f09c7b0
 /*  f09c79c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f09c7a0:	0fc27018 */ 	jal	func0f09e144
+/*  f09c7a0:	0fc27018 */ 	jal	bgun0f09e144
 /*  f09c7a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c7a8:	10000055 */ 	beqz	$zero,.NB0f09c900
 /*  f09c7ac:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -11012,7 +11012,7 @@ glabel func0f09e4e0
 /*  f09c7fc:	ae0c0794 */ 	sw	$t4,0x794($s0)
 /*  f09c800:	8e4d1590 */ 	lw	$t5,0x1590($s2)
 /*  f09c804:	8e4615a8 */ 	lw	$a2,0x15a8($s2)
-/*  f09c808:	0fc282e3 */ 	jal	func0f0a2e94
+/*  f09c808:	0fc282e3 */ 	jal	bgun0f0a2e94
 /*  f09c80c:	8da50000 */ 	lw	$a1,0x0($t5)
 /*  f09c810:	8e4e15a8 */ 	lw	$t6,0x15a8($s2)
 /*  f09c814:	8e5815ac */ 	lw	$t8,0x15ac($s2)
@@ -11027,7 +11027,7 @@ glabel func0f09e4e0
 /*  f09c838:	8e4a1594 */ 	lw	$t2,0x1594($s2)
 /*  f09c83c:	8e4615a8 */ 	lw	$a2,0x15a8($s2)
 /*  f09c840:	26040534 */ 	addiu	$a0,$s0,0x534
-/*  f09c844:	0fc282e3 */ 	jal	func0f0a2e94
+/*  f09c844:	0fc282e3 */ 	jal	bgun0f0a2e94
 /*  f09c848:	8d450000 */ 	lw	$a1,0x0($t2)
 /*  f09c84c:	8e4b15a8 */ 	lw	$t3,0x15a8($s2)
 /*  f09c850:	8e4d15ac */ 	lw	$t5,0x15ac($s2)
@@ -11061,7 +11061,7 @@ glabel func0f09e4e0
 /*  f09c8bc:	ae580dd8 */ 	sw	$t8,0xdd8($s2)
 /*  f09c8c0:	ae400dd8 */ 	sw	$zero,0xdd8($s2)
 .NB0f09c8c4:
-/*  f09c8c4:	0fc26f46 */ 	jal	func0f09ddfc
+/*  f09c8c4:	0fc26f46 */ 	jal	bgun0f09ddfc
 /*  f09c8c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09c8cc:	240b0004 */ 	addiu	$t3,$zero,0x4
 /*  f09c8d0:	a24b15b0 */ 	sb	$t3,0x15b0($s2)
@@ -11091,16 +11091,16 @@ glabel func0f09e4e0
 );
 #endif
 
-void func0f09ea90(void)
+void bgun0f09ea90(void)
 {
 	s32 i;
 
 	for (i = 0; i < g_Vars.lvupdate240; i += 8) {
-		func0f09e4e0();
+		bgun0f09e4e0();
 	}
 }
 
-bool func0f09eae4(void)
+bool bgun0f09eae4(void)
 {
 	// PAL adds a check for the eyespy being used
 #if VERSION >= VERSION_PAL_FINAL
@@ -11110,7 +11110,7 @@ bool func0f09eae4(void)
 	}
 #endif
 
-	func0f09df9c();
+	bgun0f09df9c();
 
 	if (g_Vars.currentplayer->gunctrl.weaponnum != WEAPON_NONE) {
 		g_Vars.currentplayer->gunctrl.gunmemnew = g_Vars.currentplayer->gunctrl.weaponnum;
@@ -11123,7 +11123,7 @@ bool func0f09eae4(void)
 	}
 
 	if (g_Vars.currentplayer->gunctrl.gunmemowner) {
-		func0f09e004(GUNMEMOWNER_0);
+		bgun0f09e004(GUNMEMOWNER_0);
 
 		if (g_Vars.currentplayer->gunctrl.gunmemowner) {
 			g_Vars.lockscreen = true;
@@ -11131,23 +11131,23 @@ bool func0f09eae4(void)
 		}
 	}
 
-	func0f09df9c();
+	bgun0f09df9c();
 
 	do {
-		func0f09e4e0();
-	} while (!func0f09dd7c());
+		bgun0f09e4e0();
+	} while (!bgun0f09dd7c());
 
 	g_Vars.currentplayer->gunctrl.unk1583_06 = false;
 
 	return false;
 }
 
-s32 func0f09ebbc(void)
+s32 bgun0f09ebbc(void)
 {
 	return g_Vars.currentplayer->gunctrl.unk1598;
 }
 
-void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, f32 *arg4, Mtxf *matrix2, struct prop *prop, struct coord *pos)
+void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf *matrix1, f32 *arg4, Mtxf *matrix2, struct prop *prop, struct coord *pos)
 {
 	struct prop *objprop = obj->prop;
 
@@ -11188,7 +11188,7 @@ void func0f09ebcc(struct defaultobj *obj, struct coord *coord, s16 *rooms, Mtxf 
 	}
 }
 
-void func0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 *arg3, Mtxf *arg4)
+void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 *arg3, Mtxf *arg4)
 {
 	struct prop *objprop = obj->prop;
 	struct coord pos;
@@ -11203,7 +11203,7 @@ void func0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 
 
 		roomsCopy(playerprop->rooms, rooms);
 
-		func0f09ebcc(obj, &pos, rooms, arg2, arg3, arg4, playerprop, newpos);
+		bgun0f09ebcc(obj, &pos, rooms, arg2, arg3, arg4, playerprop, newpos);
 
 		if (obj->hidden & OBJHFLAG_AIRBORNE) {
 			obj->projectile->flags |= PROJECTILEFLAG_00000080;
@@ -11218,7 +11218,7 @@ void func0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, f32 
 /**
  * Create a thrown projectile.
  */
-struct defaultobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
+struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct coord *pos, s16 *rooms, Mtxf *arg4, struct coord *arg5)
 {
 	struct defaultobj *obj = NULL;
 	struct weaponfunc *basefunc;
@@ -11280,7 +11280,7 @@ struct defaultobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 	}
 
 	if (obj != NULL) {
-		func0f09ebcc(obj, pos, rooms, arg4, (f32 *)arg5, (Mtxf *)mf, chr->prop, pos);
+		bgun0f09ebcc(obj, pos, rooms, arg4, (f32 *)arg5, (Mtxf *)mf, chr->prop, pos);
 
 		obj->hidden &= 0x0fffffff;
 
@@ -11307,7 +11307,7 @@ struct defaultobj *func0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 
 #if PAL
 GLOBAL_ASM(
-glabel handCreateThrownProjectile
+glabel bgunCreateThrownProjectile
 .late_rodata
 glabel var7f1ac708
 .word 0x4096c5bf
@@ -11459,7 +11459,7 @@ glabel var7f1ac72c
 /*  f09f2e8:	27a401e8 */ 	addiu	$a0,$sp,0x1e8
 /*  f09f2ec:	27a501dc */ 	addiu	$a1,$sp,0x1dc
 /*  f09f2f0:	8fa60240 */ 	lw	$a2,0x240($sp)
-/*  f09f2f4:	0fc2832c */ 	jal	handCalculateShotSpread
+/*  f09f2f4:	0fc2832c */ 	jal	bgunCalculateShotSpread
 /*  f09f2f8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f09f2fc:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
 /*  f09f300:	00000000 */ 	nop
@@ -11665,7 +11665,7 @@ glabel var7f1ac72c
 /*  f09f5fc:	91cf0000 */ 	lbu	$t7,0x0($t6)
 /*  f09f600:	15e10003 */ 	bne	$t7,$at,.L0f09f610
 /*  f09f604:	00000000 */ 	nop
-/*  f09f608:	0fc284d3 */ 	jal	func0f0a134c
+/*  f09f608:	0fc284d3 */ 	jal	bgun0f0a134c
 /*  f09f60c:	8fa40240 */ 	lw	$a0,0x240($sp)
 .L0f09f610:
 /*  f09f610:	3c08800a */ 	lui	$t0,%hi(g_Vars)
@@ -11713,7 +11713,7 @@ glabel var7f1ac72c
 /*  f09f6b4:	27a70160 */ 	addiu	$a3,$sp,0x160
 /*  f09f6b8:	8d640004 */ 	lw	$a0,0x4($t3)
 /*  f09f6bc:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f09f6c0:	0fc27b86 */ 	jal	func0f09ee18
+/*  f09f6c0:	0fc27b86 */ 	jal	bgun0f09ee18
 /*  f09f6c4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f09f6c8:	1040005b */ 	beqz	$v0,.L0f09f838
 /*  f09f6cc:	00402025 */ 	or	$a0,$v0,$zero
@@ -11823,7 +11823,7 @@ glabel var7f1ac72c
 );
 #else
 GLOBAL_ASM(
-glabel handCreateThrownProjectile
+glabel bgunCreateThrownProjectile
 .late_rodata
 glabel var7f1ac708
 .word 0x4096c5bf
@@ -11975,7 +11975,7 @@ glabel var7f1ac72c
 /*  f09f2e8:	27a401e8 */ 	addiu	$a0,$sp,0x1e8
 /*  f09f2ec:	27a501dc */ 	addiu	$a1,$sp,0x1dc
 /*  f09f2f0:	8fa60240 */ 	lw	$a2,0x240($sp)
-/*  f09f2f4:	0fc2832c */ 	jal	handCalculateShotSpread
+/*  f09f2f4:	0fc2832c */ 	jal	bgunCalculateShotSpread
 /*  f09f2f8:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f09f2fc:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
 /*  f09f300:	00000000 */ 	nop
@@ -12181,7 +12181,7 @@ glabel var7f1ac72c
 /*  f09f5fc:	91cf0000 */ 	lbu	$t7,0x0($t6)
 /*  f09f600:	15e10003 */ 	bne	$t7,$at,.L0f09f610
 /*  f09f604:	00000000 */ 	nop
-/*  f09f608:	0fc284d3 */ 	jal	func0f0a134c
+/*  f09f608:	0fc284d3 */ 	jal	bgun0f0a134c
 /*  f09f60c:	8fa40240 */ 	lw	$a0,0x240($sp)
 .L0f09f610:
 /*  f09f610:	3c08800a */ 	lui	$t0,%hi(g_Vars)
@@ -12229,7 +12229,7 @@ glabel var7f1ac72c
 /*  f09f6b4:	27a70160 */ 	addiu	$a3,$sp,0x160
 /*  f09f6b8:	8d640004 */ 	lw	$a0,0x4($t3)
 /*  f09f6bc:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f09f6c0:	0fc27b86 */ 	jal	func0f09ee18
+/*  f09f6c0:	0fc27b86 */ 	jal	bgun0f09ee18
 /*  f09f6c4:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f09f6c8:	1040005b */ 	beqz	$v0,.L0f09f838
 /*  f09f6cc:	00402025 */ 	or	$a0,$v0,$zero
@@ -12339,7 +12339,7 @@ glabel var7f1ac72c
 );
 #endif
 
-void func0f09f848(s32 handnum)
+void bgun0f09f848(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 	struct defaultobj *obj = &hand->rocket->base;
@@ -12375,7 +12375,7 @@ void func0f09f848(s32 handnum)
 	}
 }
 
-void func0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func)
+void bgun0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 	struct weaponobj *obj;
@@ -12400,7 +12400,7 @@ void func0f09f974(s32 handnum, struct weaponfunc_shootprojectile *func)
 	}
 }
 
-void func0f09fa20(s32 handnum)
+void bgun0f09fa20(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
@@ -12412,7 +12412,7 @@ void func0f09fa20(s32 handnum)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel handCreateFiredProjectile
+glabel bgunCreateFiredProjectile
 .late_rodata
 glabel var7f1ac730
 .word 0x3fd55555
@@ -12468,7 +12468,7 @@ glabel var7f1ac740
 /*  f09fe28:	27a40204 */ 	addiu	$a0,$sp,0x204
 /*  f09fe2c:	27a501f8 */ 	addiu	$a1,$sp,0x1f8
 /*  f09fe30:	02003025 */ 	move	$a2,$s0
-/*  f09fe34:	0fc283f5 */ 	jal	handCalculateShotSpread
+/*  f09fe34:	0fc283f5 */ 	jal	bgunCalculateShotSpread
 /*  f09fe38:	24070001 */ 	li	$a3,0x1
 /*  f09fe3c:	0fc2d726 */ 	jal	currentPlayerGetUnk174c
 /*  f09fe40:	00000000 */ 	nop
@@ -12884,7 +12884,7 @@ glabel var7f1ac740
 /*  f0a0460:	000d7700 */ 	sll	$t6,$t5,0x1c
 /*  f0a0464:	016e7825 */ 	or	$t7,$t3,$t6
 /*  f0a0468:	ae0f0040 */ 	sw	$t7,0x40($s0)
-/*  f0a046c:	0fc27c04 */ 	jal	func0f09ed2c
+/*  f0a046c:	0fc27c04 */ 	jal	bgun0f09ed2c
 /*  f0a0470:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0a0474:	8e190040 */ 	lw	$t9,0x40($s0)
 /*  f0a0478:	8fa301d8 */ 	lw	$v1,0x1d8($sp)
@@ -13047,7 +13047,7 @@ glabel var7f1ac740
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel handCreateFiredProjectile
+glabel bgunCreateFiredProjectile
 .late_rodata
 glabel var7f1ac730
 .word 0x3fd55555
@@ -13103,7 +13103,7 @@ glabel var7f1ac740
 /*  f09fb24:	27a40204 */ 	addiu	$a0,$sp,0x204
 /*  f09fb28:	27a501f8 */ 	addiu	$a1,$sp,0x1f8
 /*  f09fb2c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09fb30:	0fc2832c */ 	jal	handCalculateShotSpread
+/*  f09fb30:	0fc2832c */ 	jal	bgunCalculateShotSpread
 /*  f09fb34:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f09fb38:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
 /*  f09fb3c:	00000000 */ 	nop
@@ -13511,7 +13511,7 @@ glabel var7f1ac740
 /*  f0a013c:	000c6f00 */ 	sll	$t5,$t4,0x1c
 /*  f0a0140:	014d7025 */ 	or	$t6,$t2,$t5
 /*  f0a0144:	ae0e0040 */ 	sw	$t6,0x40($s0)
-/*  f0a0148:	0fc27b4b */ 	jal	func0f09ed2c
+/*  f0a0148:	0fc27b4b */ 	jal	bgun0f09ed2c
 /*  f0a014c:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0a0150:	8e180040 */ 	lw	$t8,0x40($s0)
 /*  f0a0154:	8fa301d8 */ 	lw	$v1,0x1d8($sp)
@@ -13674,7 +13674,7 @@ glabel var7f1ac740
 );
 #else
 GLOBAL_ASM(
-glabel handCreateFiredProjectile
+glabel bgunCreateFiredProjectile
 .late_rodata
 glabel var7f1ac730
 .word 0x3fd55555
@@ -13730,7 +13730,7 @@ glabel var7f1ac740
 /*  f09d99c:	27a40204 */ 	addiu	$a0,$sp,0x204
 /*  f09d9a0:	27a501f8 */ 	addiu	$a1,$sp,0x1f8
 /*  f09d9a4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f09d9a8:	0fc27a99 */ 	jal	handCalculateShotSpread
+/*  f09d9a8:	0fc27a99 */ 	jal	bgunCalculateShotSpread
 /*  f09d9ac:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f09d9b0:	0fc2cd36 */ 	jal	currentPlayerGetUnk174c
 /*  f09d9b4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -14115,7 +14115,7 @@ glabel var7f1ac740
 /*  f09df58:	000a5f00 */ 	sll	$t3,$t2,0x1c
 /*  f09df5c:	010b6025 */ 	or	$t4,$t0,$t3
 /*  f09df60:	ae0c0040 */ 	sw	$t4,0x40($s0)
-/*  f09df64:	0fc272f0 */ 	jal	func0f09ed2c
+/*  f09df64:	0fc272f0 */ 	jal	bgun0f09ed2c
 /*  f09df68:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f09df6c:	8e0e0040 */ 	lw	$t6,0x40($s0)
 /*  f09df70:	3c0c800a */ 	lui	$t4,0x800a
@@ -14248,7 +14248,7 @@ glabel var7f1ac740
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a0394
+glabel bgun0f0a0394
 .late_rodata
 glabel var7f1ac744
 .word 0x3e99999a
@@ -14332,7 +14332,7 @@ glabel var7f1ac764
 /*  f0a0484:	00000000 */ 	nop
 /*  f0a0488:	24100005 */ 	addiu	$s0,$zero,0x5
 .L0f0a048c:
-/*  f0a048c:	0fc26057 */ 	jal	func0f09815c
+/*  f0a048c:	0fc26057 */ 	jal	bgun0f09815c
 /*  f0a0490:	26a40638 */ 	addiu	$a0,$s5,0x638
 /*  f0a0494:	46000506 */ 	mov.s	$f20,$f0
 /*  f0a0498:	0c007486 */ 	jal	modelGetNumAnimFrames
@@ -14766,7 +14766,7 @@ glabel var7f1ac764
 /*  f0a0ad8:	3c06447a */ 	lui	$a2,0x447a
 /*  f0a0adc:	0fc2d30f */ 	jal	func0f0b4c3c
 /*  f0a0ae0:	e6aa1678 */ 	swc1	$f10,0x1678($s5)
-/*  f0a0ae4:	0fc2a4f8 */ 	jal	handSetAimPos
+/*  f0a0ae4:	0fc2a4f8 */ 	jal	bgunSetAimPos
 /*  f0a0ae8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a0aec:	8fbf0064 */ 	lw	$ra,0x64($sp)
 /*  f0a0af0:	d7b40010 */ 	ldc1	$f20,0x10($sp)
@@ -14788,7 +14788,7 @@ glabel var7f1ac764
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a0394
+glabel bgun0f0a0394
 .late_rodata
 glabel var7f1ac744
 .word 0x3e99999a
@@ -14872,7 +14872,7 @@ glabel var7f1ac764
 /*  f0a0484:	00000000 */ 	nop
 /*  f0a0488:	24100005 */ 	addiu	$s0,$zero,0x5
 .L0f0a048c:
-/*  f0a048c:	0fc26057 */ 	jal	func0f09815c
+/*  f0a048c:	0fc26057 */ 	jal	bgun0f09815c
 /*  f0a0490:	26a40638 */ 	addiu	$a0,$s5,0x638
 /*  f0a0494:	46000506 */ 	mov.s	$f20,$f0
 /*  f0a0498:	0c007486 */ 	jal	modelGetNumAnimFrames
@@ -15306,7 +15306,7 @@ glabel var7f1ac764
 /*  f0a0ad8:	3c06447a */ 	lui	$a2,0x447a
 /*  f0a0adc:	0fc2d30f */ 	jal	func0f0b4c3c
 /*  f0a0ae0:	e6aa1678 */ 	swc1	$f10,0x1678($s5)
-/*  f0a0ae4:	0fc2a4f8 */ 	jal	handSetAimPos
+/*  f0a0ae4:	0fc2a4f8 */ 	jal	bgunSetAimPos
 /*  f0a0ae8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a0aec:	8fbf0064 */ 	lw	$ra,0x64($sp)
 /*  f0a0af0:	d7b40010 */ 	ldc1	$f20,0x10($sp)
@@ -15328,9 +15328,9 @@ glabel var7f1ac764
 );
 #endif
 
-void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp)
+void bgunSwivelTowards(f32 screenx, f32 screeny, f32 damp)
 {
-	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
+	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
 #if VERSION >= VERSION_PAL_FINAL
 	f32 value = weapon->eptr->unk10;
 #else
@@ -15341,22 +15341,22 @@ void currentPlayerSwivelGunTowards(f32 screenx, f32 screeny, f32 damp)
 		value = damp;
 	}
 
-	func0f0a0394(screenx, screeny, damp, value);
+	bgun0f0a0394(screenx, screeny, damp, value);
 }
 
-void func0f0a0b98(f32 screenx, f32 screeny)
+void bgun0f0a0b98(f32 screenx, f32 screeny)
 {
-	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
+	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
 #if VERSION >= VERSION_PAL_FINAL
 	f32 value = weapon->eptr->unk10;
 #else
 	f32 value = weapon->eptr->unk14;
 #endif
 
-	func0f0a0394(screenx, screeny, PAL ? 0.935f : 0.945f, value);
+	bgun0f0a0394(screenx, screeny, PAL ? 0.935f : 0.945f, value);
 }
 
-void currentPlayerGetCrossPos(f32 *x, f32 *y)
+void bgunGetCrossPos(f32 *x, f32 *y)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -15364,7 +15364,7 @@ void currentPlayerGetCrossPos(f32 *x, f32 *y)
 	*y = player->crosspos[1];
 }
 
-void func0f0a0c08(struct coord *arg0, struct coord *arg1)
+void bgun0f0a0c08(struct coord *arg0, struct coord *arg1)
 {
 	arg0->x = 0;
 	arg0->y = 0;
@@ -15373,7 +15373,7 @@ void func0f0a0c08(struct coord *arg0, struct coord *arg1)
 	func0f0b4c3c(g_Vars.currentplayer->crosspos, arg1, 1);
 }
 
-void func0f0a0c44(s32 handnum, struct coord *arg1, struct coord *arg2)
+void bgun0f0a0c44(s32 handnum, struct coord *arg1, struct coord *arg2)
 {
 	arg1->x = 0;
 	arg1->y = 0;
@@ -15382,7 +15382,7 @@ void func0f0a0c44(s32 handnum, struct coord *arg1, struct coord *arg2)
 	func0f0b4c3c(g_Vars.currentplayer->hands[handnum].crosspos, arg2, 1);
 }
 
-void handCalculateShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum, bool dorandom)
+void bgunCalculateShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum, bool dorandom)
 {
 	f32 crosspos[2];
 	f32 spread = 0;
@@ -15397,7 +15397,7 @@ void handCalculateShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum
 	}
 
 	// Unsure what this is
-	if (weaponHasClassFlag(getCurrentPlayerWeaponIdWrapper(handnum), WEAPONCLASSFLAG_00000004)
+	if (weaponHasClassFlag(bgunGetWeaponNum2(handnum), WEAPONCLASSFLAG_00000004)
 			&& player->hands[handnum].burstbullets == 1) {
 		spread *= 0.25f;
 	}
@@ -15440,7 +15440,7 @@ void handCalculateShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum
 }
 
 GLOBAL_ASM(
-glabel func0f0a0fac
+glabel bgun0f0a0fac
 /*  f0a0fac:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0a0fb0:	44801000 */ 	mtc1	$zero,$f2
 /*  f0a0fb4:	afbf002c */ 	sw	$ra,0x2c($sp)
@@ -15647,7 +15647,7 @@ glabel func0f0a0fac
 /*  f0a12ac:	00000000 */ 	nop
 );
 
-void handSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
+void bgunSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
@@ -15662,14 +15662,14 @@ void handSetLastShootInfo(struct coord *pos, struct coord *dir, s32 handnum)
 	hand->lastshootdir.z = dir->z;
 }
 
-u32 handGetUnk0c30(s32 handnum)
+u32 bgunGetUnk0c30(s32 handnum)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
 	return hand->shotstotake;
 }
 
-void func0f0a134c(s32 handnum)
+void bgun0f0a134c(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 i;
@@ -15678,7 +15678,7 @@ void func0f0a134c(s32 handnum)
 		for (i = 0; i < 2; i++) {
 			if (player->gunctrl.ammotypes[i] >= 0) {
 				s32 spaceinclip = player->hands[handnum].clipsizes[i] - player->hands[handnum].loadedammo[i];
-				s32 index = weaponGetUnequippedReloadIndex(player->gunctrl.weaponnum);
+				s32 index = bgunGetUnequippedReloadIndex(player->gunctrl.weaponnum);
 
 				if (index != -1) {
 #if VERSION >= VERSION_PAL_FINAL
@@ -15701,17 +15701,17 @@ void func0f0a134c(s32 handnum)
 		currentPlayerSetWeaponReapable(handnum);
 	}
 
-	func0f09fa20(handnum);
+	bgun0f09fa20(handnum);
 }
 
-void func0f0a1528(void)
+void bgun0f0a1528(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	struct gunctrl *ctrl = &g_Vars.currentplayer->gunctrl;
 	s32 i;
 
 	if (ctrl->switchtoweaponnum >= 0) {
-		if (func0f09bec8(HAND_RIGHT) && func0f09bec8(HAND_LEFT)) {
+		if (bgun0f09bec8(HAND_RIGHT) && bgun0f09bec8(HAND_LEFT)) {
 			s32 weaponnum = player->gunctrl.weaponnum;
 			s32 previnuse = player->hands[HAND_LEFT].inuse;
 			struct hand *lefthand;
@@ -15728,8 +15728,8 @@ void func0f0a1528(void)
 
 			func0f0d7364();
 
-			func0f0a134c(HAND_LEFT);
-			func0f0a134c(HAND_RIGHT);
+			bgun0f0a134c(HAND_LEFT);
+			bgun0f0a134c(HAND_RIGHT);
 
 			if (weaponnum == WEAPON_HORIZONSCANNER) {
 				g_Vars.currentplayer->insightaimmode = false;
@@ -15760,7 +15760,7 @@ void func0f0a1528(void)
 				righthand->inuse = false;
 				ctrl->weaponnum = WEAPON_NONE;
 			} else {
-				func0f09df64(ctrl->switchtoweaponnum);
+				bgun0f09df64(ctrl->switchtoweaponnum);
 				ctrl->weaponnum = ctrl->switchtoweaponnum;
 				lefthand->inuse = true;
 				righthand->inuse = true;
@@ -15809,7 +15809,7 @@ void func0f0a1528(void)
 				player->hands[i].gset.unk0639 = (ctrl->upgradewant >> (i * 4)) & 0xf;
 				player->hands[i].ganstarot = 0.0f;
 
-				func0f0abd30(i);
+				bgun0f0abd30(i);
 
 				animInit(&player->hands[i].anim);
 
@@ -15837,7 +15837,7 @@ void func0f0a1528(void)
 				}
 
 				invRemoveItemByNum(ctrl->weaponnum);
-				func0f0a1c2c();
+				bgun0f0a1c2c();
 			}
 
 			ctrl->curfnstr = 0;
@@ -15847,14 +15847,14 @@ void func0f0a1528(void)
 	} else {
 		if (((player->hands[HAND_LEFT].inuse && !player->gunctrl.unk1583_00)
 					|| (!player->hands[HAND_LEFT].inuse && player->gunctrl.unk1583_00))
-				&& func0f09bec8(HAND_LEFT)) {
-			func0f0a134c(HAND_LEFT);
+				&& bgun0f09bec8(HAND_LEFT)) {
+			bgun0f0a134c(HAND_LEFT);
 			player->hands[HAND_LEFT].inuse = player->gunctrl.unk1583_00;
 		}
 	}
 }
 
-void currentPlayerEquipWeapon(s32 weaponnum)
+void bgunEquipWeapon(s32 weaponnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -15866,7 +15866,7 @@ void currentPlayerEquipWeapon(s32 weaponnum)
 	player->gunctrl.wantammo = false;
 }
 
-s32 handGetWeaponNum(s32 handnum)
+s32 bgunGetWeaponNum(s32 handnum)
 {
 	if (!g_Vars.currentplayer->hands[handnum].inuse) {
 		return WEAPON_NONE;
@@ -15875,22 +15875,22 @@ s32 handGetWeaponNum(s32 handnum)
 	return g_Vars.currentplayer->gunctrl.weaponnum;
 }
 
-s32 getCurrentPlayerWeaponIdWrapper(s32 handnum)
+s32 bgunGetWeaponNum2(s32 handnum)
 {
-	return handGetWeaponNum(handnum);
+	return bgunGetWeaponNum(handnum);
 }
 
-bool func0f0a1a10(s32 weaponnum)
+bool bgun0f0a1a10(s32 weaponnum)
 {
 	if (weaponHasFlag(weaponnum, WEAPONFLAG_00000400)
-			&& (weaponGetAmmoType(weaponnum, FUNC_PRIMARY) == 0 || currentPlayerGetAmmoQuantityForWeapon(weaponnum, FUNC_PRIMARY) > 0)) {
+			&& (bgunGetAmmoTypeForWeapon(weaponnum, FUNC_PRIMARY) == 0 || bgunGetAmmoQtyForWeapon(weaponnum, FUNC_PRIMARY) > 0)) {
 		return true;
 	}
 
 	return false;
 }
 
-s32 func0f0a1a68(s32 arg0)
+s32 bgun0f0a1a68(s32 arg0)
 {
 	s32 weaponnum;
 
@@ -15907,7 +15907,7 @@ s32 func0f0a1a68(s32 arg0)
 	return weaponnum;
 }
 
-void func0f0a1ab0(void)
+void bgun0f0a1ab0(void)
 {
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
 		struct player *player = g_Vars.currentplayer;
@@ -15915,30 +15915,30 @@ void func0f0a1ab0(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (invHasSingleWeaponIncAllGuns(player->gunctrl.prevweaponnum)) {
-			currentPlayerEquipWeaponWrapper(HAND_RIGHT, player->gunctrl.prevweaponnum);
+			bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
 
 			dualweaponnum = invHasDoubleWeaponIncAllGuns(player->gunctrl.prevweaponnum, player->gunctrl.prevweaponnum)
 				* player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
-			currentPlayerEquipWeaponWrapper(HAND_LEFT, dualweaponnum);
+			bgunEquipWeapon2(HAND_LEFT, dualweaponnum);
 		} else {
-			currentPlayerAutoSwitchWeapon();
+			bgunAutoSwitchWeapon();
 		}
 #else
-		currentPlayerEquipWeaponWrapper(HAND_RIGHT, player->gunctrl.prevweaponnum);
-		currentPlayerEquipWeaponWrapper(HAND_LEFT, player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01);
+		bgunEquipWeapon2(HAND_RIGHT, player->gunctrl.prevweaponnum);
+		bgunEquipWeapon2(HAND_LEFT, player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01);
 #endif
 	}
 }
 
-void func0f0a1b50(void)
+void bgun0f0a1b50(void)
 {
 	s32 weaponnum1;
 	s32 weaponnum2;
 	struct player *player = g_Vars.currentplayer;
 
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		weaponnum1 = func0f0a1a68(0);
-		weaponnum2 = func0f0a1a68(1);
+		weaponnum1 = bgun0f0a1a68(0);
+		weaponnum2 = bgun0f0a1a68(1);
 
 		if (weaponnum1 > WEAPON_PSYCHOSISGUN || weaponnum2 > WEAPON_PSYCHOSISGUN) {
 			weaponnum1 = player->gunctrl.prevweaponnum;
@@ -15953,19 +15953,19 @@ void func0f0a1b50(void)
 			player->gunctrl.unk1583_00 = true;
 		}
 
-		currentPlayerEquipWeapon(weaponnum1);
+		bgunEquipWeapon(weaponnum1);
 	}
 }
 
-void func0f0a1c2c(void)
+void bgun0f0a1c2c(void)
 {
 	s32 weaponnum1;
 	s32 weaponnum2;
 	struct player *player = g_Vars.currentplayer;
 
 	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
-		weaponnum1 = func0f0a1a68(0);
-		weaponnum2 = func0f0a1a68(1);
+		weaponnum1 = bgun0f0a1a68(0);
+		weaponnum2 = bgun0f0a1a68(1);
 
 		if (weaponnum2 == WEAPON_REMOTEMINE) {
 			weaponnum2 = WEAPON_NONE;
@@ -15984,7 +15984,7 @@ void func0f0a1c2c(void)
 			player->gunctrl.unk1583_00 = true;
 		}
 
-		currentPlayerEquipWeapon(weaponnum1);
+		bgunEquipWeapon(weaponnum1);
 	}
 }
 
@@ -15994,7 +15994,7 @@ void func0f0a1c2c(void)
  *
  * Used by the active menu to colour the slots.
  */
-bool currentPlayerHasAmmoForWeapon(s32 weaponnum)
+bool bgunHasAmmoForWeapon(s32 weaponnum)
 {
 	bool ammodefexists = false;
 	bool hasammo = false;
@@ -16014,7 +16014,7 @@ bool currentPlayerHasAmmoForWeapon(s32 weaponnum)
 			if (ammo) {
 				ammodefexists = true;
 
-				if (currentPlayerGetAmmoCount(ammo->type) > 0) {
+				if (bgunGetAmmoCount(ammo->type) > 0) {
 					hasammo = true;
 				}
 			}
@@ -16033,7 +16033,7 @@ bool currentPlayerHasAmmoForWeapon(s32 weaponnum)
 }
 
 GLOBAL_ASM(
-glabel currentPlayerAutoSwitchWeapon
+glabel bgunAutoSwitchWeapon
 /*  f0a1df4:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f0a1df8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f0a1dfc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
@@ -16078,7 +16078,7 @@ glabel currentPlayerAutoSwitchWeapon
 /*  f0a1e94:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a1e98:	00408825 */ 	or	$s1,$v0,$zero
 /*  f0a1e9c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a1ea0:	0fc2642c */ 	jal	func0f0990b0
+/*  f0a1ea0:	0fc2642c */ 	jal	bgun0f0990b0
 /*  f0a1ea4:	02402825 */ 	or	$a1,$s2,$zero
 /*  f0a1ea8:	14400006 */ 	bnez	$v0,.L0f0a1ec4
 /*  f0a1eac:	24010012 */ 	addiu	$at,$zero,0x12
@@ -16099,7 +16099,7 @@ glabel currentPlayerAutoSwitchWeapon
 /*  f0a1ee0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0a1ee4:	00408825 */ 	or	$s1,$v0,$zero
 /*  f0a1ee8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a1eec:	0fc2642c */ 	jal	func0f0990b0
+/*  f0a1eec:	0fc2642c */ 	jal	bgun0f0990b0
 /*  f0a1ef0:	02402825 */ 	or	$a1,$s2,$zero
 /*  f0a1ef4:	54400007 */ 	bnezl	$v0,.L0f0a1f14
 /*  f0a1ef8:	8fac0044 */ 	lw	$t4,0x44($sp)
@@ -16197,7 +16197,7 @@ glabel currentPlayerAutoSwitchWeapon
 /*  f0a2030:	31cfff7f */ 	andi	$t7,$t6,0xff7f
 /*  f0a2034:	a04f1583 */ 	sb	$t7,0x1583($v0)
 .L0f0a2038:
-/*  f0a2038:	0fc2865b */ 	jal	currentPlayerEquipWeapon
+/*  f0a2038:	0fc2865b */ 	jal	bgunEquipWeapon
 /*  f0a203c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f0a2040:	8fb80040 */ 	lw	$t8,0x40($sp)
 /*  f0a2044:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
@@ -16251,7 +16251,7 @@ glabel currentPlayerAutoSwitchWeapon
 // Mismatch: First loop should store pointer to current item in s3 and do an
 // address comparison for the end, but the below stores index in s4 and does an
 // integer comparison. Variable refcounts affects this so might be related.
-//void currentPlayerAutoSwitchWeapon(void)
+//void bgunAutoSwitchWeapon(void)
 //{
 //	s32 i;
 //	bool foundcurrent2;
@@ -16284,7 +16284,7 @@ glabel currentPlayerAutoSwitchWeapon
 //			weapon = weaponFindById(weaponnum);
 //			func = weaponGetFunctionById(weaponnum, FUNC_PRIMARY);
 //
-//			if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
+//			if (!bgun0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
 //				usable = true;
 //			}
 //
@@ -16293,7 +16293,7 @@ glabel currentPlayerAutoSwitchWeapon
 //			} else {
 //				func = weaponGetFunctionById(weaponnum, FUNC_SECONDARY);
 //
-//				if (!func0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
+//				if (!bgun0f0990b0(func, weapon) && (func->flags & FUNCFLAG_AUTOSWITCHUNSELECTABLE) == 0) {
 //					usable = true;
 //				}
 //			}
@@ -16359,7 +16359,7 @@ glabel currentPlayerAutoSwitchWeapon
 //			g_Vars.currentplayer->gunctrl.unk1583_00 = false;
 //		}
 //
-//		currentPlayerEquipWeapon(newweaponnum);
+//		bgunEquipWeapon(newweaponnum);
 //
 //		if (wantammo) {
 //			g_Vars.currentplayer->gunctrl.wantammo = true;
@@ -16367,7 +16367,7 @@ glabel currentPlayerAutoSwitchWeapon
 //	}
 //}
 
-void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
+void bgunEquipWeapon2(bool arg0, s32 weaponnum)
 {
 	if (arg0 == 1) {
 		if (weaponnum == WEAPON_NONE) {
@@ -16380,21 +16380,21 @@ void currentPlayerEquipWeaponWrapper(bool arg0, s32 weaponnum)
 			weaponnum = WEAPON_UNARMED;
 		}
 
-		currentPlayerEquipWeapon(weaponnum);
+		bgunEquipWeapon(weaponnum);
 	}
 }
 
-s32 handIsFiring(s32 handnum)
+s32 bgunIsFiring(s32 handnum)
 {
 	return g_Vars.currentplayer->hands[handnum].firing;
 }
 
-s32 handGetAttackType(s32 handnum)
+s32 bgunGetAttackType(s32 handnum)
 {
 	return g_Vars.currentplayer->hands[handnum].attacktype;
 }
 
-char *weaponGetName(s32 weaponnum)
+char *bgunGetName(s32 weaponnum)
 {
 	struct weapon *weapon = g_Weapons[weaponnum];
 
@@ -16405,7 +16405,7 @@ char *weaponGetName(s32 weaponnum)
 	return "** error\n";
 }
 
-u16 weaponGetNameId(s32 weaponnum)
+u16 bgunGetNameId(s32 weaponnum)
 {
 	struct weapon *weapon = g_Weapons[weaponnum];
 
@@ -16416,7 +16416,7 @@ u16 weaponGetNameId(s32 weaponnum)
 	return 0;
 }
 
-char *weaponGetShortName(s32 weaponnum)
+char *bgunGetShortName(s32 weaponnum)
 {
 	struct weapon *weapon = g_Weapons[weaponnum];
 
@@ -16429,17 +16429,17 @@ char *weaponGetShortName(s32 weaponnum)
 
 const char var7f1ac170[] = "wantedfn %d tiggle %d\n";
 
-void currentPlayerReloadHandIfPossible(s32 handnum)
+void bgunReloadIfPossible(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	if (weaponGetAmmoType(handGetWeaponNum(handnum), 0)
+	if (bgunGetAmmoTypeForWeapon(bgunGetWeaponNum(handnum), 0)
 			&& player->hands[handnum].modenext == HANDMODE_NONE) {
 		player->hands[handnum].modenext = HANDMODE_RELOAD;
 	}
 }
 
-void handSetAdjustPos(f32 angle)
+void bgunSetAdjustPos(f32 angle)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -16447,13 +16447,13 @@ void handSetAdjustPos(f32 angle)
 	player->hands[1].adjustpos.z = (1 - cosf(angle)) * 5;
 }
 
-void handResetSlideInc(s32 handnum)
+void bgunResetSlideInc(s32 handnum)
 {
 	g_Vars.currentplayer->hands[handnum].slideinc = 1;
 }
 
 GLOBAL_ASM(
-glabel func0f0a233c
+glabel bgun0f0a233c
 .late_rodata
 glabel var7f1ac768
 .word 0x3e2aaaab
@@ -16518,7 +16518,7 @@ glabel var7f1ac768
 /*  f0a2410:	5920001e */ 	blezl	$t1,.L0f0a248c
 /*  f0a2414:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0a2418:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0a241c:	0fc26291 */ 	jal	func0f098a44
+/*  f0a241c:	0fc26291 */ 	jal	bgun0f098a44
 /*  f0a2420:	e7a2002c */ 	swc1	$f2,0x2c($sp)
 /*  f0a2424:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0a2428:	44806000 */ 	mtc1	$zero,$f12
@@ -16554,19 +16554,19 @@ glabel var7f1ac768
 /*  f0a2494:	00000000 */ 	nop
 );
 
-f32 func0f0a2498(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
+f32 bgun0f0a2498(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {
 	f32 a = arg0 - arg2;
 
 	return func0f096a7c(a / sqrtf(a * a + (arg1 - arg3) * (arg1 - arg3)));
 }
 
-void func0f0a24f0(struct coord *arg0, s32 handnum)
+void bgun0f0a24f0(struct coord *arg0, s32 handnum)
 {
 	struct coord b;
 	struct coord a;
 
-	func0f0a0c44(handnum, &a, &b);
+	bgun0f0a0c44(handnum, &a, &b);
 
 	b.x *= 1000;
 	b.y *= 1000;
@@ -16579,7 +16579,7 @@ void func0f0a24f0(struct coord *arg0, s32 handnum)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a256c
+glabel bgun0f0a256c
 /*  f0a256c:	3c0e800a */ 	lui	$t6,%hi(var8009d148)
 /*  f0a2570:	8dced148 */ 	lw	$t6,%lo(var8009d148)($t6)
 /*  f0a2574:	27bdff48 */ 	addiu	$sp,$sp,-184
@@ -16739,7 +16739,7 @@ glabel func0f0a256c
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a256c
+glabel bgun0f0a256c
 /*  f0a256c:	3c0e800a */ 	lui	$t6,%hi(var8009d148)
 /*  f0a2570:	8dced148 */ 	lw	$t6,%lo(var8009d148)($t6)
 /*  f0a2574:	27bdff48 */ 	addiu	$sp,$sp,-184
@@ -16899,7 +16899,7 @@ glabel func0f0a256c
 );
 #endif
 
-bool func0f0a27c8(void)
+bool bgun0f0a27c8(void)
 {
 	struct hand *hand;
 	struct weaponfunc *func;
@@ -16912,7 +16912,7 @@ bool func0f0a27c8(void)
 			&& hand->state == HANDSTATE_ATTACK
 			&& hand->unk0ce8 != NULL
 			&& hand->animmode == HANDANIMMODE_BUSY
-			&& !func0f098a44(hand, 2)) {
+			&& !bgun0f098a44(hand, 2)) {
 		return true;
 	}
 
@@ -16926,7 +16926,7 @@ bool func0f0a27c8(void)
 				&& hand->state == HANDSTATE_ATTACK
 				&& hand->unk0ce8 != NULL
 				&& hand->animmode == HANDANIMMODE_BUSY
-				&& !func0f098a44(hand, 2)) {
+				&& !bgun0f098a44(hand, 2)) {
 			return true;
 		}
 	}
@@ -16935,11 +16935,11 @@ bool func0f0a27c8(void)
 }
 
 /**
- * This function is the same as above but it doesn't call func0f098a44().
+ * This function is the same as above but it doesn't call bgun0f098a44().
  *
  * This function is unused.
  */
-bool func0f0a28d8(void)
+bool bgun0f0a28d8(void)
 {
 	struct hand *hand;
 	struct weaponfunc *func;
@@ -16972,7 +16972,7 @@ bool func0f0a28d8(void)
 	return false;
 }
 
-void func0f0a29c8(void)
+void bgun0f0a29c8(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 i;
@@ -16993,16 +16993,16 @@ void func0f0a29c8(void)
 			player->hands[i].matmot2 = 0;
 			player->hands[i].matmot3 = 0;
 
-			handSetState(i, 0);
+			bgunSetState(i, 0);
 		}
 
-		currentPlayerEquipWeaponWrapper(1, WEAPON_NONE);
-		currentPlayerEquipWeaponWrapper(0, WEAPON_NONE);
+		bgunEquipWeapon2(1, WEAPON_NONE);
+		bgunEquipWeapon2(0, WEAPON_NONE);
 	}
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool weaponIsMissionCritical(s32 weaponnum)
+bool bgunIsMissionCritical(s32 weaponnum)
 {
 	if (weaponnum == WEAPON_TIMEDMINE
 			|| weaponnum == WEAPON_REMOTEMINE
@@ -17015,7 +17015,7 @@ bool weaponIsMissionCritical(s32 weaponnum)
 }
 #endif
 
-void currentPlayerLoseGun(struct prop *attackerprop)
+void bgunLoseGun(struct prop *attackerprop)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 weaponnum = player->hands[0].gset.weaponnum;
@@ -17031,7 +17031,7 @@ void currentPlayerLoseGun(struct prop *attackerprop)
 		// quantity.
 		if (g_Vars.coopplayernum >= 0
 				&& (attackerprop == g_Vars.bond->prop || attackerprop == g_Vars.coop->prop)
-				&& weaponIsMissionCritical(weaponnum)) {
+				&& bgunIsMissionCritical(weaponnum)) {
 			return;
 		}
 #endif
@@ -17062,7 +17062,7 @@ void currentPlayerLoseGun(struct prop *attackerprop)
 						&& player->hands[i].state == HANDSTATE_ATTACK
 						&& player->hands[i].stateminor == 0) {
 					drop = false;
-					handCreateThrownProjectile(i + 2, &player->hands[i].gset);
+					bgunCreateThrownProjectile(i + 2, &player->hands[i].gset);
 				}
 			}
 		}
@@ -17109,26 +17109,26 @@ void currentPlayerLoseGun(struct prop *attackerprop)
 			player->visionmode = VISIONMODE_NORMAL;
 		}
 
-		currentPlayerEquipWeaponWrapper(HAND_RIGHT, WEAPON_UNARMED);
-		currentPlayerEquipWeaponWrapper(HAND_LEFT, WEAPON_NONE);
+		bgunEquipWeapon2(HAND_RIGHT, WEAPON_UNARMED);
+		bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
 	}
 }
 
 GLOBAL_ASM(
-glabel func0f0a2da8
+glabel bgun0f0a2da8
 .late_rodata
 glabel var7f1ac76c
-.word func0f0a2da8+0x38 # f0a2de0
+.word bgun0f0a2da8+0x38 # f0a2de0
 glabel var7f1ac770
-.word func0f0a2da8+0x58 # f0a2e00
+.word bgun0f0a2da8+0x58 # f0a2e00
 glabel var7f1ac774
-.word func0f0a2da8+0x78 # f0a2e20
+.word bgun0f0a2da8+0x78 # f0a2e20
 glabel var7f1ac778
-.word func0f0a2da8+0x90 # f0a2e38
+.word bgun0f0a2da8+0x90 # f0a2e38
 glabel var7f1ac77c
-.word func0f0a2da8+0xa4 # f0a2e4c
+.word bgun0f0a2da8+0xa4 # f0a2e4c
 glabel var7f1ac780
-.word func0f0a2da8+0xb8 # f0a2e60
+.word bgun0f0a2da8+0xb8 # f0a2e60
 .text
 /*  f0a2da8:	10800038 */ 	beqz	$a0,.L0f0a2e8c
 /*  f0a2dac:	00000000 */ 	nop
@@ -17195,42 +17195,42 @@ glabel var7f1ac780
 );
 
 GLOBAL_ASM(
-glabel func0f0a2e94
+glabel bgun0f0a2e94
 .late_rodata
 glabel var7f1ac784
-.word func0f0a2e94+0x7c # f0a2f10
+.word bgun0f0a2e94+0x7c # f0a2f10
 glabel var7f1ac788
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac78c
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac790
-.word func0f0a2e94+0x120 # f0a2fb4
+.word bgun0f0a2e94+0x120 # f0a2fb4
 glabel var7f1ac794
-.word func0f0a2e94+0x148 # f0a2fdc
+.word bgun0f0a2e94+0x148 # f0a2fdc
 glabel var7f1ac798
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac79c
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7a0
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7a4
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7a8
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7ac
-.word func0f0a2e94+0xb8 # f0a2f4c
+.word bgun0f0a2e94+0xb8 # f0a2f4c
 glabel var7f1ac7b0
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7b4
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7b8
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7bc
-.word func0f0a2e94+0x1dc # f0a3070
+.word bgun0f0a2e94+0x1dc # f0a3070
 glabel var7f1ac7c0
-.word func0f0a2e94+0xf4 # f0a2f88
+.word bgun0f0a2e94+0xf4 # f0a2f88
 glabel var7f1ac7c4
-.word func0f0a2e94+0x170 # f0a3004
+.word bgun0f0a2e94+0x170 # f0a3004
 .text
 /*  f0a2e94:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0a2e98:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -17398,13 +17398,13 @@ glabel var7f1ac7c4
 /*  f0a3100:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-void playerDetonateRemoteMines(s32 playernum)
+void bgunDetonateRemoteMines(s32 playernum)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
 	setCurrentPlayerNum(playernum);
 
 	if (g_Vars.currentplayer->hands[HAND_LEFT].gset.weaponnum == WEAPON_REMOTEMINE) {
-		func0f0988e0(var80070200, 1, &g_Vars.currentplayer->hands[HAND_LEFT]);
+		bgun0f0988e0(var80070200, 1, &g_Vars.currentplayer->hands[HAND_LEFT]);
 	}
 
 	setCurrentPlayerNum(prevplayernum);
@@ -17412,7 +17412,7 @@ void playerDetonateRemoteMines(s32 playernum)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a3160
+glabel bgun0f0a3160
 .late_rodata
 glabel var7f1ac7c8
 .word 0x40490fdb
@@ -17647,7 +17647,7 @@ glabel var7f1ac7d0
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a3160
+glabel bgun0f0a3160
 .late_rodata
 glabel var7f1ac7c8
 .word 0x40490fdb
@@ -17884,92 +17884,92 @@ glabel var7f1ac7d0
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a3490
+glabel bgun0f0a3490
 .late_rodata
 glabel var7f1ac7d4
 .word 0x3f19999a
 glabel var7f1ac7d8
 .word 0x3e4ccccd
 glabel var7f1ac7dc
-.word func0f0a3490+0x11c # f0a35ac
+.word bgun0f0a3490+0x11c # f0a35ac
 glabel var7f1ac7e0
-.word func0f0a3490+0x24c # f0a36dc
+.word bgun0f0a3490+0x24c # f0a36dc
 glabel var7f1ac7e4
-.word func0f0a3490+0x11c # f0a35ac
+.word bgun0f0a3490+0x11c # f0a35ac
 glabel var7f1ac7e8
-.word func0f0a3490+0x14c # f0a35dc
+.word bgun0f0a3490+0x14c # f0a35dc
 glabel var7f1ac7ec
-.word func0f0a3490+0x14c # f0a35dc
+.word bgun0f0a3490+0x14c # f0a35dc
 glabel var7f1ac7f0
-.word func0f0a3490+0x24c # f0a36dc
+.word bgun0f0a3490+0x24c # f0a36dc
 glabel var7f1ac7f4
-.word func0f0a3490+0x17c # f0a360c
+.word bgun0f0a3490+0x17c # f0a360c
 glabel var7f1ac7f8
-.word func0f0a3490+0x17c # f0a360c
+.word bgun0f0a3490+0x17c # f0a360c
 glabel var7f1ac7fc
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac800
-.word func0f0a3490+0x1d4 # f0a3664
+.word bgun0f0a3490+0x1d4 # f0a3664
 glabel var7f1ac804
-.word func0f0a3490+0x24c # f0a36dc
+.word bgun0f0a3490+0x24c # f0a36dc
 glabel var7f1ac808
-.word func0f0a3490+0x200 # f0a3690
+.word bgun0f0a3490+0x200 # f0a3690
 glabel var7f1ac80c
-.word func0f0a3490+0x1d4 # f0a3664
+.word bgun0f0a3490+0x1d4 # f0a3664
 glabel var7f1ac810
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac814
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac818
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac81c
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac820
-.word func0f0a3490+0x234 # f0a36c4
+.word bgun0f0a3490+0x234 # f0a36c4
 glabel var7f1ac824
-.word func0f0a3490+0x228 # f0a36b8
+.word bgun0f0a3490+0x228 # f0a36b8
 glabel var7f1ac828
 .word 0x3f28f5c3
 glabel var7f1ac82c
 .word 0x3f666666
 glabel var7f1ac830
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac834
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac838
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac83c
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac840
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac844
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac848
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac84c
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac850
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac854
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac858
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac85c
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac860
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac864
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac868
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac86c
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac870
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac874
-.word func0f0a3490+0x2ac # f0a373c
+.word bgun0f0a3490+0x2ac # f0a373c
 glabel var7f1ac878
-.word func0f0a3490+0x2a4 # f0a3734
+.word bgun0f0a3490+0x2a4 # f0a3734
 .text
 /*  f0a3490:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0a3494:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -18187,92 +18187,92 @@ glabel var7f1ac878
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a3490
+glabel bgun0f0a3490
 .late_rodata
 glabel var7f1ac7d4
 .word 0x3f19999a
 glabel var7f1ac7d8
 .word 0x3e4ccccd
 glabel var7f1ac7dc
-.word func0f0a3490+0x11c # f0a35ac
+.word bgun0f0a3490+0x11c # f0a35ac
 glabel var7f1ac7e0
-.word func0f0a3490+0x24c # f0a36dc
+.word bgun0f0a3490+0x24c # f0a36dc
 glabel var7f1ac7e4
-.word func0f0a3490+0x11c # f0a35ac
+.word bgun0f0a3490+0x11c # f0a35ac
 glabel var7f1ac7e8
-.word func0f0a3490+0x14c # f0a35dc
+.word bgun0f0a3490+0x14c # f0a35dc
 glabel var7f1ac7ec
-.word func0f0a3490+0x14c # f0a35dc
+.word bgun0f0a3490+0x14c # f0a35dc
 glabel var7f1ac7f0
-.word func0f0a3490+0x24c # f0a36dc
+.word bgun0f0a3490+0x24c # f0a36dc
 glabel var7f1ac7f4
-.word func0f0a3490+0x17c # f0a360c
+.word bgun0f0a3490+0x17c # f0a360c
 glabel var7f1ac7f8
-.word func0f0a3490+0x17c # f0a360c
+.word bgun0f0a3490+0x17c # f0a360c
 glabel var7f1ac7fc
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac800
-.word func0f0a3490+0x1d4 # f0a3664
+.word bgun0f0a3490+0x1d4 # f0a3664
 glabel var7f1ac804
-.word func0f0a3490+0x24c # f0a36dc
+.word bgun0f0a3490+0x24c # f0a36dc
 glabel var7f1ac808
-.word func0f0a3490+0x200 # f0a3690
+.word bgun0f0a3490+0x200 # f0a3690
 glabel var7f1ac80c
-.word func0f0a3490+0x1d4 # f0a3664
+.word bgun0f0a3490+0x1d4 # f0a3664
 glabel var7f1ac810
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac814
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac818
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac81c
-.word func0f0a3490+0x1ac # f0a363c
+.word bgun0f0a3490+0x1ac # f0a363c
 glabel var7f1ac820
-.word func0f0a3490+0x234 # f0a36c4
+.word bgun0f0a3490+0x234 # f0a36c4
 glabel var7f1ac824
-.word func0f0a3490+0x228 # f0a36b8
+.word bgun0f0a3490+0x228 # f0a36b8
 glabel var7f1ac828
 .word 0x3f28f5c3
 glabel var7f1ac82c
 .word 0x3f666666
 glabel var7f1ac830
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac834
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac838
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac83c
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac840
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac844
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac848
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac84c
-.word func0f0a3490+0x29c # f0a372c
+.word bgun0f0a3490+0x29c # f0a372c
 glabel var7f1ac850
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac854
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac858
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac85c
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac860
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac864
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac868
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac86c
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac870
-.word func0f0a3490+0x2b0 # f0a3740
+.word bgun0f0a3490+0x2b0 # f0a3740
 glabel var7f1ac874
-.word func0f0a3490+0x2ac # f0a373c
+.word bgun0f0a3490+0x2ac # f0a373c
 glabel var7f1ac878
-.word func0f0a3490+0x2a4 # f0a3734
+.word bgun0f0a3490+0x2a4 # f0a3734
 .text
 /*  f0a3490:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0a3494:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -18491,7 +18491,7 @@ glabel var7f1ac878
 #endif
 
 GLOBAL_ASM(
-glabel func0f0a37b4
+glabel bgun0f0a37b4
 /*  f0a37b4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0a37b8:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0a37bc:	00808025 */ 	or	$s0,$a0,$zero
@@ -18691,7 +18691,7 @@ glabel func0f0a37b4
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a3aa4
+glabel bgun0f0a3aa4
 .late_rodata
 glabel var7f1ac87c
 .word 0x3c23d70a
@@ -18956,9 +18956,9 @@ glabel var7f1ac8b8
 /*  f0a3dfc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a3e00:	3c01800a */ 	lui	$at,%hi(var8009d0f0)
 /*  f0a3e04:	ac22d0dc */ 	sw	$v0,%lo(var8009d0f0)($at)
-/*  f0a3e08:	3c0b7f0a */ 	lui	$t3,%hi(func0f0a256c)
+/*  f0a3e08:	3c0b7f0a */ 	lui	$t3,%hi(bgun0f0a256c)
 /*  f0a3e0c:	3c10800a */ 	lui	$s0,%hi(var8009d0f8)
-/*  f0a3e10:	256b256c */ 	addiu	$t3,$t3,%lo(func0f0a256c)
+/*  f0a3e10:	256b256c */ 	addiu	$t3,$t3,%lo(bgun0f0a256c)
 /*  f0a3e14:	3c018006 */ 	lui	$at,%hi(var8005efcc)
 /*  f0a3e18:	2610d0f0 */ 	addiu	$s0,$s0,%lo(var8009d0f8)
 /*  f0a3e1c:	ac2befcc */ 	sw	$t3,%lo(var8005efcc)($at)
@@ -19004,7 +19004,7 @@ glabel var7f1ac8b8
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a3aa4
+glabel bgun0f0a3aa4
 .late_rodata
 glabel var7f1ac87c
 .word 0x3c23d70a
@@ -19269,9 +19269,9 @@ glabel var7f1ac8b8
 /*  f0a3dfc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a3e00:	3c01800a */ 	lui	$at,%hi(var8009d0dc)
 /*  f0a3e04:	ac22d0dc */ 	sw	$v0,%lo(var8009d0dc)($at)
-/*  f0a3e08:	3c0b7f0a */ 	lui	$t3,%hi(func0f0a256c)
+/*  f0a3e08:	3c0b7f0a */ 	lui	$t3,%hi(bgun0f0a256c)
 /*  f0a3e0c:	3c10800a */ 	lui	$s0,%hi(var8009d0f0)
-/*  f0a3e10:	256b256c */ 	addiu	$t3,$t3,%lo(func0f0a256c)
+/*  f0a3e10:	256b256c */ 	addiu	$t3,$t3,%lo(bgun0f0a256c)
 /*  f0a3e14:	3c018006 */ 	lui	$at,%hi(var8005efcc)
 /*  f0a3e18:	2610d0f0 */ 	addiu	$s0,$s0,%lo(var8009d0f0)
 /*  f0a3e1c:	ac2befcc */ 	sw	$t3,%lo(var8005efcc)($at)
@@ -19318,7 +19318,7 @@ glabel var7f1ac8b8
 #endif
 
 GLOBAL_ASM(
-glabel func0f0a3eac
+glabel bgun0f0a3eac
 /*  f0a3eac:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0a3eb0:	3c0f8007 */ 	lui	$t7,%hi(var8007021c)
 /*  f0a3eb4:	afbf0054 */ 	sw	$ra,0x54($sp)
@@ -19448,7 +19448,7 @@ glabel func0f0a3eac
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a4094
+glabel bgun0f0a4094
 .late_rodata
 glabel var7f1ac8bc
 .word 0x3c23d70a
@@ -19526,7 +19526,7 @@ glabel var7f1ac8c0
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a4094
+glabel bgun0f0a4094
 .late_rodata
 glabel var7f1ac8bc
 .word 0x3c23d70a
@@ -19606,7 +19606,7 @@ glabel var7f1ac8c0
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a419c
+glabel bgun0f0a419c
 .late_rodata
 glabel var7f1ac8c4
 .word 0x3c23d70a
@@ -19720,7 +19720,7 @@ glabel var7f1ac8c4
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a419c
+glabel bgun0f0a419c
 .late_rodata
 glabel var7f1ac8c4
 .word 0x3c23d70a
@@ -19834,7 +19834,7 @@ glabel var7f1ac8c4
 );
 #endif
 
-void func0f0a4334(struct hand *hand)
+void bgun0f0a4334(struct hand *hand)
 {
 	if (hand->firing && hand->gset.weaponfunc == FUNC_SECONDARY) {
 		if (hand->audiohandle == NULL && g_Vars.lvupdate240 != 0) {
@@ -19857,7 +19857,7 @@ void func0f0a4334(struct hand *hand)
 }
 
 GLOBAL_ASM(
-glabel func0f0a4438
+glabel bgun0f0a4438
 .late_rodata
 glabel var7f1ac8c8
 .word 0x411fffff
@@ -19946,20 +19946,20 @@ glabel var7f1ac8c8
 /*  f0a456c:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
 );
 
-void func0f0a4570(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func)
+void bgun0f0a4570(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func)
 {
 	if (hand->rocket == NULL && hand->loadedammo[0] > 0) {
-		func0f09f974(handnum, func);
+		bgun0f09f974(handnum, func);
 	}
 
 	if (hand->rocket) {
-		func0f09f848(handnum);
+		bgun0f09f848(handnum);
 	}
 }
 
-void func0f0a256c(void);
+void bgun0f0a256c(void);
 
-void func0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2)
+void bgun0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2)
 {
 	struct modelnode *node = NULL;
 
@@ -19981,7 +19981,7 @@ void func0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2)
 
 	if (node) {
 		var8009d148 = func0001a524(node, 0);
-		var8005efcc = func0f0a256c;
+		var8005efcc = bgun0f0a256c;
 	} else {
 		var8009d148 = -1;
 	}
@@ -19989,7 +19989,7 @@ void func0f0a45d0(struct hand *hand, struct modelfiledata *filedata, bool arg2)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a46a4
+glabel bgun0f0a46a4
 .late_rodata
 glabel var7f1ac8cc
 .word 0x3f088888
@@ -20545,7 +20545,7 @@ glabel var7f1ac918
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a46a4
+glabel bgun0f0a46a4
 .late_rodata
 glabel var7f1ac8cc
 .word 0x3f088888
@@ -21109,7 +21109,7 @@ glabel var7f1ac918
 #endif
 
 GLOBAL_ASM(
-glabel func0f0a4e44
+glabel bgun0f0a4e44
 .late_rodata
 glabel var7f1ac91c
 .word 0x40c907a9
@@ -21448,94 +21448,94 @@ glabel var7f1ac934
 );
 
 GLOBAL_ASM(
-glabel func0f0a5300
+glabel bgun0f0a5300
 .late_rodata
 glabel var7f1ac938
 .word 0x411fffff
 glabel var7f1ac93c
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac940
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac944
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac948
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac94c
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac950
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac954
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac958
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac95c
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac960
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac964
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac968
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac96c
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac970
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac974
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac978
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac97c
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac980
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac984
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac988
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac98c
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac990
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac994
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac998
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac99c
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9a0
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9a4
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9a8
-.word func0f0a5300+0x228 # f0a5528
+.word bgun0f0a5300+0x228 # f0a5528
 glabel var7f1ac9ac
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9b0
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9b4
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9b8
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9bc
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9c0
-.word func0f0a5300+0x240 # f0a5540
+.word bgun0f0a5300+0x240 # f0a5540
 glabel var7f1ac9c4
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9c8
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9cc
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9d0
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9d4
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9d8
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9dc
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 glabel var7f1ac9e0
-.word func0f0a5300+0x20c # f0a550c
+.word bgun0f0a5300+0x20c # f0a550c
 .text
 /*  f0a5300:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f0a5304:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -21613,12 +21613,12 @@ glabel var7f1ac9e0
 .L0f0a541c:
 /*  f0a541c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a5420:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f0a5424:	0fc25f9d */ 	jal	func0f097e74
+/*  f0a5424:	0fc25f9d */ 	jal	bgun0f097e74
 /*  f0a5428:	8fa70088 */ 	lw	$a3,0x88($sp)
 /*  f0a542c:	24040047 */ 	addiu	$a0,$zero,0x47
 /*  f0a5430:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0a5434:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f0a5438:	0fc25f9d */ 	jal	func0f097e74
+/*  f0a5438:	0fc25f9d */ 	jal	bgun0f097e74
 /*  f0a543c:	8fa70088 */ 	lw	$a3,0x88($sp)
 /*  f0a5440:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f0a5444:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
@@ -21700,80 +21700,80 @@ glabel var7f1ac9e0
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a5550
+glabel bgun0f0a5550
 .late_rodata
 glabel var7f1ac9e4
 .word 0x40490fdb
 glabel var7f1ac9e8
 .word 0x3dccccce
 glabel var7f1ac9ec
-.word func0f0a5550+0xca8
+.word bgun0f0a5550+0xca8
 glabel var7f1ac9f0
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1ac9f4
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1ac9f8
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1ac9fc
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca00
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca04
-.word func0f0a5550+0xcb0
+.word bgun0f0a5550+0xcb0
 glabel var7f1aca08
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca0c
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca10
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca14
-.word func0f0a5550+0xcc4
+.word bgun0f0a5550+0xcc4
 glabel var7f1aca18
-.word func0f0a5550+0xcc4
+.word bgun0f0a5550+0xcc4
 glabel var7f1aca1c
-.word func0f0a5550+0xcc4
+.word bgun0f0a5550+0xcc4
 glabel var7f1aca20
-.word func0f0a5550+0xcc4
+.word bgun0f0a5550+0xcc4
 glabel var7f1aca24
-.word func0f0a5550+0xcc4
+.word bgun0f0a5550+0xcc4
 glabel var7f1aca28
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca2c
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca30
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca34
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca38
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca3c
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca40
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca44
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca48
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca4c
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca50
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca54
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca58
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca5c
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca60
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca64
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca68
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca6c
-.word func0f0a5550+0xd08
+.word bgun0f0a5550+0xd08
 glabel var7f1aca70
-.word func0f0a5550+0xcc4
+.word bgun0f0a5550+0xcc4
 glabel var7f1adc74pf
 .word 0x7f0a6668
 glabel var7f1adc78pf
@@ -21901,7 +21901,7 @@ glabel var7f1add20pf
 /*  f0a58f4:	afa001d4 */ 	sw	$zero,0x1d4($sp)
 /*  f0a58f8:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f0a58fc:	afa40310 */ 	sw	$a0,0x310($sp)
-/*  f0a5900:	0fc28749 */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a5900:	0fc28749 */ 	jal	bgunGetWeaponNum2
 /*  f0a5904:	afa201e0 */ 	sw	$v0,0x1e0($sp)
 /*  f0a5908:	afa201cc */ 	sw	$v0,0x1cc($sp)
 /*  f0a590c:	afa001c0 */ 	sw	$zero,0x1c0($sp)
@@ -21932,12 +21932,12 @@ glabel var7f1add20pf
 .PF0f0a596c:
 /*  f0a596c:	02002025 */ 	move	$a0,$s0
 .PF0f0a5970:
-/*  f0a5970:	0fc27601 */ 	jal	func0f09d550
+/*  f0a5970:	0fc27601 */ 	jal	bgun0f09d550
 /*  f0a5974:	8fa50310 */ 	lw	$a1,0x310($sp)
 /*  f0a5978:	8fac0310 */ 	lw	$t4,0x310($sp)
 /*  f0a597c:	1580002b */ 	bnez	$t4,.PF0f0a5a2c
 /*  f0a5980:	00000000 */ 	nop
-/*  f0a5984:	0fc28749 */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a5984:	0fc28749 */ 	jal	bgunGetWeaponNum2
 /*  f0a5988:	24040001 */ 	li	$a0,0x1
 /*  f0a598c:	00402025 */ 	move	$a0,$v0
 /*  f0a5990:	0fc2c720 */ 	jal	weaponHasFlag
@@ -21981,7 +21981,7 @@ glabel var7f1add20pf
 /*  f0a5a24:	1000002b */ 	b	.PF0f0a5ad4
 /*  f0a5a28:	e60601bc */ 	swc1	$f6,0x1bc($s0)
 .PF0f0a5a2c:
-/*  f0a5a2c:	0fc28749 */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a5a2c:	0fc28749 */ 	jal	bgunGetWeaponNum2
 /*  f0a5a30:	00002025 */ 	move	$a0,$zero
 /*  f0a5a34:	00402025 */ 	move	$a0,$v0
 /*  f0a5a38:	0fc2c720 */ 	jal	weaponHasFlag
@@ -22325,14 +22325,14 @@ glabel var7f1add20pf
 /*  f0a5f50:	24010007 */ 	li	$at,0x7
 /*  f0a5f54:	5041000d */ 	beql	$v0,$at,.PF0f0a5f8c
 /*  f0a5f58:	a2000007 */ 	sb	$zero,0x7($s0)
-/*  f0a5f5c:	0fc2780c */ 	jal	func0f09dd7c
+/*  f0a5f5c:	0fc2780c */ 	jal	bgun0f09dd7c
 /*  f0a5f60:	00000000 */ 	nop
 /*  f0a5f64:	50400009 */ 	beqzl	$v0,.PF0f0a5f8c
 /*  f0a5f68:	a2000007 */ 	sb	$zero,0x7($s0)
 /*  f0a5f6c:	820d0008 */ 	lb	$t5,0x8($s0)
 /*  f0a5f70:	51a00006 */ 	beqzl	$t5,.PF0f0a5f8c
 /*  f0a5f74:	a2000007 */ 	sb	$zero,0x7($s0)
-/*  f0a5f78:	0fc27820 */ 	jal	func0f09ddcc
+/*  f0a5f78:	0fc27820 */ 	jal	bgun0f09ddcc
 /*  f0a5f7c:	00000000 */ 	nop
 /*  f0a5f80:	54400003 */ 	bnezl	$v0,.PF0f0a5f90
 /*  f0a5f84:	820c0007 */ 	lb	$t4,0x7($s0)
@@ -22375,24 +22375,24 @@ glabel var7f1add20pf
 /*  f0a6008:	5420fff6 */ 	bnezl	$at,.PF0f0a5fe4
 /*  f0a600c:	afa201d0 */ 	sw	$v0,0x1d0($sp)
 .PF0f0a6010:
-/*  f0a6010:	0fc28c37 */ 	jal	func0f0a2da8
+/*  f0a6010:	0fc28c37 */ 	jal	bgun0f0a2da8
 /*  f0a6014:	8e040794 */ 	lw	$a0,0x794($s0)
 /*  f0a6018:	8fa901e0 */ 	lw	$t1,0x1e0($sp)
 /*  f0a601c:	8d2d1594 */ 	lw	$t5,0x1594($t1)
 /*  f0a6020:	51a00004 */ 	beqzl	$t5,.PF0f0a6034
 /*  f0a6024:	02002025 */ 	move	$a0,$s0
-/*  f0a6028:	0fc28c37 */ 	jal	func0f0a2da8
+/*  f0a6028:	0fc28c37 */ 	jal	bgun0f0a2da8
 /*  f0a602c:	8e040798 */ 	lw	$a0,0x798($s0)
 /*  f0a6030:	02002025 */ 	move	$a0,$s0
 .PF0f0a6034:
-/*  f0a6034:	0fc25fd4 */ 	jal	func0f098030
+/*  f0a6034:	0fc25fd4 */ 	jal	bgun0f098030
 /*  f0a6038:	8fa50288 */ 	lw	$a1,0x288($sp)
 /*  f0a603c:	8fa401cc */ 	lw	$a0,0x1cc($sp)
 /*  f0a6040:	0fc2c720 */ 	jal	weaponHasFlag
 /*  f0a6044:	24052000 */ 	li	$a1,0x2000
 /*  f0a6048:	10400003 */ 	beqz	$v0,.PF0f0a6058
 /*  f0a604c:	02002025 */ 	move	$a0,$s0
-/*  f0a6050:	0fc26042 */ 	jal	func0f0981e8
+/*  f0a6050:	0fc26042 */ 	jal	bgun0f0981e8
 /*  f0a6054:	8fa50288 */ 	lw	$a1,0x288($sp)
 .PF0f0a6058:
 /*  f0a6058:	0c0055d0 */ 	jal	func000159b0
@@ -22448,7 +22448,7 @@ glabel var7f1add20pf
 /*  f0a6110:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0a6114:	8fa50310 */ 	lw	$a1,0x310($sp)
 /*  f0a6118:	27a6027c */ 	addiu	$a2,$sp,0x27c
-/*  f0a611c:	0fc28d25 */ 	jal	func0f0a3160
+/*  f0a611c:	0fc28d25 */ 	jal	bgun0f0a3160
 /*  f0a6120:	8fa701d8 */ 	lw	$a3,0x1d8($sp)
 .PF0f0a6124:
 /*  f0a6124:	8e0a00b4 */ 	lw	$t2,0xb4($s0)
@@ -22516,19 +22516,19 @@ glabel var7f1add20pf
 /*  f0a6210:	44804000 */ 	mtc1	$zero,$f8
 /*  f0a6214:	27a40120 */ 	addiu	$a0,$sp,0x120
 /*  f0a6218:	8fa50310 */ 	lw	$a1,0x310($sp)
-/*  f0a621c:	0fc28a09 */ 	jal	func0f0a24f0
+/*  f0a621c:	0fc28a09 */ 	jal	bgun0f0a24f0
 /*  f0a6220:	e7a801b0 */ 	swc1	$f8,0x1b0($sp)
 /*  f0a6224:	c7ac0120 */ 	lwc1	$f12,0x120($sp)
 /*  f0a6228:	c7ae0128 */ 	lwc1	$f14,0x128($sp)
 /*  f0a622c:	8fa6027c */ 	lw	$a2,0x27c($sp)
-/*  f0a6230:	0fc289f3 */ 	jal	func0f0a2498
+/*  f0a6230:	0fc289f3 */ 	jal	bgun0f0a2498
 /*  f0a6234:	8fa70284 */ 	lw	$a3,0x284($sp)
 /*  f0a6238:	46000287 */ 	neg.s	$f10,$f0
 /*  f0a623c:	c7ac0124 */ 	lwc1	$f12,0x124($sp)
 /*  f0a6240:	e7aa01b0 */ 	swc1	$f10,0x1b0($sp)
 /*  f0a6244:	c7ae0128 */ 	lwc1	$f14,0x128($sp)
 /*  f0a6248:	8fa60280 */ 	lw	$a2,0x280($sp)
-/*  f0a624c:	0fc289f3 */ 	jal	func0f0a2498
+/*  f0a624c:	0fc289f3 */ 	jal	bgun0f0a2498
 /*  f0a6250:	8fa70284 */ 	lw	$a3,0x284($sp)
 /*  f0a6254:	e7a001ac */ 	swc1	$f0,0x1ac($sp)
 /*  f0a6258:	c7b201ac */ 	lwc1	$f18,0x1ac($sp)
@@ -22652,7 +22652,7 @@ glabel var7f1add20pf
 /*  f0a6418:	19400005 */ 	blez	$t2,.PF0f0a6430
 /*  f0a641c:	02002025 */ 	move	$a0,$s0
 /*  f0a6420:	8fa50288 */ 	lw	$a1,0x288($sp)
-/*  f0a6424:	0fc29241 */ 	jal	func0f0a45d0
+/*  f0a6424:	0fc29241 */ 	jal	bgun0f0a45d0
 /*  f0a6428:	8fa601c0 */ 	lw	$a2,0x1c0($sp)
 /*  f0a642c:	8fa801cc */ 	lw	$t0,0x1cc($sp)
 .PF0f0a6430:
@@ -22670,13 +22670,13 @@ glabel var7f1add20pf
 /*  f0a645c:	2401001d */ 	li	$at,0x1d
 /*  f0a6460:	15010009 */ 	bne	$t0,$at,.PF0f0a6488
 /*  f0a6464:	00000000 */ 	nop
-/*  f0a6468:	0fc2919a */ 	jal	func0f0a4334
+/*  f0a6468:	0fc2919a */ 	jal	bgun0f0a4334
 /*  f0a646c:	02002025 */ 	move	$a0,$s0
 /*  f0a6470:	10000005 */ 	b	.PF0f0a6488
 /*  f0a6474:	8fa801cc */ 	lw	$t0,0x1cc($sp)
 .PF0f0a6478:
 /*  f0a6478:	02002025 */ 	move	$a0,$s0
-/*  f0a647c:	0fc28f76 */ 	jal	func0f0a3aa4
+/*  f0a647c:	0fc28f76 */ 	jal	bgun0f0a3aa4
 /*  f0a6480:	8fa50288 */ 	lw	$a1,0x288($sp)
 /*  f0a6484:	8fa801cc */ 	lw	$t0,0x1cc($sp)
 .PF0f0a6488:
@@ -22915,7 +22915,7 @@ glabel var7f1add20pf
 /*  f0a67d0:	0c0068ad */ 	jal	func0001a524
 /*  f0a67d4:	00002825 */ 	move	$a1,$zero
 /*  f0a67d8:	afa20084 */ 	sw	$v0,0x84($sp)
-/*  f0a67dc:	0fc2899c */ 	jal	func0f0a233c
+/*  f0a67dc:	0fc2899c */ 	jal	bgun0f0a233c
 /*  f0a67e0:	8fa40310 */ 	lw	$a0,0x310($sp)
 /*  f0a67e4:	44800000 */ 	mtc1	$zero,$f0
 /*  f0a67e8:	8fa90084 */ 	lw	$t1,0x84($sp)
@@ -22974,18 +22974,18 @@ glabel var7f1add20pf
 /*  f0a68ac:	1000000d */ 	b	.PF0f0a68e4
 /*  f0a68b0:	8fa40288 */ 	lw	$a0,0x288($sp)
 .PF0f0a68b4:
-/*  f0a68b4:	0fc29078 */ 	jal	func0f0a3eac
+/*  f0a68b4:	0fc29078 */ 	jal	bgun0f0a3eac
 /*  f0a68b8:	8fa5030c */ 	lw	$a1,0x30c($sp)
 /*  f0a68bc:	10000009 */ 	b	.PF0f0a68e4
 /*  f0a68c0:	8fa40288 */ 	lw	$a0,0x288($sp)
 .PF0f0a68c4:
 /*  f0a68c4:	8fa5030c */ 	lw	$a1,0x30c($sp)
-/*  f0a68c8:	0fc290f2 */ 	jal	func0f0a4094
+/*  f0a68c8:	0fc290f2 */ 	jal	bgun0f0a4094
 /*  f0a68cc:	8fa60288 */ 	lw	$a2,0x288($sp)
 /*  f0a68d0:	10000004 */ 	b	.PF0f0a68e4
 /*  f0a68d4:	8fa40288 */ 	lw	$a0,0x288($sp)
 .PF0f0a68d8:
-/*  f0a68d8:	0fc29134 */ 	jal	func0f0a419c
+/*  f0a68d8:	0fc29134 */ 	jal	bgun0f0a419c
 /*  f0a68dc:	8fa70288 */ 	lw	$a3,0x288($sp)
 /*  f0a68e0:	8fa40288 */ 	lw	$a0,0x288($sp)
 .PF0f0a68e4:
@@ -23078,7 +23078,7 @@ glabel var7f1add20pf
 /*  f0a6a30:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0a6a34:	afa90018 */ 	sw	$t1,0x18($sp)
 /*  f0a6a38:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0a6a3c:	0fc29457 */ 	jal	func0f0a4e44
+/*  f0a6a3c:	0fc29457 */ 	jal	bgun0f0a4e44
 /*  f0a6a40:	afaa0014 */ 	sw	$t2,0x14($sp)
 /*  f0a6a44:	10000044 */ 	b	.PF0f0a6b58
 /*  f0a6a48:	8fb901cc */ 	lw	$t9,0x1cc($sp)
@@ -23163,7 +23163,7 @@ glabel var7f1add20pf
 /*  f0a6b6c:	1721000f */ 	bne	$t9,$at,.PF0f0a6bac
 /*  f0a6b70:	02002025 */ 	move	$a0,$s0
 /*  f0a6b74:	8fa50310 */ 	lw	$a1,0x310($sp)
-/*  f0a6b78:	0fc29229 */ 	jal	func0f0a4570
+/*  f0a6b78:	0fc29229 */ 	jal	bgun0f0a4570
 /*  f0a6b7c:	8fa601d8 */ 	lw	$a2,0x1d8($sp)
 /*  f0a6b80:	1000000b */ 	b	.PF0f0a6bb0
 /*  f0a6b84:	820c0004 */ 	lb	$t4,0x4($s0)
@@ -23175,7 +23175,7 @@ glabel var7f1add20pf
 /*  f0a6b98:	000d7742 */ 	srl	$t6,$t5,0x1d
 /*  f0a6b9c:	19c00003 */ 	blez	$t6,.PF0f0a6bac
 /*  f0a6ba0:	8fa60288 */ 	lw	$a2,0x288($sp)
-/*  f0a6ba4:	0fc291db */ 	jal	func0f0a4438
+/*  f0a6ba4:	0fc291db */ 	jal	bgun0f0a4438
 /*  f0a6ba8:	8fa7030c */ 	lw	$a3,0x30c($sp)
 .PF0f0a6bac:
 /*  f0a6bac:	820c0004 */ 	lb	$t4,0x4($s0)
@@ -23191,7 +23191,7 @@ glabel var7f1add20pf
 /*  f0a6bd0:	8fa9030c */ 	lw	$t1,0x30c($sp)
 /*  f0a6bd4:	8fa701cc */ 	lw	$a3,0x1cc($sp)
 /*  f0a6bd8:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0a6bdc:	0fc29586 */ 	jal	func0f0a5300
+/*  f0a6bdc:	0fc29586 */ 	jal	bgun0f0a5300
 /*  f0a6be0:	afa90014 */ 	sw	$t1,0x14($sp)
 .PF0f0a6be4:
 /*  f0a6be4:	3c0b800a */ 	lui	$t3,0x800a
@@ -23243,7 +23243,7 @@ glabel var7f1add20pf
 /*  f0a6c88:	8fa50310 */ 	lw	$a1,0x310($sp)
 /*  f0a6c8c:	11200003 */ 	beqz	$t1,.PF0f0a6c9c
 /*  f0a6c90:	8fa601cc */ 	lw	$a2,0x1cc($sp)
-/*  f0a6c94:	0fc28df1 */ 	jal	func0f0a3490
+/*  f0a6c94:	0fc28df1 */ 	jal	bgun0f0a3490
 /*  f0a6c98:	8fa701d8 */ 	lw	$a3,0x1d8($sp)
 .PF0f0a6c9c:
 /*  f0a6c9c:	960b06d6 */ 	lhu	$t3,0x6d6($s0)
@@ -23253,7 +23253,7 @@ glabel var7f1add20pf
 /*  f0a6ca8:	000bcb02 */ 	srl	$t9,$t3,0xc
 /*  f0a6cac:	1b200003 */ 	blez	$t9,.PF0f0a6cbc
 /*  f0a6cb0:	00000000 */ 	nop
-/*  f0a6cb4:	0fc29276 */ 	jal	func0f0a46a4
+/*  f0a6cb4:	0fc29276 */ 	jal	bgun0f0a46a4
 /*  f0a6cb8:	8fa601c0 */ 	lw	$a2,0x1c0($sp)
 .PF0f0a6cbc:
 /*  f0a6cbc:	3c0f800a */ 	lui	$t7,0x800a
@@ -23308,7 +23308,7 @@ glabel var7f1add20pf
 /*  f0a6d64:	02002025 */ 	move	$a0,$s0
 /*  f0a6d68:	8fa50288 */ 	lw	$a1,0x288($sp)
 /*  f0a6d6c:	8fa60310 */ 	lw	$a2,0x310($sp)
-/*  f0a6d70:	0fc28eba */ 	jal	func0f0a37b4
+/*  f0a6d70:	0fc28eba */ 	jal	bgun0f0a37b4
 /*  f0a6d74:	8fa7030c */ 	lw	$a3,0x30c($sp)
 /*  f0a6d78:	10000004 */ 	b	.PF0f0a6d8c
 /*  f0a6d7c:	44803000 */ 	mtc1	$zero,$f6
@@ -23327,80 +23327,80 @@ glabel var7f1add20pf
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a5550
+glabel bgun0f0a5550
 .late_rodata
 glabel var7f1ac9e4
 .word 0x40490fdb
 glabel var7f1ac9e8
 .word 0x3dccccce
 glabel var7f1ac9ec
-.word func0f0a5550+0xca4 # f0a61f4
+.word bgun0f0a5550+0xca4 # f0a61f4
 glabel var7f1ac9f0
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1ac9f4
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1ac9f8
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1ac9fc
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca00
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca04
-.word func0f0a5550+0xcac # f0a61fc
+.word bgun0f0a5550+0xcac # f0a61fc
 glabel var7f1aca08
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca0c
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca10
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca14
-.word func0f0a5550+0xcc0 # f0a6210
+.word bgun0f0a5550+0xcc0 # f0a6210
 glabel var7f1aca18
-.word func0f0a5550+0xcc0 # f0a6210
+.word bgun0f0a5550+0xcc0 # f0a6210
 glabel var7f1aca1c
-.word func0f0a5550+0xcc0 # f0a6210
+.word bgun0f0a5550+0xcc0 # f0a6210
 glabel var7f1aca20
-.word func0f0a5550+0xcc0 # f0a6210
+.word bgun0f0a5550+0xcc0 # f0a6210
 glabel var7f1aca24
-.word func0f0a5550+0xcc0 # f0a6210
+.word bgun0f0a5550+0xcc0 # f0a6210
 glabel var7f1aca28
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca2c
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca30
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca34
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca38
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca3c
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca40
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca44
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca48
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca4c
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca50
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca54
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca58
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca5c
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca60
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca64
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca68
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca6c
-.word func0f0a5550+0xd04 # f0a6254
+.word bgun0f0a5550+0xd04 # f0a6254
 glabel var7f1aca70
-.word func0f0a5550+0xcc0 # f0a6210
+.word bgun0f0a5550+0xcc0 # f0a6210
 .text
 /*  f0a5550:	27bdfcf8 */ 	addiu	$sp,$sp,-776
 /*  f0a5554:	3c0f8007 */ 	lui	$t7,%hi(var80070244)
@@ -23440,7 +23440,7 @@ glabel var7f1aca70
 /*  f0a55dc:	afa001cc */ 	sw	$zero,0x1cc($sp)
 /*  f0a55e0:	afa30050 */ 	sw	$v1,0x50($sp)
 /*  f0a55e4:	afa40308 */ 	sw	$a0,0x308($sp)
-/*  f0a55e8:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a55e8:	0fc2867c */ 	jal	bgunGetWeaponNum2
 /*  f0a55ec:	afa201d8 */ 	sw	$v0,0x1d8($sp)
 /*  f0a55f0:	afa201c4 */ 	sw	$v0,0x1c4($sp)
 /*  f0a55f4:	afa001b8 */ 	sw	$zero,0x1b8($sp)
@@ -23471,12 +23471,12 @@ glabel var7f1aca70
 .L0f0a5654:
 /*  f0a5654:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0a5658:
-/*  f0a5658:	0fc27554 */ 	jal	func0f09d550
+/*  f0a5658:	0fc27554 */ 	jal	bgun0f09d550
 /*  f0a565c:	8fa50308 */ 	lw	$a1,0x308($sp)
 /*  f0a5660:	8fac0308 */ 	lw	$t4,0x308($sp)
 /*  f0a5664:	1580002b */ 	bnez	$t4,.L0f0a5714
 /*  f0a5668:	00000000 */ 	nop
-/*  f0a566c:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a566c:	0fc2867c */ 	jal	bgunGetWeaponNum2
 /*  f0a5670:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0a5674:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a5678:	0fc2c5f0 */ 	jal	weaponHasFlag
@@ -23520,7 +23520,7 @@ glabel var7f1aca70
 /*  f0a570c:	1000002b */ 	b	.L0f0a57bc
 /*  f0a5710:	e60601bc */ 	swc1	$f6,0x1bc($s0)
 .L0f0a5714:
-/*  f0a5714:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a5714:	0fc2867c */ 	jal	bgunGetWeaponNum2
 /*  f0a5718:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a571c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a5720:	0fc2c5f0 */ 	jal	weaponHasFlag
@@ -23864,14 +23864,14 @@ glabel var7f1aca70
 /*  f0a5c38:	24010007 */ 	addiu	$at,$zero,0x7
 /*  f0a5c3c:	5041000d */ 	beql	$v0,$at,.L0f0a5c74
 /*  f0a5c40:	a2000007 */ 	sb	$zero,0x7($s0)
-/*  f0a5c44:	0fc2775f */ 	jal	func0f09dd7c
+/*  f0a5c44:	0fc2775f */ 	jal	bgun0f09dd7c
 /*  f0a5c48:	00000000 */ 	nop
 /*  f0a5c4c:	50400009 */ 	beqzl	$v0,.L0f0a5c74
 /*  f0a5c50:	a2000007 */ 	sb	$zero,0x7($s0)
 /*  f0a5c54:	820d0008 */ 	lb	$t5,0x8($s0)
 /*  f0a5c58:	51a00006 */ 	beqzl	$t5,.L0f0a5c74
 /*  f0a5c5c:	a2000007 */ 	sb	$zero,0x7($s0)
-/*  f0a5c60:	0fc27773 */ 	jal	func0f09ddcc
+/*  f0a5c60:	0fc27773 */ 	jal	bgun0f09ddcc
 /*  f0a5c64:	00000000 */ 	nop
 /*  f0a5c68:	54400003 */ 	bnezl	$v0,.L0f0a5c78
 /*  f0a5c6c:	820c0007 */ 	lb	$t4,0x7($s0)
@@ -23914,24 +23914,24 @@ glabel var7f1aca70
 /*  f0a5cf0:	5420fff6 */ 	bnezl	$at,.L0f0a5ccc
 /*  f0a5cf4:	afa201c8 */ 	sw	$v0,0x1c8($sp)
 .L0f0a5cf8:
-/*  f0a5cf8:	0fc28b6a */ 	jal	func0f0a2da8
+/*  f0a5cf8:	0fc28b6a */ 	jal	bgun0f0a2da8
 /*  f0a5cfc:	8e040794 */ 	lw	$a0,0x794($s0)
 /*  f0a5d00:	8fa901d8 */ 	lw	$t1,0x1d8($sp)
 /*  f0a5d04:	8d2d1594 */ 	lw	$t5,0x1594($t1)
 /*  f0a5d08:	51a00004 */ 	beqzl	$t5,.L0f0a5d1c
 /*  f0a5d0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a5d10:	0fc28b6a */ 	jal	func0f0a2da8
+/*  f0a5d10:	0fc28b6a */ 	jal	bgun0f0a2da8
 /*  f0a5d14:	8e040798 */ 	lw	$a0,0x798($s0)
 /*  f0a5d18:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0a5d1c:
-/*  f0a5d1c:	0fc2600c */ 	jal	func0f098030
+/*  f0a5d1c:	0fc2600c */ 	jal	bgun0f098030
 /*  f0a5d20:	8fa50280 */ 	lw	$a1,0x280($sp)
 /*  f0a5d24:	8fa401c4 */ 	lw	$a0,0x1c4($sp)
 /*  f0a5d28:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f0a5d2c:	24052000 */ 	addiu	$a1,$zero,0x2000
 /*  f0a5d30:	10400003 */ 	beqz	$v0,.L0f0a5d40
 /*  f0a5d34:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a5d38:	0fc2607a */ 	jal	func0f0981e8
+/*  f0a5d38:	0fc2607a */ 	jal	bgun0f0981e8
 /*  f0a5d3c:	8fa50280 */ 	lw	$a1,0x280($sp)
 .L0f0a5d40:
 /*  f0a5d40:	0c00566c */ 	jal	func000159b0
@@ -23987,7 +23987,7 @@ glabel var7f1aca70
 /*  f0a5df8:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0a5dfc:	8fa50308 */ 	lw	$a1,0x308($sp)
 /*  f0a5e00:	27a60274 */ 	addiu	$a2,$sp,0x274
-/*  f0a5e04:	0fc28c58 */ 	jal	func0f0a3160
+/*  f0a5e04:	0fc28c58 */ 	jal	bgun0f0a3160
 /*  f0a5e08:	8fa701d0 */ 	lw	$a3,0x1d0($sp)
 .L0f0a5e0c:
 /*  f0a5e0c:	8e0a00b4 */ 	lw	$t2,0xb4($s0)
@@ -24055,19 +24055,19 @@ glabel var7f1aca70
 /*  f0a5ef8:	44804000 */ 	mtc1	$zero,$f8
 /*  f0a5efc:	27a40118 */ 	addiu	$a0,$sp,0x118
 /*  f0a5f00:	8fa50308 */ 	lw	$a1,0x308($sp)
-/*  f0a5f04:	0fc2893c */ 	jal	func0f0a24f0
+/*  f0a5f04:	0fc2893c */ 	jal	bgun0f0a24f0
 /*  f0a5f08:	e7a801a8 */ 	swc1	$f8,0x1a8($sp)
 /*  f0a5f0c:	c7ac0118 */ 	lwc1	$f12,0x118($sp)
 /*  f0a5f10:	c7ae0120 */ 	lwc1	$f14,0x120($sp)
 /*  f0a5f14:	8fa60274 */ 	lw	$a2,0x274($sp)
-/*  f0a5f18:	0fc28926 */ 	jal	func0f0a2498
+/*  f0a5f18:	0fc28926 */ 	jal	bgun0f0a2498
 /*  f0a5f1c:	8fa7027c */ 	lw	$a3,0x27c($sp)
 /*  f0a5f20:	46000287 */ 	neg.s	$f10,$f0
 /*  f0a5f24:	c7ac011c */ 	lwc1	$f12,0x11c($sp)
 /*  f0a5f28:	e7aa01a8 */ 	swc1	$f10,0x1a8($sp)
 /*  f0a5f2c:	c7ae0120 */ 	lwc1	$f14,0x120($sp)
 /*  f0a5f30:	8fa60278 */ 	lw	$a2,0x278($sp)
-/*  f0a5f34:	0fc28926 */ 	jal	func0f0a2498
+/*  f0a5f34:	0fc28926 */ 	jal	bgun0f0a2498
 /*  f0a5f38:	8fa7027c */ 	lw	$a3,0x27c($sp)
 /*  f0a5f3c:	e7a001a4 */ 	swc1	$f0,0x1a4($sp)
 /*  f0a5f40:	c7b201a4 */ 	lwc1	$f18,0x1a4($sp)
@@ -24190,7 +24190,7 @@ glabel var7f1aca70
 /*  f0a60fc:	19600004 */ 	blez	$t3,.L0f0a6110
 /*  f0a6100:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a6104:	8fa50280 */ 	lw	$a1,0x280($sp)
-/*  f0a6108:	0fc29174 */ 	jal	func0f0a45d0
+/*  f0a6108:	0fc29174 */ 	jal	bgun0f0a45d0
 /*  f0a610c:	8fa601b8 */ 	lw	$a2,0x1b8($sp)
 .L0f0a6110:
 /*  f0a6110:	2408ffff */ 	addiu	$t0,$zero,-1
@@ -24207,13 +24207,13 @@ glabel var7f1aca70
 /*  f0a613c:	2401001d */ 	addiu	$at,$zero,0x1d
 /*  f0a6140:	17210009 */ 	bne	$t9,$at,.L0f0a6168
 /*  f0a6144:	00000000 */ 	nop
-/*  f0a6148:	0fc290cd */ 	jal	func0f0a4334
+/*  f0a6148:	0fc290cd */ 	jal	bgun0f0a4334
 /*  f0a614c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a6150:	10000005 */ 	b	.L0f0a6168
 /*  f0a6154:	2408ffff */ 	addiu	$t0,$zero,-1
 .L0f0a6158:
 /*  f0a6158:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a615c:	0fc28ea9 */ 	jal	func0f0a3aa4
+/*  f0a615c:	0fc28ea9 */ 	jal	bgun0f0a3aa4
 /*  f0a6160:	8fa50280 */ 	lw	$a1,0x280($sp)
 /*  f0a6164:	2408ffff */ 	addiu	$t0,$zero,-1
 .L0f0a6168:
@@ -24370,7 +24370,7 @@ glabel var7f1aca70
 /*  f0a638c:	0c006949 */ 	jal	func0001a524
 /*  f0a6390:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a6394:	afa20080 */ 	sw	$v0,0x80($sp)
-/*  f0a6398:	0fc288cf */ 	jal	func0f0a233c
+/*  f0a6398:	0fc288cf */ 	jal	bgun0f0a233c
 /*  f0a639c:	8fa40308 */ 	lw	$a0,0x308($sp)
 /*  f0a63a0:	44800000 */ 	mtc1	$zero,$f0
 /*  f0a63a4:	8fae0080 */ 	lw	$t6,0x80($sp)
@@ -24429,18 +24429,18 @@ glabel var7f1aca70
 /*  f0a6468:	1000000d */ 	b	.L0f0a64a0
 /*  f0a646c:	8fa40280 */ 	lw	$a0,0x280($sp)
 .L0f0a6470:
-/*  f0a6470:	0fc28fab */ 	jal	func0f0a3eac
+/*  f0a6470:	0fc28fab */ 	jal	bgun0f0a3eac
 /*  f0a6474:	8fa50304 */ 	lw	$a1,0x304($sp)
 /*  f0a6478:	10000009 */ 	b	.L0f0a64a0
 /*  f0a647c:	8fa40280 */ 	lw	$a0,0x280($sp)
 .L0f0a6480:
 /*  f0a6480:	8fa50304 */ 	lw	$a1,0x304($sp)
-/*  f0a6484:	0fc29025 */ 	jal	func0f0a4094
+/*  f0a6484:	0fc29025 */ 	jal	bgun0f0a4094
 /*  f0a6488:	8fa60280 */ 	lw	$a2,0x280($sp)
 /*  f0a648c:	10000004 */ 	b	.L0f0a64a0
 /*  f0a6490:	8fa40280 */ 	lw	$a0,0x280($sp)
 .L0f0a6494:
-/*  f0a6494:	0fc29067 */ 	jal	func0f0a419c
+/*  f0a6494:	0fc29067 */ 	jal	bgun0f0a419c
 /*  f0a6498:	8fa70280 */ 	lw	$a3,0x280($sp)
 /*  f0a649c:	8fa40280 */ 	lw	$a0,0x280($sp)
 .L0f0a64a0:
@@ -24533,7 +24533,7 @@ glabel var7f1aca70
 /*  f0a65ec:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0a65f0:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0a65f4:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0a65f8:	0fc29391 */ 	jal	func0f0a4e44
+/*  f0a65f8:	0fc29391 */ 	jal	bgun0f0a4e44
 /*  f0a65fc:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0a6600:	10000044 */ 	b	.L0f0a6714
 /*  f0a6604:	8fac01c4 */ 	lw	$t4,0x1c4($sp)
@@ -24618,7 +24618,7 @@ glabel var7f1aca70
 /*  f0a6728:	1581000f */ 	bne	$t4,$at,.L0f0a6768
 /*  f0a672c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a6730:	8fa50308 */ 	lw	$a1,0x308($sp)
-/*  f0a6734:	0fc2915c */ 	jal	func0f0a4570
+/*  f0a6734:	0fc2915c */ 	jal	bgun0f0a4570
 /*  f0a6738:	8fa601d0 */ 	lw	$a2,0x1d0($sp)
 /*  f0a673c:	1000000b */ 	b	.L0f0a676c
 /*  f0a6740:	820f0004 */ 	lb	$t7,0x4($s0)
@@ -24630,7 +24630,7 @@ glabel var7f1aca70
 /*  f0a6754:	000a5f42 */ 	srl	$t3,$t2,0x1d
 /*  f0a6758:	19600003 */ 	blez	$t3,.L0f0a6768
 /*  f0a675c:	8fa60280 */ 	lw	$a2,0x280($sp)
-/*  f0a6760:	0fc2910e */ 	jal	func0f0a4438
+/*  f0a6760:	0fc2910e */ 	jal	bgun0f0a4438
 /*  f0a6764:	8fa70304 */ 	lw	$a3,0x304($sp)
 .L0f0a6768:
 /*  f0a6768:	820f0004 */ 	lb	$t7,0x4($s0)
@@ -24646,7 +24646,7 @@ glabel var7f1aca70
 /*  f0a678c:	8fb90304 */ 	lw	$t9,0x304($sp)
 /*  f0a6790:	8fa701c4 */ 	lw	$a3,0x1c4($sp)
 /*  f0a6794:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0a6798:	0fc294c0 */ 	jal	func0f0a5300
+/*  f0a6798:	0fc294c0 */ 	jal	bgun0f0a5300
 /*  f0a679c:	afb90014 */ 	sw	$t9,0x14($sp)
 .L0f0a67a0:
 /*  f0a67a0:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x6c)
@@ -24698,7 +24698,7 @@ glabel var7f1aca70
 /*  f0a6844:	8fa50308 */ 	lw	$a1,0x308($sp)
 /*  f0a6848:	13200003 */ 	beqz	$t9,.L0f0a6858
 /*  f0a684c:	8fa601c4 */ 	lw	$a2,0x1c4($sp)
-/*  f0a6850:	0fc28d24 */ 	jal	func0f0a3490
+/*  f0a6850:	0fc28d24 */ 	jal	bgun0f0a3490
 /*  f0a6854:	8fa701d0 */ 	lw	$a3,0x1d0($sp)
 .L0f0a6858:
 /*  f0a6858:	960d06d6 */ 	lhu	$t5,0x6d6($s0)
@@ -24708,7 +24708,7 @@ glabel var7f1aca70
 /*  f0a6864:	000d6302 */ 	srl	$t4,$t5,0xc
 /*  f0a6868:	19800003 */ 	blez	$t4,.L0f0a6878
 /*  f0a686c:	00000000 */ 	nop
-/*  f0a6870:	0fc291a9 */ 	jal	func0f0a46a4
+/*  f0a6870:	0fc291a9 */ 	jal	bgun0f0a46a4
 /*  f0a6874:	8fa601b8 */ 	lw	$a2,0x1b8($sp)
 .L0f0a6878:
 /*  f0a6878:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x6c)
@@ -24763,7 +24763,7 @@ glabel var7f1aca70
 /*  f0a6920:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a6924:	8fa50280 */ 	lw	$a1,0x280($sp)
 /*  f0a6928:	8fa60308 */ 	lw	$a2,0x308($sp)
-/*  f0a692c:	0fc28ded */ 	jal	func0f0a37b4
+/*  f0a692c:	0fc28ded */ 	jal	bgun0f0a37b4
 /*  f0a6930:	8fa70304 */ 	lw	$a3,0x304($sp)
 /*  f0a6934:	10000004 */ 	b	.L0f0a6948
 /*  f0a6938:	ae000684 */ 	sw	$zero,0x684($s0)
@@ -24780,7 +24780,7 @@ glabel var7f1aca70
 );
 #endif
 
-void handsTickMaulerCharge(void)
+void bgunTickMaulerCharge(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 i;
@@ -24790,7 +24790,7 @@ void handsTickMaulerCharge(void)
 		u32 charging = false;
 
 		if (hand->inuse) {
-			if (handIsReloading(hand)) {
+			if (bgunIsReloading(hand)) {
 				// Reloading - reset charge amount
 				hand->matmot1 = 0;
 			} else if (hand->gset.weaponfunc == FUNC_SECONDARY) {
@@ -24857,7 +24857,7 @@ void handsTickMaulerCharge(void)
 	}
 }
 
-void func0f0a6c30(void)
+void bgun0f0a6c30(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand;
@@ -24873,7 +24873,7 @@ void func0f0a6c30(void)
 	if (player->gunctrl.unk1583_06) {
 		// empty
 	} else {
-		func0f09ea90();
+		bgun0f09ea90();
 	}
 
 	// Return control to Jo if eyespy has been deselected
@@ -24883,7 +24883,7 @@ void func0f0a6c30(void)
 	}
 
 	if ((g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_XRAYSCANNER)
-			&& (handGetWeaponNum(HAND_RIGHT) != WEAPON_FARSIGHT || player->gunsightoff)) {
+			&& (bgunGetWeaponNum(HAND_RIGHT) != WEAPON_FARSIGHT || player->gunsightoff)) {
 		// Using normal xray scanner (not Farsight zoom)
 		if (player->visionmode != VISIONMODE_XRAY) {
 			player->erasertime = 0;
@@ -24930,7 +24930,7 @@ void func0f0a6c30(void)
 	}
 
 	if (player->gunctrl.weaponnum == WEAPON_MAULER) {
-		handsTickMaulerCharge();
+		bgunTickMaulerCharge();
 	}
 
 	if (g_Vars.lvupdate240 == 0) {
@@ -25010,26 +25010,26 @@ void func0f0a6c30(void)
 		}
 	}
 
-	handsTickUnequippedReload();
-	func0f0a5550(HAND_RIGHT);
+	bgunTickUnequippedReload();
+	bgun0f0a5550(HAND_RIGHT);
 
 	if (player->hands[HAND_LEFT].inuse) {
-		func0f0a5550(HAND_LEFT);
+		bgun0f0a5550(HAND_LEFT);
 	} else {
 		player->hands[HAND_LEFT].unk0d0e_00 = 0;
 	}
 
-	currentPlayerIsUsingSecondaryFunction();
+	bgunIsUsingSecondaryFunction();
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s8 freeFireslotWrapper(s32 fireslot_id)
+s8 bgunFreeFireslotWrapper(s32 fireslot_id)
 {
-	return freeFireslot(fireslot_id);
+	return bgunFreeFireslot(fireslot_id);
 }
 #else
 GLOBAL_ASM(
-glabel freeFireslotWrapper
+glabel bgunFreeFireslotWrapper
 /*  f0a4d84:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0a4d88:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0a4d8c:	0480001b */ 	bltz	$a0,.NB0f0a4dfc
@@ -25063,7 +25063,7 @@ glabel freeFireslotWrapper
 /*  f0a4df4:	0c00d428 */ 	jal	audioStop
 /*  f0a4df8:	8c640008 */ 	lw	$a0,0x8($v1)
 .NB0f0a4dfc:
-/*  f0a4dfc:	0fc29385 */ 	jal	freeFireslot
+/*  f0a4dfc:	0fc29385 */ 	jal	bgunFreeFireslot
 /*  f0a4e00:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f0a4e04:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0a4e08:	27bd0020 */ 	addiu	$sp,$sp,0x20
@@ -25072,7 +25072,7 @@ glabel freeFireslotWrapper
 );
 #endif
 
-s8 freeFireslot(s32 fireslot_id)
+s8 bgunFreeFireslot(s32 fireslot_id)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	if (fireslot_id >= 0 && fireslot_id < NUM_FIRESLOTS) {
@@ -25087,7 +25087,7 @@ s8 freeFireslot(s32 fireslot_id)
 	return -1;
 }
 
-s32 func0f0a70f8(void)
+s32 bgun0f0a70f8(void)
 {
 	s32 index = -1;
 	s32 i;
@@ -25112,7 +25112,7 @@ s32 func0f0a70f8(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a7138
+glabel bgun0f0a7138
 .late_rodata
 glabel var7f1aca8c
 .word 0x3faaaaab
@@ -25317,7 +25317,7 @@ glabel var7f1aca90
 /*  f0a7410:	8fb500e4 */ 	lw	$s5,0xe4($sp)
 /*  f0a7414:	24120019 */ 	addiu	$s2,$zero,0x1e
 .L0f0a7418:
-/*  f0a7418:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a7418:	0fc2867c */ 	jal	bgunGetWeaponNum2
 /*  f0a741c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0a7420:	afa200ec */ 	sw	$v0,0xec($sp)
 /*  f0a7424:	820a0007 */ 	lb	$t2,0x7($s0)
@@ -25953,7 +25953,7 @@ glabel var7f1aca90
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0a7138
+glabel bgun0f0a7138
 .late_rodata
 glabel var7f1aca8c
 .word 0x3faaaaab
@@ -26158,7 +26158,7 @@ glabel var7f1aca90
 /*  f0a7410:	8fb500e4 */ 	lw	$s5,0xe4($sp)
 /*  f0a7414:	24120019 */ 	addiu	$s2,$zero,0x19
 .L0f0a7418:
-/*  f0a7418:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a7418:	0fc2867c */ 	jal	bgunGetWeaponNum2
 /*  f0a741c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0a7420:	afa200ec */ 	sw	$v0,0xec($sp)
 /*  f0a7424:	820a0007 */ 	lb	$t2,0x7($s0)
@@ -26794,7 +26794,7 @@ glabel var7f1aca90
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a7138
+glabel bgun0f0a7138
 .late_rodata
 glabel var7f1aca8c
 .word 0x3faaaaab
@@ -26999,7 +26999,7 @@ glabel var7f1aca90
 /*  f0a515c:	8fb500dc */ 	lw	$s5,0xdc($sp)
 /*  f0a5160:	24120019 */ 	addiu	$s2,$zero,0x19
 .NB0f0a5164:
-/*  f0a5164:	0fc27de9 */ 	jal	getCurrentPlayerWeaponIdWrapper
+/*  f0a5164:	0fc27de9 */ 	jal	bgunGetWeaponNum2
 /*  f0a5168:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0a516c:	afa200e4 */ 	sw	$v0,0xe4($sp)
 /*  f0a5170:	820a0007 */ 	lb	$t2,0x7($s0)
@@ -27629,7 +27629,7 @@ glabel var7f1aca90
 /**
  * Find and return an available audio handle out of a pool of four.
  */
-struct audiohandle **func0f0a7d5c(void)
+struct audiohandle **bgun0f0a7d5c(void)
 {
 	s32 i;
 
@@ -27644,7 +27644,7 @@ struct audiohandle **func0f0a7d5c(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel gsetPlayPropHitSound
+glabel bgunPlayPropHitSound
 .late_rodata
 glabel var7f1aca94
 .word 0x453b8000
@@ -27719,7 +27719,7 @@ glabel var7f1aca94
 /*  f0a7e9c:	10000156 */ 	b	.L0f0a83f8
 /*  f0a7ea0:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .L0f0a7ea4:
-/*  f0a7ea4:	0fc29f57 */ 	jal	func0f0a7d5c
+/*  f0a7ea4:	0fc29f57 */ 	jal	bgun0f0a7d5c
 /*  f0a7ea8:	afa700c8 */ 	sw	$a3,0xc8($sp)
 /*  f0a7eac:	8fa700c8 */ 	lw	$a3,0xc8($sp)
 /*  f0a7eb0:	104000fa */ 	beqz	$v0,.L0f0a829c
@@ -28012,7 +28012,7 @@ glabel var7f1aca94
 /*  f0a82d8:	51400047 */ 	beqzl	$t2,.L0f0a83f8
 /*  f0a82dc:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0a82e0:	a7ab005e */ 	sh	$t3,0x5e($sp)
-/*  f0a82e4:	0fc29f57 */ 	jal	func0f0a7d5c
+/*  f0a82e4:	0fc29f57 */ 	jal	bgun0f0a7d5c
 /*  f0a82e8:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f0a82ec:	8fa30054 */ 	lw	$v1,0x54($sp)
 /*  f0a82f0:	10400040 */ 	beqz	$v0,.L0f0a83f4
@@ -28092,7 +28092,7 @@ glabel var7f1aca94
 );
 #else
 GLOBAL_ASM(
-glabel gsetPlayPropHitSound
+glabel bgunPlayPropHitSound
 .late_rodata
 glabel var7f1aca94
 .word 0x453b8000
@@ -28167,7 +28167,7 @@ glabel var7f1aca94
 /*  f0a5bc8:	10000181 */ 	beqz	$zero,.NB0f0a61d0
 /*  f0a5bcc:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .NB0f0a5bd0:
-/*  f0a5bd0:	0fc296a2 */ 	jal	func0f0a7d5c
+/*  f0a5bd0:	0fc296a2 */ 	jal	bgun0f0a7d5c
 /*  f0a5bd4:	afa700b8 */ 	sw	$a3,0xb8($sp)
 /*  f0a5bd8:	8fa700b8 */ 	lw	$a3,0xb8($sp)
 /*  f0a5bdc:	1040012d */ 	beqz	$v0,.NB0f0a6094
@@ -28513,7 +28513,7 @@ glabel var7f1aca94
 /*  f0a60d0:	5140003f */ 	beqzl	$t2,.NB0f0a61d0
 /*  f0a60d4:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0a60d8:	a7ae005e */ 	sh	$t6,0x5e($sp)
-/*  f0a60dc:	0fc296a2 */ 	jal	func0f0a7d5c
+/*  f0a60dc:	0fc296a2 */ 	jal	bgun0f0a7d5c
 /*  f0a60e0:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f0a60e4:	8fa30054 */ 	lw	$v1,0x54($sp)
 /*  f0a60e8:	10400038 */ 	beqz	$v0,.NB0f0a61cc
@@ -28584,10 +28584,10 @@ glabel var7f1aca94
 );
 #endif
 
-void func0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
+void bgun0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
 {
 	if (g_Vars.lvupdate240 > 0) {
-		struct audiohandle **handle = func0f0a7d5c();
+		struct audiohandle **handle = bgun0f0a7d5c();
 
 		if (handle) {
 			sndStart(var80095200, SFX_HIT_GLASS, handle, -1, -1, -1, -1, -1);
@@ -28601,7 +28601,7 @@ void func0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0f0a84c8
+glabel bgun0f0a84c8
 .late_rodata
 glabel var7f1aca9c
 .word 0x453b8000
@@ -28640,7 +28640,7 @@ glabel var7f1acaa0
 /*  f0a853c:	11a000f0 */ 	beqz	$t5,.L0f0a8900
 .L0f0a8540:
 /*  f0a8540:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0a8544:	0fc29f57 */ 	jal	func0f0a7d5c
+/*  f0a8544:	0fc29f57 */ 	jal	bgun0f0a7d5c
 /*  f0a8548:	afae0098 */ 	sw	$t6,0x98($sp)
 /*  f0a854c:	104000a5 */ 	beqz	$v0,.L0f0a87e4
 /*  f0a8550:	afa200a4 */ 	sw	$v0,0xa4($sp)
@@ -28822,7 +28822,7 @@ glabel var7f1acaa0
 /*  f0a87e4:	8fac0098 */ 	lw	$t4,0x98($sp)
 /*  f0a87e8:	51800046 */ 	beqzl	$t4,.L0f0a8904
 /*  f0a87ec:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0a87f0:	0fc29f57 */ 	jal	func0f0a7d5c
+/*  f0a87f0:	0fc29f57 */ 	jal	bgun0f0a7d5c
 /*  f0a87f4:	00000000 */ 	nop
 /*  f0a87f8:	10400041 */ 	beqz	$v0,.L0f0a8900
 /*  f0a87fc:	afa200a4 */ 	sw	$v0,0xa4($sp)
@@ -28901,7 +28901,7 @@ glabel var7f1acaa0
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a84c8
+glabel bgun0f0a84c8
 .late_rodata
 glabel var7f1aca9c
 .word 0x453b8000
@@ -28940,7 +28940,7 @@ glabel var7f1acaa0
 /*  f0a6314:	51a000e3 */ 	beqzl	$t5,.NB0f0a66a4
 /*  f0a6318:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .NB0f0a631c:
-/*  f0a631c:	0fc296a2 */ 	jal	func0f0a7d5c
+/*  f0a631c:	0fc296a2 */ 	jal	bgun0f0a7d5c
 /*  f0a6320:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a6324:	1040009a */ 	beqz	$v0,.NB0f0a6590
 /*  f0a6328:	afa2009c */ 	sw	$v0,0x9c($sp)
@@ -29108,7 +29108,7 @@ glabel var7f1acaa0
 /*  f0a6588:	54600046 */ 	bnezl	$v1,.NB0f0a66a4
 /*  f0a658c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .NB0f0a6590:
-/*  f0a6590:	0fc296a2 */ 	jal	func0f0a7d5c
+/*  f0a6590:	0fc296a2 */ 	jal	bgun0f0a7d5c
 /*  f0a6594:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a6598:	10400041 */ 	beqz	$v0,.NB0f0a66a0
 /*  f0a659c:	afa2009c */ 	sw	$v0,0x9c($sp)
@@ -29187,7 +29187,7 @@ glabel var7f1acaa0
 );
 #endif
 
-void handSetTriggerOn(s32 handnum, bool on)
+void bgunSetTriggerOn(s32 handnum, bool on)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 
@@ -29201,73 +29201,73 @@ void handSetTriggerOn(s32 handnum, bool on)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel currentPlayerConsiderToggleGunFunction
+glabel bgunConsiderToggleGunFunction
 .late_rodata
 glabel var7f1acaa4
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acaa8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaac
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acab0
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acab4
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acab8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acabc
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acac0
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acac4
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acac8
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acacc
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acad0
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acad4
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acad8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acadc
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acae0
-.word currentPlayerConsiderToggleGunFunction+0x44 # f0a89a0
+.word bgunConsiderToggleGunFunction+0x44 # f0a89a0
 glabel var7f1acae4
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acae8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaec
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf0
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf4
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acafc
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb00
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb04
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb08
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb0c
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acb10
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb14
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 .text
 /*  f0a895c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a8960:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0a8964:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0a8968:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0a896c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a8970:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f0a8970:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f0a8974:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0a8978:	244efffa */ 	addiu	$t6,$v0,-6
 /*  f0a897c:	2dc1001d */ 	sltiu	$at,$t6,0x1d
@@ -29318,7 +29318,7 @@ glabel var7f1acb14
 /*  f0a8a24:	8fb90020 */ 	lw	$t9,0x20($sp)
 /*  f0a8a28:	1320000b */ 	beqz	$t9,.L0f0a8a58
 /*  f0a8a2c:	00000000 */ 	nop
-/*  f0a8a30:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
+/*  f0a8a30:	0fc2a31f */ 	jal	bgunIsUsingSecondaryFunction
 /*  f0a8a34:	00000000 */ 	nop
 /*  f0a8a38:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0a8a3c:	24010001 */ 	addiu	$at,$zero,0x1
@@ -29469,73 +29469,73 @@ glabel var7f1acb14
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel currentPlayerConsiderToggleGunFunction
+glabel bgunConsiderToggleGunFunction
 .late_rodata
 glabel var7f1acaa4
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acaa8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaac
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acab0
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acab4
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acab8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acabc
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acac0
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acac4
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acac8
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 glabel var7f1acacc
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acad0
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acad4
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acad8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acadc
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acae0
-.word currentPlayerConsiderToggleGunFunction+0x44 # f0a89a0
+.word bgunConsiderToggleGunFunction+0x44 # f0a89a0
 glabel var7f1acae4
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acae8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaec
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf0
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf4
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acaf8
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acafc
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb00
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb04
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb08
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb0c
-.word currentPlayerConsiderToggleGunFunction+0x104 # f0a8a60
+.word bgunConsiderToggleGunFunction+0x104 # f0a8a60
 glabel var7f1acb10
-.word currentPlayerConsiderToggleGunFunction+0x1f4 # f0a8b50
+.word bgunConsiderToggleGunFunction+0x1f4 # f0a8b50
 glabel var7f1acb14
-.word currentPlayerConsiderToggleGunFunction+0xb0 # f0a8a0c
+.word bgunConsiderToggleGunFunction+0xb0 # f0a8a0c
 .text
 /*  f0a895c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a8960:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0a8964:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0a8968:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0a896c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a8970:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f0a8970:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f0a8974:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0a8978:	244efffa */ 	addiu	$t6,$v0,-6
 /*  f0a897c:	2dc1001d */ 	sltiu	$at,$t6,0x1d
@@ -29586,7 +29586,7 @@ glabel var7f1acb14
 /*  f0a8a24:	8fb90020 */ 	lw	$t9,0x20($sp)
 /*  f0a8a28:	1320000b */ 	beqz	$t9,.L0f0a8a58
 /*  f0a8a2c:	00000000 */ 	nop
-/*  f0a8a30:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
+/*  f0a8a30:	0fc2a31f */ 	jal	bgunIsUsingSecondaryFunction
 /*  f0a8a34:	00000000 */ 	nop
 /*  f0a8a38:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0a8a3c:	24010001 */ 	addiu	$at,$zero,0x1
@@ -29737,70 +29737,70 @@ glabel var7f1acb14
 );
 #else
 GLOBAL_ASM(
-glabel currentPlayerConsiderToggleGunFunction
+glabel bgunConsiderToggleGunFunction
 .late_rodata
 glabel var7f1a6fccnb
 .word 0x453b8000
 glabel var7f1a6fd0nb
 .word 0x453b8000
 glabel var7f1acaa4
-.word currentPlayerConsiderToggleGunFunction+0x104
+.word bgunConsiderToggleGunFunction+0x104
 glabel var7f1a6fd8nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a6fdcnb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a6fe0nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a6fe4nb
-.word currentPlayerConsiderToggleGunFunction+0x104
+.word bgunConsiderToggleGunFunction+0x104
 glabel var7f1a6fe8nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a6fecnb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a6ff0nb
-.word currentPlayerConsiderToggleGunFunction+0x0b0
+.word bgunConsiderToggleGunFunction+0x0b0
 glabel var7f1a6ff4nb
-.word currentPlayerConsiderToggleGunFunction+0x0b0
+.word bgunConsiderToggleGunFunction+0x0b0
 glabel var7f1a6ff8nb
-.word currentPlayerConsiderToggleGunFunction+0x0b0
+.word bgunConsiderToggleGunFunction+0x0b0
 glabel var7f1a6ffcnb
-.word currentPlayerConsiderToggleGunFunction+0x104
+.word bgunConsiderToggleGunFunction+0x104
 glabel var7f1a7000nb
-.word currentPlayerConsiderToggleGunFunction+0x104
+.word bgunConsiderToggleGunFunction+0x104
 glabel var7f1a7004nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7008nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a700cnb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7010nb
-.word currentPlayerConsiderToggleGunFunction+0x044
+.word bgunConsiderToggleGunFunction+0x044
 glabel var7f1a7014nb
-.word currentPlayerConsiderToggleGunFunction+0x104
+.word bgunConsiderToggleGunFunction+0x104
 glabel var7f1a7018nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a701cnb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7020nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7024nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7028nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a702cnb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7030nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7034nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7038nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a703cnb
-.word currentPlayerConsiderToggleGunFunction+0x104
+.word bgunConsiderToggleGunFunction+0x104
 glabel var7f1a7040nb
-.word currentPlayerConsiderToggleGunFunction+0x1f4
+.word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7044nb
-.word currentPlayerConsiderToggleGunFunction+0x0b0
+.word bgunConsiderToggleGunFunction+0x0b0
 
 
 
@@ -29810,7 +29810,7 @@ glabel var7f1a7044nb
 /*  f0a8964:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0a8968:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0a896c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a8970:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f0a8970:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f0a8974:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0a8978:	244efffa */ 	addiu	$t6,$v0,-6
 /*  f0a897c:	2dc1001d */ 	sltiu	$at,$t6,0x1d
@@ -29861,7 +29861,7 @@ glabel var7f1a7044nb
 /*  f0a8a24:	8fb90020 */ 	lw	$t9,0x20($sp)
 /*  f0a8a28:	1320000b */ 	beqz	$t9,.L0f0a8a58
 /*  f0a8a2c:	00000000 */ 	nop
-/*  f0a8a30:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
+/*  f0a8a30:	0fc2a31f */ 	jal	bgunIsUsingSecondaryFunction
 /*  f0a8a34:	00000000 */ 	nop
 /*  f0a8a38:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0a8a3c:	24010001 */ 	addiu	$at,$zero,0x1
@@ -30014,9 +30014,9 @@ glabel var7f1a7044nb
 
 // Mismatch near the first gunfuncs check.
 // Goal loads 1 into $t5 while the below uses $at.
-//u32 currentPlayerConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2)
+//u32 bgunConsiderToggleGunFunction(s32 usedowntime, bool firing, s32 arg2)
 //{
-//	switch (handGetWeaponNum(HAND_RIGHT)) {
+//	switch (bgunGetWeaponNum(HAND_RIGHT)) {
 //	case WEAPON_SNIPERRIFLE: // f0a89a0
 //		// Setting this allows the sniper rifle to behave somewhat similarly to
 //		// a temporary function, meaning that it reverts to primary when B is
@@ -30049,7 +30049,7 @@ glabel var7f1a7044nb
 //		// These guns use temporary alt functions
 //		g_Vars.currentplayer->invertgunfunc = true;
 //
-//		if (arg2 && currentPlayerIsUsingSecondaryFunction() == true) {
+//		if (arg2 && bgunIsUsingSecondaryFunction() == true) {
 //			g_Vars.currentplayer->hands[HAND_RIGHT].unk0d0f_03 = true;
 //		}
 //
@@ -30101,14 +30101,14 @@ glabel var7f1a7044nb
 //	}
 //}
 
-void func0f0a8c50(void)
+void bgun0f0a8c50(void)
 {
 	if (g_Vars.currentplayer->hands[HAND_RIGHT].unk0d0f_03 == 0) {
 		g_Vars.currentplayer->gunctrl.invertgunfunc = false;
 	}
 }
 
-bool currentPlayerIsUsingSecondaryFunction(void)
+bool bgunIsUsingSecondaryFunction(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	s32 weaponnum = player->gunctrl.weaponnum;
@@ -30133,7 +30133,7 @@ bool currentPlayerIsUsingSecondaryFunction(void)
 	return false;
 }
 
-void handsTick(bool triggeron)
+void bgunsTick(bool triggeron)
 {
 	s32 gunsfiring[2] = {false, false};
 	struct player *player = g_Vars.currentplayer;
@@ -30151,7 +30151,7 @@ void handsTick(bool triggeron)
 
 		if (g_Vars.currentplayer->gunctrl.weaponnum != WEAPON_UNARMED
 				&& g_Vars.currentplayer->gunctrl.switchtoweaponnum != WEAPON_UNARMED) {
-			currentPlayerEquipWeapon(WEAPON_UNARMED);
+			bgunEquipWeapon(WEAPON_UNARMED);
 		}
 
 		g_Vars.currentplayer->gunctrl.unk1583_00 = 0;
@@ -30182,13 +30182,13 @@ void handsTick(bool triggeron)
 			weapon = weaponFindById(weaponnum);
 
 			if (weapon && weapon->ammos[0]
-					&& currentPlayerGetAmmoCount(weapon->ammos[0]->type) == 0) {
-				equippedweaponnum = handGetWeaponNum(HAND_RIGHT);
+					&& bgunGetAmmoCount(weapon->ammos[0]->type) == 0) {
+				equippedweaponnum = bgunGetWeaponNum(HAND_RIGHT);
 				invRemoveItemByNum(weaponnum);
 
 				if (weaponnum == equippedweaponnum && !invHasSingleWeaponIncAllGuns(weaponnum)) {
 					invCalculateCurrentIndex();
-					currentPlayerEquipWeapon(invGetWeaponNumByIndex(g_Vars.currentplayer->equipcuritem));
+					bgunEquipWeapon(invGetWeaponNumByIndex(g_Vars.currentplayer->equipcuritem));
 				}
 			}
 		}
@@ -30219,13 +30219,13 @@ void handsTick(bool triggeron)
 			if (player->playertrigtime240 > PALDOWN(80)) {
 				gunsfiring[player->curguntofire] = 1;
 
-				if (func0f099008(1 - player->curguntofire)
+				if (bgun0f099008(1 - player->curguntofire)
 						|| player->hands[1 - player->curguntofire].triggeron) {
 					gunsfiring[1 - player->curguntofire] = 1;
 				}
 			} else {
 				if (player->playertriggerprev == false &&
-						(func0f099008(1 - player->curguntofire) || !func0f099008(player->curguntofire))) {
+						(bgun0f099008(1 - player->curguntofire) || !bgun0f099008(player->curguntofire))) {
 					player->curguntofire = 1 - player->curguntofire;
 				}
 
@@ -30249,13 +30249,13 @@ void handsTick(bool triggeron)
 		player->playertrigtime240 = 0;
 	}
 
-	handSetTriggerOn(HAND_RIGHT, gunsfiring[0]);
-	handSetTriggerOn(HAND_LEFT, gunsfiring[1]);
+	bgunSetTriggerOn(HAND_RIGHT, gunsfiring[0]);
+	bgunSetTriggerOn(HAND_LEFT, gunsfiring[1]);
 
 	if (g_Vars.tickmode == TICKMODE_NORMAL && g_Vars.lvupdate240 > 0) {
-		handTick(HAND_RIGHT);
-		handTick(HAND_LEFT);
-		func0f09ce8c();
+		bgunTick(HAND_RIGHT);
+		bgunTick(HAND_LEFT);
+		bgun0f09ce8c();
 
 		if (cheatIsActive(CHEAT_UNLIMITEDAMMONORELOADS)) {
 			s32 i;
@@ -30267,19 +30267,19 @@ void handsTick(bool triggeron)
 
 			for (i = 0; i != 2; i++) {
 				if (weapon && weapon->ammos[i] &&
-						ammotypeAllowsUnlimitedAmmo(weapon->ammos[i]->type)) {
+						bgunAmmotypeAllowsUnlimitedAmmo(weapon->ammos[i]->type)) {
 					rhand->loadedammo[i] = rhand->clipsizes[i];
 					lhand->loadedammo[i] = lhand->clipsizes[i];
 				}
 			}
 
-			currentPlayerGiveUnlimitedAmmo(false);
+			bgunGiveMaxAmmo(false);
 		} else if (cheatIsActive(CHEAT_UNLIMITEDAMMO)) {
-			currentPlayerGiveUnlimitedAmmo(false);
+			bgunGiveMaxAmmo(false);
 		}
 	}
 
-	currentPlayerDecreaseNoiseRadius();
+	bgunDecreaseNoiseRadius();
 
 	if (player->resetshadecol) {
 		func0f069144(g_Vars.currentplayer->prop, player->gunshadecol, player->floorcol);
@@ -30290,10 +30290,10 @@ void handsTick(bool triggeron)
 		colourTween(player->gunshadecol, shadecol);
 	}
 
-	invIncrementHeldTime(handGetWeaponNum(HAND_RIGHT), handGetWeaponNum(HAND_LEFT));
+	invIncrementHeldTime(bgunGetWeaponNum(HAND_RIGHT), bgunGetWeaponNum(HAND_LEFT));
 }
 
-void playersSetPassiveMode(bool enable)
+void bgunSetPassiveMode(bool enable)
 {
 	s32 i;
 
@@ -30302,12 +30302,12 @@ void playersSetPassiveMode(bool enable)
 	}
 }
 
-void currentPlayerSetAimType(u32 aimtype)
+void bgunSetAimType(u32 aimtype)
 {
 	g_Vars.currentplayer->aimtype = aimtype;
 }
 
-void handSetAimPos(struct coord *coord)
+void bgunSetAimPos(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -30320,7 +30320,7 @@ void handSetAimPos(struct coord *coord)
 	player->hands[HAND_LEFT].aimpos.z = coord->z;
 }
 
-void handSetHitPos(struct coord *coord)
+void bgunSetHitPos(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -30329,7 +30329,7 @@ void handSetHitPos(struct coord *coord)
 	player->hands[HAND_LEFT].hitpos.z = player->hands[HAND_RIGHT].hitpos.z = coord->z;
 }
 
-void func0f0a9494(u32 operation)
+void bgun0f0a9494(u32 operation)
 {
 	switch (operation) {
 	case 0:
@@ -30340,7 +30340,7 @@ void func0f0a9494(u32 operation)
 	}
 }
 
-void func0f0a94d0(u32 operation, struct coord *pos, struct coord *rot)
+void bgun0f0a94d0(u32 operation, struct coord *pos, struct coord *rot)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -30368,7 +30368,7 @@ void func0f0a94d0(u32 operation, struct coord *pos, struct coord *rot)
 	}
 }
 
-void currentPlayerSetGunAmmoVisible(u32 reason, bool enable)
+void bgunSetGunAmmoVisible(u32 reason, bool enable)
 {
 	if (enable) {
 		g_Vars.currentplayer->gunammooff &= ~reason;
@@ -30417,19 +30417,19 @@ struct ammotype g_AmmoTypes[] = {
 	{ 10,    0, 0  },
 };
 
-void currentPlayerSetAmmoQuantity(s32 ammotype, s32 quantity)
+void bgunSetAmmoQuantity(s32 ammotype, s32 quantity)
 {
 	struct player *player = g_Vars.currentplayer;
-	s32 weaponnum = handGetWeaponNum(HAND_RIGHT);
+	s32 weaponnum = bgunGetWeaponNum(HAND_RIGHT);
 	s32 funcnum = -1;
 	s32 magamount;
 
 	// Check if this ammo type applies to the player's equipped weapon
-	if (weaponGetAmmoType(weaponnum, FUNC_PRIMARY) == ammotype) {
+	if (bgunGetAmmoTypeForWeapon(weaponnum, FUNC_PRIMARY) == ammotype) {
 		funcnum = FUNC_PRIMARY;
 	}
 
-	if (weaponGetAmmoType(weaponnum, FUNC_SECONDARY) == ammotype) {
+	if (bgunGetAmmoTypeForWeapon(weaponnum, FUNC_SECONDARY) == ammotype) {
 		funcnum = FUNC_SECONDARY;
 	}
 
@@ -30459,7 +30459,7 @@ void currentPlayerSetAmmoQuantity(s32 ammotype, s32 quantity)
 	}
 }
 
-s32 currentPlayerGetAmmoCountWithCheck(s32 ammotype)
+s32 bgunGetAmmoCountWithCheck(s32 ammotype)
 {
 	s32 i;
 	s32 j;
@@ -30479,7 +30479,7 @@ s32 currentPlayerGetAmmoCountWithCheck(s32 ammotype)
 	return total;
 }
 
-s32 currentPlayerGetAmmoCount(s32 ammotype)
+s32 bgunGetAmmoCount(s32 ammotype)
 {
 	s32 i;
 	s32 j;
@@ -30499,12 +30499,12 @@ s32 currentPlayerGetAmmoCount(s32 ammotype)
 	return total;
 }
 
-s32 ammotypeGetMaxCapacity(u32 ammotype)
+s32 bgunGetCapacityByAmmotype(u32 ammotype)
 {
 	return g_AmmoTypes[ammotype].capacity;
 }
 
-bool ammotypeAllowsUnlimitedAmmo(u32 ammotype)
+bool bgunAmmotypeAllowsUnlimitedAmmo(u32 ammotype)
 {
 	switch (ammotype) {
 	case AMMOTYPE_REMOTE_MINE:
@@ -30534,7 +30534,7 @@ bool ammotypeAllowsUnlimitedAmmo(u32 ammotype)
 	return true;
 }
 
-void currentPlayerGiveUnlimitedAmmo(bool force)
+void bgunGiveMaxAmmo(bool force)
 {
 	s32 i;
 
@@ -30542,16 +30542,16 @@ void currentPlayerGiveUnlimitedAmmo(bool force)
 		bool give = true;
 
 		if (!force) {
-			give = ammotypeAllowsUnlimitedAmmo(i);
+			give = bgunAmmotypeAllowsUnlimitedAmmo(i);
 		}
 
 		if (give) {
-			currentPlayerSetAmmoQuantity(i, g_AmmoTypes[i].capacity);
+			bgunSetAmmoQuantity(i, g_AmmoTypes[i].capacity);
 		}
 	}
 }
 
-u32 weaponGetAmmoType(u32 weaponnum, u32 func)
+u32 bgunGetAmmoTypeForWeapon(u32 weaponnum, u32 func)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);
 
@@ -30566,7 +30566,7 @@ u32 weaponGetAmmoType(u32 weaponnum, u32 func)
 	return weapon->ammos[func]->type;
 }
 
-s32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func)
+s32 bgunGetAmmoQtyForWeapon(u32 weaponnum, u32 func)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);
 
@@ -30574,14 +30574,14 @@ s32 currentPlayerGetAmmoQuantityForWeapon(u32 weaponnum, u32 func)
 		struct inventory_ammo *ammo = weapon->ammos[func];
 
 		if (ammo) {
-			return currentPlayerGetAmmoCountWithCheck(ammo->type);
+			return bgunGetAmmoCountWithCheck(ammo->type);
 		}
 	}
 
 	return 0;
 }
 
-void currentPlayerSetAmmoQtyForWeapon(u32 weaponnum, u32 func, u32 quantity)
+void bgunSetAmmoQtyForWeapon(u32 weaponnum, u32 func, u32 quantity)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);
 
@@ -30589,12 +30589,12 @@ void currentPlayerSetAmmoQtyForWeapon(u32 weaponnum, u32 func, u32 quantity)
 		struct inventory_ammo *ammo = weapon->ammos[func];
 
 		if (ammo) {
-			currentPlayerSetAmmoQuantity(ammo->type, quantity);
+			bgunSetAmmoQuantity(ammo->type, quantity);
 		}
 	}
 }
 
-s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func)
+s32 bgunGetAmmoCapacityForWeapon(s32 weaponnum, s32 func)
 {
 	struct weapon *weapon = weaponFindById(weaponnum);
 	struct inventory_ammo *ammo = weapon->ammos[func];
@@ -30606,7 +30606,7 @@ s32 weaponGetAmmoCapacity(s32 weaponnum, s32 func)
 	return 0;
 }
 
-Gfx *handRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 valign, u32 colour)
+Gfx *bgunRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 valign, u32 colour)
 {
 	s32 x1 = 0;
 	s32 y1 = 0;
@@ -30648,17 +30648,17 @@ Gfx *handRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 va
 	return gdl;
 }
 
-Gfx *handRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool halign, s32 y, s32 valign, u32 colour)
+Gfx *bgunRenderHudInteger(Gfx *gdl, s32 value, s32 x, bool halign, s32 y, s32 valign, u32 colour)
 {
 	char buffer[12];
 
 	sprintf(buffer, "%d\n", value);
-	gdl = handRenderHudString(gdl, buffer, x, halign, y, valign, colour);
+	gdl = bgunRenderHudString(gdl, buffer, x, halign, y, valign, colour);
 
 	return gdl;
 }
 
-void abmagReset(struct abmag *abmag)
+void bgunResetAbmag(struct abmag *abmag)
 {
 	abmag->loadedammo = 0;
 	abmag->change = 0;
@@ -30668,7 +30668,7 @@ void abmagReset(struct abmag *abmag)
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0a9da8
+glabel bgun0f0a9da8
 /*  f0aa1f4:	28c10015 */ 	slti	$at,$a2,0x15
 /*  f0aa1f8:	54200023 */ 	bnezl	$at,.PF0f0aa288
 /*  f0aa1fc:	80880005 */ 	lb	$t0,0x5($a0)
@@ -30826,7 +30826,7 @@ glabel func0f0a9da8
 );
 #else
 GLOBAL_ASM(
-glabel func0f0a9da8
+glabel bgun0f0a9da8
 /*  f0a9da8:	28c10015 */ 	slti	$at,$a2,0x15
 /*  f0a9dac:	54200023 */ 	bnezl	$at,.L0f0a9e3c
 /*  f0a9db0:	80880005 */ 	lb	$t0,0x5($a0)
@@ -30982,7 +30982,7 @@ glabel func0f0a9da8
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel handRenderHudGauge
+glabel bgunRenderHudGauge
 /*  f0aa41c:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*  f0aa420:	afbe0038 */ 	sw	$s8,0x38($sp)
 /*  f0aa424:	afa600e0 */ 	sw	$a2,0xe0($sp)
@@ -31006,7 +31006,7 @@ glabel handRenderHudGauge
 /*  f0aa46c:	8fa500f0 */ 	lw	$a1,0xf0($sp)
 /*  f0aa470:	8fa400ec */ 	lw	$a0,0xec($sp)
 /*  f0aa474:	afb000bc */ 	sw	$s0,0xbc($sp)
-/*  f0aa478:	0fc2a87d */ 	jal	func0f0a9da8
+/*  f0aa478:	0fc2a87d */ 	jal	bgun0f0a9da8
 /*  f0aa47c:	02003025 */ 	move	$a2,$s0
 /*  f0aa480:	2a010015 */ 	slti	$at,$s0,0x15
 /*  f0aa484:	8fa800ec */ 	lw	$t0,0xec($sp)
@@ -31605,7 +31605,7 @@ glabel handRenderHudGauge
 );
 #else
 GLOBAL_ASM(
-glabel handRenderHudGauge
+glabel bgunRenderHudGauge
 /*  f0a9fc0:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f0a9fc4:	afa600d8 */ 	sw	$a2,0xd8($sp)
 /*  f0a9fc8:	8faf00d8 */ 	lw	$t7,0xd8($sp)
@@ -31630,7 +31630,7 @@ glabel handRenderHudGauge
 /*  f0aa014:	8fa500e8 */ 	lw	$a1,0xe8($sp)
 /*  f0aa018:	afb100b4 */ 	sw	$s1,0xb4($sp)
 /*  f0aa01c:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0aa020:	0fc2a76a */ 	jal	func0f0a9da8
+/*  f0aa020:	0fc2a76a */ 	jal	bgun0f0a9da8
 /*  f0aa024:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f0aa028:	2a210015 */ 	slti	$at,$s1,0x15
 /*  f0aa02c:	8fa900e0 */ 	lw	$t1,0xe0($sp)
@@ -32221,7 +32221,7 @@ glabel handRenderHudGauge
 // - There are several callee-save registers (s2, s5, s8) which can either be
 //   variables or used by the compiler to hold expressions that are used several
 //   times. Below, s2 is a variable while s5 and s8 are inline expressions.
-//Gfx *handRenderHudGauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag *abmag, s32 remaining, s32 capacity, u32 emptycolour, u32 filledcolour, bool flip)
+//Gfx *bgunRenderHudGauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag *abmag, s32 remaining, s32 capacity, u32 emptycolour, u32 filledcolour, bool flip)
 //{
 //	s32 gaugeheight = y2 - y1; // s2
 //	s32 unitheight;
@@ -32233,7 +32233,7 @@ glabel handRenderHudGauge
 //	s32 i;
 //
 //	// 020
-//	func0f0a9da8(abmag, remaining, capacity, gaugeheight);
+//	bgun0f0a9da8(abmag, remaining, capacity, gaugeheight);
 //
 //	if (capacity > 20) {
 //		// Use a single merged bar
@@ -32473,7 +32473,7 @@ glabel handRenderHudGauge
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel handRenderHud
+glabel bgunRenderHud
 /*  f0aad34:	3c0e800a */ 	lui	$t6,0x800a
 /*  f0aad38:	8dcea794 */ 	lw	$t6,-0x586c($t6)
 /*  f0aad3c:	27bdfed0 */ 	addiu	$sp,$sp,-304
@@ -32640,14 +32640,14 @@ glabel handRenderHud
 /*  f0aaf84:	afa2005c */ 	sw	$v0,0x5c($sp)
 /*  f0aaf88:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f0aaf8c:	00002825 */ 	move	$a1,$zero
-/*  f0aaf90:	0fc26333 */ 	jal	handGetWeaponInfo
+/*  f0aaf90:	0fc26333 */ 	jal	bgunGetWeaponInfo
 /*  f0aaf94:	afb800f0 */ 	sw	$t8,0xf0($sp)
-/*  f0aaf98:	0fc2a432 */ 	jal	currentPlayerIsUsingSecondaryFunction
+/*  f0aaf98:	0fc2a432 */ 	jal	bgunIsUsingSecondaryFunction
 /*  f0aaf9c:	00000000 */ 	nop
 /*  f0aafa0:	afa200e8 */ 	sw	$v0,0xe8($sp)
 /*  f0aafa4:	00402025 */ 	move	$a0,$v0
 /*  f0aafa8:	27a500dc */ 	addiu	$a1,$sp,0xdc
-/*  f0aafac:	0fc26348 */ 	jal	func0f098ca0
+/*  f0aafac:	0fc26348 */ 	jal	bgun0f098ca0
 /*  f0aafb0:	8fa6005c */ 	lw	$a2,0x5c($sp)
 /*  f0aafb4:	04400003 */ 	bltz	$v0,.PF0f0aafc4
 /*  f0aafb8:	00000000 */ 	nop
@@ -33218,13 +33218,13 @@ glabel handRenderHud
 /*  f0ab800:	8fa4012c */ 	lw	$a0,0x12c($sp)
 /*  f0ab804:	11f9000d */ 	beq	$t7,$t9,.PF0f0ab83c
 /*  f0ab808:	24841568 */ 	addiu	$a0,$a0,0x1568
-/*  f0ab80c:	0fc2a878 */ 	jal	abmagReset
+/*  f0ab80c:	0fc2a878 */ 	jal	bgunResetAbmag
 /*  f0ab810:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab814:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f0ab818:	0fc2a878 */ 	jal	abmagReset
+/*  f0ab818:	0fc2a878 */ 	jal	bgunResetAbmag
 /*  f0ab81c:	2484078c */ 	addiu	$a0,$a0,0x78c
 /*  f0ab820:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*  f0ab824:	0fc2a878 */ 	jal	abmagReset
+/*  f0ab824:	0fc2a878 */ 	jal	bgunResetAbmag
 /*  f0ab828:	2544005c */ 	addiu	$a0,$t2,0x5c
 /*  f0ab82c:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ab830:	8fb80110 */ 	lw	$t8,0x110($sp)
@@ -33344,7 +33344,7 @@ glabel handRenderHud
 /*  f0ab9dc:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0ab9e0:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0ab9e4:	24c6fffd */ 	addiu	$a2,$a2,-3
-/*  f0ab9e8:	0fc2a907 */ 	jal	handRenderHudGauge
+/*  f0ab9e8:	0fc2a907 */ 	jal	bgunRenderHudGauge
 /*  f0ab9ec:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0ab9f0:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0ab9f4:	8fb80048 */ 	lw	$t8,0x48($sp)
@@ -33358,7 +33358,7 @@ glabel handRenderHud
 /*  f0aba14:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0aba18:	00402025 */ 	move	$a0,$v0
 /*  f0aba1c:	24070001 */ 	li	$a3,0x1
-/*  f0aba20:	0fc2a85e */ 	jal	handRenderHudInteger
+/*  f0aba20:	0fc2a85e */ 	jal	bgunRenderHudInteger
 /*  f0aba24:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0aba28:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0aba2c:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -33483,7 +33483,7 @@ glabel handRenderHud
 /*  f0abbe8:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f0abbec:	24c6fffd */ 	addiu	$a2,$a2,-3
 /*  f0abbf0:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0abbf4:	0fc2a907 */ 	jal	handRenderHudGauge
+/*  f0abbf4:	0fc2a907 */ 	jal	bgunRenderHudGauge
 /*  f0abbf8:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0abbfc:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0abc00:	8fa60100 */ 	lw	$a2,0x100($sp)
@@ -33496,7 +33496,7 @@ glabel handRenderHud
 /*  f0abc1c:	00402025 */ 	move	$a0,$v0
 /*  f0abc20:	00003825 */ 	move	$a3,$zero
 /*  f0abc24:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0abc28:	0fc2a85e */ 	jal	handRenderHudInteger
+/*  f0abc28:	0fc2a85e */ 	jal	bgunRenderHudInteger
 /*  f0abc2c:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0abc30:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0abc34:	8faa0058 */ 	lw	$t2,0x58($sp)
@@ -33564,7 +33564,7 @@ glabel handRenderHud
 /*  f0abd18:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0abd1c:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0abd20:	afa9009c */ 	sw	$t1,0x9c($sp)
-/*  f0abd24:	0fc2a907 */ 	jal	handRenderHudGauge
+/*  f0abd24:	0fc2a907 */ 	jal	bgunRenderHudGauge
 /*  f0abd28:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0abd2c:	8fae0048 */ 	lw	$t6,0x48($sp)
 /*  f0abd30:	3c1800ff */ 	lui	$t8,0xff
@@ -33576,7 +33576,7 @@ glabel handRenderHud
 /*  f0abd48:	8fa5009c */ 	lw	$a1,0x9c($sp)
 /*  f0abd4c:	8fa60054 */ 	lw	$a2,0x54($sp)
 /*  f0abd50:	00003825 */ 	move	$a3,$zero
-/*  f0abd54:	0fc2a85e */ 	jal	handRenderHudInteger
+/*  f0abd54:	0fc2a85e */ 	jal	bgunRenderHudInteger
 /*  f0abd58:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0abd5c:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0abd60:	8fb9005c */ 	lw	$t9,0x5c($sp)
@@ -33719,7 +33719,7 @@ glabel handRenderHud
 /*  f0abf50:	00003825 */ 	move	$a3,$zero
 /*  f0abf54:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0abf58:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0abf5c:	0fc2a7ed */ 	jal	handRenderHudString
+/*  f0abf5c:	0fc2a7ed */ 	jal	bgunRenderHudString
 /*  f0abf60:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0abf64:	afa20130 */ 	sw	$v0,0x130($sp)
 .PF0f0abf68:
@@ -33736,7 +33736,7 @@ glabel handRenderHud
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel handRenderHud
+glabel bgunRenderHud
 /*  f0aa86c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0aa870:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0aa874:	27bdfed0 */ 	addiu	$sp,$sp,-304
@@ -33907,14 +33907,14 @@ glabel handRenderHud
 /*  f0aaac4:	afa2005c */ 	sw	$v0,0x5c($sp)
 /*  f0aaac8:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f0aaacc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0aaad0:	0fc26313 */ 	jal	handGetWeaponInfo
+/*  f0aaad0:	0fc26313 */ 	jal	bgunGetWeaponInfo
 /*  f0aaad4:	afb900f0 */ 	sw	$t9,0xf0($sp)
-/*  f0aaad8:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
+/*  f0aaad8:	0fc2a31f */ 	jal	bgunIsUsingSecondaryFunction
 /*  f0aaadc:	00000000 */ 	nop
 /*  f0aaae0:	afa200e8 */ 	sw	$v0,0xe8($sp)
 /*  f0aaae4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0aaae8:	27a500dc */ 	addiu	$a1,$sp,0xdc
-/*  f0aaaec:	0fc26328 */ 	jal	func0f098ca0
+/*  f0aaaec:	0fc26328 */ 	jal	bgun0f098ca0
 /*  f0aaaf0:	8fa6005c */ 	lw	$a2,0x5c($sp)
 /*  f0aaaf4:	04400003 */ 	bltz	$v0,.L0f0aab04
 /*  f0aaaf8:	00000000 */ 	nop
@@ -34486,13 +34486,13 @@ glabel handRenderHud
 /*  f0ab344:	8fa4012c */ 	lw	$a0,0x12c($sp)
 /*  f0ab348:	132f000d */ 	beq	$t9,$t7,.L0f0ab380
 /*  f0ab34c:	24841568 */ 	addiu	$a0,$a0,0x1568
-/*  f0ab350:	0fc2a765 */ 	jal	abmagReset
+/*  f0ab350:	0fc2a765 */ 	jal	bgunResetAbmag
 /*  f0ab354:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0ab358:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f0ab35c:	0fc2a765 */ 	jal	abmagReset
+/*  f0ab35c:	0fc2a765 */ 	jal	bgunResetAbmag
 /*  f0ab360:	2484078c */ 	addiu	$a0,$a0,0x78c
 /*  f0ab364:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*  f0ab368:	0fc2a765 */ 	jal	abmagReset
+/*  f0ab368:	0fc2a765 */ 	jal	bgunResetAbmag
 /*  f0ab36c:	2544005c */ 	addiu	$a0,$t2,0x5c
 /*  f0ab370:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ab374:	8fae0110 */ 	lw	$t6,0x110($sp)
@@ -34612,7 +34612,7 @@ glabel handRenderHud
 /*  f0ab520:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0ab524:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0ab528:	24c6fffd */ 	addiu	$a2,$a2,-3
-/*  f0ab52c:	0fc2a7f0 */ 	jal	handRenderHudGauge
+/*  f0ab52c:	0fc2a7f0 */ 	jal	bgunRenderHudGauge
 /*  f0ab530:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0ab534:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0ab538:	8fae0048 */ 	lw	$t6,0x48($sp)
@@ -34626,7 +34626,7 @@ glabel handRenderHud
 /*  f0ab558:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0ab55c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ab560:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0ab564:	0fc2a74b */ 	jal	handRenderHudInteger
+/*  f0ab564:	0fc2a74b */ 	jal	bgunRenderHudInteger
 /*  f0ab568:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0ab56c:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0ab570:	afa20130 */ 	sw	$v0,0x130($sp)
@@ -34751,7 +34751,7 @@ glabel handRenderHud
 /*  f0ab72c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f0ab730:	24c6fffd */ 	addiu	$a2,$a2,-3
 /*  f0ab734:	8fa40130 */ 	lw	$a0,0x130($sp)
-/*  f0ab738:	0fc2a7f0 */ 	jal	handRenderHudGauge
+/*  f0ab738:	0fc2a7f0 */ 	jal	bgunRenderHudGauge
 /*  f0ab73c:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0ab740:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0ab744:	8fa60100 */ 	lw	$a2,0x100($sp)
@@ -34764,7 +34764,7 @@ glabel handRenderHud
 /*  f0ab760:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0ab764:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0ab768:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0ab76c:	0fc2a74b */ 	jal	handRenderHudInteger
+/*  f0ab76c:	0fc2a74b */ 	jal	bgunRenderHudInteger
 /*  f0ab770:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f0ab774:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0ab778:	8faa0058 */ 	lw	$t2,0x58($sp)
@@ -34832,7 +34832,7 @@ glabel handRenderHud
 /*  f0ab85c:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0ab860:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0ab864:	afa9009c */ 	sw	$t1,0x9c($sp)
-/*  f0ab868:	0fc2a7f0 */ 	jal	handRenderHudGauge
+/*  f0ab868:	0fc2a7f0 */ 	jal	bgunRenderHudGauge
 /*  f0ab86c:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0ab870:	8fb80048 */ 	lw	$t8,0x48($sp)
 /*  f0ab874:	3c0e00ff */ 	lui	$t6,0xff
@@ -34844,7 +34844,7 @@ glabel handRenderHud
 /*  f0ab88c:	8fa5009c */ 	lw	$a1,0x9c($sp)
 /*  f0ab890:	8fa60054 */ 	lw	$a2,0x54($sp)
 /*  f0ab894:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0ab898:	0fc2a74b */ 	jal	handRenderHudInteger
+/*  f0ab898:	0fc2a74b */ 	jal	bgunRenderHudInteger
 /*  f0ab89c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0ab8a0:	afa20130 */ 	sw	$v0,0x130($sp)
 /*  f0ab8a4:	8faf005c */ 	lw	$t7,0x5c($sp)
@@ -34987,7 +34987,7 @@ glabel handRenderHud
 /*  f0aba94:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0aba98:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0aba9c:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0abaa0:	0fc2a6da */ 	jal	handRenderHudString
+/*  f0abaa0:	0fc2a6da */ 	jal	bgunRenderHudString
 /*  f0abaa4:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0abaa8:	afa20130 */ 	sw	$v0,0x130($sp)
 .L0f0abaac:
@@ -35004,7 +35004,7 @@ glabel handRenderHud
 );
 #else
 GLOBAL_ASM(
-glabel handRenderHud
+glabel bgunRenderHud
 /*  f0a860c:	3c0e800a */ 	lui	$t6,0x800a
 /*  f0a8610:	8dcee944 */ 	lw	$t6,-0x16bc($t6)
 /*  f0a8614:	27bdfee0 */ 	addiu	$sp,$sp,-288
@@ -35737,13 +35737,13 @@ glabel handRenderHud
 /*  f0a90a4:	8fa4011c */ 	lw	$a0,0x11c($sp)
 /*  f0a90a8:	11f9000d */ 	beq	$t7,$t9,.NB0f0a90e0
 /*  f0a90ac:	24841568 */ 	addiu	$a0,$a0,0x1568
-/*  f0a90b0:	0fc29ecd */ 	jal	abmagReset
+/*  f0a90b0:	0fc29ecd */ 	jal	bgunResetAbmag
 /*  f0a90b4:	afaa0058 */ 	sw	$t2,0x58($sp)
 /*  f0a90b8:	8fa4005c */ 	lw	$a0,0x5c($sp)
-/*  f0a90bc:	0fc29ecd */ 	jal	abmagReset
+/*  f0a90bc:	0fc29ecd */ 	jal	bgunResetAbmag
 /*  f0a90c0:	2484078c */ 	addiu	$a0,$a0,0x78c
 /*  f0a90c4:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*  f0a90c8:	0fc29ecd */ 	jal	abmagReset
+/*  f0a90c8:	0fc29ecd */ 	jal	bgunResetAbmag
 /*  f0a90cc:	2544005c */ 	addiu	$a0,$t2,0x5c
 /*  f0a90d0:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0a90d4:	8fae0100 */ 	lw	$t6,0x100($sp)
@@ -35863,7 +35863,7 @@ glabel handRenderHud
 /*  f0a9280:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0a9284:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f0a9288:	24c6fffd */ 	addiu	$a2,$a2,-3
-/*  f0a928c:	0fc29f58 */ 	jal	handRenderHudGauge
+/*  f0a928c:	0fc29f58 */ 	jal	bgunRenderHudGauge
 /*  f0a9290:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f0a9294:	8fa3004c */ 	lw	$v1,0x4c($sp)
 /*  f0a9298:	8fae0048 */ 	lw	$t6,0x48($sp)
@@ -35877,7 +35877,7 @@ glabel handRenderHud
 /*  f0a92b8:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0a92bc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a92c0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0a92c4:	0fc29eb3 */ 	jal	handRenderHudInteger
+/*  f0a92c4:	0fc29eb3 */ 	jal	bgunRenderHudInteger
 /*  f0a92c8:	24c60002 */ 	addiu	$a2,$a2,0x2
 /*  f0a92cc:	8faa0058 */ 	lw	$t2,0x58($sp)
 /*  f0a92d0:	afa20120 */ 	sw	$v0,0x120($sp)
@@ -36002,7 +36002,7 @@ glabel handRenderHud
 /*  f0a948c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f0a9490:	24c6fffd */ 	addiu	$a2,$a2,-3
 /*  f0a9494:	8fa40120 */ 	lw	$a0,0x120($sp)
-/*  f0a9498:	0fc29f58 */ 	jal	handRenderHudGauge
+/*  f0a9498:	0fc29f58 */ 	jal	bgunRenderHudGauge
 /*  f0a949c:	afb90018 */ 	sw	$t9,0x18($sp)
 /*  f0a94a0:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0a94a4:	8fa600f0 */ 	lw	$a2,0xf0($sp)
@@ -36015,7 +36015,7 @@ glabel handRenderHud
 /*  f0a94c0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a94c4:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0a94c8:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0a94cc:	0fc29eb3 */ 	jal	handRenderHudInteger
+/*  f0a94cc:	0fc29eb3 */ 	jal	bgunRenderHudInteger
 /*  f0a94d0:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0a94d4:	8fa80038 */ 	lw	$t0,0x38($sp)
 /*  f0a94d8:	8faa0058 */ 	lw	$t2,0x58($sp)
@@ -36083,7 +36083,7 @@ glabel handRenderHud
 /*  f0a95bc:	afab001c */ 	sw	$t3,0x1c($sp)
 /*  f0a95c0:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0a95c4:	afa9009c */ 	sw	$t1,0x9c($sp)
-/*  f0a95c8:	0fc29f58 */ 	jal	handRenderHudGauge
+/*  f0a95c8:	0fc29f58 */ 	jal	bgunRenderHudGauge
 /*  f0a95cc:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0a95d0:	8fb80048 */ 	lw	$t8,0x48($sp)
 /*  f0a95d4:	3c0e00ff */ 	lui	$t6,0xff
@@ -36095,7 +36095,7 @@ glabel handRenderHud
 /*  f0a95ec:	8fa5009c */ 	lw	$a1,0x9c($sp)
 /*  f0a95f0:	8fa60054 */ 	lw	$a2,0x54($sp)
 /*  f0a95f4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0a95f8:	0fc29eb3 */ 	jal	handRenderHudInteger
+/*  f0a95f8:	0fc29eb3 */ 	jal	bgunRenderHudInteger
 /*  f0a95fc:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0a9600:	afa20120 */ 	sw	$v0,0x120($sp)
 /*  f0a9604:	8fb9005c */ 	lw	$t9,0x5c($sp)
@@ -36238,7 +36238,7 @@ glabel handRenderHud
 /*  f0a97f4:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0a97f8:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0a97fc:	24c6fffe */ 	addiu	$a2,$a2,-2
-/*  f0a9800:	0fc29e42 */ 	jal	handRenderHudString
+/*  f0a9800:	0fc29e42 */ 	jal	bgunRenderHudString
 /*  f0a9804:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f0a9808:	afa20120 */ 	sw	$v0,0x120($sp)
 .NB0f0a980c:
@@ -36259,7 +36259,7 @@ const char var7f1ac18c[] = "%02d:%02d:%02d\n";
 const char var7f1ac19c[] = "%02d:%02d\n";
 
 // Mismatch: regalloc near da8
-//Gfx *handRenderHud(Gfx *gdl)
+//Gfx *bgunRenderHud(Gfx *gdl)
 //{
 //	struct player *player = g_Vars.currentplayer; // 12c
 //	s32 bottom = viGetViewTop() + viGetViewHeight() - 13; // 128
@@ -36369,10 +36369,10 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	fnfaderinc = PALUP(g_Vars.lvupdate240 * 2);
 //
 //#if VERSION >= VERSION_NTSC_1_0
-//	handGetWeaponInfo(&info, HAND_RIGHT);
-//	tmpfuncnum = currentPlayerIsUsingSecondaryFunction();
+//	bgunGetWeaponInfo(&info, HAND_RIGHT);
+//	tmpfuncnum = bgunIsUsingSecondaryFunction();
 //
-//	if (func0f098ca0(tmpfuncnum, &info, hand) >= 0) {
+//	if (bgun0f098ca0(tmpfuncnum, &info, hand) >= 0) {
 //		funcnum = tmpfuncnum;
 //	}
 //#endif
@@ -36573,9 +36573,9 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	}
 //
 //	if (ammoindex != ctrl->lastmag) {
-//		abmagReset(&player->hands[HAND_LEFT].abmag);
-//		abmagReset(&hand->abmag);
-//		abmagReset(&ctrl->abmag);
+//		bgunResetAbmag(&player->hands[HAND_LEFT].abmag);
+//		bgunResetAbmag(&hand->abmag);
+//		bgunResetAbmag(&ctrl->abmag);
 //		ctrl->lastmag = ammoindex;
 //	}
 //
@@ -36593,11 +36593,11 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //		}
 //
 //		if (lefthand->clipsizes[ammoindex] > 0 && (weapon->ammos[ammoindex]->flags & 2) == 0) {
-//			gdl = handRenderHudGauge(gdl,
+//			gdl = bgunRenderHudGauge(gdl,
 //					xpos, bottom - reserveheight - clipheight - 3, xpos + barwidth, bottom - reserveheight - 3,
 //					&lefthand->abmag, lefthand->loadedammo[ammoindex], lefthand->clipsizes[ammoindex],
 //					0x00300080, 0x00ff0040, false);
-//			gdl = handRenderHudInteger(gdl, lefthand->loadedammo[ammoindex], xpos + barwidth + 2, true,
+//			gdl = bgunRenderHudInteger(gdl, lefthand->loadedammo[ammoindex], xpos + barwidth + 2, true,
 //					bottom - reserveheight - 8, 0, 0x00ff00a0);
 //		}
 //	}
@@ -36630,10 +36630,10 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //		if (hand->clipsizes[ammoindex] > 0
 //				&& weapon->ammos[ammoindex] != NULL
 //				&& (weapon->ammos[ammoindex]->flags & 2) == 0) {
-//			gdl = handRenderHudGauge(gdl, xpos, bottom - reserveheight - clipheight - 3, xpos + barwidth,
+//			gdl = bgunRenderHudGauge(gdl, xpos, bottom - reserveheight - clipheight - 3, xpos + barwidth,
 //					bottom - reserveheight - 3, &hand->abmag, hand->loadedammo[ammoindex], hand->clipsizes[ammoindex],
 //					0x00300080, 0x00ff0040, false);
-//			gdl = handRenderHudInteger(gdl, hand->loadedammo[ammoindex], xpos - 2, false,
+//			gdl = bgunRenderHudInteger(gdl, hand->loadedammo[ammoindex], xpos - 2, false,
 //					bottom - reserveheight - 8, 0, 0x00ff00a0);
 //		}
 //
@@ -36653,10 +36653,10 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //				}
 //			}
 //
-//			gdl = handRenderHudGauge(gdl, xpos, bottom - reserveheight, xpos + barwidth,
+//			gdl = bgunRenderHudGauge(gdl, xpos, bottom - reserveheight, xpos + barwidth,
 //					bottom, &ctrl->abmag, ammototal, g_AmmoTypes[ammotype].capacity,
 //					0x00403080, 0x00ffc040, true);
-//			gdl = handRenderHudInteger(gdl, ammototal, xpos - 2, false, bottom - reserveheight + 1, 0, 0x00ffc0a0);
+//			gdl = bgunRenderHudInteger(gdl, ammototal, xpos - 2, false, bottom - reserveheight + 1, 0, 0x00ffc0a0);
 //		}
 //
 //		// 8b8
@@ -36679,7 +36679,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //			}
 //
 //			// a7c
-//			gdl = handRenderHudString(gdl, text, xpos + barwidth - 2, false, bottom - reserveheight + 1, 0, 0x00ffc0a0);
+//			gdl = bgunRenderHudString(gdl, text, xpos + barwidth - 2, false, bottom - reserveheight + 1, 0, 0x00ffc0a0);
 //		}
 //	}
 //
@@ -36690,7 +36690,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //	return gdl;
 //}
 
-void cboostAdd(s32 amount)
+void bgunAddBoostc(s32 amount)
 {
 	g_Vars.speedpilltime += amount;
 
@@ -36707,7 +36707,7 @@ void cboostAdd(s32 amount)
 	g_Vars.speedpillwant = true;
 }
 
-void cboostSubtract(s32 amount)
+void bgunSubtractBoost(s32 amount)
 {
 	g_Vars.speedpilltime -= amount;
 
@@ -36717,25 +36717,25 @@ void cboostSubtract(s32 amount)
 	}
 }
 
-void cboostBoost(void)
+void bgunApplyBoost(void)
 {
 	if (lvGetSlowMotionType() != SLOWMOTION_OFF) {
-		cboostSubtract(PALDOWN(1200));
+		bgunSubtractBoost(PALDOWN(1200));
 	} else {
-		cboostAdd(PALDOWN(600));
+		bgunAddBoostc(PALDOWN(600));
 	}
 }
 
-void cboostRevert(void)
+void bgunRevertBoost(void)
 {
 	if (lvGetSlowMotionType() != SLOWMOTION_OFF) {
-		cboostAdd(PALDOWN(1200));
+		bgunAddBoostc(PALDOWN(1200));
 	} else {
-		cboostSubtract(PALDOWN(600));
+		bgunSubtractBoost(PALDOWN(600));
 	}
 }
 
-void speedpillTick(void)
+void bgunTickBoost(void)
 {
 	if (g_Vars.speedpillon && g_Vars.speedpilltime > 0 && !g_Vars.in_cutscene) {
 		g_Vars.speedpilltime -= g_Vars.lvupdate240_60;
@@ -36747,7 +36747,7 @@ void speedpillTick(void)
 	}
 }
 
-void currentPlayerSetGunSightVisible(u32 reason, bool visible)
+void bgunSetSightVisible(u32 reason, bool visible)
 {
 	if (visible) {
 		g_Vars.currentplayer->gunsightoff &= ~reason;
@@ -36757,7 +36757,7 @@ void currentPlayerSetGunSightVisible(u32 reason, bool visible)
 	g_Vars.currentplayer->gunsightoff |= reason;
 }
 
-Gfx *func0f0abcb0(Gfx *gdl)
+Gfx *bgun0f0abcb0(Gfx *gdl)
 {
 	if (g_Vars.currentplayer->gunsightoff == false && !g_Vars.currentplayer->mpmenuon) {
 		gdl = sightRender(gdl, true, currentPlayerGetSight());
@@ -36768,7 +36768,7 @@ Gfx *func0f0abcb0(Gfx *gdl)
 	return gdl;
 }
 
-void func0f0abd30(s32 handnum)
+void bgun0f0abd30(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand = &player->hands[handnum];
@@ -36802,10 +36802,10 @@ void func0f0abd30(s32 handnum)
 	hand->finalmult[1] = 1;
 
 	if (gunctrl->ammotypes[0] >= 0) {
-		abmagReset(&hand->abmag);
+		bgunResetAbmag(&hand->abmag);
 
 		if (handnum == HAND_RIGHT) {
-			abmagReset(&gunctrl->abmag);
+			bgunResetAbmag(&gunctrl->abmag);
 		}
 
 		gunctrl->lastmag = false;

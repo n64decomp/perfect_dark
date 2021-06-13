@@ -50,7 +50,7 @@
 #include "game/chr/chr.h"
 #include "game/prop.h"
 #include "game/game_095320.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
@@ -2406,7 +2406,7 @@ glabel var7f1b8e7cpf
 /*  f16ac54:	8dade560 */ 	lw	$t5,-0x1aa0($t5)
 /*  f16ac58:	55a0000b */ 	bnezl	$t5,.PF0f16ac88
 /*  f16ac5c:	8e4c0320 */ 	lw	$t4,0x320($s2)
-/*  f16ac60:	0fc27b66 */ 	jal	func0f09eae4
+/*  f16ac60:	0fc27b66 */ 	jal	bgun0f09eae4
 /*  f16ac64:	00000000 */ 	nop
 /*  f16ac68:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f16ac6c:	00027840 */ 	sll	$t7,$v0,0x1
@@ -2516,7 +2516,7 @@ glabel var7f1b8e7cpf
 /*  f16ade8:	8e4c029c */ 	lw	$t4,0x29c($s2)
 /*  f16adec:	0583000c */ 	bgezl	$t4,.PF0f16ae20
 /*  f16adf0:	00002025 */ 	move	$a0,$zero
-/*  f16adf4:	0fc28737 */ 	jal	handGetWeaponNum
+/*  f16adf4:	0fc28737 */ 	jal	bgunGetWeaponNum
 /*  f16adf8:	00002025 */ 	move	$a0,$zero
 /*  f16adfc:	00402025 */ 	move	$a0,$v0
 /*  f16ae00:	0fc2c720 */ 	jal	weaponHasFlag
@@ -2627,7 +2627,7 @@ glabel var7f1b8e7cpf
 /*  f16af70:	10000033 */ 	b	.PF0f16b040
 /*  f16af74:	8e500284 */ 	lw	$s0,0x284($s2)
 .PF0f16af78:
-/*  f16af78:	0fc28737 */ 	jal	handGetWeaponNum
+/*  f16af78:	0fc28737 */ 	jal	bgunGetWeaponNum
 /*  f16af7c:	00002025 */ 	move	$a0,$zero
 /*  f16af80:	00402025 */ 	move	$a0,$v0
 /*  f16af84:	0fc2c720 */ 	jal	weaponHasFlag
@@ -2809,9 +2809,9 @@ glabel var7f1b8e7cpf
 /*  f16b218:	00002025 */ 	move	$a0,$zero
 /*  f16b21c:	10400012 */ 	beqz	$v0,.PF0f16b268
 /*  f16b220:	00000000 */ 	nop
-/*  f16b224:	0fc28953 */ 	jal	currentPlayerReloadHandIfPossible
+/*  f16b224:	0fc28953 */ 	jal	bgunReloadIfPossible
 /*  f16b228:	00002025 */ 	move	$a0,$zero
-/*  f16b22c:	0fc28953 */ 	jal	currentPlayerReloadHandIfPossible
+/*  f16b22c:	0fc28953 */ 	jal	bgunReloadIfPossible
 /*  f16b230:	03c02025 */ 	move	$a0,$s8
 /*  f16b234:	1000000c */ 	b	.PF0f16b268
 /*  f16b238:	00000000 */ 	nop
@@ -3859,7 +3859,7 @@ Gfx *lvRender(Gfx *gdl)
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 					&& var8009dfc0 == 0) {
-				g_Vars.currentplayer->gunctrl.unk1583_06 = func0f09eae4();
+				g_Vars.currentplayer->gunctrl.unk1583_06 = bgun0f09eae4();
 			}
 
 			if (g_Vars.lockscreen) {
@@ -3892,7 +3892,7 @@ Gfx *lvRender(Gfx *gdl)
 				if (PLAYERCOUNT() == 1
 						|| g_Vars.coopplayernum >= 0
 						|| g_Vars.antiplayernum >= 0
-						|| (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmoveIsInSightAimMode())) {
+						|| (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmoveIsInSightAimMode())) {
 					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
@@ -3931,7 +3931,7 @@ Gfx *lvRender(Gfx *gdl)
 
 				if (gsetHasFunctionFlags(&g_Vars.currentplayer->hands[0].gset, FUNCFLAG_THREATDETECTOR)) {
 					lvFindThreats();
-				} else if (weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
+				} else if (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
 
 					if (frIsInTraining()
@@ -3988,8 +3988,8 @@ Gfx *lvRender(Gfx *gdl)
 				// Handle opening doors and reloading
 				if (g_Vars.currentplayer->bondactivateorreload) {
 					if (currentPlayerInteract(false)) {
-						currentPlayerReloadHandIfPossible(HAND_RIGHT);
-						currentPlayerReloadHandIfPossible(HAND_LEFT);
+						bgunReloadIfPossible(HAND_RIGHT);
+						bgunReloadIfPossible(HAND_LEFT);
 					}
 				} else if (g_Vars.currentplayer->eyespy
 						&& g_Vars.currentplayer->eyespy->active
@@ -4992,7 +4992,7 @@ glabel var7f1b1fd4nb
 /*  f16495c:	8d8c2780 */ 	lw	$t4,0x2780($t4)
 /*  f164960:	5580000b */ 	bnezl	$t4,.NB0f164990
 /*  f164964:	8e4d0320 */ 	lw	$t5,0x320($s2)
-/*  f164968:	0fc2725e */ 	jal	func0f09eae4
+/*  f164968:	0fc2725e */ 	jal	bgun0f09eae4
 /*  f16496c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f164970:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f164974:	00027840 */ 	sll	$t7,$v0,0x1
@@ -5103,7 +5103,7 @@ glabel var7f1b1fd4nb
 /*  f164af4:	8e4d029c */ 	lw	$t5,0x29c($s2)
 /*  f164af8:	05a3000c */ 	bgezl	$t5,.NB0f164b2c
 /*  f164afc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f164b00:	0fc27dd7 */ 	jal	handGetWeaponNum
+/*  f164b00:	0fc27dd7 */ 	jal	bgunGetWeaponNum
 /*  f164b04:	00002025 */ 	or	$a0,$zero,$zero
 /*  f164b08:	00402025 */ 	or	$a0,$v0,$zero
 /*  f164b0c:	0fc2bd48 */ 	jal	weaponHasFlag
@@ -5215,7 +5215,7 @@ glabel var7f1b1fd4nb
 /*  f164c80:	10000034 */ 	beqz	$zero,.NB0f164d54
 /*  f164c84:	8e500284 */ 	lw	$s0,0x284($s2)
 .NB0f164c88:
-/*  f164c88:	0fc27dd7 */ 	jal	handGetWeaponNum
+/*  f164c88:	0fc27dd7 */ 	jal	bgunGetWeaponNum
 /*  f164c8c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f164c90:	00402025 */ 	or	$a0,$v0,$zero
 /*  f164c94:	0fc2bd48 */ 	jal	weaponHasFlag
@@ -5399,9 +5399,9 @@ glabel var7f1b1fd4nb
 /*  f164f30:	00002025 */ 	or	$a0,$zero,$zero
 /*  f164f34:	10400012 */ 	beqz	$v0,.NB0f164f80
 /*  f164f38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164f3c:	0fc27fe5 */ 	jal	currentPlayerReloadHandIfPossible
+/*  f164f3c:	0fc27fe5 */ 	jal	bgunReloadIfPossible
 /*  f164f40:	00002025 */ 	or	$a0,$zero,$zero
-/*  f164f44:	0fc27fe5 */ 	jal	currentPlayerReloadHandIfPossible
+/*  f164f44:	0fc27fe5 */ 	jal	bgunReloadIfPossible
 /*  f164f48:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f164f4c:	1000000c */ 	beqz	$zero,.NB0f164f80
 /*  f164f50:	00000000 */ 	sll	$zero,$zero,0x0
@@ -7406,7 +7406,7 @@ glabel var7f1b8ed0pf
 /*  f16cdd8:	c4248ed0 */ 	lwc1	$f4,-0x7130($at)
 /*  f16cddc:	c6920044 */ 	lwc1	$f18,0x44($s4)
 /*  f16cde0:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f16cde4:	0fc2b039 */ 	jal	speedpillTick
+/*  f16cde4:	0fc2b039 */ 	jal	bgunTickBoost
 /*  f16cde8:	e686004c */ 	swc1	$f6,0x4c($s4)
 /*  f16cdec:	0fc37e77 */ 	jal	hudmsgsTick
 /*  f16cdf0:	00000000 */ 	nop
@@ -8316,7 +8316,7 @@ void lvTick(void)
 	g_Vars.lvupdate240frealprev = g_Vars.lvupdate240freal;
 	g_Vars.lvupdate240freal = PALUPF(g_Vars.lvupdate240f);
 
-	speedpillTick();
+	bgunTickBoost();
 	hudmsgsTick();
 
 	if ((joyGetButtonsPressedThisFrame(0, 0xffff) != 0
@@ -9043,7 +9043,7 @@ glabel lvTick
 /*  f166dd8:	e6900050 */ 	swc1	$f16,0x50($s4)
 /*  f166ddc:	e68a0044 */ 	swc1	$f10,0x44($s4)
 /*  f166de0:	c6920044 */ 	lwc1	$f18,0x44($s4)
-/*  f166de4:	0fc2a662 */ 	jal	speedpillTick
+/*  f166de4:	0fc2a662 */ 	jal	bgunTickBoost
 /*  f166de8:	e692004c */ 	swc1	$f18,0x4c($s4)
 /*  f166dec:	0fc37207 */ 	jal	hudmsgsTick
 /*  f166df0:	00000000 */ 	sll	$zero,$zero,0x0

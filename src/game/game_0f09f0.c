@@ -6,7 +6,7 @@
 #include "game/game_02cde0.h"
 #include "game/game_095320.h"
 #include "game/game_096ca0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
 #include "game/game_0b69d0.h"
@@ -5227,13 +5227,13 @@ glabel var7f1b3c40pf
 .PF0f0f4068:
 /*  f0f4068:	5720000e */ 	bnezl	$t9,.PF0f0f40a4
 /*  f0f406c:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f0f4070:	0fc278ae */ 	jal	func0f09e004
+/*  f0f4070:	0fc278ae */ 	jal	bgun0f09e004
 /*  f0f4074:	24040001 */ 	li	$a0,0x1
 /*  f0f4078:	10400007 */ 	beqz	$v0,.PF0f0f4098
 /*  f0f407c:	00000000 */ 	nop
-/*  f0f4080:	0fc27828 */ 	jal	func0f09ddec
+/*  f0f4080:	0fc27828 */ 	jal	bgun0f09ddec
 /*  f0f4084:	00000000 */ 	nop
-/*  f0f4088:	0fc2782c */ 	jal	func0f09ddfc
+/*  f0f4088:	0fc2782c */ 	jal	bgun0f09ddfc
 /*  f0f408c:	ae020004 */ 	sw	$v0,0x4($s0)
 /*  f0f4090:	10000003 */ 	b	.PF0f0f40a0
 /*  f0f4094:	ae020008 */ 	sw	$v0,0x8($s0)
@@ -6829,13 +6829,13 @@ glabel var7f1b2948
 .L0f0f3914:
 /*  f0f3914:	5720000e */ 	bnezl	$t9,.L0f0f3950
 /*  f0f3918:	8e0a0004 */ 	lw	$t2,0x4($s0)
-/*  f0f391c:	0fc27801 */ 	jal	func0f09e004
+/*  f0f391c:	0fc27801 */ 	jal	bgun0f09e004
 /*  f0f3920:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f3924:	10400007 */ 	beqz	$v0,.L0f0f3944
 /*  f0f3928:	00000000 */ 	nop
-/*  f0f392c:	0fc2777b */ 	jal	func0f09ddec
+/*  f0f392c:	0fc2777b */ 	jal	bgun0f09ddec
 /*  f0f3930:	00000000 */ 	nop
-/*  f0f3934:	0fc2777f */ 	jal	func0f09ddfc
+/*  f0f3934:	0fc2777f */ 	jal	bgun0f09ddfc
 /*  f0f3938:	ae020004 */ 	sw	$v0,0x4($s0)
 /*  f0f393c:	10000003 */ 	b	.L0f0f394c
 /*  f0f3940:	ae020008 */ 	sw	$v0,0x8($s0)
@@ -8438,13 +8438,13 @@ glabel var7f1b2948
 .NB0f0f0458:
 /*  f0f0458:	5720000e */ 	bnezl	$t9,.NB0f0f0494
 /*  f0f045c:	8e2a0004 */ 	lw	$t2,0x4($s1)
-/*  f0f0460:	0fc26fc8 */ 	jal	func0f09e004
+/*  f0f0460:	0fc26fc8 */ 	jal	bgun0f09e004
 /*  f0f0464:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f0468:	10400007 */ 	beqz	$v0,.NB0f0f0488
 /*  f0f046c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f0470:	0fc26f42 */ 	jal	func0f09ddec
+/*  f0f0470:	0fc26f42 */ 	jal	bgun0f09ddec
 /*  f0f0474:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f0478:	0fc26f46 */ 	jal	func0f09ddfc
+/*  f0f0478:	0fc26f46 */ 	jal	bgun0f09ddfc
 /*  f0f047c:	ae220004 */ 	sw	$v0,0x4($s1)
 /*  f0f0480:	10000003 */ 	beqz	$zero,.NB0f0f0490
 /*  f0f0484:	ae220008 */ 	sw	$v0,0x8($s1)

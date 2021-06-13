@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/chr/chraction.h"
 #include "game/game_006900.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
@@ -657,20 +657,20 @@ void amApply(s32 slot)
 					invSetCurrentIndex(invindex);
 
 					if (invHasDoubleWeaponIncAllGuns(weaponnum, weaponnum)) {
-						if (handGetWeaponNum(HAND_RIGHT) != weaponnum) {
-							currentPlayerEquipWeaponWrapper(HAND_RIGHT, weaponnum);
+						if (bgunGetWeaponNum(HAND_RIGHT) != weaponnum) {
+							bgunEquipWeapon2(HAND_RIGHT, weaponnum);
 						}
 
-						if (handGetWeaponNum(HAND_LEFT) != weaponnum) {
-							currentPlayerEquipWeaponWrapper(HAND_LEFT, weaponnum);
+						if (bgunGetWeaponNum(HAND_LEFT) != weaponnum) {
+							bgunEquipWeapon2(HAND_LEFT, weaponnum);
 						}
 					} else {
-						if (handGetWeaponNum(HAND_RIGHT) != weaponnum) {
-							currentPlayerEquipWeaponWrapper(HAND_RIGHT, weaponnum);
+						if (bgunGetWeaponNum(HAND_RIGHT) != weaponnum) {
+							bgunEquipWeapon2(HAND_RIGHT, weaponnum);
 						}
 
-						if (handGetWeaponNum(HAND_LEFT) != WEAPON_NONE) {
-							currentPlayerEquipWeaponWrapper(HAND_LEFT, WEAPON_NONE);
+						if (bgunGetWeaponNum(HAND_LEFT) != WEAPON_NONE) {
+							bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
 						}
 					}
 				}
@@ -744,7 +744,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		} else {
 			if (invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
 				// Special case: "Cloak %d"
-				qty = currentPlayerGetAmmoCountWithCheck(AMMOTYPE_CLOAK);
+				qty = bgunGetAmmoCountWithCheck(AMMOTYPE_CLOAK);
 				secs = qty / PALDOWN(60);
 				modulo = (qty - (secs * PALDOWN(60))) * 100 / PALDOWN(60);
 				sprintf(label, langGet(L_OPTIONS_491), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"
@@ -761,7 +761,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 
 		weaponnum = invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
 
-		if (!currentPlayerHasAmmoForWeapon(weaponnum)) {
+		if (!bgunHasAmmoForWeapon(weaponnum)) {
 			*flags |= AMSLOTFLAG_NOAMMO;
 		}
 		break;
@@ -1470,7 +1470,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		if (weaponnum < WEAPON_FALCON2 || weaponnum > WEAPON_HORIZONSCANNER) {
 			weaponname = langGet(L_MISC_173); // "No Weapon"
 		} else {
-			weaponname = weaponGetShortName(weaponnum);
+			weaponname = bgunGetShortName(weaponnum);
 		}
 
 		textMeasure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
@@ -1673,7 +1673,7 @@ glabel var7f1acfe0nb
 /*  f0fbc80:	10000004 */ 	beqz	$zero,.NB0f0fbc94
 /*  f0fbc84:	afa20078 */ 	sw	$v0,0x78($sp)
 .NB0f0fbc88:
-/*  f0fbc88:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f0fbc88:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f0fbc8c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0fbc90:	afa20078 */ 	sw	$v0,0x78($sp)
 .NB0f0fbc94:

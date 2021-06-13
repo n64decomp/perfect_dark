@@ -14,7 +14,7 @@
 #include "game/game_095320.h"
 #include "game/atan2f.h"
 #include "game/game_096ca0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b2150.h"

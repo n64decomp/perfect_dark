@@ -16,7 +16,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/atan2f.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b69d0.h"
@@ -2127,7 +2127,7 @@ bool aiIfChrHasWeaponEquipped(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (handGetWeaponNum(HAND_RIGHT) == cmd[3]) {
+		if (bgunGetWeaponNum(HAND_RIGHT) == cmd[3]) {
 			passes = true;
 		}
 
@@ -2325,9 +2325,9 @@ bool aiChrDropWeapon(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		u32 weaponnum;
 		setCurrentPlayerNum(playernum);
-		weaponnum = handGetWeaponNum(HAND_RIGHT);
+		weaponnum = bgunGetWeaponNum(HAND_RIGHT);
 		invRemoveItemByNum(weaponnum);
-		func0f0a1c2c();
+		bgun0f0a1c2c();
 		setCurrentPlayerNum(prevplayernum);
 	} else if (chr && chr->prop) {
 		if (chr->weapons_held[0]) {
@@ -5563,8 +5563,8 @@ bool aiRevokeControl(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		currentPlayerSetGunSightVisible(GUNSIGHTREASON_NOCONTROL, false);
-		currentPlayerSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, false);
+		bgunSetSightVisible(GUNSIGHTREASON_NOCONTROL, false);
+		bgunSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, false);
 
 		if ((cmd[3] & 2) == 0) {
 			currentPlayerSetHudmsgsOff(HUDMSGREASON_NOCONTROL);
@@ -5594,8 +5594,8 @@ bool aiGrantControl(void)
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
-		currentPlayerSetGunSightVisible(GUNSIGHTREASON_NOCONTROL, true);
-		currentPlayerSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, true);
+		bgunSetSightVisible(GUNSIGHTREASON_NOCONTROL, true);
+		bgunSetGunAmmoVisible(GUNAMMOREASON_NOCONTROL, true);
 		currentPlayerSetHudmsgsOn(HUDMSGREASON_NOCONTROL);
 		countdownTimerSetVisible(COUNTDOWNTIMERREASON_NOCONTROL, true);
 		g_PlayersWithControl[g_Vars.currentplayernum] = true;
@@ -5869,7 +5869,7 @@ bool aiIfChrAmmoQuantityLessThan(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (currentPlayerGetAmmoCount((s8)cmd[3]) < (s8)cmd[4]) {
+		if (bgunGetAmmoCount((s8)cmd[3]) < (s8)cmd[4]) {
 			passes = true;
 		}
 
@@ -5897,8 +5897,8 @@ bool aiChrDrawWeapon(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		currentPlayerEquipWeaponWrapper(0, (s8)cmd[3]);
-		currentPlayerEquipWeaponWrapper(1, 0);
+		bgunEquipWeapon2(0, (s8)cmd[3]);
+		bgunEquipWeapon2(1, 0);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -5919,7 +5919,7 @@ bool aiChrDrawWeaponInCutscene(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		currentPlayerEquipWeapon((s8)cmd[3]);
+		bgunEquipWeapon((s8)cmd[3]);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -6701,7 +6701,7 @@ glabel var7f1a9d4c
 /*  f05935c:	24090004 */ 	addiu	$t1,$zero,0x4
 /*  f059360:	a3a9002b */ 	sb	$t1,0x2b($sp)
 .L0f059364:
-/*  f059364:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f059364:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f059368:	00002025 */ 	or	$a0,$zero,$zero
 /*  f05936c:	244afffe */ 	addiu	$t2,$v0,-2
 /*  f059370:	2d41001a */ 	sltiu	$at,$t2,0x1a
@@ -6838,7 +6838,7 @@ glabel var7f1a9d4c
 //		score -= 2;
 //	}
 //
-//	switch (handGetWeaponNum(HAND_RIGHT)) {
+//	switch (bgunGetWeaponNum(HAND_RIGHT)) {
 //	case WEAPON_CMP150:
 //	case WEAPON_CYCLONE:
 //	case WEAPON_CALLISTO:
@@ -7000,7 +7000,7 @@ bool aiIfPlayerUsingCmpOrAr34(void)
 	u32 hand = HAND_RIGHT;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	switch (handGetWeaponNum(hand)) {
+	switch (bgunGetWeaponNum(hand)) {
 		case WEAPON_CMP150:
 		case WEAPON_AR34:
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -11645,7 +11645,7 @@ bool aiClearInventory(void)
 			g_Vars.currentplayer->devicesactive = 0;
 #endif
 			invGiveSingleWeapon(WEAPON_UNARMED);
-			currentPlayerEquipWeapon(WEAPON_UNARMED);
+			bgunEquipWeapon(WEAPON_UNARMED);
 		}
 	}
 
@@ -12246,7 +12246,7 @@ bool aiSetChrHudpieceVisible(void)
 bool aiSetPassiveMode(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	playersSetPassiveMode(cmd[2]);
+	bgunSetPassiveMode(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;

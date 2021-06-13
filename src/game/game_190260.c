@@ -6,7 +6,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/atan2f.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_127910.h"
@@ -116,9 +116,9 @@ glabel mpChrReset
 /*  f1913cc:	a4860292 */ 	sh	$a2,0x292($a0)
 /*  f1913d0:	a2200184 */ 	sb	$zero,0x184($s1)
 /*  f1913d4:	a2200185 */ 	sb	$zero,0x185($s1)
-/*  f1913d8:	0fc29d45 */ 	jal	freeFireslot
+/*  f1913d8:	0fc29d45 */ 	jal	bgunFreeFireslot
 /*  f1913dc:	8224017c */ 	lb	$a0,0x17c($s1)
-/*  f1913e0:	0fc29d45 */ 	jal	freeFireslot
+/*  f1913e0:	0fc29d45 */ 	jal	bgunFreeFireslot
 /*  f1913e4:	8224017d */ 	lb	$a0,0x17d($s1)
 /*  f1913e8:	922b032d */ 	lbu	$t3,0x32d($s1)
 /*  f1913ec:	3c014339 */ 	lui	$at,0x4339
@@ -344,9 +344,9 @@ glabel mpChrReset
 /*  f19030c:	a4860292 */ 	sh	$a2,0x292($a0)
 /*  f190310:	a2200184 */ 	sb	$zero,0x184($s1)
 /*  f190314:	a2200185 */ 	sb	$zero,0x185($s1)
-/*  f190318:	0fc29c32 */ 	jal	freeFireslot
+/*  f190318:	0fc29c32 */ 	jal	bgunFreeFireslot
 /*  f19031c:	8224017c */ 	lb	$a0,0x17c($s1)
-/*  f190320:	0fc29c32 */ 	jal	freeFireslot
+/*  f190320:	0fc29c32 */ 	jal	bgunFreeFireslot
 /*  f190324:	8224017d */ 	lb	$a0,0x17d($s1)
 /*  f190328:	922b032d */ 	lbu	$t3,0x32d($s1)
 /*  f19032c:	3c014339 */ 	lui	$at,0x4339
@@ -784,8 +784,8 @@ glabel mpChrReset
 //			chrSetShield(chr, 0);
 //			chr->cmnum = 0;
 //			chr->cmnum2 = 0;
-//			freeFireslot(chr->fireslot[0]);
-//			freeFireslot(chr->fireslot[1]);
+//			bgunFreeFireslot(chr->fireslot[0]);
+//			bgunFreeFireslot(chr->fireslot[1]);
 //			chr->unk32c_12 = 0;
 //			chr->fireslot[0] = -1;
 //			chr->fireslot[1] = -1;
@@ -1639,7 +1639,7 @@ glabel var7f1b8ea8
 /*  f190df4:	9124005c */ 	lbu	$a0,0x5c($t1)
 /*  f190df8:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f190dfc:	9125005f */ 	lbu	$a1,0x5f($t1)
-/*  f190e00:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f190e00:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f190e04:	00402025 */ 	or	$a0,$v0,$zero
 /*  f190e08:	0202082a */ 	slt	$at,$s0,$v0
 /*  f190e0c:	54200004 */ 	bnezl	$at,.L0f190e20
@@ -1673,7 +1673,7 @@ glabel var7f1b8ea8
 /*  f190e70:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
 /*  f190e74:	8dc402d4 */ 	lw	$a0,0x2d4($t6)
 /*  f190e78:	8e04005c */ 	lw	$a0,0x5c($s0)
-/*  f190e7c:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f190e7c:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f190e80:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f190e84:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f190e88:	00a2082a */ 	slt	$at,$a1,$v0
@@ -1715,7 +1715,7 @@ glabel var7f1b8ea8
 /*  f190f0c:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
 /*  f190f10:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f190f14:	02002025 */ 	or	$a0,$s0,$zero
-/*  f190f18:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f190f18:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f190f1c:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f190f20:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f190f24:	8fa30028 */ 	lw	$v1,0x28($sp)
@@ -2040,7 +2040,7 @@ glabel var7f1b8ea8
 /*  f18aee0:	9104005c */ 	lbu	$a0,0x5c($t0)
 /*  f18aee4:	0fc64e64 */ 	jal	weaponGetAmmoTypeByFunction
 /*  f18aee8:	9105005f */ 	lbu	$a1,0x5f($t0)
-/*  f18aeec:	0fc29da5 */ 	jal	ammotypeGetMaxCapacity
+/*  f18aeec:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
 /*  f18aef0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f18aef4:	0202082a */ 	slt	$at,$s0,$v0
 /*  f18aef8:	54200004 */ 	bnezl	$at,.NB0f18af0c
@@ -2074,7 +2074,7 @@ glabel var7f1b8ea8
 /*  f18af5c:	0fc64f26 */ 	jal	aibotGetAmmoQuantityByType
 /*  f18af60:	8da402d4 */ 	lw	$a0,0x2d4($t5)
 /*  f18af64:	8e04005c */ 	lw	$a0,0x5c($s0)
-/*  f18af68:	0fc29da5 */ 	jal	ammotypeGetMaxCapacity
+/*  f18af68:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
 /*  f18af6c:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f18af70:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f18af74:	00a2082a */ 	slt	$at,$a1,$v0
@@ -2116,7 +2116,7 @@ glabel var7f1b8ea8
 /*  f18aff8:	0fc64f26 */ 	jal	aibotGetAmmoQuantityByType
 /*  f18affc:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f18b000:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18b004:	0fc29da5 */ 	jal	ammotypeGetMaxCapacity
+/*  f18b004:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
 /*  f18b008:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f18b00c:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f18b010:	8fa30028 */ 	lw	$v1,0x28($sp)
@@ -2380,7 +2380,7 @@ glabel var7f1b8ea8
 //			// ignore the pickup if at max ammo already
 //			if (itemtype == INVITEMTYPE_DUAL || (itemtype == INVITEMTYPE_WEAP && singleonly)) {
 //				qty = aibotGetAmmoQuantityByWeapon(chr->aibot, weaponobj->weaponnum, weaponobj->gunfunc, false);
-//				cap = ammotypeGetMaxCapacity(weaponGetAmmoTypeByFunction(weaponobj->weaponnum, weaponobj->gunfunc));
+//				cap = bgunGetCapacityByAmmotype(weaponGetAmmoTypeByFunction(weaponobj->weaponnum, weaponobj->gunfunc));
 //
 //				if (qty >= cap) {
 //					return false;
@@ -2397,7 +2397,7 @@ glabel var7f1b8ea8
 //		crate = (struct ammocrateobj *)prop->obj;
 //
 //		// Ignore ammo crate if at max ammo already
-//		if (aibotGetAmmoQuantityByType(chr->aibot, crate->ammotype, false) >= ammotypeGetMaxCapacity(crate->ammotype)) {
+//		if (aibotGetAmmoQuantityByType(chr->aibot, crate->ammotype, false) >= bgunGetCapacityByAmmotype(crate->ammotype)) {
 //			return false;
 //		}
 //	} else /*e9c*/ if (obj->type == OBJTYPE_MULTIAMMOCRATE) {
@@ -2413,7 +2413,7 @@ glabel var7f1b8ea8
 //			weaponnum = ammotypeGetWeapon(i + 1);
 //
 //			if (crate2->slots[i].quantity > 0) {
-//				if (aibotGetAmmoQuantityByType(chr->aibot, i + 1, false) < ammotypeGetMaxCapacity(i + 1)) {
+//				if (aibotGetAmmoQuantityByType(chr->aibot, i + 1, false) < bgunGetCapacityByAmmotype(i + 1)) {
 //					ignore1 = false;
 //
 //					if (weaponnum && !aibotGetInvItemType(chr, weaponnum)) {
@@ -6155,13 +6155,13 @@ glabel var7f1b8f50
 /*  f1941f4:	8e640000 */ 	lw	$a0,0x0($s3)
 /*  f1941f8:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f1941fc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f194200:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f194200:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f194204:	00402025 */ 	or	$a0,$v0,$zero
 /*  f194208:	0040b825 */ 	or	$s7,$v0,$zero
 /*  f19420c:	8e640000 */ 	lw	$a0,0x0($s3)
 /*  f194210:	0fc6666c */ 	jal	weaponGetAmmoTypeByFunction
 /*  f194214:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f194218:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f194218:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f19421c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f194220:	8e650000 */ 	lw	$a1,0x0($s3)
 /*  f194224:	3c038008 */ 	lui	$v1,%hi(g_AibotWeaponPreferences+0x4)
@@ -6431,7 +6431,7 @@ glabel var7f1b8f50
 /*  f1945d0:	0fc6672e */ 	jal	aibotGetAmmoQuantityByType
 /*  f1945d4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1945d8:	00409025 */ 	or	$s2,$v0,$zero
-/*  f1945dc:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f1945dc:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f1945e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1945e4:	0242082a */ 	slt	$at,$s2,$v0
 /*  f1945e8:	10200008 */ 	beqz	$at,.L0f19460c
@@ -9030,7 +9030,7 @@ glabel var7f1b8fc8
 /*  f197dc8:	2404001c */ 	li	$a0,0x1c
 /*  f197dcc:	1541000d */ 	bne	$t2,$at,.PF0f197e04
 /*  f197dd0:	02e02825 */ 	move	$a1,$s7
-/*  f197dd4:	0fc26dd4 */ 	jal	weaponGetMinClipQty
+/*  f197dd4:	0fc26dd4 */ 	jal	bgunGetMinClipQty
 /*  f197dd8:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f197ddc:	8e2d0024 */ 	lw	$t5,0x24($s1)
 /*  f197de0:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -9203,7 +9203,7 @@ glabel var7f1b8fc8
 /*  f198048:	24180032 */ 	li	$t8,0x32
 /*  f19804c:	a658003c */ 	sh	$t8,0x3c($s2)
 /*  f198050:	2404001c */ 	li	$a0,0x1c
-/*  f198054:	0fc26dd4 */ 	jal	weaponGetMinClipQty
+/*  f198054:	0fc26dd4 */ 	jal	bgunGetMinClipQty
 /*  f198058:	02e02825 */ 	move	$a1,$s7
 /*  f19805c:	8e490024 */ 	lw	$t1,0x24($s2)
 /*  f198060:	01225023 */ 	subu	$t2,$t1,$v0
@@ -12038,7 +12038,7 @@ glabel var7f1b8fc8
 /*  f196cf8:	2404001c */ 	addiu	$a0,$zero,0x1c
 /*  f196cfc:	1721000d */ 	bne	$t9,$at,.L0f196d34
 /*  f196d00:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f196d04:	0fc26d36 */ 	jal	weaponGetMinClipQty
+/*  f196d04:	0fc26d36 */ 	jal	bgunGetMinClipQty
 /*  f196d08:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f196d0c:	8e290024 */ 	lw	$t1,0x24($s1)
 /*  f196d10:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -12211,7 +12211,7 @@ glabel var7f1b8fc8
 /*  f196f78:	240e003c */ 	addiu	$t6,$zero,0x3c
 /*  f196f7c:	a64e003c */ 	sh	$t6,0x3c($s2)
 /*  f196f80:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*  f196f84:	0fc26d36 */ 	jal	weaponGetMinClipQty
+/*  f196f84:	0fc26d36 */ 	jal	bgunGetMinClipQty
 /*  f196f88:	02e02825 */ 	or	$a1,$s7,$zero
 /*  f196f8c:	8e4f0024 */ 	lw	$t7,0x24($s2)
 /*  f196f90:	01e2c823 */ 	subu	$t9,$t7,$v0

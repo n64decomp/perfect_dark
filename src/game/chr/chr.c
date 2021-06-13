@@ -10,7 +10,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/game_096360.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
@@ -4584,8 +4584,8 @@ void func0f020d44(struct prop *prop, bool removechr)
 	struct prop *child;
 	u32 stack[2];
 
-	freeFireslotWrapper(chr->fireslot[0]);
-	freeFireslotWrapper(chr->fireslot[1]);
+	bgunFreeFireslotWrapper(chr->fireslot[0]);
+	bgunFreeFireslotWrapper(chr->fireslot[1]);
 
 	if (chr->proppreset1 >= 0) {
 		struct prop *proppreset = &g_Vars.props[chr->proppreset1];
@@ -6749,7 +6749,7 @@ void chrUpdateCloak(struct chrdata *chr)
 
 		if (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE) {
 			// Cloak is active - but may or may not be in effect due to recent shooting
-			s32 qty = currentPlayerGetAmmoCountWithCheck(AMMOTYPE_CLOAK);
+			s32 qty = bgunGetAmmoCountWithCheck(AMMOTYPE_CLOAK);
 
 			if (qty > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
@@ -6760,7 +6760,7 @@ void chrUpdateCloak(struct chrdata *chr)
 						qty = 0;
 					}
 
-					currentPlayerSetAmmoQuantity(AMMOTYPE_CLOAK, qty);
+					bgunSetAmmoQuantity(AMMOTYPE_CLOAK, qty);
 				}
 			} else {
 				// Out of cloak ammo - turn off cloak
@@ -14324,11 +14324,11 @@ glabel func0f027e1c
 /*  f027efc:	27a50098 */ 	addiu	$a1,$sp,0x98
 /*  f027f00:	0c0056da */ 	jal	func00015b68
 /*  f027f04:	27a600a4 */ 	addiu	$a2,$sp,0xa4
-/*  f027f08:	0fc2a519 */ 	jal	handSetHitPos
+/*  f027f08:	0fc2a519 */ 	jal	bgunSetHitPos
 /*  f027f0c:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f027f10:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f027f14:	8e250004 */ 	lw	$a1,0x4($s1)
-/*  f027f18:	0fc29f66 */ 	jal	gsetPlayPropHitSound
+/*  f027f18:	0fc29f66 */ 	jal	bgunPlayPropHitSound
 /*  f027f1c:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f027f20:	8fa200f8 */ 	lw	$v0,0xf8($sp)
 /*  f027f24:	3c0b800a */ 	lui	$t3,%hi(g_Vars+0x284)
@@ -14767,11 +14767,11 @@ glabel func0f027e1c
 /*  f027918:	27a50098 */ 	addiu	$a1,$sp,0x98
 /*  f02791c:	0c005a96 */ 	jal	func00015b68
 /*  f027920:	27a600a4 */ 	addiu	$a2,$sp,0xa4
-/*  f027924:	0fc29c81 */ 	jal	handSetHitPos
+/*  f027924:	0fc29c81 */ 	jal	bgunSetHitPos
 /*  f027928:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f02792c:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f027930:	8e250004 */ 	lw	$a1,0x4($s1)
-/*  f027934:	0fc296b1 */ 	jal	gsetPlayPropHitSound
+/*  f027934:	0fc296b1 */ 	jal	bgunPlayPropHitSound
 /*  f027938:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f02793c:	8fa200f8 */ 	lw	$v0,0xf8($sp)
 /*  f027940:	3c0a800a */ 	lui	$t2,0x800a

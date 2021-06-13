@@ -96,7 +96,7 @@
 	build/ROMID/game/game_097a50.o (section); \
 	build/ROMID/game/game_097aa0.o (section); \
 	build/ROMID/game/inventory/items.o (section); \
-	build/ROMID/game/game_097ba0.o (section); \
+	build/ROMID/game/bondgun.o (section); \
 	build/ROMID/game/game_0abe70.o (section); \
 	build/ROMID/game/mpstats.o (section); \
 	build/ROMID/game/game_0b0fd0.o (section); \

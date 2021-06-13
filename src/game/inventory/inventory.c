@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/inventory/inventory.h"
 #include "game/training/training.h"
@@ -181,7 +181,7 @@ void invSetAllGuns(bool enable)
 	g_Vars.currentplayer->equipallguns = enable;
 	invCalculateCurrentIndex();
 	weaponnum = invGetWeaponNumByIndex(g_Vars.currentplayer->equipcuritem);
-	currentPlayerEquipWeapon(weaponnum);
+	bgunEquipWeapon(weaponnum);
 }
 
 bool invHasAllGuns(void)
@@ -628,7 +628,7 @@ glabel func0f1122ec
 .L0f1123d4:
 /*  f1123d4:	12600005 */ 	beqz	$s3,.L0f1123ec
 /*  f1123d8:	00000000 */ 	nop
-/*  f1123dc:	0fc28684 */ 	jal	func0f0a1a10
+/*  f1123dc:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f1123e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1123e4:	10400008 */ 	beqz	$v0,.L0f112408
 /*  f1123e8:	00000000 */ 	nop
@@ -663,7 +663,7 @@ glabel func0f1122ec
 /*  f11244c:	00000000 */ 	nop
 /*  f112450:	52600007 */ 	beqzl	$s3,.L0f112470
 /*  f112454:	00809025 */ 	or	$s2,$a0,$zero
-/*  f112458:	0fc28684 */ 	jal	func0f0a1a10
+/*  f112458:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f11245c:	00000000 */ 	nop
 /*  f112460:	1040001e */ 	beqz	$v0,.L0f1124dc
 /*  f112464:	00000000 */ 	nop
@@ -688,11 +688,11 @@ glabel func0f1122ec
 .L0f1124a8:
 /*  f1124a8:	5260000a */ 	beqzl	$s3,.L0f1124d4
 /*  f1124ac:	8e120004 */ 	lw	$s2,0x4($s0)
-/*  f1124b0:	0fc28684 */ 	jal	func0f0a1a10
+/*  f1124b0:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f1124b4:	00000000 */ 	nop
 /*  f1124b8:	54400006 */ 	bnezl	$v0,.L0f1124d4
 /*  f1124bc:	8e120004 */ 	lw	$s2,0x4($s0)
-/*  f1124c0:	0fc28684 */ 	jal	func0f0a1a10
+/*  f1124c0:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f1124c4:	8e040008 */ 	lw	$a0,0x8($s0)
 /*  f1124c8:	10400004 */ 	beqz	$v0,.L0f1124dc
 /*  f1124cc:	00000000 */ 	nop
@@ -794,7 +794,7 @@ glabel func0f11253c
 .L0f112610:
 /*  f112610:	12400005 */ 	beqz	$s2,.L0f112628
 /*  f112614:	00000000 */ 	nop
-/*  f112618:	0fc28684 */ 	jal	func0f0a1a10
+/*  f112618:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f11261c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f112620:	5040ffe2 */ 	beqzl	$v0,.L0f1125ac
 /*  f112624:	2619002c */ 	addiu	$t9,$s0,0x2c
@@ -837,7 +837,7 @@ glabel func0f11253c
 .L0f1126a8:
 /*  f1126a8:	52400007 */ 	beqzl	$s2,.L0f1126c8
 /*  f1126ac:	00808825 */ 	or	$s1,$a0,$zero
-/*  f1126b0:	0fc28684 */ 	jal	func0f0a1a10
+/*  f1126b0:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f1126b4:	00000000 */ 	nop
 /*  f1126b8:	1040001f */ 	beqz	$v0,.L0f112738
 /*  f1126bc:	00000000 */ 	nop
@@ -863,11 +863,11 @@ glabel func0f11253c
 .L0f112704:
 /*  f112704:	5240000a */ 	beqzl	$s2,.L0f112730
 /*  f112708:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f11270c:	0fc28684 */ 	jal	func0f0a1a10
+/*  f11270c:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f112710:	00000000 */ 	nop
 /*  f112714:	54400006 */ 	bnezl	$v0,.L0f112730
 /*  f112718:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f11271c:	0fc28684 */ 	jal	func0f0a1a10
+/*  f11271c:	0fc28684 */ 	jal	bgun0f0a1a10
 /*  f112720:	8e040008 */ 	lw	$a0,0x8($s0)
 /*  f112724:	10400004 */ 	beqz	$v0,.L0f112738
 /*  f112728:	00000000 */ 	nop
@@ -1186,12 +1186,12 @@ u16 invGetNameIdByIndex(s32 index)
 		if (g_Vars.currentplayer->equipallguns) {
 			if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 				index++;
-				return weaponGetNameId(invAddOneIfCantHaveSlayer(index));
+				return bgunGetNameId(invAddOneIfCantHaveSlayer(index));
 			}
 		}
 	}
 
-	return weaponGetNameId(weaponnum);
+	return bgunGetNameId(weaponnum);
 }
 
 char *invGetNameByIndex(s32 index)
@@ -1228,11 +1228,11 @@ char *invGetShortNameByIndex(s32 index)
 	} else if (g_Vars.currentplayer->equipallguns) {
 		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 			index++;
-			return weaponGetShortName(invAddOneIfCantHaveSlayer(index));
+			return bgunGetShortName(invAddOneIfCantHaveSlayer(index));
 		}
 	}
 
-	return weaponGetShortName(weaponnum);
+	return bgunGetShortName(weaponnum);
 }
 
 void invInsertTextOverride(struct textoverride *override)
@@ -1253,7 +1253,7 @@ void invSetCurrentIndex(u32 item)
 
 void invCalculateCurrentIndex(void)
 {
-	s32 curweaponnum = handGetWeaponNum(HAND_RIGHT);
+	s32 curweaponnum = bgunGetWeaponNum(HAND_RIGHT);
 	s32 i;
 
 	g_Vars.currentplayer->equipcuritem = 0;

@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_006900.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
 #include "game/game_0e0770.h"
@@ -5442,7 +5442,7 @@ glabel func0f0e5000
 /*  f0e5070:	8e380000 */ 	lw	$t8,0x0($s1)
 /*  f0e5074:	5700005d */ 	bnezl	$t8,.L0f0e51ec
 /*  f0e5078:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0e507c:	0fc2777b */ 	jal	func0f09ddec
+/*  f0e507c:	0fc2777b */ 	jal	bgun0f09ddec
 /*  f0e5080:	00000000 */ 	nop
 /*  f0e5084:	14400003 */ 	bnez	$v0,.L0f0e5094
 /*  f0e5088:	ae220000 */ 	sw	$v0,0x0($s1)
@@ -6309,7 +6309,7 @@ glabel func0f0e5000
 /*  f0e5070:	8e380000 */ 	lw	$t8,0x0($s1)
 /*  f0e5074:	5700005d */ 	bnezl	$t8,.L0f0e51ec
 /*  f0e5078:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0e507c:	0fc2777b */ 	jal	func0f09ddec
+/*  f0e507c:	0fc2777b */ 	jal	bgun0f09ddec
 /*  f0e5080:	00000000 */ 	nop
 /*  f0e5084:	14400003 */ 	bnez	$v0,.L0f0e5094
 /*  f0e5088:	ae220000 */ 	sw	$v0,0x0($s1)

@@ -3,7 +3,7 @@
 #include "game/camdraw.h"
 #include "game/title.h"
 #include "game/game_01b0a0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
@@ -1380,7 +1380,7 @@ char *mpGetWeaponLabel(s32 weaponnum)
 					return langGet(L_MPWEAPONS_060); // "Disabled"
 				}
 
-				return weaponGetName(g_MpWeapons[i].weaponnum);
+				return bgunGetName(g_MpWeapons[i].weaponnum);
 			}
 
 			weaponnum--;

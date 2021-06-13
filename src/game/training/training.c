@@ -6,7 +6,7 @@
 #include "game/game_092610.h"
 #include "game/game_095320.h"
 #include "game/atan2f.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/hudmsg.h"
@@ -809,9 +809,9 @@ glabel var7f1b93ec
 /*  f19dbb8:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f19dbbc:	96040456 */ 	lhu	$a0,0x456($s0)
 /*  f19dbc0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19dbc4:	0fc2a685 */ 	jal	weaponGetAmmoType
+/*  f19dbc4:	0fc2a685 */ 	jal	bgunGetAmmoTypeForWeapon
 /*  f19dbc8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19dbcc:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f19dbcc:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f19dbd0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f19dbd4:	920f0448 */ 	lbu	$t7,0x448($s0)
 /*  f19dbd8:	26310004 */ 	addiu	$s1,$s1,0x4
@@ -833,7 +833,7 @@ glabel var7f1b93ec
 .L0f19dc14:
 /*  f19dc14:	10000073 */ 	b	.L0f19dde4
 /*  f19dc18:	92220000 */ 	lbu	$v0,0x0($s1)
-/*  f19dc1c:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f19dc1c:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f19dc20:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19dc24:	92080448 */ 	lbu	$t0,0x448($s0)
 /*  f19dc28:	26310004 */ 	addiu	$s1,$s1,0x4
@@ -1045,7 +1045,7 @@ glabel var7f1b93ec
 //				offset += 4;
 //				break;
 //			case FRCMD_SETAMMOLIMIT: // f19dbb8
-//				capacity = ammotypeGetMaxCapacity(weaponGetAmmoType(frGetWeaponBySlot(g_FrData.slot), 0));
+//				capacity = bgunGetCapacityByAmmotype(bgunGetAmmoTypeForWeapon(frGetWeaponBySlot(g_FrData.slot), 0));
 //				g_FrData.ammolimit = script[offset + 1 + g_FrData.difficulty];
 //
 //				if (g_FrData.ammolimit != 255) {
@@ -1059,7 +1059,7 @@ glabel var7f1b93ec
 //				offset += 4;
 //				break;
 //			case FRCMD_SETGRENADELIMIT: // f19dc1c
-//				capacity = ammotypeGetMaxCapacity(AMMOTYPE_DEVASTATOR);
+//				capacity = bgunGetCapacityByAmmotype(AMMOTYPE_DEVASTATOR);
 //				g_FrData.sdgrenadelimit = script[offset + 1 + g_FrData.difficulty];
 //
 //				if (g_FrData.sdgrenadelimit != 255) {
@@ -2502,24 +2502,24 @@ glabel frLoadData
 u32 frInitAmmo(s32 weaponnum)
 {
 	u32 scriptindex;
-	u32 ammotype = weaponGetAmmoType(weaponnum, 0);
-	u32 capacity = ammotypeGetMaxCapacity(ammotype);
+	u32 ammotype = bgunGetAmmoTypeForWeapon(weaponnum, 0);
+	u32 capacity = bgunGetCapacityByAmmotype(ammotype);
 
 	frInitDefaults();
 	scriptindex = frGetWeaponScriptIndex(weaponnum);
 	frExecuteWeaponScript(scriptindex);
 
 	if (g_FrData.ammolimit == 255) {
-		currentPlayerSetAmmoQuantity(ammotype, capacity);
+		bgunSetAmmoQuantity(ammotype, capacity);
 	} else {
-		currentPlayerSetAmmoQuantity(ammotype, g_FrData.ammolimit);
+		bgunSetAmmoQuantity(ammotype, g_FrData.ammolimit);
 	}
 
 	if (weaponnum == WEAPON_SUPERDRAGON) {
 		if (g_FrData.sdgrenadelimit == 255) {
-			currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
+			bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
 		} else {
-			currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, g_FrData.sdgrenadelimit);
+			bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, g_FrData.sdgrenadelimit);
 		}
 	}
 
@@ -2546,7 +2546,7 @@ void frBeginSession(s32 weapon)
 
 	g_FrIsValidWeapon = frInitAmmo(weapon) == 0 ? false : true;
 	frInitTargets();
-	playersSetPassiveMode(false);
+	bgunSetPassiveMode(false);
 }
 
 char *frGetWeaponDescription(void)
@@ -2652,7 +2652,7 @@ void frEndSession(bool hidetargets)
 			g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
 		}
 
-		playersSetPassiveMode(true);
+		bgunSetPassiveMode(true);
 
 		g_FrIsValidWeapon = 0;
 
@@ -2885,8 +2885,8 @@ bool frIsAmmoWasted(void)
 {
 	s32 weaponnum = frGetWeaponBySlot(g_FrData.slot);
 	s32 i;
-	s32 priammotype = weaponGetAmmoType(weaponnum, 0);
-	s32 secammotype = weaponGetAmmoType(weaponnum, 1);
+	s32 priammotype = bgunGetAmmoTypeForWeapon(weaponnum, 0);
+	s32 secammotype = bgunGetAmmoTypeForWeapon(weaponnum, 1);
 	struct hand *hand0 = &g_Vars.currentplayer->hands[0];
 	struct hand *hand1 = &g_Vars.currentplayer->hands[1];
 	s32 ammoloaded[2];
@@ -2909,8 +2909,8 @@ bool frIsAmmoWasted(void)
 	// Check if player has ammo
 	ammoloaded[0] = hand0->loadedammo[0] + hand1->loadedammo[0];
 	ammoloaded[1] = hand0->loadedammo[1] + hand1->loadedammo[1];
-	ammototal[0] = currentPlayerGetAmmoCountWithCheck(priammotype) + ammoloaded[0];
-	ammototal[1] = currentPlayerGetAmmoCountWithCheck(secammotype) + ammoloaded[1];
+	ammototal[0] = bgunGetAmmoCountWithCheck(priammotype) + ammoloaded[0];
+	ammototal[1] = bgunGetAmmoCountWithCheck(secammotype) + ammoloaded[1];
 
 	if (ammototal[0] <= 0 && ammototal[1] <= 0) {
 		// Don't do any further checks if this is the first frame where we've
@@ -2984,10 +2984,10 @@ bool frIsAmmoWasted(void)
 
 						if (g_FrData.proxyendtimer == 0) {
 							// Initial state - set the timer to 5 seconds if player is now out of mines
-							ammotype = weaponGetAmmoType(weaponnum, 0);
+							ammotype = bgunGetAmmoTypeForWeapon(weaponnum, 0);
 							hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
-							if (currentPlayerGetAmmoCountWithCheck(ammotype) + hand->loadedammo[0] == 0) {
+							if (bgunGetAmmoCountWithCheck(ammotype) + hand->loadedammo[0] == 0) {
 								g_FrData.proxyendtimer = PALDOWN(300);
 							}
 
@@ -3079,7 +3079,7 @@ glabel var7f1b94e4
 /*  f1a0b1c:	00000000 */ 	nop
 /*  f1a0b20:	0fc678da */ 	jal	frGetWeaponBySlot
 /*  f1a0b24:	96a40456 */ 	lhu	$a0,0x456($s5)
-/*  f1a0b28:	0fc28728 */ 	jal	currentPlayerEquipWeapon
+/*  f1a0b28:	0fc28728 */ 	jal	bgunEquipWeapon
 /*  f1a0b2c:	00402025 */ 	move	$a0,$v0
 .PF0f1a0b30:
 /*  f1a0b30:	3c15800b */ 	lui	$s5,0x800b
@@ -3304,10 +3304,10 @@ glabel var7f1b94e4
 /*  f1a0e54:	96a40456 */ 	lhu	$a0,0x456($s5)
 /*  f1a0e58:	00409025 */ 	move	$s2,$v0
 /*  f1a0e5c:	00402025 */ 	move	$a0,$v0
-/*  f1a0e60:	0fc2a798 */ 	jal	weaponGetAmmoType
+/*  f1a0e60:	0fc2a798 */ 	jal	bgunGetAmmoTypeForWeapon
 /*  f1a0e64:	00002825 */ 	move	$a1,$zero
 /*  f1a0e68:	00408825 */ 	move	$s1,$v0
-/*  f1a0e6c:	0fc2a750 */ 	jal	ammotypeGetMaxCapacity
+/*  f1a0e6c:	0fc2a750 */ 	jal	bgunGetCapacityByAmmotype
 /*  f1a0e70:	00402025 */ 	move	$a0,$v0
 /*  f1a0e74:	00408025 */ 	move	$s0,$v0
 /*  f1a0e78:	02402025 */ 	move	$a0,$s2
@@ -3323,7 +3323,7 @@ glabel var7f1b94e4
 /*  f1a0e9c:	2401ffff */ 	li	$at,-1
 /*  f1a0ea0:	18400011 */ 	blez	$v0,.PF0f1a0ee8
 /*  f1a0ea4:	00000000 */ 	nop
-/*  f1a0ea8:	0fc2a6ef */ 	jal	currentPlayerGetAmmoCountWithCheck
+/*  f1a0ea8:	0fc2a6ef */ 	jal	bgunGetAmmoCountWithCheck
 /*  f1a0eac:	02202025 */ 	move	$a0,$s1
 /*  f1a0eb0:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f1a0eb4:	86ae0476 */ 	lh	$t6,0x476($s5)
@@ -3336,28 +3336,28 @@ glabel var7f1b94e4
 /*  f1a0ed0:	00000000 */ 	nop
 /*  f1a0ed4:	a6a00476 */ 	sh	$zero,0x476($s5)
 .PF0f1a0ed8:
-/*  f1a0ed8:	0fc2a69d */ 	jal	currentPlayerSetAmmoQuantity
+/*  f1a0ed8:	0fc2a69d */ 	jal	bgunSetAmmoQuantity
 /*  f1a0edc:	02202025 */ 	move	$a0,$s1
 /*  f1a0ee0:	10000006 */ 	b	.PF0f1a0efc
 /*  f1a0ee4:	24010012 */ 	li	$at,0x12
 .PF0f1a0ee8:
 /*  f1a0ee8:	14410003 */ 	bne	$v0,$at,.PF0f1a0ef8
 /*  f1a0eec:	02202025 */ 	move	$a0,$s1
-/*  f1a0ef0:	0fc2a69d */ 	jal	currentPlayerSetAmmoQuantity
+/*  f1a0ef0:	0fc2a69d */ 	jal	bgunSetAmmoQuantity
 /*  f1a0ef4:	02002825 */ 	move	$a1,$s0
 .PF0f1a0ef8:
 /*  f1a0ef8:	24010012 */ 	li	$at,0x12
 .PF0f1a0efc:
 /*  f1a0efc:	5641001d */ 	bnel	$s2,$at,.PF0f1a0f74
 /*  f1a0f00:	a2a0045a */ 	sb	$zero,0x45a($s5)
-/*  f1a0f04:	0fc2a750 */ 	jal	ammotypeGetMaxCapacity
+/*  f1a0f04:	0fc2a750 */ 	jal	bgunGetCapacityByAmmotype
 /*  f1a0f08:	2404000b */ 	li	$a0,0xb
 /*  f1a0f0c:	86a30478 */ 	lh	$v1,0x478($s5)
 /*  f1a0f10:	00408025 */ 	move	$s0,$v0
 /*  f1a0f14:	2401ffff */ 	li	$at,-1
 /*  f1a0f18:	18600011 */ 	blez	$v1,.PF0f1a0f60
 /*  f1a0f1c:	00000000 */ 	nop
-/*  f1a0f20:	0fc2a6ef */ 	jal	currentPlayerGetAmmoCountWithCheck
+/*  f1a0f20:	0fc2a6ef */ 	jal	bgunGetAmmoCountWithCheck
 /*  f1a0f24:	2404000b */ 	li	$a0,0xb
 /*  f1a0f28:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f1a0f2c:	86b90478 */ 	lh	$t9,0x478($s5)
@@ -3370,14 +3370,14 @@ glabel var7f1b94e4
 /*  f1a0f48:	00000000 */ 	nop
 /*  f1a0f4c:	a6a00478 */ 	sh	$zero,0x478($s5)
 .PF0f1a0f50:
-/*  f1a0f50:	0fc2a69d */ 	jal	currentPlayerSetAmmoQuantity
+/*  f1a0f50:	0fc2a69d */ 	jal	bgunSetAmmoQuantity
 /*  f1a0f54:	2404000b */ 	li	$a0,0xb
 /*  f1a0f58:	10000006 */ 	b	.PF0f1a0f74
 /*  f1a0f5c:	a2a0045a */ 	sb	$zero,0x45a($s5)
 .PF0f1a0f60:
 /*  f1a0f60:	14610003 */ 	bne	$v1,$at,.PF0f1a0f70
 /*  f1a0f64:	2404000b */ 	li	$a0,0xb
-/*  f1a0f68:	0fc2a69d */ 	jal	currentPlayerSetAmmoQuantity
+/*  f1a0f68:	0fc2a69d */ 	jal	bgunSetAmmoQuantity
 /*  f1a0f6c:	02002825 */ 	move	$a1,$s0
 .PF0f1a0f70:
 /*  f1a0f70:	a2a0045a */ 	sb	$zero,0x45a($s5)
@@ -4179,7 +4179,7 @@ glabel var7f1b94e4
 /*  f19fa08:	00000000 */ 	nop
 /*  f19fa0c:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f19fa10:	96a40456 */ 	lhu	$a0,0x456($s5)
-/*  f19fa14:	0fc2865b */ 	jal	currentPlayerEquipWeapon
+/*  f19fa14:	0fc2865b */ 	jal	bgunEquipWeapon
 /*  f19fa18:	00402025 */ 	or	$a0,$v0,$zero
 .L0f19fa1c:
 /*  f19fa1c:	3c15800b */ 	lui	$s5,%hi(g_FrData)
@@ -4404,10 +4404,10 @@ glabel var7f1b94e4
 /*  f19fd40:	96a40456 */ 	lhu	$a0,0x456($s5)
 /*  f19fd44:	00409025 */ 	or	$s2,$v0,$zero
 /*  f19fd48:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19fd4c:	0fc2a685 */ 	jal	weaponGetAmmoType
+/*  f19fd4c:	0fc2a685 */ 	jal	bgunGetAmmoTypeForWeapon
 /*  f19fd50:	00002825 */ 	or	$a1,$zero,$zero
 /*  f19fd54:	00408825 */ 	or	$s1,$v0,$zero
-/*  f19fd58:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f19fd58:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f19fd5c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f19fd60:	00408025 */ 	or	$s0,$v0,$zero
 /*  f19fd64:	02402025 */ 	or	$a0,$s2,$zero
@@ -4423,7 +4423,7 @@ glabel var7f1b94e4
 /*  f19fd88:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fd8c:	18400011 */ 	blez	$v0,.L0f19fdd4
 /*  f19fd90:	00000000 */ 	nop
-/*  f19fd94:	0fc2a5dc */ 	jal	currentPlayerGetAmmoCountWithCheck
+/*  f19fd94:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
 /*  f19fd98:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19fd9c:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fda0:	86ae0476 */ 	lh	$t6,0x476($s5)
@@ -4436,28 +4436,28 @@ glabel var7f1b94e4
 /*  f19fdbc:	00000000 */ 	nop
 /*  f19fdc0:	a6a00476 */ 	sh	$zero,0x476($s5)
 .L0f19fdc4:
-/*  f19fdc4:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
+/*  f19fdc4:	0fc2a58a */ 	jal	bgunSetAmmoQuantity
 /*  f19fdc8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19fdcc:	10000006 */ 	b	.L0f19fde8
 /*  f19fdd0:	24010012 */ 	addiu	$at,$zero,0x12
 .L0f19fdd4:
 /*  f19fdd4:	14410003 */ 	bne	$v0,$at,.L0f19fde4
 /*  f19fdd8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f19fddc:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
+/*  f19fddc:	0fc2a58a */ 	jal	bgunSetAmmoQuantity
 /*  f19fde0:	02002825 */ 	or	$a1,$s0,$zero
 .L0f19fde4:
 /*  f19fde4:	24010012 */ 	addiu	$at,$zero,0x12
 .L0f19fde8:
 /*  f19fde8:	5641001d */ 	bnel	$s2,$at,.L0f19fe60
 /*  f19fdec:	a2a0045a */ 	sb	$zero,0x45a($s5)
-/*  f19fdf0:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
+/*  f19fdf0:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
 /*  f19fdf4:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19fdf8:	86a30478 */ 	lh	$v1,0x478($s5)
 /*  f19fdfc:	00408025 */ 	or	$s0,$v0,$zero
 /*  f19fe00:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fe04:	18600011 */ 	blez	$v1,.L0f19fe4c
 /*  f19fe08:	00000000 */ 	nop
-/*  f19fe0c:	0fc2a5dc */ 	jal	currentPlayerGetAmmoCountWithCheck
+/*  f19fe0c:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
 /*  f19fe10:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19fe14:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fe18:	86b90478 */ 	lh	$t9,0x478($s5)
@@ -4470,14 +4470,14 @@ glabel var7f1b94e4
 /*  f19fe34:	00000000 */ 	nop
 /*  f19fe38:	a6a00478 */ 	sh	$zero,0x478($s5)
 .L0f19fe3c:
-/*  f19fe3c:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
+/*  f19fe3c:	0fc2a58a */ 	jal	bgunSetAmmoQuantity
 /*  f19fe40:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19fe44:	10000006 */ 	b	.L0f19fe60
 /*  f19fe48:	a2a0045a */ 	sb	$zero,0x45a($s5)
 .L0f19fe4c:
 /*  f19fe4c:	14610003 */ 	bne	$v1,$at,.L0f19fe5c
 /*  f19fe50:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f19fe54:	0fc2a58a */ 	jal	currentPlayerSetAmmoQuantity
+/*  f19fe54:	0fc2a58a */ 	jal	bgunSetAmmoQuantity
 /*  f19fe58:	02002825 */ 	or	$a1,$s0,$zero
 .L0f19fe5c:
 /*  f19fe5c:	a2a0045a */ 	sb	$zero,0x45a($s5)
@@ -5292,7 +5292,7 @@ glabel var7f1b94e4
 /*  f199a10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f199a14:	0fc65cc2 */ 	jal	frGetWeaponBySlot
 /*  f199a18:	96a40456 */ 	lhu	$a0,0x456($s5)
-/*  f199a1c:	0fc27dc8 */ 	jal	currentPlayerEquipWeapon
+/*  f199a1c:	0fc27dc8 */ 	jal	bgunEquipWeapon
 /*  f199a20:	00402025 */ 	or	$a0,$v0,$zero
 .NB0f199a24:
 /*  f199a24:	3c16800a */ 	lui	$s6,0x800a
@@ -5517,10 +5517,10 @@ glabel var7f1b94e4
 /*  f199d48:	96a40456 */ 	lhu	$a0,0x456($s5)
 /*  f199d4c:	00409025 */ 	or	$s2,$v0,$zero
 /*  f199d50:	00402025 */ 	or	$a0,$v0,$zero
-/*  f199d54:	0fc29ded */ 	jal	weaponGetAmmoType
+/*  f199d54:	0fc29ded */ 	jal	bgunGetAmmoTypeForWeapon
 /*  f199d58:	00002825 */ 	or	$a1,$zero,$zero
 /*  f199d5c:	00408825 */ 	or	$s1,$v0,$zero
-/*  f199d60:	0fc29da5 */ 	jal	ammotypeGetMaxCapacity
+/*  f199d60:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
 /*  f199d64:	00402025 */ 	or	$a0,$v0,$zero
 /*  f199d68:	00408025 */ 	or	$s0,$v0,$zero
 /*  f199d6c:	02402025 */ 	or	$a0,$s2,$zero
@@ -5536,7 +5536,7 @@ glabel var7f1b94e4
 /*  f199d90:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f199d94:	18400011 */ 	blez	$v0,.NB0f199ddc
 /*  f199d98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f199d9c:	0fc29d44 */ 	jal	currentPlayerGetAmmoCountWithCheck
+/*  f199d9c:	0fc29d44 */ 	jal	bgunGetAmmoCountWithCheck
 /*  f199da0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f199da4:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f199da8:	86af0476 */ 	lh	$t7,0x476($s5)
@@ -5549,28 +5549,28 @@ glabel var7f1b94e4
 /*  f199dc4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f199dc8:	a6a00476 */ 	sh	$zero,0x476($s5)
 .NB0f199dcc:
-/*  f199dcc:	0fc29cf2 */ 	jal	currentPlayerSetAmmoQuantity
+/*  f199dcc:	0fc29cf2 */ 	jal	bgunSetAmmoQuantity
 /*  f199dd0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f199dd4:	10000006 */ 	beqz	$zero,.NB0f199df0
 /*  f199dd8:	24010012 */ 	addiu	$at,$zero,0x12
 .NB0f199ddc:
 /*  f199ddc:	14410003 */ 	bne	$v0,$at,.NB0f199dec
 /*  f199de0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f199de4:	0fc29cf2 */ 	jal	currentPlayerSetAmmoQuantity
+/*  f199de4:	0fc29cf2 */ 	jal	bgunSetAmmoQuantity
 /*  f199de8:	02002825 */ 	or	$a1,$s0,$zero
 .NB0f199dec:
 /*  f199dec:	24010012 */ 	addiu	$at,$zero,0x12
 .NB0f199df0:
 /*  f199df0:	5641001d */ 	bnel	$s2,$at,.NB0f199e68
 /*  f199df4:	a2a0045a */ 	sb	$zero,0x45a($s5)
-/*  f199df8:	0fc29da5 */ 	jal	ammotypeGetMaxCapacity
+/*  f199df8:	0fc29da5 */ 	jal	bgunGetCapacityByAmmotype
 /*  f199dfc:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f199e00:	86a30478 */ 	lh	$v1,0x478($s5)
 /*  f199e04:	00408025 */ 	or	$s0,$v0,$zero
 /*  f199e08:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f199e0c:	18600011 */ 	blez	$v1,.NB0f199e54
 /*  f199e10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f199e14:	0fc29d44 */ 	jal	currentPlayerGetAmmoCountWithCheck
+/*  f199e14:	0fc29d44 */ 	jal	bgunGetAmmoCountWithCheck
 /*  f199e18:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f199e1c:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f199e20:	86a90478 */ 	lh	$t1,0x478($s5)
@@ -5583,14 +5583,14 @@ glabel var7f1b94e4
 /*  f199e3c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f199e40:	a6a00478 */ 	sh	$zero,0x478($s5)
 .NB0f199e44:
-/*  f199e44:	0fc29cf2 */ 	jal	currentPlayerSetAmmoQuantity
+/*  f199e44:	0fc29cf2 */ 	jal	bgunSetAmmoQuantity
 /*  f199e48:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f199e4c:	10000006 */ 	beqz	$zero,.NB0f199e68
 /*  f199e50:	a2a0045a */ 	sb	$zero,0x45a($s5)
 .NB0f199e54:
 /*  f199e54:	14610003 */ 	bne	$v1,$at,.NB0f199e64
 /*  f199e58:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f199e5c:	0fc29cf2 */ 	jal	currentPlayerSetAmmoQuantity
+/*  f199e5c:	0fc29cf2 */ 	jal	bgunSetAmmoQuantity
 /*  f199e60:	02002825 */ 	or	$a1,$s0,$zero
 .NB0f199e64:
 /*  f199e64:	a2a0045a */ 	sb	$zero,0x45a($s5)
@@ -6387,7 +6387,7 @@ glabel var7f1b94e4
 //			&& g_Vars.currentplayer->unk1583_04 == 0
 //			&& invHasSingleWeaponIncAllGuns(frGetWeaponBySlot(g_FrData.slot))) {
 //		// a0c
-//		currentPlayerEquipWeapon(frGetWeaponBySlot(g_FrData.slot));
+//		bgunEquipWeapon(frGetWeaponBySlot(g_FrData.slot));
 //	}
 //
 //	// a1c
@@ -6485,14 +6485,14 @@ glabel var7f1b94e4
 //	// weapon allows, or if it defined unlimited ammo
 //	if (g_FrData.numshotssincetopup != 0) {
 //		weaponnum = frGetWeaponBySlot(g_FrData.slot);
-//		ammotype = weaponGetAmmoType(weaponnum, 0);
-//		capacity = ammotypeGetMaxCapacity(ammotype);
+//		ammotype = bgunGetAmmoTypeForWeapon(weaponnum, 0);
+//		capacity = bgunGetCapacityByAmmotype(ammotype);
 //		ammo = weaponGetAmmoByFunction(weaponnum, 0);
 //		capacity -= (ammo ? ammo->clipsize : 0);
 //
 //		// d8c
 //		if (g_FrData.ammoextra > 0) {
-//			tmp = currentPlayerGetAmmoCountWithCheck(ammotype);
+//			tmp = bgunGetAmmoCountWithCheck(ammotype);
 //			g_FrData.ammoextra -= g_FrData.numshotssincetopup;
 //
 //			if (g_FrData.ammoextra < 0) {
@@ -6500,18 +6500,18 @@ glabel var7f1b94e4
 //			}
 //
 //			capacity = tmp + g_FrData.numshotssincetopup;
-//			currentPlayerSetAmmoQuantity(ammotype, capacity);
+//			bgunSetAmmoQuantity(ammotype, capacity);
 //		} else /*dd4*/ if (g_FrData.ammoextra == -1) {
-//			currentPlayerSetAmmoQuantity(ammotype, capacity);
+//			bgunSetAmmoQuantity(ammotype, capacity);
 //		}
 //
 //		// de8
 //		if (weaponnum == WEAPON_SUPERDRAGON) {
-//			capacity = ammotypeGetMaxCapacity(AMMOTYPE_DEVASTATOR);
+//			capacity = bgunGetCapacityByAmmotype(AMMOTYPE_DEVASTATOR);
 //
 //			// e04
 //			if (g_FrData.sdgrenadeextra > 0) {
-//				tmp = currentPlayerGetAmmoCountWithCheck(AMMOTYPE_DEVASTATOR);
+//				tmp = bgunGetAmmoCountWithCheck(AMMOTYPE_DEVASTATOR);
 //				g_FrData.sdgrenadeextra -= g_FrData.numshotssincetopup;
 //
 //				if (g_FrData.sdgrenadeextra < 0) {
@@ -6519,9 +6519,9 @@ glabel var7f1b94e4
 //				}
 //
 //				capacity = tmp + g_FrData.numshotssincetopup;
-//				currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
+//				bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
 //			} else /*e4c*/ if (g_FrData.sdgrenadeextra == -1) {
-//				currentPlayerSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
+//				bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, capacity);
 //			}
 //		}
 //
@@ -6923,7 +6923,7 @@ bool frChooseFarsightTarget(void)
 	bool found = false;
 	s32 i;
 
-	if (handGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT) {
+	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT) {
 		for (i = 0; i < ARRAYCOUNT(g_FrData.targets); i++) {
 			if (g_FrData.targets[i].inuse
 					&& g_FrData.targets[i].destroyed == false
@@ -7448,7 +7448,7 @@ struct trainingdata *dtGetData(void)
 
 void dtRestorePlayer(void)
 {
-	playersSetPassiveMode(true);
+	bgunSetPassiveMode(true);
 
 	if (g_DtData.obj) {
 		objRemove(g_DtData.obj, true);
@@ -7457,7 +7457,7 @@ void dtRestorePlayer(void)
 	g_DtData.obj = NULL;
 
 	if (dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot)) == WEAPON_ECMMINE) {
-		currentPlayerSetAmmoQuantity(AMMOTYPE_ECM_MINE, 0);
+		bgunSetAmmoQuantity(AMMOTYPE_ECM_MINE, 0);
 	}
 
 	if (g_Vars.currentplayer->eyespy) {
@@ -7547,7 +7547,7 @@ void dtBegin(void)
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
 	chrSetStageFlag(NULL, ciGetStageFlagByDeviceIndex(dtGetIndexBySlot(g_DtSlot)));
 	g_Vars.currentplayer->training = true;
-	playersSetPassiveMode(false);
+	bgunSetPassiveMode(false);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 }
 
@@ -7555,7 +7555,7 @@ void dtEnd(void)
 {
 	g_DtData.intraining = false;
 	dtRestorePlayer();
-	currentPlayerSetAmmoQuantity(AMMOTYPE_CLOAK, 0);
+	bgunSetAmmoQuantity(AMMOTYPE_CLOAK, 0);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_DEVICE_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
 	chrUnsetStageFlag(NULL, ciGetStageFlagByDeviceIndex(dtGetIndexBySlot(g_DtSlot)));
@@ -7838,7 +7838,7 @@ void htBegin(void)
 	waypointDisableSegment(&waypoints[0x20], &waypoints[0x31]);
 
 	g_Vars.currentplayer->training = true;
-	playersSetPassiveMode(false);
+	bgunSetPassiveMode(false);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 }
 
@@ -7877,7 +7877,7 @@ void htEnd(void)
 		propnum++;
 	}
 
-	playersSetPassiveMode(true);
+	bgunSetPassiveMode(true);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 	currentPlayerDisplayHealth();
 	g_Vars.currentplayer->bondhealth = 1;

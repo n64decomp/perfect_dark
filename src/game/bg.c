@@ -8,7 +8,7 @@
 #include "game/chr/chr.h"
 #include "game/prop.h"
 #include "game/ceil.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
 #include "game/game_0b69d0.h"
@@ -15976,7 +15976,7 @@ glabel func0f162d9c
 /*  f162e40:	c6c417a0 */ 	lwc1	$f4,0x17a0($s6)
 /*  f162e44:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f162e48:	440c3000 */ 	mfc1	$t4,$f6
-/*  f162e4c:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f162e4c:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f162e50:	a7ac0082 */ 	sh	$t4,0x82($sp)
 /*  f162e54:	24010016 */ 	addiu	$at,$zero,0x16
 /*  f162e58:	5441000d */ 	bnel	$v0,$at,.L0f162e90

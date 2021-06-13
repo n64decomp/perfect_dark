@@ -13,7 +13,7 @@
 #include "game/game_095320.h"
 #include "game/atan2f.h"
 #include "game/game_0969d0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b28d0.h"
@@ -4786,7 +4786,7 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 
 				// Handle player losing gun
 				if (gsetHasFunctionFlags(gset, FUNCFLAG_DROPWEAPON)) {
-					currentPlayerLoseGun(aprop);
+					bgunLoseGun(aprop);
 				}
 
 				// Handle player dizziness
@@ -8624,7 +8624,7 @@ void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 revers
 
 		guNormalize(&vector.x, &vector.y, &vector.z);
 
-		gsetPlayPropHitSound(&gset, targetprop, -1);
+		bgunPlayPropHitSound(&gset, targetprop, -1);
 
 		if (targetprop->type == PROPTYPE_PLAYER || targetprop->type == PROPTYPE_CHR) {
 			chrDamageByImpact(targetprop->chr, gsetGetDamage(&gset) * damage, &vector, &gset, chr->prop, 200);
@@ -10236,7 +10236,7 @@ glabel func0f03e29c
 /*  f03e2fc:	04610009 */ 	bgez	$v1,.L0f03e324
 /*  f03e300:	00000000 */ 	nop
 /*  f03e304:	afa4004c */ 	sw	$a0,0x4c($sp)
-/*  f03e308:	0fc29c3e */ 	jal	func0f0a70f8
+/*  f03e308:	0fc29c3e */ 	jal	bgun0f0a70f8
 /*  f03e30c:	a7a90054 */ 	sh	$t1,0x54($sp)
 /*  f03e310:	8fa4004c */ 	lw	$a0,0x4c($sp)
 /*  f03e314:	97a90054 */ 	lhu	$t1,0x54($sp)
@@ -10358,7 +10358,7 @@ glabel func0f03e29c
 /*  f03daf8:	04610008 */ 	bgez	$v1,.NB0f03db1c
 /*  f03dafc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03db00:	afa40054 */ 	sw	$a0,0x54($sp)
-/*  f03db04:	0fc2938f */ 	jal	func0f0a70f8
+/*  f03db04:	0fc2938f */ 	jal	bgun0f0a70f8
 /*  f03db08:	a7a9005c */ 	sh	$t1,0x5c($sp)
 /*  f03db0c:	8fa40054 */ 	lw	$a0,0x54($sp)
 /*  f03db10:	97a9005c */ 	lhu	$t1,0x5c($sp)
@@ -11828,8 +11828,8 @@ void chrStopFiring(struct chrdata *chr)
 
 		chrResetAimEndProperties(chr);
 
-		chr->fireslot[0] = freeFireslot(chr->fireslot[0]);
-		chr->fireslot[1] = freeFireslot(chr->fireslot[1]);
+		chr->fireslot[0] = bgunFreeFireslot(chr->fireslot[0]);
+		chr->fireslot[1] = bgunFreeFireslot(chr->fireslot[1]);
 	}
 }
 
@@ -12839,7 +12839,7 @@ glabel var7f1a9184
 /*  f040b90:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f040b94:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f040b98:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f040b9c:	0fc284b4 */ 	jal	func0f0a0fac
+/*  f040b9c:	0fc284b4 */ 	jal	bgun0f0a0fac
 /*  f040ba0:	afa90010 */ 	sw	$t1,0x10($sp)
 .PF0f040ba4:
 /*  f040ba4:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -13303,7 +13303,7 @@ glabel var7f1a9184
 /*  f04124c:	afab0010 */ 	sw	$t3,0x10($sp)
 /*  f041250:	afaa0014 */ 	sw	$t2,0x14($sp)
 /*  f041254:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f041258:	0fc27bac */ 	jal	func0f09ebcc
+/*  f041258:	0fc27bac */ 	jal	bgun0f09ebcc
 /*  f04125c:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f041260:	8fa301b8 */ 	lw	$v1,0x1b8($sp)
 /*  f041264:	8fad00d4 */ 	lw	$t5,0xd4($sp)
@@ -13584,7 +13584,7 @@ glabel var7f1a9184
 .PF0f041678:
 /*  f041678:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f04167c:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f041680:	0fc2a079 */ 	jal	gsetPlayPropHitSound
+/*  f041680:	0fc2a079 */ 	jal	bgunPlayPropHitSound
 /*  f041684:	2406ffff */ 	li	$a2,-1
 /*  f041688:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f04168c:	8c8b0020 */ 	lw	$t3,0x20($a0)
@@ -13688,7 +13688,7 @@ glabel var7f1a9184
 /*  f0417f4:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0417f8:	8cad0004 */ 	lw	$t5,0x4($a1)
 /*  f0417fc:	2406ffff */ 	li	$a2,-1
-/*  f041800:	0fc2a079 */ 	jal	gsetPlayPropHitSound
+/*  f041800:	0fc2a079 */ 	jal	bgunPlayPropHitSound
 /*  f041804:	afad0070 */ 	sw	$t5,0x70($sp)
 /*  f041808:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f04180c:	8c990020 */ 	lw	$t9,0x20($a0)
@@ -13768,7 +13768,7 @@ glabel var7f1a9184
 .PF0f041920:
 /*  f041920:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041924:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f041928:	0fc2a079 */ 	jal	gsetPlayPropHitSound
+/*  f041928:	0fc2a079 */ 	jal	bgunPlayPropHitSound
 /*  f04192c:	2406ffff */ 	li	$a2,-1
 /*  f041930:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f041934:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -13837,7 +13837,7 @@ glabel var7f1a9184
 /*  f041a20:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041a24:	27a50228 */ 	addiu	$a1,$sp,0x228
 /*  f041a28:	2406ffff */ 	li	$a2,-1
-/*  f041a2c:	0fc2a245 */ 	jal	func0f0a84c8
+/*  f041a2c:	0fc2a245 */ 	jal	bgun0f0a84c8
 /*  f041a30:	27a70214 */ 	addiu	$a3,$sp,0x214
 /*  f041a34:	0fc4fc06 */ 	jal	chrIsUsingPaintball
 /*  f041a38:	8fa40278 */ 	lw	$a0,0x278($sp)
@@ -14437,7 +14437,7 @@ glabel var7f1a9184
 /*  f040a0c:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f040a10:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f040a14:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f040a18:	0fc283eb */ 	jal	func0f0a0fac
+/*  f040a18:	0fc283eb */ 	jal	bgun0f0a0fac
 /*  f040a1c:	afa90010 */ 	sw	$t1,0x10($sp)
 .L0f040a20:
 /*  f040a20:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -14893,7 +14893,7 @@ glabel var7f1a9184
 /*  f0410a8:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f0410ac:	afab0014 */ 	sw	$t3,0x14($sp)
 /*  f0410b0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0410b4:	0fc27af3 */ 	jal	func0f09ebcc
+/*  f0410b4:	0fc27af3 */ 	jal	bgun0f09ebcc
 /*  f0410b8:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*  f0410bc:	8fa301b8 */ 	lw	$v1,0x1b8($sp)
 /*  f0410c0:	8fac00d4 */ 	lw	$t4,0xd4($sp)
@@ -15174,7 +15174,7 @@ glabel var7f1a9184
 .L0f0414d4:
 /*  f0414d4:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f0414d8:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f0414dc:	0fc29f66 */ 	jal	gsetPlayPropHitSound
+/*  f0414dc:	0fc29f66 */ 	jal	bgunPlayPropHitSound
 /*  f0414e0:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f0414e4:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f0414e8:	8c8e0020 */ 	lw	$t6,0x20($a0)
@@ -15278,7 +15278,7 @@ glabel var7f1a9184
 /*  f041650:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041654:	8cac0004 */ 	lw	$t4,0x4($a1)
 /*  f041658:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f04165c:	0fc29f66 */ 	jal	gsetPlayPropHitSound
+/*  f04165c:	0fc29f66 */ 	jal	bgunPlayPropHitSound
 /*  f041660:	afac0070 */ 	sw	$t4,0x70($sp)
 /*  f041664:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f041668:	8c8d0020 */ 	lw	$t5,0x20($a0)
@@ -15358,7 +15358,7 @@ glabel var7f1a9184
 .L0f04177c:
 /*  f04177c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041780:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f041784:	0fc29f66 */ 	jal	gsetPlayPropHitSound
+/*  f041784:	0fc29f66 */ 	jal	bgunPlayPropHitSound
 /*  f041788:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f04178c:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f041790:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -15427,7 +15427,7 @@ glabel var7f1a9184
 /*  f04187c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041880:	27a50228 */ 	addiu	$a1,$sp,0x228
 /*  f041884:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f041888:	0fc2a132 */ 	jal	func0f0a84c8
+/*  f041888:	0fc2a132 */ 	jal	bgun0f0a84c8
 /*  f04188c:	27a70214 */ 	addiu	$a3,$sp,0x214
 /*  f041890:	0fc4f92a */ 	jal	chrIsUsingPaintball
 /*  f041894:	8fa40278 */ 	lw	$a0,0x278($sp)
@@ -16027,7 +16027,7 @@ glabel var7f1a9184
 /*  f0401ec:	00065080 */ 	sll	$t2,$a2,0x2
 /*  f0401f0:	000a37c2 */ 	srl	$a2,$t2,0x1f
 /*  f0401f4:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f0401f8:	0fc27b58 */ 	jal	func0f0a0fac
+/*  f0401f8:	0fc27b58 */ 	jal	bgun0f0a0fac
 /*  f0401fc:	afa90010 */ 	sw	$t1,0x10($sp)
 .NB0f040200:
 /*  f040200:	8fab0278 */ 	lw	$t3,0x278($sp)
@@ -16483,7 +16483,7 @@ glabel var7f1a9184
 /*  f040888:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f04088c:	afab0014 */ 	sw	$t3,0x14($sp)
 /*  f040890:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f040894:	0fc27298 */ 	jal	func0f09ebcc
+/*  f040894:	0fc27298 */ 	jal	bgun0f09ebcc
 /*  f040898:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*  f04089c:	8fa301b8 */ 	lw	$v1,0x1b8($sp)
 /*  f0408a0:	8fac00d4 */ 	lw	$t4,0xd4($sp)
@@ -16758,7 +16758,7 @@ glabel var7f1a9184
 .NB0f040c9c:
 /*  f040c9c:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040ca0:	8fa5025c */ 	lw	$a1,0x25c($sp)
-/*  f040ca4:	0fc296b1 */ 	jal	gsetPlayPropHitSound
+/*  f040ca4:	0fc296b1 */ 	jal	bgunPlayPropHitSound
 /*  f040ca8:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f040cac:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f040cb0:	8c8c0020 */ 	lw	$t4,0x20($a0)
@@ -16862,7 +16862,7 @@ glabel var7f1a9184
 /*  f040e18:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040e1c:	8cb90004 */ 	lw	$t9,0x4($a1)
 /*  f040e20:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f040e24:	0fc296b1 */ 	jal	gsetPlayPropHitSound
+/*  f040e24:	0fc296b1 */ 	jal	bgunPlayPropHitSound
 /*  f040e28:	afb90070 */ 	sw	$t9,0x70($sp)
 /*  f040e2c:	8fa40070 */ 	lw	$a0,0x70($sp)
 /*  f040e30:	8c8b0020 */ 	lw	$t3,0x20($a0)
@@ -16942,7 +16942,7 @@ glabel var7f1a9184
 .NB0f040f44:
 /*  f040f44:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f040f48:	8fa501cc */ 	lw	$a1,0x1cc($sp)
-/*  f040f4c:	0fc296b1 */ 	jal	gsetPlayPropHitSound
+/*  f040f4c:	0fc296b1 */ 	jal	bgunPlayPropHitSound
 /*  f040f50:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f040f54:	27a40244 */ 	addiu	$a0,$sp,0x244
 /*  f040f58:	27a50234 */ 	addiu	$a1,$sp,0x234
@@ -17011,7 +17011,7 @@ glabel var7f1a9184
 /*  f041044:	27a40260 */ 	addiu	$a0,$sp,0x260
 /*  f041048:	27a50228 */ 	addiu	$a1,$sp,0x228
 /*  f04104c:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f041050:	0fc298a8 */ 	jal	func0f0a84c8
+/*  f041050:	0fc298a8 */ 	jal	bgun0f0a84c8
 /*  f041054:	27a70214 */ 	addiu	$a3,$sp,0x214
 /*  f041058:	0fc4e3ea */ 	jal	chrIsUsingPaintball
 /*  f04105c:	8fa40278 */ 	lw	$a0,0x278($sp)
@@ -25514,7 +25514,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 				struct coord sp44;
 				f32 somefloat = func0001af80(model) * 0.8f;
 
-				func0f0a0c08(&sp68, &sp56);
+				bgun0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
 				func00015b64(currentPlayerGetMatrix1740(), &sp44);
 

@@ -7,7 +7,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/atan2f.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
 #include "game/hudmsg.h"
@@ -5321,7 +5321,7 @@ glabel var7f1b8960
 /*  f1833d0:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f1833d4:	10800005 */ 	beqz	$a0,.L0f1833ec
 /*  f1833d8:	00000000 */ 	nop
-/*  f1833dc:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f1833dc:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f1833e0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1833e4:	38440036 */ 	xori	$a0,$v0,0x36
 /*  f1833e8:	2c840001 */ 	sltiu	$a0,$a0,0x1
@@ -5488,7 +5488,7 @@ glabel var7f1b8960
 /*  f183648:	8c5000bc */ 	lw	$s0,0xbc($v0)
 /*  f18364c:	c4460144 */ 	lwc1	$f6,0x144($v0)
 /*  f183650:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f183654:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f183654:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f183658:	e7a60098 */ 	swc1	$f6,0x98($sp)
 /*  f18365c:	38430036 */ 	xori	$v1,$v0,0x36
 /*  f183660:	2c630001 */ 	sltiu	$v1,$v1,0x1
@@ -5752,7 +5752,7 @@ glabel var7f1b8960
 /*  f1833d0:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f1833d4:	10800005 */ 	beqz	$a0,.L0f1833ec
 /*  f1833d8:	00000000 */ 	nop
-/*  f1833dc:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f1833dc:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f1833e0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1833e4:	38440036 */ 	xori	$a0,$v0,0x36
 /*  f1833e8:	2c840001 */ 	sltiu	$a0,$a0,0x1
@@ -5919,7 +5919,7 @@ glabel var7f1b8960
 /*  f183648:	8c5000bc */ 	lw	$s0,0xbc($v0)
 /*  f18364c:	c4460144 */ 	lwc1	$f6,0x144($v0)
 /*  f183650:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f183654:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f183654:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f183658:	e7a60098 */ 	swc1	$f6,0x98($sp)
 /*  f18365c:	38430036 */ 	xori	$v1,$v0,0x36
 /*  f183660:	2c630001 */ 	sltiu	$v1,$v1,0x1
@@ -10279,7 +10279,7 @@ glabel chrGiveBriefcase
 /*  f1879c0:	0fc5bdaa */ 	jal	langGet
 /*  f1879c4:	24045401 */ 	li	$a0,0x5401
 /*  f1879c8:	24040057 */ 	li	$a0,0x57
-/*  f1879cc:	0fc28941 */ 	jal	weaponGetShortName
+/*  f1879cc:	0fc28941 */ 	jal	bgunGetShortName
 /*  f1879d0:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f1879d4:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f1879d8:	27a400d4 */ 	addiu	$a0,$sp,0xd4
@@ -10964,7 +10964,7 @@ glabel chrGiveBriefcase
 /*  f1869bc:	0fc5b9f1 */ 	jal	langGet
 /*  f1869c0:	24045400 */ 	addiu	$a0,$zero,0x5400
 /*  f1869c4:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f1869c8:	0fc28874 */ 	jal	weaponGetShortName
+/*  f1869c8:	0fc28874 */ 	jal	bgunGetShortName
 /*  f1869cc:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f1869d0:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f1869d4:	27a400d4 */ 	addiu	$a0,$sp,0xd4
@@ -11203,7 +11203,7 @@ glabel chrGiveBriefcase
 /*  f186d14:	0fc5b9f1 */ 	jal	langGet
 /*  f186d18:	24045404 */ 	addiu	$a0,$zero,0x5404
 /*  f186d1c:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d20:	0fc28874 */ 	jal	weaponGetShortName
+/*  f186d20:	0fc28874 */ 	jal	bgunGetShortName
 /*  f186d24:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186d28:	00106880 */ 	sll	$t5,$s0,0x2
 /*  f186d2c:	01b06823 */ 	subu	$t5,$t5,$s0
@@ -11219,7 +11219,7 @@ glabel chrGiveBriefcase
 /*  f186d54:	0fc5b9f1 */ 	jal	langGet
 /*  f186d58:	24045405 */ 	addiu	$a0,$zero,0x5405
 /*  f186d5c:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d60:	0fc28874 */ 	jal	weaponGetShortName
+/*  f186d60:	0fc28874 */ 	jal	bgunGetShortName
 /*  f186d64:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186d68:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f186d6c:	27a40094 */ 	addiu	$a0,$sp,0x94
@@ -11229,7 +11229,7 @@ glabel chrGiveBriefcase
 /*  f186d7c:	0fc5b9f1 */ 	jal	langGet
 /*  f186d80:	24045406 */ 	addiu	$a0,$zero,0x5406
 /*  f186d84:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d88:	0fc28874 */ 	jal	weaponGetShortName
+/*  f186d88:	0fc28874 */ 	jal	bgunGetShortName
 /*  f186d8c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186d90:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f186d94:	27a40054 */ 	addiu	$a0,$sp,0x54
@@ -11393,7 +11393,7 @@ glabel chrGiveBriefcase
 /*  f186fbc:	0fc5b9f1 */ 	jal	langGet
 /*  f186fc0:	ac39c168 */ 	sw	$t9,%lo(g_ScenarioData+0x58)($at)
 /*  f186fc4:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186fc8:	0fc28874 */ 	jal	weaponGetShortName
+/*  f186fc8:	0fc28874 */ 	jal	bgunGetShortName
 /*  f186fcc:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186fd0:	8fb80120 */ 	lw	$t8,0x120($sp)
 /*  f186fd4:	3c10800b */ 	lui	$s0,%hi(g_MpSetup+0x28)
@@ -11411,7 +11411,7 @@ glabel chrGiveBriefcase
 /*  f187004:	0fc5b9f1 */ 	jal	langGet
 /*  f187008:	24045402 */ 	addiu	$a0,$zero,0x5402
 /*  f18700c:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f187010:	0fc28874 */ 	jal	weaponGetShortName
+/*  f187010:	0fc28874 */ 	jal	bgunGetShortName
 /*  f187014:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f187018:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f18701c:	27a40094 */ 	addiu	$a0,$sp,0x94
@@ -11421,7 +11421,7 @@ glabel chrGiveBriefcase
 /*  f18702c:	0fc5b9f1 */ 	jal	langGet
 /*  f187030:	24045403 */ 	addiu	$a0,$zero,0x5403
 /*  f187034:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f187038:	0fc28874 */ 	jal	weaponGetShortName
+/*  f187038:	0fc28874 */ 	jal	bgunGetShortName
 /*  f18703c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f187040:	8fae0120 */ 	lw	$t6,0x120($sp)
 /*  f187044:	8fa50048 */ 	lw	$a1,0x48($sp)
@@ -11673,7 +11673,7 @@ glabel chrGiveBriefcase
 /*  f180e24:	0fc5a4dd */ 	jal	langGet
 /*  f180e28:	24045400 */ 	addiu	$a0,$zero,0x5400
 /*  f180e2c:	24040056 */ 	addiu	$a0,$zero,0x56
-/*  f180e30:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f180e30:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f180e34:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f180e38:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f180e3c:	27a400d4 */ 	addiu	$a0,$sp,0xd4
@@ -11906,7 +11906,7 @@ glabel chrGiveBriefcase
 /*  f181164:	0fc5a4dd */ 	jal	langGet
 /*  f181168:	24045404 */ 	addiu	$a0,$zero,0x5404
 /*  f18116c:	24040056 */ 	addiu	$a0,$zero,0x56
-/*  f181170:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f181170:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f181174:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f181178:	00106080 */ 	sll	$t4,$s0,0x2
 /*  f18117c:	01906023 */ 	subu	$t4,$t4,$s0
@@ -11922,7 +11922,7 @@ glabel chrGiveBriefcase
 /*  f1811a4:	0fc5a4dd */ 	jal	langGet
 /*  f1811a8:	24045405 */ 	addiu	$a0,$zero,0x5405
 /*  f1811ac:	24040056 */ 	addiu	$a0,$zero,0x56
-/*  f1811b0:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f1811b0:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f1811b4:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f1811b8:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f1811bc:	27a40094 */ 	addiu	$a0,$sp,0x94
@@ -11932,7 +11932,7 @@ glabel chrGiveBriefcase
 /*  f1811cc:	0fc5a4dd */ 	jal	langGet
 /*  f1811d0:	24045406 */ 	addiu	$a0,$zero,0x5406
 /*  f1811d4:	24040056 */ 	addiu	$a0,$zero,0x56
-/*  f1811d8:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f1811d8:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f1811dc:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f1811e0:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f1811e4:	27a40054 */ 	addiu	$a0,$sp,0x54
@@ -12096,7 +12096,7 @@ glabel chrGiveBriefcase
 /*  f18140c:	0fc5a4dd */ 	jal	langGet
 /*  f181410:	ac390a18 */ 	sw	$t9,0xa18($at)
 /*  f181414:	24040056 */ 	addiu	$a0,$zero,0x56
-/*  f181418:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f181418:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f18141c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f181420:	8fb80120 */ 	lw	$t8,0x120($sp)
 /*  f181424:	3c10800b */ 	lui	$s0,0x800b
@@ -12114,7 +12114,7 @@ glabel chrGiveBriefcase
 /*  f181454:	0fc5a4dd */ 	jal	langGet
 /*  f181458:	24045402 */ 	addiu	$a0,$zero,0x5402
 /*  f18145c:	24040056 */ 	addiu	$a0,$zero,0x56
-/*  f181460:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f181460:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f181464:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f181468:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f18146c:	27a40094 */ 	addiu	$a0,$sp,0x94
@@ -12124,7 +12124,7 @@ glabel chrGiveBriefcase
 /*  f18147c:	0fc5a4dd */ 	jal	langGet
 /*  f181480:	24045403 */ 	addiu	$a0,$zero,0x5403
 /*  f181484:	24040056 */ 	addiu	$a0,$zero,0x56
-/*  f181488:	0fc27fd3 */ 	jal	weaponGetShortName
+/*  f181488:	0fc27fd3 */ 	jal	bgunGetShortName
 /*  f18148c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f181490:	8fad0120 */ 	lw	$t5,0x120($sp)
 /*  f181494:	8fa50048 */ 	lw	$a1,0x48($sp)
@@ -12427,7 +12427,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name);
 #else
 		// "%shas the\n%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name, weaponGetShortName(WEAPON_DATAUPLINK));
+		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name, bgunGetShortName(WEAPON_DATAUPLINK));
 #endif
 		playernum = g_Vars.currentplayernum;
 

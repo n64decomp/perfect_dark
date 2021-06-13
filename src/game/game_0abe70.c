@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_0969d0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0abe70.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
@@ -319,7 +319,7 @@ glabel func0f0ac138
 /*  f0ac1c4:	450300b9 */ 	bc1tl	.L0f0ac4ac
 /*  f0ac1c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0ac1cc:	afa30028 */ 	sw	$v1,0x28($sp)
-/*  f0ac1d0:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f0ac1d0:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f0ac1d4:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f0ac1d8:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f0ac1dc:	2401001d */ 	addiu	$at,$zero,0x1d
@@ -403,7 +403,7 @@ glabel func0f0ac138
 /*  f0ac2f8:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f0ac2fc:	54810008 */ 	bnel	$a0,$at,.L0f0ac320
 /*  f0ac300:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0ac304:	0fc29c3e */ 	jal	func0f0a70f8
+/*  f0ac304:	0fc29c3e */ 	jal	bgun0f0a70f8
 /*  f0ac308:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f0ac30c:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*  f0ac310:	8fa30028 */ 	lw	$v1,0x28($sp)
@@ -2303,7 +2303,7 @@ glabel var7f1acd60
 /*  f0ade18:	afa50144 */ 	sw	$a1,0x144($sp)
 /*  f0ade1c:	afa60148 */ 	sw	$a2,0x148($sp)
 /*  f0ade20:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0ade24:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f0ade24:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f0ade28:	afae0134 */ 	sw	$t6,0x134($sp)
 /*  f0ade2c:	8fb90140 */ 	lw	$t9,0x140($sp)
 /*  f0ade30:	8fb80134 */ 	lw	$t8,0x134($sp)
@@ -2388,7 +2388,7 @@ glabel var7f1acd60
 /*  f0adf50:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f0adf54:	0c005746 */ 	jal	func00015d18
 /*  f0adf58:	27a500ec */ 	addiu	$a1,$sp,0xec
-/*  f0adf5c:	0fc27aef */ 	jal	func0f09ebbc
+/*  f0adf5c:	0fc27aef */ 	jal	bgun0f09ebbc
 /*  f0adf60:	00000000 */ 	nop
 /*  f0adf64:	10400004 */ 	beqz	$v0,.L0f0adf78
 /*  f0adf68:	00402025 */ 	or	$a0,$v0,$zero
@@ -3134,7 +3134,7 @@ glabel var7f1acd60
 /*  f0ade18:	afa50144 */ 	sw	$a1,0x144($sp)
 /*  f0ade1c:	afa60148 */ 	sw	$a2,0x148($sp)
 /*  f0ade20:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0ade24:	0fc2866a */ 	jal	handGetWeaponNum
+/*  f0ade24:	0fc2866a */ 	jal	bgunGetWeaponNum
 /*  f0ade28:	afae0134 */ 	sw	$t6,0x134($sp)
 /*  f0ade2c:	8fb90140 */ 	lw	$t9,0x140($sp)
 /*  f0ade30:	8fb80134 */ 	lw	$t8,0x134($sp)
@@ -3219,7 +3219,7 @@ glabel var7f1acd60
 /*  f0adf50:	8fa40148 */ 	lw	$a0,0x148($sp)
 /*  f0adf54:	0c005746 */ 	jal	func00015d18
 /*  f0adf58:	27a500ec */ 	addiu	$a1,$sp,0xec
-/*  f0adf5c:	0fc27aef */ 	jal	func0f09ebbc
+/*  f0adf5c:	0fc27aef */ 	jal	bgun0f09ebbc
 /*  f0adf60:	00000000 */ 	nop
 /*  f0adf64:	10400004 */ 	beqz	$v0,.L0f0adf78
 /*  f0adf68:	00402025 */ 	or	$a0,$v0,$zero

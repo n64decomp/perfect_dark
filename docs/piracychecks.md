@@ -122,7 +122,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Copies 4KB from a random location in ROM to a random location in RAM.
 
-### func0f09e144
+### bgun0f09e144
 
 **When Called:** Unknown.
 

@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/title.h"
 #include "game/game_01afc0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0b3350.h"
 #include "game/inventory/inventory.h"
@@ -228,7 +228,7 @@ char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 
 	weapon = slot == 1 ? weapon2 : weapon1;
 
-	name = weaponGetName(weapon);
+	name = bgunGetName(weapon);
 	setCurrentPlayerNum(prevplayernum);
 
 	return name;

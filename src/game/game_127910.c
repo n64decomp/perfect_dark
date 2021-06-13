@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b69d0.h"
 #include "game/game_127910.h"
 #include "game/propobj.h"
@@ -1013,7 +1013,7 @@ void func0f128d20(s32 hand)
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 	if (chr->weapons_held[hand] == NULL) {
-		s32 weaponnum = handGetWeaponNum(hand);
+		s32 weaponnum = bgunGetWeaponNum(hand);
 		s32 modelnum = weaponGetModel(weaponnum);
 
 		if (hand == HAND_LEFT && weaponnum == WEAPON_REMOTEMINE) {

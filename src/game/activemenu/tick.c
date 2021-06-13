@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/activemenu/activemenu.h"
 #include "game/game_01b0a0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
@@ -23,7 +23,7 @@ void amTick(void)
 		g_AmIndex = g_Vars.currentplayernum;
 
 		if (g_AmMenus[g_AmIndex].togglefunc) {
-			if (currentPlayerConsiderToggleGunFunction(60, false, 1) > 0) {
+			if (bgunConsiderToggleGunFunction(60, false, 1) > 0) {
 				g_AmMenus[g_AmIndex].togglefunc = false;
 			}
 		} else {
@@ -496,7 +496,7 @@ glabel var7f1a224cnb
 /*  f01af8c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f01af90:	51e0000f */ 	beqzl	$t7,.NB0f01afd0
 /*  f01af94:	8ce80318 */ 	lw	$t0,0x318($a3)
-/*  f01af98:	0fc299bf */ 	jal	currentPlayerConsiderToggleGunFunction
+/*  f01af98:	0fc299bf */ 	jal	bgunConsiderToggleGunFunction
 /*  f01af9c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f01afa0:	18400009 */ 	blez	$v0,.NB0f01afc8
 /*  f01afa4:	3c07800a */ 	lui	$a3,0x800a

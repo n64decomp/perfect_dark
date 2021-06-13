@@ -10,7 +10,7 @@
 #include "game/game_095320.h"
 #include "game/floor.h"
 #include "game/ceil.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b4950.h"
@@ -588,7 +588,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	s16 sp6c[8];
 	struct prop *hitprop;
 
-	func0f0a9494(arg6);
+	bgun0f0a9494(arg6);
 
 	shotdata.gunpos.x = gunpos->x;
 	shotdata.gunpos.y = gunpos->y;
@@ -734,9 +734,9 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	if (&spa0);
 
 	if (hitindex != -1) {
-		func0f0a94d0(arg6, &shotdata.hits[hitindex].pos, &shotdata.hits[hitindex].dir);
+		bgun0f0a94d0(arg6, &shotdata.hits[hitindex].pos, &shotdata.hits[hitindex].dir);
 	} else if (hitbg) {
-		func0f0a94d0(arg6, &sp694.unk00, &sp694.unk0c);
+		bgun0f0a94d0(arg6, &sp694.unk00, &sp694.unk0c);
 	}
 
 	if (arg1) {
@@ -806,7 +806,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				}
 			}
 
-			handSetHitPos(&sp694.unk00);
+			bgunSetHitPos(&sp694.unk00);
 
 			if (surfacetype->num04 > 0 && (!func || (func->type & 0xff) != INVENTORYFUNCTYPE_CLOSE)) {
 				if (shotdata.gset.weaponnum != WEAPON_UNARMED
@@ -825,7 +825,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 					}
 				}
 
-				func0f0a84c8(&shotdata.gset, &sp694.unk00, sp694.unk2a, sp6c);
+				bgun0f0a84c8(&shotdata.gset, &sp694.unk00, sp694.unk2a, sp6c);
 
 				if (explosiveshells) {
 					explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_22, g_Vars.currentplayernum);
@@ -882,7 +882,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				}
 			}
 		} else {
-			handSetHitPos(&hitpos);
+			bgunSetHitPos(&hitpos);
 		}
 	} else if (shortrange) {
 		s32 hitindex;
@@ -960,9 +960,9 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 	struct coord sp4c;
 	struct coord sp40;
 
-	handCalculateShotSpread(&sp58, &sp64, handnum, arg2);
+	bgunCalculateShotSpread(&sp58, &sp64, handnum, arg2);
 
-	if (arg2 == 2 && handGetWeaponNum(HAND_RIGHT) == WEAPON_REAPER) {
+	if (arg2 == 2 && bgunGetWeaponNum(HAND_RIGHT) == WEAPON_REAPER) {
 		sp58.y -= 15 * (random() * (1.0f / U32_MAX));
 	}
 
@@ -979,7 +979,7 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 	struct coord sp44;
 	struct coord sp38;
 
-	handCalculateShotSpread(&sp38, &sp44, handnum, dorandom);
+	bgunCalculateShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
 		func00015b68(currentPlayerGetUnk174c(), &sp38, &shootpos);
@@ -988,7 +988,7 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 		shotCalculateHits(handnum, arg1, &sp38, &sp44, &shootpos, &shootdir, 0, 4294836224, arg4);
 
 		if (arg3 < 2) {
-			handSetLastShootInfo(&shootpos, &shootdir, handnum);
+			bgunSetLastShootInfo(&shootpos, &shootdir, handnum);
 		}
 	}
 }
@@ -1153,7 +1153,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 					rangelimit = closefunc->range;
 				}
 
-				currentPlayerGetCrossPos(&x, &y);
+				bgunGetCrossPos(&x, &y);
 
 				spfc[0] = (x - currentPlayerGetScreenLeft()) / (currentPlayerGetScreenWidth() * 0.5f) - 1.0f;
 				spfc[1] = (y - currentPlayerGetScreenTop()) / (currentPlayerGetScreenHeight() * 0.5f) - 1.0f;
@@ -1182,12 +1182,12 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							struct coord spcc;
 							struct modelnode *node = NULL;
 
-							handCalculateShotSpread(&spd8, &spcc, handnum, true);
+							bgunCalculateShotSpread(&spd8, &spcc, handnum, true);
 
 							if (func000225d4(model, &spd8, &spcc, &node) > 0) {
 								f32 damage = gsetGetDamage(gset) * 2.5f;
 								skipthething = true;
-								func0f0a8404(&playerprop->pos, playerprop->rooms, -1);
+								bgun0f0a8404(&playerprop->pos, playerprop->rooms, -1);
 								objTakeGunfire(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
 								func0f070698(prop, false);
 							}
@@ -1202,10 +1202,10 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							s32 hitpart = HITPART_TORSO;
 
 							if (!chrIsAvoiding(chr)) {
-								handCalculateShotSpread(&spb8, &vector, handnum, true);
+								bgunCalculateShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
 								func00015b10(currentPlayerGetUnk174c(), &vector);
-								gsetPlayPropHitSound(gset, prop, -1);
+								bgunPlayPropHitSound(gset, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {
 									chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &hitpart, &model, &side);
@@ -1241,7 +1241,7 @@ void handTickAttack(s32 handnum)
 	if (g_Vars.currentplayer->hands[handnum].unk0d0f_02) {
 		s32 doit = true;
 
-		if (handGetWeaponNum(handnum) == WEAPON_REAPER
+		if (bgunGetWeaponNum(handnum) == WEAPON_REAPER
 				&& (g_Vars.currentplayer->hands[handnum].burstbullets % 3) != 1) {
 			doit = false;
 		}
@@ -1253,9 +1253,9 @@ void handTickAttack(s32 handnum)
 		g_Vars.currentplayer->hands[handnum].unk0d0f_02 = false;
 	}
 
-	if (handIsFiring(handnum)) {
-		s32 type = handGetAttackType(handnum);
-		s32 weaponnum = handGetWeaponNum(handnum);
+	if (bgunIsFiring(handnum)) {
+		s32 type = bgunGetAttackType(handnum);
+		s32 weaponnum = bgunGetWeaponNum(handnum);
 		u8 stack1;
 		u8 stack2;
 		u8 stack3;
@@ -1271,7 +1271,7 @@ void handTickAttack(s32 handnum)
 		case HANDATTACKTYPE_SHOOT:
 			// Always execute if right hand, but if left hand then execute if
 			// right hand is not (ie. prevent firing both guns on the same tick)
-			if (handnum == HAND_RIGHT || !handIsFiring(HAND_RIGHT)) {
+			if (handnum == HAND_RIGHT || !bgunIsFiring(HAND_RIGHT)) {
 				chrUncloakTemporarily(g_Vars.currentplayer->prop->chr);
 				mpstatsIncrementPlayerShotCount2((struct gset *)&tmpweaponnum, 0);
 
@@ -1283,7 +1283,7 @@ void handTickAttack(s32 handnum)
 					handCreateBulletRaycast(handnum, true, true, 1, true);
 					handCreateBulletRaycast(handnum, true, true, 1, true);
 				} else {
-					handCreateBulletRaycast(handnum, true, true, handGetUnk0c30(handnum), g_Vars.mplayerisrunning);
+					handCreateBulletRaycast(handnum, true, true, bgunGetUnk0c30(handnum), g_Vars.mplayerisrunning);
 				}
 
 				mpstats0f0b0520();
@@ -1303,13 +1303,13 @@ void handTickAttack(s32 handnum)
 			propFindForUplink();
 			break;
 		case HANDATTACKTYPE_BOOST:
-			cboostBoost();
+			bgunApplyBoost();
 			break;
 		case HANDATTACKTYPE_REVERTBOOST:
-			cboostRevert();
+			bgunRevertBoost();
 			break;
 		case HANDATTACKTYPE_SHOOTPROJECTILE:
-			handCreateFiredProjectile(handnum);
+			bgunCreateFiredProjectile(handnum);
 			break;
 		case HANDATTACKTYPE_CROUCH:
 			if (g_Vars.currentplayer->crouchpos == CROUCHPOS_SQUAT) {
@@ -1319,7 +1319,7 @@ void handTickAttack(s32 handnum)
 			}
 			break;
 		case HANDATTACKTYPE_THROWPROJECTILE:
-			handCreateThrownProjectile(handnum, (struct gset *)&tmpweaponnum);
+			bgunCreateThrownProjectile(handnum, (struct gset *)&tmpweaponnum);
 			break;
 		case HANDATTACKTYPE_RCP120CLOAK:
 			cloaked = (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120) != 0;
@@ -5283,7 +5283,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 	struct prop *playerprop;
 	s32 lVar3;
 
-	if (func && func0f0a27c8()) {
+	if (func && bgun0f0a27c8()) {
 		sp50 = true;
 	}
 
@@ -5323,7 +5323,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 
 	if (sp74[1] >= top && bottom >= sp7c[1]) {
 		sp4c = false;
-		currentPlayerGetCrossPos(&sp70, &sp6c);
+		bgunGetCrossPos(&sp70, &sp6c);
 		sp8c[0] = floorf(sp8c[0]);
 		sp84[0] = ceilf(sp84[0]);
 
@@ -5400,7 +5400,7 @@ void farsightChooseTarget(void)
 	struct prop *besttarget = NULL;
 	f32 bestthing = 1;
 	f32 bestdist = -1;
-	s32 weaponnum = handGetWeaponNum(HAND_RIGHT);
+	s32 weaponnum = bgunGetWeaponNum(HAND_RIGHT);
 	s32 i;
 
 	if (weaponnum == WEAPON_FARSIGHT) {
@@ -5454,7 +5454,7 @@ void autoaimTick(void)
 	struct prop *bestprop = NULL;
 	f32 aimpos[2] = {0, 0};
 	bool isclose = false;
-	bool cangangsta = weaponHasFlag(handGetWeaponNum(HAND_RIGHT), WEAPONFLAG_GANGSTA);
+	bool cangangsta = weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_GANGSTA);
 	bool iscmpsec = false;
 	struct weaponfunc *func = currentPlayerGetWeaponFunction(HAND_RIGHT);
 	s32 i;
@@ -5471,7 +5471,7 @@ void autoaimTick(void)
 		farsightChooseTarget();
 	}
 
-	if (handGetWeaponNum(HAND_RIGHT) == WEAPON_CMP150
+	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_CMP150
 			&& g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY) {
 		iscmpsec = true;
 	}

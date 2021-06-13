@@ -7,7 +7,7 @@
 #include "game/debug.h"
 #include "game/prop.h"
 #include "game/game_095320.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b69d0.h"
 #include "game/bondhead.h"
 #include "game/propobj.h"
@@ -3211,7 +3211,7 @@ glabel var7f1ada2c
 /*  f0cee7c:	46060302 */ 	mul.s	$f12,$f0,$f6
 /*  f0cee80:	00000000 */ 	nop
 .L0f0cee84:
-/*  f0cee84:	0fc27637 */ 	jal	func0f09d8dc
+/*  f0cee84:	0fc27637 */ 	jal	bgun0f09d8dc
 /*  f0cee88:	e7b40010 */ 	swc1	$f20,0x10($sp)
 /*  f0cee8c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0cee90:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -3220,7 +3220,7 @@ glabel var7f1ada2c
 /*  f0cee9c:	c424da2c */ 	lwc1	$f4,%lo(var7f1ada2c)($at)
 /*  f0ceea0:	c7280158 */ 	lwc1	$f8,0x158($t9)
 /*  f0ceea4:	46044302 */ 	mul.s	$f12,$f8,$f4
-/*  f0ceea8:	0fc288a4 */ 	jal	handSetAdjustPos
+/*  f0ceea8:	0fc288a4 */ 	jal	bgunSetAdjustPos
 /*  f0ceeac:	00000000 */ 	nop
 /*  f0ceeb0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f0ceeb4:
@@ -3593,7 +3593,7 @@ glabel var7f1ada2c
 /*  f0cc67c:	46060302 */ 	mul.s	$f12,$f0,$f6
 /*  f0cc680:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f0cc684:
-/*  f0cc684:	0fc26dfe */ 	jal	func0f09d8dc
+/*  f0cc684:	0fc26dfe */ 	jal	bgun0f09d8dc
 /*  f0cc688:	e7b40010 */ 	swc1	$f20,0x10($sp)
 /*  f0cc68c:	3c08800a */ 	lui	$t0,0x800a
 /*  f0cc690:	2508e6c0 */ 	addiu	$t0,$t0,-6464
@@ -3602,7 +3602,7 @@ glabel var7f1ada2c
 /*  f0cc69c:	c4247d68 */ 	lwc1	$f4,0x7d68($at)
 /*  f0cc6a0:	c7280158 */ 	lwc1	$f8,0x158($t9)
 /*  f0cc6a4:	46044302 */ 	mul.s	$f12,$f8,$f4
-/*  f0cc6a8:	0fc28003 */ 	jal	handSetAdjustPos
+/*  f0cc6a8:	0fc28003 */ 	jal	bgunSetAdjustPos
 /*  f0cc6ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cc6b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .NB0f0cc6b4:

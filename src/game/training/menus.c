@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/chr/chraction.h"
 #include "game/ceil.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0e0770.h"
@@ -50,8 +50,8 @@ s32 frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerda
 
 			invSetCurrentIndex(1);
 
-			if (handGetWeaponNum(HAND_RIGHT) != weapon) {
-				currentPlayerEquipWeaponWrapper(HAND_RIGHT, weapon);
+			if (bgunGetWeaponNum(HAND_RIGHT) != weapon) {
+				bgunEquipWeapon2(HAND_RIGHT, weapon);
 			}
 
 			g_FrWeaponNum = weapon;
@@ -216,7 +216,7 @@ glabel var7f1b9940
 /*  f1a35e0:	0fc54d8a */ 	jal	func0f153628
 /*  f1a35e4:	afb80080 */ 	sw	$t8,0x80($sp)
 /*  f1a35e8:	afa2009c */ 	sw	$v0,0x9c($sp)
-/*  f1a35ec:	0fc28857 */ 	jal	weaponGetName
+/*  f1a35ec:	0fc28857 */ 	jal	bgunGetName
 /*  f1a35f0:	8fa40090 */ 	lw	$a0,0x90($sp)
 /*  f1a35f4:	0c002f02 */ 	jal	viGetWidth
 /*  f1a35f8:	afa20044 */ 	sw	$v0,0x44($sp)
@@ -631,7 +631,7 @@ glabel var7f1b3f60nb
 /*  f19d664:	0fc5374a */ 	jal	func0f153628
 /*  f19d668:	afaf0080 */ 	sw	$t7,0x80($sp)
 /*  f19d66c:	afa2009c */ 	sw	$v0,0x9c($sp)
-/*  f19d670:	0fc27fb6 */ 	jal	weaponGetName
+/*  f19d670:	0fc27fb6 */ 	jal	bgunGetName
 /*  f19d674:	8fa40090 */ 	lw	$a0,0x90($sp)
 /*  f19d678:	0c002f77 */ 	jal	viGetWidth
 /*  f19d67c:	afa20044 */ 	sw	$v0,0x44($sp)
@@ -1069,7 +1069,7 @@ char *frMenuTextGoalScoreValueUnconditional(struct menuitem *item)
 
 char *frMenuTextWeaponName(struct menuitem *item)
 {
-	return weaponGetName(frGetWeaponBySlot(frGetSlot()));
+	return bgunGetName(frGetWeaponBySlot(frGetSlot()));
 }
 
 char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
@@ -4888,7 +4888,7 @@ s32 dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerd
 		data->list.value = dtGetNumAvailable();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) weaponGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(data->list.value)));
+		return (s32) bgunGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(data->list.value)));
 	case MENUOP_SET:
 		g_DtSlot = data->list.value;
 		menuPushDialog(&g_DtDetailsMenuDialog);
@@ -4913,7 +4913,7 @@ char *dtMenuTextName(struct menuitem *item)
 {
 	u32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
 
-	return weaponGetName(weaponnum);
+	return bgunGetName(weaponnum);
 }
 
 s32 menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerdata *data)

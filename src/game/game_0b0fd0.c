@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/cheats.h"
 #include "game/inventory/items.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
 #include "game/hudmsg.h"
@@ -127,7 +127,7 @@ struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum)
 
 void currentPlayerGetWeaponSway(struct coord *sway)
 {
-	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
+	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
 
 	if (weapon) {
 		sway->x = weapon->leftright;
@@ -138,7 +138,7 @@ void currentPlayerGetWeaponSway(struct coord *sway)
 
 void currentPlayerSetWeaponSway(struct coord *sway)
 {
-	struct weapon *weapon = weaponFindById(handGetWeaponNum(HAND_RIGHT));
+	struct weapon *weapon = weaponFindById(bgunGetWeaponNum(HAND_RIGHT));
 
 	if (weapon) {
 		weapon->leftright = sway->x;
@@ -158,7 +158,7 @@ f32 func0f0b131c(s32 hand)
 	struct weapon *weapon;
 
 	if (hand == 0) {
-		weapon = weaponFindById(getCurrentPlayerWeaponIdWrapper(0));
+		weapon = weaponFindById(bgunGetWeaponNum2(0));
 		x = weapon->leftright;
 
 		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
@@ -169,7 +169,7 @@ f32 func0f0b131c(s32 hand)
 			}
 		}
 	} else {
-		weapon = weaponFindById(getCurrentPlayerWeaponIdWrapper(1));
+		weapon = weaponFindById(bgunGetWeaponNum2(1));
 		x = -weapon->leftright;
 
 		if (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
@@ -189,7 +189,7 @@ f32 currentPlayerGetGunZoomFov(void)
 	s32 index = -1;
 	struct weapon *weapon;
 
-	switch (getCurrentPlayerWeaponIdWrapper(0)) {
+	switch (bgunGetWeaponNum2(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
 	case WEAPON_FARSIGHT:   index = 1; break;
 	case WEAPON_HORIZONSCANNER: index = 2; break;
@@ -199,7 +199,7 @@ f32 currentPlayerGetGunZoomFov(void)
 		return g_Vars.currentplayer->gunzoomfovs[index];
 	}
 
-	weapon = weaponFindById(getCurrentPlayerWeaponIdWrapper(0));
+	weapon = weaponFindById(bgunGetWeaponNum2(0));
 
 	if (weapon) {
 		f32 fov = weapon->eptr->zoomfov;
@@ -213,7 +213,7 @@ void currentPlayerZoomOut(f32 fovpersec)
 {
 	s32 index = -1;
 
-	switch (getCurrentPlayerWeaponIdWrapper(0)) {
+	switch (bgunGetWeaponNum2(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
 	case WEAPON_FARSIGHT:   index = 1; break;
 	case WEAPON_HORIZONSCANNER: index = 2; break;
@@ -226,7 +226,7 @@ void currentPlayerZoomOut(f32 fovpersec)
 		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
 #endif
 
-		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHT) {
+		if (bgunGetWeaponNum2(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
 		}
 
@@ -242,7 +242,7 @@ void currentPlayerZoomIn(f32 fovpersec)
 {
 	s32 index = -1;
 
-	switch (getCurrentPlayerWeaponIdWrapper(0)) {
+	switch (bgunGetWeaponNum2(0)) {
 	case WEAPON_SNIPERRIFLE:    index = 0; break;
 	case WEAPON_FARSIGHT:   index = 1; break;
 	case WEAPON_HORIZONSCANNER: index = 2; break;
@@ -255,7 +255,7 @@ void currentPlayerZoomIn(f32 fovpersec)
 		f32 amount = fovpersec * 0.25f * g_Vars.lvupdate240f;
 #endif
 
-		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHT) {
+		if (bgunGetWeaponNum2(0) == WEAPON_FARSIGHT) {
 			amount *= 0.5f;
 		}
 
@@ -595,7 +595,7 @@ f32 gsetGetDamage(struct gset *gset)
 		damage = (gset->unk063a / 3.0f + 1.0f) * damage;
 	}
 
-	if (handIsFiring(HAND_LEFT) && handIsFiring(HAND_RIGHT)) {
+	if (bgunIsFiring(HAND_LEFT) && bgunIsFiring(HAND_RIGHT)) {
 		damage += damage;
 	}
 

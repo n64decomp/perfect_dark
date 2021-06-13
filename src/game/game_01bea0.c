@@ -4,7 +4,7 @@
 #include "game/title.h"
 #include "game/game_01b0a0.h"
 #include "game/game_01bea0.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"
@@ -1585,7 +1585,7 @@ glabel var7f1a863c
 /*  f01d4f0:	8defede4 */ 	lw	$t7,-0x121c($t7)
 /*  f01d4f4:	51e00006 */ 	beqzl	$t7,.PF0f01d510
 /*  f01d4f8:	8e6d006c */ 	lw	$t5,0x6c($s3)
-/*  f01d4fc:	0fc27881 */ 	jal	func0f09df50
+/*  f01d4fc:	0fc27881 */ 	jal	bgun0f09df50
 /*  f01d500:	00000000 */ 	nop
 /*  f01d504:	3c01800a */ 	lui	$at,0x800a
 /*  f01d508:	ac20ede4 */ 	sw	$zero,-0x121c($at)
@@ -3362,7 +3362,7 @@ glabel var7f1a863c
 /*  f01d420:	8f39e844 */ 	lw	$t9,%lo(g_Menus+0x844)($t9)
 /*  f01d424:	53200006 */ 	beqzl	$t9,.L0f01d440
 /*  f01d428:	8e6f006c */ 	lw	$t7,0x6c($s3)
-/*  f01d42c:	0fc277d4 */ 	jal	func0f09df50
+/*  f01d42c:	0fc277d4 */ 	jal	bgun0f09df50
 /*  f01d430:	00000000 */ 	nop
 /*  f01d434:	3c01800a */ 	lui	$at,%hi(g_Menus+0x844)
 /*  f01d438:	ac20e844 */ 	sw	$zero,%lo(g_Menus+0x844)($at)
@@ -5130,7 +5130,7 @@ glabel var7f1a863c
 /*  f01d100:	8f392f60 */ 	lw	$t9,0x2f60($t9)
 /*  f01d104:	53200006 */ 	beqzl	$t9,.NB0f01d120
 /*  f01d108:	8e6f006c */ 	lw	$t7,0x6c($s3)
-/*  f01d10c:	0fc26f9b */ 	jal	func0f09df50
+/*  f01d10c:	0fc26f9b */ 	jal	bgun0f09df50
 /*  f01d110:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01d114:	3c01800a */ 	lui	$at,0x800a
 /*  f01d118:	ac202f60 */ 	sw	$zero,0x2f60($at)
@@ -6052,7 +6052,7 @@ glabel var7f1a863c
 //			g_MenuData.unk5d5_01 = true;
 //
 //			if (g_Menus[0].unk844) {
-//				func0f09df50();
+//				bgun0f09df50();
 //				g_Menus[0].unk844 = 0;
 //			}
 //		}

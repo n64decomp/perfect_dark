@@ -4,7 +4,7 @@
 #include "game/debug.h"
 #include "game/chr/chr.h"
 #include "game/game_092610.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_127910.h"
 #include "game/game_1999b0.h"
@@ -88,7 +88,7 @@ s32 aibotGetAmmoQuantityByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum
 	if (aibot) {
 		if (aibot->unk064 & 1) {
 			ammotype = weaponGetAmmoTypeByFunction(weaponnum, funcnum);
-			qty = ammotypeGetMaxCapacity(ammotype);
+			qty = bgunGetCapacityByAmmotype(ammotype);
 		} else {
 			ammotype = weaponGetAmmoTypeByFunction(weaponnum, funcnum);
 			qty = aibot->ammoheld[ammotype];
@@ -113,7 +113,7 @@ s32 aibotGetAmmoQuantityByType(struct aibot *aibot, s32 ammotype, bool include_e
 
 	if (aibot) {
 		if (aibot->unk064 & 1) {
-			qty = ammotypeGetMaxCapacity(ammotype);
+			qty = bgunGetCapacityByAmmotype(ammotype);
 		} else {
 			qty = aibot->ammoheld[ammotype];
 		}
@@ -176,7 +176,7 @@ void aibotGiveAmmoByWeapon(struct aibot *aibot, s32 weaponnum, s32 funcnum, s32 
 
 		if (heldquantity);
 
-		max = ammotypeGetMaxCapacity(weaponGetAmmoTypeByFunction(weaponnum, funcnum));
+		max = bgunGetCapacityByAmmotype(weaponGetAmmoTypeByFunction(weaponnum, funcnum));
 
 		if (*heldquantity > max) {
 			*heldquantity = max;
@@ -201,7 +201,7 @@ void aibotGiveAmmoByType(struct aibot *aibot, u32 ammotype, s32 quantity)
 
 	if (heldquantity);
 
-	max = ammotypeGetMaxCapacity(ammotype);
+	max = bgunGetCapacityByAmmotype(ammotype);
 
 	if (*heldquantity > max) {
 		*heldquantity = max;
@@ -267,7 +267,7 @@ bool aibotDoFarsightThing(struct chrdata *chr, u32 arg1, struct coord *vector, s
 				if (oppchr != chr
 						&& value > rand
 						&& func0f06b39c(arg3, vector, &oppprop->pos, func0f0278a4(oppchr))) {
-					gsetPlayPropHitSound(&gset, oppprop, -1);
+					bgunPlayPropHitSound(&gset, oppprop, -1);
 
 					if (oppchr->model && chrGetShield(oppchr) > 0) {
 						chrCalculateShieldHit(oppchr, &oppprop->pos, vector, &node, &hitpart, &model, &side);
@@ -403,7 +403,7 @@ void func0f19a37c(struct chrdata *chr)
 	func00016374(sp80, &sp84);
 	func00015be0(&sp84, &sp164);
 
-	func0f09ee18(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
+	bgun0f09ee18(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
 
 	if (gset.weaponnum == WEAPON_REMOTEMINE) {
 		chr->aibot->unk064 |= 0x1000;
@@ -510,7 +510,7 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 		func00015be0(&sp132, &sp196);
 		func000159b0(&sp260);
 
-		func0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, sp100, &sp260, chr->prop, &chr->prop->pos);
+		bgun0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, sp100, &sp260, chr->prop, &chr->prop->pos);
 
 		if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
 			struct prop *target = chrGetTargetProp(chr);

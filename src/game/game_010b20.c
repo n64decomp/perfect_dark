@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/inventory/items.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_1655c0.h"
 #include "bss.h"
 #include "lib/memory.h"
@@ -144,7 +144,7 @@ void func0f010bb0(void)
 	if (IS4MB() && PLAYERCOUNT() == 2) {
 		i = ALIGN16(var800700ac);
 	} else {
-		i = ALIGN16(func0f09ddfc());
+		i = ALIGN16(bgun0f09ddfc());
 	}
 
 	g_Vars.currentplayer->gunctrl.unk158c = malloc(i, MEMPOOL_STAGE);
@@ -230,12 +230,12 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->cyclesum = 0;
 	g_Vars.currentplayer->gunampsum = 0;
 
-	func0f09d140(HAND_RIGHT);
-	func0f09d140(HAND_RIGHT);
-	func0f09d140(HAND_RIGHT);
-	func0f09d140(HAND_LEFT);
-	func0f09d140(HAND_LEFT);
-	func0f09d140(HAND_LEFT);
+	bgun0f09d140(HAND_RIGHT);
+	bgun0f09d140(HAND_RIGHT);
+	bgun0f09d140(HAND_RIGHT);
+	bgun0f09d140(HAND_LEFT);
+	bgun0f09d140(HAND_LEFT);
+	bgun0f09d140(HAND_LEFT);
 
 	g_Vars.currentplayer->gunammooff = 0;
 	g_Vars.currentplayer->gunsightoff = GUNSIGHTREASON_AIMING;
@@ -262,5 +262,5 @@ void func0f010bb0(void)
 		g_Weapons[WEAPON_EYESPY]->flags |= (WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN);
 	}
 
-	func0f09ceac();
+	bgun0f09ceac();
 }

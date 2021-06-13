@@ -10,7 +10,7 @@
 #include "game/prop.h"
 #include "game/game_092610.h"
 #include "game/game_095320.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b69d0.h"
 #include "game/inventory/inventory.h"
 #include "game/bondhead.h"
@@ -4519,7 +4519,7 @@ glabel var7f1ad854
 /*  f0c7dac:	46040302 */ 	mul.s	$f12,$f0,$f4
 /*  f0c7db0:	00000000 */ 	nop
 .PF0f0c7db4:
-/*  f0c7db4:	0fc276e4 */ 	jal	func0f09d8dc
+/*  f0c7db4:	0fc276e4 */ 	jal	bgun0f09d8dc
 /*  f0c7db8:	e7b40010 */ 	swc1	$f20,0x10($sp)
 /*  f0c7dbc:	3c08800a */ 	lui	$t0,0x800a
 /*  f0c7dc0:	2508a510 */ 	addiu	$t0,$t0,-23280
@@ -4528,7 +4528,7 @@ glabel var7f1ad854
 /*  f0c7dcc:	c428eb24 */ 	lwc1	$f8,-0x14dc($at)
 /*  f0c7dd0:	c5a60158 */ 	lwc1	$f6,0x158($t5)
 /*  f0c7dd4:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f0c7dd8:	0fc28971 */ 	jal	handSetAdjustPos
+/*  f0c7dd8:	0fc28971 */ 	jal	bgunSetAdjustPos
 /*  f0c7ddc:	00000000 */ 	nop
 /*  f0c7de0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f0c7de4:	d7b40018 */ 	ldc1	$f20,0x18($sp)
@@ -5570,7 +5570,7 @@ glabel var7f1ad854
 /*  f0c7814:	46080302 */ 	mul.s	$f12,$f0,$f8
 /*  f0c7818:	00000000 */ 	nop
 .L0f0c781c:
-/*  f0c781c:	0fc27637 */ 	jal	func0f09d8dc
+/*  f0c781c:	0fc27637 */ 	jal	bgun0f09d8dc
 /*  f0c7820:	e7b40010 */ 	swc1	$f20,0x10($sp)
 /*  f0c7824:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c7828:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -5579,7 +5579,7 @@ glabel var7f1ad854
 /*  f0c7834:	c42ad854 */ 	lwc1	$f10,%lo(var7f1ad854)($at)
 /*  f0c7838:	c5a40158 */ 	lwc1	$f4,0x158($t5)
 /*  f0c783c:	460a2302 */ 	mul.s	$f12,$f4,$f10
-/*  f0c7840:	0fc288a4 */ 	jal	handSetAdjustPos
+/*  f0c7840:	0fc288a4 */ 	jal	bgunSetAdjustPos
 /*  f0c7844:	00000000 */ 	nop
 /*  f0c7848:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f0c784c:	d7b40018 */ 	ldc1	$f20,0x18($sp)
@@ -6573,7 +6573,7 @@ glabel var7f1ad854
 /*  f0c50e0:	460a0302 */ 	mul.s	$f12,$f0,$f10
 /*  f0c50e4:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f0c50e8:
-/*  f0c50e8:	0fc26dfe */ 	jal	func0f09d8dc
+/*  f0c50e8:	0fc26dfe */ 	jal	bgun0f09d8dc
 /*  f0c50ec:	e7b40010 */ 	swc1	$f20,0x10($sp)
 /*  f0c50f0:	3c08800a */ 	lui	$t0,0x800a
 /*  f0c50f4:	2508e6c0 */ 	addiu	$t0,$t0,-6464
@@ -6582,7 +6582,7 @@ glabel var7f1ad854
 /*  f0c5100:	c4247b94 */ 	lwc1	$f4,0x7b94($at)
 /*  f0c5104:	c5880158 */ 	lwc1	$f8,0x158($t4)
 /*  f0c5108:	46044302 */ 	mul.s	$f12,$f8,$f4
-/*  f0c510c:	0fc28003 */ 	jal	handSetAdjustPos
+/*  f0c510c:	0fc28003 */ 	jal	bgunSetAdjustPos
 /*  f0c5110:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c5114:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f0c5118:	d7b40018 */ 	ldc1	$f20,0x18($sp)

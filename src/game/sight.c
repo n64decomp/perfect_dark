@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chr/chraction.h"
-#include "game/game_097ba0.h"
+#include "game/bondgun.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b2150.h"
 #include "game/game_0b3350.h"
@@ -98,7 +98,7 @@ bool sightCanTargetProp(struct prop *prop, s32 max)
 		return true;
 	}
 
-	if (handGetWeaponNum(HAND_RIGHT) == WEAPON_ROCKETLAUNCHER) {
+	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_ROCKETLAUNCHER) {
 		return true;
 	}
 
