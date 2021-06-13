@@ -495,11 +495,10 @@ glabel func0f165c4c
 /*  f165ee0:	e440004c */ 	swc1	$f0,0x4c($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f165ee4
-/*  f165ee4:	03e00008 */ 	jr	$ra
-/*  f165ee8:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+void skySetStageNum(s32 stagenum)
+{
+	// empty
+}
 
 void func0f165eec(s32 stagenum, bool arg1)
 {
