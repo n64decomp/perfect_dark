@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/bg.h"
 #include "game/game_165670.h"
 #include "bss.h"
@@ -979,72 +980,37 @@ Gfx *gfxConsiderDisableFog(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f1666f8
-/*  f1666f8:	3c0e800a */ 	lui	$t6,%hi(g_FogDisabled)
-/*  f1666fc:	8dce65e0 */ 	lw	$t6,%lo(g_FogDisabled)($t6)
-/*  f166700:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f166704:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f166708:	15c00003 */ 	bnez	$t6,.L0f166718
-/*  f16670c:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f166710:	10000031 */ 	b	.L0f1667d8
-/*  f166714:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f166718:
-/*  f166718:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f16671c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f166720:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f166724:	944f0010 */ 	lhu	$t7,0x10($v0)
-/*  f166728:	24431bb0 */ 	addiu	$v1,$v0,0x1bb0
-/*  f16672c:	55e10004 */ 	bnel	$t7,$at,.L0f166740
-/*  f166730:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f166734:	10000028 */ 	b	.L0f1667d8
-/*  f166738:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f16673c:	afa3001c */ 	sw	$v1,0x1c($sp)
-.L0f166740:
-/*  f166740:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*  f166744:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f166748:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f16674c:	8fa40030 */ 	lw	$a0,0x30($sp)
-/*  f166750:	3c018008 */ 	lui	$at,%hi(var80081050)
-/*  f166754:	c4660000 */ 	lwc1	$f6,0x0($v1)
-/*  f166758:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f16675c:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f166760:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f166764:	c4700004 */ 	lwc1	$f16,0x4($v1)
-/*  f166768:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f16676c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f166770:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f166774:	e7b20028 */ 	swc1	$f18,0x28($sp)
-/*  f166778:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f16677c:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f166780:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f166784:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*  f166788:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f16678c:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f166790:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f166794:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f166798:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f16679c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1667a0:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f1667a4:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f1667a8:	46048182 */ 	mul.s	$f6,$f16,$f4
-/*  f1667ac:	46089280 */ 	add.s	$f10,$f18,$f8
-/*  f1667b0:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f1667b4:	c4321050 */ 	lwc1	$f18,%lo(var80081050)($at)
-/*  f1667b8:	460a3000 */ 	add.s	$f0,$f6,$f10
-/*  f1667bc:	46089400 */ 	add.s	$f16,$f18,$f8
-/*  f1667c0:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f1667c4:	00000000 */ 	nop
-/*  f1667c8:	45000003 */ 	bc1f	.L0f1667d8
-/*  f1667cc:	00000000 */ 	nop
-/*  f1667d0:	10000001 */ 	b	.L0f1667d8
-/*  f1667d4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1667d8:
-/*  f1667d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1667dc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1667e0:	03e00008 */ 	jr	$ra
-/*  f1667e4:	00000000 */ 	nop
-);
+bool func0f1666f8(struct coord *pos, f32 arg1)
+{
+	struct coord sp24;
+	Mtxf *mtx;
+	struct coord *campos;
+	f32 tmp;
+
+	if (!g_FogDisabled) {
+		return true;
+	}
+
+	campos = &g_Vars.currentplayer->cam_pos;
+
+	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
+		return true;
+	}
+
+	mtx = currentPlayerGetMatrix1740();
+
+	sp24.x = pos->x - campos->x;
+	sp24.y = pos->y - campos->y;
+	sp24.z = pos->z - campos->z;
+
+	tmp = sp24.f[0] * mtx->m[0][0] + sp24.f[1] * mtx->m[0][1] + sp24.f[2] * mtx->m[0][2];
+
+	if (var80081050 + arg1 < tmp) {
+		return false;
+	}
+
+	return true;
+}
 
 struct coord *func0f1667e8(void)
 {
