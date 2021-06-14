@@ -19,24 +19,11 @@ void currentPlayerSetLastRoomForOffset(s32 room)
 	g_Vars.currentplayer->lastroomforoffset = room;
 }
 
-GLOBAL_ASM(
-glabel func0f1668f0
-/*  f1668f0:	000578c0 */ 	sll	$t7,$a1,0x3
-/*  f1668f4:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f1668f8:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f1668fc:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f166900:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f166904:	01e57823 */ 	subu	$t7,$t7,$a1
-/*  f166908:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f16690c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f166910:	a7040010 */ 	sh	$a0,0x10($t8)
-/*  f166914:	3c19800a */ 	lui	$t9,%hi(var800a6664)
-/*  f166918:	8f396664 */ 	lw	$t9,%lo(var800a6664)($t9)
-/*  f16691c:	00044040 */ 	sll	$t0,$a0,0x1
-/*  f166920:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f166924:	03e00008 */ 	jr	$ra
-/*  f166928:	a5250000 */ 	sh	$a1,0x0($t1)
-);
+void func0f1668f0(s32 index, s32 roomnum)
+{
+	g_Rooms[roomnum].unk10 = index;
+	var800a6664[index] = roomnum;
+}
 
 void func0f16692c(s32 index, s32 roomnum)
 {

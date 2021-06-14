@@ -5,7 +5,7 @@
 #include "types.h"
 
 void currentPlayerSetLastRoomForOffset(s32 room);
-u32 func0f1668f0(void);
+void func0f1668f0(s32 index, s32 roomnum);
 void func0f16692c(s32 index, s32 roomnum);
 void func0f16696c(s32 index);
 u32 func0f1669fc(void);
