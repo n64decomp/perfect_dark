@@ -13107,7 +13107,7 @@ glabel var7f1ad6ac
 //						func0f0b9538();
 //						padUnpack(g_Vars.currentplayer->autocontrol_aimpad, PADFIELD_POS, &pad);
 //
-//						if (mainGetStageNum() == g_Stages[STAGE_EXTRACTION].id
+//						if (mainGetStageNum() == g_Stages[STAGEINDEX_EXTRACTION].id
 //								&& g_Vars.currentplayer->autocontrol_aimpad == 0x19) {
 //							pad.pos.x -= 100;
 //						}
