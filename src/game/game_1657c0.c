@@ -474,17 +474,18 @@ glabel func0f165c4c
 /*  f165eb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f165eb4:	03e00008 */ 	jr	$ra
 /*  f165eb8:	ac3865e4 */ 	sw	$t8,%lo(var800a65e4)($at)
-/*  f165ebc:	3c028008 */ 	lui	$v0,%hi(var80081058)
-/*  f165ec0:	24421058 */ 	addiu	$v0,$v0,%lo(var80081058)
-/*  f165ec4:	44800000 */ 	mtc1	$zero,$f0
-/*  f165ec8:	a0400008 */ 	sb	$zero,0x8($v0)
-/*  f165ecc:	a0400009 */ 	sb	$zero,0x9($v0)
-/*  f165ed0:	a040000a */ 	sb	$zero,0xa($v0)
-/*  f165ed4:	e4400044 */ 	swc1	$f0,0x44($v0)
-/*  f165ed8:	e4400048 */ 	swc1	$f0,0x48($v0)
-/*  f165edc:	03e00008 */ 	jr	$ra
-/*  f165ee0:	e440004c */ 	swc1	$f0,0x4c($v0)
 );
+
+void func0f165ebc(void)
+{
+	var80081058.sky_r = 0;
+	var80081058.sky_g = 0;
+	var80081058.sky_b = 0;
+
+	var80081058.unk44 = 0;
+	var80081058.unk48 = 0;
+	var80081058.unk4c = 0;
+}
 
 void skySetStageNum(s32 stagenum)
 {
