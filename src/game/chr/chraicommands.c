@@ -5975,9 +5975,9 @@ bool aiIfObjInRoom(void)
 /**
  * @cmd 00f2
  */
-bool ai00f2(void)
+bool aiSwitchToAltSky(void)
 {
-	func0f1660a4(1);
+	skySetTransitionFrac(1);
 	g_Vars.aioffset += 2;
 
 	return false;

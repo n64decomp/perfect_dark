@@ -252,7 +252,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00ef*/ aiIfObjInRoom,
 	/*0x00f0*/ ai00f0,
 	/*0x00f1*/ aiIfAttacking,
-	/*0x00f2*/ ai00f2,
+	/*0x00f2*/ aiSwitchToAltSky,
 	/*0x00f3*/ aiChrSetInvincible,
 	/*0x00f4*/ ai00f4,
 	/*0x00f5*/ ai00f5,

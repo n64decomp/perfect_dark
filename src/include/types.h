@@ -3296,7 +3296,7 @@ struct sun {
 	u16 orb_size;
 };
 
-struct smallsky {
+struct skytype1 {
 	/*0x00*/ s16 stage;
 	/*0x02*/ s16 near;
 	/*0x04*/ s16 far;
@@ -3326,7 +3326,7 @@ struct smallsky {
 	/*0x28*/ u8 unk28;
 };
 
-struct sky {
+struct skytype2 {
 	/*0x00*/ s32 stage;
 	/*0x04*/ s16 near;
 	/*0x06*/ s16 far;

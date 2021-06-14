@@ -68745,7 +68745,7 @@ void gasTick(void)
 	}
 
 	if (g_GasReleaseTimer240 > 0 && !g_PlayerInvincible) {
-		func0f1660a4(g_GasReleaseTimer240 / g_GasReleaseTimerMax240);
+		skySetTransitionFrac(g_GasReleaseTimer240 / g_GasReleaseTimerMax240);
 
 		if (g_GasEnableDamage) {
 			if (g_GasLastCough60 < g_Vars.lvframe60 - PALDOWN(225)) {

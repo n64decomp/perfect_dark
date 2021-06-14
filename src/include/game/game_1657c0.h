@@ -7,11 +7,11 @@
 struct var80081058 *func0f1657cc(void);
 f32 func0f1657e4(void);
 void func0f1657f8(void);
-void func0f16598c(struct smallsky *sky);
-void func0f165c4c(struct sky *sky);
+void skyApplyType1(struct skytype1 *sky);
+void skyApplyType2(struct skytype2 *sky);
 void skySetStageNum(s32 stagenum);
-void func0f165eec(s32 stagenum, bool arg1);
-void func0f1660a4(f32 arg0);
+void skyChooseAndApply(s32 stagenum, bool arg1);
+void skySetTransitionFrac(f32 arg0);
 Gfx *func0f1664a0(Gfx *gdl, bool arg1);
 Gfx *gfxConsiderDisableFog(Gfx *gdl);
 bool func0f1666f8(struct coord *pos, f32 arg1);

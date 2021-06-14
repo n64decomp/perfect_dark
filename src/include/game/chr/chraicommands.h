@@ -243,7 +243,7 @@
 /*0x00ef*/ bool aiIfObjInRoom(void);
 /*0x00f0*/ bool ai00f0(void);
 /*0x00f1*/ bool aiIfAttacking(void);
-/*0x00f2*/ bool ai00f2(void);
+/*0x00f2*/ bool aiSwitchToAltSky(void);
 /*0x00f3*/ bool aiChrSetInvincible(void);
 /*0x00f4*/ bool ai00f4(void);
 /*0x00f5*/ bool ai00f5(void);

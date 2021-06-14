@@ -2193,7 +2193,13 @@
 	mkshort(0x00f1), \
 	label,
 
-#define cmd00f2 \
+/**
+ * Switch to the stage's alternative sky/fog settings. The switch is instant.
+ *
+ * The stage must use a type 1 sky (in the g_SkiesType1 table) and the
+ * alternative sky must be placed immediately after it.
+ */
+#define switch_to_alt_sky \
 	mkshort(0x00f2),
 
 /**
