@@ -178,101 +178,35 @@ glabel func0f166a6c
 /*  f166c1c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f166c20
-/*  f166c20:	0004c0c0 */ 	sll	$t8,$a0,0x3
-/*  f166c24:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f166c28:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f166c2c:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f166c30:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f166c34:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f166c38:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f166c3c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f166c40:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f166c44:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f166c48:	afa40068 */ 	sw	$a0,0x68($sp)
-/*  f166c4c:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f166c50:	87300010 */ 	lh	$s0,0x10($t9)
-/*  f166c54:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f166c58:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f166c5c:	12020015 */ 	beq	$s0,$v0,.L0f166cb4
-/*  f166c60:	3c0a800a */ 	lui	$t2,%hi(var800a6668)
-/*  f166c64:	8d4a6668 */ 	lw	$t2,%lo(var800a6668)($t2)
-/*  f166c68:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f166c6c:	00105840 */ 	sll	$t3,$s0,0x1
-/*  f166c70:	014b6021 */ 	addu	$t4,$t2,$t3
-/*  f166c74:	858d0000 */ 	lh	$t5,0x0($t4)
-/*  f166c78:	8d091700 */ 	lw	$t1,0x1700($t0)
-/*  f166c7c:	3c0f800a */ 	lui	$t7,%hi(var800a666c)
-/*  f166c80:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f166c84:	152d000b */ 	bne	$t1,$t5,.L0f166cb4
-/*  f166c88:	00000000 */ 	nop
-/*  f166c8c:	8def666c */ 	lw	$t7,%lo(var800a666c)($t7)
-/*  f166c90:	3c018006 */ 	lui	$at,%hi(var8005ef10)
-/*  f166c94:	c426ef10 */ 	lwc1	$f6,%lo(var8005ef10)($at)
-/*  f166c98:	01eec021 */ 	addu	$t8,$t7,$t6
-/*  f166c9c:	c7040000 */ 	lwc1	$f4,0x0($t8)
-/*  f166ca0:	3c0a800a */ 	lui	$t2,%hi(var800a6660)
-/*  f166ca4:	46062032 */ 	c.eq.s	$f4,$f6
-/*  f166ca8:	00000000 */ 	nop
-/*  f166cac:	45010012 */ 	bc1t	.L0f166cf8
-/*  f166cb0:	00000000 */ 	nop
-.L0f166cb4:
-/*  f166cb4:	12020003 */ 	beq	$s0,$v0,.L0f166cc4
-/*  f166cb8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f166cbc:	0fc59a4b */ 	jal	func0f16692c
-/*  f166cc0:	8fa50068 */ 	lw	$a1,0x68($sp)
-.L0f166cc4:
-/*  f166cc4:	0fc59a7f */ 	jal	func0f1669fc
-/*  f166cc8:	00000000 */ 	nop
-/*  f166ccc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f166cd0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f166cd4:	0fc59a3c */ 	jal	func0f1668f0
-/*  f166cd8:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*  f166cdc:	3c19800a */ 	lui	$t9,%hi(var800a6660)
-/*  f166ce0:	8f396660 */ 	lw	$t9,%lo(var800a6660)($t9)
-/*  f166ce4:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x284)
-/*  f166ce8:	3c0d800a */ 	lui	$t5,%hi(var800a6668)
-/*  f166cec:	03304021 */ 	addu	$t0,$t9,$s0
-/*  f166cf0:	10000006 */ 	b	.L0f166d0c
-/*  f166cf4:	a1000000 */ 	sb	$zero,0x0($t0)
-.L0f166cf8:
-/*  f166cf8:	8d4a6660 */ 	lw	$t2,%lo(var800a6660)($t2)
-/*  f166cfc:	02001025 */ 	or	$v0,$s0,$zero
-/*  f166d00:	01505821 */ 	addu	$t3,$t2,$s0
-/*  f166d04:	10000018 */ 	b	.L0f166d68
-/*  f166d08:	a1600000 */ 	sb	$zero,0x0($t3)
-.L0f166d0c:
-/*  f166d0c:	8d8ca244 */ 	lw	$t4,%lo(g_Vars+0x284)($t4)
-/*  f166d10:	8dad6668 */ 	lw	$t5,%lo(var800a6668)($t5)
-/*  f166d14:	00107840 */ 	sll	$t7,$s0,0x1
-/*  f166d18:	8d891700 */ 	lw	$t1,0x1700($t4)
-/*  f166d1c:	01af7021 */ 	addu	$t6,$t5,$t7
-/*  f166d20:	3c18800a */ 	lui	$t8,%hi(var800a666c)
-/*  f166d24:	a5c90000 */ 	sh	$t1,0x0($t6)
-/*  f166d28:	8f18666c */ 	lw	$t8,%lo(var800a666c)($t8)
-/*  f166d2c:	3c018006 */ 	lui	$at,%hi(var8005ef10)
-/*  f166d30:	c428ef10 */ 	lwc1	$f8,%lo(var8005ef10)($at)
-/*  f166d34:	0010c880 */ 	sll	$t9,$s0,0x2
-/*  f166d38:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f166d3c:	e5080000 */ 	swc1	$f8,0x0($t0)
-/*  f166d40:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*  f166d44:	0fc59a9b */ 	jal	func0f166a6c
-/*  f166d48:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f166d4c:	3c0b800a */ 	lui	$t3,%hi(var800a6670)
-/*  f166d50:	8d6b6670 */ 	lw	$t3,%lo(var800a6670)($t3)
-/*  f166d54:	00105180 */ 	sll	$t2,$s0,0x6
-/*  f166d58:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f166d5c:	0c005815 */ 	jal	func00016054
-/*  f166d60:	014b2821 */ 	addu	$a1,$t2,$t3
-/*  f166d64:	02001025 */ 	or	$v0,$s0,$zero
-.L0f166d68:
-/*  f166d68:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f166d6c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f166d70:	27bd0068 */ 	addiu	$sp,$sp,0x68
-/*  f166d74:	03e00008 */ 	jr	$ra
-/*  f166d78:	00000000 */ 	nop
-);
+s32 func0f166c20(s32 roomnum)
+{
+	s32 index = g_Rooms[roomnum].unk10;
+	Mtxf mtx;
+
+	if (index == -1
+			|| g_Vars.currentplayer->lastroomforoffset != var800a6668[index]
+			|| var800a666c[index] != var8005ef10[0]) {
+		if (index != -1) {
+			func0f16692c(index, roomnum);
+		}
+
+		index = func0f1669fc();
+
+		func0f1668f0(index, roomnum);
+		var800a6660[index] = 0;
+	} else {
+		var800a6660[index] = 0;
+		return index;
+	}
+
+	var800a6668[index] = g_Vars.currentplayer->lastroomforoffset;
+	var800a666c[index] = var8005ef10[0];
+
+	func0f166a6c(&mtx, roomnum);
+	func00016054(&mtx, &var800a6670[index]);
+
+	return index;
+}
 
 Gfx *func0f166d7c(Gfx *gdl, s32 roomnum)
 {

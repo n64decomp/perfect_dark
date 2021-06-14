@@ -4,8 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 var8005ef10 = 0x47800000;
-u32 var8005ef14 = 0x47800000;
+f32 var8005ef10[] = {65536, 65536};
 
 GLOBAL_ASM(
 glabel func000159b0
