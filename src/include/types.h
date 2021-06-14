@@ -3264,24 +3264,24 @@ struct var80081058 {
 	/*0x08*/ u8 sky_r;
 	/*0x09*/ u8 sky_g;
 	/*0x0a*/ u8 sky_b;
-	/*0x0b*/ u8 sky_enabled;
+	/*0x0b*/ u8 num_suns;
 	/*0x0c*/ struct sun *sun;
 	/*0x10*/ u8 clouds_enabled;
-	/*0x14*/ f32 unk14;
+	/*0x14*/ f32 clouds_scale;
 	/*0x18*/ u16 unk18;
 	/*0x1c*/ f32 clouds_r;
 	/*0x20*/ f32 clouds_g;
 	/*0x24*/ f32 clouds_b;
-	/*0x28*/ u8 unk28;
-	/*0x2c*/ f32 unk2c;
-	/*0x30*/ u16 water_enabled;
+	/*0x28*/ u8 water_enabled;
+	/*0x2c*/ f32 water_scale;
+	/*0x30*/ u16 water_type;
 	/*0x34*/ f32 water_r;
 	/*0x38*/ f32 water_g;
 	/*0x3c*/ f32 water_b;
 	/*0x40*/ f32 unk40;
-	/*0x44*/ f32 unk44;
-	/*0x48*/ f32 unk48;
-	/*0x4c*/ f32 unk4c;
+	/*0x44*/ f32 skyredfrac;
+	/*0x48*/ f32 skygreenfrac;
+	/*0x4c*/ f32 skybluefrac;
 };
 
 struct sun {
@@ -3298,8 +3298,8 @@ struct sun {
 
 struct smallsky {
 	/*0x00*/ s16 stage;
-	/*0x02*/ s16 blend_multiplier;
-	/*0x04*/ s16 sky_far;
+	/*0x02*/ s16 near;
+	/*0x04*/ s16 far;
 	/*0x06*/ s16 unk06;
 	/*0x08*/ s16 unk08;
 	/*0x0a*/ s16 unk0a;
@@ -3308,19 +3308,18 @@ struct smallsky {
 	/*0x10*/ u8 sky_r;
 	/*0x11*/ u8 sky_g;
 	/*0x12*/ u8 sky_b;
-	/*0x13*/ u8 sky_enabled;
+	/*0x13*/ u8 num_suns;
 	/*0x14*/ struct sun *sun;
 	/*0x18*/ u8 clouds_enabled;
-	/*0x19*/ u8 unk19; // pad
-	/*0x1a*/ s16 unk1a;
+	/*0x1a*/ s16 clouds_scale;
 	/*0x1c*/ u8 unk1c;
 	/*0x1d*/ u8 clouds_r;
 	/*0x1e*/ u8 clouds_g;
 	/*0x1f*/ u8 clouds_b;
-	/*0x20*/ u8 unk20;
+	/*0x20*/ u8 water_enabled;
 	/*0x21*/ u8 unk21;
-	/*0x22*/ s16 unk22;
-	/*0x24*/ u8 water_enabled;
+	/*0x22*/ s16 water_scale;
+	/*0x24*/ u8 water_type;
 	/*0x25*/ u8 water_r;
 	/*0x26*/ u8 water_g;
 	/*0x27*/ u8 water_b;
@@ -3328,30 +3327,31 @@ struct smallsky {
 };
 
 struct sky {
-	s32 stage;
-	u16 blend_multiplier;
-	u16 sky_far;
-	u32 unk08;
-	u16 unk0c;
-	u8 sky_r;
-	u8 sky_g;
-	u8 sky_b;
-	u8 num_suns;
-	struct sun *sunptr;
-	u8 clouds_enabled;
-	u8 clouds_r;
-	u8 clouds_g;
-	u8 clouds_b;
-	f32 clouds_scale;
-	u16 unk20;
-	u8 water_enabled;
-	u8 water_r;
-	u8 water_g;
-	u8 water_b;
-	f32 water_scale;
-	u16 water_type;
-	u32 unk30;
-	u32 unk34;
+	/*0x00*/ s32 stage;
+	/*0x04*/ s16 near;
+	/*0x06*/ s16 far;
+	/*0x08*/ s16 unk08;
+	/*0x0a*/ s16 unk0a;
+	/*0x0c*/ s16 unk0c;
+	/*0x0e*/ u8 sky_r;
+	/*0x0f*/ u8 sky_g;
+	/*0x10*/ u8 sky_b;
+	/*0x11*/ u8 num_suns;
+	/*0x14*/ struct sun *sun;
+	/*0x18*/ u8 clouds_enabled;
+	/*0x19*/ u8 clouds_r;
+	/*0x1a*/ u8 clouds_g;
+	/*0x1b*/ u8 clouds_b;
+	/*0x1c*/ f32 clouds_scale;
+	/*0x20*/ s16 unk20;
+	/*0x22*/ u8 water_enabled;
+	/*0x23*/ u8 water_r;
+	/*0x24*/ u8 water_g;
+	/*0x25*/ u8 water_b;
+	/*0x28*/ f32 water_scale;
+	/*0x2c*/ s16 water_type;
+	/*0x30*/ f32 unk30;
+	/*0x34*/ u32 unk34;
 };
 
 struct hoverprop {

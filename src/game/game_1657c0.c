@@ -50,83 +50,83 @@ struct sun sun_crashsite = { 1, 0xff, 0xd7, 0xf2,  1900000,  300000, -1400000, 2
 struct sun sun_airbase   = { 1, 0xff, 0xd7, 0xf2, -1200000,  200000,   150000, 30, 60 };
 
 struct smallsky g_SmallSkies[] = {
-	//                                                             |------ sky ------|                  |-------------- clouds --------------|                      |-------- water --------|
-	// stage                 blend  far  06    08   0a      0c      0e     r     g     b  e  sun             e    19     1a    1c     r     g     b    20      22    23  e     r     g     b    28
-	{ STAGE_CRASHSITE,        15, 10000,    0,    0,   0, 0x03e2, 0x03e8, 0x9b, 0x2d, 0x1e, 1, &sun_crashsite, 1, 0x00,  1500, 0x00, 0xfa, 0xfa, 0x00, 0, 0, 0xec78, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ STAGE_PELAGIC,          15, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x2d, 0x3e, 0x60, 0, NULL,           1, 0x00,  5000, 0x00, 0xf0, 0xf0, 0xf0, 0, 0, 0xf830, 0, 0x14, 0x21, 0x2b, 0x00 },
-	{ STAGE_VILLA,            15, 20000,    0,    0,   0, 0x03d5, 0x0417, 0x46, 0xa0, 0xff, 1, &sun_villa,     1, 0x00,  5000, 0x00, 0xff, 0xff, 0xff, 0, 0, 0xf8c6, 1, 0x00, 0xff, 0xff, 0x00 },
-	{ STAGE_PELAGIC + 900,    30, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x10, 0x30, 0x60, 0, NULL,           1, 0x00,  5000, 0x00, 0xff, 0xff, 0xff, 0, 0, 0xfc18, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ STAGE_24,                2, 25000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           1, 0x00, 10000, 0x00, 0xff, 0xff, 0xff, 0, 0, 0x0000, 1, 0x00, 0xff, 0xff, 0x07 },
-	{ STAGE_2B,                2,  2000, 2500, 3055, 750, 0x03bd, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1, 0x00,  5000, 0x00, 0x3a, 0x11, 0x00, 0, 0, 0xfc18, 1, 0x00, 0xff, 0xff, 0x14 },
-	{ STAGE_2B + 900,          2,  8000, 6000, 8000, 800, 0x03df, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1, 0x00,  5000, 0x00, 0x3a, 0x11, 0x00, 0, 0, 0xfc18, 1, 0x00, 0xff, 0xff, 0x00 },
-	{ 0x00ee,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0, 0xfe0c, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x0152,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0, 0xfe0c, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x01b6,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 0x00, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0, 0xfe0c, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x00c8,                 10,  7500,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0, 0, 0x0000, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x012c,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0, 0, 0x0000, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x0190,                 10,  5000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0, 0, 0x0000, 0, 0x00, 0x00, 0x00, 0x00 },
-	{ 0x0000,                  0,     0,    0,    0,   0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0, NULL,           0, 0x00,     0, 0x00, 0x00, 0x00, 0x00, 0, 0, 0x0000, 0, 0x00, 0x00, 0x00, 0x00 },
+	//                                                    |--- fog ----|  |---- sky -----|                     |----------- clouds -----------| |--------------- water ---------------|
+	// stage                near    far    06    08   0a     min     max     r     g     b     sun             e  scale    1c     r     g     b 20 21  scale type   r     g     b    28
+	{ STAGE_CRASHSITE,        15, 10000,    0,    0,   0, 0x03e2, 0x03e8, 0x9b, 0x2d, 0x1e, 1, &sun_crashsite, 1,  1500, 0x00, 0xfa, 0xfa, 0x00, 0, 0, -5000, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ STAGE_PELAGIC,          15, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x2d, 0x3e, 0x60, 0, NULL,           1,  5000, 0x00, 0xf0, 0xf0, 0xf0, 0, 0, -2000, 0, 0x14, 0x21, 0x2b, 0x00 },
+	{ STAGE_VILLA,            15, 20000,    0,    0,   0, 0x03d5, 0x0417, 0x46, 0xa0, 0xff, 1, &sun_villa,     1,  5000, 0x00, 0xff, 0xff, 0xff, 0, 0, -1850, 1, 0x00, 0xff, 0xff, 0x00 },
+	{ STAGE_PELAGIC + 900,    30, 15000, 3333, 4444, 600, 0x03e3, 0x03e8, 0x10, 0x30, 0x60, 0, NULL,           1,  5000, 0x00, 0xff, 0xff, 0xff, 0, 0, -1000, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ STAGE_24,                2, 25000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           1, 10000, 0x00, 0xff, 0xff, 0xff, 0, 0,     0, 1, 0x00, 0xff, 0xff, 0x07 },
+	{ STAGE_2B,                2,  2000, 2500, 3055, 750, 0x03bd, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1,  5000, 0x00, 0x3a, 0x11, 0x00, 0, 0, -1000, 1, 0x00, 0xff, 0xff, 0x14 },
+	{ STAGE_2B + 900,          2,  8000, 6000, 8000, 800, 0x03df, 0x03e8, 0x20, 0x10, 0x10, 0, NULL,           1,  5000, 0x00, 0x3a, 0x11, 0x00, 0, 0, -1000, 1, 0x00, 0xff, 0xff, 0x00 },
+	{ 0x00ee,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0,  -500, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x0152,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0,  -500, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x01b6,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x18, 0x18, 0x18, 0, NULL,           1, 10000, 0x00, 0x78, 0x78, 0x78, 0, 0,  -500, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x00c8,                 10,  7500,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x012c,                 10,  6000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x0190,                 10,  5000,    0,    0,   0, 0x03e4, 0x03e8, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
+	{ 0x0000,                  0,     0,    0,    0,   0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0, NULL,           0,     0, 0x00, 0x00, 0x00, 0x00, 0, 0,     0, 0, 0x00, 0x00, 0x00, 0x00 },
 };
 
 struct sky g_Skies[] = {
-	//                                                                         |-------- clouds --------|     |------------ water ------------|
-	// stage               04  06    08 0c     r     g     b     sun           e     r     g     b  scale 20  e     r     g     b   scale  type 30 34
-	{ -1,                  15, 10000, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_RESCUE,        15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_MAIANSOS,      15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_ATTACKSHIP,    15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_INFILTRATION,  15, 12000, 0, 0, 0x00, 0x00, 0x00, 1, &sun_area51,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_ESCAPE,        15, 10000, 0, 0, 0x00, 0x00, 0x00, 1, &sun_area51,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_TEST_ARCH,     15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_DEEPSEA,       15, 10000, 0, 0, 0x05, 0x00, 0x00, 0, NULL,         0, 0x9b, 0x9b, 0x9b,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_TEST_DEST,     15, 10000, 0, 0, 0x10, 0x30, 0x60, 0, NULL,         1, 0xe6, 0xe6, 0xe6,  3000, 0, 1, 0xff, 0xff, 0x96,   -150,    2, 0, 0 },
-	{ STAGE_TEST_LEN,      15, 10000, 0, 0, 0x30, 0x40, 0x10, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
-	{ STAGE_TEST_ASH,      15, 25000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_DEFENSE,       15, 10000, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_CITRAINING,    15, 10000, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_DUEL,          10, 10000, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_RETAKING,      15, 10000, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_DEFECTION,     10, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_MBR,           10, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_EXTRACTION,    10, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_SKEDARRUINS,   15, 10000, 0, 0, 0x65, 0x65, 0xff, 3, &sun_skedar,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_WAR,           15, 10000, 0, 0, 0x65, 0x65, 0xff, 3, &sun_skedar,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_TEST_RUN,      15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
-	{ STAGE_MP_SKEDAR,     15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_TEST_SILO,     15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_CHICAGO,       10, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_G5BUILDING,    15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_AIRFORCEONE,   15, 20000, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 1, 0xff, 0xff, 0xff,  -5000,    2, 0, 1 },
-	{ STAGE_MP_RAVINE,     15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00, -31000,    0, 0, 1 },
-	{ STAGE_AIRBASE,       15, 20000, 0, 0, 0x00, 0x10, 0x40, 1, &sun_airbase, 1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_INVESTIGATION, 15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
-	{ STAGE_MP_PIPES,      15, 10000, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  4500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_G5BUILDING, 15, 10000, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x5a, 0x90, 0xa5,  4500, 0, 0, 0x00, 0x00, 0x00, -20000,    0, 0, 0 },
-	{ STAGE_MP_TEMPLE,     15, 10000, 0, 0, 0x00, 0x10, 0x80, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0xff, 0xff,  -1850,    1, 0, 1 },
-	{ STAGE_MP_COMPLEX,    15, 10000, 0, 0, 0x02, 0x00, 0x00, 0, NULL,         1, 0x82, 0xaa, 0xc8,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_UFF,      10, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_OLD,      15, 30000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_LAM,      15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_BASE,       15, 20000, 0, 0, 0x04, 0x00, 0x00, 0, NULL,         1, 0x82, 0xb4, 0x64,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP2,      15, 20000, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_AREA52,     15, 10000, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  4500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_WAREHOUSE,  15, 10000, 0, 0, 0x02, 0x00, 0x00, 0, NULL,         1, 0x82, 0xaa, 0xc8,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_CARPARK,    15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0xc8, 0x86,  5500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP6,      15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP7,      15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP8,      15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_RUINS,      15, 10000, 0, 0, 0x03, 0x00, 0x00, 0, NULL,         1, 0x82, 0xe6, 0xaa,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_SEWERS,     15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0x64, 0x64,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_FELICITY,   10, 10000, 0, 0, 0x04, 0x05, 0x00, 0, NULL,         1, 0x64, 0xd2, 0x82,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_FORTRESS,   15, 10000, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x5a, 0x90, 0xa5,  5500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_VILLA,      15, 10000, 0, 0, 0x88, 0x88, 0xdc, 0, NULL,         1, 0xff, 0xaa, 0x2a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP14,     15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_MP_GRID,       15, 10000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP16,     15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP17,     15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0xc8, 0x86, 10000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP18,     15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP19,     15, 20000, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
-	{ STAGE_TEST_MP20,     15, 20000, 0, 0, 0x00, 0x10, 0x3c, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+	//                                                                            |-------- clouds --------|     |------------ water ------------|
+	// stage             near    far 08 0a 0c     r     g     b     sun           e     r     g     b  scale 20  e     r     g     b   scale  type 30 34
+	{ -1,                  15, 10000, 0, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
+	{ STAGE_RESCUE,        15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_MAIANSOS,      15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_ATTACKSHIP,    15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
+	{ STAGE_INFILTRATION,  15, 12000, 0, 0, 0, 0x00, 0x00, 0x00, 1, &sun_area51,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_ESCAPE,        15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 1, &sun_area51,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_TEST_ARCH,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
+	{ STAGE_DEEPSEA,       15, 10000, 0, 0, 0, 0x05, 0x00, 0x00, 0, NULL,         0, 0x9b, 0x9b, 0x9b,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
+	{ STAGE_TEST_DEST,     15, 10000, 0, 0, 0, 0x10, 0x30, 0x60, 0, NULL,         1, 0xe6, 0xe6, 0xe6,  3000, 0, 1, 0xff, 0xff, 0x96,   -150,    2, 0, 0 },
+	{ STAGE_TEST_LEN,      15, 10000, 0, 0, 0, 0x30, 0x40, 0x10, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 0 },
+	{ STAGE_TEST_ASH,      15, 25000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_DEFENSE,       15, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_CITRAINING,    15, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_DUEL,          10, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_RETAKING,      15, 10000, 0, 0, 0, 0x65, 0xb2, 0xff, 1, &sun_ci,      0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_DEFECTION,     10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_MBR,           10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_EXTRACTION,    10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_SKEDARRUINS,   15, 10000, 0, 0, 0, 0x65, 0x65, 0xff, 3, &sun_skedar,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_WAR,           15, 10000, 0, 0, 0, 0x65, 0x65, 0xff, 3, &sun_skedar,  0, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_TEST_RUN,      15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,      0,    0, 0, 1 },
+	{ STAGE_MP_SKEDAR,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+	{ STAGE_TEST_SILO,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x3a, 0x11, 0x00,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+	{ STAGE_CHICAGO,       10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+	{ STAGE_G5BUILDING,    15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+	{ STAGE_AIRFORCEONE,   15, 20000, 0, 0, 0, 0x00, 0x10, 0x40, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 1, 0xff, 0xff, 0xff,  -5000,    2, 0, 1 },
+	{ STAGE_MP_RAVINE,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x50, 0x28, 0x0a,  5000, 0, 0, 0x00, 0x00, 0x00, -31000,    0, 0, 1 },
+	{ STAGE_AIRBASE,       15, 20000, 0, 0, 0, 0x00, 0x10, 0x40, 1, &sun_airbase, 1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+	{ STAGE_INVESTIGATION, 15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
+	{ STAGE_MP_PIPES,      15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  4500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_G5BUILDING, 15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x5a, 0x90, 0xa5,  4500, 0, 0, 0x00, 0x00, 0x00, -20000,    0, 0, 0 },
+	{ STAGE_MP_TEMPLE,     15, 10000, 0, 0, 0, 0x00, 0x10, 0x80, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0xff, 0xff,  -1850,    1, 0, 1 },
+	{ STAGE_MP_COMPLEX,    15, 10000, 0, 0, 0, 0x02, 0x00, 0x00, 0, NULL,         1, 0x82, 0xaa, 0xc8,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_UFF,      10, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_OLD,      15, 30000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_LAM,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_BASE,       15, 20000, 0, 0, 0, 0x04, 0x00, 0x00, 0, NULL,         1, 0x82, 0xb4, 0x64,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP2,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_AREA52,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x46, 0xc7, 0xba,  4500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_WAREHOUSE,  15, 10000, 0, 0, 0, 0x02, 0x00, 0x00, 0, NULL,         1, 0x82, 0xaa, 0xc8,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_CARPARK,    15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0xc8, 0x86,  5500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP6,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP7,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP8,      15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_RUINS,      15, 10000, 0, 0, 0, 0x03, 0x00, 0x00, 0, NULL,         1, 0x82, 0xe6, 0xaa,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_SEWERS,     15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0x64, 0x64,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_FELICITY,   10, 10000, 0, 0, 0, 0x04, 0x05, 0x00, 0, NULL,         1, 0x64, 0xd2, 0x82,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_FORTRESS,   15, 10000, 0, 0, 0, 0x00, 0x00, 0x08, 0, NULL,         1, 0x5a, 0x90, 0xa5,  5500, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_VILLA,      15, 10000, 0, 0, 0, 0x88, 0x88, 0xdc, 0, NULL,         1, 0xff, 0xaa, 0x2a,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP14,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_MP_GRID,       15, 10000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP16,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP17,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         1, 0x64, 0xc8, 0x86, 10000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP18,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP19,     15, 20000, 0, 0, 0, 0x00, 0x00, 0x00, 0, NULL,         0, 0x1e, 0x1e, 0x1e,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 0 },
+	{ STAGE_TEST_MP20,     15, 20000, 0, 0, 0, 0x00, 0x10, 0x3c, 0, NULL,         1, 0xff, 0xff, 0xff,  5000, 0, 0, 0x00, 0x00, 0x00,  -5000,    0, 0, 1 },
 	{ 0 },
 };
 
@@ -267,27 +267,31 @@ void func0f16598c(struct smallsky *sky)
 	g_FogDisabled = true;
 	var800a65e4 = 0;
 
-	viSetZRange(sky->blend_multiplier, sky->sky_far);
+	viSetZRange(sky->near, sky->far);
 
 	var80081058.fogmin = sky->fogmin;
 	var80081058.fogmax = sky->fogmax;
+
 	var80081058.sky_r = sky->sky_r;
 	var80081058.sky_g = sky->sky_g;
 	var80081058.sky_b = sky->sky_b;
-	var80081058.unk44 = var80081058.sky_r / 255.0f;
-	var80081058.unk48 = var80081058.sky_g / 255.0f;
-	var80081058.unk4c = var80081058.sky_b / 255.0f;
-	var80081058.sky_enabled = sky->sky_enabled;
+	var80081058.skyredfrac = var80081058.sky_r / 255.0f;
+	var80081058.skygreenfrac = var80081058.sky_g / 255.0f;
+	var80081058.skybluefrac = var80081058.sky_b / 255.0f;
+
+	var80081058.num_suns = sky->num_suns;
 	var80081058.sun = sky->sun;
+
 	var80081058.clouds_enabled = sky->clouds_enabled;
-	var80081058.unk14 = sky->unk1a;
+	var80081058.clouds_scale = sky->clouds_scale;
 	var80081058.unk18 = sky->unk1c;
 	var80081058.clouds_r = sky->clouds_r;
 	var80081058.clouds_g = sky->clouds_g;
 	var80081058.clouds_b = sky->clouds_b;
-	var80081058.unk28 = sky->unk20;
-	var80081058.unk2c = sky->unk22;
+
 	var80081058.water_enabled = sky->water_enabled;
+	var80081058.water_scale = sky->water_scale;
+	var80081058.water_type = sky->water_type;
 	var80081058.water_r = sky->water_r;
 	var80081058.water_g = sky->water_g;
 	var80081058.water_b = sky->water_b;
@@ -296,185 +300,61 @@ void func0f16598c(struct smallsky *sky)
 	if (!sky->unk06) {
 		var800a65e8 = NULL;
 	} else {
-		var800a65f0.x = (f32)sky->unk06;
-		var800a65f0.y = (f32)sky->unk08;
-		var800a65f0.z = (f32)sky->unk0a;
+		var800a65f0.x = sky->unk06;
+		var800a65f0.y = sky->unk08;
+		var800a65f0.z = sky->unk0a;
 		var800a65e8 = &var800a65f0;
 	}
 
 	func0f1657f8();
 }
 
-GLOBAL_ASM(
-glabel func0f165c4c
-/*  f165c4c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f165c50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f165c54:	848f0006 */ 	lh	$t7,0x6($a0)
-/*  f165c58:	848e0004 */ 	lh	$t6,0x4($a0)
-/*  f165c5c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f165c60:	448f3000 */ 	mtc1	$t7,$f6
-/*  f165c64:	448e2000 */ 	mtc1	$t6,$f4
-/*  f165c68:	468033a0 */ 	cvt.s.w	$f14,$f6
-/*  f165c6c:	0c002fa1 */ 	jal	viSetZRange
-/*  f165c70:	46802320 */ 	cvt.s.w	$f12,$f4
-/*  f165c74:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f165c78:	3c028008 */ 	lui	$v0,%hi(var80081058)
-/*  f165c7c:	24421058 */ 	addiu	$v0,$v0,%lo(var80081058)
-/*  f165c80:	9098000e */ 	lbu	$t8,0xe($a0)
-/*  f165c84:	3c01437f */ 	lui	$at,0x437f
-/*  f165c88:	44810000 */ 	mtc1	$at,$f0
-/*  f165c8c:	a0580008 */ 	sb	$t8,0x8($v0)
-/*  f165c90:	9099000f */ 	lbu	$t9,0xf($a0)
-/*  f165c94:	330900ff */ 	andi	$t1,$t8,0xff
-/*  f165c98:	44894000 */ 	mtc1	$t1,$f8
-/*  f165c9c:	a0590009 */ 	sb	$t9,0x9($v0)
-/*  f165ca0:	90880010 */ 	lbu	$t0,0x10($a0)
-/*  f165ca4:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f165ca8:	05210005 */ 	bgez	$t1,.L0f165cc0
-/*  f165cac:	a048000a */ 	sb	$t0,0xa($v0)
-/*  f165cb0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165cb4:	44818000 */ 	mtc1	$at,$f16
-/*  f165cb8:	00000000 */ 	nop
-/*  f165cbc:	46105280 */ 	add.s	$f10,$f10,$f16
-.L0f165cc0:
-/*  f165cc0:	46005483 */ 	div.s	$f18,$f10,$f0
-/*  f165cc4:	904a0009 */ 	lbu	$t2,0x9($v0)
-/*  f165cc8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165ccc:	448a2000 */ 	mtc1	$t2,$f4
-/*  f165cd0:	00000000 */ 	nop
-/*  f165cd4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f165cd8:	05410004 */ 	bgez	$t2,.L0f165cec
-/*  f165cdc:	e4520044 */ 	swc1	$f18,0x44($v0)
-/*  f165ce0:	44814000 */ 	mtc1	$at,$f8
-/*  f165ce4:	00000000 */ 	nop
-/*  f165ce8:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f165cec:
-/*  f165cec:	46003403 */ 	div.s	$f16,$f6,$f0
-/*  f165cf0:	904b000a */ 	lbu	$t3,0xa($v0)
-/*  f165cf4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165cf8:	448b5000 */ 	mtc1	$t3,$f10
-/*  f165cfc:	00000000 */ 	nop
-/*  f165d00:	468054a0 */ 	cvt.s.w	$f18,$f10
-/*  f165d04:	05610004 */ 	bgez	$t3,.L0f165d18
-/*  f165d08:	e4500048 */ 	swc1	$f16,0x48($v0)
-/*  f165d0c:	44812000 */ 	mtc1	$at,$f4
-/*  f165d10:	00000000 */ 	nop
-/*  f165d14:	46049480 */ 	add.s	$f18,$f18,$f4
-.L0f165d18:
-/*  f165d18:	46009203 */ 	div.s	$f8,$f18,$f0
-/*  f165d1c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165d20:	e448004c */ 	swc1	$f8,0x4c($v0)
-/*  f165d24:	908c0011 */ 	lbu	$t4,0x11($a0)
-/*  f165d28:	a04c000b */ 	sb	$t4,0xb($v0)
-/*  f165d2c:	8c8d0014 */ 	lw	$t5,0x14($a0)
-/*  f165d30:	ac4d000c */ 	sw	$t5,0xc($v0)
-/*  f165d34:	908e0018 */ 	lbu	$t6,0x18($a0)
-/*  f165d38:	a04e0010 */ 	sb	$t6,0x10($v0)
-/*  f165d3c:	c486001c */ 	lwc1	$f6,0x1c($a0)
-/*  f165d40:	e4460014 */ 	swc1	$f6,0x14($v0)
-/*  f165d44:	848f0020 */ 	lh	$t7,0x20($a0)
-/*  f165d48:	a44f0018 */ 	sh	$t7,0x18($v0)
-/*  f165d4c:	90980019 */ 	lbu	$t8,0x19($a0)
-/*  f165d50:	44988000 */ 	mtc1	$t8,$f16
-/*  f165d54:	07010004 */ 	bgez	$t8,.L0f165d68
-/*  f165d58:	468082a0 */ 	cvt.s.w	$f10,$f16
-/*  f165d5c:	44812000 */ 	mtc1	$at,$f4
-/*  f165d60:	00000000 */ 	nop
-/*  f165d64:	46045280 */ 	add.s	$f10,$f10,$f4
-.L0f165d68:
-/*  f165d68:	e44a001c */ 	swc1	$f10,0x1c($v0)
-/*  f165d6c:	9099001a */ 	lbu	$t9,0x1a($a0)
-/*  f165d70:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165d74:	44999000 */ 	mtc1	$t9,$f18
-/*  f165d78:	07210004 */ 	bgez	$t9,.L0f165d8c
-/*  f165d7c:	46809220 */ 	cvt.s.w	$f8,$f18
-/*  f165d80:	44813000 */ 	mtc1	$at,$f6
-/*  f165d84:	00000000 */ 	nop
-/*  f165d88:	46064200 */ 	add.s	$f8,$f8,$f6
-.L0f165d8c:
-/*  f165d8c:	e4480020 */ 	swc1	$f8,0x20($v0)
-/*  f165d90:	9088001b */ 	lbu	$t0,0x1b($a0)
-/*  f165d94:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165d98:	44888000 */ 	mtc1	$t0,$f16
-/*  f165d9c:	05010004 */ 	bgez	$t0,.L0f165db0
-/*  f165da0:	46808120 */ 	cvt.s.w	$f4,$f16
-/*  f165da4:	44815000 */ 	mtc1	$at,$f10
-/*  f165da8:	00000000 */ 	nop
-/*  f165dac:	460a2100 */ 	add.s	$f4,$f4,$f10
-.L0f165db0:
-/*  f165db0:	e4440024 */ 	swc1	$f4,0x24($v0)
-/*  f165db4:	90890022 */ 	lbu	$t1,0x22($a0)
-/*  f165db8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165dbc:	a0490028 */ 	sb	$t1,0x28($v0)
-/*  f165dc0:	c4920028 */ 	lwc1	$f18,0x28($a0)
-/*  f165dc4:	e452002c */ 	swc1	$f18,0x2c($v0)
-/*  f165dc8:	848a002c */ 	lh	$t2,0x2c($a0)
-/*  f165dcc:	a44a0030 */ 	sh	$t2,0x30($v0)
-/*  f165dd0:	908b0023 */ 	lbu	$t3,0x23($a0)
-/*  f165dd4:	448b3000 */ 	mtc1	$t3,$f6
-/*  f165dd8:	05610004 */ 	bgez	$t3,.L0f165dec
-/*  f165ddc:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f165de0:	44818000 */ 	mtc1	$at,$f16
-/*  f165de4:	00000000 */ 	nop
-/*  f165de8:	46104200 */ 	add.s	$f8,$f8,$f16
-.L0f165dec:
-/*  f165dec:	e4480034 */ 	swc1	$f8,0x34($v0)
-/*  f165df0:	908c0024 */ 	lbu	$t4,0x24($a0)
-/*  f165df4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165df8:	448c5000 */ 	mtc1	$t4,$f10
-/*  f165dfc:	05810004 */ 	bgez	$t4,.L0f165e10
-/*  f165e00:	46805120 */ 	cvt.s.w	$f4,$f10
-/*  f165e04:	44819000 */ 	mtc1	$at,$f18
-/*  f165e08:	00000000 */ 	nop
-/*  f165e0c:	46122100 */ 	add.s	$f4,$f4,$f18
-.L0f165e10:
-/*  f165e10:	e4440038 */ 	swc1	$f4,0x38($v0)
-/*  f165e14:	908d0025 */ 	lbu	$t5,0x25($a0)
-/*  f165e18:	3c014f80 */ 	lui	$at,0x4f80
-/*  f165e1c:	448d3000 */ 	mtc1	$t5,$f6
-/*  f165e20:	05a10004 */ 	bgez	$t5,.L0f165e34
-/*  f165e24:	46803420 */ 	cvt.s.w	$f16,$f6
-/*  f165e28:	44814000 */ 	mtc1	$at,$f8
-/*  f165e2c:	00000000 */ 	nop
-/*  f165e30:	46088400 */ 	add.s	$f16,$f16,$f8
-.L0f165e34:
-/*  f165e34:	e450003c */ 	swc1	$f16,0x3c($v0)
-/*  f165e38:	c48a0030 */ 	lwc1	$f10,0x30($a0)
-/*  f165e3c:	3c01800a */ 	lui	$at,%hi(var800a65e8)
-/*  f165e40:	e44a0040 */ 	swc1	$f10,0x40($v0)
-/*  f165e44:	84830008 */ 	lh	$v1,0x8($a0)
-/*  f165e48:	54600004 */ 	bnezl	$v1,.L0f165e5c
-/*  f165e4c:	44839000 */ 	mtc1	$v1,$f18
-/*  f165e50:	10000012 */ 	b	.L0f165e9c
-/*  f165e54:	ac2065e8 */ 	sw	$zero,%lo(var800a65e8)($at)
-/*  f165e58:	44839000 */ 	mtc1	$v1,$f18
-.L0f165e5c:
-/*  f165e5c:	3c02800a */ 	lui	$v0,%hi(var800a65f0)
-/*  f165e60:	244265f0 */ 	addiu	$v0,$v0,%lo(var800a65f0)
-/*  f165e64:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f165e68:	3c01800a */ 	lui	$at,%hi(var800a65e8)
-/*  f165e6c:	e4440000 */ 	swc1	$f4,0x0($v0)
-/*  f165e70:	848e000a */ 	lh	$t6,0xa($a0)
-/*  f165e74:	448e3000 */ 	mtc1	$t6,$f6
-/*  f165e78:	00000000 */ 	nop
-/*  f165e7c:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f165e80:	e4480004 */ 	swc1	$f8,0x4($v0)
-/*  f165e84:	848f000c */ 	lh	$t7,0xc($a0)
-/*  f165e88:	448f8000 */ 	mtc1	$t7,$f16
-/*  f165e8c:	00000000 */ 	nop
-/*  f165e90:	468082a0 */ 	cvt.s.w	$f10,$f16
-/*  f165e94:	e44a0008 */ 	swc1	$f10,0x8($v0)
-/*  f165e98:	ac2265e8 */ 	sw	$v0,%lo(var800a65e8)($at)
-.L0f165e9c:
-/*  f165e9c:	3c01800a */ 	lui	$at,%hi(g_FogDisabled)
-/*  f165ea0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f165ea4:	ac2065e0 */ 	sw	$zero,%lo(g_FogDisabled)($at)
-/*  f165ea8:	8c980034 */ 	lw	$t8,0x34($a0)
-/*  f165eac:	3c01800a */ 	lui	$at,%hi(var800a65e4)
-/*  f165eb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f165eb4:	03e00008 */ 	jr	$ra
-/*  f165eb8:	ac3865e4 */ 	sw	$t8,%lo(var800a65e4)($at)
-);
+void func0f165c4c(struct sky *sky)
+{
+	struct zrange zrange;
+
+	viSetZRange(sky->near, sky->far);
+
+	var80081058.sky_r = sky->sky_r;
+	var80081058.sky_g = sky->sky_g;
+	var80081058.sky_b = sky->sky_b;
+
+	var80081058.skyredfrac = var80081058.sky_r / 255.0f;
+	var80081058.skygreenfrac = var80081058.sky_g / 255.0f;
+	var80081058.skybluefrac = var80081058.sky_b / 255.0f;
+
+	var80081058.num_suns = sky->num_suns;
+	var80081058.sun = sky->sun;
+	var80081058.clouds_enabled = sky->clouds_enabled;
+	var80081058.clouds_scale = sky->clouds_scale;
+	var80081058.unk18 = sky->unk20;
+
+	var80081058.clouds_r = sky->clouds_r;
+	var80081058.clouds_g = sky->clouds_g;
+	var80081058.clouds_b = sky->clouds_b;
+
+	var80081058.water_enabled = sky->water_enabled;
+	var80081058.water_scale = sky->water_scale;
+	var80081058.water_type = sky->water_type;
+
+	var80081058.water_r = sky->water_r;
+	var80081058.water_g = sky->water_g;
+	var80081058.water_b = sky->water_b;
+	var80081058.unk40 = sky->unk30;
+
+	if (!sky->unk08) {
+		var800a65e8 = NULL;
+	} else {
+		var800a65f0.x = sky->unk08;
+		var800a65f0.y = sky->unk0a;
+		var800a65f0.z = sky->unk0c;
+		var800a65e8 = &var800a65f0;
+	}
+
+	g_FogDisabled = false;
+
+	var800a65e4 = sky->unk34;
+}
 
 void func0f165ebc(void)
 {
@@ -482,9 +362,9 @@ void func0f165ebc(void)
 	var80081058.sky_g = 0;
 	var80081058.sky_b = 0;
 
-	var80081058.unk44 = 0;
-	var80081058.unk48 = 0;
-	var80081058.unk4c = 0;
+	var80081058.skyredfrac = 0;
+	var80081058.skygreenfrac = 0;
+	var80081058.skybluefrac = 0;
 }
 
 void skySetStageNum(s32 stagenum)
@@ -899,9 +779,9 @@ s32 func0f1667f4(struct prop *prop, f32 *arg1)
 		return 2;
 	}
 
-	arg1[0] = var80081058.unk44;
-	arg1[1] = var80081058.unk48;
-	arg1[2] = var80081058.unk4c;
+	arg1[0] = var80081058.skyredfrac;
+	arg1[1] = var80081058.skygreenfrac;
+	arg1[2] = var80081058.skybluefrac;
 	arg1[3] = var800a6600.unk14 + var800a6600.unk10 / prop->z;
 
 	if (arg1[3] < 0.0f) {
