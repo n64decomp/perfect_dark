@@ -19,7 +19,7 @@ void func0f013ee0(void)
 	var800a6664 = malloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
 	var800a6668 = malloc(ALIGN16(var80082050 * sizeof(s16)), MEMPOOL_STAGE);
 	var800a666c = malloc(ALIGN16(var80082050 * sizeof(f32)), MEMPOOL_STAGE);
-	var800a6670 = malloc(ALIGN16(var80082050 * 0x40), MEMPOOL_STAGE);
+	var800a6670 = malloc(ALIGN16(var80082050 * sizeof(Mtxf)), MEMPOOL_STAGE);
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		g_Vars.players[i]->lastroomforoffset = -1;

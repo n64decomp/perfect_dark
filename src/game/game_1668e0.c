@@ -10,7 +10,7 @@ u8 *var800a6660;
 s16 *var800a6664; // room numbers
 s16 *var800a6668;
 f32 *var800a666c;
-void *var800a6670;
+Mtxf *var800a6670;
 
 s32 var80082050 = 0;
 
@@ -274,30 +274,14 @@ glabel func0f166c20
 /*  f166d78:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f166d7c
-/*  f166d7c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f166d80:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f166d84:	00803025 */ 	or	$a2,$a0,$zero
-/*  f166d88:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f166d8c:	0fc59b08 */ 	jal	func0f166c20
-/*  f166d90:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f166d94:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f166d98:	3c0e0102 */ 	lui	$t6,0x102
-/*  f166d9c:	35ce0040 */ 	ori	$t6,$t6,0x40
-/*  f166da0:	3c18800a */ 	lui	$t8,%hi(var800a6670)
-/*  f166da4:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f166da8:	8f186670 */ 	lw	$t8,%lo(var800a6670)($t8)
-/*  f166dac:	00027980 */ 	sll	$t7,$v0,0x6
-/*  f166db0:	24660008 */ 	addiu	$a2,$v1,0x8
-/*  f166db4:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f166db8:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f166dbc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f166dc0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f166dc4:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f166dc8:	03e00008 */ 	jr	$ra
-/*  f166dcc:	00000000 */ 	nop
-);
+Gfx *func0f166d7c(Gfx *gdl, s32 roomnum)
+{
+	s32 index = func0f166c20(roomnum);
+
+	gSPMatrix(gdl++, &var800a6670[index], G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+	return gdl;
+}
 
 struct coord *func0f166dd0(s32 room)
 {
