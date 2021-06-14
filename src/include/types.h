@@ -3259,8 +3259,8 @@ struct var800a6600 {
 };
 
 struct var80081058 {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
+	/*0x00*/ s32 fogmin;
+	/*0x04*/ s32 fogmax;
 	/*0x08*/ u8 sky_r;
 	/*0x09*/ u8 sky_g;
 	/*0x0a*/ u8 sky_b;
@@ -3303,8 +3303,8 @@ struct smallsky {
 	/*0x06*/ s16 unk06;
 	/*0x08*/ s16 unk08;
 	/*0x0a*/ s16 unk0a;
-	/*0x0c*/ s16 unk0c;
-	/*0x0e*/ s16 unk0e;
+	/*0x0c*/ s16 fogmin;
+	/*0x0e*/ s16 fogmax;
 	/*0x10*/ u8 sky_r;
 	/*0x11*/ u8 sky_g;
 	/*0x12*/ u8 sky_b;

@@ -12,7 +12,7 @@ void func0f165c4c(struct sky *sky);
 void skySetStageNum(s32 stagenum);
 void func0f165eec(s32 stagenum, bool arg1);
 void func0f1660a4(f32 arg0);
-Gfx *func0f1664a0(Gfx *gdl, u32 arg1);
+Gfx *func0f1664a0(Gfx *gdl, bool arg1);
 Gfx *gfxConsiderDisableFog(Gfx *gdl);
 bool func0f1666f8(struct coord *pos, f32 arg1);
 struct coord *func0f1667e8(void);
