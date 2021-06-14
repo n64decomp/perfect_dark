@@ -7,7 +7,7 @@
 #include "types.h"
 
 u8 *var800a6660;
-s16 *var800a6664;
+s16 *var800a6664; // room numbers
 s16 *var800a6668;
 f32 *var800a666c;
 void *var800a6670;
@@ -38,25 +38,11 @@ glabel func0f1668f0
 /*  f166928:	a5250000 */ 	sh	$a1,0x0($t1)
 );
 
-GLOBAL_ASM(
-glabel func0f16692c
-/*  f16692c:	000578c0 */ 	sll	$t7,$a1,0x3
-/*  f166930:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f166934:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
-/*  f166938:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
-/*  f16693c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f166940:	01e57823 */ 	subu	$t7,$t7,$a1
-/*  f166944:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f166948:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f16694c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f166950:	a7020010 */ 	sh	$v0,0x10($t8)
-/*  f166954:	3c19800a */ 	lui	$t9,%hi(var800a6664)
-/*  f166958:	8f396664 */ 	lw	$t9,%lo(var800a6664)($t9)
-/*  f16695c:	00044040 */ 	sll	$t0,$a0,0x1
-/*  f166960:	03284821 */ 	addu	$t1,$t9,$t0
-/*  f166964:	03e00008 */ 	jr	$ra
-/*  f166968:	a5220000 */ 	sh	$v0,0x0($t1)
-);
+void func0f16692c(s32 index, s32 roomnum)
+{
+	g_Rooms[roomnum].unk10 = -1;
+	var800a6664[index] = -1;
+}
 
 void func0f16696c(s32 index)
 {
