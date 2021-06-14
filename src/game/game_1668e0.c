@@ -58,46 +58,16 @@ glabel func0f16692c
 /*  f166968:	a5220000 */ 	sh	$v0,0x0($t1)
 );
 
-GLOBAL_ASM(
-glabel func0f16696c
-/*  f16696c:	3c0e800a */ 	lui	$t6,%hi(var800a6664)
-/*  f166970:	8dce6664 */ 	lw	$t6,%lo(var800a6664)($t6)
-/*  f166974:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f166978:	00041040 */ 	sll	$v0,$a0,0x1
-/*  f16697c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f166980:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f166984:	85e50000 */ 	lh	$a1,0x0($t7)
-/*  f166988:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f16698c:	10a10006 */ 	beq	$a1,$at,.L0f1669a8
-/*  f166990:	00000000 */ 	nop
-/*  f166994:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f166998:	0fc59a4b */ 	jal	func0f16692c
-/*  f16699c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1669a0:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f1669a4:	8fa40020 */ 	lw	$a0,0x20($sp)
-.L0f1669a8:
-/*  f1669a8:	3c19800a */ 	lui	$t9,%hi(var800a6660)
-/*  f1669ac:	8f396660 */ 	lw	$t9,%lo(var800a6660)($t9)
-/*  f1669b0:	24180002 */ 	addiu	$t8,$zero,0x2
-/*  f1669b4:	3c0a800a */ 	lui	$t2,%hi(var800a6668)
-/*  f1669b8:	03244021 */ 	addu	$t0,$t9,$a0
-/*  f1669bc:	a1180000 */ 	sb	$t8,0x0($t0)
-/*  f1669c0:	8d4a6668 */ 	lw	$t2,%lo(var800a6668)($t2)
-/*  f1669c4:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f1669c8:	3c0c800a */ 	lui	$t4,%hi(var800a666c)
-/*  f1669cc:	01425821 */ 	addu	$t3,$t2,$v0
-/*  f1669d0:	a5690000 */ 	sh	$t1,0x0($t3)
-/*  f1669d4:	8d8c666c */ 	lw	$t4,%lo(var800a666c)($t4)
-/*  f1669d8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1669dc:	44812000 */ 	mtc1	$at,$f4
-/*  f1669e0:	00046880 */ 	sll	$t5,$a0,0x2
-/*  f1669e4:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f1669e8:	e5c40000 */ 	swc1	$f4,0x0($t6)
-/*  f1669ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1669f0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1669f4:	03e00008 */ 	jr	$ra
-/*  f1669f8:	00000000 */ 	nop
-);
+void func0f16696c(s32 index)
+{
+	if (var800a6664[index] != -1) {
+		func0f16692c(index, var800a6664[index]);
+	}
+
+	var800a6660[index] = 2;
+	var800a6668[index] = -1;
+	var800a666c[index] = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f1669fc
