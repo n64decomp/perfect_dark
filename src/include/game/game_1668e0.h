@@ -8,7 +8,7 @@ void currentPlayerSetLastRoomForOffset(s32 room);
 void func0f1668f0(s32 index, s32 roomnum);
 void func0f16692c(s32 index, s32 roomnum);
 void func0f16696c(s32 index);
-u32 func0f1669fc(void);
+s32 func0f1669fc(void);
 u32 func0f166a6c(void);
 u32 func0f166c20(void);
 Gfx *func0f166d7c(Gfx *gdl, s32 roomnum);
