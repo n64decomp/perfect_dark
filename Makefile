@@ -415,7 +415,7 @@ $(B_DIR)/assets/files/P%Z: $(A_DIR)/files/props/%.bin
 # -> B_DIR/assets/files/UsetupfooZ (done here)
 # -> B_DIR/assets/files/UsetupfooZ.o (done elsewhere)
 # Or create $(A_DIR)/files/setup/foo.bin to skip the earlier steps
-$(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c
+$(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
@@ -462,30 +462,30 @@ $(B_DIR)/rsp/%.o: $(E_DIR)/rsp/%.bin
 	@mkdir -p $(dir $@)
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
-$(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c
+$(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 	tools/patchmips3 $@ || rm $@
 
-$(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c
+$(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 	tools/patchmips3 $@ || rm $@
 
-$(B_DIR)/lib/ultra/gu/align.o: src/lib/ultra/gu/align.c
+$(B_DIR)/lib/ultra/gu/align.o: src/lib/ultra/gu/align.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
-$(B_DIR)/lib/ultra/gu/frustum.o: src/lib/ultra/gu/frustum.c
+$(B_DIR)/lib/ultra/gu/frustum.o: src/lib/ultra/gu/frustum.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
-$(B_DIR)/lib/ultra/gu/ortho.o: src/lib/ultra/gu/ortho.c
+$(B_DIR)/lib/ultra/gu/ortho.o: src/lib/ultra/gu/ortho.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
-$(B_DIR)/lib/ultra/gu/scale.o: src/lib/ultra/gu/scale.c
+$(B_DIR)/lib/ultra/gu/scale.o: src/lib/ultra/gu/scale.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 
@@ -500,12 +500,12 @@ $(B_DIR)/game/%.o: src/game/%.c $(ASSETMGR_O_FILES)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 # Files requiring qemu-irix to build rather than recomp due to using MAXFLOAT
-$(B_DIR)/game/chr/chraction.o: src/game/chr/chraction.c
+$(B_DIR)/game/chr/chraction.o: src/game/chr/chraction.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-$(B_DIR)/game/game_1657c0.o: src/game/game_1657c0.c
+$(B_DIR)/game/game_1657c0.o: src/game/game_1657c0.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
 	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
