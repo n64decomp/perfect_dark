@@ -383,22 +383,14 @@ void func0f092a98(s32 channelnum)
 #endif
 }
 
-GLOBAL_ASM(
-glabel propsndPrintChannel
-/*  f092b50:	848e0064 */ 	lh	$t6,0x64($a0)
-/*  f092b54:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f092b58:	00801025 */ 	or	$v0,$a0,$zero
-/*  f092b5c:	106e0005 */ 	beq	$v1,$t6,.L0f092b74
-/*  f092b60:	00000000 */ 	nop
-/*  f092b64:	844f0066 */ 	lh	$t7,0x66($v0)
-.L0f092b68:
-/*  f092b68:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f092b6c:	546ffffe */ 	bnel	$v1,$t7,.L0f092b68
-/*  f092b70:	844f0066 */ 	lh	$t7,0x66($v0)
-.L0f092b74:
-/*  f092b74:	03e00008 */ 	jr	$ra
-/*  f092b78:	00000000 */ 	nop
-);
+void propsndPrintChannel(struct audiochannel *channel)
+{
+	s32 i;
+
+	for (i = 0; channel->rooms[i] != -1; i++) {
+		// empty
+	}
+}
 
 s32 propsndGetSubtitleOpacity(s32 channelnum)
 {
