@@ -70,14 +70,14 @@ u32 var8006ae2c = 0x00000000;
 u32 var8006ae30 = 0x00000000;
 u32 var8006ae34 = 0x00000000;
 u32 var8006ae38 = 0x00000000;
-u32 var8006ae3c = 0x00000000;
+bool g_PropsndPrintChannels = false;
 u32 var8006ae40 = 0x00000000;
 u32 var8006ae44 = 0x00000000;
 u32 var8006ae48 = 0x00000001;
 u32 var8006ae4c = 0x00000000;
 u32 var8006ae50 = 0xffff0000;
 u32 var8006ae54 = 0x000003e7;
-u32 var8006ae58 = 0x00000000;
+s32 g_PropsndMaxActiveChannels = 0;
 u32 var8006ae5c = 0x80b080b1;
 u32 var8006ae60 = 0x80b280b3;
 u32 var8006ae64 = 0x80b480b5;
@@ -384,7 +384,7 @@ void func0f092a98(s32 channelnum)
 }
 
 GLOBAL_ASM(
-glabel func0f092b50
+glabel propsndPrintChannel
 /*  f092b50:	848e0064 */ 	lh	$t6,0x64($a0)
 /*  f092b54:	2403ffff */ 	addiu	$v1,$zero,-1
 /*  f092b58:	00801025 */ 	or	$v0,$a0,$zero
@@ -1060,7 +1060,7 @@ glabel var7f1ab740
 /*  f0933bc:	31f80004 */ 	andi	$t8,$t7,0x4
 /*  f0933c0:	53000004 */ 	beqzl	$t8,.PF0f0933d4
 /*  f0933c4:	96190030 */ 	lhu	$t9,0x30($s0)
-/*  f0933c8:	0fc24a94 */ 	jal	func0f092b50
+/*  f0933c8:	0fc24a94 */ 	jal	propsndPrintChannel
 /*  f0933cc:	02002025 */ 	move	$a0,$s0
 /*  f0933d0:	96190030 */ 	lhu	$t9,0x30($s0)
 .PF0f0933d4:
@@ -1714,7 +1714,7 @@ glabel var7f1ab740
 /*  f0934cc:	33190004 */ 	andi	$t9,$t8,0x4
 /*  f0934d0:	53200004 */ 	beqzl	$t9,.L0f0934e4
 /*  f0934d4:	960a0030 */ 	lhu	$t2,0x30($s0)
-/*  f0934d8:	0fc24ad4 */ 	jal	func0f092b50
+/*  f0934d8:	0fc24ad4 */ 	jal	propsndPrintChannel
 /*  f0934dc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0934e0:	960a0030 */ 	lhu	$t2,0x30($s0)
 .L0f0934e4:
@@ -2292,7 +2292,7 @@ glabel var7f1ab740
 /*  f091a08:	316c0004 */ 	andi	$t4,$t3,0x4
 /*  f091a0c:	51800004 */ 	beqzl	$t4,.NB0f091a20
 /*  f091a10:	960e0030 */ 	lhu	$t6,0x30($s0)
-/*  f091a14:	0fc24466 */ 	jal	func0f092b50
+/*  f091a14:	0fc24466 */ 	jal	propsndPrintChannel
 /*  f091a18:	02002025 */ 	or	$a0,$s0,$zero
 /*  f091a1c:	960e0030 */ 	lhu	$t6,0x30($s0)
 .NB0f091a20:
@@ -2334,10 +2334,10 @@ glabel func0f093508
 /*  f093554:	18400020 */ 	blez	$v0,.L0f0935d8
 /*  f093558:	00118100 */ 	sll	$s0,$s1,0x4
 /*  f09355c:	02118023 */ 	subu	$s0,$s0,$s1
-/*  f093560:	3c148007 */ 	lui	$s4,%hi(var8006ae3c)
+/*  f093560:	3c148007 */ 	lui	$s4,%hi(g_PropsndPrintChannels)
 /*  f093564:	3c128007 */ 	lui	$s2,%hi(g_AudioChannels)
 /*  f093568:	2652ae10 */ 	addiu	$s2,$s2,%lo(g_AudioChannels)
-/*  f09356c:	2694ae3c */ 	addiu	$s4,$s4,%lo(var8006ae3c)
+/*  f09356c:	2694ae3c */ 	addiu	$s4,$s4,%lo(g_PropsndPrintChannels)
 /*  f093570:	001080c0 */ 	sll	$s0,$s0,0x3
 /*  f093574:	8e4e0000 */ 	lw	$t6,0x0($s2)
 .L0f093578:
@@ -2353,7 +2353,7 @@ glabel func0f093508
 /*  f09359c:	53200005 */ 	beqzl	$t9,.L0f0935b4
 /*  f0935a0:	92a30000 */ 	lbu	$v1,0x0($s5)
 /*  f0935a4:	8e480000 */ 	lw	$t0,0x0($s2)
-/*  f0935a8:	0fc24ad4 */ 	jal	func0f092b50
+/*  f0935a8:	0fc24ad4 */ 	jal	propsndPrintChannel
 /*  f0935ac:	02082021 */ 	addu	$a0,$s0,$t0
 /*  f0935b0:	92a30000 */ 	lbu	$v1,0x0($s5)
 .L0f0935b4:
@@ -2368,19 +2368,19 @@ glabel func0f093508
 /*  f0935d0:	5420ffe9 */ 	bnezl	$at,.L0f093578
 /*  f0935d4:	8e4e0000 */ 	lw	$t6,0x0($s2)
 .L0f0935d8:
-/*  f0935d8:	3c148007 */ 	lui	$s4,%hi(var8006ae3c)
-/*  f0935dc:	2694ae3c */ 	addiu	$s4,$s4,%lo(var8006ae3c)
+/*  f0935d8:	3c148007 */ 	lui	$s4,%hi(g_PropsndPrintChannels)
+/*  f0935dc:	2694ae3c */ 	addiu	$s4,$s4,%lo(g_PropsndPrintChannels)
 /*  f0935e0:	8e890000 */ 	lw	$t1,0x0($s4)
-/*  f0935e4:	3c0a8007 */ 	lui	$t2,%hi(var8006ae58)
+/*  f0935e4:	3c0a8007 */ 	lui	$t2,%hi(g_PropsndMaxActiveChannels)
 /*  f0935e8:	11200002 */ 	beqz	$t1,.L0f0935f4
 /*  f0935ec:	00000000 */ 	nop
 /*  f0935f0:	ae800000 */ 	sw	$zero,0x0($s4)
 .L0f0935f4:
-/*  f0935f4:	8d4aae58 */ 	lw	$t2,%lo(var8006ae58)($t2)
+/*  f0935f4:	8d4aae58 */ 	lw	$t2,%lo(g_PropsndMaxActiveChannels)($t2)
 /*  f0935f8:	0153082a */ 	slt	$at,$t2,$s3
 /*  f0935fc:	10200002 */ 	beqz	$at,.L0f093608
-/*  f093600:	3c018007 */ 	lui	$at,%hi(var8006ae58)
-/*  f093604:	ac33ae58 */ 	sw	$s3,%lo(var8006ae58)($at)
+/*  f093600:	3c018007 */ 	lui	$at,%hi(g_PropsndMaxActiveChannels)
+/*  f093604:	ac33ae58 */ 	sw	$s3,%lo(g_PropsndMaxActiveChannels)($at)
 .L0f093608:
 /*  f093608:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f09360c:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -2464,6 +2464,37 @@ glabel func0f093508
 /*  f091b20:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 #endif
+
+// Mismatch: Swapped operands for addu instruction when calculating g_AudioChannels[i]
+//void func0f093508(void)
+//{
+//	static s32 g_PropsndMaxActiveChannels = 0;
+//	s32 count = 0;
+//	s32 i;
+//
+//	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+//		if (g_AudioChannels[i].audiohandle);
+//
+//		if ((g_AudioChannels[i].flags & AUDIOCHANNELFLAG_IDLE) == 0) {
+//			func0f092c04(i);
+//			count++;
+//
+//			if (g_PropsndPrintChannels) {
+//				propsndPrintChannel(&g_AudioChannels[i]);
+//			}
+//		}
+//	}
+//
+//	if (g_PropsndPrintChannels) {
+//		g_PropsndPrintChannels = false;
+//	}
+//
+//	if (IS4MB());
+//
+//	if (g_PropsndMaxActiveChannels < count) {
+//		g_PropsndMaxActiveChannels = count;
+//	}
+//}
 
 void func0f093630(struct prop *prop, f32 arg1, s32 arg2)
 {
