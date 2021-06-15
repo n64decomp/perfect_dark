@@ -3357,7 +3357,7 @@ void hudmsgsTick(void)
 		previd = msg->id;
 
 		if (msg->channelnum >= 0) {
-			msg->opacity = func0f092b7c(msg->channelnum);
+			msg->opacity = propsndGetSubtitleOpacity(msg->channelnum);
 		} else {
 			msg->opacity = 0xff;
 		}
@@ -3610,7 +3610,7 @@ glabel var7f1aded8
 /*  f0dc91c:	8e0401b0 */ 	lw	$a0,0x1b0($s0)
 /*  f0dc920:	04820006 */ 	bltzl	$a0,.NB0f0dc93c
 /*  f0dc924:	a20d0004 */ 	sb	$t5,0x4($s0)
-/*  f0dc928:	0fc24471 */ 	jal	func0f092b7c
+/*  f0dc928:	0fc24471 */ 	jal	propsndGetSubtitleOpacity
 /*  f0dc92c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dc930:	10000002 */ 	beqz	$zero,.NB0f0dc93c
 /*  f0dc934:	a2020004 */ 	sb	$v0,0x4($s0)

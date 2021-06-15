@@ -11,7 +11,7 @@ s32 channelGetUnk06(s32 channelnum);
 u32 func0f09294c(void);
 void func0f092a98(s32 channelnum);
 u32 func0f092b50(void);
-u32 func0f092b7c(s32 channelnum);
+s32 propsndGetSubtitleOpacity(s32 channelnum);
 void func0f092c04(s32 channelnum);
 u32 func0f093508(void);
 void func0f093630(struct prop *prop, f32 arg1, s32 arg2);
