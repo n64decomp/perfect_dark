@@ -35,7 +35,7 @@ void func0f173010(u32 *texturenum, u32 arg1, u32 arg2);
 u32 func0f173434(void);
 void func0f1734e8(u16 arg0, void *arg1);
 u32 func0f173520(void);
-u32 func0f17353c(void);
+s32 func0f17353c(s32 arg0);
 void texturesLoadConfigs(void);
 
 #endif

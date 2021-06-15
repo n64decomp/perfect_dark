@@ -22,44 +22,18 @@ glabel func0f173520
 /*  f173538:	ac20b548 */ 	sw	$zero,%lo(var800ab548)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f17353c
-/*  f17353c:	3c05800b */ 	lui	$a1,%hi(var800ab548)
-/*  f173540:	24a5b548 */ 	addiu	$a1,$a1,%lo(var800ab548)
-/*  f173544:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f173548:	3c07800b */ 	lui	$a3,%hi(var800ab540)
-/*  f17354c:	24e7b540 */ 	addiu	$a3,$a3,%lo(var800ab540)
-/*  f173550:	0064082a */ 	slt	$at,$v1,$a0
-/*  f173554:	1020000f */ 	beqz	$at,.L0f173594
-/*  f173558:	3c06800b */ 	lui	$a2,%hi(var800ab544)
-/*  f17355c:	24c6b544 */ 	addiu	$a2,$a2,%lo(var800ab544)
-.L0f173560:
-/*  f173560:	8ce20000 */ 	lw	$v0,0x0($a3)
-/*  f173564:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f173568:	24690008 */ 	addiu	$t1,$v1,0x8
-/*  f17356c:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f173570:	000fc200 */ 	sll	$t8,$t7,0x8
-/*  f173574:	0124082a */ 	slt	$at,$t1,$a0
-/*  f173578:	24480001 */ 	addiu	$t0,$v0,0x1
-/*  f17357c:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f173580:	acd90000 */ 	sw	$t9,0x0($a2)
-/*  f173584:	ace80000 */ 	sw	$t0,0x0($a3)
-/*  f173588:	aca90000 */ 	sw	$t1,0x0($a1)
-/*  f17358c:	1420fff4 */ 	bnez	$at,.L0f173560
-/*  f173590:	01201825 */ 	or	$v1,$t1,$zero
-.L0f173594:
-/*  f173594:	3c06800b */ 	lui	$a2,%hi(var800ab544)
-/*  f173598:	24c6b544 */ 	addiu	$a2,$a2,%lo(var800ab544)
-/*  f17359c:	8ccb0000 */ 	lw	$t3,0x0($a2)
-/*  f1735a0:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1735a4:	00645023 */ 	subu	$t2,$v1,$a0
-/*  f1735a8:	008f7004 */ 	sllv	$t6,$t7,$a0
-/*  f1735ac:	25d8ffff */ 	addiu	$t8,$t6,-1
-/*  f1735b0:	014b6806 */ 	srlv	$t5,$t3,$t2
-/*  f1735b4:	acaa0000 */ 	sw	$t2,0x0($a1)
-/*  f1735b8:	03e00008 */ 	jr	$ra
-/*  f1735bc:	01b81024 */ 	and	$v0,$t5,$t8
-);
+s32 func0f17353c(s32 arg0)
+{
+	while (var800ab548 < arg0) {
+		var800ab544 = *var800ab540 | var800ab544 << 8;
+		var800ab540++;
+		var800ab548 += 8;
+	}
+
+	var800ab548 -= arg0;
+
+	return var800ab544 >> var800ab548 & (1 << arg0) - 1;
+}
 
 GLOBAL_ASM(
 glabel texturesLoadConfigs
