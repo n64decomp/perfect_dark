@@ -5905,57 +5905,19 @@ glabel func0f172f54
 /*  f172f58:	8c820008 */ 	lw	$v0,0x8($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f172f5c
-/*  f172f5c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f172f60:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f172f64:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f172f68:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f172f6c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f172f70:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f172f74:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f172f78:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f172f7c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f172f80:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f172f84:	241300b8 */ 	addiu	$s3,$zero,0xb8
-/*  f172f88:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f172f8c:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f172f90:	126e0015 */ 	beq	$s3,$t6,.L0f172fe8
-/*  f172f94:	00808025 */ 	or	$s0,$a0,$zero
-/*  f172f98:	31c200ff */ 	andi	$v0,$t6,0xff
-/*  f172f9c:	241600cd */ 	addiu	$s6,$zero,0xcd
-/*  f172fa0:	241500ab */ 	addiu	$s5,$zero,0xab
-/*  f172fa4:	241400fd */ 	addiu	$s4,$zero,0xfd
-.L0f172fa8:
-/*  f172fa8:	5682000c */ 	bnel	$s4,$v0,.L0f172fdc
-/*  f172fac:	92020008 */ 	lbu	$v0,0x8($s0)
-/*  f172fb0:	920f0004 */ 	lbu	$t7,0x4($s0)
-/*  f172fb4:	56af0009 */ 	bnel	$s5,$t7,.L0f172fdc
-/*  f172fb8:	92020008 */ 	lbu	$v0,0x8($s0)
-/*  f172fbc:	92180005 */ 	lbu	$t8,0x5($s0)
-/*  f172fc0:	26040004 */ 	addiu	$a0,$s0,0x4
-/*  f172fc4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f172fc8:	56d80004 */ 	bnel	$s6,$t8,.L0f172fdc
-/*  f172fcc:	92020008 */ 	lbu	$v0,0x8($s0)
-/*  f172fd0:	0fc5cc04 */ 	jal	func0f173010
-/*  f172fd4:	02403025 */ 	or	$a2,$s2,$zero
-/*  f172fd8:	92020008 */ 	lbu	$v0,0x8($s0)
-.L0f172fdc:
-/*  f172fdc:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f172fe0:	1662fff1 */ 	bne	$s3,$v0,.L0f172fa8
-/*  f172fe4:	00000000 */ 	nop
-.L0f172fe8:
-/*  f172fe8:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f172fec:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f172ff0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f172ff4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f172ff8:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f172ffc:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f173000:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f173004:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f173008:	03e00008 */ 	jr	$ra
-/*  f17300c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f172f5c(Gfx *gdl, s32 arg1, s32 arg2)
+{
+	u8 *bytes = (u8 *)gdl;
+
+	while (bytes[0] != (u8)G_ENDDL) {
+		// Look for GBI sequence: fd...... abcd....
+		if (bytes[0] == G_SETTIMG && bytes[4] == 0xab && bytes[5] == 0xcd) {
+			func0f173010((u32 *)((u32)bytes + 4), arg1, arg2);
+		}
+
+		bytes += 8;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f173010
