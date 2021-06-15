@@ -98,7 +98,7 @@ u8 func1001_objectives_failed[] = {
 u8 func1002_first_walk[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	camera_movement(0x0488)
+	camera_movement(ANIM_0488)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
@@ -149,7 +149,7 @@ u8 func1007_second_walk[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x06)
 	revoke_control(CHR_BOND, 0)
-	camera_movement(0x0488)
+	camera_movement(ANIM_0488)
 
 	// Place chrs
 	label(0x8f)
@@ -231,7 +231,7 @@ u8 func1008_third_walk[] = {
 	// Do cutscene
 	label(0x06)
 	revoke_control(CHR_BOND, 0)
-	camera_movement(0x0488)
+	camera_movement(ANIM_0488)
 
 	label(0x8f)
 	set_ailist(CHR_P1P2, AILIST_MOVE_TO_PAD)

@@ -473,12 +473,12 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	play_cutscene_track(MUSIC_CRASHSITE_INTRO)
-	camera_movement(0x01b5)
+	camera_movement(ANIM_01B5)
 	cmd0175(60)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01b6, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_01B6, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 
 	restart_timer
@@ -583,7 +583,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01b6, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
+	chr_do_animation(ANIM_01B6, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	stop_cutscene_track
 	stop_ambient_track
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
@@ -618,7 +618,7 @@ u8 func0402_outro[] = {
 	label(0x31)
 	set_target_chr(CHR_COOP)
 	label(0x08)
-	camera_movement(0x01d9)
+	camera_movement(ANIM_01D9)
 	play_cutscene_track(MUSIC_CRASHSITE_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
@@ -638,49 +638,49 @@ u8 func0402_outro[] = {
 	unset_chr_chrflag(CHR_TARGET, CHRCFLAG_HIDDEN)
 #endif
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_00020000)
-	chr_do_animation(0x01df, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TARGET, 4)
+	chr_do_animation(ANIM_01DF, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TARGET, 4)
 
 	set_chr_chrflag(CHR_SKEDAR, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_SKEDAR, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_SKEDAR, CHRHFLAG_00020000)
-	chr_do_animation(0x01da, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR, 4)
+	chr_do_animation(ANIM_01DA, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR, 4)
 
 	set_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS_OUTRO, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS_OUTRO, CHRHFLAG_00020000)
-	chr_do_animation(0x01db, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS_OUTRO, 4)
+	chr_do_animation(ANIM_01DB, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS_OUTRO, 4)
 
 #if VERSION >= VERSION_NTSC_1_0
 	set_chr_chrflag(CHR_TRENT_OUTRO, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_TRENT_OUTRO, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TRENT_OUTRO, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TRENT_OUTRO, CHRHFLAG_00020000)
-	chr_do_animation(0x01dc, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TRENT_OUTRO, 4)
+	chr_do_animation(ANIM_01DC, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TRENT_OUTRO, 4)
 #else
 	set_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_TRENT, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TRENT, CHRHFLAG_00020000)
-	chr_do_animation(0x01dc, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TRENT, 4)
+	chr_do_animation(ANIM_01DC, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TRENT, 4)
 #endif
 
 	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_MRBLONDE, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_MRBLONDE, CHRHFLAG_00020000)
-	chr_do_animation(0x01dd, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MRBLONDE, 4)
+	chr_do_animation(ANIM_01DD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_MRBLONDE, 4)
 
 	set_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_INVINCIBLE)
 	set_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_PRESIDENT_OUTRO, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_PRESIDENT_OUTRO, CHRHFLAG_00020000)
-	chr_do_animation(0x01de, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_PRESIDENT_OUTRO, 4)
+	chr_do_animation(ANIM_01DE, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_PRESIDENT_OUTRO, 4)
 
 	enable_object(0x00)
 	set_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
-	object_do_animation(0x01e0, OBJ_CRATE, 0x04, 0xffff)
+	object_do_animation(ANIM_01E0, OBJ_CRATE, 0x04, 0xffff)
 	restart_timer
 	set_cutscene_weapon(CHR_TARGET, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -2033,7 +2033,7 @@ u8 func1014_setup_skedar_shuttle[] = {
 	enable_object(OBJ_SKEDAR_SHUTTLE)
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	object_set_modelpart_visible(OBJ_SKEDAR_SHUTTLE, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
-	object_do_animation(0x0486, OBJ_SKEDAR_SHUTTLE, 0x01, 0xffff)
+	object_do_animation(ANIM_0486, OBJ_SKEDAR_SHUTTLE, 0x01, 0xffff)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

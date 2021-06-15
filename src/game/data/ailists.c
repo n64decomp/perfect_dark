@@ -95,7 +95,7 @@ u8 func0006_unalerted[] = {
 	dprint 'N','O','G','U','N','2','\n',0,
 	dprint 'A','N','I','M',' ','O','B','J','E','C','T',' ','N','O','W','\n',0,
 	set_chr_maxdamage(CHR_SELF, 40)
-	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
+	object_do_animation(ANIM_025A, 0xff, 0x02, 0xffff)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, CHRANIMFLAG_MOVEWHENINVIS, 16, CHR_SELF, 2)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
 	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_NONE)
@@ -821,12 +821,12 @@ u8 func0008_wakeup[] = {
 	label(0x15)
 	set_chr_maxdamage(CHR_SELF, 40)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, CHRANIMFLAG_MOVEWHENINVIS, 16, CHR_SELF, 2)
-	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
+	object_do_animation(ANIM_025A, 0xff, 0x02, 0xffff)
 	goto_next(0x0c)
 
 	// Unreachable - nothing jumps here
 	label(0x16)
-	object_do_animation(0x027b, 0xff, 0x02, 0xffff)
+	object_do_animation(ANIM_027B, 0xff, 0x02, 0xffff)
 
 	// Wait for stand up animation to finish
 	label(0x0c)
@@ -2710,7 +2710,7 @@ u8 func000a_do_idle_animation[] = {
 	// Stand up
 	label(0x13)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, CHRANIMFLAG_MOVEWHENINVIS, 16, CHR_SELF, 2)
-	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
+	object_do_animation(ANIM_025A, 0xff, 0x02, 0xffff)
 
 	beginloop(0x06)
 		if_chr_stopped(/*goto*/ 0x13)
@@ -2822,7 +2822,7 @@ u8 func000d_init_combat[] = {
 	label(0x05)
 	set_chr_maxdamage(CHR_SELF, 40)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, CHRANIMFLAG_MOVEWHENINVIS, 16, CHR_SELF, 2)
-	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
+	object_do_animation(ANIM_025A, 0xff, 0x02, 0xffff)
 
 	beginloop(0x0c)
 		if_chr_stopped(/*goto*/ 0x13)

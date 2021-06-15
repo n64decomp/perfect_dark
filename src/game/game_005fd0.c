@@ -30,67 +30,67 @@ struct footstepframe {
 };
 
 struct footstepframe g_FootstepFrames[] = {
-	{ 0x002b, 0x08, 0x19 },
-	{ 0x0029, 0x05, 0x0e },
-	{ 0x006b, 0x08, 0x19 },
-	{ 0x0028, 0x1b, 0x08 },
-	{ 0x002a, 0x12, 0x06 },
-	{ 0x0052, 0x08, 0x19 },
-	{ 0x0053, 0x19, 0x08 },
-	{ 0x0054, 0x19, 0x08 },
-	{ 0x0055, 0x07, 0x12 },
-	{ 0x0056, 0x07, 0x12 },
-	{ 0x0057, 0x12, 0x07 },
-	{ 0x0058, 0x0f, 0x05 },
-	{ 0x0059, 0x08, 0x14 },
-	{ 0x005a, 0x06, 0x0f },
-	{ 0x006c, 0x19, 0x08 },
-	{ 0x006d, 0x19, 0x08 },
-	{ 0x006e, 0x08, 0x13 },
-	{ 0x006f, 0x15, 0x08 },
-	{ 0x0070, 0x0f, 0x05 },
-	{ 0x0071, 0x0f, 0x05 },
-	{ 0x0072, 0x17, 0x08 },
-	{ 0x0073, 0x08, 0x13 },
-	{ 0x0093, 0x17, 0x0a },
-	{ 0x0094, 0x0f, 0x05 },
-	{ 0x005f, 0x0e, 0x01 },
-	{ 0x0016, 0x1d, 0x0a },
-	{ 0x0018, 0x18, 0x2e },
-	{ 0x001b, 0x0a, 0x1c },
-	{ 0x001d, 0x0d, 0x02 },
-	{ 0x001e, 0x0c, 0x01 },
-	{ 0x005c, 0x13, 0x2a },
-	{ 0x005d, 0x0f, 0x05 },
-	{ 0x005e, 0x04, 0x0c },
-	{ 0x0392, 0x05, 0x14 },
-	{ 0x0394, 0x00, 0x00 },
+	{ ANIM_002B,               0x08, 0x19 },
+	{ ANIM_0029,               0x05, 0x0e },
+	{ ANIM_006B,               0x08, 0x19 },
+	{ ANIM_0028,               0x1b, 0x08 },
+	{ ANIM_RUNNING_TWOHANDGUN, 0x12, 0x06 },
+	{ ANIM_0052,               0x08, 0x19 },
+	{ ANIM_0053,               0x19, 0x08 },
+	{ ANIM_0054,               0x19, 0x08 },
+	{ ANIM_0055,               0x07, 0x12 },
+	{ ANIM_0056,               0x07, 0x12 },
+	{ ANIM_0057,               0x12, 0x07 },
+	{ ANIM_0058,               0x0f, 0x05 },
+	{ ANIM_RUNNING_ONEHANDGUN, 0x08, 0x14 },
+	{ ANIM_005A,               0x06, 0x0f },
+	{ ANIM_006C,               0x19, 0x08 },
+	{ ANIM_006D,               0x19, 0x08 },
+	{ ANIM_006E,               0x08, 0x13 },
+	{ ANIM_006F,               0x15, 0x08 },
+	{ ANIM_0070,               0x0f, 0x05 },
+	{ ANIM_0071,               0x0f, 0x05 },
+	{ ANIM_0072,               0x17, 0x08 },
+	{ ANIM_0073,               0x08, 0x13 },
+	{ ANIM_0093,               0x17, 0x0a },
+	{ ANIM_0094,               0x0f, 0x05 },
+	{ ANIM_005F,               0x0e, 0x01 },
+	{ ANIM_0016,               0x1d, 0x0a },
+	{ ANIM_0018,               0x18, 0x2e },
+	{ ANIM_001B,               0x0a, 0x1c },
+	{ ANIM_001D,               0x0d, 0x02 },
+	{ ANIM_001E,               0x0c, 0x01 },
+	{ ANIM_005C,               0x13, 0x2a },
+	{ ANIM_005D,               0x0f, 0x05 },
+	{ ANIM_005E,               0x04, 0x0c },
+	{ ANIM_0392,               0x05, 0x14 },
+	{ ANIM_SKEDAR_RUNNING,     0x00, 0x00 },
 };
 
-bool func0f005fd0(s32 arg0)
+bool func0f005fd0(s32 animnum)
 {
-	switch (arg0) {
-	case 29:
-	case 30:
-	case 41:
-	case 42:
-	case 85:
-	case 86:
-	case 87:
-	case 88:
-	case 89:
-	case 90:
-	case 93:
-	case 94:
-	case 95:
-	case 110:
-	case 111:
-	case 112:
-	case 113:
-	case 115:
-	case 147:
-	case 148:
-	case 916:
+	switch (animnum) {
+	case ANIM_001D:
+	case ANIM_001E:
+	case ANIM_0029:
+	case ANIM_RUNNING_TWOHANDGUN:
+	case ANIM_0055:
+	case ANIM_0056:
+	case ANIM_0057:
+	case ANIM_0058:
+	case ANIM_RUNNING_ONEHANDGUN:
+	case ANIM_005A:
+	case ANIM_005D:
+	case ANIM_005E:
+	case ANIM_005F:
+	case ANIM_006E:
+	case ANIM_006F:
+	case ANIM_0070:
+	case ANIM_0071:
+	case ANIM_0073:
+	case ANIM_0093:
+	case ANIM_0094:
+	case ANIM_SKEDAR_RUNNING:
 		return true;
 	}
 
@@ -871,7 +871,7 @@ glabel func0f0061dc
 //
 //			for (i = 0; i < ARRAYCOUNT(g_FootstepFrames); i++) {
 //				if (modelGetAnimNum(chr->model) == g_FootstepFrames[i].animnum) {
-//					if (CHRRACE(chr) == RACE_SKEDAR && g_FootstepFrames[i].animnum == 0x394) {
+//					if (CHRRACE(chr) == RACE_SKEDAR && g_FootstepFrames[i].animnum == ANIM_SKEDAR_RUNNING) {
 //						if ((frame >= 2 && prevframe < 2) || (frame >= 17 && prevframe < 17)) {
 //							chr->footstep = 1;
 //						} else if ((frame >= 10 && prevframe < 10) || (frame >= 25 && prevframe < 25)) {

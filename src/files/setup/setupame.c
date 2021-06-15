@@ -1039,14 +1039,14 @@ s32 path29[] = {
 u8 func0401_do_some_animation[] = {
 	// Do some animation
 	restart_timer
-	chr_do_animation(0x0066, 0, 1, CHRANIMFLAG_PAUSEATEND, 16, CHR_SELF, 2)
+	chr_do_animation(ANIM_0066, 0, 1, CHRANIMFLAG_PAUSEATEND, 16, CHR_SELF, 2)
 
 	beginloop(0x08)
 		if_timer_gt(0, /*goto*/ 0x2c)
 	endloop(0x08)
 
 	label(0x2c)
-	chr_do_animation(0x0066, 1, -1, CHRANIMFLAG_PAUSEATEND, 16, CHR_SELF, 2)
+	chr_do_animation(ANIM_0066, 1, -1, CHRANIMFLAG_PAUSEATEND, 16, CHR_SELF, 2)
 
 	beginloop(0x85)
 	endloop(0x85)
@@ -1457,7 +1457,7 @@ u8 func0411_secretary[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2c)
-	chr_do_animation(0x00a1, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
+	chr_do_animation(ANIM_00A1, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x72)
 		set_target_chr(CHR_BOND)
@@ -2542,28 +2542,28 @@ u8 func1002_objectives_failed_msg[] = {
 
 u8 func041b_intro_041b[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00c9)
+	camera_movement(ANIM_00C9)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP2)
 	set_object_flag3(OBJ_JUMPSHIP2, OBJFLAG3_00000010)
-	object_do_animation(0x00ca, OBJ_JUMPSHIP2, 0x04, 0xffff)
+	object_do_animation(ANIM_00CA, OBJ_JUMPSHIP2, 0x04, 0xffff)
 	enable_object(OBJ_POLICECAR)
 	set_object_flag3(OBJ_POLICECAR, OBJFLAG3_00000010)
-	object_do_animation(0x0122, OBJ_POLICECAR, 0x04, 0xffff)
+	object_do_animation(ANIM_0122, OBJ_POLICECAR, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCOP3)
 	set_object_flag3(OBJ_HOVERCOP3, OBJFLAG3_00000010)
-	object_do_animation(0x0123, OBJ_HOVERCOP3, 0x04, 0xffff)
+	object_do_animation(ANIM_0123, OBJ_HOVERCOP3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCAR3)
 	set_object_flag3(OBJ_HOVERCAR3, OBJFLAG3_00000010)
-	object_do_animation(0x0124, OBJ_HOVERCAR3, 0x04, 0xffff)
+	object_do_animation(ANIM_0124, OBJ_HOVERCAR3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERMOTO3)
 	set_object_flag3(OBJ_HOVERMOTO3, OBJFLAG3_00000010)
-	object_do_animation(0x0125, OBJ_HOVERMOTO3, 0x04, 0xffff)
+	object_do_animation(ANIM_0125, OBJ_HOVERMOTO3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCAB3)
 	set_object_flag3(OBJ_HOVERCAB3, OBJFLAG3_00000010)
-	object_do_animation(0x0126, OBJ_HOVERCAB3, 0x04, 0xffff)
+	object_do_animation(ANIM_0126, OBJ_HOVERCAB3, 0x04, 0xffff)
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -2589,31 +2589,31 @@ u8 func041b_intro_041b[] = {
 
 u8 func041a_intro_041a[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00c7)
+	camera_movement(ANIM_00C7)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP2)
 	set_object_flag3(OBJ_JUMPSHIP2, OBJFLAG3_00000010)
-	object_do_animation(0x00c8, OBJ_JUMPSHIP2, 0x04, 0xffff)
+	object_do_animation(ANIM_00C8, OBJ_JUMPSHIP2, 0x04, 0xffff)
 	enable_object(OBJ_HOVERTAXI2)
 	set_object_flag3(OBJ_HOVERTAXI2, OBJFLAG3_00000010)
-	object_do_animation(0x011c, OBJ_HOVERTAXI2, 0x04, 0xffff)
+	object_do_animation(ANIM_011C, OBJ_HOVERTAXI2, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCOP3)
 	set_object_flag3(OBJ_HOVERCOP3, OBJFLAG3_00000010)
-	object_do_animation(0x011d, OBJ_HOVERCOP3, 0x04, 0xffff)
+	object_do_animation(ANIM_011D, OBJ_HOVERCOP3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCAR3)
 	set_object_flag3(OBJ_HOVERCAR3, OBJFLAG3_00000010)
-	object_do_animation(0x011e, OBJ_HOVERCAR3, 0x04, 0xffff)
+	object_do_animation(ANIM_011E, OBJ_HOVERCAR3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERMOTO3)
 	set_object_flag3(OBJ_HOVERMOTO3, OBJFLAG3_00000010)
-	object_do_animation(0x011f, OBJ_HOVERMOTO3, 0x04, 0xffff)
+	object_do_animation(ANIM_011F, OBJ_HOVERMOTO3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCAB3)
 	set_object_flag3(OBJ_HOVERCAB3, OBJFLAG3_00000010)
-	object_do_animation(0x0120, OBJ_HOVERCAB3, 0x04, 0xffff)
+	object_do_animation(ANIM_0120, OBJ_HOVERCAB3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERTRUCK3)
 	set_object_flag3(OBJ_HOVERTRUCK3, OBJFLAG3_00000010)
-	object_do_animation(0x0121, OBJ_HOVERTRUCK3, 0x04, 0xffff)
+	object_do_animation(ANIM_0121, OBJ_HOVERTRUCK3, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -2635,22 +2635,22 @@ u8 func041a_intro_041a[] = {
 
 u8 func0419_intro_0419[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00c5)
+	camera_movement(ANIM_00C5)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP2)
 	set_object_flag3(OBJ_JUMPSHIP2, OBJFLAG3_00000010)
-	object_do_animation(0x00c6, OBJ_JUMPSHIP2, 0x04, 0xffff)
+	object_do_animation(ANIM_00C6, OBJ_JUMPSHIP2, 0x04, 0xffff)
 	enable_object(OBJ_HOVERTAXI1)
 	set_object_flag3(OBJ_HOVERTAXI1, OBJFLAG3_00000010)
-	object_do_animation(0x0119, OBJ_HOVERTAXI1, 0x04, 0xffff)
+	object_do_animation(ANIM_0119, OBJ_HOVERTAXI1, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCOP3)
 	set_object_flag3(OBJ_HOVERCOP3, OBJFLAG3_00000010)
-	object_do_animation(0x011a, OBJ_HOVERCOP3, 0x04, 0xffff)
+	object_do_animation(ANIM_011A, OBJ_HOVERCOP3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCAR3)
 	set_object_flag3(OBJ_HOVERCAR3, OBJFLAG3_00000010)
-	object_do_animation(0x011b, OBJ_HOVERCAR3, 0x04, 0xffff)
+	object_do_animation(ANIM_011B, OBJ_HOVERCAR3, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -2669,31 +2669,31 @@ u8 func0419_intro_0419[] = {
 
 u8 func041c_intro_041c[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00cb)
+	camera_movement(ANIM_00CB)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP2)
 	set_object_flag3(OBJ_JUMPSHIP2, OBJFLAG3_00000010)
-	object_do_animation(0x00cc, OBJ_JUMPSHIP2, 0x04, 0xffff)
+	object_do_animation(ANIM_00CC, OBJ_JUMPSHIP2, 0x04, 0xffff)
 	enable_object(OBJ_HOVERTAXI1)
 	set_object_flag3(OBJ_HOVERTAXI1, OBJFLAG3_00000010)
-	object_do_animation(0x0127, OBJ_HOVERTAXI1, 0x04, 0xffff)
+	object_do_animation(ANIM_0127, OBJ_HOVERTAXI1, 0x04, 0xffff)
 
 	// Invalid object
 	enable_object(0x1d)
 	set_object_flag3(0x1d, OBJFLAG3_00000010)
-	object_do_animation(0x0128, 0x1d, 0x04, 0xffff)
+	object_do_animation(ANIM_0128, 0x1d, 0x04, 0xffff)
 
 	enable_object(OBJ_HOVERCOP3)
 	set_object_flag3(OBJ_HOVERCOP3, OBJFLAG3_00000010)
-	object_do_animation(0x0129, OBJ_HOVERCOP3, 0x04, 0xffff)
+	object_do_animation(ANIM_0129, OBJ_HOVERCOP3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERCAR3)
 	set_object_flag3(OBJ_HOVERCAR3, OBJFLAG3_00000010)
-	object_do_animation(0x012a, OBJ_HOVERCAR3, 0x04, 0xffff)
+	object_do_animation(ANIM_012A, OBJ_HOVERCAR3, 0x04, 0xffff)
 	enable_object(OBJ_HOVERMOTO3)
 	set_object_flag3(OBJ_HOVERMOTO3, OBJFLAG3_00000010)
-	object_do_animation(0x012b, OBJ_HOVERMOTO3, 0x04, 0xffff)
+	object_do_animation(ANIM_012B, OBJ_HOVERMOTO3, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -2717,19 +2717,19 @@ u8 func041c_intro_041c[] = {
  */
 u8 func041d_intro_041d[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00cd)
+	camera_movement(ANIM_00CD)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP2)
 	set_object_flag3(OBJ_JUMPSHIP2, OBJFLAG3_00000010)
-	object_do_animation(0x00ce, OBJ_JUMPSHIP2, 0x01, 0xffff)
+	object_do_animation(ANIM_00CE, OBJ_JUMPSHIP2, 0x01, 0xffff)
 	enable_object(OBJ_HOVERTAXI1)
 	set_object_flag3(OBJ_HOVERTAXI1, OBJFLAG3_00000010)
-	object_do_animation(0x012c, OBJ_HOVERTAXI1, 0x04, 0xffff)
+	object_do_animation(ANIM_012C, OBJ_HOVERTAXI1, 0x04, 0xffff)
 	enable_object(0x1d)
 	set_object_flag3(0x1d, OBJFLAG3_00000010)
-	object_do_animation(0x012d, 0x1d, 0x04, 0xffff)
+	object_do_animation(ANIM_012D, 0x1d, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -2872,13 +2872,13 @@ u8 func0421_intro_0421[] = {
 
 u8 func0422_intro_0423[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00ee)
+	camera_movement(ANIM_00EE)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x00ef, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_00EF, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_tinted_glass_enabled(TRUE)
 
 	wait_for_camera_finished
@@ -2896,20 +2896,20 @@ u8 func0422_intro_0423[] = {
 
 u8 func0422_intro_0424[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00fc)
+	camera_movement(ANIM_00FC)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x00fd, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_00FD, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SECRETARY, CHRCFLAG_UNPLAYABLE)
 #if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_SECRETARY, CHRCFLAG_HIDDEN)
 #endif
 	set_chr_hiddenflag(CHR_SECRETARY, CHRHFLAG_00020000)
-	chr_do_animation(0x00fe, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SECRETARY, 4)
+	chr_do_animation(ANIM_00FE, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SECRETARY, 4)
 
 	wait_for_camera_finished
 
@@ -2927,15 +2927,15 @@ u8 func0422_intro_0424[] = {
 
 u8 func0422_intro_0425[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x00ff)
+	camera_movement(ANIM_00FF)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x0100, OBJ_JUMPSHIP1, 0x04, 0xffff)
-	object_do_animation(0x0102, OBJ_BANNER1, 0x04, 0xffff)
-	object_do_animation(0x0117, OBJ_BANNER2, 0x04, 0xffff)
+	object_do_animation(ANIM_0100, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_0102, OBJ_BANNER1, 0x04, 0xffff)
+	object_do_animation(ANIM_0117, OBJ_BANNER2, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -2953,19 +2953,19 @@ u8 func0422_intro_0425[] = {
 
 u8 func0422_intro_0426[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x012e)
+	camera_movement(ANIM_012E)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x012f, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_012F, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	enable_object(OBJ_BANNER1)
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x0131, OBJ_BANNER1, 0x04, 0xffff)
+	object_do_animation(ANIM_0131, OBJ_BANNER1, 0x04, 0xffff)
 	enable_object(OBJ_BANNER2)
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x0132, OBJ_BANNER2, 0x04, 0xffff)
+	object_do_animation(ANIM_0132, OBJ_BANNER2, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -2983,22 +2983,22 @@ u8 func0422_intro_0426[] = {
 
 u8 func0422_intro_0427[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x0133)
+	camera_movement(ANIM_0133)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x0134, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_0134, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	enable_object(OBJ_ROPE)
 	set_object_flag3(OBJ_ROPE, OBJFLAG3_00000010)
-	object_do_animation(0x0135, OBJ_ROPE, 0x04, 0xffff)
+	object_do_animation(ANIM_0135, OBJ_ROPE, 0x04, 0xffff)
 	enable_object(OBJ_BANNER1)
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x0136, OBJ_BANNER1, 0x04, 0xffff)
+	object_do_animation(ANIM_0136, OBJ_BANNER1, 0x04, 0xffff)
 	enable_object(OBJ_BANNER2)
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x0137, OBJ_BANNER2, 0x04, 0xffff)
+	object_do_animation(ANIM_0137, OBJ_BANNER2, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -3017,13 +3017,13 @@ u8 func0422_intro_0427[] = {
 
 u8 func0422_intro_0428[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x0103)
+	camera_movement(ANIM_0103)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x0104, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_0104, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_object_flag2(OBJ_HOVERCOP1, OBJFLAG2_INVISIBLE)
 	set_object_flag2(OBJ_HOVERCOP2, OBJFLAG2_INVISIBLE)
 	set_object_flag2(OBJ_HOVERCAR1, OBJFLAG2_INVISIBLE)
@@ -3059,13 +3059,13 @@ u8 func0422_intro_0428[] = {
 
 u8 func0422_intro_0429[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x0105)
+	camera_movement(ANIM_0105)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x0106, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_0106, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_tinted_glass_enabled(TRUE)
 
 	wait_for_camera_finished
@@ -3083,19 +3083,19 @@ u8 func0422_intro_0429[] = {
 
 u8 func0422_intro_042a[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x0107)
+	camera_movement(ANIM_0107)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x0108, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_0108, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0109, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_0109, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	enable_object(OBJ_ROPE)
 	set_object_flag3(OBJ_ROPE, OBJFLAG3_00000010)
-	object_do_animation(0x010a, OBJ_ROPE, 0x04, 0xffff)
+	object_do_animation(ANIM_010A, OBJ_ROPE, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -3111,25 +3111,25 @@ u8 func0422_intro_042a[] = {
 
 u8 func0422_intro_042b[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
-	camera_movement(0x010b)
+	camera_movement(ANIM_010B)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_JUMPSHIP1)
 	set_object_flag3(OBJ_JUMPSHIP1, OBJFLAG3_00000010)
-	object_do_animation(0x010c, OBJ_JUMPSHIP1, 0x04, 0xffff)
+	object_do_animation(ANIM_010C, OBJ_JUMPSHIP1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x010d, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_010D, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	enable_object(OBJ_ROPE)
 	set_object_flag3(OBJ_ROPE, OBJFLAG3_00000010)
-	object_do_animation(0x010e, OBJ_ROPE, 0x04, 0xffff)
+	object_do_animation(ANIM_010E, OBJ_ROPE, 0x04, 0xffff)
 	enable_object(OBJ_BANNER1)
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x010f, OBJ_BANNER1, 0x04, 0xffff)
+	object_do_animation(ANIM_010F, OBJ_BANNER1, 0x04, 0xffff)
 	enable_object(OBJ_BANNER2)
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x0118, OBJ_BANNER2, 0x04, 0xffff)
+	object_do_animation(ANIM_0118, OBJ_BANNER2, 0x04, 0xffff)
 
 	wait_for_camera_finished
 
@@ -3151,14 +3151,14 @@ u8 func0422_intro_042c[] = {
 };
 
 u8 func0422_intro_042d[] = {
-	camera_movement(0x0155)
+	camera_movement(ANIM_0155)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x36)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0156, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_0156, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 
 	wait_for_camera_finished
@@ -3168,16 +3168,16 @@ u8 func0422_intro_042d[] = {
 	enable_object(OBJ_BANNER1)
 	enable_object(OBJ_BANNER2)
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x0161, OBJ_BANNER1, 0x08, 0xffff)
+	object_do_animation(ANIM_0161, OBJ_BANNER1, 0x08, 0xffff)
 
 	// @bug: Copy/paste error - should be banner 2
 	set_object_flag3(OBJ_BANNER1, OBJFLAG3_00000010)
-	object_do_animation(0x0162, OBJ_BANNER2, 0x08, 0xffff)
+	object_do_animation(ANIM_0162, OBJ_BANNER2, 0x08, 0xffff)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x0156, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
+	chr_do_animation(ANIM_0156, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
@@ -3205,7 +3205,7 @@ u8 func0416_outro_from_menu[] = {
 };
 
 u8 func0416_outro[] = {
-	camera_movement(0x00f2)
+	camera_movement(ANIM_00F2)
 	play_cutscene_track(MUSIC_DEFECTION_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
@@ -3215,7 +3215,7 @@ u8 func0416_outro[] = {
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	chr_do_animation(0x00f3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
+	chr_do_animation(ANIM_00F3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 	restart_timer
 	unset_stage_flag(STAGEFLAG_LAB_ELEVATOR_CLOSED)
 	set_door_open(OBJ_LABLIFTDOOR1)

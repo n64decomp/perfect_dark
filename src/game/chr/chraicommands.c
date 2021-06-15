@@ -11525,26 +11525,26 @@ bool aiDoPresetAnimation(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	// These all appear to be talking animations
-	u16 anims[15] = {
-		/* 0*/ 0x0296,
-		/* 1*/ 0x0297,
-		/* 2*/ 0x0298,
-		/* 3*/ 0x028a, // when value is 3 (1/2 chance)
-		/* 4*/ 0x028c, // when value is 3 (1/2 chance)
-		/* 5*/ 0x0290,
-		/* 6*/ 0x0291,
-		/* 7*/ 0x00a3, // when value is 255 (1/8 chance)
-		/* 8*/ 0x028e, // when value is 255 (1/8 chance)
-		/* 9*/ 0x028f, // when value is 255 (1/8 chance)
-		/*10*/ 0x0231, // when value is 255 (1/8 chance)
-		/*11*/ 0x0232, // when value is 255 (1/8 chance)
-		/*12*/ 0x0233, // when value is 255 (1/8 chance)
-		/*13*/ 0x0234, // when value is 255 (1/8 chance)
-		/*14*/ 0x028d, // when value is 255 (1/8 chance)
+	u16 anims[] = {
+		/* 0*/ ANIM_0296,
+		/* 1*/ ANIM_0297,
+		/* 2*/ ANIM_0298,
+		/* 3*/ ANIM_028A, // when value is 3 (1/2 chance)
+		/* 4*/ ANIM_028C, // when value is 3 (1/2 chance)
+		/* 5*/ ANIM_0290,
+		/* 6*/ ANIM_0291,
+		/* 7*/ ANIM_TALKING_00A3, // when value is 255 (1/8 chance)
+		/* 8*/ ANIM_028E, // when value is 255 (1/8 chance)
+		/* 9*/ ANIM_028F, // when value is 255 (1/8 chance)
+		/*10*/ ANIM_TALKING_0231, // when value is 255 (1/8 chance)
+		/*11*/ ANIM_TALKING_0232, // when value is 255 (1/8 chance)
+		/*12*/ ANIM_TALKING_0233, // when value is 255 (1/8 chance)
+		/*13*/ ANIM_TALKING_0234, // when value is 255 (1/8 chance)
+		/*14*/ ANIM_028D, // when value is 255 (1/8 chance)
 	};
 
 	if (cmd[2] == 255) {
-		chrTryStartAnim(g_Vars.chrdata, anims[7 + (random() & 7)], 0, -1, 0, 15, 0.5);
+		chrTryStartAnim(g_Vars.chrdata, anims[7 + (random() % 8)], 0, -1, 0, 15, 0.5);
 	} else if (cmd[2] == 254) {
 		struct prop *prop0 = chrGetEquippedWeaponProp(g_Vars.chrdata, 1);
 		struct prop *prop1 = chrGetEquippedWeaponProp(g_Vars.chrdata, 0);

@@ -504,7 +504,7 @@ s32 path13[] = {
 u8 func0401_3ae8[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_INTRO)
 	if_controller_button_pressed(/*goto*/ 0x00)
-	camera_movement(0x00cf)
+	camera_movement(ANIM_00CF)
 	play_cutscene_track(MUSIC_CHICAGO_INTRO)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 
@@ -534,7 +534,7 @@ u8 func0402_3bb4[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	if_controller_button_pressed(/*goto*/ 0x00)
-	camera_movement(0x00d0)
+	camera_movement(ANIM_00D0)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 
 	chicago_car_do_animation(OBJ_CAR1, 0x00dc)
@@ -559,12 +559,12 @@ u8 func0402_3bb4[] = {
 
 u8 func0403_3c74[] = {
 	if_controller_button_pressed(/*goto*/ 0x00)
-	camera_movement(0x00d1)
+	camera_movement(ANIM_00D1)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_CAR4)
 	set_object_flag2(OBJ_CAR4, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CAR4, OBJFLAG3_00000010)
-	object_do_animation(0x00de, OBJ_CAR4, 0x04, 0xffff)
+	object_do_animation(ANIM_00DE, OBJ_CAR4, 0x04, 0xffff)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -585,13 +585,13 @@ u8 func0404_3ce0[] = {
 	enable_object(OBJ_WIREFENCE)
 	set_object_flag2(OBJ_WIREFENCE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_WIREFENCE, OBJFLAG3_00000010)
-	object_do_animation(0x0470, OBJ_WIREFENCE, 0x01, 0xffff)
+	object_do_animation(ANIM_0470, OBJ_WIREFENCE, 0x01, 0xffff)
 
 	if_controller_button_pressed(/*goto*/ 0x00)
-	camera_movement(0x00e0)
+	camera_movement(ANIM_00E0)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x00e1, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_00E1, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
 	chicago_wait_for_camera
@@ -604,12 +604,12 @@ u8 func0404_3ce0[] = {
 };
 
 u8 func0405_3d50[] = {
-	camera_movement(0x00d2)
+	camera_movement(ANIM_00D2)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x00)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x00df, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_00DF, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
 	restart_timer
@@ -640,7 +640,7 @@ u8 func0405_3d50[] = {
 
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x00df, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
+	chr_do_animation(ANIM_00DF, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 
 	stop_cutscene_track
 	stop_ambient_track
@@ -903,7 +903,7 @@ u8 func040d_limo[] = {
 	label(0x04)
 	set_object_flag2(OBJ_LIMO, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_LIMO, OBJFLAG3_00000010)
-	object_do_animation(0x02d6, OBJ_LIMO, 0x04, 0xffff)
+	object_do_animation(ANIM_02D6, OBJ_LIMO, 0x04, 0xffff)
 
 	assign_sound(SFX_BIKE_ENGINE, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_LIMO, 1, 2400, 3200)
@@ -946,7 +946,7 @@ u8 func040c_taxi[] = {
 	label(0x03)
 	assign_sound(SFX_8000, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_TAXI, 1, 2400, 3200)
-	object_do_animation(0x0168, OBJ_TAXI, 0x04, 0xffff)
+	object_do_animation(ANIM_0168, OBJ_TAXI, 0x04, 0xffff)
 	set_object_flag2(OBJ_TAXI, OBJFLAG2_04000000)
 
 	// Wait for flag
@@ -973,7 +973,7 @@ u8 func040c_taxi[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_CRASH)
 	yield
 	mute_channel(CHANNEL_0)
-	object_do_animation(0x0169, OBJ_TAXI, 0x04, 0xffff)
+	object_do_animation(ANIM_0169, OBJ_TAXI, 0x04, 0xffff)
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1881,7 +1881,7 @@ u8 func041d_fbi[] = {
 
 	label(0x04)
 	say_quip(CHR_BOND, 0x1b, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
-	chr_do_animation(0x0266, 0, 193, 0, 16, CHR_SELF, 2)
+	chr_do_animation(ANIM_0266, 0, 193, 0, 16, CHR_SELF, 2)
 
 	beginloop(0x0e)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x03)
@@ -2077,7 +2077,7 @@ u8 func041a_robot[] = {
 	set_ailist(CHR_ROBOT, GAILIST_IDLE)
 #endif
 	set_shield(0)
-	chr_do_animation(0x016a, 0, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SELF, 4)
+	chr_do_animation(ANIM_016A, 0, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SELF, 4)
 
 	beginloop(0x2d)
 		dprint 'P','A','R','T',' ','4','\n',0,
@@ -2684,7 +2684,7 @@ u8 func040a_intro_sfx[] = {
 };
 
 u8 func040b_outro[] = {
-	camera_movement(0x0178)
+	camera_movement(ANIM_0178)
 	play_cutscene_track(MUSIC_CHICAGO_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
@@ -2705,7 +2705,7 @@ u8 func040b_outro[] = {
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	chr_do_animation(0x0179, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
+	chr_do_animation(ANIM_0179, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	restart_timer
 	set_cutscene_weapon(CHR_P1P2, -1, -1)

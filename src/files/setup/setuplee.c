@@ -2686,22 +2686,22 @@ u8 func1003_intro[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	play_cutscene_track(MUSIC_ATTACKSHIP_INTRO)
-	camera_movement(0x01c2)
+	camera_movement(ANIM_01C2)
 	cmd0175(60)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01c3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_01C3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_CASS, CHRHFLAG_00020000)
-	chr_do_animation(0x01c4, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CASS, 4)
+	chr_do_animation(ANIM_01C4, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CASS, 4)
 
 	set_chr_chrflag(CHR_INTRO_SKEDAR, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_INTRO_SKEDAR, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_INTRO_SKEDAR, CHRHFLAG_00020000)
-	chr_do_animation(0x01c5, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_SKEDAR, 4)
+	chr_do_animation(ANIM_01C5, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_SKEDAR, 4)
 
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -2916,17 +2916,17 @@ u8 func1003_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x01c3, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
+	chr_do_animation(ANIM_01C3, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 
 	unset_chr_chrflag(CHR_CASS, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_CASS, CHRHFLAG_00020000)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_00000001)
-	chr_do_animation(0x01c4, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CASS, 2)
+	chr_do_animation(ANIM_01C4, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CASS, 2)
 
 	unset_chr_chrflag(CHR_INTRO_SKEDAR, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_INTRO_SKEDAR, CHRHFLAG_00020000)
 	set_chr_chrflag(CHR_INTRO_SKEDAR, CHRCFLAG_00000001)
-	chr_do_animation(0x01c5, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_SKEDAR, 2)
+	chr_do_animation(ANIM_01C5, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_SKEDAR, 2)
 
 	remove_chr(CHR_INTRO_SKEDAR)
 	set_ailist(CHR_SHY_SKEDAR, AILIST_SHY_SKEDAR_WAIT)
@@ -2950,7 +2950,7 @@ u8 func0c01_outro[] = {
 	set_target_chr(CHR_COOP)
 	label(0x06)
 	disable_object(0x2c)
-	camera_movement(0x01e1)
+	camera_movement(ANIM_01E1)
 	play_cutscene_track(MUSIC_ATTACKSHIP_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
@@ -2959,19 +2959,19 @@ u8 func0c01_outro[] = {
 	set_chr_chrflag(CHR_TARGET, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_TARGET, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_00020000)
-	chr_do_animation(0x01e2, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TARGET, 4)
+	chr_do_animation(ANIM_01E2, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TARGET, 4)
 
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE)
 	set_ailist(CHR_ELVIS, GAILIST_IDLE)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	chr_do_animation(0x01e3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
+	chr_do_animation(ANIM_01E3, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
 
 	enable_object(OBJ_OUTRO_SHUTTLE)
 	set_object_flag2(OBJ_OUTRO_SHUTTLE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_SHUTTLE, OBJFLAG3_00000010)
-	object_do_animation(0x01e4, OBJ_OUTRO_SHUTTLE, 0x04, 0xffff)
+	object_do_animation(ANIM_01E4, OBJ_OUTRO_SHUTTLE, 0x04, 0xffff)
 	object_set_modelpart_visible(OBJ_OUTRO_SHUTTLE, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 
 	show_nonessential_chrs(FALSE)
@@ -3535,9 +3535,9 @@ u8 func1002_hangar_shuttle[] = {
 		if_stage_flag_eq(STAGEFLAG_BRIDGE_CAPTURED, TRUE, /*goto*/ 0x06)
 		if_objective_complete(4, /*goto*/ 0x06)
 #if VERSION >= VERSION_NTSC_1_0
-		object_do_animation(0x045c, OBJ_HANGAR_SHUTTLE, 0x08, 0xffff)
+		object_do_animation(ANIM_045C, OBJ_HANGAR_SHUTTLE, 0x08, 0xffff)
 #else
-		object_do_animation(0x045c, OBJ_HANGAR_SHUTTLE, 0x01, 0xffff)
+		object_do_animation(ANIM_045C, OBJ_HANGAR_SHUTTLE, 0x01, 0xffff)
 #endif
 	endloop(0x08)
 

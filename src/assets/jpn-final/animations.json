@@ -492,7 +492,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_29",
+        "id": "ANIM_0029",
         "file": "0029.bin",
         "numframes": 19,
         "bytesperframe": 42,
@@ -516,7 +516,7 @@
         "flag08": false
     },
     {
-        "id": "ANIM_2B",
+        "id": "ANIM_002B",
         "file": "002b.bin",
         "numframes": 35,
         "bytesperframe": 38,

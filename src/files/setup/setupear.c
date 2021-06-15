@@ -2241,7 +2241,7 @@ u8 func100e_experiment_terminals_destroyed[] = {
 
 u8 func0416_intro[] = {
 	play_cutscene_track(MUSIC_INVESTIGATION_INTRO)
-	camera_movement(0x00f5)
+	camera_movement(ANIM_00F5)
 	cmd0175(60)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -2249,13 +2249,13 @@ u8 func0416_intro[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_00010000)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x00f6, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
+	chr_do_animation(ANIM_00F6, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 
 	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_00010000)
 	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
-	chr_do_animation(0x00f7, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 4)
+	chr_do_animation(ANIM_00F7, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 4)
 
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -2343,12 +2343,12 @@ u8 func0416_intro[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_00010000)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	chr_do_animation(0x00f6, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
+	chr_do_animation(ANIM_00F6, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 
 	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_INVINCIBLE)
 	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
-	chr_do_animation(0x00f7, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 2)
+	chr_do_animation(ANIM_00F7, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 2)
 
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -2356,7 +2356,7 @@ u8 func0416_intro[] = {
 	stop_ambient_track
 	enter_firstperson
 	yield
-	chr_do_animation(0x020b, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 2)
+	chr_do_animation(ANIM_020B, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_INTRO_GUARD, 2)
 	yield
 	kill(CHR_INTRO_GUARD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2377,8 +2377,8 @@ u8 func0417_outro[] = {
 	set_ailist(CHR_K7_GUARD, GAILIST_IDLE)
 	restart_timer
 	dprint 's','h','o','t',' ','1',0,
-	camera_movement(0x00f9)
-	chr_do_animation(0x00fa, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	camera_movement(ANIM_00F9)
+	chr_do_animation(ANIM_00FA, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
 	set_cutscene_weapon(CHR_P1P2, -1, -1)
 	yield
 	set_cutscene_weapon(CHR_P1P2, -1, WEAPON_FALCON2)
@@ -2399,22 +2399,22 @@ u8 func0417_outro[] = {
 
 	dprint 's','h','o','t',' ','2',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
-	camera_movement(0x0140)
-	chr_do_animation(0x0141, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	camera_movement(ANIM_0140)
+	chr_do_animation(ANIM_0141, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
 
 	wait_for_camera(0x09)
 
 	dprint 's','h','o','t',' ','3',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
-	camera_movement(0x0143)
-	chr_do_animation(0x0144, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	camera_movement(ANIM_0143)
+	chr_do_animation(ANIM_0144, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
 
 	wait_for_camera(0x0a)
 
 	dprint 's','h','o','t',' ','4',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
-	camera_movement(0x0146)
-	chr_do_animation(0x0147, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	camera_movement(ANIM_0146)
+	chr_do_animation(ANIM_0147, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
 	restart_timer
 
 	beginloop(0x0b)
@@ -2442,32 +2442,32 @@ u8 func0417_outro[] = {
 	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
-	camera_movement(0x0149)
-	chr_do_animation(0x014a, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
-	chr_do_animation(0x014b, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
+	camera_movement(ANIM_0149)
+	chr_do_animation(ANIM_014A, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	chr_do_animation(ANIM_014B, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0c)
 
 	dprint 's','h','o','t',' ','6',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
-	camera_movement(0x014c)
-	chr_do_animation(0x014d, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
-	chr_do_animation(0x014e, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
+	camera_movement(ANIM_014C)
+	chr_do_animation(ANIM_014D, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	chr_do_animation(ANIM_014E, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0d)
 
 	dprint 's','h','o','t',' ','7',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
-	camera_movement(0x014f)
-	chr_do_animation(0x0150, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
-	chr_do_animation(0x0151, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
+	camera_movement(ANIM_014F)
+	chr_do_animation(ANIM_0150, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	chr_do_animation(ANIM_0151, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0e)
 
 	dprint 's','h','o','t',' ','8',0,
-	camera_movement(0x0152)
-	chr_do_animation(0x0153, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
-	chr_do_animation(0x0154, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
+	camera_movement(ANIM_0152)
+	chr_do_animation(ANIM_0153, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
+	chr_do_animation(ANIM_0154, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0f)
 
