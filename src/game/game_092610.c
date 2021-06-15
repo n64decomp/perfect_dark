@@ -2849,85 +2849,35 @@ glabel func0f093790
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0938ec
-/*  f0938ec:	3c098009 */ 	lui	$t1,%hi(g_Is4Mb)
-/*  f0938f0:	91290af0 */ 	lbu	$t1,%lo(g_Is4Mb)($t1)
-/*  f0938f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0938f8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0938fc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f093900:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f093904:	00808825 */ 	or	$s1,$a0,$zero
-/*  f093908:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f09390c:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f093910:	00003825 */ 	or	$a3,$zero,$zero
-/*  f093914:	2410ffff */ 	addiu	$s0,$zero,-1
-/*  f093918:	15490003 */ 	bne	$t2,$t1,.L0f093928
-/*  f09391c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f093920:	10000002 */ 	b	.L0f09392c
-/*  f093924:	2402001e */ 	addiu	$v0,$zero,0x1e
-.L0f093928:
-/*  f093928:	24020028 */ 	addiu	$v0,$zero,0x28
-.L0f09392c:
-/*  f09392c:	18400026 */ 	blez	$v0,.L0f0939c8
-/*  f093930:	00057100 */ 	sll	$t6,$a1,0x4
-/*  f093934:	3c0f8007 */ 	lui	$t7,%hi(g_AudioChannels)
-/*  f093938:	8defae10 */ 	lw	$t7,%lo(g_AudioChannels)($t7)
-/*  f09393c:	01c57023 */ 	subu	$t6,$t6,$a1
-/*  f093940:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f093944:	24080011 */ 	addiu	$t0,$zero,0x11
-/*  f093948:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*  f09394c:	94980030 */ 	lhu	$t8,0x30($a0)
-.L0f093950:
-/*  f093950:	00801025 */ 	or	$v0,$a0,$zero
-/*  f093954:	24840078 */ 	addiu	$a0,$a0,0x78
-/*  f093958:	33190001 */ 	andi	$t9,$t8,0x1
-/*  f09395c:	17200012 */ 	bnez	$t9,.L0f0939a8
-/*  f093960:	00000000 */ 	nop
-/*  f093964:	944b0032 */ 	lhu	$t3,0x32($v0)
-/*  f093968:	316c0080 */ 	andi	$t4,$t3,0x80
-/*  f09396c:	1580000e */ 	bnez	$t4,.L0f0939a8
-/*  f093970:	00000000 */ 	nop
-/*  f093974:	8c4d0050 */ 	lw	$t5,0x50($v0)
-/*  f093978:	162d000b */ 	bne	$s1,$t5,.L0f0939a8
-/*  f09397c:	00000000 */ 	nop
-/*  f093980:	844e0028 */ 	lh	$t6,0x28($v0)
-/*  f093984:	150e0008 */ 	bne	$t0,$t6,.L0f0939a8
-/*  f093988:	00000000 */ 	nop
-/*  f09398c:	8c430074 */ 	lw	$v1,0x74($v0)
-/*  f093990:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f093994:	0066082b */ 	sltu	$at,$v1,$a2
-/*  f093998:	10200003 */ 	beqz	$at,.L0f0939a8
-/*  f09399c:	00000000 */ 	nop
-/*  f0939a0:	00603025 */ 	or	$a2,$v1,$zero
-/*  f0939a4:	00a08025 */ 	or	$s0,$a1,$zero
-.L0f0939a8:
-/*  f0939a8:	15490003 */ 	bne	$t2,$t1,.L0f0939b8
-/*  f0939ac:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0939b0:	10000002 */ 	b	.L0f0939bc
-/*  f0939b4:	2402001e */ 	addiu	$v0,$zero,0x1e
-.L0f0939b8:
-/*  f0939b8:	24020028 */ 	addiu	$v0,$zero,0x28
-.L0f0939bc:
-/*  f0939bc:	00a2082a */ 	slt	$at,$a1,$v0
-/*  f0939c0:	5420ffe3 */ 	bnezl	$at,.L0f093950
-/*  f0939c4:	94980030 */ 	lhu	$t8,0x30($a0)
-.L0f0939c8:
-/*  f0939c8:	28e10002 */ 	slti	$at,$a3,0x2
-/*  f0939cc:	14200005 */ 	bnez	$at,.L0f0939e4
-/*  f0939d0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0939d4:	52010004 */ 	beql	$s0,$at,.L0f0939e8
-/*  f0939d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0939dc:	0fc24aa6 */ 	jal	func0f092a98
-/*  f0939e0:	02002025 */ 	or	$a0,$s0,$zero
-.L0f0939e4:
-/*  f0939e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0939e8:
-/*  f0939e8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0939ec:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0939f0:	03e00008 */ 	jr	$ra
-/*  f0939f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f0938ec(struct prop *prop)
+{
+	s32 lowestuuid = -1;
+	s32 count = 0;
+	s32 bestindex = -1;
+	s32 i;
+
+	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
+		struct audiochannel *channel = &g_AudioChannels[i];
+
+		if ((channel->flags & AUDIOCHANNELFLAG_IDLE) == 0
+				&& (channel->flags2 & AUDIOCHANNELFLAG2_0080) == 0
+				&& prop == channel->prop
+				&& channel->unk28 == 0x11) {
+			count++;
+
+			if (channel->uuid < lowestuuid) {
+				lowestuuid = channel->uuid;
+				bestindex = i;
+			}
+		}
+	}
+
+	if (1);
+
+	if (count >= 2 && bestindex != -1) {
+		func0f092a98(bestindex);
+	}
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
