@@ -22876,7 +22876,7 @@ void chrTickPatrol(struct chrdata *chr)
 			chrGoPosTickMagic(chr, &chr->act_patrol.waydata, func0f0370a8(chr), &sp58, sp48);
 		}
 
-		func0f006520(chr);
+		chrCheckFootstepMagic(chr);
 	} else {
 		arrivinglaterally = posIsArrivingLaterallyAtPos(&chr->prevpos, &prop->pos, &sp58, 30);
 		arriving = posIsArrivingAtPos(&chr->prevpos, &prop->pos, &sp58, 30);
@@ -22896,7 +22896,7 @@ void chrTickPatrol(struct chrdata *chr)
 		}
 
 		func0f045b9c(chr, &sp58, &chr->act_patrol.waydata, 1);
-		func0f0061dc(chr);
+		chrCheckFootstep(chr);
 	}
 }
 
@@ -23188,10 +23188,10 @@ void chrTick(struct chrdata *chr)
 #endif
 
 		if (pass) {
-			func0f0061dc(chr);
+			chrCheckFootstep(chr);
 		}
 	} else {
-		func0f006520(chr);
+		chrCheckFootstepMagic(chr);
 	}
 }
 
