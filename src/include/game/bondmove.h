@@ -27,7 +27,7 @@ f32 bmoveGetSpeedVertaLimit(f32 value);
 void bmoveUpdateSpeedVerta(f32 value);
 f32 bmoveGetSpeedThetaControlLimit(f32 value);
 void bmoveUpdateSpeedThetaControl(f32 value);
-s32 bmove0f0c8598(void);
+f32 bmoveCalculateLookahead(void);
 void bmoveResetMoveData(struct movedata *data);
 void bmoveProcessInput(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void bmove0f0cb79c(struct player *player, struct coord *arg1, s16 *rooms);
