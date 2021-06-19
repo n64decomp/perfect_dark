@@ -44,7 +44,7 @@ f32 func0f0278a4(struct chrdata *chr);
 void func0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool arg3);
 void func0f027e1c(struct shotdata *shotdata, struct hit *hit);
 void func0f028498(bool value);
-void func0f028590(f32 arg0);
+void chrsCheckForNoise(f32 noiseradius);
 bool func0f028a50(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3);
 s32 func0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3);
 bool func0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr);

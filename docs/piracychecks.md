@@ -60,7 +60,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### func0f028590
+### chrsCheckForNoise
 
 **When Called:** When a guard hears you.
 

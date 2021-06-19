@@ -2571,7 +2571,7 @@ struct player {
 	/*0x016c*/ f32 speedstrafe;
 	/*0x0170*/ f32 speedforwards;    // range -1 to 1
 	/*0x0174*/ f32 speedboost;       // speed multiplier - ranges from 1 to 1.25 - kicks in after 3 seconds of full speed
-	/*0x0178*/ u32 speedmaxtime60;   // amount of time player has held full forward speed
+	/*0x0178*/ s32 speedmaxtime60;   // amount of time player has held full forward speed
 	/*0x017c*/ f32 bondshotspeed[3];
 	/*0x0188*/ f32 bondfadetime60;
 	/*0x018c*/ f32 bondfadetimemax60;

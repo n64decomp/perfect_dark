@@ -189,7 +189,7 @@ class Tool:
         self.patch(algo02, 'cheatMenuHandleDialog', '__scHandleRetrace')
         self.patch(algo03, 'propobjHandlePickupByAibot', 'func0f08e2ac')
         self.patch(algo04, 'chrUncloak', 'propobjHandlePickupByAibot')
-        self.patch(algo05, 'func0f028590', 'func00002078')
+        self.patch(algo05, 'chrsCheckForNoise', 'func00002078')
         self.patch(algo06, 'lvInit', 'lvGetSlowMotionType')
         self.patch(algo07, 'propAllocateEyespy', 'lvInit')
         self.patch(algo08, 'chrConsiderGrenadeThrow', 'bgInit')

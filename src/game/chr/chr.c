@@ -15182,7 +15182,7 @@ void func0f02855c(s32 arg0)
 	func0000db30("selectanimnum", &g_SelectedAnimNum);
 }
 
-void func0f028590(f32 arg0)
+void chrsCheckForNoise(f32 noiseradius)
 {
 	s32 i;
 	f32 add = 0.075f;
@@ -15199,7 +15199,7 @@ void func0f028590(f32 arg0)
 				if (distance == 0) {
 					distance = 2;
 				} else {
-					distance = (arg0 * 100 * g_ChrSlots[i].hearingscale * (1.0f + add)) / distance;
+					distance = (noiseradius * 100 * g_ChrSlots[i].hearingscale * (1.0f + add)) / distance;
 				}
 
 				if (distance > 1.0f) {

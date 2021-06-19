@@ -1128,7 +1128,7 @@ s32 joyCountButtonsOnSpecificSamples(u32 *checksamples, s8 contpadnum, u16 mask)
 	return count;
 }
 
-s8 joyGetStickX(s8 contpadnum)
+s32 joyGetStickX(s8 contpadnum)
 {
 	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		g_JoyBadReadsStickX[contpadnum]++;
@@ -1142,7 +1142,7 @@ s8 joyGetStickX(s8 contpadnum)
 	return g_JoyDataPtr->samples[g_JoyDataPtr->curlast].pads[contpadnum].stick_x;
 }
 
-s8 joyGetStickY(s8 contpadnum)
+s32 joyGetStickY(s8 contpadnum)
 {
 	if (g_JoyDataPtr->unk200 < 0 && (g_JoyConnectedControllers >> contpadnum & 1) == 0) {
 		g_JoyBadReadsStickY[contpadnum]++;
