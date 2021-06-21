@@ -10273,7 +10273,7 @@ glabel chrGiveBriefcase
 /*  f1879ac:	24040057 */ 	li	$a0,0x57
 /*  f1879b0:	0fc221bd */ 	jal	currentPlayerQueuePickupWeaponHudmsg
 /*  f1879b4:	00002825 */ 	move	$a1,$zero
-/*  f1879b8:	0fc21fa0 */ 	jal	func0f087d10
+/*  f1879b8:	0fc21fa0 */ 	jal	weaponPlayPickupSound
 /*  f1879bc:	24040057 */ 	li	$a0,0x57
 .PF0f1879c0:
 /*  f1879c0:	0fc5bdaa */ 	jal	langGet
@@ -10958,7 +10958,7 @@ glabel chrGiveBriefcase
 /*  f1869a8:	24040057 */ 	addiu	$a0,$zero,0x57
 /*  f1869ac:	0fc221f2 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
 /*  f1869b0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1869b4:	0fc21f44 */ 	jal	func0f087d10
+/*  f1869b4:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f1869b8:	24040057 */ 	addiu	$a0,$zero,0x57
 .L0f1869bc:
 /*  f1869bc:	0fc5b9f1 */ 	jal	langGet
@@ -11667,7 +11667,7 @@ glabel chrGiveBriefcase
 /*  f180e10:	24040056 */ 	addiu	$a0,$zero,0x56
 /*  f180e14:	0fc21c09 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
 /*  f180e18:	00002825 */ 	or	$a1,$zero,$zero
-/*  f180e1c:	0fc2195b */ 	jal	func0f087d10
+/*  f180e1c:	0fc2195b */ 	jal	weaponPlayPickupSound
 /*  f180e20:	24040056 */ 	addiu	$a0,$zero,0x56
 .NB0f180e24:
 /*  f180e24:	0fc5a4dd */ 	jal	langGet
@@ -12455,7 +12455,7 @@ s32 chrGiveUplink(struct chrdata *chr, struct prop *prop)
 		} else {
 			invGiveSingleWeapon(WEAPON_DATAUPLINK);
 			currentPlayerQueuePickupWeaponHudmsg(WEAPON_DATAUPLINK, false);
-			func0f087d10(WEAPON_DATAUPLINK);
+			weaponPlayPickupSound(WEAPON_DATAUPLINK);
 
 #if VERSION >= VERSION_NTSC_1_0
 			objRemove2(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);

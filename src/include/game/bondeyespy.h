@@ -14,6 +14,6 @@ s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2);
 s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2);
 void eyespyUpdateVertical(void);
 bool eyespyTryLaunch(void);
-void eyespyProcessInput(bool arg0);
+void eyespyProcessInput(bool allowbuttons);
 
 #endif

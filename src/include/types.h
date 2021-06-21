@@ -2081,7 +2081,7 @@ struct eyespy {
 	/*0x35*/ u8 initialised;
 	/*0x36*/ s8 startuptimer60;
 	/*0x37*/ s8 active;
-	/*0x38*/ u8 buttonheld;
+	/*0x38*/ s8 buttonheld;
 	/*0x39*/ s8 camerabuttonheld;
 	/*0x3a*/ s16 bobdir;
 	/*0x3c*/ u8 bobtimer;

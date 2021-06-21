@@ -251,7 +251,7 @@ void ammotypeGetDeterminer(char *dst, s32 ammotype, s32 qty);
 void ammotypeGetPickupName(char *dst, s32 ammotype, s32 qty);
 void ammotypePlayPickupSound(u32 ammotype);
 s32 propPlayPickupSound(struct prop *prop, s32 weapon);
-void func0f087d10(s32 weaponnum);
+void weaponPlayPickupSound(s32 weaponnum);
 void ammotypeGetPickupMessage(char *dst, s32 ammotype, s32 qty);
 void currentPlayerQueuePickupAmmoHudmsg(s32 ammotype, s32 pickupqty);
 void func0f088028(s32 ammotype, s32 quantity, bool arg2, bool showhudmsg);

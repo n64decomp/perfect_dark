@@ -59416,7 +59416,7 @@ bool propobjInteract(struct prop *prop)
 				obj->hidden |= OBJHFLAG_REAPABLE;
 				invGiveSingleWeapon(WEAPON_LAPTOPGUN);
 				currentPlayerQueuePickupWeaponHudmsg(WEAPON_LAPTOPGUN, false);
-				func0f087d10(WEAPON_LAPTOPGUN);
+				weaponPlayPickupSound(WEAPON_LAPTOPGUN);
 
 				if (laptop->ammoquantity > 0 && laptop->ammoquantity != 255) {
 					s32 newqty = bgunGetAmmoQtyForWeapon(WEAPON_LAPTOPGUN, FUNC_PRIMARY) + laptop->ammoquantity;
@@ -60402,7 +60402,7 @@ s32 propPlayPickupSound(struct prop *prop, s32 weapon)
 			-1, 1024, 0, 0, 0, -1, 0, -1, -1, -1, -1);
 }
 
-void func0f087d10(s32 weaponnum)
+void weaponPlayPickupSound(s32 weaponnum)
 {
 	s32 sound;
 
@@ -61129,7 +61129,7 @@ glabel var7f1aae70
 /*  f088a6c:	00401825 */ 	or	$v1,$v0,$zero
 /*  f088a70:	8fab0074 */ 	lw	$t3,0x74($sp)
 /*  f088a74:	9164005c */ 	lbu	$a0,0x5c($t3)
-/*  f088a78:	0fc21f44 */ 	jal	func0f087d10
+/*  f088a78:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f088a7c:	afa20064 */ 	sw	$v0,0x64($sp)
 /*  f088a80:	8fa30064 */ 	lw	$v1,0x64($sp)
 .L0f088a84:
@@ -61147,7 +61147,7 @@ glabel var7f1aae70
 /*  f088aac:	00401825 */ 	or	$v1,$v0,$zero
 /*  f088ab0:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*  f088ab4:	91a4005c */ 	lbu	$a0,0x5c($t5)
-/*  f088ab8:	0fc21f44 */ 	jal	func0f087d10
+/*  f088ab8:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f088abc:	afa20064 */ 	sw	$v0,0x64($sp)
 /*  f088ac0:	8fa30064 */ 	lw	$v1,0x64($sp)
 .L0f088ac4:
@@ -61159,7 +61159,7 @@ glabel var7f1aae70
 /*  f088ad0:	8fae0074 */ 	lw	$t6,0x74($sp)
 /*  f088ad4:	15e00007 */ 	bnez	$t7,.L0f088af4
 /*  f088ad8:	91c5005c */ 	lbu	$a1,0x5c($t6)
-/*  f088adc:	0fc21f44 */ 	jal	func0f087d10
+/*  f088adc:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f088ae0:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f088ae4:	8fb80074 */ 	lw	$t8,0x74($sp)
 /*  f088ae8:	3c08800a */ 	lui	$t0,%hi(g_Vars)
@@ -61776,7 +61776,7 @@ glabel var7f1aae70
 /*  f088a6c:	00401825 */ 	or	$v1,$v0,$zero
 /*  f088a70:	8fab0074 */ 	lw	$t3,0x74($sp)
 /*  f088a74:	9164005c */ 	lbu	$a0,0x5c($t3)
-/*  f088a78:	0fc21f44 */ 	jal	func0f087d10
+/*  f088a78:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f088a7c:	afa20064 */ 	sw	$v0,0x64($sp)
 /*  f088a80:	8fa30064 */ 	lw	$v1,0x64($sp)
 .L0f088a84:
@@ -61794,7 +61794,7 @@ glabel var7f1aae70
 /*  f088aac:	00401825 */ 	or	$v1,$v0,$zero
 /*  f088ab0:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*  f088ab4:	91a4005c */ 	lbu	$a0,0x5c($t5)
-/*  f088ab8:	0fc21f44 */ 	jal	func0f087d10
+/*  f088ab8:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f088abc:	afa20064 */ 	sw	$v0,0x64($sp)
 /*  f088ac0:	8fa30064 */ 	lw	$v1,0x64($sp)
 .L0f088ac4:
@@ -61806,7 +61806,7 @@ glabel var7f1aae70
 /*  f088ad0:	8fae0074 */ 	lw	$t6,0x74($sp)
 /*  f088ad4:	15e00007 */ 	bnez	$t7,.L0f088af4
 /*  f088ad8:	91c5005c */ 	lbu	$a1,0x5c($t6)
-/*  f088adc:	0fc21f44 */ 	jal	func0f087d10
+/*  f088adc:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f088ae0:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f088ae4:	8fb80074 */ 	lw	$t8,0x74($sp)
 /*  f088ae8:	3c08800a */ 	lui	$t0,%hi(g_Vars)
@@ -62256,7 +62256,7 @@ glabel var7f1aae70
 //					result = chrGiveBriefcase(g_Vars.currentplayer->prop->chr, prop);
 //
 //					if (result) {
-//						func0f087d10(weapon->weaponnum);
+//						weaponPlayPickupSound(weapon->weaponnum);
 //					}
 //
 //					return result;
@@ -62266,7 +62266,7 @@ glabel var7f1aae70
 //					result = chrGiveUplink(g_Vars.currentplayer->prop->chr, prop);
 //
 //					if (result) {
-//						func0f087d10(weapon->weaponnum);
+//						weaponPlayPickupSound(weapon->weaponnum);
 //					}
 //
 //					return result;
@@ -62275,7 +62275,7 @@ glabel var7f1aae70
 //
 //			// acc
 //			if (g_Vars.in_cutscene == false) {
-//				func0f087d10(weapon->weaponnum);
+//				weaponPlayPickupSound(weapon->weaponnum);
 //			}
 //
 //			// af4

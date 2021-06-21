@@ -9,12 +9,14 @@
 #include "game/game_0b69d0.h"
 #include "game/hudmsg.h"
 #include "game/inventory/inventory.h"
+#include "game/mplayer/ingame.h"
 #include "game/game_127910.h"
 #include "game/game_1655c0.h"
 #include "game/lang.h"
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
+#include "lib/joy.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/lib_16110.h"
@@ -23,10 +25,10 @@
 #include "data.h"
 #include "types.h"
 
-u8 var80070ec0 = 0;
-u8 var80070ec4 = 0;
-u32 var80070ec8 = 0x00000000;
-u32 var80070ecc = 0x00000000;
+u8 g_EyespyPickup = false;
+u8 g_EyespyHit = EYESPYHIT_NONE;
+u8 g_EyespyPrevHit = EYESPYHIT_NONE;
+u8 var80070ecc = 0;
 f32 g_EyespyMaxHeight = 160;
 f32 g_EyespyMinHeight = 80;
 u32 g_EyespyFallAccel = 100;
@@ -190,7 +192,7 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 				playernum = g_Vars.currentplayernum;
 
 				if (playernum == propGetPlayerNum(prop)) {
-					var80070ec0 = true;
+					g_EyespyPickup = true;
 				}
 			}
 		}
@@ -218,14 +220,15 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 	struct prop *prop;
 
 	if (result != CDRESULT_NOCOLLISION) {
-		var80070ec4 = 1;
+		g_EyespyHit = EYESPYHIT_BG;
 
 		prop = cdGetObstacle();
 
 		if (prop && g_Vars.lvupdate240 > 0) {
 			if (prop->type == PROPTYPE_DOOR) {
 				struct doorobj *door = prop->door;
-				var80070ec4 = 3;
+
+				g_EyespyHit = EYESPYHIT_DOOR;
 
 				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
 					f32 sp38[3];
@@ -249,16 +252,16 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 
 					if (prop);
 
-					var80070ec4 = 4;
+					g_EyespyHit = EYESPYHIT_LASER;
 				}
 			}
 
 			if (prop->type == PROPTYPE_CHR) {
-				var80070ec4 = 2;
+				g_EyespyHit = EYESPYHIT_CHR;
 			} else if (prop->type == PROPTYPE_PLAYER) {
-				var80070ec4 = 2;
+				g_EyespyHit = EYESPYHIT_CHR;
 			} else if (prop->type == PROPTYPE_OBJ) {
-				var80070ec4 = 5;
+				g_EyespyHit = EYESPYHIT_OBJ;
 			}
 		}
 	}
@@ -532,8 +535,8 @@ void eyespyUpdateVertical(void)
 		}
 	}
 
-	if (var80070ec4 == 0) {
-		var80070ec4 = sp73;
+	if (g_EyespyHit == EYESPYHIT_NONE) {
+		g_EyespyHit = sp73;
 	}
 
 	func0f0220ac(chr);
@@ -2253,7 +2256,7 @@ glabel var7f1adb00
 /*  f0d24e4:	37380400 */ 	ori	$t8,$t9,0x400
 /*  f0d24e8:	370e0010 */ 	ori	$t6,$t8,0x10
 /*  f0d24ec:	adf80018 */ 	sw	$t8,0x18($t7)
-/*  f0d24f0:	0fc21fa0 */ 	jal	func0f087d10
+/*  f0d24f0:	0fc21fa0 */ 	jal	weaponPlayPickupSound
 /*  f0d24f4:	adee0018 */ 	sw	$t6,0x18($t7)
 /*  f0d24f8:	2404002e */ 	li	$a0,0x2e
 /*  f0d24fc:	0fc221bd */ 	jal	currentPlayerQueuePickupWeaponHudmsg
@@ -2803,8 +2806,8 @@ glabel var7f1adb00
 .L0f0d0f70:
 /*  f0d0f70:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0d0f74:	44816000 */ 	mtc1	$at,$f12
-/*  f0d0f78:	3c018007 */ 	lui	$at,%hi(var80070ec0)
-/*  f0d0f7c:	a0200ec0 */ 	sb	$zero,%lo(var80070ec0)($at)
+/*  f0d0f78:	3c018007 */ 	lui	$at,%hi(g_EyespyPickup)
+/*  f0d0f7c:	a0200ec0 */ 	sb	$zero,%lo(g_EyespyPickup)($at)
 /*  f0d0f80:	c522004c */ 	lwc1	$f2,0x4c($t1)
 /*  f0d0f84:	46006006 */ 	mov.s	$f0,$f12
 /*  f0d0f88:	4602603c */ 	c.lt.s	$f12,$f2
@@ -3448,10 +3451,10 @@ glabel var7f1adb00
 /*  f0d1900:	c7a000e0 */ 	lwc1	$f0,0xe0($sp)
 .L0f0d1904:
 /*  f0d1904:	c4640044 */ 	lwc1	$f4,0x44($v1)
-/*  f0d1908:	3c028007 */ 	lui	$v0,%hi(var80070ec4)
-/*  f0d190c:	24420ec4 */ 	addiu	$v0,$v0,%lo(var80070ec4)
+/*  f0d1908:	3c028007 */ 	lui	$v0,%hi(g_EyespyHit)
+/*  f0d190c:	24420ec4 */ 	addiu	$v0,$v0,%lo(g_EyespyHit)
 /*  f0d1910:	46002282 */ 	mul.s	$f10,$f4,$f0
-/*  f0d1914:	3c018007 */ 	lui	$at,%hi(var80070ec8)
+/*  f0d1914:	3c018007 */ 	lui	$at,%hi(g_EyespyPrevHit)
 /*  f0d1918:	e46a0044 */ 	swc1	$f10,0x44($v1)
 /*  f0d191c:	8d2e0284 */ 	lw	$t6,0x284($t1)
 /*  f0d1920:	8dc30480 */ 	lw	$v1,0x480($t6)
@@ -3520,7 +3523,7 @@ glabel var7f1adb00
 /*  f0d1a1c:	46085182 */ 	mul.s	$f6,$f10,$f8
 /*  f0d1a20:	e4660018 */ 	swc1	$f6,0x18($v1)
 /*  f0d1a24:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f0d1a28:	a02e0ec8 */ 	sb	$t6,%lo(var80070ec8)($at)
+/*  f0d1a28:	a02e0ec8 */ 	sb	$t6,%lo(g_EyespyPrevHit)($at)
 /*  f0d1a2c:	a0400000 */ 	sb	$zero,0x0($v0)
 /*  f0d1a30:	3c018007 */ 	lui	$at,%hi(var80070ecc)
 /*  f0d1a34:	0fc33f89 */ 	jal	eyespyUpdateVertical
@@ -3528,14 +3531,14 @@ glabel var7f1adb00
 /*  f0d1a3c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d1a40:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f0d1a44:	8d390284 */ 	lw	$t9,0x284($t1)
-/*  f0d1a48:	3c188007 */ 	lui	$t8,%hi(var80070ec4)
-/*  f0d1a4c:	3c0e8007 */ 	lui	$t6,%hi(var80070ec8)
+/*  f0d1a48:	3c188007 */ 	lui	$t8,%hi(g_EyespyHit)
+/*  f0d1a4c:	3c0e8007 */ 	lui	$t6,%hi(g_EyespyPrevHit)
 /*  f0d1a50:	8f230480 */ 	lw	$v1,0x480($t9)
 /*  f0d1a54:	806f0037 */ 	lb	$t7,0x37($v1)
 /*  f0d1a58:	51e0007f */ 	beqzl	$t7,.L0f0d1c58
 /*  f0d1a5c:	3c0144c8 */ 	lui	$at,0x44c8
-/*  f0d1a60:	93180ec4 */ 	lbu	$t8,%lo(var80070ec4)($t8)
-/*  f0d1a64:	91ce0ec8 */ 	lbu	$t6,%lo(var80070ec8)($t6)
+/*  f0d1a60:	93180ec4 */ 	lbu	$t8,%lo(g_EyespyHit)($t8)
+/*  f0d1a64:	91ce0ec8 */ 	lbu	$t6,%lo(g_EyespyPrevHit)($t6)
 /*  f0d1a68:	51d8007b */ 	beql	$t6,$t8,.L0f0d1c58
 /*  f0d1a6c:	3c0144c8 */ 	lui	$at,0x44c8
 /*  f0d1a70:	1b000078 */ 	blez	$t8,.L0f0d1c54
@@ -3744,8 +3747,8 @@ glabel var7f1adb00
 .L0f0d1d84:
 /*  f0d1d84:	8faf00a4 */ 	lw	$t7,0xa4($sp)
 .L0f0d1d88:
-/*  f0d1d88:	3c0a8007 */ 	lui	$t2,%hi(var80070ec0)
-/*  f0d1d8c:	254a0ec0 */ 	addiu	$t2,$t2,%lo(var80070ec0)
+/*  f0d1d88:	3c0a8007 */ 	lui	$t2,%hi(g_EyespyPickup)
+/*  f0d1d8c:	254a0ec0 */ 	addiu	$t2,$t2,%lo(g_EyespyPickup)
 /*  f0d1d90:	51e0000d */ 	beqzl	$t7,.L0f0d1dc8
 /*  f0d1d94:	8fb800a0 */ 	lw	$t8,0xa0($sp)
 /*  f0d1d98:	80780037 */ 	lb	$t8,0x37($v1)
@@ -3786,8 +3789,8 @@ glabel var7f1adb00
 /*  f0d1e18:	a1c00038 */ 	sb	$zero,0x38($t6)
 .L0f0d1e1c:
 /*  f0d1e1c:	8d390284 */ 	lw	$t9,0x284($t1)
-/*  f0d1e20:	3c188007 */ 	lui	$t8,%hi(var80070ec4)
-/*  f0d1e24:	93180ec4 */ 	lbu	$t8,%lo(var80070ec4)($t8)
+/*  f0d1e20:	3c188007 */ 	lui	$t8,%hi(g_EyespyHit)
+/*  f0d1e24:	93180ec4 */ 	lbu	$t8,%lo(g_EyespyHit)($t8)
 /*  f0d1e28:	8f2f0480 */ 	lw	$t7,0x480($t9)
 /*  f0d1e2c:	a1f80069 */ 	sb	$t8,0x69($t7)
 /*  f0d1e30:	8d2d0284 */ 	lw	$t5,0x284($t1)
@@ -3834,13 +3837,13 @@ glabel var7f1adb00
 /*  f0d1ed0:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d1ed4:	14400003 */ 	bnez	$v0,.L0f0d1ee4
 /*  f0d1ed8:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
-/*  f0d1edc:	3c018007 */ 	lui	$at,%hi(var80070ec0)
-/*  f0d1ee0:	a0200ec0 */ 	sb	$zero,%lo(var80070ec0)($at)
+/*  f0d1edc:	3c018007 */ 	lui	$at,%hi(g_EyespyPickup)
+/*  f0d1ee0:	a0200ec0 */ 	sb	$zero,%lo(g_EyespyPickup)($at)
 .L0f0d1ee4:
 /*  f0d1ee4:	8d2d0284 */ 	lw	$t5,0x284($t1)
 .L0f0d1ee8:
-/*  f0d1ee8:	3c0a8007 */ 	lui	$t2,%hi(var80070ec0)
-/*  f0d1eec:	254a0ec0 */ 	addiu	$t2,$t2,%lo(var80070ec0)
+/*  f0d1ee8:	3c0a8007 */ 	lui	$t2,%hi(g_EyespyPickup)
+/*  f0d1eec:	254a0ec0 */ 	addiu	$t2,$t2,%lo(g_EyespyPickup)
 /*  f0d1ef0:	8db80480 */ 	lw	$t8,0x480($t5)
 /*  f0d1ef4:	830f0037 */ 	lb	$t7,0x37($t8)
 /*  f0d1ef8:	51e00003 */ 	beqzl	$t7,.L0f0d1f08
@@ -3865,7 +3868,7 @@ glabel var7f1adb00
 /*  f0d1f40:	35d90400 */ 	ori	$t9,$t6,0x400
 /*  f0d1f44:	372f0010 */ 	ori	$t7,$t9,0x10
 /*  f0d1f48:	af190018 */ 	sw	$t9,0x18($t8)
-/*  f0d1f4c:	0fc21f44 */ 	jal	func0f087d10
+/*  f0d1f4c:	0fc21f44 */ 	jal	weaponPlayPickupSound
 /*  f0d1f50:	af0f0018 */ 	sw	$t7,0x18($t8)
 /*  f0d1f54:	2404002e */ 	addiu	$a0,$zero,0x2e
 /*  f0d1f58:	0fc221f2 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
@@ -5496,7 +5499,7 @@ glabel var7f1adb00
 /*  f0cf70c:	370f0400 */ 	ori	$t7,$t8,0x400
 /*  f0cf710:	35f90010 */ 	ori	$t9,$t7,0x10
 /*  f0cf714:	adcf0018 */ 	sw	$t7,0x18($t6)
-/*  f0cf718:	0fc2195b */ 	jal	func0f087d10
+/*  f0cf718:	0fc2195b */ 	jal	weaponPlayPickupSound
 /*  f0cf71c:	add90018 */ 	sw	$t9,0x18($t6)
 /*  f0cf720:	2404002e */ 	addiu	$a0,$zero,0x2e
 /*  f0cf724:	0fc21c09 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
@@ -5534,3 +5537,546 @@ glabel var7f1adb00
 /*  f0cf79c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+// Mismatch: fVar21 should stay in f18 but is being written to the stack.
+//void eyespyProcessInput(bool allowbuttons)
+//{
+//	struct chrdata *chr = g_Vars.currentplayer->eyespy->prop->chr; // e4
+//	f32 spe0 = 0.956f; // e0
+//	f32 f;
+//	s32 i;
+//	f32 spd4; // d4
+//	f32 spd0; // d0
+//	f32 spcc; // cc
+//	f32 fVar21;
+//	f32 spc4; // c4
+//	s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex); // c3
+//	s8 c1stickx = joyGetStickX(contpad1); // c2
+//	s8 c2stickx; // c1
+//	s8 c1sticky = joyGetStickY(contpad1); // c0
+//	s8 c2sticky; // bf
+//	u16 c1buttons = allowbuttons ? joyGetButtons(contpad1, 0xffff) : 0; // bc
+//	u16 c2buttons;
+//	bool domovecentre = true; // b4
+//	s32 controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex); // b0
+//
+//	bool aimpressed;
+//	bool shootpressed; // a8
+//	bool exitpressed; // a4
+//	bool activatepressed; // a0
+//	f32 forwardspeed; // 9c
+//	f32 pitchspeed; // 98
+//	f32 sidespeed; // 94
+//	f32 angle;
+//	f32 ascendspeed; // 8c
+//	f32 prevverta;
+//	s16 prevrooms[8]; // 78
+//	s32 contpad2; // 74
+//	u32 stack[5];
+//
+//	forwardspeed = 0.0f;
+//	pitchspeed = 0.0f;
+//	sidespeed = 0.0f;
+//	ascendspeed = 0.0f;
+//	prevverta = g_Vars.currentplayer->eyespy->verta;
+//
+//	// a30
+//	if (controlmode >= CONTROLMODE_21) {
+//		contpad2 = (s8) optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
+//		c2stickx = joyGetStickX(contpad2);
+//		c2sticky = joyGetStickY(contpad2);
+//
+//		c2buttons = allowbuttons ? joyGetButtons(contpad2, 0xffff) : 0;
+//	} else {
+//		c2stickx = c1stickx;
+//		c2sticky = c1sticky;
+//		c2buttons = c1buttons;
+//	}
+//
+//	// b28
+//	if (controlmode == CONTROLMODE_13 || controlmode == CONTROLMODE_14) {
+//		aimpressed = c1buttons & Z_TRIG;
+//		shootpressed = c1buttons & A_BUTTON;
+//		exitpressed = c1buttons & R_TRIG;
+//		activatepressed = c1buttons & B_BUTTON;
+//	} else if (controlmode <= CONTROLMODE_14) {
+//		aimpressed = c1buttons & (L_TRIG | R_TRIG);
+//		shootpressed = c1buttons & Z_TRIG;
+//		exitpressed = c1buttons & A_BUTTON;
+//		activatepressed = c1buttons & B_BUTTON;
+//	} else {
+//		if (controlmode >= CONTROLMODE_23) {
+//			aimpressed = c1buttons & Z_TRIG;
+//			shootpressed = c2buttons & Z_TRIG;
+//		} else {
+//			aimpressed = c2buttons & Z_TRIG;
+//			shootpressed = c1buttons & Z_TRIG;
+//		}
+//
+//		exitpressed = (c1buttons | c2buttons) & A_BUTTON;
+//		activatepressed = (c1buttons | c2buttons) & B_BUTTON;
+//	}
+//
+//	// Apply safe zone for c1stickx
+//	// bcc
+//	if (c1stickx > -10 && c1stickx < 10) {
+//		c1stickx = 0;
+//	}
+//
+//	// be8
+//	if (c1stickx <= -10) {
+//		c1stickx += 10;
+//	}
+//
+//	// c00
+//	if (c1stickx >= 10) {
+//		c1stickx -= 10;
+//	}
+//
+//	// Apply safe zone for c2stickx
+//	// c18
+//	if (c2stickx > -10 && c2stickx < 10) {
+//		c2stickx = 0;
+//	}
+//
+//	// c30
+//	if (c2stickx <= -10) {
+//		c2stickx += 10;
+//	}
+//
+//	// c48
+//	if (c2stickx >= 10) {
+//		c2stickx -= 10;
+//	}
+//
+//	// Apply safe zone for c1sticky
+//	// c60
+//	if (c1sticky > -20 && c1sticky < 20) {
+//		c1sticky = 0;
+//	}
+//
+//	// c78
+//	if (c1sticky <= -20) {
+//		c1sticky += 20;
+//	}
+//
+//	// c90
+//	if (c1sticky >= 20) {
+//		c1sticky -= 20;
+//	}
+//
+//	// Apply safe zone for c2sticky
+//	// ca8
+//	if (c2sticky > -20 && c2sticky < 20) {
+//		c2sticky = 0;
+//	}
+//
+//	// cc8
+//	if (c2sticky <= -20) {
+//		c2sticky += 20;
+//	}
+//
+//	// ce0
+//	if (c2sticky >= 20) {
+//		c2sticky -= 20;
+//	}
+//
+//	// cf4
+//	c1sticky *= 0.3f;
+//	c2sticky *= 0.3f;
+//
+//	// d30
+//	if (controlmode == CONTROLMODE_11 || controlmode == CONTROLMODE_13) {
+//		// d44
+//		if (aimpressed) {
+//			domovecentre = false;
+//			pitchspeed = c1sticky;
+//		} else {
+//			forwardspeed = c1sticky;
+//		}
+//
+//		ascendspeed = (c1buttons & (U_CBUTTONS | U_JPAD) ? 1 : 0) - (c1buttons & (D_CBUTTONS | D_JPAD) ? 1 : 0);
+//		sidespeed = (c1buttons & (R_CBUTTONS | R_JPAD) ? 1 : 0) - (c1buttons & (L_CBUTTONS | L_JPAD) ? 1 : 0);
+//	} else /*dec*/ if (controlmode <= CONTROLMODE_14) {
+//		//df4
+//		if (aimpressed) {
+//			domovecentre = false;
+//			pitchspeed = c1sticky;
+//		} else {
+//			ascendspeed = c1sticky * 0.25f;
+//			forwardspeed = (c1buttons & (U_CBUTTONS | U_JPAD) ? 24.0f : 0) - (c1buttons & (D_CBUTTONS | D_JPAD) ? 24.0f : 0);
+//		}
+//
+//		// e70
+//		sidespeed = (c1buttons & (R_CBUTTONS | R_JPAD) ? 1 : 0) - (c1buttons & (L_CBUTTONS | L_JPAD) ? 1 : 0);
+//	} else /*eac*/ if (controlmode == CONTROLMODE_21 || controlmode == CONTROLMODE_23) {
+//		// ebc
+//		forwardspeed = c1sticky;
+//
+//		if (aimpressed) {
+//			pitchspeed = c2sticky;
+//		} else {
+//			ascendspeed = c2sticky * 0.25f;
+//		}
+//
+//		sidespeed = c2stickx * 0.0125f;
+//	} else {
+//		// f18
+//		if (aimpressed) {
+//			pitchspeed = c1sticky;
+//		} else {
+//			ascendspeed = c1sticky * 0.25f;
+//		}
+//
+//		forwardspeed = c2sticky;
+//		sidespeed = c2stickx * 0.0125f;
+//	}
+//
+//	g_EyespyPickup = false;
+//
+//#if VERSION >= VERSION_PAL_FINAL
+//	for (f = 1; f < g_Vars.lvupdate240_60; f++) {
+//		spe0 *= 0.956f;
+//	}
+//#else
+//	for (f = 1; f < g_Vars.lvupdate240freal; f++) {
+//		spe0 *= 0.956f;
+//	}
+//#endif
+//
+//	if (g_Vars.currentplayer->eyespy->startuptimer60 < 50) {
+//		g_Vars.currentplayer->eyespy->startuptimer60 += g_Vars.lvupdate240_60;
+//	} else {
+//		g_Vars.currentplayer->eyespy->startuptimer60 = 50;
+//	}
+//
+//	chr->prevpos.x = g_Vars.currentplayer->eyespy->prop->pos.x;
+//	chr->prevpos.y = g_Vars.currentplayer->eyespy->prop->pos.y;
+//	chr->prevpos.z = g_Vars.currentplayer->eyespy->prop->pos.z;
+//
+//	roomsCopy(g_Vars.currentplayer->eyespy->prop->rooms, prevrooms);
+//
+//	// 04c
+//	if (!invHasSingleWeaponIncAllGuns(WEAPON_EYESPY)) {
+//		g_Vars.currentplayer->eyespy->initialised = false;
+//		g_Vars.currentplayer->eyespy->init = true;
+//		g_Vars.currentplayer->eyespy->active = false;
+//
+//		chr->chrflags |= CHRCFLAG_HIDDEN;
+//
+//		propClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
+//	}
+//
+//	// 0e8
+//	if (g_Vars.currentplayer->eyespy->active && g_PlayersWithControl[g_Vars.currentplayernum]) {
+//		// 10c
+//		g_Vars.currentplayer->joybutinhibit = 0xffffffff;
+//
+//#if VERSION < VERSION_NTSC_1_0
+//		if (g_Vars.currentplayer->isdead == false
+//				&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
+//				&& (c1buttons & START_BUTTON)) {
+//			if (!g_Vars.normmplayerisrunning) {
+//				currentPlayerPause(MENUROOT_MAINMENU);
+//			} else {
+//				mpPushPauseDialog();
+//			}
+//		}
+//#endif
+//
+//		// Update theta
+//		g_Vars.currentplayer->eyespy->theta += c1stickx * 0.0625f * g_Vars.lvupdate240freal;
+//
+//		while (g_Vars.currentplayer->eyespy->theta < 0.0f) {
+//			g_Vars.currentplayer->eyespy->theta += 360;
+//		}
+//
+//		while (g_Vars.currentplayer->eyespy->theta >= 360) {
+//			g_Vars.currentplayer->eyespy->theta -= 360;
+//		}
+//
+//		// 1cc
+//		g_Vars.currentplayer->eyespy->costheta = cosf(g_Vars.currentplayer->eyespy->theta * 0.017453292384744f);
+//		g_Vars.currentplayer->eyespy->sintheta = sinf(g_Vars.currentplayer->eyespy->theta * 0.017453292384744f);
+//
+//		// Update verta
+//		g_Vars.currentplayer->eyespy->verta -= pitchspeed * 0.0625f * g_Vars.lvupdate240freal;
+//
+//		// 278
+//		if (prevverta != g_Vars.currentplayer->eyespy->verta) {
+//			while (g_Vars.currentplayer->eyespy->verta < 0.0f) {
+//				g_Vars.currentplayer->eyespy->verta += 360;
+//			}
+//
+//			while (g_Vars.currentplayer->eyespy->verta >= 360) {
+//				g_Vars.currentplayer->eyespy->verta -= 360;
+//			}
+//
+//			g_Vars.currentplayer->eyespy->cosverta = cosf(g_Vars.currentplayer->eyespy->verta * 0.017453292384744f);
+//			g_Vars.currentplayer->eyespy->sinverta = sinf(g_Vars.currentplayer->eyespy->verta * 0.017453292384744f);
+//		}
+//
+//		// 358
+//		spc4 = 0.0f;
+//		fVar21 = 0.0f;
+//		spcc = 0.0f;
+//		spd0 = 0.0f;
+//		spd4 = 0.0f;
+//
+//		// 368
+//		// Make eyespy look horizontally
+//		if (domovecentre) {
+//			if (g_Vars.currentplayer->eyespy->verta > 0.0f && forwardspeed != 0) {
+//				f32 increment;
+//
+//				// 3b0
+//				if (g_Vars.currentplayer->eyespy->verta < 180) {
+//					increment = g_Vars.currentplayer->eyespy->verta;
+//
+//					// 3d4
+//					for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+//						increment *= 0.04f;
+//						g_Vars.currentplayer->eyespy->verta -= increment;
+//					}
+//				} else {
+//					increment = 360 - g_Vars.currentplayer->eyespy->verta;
+//
+//					// 428
+//					for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+//						increment *= 0.04f;
+//						g_Vars.currentplayer->eyespy->verta += increment;
+//					}
+//				}
+//
+//				g_Vars.currentplayer->eyespy->cosverta = cosf(g_Vars.currentplayer->eyespy->verta * 0.017453292384744f);
+//				g_Vars.currentplayer->eyespy->sinverta = sinf(g_Vars.currentplayer->eyespy->verta * 0.017453292384744f);
+//			}
+//
+//			spcc += forwardspeed * g_Vars.currentplayer->eyespy->sintheta * 0.04f * g_Vars.lvupdate240freal;
+//			fVar21 += -forwardspeed * g_Vars.currentplayer->eyespy->costheta * 0.04f * g_Vars.lvupdate240freal;
+//		}
+//
+//		// 528
+//		if (sidespeed != 0) {
+//			spd4 += sidespeed * 5 * g_Vars.currentplayer->eyespy->costheta * 0.15f * g_Vars.lvupdate240freal;
+//			spd0 += sidespeed * 5 * g_Vars.currentplayer->eyespy->sintheta * 0.15f * g_Vars.lvupdate240freal;
+//		}
+//
+//		// 594
+//		if (ascendspeed != 0) {
+//			spc4 += ascendspeed * 3 * 0.15f * g_Vars.lvupdate240freal;
+//
+//			g_Vars.currentplayer->eyespy->bobdir = (ascendspeed < 0.0f) ? -1 : 1;
+//			g_Vars.currentplayer->eyespy->bobtimer = 0;
+//			g_Vars.currentplayer->eyespy->bobactive = false;
+//		}
+//
+//		// 5fc
+//		g_Vars.currentplayer->eyespy->velf[0] += spcc;
+//		g_Vars.currentplayer->eyespy->velf[1] += fVar21;
+//		g_Vars.currentplayer->eyespy->vels[0] += spd4;
+//		g_Vars.currentplayer->eyespy->vels[1] += spd0;
+//
+//		spcc = g_Vars.currentplayer->eyespy->velf[0] * g_Vars.currentplayer->eyespy->velf[0]
+//			+ g_Vars.currentplayer->eyespy->velf[1] * g_Vars.currentplayer->eyespy->velf[1];
+//
+//		// 68c
+//		if (spcc > 90.25f * g_Vars.lvupdate240freal * g_Vars.lvupdate240freal) {
+//			spcc = 9.5f * g_Vars.lvupdate240freal / sqrtf(spcc);
+//
+//			g_Vars.currentplayer->eyespy->velf[0] *= spcc;
+//			g_Vars.currentplayer->eyespy->velf[1] *= spcc;
+//		}
+//
+//		// 6f0
+//		spd4 = g_Vars.currentplayer->eyespy->vels[0] * g_Vars.currentplayer->eyespy->vels[0]
+//			+ g_Vars.currentplayer->eyespy->vels[1] * g_Vars.currentplayer->eyespy->vels[1];
+//
+//		// 720
+//		if (spd4 > g_Vars.lvupdate240freal * 225.0f * g_Vars.lvupdate240freal) {
+//			spd4 = 15.0f * g_Vars.lvupdate240freal / sqrtf(spd4);
+//
+//			g_Vars.currentplayer->eyespy->vels[0] *= spd4;
+//			g_Vars.currentplayer->eyespy->vels[1] *= spd4;
+//		}
+//
+//		g_Vars.currentplayer->eyespy->vel.y += spc4;
+//
+//		// 7c4
+//		if (g_Vars.currentplayer->eyespy->vel.y < -(5 * g_Vars.lvupdate240freal)) {
+//			g_Vars.currentplayer->eyespy->vel.y = -(5 * g_Vars.lvupdate240freal);
+//		}
+//
+//		if (g_Vars.currentplayer->eyespy->vel.y > 5 * g_Vars.lvupdate240freal) {
+//			g_Vars.currentplayer->eyespy->vel.y = 5 * g_Vars.lvupdate240freal;
+//		}
+//	} else {
+//		g_Vars.currentplayer->eyespy->bobactive = true;
+//	}
+//
+//	// 824
+//	// Update bob
+//	if (spc4 == 0.0f) {
+//		if (g_Vars.currentplayer->eyespy->bobactive || ABS(g_Vars.currentplayer->eyespy->vel.y) < 0.1f) {
+//			g_Vars.currentplayer->eyespy->bobactive = true;
+//			g_Vars.currentplayer->eyespy->bobtimer += g_Vars.lvupdate240_60;
+//			g_Vars.currentplayer->eyespy->vel.y += 0.025f * g_Vars.currentplayer->eyespy->bobdir;
+//
+//			if (g_Vars.currentplayer->eyespy->bobtimer > 120) {
+//				g_Vars.currentplayer->eyespy->bobtimer = 0;
+//				g_Vars.currentplayer->eyespy->bobdir = -g_Vars.currentplayer->eyespy->bobdir;
+//			}
+//		}
+//	}
+//
+//	// 904
+//	g_Vars.currentplayer->eyespy->vel.y *= spe0;
+//
+//	g_Vars.currentplayer->eyespy->vels[0] *= spe0;
+//	g_Vars.currentplayer->eyespy->vels[1] *= spe0;
+//	g_Vars.currentplayer->eyespy->velf[0] *= spe0;
+//	g_Vars.currentplayer->eyespy->velf[1] *= spe0;
+//
+//	g_Vars.currentplayer->eyespy->vel.x = g_Vars.currentplayer->eyespy->vels[0] + g_Vars.currentplayer->eyespy->velf[0];
+//	g_Vars.currentplayer->eyespy->vel.z = g_Vars.currentplayer->eyespy->vels[1] + g_Vars.currentplayer->eyespy->velf[1];
+//
+//	g_Vars.currentplayer->eyespy->look.y = g_Vars.currentplayer->eyespy->sinverta;
+//	g_Vars.currentplayer->eyespy->look.x = g_Vars.currentplayer->eyespy->cosverta * g_Vars.currentplayer->eyespy->sintheta;
+//	g_Vars.currentplayer->eyespy->look.z = -g_Vars.currentplayer->eyespy->cosverta * g_Vars.currentplayer->eyespy->costheta;
+//
+//	g_Vars.currentplayer->eyespy->up.y = g_Vars.currentplayer->eyespy->cosverta;
+//	g_Vars.currentplayer->eyespy->up.x = -g_Vars.currentplayer->eyespy->sinverta * g_Vars.currentplayer->eyespy->sintheta;
+//	g_Vars.currentplayer->eyespy->up.z = g_Vars.currentplayer->eyespy->sinverta * g_Vars.currentplayer->eyespy->costheta;
+//
+//	g_EyespyPrevHit = g_EyespyHit;
+//	g_EyespyHit = EYESPYHIT_NONE;
+//	var80070ecc = 0;
+//
+//	eyespyUpdateVertical();
+//
+//	// a58
+//	// Consider playing the tap sound when the eyespy is driven into a wall or object
+//	if (g_Vars.currentplayer->eyespy->active && g_EyespyPrevHit != g_EyespyHit && g_EyespyHit > 0 && chr->soundtimer > 10) {
+//		chr->soundtimer = 0;
+//
+//		switch (g_EyespyHit) {
+//		case EYESPYHIT_BG: // f0d1aac
+//			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+//			break;
+//		case EYESPYHIT_OBJ: // f0d1b00
+//			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+//			break;
+//		case EYESPYHIT_DOOR: // f0d1b54
+//			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+//			break;
+//		case EYESPYHIT_CHR: // f0d1ba8
+//			snd00010718(NULL, 0, 16000, 0x40, SFX_EYESPYHIT, 1, 1, -1, 1);
+//			break;
+//		case EYESPYHIT_LASER: // f0d1bfc
+//			sndStart(var80095200, SFX_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);
+//			break;
+//		default:
+//			break;
+//		}
+//	}
+//
+//	// c54
+//	// Apply speed and angle
+//	if (g_Vars.currentplayer->eyespy->speed > 1600) {
+//		g_Vars.currentplayer->eyespy->speed = 1600;
+//	}
+//
+//	func0f093790(g_Vars.currentplayer->eyespy->prop, g_Vars.currentplayer->eyespy->speed / 1600 * 400.0f);
+//
+//	angle = 180 - g_Vars.currentplayer->eyespy->theta;
+//
+//	if (angle < 0) {
+//		angle += 360;
+//	}
+//
+//	angle = angle / 360 * M_BADTAU;
+//
+//	chrSetLookAngle(chr, angle);
+//
+//	if (g_Vars.currentplayer->eyespy->startuptimer60 < 50) {
+//		return;
+//	}
+//
+//	// Handle trigger
+//	// d2c
+//	if (g_Vars.currentplayer->eyespy->camerashuttertime <= 0 && shootpressed && g_Vars.currentplayer->eyespy->active) {
+//		if (g_Vars.currentplayer->eyespy->camerabuttonheld == false) {
+//			g_Vars.currentplayer->eyespy->camerabuttonheld = true;
+//			g_Vars.currentplayer->eyespy->camerashuttertime = 24;
+//		}
+//	} else {
+//		// d78
+//		g_Vars.currentplayer->eyespy->camerabuttonheld = false;
+//	}
+//
+//	// Handle exit
+//	// d90
+//	if (exitpressed && g_Vars.currentplayer->eyespy->active) {
+//		g_Vars.currentplayer->eyespy->active = false;
+//		g_Vars.currentplayer->devicesactive &= ~DEVICE_EYESPY;
+//	}
+//
+//	// Handle B button activation
+//	if (activatepressed && g_Vars.currentplayer->eyespy->active) {
+//		if (g_Vars.currentplayer->eyespy->buttonheld == false) {
+//			g_Vars.currentplayer->eyespy->buttonheld = true;
+//			g_Vars.currentplayer->eyespy->opendoor = true;
+//		} else {
+//			g_Vars.currentplayer->eyespy->opendoor = false;
+//		}
+//	} else {
+//		g_Vars.currentplayer->eyespy->opendoor = false;
+//		g_Vars.currentplayer->eyespy->buttonheld = false;
+//	}
+//
+//	g_Vars.currentplayer->eyespy->hit = g_EyespyHit;
+//
+//	// Check if the eyespy is inactive and coasting into the player's pickup range
+//	if (g_Vars.currentplayer->eyespy->active == false && !g_EyespyPickup) {
+//		s32 cdresult;
+//
+//		f32 xdiff = g_Vars.currentplayer->eyespy->prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+//		f32 zdiff = g_Vars.currentplayer->eyespy->prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+//
+//		g_EyespyPickup = true;
+//
+//		if (xdiff * xdiff + zdiff * zdiff > 100 * 100) {
+//			g_EyespyPickup = false;
+//		}
+//
+//		cdresult = hasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+//				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms, 0x22, 0x1c);
+//
+//		if (cdresult == CDRESULT_COLLISION) {
+//			// Something's in the way
+//			g_EyespyPickup = false;
+//		}
+//	}
+//
+//	// Sanity check - can't pick up the eyespy while it's active
+//	if (g_Vars.currentplayer->eyespy->active) {
+//		g_EyespyPickup = false;
+//	}
+//
+//	// Handle pickup
+//	if (g_EyespyPickup) {
+//		g_Vars.currentplayer->eyespy->initialised = false;
+//		g_Vars.currentplayer->eyespy->init = true;
+//		g_Vars.currentplayer->eyespy->active = false;
+//
+//		chr->chrflags |= CHRCFLAG_HIDDEN;
+//		chr->chrflags |= CHRCFLAG_INVINCIBLE;
+//
+//		weaponPlayPickupSound(WEAPON_EYESPY);
+//		currentPlayerQueuePickupWeaponHudmsg(WEAPON_EYESPY, false);
+//		func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
+//		propClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
+//	}
+//
+//	coordTriggerProxies(&chr->prop->pos, true);
+//}
