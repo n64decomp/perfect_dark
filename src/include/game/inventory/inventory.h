@@ -27,7 +27,7 @@ bool invGiveProp(struct prop *prop);
 void invRemoveProp(struct prop *prop);
 s32 invGiveWeaponsByProp(struct prop *prop);
 void invChooseCycleForwardWeapon(s32 *weaponnum1, s32 *weaponnum2, bool arg2);
-void invChooseCycleBackWeapon(s32 *weaponnum1, s32 *weaponnum2, s32 arg2);
+void invChooseCycleBackWeapon(s32 *weaponnum1, s32 *weaponnum2, bool arg2);
 bool invHasKeyFlags(u32 wantkeyflags);
 bool invHasBriefcase(void);
 bool invHasDataUplink(void);
