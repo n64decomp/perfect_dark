@@ -25021,55 +25021,22 @@ void bgun0f0a6c30(void)
 	bgunIsUsingSecondaryFunction();
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-s8 bgunFreeFireslotWrapper(s32 fireslot_id)
+s8 bgunFreeFireslotWrapper(s32 slotnum)
 {
-	return bgunFreeFireslot(fireslot_id);
-}
-#else
-GLOBAL_ASM(
-glabel bgunFreeFireslotWrapper
-/*  f0a4d84:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a4d88:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a4d8c:	0480001b */ 	bltz	$a0,.NB0f0a4dfc
-/*  f0a4d90:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0a4d94:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f0a4d98:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0a4d9c:	3c18800a */ 	lui	$t8,0x800a
-/*  f0a4da0:	27181888 */ 	addiu	$t8,$t8,0x1888
-/*  f0a4da4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0a4da8:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f0a4dac:	8c640004 */ 	lw	$a0,0x4($v1)
-/*  f0a4db0:	5080000a */ 	beqzl	$a0,.NB0f0a4ddc
-/*  f0a4db4:	8c640008 */ 	lw	$a0,0x8($v1)
-/*  f0a4db8:	0c00d360 */ 	jal	audioIsPlaying
-/*  f0a4dbc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0a4dc0:	10400005 */ 	beqz	$v0,.NB0f0a4dd8
-/*  f0a4dc4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0a4dc8:	8c640004 */ 	lw	$a0,0x4($v1)
-/*  f0a4dcc:	0c00d428 */ 	jal	audioStop
-/*  f0a4dd0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0a4dd4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.NB0f0a4dd8:
-/*  f0a4dd8:	8c640008 */ 	lw	$a0,0x8($v1)
-.NB0f0a4ddc:
-/*  f0a4ddc:	10800007 */ 	beqz	$a0,.NB0f0a4dfc
-/*  f0a4de0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a4de4:	0c00d360 */ 	jal	audioIsPlaying
-/*  f0a4de8:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0a4dec:	10400003 */ 	beqz	$v0,.NB0f0a4dfc
-/*  f0a4df0:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0a4df4:	0c00d428 */ 	jal	audioStop
-/*  f0a4df8:	8c640008 */ 	lw	$a0,0x8($v1)
-.NB0f0a4dfc:
-/*  f0a4dfc:	0fc29385 */ 	jal	bgunFreeFireslot
-/*  f0a4e00:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0a4e04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a4e08:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a4e0c:	03e00008 */ 	jr	$ra
-/*  f0a4e10:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION < VERSION_NTSC_1_0
+	if (slotnum >= 0) {
+		if (g_Fireslots[slotnum].unk04nb && audioIsPlaying(g_Fireslots[slotnum].unk04nb)) {
+			audioStop(g_Fireslots[slotnum].unk04nb);
+		}
+
+		if (g_Fireslots[slotnum].unk08nb && audioIsPlaying(g_Fireslots[slotnum].unk08nb)) {
+			audioStop(g_Fireslots[slotnum].unk08nb);
+		}
+	}
 #endif
+
+	return bgunFreeFireslot(slotnum);
+}
 
 s8 bgunFreeFireslot(s32 fireslot_id)
 {
