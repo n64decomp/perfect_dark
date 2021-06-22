@@ -2327,7 +2327,7 @@ bool aiChrDropWeapon(void)
 		setCurrentPlayerNum(playernum);
 		weaponnum = bgunGetWeaponNum(HAND_RIGHT);
 		invRemoveItemByNum(weaponnum);
-		bgun0f0a1c2c();
+		bgunCycleBack();
 		setCurrentPlayerNum(prevplayernum);
 	} else if (chr && chr->prop) {
 		if (chr->weapons_held[0]) {

@@ -159,7 +159,7 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->gunctrl.gunlocktimer = 0;
 
 	g_Vars.currentplayer->gunctrl.unk1583_06 = true;
-	g_Vars.currentplayer->gunctrl.unk1583_00 = false;
+	g_Vars.currentplayer->gunctrl.dualwielding = false;
 	g_Vars.currentplayer->gunctrl.unk1583_04 = false;
 
 	g_Vars.currentplayer->gunctrl.switchtoweaponnum = -1;

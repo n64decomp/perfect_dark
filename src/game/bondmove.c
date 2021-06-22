@@ -1731,11 +1731,11 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 	if (cancycleweapons) {
 		while (movedata.weaponbackoffset-- > 0) {
-			bgun0f0a1c2c();
+			bgunCycleBack();
 		}
 
 		while (movedata.weaponforwardoffset-- > 0) {
-			bgun0f0a1b50();
+			bgunCycleForward();
 		}
 	}
 

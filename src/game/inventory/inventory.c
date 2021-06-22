@@ -561,7 +561,7 @@ s32 invGiveWeaponsByProp(struct prop *prop)
 }
 
 GLOBAL_ASM(
-glabel func0f1122ec
+glabel invChooseCycleForwardWeapon
 /*  f1122ec:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f1122f0:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f1122f4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
@@ -730,178 +730,76 @@ glabel func0f1122ec
 /*  f112538:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f11253c
-/*  f11253c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f112540:	3c03800a */ 	lui	$v1,%hi(g_Vars+0x284)
-/*  f112544:	8c63a244 */ 	lw	$v1,%lo(g_Vars+0x284)($v1)
-/*  f112548:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f11254c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f112550:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f112554:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f112558:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f11255c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f112560:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f112564:	8c781870 */ 	lw	$t8,0x1870($v1)
-/*  f112568:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f11256c:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f112570:	8cb30000 */ 	lw	$s3,0x0($a1)
-/*  f112574:	1300003a */ 	beqz	$t8,.L0f112660
-/*  f112578:	00408825 */ 	or	$s1,$v0,$zero
-/*  f11257c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f112580:	00402025 */ 	or	$a0,$v0,$zero
-/*  f112584:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f112588:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*  f11258c:	50400006 */ 	beqzl	$v0,.L0f1125a8
-/*  f112590:	2411002d */ 	addiu	$s1,$zero,0x2d
-/*  f112594:	16330003 */ 	bne	$s1,$s3,.L0f1125a4
-/*  f112598:	02008825 */ 	or	$s1,$s0,$zero
-/*  f11259c:	10000071 */ 	b	.L0f112764
-/*  f1125a0:	00009825 */ 	or	$s3,$zero,$zero
-.L0f1125a4:
-/*  f1125a4:	2411002d */ 	addiu	$s1,$zero,0x2d
-.L0f1125a8:
-/*  f1125a8:	2619002c */ 	addiu	$t9,$s0,0x2c
-.L0f1125ac:
-/*  f1125ac:	0331001a */ 	div	$zero,$t9,$s1
-/*  f1125b0:	00008010 */ 	mfhi	$s0
-/*  f1125b4:	2608002c */ 	addiu	$t0,$s0,0x2c
-/*  f1125b8:	16200002 */ 	bnez	$s1,.L0f1125c4
-/*  f1125bc:	00000000 */ 	nop
-/*  f1125c0:	0007000d */ 	break	0x7
-.L0f1125c4:
-/*  f1125c4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1125c8:	16210004 */ 	bne	$s1,$at,.L0f1125dc
-/*  f1125cc:	3c018000 */ 	lui	$at,0x8000
-/*  f1125d0:	17210002 */ 	bne	$t9,$at,.L0f1125dc
-/*  f1125d4:	00000000 */ 	nop
-/*  f1125d8:	0006000d */ 	break	0x6
-.L0f1125dc:
-/*  f1125dc:	1600000c */ 	bnez	$s0,.L0f112610
-/*  f1125e0:	00000000 */ 	nop
-/*  f1125e4:	0111001a */ 	div	$zero,$t0,$s1
-/*  f1125e8:	00008010 */ 	mfhi	$s0
-/*  f1125ec:	16200002 */ 	bnez	$s1,.L0f1125f8
-/*  f1125f0:	00000000 */ 	nop
-/*  f1125f4:	0007000d */ 	break	0x7
-.L0f1125f8:
-/*  f1125f8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1125fc:	16210004 */ 	bne	$s1,$at,.L0f112610
-/*  f112600:	3c018000 */ 	lui	$at,0x8000
-/*  f112604:	15010002 */ 	bne	$t0,$at,.L0f112610
-/*  f112608:	00000000 */ 	nop
-/*  f11260c:	0006000d */ 	break	0x6
-.L0f112610:
-/*  f112610:	12400005 */ 	beqz	$s2,.L0f112628
-/*  f112614:	00000000 */ 	nop
-/*  f112618:	0fc28684 */ 	jal	bgun0f0a1a10
-/*  f11261c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112620:	5040ffe2 */ 	beqzl	$v0,.L0f1125ac
-/*  f112624:	2619002c */ 	addiu	$t9,$s0,0x2c
-.L0f112628:
-/*  f112628:	0fc4470c */ 	jal	invCanHaveAllGunsWeapon
-/*  f11262c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112630:	5040ffde */ 	beqzl	$v0,.L0f1125ac
-/*  f112634:	2619002c */ 	addiu	$t9,$s0,0x2c
-/*  f112638:	02002025 */ 	or	$a0,$s0,$zero
-/*  f11263c:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f112640:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*  f112644:	10400004 */ 	beqz	$v0,.L0f112658
-/*  f112648:	02008825 */ 	or	$s1,$s0,$zero
-/*  f11264c:	02008825 */ 	or	$s1,$s0,$zero
-/*  f112650:	10000044 */ 	b	.L0f112764
-/*  f112654:	02009825 */ 	or	$s3,$s0,$zero
-.L0f112658:
-/*  f112658:	10000042 */ 	b	.L0f112764
-/*  f11265c:	00009825 */ 	or	$s3,$zero,$zero
-.L0f112660:
-/*  f112660:	8c621864 */ 	lw	$v0,0x1864($v1)
-/*  f112664:	50400040 */ 	beqzl	$v0,.L0f112768
-/*  f112668:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f11266c:	8c500010 */ 	lw	$s0,0x10($v0)
-.L0f112670:
-/*  f112670:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f112674:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f112678:	54410016 */ 	bnel	$v0,$at,.L0f1126d4
-/*  f11267c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f112680:	86040004 */ 	lh	$a0,0x4($s0)
-/*  f112684:	2881002d */ 	slti	$at,$a0,0x2d
-/*  f112688:	1020002b */ 	beqz	$at,.L0f112738
-/*  f11268c:	0091082a */ 	slt	$at,$a0,$s1
-/*  f112690:	14200005 */ 	bnez	$at,.L0f1126a8
-/*  f112694:	00000000 */ 	nop
-/*  f112698:	16240027 */ 	bne	$s1,$a0,.L0f112738
-/*  f11269c:	00000000 */ 	nop
-/*  f1126a0:	1a600025 */ 	blez	$s3,.L0f112738
-/*  f1126a4:	00000000 */ 	nop
-.L0f1126a8:
-/*  f1126a8:	52400007 */ 	beqzl	$s2,.L0f1126c8
-/*  f1126ac:	00808825 */ 	or	$s1,$a0,$zero
-/*  f1126b0:	0fc28684 */ 	jal	bgun0f0a1a10
-/*  f1126b4:	00000000 */ 	nop
-/*  f1126b8:	1040001f */ 	beqz	$v0,.L0f112738
-/*  f1126bc:	00000000 */ 	nop
-/*  f1126c0:	86040004 */ 	lh	$a0,0x4($s0)
-/*  f1126c4:	00808825 */ 	or	$s1,$a0,$zero
-.L0f1126c8:
-/*  f1126c8:	10000026 */ 	b	.L0f112764
-/*  f1126cc:	00009825 */ 	or	$s3,$zero,$zero
-/*  f1126d0:	24010003 */ 	addiu	$at,$zero,0x3
-.L0f1126d4:
-/*  f1126d4:	14410018 */ 	bne	$v0,$at,.L0f112738
-/*  f1126d8:	00000000 */ 	nop
-/*  f1126dc:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f1126e0:	0091082a */ 	slt	$at,$a0,$s1
-/*  f1126e4:	14200007 */ 	bnez	$at,.L0f112704
-/*  f1126e8:	00000000 */ 	nop
-/*  f1126ec:	16240012 */ 	bne	$s1,$a0,.L0f112738
-/*  f1126f0:	00000000 */ 	nop
-/*  f1126f4:	8e090008 */ 	lw	$t1,0x8($s0)
-/*  f1126f8:	0133082a */ 	slt	$at,$t1,$s3
-/*  f1126fc:	1020000e */ 	beqz	$at,.L0f112738
-/*  f112700:	00000000 */ 	nop
-.L0f112704:
-/*  f112704:	5240000a */ 	beqzl	$s2,.L0f112730
-/*  f112708:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f11270c:	0fc28684 */ 	jal	bgun0f0a1a10
-/*  f112710:	00000000 */ 	nop
-/*  f112714:	54400006 */ 	bnezl	$v0,.L0f112730
-/*  f112718:	8e110004 */ 	lw	$s1,0x4($s0)
-/*  f11271c:	0fc28684 */ 	jal	bgun0f0a1a10
-/*  f112720:	8e040008 */ 	lw	$a0,0x8($s0)
-/*  f112724:	10400004 */ 	beqz	$v0,.L0f112738
-/*  f112728:	00000000 */ 	nop
-/*  f11272c:	8e110004 */ 	lw	$s1,0x4($s0)
-.L0f112730:
-/*  f112730:	1000000c */ 	b	.L0f112764
-/*  f112734:	8e130008 */ 	lw	$s3,0x8($s0)
-.L0f112738:
-/*  f112738:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
-/*  f11273c:	8d4aa244 */ 	lw	$t2,%lo(g_Vars+0x284)($t2)
-/*  f112740:	8d4b1864 */ 	lw	$t3,0x1864($t2)
-/*  f112744:	160b0005 */ 	bne	$s0,$t3,.L0f11275c
-/*  f112748:	00000000 */ 	nop
-/*  f11274c:	56400006 */ 	bnezl	$s2,.L0f112768
-/*  f112750:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f112754:	241103e8 */ 	addiu	$s1,$zero,0x3e8
-/*  f112758:	241303e8 */ 	addiu	$s3,$zero,0x3e8
-.L0f11275c:
-/*  f11275c:	1000ffc4 */ 	b	.L0f112670
-/*  f112760:	8e100010 */ 	lw	$s0,0x10($s0)
-.L0f112764:
-/*  f112764:	8fac0028 */ 	lw	$t4,0x28($sp)
-.L0f112768:
-/*  f112768:	ad910000 */ 	sw	$s1,0x0($t4)
-/*  f11276c:	8fad002c */ 	lw	$t5,0x2c($sp)
-/*  f112770:	adb30000 */ 	sw	$s3,0x0($t5)
-/*  f112774:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f112778:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f11277c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f112780:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f112784:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f112788:	03e00008 */ 	jr	$ra
-/*  f11278c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void invChooseCycleBackWeapon(s32 *ptr1, s32 *ptr2, bool arg2)
+{
+	s32 weapon1 = *ptr1;
+	s32 weapon2 = *ptr2;
+
+	if (g_Vars.currentplayer->equipallguns) {
+		s32 candidate = *ptr1;
+
+		if (weaponHasFlag(weapon1, WEAPONFLAG_DUALWIELD) && weapon1 == weapon2) {
+			// Switching from dual to single
+			weapon1 = candidate;
+			weapon2 = WEAPON_NONE;
+		} else {
+			// Find prev weapon
+			do {
+				candidate = (candidate + NUM_CYCLEABLE_WEAPONS - 1) % NUM_CYCLEABLE_WEAPONS;
+
+				if (candidate == WEAPON_NONE) {
+					candidate = (candidate + NUM_CYCLEABLE_WEAPONS - 1) % NUM_CYCLEABLE_WEAPONS;
+				}
+			} while ((arg2 && !bgun0f0a1a10(candidate)) || !invCanHaveAllGunsWeapon(candidate));
+
+			if (weaponHasFlag(candidate, WEAPONFLAG_DUALWIELD)) {
+				weapon1 = candidate;
+				weapon2 = candidate;
+			} else {
+				weapon1 = candidate;
+				weapon2 = WEAPON_NONE;
+			}
+		}
+	} else if (g_Vars.currentplayer->weapons != NULL) {
+		struct invitem *item = g_Vars.currentplayer->weapons->prev;
+
+		while (true) {
+			if (item->type == INVITEMTYPE_WEAP) {
+				if (item->type_weap.weapon1 < NUM_CYCLEABLE_WEAPONS
+						&& (item->type_weap.weapon1 < weapon1 || (weapon1 == item->type_weap.weapon1 && weapon2 > 0))) {
+					if (!arg2 || bgun0f0a1a10(item->type_weap.weapon1)) {
+						weapon1 = item->type_weap.weapon1;
+						weapon2 = WEAPON_NONE;
+						break;
+					}
+				}
+			} else if (item->type == INVITEMTYPE_DUAL) {
+				if (item->type_dual.weapon1 < weapon1
+						|| (weapon1 == item->type_dual.weapon1 && item->type_dual.weapon2 < weapon2)) {
+					if (!arg2 || bgun0f0a1a10(item->type_dual.weapon1) || bgun0f0a1a10(item->type_dual.weapon2)) {
+						weapon1 = item->type_dual.weapon1;
+						weapon2 = item->type_dual.weapon2;
+						break;
+					}
+				}
+			}
+
+			if (item == g_Vars.currentplayer->weapons) {
+				if (arg2) {
+					break;
+				}
+
+				weapon1 = 1000;
+				weapon2 = 1000;
+			}
+
+			item = item->prev;
+		}
+	}
+
+	*ptr1 = weapon1;
+	*ptr2 = weapon2;
+}
 
 bool invHasKeyFlags(u32 wantkeyflags)
 {

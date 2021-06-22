@@ -8088,11 +8088,11 @@ bool bgunIsReadyToSwitch(s32 handnum)
 			}
 		}
 
-		if (player->hands[handnum].inuse && player->gunctrl.unk1583_00 == false) {
+		if (player->hands[handnum].inuse && !player->gunctrl.dualwielding) {
 			return true;
 		}
 
-		if (!player->hands[handnum].inuse && player->gunctrl.unk1583_00) {
+		if (!player->hands[handnum].inuse && player->gunctrl.dualwielding) {
 			return true;
 		}
 	}
@@ -8127,7 +8127,7 @@ bool bgun0f09bf44(s32 handnum)
 		result = false;
 	}
 
-	if (handnum == HAND_LEFT && player->gunctrl.unk1583_00 != player->hands[handnum].inuse) {
+	if (handnum == HAND_LEFT && player->gunctrl.dualwielding != player->hands[handnum].inuse) {
 		result = false;
 	}
 
@@ -15721,9 +15721,8 @@ void bgun0f0a1528(void)
 				ctrl->switchtoweaponnum = WEAPON_UNARMED;
 			}
 
-			if (ctrl->unk1583_00
-					&& !invHasDoubleWeaponIncAllGuns(ctrl->switchtoweaponnum, ctrl->switchtoweaponnum)) {
-				ctrl->unk1583_00 = false;
+			if (ctrl->dualwielding && !invHasDoubleWeaponIncAllGuns(ctrl->switchtoweaponnum, ctrl->switchtoweaponnum)) {
+				ctrl->dualwielding = false;
 			}
 
 			func0f0d7364();
@@ -15767,10 +15766,10 @@ void bgun0f0a1528(void)
 			}
 
 			if (ctrl->weaponnum == WEAPON_REMOTEMINE) {
-				ctrl->unk1583_00 = true;
+				ctrl->dualwielding = true;
 			}
 
-			if (!ctrl->unk1583_00) {
+			if (!ctrl->dualwielding) {
 				lefthand->inuse = false;
 			}
 
@@ -15837,7 +15836,7 @@ void bgun0f0a1528(void)
 				}
 
 				invRemoveItemByNum(ctrl->weaponnum);
-				bgun0f0a1c2c();
+				bgunCycleBack();
 			}
 
 			ctrl->curfnstr = 0;
@@ -15845,11 +15844,11 @@ void bgun0f0a1528(void)
 			ctrl->unk1583_04 = false;
 		}
 	} else {
-		if (((player->hands[HAND_LEFT].inuse && !player->gunctrl.unk1583_00)
-					|| (!player->hands[HAND_LEFT].inuse && player->gunctrl.unk1583_00))
+		if (((player->hands[HAND_LEFT].inuse && !player->gunctrl.dualwielding)
+					|| (!player->hands[HAND_LEFT].inuse && player->gunctrl.dualwielding))
 				&& bgun0f09bec8(HAND_LEFT)) {
 			bgun0f0a134c(HAND_LEFT);
-			player->hands[HAND_LEFT].inuse = player->gunctrl.unk1583_00;
+			player->hands[HAND_LEFT].inuse = player->gunctrl.dualwielding;
 		}
 	}
 }
@@ -15900,7 +15899,7 @@ s32 bgun0f0a1a68(s32 arg0)
 		weaponnum = g_Vars.currentplayer->gunctrl.weaponnum;
 	}
 
-	if (!g_Vars.currentplayer->gunctrl.unk1583_00 && arg0 == 1) {
+	if (!g_Vars.currentplayer->gunctrl.dualwielding && arg0 == 1) {
 		weaponnum = WEAPON_NONE;
 	}
 
@@ -15930,7 +15929,7 @@ void bgun0f0a1ab0(void)
 	}
 }
 
-void bgun0f0a1b50(void)
+void bgunCycleForward(void)
 {
 	s32 weaponnum1;
 	s32 weaponnum2;
@@ -15944,20 +15943,20 @@ void bgun0f0a1b50(void)
 			weaponnum1 = player->gunctrl.prevweaponnum;
 			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
 		} else {
-			func0f1122ec(&weaponnum1, &weaponnum2, 0);
+			invChooseCycleForwardWeapon(&weaponnum1, &weaponnum2, false);
 		}
 
 		if (weaponnum2 != weaponnum1) {
-			player->gunctrl.unk1583_00 = false;
+			player->gunctrl.dualwielding = false;
 		} else {
-			player->gunctrl.unk1583_00 = true;
+			player->gunctrl.dualwielding = true;
 		}
 
 		bgunEquipWeapon(weaponnum1);
 	}
 }
 
-void bgun0f0a1c2c(void)
+void bgunCycleBack(void)
 {
 	s32 weaponnum1;
 	s32 weaponnum2;
@@ -15975,13 +15974,13 @@ void bgun0f0a1c2c(void)
 			weaponnum1 = player->gunctrl.prevweaponnum;
 			weaponnum2 = player->gunctrl.prevweaponnum * player->gunctrl.unk1583_01;
 		} else {
-			func0f11253c(&weaponnum1, &weaponnum2, 0);
+			invChooseCycleBackWeapon(&weaponnum1, &weaponnum2, false);
 		}
 
 		if (weaponnum2 == WEAPON_NONE) {
-			player->gunctrl.unk1583_00 = false;
+			player->gunctrl.dualwielding = false;
 		} else {
-			player->gunctrl.unk1583_00 = true;
+			player->gunctrl.dualwielding = true;
 		}
 
 		bgunEquipWeapon(weaponnum1);
@@ -16354,9 +16353,9 @@ glabel bgunAutoSwitchWeapon
 //	// Switch to newweaponnum
 //	if (newweaponnum >= 0 && newweaponnum != curweaponnum) {
 //		if (invHasDoubleWeaponIncAllGuns(newweaponnum, newweaponnum)) {
-//			g_Vars.currentplayer->gunctrl.unk1583_00 = true;
+//			g_Vars.currentplayer->gunctrl.dualwielding = true;
 //		} else {
-//			g_Vars.currentplayer->gunctrl.unk1583_00 = false;
+//			g_Vars.currentplayer->gunctrl.dualwielding = false;
 //		}
 //
 //		bgunEquipWeapon(newweaponnum);
@@ -16371,9 +16370,9 @@ void bgunEquipWeapon2(bool arg0, s32 weaponnum)
 {
 	if (arg0 == 1) {
 		if (weaponnum == WEAPON_NONE) {
-			g_Vars.currentplayer->gunctrl.unk1583_00 = false;
+			g_Vars.currentplayer->gunctrl.dualwielding = false;
 		} else {
-			g_Vars.currentplayer->gunctrl.unk1583_00 = true;
+			g_Vars.currentplayer->gunctrl.dualwielding = true;
 		}
 	} else {
 		if (weaponnum > WEAPON_SUICIDEPILL) {
@@ -30154,7 +30153,7 @@ void bgunsTick(bool triggeron)
 			bgunEquipWeapon(WEAPON_UNARMED);
 		}
 
-		g_Vars.currentplayer->gunctrl.unk1583_00 = 0;
+		g_Vars.currentplayer->gunctrl.dualwielding = false;
 		g_Vars.currentplayer->devicesactive = 0;
 
 		chr->cloakpause = 0;
