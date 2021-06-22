@@ -20,7 +20,7 @@ bool bgunIsAnimBusy(struct hand *hand);
 void bgunResetAnim(struct hand *hand);
 void bgunGetWeaponInfo(struct handweaponinfo *info, s32 handnum);
 s32 bgun0f098ca0(s32 arg0, struct handweaponinfo *info, struct hand *hand);
-void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand, s32 arg3, s32 arg4);
+void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand, u8 onebullet, u8 checkunequipped);
 void bgun0f098f8c(struct handweaponinfo *info, struct hand *hand);
 bool bgun0f099008(s32 handnum);
 bool bgun0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon);

@@ -2392,7 +2392,7 @@ struct hand {
 	/*0x0d68*/ u32 unk0d68;
 	/*0x0d6c*/ u32 unk0d6c;
 	/*0x0d70*/ u32 unk0d70;
-	/*0x0d74*/ u16 gunroundsspent[4];
+	/*0x0d74*/ u16 gunroundsspent[4]; // actually a countdown timer
 	/*0x0d7c*/ u32 ispare1;
 	/*0x0d80*/ struct guncmd *unk0d80;
 	/*0x0d84*/ struct audiohandle *audiohandle;
