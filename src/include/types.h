@@ -2167,7 +2167,7 @@ struct beam {
 struct abmag {
 	// When the gauge uses separate bars, this is zero/unused. When the gauge
 	// uses merged bars, this is the same figure as displayed on the HUD.
-	/*0x00*/ u16 loadedammo;
+	/*0x00*/ s16 loadedammo;
 
 	// Counts up to 255 when firing or reloading. It's used to determine the
 	// brightness of the bar in the ammo gauge.
