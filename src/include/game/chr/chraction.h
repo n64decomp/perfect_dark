@@ -134,7 +134,7 @@ void chrTickSidestep(struct chrdata *chr);
 void chrTickJumpOut(struct chrdata *chr);
 void chrTickStartAlarm(struct chrdata *chr);
 void chrTickSurprised(struct chrdata *chr);
-void func0f03e29c(struct chrdata *chr, s32 arg1, s32 arg2, s32 arg3, struct coord *arg4, struct coord *arg5);
+void chrCreateFireslot(struct chrdata *chr, s32 handnum, bool withsound, bool withbeam, struct coord *from, struct coord *to);
 f32 chrGetInverseTheta(struct chrdata *chr);
 f32 chrGetAimAngle(struct chrdata *chr);
 f32 func0f03e754(struct chrdata *chr);

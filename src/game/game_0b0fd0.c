@@ -602,7 +602,7 @@ f32 gsetGetDamage(struct gset *gset)
 	return damage;
 }
 
-u8 gsetGetSingleUnk38(struct gset *gset)
+u8 gsetGetFireslotDuration(struct gset *gset)
 {
 #if VERSION >= VERSION_PAL_FINAL
 	struct weaponfunc *func = gsetGetWeaponFunction(gset);

@@ -29,7 +29,7 @@ struct inventory_ammo *gsetGetAmmoDefinition(struct gset *gset);
 u8 gsetGetSingleUnk3c(struct gset *gset);
 f32 gsetGetStrength(struct gset *gset);
 f32 gsetGetDamage(struct gset *gset);
-u8 gsetGetSingleUnk38(struct gset *gset);
+u8 gsetGetFireslotDuration(struct gset *gset);
 u16 gsetGetSingleShootSound(struct gset *gset);
 bool gsetHasFunctionFlags(struct gset *gset, u32 flags);
 s8 weaponGetNumTicksPerShot(u32 weaponnum, u32 funcindex);

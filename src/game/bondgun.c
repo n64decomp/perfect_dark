@@ -5954,7 +5954,7 @@ glabel var7f1ac320
 .L0f09a920:
 /*  f09a920:	1040009b */ 	beqz	$v0,.L0f09ab90
 /*  f09a924:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09a928:	0fc2c78a */ 	jal	gsetGetSingleUnk38
+/*  f09a928:	0fc2c78a */ 	jal	gsetGetFireslotDuration
 /*  f09a92c:	afa00044 */ 	sw	$zero,0x44($sp)
 /*  f09a930:	1840001e */ 	blez	$v0,.L0f09a9ac
 /*  f09a934:	8fa30044 */ 	lw	$v1,0x44($sp)
@@ -5979,7 +5979,7 @@ glabel var7f1ac320
 /*  f09a980:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f09a984:	1020000d */ 	beqz	$at,.L0f09a9bc
 /*  f09a988:	00000000 */ 	nop
-/*  f09a98c:	0fc2c78a */ 	jal	gsetGetSingleUnk38
+/*  f09a98c:	0fc2c78a */ 	jal	gsetGetFireslotDuration
 /*  f09a990:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09a994:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
 /*  f09a998:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
@@ -6284,7 +6284,7 @@ glabel var7f1ac320
 .L0f09a920:
 /*  f09a920:	1040009b */ 	beqz	$v0,.L0f09ab90
 /*  f09a924:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09a928:	0fc2c78a */ 	jal	gsetGetSingleUnk38
+/*  f09a928:	0fc2c78a */ 	jal	gsetGetFireslotDuration
 /*  f09a92c:	afa00044 */ 	sw	$zero,0x44($sp)
 /*  f09a930:	1840001e */ 	blez	$v0,.L0f09a9ac
 /*  f09a934:	8fa30044 */ 	lw	$v1,0x44($sp)
@@ -6309,7 +6309,7 @@ glabel var7f1ac320
 /*  f09a980:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f09a984:	1020000d */ 	beqz	$at,.L0f09a9bc
 /*  f09a988:	00000000 */ 	nop
-/*  f09a98c:	0fc2c78a */ 	jal	gsetGetSingleUnk38
+/*  f09a98c:	0fc2c78a */ 	jal	gsetGetFireslotDuration
 /*  f09a990:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09a994:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x8)
 /*  f09a998:	8f189fc8 */ 	lw	$t8,%lo(g_Vars+0x8)($t8)
@@ -6614,7 +6614,7 @@ glabel var7f1ac320
 .NB0f09895c:
 /*  f09895c:	1040008f */ 	beqz	$v0,.NB0f098b9c
 /*  f098960:	02002025 */ 	or	$a0,$s0,$zero
-/*  f098964:	0fc2bee2 */ 	jal	gsetGetSingleUnk38
+/*  f098964:	0fc2bee2 */ 	jal	gsetGetFireslotDuration
 /*  f098968:	afa0003c */ 	sw	$zero,0x3c($sp)
 /*  f09896c:	1840001e */ 	blez	$v0,.NB0f0989e8
 /*  f098970:	8fa3003c */ 	lw	$v1,0x3c($sp)
@@ -6639,7 +6639,7 @@ glabel var7f1ac320
 /*  f0989bc:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f0989c0:	1020000d */ 	beqz	$at,.NB0f0989f8
 /*  f0989c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0989c8:	0fc2bee2 */ 	jal	gsetGetSingleUnk38
+/*  f0989c8:	0fc2bee2 */ 	jal	gsetGetFireslotDuration
 /*  f0989cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0989d0:	3c18800a */ 	lui	$t8,0x800a
 /*  f0989d4:	8f18e6c8 */ 	lw	$t8,-0x1938($t8)
@@ -6861,10 +6861,10 @@ const char var7f1ab898[] = "rofftime";
 //	if (hand->firing) {
 //		bool playsound = false;
 //
-//		if (gsetGetSingleUnk38(&hand->gset) > 0) {
+//		if (gsetGetFireslotDuration(&hand->gset) > 0) {
 //			if (g_Vars.lvframe60 != g_Vars.currentplayer->hands[1 - handnum].lastshootframe60
 //					&& g_Vars.lvframe60 > hand->allowshootframe) {
-//				hand->allowshootframe = g_Vars.lvframe60 + gsetGetSingleUnk38(&hand->gset);
+//				hand->allowshootframe = g_Vars.lvframe60 + gsetGetFireslotDuration(&hand->gset);
 //				playsound = true;
 //			}
 //		} else {
@@ -24583,25 +24583,25 @@ s8 bgunFreeFireslot(s32 fireslot_id)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	if (fireslot_id >= 0 && fireslot_id < NUM_FIRESLOTS) {
-		g_Fireslots[fireslot_id].unk00 = -1;
+		g_Fireslots[fireslot_id].endlvframe = -1;
 	}
 #else
 	if (fireslot_id >= 0) {
-		g_Fireslots[fireslot_id].unk00 = -1;
+		g_Fireslots[fireslot_id].endlvframe = -1;
 	}
 #endif
 
 	return -1;
 }
 
-s32 bgun0f0a70f8(void)
+s32 bgunAllocateFireslot(void)
 {
 	s32 index = -1;
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_Fireslots); i++) {
-		if (g_Fireslots[i].unk00 < 0) {
-			g_Fireslots[i].unk00 = 0;
+		if (g_Fireslots[i].endlvframe < 0) {
+			g_Fireslots[i].endlvframe = 0;
 
 #if VERSION < VERSION_NTSC_1_0
 			g_Fireslots[i].unk04nb = 0;
@@ -27136,7 +27136,7 @@ glabel var7f1aca90
 /**
  * Find and return an available audio handle out of a pool of four.
  */
-struct audiohandle **bgunNewAudioHandle(void)
+struct audiohandle **bgunAllocateAudioHandle(void)
 {
 	s32 i;
 
@@ -27176,7 +27176,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 		return;
 	}
 
-	handle = bgunNewAudioHandle();
+	handle = bgunAllocateAudioHandle();
 
 	if (handle) {
 		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
@@ -27279,7 +27279,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 	if (texturenum >= 0 && texturenum < 0xdaf && g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]) {
 		s16 soundnum = -1;
 
-		handle = bgunNewAudioHandle();
+		handle = bgunAllocateAudioHandle();
 
 		if (handle) {
 			if (g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]->numsounds > 0) {
@@ -27321,7 +27321,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 		return;
 	}
 
-	handle = bgunNewAudioHandle();
+	handle = bgunAllocateAudioHandle();
 
 	if (handle) {
 		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
@@ -27412,7 +27412,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 	if (texturenum >= 0 && texturenum < 0xdaf && g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]) {
 		s16 soundnum = -1;
 
-		handle = bgunNewAudioHandle();
+		handle = bgunAllocateAudioHandle();
 
 		if (handle) {
 			if (g_SurfaceTypes[g_Textures[texturenum].soundsurfacetype]->numsounds > 0) {
@@ -27433,7 +27433,7 @@ void bgunPlayPropHitSound(struct gset *gset, struct prop *prop, s32 texturenum)
 void bgun0f0a8404(struct coord *pos, s16 *rooms, s32 arg2)
 {
 	if (g_Vars.lvupdate240 > 0) {
-		struct audiohandle **handle = bgunNewAudioHandle();
+		struct audiohandle **handle = bgunAllocateAudioHandle();
 
 		if (handle) {
 			sndStart(var80095200, SFX_HIT_GLASS, handle, -1, -1, -1, -1, -1);
@@ -27464,7 +27464,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 	}
 
 	playdefault = true;
-	handle = bgunNewAudioHandle();
+	handle = bgunAllocateAudioHandle();
 
 	if (handle) {
 		soundnum = -1;
@@ -27525,7 +27525,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 	}
 
 	if (playdefault) {
-		handle = bgunNewAudioHandle();
+		handle = bgunAllocateAudioHandle();
 
 		if (handle != NULL && texturenum >= 0 && texturenum < 0xdaf) {
 			s16 soundnum;
@@ -27561,7 +27561,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 		return;
 	}
 
-	handle = bgunNewAudioHandle();
+	handle = bgunAllocateAudioHandle();
 
 	if (handle) {
 		overridden = false;
@@ -27618,7 +27618,7 @@ void bgunPlayBgHitSound(struct gset *gset, struct coord *arg1, s32 texturenum, s
 	}
 
 	// Play default surface hit sound
-	handle = bgunNewAudioHandle();
+	handle = bgunAllocateAudioHandle();
 
 	if (handle != NULL && texturenum >= 0 && texturenum < 0xdaf) {
 		s16 soundnum;

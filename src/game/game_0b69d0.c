@@ -2270,7 +2270,7 @@ glabel var7f1ad5b4
 /*  f0b9498:	0fc22e3a */ 	jal	weaponCreateForChr
 /*  f0b949c:	afa90014 */ 	sw	$t1,0x14($sp)
 .L0f0b94a0:
-/*  f0b94a0:	0fc29c3e */ 	jal	bgun0f0a70f8
+/*  f0b94a0:	0fc29c3e */ 	jal	bgunAllocateFireslot
 /*  f0b94a4:	00000000 */ 	nop
 /*  f0b94a8:	8fa40110 */ 	lw	$a0,0x110($sp)
 /*  f0b94ac:	24050000 */ 	addiu	$a1,$zero,0x0
@@ -2912,7 +2912,7 @@ glabel var7f1ad5b4
 /*  f0b7174:	0fc22844 */ 	jal	weaponCreateForChr
 /*  f0b7178:	afb80014 */ 	sw	$t8,0x14($sp)
 .NB0f0b717c:
-/*  f0b717c:	0fc2938f */ 	jal	bgun0f0a70f8
+/*  f0b717c:	0fc2938f */ 	jal	bgunAllocateFireslot
 /*  f0b7180:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b7184:	8fa40110 */ 	lw	$a0,0x110($sp)
 /*  f0b7188:	24050000 */ 	addiu	$a1,$zero,0x0
@@ -14832,12 +14832,12 @@ s32 playerTickBeams(struct prop *prop)
 	if (prop->chr && g_Vars.mplayerisrunning) {
 		struct chrdata *chr = prop->chr;
 
-		if (chr->fireslot[0] >= 0) {
-			beamTick(&g_Fireslots[chr->fireslot[0]].beam);
+		if (chr->fireslots[0] >= 0) {
+			beamTick(&g_Fireslots[chr->fireslots[0]].beam);
 		}
 
-		if (chr->fireslot[1] >= 0) {
-			beamTick(&g_Fireslots[chr->fireslot[1]].beam);
+		if (chr->fireslots[1] >= 0) {
+			beamTick(&g_Fireslots[chr->fireslots[1]].beam);
 		}
 	}
 

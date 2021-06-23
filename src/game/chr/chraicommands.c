@@ -12259,15 +12259,15 @@ bool aiChrSetFiringInCutscene(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	struct coord sp2c = {0, 0, 0};
-	struct coord sp20 = {0, 0, 0};
+	struct coord from = {0, 0, 0};
+	struct coord to = {0, 0, 0};
 
-	if (chr && chr->weapons_held[0]) {
+	if (chr && chr->weapons_held[HAND_RIGHT]) {
 		if (cmd[3]) {
-			chrSetFiring(chr, 0, true);
-			func0f03e29c(chr, 0, 1, 0, &sp2c, &sp20);
+			chrSetFiring(chr, HAND_RIGHT, true);
+			chrCreateFireslot(chr, HAND_RIGHT, true, false, &from, &to);
 		} else {
-			chrSetFiring(chr, 0, false);
+			chrSetFiring(chr, HAND_RIGHT, false);
 		}
 	}
 

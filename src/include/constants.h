@@ -459,6 +459,7 @@
 #define CHRH2FLAG_0004              0x0004
 #define CHRH2FLAG_BLUESIGHT         0x0008
 #define CHRH2FLAG_TICKDURINGAUTOCUT 0x0010
+#define CHRH2FLAG_0020              0x0020
 #define CHRH2FLAG_0040              0x0040
 #define CHRH2FLAG_0080              0x0080
 #define CHRH2FLAG_HEADSHOTTED       0x1000

@@ -46683,12 +46683,12 @@ Gfx *propsRenderBeams(Gfx *gdl)
 				gdl = func0f0acb90(gdl, chr->unk348[0]->beam, true, true);
 				gdl = func0f0acb90(gdl, chr->unk348[1]->beam, true, true);
 			} else {
-				if (chr->fireslot[0] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[0]].beam, true, false);
+				if (chr->fireslots[0] >= 0) {
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, false);
 				}
 
-				if (chr->fireslot[1] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[1]].beam, true, false);
+				if (chr->fireslots[1] >= 0) {
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, false);
 				}
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
@@ -46705,12 +46705,12 @@ Gfx *propsRenderBeams(Gfx *gdl)
 			if (prop->chr && propGetPlayerNum(prop) != g_Vars.currentplayernum) {
 				struct chrdata *chr = prop->chr;
 
-				if (chr->fireslot[0] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[0]].beam, true, false);
+				if (chr->fireslots[0] >= 0) {
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, false);
 				}
 
-				if (chr->fireslot[1] >= 0) {
-					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslot[1]].beam, true, false);
+				if (chr->fireslots[1] >= 0) {
+					gdl = func0f0acb90(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, false);
 				}
 			}
 		}
@@ -69789,7 +69789,7 @@ glabel var7f1ab214
 /*  f091d64:	10000001 */ 	b	.L0f091d6c
 /*  f091d68:	24050002 */ 	addiu	$a1,$zero,0x2
 .L0f091d6c:
-/*  f091d6c:	0fc2af9c */ 	jal	func0f0abe70
+/*  f091d6c:	0fc2af9c */ 	jal	beamCreate
 /*  f091d70:	27a701f0 */ 	addiu	$a3,$sp,0x1f0
 .L0f091d74:
 /*  f091d74:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -70518,7 +70518,7 @@ glabel var7f1ab214
 /*  f091d64:	10000001 */ 	b	.L0f091d6c
 /*  f091d68:	24050002 */ 	addiu	$a1,$zero,0x2
 .L0f091d6c:
-/*  f091d6c:	0fc2af9c */ 	jal	func0f0abe70
+/*  f091d6c:	0fc2af9c */ 	jal	beamCreate
 /*  f091d70:	27a701f0 */ 	addiu	$a3,$sp,0x1f0
 .L0f091d74:
 /*  f091d74:	8fbf0044 */ 	lw	$ra,0x44($sp)

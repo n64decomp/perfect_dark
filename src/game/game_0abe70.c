@@ -83,7 +83,7 @@ u32 var80070588 = 0x00000000;
 u32 var8007058c = 0x00000000;
 
 GLOBAL_ASM(
-glabel func0f0abe70
+glabel beamCreate
 /*  f0abe70:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0abe74:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0abe78:	c4c40000 */ 	lwc1	$f4,0x0($a2)
@@ -339,7 +339,7 @@ glabel func0f0ac138
 .L0f0ac210:
 /*  f0ac210:	afa40024 */ 	sw	$a0,0x24($sp)
 /*  f0ac214:	afa50060 */ 	sw	$a1,0x60($sp)
-/*  f0ac218:	0fc2af9c */ 	jal	func0f0abe70
+/*  f0ac218:	0fc2af9c */ 	jal	beamCreate
 /*  f0ac21c:	afa70018 */ 	sw	$a3,0x18($sp)
 /*  f0ac220:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f0ac224:	3c08800a */ 	lui	$t0,%hi(g_Vars)
@@ -403,7 +403,7 @@ glabel func0f0ac138
 /*  f0ac2f8:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f0ac2fc:	54810008 */ 	bnel	$a0,$at,.L0f0ac320
 /*  f0ac300:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0ac304:	0fc29c3e */ 	jal	bgun0f0a70f8
+/*  f0ac304:	0fc29c3e */ 	jal	bgunAllocateFireslot
 /*  f0ac308:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f0ac30c:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*  f0ac310:	8fa30028 */ 	lw	$v1,0x28($sp)
@@ -486,7 +486,7 @@ glabel func0f0ac138
 /*  f0ac43c:	0019c900 */ 	sll	$t9,$t9,0x4
 /*  f0ac440:	27290004 */ 	addiu	$t1,$t9,0x4
 /*  f0ac444:	012a2021 */ 	addu	$a0,$t1,$t2
-/*  f0ac448:	0fc2af9c */ 	jal	func0f0abe70
+/*  f0ac448:	0fc2af9c */ 	jal	beamCreate
 /*  f0ac44c:	8fa70018 */ 	lw	$a3,0x18($sp)
 /*  f0ac450:	8fac0020 */ 	lw	$t4,0x20($sp)
 /*  f0ac454:	3c0f800a */ 	lui	$t7,%hi(g_Fireslots)

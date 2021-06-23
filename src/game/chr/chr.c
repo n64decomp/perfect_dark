@@ -4394,8 +4394,8 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->weapons_held[1] = NULL;
 	chr->weapons_held[2] = NULL;
 	chr->gunprop = NULL;
-	chr->fireslot[0] = -1;
-	chr->fireslot[1] = -1;
+	chr->fireslots[0] = -1;
+	chr->fireslots[1] = -1;
 
 	chr->aimuplshoulder = 0;
 	chr->aimuprshoulder = 0;
@@ -4584,8 +4584,8 @@ void func0f020d44(struct prop *prop, bool removechr)
 	struct prop *child;
 	u32 stack[2];
 
-	bgunFreeFireslotWrapper(chr->fireslot[0]);
-	bgunFreeFireslotWrapper(chr->fireslot[1]);
+	bgunFreeFireslotWrapper(chr->fireslots[0]);
+	bgunFreeFireslotWrapper(chr->fireslots[1]);
 
 	if (chr->proppreset1 >= 0) {
 		struct prop *proppreset = &g_Vars.props[chr->proppreset1];
@@ -6944,12 +6944,12 @@ bool chrTickBeams(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
 
-	if (chr->fireslot[0] >= 0) {
-		beamTick(&g_Fireslots[chr->fireslot[0]].beam);
+	if (chr->fireslots[0] >= 0) {
+		beamTick(&g_Fireslots[chr->fireslots[0]].beam);
 	}
 
-	if (chr->fireslot[1] >= 0) {
-		beamTick(&g_Fireslots[chr->fireslot[1]].beam);
+	if (chr->fireslots[1] >= 0) {
+		beamTick(&g_Fireslots[chr->fireslots[1]].beam);
 	}
 
 	if (chr->aibot && chr->aibot->unk058 > 0) {
