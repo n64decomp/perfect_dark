@@ -25,7 +25,7 @@ u32 func0f0946b0(void);
 u32 func0f094940(void);
 u32 func0f094b1c(void);
 u32 func0f094d78(void);
-u32 func0f094ef4(void);
+void func0f094ef4(struct coord *pos, s16 *rooms, s32 soundnum, s32 *arg3, s32 *arg4);
 void func0f09505c(struct audiohandle *handle, struct coord *pos, f32 arg2, f32 arg3, f32 arg4, s16 *rooms, s16 soundnum, u16 arg7, u32 arg8);
 u32 func0f095200(void);
 s32 func0f095278(s32 channelnum);
