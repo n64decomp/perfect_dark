@@ -5824,7 +5824,7 @@ struct weatherparticledata {
 };
 
 struct texture {
-	u8 unk00_00 : 4;
+	u8 soundsurfacetype : 4;
 	u8 surfacetype : 4;
 	u8 unk01;
 	u16 dataoffset;
@@ -7084,7 +7084,7 @@ struct hitthing {
 	u32 unk20;
 	u32 unk24;
 	s16 unk28;
-	s16 unk2a;
+	s16 texturenum;
 	s16 unk2c;
 	s16 unk2e;
 };

@@ -11,11 +11,11 @@ glabel casingsReset
 /*  f010b28:	ac800000 */ 	sw	$zero,0x0($a0)
 /*  f010b2c:	ac800004 */ 	sw	$zero,0x4($a0)
 /*  f010b30:	3c01800a */ 	lui	$at,%hi(var8009d0d8)
-/*  f010b34:	3c03800a */ 	lui	$v1,%hi(var8009d0e0+0x10)
-/*  f010b38:	3c02800a */ 	lui	$v0,%hi(var8009d0e0)
+/*  f010b34:	3c03800a */ 	lui	$v1,%hi(g_BgunAudioHandles+0x10)
+/*  f010b38:	3c02800a */ 	lui	$v0,%hi(g_BgunAudioHandles)
 /*  f010b3c:	ac20d0d8 */ 	sw	$zero,%lo(var8009d0d8)($at)
-/*  f010b40:	2442d0f0 */ 	addiu	$v0,$v0,%lo(var8009d0e0+0x10)
-/*  f010b44:	2463d0e0 */ 	addiu	$v1,$v1,%lo(var8009d0e0)
+/*  f010b40:	2442d0f0 */ 	addiu	$v0,$v0,%lo(g_BgunAudioHandles+0x10)
+/*  f010b44:	2463d0e0 */ 	addiu	$v1,$v1,%lo(g_BgunAudioHandles)
 .L0f010b48:
 /*  f010b48:	24630004 */ 	addiu	$v1,$v1,0x4
 /*  f010b4c:	1462fffe */ 	bne	$v1,$v0,.L0f010b48
@@ -56,8 +56,8 @@ glabel casingsReset
 //	var8009d0d0[1] = 0;
 //	var8009d0d8 = 0;
 //
-//	for (i = 0; i != ARRAYCOUNT(var8009d0e0); i++) {
-//		var8009d0e0[i] = 0;
+//	for (i = 0; i != ARRAYCOUNT(g_BgunAudioHandles); i++) {
+//		g_BgunAudioHandles[i] = 0;
 //	}
 //
 //	for (i = 0; i < ARRAYCOUNT(g_Casings); i++) {

@@ -11862,7 +11862,7 @@ glabel func0f06f0a0
 /*  f06f2ec:	8fa70028 */ 	lw	$a3,0x28($sp)
 /*  f06f2f0:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f06f2f4:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f06f2f8:	0fc2a132 */ 	jal	bgun0f0a84c8
+/*  f06f2f8:	0fc2a132 */ 	jal	bgunPlayBgHitSound
 /*  f06f2fc:	24e70028 */ 	addiu	$a3,$a3,40
 .L0f06f300:
 /*  f06f300:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -36943,7 +36943,7 @@ glabel var7f1aa5a8
 .L0f07a920:
 /*  f07a920:	27a5013c */ 	addiu	$a1,$sp,0x13c
 /*  f07a924:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f07a928:	0fc2a132 */ 	jal	bgun0f0a84c8
+/*  f07a928:	0fc2a132 */ 	jal	bgunPlayBgHitSound
 /*  f07a92c:	27a7012c */ 	addiu	$a3,$sp,0x12c
 .L0f07a930:
 /*  f07a930:	8fac0128 */ 	lw	$t4,0x128($sp)
@@ -37905,7 +37905,7 @@ glabel var7f1aa5a8
 .L0f07a920:
 /*  f07a920:	27a5013c */ 	addiu	$a1,$sp,0x13c
 /*  f07a924:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f07a928:	0fc2a132 */ 	jal	bgun0f0a84c8
+/*  f07a928:	0fc2a132 */ 	jal	bgunPlayBgHitSound
 /*  f07a92c:	27a7012c */ 	addiu	$a3,$sp,0x12c
 .L0f07a930:
 /*  f07a930:	8fac0128 */ 	lw	$t4,0x128($sp)
@@ -57665,7 +57665,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 				node1 = node3;
 				spe4 = sp90;
 				node2 = node4;
-				hitthing1.unk2a = 10000;
+				hitthing1.texturenum = 10000;
 			}
 		}
 	}
@@ -69753,7 +69753,7 @@ glabel var7f1ab214
 /*  f091cec:	11a10004 */ 	beq	$t5,$at,.L0f091d00
 /*  f091cf0:	27a501f0 */ 	addiu	$a1,$sp,0x1f0
 /*  f091cf4:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f091cf8:	0fc2a132 */ 	jal	bgun0f0a84c8
+/*  f091cf8:	0fc2a132 */ 	jal	bgunPlayBgHitSound
 /*  f091cfc:	27a701c8 */ 	addiu	$a3,$sp,0x1c8
 .L0f091d00:
 /*  f091d00:	87a401c8 */ 	lh	$a0,0x1c8($sp)
@@ -70482,7 +70482,7 @@ glabel var7f1ab214
 /*  f091cec:	11a10004 */ 	beq	$t5,$at,.L0f091d00
 /*  f091cf0:	27a501f0 */ 	addiu	$a1,$sp,0x1f0
 /*  f091cf4:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f091cf8:	0fc2a132 */ 	jal	bgun0f0a84c8
+/*  f091cf8:	0fc2a132 */ 	jal	bgunPlayBgHitSound
 /*  f091cfc:	27a701c8 */ 	addiu	$a3,$sp,0x1c8
 .L0f091d00:
 /*  f091d00:	87a401c8 */ 	lh	$a0,0x1c8($sp)

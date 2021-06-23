@@ -794,10 +794,10 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 			uVar6 = func0f001734(&shotdata.gunpos, &hitpos, room);
 
-			if (sp694.unk2a < 0 || sp694.unk2a >= 0xdaf) {
+			if (sp694.texturenum < 0 || sp694.texturenum >= 0xdaf) {
 				surfacetype = g_SurfaceTypes[SURFACETYPE_DEFAULT];
 			} else {
-				index = g_Textures[sp694.unk2a].surfacetype;
+				index = g_Textures[sp694.texturenum].surfacetype;
 
 				if (index < ARRAYCOUNT(g_SurfaceTypes)) {
 					surfacetype = g_SurfaceTypes[index];
@@ -825,7 +825,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 					}
 				}
 
-				bgun0f0a84c8(&shotdata.gset, &sp694.unk00, sp694.unk2a, sp6c);
+				bgunPlayBgHitSound(&shotdata.gset, &sp694.unk00, sp694.texturenum, sp6c);
 
 				if (explosiveshells) {
 					explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_22, g_Vars.currentplayernum);
@@ -869,7 +869,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 									break;
 								}
 
-								uVar6 = g_Textures[sp694.unk2a].surfacetype;
+								uVar6 = g_Textures[sp694.texturenum].surfacetype;
 
 								if (uVar6 == SURFACETYPE_SHALLOWWATER || uVar6 == SURFACETYPE_DEEPWATER) {
 									sparktype = SPARKTYPE_0F;
