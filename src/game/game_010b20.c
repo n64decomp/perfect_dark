@@ -230,12 +230,12 @@ void func0f010bb0(void)
 	g_Vars.currentplayer->cyclesum = 0;
 	g_Vars.currentplayer->gunampsum = 0;
 
-	bgun0f09d140(HAND_RIGHT);
-	bgun0f09d140(HAND_RIGHT);
-	bgun0f09d140(HAND_RIGHT);
-	bgun0f09d140(HAND_LEFT);
-	bgun0f09d140(HAND_LEFT);
-	bgun0f09d140(HAND_LEFT);
+	bgunCalculateBlend(HAND_RIGHT);
+	bgunCalculateBlend(HAND_RIGHT);
+	bgunCalculateBlend(HAND_RIGHT);
+	bgunCalculateBlend(HAND_LEFT);
+	bgunCalculateBlend(HAND_LEFT);
+	bgunCalculateBlend(HAND_LEFT);
 
 	g_Vars.currentplayer->gunammooff = 0;
 	g_Vars.currentplayer->gunsightoff = GUNSIGHTREASON_AIMING;

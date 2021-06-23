@@ -53,7 +53,7 @@ void bgun0f09ce8c(void);
 void bgun0f09ceac(void);
 f32 bgunGetNoiseRadius(s32 handnum);
 void bgunDecreaseNoiseRadius(void);
-void bgun0f09d140(s32 hand);
+void bgunCalculateBlend(s32 hand);
 u32 bgun0f09d550(void);
 void bgun0f09d8dc(f32 breathing, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
 bool bgun0f09dd7c(void);
