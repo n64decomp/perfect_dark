@@ -14940,7 +14940,7 @@ s32 playerTick(struct prop *prop)
 			if (modelGetAnimNum(chr->model) == animnum) {
 				if (chr->act_bondmulti.animcfg) {
 					chr->hidden2 &= ~CHRH2FLAG_0004;
-					func0f03f778(chr, chr->act_bondmulti.animcfg, leftprop != NULL, rightprop != NULL, shootrotx);
+					chrCalculateAimEndProperties(chr, chr->act_bondmulti.animcfg, leftprop != NULL, rightprop != NULL, shootrotx);
 				} else {
 					chr->hidden2 |= CHRH2FLAG_0004;
 					chr->aimendback = shootrotx;

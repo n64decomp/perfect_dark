@@ -11716,7 +11716,7 @@ glabel var7f1a8fc8
 /*  f03f73c:	8fa60198 */ 	lw	$a2,0x198($sp)
 /*  f03f740:	8fa7019c */ 	lw	$a3,0x19c($sp)
 /*  f03f744:	e7b00188 */ 	swc1	$f16,0x188($sp)
-/*  f03f748:	0fc0fdde */ 	jal	func0f03f778
+/*  f03f748:	0fc0fdde */ 	jal	chrCalculateAimEndProperties
 /*  f03f74c:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*  f03f750:	8fac0190 */ 	lw	$t4,0x190($sp)
 /*  f03f754:	c7b00188 */ 	lwc1	$f16,0x188($sp)
@@ -11730,61 +11730,43 @@ glabel var7f1a8fc8
 /*  f03f774:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f03f778
-/*  f03f778:	44808000 */ 	mtc1	$zero,$f16
-/*  f03f77c:	c7ae0010 */ 	lwc1	$f14,0x10($sp)
-/*  f03f780:	46008006 */ 	mov.s	$f0,$f16
-/*  f03f784:	46008086 */ 	mov.s	$f2,$f16
-/*  f03f788:	10a0001b */ 	beqz	$a1,.L0f03f7f8
-/*  f03f78c:	46007306 */ 	mov.s	$f12,$f14
-/*  f03f790:	c4a00030 */ 	lwc1	$f0,0x30($a1)
-/*  f03f794:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f03f798:	00000000 */ 	nop
-/*  f03f79c:	45020005 */ 	bc1fl	.L0f03f7b4
-/*  f03f7a0:	c4a00034 */ 	lwc1	$f0,0x34($a1)
-/*  f03f7a4:	46007081 */ 	sub.s	$f2,$f14,$f0
-/*  f03f7a8:	10000008 */ 	b	.L0f03f7cc
-/*  f03f7ac:	46000306 */ 	mov.s	$f12,$f0
-/*  f03f7b0:	c4a00034 */ 	lwc1	$f0,0x34($a1)
-.L0f03f7b4:
-/*  f03f7b4:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f03f7b8:	00000000 */ 	nop
-/*  f03f7bc:	45020004 */ 	bc1fl	.L0f03f7d0
-/*  f03f7c0:	460c803c */ 	c.lt.s	$f16,$f12
-/*  f03f7c4:	46007081 */ 	sub.s	$f2,$f14,$f0
-/*  f03f7c8:	46000306 */ 	mov.s	$f12,$f0
-.L0f03f7cc:
-/*  f03f7cc:	460c803c */ 	c.lt.s	$f16,$f12
-.L0f03f7d0:
-/*  f03f7d0:	00000000 */ 	nop
-/*  f03f7d4:	45020006 */ 	bc1fl	.L0f03f7f0
-/*  f03f7d8:	c4a60044 */ 	lwc1	$f6,0x44($a1)
-/*  f03f7dc:	c4a40040 */ 	lwc1	$f4,0x40($a1)
-/*  f03f7e0:	460c2002 */ 	mul.s	$f0,$f4,$f12
-/*  f03f7e4:	10000004 */ 	b	.L0f03f7f8
-/*  f03f7e8:	00000000 */ 	nop
-/*  f03f7ec:	c4a60044 */ 	lwc1	$f6,0x44($a1)
-.L0f03f7f0:
-/*  f03f7f0:	460c3002 */ 	mul.s	$f0,$f6,$f12
-/*  f03f7f4:	00000000 */ 	nop
-.L0f03f7f8:
-/*  f03f7f8:	50e00008 */ 	beqzl	$a3,.L0f03f81c
-/*  f03f7fc:	e4800164 */ 	swc1	$f0,0x164($a0)
-/*  f03f800:	10c00003 */ 	beqz	$a2,.L0f03f810
-/*  f03f804:	e48c0164 */ 	swc1	$f12,0x164($a0)
-/*  f03f808:	10000005 */ 	b	.L0f03f820
-/*  f03f80c:	e48c0160 */ 	swc1	$f12,0x160($a0)
-.L0f03f810:
-/*  f03f810:	10000003 */ 	b	.L0f03f820
-/*  f03f814:	e4800160 */ 	swc1	$f0,0x160($a0)
-/*  f03f818:	e4800164 */ 	swc1	$f0,0x164($a0)
-.L0f03f81c:
-/*  f03f81c:	e48c0160 */ 	swc1	$f12,0x160($a0)
-.L0f03f820:
-/*  f03f820:	03e00008 */ 	jr	$ra
-/*  f03f824:	e4820168 */ 	swc1	$f2,0x168($a0)
-);
+void chrCalculateAimEndProperties(struct chrdata *chr, struct attackanimconfig *animcfg, bool hasleftgun, bool hasrightgun, f32 shootrotx)
+{
+	f32 aimfreeshoulder = 0;
+	f32 aimendback = 0;
+	f32 aimgunshoulder = shootrotx;
+
+	if (animcfg != NULL) {
+		if (shootrotx > animcfg->unk30) {
+			aimendback = shootrotx - animcfg->unk30;
+			aimgunshoulder = animcfg->unk30;
+		} else if (shootrotx < animcfg->unk34) {
+			aimendback = shootrotx - animcfg->unk34;
+			aimgunshoulder = animcfg->unk34;
+		}
+
+		if (aimgunshoulder > 0) {
+			aimfreeshoulder = animcfg->unk40 * aimgunshoulder;
+		} else {
+			aimfreeshoulder = animcfg->unk44 * aimgunshoulder;
+		}
+	}
+
+	if (hasrightgun) {
+		chr->aimendrshoulder = aimgunshoulder;
+
+		if (hasleftgun) {
+			chr->aimendlshoulder = aimgunshoulder;
+		} else {
+			chr->aimendlshoulder = aimfreeshoulder;
+		}
+	} else {
+		chr->aimendrshoulder = aimfreeshoulder;
+		chr->aimendlshoulder = aimgunshoulder;
+	}
+
+	chr->aimendback = aimendback;
+}
 
 void chrResetAimEndProperties(struct chrdata *chr)
 {
