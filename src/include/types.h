@@ -2151,16 +2151,12 @@ struct threat {
 
 struct beam {
 	/*0x00*/ s8 age;
-	/*0x01*/ s8 unk01;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
+	/*0x01*/ s8 weaponnum;
+	/*0x04*/ struct coord from;
+	/*0x10*/ struct coord dir;
 	/*0x1c*/ f32 maxdist;
 	/*0x20*/ f32 speed;
-	/*0x24*/ u32 unk24;
+	/*0x24*/ f32 mindist;
 	/*0x28*/ f32 dist;
 };
 

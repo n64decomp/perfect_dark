@@ -112,7 +112,7 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x57*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE2
 	/*0x58*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SKROCKET
 	/*0x59*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_59
-	/*0x5a*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_5A
+	/*0x5a*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_WATCHLASER
 	/*0x5b*/ { 220, 220, 0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_MPSHIELD
 	/*0x5c*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_DISABLED
 	/*0x5d*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SUICIDEPILL

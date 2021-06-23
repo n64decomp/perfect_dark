@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void beamCreate(struct beam *beam, s32 weaponnum, struct coord *arg4, struct coord *arg5);
+void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to);
 u32 func0f0ac138(void);
 Gfx *func0f0ac4b8(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct coord *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
 Gfx *func0f0acb90(Gfx *gdl, struct beam *beam, bool arg2, u32 arg3);

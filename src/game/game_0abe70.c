@@ -21,25 +21,6 @@ const u32 var7f1acc14[] = {0x73703200};
 const u32 var7f1acc18[] = {0x73703300};
 const u32 var7f1acc1c[] = {0x73706200};
 const u32 var7f1acc20[] = {0x73706900};
-const u32 var7f1acc24[] = {0x461c4000};
-const u32 var7f1acc28[] = {0x453b8000};
-const u32 var7f1acc2c[] = {0x453b8000};
-const u32 var7f1acc30[] = {0x3f19999a};
-const u32 var7f1acc34[] = {0x3e99999a};
-const u32 var7f1acc38[] = {0xbdcccccd};
-const u32 var7f1acc3c[] = {0x453b8000};
-const u32 var7f1acc40[] = {0x453b8000};
-const u32 var7f1acc44[] = {0x3e4ccccd};
-const u32 var7f1acc48[] = {0x3db2b17a};
-const u32 var7f1acc4c[] = {0x3727c5ac};
-const u32 var7f1acc50[] = {0xb727c5ac};
-const u32 var7f1acc54[] = {0x461c4000};
-const u32 var7f1acc58[] = {0xc61c4000};
-const u32 var7f1acc5c[] = {0x461c4000};
-const u32 var7f1acc60[] = {0xc61c4000};
-const u32 var7f1acc64[] = {0x461c4000};
-const u32 var7f1acc68[] = {0xc61c4000};
-const u32 var7f1acc6c[] = {0x3fb50481};
 
 struct casing g_Casings[20]; // da80 (correct)
 struct var8009da60 var8009da60[8]; // dfd0 (correct)
@@ -82,205 +63,89 @@ u32 var80070584 = 0x00000006;
 u32 var80070588 = 0x00000000;
 u32 var8007058c = 0x00000000;
 
-GLOBAL_ASM(
-glabel beamCreate
-/*  f0abe70:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0abe74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0abe78:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0abe7c:	e4840004 */ 	swc1	$f4,0x4($a0)
-/*  f0abe80:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f0abe84:	e4860008 */ 	swc1	$f6,0x8($a0)
-/*  f0abe88:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f0abe8c:	e488000c */ 	swc1	$f8,0xc($a0)
-/*  f0abe90:	c4d00000 */ 	lwc1	$f16,0x0($a2)
-/*  f0abe94:	c4ea0000 */ 	lwc1	$f10,0x0($a3)
-/*  f0abe98:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0abe9c:	e4920010 */ 	swc1	$f18,0x10($a0)
-/*  f0abea0:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f0abea4:	c4e40004 */ 	lwc1	$f4,0x4($a3)
-/*  f0abea8:	c4820010 */ 	lwc1	$f2,0x10($a0)
-/*  f0abeac:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0abeb0:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f0abeb4:	e4880014 */ 	swc1	$f8,0x14($a0)
-/*  f0abeb8:	c4d00008 */ 	lwc1	$f16,0x8($a2)
-/*  f0abebc:	c4ea0008 */ 	lwc1	$f10,0x8($a3)
-/*  f0abec0:	c48e0014 */ 	lwc1	$f14,0x14($a0)
-/*  f0abec4:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0abec8:	460e7182 */ 	mul.s	$f6,$f14,$f14
-/*  f0abecc:	e4920018 */ 	swc1	$f18,0x18($a0)
-/*  f0abed0:	c4800018 */ 	lwc1	$f0,0x18($a0)
-/*  f0abed4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0abed8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0abedc:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f0abee0:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0abee4:	0c012974 */ 	jal	sqrtf
-/*  f0abee8:	46085300 */ 	add.s	$f12,$f10,$f8
-/*  f0abeec:	44807000 */ 	mtc1	$zero,$f14
-/*  f0abef0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0abef4:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0abef8:	4600703c */ 	c.lt.s	$f14,$f0
-/*  f0abefc:	46000306 */ 	mov.s	$f12,$f0
-/*  f0abf00:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0abf04:	4500000e */ 	bc1f	.L0f0abf40
-/*  f0abf08:	00000000 */ 	nop
-/*  f0abf0c:	44818000 */ 	mtc1	$at,$f16
-/*  f0abf10:	c4920010 */ 	lwc1	$f18,0x10($a0)
-/*  f0abf14:	c4860014 */ 	lwc1	$f6,0x14($a0)
-/*  f0abf18:	46008083 */ 	div.s	$f2,$f16,$f0
-/*  f0abf1c:	c4880018 */ 	lwc1	$f8,0x18($a0)
-/*  f0abf20:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f0abf24:	00000000 */ 	nop
-/*  f0abf28:	46023282 */ 	mul.s	$f10,$f6,$f2
-/*  f0abf2c:	00000000 */ 	nop
-/*  f0abf30:	46024402 */ 	mul.s	$f16,$f8,$f2
-/*  f0abf34:	e4840010 */ 	swc1	$f4,0x10($a0)
-/*  f0abf38:	e48a0014 */ 	swc1	$f10,0x14($a0)
-/*  f0abf3c:	e4900018 */ 	swc1	$f16,0x18($a0)
-.L0f0abf40:
-/*  f0abf40:	3c017f1b */ 	lui	$at,%hi(var7f1acc24)
-/*  f0abf44:	c422cc24 */ 	lwc1	$f2,%lo(var7f1acc24)($at)
-/*  f0abf48:	3c0143fa */ 	lui	$at,0x43fa
-/*  f0abf4c:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0abf50:	44810000 */ 	mtc1	$at,$f0
-/*  f0abf54:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f0abf58:	45020003 */ 	bc1fl	.L0f0abf68
-/*  f0abf5c:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0abf60:	46001306 */ 	mov.s	$f12,$f2
-/*  f0abf64:	4600603c */ 	c.lt.s	$f12,$f0
-.L0f0abf68:
-/*  f0abf68:	a0800000 */ 	sb	$zero,0x0($a0)
-/*  f0abf6c:	a0850001 */ 	sb	$a1,0x1($a0)
-/*  f0abf70:	e48c001c */ 	swc1	$f12,0x1c($a0)
-/*  f0abf74:	45000002 */ 	bc1f	.L0f0abf80
-/*  f0abf78:	00000000 */ 	nop
-/*  f0abf7c:	46000306 */ 	mov.s	$f12,$f0
-.L0f0abf80:
-/*  f0abf80:	14a1000b */ 	bne	$a1,$at,.L0f0abfb0
-/*  f0abf84:	3c017f1b */ 	lui	$at,%hi(var7f1acc28)
-/*  f0abf88:	c422cc28 */ 	lwc1	$f2,%lo(var7f1acc28)($at)
-/*  f0abf8c:	e48e0020 */ 	swc1	$f14,0x20($a0)
-/*  f0abf90:	e48c0024 */ 	swc1	$f12,0x24($a0)
-/*  f0abf94:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f0abf98:	00000000 */ 	nop
-/*  f0abf9c:	45000002 */ 	bc1f	.L0f0abfa8
-/*  f0abfa0:	00000000 */ 	nop
-/*  f0abfa4:	e4820024 */ 	swc1	$f2,0x24($a0)
-.L0f0abfa8:
-/*  f0abfa8:	10000057 */ 	b	.L0f0ac108
-/*  f0abfac:	e48e0028 */ 	swc1	$f14,0x28($a0)
-.L0f0abfb0:
-/*  f0abfb0:	2401001d */ 	addiu	$at,$zero,0x1d
-/*  f0abfb4:	10a10002 */ 	beq	$a1,$at,.L0f0abfc0
-/*  f0abfb8:	2401005a */ 	addiu	$at,$zero,0x5a
-/*  f0abfbc:	14a10026 */ 	bne	$a1,$at,.L0f0ac058
-.L0f0abfc0:
-/*  f0abfc0:	3c017f1b */ 	lui	$at,%hi(var7f1acc2c)
-/*  f0abfc4:	c422cc2c */ 	lwc1	$f2,%lo(var7f1acc2c)($at)
-/*  f0abfc8:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0abfcc:	44819000 */ 	mtc1	$at,$f18
-/*  f0abfd0:	3c017f1b */ 	lui	$at,%hi(var7f1acc30)
-/*  f0abfd4:	460c9102 */ 	mul.s	$f4,$f18,$f12
-/*  f0abfd8:	e4840020 */ 	swc1	$f4,0x20($a0)
-/*  f0abfdc:	c426cc30 */ 	lwc1	$f6,%lo(var7f1acc30)($at)
-/*  f0abfe0:	460c3002 */ 	mul.s	$f0,$f6,$f12
-/*  f0abfe4:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0abfe8:	e4800024 */ 	swc1	$f0,0x24($a0)
-/*  f0abfec:	45020003 */ 	bc1fl	.L0f0abffc
-/*  f0abff0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0abff4:	e4820024 */ 	swc1	$f2,0x24($a0)
-/*  f0abff8:	afa40020 */ 	sw	$a0,0x20($sp)
-.L0f0abffc:
-/*  f0abffc:	0c004b70 */ 	jal	random
-/*  f0ac000:	e7ac001c */ 	swc1	$f12,0x1c($sp)
-/*  f0ac004:	44825000 */ 	mtc1	$v0,$f10
-/*  f0ac008:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0ac00c:	c7ac001c */ 	lwc1	$f12,0x1c($sp)
-/*  f0ac010:	04410005 */ 	bgez	$v0,.L0f0ac028
-/*  f0ac014:	46805220 */ 	cvt.s.w	$f8,$f10
-/*  f0ac018:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0ac01c:	44818000 */ 	mtc1	$at,$f16
-/*  f0ac020:	00000000 */ 	nop
-/*  f0ac024:	46104200 */ 	add.s	$f8,$f8,$f16
-.L0f0ac028:
-/*  f0ac028:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0ac02c:	44819000 */ 	mtc1	$at,$f18
-/*  f0ac030:	3c017f1b */ 	lui	$at,%hi(var7f1acc34)
-/*  f0ac034:	c426cc34 */ 	lwc1	$f6,%lo(var7f1acc34)($at)
-/*  f0ac038:	46124102 */ 	mul.s	$f4,$f8,$f18
-/*  f0ac03c:	3c017f1b */ 	lui	$at,%hi(var7f1acc38)
-/*  f0ac040:	c430cc38 */ 	lwc1	$f16,%lo(var7f1acc38)($at)
-/*  f0ac044:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f0ac048:	460a8201 */ 	sub.s	$f8,$f16,$f10
-/*  f0ac04c:	460c4482 */ 	mul.s	$f18,$f8,$f12
-/*  f0ac050:	1000002d */ 	b	.L0f0ac108
-/*  f0ac054:	e4920028 */ 	swc1	$f18,0x28($a0)
-.L0f0ac058:
-/*  f0ac058:	2401fffe */ 	addiu	$at,$zero,-2
-/*  f0ac05c:	14a1000b */ 	bne	$a1,$at,.L0f0ac08c
-/*  f0ac060:	3c017f1b */ 	lui	$at,%hi(var7f1acc3c)
-/*  f0ac064:	c422cc3c */ 	lwc1	$f2,%lo(var7f1acc3c)($at)
-/*  f0ac068:	e48e0020 */ 	swc1	$f14,0x20($a0)
-/*  f0ac06c:	e48c0024 */ 	swc1	$f12,0x24($a0)
-/*  f0ac070:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f0ac074:	00000000 */ 	nop
-/*  f0ac078:	45000002 */ 	bc1f	.L0f0ac084
-/*  f0ac07c:	00000000 */ 	nop
-/*  f0ac080:	e4820024 */ 	swc1	$f2,0x24($a0)
-.L0f0ac084:
-/*  f0ac084:	10000020 */ 	b	.L0f0ac108
-/*  f0ac088:	e48e0028 */ 	swc1	$f14,0x28($a0)
-.L0f0ac08c:
-/*  f0ac08c:	3c017f1b */ 	lui	$at,%hi(var7f1acc40)
-/*  f0ac090:	c422cc40 */ 	lwc1	$f2,%lo(var7f1acc40)($at)
-/*  f0ac094:	3c017f1b */ 	lui	$at,%hi(var7f1acc44)
-/*  f0ac098:	c424cc44 */ 	lwc1	$f4,%lo(var7f1acc44)($at)
-/*  f0ac09c:	460c2002 */ 	mul.s	$f0,$f4,$f12
-/*  f0ac0a0:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0ac0a4:	e4800020 */ 	swc1	$f0,0x20($a0)
-/*  f0ac0a8:	e4800024 */ 	swc1	$f0,0x24($a0)
-/*  f0ac0ac:	45000002 */ 	bc1f	.L0f0ac0b8
-/*  f0ac0b0:	00000000 */ 	nop
-/*  f0ac0b4:	e4820024 */ 	swc1	$f2,0x24($a0)
-.L0f0ac0b8:
-/*  f0ac0b8:	0c004b70 */ 	jal	random
-/*  f0ac0bc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0ac0c0:	44823000 */ 	mtc1	$v0,$f6
-/*  f0ac0c4:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0ac0c8:	04410005 */ 	bgez	$v0,.L0f0ac0e0
-/*  f0ac0cc:	46803420 */ 	cvt.s.w	$f16,$f6
-/*  f0ac0d0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0ac0d4:	44815000 */ 	mtc1	$at,$f10
-/*  f0ac0d8:	00000000 */ 	nop
-/*  f0ac0dc:	460a8400 */ 	add.s	$f16,$f16,$f10
-.L0f0ac0e0:
-/*  f0ac0e0:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0ac0e4:	44814000 */ 	mtc1	$at,$f8
-/*  f0ac0e8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0ac0ec:	44812000 */ 	mtc1	$at,$f4
-/*  f0ac0f0:	46088002 */ 	mul.s	$f0,$f16,$f8
-/*  f0ac0f4:	c48a0020 */ 	lwc1	$f10,0x20($a0)
-/*  f0ac0f8:	46000480 */ 	add.s	$f18,$f0,$f0
-/*  f0ac0fc:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f0ac100:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f0ac104:	e4900028 */ 	swc1	$f16,0x28($a0)
-.L0f0ac108:
-/*  f0ac108:	c4880028 */ 	lwc1	$f8,0x28($a0)
-/*  f0ac10c:	c492001c */ 	lwc1	$f18,0x1c($a0)
-/*  f0ac110:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0ac114:	4608903e */ 	c.le.s	$f18,$f8
-/*  f0ac118:	00000000 */ 	nop
-/*  f0ac11c:	45020003 */ 	bc1fl	.L0f0ac12c
-/*  f0ac120:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ac124:	a08e0000 */ 	sb	$t6,0x0($a0)
-/*  f0ac128:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ac12c:
-/*  f0ac12c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0ac130:	03e00008 */ 	jr	$ra
-/*  f0ac134:	00000000 */ 	nop
-);
+void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to)
+{
+	f32 distance;
+
+	beam->from.x = from->x;
+	beam->from.y = from->y;
+	beam->from.z = from->z;
+
+	beam->dir.x = to->x - from->x;
+	beam->dir.y = to->y - from->y;
+	beam->dir.z = to->z - from->z;
+
+	distance = sqrtf(beam->dir.f[0] * beam->dir.f[0] + beam->dir.f[1] * beam->dir.f[1] + beam->dir.f[2] * beam->dir.f[2]);
+
+	if (distance > 0) {
+		beam->dir.x *= 1.0f / distance;
+		beam->dir.y *= 1.0f / distance;
+		beam->dir.z *= 1.0f / distance;
+	}
+
+	if (distance > 10000) {
+		distance = 10000;
+	}
+
+	beam->age = 0;
+	beam->weaponnum = weaponnum;
+	beam->maxdist = distance;
+
+	if (distance < 500) {
+		distance = 500;
+	}
+
+	if (weaponnum == -1) {
+		beam->speed = 0;
+		beam->mindist = distance;
+
+		if (beam->mindist > 3000) {
+			beam->mindist = 3000;
+		}
+
+		beam->dist = 0;
+	} else if (weaponnum == WEAPON_LASER || weaponnum == WEAPON_WATCHLASER) {
+		beam->speed = 0.25f * distance;
+		beam->mindist = 0.6f * distance;
+
+		if (beam->mindist > 3000) {
+			beam->mindist = 3000;
+		}
+
+		beam->dist = (-0.1f - random() * (1.0f / U32_MAX) * 0.3f) * distance;
+	} else if (weaponnum == -2) {
+		beam->speed = 0;
+		beam->mindist = distance;
+
+		if (beam->mindist > 3000) {
+			beam->mindist = 3000;
+		}
+
+		beam->dist = 0;
+	} else {
+		f32 tmp;
+		beam->speed = 0.2f * distance;
+		beam->mindist = 0.2f * distance;
+
+		if (beam->mindist > 3000) {
+			beam->mindist = 3000;
+		}
+
+		tmp = random() * (1.0f / U32_MAX);
+		beam->dist = (tmp + tmp - 1) * beam->speed;
+	}
+
+	if (beam->dist >= beam->maxdist) {
+		beam->age = -1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0ac138
+.late_rodata
+glabel var7f1acc48
+.word 0x3db2b17a
+.text
 /*  f0ac138:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0ac13c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0ac140:	27bdff88 */ 	addiu	$sp,$sp,-120
@@ -520,6 +385,24 @@ glabel func0f0ac138
 
 GLOBAL_ASM(
 glabel func0f0ac4b8
+.late_rodata
+glabel var7f1acc4c
+.word 0x3727c5ac
+glabel var7f1acc50
+.word 0xb727c5ac
+glabel var7f1acc54
+.word 0x461c4000
+glabel var7f1acc58
+.word 0xc61c4000
+glabel var7f1acc5c
+.word 0x461c4000
+glabel var7f1acc60
+.word 0xc61c4000
+glabel var7f1acc64
+.word 0x461c4000
+glabel var7f1acc68
+.word 0xc61c4000
+.text
 /*  f0ac4b8:	27bdff10 */ 	addiu	$sp,$sp,-240
 /*  f0ac4bc:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f0ac4c0:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
@@ -981,6 +864,8 @@ glabel func0f0ac4b8
 GLOBAL_ASM(
 glabel func0f0acb90
 .late_rodata
+glabel var7f1acc6c
+.word 0x3fb50481
 glabel var7f1acc70
 .word func0f0acb90+0x130 # f0accc0
 glabel var7f1acc74
@@ -2125,7 +2010,7 @@ glabel var7f1accf4
 void beamTick(struct beam *beam)
 {
 	if (beam->age >= 0) {
-		if (beam->unk01 == -2) {
+		if (beam->weaponnum == -2) {
 			beam->age++;
 
 			if (beam->age > 1) {
