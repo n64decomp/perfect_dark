@@ -327,7 +327,7 @@ u8 func0403_init_maian_leader[] = {
 };
 
 u8 func0402_init_king[] = {
-	set_self_chrflag(CHRCFLAG_00000020)
+	set_self_chrflag(CHRCFLAG_LOSEXTRAHEIGHT)
 	set_alertness(100)
 	set_accuracy(100)
 	set_reaction_speed(100)

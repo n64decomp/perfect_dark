@@ -7013,200 +7013,97 @@ void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 	chr->lastvisibletarget60 = g_Vars.lvframe60;
 }
 
-GLOBAL_ASM(
-glabel chrCanSeeEntity
-/*  f038f40:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f038f44:	8fae0088 */ 	lw	$t6,0x88($sp)
-/*  f038f48:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f038f4c:	afa40078 */ 	sw	$a0,0x78($sp)
-/*  f038f50:	31cf0002 */ 	andi	$t7,$t6,0x2
-/*  f038f54:	afa5007c */ 	sw	$a1,0x7c($sp)
-/*  f038f58:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f038f5c:	afa70084 */ 	sw	$a3,0x84($sp)
-/*  f038f60:	11e00004 */ 	beqz	$t7,.L0f038f74
-/*  f038f64:	afa00074 */ 	sw	$zero,0x74($sp)
-/*  f038f68:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f038f6c:	1000009a */ 	b	.L0f0391d8
-/*  f038f70:	afb80074 */ 	sw	$t8,0x74($sp)
-.L0f038f74:
-/*  f038f74:	2419083f */ 	addiu	$t9,$zero,0x83f
-/*  f038f78:	afb9004c */ 	sw	$t9,0x4c($sp)
-/*  f038f7c:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f038f80:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f038f84:	00002825 */ 	or	$a1,$zero,$zero
-/*  f038f88:	14400003 */ 	bnez	$v0,.L0f038f98
-/*  f038f8c:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f038f90:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
-/*  f038f94:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f038f98:
-/*  f038f98:	1040000e */ 	beqz	$v0,.L0f038fd4
-/*  f038f9c:	27a70068 */ 	addiu	$a3,$sp,0x68
-/*  f038fa0:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f038fa4:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f038fa8:	24080a3f */ 	addiu	$t0,$zero,0xa3f
-/*  f038fac:	9064005c */ 	lbu	$a0,0x5c($v1)
-/*  f038fb0:	10810005 */ 	beq	$a0,$at,.L0f038fc8
-/*  f038fb4:	24010019 */ 	addiu	$at,$zero,0x19
-/*  f038fb8:	10810003 */ 	beq	$a0,$at,.L0f038fc8
-/*  f038fbc:	24010034 */ 	addiu	$at,$zero,0x34
-/*  f038fc0:	14810003 */ 	bne	$a0,$at,.L0f038fd0
-/*  f038fc4:	240908bf */ 	addiu	$t1,$zero,0x8bf
-.L0f038fc8:
-/*  f038fc8:	10000002 */ 	b	.L0f038fd4
-/*  f038fcc:	afa8004c */ 	sw	$t0,0x4c($sp)
-.L0f038fd0:
-/*  f038fd0:	afa9004c */ 	sw	$t1,0x4c($sp)
-.L0f038fd4:
-/*  f038fd4:	27aa0058 */ 	addiu	$t2,$sp,0x58
-/*  f038fd8:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f038fdc:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f038fe0:	8fa50088 */ 	lw	$a1,0x88($sp)
-/*  f038fe4:	0fc122de */ 	jal	chrGetAttackEntityPos
-/*  f038fe8:	8fa6008c */ 	lw	$a2,0x8c($sp)
-/*  f038fec:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f038ff0:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f038ff4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f038ff8:	8fa20088 */ 	lw	$v0,0x88($sp)
-/*  f038ffc:	304b0200 */ 	andi	$t3,$v0,0x200
-/*  f039000:	11600046 */ 	beqz	$t3,.L0f03911c
-/*  f039004:	304e0004 */ 	andi	$t6,$v0,0x4
-/*  f039008:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03900c:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f039010:	904c0000 */ 	lbu	$t4,0x0($v0)
-/*  f039014:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f039018:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03901c:	15810003 */ 	bne	$t4,$at,.L0f03902c
-/*  f039020:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x324)
-/*  f039024:	8dada2e4 */ 	lw	$t5,%lo(g_Vars+0x324)($t5)
-/*  f039028:	11a00068 */ 	beqz	$t5,.L0f0391cc
-.L0f03902c:
-/*  f03902c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f039030:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f039034:	afa40054 */ 	sw	$a0,0x54($sp)
-/*  f039038:	8fae0084 */ 	lw	$t6,0x84($sp)
-/*  f03903c:	8faf0078 */ 	lw	$t7,0x78($sp)
-/*  f039040:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f039044:	11c00023 */ 	beqz	$t6,.L0f0390d4
-/*  f039048:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f03904c:	8df80018 */ 	lw	$t8,0x18($t7)
-/*  f039050:	33190020 */ 	andi	$t9,$t8,0x20
-/*  f039054:	53200020 */ 	beqzl	$t9,.L0f0390d8
-/*  f039058:	8fab004c */ 	lw	$t3,0x4c($sp)
-/*  f03905c:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f039060:	3c01428c */ 	lui	$at,0x428c
-/*  f039064:	44814000 */ 	mtc1	$at,$f8
-/*  f039068:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f03906c:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f039070:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f039074:	e7a40038 */ 	swc1	$f4,0x38($sp)
-/*  f039078:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f03907c:	27a70028 */ 	addiu	$a3,$sp,0x28
-/*  f039080:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f039084:	e7aa003c */ 	swc1	$f10,0x3c($sp)
-/*  f039088:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f03908c:	0fc19776 */ 	jal	func0f065dd8
-/*  f039090:	e7b00040 */ 	swc1	$f16,0x40($sp)
-/*  f039094:	8fa8004c */ 	lw	$t0,0x4c($sp)
-/*  f039098:	24090010 */ 	addiu	$t1,$zero,0x10
-/*  f03909c:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0390a0:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f0390a4:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f0390a8:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f0390ac:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0390b0:	0c00b70f */ 	jal	hasLineOfSight
-/*  f0390b4:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0390b8:	50400014 */ 	beqzl	$v0,.L0f03910c
-/*  f0390bc:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f0390c0:	0fc0e3cc */ 	jal	chrRecordLastVisibleTargetTime
-/*  f0390c4:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f0390c8:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0390cc:	1000000e */ 	b	.L0f039108
-/*  f0390d0:	afaa0074 */ 	sw	$t2,0x74($sp)
-.L0f0390d4:
-/*  f0390d4:	8fab004c */ 	lw	$t3,0x4c($sp)
-.L0f0390d8:
-/*  f0390d8:	240c0010 */ 	addiu	$t4,$zero,0x10
-/*  f0390dc:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f0390e0:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f0390e4:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0390e8:	0c00b70f */ 	jal	hasLineOfSight
-/*  f0390ec:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0390f0:	50400006 */ 	beqzl	$v0,.L0f03910c
-/*  f0390f4:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*  f0390f8:	0fc0e3cc */ 	jal	chrRecordLastVisibleTargetTime
-/*  f0390fc:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f039100:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f039104:	afad0074 */ 	sw	$t5,0x74($sp)
-.L0f039108:
-/*  f039108:	8fa40054 */ 	lw	$a0,0x54($sp)
-.L0f03910c:
-/*  f03910c:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f039110:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f039114:	1000002e */ 	b	.L0f0391d0
-/*  f039118:	8fa40078 */ 	lw	$a0,0x78($sp)
-.L0f03911c:
-/*  f03911c:	11c0001e */ 	beqz	$t6,.L0f039198
-/*  f039120:	30490008 */ 	andi	$t1,$v0,0x8
-/*  f039124:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f039128:	0fc126d1 */ 	jal	chrFindById
-/*  f03912c:	8fa5008c */ 	lw	$a1,0x8c($sp)
-/*  f039130:	10400004 */ 	beqz	$v0,.L0f039144
-/*  f039134:	00402025 */ 	or	$a0,$v0,$zero
-/*  f039138:	8c4f001c */ 	lw	$t7,0x1c($v0)
-/*  f03913c:	55e00003 */ 	bnezl	$t7,.L0f03914c
-/*  f039140:	00002825 */ 	or	$a1,$zero,$zero
-.L0f039144:
-/*  f039144:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f039148:	00002825 */ 	or	$a1,$zero,$zero
-.L0f03914c:
-/*  f03914c:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f039150:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f039154:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*  f039158:	24190010 */ 	addiu	$t9,$zero,0x10
-/*  f03915c:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f039160:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f039164:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f039168:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f03916c:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f039170:	0c00b70f */ 	jal	hasLineOfSight
-/*  f039174:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f039178:	10400003 */ 	beqz	$v0,.L0f039188
-/*  f03917c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f039180:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f039184:	afa80074 */ 	sw	$t0,0x74($sp)
-.L0f039188:
-/*  f039188:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f03918c:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f039190:	1000000f */ 	b	.L0f0391d0
-/*  f039194:	8fa40078 */ 	lw	$a0,0x78($sp)
-.L0f039198:
-/*  f039198:	1120000c */ 	beqz	$t1,.L0f0391cc
-/*  f03919c:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f0391a0:	8faa004c */ 	lw	$t2,0x4c($sp)
-/*  f0391a4:	240b0010 */ 	addiu	$t3,$zero,0x10
-/*  f0391a8:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f0391ac:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f0391b0:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f0391b4:	27a70058 */ 	addiu	$a3,$sp,0x58
-/*  f0391b8:	0c00b70f */ 	jal	hasLineOfSight
-/*  f0391bc:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f0391c0:	10400002 */ 	beqz	$v0,.L0f0391cc
-/*  f0391c4:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f0391c8:	afac0074 */ 	sw	$t4,0x74($sp)
-.L0f0391cc:
-/*  f0391cc:	8fa40078 */ 	lw	$a0,0x78($sp)
-.L0f0391d0:
-/*  f0391d0:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f0391d4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0391d8:
-/*  f0391d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0391dc:	8fa20074 */ 	lw	$v0,0x74($sp)
-/*  f0391e0:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f0391e4:	03e00008 */ 	jr	$ra
-/*  f0391e8:	00000000 */ 	nop
-);
+bool chrCanSeeEntity(struct chrdata *chr, struct coord *chrpos, s16 *chrrooms, bool allowextraheight, u32 attackflags, u32 entityid)
+{
+	bool result = false;
+	struct coord targetpos;
+	s16 targetrooms[8];
+	struct prop *targetprop;
+	struct chrdata *targetchr;
+	u32 types;
+	struct prop *weaponprop;
 
-bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool arg3)
+	if (attackflags & ATTACKFLAG_AIMFORWARD) {
+		result = true;
+	} else {
+		types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_ALL;
+		weaponprop = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+
+		if (weaponprop == NULL) {
+			weaponprop = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+		}
+
+		if (weaponprop) {
+			struct weaponobj *weapon = weaponprop->weapon;
+
+			if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
+					|| weapon->weaponnum == WEAPON_SLAYER
+					|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34) {
+				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSWITHFLAG2 | CDTYPE_ALL;
+			} else {
+				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSWITHFLAG | CDTYPE_ALL;
+			}
+		}
+
+		chrGetAttackEntityPos(chr, attackflags, entityid, &targetpos, targetrooms);
+		chrSetOrUnsetHiddenFlag00000100(chr, false);
+
+		if ((attackflags & ATTACKFLAG_AIMATTARGET)) {
+			targetprop = chrGetTargetProp(chr);
+
+			if (targetprop->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
+				propSetCollisionsEnabled(targetprop, false);
+
+				if (allowextraheight && (chr->chrflags & CHRCFLAG_LOSEXTRAHEIGHT)) {
+					struct coord frompos;
+					s16 fromrooms[8];
+
+					frompos.x = chrpos->x;
+					frompos.y = chrpos->y + 70;
+					frompos.z = chrpos->z;
+
+					func0f065dd8(chrpos, chrrooms, &frompos, fromrooms);
+
+					if (hasLineOfSight(&frompos, fromrooms, &targetpos, targetrooms, types, 0x10)) {
+						chrRecordLastVisibleTargetTime(chr);
+						result = true;
+					}
+				} else {
+					if (hasLineOfSight(chrpos, chrrooms, &targetpos, targetrooms, types, 0x10)) {
+						chrRecordLastVisibleTargetTime(chr);
+						result = true;
+					}
+				}
+
+				propSetCollisionsEnabled(targetprop, true);
+			}
+		} else if (attackflags & ATTACKFLAG_AIMATCHR) {
+			targetchr = chrFindById(chr, entityid);
+
+			if (!targetchr || !targetchr->prop) {
+				targetchr = chr;
+			}
+
+			chrSetOrUnsetHiddenFlag00000100(targetchr, false);
+
+			if (hasLineOfSight(chrpos, chrrooms, &targetpos, targetrooms, types, 0x10)) {
+				result = true;
+			}
+
+			chrSetOrUnsetHiddenFlag00000100(targetchr, true);
+		} else if (attackflags & ATTACKFLAG_AIMATPAD) {
+			if (hasLineOfSight(chrpos, chrrooms, &targetpos, targetrooms, types, 0x10)) {
+				result = true;
+			}
+		}
+
+		chrSetOrUnsetHiddenFlag00000100(chr, true);
+	}
+
+	return result;
+}
+
+bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, bool allowextraheight)
 {
 	u32 attackflags = ATTACKFLAG_AIMATTARGET;
 	u32 entityid = 0;
@@ -7216,7 +7113,7 @@ bool chrCanSeeAttackTarget(struct chrdata *chr, struct coord *pos, s16 *rooms, b
 		entityid = chr->act_attack.entityid;
 	}
 
-	return chrCanSeeEntity(chr, pos, rooms, arg3, attackflags, entityid);
+	return chrCanSeeEntity(chr, pos, rooms, allowextraheight, attackflags, entityid);
 }
 
 bool chrCanSeeChr(struct chrdata *chr, struct chrdata *target, s16 *room)
@@ -7607,7 +7504,7 @@ bool chrTryAttackWalk(struct chrdata *chr)
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, 0)
+		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
 				&& (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > PALDOWN(120)) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -7636,7 +7533,7 @@ bool chrTryAttackRun(struct chrdata *chr)
 	if (chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, 0)
+		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false)
 				&& (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))
 				&& g_Vars.lvframe60 - chr->lastwalk60 > PALDOWN(180)) {
 			struct prop *target = chrGetTargetProp(chr);
@@ -7659,7 +7556,7 @@ bool chrTryAttackRoll(struct chrdata *chr)
 	if (CHRRACE(chr) == RACE_HUMAN && chrIsReadyForOrders(chr)) {
 		struct prop *prop = chr->prop;
 
-		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, 0) &&
+		if (chrCanSeeAttackTarget(chr, &prop->pos, prop->rooms, false) &&
 				(chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
 			struct prop *target = chrGetTargetProp(chr);
 			f32 x = target->pos.x - prop->pos.x;

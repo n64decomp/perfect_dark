@@ -1732,11 +1732,11 @@ u8 func100c_cockpit_stripes[] = {
 	endlist
 };
 
-u8 func0413_taker1[] = {
+u8 func040f_taker1[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
 	rebuild_teams
 	rebuild_squadrons
-	set_self_chrflag(CHRCFLAG_00000020)
+	set_self_chrflag(CHRCFLAG_LOSEXTRAHEIGHT)
 	set_chr_dodge_rating(2, 0x00)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -1748,11 +1748,11 @@ u8 func0413_taker1[] = {
 	endlist
 };
 
-u8 func0413_taker2[] = {
+u8 func0410_taker2[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
 	rebuild_teams
 	rebuild_squadrons
-	set_self_chrflag(CHRCFLAG_00000020)
+	set_self_chrflag(CHRCFLAG_LOSEXTRAHEIGHT)
 	set_chr_dodge_rating(2, 0x00)
 	set_reaction_speed(50)
 	set_chr_maxdamage(CHR_SELF, 60)
@@ -4172,8 +4172,8 @@ struct ailist ailists[] = {
 	{ func040e_unused,                                 0x040e },
 	{ func0413_taker,                                  0x0413 },
 	{ func100c_cockpit_stripes,                        0x0414 },
-	{ func0413_taker1,                                 0x040f },
-	{ func0413_taker2,                                 0x0410 },
+	{ func040f_taker1,                                 0x040f },
+	{ func0410_taker2,                                 0x0410 },
 	{ func0413_taker,                                  0x0413 },
 	{ func0411_typing_guy,                             0x0411 },
 	{ func0412_sitting_guy,                            0x0412 },

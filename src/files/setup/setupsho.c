@@ -1946,7 +1946,7 @@ u8 func040c_king_waiting[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_RUNFASTER)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00100000)
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2d)
-	set_self_chrflag(CHRCFLAG_00000020)
+	set_self_chrflag(CHRCFLAG_LOSEXTRAHEIGHT)
 	label(0x2d)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)

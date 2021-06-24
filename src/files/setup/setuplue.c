@@ -1806,7 +1806,7 @@ u8 func040c_init_bottom_interceptors[] = {
 };
 
 u8 func040d_90c8[] = {
-	set_self_chrflag(CHRCFLAG_00000020)
+	set_self_chrflag(CHRCFLAG_LOSEXTRAHEIGHT)
 	set_accuracy(30)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
 	endlist

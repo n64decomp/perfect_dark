@@ -2428,8 +2428,8 @@ u8 func1400_give_briefcases[] = {
 	yield
 	set_chr_team(CHR_ANTI, TEAM_20)
 	set_chr_chrflag(CHR_TOPSTAIRS, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_chrflag(CHR_TOPSTAIRS, CHRCFLAG_00000020)
-	set_chr_chrflag(0x0a, CHRCFLAG_00000020)
+	set_chr_chrflag(CHR_TOPSTAIRS, CHRCFLAG_LOSEXTRAHEIGHT)
+	set_chr_chrflag(0x0a, CHRCFLAG_LOSEXTRAHEIGHT)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x03)
 
 	// PA

@@ -470,7 +470,7 @@
 #define CHRCFLAG_NEAR_MISS                   0x00000004
 #define CHRCFLAG_NEVER_BEEN_ON_SCREEN        0x00000008
 #define CHRCFLAG_INVINCIBLE                  0x00000010
-#define CHRCFLAG_00000020                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
+#define CHRCFLAG_LOSEXTRAHEIGHT                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
 #define CHRCFLAG_00000040                    0x00000040 // Used quite a lot
 #define CHRCFLAG_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
 #define CHRCFLAG_JUST_INJURED                0x00000100
