@@ -3618,13 +3618,17 @@
 #define TRACKTYPE_AMBIENT 5
 #define TRACKTYPE_6       6
 
-#define TVCMD_STOPSCROLL             0x00
-#define TVCMD_SCROLLRELX             0x01
-#define TVCMD_SCROLLRELY             0x02
-#define TVCMD_SCROLLABSX             0x03
-#define TVCMD_SCROLLABSY             0x04
-#define TVCMD_SCALEABSX             0x05
-#define TVCMD_SCALEABSY             0x06
+#define TURNSTATE_TURNING  1 // chr is actively turning
+#define TURNSTATE_OFF      2 // chr is not using the turning feature
+#define TURNSTATE_ONTARGET 3 // chr is facing the target and will turn if target moves
+
+#define TVCMD_STOPSCROLL     0x00
+#define TVCMD_SCROLLRELX     0x01
+#define TVCMD_SCROLLRELY     0x02
+#define TVCMD_SCROLLABSX     0x03
+#define TVCMD_SCROLLABSY     0x04
+#define TVCMD_SCALEABSX      0x05
+#define TVCMD_SCALEABSY      0x06
 #define TVCMD_SETTEXTURE     0x07
 #define TVCMD_PAUSE          0x08
 #define TVCMD_SETCMDLIST     0x09
@@ -3632,8 +3636,8 @@
 #define TVCMD_RESTART        0x0b
 #define TVCMD_YIELD          0x0c
 #define TVCMD_SETCOLOUR      0x0d
-#define TVCMD_ROTATEABS    0x0e
-#define TVCMD_ROTATEREL    0x0f
+#define TVCMD_ROTATEABS      0x0e
+#define TVCMD_ROTATEREL      0x0f
 
 #define TVCMDLIST_00 0x00
 #define TVCMDLIST_01 0x01

@@ -1695,7 +1695,7 @@ void func0f02e9a0(struct chrdata *chr, f32 mergetime)
 	chr->act_stand.flags = 0;
 	chr->act_stand.entityid = 0;
 	chr->act_stand.reaim = 0;
-	chr->act_stand.turning = 2;
+	chr->act_stand.turning = TURNSTATE_OFF;
 	chr->act_stand.checkfacingwall = false;
 	chr->act_stand.wallcount = random() % 120 + 180; // 180 to 299
 	chr->act_stand.mergetime = mergetime;
@@ -1737,7 +1737,7 @@ void chrStand(struct chrdata *chr)
 			chr->act_stand.flags = 0;
 			chr->act_stand.entityid = 0;
 			chr->act_stand.reaim = 0;
-			chr->act_stand.turning = 2;
+			chr->act_stand.turning = TURNSTATE_OFF;
 			chr->act_stand.checkfacingwall = 0;
 			chr->act_stand.wallcount = random() % 120 + 180;
 			chr->sleep = 0;
@@ -1762,7 +1762,7 @@ void chrStand(struct chrdata *chr)
 			chr->act_stand.flags = 0;
 			chr->act_stand.entityid = 0;
 			chr->act_stand.reaim = 0;
-			chr->act_stand.turning = 2;
+			chr->act_stand.turning = TURNSTATE_OFF;
 			chr->act_stand.checkfacingwall = false;
 			chr->act_stand.wallcount = random() % 120 + 180;
 			chr->sleep = 0;
@@ -1786,7 +1786,7 @@ bool chrFaceCover(struct chrdata *chr)
 	chrStand(chr);
 	chr->act_stand.reaim = 0;
 	chr->act_stand.flags = ATTACKFLAG_AIMATDIRECTION;
-	chr->act_stand.turning = 1;
+	chr->act_stand.turning = TURNSTATE_TURNING;
 	//chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
 	chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * 10432.039f;
 
@@ -2680,7 +2680,7 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 	chr->act_attack.onehanded = onehanded;
 	chr->act_attack.pausecount = 0;
 	chr->act_attack.numshots = 0;
-	chr->act_attack.turning = true;
+	chr->act_attack.turning = TURNSTATE_TURNING;
 
 	if (singleshot[HAND_LEFT] || singleshot[HAND_RIGHT]) {
 		if (singleshot[HAND_LEFT] && singleshot[HAND_RIGHT]) {
@@ -2917,7 +2917,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 			}
 		}
 
-		chr->act_attack.turning = true;
+		chr->act_attack.turning = TURNSTATE_TURNING;
 		chr->act_attack.animcfg = animcfg;
 		chr->act_attack.fired = false;
 		chr->act_attack.nextgun = random() % 2;
@@ -8926,7 +8926,7 @@ glabel var7f1a8f08
 /*  f03c2a0:	3c073f80 */ 	lui	$a3,0x3f80
 /*  f03c2a4:	e7aa0010 */ 	swc1	$f10,0x10($sp)
 /*  f03c2a8:	44064000 */ 	mfc1	$a2,$f8
-/*  f03c2ac:	0fc0f9e2 */ 	jal	func0f03e788
+/*  f03c2ac:	0fc0f9e2 */ 	jal	chrTurn
 /*  f03c2b0:	00000000 */ 	nop
 /*  f03c2b4:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f03c2b8:	1041009b */ 	beq	$v0,$at,.L0f03c528
@@ -10376,191 +10376,79 @@ f32 func0f03e754(struct chrdata *chr)
 	return sum;
 }
 
-GLOBAL_ASM(
-glabel func0f03e788
-.late_rodata
-glabel var7f1a8f34
-.word 0x3d80a8be
-glabel var7f1a8f38
-.word 0x40c907a9
-glabel var7f1a8f3c
-.word 0x40c907a9
-glabel var7f1a8f40
-.word 0x40490fdb
-.text
-/*  f03e788:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f03e78c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03e790:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f03e794:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03e798:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03e79c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f03e7a0:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f03e7a4:	10a1008e */ 	beq	$a1,$at,.L0f03e9e0
-/*  f03e7a8:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f03e7ac:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f03e7b0:	0c00745f */ 	jal	modelGetCurAnimFrame
-/*  f03e7b4:	afa40034 */ 	sw	$a0,0x34($sp)
-/*  f03e7b8:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f03e7bc:	0fc0f917 */ 	jal	chrGetInverseTheta
-/*  f03e7c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e7c4:	3c017f1b */ 	lui	$at,%hi(var7f1a8f34)
-/*  f03e7c8:	c4248f34 */ 	lwc1	$f4,%lo(var7f1a8f34)($at)
-/*  f03e7cc:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f03e7d0:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44)
-/*  f03e7d4:	c42aa004 */ 	lwc1	$f10,%lo(g_Vars+0x44)($at)
-/*  f03e7d8:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f03e7dc:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f03e7e0:	46000306 */ 	mov.s	$f12,$f0
-/*  f03e7e4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e7e8:	8df80020 */ 	lw	$t8,0x20($t7)
-/*  f03e7ec:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f03e7f0:	c7120074 */ 	lwc1	$f18,0x74($t8)
-/*  f03e7f4:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f03e7f8:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*  f03e7fc:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
-/*  f03e800:	53200009 */ 	beqzl	$t9,.L0f03e828
-/*  f03e804:	82020007 */ 	lb	$v0,0x7($s0)
-/*  f03e808:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03e80c:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f03e810:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e814:	0fc122a1 */ 	jal	chrGetAngleToPos
-/*  f03e818:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f03e81c:	1000002b */ 	b	.L0f03e8cc
-/*  f03e820:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-/*  f03e824:	82020007 */ 	lb	$v0,0x7($s0)
-.L0f03e828:
-/*  f03e828:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f03e82c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e830:	10410007 */ 	beq	$v0,$at,.L0f03e850
-/*  f03e834:	2401001b */ 	addiu	$at,$zero,0x1b
-/*  f03e838:	10410005 */ 	beq	$v0,$at,.L0f03e850
-/*  f03e83c:	2401001c */ 	addiu	$at,$zero,0x1c
-/*  f03e840:	10410003 */ 	beq	$v0,$at,.L0f03e850
-/*  f03e844:	2401001d */ 	addiu	$at,$zero,0x1d
-/*  f03e848:	54410008 */ 	bnel	$v0,$at,.L0f03e86c
-/*  f03e84c:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f03e850:
-/*  f03e850:	8e05004c */ 	lw	$a1,0x4c($s0)
-/*  f03e854:	8e060050 */ 	lw	$a2,0x50($s0)
-/*  f03e858:	0fc0b8b4 */ 	jal	chrGetAttackEntityRelativeAngle
-/*  f03e85c:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f03e860:	1000001a */ 	b	.L0f03e8cc
-/*  f03e864:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-/*  f03e868:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f03e86c:
-/*  f03e86c:	14410007 */ 	bne	$v0,$at,.L0f03e88c
-/*  f03e870:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e874:	8e050030 */ 	lw	$a1,0x30($s0)
-/*  f03e878:	8e060034 */ 	lw	$a2,0x34($s0)
-/*  f03e87c:	0fc0b8b4 */ 	jal	chrGetAttackEntityRelativeAngle
-/*  f03e880:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f03e884:	10000011 */ 	b	.L0f03e8cc
-/*  f03e888:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-.L0f03e88c:
-/*  f03e88c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f03e890:	14410008 */ 	bne	$v0,$at,.L0f03e8b4
-/*  f03e894:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e898:	8e05002c */ 	lw	$a1,0x2c($s0)
-/*  f03e89c:	8e060030 */ 	lw	$a2,0x30($s0)
-/*  f03e8a0:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f03e8a4:	0fc0b8b4 */ 	jal	chrGetAttackEntityRelativeAngle
-/*  f03e8a8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e8ac:	10000007 */ 	b	.L0f03e8cc
-/*  f03e8b0:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-.L0f03e8b4:
-/*  f03e8b4:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03e8b8:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f03e8bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e8c0:	0fc122a1 */ 	jal	chrGetAngleToPos
-/*  f03e8c4:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f03e8c8:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-.L0f03e8cc:
-/*  f03e8cc:	c7a60048 */ 	lwc1	$f6,0x48($sp)
-/*  f03e8d0:	44807000 */ 	mtc1	$zero,$f14
-/*  f03e8d4:	3c017f1b */ 	lui	$at,%hi(var7f1a8f38)
-/*  f03e8d8:	46060081 */ 	sub.s	$f2,$f0,$f6
-/*  f03e8dc:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f03e8e0:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f03e8e4:	00000000 */ 	nop
-/*  f03e8e8:	45020004 */ 	bc1fl	.L0f03e8fc
-/*  f03e8ec:	4608103c */ 	c.lt.s	$f2,$f8
-/*  f03e8f0:	c4208f38 */ 	lwc1	$f0,%lo(var7f1a8f38)($at)
-/*  f03e8f4:	46001080 */ 	add.s	$f2,$f2,$f0
-/*  f03e8f8:	4608103c */ 	c.lt.s	$f2,$f8
-.L0f03e8fc:
-/*  f03e8fc:	3c017f1b */ 	lui	$at,%hi(var7f1a8f3c)
-/*  f03e900:	c4208f3c */ 	lwc1	$f0,%lo(var7f1a8f3c)($at)
-/*  f03e904:	45030008 */ 	bc1tl	.L0f03e928
-/*  f03e908:	46026300 */ 	add.s	$f12,$f12,$f2
-/*  f03e90c:	46080281 */ 	sub.s	$f10,$f0,$f8
-/*  f03e910:	3c017f1b */ 	lui	$at,%hi(var7f1a8f40)
-/*  f03e914:	4602503c */ 	c.lt.s	$f10,$f2
-/*  f03e918:	00000000 */ 	nop
-/*  f03e91c:	4500000d */ 	bc1f	.L0f03e954
-/*  f03e920:	00000000 */ 	nop
-/*  f03e924:	46026300 */ 	add.s	$f12,$f12,$f2
-.L0f03e928:
-/*  f03e928:	460c003e */ 	c.le.s	$f0,$f12
-/*  f03e92c:	00000000 */ 	nop
-/*  f03e930:	45020003 */ 	bc1fl	.L0f03e940
-/*  f03e934:	44056000 */ 	mfc1	$a1,$f12
-/*  f03e938:	46006301 */ 	sub.s	$f12,$f12,$f0
-/*  f03e93c:	44056000 */ 	mfc1	$a1,$f12
-.L0f03e940:
-/*  f03e940:	0fc0f94e */ 	jal	chrSetLookAngle
-/*  f03e944:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e948:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f03e94c:	1000001c */ 	b	.L0f03e9c0
-/*  f03e950:	afa8003c */ 	sw	$t0,0x3c($sp)
-.L0f03e954:
-/*  f03e954:	c4308f40 */ 	lwc1	$f16,%lo(var7f1a8f40)($at)
-/*  f03e958:	c7b20020 */ 	lwc1	$f18,0x20($sp)
-/*  f03e95c:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f03e960:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f03e964:	00000000 */ 	nop
-/*  f03e968:	4502000d */ 	bc1fl	.L0f03e9a0
-/*  f03e96c:	46046301 */ 	sub.s	$f12,$f12,$f4
-/*  f03e970:	46126300 */ 	add.s	$f12,$f12,$f18
-/*  f03e974:	460c003e */ 	c.le.s	$f0,$f12
-/*  f03e978:	00000000 */ 	nop
-/*  f03e97c:	45020003 */ 	bc1fl	.L0f03e98c
-/*  f03e980:	44056000 */ 	mfc1	$a1,$f12
-/*  f03e984:	46006301 */ 	sub.s	$f12,$f12,$f0
-/*  f03e988:	44056000 */ 	mfc1	$a1,$f12
-.L0f03e98c:
-/*  f03e98c:	0fc0f94e */ 	jal	chrSetLookAngle
-/*  f03e990:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e994:	1000000b */ 	b	.L0f03e9c4
-/*  f03e998:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*  f03e99c:	46046301 */ 	sub.s	$f12,$f12,$f4
-.L0f03e9a0:
-/*  f03e9a0:	460e603c */ 	c.lt.s	$f12,$f14
-/*  f03e9a4:	00000000 */ 	nop
-/*  f03e9a8:	45020003 */ 	bc1fl	.L0f03e9b8
-/*  f03e9ac:	44056000 */ 	mfc1	$a1,$f12
-/*  f03e9b0:	46006300 */ 	add.s	$f12,$f12,$f0
-/*  f03e9b4:	44056000 */ 	mfc1	$a1,$f12
-.L0f03e9b8:
-/*  f03e9b8:	0fc0f94e */ 	jal	chrSetLookAngle
-/*  f03e9bc:	02002025 */ 	or	$a0,$s0,$zero
-.L0f03e9c0:
-/*  f03e9c0:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-.L0f03e9c4:
-/*  f03e9c4:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*  f03e9c8:	24090002 */ 	addiu	$t1,$zero,0x2
-/*  f03e9cc:	4606403e */ 	c.le.s	$f8,$f6
-/*  f03e9d0:	00000000 */ 	nop
-/*  f03e9d4:	45020003 */ 	bc1fl	.L0f03e9e4
-/*  f03e9d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e9dc:	afa9003c */ 	sw	$t1,0x3c($sp)
-.L0f03e9e0:
-/*  f03e9e0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03e9e4:
-/*  f03e9e4:	8fa2003c */ 	lw	$v0,0x3c($sp)
-/*  f03e9e8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03e9ec:	03e00008 */ 	jr	$ra
-/*  f03e9f0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+/**
+ * Turn the chr slightly towards their target.
+ */
+s32 chrTurn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 toleranceangle)
+{
+	if (turning != TURNSTATE_OFF) {
+		struct model *model = chr->model;
+		f32 curframe = modelGetCurAnimFrame(model);
+		u32 stack;
+		f32 finalangle = chrGetInverseTheta(chr);
+		f32 remainingangle;
+		f32 increment = M_BADTAU / 100.0f * speed * g_Vars.lvupdate240f * model->anim->playspeed;
+
+		if (chr->aibot) {
+			struct prop *target = chrGetTargetProp(chr);
+			remainingangle = chrGetAngleToPos(chr, &target->pos);
+		} else if (chr->actiontype == ACT_ATTACK
+				|| chr->actiontype == ACT_BOT_ATTACKSTAND
+				|| chr->actiontype == ACT_BOT_ATTACKKNEEL
+				|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
+			remainingangle = chrGetAttackEntityRelativeAngle(chr, chr->act_attack.flags, chr->act_attack.entityid);
+		} else if (chr->actiontype == ACT_STAND) {
+			remainingangle = chrGetAttackEntityRelativeAngle(chr, chr->act_stand.flags, chr->act_stand.entityid);
+		} else if (chr->actiontype == ACT_THROWGRENADE) {
+			remainingangle = chrGetAttackEntityRelativeAngle(chr, chr->act_throwgrenade.flags, chr->act_throwgrenade.entityid);
+		} else {
+			struct prop *target = chrGetTargetProp(chr);
+			remainingangle = chrGetAngleToPos(chr, &target->pos);
+		}
+
+		remainingangle -= toleranceangle;
+
+		if (remainingangle < 0) {
+			remainingangle += M_BADTAU;
+		}
+
+		if (increment > remainingangle || M_BADTAU - increment < remainingangle) {
+			// Close enough to stop
+			finalangle += remainingangle;
+
+			if (finalangle >= M_BADTAU) {
+				finalangle -= M_BADTAU;
+			}
+
+			chrSetLookAngle(chr, finalangle);
+			turning = TURNSTATE_ONTARGET;
+		} else if (remainingangle < M_PI) {
+			// Turning in one direction
+			finalangle += increment;
+
+			if (finalangle >= M_BADTAU) {
+				finalangle -= M_BADTAU;
+			}
+
+			chrSetLookAngle(chr, finalangle);
+		} else {
+			// Turning in the other direction
+			finalangle -= increment;
+
+			if (finalangle < 0) {
+				finalangle += M_BADTAU;
+			}
+
+			chrSetLookAngle(chr, finalangle);
+		}
+
+		if (curframe >= endanimframe) {
+			turning = TURNSTATE_OFF;
+		}
+	}
+
+	return turning;
+}
 
 GLOBAL_ASM(
 glabel func0f03e9f4
@@ -17225,7 +17113,7 @@ bool func0f041c44(struct chrdata *chr)
 			struct attackanimconfig *animcfg = &g_RollAttackAnims[1];
 			bool flip = model->anim->flip;
 
-			chr->act_attack.turning = 2;
+			chr->act_attack.turning = TURNSTATE_OFF;
 			chr->act_attack.animcfg = animcfg;
 			chr->sleep = 0;
 
@@ -17375,7 +17263,7 @@ void chrTickFire(struct chrdata *chr)
 			f2 = M_BADTAU - f2;
 		}
 
-		chr->act_attack.turning = func0f03e788(chr, chr->act_attack.turning, f12, chrGetRangedSpeed(chr, 1, 1.6f), f2);
+		chr->act_attack.turning = chrTurn(chr, chr->act_attack.turning, f12, chrGetRangedSpeed(chr, 1, 1.6f), f2);
 	}
 
 	if ((curframe > chr->act_attack.animcfg->unk28 && curframe < chr->act_attack.animcfg->unk2c)
@@ -17445,7 +17333,7 @@ void chrTickAttackAmount(struct chrdata *chr)
 	f32 unk0c = chr->act_attack.animcfg->unk0c;
 	f32 unk04 = chr->act_attack.animcfg->unk04;
 
-	func0f03e788(chr, 1, unk04, chrGetRangedSpeed(chr, 1, 1.6f), unk0c);
+	chrTurn(chr, 1, unk04, chrGetRangedSpeed(chr, 1, 1.6f), unk0c);
 
 	if (frame > chr->act_attack.animcfg->unk28
 			&& frame < chr->act_attack.animcfg->unk2c) {
@@ -18199,7 +18087,7 @@ void chrTickAttack(struct chrdata *chr)
 
 		if (curframe >= modelGetAnimEndFrame(model)) {
 			chr->act_attack.flags |= ATTACKFLAG_DONTTURN;
-			chr->act_attack.turning = 2;
+			chr->act_attack.turning = TURNSTATE_OFF;
 			return;
 		}
 	}
@@ -18283,7 +18171,7 @@ void chrTickAttackRoll(struct chrdata *chr)
 					sp34 = 44;
 				}
 
-				chr->act_attack.turning = 2;
+				chr->act_attack.turning = TURNSTATE_OFF;
 				chr->act_attack.animcfg = newanimcfg;
 				chr->sleep = 0;
 
@@ -18446,7 +18334,7 @@ void chrTickThrowGrenade(struct chrdata *chr)
 				(frame >= 5 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_NOPIN) ||
 				((frame >= 20 && frame <= 45 && modelGetAnimNum(model) == ANIM_THROWGRENADE_CROUCHING))) {
 			f32 value = chrGetRangedSpeed(chr, 1, 3.2);
-			func0f03e788(chr, 1, 110, value, 0);
+			chrTurn(chr, 1, 110, value, 0);
 		}
 	}
 }
