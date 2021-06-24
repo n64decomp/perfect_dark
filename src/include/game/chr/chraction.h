@@ -114,7 +114,7 @@ bool chrGoToPad(struct chrdata *chr, s32 padnum, u32 speed);
 bool func0f03abd0(struct chrdata *chr, struct coord *pos, u32 flags);
 s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2);
 bool chrTryRunFromTarget(struct chrdata *chr);
-u32 func0f03b1e0(struct chrdata *chr);
+bool chrGoToCoverProp(struct chrdata *chr);
 bool chrDropItem(struct chrdata *chr, u32 modelnum, u32 weaponnum);
 void chrPunchInflictDamage(struct chrdata *chr, s32 damage, s32 range, u8 reverse);
 bool chrTryPunch(struct chrdata *chr, u8 reverse);

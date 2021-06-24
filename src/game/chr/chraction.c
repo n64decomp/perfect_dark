@@ -7910,294 +7910,104 @@ const char var7f1a8b20[] = "off";
 const char var7f1a8b24[] = "firecount(%d) = %d";
 const char var7f1a8b38[] = "numshots(%d) = %d";
 
-GLOBAL_ASM(
-glabel func0f03b1e0
-.late_rodata
-glabel var7f1a8ecc
-.word 0x3ecccccd
-glabel var7f1a8ed0
-.word 0x3f666666
-glabel var7f1a8ed4
-.word 0x44bb8000
-.text
-/*  f03b1e0:	27bdfd48 */ 	addiu	$sp,$sp,-696
-/*  f03b1e4:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f03b1e8:	afb70038 */ 	sw	$s7,0x38($sp)
-/*  f03b1ec:	afb60034 */ 	sw	$s6,0x34($sp)
-/*  f03b1f0:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f03b1f4:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f03b1f8:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f03b1fc:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f03b200:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f03b204:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f03b208:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f03b20c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f03b210:	afa402b8 */ 	sw	$a0,0x2b8($sp)
-/*  f03b214:	8fa402b8 */ 	lw	$a0,0x2b8($sp)
-/*  f03b218:	0040b025 */ 	or	$s6,$v0,$zero
-/*  f03b21c:	14400003 */ 	bnez	$v0,.L0f03b22c
-/*  f03b220:	8c93001c */ 	lw	$s3,0x1c($a0)
-/*  f03b224:	100000e6 */ 	b	.L0f03b5c0
-/*  f03b228:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b22c:
-/*  f03b22c:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f03b230:	00000000 */ 	nop
-/*  f03b234:	104000e1 */ 	beqz	$v0,.L0f03b5bc
-/*  f03b238:	27b700a8 */ 	addiu	$s7,$sp,0xa8
-/*  f03b23c:	26640028 */ 	addiu	$a0,$s3,0x28
-/*  f03b240:	afa4004c */ 	sw	$a0,0x4c($sp)
-/*  f03b244:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f03b248:	0fc197e0 */ 	jal	roomGetProps
-/*  f03b24c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f03b250:	87ae00a8 */ 	lh	$t6,0xa8($sp)
-/*  f03b254:	00008825 */ 	or	$s1,$zero,$zero
-/*  f03b258:	05c0000a */ 	bltz	$t6,.L0f03b284
-/*  f03b25c:	00000000 */ 	nop
-/*  f03b260:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f03b264:
-/*  f03b264:	00117c00 */ 	sll	$t7,$s1,0x10
-/*  f03b268:	000fc403 */ 	sra	$t8,$t7,0x10
-/*  f03b26c:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f03b270:	02f94021 */ 	addu	$t0,$s7,$t9
-/*  f03b274:	85090000 */ 	lh	$t1,0x0($t0)
-/*  f03b278:	03008825 */ 	or	$s1,$t8,$zero
-/*  f03b27c:	0523fff9 */ 	bgezl	$t1,.L0f03b264
-/*  f03b280:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f03b284:
-/*  f03b284:	1a200009 */ 	blez	$s1,.L0f03b2ac
-/*  f03b288:	00000000 */ 	nop
-/*  f03b28c:	0c004b70 */ 	jal	random
-/*  f03b290:	00000000 */ 	nop
-/*  f03b294:	0051001b */ 	divu	$zero,$v0,$s1
-/*  f03b298:	00005010 */ 	mfhi	$t2
-/*  f03b29c:	a7aa00a0 */ 	sh	$t2,0xa0($sp)
-/*  f03b2a0:	16200002 */ 	bnez	$s1,.L0f03b2ac
-/*  f03b2a4:	00000000 */ 	nop
-/*  f03b2a8:	0007000d */ 	break	0x7
-.L0f03b2ac:
-/*  f03b2ac:	1a2000c3 */ 	blez	$s1,.L0f03b5bc
-/*  f03b2b0:	00009025 */ 	or	$s2,$zero,$zero
-/*  f03b2b4:	87ab00a0 */ 	lh	$t3,0xa0($sp)
-.L0f03b2b8:
-/*  f03b2b8:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x338)
-/*  f03b2bc:	8d08a2f8 */ 	lw	$t0,%lo(g_Vars+0x338)($t0)
-/*  f03b2c0:	024b6021 */ 	addu	$t4,$s2,$t3
-/*  f03b2c4:	0191001a */ 	div	$zero,$t4,$s1
-/*  f03b2c8:	00006810 */ 	mfhi	$t5
-/*  f03b2cc:	000d7040 */ 	sll	$t6,$t5,0x1
-/*  f03b2d0:	02ee7821 */ 	addu	$t7,$s7,$t6
-/*  f03b2d4:	85f80000 */ 	lh	$t8,0x0($t7)
-/*  f03b2d8:	16200002 */ 	bnez	$s1,.L0f03b2e4
-/*  f03b2dc:	00000000 */ 	nop
-/*  f03b2e0:	0007000d */ 	break	0x7
-.L0f03b2e4:
-/*  f03b2e4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f03b2e8:	16210004 */ 	bne	$s1,$at,.L0f03b2fc
-/*  f03b2ec:	3c018000 */ 	lui	$at,0x8000
-/*  f03b2f0:	15810002 */ 	bne	$t4,$at,.L0f03b2fc
-/*  f03b2f4:	00000000 */ 	nop
-/*  f03b2f8:	0006000d */ 	break	0x6
-.L0f03b2fc:
-/*  f03b2fc:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f03b300:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f03b304:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f03b308:	03288021 */ 	addu	$s0,$t9,$t0
-/*  f03b30c:	92090000 */ 	lbu	$t1,0x0($s0)
-/*  f03b310:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03b314:	8e150004 */ 	lw	$s5,0x4($s0)
-/*  f03b318:	552100a3 */ 	bnel	$t1,$at,.L0f03b5a8
-/*  f03b31c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03b320:	92aa0002 */ 	lbu	$t2,0x2($s5)
-/*  f03b324:	314b0040 */ 	andi	$t3,$t2,0x40
-/*  f03b328:	5560009f */ 	bnezl	$t3,.L0f03b5a8
-/*  f03b32c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03b330:	8ea20040 */ 	lw	$v0,0x40($s5)
-/*  f03b334:	3c010020 */ 	lui	$at,0x20
-/*  f03b338:	304c8000 */ 	andi	$t4,$v0,0x8000
-/*  f03b33c:	5580009a */ 	bnezl	$t4,.L0f03b5a8
-/*  f03b340:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03b344:	00416824 */ 	and	$t5,$v0,$at
-/*  f03b348:	55a00097 */ 	bnezl	$t5,.L0f03b5a8
-/*  f03b34c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03b350:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f03b354:	0fc12495 */ 	jal	propGetDistanceToProp
-/*  f03b358:	02002825 */ 	or	$a1,$s0,$zero
-/*  f03b35c:	46000506 */ 	mov.s	$f20,$f0
-/*  f03b360:	02602025 */ 	or	$a0,$s3,$zero
-/*  f03b364:	0fc12495 */ 	jal	propGetDistanceToProp
-/*  f03b368:	02002825 */ 	or	$a1,$s0,$zero
-/*  f03b36c:	3c014396 */ 	lui	$at,0x4396
-/*  f03b370:	44812000 */ 	mtc1	$at,$f4
-/*  f03b374:	e7a00094 */ 	swc1	$f0,0x94($sp)
-/*  f03b378:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f03b37c:	00000000 */ 	nop
-/*  f03b380:	45020089 */ 	bc1fl	.L0f03b5a8
-/*  f03b384:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03b388:	4614a180 */ 	add.s	$f6,$f20,$f20
-/*  f03b38c:	3c014448 */ 	lui	$at,0x4448
-/*  f03b390:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f03b394:	00000000 */ 	nop
-/*  f03b398:	45020083 */ 	bc1fl	.L0f03b5a8
-/*  f03b39c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03b3a0:	44814000 */ 	mtc1	$at,$f8
-/*  f03b3a4:	00000000 */ 	nop
-/*  f03b3a8:	4614403c */ 	c.lt.s	$f8,$f20
-/*  f03b3ac:	00000000 */ 	nop
-/*  f03b3b0:	4502007d */ 	bc1fl	.L0f03b5a8
-/*  f03b3b4:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f03b3b8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b3bc:	27a50088 */ 	addiu	$a1,$sp,0x88
-/*  f03b3c0:	27a60090 */ 	addiu	$a2,$sp,0x90
-/*  f03b3c4:	0fc19881 */ 	jal	propGetBbox
-/*  f03b3c8:	27a7008c */ 	addiu	$a3,$sp,0x8c
-/*  f03b3cc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f03b3d0:	27a5007c */ 	addiu	$a1,$sp,0x7c
-/*  f03b3d4:	27a60084 */ 	addiu	$a2,$sp,0x84
-/*  f03b3d8:	0fc19881 */ 	jal	propGetBbox
-/*  f03b3dc:	27a70080 */ 	addiu	$a3,$sp,0x80
-/*  f03b3e0:	c7aa0084 */ 	lwc1	$f10,0x84($sp)
-/*  f03b3e4:	c7b00080 */ 	lwc1	$f16,0x80($sp)
-/*  f03b3e8:	3c017f1b */ 	lui	$at,%hi(var7f1a8ecc)
-/*  f03b3ec:	c4268ecc */ 	lwc1	$f6,%lo(var7f1a8ecc)($at)
-/*  f03b3f0:	46105081 */ 	sub.s	$f2,$f10,$f16
-/*  f03b3f4:	c7b20090 */ 	lwc1	$f18,0x90($sp)
-/*  f03b3f8:	c7a4008c */ 	lwc1	$f4,0x8c($sp)
-/*  f03b3fc:	3c017f1b */ 	lui	$at,%hi(var7f1a8ed0)
-/*  f03b400:	46061202 */ 	mul.s	$f8,$f2,$f6
-/*  f03b404:	46049001 */ 	sub.s	$f0,$f18,$f4
-/*  f03b408:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f03b40c:	00000000 */ 	nop
-/*  f03b410:	45020062 */ 	bc1fl	.L0f03b59c
-/*  f03b414:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b418:	c42a8ed0 */ 	lwc1	$f10,%lo(var7f1a8ed0)($at)
-/*  f03b41c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b420:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03b424:	460a1402 */ 	mul.s	$f16,$f2,$f10
-/*  f03b428:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f03b42c:	00000000 */ 	nop
-/*  f03b430:	4502005a */ 	bc1fl	.L0f03b59c
-/*  f03b434:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b438:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f03b43c:	26740008 */ 	addiu	$s4,$s3,0x8
-/*  f03b440:	02802025 */ 	or	$a0,$s4,$zero
-/*  f03b444:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f03b448:	26060008 */ 	addiu	$a2,$s0,0x8
-/*  f03b44c:	0c00b706 */ 	jal	func0002dc18
-/*  f03b450:	24070022 */ 	addiu	$a3,$zero,0x22
-/*  f03b454:	10400050 */ 	beqz	$v0,.L0f03b598
-/*  f03b458:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b45c:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f03b460:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03b464:	c6000008 */ 	lwc1	$f0,0x8($s0)
-/*  f03b468:	c6ca0008 */ 	lwc1	$f10,0x8($s6)
-/*  f03b46c:	3c013fa0 */ 	lui	$at,0x3fa0
-/*  f03b470:	44812000 */ 	mtc1	$at,$f4
-/*  f03b474:	46005401 */ 	sub.s	$f16,$f10,$f0
-/*  f03b478:	c7b20088 */ 	lwc1	$f18,0x88($sp)
-/*  f03b47c:	c7a8007c */ 	lwc1	$f8,0x7c($sp)
-/*  f03b480:	02602025 */ 	or	$a0,$s3,$zero
-/*  f03b484:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f03b488:	46148483 */ 	div.s	$f18,$f16,$f20
-/*  f03b48c:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f03b490:	46083080 */ 	add.s	$f2,$f6,$f8
-/*  f03b494:	46029102 */ 	mul.s	$f4,$f18,$f2
-/*  f03b498:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f03b49c:	e7a60068 */ 	swc1	$f6,0x68($sp)
-/*  f03b4a0:	c6c80010 */ 	lwc1	$f8,0x10($s6)
-/*  f03b4a4:	c60c0010 */ 	lwc1	$f12,0x10($s0)
-/*  f03b4a8:	460c4281 */ 	sub.s	$f10,$f8,$f12
-/*  f03b4ac:	46145403 */ 	div.s	$f16,$f10,$f20
-/*  f03b4b0:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f03b4b4:	46126101 */ 	sub.s	$f4,$f12,$f18
-/*  f03b4b8:	e7a40070 */ 	swc1	$f4,0x70($sp)
-/*  f03b4bc:	c606000c */ 	lwc1	$f6,0xc($s0)
-/*  f03b4c0:	0fc0da5d */ 	jal	func0f036974
-/*  f03b4c4:	e7a6006c */ 	swc1	$f6,0x6c($sp)
-/*  f03b4c8:	50400034 */ 	beqzl	$v0,.L0f03b59c
-/*  f03b4cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b4d0:	8fa302b8 */ 	lw	$v1,0x2b8($sp)
-/*  f03b4d4:	24110001 */ 	addiu	$s1,$zero,0x1
-/*  f03b4d8:	27b20058 */ 	addiu	$s2,$sp,0x58
-/*  f03b4dc:	10600003 */ 	beqz	$v1,.L0f03b4ec
-/*  f03b4e0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f03b4e4:	10000002 */ 	b	.L0f03b4f0
-/*  f03b4e8:	906202fe */ 	lbu	$v0,0x2fe($v1)
-.L0f03b4ec:
-/*  f03b4ec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b4f0:
-/*  f03b4f0:	14400013 */ 	bnez	$v0,.L0f03b540
-/*  f03b4f4:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f03b4f8:	3c017f1b */ 	lui	$at,%hi(var7f1a8ed4)
-/*  f03b4fc:	c4288ed4 */ 	lwc1	$f8,%lo(var7f1a8ed4)($at)
-/*  f03b500:	c7aa0094 */ 	lwc1	$f10,0x94($sp)
-/*  f03b504:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f03b508:	c7b00094 */ 	lwc1	$f16,0x94($sp)
-/*  f03b50c:	460a403c */ 	c.lt.s	$f8,$f10
-/*  f03b510:	00000000 */ 	nop
-/*  f03b514:	45020004 */ 	bc1fl	.L0f03b528
-/*  f03b518:	44819000 */ 	mtc1	$at,$f18
-/*  f03b51c:	10000008 */ 	b	.L0f03b540
-/*  f03b520:	24110002 */ 	addiu	$s1,$zero,0x2
-/*  f03b524:	44819000 */ 	mtc1	$at,$f18
-.L0f03b528:
-/*  f03b528:	00000000 */ 	nop
-/*  f03b52c:	4612803c */ 	c.lt.s	$f16,$f18
-/*  f03b530:	00000000 */ 	nop
-/*  f03b534:	45020003 */ 	bc1fl	.L0f03b544
-/*  f03b538:	27a60068 */ 	addiu	$a2,$sp,0x68
-/*  f03b53c:	00008825 */ 	or	$s1,$zero,$zero
-.L0f03b540:
-/*  f03b540:	27a60068 */ 	addiu	$a2,$sp,0x68
-.L0f03b544:
-/*  f03b544:	0fc1979d */ 	jal	func0f065e74
-/*  f03b548:	02403825 */ 	or	$a3,$s2,$zero
-/*  f03b54c:	8fa402b8 */ 	lw	$a0,0x2b8($sp)
-/*  f03b550:	27a50068 */ 	addiu	$a1,$sp,0x68
-/*  f03b554:	02403025 */ 	or	$a2,$s2,$zero
-/*  f03b558:	0fc0e10f */ 	jal	chrGoToPos
-/*  f03b55c:	02203825 */ 	or	$a3,$s1,$zero
-/*  f03b560:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x338)
-/*  f03b564:	8dcea2f8 */ 	lw	$t6,%lo(g_Vars+0x338)($t6)
-/*  f03b568:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f03b56c:	8fb902b8 */ 	lw	$t9,0x2b8($sp)
-/*  f03b570:	020e7823 */ 	subu	$t7,$s0,$t6
-/*  f03b574:	01e1001a */ 	div	$zero,$t7,$at
-/*  f03b578:	0000c012 */ 	mflo	$t8
-/*  f03b57c:	a738012c */ 	sh	$t8,0x12c($t9)
-/*  f03b580:	8ea80040 */ 	lw	$t0,0x40($s5)
-/*  f03b584:	3c010020 */ 	lui	$at,0x20
-/*  f03b588:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f03b58c:	01014825 */ 	or	$t1,$t0,$at
-/*  f03b590:	1000000b */ 	b	.L0f03b5c0
-/*  f03b594:	aea90040 */ 	sw	$t1,0x40($s5)
-.L0f03b598:
-/*  f03b598:	02002025 */ 	or	$a0,$s0,$zero
-.L0f03b59c:
-/*  f03b59c:	0fc1905e */ 	jal	propSetCollisionsEnabled
-/*  f03b5a0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03b5a4:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f03b5a8:
-/*  f03b5a8:	00125400 */ 	sll	$t2,$s2,0x10
-/*  f03b5ac:	000a9403 */ 	sra	$s2,$t2,0x10
-/*  f03b5b0:	0251082a */ 	slt	$at,$s2,$s1
-/*  f03b5b4:	5420ff40 */ 	bnezl	$at,.L0f03b2b8
-/*  f03b5b8:	87ab00a0 */ 	lh	$t3,0xa0($sp)
-.L0f03b5bc:
-/*  f03b5bc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b5c0:
-/*  f03b5c0:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f03b5c4:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f03b5c8:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f03b5cc:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f03b5d0:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f03b5d4:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f03b5d8:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f03b5dc:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f03b5e0:	8fb60034 */ 	lw	$s6,0x34($sp)
-/*  f03b5e4:	8fb70038 */ 	lw	$s7,0x38($sp)
-/*  f03b5e8:	03e00008 */ 	jr	$ra
-/*  f03b5ec:	27bd02b8 */ 	addiu	$sp,$sp,0x2b8
-);
+/**
+ * Attempt to make the chr find a suitable prop in their current room to use as
+ * cover and run to it. However, a bug prevents this from working.
+ */
+bool chrGoToCoverProp(struct chrdata *chr)
+{
+	struct prop *targetprop = chrGetTargetProp(chr);
+	struct prop *chrprop = chr->prop;
+	s16 i;
+	s16 propnums[258];
+	struct defaultobj *obj;
+	s16 numprops;
+	s16 startindex;
+
+	if (targetprop == NULL) {
+		return false;
+	}
+
+	if (chrIsReadyForOrders(chr)) {
+		roomGetProps(chrprop->rooms, propnums, 256);
+
+		for (numprops = 0; propnums[numprops] >= 0; numprops++);
+
+		if (numprops > 0) {
+			startindex = random() % numprops;
+		}
+
+		for (i = 0; i < numprops; i++) {
+			struct prop *prop = &g_Vars.props[propnums[(i + startindex) % numprops]];
+			obj = prop->obj;
+
+			if (prop->type == PROPTYPE_OBJ
+					&& (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0
+					&& (obj->hidden & OBJHFLAG_00008000) == 0
+					&& (obj->hidden & OBJHFLAG_OCCUPIEDCHAIR) == 0) {
+				f32 targetdist = propGetDistanceToProp(targetprop, prop);
+				f32 chrdist = propGetDistanceToProp(chrprop, prop);
+
+				// @bug: This condition cannot pass
+				// (should be chrdist < targetdist + targetdist)
+				if (chrdist < 300 && chrdist > targetdist + targetdist && targetdist > 800) {
+					f32 propymax;
+					f32 propymin;
+					f32 propwidth;
+					f32 chrymax;
+					f32 chrymin;
+					f32 chrwidth;
+					f32 propheight;
+					f32 chrheight;
+					struct coord dstpos;
+					s16 dstrooms[8];
+
+					propGetBbox(prop, &propwidth, &propymax, &propymin);
+					propGetBbox(chrprop, &chrwidth, &chrymax, &chrymin);
+
+					propheight = propymax - propymin;
+					chrheight = chrymax - chrymin;
+
+					if (propheight > chrheight * 0.4f && propheight < chrheight * 0.9f) {
+						propSetCollisionsEnabled(prop, false);
+
+						if (func0002dc18(&chrprop->pos, chrprop->rooms, &prop->pos, CDTYPE_DOORS | CDTYPE_BG)) {
+							propSetCollisionsEnabled(prop, true);
+
+							dstpos.x = prop->pos.x - (targetprop->pos.x - prop->pos.x) / targetdist * (propwidth * 1.25f + chrwidth);
+							dstpos.z = prop->pos.z - (targetprop->pos.z - prop->pos.z) / targetdist * (propwidth * 1.25f + chrwidth);
+							dstpos.y = prop->pos.y;
+
+							if (func0f036974(chrprop, &dstpos)) {
+								u32 speed = SPEED_JOG;
+
+								if (CHRRACE(chr) == RACE_HUMAN) {
+									if (chrdist > 1500) {
+										speed = SPEED_RUN;
+									} else if (chrdist < 100) {
+										speed = SPEED_WALK;
+									}
+								}
+
+								func0f065e74(&chrprop->pos, chrprop->rooms, &dstpos, dstrooms);
+								chrGoToPos(chr, &dstpos, dstrooms, speed);
+
+								chr->proppreset1 = prop - g_Vars.props;
+								obj->hidden |= OBJHFLAG_OCCUPIEDCHAIR;
+
+								return true;
+							}
+						}
+					}
+
+					propSetCollisionsEnabled(prop, true);
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 bool chrTryStartAlarm(struct chrdata *chr, s32 pad_id)
 {

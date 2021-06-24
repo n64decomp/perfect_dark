@@ -445,7 +445,12 @@
 	mkshort(0x002d), \
 	label,
 
-#define cmd002e(label) \
+/**
+ * Does nothing due to a bug in the implementation. But if it worked, it would
+ * make the chr find a suitable prop in their current room to use as cover and
+ * run to it.
+ */
+#define try_go_to_cover_prop(label) \
 	mkshort(0x002e), \
 	label,
 

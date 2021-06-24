@@ -50,7 +50,7 @@
 /*0x002b*/ bool aiTryJogToTargetProp(void);
 /*0x002c*/ bool aiTryWalkToTargetProp(void);
 /*0x002d*/ bool aiTryRunToTargetProp(void);
-/*0x002e*/ bool ai002e(void);
+/*0x002e*/ bool aiTryGoToCoverProp(void);
 /*0x002f*/ bool aiTryJogToChr(void);
 /*0x0030*/ bool aiTryWalkToChr(void);
 /*0x0031*/ bool aiTryRunToChr(void);

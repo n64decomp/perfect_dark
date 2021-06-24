@@ -56,7 +56,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x002b*/ aiTryJogToTargetProp,
 	/*0x002c*/ aiTryWalkToTargetProp,
 	/*0x002d*/ aiTryRunToTargetProp,
-	/*0x002e*/ ai002e,
+	/*0x002e*/ aiTryGoToCoverProp,
 	/*0x002f*/ aiTryJogToChr,
 	/*0x0030*/ aiTryWalkToChr,
 	/*0x0031*/ aiTryRunToChr,
