@@ -159,7 +159,7 @@ void chrTickAttack(struct chrdata *chr);
 void chrTickAttackRoll(struct chrdata *chr);
 void propPrintDangerous(void);
 void chrTickThrowGrenade(struct chrdata *chr);
-s32 func0f043f2c(struct chrdata *chr, struct coord *runpos, s32 arg2, f32 *turnspeed);
+bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turnspeed);
 void chrTickAttackWalk(struct chrdata *chr);
 bool posIsMovingTowardsPosOrStoppedInRange(struct coord *prevpos, struct coord *moveddelta, struct coord *targetpos, f32 range);
 bool posIsArrivingLaterallyAtPos(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 range);
