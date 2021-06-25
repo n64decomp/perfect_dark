@@ -3927,9 +3927,15 @@
 	mkshort(0x01c4), \
 	mkshort(ailistid),
 
-// Calls some function on the chr. Possibly related to geometry, because it
-// works with values such as 45 and 360.
-#define cmd01c5 \
+/**
+ * Makes the chr do an animation as if they are avoiding a projectile.
+ *
+ * The animation they do is selected from a group of 4 and is chosen based on
+ * the chr's relative angle to their target.
+ *
+ * This command is not used.
+ */
+#define avoid \
 	mkshort(0x01c5),
 
 /**

@@ -222,7 +222,7 @@ f32 func0f04c784(struct chrdata *chr);
 bool func0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, u8 arg4);
 u32 rebuildTeams(void);
 u32 rebuildSquadrons(void);
-u32 func0f04d000(struct chrdata *chr);
+void chrAvoid(struct chrdata *chr);
 void func0f02e9a0(struct chrdata *chr, f32 mergetime);
 void func0f02ed28(struct chrdata *chr, f32 mergetime);
 void chrStop(struct chrdata *chr);

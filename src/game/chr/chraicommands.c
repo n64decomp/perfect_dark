@@ -12097,9 +12097,9 @@ bool aiIfChrTeleportFullWhite(void)
 /**
  * @cmd 01c5
  */
-bool ai01c5(void)
+bool aiAvoid(void)
 {
-	func0f04d000(g_Vars.chrdata);
+	chrAvoid(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;

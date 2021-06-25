@@ -417,7 +417,7 @@
 /*0x01c2*/ bool aiSetShootingAtMeList(void);
 /*0x01c3*/ bool aiSetDarkRoomList(void);
 /*0x01c4*/ bool aiSetPlayerDeadList(void);
-/*0x01c5*/ bool ai01c5(void);
+/*0x01c5*/ bool aiAvoid(void);
 /*0x01c6*/ bool aiSetDodgeRating(void);
 /*0x01c7*/ bool aiSetUnarmedDodgeRating(void);
 /*0x01c8*/ bool aiTitleInitMode(void);

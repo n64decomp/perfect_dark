@@ -27154,324 +27154,101 @@ void chrToggleModelPart(struct chrdata *chr, s32 partnum)
 	}
 }
 
-u32 var8006846c = 0x00000064;
-u32 var80068470 = 0x00000065;
-u32 var80068474 = 0x00000066;
-u32 var80068478 = 0x00000067;
-u32 var8006847c = 0x00000030;
-u32 var80068480 = 0x0000003a;
-u32 var80068484 = 0x00000023;
-u32 var80068488 = 0x00000023;
-u32 var8006848c = 0x00000000;
+/**
+ * Make the chr do an avoiding animation, as if they are avoiding some object
+ * being thrown at them.
+ *
+ * The chosen animation is based on the chr's relative angle to their target.
+ *
+ * Collision checks are done, and no animation will be done if there would be a
+ * collision.
+ */
+void chrAvoid(struct chrdata *chr)
+{
+	// The first 4 items here are animation numbers,
+	// an the second 4 are their corresponding end frames.
+	s32 anims[] = {
+		ANIM_0064, ANIM_0065, ANIM_0066, ANIM_0067,
+		48, 58, 35, 35
+	};
 
-GLOBAL_ASM(
-glabel func0f04d000
-.late_rodata
-glabel var7f1a9430
-.word 0x40c907a9
-glabel var7f1a9434
-.word 0x40490fdb
-glabel var7f1a9438
-.word 0x439d8000
-glabel var7f1a943c
-.word 0x40490fdb
-glabel var7f1a9440
-.word 0x3fc90fdb
-glabel var7f1a9444
-.word 0x3fc90fdb
-glabel var7f1a9448
-.word 0x3f19999a
-.text
-/*  f04d000:	27bdff58 */ 	addiu	$sp,$sp,-168
-/*  f04d004:	3c0f8007 */ 	lui	$t7,%hi(var8006846c)
-/*  f04d008:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f04d00c:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f04d010:	25ef846c */ 	addiu	$t7,$t7,%lo(var8006846c)
-/*  f04d014:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f04d018:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f04d01c:	27ae0088 */ 	addiu	$t6,$sp,0x88
-/*  f04d020:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f04d024:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f04d028:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f04d02c:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f04d030:	00808025 */ 	or	$s0,$a0,$zero
-/*  f04d034:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f04d038:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f04d03c:	8de10010 */ 	lw	$at,0x10($t7)
-/*  f04d040:	8de80014 */ 	lw	$t0,0x14($t7)
-/*  f04d044:	adc10010 */ 	sw	$at,0x10($t6)
-/*  f04d048:	adc80014 */ 	sw	$t0,0x14($t6)
-/*  f04d04c:	8de8001c */ 	lw	$t0,0x1c($t7)
-/*  f04d050:	8de10018 */ 	lw	$at,0x18($t7)
-/*  f04d054:	adc8001c */ 	sw	$t0,0x1c($t6)
-/*  f04d058:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04d05c:	adc10018 */ 	sw	$at,0x18($t6)
-/*  f04d060:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d064:	0fc122a1 */ 	jal	chrGetAngleToPos
-/*  f04d068:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f04d06c:	3c017f1b */ 	lui	$at,%hi(var7f1a9430)
-/*  f04d070:	c4249430 */ 	lwc1	$f4,%lo(var7f1a9430)($at)
-/*  f04d074:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f04d078:	44814000 */ 	mtc1	$at,$f8
-/*  f04d07c:	46040183 */ 	div.s	$f6,$f0,$f4
-/*  f04d080:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f04d084:	afa00078 */ 	sw	$zero,0x78($sp)
-/*  f04d088:	afa90068 */ 	sw	$t1,0x68($sp)
-/*  f04d08c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f04d090:	46083082 */ 	mul.s	$f2,$f6,$f8
-/*  f04d094:	0c006b91 */ 	jal	func0001ae44
-/*  f04d098:	e7a2007c */ 	swc1	$f2,0x7c($sp)
-/*  f04d09c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d0a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04d0a4:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f04d0a8:	e7a00058 */ 	swc1	$f0,0x58($sp)
-/*  f04d0ac:	0fc0e686 */ 	jal	chrIsReadyForOrders
-/*  f04d0b0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d0b4:	c7a2007c */ 	lwc1	$f2,0x7c($sp)
-/*  f04d0b8:	104000df */ 	beqz	$v0,.L0f04d438
-/*  f04d0bc:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f04d0c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d0c4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04d0c8:	e7a2007c */ 	swc1	$f2,0x7c($sp)
-/*  f04d0cc:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f04d0d0:	e7ac0058 */ 	swc1	$f12,0x58($sp)
-/*  f04d0d4:	3c014234 */ 	lui	$at,0x4234
-/*  f04d0d8:	c7a2007c */ 	lwc1	$f2,0x7c($sp)
-/*  f04d0dc:	44815000 */ 	mtc1	$at,$f10
-/*  f04d0e0:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f04d0e4:	3c014307 */ 	lui	$at,0x4307
-/*  f04d0e8:	4602503c */ 	c.lt.s	$f10,$f2
-/*  f04d0ec:	00000000 */ 	nop
-/*  f04d0f0:	4502000e */ 	bc1fl	.L0f04d12c
-/*  f04d0f4:	3c014307 */ 	lui	$at,0x4307
-/*  f04d0f8:	44818000 */ 	mtc1	$at,$f16
-/*  f04d0fc:	240a0003 */ 	addiu	$t2,$zero,0x3
-/*  f04d100:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f04d104:	4610103e */ 	c.le.s	$f2,$f16
-/*  f04d108:	3c017f1b */ 	lui	$at,%hi(var7f1a9434)
-/*  f04d10c:	45020007 */ 	bc1fl	.L0f04d12c
-/*  f04d110:	3c014307 */ 	lui	$at,0x4307
-/*  f04d114:	c4329434 */ 	lwc1	$f18,%lo(var7f1a9434)($at)
-/*  f04d118:	afaa0084 */ 	sw	$t2,0x84($sp)
-/*  f04d11c:	afab0078 */ 	sw	$t3,0x78($sp)
-/*  f04d120:	10000046 */ 	b	.L0f04d23c
-/*  f04d124:	46126300 */ 	add.s	$f12,$f12,$f18
-/*  f04d128:	3c014307 */ 	lui	$at,0x4307
-.L0f04d12c:
-/*  f04d12c:	44812000 */ 	mtc1	$at,$f4
-/*  f04d130:	3c014361 */ 	lui	$at,0x4361
-/*  f04d134:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f04d138:	00000000 */ 	nop
-/*  f04d13c:	45020018 */ 	bc1fl	.L0f04d1a0
-/*  f04d140:	3c014361 */ 	lui	$at,0x4361
-/*  f04d144:	44813000 */ 	mtc1	$at,$f6
-/*  f04d148:	240c0002 */ 	addiu	$t4,$zero,0x2
-/*  f04d14c:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f04d150:	00000000 */ 	nop
-/*  f04d154:	45020012 */ 	bc1fl	.L0f04d1a0
-/*  f04d158:	3c014361 */ 	lui	$at,0x4361
-/*  f04d15c:	afac0084 */ 	sw	$t4,0x84($sp)
-/*  f04d160:	0c004b70 */ 	jal	random
-/*  f04d164:	e7ac0058 */ 	swc1	$f12,0x58($sp)
-/*  f04d168:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f04d16c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f04d170:	00006810 */ 	mfhi	$t5
-/*  f04d174:	2da10002 */ 	sltiu	$at,$t5,0x2
-/*  f04d178:	14200030 */ 	bnez	$at,.L0f04d23c
-/*  f04d17c:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f04d180:	afa00068 */ 	sw	$zero,0x68($sp)
-/*  f04d184:	8e190018 */ 	lw	$t9,0x18($s0)
-/*  f04d188:	3c01efff */ 	lui	$at,0xefff
-/*  f04d18c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f04d190:	0321c024 */ 	and	$t8,$t9,$at
-/*  f04d194:	10000029 */ 	b	.L0f04d23c
-/*  f04d198:	ae180018 */ 	sw	$t8,0x18($s0)
-/*  f04d19c:	3c014361 */ 	lui	$at,0x4361
-.L0f04d1a0:
-/*  f04d1a0:	44814000 */ 	mtc1	$at,$f8
-/*  f04d1a4:	3c017f1b */ 	lui	$at,%hi(var7f1a9438)
-/*  f04d1a8:	4602403c */ 	c.lt.s	$f8,$f2
-/*  f04d1ac:	00000000 */ 	nop
-/*  f04d1b0:	4500000c */ 	bc1f	.L0f04d1e4
-/*  f04d1b4:	00000000 */ 	nop
-/*  f04d1b8:	c42a9438 */ 	lwc1	$f10,%lo(var7f1a9438)($at)
-/*  f04d1bc:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*  f04d1c0:	3c017f1b */ 	lui	$at,%hi(var7f1a943c)
-/*  f04d1c4:	460a103c */ 	c.lt.s	$f2,$f10
-/*  f04d1c8:	00000000 */ 	nop
-/*  f04d1cc:	45000005 */ 	bc1f	.L0f04d1e4
-/*  f04d1d0:	00000000 */ 	nop
-/*  f04d1d4:	c430943c */ 	lwc1	$f16,%lo(var7f1a943c)($at)
-/*  f04d1d8:	afae0084 */ 	sw	$t6,0x84($sp)
-/*  f04d1dc:	10000017 */ 	b	.L0f04d23c
-/*  f04d1e0:	46106300 */ 	add.s	$f12,$f12,$f16
-.L0f04d1e4:
-/*  f04d1e4:	0c004b70 */ 	jal	random
-/*  f04d1e8:	e7ac0058 */ 	swc1	$f12,0x58($sp)
-/*  f04d1ec:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f04d1f0:	0041001b */ 	divu	$zero,$v0,$at
-/*  f04d1f4:	00007810 */ 	mfhi	$t7
-/*  f04d1f8:	2de10032 */ 	sltiu	$at,$t7,0x32
-/*  f04d1fc:	10200003 */ 	beqz	$at,.L0f04d20c
-/*  f04d200:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f04d204:	10000003 */ 	b	.L0f04d214
-/*  f04d208:	afa00084 */ 	sw	$zero,0x84($sp)
-.L0f04d20c:
-/*  f04d20c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f04d210:	afa80084 */ 	sw	$t0,0x84($sp)
-.L0f04d214:
-/*  f04d214:	8fa90084 */ 	lw	$t1,0x84($sp)
-/*  f04d218:	3c017f1b */ 	lui	$at,%hi(var7f1a9440)
-/*  f04d21c:	15200005 */ 	bnez	$t1,.L0f04d234
-/*  f04d220:	00000000 */ 	nop
-/*  f04d224:	3c017f1b */ 	lui	$at,%hi(var7f1a9444)
-/*  f04d228:	c4329440 */ 	lwc1	$f18,%lo(var7f1a9440)($at)
-/*  f04d22c:	10000003 */ 	b	.L0f04d23c
-/*  f04d230:	46126301 */ 	sub.s	$f12,$f12,$f18
-.L0f04d234:
-/*  f04d234:	c4249444 */ 	lwc1	$f4,%lo(var7f1a9444)($at)
-/*  f04d238:	46046300 */ 	add.s	$f12,$f12,$f4
-.L0f04d23c:
-/*  f04d23c:	8faa0068 */ 	lw	$t2,0x68($sp)
-/*  f04d240:	5140007b */ 	beqzl	$t2,.L0f04d430
-/*  f04d244:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d248:	0c0068f7 */ 	jal	sinf
-/*  f04d24c:	e7ac0058 */ 	swc1	$f12,0x58($sp)
-/*  f04d250:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f04d254:	44814000 */ 	mtc1	$at,$f8
-/*  f04d258:	8e0b001c */ 	lw	$t3,0x1c($s0)
-/*  f04d25c:	c7ac0058 */ 	lwc1	$f12,0x58($sp)
-/*  f04d260:	46080282 */ 	mul.s	$f10,$f0,$f8
-/*  f04d264:	c5660008 */ 	lwc1	$f6,0x8($t3)
-/*  f04d268:	460a3401 */ 	sub.s	$f16,$f6,$f10
-/*  f04d26c:	e7b0003c */ 	swc1	$f16,0x3c($sp)
-/*  f04d270:	8e0c001c */ 	lw	$t4,0x1c($s0)
-/*  f04d274:	c592000c */ 	lwc1	$f18,0xc($t4)
-/*  f04d278:	0c0068f4 */ 	jal	cosf
-/*  f04d27c:	e7b20040 */ 	swc1	$f18,0x40($sp)
-/*  f04d280:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f04d284:	44812000 */ 	mtc1	$at,$f4
-/*  f04d288:	8e0d001c */ 	lw	$t5,0x1c($s0)
-/*  f04d28c:	27a5006c */ 	addiu	$a1,$sp,0x6c
-/*  f04d290:	46040202 */ 	mul.s	$f8,$f0,$f4
-/*  f04d294:	c5a60010 */ 	lwc1	$f6,0x10($t5)
-/*  f04d298:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f04d29c:	27a70070 */ 	addiu	$a3,$sp,0x70
-/*  f04d2a0:	46064280 */ 	add.s	$f10,$f8,$f6
-/*  f04d2a4:	e7aa0044 */ 	swc1	$f10,0x44($sp)
-/*  f04d2a8:	0fc0a277 */ 	jal	propChrGetBbox
-/*  f04d2ac:	8e04001c */ 	lw	$a0,0x1c($s0)
-/*  f04d2b0:	3c013f00 */ 	lui	$at,0x3f00
-/*  f04d2b4:	44819000 */ 	mtc1	$at,$f18
-/*  f04d2b8:	c7b0006c */ 	lwc1	$f16,0x6c($sp)
-/*  f04d2bc:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f04d2c0:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f04d2c4:	46128002 */ 	mul.s	$f0,$f16,$f18
-/*  f04d2c8:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*  f04d2cc:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f04d2d0:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f04d2d4:	0fc1979d */ 	jal	func0f065e74
-/*  f04d2d8:	e7a0005c */ 	swc1	$f0,0x5c($sp)
-/*  f04d2dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d2e0:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f04d2e4:	0fc087ea */ 	jal	func0f021fa8
-/*  f04d2e8:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f04d2ec:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f04d2f0:	c7a4003c */ 	lwc1	$f4,0x3c($sp)
-/*  f04d2f4:	c7a0005c */ 	lwc1	$f0,0x5c($sp)
-/*  f04d2f8:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f04d2fc:	c7a60044 */ 	lwc1	$f6,0x44($sp)
-/*  f04d300:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f04d304:	46082081 */ 	sub.s	$f2,$f4,$f8
-/*  f04d308:	2419003f */ 	addiu	$t9,$zero,0x3f
-/*  f04d30c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f04d310:	460a3301 */ 	sub.s	$f12,$f6,$f10
-/*  f04d314:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f04d318:	00000000 */ 	nop
-/*  f04d31c:	4503000f */ 	bc1tl	.L0f04d35c
-/*  f04d320:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04d324:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f04d328:	00000000 */ 	nop
-/*  f04d32c:	4503000b */ 	bc1tl	.L0f04d35c
-/*  f04d330:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04d334:	46000387 */ 	neg.s	$f14,$f0
-/*  f04d338:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f04d33c:	00000000 */ 	nop
-/*  f04d340:	45030006 */ 	bc1tl	.L0f04d35c
-/*  f04d344:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f04d348:	460e603c */ 	c.lt.s	$f12,$f14
-/*  f04d34c:	00000000 */ 	nop
-/*  f04d350:	45020011 */ 	bc1fl	.L0f04d398
-/*  f04d354:	8fa30068 */ 	lw	$v1,0x68($sp)
-/*  f04d358:	afb90010 */ 	sw	$t9,0x10($sp)
-.L0f04d35c:
-/*  f04d35c:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f04d360:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f04d364:	c7b00074 */ 	lwc1	$f16,0x74($sp)
-/*  f04d368:	c7a40070 */ 	lwc1	$f4,0x70($sp)
-/*  f04d36c:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f04d370:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f04d374:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f04d378:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f04d37c:	46002201 */ 	sub.s	$f8,$f4,$f0
-/*  f04d380:	e7b20018 */ 	swc1	$f18,0x18($sp)
-/*  f04d384:	27a70048 */ 	addiu	$a3,$sp,0x48
-/*  f04d388:	0c00b62e */ 	jal	func0002d8b8
-/*  f04d38c:	e7a8001c */ 	swc1	$f8,0x1c($sp)
-/*  f04d390:	afa20068 */ 	sw	$v0,0x68($sp)
-/*  f04d394:	8fa30068 */ 	lw	$v1,0x68($sp)
-.L0f04d398:
-/*  f04d398:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04d39c:	54610008 */ 	bnel	$v1,$at,.L0f04d3c0
-/*  f04d3a0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f04d3a4:	8e0e0018 */ 	lw	$t6,0x18($s0)
-/*  f04d3a8:	3c01efff */ 	lui	$at,0xefff
-/*  f04d3ac:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f04d3b0:	01c17824 */ 	and	$t7,$t6,$at
-/*  f04d3b4:	1000001d */ 	b	.L0f04d42c
-/*  f04d3b8:	ae0f0018 */ 	sw	$t7,0x18($s0)
-/*  f04d3bc:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f04d3c0:
-/*  f04d3c0:	14610015 */ 	bne	$v1,$at,.L0f04d418
-/*  f04d3c4:	8fa80084 */ 	lw	$t0,0x84($sp)
-/*  f04d3c8:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f04d3cc:	27aa0088 */ 	addiu	$t2,$sp,0x88
-/*  f04d3d0:	012a1021 */ 	addu	$v0,$t1,$t2
-/*  f04d3d4:	8c4b0010 */ 	lw	$t3,0x10($v0)
-/*  f04d3d8:	3c017f1b */ 	lui	$at,%hi(var7f1a9448)
-/*  f04d3dc:	c42a9448 */ 	lwc1	$f10,%lo(var7f1a9448)($at)
-/*  f04d3e0:	448b3000 */ 	mtc1	$t3,$f6
-/*  f04d3e4:	8fac0078 */ 	lw	$t4,0x78($sp)
-/*  f04d3e8:	8c450000 */ 	lw	$a1,0x0($v0)
-/*  f04d3ec:	468031a0 */ 	cvt.s.w	$f6,$f6
-/*  f04d3f0:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f04d3f4:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f04d3f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d3fc:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f04d400:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f04d404:	44073000 */ 	mfc1	$a3,$f6
-/*  f04d408:	0fc0c3fe */ 	jal	chrStartAnim
-/*  f04d40c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f04d410:	10000007 */ 	b	.L0f04d430
-/*  f04d414:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04d418:
-/*  f04d418:	8e190018 */ 	lw	$t9,0x18($s0)
-/*  f04d41c:	3c01efff */ 	lui	$at,0xefff
-/*  f04d420:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f04d424:	0321c024 */ 	and	$t8,$t9,$at
-/*  f04d428:	ae180018 */ 	sw	$t8,0x18($s0)
-.L0f04d42c:
-/*  f04d42c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f04d430:
-/*  f04d430:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f04d434:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f04d438:
-/*  f04d438:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f04d43c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f04d440:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
-/*  f04d444:	03e00008 */ 	jr	$ra
-/*  f04d448:	00000000 */ 	nop
-);
+	s32 animindex;
+	struct prop *target = chrGetTargetProp(chr);
+	f32 relangle = chrGetAngleToPos(chr, &target->pos) / M_BADTAU * 360;
+	u32 chranimflags = 0;
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+	s32 cdresult = CDRESULT_NOCOLLISION;
+	f32 xdiff;
+	f32 zdiff;
+	f32 halfchrwidth;
+	f32 chrangle = func0001ae44(chr->model);
+	s16 dstrooms[8];
+	struct coord dstpos;
+
+	// @bug: This shouldn't be here, and there is no corresponding setting of
+	// the flag again if the chr is not ready for orders.
+	chrSetOrUnsetHiddenFlag00000100(chr, false);
+
+	if (chrIsReadyForOrders(chr)) {
+		chrSetOrUnsetHiddenFlag00000100(chr, false);
+
+		if (relangle > 45 && relangle <= 135) {
+			animindex = 3;
+			chranimflags = CHRANIMFLAG_FLIP;
+			chrangle += M_PI;
+		} else if (relangle > 135 && relangle < 225) {
+			animindex = 2;
+
+			if ((random() % 255) >= 2) {
+				cdresult = CDRESULT_COLLISION;
+				chr->chrflags &= ~CHRCFLAG_10000000;
+			}
+		} else if (relangle > 225 && relangle < 315) {
+			animindex = 3;
+			chrangle += M_PI;
+		} else {
+			animindex = (random() % 100 < 50) ? 0 : 1;
+
+			if (animindex == 0) {
+				chrangle -= 1.5707963705063f;
+			} else {
+				chrangle += 1.5707963705063f;
+			}
+		}
+
+		if (cdresult != CDRESULT_COLLISION) {
+			dstpos.x = chr->prop->pos.x - sinf(chrangle) * 100;
+			dstpos.y = chr->prop->pos.y;
+			dstpos.z = chr->prop->pos.z + cosf(chrangle) * 100;
+
+			propChrGetBbox(chr->prop, &width, &ymax, &ymin);
+
+			halfchrwidth = width * 0.5f;
+
+			func0f065e74(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms);
+			func0f021fa8(chr, &dstpos, dstrooms);
+
+			xdiff = dstpos.x - chr->prop->pos.x;
+			zdiff = dstpos.z - chr->prop->pos.z;
+
+			if (xdiff > halfchrwidth || zdiff > halfchrwidth || xdiff < -halfchrwidth || zdiff < -halfchrwidth) {
+				cdresult = func0002d8b8(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms, CDTYPE_ALL, true, ymax - chr->prop->pos.y, ymin - chr->prop->pos.y);
+			}
+
+			if (cdresult == CDRESULT_ERROR) {
+				chr->chrflags &= ~CHRCFLAG_10000000;
+			} else if (cdresult == CDRESULT_NOCOLLISION) {
+				chrStartAnim(chr, anims[animindex], 0, anims[4 + animindex], chranimflags, 2, 0.6f);
+			} else {
+				chr->chrflags &= ~CHRCFLAG_10000000;
+			}
+		}
+
+		chrSetOrUnsetHiddenFlag00000100(chr, true);
+	}
+}
 
 /**
  * Checks if the chr is doing an avoiding animation.

@@ -467,7 +467,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01c2*/ aiSetShootingAtMeList,
 	/*0x01c3*/ aiSetDarkRoomList,
 	/*0x01c4*/ aiSetPlayerDeadList,
-	/*0x01c5*/ ai01c5,
+	/*0x01c5*/ aiAvoid,
 	/*0x01c6*/ aiSetDodgeRating,
 	/*0x01c7*/ aiSetUnarmedDodgeRating,
 	/*0x01c8*/ aiTitleInitMode,
