@@ -64,12 +64,12 @@ void coverLoad(void)
 
 	g_CoverFlags = malloc(ALIGN16(numcovers * sizeof(u16)), MEMPOOL_STAGE);
 	g_CoverRooms = malloc(ALIGN16(numcovers * sizeof(s32)), MEMPOOL_STAGE);
-	var800a2368 = malloc(ALIGN16(numcovers * 0x10), MEMPOOL_STAGE);
+	g_CoverCandidates = malloc(ALIGN16(numcovers * 0x10), MEMPOOL_STAGE);
 
 	g_NumSpecialCovers = 0;
 	g_SpecialCoverNums = NULL;
 
-	if (g_CoverFlags && g_CoverRooms && var800a2368) {
+	if (g_CoverFlags && g_CoverRooms && g_CoverCandidates) {
 		for (i = 0; i < numcovers; i++) {
 			roomsptr = NULL;
 			g_CoverFlags[i] = 0;

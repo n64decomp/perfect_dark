@@ -11,7 +11,7 @@ u32 var800a2358;
 u32 var800a235c;
 u16 *g_CoverFlags;
 s32 *g_CoverRooms;
-void *var800a2368;
+struct covercandidate *g_CoverCandidates;
 u16 g_NumSpecialCovers;
 u16 *g_SpecialCoverNums;
 
@@ -633,8 +633,8 @@ bool coverUnpack(s32 covernum, struct cover *cover)
 	g_CoverFlags[covernum] |= def->flags;
 
 	cover->flags = g_CoverFlags[covernum];
-	cover->room = g_CoverRooms[covernum];
-	cover->unk0a = -1;
+	cover->rooms[0] = g_CoverRooms[covernum];
+	cover->rooms[1] = -1;
 
 	return true;
 }

@@ -7741,7 +7741,11 @@ s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
 	}
 
 	if (arg1 < 0) {
-		func0f04ba34(g_Vars.chrdata, 0x90a, 0);
+		chrAssignCoverByCriteria(g_Vars.chrdata,
+				COVERCRITERIA_FURTHEREST
+				| COVERCRITERIA_DISTTOTARGET
+				| COVERCRITERIA_ONLYNEIGHBOURINGROOMS
+				| COVERCRITERIA_ROOMSFROMME, 0);
 		return chrGoToCover(chr, SPEED_RUN);
 	}
 
@@ -7751,8 +7755,12 @@ s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
 		somefloat = 2000;
 	}
 
-	if (chrAssignCoverAwayFromDanger(chr, somefloat, arg1 + 10000) == 0) {
-		func0f04ba34(g_Vars.chrdata, 0x90a, 0);
+	if (!chrAssignCoverAwayFromDanger(chr, somefloat, arg1 + 10000)) {
+		chrAssignCoverByCriteria(g_Vars.chrdata,
+				COVERCRITERIA_FURTHEREST
+				| COVERCRITERIA_DISTTOTARGET
+				| COVERCRITERIA_ONLYNEIGHBOURINGROOMS
+				| COVERCRITERIA_ROOMSFROMME, 0);
 	}
 
 	return chrGoToCover(chr, SPEED_RUN);
@@ -25235,7 +25243,7 @@ bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2)
 }
 
 GLOBAL_ASM(
-glabel func0f04ba34
+glabel chrAssignCoverByCriteria
 /*  f04ba34:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f04ba38:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f04ba3c:	afb40028 */ 	sw	$s4,0x28($sp)
@@ -25288,8 +25296,8 @@ glabel func0f04ba34
 /*  f04baec:	00840019 */ 	multu	$a0,$a0
 /*  f04baf0:	8fa80078 */ 	lw	$t0,0x78($sp)
 /*  f04baf4:	86990292 */ 	lh	$t9,0x292($s4)
-/*  f04baf8:	3c12800a */ 	lui	$s2,%hi(var800a2368)
-/*  f04bafc:	26522368 */ 	addiu	$s2,$s2,%lo(var800a2368)
+/*  f04baf8:	3c12800a */ 	lui	$s2,%hi(g_CoverCandidates)
+/*  f04bafc:	26522368 */ 	addiu	$s2,$s2,%lo(g_CoverCandidates)
 /*  f04bb00:	00008025 */ 	or	$s0,$zero,$zero
 /*  f04bb04:	27b500a0 */ 	addiu	$s5,$sp,0xa0
 /*  f04bb08:	afb90084 */ 	sw	$t9,0x84($sp)
@@ -25507,10 +25515,10 @@ glabel func0f04ba34
 /*  f04bdf4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04bdf8:	00008025 */ 	or	$s0,$zero,$zero
 .L0f04bdfc:
-/*  f04bdfc:	3c12800a */ 	lui	$s2,%hi(var800a2368)
+/*  f04bdfc:	3c12800a */ 	lui	$s2,%hi(g_CoverCandidates)
 /*  f04be00:	2bc10002 */ 	slti	$at,$s8,0x2
 /*  f04be04:	1420004b */ 	bnez	$at,.L0f04bf34
-/*  f04be08:	26522368 */ 	addiu	$s2,$s2,%lo(var800a2368)
+/*  f04be08:	26522368 */ 	addiu	$s2,$s2,%lo(g_CoverCandidates)
 /*  f04be0c:	27c6ffff */ 	addiu	$a2,$s8,-1
 /*  f04be10:	27a30088 */ 	addiu	$v1,$sp,0x88
 .L0f04be14:
@@ -25652,6 +25660,141 @@ glabel func0f04ba34
 /*  f04bff4:	03e00008 */ 	jr	$ra
 /*  f04bff8:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
+
+// Mismatch: regalloc
+//s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 criteria, s32 refdist)
+//{
+//	s16 rooms[8];
+//	struct cover cover;
+//	struct covercandidate tmp;
+//	s32 oldcover;
+//	s32 i;
+//	struct prop *roomprop;
+//	s32 numcovers = coverGetCount();
+//	s32 numcandidates = 0;
+//	struct prop *target = chrGetTargetProp(chr);
+//	bool userandomdist = false;
+//	bool changed;
+//	f32 sqdist;
+//	f32 y = chr->prop->pos.y + 170;
+//	s32 currefdist = refdist;
+//	struct prop *fetchprop;
+//
+//	if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
+//		if (!chr->aibot || !chr->aibot->fetchprop) {
+//			return -1;
+//		}
+//
+//		fetchprop = chr->aibot->fetchprop;
+//	}
+//
+//	if (chr == NULL) {
+//		return 0;
+//	}
+//
+//	oldcover = chr->cover;
+//	refdist *= refdist;
+//
+//	// Iterate all cover, filter them by criteria and store them in g_CoverCandidates
+//	for (i = 0; i < numcovers; i++) {
+//		if (coverUnpack(i, &cover)
+//				&& !coverIsSpecial(&cover)
+//				&& ((criteria & COVERCRITERIA_2000) == 0 || (cover.flags & COVERFLAG_OMNIDIRECTIONAL))
+//				&& ((criteria & COVERCRITERIA_1000) || (cover.flags & COVERFLAG_AIMDIFFROOM) == 0 || !arrayIntersects(cover.rooms, target->rooms))) {
+//			userandomdist = false;
+//
+//			if ((criteria & COVERCRITERIA_0001) && (criteria & COVERCRITERIA_FURTHEREST)) {
+//				userandomdist = true;
+//				criteria &= ~(COVERCRITERIA_0001 | COVERCRITERIA_FURTHEREST);
+//			}
+//
+//			if (((criteria & COVERCRITERIA_FORCENEWCOVER) == 0 || i != oldcover)
+//					&& ((criteria & COVERCRITERIA_2000) || !(coverIsInUse(i) || cover.pos->y > y))) {
+//				if (criteria & COVERCRITERIA_ROOMSFROMME) {
+//					roomprop = chr->prop;
+//				} else if (criteria & COVERCRITERIA_ROOMSFROMTARGET) {
+//					roomprop = target;
+//				} else if (criteria & COVERCRITERIA_DISTTOTARGET) {
+//					roomprop = target;
+//				} else {
+//					roomprop = chr->prop;
+//				}
+//
+//				rooms[0] = roomprop->rooms[0];
+//				rooms[1] = -1;
+//
+//				if (criteria & COVERCRITERIA_ALLOWNEIGHBOURINGROOMS) {
+//					roomGetNeighbours(roomprop->rooms[0], &rooms[1], 6);
+//				} else if (criteria & COVERCRITERIA_ONLYNEIGHBOURINGROOMS) {
+//					roomGetNeighbours(roomprop->rooms[0], &rooms[0], 7);
+//				}
+//
+//				if (((criteria & COVERCRITERIA_0040) == 0 || !arrayIntersects(cover.rooms, rooms))
+//						&& ((criteria & COVERCRITERIA_0020) == 0 || arrayIntersects(cover.rooms, rooms))
+//						&& (rooms[1] == -1
+//							|| chr->oldrooms[0] == -1
+//							|| (criteria & COVERCRITERIA_0200) == 0
+//							|| !arrayIntersects(cover.rooms, chr->oldrooms))) {
+//					if (criteria & COVERCRITERIA_DISTTOME) {
+//						sqdist = chrGetSquaredDistanceToCoord(chr, cover.pos);
+//					} else if (criteria & COVERCRITERIA_DISTTOTARGET) {
+//						sqdist = coordGetSquaredDistanceToCoord(&target->pos, cover.pos);
+//					} else if (criteria & COVERCRITERIA_DISTTOFETCHPROP) {
+//						sqdist = coordGetSquaredDistanceToCoord(&fetchprop->pos, cover.pos);
+//					} else if (userandomdist) {
+//						sqdist = random() % 0xf000;
+//					} else {
+//						sqdist = 0;
+//						currefdist = 0;
+//					}
+//
+//					if (!currefdist
+//							|| (currefdist < 0 && sqdist > refdist)
+//							|| (currefdist > 0 && sqdist < refdist)) {
+//						g_CoverCandidates[numcandidates].sqdist = sqdist;
+//						g_CoverCandidates[numcandidates].covernum = i;
+//						numcandidates++;
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	// Sort candidates by distance ascending, or descending if using COVERCRITERIA_FURTHEREST
+//	if (numcandidates >= 2) {
+//		do {
+//			changed = false;
+//
+//			for (i = 0; i < numcandidates - 1; i++) {
+//				if ((((criteria & COVERCRITERIA_0001) || (criteria & COVERCRITERIA_DISTTOFETCHPROP) || userandomdist) && (g_CoverCandidates[i].sqdist > g_CoverCandidates[i + 1].sqdist))
+//						|| ((criteria & COVERCRITERIA_FURTHEREST) && g_CoverCandidates[i].sqdist < g_CoverCandidates[i + 1].sqdist)) {
+//					changed = true;
+//
+//					tmp = g_CoverCandidates[i];
+//					g_CoverCandidates[i] = g_CoverCandidates[i + 1];
+//					g_CoverCandidates[i + 1] = tmp;
+//				}
+//			}
+//		} while (changed);
+//	}
+//
+//	// Assign the first out of sight cover
+//	for (i = 0; i < numcandidates; i++) {
+//		if (chrCheckCoverOutOfSight(chr, g_CoverCandidates[i].covernum, criteria & COVERCRITERIA_8000)) {
+//			chr->cover = g_CoverCandidates[i].covernum;
+//
+//			if (oldcover != -1) {
+//				coverSetInUse(oldcover, false);
+//			}
+//
+//			coverSetInUse(chr->cover, true);
+//
+//			return g_CoverCandidates[i].covernum;
+//		}
+//	}
+//
+//	return -1;
+//}
 
 GLOBAL_ASM(
 glabel chrAssignCoverAwayFromDanger
@@ -25940,7 +26083,7 @@ s16 chrGoToCover(struct chrdata *chr, u8 speed)
 	}
 
 	if (chrIsReadyForOrders(chr) && chr->cover != -1 && coverUnpack(chr->cover, &cover)) {
-		chrGoToPos(chr, cover.pos, &cover.room, speed);
+		chrGoToPos(chr, cover.pos, &cover.rooms[0], speed);
 		return chr->cover;
 	}
 

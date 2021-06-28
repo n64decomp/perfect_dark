@@ -2633,22 +2633,29 @@
 	value, \
 	label,
 
-// If cover exists nearby
-#define cmd0121_if_something(u1, label) \
+/**
+ * Finds cover using the given criteria. If any matches, it is assigned to the
+ * chr and the label is followed.
+ *
+ * Criteria is expected to be a bitfield of COVERCRITERIA constants.
+ *
+ * To actually go to the cover, go_to_cover must be used afterwards.
+ */
+#define find_cover(criteria, label) \
 	mkshort(0x0121), \
-	mkshort(u1), \
+	mkshort(criteria), \
 	label,
 
-#define cmd0122(u1, flags, label) \
+#define find_cover_within_dist(criteria, distance, label) \
 	mkshort(0x0122), \
-	mkshort(u1), \
-	mkword(flags), \
+	mkshort(criteria), \
+	mkword(distance), \
 	label,
 
-#define cmd0123(u1, flags, label) \
+#define find_cover_outside_dist(criteria, distance, label) \
 	mkshort(0x0123), \
-	mkshort(u1), \
-	mkword(flags), \
+	mkshort(criteria), \
+	mkword(distance), \
 	label,
 
 #define go_to_cover(speed) \

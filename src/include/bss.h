@@ -206,7 +206,7 @@ extern s32 *g_PadsFile;
 extern u16 *g_PadOffsets;
 extern u16 *g_CoverFlags;
 extern s32 *g_CoverRooms;
-extern void *var800a2368;
+extern struct covercandidate *g_CoverCandidates;
 extern u16 g_NumSpecialCovers;
 extern u16 *g_SpecialCoverNums;
 extern struct var800a2380 var800a2380[5];

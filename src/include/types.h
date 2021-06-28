@@ -2930,6 +2930,11 @@ struct path {
 	/*0x06*/ u16 len;
 };
 
+struct covercandidate {
+	u64 sqdist;
+	s32 covernum;
+};
+
 struct coverdefinition {
 	struct coord pos;
 	struct coord look;
@@ -2939,8 +2944,7 @@ struct coverdefinition {
 struct cover {
 	/*0x00*/ struct coord *pos;
 	/*0x04*/ struct coord *look;
-	/*0x08*/ s16 room;
-	/*0x0a*/ s16 unk0a;
+	/*0x08*/ s16 rooms[2];
 	/*0x0c*/ u16 flags;
 };
 

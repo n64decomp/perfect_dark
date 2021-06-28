@@ -1240,7 +1240,7 @@ u8 func0007_alerted[] = {
 	//
 	label(0xa4)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0xa8)
-	cmd0121_if_something(0xa0b5, /*goto*/ 0xa5)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_ALLOWNEIGHBOURINGROOMS | COVERCRITERIA_2000 | COVERCRITERIA_8000, /*goto*/ 0xa5)
 	dprint 'P','O','P','P','E','R',' ','F','A','I','L','E','D','\n',0,
 	goto_next(0x52)
 
@@ -1452,30 +1452,30 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG1_00004000, TRUE, BANK_1, /*goto*/ 0x15)
 	if_self_flag_bankx_eq(CHRFLAG0_00000040, TRUE, BANK_0, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_08000000, FALSE, BANK_0, /*goto*/ 0x5c)
-	cmd0121_if_something(0x10b5, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_ALLOWNEIGHBOURINGROOMS | COVERCRITERIA_1000, /*goto*/ 0x53)
 	goto_next(0x14)
 
 	label(0x5c)
-	cmd0121_if_something(0x1035, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_1000, /*goto*/ 0x53)
 	goto_next(0x14)
 
 	label(0x16)
-	cmd0121_if_something(0x0035, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020, /*goto*/ 0x53)
 	goto_next(0x14)
 
 	label(0x15)
 	dprint 'S','O','F','T',' ','C','O','V','E','R','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_00000040, TRUE, BANK_0, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_08000000, FALSE, BANK_0, /*goto*/ 0x5c)
-	cmd0121_if_something(0x90b5, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_ALLOWNEIGHBOURINGROOMS | COVERCRITERIA_1000 | COVERCRITERIA_8000, /*goto*/ 0x53)
 	goto_next(0x14)
 
 	label(0x5c)
-	cmd0121_if_something(0x9035, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_1000 | COVERCRITERIA_8000, /*goto*/ 0x53)
 	goto_next(0x14)
 
 	label(0x16)
-	cmd0121_if_something(0x8035, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_8000, /*goto*/ 0x53)
 	goto_next(0x14)
 
 	label(0x14)
@@ -3277,13 +3277,13 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x13)
 	dprint 'L','O','O','K',' ','F','O','R',' ','C','O','V','E','R','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00004000, TRUE, BANK_1, /*goto*/ 0x15)
-	cmd0121_if_something(0x1035, /*goto*/ 0x53)
-	cmd0121_if_something(0x1095, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_1000, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_ALLOWNEIGHBOURINGROOMS | COVERCRITERIA_1000, /*goto*/ 0x53)
 	goto_next(0x16)
 
 	label(0x15)
-	cmd0121_if_something(0x9035, /*goto*/ 0x53)
-	cmd0121_if_something(0x9095, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_0020 | COVERCRITERIA_1000 | COVERCRITERIA_8000, /*goto*/ 0x53)
+	find_cover(COVERCRITERIA_0001 | COVERCRITERIA_DISTTOME | COVERCRITERIA_FORCENEWCOVER | COVERCRITERIA_ALLOWNEIGHBOURINGROOMS | COVERCRITERIA_1000 | COVERCRITERIA_8000, /*goto*/ 0x53)
 	label(0x16)
 	goto_next(0x54)
 
@@ -4874,7 +4874,7 @@ u8 func0014_coop_buddy[] = {
  * Not used?
  */
 u8 func002b_do_something_and_wait[] = {
-	cmd01c5
+	avoid
 
 	beginloop(0x03)
 		if_chr_stopped(/*goto*/ 0x16)

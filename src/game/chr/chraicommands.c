@@ -6914,12 +6914,12 @@ glabel var7f1a9d4c
 /**
  * @cmd 0121
  */
-bool ai0121(void)
+bool aiFindCover(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 someshort = cmd[3] | (cmd[2] << 8);
+	u16 criteria = cmd[3] | (cmd[2] << 8);
 
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && func0f04ba34(g_Vars.chrdata, someshort, 0) != -1) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, 0) != -1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -6931,13 +6931,13 @@ bool ai0121(void)
 /**
  * @cmd 0122
  */
-bool ai0122(void)
+bool aiFindCoverWithinDist(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 thing = cmd[3] | (cmd[2] << 8);
+	u16 criteria = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && func0f04ba34(g_Vars.chrdata, thing, flags) != -1) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, flags) != -1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
 	} else {
 		g_Vars.aioffset += 9;
@@ -6949,13 +6949,13 @@ bool ai0122(void)
 /**
  * @cmd 0123
  */
-bool ai0123(void)
+bool aiFindCoverOutsideDist(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 thing = cmd[3] | (cmd[2] << 8);
+	u16 criteria = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
-	if (g_Vars.chrdata && g_Vars.chrdata->prop && func0f04ba34(g_Vars.chrdata, thing, -flags) != -1) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && chrAssignCoverByCriteria(g_Vars.chrdata, criteria, -flags) != -1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
 	} else {
 		g_Vars.aioffset += 9;
@@ -10064,7 +10064,11 @@ bool aiRetreat(void)
 		struct prop *target = chrGetTargetProp(g_Vars.chrdata);
 		chrRunFromPos(g_Vars.chrdata, cmd[2], 10000, &target->pos);
 	} else {
-		func0f04ba34(g_Vars.chrdata, 2314, 0);
+		chrAssignCoverByCriteria(g_Vars.chrdata,
+				COVERCRITERIA_FURTHEREST
+				| COVERCRITERIA_DISTTOTARGET
+				| COVERCRITERIA_ONLYNEIGHBOURINGROOMS
+				| COVERCRITERIA_ROOMSFROMME, 0);
 		chrGoToCover(g_Vars.chrdata, cmd[2]);
 	}
 

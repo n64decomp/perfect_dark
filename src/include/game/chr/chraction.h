@@ -215,7 +215,7 @@ struct prop *chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f
 bool func0f04b658(struct chrdata *chr);
 bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 angle, bool allowonscreen);
 bool chrCheckCoverOutOfSight(struct chrdata *chr, s32 covernum, bool arg2);
-s32 func0f04ba34(struct chrdata *chr, u16 arg1, u32 arg2);
+s32 chrAssignCoverByCriteria(struct chrdata *chr, u16 arg1, s32 arg2);
 s32 chrAssignCoverAwayFromDanger(struct chrdata *chr, s32 mindist, s32 maxdist);
 bool chrRunFromPos(struct chrdata *chr, u32 speed, f32 distance, struct coord *frompos);
 f32 func0f04c784(struct chrdata *chr);

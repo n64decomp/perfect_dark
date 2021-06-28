@@ -290,9 +290,9 @@
 /*0x011e*/ bool aiIfHuman(void);
 /*0x011f*/ bool aiIfSkedar(void);
 /*0x0120*/ bool ai0120(void);
-/*0x0121*/ bool ai0121(void);
-/*0x0122*/ bool ai0122(void);
-/*0x0123*/ bool ai0123(void);
+/*0x0121*/ bool aiFindCover(void);
+/*0x0122*/ bool aiFindCoverWithinDist(void);
+/*0x0123*/ bool aiFindCoverOutsideDist(void);
 /*0x0124*/ bool aiGoToCover(void);
 /*0x0125*/ bool aiCheckCoverOutOfSight(void);
 /*0x0126*/ bool aiIfPlayerUsingCmpOrAr34(void);
