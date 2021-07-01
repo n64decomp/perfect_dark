@@ -1006,14 +1006,14 @@ struct tilething {
 
 struct act_stand {
 	/*0x2c*/ s32 prestand;
-	/*0x30*/ u32 flags;
+	/*0x30*/ s32 flags;
 	/*0x34*/ s32 entityid;
-	/*0x38*/ u32 reaim;
+	/*0x38*/ bool reaim;
 	/*0x3c*/ s32 turning;
-	/*0x40*/ u32 checkfacingwall;
-	/*0x44*/ u32 wallcount;
+	/*0x40*/ bool checkfacingwall;
+	/*0x44*/ s32 wallcount;
 	/*0x48*/ f32 mergetime;
-	/*0x4c*/ s8 playwalkanim;
+	/*0x4c*/ u8 playwalkanim;
 };
 
 struct act_anim {

@@ -1515,7 +1515,7 @@ f32 chrGetRangedArghSpeed(struct chrdata *chr, f32 min, f32 max)
 	return (max - min) * arghrating * 0.01f + min;
 }
 
-f32 chrGetAttackEntityRelativeAngle(struct chrdata *chr, u32 attackflags, s32 entityid)
+f32 chrGetAttackEntityRelativeAngle(struct chrdata *chr, s32 attackflags, s32 entityid)
 {
 	f32 angle;
 	struct coord pos;
@@ -7546,7 +7546,7 @@ bool chrTryModifyAttack(struct chrdata *chr, u32 attackflags, s32 entityid)
 	return false;
 }
 
-bool chrFaceEntity(struct chrdata *chr, u32 attackflags, u32 entityid)
+bool chrFaceEntity(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	if (chrIsReadyForOrders(chr)) {
 		if (chr->actiontype != ACT_STAND) {
@@ -8905,6 +8905,209 @@ glabel var7f1a8f08
 /*  f03c8ac:	03e00008 */ 	jr	$ra
 /*  f03c8b0:	00000000 */ 	nop
 );
+
+// Mismatch due to variable reuse between i, index and maybe j.
+// Note that renaming index to i from 6f4 onwards reduces the problem to just
+// regalloc, but I think this is a step in the wrong direction because a2 is
+// used for index.
+//void chrTickStand(struct chrdata *chr)
+//{
+//	s32 race;
+//	s32 i;
+//	s32 j;
+//	s32 iVar5;
+//	struct prop *leftgun;
+//	struct prop *rightgun;
+//	f32 fVar15;
+//	s32 k;
+//	f32 f2;
+//	f32 sp74[8];
+//	f32 sp70;
+//	f32 sp6c;
+//	s32 tmp;
+//	s32 index;
+//	s32 sp44[8];
+//
+//	if (chr->hidden & CHRHFLAG_NEEDANIM) {
+//		if (modelIsAnimMerging(chr->model)) {
+//			return;
+//		}
+//
+//		chrStandChooseAnimation(chr, chr->act_stand.mergetime);
+//		chr->hidden &= ~CHRHFLAG_NEEDANIM;
+//	}
+//
+//	if (modelGetAnimNum(chr->model) == ANIM_SNIPING_GETUP) {
+//		if (modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
+//			chrStandChooseAnimation(chr, 8);
+//			chr->act_stand.prestand = 0;
+//		}
+//
+//		return;
+//	}
+//
+//	if (chr->sleep > 0) {
+//		return;
+//	}
+//
+//	race = CHRRACE(chr);
+//
+//	if (race == RACE_EYESPY) {
+//		return;
+//	}
+//
+//	if (chr->act_stand.prestand) {
+//		if (modelGetCurAnimFrame(chr->model) >= modelGetAnimEndFrame(chr->model)) {
+//			chrStandChooseAnimation(chr, 8);
+//			chr->act_stand.prestand = 0;
+//		}
+//
+//		chr->sleep = 0;
+//		return;
+//	}
+//
+//	if (!chr->aibot && (race == RACE_HUMAN || race == RACE_SKEDAR) && chr->act_stand.flags > 0) {
+//		if (chr->act_stand.reaim) {
+//			chr->act_stand.turning = chrTurn(chr, chr->act_stand.turning, modelGetNumAnimFrames(chr->model) - 1, 1, 0);
+//
+//			if (chr->act_stand.turning != TURNSTATE_TURNING) {
+//				chrStandChooseAnimation(chr, 8);
+//				chr->act_stand.reaim = false;
+//
+//				if (chr->act_stand.flags & ATTACKFLAG_AIMATDIRECTION) {
+//					chr->act_stand.flags = 0;
+//				}
+//			}
+//		} else {
+//			f32 relangle = chrGetAttackEntityRelativeAngle(chr, chr->act_stand.flags, chr->act_stand.entityid);
+//
+//			if ((relangle > 0.34901028871536f && relangle < 5.9331746101379f)
+//					|| (relangle > 0.17450514435768f && relangle < 6.1076798439026f && !chr->act_stand.playwalkanim)) {
+//				leftgun = chrGetEquippedWeaponProp(chr, HAND_LEFT);
+//				rightgun = chrGetEquippedWeaponProp(chr, HAND_RIGHT);
+//
+//				chr->act_stand.reaim = true;
+//				chr->act_stand.turning = TURNSTATE_TURNING;
+//
+//				if (race == RACE_HUMAN) {
+//					if ((leftgun && rightgun)
+//							|| (!leftgun && !rightgun)
+//							|| weaponIsOneHanded(leftgun)
+//							|| weaponIsOneHanded(rightgun)) {
+//						modelSetAnimation(chr->model, ANIM_006B, random() % 2, 0, 0.5f, 16);
+//						modelSetAnimEndFrame(chr->model, animGetNumFrames(ANIM_006B) - 1);
+//					} else {
+//						if (rightgun || leftgun) {
+//							modelSetAnimation(chr->model, ANIM_0028, leftgun != NULL, 0, 0.5f, 16);
+//							modelSetAnimEndFrame(chr->model, animGetNumFrames(ANIM_0028) - 1);
+//						}
+//					}
+//				} else if (race == RACE_SKEDAR) {
+//					modelSetAnimation(chr->model, ANIM_0392, random() % 2, 0, 0.5f, 16);
+//					modelSetAnimEndFrame(chr->model, animGetNumFrames(ANIM_0392) - 1);
+//				}
+//			} else {
+//				if (chr->act_stand.flags & ATTACKFLAG_AIMATDIRECTION) {
+//					chr->act_stand.flags = 0;
+//				}
+//			}
+//		}
+//
+//		chr->sleep = 0;
+//		return;
+//	}
+//
+//	if (chr->aibot) {
+//		return;
+//	}
+//
+//	if (chr->prop->flags & PROPFLAG_80) {
+//		chr->sleep = 0;
+//	} else {
+//		chr->sleep = 14 + (random() % 5);
+//	}
+//
+//	if (chr->act_stand.checkfacingwall == false) {
+//		return;
+//	}
+//
+//	if (chr->chrflags & CHRCFLAG_00000080) {
+//		chr->act_stand.checkfacingwall = false;
+//		return;
+//	}
+//
+//	chr->act_stand.wallcount -= chr->sleep;
+//
+//	if (chr->act_stand.wallcount >= 0) {
+//		return;
+//	}
+//
+//	sp6c = sp70 = chrGetInverseTheta(chr);
+//
+//	for (i = 0; i < 8; i++) {
+//		sp6c += 0.7852731347084f;
+//
+//		if (sp6c >= M_BADTAU) {
+//			sp6c -= M_BADTAU;
+//		}
+//
+//		sp74[i] = func0f02e550(chr->prop, sp6c, 1000, CDTYPE_BG, 0, 1);
+//	}
+//
+//	for (i = 0; i < 8; i++) { // a3
+//		sp44[i] = i;
+//	}
+//
+//	for (i = 0; i < 7; i++) { // a3
+//		index = i; // a2 = a3
+//
+//		for (j = index + 1; j < 8; j++) { // v1
+//			if (sp74[sp44[j]] < sp74[sp44[index]]) {
+//				index = j; // a2 = v1
+//			}
+//		}
+//
+//		tmp = sp44[i];
+//		sp44[i] = sp44[index];
+//		sp44[index] = tmp;
+//	}
+//
+//	// 6f4
+//	index = -1; // a2
+//
+//	if (sp74[0] < 490) {
+//		if (sp74[sp44[4]] < 200) {
+//			index = 7;
+//		} else {
+//			if (sp44[0] == 0 || sp44[1] == 0 || sp44[2] == 0) {
+//				if ((sp44[3] == 4 || sp44[4] == 4) && (random() % 3) == 0) {
+//					if (sp44[3] == 4) {
+//						index = 3;
+//					} else {
+//						index = 4;
+//					}
+//				} else {
+//					index = 5 + random() % 3;
+//				}
+//			} else if ((sp44[0] == 1 || sp44[0] == 7) && sp44[5] && sp44[6] && sp44[7]) {
+//				index = 5 + random() % 3;
+//			}
+//		}
+//	}
+//
+//	if (index >= 0) {
+//		fVar15 = sp70 + 0.7852731347084f * sp44[index];
+//		f2 = fVar15;
+//
+//		if (fVar15 >= M_BADTAU) {
+//			f2 = fVar15 - M_BADTAU;
+//		}
+//
+//		chrFaceEntity(chr, ATTACKFLAG_AIMATDIRECTION, f2 * 10432.0390625f);
+//	} else {
+//		chr->act_stand.checkfacingwall = false;
+//	}
+//}
 
 void chrTickKneel(struct chrdata *chr)
 {
