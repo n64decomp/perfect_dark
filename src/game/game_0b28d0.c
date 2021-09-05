@@ -751,17 +751,10 @@ glabel modelFree
 /*  f0b327c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0b3280
-/*  f0b3280:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b3284:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b3288:	0fc2cad9 */ 	jal	func0f0b2b64
-/*  f0b328c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0b3290:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b3294:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b3298:	03e00008 */ 	jr	$ra
-/*  f0b329c:	00000000 */ 	nop
-);
+struct model *func0f0b3280(struct modelfiledata *modelfiledata)
+{
+	return func0f0b2b64(modelfiledata, 1);
+}
 
 GLOBAL_ASM(
 glabel func0f0b32a0

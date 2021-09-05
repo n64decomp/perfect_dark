@@ -6,7 +6,7 @@
 
 u32 func0f0b28d0(void);
 void func0f0b2904(void);
-u32 func0f0b2b64(void);
+struct model *func0f0b2b64(struct modelfiledata *modelfiledata, s32 arg1);
 struct model *modelInstantiate(struct modelfiledata *modelfiledata);
 void modelFree(struct model *model);
 struct model *func0f0b3280(struct modelfiledata *modelfiledata);
