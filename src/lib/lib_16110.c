@@ -347,22 +347,11 @@ glabel func000166a4
 /*    166d8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func000166dc
-/*    166dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    166e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    166e4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    166e8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    166ec:	0c00566c */ 	jal	func000159b0
-/*    166f0:	00a02025 */ 	or	$a0,$a1,$zero
-/*    166f4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    166f8:	0c005775 */ 	jal	func00015dd4
-/*    166fc:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    16700:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    16704:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    16708:	03e00008 */ 	jr	$ra
-/*    1670c:	00000000 */ 	nop
-);
+void func000166dc(struct coord *pos, Mtxf *matrix)
+{
+	func000159b0(matrix);
+	func00015dd4(pos, matrix);
+}
 
 GLOBAL_ASM(
 glabel func00016710
