@@ -382,15 +382,10 @@ glabel func00016710
 /*    16744:	e4a60038 */ 	swc1	$f6,0x38($a1)
 );
 
-GLOBAL_ASM(
-glabel func00016748
-/*    16748:	3c014780 */ 	lui	$at,0x4780
-/*    1674c:	44812000 */ 	mtc1	$at,$f4
-/*    16750:	3c018006 */ 	lui	$at,%hi(var8005ef10)
-/*    16754:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*    16758:	03e00008 */ 	jr	$ra
-/*    1675c:	e426ef10 */ 	swc1	$f6,%lo(var8005ef10)($at)
-);
+void func00016748(f32 arg0)
+{
+	var8005ef10[0] = 65536 * arg0;
+}
 
 GLOBAL_ASM(
 glabel func00016760
