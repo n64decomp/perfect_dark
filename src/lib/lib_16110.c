@@ -329,23 +329,11 @@ glabel func000165d8
 /*    166a0:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func000166a4
-/*    166a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    166a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    166ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    166b0:	00a02025 */ 	or	$a0,$a1,$zero
-/*    166b4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    166b8:	0c005923 */ 	jal	func0001648c
-/*    166bc:	00c02825 */ 	or	$a1,$a2,$zero
-/*    166c0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    166c4:	0c005775 */ 	jal	func00015dd4
-/*    166c8:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*    166cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    166d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    166d4:	03e00008 */ 	jr	$ra
-/*    166d8:	00000000 */ 	nop
-);
+void func000166a4(struct coord *pos, struct coord *rot, Mtxf *matrix)
+{
+	func0001648c(rot, matrix);
+	func00015dd4(pos, matrix);
+}
 
 void func000166dc(struct coord *pos, Mtxf *matrix)
 {
