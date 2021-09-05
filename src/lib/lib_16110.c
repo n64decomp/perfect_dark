@@ -1733,45 +1733,18 @@ glabel func00017a78
 /*    17c28:	46085001 */ 	sub.s	$f0,$f10,$f8
 );
 
-GLOBAL_ASM(
-glabel func00017c2c
-/*    17c2c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    17c30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    17c34:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*    17c38:	e7ae002c */ 	swc1	$f14,0x2c($sp)
-/*    17c3c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    17c40:	afa70034 */ 	sw	$a3,0x34($sp)
-/*    17c44:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*    17c48:	c7ae0030 */ 	lwc1	$f14,0x30($sp)
-/*    17c4c:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    17c50:	0c005f2f */ 	jal	func00017cbc
-/*    17c54:	c7ac002c */ 	lwc1	$f12,0x2c($sp)
-/*    17c58:	e7a0001c */ 	swc1	$f0,0x1c($sp)
-/*    17c5c:	c7ac0038 */ 	lwc1	$f12,0x38($sp)
-/*    17c60:	c7ae003c */ 	lwc1	$f14,0x3c($sp)
-/*    17c64:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    17c68:	0c005f2f */ 	jal	func00017cbc
-/*    17c6c:	8fa70048 */ 	lw	$a3,0x48($sp)
-/*    17c70:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*    17c74:	c7ac002c */ 	lwc1	$f12,0x2c($sp)
-/*    17c78:	c7ae0030 */ 	lwc1	$f14,0x30($sp)
-/*    17c7c:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*    17c80:	0c005f2f */ 	jal	func00017cbc
-/*    17c84:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*    17c88:	c7a40028 */ 	lwc1	$f4,0x28($sp)
-/*    17c8c:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    17c90:	c7aa0034 */ 	lwc1	$f10,0x34($sp)
-/*    17c94:	c7b0001c */ 	lwc1	$f16,0x1c($sp)
-/*    17c98:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*    17c9c:	c7a60040 */ 	lwc1	$f6,0x40($sp)
-/*    17ca0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    17ca4:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*    17ca8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    17cac:	46060282 */ 	mul.s	$f10,$f0,$f6
-/*    17cb0:	46124101 */ 	sub.s	$f4,$f8,$f18
-/*    17cb4:	03e00008 */ 	jr	$ra
-/*    17cb8:	46045000 */ 	add.s	$f0,$f10,$f4
-);
+f32 func00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8)
+{
+	f32 sp24;
+	f32 sp20;
+	f32 sp1c;
+
+	sp1c = func00017cbc(arg1, arg2, arg7, arg8);
+	sp20 = func00017cbc(arg4, arg5, arg7, arg8);
+	sp24 = func00017cbc(arg1, arg2, arg4, arg5);
+
+	return sp24 * arg6 + (arg0 * sp20 - arg3 * sp1c);
+}
 
 f32 func00017cbc(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
 {

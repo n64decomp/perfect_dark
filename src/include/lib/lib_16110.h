@@ -36,7 +36,7 @@ u32 func000172f0(void);
 u32 func00017588(void);
 u32 func00017614(void);
 u32 func00017a78(void);
-u32 func00017c2c(void);
+f32 func00017c2c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8);
 f32 func00017cbc(f32 arg0, f32 arg1, f32 arg2, f32 arg3);
 
 #endif
