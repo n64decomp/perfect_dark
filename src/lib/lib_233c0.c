@@ -320,12 +320,10 @@ glabel func00023794
 /*    237d8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel getNumAnimations
-/*    237dc:	3c028006 */ 	lui	$v0,%hi(g_NumAnimations)
-/*    237e0:	03e00008 */ 	jr	$ra
-/*    237e4:	8442f008 */ 	lh	$v0,%lo(g_NumAnimations)($v0)
-);
+s32 getNumAnimations(void)
+{
+	return g_NumAnimations;
+}
 
 GLOBAL_ASM(
 glabel func000237e8
