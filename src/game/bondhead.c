@@ -119,7 +119,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 	struct coord upvel = {0, 1, 0};
 	f32 animspeed = 0;
 
-	if (func00023794(g_Vars.currentplayer->model.anim->animnum)) {
+	if (animHasFrames(g_Vars.currentplayer->model.anim->animnum)) {
 		animspeed = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
 
 		if (g_Vars.currentplayer->headanim == 0) {

@@ -28,7 +28,7 @@ struct animheader *var8009a898;
 
 u32 var8005f000 = 0x00000000;
 u32 var8005f004 = 0x00000000;
-s16 g_NumAnimations = 0x00000000;
+s16 g_NumAnimations = 0;
 struct animheader *g_Anims = NULL;
 u32 var8005f010 = 0x00000000;
 u32 var8005f014 = 0x00000000;
@@ -297,28 +297,10 @@ s32 animGetNumFrames(s16 animnum)
 	return g_Anims[animnum].numframes;
 }
 
-GLOBAL_ASM(
-glabel func00023794
-/*    23794:	3c188006 */ 	lui	$t8,%hi(g_NumAnimations)
-/*    23798:	8718f008 */ 	lh	$t8,%lo(g_NumAnimations)($t8)
-/*    2379c:	00047400 */ 	sll	$t6,$a0,0x10
-/*    237a0:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*    237a4:	01f8102a */ 	slt	$v0,$t7,$t8
-/*    237a8:	1040000a */ 	beqz	$v0,.L000237d4
-/*    237ac:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    237b0:	3c198006 */ 	lui	$t9,%hi(g_Anims)
-/*    237b4:	8f39f00c */ 	lw	$t9,%lo(g_Anims)($t9)
-/*    237b8:	000f4080 */ 	sll	$t0,$t7,0x2
-/*    237bc:	010f4023 */ 	subu	$t0,$t0,$t7
-/*    237c0:	00084080 */ 	sll	$t0,$t0,0x2
-/*    237c4:	03284821 */ 	addu	$t1,$t9,$t0
-/*    237c8:	95220000 */ 	lhu	$v0,0x0($t1)
-/*    237cc:	0002502a */ 	slt	$t2,$zero,$v0
-/*    237d0:	01401025 */ 	or	$v0,$t2,$zero
-.L000237d4:
-/*    237d4:	03e00008 */ 	jr	$ra
-/*    237d8:	00000000 */ 	nop
-);
+bool animHasFrames(s16 animnum)
+{
+	return animnum < g_NumAnimations && g_Anims[animnum].numframes > 0;
+}
 
 s32 getNumAnimations(void)
 {
