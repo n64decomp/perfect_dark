@@ -2519,7 +2519,7 @@ struct player {
 	/*0x00c0*/ bool bondperimenabled;
 	/*0x00c4*/ u32 devicesactive;
 	/*0x00c8*/ s32 badrockettime;
-	/*0x00cc*/ u32 gunspeed;
+	/*0x00cc*/ f32 gunspeed;
 	/*0x00d0*/ s32 bondactivateorreload;
 	/*0x00d4*/ struct model *model00d4;
 	/*0x00d8*/ bool isdead;

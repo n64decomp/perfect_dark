@@ -3330,13 +3330,6 @@ void bwalkUpdateTheta(void)
 	bwalkCalculateNewPositionWithPush(&delta, rotateamount, true, 0, CDTYPE_ALL);
 }
 
-u32 var80070e68 = 0x00000000;
-u32 var80070e6c = 0x00000000;
-u32 var80070e70 = 0x00000000;
-u32 var80070e74 = 0x00000000;
-u32 var80070e78 = 0x00000000;
-u32 var80070e7c = 0x00000000;
-
 void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 {
 	struct coord sp100;
@@ -6591,6 +6584,397 @@ glabel var7f1ad854
 /*  f0c5124:	00000000 */ 	sll	$zero,$zero,0x0
 );
 #endif
+
+u32 var80070e68 = 0x00000000;
+u32 var80070e6c = 0x00000000;
+u32 var80070e70 = 0x00000000;
+
+// Mismatch: Float regalloc mostly
+//void bwalk0f0c69b8(void)
+//{
+//	s32 i;
+//	f32 spe0;
+//	f32 spdc;
+//	f32 spd8;
+//	struct coord spcc = {0, 0, 0};
+//	f32 spc8;
+//	f32 spc4;
+//	f32 spc0;
+//	f32 fVar11;
+//	f32 fVar10;
+//	f32 spb4;
+//	f32 spb0;
+//	f32 fVar9;
+//	f32 spa8;
+//	f32 fVar7;
+//	f32 fVar6;
+//	f32 fVar5;
+//	f32 fVar4;
+//	s32 iVar4;
+//	s32 lVar2;
+//	f32 sp8c;
+//	f32 sp88;
+//
+//	f32 sp7c;
+//	f32 sp78;
+//	f32 sp74;
+//	f32 width; // 70
+//	f32 ymax; // 6c
+//	f32 ymin; // 68
+//	f32 sp4c;
+//	f32 sp48;
+//	f32 sp44;
+//	f32 sp40;
+//	f32 sp3c;
+//	f32 breathing;
+//	f32 fVar5_2;
+//	f32 fVar5_3;
+//	f32 fVar5_4;
+//	f32 fVar6_2;
+//	f32 fVar7_2;
+//	u8 stack[0x08];
+//
+//	spc0 = g_Vars.currentplayer->vv_eyeheight - 159;
+//
+//	// a04
+//	if (invHasBriefcase() && ((g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE || g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE))) {
+//		spc0 = 159 / 2.5;
+//	}
+//
+//	spc0 = spc0 / 353.33331298828f + 1.0f;
+//
+//	// a60
+//	if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_FASTMOVEMENT)) {
+//		spc0 *= 1.25f;
+//	}
+//
+//	// a8c
+//	if (cheatIsActive(CHEAT_SMALLJO)) {
+//		spc0 *= 0.4f;
+//	}
+//
+//	// abc
+//	if (g_Vars.currentplayer->walkinitmove) {
+//		g_Vars.currentplayer->walkinitt += g_Vars.lvupdate240freal * (1.0f / 60.0f);
+//
+//		if (g_Vars.currentplayer->walkinitt >= 1.0f) {
+//			g_Vars.currentplayer->walkinitt = 1.0f;
+//			g_Vars.currentplayer->walkinitmove = false;
+//		}
+//
+//		g_Vars.currentplayer->walkinitt2 = 1.0f - (cosf(g_Vars.currentplayer->walkinitt * M_BADPI) + 1.0f) * 0.5f;
+//
+//		bmoveUpdateHead(0.0f, 0.0f, 0.0f, &g_Vars.currentplayer->walkinitmtx, 1.0f - g_Vars.currentplayer->walkinitt2);
+//
+//		g_Vars.currentplayer->gunspeed = 0.0f;
+//
+//		bmoveUpdateMoveInitSpeed(&spcc);
+//		bwalkCalculateNewPositionWithPush(&spcc, 0.0f, true, 0.0f, CDTYPE_ALL);
+//	} else {
+//		// bbc
+//		bwalkApplyCrouchSpeed();
+//		bwalkUpdateCrouchOffset();
+//
+//		bmove0f0cba88(&spc8, &spc4,
+//				(struct coord *) g_Vars.currentplayer->bondshotspeed,
+//				g_Vars.currentplayer->vv_sintheta, g_Vars.currentplayer->vv_costheta);
+//
+//		spb4 = g_Vars.currentplayer->bond2.unk00.f[2] * -g_Vars.currentplayer->swaytarget;
+//		spb0 = g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->swaytarget;
+//		spb4 *= spc0;
+//		spb0 *= spc0;
+//		spa8 = 0.0f;
+//
+//		// c40
+//		if (g_Vars.currentplayer->crouchoffset < -45.0f) {
+//			spb0 *= 0.35f;
+//			spb4 *= 0.35f;
+//		} else if (g_Vars.currentplayer->crouchoffset < 0.0f) {
+//			spb0 *= 0.5f;
+//			spb4 *= 0.5f;
+//		}
+//
+//		// c94
+//		spb4 -= g_Vars.currentplayer->swayoffset0;
+//		spb0 -= g_Vars.currentplayer->swayoffset2;
+//
+//		fVar6 = sqrtf(spb4 * spb4 + spb0 * spb0);
+//
+//		if (g_Vars.lvupdate240freal > 4) {
+//			fVar5 = 4;
+//			iVar4 = 4;
+//		} else {
+//			fVar5 = g_Vars.lvupdate240freal;
+//			iVar4 = g_Vars.lvupdate240_60;
+//		}
+//
+//		// cfc
+//		for (i = 0; i < iVar4; i++) {
+//			spa8 += (fVar6 - spa8) * 0.1f;
+//		}
+//
+//		// d20
+//		spa8 += fVar5 * 3.75f;
+//
+//		if (g_Vars.currentplayer->crouchoffset < -45.0f) {
+//			spa8 *= 0.35f;
+//		} else if (g_Vars.currentplayer->crouchoffset < 0.0f) {
+//			spa8 *= 0.5f;
+//		}
+//
+//		// d90
+//		if (spa8 < fVar6) {
+//			spa8 = spa8 / fVar6;
+//			spb4 *= spa8;
+//			spb0 *= spa8;
+//		}
+//
+//		// db8
+//		fVar5_2 = (g_Vars.currentplayer->speedsideways + spc4) * 0.8f; // f2
+//		sp78 = g_Vars.currentplayer->speedtheta * 0.8f; // f16
+//		sp7c = g_Vars.currentplayer->speedforwards + spc8; // f12
+//
+//		// df4
+//		if (fVar5_2 < 0.0f) { // f2
+//			fVar5_2 = -fVar5_2;
+//		}
+//
+//		// e08
+//		if (sp7c < 0.0f) { // f12
+//			sp7c = -sp7c;
+//		}
+//
+//		// e1c
+//		if (sp78 < 0.0f) { // f16
+//			sp78 = -sp78;
+//		}
+//
+//		// e34
+//		if (sp78 < fVar5_2) {
+//			sp78 = fVar5_2;
+//		}
+//
+//		// e4c
+//		if (sp78 < sp7c) {
+//			sp78 = sp7c;
+//		}
+//
+//		// e60
+//		if (fVar6 >= 0.1f && sp78 < 0.8f) {
+//			sp78 = 0.8f;
+//		}
+//
+//		if (sp78 >= 0.75f) {
+//			g_Vars.currentplayer->bondbreathing += (sp78 - 0.75f) * g_Vars.lvupdate240freal / 900;
+//		} else {
+//			g_Vars.currentplayer->bondbreathing -= (0.75f - sp78) * g_Vars.lvupdate240freal / 2700;
+//		}
+//
+//		if (g_Vars.currentplayer->bondbreathing < 0.0f) {
+//			g_Vars.currentplayer->bondbreathing = 0.0f;
+//		} else if (g_Vars.currentplayer->bondbreathing > 1.0f) {
+//			g_Vars.currentplayer->bondbreathing = 1.0f;
+//		}
+//
+//		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * var80075c00[1].endframe * 0.5f * g_Vars.lvupdate240freal;
+//
+//		// f6c
+//		if (cheatIsActive(CHEAT_SMALLJO)) {
+//			spe0 = spe0 / 0.4f;
+//		}
+//
+//		bmove0f0cc654(sp78, g_Vars.currentplayer->speedforwards * spc0 + spc8, spe0);
+//
+//		// fb4
+//		g_Vars.currentplayer->gunspeed = sp78;
+//
+//		spdc = g_Vars.currentplayer->headpos.x;
+//		spd8 = g_Vars.currentplayer->headpos.z;
+//
+//		if (cheatIsActive(CHEAT_SMALLJO)) {
+//			spdc *= 0.4f;
+//		}
+//
+//		spcc.x += (spd8 * g_Vars.currentplayer->bond2.unk00.x - spdc * g_Vars.currentplayer->bond2.unk00.z) * g_Vars.lvupdate240freal + spb4;
+//		spcc.z += (spd8 * g_Vars.currentplayer->bond2.unk00.z + spdc * g_Vars.currentplayer->bond2.unk00.x) * g_Vars.lvupdate240freal + spb0;
+//
+//		bmoveUpdateMoveInitSpeed(&spcc);
+//
+//		// 080
+//		if (debugIsTurboModeEnabled()) {
+//			spcc.x += (g_Vars.currentplayer->bond2.unk00.x * g_Vars.currentplayer->speedforwards - g_Vars.currentplayer->bond2.unk00.z * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate240freal * 10.0f;
+//			spcc.z += (g_Vars.currentplayer->bond2.unk00.z * g_Vars.currentplayer->speedforwards + g_Vars.currentplayer->bond2.unk00.x * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate240freal * 10.0f;
+//		}
+//
+//		// 11c
+//		if (g_Vars.currentplayer->bondforcespeed.f[0] != 0.0f || g_Vars.currentplayer->bondforcespeed.f[2] != 0.0f) {
+//			spcc.x += g_Vars.currentplayer->bondforcespeed.f[0] * g_Vars.lvupdate240freal;
+//			spcc.z += g_Vars.currentplayer->bondforcespeed.f[2] * g_Vars.lvupdate240freal;
+//		}
+//
+//		// 16c
+//		if (g_Vars.currentplayer->onladder) {
+//			guNormalize(&g_Vars.currentplayer->laddernormal.x, &g_Vars.currentplayer->laddernormal.y, &g_Vars.currentplayer->laddernormal.z);
+//
+//			sp74 = -(g_Vars.currentplayer->laddernormal.f[0] * spcc.f[0] + g_Vars.currentplayer->laddernormal.f[2] * spcc.f[2]);
+//
+//			if (g_Vars.lvupdate240freal * -4.0f < sp74) {
+//				if (sp74 < 0.0f) {
+//					spcc.x += sp74 * g_Vars.currentplayer->laddernormal.x;
+//					spcc.z += sp74 * g_Vars.currentplayer->laddernormal.z;
+//					g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
+//				} else {
+//					propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+//
+//					lVar2 = func0002a13c(&g_Vars.currentplayer->prop->pos,
+//							width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
+//							(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
+//							g_Vars.currentplayer->prop->rooms, 0x8040);
+//
+//					if (lVar2 == 0) {
+//						g_Vars.currentplayer->ladderupdown = 0.0f;
+//					} else {
+//						spcc.x += sp74 * g_Vars.currentplayer->laddernormal.x;
+//						spcc.z += sp74 * g_Vars.currentplayer->laddernormal.z;
+//						g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
+//					}
+//				}
+//
+//				spcc.x *= 0.3f;
+//				spcc.z *= 0.3f;
+//			} else {
+//				g_Vars.currentplayer->ladderupdown = 0.0f;
+//			}
+//		}
+//
+//		// 318
+//		if (g_Vars.currentplayer->lift) {
+//			struct liftobj *lift = (struct liftobj *) g_Vars.currentplayer->lift->obj;
+//
+//			if (lift->base.type == OBJTYPE_ESCASTEP) {
+//				spcc.x += lift->base.prop->pos.x - lift->prevpos.x;
+//				spcc.z += lift->base.prop->pos.z - lift->prevpos.z;
+//			}
+//		}
+//
+//		// 36c
+//		sp8c = g_Vars.currentplayer->prop->pos.x;
+//		sp88 = g_Vars.currentplayer->prop->pos.z;
+//
+//		bwalk0f0c63bc(&spcc, g_Vars.currentplayer->swaytarget == 0.0f, CDTYPE_ALL);
+//
+//		fVar11 = g_Vars.currentplayer->prop->pos.z - g_Vars.currentplayer->bondprevpos.z;
+//		fVar10 = g_Vars.currentplayer->prop->pos.x - g_Vars.currentplayer->bondprevpos.x;
+//
+//		sp4c = g_Vars.currentplayer->bond2.unk00.f[0] * spcc.f[2] + g_Vars.currentplayer->bond2.unk00.f[2] * -spcc.f[0];
+//		sp48 = g_Vars.currentplayer->bond2.unk00.f[2] * spcc.f[2] + g_Vars.currentplayer->bond2.unk00.f[0] * spcc.f[0];
+//
+//		fVar7 = g_Vars.currentplayer->bond2.unk00.f[0] * fVar11 + -g_Vars.currentplayer->bond2.unk00.f[2] * fVar10;
+//		fVar9 = g_Vars.currentplayer->bond2.unk00.f[2] * fVar11 + g_Vars.currentplayer->bond2.unk00.f[0] * fVar10;
+//
+//		// 428
+//		if (fVar10 >= 0.0f) {
+//			if (g_Vars.currentplayer->bondshotspeed[0] > 0.0f) {
+//				if (spcc.x >= 0.0f && fVar10 < spcc.x) {
+//					g_Vars.currentplayer->bondshotspeed[0] *= fVar10 / spcc.x;
+//				}
+//			} else {
+//				if (spcc.x < 0.0f) {
+//					g_Vars.currentplayer->bondshotspeed[0] = 0.0f;
+//				}
+//			}
+//		} else {
+//			if (g_Vars.currentplayer->bondshotspeed[0] < 0.0f) {
+//				if (spcc.x <= 0.0f && spcc.x < fVar10) {
+//					g_Vars.currentplayer->bondshotspeed[0] *= fVar10 / spcc.x;
+//				}
+//			} else {
+//				if (spcc.x > 0.0f) {
+//					g_Vars.currentplayer->bondshotspeed[0] = 0.0f;
+//				}
+//			}
+//		}
+//
+//		// 504
+//		if (fVar11 >= 0.0f) {
+//			if (g_Vars.currentplayer->bondshotspeed[2] > 0.0f) {
+//				if (spcc.z >= 0.0f && fVar11 < spcc.z) {
+//					g_Vars.currentplayer->bondshotspeed[2] *= fVar11 / spcc.z;
+//				}
+//			} else {
+//				if (spcc.z < 0.0f) {
+//					g_Vars.currentplayer->bondshotspeed[2] = 0.0f;
+//				}
+//			}
+//		} else {
+//			if (g_Vars.currentplayer->bondshotspeed[2] < 0.0f) {
+//				if (spcc.z <= 0.0f && spcc.z < fVar11) {
+//					g_Vars.currentplayer->bondshotspeed[2] *= fVar11 / spcc.z;
+//				}
+//			} else {
+//				if (spcc.z > 0.0f) {
+//					g_Vars.currentplayer->bondshotspeed[2] = 0.0f;
+//				}
+//			}
+//		}
+//
+//		// 5e8
+//		if (sp4c != 0.0f && g_Vars.currentplayer->speedstrafe * sp4c > 0.0f) {
+//			fVar7 = fVar7 / sp4c;
+//
+//			if (fVar7 <= 0.0f) {
+//				g_Vars.currentplayer->speedstrafe = 0.0f;
+//			} else if (fVar7 < 1.0f) {
+//				g_Vars.currentplayer->speedstrafe *= fVar7;
+//			}
+//		}
+//
+//		// 664
+//		if (sp48 != 0.0f) {
+//			if (g_Vars.currentplayer->speedgo * sp48 > 0.0f) {
+//				fVar9 = fVar9 / sp48;
+//
+//				if (fVar9 <= 0.0f) {
+//					g_Vars.currentplayer->speedgo = 0.0f;
+//				} else if (fVar9 < 1.0f) {
+//					g_Vars.currentplayer->speedgo *= fVar9;
+//				}
+//			}
+//		}
+//
+//		// 6cc
+//		fVar5_3 = g_Vars.currentplayer->prop->pos.x - sp8c;
+//		fVar6_2 = g_Vars.currentplayer->prop->pos.z - sp88;
+//		fVar7_2 = spcc.f[0] * spcc.f[0] + spcc.f[2] * spcc.f[2];
+//
+//		if (fVar7_2 != 0.0f) {
+//			fVar7_2 = (fVar5_3 * fVar5_3 + fVar6_2 * fVar6_2) / fVar7_2;
+//		}
+//
+//		fVar5_4 = sqrtf(fVar7_2);
+//		g_Vars.currentplayer->swayoffset0 += fVar5_4 * spb4;
+//		g_Vars.currentplayer->swayoffset2 += fVar5_4 * spb0;
+//	}
+//
+//	sp44 = g_Vars.currentplayer->speedtheta;
+//	sp40 = g_Vars.currentplayer->speedverta / 0.7f + g_Vars.currentplayer->crouchspeed / 5.0f;
+//	sp3c = g_Vars.currentplayer->gunspeed;
+//
+//	breathing = bheadGetBreathingValue();
+//
+//	if (sp40 > 1.0f) {
+//		sp40 = 1.0f;
+//	} else if (sp40 < -1.0f) {
+//		sp40 = -1.0f;
+//	}
+//
+//	if (g_Vars.currentplayer->headanim == ANIM_TWO_GUN_HOLD) {
+//		breathing *= 1.2f;
+//	}
+//
+//	bgun0f09d8dc(breathing, sp3c, sp40, sp44, 0.0f);
+//	bgunSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
+//}
 
 void bwalkTick(void)
 {

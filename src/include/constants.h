@@ -2776,7 +2776,7 @@
 #define OBJFLAG3_WALKTHROUGH        0x00000400
 #define OBJFLAG3_RTRACKED_BLUE      0x00000800
 #define OBJFLAG3_SHOWSHIELD         0x00001000 // Show shield effect around object (always)
-#define OBJHFLAG3_HTMTERMINAL       0x00002000 // Terminal for Hacker Central scenario (HTM = Hack That Mac)
+#define OBJFLAG3_HTMTERMINAL        0x00002000 // Terminal for Hacker Central scenario (HTM = Hack That Mac)
 #define OBJFLAG3_00004000           0x00004000 // Not used in scripts
 #define OBJFLAG3_00008000           0x00008000 // Not used in scripts
 #define OBJFLAG3_INTERACTABLE       0x00010000

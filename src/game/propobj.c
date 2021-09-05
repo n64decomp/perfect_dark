@@ -59211,7 +59211,7 @@ bool objTestForInteract(struct prop *prop)
 		maybe = true;
 	} else if (obj->type == OBJTYPE_ALARM
 			|| (obj->flags & OBJFLAG_THROWNLAPTOP)
-			|| (obj->flags3 & (OBJHFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE))
+			|| (obj->flags3 & (OBJFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE))
 			|| (obj->hidden & (OBJHFLAG_LIFTDOOR | OBJHFLAG_00000002))) {
 		maybe = true;
 	} else if (obj->type == OBJTYPE_HOVERBIKE) {
