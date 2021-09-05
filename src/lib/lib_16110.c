@@ -1773,15 +1773,7 @@ glabel func00017c2c
 /*    17cb8:	46045000 */ 	add.s	$f0,$f10,$f4
 );
 
-GLOBAL_ASM(
-glabel func00017cbc
-/*    17cbc:	afa7000c */ 	sw	$a3,0xc($sp)
-/*    17cc0:	c7a4000c */ 	lwc1	$f4,0xc($sp)
-/*    17cc4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    17cc8:	c7a80008 */ 	lwc1	$f8,0x8($sp)
-/*    17ccc:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*    17cd0:	00000000 */ 	nop
-/*    17cd4:	46087282 */ 	mul.s	$f10,$f14,$f8
-/*    17cd8:	03e00008 */ 	jr	$ra
-/*    17cdc:	460a3001 */ 	sub.s	$f0,$f6,$f10
-);
+f32 func00017cbc(f32 arg0, f32 arg1, f32 arg2, f32 arg3)
+{
+	return arg0 * arg3 - arg1 * arg2;
+}
