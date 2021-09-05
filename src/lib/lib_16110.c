@@ -742,65 +742,23 @@ void func00016d58(Mtxf *matrix, f32 posx, f32 posy, f32 posz, f32 lookx, f32 loo
 	func00016b58(matrix, posx, posy, posz, lookx - posx, looky - posy, lookz - posz, upx, upy, upz);
 }
 
-GLOBAL_ASM(
-glabel func00016dcc
-/*    16dcc:	460e6000 */ 	add.s	$f0,$f12,$f14
-/*    16dd0:	3c014000 */ 	lui	$at,0x4000
-/*    16dd4:	44812000 */ 	mtc1	$at,$f4
-/*    16dd8:	3c014800 */ 	lui	$at,0x4800
-/*    16ddc:	4604003e */ 	c.le.s	$f0,$f4
-/*    16de0:	00000000 */ 	nop
-/*    16de4:	45020004 */ 	bc1fl	.L00016df8
-/*    16de8:	44813000 */ 	mtc1	$at,$f6
-/*    16dec:	03e00008 */ 	jr	$ra
-/*    16df0:	3402ffff */ 	dli	$v0,0xffff
-/*    16df4:	44813000 */ 	mtc1	$at,$f6
-.L00016df8:
-/*    16df8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    16dfc:	3c014f00 */ 	lui	$at,0x4f00
-/*    16e00:	46003203 */ 	div.s	$f8,$f6,$f0
-/*    16e04:	444ef800 */ 	cfc1	$t6,$31
-/*    16e08:	44c2f800 */ 	ctc1	$v0,$31
-/*    16e0c:	00000000 */ 	nop
-/*    16e10:	460042a4 */ 	cvt.w.s	$f10,$f8
-/*    16e14:	4442f800 */ 	cfc1	$v0,$31
-/*    16e18:	00000000 */ 	nop
-/*    16e1c:	30420078 */ 	andi	$v0,$v0,0x78
-/*    16e20:	50400013 */ 	beqzl	$v0,.L00016e70
-/*    16e24:	44025000 */ 	mfc1	$v0,$f10
-/*    16e28:	44815000 */ 	mtc1	$at,$f10
-/*    16e2c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*    16e30:	460a4281 */ 	sub.s	$f10,$f8,$f10
-/*    16e34:	44c2f800 */ 	ctc1	$v0,$31
-/*    16e38:	00000000 */ 	nop
-/*    16e3c:	460052a4 */ 	cvt.w.s	$f10,$f10
-/*    16e40:	4442f800 */ 	cfc1	$v0,$31
-/*    16e44:	00000000 */ 	nop
-/*    16e48:	30420078 */ 	andi	$v0,$v0,0x78
-/*    16e4c:	14400005 */ 	bnez	$v0,.L00016e64
-/*    16e50:	00000000 */ 	nop
-/*    16e54:	44025000 */ 	mfc1	$v0,$f10
-/*    16e58:	3c018000 */ 	lui	$at,0x8000
-/*    16e5c:	10000007 */ 	b	.L00016e7c
-/*    16e60:	00411025 */ 	or	$v0,$v0,$at
-.L00016e64:
-/*    16e64:	10000005 */ 	b	.L00016e7c
-/*    16e68:	2402ffff */ 	addiu	$v0,$zero,-1
-/*    16e6c:	44025000 */ 	mfc1	$v0,$f10
-.L00016e70:
-/*    16e70:	00000000 */ 	nop
-/*    16e74:	0440fffb */ 	bltz	$v0,.L00016e64
-/*    16e78:	00000000 */ 	nop
-.L00016e7c:
-/*    16e7c:	44cef800 */ 	ctc1	$t6,$31
-/*    16e80:	304fffff */ 	andi	$t7,$v0,0xffff
-/*    16e84:	1de00002 */ 	bgtz	$t7,.L00016e90
-/*    16e88:	3043ffff */ 	andi	$v1,$v0,0xffff
-/*    16e8c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L00016e90:
-/*    16e90:	03e00008 */ 	jr	$ra
-/*    16e94:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 func00016dcc(f32 arg0, f32 arg1)
+{
+	f32 sum = arg0 + arg1;
+	u16 result;
+
+	if (sum <= 2) {
+		result = 0xffff;
+	} else {
+		result = 0x20000 / sum;
+
+		if (result <= 0) {
+			result = 1;
+		}
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func00016e98
