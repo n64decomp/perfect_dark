@@ -727,27 +727,19 @@ s32 __osPfsCheckRamArea(OSPfs* pfs)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00007084
-/*     7084:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*     7088:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     708c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*     7090:	00807025 */ 	or	$t6,$a0,$zero
-/*     7094:	8dc50008 */ 	lw	$a1,0x8($t6)
-/*     7098:	8c840004 */ 	lw	$a0,0x4($a0)
-/*     709c:	27a70018 */ 	addiu	$a3,$sp,0x18
-/*     70a0:	0c012e18 */ 	jal	__osContRamRead
-/*     70a4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     70a8:	10400003 */ 	beqz	$v0,.L000070b8
-/*     70ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     70b0:	10000002 */ 	b	.L000070bc
-/*     70b4:	00001025 */ 	or	$v0,$zero,$zero
-.L000070b8:
-/*     70b8:	8fa2001c */ 	lw	$v0,0x1c($sp)
-.L000070bc:
-/*     70bc:	03e00008 */ 	jr	$ra
-/*     70c0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+s32 func00007084(OSPfs *pfs)
+{
+	s32 ret;
+	u32 buffer[7];
+
+	ret = __osContRamRead(pfs->queue, pfs->channel, 1, (u8 *) buffer);
+
+	if (ret != 0) {
+		return 0;
+	}
+
+	return buffer[1];
+}
 #else
 GLOBAL_ASM(
 glabel func00007084
