@@ -1628,10 +1628,8 @@ glabel formatTime
 );
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0d5a7c
-/*  f0d5a7c:	3c018007 */ 	lui	$at,%hi(var80070f10)
-/*  f0d5a80:	03e00008 */ 	jr	$ra
-/*  f0d5a84:	ac200f10 */ 	sw	$zero,%lo(var80070f10)($at)
-);
+void func0f0d5a7c(void)
+{
+	var80070f10 = 0;
+}
 #endif
