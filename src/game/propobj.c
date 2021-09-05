@@ -539,11 +539,10 @@ glabel func0f0667b4
 /*  f0667b8:	c4800008 */ 	lwc1	$f0,0x8($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f0667bc
-/*  f0667bc:	03e00008 */ 	jr	$ra
-/*  f0667c0:	c480000c */ 	lwc1	$f0,0xc($a0)
-);
+f32 modelBboxGetYMin(struct modelrodata_bbox *bbox)
+{
+	return bbox->ymin;
+}
 
 GLOBAL_ASM(
 glabel func0f0667c4
@@ -5505,7 +5504,7 @@ glabel var7f1aa200
 /*  f06a74c:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f06a750:	8c840018 */ 	lw	$a0,0x18($a0)
 /*  f06a754:	afa200c4 */ 	sw	$v0,0xc4($sp)
-/*  f06a758:	0fc199ef */ 	jal	func0f0667bc
+/*  f06a758:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f06a75c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06a760:	46000506 */ 	mov.s	$f20,$f0
 /*  f06a764:	0fc199f1 */ 	jal	func0f0667c4
@@ -5796,7 +5795,7 @@ glabel var7f1aa200
 /*  f0699b4:	0fc19f4a */ 	jal	modelFindBboxRodata
 /*  f0699b8:	8c840018 */ 	lw	$a0,0x18($a0)
 /*  f0699bc:	afa200bc */ 	sw	$v0,0xbc($sp)
-/*  f0699c0:	0fc1968f */ 	jal	func0f0667bc
+/*  f0699c0:	0fc1968f */ 	jal	modelBboxGetYMin
 /*  f0699c4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0699c8:	46000506 */ 	mov.s	$f20,$f0
 /*  f0699cc:	0fc19691 */ 	jal	func0f0667c4
@@ -11327,7 +11326,7 @@ glabel func0f06eb4c
 /*  f06eb5c:	afa60088 */ 	sw	$a2,0x88($sp)
 /*  f06eb60:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f06eb64:	8c840018 */ 	lw	$a0,0x18($a0)
-/*  f06eb68:	0fc199ef */ 	jal	func0f0667bc
+/*  f06eb68:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f06eb6c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06eb70:	8faf0080 */ 	lw	$t7,0x80($sp)
 /*  f06eb74:	8fa40088 */ 	lw	$a0,0x88($sp)
@@ -11950,7 +11949,7 @@ glabel func0f06f314
 /*  f06f424:	8d040018 */ 	lw	$a0,0x18($t0)
 /*  f06f428:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f06f42c:	afa80094 */ 	sw	$t0,0x94($sp)
-/*  f06f430:	0fc199ef */ 	jal	func0f0667bc
+/*  f06f430:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f06f434:	00402025 */ 	or	$a0,$v0,$zero
 /*  f06f438:	8fa80094 */ 	lw	$t0,0x94($sp)
 /*  f06f43c:	86020028 */ 	lh	$v0,0x28($s0)
@@ -42716,7 +42715,7 @@ glabel var7f1aa6e4
 /*  f07d24c:	860f0092 */ 	lh	$t7,0x92($s0)
 /*  f07d250:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f07d254:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f07d258:	0fc199ef */ 	jal	func0f0667bc
+/*  f07d258:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f07d25c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07d260:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f07d264:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -43682,7 +43681,7 @@ glabel var7f1aa6e4
 /*  f07d24c:	860f0092 */ 	lh	$t7,0x92($s0)
 /*  f07d250:	0fc1a2aa */ 	jal	modelFindBboxRodata
 /*  f07d254:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f07d258:	0fc199ef */ 	jal	func0f0667bc
+/*  f07d258:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f07d25c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07d260:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f07d264:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -44646,7 +44645,7 @@ glabel var7f1aa6e0
 /*  f07bcf8:	860f0092 */ 	lh	$t7,0x92($s0)
 /*  f07bcfc:	0fc19f4a */ 	jal	modelFindBboxRodata
 /*  f07bd00:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f07bd04:	0fc1968f */ 	jal	func0f0667bc
+/*  f07bd04:	0fc1968f */ 	jal	modelBboxGetYMin
 /*  f07bd08:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07bd0c:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f07bd10:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -45585,7 +45584,7 @@ glabel var7f1aa6e0
 //	// 23c
 //	if (active && hovercar->deadtimer60 < 0) {
 //		// Exploding
-//		tmp = func0f0667bc(modelFindBboxRodata(hovercar->base.model));
+//		tmp = modelBboxGetYMin(modelFindBboxRodata(hovercar->base.model));
 //		sp1d6 = prop->rooms[0];
 //
 //		sp1d8.x = hovercar->base.realrot[3];
@@ -50666,7 +50665,7 @@ glabel var7f1aa838
 /*  f081e84:	8fac0080 */ 	lw	$t4,0x80($sp)
 /*  f081e88:	5561000a */ 	bnel	$t3,$at,.L0f081eb4
 /*  f081e8c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f081e90:	0fc199ef */ 	jal	func0f0667bc
+/*  f081e90:	0fc199ef */ 	jal	modelBboxGetYMin
 /*  f081e94:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f081e98:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f081e9c:	0fc199f1 */ 	jal	func0f0667c4
@@ -51371,7 +51370,7 @@ glabel var7f1aa838
 /*  f0808e0:	8fac0084 */ 	lw	$t4,0x84($sp)
 /*  f0808e4:	5561000a */ 	bnel	$t3,$at,.NB0f080910
 /*  f0808e8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0808ec:	0fc1968f */ 	jal	func0f0667bc
+/*  f0808ec:	0fc1968f */ 	jal	modelBboxGetYMin
 /*  f0808f0:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f0808f4:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f0808f8:	0fc19691 */ 	jal	func0f0667c4

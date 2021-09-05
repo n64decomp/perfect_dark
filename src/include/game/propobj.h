@@ -33,7 +33,7 @@ bool objPassesSafePickupChecks(struct defaultobj *obj);
 void objUpdateLinkedScenery(struct defaultobj *obj);
 u32 func0f0667ac(void);
 u32 func0f0667b4(void);
-f32 func0f0667bc(struct modelrodata_bbox *bbox);
+f32 modelBboxGetYMin(struct modelrodata_bbox *bbox);
 u32 func0f0667c4(void);
 u32 func0f0667cc(void);
 u32 func0f0667d4(void);
