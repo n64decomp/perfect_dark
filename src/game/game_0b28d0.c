@@ -608,17 +608,10 @@ glabel func0f0b2b64
 /*  f0b30a8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel modelInstantiate
-/*  f0b30ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b30b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b30b4:	0fc2cad9 */ 	jal	func0f0b2b64
-/*  f0b30b8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b30bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b30c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b30c4:	03e00008 */ 	jr	$ra
-/*  f0b30c8:	00000000 */ 	nop
-);
+struct model *modelInstantiate(struct modelfiledata *modelfiledata)
+{
+	return func0f0b2b64(modelfiledata, false);
+}
 
 GLOBAL_ASM(
 glabel modelFree
@@ -753,7 +746,7 @@ glabel modelFree
 
 struct model *func0f0b3280(struct modelfiledata *modelfiledata)
 {
-	return func0f0b2b64(modelfiledata, 1);
+	return func0f0b2b64(modelfiledata, true);
 }
 
 GLOBAL_ASM(
