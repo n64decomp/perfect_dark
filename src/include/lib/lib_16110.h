@@ -18,7 +18,7 @@ void func000166a4(struct coord *pos, struct coord *rot, Mtxf *matrix);
 void func000166dc(struct coord *pos, Mtxf *matrix);
 u32 func00016710(void);
 void func00016748(f32 arg0);
-u32 func00016760(void);
+void func00016760(void);
 void func00016784(void);
 void func00016798(Mtxf *arg0, Mtxf *arg1);
 void func00016820(Mtx *arg0, Mtx *arg1);

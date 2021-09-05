@@ -387,18 +387,11 @@ void func00016748(f32 arg0)
 	var8005ef10[0] = 65536 * arg0;
 }
 
-GLOBAL_ASM(
-glabel func00016760
-/*    16760:	3c028006 */ 	lui	$v0,%hi(var8005ef10)
-/*    16764:	2442ef10 */ 	addiu	$v0,$v0,%lo(var8005ef10)
-/*    16768:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*    1676c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x510)
-/*    16770:	e424a4d0 */ 	swc1	$f4,%lo(g_Vars+0x510)($at)
-/*    16774:	3c014780 */ 	lui	$at,0x4780
-/*    16778:	44813000 */ 	mtc1	$at,$f6
-/*    1677c:	03e00008 */ 	jr	$ra
-/*    16780:	e4460000 */ 	swc1	$f6,0x0($v0)
-);
+void func00016760(void)
+{
+	g_Vars.unk000510 = var8005ef10[0];
+	var8005ef10[0] = 65536;
+}
 
 void func00016784(void)
 {
