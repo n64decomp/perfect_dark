@@ -26,7 +26,7 @@
 #include "types.h"
 
 struct activemenu g_AmMenus[4];
-struct font2a4 *g_AmFont1;
+struct fontchar *g_AmFont1;
 struct font *g_AmFont2;
 s32 g_AmIndex;
 
@@ -477,12 +477,12 @@ glabel var7f1b2cd8
 /*  f0fdbf0:	0c002f06 */ 	jal	viGetHeight
 /*  f0fdbf4:	a7a2005c */ 	sh	$v0,0x5c($sp)
 /*  f0fdbf8:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*  f0fdbfc:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm1)
-/*  f0fdc00:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicSm2)
+/*  f0fdbfc:	3c198008 */ 	lui	$t9,%hi(g_CharsHandelGothicSm)
+/*  f0fdc00:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicSm)
 /*  f0fdc04:	8f070000 */ 	lw	$a3,0x0($t8)
 /*  f0fdc08:	87b8005c */ 	lh	$t8,0x5c($sp)
-/*  f0fdc0c:	8deffb0c */ 	lw	$t7,%lo(g_FontHandelGothicSm2)($t7)
-/*  f0fdc10:	8f39fb10 */ 	lw	$t9,%lo(g_FontHandelGothicSm1)($t9)
+/*  f0fdc0c:	8deffb0c */ 	lw	$t7,%lo(g_FontHandelGothicSm)($t7)
+/*  f0fdc10:	8f39fb10 */ 	lw	$t9,%lo(g_CharsHandelGothicSm)($t9)
 /*  f0fdc14:	8fae0084 */ 	lw	$t6,0x84($sp)
 /*  f0fdc18:	afa00028 */ 	sw	$zero,0x28($sp)
 /*  f0fdc1c:	afa00024 */ 	sw	$zero,0x24($sp)
@@ -864,11 +864,11 @@ void amInit(void)
 	}
 
 	if (PLAYERCOUNT() >= 2) {
-		g_AmFont1 = g_FontHandelGothicXs1;
-		g_AmFont2 = g_FontHandelGothicXs2;
+		g_AmFont1 = g_CharsHandelGothicXs;
+		g_AmFont2 = g_FontHandelGothicXs;
 	} else {
-		g_AmFont1 = g_FontHandelGothicSm1;
-		g_AmFont2 = g_FontHandelGothicSm2;
+		g_AmFont1 = g_CharsHandelGothicSm;
+		g_AmFont2 = g_FontHandelGothicSm;
 	}
 
 	g_AmIndex = 0;

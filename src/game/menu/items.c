@@ -421,10 +421,10 @@ glabel func0f0e6038
 /*  f0e6230:	8ca52148 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x30)($a1)
 /*  f0e6234:	0fc54f8e */ 	jal	func0f153e38
 /*  f0e6238:	8c8422b0 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x30)($a0)
-/*  f0e623c:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicSm1)
-/*  f0e6240:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm2)
-/*  f0e6244:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm2)($t3)
-/*  f0e6248:	8d4afb10 */ 	lw	$t2,%lo(g_FontHandelGothicSm1)($t2)
+/*  f0e623c:	3c0a8008 */ 	lui	$t2,%hi(g_CharsHandelGothicSm)
+/*  f0e6240:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm)
+/*  f0e6244:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm)($t3)
+/*  f0e6248:	8d4afb10 */ 	lw	$t2,%lo(g_CharsHandelGothicSm)($t2)
 /*  f0e624c:	87a8005e */ 	lh	$t0,0x5e($sp)
 /*  f0e6250:	87ac0066 */ 	lh	$t4,0x66($sp)
 /*  f0e6254:	8fa40050 */ 	lw	$a0,0x50($sp)
@@ -625,12 +625,12 @@ glabel menuRenderItemList
 /*  f0e6350:	afb00038 */ 	sw	$s0,0x38($sp)
 /*  f0e6354:	8cae0014 */ 	lw	$t6,0x14($a1)
 /*  f0e6358:	afa00120 */ 	sw	$zero,0x120($sp)
-/*  f0e635c:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicSm2)
+/*  f0e635c:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicSm)
 /*  f0e6360:	afae016c */ 	sw	$t6,0x16c($sp)
 /*  f0e6364:	84af0000 */ 	lh	$t7,0x0($a1)
-/*  f0e6368:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm1)
-/*  f0e636c:	8d4afb0c */ 	lw	$t2,%lo(g_FontHandelGothicSm2)($t2)
-/*  f0e6370:	8d6bfb10 */ 	lw	$t3,%lo(g_FontHandelGothicSm1)($t3)
+/*  f0e6368:	3c0b8008 */ 	lui	$t3,%hi(g_CharsHandelGothicSm)
+/*  f0e636c:	8d4afb0c */ 	lw	$t2,%lo(g_FontHandelGothicSm)($t2)
+/*  f0e6370:	8d6bfb10 */ 	lw	$t3,%lo(g_CharsHandelGothicSm)($t3)
 /*  f0e6374:	2419270f */ 	addiu	$t9,$zero,0x270f
 /*  f0e6378:	25f80002 */ 	addiu	$t8,$t7,0x2
 /*  f0e637c:	afb8011c */ 	sw	$t8,0x11c($sp)
@@ -3468,13 +3468,13 @@ glabel menuRenderItemDropdown
 /*  f0e7f74:	0fc54d8a */ 	jal	func0f153628
 /*  f0e7f78:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f0e7f7c:	86190000 */ 	lh	$t9,0x0($s0)
-/*  f0e7f80:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm1)
-/*  f0e7f84:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm2)
+/*  f0e7f80:	3c0b8008 */ 	lui	$t3,%hi(g_CharsHandelGothicSm)
+/*  f0e7f84:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm)
 /*  f0e7f88:	2728000a */ 	addiu	$t0,$t9,0xa
 /*  f0e7f8c:	afa80074 */ 	sw	$t0,0x74($sp)
 /*  f0e7f90:	860f0002 */ 	lh	$t7,0x2($s0)
-/*  f0e7f94:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm2)($t4)
-/*  f0e7f98:	8d6bfb10 */ 	lw	$t3,%lo(g_FontHandelGothicSm1)($t3)
+/*  f0e7f94:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm)($t4)
+/*  f0e7f98:	8d6bfb10 */ 	lw	$t3,%lo(g_CharsHandelGothicSm)($t3)
 /*  f0e7f9c:	25e90002 */ 	addiu	$t1,$t7,0x2
 /*  f0e7fa0:	afa90070 */ 	sw	$t1,0x70($sp)
 /*  f0e7fa4:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -3537,11 +3537,11 @@ glabel menuRenderItemDropdown
 /*  f0e807c:	8cb90010 */ 	lw	$t9,0x10($a1)
 /*  f0e8080:	0320f809 */ 	jalr	$t9
 /*  f0e8084:	00000000 */ 	nop
-/*  f0e8088:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm2)
-/*  f0e808c:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm2)($t4)
-/*  f0e8090:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm1)
+/*  f0e8088:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm)
+/*  f0e808c:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm)($t4)
+/*  f0e8090:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicSm)
 /*  f0e8094:	afa20078 */ 	sw	$v0,0x78($sp)
-/*  f0e8098:	8ce7fb10 */ 	lw	$a3,%lo(g_FontHandelGothicSm1)($a3)
+/*  f0e8098:	8ce7fb10 */ 	lw	$a3,%lo(g_CharsHandelGothicSm)($a3)
 /*  f0e809c:	27a4004c */ 	addiu	$a0,$sp,0x4c
 /*  f0e80a0:	27a50048 */ 	addiu	$a1,$sp,0x48
 /*  f0e80a4:	00403025 */ 	or	$a2,$v0,$zero
@@ -3551,10 +3551,10 @@ glabel menuRenderItemDropdown
 /*  f0e80b4:	860d0000 */ 	lh	$t5,0x0($s0)
 /*  f0e80b8:	860a0004 */ 	lh	$t2,0x4($s0)
 /*  f0e80bc:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*  f0e80c0:	3c098008 */ 	lui	$t1,%hi(g_FontHandelGothicSm1)
-/*  f0e80c4:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm2)
-/*  f0e80c8:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm2)($t3)
-/*  f0e80cc:	8d29fb10 */ 	lw	$t1,%lo(g_FontHandelGothicSm1)($t1)
+/*  f0e80c0:	3c098008 */ 	lui	$t1,%hi(g_CharsHandelGothicSm)
+/*  f0e80c4:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm)
+/*  f0e80c8:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm)($t3)
+/*  f0e80cc:	8d29fb10 */ 	lw	$t1,%lo(g_CharsHandelGothicSm)($t1)
 /*  f0e80d0:	01aa7021 */ 	addu	$t6,$t5,$t2
 /*  f0e80d4:	01d84023 */ 	subu	$t0,$t6,$t8
 /*  f0e80d8:	250ffff6 */ 	addiu	$t7,$t0,-10
@@ -3727,10 +3727,10 @@ glabel menuRenderOverlayDropdown
 /*  f0e83f8:	a7a90072 */ 	sh	$t1,0x72($sp)
 /*  f0e83fc:	52c00021 */ 	beqzl	$s6,.L0f0e8484
 /*  f0e8400:	87ac00ae */ 	lh	$t4,0xae($sp)
-/*  f0e8404:	3c158008 */ 	lui	$s5,%hi(g_FontHandelGothicSm2)
-/*  f0e8408:	3c148008 */ 	lui	$s4,%hi(g_FontHandelGothicSm1)
-/*  f0e840c:	2694fb10 */ 	addiu	$s4,$s4,%lo(g_FontHandelGothicSm1)
-/*  f0e8410:	26b5fb0c */ 	addiu	$s5,$s5,%lo(g_FontHandelGothicSm2)
+/*  f0e8404:	3c158008 */ 	lui	$s5,%hi(g_FontHandelGothicSm)
+/*  f0e8408:	3c148008 */ 	lui	$s4,%hi(g_CharsHandelGothicSm)
+/*  f0e840c:	2694fb10 */ 	addiu	$s4,$s4,%lo(g_CharsHandelGothicSm)
+/*  f0e8410:	26b5fb0c */ 	addiu	$s5,$s5,%lo(g_FontHandelGothicSm)
 /*  f0e8414:	27b30098 */ 	addiu	$s3,$sp,0x98
 /*  f0e8418:	27b20094 */ 	addiu	$s2,$sp,0x94
 /*  f0e841c:	afb0005c */ 	sw	$s0,0x5c($sp)
@@ -4069,7 +4069,7 @@ glabel menuRenderOverlayDropdown
 //			// 420
 //			handlerdata.dropdown.value = i;
 //			text = (char *)item->handler(MENUOP_GETOPTIONTEXT, item, &handlerdata);
-//			textMeasure(&textheight, &textwidth, text, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+//			textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 //			textwidth += 6;
 //
 //			if (textwidth > context.width) {
@@ -4184,7 +4184,7 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 	y = context->y + 2;
 
 	gdl = func0f153628(gdl);
-	gdl = textRenderProjected(gdl, &x, &y, data->string, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0xffffffff, context->width, context->height, 0, 0);
+	gdl = textRenderProjected(gdl, &x, &y, data->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, context->width, context->height, 0, 0);
 	gdl = func0f153780(gdl);
 
 	// Render cursor
@@ -4303,7 +4303,7 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 						buttonwidth = 36;
 					}
 
-					textMeasure(&textheight, &textwidth, langGet(labels[index]), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+					textMeasure(&textheight, &textwidth, langGet(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 					x = (buttonwidth - textwidth) / 2 + x;
 
 					// Dim the OK button if string is empty
@@ -4326,7 +4326,7 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 								g_MenuColourPalettes2[context->frame->type].disabled);
 					}
 
-					gdl = textRenderProjected(gdl, &x, &y, langGet(labels[index]), g_FontHandelGothicXs1, g_FontHandelGothicXs2, textcolour, context->width, context->height, 0, 0);
+					gdl = textRenderProjected(gdl, &x, &y, langGet(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
 
 					if (index == 3 && menuIsStringEmptyOrSpaces(data->string)) {
 						func0f153e38(
@@ -4343,9 +4343,9 @@ Gfx *menuRenderItemKeyboard(Gfx *gdl, struct menurendercontext *context)
 					label[0] += 32;
 				}
 
-				textMeasure(&textheight, &textwidth, label, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+				textMeasure(&textheight, &textwidth, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 				x = (12 - textwidth) / 2 + x;
-				gdl = textRenderProjected(gdl, &x, &y, label, g_FontHandelGothicSm1, g_FontHandelGothicSm2, textcolour, context->width, context->height, 0, 0);
+				gdl = textRenderProjected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 			}
 		}
 	}
@@ -4547,7 +4547,7 @@ bool menuTickItemKeyboard(struct menuitem *item, struct menuinputs *inputs, u32 
 						i++;
 					}
 
-					textMeasure(&textheight, &textwidth, kb->string, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+					textMeasure(&textheight, &textwidth, kb->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 					if (item->param3 == 0 && textwidth > 58) {
 						delete = true;
@@ -4743,10 +4743,10 @@ glabel menuRenderObjective
 /*  f0e9a14:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0e9a18:	0c004dad */ 	jal	sprintf
 /*  f0e9a1c:	8fa6013c */ 	lw	$a2,0x13c($sp)
-/*  f0e9a20:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm2)
-/*  f0e9a24:	8f39fb0c */ 	lw	$t9,%lo(g_FontHandelGothicSm2)($t9)
-/*  f0e9a28:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm1)
-/*  f0e9a2c:	8ce7fb10 */ 	lw	$a3,%lo(g_FontHandelGothicSm1)($a3)
+/*  f0e9a20:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm)
+/*  f0e9a24:	8f39fb0c */ 	lw	$t9,%lo(g_FontHandelGothicSm)($t9)
+/*  f0e9a28:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicSm)
+/*  f0e9a2c:	8ce7fb10 */ 	lw	$a3,%lo(g_CharsHandelGothicSm)($a3)
 /*  f0e9a30:	27a400c0 */ 	addiu	$a0,$sp,0xc0
 /*  f0e9a34:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9a38:	02003025 */ 	or	$a2,$s0,$zero
@@ -4755,10 +4755,10 @@ glabel menuRenderObjective
 /*  f0e9a44:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0e9a48:	87ae0142 */ 	lh	$t6,0x142($sp)
 /*  f0e9a4c:	8fa900c4 */ 	lw	$t1,0xc4($sp)
-/*  f0e9a50:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm1)
-/*  f0e9a54:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicSm2)
-/*  f0e9a58:	8dadfb0c */ 	lw	$t5,%lo(g_FontHandelGothicSm2)($t5)
-/*  f0e9a5c:	8d6bfb10 */ 	lw	$t3,%lo(g_FontHandelGothicSm1)($t3)
+/*  f0e9a50:	3c0b8008 */ 	lui	$t3,%hi(g_CharsHandelGothicSm)
+/*  f0e9a54:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicSm)
+/*  f0e9a58:	8dadfb0c */ 	lw	$t5,%lo(g_FontHandelGothicSm)($t5)
+/*  f0e9a5c:	8d6bfb10 */ 	lw	$t3,%lo(g_CharsHandelGothicSm)($t3)
 /*  f0e9a60:	8faf012c */ 	lw	$t7,0x12c($sp)
 /*  f0e9a64:	87b8014a */ 	lh	$t8,0x14a($sp)
 /*  f0e9a68:	87b9014e */ 	lh	$t9,0x14e($sp)
@@ -4783,19 +4783,19 @@ glabel menuRenderObjective
 /*  f0e9ab4:	25c90019 */ 	addiu	$t1,$t6,0x19
 /*  f0e9ab8:	1140001f */ 	beqz	$t2,.L0f0e9b38
 /*  f0e9abc:	afa90128 */ 	sw	$t1,0x128($sp)
-/*  f0e9ac0:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs2)
-/*  f0e9ac4:	8d8cfb04 */ 	lw	$t4,%lo(g_FontHandelGothicXs2)($t4)
-/*  f0e9ac8:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicXs1)
-/*  f0e9acc:	8ce7fb08 */ 	lw	$a3,%lo(g_FontHandelGothicXs1)($a3)
+/*  f0e9ac0:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs)
+/*  f0e9ac4:	8d8cfb04 */ 	lw	$t4,%lo(g_FontHandelGothicXs)($t4)
+/*  f0e9ac8:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicXs)
+/*  f0e9acc:	8ce7fb08 */ 	lw	$a3,%lo(g_CharsHandelGothicXs)($a3)
 /*  f0e9ad0:	24040055 */ 	addiu	$a0,$zero,0x55
 /*  f0e9ad4:	8fa50120 */ 	lw	$a1,0x120($sp)
 /*  f0e9ad8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f0e9adc:	0fc55d48 */ 	jal	textWrap
 /*  f0e9ae0:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0e9ae4:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs1)
-/*  f0e9ae8:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs2)
-/*  f0e9aec:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs2)($t5)
-/*  f0e9af0:	8d6bfb08 */ 	lw	$t3,%lo(g_FontHandelGothicXs1)($t3)
+/*  f0e9ae4:	3c0b8008 */ 	lui	$t3,%hi(g_CharsHandelGothicXs)
+/*  f0e9ae8:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs)
+/*  f0e9aec:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs)($t5)
+/*  f0e9af0:	8d6bfb08 */ 	lw	$t3,%lo(g_CharsHandelGothicXs)($t3)
 /*  f0e9af4:	8faf012c */ 	lw	$t7,0x12c($sp)
 /*  f0e9af8:	87b8014a */ 	lh	$t8,0x14a($sp)
 /*  f0e9afc:	87b9014e */ 	lh	$t9,0x14e($sp)
@@ -4819,10 +4819,10 @@ glabel menuRenderObjective
 /*  f0e9b40:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0e9b44:	0c004dad */ 	jal	sprintf
 /*  f0e9b48:	8fa60120 */ 	lw	$a2,0x120($sp)
-/*  f0e9b4c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicSm1)
-/*  f0e9b50:	3c098008 */ 	lui	$t1,%hi(g_FontHandelGothicSm2)
-/*  f0e9b54:	8d29fb0c */ 	lw	$t1,%lo(g_FontHandelGothicSm2)($t1)
-/*  f0e9b58:	8dcefb10 */ 	lw	$t6,%lo(g_FontHandelGothicSm1)($t6)
+/*  f0e9b4c:	3c0e8008 */ 	lui	$t6,%hi(g_CharsHandelGothicSm)
+/*  f0e9b50:	3c098008 */ 	lui	$t1,%hi(g_FontHandelGothicSm)
+/*  f0e9b54:	8d29fb0c */ 	lw	$t1,%lo(g_FontHandelGothicSm)($t1)
+/*  f0e9b58:	8dcefb10 */ 	lw	$t6,%lo(g_CharsHandelGothicSm)($t6)
 /*  f0e9b5c:	8faa012c */ 	lw	$t2,0x12c($sp)
 /*  f0e9b60:	87ac014a */ 	lh	$t4,0x14a($sp)
 /*  f0e9b64:	87ab014e */ 	lh	$t3,0x14e($sp)
@@ -4844,7 +4844,7 @@ glabel menuRenderObjective
 /*  f0e9ba0:	27a400c0 */ 	addiu	$a0,$sp,0xc0
 /*  f0e9ba4:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9ba8:	11a00141 */ 	beqz	$t5,.L0f0ea0b0
-/*  f0e9bac:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm1)
+/*  f0e9bac:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicSm)
 /*  f0e9bb0:	0fc255a1 */ 	jal	objectiveCheck
 /*  f0e9bb4:	8fa40138 */ 	lw	$a0,0x138($sp)
 /*  f0e9bb8:	10400007 */ 	beqz	$v0,.L0f0e9bd8
@@ -4895,15 +4895,15 @@ glabel menuRenderObjective
 /*  f0e9c5c:	27a400c0 */ 	addiu	$a0,$sp,0xc0
 /*  f0e9c60:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9c64:	11cc0004 */ 	beq	$t6,$t4,.L0f0e9c78
-/*  f0e9c68:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicXs1)
+/*  f0e9c68:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicXs)
 /*  f0e9c6c:	3c0b7f1b */ 	lui	$t3,%hi(g_MenuColourPalettes+0x18)
 /*  f0e9c70:	8d6b1fc8 */ 	lw	$t3,%lo(g_MenuColourPalettes+0x18)($t3)
 /*  f0e9c74:	afab00c8 */ 	sw	$t3,0xc8($sp)
 .L0f0e9c78:
-/*  f0e9c78:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs2)
-/*  f0e9c7c:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs2)($t5)
+/*  f0e9c78:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs)
+/*  f0e9c7c:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs)($t5)
 /*  f0e9c80:	8fa600cc */ 	lw	$a2,0xcc($sp)
-/*  f0e9c84:	8ce7fb08 */ 	lw	$a3,%lo(g_FontHandelGothicXs1)($a3)
+/*  f0e9c84:	8ce7fb08 */ 	lw	$a3,%lo(g_CharsHandelGothicXs)($a3)
 /*  f0e9c88:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0e9c8c:	0fc55cbe */ 	jal	textMeasure
 /*  f0e9c90:	afad0010 */ 	sw	$t5,0x10($sp)
@@ -4912,7 +4912,7 @@ glabel menuRenderObjective
 /*  f0e9c9c:	27a50128 */ 	addiu	$a1,$sp,0x128
 /*  f0e9ca0:	27a60124 */ 	addiu	$a2,$sp,0x124
 /*  f0e9ca4:	10400002 */ 	beqz	$v0,.L0f0e9cb0
-/*  f0e9ca8:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs1)
+/*  f0e9ca8:	3c0c8008 */ 	lui	$t4,%hi(g_CharsHandelGothicXs)
 /*  f0e9cac:	afa200c8 */ 	sw	$v0,0xc8($sp)
 .L0f0e9cb0:
 /*  f0e9cb0:	87a2014a */ 	lh	$v0,0x14a($sp)
@@ -4921,10 +4921,10 @@ glabel menuRenderObjective
 /*  f0e9cbc:	87aa0146 */ 	lh	$t2,0x146($sp)
 /*  f0e9cc0:	8fae00bc */ 	lw	$t6,0xbc($sp)
 /*  f0e9cc4:	01e28021 */ 	addu	$s0,$t7,$v0
-/*  f0e9cc8:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs2)
-/*  f0e9ccc:	8d6bfb04 */ 	lw	$t3,%lo(g_FontHandelGothicXs2)($t3)
+/*  f0e9cc8:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs)
+/*  f0e9ccc:	8d6bfb04 */ 	lw	$t3,%lo(g_FontHandelGothicXs)($t3)
 /*  f0e9cd0:	87af014e */ 	lh	$t7,0x14e($sp)
-/*  f0e9cd4:	8d8cfb08 */ 	lw	$t4,%lo(g_FontHandelGothicXs1)($t4)
+/*  f0e9cd4:	8d8cfb08 */ 	lw	$t4,%lo(g_CharsHandelGothicXs)($t4)
 /*  f0e9cd8:	8fad00c8 */ 	lw	$t5,0xc8($sp)
 /*  f0e9cdc:	0218c823 */ 	subu	$t9,$s0,$t8
 /*  f0e9ce0:	014e1821 */ 	addu	$v1,$t2,$t6
@@ -4945,11 +4945,11 @@ glabel menuRenderObjective
 /*  f0e9d1c:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f0e9d20:	8fb800c4 */ 	lw	$t8,0xc4($sp)
 /*  f0e9d24:	8fac00c8 */ 	lw	$t4,0xc8($sp)
-/*  f0e9d28:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicXs1)
-/*  f0e9d2c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs2)
+/*  f0e9d28:	3c0a8008 */ 	lui	$t2,%hi(g_CharsHandelGothicXs)
+/*  f0e9d2c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs)
 /*  f0e9d30:	8fa30058 */ 	lw	$v1,0x58($sp)
-/*  f0e9d34:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs2)($t6)
-/*  f0e9d38:	8d4afb08 */ 	lw	$t2,%lo(g_FontHandelGothicXs1)($t2)
+/*  f0e9d34:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs)($t6)
+/*  f0e9d38:	8d4afb08 */ 	lw	$t2,%lo(g_CharsHandelGothicXs)($t2)
 /*  f0e9d3c:	87ad014a */ 	lh	$t5,0x14a($sp)
 /*  f0e9d40:	87af014e */ 	lh	$t7,0x14e($sp)
 /*  f0e9d44:	2401ff7f */ 	addiu	$at,$zero,-129
@@ -5176,8 +5176,8 @@ glabel menuRenderObjective
 /*  f0ea0b0:	87b80146 */ 	lh	$t8,0x146($sp)
 /*  f0ea0b4:	87ad0142 */ 	lh	$t5,0x142($sp)
 /*  f0ea0b8:	8faa0124 */ 	lw	$t2,0x124($sp)
-/*  f0ea0bc:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm2)
-/*  f0ea0c0:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm2)($t3)
+/*  f0ea0bc:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm)
+/*  f0ea0c0:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm)($t3)
 /*  f0ea0c4:	2719fffe */ 	addiu	$t9,$t8,-2
 /*  f0ea0c8:	27090008 */ 	addiu	$t1,$t8,0x8
 /*  f0ea0cc:	25af0016 */ 	addiu	$t7,$t5,0x16
@@ -5187,7 +5187,7 @@ glabel menuRenderObjective
 /*  f0ea0dc:	afa90078 */ 	sw	$t1,0x78($sp)
 /*  f0ea0e0:	afac0074 */ 	sw	$t4,0x74($sp)
 /*  f0ea0e4:	8fa60120 */ 	lw	$a2,0x120($sp)
-/*  f0ea0e8:	8ce7fb10 */ 	lw	$a3,%lo(g_FontHandelGothicSm1)($a3)
+/*  f0ea0e8:	8ce7fb10 */ 	lw	$a3,%lo(g_CharsHandelGothicSm)($a3)
 /*  f0ea0ec:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0ea0f0:	0fc55cbe */ 	jal	textMeasure
 /*  f0ea0f4:	afab0010 */ 	sw	$t3,0x10($sp)
@@ -5396,10 +5396,10 @@ glabel menuRenderObjective
 /*  f0e9a14:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0e9a18:	0c004dad */ 	jal	sprintf
 /*  f0e9a1c:	8fa6013c */ 	lw	$a2,0x13c($sp)
-/*  f0e9a20:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm2)
-/*  f0e9a24:	8f39fb0c */ 	lw	$t9,%lo(g_FontHandelGothicSm2)($t9)
-/*  f0e9a28:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm1)
-/*  f0e9a2c:	8ce7fb10 */ 	lw	$a3,%lo(g_FontHandelGothicSm1)($a3)
+/*  f0e9a20:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm)
+/*  f0e9a24:	8f39fb0c */ 	lw	$t9,%lo(g_FontHandelGothicSm)($t9)
+/*  f0e9a28:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicSm)
+/*  f0e9a2c:	8ce7fb10 */ 	lw	$a3,%lo(g_CharsHandelGothicSm)($a3)
 /*  f0e9a30:	27a400c0 */ 	addiu	$a0,$sp,0xc0
 /*  f0e9a34:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9a38:	02003025 */ 	or	$a2,$s0,$zero
@@ -5408,10 +5408,10 @@ glabel menuRenderObjective
 /*  f0e9a44:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f0e9a48:	87ae0142 */ 	lh	$t6,0x142($sp)
 /*  f0e9a4c:	8fa900c4 */ 	lw	$t1,0xc4($sp)
-/*  f0e9a50:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm1)
-/*  f0e9a54:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicSm2)
-/*  f0e9a58:	8dadfb0c */ 	lw	$t5,%lo(g_FontHandelGothicSm2)($t5)
-/*  f0e9a5c:	8d6bfb10 */ 	lw	$t3,%lo(g_FontHandelGothicSm1)($t3)
+/*  f0e9a50:	3c0b8008 */ 	lui	$t3,%hi(g_CharsHandelGothicSm)
+/*  f0e9a54:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicSm)
+/*  f0e9a58:	8dadfb0c */ 	lw	$t5,%lo(g_FontHandelGothicSm)($t5)
+/*  f0e9a5c:	8d6bfb10 */ 	lw	$t3,%lo(g_CharsHandelGothicSm)($t3)
 /*  f0e9a60:	8faf012c */ 	lw	$t7,0x12c($sp)
 /*  f0e9a64:	87b8014a */ 	lh	$t8,0x14a($sp)
 /*  f0e9a68:	87b9014e */ 	lh	$t9,0x14e($sp)
@@ -5436,19 +5436,19 @@ glabel menuRenderObjective
 /*  f0e9ab4:	25c90019 */ 	addiu	$t1,$t6,0x19
 /*  f0e9ab8:	1140001f */ 	beqz	$t2,.L0f0e9b38
 /*  f0e9abc:	afa90128 */ 	sw	$t1,0x128($sp)
-/*  f0e9ac0:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs2)
-/*  f0e9ac4:	8d8cfb04 */ 	lw	$t4,%lo(g_FontHandelGothicXs2)($t4)
-/*  f0e9ac8:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicXs1)
-/*  f0e9acc:	8ce7fb08 */ 	lw	$a3,%lo(g_FontHandelGothicXs1)($a3)
+/*  f0e9ac0:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs)
+/*  f0e9ac4:	8d8cfb04 */ 	lw	$t4,%lo(g_FontHandelGothicXs)($t4)
+/*  f0e9ac8:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicXs)
+/*  f0e9acc:	8ce7fb08 */ 	lw	$a3,%lo(g_CharsHandelGothicXs)($a3)
 /*  f0e9ad0:	24040055 */ 	addiu	$a0,$zero,0x55
 /*  f0e9ad4:	8fa50120 */ 	lw	$a1,0x120($sp)
 /*  f0e9ad8:	02003025 */ 	or	$a2,$s0,$zero
 /*  f0e9adc:	0fc55d48 */ 	jal	textWrap
 /*  f0e9ae0:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f0e9ae4:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs1)
-/*  f0e9ae8:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs2)
-/*  f0e9aec:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs2)($t5)
-/*  f0e9af0:	8d6bfb08 */ 	lw	$t3,%lo(g_FontHandelGothicXs1)($t3)
+/*  f0e9ae4:	3c0b8008 */ 	lui	$t3,%hi(g_CharsHandelGothicXs)
+/*  f0e9ae8:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs)
+/*  f0e9aec:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs)($t5)
+/*  f0e9af0:	8d6bfb08 */ 	lw	$t3,%lo(g_CharsHandelGothicXs)($t3)
 /*  f0e9af4:	8faf012c */ 	lw	$t7,0x12c($sp)
 /*  f0e9af8:	87b8014a */ 	lh	$t8,0x14a($sp)
 /*  f0e9afc:	87b9014e */ 	lh	$t9,0x14e($sp)
@@ -5472,10 +5472,10 @@ glabel menuRenderObjective
 /*  f0e9b40:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0e9b44:	0c004dad */ 	jal	sprintf
 /*  f0e9b48:	8fa60120 */ 	lw	$a2,0x120($sp)
-/*  f0e9b4c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicSm1)
-/*  f0e9b50:	3c098008 */ 	lui	$t1,%hi(g_FontHandelGothicSm2)
-/*  f0e9b54:	8d29fb0c */ 	lw	$t1,%lo(g_FontHandelGothicSm2)($t1)
-/*  f0e9b58:	8dcefb10 */ 	lw	$t6,%lo(g_FontHandelGothicSm1)($t6)
+/*  f0e9b4c:	3c0e8008 */ 	lui	$t6,%hi(g_CharsHandelGothicSm)
+/*  f0e9b50:	3c098008 */ 	lui	$t1,%hi(g_FontHandelGothicSm)
+/*  f0e9b54:	8d29fb0c */ 	lw	$t1,%lo(g_FontHandelGothicSm)($t1)
+/*  f0e9b58:	8dcefb10 */ 	lw	$t6,%lo(g_CharsHandelGothicSm)($t6)
 /*  f0e9b5c:	8faa012c */ 	lw	$t2,0x12c($sp)
 /*  f0e9b60:	87ac014a */ 	lh	$t4,0x14a($sp)
 /*  f0e9b64:	87ab014e */ 	lh	$t3,0x14e($sp)
@@ -5497,7 +5497,7 @@ glabel menuRenderObjective
 /*  f0e9ba0:	27a400c0 */ 	addiu	$a0,$sp,0xc0
 /*  f0e9ba4:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9ba8:	11a00141 */ 	beqz	$t5,.L0f0ea0b0
-/*  f0e9bac:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm1)
+/*  f0e9bac:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicSm)
 /*  f0e9bb0:	0fc255a1 */ 	jal	objectiveCheck
 /*  f0e9bb4:	8fa40138 */ 	lw	$a0,0x138($sp)
 /*  f0e9bb8:	10400007 */ 	beqz	$v0,.L0f0e9bd8
@@ -5548,15 +5548,15 @@ glabel menuRenderObjective
 /*  f0e9c5c:	27a400c0 */ 	addiu	$a0,$sp,0xc0
 /*  f0e9c60:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9c64:	11cc0004 */ 	beq	$t6,$t4,.L0f0e9c78
-/*  f0e9c68:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicXs1)
+/*  f0e9c68:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicXs)
 /*  f0e9c6c:	3c0b7f1b */ 	lui	$t3,%hi(g_MenuColourPalettes+0x18)
 /*  f0e9c70:	8d6b1fc8 */ 	lw	$t3,%lo(g_MenuColourPalettes+0x18)($t3)
 /*  f0e9c74:	afab00c8 */ 	sw	$t3,0xc8($sp)
 .L0f0e9c78:
-/*  f0e9c78:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs2)
-/*  f0e9c7c:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs2)($t5)
+/*  f0e9c78:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicXs)
+/*  f0e9c7c:	8dadfb04 */ 	lw	$t5,%lo(g_FontHandelGothicXs)($t5)
 /*  f0e9c80:	8fa600cc */ 	lw	$a2,0xcc($sp)
-/*  f0e9c84:	8ce7fb08 */ 	lw	$a3,%lo(g_FontHandelGothicXs1)($a3)
+/*  f0e9c84:	8ce7fb08 */ 	lw	$a3,%lo(g_CharsHandelGothicXs)($a3)
 /*  f0e9c88:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0e9c8c:	0fc55cbe */ 	jal	textMeasure
 /*  f0e9c90:	afad0010 */ 	sw	$t5,0x10($sp)
@@ -5565,7 +5565,7 @@ glabel menuRenderObjective
 /*  f0e9c9c:	27a50128 */ 	addiu	$a1,$sp,0x128
 /*  f0e9ca0:	27a60124 */ 	addiu	$a2,$sp,0x124
 /*  f0e9ca4:	10400002 */ 	beqz	$v0,.L0f0e9cb0
-/*  f0e9ca8:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs1)
+/*  f0e9ca8:	3c0c8008 */ 	lui	$t4,%hi(g_CharsHandelGothicXs)
 /*  f0e9cac:	afa200c8 */ 	sw	$v0,0xc8($sp)
 .L0f0e9cb0:
 /*  f0e9cb0:	87a2014a */ 	lh	$v0,0x14a($sp)
@@ -5574,10 +5574,10 @@ glabel menuRenderObjective
 /*  f0e9cbc:	87aa0146 */ 	lh	$t2,0x146($sp)
 /*  f0e9cc0:	8fae00bc */ 	lw	$t6,0xbc($sp)
 /*  f0e9cc4:	01e28021 */ 	addu	$s0,$t7,$v0
-/*  f0e9cc8:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs2)
-/*  f0e9ccc:	8d6bfb04 */ 	lw	$t3,%lo(g_FontHandelGothicXs2)($t3)
+/*  f0e9cc8:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs)
+/*  f0e9ccc:	8d6bfb04 */ 	lw	$t3,%lo(g_FontHandelGothicXs)($t3)
 /*  f0e9cd0:	87af014e */ 	lh	$t7,0x14e($sp)
-/*  f0e9cd4:	8d8cfb08 */ 	lw	$t4,%lo(g_FontHandelGothicXs1)($t4)
+/*  f0e9cd4:	8d8cfb08 */ 	lw	$t4,%lo(g_CharsHandelGothicXs)($t4)
 /*  f0e9cd8:	8fad00c8 */ 	lw	$t5,0xc8($sp)
 /*  f0e9cdc:	0218c823 */ 	subu	$t9,$s0,$t8
 /*  f0e9ce0:	014e1821 */ 	addu	$v1,$t2,$t6
@@ -5598,11 +5598,11 @@ glabel menuRenderObjective
 /*  f0e9d1c:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f0e9d20:	8fb800c4 */ 	lw	$t8,0xc4($sp)
 /*  f0e9d24:	8fac00c8 */ 	lw	$t4,0xc8($sp)
-/*  f0e9d28:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicXs1)
-/*  f0e9d2c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs2)
+/*  f0e9d28:	3c0a8008 */ 	lui	$t2,%hi(g_CharsHandelGothicXs)
+/*  f0e9d2c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs)
 /*  f0e9d30:	8fa30058 */ 	lw	$v1,0x58($sp)
-/*  f0e9d34:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs2)($t6)
-/*  f0e9d38:	8d4afb08 */ 	lw	$t2,%lo(g_FontHandelGothicXs1)($t2)
+/*  f0e9d34:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs)($t6)
+/*  f0e9d38:	8d4afb08 */ 	lw	$t2,%lo(g_CharsHandelGothicXs)($t2)
 /*  f0e9d3c:	87ad014a */ 	lh	$t5,0x14a($sp)
 /*  f0e9d40:	87af014e */ 	lh	$t7,0x14e($sp)
 /*  f0e9d44:	2401ff7f */ 	addiu	$at,$zero,-129
@@ -5829,8 +5829,8 @@ glabel menuRenderObjective
 /*  f0ea0b0:	87b80146 */ 	lh	$t8,0x146($sp)
 /*  f0ea0b4:	87ad0142 */ 	lh	$t5,0x142($sp)
 /*  f0ea0b8:	8faa0124 */ 	lw	$t2,0x124($sp)
-/*  f0ea0bc:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm2)
-/*  f0ea0c0:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm2)($t3)
+/*  f0ea0bc:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm)
+/*  f0ea0c0:	8d6bfb0c */ 	lw	$t3,%lo(g_FontHandelGothicSm)($t3)
 /*  f0ea0c4:	2719fffe */ 	addiu	$t9,$t8,-2
 /*  f0ea0c8:	27090008 */ 	addiu	$t1,$t8,0x8
 /*  f0ea0cc:	25af0016 */ 	addiu	$t7,$t5,0x16
@@ -5840,7 +5840,7 @@ glabel menuRenderObjective
 /*  f0ea0dc:	afa90078 */ 	sw	$t1,0x78($sp)
 /*  f0ea0e0:	afac0074 */ 	sw	$t4,0x74($sp)
 /*  f0ea0e4:	8fa60120 */ 	lw	$a2,0x120($sp)
-/*  f0ea0e8:	8ce7fb10 */ 	lw	$a3,%lo(g_FontHandelGothicSm1)($a3)
+/*  f0ea0e8:	8ce7fb10 */ 	lw	$a3,%lo(g_CharsHandelGothicSm)($a3)
 /*  f0ea0ec:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0ea0f0:	0fc55cbe */ 	jal	textMeasure
 /*  f0ea0f4:	afab0010 */ 	sw	$t3,0x10($sp)
@@ -6025,8 +6025,8 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	s32 y;
 	struct menudfc *menudfc;
 	u8 savedvalue = var8007fb9c;
-	struct font2a4 *font1 = g_FontHandelGothicSm1;
-	struct font *font2 = g_FontHandelGothicSm2;
+	struct fontchar *font1 = g_CharsHandelGothicSm;
+	struct font *font2 = g_FontHandelGothicSm;
 
 	x = context->x + 10;
 	y = context->y + 2;
@@ -6042,8 +6042,8 @@ Gfx *menuRenderItemLabel(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (context->item->param1 & 0x00000200) {
-		font1 = g_FontHandelGothicXs1;
-		font2 = g_FontHandelGothicXs2;
+		font1 = g_CharsHandelGothicXs;
+		font2 = g_FontHandelGothicXs;
 		y -= 2;
 	}
 
@@ -6254,7 +6254,7 @@ Gfx *menuRenderItemMeter(Gfx *gdl, struct menurendercontext *context)
 		gdl = func0f153628(gdl);
 		x = context->x;
 		y = context->y - 1;
-		gdl = textRenderProjected(gdl, &x, &y, text, g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colour2 & 0xffffff7f, context->width, context->height, 0, 0);
 		gdl = func0f153780(gdl);
 	}
@@ -6270,17 +6270,17 @@ glabel menuRenderItemSelectable
 /*  f0eaecc:	afb00034 */ 	sw	$s0,0x34($sp)
 /*  f0eaed0:	afa40080 */ 	sw	$a0,0x80($sp)
 /*  f0eaed4:	84ae0000 */ 	lh	$t6,0x0($a1)
-/*  f0eaed8:	3c038008 */ 	lui	$v1,%hi(g_FontHandelGothicSm1)
-/*  f0eaedc:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm2)
+/*  f0eaed8:	3c038008 */ 	lui	$v1,%hi(g_CharsHandelGothicSm)
+/*  f0eaedc:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm)
 /*  f0eaee0:	25cf000a */ 	addiu	$t7,$t6,0xa
 /*  f0eaee4:	afaf0070 */ 	sw	$t7,0x70($sp)
 /*  f0eaee8:	84b80002 */ 	lh	$t8,0x2($a1)
 /*  f0eaeec:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0eaef0:	8c63fb10 */ 	lw	$v1,%lo(g_FontHandelGothicSm1)($v1)
+/*  f0eaef0:	8c63fb10 */ 	lw	$v1,%lo(g_CharsHandelGothicSm)($v1)
 /*  f0eaef4:	27190002 */ 	addiu	$t9,$t8,0x2
 /*  f0eaef8:	afb9006c */ 	sw	$t9,0x6c($sp)
 /*  f0eaefc:	8ca60008 */ 	lw	$a2,0x8($a1)
-/*  f0eaf00:	8ce7fb0c */ 	lw	$a3,%lo(g_FontHandelGothicSm2)($a3)
+/*  f0eaf00:	8ce7fb0c */ 	lw	$a3,%lo(g_FontHandelGothicSm)($a3)
 /*  f0eaf04:	8cc20004 */ 	lw	$v0,0x4($a2)
 /*  f0eaf08:	30480010 */ 	andi	$t0,$v0,0x10
 /*  f0eaf0c:	11000004 */ 	beqz	$t0,.L0f0eaf20
@@ -6292,10 +6292,10 @@ glabel menuRenderItemSelectable
 /*  f0eaf20:	00025a40 */ 	sll	$t3,$v0,0x9
 /*  f0eaf24:	05610005 */ 	bgez	$t3,.L0f0eaf3c
 /*  f0eaf28:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0eaf2c:	3c038008 */ 	lui	$v1,%hi(g_FontHandelGothicMd1)
-/*  f0eaf30:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicMd2)
-/*  f0eaf34:	8c63fb18 */ 	lw	$v1,%lo(g_FontHandelGothicMd1)($v1)
-/*  f0eaf38:	8ce7fb14 */ 	lw	$a3,%lo(g_FontHandelGothicMd2)($a3)
+/*  f0eaf2c:	3c038008 */ 	lui	$v1,%hi(g_CharsHandelGothicMd)
+/*  f0eaf30:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicMd)
+/*  f0eaf34:	8c63fb18 */ 	lw	$v1,%lo(g_CharsHandelGothicMd)($v1)
+/*  f0eaf38:	8ce7fb14 */ 	lw	$a3,%lo(g_FontHandelGothicMd)($a3)
 .L0f0eaf3c:
 /*  f0eaf3c:	afa30068 */ 	sw	$v1,0x68($sp)
 /*  f0eaf40:	0fc3c557 */ 	jal	menuResolveParam2Text
@@ -6658,16 +6658,16 @@ const char var7f1adfb8[] = "";
 //	char *text;
 //	s32 x = context->x + 10;
 //	s32 y = context->y + 2;
-//	struct font2a4 *font1 = g_FontHandelGothicSm1;
-//	struct font *font2 = g_FontHandelGothicSm2;
+//	struct fontchar *font1 = g_CharsHandelGothicSm;
+//	struct font *font2 = g_FontHandelGothicSm;
 //
 //	if (context->item->param1 & 0x00000010) {
 //		x -= 6;
 //	}
 //
 //	if (context->item->param1 & 0x00400000) {
-//		font1 = g_FontHandelGothicMd1;
-//		font2 = g_FontHandelGothicMd2;
+//		font1 = g_CharsHandelGothicMd;
+//		font2 = g_FontHandelGothicMd;
 //	}
 //
 //	text = menuResolveParam2Text(context->item);
@@ -7306,10 +7306,10 @@ glabel menuRenderItemSlider
 .L0f0ebc60:
 /*  f0ebc60:	0fc54d8a */ 	jal	func0f153628
 /*  f0ebc64:	8fa400b0 */ 	lw	$a0,0xb0($sp)
-/*  f0ebc68:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicSm1)
-/*  f0ebc6c:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicSm2)
-/*  f0ebc70:	8f18fb0c */ 	lw	$t8,%lo(g_FontHandelGothicSm2)($t8)
-/*  f0ebc74:	8deffb10 */ 	lw	$t7,%lo(g_FontHandelGothicSm1)($t7)
+/*  f0ebc68:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicSm)
+/*  f0ebc6c:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicSm)
+/*  f0ebc70:	8f18fb0c */ 	lw	$t8,%lo(g_FontHandelGothicSm)($t8)
+/*  f0ebc74:	8deffb10 */ 	lw	$t7,%lo(g_CharsHandelGothicSm)($t7)
 /*  f0ebc78:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0ebc7c:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0ebc80:	afaf0010 */ 	sw	$t7,0x10($sp)
@@ -7355,10 +7355,10 @@ glabel menuRenderItemSlider
 /*  f0ebd20:	0320f809 */ 	jalr	$t9
 /*  f0ebd24:	00000000 */ 	nop
 .L0f0ebd28:
-/*  f0ebd28:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicSm2)
-/*  f0ebd2c:	8f18fb0c */ 	lw	$t8,%lo(g_FontHandelGothicSm2)($t8)
-/*  f0ebd30:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicSm1)
-/*  f0ebd34:	8ce7fb10 */ 	lw	$a3,%lo(g_FontHandelGothicSm1)($a3)
+/*  f0ebd28:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicSm)
+/*  f0ebd2c:	8f18fb0c */ 	lw	$t8,%lo(g_FontHandelGothicSm)($t8)
+/*  f0ebd30:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicSm)
+/*  f0ebd34:	8ce7fb10 */ 	lw	$a3,%lo(g_CharsHandelGothicSm)($a3)
 /*  f0ebd38:	27a40084 */ 	addiu	$a0,$sp,0x84
 /*  f0ebd3c:	27a50088 */ 	addiu	$a1,$sp,0x88
 /*  f0ebd40:	27a60098 */ 	addiu	$a2,$sp,0x98
@@ -7430,10 +7430,10 @@ glabel menuRenderItemSlider
 /*  f0ebe3c:	8ca52130 */ 	lw	$a1,%lo(g_MenuColourPalettes2+0x18)($a1)
 /*  f0ebe40:	0fc54f8e */ 	jal	func0f153e38
 /*  f0ebe44:	8c842298 */ 	lw	$a0,%lo(g_MenuColourPalettes3+0x18)($a0)
-/*  f0ebe48:	3c098008 */ 	lui	$t1,%hi(g_FontHandelGothicSm1)
-/*  f0ebe4c:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicSm2)
-/*  f0ebe50:	8d4afb0c */ 	lw	$t2,%lo(g_FontHandelGothicSm2)($t2)
-/*  f0ebe54:	8d29fb10 */ 	lw	$t1,%lo(g_FontHandelGothicSm1)($t1)
+/*  f0ebe48:	3c098008 */ 	lui	$t1,%hi(g_CharsHandelGothicSm)
+/*  f0ebe4c:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicSm)
+/*  f0ebe50:	8d4afb0c */ 	lw	$t2,%lo(g_FontHandelGothicSm)($t2)
+/*  f0ebe54:	8d29fb10 */ 	lw	$t1,%lo(g_CharsHandelGothicSm)($t1)
 /*  f0ebe58:	2401ff00 */ 	addiu	$at,$zero,-256
 /*  f0ebe5c:	320d00ff */ 	andi	$t5,$s0,0xff
 /*  f0ebe60:	000d5842 */ 	srl	$t3,$t5,0x1
@@ -7695,18 +7695,18 @@ glabel menuRenderItemCheckbox
 /*  f0ec668:	afa00060 */ 	sw	$zero,0x60($sp)
 /*  f0ec66c:	afae005c */ 	sw	$t6,0x5c($sp)
 /*  f0ec670:	8caf0008 */ 	lw	$t7,0x8($a1)
-/*  f0ec674:	3c028008 */ 	lui	$v0,%hi(g_FontHandelGothicSm2)
-/*  f0ec678:	3c038008 */ 	lui	$v1,%hi(g_FontHandelGothicSm1)
+/*  f0ec674:	3c028008 */ 	lui	$v0,%hi(g_FontHandelGothicSm)
+/*  f0ec678:	3c038008 */ 	lui	$v1,%hi(g_CharsHandelGothicSm)
 /*  f0ec67c:	8df80004 */ 	lw	$t8,0x4($t7)
 /*  f0ec680:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f0ec684:	8c42fb0c */ 	lw	$v0,%lo(g_FontHandelGothicSm2)($v0)
+/*  f0ec684:	8c42fb0c */ 	lw	$v0,%lo(g_FontHandelGothicSm)($v0)
 /*  f0ec688:	33190200 */ 	andi	$t9,$t8,0x200
 /*  f0ec68c:	13200005 */ 	beqz	$t9,.L0f0ec6a4
-/*  f0ec690:	8c63fb10 */ 	lw	$v1,%lo(g_FontHandelGothicSm1)($v1)
-/*  f0ec694:	3c028008 */ 	lui	$v0,%hi(g_FontHandelGothicXs2)
-/*  f0ec698:	3c038008 */ 	lui	$v1,%hi(g_FontHandelGothicXs1)
-/*  f0ec69c:	8c42fb04 */ 	lw	$v0,%lo(g_FontHandelGothicXs2)($v0)
-/*  f0ec6a0:	8c63fb08 */ 	lw	$v1,%lo(g_FontHandelGothicXs1)($v1)
+/*  f0ec690:	8c63fb10 */ 	lw	$v1,%lo(g_CharsHandelGothicSm)($v1)
+/*  f0ec694:	3c028008 */ 	lui	$v0,%hi(g_FontHandelGothicXs)
+/*  f0ec698:	3c038008 */ 	lui	$v1,%hi(g_CharsHandelGothicXs)
+/*  f0ec69c:	8c42fb04 */ 	lw	$v0,%lo(g_FontHandelGothicXs)($v0)
+/*  f0ec6a0:	8c63fb08 */ 	lw	$v1,%lo(g_CharsHandelGothicXs)($v1)
 .L0f0ec6a4:
 /*  f0ec6a4:	86280000 */ 	lh	$t0,0x0($s1)
 /*  f0ec6a8:	afa8006c */ 	sw	$t0,0x6c($sp)
@@ -8080,12 +8080,12 @@ glabel menuRenderItemCheckbox
 //	u8 data[3];
 //	bool checked = false;
 //	u32 fillcolour = 0xff002faf;
-//	struct font *font2 = g_FontHandelGothicSm2;
-//	struct font2a4 *font1 = g_FontHandelGothicSm1;
+//	struct font *font2 = g_FontHandelGothicSm;
+//	struct fontchar *font1 = g_CharsHandelGothicSm;
 //
 //	if (context->item->param1 & 0x00000200) {
-//		font2 = g_FontHandelGothicXs2;
-//		font1 = g_FontHandelGothicXs1;
+//		font2 = g_FontHandelGothicXs;
+//		font1 = g_CharsHandelGothicXs;
 //	}
 //
 //	x = context->x;
@@ -8273,7 +8273,7 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	if (rawtext) {
-		textWrap(context->width - paddingright, rawtext, alltext, g_FontHandelGothicSm1, g_FontHandelGothicSm2);
+		textWrap(context->width - paddingright, rawtext, alltext, g_CharsHandelGothicSm, g_FontHandelGothicSm);
 	}
 
 	inptr = alltext;
@@ -8339,20 +8339,20 @@ Gfx *menuRenderItemScrollable(Gfx *gdl, struct menurendercontext *context)
 	// Heading text shadow
 	x = context->x + 3;
 	y = context->y + 3;
-	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0x000000ff, context->width - 4, context->height - 4, -data->unk00, 0);
 
 	// Heading text (red)
 	x = context->x + 2;
 	y = context->y + 2;
-	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0xff4444ff, context->width - 4, context->height - 4, -data->unk00, 0);
 
 	// Body text
 	x = menuIsScrollableUnscrollable(context->item) ? context->x + 5 : context->x + 12;
 	y = context->y + 2;
 
-	gdl = textRenderProjected(gdl, &x, &y, bodytext, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+	gdl = textRenderProjected(gdl, &x, &y, bodytext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			colour, context->width - 4, context->height - 1, -data->unk00, 0);
 
 	return func0f153780(gdl);
@@ -8394,10 +8394,10 @@ bool menuTickItemScrollable(struct menuitem *item, struct menuframe *frame, stru
 		rawtext = menuItemScrollableGetText(item->param);
 
 		if (rawtext) {
-			textWrap(width, rawtext, wrapped, g_FontHandelGothicSm1, g_FontHandelGothicSm2);
+			textWrap(width, rawtext, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm);
 		}
 
-		textMeasure(&height, &width, wrapped, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+		textMeasure(&height, &width, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 		data->scrollable.unk04 = height - hvalue + 5;
 
@@ -8474,25 +8474,25 @@ glabel menuRenderItemMarquee
 /*  f0ed548:	0fc3c557 */ 	jal	menuResolveParam2Text
 /*  f0ed54c:	8ca40008 */ 	lw	$a0,0x8($a1)
 /*  f0ed550:	3c0f8007 */ 	lui	$t7,%hi(var800711ec)
-/*  f0ed554:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicSm2)
-/*  f0ed558:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm1)
+/*  f0ed554:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicSm)
+/*  f0ed558:	3c198008 */ 	lui	$t9,%hi(g_CharsHandelGothicSm)
 /*  f0ed55c:	95ef11ec */ 	lhu	$t7,%lo(var800711ec)($t7)
-/*  f0ed560:	8f18fb0c */ 	lw	$t8,%lo(g_FontHandelGothicSm2)($t8)
-/*  f0ed564:	8f39fb10 */ 	lw	$t9,%lo(g_FontHandelGothicSm1)($t9)
+/*  f0ed560:	8f18fb0c */ 	lw	$t8,%lo(g_FontHandelGothicSm)($t8)
+/*  f0ed564:	8f39fb10 */ 	lw	$t9,%lo(g_CharsHandelGothicSm)($t9)
 /*  f0ed568:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f0ed56c:	afa00070 */ 	sw	$zero,0x70($sp)
 /*  f0ed570:	a7af0064 */ 	sh	$t7,0x64($sp)
 /*  f0ed574:	afb8005c */ 	sw	$t8,0x5c($sp)
 /*  f0ed578:	afb90058 */ 	sw	$t9,0x58($sp)
 /*  f0ed57c:	8e280008 */ 	lw	$t0,0x8($s1)
-/*  f0ed580:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs2)
-/*  f0ed584:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicXs1)
+/*  f0ed580:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicXs)
+/*  f0ed584:	3c0c8008 */ 	lui	$t4,%hi(g_CharsHandelGothicXs)
 /*  f0ed588:	8d090004 */ 	lw	$t1,0x4($t0)
 /*  f0ed58c:	312a0200 */ 	andi	$t2,$t1,0x200
 /*  f0ed590:	11400005 */ 	beqz	$t2,.L0f0ed5a8
 /*  f0ed594:	00000000 */ 	nop
-/*  f0ed598:	8d6bfb04 */ 	lw	$t3,%lo(g_FontHandelGothicXs2)($t3)
-/*  f0ed59c:	8d8cfb08 */ 	lw	$t4,%lo(g_FontHandelGothicXs1)($t4)
+/*  f0ed598:	8d6bfb04 */ 	lw	$t3,%lo(g_FontHandelGothicXs)($t3)
+/*  f0ed59c:	8d8cfb08 */ 	lw	$t4,%lo(g_CharsHandelGothicXs)($t4)
 /*  f0ed5a0:	afab005c */ 	sw	$t3,0x5c($sp)
 /*  f0ed5a4:	afac0058 */ 	sw	$t4,0x58($sp)
 .L0f0ed5a8:
@@ -9086,12 +9086,12 @@ u32 var800711ec = 0x20000000;
 //	s32 textheight; // 68
 //	char string[] = {' ', '\0'}; // 64 - var800711ec
 //	s32 hasmore;
-//	struct font *font2 = g_FontHandelGothicSm2; // 5c
-//	struct font2a4 *font1 = g_FontHandelGothicSm1; // 58
+//	struct font *font2 = g_FontHandelGothicSm; // 5c
+//	struct fontchar *font1 = g_CharsHandelGothicSm; // 58
 //
 //	if (context->item->param1 & 0x00000200) {
-//		font2 = g_FontHandelGothicXs2;
-//		font1 = g_FontHandelGothicXs1;
+//		font2 = g_FontHandelGothicXs;
+//		font1 = g_CharsHandelGothicXs;
 //	}
 //
 //	if (!text) {
@@ -9301,19 +9301,19 @@ bool menuTickItemMarquee(struct menuitem *item, union menuitemdata *data)
 	s32 i;
 	s32 textheight;
 	s32 textwidth;
-	struct font2a4 *font1;
+	struct fontchar *font1;
 	struct font *font2;
 	s32 increment;
 	u16 sum = 0;
 	char *text = menuResolveParam2Text(item);
 	s32 limit;
 
-	font2 = g_FontHandelGothicSm2;
-	font1 = g_FontHandelGothicSm1;
+	font2 = g_FontHandelGothicSm;
+	font1 = g_CharsHandelGothicSm;
 
 	if (item->param1 & 0x00000200) {
-		font2 = g_FontHandelGothicXs2;
-		font1 = g_FontHandelGothicXs1;
+		font2 = g_FontHandelGothicXs;
+		font1 = g_CharsHandelGothicXs;
 	}
 
 	if (!text) {
@@ -9414,18 +9414,18 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 
 	if (!team) {
 		// "Deaths"
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_277), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 		x = (context->x - textwidth) + 91;
 		y = context->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_277), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				textcolour, context->width, context->height, 0, 0);
 	}
 
 	// "Score"
-	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_278), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 	x = (context->x - textwidth) + 120;
 	y = context->y + 1;
-	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_278), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			textcolour, context->width, context->height, 0, 0);
 	gdl = func0f153780(gdl);
 
@@ -9532,30 +9532,30 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 
 		if (team) {
 			gdl = textRenderProjected(gdl, &x, &y, g_MpSetupSaveFile.teamnames[thisinfo->teamnum],
-					g_FontHandelGothicSm1, g_FontHandelGothicSm2, textcolour, context->width, context->height, 0, 0);
+					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		} else {
 			gdl = textRenderProjected(gdl, &x, &y, thisinfo->mpchr->name,
-					g_FontHandelGothicSm1, g_FontHandelGothicSm2, textcolour, context->width, context->height, 0, 0);
+					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		}
 
 		if (!team) {
 			// Deaths value (red)
 			textcolour = colourBlend(0xcf0000ff, 0xff4040ff, weight);
 			sprintf(valuebuffer, "%d\n", thisinfo->mpchr->numdeaths);
-			textMeasure(&textheight, &textwidth, valuebuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+			textMeasure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 			x = context->x - textwidth + 91;
 			y = context->y + i * 10 - data->scrolloffset + 14;
-			gdl = textRenderProjected(gdl, &x, &y, valuebuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+			gdl = textRenderProjected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 					textcolour, context->width, context->height, 0, 0);
 		}
 
 		// Score value (green)
 		textcolour = colourBlend(0x009f00ff, 0x00ff00ff, weight);
 		sprintf(valuebuffer, "%d\n", thisinfo->score);
-		textMeasure(&textheight, &textwidth, valuebuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+		textMeasure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = context->x - textwidth + 120;
 		y = context->y + i * 10 - data->scrolloffset + 14;
-		gdl = textRenderProjected(gdl, &x, &y, valuebuffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+		gdl = textRenderProjected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				textcolour, context->width, context->height, 0, 0);
 	}
 
@@ -10247,7 +10247,7 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 1;
 
-	gdl = textRenderProjected(gdl, &x, &y, mpchr->name, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+	gdl = textRenderProjected(gdl, &x, &y, mpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			selectioncolour, context->width, context->height, 0, 0);
 
 	// "Suicides" heading
@@ -10264,20 +10264,20 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 		maincolour = colourBlend(maincolour, 0x00000000, 127) & 0xffffff00 | maincolour & 0xff;
 	}
 
-	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_281), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 	x = context->x - textwidth + 121;
 	y = context->y + 1;
 
-	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_281), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			maincolour, context->width, context->height, 0, 0);
 
 	// Num suicides
 	x = context->x - textwidth + 119;
 	sprintf(buffer, "%d\n", mpchr->killcounts[playernum]);
-	textMeasure(&textheight, &textwidth, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 	x -= textwidth;
 	y = context->y + 1;
-	gdl = textRenderProjected(gdl, &x, &y, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+	gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0xffff00ff, context->width, context->height, 0, 0);
 
 	// Move ypos past top row
@@ -10298,17 +10298,17 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 		}
 
 		// "Deaths" heading
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_282), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 		x = context->x - textwidth + 120;
 		y = context->y + ypos;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_282), g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				maincolour, context->width, context->height, 0, 0);
 
 		// "Kills" heading
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_283), g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_283), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 		x = context->x - textwidth + 25;
 		y = context->y + ypos;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_283),  g_FontHandelGothicXs1, g_FontHandelGothicXs2,
+		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_283),  g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				maincolour, context->width, context->height, 0, 0);
 
 		// Move ypos past heading row
@@ -10391,23 +10391,23 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 					// Name
 					x = context->x + 29;
 					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, loopmpchr->name, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+					gdl = textRenderProjected(gdl, &x, &y, loopmpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0x00ffffff, context->width, context->height, 0, 0);
 
 					// Num deaths
 					sprintf(buffer, "%d\n", loopmpchr->killcounts[playernum]);
-					textMeasure(&textheight, &textwidth, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+					textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 					x = context->x - textwidth + 120;
 					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+					gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0xff4040ff, context->width, context->height, 0, 0);
 
 					// Num kills
 					sprintf(buffer, "%d\n", mpchr->killcounts[i]);
-					textMeasure(&textheight, &textwidth, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2, 0);
+					textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 					x = context->x - textwidth + 25;
 					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, buffer, g_FontHandelGothicSm1, g_FontHandelGothicSm2,
+					gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0x00ff00ff, context->width, context->height, 0, 0);
 
 					ypos += 10;
@@ -11550,7 +11550,7 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 			// Rendering a label such as "L/R BUTTONS:"
 			rx = context->x + x + 76;
 			gdl = textRenderProjected(gdl, &rx, &ry, langGet(labels[i]),
-					g_FontHandelGothicXs1, g_FontHandelGothicXs2, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
+					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
 		}
 
 		textnum = menuControllerGetButtonAction(curmode, i);
@@ -11585,7 +11585,7 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 		}
 
 		gdl = textRenderProjected(gdl, &rx, &ry, langGet(textnum),
-				g_FontHandelGothicXs1, g_FontHandelGothicXs2, colour, viGetWidth(), viGetHeight(), 0, 0);
+				g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, viGetWidth(), viGetHeight(), 0, 0);
 	}
 
 	return func0f153780(gdl);
@@ -11873,7 +11873,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 2;
 	gdl = textRenderProjected(gdl, &x, &y, text,
-			g_FontHandelGothicSm1, g_FontHandelGothicSm2, colour, viGetWidth(), viGetHeight(), 0, 0);
+			g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
 	gdl = func0f153780(gdl);
 
 	textcolour = colourBlend(colour, colour & 0xffffff00, textalpha);
@@ -11895,7 +11895,7 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 		y = context->y + 92;
 		gdl = func0f153628(gdl);
 		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPWEAPONS_216), // "Hold weapon button for ..."
-				g_FontHandelGothicSm1, g_FontHandelGothicSm2, colour, viGetWidth(), viGetHeight(), 0, 0);
+				g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
 		gdl = func0f153780(gdl);
 	}
 

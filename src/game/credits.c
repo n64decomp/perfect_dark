@@ -4175,35 +4175,35 @@ glabel var7f1b592c
 /*  f13a538:	8c2c5878 */ 	lw	$t4,%lo(var7f1b5878)($at)
 /*  f13a53c:	01800008 */ 	jr	$t4
 /*  f13a540:	00000000 */ 	nop
-/*  f13a544:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicLg1)
-/*  f13a548:	8dadfb20 */ 	lw	$t5,%lo(g_FontHandelGothicLg1)($t5)
-/*  f13a54c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicLg2)
+/*  f13a544:	3c0d8008 */ 	lui	$t5,%hi(g_CharsHandelGothicLg)
+/*  f13a548:	8dadfb20 */ 	lw	$t5,%lo(g_CharsHandelGothicLg)($t5)
+/*  f13a54c:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicLg)
 /*  f13a550:	ae0d0000 */ 	sw	$t5,0x0($s0)
-/*  f13a554:	8dcefb1c */ 	lw	$t6,%lo(g_FontHandelGothicLg2)($t6)
+/*  f13a554:	8dcefb1c */ 	lw	$t6,%lo(g_FontHandelGothicLg)($t6)
 /*  f13a558:	1000000e */ 	b	.L0f13a594
 /*  f13a55c:	ae2e0000 */ 	sw	$t6,0x0($s1)
-/*  f13a560:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicMd1)
-/*  f13a564:	8deffb18 */ 	lw	$t7,%lo(g_FontHandelGothicMd1)($t7)
-/*  f13a568:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicMd2)
+/*  f13a560:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicMd)
+/*  f13a564:	8deffb18 */ 	lw	$t7,%lo(g_CharsHandelGothicMd)($t7)
+/*  f13a568:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicMd)
 /*  f13a56c:	ae0f0000 */ 	sw	$t7,0x0($s0)
-/*  f13a570:	8f18fb14 */ 	lw	$t8,%lo(g_FontHandelGothicMd2)($t8)
+/*  f13a570:	8f18fb14 */ 	lw	$t8,%lo(g_FontHandelGothicMd)($t8)
 /*  f13a574:	10000007 */ 	b	.L0f13a594
 /*  f13a578:	ae380000 */ 	sw	$t8,0x0($s1)
 .L0f13a57c:
-/*  f13a57c:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm1)
-/*  f13a580:	8f39fb10 */ 	lw	$t9,%lo(g_FontHandelGothicSm1)($t9)
-/*  f13a584:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicSm2)
+/*  f13a57c:	3c198008 */ 	lui	$t9,%hi(g_CharsHandelGothicSm)
+/*  f13a580:	8f39fb10 */ 	lw	$t9,%lo(g_CharsHandelGothicSm)($t9)
+/*  f13a584:	3c0a8008 */ 	lui	$t2,%hi(g_FontHandelGothicSm)
 /*  f13a588:	ae190000 */ 	sw	$t9,0x0($s0)
-/*  f13a58c:	8d4afb0c */ 	lw	$t2,%lo(g_FontHandelGothicSm2)($t2)
+/*  f13a58c:	8d4afb0c */ 	lw	$t2,%lo(g_FontHandelGothicSm)($t2)
 /*  f13a590:	ae2a0000 */ 	sw	$t2,0x0($s1)
 .L0f13a594:
 /*  f13a594:	90620001 */ 	lbu	$v0,0x1($v1)
 /*  f13a598:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f13a59c:	3c0d8008 */ 	lui	$t5,%hi(g_FontHandelGothicMd1)
+/*  f13a59c:	3c0d8008 */ 	lui	$t5,%hi(g_CharsHandelGothicMd)
 /*  f13a5a0:	10410013 */ 	beq	$v0,$at,.L0f13a5f0
 /*  f13a5a4:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f13a5a8:	10410009 */ 	beq	$v0,$at,.L0f13a5d0
-/*  f13a5ac:	3c0b8008 */ 	lui	$t3,%hi(g_FontHandelGothicSm1)
+/*  f13a5ac:	3c0b8008 */ 	lui	$t3,%hi(g_CharsHandelGothicSm)
 /*  f13a5b0:	2401000a */ 	addiu	$at,$zero,0xa
 /*  f13a5b4:	1041000e */ 	beq	$v0,$at,.L0f13a5f0
 /*  f13a5b8:	00000000 */ 	nop
@@ -4213,20 +4213,20 @@ glabel var7f1b592c
 /*  f13a5c8:	10000010 */ 	b	.L0f13a60c
 /*  f13a5cc:	ae220004 */ 	sw	$v0,0x4($s1)
 .L0f13a5d0:
-/*  f13a5d0:	8d6bfb10 */ 	lw	$t3,%lo(g_FontHandelGothicSm1)($t3)
-/*  f13a5d4:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm2)
+/*  f13a5d0:	8d6bfb10 */ 	lw	$t3,%lo(g_CharsHandelGothicSm)($t3)
+/*  f13a5d4:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm)
 /*  f13a5d8:	8e070000 */ 	lw	$a3,0x0($s0)
 /*  f13a5dc:	ae0b0004 */ 	sw	$t3,0x4($s0)
-/*  f13a5e0:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm2)($t4)
+/*  f13a5e0:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm)($t4)
 /*  f13a5e4:	8e220000 */ 	lw	$v0,0x0($s1)
 /*  f13a5e8:	10000008 */ 	b	.L0f13a60c
 /*  f13a5ec:	ae2c0004 */ 	sw	$t4,0x4($s1)
 .L0f13a5f0:
-/*  f13a5f0:	8dadfb18 */ 	lw	$t5,%lo(g_FontHandelGothicMd1)($t5)
-/*  f13a5f4:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicMd2)
+/*  f13a5f0:	8dadfb18 */ 	lw	$t5,%lo(g_CharsHandelGothicMd)($t5)
+/*  f13a5f4:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicMd)
 /*  f13a5f8:	8e070000 */ 	lw	$a3,0x0($s0)
 /*  f13a5fc:	ae0d0004 */ 	sw	$t5,0x4($s0)
-/*  f13a600:	8dcefb14 */ 	lw	$t6,%lo(g_FontHandelGothicMd2)($t6)
+/*  f13a600:	8dcefb14 */ 	lw	$t6,%lo(g_FontHandelGothicMd)($t6)
 /*  f13a604:	8e220000 */ 	lw	$v0,0x0($s1)
 /*  f13a608:	ae2e0004 */ 	sw	$t6,0x4($s1)
 .L0f13a60c:

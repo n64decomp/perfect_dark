@@ -6904,18 +6904,18 @@ struct escastepkeyframe {
 	struct coord pos;
 };
 
-struct font2a4 {
+struct fontchar {
 	u8 index;
 	s8 baseline;
 	u8 height;
 	u8 width;
 	u32 unk04;
-	u8 *data;
+	u8 *pixeldata;
 };
 
 struct font {
 	u32 unk000[169];
-	struct font2a4 unk2a4[94];
+	struct fontchar chars[94]; // can be 135 in PAL
 };
 
 typedef union {

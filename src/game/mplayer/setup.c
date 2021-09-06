@@ -1394,7 +1394,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 		name = mpChallengeGetNameWithArg(g_MpPlayerNum, challengeindex);
 
 		gdl = textRenderProjected(gdl, &x, &y, name,
-				g_FontHandelGothicSm1, g_FontHandelGothicSm2, renderdata->colour,
+				g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour,
 				viGetWidth(), viGetHeight(), 0, 0);
 
 		gdl = func0f153780(gdl);
@@ -6531,10 +6531,10 @@ glabel var7f1b8288
 /*  f17e678:	0012c403 */ 	sra	$t8,$s2,0x10
 /*  f17e67c:	0c002f06 */ 	jal	viGetHeight
 /*  f17e680:	03009025 */ 	or	$s2,$t8,$zero
-/*  f17e684:	3c198008 */ 	lui	$t9,%hi(g_FontHandelGothicSm1)
-/*  f17e688:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm2)
-/*  f17e68c:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm2)($t4)
-/*  f17e690:	8f39fb10 */ 	lw	$t9,%lo(g_FontHandelGothicSm1)($t9)
+/*  f17e684:	3c198008 */ 	lui	$t9,%hi(g_CharsHandelGothicSm)
+/*  f17e688:	3c0c8008 */ 	lui	$t4,%hi(g_FontHandelGothicSm)
+/*  f17e68c:	8d8cfb0c */ 	lw	$t4,%lo(g_FontHandelGothicSm)($t4)
+/*  f17e690:	8f39fb10 */ 	lw	$t9,%lo(g_CharsHandelGothicSm)($t9)
 /*  f17e694:	8fa400b4 */ 	lw	$a0,0xb4($sp)
 /*  f17e698:	afac0014 */ 	sw	$t4,0x14($sp)
 /*  f17e69c:	afb90010 */ 	sw	$t9,0x10($sp)

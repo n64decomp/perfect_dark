@@ -29072,7 +29072,7 @@ Gfx *bgunRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 va
 	textwidth = 0;
 	textheight = 0;
 
-	textMeasure(&textheight, &textwidth, text, g_FontNumeric1, g_FontNumeric2, 0);
+	textMeasure(&textheight, &textwidth, text, g_CharsNumeric, g_FontNumeric, 0);
 
 	if (halign == HUDHALIGN_LEFT) { // left
 		x2 = x + textwidth;
@@ -29097,7 +29097,7 @@ Gfx *bgunRenderHudString(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 va
 	}
 
 	gdl = func0f153858(gdl, &x1, &y1, &x2, &y2);
-	gdl = textRender(gdl, &x1, &y1, text, g_FontNumeric1, g_FontNumeric2, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = textRender(gdl, &x1, &y1, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 
 	return gdl;
 }
@@ -32310,7 +32310,7 @@ glabel bgunRenderHud
 /*  f0aad7c:	a5430072 */ 	sh	$v1,0x72($t2)
 .L0f0aad80:
 /*  f0aad80:	9143006f */ 	lbu	$v1,0x6f($t2)
-/*  f0aad84:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicXs1)
+/*  f0aad84:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicXs)
 /*  f0aad88:	286100ff */ 	slti	$at,$v1,0xff
 /*  f0aad8c:	5020008b */ 	beqzl	$at,.L0f0aafbc
 /*  f0aad90:	8fa200bc */ 	lw	$v0,0xbc($sp)
@@ -32328,9 +32328,9 @@ glabel bgunRenderHud
 /*  f0aadbc:	0062c821 */ 	addu	$t9,$v1,$v0
 /*  f0aadc0:	a159006f */ 	sb	$t9,0x6f($t2)
 .L0f0aadc4:
-/*  f0aadc4:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs2)
-/*  f0aadc8:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs2)($t6)
-/*  f0aadcc:	8ce7fb08 */ 	lw	$a3,%lo(g_FontHandelGothicXs1)($a3)
+/*  f0aadc4:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs)
+/*  f0aadc8:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs)($t6)
+/*  f0aadcc:	8ce7fb08 */ 	lw	$a3,%lo(g_CharsHandelGothicXs)($a3)
 /*  f0aadd0:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0aadd4:	afa600d4 */ 	sw	$a2,0xd4($sp)
 /*  f0aadd8:	afaa0058 */ 	sw	$t2,0x58($sp)
@@ -32435,10 +32435,10 @@ glabel bgunRenderHud
 /*  f0aaf54:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f0aaf58:	0fc54f8e */ 	jal	func0f153e38
 /*  f0aaf5c:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0aaf60:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicXs1)
-/*  f0aaf64:	8deffb08 */ 	lw	$t7,%lo(g_FontHandelGothicXs1)($t7)
-/*  f0aaf68:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicXs2)
-/*  f0aaf6c:	8f18fb04 */ 	lw	$t8,%lo(g_FontHandelGothicXs2)($t8)
+/*  f0aaf60:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicXs)
+/*  f0aaf64:	8deffb08 */ 	lw	$t7,%lo(g_CharsHandelGothicXs)($t7)
+/*  f0aaf68:	3c188008 */ 	lui	$t8,%hi(g_FontHandelGothicXs)
+/*  f0aaf6c:	8f18fb04 */ 	lw	$t8,%lo(g_FontHandelGothicXs)($t8)
 /*  f0aaf70:	8fb900d0 */ 	lw	$t9,0xd0($sp)
 /*  f0aaf74:	8fae00c0 */ 	lw	$t6,0xc0($sp)
 /*  f0aaf78:	afaf0010 */ 	sw	$t7,0x10($sp)
@@ -32503,7 +32503,7 @@ glabel bgunRenderHud
 /*  f0ab054:	00627021 */ 	addu	$t6,$v1,$v0
 /*  f0ab058:	29c10100 */ 	slti	$at,$t6,0x100
 /*  f0ab05c:	14200004 */ 	bnez	$at,.L0f0ab070
-/*  f0ab060:	3c078008 */ 	lui	$a3,%hi(g_FontHandelGothicXs1)
+/*  f0ab060:	3c078008 */ 	lui	$a3,%hi(g_CharsHandelGothicXs)
 /*  f0ab064:	240f00ff */ 	addiu	$t7,$zero,0xff
 /*  f0ab068:	10000003 */ 	b	.L0f0ab078
 /*  f0ab06c:	a14f006e */ 	sb	$t7,0x6e($t2)
@@ -32536,9 +32536,9 @@ glabel bgunRenderHud
 /*  f0ab0cc:	0301c825 */ 	or	$t9,$t8,$at
 /*  f0ab0d0:	afb900d0 */ 	sw	$t9,0xd0($sp)
 .L0f0ab0d4:
-/*  f0ab0d4:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicXs2)
-/*  f0ab0d8:	8deffb04 */ 	lw	$t7,%lo(g_FontHandelGothicXs2)($t7)
-/*  f0ab0dc:	8ce7fb08 */ 	lw	$a3,%lo(g_FontHandelGothicXs1)($a3)
+/*  f0ab0d4:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicXs)
+/*  f0ab0d8:	8deffb04 */ 	lw	$t7,%lo(g_FontHandelGothicXs)($t7)
+/*  f0ab0dc:	8ce7fb08 */ 	lw	$a3,%lo(g_CharsHandelGothicXs)($a3)
 /*  f0ab0e0:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f0ab0e4:	afa600d4 */ 	sw	$a2,0xd4($sp)
 /*  f0ab0e8:	afaa0058 */ 	sw	$t2,0x58($sp)
@@ -32635,10 +32635,10 @@ glabel bgunRenderHud
 /*  f0ab24c:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f0ab250:	0fc54f8e */ 	jal	func0f153e38
 /*  f0ab254:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0ab258:	3c0f8008 */ 	lui	$t7,%hi(g_FontHandelGothicXs1)
-/*  f0ab25c:	8deffb08 */ 	lw	$t7,%lo(g_FontHandelGothicXs1)($t7)
-/*  f0ab260:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs2)
-/*  f0ab264:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs2)($t6)
+/*  f0ab258:	3c0f8008 */ 	lui	$t7,%hi(g_CharsHandelGothicXs)
+/*  f0ab25c:	8deffb08 */ 	lw	$t7,%lo(g_CharsHandelGothicXs)($t7)
+/*  f0ab260:	3c0e8008 */ 	lui	$t6,%hi(g_FontHandelGothicXs)
+/*  f0ab264:	8dcefb04 */ 	lw	$t6,%lo(g_FontHandelGothicXs)($t6)
 /*  f0ab268:	8fb800d0 */ 	lw	$t8,0xd0($sp)
 /*  f0ab26c:	8fb900c0 */ 	lw	$t9,0xc0($sp)
 /*  f0ab270:	afaf0010 */ 	sw	$t7,0x10($sp)
@@ -34664,7 +34664,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //				ctrl->guntypetimer = (u32)ctrl->guntypetimer + g_Vars.lvupdate240_60;
 //			}
 //
-//			textMeasure(&textheight, &textwidth, str, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+//			textMeasure(&textheight, &textwidth, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 //			textwidth += 2;
 //
 //			if (textwidth > ctrl->guntypetimer * 3) {
@@ -34692,7 +34692,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //			gdl = func0f153838(gdl);
 //			func0f153d50(var80061630 * 50.0f, 0, 50);
 //			func0f153e38(0xffffffff, 0xffffffff);
-//			gdl = textRenderProjected(gdl, &x, &y, str, g_FontHandelGothicXs1, g_FontHandelGothicXs2, colour, textwidth, 1000, 0, 0);
+//			gdl = textRenderProjected(gdl, &x, &y, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth, 1000, 0, 0);
 //			func0f153e4c();
 //		}
 //
@@ -34737,7 +34737,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //				}
 //#endif
 //
-//				textMeasure(&textheight, &textwidth, str, g_FontHandelGothicXs1, g_FontHandelGothicXs2, 0);
+//				textMeasure(&textheight, &textwidth, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 //				textwidth += 2;
 //
 //				if (textwidth > ctrl->fnstrtimer * 3) {
@@ -34763,7 +34763,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //				func0f153e38(0xffffffff, 0xffffffff);
 //
 //				gdl = textRenderProjected(gdl, &x, &y, str,
-//						g_FontHandelGothicXs1, g_FontHandelGothicXs2, colour, textwidth,
+//						g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth,
 //						1000, 0, 0);
 //
 //				func0f153e4c();
