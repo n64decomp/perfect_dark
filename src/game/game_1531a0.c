@@ -32,7 +32,7 @@ u32 var800a4638;
 u32 var800a463c;
 
 s32 g_ScaleX = 1;
-u32 var8007fac4 = 0x00000000;
+s32 var8007fac4 = 0;
 u32 var8007fac8 = 0x00000000;
 u32 var8007facc = 0x00000000;
 u32 var8007fad0 = 0x00000001;
@@ -125,13 +125,10 @@ void func0f1531a0(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f1531a8
-/*  f1531a8:	00047023 */ 	negu	$t6,$a0
-/*  f1531ac:	3c018008 */ 	lui	$at,%hi(var8007fac4)
-/*  f1531b0:	03e00008 */ 	jr	$ra
-/*  f1531b4:	ac2efac4 */ 	sw	$t6,%lo(var8007fac4)($at)
-);
+void func0f1531a8(s32 arg0)
+{
+	var8007fac4 = -arg0;
+}
 
 GLOBAL_ASM(
 glabel func0f1531b8
