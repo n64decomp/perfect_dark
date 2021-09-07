@@ -946,7 +946,7 @@ glabel func0f10fac8
 .L0f10fb30:
 /*  f10fb30:	060000d6 */ 	bltz	$s0,.L0f10fe8c
 /*  f10fb34:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f10fb38:	0fc35517 */ 	jal	func0f0d545c
+/*  f10fb38:	0fc35517 */ 	jal	savebufferClear
 /*  f10fb3c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fb40:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f10fb44:	0004c603 */ 	sra	$t8,$a0,0x18
@@ -1219,7 +1219,7 @@ glabel func0f10fac8
 .NB0f10a060:
 /*  f10a060:	060000bf */ 	bltz	$s0,.NB0f10a360
 /*  f10a064:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f10a068:	0fc34ad1 */ 	jal	func0f0d545c
+/*  f10a068:	0fc34ad1 */ 	jal	savebufferClear
 /*  f10a06c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a070:	00102600 */ 	sll	$a0,$s0,0x18
 /*  f10a074:	0004c603 */ 	sra	$t8,$a0,0x18
@@ -1740,7 +1740,7 @@ glabel func0f10feac
 /*  f110dbc:	2402ffff */ 	li	$v0,-1
 /*  f110dc0:	072000b6 */ 	bltz	$t9,.PF0f11109c
 /*  f110dc4:	00000000 */ 	nop
-/*  f110dc8:	0fc3567f */ 	jal	func0f0d545c
+/*  f110dc8:	0fc3567f */ 	jal	savebufferClear
 /*  f110dcc:	02802025 */ 	move	$a0,$s4
 /*  f110dd0:	3c12800a */ 	lui	$s2,0x800a
 /*  f110dd4:	265227a0 */ 	addiu	$s2,$s2,0x27a0
@@ -2230,7 +2230,7 @@ glabel func0f10feac
 /*  f1102f8:	2402ffff */ 	addiu	$v0,$zero,-1
 /*  f1102fc:	056000b6 */ 	bltz	$t3,.L0f1105d8
 /*  f110300:	00000000 */ 	nop
-/*  f110304:	0fc35517 */ 	jal	func0f0d545c
+/*  f110304:	0fc35517 */ 	jal	savebufferClear
 /*  f110308:	02802025 */ 	or	$a0,$s4,$zero
 /*  f11030c:	3c12800a */ 	lui	$s2,%hi(g_SoloSaveFile)
 /*  f110310:	26522200 */ 	addiu	$s2,$s2,%lo(g_SoloSaveFile)
@@ -2702,7 +2702,7 @@ glabel func0f10feac
 /*  f10a784:	2402ffff */ 	addiu	$v0,$zero,-1
 /*  f10a788:	056000ae */ 	bltz	$t3,.NB0f10aa44
 /*  f10a78c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a790:	0fc34ad1 */ 	jal	func0f0d545c
+/*  f10a790:	0fc34ad1 */ 	jal	savebufferClear
 /*  f10a794:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10a798:	3c12800a */ 	lui	$s2,0x800a
 /*  f10a79c:	265266f0 */ 	addiu	$s2,$s2,0x66f0

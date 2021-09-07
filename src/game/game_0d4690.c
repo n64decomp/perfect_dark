@@ -1150,20 +1150,17 @@ glabel savebufferGetInteger
 /*  f0d5458:	00c01025 */ 	or	$v0,$a2,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0d545c
-/*  f0d545c:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0d5460:	00801825 */ 	or	$v1,$a0,$zero
-/*  f0d5464:	240400dc */ 	addiu	$a0,$zero,0xdc
-/*  f0d5468:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0d546c:
-/*  f0d546c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0d5470:	a0600004 */ 	sb	$zero,0x4($v1)
-/*  f0d5474:	1444fffd */ 	bne	$v0,$a0,.L0f0d546c
-/*  f0d5478:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0d547c:	03e00008 */ 	jr	$ra
-/*  f0d5480:	00000000 */ 	nop
-);
+void savebufferClear(struct savebuffer *buffer)
+{
+	s32 i;
+
+	buffer->word = 0;
+
+	for (i = 0; i < sizeof(buffer->bytes);) {
+		buffer->bytes[i] = 0;
+		i++;
+	}
+}
 
 void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len)
 {
