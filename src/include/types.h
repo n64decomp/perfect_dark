@@ -4612,7 +4612,7 @@ struct savefile_setup {
 };
 
 struct savebuffer {
-	s32 word; // checksum?
+	u32 bitpos;
 	u8 bytes[220];
 };
 

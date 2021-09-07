@@ -1118,43 +1118,37 @@ glabel func0f0d5360
 );
 #endif
 
-GLOBAL_ASM(
-glabel savebufferGetInteger
-/*  f0d53f8:	24ae001f */ 	addiu	$t6,$a1,0x1f
-/*  f0d53fc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0d5400:	01cf1004 */ 	sllv	$v0,$t7,$t6
-/*  f0d5404:	10400013 */ 	beqz	$v0,.L0f0d5454
-/*  f0d5408:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0d540c:	24080007 */ 	addiu	$t0,$zero,0x7
-.L0f0d5410:
-/*  f0d5410:	8c850000 */ 	lw	$a1,0x0($a0)
-/*  f0d5414:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0d5418:	00027042 */ 	srl	$t6,$v0,0x1
-/*  f0d541c:	000538c2 */ 	srl	$a3,$a1,0x3
-/*  f0d5420:	0087c021 */ 	addu	$t8,$a0,$a3
-/*  f0d5424:	30a30007 */ 	andi	$v1,$a1,0x7
-/*  f0d5428:	93190004 */ 	lbu	$t9,0x4($t8)
-/*  f0d542c:	01034823 */ 	subu	$t1,$t0,$v1
-/*  f0d5430:	012a5804 */ 	sllv	$t3,$t2,$t1
-/*  f0d5434:	316c00ff */ 	andi	$t4,$t3,0xff
-/*  f0d5438:	032c6824 */ 	and	$t5,$t9,$t4
-/*  f0d543c:	11a00002 */ 	beqz	$t5,.L0f0d5448
-/*  f0d5440:	24af0001 */ 	addiu	$t7,$a1,0x1
-/*  f0d5444:	00c23025 */ 	or	$a2,$a2,$v0
-.L0f0d5448:
-/*  f0d5448:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f0d544c:	15c0fff0 */ 	bnez	$t6,.L0f0d5410
-/*  f0d5450:	ac8f0000 */ 	sw	$t7,0x0($a0)
-.L0f0d5454:
-/*  f0d5454:	03e00008 */ 	jr	$ra
-/*  f0d5458:	00c01025 */ 	or	$v0,$a2,$zero
-);
+/**
+ * Read the specified amount of bits from the buffer and return it as an
+ * integer, advancing the internal pointer.
+ *
+ * numbits is expected to be 32 or less.
+ */
+u32 savebufferReadBits(struct savebuffer *buffer, s32 numbits)
+{
+	u32 bit = 1 << (numbits + 31);
+	u32 value = 0;
+
+	for (; bit; bit >>= 1) {
+		s32 bitindex = buffer->bitpos % 8;
+		u8 mask = 1 << (7 - bitindex);
+		s32 byteindex = buffer->bitpos / 8;
+
+		if (buffer->bytes[byteindex] & mask) {
+			value |= bit;
+		}
+
+		buffer->bitpos++;
+	}
+
+	return value;
+}
 
 void savebufferClear(struct savebuffer *buffer)
 {
 	s32 i;
 
-	buffer->word = 0;
+	buffer->bitpos = 0;
 
 	for (i = 0; i < sizeof(buffer->bytes);) {
 		buffer->bytes[i] = 0;
@@ -1166,7 +1160,7 @@ void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len)
 {
 	s32 i;
 
-	buffer->word = 0;
+	buffer->bitpos = 0;
 
 	for (i = 0; i < len; i++) {
 		buffer->bytes[i] = data[i];
@@ -1175,9 +1169,9 @@ void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len)
 
 void func0f0d54c4(struct savebuffer *buffer)
 {
-	s32 tmp = buffer->word;
+	s32 tmp = buffer->bitpos;
 
-	if (tmp / 8 && buffer->word);
+	if (tmp / 8 && buffer->bitpos);
 }
 
 GLOBAL_ASM(
@@ -1199,7 +1193,7 @@ glabel func0f0d54e4
 /*  f0d551c:	2414000a */ 	addiu	$s4,$zero,0xa
 /*  f0d5520:	02602025 */ 	or	$a0,$s3,$zero
 .L0f0d5524:
-/*  f0d5524:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f0d5524:	0fc354fe */ 	jal	savebufferReadBits
 /*  f0d5528:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f0d552c:	56200008 */ 	bnezl	$s1,.L0f0d5550
 /*  f0d5530:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1397,12 +1391,12 @@ glabel func0f0d579c
 /*  f0d57a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0d57a4:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0d57a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0d57ac:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f0d57ac:	0fc354fe */ 	jal	savebufferReadBits
 /*  f0d57b0:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f0d57b4:	8fae001c */ 	lw	$t6,0x1c($sp)
 /*  f0d57b8:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f0d57bc:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f0d57c0:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f0d57c0:	0fc354fe */ 	jal	savebufferReadBits
 /*  f0d57c4:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0d57c8:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*  f0d57cc:	a5e20004 */ 	sh	$v0,0x4($t7)

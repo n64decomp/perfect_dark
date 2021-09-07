@@ -2571,7 +2571,7 @@ s32 menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdat
 
 void scenarioKohCallback40(struct savebuffer *buffer)
 {
-	g_Vars.mphilltime = savebufferGetInteger(buffer, 8);
+	g_Vars.mphilltime = savebufferReadBits(buffer, 8);
 }
 
 void scenarioKohCallback44(s32 *arg0)
@@ -8849,7 +8849,7 @@ void scenarioCallback40(struct savebuffer *buffer)
 	if (g_MpScenarios[g_MpSetup.scenario].unk40) {
 		g_MpScenarios[g_MpSetup.scenario].unk40(buffer);
 	} else {
-		savebufferGetInteger(buffer, 8);
+		savebufferReadBits(buffer, 8);
 	}
 }
 

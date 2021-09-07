@@ -967,7 +967,7 @@ glabel func0f10fac8
 /*  f10fb80:	0fc35539 */ 	jal	func0f0d54e4
 /*  f10fb84:	00003025 */ 	or	$a2,$zero,$zero
 /*  f10fb88:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fb8c:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fb8c:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fb90:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f10fb94:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile)
 /*  f10fb98:	24632200 */ 	addiu	$v1,$v1,%lo(g_SoloSaveFile)
@@ -977,12 +977,12 @@ glabel func0f10fac8
 /*  f10fba8:	314bff07 */ 	andi	$t3,$t2,0xff07
 /*  f10fbac:	012b6025 */ 	or	$t4,$t1,$t3
 /*  f10fbb0:	a06c000b */ 	sb	$t4,0xb($v1)
-/*  f10fbb4:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fbb4:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fbb8:	24050020 */ 	addiu	$a1,$zero,0x20
 /*  f10fbbc:	3c01800a */ 	lui	$at,%hi(g_SoloSaveFile+0x10)
 /*  f10fbc0:	ac222210 */ 	sw	$v0,%lo(g_SoloSaveFile+0x10)($at)
 /*  f10fbc4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fbc8:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fbc8:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fbcc:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f10fbd0:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile)
 /*  f10fbd4:	24632200 */ 	addiu	$v1,$v1,%lo(g_SoloSaveFile)
@@ -992,12 +992,12 @@ glabel func0f10fac8
 /*  f10fbe4:	31f8fff8 */ 	andi	$t8,$t7,0xfff8
 /*  f10fbe8:	01d8c825 */ 	or	$t9,$t6,$t8
 /*  f10fbec:	a079000b */ 	sb	$t9,0xb($v1)
-/*  f10fbf0:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fbf0:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fbf4:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f10fbf8:	3c01800a */ 	lui	$at,%hi(g_SoloSaveFile+0xc)
 /*  f10fbfc:	a022220c */ 	sb	$v0,%lo(g_SoloSaveFile+0xc)($at)
 /*  f10fc00:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc04:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fc04:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fc08:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f10fc0c:	00022880 */ 	sll	$a1,$v0,0x2
 /*  f10fc10:	2ca100fc */ 	sltiu	$at,$a1,0xfc
@@ -1010,7 +1010,7 @@ glabel func0f10fac8
 /*  f10fc28:	0c003a87 */ 	jal	sndSetSfxVolume
 /*  f10fc2c:	3104ffff */ 	andi	$a0,$t0,0xffff
 /*  f10fc30:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc34:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fc34:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fc38:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f10fc3c:	00022880 */ 	sll	$a1,$v0,0x2
 /*  f10fc40:	2ca100fc */ 	sltiu	$at,$a1,0xfc
@@ -1023,18 +1023,18 @@ glabel func0f10fac8
 /*  f10fc58:	0fc54bdc */ 	jal	optionsSetMusicVolume
 /*  f10fc5c:	3124ffff */ 	andi	$a0,$t1,0xffff
 /*  f10fc60:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc64:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fc64:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fc68:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f10fc6c:	0c003ce3 */ 	jal	sndSetSoundMode
 /*  f10fc70:	00402025 */ 	or	$a0,$v0,$zero
 /*  f10fc74:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc78:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fc78:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fc7c:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f10fc80:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10fc84:	0fc549cb */ 	jal	optionsSetControlMode
 /*  f10fc88:	00402825 */ 	or	$a1,$v0,$zero
 /*  f10fc8c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc90:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fc90:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fc94:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f10fc98:	02402025 */ 	or	$a0,$s2,$zero
 /*  f10fc9c:	0fc549cb */ 	jal	optionsSetControlMode
@@ -1045,14 +1045,14 @@ glabel func0f10fac8
 /*  f10fcb0:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
 .L0f10fcb4:
 /*  f10fcb4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fcb8:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fcb8:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fcbc:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f10fcc0:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10fcc4:	0211082b */ 	sltu	$at,$s0,$s1
 /*  f10fcc8:	1420fffa */ 	bnez	$at,.L0f10fcb4
 /*  f10fccc:	a2020013 */ 	sb	$v0,0x13($s0)
 /*  f10fcd0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fcd4:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fcd4:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fcd8:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f10fcdc:	3c01800a */ 	lui	$at,%hi(g_SoloSaveFile+0x1e)
 /*  f10fce0:	3c13800a */ 	lui	$s3,%hi(g_SoloSaveFile)
@@ -1064,7 +1064,7 @@ glabel func0f10fac8
 /*  f10fcf4:	02608825 */ 	or	$s1,$s3,$zero
 .L0f10fcf8:
 /*  f10fcf8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fcfc:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fcfc:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fd00:	2405000c */ 	addiu	$a1,$zero,0xc
 /*  f10fd04:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10fd08:	26310002 */ 	addiu	$s1,$s1,0x2
@@ -1082,7 +1082,7 @@ glabel func0f10fac8
 .L0f10fd38:
 /*  f10fd38:	02802025 */ 	or	$a0,$s4,$zero
 .L0f10fd3c:
-/*  f10fd3c:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fd3c:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fd40:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10fd44:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10fd48:	02002825 */ 	or	$a1,$s0,$zero
@@ -1103,7 +1103,7 @@ glabel func0f10fac8
 /*  f10fd84:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
 .L0f10fd88:
 /*  f10fd88:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fd8c:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fd8c:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fd90:	24050015 */ 	addiu	$a1,$zero,0x15
 /*  f10fd94:	26100004 */ 	addiu	$s0,$s0,0x4
 /*  f10fd98:	0211082b */ 	sltu	$at,$s0,$s1
@@ -1121,7 +1121,7 @@ glabel func0f10fac8
 /*  f10fdc4:	10000001 */ 	b	.L0f10fdcc
 /*  f10fdc8:	24050002 */ 	addiu	$a1,$zero,0x2
 .L0f10fdcc:
-/*  f10fdcc:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fdcc:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fdd0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fdd4:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10fdd8:	0212082b */ 	sltu	$at,$s0,$s2
@@ -1133,7 +1133,7 @@ glabel func0f10fac8
 /*  f10fdf0:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
 .L0f10fdf4:
 /*  f10fdf4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fdf8:	0fc354fe */ 	jal	savebufferGetInteger
+/*  f10fdf8:	0fc354fe */ 	jal	savebufferReadBits
 /*  f10fdfc:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f10fe00:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10fe04:	1611fffb */ 	bne	$s0,$s1,.L0f10fdf4
@@ -1240,7 +1240,7 @@ glabel func0f10fac8
 /*  f10a0b0:	0fc34af3 */ 	jal	func0f0d54e4
 /*  f10a0b4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f10a0b8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a0bc:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a0bc:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a0c0:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f10a0c4:	3c03800a */ 	lui	$v1,0x800a
 /*  f10a0c8:	246366f0 */ 	addiu	$v1,$v1,0x66f0
@@ -1250,12 +1250,12 @@ glabel func0f10fac8
 /*  f10a0d8:	314bff07 */ 	andi	$t3,$t2,0xff07
 /*  f10a0dc:	012b6025 */ 	or	$t4,$t1,$t3
 /*  f10a0e0:	a06c000b */ 	sb	$t4,0xb($v1)
-/*  f10a0e4:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a0e4:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a0e8:	24050020 */ 	addiu	$a1,$zero,0x20
 /*  f10a0ec:	3c01800a */ 	lui	$at,0x800a
 /*  f10a0f0:	ac226700 */ 	sw	$v0,0x6700($at)
 /*  f10a0f4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a0f8:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a0f8:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a0fc:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f10a100:	3c03800a */ 	lui	$v1,0x800a
 /*  f10a104:	246366f0 */ 	addiu	$v1,$v1,0x66f0
@@ -1265,12 +1265,12 @@ glabel func0f10fac8
 /*  f10a114:	31f8fff8 */ 	andi	$t8,$t7,0xfff8
 /*  f10a118:	01d8c825 */ 	or	$t9,$t6,$t8
 /*  f10a11c:	a079000b */ 	sb	$t9,0xb($v1)
-/*  f10a120:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a120:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a124:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f10a128:	3c01800a */ 	lui	$at,0x800a
 /*  f10a12c:	a02266fc */ 	sb	$v0,0x66fc($at)
 /*  f10a130:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a134:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a134:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a138:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f10a13c:	00022880 */ 	sll	$a1,$v0,0x2
 /*  f10a140:	2ca100fc */ 	sltiu	$at,$a1,0xfc
@@ -1283,7 +1283,7 @@ glabel func0f10fac8
 /*  f10a158:	0c003c77 */ 	jal	sndSetSfxVolume
 /*  f10a15c:	3104ffff */ 	andi	$a0,$t0,0xffff
 /*  f10a160:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a164:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a164:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a168:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f10a16c:	00022880 */ 	sll	$a1,$v0,0x2
 /*  f10a170:	2ca100fc */ 	sltiu	$at,$a1,0xfc
@@ -1296,18 +1296,18 @@ glabel func0f10fac8
 /*  f10a188:	0fc5359a */ 	jal	optionsSetMusicVolume
 /*  f10a18c:	3124ffff */ 	andi	$a0,$t1,0xffff
 /*  f10a190:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a194:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a194:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a198:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f10a19c:	0c003e02 */ 	jal	sndSetSoundMode
 /*  f10a1a0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f10a1a4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a1a8:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a1a8:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a1ac:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f10a1b0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a1b4:	0fc53387 */ 	jal	optionsSetControlMode
 /*  f10a1b8:	00402825 */ 	or	$a1,$v0,$zero
 /*  f10a1bc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a1c0:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a1c0:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a1c4:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f10a1c8:	02402025 */ 	or	$a0,$s2,$zero
 /*  f10a1cc:	0fc53387 */ 	jal	optionsSetControlMode
@@ -1318,14 +1318,14 @@ glabel func0f10fac8
 /*  f10a1e0:	261066f0 */ 	addiu	$s0,$s0,0x66f0
 .NB0f10a1e4:
 /*  f10a1e4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a1e8:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a1e8:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a1ec:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f10a1f0:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10a1f4:	0211082b */ 	sltu	$at,$s0,$s1
 /*  f10a1f8:	1420fffa */ 	bnez	$at,.NB0f10a1e4
 /*  f10a1fc:	a2020013 */ 	sb	$v0,0x13($s0)
 /*  f10a200:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a204:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a204:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a208:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f10a20c:	3c01800a */ 	lui	$at,0x800a
 /*  f10a210:	3c14800a */ 	lui	$s4,0x800a
@@ -1337,7 +1337,7 @@ glabel func0f10fac8
 /*  f10a224:	02808825 */ 	or	$s1,$s4,$zero
 .NB0f10a228:
 /*  f10a228:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a22c:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a22c:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a230:	2405000c */ 	addiu	$a1,$zero,0xc
 /*  f10a234:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10a238:	26310002 */ 	addiu	$s1,$s1,0x2
@@ -1355,7 +1355,7 @@ glabel func0f10fac8
 .NB0f10a268:
 /*  f10a268:	02602025 */ 	or	$a0,$s3,$zero
 .NB0f10a26c:
-/*  f10a26c:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a26c:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a270:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10a274:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10a278:	02002825 */ 	or	$a1,$s0,$zero
@@ -1376,7 +1376,7 @@ glabel func0f10fac8
 /*  f10a2b4:	261066f0 */ 	addiu	$s0,$s0,0x66f0
 .NB0f10a2b8:
 /*  f10a2b8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a2bc:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a2bc:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a2c0:	24050015 */ 	addiu	$a1,$zero,0x15
 /*  f10a2c4:	26100004 */ 	addiu	$s0,$s0,0x4
 /*  f10a2c8:	0211082b */ 	sltu	$at,$s0,$s1
@@ -1394,7 +1394,7 @@ glabel func0f10fac8
 /*  f10a2f4:	10000001 */ 	beqz	$zero,.NB0f10a2fc
 /*  f10a2f8:	24050002 */ 	addiu	$a1,$zero,0x2
 .NB0f10a2fc:
-/*  f10a2fc:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a2fc:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a300:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a304:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10a308:	0212082b */ 	sltu	$at,$s0,$s2
@@ -1406,7 +1406,7 @@ glabel func0f10fac8
 /*  f10a320:	261066f0 */ 	addiu	$s0,$s0,0x66f0
 .NB0f10a324:
 /*  f10a324:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a328:	0fc34ab8 */ 	jal	savebufferGetInteger
+/*  f10a328:	0fc34ab8 */ 	jal	savebufferReadBits
 /*  f10a32c:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f10a330:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10a334:	1611fffb */ 	bne	$s0,$s1,.NB0f10a324
@@ -2906,13 +2906,13 @@ void savefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 
 	func0f0d5484(&buffer, arg0, 15);
 	func0f0d54e4(&buffer, name, 0);
 
-	*stage = savebufferGetInteger(&buffer, 5);
+	*stage = savebufferReadBits(&buffer, 5);
 
 #if VERSION >= VERSION_NTSC_1_0
-	*time = savebufferGetInteger(&buffer, 0x20);
+	*time = savebufferReadBits(&buffer, 32);
 #else
-	*time = (u16) savebufferGetInteger(&buffer, 0x20);
+	*time = (u16) savebufferReadBits(&buffer, 32);
 #endif
 
-	*difficulty = savebufferGetInteger(&buffer, 2);
+	*difficulty = savebufferReadBits(&buffer, 2);
 }
