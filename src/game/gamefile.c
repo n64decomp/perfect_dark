@@ -964,7 +964,7 @@ glabel func0f10fac8
 /*  f10fb74:	3c05800a */ 	lui	$a1,%hi(g_SoloSaveFile)
 /*  f10fb78:	24a52200 */ 	addiu	$a1,$a1,%lo(g_SoloSaveFile)
 /*  f10fb7c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fb80:	0fc35539 */ 	jal	func0f0d54e4
+/*  f10fb80:	0fc35539 */ 	jal	savebufferReadString
 /*  f10fb84:	00003025 */ 	or	$a2,$zero,$zero
 /*  f10fb88:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fb8c:	0fc354fe */ 	jal	savebufferReadBits
@@ -1237,7 +1237,7 @@ glabel func0f10fac8
 /*  f10a0a4:	3c05800a */ 	lui	$a1,0x800a
 /*  f10a0a8:	24a566f0 */ 	addiu	$a1,$a1,0x66f0
 /*  f10a0ac:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a0b0:	0fc34af3 */ 	jal	func0f0d54e4
+/*  f10a0b0:	0fc34af3 */ 	jal	savebufferReadString
 /*  f10a0b4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f10a0b8:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10a0bc:	0fc34ab8 */ 	jal	savebufferReadBits
@@ -2904,7 +2904,7 @@ void savefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 
 	struct savebuffer buffer;
 
 	func0f0d5484(&buffer, arg0, 15);
-	func0f0d54e4(&buffer, name, 0);
+	savebufferReadString(&buffer, name, false);
 
 	*stage = savebufferReadBits(&buffer, 5);
 

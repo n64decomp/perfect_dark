@@ -1141,62 +1141,37 @@ void func0f0d54c4(struct savebuffer *buffer)
 	if (tmp / 8 && buffer->bitpos);
 }
 
-GLOBAL_ASM(
-glabel func0f0d54e4
-/*  f0d54e4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0d54e8:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f0d54ec:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f0d54f0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0d54f4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0d54f8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0d54fc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0d5500:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0d5504:	00a0a825 */ 	or	$s5,$a1,$zero
-/*  f0d5508:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0d550c:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f0d5510:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0d5514:	00009025 */ 	or	$s2,$zero,$zero
-/*  f0d5518:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0d551c:	2414000a */ 	addiu	$s4,$zero,0xa
-/*  f0d5520:	02602025 */ 	or	$a0,$s3,$zero
-.L0f0d5524:
-/*  f0d5524:	0fc354fe */ 	jal	savebufferReadBits
-/*  f0d5528:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f0d552c:	56200008 */ 	bnezl	$s1,.L0f0d5550
-/*  f0d5530:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0d5534:	14400003 */ 	bnez	$v0,.L0f0d5544
-/*  f0d5538:	02b07021 */ 	addu	$t6,$s5,$s0
-/*  f0d553c:	10000003 */ 	b	.L0f0d554c
-/*  f0d5540:	24110001 */ 	addiu	$s1,$zero,0x1
-.L0f0d5544:
-/*  f0d5544:	a1c20000 */ 	sb	$v0,0x0($t6)
-/*  f0d5548:	02009025 */ 	or	$s2,$s0,$zero
-.L0f0d554c:
-/*  f0d554c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f0d5550:
-/*  f0d5550:	5614fff4 */ 	bnel	$s0,$s4,.L0f0d5524
-/*  f0d5554:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0d5558:	8faf0038 */ 	lw	$t7,0x38($sp)
-/*  f0d555c:	2418000a */ 	addiu	$t8,$zero,0xa
-/*  f0d5560:	51e00005 */ 	beqzl	$t7,.L0f0d5578
-/*  f0d5564:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f0d5568:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f0d556c:	02b2c821 */ 	addu	$t9,$s5,$s2
-/*  f0d5570:	a3380000 */ 	sb	$t8,0x0($t9)
-/*  f0d5574:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f0d5578:
-/*  f0d5578:	02b24021 */ 	addu	$t0,$s5,$s2
-/*  f0d557c:	a1000000 */ 	sb	$zero,0x0($t0)
-/*  f0d5580:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0d5584:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f0d5588:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f0d558c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0d5590:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0d5594:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0d5598:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0d559c:	03e00008 */ 	jr	$ra
-/*  f0d55a0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+/**
+ * Read a zero-terminated string from the buffer and move the buffer's internal
+ * pointer past the end of the string.
+ */
+void savebufferReadString(struct savebuffer *buffer, char *dst, bool addlinebreak)
+{
+	bool foundnull = false;
+	s32 index = 0;
+	s32 i;
+
+	for (i = 0; i < 10; i++) {
+		s32 byte = savebufferReadBits(buffer, 8);
+
+		if (!foundnull) {
+			if (byte == '\0') {
+				foundnull = true;
+			} else {
+				dst[i] = byte;
+				index = i;
+			}
+		}
+	}
+
+	if (addlinebreak) {
+		index++;
+		dst[index] = '\n';
+	}
+
+	index++;
+	dst[index] = '\0';
+}
 
 GLOBAL_ASM(
 glabel func0f0d55a4
@@ -1249,12 +1224,12 @@ glabel func0f0d55a4
 /*  f0d5648:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-void func0f0d564c(u8 *data1, u8 *data2, s32 arg2)
+void func0f0d564c(u8 *data, char *dst, bool addlinebreak)
 {
 	struct savebuffer buffer;
 
-	func0f0d5484(&buffer, data1, 10);
-	func0f0d54e4(&buffer, data2, arg2);
+	func0f0d5484(&buffer, data, 10);
+	savebufferReadString(&buffer, dst, addlinebreak);
 }
 
 #if VERSION >= VERSION_NTSC_1_0

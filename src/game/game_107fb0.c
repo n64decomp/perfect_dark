@@ -143,7 +143,7 @@ void filemgrGetFileName(char *buffer, struct savelocation000 *arg1, u32 filetype
 	switch (filetype) {
 	case FILETYPE_SOLO:
 	case FILETYPE_MPSETUP:
-		func0f0d564c(arg1->unk06, tmpbuffer1, 0);
+		func0f0d564c(arg1->unk06, tmpbuffer1, false);
 		break;
 	case FILETYPE_MPPLAYER:
 		// MP Player filenames have the play duration appended to the name
@@ -1254,7 +1254,7 @@ void func0f1099a8(char *buffer, struct savelocation000 *arg1)
 	switch (g_FileLists[g_Menus[g_MpPlayerNum].listnum]->filetype) {
 	case FILETYPE_SOLO:
 	case FILETYPE_MPSETUP:
-		func0f0d564c(arg1->unk06, localbuffer, 0);
+		func0f0d564c(arg1->unk06, localbuffer, false);
 		break;
 	case FILETYPE_MPPLAYER:
 		func0f18d9a4(arg1->unk06, localbuffer, &sp20);

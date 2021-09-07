@@ -250,7 +250,7 @@ glabel func0f11080c
 /*  f1108d0:	02402025 */ 	or	$a0,$s2,$zero
 .L0f1108d4:
 /*  f1108d4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1108d8:	0fc35539 */ 	jal	func0f0d54e4
+/*  f1108d8:	0fc35539 */ 	jal	savebufferReadString
 /*  f1108dc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f1108e0:	2610000c */ 	addiu	$s0,$s0,0xc
 /*  f1108e4:	0211082b */ 	sltu	$at,$s0,$s1
