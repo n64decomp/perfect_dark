@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 func0f0d4690(void);
-u32 func0f0d475c(void);
+void func0f0d475c(Mtxf *mtx);
 Gfx *func0f0d479c(Gfx *gdl);
 Gfx *func0f0d49c8(Gfx *gdl);
 u32 func0f0d4a3c(void);

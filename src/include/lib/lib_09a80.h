@@ -21,7 +21,7 @@ void func0000aa50(f32 arg0);
 void func0000aab0(u32 arg0);
 void *viGetUnk28(void);
 void *vi2GetUnk28(void);
-u32 func0000ab4c(void);
+Vp *func0000ab4c(void);
 u32 func0000ab6c(void);
 u32 func0000ab78(void);
 u32 func0000aca4(void);

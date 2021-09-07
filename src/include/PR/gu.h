@@ -25,6 +25,7 @@ void guMtxL2F(float mf[4][4], Mtx *m);
 void guNormalize(float *, float *, float *);
 void guAlignF(float mf[4][4], float a, float x, float y, float z);
 void guRotateF(float mf[4][4], float a, float x, float y, float z);
+void guFrustumF(float mf[4][4], float l, float r, float b, float t, float n, float f, float scale);
 
 void guLookAt(Mtx *m, float xEye, float yEye, float zEye,
 		float xAt,  float yAt,  float zAt,
