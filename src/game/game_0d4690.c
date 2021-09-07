@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_0b3350.h"
+#include "game/game_0b4950.h"
 #include "game/game_0d4690.h"
 #include "game/file.h"
 #include "game/utils.h"
@@ -403,38 +403,13 @@ glabel func0f0d479c
 );
 #endif
 
-GLOBAL_ASM(
-glabel func0f0d49c8
-/*  f0d49c8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0d49cc:	3c0e0380 */ 	lui	$t6,0x380
-/*  f0d49d0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0d49d4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0d49d8:	35ce0010 */ 	ori	$t6,$t6,0x10
-/*  f0d49dc:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f0d49e0:	afa40024 */ 	sw	$a0,0x24($sp)
-/*  f0d49e4:	0c002ad3 */ 	jal	func0000ab4c
-/*  f0d49e8:	24900008 */ 	addiu	$s0,$a0,0x8
-/*  f0d49ec:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f0d49f0:	3c018000 */ 	lui	$at,0x8000
-/*  f0d49f4:	00417821 */ 	addu	$t7,$v0,$at
-/*  f0d49f8:	3c180103 */ 	lui	$t8,0x103
-/*  f0d49fc:	37180040 */ 	ori	$t8,$t8,0x40
-/*  f0d4a00:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0d4a04:	ac6f0004 */ 	sw	$t7,0x4($v1)
-/*  f0d4a08:	ac980000 */ 	sw	$t8,0x0($a0)
-/*  f0d4a0c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0d4a10:	0fc2d3fa */ 	jal	currentPlayerGetUnk1750
-/*  f0d4a14:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f0d4a18:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f0d4a1c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0d4a20:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*  f0d4a24:	af220004 */ 	sw	$v0,0x4($t9)
-/*  f0d4a28:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0d4a2c:	02001025 */ 	or	$v0,$s0,$zero
-/*  f0d4a30:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0d4a34:	03e00008 */ 	jr	$ra
-/*  f0d4a38:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+Gfx *func0f0d49c8(Gfx *gdl)
+{
+	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(func0000ab4c()));
+	gSPMatrix(gdl++, osVirtualToPhysical(currentPlayerGetUnk1750()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0d4a3c
