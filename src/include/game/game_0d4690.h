@@ -19,7 +19,7 @@ void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len);
 void func0f0d54c4(struct savebuffer *buffer);
 void func0f0d54e4(struct savebuffer *buffer, char *arg1, s32 arg2);
 u32 func0f0d55a4(void);
-void func0f0d564c(char *arg0, char *buffer, s32 arg2);
+void func0f0d564c(u8 *data1, u8 *data2, s32 arg2);
 void func0f0d5690(void *arg0, char *buffer);
 u32 func0f0d575c(void);
 u32 func0f0d579c(void);

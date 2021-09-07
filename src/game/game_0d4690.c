@@ -1274,26 +1274,13 @@ glabel func0f0d55a4
 /*  f0d5648:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f0d564c
-/*  f0d564c:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*  f0d5650:	afa500fc */ 	sw	$a1,0xfc($sp)
-/*  f0d5654:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0d5658:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d565c:	afa400f8 */ 	sw	$a0,0xf8($sp)
-/*  f0d5660:	afa60100 */ 	sw	$a2,0x100($sp)
-/*  f0d5664:	2406000a */ 	addiu	$a2,$zero,0xa
-/*  f0d5668:	0fc35521 */ 	jal	func0f0d5484
-/*  f0d566c:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f0d5670:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f0d5674:	8fa500fc */ 	lw	$a1,0xfc($sp)
-/*  f0d5678:	0fc35539 */ 	jal	func0f0d54e4
-/*  f0d567c:	8fa60100 */ 	lw	$a2,0x100($sp)
-/*  f0d5680:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d5684:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-/*  f0d5688:	03e00008 */ 	jr	$ra
-/*  f0d568c:	00000000 */ 	nop
-);
+void func0f0d564c(u8 *data1, u8 *data2, s32 arg2)
+{
+	struct savebuffer buffer;
+
+	func0f0d5484(&buffer, data1, 10);
+	func0f0d54e4(&buffer, data2, arg2);
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
