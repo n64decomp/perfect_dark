@@ -1037,38 +1037,30 @@ glabel func0f0d4d0c
 /*  f0d52f4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel savefileGetSomething
-/*  f0d52f8:	24ce001f */ 	addiu	$t6,$a2,0x1f
-/*  f0d52fc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0d5300:	01cf1004 */ 	sllv	$v0,$t7,$t6
-/*  f0d5304:	10400014 */ 	beqz	$v0,.L0f0d5358
-/*  f0d5308:	24090007 */ 	addiu	$t1,$zero,0x7
-.L0f0d530c:
-/*  f0d530c:	0045c024 */ 	and	$t8,$v0,$a1
-/*  f0d5310:	5300000c */ 	beqzl	$t8,.L0f0d5344
-/*  f0d5314:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f0d5318:	8c860000 */ 	lw	$a2,0x0($a0)
-/*  f0d531c:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f0d5320:	000638c2 */ 	srl	$a3,$a2,0x3
-/*  f0d5324:	00874021 */ 	addu	$t0,$a0,$a3
-/*  f0d5328:	91190004 */ 	lbu	$t9,0x4($t0)
-/*  f0d532c:	30c30007 */ 	andi	$v1,$a2,0x7
-/*  f0d5330:	01235023 */ 	subu	$t2,$t1,$v1
-/*  f0d5334:	014b6804 */ 	sllv	$t5,$t3,$t2
-/*  f0d5338:	032d7825 */ 	or	$t7,$t9,$t5
-/*  f0d533c:	a10f0004 */ 	sb	$t7,0x4($t0)
-/*  f0d5340:	8c8e0000 */ 	lw	$t6,0x0($a0)
-.L0f0d5344:
-/*  f0d5344:	00025842 */ 	srl	$t3,$v0,0x1
-/*  f0d5348:	01601025 */ 	or	$v0,$t3,$zero
-/*  f0d534c:	25d80001 */ 	addiu	$t8,$t6,0x1
-/*  f0d5350:	1560ffee */ 	bnez	$t3,.L0f0d530c
-/*  f0d5354:	ac980000 */ 	sw	$t8,0x0($a0)
-.L0f0d5358:
-/*  f0d5358:	03e00008 */ 	jr	$ra
-/*  f0d535c:	00000000 */ 	nop
-);
+/**
+ * Write the specified amount of bits to the buffer, advancing the internal pointer.
+ *
+ * numbits is expected to be 32 or less.
+ *
+ * @bug? This function sets bits but doesn't unset them.
+ * Maybe the buffer is cleared before use.
+ */
+void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits)
+{
+	u32 bit = 1 << (numbits + 31);
+
+	for (; bit; bit >>= 1) {
+		if (bit & value) {
+			s32 bitindex = buffer->bitpos % 8;
+			u8 mask = 1 << (7 - bitindex);
+			s32 byteindex = buffer->bitpos / 8;
+
+			buffer->bytes[byteindex] |= mask;
+		}
+
+		buffer->bitpos++;
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -1260,13 +1252,13 @@ glabel func0f0d55a4
 /*  f0d55fc:	24100001 */ 	addiu	$s0,$zero,0x1
 .L0f0d5600:
 /*  f0d5600:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0d5604:	0fc354be */ 	jal	savefileGetSomething
+/*  f0d5604:	0fc354be */ 	jal	savebufferWriteBits
 /*  f0d5608:	24060008 */ 	addiu	$a2,$zero,0x8
 .L0f0d560c:
 /*  f0d560c:	12000004 */ 	beqz	$s0,.L0f0d5620
 /*  f0d5610:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0d5614:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d5618:	0fc354be */ 	jal	savefileGetSomething
+/*  f0d5618:	0fc354be */ 	jal	savebufferWriteBits
 /*  f0d561c:	24060008 */ 	addiu	$a2,$zero,0x8
 .L0f0d5620:
 /*  f0d5620:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -1372,12 +1364,12 @@ glabel func0f0d575c
 /*  f0d5764:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0d5768:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0d576c:	8ca50000 */ 	lw	$a1,0x0($a1)
-/*  f0d5770:	0fc354be */ 	jal	savefileGetSomething
+/*  f0d5770:	0fc354be */ 	jal	savebufferWriteBits
 /*  f0d5774:	24060007 */ 	addiu	$a2,$zero,0x7
 /*  f0d5778:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*  f0d577c:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0d5780:	2406000d */ 	addiu	$a2,$zero,0xd
-/*  f0d5784:	0fc354be */ 	jal	savefileGetSomething
+/*  f0d5784:	0fc354be */ 	jal	savebufferWriteBits
 /*  f0d5788:	95e50004 */ 	lhu	$a1,0x4($t7)
 /*  f0d578c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0d5790:	27bd0018 */ 	addiu	$sp,$sp,0x18

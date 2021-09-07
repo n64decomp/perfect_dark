@@ -2569,14 +2569,14 @@ s32 menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdat
 	return 0;
 }
 
-void scenarioKohCallback40(struct savebuffer *buffer)
+void scenarioKohReadSave(struct savebuffer *buffer)
 {
 	g_Vars.mphilltime = savebufferReadBits(buffer, 8);
 }
 
-void scenarioKohCallback44(s32 *arg0)
+void scenarioKohWriteSave(struct savebuffer *buffer)
 {
-	savefileGetSomething(arg0, g_Vars.mphilltime, 8);
+	savebufferWriteBits(buffer, g_Vars.mphilltime, 8);
 }
 
 void scenarioKohInit(void)
@@ -8556,8 +8556,8 @@ struct mpscenario g_MpScenarios[6] = {
 		scenarioKohIsRoomHighlighted,
 		scenarioKohCallback38,
 		NULL,
-		scenarioKohCallback40,
-		scenarioKohCallback44
+		scenarioKohReadSave,
+		scenarioKohWriteSave
 	}, {
 		&g_MpCaptureOptionsMenuDialog,
 		scenarioCtcInit,
@@ -8844,21 +8844,21 @@ s32 menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-void scenarioCallback40(struct savebuffer *buffer)
+void scenarioReadSave(struct savebuffer *buffer)
 {
-	if (g_MpScenarios[g_MpSetup.scenario].unk40) {
-		g_MpScenarios[g_MpSetup.scenario].unk40(buffer);
+	if (g_MpScenarios[g_MpSetup.scenario].readsavefunc) {
+		g_MpScenarios[g_MpSetup.scenario].readsavefunc(buffer);
 	} else {
 		savebufferReadBits(buffer, 8);
 	}
 }
 
-void scenarioCallback44(s32 *arg0)
+void scenarioWriteSave(struct savebuffer *buffer)
 {
-	if (g_MpScenarios[g_MpSetup.scenario].unk44) {
-		g_MpScenarios[g_MpSetup.scenario].unk44(arg0);
+	if (g_MpScenarios[g_MpSetup.scenario].writesavefunc) {
+		g_MpScenarios[g_MpSetup.scenario].writesavefunc(buffer);
 	} else {
-		savefileGetSomething(arg0, 0, 8);
+		savebufferWriteBits(buffer, 0, 8);
 	}
 }
 

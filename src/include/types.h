@@ -4633,8 +4633,8 @@ struct mpscenario {
 	bool (*isroomhighlightedfunc)(s16 room);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 	void *unk3c;
-	void (*unk40)(struct savebuffer *buffer);
-	void (*unk44)(s32 *arg0);
+	void (*readsavefunc)(struct savebuffer *buffer);
+	void (*writesavefunc)(struct savebuffer *buffer);
 };
 
 struct mpscenariooverview {

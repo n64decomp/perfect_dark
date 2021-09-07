@@ -11,7 +11,7 @@ Gfx *func0f0d49c8(Gfx *gdl);
 u32 func0f0d4a3c(void);
 u32 func0f0d4c80(void);
 u32 func0f0d4d0c(void);
-void savefileGetSomething(s32 *arg0, s32 arg1, s32 arg2);
+void savebufferWriteBits(struct savebuffer *buffer, u32 arg1, s32 arg2);
 u32 func0f0d5360(void);
 u32 savebufferReadBits(struct savebuffer *buffer, s32 offset);
 void savebufferClear(struct savebuffer *buffer);
