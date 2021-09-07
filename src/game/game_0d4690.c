@@ -1292,6 +1292,36 @@ glabel func0f0d5690
 /*  f0d5754:	03e00008 */ 	jr	$ra
 /*  f0d5758:	27bd0128 */ 	addiu	$sp,$sp,0x128
 );
+
+// Mismatch: Goal uses both v0 and v1 for src[i] and c, but in some weird way.
+//void func0f0d5690(void *arg0, char *src)
+//{
+//	struct savebuffer buffer;
+//	bool done = false;
+//	s32 i;
+//	char c;
+//	s32 v1;
+//
+//	func0f0d5484(&buffer, arg0, 10);
+//
+//	for (i = 0; i < 10; i++) {
+//		if (!done) {
+//			c = src[i];
+//
+//			if (src[i] == '\0') {
+//				done = true;
+//			} else if (c == '\n') {
+//				done = true;
+//			} else {
+//				func0f0d5360(&buffer, c, 8, arg0);
+//			}
+//		}
+//
+//		if (done) {
+//			func0f0d5360(&buffer, '\0', 8, arg0);
+//		}
+//	}
+//}
 #endif
 
 GLOBAL_ASM(

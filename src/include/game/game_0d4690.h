@@ -12,7 +12,7 @@ u32 func0f0d4a3c(void);
 u32 func0f0d4c80(void);
 u32 func0f0d4d0c(void);
 void savebufferWriteBits(struct savebuffer *buffer, u32 arg1, s32 arg2);
-u32 func0f0d5360(void);
+void func0f0d5360(struct savebuffer *buffer, s32 c, s32 len, void *arg3);
 u32 savebufferReadBits(struct savebuffer *buffer, s32 offset);
 void savebufferClear(struct savebuffer *buffer);
 void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len);
