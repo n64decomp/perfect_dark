@@ -1173,18 +1173,12 @@ void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0d54c4
-/*  f0d54c4:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f0d54c8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0d54cc:	04410003 */ 	bgez	$v0,.L0f0d54dc
-/*  f0d54d0:	000270c3 */ 	sra	$t6,$v0,0x3
-/*  f0d54d4:	24410007 */ 	addiu	$at,$v0,0x7
-/*  f0d54d8:	000170c3 */ 	sra	$t6,$at,0x3
-.L0f0d54dc:
-/*  f0d54dc:	03e00008 */ 	jr	$ra
-/*  f0d54e0:	00000000 */ 	nop
-);
+void func0f0d54c4(struct savebuffer *buffer)
+{
+	s32 tmp = buffer->word;
+
+	if (tmp / 8 && buffer->word);
+}
 
 GLOBAL_ASM(
 glabel func0f0d54e4

@@ -16,7 +16,7 @@ u32 func0f0d5360(void);
 s32 savebufferGetInteger(struct savebuffer *buffer, s32 offset);
 void savebufferClear(struct savebuffer *buffer);
 void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len);
-u32 func0f0d54c4(void);
+void func0f0d54c4(struct savebuffer *buffer);
 void func0f0d54e4(struct savebuffer *buffer, char *arg1, s32 arg2);
 u32 func0f0d55a4(void);
 void func0f0d564c(char *arg0, char *buffer, s32 arg2);
