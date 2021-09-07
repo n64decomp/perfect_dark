@@ -4611,6 +4611,11 @@ struct savefile_setup {
 	/*0x8d*/ u8 multipletracknums[5];
 };
 
+struct savebuffer {
+	s32 word; // checksum?
+	u8 bytes[220];
+};
+
 struct mpscenario {
 	struct menudialog *optionsdialog;
 	void (*initfunc)(void);
@@ -4628,7 +4633,7 @@ struct mpscenario {
 	bool (*isroomhighlightedfunc)(s16 room);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 	void *unk3c;
-	void (*unk40)(s32 *arg0);
+	void (*unk40)(struct savebuffer *buffer);
 	void (*unk44)(s32 *arg0);
 };
 

@@ -2569,9 +2569,9 @@ s32 menuhandlerMpHillTime(s32 operation, struct menuitem *item, union handlerdat
 	return 0;
 }
 
-void scenarioKohCallback40(s32 *arg0)
+void scenarioKohCallback40(struct savebuffer *buffer)
 {
-	g_Vars.mphilltime = savefileGetInteger(arg0, 8);
+	g_Vars.mphilltime = savebufferGetInteger(buffer, 8);
 }
 
 void scenarioKohCallback44(s32 *arg0)
@@ -8844,12 +8844,12 @@ s32 menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handler
 	return 0;
 }
 
-void scenarioCallback40(s32 *arg0)
+void scenarioCallback40(struct savebuffer *buffer)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].unk40) {
-		g_MpScenarios[g_MpSetup.scenario].unk40(arg0);
+		g_MpScenarios[g_MpSetup.scenario].unk40(buffer);
 	} else {
-		savefileGetInteger(arg0, 8);
+		savebufferGetInteger(buffer, 8);
 	}
 }
 

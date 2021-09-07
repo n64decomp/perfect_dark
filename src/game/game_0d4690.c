@@ -1119,7 +1119,7 @@ glabel func0f0d5360
 #endif
 
 GLOBAL_ASM(
-glabel savefileGetInteger
+glabel savebufferGetInteger
 /*  f0d53f8:	24ae001f */ 	addiu	$t6,$a1,0x1f
 /*  f0d53fc:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f0d5400:	01cf1004 */ 	sllv	$v0,$t7,$t6
@@ -1165,27 +1165,16 @@ glabel func0f0d545c
 /*  f0d5480:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0d5484
-/*  f0d5484:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f0d5488:	30c300ff */ 	andi	$v1,$a2,0xff
-/*  f0d548c:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f0d5490:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f0d5494:	18600009 */ 	blez	$v1,.L0f0d54bc
-/*  f0d5498:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0d549c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0d54a0:	00e03025 */ 	or	$a2,$a3,$zero
-.L0f0d54a4:
-/*  f0d54a4:	90cf0000 */ 	lbu	$t7,0x0($a2)
-/*  f0d54a8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0d54ac:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0d54b0:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f0d54b4:	1443fffb */ 	bne	$v0,$v1,.L0f0d54a4
-/*  f0d54b8:	a0af0003 */ 	sb	$t7,0x3($a1)
-.L0f0d54bc:
-/*  f0d54bc:	03e00008 */ 	jr	$ra
-/*  f0d54c0:	00000000 */ 	nop
-);
+void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len)
+{
+	s32 i;
+
+	buffer->word = 0;
+
+	for (i = 0; i < len; i++) {
+		buffer->bytes[i] = data[i];
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0d54c4
@@ -1219,7 +1208,7 @@ glabel func0f0d54e4
 /*  f0d551c:	2414000a */ 	addiu	$s4,$zero,0xa
 /*  f0d5520:	02602025 */ 	or	$a0,$s3,$zero
 .L0f0d5524:
-/*  f0d5524:	0fc354fe */ 	jal	savefileGetInteger
+/*  f0d5524:	0fc354fe */ 	jal	savebufferGetInteger
 /*  f0d5528:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f0d552c:	56200008 */ 	bnezl	$s1,.L0f0d5550
 /*  f0d5530:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -1417,12 +1406,12 @@ glabel func0f0d579c
 /*  f0d57a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0d57a4:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0d57a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0d57ac:	0fc354fe */ 	jal	savefileGetInteger
+/*  f0d57ac:	0fc354fe */ 	jal	savebufferGetInteger
 /*  f0d57b0:	24050007 */ 	addiu	$a1,$zero,0x7
 /*  f0d57b4:	8fae001c */ 	lw	$t6,0x1c($sp)
 /*  f0d57b8:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f0d57bc:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f0d57c0:	0fc354fe */ 	jal	savefileGetInteger
+/*  f0d57c0:	0fc354fe */ 	jal	savebufferGetInteger
 /*  f0d57c4:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0d57c8:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*  f0d57cc:	a5e20004 */ 	sh	$v0,0x4($t7)
