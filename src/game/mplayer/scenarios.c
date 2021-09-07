@@ -2576,7 +2576,7 @@ void scenarioKohReadSave(struct savebuffer *buffer)
 
 void scenarioKohWriteSave(struct savebuffer *buffer)
 {
-	savebufferWriteBits(buffer, g_Vars.mphilltime, 8);
+	savebufferOr(buffer, g_Vars.mphilltime, 8);
 }
 
 void scenarioKohInit(void)
@@ -8858,7 +8858,7 @@ void scenarioWriteSave(struct savebuffer *buffer)
 	if (g_MpScenarios[g_MpSetup.scenario].writesavefunc) {
 		g_MpScenarios[g_MpSetup.scenario].writesavefunc(buffer);
 	} else {
-		savebufferWriteBits(buffer, 0, 8);
+		savebufferOr(buffer, 0, 8);
 	}
 }
 

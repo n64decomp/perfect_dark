@@ -1017,10 +1017,9 @@ glabel func0f0d4d0c
  *
  * numbits is expected to be 32 or less.
  *
- * @bug? This function sets bits but doesn't unset them.
- * Maybe the buffer is cleared before use.
+ * This function only sets bits to on and does not unset them.
  */
-void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits)
+void savebufferOr(struct savebuffer *buffer, u32 value, s32 numbits)
 {
 	u32 bit = 1 << (numbits + 31);
 
@@ -1038,51 +1037,29 @@ void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f0d5360
-/*  f0d5360:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f0d5364:	24ce001f */ 	addiu	$t6,$a2,0x1f
-/*  f0d5368:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0d536c:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f0d5370:	01cf1004 */ 	sllv	$v0,$t7,$t6
-/*  f0d5374:	1040001d */ 	beqz	$v0,.L0f0d53ec
-/*  f0d5378:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0d537c:	24080007 */ 	addiu	$t0,$zero,0x7
-.L0f0d5380:
-/*  f0d5380:	8c850000 */ 	lw	$a1,0x0($a0)
-/*  f0d5384:	0050c024 */ 	and	$t8,$v0,$s0
-/*  f0d5388:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0d538c:	30a30007 */ 	andi	$v1,$a1,0x7
-/*  f0d5390:	13000008 */ 	beqz	$t8,.L0f0d53b4
-/*  f0d5394:	000530c2 */ 	srl	$a2,$a1,0x3
-/*  f0d5398:	00e62821 */ 	addu	$a1,$a3,$a2
-/*  f0d539c:	90b90000 */ 	lbu	$t9,0x0($a1)
-/*  f0d53a0:	01034823 */ 	subu	$t1,$t0,$v1
-/*  f0d53a4:	012a6004 */ 	sllv	$t4,$t2,$t1
-/*  f0d53a8:	032c6825 */ 	or	$t5,$t9,$t4
-/*  f0d53ac:	10000009 */ 	b	.L0f0d53d4
-/*  f0d53b0:	a0ad0000 */ 	sb	$t5,0x0($a1)
-.L0f0d53b4:
-/*  f0d53b4:	00e62821 */ 	addu	$a1,$a3,$a2
-/*  f0d53b8:	90af0000 */ 	lbu	$t7,0x0($a1)
-/*  f0d53bc:	01037023 */ 	subu	$t6,$t0,$v1
-/*  f0d53c0:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0d53c4:	01d84804 */ 	sllv	$t1,$t8,$t6
-/*  f0d53c8:	01205827 */ 	nor	$t3,$t1,$zero
-/*  f0d53cc:	01ebc824 */ 	and	$t9,$t7,$t3
-/*  f0d53d0:	a0b90000 */ 	sb	$t9,0x0($a1)
-.L0f0d53d4:
-/*  f0d53d4:	8c8c0000 */ 	lw	$t4,0x0($a0)
-/*  f0d53d8:	0002c042 */ 	srl	$t8,$v0,0x1
-/*  f0d53dc:	03001025 */ 	or	$v0,$t8,$zero
-/*  f0d53e0:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f0d53e4:	1700ffe6 */ 	bnez	$t8,.L0f0d5380
-/*  f0d53e8:	ac8d0000 */ 	sw	$t5,0x0($a0)
-.L0f0d53ec:
-/*  f0d53ec:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f0d53f0:	03e00008 */ 	jr	$ra
-/*  f0d53f4:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+/**
+ * Write the specified amount of bits to the buffer, advancing the internal pointer.
+ *
+ * numbits is expected to be 32 or less.
+ */
+void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst)
+{
+	u32 bit = 1 << (numbits + 31);
+
+	for (; bit; bit >>= 1) {
+		s32 bitindex = buffer->bitpos % 8;
+		u8 mask = 1 << (7 - bitindex);
+		s32 byteindex = buffer->bitpos / 8;
+
+		if (bit & value) {
+			dst[byteindex] |= mask;
+		} else {
+			dst[byteindex] &= ~mask;
+		}
+
+		buffer->bitpos++;
+	}
+}
 #endif
 
 /**
@@ -1202,13 +1179,13 @@ glabel func0f0d55a4
 /*  f0d55fc:	24100001 */ 	addiu	$s0,$zero,0x1
 .L0f0d5600:
 /*  f0d5600:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0d5604:	0fc354be */ 	jal	savebufferWriteBits
+/*  f0d5604:	0fc354be */ 	jal	savebufferOr
 /*  f0d5608:	24060008 */ 	addiu	$a2,$zero,0x8
 .L0f0d560c:
 /*  f0d560c:	12000004 */ 	beqz	$s0,.L0f0d5620
 /*  f0d5610:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0d5614:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0d5618:	0fc354be */ 	jal	savebufferWriteBits
+/*  f0d5618:	0fc354be */ 	jal	savebufferOr
 /*  f0d561c:	24060008 */ 	addiu	$a2,$zero,0x8
 .L0f0d5620:
 /*  f0d5620:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -1269,14 +1246,14 @@ glabel func0f0d5690
 .L0f0d5704:
 /*  f0d5704:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d5708:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f0d570c:	0fc354d8 */ 	jal	func0f0d5360
+/*  f0d570c:	0fc354d8 */ 	jal	savebufferWriteBits
 /*  f0d5710:	02403825 */ 	or	$a3,$s2,$zero
 .L0f0d5714:
 /*  f0d5714:	12000005 */ 	beqz	$s0,.L0f0d572c
 /*  f0d5718:	02602025 */ 	or	$a0,$s3,$zero
 /*  f0d571c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0d5720:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f0d5724:	0fc354d8 */ 	jal	func0f0d5360
+/*  f0d5724:	0fc354d8 */ 	jal	savebufferWriteBits
 /*  f0d5728:	02403825 */ 	or	$a3,$s2,$zero
 .L0f0d572c:
 /*  f0d572c:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -1294,7 +1271,7 @@ glabel func0f0d5690
 );
 
 // Mismatch: Goal uses both v0 and v1 for src[i] and c, but in some weird way.
-//void func0f0d5690(void *arg0, char *src)
+//void func0f0d5690(u8 *dst, char *src)
 //{
 //	struct savebuffer buffer;
 //	bool done = false;
@@ -1313,12 +1290,12 @@ glabel func0f0d5690
 //			} else if (c == '\n') {
 //				done = true;
 //			} else {
-//				func0f0d5360(&buffer, c, 8, arg0);
+//				savebufferWriteBits(&buffer, c, 8, dst);
 //			}
 //		}
 //
 //		if (done) {
-//			func0f0d5360(&buffer, '\0', 8, arg0);
+//			savebufferWriteBits(&buffer, '\0', 8, dst);
 //		}
 //	}
 //}
@@ -1331,12 +1308,12 @@ glabel func0f0d575c
 /*  f0d5764:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0d5768:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0d576c:	8ca50000 */ 	lw	$a1,0x0($a1)
-/*  f0d5770:	0fc354be */ 	jal	savebufferWriteBits
+/*  f0d5770:	0fc354be */ 	jal	savebufferOr
 /*  f0d5774:	24060007 */ 	addiu	$a2,$zero,0x7
 /*  f0d5778:	8faf001c */ 	lw	$t7,0x1c($sp)
 /*  f0d577c:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0d5780:	2406000d */ 	addiu	$a2,$zero,0xd
-/*  f0d5784:	0fc354be */ 	jal	savebufferWriteBits
+/*  f0d5784:	0fc354be */ 	jal	savebufferOr
 /*  f0d5788:	95e50004 */ 	lhu	$a1,0x4($t7)
 /*  f0d578c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0d5790:	27bd0018 */ 	addiu	$sp,$sp,0x18
