@@ -1046,26 +1046,11 @@ void func0f0d575c(struct savebuffer *buffer, u32 *arg1)
 	savebufferOr(buffer, *(u16 *) (arg1 + 1), 13);
 }
 
-GLOBAL_ASM(
-glabel func0f0d579c
-/*  f0d579c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0d57a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d57a4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0d57a8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0d57ac:	0fc354fe */ 	jal	savebufferReadBits
-/*  f0d57b0:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f0d57b4:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f0d57b8:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f0d57bc:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f0d57c0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f0d57c4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0d57c8:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0d57cc:	a5e20004 */ 	sh	$v0,0x4($t7)
-/*  f0d57d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d57d4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0d57d8:	03e00008 */ 	jr	$ra
-/*  f0d57dc:	00000000 */ 	nop
-);
+void func0f0d579c(struct savebuffer *buffer, u32 *arg1)
+{
+	*(s32 *) arg1 = savebufferReadBits(buffer, 7);
+	*(u16 *) (arg1 + 1) = savebufferReadBits(buffer, 13);
+}
 
 GLOBAL_ASM(
 glabel formatTime

@@ -22,7 +22,7 @@ u32 func0f0d55a4(void);
 void func0f0d564c(u8 *data, char *dst, bool addlinebreak);
 void func0f0d5690(u8 *dst, char *buffer);
 void func0f0d575c(struct savebuffer *buffer, u32 *arg1);
-u32 func0f0d579c(void);
+void func0f0d579c(struct savebuffer *buffer, u32 *arg1);
 void formatTime(char *dst, s32 time, u32 arg2);
 void func0f0d5a7c(void);
 
