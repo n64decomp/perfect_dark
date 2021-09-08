@@ -9,7 +9,7 @@ void func0f0d475c(Mtxf *mtx);
 Gfx *func0f0d479c(Gfx *gdl);
 Gfx *func0f0d49c8(Gfx *gdl);
 u32 func0f0d4a3c(void);
-u32 func0f0d4c80(void);
+Gfx *func0f0d4c80(Gfx *gdl);
 u32 func0f0d4d0c(void);
 void savebufferOr(struct savebuffer *buffer, u32 arg1, s32 arg2);
 void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst);

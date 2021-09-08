@@ -296,50 +296,20 @@ glabel func0f0d4a3c
 /*  f0d4c7c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0d4c80
-.late_rodata
-glabel var7f1adbdc
-.word 0x3dcccccd
-glabel var7f1adbe0
-.word 0x3dcccccd
-.text
-/*  f0d4c80:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0d4c84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d4c88:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*  f0d4c8c:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f0d4c90:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0d4c94:	0fc351a4 */ 	jal	func0f0d4690
-/*  f0d4c98:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f0d4c9c:	3c017f1b */ 	lui	$at,%hi(var7f1adbdc)
-/*  f0d4ca0:	c42cdbdc */ 	lwc1	$f12,%lo(var7f1adbdc)($at)
-/*  f0d4ca4:	0c00577c */ 	jal	func00015df0
-/*  f0d4ca8:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f0d4cac:	3c017f1b */ 	lui	$at,%hi(var7f1adbe0)
-/*  f0d4cb0:	c42cdbe0 */ 	lwc1	$f12,%lo(var7f1adbe0)($at)
-/*  f0d4cb4:	0c005793 */ 	jal	func00015e4c
-/*  f0d4cb8:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f0d4cbc:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f0d4cc0:	0c005815 */ 	jal	func00016054
-/*  f0d4cc4:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0d4cc8:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f0d4ccc:	3c0e0102 */ 	lui	$t6,0x102
-/*  f0d4cd0:	35ce0040 */ 	ori	$t6,$t6,0x40
-/*  f0d4cd4:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0d4cd8:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f0d4cdc:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f0d4ce0:	afa20060 */ 	sw	$v0,0x60($sp)
-/*  f0d4ce4:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0d4ce8:	0c012d20 */ 	jal	osVirtualToPhysical
-/*  f0d4cec:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0d4cf0:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f0d4cf4:	ac620004 */ 	sw	$v0,0x4($v1)
-/*  f0d4cf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d4cfc:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f0d4d00:	27bd0060 */ 	addiu	$sp,$sp,0x60
-/*  f0d4d04:	03e00008 */ 	jr	$ra
-/*  f0d4d08:	00000000 */ 	nop
-);
+Gfx *func0f0d4c80(Gfx *gdl)
+{
+	Mtxf mtx;
+	Mtxf *mtxptr = gfxAllocateMatrix();
+
+	func0f0d4690(&mtx);
+	func00015df0(0.1f, &mtx);
+	func00015e4c(0.1f, &mtx);
+	func00016054(&mtx, mtxptr);
+
+	gSPMatrix(gdl++, osVirtualToPhysical(mtxptr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0d4d0c
