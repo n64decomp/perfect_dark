@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f152fa0(void);
+s32 func0f152fa0(f32 arg0);
 Gfx *func0f153134(Gfx *gdl);
 
 #endif
