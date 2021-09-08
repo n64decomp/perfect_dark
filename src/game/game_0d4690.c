@@ -910,6 +910,31 @@ glabel func0f0d55a4
 /*  f0d5648:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+// Mismatch: Goal uses both v0 and v1 for src[i] and c, but in some weird way.
+//void func0f0d55a4(struct savebuffer *buffer, char *src)
+//{
+//	bool done = false;
+//	s32 i;
+//
+//	for (i = 0; i < 10; i++) {
+//		if (!done) {
+//			char c = src[i];
+//
+//			if (c == '\0') {
+//				done = true;
+//			} else if (src[i] == '\n') {
+//				done = true;
+//			} else {
+//				savebufferOr(buffer, c, 8);
+//			}
+//		}
+//
+//		if (done) {
+//			savebufferOr(buffer, 0, 8);
+//		}
+//	}
+//}
+
 void func0f0d564c(u8 *data, char *dst, bool addlinebreak)
 {
 	struct savebuffer buffer;

@@ -18,7 +18,7 @@ void savebufferClear(struct savebuffer *buffer);
 void func0f0d5484(struct savebuffer *buffer, u8 *data, u8 len);
 void func0f0d54c4(struct savebuffer *buffer);
 void savebufferReadString(struct savebuffer *buffer, char *dst, bool addlinebreak);
-u32 func0f0d55a4(void);
+void func0f0d55a4(struct savebuffer *buffer, char *src);
 void func0f0d564c(u8 *data, char *dst, bool addlinebreak);
 void func0f0d5690(u8 *dst, char *buffer);
 void func0f0d575c(struct savebuffer *buffer, u32 *arg1);
