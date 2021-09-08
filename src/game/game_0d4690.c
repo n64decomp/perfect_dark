@@ -98,31 +98,12 @@ glabel func0f0d4690
 /*  f0d4758:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0d475c
-.late_rodata
-glabel var7f1adbd0
-.word 0x3dcccccd
-glabel var7f1adbd4
-.word 0x3dcccccd
-.text
-/*  f0d475c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0d4760:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d4764:	0fc351a4 */ 	jal	func0f0d4690
-/*  f0d4768:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0d476c:	3c017f1b */ 	lui	$at,%hi(var7f1adbd0)
-/*  f0d4770:	c42cdbd0 */ 	lwc1	$f12,%lo(var7f1adbd0)($at)
-/*  f0d4774:	0c00577c */ 	jal	func00015df0
-/*  f0d4778:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f0d477c:	3c017f1b */ 	lui	$at,%hi(var7f1adbd4)
-/*  f0d4780:	c42cdbd4 */ 	lwc1	$f12,%lo(var7f1adbd4)($at)
-/*  f0d4784:	0c005793 */ 	jal	func00015e4c
-/*  f0d4788:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f0d478c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d4790:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0d4794:	03e00008 */ 	jr	$ra
-/*  f0d4798:	00000000 */ 	nop
-);
+void func0f0d475c(Mtxf *mtx)
+{
+	func0f0d4690(mtx);
+	func00015df0(0.1f, mtx);
+	func00015e4c(0.1f, mtx);
+}
 
 Gfx *func0f0d479c(Gfx *gdl)
 {
