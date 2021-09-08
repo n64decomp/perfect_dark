@@ -132,21 +132,14 @@ glabel var7f1a7e74
 /*  f006b9c:	46128000 */ 	add.s	$f0,$f16,$f18
 );
 
-GLOBAL_ASM(
-glabel func0f006ba0
-/*  f006ba0:	3c018006 */ 	lui	$at,%hi(var80061630)
-/*  f006ba4:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
-/*  f006ba8:	460c2082 */ 	mul.s	$f2,$f4,$f12
-/*  f006bac:	4600118d */ 	trunc.w.s	$f6,$f2
-/*  f006bb0:	440f3000 */ 	mfc1	$t7,$f6
-/*  f006bb4:	00000000 */ 	nop
-/*  f006bb8:	448f4000 */ 	mtc1	$t7,$f8
-/*  f006bbc:	00000000 */ 	nop
-/*  f006bc0:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f006bc4:	460a1081 */ 	sub.s	$f2,$f2,$f10
-/*  f006bc8:	03e00008 */ 	jr	$ra
-/*  f006bcc:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 func0f006ba0(f32 arg0)
+{
+	f32 tmp = var80061630 * arg0;
+
+	tmp -= (s32)tmp;
+
+	return tmp;
+}
 
 #if VERSION < VERSION_NTSC_1_0
 f32 func0f006bd0(f32 arg0)
