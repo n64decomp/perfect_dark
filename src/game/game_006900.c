@@ -78,32 +78,10 @@ void func0f0069dc(void)
 #endif
 }
 
-GLOBAL_ASM(
-glabel func0f006b08
-.late_rodata
-glabel var7f1a7e70
-.word 0x40490fdb
-.text
-/*  f006b08:	3c018006 */ 	lui	$at,%hi(var80061630)
-/*  f006b0c:	c4241630 */ 	lwc1	$f4,%lo(var80061630)($at)
-/*  f006b10:	3c017f1a */ 	lui	$at,%hi(var7f1a7e70)
-/*  f006b14:	c4287e70 */ 	lwc1	$f8,%lo(var7f1a7e70)($at)
-/*  f006b18:	46046002 */ 	mul.s	$f0,$f12,$f4
-/*  f006b1c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f006b20:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f006b24:	46000180 */ 	add.s	$f6,$f0,$f0
-/*  f006b28:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f006b2c:	0c0068f7 */ 	jal	sinf
-/*  f006b30:	00000000 */ 	nop
-/*  f006b34:	3c013f00 */ 	lui	$at,0x3f00
-/*  f006b38:	44815000 */ 	mtc1	$at,$f10
-/*  f006b3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f006b40:	44819000 */ 	mtc1	$at,$f18
-/*  f006b44:	460a0402 */ 	mul.s	$f16,$f0,$f10
-/*  f006b48:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f006b4c:	03e00008 */ 	jr	$ra
-/*  f006b50:	46128000 */ 	add.s	$f0,$f16,$f18
-);
+f32 func0f006b08(f32 arg0)
+{
+	return sinf((arg0 * var80061630 + arg0 * var80061630) * M_PI) * 0.5f + .5f;
+}
 
 f32 func0f006b54(f32 arg0)
 {
