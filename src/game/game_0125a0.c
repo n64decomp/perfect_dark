@@ -12,68 +12,25 @@
 #include "data.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f0125a0
-/*  f0125a0:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0125a4:	afb30030 */ 	sw	$s3,0x30($sp)
-/*  f0125a8:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*  f0125ac:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f0125b0:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f0125b4:	00049c00 */ 	sll	$s3,$a0,0x10
-/*  f0125b8:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0125bc:	afb50038 */ 	sw	$s5,0x38($sp)
-/*  f0125c0:	afb40034 */ 	sw	$s4,0x34($sp)
-/*  f0125c4:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f0125c8:	00137403 */ 	sra	$t6,$s3,0x10
-/*  f0125cc:	00a6082a */ 	slt	$at,$a1,$a2
-/*  f0125d0:	01c09825 */ 	or	$s3,$t6,$zero
-/*  f0125d4:	00e08025 */ 	or	$s0,$a3,$zero
-/*  f0125d8:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f0125dc:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f0125e0:	ace00000 */ 	sw	$zero,0x0($a3)
-/*  f0125e4:	ace00004 */ 	sw	$zero,0x4($a3)
-/*  f0125e8:	1020001d */ 	beqz	$at,.L0f012660
-/*  f0125ec:	ace00008 */ 	sw	$zero,0x8($a3)
-/*  f0125f0:	3c148008 */ 	lui	$s4,%hi(g_ModelTypeChr)
-/*  f0125f4:	2694ce40 */ 	addiu	$s4,$s4,%lo(g_ModelTypeChr)
-/*  f0125f8:	27b50048 */ 	addiu	$s5,$sp,0x48
-.L0f0125fc:
-/*  f0125fc:	00133c00 */ 	sll	$a3,$s3,0x10
-/*  f012600:	00077c03 */ 	sra	$t7,$a3,0x10
-/*  f012604:	01e03825 */ 	or	$a3,$t7,$zero
-/*  f012608:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01260c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f012610:	02803025 */ 	or	$a2,$s4,$zero
-/*  f012614:	afb10010 */ 	sw	$s1,0x10($sp)
-/*  f012618:	afb50014 */ 	sw	$s5,0x14($sp)
-/*  f01261c:	0c009217 */ 	jal	func0002485c
-/*  f012620:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f012624:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f012628:	87b90048 */ 	lh	$t9,0x48($sp)
-/*  f01262c:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f012630:	8e0c0008 */ 	lw	$t4,0x8($s0)
-/*  f012634:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f012638:	ae080000 */ 	sw	$t0,0x0($s0)
-/*  f01263c:	87aa004a */ 	lh	$t2,0x4a($sp)
-/*  f012640:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f012644:	0232082a */ 	slt	$at,$s1,$s2
-/*  f012648:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f01264c:	ae0b0004 */ 	sw	$t3,0x4($s0)
-/*  f012650:	87ad004c */ 	lh	$t5,0x4c($sp)
-/*  f012654:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f012658:	1420ffe8 */ 	bnez	$at,.L0f0125fc
-/*  f01265c:	ae0e0008 */ 	sw	$t6,0x8($s0)
-.L0f012660:
-/*  f012660:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f012664:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f012668:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f01266c:	8fb2002c */ 	lw	$s2,0x2c($sp)
-/*  f012670:	8fb30030 */ 	lw	$s3,0x30($sp)
-/*  f012674:	8fb40034 */ 	lw	$s4,0x34($sp)
-/*  f012678:	8fb50038 */ 	lw	$s5,0x38($sp)
-/*  f01267c:	03e00008 */ 	jr	$ra
-/*  f012680:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+void func0f0125a0(s16 animnum, s32 loopframe, s32 endframe, s32 *arg3)
+{
+	s16 sp48[3];
+	u32 stack;
+
+	arg3[0] = 0;
+	arg3[1] = 0;
+	arg3[2] = 0;
+
+	while (loopframe < endframe) {
+		func0002485c(0, 0, &g_ModelTypeChr, animnum, loopframe, sp48, 0);
+
+		arg3[0] += sp48[0];
+		arg3[1] += sp48[1];
+		arg3[2] += sp48[2];
+
+		loopframe++;
+	}
+}
 
 void currentPlayerInitAnimation(void)
 {

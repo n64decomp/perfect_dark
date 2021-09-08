@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void func0f0125a0(s32 animnum, s32 loopframe, s32 endframe, s32 *arg3);
+void func0f0125a0(s16 animnum, s32 loopframe, s32 endframe, s32 *arg3);
 void currentPlayerInitAnimation(void);
 
 #endif
