@@ -1040,25 +1040,11 @@ glabel func0f0d5690
 //}
 #endif
 
-GLOBAL_ASM(
-glabel func0f0d575c
-/*  f0d575c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0d5760:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d5764:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0d5768:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0d576c:	8ca50000 */ 	lw	$a1,0x0($a1)
-/*  f0d5770:	0fc354be */ 	jal	savebufferOr
-/*  f0d5774:	24060007 */ 	addiu	$a2,$zero,0x7
-/*  f0d5778:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0d577c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0d5780:	2406000d */ 	addiu	$a2,$zero,0xd
-/*  f0d5784:	0fc354be */ 	jal	savebufferOr
-/*  f0d5788:	95e50004 */ 	lhu	$a1,0x4($t7)
-/*  f0d578c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d5790:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0d5794:	03e00008 */ 	jr	$ra
-/*  f0d5798:	00000000 */ 	nop
-);
+void func0f0d575c(struct savebuffer *buffer, u32 *arg1)
+{
+	savebufferOr(buffer, *(s32 *) arg1, 7);
+	savebufferOr(buffer, *(u16 *) (arg1 + 1), 13);
+}
 
 GLOBAL_ASM(
 glabel func0f0d579c
