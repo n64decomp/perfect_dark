@@ -19,14 +19,6 @@ const char var7f1adbb4[] = "rsub";
 const char var7f1adbbc[] = ":%02d";
 const char var7f1adbc4[] = "%d";
 
-const u32 var7f1adbc8[] = {0xc31fc000};
-
-#if VERSION >= VERSION_PAL_FINAL
-const u32 var7f1adbcc[] = {0x43084000};
-#else
-const u32 var7f1adbcc[] = {0x42f08000};
-#endif
-
 u32 var8009de90;
 u32 var8009de94;
 u32 var8009de98;
@@ -42,61 +34,27 @@ u32 var80070f14 = 0x000003e8;
 u32 var80070f18 = 0x00000014;
 u32 var80070f1c = 0x00000005;
 
-GLOBAL_ASM(
-glabel func0f0d4690
-/*  f0d4690:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0d4694:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0d4698:	0c00566c */ 	jal	func000159b0
-/*  f0d469c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0d46a0:	3c017f1b */ 	lui	$at,%hi(var7f1adbc8)
-/*  f0d46a4:	c424dbc8 */ 	lwc1	$f4,%lo(var7f1adbc8)($at)
-/*  f0d46a8:	3c017f1b */ 	lui	$at,%hi(var7f1adbcc)
-/*  f0d46ac:	c426dbcc */ 	lwc1	$f6,%lo(var7f1adbcc)($at)
-/*  f0d46b0:	44804000 */ 	mtc1	$zero,$f8
-/*  f0d46b4:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*  f0d46b8:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*  f0d46bc:	0c002f02 */ 	jal	viGetWidth
-/*  f0d46c0:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f0d46c4:	44828000 */ 	mtc1	$v0,$f16
-/*  f0d46c8:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0d46cc:	44815000 */ 	mtc1	$at,$f10
-/*  f0d46d0:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*  f0d46d4:	44813000 */ 	mtc1	$at,$f6
-/*  f0d46d8:	46125101 */ 	sub.s	$f4,$f10,$f18
-/*  f0d46dc:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0d46e0:	0c002f06 */ 	jal	viGetHeight
-/*  f0d46e4:	e7a8001c */ 	swc1	$f8,0x1c($sp)
-/*  f0d46e8:	44828000 */ 	mtc1	$v0,$f16
-/*  f0d46ec:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0d46f0:	44819000 */ 	mtc1	$at,$f18
-/*  f0d46f4:	468082a0 */ 	cvt.s.w	$f10,$f16
-/*  f0d46f8:	44813000 */ 	mtc1	$at,$f6
-/*  f0d46fc:	44808000 */ 	mtc1	$zero,$f16
-/*  f0d4700:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f0d4704:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f0d4708:	e7b00024 */ 	swc1	$f16,0x24($sp)
-/*  f0d470c:	46125100 */ 	add.s	$f4,$f10,$f18
-/*  f0d4710:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0d4714:	0c005775 */ 	jal	func00015dd4
-/*  f0d4718:	e7a80020 */ 	swc1	$f8,0x20($sp)
-/*  f0d471c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0d4720:	44816000 */ 	mtc1	$at,$f12
-/*  f0d4724:	0c005793 */ 	jal	func00015e4c
-/*  f0d4728:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f0d472c:	3c0e8008 */ 	lui	$t6,%hi(g_ScaleX)
-/*  f0d4730:	8dcefac0 */ 	lw	$t6,%lo(g_ScaleX)($t6)
-/*  f0d4734:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0d4738:	15c10004 */ 	bne	$t6,$at,.L0f0d474c
-/*  f0d473c:	3c014000 */ 	lui	$at,0x4000
-/*  f0d4740:	44816000 */ 	mtc1	$at,$f12
-/*  f0d4744:	0c00577c */ 	jal	func00015df0
-/*  f0d4748:	8fa50028 */ 	lw	$a1,0x28($sp)
-.L0f0d474c:
-/*  f0d474c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0d4750:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0d4754:	03e00008 */ 	jr	$ra
-/*  f0d4758:	00000000 */ 	nop
-);
+void func0f0d4690(Mtxf *mtx)
+{
+	struct coord pos;
+
+	func000159b0(mtx);
+
+	pos.x = -159.75f;
+	pos.y = PAL ? 136.25f : 120.25f;
+	pos.z = 0;
+
+	pos.x = (.5f - viGetWidth()) * 0.5f;
+	pos.y = (.5f + viGetHeight()) * 0.5f;
+	pos.z = 0;
+
+	func00015dd4(&pos, mtx);
+	func00015e4c(-1, mtx);
+
+	if (g_ScaleX == 2) {
+		func00015df0(2, mtx);
+	}
+}
 
 void func0f0d475c(Mtxf *mtx)
 {
