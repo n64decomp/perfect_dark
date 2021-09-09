@@ -2456,7 +2456,7 @@ struct inventory_ammo invammo_shotgun = {
 	CASING_SHOTGUN,
 	9, // clip size
 	invanim_shotgun_reload, // reload animation
-	0x04, // flags
+	AMMOFLAG_INCREMENTALRELOAD, // flags
 };
 
 struct weapon invitem_shotgun = {
@@ -2951,7 +2951,7 @@ struct inventory_ammo invammo_devastator = {
 	CASING_NONE,
 	8, // clip size
 	invanim_devastator_reload, // reload animation
-	0x08, // flags
+	AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
 struct modelpartvisibility invpartvisibility_devastator[] = {
@@ -3030,7 +3030,7 @@ struct inventory_ammo invammo_timedmine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_mine_equiporreload, // reload animation
-	0x02, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct weapon invitem_timedmine = {
@@ -3115,7 +3115,7 @@ struct inventory_ammo invammo_remotemine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_remotemine_equiporreload, // reload animation
-	0x02, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct modelpartvisibility invpartvisibility_remotemine[] = {
@@ -3167,7 +3167,7 @@ struct inventory_ammo invammo_proximitymine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_mine_equiporreload, // reload animation
-	0x02, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct weapon invitem_proximitymine = {
@@ -3230,7 +3230,7 @@ struct inventory_ammo invammo_ecmmine = {
 	CASING_NONE,
 	1, // clip size
 	invanim_ecmmine_equiporreload, // reload animation
-	0x02, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct weapon invitem_ecmmine = {
@@ -3337,7 +3337,7 @@ struct inventory_ammo invammo_grenade = {
 	CASING_NONE,
 	1, // clip size
 	invanim_grenade_equiporreload, // reload animation
-	0x0a, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
 struct weapon invitem_grenade = {
@@ -3398,7 +3398,7 @@ struct inventory_ammo invammo_nbomb = {
 	CASING_NONE,
 	1, // clip size
 	invanim_grenade_equiporreload, // reload animation
-	0x0a, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
 struct weapon invitem_nbomb = {
@@ -3647,7 +3647,7 @@ struct inventory_ammo invammo_crossbow = {
 	CASING_NONE,
 	5, // clip size
 	invanim_crossbow_reload, // reload animation
-	0x04, // flags
+	AMMOFLAG_INCREMENTALRELOAD, // flags
 };
 
 struct modelpartvisibility invpartvisibility_crossbow[] = {
@@ -4805,7 +4805,7 @@ struct inventory_ammo invammo_combatknife = {
 	CASING_NONE,
 	1, // clip size
 	invanim_combatknife_reload, // reload animation
-	0x0a, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
 struct weapon invitem_combatknife = {
@@ -4866,7 +4866,7 @@ struct inventory_ammo invammo_bug = {
 	CASING_NONE,
 	1, // clip size
 	NULL, // reload animation
-	0x02, // flags
+	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
 struct weapon invitem_commsrider = {
@@ -5042,7 +5042,7 @@ struct inventory_ammo invammo_cloakingdevice = {
 	CASING_NONE,
 	10, // clip size
 	NULL, // reload animation
-	0x01, // flags
+	AMMOFLAG_NORESERVE, // flags
 };
 
 struct weapon invitem_cloakingdevice = {
@@ -5101,7 +5101,7 @@ struct inventory_ammo invammo_combatboost = {
 	CASING_NONE,
 	4, // clip size
 	NULL, // reload animation
-	0x01, // flags
+	AMMOFLAG_NORESERVE, // flags
 };
 
 struct weapon invitem_combatboost = {

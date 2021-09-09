@@ -2909,8 +2909,8 @@ bool frIsAmmoWasted(void)
 	// Check if player has ammo
 	ammoloaded[0] = hand0->loadedammo[0] + hand1->loadedammo[0];
 	ammoloaded[1] = hand0->loadedammo[1] + hand1->loadedammo[1];
-	ammototal[0] = bgunGetAmmoCountWithCheck(priammotype) + ammoloaded[0];
-	ammototal[1] = bgunGetAmmoCountWithCheck(secammotype) + ammoloaded[1];
+	ammototal[0] = bgunGetReservedAmmoCount(priammotype) + ammoloaded[0];
+	ammototal[1] = bgunGetReservedAmmoCount(secammotype) + ammoloaded[1];
 
 	if (ammototal[0] <= 0 && ammototal[1] <= 0) {
 		// Don't do any further checks if this is the first frame where we've
@@ -2987,7 +2987,7 @@ bool frIsAmmoWasted(void)
 							ammotype = bgunGetAmmoTypeForWeapon(weaponnum, 0);
 							hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
-							if (bgunGetAmmoCountWithCheck(ammotype) + hand->loadedammo[0] == 0) {
+							if (bgunGetReservedAmmoCount(ammotype) + hand->loadedammo[0] == 0) {
 								g_FrData.proxyendtimer = PALDOWN(300);
 							}
 
@@ -3323,7 +3323,7 @@ glabel var7f1b94e4
 /*  f1a0e9c:	2401ffff */ 	li	$at,-1
 /*  f1a0ea0:	18400011 */ 	blez	$v0,.PF0f1a0ee8
 /*  f1a0ea4:	00000000 */ 	nop
-/*  f1a0ea8:	0fc2a6ef */ 	jal	bgunGetAmmoCountWithCheck
+/*  f1a0ea8:	0fc2a6ef */ 	jal	bgunGetReservedAmmoCount
 /*  f1a0eac:	02202025 */ 	move	$a0,$s1
 /*  f1a0eb0:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f1a0eb4:	86ae0476 */ 	lh	$t6,0x476($s5)
@@ -3357,7 +3357,7 @@ glabel var7f1b94e4
 /*  f1a0f14:	2401ffff */ 	li	$at,-1
 /*  f1a0f18:	18600011 */ 	blez	$v1,.PF0f1a0f60
 /*  f1a0f1c:	00000000 */ 	nop
-/*  f1a0f20:	0fc2a6ef */ 	jal	bgunGetAmmoCountWithCheck
+/*  f1a0f20:	0fc2a6ef */ 	jal	bgunGetReservedAmmoCount
 /*  f1a0f24:	2404000b */ 	li	$a0,0xb
 /*  f1a0f28:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f1a0f2c:	86b90478 */ 	lh	$t9,0x478($s5)
@@ -4423,7 +4423,7 @@ glabel var7f1b94e4
 /*  f19fd88:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fd8c:	18400011 */ 	blez	$v0,.L0f19fdd4
 /*  f19fd90:	00000000 */ 	nop
-/*  f19fd94:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f19fd94:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f19fd98:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19fd9c:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fda0:	86ae0476 */ 	lh	$t6,0x476($s5)
@@ -4457,7 +4457,7 @@ glabel var7f1b94e4
 /*  f19fe00:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fe04:	18600011 */ 	blez	$v1,.L0f19fe4c
 /*  f19fe08:	00000000 */ 	nop
-/*  f19fe0c:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f19fe0c:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f19fe10:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19fe14:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fe18:	86b90478 */ 	lh	$t9,0x478($s5)
@@ -5536,7 +5536,7 @@ glabel var7f1b94e4
 /*  f199d90:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f199d94:	18400011 */ 	blez	$v0,.NB0f199ddc
 /*  f199d98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f199d9c:	0fc29d44 */ 	jal	bgunGetAmmoCountWithCheck
+/*  f199d9c:	0fc29d44 */ 	jal	bgunGetReservedAmmoCount
 /*  f199da0:	02202025 */ 	or	$a0,$s1,$zero
 /*  f199da4:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f199da8:	86af0476 */ 	lh	$t7,0x476($s5)
@@ -5570,7 +5570,7 @@ glabel var7f1b94e4
 /*  f199e08:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f199e0c:	18600011 */ 	blez	$v1,.NB0f199e54
 /*  f199e10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f199e14:	0fc29d44 */ 	jal	bgunGetAmmoCountWithCheck
+/*  f199e14:	0fc29d44 */ 	jal	bgunGetReservedAmmoCount
 /*  f199e18:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f199e1c:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f199e20:	86a90478 */ 	lh	$t1,0x478($s5)
@@ -6492,7 +6492,7 @@ glabel var7f1b94e4
 //
 //		// d8c
 //		if (g_FrData.ammoextra > 0) {
-//			tmp = bgunGetAmmoCountWithCheck(ammotype);
+//			tmp = bgunGetReservedAmmoCount(ammotype);
 //			g_FrData.ammoextra -= g_FrData.numshotssincetopup;
 //
 //			if (g_FrData.ammoextra < 0) {
@@ -6511,7 +6511,7 @@ glabel var7f1b94e4
 //
 //			// e04
 //			if (g_FrData.sdgrenadeextra > 0) {
-//				tmp = bgunGetAmmoCountWithCheck(AMMOTYPE_DEVASTATOR);
+//				tmp = bgunGetReservedAmmoCount(AMMOTYPE_DEVASTATOR);
 //				g_FrData.sdgrenadeextra -= g_FrData.numshotssincetopup;
 //
 //				if (g_FrData.sdgrenadeextra < 0) {

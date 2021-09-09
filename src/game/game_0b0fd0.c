@@ -289,35 +289,23 @@ bool weaponHasClassFlag(s32 weaponnum, u32 flag)
 	return (weapon->eptr->flags & flag) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0b184c
-/*  f0b184c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1850:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1854:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b1858:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b185c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0b1860:	14400003 */ 	bnez	$v0,.L0f0b1870
-/*  f0b1864:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1868:	1000000e */ 	b	.L0f0b18a4
-/*  f0b186c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1870:
-/*  f0b1870:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f0b1874:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f0b1878:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b187c:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f0b1880:	8f03001c */ 	lw	$v1,0x1c($t8)
-/*  f0b1884:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1888:	10600006 */ 	beqz	$v1,.L0f0b18a4
-/*  f0b188c:	00000000 */ 	nop
-/*  f0b1890:	90790010 */ 	lbu	$t9,0x10($v1)
-/*  f0b1894:	03281024 */ 	and	$v0,$t9,$t0
-/*  f0b1898:	0002482b */ 	sltu	$t1,$zero,$v0
-/*  f0b189c:	10000001 */ 	b	.L0f0b18a4
-/*  f0b18a0:	01201025 */ 	or	$v0,$t1,$zero
-.L0f0b18a4:
-/*  f0b18a4:	03e00008 */ 	jr	$ra
-/*  f0b18a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool weaponHasAmmoFlag(s32 weaponnum, s32 funcnum, u32 flag)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+	struct inventory_ammo *ammo;
+
+	if (weapon == NULL) {
+		return false;
+	}
+
+	ammo = weapon->ammos[funcnum];
+
+	if (ammo) {
+		return (ammo->flags & flag) != 0;
+	}
+
+	return false;
+}
 
 void func0f0b18ac(s32 arg0)
 {

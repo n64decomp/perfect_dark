@@ -157,6 +157,11 @@
 #define AIMCONTROL_HOLD   0
 #define AIMCONTROL_TOGGLE 1
 
+#define AMMOFLAG_NORESERVE         1 // Ammo cannot be held outside of weapon (cloak and combat boost)
+#define AMMOFLAG_EQUIPPEDISRESERVE 2 // For throwables: equipped ammo and reserve is kind of the same thing
+#define AMMOFLAG_INCREMENTALRELOAD 4 // Shotgun and crossbow
+#define AMMOFLAG_QTYAFFECTSPARTVIS 8 // Quantity of ammo in the clip affects model part visibility on the weapon (Devastator)
+
 #define AMMOTYPE_PISTOL       0x01
 #define AMMOTYPE_SMG          0x02
 #define AMMOTYPE_CROSSBOW     0x03

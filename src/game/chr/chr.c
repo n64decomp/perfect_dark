@@ -6749,7 +6749,7 @@ void chrUpdateCloak(struct chrdata *chr)
 
 		if (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE) {
 			// Cloak is active - but may or may not be in effect due to recent shooting
-			s32 qty = bgunGetAmmoCountWithCheck(AMMOTYPE_CLOAK);
+			s32 qty = bgunGetReservedAmmoCount(AMMOTYPE_CLOAK);
 
 			if (qty > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {

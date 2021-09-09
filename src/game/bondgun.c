@@ -421,7 +421,7 @@ bool bgun0f097df0(struct inventory_typef *arg0, struct hand *hand)
 	return result;
 }
 
-void bgun0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata *arg3)
+void bgunSetPartVisible(s16 partnum, bool visible, struct hand *hand, struct modelfiledata *filedata)
 {
 	struct modelnode *node;
 
@@ -432,16 +432,16 @@ void bgun0f097e74(s16 partnum, s32 arg1, struct hand *hand, struct modelfiledata
 			if (node) {
 				struct modelrodata_toggle *rodata = &node->rodata->toggle;
 				u32 *ptr = &hand->handsavedata[rodata->rwdataindex];
-				*ptr = arg1;
+				*ptr = visible;
 			}
 		}
 	} else {
-		node = modelGetPart(arg3, partnum);
+		node = modelGetPart(filedata, partnum);
 
 		if (node) {
 			struct modelrodata_toggle *rodata = &node->rodata->toggle;
 			u32 *ptr = &hand->unk0a6c[rodata->rwdataindex];
-			*ptr = arg1;
+			*ptr = visible;
 		}
 	}
 }
@@ -458,19 +458,19 @@ void bgun0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inve
 	while (!done) {
 		if (bgun0f097df0(thing, hand)) {
 			if (thing->unk04 == 0) {
-				bgun0f097e74(thing->partnum, 1, hand, filedata);
+				bgunSetPartVisible(thing->partnum, true, hand, filedata);
 			}
 
 			if (thing->unk04 == 1) {
-				bgun0f097e74(thing->partnum, 0, hand, filedata);
+				bgunSetPartVisible(thing->partnum, false, hand, filedata);
 			}
 
 			if (thing->unk04 == 3) {
-				bgun0f097e74(thing->partnum, 1, hand, filedata);
+				bgunSetPartVisible(thing->partnum, true, hand, filedata);
 			}
 		} else {
 			if (thing->unk04 == 3) {
-				bgun0f097e74(thing->partnum, 0, hand, filedata);
+				bgunSetPartVisible(thing->partnum, false, hand, filedata);
 			}
 		}
 
@@ -482,22 +482,22 @@ void bgun0f097f28(struct hand *hand, struct modelfiledata *filedata, struct inve
 	}
 }
 
-void bgun0f098030(struct hand *hand, struct modelfiledata *arg1)
+void bgun0f098030(struct hand *hand, struct modelfiledata *filedata)
 {
 	struct weapon *weapon = weaponFindById(hand->gset.weaponnum);
 	s32 i;
 	s32 j;
 
-	bgun0f097f28(hand, arg1, weapon->fptr);
-	bgun0f097e74(MODELPART_0042, 0, hand, arg1);
+	bgun0f097f28(hand, filedata, weapon->fptr);
+	bgunSetPartVisible(MODELPART_0042, false, hand, filedata);
 
 	for (i = 0; i < 2; i++) {
-		if (weapon->ammos[i] && (weapon->ammos[i]->flags & WEAPONFLAG_ONEHANDED)) {
+		if (weapon->ammos[i] && (weapon->ammos[i]->flags & AMMOFLAG_QTYAFFECTSPARTVIS)) {
 			for (j = 0; j < hand->clipsizes[i]; j++) {
 				if (j >= hand->loadedammo[i]) {
-					bgun0f097e74(j + 100, 0, hand, arg1);
+					bgunSetPartVisible(j + 100, false, hand, filedata);
 				} else {
-					bgun0f097e74(j + 100, 1, hand, arg1);
+					bgunSetPartVisible(j + 100, true, hand, filedata);
 				}
 			}
 		}
@@ -939,7 +939,7 @@ glabel var7f1ad3acpf
 /*  f0986d4:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f0986d8:	afa2007c */ 	sw	$v0,0x7c($sp)
 /*  f0986dc:	02403025 */ 	move	$a2,$s2
-/*  f0986e0:	0fc25f65 */ 	jal	bgun0f097e74
+/*  f0986e0:	0fc25f65 */ 	jal	bgunSetPartVisible
 /*  f0986e4:	8fa70164 */ 	lw	$a3,0x164($sp)
 /*  f0986e8:	8fa2007c */ 	lw	$v0,0x7c($sp)
 /*  f0986ec:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -1437,7 +1437,7 @@ glabel var7f1ac1b0
 /*  f0986ac:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f0986b0:	afa20074 */ 	sw	$v0,0x74($sp)
 /*  f0986b4:	02603025 */ 	or	$a2,$s3,$zero
-/*  f0986b8:	0fc25f9d */ 	jal	bgun0f097e74
+/*  f0986b8:	0fc25f9d */ 	jal	bgunSetPartVisible
 /*  f0986bc:	8fa7015c */ 	lw	$a3,0x15c($sp)
 /*  f0986c0:	8fa20074 */ 	lw	$v0,0x74($sp)
 /*  f0986c4:	8fa30054 */ 	lw	$v1,0x54($sp)
@@ -1911,7 +1911,7 @@ glabel var7f1ac1b0
 /*  f096718:	afa30048 */ 	sw	$v1,0x48($sp)
 /*  f09671c:	afa2006c */ 	sw	$v0,0x6c($sp)
 /*  f096720:	02603025 */ 	or	$a2,$s3,$zero
-/*  f096724:	0fc257b8 */ 	jal	bgun0f097e74
+/*  f096724:	0fc257b8 */ 	jal	bgunSetPartVisible
 /*  f096728:	8fa70154 */ 	lw	$a3,0x154($sp)
 /*  f09672c:	8fa2006c */ 	lw	$v0,0x6c($sp)
 /*  f096730:	8fa30048 */ 	lw	$v1,0x48($sp)
@@ -2260,7 +2260,7 @@ void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand
 			hand->loadedammo[ammoindex] += amount;
 			g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] -= amount;
 
-			if (info->definition->ammos[ammoindex]->flags & 0x01) {
+			if (info->definition->ammos[ammoindex]->flags & AMMOFLAG_NORESERVE) {
 				g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] = 0;
 			}
 
@@ -5482,7 +5482,7 @@ glabel var7f1ac31c
 //
 //					hand->unk0d0e_07 = true;
 //
-//					if (info->definition->ammos[func->ammoindex]->flags & 4) {
+//					if (info->definition->ammos[func->ammoindex]->flags & AMMOFLAG_INCREMENTALRELOAD) {
 //						hand->unk0cc8_03 = true;
 //					}
 //
@@ -5501,7 +5501,7 @@ glabel var7f1ac31c
 //			// e9c
 //			if (hand);
 //		} else {
-//			if (info->definition->ammos[func->ammoindex]->flags & 4) {
+//			if (info->definition->ammos[func->ammoindex]->flags & AMMOFLAG_INCREMENTALRELOAD) {
 //				if (bgun0f098a44(hand, 1)) {
 //					if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
 //						s32 value;
@@ -21153,12 +21153,12 @@ glabel var7f1ac9e0
 .L0f0a541c:
 /*  f0a541c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a5420:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f0a5424:	0fc25f9d */ 	jal	bgun0f097e74
+/*  f0a5424:	0fc25f9d */ 	jal	bgunSetPartVisible
 /*  f0a5428:	8fa70088 */ 	lw	$a3,0x88($sp)
 /*  f0a542c:	24040047 */ 	addiu	$a0,$zero,0x47
 /*  f0a5430:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0a5434:	8fa60078 */ 	lw	$a2,0x78($sp)
-/*  f0a5438:	0fc25f9d */ 	jal	bgun0f097e74
+/*  f0a5438:	0fc25f9d */ 	jal	bgunSetPartVisible
 /*  f0a543c:	8fa70088 */ 	lw	$a3,0x88($sp)
 /*  f0a5440:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f0a5444:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
@@ -28887,9 +28887,9 @@ void bgunSetAmmoQuantity(s32 ammotype, s32 quantity)
 		funcnum = FUNC_SECONDARY;
 	}
 
-	if (funcnum != -1 && func0f0b184c(weaponnum, funcnum, 1)) {
-		// This part seems a bit odd. It's adding the ammo rather than setting
-		// it, and it clears the held amount. Maybe this code isn't reachable.
+	if (funcnum != -1 && weaponHasAmmoFlag(weaponnum, funcnum, AMMOFLAG_NORESERVE)) {
+		// For cloak and combat boost, ammo cannot be held outside of the weapon.
+		// So just add it to the loaded clip.
 		player->hands[0].loadedammo[funcnum] += quantity;
 
 		if (player->hands[0].loadedammo[funcnum] > player->hands[0].clipsizes[funcnum]) {
@@ -28902,7 +28902,8 @@ void bgunSetAmmoQuantity(s32 ammotype, s32 quantity)
 
 	magamount = 0;
 
-	if (funcnum != -1 && func0f0b184c(weaponnum, funcnum, 2)) {
+	// For throwable items, the capacity applies to reserve + loaded
+	if (funcnum != -1 && weaponHasAmmoFlag(weaponnum, funcnum, AMMOFLAG_EQUIPPEDISRESERVE)) {
 		magamount = player->hands[0].loadedammo[funcnum] + player->hands[1].loadedammo[funcnum];
 	}
 
@@ -28913,7 +28914,7 @@ void bgunSetAmmoQuantity(s32 ammotype, s32 quantity)
 	}
 }
 
-s32 bgunGetAmmoCountWithCheck(s32 ammotype)
+s32 bgunGetReservedAmmoCount(s32 ammotype)
 {
 	s32 i;
 	s32 j;
@@ -28923,7 +28924,7 @@ s32 bgunGetAmmoCountWithCheck(s32 ammotype)
 	for (i = 0; i < 2; i++) {
 		if (player->hands[i].inuse) {
 			for (j = 0; j < 2; j++) {
-				if (player->gunctrl.ammotypes[j] == ammotype && func0f0b184c(player->hands[i].gset.weaponnum, j, 0x00000001)) {
+				if (player->gunctrl.ammotypes[j] == ammotype && weaponHasAmmoFlag(player->hands[i].gset.weaponnum, j, AMMOFLAG_NORESERVE)) {
 					total = total + player->hands[i].loadedammo[j];
 				}
 			}
@@ -29028,7 +29029,7 @@ s32 bgunGetAmmoQtyForWeapon(u32 weaponnum, u32 func)
 		struct inventory_ammo *ammo = weapon->ammos[func];
 
 		if (ammo) {
-			return bgunGetAmmoCountWithCheck(ammo->type);
+			return bgunGetReservedAmmoCount(ammo->type);
 		}
 	}
 
@@ -34808,7 +34809,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //			xpos -= 14;
 //		}
 //
-//		if (lefthand->clipsizes[ammoindex] > 0 && (weapon->ammos[ammoindex]->flags & 2) == 0) {
+//		if (lefthand->clipsizes[ammoindex] > 0 && (weapon->ammos[ammoindex]->flags & AMMOFLAG_EQUIPPEDISRESERVE) == 0) {
 //			gdl = bgunRenderHudGauge(gdl,
 //					xpos, bottom - reserveheight - clipheight - 3, xpos + barwidth, bottom - reserveheight - 3,
 //					&lefthand->abmag, lefthand->loadedammo[ammoindex], lefthand->clipsizes[ammoindex],
@@ -34845,7 +34846,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //
 //		if (hand->clipsizes[ammoindex] > 0
 //				&& weapon->ammos[ammoindex] != NULL
-//				&& (weapon->ammos[ammoindex]->flags & 2) == 0) {
+//				&& (weapon->ammos[ammoindex]->flags & AMMOFLAG_EQUIPPEDISRESERVE) == 0) {
 //			gdl = bgunRenderHudGauge(gdl, xpos, bottom - reserveheight - clipheight - 3, xpos + barwidth,
 //					bottom - reserveheight - 3, &hand->abmag, hand->loadedammo[ammoindex], hand->clipsizes[ammoindex],
 //					0x00300080, 0x00ff0040, false);
@@ -34856,10 +34857,10 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //		// Reserve
 //		// 7ac
 //		if (g_AmmoTypes[ammotype].capacity > 0
-//				&& (weapon->ammos[ammoindex]->flags & 1) == 0) {
+//				&& (weapon->ammos[ammoindex]->flags & AMMOFLAG_NORESERVE) == 0) {
 //			ammototal = ammoheld;
 //
-//			if (weapon->ammos[ammoindex]->flags & 2) {
+//			if (weapon->ammos[ammoindex]->flags & AMMOFLAG_EQUIPPEDISRESERVE) {
 //				if (hand->clipsizes[ammoindex] > 0) {
 //					ammototal += hand->loadedammo[ammoindex];
 //				}

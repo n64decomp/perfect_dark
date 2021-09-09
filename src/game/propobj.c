@@ -60492,7 +60492,7 @@ glabel func0f088028
 /*  f08803c:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f088040:	18a00051 */ 	blez	$a1,.L0f088188
 /*  f088044:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f088048:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088048:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f08804c:	00000000 */ 	nop
 /*  f088050:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f088054:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -60501,7 +60501,7 @@ glabel func0f088028
 /*  f088060:	01e2082a */ 	slt	$at,$t7,$v0
 /*  f088064:	5020000e */ 	beqzl	$at,.L0f0880a0
 /*  f088068:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f08806c:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f08806c:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088070:	02002025 */ 	or	$a0,$s0,$zero
 /*  f088074:	8fb8002c */ 	lw	$t8,0x2c($sp)
 /*  f088078:	02002025 */ 	or	$a0,$s0,$zero
@@ -61292,10 +61292,10 @@ glabel var7f1aae70
 /*  f088cb4:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*  f088cb8:	18400019 */ 	blez	$v0,.L0f088d20
 /*  f088cbc:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f088cc0:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088cc0:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088cc4:	8fa4006c */ 	lw	$a0,0x6c($sp)
 /*  f088cc8:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f088ccc:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088ccc:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088cd0:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f088cd4:	8fa4006c */ 	lw	$a0,0x6c($sp)
 /*  f088cd8:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -61326,7 +61326,7 @@ glabel var7f1aae70
 /*  f088d34:	0fc22095 */ 	jal	weaponGetPickupAmmoQty
 /*  f088d38:	01802025 */ 	or	$a0,$t4,$zero
 /*  f088d3c:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f088d40:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088d40:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088d44:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d48:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d4c:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -61335,7 +61335,7 @@ glabel var7f1aae70
 /*  f088d58:	00c2082a */ 	slt	$at,$a2,$v0
 /*  f088d5c:	5020000f */ 	beqzl	$at,.L0f088d9c
 /*  f088d60:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*  f088d64:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088d64:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088d68:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d6c:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d70:	0fc2a58a */ 	jal	bgunSetAmmoQuantity
@@ -61939,10 +61939,10 @@ glabel var7f1aae70
 /*  f088cb4:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*  f088cb8:	18400019 */ 	blez	$v0,.L0f088d20
 /*  f088cbc:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f088cc0:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088cc0:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088cc4:	8fa4006c */ 	lw	$a0,0x6c($sp)
 /*  f088cc8:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f088ccc:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088ccc:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088cd0:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f088cd4:	8fa4006c */ 	lw	$a0,0x6c($sp)
 /*  f088cd8:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -61973,7 +61973,7 @@ glabel var7f1aae70
 /*  f088d34:	0fc22095 */ 	jal	weaponGetPickupAmmoQty
 /*  f088d38:	01802025 */ 	or	$a0,$t4,$zero
 /*  f088d3c:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f088d40:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088d40:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088d44:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d48:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d4c:	0fc2a63d */ 	jal	bgunGetCapacityByAmmotype
@@ -61982,7 +61982,7 @@ glabel var7f1aae70
 /*  f088d58:	00c2082a */ 	slt	$at,$a2,$v0
 /*  f088d5c:	5020000f */ 	beqzl	$at,.L0f088d9c
 /*  f088d60:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*  f088d64:	0fc2a5dc */ 	jal	bgunGetAmmoCountWithCheck
+/*  f088d64:	0fc2a5dc */ 	jal	bgunGetReservedAmmoCount
 /*  f088d68:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d6c:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f088d70:	0fc2a58a */ 	jal	bgunSetAmmoQuantity
@@ -62347,9 +62347,9 @@ glabel var7f1aae70
 //				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
 //
 //				if (pickupqty > 0) {
-//					s32 heldqty = bgunGetAmmoCountWithCheck(ammotype);
+//					s32 heldqty = bgunGetReservedAmmoCount(ammotype);
 //
-//					if (bgunGetAmmoCountWithCheck(ammotype) < bgunGetCapacityByAmmotype(ammotype)) {
+//					if (bgunGetReservedAmmoCount(ammotype) < bgunGetCapacityByAmmotype(ammotype)) {
 //						bgunSetAmmoQuantity(ammotype, heldqty + pickupqty);
 //
 //						if (sp112 == false && showhudmsg) {
@@ -62363,8 +62363,8 @@ glabel var7f1aae70
 //			if (weapon->weaponnum == WEAPON_SUPERDRAGON) {
 //				s32 pickupqty = weaponGetPickupAmmoQty(weapon);
 //
-//				if (bgunGetAmmoCountWithCheck(AMMOTYPE_DEVASTATOR) < bgunGetCapacityByAmmotype(AMMOTYPE_DEVASTATOR)) {
-//					s32 heldqty = bgunGetAmmoCountWithCheck(AMMOTYPE_DEVASTATOR);
+//				if (bgunGetReservedAmmoCount(AMMOTYPE_DEVASTATOR) < bgunGetCapacityByAmmotype(AMMOTYPE_DEVASTATOR)) {
+//					s32 heldqty = bgunGetReservedAmmoCount(AMMOTYPE_DEVASTATOR);
 //
 //					bgunSetAmmoQuantity(AMMOTYPE_DEVASTATOR, heldqty + 5);
 //
@@ -62612,7 +62612,7 @@ s32 objTestForPickup(struct prop *prop)
 	} else if (obj->type == OBJTYPE_AMMOCRATE) {
 		struct ammocrateobj *crate = (struct ammocrateobj *) prop->obj;
 
-		if (bgunGetAmmoCountWithCheck(crate->ammotype) >= bgunGetCapacityByAmmotype(crate->ammotype)) {
+		if (bgunGetReservedAmmoCount(crate->ammotype) >= bgunGetCapacityByAmmotype(crate->ammotype)) {
 			if ((crate->ammotype != AMMOTYPE_GRENADE || invHasSingleWeaponExcAllGuns(WEAPON_GRENADE))
 					&& (crate->ammotype != AMMOTYPE_CLOAK || invHasSingleWeaponExcAllGuns(WEAPON_CLOAKINGDEVICE))
 					&& (crate->ammotype != AMMOTYPE_BOOST || invHasSingleWeaponExcAllGuns(WEAPON_COMBATBOOST))
@@ -62637,7 +62637,7 @@ s32 objTestForPickup(struct prop *prop)
 			s32 ammotype = i + 1;
 
 			if (crate->slots[i].quantity > 0) {
-				if (bgunGetAmmoCountWithCheck(ammotype) < bgunGetCapacityByAmmotype(ammotype)) {
+				if (bgunGetReservedAmmoCount(ammotype) < bgunGetCapacityByAmmotype(ammotype)) {
 					ignore = false;
 					break;
 				}
