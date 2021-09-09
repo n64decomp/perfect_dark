@@ -606,7 +606,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	shotdata.unk0c.y = arg3->y;
 	shotdata.unk0c.z = arg3->z;
 
-	handPopulateFromCurrentPlayer(handnum, &shotdata.gset);
+	gsetPopulateFromCurrentPlayer(handnum, &shotdata.gset);
 	func = gsetGetWeaponFunction(&shotdata.gset);
 
 	if (func) {
@@ -1264,7 +1264,7 @@ void handTickAttack(s32 handnum)
 
 		g_Vars.currentplayer->hands[handnum].unk0d0f_03 = false;
 
-		handPopulateFromCurrentPlayer(handnum, (struct gset *)&tmpweaponnum);
+		gsetPopulateFromCurrentPlayer(handnum, (struct gset *)&tmpweaponnum);
 		frIncrementNumShots();
 
 		switch (type) {

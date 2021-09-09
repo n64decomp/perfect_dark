@@ -2959,12 +2959,12 @@ struct stagesetup {
 	/*0x1c*/ s8 *padfiledata;
 };
 
-struct inventory_menupos {
-	f32 x;
-	f32 y;
-	f32 z;
-	f32 rotation;
-	f32 size;
+struct noisesettings {
+	f32 minradius;
+	f32 maxradius;
+	f32 incradius;
+	f32 unk0c;
+	f32 unk10;
 };
 
 struct inventory_class {
@@ -3004,14 +3004,14 @@ struct weaponfunc {
 	/*0x04*/ u16 name;
 	/*0x06*/ u8 unk06;
 	/*0x07*/ s8 ammoindex; // -1 = no ammo, 0 or 1 = index into weapon->ammos[]
-	/*0x08*/ struct inventory_menupos *menupos;
+	/*0x08*/ struct noisesettings *noisesettings;
 	/*0x0c*/ struct guncmd *fire_animation;
 	/*0x10*/ u32 flags;
 };
 
 struct weaponfunc_shoot {
 	struct weaponfunc base;
-	/*0x14*/ struct inventory_menupos *unk14;
+	/*0x14*/ struct noisesettings *unk14;
 	/*0x18*/ s8 unk18;
 	/*0x1c*/ f32 damage;
 	/*0x20*/ f32 spread;

@@ -7,51 +7,51 @@
 #include "data.h"
 #include "types.h"
 
-struct inventory_menupos invmenupos_00010fd0 = {
+struct noisesettings invnoisesettings_00010fd0 = {
 	0, 0, 0, 1, 6,
 };
 
-struct inventory_menupos invmenupos_00010fe4 = {
+struct noisesettings invnoisesettings_00010fe4 = {
 	0, 3, 1.4, 1, 6,
 };
 
-struct inventory_menupos invmenupos_00010ff8 = {
+struct noisesettings invnoisesettings_00010ff8 = {
 	0, 9, 2, 1, 6,
 };
 
-struct inventory_menupos invmenupos_0001100c = {
+struct noisesettings invnoisesettings_0001100c = {
 	0, 14, 2, 1, 6,
 };
 
-struct inventory_menupos invmenupos_00011020 = {
+struct noisesettings invnoisesettings_00011020 = {
 	0, 18, 2, 1, 6,
 };
 
-struct inventory_menupos invmenupos_00011034 = {
+struct noisesettings invnoisesettings_00011034 = {
 	0, 22, 3, 1, 6,
 };
 
-struct inventory_menupos invmenupos_00011048 = {
+struct noisesettings invnoisesettings_00011048 = {
 	0, 25, 15, 5, 6,
 };
 
-struct inventory_menupos invmenupos_0001105c = {
+struct noisesettings invnoisesettings_0001105c = {
 	0, 35, 1, 1, 6,
 };
 
-struct inventory_menupos invmenupos_00011070 = {
+struct noisesettings invnoisesettings_00011070 = {
 	0, 0, 0, 0.2, 2.3509887016446E-38,
 };
 
-struct inventory_menupos invmenupos_00011084 = {
+struct noisesettings invnoisesettings_00011084 = {
 	0.2, 0.2, 0.2, 0.2, 2.3509887016446E-38,
 };
 
-struct inventory_menupos invmenupos_00011098 = {
+struct noisesettings invnoisesettings_00011098 = {
 	0.6, 0.6, 0.6, 0.2, 2.3509887016446E-38,
 };
 
-struct inventory_menupos invmenupos_000110ac = {
+struct noisesettings invnoisesettings_000110ac = {
 	0.6, 0.6, 2.6, 0.2, 2.3509887016446E-38,
 };
 
@@ -115,10 +115,10 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	6, // spread
@@ -230,7 +230,7 @@ struct weaponfunc_close invfunc_unarmed_punch = {
 	L_GUN_100, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_punch, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.5, // damage
@@ -254,7 +254,7 @@ struct weaponfunc_close invfunc_unarmed_disarm = {
 	L_GUN_101, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_punch, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.3, // damage
@@ -438,10 +438,10 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_falcon2_shoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1, // damage
 	1, // spread
@@ -460,10 +460,10 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fe4, // menupos
+	&invnoisesettings_00010fe4,
 	invanim_falcon2_shoot, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1, // damage
 	1, // spread
@@ -482,7 +482,7 @@ struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 	L_GUN_094, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_falcon2_pistolwhip, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.9, // damage
@@ -667,10 +667,10 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_magsec_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1.1, // damage
 	6, // spread
@@ -689,10 +689,10 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	L_GUN_128, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_magsec_equiporshoot, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1.1, // damage
 	10, // spread
@@ -834,10 +834,10 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011020, // menupos
+	&invnoisesettings_00011020,
 	invanim_dy357_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	20,
 	2, // damage
 	0, // spread
@@ -856,10 +856,10 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011020, // menupos
+	&invnoisesettings_00011020,
 	invanim_dy357_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	30,
 	200, // damage
 	0, // spread
@@ -878,7 +878,7 @@ struct weaponfunc_close invfunc_dy357_pistolwhip = {
 	L_GUN_094, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_dy357_pistolwhip, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_BLUNTIMPACT | FUNCFLAG_NOSTUN | FUNCFLAG_00400000,
 	0.9, // damage
@@ -1003,10 +1003,10 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_phoenix_shoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1.1, // damage
 	3, // spread
@@ -1025,10 +1025,10 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	L_GUN_095, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_phoenix_shoot, // fire animation
 	FUNCFLAG_EXPLOSIVESHELLS,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1.2, // damage
 	5, // spread
@@ -1143,10 +1143,10 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011020, // menupos
+	&invnoisesettings_00011020,
 	invanim_mauler_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.2, // damage
 	6, // spread
@@ -1165,10 +1165,10 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	L_GUN_129, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011020, // menupos
+	&invnoisesettings_00011020,
 	invanim_mauler_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.2, // damage
 	6, // spread
@@ -1289,10 +1289,10 @@ struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011020, // menupos
+	&invnoisesettings_00011020,
 	invanim_cmp150_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	9, // spread
@@ -1316,10 +1316,10 @@ struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	L_GUN_102, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011020, // menupos
+	&invnoisesettings_00011020,
 	invanim_cmp150_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	9, // spread
@@ -1415,10 +1415,10 @@ struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	invanim_cyclone_shoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	0.8, // damage
 	6, // spread
@@ -1442,10 +1442,10 @@ struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 	L_GUN_097, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	invanim_cyclone_shoot, // fire animation
 	FUNCFLAG_BURST50,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.4, // damage
 	25, // spread
@@ -1533,10 +1533,10 @@ struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_rcp120_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.2, // damage
 	6, // spread
@@ -1560,7 +1560,7 @@ struct weaponfunc_special invfunc_rcp120_cloak = {
 	L_GUN_116, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_RCP120CLOAK,
@@ -1632,10 +1632,10 @@ struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_callisto_shoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.2, // damage
 	9, // spread
@@ -1659,10 +1659,10 @@ struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
 	L_GUN_115, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_callisto_shoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	2.4, // damage
 	9, // spread
@@ -1747,10 +1747,10 @@ struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	invanim_dragon_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.1, // damage
 	6, // spread
@@ -1774,7 +1774,7 @@ struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 	L_GUN_118, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_DISCARDWEAPON,
 	0x000000ff,
@@ -1880,10 +1880,10 @@ struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	invanim_superdragon_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.2, // damage
 	6, // spread
@@ -1907,7 +1907,7 @@ struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 	L_GUN_098, // name
 	0x00, // unk06
 	1, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_superdragon_shootgrenade, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
@@ -2017,10 +2017,10 @@ struct weaponfunc_shootauto invfunc_ar34_burstfire = {
 	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.4, // damage
 	8, // spread
@@ -2044,10 +2044,10 @@ struct weaponfunc_shootauto invfunc_ar34_usescope = {
 	L_GUN_103, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.4, // damage
 	8, // spread
@@ -2156,10 +2156,10 @@ struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
 	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.5, // damage
 	6, // spread
@@ -2183,10 +2183,10 @@ struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
 	L_GUN_119, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	NULL, // fire animation
 	FUNCFLAG_BURST3 | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_THREATDETECTOR,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.5, // damage
 	6, // spread
@@ -2302,10 +2302,10 @@ struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
 	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011020, // menupos
+	&invnoisesettings_00011020,
 	invanim_laptopgun_shoot, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.15, // damage
 	6, // spread
@@ -2329,7 +2329,7 @@ struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	L_GUN_117, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_DISCARDWEAPON | FUNCFLAG_00800000,
 	0x00000157,
@@ -2412,10 +2412,10 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	L_GUN_089, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_shotgun_equiporsingleshot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	0.6, // damage
 	30, // spread
@@ -2434,10 +2434,10 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	L_GUN_105, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_shotgun_doubleshot, // fire animation
 	FUNCFLAG_BURST2,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	0.6, // damage
 	16, // spread
@@ -2533,10 +2533,10 @@ struct weaponfunc_shootauto invfunc_reaper_shoot = {
 	L_GUN_088, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001105c, // menupos
+	&invnoisesettings_0001105c,
 	invanim_reaper_shoot, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_000110ac,
+	&invnoisesettings_000110ac,
 	0,
 	1.2, // damage
 	56, // spread
@@ -2560,7 +2560,7 @@ struct weaponfunc_close invfunc_reaper_grind = {
 	L_GUN_106, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	0.05, // damage
@@ -2659,7 +2659,7 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	L_GUN_091, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
 	NULL,
@@ -2690,7 +2690,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	L_GUN_092, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000 | FUNCFLAG_HOMINGROCKET,
 	NULL,
@@ -2769,7 +2769,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	L_GUN_091, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_slayer_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
 	NULL,
@@ -2800,7 +2800,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	L_GUN_093, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_FLYBYWIRE | FUNCFLAG_08000000 | FUNCFLAG_20000000,
 	NULL,
@@ -2889,7 +2889,7 @@ struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	L_GUN_098, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_devastator_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
@@ -2920,7 +2920,7 @@ struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	L_GUN_099, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_devastator_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_STICKTOWALL | FUNCFLAG_10000000 | FUNCFLAG_20000000,
 	NULL,
@@ -2989,7 +2989,7 @@ struct weaponfunc invfunc_mine_threatdetector = {
 	L_GUN_119, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_THREATDETECTOR,
 };
@@ -3016,7 +3016,7 @@ struct weaponfunc_throw invfunc_timedmine_throw = {
 	L_GUN_120, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_mine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	0x00000113,
@@ -3088,7 +3088,7 @@ struct weaponfunc_throw invfunc_remotemine_throw = {
 	L_GUN_122, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_remotemine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	0x00000115,
@@ -3102,7 +3102,7 @@ struct weaponfunc_special invfunc_remotemine_detonate = {
 	L_GUN_123, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_DETONATE,
@@ -3153,7 +3153,7 @@ struct weaponfunc_throw invfunc_proxymine_throw = {
 	L_GUN_121, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_mine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	0x00000114,
@@ -3216,7 +3216,7 @@ struct weaponfunc_throw invfunc_ecmmine_throw = {
 	L_GUN_140, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_ecmmine_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	0x00000116,
@@ -3309,7 +3309,7 @@ struct weaponfunc_throw invfunc_grenade_throw = {
 	L_GUN_124, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH,
 	0x00000112,
@@ -3323,7 +3323,7 @@ struct weaponfunc_throw invfunc_grenade_pinball = {
 	L_GUN_125, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH,
 	0x00000112,
@@ -3370,7 +3370,7 @@ struct weaponfunc_throw invfunc_nbomb_throw = {
 	L_GUN_134, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH,
 	0x00000110,
@@ -3384,7 +3384,7 @@ struct weaponfunc_throw invfunc_nbomb_proxy = {
 	L_GUN_127, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_grenade_throw, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_MAKEDIZZY | FUNCFLAG_DROPWEAPON | FUNCFLAG_NOMUZZLEFLASH,
 	0x00000110,
@@ -3461,10 +3461,10 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	L_GUN_090, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	invanim_farsight_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	100, // damage
 	0, // spread
@@ -3483,10 +3483,10 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	L_GUN_111, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011034, // menupos
+	&invnoisesettings_00011034,
 	invanim_farsight_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	100, // damage
 	0, // spread
@@ -3585,7 +3585,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	L_GUN_112, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fe4, // menupos
+	&invnoisesettings_00010fe4,
 	invanim_crossbow_shoot, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	NULL,
@@ -3616,7 +3616,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	L_GUN_107, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fe4, // menupos
+	&invnoisesettings_00010fe4,
 	invanim_crossbow_shoot, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	NULL,
@@ -3726,10 +3726,10 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	L_GUN_107, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fe4, // menupos
+	&invnoisesettings_00010fe4,
 	invanim_tranquilizer_equiporshoot, // fire animation
 	FUNCFLAG_MAKEDIZZY,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	0.25, // damage
 	3, // spread
@@ -3748,7 +3748,7 @@ struct weaponfunc_close invfunc_tranquilizer_lethal = {
 	L_GUN_108, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fe4, // menupos
+	&invnoisesettings_00010fe4,
 	invanim_tranquilizer_lethalinject, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	100, // damage
@@ -3820,10 +3820,10 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	L_GUN_131, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fe4, // menupos
+	&invnoisesettings_00010fe4,
 	invanim_tranquilizer_equiporshoot, // fire animation
 	FUNCFLAG_MAKEDIZZY | FUNCFLAG_PSYCHOSIS,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	0.5, // damage
 	3, // spread
@@ -3902,10 +3902,10 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010ff8, // menupos
+	&invnoisesettings_00010ff8,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1.2, // damage
 	0, // spread
@@ -3924,7 +3924,7 @@ struct weaponfunc_special invfunc_sniperrifle_crouch = {
 	L_GUN_130, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_CROUCH,
@@ -3985,10 +3985,10 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	L_GUN_132, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	0, // spread
@@ -4007,10 +4007,10 @@ struct weaponfunc_shootauto invfunc_laser_stream = {
 	L_GUN_133, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011084,
+	&invnoisesettings_00011084,
 	0,
 	0.1, // damage
 	0, // spread
@@ -4075,10 +4075,10 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_pp9i_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1, // damage
 	1, // spread
@@ -4136,10 +4136,10 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	L_GUN_085, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_cc13_equiporshoot, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	16,
 	1, // damage
 	6, // spread
@@ -4191,10 +4191,10 @@ struct weaponfunc_shootauto invfunc_kl01313_shoot = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	0.6, // damage
 	15, // spread
@@ -4251,10 +4251,10 @@ struct weaponfunc_shootauto invfunc_kf7special_shoot = {
 	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	10, // spread
@@ -4311,10 +4311,10 @@ struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	9, // spread
@@ -4371,10 +4371,10 @@ struct weaponfunc_shootauto invfunc_dmc_shoot = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	7, // spread
@@ -4431,10 +4431,10 @@ struct weaponfunc_shootauto invfunc_ar53_shoot = {
 	L_GUN_087, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	FUNCFLAG_BURST3,
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.4, // damage
 	6, // spread
@@ -4491,10 +4491,10 @@ struct weaponfunc_shootauto invfunc_rcp45_shoot = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1.8, // damage
 	6, // spread
@@ -4551,7 +4551,7 @@ struct weaponfunc invfunc_briefcase_use = {
 	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	0, // flags
 };
@@ -4591,10 +4591,10 @@ struct weaponfunc_shootauto invfunc_59_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	6, // spread
@@ -4651,10 +4651,10 @@ struct weaponfunc_shootauto invfunc_5a_rapidfire = {
 	L_GUN_086, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	NULL, // fire animation
 	0, // flags
-	&invmenupos_00011098,
+	&invnoisesettings_00011098,
 	0,
 	1, // damage
 	6, // spread
@@ -4767,7 +4767,7 @@ struct weaponfunc_close invfunc_combatknife_slash = {
 	L_GUN_109, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_combatknife_slash, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	2, // damage
@@ -4791,7 +4791,7 @@ struct weaponfunc_throw invfunc_combatknife_throw = {
 	L_GUN_110, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	invanim_combatknife_throw, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	0x0000010f,
@@ -4838,7 +4838,7 @@ struct weaponfunc_throw invfunc_bug_throw = {
 	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	0x00000012,
@@ -4852,7 +4852,7 @@ struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_00800000,
 	0x000001b1,
@@ -4949,7 +4949,7 @@ struct weaponfunc_device invfunc_nightvision_primary = {
 	L_GUN_135, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_NIGHTVISION,
@@ -4985,7 +4985,7 @@ struct weaponfunc invfunc_horizonscanner_primary = {
 	L_GUN_139, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	0, // flags
 };
@@ -5031,7 +5031,7 @@ struct weaponfunc_device invfunc_cloak_primary = {
 	L_GUN_116, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_CLOAKDEVICE,
@@ -5075,7 +5075,7 @@ struct weaponfunc_special invfunc_combatboost_boost = {
 	L_GUN_113, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	HANDATTACKTYPE_BOOST,
@@ -5088,7 +5088,7 @@ struct weaponfunc_special invfunc_combatboost_revert = {
 	L_GUN_114, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	HANDATTACKTYPE_REVERTBOOST,
@@ -5134,7 +5134,7 @@ struct weaponfunc_device invfunc_suicidepill_primary = {
 	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_SUICIDEPILL,
@@ -5170,7 +5170,7 @@ struct weaponfunc_device invfunc_irscanner_primary = {
 	L_GUN_138, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_IRSCANNER,
@@ -5206,7 +5206,7 @@ struct weaponfunc invfunc_disguise_primary = {
 	L_GUN_143, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	0, // flags
 };
@@ -5266,7 +5266,7 @@ struct weaponfunc_device invfunc_camspy_deploy = {
 	L_GUN_136, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_EYESPY,
@@ -5302,7 +5302,7 @@ struct weaponfunc_device invfunc_rtracker_primary = {
 	L_GUN_142, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_RTRACKER,
@@ -5338,7 +5338,7 @@ struct weaponfunc_device invfunc_xray_primary = {
 	L_GUN_137, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_XRAYSCANNER,
@@ -5389,7 +5389,7 @@ struct weaponfunc_special invfunc_datauplink_primary = {
 	L_GUN_141, // name
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_UPLINK,
@@ -5555,7 +5555,7 @@ struct weaponfunc_special invfunc_unused_8006f9a4 = {
 	L_GUN_144, // "Place Explosives"
 	0x00, // unk06
 	-1, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH | FUNCFLAG_AUTOSWITCHUNSELECTABLE,
 	HANDATTACKTYPE_UPLINK,
@@ -5620,7 +5620,7 @@ struct weaponfunc_device invfunc_presidentscanner_primary = {
 	L_GUN_142, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00010fd0, // menupos
+	&invnoisesettings_00010fd0,
 	NULL, // fire animation
 	FUNCFLAG_NOMUZZLEFLASH,
 	DEVICE_RTRACKER,
@@ -5897,7 +5897,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_00011048, // menupos
+	&invnoisesettings_00011048,
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	FUNCFLAG_NOAUTOAIM | FUNCFLAG_08000000,
 	NULL,
@@ -5966,10 +5966,10 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 	L_GUN_000, // name
 	0x00, // unk06
 	0, // unk07
-	&invmenupos_0001100c, // menupos
+	&invnoisesettings_0001100c,
 	invanim_tester_shoot, // fire animation
 	0, // flags
-	&invmenupos_00011070,
+	&invnoisesettings_00011070,
 	16,
 	1, // damage
 	6, // spread

@@ -8500,29 +8500,29 @@ void bgunDecreaseNoiseRadius(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 consideramount;
-	struct gset shortleft;
-	struct gset shortright;
-	f32 sp3c[5];
-	f32 sp28[5];
+	struct gset gsetleft;
+	struct gset gsetright;
+	struct noisesettings noisesettingsleft;
+	struct noisesettings noisesettingsright;
 	f32 subamount;
 
-	handPopulateFromCurrentPlayer(HAND_LEFT, &shortleft);
-	handPopulateFromCurrentPlayer(HAND_RIGHT, &shortright);
+	gsetPopulateFromCurrentPlayer(HAND_LEFT, &gsetleft);
+	gsetPopulateFromCurrentPlayer(HAND_RIGHT, &gsetright);
 
-	func0f0b201c(&shortleft, sp3c);
-	func0f0b201c(&shortright, sp28);
+	gsetGetNoiseSettings(&gsetleft, &noisesettingsleft);
+	gsetGetNoiseSettings(&gsetright, &noisesettingsright);
 
 	// Right hand
 	if (bgunIsFiring(HAND_RIGHT)) {
-		player->hands[HAND_RIGHT].noiseradius += sp28[2];
+		player->hands[HAND_RIGHT].noiseradius += noisesettingsright.incradius;
 
-		if (player->hands[HAND_RIGHT].noiseradius > sp28[1]) {
-			player->hands[HAND_RIGHT].noiseradius = sp28[1];
+		if (player->hands[HAND_RIGHT].noiseradius > noisesettingsright.maxradius) {
+			player->hands[HAND_RIGHT].noiseradius = noisesettingsright.maxradius;
 		}
 	}
 
-	subamount = g_Vars.lvupdate240freal * sp28[2] / (sp28[3] * 60.0f);
-	consideramount = (player->hands[HAND_RIGHT].noiseradius - sp28[0]) * g_Vars.lvupdate240freal / (sp28[4] * 60.0f);
+	subamount = g_Vars.lvupdate240freal * noisesettingsright.incradius / (noisesettingsright.unk0c * 60.0f);
+	consideramount = (player->hands[HAND_RIGHT].noiseradius - noisesettingsright.minradius) * g_Vars.lvupdate240freal / (noisesettingsright.unk10 * 60.0f);
 
 	if (consideramount > subamount) {
 		subamount = consideramount;
@@ -8530,21 +8530,21 @@ void bgunDecreaseNoiseRadius(void)
 
 	player->hands[HAND_RIGHT].noiseradius -= subamount;
 
-	if (player->hands[HAND_RIGHT].noiseradius < sp28[0]) {
-		player->hands[HAND_RIGHT].noiseradius = sp28[0];
+	if (player->hands[HAND_RIGHT].noiseradius < noisesettingsright.minradius) {
+		player->hands[HAND_RIGHT].noiseradius = noisesettingsright.minradius;
 	}
 
 	// Left hand
 	if (bgunIsFiring(HAND_LEFT)) {
-		player->hands[HAND_LEFT].noiseradius += sp3c[2];
+		player->hands[HAND_LEFT].noiseradius += noisesettingsleft.incradius;
 
-		if (player->hands[HAND_LEFT].noiseradius > sp3c[1]) {
-			player->hands[HAND_LEFT].noiseradius = sp3c[1];
+		if (player->hands[HAND_LEFT].noiseradius > noisesettingsleft.maxradius) {
+			player->hands[HAND_LEFT].noiseradius = noisesettingsleft.maxradius;
 		}
 	}
 
-	subamount = g_Vars.lvupdate240freal * sp3c[2] / (sp3c[3] * 60.0f);
-	consideramount = (player->hands[HAND_LEFT].noiseradius - sp3c[0]) * g_Vars.lvupdate240freal / (sp3c[4] * 60.0f);
+	subamount = g_Vars.lvupdate240freal * noisesettingsleft.incradius / (noisesettingsleft.unk0c * 60.0f);
+	consideramount = (player->hands[HAND_LEFT].noiseradius - noisesettingsleft.minradius) * g_Vars.lvupdate240freal / (noisesettingsleft.unk10 * 60.0f);
 
 	if (consideramount > subamount) {
 		subamount = consideramount;
@@ -8552,8 +8552,8 @@ void bgunDecreaseNoiseRadius(void)
 
 	player->hands[HAND_LEFT].noiseradius -= subamount;
 
-	if (player->hands[HAND_LEFT].noiseradius < sp3c[0]) {
-		player->hands[HAND_LEFT].noiseradius = sp3c[0];
+	if (player->hands[HAND_LEFT].noiseradius < noisesettingsleft.minradius) {
+		player->hands[HAND_LEFT].noiseradius = noisesettingsleft.minradius;
 	}
 }
 

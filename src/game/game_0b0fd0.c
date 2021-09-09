@@ -398,7 +398,7 @@ u16 weaponGetModelNum2(s32 weaponnum)
 }
 
 GLOBAL_ASM(
-glabel handPopulateFromCurrentPlayer
+glabel gsetPopulateFromCurrentPlayer
 /*  f0b1af0:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0b1af4:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
 /*  f0b1af8:	8cce0284 */ 	lw	$t6,0x284($a2)
@@ -484,7 +484,7 @@ glabel handPopulateFromCurrentPlayer
 );
 
 // Mismatch: regalloc
-//void handPopulateFromCurrentPlayer(s32 handnum, struct gset *gset)
+//void gsetPopulateFromCurrentPlayer(s32 handnum, struct gset *gset)
 //{
 //	gset->weaponnum = g_Vars.currentplayer->weaponnum;
 //	gset->weaponfunc = g_Vars.currentplayer->hands[handnum].weaponfunc;
@@ -732,38 +732,25 @@ u32 currentPlayerGetSight(void)
 	return SIGHT_DEFAULT;
 }
 
-GLOBAL_ASM(
-glabel func0f0b201c
-/*  f0b201c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b2020:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b2024:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0b2028:	0fc2c41f */ 	jal	gsetGetWeaponFunction
-/*  f0b202c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0b2030:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0b2034:	10400002 */ 	beqz	$v0,.L0f0b2040
-/*  f0b2038:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0b203c:	8c430008 */ 	lw	$v1,0x8($v0)
-.L0f0b2040:
-/*  f0b2040:	54600004 */ 	bnezl	$v1,.L0f0b2054
-/*  f0b2044:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f0b2048:	3c038007 */ 	lui	$v1,%hi(invmenupos_00010fd0)
-/*  f0b204c:	2463afb0 */ 	addiu	$v1,$v1,%lo(invmenupos_00010fd0)
-/*  f0b2050:	c4640000 */ 	lwc1	$f4,0x0($v1)
-.L0f0b2054:
-/*  f0b2054:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f0b2058:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f0b205c:	e4a60004 */ 	swc1	$f6,0x4($a1)
-/*  f0b2060:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f0b2064:	e4a80008 */ 	swc1	$f8,0x8($a1)
-/*  f0b2068:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f0b206c:	e4aa000c */ 	swc1	$f10,0xc($a1)
-/*  f0b2070:	c4700010 */ 	lwc1	$f16,0x10($v1)
-/*  f0b2074:	e4b00010 */ 	swc1	$f16,0x10($a1)
-/*  f0b2078:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b207c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b2080:	03e00008 */ 	jr	$ra
-/*  f0b2084:	00000000 */ 	nop
-);
+void gsetGetNoiseSettings(struct gset *gset, struct noisesettings *dst)
+{
+	struct noisesettings *settings = NULL;
+	struct weaponfunc *func = gsetGetWeaponFunction(gset);
+
+	if (func != NULL) {
+		settings = func->noisesettings;
+	}
+
+	if (settings == NULL) {
+		settings = &invnoisesettings_00010fd0;
+	}
+
+	dst->minradius = settings->minradius;
+	dst->maxradius = settings->maxradius;
+	dst->incradius = settings->incradius;
+	dst->unk0c = settings->unk0c;
+	dst->unk10 = settings->unk10;
+}
 
 struct guncmd *handGetEquipAnim(struct gset *gset)
 {

@@ -24,7 +24,7 @@ s32 currentPlayerGetDeviceState(s32 weaponnum);
 void currentPlayerSetDeviceActive(s32 weaponum, bool active);
 u16 weaponGetModelNum(s32 weaponnum);
 u16 weaponGetModelNum2(s32 weaponnum);
-void handPopulateFromCurrentPlayer(s32 handnum, struct gset *gset);
+void gsetPopulateFromCurrentPlayer(s32 handnum, struct gset *gset);
 struct inventory_ammo *gsetGetAmmoDefinition(struct gset *gset);
 u8 gsetGetSingleUnk3c(struct gset *gset);
 f32 gsetGetStrength(struct gset *gset);
@@ -34,7 +34,7 @@ u16 gsetGetSingleShootSound(struct gset *gset);
 bool gsetHasFunctionFlags(struct gset *gset, u32 flags);
 s8 weaponGetNumTicksPerShot(u32 weaponnum, u32 funcindex);
 u32 currentPlayerGetSight(void);
-void func0f0b201c(struct gset *gset, f32 *arg1);
+void gsetGetNoiseSettings(struct gset *gset, struct noisesettings *settings);
 struct guncmd *gsetGetPriToSecAnim(struct gset *gset);
 struct guncmd *gsetGetSecToPriAnim(struct gset *gset);
 
