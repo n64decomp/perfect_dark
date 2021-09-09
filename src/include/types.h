@@ -4495,9 +4495,7 @@ struct savefile_solo {
 };
 
 struct mpchr {
-	/*0x00*/ char name[1]; // len unknown
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
+	/*0x00*/ char name[12]; // up to 10 visible chars plus line break plus null byte
 	/*0x0c*/ u8 unk0c;
 	/*0x0d*/ u8 unk0d;
 	/*0x0e*/ u8 unk0e;

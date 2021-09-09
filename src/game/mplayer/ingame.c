@@ -498,135 +498,50 @@ char *mpMenuTextPlayerTitle(s32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel menuhandler00178bf4
-/*  f178bf4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f178bf8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178bfc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f178c00:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f178c04:	10810065 */ 	beq	$a0,$at,.L0f178d9c
-/*  f178c08:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f178c0c:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f178c10:	10810006 */ 	beq	$a0,$at,.L0f178c2c
-/*  f178c14:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f178c18:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f178c1c:	10810033 */ 	beq	$a0,$at,.L0f178cec
-/*  f178c20:	3c07800b */ 	lui	$a3,%hi(g_MpPlayers)
-/*  f178c24:	10000061 */ 	b	.L0f178dac
-/*  f178c28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178c2c:
-/*  f178c2c:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
-/*  f178c30:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f178c34:	3c07800b */ 	lui	$a3,%hi(g_MpPlayers)
-/*  f178c38:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_MpPlayers)
-/*  f178c3c:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f178c40:	01c27021 */ 	addu	$t6,$t6,$v0
-/*  f178c44:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f178c48:	00ee7821 */ 	addu	$t7,$a3,$t6
-/*  f178c4c:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f178c50:	2409000a */ 	addiu	$t1,$zero,0xa
-/*  f178c54:	00001825 */ 	or	$v1,$zero,$zero
-/*  f178c58:	1138001a */ 	beq	$t1,$t8,.L0f178cc4
-/*  f178c5c:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f178c60:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  f178c64:	0019c940 */ 	sll	$t9,$t9,0x5
-/*  f178c68:	00f92821 */ 	addu	$a1,$a3,$t9
-/*  f178c6c:	90ab0000 */ 	lbu	$t3,0x0($a1)
-/*  f178c70:	01401021 */ 	addu	$v0,$t2,$zero
-/*  f178c74:	2406000b */ 	addiu	$a2,$zero,0xb
-/*  f178c78:	51600013 */ 	beqzl	$t3,.L0f178cc8
-/*  f178c7c:	2861000b */ 	slti	$at,$v1,0xb
-/*  f178c80:	90a40000 */ 	lbu	$a0,0x0($a1)
-/*  f178c84:	a0440000 */ 	sb	$a0,0x0($v0)
-.L0f178c88:
-/*  f178c88:	8d0d0000 */ 	lw	$t5,0x0($t0)
-/*  f178c8c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f178c90:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f178c94:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f178c98:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f178c9c:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f178ca0:	00ee7821 */ 	addu	$t7,$a3,$t6
-/*  f178ca4:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f178ca8:	93040000 */ 	lbu	$a0,0x0($t8)
-/*  f178cac:	51240006 */ 	beql	$t1,$a0,.L0f178cc8
-/*  f178cb0:	2861000b */ 	slti	$at,$v1,0xb
-/*  f178cb4:	50800004 */ 	beqzl	$a0,.L0f178cc8
-/*  f178cb8:	2861000b */ 	slti	$at,$v1,0xb
-/*  f178cbc:	5466fff2 */ 	bnel	$v1,$a2,.L0f178c88
-/*  f178cc0:	a0440000 */ 	sb	$a0,0x0($v0)
-.L0f178cc4:
-/*  f178cc4:	2861000b */ 	slti	$at,$v1,0xb
-.L0f178cc8:
-/*  f178cc8:	10200037 */ 	beqz	$at,.L0f178da8
-/*  f178ccc:	01431021 */ 	addu	$v0,$t2,$v1
-.L0f178cd0:
-/*  f178cd0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f178cd4:	2861000b */ 	slti	$at,$v1,0xb
-/*  f178cd8:	a0400000 */ 	sb	$zero,0x0($v0)
-/*  f178cdc:	1420fffc */ 	bnez	$at,.L0f178cd0
-/*  f178ce0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f178ce4:	10000031 */ 	b	.L0f178dac
-/*  f178ce8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178cec:
-/*  f178cec:	91590000 */ 	lbu	$t9,0x0($t2)
-/*  f178cf0:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f178cf4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f178cf8:	13200014 */ 	beqz	$t9,.L0f178d4c
-/*  f178cfc:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
-/*  f178d00:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
-/*  f178d04:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f178d08:	3c0e800b */ 	lui	$t6,%hi(g_MpPlayers)
-/*  f178d0c:	25cec7b8 */ 	addiu	$t6,$t6,%lo(g_MpPlayers)
-/*  f178d10:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f178d14:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f178d18:	000c6140 */ 	sll	$t4,$t4,0x5
-/*  f178d1c:	018e2021 */ 	addu	$a0,$t4,$t6
-/*  f178d20:	01401021 */ 	addu	$v0,$t2,$zero
-/*  f178d24:	91450000 */ 	lbu	$a1,0x0($t2)
-/*  f178d28:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f178d2c:
-/*  f178d2c:	2861000b */ 	slti	$at,$v1,0xb
-/*  f178d30:	a0850000 */ 	sb	$a1,0x0($a0)
-/*  f178d34:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f178d38:	10200004 */ 	beqz	$at,.L0f178d4c
-/*  f178d3c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f178d40:	90450000 */ 	lbu	$a1,0x0($v0)
-/*  f178d44:	54a0fff9 */ 	bnezl	$a1,.L0f178d2c
-/*  f178d48:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f178d4c:
-/*  f178d4c:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*  f178d50:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_MpPlayers)
-/*  f178d54:	240b000a */ 	addiu	$t3,$zero,0xa
-/*  f178d58:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f178d5c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f178d60:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f178d64:	00f8c821 */ 	addu	$t9,$a3,$t8
-/*  f178d68:	03232021 */ 	addu	$a0,$t9,$v1
-/*  f178d6c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f178d70:	2861000b */ 	slti	$at,$v1,0xb
-/*  f178d74:	a08b0000 */ 	sb	$t3,0x0($a0)
-/*  f178d78:	1020000b */ 	beqz	$at,.L0f178da8
-/*  f178d7c:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f178d80:
-/*  f178d80:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f178d84:	2861000b */ 	slti	$at,$v1,0xb
-/*  f178d88:	a0800000 */ 	sb	$zero,0x0($a0)
-/*  f178d8c:	1420fffc */ 	bnez	$at,.L0f178d80
-/*  f178d90:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f178d94:	10000005 */ 	b	.L0f178dac
-/*  f178d98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178d9c:
-/*  f178d9c:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f178da0:	0fc42947 */ 	jal	filemgrPushSelectLocationDialog
-/*  f178da4:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f178da8:
-/*  f178da8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178dac:
-/*  f178dac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f178db0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f178db4:	03e00008 */ 	jr	$ra
-/*  f178db8:	00000000 */ 	nop
-);
+s32 mpConfirmPlayerNameHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	char *name = data->keyboard.string;
+	s32 i;
+
+	switch (operation) {
+	case MENUOP_GETTEXT:
+		i = 0;
+
+		while (g_MpPlayers[g_MpPlayerNum].base.name[i] != '\n'
+				&& g_MpPlayers[g_MpPlayerNum].base.name[i] != '\0'
+				&& i <= 10) {
+			name[i] = g_MpPlayers[g_MpPlayerNum].base.name[i];
+			i++;
+		}
+
+		while (i <= 10) {
+			name[i] = '\0';
+			i++;
+		}
+		break;
+	case MENUOP_SETTEXT:
+		i = 0;
+
+		while (i <= 10 && name[i] != '\0') {
+			g_MpPlayers[g_MpPlayerNum].base.name[i] = name[i];
+			i++;
+		}
+
+		g_MpPlayers[g_MpPlayerNum].base.name[i] = '\n';
+		i++;
+
+		while (i <= 10) {
+			g_MpPlayers[g_MpPlayerNum].base.name[i] = '\0';
+			i++;
+		}
+		break;
+	case MENUOP_SET:
+		filemgrPushSelectLocationDialog(6, 2);
+		break;
+	}
+
+	return 0;
+}
 #endif
 
 void mpPushPauseDialog(void)
@@ -757,7 +672,7 @@ struct menudialog g_MpEndscreenChallengeFailedMenuDialog = {
 #if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_MpEndscreenConfirmNameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_250, 0x00000000, NULL }, // "Confirm player name:"
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandler00178bf4 },
+	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, mpConfirmPlayerNameHandler },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
