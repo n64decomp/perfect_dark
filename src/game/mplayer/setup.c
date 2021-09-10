@@ -4068,7 +4068,7 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 		arenanum = 0;
 #endif
 
-		func0f18e39c(g_FileLists[1]->unk000[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].unk06,
+		func0f18e39c(g_FileLists[1]->files[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].unk06,
 				filename, &numsims, &stagenum, &scenarionum);
 
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
@@ -4160,7 +4160,7 @@ glabel var7f1b81a8
 /*  f17c048:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*  f17c04c:	00592821 */ 	addu	$a1,$v0,$t9
 /*  f17c050:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f17c054:	0fc42034 */ 	jal	filemgrGetFileName
+/*  f17c054:	0fc42034 */ 	jal	filemgrGetSelectName
 /*  f17c058:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f17c05c:	10000048 */ 	b	.L0f17c180
 /*  f17c060:	8e020000 */ 	lw	$v0,0x0($s0)
@@ -4309,7 +4309,7 @@ glabel var7f1b81a8
 /*  f176768:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*  f17676c:	00592821 */ 	addu	$a1,$v0,$t9
 /*  f176770:	02002025 */ 	or	$a0,$s0,$zero
-/*  f176774:	0fc40efc */ 	jal	filemgrGetFileName
+/*  f176774:	0fc40efc */ 	jal	filemgrGetSelectName
 /*  f176778:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f17677c:	10000048 */ 	beqz	$zero,.NB0f1768a0
 /*  f176780:	02001025 */ 	or	$v0,$s0,$zero

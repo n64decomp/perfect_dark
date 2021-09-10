@@ -13,6 +13,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/lib_126b0.h"
+#include "lib/str.h"
 #include "data.h"
 #include "types.h"
 
@@ -128,7 +129,7 @@ char *filemgrMenuTextDeviceName(struct menuitem *item)
 	return filemgrGetDeviceName(g_Menus[g_MpPlayerNum].unke3c & 0x7f);
 }
 
-void filemgrGetFileName(char *buffer, struct savelocation000 *arg1, u32 filetype)
+void filemgrGetSelectName(char *buffer, struct filelistfile *file, u32 filetype)
 {
 	s32 days;
 	char tmpbuffer1[28];
@@ -143,11 +144,11 @@ void filemgrGetFileName(char *buffer, struct savelocation000 *arg1, u32 filetype
 	switch (filetype) {
 	case FILETYPE_SOLO:
 	case FILETYPE_MPSETUP:
-		func0f0d564c(arg1->unk06, tmpbuffer1, false);
+		func0f0d564c(file->unk06, tmpbuffer1, false);
 		break;
 	case FILETYPE_MPPLAYER:
 		// MP Player filenames have the play duration appended to the name
-		func0f18d9a4(arg1->unk06, namebuffer, &totalinseconds);
+		func0f18d9a4(file->unk06, namebuffer, &totalinseconds);
 		pos = sprintf(tmpbuffer1, "%s-", namebuffer);
 
 		if (totalinseconds >= 0x7ffffff) { // about 4.25 years
@@ -193,7 +194,7 @@ s32 filemgrFileNameMenuHandler(s32 operation, struct menuitem *item, union handl
 char *filemgrMenuTextDeleteFileName(struct menuitem *item)
 {
 	if (g_Menus[g_MpPlayerNum].unke38) {
-		filemgrGetFileName(g_StringPointer,
+		filemgrGetSelectName(g_StringPointer,
 				g_Menus[g_MpPlayerNum].unke38,
 				g_Menus[g_MpPlayerNum].unke3d);
 		return g_StringPointer;
@@ -213,16 +214,16 @@ void func0f108324(s32 arg0)
 	}
 }
 
-void func0f1083b0(struct savelocation000 *arg0)
+void func0f1083b0(struct filelistfile *file)
 {
-	func0f108324(arg0->unk04);
+	func0f108324(file->unk04);
 }
 
-void func0f1083d0(struct savelocation000 *arg0, s32 filetype)
+void func0f1083d0(struct filelistfile *file, s32 filetype)
 {
 	g_Menus[g_MpPlayerNum].unke3d = filetype;
-	g_Menus[g_MpPlayerNum].unke38 = arg0;
-	func0f1083b0(arg0);
+	g_Menus[g_MpPlayerNum].unke38 = file;
+	func0f1083b0(file);
 }
 
 u16 g_PakFailReasons[] = {
@@ -1230,9 +1231,6 @@ const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
 const char var7f1b3284[] = "Saving...\n";
 #endif
 
-u32 var8007465c = 0x01020304;
-u32 var80074660 = 0x00000000;
-
 void func0f109954(s32 arg0)
 {
 	if (g_FileLists[0]) {
@@ -1244,7 +1242,7 @@ void func0f109954(s32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f1099a8(char *buffer, struct savelocation000 *arg1)
+void filemgrGetFileName(char *dst, struct filelistfile *file)
 {
 	char localbuffer[20];
 	u32 sp20;
@@ -1254,14 +1252,14 @@ void func0f1099a8(char *buffer, struct savelocation000 *arg1)
 	switch (g_FileLists[g_Menus[g_MpPlayerNum].listnum]->filetype) {
 	case FILETYPE_SOLO:
 	case FILETYPE_MPSETUP:
-		func0f0d564c(arg1->unk06, localbuffer, false);
+		func0f0d564c(file->unk06, localbuffer, false);
 		break;
 	case FILETYPE_MPPLAYER:
-		func0f18d9a4(arg1->unk06, localbuffer, &sp20);
+		func0f18d9a4(file->unk06, localbuffer, &sp20);
 		break;
 	}
 
-	sprintf(buffer, "%s", localbuffer);
+	sprintf(dst, "%s", localbuffer);
 }
 #endif
 
@@ -1347,172 +1345,91 @@ const char var7f1b32dc[] = "SetFileNameForThePurposesOfTheFileRenamingChecker: U
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-const char var7f1b3320[] = "CheckFileName: Comparing range %d-%d\n";
-const char var7f1b3348[] = "Compare '%s' to '%s' = %d\n";
-const char var7f1b3364[] = "OI! DUPLICATE FILE NAME! NO!\n";
+bool filemgrIsNameAvailable(s32 device)
+{
+	static u8 lookup[] = {1, 2, 3, 4, 0};
 
-GLOBAL_ASM(
-glabel filemgrIsNameAvailable
-/*  f109c8c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f109c90:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f109c94:	3c18800a */ 	lui	$t8,%hi(g_Menus+0xe3f)
-/*  f109c98:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f109c9c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f109ca0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f109ca4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f109ca8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f109cac:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f109cb0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f109cb4:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f109cb8:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f109cbc:	9318ee3f */ 	lbu	$t8,%lo(g_Menus+0xe3f)($t8)
-/*  f109cc0:	3c038007 */ 	lui	$v1,%hi(g_FileLists)
-/*  f109cc4:	3c058007 */ 	lui	$a1,%hi(var8007465c)
-/*  f109cc8:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f109ccc:	00791821 */ 	addu	$v1,$v1,$t9
-/*  f109cd0:	8c635bc0 */ 	lw	$v1,%lo(g_FileLists)($v1)
-/*  f109cd4:	00a42821 */ 	addu	$a1,$a1,$a0
-/*  f109cd8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f109cdc:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f109ce0:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f109ce4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f109ce8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f109cec:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f109cf0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f109cf4:	14600003 */ 	bnez	$v1,.L0f109d04
-/*  f109cf8:	90a5465c */ 	lbu	$a1,%lo(var8007465c)($a1)
-/*  f109cfc:	10000068 */ 	b	.L0f109ea0
-/*  f109d00:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f109d04:
-/*  f109d04:	00654021 */ 	addu	$t0,$v1,$a1
-/*  f109d08:	81120300 */ 	lb	$s2,0x300($t0)
-/*  f109d0c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f109d10:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f109d14:	16440003 */ 	bne	$s2,$a0,.L0f109d24
-/*  f109d18:	28a10004 */ 	slti	$at,$a1,0x4
-/*  f109d1c:	10000060 */ 	b	.L0f109ea0
-/*  f109d20:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f109d24:
-/*  f109d24:	10200009 */ 	beqz	$at,.L0f109d4c
-/*  f109d28:	847502d0 */ 	lh	$s5,0x2d0($v1)
-/*  f109d2c:	24620004 */ 	addiu	$v0,$v1,0x4
-.L0f109d30:
-/*  f109d30:	80430300 */ 	lb	$v1,0x300($v0)
-/*  f109d34:	2631ffff */ 	addiu	$s1,$s1,-1
-/*  f109d38:	10830002 */ 	beq	$a0,$v1,.L0f109d44
-/*  f109d3c:	00000000 */ 	nop
-/*  f109d40:	0060a825 */ 	or	$s5,$v1,$zero
-.L0f109d44:
-/*  f109d44:	14b1fffa */ 	bne	$a1,$s1,.L0f109d30
-/*  f109d48:	2442ffff */ 	addiu	$v0,$v0,-1
-.L0f109d4c:
-/*  f109d4c:	27b40064 */ 	addiu	$s4,$sp,0x64
-/*  f109d50:	a3a00064 */ 	sb	$zero,0x64($sp)
-/*  f109d54:	0fc4269a */ 	jal	filemgrGetRenameName
-/*  f109d58:	02802025 */ 	or	$a0,$s4,$zero
-/*  f109d5c:	93a90064 */ 	lbu	$t1,0x64($sp)
-/*  f109d60:	27a30064 */ 	addiu	$v1,$sp,0x64
-/*  f109d64:	2410000a */ 	addiu	$s0,$zero,0xa
-/*  f109d68:	11200011 */ 	beqz	$t1,.L0f109db0
-/*  f109d6c:	02408825 */ 	or	$s1,$s2,$zero
-/*  f109d70:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f109d74:	28410061 */ 	slti	$at,$v0,0x61
-.L0f109d78:
-/*  f109d78:	14200005 */ 	bnez	$at,.L0f109d90
-/*  f109d7c:	2841007b */ 	slti	$at,$v0,0x7b
-/*  f109d80:	10200003 */ 	beqz	$at,.L0f109d90
-/*  f109d84:	244bffe0 */ 	addiu	$t3,$v0,-32
-/*  f109d88:	a06b0000 */ 	sb	$t3,0x0($v1)
-/*  f109d8c:	316200ff */ 	andi	$v0,$t3,0xff
-.L0f109d90:
-/*  f109d90:	56020004 */ 	bnel	$s0,$v0,.L0f109da4
-/*  f109d94:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f109d98:	10000002 */ 	b	.L0f109da4
-/*  f109d9c:	a0600000 */ 	sb	$zero,0x0($v1)
-/*  f109da0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f109da4:
-/*  f109da4:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f109da8:	5440fff3 */ 	bnezl	$v0,.L0f109d78
-/*  f109dac:	28410061 */ 	slti	$at,$v0,0x61
-.L0f109db0:
-/*  f109db0:	0255082a */ 	slt	$at,$s2,$s5
-/*  f109db4:	10200039 */ 	beqz	$at,.L0f109e9c
-/*  f109db8:	2410000a */ 	addiu	$s0,$zero,0xa
-/*  f109dbc:	00129080 */ 	sll	$s2,$s2,0x2
-/*  f109dc0:	02519023 */ 	subu	$s2,$s2,$s1
-/*  f109dc4:	001290c0 */ 	sll	$s2,$s2,0x3
-/*  f109dc8:	27b30040 */ 	addiu	$s3,$sp,0x40
-.L0f109dcc:
-/*  f109dcc:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
-/*  f109dd0:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f109dd4:	3c0e800a */ 	lui	$t6,%hi(g_Menus+0xe3f)
-/*  f109dd8:	3c188007 */ 	lui	$t8,%hi(g_FileLists)
-/*  f109ddc:	000c68c0 */ 	sll	$t5,$t4,0x3
-/*  f109de0:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f109de4:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f109de8:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f109dec:	000d68c0 */ 	sll	$t5,$t5,0x3
-/*  f109df0:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*  f109df4:	000d6900 */ 	sll	$t5,$t5,0x4
-/*  f109df8:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f109dfc:	91ceee3f */ 	lbu	$t6,%lo(g_Menus+0xe3f)($t6)
-/*  f109e00:	02602025 */ 	or	$a0,$s3,$zero
-/*  f109e04:	00001025 */ 	or	$v0,$zero,$zero
-/*  f109e08:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f109e0c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f109e10:	8f185bc0 */ 	lw	$t8,%lo(g_FileLists)($t8)
-/*  f109e14:	0fc4266a */ 	jal	func0f1099a8
-/*  f109e18:	03122821 */ 	addu	$a1,$t8,$s2
-/*  f109e1c:	93b90040 */ 	lbu	$t9,0x40($sp)
-/*  f109e20:	27a30040 */ 	addiu	$v1,$sp,0x40
-/*  f109e24:	02802025 */ 	or	$a0,$s4,$zero
-/*  f109e28:	13200011 */ 	beqz	$t9,.L0f109e70
-/*  f109e2c:	00000000 */ 	nop
-/*  f109e30:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f109e34:	28410061 */ 	slti	$at,$v0,0x61
-.L0f109e38:
-/*  f109e38:	14200005 */ 	bnez	$at,.L0f109e50
-/*  f109e3c:	2841007b */ 	slti	$at,$v0,0x7b
-/*  f109e40:	10200003 */ 	beqz	$at,.L0f109e50
-/*  f109e44:	2449ffe0 */ 	addiu	$t1,$v0,-32
-/*  f109e48:	a0690000 */ 	sb	$t1,0x0($v1)
-/*  f109e4c:	312200ff */ 	andi	$v0,$t1,0xff
-.L0f109e50:
-/*  f109e50:	56020004 */ 	bnel	$s0,$v0,.L0f109e64
-/*  f109e54:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f109e58:	10000002 */ 	b	.L0f109e64
-/*  f109e5c:	a0600000 */ 	sb	$zero,0x0($v1)
-/*  f109e60:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f109e64:
-/*  f109e64:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f109e68:	5440fff3 */ 	bnezl	$v0,.L0f109e38
-/*  f109e6c:	28410061 */ 	slti	$at,$v0,0x61
-.L0f109e70:
-/*  f109e70:	0c004c9d */ 	jal	strcmp
-/*  f109e74:	02602825 */ 	or	$a1,$s3,$zero
-/*  f109e78:	02802025 */ 	or	$a0,$s4,$zero
-/*  f109e7c:	0c004c9d */ 	jal	strcmp
-/*  f109e80:	02602825 */ 	or	$a1,$s3,$zero
-/*  f109e84:	14400003 */ 	bnez	$v0,.L0f109e94
-/*  f109e88:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f109e8c:	10000004 */ 	b	.L0f109ea0
-/*  f109e90:	00001025 */ 	or	$v0,$zero,$zero
-.L0f109e94:
-/*  f109e94:	1635ffcd */ 	bne	$s1,$s5,.L0f109dcc
-/*  f109e98:	26520018 */ 	addiu	$s2,$s2,0x18
-.L0f109e9c:
-/*  f109e9c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f109ea0:
-/*  f109ea0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f109ea4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f109ea8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f109eac:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f109eb0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f109eb4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f109eb8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f109ebc:	03e00008 */ 	jr	$ra
-/*  f109ec0:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+	struct filelist *filelist;
+	char findname[16];
+	s32 deviceindex;
+	s32 startindex;
+	s32 endindex;
+	s32 i;
+	s32 j;
+	char loopname[16];
+
+	deviceindex = lookup[device];
+	filelist = g_FileLists[g_Menus[g_MpPlayerNum].listnum];
+
+	if (filelist == NULL) {
+		return true;
+	}
+
+	// Determine which index to start searching at
+	startindex = filelist->devicestartindexes[deviceindex];
+
+	if (startindex == -1) {
+		return true;
+	}
+
+	// Determine which index to stop searching at
+	// (ie. start of a new device or end of the list)
+	endindex = filelist->numfiles;
+
+	for (i = 4; i > deviceindex; i--) {
+		if (filelist->devicestartindexes[i] != -1) {
+			endindex = filelist->devicestartindexes[i];
+		}
+	}
+
+	// Get the filename to search for, make it uppercase and remove trailing line break.
+	// @dangerous: findname can overflow if filemgrGetRenameName returns a long name.
+	findname[0] = '\0';
+	filemgrGetRenameName(findname);
+
+	for (j = 0; findname[j] != '\0';) {
+		if (findname[j] >= 'a' && findname[j] <= 'z') {
+			findname[j] -= 32;
+		}
+
+		if (findname[j] == '\n') {
+			findname[j] = '\0';
+		} else {
+			j++;
+		}
+	}
+
+	osSyncPrintf("CheckFileName: Comparing range %d-%d\n", startindex, endindex);
+
+	// Iterate files
+	for (i = startindex; i < endindex; i++) {
+		filemgrGetFileName(loopname, &g_FileLists[g_Menus[g_MpPlayerNum].listnum]->files[i]);
+
+		// Convert loop filename to uppercase and remove trailing line break
+		// @dangerous: loopname can overflow if filemgrGetFileName returns a long name.
+		for (j = 0; loopname[j] != '\0';) {
+			if (loopname[j] >= 'a' && loopname[j] <= 'z') {
+				loopname[j] -= 32;
+			}
+
+			if (loopname[j] == '\n') {
+				loopname[j] = '\0';
+			} else {
+				j++;
+			}
+		}
+
+		// Compare names
+		osSyncPrintf("Compare '%s' to '%s' = %d\n", findname, loopname, strcmp(findname, loopname));
+
+		if (strcmp(findname, loopname) == 0) {
+			osSyncPrintf("OI! DUPLICATE FILE NAME! NO!\n");
+			return false;
+		}
+	}
+
+	return true;
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2050,14 +1967,14 @@ Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *rend
 	return gdl;
 }
 
-bool filemgrIsFileInUse(struct savelocation000 *arg0)
+bool filemgrIsFileInUse(struct filelistfile *file)
 {
 	s32 i;
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
-			&& arg0->unk00 == g_FilemgrFileToCopy.unk00
-			&& arg0->unk04 == g_FilemgrFileToCopy.unk04) {
+			&& file->unk00 == g_FilemgrFileToCopy.unk00
+			&& file->unk04 == g_FilemgrFileToCopy.unk04) {
 		return true;
 	}
 
@@ -2067,8 +1984,8 @@ bool filemgrIsFileInUse(struct savelocation000 *arg0)
 #else
 	if (g_MenuData.root == MENUROOT_FILEMGR
 			&& menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
-			&& arg0->unk00 == g_FilemgrFileToCopy.unk00
-			&& arg0->unk04 == g_FilemgrFileToCopy.unk04) {
+			&& file->unk00 == g_FilemgrFileToCopy.unk00
+			&& file->unk04 == g_FilemgrFileToCopy.unk04) {
 		return true;
 	}
 #endif
@@ -2077,18 +1994,18 @@ bool filemgrIsFileInUse(struct savelocation000 *arg0)
 		return false;
 	}
 
-	if (arg0->unk00 == g_FilemgrLoadedMainFile.unk00 && arg0->unk04 == g_FilemgrLoadedMainFile.unk04) {
+	if (file->unk00 == g_FilemgrLoadedMainFile.unk00 && file->unk04 == g_FilemgrLoadedMainFile.unk04) {
 		return true;
 	}
 
-	if (arg0->unk00 == g_MpSetup.unk20.unk00 && arg0->unk04 == g_MpSetup.unk20.unk04) {
+	if (file->unk00 == g_MpSetup.unk20.unk00 && file->unk04 == g_MpSetup.unk20.unk04) {
 		return true;
 	}
 
 	for (i = 0; i < 4; i++) {
 		if ((g_MpSetup.chrslots & (1 << i))
-				&& g_MpPlayers[i].unk4c.unk00 == arg0->unk00
-				&& g_MpPlayers[i].unk4c.unk04 == arg0->unk04) {
+				&& g_MpPlayers[i].unk4c.unk00 == file->unk00
+				&& g_MpPlayers[i].unk4c.unk04 == file->unk04) {
 			return true;
 		}
 	}
@@ -2126,15 +2043,15 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 		{
 			Gfx *gdl = data->type19.gdl;
 			struct menuitemrenderdata *renderdata = data->type19.renderdata2;
-			struct savelocation000 *location000 = &list->unk000[data->list.unk04];
+			struct filelistfile *file = &list->files[data->list.unk04];
 
 			if (g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone == 4) {
-				gdl = filemgrRenderPerfectHeadThumbnail(gdl, renderdata, location000->unk00, location000->unk04);
+				gdl = filemgrRenderPerfectHeadThumbnail(gdl, renderdata, file->unk00, file->unk04);
 			} else {
 				u32 colour = renderdata->colour;
 				char text[32];
 
-				if (isdelete && filemgrIsFileInUse(location000)) {
+				if (isdelete && filemgrIsFileInUse(file)) {
 					colour = 0xff333300 | (colour & 0xff);
 				}
 
@@ -2143,8 +2060,8 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 
 				gdl = func0f153628(gdl);
 
-				if (location000) {
-					filemgrGetFileName(text, location000, g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone - 1);
+				if (file) {
+					filemgrGetSelectName(text, file, g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone - 1);
 					gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							colour, viGetWidth(), viGetHeight(), 0, 1);
 					y = renderdata->y + 12;
@@ -2179,16 +2096,16 @@ s32 filemgrFileToDeleteListMenuHandler(s32 operation, struct menuitem *item, uni
 	}
 
 	if (operation == MENUOP_SET) {
-		struct savelocation000 *thing = &g_FileLists[g_Menus[g_MpPlayerNum].listnum]->unk000[data->list.value];
+		struct filelistfile *file = &g_FileLists[g_Menus[g_MpPlayerNum].listnum]->files[data->list.value];
 
-		if (thing) {
-			if (filemgrIsFileInUse(thing)) {
-				func0f1083d0(thing, g_FileLists[g_Menus[g_MpPlayerNum].listnum]->filetype);
+		if (file) {
+			if (filemgrIsFileInUse(file)) {
+				func0f1083d0(file, g_FileLists[g_Menus[g_MpPlayerNum].listnum]->filetype);
 				menuPushDialog(&g_FilemgrFileInUseMenuDialog);
 			} else {
-				func0f1083d0(thing, g_FileLists[g_Menus[g_MpPlayerNum].listnum]->filetype);
-				g_FilemgrFileToDelete.unk00 = thing->unk00;
-				g_FilemgrFileToDelete.unk04 = thing->unk04;
+				func0f1083d0(file, g_FileLists[g_Menus[g_MpPlayerNum].listnum]->filetype);
+				g_FilemgrFileToDelete.unk00 = file->unk00;
+				g_FilemgrFileToDelete.unk04 = file->unk04;
 				menuPushDialog(&g_FilemgrConfirmDeleteMenuDialog);
 			}
 		}
@@ -2206,14 +2123,14 @@ s32 filemgrFileToCopyListMenuHandler(s32 operation, struct menuitem *item, union
 	}
 
 	if (operation == MENUOP_SET) {
-		struct savelocation000 *thing = &list->unk000[data->list.value];
+		struct filelistfile *file = &list->files[data->list.value];
 
-		if (thing) {
-			g_FilemgrFileToCopy.unk00 = thing->unk00;
-			g_FilemgrFileToCopy.unk04 = thing->unk04;
+		if (file) {
+			g_FilemgrFileToCopy.unk00 = file->unk00;
+			g_FilemgrFileToCopy.unk04 = file->unk04;
 
 #if VERSION >= VERSION_NTSC_1_0
-			func0f1099a8(g_Menus[g_MpPlayerNum].unke53, thing);
+			filemgrGetFileName(g_Menus[g_MpPlayerNum].unke53, file);
 #endif
 			filemgrPushSelectLocationDialog(g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone, g_Menus[g_MpPlayerNum].data.filemgr.filetypeplusone - 1);
 		}
@@ -2658,7 +2575,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 	Gfx *gdl;
 	struct menuitemrenderdata *renderdata;
 	s32 texturenum;
-	struct savelocation000 *location000;
+	struct filelistfile *file;
 	char name[12];
 	u8 stage;
 	u8 difficulty;
@@ -2685,8 +2602,8 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		if (data->list.unk04 == 1) {
 			if (data->list.groupstartindex == 1 && g_Menus[g_MpPlayerNum].data.filemgr.unke2c == 1) {
 				for (i = 0; i < g_FileLists[0]->numfiles; i++) {
-					if (g_FilemgrLoadedMainFile.unk00 == g_FileLists[0]->unk000[i].unk00
-							&& g_FilemgrLoadedMainFile.unk04 == g_FileLists[0]->unk000[i].unk04) {
+					if (g_FilemgrLoadedMainFile.unk00 == g_FileLists[0]->files[i].unk00
+							&& g_FilemgrLoadedMainFile.unk04 == g_FileLists[0]->files[i].unk04) {
 						data->list.value = i;
 					}
 				}
@@ -2704,8 +2621,8 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 
 		if (pass && g_Vars.unk00047c) {
 			for (j = 0; j < g_FileLists[0]->numfiles; j++) {
-				if (g_Vars.unk00047c == g_FileLists[0]->unk000[j].unk00
-						&& g_Vars.unk000480 == g_FileLists[0]->unk000[j].unk04) {
+				if (g_Vars.unk00047c == g_FileLists[0]->files[j].unk00
+						&& g_Vars.unk000480 == g_FileLists[0]->files[j].unk04) {
 					data->list.value = j;
 					g_Vars.unk00047c = 0;
 				}
@@ -2718,7 +2635,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 	case MENUOP_RENDER:
 		gdl = data->type19.gdl;
 		texturenum = 12;
-		location000 = NULL;
+		file = NULL;
 		renderdata = data->type19.renderdata2;
 		seconds = 0;
 		minutes = 0;
@@ -2726,10 +2643,10 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		days = 0;
 
 		if (data->list.unk04 != g_FileLists[0]->numfiles) {
-			location000 = &g_FileLists[0]->unk000[data->list.unk04];
+			file = &g_FileLists[0]->files[data->list.unk04];
 
-			if (location000) {
-				savefileGetOverview(location000->unk06, name, &stage, &difficulty, &time);
+			if (file) {
+				savefileGetOverview(file->unk06, name, &stage, &difficulty, &time);
 
 				seconds = time % 60;
 				time = time / 60;
@@ -2785,54 +2702,52 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 			// "New Agent..."
 			gdl = textRenderProjected(gdl, &x, &y, langGet(L_OPTIONS_403),
 					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
-		} else {
-			if (location000) {
-				// Render file name
-				gdl = textRenderProjected(gdl, &x, &y, name,
-						g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
+		} else if (file) {
+			// Render file name
+			gdl = textRenderProjected(gdl, &x, &y, name,
+					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
 
-				// Prepare and render stage name
-				y = renderdata->y + 18;
-				x = renderdata->x + 62;
+			// Prepare and render stage name
+			y = renderdata->y + 18;
+			x = renderdata->x + 62;
 
-				if (stage > 0) {
-					sprintf(buffer, "%s %s",
-							langGet(g_StageNames[stage - 1].name1),
-							langGet(g_StageNames[stage - 1].name2));
-				} else {
-					// "New Recruit"
-					strcpy(buffer, langGet(L_OPTIONS_404));
-				}
-
-				strcat(buffer, "\n");
-				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
-
-				// Prepare and render mission time
-				x = renderdata->x + 62;
-				y++;
-
-				if (days > 0) {
-					// "Mission Time:"
-					sprintf(buffer, "%s %d:%02d:%02d", langGet(L_OPTIONS_405), days, hours, minutes);
-				} else {
-					// "Mission Time:"
-					sprintf(buffer, "%s %02d:%02d", langGet(L_OPTIONS_405), hours, minutes);
-				}
-
-				// Useless - textwidth and textheight are not used
-				textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-
-				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
-
-				// Render seconds part of mission time (uses a smaller font)
-				y++;
-				x++;
-				sprintf(buffer, ".%02d", seconds);
-				gdl = textRenderProjected(gdl, &x, &y, buffer,
-						g_CharsHandelGothicXs, g_FontHandelGothicXs, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+			if (stage > 0) {
+				sprintf(buffer, "%s %s",
+						langGet(g_StageNames[stage - 1].name1),
+						langGet(g_StageNames[stage - 1].name2));
+			} else {
+				// "New Recruit"
+				strcpy(buffer, langGet(L_OPTIONS_404));
 			}
+
+			strcat(buffer, "\n");
+			gdl = textRenderProjected(gdl, &x, &y, buffer,
+					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+
+			// Prepare and render mission time
+			x = renderdata->x + 62;
+			y++;
+
+			if (days > 0) {
+				// "Mission Time:"
+				sprintf(buffer, "%s %d:%02d:%02d", langGet(L_OPTIONS_405), days, hours, minutes);
+			} else {
+				// "Mission Time:"
+				sprintf(buffer, "%s %02d:%02d", langGet(L_OPTIONS_405), hours, minutes);
+			}
+
+			// Useless - textwidth and textheight are not used
+			textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+
+			gdl = textRenderProjected(gdl, &x, &y, buffer,
+					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+
+			// Render seconds part of mission time (uses a smaller font)
+			y++;
+			x++;
+			sprintf(buffer, ".%02d", seconds);
+			gdl = textRenderProjected(gdl, &x, &y, buffer,
+					g_CharsHandelGothicXs, g_FontHandelGothicXs, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
 		}
 		gdl = func0f153780(gdl);
 		return (u32) gdl;
@@ -2844,7 +2759,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 			savefileLoadDefaults(&g_SoloSaveFile);
 			menuPushDialog(&g_FilemgrEnterNameMenuDialog);
 		} else {
-			struct savelocation000 *file = &g_FileLists[0]->unk000[data->list.value];
+			struct filelistfile *file = &g_FileLists[0]->files[data->list.value];
 
 			if (file) {
 				g_FilemgrLoadedMainFile.unk00 = file->unk00;

@@ -4457,7 +4457,7 @@ struct menu {
 
 	/*0xe30*/ u32 unke30;
 	/*0xe34*/ u16 errno;
-	/*0xe38*/ struct savelocation000 *unke38;
+	/*0xe38*/ struct filelistfile *unke38;
 	/*0xe3c*/ u8 unke3c;
 	/*0xe3d*/ u8 unke3d;
 	/*0xe3e*/ u8 unke3e;
@@ -4648,7 +4648,7 @@ struct mparena {
 	u16 name;
 };
 
-struct savelocation000 {
+struct filelistfile {
 	u32 unk00;
 	u16 unk04;
 	char unk06[6]; // length unknown
@@ -4661,7 +4661,7 @@ struct savelocation000 {
 // devices. For example, the copy file dialog might list all MP player files
 // from all devices in one listing, and that information is stored here.
 struct filelist {
-	/*0x000*/ struct savelocation000 unk000[30];
+	/*0x000*/ struct filelistfile files[30];
 	/*0x2d0*/ s16 numfiles;
 	/*0x2d2*/ s8 spacesfree[4];
 	/*0x2d8*/ struct savelocation_2d8 unk2d8[4];
