@@ -202,7 +202,7 @@ extern struct savefile_solo g_SoloSaveFile;
 extern struct savelocation_2d8 g_FilemgrLoadedMainFile;
 extern s8 g_SoloCompleted;
 extern u8 g_AltTitle;
-extern s32 *g_PadsFile;
+extern struct padsfileheader *g_PadsFile;
 extern u16 *g_PadOffsets;
 extern u16 *g_CoverFlags;
 extern s32 *g_CoverRooms;

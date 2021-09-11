@@ -423,6 +423,12 @@ struct prop {
 	/*0x44*/ struct var800a41b0 *unk44;
 };
 
+struct packedpad {
+	s32 flags : 18;
+	s32 room : 10;
+	s32 liftnum : 4;
+};
+
 struct pad {
 	/*0x00*/ struct coord pos;
 	/*0x0c*/ struct coord look;
@@ -2946,6 +2952,15 @@ struct cover {
 	/*0x04*/ struct coord *look;
 	/*0x08*/ s16 rooms[2];
 	/*0x0c*/ u16 flags;
+};
+
+struct padsfileheader {
+	s32 numpads;
+	s32 numcovers;
+	s32 waypointsoffset;
+	s32 waygroupsoffset;
+	s32 coversoffset;
+	s16 padoffsets[1];
 };
 
 struct stagesetup {

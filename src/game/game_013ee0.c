@@ -50,10 +50,10 @@ void coverAllocateSpecial(u16 *specialcovernums)
 	}
 }
 
-void coverLoad(void)
+void coverPrepare(void)
 {
 	s32 i;
-	s32 numcovers = g_PadsFile[1];
+	s32 numcovers = g_PadsFile->numcovers;
 	s16 *roomsptr;
 	f32 scale = 1;
 	struct coord aimpos;

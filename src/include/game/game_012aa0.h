@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void func0f012aa0(void);
+void padsPrepare(void);
 
 #endif

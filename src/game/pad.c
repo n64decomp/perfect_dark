@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 *g_PadsFile;
+struct padsfileheader *g_PadsFile;
 u16 *g_PadOffsets;
 u32 var800a2358;
 u32 var800a235c;
@@ -611,14 +611,14 @@ bool func0f1162c4(s32 padnum, s32 arg1)
 
 s32 coverGetCount(void)
 {
-	return g_PadsFile[1];
+	return g_PadsFile->numcovers;
 }
 
 bool coverUnpack(s32 covernum, struct cover *cover)
 {
 	struct coverdefinition *def;
 
-	if (covernum >= g_PadsFile[1] || covernum < 0 || !g_StageSetup.cover) {
+	if (covernum >= g_PadsFile->numcovers || covernum < 0 || !g_StageSetup.cover) {
 		return false;
 	}
 
@@ -678,7 +678,7 @@ s32 func0f116450(s32 arg0, s32 arg1)
 bool coverIsInUse(s32 covernum)
 {
 	// @bug: Second condition should be >=
-	if (covernum < 0 || covernum > g_PadsFile[1]) {
+	if (covernum < 0 || covernum > g_PadsFile->numcovers) {
 		return false;
 	}
 
@@ -687,7 +687,7 @@ bool coverIsInUse(s32 covernum)
 
 void coverSetInUse(s32 covernum, bool enable)
 {
-	if (covernum >= 0 && covernum < g_PadsFile[1]) {
+	if (covernum >= 0 && covernum < g_PadsFile->numcovers) {
 		if (enable) {
 			g_CoverFlags[covernum] |= COVERFLAG_INUSE;
 		} else {
@@ -708,7 +708,7 @@ void coverUnsetFlag(s32 covernum, u32 flag)
 
 void coverSetFlag0001(s32 covernum, bool enable)
 {
-	if (covernum >= 0 && covernum < g_PadsFile[1]) {
+	if (covernum >= 0 && covernum < g_PadsFile->numcovers) {
 		if (enable) {
 			g_CoverFlags[covernum] |= COVERFLAG_0001;
 		} else {

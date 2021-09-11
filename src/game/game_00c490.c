@@ -2894,7 +2894,7 @@ void setupParseObjects(s32 stagenum)
 
 	if (stagenum < STAGE_TITLE) {
 		if (g_StageSetup.padfiledata) {
-			func0f012aa0();
+			padsPrepare();
 		}
 
 		waypointsLoad();

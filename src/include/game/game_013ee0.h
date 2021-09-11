@@ -6,6 +6,6 @@
 
 void func0f013ee0(void);
 void coverAllocateSpecial(u16 *specialcovernums);
-void coverLoad(void);
+void coverPrepare(void);
 
 #endif
