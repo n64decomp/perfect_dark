@@ -213,42 +213,18 @@ glabel func0f0964b4
 
 void func0f0965e4(f32 *arg0, f32 *arg1, f32 arg2)
 {
-	f32 tmp = *arg1 - arg2 * 0.27777779f;
-	*arg0 += arg2 * (*arg1 + tmp) * 0.5f;
-	*arg1 = tmp;
+	f32 tmp = arg1[0] - arg2 * 0.27777779f;
+	arg0[0] += arg2 * (arg1[0] + tmp) * 0.5f;
+	arg1[0] = tmp;
 }
 
-GLOBAL_ASM(
-glabel func0f096628
-/*  f096628:	44866000 */ 	mtc1	$a2,$f12
-/*  f09662c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f096630:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f096634:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f096638:	00803825 */ 	or	$a3,$a0,$zero
-/*  f09663c:	44066000 */ 	mfc1	$a2,$f12
-/*  f096640:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f096644:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f096648:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f09664c:	0fc25979 */ 	jal	func0f0965e4
-/*  f096650:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f096654:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f096658:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f09665c:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f096660:	c4460000 */ 	lwc1	$f6,0x0($v0)
-/*  f096664:	c4e40000 */ 	lwc1	$f4,0x0($a3)
-/*  f096668:	46066202 */ 	mul.s	$f8,$f12,$f6
-/*  f09666c:	c4f00008 */ 	lwc1	$f16,0x8($a3)
-/*  f096670:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f096674:	e4ea0000 */ 	swc1	$f10,0x0($a3)
-/*  f096678:	c4520008 */ 	lwc1	$f18,0x8($v0)
-/*  f09667c:	46126182 */ 	mul.s	$f6,$f12,$f18
-/*  f096680:	46068100 */ 	add.s	$f4,$f16,$f6
-/*  f096684:	e4e40008 */ 	swc1	$f4,0x8($a3)
-/*  f096688:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f09668c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f096690:	03e00008 */ 	jr	$ra
-/*  f096694:	00000000 */ 	nop
-);
+void func0f096628(f32 *arg0, f32 *arg1, f32 arg2)
+{
+	func0f0965e4(&arg0[1], &arg1[1], arg2);
+
+	arg0[0] += arg2 * arg1[0];
+	arg0[2] += arg2 * arg1[2];
+}
 
 void func0f096698(Mtxf *arg0, Mtxf *arg1, s32 count)
 {
