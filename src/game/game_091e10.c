@@ -160,73 +160,24 @@ bool modelLoad(s32 propnum)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f09220c
-/*  f09220c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f092210:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f092214:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f092218:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f09221c:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f092220:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f092224:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f092228:	0fc1a2bd */ 	jal	objFindBboxRodata
-/*  f09222c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f092230:	1040002d */ 	beqz	$v0,.L0f0922e8
-/*  f092234:	00408025 */ 	or	$s0,$v0,$zero
-/*  f092238:	00402025 */ 	or	$a0,$v0,$zero
-/*  f09223c:	0fc19a3f */ 	jal	func0f0668fc
-/*  f092240:	02202825 */ 	or	$a1,$s1,$zero
-/*  f092244:	c6440000 */ 	lwc1	$f4,0x0($s2)
-/*  f092248:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*  f09224c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f092250:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f092254:	02202825 */ 	or	$a1,$s1,$zero
-/*  f092258:	0fc19a57 */ 	jal	func0f06695c
-/*  f09225c:	e5c60000 */ 	swc1	$f6,0x0($t6)
-/*  f092260:	c6480004 */ 	lwc1	$f8,0x4($s2)
-/*  f092264:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f092268:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09226c:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f092270:	02202825 */ 	or	$a1,$s1,$zero
-/*  f092274:	0fc19a6f */ 	jal	func0f0669bc
-/*  f092278:	e5ea0004 */ 	swc1	$f10,0x4($t7)
-/*  f09227c:	c6500008 */ 	lwc1	$f16,0x8($s2)
-/*  f092280:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f092284:	02002025 */ 	or	$a0,$s0,$zero
-/*  f092288:	46100480 */ 	add.s	$f18,$f0,$f16
-/*  f09228c:	02202825 */ 	or	$a1,$s1,$zero
-/*  f092290:	0fc19a4b */ 	jal	func0f06692c
-/*  f092294:	e7120008 */ 	swc1	$f18,0x8($t8)
-/*  f092298:	c6440000 */ 	lwc1	$f4,0x0($s2)
-/*  f09229c:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*  f0922a0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0922a4:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f0922a8:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0922ac:	0fc19a63 */ 	jal	func0f06698c
-/*  f0922b0:	e7260000 */ 	swc1	$f6,0x0($t9)
-/*  f0922b4:	c6480004 */ 	lwc1	$f8,0x4($s2)
-/*  f0922b8:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*  f0922bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0922c0:	46080280 */ 	add.s	$f10,$f0,$f8
-/*  f0922c4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f0922c8:	0fc19a7b */ 	jal	func0f0669ec
-/*  f0922cc:	e50a0004 */ 	swc1	$f10,0x4($t0)
-/*  f0922d0:	c6500008 */ 	lwc1	$f16,0x8($s2)
-/*  f0922d4:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*  f0922d8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0922dc:	46100480 */ 	add.s	$f18,$f0,$f16
-/*  f0922e0:	10000002 */ 	b	.L0f0922ec
-/*  f0922e4:	e5320008 */ 	swc1	$f18,0x8($t1)
-.L0f0922e8:
-/*  f0922e8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0922ec:
-/*  f0922ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0922f0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0922f4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0922f8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0922fc:	03e00008 */ 	jr	$ra
-/*  f092300:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+bool func0f09220c(struct defaultobj *obj, struct coord *pos, f32 *realrot, struct coord *arg3, struct coord *arg4)
+{
+	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
+
+	if (bbox != NULL) {
+		arg3->x = pos->x + func0f0668fc(bbox, realrot);
+		arg3->y = pos->y + func0f06695c(bbox, realrot);
+		arg3->z = pos->z + func0f0669bc(bbox, realrot);
+
+		arg4->x = pos->x + func0f06692c(bbox, realrot);
+		arg4->y = pos->y + func0f06698c(bbox, realrot);
+		arg4->z = pos->z + func0f0669ec(bbox, realrot);
+
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 {
