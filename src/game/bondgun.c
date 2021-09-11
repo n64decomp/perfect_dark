@@ -10767,7 +10767,7 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 	struct weapon *weapon = weaponFindById(gset->weaponnum);
 	struct weaponobj *weaponobj;
 	struct autogunobj *autogun;
-	f32 mf[4][4];
+	Mtxf mtx;
 	s32 playernum;
 
 	if (weapon == NULL) {
@@ -10782,10 +10782,10 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 	}
 
 	if (gset->weaponnum == WEAPON_COMBATKNIFE) {
-		guRotateF(mf, 90.0f / (random() * (1.0f / U32_MAX) + 12.1f),
+		guRotateF(mtx.m, 90.0f / (random() * (1.0f / U32_MAX) + 12.1f),
 				arg4->m[1][0], arg4->m[1][1], arg4->m[1][2]);
 	} else {
-		func0f096360(mf);
+		func0f096360(&mtx);
 	}
 
 	if (gset->weaponnum == WEAPON_LAPTOPGUN) {
@@ -10821,7 +10821,7 @@ struct defaultobj *bgun0f09ee18(struct chrdata *chr, struct gset *gset, struct c
 	}
 
 	if (obj != NULL) {
-		bgun0f09ebcc(obj, pos, rooms, arg4, (f32 *)arg5, (Mtxf *)mf, chr->prop, pos);
+		bgun0f09ebcc(obj, pos, rooms, arg4, (f32 *)arg5, &mtx, chr->prop, pos);
 
 		obj->hidden &= 0x0fffffff;
 
