@@ -662,21 +662,10 @@ f32 func0f06695c(struct modelrodata_bbox *bbox, f32 *realrot)
 	return func0f066a1c(bbox, realrot[1], realrot[4], realrot[7]);
 }
 
-GLOBAL_ASM(
-glabel func0f06698c
-/*  f06698c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f066990:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f066994:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f066998:	00a07025 */ 	or	$t6,$a1,$zero
-/*  f06699c:	8dc60010 */ 	lw	$a2,0x10($t6)
-/*  f0669a0:	8dc7001c */ 	lw	$a3,0x1c($t6)
-/*  f0669a4:	0fc19aaf */ 	jal	func0f066abc
-/*  f0669a8:	8ca50004 */ 	lw	$a1,0x4($a1)
-/*  f0669ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0669b0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0669b4:	03e00008 */ 	jr	$ra
-/*  f0669b8:	00000000 */ 	nop
-);
+f32 func0f06698c(struct modelrodata_bbox *bbox, f32 *realrot)
+{
+	return func0f066abc(bbox, realrot[1], realrot[4], realrot[7]);
+}
 
 f32 func0f0669bc(struct modelrodata_bbox *bbox, f32 *realrot)
 {
