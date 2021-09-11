@@ -678,21 +678,10 @@ glabel func0f06698c
 /*  f0669b8:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0669bc
-/*  f0669bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0669c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0669c4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0669c8:	00a07025 */ 	or	$t6,$a1,$zero
-/*  f0669cc:	8dc60014 */ 	lw	$a2,0x14($t6)
-/*  f0669d0:	8dc70020 */ 	lw	$a3,0x20($t6)
-/*  f0669d4:	0fc19a87 */ 	jal	func0f066a1c
-/*  f0669d8:	8ca50008 */ 	lw	$a1,0x8($a1)
-/*  f0669dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0669e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0669e4:	03e00008 */ 	jr	$ra
-/*  f0669e8:	00000000 */ 	nop
-);
+f32 func0f0669bc(struct modelrodata_bbox *bbox, f32 *realrot)
+{
+	return func0f066a1c(bbox, realrot[2], realrot[5], realrot[8]);
+}
 
 GLOBAL_ASM(
 glabel func0f0669ec
