@@ -261,32 +261,11 @@ glabel func0f0965e4
 /*  f096694:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f096698
-/*  f096698:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f09669c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f0966a0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f0966a4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f0966a8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0966ac:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f0966b0:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f0966b4:	00809825 */ 	or	$s3,$a0,$zero
-/*  f0966b8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0966bc:	18c00007 */ 	blez	$a2,.L0f0966dc
-/*  f0966c0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0966c4:	02402025 */ 	or	$a0,$s2,$zero
-.L0f0966c8:
-/*  f0966c8:	0c0056f8 */ 	jal	func00015be0
-/*  f0966cc:	02602825 */ 	or	$a1,$s3,$zero
-/*  f0966d0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0966d4:	5611fffc */ 	bnel	$s0,$s1,.L0f0966c8
-/*  f0966d8:	02402025 */ 	or	$a0,$s2,$zero
-.L0f0966dc:
-/*  f0966dc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0966e0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0966e4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0966e8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0966ec:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0966f0:	03e00008 */ 	jr	$ra
-/*  f0966f4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f096698(Mtxf *arg0, Mtxf *arg1, s32 count)
+{
+	s32 i;
+
+	for (i = 0; i < count; i++) {
+		func00015be0(arg1, arg0);
+	}
+}
