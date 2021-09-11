@@ -28,12 +28,6 @@ const u32 var7f1ab810[] = {0x40c907a9};
 const u32 var7f1ab814[] = {0x3cc907a9};
 #endif
 
-const u32 var7f1ab818[] = {0x3fd55555};
-const u32 var7f1ab81c[] = {0x40555555};
-const u32 var7f1ab820[] = {0x3fd55555};
-const u32 var7f1ab824[] = {0x3fd55555};
-const u32 var7f1ab828[] = {0x40555555};
-
 u32 var8006ae80 = 0x00000000;
 
 GLOBAL_ASM(
@@ -128,88 +122,14 @@ glabel func0f096360
 /*  f0964b0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f0964b4
-/*  f0964b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0964b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0964bc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0964c0:	0c004b70 */ 	jal	random
-/*  f0964c4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0964c8:	44822000 */ 	mtc1	$v0,$f4
-/*  f0964cc:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0964d0:	04410004 */ 	bgez	$v0,.L0f0964e4
-/*  f0964d4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0964d8:	44814000 */ 	mtc1	$at,$f8
-/*  f0964dc:	00000000 */ 	nop
-/*  f0964e0:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f0964e4:
-/*  f0964e4:	3c012f80 */ 	lui	$at,0x2f80
-/*  f0964e8:	44815000 */ 	mtc1	$at,$f10
-/*  f0964ec:	3c017f1b */ 	lui	$at,%hi(var7f1ab818)
-/*  f0964f0:	c432b818 */ 	lwc1	$f18,%lo(var7f1ab818)($at)
-/*  f0964f4:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f0964f8:	3c014080 */ 	lui	$at,0x4080
-/*  f0964fc:	44814000 */ 	mtc1	$at,$f8
-/*  f096500:	3c017f1b */ 	lui	$at,%hi(var7f1ab81c)
-/*  f096504:	c42ab81c */ 	lwc1	$f10,%lo(var7f1ab81c)($at)
-/*  f096508:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f09650c:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f096510:	00000000 */ 	nop
-/*  f096514:	46082182 */ 	mul.s	$f6,$f4,$f8
-/*  f096518:	460a3401 */ 	sub.s	$f16,$f6,$f10
-/*  f09651c:	0c004b70 */ 	jal	random
-/*  f096520:	e5d00000 */ 	swc1	$f16,0x0($t6)
-/*  f096524:	44829000 */ 	mtc1	$v0,$f18
-/*  f096528:	3c014f80 */ 	lui	$at,0x4f80
-/*  f09652c:	04410004 */ 	bgez	$v0,.L0f096540
-/*  f096530:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f096534:	44814000 */ 	mtc1	$at,$f8
-/*  f096538:	00000000 */ 	nop
-/*  f09653c:	46082100 */ 	add.s	$f4,$f4,$f8
-.L0f096540:
-/*  f096540:	3c012f80 */ 	lui	$at,0x2f80
-/*  f096544:	44813000 */ 	mtc1	$at,$f6
-/*  f096548:	3c017f1b */ 	lui	$at,%hi(var7f1ab820)
-/*  f09654c:	c430b820 */ 	lwc1	$f16,%lo(var7f1ab820)($at)
-/*  f096550:	46062282 */ 	mul.s	$f10,$f4,$f6
-/*  f096554:	3c014080 */ 	lui	$at,0x4080
-/*  f096558:	44814000 */ 	mtc1	$at,$f8
-/*  f09655c:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f096560:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f096564:	00000000 */ 	nop
-/*  f096568:	46089102 */ 	mul.s	$f4,$f18,$f8
-/*  f09656c:	0c004b70 */ 	jal	random
-/*  f096570:	e5e40004 */ 	swc1	$f4,0x4($t7)
-/*  f096574:	44823000 */ 	mtc1	$v0,$f6
-/*  f096578:	3c014f80 */ 	lui	$at,0x4f80
-/*  f09657c:	04410004 */ 	bgez	$v0,.L0f096590
-/*  f096580:	468032a0 */ 	cvt.s.w	$f10,$f6
-/*  f096584:	44818000 */ 	mtc1	$at,$f16
-/*  f096588:	00000000 */ 	nop
-/*  f09658c:	46105280 */ 	add.s	$f10,$f10,$f16
-.L0f096590:
-/*  f096590:	3c012f80 */ 	lui	$at,0x2f80
-/*  f096594:	44819000 */ 	mtc1	$at,$f18
-/*  f096598:	3c017f1b */ 	lui	$at,%hi(var7f1ab824)
-/*  f09659c:	c424b824 */ 	lwc1	$f4,%lo(var7f1ab824)($at)
-/*  f0965a0:	46125202 */ 	mul.s	$f8,$f10,$f18
-/*  f0965a4:	3c014080 */ 	lui	$at,0x4080
-/*  f0965a8:	44818000 */ 	mtc1	$at,$f16
-/*  f0965ac:	3c017f1b */ 	lui	$at,%hi(var7f1ab828)
-/*  f0965b0:	c432b828 */ 	lwc1	$f18,%lo(var7f1ab828)($at)
-/*  f0965b4:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*  f0965b8:	46044182 */ 	mul.s	$f6,$f8,$f4
-/*  f0965bc:	00000000 */ 	nop
-/*  f0965c0:	46103282 */ 	mul.s	$f10,$f6,$f16
-/*  f0965c4:	46125201 */ 	sub.s	$f8,$f10,$f18
-/*  f0965c8:	e7080008 */ 	swc1	$f8,0x8($t8)
-/*  f0965cc:	0fc258d8 */ 	jal	func0f096360
-/*  f0965d0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f0965d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0965d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0965dc:	03e00008 */ 	jr	$ra
-/*  f0965e0:	00000000 */ 	nop
-);
+void func0f0964b4(f32 *arg0, f32 mf[4][4])
+{
+	arg0[0] = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
+	arg0[1] = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f;
+	arg0[2] = random() * (1.0f / U32_MAX) * 1.6666666269302f * 4.0f - 3.3333332538605f;
+
+	func0f096360(mf);
+}
 
 void func0f0965e4(f32 *arg0, f32 *arg1, f32 arg2)
 {
