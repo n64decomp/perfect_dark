@@ -154,49 +154,25 @@ s32 tagGetCommandIndex(struct tag *tag)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel setupGetCommandOffset
-/*  f092124:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f092128:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f09212c:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x10)
-/*  f092130:	8e10d040 */ 	lw	$s0,%lo(g_StageSetup+0x10)($s0)
-/*  f092134:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f092138:	00809825 */ 	or	$s3,$a0,$zero
-/*  f09213c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f092140:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f092144:	12000013 */ 	beqz	$s0,.L0f092194
-/*  f092148:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f09214c:	920e0003 */ 	lbu	$t6,0x3($s0)
-/*  f092150:	24120034 */ 	addiu	$s2,$zero,0x34
-/*  f092154:	00008825 */ 	or	$s1,$zero,$zero
-/*  f092158:	524e000f */ 	beql	$s2,$t6,.L0f092198
-/*  f09215c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f092160:	8e0f0014 */ 	lw	$t7,0x14($s0)
-.L0f092164:
-/*  f092164:	166f0003 */ 	bne	$s3,$t7,.L0f092174
-/*  f092168:	00000000 */ 	nop
-/*  f09216c:	1000000a */ 	b	.L0f092198
-/*  f092170:	02201025 */ 	or	$v0,$s1,$zero
-.L0f092174:
-/*  f092174:	0fc24784 */ 	jal	setupGetCommandLength
-/*  f092178:	02002025 */ 	or	$a0,$s0,$zero
-/*  f09217c:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f092180:	03108021 */ 	addu	$s0,$t8,$s0
-/*  f092184:	92190003 */ 	lbu	$t9,0x3($s0)
-/*  f092188:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f09218c:	5659fff5 */ 	bnel	$s2,$t9,.L0f092164
-/*  f092190:	8e0f0014 */ 	lw	$t7,0x14($s0)
-.L0f092194:
-/*  f092194:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f092198:
-/*  f092198:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f09219c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f0921a0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f0921a4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f0921a8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f0921ac:	03e00008 */ 	jr	$ra
-/*  f0921b0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+u32 setupGetCommandIndexByProp(struct prop *prop)
+{
+	u32 *cmd = g_StageSetup.props;
+
+	if (cmd) {
+		s32 cmdindex = 0;
+
+		while ((u8)cmd[0] != OBJTYPE_END) {
+			if ((struct prop *)cmd[5] == prop) {
+				return cmdindex;
+			}
+
+			cmd = cmd + setupGetCommandLength(cmd);
+			cmdindex++;
+		}
+	}
+
+	return -1;
+}
 
 bool modelLoad(s32 propnum)
 {

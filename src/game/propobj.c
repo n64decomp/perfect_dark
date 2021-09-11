@@ -46182,7 +46182,7 @@ u32 func0f07e474(struct prop *prop)
 	struct defaultobj *obj = prop->obj;
 	bool silent = false;
 	bool regenning;
-	u32 cmdoffset;
+	u32 cmdindex;
 	u32 padnum;
 	struct defaultobj *newparent;
 
@@ -46219,12 +46219,12 @@ u32 func0f07e474(struct prop *prop)
 					propDeregisterRooms(prop);
 					propDelist(prop);
 					obj->hidden &= ~OBJHFLAG_00000800;
-					cmdoffset = setupGetCommandOffset(prop);
+					cmdindex = setupGetCommandIndexByProp(prop);
 
 					// Uh... why add obj->pad to the command offset?
 					// I suspect obj->pad has been repurposed.
 					padnum = obj->pad;
-					newparent = setupCommandGetObject(cmdoffset + padnum);
+					newparent = setupCommandGetObject(cmdindex + padnum);
 
 					if (newparent && newparent->prop) {
 						modelSetScale(obj->model, obj->model->scale);
