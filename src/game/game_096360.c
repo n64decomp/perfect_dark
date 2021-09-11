@@ -33,7 +33,6 @@ const u32 var7f1ab81c[] = {0x40555555};
 const u32 var7f1ab820[] = {0x3fd55555};
 const u32 var7f1ab824[] = {0x3fd55555};
 const u32 var7f1ab828[] = {0x40555555};
-const u32 var7f1ab82c[] = {0x3e8e38e4};
 
 u32 var8006ae80 = 0x00000000;
 
@@ -212,25 +211,15 @@ glabel func0f0964b4
 /*  f0965e0:	00000000 */ 	nop
 );
 
+void func0f0965e4(f32 *arg0, f32 *arg1, f32 arg2)
+{
+	f32 tmp = *arg1 - arg2 * 0.27777779f;
+	*arg0 += arg2 * (*arg1 + tmp) * 0.5f;
+	*arg1 = tmp;
+}
+
 GLOBAL_ASM(
-glabel func0f0965e4
-/*  f0965e4:	3c017f1b */ 	lui	$at,%hi(var7f1ab82c)
-/*  f0965e8:	44866000 */ 	mtc1	$a2,$f12
-/*  f0965ec:	c424b82c */ 	lwc1	$f4,%lo(var7f1ab82c)($at)
-/*  f0965f0:	c4a20000 */ 	lwc1	$f2,0x0($a1)
-/*  f0965f4:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0965f8:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f0965fc:	44818000 */ 	mtc1	$at,$f16
-/*  f096600:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f096604:	46061001 */ 	sub.s	$f0,$f2,$f6
-/*  f096608:	46001200 */ 	add.s	$f8,$f2,$f0
-/*  f09660c:	46086282 */ 	mul.s	$f10,$f12,$f8
-/*  f096610:	00000000 */ 	nop
-/*  f096614:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f096618:	46122180 */ 	add.s	$f6,$f4,$f18
-/*  f09661c:	e4860000 */ 	swc1	$f6,0x0($a0)
-/*  f096620:	03e00008 */ 	jr	$ra
-/*  f096624:	e4a00000 */ 	swc1	$f0,0x0($a1)
+glabel func0f096628
 /*  f096628:	44866000 */ 	mtc1	$a2,$f12
 /*  f09662c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f096630:	afbf0014 */ 	sw	$ra,0x14($sp)
