@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 setupGetCommandLength(u32 *cmd);
-u32 *setupGetPtrToCommandByIndex(u32 cmdindex);
+u32 *setupGetPtrToCommandByIndex(s32 cmdindex);
 s32 tagGetCommandIndex(struct tag *tag);
 u32 setupGetCommandIndexByProp(struct prop *prop);
 bool modelLoad(s32 propnum);

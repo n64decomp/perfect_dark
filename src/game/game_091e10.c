@@ -89,50 +89,25 @@ u32 setupGetCommandLength(u32 *cmd)
 	return 1;
 }
 
-GLOBAL_ASM(
-glabel setupGetPtrToCommandByIndex
-/*  f092004:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f092008:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f09200c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f092010:	3c11800a */ 	lui	$s1,%hi(g_StageSetup+0x10)
-/*  f092014:	00809825 */ 	or	$s3,$a0,$zero
-/*  f092018:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f09201c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f092020:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f092024:	04800014 */ 	bltz	$a0,.L0f092078
-/*  f092028:	8e31d040 */ 	lw	$s1,%lo(g_StageSetup+0x10)($s1)
-/*  f09202c:	52200013 */ 	beqzl	$s1,.L0f09207c
-/*  f092030:	00001025 */ 	or	$v0,$zero,$zero
-/*  f092034:	922e0003 */ 	lbu	$t6,0x3($s1)
-/*  f092038:	24120034 */ 	addiu	$s2,$zero,0x34
-/*  f09203c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f092040:	524e000e */ 	beql	$s2,$t6,.L0f09207c
-/*  f092044:	00001025 */ 	or	$v0,$zero,$zero
-.L0f092048:
-/*  f092048:	16130003 */ 	bne	$s0,$s3,.L0f092058
-/*  f09204c:	00000000 */ 	nop
-/*  f092050:	1000000a */ 	b	.L0f09207c
-/*  f092054:	02201025 */ 	or	$v0,$s1,$zero
-.L0f092058:
-/*  f092058:	0fc24784 */ 	jal	setupGetCommandLength
-/*  f09205c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f092060:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f092064:	01f18821 */ 	addu	$s1,$t7,$s1
-/*  f092068:	92380003 */ 	lbu	$t8,0x3($s1)
-/*  f09206c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f092070:	1658fff5 */ 	bne	$s2,$t8,.L0f092048
-/*  f092074:	00000000 */ 	nop
-.L0f092078:
-/*  f092078:	00001025 */ 	or	$v0,$zero,$zero
-.L0f09207c:
-/*  f09207c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f092080:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f092084:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f092088:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f09208c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f092090:	03e00008 */ 	jr	$ra
-/*  f092094:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+u32 *setupGetPtrToCommandByIndex(s32 wantindex)
+{
+	u32 *cmd = g_StageSetup.props;
+
+	if (wantindex >= 0 && cmd) {
+		s32 cmdindex = 0;
+
+		while ((u8)cmd[0] != OBJTYPE_END) {
+			if (cmdindex == wantindex) {
+				return cmd;
+			}
+
+			cmd = cmd + setupGetCommandLength(cmd);
+			cmdindex++;
+		}
+	}
+
+	return NULL;
+}
 
 s32 tagGetCommandIndex(struct tag *tag)
 {
