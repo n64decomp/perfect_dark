@@ -473,88 +473,60 @@ void padGetCentre(s32 padnum, struct coord *coord)
 			(pad.bbox.zmin + pad.bbox.zmax) * pad.look.f[2]) * 0.5f;
 }
 
-GLOBAL_ASM(
-glabel func0f116068
-/*  f116068:	3c0e800a */ 	lui	$t6,%hi(g_PadOffsets)
-/*  f11606c:	8dce2354 */ 	lw	$t6,%lo(g_PadOffsets)($t6)
-/*  f116070:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f116074:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f116078:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11607c:	3c19800a */ 	lui	$t9,%hi(g_StageSetup+0x1c)
-/*  f116080:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f116084:	97060000 */ 	lhu	$a2,0x0($t8)
-/*  f116088:	8f39d04c */ 	lw	$t9,%lo(g_StageSetup+0x1c)($t9)
-/*  f11608c:	03261021 */ 	addu	$v0,$t9,$a2
-/*  f116090:	00403825 */ 	or	$a3,$v0,$zero
-/*  f116094:	8ce50000 */ 	lw	$a1,0x0($a3)
-/*  f116098:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f11609c:	00051b82 */ 	srl	$v1,$a1,0xe
-/*  f1160a0:	30680001 */ 	andi	$t0,$v1,0x1
-/*  f1160a4:	11000003 */ 	beqz	$t0,.L0f1160b4
-/*  f1160a8:	3069000e */ 	andi	$t1,$v1,0xe
-/*  f1160ac:	10000002 */ 	b	.L0f1160b8
-/*  f1160b0:	24420008 */ 	addiu	$v0,$v0,0x8
-.L0f1160b4:
-/*  f1160b4:	2442000c */ 	addiu	$v0,$v0,0xc
-.L0f1160b8:
-/*  f1160b8:	5520001d */ 	bnezl	$t1,.L0f116130
-/*  f1160bc:	306a00e0 */ 	andi	$t2,$v1,0xe0
-/*  f1160c0:	c4400008 */ 	lwc1	$f0,0x8($v0)
-/*  f1160c4:	c4420000 */ 	lwc1	$f2,0x0($v0)
-/*  f1160c8:	44802000 */ 	mtc1	$zero,$f4
-/*  f1160cc:	46000182 */ 	mul.s	$f6,$f0,$f0
-/*  f1160d0:	e4440004 */ 	swc1	$f4,0x4($v0)
-/*  f1160d4:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f1160d8:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1160dc:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f1160e0:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f1160e4:	0c012974 */ 	jal	sqrtf
-/*  f1160e8:	46083300 */ 	add.s	$f12,$f6,$f8
-/*  f1160ec:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1160f0:	44815000 */ 	mtc1	$at,$f10
-/*  f1160f4:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f1160f8:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f1160fc:	46005083 */ 	div.s	$f2,$f10,$f0
-/*  f116100:	c4900000 */ 	lwc1	$f16,0x0($a0)
-/*  f116104:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f116108:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f11610c:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f116110:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f116114:	00000000 */ 	nop
-/*  f116118:	46022182 */ 	mul.s	$f6,$f4,$f2
-/*  f11611c:	e4920000 */ 	swc1	$f18,0x0($a0)
-/*  f116120:	e4860008 */ 	swc1	$f6,0x8($a0)
-/*  f116124:	8ce50000 */ 	lw	$a1,0x0($a3)
-/*  f116128:	00051b82 */ 	srl	$v1,$a1,0xe
-/*  f11612c:	306a00e0 */ 	andi	$t2,$v1,0xe0
-.L0f116130:
-/*  f116130:	1140000d */ 	beqz	$t2,.L0f116168
-/*  f116134:	2401fe1f */ 	addiu	$at,$zero,-481
-/*  f116138:	00615824 */ 	and	$t3,$v1,$at
-/*  f11613c:	01636026 */ 	xor	$t4,$t3,$v1
-/*  f116140:	000c6b80 */ 	sll	$t5,$t4,0xe
-/*  f116144:	01a57026 */ 	xor	$t6,$t5,$a1
-/*  f116148:	000e1b82 */ 	srl	$v1,$t6,0xe
-/*  f11614c:	346f0040 */ 	ori	$t7,$v1,0x40
-/*  f116150:	01e3c026 */ 	xor	$t8,$t7,$v1
-/*  f116154:	0018cb80 */ 	sll	$t9,$t8,0xe
-/*  f116158:	acee0000 */ 	sw	$t6,0x0($a3)
-/*  f11615c:	032e4026 */ 	xor	$t0,$t9,$t6
-/*  f116160:	10000007 */ 	b	.L0f116180
-/*  f116164:	ace80000 */ 	sw	$t0,0x0($a3)
-.L0f116168:
-/*  f116168:	44800000 */ 	mtc1	$zero,$f0
-/*  f11616c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f116170:	44814000 */ 	mtc1	$at,$f8
-/*  f116174:	e4400000 */ 	swc1	$f0,0x0($v0)
-/*  f116178:	e4400008 */ 	swc1	$f0,0x8($v0)
-/*  f11617c:	e4480004 */ 	swc1	$f8,0x4($v0)
-.L0f116180:
-/*  f116180:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116184:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f116188:	03e00008 */ 	jr	$ra
-/*  f11618c:	00000000 */ 	nop
-);
+/**
+ * Some door models are rotated weirdly - suspected to be designed using the
+ * wrong coordinate system, then the developers implemented a fix here in the
+ * code rather than fixing the models.
+ *
+ * When such a door is placed on a pad, this function is called. It adjusts the
+ * pad's orientation to compensate for the model.
+ */
+void padRotateForDoor(s32 padnum)
+{
+	u32 stack;
+	u32 *ptr;
+	u32 *header;
+	struct coord *look;
+	struct coord *up;
+	f32 scale;
+	s32 offset;
+
+	offset = g_PadOffsets[padnum];
+	ptr = (u32 *) &g_StageSetup.padfiledata[offset];
+	header = ptr;
+
+	ptr++;
+
+	if ((*header >> 14) & PADFLAG_INTPOS) {
+		ptr += 2;
+	} else {
+		ptr += 3;
+	}
+
+	if (((*header >> 14) & (PADFLAG_UPALIGNTOX | PADFLAG_UPALIGNTOY | PADFLAG_UPALIGNTOZ)) == 0) {
+		up = (struct coord *) ptr;
+		up->y = 0;
+
+		scale = 1 / sqrtf(up->f[0] * up->f[0] + up->f[2] * up->f[2]);
+
+		up->x *= scale;
+		up->z *= scale;
+
+		ptr += 3;
+	}
+
+	if ((*header >> 14) & (PADFLAG_LOOKALIGNTOX | PADFLAG_LOOKALIGNTOY | PADFLAG_LOOKALIGNTOZ)) {
+		// Unset the LOOKALIGN flags, then set LOOKALIGNTOY
+		*header = *header ^ (((*header >> 14) ^ ((*header >> 14) & ~(PADFLAG_LOOKALIGNTOX | PADFLAG_LOOKALIGNTOY | PADFLAG_LOOKALIGNTOZ | PADFLAG_LOOKALIGNINVERT))) << 14);
+		*header = *header ^ (((*header >> 14) ^ ((*header >> 14) | PADFLAG_LOOKALIGNTOY)) << 14);
+	} else {
+		look = (struct coord *) ptr;
+
+		look->x = 0.0f;
+		look->y = 1.0f;
+		look->z = 0.0f;
+	}
+}
 
 void padCopyBboxFromPad(s32 padnum, struct pad *src)
 {

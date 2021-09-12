@@ -670,7 +670,7 @@
 #define DOORFLAG_0004            0x0004
 #define DOORFLAG_FLIP            0x0008
 #define DOORFLAG_AUTOMATIC       0x0010
-#define DOORFLAG_0040            0x0040
+#define DOORFLAG_ROTATEDPAD      0x0040
 #define DOORFLAG_0080            0x0080
 #define DOORFLAG_0100            0x0100
 #define DOORFLAG_LONGRANGE       0x0200

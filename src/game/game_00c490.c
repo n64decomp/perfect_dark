@@ -1488,7 +1488,7 @@ glabel var7f1a926cpf
 /*  f00e37c:	31f80040 */ 	andi	$t8,$t7,0x40
 /*  f00e380:	53000004 */ 	beqzl	$t8,.PF0f00e394
 /*  f00e384:	8e190008 */ 	lw	$t9,0x8($s0)
-/*  f00e388:	0fc45ad2 */ 	jal	func0f116068
+/*  f00e388:	0fc45ad2 */ 	jal	padRotateForDoor
 /*  f00e38c:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00e390:	8e190008 */ 	lw	$t9,0x8($s0)
 .PF0f00e394:
@@ -1883,7 +1883,7 @@ glabel var7f1a8064
 /*  f00e394:	31f80040 */ 	andi	$t8,$t7,0x40
 /*  f00e398:	53000004 */ 	beqzl	$t8,.L0f00e3ac
 /*  f00e39c:	8e190008 */ 	lw	$t9,0x8($s0)
-/*  f00e3a0:	0fc4581a */ 	jal	func0f116068
+/*  f00e3a0:	0fc4581a */ 	jal	padRotateForDoor
 /*  f00e3a4:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00e3a8:	8e190008 */ 	lw	$t9,0x8($s0)
 .L0f00e3ac:
@@ -2265,8 +2265,8 @@ glabel var7f1a8064
 //
 //	modelLoad(modelnum);
 //
-//	if (door->doorflags & DOORFLAG_0040) {
-//		func0f116068(door->base.pad);
+//	if (door->doorflags & DOORFLAG_ROTATEDPAD) {
+//		padRotateForDoor(door->base.pad);
 //	}
 //
 //	if (door->base.flags & OBJFLAG_DOOR_HASPORTAL) {
