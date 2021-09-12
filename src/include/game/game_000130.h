@@ -7,8 +7,8 @@
 void func0f000130(void);
 u16 func0f0002a0(s16 animnum, s32 frame, s32 endframe);
 s32 func0f000358(s16 animnum, s32 startframe, s32 endframe);
-s32 func0f00040c(struct attackanimconfig *config);
-void func0f00052c(struct attackanimgroup **group);
+s32 func0f00040c(struct attackanimconfig *configs);
+void func0f00052c(struct attackanimgroup **groups);
 s32 func0f000590(struct animtablerow *rows);
 f32 func0f0005c0(s16 animnum);
 void func0f000648(void);
