@@ -9,8 +9,6 @@
 
 const u32 var7f1a78c0[] = {0x40c907a9};
 const u32 var7f1a78c4[] = {0x38c907a9};
-const u32 var7f1a78c8[] = {0x3dccccce};
-const u32 var7f1a78cc[] = {0x00000000};
 
 void func0f000130(void)
 {
@@ -279,43 +277,14 @@ glabel func0f000590
 /*  f0005bc:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0005c0
-/*  f0005c0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0005c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0005c8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0005cc:	0c008dda */ 	jal	animGetNumFrames
-/*  f0005d0:	87a40022 */ 	lh	$a0,0x22($sp)
-/*  f0005d4:	87a40022 */ 	lh	$a0,0x22($sp)
-/*  f0005d8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0005dc:	0fc000d6 */ 	jal	func0f000358
-/*  f0005e0:	2446ffff */ 	addiu	$a2,$v0,-1
-/*  f0005e4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0005e8:	0c008dda */ 	jal	animGetNumFrames
-/*  f0005ec:	87a40022 */ 	lh	$a0,0x22($sp)
-/*  f0005f0:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f0005f4:	44824000 */ 	mtc1	$v0,$f8
-/*  f0005f8:	87a80022 */ 	lh	$t0,0x22($sp)
-/*  f0005fc:	448e2000 */ 	mtc1	$t6,$f4
-/*  f000600:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f000604:	3c198006 */ 	lui	$t9,%hi(var8005f014)
-/*  f000608:	8f39f014 */ 	lw	$t9,%lo(var8005f014)($t9)
-/*  f00060c:	00084840 */ 	sll	$t1,$t0,0x1
-/*  f000610:	3c017f1a */ 	lui	$at,%hi(var7f1a78c8)
-/*  f000614:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f000618:	03295021 */ 	addu	$t2,$t9,$t1
-/*  f00061c:	460a3083 */ 	div.s	$f2,$f6,$f10
-/*  f000620:	4600140d */ 	trunc.w.s	$f16,$f2
-/*  f000624:	44188000 */ 	mfc1	$t8,$f16
-/*  f000628:	00000000 */ 	nop
-/*  f00062c:	a5580000 */ 	sh	$t8,0x0($t2)
-/*  f000630:	c43278c8 */ 	lwc1	$f18,%lo(var7f1a78c8)($at)
-/*  f000634:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f000638:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f00063c:	46121002 */ 	mul.s	$f0,$f2,$f18
-/*  f000640:	03e00008 */ 	jr	$ra
-/*  f000644:	00000000 */ 	nop
-);
+f32 func0f0005c0(s16 animnum)
+{
+	f32 tmp = func0f000358(animnum, 0, animGetNumFrames(animnum) - 1) / (f32) animGetNumFrames(animnum);
+
+	var8005f014[animnum] = tmp;
+
+	return tmp * 0.1000000089407f;
+}
 
 GLOBAL_ASM(
 glabel func0f000648
