@@ -43,66 +43,28 @@ void func0f000130(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0002a0
-/*  f0002a0:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0002a4:	afb30030 */ 	sw	$s3,0x30($sp)
-/*  f0002a8:	00049c00 */ 	sll	$s3,$a0,0x10
-/*  f0002ac:	00137403 */ 	sra	$t6,$s3,0x10
-/*  f0002b0:	afb2002c */ 	sw	$s2,0x2c($sp)
-/*  f0002b4:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f0002b8:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f0002bc:	00a6082a */ 	slt	$at,$a1,$a2
-/*  f0002c0:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0002c4:	00c09025 */ 	or	$s2,$a2,$zero
-/*  f0002c8:	01c09825 */ 	or	$s3,$t6,$zero
-/*  f0002cc:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0002d0:	afb50038 */ 	sw	$s5,0x38($sp)
-/*  f0002d4:	afb40034 */ 	sw	$s4,0x34($sp)
-/*  f0002d8:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f0002dc:	10200014 */ 	beqz	$at,.L0f000330
-/*  f0002e0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0002e4:	3c148008 */ 	lui	$s4,%hi(g_ModelTypeChr)
-/*  f0002e8:	2694ce40 */ 	addiu	$s4,$s4,%lo(g_ModelTypeChr)
-/*  f0002ec:	27b50048 */ 	addiu	$s5,$sp,0x48
-.L0f0002f0:
-/*  f0002f0:	00133c00 */ 	sll	$a3,$s3,0x10
-/*  f0002f4:	00077c03 */ 	sra	$t7,$a3,0x10
-/*  f0002f8:	01e03825 */ 	or	$a3,$t7,$zero
-/*  f0002fc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f000300:	00002825 */ 	or	$a1,$zero,$zero
-/*  f000304:	02803025 */ 	or	$a2,$s4,$zero
-/*  f000308:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f00030c:	afb50014 */ 	sw	$s5,0x14($sp)
-/*  f000310:	0c009217 */ 	jal	func0002485c
-/*  f000314:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f000318:	02228821 */ 	addu	$s1,$s1,$v0
-/*  f00031c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f000320:	3238ffff */ 	andi	$t8,$s1,0xffff
-/*  f000324:	0212082a */ 	slt	$at,$s0,$s2
-/*  f000328:	1420fff1 */ 	bnez	$at,.L0f0002f0
-/*  f00032c:	03008825 */ 	or	$s1,$t8,$zero
-.L0f000330:
-/*  f000330:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f000334:	02201025 */ 	or	$v0,$s1,$zero
-/*  f000338:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f00033c:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f000340:	8fb2002c */ 	lw	$s2,0x2c($sp)
-/*  f000344:	8fb30030 */ 	lw	$s3,0x30($sp)
-/*  f000348:	8fb40034 */ 	lw	$s4,0x34($sp)
-/*  f00034c:	8fb50038 */ 	lw	$s5,0x38($sp)
-/*  f000350:	03e00008 */ 	jr	$ra
-/*  f000354:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+u16 func0f0002a0(s16 animnum, s32 frame, s32 endframe)
+{
+	s16 sp48[4];
+	u16 count = 0;
+
+	while (frame < endframe) {
+		count += func0002485c(0, 0, &g_ModelTypeChr, animnum, frame, sp48, 0);
+		frame++;
+	}
+
+	return count;
+}
 
 s32 func0f000358(s16 animnum, s32 frame, s32 endframe)
 {
 	s32 count = 0;
 	s16 sp44[4];
 
-	for (; frame < endframe; frame++) {
+	while (frame < endframe) {
 		func0002485c(0, 0, &g_ModelTypeChr, animnum, frame, sp44, 0);
 		count += sp44[2];
+		frame++;
 	}
 
 	return count;

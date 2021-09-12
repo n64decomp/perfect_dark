@@ -5,7 +5,7 @@
 #include "types.h"
 
 void func0f000130(void);
-u32 func0f0002a0(void);
+u16 func0f0002a0(s16 animnum, s32 frame, s32 endframe);
 s32 func0f000358(s16 animnum, s32 startframe, s32 endframe);
 u32 func0f00040c(void);
 u32 func0f00052c(void);
