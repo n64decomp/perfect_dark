@@ -183,23 +183,14 @@ glabel func0f00052c
 /*  f00058c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f000590
-/*  f000590:	848e0000 */ 	lh	$t6,0x0($a0)
-/*  f000594:	00001825 */ 	or	$v1,$zero,$zero
-/*  f000598:	00801025 */ 	or	$v0,$a0,$zero
-/*  f00059c:	19c00006 */ 	blez	$t6,.L0f0005b8
-/*  f0005a0:	00000000 */ 	nop
-/*  f0005a4:	844f001c */ 	lh	$t7,0x1c($v0)
-.L0f0005a8:
-/*  f0005a8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0005ac:	2442001c */ 	addiu	$v0,$v0,0x1c
-/*  f0005b0:	5de0fffd */ 	bgtzl	$t7,.L0f0005a8
-/*  f0005b4:	844f001c */ 	lh	$t7,0x1c($v0)
-.L0f0005b8:
-/*  f0005b8:	03e00008 */ 	jr	$ra
-/*  f0005bc:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func0f000590(struct animtablerow *rows)
+{
+	s32 i;
+
+	for (i = 0; rows[i].animnum > 0; i++);
+
+	return i;
+}
 
 f32 func0f0005c0(s16 animnum)
 {
