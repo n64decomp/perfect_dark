@@ -5996,7 +5996,7 @@ struct movedata {
 
 struct attackanimgroup {
 	struct attackanimconfig *animcfg;
-	u32 len;
+	s32 len;
 };
 
 struct modelthing {

@@ -152,36 +152,16 @@ glabel func0f00040c
 /*  f000528:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f00052c
-/*  f00052c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f000530:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f000534:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f000538:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f00053c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f000540:	00808025 */ 	or	$s0,$a0,$zero
-/*  f000544:	00008825 */ 	or	$s1,$zero,$zero
-/*  f000548:	24120080 */ 	addiu	$s2,$zero,0x80
-.L0f00054c:
-/*  f00054c:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f000550:	8c4e0004 */ 	lw	$t6,0x4($v0)
-/*  f000554:	05c30006 */ 	bgezl	$t6,.L0f000570
-/*  f000558:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f00055c:	0fc00103 */ 	jal	func0f00040c
-/*  f000560:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f000564:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f000568:	ade20004 */ 	sw	$v0,0x4($t7)
-/*  f00056c:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f000570:
-/*  f000570:	1632fff6 */ 	bne	$s1,$s2,.L0f00054c
-/*  f000574:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f000578:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f00057c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f000580:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f000584:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f000588:	03e00008 */ 	jr	$ra
-/*  f00058c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f00052c(struct attackanimgroup **groups)
+{
+	s32 i;
+
+	for (i = 0; i < 32; i++) {
+		if (groups[i]->len < 0) {
+			groups[i]->len = func0f00040c(groups[i]->animcfg);
+		}
+	}
+}
 
 s32 func0f000590(struct animtablerow *rows)
 {
