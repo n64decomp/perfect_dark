@@ -196,6 +196,7 @@ extern f32 g_DamageDealtScale;
 extern f32 var80062cac;
 extern s32 var80062cbc;
 extern struct animtablerow g_DeathAnimsHumanGun[];
+extern struct animtablerow g_AnimTableHumanSlumped[];
 extern struct animtable *g_AnimTablesByRace[];
 extern struct attackanimconfig var800656c0[];
 extern struct attackanimgroup *g_StandHeavyAttackAnims[][32];
