@@ -49,7 +49,7 @@ u8 var800a2329;
 u8 var800a232a;
 s8 g_SoloCompleted;
 u8 g_AltTitle;
-u32 var800a2330;
+s32 var800a2330[1];
 u32 var800a2334;
 u32 var800a2338;
 u32 var800a233c;
@@ -617,15 +617,10 @@ glabel func0f110cf8
 );
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f110d90
-/*  f110d90:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f110d94:	3c01800a */ 	lui	$at,%hi(var800a2330)
-/*  f110d98:	002f0821 */ 	addu	$at,$at,$t7
-/*  f110d9c:	240effff */ 	addiu	$t6,$zero,-1
-/*  f110da0:	03e00008 */ 	jr	$ra
-/*  f110da4:	ac2e2330 */ 	sw	$t6,%lo(var800a2330)($at)
-);
+void func0f110d90(s32 index)
+{
+	var800a2330[index] = -1;
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
