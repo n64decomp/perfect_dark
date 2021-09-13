@@ -722,7 +722,7 @@ bool fileSave(s32 arg0, bool arg1)
 		// fall through
 	case 0:
 	case 1:
-		errno = func0f10feac(arg0,
+		errno = gamefileSave(arg0,
 				g_Menus[g_MpPlayerNum].unke48,
 				g_Menus[g_MpPlayerNum].unke4c);
 		break;
@@ -892,7 +892,7 @@ glabel var7f1ad424nb
 /*  f104b64:	afaa0040 */ 	sw	$t2,0x40($sp)
 /*  f104b68:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f104b6c:	8c450da4 */ 	lw	$a1,0xda4($v0)
-/*  f104b70:	0fc428e0 */ 	jal	func0f10feac
+/*  f104b70:	0fc428e0 */ 	jal	gamefileSave
 /*  f104b74:	94460daa */ 	lhu	$a2,0xdaa($v0)
 /*  f104b78:	10000048 */ 	beqz	$zero,.NB0f104c9c
 /*  f104b7c:	00403025 */ 	or	$a2,$v0,$zero

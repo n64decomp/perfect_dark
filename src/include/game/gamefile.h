@@ -11,7 +11,7 @@ void gamefilePrintFlags(void);
 void gamefileApplyOptions(struct gamefile *file);
 void gamefileLoadDefaults(struct gamefile *file);
 s32 gamefileLoad(s32 arg0);
-s32 func0f10feac(s32 arg0, s32 arg1, u16 arg2);
+s32 gamefileSave(s32 arg0, s32 arg1, u16 arg2);
 void gamefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time);
 bool func0f1106c8(void);
 u32 func0f110720(void);

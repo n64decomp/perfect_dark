@@ -132,7 +132,7 @@ void func0f11e3bc(s8 device);
 void pakProbeEeprom(void);
 s32 pakReadEeprom(u8 address, u8 *buffer, u32 len);
 s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len);
-void pakSetBitflag(u32 flagnum, u8 *bitstream, bool set);
+void pakSetBitflag(s32 flagnum, u8 *bitstream, bool set);
 bool pakHasBitflag(u32 flagnum, u8 *stream);
 void pakClearAllBitflags(u8 *flags);
 void func0f11e618(char *src, char *dst, u32 len);
