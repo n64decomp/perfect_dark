@@ -1209,9 +1209,9 @@ glabel var7f1a863c
 /*  f01cf9c:	240f0002 */ 	li	$t7,0x2
 /*  f01cfa0:	3c018006 */ 	lui	$at,0x8006
 /*  f01cfa4:	a02f2610 */ 	sb	$t7,0x2610($at)
-/*  f01cfa8:	0fc4402b */ 	jal	savefileLoadDefaults
+/*  f01cfa8:	0fc4402b */ 	jal	gamefileLoadDefaults
 /*  f01cfac:	02002025 */ 	move	$a0,$s0
-/*  f01cfb0:	0fc43ee5 */ 	jal	savefileApplyOptions
+/*  f01cfb0:	0fc43ee5 */ 	jal	gamefileApplyOptions
 /*  f01cfb4:	02002025 */ 	move	$a0,$s0
 /*  f01cfb8:	3c0d8009 */ 	lui	$t5,0x8009
 /*  f01cfbc:	91ad1040 */ 	lbu	$t5,0x1040($t5)
@@ -2981,14 +2981,14 @@ glabel var7f1a863c
 /*  f01ceb8:	00008025 */ 	or	$s0,$zero,$zero
 /*  f01cebc:	0fc06fa8 */ 	jal	func0f01bea0
 /*  f01cec0:	afa40158 */ 	sw	$a0,0x158($sp)
-/*  f01cec4:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f01cec8:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
+/*  f01cec4:	3c10800a */ 	lui	$s0,%hi(g_GameFile)
+/*  f01cec8:	26102200 */ 	addiu	$s0,$s0,%lo(g_GameFile)
 /*  f01cecc:	24190002 */ 	addiu	$t9,$zero,0x2
 /*  f01ced0:	3c018006 */ 	lui	$at,%hi(g_FileState)
 /*  f01ced4:	a0392940 */ 	sb	$t9,%lo(g_FileState)($at)
-/*  f01ced8:	0fc43da6 */ 	jal	savefileLoadDefaults
+/*  f01ced8:	0fc43da6 */ 	jal	gamefileLoadDefaults
 /*  f01cedc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01cee0:	0fc43c81 */ 	jal	savefileApplyOptions
+/*  f01cee0:	0fc43c81 */ 	jal	gamefileApplyOptions
 /*  f01cee4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01cee8:	3c0f8009 */ 	lui	$t7,%hi(g_Is4Mb)
 /*  f01ceec:	91ef0af0 */ 	lbu	$t7,%lo(g_Is4Mb)($t7)
@@ -4754,9 +4754,9 @@ glabel var7f1a863c
 /*  f01cbac:	24190002 */ 	addiu	$t9,$zero,0x2
 /*  f01cbb0:	3c018006 */ 	lui	$at,0x8006
 /*  f01cbb4:	a0394e50 */ 	sb	$t9,0x4e50($at)
-/*  f01cbb8:	0fc426fe */ 	jal	savefileLoadDefaults
+/*  f01cbb8:	0fc426fe */ 	jal	gamefileLoadDefaults
 /*  f01cbbc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01cbc0:	0fc425d9 */ 	jal	savefileApplyOptions
+/*  f01cbc0:	0fc425d9 */ 	jal	gamefileApplyOptions
 /*  f01cbc4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01cbc8:	3c0f8009 */ 	lui	$t7,0x8009
 /*  f01cbcc:	91ef30e0 */ 	lbu	$t7,0x30e0($t7)
@@ -5913,8 +5913,8 @@ glabel var7f1a863c
 //			} else /*ceb0*/ if (g_MenuData.unk008 == -7) {
 //				func0f01bea0();
 //				g_FileState = FILESTATE_CHANGINGAGENT;
-//				savefileLoadDefaults(&g_SoloSaveFile);
-//				savefileApplyOptions(&g_SoloSaveFile);
+//				gamefileLoadDefaults(&g_GameFile);
+//				gamefileApplyOptions(&g_GameFile);
 //				mainSetStageNum(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);
 //				func0f16d3d0();
 //			} else {

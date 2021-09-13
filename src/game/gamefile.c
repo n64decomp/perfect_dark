@@ -21,39 +21,39 @@
 #include "data.h"
 #include "types.h"
 
-u8 *savefileGetFlags(void)
+u8 *gamefileGetFlags(void)
 {
-	return g_SoloSaveFile.flags;
+	return g_GameFile.flags;
 }
 
-void savefileSetFlag(u32 value)
+void gamefileSetFlag(u32 value)
 {
-	pakSetBitflag(value, g_SoloSaveFile.flags, true);
+	pakSetBitflag(value, g_GameFile.flags, true);
 }
 
-void savefileUnsetFlag(u32 value)
+void gamefileUnsetFlag(u32 value)
 {
-	pakSetBitflag(value, g_SoloSaveFile.flags, false);
+	pakSetBitflag(value, g_GameFile.flags, false);
 }
 
-u32 savefileHasFlag(u32 value)
+u32 gamefileHasFlag(u32 value)
 {
-	return pakHasBitflag(value, g_SoloSaveFile.flags);
+	return pakHasBitflag(value, g_GameFile.flags);
 }
 
-void savefilePrintFlags(void)
+void gamefilePrintFlags(void)
 {
 	s32 i;
 
 	for (i = 0x23; i != 0x4f; i++) {
 		osSyncPrintf("Flag %d = %s", i,
-				pakHasBitflag(i, g_SoloSaveFile.flags) ? "TRUE" : "FALSE");
+				pakHasBitflag(i, g_GameFile.flags) ? "TRUE" : "FALSE");
 	}
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel savefileApplyOptions
+glabel gamefileApplyOptions
 /*  f10fb94:	3c03800a */ 	lui	$v1,0x800a
 /*  f10fb98:	2463a510 */ 	addiu	$v1,$v1,-23280
 /*  f10fb9c:	8c620298 */ 	lw	$v0,0x298($v1)
@@ -406,46 +406,46 @@ glabel savefileApplyOptions
 /*  f1100a8:	00000000 */ 	nop
 );
 #else
-void savefileApplyOptions(struct savefile_solo *file)
+void gamefileApplyOptions(struct gamefile *file)
 {
 	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
 	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
 
-	optionsSetForwardPitch(player1, pakHasBitflag(SAVEFILEFLAG_P1_FORWARDPITCH, file->flags));
-	optionsSetAutoAim(player1, pakHasBitflag(SAVEFILEFLAG_P1_AUTOAIM, file->flags));
-	optionsSetAimControl(player1, pakHasBitflag(SAVEFILEFLAG_P1_AIMCONTROL, file->flags));
-	optionsSetSightOnScreen(player1, pakHasBitflag(SAVEFILEFLAG_P1_SIGHTONSCREEN, file->flags));
-	optionsSetLookAhead(player1, pakHasBitflag(SAVEFILEFLAG_P1_LOOKAHEAD, file->flags));
-	optionsSetAmmoOnScreen(player1, pakHasBitflag(SAVEFILEFLAG_P1_AMMOONSCREEN, file->flags));
-	optionsSetHeadRoll(player1, pakHasBitflag(SAVEFILEFLAG_P1_HEADROLL, file->flags));
-	optionsSetShowGunFunction(player1, pakHasBitflag(SAVEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags));
-	optionsSetAlwaysShowTarget(player1, pakHasBitflag(SAVEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags));
-	optionsSetShowZoomRange(player1, pakHasBitflag(SAVEFILEFLAG_P1_SHOWZOOMRANGE, file->flags));
-	optionsSetShowMissionTime(player1, pakHasBitflag(SAVEFILEFLAG_P1_SHOWMISSIONTIME, file->flags));
-	optionsSetPaintball(player1, pakHasBitflag(SAVEFILEFLAG_P1_PAINTBALL, file->flags));
+	optionsSetForwardPitch(player1, pakHasBitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags));
+	optionsSetAutoAim(player1, pakHasBitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags));
+	optionsSetAimControl(player1, pakHasBitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags));
+	optionsSetSightOnScreen(player1, pakHasBitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags));
+	optionsSetLookAhead(player1, pakHasBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags));
+	optionsSetAmmoOnScreen(player1, pakHasBitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, file->flags));
+	optionsSetHeadRoll(player1, pakHasBitflag(GAMEFILEFLAG_P1_HEADROLL, file->flags));
+	optionsSetShowGunFunction(player1, pakHasBitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags));
+	optionsSetAlwaysShowTarget(player1, pakHasBitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags));
+	optionsSetShowZoomRange(player1, pakHasBitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, file->flags));
+	optionsSetShowMissionTime(player1, pakHasBitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, file->flags));
+	optionsSetPaintball(player1, pakHasBitflag(GAMEFILEFLAG_P1_PAINTBALL, file->flags));
 
-	optionsSetForwardPitch(player2, pakHasBitflag(SAVEFILEFLAG_P2_FORWARDPITCH, file->flags));
-	optionsSetAutoAim(player2, pakHasBitflag(SAVEFILEFLAG_P2_AUTOAIM, file->flags));
-	optionsSetAimControl(player2, pakHasBitflag(SAVEFILEFLAG_P2_AIMCONTROL, file->flags));
-	optionsSetSightOnScreen(player2, pakHasBitflag(SAVEFILEFLAG_P2_SIGHTONSCREEN, file->flags));
-	optionsSetLookAhead(player2, pakHasBitflag(SAVEFILEFLAG_P2_LOOKAHEAD, file->flags));
-	optionsSetAmmoOnScreen(player2, pakHasBitflag(SAVEFILEFLAG_P2_AMMOONSCREEN, file->flags));
-	optionsSetHeadRoll(player2, pakHasBitflag(SAVEFILEFLAG_P2_HEADROLL, file->flags));
-	optionsSetShowGunFunction(player2, pakHasBitflag(SAVEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags));
-	optionsSetAlwaysShowTarget(player2, pakHasBitflag(SAVEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags));
-	optionsSetShowZoomRange(player2, pakHasBitflag(SAVEFILEFLAG_P2_SHOWZOOMRANGE, file->flags));
-	optionsSetShowMissionTime(player2, pakHasBitflag(SAVEFILEFLAG_P2_SHOWMISSIONTIME, file->flags));
-	optionsSetPaintball(player2, pakHasBitflag(SAVEFILEFLAG_P2_PAINTBALL, file->flags));
+	optionsSetForwardPitch(player2, pakHasBitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags));
+	optionsSetAutoAim(player2, pakHasBitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags));
+	optionsSetAimControl(player2, pakHasBitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags));
+	optionsSetSightOnScreen(player2, pakHasBitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags));
+	optionsSetLookAhead(player2, pakHasBitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags));
+	optionsSetAmmoOnScreen(player2, pakHasBitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, file->flags));
+	optionsSetHeadRoll(player2, pakHasBitflag(GAMEFILEFLAG_P2_HEADROLL, file->flags));
+	optionsSetShowGunFunction(player2, pakHasBitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags));
+	optionsSetAlwaysShowTarget(player2, pakHasBitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags));
+	optionsSetShowZoomRange(player2, pakHasBitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, file->flags));
+	optionsSetShowMissionTime(player2, pakHasBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags));
+	optionsSetPaintball(player2, pakHasBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
 
-	optionsSetInGameSubtitles(pakHasBitflag(SAVEFILEFLAG_INGAMESUBTITLES, file->flags));
-	optionsSetCutsceneSubtitles(pakHasBitflag(SAVEFILEFLAG_CUTSCENESUBTITLES, file->flags));
+	optionsSetInGameSubtitles(pakHasBitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags));
+	optionsSetCutsceneSubtitles(pakHasBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags));
 
 	// Duplicate
-	optionsSetPaintball(player2, pakHasBitflag(SAVEFILEFLAG_P2_PAINTBALL, file->flags));
+	optionsSetPaintball(player2, pakHasBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
 
-	g_Vars.langfilteron = pakHasBitflag(SAVEFILEFLAG_LANGFILTERON, file->flags);
+	g_Vars.langfilteron = pakHasBitflag(GAMEFILEFLAG_LANGFILTERON, file->flags);
 
-	if (pakHasBitflag(SAVEFILEFLAG_HIRES, file->flags)) {
+	if (pakHasBitflag(GAMEFILEFLAG_HIRES, file->flags)) {
 		if (IS4MB()) {
 			optionsSetHiRes(false);
 		} else {
@@ -459,22 +459,22 @@ void savefileApplyOptions(struct savefile_solo *file)
 		optionsSetScreenSplit(SCREENSPLIT_HORIZONTAL);
 		optionsSetScreenRatio(SCREENRATIO_NORMAL);
 	} else {
-		optionsSetScreenSplit(pakHasBitflag(SAVEFILEFLAG_SCREENSPLIT, file->flags));
-		optionsSetScreenRatio(pakHasBitflag(SAVEFILEFLAG_SCREENRATIO, file->flags));
+		optionsSetScreenSplit(pakHasBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags));
+		optionsSetScreenRatio(pakHasBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags));
 	}
 
-	if (pakHasBitflag(SAVEFILEFLAG_SCREENSIZE_CINEMA, file->flags)) {
+	if (pakHasBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags)) {
 		optionsSetScreenSize(SCREENSIZE_CINEMA);
-	} else if (pakHasBitflag(SAVEFILEFLAG_SCREENSIZE_WIDE, file->flags)) {
+	} else if (pakHasBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags)) {
 		optionsSetScreenSize(SCREENSIZE_WIDE);
 	} else {
 		optionsSetScreenSize(SCREENSIZE_FULL);
 	}
 
-	g_Vars.pendingantiplayernum = pakHasBitflag(SAVEFILEFLAG_ANTIPLAYERNUM, file->flags) ? 1 : 0;
-	g_Vars.coopradaron = pakHasBitflag(SAVEFILEFLAG_COOPRADARON, file->flags) ? 1 : 0;
-	g_Vars.coopfriendlyfire = pakHasBitflag(SAVEFILEFLAG_COOPFRIENDLYFIRE, file->flags) ? 1 : 0;
-	g_Vars.antiradaron = pakHasBitflag(SAVEFILEFLAG_ANTIRADARON, file->flags) ? 1 : 0;
+	g_Vars.pendingantiplayernum = pakHasBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags) ? 1 : 0;
+	g_Vars.coopradaron = pakHasBitflag(GAMEFILEFLAG_COOPRADARON, file->flags) ? 1 : 0;
+	g_Vars.coopfriendlyfire = pakHasBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags) ? 1 : 0;
+	g_Vars.antiradaron = pakHasBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags) ? 1 : 0;
 }
 #endif
 
@@ -482,7 +482,7 @@ void savefileApplyOptions(struct savefile_solo *file)
 const char var7f1b4bd0pf[] = "Dark";
 
 GLOBAL_ASM(
-glabel savefileLoadDefaults
+glabel gamefileLoadDefaults
 /*  f1100ac:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f1100b0:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f1100b4:	3c12800a */ 	lui	$s2,0x800a
@@ -777,7 +777,7 @@ glabel savefileLoadDefaults
 /*  f11050c:	24420001 */ 	addiu	$v0,$v0,0x1
 /*  f110510:	1443fffe */ 	bne	$v0,$v1,.PF0f11050c
 /*  f110514:	a04000b4 */ 	sb	$zero,0xb4($v0)
-/*  f110518:	0fc43ee5 */ 	jal	savefileApplyOptions
+/*  f110518:	0fc43ee5 */ 	jal	gamefileApplyOptions
 /*  f11051c:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f110520:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f110524:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -787,7 +787,7 @@ glabel savefileLoadDefaults
 /*  f110534:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 #else
-void savefileLoadDefaults(struct savefile_solo *file)
+void gamefileLoadDefaults(struct gamefile *file)
 {
 	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
 	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
@@ -806,52 +806,52 @@ void savefileLoadDefaults(struct savefile_solo *file)
 	optionsSetControlMode(player2, CONTROLMODE_11);
 	pakClearAllBitflags(file->flags);
 
-	pakSetBitflag(SAVEFILEFLAG_P1_FORWARDPITCH, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_P1_AUTOAIM, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
-	pakSetBitflag(SAVEFILEFLAG_P1_SIGHTONSCREEN, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_LOOKAHEAD, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_AMMOONSCREEN, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_HEADROLL, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_INGAMESUBTITLES, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_SHOWZOOMRANGE, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P1_SHOWMISSIONTIME, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_P1_PAINTBALL, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
+	pakSetBitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_HEADROLL, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_P1_PAINTBALL, file->flags, false);
 
-	pakSetBitflag(SAVEFILEFLAG_P2_FORWARDPITCH, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_P2_AUTOAIM, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P2_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
-	pakSetBitflag(SAVEFILEFLAG_P2_SIGHTONSCREEN, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P2_LOOKAHEAD, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P2_AMMOONSCREEN, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P2_HEADROLL, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_CUTSCENESUBTITLES, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P2_SHOWZOOMRANGE, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_P2_SHOWMISSIONTIME, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_P2_PAINTBALL, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags, AIMCONTROL_HOLD);
+	pakSetBitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P2_HEADROLL, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags, false);
 
-	pakSetBitflag(SAVEFILEFLAG_SCREENSPLIT, file->flags, SCREENSPLIT_HORIZONTAL);
-	pakSetBitflag(SAVEFILEFLAG_SCREENRATIO, file->flags, SCREENRATIO_NORMAL);
-	pakSetBitflag(SAVEFILEFLAG_SCREENSIZE_CINEMA, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_SCREENSIZE_WIDE, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags, SCREENSPLIT_HORIZONTAL);
+	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags, SCREENRATIO_NORMAL);
+	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags, false);
 
-	pakSetBitflag(SAVEFILEFLAG_HIRES, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_LANGFILTERON, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_HIRES, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_LANGFILTERON, file->flags, false);
 
 #if VERSION >= VERSION_NTSC_1_0
-	pakSetBitflag(SAVEFILEFLAG_41, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_42, file->flags, false);
-	pakSetBitflag(SAVEFILEFLAG_43, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, file->flags, false);
+	pakSetBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, file->flags, false);
 #endif
 
-	pakSetBitflag(SAVEFILEFLAG_COOPRADARON, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_COOPFRIENDLYFIRE, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_ANTIRADARON, file->flags, true);
-	pakSetBitflag(SAVEFILEFLAG_ANTIPLAYERNUM, file->flags, 1);
+	pakSetBitflag(GAMEFILEFLAG_COOPRADARON, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags, true);
+	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags, 1);
 
 	file->unk1e = 0;
 
@@ -869,19 +869,19 @@ void savefileLoadDefaults(struct savefile_solo *file)
 
 	mpDetermineUnlockedFeatures();
 
-	for (i = 0; i < ARRAYCOUNT(g_SoloSaveFile.coopcompletions); i++) {
-		g_SoloSaveFile.coopcompletions[i] = 0;
+	for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
+		g_GameFile.coopcompletions[i] = 0;
 	}
 
-	for (i = 0; i < ARRAYCOUNT(g_SoloSaveFile.firingrangescores); i++) {
-		g_SoloSaveFile.firingrangescores[i] = 0;
+	for (i = 0; i < ARRAYCOUNT(g_GameFile.firingrangescores); i++) {
+		g_GameFile.firingrangescores[i] = 0;
 	}
 
-	for (i = 0; i < ARRAYCOUNT(g_SoloSaveFile.weaponsfound); i++) {
-		g_SoloSaveFile.weaponsfound[i] = 0;
+	for (i = 0; i < ARRAYCOUNT(g_GameFile.weaponsfound); i++) {
+		g_GameFile.weaponsfound[i] = 0;
 	}
 
-	savefileApplyOptions(file);
+	gamefileApplyOptions(file);
 }
 #endif
 
@@ -911,527 +911,111 @@ const u32 var7f1b3a04[] = {0x00000000};
 const char var7f1b3a08[] = "tc != NULL";
 const char var7f1b3a14[] = "gamefile.c";
 
+s32 gamefileLoad(s32 arg0)
+{
+	s32 p1index;
+	s32 p2index;
+	u32 volume;
+	s32 i;
+	s32 j;
+	struct savebuffer buffer;
+	s32 tmp;
+	u32 stack;
+
+	p1index = g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 ? 0 : 4;
+	p2index = g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 ? 1 : 5;
+
+	if (arg0 >= 0) {
+		savebufferClear(&buffer);
+		tmp = func0f116800(arg0, g_FilemgrLoadedMainFile.unk00, buffer.bytes, 0);
+		var800a21f8.unk00 = tmp;
+
+		if (tmp == 0) {
+			cheatsDisableAll();
+			savebufferReadString(&buffer, g_GameFile.name, 0);
+			g_GameFile.thumbnail = savebufferReadBits(&buffer, 5);
+			g_GameFile.totaltime = savebufferReadBits(&buffer, 32);
+			g_GameFile.autodifficulty = savebufferReadBits(&buffer, 2);
+			g_GameFile.autostageindex = savebufferReadBits(&buffer, 5);
+
+			volume = savebufferReadBits(&buffer, 6) * 4;
+
+			if (volume >= 252) {
+				volume = 255;
+			}
+
+			sndSetSfxVolume((volume & 0x1ff) * 128);
+
+			volume = savebufferReadBits(&buffer, 6) * 4;
+
+			if (volume >= 252) {
+				volume = 255;
+			}
+
+			optionsSetMusicVolume((volume & 0x1ff) * 128);
+
+			sndSetSoundMode(savebufferReadBits(&buffer, 2));
+			optionsSetControlMode(p1index, savebufferReadBits(&buffer, 3));
+			optionsSetControlMode(p2index, savebufferReadBits(&buffer, 3));
+
+			for (i = 0; i < 10; i++) {
+				g_GameFile.flags[i] = savebufferReadBits(&buffer, 8);
+			}
+
+			g_GameFile.unk1e = savebufferReadBits(&buffer, 16);
+
+			for (i = 0; i < NUM_SOLOSTAGES; i++) {
+				for (j = 0; j < 3; j++) {
+					g_GameFile.besttimes[i][j] = savebufferReadBits(&buffer, 12);
+				}
+			}
+
+			for (i = 0; i < 30; i++) {
+				for (j = 1; j < 5; j++) {
+					mpSetChallengeCompletedByAnyPlayerWithNumPlayers(i, j, savebufferReadBits(&buffer, 1));
+				}
+			}
+
+			mpDetermineUnlockedFeatures();
+
+			for (i = 0; i < 3; i++) {
+				g_GameFile.coopcompletions[i] = savebufferReadBits(&buffer, 21);
+			}
+
+			for (i = 0; i < 9; i++) {
+				s32 numbits = i == 8 ? 2 : 8;
+				g_GameFile.firingrangescores[i] = savebufferReadBits(&buffer, numbits);
+			}
+
+			for (i = 0; i < 4; i++) {
+				g_GameFile.weaponsfound[i] = savebufferReadBits(&buffer, 8);
+			}
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f10fac8
-/*  f10fac8:	27bdfec0 */ 	addiu	$sp,$sp,-320
-/*  f10facc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10fad0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10fad4:	8c620298 */ 	lw	$v0,0x298($v1)
-/*  f10fad8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f10fadc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f10fae0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f10fae4:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f10fae8:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f10faec:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f10faf0:	04410005 */ 	bgez	$v0,.L0f10fb08
-/*  f10faf4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f10faf8:	8c6e029c */ 	lw	$t6,0x29c($v1)
-/*  f10fafc:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f10fb00:	05c00003 */ 	bltz	$t6,.L0f10fb10
-/*  f10fb04:	00000000 */ 	nop
-.L0f10fb08:
-/*  f10fb08:	10000001 */ 	b	.L0f10fb10
-/*  f10fb0c:	00008825 */ 	or	$s1,$zero,$zero
-.L0f10fb10:
-/*  f10fb10:	04410005 */ 	bgez	$v0,.L0f10fb28
-/*  f10fb14:	27b4004c */ 	addiu	$s4,$sp,0x4c
-/*  f10fb18:	8c6f029c */ 	lw	$t7,0x29c($v1)
-/*  f10fb1c:	24120005 */ 	addiu	$s2,$zero,0x5
-/*  f10fb20:	05e00003 */ 	bltz	$t7,.L0f10fb30
-/*  f10fb24:	00000000 */ 	nop
-.L0f10fb28:
-/*  f10fb28:	10000001 */ 	b	.L0f10fb30
-/*  f10fb2c:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f10fb30:
-/*  f10fb30:	060000d6 */ 	bltz	$s0,.L0f10fe8c
-/*  f10fb34:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f10fb38:	0fc35517 */ 	jal	savebufferClear
-/*  f10fb3c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fb40:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f10fb44:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f10fb48:	3c05800a */ 	lui	$a1,%hi(g_FilemgrLoadedMainFile)
-/*  f10fb4c:	8ca522c0 */ 	lw	$a1,%lo(g_FilemgrLoadedMainFile)($a1)
-/*  f10fb50:	03002025 */ 	or	$a0,$t8,$zero
-/*  f10fb54:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f10fb58:	0fc45a00 */ 	jal	func0f116800
-/*  f10fb5c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f10fb60:	3c01800a */ 	lui	$at,%hi(var800a21f8)
-/*  f10fb64:	144000c7 */ 	bnez	$v0,.L0f10fe84
-/*  f10fb68:	ac2221f8 */ 	sw	$v0,%lo(var800a21f8)($at)
-/*  f10fb6c:	0fc41d3b */ 	jal	cheatsDisableAll
-/*  f10fb70:	00000000 */ 	nop
-/*  f10fb74:	3c05800a */ 	lui	$a1,%hi(g_SoloSaveFile)
-/*  f10fb78:	24a52200 */ 	addiu	$a1,$a1,%lo(g_SoloSaveFile)
-/*  f10fb7c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fb80:	0fc35539 */ 	jal	savebufferReadString
-/*  f10fb84:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10fb88:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fb8c:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fb90:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10fb94:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile)
-/*  f10fb98:	24632200 */ 	addiu	$v1,$v1,%lo(g_SoloSaveFile)
-/*  f10fb9c:	906a000b */ 	lbu	$t2,0xb($v1)
-/*  f10fba0:	000248c0 */ 	sll	$t1,$v0,0x3
-/*  f10fba4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fba8:	314bff07 */ 	andi	$t3,$t2,0xff07
-/*  f10fbac:	012b6025 */ 	or	$t4,$t1,$t3
-/*  f10fbb0:	a06c000b */ 	sb	$t4,0xb($v1)
-/*  f10fbb4:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fbb8:	24050020 */ 	addiu	$a1,$zero,0x20
-/*  f10fbbc:	3c01800a */ 	lui	$at,%hi(g_SoloSaveFile+0x10)
-/*  f10fbc0:	ac222210 */ 	sw	$v0,%lo(g_SoloSaveFile+0x10)($at)
-/*  f10fbc4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fbc8:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fbcc:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f10fbd0:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile)
-/*  f10fbd4:	24632200 */ 	addiu	$v1,$v1,%lo(g_SoloSaveFile)
-/*  f10fbd8:	906f000b */ 	lbu	$t7,0xb($v1)
-/*  f10fbdc:	304e0007 */ 	andi	$t6,$v0,0x7
-/*  f10fbe0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fbe4:	31f8fff8 */ 	andi	$t8,$t7,0xfff8
-/*  f10fbe8:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f10fbec:	a079000b */ 	sb	$t9,0xb($v1)
-/*  f10fbf0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fbf4:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10fbf8:	3c01800a */ 	lui	$at,%hi(g_SoloSaveFile+0xc)
-/*  f10fbfc:	a022220c */ 	sb	$v0,%lo(g_SoloSaveFile+0xc)($at)
-/*  f10fc00:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc04:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fc08:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f10fc0c:	00022880 */ 	sll	$a1,$v0,0x2
-/*  f10fc10:	2ca100fc */ 	sltiu	$at,$a1,0xfc
-/*  f10fc14:	54200003 */ 	bnezl	$at,.L0f10fc24
-/*  f10fc18:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f10fc1c:	240500ff */ 	addiu	$a1,$zero,0xff
-/*  f10fc20:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f10fc24:
-/*  f10fc24:	000441c0 */ 	sll	$t0,$a0,0x7
-/*  f10fc28:	0c003a87 */ 	jal	sndSetSfxVolume
-/*  f10fc2c:	3104ffff */ 	andi	$a0,$t0,0xffff
-/*  f10fc30:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc34:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fc38:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f10fc3c:	00022880 */ 	sll	$a1,$v0,0x2
-/*  f10fc40:	2ca100fc */ 	sltiu	$at,$a1,0xfc
-/*  f10fc44:	54200003 */ 	bnezl	$at,.L0f10fc54
-/*  f10fc48:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f10fc4c:	240500ff */ 	addiu	$a1,$zero,0xff
-/*  f10fc50:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f10fc54:
-/*  f10fc54:	000449c0 */ 	sll	$t1,$a0,0x7
-/*  f10fc58:	0fc54bdc */ 	jal	optionsSetMusicVolume
-/*  f10fc5c:	3124ffff */ 	andi	$a0,$t1,0xffff
-/*  f10fc60:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc64:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fc68:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f10fc6c:	0c003ce3 */ 	jal	sndSetSoundMode
-/*  f10fc70:	00402025 */ 	or	$a0,$v0,$zero
-/*  f10fc74:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc78:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fc7c:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f10fc80:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10fc84:	0fc549cb */ 	jal	optionsSetControlMode
-/*  f10fc88:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10fc8c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fc90:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fc94:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f10fc98:	02402025 */ 	or	$a0,$s2,$zero
-/*  f10fc9c:	0fc549cb */ 	jal	optionsSetControlMode
-/*  f10fca0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10fca4:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f10fca8:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0xa)
-/*  f10fcac:	2631220a */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0xa)
-/*  f10fcb0:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
-.L0f10fcb4:
-/*  f10fcb4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fcb8:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fcbc:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f10fcc0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10fcc4:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f10fcc8:	1420fffa */ 	bnez	$at,.L0f10fcb4
-/*  f10fccc:	a2020013 */ 	sb	$v0,0x13($s0)
-/*  f10fcd0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fcd4:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fcd8:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f10fcdc:	3c01800a */ 	lui	$at,%hi(g_SoloSaveFile+0x1e)
-/*  f10fce0:	3c13800a */ 	lui	$s3,%hi(g_SoloSaveFile)
-/*  f10fce4:	a422221e */ 	sh	$v0,%lo(g_SoloSaveFile+0x1e)($at)
-/*  f10fce8:	26732200 */ 	addiu	$s3,$s3,%lo(g_SoloSaveFile)
-/*  f10fcec:	24120003 */ 	addiu	$s2,$zero,0x3
-/*  f10fcf0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f10fcf4:
-/*  f10fcf4:	02608825 */ 	or	$s1,$s3,$zero
-.L0f10fcf8:
-/*  f10fcf8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fcfc:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fd00:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f10fd04:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10fd08:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f10fd0c:	1612fffa */ 	bne	$s0,$s2,.L0f10fcf8
-/*  f10fd10:	a622001e */ 	sh	$v0,0x1e($s1)
-/*  f10fd14:	3c0c800a */ 	lui	$t4,%hi(g_SoloSaveFile+0x7e)
-/*  f10fd18:	258c227e */ 	addiu	$t4,$t4,%lo(g_SoloSaveFile+0x7e)
-/*  f10fd1c:	26730006 */ 	addiu	$s3,$s3,0x6
-/*  f10fd20:	026c082b */ 	sltu	$at,$s3,$t4
-/*  f10fd24:	5420fff3 */ 	bnezl	$at,.L0f10fcf4
-/*  f10fd28:	00008025 */ 	or	$s0,$zero,$zero
-/*  f10fd2c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f10fd30:	24120005 */ 	addiu	$s2,$zero,0x5
-/*  f10fd34:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f10fd38:
-/*  f10fd38:	02802025 */ 	or	$a0,$s4,$zero
-.L0f10fd3c:
-/*  f10fd3c:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fd40:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f10fd44:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10fd48:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fd4c:	0fc67103 */ 	jal	mpSetChallengeCompletedByAnyPlayerWithNumPlayers
-/*  f10fd50:	00403025 */ 	or	$a2,$v0,$zero
-/*  f10fd54:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10fd58:	5612fff8 */ 	bnel	$s0,$s2,.L0f10fd3c
-/*  f10fd5c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fd60:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f10fd64:	2a21001e */ 	slti	$at,$s1,0x1e
-/*  f10fd68:	5420fff3 */ 	bnezl	$at,.L0f10fd38
-/*  f10fd6c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f10fd70:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
-/*  f10fd74:	00000000 */ 	nop
-/*  f10fd78:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f10fd7c:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0xc)
-/*  f10fd80:	2631220c */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0xc)
-/*  f10fd84:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
-.L0f10fd88:
-/*  f10fd88:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fd8c:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fd90:	24050015 */ 	addiu	$a1,$zero,0x15
-/*  f10fd94:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f10fd98:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f10fd9c:	1420fffa */ 	bnez	$at,.L0f10fd88
-/*  f10fda0:	ae02009c */ 	sw	$v0,0x9c($s0)
-/*  f10fda4:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f10fda8:	3c12800a */ 	lui	$s2,%hi(g_SoloSaveFile+0x9)
-/*  f10fdac:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0x8)
-/*  f10fdb0:	26312208 */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0x8)
-/*  f10fdb4:	26522209 */ 	addiu	$s2,$s2,%lo(g_SoloSaveFile+0x9)
-/*  f10fdb8:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
-.L0f10fdbc:
-/*  f10fdbc:	16110003 */ 	bne	$s0,$s1,.L0f10fdcc
-/*  f10fdc0:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f10fdc4:	10000001 */ 	b	.L0f10fdcc
-/*  f10fdc8:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f10fdcc:
-/*  f10fdcc:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fdd0:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fdd4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10fdd8:	0212082b */ 	sltu	$at,$s0,$s2
-/*  f10fddc:	1420fff7 */ 	bnez	$at,.L0f10fdbc
-/*  f10fde0:	a20200ab */ 	sb	$v0,0xab($s0)
-/*  f10fde4:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f10fde8:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0x4)
-/*  f10fdec:	26312204 */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0x4)
-/*  f10fdf0:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
-.L0f10fdf4:
-/*  f10fdf4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fdf8:	0fc354fe */ 	jal	savebufferReadBits
-/*  f10fdfc:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f10fe00:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10fe04:	1611fffb */ 	bne	$s0,$s1,.L0f10fdf4
-/*  f10fe08:	a20200b4 */ 	sb	$v0,0xb4($s0)
-/*  f10fe0c:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile+0x14)
-/*  f10fe10:	26102214 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile+0x14)
-/*  f10fe14:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fe18:	0fc47961 */ 	jal	pakHasBitflag
-/*  f10fe1c:	24040041 */ 	addiu	$a0,$zero,0x41
-/*  f10fe20:	50400004 */ 	beqzl	$v0,.L0f10fe34
-/*  f10fe24:	24040042 */ 	addiu	$a0,$zero,0x42
-/*  f10fe28:	0fc672ce */ 	jal	frSetWeaponFound
-/*  f10fe2c:	24040020 */ 	addiu	$a0,$zero,0x20
-/*  f10fe30:	24040042 */ 	addiu	$a0,$zero,0x42
-.L0f10fe34:
-/*  f10fe34:	0fc47961 */ 	jal	pakHasBitflag
-/*  f10fe38:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fe3c:	50400004 */ 	beqzl	$v0,.L0f10fe50
-/*  f10fe40:	24040043 */ 	addiu	$a0,$zero,0x43
-/*  f10fe44:	0fc672ce */ 	jal	frSetWeaponFound
-/*  f10fe48:	24040021 */ 	addiu	$a0,$zero,0x21
-/*  f10fe4c:	24040043 */ 	addiu	$a0,$zero,0x43
-.L0f10fe50:
-/*  f10fe50:	0fc47961 */ 	jal	pakHasBitflag
-/*  f10fe54:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fe58:	10400003 */ 	beqz	$v0,.L0f10fe68
-/*  f10fe5c:	00000000 */ 	nop
-/*  f10fe60:	0fc672ce */ 	jal	frSetWeaponFound
-/*  f10fe64:	24040022 */ 	addiu	$a0,$zero,0x22
-.L0f10fe68:
-/*  f10fe68:	0fc35531 */ 	jal	func0f0d54c4
-/*  f10fe6c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f10fe70:	3c04800a */ 	lui	$a0,%hi(g_SoloSaveFile)
-/*  f10fe74:	0fc43c81 */ 	jal	savefileApplyOptions
-/*  f10fe78:	24842200 */ 	addiu	$a0,$a0,%lo(g_SoloSaveFile)
-/*  f10fe7c:	10000003 */ 	b	.L0f10fe8c
-/*  f10fe80:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10fe84:
-/*  f10fe84:	10000001 */ 	b	.L0f10fe8c
-/*  f10fe88:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f10fe8c:
-/*  f10fe8c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f10fe90:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f10fe94:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f10fe98:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f10fe9c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f10fea0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f10fea4:	03e00008 */ 	jr	$ra
-/*  f10fea8:	27bd0140 */ 	addiu	$sp,$sp,0x140
-);
-#else
-GLOBAL_ASM(
-glabel func0f10fac8
-/*  f109ff8:	27bdfec0 */ 	addiu	$sp,$sp,-320
-/*  f109ffc:	3c03800a */ 	lui	$v1,0x800a
-/*  f10a000:	2463e6c0 */ 	addiu	$v1,$v1,-6464
-/*  f10a004:	8c620298 */ 	lw	$v0,0x298($v1)
-/*  f10a008:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f10a00c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f10a010:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f10a014:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f10a018:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f10a01c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f10a020:	04410005 */ 	bgez	$v0,.NB0f10a038
-/*  f10a024:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f10a028:	8c6e029c */ 	lw	$t6,0x29c($v1)
-/*  f10a02c:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f10a030:	05c00003 */ 	bltz	$t6,.NB0f10a040
-/*  f10a034:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f10a038:
-/*  f10a038:	10000001 */ 	beqz	$zero,.NB0f10a040
-/*  f10a03c:	00008825 */ 	or	$s1,$zero,$zero
-.NB0f10a040:
-/*  f10a040:	04410005 */ 	bgez	$v0,.NB0f10a058
-/*  f10a044:	27b3004c */ 	addiu	$s3,$sp,0x4c
-/*  f10a048:	8c6f029c */ 	lw	$t7,0x29c($v1)
-/*  f10a04c:	24120005 */ 	addiu	$s2,$zero,0x5
-/*  f10a050:	05e00003 */ 	bltz	$t7,.NB0f10a060
-/*  f10a054:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f10a058:
-/*  f10a058:	10000001 */ 	beqz	$zero,.NB0f10a060
-/*  f10a05c:	24120001 */ 	addiu	$s2,$zero,0x1
-.NB0f10a060:
-/*  f10a060:	060000bf */ 	bltz	$s0,.NB0f10a360
-/*  f10a064:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f10a068:	0fc34ad1 */ 	jal	savebufferClear
-/*  f10a06c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a070:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f10a074:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f10a078:	3c05800a */ 	lui	$a1,0x800a
-/*  f10a07c:	8ca567b0 */ 	lw	$a1,0x67b0($a1)
-/*  f10a080:	03002025 */ 	or	$a0,$t8,$zero
-/*  f10a084:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f10a088:	0fc442f1 */ 	jal	func0f116800
-/*  f10a08c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f10a090:	3c01800a */ 	lui	$at,0x800a
-/*  f10a094:	144000b0 */ 	bnez	$v0,.NB0f10a358
-/*  f10a098:	ac2266e8 */ 	sw	$v0,0x66e8($at)
-/*  f10a09c:	0fc40c5b */ 	jal	cheatsDisableAll
-/*  f10a0a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a0a4:	3c05800a */ 	lui	$a1,0x800a
-/*  f10a0a8:	24a566f0 */ 	addiu	$a1,$a1,0x66f0
-/*  f10a0ac:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a0b0:	0fc34af3 */ 	jal	savebufferReadString
-/*  f10a0b4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10a0b8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a0bc:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a0c0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10a0c4:	3c03800a */ 	lui	$v1,0x800a
-/*  f10a0c8:	246366f0 */ 	addiu	$v1,$v1,0x66f0
-/*  f10a0cc:	906a000b */ 	lbu	$t2,0xb($v1)
-/*  f10a0d0:	000248c0 */ 	sll	$t1,$v0,0x3
-/*  f10a0d4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a0d8:	314bff07 */ 	andi	$t3,$t2,0xff07
-/*  f10a0dc:	012b6025 */ 	or	$t4,$t1,$t3
-/*  f10a0e0:	a06c000b */ 	sb	$t4,0xb($v1)
-/*  f10a0e4:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a0e8:	24050020 */ 	addiu	$a1,$zero,0x20
-/*  f10a0ec:	3c01800a */ 	lui	$at,0x800a
-/*  f10a0f0:	ac226700 */ 	sw	$v0,0x6700($at)
-/*  f10a0f4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a0f8:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a0fc:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f10a100:	3c03800a */ 	lui	$v1,0x800a
-/*  f10a104:	246366f0 */ 	addiu	$v1,$v1,0x66f0
-/*  f10a108:	906f000b */ 	lbu	$t7,0xb($v1)
-/*  f10a10c:	304e0007 */ 	andi	$t6,$v0,0x7
-/*  f10a110:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a114:	31f8fff8 */ 	andi	$t8,$t7,0xfff8
-/*  f10a118:	01d8c825 */ 	or	$t9,$t6,$t8
-/*  f10a11c:	a079000b */ 	sb	$t9,0xb($v1)
-/*  f10a120:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a124:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f10a128:	3c01800a */ 	lui	$at,0x800a
-/*  f10a12c:	a02266fc */ 	sb	$v0,0x66fc($at)
-/*  f10a130:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a134:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a138:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f10a13c:	00022880 */ 	sll	$a1,$v0,0x2
-/*  f10a140:	2ca100fc */ 	sltiu	$at,$a1,0xfc
-/*  f10a144:	54200003 */ 	bnezl	$at,.NB0f10a154
-/*  f10a148:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f10a14c:	240500ff */ 	addiu	$a1,$zero,0xff
-/*  f10a150:	00a02025 */ 	or	$a0,$a1,$zero
-.NB0f10a154:
-/*  f10a154:	000441c0 */ 	sll	$t0,$a0,0x7
-/*  f10a158:	0c003c77 */ 	jal	sndSetSfxVolume
-/*  f10a15c:	3104ffff */ 	andi	$a0,$t0,0xffff
-/*  f10a160:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a164:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a168:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f10a16c:	00022880 */ 	sll	$a1,$v0,0x2
-/*  f10a170:	2ca100fc */ 	sltiu	$at,$a1,0xfc
-/*  f10a174:	54200003 */ 	bnezl	$at,.NB0f10a184
-/*  f10a178:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f10a17c:	240500ff */ 	addiu	$a1,$zero,0xff
-/*  f10a180:	00a02025 */ 	or	$a0,$a1,$zero
-.NB0f10a184:
-/*  f10a184:	000449c0 */ 	sll	$t1,$a0,0x7
-/*  f10a188:	0fc5359a */ 	jal	optionsSetMusicVolume
-/*  f10a18c:	3124ffff */ 	andi	$a0,$t1,0xffff
-/*  f10a190:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a194:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a198:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f10a19c:	0c003e02 */ 	jal	sndSetSoundMode
-/*  f10a1a0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f10a1a4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a1a8:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a1ac:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f10a1b0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10a1b4:	0fc53387 */ 	jal	optionsSetControlMode
-/*  f10a1b8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10a1bc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a1c0:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a1c4:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f10a1c8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f10a1cc:	0fc53387 */ 	jal	optionsSetControlMode
-/*  f10a1d0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10a1d4:	3c10800a */ 	lui	$s0,0x800a
-/*  f10a1d8:	3c11800a */ 	lui	$s1,0x800a
-/*  f10a1dc:	263166fa */ 	addiu	$s1,$s1,0x66fa
-/*  f10a1e0:	261066f0 */ 	addiu	$s0,$s0,0x66f0
-.NB0f10a1e4:
-/*  f10a1e4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a1e8:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a1ec:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f10a1f0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10a1f4:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f10a1f8:	1420fffa */ 	bnez	$at,.NB0f10a1e4
-/*  f10a1fc:	a2020013 */ 	sb	$v0,0x13($s0)
-/*  f10a200:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a204:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a208:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f10a20c:	3c01800a */ 	lui	$at,0x800a
-/*  f10a210:	3c14800a */ 	lui	$s4,0x800a
-/*  f10a214:	a422670e */ 	sh	$v0,0x670e($at)
-/*  f10a218:	269466f0 */ 	addiu	$s4,$s4,0x66f0
-/*  f10a21c:	24120003 */ 	addiu	$s2,$zero,0x3
-/*  f10a220:	00008025 */ 	or	$s0,$zero,$zero
-.NB0f10a224:
-/*  f10a224:	02808825 */ 	or	$s1,$s4,$zero
-.NB0f10a228:
-/*  f10a228:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a22c:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a230:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f10a234:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10a238:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f10a23c:	1612fffa */ 	bne	$s0,$s2,.NB0f10a228
-/*  f10a240:	a622001e */ 	sh	$v0,0x1e($s1)
-/*  f10a244:	3c0c800a */ 	lui	$t4,0x800a
-/*  f10a248:	258c676e */ 	addiu	$t4,$t4,0x676e
-/*  f10a24c:	26940006 */ 	addiu	$s4,$s4,0x6
-/*  f10a250:	028c082b */ 	sltu	$at,$s4,$t4
-/*  f10a254:	5420fff3 */ 	bnezl	$at,.NB0f10a224
-/*  f10a258:	00008025 */ 	or	$s0,$zero,$zero
-/*  f10a25c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f10a260:	24120005 */ 	addiu	$s2,$zero,0x5
-/*  f10a264:	24100001 */ 	addiu	$s0,$zero,0x1
-.NB0f10a268:
-/*  f10a268:	02602025 */ 	or	$a0,$s3,$zero
-.NB0f10a26c:
-/*  f10a26c:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a270:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f10a274:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10a278:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10a27c:	0fc6591e */ 	jal	mpSetChallengeCompletedByAnyPlayerWithNumPlayers
-/*  f10a280:	00403025 */ 	or	$a2,$v0,$zero
-/*  f10a284:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10a288:	5612fff8 */ 	bnel	$s0,$s2,.NB0f10a26c
-/*  f10a28c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a290:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f10a294:	2a21001e */ 	slti	$at,$s1,0x1e
-/*  f10a298:	5420fff3 */ 	bnezl	$at,.NB0f10a268
-/*  f10a29c:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f10a2a0:	0fc65417 */ 	jal	mpDetermineUnlockedFeatures
-/*  f10a2a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a2a8:	3c10800a */ 	lui	$s0,0x800a
-/*  f10a2ac:	3c11800a */ 	lui	$s1,0x800a
-/*  f10a2b0:	263166fc */ 	addiu	$s1,$s1,0x66fc
-/*  f10a2b4:	261066f0 */ 	addiu	$s0,$s0,0x66f0
-.NB0f10a2b8:
-/*  f10a2b8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a2bc:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a2c0:	24050015 */ 	addiu	$a1,$zero,0x15
-/*  f10a2c4:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f10a2c8:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f10a2cc:	1420fffa */ 	bnez	$at,.NB0f10a2b8
-/*  f10a2d0:	ae02009c */ 	sw	$v0,0x9c($s0)
-/*  f10a2d4:	3c10800a */ 	lui	$s0,0x800a
-/*  f10a2d8:	3c12800a */ 	lui	$s2,0x800a
-/*  f10a2dc:	3c11800a */ 	lui	$s1,0x800a
-/*  f10a2e0:	263166f8 */ 	addiu	$s1,$s1,0x66f8
-/*  f10a2e4:	265266f9 */ 	addiu	$s2,$s2,0x66f9
-/*  f10a2e8:	261066f0 */ 	addiu	$s0,$s0,0x66f0
-.NB0f10a2ec:
-/*  f10a2ec:	16110003 */ 	bne	$s0,$s1,.NB0f10a2fc
-/*  f10a2f0:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f10a2f4:	10000001 */ 	beqz	$zero,.NB0f10a2fc
-/*  f10a2f8:	24050002 */ 	addiu	$a1,$zero,0x2
-.NB0f10a2fc:
-/*  f10a2fc:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a300:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a304:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10a308:	0212082b */ 	sltu	$at,$s0,$s2
-/*  f10a30c:	1420fff7 */ 	bnez	$at,.NB0f10a2ec
-/*  f10a310:	a20200ab */ 	sb	$v0,0xab($s0)
-/*  f10a314:	3c10800a */ 	lui	$s0,0x800a
-/*  f10a318:	3c11800a */ 	lui	$s1,0x800a
-/*  f10a31c:	263166f4 */ 	addiu	$s1,$s1,0x66f4
-/*  f10a320:	261066f0 */ 	addiu	$s0,$s0,0x66f0
-.NB0f10a324:
-/*  f10a324:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a328:	0fc34ab8 */ 	jal	savebufferReadBits
-/*  f10a32c:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f10a330:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10a334:	1611fffb */ 	bne	$s0,$s1,.NB0f10a324
-/*  f10a338:	a20200b4 */ 	sb	$v0,0xb4($s0)
-/*  f10a33c:	0fc34aeb */ 	jal	func0f0d54c4
-/*  f10a340:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10a344:	3c04800a */ 	lui	$a0,0x800a
-/*  f10a348:	0fc425d9 */ 	jal	savefileApplyOptions
-/*  f10a34c:	248466f0 */ 	addiu	$a0,$a0,0x66f0
-/*  f10a350:	10000003 */ 	beqz	$zero,.NB0f10a360
-/*  f10a354:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f10a358:
-/*  f10a358:	10000001 */ 	beqz	$zero,.NB0f10a360
-/*  f10a35c:	2402ffff */ 	addiu	$v0,$zero,-1
-.NB0f10a360:
-/*  f10a360:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f10a364:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f10a368:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f10a36c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f10a370:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f10a374:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f10a378:	03e00008 */ 	jr	$ra
-/*  f10a37c:	27bd0140 */ 	addiu	$sp,$sp,0x140
-);
+			if (pakHasBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags)) {
+				frSetWeaponFound(WEAPON_TIMEDMINE);
+			}
+
+			if (pakHasBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags)) {
+				frSetWeaponFound(WEAPON_PROXIMITYMINE);
+			}
+
+			if (pakHasBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags)) {
+				frSetWeaponFound(WEAPON_REMOTEMINE);
+			}
 #endif
+
+			func0f0d54c4(&buffer);
+			gamefileApplyOptions(&g_GameFile);
+
+			return 0;
+		}
+
+		return -1;
+	}
+
+	return -1;
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -1984,8 +1568,8 @@ glabel func0f10feac
 /*  f10ff24:	ac325bd0 */ 	sw	$s2,%lo(g_FileLists+0x10)($at)
 /*  f10ff28:	0fc549e0 */ 	jal	optionsGetForwardPitch
 /*  f10ff2c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f10ff30:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile+0x14)
-/*  f10ff34:	26102214 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile+0x14)
+/*  f10ff30:	3c10800a */ 	lui	$s0,%hi(g_GameFile+0x14)
+/*  f10ff34:	26102214 */ 	addiu	$s0,$s0,%lo(g_GameFile+0x14)
 /*  f10ff38:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10ff3c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f10ff40:	0fc4794c */ 	jal	pakSetBitflag
@@ -2232,8 +1816,8 @@ glabel func0f10feac
 /*  f110300:	00000000 */ 	nop
 /*  f110304:	0fc35517 */ 	jal	savebufferClear
 /*  f110308:	02802025 */ 	or	$a0,$s4,$zero
-/*  f11030c:	3c12800a */ 	lui	$s2,%hi(g_SoloSaveFile)
-/*  f110310:	26522200 */ 	addiu	$s2,$s2,%lo(g_SoloSaveFile)
+/*  f11030c:	3c12800a */ 	lui	$s2,%hi(g_GameFile)
+/*  f110310:	26522200 */ 	addiu	$s2,$s2,%lo(g_GameFile)
 /*  f110314:	02402825 */ 	or	$a1,$s2,$zero
 /*  f110318:	0fc35569 */ 	jal	func0f0d55a4
 /*  f11031c:	02802025 */ 	or	$a0,$s4,$zero
@@ -2297,10 +1881,10 @@ glabel func0f10feac
 /*  f110400:	00402825 */ 	or	$a1,$v0,$zero
 /*  f110404:	0fc354be */ 	jal	savebufferOr
 /*  f110408:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f11040c:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f110410:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0xa)
-/*  f110414:	2631220a */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0xa)
-/*  f110418:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
+/*  f11040c:	3c10800a */ 	lui	$s0,%hi(g_GameFile)
+/*  f110410:	3c11800a */ 	lui	$s1,%hi(g_GameFile+0xa)
+/*  f110414:	2631220a */ 	addiu	$s1,$s1,%lo(g_GameFile+0xa)
+/*  f110418:	26102200 */ 	addiu	$s0,$s0,%lo(g_GameFile)
 /*  f11041c:	02802025 */ 	or	$a0,$s4,$zero
 .L0f110420:
 /*  f110420:	92050014 */ 	lbu	$a1,0x14($s0)
@@ -2314,8 +1898,8 @@ glabel func0f10feac
 /*  f110440:	9645001e */ 	lhu	$a1,0x1e($s2)
 /*  f110444:	0fc354be */ 	jal	savebufferOr
 /*  f110448:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f11044c:	3c15800a */ 	lui	$s5,%hi(g_SoloSaveFile)
-/*  f110450:	26b52200 */ 	addiu	$s5,$s5,%lo(g_SoloSaveFile)
+/*  f11044c:	3c15800a */ 	lui	$s5,%hi(g_GameFile)
+/*  f110450:	26b52200 */ 	addiu	$s5,$s5,%lo(g_GameFile)
 /*  f110454:	24130006 */ 	addiu	$s3,$zero,0x6
 /*  f110458:	00008825 */ 	or	$s1,$zero,$zero
 .L0f11045c:
@@ -2328,8 +1912,8 @@ glabel func0f10feac
 /*  f110470:	26310002 */ 	addiu	$s1,$s1,0x2
 /*  f110474:	1633fffa */ 	bne	$s1,$s3,.L0f110460
 /*  f110478:	26520002 */ 	addiu	$s2,$s2,0x2
-/*  f11047c:	3c18800a */ 	lui	$t8,%hi(g_SoloSaveFile+0x7e)
-/*  f110480:	2718227e */ 	addiu	$t8,$t8,%lo(g_SoloSaveFile+0x7e)
+/*  f11047c:	3c18800a */ 	lui	$t8,%hi(g_GameFile+0x7e)
+/*  f110480:	2718227e */ 	addiu	$t8,$t8,%lo(g_GameFile+0x7e)
 /*  f110484:	26b50006 */ 	addiu	$s5,$s5,0x6
 /*  f110488:	02b8082b */ 	sltu	$at,$s5,$t8
 /*  f11048c:	5420fff3 */ 	bnezl	$at,.L0f11045c
@@ -2353,10 +1937,10 @@ glabel func0f10feac
 /*  f1104cc:	2a21001e */ 	slti	$at,$s1,0x1e
 /*  f1104d0:	5420fff3 */ 	bnezl	$at,.L0f1104a0
 /*  f1104d4:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f1104d8:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f1104dc:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0xc)
-/*  f1104e0:	2631220c */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0xc)
-/*  f1104e4:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
+/*  f1104d8:	3c10800a */ 	lui	$s0,%hi(g_GameFile)
+/*  f1104dc:	3c11800a */ 	lui	$s1,%hi(g_GameFile+0xc)
+/*  f1104e0:	2631220c */ 	addiu	$s1,$s1,%lo(g_GameFile+0xc)
+/*  f1104e4:	26102200 */ 	addiu	$s0,$s0,%lo(g_GameFile)
 /*  f1104e8:	02802025 */ 	or	$a0,$s4,$zero
 .L0f1104ec:
 /*  f1104ec:	8e0500a0 */ 	lw	$a1,0xa0($s0)
@@ -2366,12 +1950,12 @@ glabel func0f10feac
 /*  f1104fc:	0211082b */ 	sltu	$at,$s0,$s1
 /*  f110500:	5420fffa */ 	bnezl	$at,.L0f1104ec
 /*  f110504:	02802025 */ 	or	$a0,$s4,$zero
-/*  f110508:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f11050c:	3c12800a */ 	lui	$s2,%hi(g_SoloSaveFile+0x9)
-/*  f110510:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0x8)
-/*  f110514:	26312208 */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0x8)
-/*  f110518:	26522209 */ 	addiu	$s2,$s2,%lo(g_SoloSaveFile+0x9)
-/*  f11051c:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
+/*  f110508:	3c10800a */ 	lui	$s0,%hi(g_GameFile)
+/*  f11050c:	3c12800a */ 	lui	$s2,%hi(g_GameFile+0x9)
+/*  f110510:	3c11800a */ 	lui	$s1,%hi(g_GameFile+0x8)
+/*  f110514:	26312208 */ 	addiu	$s1,$s1,%lo(g_GameFile+0x8)
+/*  f110518:	26522209 */ 	addiu	$s2,$s2,%lo(g_GameFile+0x9)
+/*  f11051c:	26102200 */ 	addiu	$s0,$s0,%lo(g_GameFile)
 .L0f110520:
 /*  f110520:	16110003 */ 	bne	$s0,$s1,.L0f110530
 /*  f110524:	02802025 */ 	or	$a0,$s4,$zero
@@ -2387,10 +1971,10 @@ glabel func0f10feac
 /*  f110544:	0212082b */ 	sltu	$at,$s0,$s2
 /*  f110548:	1420fff5 */ 	bnez	$at,.L0f110520
 /*  f11054c:	00000000 */ 	nop
-/*  f110550:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
-/*  f110554:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0x4)
-/*  f110558:	26312204 */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0x4)
-/*  f11055c:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
+/*  f110550:	3c10800a */ 	lui	$s0,%hi(g_GameFile)
+/*  f110554:	3c11800a */ 	lui	$s1,%hi(g_GameFile+0x4)
+/*  f110558:	26312204 */ 	addiu	$s1,$s1,%lo(g_GameFile+0x4)
+/*  f11055c:	26102200 */ 	addiu	$s0,$s0,%lo(g_GameFile)
 /*  f110560:	02802025 */ 	or	$a0,$s4,$zero
 .L0f110564:
 /*  f110564:	920500b5 */ 	lbu	$a1,0xb5($s0)
@@ -2899,7 +2483,7 @@ glabel func0f10feac
 );
 #endif
 
-void savefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time)
+void gamefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time)
 {
 	struct savebuffer buffer;
 

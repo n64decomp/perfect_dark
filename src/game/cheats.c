@@ -76,23 +76,23 @@ u32 cheatIsUnlocked(s32 cheat_id)
 			unlocked++;
 		}
 	} else if (cheat->flags & CHEATFLAG_COMPLETION) {
-		if (g_SoloSaveFile.besttimes[cheat->stage_index][0]) {
+		if (g_GameFile.besttimes[cheat->stage_index][0]) {
 			unlocked++;
 		}
-		if (g_SoloSaveFile.besttimes[cheat->stage_index][1]) {
+		if (g_GameFile.besttimes[cheat->stage_index][1]) {
 			unlocked++;
 		}
-		if (g_SoloSaveFile.besttimes[cheat->stage_index][2]) {
+		if (g_GameFile.besttimes[cheat->stage_index][2]) {
 			unlocked++;
 		}
 	} else {
-		if (g_SoloSaveFile.besttimes[cheat->stage_index][cheat->difficulty] &&
-				g_SoloSaveFile.besttimes[cheat->stage_index][cheat->difficulty] <= cheat->time) {
+		if (g_GameFile.besttimes[cheat->stage_index][cheat->difficulty] &&
+				g_GameFile.besttimes[cheat->stage_index][cheat->difficulty] <= cheat->time) {
 			unlocked++;
 		}
 	}
 
-	if ((cheat->flags & CHEATFLAG_TRANSFERPAK) && savefileHasFlag(SAVEFILEFLAG_USED_TRANSFERPAK)) {
+	if ((cheat->flags & CHEATFLAG_TRANSFERPAK) && gamefileHasFlag(GAMEFILEFLAG_USED_TRANSFERPAK)) {
 		unlocked++;
 	}
 
@@ -468,7 +468,7 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handle
 		func0f14a52c();
 
 		if (func0f11e78c()) {
-			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
+			gamefileSetFlag(GAMEFILEFLAG_USED_TRANSFERPAK);
 		}
 
 #if PIRACYCHECKS
@@ -498,7 +498,7 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handle
 
 	if (operation == MENUOP_CLOSE) {
 		if (func0f11e78c()) {
-			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
+			gamefileSetFlag(GAMEFILEFLAG_USED_TRANSFERPAK);
 		}
 
 		func0f14a560();

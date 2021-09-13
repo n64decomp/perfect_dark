@@ -198,7 +198,7 @@ extern u32 g_CheatsActiveBank1;
 extern u32 g_CheatsEnabledBank0;
 extern u32 g_CheatsEnabledBank1;
 extern struct savelocation_2d8 var800a21f8;
-extern struct savefile_solo g_SoloSaveFile;
+extern struct gamefile g_GameFile;
 extern struct savelocation_2d8 g_FilemgrLoadedMainFile;
 extern s8 g_SoloCompleted;
 extern u8 g_AltTitle;

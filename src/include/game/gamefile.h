@@ -4,15 +4,15 @@
 #include "data.h"
 #include "types.h"
 
-u32 savefileHasFlag(u32 value);
-void savefileSetFlag(u32 value);
-void savefileUnsetFlag(u32 value);
-void savefilePrintFlags(void);
-void savefileApplyOptions(struct savefile_solo *file);
-void savefileLoadDefaults(struct savefile_solo *file);
-s32 func0f10fac8(s32 arg0);
+u32 gamefileHasFlag(u32 value);
+void gamefileSetFlag(u32 value);
+void gamefileUnsetFlag(u32 value);
+void gamefilePrintFlags(void);
+void gamefileApplyOptions(struct gamefile *file);
+void gamefileLoadDefaults(struct gamefile *file);
+s32 gamefileLoad(s32 arg0);
 s32 func0f10feac(s32 arg0, s32 arg1, u16 arg2);
-void savefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time);
+void gamefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time);
 bool func0f1106c8(void);
 u32 func0f110720(void);
 u32 func0f11080c(void);

@@ -3194,7 +3194,7 @@ u8 func0422_intro_042d[] = {
 	label(0x06)
 	stop_cutscene_track
 	stop_ambient_track
-	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_TOUR_DONE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

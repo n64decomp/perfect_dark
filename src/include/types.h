@@ -4495,7 +4495,7 @@ struct menu {
 	/*0xe6c*/ s8 savedevice; // 0-3 = controller pak 1-4, 4 = game pak
 };
 
-struct savefile_solo {
+struct gamefile {
 	/*0x00*/ char name[11];
 	/*0x0b*/ u8 thumbnail : 5; // stage index of the image to show on file select screen
 	/*0x0b*/ u8 autodifficulty : 3;

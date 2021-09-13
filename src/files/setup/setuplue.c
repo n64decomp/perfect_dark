@@ -2884,14 +2884,14 @@ u8 func141f_start_lifts[] = {
 
 u8 func101a_check_mechanic_dead[] = {
 	yield
-	unset_savefile_flag(SAVEFILEFLAG_RESCUE_MECHANIC_DEAD)
+	unset_savefile_flag(GAMEFILEFLAG_RESCUE_MECHANIC_DEAD)
 
 	beginloop(0x04)
 		if_chr_dead(CHR_MECHANIC, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
-	set_savefile_flag(SAVEFILEFLAG_RESCUE_MECHANIC_DEAD)
+	set_savefile_flag(GAMEFILEFLAG_RESCUE_MECHANIC_DEAD)
 	dprint 'D','E','L','E','T','E',' ','M','E','C','H','\n',0,
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

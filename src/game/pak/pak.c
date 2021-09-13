@@ -3011,8 +3011,8 @@ void func0f1189d8(void)
 	func0f1169c8(SAVEDEVICE_GAMEPAK, 1);
 	func0f1106c8();
 
-	savefileLoadDefaults(&g_SoloSaveFile);
-	savefileApplyOptions(&g_SoloSaveFile);
+	gamefileLoadDefaults(&g_GameFile);
+	gamefileApplyOptions(&g_GameFile);
 
 	g_FilemgrLoadedMainFile.unk04 = 0;
 	g_Vars.unk0004e4 = 0xf5;
@@ -3087,9 +3087,9 @@ glabel func0f1189d8
 /*  f112e20:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112e24:	3c10800a */ 	lui	$s0,0x800a
 /*  f112e28:	261066f0 */ 	addiu	$s0,$s0,0x66f0
-/*  f112e2c:	0fc426fe */ 	jal	savefileLoadDefaults
+/*  f112e2c:	0fc426fe */ 	jal	gamefileLoadDefaults
 /*  f112e30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112e34:	0fc425d9 */ 	jal	savefileApplyOptions
+/*  f112e34:	0fc425d9 */ 	jal	gamefileApplyOptions
 /*  f112e38:	02002025 */ 	or	$a0,$s0,$zero
 /*  f112e3c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f112e40:	3c01800a */ 	lui	$at,0x800a
@@ -16862,7 +16862,7 @@ void pakClearAllBitflags(u8 *flags)
 {
 	s32 i;
 
-	for (i = 0; i <= SAVEFILEFLAG_4E; i++) {
+	for (i = 0; i <= GAMEFILEFLAG_4E; i++) {
 		pakSetBitflag(i, flags, false);
 	}
 }

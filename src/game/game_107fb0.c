@@ -22,7 +22,7 @@ struct savelocation_2d8 g_FilemgrFileToCopy;
 struct savelocation_2d8 var800a21e8;
 struct savelocation_2d8 g_FilemgrFileToDelete;
 struct savelocation_2d8 var800a21f8;
-struct savefile_solo g_SoloSaveFile;
+struct gamefile g_GameFile;
 u32 var800a22bc;
 struct savelocation_2d8 g_FilemgrLoadedMainFile;
 
@@ -750,7 +750,7 @@ bool fileSave(s32 arg0, bool arg1)
 		var80075bd0[g_Menus[g_MpPlayerNum].unke42 - 6] = 1;
 		break;
 	case 100:
-		errno = func0f10fac8(arg0);
+		errno = gamefileLoad(arg0);
 		break;
 	case 101:
 		errno = func0f18dac0(
@@ -941,7 +941,7 @@ glabel var7f1ad424nb
 /*  f104c28:	002b0821 */ 	addu	$at,$at,$t3
 /*  f104c2c:	1000001b */ 	beqz	$zero,.NB0f104c9c
 /*  f104c30:	ac2f7f58 */ 	sw	$t7,0x7f58($at)
-/*  f104c34:	0fc427fe */ 	jal	func0f10fac8
+/*  f104c34:	0fc427fe */ 	jal	gamefileLoad
 /*  f104c38:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f104c3c:	10000017 */ 	beqz	$zero,.NB0f104c9c
 /*  f104c40:	00403025 */ 	or	$a2,$v0,$zero
@@ -1276,7 +1276,7 @@ void filemgrGetRenameName(char *buffer)
 	case 9:
 	case 10:
 	case 11:
-		strcpy(buffer, g_SoloSaveFile.name);
+		strcpy(buffer, g_GameFile.name);
 		break;
 	case 1:
 	case 2:
@@ -1319,7 +1319,7 @@ void filemgrSetRenameName(char *name)
 	case 9:
 	case 10:
 	case 11:
-		strcpy(g_SoloSaveFile.name, name);
+		strcpy(g_GameFile.name, name);
 		break;
 	case 1:
 	case 2:
@@ -2551,10 +2551,10 @@ s32 filemgrAgentNameKeyboardMenuHandler(s32 operation, struct menuitem *item, un
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
-		strcpy(name, g_SoloSaveFile.name);
+		strcpy(name, g_GameFile.name);
 		break;
 	case MENUOP_SETTEXT:
-		strcpy(g_SoloSaveFile.name, name);
+		strcpy(g_GameFile.name, name);
 		break;
 	case MENUOP_SET:
 		filemgrPushSelectLocationDialog(0, 0);
@@ -2646,7 +2646,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 			file = &g_FileLists[0]->files[data->list.unk04];
 
 			if (file) {
-				savefileGetOverview(file->unk06, name, &stage, &difficulty, &time);
+				gamefileGetOverview(file->unk06, name, &stage, &difficulty, &time);
 
 				seconds = time % 60;
 				time = time / 60;
@@ -2756,7 +2756,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		break;
 	case MENUOP_SET:
 		if (data->list.value == g_FileLists[0]->numfiles) {
-			savefileLoadDefaults(&g_SoloSaveFile);
+			gamefileLoadDefaults(&g_GameFile);
 			menuPushDialog(&g_FilemgrEnterNameMenuDialog);
 		} else {
 			struct filelistfile *file = &g_FileLists[0]->files[data->list.value];

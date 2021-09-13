@@ -62,13 +62,13 @@ u16 g_FrPads[] = {
 
 bool ciIsTourDone(void)
 {
-	return savefileHasFlag(SAVEFILEFLAG_CI_TOUR_DONE);
+	return gamefileHasFlag(GAMEFILEFLAG_CI_TOUR_DONE);
 }
 
 u8 ciGetFiringRangeScore(s32 weaponindex)
 {
 	// Data at firingrangescores is a u8 array where each score uses 2 bits
-	return (g_SoloSaveFile.firingrangescores[weaponindex >> 2] >> (weaponindex % 4) * 2) & 3;
+	return (g_GameFile.firingrangescores[weaponindex >> 2] >> (weaponindex % 4) * 2) & 3;
 }
 
 void frSaveScoreIfBest(s32 weaponindex, s32 difficulty)
@@ -76,13 +76,13 @@ void frSaveScoreIfBest(s32 weaponindex, s32 difficulty)
 	if (ciGetFiringRangeScore(weaponindex) < difficulty) {
 		u32 byteindex = weaponindex >> 2;
 		u32 shiftamount = (weaponindex % 4) * 2;
-		u32 value = g_SoloSaveFile.firingrangescores[byteindex];
+		u32 value = g_GameFile.firingrangescores[byteindex];
 		u32 mask = (1 << shiftamount) + (1 << (shiftamount + 1));
 
 		value &= 255 - mask;
 		value += (difficulty << shiftamount) & mask;
 
-		g_SoloSaveFile.firingrangescores[byteindex] = value;
+		g_GameFile.firingrangescores[byteindex] = value;
 	}
 }
 
@@ -145,35 +145,35 @@ u8 frIsWeaponFound(s32 weaponnum)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (weaponnum < (s32)sizeof(g_SoloSaveFile.weaponsfound) * 8) {
+	if (weaponnum < (s32)sizeof(g_GameFile.weaponsfound) * 8) {
 		byteindex = weaponnum >> 3;
-		return g_SoloSaveFile.weaponsfound[byteindex] & (1 << (weaponnum % 8));
+		return g_GameFile.weaponsfound[byteindex] & (1 << (weaponnum % 8));
 	}
 
 	return false;
 #else
 	byteindex = weaponnum >> 3;
-	return g_SoloSaveFile.weaponsfound[byteindex] & (1 << (weaponnum % 8));
+	return g_GameFile.weaponsfound[byteindex] & (1 << (weaponnum % 8));
 #endif
 }
 
 void frSetWeaponFound(s32 weaponnum)
 {
-	if (weaponnum < (s32)sizeof(g_SoloSaveFile.weaponsfound) * 8) {
+	if (weaponnum < (s32)sizeof(g_GameFile.weaponsfound) * 8) {
 		u32 byteindex = weaponnum >> 3;
-		u32 value = g_SoloSaveFile.weaponsfound[byteindex];
+		u32 value = g_GameFile.weaponsfound[byteindex];
 
 		value |= (1 << (weaponnum % 8));
 
-		g_SoloSaveFile.weaponsfound[byteindex] = value;
+		g_GameFile.weaponsfound[byteindex] = value;
 	}
 }
 
 s32 ciIsStageComplete(s32 stageindex)
 {
-	return g_SoloSaveFile.besttimes[stageindex][0]
-		|| g_SoloSaveFile.besttimes[stageindex][1]
-		|| g_SoloSaveFile.besttimes[stageindex][2];
+	return g_GameFile.besttimes[stageindex][0]
+		|| g_GameFile.besttimes[stageindex][1]
+		|| g_GameFile.besttimes[stageindex][2];
 }
 
 bool func0f19cbcc(s32 weapon)
@@ -7568,16 +7568,16 @@ void dtEnd(void)
 bool dtIsAvailable(s32 deviceindex)
 {
 	u8 flags[] = {
-		SAVEFILEFLAG_CI_UPLINK_DONE,
-		SAVEFILEFLAG_CI_ECMMINE_DONE,
-		SAVEFILEFLAG_CI_CAMSPY_DONE,
-		SAVEFILEFLAG_CI_NIGHTVISION_DONE,
-		SAVEFILEFLAG_CI_DOORDECODER_DONE,
-		SAVEFILEFLAG_CI_RTRACKER_DONE,
-		SAVEFILEFLAG_CI_IR_DONE,
-		SAVEFILEFLAG_CI_XRAY_DONE,
-		SAVEFILEFLAG_CI_DISGUISE_DONE,
-		SAVEFILEFLAG_CI_CLOAK_DONE,
+		GAMEFILEFLAG_CI_UPLINK_DONE,
+		GAMEFILEFLAG_CI_ECMMINE_DONE,
+		GAMEFILEFLAG_CI_CAMSPY_DONE,
+		GAMEFILEFLAG_CI_NIGHTVISION_DONE,
+		GAMEFILEFLAG_CI_DOORDECODER_DONE,
+		GAMEFILEFLAG_CI_RTRACKER_DONE,
+		GAMEFILEFLAG_CI_IR_DONE,
+		GAMEFILEFLAG_CI_XRAY_DONE,
+		GAMEFILEFLAG_CI_DISGUISE_DONE,
+		GAMEFILEFLAG_CI_CLOAK_DONE,
 	};
 
 	deviceindex--;
@@ -7586,7 +7586,7 @@ bool dtIsAvailable(s32 deviceindex)
 		return true;
 	}
 
-	if (deviceindex < 0 || savefileHasFlag(flags[deviceindex])) {
+	if (deviceindex < 0 || gamefileHasFlag(flags[deviceindex])) {
 		return true;
 	}
 

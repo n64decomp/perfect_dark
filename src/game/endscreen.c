@@ -1182,12 +1182,12 @@ void endscreenSetCoopCompleted(void)
 {
 	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) {
 #if VERSION >= VERSION_NTSC_1_0
-		if (g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] & (1 << g_MissionConfig.stageindex)) {
+		if (g_GameFile.coopcompletions[g_MissionConfig.difficulty] & (1 << g_MissionConfig.stageindex)) {
 			g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = true;
 		}
 #endif
 
-		g_SoloSaveFile.coopcompletions[g_MissionConfig.difficulty] |= (1 << g_MissionConfig.stageindex);
+		g_GameFile.coopcompletions[g_MissionConfig.difficulty] |= (1 << g_MissionConfig.stageindex);
 	}
 }
 
@@ -1280,15 +1280,15 @@ void endscreenPrepare(void)
 			secs = getMissionTime() / 60;
 
 			if (secs != 0) {
-				if (secs >= S32_MAX || S32_MAX - secs <= g_SoloSaveFile.totaltime) {
-					g_SoloSaveFile.totaltime = S32_MAX;
+				if (secs >= S32_MAX || S32_MAX - secs <= g_GameFile.totaltime) {
+					g_GameFile.totaltime = S32_MAX;
 				} else {
-					g_SoloSaveFile.totaltime += secs;
+					g_GameFile.totaltime += secs;
 				}
 			}
 
-			g_SoloSaveFile.autostageindex = g_MissionConfig.stageindex;
-			g_SoloSaveFile.autodifficulty = g_MissionConfig.difficulty;
+			g_GameFile.autostageindex = g_MissionConfig.stageindex;
+			g_GameFile.autodifficulty = g_MissionConfig.difficulty;
 
 			if (g_CheatsActiveBank0 == 0
 					&& g_CheatsActiveBank1 == 0
@@ -1312,28 +1312,28 @@ void endscreenPrepare(void)
 				}
 
 				// Set best time
-				prevbest = g_SoloSaveFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty];
+				prevbest = g_GameFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty];
 
 				if (prevbest == 0) {
 					g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = true;
 				}
 
 				if (secs < prevbest || prevbest == 0) {
-					g_SoloSaveFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty] = secs;
+					g_GameFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty] = secs;
 				}
 
 				// Recalculate thumbnail for file select screen
 				if (g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS) {
-					g_SoloSaveFile.autostageindex = g_MissionConfig.stageindex + 1;
+					g_GameFile.autostageindex = g_MissionConfig.stageindex + 1;
 
-					if (g_SoloSaveFile.autostageindex > SOLOSTAGEINDEX_SKEDARRUINS) {
-						g_SoloSaveFile.autostageindex = SOLOSTAGEINDEX_SKEDARRUINS;
+					if (g_GameFile.autostageindex > SOLOSTAGEINDEX_SKEDARRUINS) {
+						g_GameFile.autostageindex = SOLOSTAGEINDEX_SKEDARRUINS;
 					}
 
 					for (d = 0; d != 3; d++) {
 						for (s = 0; s <= SOLOSTAGEINDEX_SKEDARRUINS; s++) {
-							if (g_SoloSaveFile.besttimes[s][d]) {
-								g_SoloSaveFile.thumbnail = s + 1;
+							if (g_GameFile.besttimes[s][d]) {
+								g_GameFile.thumbnail = s + 1;
 							}
 						}
 					}

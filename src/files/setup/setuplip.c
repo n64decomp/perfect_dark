@@ -4502,7 +4502,7 @@ u8 func1027_check_disguise_worn[] = {
 };
 
 u8 func1028_toggle_mechanic[] = {
-	if_savefile_flag_is_set(SAVEFILEFLAG_RESCUE_MECHANIC_DEAD, /*goto*/ 0x06)
+	if_savefile_flag_is_set(GAMEFILEFLAG_RESCUE_MECHANIC_DEAD, /*goto*/ 0x06)
 	dprint 'K','E','E','P',' ','M','E','C','H','\n',0,
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 

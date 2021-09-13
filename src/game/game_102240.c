@@ -912,9 +912,9 @@ glabel isStageDifficultyUnlocked
 /*  f1038ec:	28810011 */ 	slti	$at,$a0,0x11
 /*  f1038f0:	14200024 */ 	bnez	$at,.L0f103984
 /*  f1038f4:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f1038f8:	3c05800a */ 	lui	$a1,%hi(g_SoloSaveFile)
+/*  f1038f8:	3c05800a */ 	lui	$a1,%hi(g_GameFile)
 /*  f1038fc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103900:	24a52200 */ 	addiu	$a1,$a1,%lo(g_SoloSaveFile)
+/*  f103900:	24a52200 */ 	addiu	$a1,$a1,%lo(g_GameFile)
 /*  f103904:	00001825 */ 	or	$v1,$zero,$zero
 .L0f103908:
 /*  f103908:	94ae0080 */ 	lhu	$t6,0x80($a1)
@@ -936,8 +936,8 @@ glabel isStageDifficultyUnlocked
 /*  f103940:	00001825 */ 	or	$v1,$zero,$zero
 /*  f103944:	00047880 */ 	sll	$t7,$a0,0x2
 /*  f103948:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f10394c:	3c18800a */ 	lui	$t8,%hi(g_SoloSaveFile)
-/*  f103950:	27182200 */ 	addiu	$t8,$t8,%lo(g_SoloSaveFile)
+/*  f10394c:	3c18800a */ 	lui	$t8,%hi(g_GameFile)
+/*  f103950:	27182200 */ 	addiu	$t8,$t8,%lo(g_GameFile)
 /*  f103954:	000f7840 */ 	sll	$t7,$t7,0x1
 /*  f103958:	01f81021 */ 	addu	$v0,$t7,$t8
 .L0f10395c:
@@ -977,13 +977,13 @@ glabel isStageDifficultyUnlocked
 /*  f1039d0:	01a46823 */ 	subu	$t5,$t5,$a0
 /*  f1039d4:	000d6840 */ 	sll	$t5,$t5,0x1
 /*  f1039d8:	00037040 */ 	sll	$t6,$v1,0x1
-/*  f1039dc:	3c18800a */ 	lui	$t8,%hi(g_SoloSaveFile)
-/*  f1039e0:	27182200 */ 	addiu	$t8,$t8,%lo(g_SoloSaveFile)
+/*  f1039dc:	3c18800a */ 	lui	$t8,%hi(g_GameFile)
+/*  f1039e0:	27182200 */ 	addiu	$t8,$t8,%lo(g_GameFile)
 /*  f1039e4:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f1039e8:	3c0a800a */ 	lui	$t2,%hi(g_SoloSaveFile)
+/*  f1039e8:	3c0a800a */ 	lui	$t2,%hi(g_GameFile)
 /*  f1039ec:	3c09800a */ 	lui	$t1,%hi(g_MissionConfig)
 /*  f1039f0:	2529dfe8 */ 	addiu	$t1,$t1,%lo(g_MissionConfig)
-/*  f1039f4:	254a2200 */ 	addiu	$t2,$t2,%lo(g_SoloSaveFile)
+/*  f1039f4:	254a2200 */ 	addiu	$t2,$t2,%lo(g_GameFile)
 /*  f1039f8:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f1039fc:	240b0003 */ 	addiu	$t3,$zero,0x3
 .L0f103a00:
@@ -1016,8 +1016,8 @@ glabel isStageDifficultyUnlocked
 /*  f103a5c:	24420002 */ 	addiu	$v0,$v0,0x2
 .L0f103a60:
 /*  f103a60:	3c09800a */ 	lui	$t1,%hi(g_MissionConfig)
-/*  f103a64:	3c0a800a */ 	lui	$t2,%hi(g_SoloSaveFile)
-/*  f103a68:	254a2200 */ 	addiu	$t2,$t2,%lo(g_SoloSaveFile)
+/*  f103a64:	3c0a800a */ 	lui	$t2,%hi(g_GameFile)
+/*  f103a68:	254a2200 */ 	addiu	$t2,$t2,%lo(g_GameFile)
 /*  f103a6c:	2529dfe8 */ 	addiu	$t1,$t1,%lo(g_MissionConfig)
 /*  f103a70:	18800052 */ 	blez	$a0,.L0f103bbc
 /*  f103a74:	240b0003 */ 	addiu	$t3,$zero,0x3
@@ -1120,8 +1120,8 @@ glabel isStageDifficultyUnlocked
 /*  f103bc0:	2401002a */ 	addiu	$at,$zero,0x2a
 /*  f103bc4:	10a10047 */ 	beq	$a1,$at,.L0f103ce4
 /*  f103bc8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f103bcc:	3c05800a */ 	lui	$a1,%hi(g_SoloSaveFile)
-/*  f103bd0:	24a52200 */ 	addiu	$a1,$a1,%lo(g_SoloSaveFile)
+/*  f103bcc:	3c05800a */ 	lui	$a1,%hi(g_GameFile)
+/*  f103bd0:	24a52200 */ 	addiu	$a1,$a1,%lo(g_GameFile)
 .L0f103bd4:
 /*  f103bd4:	00001825 */ 	or	$v1,$zero,$zero
 /*  f103bd8:	00001025 */ 	or	$v0,$zero,$zero
@@ -1159,8 +1159,8 @@ glabel isStageDifficultyUnlocked
 /*  f103c44:	1420ffe3 */ 	bnez	$at,.L0f103bd4
 /*  f103c48:	24a50006 */ 	addiu	$a1,$a1,0x6
 .L0f103c4c:
-/*  f103c4c:	3c18800a */ 	lui	$t8,%hi(g_SoloSaveFile+0x66)
-/*  f103c50:	27182266 */ 	addiu	$t8,$t8,%lo(g_SoloSaveFile+0x66)
+/*  f103c4c:	3c18800a */ 	lui	$t8,%hi(g_GameFile+0x66)
+/*  f103c50:	27182266 */ 	addiu	$t8,$t8,%lo(g_GameFile+0x66)
 /*  f103c54:	00b8082b */ 	sltu	$at,$a1,$t8
 /*  f103c58:	14200022 */ 	bnez	$at,.L0f103ce4
 /*  f103c5c:	24c2ffff */ 	addiu	$v0,$a2,-1
@@ -1497,7 +1497,7 @@ s32 menuhandlerSoloDifficulty(s32 operation, struct menuitem *item, union handle
 			if (item->param3 == 0) {
 				return true;
 			}
-			if (item->param <= (u32)g_SoloSaveFile.autodifficulty) {
+			if (item->param <= (u32)g_GameFile.autodifficulty) {
 				return true;
 			}
 		}
@@ -1505,7 +1505,7 @@ s32 menuhandlerSoloDifficulty(s32 operation, struct menuitem *item, union handle
 		if (item->param3 == 0) {
 			return true;
 		}
-		if (item->param <= (u32)g_SoloSaveFile.autodifficulty) {
+		if (item->param <= (u32)g_GameFile.autodifficulty) {
 			return true;
 		}
 #endif
@@ -1533,7 +1533,7 @@ s32 menuhandlerPdMode(s32 operation, struct menuitem *item, union handlerdata *d
 		menuPushDialog(&g_PdModeSettingsMenuDialog);
 		break;
 	case MENUOP_CHECKHIDDEN:
-		if (g_SoloSaveFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][DIFF_PA] == 0) {
+		if (g_GameFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][DIFF_PA] == 0) {
 			return true;
 		}
 	}
@@ -1543,7 +1543,7 @@ s32 menuhandlerPdMode(s32 operation, struct menuitem *item, union handlerdata *d
 
 char *soloMenuTextBestTime(struct menuitem *item)
 {
-	u16 time = g_SoloSaveFile.besttimes[g_MissionConfig.stageindex][item->param];
+	u16 time = g_GameFile.besttimes[g_MissionConfig.stageindex][item->param];
 	s32 hours = time / 3600;
 
 	if (time == 0) {
@@ -1611,7 +1611,7 @@ s32 getMaxAiBuddies(void)
 	s32 d;
 
 	for (d = 0; d != 3; d++) {
-		if ((g_SoloSaveFile.coopcompletions[d] | 0xfffe0000) == 0xffffffff) {
+		if ((g_GameFile.coopcompletions[d] | 0xfffe0000) == 0xffffffff) {
 			extra = d + 1;
 		}
 	}
@@ -2126,7 +2126,7 @@ s32 getNumUnlockedSpecialStages(void)
 	s32 i;
 
 	for (i = 0; i < 3; i++) {
-		if (g_SoloSaveFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][i]) {
+		if (g_GameFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][i]) {
 			next = i + 1;
 		}
 	}
@@ -2150,7 +2150,7 @@ s32 func0f104720(s32 value)
 	s32 d;
 
 	for (d = 0; d != 3; d++) {
-		if (g_SoloSaveFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][d]) {
+		if (g_GameFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][d]) {
 			next = d + 1;
 		}
 	}
@@ -2264,13 +2264,13 @@ glabel var7f1b2dfc
 /*  f1047e0:	8c2f2d9c */ 	lw	$t7,%lo(var7f1b2d9c)($at)
 /*  f1047e4:	01e00008 */ 	jr	$t7
 /*  f1047e8:	00000000 */ 	nop
-/*  f1047ec:	3c0a800a */ 	lui	$t2,%hi(g_SoloSaveFile)
-/*  f1047f0:	3c09800a */ 	lui	$t1,%hi(g_SoloSaveFile)
+/*  f1047ec:	3c0a800a */ 	lui	$t2,%hi(g_GameFile)
+/*  f1047f0:	3c09800a */ 	lui	$t1,%hi(g_GameFile)
 /*  f1047f4:	3c08800a */ 	lui	$t0,%hi(g_MissionConfig)
 /*  f1047f8:	ae000000 */ 	sw	$zero,0x0($s0)
 /*  f1047fc:	2508dfe8 */ 	addiu	$t0,$t0,%lo(g_MissionConfig)
-/*  f104800:	25292200 */ 	addiu	$t1,$t1,%lo(g_SoloSaveFile)
-/*  f104804:	254a2200 */ 	addiu	$t2,$t2,%lo(g_SoloSaveFile)
+/*  f104800:	25292200 */ 	addiu	$t1,$t1,%lo(g_GameFile)
+/*  f104804:	254a2200 */ 	addiu	$t2,$t2,%lo(g_GameFile)
 /*  f104808:	00003025 */ 	or	$a2,$zero,$zero
 /*  f10480c:	240b0011 */ 	addiu	$t3,$zero,0x11
 /*  f104810:	24070003 */ 	addiu	$a3,$zero,0x3
@@ -2427,8 +2427,8 @@ glabel var7f1b2dfc
 /*  f104a3c:	072202d2 */ 	bltzl	$t9,.L0f105588
 /*  f104a40:	00001025 */ 	or	$v0,$zero,$zero
 /*  f104a44:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*  f104a48:	3c09800a */ 	lui	$t1,%hi(g_SoloSaveFile)
-/*  f104a4c:	25292200 */ 	addiu	$t1,$t1,%lo(g_SoloSaveFile)
+/*  f104a48:	3c09800a */ 	lui	$t1,%hi(g_GameFile)
+/*  f104a4c:	25292200 */ 	addiu	$t1,$t1,%lo(g_GameFile)
 /*  f104a50:	000fc640 */ 	sll	$t8,$t7,0x19
 /*  f104a54:	070202cc */ 	bltzl	$t8,.L0f105588
 /*  f104a58:	00001025 */ 	or	$v0,$zero,$zero
@@ -2459,8 +2459,8 @@ glabel var7f1b2dfc
 .L0f104abc:
 /*  f104abc:	0fc411c8 */ 	jal	func0f104720
 /*  f104ac0:	afa40160 */ 	sw	$a0,0x160($sp)
-/*  f104ac4:	3c09800a */ 	lui	$t1,%hi(g_SoloSaveFile)
-/*  f104ac8:	25292200 */ 	addiu	$t1,$t1,%lo(g_SoloSaveFile)
+/*  f104ac4:	3c09800a */ 	lui	$t1,%hi(g_GameFile)
+/*  f104ac8:	25292200 */ 	addiu	$t1,$t1,%lo(g_GameFile)
 /*  f104acc:	9138000c */ 	lbu	$t8,0xc($t1)
 /*  f104ad0:	8fa30164 */ 	lw	$v1,0x164($sp)
 /*  f104ad4:	8fa40160 */ 	lw	$a0,0x160($sp)
@@ -2772,15 +2772,15 @@ glabel var7f1b2dfc
 /*  f104f78:	8faf00ec */ 	lw	$t7,0xec($sp)
 /*  f104f7c:	3c098008 */ 	lui	$t1,%hi(g_ScaleX)
 /*  f104f80:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f104f84:	3c06800a */ 	lui	$a2,%hi(g_SoloSaveFile)
-/*  f104f88:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile+0xc)
+/*  f104f84:	3c06800a */ 	lui	$a2,%hi(g_GameFile)
+/*  f104f88:	3c10800a */ 	lui	$s0,%hi(g_GameFile+0xc)
 /*  f104f8c:	3c0b0010 */ 	lui	$t3,0x10
 /*  f104f90:	2529fac0 */ 	addiu	$t1,$t1,%lo(g_ScaleX)
 /*  f104f94:	3c0dfb00 */ 	lui	$t5,0xfb00
 /*  f104f98:	241fff00 */ 	addiu	$ra,$zero,-256
 /*  f104f9c:	356b01c0 */ 	ori	$t3,$t3,0x1c0
-/*  f104fa0:	2610220c */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile+0xc)
-/*  f104fa4:	24c62200 */ 	addiu	$a2,$a2,%lo(g_SoloSaveFile)
+/*  f104fa0:	2610220c */ 	addiu	$s0,$s0,%lo(g_GameFile+0xc)
+/*  f104fa4:	24c62200 */ 	addiu	$a2,$a2,%lo(g_GameFile)
 /*  f104fa8:	2405003f */ 	addiu	$a1,$zero,0x3f
 /*  f104fac:	2408003f */ 	addiu	$t0,$zero,0x3f
 /*  f104fb0:	01ee6004 */ 	sllv	$t4,$t6,$t7
@@ -2962,8 +2962,8 @@ glabel var7f1b2dfc
 /*  f105258:	01ffc825 */ 	or	$t9,$t7,$ra
 /*  f10525c:	acf90004 */ 	sw	$t9,0x4($a3)
 /*  f105260:	8fb800ec */ 	lw	$t8,0xec($sp)
-/*  f105264:	3c0f800a */ 	lui	$t7,%hi(g_SoloSaveFile)
-/*  f105268:	25ef2200 */ 	addiu	$t7,$t7,%lo(g_SoloSaveFile)
+/*  f105264:	3c0f800a */ 	lui	$t7,%hi(g_GameFile)
+/*  f105268:	25ef2200 */ 	addiu	$t7,$t7,%lo(g_GameFile)
 /*  f10526c:	00187080 */ 	sll	$t6,$t8,0x2
 /*  f105270:	01d87023 */ 	subu	$t6,$t6,$t8
 /*  f105274:	000e7040 */ 	sll	$t6,$t6,0x1
@@ -5607,7 +5607,7 @@ s32 getNumCompletedMissions(void)
 		bool done = false;
 
 		for (d = 0; d != 3; d++) {
-			if (g_SoloSaveFile.besttimes[s][d] || (g_SoloSaveFile.coopcompletions[d] & (1 << s))) {
+			if (g_GameFile.besttimes[s][d] || (g_GameFile.coopcompletions[d] & (1 << s))) {
 				count++;
 				done = true;
 				break;

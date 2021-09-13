@@ -3574,7 +3574,7 @@
 /**
  * Sets a savefile flag.
  *
- * Expected to be a SAVEFILEFLAG constant.
+ * Expected to be a GAMEFILEFLAG constant.
  */
 #define set_savefile_flag(flag) \
 	mkshort(0x0190), \

@@ -7313,7 +7313,7 @@ bool mpIsTrackUnlocked(s32 tracknum)
 		unlocked = true;
 	} else {
 		for (i = 0; i != 3; i++) {
-			if (g_SoloSaveFile.besttimes[stageindex][i]) {
+			if (g_GameFile.besttimes[stageindex][i]) {
 				unlocked = true;
 				break;
 			}

@@ -2309,7 +2309,7 @@ u8 func100c_check_end_level[] = {
 	// Pad 0x00e9
 	label(0x04)
 	set_stage_flag(STAGEFLAG_BOARDED_PLANE)
-	unset_savefile_flag(SAVEFILEFLAG_AF1_ENTRY)
+	unset_savefile_flag(GAMEFILEFLAG_AF1_ENTRY)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x31)
 	if_chr_dead(CHR_BOND, /*goto*/ 0x31)
 	if_chr_knockedout(CHR_BOND, /*goto*/ 0x31)
@@ -2334,7 +2334,7 @@ u8 func100c_check_end_level[] = {
 	// Pad 0x00d5
 	label(0x05)
 	set_stage_flag(STAGEFLAG_BOARDED_PLANE)
-	set_savefile_flag(SAVEFILEFLAG_AF1_ENTRY)
+	set_savefile_flag(GAMEFILEFLAG_AF1_ENTRY)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x31)
 	if_chr_dead(CHR_BOND, /*goto*/ 0x31)
 	if_chr_knockedout(CHR_BOND, /*goto*/ 0x31)

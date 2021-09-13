@@ -917,7 +917,7 @@ u8 func1002_devicetraining_camspy[] = {
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
-	set_savefile_flag(SAVEFILEFLAG_CI_CAMSPY_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_CAMSPY_DONE)
 	label(0x84)
 	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
@@ -1045,7 +1045,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_NIGHTVISION_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_NIGHTVISION_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	set_lights_state(0x0030, LIGHTOP_1, 0xff, 0x00, 0x00)
@@ -1224,7 +1224,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_DOORDECODER_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_DOORDECODER_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1437,7 +1437,7 @@ u8 func1005_devicetraining_xray[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_XRAY_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_XRAY_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1576,7 +1576,7 @@ u8 func1006_devicetraining_disguise[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_DISGUISE_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_DISGUISE_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1725,7 +1725,7 @@ u8 func1007_devicetrainign_ir[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_IR_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_IR_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1852,7 +1852,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_RTRACKER_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_RTRACKER_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -2003,7 +2003,7 @@ u8 func1009_devicetraining_cloak[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_CLOAK_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_CLOAK_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -2156,7 +2156,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_ECMMINE_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_ECMMINE_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -2364,7 +2364,7 @@ u8 func100b_devicetraining_uplink[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_UPLINK_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_UPLINK_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	yield
@@ -2761,14 +2761,14 @@ u8 func042a_carrington_cloak[] = {
 
 u8 func100e_training_unlockables[] = {
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_UPLINK_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_UPLINK_DONE, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
 	unlock_door(0x3e, 0x40)
 
 	beginloop(0x08)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_ECMMINE_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_ECMMINE_DONE, /*goto*/ 0x2f)
 	endloop(0x08)
 
 	label(0x2f)
@@ -2777,14 +2777,14 @@ u8 func100e_training_unlockables[] = {
 	goto_next(0x2f)
 
 	beginloop(0x09)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_CAMSPY_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_CAMSPY_DONE, /*goto*/ 0x2f)
 	endloop(0x09)
 
 	label(0x2f)
 	unset_object_flag2(OBJ_LIGHTSWITCH, OBJFLAG2_INVISIBLE)
 
 	beginloop(0x0a)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_NIGHTVISION_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_NIGHTVISION_DONE, /*goto*/ 0x2f)
 	endloop(0x0a)
 
 	label(0x2f)
@@ -2798,21 +2798,21 @@ u8 func100e_training_unlockables[] = {
 	set_lights_state(0x0022, LIGHTOP_1, 0xff, 0x00, 0x00)
 
 	beginloop(0x0b)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_DOORDECODER_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_DOORDECODER_DONE, /*goto*/ 0x2f)
 	endloop(0x0b)
 
 	label(0x2f)
 	unlock_door(0x41, 0x40)
 
 	beginloop(0x0e)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_IR_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_IR_DONE, /*goto*/ 0x2f)
 	endloop(0x0e)
 
 	label(0x2f)
 	unlock_door(0x37, 0x40)
 
 	beginloop(0x0f)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_XRAY_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_XRAY_DONE, /*goto*/ 0x2f)
 	endloop(0x0f)
 
 	label(0x2f)
@@ -2852,12 +2852,12 @@ u8 func100f_doorproxy_unused1[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Unreachable
-	do_door_proxy(SAVEFILEFLAG_CI_ECMMINE_DONE, 0x0185, 0x3d)
+	do_door_proxy(GAMEFILEFLAG_CI_ECMMINE_DONE, 0x0185, 0x3d)
 	endlist
 };
 
 u8 func1010_doorproxy[] = {
-	do_door_proxy(SAVEFILEFLAG_CI_UPLINK_DONE, 0x0186, 0x3e)
+	do_door_proxy(GAMEFILEFLAG_CI_UPLINK_DONE, 0x0186, 0x3e)
 	endlist
 };
 
@@ -2865,7 +2865,7 @@ u8 func1010_doorproxy_unused2[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Unreachable
-	do_door_proxy(SAVEFILEFLAG_CI_ECMMINE_DONE, 0x0187, 0x3f)
+	do_door_proxy(GAMEFILEFLAG_CI_ECMMINE_DONE, 0x0187, 0x3f)
 	endlist
 };
 
@@ -2905,7 +2905,7 @@ u8 func1012_cloak_doorproxy[] = {
 u8 func101b_ir_door[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_IR, TRUE, /*goto*/ 0x06)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_IR_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_IR_DONE, /*goto*/ 0x2f)
 		label(0x06)
 		reloop(0x04)
 
@@ -2936,9 +2936,9 @@ u8 func042b_init_carrington[] = {
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	yield
 	set_morale(0)
-	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 #if VERSION >= VERSION_NTSC_1_0
-	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_TOUR_DONE)
 #endif
 	dprint 'E','E','P','R','O','M',' ','S','E','T',0,
 
@@ -2951,7 +2951,7 @@ u8 func042b_init_carrington[] = {
 
 	label(0x06)
 	dprint 'E','E','P','R','O','M',' ','N','O','T','S','E','T',0,
-	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_DONE, /*goto*/ 0x8f)
+	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_DONE, /*goto*/ 0x8f)
 	goto_first(0x08)
 
 	beginloop(0x8f)
@@ -2967,7 +2967,7 @@ u8 func042b_init_carrington[] = {
 u8 func1019_setup_carrington[] = {
 	beginloop(0x04)
 		if_chr_has_hiddenflag(CHR_CARRINGTON, CHRHFLAG_INFINITESHIELD, /*goto*/ 0x06)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x06)
@@ -3008,7 +3008,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
-	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_STARTED)
+	set_savefile_flag(GAMEFILEFLAG_CI_TOUR_STARTED)
 	do_preset_animation(-1)
 	remove_hudmsgs
 	speak(CHR_TARGET, L_DISH_066, SFX_8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
@@ -3291,7 +3291,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x7a)
 
 	label(0x2f)
-	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_TOUR_DONE)
 	walk_to_pad(PAD_CARRINGTON_OFFICE)
 
 	beginloop(0x76)
@@ -3368,19 +3368,19 @@ u8 func042e_devicegirl_reply_to_carrington[] = {
 u8 func1013_msg_hovercrate[] = {
 #if VERSION >= VERSION_PAL_FINAL
 	beginloop(0x8f)
-		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_HOVERCRATE, /*goto*/ 0x04)
+		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_HOVERCRATE, /*goto*/ 0x04)
 	endloop(0x8f)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_HOVERCRATE, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_HOWTO_HOVERCRATE, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0141, /*goto*/ 0x2f)
 	endloop(0x04)
 #else
-	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0141, /*goto*/ 0x2f)
 	endloop(0x04)
 #endif
@@ -3390,7 +3390,7 @@ u8 func1013_msg_hovercrate[] = {
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_FINAL
-	set_savefile_flag(SAVEFILEFLAG_HOWTO_HOVERCRATE)
+	set_savefile_flag(GAMEFILEFLAG_HOWTO_HOVERCRATE)
 #endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_073) // "HOVERCRATE Press B Button next to Hovcrate to grab it..."
@@ -3410,19 +3410,19 @@ u8 func1013_msg_hovercrate[] = {
 u8 func1014_msg_hoverbike[] = {
 #if VERSION >= VERSION_PAL_FINAL
 	beginloop(0x8f)
-		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_HOVERBIKE, /*goto*/ 0x04)
+		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_HOVERBIKE, /*goto*/ 0x04)
 	endloop(0x8f)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_HOVERBIKE, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_HOWTO_HOVERBIKE, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_01F9, /*goto*/ 0x2f)
 	endloop(0x04)
 #else
-	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_01F9, /*goto*/ 0x2f)
 	endloop(0x04)
 #endif
@@ -3432,7 +3432,7 @@ u8 func1014_msg_hoverbike[] = {
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_FINAL
-	set_savefile_flag(SAVEFILEFLAG_HOWTO_HOVERBIKE)
+	set_savefile_flag(GAMEFILEFLAG_HOWTO_HOVERBIKE)
 #endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_075) // "HOVERBIKE Double tap B Button next to Hovbike to ride it..."
@@ -3452,18 +3452,18 @@ u8 func1014_msg_hoverbike[] = {
 u8 func1015_msg_doors[] = {
 #if VERSION >= VERSION_PAL_FINAL
 	beginloop(0x8f)
-		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_DOORS, /*goto*/ 0x04)
+		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_DOORS, /*goto*/ 0x04)
 	endloop(0x8f)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_DOORS, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_HOWTO_DOORS, /*goto*/ 0x06)
 	endloop(0x04)
 #else
-	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 	endloop(0x04)
 #endif
 
@@ -3472,7 +3472,7 @@ u8 func1015_msg_doors[] = {
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_FINAL
-	set_savefile_flag(SAVEFILEFLAG_HOWTO_DOORS)
+	set_savefile_flag(GAMEFILEFLAG_HOWTO_DOORS)
 #endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_077) // "OPENING DOORS Press B Button next to door to open it."
@@ -3492,20 +3492,20 @@ u8 func1015_msg_doors[] = {
 u8 func1016_msg_elevators[] = {
 #if VERSION >= VERSION_PAL_FINAL
 	beginloop(0x8f)
-		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_ELEVATORS, /*goto*/ 0x04)
+		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_ELEVATORS, /*goto*/ 0x04)
 	endloop(0x8f)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_ELEVATORS, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_HOWTO_ELEVATORS, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0160, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0162, /*goto*/ 0x2f)
 	endloop(0x04)
 #else
-	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0160, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0162, /*goto*/ 0x2f)
 	endloop(0x04)
@@ -3513,7 +3513,7 @@ u8 func1016_msg_elevators[] = {
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_FINAL
-	set_savefile_flag(SAVEFILEFLAG_HOWTO_ELEVATORS)
+	set_savefile_flag(GAMEFILEFLAG_HOWTO_ELEVATORS)
 #endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_079) // "ELEVATORS Press B Button next to door to call elevator."
@@ -3525,11 +3525,11 @@ u8 func1016_msg_elevators[] = {
 u8 func1017_msg_terminals[] = {
 #if VERSION >= VERSION_PAL_FINAL
 	beginloop(0x8f)
-		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_TERMINALS, /*goto*/ 0x04)
+		if_savefile_flag_is_unset(GAMEFILEFLAG_HOWTO_TERMINALS, /*goto*/ 0x04)
 	endloop(0x8f)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_TERMINALS, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_HOWTO_TERMINALS, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0227, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_022A, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_021C, /*goto*/ 0x2f)
@@ -3539,11 +3539,11 @@ u8 func1017_msg_terminals[] = {
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_023E, /*goto*/ 0x2f)
 	endloop(0x04)
 #else
-	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	beginloop(0x04)
-		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(GAMEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_0227, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_022A, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_DISH_021C, /*goto*/ 0x2f)
@@ -3556,7 +3556,7 @@ u8 func1017_msg_terminals[] = {
 
 	label(0x2f)
 #if VERSION >= VERSION_PAL_FINAL
-	set_savefile_flag(SAVEFILEFLAG_HOWTO_TERMINALS)
+	set_savefile_flag(GAMEFILEFLAG_HOWTO_TERMINALS)
 #endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH_114) // "TERMINALS - Press B Button next to terminal to use it."
@@ -3682,7 +3682,7 @@ u8 func101c_holo1_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_HOLO1_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_HOLO1_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4030,7 +4030,7 @@ u8 func1022_holo2_main[] = {
 	goto_next(0x90)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_HOLO2_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_HOLO2_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4340,7 +4340,7 @@ u8 func1027_holo3_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_HOLO3_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_HOLO3_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4582,7 +4582,7 @@ u8 func1028_holo4_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_HOLO4_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_HOLO4_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4827,7 +4827,7 @@ u8 func1029_holo5_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_HOLO5_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_HOLO5_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -5203,7 +5203,7 @@ u8 func102e_holo6_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_HOLO6_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_HOLO6_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -5620,7 +5620,7 @@ u8 func1030_holo7_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_savefile_flag(SAVEFILEFLAG_CI_HOLO7_DONE)
+	set_savefile_flag(GAMEFILEFLAG_CI_HOLO7_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield

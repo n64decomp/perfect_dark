@@ -3170,7 +3170,7 @@ u8 func0c02_outro[] = {
 	revoke_control(CHR_BOND, 4)
 	hide_countdown_timer
 	stop_countdown_timer
-	unset_savefile_flag(SAVEFILEFLAG_DEFENSE_JON)
+	unset_savefile_flag(GAMEFILEFLAG_DEFENSE_JON)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3239,7 +3239,7 @@ u8 func1021_jo_escaping[] = {
 	hide_countdown_timer
 	stop_countdown_timer
 	label(0x62)
-	set_savefile_flag(SAVEFILEFLAG_DEFENSE_JON)
+	set_savefile_flag(GAMEFILEFLAG_DEFENSE_JON)
 	play_cutscene_track(MUSIC_ESCAPE_OUTRO_LONG)
 	camera_movement(ANIM_02D4)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)

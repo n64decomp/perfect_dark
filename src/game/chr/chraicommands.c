@@ -11315,7 +11315,7 @@ bool aiIfObjectDistanceToPadLessThan(void)
 bool aiSetSavefileFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	savefileSetFlag(cmd[2]);
+	gamefileSetFlag(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -11327,7 +11327,7 @@ bool aiSetSavefileFlag(void)
 bool aiUnsetSavefileFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	savefileUnsetFlag(cmd[2]);
+	gamefileUnsetFlag(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -11340,7 +11340,7 @@ bool aiIfSavefileFlagIsSet(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (savefileHasFlag(cmd[2])) {
+	if (gamefileHasFlag(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -11356,7 +11356,7 @@ bool aiIfSavefileFlagIsUnset(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (!savefileHasFlag(cmd[2])) {
+	if (!gamefileHasFlag(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
