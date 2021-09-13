@@ -917,10 +917,10 @@ glabel func0f0d5690
 //}
 #endif
 
-void func0f0d575c(struct savebuffer *buffer, u32 *arg1)
+void func0f0d575c(struct savebuffer *buffer, struct maybesavelocation_2d8 *arg1)
 {
-	savebufferOr(buffer, *(s32 *) arg1, 7);
-	savebufferOr(buffer, *(u16 *) (arg1 + 1), 13);
+	savebufferOr(buffer, arg1->unk00, 7);
+	savebufferOr(buffer, arg1->unk04, 13);
 }
 
 void func0f0d579c(struct savebuffer *buffer, struct maybesavelocation_2d8 *arg1)

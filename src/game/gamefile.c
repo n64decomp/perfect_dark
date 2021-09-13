@@ -891,25 +891,6 @@ const char var7f1b3928[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)"
 const char var7f1b395c[] = "pdoptions.c";
 const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
 const char var7f1b399c[] = "pdoptions.c";
-const char var7f1b39a8[] = "";
-const char var7f1b39ac[] = "";
-const char var7f1b39b0[] = "fileGuid";
-const char var7f1b39bc[] = "bossfile.c";
-const char var7f1b39c8[] = "";
-const char var7f1b39cc[] = "";
-const char var7f1b39d0[] = "Rebuilding pakWad %d:\n";
-
-const u32 var7f1b39e8[] = {0x00000080};
-const u32 var7f1b39ec[] = {0x00000040};
-const u32 var7f1b39f0[] = {0x00000020};
-const u32 var7f1b39f4[] = {0x00000008};
-const u32 var7f1b39f8[] = {0x04000102};
-const u32 var7f1b39fc[] = {0x03000000};
-const u32 var7f1b3a00[] = {0x01020304};
-const u32 var7f1b3a04[] = {0x00000000};
-
-const char var7f1b3a08[] = "tc != NULL";
-const char var7f1b3a14[] = "gamefile.c";
 
 s32 gamefileLoad(s32 arg0)
 {

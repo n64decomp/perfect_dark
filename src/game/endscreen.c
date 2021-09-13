@@ -1360,7 +1360,7 @@ void endscreenPrepare(void)
 				if (g_MissionConfig.stagenum == STAGE_SKEDARRUINS && (u8)g_SoloCompleted == false) {
 					g_SoloCompleted = true;
 					g_AltTitle = true;
-					func0f1109c0();
+					mpsetupfileSave();
 				}
 			}
 		}
@@ -1563,7 +1563,7 @@ glabel endscreenPrepare
 /*  f1091b4:	15a00004 */ 	bnez	$t5,.NB0f1091c8
 /*  f1091b8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1091bc:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f1091c0:	0fc42b8c */ 	jal	func0f1109c0
+/*  f1091c0:	0fc42b8c */ 	jal	mpsetupfileSave
 /*  f1091c4:	a022681c */ 	sb	$v0,0x681c($at)
 .NB0f1091c8:
 /*  f1091c8:	3c04800a */ 	lui	$a0,0x800a

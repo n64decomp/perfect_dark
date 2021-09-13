@@ -477,7 +477,7 @@ void filemgrHandleSuccess(void)
 	case FILEOP_LOAD_GAME:
 		g_Vars.unk00047c = g_Menus[g_MpPlayerNum].unke48;
 		g_Vars.unk000480 = g_Menus[g_MpPlayerNum].unke4c;
-		func0f1109c0();
+		mpsetupfileSave();
 
 		if (IS4MB()) {
 			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);

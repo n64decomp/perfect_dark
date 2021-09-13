@@ -4155,7 +4155,7 @@ s32 menudialog0010559c(s32 operation, struct menudialog *dialog, union handlerda
 		}
 
 		if (g_Vars.modifiedfiles & MODFILE_GLOBAL) {
-			func0f1109c0();
+			mpsetupfileSave();
 			g_Vars.modifiedfiles &= ~MODFILE_GLOBAL;
 		}
 		break;
