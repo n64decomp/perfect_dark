@@ -6426,7 +6426,7 @@ glabel var7f1b94e4
 //			case FRMENUTYPE_COMPLETED:
 //				sndStart(var80095200, SFX_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
 //				func0f0f85e0(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
-//				func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
+//				func0f1094e4(&g_FilemgrLoadedMainFile, FILEOP_SAVE_GAME_000, 0);
 //				break;
 //			}
 //		}

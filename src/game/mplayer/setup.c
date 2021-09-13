@@ -546,13 +546,13 @@ s32 menuhandlerMpConfirmSaveChr(s32 operation, struct menuitem *item, union hand
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
-		filemgrPushSelectLocationDialog(6, 2);
+		filemgrPushSelectLocationDialog(6, FILETYPE_MPPLAYER);
 	}
 
 	return 0;
 }
 
-s32 menuhandlerMpPlayerName(s32 operation, struct menuitem *item, union handlerdata *data)
+s32 menuhandlerMpSetupName(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	char *name = data->keyboard.string;
 
@@ -564,7 +564,7 @@ s32 menuhandlerMpPlayerName(s32 operation, struct menuitem *item, union handlerd
 		strcpy(g_MpSetup.name, name);
 		break;
 	case MENUOP_SET:
-		filemgrPushSelectLocationDialog(7, 1);
+		filemgrPushSelectLocationDialog(7, FILETYPE_MPSETUP);
 		break;
 	}
 
@@ -575,7 +575,7 @@ s32 menuhandlerMpSaveSetupOverwrite(s32 operation, struct menuitem *item, union 
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
-		func0f1094e4(&g_MpSetup.unk20, 4, NULL);
+		func0f1094e4(&g_MpSetup.unk20, FILEOP_SAVE_MPSETUP, NULL);
 	}
 
 	return 0;
@@ -2338,7 +2338,7 @@ struct menudialog g_MpSavePlayerMenuDialog = {
 
 struct menuitem g_MpSaveSetupNameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPMENU_189, 0x00000000, NULL }, // "Enter a name for your game setup file:"
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandlerMpPlayerName },
+	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandlerMpSetupName },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -4521,7 +4521,7 @@ s32 menudialogMpReady(s32 operation, struct menudialog *dialog, union handlerdat
 {
 	if (operation == MENUOP_OPEN) {
 		if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 && g_MpPlayers[g_MpPlayerNum].unk4c.unk04) {
-			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].unk4c, 3, (void *)g_MpPlayerNum);
+			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].unk4c, FILEOP_SAVE_MPPLAYER, (void *)g_MpPlayerNum);
 		}
 	}
 
@@ -7408,7 +7408,7 @@ s32 menuhandlerMpSavePlayer(s32 operation, struct menuitem *item, union handlerd
 {
 	if (operation == MENUOP_SET) {
 		if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false) {
-			filemgrPushSelectLocationDialog(6, 2);
+			filemgrPushSelectLocationDialog(6, FILETYPE_MPPLAYER);
 		} else {
 			menuPushDialog(&g_MpSavePlayerMenuDialog);
 		}

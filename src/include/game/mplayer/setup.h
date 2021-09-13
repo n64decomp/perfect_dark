@@ -128,7 +128,7 @@ s32 menuhandlerMpCheckboxOption(s32 operation, struct menuitem *item, union hand
 s32 menuhandlerMpTeamsEnabled(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpDisplayOptionCheckbox(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpConfirmSaveChr(s32 operation, struct menuitem *item, union handlerdata *data);
-s32 menuhandlerMpPlayerName(s32 operation, struct menuitem *item, union handlerdata *data);
+s32 menuhandlerMpSetupName(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpSaveSetupOverwrite(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpSaveSetupCopy(s32 operation, struct menuitem *item, union handlerdata *data);
 s32 menuhandlerMpCharacterBody(s32 operation, struct menuitem *item, union handlerdata *data);

@@ -1365,7 +1365,7 @@ void endscreenPrepare(void)
 			}
 		}
 
-		func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
+		func0f1094e4(&g_FilemgrLoadedMainFile, FILEOP_SAVE_GAME_000, 0);
 	}
 
 	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
@@ -1666,7 +1666,7 @@ void soloPushCoopModeEndscreen(void)
 	}
 
 	if (g_Vars.currentplayer == g_Vars.bond) {
-		func0f1094e4(&g_FilemgrLoadedMainFile, 0, NULL);
+		func0f1094e4(&g_FilemgrLoadedMainFile, FILEOP_SAVE_GAME_000, NULL);
 	}
 
 	g_MpPlayerNum = prevplayernum;
@@ -1806,7 +1806,7 @@ void soloPushAntiModeEndscreen(void)
 			}
 		}
 
-		func0f1094e4(&g_FilemgrLoadedMainFile, 0, 0);
+		func0f1094e4(&g_FilemgrLoadedMainFile, FILEOP_SAVE_GAME_000, 0);
 	} else {
 		if (g_Vars.anti->aborted == 0 &&
 				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {

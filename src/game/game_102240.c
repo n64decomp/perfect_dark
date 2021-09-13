@@ -4147,7 +4147,7 @@ s32 menudialog0010559c(s32 operation, struct menudialog *dialog, union handlerda
 		break;
 	case MENUOP_CLOSE:
 		if ((g_Vars.modifiedfiles & MODFILE_SOLO) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
-			if (func0f1094e4(&g_FilemgrLoadedMainFile, 1, 0) == 0) {
+			if (func0f1094e4(&g_FilemgrLoadedMainFile, FILEOP_SAVE_GAME_001, 0) == 0) {
 				data->dialog1.preventclose = true;
 			}
 
@@ -4248,7 +4248,7 @@ s32 menuhandlerControlStyle(s32 operation, struct menuitem *item, union handlerd
 s32 menuhandler001057ec(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f1094e4(&g_FilemgrLoadedMainFile, 2, 0);
+		func0f1094e4(&g_FilemgrLoadedMainFile, FILEOP_SAVE_GAME_002, 0);
 	}
 
 	return 0;

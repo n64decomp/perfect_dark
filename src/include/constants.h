@@ -749,11 +749,31 @@
 #define FILEERROR_PAKDAMAGED       7
 #define FILEERROR_DELETENOTEFAILED 8
 
+#define FILEOP_IS_LOAD(op) (op >= 100)
+#define FILEOP_IS_SAVE(op) (op < 100)
+
+#define FILEOP_SAVE_GAME_000  0 // from endscreens
+#define FILEOP_SAVE_GAME_001  1 // from closing options dialog
+#define FILEOP_SAVE_GAME_002  2
+#define FILEOP_SAVE_MPPLAYER  3
+#define FILEOP_SAVE_MPSETUP   4
+#define FILEOP_005            5 // Perfect head?
+#define FILEOP_WRITE_GAME     6
+#define FILEOP_WRITE_MPSETUP  7
+#define FILEOP_WRITE_MPPLAYER 8
+#define FILEOP_LOAD_GAME      100
+#define FILEOP_LOAD_MPPLAYER  101
+#define FILEOP_LOAD_MPSETUP   102
+#define FILEOP_103            103 // Perfect head?
+#define FILEOP_READ_GAME      104
+#define FILEOP_READ_MPSETUP   105
+#define FILEOP_READ_MPPLAYER  106
+
 #define FILESTATE_UNSELECTED    0
 #define FILESTATE_SELECTED      1
 #define FILESTATE_CHANGINGAGENT 2
 
-#define FILETYPE_SOLO     0
+#define FILETYPE_GAME     0
 #define FILETYPE_MPSETUP  1
 #define FILETYPE_MPPLAYER 2
 

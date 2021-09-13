@@ -536,7 +536,7 @@ s32 mpConfirmPlayerNameHandler(s32 operation, struct menuitem *item, union handl
 		}
 		break;
 	case MENUOP_SET:
-		filemgrPushSelectLocationDialog(6, 2);
+		filemgrPushSelectLocationDialog(6, FILETYPE_MPPLAYER);
 		break;
 	}
 

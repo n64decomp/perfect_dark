@@ -4479,7 +4479,7 @@ struct menu {
 	/*0xe3f*/ u8 listnum;
 	/*0xe40*/ u8 unke40;
 	/*0xe41*/ u8 unke41;
-	/*0xe42*/ u8 unke42;
+	/*0xe42*/ u8 fileop;
 	/*0xe44*/ void *unke44;
 	/*0xe48*/ u32 unke48;
 	/*0xe4c*/ u32 unke4c;
