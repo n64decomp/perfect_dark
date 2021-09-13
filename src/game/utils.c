@@ -14,16 +14,13 @@ const char var7f1b7d2c[] = "";
 const char var7f1b7d30[] = "";
 const char var7f1b7d34[] = "Utils -> Attempt to normalise zeo length vector\n";
 
-u32 var800ac0d0;
+void *var800ac0d0;
 u32 var800ac0d4;
 u32 var800ac0d8;
 u32 var800ac0dc;
 u32 var800ac0e0;
 u32 var800ac0e4;
-u32 var800ac0e8;
-u32 var800ac0ec;
-u32 var800ac0f0;
-u32 var800ac0f4;
+void *var800ac0e8[4];
 u32 var800ac0f8[4];
 u32 var800ac108;
 
@@ -41,9 +38,9 @@ u32 var80084600 = 0x3f800000;
 u32 var80084604 = 0x00000000;
 u32 var80084608 = 0x00000000;
 u32 var8008460c = 0xffffffff;
-u32 var80084610 = 0x00000000;
-u32 var80084614 = 0x00000000;
-u32 var80084618 = 0x00000000;
+void *var80084610 = NULL;
+void *var80084614 = NULL;
+void *var80084618 = NULL;
 u32 var8008461c = 0x00000004;
 u32 var80084620 = 0x00000000;
 u32 var80084624 = 0x00000000;
@@ -147,6 +144,39 @@ glabel func0f176ddc
 /*  f176ea8:	03e00008 */ 	jr	$ra
 /*  f176eac:	ac2c4614 */ 	sw	$t4,%lo(var80084614)($at)
 );
+
+// Mismatch: Different codegen in last 3 statements
+//void func0f176ddc(void)
+//{
+//	u32 stack1;
+//	u32 stack2;
+//	s32 i;
+//	u32 size;
+//
+//	static void *var80084610 = NULL;
+//	static void *var80084614 = NULL;
+//	static void *var80084618 = NULL;
+//	static void *var800ac0e8[4];
+//
+//	var800ac0d0 = malloc(10000, MEMPOOL_8);
+//
+//	size = align16(0x3900);
+//	var800ac0e8[0] = malloc(size, MEMPOOL_8);
+//
+//	if (var800ac0e8[0] != NULL) {
+//		for (i = 0; i < 4; i++) {
+//			var800ac0e8[i] = (void *)((u32)var800ac0e8[0] + ((i * 100) << 4));
+//		}
+//	} else {
+//		for (i = 0; i < 4; i++) {
+//			var800ac0e8[i] = NULL;
+//		}
+//	}
+//
+//	var80084610 = (void *)((u32)var800ac0e8[0] + 0x1900);
+//	var80084614 = var80084610;
+//	var80084618 = (void *)((u32)var800ac0e8[0] + size - 1);
+//}
 
 s32 func0f176eb0(s32 arg0, s32 arg1)
 {
