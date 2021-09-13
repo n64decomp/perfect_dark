@@ -6,7 +6,7 @@
 
 bool func0f1106c8(void);
 u32 func0f110720(void);
-u32 func0f11080c(void);
+void mpsetupfileLoad(void);
 void func0f1109c0(void);
 void func0f110b68(void);
 void func0f110bf0(void);

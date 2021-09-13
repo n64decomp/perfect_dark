@@ -8894,7 +8894,7 @@ void mpCreateMatchStartHudmsgs(void)
 	char challengename[60];
 	char scenarioname[60];
 
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
 		sprintf(challengename, "%s:\n", mpGetChallengeNameBySlot(mpGetCurrentChallengeIndex()));
 	}
 
@@ -8904,7 +8904,7 @@ void mpCreateMatchStartHudmsgs(void)
 		if (g_MpPlayerChrs[i]->aibot == NULL) {
 			setCurrentPlayerNum(i);
 
-			if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+			if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
 				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 			}
 

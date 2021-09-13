@@ -923,10 +923,10 @@ void func0f0d575c(struct savebuffer *buffer, u32 *arg1)
 	savebufferOr(buffer, *(u16 *) (arg1 + 1), 13);
 }
 
-void func0f0d579c(struct savebuffer *buffer, u32 *arg1)
+void func0f0d579c(struct savebuffer *buffer, struct maybesavelocation_2d8 *arg1)
 {
-	*(s32 *) arg1 = savebufferReadBits(buffer, 7);
-	*(u16 *) (arg1 + 1) = savebufferReadBits(buffer, 13);
+	arg1->unk00 = savebufferReadBits(buffer, 7);
+	arg1->unk04 = savebufferReadBits(buffer, 13);
 }
 
 GLOBAL_ASM(

@@ -4539,6 +4539,11 @@ struct savelocation_2d8 {
 	u16 unk04;
 };
 
+struct maybesavelocation_2d8 {
+	u32 unk00;
+	u16 unk04;
+};
+
 struct mpplayer {
 	/*0x00*/ struct mpchr base;
 	/*0x48*/ u16 options;
@@ -4614,14 +4619,14 @@ struct mpsetup {
 	/*0x800acba8*/ struct savelocation_2d8 unk20;
 };
 
-struct savefile_setup {
+struct mpsetupfile {
 	/*0x00*/ char teamnames[8][12];
 	/*0x60*/ u8 locktype;
 	/*0x61*/ u8 unk89;
 	/*0x62*/ u8 usingmultipletunes;
 	/*0x63*/ u8 unk8b;
 	/*0x64*/ s8 tracknum; // -1 = random
-	/*0x8d*/ u8 multipletracknums[5];
+	/*0x8d*/ u8 multipletracknums[6];
 };
 
 struct savebuffer {

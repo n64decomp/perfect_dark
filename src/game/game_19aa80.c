@@ -999,7 +999,7 @@ glabel mpDetermineUnlockedFeatures
 
 void mpPerformSanityChecks(void)
 {
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
 		s32 numplayers = 0;
 		s32 i;
 

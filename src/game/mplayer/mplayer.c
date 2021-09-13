@@ -38,7 +38,7 @@ u8 g_MpSimulantDifficultiesPerNumPlayers[32];
 struct mpplayer g_MpPlayers[6];
 u8 g_AmBotCommands[16];
 struct mpsetup g_MpSetup;
-struct savefile_setup g_MpSetupSaveFile;
+struct mpsetupfile g_MpSetupFile;
 u32 var800acc1c;
 struct mplockinfo g_MpLockInfo;
 struct modelfiledata *var800acc28[18];
@@ -621,8 +621,8 @@ void mpSetDefaultNamesIfEmpty(void)
 
 	// Team names
 	for (i = 0; i < 8; i++) {
-		if (g_MpSetupSaveFile.teamnames[i][0] == '\0') {
-			strcpy(g_MpSetupSaveFile.teamnames[i], langGet(L_OPTIONS_008 + i)); // "Red", "Yellow" etc
+		if (g_MpSetupFile.teamnames[i][0] == '\0') {
+			strcpy(g_MpSetupFile.teamnames[i], langGet(L_OPTIONS_008 + i)); // "Red", "Yellow" etc
 		}
 	}
 
@@ -639,7 +639,7 @@ s32 mpCalculateTeamScoreLimit(void)
 	s32 limit = g_MpSetup.teamscorelimit;
 	s32 i;
 
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE
 			&& g_MpSetup.teamscorelimit != 400
 			&& (g_MpSetup.scenario == MPSCENARIO_COMBAT || g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL)) {
 		s32 numchrs = 0;
@@ -6941,7 +6941,7 @@ void mpEndMatch(void)
 	setCurrentPlayerNum(prevplayernum);
 	func0f18a56c();
 
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
 		mpConsiderMarkingCurrentChallengeComplete();
 	}
 
@@ -7205,9 +7205,9 @@ glabel mpChooseRandomLockPlayer
 
 bool mpSetLock(s32 locktype, s32 playernum)
 {
-	g_MpSetupSaveFile.locktype = locktype;
+	g_MpSetupFile.locktype = locktype;
 
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_RANDOM) {
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_RANDOM) {
 		g_MpLockInfo.lockedplayernum = mpChooseRandomLockPlayer();
 	} else {
 		g_MpLockInfo.lockedplayernum = playernum;
@@ -7218,7 +7218,7 @@ bool mpSetLock(s32 locktype, s32 playernum)
 
 s32 mpGetLockType(void)
 {
-	return g_MpSetupSaveFile.locktype;
+	return g_MpSetupFile.locktype;
 }
 
 u32 mpGetLockPlayerNum(void)
@@ -7228,7 +7228,7 @@ u32 mpGetLockPlayerNum(void)
 
 bool mpIsPlayerLockedOut(u32 playernum)
 {
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_NONE) {
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_NONE) {
 		return false;
 	}
 
@@ -7241,16 +7241,16 @@ bool mpIsPlayerLockedOut(u32 playernum)
 
 void mpCalculateLockIfLastWinnerOrLoser(void)
 {
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_LASTWINNER && g_MpLockInfo.lastwinner >= 0) {
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_LASTWINNER && g_MpLockInfo.lastwinner >= 0) {
 		g_MpLockInfo.lockedplayernum = g_MpLockInfo.lastwinner;
 	}
 
-	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_LASTLOSER && g_MpLockInfo.lastloser >= 0) {
+	if (g_MpSetupFile.locktype == MPLOCKTYPE_LASTLOSER && g_MpLockInfo.lastloser >= 0) {
 		g_MpLockInfo.lockedplayernum = g_MpLockInfo.lastloser;
 	}
 
 	if (g_MpLockInfo.lockedplayernum >= 0
-			&& g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE
+			&& g_MpSetupFile.locktype != MPLOCKTYPE_CHALLENGE
 			&& (g_MpSetup.chrslots & (1 << g_MpLockInfo.lockedplayernum)) == 0) {
 		g_MpLockInfo.lastwinner = g_MpLockInfo.lastloser = -1;
 		g_MpLockInfo.lockedplayernum = mpChooseRandomLockPlayer();
@@ -7376,12 +7376,12 @@ char *mpGetTrackName(s32 slotindex)
 
 void mpSetUsingMultipleTunes(bool enable)
 {
-	g_MpSetupSaveFile.usingmultipletunes = enable;
+	g_MpSetupFile.usingmultipletunes = enable;
 }
 
 bool mpGetUsingMultipleTunes(void)
 {
-	return g_MpSetupSaveFile.usingmultipletunes;
+	return g_MpSetupFile.usingmultipletunes;
 }
 
 bool mpIsMultiTrackSlotEnabled(s32 slot)
@@ -7390,7 +7390,7 @@ bool mpIsMultiTrackSlotEnabled(s32 slot)
 	u8 index = tracknum >> 3;
 	u8 value = 1 << (tracknum & 7);
 
-	if ((g_MpSetupSaveFile.multipletracknums[index] & value) == 0) {
+	if ((g_MpSetupFile.multipletracknums[index] & value) == 0) {
 		return false;
 	}
 
@@ -7404,9 +7404,9 @@ void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
 	u8 index = tracknum >> 3;
 
 	if (enable) {
-		g_MpSetupSaveFile.multipletracknums[index] |= value;
+		g_MpSetupFile.multipletracknums[index] |= value;
 	} else {
-		g_MpSetupSaveFile.multipletracknums[index] &= ~value;
+		g_MpSetupFile.multipletracknums[index] &= ~value;
 	}
 }
 
@@ -7415,7 +7415,7 @@ void mpSetTrackSlotEnabled(s32 slot)
 	if (mpGetUsingMultipleTunes()) {
 		mpSetMultiTrackSlotEnabled(slot, 1 - mpIsMultiTrackSlotEnabled(slot));
 	} else {
-		g_MpSetupSaveFile.tracknum = mpGetTrackNumAtSlotIndex(slot);
+		g_MpSetupFile.tracknum = mpGetTrackNumAtSlotIndex(slot);
 	}
 }
 
@@ -7424,7 +7424,7 @@ void mpEnableAllMultiTracks(void)
 	s32 i;
 
 	for (i = 0; i != 6; i++) {
-		g_MpSetupSaveFile.multipletracknums[i] = 0xff;
+		g_MpSetupFile.multipletracknums[i] = 0xff;
 	}
 }
 
@@ -7433,7 +7433,7 @@ void mpDisableAllMultiTracks(void)
 	s32 i;
 
 	for (i = 0; i != 6; i++) {
-		g_MpSetupSaveFile.multipletracknums[i] = 0;
+		g_MpSetupFile.multipletracknums[i] = 0;
 	}
 }
 
@@ -7442,22 +7442,22 @@ void mpRandomiseMultiTracks(void)
 	s32 i;
 
 	for (i = 0; i != 6; i++) {
-		g_MpSetupSaveFile.multipletracknums[i] = random();
+		g_MpSetupFile.multipletracknums[i] = random();
 	}
 }
 
 void mpSetTrackToRandom(void)
 {
-	g_MpSetupSaveFile.tracknum = -1;
+	g_MpSetupFile.tracknum = -1;
 }
 
 s32 mpGetCurrentTrackSlotNum(void)
 {
-	if (g_MpSetupSaveFile.tracknum < 0) {
-		return g_MpSetupSaveFile.tracknum;
+	if (g_MpSetupFile.tracknum < 0) {
+		return g_MpSetupFile.tracknum;
 	}
 
-	return mpGetTrackSlotIndex(g_MpSetupSaveFile.tracknum);
+	return mpGetTrackSlotIndex(g_MpSetupFile.tracknum);
 }
 
 #if VERSION >= VERSION_PAL_FINAL

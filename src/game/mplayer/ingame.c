@@ -115,7 +115,7 @@ s32 menuhandlerMpEndGame(s32 operation, struct menuitem *item, union handlerdata
 s32 menuhandler00178018(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_MpSetupFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -584,7 +584,7 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 	g_Menus[g_MpPlayerNum].playernum = arg0;
 
 	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-		if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+		if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
 			if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
 				menuPushRootDialog(&g_MpEndscreenChallengeCheatedMenuDialog, MENUROOT_MPENDSCREEN);
 			} else if (mpIsChallengeCompleteForEndscreen()) {

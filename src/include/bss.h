@@ -302,7 +302,7 @@ extern u8 g_MpSimulantDifficultiesPerNumPlayers[32];
 extern struct mpplayer g_MpPlayers[6];
 extern u8 g_AmBotCommands[16];
 extern struct mpsetup g_MpSetup;
-extern struct savefile_setup g_MpSetupSaveFile;
+extern struct mpsetupfile g_MpSetupFile;
 extern struct chrdata *g_MpSimulantChrs[MAX_SIMULANTS];
 
 #endif

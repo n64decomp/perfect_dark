@@ -4,6 +4,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
+#include "game/game_110680.h"
 #include "game/game_1531a0.h"
 #include "game/gamefile.h"
 #include "game/lang.h"

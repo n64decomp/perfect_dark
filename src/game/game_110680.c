@@ -5,6 +5,7 @@
 #include "game/cheats.h"
 #include "game/game_0b69d0.h"
 #include "game/game_0d4690.h"
+#include "game/game_110680.h"
 #include "game/bg.h"
 #include "game/game_19aa80.h"
 #include "game/training/training.h"
@@ -85,7 +86,7 @@ GLOBAL_ASM(
 glabel func0f1106c8
 /*  f111198:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f11119c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1111a0:	0fc444ba */ 	jal	func0f11080c
+/*  f1111a0:	0fc444ba */ 	jal	mpsetupfileLoad
 /*  f1111a4:	00000000 */ 	nop
 /*  f1111a8:	3c04800a */ 	lui	$a0,0x800a
 /*  f1111ac:	0fc5bdd7 */ 	jal	func0f16f75c
@@ -99,7 +100,7 @@ glabel func0f1106c8
 #else
 bool func0f1106c8(void)
 {
-	func0f11080c();
+	mpsetupfileLoad();
 	return true;
 }
 #endif
@@ -194,126 +195,66 @@ glabel func0f110720
 /*  f110808:	27bd0850 */ 	addiu	$sp,$sp,0x850
 );
 
-GLOBAL_ASM(
-glabel func0f11080c
-/*  f11080c:	27bdfed8 */ 	addiu	$sp,$sp,-296
-/*  f110810:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f110814:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f110818:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11081c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f110820:	0fc441c8 */ 	jal	func0f110720
-/*  f110824:	afa00124 */ 	sw	$zero,0x124($sp)
-/*  f110828:	14400005 */ 	bnez	$v0,.L0f110840
-/*  f11082c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f110830:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f110834:	afae0124 */ 	sw	$t6,0x124($sp)
-/*  f110838:	1000000c */ 	b	.L0f11086c
-/*  f11083c:	27b20044 */ 	addiu	$s2,$sp,0x44
-.L0f110840:
-/*  f110840:	27b20044 */ 	addiu	$s2,$sp,0x44
-/*  f110844:	0fc35517 */ 	jal	savebufferClear
-/*  f110848:	02402025 */ 	or	$a0,$s2,$zero
-/*  f11084c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f110850:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110854:	27a60048 */ 	addiu	$a2,$sp,0x48
-/*  f110858:	0fc45a00 */ 	jal	func0f116800
-/*  f11085c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f110860:	10400002 */ 	beqz	$v0,.L0f11086c
-/*  f110864:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f110868:	afaf0124 */ 	sw	$t7,0x124($sp)
-.L0f11086c:
-/*  f11086c:	8fb80124 */ 	lw	$t8,0x124($sp)
-/*  f110870:	02402025 */ 	or	$a0,$s2,$zero
-/*  f110874:	57000046 */ 	bnezl	$t8,.L0f110990
-/*  f110878:	8faa0124 */ 	lw	$t2,0x124($sp)
-/*  f11087c:	0fc355e7 */ 	jal	func0f0d579c
-/*  f110880:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f110884:	8fb90034 */ 	lw	$t9,0x34($sp)
-/*  f110888:	97a80038 */ 	lhu	$t0,0x38($sp)
-/*  f11088c:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f110890:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f110894:	02402025 */ 	or	$a0,$s2,$zero
-/*  f110898:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f11089c:	ae39047c */ 	sw	$t9,0x47c($s1)
-/*  f1108a0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f1108a4:	a6280480 */ 	sh	$t0,0x480($s1)
-/*  f1108a8:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x89)
-/*  f1108ac:	a022cc11 */ 	sb	$v0,%lo(g_MpSetup+0x89)($at)
-/*  f1108b0:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1108b4:	0fc354fe */ 	jal	savebufferReadBits
-/*  f1108b8:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1108bc:	a6220482 */ 	sh	$v0,0x482($s1)
-/*  f1108c0:	3c11800b */ 	lui	$s1,%hi(g_MpSetup+0x88)
-/*  f1108c4:	3c10800b */ 	lui	$s0,%hi(g_MpSetup+0x28)
-/*  f1108c8:	2610cbb0 */ 	addiu	$s0,$s0,%lo(g_MpSetup+0x28)
-/*  f1108cc:	2631cc10 */ 	addiu	$s1,$s1,%lo(g_MpSetup+0x88)
-/*  f1108d0:	02402025 */ 	or	$a0,$s2,$zero
-.L0f1108d4:
-/*  f1108d4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1108d8:	0fc35539 */ 	jal	savebufferReadString
-/*  f1108dc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1108e0:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f1108e4:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f1108e8:	5420fffa */ 	bnezl	$at,.L0f1108d4
-/*  f1108ec:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1108f0:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1108f4:	0fc354fe */ 	jal	savebufferReadBits
-/*  f1108f8:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1108fc:	304300ff */ 	andi	$v1,$v0,0xff
-/*  f110900:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f110904:	14610005 */ 	bne	$v1,$at,.L0f11091c
-/*  f110908:	3c10800b */ 	lui	$s0,%hi(g_MpSetup+0x28)
-/*  f11090c:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f110910:	3c01800b */ 	lui	$at,%hi(g_MpSetupSaveFile+0x64)
-/*  f110914:	10000003 */ 	b	.L0f110924
-/*  f110918:	a029cc14 */ 	sb	$t1,%lo(g_MpSetupSaveFile+0x64)($at)
-.L0f11091c:
-/*  f11091c:	3c01800b */ 	lui	$at,%hi(g_MpSetupSaveFile+0x64)
-/*  f110920:	a023cc14 */ 	sb	$v1,%lo(g_MpSetupSaveFile+0x64)($at)
-.L0f110924:
-/*  f110924:	3c11800b */ 	lui	$s1,%hi(g_MpSetup+0x2e)
-/*  f110928:	2631cbb6 */ 	addiu	$s1,$s1,%lo(g_MpSetup+0x2e)
-/*  f11092c:	2610cbb0 */ 	addiu	$s0,$s0,%lo(g_MpSetup+0x28)
-.L0f110930:
-/*  f110930:	02402025 */ 	or	$a0,$s2,$zero
-/*  f110934:	0fc354fe */ 	jal	savebufferReadBits
-/*  f110938:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f11093c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f110940:	1611fffb */ 	bne	$s0,$s1,.L0f110930
-/*  f110944:	a2020064 */ 	sb	$v0,0x64($s0)
-/*  f110948:	02402025 */ 	or	$a0,$s2,$zero
-/*  f11094c:	0fc354fe */ 	jal	savebufferReadBits
-/*  f110950:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f110954:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x8a)
-/*  f110958:	a022cc12 */ 	sb	$v0,%lo(g_MpSetup+0x8a)($at)
-/*  f11095c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f110960:	0fc354fe */ 	jal	savebufferReadBits
-/*  f110964:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f110968:	3c01800a */ 	lui	$at,%hi(var800a2328+0x3)
-/*  f11096c:	a022232b */ 	sb	$v0,%lo(var800a2328+0x3)($at)
-/*  f110970:	02402025 */ 	or	$a0,$s2,$zero
-/*  f110974:	0fc354fe */ 	jal	savebufferReadBits
-/*  f110978:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f11097c:	3c01800a */ 	lui	$at,%hi(g_AltTitle)
-/*  f110980:	a022232c */ 	sb	$v0,%lo(g_AltTitle)($at)
-/*  f110984:	0fc35531 */ 	jal	func0f0d54c4
-/*  f110988:	02402025 */ 	or	$a0,$s2,$zero
-/*  f11098c:	8faa0124 */ 	lw	$t2,0x124($sp)
-.L0f110990:
-/*  f110990:	51400006 */ 	beqzl	$t2,.L0f1109ac
-/*  f110994:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f110998:	0fc442da */ 	jal	func0f110b68
-/*  f11099c:	00000000 */ 	nop
-/*  f1109a0:	0fc44270 */ 	jal	func0f1109c0
-/*  f1109a4:	00000000 */ 	nop
-/*  f1109a8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f1109ac:
-/*  f1109ac:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1109b0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1109b4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1109b8:	03e00008 */ 	jr	$ra
-/*  f1109bc:	27bd0128 */ 	addiu	$sp,$sp,0x128
-);
+void mpsetupfileLoad(void)
+{
+	bool sp124 = false;
+	struct savebuffer buffer;
+	s32 i;
+	s32 tmp;
+	struct maybesavelocation_2d8 thing;
+
+	tmp = func0f110720();
+
+	if (tmp == 0) {
+		sp124 = true;
+	} else {
+		savebufferClear(&buffer);
+
+		if (func0f116800(4, tmp, buffer.bytes, 0)) {
+			sp124 = true;
+		}
+	}
+
+	if (!sp124) {
+		u8 tracknum;
+
+		func0f0d579c(&buffer, &thing);
+
+		g_Vars.unk00047c = thing.unk00;
+		g_Vars.unk000480 = thing.unk04;
+
+		g_MpSetupFile.unk89 = savebufferReadBits(&buffer, 1);
+
+		g_Vars.unk000482 = savebufferReadBits(&buffer, 4);
+
+		for (i = 0; i < 8; i++) {
+			savebufferReadString(&buffer, g_MpSetupFile.teamnames[i], 1);
+		}
+
+		tracknum = savebufferReadBits(&buffer, 8);
+
+		if (tracknum == 0xff) {
+			g_MpSetupFile.tracknum = -1;
+		} else {
+			g_MpSetupFile.tracknum = tracknum;
+		}
+
+		for (i = 0; i < 6; i++) {
+			g_MpSetupFile.multipletracknums[i] = savebufferReadBits(&buffer, 8);
+		}
+
+		g_MpSetupFile.usingmultipletunes = savebufferReadBits(&buffer, 1);
+		g_SoloCompleted = savebufferReadBits(&buffer, 1);
+		g_AltTitle = savebufferReadBits(&buffer, 1);
+
+		func0f0d54c4(&buffer);
+	}
+
+	if (sp124) {
+		func0f110b68();
+		func0f1109c0();
+	}
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -357,8 +298,8 @@ glabel func0f1109c0
 /*  f110a4c:	0211082b */ 	sltu	$at,$s0,$s1
 /*  f110a50:	5420fffb */ 	bnezl	$at,.L0f110a40
 /*  f110a54:	02402025 */ 	or	$a0,$s2,$zero
-/*  f110a58:	3c02800b */ 	lui	$v0,%hi(g_MpSetupSaveFile+0x64)
-/*  f110a5c:	8042cc14 */ 	lb	$v0,%lo(g_MpSetupSaveFile+0x64)($v0)
+/*  f110a58:	3c02800b */ 	lui	$v0,%hi(g_MpSetupFile+0x64)
+/*  f110a5c:	8042cc14 */ 	lb	$v0,%lo(g_MpSetupFile+0x64)($v0)
 /*  f110a60:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f110a64:	02402025 */ 	or	$a0,$s2,$zero
 /*  f110a68:	14410007 */ 	bne	$v0,$at,.L0f110a88
@@ -473,8 +414,8 @@ glabel func0f1109c0
 /*  f110a4c:	0211082b */ 	sltu	$at,$s0,$s1
 /*  f110a50:	5420fffb */ 	bnezl	$at,.L0f110a40
 /*  f110a54:	02402025 */ 	or	$a0,$s2,$zero
-/*  f110a58:	3c02800b */ 	lui	$v0,%hi(g_MpSetupSaveFile+0x64)
-/*  f110a5c:	8042cc14 */ 	lb	$v0,%lo(g_MpSetupSaveFile+0x64)($v0)
+/*  f110a58:	3c02800b */ 	lui	$v0,%hi(g_MpSetupFile+0x64)
+/*  f110a5c:	8042cc14 */ 	lb	$v0,%lo(g_MpSetupFile+0x64)($v0)
 /*  f110a60:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f110a64:	02402025 */ 	or	$a0,$s2,$zero
 /*  f110a68:	14410007 */ 	bne	$v0,$at,.L0f110a88
@@ -551,20 +492,20 @@ glabel func0f1109c0
 
 void func0f110b68(void)
 {
-	g_MpSetupSaveFile.teamnames[0][0] = '\0';
-	g_MpSetupSaveFile.teamnames[1][0] = '\0';
-	g_MpSetupSaveFile.teamnames[2][0] = '\0';
-	g_MpSetupSaveFile.teamnames[3][0] = '\0';
-	g_MpSetupSaveFile.teamnames[4][0] = '\0';
-	g_MpSetupSaveFile.teamnames[5][0] = '\0';
-	g_MpSetupSaveFile.teamnames[6][0] = '\0';
-	g_MpSetupSaveFile.teamnames[7][0] = '\0';
+	g_MpSetupFile.teamnames[0][0] = '\0';
+	g_MpSetupFile.teamnames[1][0] = '\0';
+	g_MpSetupFile.teamnames[2][0] = '\0';
+	g_MpSetupFile.teamnames[3][0] = '\0';
+	g_MpSetupFile.teamnames[4][0] = '\0';
+	g_MpSetupFile.teamnames[5][0] = '\0';
+	g_MpSetupFile.teamnames[6][0] = '\0';
+	g_MpSetupFile.teamnames[7][0] = '\0';
 
-	g_MpSetupSaveFile.tracknum = -1;
+	g_MpSetupFile.tracknum = -1;
 	mpEnableAllMultiTracks();
-	g_MpSetupSaveFile.usingmultipletunes = false;
-	g_MpSetupSaveFile.unk89 = 0;
-	g_MpSetupSaveFile.locktype = MPLOCKTYPE_NONE;
+	g_MpSetupFile.usingmultipletunes = false;
+	g_MpSetupFile.unk89 = 0;
+	g_MpSetupFile.locktype = MPLOCKTYPE_NONE;
 	g_Vars.unk00047c = 0;
 	g_Vars.unk000480 = 0;
 	g_Vars.unk000482 = (PAL ? 7 : 0);
