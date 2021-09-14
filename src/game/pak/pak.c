@@ -294,7 +294,7 @@ void func0f116984(s8 arg0, u8 *arg1, u8 *arg2)
 	func0f116bdc(arg0, arg1, arg2);
 }
 
-void func0f11698c(u32 arg0)
+void func0f11698c(s8 device)
 {
 	// empty
 }

@@ -980,7 +980,7 @@ glabel var7f1a863c
 /*  f01cc5c:	91ce2614 */ 	lbu	$t6,0x2614($t6)
 /*  f01cc60:	11c0000b */ 	beqz	$t6,.PF0f01cc90
 /*  f01cc64:	00000000 */ 	nop
-/*  f01cc68:	0fc44622 */ 	jal	func0f110da8
+/*  f01cc68:	0fc44622 */ 	jal	filelistsTick
 /*  f01cc6c:	00000000 */ 	nop
 /*  f01cc70:	10000007 */ 	b	.PF0f01cc90
 /*  f01cc74:	00000000 */ 	nop
@@ -2757,7 +2757,7 @@ glabel var7f1a863c
 /*  f01cb8c:	93182944 */ 	lbu	$t8,%lo(var80062944)($t8)
 /*  f01cb90:	1300000b */ 	beqz	$t8,.L0f01cbc0
 /*  f01cb94:	00000000 */ 	nop
-/*  f01cb98:	0fc4436a */ 	jal	func0f110da8
+/*  f01cb98:	0fc4436a */ 	jal	filelistsTick
 /*  f01cb9c:	00000000 */ 	nop
 /*  f01cba0:	10000007 */ 	b	.L0f01cbc0
 /*  f01cba4:	00000000 */ 	nop
@@ -4525,7 +4525,7 @@ glabel var7f1a863c
 /*  f01c86c:	93184e54 */ 	lbu	$t8,0x4e54($t8)
 /*  f01c870:	1300000b */ 	beqz	$t8,.NB0f01c8a0
 /*  f01c874:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01c878:	0fc42c80 */ 	jal	func0f110da8
+/*  f01c878:	0fc42c80 */ 	jal	filelistsTick
 /*  f01c87c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01c880:	10000007 */ 	beqz	$zero,.NB0f01c8a0
 /*  f01c884:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5810,7 +5810,7 @@ glabel var7f1a863c
 //		}
 //
 //		if (var80062944) {
-//			func0f110da8();
+//			filelistsTick();
 //		}
 //	} else {
 //		// cba8

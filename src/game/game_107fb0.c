@@ -592,7 +592,7 @@ void filemgrEraseCorruptFile(void)
 
 	for (i = 0; i < 4; i++) {
 		if (g_FileLists[i]) {
-			g_FileLists[i]->outdated = true;
+			g_FileLists[i]->timeuntilupdate = 1;
 		}
 	}
 
@@ -1103,7 +1103,7 @@ void filemgrDeleteCurrentFile(void)
 		error = true;
 	}
 
-	g_FileLists[g_Menus[g_MpPlayerNum].listnum]->outdated = true;
+	g_FileLists[g_Menus[g_MpPlayerNum].listnum]->timeuntilupdate = 1;
 
 	if (error) {
 		g_Menus[g_MpPlayerNum].unke3c = index;
@@ -1895,7 +1895,7 @@ void filemgrPushSelectLocationDialog(s32 arg0, u32 filetype)
 	g_Menus[g_MpPlayerNum].listnum = func0f110cf8(filetype);
 
 #if VERSION >= VERSION_NTSC_1_0
-	func0f110da8();
+	filelistsTick();
 #endif
 
 	menuPushDialog(&g_FilemgrSelectLocationMenuDialog);
@@ -2612,7 +2612,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 				g_Menus[g_MpPlayerNum].data.filemgr.unke2c = 0;
 			}
 
-			if (g_FileLists[0]->unk30e) {
+			if (g_FileLists[0]->updatedthisframe) {
 				pass = true;
 			}
 		} else {
@@ -2812,7 +2812,7 @@ s32 filemgrMainMenuDialog(s32 operation, struct menudialog *dialog, union handle
 		break;
 #if VERSION < VERSION_NTSC_1_0
 	case MENUOP_TICK:
-		func0f110da8();
+		filelistsTick();
 		break;
 #endif
 	}
