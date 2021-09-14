@@ -9192,59 +9192,33 @@ glabel mpplayerfileSave
 /*  f18dabc:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mpplayerfileLoad
-/*  f18dac0:	27bdff00 */ 	addiu	$sp,$sp,-256
-/*  f18dac4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18dac8:	afa40100 */ 	sw	$a0,0x100($sp)
-/*  f18dacc:	afa50104 */ 	sw	$a1,0x104($sp)
-/*  f18dad0:	afa60108 */ 	sw	$a2,0x108($sp)
-/*  f18dad4:	04a00024 */ 	bltz	$a1,.L0f18db68
-/*  f18dad8:	afa7010c */ 	sw	$a3,0x10c($sp)
-/*  f18dadc:	0fc35517 */ 	jal	savebufferClear
-/*  f18dae0:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f18dae4:	83a40107 */ 	lb	$a0,0x107($sp)
-/*  f18dae8:	8fa50108 */ 	lw	$a1,0x108($sp)
-/*  f18daec:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f18daf0:	0fc45a00 */ 	jal	func0f116800
-/*  f18daf4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f18daf8:	14400017 */ 	bnez	$v0,.L0f18db58
-/*  f18dafc:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18db00:	8fa40100 */ 	lw	$a0,0x100($sp)
-/*  f18db04:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
-/*  f18db08:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_MpPlayers)
-/*  f18db0c:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f18db10:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f18db14:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f18db18:	8fb90108 */ 	lw	$t9,0x108($sp)
-/*  f18db1c:	97a8010e */ 	lhu	$t0,0x10e($sp)
-/*  f18db20:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f18db24:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f18db28:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*  f18db2c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f18db30:	ac79004c */ 	sw	$t9,0x4c($v1)
-/*  f18db34:	0fc634ae */ 	jal	func0f18d2b8
-/*  f18db38:	a4680050 */ 	sh	$t0,0x50($v1)
-/*  f18db3c:	0fc35531 */ 	jal	func0f0d54c4
-/*  f18db40:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f18db44:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f18db48:	24090080 */ 	addiu	$t1,$zero,0x80
-/*  f18db4c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18db50:	10000006 */ 	b	.L0f18db6c
-/*  f18db54:	a069009d */ 	sb	$t1,0x9d($v1)
-.L0f18db58:
-/*  f18db58:	3c01800a */ 	lui	$at,%hi(var800a21f8)
-/*  f18db5c:	ac2321f8 */ 	sw	$v1,%lo(var800a21f8)($at)
-/*  f18db60:	10000002 */ 	b	.L0f18db6c
-/*  f18db64:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18db68:
-/*  f18db68:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18db6c:
-/*  f18db6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18db70:	27bd0100 */ 	addiu	$sp,$sp,0x100
-/*  f18db74:	03e00008 */ 	jr	$ra
-/*  f18db78:	00000000 */ 	nop
-);
+s32 mpplayerfileLoad(s32 playernum, s32 arg1, s32 arg2, u16 arg3)
+{
+	s32 tmp;
+	struct savebuffer buffer;
+
+	if (arg1 >= 0) {
+		savebufferClear(&buffer);
+
+		tmp = func0f116800(arg1, arg2, buffer.bytes, 0);
+
+		if (tmp == 0) {
+			g_MpPlayers[playernum].unk4c.unk00 = arg2;
+			g_MpPlayers[playernum].unk4c.unk04 = arg3;
+
+			func0f18d2b8(playernum, &buffer, 1);
+			func0f0d54c4(&buffer);
+
+			g_MpPlayers[playernum].handicap = 0x80;
+			return 0;
+		}
+
+		var800a21f8.unk00 = tmp;
+		return -1;
+	}
+
+	return -1;
+}
 
 struct mppreset g_MpPresets[NUM_MPPRESETS] = {
 	{ L_MPWEAPONS_025, MPCONFIG_NOSHIELD   }, // "No Shield"

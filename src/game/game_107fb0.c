@@ -755,7 +755,7 @@ bool filemgrAttemptOperation(s32 arg0, bool closeonsuccess)
 		break;
 	case FILEOP_LOAD_MPPLAYER:
 		errno = mpplayerfileLoad(
-				g_Menus[g_MpPlayerNum].unke44,
+				(s32) g_Menus[g_MpPlayerNum].unke44,
 				arg0,
 				g_Menus[g_MpPlayerNum].unke48,
 				g_Menus[g_MpPlayerNum].unke4c);
