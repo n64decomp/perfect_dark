@@ -6948,7 +6948,7 @@ void mpEndMatch(void)
 	func0f0f820c(NULL, -6);
 }
 
-s32 func0f18bb1c(void)
+s32 mpGetNumHeads2(void)
 {
 	return NUM_MPHEADS;
 }
@@ -8633,210 +8633,70 @@ glabel func0f18d238
 /*  f18d2b4:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f18d2b8
-/*  f18d2b8:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f18d2bc:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f18d2c0:	0080a025 */ 	or	$s4,$a0,$zero
-/*  f18d2c4:	00147080 */ 	sll	$t6,$s4,0x2
-/*  f18d2c8:	01d47021 */ 	addu	$t6,$t6,$s4
-/*  f18d2cc:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers)
-/*  f18d2d0:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f18d2d4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18d2d8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18d2dc:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_MpPlayers)
-/*  f18d2e0:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f18d2e4:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f18d2e8:	00a09825 */ 	or	$s3,$a1,$zero
-/*  f18d2ec:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f18d2f0:	01cfa821 */ 	addu	$s5,$t6,$t7
-/*  f18d2f4:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f18d2f8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18d2fc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18d300:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f18d304:	0fc35539 */ 	jal	savebufferReadString
-/*  f18d308:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f18d30c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d310:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d314:	2405001c */ 	addiu	$a1,$zero,0x1c
-/*  f18d318:	12000037 */ 	beqz	$s0,.L0f18d3f8
-/*  f18d31c:	aea20068 */ 	sw	$v0,0x68($s5)
-/*  f18d320:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d324:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d328:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f18d32c:	a2a2000f */ 	sb	$v0,0xf($s5)
-/*  f18d330:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d334:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d338:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f18d33c:	a2a20010 */ 	sb	$v0,0x10($s5)
-/*  f18d340:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d344:	0fc355e7 */ 	jal	func0f0d579c
-/*  f18d348:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*  f18d34c:	0fc62ec7 */ 	jal	func0f18bb1c
-/*  f18d350:	00000000 */ 	nop
-/*  f18d354:	92b8000f */ 	lbu	$t8,0xf($s5)
-/*  f18d358:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f18d35c:	0302082a */ 	slt	$at,$t8,$v0
-/*  f18d360:	5420002f */ 	bnezl	$at,.L0f18d420
-/*  f18d364:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d368:	10c00021 */ 	beqz	$a2,.L0f18d3f0
-/*  f18d36c:	97a70054 */ 	lhu	$a3,0x54($sp)
-/*  f18d370:	10e0001f */ 	beqz	$a3,.L0f18d3f0
-/*  f18d374:	3c02800a */ 	lui	$v0,%hi(g_MenuData)
-/*  f18d378:	244219c0 */ 	addiu	$v0,$v0,%lo(g_MenuData)
-/*  f18d37c:	80450668 */ 	lb	$a1,0x668($v0)
-/*  f18d380:	28a1000b */ 	slti	$at,$a1,0xb
-/*  f18d384:	10200025 */ 	beqz	$at,.L0f18d41c
-/*  f18d388:	24b90001 */ 	addiu	$t9,$a1,0x1
-/*  f18d38c:	a0590668 */ 	sb	$t9,0x668($v0)
-/*  f18d390:	80480668 */ 	lb	$t0,0x668($v0)
-/*  f18d394:	2404000c */ 	addiu	$a0,$zero,0xc
-/*  f18d398:	3c038007 */ 	lui	$v1,%hi(g_MpPlayerNum)
-/*  f18d39c:	01040019 */ 	multu	$t0,$a0
-/*  f18d3a0:	00004812 */ 	mflo	$t1
-/*  f18d3a4:	00495021 */ 	addu	$t2,$v0,$t1
-/*  f18d3a8:	ad4605d8 */ 	sw	$a2,0x5d8($t2)
-/*  f18d3ac:	804b0668 */ 	lb	$t3,0x668($v0)
-/*  f18d3b0:	01640019 */ 	multu	$t3,$a0
-/*  f18d3b4:	00006012 */ 	mflo	$t4
-/*  f18d3b8:	004c6821 */ 	addu	$t5,$v0,$t4
-/*  f18d3bc:	a5a705dc */ 	sh	$a3,0x5dc($t5)
-/*  f18d3c0:	804e0668 */ 	lb	$t6,0x668($v0)
-/*  f18d3c4:	8c631448 */ 	lw	$v1,%lo(g_MpPlayerNum)($v1)
-/*  f18d3c8:	01c40019 */ 	multu	$t6,$a0
-/*  f18d3cc:	00007812 */ 	mflo	$t7
-/*  f18d3d0:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f18d3d4:	a30305e0 */ 	sb	$v1,0x5e0($t8)
-/*  f18d3d8:	80590668 */ 	lb	$t9,0x668($v0)
-/*  f18d3dc:	03240019 */ 	multu	$t9,$a0
-/*  f18d3e0:	00004012 */ 	mflo	$t0
-/*  f18d3e4:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f18d3e8:	1000000c */ 	b	.L0f18d41c
-/*  f18d3ec:	a12305e1 */ 	sb	$v1,0x5e1($t1)
-.L0f18d3f0:
-/*  f18d3f0:	1000000a */ 	b	.L0f18d41c
-/*  f18d3f4:	a2a0000f */ 	sb	$zero,0xf($s5)
-.L0f18d3f8:
-/*  f18d3f8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d3fc:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d400:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f18d404:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d408:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d40c:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f18d410:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d414:	0fc355e7 */ 	jal	func0f0d579c
-/*  f18d418:	27a50050 */ 	addiu	$a1,$sp,0x50
-.L0f18d41c:
-/*  f18d41c:	02602025 */ 	or	$a0,$s3,$zero
-.L0f18d420:
-/*  f18d420:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d424:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f18d428:	aea20014 */ 	sw	$v0,0x14($s5)
-/*  f18d42c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d430:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d434:	24050014 */ 	addiu	$a1,$zero,0x14
-/*  f18d438:	aea20054 */ 	sw	$v0,0x54($s5)
-/*  f18d43c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d440:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d444:	24050014 */ 	addiu	$a1,$zero,0x14
-/*  f18d448:	aea20058 */ 	sw	$v0,0x58($s5)
-/*  f18d44c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d450:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d454:	24050013 */ 	addiu	$a1,$zero,0x13
-/*  f18d458:	aea2005c */ 	sw	$v0,0x5c($s5)
-/*  f18d45c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d460:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d464:	24050013 */ 	addiu	$a1,$zero,0x13
-/*  f18d468:	aea20060 */ 	sw	$v0,0x60($s5)
-/*  f18d46c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d470:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d474:	24050013 */ 	addiu	$a1,$zero,0x13
-/*  f18d478:	aea20064 */ 	sw	$v0,0x64($s5)
-/*  f18d47c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d480:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d484:	24050019 */ 	addiu	$a1,$zero,0x19
-/*  f18d488:	aea2006c */ 	sw	$v0,0x6c($s5)
-/*  f18d48c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d490:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d494:	2405000a */ 	addiu	$a1,$zero,0xa
-/*  f18d498:	aea20070 */ 	sw	$v0,0x70($s5)
-/*  f18d49c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d4a0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d4a4:	2405001a */ 	addiu	$a1,$zero,0x1a
-/*  f18d4a8:	aea20074 */ 	sw	$v0,0x74($s5)
-/*  f18d4ac:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d4b0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d4b4:	2405001a */ 	addiu	$a1,$zero,0x1a
-/*  f18d4b8:	aea20078 */ 	sw	$v0,0x78($s5)
-/*  f18d4bc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d4c0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d4c4:	24050014 */ 	addiu	$a1,$zero,0x14
-/*  f18d4c8:	aea2007c */ 	sw	$v0,0x7c($s5)
-/*  f18d4cc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d4d0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d4d4:	2405001e */ 	addiu	$a1,$zero,0x1e
-/*  f18d4d8:	aea20080 */ 	sw	$v0,0x80($s5)
-/*  f18d4dc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d4e0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d4e4:	24050012 */ 	addiu	$a1,$zero,0x12
-/*  f18d4e8:	aea20084 */ 	sw	$v0,0x84($s5)
-/*  f18d4ec:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d4f0:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d4f4:	24050012 */ 	addiu	$a1,$zero,0x12
-/*  f18d4f8:	aea20088 */ 	sw	$v0,0x88($s5)
-/*  f18d4fc:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d500:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d504:	24050012 */ 	addiu	$a1,$zero,0x12
-/*  f18d508:	aea2008c */ 	sw	$v0,0x8c($s5)
-/*  f18d50c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d510:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d514:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f18d518:	aea20090 */ 	sw	$v0,0x90($s5)
-/*  f18d51c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d520:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d524:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f18d528:	a2a20044 */ 	sb	$v0,0x44($s5)
-/*  f18d52c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d530:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d534:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f18d538:	a6a20048 */ 	sh	$v0,0x48($s5)
-/*  f18d53c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f18d540:	24120005 */ 	addiu	$s2,$zero,0x5
-/*  f18d544:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f18d548:
-/*  f18d548:	02602025 */ 	or	$a0,$s3,$zero
-.L0f18d54c:
-/*  f18d54c:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d550:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f18d554:	02802025 */ 	or	$a0,$s4,$zero
-/*  f18d558:	02202825 */ 	or	$a1,$s1,$zero
-/*  f18d55c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18d560:	0fc6712e */ 	jal	mpSetChallengeCompletedByPlayerWithNumPlayers
-/*  f18d564:	00403825 */ 	or	$a3,$v0,$zero
-/*  f18d568:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18d56c:	5612fff7 */ 	bnel	$s0,$s2,.L0f18d54c
-/*  f18d570:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d574:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18d578:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f18d57c:	5621fff2 */ 	bnel	$s1,$at,.L0f18d548
-/*  f18d580:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f18d584:	0fc66bf7 */ 	jal	mpDetermineUnlockedFeatures
-/*  f18d588:	00000000 */ 	nop
-/*  f18d58c:	0fc62864 */ 	jal	mpCalculatePlayerTitle
-/*  f18d590:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f18d594:	02602025 */ 	or	$a0,$s3,$zero
-/*  f18d598:	0fc6346e */ 	jal	func0f18d1b8
-/*  f18d59c:	02802825 */ 	or	$a1,$s4,$zero
-/*  f18d5a0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f18d5a4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18d5a8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18d5ac:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18d5b0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18d5b4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f18d5b8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f18d5bc:	03e00008 */ 	jr	$ra
-/*  f18d5c0:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
+{
+	struct maybesavelocation_2d8 thing;
+	u32 stack;
+	s32 i;
+	s32 j;
+
+	savebufferReadString(buffer, g_MpPlayers[playernum].base.name, 1);
+	g_MpPlayers[playernum].time = savebufferReadBits(buffer, 28);
+
+	if (arg2 != 0) {
+		g_MpPlayers[playernum].base.mpheadnum = savebufferReadBits(buffer, 7);
+		g_MpPlayers[playernum].base.mpbodynum = savebufferReadBits(buffer, 7);
+
+		func0f0d579c(buffer, &thing);
+
+		if (g_MpPlayers[playernum].base.mpheadnum >= mpGetNumHeads2()) {
+			if (thing.unk00 != 0 && thing.unk04 != 0) {
+				if (g_MenuData.unk668 < 11) {
+					g_MenuData.unk668++;
+					g_MenuData.unk5d8[g_MenuData.unk668].unk00 = thing.unk00;
+					g_MenuData.unk5d8[g_MenuData.unk668].unk04 = thing.unk04;
+					g_MenuData.unk5d8[g_MenuData.unk668].unk08 = g_MpPlayerNum;
+					g_MenuData.unk5d8[g_MenuData.unk668].unk09 = g_MpPlayerNum;
+				}
+			} else {
+				g_MpPlayers[playernum].base.mpheadnum = MPHEAD_DARK_COMBAT;
+			}
+		}
+	} else {
+		savebufferReadBits(buffer, 7);
+		savebufferReadBits(buffer, 7);
+		func0f0d579c(buffer, &thing);
+	}
+
+	g_MpPlayers[playernum].base.displayoptions = savebufferReadBits(buffer, 8);
+	g_MpPlayers[playernum].kills = savebufferReadBits(buffer, 20);
+	g_MpPlayers[playernum].deaths = savebufferReadBits(buffer, 20);
+	g_MpPlayers[playernum].gamesplayed = savebufferReadBits(buffer, 19);
+	g_MpPlayers[playernum].gameswon = savebufferReadBits(buffer, 19);
+	g_MpPlayers[playernum].gameslost = savebufferReadBits(buffer, 19);
+	g_MpPlayers[playernum].distance = savebufferReadBits(buffer, 25);
+	g_MpPlayers[playernum].accuracy = savebufferReadBits(buffer, 10);
+	g_MpPlayers[playernum].damagedealt = savebufferReadBits(buffer, 26);
+	g_MpPlayers[playernum].painreceived = savebufferReadBits(buffer, 26);
+	g_MpPlayers[playernum].headshots = savebufferReadBits(buffer, 20);
+	g_MpPlayers[playernum].ammoused = savebufferReadBits(buffer, 30);
+	g_MpPlayers[playernum].accuracymedals = savebufferReadBits(buffer, 18);
+	g_MpPlayers[playernum].headshotmedals = savebufferReadBits(buffer, 18);
+	g_MpPlayers[playernum].killmastermedals = savebufferReadBits(buffer, 18);
+	g_MpPlayers[playernum].survivormedals = savebufferReadBits(buffer, 16);
+	g_MpPlayers[playernum].base.controlmode = savebufferReadBits(buffer, 2);
+	g_MpPlayers[playernum].options = savebufferReadBits(buffer, 12);
+
+	for (i = 0; i < 30; i++) {
+		for (j = 1; j < 5; j++) {
+			mpSetChallengeCompletedByPlayerWithNumPlayers(playernum, i, j, savebufferReadBits(buffer, 1));
+		}
+	}
+
+	mpDetermineUnlockedFeatures();
+	mpCalculatePlayerTitle(&g_MpPlayers[playernum]);
+	func0f18d1b8(buffer, playernum);
+}
 
 GLOBAL_ASM(
 glabel func0f18d5c4
@@ -8877,13 +8737,13 @@ glabel func0f18d5c4
 /*  f18d648:	92050010 */ 	lbu	$a1,0x10($s0)
 /*  f18d64c:	0fc354be */ 	jal	savebufferOr
 /*  f18d650:	24060007 */ 	addiu	$a2,$zero,0x7
-/*  f18d654:	0fc62ec7 */ 	jal	func0f18bb1c
+/*  f18d654:	0fc62ec7 */ 	jal	mpGetNumHeads2
 /*  f18d658:	00000000 */ 	nop
 /*  f18d65c:	9219000f */ 	lbu	$t9,0xf($s0)
 /*  f18d660:	0322082a */ 	slt	$at,$t9,$v0
 /*  f18d664:	5420000e */ 	bnezl	$at,.L0f18d6a0
 /*  f18d668:	a7a00040 */ 	sh	$zero,0x40($sp)
-/*  f18d66c:	0fc62ec7 */ 	jal	func0f18bb1c
+/*  f18d66c:	0fc62ec7 */ 	jal	mpGetNumHeads2
 /*  f18d670:	00000000 */ 	nop
 /*  f18d674:	9208000f */ 	lbu	$t0,0xf($s0)
 /*  f18d678:	27b10044 */ 	addiu	$s1,$sp,0x44
@@ -9206,7 +9066,7 @@ s32 mpplayerfileLoad(s32 playernum, s32 arg1, s32 arg2, u16 arg3)
 			g_MpPlayers[playernum].unk4c.unk00 = arg2;
 			g_MpPlayers[playernum].unk4c.unk04 = arg3;
 
-			func0f18d2b8(playernum, &buffer, 1);
+			mpplayerfileLoadWad(playernum, &buffer, 1);
 			func0f0d54c4(&buffer);
 
 			g_MpPlayers[playernum].handicap = 0x80;

@@ -1555,10 +1555,10 @@ void currentPlayerChooseBodyAndHead(s32 *bodynum, s32 *headnum, s32 *arg2)
 	}
 
 	if (g_Vars.normmplayerisrunning) {
-		if (g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum < func0f18bb1c()) {
+		if (g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum < mpGetNumHeads2()) {
 			*headnum = mpGetHeadId(g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum);
 		} else {
-			*headnum = g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum - func0f18bb1c();
+			*headnum = g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.mpheadnum - mpGetNumHeads2();
 
 			if (arg2) {
 				*arg2 = true;

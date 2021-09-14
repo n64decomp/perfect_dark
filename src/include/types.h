@@ -5320,6 +5320,16 @@ struct frdata {
 	/*0x47c*/ u32 unk47c;
 };
 
+struct menudata_5d8 {
+	s32 unk00;
+	u16 unk04;
+	u16 unk06;
+	u8 unk08;
+	u8 unk09;
+	u8 unk0a;
+	u8 unk0b;
+};
+
 struct menudata {
 	/*0x000*/ s32 count;
 	/*0x004*/ s32 root;
@@ -5706,43 +5716,8 @@ struct menudata {
 	/*0x5d5*/ u8 unk5d5_06 : 1;
 	/*0x5d5*/ u8 unk5d5_07 : 1;
 	/*0x5d5*/ u8 unk5d5_08 : 1;
-	/*0x5d8*/ u32 unk5d8;
-	/*0x5dc*/ u32 unk5dc;
-	/*0x5e0*/ u32 unk5e0;
-	/*0x5e4*/ u32 unk5e4;
-	/*0x5e8*/ u32 unk5e8;
-	/*0x5ec*/ u32 unk5ec;
-	/*0x5f0*/ u32 unk5f0;
-	/*0x5f4*/ u32 unk5f4;
-	/*0x5f8*/ u32 unk5f8;
-	/*0x5fc*/ u32 unk5fc;
-	/*0x600*/ u32 unk600;
-	/*0x604*/ u32 unk604;
-	/*0x608*/ u32 unk608;
-	/*0x60c*/ u32 unk60c;
-	/*0x610*/ u32 unk610;
-	/*0x614*/ u32 unk614;
-	/*0x618*/ u32 unk618;
-	/*0x61c*/ u32 unk61c;
-	/*0x620*/ u32 unk620;
-	/*0x624*/ u32 unk624;
-	/*0x628*/ u32 unk628;
-	/*0x62c*/ u32 unk62c;
-	/*0x630*/ u32 unk630;
-	/*0x634*/ u32 unk634;
-	/*0x638*/ u32 unk638;
-	/*0x63c*/ u32 unk63c;
-	/*0x640*/ u32 unk640;
-	/*0x644*/ u32 unk644;
-	/*0x648*/ u32 unk648;
-	/*0x64c*/ u32 unk64c;
-	/*0x650*/ u32 unk650;
-	/*0x654*/ u32 unk654;
-	/*0x658*/ u32 unk658;
-	/*0x65c*/ u32 unk65c;
-	/*0x660*/ u32 unk660;
-	/*0x664*/ u32 unk664;
-	/*0x668*/ u8 unk668;
+	/*0x5d8*/ struct menudata_5d8 unk5d8[12];
+	/*0x668*/ s8 unk668;
 	/*0x669*/ u8 unk669[4];
 	/*0x66d*/ u8 unk66d;
 	/*0x66e*/ s8 unk66e; // index into 669
