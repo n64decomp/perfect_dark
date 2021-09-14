@@ -78,75 +78,35 @@ void func0f1106f4(u8 *dst)
 	bcopy(var800a22d0, dst, sizeof(var800a22d0));
 }
 
-GLOBAL_ASM(
-glabel func0f110720
-/*  f110720:	27bdf7b0 */ 	addiu	$sp,$sp,-2128
-/*  f110724:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f110728:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11072c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f110730:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f110734:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f110738:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f11073c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f110740:	0fc459ec */ 	jal	func0f1167b0
-/*  f110744:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f110748:	14400029 */ 	bnez	$v0,.L0f1107f0
-/*  f11074c:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f110750:	11c00013 */ 	beqz	$t6,.L0f1107a0
-/*  f110754:	00008825 */ 	or	$s1,$zero,$zero
-/*  f110758:	27b0003c */ 	addiu	$s0,$sp,0x3c
-/*  f11075c:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f110760:	27b20840 */ 	addiu	$s2,$sp,0x840
-/*  f110764:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f110768:
-/*  f110768:	0fc464da */ 	jal	func0f119368
-/*  f11076c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f110770:	8fb8084c */ 	lw	$t8,0x84c($sp)
-/*  f110774:	00184740 */ 	sll	$t0,$t8,0x1d
-/*  f110778:	05020005 */ 	bltzl	$t0,.L0f110790
-/*  f11077c:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f110780:	8e090000 */ 	lw	$t1,0x0($s0)
-/*  f110784:	10000006 */ 	b	.L0f1107a0
-/*  f110788:	afa90038 */ 	sw	$t1,0x38($sp)
-/*  f11078c:	8e050004 */ 	lw	$a1,0x4($s0)
-.L0f110790:
-/*  f110790:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f110794:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f110798:	54a0fff3 */ 	bnezl	$a1,.L0f110768
-/*  f11079c:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f1107a0:
-/*  f1107a0:	8faa003c */ 	lw	$t2,0x3c($sp)
-/*  f1107a4:	27b20840 */ 	addiu	$s2,$sp,0x840
-/*  f1107a8:	27b0003c */ 	addiu	$s0,$sp,0x3c
-/*  f1107ac:	51400011 */ 	beqzl	$t2,.L0f1107f4
-/*  f1107b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1107b4:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f1107b8:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f1107bc:
-/*  f1107bc:	0fc464da */ 	jal	func0f119368
-/*  f1107c0:	02403025 */ 	or	$a2,$s2,$zero
-/*  f1107c4:	8fac084c */ 	lw	$t4,0x84c($sp)
-/*  f1107c8:	000c7740 */ 	sll	$t6,$t4,0x1d
-/*  f1107cc:	05c30005 */ 	bgezl	$t6,.L0f1107e4
-/*  f1107d0:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f1107d4:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f1107d8:	10000005 */ 	b	.L0f1107f0
-/*  f1107dc:	afaf0038 */ 	sw	$t7,0x38($sp)
-/*  f1107e0:	8e050004 */ 	lw	$a1,0x4($s0)
-.L0f1107e4:
-/*  f1107e4:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f1107e8:	54a0fff4 */ 	bnezl	$a1,.L0f1107bc
-/*  f1107ec:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f1107f0:
-/*  f1107f0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f1107f4:
-/*  f1107f4:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*  f1107f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1107fc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f110800:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f110804:	03e00008 */ 	jr	$ra
-/*  f110808:	27bd0850 */ 	addiu	$sp,$sp,0x850
-);
+u32 func0f110720(void)
+{
+	struct pakthing16 sp840;
+	u32 sp3c[513];
+	u32 sp38 = 0;
+	s32 i;
+
+	if (func0f1167b0(SAVEDEVICE_GAMEPAK, 0x10, sp3c) == 0) {
+		for (i = 0; sp3c[i] != 0; i++) {
+			func0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
+
+			if (sp840.unk0c_22 == 0) {
+				sp38 = sp3c[i];
+				break;
+			}
+		}
+
+		for (i = 0; sp3c[i] != 0; i++) {
+			func0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
+
+			if (sp840.unk0c_22) {
+				sp38 = sp3c[i];
+				break;
+			}
+		}
+	}
+
+	return sp38;
+}
 
 void bossfileLoad(void)
 {

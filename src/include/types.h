@@ -6681,6 +6681,7 @@ struct pakthing16 {
 	u32 unk08_fill : 20;
 	u32 unk0c_01 : 20;
 	u32 unk0c_21 : 9;
+	u32 unk0c_22 : 1;
 };
 
 struct var80067e6c {
