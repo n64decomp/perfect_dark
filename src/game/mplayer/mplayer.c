@@ -8557,43 +8557,24 @@ glabel func0f18d0e8
 /*  f18d1b4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f18d1b8
-/*  f18d1b8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f18d1bc:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f18d1c0:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f18d1c4:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers)
-/*  f18d1c8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18d1cc:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18d1d0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18d1d4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18d1d8:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_MpPlayers)
-/*  f18d1dc:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f18d1e0:	00809025 */ 	or	$s2,$a0,$zero
-/*  f18d1e4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18d1e8:	24100023 */ 	addiu	$s0,$zero,0x23
-/*  f18d1ec:	01cf8821 */ 	addu	$s1,$t6,$t7
-/*  f18d1f0:	2413fffb */ 	addiu	$s3,$zero,-5
-.L0f18d1f4:
-/*  f18d1f4:	2a010009 */ 	slti	$at,$s0,0x9
-/*  f18d1f8:	14200002 */ 	bnez	$at,.L0f18d204
-/*  f18d1fc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f18d200:	24050008 */ 	addiu	$a1,$zero,0x8
-.L0f18d204:
-/*  f18d204:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d208:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18d20c:	2610fff8 */ 	addiu	$s0,$s0,-8
-/*  f18d210:	a2220097 */ 	sb	$v0,0x97($s1)
-/*  f18d214:	1613fff7 */ 	bne	$s0,$s3,.L0f18d1f4
-/*  f18d218:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18d21c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18d220:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18d224:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18d228:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18d22c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18d230:	03e00008 */ 	jr	$ra
-/*  f18d234:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
+{
+	s32 bitsremaining = 35;
+	s32 i = 0;
+
+	while (bitsremaining > 0) {
+		s32 numbits = bitsremaining;
+
+		if (numbits > 8) {
+			numbits = 8;
+		}
+
+		g_MpPlayers[playernum].gunfuncs[i] = savebufferReadBits(buffer, numbits);
+
+		bitsremaining -= 8;
+		i++;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f18d238
@@ -8695,7 +8676,7 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 
 	mpDetermineUnlockedFeatures();
 	mpCalculatePlayerTitle(&g_MpPlayers[playernum]);
-	func0f18d1b8(buffer, playernum);
+	mpplayerfileLoadGunFuncs(buffer, playernum);
 }
 
 GLOBAL_ASM(
