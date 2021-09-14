@@ -281,51 +281,30 @@ void func0f110c5c(s32 listnum, u8 filetype)
 	var80062944 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f110cf8
-/*  f110cf8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f110cfc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f110d00:	309000ff */ 	andi	$s0,$a0,0xff
-/*  f110d04:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f110d08:	3c058007 */ 	lui	$a1,%hi(g_FileLists)
-/*  f110d0c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f110d10:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f110d14:	24a55bc0 */ 	addiu	$a1,$a1,%lo(g_FileLists)
-/*  f110d18:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f110d1c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f110d20:	2407ffff */ 	addiu	$a3,$zero,-1
-.L0f110d24:
-/*  f110d24:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*  f110d28:	10400006 */ 	beqz	$v0,.L0f110d44
-/*  f110d2c:	00000000 */ 	nop
-/*  f110d30:	904e030b */ 	lbu	$t6,0x30b($v0)
-/*  f110d34:	560e0007 */ 	bnel	$s0,$t6,.L0f110d54
-/*  f110d38:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f110d3c:	1000000f */ 	b	.L0f110d7c
-/*  f110d40:	00601025 */ 	or	$v0,$v1,$zero
-.L0f110d44:
-/*  f110d44:	54c70003 */ 	bnel	$a2,$a3,.L0f110d54
-/*  f110d48:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f110d4c:	00603025 */ 	or	$a2,$v1,$zero
-/*  f110d50:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f110d54:
-/*  f110d54:	1464fff3 */ 	bne	$v1,$a0,.L0f110d24
-/*  f110d58:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f110d5c:	04c00007 */ 	bltz	$a2,.L0f110d7c
-/*  f110d60:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f110d64:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f110d68:	320500ff */ 	andi	$a1,$s0,0xff
-/*  f110d6c:	0fc44317 */ 	jal	func0f110c5c
-/*  f110d70:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f110d74:	10000001 */ 	b	.L0f110d7c
-/*  f110d78:	8fa20024 */ 	lw	$v0,0x24($sp)
-.L0f110d7c:
-/*  f110d7c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f110d80:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f110d84:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f110d88:	03e00008 */ 	jr	$ra
-/*  f110d8c:	00000000 */ 	nop
-);
+s32 func0f110cf8(u8 filetype)
+{
+	s32 bestindex = -1;
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (g_FileLists[i]) {
+			if (g_FileLists[i]->filetype == filetype) {
+				return i;
+			}
+		} else {
+			if (bestindex == -1) {
+				bestindex = i;
+			}
+		}
+	}
+
+	if (bestindex >= 0) {
+		func0f110c5c(bestindex, filetype);
+		return bestindex;
+	}
+
+	return -1;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void func0f110d90(s32 index)
