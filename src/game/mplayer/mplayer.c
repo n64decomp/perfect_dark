@@ -8494,68 +8494,26 @@ s32 func0f18d074(s32 index)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel func0f18d0e8
-/*  f18d0e8:	28810004 */ 	slti	$at,$a0,0x4
-/*  f18d0ec:	10200018 */ 	beqz	$at,.L0f18d150
-/*  f18d0f0:	3c02800b */ 	lui	$v0,%hi(g_MpNumPlayers)
-/*  f18d0f4:	3c02800b */ 	lui	$v0,%hi(g_MpNumPlayers)
-/*  f18d0f8:	8c42c530 */ 	lw	$v0,%lo(g_MpNumPlayers)($v0)
-/*  f18d0fc:	3c05800b */ 	lui	$a1,%hi(var800ac500)
-/*  f18d100:	24a5c500 */ 	addiu	$a1,$a1,%lo(var800ac500)
-/*  f18d104:	18400029 */ 	blez	$v0,.L0f18d1ac
-/*  f18d108:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18d10c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f18d110:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f18d114:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers)
-/*  f18d118:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_MpPlayers)
-/*  f18d11c:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f18d120:	01cf3021 */ 	addu	$a2,$t6,$t7
-.L0f18d124:
-/*  f18d124:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f18d128:	57060004 */ 	bnel	$t8,$a2,.L0f18d13c
-/*  f18d12c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18d130:	03e00008 */ 	jr	$ra
-/*  f18d134:	00601025 */ 	or	$v0,$v1,$zero
-/*  f18d138:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18d13c:
-/*  f18d13c:	0062082a */ 	slt	$at,$v1,$v0
-/*  f18d140:	1420fff8 */ 	bnez	$at,.L0f18d124
-/*  f18d144:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f18d148:	10000019 */ 	b	.L0f18d1b0
-/*  f18d14c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18d150:
-/*  f18d150:	8c42c530 */ 	lw	$v0,%lo(g_MpNumPlayers)($v0)
-/*  f18d154:	3c05800b */ 	lui	$a1,%hi(var800ac500)
-/*  f18d158:	24a5c500 */ 	addiu	$a1,$a1,%lo(var800ac500)
-/*  f18d15c:	18400013 */ 	blez	$v0,.L0f18d1ac
-/*  f18d160:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18d164:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f18d168:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f18d16c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f18d170:	0324c823 */ 	subu	$t9,$t9,$a0
-/*  f18d174:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f18d178:	3c09800b */ 	lui	$t1,%hi(g_MpSimulants)
-/*  f18d17c:	2529c538 */ 	addiu	$t1,$t1,%lo(g_MpSimulants)
-/*  f18d180:	2728fed0 */ 	addiu	$t0,$t9,-304
-/*  f18d184:	01093021 */ 	addu	$a2,$t0,$t1
-.L0f18d188:
-/*  f18d188:	8caa0000 */ 	lw	$t2,0x0($a1)
-/*  f18d18c:	55460004 */ 	bnel	$t2,$a2,.L0f18d1a0
-/*  f18d190:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18d194:	03e00008 */ 	jr	$ra
-/*  f18d198:	00601025 */ 	or	$v0,$v1,$zero
-/*  f18d19c:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18d1a0:
-/*  f18d1a0:	0062082a */ 	slt	$at,$v1,$v0
-/*  f18d1a4:	1420fff8 */ 	bnez	$at,.L0f18d188
-/*  f18d1a8:	24a50004 */ 	addiu	$a1,$a1,0x4
-.L0f18d1ac:
-/*  f18d1ac:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18d1b0:
-/*  f18d1b0:	03e00008 */ 	jr	$ra
-/*  f18d1b4:	00000000 */ 	nop
-);
+s32 func0f18d0e8(s32 arg0)
+{
+	s32 i;
+
+	if (arg0 < 4) {
+		for (i = 0; i < g_MpNumPlayers; i++) {
+			if (var800ac500[i] == &g_MpPlayers[arg0].base) {
+				return i;
+			}
+		}
+	} else {
+		for (i = 0; i < g_MpNumPlayers; i++) {
+			if (var800ac500[i] == &g_MpSimulants[arg0 - 4].base) {
+				return i;
+			}
+		}
+	}
+
+	return -1;
+}
 
 void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
 {
