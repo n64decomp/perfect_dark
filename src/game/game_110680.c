@@ -22,31 +22,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 var800a22d0;
-u32 var800a22d4;
-u32 var800a22d8;
-u32 var800a22dc;
-u32 var800a22e0;
-u32 var800a22e4;
-u32 var800a22e8;
-u32 var800a22ec;
-u32 var800a22f0;
-u32 var800a22f4;
-u32 var800a22f8;
-u32 var800a22fc;
-u32 var800a2300;
-u32 var800a2304;
-u32 var800a2308;
-u32 var800a230c;
-u32 var800a2310;
-u32 var800a2314;
-u32 var800a2318;
-u32 var800a231c;
-u32 var800a2320;
-u32 var800a2324;
-u8 var800a2328;
-u8 var800a2329;
-u8 var800a232a;
+u8 var800a22d0[0x5b];
 s8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
 s32 var800a2330[1];
@@ -97,20 +73,10 @@ void func0f1106ec(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f1106f4
-/*  f1106f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1106f8:	00802825 */ 	or	$a1,$a0,$zero
-/*  f1106fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f110700:	3c04800a */ 	lui	$a0,%hi(var800a22d0)
-/*  f110704:	248422d0 */ 	addiu	$a0,$a0,%lo(var800a22d0)
-/*  f110708:	0c012c5c */ 	jal	bcopy
-/*  f11070c:	2406005b */ 	addiu	$a2,$zero,0x5b
-/*  f110710:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f110714:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f110718:	03e00008 */ 	jr	$ra
-/*  f11071c:	00000000 */ 	nop
-);
+void func0f1106f4(u8 *dst)
+{
+	bcopy(var800a22d0, dst, sizeof(var800a22d0));
+}
 
 GLOBAL_ASM(
 glabel func0f110720
