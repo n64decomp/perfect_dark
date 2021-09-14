@@ -86,7 +86,7 @@ u32 func0f14fdb0(void);
 u32 func0f14ff94(void);
 u32 func0f150068(void);
 u32 func0f15015c(void);
-u32 func0f1507b4(void);
+void func0f1507b4(s32 arg0, struct maybesavelocation_2d8 *arg1);
 
 extern const char var7f1b6050[];
 extern const char var7f1b6058[];
