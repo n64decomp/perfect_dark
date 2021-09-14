@@ -110,7 +110,7 @@ s32 mpGetNumUnlockedPresets(void);
 char *mpGetPresetNameBySlot(s32 slot);
 void func0f18dcec(struct mpconfigfull *mpconfig);
 u32 func0f18dec4(void);
-u32 func0f18df5c(void);
+void func0f18df5c(struct savebuffer *buffer);
 u32 func0f18e16c(void);
 void func0f18e39c(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum);
 s32 func0f18e420(s32 arg0, s32 arg1, u16 arg2);

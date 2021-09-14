@@ -10140,48 +10140,32 @@ glabel func0f18e420
 /*  f18e4c4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f18e4c8
-/*  f18e4c8:	27bdff00 */ 	addiu	$sp,$sp,-256
-/*  f18e4cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18e4d0:	afa40100 */ 	sw	$a0,0x100($sp)
-/*  f18e4d4:	afa50104 */ 	sw	$a1,0x104($sp)
-/*  f18e4d8:	0480001a */ 	bltz	$a0,.L0f18e544
-/*  f18e4dc:	afa60108 */ 	sw	$a2,0x108($sp)
-/*  f18e4e0:	0fc35517 */ 	jal	savebufferClear
-/*  f18e4e4:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f18e4e8:	83a40103 */ 	lb	$a0,0x103($sp)
-/*  f18e4ec:	8fa50104 */ 	lw	$a1,0x104($sp)
-/*  f18e4f0:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f18e4f4:	0fc45a00 */ 	jal	func0f116800
-/*  f18e4f8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f18e4fc:	1440000d */ 	bnez	$v0,.L0f18e534
-/*  f18e500:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18e504:	8faf0104 */ 	lw	$t7,0x104($sp)
-/*  f18e508:	97b8010a */ 	lhu	$t8,0x10a($sp)
-/*  f18e50c:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f18e510:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f18e514:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f18e518:	ac4f0020 */ 	sw	$t7,0x20($v0)
-/*  f18e51c:	0fc637d7 */ 	jal	func0f18df5c
-/*  f18e520:	a4580024 */ 	sh	$t8,0x24($v0)
-/*  f18e524:	0fc35531 */ 	jal	func0f0d54c4
-/*  f18e528:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f18e52c:	10000006 */ 	b	.L0f18e548
-/*  f18e530:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18e534:
-/*  f18e534:	3c01800a */ 	lui	$at,%hi(var800a21f8)
-/*  f18e538:	ac2321f8 */ 	sw	$v1,%lo(var800a21f8)($at)
-/*  f18e53c:	10000002 */ 	b	.L0f18e548
-/*  f18e540:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18e544:
-/*  f18e544:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18e548:
-/*  f18e548:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18e54c:	27bd0100 */ 	addiu	$sp,$sp,0x100
-/*  f18e550:	03e00008 */ 	jr	$ra
-/*  f18e554:	00000000 */ 	nop
-);
+s32 func0f18e4c8(s32 arg0, s32 arg1, u16 arg2)
+{
+	s32 tmp;
+	struct savebuffer buffer;
+
+	if (arg0 >= 0) {
+		savebufferClear(&buffer);
+		tmp = func0f116800(arg0, arg1, buffer.bytes, 0);
+
+		if (tmp == 0) {
+			g_MpSetup.unk20.unk00 = arg1;
+			g_MpSetup.unk20.unk04 = arg2;
+
+			func0f18df5c(&buffer);
+			func0f0d54c4(&buffer);
+
+			return 0;
+		}
+
+		var800a21f8.unk00 = tmp;
+
+		return -1;
+	}
+
+	return -1;
+}
 
 void func0f18e558(void)
 {
