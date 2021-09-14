@@ -736,118 +736,56 @@ glabel filelistUpdate
 /*  f11145c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f111460
-/*  f111460:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f111464:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f111468:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11146c:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f111470:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f111474:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f111478:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f11147c:	3c0f800a */ 	lui	$t7,%hi(g_Menus)
-/*  f111480:	25efe000 */ 	addiu	$t7,$t7,%lo(g_Menus)
-/*  f111484:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f111488:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11148c:	01cf5021 */ 	addu	$t2,$t6,$t7
-/*  f111490:	30d0ffff */ 	andi	$s0,$a2,0xffff
-/*  f111494:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f111498:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f11149c:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f1114a0:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f1114a4:	8d420e68 */ 	lw	$v0,0xe68($t2)
-/*  f1114a8:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f1114ac:	00003825 */ 	or	$a3,$zero,$zero
-.L0f1114b0:
-/*  f1114b0:	8c430800 */ 	lw	$v1,0x800($v0)
-/*  f1114b4:	14a30006 */ 	bne	$a1,$v1,.L0f1114d0
-/*  f1114b8:	00000000 */ 	nop
-/*  f1114bc:	94580804 */ 	lhu	$t8,0x804($v0)
-/*  f1114c0:	16180003 */ 	bne	$s0,$t8,.L0f1114d0
-/*  f1114c4:	00000000 */ 	nop
-/*  f1114c8:	1000000a */ 	b	.L0f1114f4
-/*  f1114cc:	00e04825 */ 	or	$t1,$a3,$zero
-.L0f1114d0:
-/*  f1114d0:	54600006 */ 	bnezl	$v1,.L0f1114ec
-/*  f1114d4:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f1114d8:	94590804 */ 	lhu	$t9,0x804($v0)
-/*  f1114dc:	57200003 */ 	bnezl	$t9,.L0f1114ec
-/*  f1114e0:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f1114e4:	00e04025 */ 	or	$t0,$a3,$zero
-/*  f1114e8:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0f1114ec:
-/*  f1114ec:	14e4fff0 */ 	bne	$a3,$a0,.L0f1114b0
-/*  f1114f0:	24420008 */ 	addiu	$v0,$v0,0x8
-.L0f1114f4:
-/*  f1114f4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1114f8:	1521002f */ 	bne	$t1,$at,.L0f1115b8
-/*  f1114fc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f111500:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f111504:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f111508:	0fc479ac */ 	jal	pakSearch
-/*  f11150c:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*  f111510:	00022600 */ 	sll	$a0,$v0,0x18
-/*  f111514:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f111518:	01602025 */ 	or	$a0,$t3,$zero
-/*  f11151c:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f111520:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*  f111524:	04410003 */ 	bgez	$v0,.L0f111534
-/*  f111528:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f11152c:	1000002d */ 	b	.L0f1115e4
-/*  f111530:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111534:
-/*  f111534:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f111538:	55010004 */ 	bnel	$t0,$at,.L0f11154c
-/*  f11153c:	8d430e68 */ 	lw	$v1,0xe68($t2)
-/*  f111540:	10000028 */ 	b	.L0f1115e4
-/*  f111544:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111548:	8d430e68 */ 	lw	$v1,0xe68($t2)
-.L0f11154c:
-/*  f11154c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x58)
-/*  f111550:	8c42a018 */ 	lw	$v0,%lo(g_Vars+0x58)($v0)
-/*  f111554:	8c6c0880 */ 	lw	$t4,0x880($v1)
-/*  f111558:	000879c0 */ 	sll	$t7,$t0,0x7
-/*  f11155c:	004c6823 */ 	subu	$t5,$v0,$t4
-/*  f111560:	29a10014 */ 	slti	$at,$t5,0x14
-/*  f111564:	50200004 */ 	beqzl	$at,.L0f111578
-/*  f111568:	ac620880 */ 	sw	$v0,0x880($v1)
-/*  f11156c:	1000001d */ 	b	.L0f1115e4
-/*  f111570:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111574:	ac620880 */ 	sw	$v0,0x880($v1)
-.L0f111578:
-/*  f111578:	8d4e0e68 */ 	lw	$t6,0xe68($t2)
-/*  f11157c:	afaa0024 */ 	sw	$t2,0x24($sp)
-/*  f111580:	afa80030 */ 	sw	$t0,0x30($sp)
-/*  f111584:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f111588:	0fc54057 */ 	jal	func0f15015c
-/*  f11158c:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f111590:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f111594:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f111598:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*  f11159c:	8d580e68 */ 	lw	$t8,0xe68($t2)
-/*  f1115a0:	000918c0 */ 	sll	$v1,$t1,0x3
-/*  f1115a4:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f1115a8:	af250800 */ 	sw	$a1,0x800($t9)
-/*  f1115ac:	8d4b0e68 */ 	lw	$t3,0xe68($t2)
-/*  f1115b0:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f1115b4:	a5900804 */ 	sh	$s0,0x804($t4)
-.L0f1115b8:
-/*  f1115b8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1115bc:	55210004 */ 	bnel	$t1,$at,.L0f1115d0
-/*  f1115c0:	8d430e68 */ 	lw	$v1,0xe68($t2)
-/*  f1115c4:	10000007 */ 	b	.L0f1115e4
-/*  f1115c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1115cc:	8d430e68 */ 	lw	$v1,0xe68($t2)
-.L0f1115d0:
-/*  f1115d0:	000969c0 */ 	sll	$t5,$t1,0x7
-/*  f1115d4:	006d7021 */ 	addu	$t6,$v1,$t5
-/*  f1115d8:	ac6e0884 */ 	sw	$t6,0x884($v1)
-/*  f1115dc:	8d420e68 */ 	lw	$v0,0xe68($t2)
-/*  f1115e0:	24420884 */ 	addiu	$v0,$v0,2180
-.L0f1115e4:
-/*  f1115e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1115e8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1115ec:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1115f0:	03e00008 */ 	jr	$ra
-/*  f1115f4:	00000000 */ 	nop
-);
+struct textureconfig *filelistGetPerfectHeadTexture(s32 playernum, s32 arg1, u16 arg2)
+{
+	s32 i;
+	s32 bestcandidate = -1;
+	s32 indextouse = -1;
+
+	for (i = 0; i < 16; i++) {
+		if (g_Menus[playernum].headtextures->unk800[i].unk00 == arg1
+				&& g_Menus[playernum].headtextures->unk800[i].unk04 == arg2) {
+			indextouse = i;
+			break;
+		}
+
+		if (g_Menus[playernum].headtextures->unk800[i].unk00 == 0) {
+			if (g_Menus[playernum].headtextures->unk800[i].unk04 == 0) {
+				bestcandidate = i;
+			}
+		}
+	}
+
+	if (indextouse == -1) {
+		s8 device = pakSearch(arg2);
+
+		if (device < 0) {
+			return NULL;
+		}
+
+		if (bestcandidate == -1) {
+			return NULL;
+		}
+
+		if (g_Vars.thisframe240 - g_Menus[playernum].headtextures->lastupdated240 < 20) {
+			return NULL;
+		}
+
+		g_Menus[playernum].headtextures->lastupdated240 = g_Vars.thisframe240;
+
+		func0f15015c(device, arg1, g_Menus[playernum].headtextures->unk000[bestcandidate]);
+
+		g_Menus[playernum].headtextures->unk800[bestcandidate].unk00 = arg1;
+		g_Menus[playernum].headtextures->unk800[bestcandidate].unk04 = arg2;
+
+		indextouse = bestcandidate;
+	}
+
+	if (indextouse == -1) {
+		return NULL;
+	}
+
+	g_Menus[playernum].headtextures->selectedtexture.textureptr = g_Menus[playernum].headtextures->unk000[indextouse];
+
+	return &g_Menus[playernum].headtextures->selectedtexture;
+}

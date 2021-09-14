@@ -38,7 +38,7 @@ char *filemgrMenuTextLocationName2(struct menuitem *item);
 char *filemgrMenuTextSaveLocationSpaces(struct menuitem *item);
 void filemgrPushSelectLocationDialog(s32 arg0, u32 filetype);
 char *filemgrMenuTextFileInUseDescription(struct menuitem *item);
-Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, u32 arg2, u32 arg3);
+Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, s32 arg2, s32 arg3);
 bool filemgrIsFileInUse(struct filelistfile *file);
 s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, bool isdelete);
 void filemgrPushDeleteFileDialog(s32 listnum);

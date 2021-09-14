@@ -3861,6 +3861,32 @@ struct menudata_train {
 	u32 weaponnum;
 };
 
+struct textureconfig {
+	union {
+		u32 texturenum;
+		u8 *textureptr;
+	};
+	u8 width;
+	u8 height;
+	u8 level;
+	u8 format;
+	u8 depth;
+	u8 s;
+	u8 t;
+};
+
+struct menu_e68_800 {
+	s32 unk00;
+	u16 unk04;
+};
+
+struct perfectheadtexturelist {
+	u8 unk000[16][0x80];
+	struct menu_e68_800 unk800[16];
+	s32 lastupdated240;
+	struct textureconfig selectedtexture;
+};
+
 struct menu {
 	struct menuframe frames[10];
 	/*0x460*/ s16 numframes;
@@ -4491,7 +4517,7 @@ struct menu {
 	/*0xe5c*/ u32 unke5c;
 	/*0xe60*/ u32 unke60;
 	/*0xe64*/ u32 unke64;
-	/*0xe68*/ u32 unke68;
+	/*0xe68*/ struct perfectheadtexturelist *headtextures;
 	/*0xe6c*/ s8 savedevice; // 0-3 = controller pak 1-4, 4 = game pak
 };
 
@@ -6687,17 +6713,6 @@ struct pakthing16 {
 struct var80067e6c {
 	s16 animnum;
 	f32 value;
-};
-
-struct textureconfig {
-	u32 texturenum;
-	u8 width;
-	u8 height;
-	u8 level;
-	u8 format;
-	u8 depth;
-	u8 s;
-	u8 t;
 };
 
 struct gfxvtx {
