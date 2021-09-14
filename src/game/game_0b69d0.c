@@ -14284,7 +14284,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 							numdeaths += g_Vars.playerstats[i].kills[playernum];
 						}
 
-						if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
+						if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 							if (g_Vars.currentplayer->deadtimer < 0) {
 								g_Vars.currentplayer->deadtimer = PALDOWN(600);
 							}

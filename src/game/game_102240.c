@@ -99,7 +99,7 @@ s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, union hand
 		break;
 	case MENUOP_SET:
 		optionsSetControlMode(mpindex, data->list.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->list.value = optionsGetControlMode(mpindex);
@@ -140,7 +140,7 @@ s32 menuhandlerReversePitch(s32 operation, struct menuitem *item, union handlerd
 		return !optionsGetForwardPitch(mpchrnum);
 	case MENUOP_SET:
 		optionsSetForwardPitch(mpchrnum, data->checkbox.value == 0);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -181,7 +181,7 @@ s32 menuhandlerAimControl(s32 operation, struct menuitem *item, union handlerdat
 #endif
 	case MENUOP_SET:
 		optionsSetAimControl(playernum, data->dropdown.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->dropdown.value = optionsGetAimControl(playernum);
@@ -207,7 +207,7 @@ s32 menuhandlerSoundMode(s32 operation, struct menuitem *item, union handlerdata
 		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
 		sndSetSoundMode(data->dropdown.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->dropdown.value = g_SoundMode;
@@ -232,7 +232,7 @@ s32 menuhandlerScreenSize(s32 operation, struct menuitem *item, union handlerdat
 		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
 		optionsSetScreenSize(data->dropdown.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->dropdown.value = optionsGetEffectiveScreenSize();
@@ -256,7 +256,7 @@ s32 menuhandlerScreenRatio(s32 operation, struct menuitem *item, union handlerda
 		return (s32) langGet(options[data->dropdown.value]);
 	case MENUOP_SET:
 		optionsSetScreenRatio(data->dropdown.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->dropdown.value = optionsGetScreenRatio();
@@ -353,7 +353,7 @@ s32 menuhandlerScreenSplit(s32 operation, struct menuitem *item, union handlerda
 		if (data->dropdown.value != (u32)optionsGetScreenSplit()) {
 			optionsSetScreenSplit(data->dropdown.value);
 
-			g_Vars.modifiedfiles |= MODFILE_SOLO;
+			g_Vars.modifiedfiles |= MODFILE_GAME;
 
 			if (PLAYERCOUNT() > 1) {
 				u32 prevplayernum = g_MpPlayerNum;
@@ -388,7 +388,7 @@ s32 menuhandlerLookAhead(s32 operation, struct menuitem *item, union handlerdata
 		return optionsGetLookAhead(mpchrnum);
 	case MENUOP_SET:
 		optionsSetLookAhead(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -409,7 +409,7 @@ s32 menuhandlerHeadRoll(s32 operation, struct menuitem *item, union handlerdata 
 		return optionsGetHeadRoll(mpchrnum);
 	case MENUOP_SET:
 		optionsSetHeadRoll(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -422,7 +422,7 @@ s32 menuhandlerInGameSubtitles(s32 operation, struct menuitem *item, union handl
 		return optionsGetInGameSubtitles();
 	case MENUOP_SET:
 		optionsSetInGameSubtitles(data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -435,7 +435,7 @@ s32 menuhandlerCutsceneSubtitles(s32 operation, struct menuitem *item, union han
 		return optionsGetCutsceneSubtitles();
 	case MENUOP_SET:
 		optionsSetCutsceneSubtitles(data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -445,15 +445,15 @@ s32 menuhandlerAlternativeTitle(s32 operation, struct menuitem *item, union hand
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
-		if (g_Vars.stagenum != STAGE_CITRAINING || (u8)g_SoloCompleted == false) {
+		if (g_Vars.stagenum != STAGE_CITRAINING || (u8)g_AltTitleUnlocked == false) {
 			return true;
 		}
 		break;
 	case MENUOP_GET:
-		return g_AltTitle;
+		return g_AltTitleEnabled;
 	case MENUOP_SET:
-		g_AltTitle = data->checkbox.value;
-		g_Vars.modifiedfiles |= MODFILE_GLOBAL;
+		g_AltTitleEnabled = data->checkbox.value;
+		g_Vars.modifiedfiles |= MODFILE_BOSS;
 	}
 
 	return 0;
@@ -476,7 +476,7 @@ s32 menuhandlerHiRes(s32 operation, struct menuitem *item, union handlerdata *da
 		return g_HiResEnabled == true;
 	case MENUOP_SET:
 		optionsSetHiRes(data->checkbox.value ? 1 : 0);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -497,7 +497,7 @@ s32 menuhandlerAmmoOnScreen(s32 operation, struct menuitem *item, union handlerd
 		return optionsGetAmmoOnScreen(mpchrnum);
 	case MENUOP_SET:
 		optionsSetAmmoOnScreen(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -523,7 +523,7 @@ s32 menuhandlerShowGunFunction(s32 operation, struct menuitem *item, union handl
 		return optionsGetShowGunFunction(mpchrnum);
 	case MENUOP_SET:
 		optionsSetShowGunFunction(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -544,7 +544,7 @@ s32 menuhandlerShowMissionTime(s32 operation, struct menuitem *item, union handl
 		return optionsGetShowMissionTime(mpchrnum);
 	case MENUOP_SET:
 		optionsSetShowMissionTime(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -570,7 +570,7 @@ s32 menuhandlerAlwaysShowTarget(s32 operation, struct menuitem *item, union hand
 		return optionsGetAlwaysShowTarget(mpchrnum);
 	case MENUOP_SET:
 		optionsSetAlwaysShowTarget(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -596,7 +596,7 @@ s32 menuhandlerShowZoomRange(s32 operation, struct menuitem *item, union handler
 		return optionsGetShowZoomRange(mpchrnum);
 	case MENUOP_SET:
 		optionsSetShowZoomRange(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -617,7 +617,7 @@ s32 menuhandlerPaintball(s32 operation, struct menuitem *item, union handlerdata
 		return optionsGetPaintball(mpchrnum);
 	case MENUOP_SET:
 		optionsSetPaintball(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -638,7 +638,7 @@ s32 menuhandlerSightOnScreen(s32 operation, struct menuitem *item, union handler
 		return optionsGetSightOnScreen(mpchrnum);
 	case MENUOP_SET:
 		optionsSetSightOnScreen(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -659,7 +659,7 @@ s32 menuhandlerAutoAim(s32 operation, struct menuitem *item, union handlerdata *
 		return optionsGetAutoAim(mpchrnum);
 	case MENUOP_SET:
 		optionsSetAutoAim(mpchrnum, data->checkbox.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -673,7 +673,7 @@ s32 menuhandlerMusicVolume(s32 operation, struct menuitem *item, union handlerda
 		break;
 	case MENUOP_SET:
 		optionsSetMusicVolume(data->slider.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -687,7 +687,7 @@ s32 menuhandlerSfxVolume(s32 operation, struct menuitem *item, union handlerdata
 		break;
 	case MENUOP_SET:
 		sndSetSfxVolume(data->slider.value);
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -1665,7 +1665,7 @@ s32 menuhandlerCoopRadar(s32 operation, struct menuitem *item, union handlerdata
 		return g_Vars.coopradaron;
 	case MENUOP_SET:
 		g_Vars.coopradaron = data->checkbox.value ? 1 : 0;
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -1678,7 +1678,7 @@ s32 menuhandlerCoopFriendlyFire(s32 operation, struct menuitem *item, union hand
 		return g_Vars.coopfriendlyfire;
 	case MENUOP_SET:
 		g_Vars.coopfriendlyfire = data->checkbox.value ? 1 : 0;
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -1977,7 +1977,7 @@ s32 menuhandlerAntiRadar(s32 operation, struct menuitem *item, union handlerdata
 		return g_Vars.antiradaron;
 	case MENUOP_SET:
 		g_Vars.antiradaron = data->checkbox.value ? 1 : 0;
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;
@@ -1995,7 +1995,7 @@ s32 menuhandlerAntiPlayer(s32 operation, struct menuitem *item, union handlerdat
 		return (s32) langGet(labels[data->dropdown.value]);
 	case MENUOP_SET:
 		g_Vars.pendingantiplayernum = data->dropdown.value;
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->dropdown.value = g_Vars.pendingantiplayernum;
@@ -4146,17 +4146,17 @@ s32 menudialog0010559c(s32 operation, struct menudialog *dialog, union handlerda
 	case MENUOP_OPEN:
 		break;
 	case MENUOP_CLOSE:
-		if ((g_Vars.modifiedfiles & MODFILE_SOLO) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
+		if ((g_Vars.modifiedfiles & MODFILE_GAME) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 			if (func0f1094e4(&g_FilemgrLoadedMainFile, FILEOP_SAVE_GAME_001, 0) == 0) {
 				data->dialog1.preventclose = true;
 			}
 
-			g_Vars.modifiedfiles &= ~MODFILE_SOLO;
+			g_Vars.modifiedfiles &= ~MODFILE_GAME;
 		}
 
-		if (g_Vars.modifiedfiles & MODFILE_GLOBAL) {
-			mpsetupfileSave();
-			g_Vars.modifiedfiles &= ~MODFILE_GLOBAL;
+		if (g_Vars.modifiedfiles & MODFILE_BOSS) {
+			bossfileSave();
+			g_Vars.modifiedfiles &= ~MODFILE_BOSS;
 		}
 		break;
 	}
@@ -4226,7 +4226,7 @@ s32 menuhandlerLangFilter(s32 operation, struct menuitem *item, union handlerdat
 		return g_Vars.langfilteron;
 	case MENUOP_SET:
 		g_Vars.langfilteron = data->checkbox.value;
-		g_Vars.modifiedfiles |= MODFILE_SOLO;
+		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
 	return 0;

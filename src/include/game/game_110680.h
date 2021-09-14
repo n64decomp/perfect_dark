@@ -4,11 +4,11 @@
 #include "data.h"
 #include "types.h"
 
-bool func0f1106c8(void);
+bool bossfileLoadFull(void);
 u32 func0f110720(void);
-void mpsetupfileLoad(void);
-void mpsetupfileSave(void);
-void mpsetupfileLoadDefaults(void);
+void bossfileLoad(void);
+void bossfileSave(void);
+void bossfileSetDefaults(void);
 void func0f110bf0(void);
 void func0f110bf8(void);
 void func0f110c5c(s32 listnum, u8 filetype);

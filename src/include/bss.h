@@ -200,8 +200,8 @@ extern u32 g_CheatsEnabledBank1;
 extern struct savelocation_2d8 var800a21f8;
 extern struct gamefile g_GameFile;
 extern struct savelocation_2d8 g_FilemgrLoadedMainFile;
-extern s8 g_SoloCompleted;
-extern u8 g_AltTitle;
+extern s8 g_AltTitleUnlocked;
+extern u8 g_AltTitleEnabled;
 extern struct padsfileheader *g_PadsFile;
 extern u16 *g_PadOffsets;
 extern u16 *g_CoverFlags;
@@ -302,7 +302,7 @@ extern u8 g_MpSimulantDifficultiesPerNumPlayers[32];
 extern struct mpplayer g_MpPlayers[6];
 extern u8 g_AmBotCommands[16];
 extern struct mpsetup g_MpSetup;
-extern struct mpsetupfile g_MpSetupFile;
+extern struct bossfile g_BossFile;
 extern struct chrdata *g_MpSimulantChrs[MAX_SIMULANTS];
 
 #endif

@@ -47,8 +47,8 @@ u32 var800a2324;
 u8 var800a2328;
 u8 var800a2329;
 u8 var800a232a;
-s8 g_SoloCompleted;
-u8 g_AltTitle;
+s8 g_AltTitleUnlocked;
+u8 g_AltTitleEnabled;
 s32 var800a2330[1];
 u32 var800a2334;
 u32 var800a2338;
@@ -70,23 +70,23 @@ u32 var80075bf4 = 0;
 u32 var80075bf8 = 0;
 u32 var80075bfc = 0;
 
-void func0f110680(void)
+void bossfileSetDefaults2(void)
 {
-	mpsetupfileLoadDefaults();
+	bossfileSetDefaults();
 }
 
-void func0f1106a0(void)
+void bossfileSetAndSaveDefaults(void)
 {
-	mpsetupfileLoadDefaults();
-	mpsetupfileSave();
+	bossfileSetDefaults();
+	bossfileSave();
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f1106c8
+glabel bossfileLoadFull
 /*  f111198:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f11119c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1111a0:	0fc444ba */ 	jal	mpsetupfileLoad
+/*  f1111a0:	0fc444ba */ 	jal	bossfileLoad
 /*  f1111a4:	00000000 */ 	nop
 /*  f1111a8:	3c04800a */ 	lui	$a0,0x800a
 /*  f1111ac:	0fc5bdd7 */ 	jal	func0f16f75c
@@ -98,9 +98,9 @@ glabel func0f1106c8
 /*  f1111c4:	00000000 */ 	nop
 );
 #else
-bool func0f1106c8(void)
+bool bossfileLoadFull(void)
 {
-	mpsetupfileLoad();
+	bossfileLoad();
 	return true;
 }
 #endif
@@ -195,9 +195,9 @@ glabel func0f110720
 /*  f110808:	27bd0850 */ 	addiu	$sp,$sp,0x850
 );
 
-void mpsetupfileLoad(void)
+void bossfileLoad(void)
 {
-	bool sp124 = false;
+	bool failed = false;
 	struct savebuffer buffer;
 	s32 i;
 	s32 tmp;
@@ -206,16 +206,16 @@ void mpsetupfileLoad(void)
 	tmp = func0f110720();
 
 	if (tmp == 0) {
-		sp124 = true;
+		failed = true;
 	} else {
 		savebufferClear(&buffer);
 
 		if (func0f116800(4, tmp, buffer.bytes, 0)) {
-			sp124 = true;
+			failed = true;
 		}
 	}
 
-	if (!sp124) {
+	if (!failed) {
 		u8 tracknum;
 
 		func0f0d579c(&buffer, &thing);
@@ -223,40 +223,40 @@ void mpsetupfileLoad(void)
 		g_Vars.unk00047c = thing.unk00;
 		g_Vars.unk000480 = thing.unk04;
 
-		g_MpSetupFile.unk89 = savebufferReadBits(&buffer, 1);
+		g_BossFile.unk89 = savebufferReadBits(&buffer, 1);
 
 		g_Vars.unk000482 = savebufferReadBits(&buffer, 4);
 
 		for (i = 0; i < 8; i++) {
-			savebufferReadString(&buffer, g_MpSetupFile.teamnames[i], 1);
+			savebufferReadString(&buffer, g_BossFile.teamnames[i], 1);
 		}
 
 		tracknum = savebufferReadBits(&buffer, 8);
 
 		if (tracknum == 0xff) {
-			g_MpSetupFile.tracknum = -1;
+			g_BossFile.tracknum = -1;
 		} else {
-			g_MpSetupFile.tracknum = tracknum;
+			g_BossFile.tracknum = tracknum;
 		}
 
 		for (i = 0; i < 6; i++) {
-			g_MpSetupFile.multipletracknums[i] = savebufferReadBits(&buffer, 8);
+			g_BossFile.multipletracknums[i] = savebufferReadBits(&buffer, 8);
 		}
 
-		g_MpSetupFile.usingmultipletunes = savebufferReadBits(&buffer, 1);
-		g_SoloCompleted = savebufferReadBits(&buffer, 1);
-		g_AltTitle = savebufferReadBits(&buffer, 1);
+		g_BossFile.usingmultipletunes = savebufferReadBits(&buffer, 1);
+		g_AltTitleUnlocked = savebufferReadBits(&buffer, 1);
+		g_AltTitleEnabled = savebufferReadBits(&buffer, 1);
 
 		func0f0d54c4(&buffer);
 	}
 
-	if (sp124) {
-		mpsetupfileLoadDefaults();
-		mpsetupfileSave();
+	if (failed) {
+		bossfileSetDefaults();
+		bossfileSave();
 	}
 }
 
-void mpsetupfileSave(void)
+void bossfileSave(void)
 {
 	volatile bool sp12c = false;
 	struct savebuffer buffer;
@@ -272,26 +272,26 @@ void mpsetupfileSave(void)
 
 	func0f0d575c(&buffer, &thing);
 
-	savebufferOr(&buffer, g_MpSetupFile.unk89, 1);
+	savebufferOr(&buffer, g_BossFile.unk89, 1);
 	savebufferOr(&buffer, g_Vars.unk000482, 4);
 
 	for (i = 0; i < 8; i++) {
-		func0f0d55a4(&buffer, g_MpSetupFile.teamnames[i]);
+		func0f0d55a4(&buffer, g_BossFile.teamnames[i]);
 	}
 
-	if (g_MpSetupFile.tracknum == -1) {
+	if (g_BossFile.tracknum == -1) {
 		savebufferOr(&buffer, 0xff, 8);
 	} else {
-		savebufferOr(&buffer, g_MpSetupFile.tracknum, 8);
+		savebufferOr(&buffer, g_BossFile.tracknum, 8);
 	}
 
 	for (i = 0; i < 6; i++) {
-		savebufferOr(&buffer, g_MpSetupFile.multipletracknums[i], 8);
+		savebufferOr(&buffer, g_BossFile.multipletracknums[i], 8);
 	}
 
-	savebufferOr(&buffer, g_MpSetupFile.usingmultipletunes, 1);
-	savebufferOr(&buffer, (u8)g_SoloCompleted, 1);
-	savebufferOr(&buffer, g_AltTitle, 1);
+	savebufferOr(&buffer, g_BossFile.usingmultipletunes, 1);
+	savebufferOr(&buffer, (u8)g_AltTitleUnlocked, 1);
+	savebufferOr(&buffer, g_AltTitleEnabled, 1);
 
 	func0f0d54c4(&buffer);
 
@@ -306,29 +306,29 @@ void mpsetupfileSave(void)
 	}
 }
 
-void mpsetupfileLoadDefaults(void)
+void bossfileSetDefaults(void)
 {
-	g_MpSetupFile.teamnames[0][0] = '\0';
-	g_MpSetupFile.teamnames[1][0] = '\0';
-	g_MpSetupFile.teamnames[2][0] = '\0';
-	g_MpSetupFile.teamnames[3][0] = '\0';
-	g_MpSetupFile.teamnames[4][0] = '\0';
-	g_MpSetupFile.teamnames[5][0] = '\0';
-	g_MpSetupFile.teamnames[6][0] = '\0';
-	g_MpSetupFile.teamnames[7][0] = '\0';
+	g_BossFile.teamnames[0][0] = '\0';
+	g_BossFile.teamnames[1][0] = '\0';
+	g_BossFile.teamnames[2][0] = '\0';
+	g_BossFile.teamnames[3][0] = '\0';
+	g_BossFile.teamnames[4][0] = '\0';
+	g_BossFile.teamnames[5][0] = '\0';
+	g_BossFile.teamnames[6][0] = '\0';
+	g_BossFile.teamnames[7][0] = '\0';
 
-	g_MpSetupFile.tracknum = -1;
+	g_BossFile.tracknum = -1;
 	mpEnableAllMultiTracks();
-	g_MpSetupFile.usingmultipletunes = false;
-	g_MpSetupFile.unk89 = 0;
-	g_MpSetupFile.locktype = MPLOCKTYPE_NONE;
+	g_BossFile.usingmultipletunes = false;
+	g_BossFile.unk89 = 0;
+	g_BossFile.locktype = MPLOCKTYPE_NONE;
 	g_Vars.unk00047c = 0;
 	g_Vars.unk000480 = 0;
 	g_Vars.unk000482 = (PAL ? 7 : 0);
-	g_SoloCompleted = 0;
-	g_AltTitle = false;
+	g_AltTitleUnlocked = 0;
+	g_AltTitleEnabled = false;
 
-	mpsetupfileSave();
+	bossfileSave();
 }
 
 void func0f110bf0(void)

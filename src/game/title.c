@@ -1810,7 +1810,7 @@ void titleTickPdLogo(void)
 	var8009ccb8 = 1 - var8009ccb8;
 
 	if (var80062734) {
-		if (g_AltTitle && IS8MB()) {
+		if (g_AltTitleEnabled && IS8MB()) {
 			g_TitleMode = TITLEMODE_SKIP;
 			creditsRequestAltTitle();
 			g_TitleNextStage = STAGE_CREDITS; // for alt title screen

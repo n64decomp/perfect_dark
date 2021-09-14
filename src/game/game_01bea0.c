@@ -1081,7 +1081,7 @@ glabel var7f1a863c
 /*  f01cdc0:	31f80002 */ 	andi	$t8,$t7,0x2
 /*  f01cdc4:	530000ca */ 	beqzl	$t8,.PF0f01d0f0
 /*  f01cdc8:	240fffff */ 	li	$t7,-1
-/*  f01cdcc:	0fc44527 */ 	jal	mpsetupfileSave
+/*  f01cdcc:	0fc44527 */ 	jal	bossfileSave
 /*  f01cdd0:	00000000 */ 	nop
 /*  f01cdd4:	8e6d0458 */ 	lw	$t5,0x458($s3)
 /*  f01cdd8:	2401fffd */ 	li	$at,-3
@@ -2431,7 +2431,7 @@ glabel var7f1a863c
 /*  f01c70c:	2401000b */ 	addiu	$at,$zero,0xb
 /*  f01c710:	3050ffff */ 	andi	$s0,$v0,0xffff
 /*  f01c714:	17010014 */ 	bne	$t8,$at,.L0f01c768
-/*  f01c718:	3c0e800b */ 	lui	$t6,%hi(g_MpSetupFile+0x60)
+/*  f01c718:	3c0e800b */ 	lui	$t6,%hi(g_BossFile+0x60)
 /*  f01c71c:	8e790490 */ 	lw	$t9,0x490($s3)
 /*  f01c720:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f01c724:	02c02025 */ 	or	$a0,$s6,$zero
@@ -2457,7 +2457,7 @@ glabel var7f1a863c
 .L0f01c768:
 /*  f01c768:	02c02025 */ 	or	$a0,$s6,$zero
 .L0f01c76c:
-/*  f01c76c:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetupFile+0x60)($t6)
+/*  f01c76c:	91cecc10 */ 	lbu	$t6,%lo(g_BossFile+0x60)($t6)
 /*  f01c770:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f01c774:	0011c080 */ 	sll	$t8,$s1,0x2
 /*  f01c778:	15c10005 */ 	bne	$t6,$at,.L0f01c790
@@ -2858,7 +2858,7 @@ glabel var7f1a863c
 /*  f01ccf0:	332d0002 */ 	andi	$t5,$t9,0x2
 /*  f01ccf4:	51a000ca */ 	beqzl	$t5,.L0f01d020
 /*  f01ccf8:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f01ccfc:	0fc44270 */ 	jal	mpsetupfileSave
+/*  f01ccfc:	0fc44270 */ 	jal	bossfileSave
 /*  f01cd00:	00000000 */ 	nop
 /*  f01cd04:	8e6f0458 */ 	lw	$t7,0x458($s3)
 /*  f01cd08:	2401fffd */ 	addiu	$at,$zero,-3
@@ -3264,8 +3264,8 @@ glabel var7f1a863c
 .L0f01d2b8:
 /*  f01d2b8:	0fc625cb */ 	jal	mpSetPaused
 /*  f01d2bc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01d2c0:	3c02800b */ 	lui	$v0,%hi(g_MpSetupFile)
-/*  f01d2c4:	2442cbb0 */ 	addiu	$v0,$v0,%lo(g_MpSetupFile)
+/*  f01d2c0:	3c02800b */ 	lui	$v0,%hi(g_BossFile)
+/*  f01d2c4:	2442cbb0 */ 	addiu	$v0,$v0,%lo(g_BossFile)
 /*  f01d2c8:	904e0060 */ 	lbu	$t6,0x60($v0)
 /*  f01d2cc:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f01d2d0:	ae600314 */ 	sw	$zero,0x314($s3)
@@ -4626,7 +4626,7 @@ glabel var7f1a863c
 /*  f01c9d0:	332d0002 */ 	andi	$t5,$t9,0x2
 /*  f01c9d4:	51a000ca */ 	beqzl	$t5,.NB0f01cd00
 /*  f01c9d8:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f01c9dc:	0fc42b8c */ 	jal	mpsetupfileSave
+/*  f01c9dc:	0fc42b8c */ 	jal	bossfileSave
 /*  f01c9e0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01c9e4:	8e6f0458 */ 	lw	$t7,0x458($s3)
 /*  f01c9e8:	2401fffd */ 	addiu	$at,$zero,-3
@@ -5699,7 +5699,7 @@ glabel var7f1a863c
 //					}
 //
 //					// c76c
-//					if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
+//					if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 //						g_MpPlayers[i].base.team = 0;
 //					}
 //
@@ -5858,7 +5858,7 @@ glabel var7f1a863c
 //				func0f01bea0();
 //
 //				if (g_Vars.modifiedfiles & MODFILE_MPSETUP) {
-//					mpsetupfileSave();
+//					bossfileSave();
 //					g_Vars.modifiedfiles &= ~MODFILE_MPSETUP;
 //				}
 //			} else /*cd1c*/ if (g_MenuData.unk008 == -6) {
@@ -5994,8 +5994,8 @@ glabel var7f1a863c
 //					g_Vars.normmplayerisrunning = false;
 //					g_Vars.lvmpbotlevel = 0;
 //
-//					if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
-//						g_MpSetupFile.locktype = MPLOCKTYPE_NONE;
+//					if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
+//						g_BossFile.locktype = MPLOCKTYPE_NONE;
 //					}
 //
 //					// d2ec

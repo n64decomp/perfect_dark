@@ -2267,9 +2267,9 @@
 #define MODELTYPE_WIREFENCE      0xc8
 #define MODELTYPE_HAND           0xfa
 
-#define MODFILE_SOLO    1
+#define MODFILE_GAME    1
 #define MODFILE_MPSETUP 2
-#define MODFILE_GLOBAL  4
+#define MODFILE_BOSS    4
 
 #define MOVEMODE_WALK     0
 #define MOVEMODE_BIKE     3

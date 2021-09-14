@@ -22,7 +22,7 @@ void filemgrHandleSuccess(void);
 void filemgrEraseCorruptFile(void);
 char *filemgrMenuTextInsertOriginalPak(struct menuitem *item);
 void filemgrRetrySave(s32 arg0);
-bool filemgrAttemptOperation(s32 arg0, bool arg1);
+bool filemgrAttemptOperation(s32 arg0, bool closeonsuccess);
 bool func0f1094e4(struct savelocation_2d8 *arg0, s32 fileop, void *arg2);
 void filemgrDeleteCurrentFile(void);
 void func0f1097d0(s32 device);

@@ -4619,7 +4619,7 @@ struct mpsetup {
 	/*0x800acba8*/ struct savelocation_2d8 unk20;
 };
 
-struct mpsetupfile {
+struct bossfile {
 	/*0x00*/ char teamnames[8][12];
 	/*0x60*/ u8 locktype;
 	/*0x61*/ u8 unk89;

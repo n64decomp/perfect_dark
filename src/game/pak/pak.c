@@ -3009,7 +3009,7 @@ void func0f1189d8(void)
 	g_Vars.paksconnected = 0x10;
 
 	func0f1169c8(SAVEDEVICE_GAMEPAK, 1);
-	func0f1106c8();
+	bossfileLoadFull();
 
 	gamefileLoadDefaults(&g_GameFile);
 	gamefileApplyOptions(&g_GameFile);
@@ -3083,7 +3083,7 @@ glabel func0f1189d8
 /*  f112e10:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f112e14:	0fc45920 */ 	jal	pakExecuteDebugOperations
 /*  f112e18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112e1c:	0fc42ace */ 	jal	func0f1106c8
+/*  f112e1c:	0fc42ace */ 	jal	bossfileLoadFull
 /*  f112e20:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112e24:	3c10800a */ 	lui	$s0,0x800a
 /*  f112e28:	261066f0 */ 	addiu	$s0,$s0,0x66f0

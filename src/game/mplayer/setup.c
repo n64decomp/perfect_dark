@@ -4068,7 +4068,7 @@ char *mpMenuTextMpconfigMarquee(struct menuitem *item)
 		arenanum = 0;
 #endif
 
-		func0f18e39c(g_FileLists[1]->files[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].unk06,
+		mpsetupfileGetOverview(g_FileLists[1]->files[g_Menus[g_MpPlayerNum].data.mpsetup.slotindex].unk06,
 				filename, &numsims, &stagenum, &scenarionum);
 
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
@@ -5899,7 +5899,7 @@ s32 func0f17dac4(s32 operation, struct menuitem *item, union handlerdata *data)
 			return (s32) "\n";
 		}
 
-		return (s32) g_MpSetupFile.teamnames[data->list.value];
+		return (s32) g_BossFile.teamnames[data->list.value];
 	}
 
 	return menuhandlerMpTeamsLabel(operation, item, data);
@@ -6307,7 +6307,7 @@ char *mpMenuTextTeamName(struct menuitem *item)
 	s32 index = item->param2;
 	index -= L_OPTIONS_008;
 
-	return g_MpSetupFile.teamnames[index];
+	return g_BossFile.teamnames[index];
 }
 
 s32 menuhandlerMpTeamNameSlot(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -6357,7 +6357,7 @@ s32 menudialog0017e3fc(s32 operation, struct menudialog *dialog, union handlerda
 	case MENUOP_CLOSE:
 		break;
 	case MENUOP_TICK:
-		if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
+		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 			menuPopDialog();
 		}
 		break;
@@ -7135,7 +7135,7 @@ glabel var7f1b2b7cnb
 s32 menuhandler0017e9d8(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetupFile.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -7146,7 +7146,7 @@ s32 menuhandler0017e9d8(s32 operation, struct menuitem *item, union handlerdata 
 s32 menuhandlerMpAbortChallenge(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetupFile.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -7161,7 +7161,7 @@ s32 menuhandlerMpAbortChallenge(s32 operation, struct menuitem *item, union hand
 s32 menuhandlerMpStartChallenge(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetupFile.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -7175,7 +7175,7 @@ s32 menuhandlerMpStartChallenge(s32 operation, struct menuitem *item, union hand
 char *mpMenuTextChallengeName(struct menuitem *item)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	if (g_MpSetupFile.locktype != MPLOCKTYPE_CHALLENGE) {
+	if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 		return langGet(L_MPMENU_050); // "Combat Challenges"
 	}
 #endif
@@ -7187,7 +7187,7 @@ char *mpMenuTextChallengeName(struct menuitem *item)
 s32 mpCombatChallengesMenuDialog(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
-		if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE
+		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE
 				&& g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog
 				&& !mpIsChallengeLoaded()) {
@@ -7645,7 +7645,7 @@ s32 menuhandlerPlayerTeam(s32 operation, struct menuitem *item, union handlerdat
 		data->dropdown.value = 8;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) &g_MpSetupFile.teamnames[data->dropdown.value];
+		return (s32) &g_BossFile.teamnames[data->dropdown.value];
 	case MENUOP_SET:
 		g_Vars.mpplayerteams[item->param] = data->dropdown.value;
 		break;
@@ -8206,7 +8206,7 @@ void func0f17fcb0(s32 silent)
 		menuPushRootDialog(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		func0f0f8300();
 	} else {
-		if (g_MpSetupFile.locktype == MPLOCKTYPE_CHALLENGE) {
+		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 			menuPushRootDialog(&g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog, MENUROOT_MPSETUP);
 		} else {
 			menuPushRootDialog(&g_MpAdvancedSetupMenuDialog, MENUROOT_MPSETUP);

@@ -9531,7 +9531,7 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 		y = context->y + i * 10 - data->scrolloffset + 14;
 
 		if (team) {
-			gdl = textRenderProjected(gdl, &x, &y, g_MpSetupFile.teamnames[thisinfo->teamnum],
+			gdl = textRenderProjected(gdl, &x, &y, g_BossFile.teamnames[thisinfo->teamnum],
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		} else {
 			gdl = textRenderProjected(gdl, &x, &y, thisinfo->mpchr->name,

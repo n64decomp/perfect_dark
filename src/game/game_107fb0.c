@@ -149,7 +149,7 @@ void filemgrGetSelectName(char *buffer, struct filelistfile *file, u32 filetype)
 		break;
 	case FILETYPE_MPPLAYER:
 		// MP Player filenames have the play duration appended to the name
-		func0f18d9a4(file->unk06, namebuffer, &totalinseconds);
+		mpplayerfileGetOverview(file->unk06, namebuffer, &totalinseconds);
 		pos = sprintf(tmpbuffer1, "%s-", namebuffer);
 
 		if (totalinseconds >= 0x7ffffff) { // about 4.25 years
@@ -477,7 +477,7 @@ void filemgrHandleSuccess(void)
 	case FILEOP_LOAD_GAME:
 		g_Vars.unk00047c = g_Menus[g_MpPlayerNum].unke48;
 		g_Vars.unk000480 = g_Menus[g_MpPlayerNum].unke4c;
-		mpsetupfileSave();
+		bossfileSave();
 
 		if (IS4MB()) {
 			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
@@ -709,7 +709,7 @@ void filemgrRetrySave(s32 context)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool filemgrAttemptOperation(s32 arg0, bool arg1)
+bool filemgrAttemptOperation(s32 arg0, bool closeonsuccess)
 {
 	s32 errno = 0;
 	bool showfilesaved = (g_Menus[g_MpPlayerNum].isretryingsave & 1) != 0;
@@ -728,13 +728,13 @@ bool filemgrAttemptOperation(s32 arg0, bool arg1)
 				g_Menus[g_MpPlayerNum].unke4c);
 		break;
 	case FILEOP_SAVE_MPPLAYER:
-		errno = func0f18d9fc(
+		errno = mpplayerfileSave(
 				g_Menus[g_MpPlayerNum].unke44, arg0,
 				g_Menus[g_MpPlayerNum].unke48,
 				g_Menus[g_MpPlayerNum].unke4c);
 		break;
 	case FILEOP_SAVE_MPSETUP:
-		errno = func0f18e420(arg0,
+		errno = mpsetupfileSave(arg0,
 				g_Menus[g_MpPlayerNum].unke48,
 				g_Menus[g_MpPlayerNum].unke4c);
 		showfilesaved = true;
@@ -754,14 +754,14 @@ bool filemgrAttemptOperation(s32 arg0, bool arg1)
 		errno = gamefileLoad(arg0);
 		break;
 	case FILEOP_LOAD_MPPLAYER:
-		errno = func0f18dac0(
+		errno = mpplayerfileLoad(
 				g_Menus[g_MpPlayerNum].unke44,
 				arg0,
 				g_Menus[g_MpPlayerNum].unke48,
 				g_Menus[g_MpPlayerNum].unke4c);
 		break;
 	case FILEOP_LOAD_MPSETUP:
-		errno = func0f18e4c8(arg0,
+		errno = mpsetupfileLoad(arg0,
 				g_Menus[g_MpPlayerNum].unke48,
 				g_Menus[g_MpPlayerNum].unke4c);
 		break;
@@ -774,7 +774,7 @@ bool filemgrAttemptOperation(s32 arg0, bool arg1)
 		break;
 	}
 
-	if (errno == 0 && arg1) {
+	if (errno == 0 && closeonsuccess) {
 		menuCloseDialog();
 	}
 
@@ -900,13 +900,13 @@ glabel var7f1ad424nb
 /*  f104b80:	8c440da0 */ 	lw	$a0,0xda0($v0)
 /*  f104b84:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f104b88:	8c460da4 */ 	lw	$a2,0xda4($v0)
-/*  f104b8c:	0fc61f00 */ 	jal	func0f18d9fc
+/*  f104b8c:	0fc61f00 */ 	jal	mpplayerfileSave
 /*  f104b90:	94470daa */ 	lhu	$a3,0xdaa($v0)
 /*  f104b94:	10000041 */ 	beqz	$zero,.NB0f104c9c
 /*  f104b98:	00403025 */ 	or	$a2,$v0,$zero
 /*  f104b9c:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f104ba0:	8c450da4 */ 	lw	$a1,0xda4($v0)
-/*  f104ba4:	0fc62178 */ 	jal	func0f18e420
+/*  f104ba4:	0fc62178 */ 	jal	mpsetupfileSave
 /*  f104ba8:	94460daa */ 	lhu	$a2,0xdaa($v0)
 /*  f104bac:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f104bb0:	00403025 */ 	or	$a2,$v0,$zero
@@ -949,13 +949,13 @@ glabel var7f1ad424nb
 /*  f104c44:	8c440da0 */ 	lw	$a0,0xda0($v0)
 /*  f104c48:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f104c4c:	8c460da4 */ 	lw	$a2,0xda4($v0)
-/*  f104c50:	0fc61f31 */ 	jal	func0f18dac0
+/*  f104c50:	0fc61f31 */ 	jal	mpplayerfileLoad
 /*  f104c54:	94470daa */ 	lhu	$a3,0xdaa($v0)
 /*  f104c58:	10000010 */ 	beqz	$zero,.NB0f104c9c
 /*  f104c5c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f104c60:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f104c64:	8c450da4 */ 	lw	$a1,0xda4($v0)
-/*  f104c68:	0fc621a2 */ 	jal	func0f18e4c8
+/*  f104c68:	0fc621a2 */ 	jal	mpsetupfileLoad
 /*  f104c6c:	94460daa */ 	lhu	$a2,0xdaa($v0)
 /*  f104c70:	1000000a */ 	beqz	$zero,.NB0f104c9c
 /*  f104c74:	00403025 */ 	or	$a2,$v0,$zero
@@ -1256,7 +1256,7 @@ void filemgrGetFileName(char *dst, struct filelistfile *file)
 		func0f0d564c(file->unk06, localbuffer, false);
 		break;
 	case FILETYPE_MPPLAYER:
-		func0f18d9a4(file->unk06, localbuffer, &sp20);
+		mpplayerfileGetOverview(file->unk06, localbuffer, &sp20);
 		break;
 	}
 
