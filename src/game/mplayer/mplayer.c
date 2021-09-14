@@ -10004,54 +10004,32 @@ glabel mpsetupfileGetOverview
 /*  f18e41c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel mpsetupfileSave
-/*  f18e420:	27bdfef8 */ 	addiu	$sp,$sp,-264
-/*  f18e424:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f18e428:	afa40108 */ 	sw	$a0,0x108($sp)
-/*  f18e42c:	afa5010c */ 	sw	$a1,0x10c($sp)
-/*  f18e430:	04800020 */ 	bltz	$a0,.L0f18e4b4
-/*  f18e434:	afa60110 */ 	sw	$a2,0x110($sp)
-/*  f18e438:	0fc35517 */ 	jal	savebufferClear
-/*  f18e43c:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f18e440:	0fc6385b */ 	jal	mpsetupfileSaveWad
-/*  f18e444:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f18e448:	0fc35531 */ 	jal	func0f0d54c4
-/*  f18e44c:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f18e450:	27af0100 */ 	addiu	$t7,$sp,0x100
-/*  f18e454:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f18e458:	83a4010b */ 	lb	$a0,0x10b($sp)
-/*  f18e45c:	8fa5010c */ 	lw	$a1,0x10c($sp)
-/*  f18e460:	24060040 */ 	addiu	$a2,$zero,0x40
-/*  f18e464:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*  f18e468:	0fc45a0a */ 	jal	func0f116828
-/*  f18e46c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f18e470:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f18e474:	3c018007 */ 	lui	$at,%hi(g_FileLists+0x14)
-/*  f18e478:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18e47c:	14400009 */ 	bnez	$v0,.L0f18e4a4
-/*  f18e480:	ac385bd4 */ 	sw	$t8,%lo(g_FileLists+0x14)($at)
-/*  f18e484:	8fb90100 */ 	lw	$t9,0x100($sp)
-/*  f18e488:	97a80112 */ 	lhu	$t0,0x112($sp)
-/*  f18e48c:	3c03800b */ 	lui	$v1,%hi(g_MpSetup)
-/*  f18e490:	2463cb88 */ 	addiu	$v1,$v1,%lo(g_MpSetup)
-/*  f18e494:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18e498:	ac790020 */ 	sw	$t9,0x20($v1)
-/*  f18e49c:	10000006 */ 	b	.L0f18e4b8
-/*  f18e4a0:	a4680024 */ 	sh	$t0,0x24($v1)
-.L0f18e4a4:
-/*  f18e4a4:	3c01800a */ 	lui	$at,%hi(var800a21f8)
-/*  f18e4a8:	ac2321f8 */ 	sw	$v1,%lo(var800a21f8)($at)
-/*  f18e4ac:	10000002 */ 	b	.L0f18e4b8
-/*  f18e4b0:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18e4b4:
-/*  f18e4b4:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18e4b8:
-/*  f18e4b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f18e4bc:	27bd0108 */ 	addiu	$sp,$sp,0x108
-/*  f18e4c0:	03e00008 */ 	jr	$ra
-/*  f18e4c4:	00000000 */ 	nop
-);
+s32 mpsetupfileSave(s32 arg0, s32 arg1, u16 arg2)
+{
+	s32 tmp;
+	s32 sp100;
+	struct savebuffer buffer;
+
+	if (arg0 >= 0) {
+		savebufferClear(&buffer);
+		mpsetupfileSaveWad(&buffer);
+		func0f0d54c4(&buffer);
+
+		tmp = func0f116828(arg0, arg1, 0x40, buffer.bytes, &sp100, 0);
+		var80075bd0[1] = true;
+
+		if (tmp == 0) {
+			g_MpSetup.unk20.unk00 = sp100;
+			g_MpSetup.unk20.unk04 = arg2;
+			return 0;
+		}
+
+		var800a21f8.unk00 = tmp;
+		return -1;
+	}
+
+	return -1;
+}
 
 s32 mpsetupfileLoad(s32 arg0, s32 arg1, u16 arg2)
 {

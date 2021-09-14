@@ -111,7 +111,7 @@ char *mpGetPresetNameBySlot(s32 slot);
 void func0f18dcec(struct mpconfigfull *mpconfig);
 u32 func0f18dec4(void);
 void mpsetupfileLoadWad(struct savebuffer *buffer);
-u32 mpsetupfileSaveWad(void);
+void mpsetupfileSaveWad(struct savebuffer *buffer);
 void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum);
 s32 mpsetupfileSave(s32 arg0, s32 arg1, u16 arg2);
 s32 mpsetupfileLoad(s32 arg0, s32 arg1, u16 arg2);
