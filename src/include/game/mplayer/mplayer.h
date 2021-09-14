@@ -101,7 +101,7 @@ void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum);
 u32 func0f18d238(void);
 void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2);
 u32 func0f18d5c4(void);
-void mpplayerfileGetOverview(char *arg0, char *buffer, u32 *arg2);
+void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime);
 s32 mpplayerfileSave(void *arg0, s32 arg1, s32 arg2, u16 arg3);
 s32 mpplayerfileLoad(s32 playernum, s32 arg1, s32 arg2, u16 arg3);
 s32 mpGetNumPresets(void);

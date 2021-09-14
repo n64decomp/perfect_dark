@@ -8951,31 +8951,15 @@ glabel func0f18d5c4
 /*  f18d9a0:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel mpplayerfileGetOverview
-/*  f18d9a4:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*  f18d9a8:	afa500fc */ 	sw	$a1,0xfc($sp)
-/*  f18d9ac:	00802825 */ 	or	$a1,$a0,$zero
-/*  f18d9b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18d9b4:	afa400f8 */ 	sw	$a0,0xf8($sp)
-/*  f18d9b8:	afa60100 */ 	sw	$a2,0x100($sp)
-/*  f18d9bc:	2406000f */ 	addiu	$a2,$zero,0xf
-/*  f18d9c0:	0fc35521 */ 	jal	func0f0d5484
-/*  f18d9c4:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18d9c8:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18d9cc:	8fa500fc */ 	lw	$a1,0xfc($sp)
-/*  f18d9d0:	0fc35539 */ 	jal	savebufferReadString
-/*  f18d9d4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f18d9d8:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18d9dc:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18d9e0:	2405001c */ 	addiu	$a1,$zero,0x1c
-/*  f18d9e4:	8fae0100 */ 	lw	$t6,0x100($sp)
-/*  f18d9e8:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f18d9ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18d9f0:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-/*  f18d9f4:	03e00008 */ 	jr	$ra
-/*  f18d9f8:	00000000 */ 	nop
-);
+void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime)
+{
+	struct savebuffer buffer;
+
+	func0f0d5484(&buffer, arg0, 15);
+
+	savebufferReadString(&buffer, name, 0);
+	*playtime = savebufferReadBits(&buffer, 28);
+}
 
 GLOBAL_ASM(
 glabel mpplayerfileSave

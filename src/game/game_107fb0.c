@@ -1246,7 +1246,7 @@ void func0f109954(s32 arg0)
 void filemgrGetFileName(char *dst, struct filelistfile *file)
 {
 	char localbuffer[20];
-	u32 sp20;
+	u32 playtime;
 
 	localbuffer[0] = '\0';
 
@@ -1256,7 +1256,7 @@ void filemgrGetFileName(char *dst, struct filelistfile *file)
 		func0f0d564c(file->unk06, localbuffer, false);
 		break;
 	case FILETYPE_MPPLAYER:
-		mpplayerfileGetOverview(file->unk06, localbuffer, &sp20);
+		mpplayerfileGetOverview(file->unk06, localbuffer, &playtime);
 		break;
 	}
 
