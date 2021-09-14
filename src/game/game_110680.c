@@ -249,36 +249,17 @@ void func0f110bf0(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f110bf8
-/*  f110bf8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f110bfc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f110c00:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f110c04:	3c108007 */ 	lui	$s0,%hi(g_FileLists)
-/*  f110c08:	3c118007 */ 	lui	$s1,%hi(g_FileLists+0x10)
-/*  f110c0c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f110c10:	26315bd0 */ 	addiu	$s1,$s1,%lo(g_FileLists+0x10)
-/*  f110c14:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_FileLists)
-/*  f110c18:	8e0e0000 */ 	lw	$t6,0x0($s0)
-.L0f110c1c:
-/*  f110c1c:	51c00008 */ 	beqzl	$t6,.L0f110c40
-/*  f110c20:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f110c24:	0fc5db69 */ 	jal	align16
-/*  f110c28:	24040310 */ 	addiu	$a0,$zero,0x310
-/*  f110c2c:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f110c30:	0c004b2d */ 	jal	func00012cb4
-/*  f110c34:	00402825 */ 	or	$a1,$v0,$zero
-/*  f110c38:	ae000000 */ 	sw	$zero,0x0($s0)
-/*  f110c3c:	26100004 */ 	addiu	$s0,$s0,0x4
-.L0f110c40:
-/*  f110c40:	5611fff6 */ 	bnel	$s0,$s1,.L0f110c1c
-/*  f110c44:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f110c48:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f110c4c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f110c50:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f110c54:	03e00008 */ 	jr	$ra
-/*  f110c58:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f110bf8(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (g_FileLists[i] != NULL) {
+			func00012cb4(g_FileLists[i], align16(sizeof(struct filelist)));
+			g_FileLists[i] = NULL;
+		}
+	}
+}
 
 /**
  * Allocate and build a file list.
