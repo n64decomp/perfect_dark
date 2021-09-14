@@ -98,7 +98,7 @@ struct chrdata *mpGetChrFromPlayerIndex(s32 index);
 s32 func0f18d074(s32 index);
 s32 func0f18d0e8(s32 arg0);
 void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum);
-void func0f18d238(struct savebuffer *buffer, s32 playernum);
+void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum);
 void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2);
 void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer);
 void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime);

@@ -8576,43 +8576,24 @@ void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f18d238
-/*  f18d238:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f18d23c:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f18d240:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f18d244:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers)
-/*  f18d248:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18d24c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18d250:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18d254:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18d258:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_MpPlayers)
-/*  f18d25c:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f18d260:	00809025 */ 	or	$s2,$a0,$zero
-/*  f18d264:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18d268:	24100023 */ 	addiu	$s0,$zero,0x23
-/*  f18d26c:	01cf8821 */ 	addu	$s1,$t6,$t7
-/*  f18d270:	2413fffb */ 	addiu	$s3,$zero,-5
-.L0f18d274:
-/*  f18d274:	2a010009 */ 	slti	$at,$s0,0x9
-/*  f18d278:	14200002 */ 	bnez	$at,.L0f18d284
-/*  f18d27c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18d280:	24060008 */ 	addiu	$a2,$zero,0x8
-.L0f18d284:
-/*  f18d284:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18d288:	0fc354be */ 	jal	savebufferOr
-/*  f18d28c:	92250097 */ 	lbu	$a1,0x97($s1)
-/*  f18d290:	2610fff8 */ 	addiu	$s0,$s0,-8
-/*  f18d294:	1613fff7 */ 	bne	$s0,$s3,.L0f18d274
-/*  f18d298:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18d29c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18d2a0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18d2a4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18d2a8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18d2ac:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18d2b0:	03e00008 */ 	jr	$ra
-/*  f18d2b4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum)
+{
+	s32 bitsremaining = 35;
+	s32 i = 0;
+
+	while (bitsremaining > 0) {
+		s32 numbits = bitsremaining;
+
+		if (numbits > 8) {
+			numbits = 8;
+		}
+
+		savebufferOr(buffer, g_MpPlayers[playernum].gunfuncs[i], numbits);
+
+		bitsremaining -= 8;
+		i++;
+	}
+}
 
 void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 {
@@ -8807,7 +8788,7 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 		}
 	}
 
-	func0f18d238(buffer, playernum);
+	mpplayerfileSaveGunFuncs(buffer, playernum);
 }
 
 void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime)
