@@ -9967,42 +9967,18 @@ glabel mpsetupfileSaveWad
 /*  f18e398:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel mpsetupfileGetOverview
-/*  f18e39c:	27bdff08 */ 	addiu	$sp,$sp,-248
-/*  f18e3a0:	afa500fc */ 	sw	$a1,0xfc($sp)
-/*  f18e3a4:	00802825 */ 	or	$a1,$a0,$zero
-/*  f18e3a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18e3ac:	afa400f8 */ 	sw	$a0,0xf8($sp)
-/*  f18e3b0:	afa60100 */ 	sw	$a2,0x100($sp)
-/*  f18e3b4:	afa70104 */ 	sw	$a3,0x104($sp)
-/*  f18e3b8:	2406000f */ 	addiu	$a2,$zero,0xf
-/*  f18e3bc:	0fc35521 */ 	jal	func0f0d5484
-/*  f18e3c0:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18e3c4:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18e3c8:	8fa500fc */ 	lw	$a1,0xfc($sp)
-/*  f18e3cc:	0fc35539 */ 	jal	savebufferReadString
-/*  f18e3d0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f18e3d4:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18e3d8:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18e3dc:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f18e3e0:	8fae0100 */ 	lw	$t6,0x100($sp)
-/*  f18e3e4:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18e3e8:	24050007 */ 	addiu	$a1,$zero,0x7
-/*  f18e3ec:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18e3f0:	a5c20000 */ 	sh	$v0,0x0($t6)
-/*  f18e3f4:	8faf0104 */ 	lw	$t7,0x104($sp)
-/*  f18e3f8:	27a40018 */ 	addiu	$a0,$sp,0x18
-/*  f18e3fc:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f18e400:	0fc354fe */ 	jal	savebufferReadBits
-/*  f18e404:	a5e20000 */ 	sh	$v0,0x0($t7)
-/*  f18e408:	8fb80108 */ 	lw	$t8,0x108($sp)
-/*  f18e40c:	a7020000 */ 	sh	$v0,0x0($t8)
-/*  f18e410:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18e414:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
-/*  f18e418:	03e00008 */ 	jr	$ra
-/*  f18e41c:	00000000 */ 	nop
-);
+void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum)
+{
+	struct savebuffer buffer;
+
+	func0f0d5484(&buffer, arg0, 15);
+
+	savebufferReadString(&buffer, filename, 0);
+
+	*numsims = savebufferReadBits(&buffer, 4);
+	*stagenum = savebufferReadBits(&buffer, 7);
+	*scenarionum = savebufferReadBits(&buffer, 3);
+}
 
 s32 mpsetupfileSave(s32 arg0, s32 arg1, u16 arg2)
 {
