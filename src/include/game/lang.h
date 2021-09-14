@@ -12,5 +12,6 @@ void langSetBankSimple(s32 bank);
 void langSetBank(s32 bank, u8 *arg1, s32 arg2);
 void langClearBank(s32 bank);
 char *langGet(s32 textid);
+void func0f16f75c(u32 arg0);
 
 #endif
