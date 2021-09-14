@@ -8961,61 +8961,33 @@ void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime)
 	*playtime = savebufferReadBits(&buffer, 28);
 }
 
-GLOBAL_ASM(
-glabel mpplayerfileSave
-/*  f18d9fc:	27bdfef8 */ 	addiu	$sp,$sp,-264
-/*  f18da00:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f18da04:	afa40108 */ 	sw	$a0,0x108($sp)
-/*  f18da08:	afa5010c */ 	sw	$a1,0x10c($sp)
-/*  f18da0c:	afa60110 */ 	sw	$a2,0x110($sp)
-/*  f18da10:	04a00026 */ 	bltz	$a1,.L0f18daac
-/*  f18da14:	afa70114 */ 	sw	$a3,0x114($sp)
-/*  f18da18:	0fc35517 */ 	jal	savebufferClear
-/*  f18da1c:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f18da20:	8fa40108 */ 	lw	$a0,0x108($sp)
-/*  f18da24:	0fc63571 */ 	jal	func0f18d5c4
-/*  f18da28:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*  f18da2c:	0fc35531 */ 	jal	func0f0d54c4
-/*  f18da30:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f18da34:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18da38:	3c018007 */ 	lui	$at,%hi(g_FileLists+0x18)
-/*  f18da3c:	27b80100 */ 	addiu	$t8,$sp,0x100
-/*  f18da40:	ac2f5bd8 */ 	sw	$t7,%lo(g_FileLists+0x18)($at)
-/*  f18da44:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f18da48:	83a4010f */ 	lb	$a0,0x10f($sp)
-/*  f18da4c:	8fa50110 */ 	lw	$a1,0x110($sp)
-/*  f18da50:	24060020 */ 	addiu	$a2,$zero,0x20
-/*  f18da54:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*  f18da58:	0fc45a0a */ 	jal	func0f116828
-/*  f18da5c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f18da60:	1440000e */ 	bnez	$v0,.L0f18da9c
-/*  f18da64:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18da68:	8fb90108 */ 	lw	$t9,0x108($sp)
-/*  f18da6c:	3c09800b */ 	lui	$t1,%hi(g_MpPlayers)
-/*  f18da70:	8faa0100 */ 	lw	$t2,0x100($sp)
-/*  f18da74:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f18da78:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f18da7c:	97ab0116 */ 	lhu	$t3,0x116($sp)
-/*  f18da80:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f18da84:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_MpPlayers)
-/*  f18da88:	01091821 */ 	addu	$v1,$t0,$t1
-/*  f18da8c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18da90:	ac6a004c */ 	sw	$t2,0x4c($v1)
-/*  f18da94:	10000006 */ 	b	.L0f18dab0
-/*  f18da98:	a46b0050 */ 	sh	$t3,0x50($v1)
-.L0f18da9c:
-/*  f18da9c:	3c01800a */ 	lui	$at,%hi(var800a21f8)
-/*  f18daa0:	ac2321f8 */ 	sw	$v1,%lo(var800a21f8)($at)
-/*  f18daa4:	10000002 */ 	b	.L0f18dab0
-/*  f18daa8:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18daac:
-/*  f18daac:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f18dab0:
-/*  f18dab0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f18dab4:	27bd0108 */ 	addiu	$sp,$sp,0x108
-/*  f18dab8:	03e00008 */ 	jr	$ra
-/*  f18dabc:	00000000 */ 	nop
-);
+s32 mpplayerfileSave(s32 playernum, s32 arg1, s32 arg2, u16 arg3)
+{
+	s32 tmp;
+	s32 uStack8;
+	struct savebuffer buffer;
+
+	if (arg1 >= 0) {
+		savebufferClear(&buffer);
+		func0f18d5c4(playernum, &buffer);
+		func0f0d54c4(&buffer);
+
+		var80075bd0[2] = true;
+
+		tmp = func0f116828(arg1, arg2, 0x20, buffer.bytes, &uStack8, 0);
+
+		if (tmp == 0) {
+			g_MpPlayers[playernum].unk4c.unk00 = uStack8;
+			g_MpPlayers[playernum].unk4c.unk04 = arg3;
+			return 0;
+		}
+
+		var800a21f8.unk00 = tmp;
+		return -1;
+	}
+
+	return -1;
+}
 
 s32 mpplayerfileLoad(s32 playernum, s32 arg1, s32 arg2, u16 arg3)
 {

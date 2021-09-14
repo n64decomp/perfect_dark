@@ -729,7 +729,7 @@ bool filemgrAttemptOperation(s32 arg0, bool closeonsuccess)
 		break;
 	case FILEOP_SAVE_MPPLAYER:
 		errno = mpplayerfileSave(
-				g_Menus[g_MpPlayerNum].unke44, arg0,
+				(s32) g_Menus[g_MpPlayerNum].unke44, arg0,
 				g_Menus[g_MpPlayerNum].unke48,
 				g_Menus[g_MpPlayerNum].unke4c);
 		break;
