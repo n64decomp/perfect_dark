@@ -3226,7 +3226,7 @@ struct mpsimulanttype {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 difficulty;
 	/*0x02*/ u16 name;
-	/*0x04*/ u16 body;
+	/*0x04*/ s16 body;
 	/*0x06*/ u8 requirefeature;
 };
 

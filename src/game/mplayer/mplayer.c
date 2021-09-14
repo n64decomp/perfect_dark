@@ -9813,159 +9813,67 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 	mpForceUnlockSimulantFeatures();
 }
 
-GLOBAL_ASM(
-glabel mpsetupfileSaveWad
-/*  f18e16c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f18e170:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18e174:	3c13800b */ 	lui	$s3,%hi(g_MpSetup)
-/*  f18e178:	2673cb88 */ 	addiu	$s3,$s3,%lo(g_MpSetup)
-/*  f18e17c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18e180:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18e184:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18e188:	00809025 */ 	or	$s2,$a0,$zero
-/*  f18e18c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18e190:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18e194:	0fc35569 */ 	jal	func0f0d55a4
-/*  f18e198:	02602825 */ 	or	$a1,$s3,$zero
-/*  f18e19c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f18e1a0:	96620016 */ 	lhu	$v0,0x16($s3)
-/*  f18e1a4:	262e0004 */ 	addiu	$t6,$s1,0x4
-.L0f18e1a8:
-/*  f18e1a8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f18e1ac:	01cfc004 */ 	sllv	$t8,$t7,$t6
-/*  f18e1b0:	0058c824 */ 	and	$t9,$v0,$t8
-/*  f18e1b4:	13200002 */ 	beqz	$t9,.L0f18e1c0
-/*  f18e1b8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18e1bc:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f18e1c0:
-/*  f18e1c0:	2a210008 */ 	slti	$at,$s1,0x8
-/*  f18e1c4:	5420fff8 */ 	bnezl	$at,.L0f18e1a8
-/*  f18e1c8:	262e0004 */ 	addiu	$t6,$s1,0x4
-/*  f18e1cc:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e1d0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f18e1d4:	0fc354be */ 	jal	savebufferOr
-/*  f18e1d8:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f18e1dc:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e1e0:	92650011 */ 	lbu	$a1,0x11($s3)
-/*  f18e1e4:	0fc354be */ 	jal	savebufferOr
-/*  f18e1e8:	24060007 */ 	addiu	$a2,$zero,0x7
-/*  f18e1ec:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e1f0:	92650010 */ 	lbu	$a1,0x10($s3)
-/*  f18e1f4:	0fc354be */ 	jal	savebufferOr
-/*  f18e1f8:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f18e1fc:	0fc6150a */ 	jal	scenarioWriteSave
-/*  f18e200:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e204:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e208:	8e65000c */ 	lw	$a1,0xc($s3)
-/*  f18e20c:	0fc354be */ 	jal	savebufferOr
-/*  f18e210:	24060015 */ 	addiu	$a2,$zero,0x15
-/*  f18e214:	3c10800b */ 	lui	$s0,%hi(g_MpSimulants)
-/*  f18e218:	2610c538 */ 	addiu	$s0,$s0,%lo(g_MpSimulants)
-/*  f18e21c:	00008825 */ 	or	$s1,$zero,$zero
-.L0f18e220:
-/*  f18e220:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e224:	92050047 */ 	lbu	$a1,0x47($s0)
-/*  f18e228:	0fc354be */ 	jal	savebufferOr
-/*  f18e22c:	24060005 */ 	addiu	$a2,$zero,0x5
-/*  f18e230:	96680016 */ 	lhu	$t0,0x16($s3)
-/*  f18e234:	26290004 */ 	addiu	$t1,$s1,0x4
-/*  f18e238:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f18e23c:	012a5804 */ 	sllv	$t3,$t2,$t1
-/*  f18e240:	010b6024 */ 	and	$t4,$t0,$t3
-/*  f18e244:	11800007 */ 	beqz	$t4,.L0f18e264
-/*  f18e248:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e24c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e250:	92050048 */ 	lbu	$a1,0x48($s0)
-/*  f18e254:	0fc354be */ 	jal	savebufferOr
-/*  f18e258:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f18e25c:	10000005 */ 	b	.L0f18e274
-/*  f18e260:	02402025 */ 	or	$a0,$s2,$zero
-.L0f18e264:
-/*  f18e264:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f18e268:	0fc354be */ 	jal	savebufferOr
-/*  f18e26c:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f18e270:	02402025 */ 	or	$a0,$s2,$zero
-.L0f18e274:
-/*  f18e274:	9205000f */ 	lbu	$a1,0xf($s0)
-/*  f18e278:	0fc354be */ 	jal	savebufferOr
-/*  f18e27c:	24060007 */ 	addiu	$a2,$zero,0x7
-/*  f18e280:	92020010 */ 	lbu	$v0,0x10($s0)
-/*  f18e284:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f18e288:	1441000f */ 	bne	$v0,$at,.L0f18e2c8
-/*  f18e28c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f18e290:	92040047 */ 	lbu	$a0,0x47($s0)
-/*  f18e294:	0fc6335a */ 	jal	mpGetSimTypeIndex
-/*  f18e298:	92050048 */ 	lbu	$a1,0x48($s0)
-/*  f18e29c:	04400004 */ 	bltz	$v0,.L0f18e2b0
-/*  f18e2a0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18e2a4:	28410012 */ 	slti	$at,$v0,0x12
-/*  f18e2a8:	54200003 */ 	bnezl	$at,.L0f18e2b8
-/*  f18e2ac:	000368c0 */ 	sll	$t5,$v1,0x3
-.L0f18e2b0:
-/*  f18e2b0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18e2b4:	000368c0 */ 	sll	$t5,$v1,0x3
-.L0f18e2b8:
-/*  f18e2b8:	3c058008 */ 	lui	$a1,%hi(g_MpSimulantTypes+0x4)
-/*  f18e2bc:	00ad2821 */ 	addu	$a1,$a1,$t5
-/*  f18e2c0:	10000001 */ 	b	.L0f18e2c8
-/*  f18e2c4:	84a57730 */ 	lh	$a1,%lo(g_MpSimulantTypes+0x4)($a1)
-.L0f18e2c8:
-/*  f18e2c8:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e2cc:	0fc354be */ 	jal	savebufferOr
-/*  f18e2d0:	24060007 */ 	addiu	$a2,$zero,0x7
-/*  f18e2d4:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e2d8:	92050011 */ 	lbu	$a1,0x11($s0)
-/*  f18e2dc:	0fc354be */ 	jal	savebufferOr
-/*  f18e2e0:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f18e2e4:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18e2e8:	2a210008 */ 	slti	$at,$s1,0x8
-/*  f18e2ec:	1420ffcc */ 	bnez	$at,.L0f18e220
-/*  f18e2f0:	2610004c */ 	addiu	$s0,$s0,0x4c
-/*  f18e2f4:	3c10800b */ 	lui	$s0,%hi(g_MpSetup)
-/*  f18e2f8:	3c11800b */ 	lui	$s1,%hi(g_MpSetup+0x6)
-/*  f18e2fc:	2631cb8e */ 	addiu	$s1,$s1,%lo(g_MpSetup+0x6)
-/*  f18e300:	2610cb88 */ 	addiu	$s0,$s0,%lo(g_MpSetup)
-/*  f18e304:	02402025 */ 	or	$a0,$s2,$zero
-.L0f18e308:
-/*  f18e308:	92050018 */ 	lbu	$a1,0x18($s0)
-/*  f18e30c:	0fc354be */ 	jal	savebufferOr
-/*  f18e310:	24060007 */ 	addiu	$a2,$zero,0x7
-/*  f18e314:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18e318:	0211082b */ 	sltu	$at,$s0,$s1
-/*  f18e31c:	5420fffa */ 	bnezl	$at,.L0f18e308
-/*  f18e320:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e324:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e328:	92650012 */ 	lbu	$a1,0x12($s3)
-/*  f18e32c:	0fc354be */ 	jal	savebufferOr
-/*  f18e330:	24060006 */ 	addiu	$a2,$zero,0x6
-/*  f18e334:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e338:	92650013 */ 	lbu	$a1,0x13($s3)
-/*  f18e33c:	0fc354be */ 	jal	savebufferOr
-/*  f18e340:	24060007 */ 	addiu	$a2,$zero,0x7
-/*  f18e344:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e348:	96650014 */ 	lhu	$a1,0x14($s3)
-/*  f18e34c:	0fc354be */ 	jal	savebufferOr
-/*  f18e350:	24060009 */ 	addiu	$a2,$zero,0x9
-/*  f18e354:	3c10800b */ 	lui	$s0,%hi(g_MpPlayers)
-/*  f18e358:	3c11800b */ 	lui	$s1,%hi(g_MpPlayers+0x280)
-/*  f18e35c:	2631ca38 */ 	addiu	$s1,$s1,%lo(g_MpPlayers+0x280)
-/*  f18e360:	2610c7b8 */ 	addiu	$s0,$s0,%lo(g_MpPlayers)
-/*  f18e364:	02402025 */ 	or	$a0,$s2,$zero
-.L0f18e368:
-/*  f18e368:	92050011 */ 	lbu	$a1,0x11($s0)
-/*  f18e36c:	0fc354be */ 	jal	savebufferOr
-/*  f18e370:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f18e374:	261000a0 */ 	addiu	$s0,$s0,0xa0
-/*  f18e378:	5611fffb */ 	bnel	$s0,$s1,.L0f18e368
-/*  f18e37c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f18e380:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18e384:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18e388:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18e38c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18e390:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18e394:	03e00008 */ 	jr	$ra
-/*  f18e398:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void mpsetupfileSaveWad(struct savebuffer *buffer)
+{
+	s32 numsims = 0;
+	s32 mpbodynum;
+	s32 i;
+
+	func0f0d55a4(buffer, g_MpSetup.name);
+
+	for (i = 0; i < 8; i++) {
+		if (g_MpSetup.chrslots & (1 << (i + 4))) {
+			numsims++;
+		}
+	}
+
+	savebufferOr(buffer, numsims, 4);
+	savebufferOr(buffer, g_MpSetup.stagenum, 7);
+	savebufferOr(buffer, g_MpSetup.scenario, 3);
+
+	scenarioWriteSave(buffer);
+
+	savebufferOr(buffer, g_MpSetup.options, 21);
+
+	for (i = 0; i < 8; i++) {
+		savebufferOr(buffer, g_MpSimulants[i].base.simtype, 5);
+
+		if (g_MpSetup.chrslots & (1 << (i + 4))) {
+			savebufferOr(buffer, g_MpSimulants[i].difficulty, 3);
+		} else {
+			savebufferOr(buffer, SIMDIFF_DISABLED, 3);
+		}
+
+		savebufferOr(buffer, g_MpSimulants[i].base.mpheadnum, 7);
+
+		if (g_MpSimulants[i].base.mpbodynum == 0xff) {
+			s32 index = mpGetSimTypeIndex(g_MpSimulants[i].base.simtype, g_MpSimulants[i].difficulty);
+
+			if (index < 0 || index >= ARRAYCOUNT(g_MpSimulantTypes)) {
+				index = 0;
+			}
+
+			mpbodynum = g_MpSimulantTypes[index].body;
+		} else {
+			mpbodynum = g_MpSimulants[i].base.mpbodynum;
+		}
+
+		savebufferOr(buffer, mpbodynum, 7);
+		savebufferOr(buffer, g_MpSimulants[i].base.team, 3);
+	}
+
+	for (i = 0; i < 6; i++) {
+		savebufferOr(buffer, g_MpSetup.weapons[i], 7);
+	}
+
+	savebufferOr(buffer, g_MpSetup.timelimit, 6);
+	savebufferOr(buffer, g_MpSetup.scorelimit, 7);
+	savebufferOr(buffer, g_MpSetup.teamscorelimit, 9);
+
+	for (i = 0; i < 4; i++) {
+		savebufferOr(buffer, g_MpPlayers[i].base.team, 3);
+	}
+}
 
 void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum)
 {
