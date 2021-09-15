@@ -601,8 +601,8 @@ void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if ((g_MpPlayers[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
-			&& g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false
-			&& g_MpPlayers[g_MpPlayerNum].unk4c.unk04 == 0) {
+			&& g_MpPlayers[g_MpPlayerNum].fileguid.filenum == 0
+			&& g_MpPlayers[g_MpPlayerNum].fileguid.deviceserial == 0) {
 		g_MpPlayers[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
 		menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
 	}

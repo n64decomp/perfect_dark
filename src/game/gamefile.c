@@ -892,7 +892,7 @@ const char var7f1b395c[] = "pdoptions.c";
 const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
 const char var7f1b399c[] = "pdoptions.c";
 
-s32 gamefileLoad(s32 arg0)
+s32 gamefileLoad(s32 device)
 {
 	s32 p1index;
 	s32 p2index;
@@ -906,10 +906,10 @@ s32 gamefileLoad(s32 arg0)
 	p1index = g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 ? 0 : 4;
 	p2index = g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 ? 1 : 5;
 
-	if (arg0 >= 0) {
+	if (device >= 0) {
 		savebufferClear(&buffer);
-		tmp = func0f116800(arg0, g_FilemgrLoadedMainFile.unk00, buffer.bytes, 0);
-		var800a21f8.unk00 = tmp;
+		tmp = func0f116800(device, g_GameFileGuid.filenum, buffer.bytes, 0);
+		var800a21f8.filenum = tmp;
 
 		if (tmp == 0) {
 			cheatsDisableAll();
@@ -998,7 +998,7 @@ s32 gamefileLoad(s32 arg0)
 	return -1;
 }
 
-s32 gamefileSave(s32 arg0, s32 arg1, u16 arg2)
+s32 gamefileSave(s32 device, s32 filenum, u16 deviceserial)
 {
 	u32 stack;
 	s32 sp140;
@@ -1087,7 +1087,7 @@ s32 gamefileSave(s32 arg0, s32 arg1, u16 arg2)
 	pakSetBitflag(GAMEFILEFLAG_46, g_GameFile.flags, (g_Vars.unk000482 & 0x04) == 0x04);
 #endif
 
-	if (arg0 >= 0) {
+	if (device >= 0) {
 		savebufferClear(&buffer);
 		func0f0d55a4(&buffer, g_GameFile.name);
 
@@ -1133,12 +1133,12 @@ s32 gamefileSave(s32 arg0, s32 arg1, u16 arg2)
 
 		func0f0d54c4(&buffer);
 
-		tmp = func0f116828(arg0, arg1, 0x80, buffer.bytes, &sp140, 0);
-		var800a21f8.unk00 = tmp;
+		tmp = func0f116828(device, filenum, 0x80, buffer.bytes, &sp140, 0);
+		var800a21f8.filenum = tmp;
 
 		if (tmp == 0) {
-			g_FilemgrLoadedMainFile.unk00 = sp140;
-			g_FilemgrLoadedMainFile.unk04 = arg2;
+			g_GameFileGuid.filenum = sp140;
+			g_GameFileGuid.deviceserial = deviceserial;
 
 			return 0;
 		}

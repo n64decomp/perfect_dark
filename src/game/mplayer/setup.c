@@ -575,7 +575,7 @@ s32 menuhandlerMpSaveSetupOverwrite(s32 operation, struct menuitem *item, union 
 {
 	if (operation == MENUOP_SET) {
 		menuPopDialog();
-		func0f1094e4(&g_MpSetup.unk20, FILEOP_SAVE_MPSETUP, NULL);
+		func0f1094e4(&g_MpSetup.fileguid, FILEOP_SAVE_MPSETUP, NULL);
 	}
 
 	return 0;
@@ -4520,8 +4520,8 @@ s32 menuhandlerMpRestoreHandicapDefaults(s32 operation, struct menuitem *item, u
 s32 menudialogMpReady(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 && g_MpPlayers[g_MpPlayerNum].unk4c.unk04) {
-			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].unk4c, FILEOP_SAVE_MPPLAYER, (void *)g_MpPlayerNum);
+		if (g_MpPlayers[g_MpPlayerNum].fileguid.filenum && g_MpPlayers[g_MpPlayerNum].fileguid.deviceserial) {
+			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].fileguid, FILEOP_SAVE_MPPLAYER, (void *)g_MpPlayerNum);
 		}
 	}
 
@@ -7407,7 +7407,7 @@ s32 menuhandlerMpLock(s32 operation, struct menuitem *item, union handlerdata *d
 s32 menuhandlerMpSavePlayer(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false) {
+		if (g_MpPlayers[g_MpPlayerNum].fileguid.filenum == 0) {
 			filemgrPushSelectLocationDialog(6, FILETYPE_MPPLAYER);
 		} else {
 			menuPushDialog(&g_MpSavePlayerMenuDialog);
@@ -7419,7 +7419,7 @@ s32 menuhandlerMpSavePlayer(s32 operation, struct menuitem *item, union handlerd
 
 char *mpMenuTextSavePlayerOrCopy(struct menuitem *item)
 {
-	if (g_MpPlayers[g_MpPlayerNum].unk4c.unk00 == false) {
+	if (g_MpPlayers[g_MpPlayerNum].fileguid.filenum == 0) {
 		return langGet(L_MPMENU_038); // "Save Player"
 	}
 
@@ -7446,11 +7446,11 @@ s32 menuhandler0017ef30(s32 operation, struct menuitem *item, union handlerdata 
 s32 menuhandlerMpSaveSettings(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MpSetup.unk20.unk00 == false) {
+		if (g_MpSetup.fileguid.filenum == 0) {
 			menuPushDialog(&g_MpSaveSetupNameMenuDialog);
 		} else {
 #if VERSION >= VERSION_NTSC_1_0
-			func0f108324(g_MpSetup.unk20.unk04);
+			func0f108324(g_MpSetup.fileguid.deviceserial);
 #endif
 
 			menuPushDialog(&g_MpSaveSetupExistsMenuDialog);

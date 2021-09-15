@@ -103,7 +103,7 @@ void bossfileLoad(void)
 	struct savebuffer buffer;
 	s32 i;
 	s32 tmp;
-	struct maybesavelocation_2d8 thing;
+	struct fileguid guid;
 
 	tmp = func0f110720();
 
@@ -112,7 +112,7 @@ void bossfileLoad(void)
 	} else {
 		savebufferClear(&buffer);
 
-		if (func0f116800(4, tmp, buffer.bytes, 0)) {
+		if (func0f116800(SAVEDEVICE_GAMEPAK, tmp, buffer.bytes, 0)) {
 			failed = true;
 		}
 	}
@@ -120,10 +120,10 @@ void bossfileLoad(void)
 	if (!failed) {
 		u8 tracknum;
 
-		func0f0d579c(&buffer, &thing);
+		savebufferReadGuid(&buffer, &guid);
 
-		g_Vars.unk00047c = thing.unk00;
-		g_Vars.unk000480 = thing.unk04;
+		g_Vars.bossfilenum = guid.filenum;
+		g_Vars.bossdeviceserial = guid.deviceserial;
 
 		g_BossFile.unk89 = savebufferReadBits(&buffer, 1);
 
@@ -162,17 +162,17 @@ void bossfileSave(void)
 {
 	volatile bool sp12c = false;
 	struct savebuffer buffer;
-	struct maybesavelocation_2d8 thing;
+	struct fileguid guid;
 	u32 stack;
 	s32 i;
 	s32 tmp;
 
 	savebufferClear(&buffer);
 
-	thing.unk00 = g_Vars.unk00047c;
-	thing.unk04 = g_Vars.unk000480;
+	guid.filenum = g_Vars.bossfilenum;
+	guid.deviceserial = g_Vars.bossdeviceserial;
 
-	func0f0d575c(&buffer, &thing);
+	savebufferWriteGuid(&buffer, &guid);
 
 	savebufferOr(&buffer, g_BossFile.unk89, 1);
 	savebufferOr(&buffer, g_Vars.unk000482, 4);
@@ -203,7 +203,7 @@ void bossfileSave(void)
 		func0000bfd0("fileGuid", "bossfile.c", PAL ? 377 : 375);
 	}
 
-	if (func0f116828(4, tmp, 0x10, buffer.bytes, NULL, 0)) {
+	if (func0f116828(SAVEDEVICE_GAMEPAK, tmp, 0x10, buffer.bytes, NULL, 0)) {
 		sp12c = true;
 	}
 }
@@ -224,8 +224,8 @@ void bossfileSetDefaults(void)
 	g_BossFile.usingmultipletunes = false;
 	g_BossFile.unk89 = 0;
 	g_BossFile.locktype = MPLOCKTYPE_NONE;
-	g_Vars.unk00047c = 0;
-	g_Vars.unk000480 = 0;
+	g_Vars.bossfilenum = 0;
+	g_Vars.bossdeviceserial = 0;
 	g_Vars.unk000482 = (PAL ? 7 : 0);
 	g_AltTitleUnlocked = 0;
 	g_AltTitleEnabled = false;
@@ -425,8 +425,8 @@ void filelistUpdate(struct filelist *list)
 				list->spacesfree[dis2dev[i]] = func0f118148(dis2dev[i]);
 			}
 
-			list->unk2d8[dis2dev[i]].unk00 = 0;
-			list->unk2d8[dis2dev[i]].unk04 = func0f11693c(dis2dev[i]);
+			list->deviceguids[dis2dev[i]].filenum = 0;
+			list->deviceguids[dis2dev[i]].deviceserial = pakGetDeviceSerial(dis2dev[i]);
 		} else {
 			// PFS error?
 			list->spacesfree[dis2dev[i]] = -1;
@@ -455,8 +455,8 @@ void filelistUpdate(struct filelist *list)
 				list->devicestartindexes[dev2dis[filedevices[i]]] = list->numfiles;
 			}
 
-			file->unk04 = func0f11693c(filedevices[i]);
-			file->unk00 = sp1288[i];
+			file->deviceserial = pakGetDeviceSerial(filedevices[i]);
+			file->filenum = sp1288[i];
 
 			list->numfiles++;
 		} else if (maybepfserr == 10) {
@@ -466,9 +466,9 @@ void filelistUpdate(struct filelist *list)
 			if (list->unk305[filedevices[i]] >= 2) {
 				list->spacesfree[filedevices[i]]++;
 
-				if (list->unk2d8[filedevices[i]].unk00 == 0) {
-					list->unk2d8[filedevices[i]].unk00 = sp1288[i];
-					list->unk2d8[filedevices[i]].unk04 = func0f11693c(filedevices[i]);
+				if (list->deviceguids[filedevices[i]].filenum == 0) {
+					list->deviceguids[filedevices[i]].filenum = sp1288[i];
+					list->deviceguids[filedevices[i]].deviceserial = pakGetDeviceSerial(filedevices[i]);
 				}
 			}
 		}
@@ -617,34 +617,34 @@ glabel func0f111260
 /*  f11145c:	00000000 */ 	nop
 );
 
-struct textureconfig *filelistGetPerfectHeadTexture(s32 playernum, s32 arg1, u16 arg2)
+struct textureconfig *filelistGetPerfectHeadTexture(s32 playernum, s32 filenum, u16 deviceserial)
 {
 	s32 i;
-	s32 bestcandidate = -1;
+	s32 freeslot = -1;
 	s32 indextouse = -1;
 
 	for (i = 0; i < 16; i++) {
-		if (g_Menus[playernum].headtextures->unk800[i].unk00 == arg1
-				&& g_Menus[playernum].headtextures->unk800[i].unk04 == arg2) {
+		if (g_Menus[playernum].headtextures->fileguids[i].filenum == filenum
+				&& g_Menus[playernum].headtextures->fileguids[i].deviceserial == deviceserial) {
 			indextouse = i;
 			break;
 		}
 
-		if (g_Menus[playernum].headtextures->unk800[i].unk00 == 0) {
-			if (g_Menus[playernum].headtextures->unk800[i].unk04 == 0) {
-				bestcandidate = i;
+		if (g_Menus[playernum].headtextures->fileguids[i].filenum == 0) {
+			if (g_Menus[playernum].headtextures->fileguids[i].deviceserial == 0) {
+				freeslot = i;
 			}
 		}
 	}
 
 	if (indextouse == -1) {
-		s8 device = pakSearch(arg2);
+		s8 device = pakFindBySerial(deviceserial);
 
 		if (device < 0) {
 			return NULL;
 		}
 
-		if (bestcandidate == -1) {
+		if (freeslot == -1) {
 			return NULL;
 		}
 
@@ -654,12 +654,12 @@ struct textureconfig *filelistGetPerfectHeadTexture(s32 playernum, s32 arg1, u16
 
 		g_Menus[playernum].headtextures->lastupdated240 = g_Vars.thisframe240;
 
-		func0f15015c(device, arg1, g_Menus[playernum].headtextures->unk000[bestcandidate]);
+		func0f15015c(device, filenum, g_Menus[playernum].headtextures->unk000[freeslot]);
 
-		g_Menus[playernum].headtextures->unk800[bestcandidate].unk00 = arg1;
-		g_Menus[playernum].headtextures->unk800[bestcandidate].unk04 = arg2;
+		g_Menus[playernum].headtextures->fileguids[freeslot].filenum = filenum;
+		g_Menus[playernum].headtextures->fileguids[freeslot].deviceserial = deviceserial;
 
-		indextouse = bestcandidate;
+		indextouse = freeslot;
 	}
 
 	if (indextouse == -1) {

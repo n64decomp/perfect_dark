@@ -254,9 +254,9 @@ s32 func0f116800(s8 arg0, s32 arg1, void *arg2, s32 arg3)
 	return func0f118bc8(arg0, arg1, arg2, arg3);
 }
 
-s32 func0f116828(s8 arg0, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5)
+s32 func0f116828(s8 device, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5)
 {
-	return func0f11789c(arg0, arg1, arg2, arg3, arg4, arg5);
+	return func0f11789c(device, arg1, arg2, arg3, arg4, arg5);
 }
 
 bool filemgrDeleteFile(s8 arg0, s32 arg1)
@@ -284,7 +284,7 @@ u32 func0f116914(s8 device)
 	return func0f116c94(device);
 }
 
-s32 func0f11693c(s8 device)
+s32 pakGetDeviceSerial(s8 device)
 {
 	return func0f116c54(device);
 }
@@ -3014,7 +3014,7 @@ void func0f1189d8(void)
 	gamefileLoadDefaults(&g_GameFile);
 	gamefileApplyOptions(&g_GameFile);
 
-	g_FilemgrLoadedMainFile.unk04 = 0;
+	g_GameFileGuid.deviceserial = 0;
 	g_Vars.unk0004e4 = 0xf5;
 	g_Vars.paksconnected = prevvalue;
 }
@@ -16918,16 +16918,16 @@ glabel func0f11e618
 /*  f11e6ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s8 pakSearch(s32 arg0)
+s8 pakFindBySerial(s32 findserial)
 {
 	s8 device = -1;
 	s32 i;
 
 	for (i = 0; i < 5; i++) {
 		if (func0f116aec(i)) {
-			s32 value = func0f11693c(i);
+			s32 serial = pakGetDeviceSerial(i);
 
-			if (arg0 == value) {
+			if (findserial == serial) {
 				device = i;
 			}
 		}

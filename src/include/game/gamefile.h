@@ -10,8 +10,8 @@ void gamefileUnsetFlag(u32 value);
 void gamefilePrintFlags(void);
 void gamefileApplyOptions(struct gamefile *file);
 void gamefileLoadDefaults(struct gamefile *file);
-s32 gamefileLoad(s32 arg0);
-s32 gamefileSave(s32 arg0, s32 arg1, u16 arg2);
+s32 gamefileLoad(s32 device);
+s32 gamefileSave(s32 device, s32 filenum, u16 deviceserial);
 void gamefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time);
 
 #endif

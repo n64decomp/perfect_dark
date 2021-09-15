@@ -917,16 +917,16 @@ glabel func0f0d5690
 //}
 #endif
 
-void func0f0d575c(struct savebuffer *buffer, struct maybesavelocation_2d8 *arg1)
+void savebufferWriteGuid(struct savebuffer *buffer, struct fileguid *guid)
 {
-	savebufferOr(buffer, arg1->unk00, 7);
-	savebufferOr(buffer, arg1->unk04, 13);
+	savebufferOr(buffer, guid->filenum, 7);
+	savebufferOr(buffer, guid->deviceserial, 13);
 }
 
-void func0f0d579c(struct savebuffer *buffer, struct maybesavelocation_2d8 *arg1)
+void savebufferReadGuid(struct savebuffer *buffer, struct fileguid *guid)
 {
-	arg1->unk00 = savebufferReadBits(buffer, 7);
-	arg1->unk04 = savebufferReadBits(buffer, 13);
+	guid->filenum = savebufferReadBits(buffer, 7);
+	guid->deviceserial = savebufferReadBits(buffer, 13);
 }
 
 GLOBAL_ASM(

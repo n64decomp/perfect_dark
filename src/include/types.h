@@ -86,6 +86,11 @@ struct playerstats {
 	/*0x7c*/ f32 damtransmitted;
 };
 
+struct fileguid {
+	s32 filenum;
+	u16 deviceserial;
+};
+
 struct g_vars {
 	/*000000*/ s32 diffframe60;
 	/*000004*/ f32 diffframe60f;
@@ -197,8 +202,8 @@ struct g_vars {
 	/*000470*/ s32 perfectbuddynum;
 	/*000474*/ s32 numaibuddies;
 	/*000478*/ bool aibuddiesspawned;
-	/*00047c*/ u32 unk00047c;
-	/*000480*/ u16 unk000480;
+	/*00047c*/ s32 bossfilenum;
+	/*000480*/ u16 bossdeviceserial;
 	/*000482*/ u16 unk000482;
 	/*000484*/ s32 mphilltime;
 	/*000488*/ s32 totalkills;
@@ -3875,14 +3880,9 @@ struct textureconfig {
 	u8 t;
 };
 
-struct menu_e68_800 {
-	s32 unk00;
-	u16 unk04;
-};
-
 struct perfectheadtexturelist {
 	u8 unk000[16][0x80];
-	struct menu_e68_800 unk800[16];
+	struct fileguid fileguids[16];
 	s32 lastupdated240;
 	struct textureconfig selectedtexture;
 };
@@ -4507,8 +4507,8 @@ struct menu {
 	/*0xe41*/ u8 unke41;
 	/*0xe42*/ u8 fileop;
 	/*0xe44*/ void *unke44;
-	/*0xe48*/ u32 unke48;
-	/*0xe4c*/ u32 unke4c;
+	/*0xe48*/ u32 filenum;
+	/*0xe4c*/ u32 deviceserial;
 	/*0xe50*/ u16 isretryingsave;
 	/*0xe52*/ u8 device;
 	/*0xe53*/ char unke53[1];
@@ -4560,20 +4560,10 @@ struct mpchr {
 	/*0x47*/ u8 simtype;
 };
 
-struct savelocation_2d8 {
-	u32 unk00;
-	u16 unk04;
-};
-
-struct maybesavelocation_2d8 {
-	u32 unk00;
-	u16 unk04;
-};
-
 struct mpplayer {
 	/*0x00*/ struct mpchr base;
 	/*0x48*/ u16 options;
-	/*0x4c*/ struct savelocation_2d8 unk4c;
+	/*0x4c*/ struct fileguid fileguid;
 	/*0x54*/ u32 kills;
 	/*0x58*/ u32 deaths;
 	/*0x5c*/ u32 gamesplayed;
@@ -4642,7 +4632,7 @@ struct mpsetup {
 	/*0x800acb9e*/ u16 chrslots;
 	/*0x800acba0*/ u8 weapons[6];
 	/*0x800acba6*/ u8 paused;
-	/*0x800acba8*/ struct savelocation_2d8 unk20;
+	/*0x800acba8*/ struct fileguid fileguid;
 };
 
 struct bossfile {
@@ -4695,8 +4685,8 @@ struct mparena {
 };
 
 struct filelistfile {
-	u32 unk00;
-	u16 unk04;
+	s32 filenum;
+	u16 deviceserial;
 	char unk06[6]; // length unknown
 	u32 unk0c;
 	u32 unk10;
@@ -4710,7 +4700,7 @@ struct filelist {
 	/*0x000*/ struct filelistfile files[30];
 	/*0x2d0*/ s16 numfiles;
 	/*0x2d2*/ s8 spacesfree[5]; // per device - controller paks then game pak
-	/*0x2d8*/ struct savelocation_2d8 unk2d8[5];
+	/*0x2d8*/ struct fileguid deviceguids[5];
 	/*0x300*/ s8 devicestartindexes[5]; // game pak then controller paks
 	/*0x308*/ s8 unk305[5]; // controller paks then game pak - error count?
 	/*0x30a*/ u8 numdevices;
@@ -5344,9 +5334,7 @@ struct frdata {
 };
 
 struct menudata_5d8 {
-	s32 unk00;
-	u16 unk04;
-	u16 unk06;
+	struct fileguid fileguid;
 	u8 unk08;
 	u8 unk09;
 	u8 unk0a;
