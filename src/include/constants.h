@@ -776,6 +776,7 @@
 #define FILETYPE_GAME     0
 #define FILETYPE_MPSETUP  1
 #define FILETYPE_MPPLAYER 2
+#define FILETYPE_3        3
 
 #define FLOORTYPE_DEFAULT 0
 #define FLOORTYPE_WOOD    1

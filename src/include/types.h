@@ -4709,14 +4709,11 @@ struct filelistfile {
 struct filelist {
 	/*0x000*/ struct filelistfile files[30];
 	/*0x2d0*/ s16 numfiles;
-	/*0x2d2*/ s8 spacesfree[4];
-	/*0x2d8*/ struct savelocation_2d8 unk2d8[4];
-	/*0x2f8*/ u32 unk2f8;
-	/*0x2fc*/ u32 unk2fc;
-	/*0x300*/ s8 devicestartindexes[8];
-	/*0x308*/ u8 unk308;
-	/*0x309*/ u8 unk309;
-	/*0x30a*/ u8 unk30a;
+	/*0x2d2*/ s8 spacesfree[5]; // per device - controller paks then game pak
+	/*0x2d8*/ struct savelocation_2d8 unk2d8[5];
+	/*0x300*/ s8 devicestartindexes[5]; // game pak then controller paks
+	/*0x308*/ s8 unk305[5]; // controller paks then game pak - error count?
+	/*0x30a*/ u8 numdevices;
 	/*0x30b*/ u8 filetype;
 	/*0x30c*/ u8 timeuntilupdate;
 	/*0x30d*/ u8 unk30d;

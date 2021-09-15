@@ -2087,7 +2087,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 		data->list.value = 11;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->list.value = list->unk30a;
+		data->list.value = list->numdevices;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
 		return filemgrGetDeviceNameOrStartIndex(listnum, operation, data->list.value);
@@ -2779,15 +2779,15 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		}
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
-		data->list.value = g_FileLists[0]->unk30a + 1;
+		data->list.value = g_FileLists[0]->numdevices + 1;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		if (data->list.value >= g_FileLists[0]->unk30a) {
+		if (data->list.value >= g_FileLists[0]->numdevices) {
 			return (u32) langGet(L_OPTIONS_402); // "New..."
 		}
 		return filemgrGetDeviceNameOrStartIndex(0, operation, data->list.value);
 	case MENUOP_GETGROUPSTARTINDEX:
-		if (data->list.value >= g_FileLists[0]->unk30a) {
+		if (data->list.value >= g_FileLists[0]->numdevices) {
 			data->list.groupstartindex = g_FileLists[0]->numfiles;
 		} else {
 			data->list.groupstartindex = filemgrGetDeviceNameOrStartIndex(0, operation, data->list.value);
