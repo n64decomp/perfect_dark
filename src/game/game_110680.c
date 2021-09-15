@@ -581,43 +581,20 @@ glabel func0f111260
 /*  f1113d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f1113d8:	03e00008 */ 	jr	$ra
 /*  f1113dc:	00000000 */ 	nop
-/*  f1113e0:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f1113e4:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f1113e8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1113ec:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f1113f0:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f1113f4:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f1113f8:	3c0f800a */ 	lui	$t7,%hi(g_Menus)
-/*  f1113fc:	25efe000 */ 	addiu	$t7,$t7,%lo(g_Menus)
-/*  f111400:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f111404:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f111408:	8c780e68 */ 	lw	$t8,0xe68($v1)
-/*  f11140c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f111410:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111414:	5300000f */ 	beqzl	$t8,.L0f111454
-/*  f111418:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11141c:	8c790e40 */ 	lw	$t9,0xe40($v1)
-/*  f111420:	24040890 */ 	addiu	$a0,$zero,0x890
-/*  f111424:	00194840 */ 	sll	$t1,$t9,0x1
-/*  f111428:	05230009 */ 	bgezl	$t1,.L0f111450
-/*  f11142c:	ac600e68 */ 	sw	$zero,0xe68($v1)
-/*  f111430:	0fc5db69 */ 	jal	align16
-/*  f111434:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f111438:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f11143c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f111440:	0c004b2d */ 	jal	func00012cb4
-/*  f111444:	8c640e68 */ 	lw	$a0,0xe68($v1)
-/*  f111448:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f11144c:	ac600e68 */ 	sw	$zero,0xe68($v1)
-.L0f111450:
-/*  f111450:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f111454:
-/*  f111454:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f111458:	03e00008 */ 	jr	$ra
-/*  f11145c:	00000000 */ 	nop
 );
 
-struct textureconfig *filelistGetPerfectHeadTexture(s32 playernum, s32 filenum, u16 deviceserial)
+void pheadFreeTextures(s32 playernum)
+{
+	if (g_Menus[playernum].headtextures != NULL) {
+		if (g_Menus[playernum].unke40_01) {
+			func00012cb4(g_Menus[playernum].headtextures, align16(0x890));
+		}
+
+		g_Menus[playernum].headtextures = NULL;
+	}
+}
+
+struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, u16 deviceserial)
 {
 	s32 i;
 	s32 freeslot = -1;

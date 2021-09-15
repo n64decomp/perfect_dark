@@ -1926,15 +1926,15 @@ char *filemgrMenuTextFileInUseDescription(struct menuitem *item)
 /**
  * This is a dirty decomp hack where we intentionally declare
  * an incorrect function signature in order to get a match.
- * filelistGetPerfectHeadTexture uses u16 as its last argument
+ * pheadGetTexture uses u16 as its last argument
  * but filemgrRenderPerfectHeadThumbnail will only match if
  * it's an s32 with a 0xffff mask.
  */
-struct textureconfig *filelistGetPerfectHeadTexture(s32 playernum, s32 filenum, s32 deviceserial);
+struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, s32 deviceserial);
 
 Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, s32 filenum, s32 deviceserial)
 {
-	struct textureconfig *texture = filelistGetPerfectHeadTexture(g_MpPlayerNum, filenum, deviceserial & 0xffff);
+	struct textureconfig *texture = pheadGetTexture(g_MpPlayerNum, filenum, deviceserial & 0xffff);
 
 	if (texture) {
 		gSPDisplayList(gdl++, &var800613a0);

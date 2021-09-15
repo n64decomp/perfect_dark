@@ -4503,8 +4503,9 @@ struct menu {
 	/*0xe3d*/ u8 unke3d;
 	/*0xe3e*/ u8 unke3e;
 	/*0xe3f*/ u8 listnum;
-	/*0xe40*/ u8 unke40;
-	/*0xe41*/ u8 unke41;
+	/*0xe40*/ u16 unke40_00 : 1;
+	/*0xe40*/ u16 unke40_01 : 1;
+	/*0xe40*/ u16 unke40_02 : 14;
 	/*0xe42*/ u8 fileop;
 	/*0xe44*/ void *unke44;
 	/*0xe48*/ u32 filenum;
