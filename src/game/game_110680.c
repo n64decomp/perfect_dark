@@ -200,7 +200,7 @@ void bossfileSave(void)
 	tmp = func0f110720();
 
 	if (tmp == 0) {
-		func0000bfd0("fileGuid", "bossfile.c", PAL ? 377 : 375);
+		faultAssert("fileGuid", "bossfile.c", PAL ? 377 : 375);
 	}
 
 	if (func0f116828(SAVEDEVICE_GAMEPAK, tmp, 0x10, buffer.bytes, NULL, 0)) {
@@ -475,11 +475,8 @@ void filelistUpdate(struct filelist *list)
 	}
 }
 
-const char var7f1b3a08[] = "tc != NULL";
-const char var7f1b3a14[] = "gamefile.c";
-
 GLOBAL_ASM(
-glabel func0f111260
+glabel pheadAllocateTextures
 /*  f111260:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f111264:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f111268:	000e7080 */ 	sll	$t6,$t6,0x2
@@ -525,7 +522,7 @@ glabel func0f111260
 /*  f111300:	3c057f1b */ 	lui	$a1,%hi(var7f1b3a14)
 /*  f111304:	24a53a14 */ 	addiu	$a1,$a1,%lo(var7f1b3a14)
 /*  f111308:	24843a08 */ 	addiu	$a0,$a0,%lo(var7f1b3a08)
-/*  f11130c:	0c002ff4 */ 	jal	func0000bfd0
+/*  f11130c:	0c002ff4 */ 	jal	faultAssert
 /*  f111310:	240601ca */ 	addiu	$a2,$zero,0x1ca
 .L0f111314:
 /*  f111314:	00001025 */ 	or	$v0,$zero,$zero
@@ -583,11 +580,60 @@ glabel func0f111260
 /*  f1113dc:	00000000 */ 	nop
 );
 
+const char var7f1b3a08[] = "tc != NULL";
+const char var7f1b3a14[] = "gamefile.c";
+
+// Mismatch: In goal, k loop copies k to t8 then increments k, using t8 for the
+// assign. The below uses k and increments it afterwards.
+//void pheadAllocateTextures(s32 playernum, struct perfectheadtexturelist *textures)
+//{
+//	s32 i;
+//	s32 j;
+//	s32 k;
+//
+//	if (g_Menus[playernum].headtextures == NULL) {
+//		if (textures == NULL) {
+//			g_Menus[playernum].unke40_01 = true;
+//			func0f15e5b8(align16(sizeof(struct perfectheadtexturelist)), 1);
+//			g_Menus[playernum].headtextures = func00012ab0(align16(sizeof(struct perfectheadtexturelist)));
+//		} else {
+//			g_Menus[playernum].headtextures = textures;
+//			g_Menus[playernum].unke40_01 = false;
+//		}
+//	}
+//
+//	if (g_Menus[playernum].headtextures == NULL) {
+//		faultAssert("tc != NULL", "gamefile.c", 458);
+//	}
+//
+//	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].headtextures->fileguids); i++) {
+//		g_Menus[playernum].headtextures->fileguids[i].filenum = 0;
+//		g_Menus[playernum].headtextures->fileguids[i].deviceserial = 0;
+//	}
+//
+//	g_Menus[playernum].headtextures->lastupdated240 = 0;
+//
+//	g_Menus[playernum].headtextures->selectedtexture.width = 16;
+//	g_Menus[playernum].headtextures->selectedtexture.height = 16;
+//	g_Menus[playernum].headtextures->selectedtexture.level = 0;
+//	g_Menus[playernum].headtextures->selectedtexture.format = G_IM_FMT_I;
+//	g_Menus[playernum].headtextures->selectedtexture.depth = 0;
+//	g_Menus[playernum].headtextures->selectedtexture.s = 0;
+//	g_Menus[playernum].headtextures->selectedtexture.t = 1;
+//	g_Menus[playernum].headtextures->selectedtexture.unk0b = 0;
+//
+//	for (j = 0; j < 16; j++) {
+//		for (k = 0; k < 0x80; k++) {
+//			g_Menus[playernum].headtextures->unk000[j][k] = k;
+//		}
+//	}
+//}
+
 void pheadFreeTextures(s32 playernum)
 {
 	if (g_Menus[playernum].headtextures != NULL) {
 		if (g_Menus[playernum].unke40_01) {
-			func00012cb4(g_Menus[playernum].headtextures, align16(0x890));
+			func00012cb4(g_Menus[playernum].headtextures, align16(sizeof(struct perfectheadtexturelist)));
 		}
 
 		g_Menus[playernum].headtextures = NULL;

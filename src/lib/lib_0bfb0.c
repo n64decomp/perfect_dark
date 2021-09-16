@@ -11,7 +11,7 @@ void faultCreateThread(void)
 	faultCreateThread2();
 }
 
-void func0000bfd0(char *arg0, char *arg1, s32 arg2)
+void faultAssert(char *message, char *file, s32 line)
 {
-	crashPrint("ASSERTION : %s, %d: (\"%s\")\n", arg1, arg2, arg0);
+	crashPrint("ASSERTION : %s, %d: (\"%s\")\n", file, line, message);
 }

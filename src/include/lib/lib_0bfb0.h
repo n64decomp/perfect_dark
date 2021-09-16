@@ -5,6 +5,6 @@
 #include "types.h"
 
 void faultCreateThread(void);
-void func0000bfd0(char *msg, char *file, s32 line);
+void faultAssert(char *msg, char *file, s32 line);
 
 #endif

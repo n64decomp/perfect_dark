@@ -3878,6 +3878,7 @@ struct textureconfig {
 	u8 depth;
 	u8 s;
 	u8 t;
+	u8 unk0b;
 };
 
 struct perfectheadtexturelist {
