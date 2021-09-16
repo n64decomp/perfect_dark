@@ -8,7 +8,7 @@
 #include "game/game_0b69d0.h"
 #include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"
-#include "game/game_102240.h"
+#include "game/mainmenu.h"
 #include "game/endscreen.h"
 #include "game/game_127910.h"
 #include "game/lv.h"

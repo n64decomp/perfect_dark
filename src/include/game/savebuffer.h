@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_0D4690_H
-#define IN_GAME_GAME_0D4690_H
+#ifndef IN_GAME_SAVEBUFFER_H
+#define IN_GAME_SAVEBUFFER_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

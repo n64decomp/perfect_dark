@@ -1,9 +1,9 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/game_0f09f0.h"
-#include "game/game_107fb0.h"
+#include "game/filemgr.h"
 #include "game/game_10c9c0.h"
-#include "game/game_102240.h"
+#include "game/mainmenu.h"
 #include "game/game_19aa80.h"
 #include "game/mplayer/mplayer.h"
 #include "game/mplayer/scenarios.h"

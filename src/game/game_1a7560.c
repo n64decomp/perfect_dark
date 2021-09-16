@@ -7,7 +7,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"
-#include "game/game_102240.h"
+#include "game/mainmenu.h"
 #include "game/inventory/inventory.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"

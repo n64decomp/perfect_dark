@@ -11,7 +11,7 @@
 #include "game/game_0b69d0.h"
 #include "game/hudmsg.h"
 #include "game/game_0f09f0.h"
-#include "game/game_107fb0.h"
+#include "game/filemgr.h"
 #include "game/inventory/inventory.h"
 #include "game/explosions/explosions.h"
 #include "game/game_1531a0.h"

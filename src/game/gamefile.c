@@ -4,7 +4,7 @@
 #include "game/camdraw.h"
 #include "game/cheats.h"
 #include "game/game_0b69d0.h"
-#include "game/game_0d4690.h"
+#include "game/savebuffer.h"
 #include "game/bg.h"
 #include "game/game_19aa80.h"
 #include "game/training/training.h"

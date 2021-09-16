@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_107FB0_H
-#define IN_GAME_GAME_107FB0_H
+#ifndef IN_GAME_FILEMGR_H
+#define IN_GAME_FILEMGR_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

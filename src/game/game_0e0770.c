@@ -3,7 +3,7 @@
 #include "game/game_006900.h"
 #include "game/bondgun.h"
 #include "game/game_0b3350.h"
-#include "game/game_0d4690.h"
+#include "game/savebuffer.h"
 #include "game/game_0e0770.h"
 #include "game/game_1531a0.h"
 #include "game/file.h"

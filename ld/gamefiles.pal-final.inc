@@ -113,7 +113,7 @@
 	build/ROMID/game/bondgrab.o (section); \
 	build/ROMID/game/bondeyespy.o (section); \
 	build/ROMID/game/bondbike.o (section); \
-	build/ROMID/game/game_0d4690.o (section); \
+	build/ROMID/game/savebuffer.o (section); \
 	build/ROMID/game/healthbar.o (section); \
 	build/ROMID/game/sight.o (section); \
 	build/ROMID/game/hudmsg.o (section); \
@@ -122,13 +122,14 @@
 	build/ROMID/game/game_0f09f0.o (section); \
 	build/ROMID/game/activemenu/activemenu.o (section); \
 	build/ROMID/game/stubs/game_102230.o (section); \
-	build/ROMID/game/game_102240.o (section); \
+	build/ROMID/game/mainmenu.o (section); \
 	build/ROMID/game/cheats.o (section); \
-	build/ROMID/game/game_107fb0.o (section); \
+	build/ROMID/game/filemgr.o (section); \
 	build/ROMID/game/game_10c9c0.o (section); \
 	build/ROMID/game/endscreen.o (section); \
 	build/ROMID/game/gamefile.o (section); \
-	build/ROMID/game/game_110680.o (section); \
+	build/ROMID/game/bossfile.o (section); \
+	build/ROMID/game/filelist.o (section); \
 	build/ROMID/game/inventory/inventory.o (section); \
 	build/ROMID/game/bondhead.o (section); \
 	build/ROMID/game/padhalllv.o (section); \

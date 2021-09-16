@@ -3,7 +3,7 @@
 #include "game/dlights.h"
 #include "game/game_006900.h"
 #include "game/atan2f.h"
-#include "game/game_0d4690.h"
+#include "game/savebuffer.h"
 #include "game/game_11f000.h"
 #include "game/bondview.h"
 #include "game/game_1531a0.h"

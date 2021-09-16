@@ -1,9 +1,9 @@
 #include <ultra64.h>
 #include "game/chr/chraicommands.h"
 #include "game/game_0f09f0.h"
-#include "game/game_102240.h"
+#include "game/mainmenu.h"
 #include "game/cheats.h"
-#include "game/game_107fb0.h"
+#include "game/filemgr.h"
 #include "game/endscreen.h"
 #include "game/camdraw.h"
 #include "game/timing.h"

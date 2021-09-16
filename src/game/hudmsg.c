@@ -4,7 +4,7 @@
 #include "game/game_092610.h"
 #include "game/game_0b0fd0.h"
 #include "game/game_0b69d0.h"
-#include "game/game_0d4690.h"
+#include "game/savebuffer.h"
 #include "game/hudmsg.h"
 #include "game/game_0e0770.h"
 #include "game/game_127910.h"

@@ -9,7 +9,7 @@
 #include "game/atan2f.h"
 #include "game/bondgun.h"
 #include "game/game_0b69d0.h"
-#include "game/game_0d4690.h"
+#include "game/savebuffer.h"
 #include "game/hudmsg.h"
 #include "game/game_0f09f0.h"
 #include "game/inventory/inventory.h"

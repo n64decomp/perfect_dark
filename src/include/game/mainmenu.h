@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_102240_H
-#define IN_GAME_GAME_102240_H
+#ifndef IN_GAME_MAINMENU_H
+#define IN_GAME_MAINMENU_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"
