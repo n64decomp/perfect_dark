@@ -202,7 +202,7 @@ char *menutextMatchTime(s32 arg0)
 
 char *mpMenuTextWeaponDescription(struct menuitem *item)
 {
-	struct weapon *weapon = weaponFindById(g_Menus[g_MpPlayerNum].data.mppause.weaponnum);
+	struct weapon *weapon = weaponFindById(g_Menus[g_MpPlayerNum].mppause.weaponnum);
 
 	if (weapon) {
 		return langGet(weapon->description);

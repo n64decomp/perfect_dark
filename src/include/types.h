@@ -3839,27 +3839,44 @@ struct menudata_mpend {
 	u32 unke1c;
 };
 
-// Not sure if filemgr and pak are the same struct
 struct menudata_filemgr {
-	u32 filetypeplusone;
-	u32 device;
-	u32 unke24;
-	u32 isdeletingforsave;
-	u32 unke2c;
-};
-
-struct menudata_pak {
-	u32 unke1c;
-	u32 device;
-	u32 unke24;
-	u32 noteindex;
+	/*0xe1c*/ u32 filetypeplusone;
+	/*0xe20*/ u32 device;
+	/*0xe24*/ u32 unke24;
+	union {
+		u32 isdeletingforsave;
+		u32 noteindex;
+	};
+	/*0xe2c*/ u32 unke2c;
+	/*0xe30*/ u32 unke30;
+	/*0xe34*/ u16 errno;
+	/*0xe38*/ struct filelistfile *filetodelete;
+	/*0xe3c*/ u8 device1;
+	/*0xe3d*/ u8 filetypetodelete;
+	/*0xe3e*/ u8 unke3e;
+	/*0xe3f*/ u8 listnum;
+	/*0xe40*/ u16 unke40_00 : 1;
+	/*0xe40*/ u16 unke40_01 : 1;
+	/*0xe40*/ u16 unke40_02 : 14;
+	/*0xe42*/ u8 fileop;
+	union {
+		void *unke44;
+		s32 mpplayernum;
+	};
+	/*0xe48*/ u32 filenum;
+	/*0xe4c*/ u32 deviceserial;
+	/*0xe50*/ u16 isretryingsave;
+	/*0xe52*/ u8 device2;
+	/*0xe53*/ char filename[20];
+	/*0xe68*/ struct perfectheadtexturelist *headtextures;
+	/*0xe6c*/ s8 device3;
 };
 
 struct menudata_main4mb {
 	u32 slotindex;
 };
 
-struct menudata_train {
+struct menudata_training {
 	u32 unke1c;
 	struct mpconfigfull *mpconfig;
 	u32 unke24;
@@ -4491,36 +4508,10 @@ struct menu {
 		struct menudata_mpsetup mpsetup;
 		struct menudata_mppause mppause;
 		struct menudata_mpend mpend;
-		struct menudata_filemgr filemgr;
-		struct menudata_pak pak;
+		struct menudata_filemgr fm;
 		struct menudata_main4mb main4mb;
-		struct menudata_train train;
-	} data;
-
-	/*0xe30*/ u32 unke30;
-	/*0xe34*/ u16 errno;
-	/*0xe38*/ struct filelistfile *unke38;
-	/*0xe3c*/ u8 unke3c;
-	/*0xe3d*/ u8 unke3d;
-	/*0xe3e*/ u8 unke3e;
-	/*0xe3f*/ u8 listnum;
-	/*0xe40*/ u16 unke40_00 : 1;
-	/*0xe40*/ u16 unke40_01 : 1;
-	/*0xe40*/ u16 unke40_02 : 14;
-	/*0xe42*/ u8 fileop;
-	/*0xe44*/ void *unke44;
-	/*0xe48*/ u32 filenum;
-	/*0xe4c*/ u32 deviceserial;
-	/*0xe50*/ u16 isretryingsave;
-	/*0xe52*/ u8 device;
-	/*0xe53*/ char unke53[1];
-	/*0xe54*/ u32 unke54;
-	/*0xe58*/ u32 unke58;
-	/*0xe5c*/ u32 unke5c;
-	/*0xe60*/ u32 unke60;
-	/*0xe64*/ u32 unke64;
-	/*0xe68*/ struct perfectheadtexturelist *headtextures;
-	/*0xe6c*/ s8 savedevice; // 0-3 = controller pak 1-4, 4 = game pak
+		struct menudata_training training;
+	};
 };
 
 struct gamefile {
@@ -4689,10 +4680,7 @@ struct mparena {
 struct filelistfile {
 	s32 filenum;
 	u16 deviceserial;
-	char unk06[6]; // length unknown
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
+	char name[16];
 };
 
 // This stores information about all files of a particular filetype across all

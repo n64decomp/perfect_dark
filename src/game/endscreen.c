@@ -315,7 +315,7 @@ char *menuTitleStageCompleted(struct menuitem *item)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	sprintf(g_StringPointer, "%s: %s\n",
-			langGet(g_StageNames[g_Menus[g_MpPlayerNum].data.endscreen.stageindex].name3),
+			langGet(g_StageNames[g_Menus[g_MpPlayerNum].endscreen.stageindex].name3),
 			langGet(L_OPTIONS_276)); // "Completed"
 #else
 	sprintf(g_StringPointer, "%s: %s\n",
@@ -533,7 +533,7 @@ void endscreenHandleContinue(s32 context)
 		menuPopDialog();
 	} else {
 		if (g_Vars.stagenum == STAGE_DEEPSEA || g_Vars.stagenum == STAGE_SKEDARRUINS) {
-			if (context == 2 || g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion) {
+			if (context == 2 || g_Menus[g_MpPlayerNum].endscreen.isfirstcompletion) {
 				// Pressed continue
 				if (g_Vars.stagenum == STAGE_DEEPSEA) {
 					if (!isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty)) {
@@ -625,7 +625,7 @@ void endscreenHandleContinue(s32 context)
 s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 0;
+		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
 	}
 
 	if (operation == MENUOP_TICK) {
@@ -635,15 +635,15 @@ s32 menudialogSolo2PEndscreenCompleted(s32 operation, struct menudialog *dialog,
 				struct menuinputs *inputs = data->dialog2.inputs;
 
 				if (inputs->select || inputs->back || inputs->start) {
-					g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 6;
+					g_Menus[g_MpPlayerNum].endscreen.unke1c = 6;
 				}
 
-				if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c) {
+				if (g_Menus[g_MpPlayerNum].endscreen.unke1c) {
 					if (var8009dfc0) {
-						g_Menus[g_MpPlayerNum].data.endscreen.unke1c--;
+						g_Menus[g_MpPlayerNum].endscreen.unke1c--;
 					}
 
-					if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c == 0) {
+					if (g_Menus[g_MpPlayerNum].endscreen.unke1c == 0) {
 						endscreenHandleContinue(0);
 					}
 				}
@@ -911,7 +911,7 @@ glabel menudialogSolo2PEndscreenCompleted
 s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 0;
+		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
 	}
 
 	if (operation == MENUOP_TICK) {
@@ -921,15 +921,15 @@ s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialog *dialog, un
 				struct menuinputs *inputs = data->dialog2.inputs;
 
 				if (inputs->select || inputs->back || inputs->start) {
-					g_Menus[g_MpPlayerNum].data.endscreen.unke1c = 6;
+					g_Menus[g_MpPlayerNum].endscreen.unke1c = 6;
 				}
 
-				if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c) {
+				if (g_Menus[g_MpPlayerNum].endscreen.unke1c) {
 					if (var8009dfc0) {
-						g_Menus[g_MpPlayerNum].data.endscreen.unke1c--;
+						g_Menus[g_MpPlayerNum].endscreen.unke1c--;
 					}
 
-					if (g_Menus[g_MpPlayerNum].data.endscreen.unke1c == 0) {
+					if (g_Menus[g_MpPlayerNum].endscreen.unke1c == 0) {
 						if (g_Vars.antiplayernum >= 0
 								|| (g_Vars.coopplayernum >= 0 && PLAYERCOUNT() >= 2)
 								|| stageGetIndex(g_MissionConfig.stagenum) < 0
@@ -1021,14 +1021,14 @@ struct menuitem g_MissionEndscreenMenuItems[] = {
 s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_GETCOLOUR
-			&& ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) || item->param == 5)) {
+			&& ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x200) || item->param == 5)) {
 		// Timed cheat just got unlocked, and this item is the timed cheat name
 		u32 weight = func0f006b08(40) * 255;
 
 		func0000db30("ctcol", &g_CheatColour);
 
 		if (item->param == 0
-				&& cheatGetTime(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff) == 0) {
+				&& cheatGetTime(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff) == 0) {
 			return 0;
 		}
 
@@ -1045,7 +1045,7 @@ s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handl
 
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (item->param == 1) { // target time
-			u32 info = g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo;
+			u32 info = g_Menus[g_MpPlayerNum].endscreen.cheatinfo;
 
 			if (info & 0x800) { // completion cheat just got unlocked
 				return true;
@@ -1059,19 +1059,19 @@ s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handl
 			}
 
 			return true;
-		} else if (item->param == 2 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xa00) == 0) {
+		} else if (item->param == 2 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xa00) == 0) {
 			// new cheat available
 			return true;
-		} else if (item->param == 3 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x200) == 0) {
+		} else if (item->param == 3 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x200) == 0) {
 			// completion cheat name
 			return true;
-		} else if (item->param == 4 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xa00)) {
+		} else if (item->param == 4 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xa00)) {
 			// others (shots)
 			return true;
-		} else if (item->param == 6 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xa00) == 0xa00) {
+		} else if (item->param == 6 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xa00) == 0xa00) {
 			// limb shots
 			return true;
-		} else if (item->param == 5 && (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x800) == 0) {
+		} else if (item->param == 5 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x800) == 0) {
 			// timed cheat name
 			return true;
 		}
@@ -1084,8 +1084,8 @@ s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handl
 #if VERSION >= VERSION_NTSC_1_0
 char *soloMenuTextTimedCheatName(struct menuitem *item)
 {
-	if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000300) {
-		return cheatGetName(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
+	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000300) {
+		return cheatGetName(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
 	}
 
 	return NULL;
@@ -1095,8 +1095,8 @@ char *soloMenuTextTimedCheatName(struct menuitem *item)
 #if VERSION >= VERSION_NTSC_1_0
 char *soloMenuTextCompletionCheatName(struct menuitem *item)
 {
-	if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000800) {
-		return cheatGetName((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo >> 16) & 0xff);
+	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000800) {
+		return cheatGetName((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
 	}
 
 	return NULL;
@@ -1162,11 +1162,11 @@ const char var7f1b38bc[] = "\n";
 //{
 //	s32 time;
 //
-//	if ((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x00000100) == 0) {
+//	if ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000100) == 0) {
 //		return NULL;
 //	}
 //
-//	time = cheatGetTime(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
+//	time = cheatGetTime(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
 //
 //	if (!time) {
 //		return NULL;
@@ -1183,7 +1183,7 @@ void endscreenSetCoopCompleted(void)
 	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0) {
 #if VERSION >= VERSION_NTSC_1_0
 		if (g_GameFile.coopcompletions[g_MissionConfig.difficulty] & (1 << g_MissionConfig.stageindex)) {
-			g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = true;
+			g_Menus[g_MpPlayerNum].endscreen.isfirstcompletion = true;
 		}
 #endif
 
@@ -1222,11 +1222,11 @@ void endscreenPrepare(void)
 	u16 prevbest;
 	bool nowunlocked;
 
-	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
+	g_Menus[g_MpPlayerNum].endscreen.stageindex = g_MissionConfig.stageindex;
 
 	if (g_MenuData.root != MENUROOT_ENDSCREEN && g_Vars.mplayerisrunning == false) {
-		g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
-		g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = false;
+		g_Menus[g_MpPlayerNum].endscreen.cheatinfo = 0;
+		g_Menus[g_MpPlayerNum].endscreen.isfirstcompletion = false;
 		g_Menus[g_MpPlayerNum].playernum = 0;
 
 		// Set cheat info
@@ -1237,11 +1237,11 @@ void endscreenPrepare(void)
 			complcheatid = cheatGetByCompletedStageIndex(g_MissionConfig.stageindex);
 
 			if (timedcheatid >= 0) {
-				g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0x0100 | timedcheatid;
+				g_Menus[g_MpPlayerNum].endscreen.cheatinfo = 0x0100 | timedcheatid;
 			}
 
 			if (complcheatid >= 0) {
-				g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x1000 | (complcheatid << 16);
+				g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x1000 | (complcheatid << 16);
 			}
 		}
 
@@ -1263,17 +1263,17 @@ void endscreenPrepare(void)
 			complalreadyunlocked = false;
 
 			// If there's a timed cheat for this stage + difficulty
-			if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x100) {
-				timedalreadyunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
+			if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x100) {
+				timedalreadyunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
 
 				if (timedalreadyunlocked) {
-					g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x400;
+					g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x400;
 				}
 			}
 
 			// If there's a completion cheat for this stage (ie. not a special stage)
-			if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x1000) {
-				complalreadyunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo >> 16) & 0xff);
+			if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x1000) {
+				complalreadyunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
 			}
 
 			// Update total mission time
@@ -1315,7 +1315,7 @@ void endscreenPrepare(void)
 				prevbest = g_GameFile.besttimes[g_MissionConfig.stageindex][g_MissionConfig.difficulty];
 
 				if (prevbest == 0) {
-					g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = true;
+					g_Menus[g_MpPlayerNum].endscreen.isfirstcompletion = true;
 				}
 
 				if (secs < prevbest || prevbest == 0) {
@@ -1339,19 +1339,19 @@ void endscreenPrepare(void)
 					}
 				}
 
-				if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x100) {
-					nowunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0xff);
+				if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x100) {
+					nowunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
 
 					if (!timedalreadyunlocked && nowunlocked) {
-						g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x0200;
+						g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x0200;
 					}
 				}
 
-				if (g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo & 0x1000) {
-					nowunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo >> 16) & 0xff);
+				if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x1000) {
+					nowunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
 
 					if (!complalreadyunlocked && nowunlocked) {
-						g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo |= 0x0800;
+						g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x0800;
 					}
 				}
 
@@ -1365,7 +1365,7 @@ void endscreenPrepare(void)
 			}
 		}
 
-		func0f1094e4(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
+		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 	}
 
 	if (g_MenuData.root == MENUROOT_ENDSCREEN) {
@@ -1569,7 +1569,7 @@ glabel endscreenPrepare
 /*  f1091c8:	3c04800a */ 	lui	$a0,0x800a
 /*  f1091cc:	248467b0 */ 	addiu	$a0,$a0,0x67b0
 /*  f1091d0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1091d4:	0fc41358 */ 	jal	func0f1094e4
+/*  f1091d4:	0fc41358 */ 	jal	filemgrSaveOrLoad
 /*  f1091d8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1091dc:	3c03800a */ 	lui	$v1,0x800a
 /*  f1091e0:	8c635eb4 */ 	lw	$v1,0x5eb4($v1)
@@ -1637,9 +1637,9 @@ void soloPushCoopModeEndscreen(void)
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
-	g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = false;
-	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
+	g_Menus[g_MpPlayerNum].endscreen.cheatinfo = 0;
+	g_Menus[g_MpPlayerNum].endscreen.isfirstcompletion = false;
+	g_Menus[g_MpPlayerNum].endscreen.stageindex = g_MissionConfig.stageindex;
 #endif
 
 	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
@@ -1666,7 +1666,7 @@ void soloPushCoopModeEndscreen(void)
 	}
 
 	if (g_Vars.currentplayer == g_Vars.bond) {
-		func0f1094e4(&g_GameFileGuid, FILEOP_SAVE_GAME_000, NULL);
+		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 	}
 
 	g_MpPlayerNum = prevplayernum;
@@ -1781,9 +1781,9 @@ void soloPushAntiModeEndscreen(void)
 	g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_Menus[g_MpPlayerNum].data.endscreen.cheatinfo = 0;
-	g_Menus[g_MpPlayerNum].data.endscreen.isfirstcompletion = false;
-	g_Menus[g_MpPlayerNum].data.endscreen.stageindex = g_MissionConfig.stageindex;
+	g_Menus[g_MpPlayerNum].endscreen.cheatinfo = 0;
+	g_Menus[g_MpPlayerNum].endscreen.isfirstcompletion = false;
+	g_Menus[g_MpPlayerNum].endscreen.stageindex = g_MissionConfig.stageindex;
 #endif
 
 	g_Menus[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
@@ -1806,7 +1806,7 @@ void soloPushAntiModeEndscreen(void)
 			}
 		}
 
-		func0f1094e4(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
+		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 	} else {
 		if (g_Vars.anti->aborted == 0 &&
 				(g_Vars.bond->isdead || g_Vars.bond->aborted || objectiveIsAllComplete() == false)) {

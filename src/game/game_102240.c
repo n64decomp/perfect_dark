@@ -103,11 +103,11 @@ s32 menuhandlerControlStyleImpl(s32 operation, struct menuitem *item, union hand
 		break;
 	case MENUOP_GETOPTIONVALUE:
 		data->list.value = optionsGetControlMode(mpindex);
-		g_Menus[g_MpPlayerNum].data.main.mpindex = mpindex;
+		g_Menus[g_MpPlayerNum].main.mpindex = mpindex;
 		break;
 	case MENUOP_LISTITEMFOCUS:
 		if (g_MenuData.root == MENUROOT_MAINMENU) {
-			g_Menus[g_MpPlayerNum].data.main.controlmode = data->list.value;
+			g_Menus[g_MpPlayerNum].main.controlmode = data->list.value;
 		}
 		break;
 	}
@@ -4147,7 +4147,7 @@ s32 menudialog0010559c(s32 operation, struct menudialog *dialog, union handlerda
 		break;
 	case MENUOP_CLOSE:
 		if ((g_Vars.modifiedfiles & MODFILE_GAME) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
-			if (func0f1094e4(&g_GameFileGuid, FILEOP_SAVE_GAME_001, 0) == 0) {
+			if (filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_001, 0) == 0) {
 				data->dialog1.preventclose = true;
 			}
 
@@ -4248,7 +4248,7 @@ s32 menuhandlerControlStyle(s32 operation, struct menuitem *item, union handlerd
 s32 menuhandler001057ec(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f1094e4(&g_GameFileGuid, FILEOP_SAVE_GAME_002, 0);
+		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_002, 0);
 	}
 
 	return 0;
@@ -5786,7 +5786,7 @@ s32 menudialogMainMenu(s32 operation, struct menudialog *dialog, union handlerda
 {
 	switch (operation) {
 	case MENUOP_OPEN:
-		g_Menus[g_MpPlayerNum].data.main.unke2c = 0;
+		g_Menus[g_MpPlayerNum].main.unke2c = 0;
 		break;
 	case MENUOP_TICK:
 		if (g_Menus[g_MpPlayerNum].curframe &&
@@ -5875,34 +5875,30 @@ bool soloChoosePauseDialog(void)
 					}
 
 					handled = true;
-				} else {
-					if (room == CIROOM_DEVICEROOM) {
-						if (dtdata->intraining) {
-							menuPushRootDialog(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
-						} else if (dtdata->finished) {
-							dtPushEndscreen();
-						} else {
-							menuPushRootDialog(&g_DtListMenuDialog, MENUROOT_TRAINING);
-						}
-
-						handled = true;
+				} else if (room == CIROOM_DEVICEROOM) {
+					if (dtdata->intraining) {
+						menuPushRootDialog(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
+					} else if (dtdata->finished) {
+						dtPushEndscreen();
 					} else {
-						if (dtdata->intraining) {
-							menuPushRootDialog(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
-							handled = true;
-						} else if (dtdata->finished) {
-							dtPushEndscreen();
-							handled = true;
-						} else if (room == CIROOM_FIRINGRANGE) {
-							if (frIsInTraining()) {
-								menuPushRootDialog(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
-							} else {
-								menuPushRootDialog(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
-							}
-
-							handled = true;
-						}
+						menuPushRootDialog(&g_DtListMenuDialog, MENUROOT_TRAINING);
 					}
+
+					handled = true;
+				} else if (dtdata->intraining) {
+					menuPushRootDialog(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
+					handled = true;
+				} else if (dtdata->finished) {
+					dtPushEndscreen();
+					handled = true;
+				} else if (room == CIROOM_FIRINGRANGE) {
+					if (frIsInTraining()) {
+						menuPushRootDialog(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
+					} else {
+						menuPushRootDialog(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
+					}
+
+					handled = true;
 				}
 			}
 

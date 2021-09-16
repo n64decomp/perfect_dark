@@ -883,7 +883,7 @@ s32 frTrainingInfoMenuDialog(s32 operation, struct menudialog *dialog, union han
 	switch (operation) {
 	case MENUOP_OPEN:
 		weaponnum = frGetWeaponBySlot(frGetSlot());
-		g_Menus[g_MpPlayerNum].data.train.weaponnum = weaponnum;
+		g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
 		func0f105948(weaponnum);
 
 		if (!frIsInTraining()) {
@@ -4996,7 +4996,7 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialog *dialog, union 
 		s32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
 		u16 unused[] = {64250, 38500, 25650, 25700, 12950};
 		func0f1a1ac0();
-		g_Menus[g_MpPlayerNum].data.train.weaponnum = weaponnum;
+		g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
 		func0f105948(weaponnum);
 
 #if VERSION >= VERSION_PAL_FINAL

@@ -253,7 +253,7 @@ void func0f110bf8(void)
 /**
  * Allocate and build a file list.
  */
-void func0f110c5c(s32 listnum, u8 filetype)
+void filelistCreate(s32 listnum, u8 filetype)
 {
 	if (g_FileLists[listnum] == NULL) {
 		func0f15e5b8(align16(sizeof(struct filelist)), 1);
@@ -270,7 +270,7 @@ void func0f110c5c(s32 listnum, u8 filetype)
 	var80062944 = 1;
 }
 
-s32 func0f110cf8(u8 filetype)
+s32 filelistFindOrCreate(u8 filetype)
 {
 	s32 bestindex = -1;
 	s32 i;
@@ -288,7 +288,7 @@ s32 func0f110cf8(u8 filetype)
 	}
 
 	if (bestindex >= 0) {
-		func0f110c5c(bestindex, filetype);
+		filelistCreate(bestindex, filetype);
 		return bestindex;
 	}
 
@@ -301,6 +301,9 @@ void func0f110d90(s32 index)
 	var800a2330[index] = -1;
 }
 #endif
+
+const char var7f1b39c8[] = "";
+const char var7f1b39cc[] = "";
 
 void filelistsTick(void)
 {
@@ -361,6 +364,7 @@ void filelistsTick(void)
 			}
 
 			if (update) {
+				osSyncPrintf("Rebuilding pakWad %d:\n", i);
 				filelistUpdate(g_FileLists[i]);
 				g_FileLists[i]->updatedthisframe = true;
 			}
@@ -371,10 +375,6 @@ void filelistsTick(void)
 		var80075bd0[i] = false;
 	}
 }
-
-const char var7f1b39c8[] = "";
-const char var7f1b39cc[] = "";
-const char var7f1b39d0[] = "Rebuilding pakWad %d:\n";
 
 void filelistUpdate(struct filelist *list)
 {
@@ -444,7 +444,7 @@ void filelistUpdate(struct filelist *list)
 	// Iterating files
 	for (i = 0; i < len; i++) {
 		struct filelistfile *file = &list->files[list->numfiles];
-		s32 maybepfserr = func0f116800(filedevices[i], sp1288[i], file->unk06, 0x10);
+		s32 maybepfserr = func0f116800(filedevices[i], sp1288[i], file->name, sizeof(file->name));
 
 		if (maybepfserr);
 
@@ -593,50 +593,50 @@ const char var7f1b3a14[] = "gamefile.c";
 //
 //	if (g_Menus[playernum].headtextures == NULL) {
 //		if (textures == NULL) {
-//			g_Menus[playernum].unke40_01 = true;
+//			g_Menus[playernum].fm.unke40_01 = true;
 //			func0f15e5b8(align16(sizeof(struct perfectheadtexturelist)), 1);
-//			g_Menus[playernum].headtextures = func00012ab0(align16(sizeof(struct perfectheadtexturelist)));
+//			g_Menus[playernum].fm.headtextures = func00012ab0(align16(sizeof(struct perfectheadtexturelist)));
 //		} else {
-//			g_Menus[playernum].headtextures = textures;
-//			g_Menus[playernum].unke40_01 = false;
+//			g_Menus[playernum].fm.headtextures = textures;
+//			g_Menus[playernum].fm.unke40_01 = false;
 //		}
 //	}
 //
-//	if (g_Menus[playernum].headtextures == NULL) {
+//	if (g_Menus[playernum].fm.headtextures == NULL) {
 //		faultAssert("tc != NULL", "gamefile.c", 458);
 //	}
 //
 //	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].headtextures->fileguids); i++) {
-//		g_Menus[playernum].headtextures->fileguids[i].filenum = 0;
-//		g_Menus[playernum].headtextures->fileguids[i].deviceserial = 0;
+//		g_Menus[playernum].fm.headtextures->fileguids[i].filenum = 0;
+//		g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial = 0;
 //	}
 //
-//	g_Menus[playernum].headtextures->lastupdated240 = 0;
+//	g_Menus[playernum].fm.headtextures->lastupdated240 = 0;
 //
-//	g_Menus[playernum].headtextures->selectedtexture.width = 16;
-//	g_Menus[playernum].headtextures->selectedtexture.height = 16;
-//	g_Menus[playernum].headtextures->selectedtexture.level = 0;
-//	g_Menus[playernum].headtextures->selectedtexture.format = G_IM_FMT_I;
-//	g_Menus[playernum].headtextures->selectedtexture.depth = 0;
-//	g_Menus[playernum].headtextures->selectedtexture.s = 0;
-//	g_Menus[playernum].headtextures->selectedtexture.t = 1;
-//	g_Menus[playernum].headtextures->selectedtexture.unk0b = 0;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.width = 16;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.height = 16;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.level = 0;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.format = G_IM_FMT_I;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.depth = 0;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.s = 0;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.t = 1;
+//	g_Menus[playernum].fm.headtextures->selectedtexture.unk0b = 0;
 //
 //	for (j = 0; j < 16; j++) {
 //		for (k = 0; k < 0x80; k++) {
-//			g_Menus[playernum].headtextures->unk000[j][k] = k;
+//			g_Menus[playernum].fm.headtextures->unk000[j][k] = k;
 //		}
 //	}
 //}
 
 void pheadFreeTextures(s32 playernum)
 {
-	if (g_Menus[playernum].headtextures != NULL) {
-		if (g_Menus[playernum].unke40_01) {
-			func00012cb4(g_Menus[playernum].headtextures, align16(sizeof(struct perfectheadtexturelist)));
+	if (g_Menus[playernum].fm.headtextures != NULL) {
+		if (g_Menus[playernum].fm.unke40_01) {
+			func00012cb4(g_Menus[playernum].fm.headtextures, align16(sizeof(struct perfectheadtexturelist)));
 		}
 
-		g_Menus[playernum].headtextures = NULL;
+		g_Menus[playernum].fm.headtextures = NULL;
 	}
 }
 
@@ -647,14 +647,14 @@ struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, u16 deviceseri
 	s32 indextouse = -1;
 
 	for (i = 0; i < 16; i++) {
-		if (g_Menus[playernum].headtextures->fileguids[i].filenum == filenum
-				&& g_Menus[playernum].headtextures->fileguids[i].deviceserial == deviceserial) {
+		if (g_Menus[playernum].fm.headtextures->fileguids[i].filenum == filenum
+				&& g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial == deviceserial) {
 			indextouse = i;
 			break;
 		}
 
-		if (g_Menus[playernum].headtextures->fileguids[i].filenum == 0) {
-			if (g_Menus[playernum].headtextures->fileguids[i].deviceserial == 0) {
+		if (g_Menus[playernum].fm.headtextures->fileguids[i].filenum == 0) {
+			if (g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial == 0) {
 				freeslot = i;
 			}
 		}
@@ -671,16 +671,16 @@ struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, u16 deviceseri
 			return NULL;
 		}
 
-		if (g_Vars.thisframe240 - g_Menus[playernum].headtextures->lastupdated240 < 20) {
+		if (g_Vars.thisframe240 - g_Menus[playernum].fm.headtextures->lastupdated240 < 20) {
 			return NULL;
 		}
 
-		g_Menus[playernum].headtextures->lastupdated240 = g_Vars.thisframe240;
+		g_Menus[playernum].fm.headtextures->lastupdated240 = g_Vars.thisframe240;
 
-		func0f15015c(device, filenum, g_Menus[playernum].headtextures->unk000[freeslot]);
+		func0f15015c(device, filenum, g_Menus[playernum].fm.headtextures->unk000[freeslot]);
 
-		g_Menus[playernum].headtextures->fileguids[freeslot].filenum = filenum;
-		g_Menus[playernum].headtextures->fileguids[freeslot].deviceserial = deviceserial;
+		g_Menus[playernum].fm.headtextures->fileguids[freeslot].filenum = filenum;
+		g_Menus[playernum].fm.headtextures->fileguids[freeslot].deviceserial = deviceserial;
 
 		indextouse = freeslot;
 	}
@@ -689,7 +689,7 @@ struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, u16 deviceseri
 		return NULL;
 	}
 
-	g_Menus[playernum].headtextures->selectedtexture.textureptr = g_Menus[playernum].headtextures->unk000[indextouse];
+	g_Menus[playernum].fm.headtextures->selectedtexture.textureptr = g_Menus[playernum].fm.headtextures->unk000[indextouse];
 
-	return &g_Menus[playernum].headtextures->selectedtexture;
+	return &g_Menus[playernum].fm.headtextures->selectedtexture;
 }

@@ -970,10 +970,10 @@ glabel var7f1a863c
 /*  f01cc3c:	00000000 */ 	nop
 .PF0f01cc40:
 /*  f01cc40:	a0590000 */ 	sb	$t9,0x0($v0)
-/*  f01cc44:	0fc445cf */ 	jal	func0f110c5c
+/*  f01cc44:	0fc445cf */ 	jal	filelistCreate
 /*  f01cc48:	24050002 */ 	li	$a1,0x2
 /*  f01cc4c:	02c02025 */ 	move	$a0,$s6
-/*  f01cc50:	0fc445cf */ 	jal	func0f110c5c
+/*  f01cc50:	0fc445cf */ 	jal	filelistCreate
 /*  f01cc54:	24050001 */ 	li	$a1,0x1
 .PF0f01cc58:
 /*  f01cc58:	3c0e8006 */ 	lui	$t6,0x8006
@@ -2747,10 +2747,10 @@ glabel var7f1a863c
 /*  f01cb6c:	00000000 */ 	nop
 .L0f01cb70:
 /*  f01cb70:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f01cb74:	0fc44317 */ 	jal	func0f110c5c
+/*  f01cb74:	0fc44317 */ 	jal	filelistCreate
 /*  f01cb78:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f01cb7c:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f01cb80:	0fc44317 */ 	jal	func0f110c5c
+/*  f01cb80:	0fc44317 */ 	jal	filelistCreate
 /*  f01cb84:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f01cb88:
 /*  f01cb88:	3c188006 */ 	lui	$t8,%hi(var80062944)
@@ -4515,10 +4515,10 @@ glabel var7f1a863c
 /*  f01c84c:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f01c850:
 /*  f01c850:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f01c854:	0fc42c33 */ 	jal	func0f110c5c
+/*  f01c854:	0fc42c33 */ 	jal	filelistCreate
 /*  f01c858:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f01c85c:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f01c860:	0fc42c33 */ 	jal	func0f110c5c
+/*  f01c860:	0fc42c33 */ 	jal	filelistCreate
 /*  f01c864:	24050001 */ 	addiu	$a1,$zero,0x1
 .NB0f01c868:
 /*  f01c868:	3c188006 */ 	lui	$t8,0x8006
@@ -5805,8 +5805,8 @@ glabel var7f1a863c
 //		if (var80062948 == 0 &&
 //				(g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU)) {
 //			var80062948 = 1;
-//			func0f110c5c(0, FILETYPE_MPPLAYER);
-//			func0f110c5c(1, FILETYPE_MPSETUP);
+//			filelistCreate(0, FILETYPE_MPPLAYER);
+//			filelistCreate(1, FILETYPE_MPSETUP);
 //		}
 //
 //		if (var80062944) {

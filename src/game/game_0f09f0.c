@@ -4831,7 +4831,7 @@ glabel func0f0f3220
 /*  f0f3304:	3c04800a */ 	lui	$a0,%hi(g_GameFileGuid)
 /*  f0f3308:	248422c0 */ 	addiu	$a0,$a0,%lo(g_GameFileGuid)
 /*  f0f330c:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f0f3310:	0fc42539 */ 	jal	func0f1094e4
+/*  f0f3310:	0fc42539 */ 	jal	filemgrSaveOrLoad
 /*  f0f3314:	afa9001c */ 	sw	$t1,0x1c($sp)
 /*  f0f3318:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
 /*  f0f331c:	24e71448 */ 	addiu	$a3,$a3,%lo(g_MpPlayerNum)
@@ -4858,7 +4858,7 @@ glabel func0f0f3220
 /*  f0f3368:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f0f336c:	00603025 */ 	or	$a2,$v1,$zero
 /*  f0f3370:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f0f3374:	0fc42539 */ 	jal	func0f1094e4
+/*  f0f3374:	0fc42539 */ 	jal	filemgrSaveOrLoad
 /*  f0f3378:	afad0018 */ 	sw	$t5,0x18($sp)
 /*  f0f337c:	8fb90018 */ 	lw	$t9,0x18($sp)
 /*  f0f3380:	3c078007 */ 	lui	$a3,%hi(g_MpPlayerNum)
@@ -4909,7 +4909,7 @@ glabel func0f0f3220
 /*  f0efe94:	248467b0 */ 	addiu	$a0,$a0,0x67b0
 /*  f0efe98:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0efe9c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0efea0:	0fc41358 */ 	jal	func0f1094e4
+/*  f0efea0:	0fc41358 */ 	jal	filemgrSaveOrLoad
 /*  f0efea4:	afa80020 */ 	sw	$t0,0x20($sp)
 /*  f0efea8:	8fa80020 */ 	lw	$t0,0x20($sp)
 /*  f0efeac:	3c078007 */ 	lui	$a3,0x8007
@@ -4935,7 +4935,7 @@ glabel func0f0f3220
 /*  f0efef8:	00601025 */ 	or	$v0,$v1,$zero
 /*  f0efefc:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f0eff00:	00603025 */ 	or	$a2,$v1,$zero
-/*  f0eff04:	0fc41358 */ 	jal	func0f1094e4
+/*  f0eff04:	0fc41358 */ 	jal	filemgrSaveOrLoad
 /*  f0eff08:	afb8001c */ 	sw	$t8,0x1c($sp)
 /*  f0eff0c:	8fac001c */ 	lw	$t4,0x1c($sp)
 /*  f0eff10:	3c078007 */ 	lui	$a3,0x8007
@@ -21929,7 +21929,7 @@ glabel var7f1b2ac8
 /*  f0fb010:	afab00f0 */ 	sw	$t3,0xf0($sp)
 /*  f0fb014:	afac012c */ 	sw	$t4,0x12c($sp)
 /*  f0fb018:	afae00cc */ 	sw	$t6,0xcc($sp)
-/*  f0fb01c:	0fc42793 */ 	jal	func0f1094e4
+/*  f0fb01c:	0fc42793 */ 	jal	filemgrSaveOrLoad
 /*  f0fb020:	a7af00d0 */ 	sh	$t7,0xd0($sp)
 /*  f0fb024:	8fa80124 */ 	lw	$t0,0x124($sp)
 /*  f0fb028:	8fa90128 */ 	lw	$t1,0x128($sp)
@@ -22980,7 +22980,7 @@ glabel var7f1b2ac8
 /*  f0fa8d4:	afab00f0 */ 	sw	$t3,0xf0($sp)
 /*  f0fa8d8:	afac012c */ 	sw	$t4,0x12c($sp)
 /*  f0fa8dc:	afae00cc */ 	sw	$t6,0xcc($sp)
-/*  f0fa8e0:	0fc42539 */ 	jal	func0f1094e4
+/*  f0fa8e0:	0fc42539 */ 	jal	filemgrSaveOrLoad
 /*  f0fa8e4:	a7af00d0 */ 	sh	$t7,0xd0($sp)
 /*  f0fa8e8:	8fa80124 */ 	lw	$t0,0x124($sp)
 /*  f0fa8ec:	8fa90128 */ 	lw	$t1,0x128($sp)
@@ -27492,7 +27492,7 @@ s32 menudialog000fcd48(s32 operation, struct menudialog *dialog, union handlerda
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog
-				&& joy000155b4(g_Menus[g_MpPlayerNum].savedevice) == 0) {
+				&& joy000155b4(g_Menus[g_MpPlayerNum].fm.device3) == 0) {
 			func0f0f3704(&g_PakRemovedMenuDialog);
 		}
 	}
@@ -27524,7 +27524,7 @@ glabel func0f0fcdd0
 s32 menuhandlerRepairPak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (pakRepair(g_Menus[g_MpPlayerNum].savedevice)) {
+		if (pakRepair(g_Menus[g_MpPlayerNum].fm.device3)) {
 			func0f0f3704(&g_PakRepairSuccessMenuDialog);
 		} else {
 			func0f0f3704(&g_PakRepairFailedMenuDialog);
@@ -27703,8 +27703,8 @@ char *menuTextSaveDeviceName(struct menuitem *item)
 #endif
 	};
 
-	if ((u8)g_Menus[g_MpPlayerNum].savedevice < ARRAYCOUNT(devices)) {
-		return langGet(devices[(u8)g_Menus[g_MpPlayerNum].savedevice]);
+	if ((u8)g_Menus[g_MpPlayerNum].fm.device3 < ARRAYCOUNT(devices)) {
+		return langGet(devices[(u8)g_Menus[g_MpPlayerNum].fm.device3]);
 	}
 
 	return NULL;
@@ -27717,7 +27717,7 @@ s32 menuhandlerRetrySavePak(s32 operation, struct menuitem *item, union handlerd
 		menuPopDialog();
 		g_Vars.unk0004e4 &= 0xfff0;
 		g_Vars.unk0004e4 |= 8;
-		g_Vars.unk0004e4 |= 1 << ((u8)g_Menus[g_MpPlayerNum].savedevice + 8);
+		g_Vars.unk0004e4 |= 1 << ((u8)g_Menus[g_MpPlayerNum].fm.device3 + 8);
 	}
 
 	return 0;

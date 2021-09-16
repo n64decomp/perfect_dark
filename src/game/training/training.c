@@ -3201,7 +3201,7 @@ glabel var7f1b94e4
 /*  f1a0ce0:	3c04800a */ 	lui	$a0,0x800a
 /*  f1a0ce4:	24842860 */ 	addiu	$a0,$a0,0x2860
 /*  f1a0ce8:	00002825 */ 	move	$a1,$zero
-/*  f1a0cec:	0fc42793 */ 	jal	func0f1094e4
+/*  f1a0cec:	0fc42793 */ 	jal	filemgrSaveOrLoad
 /*  f1a0cf0:	00003025 */ 	move	$a2,$zero
 /*  f1a0cf4:	10000339 */ 	b	.PF0f1a19dc
 /*  f1a0cf8:	8fbf007c */ 	lw	$ra,0x7c($sp)
@@ -4301,7 +4301,7 @@ glabel var7f1b94e4
 /*  f19fbcc:	3c04800a */ 	lui	$a0,%hi(g_GameFileGuid)
 /*  f19fbd0:	248422c0 */ 	addiu	$a0,$a0,%lo(g_GameFileGuid)
 /*  f19fbd4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19fbd8:	0fc42539 */ 	jal	func0f1094e4
+/*  f19fbd8:	0fc42539 */ 	jal	filemgrSaveOrLoad
 /*  f19fbdc:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19fbe0:	10000344 */ 	b	.L0f1a08f4
 /*  f19fbe4:	8fbf007c */ 	lw	$ra,0x7c($sp)
@@ -5460,7 +5460,7 @@ glabel var7f1b94e4
 /*  f199c7c:	3c04800a */ 	lui	$a0,0x800a
 /*  f199c80:	248467b0 */ 	addiu	$a0,$a0,0x67b0
 /*  f199c84:	00002825 */ 	or	$a1,$zero,$zero
-/*  f199c88:	0fc41358 */ 	jal	func0f1094e4
+/*  f199c88:	0fc41358 */ 	jal	filemgrSaveOrLoad
 /*  f199c8c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f199c90:	1000031c */ 	beqz	$zero,.NB0f19a904
 /*  f199c94:	8fbf007c */ 	lw	$ra,0x7c($sp)
@@ -6426,7 +6426,7 @@ glabel var7f1b94e4
 //			case FRMENUTYPE_COMPLETED:
 //				sndStart(var80095200, SFX_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
 //				func0f0f85e0(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
-//				func0f1094e4(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
+//				filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 //				break;
 //			}
 //		}

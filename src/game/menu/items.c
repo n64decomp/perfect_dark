@@ -8215,7 +8215,7 @@ char *menuItemScrollableGetText(u32 type)
 {
 	switch (type) {
 	case DESCRIPTION_MPCONFIG:
-		return mpconfigGetDescription(g_Menus[g_MpPlayerNum].data.train.mpconfig);
+		return mpconfigGetDescription(g_Menus[g_MpPlayerNum].training.mpconfig);
 	case DESCRIPTION_MPCHALLENGE:
 		if (!mpIsChallengeLoaded()) {
 			g_Menus[g_MpPlayerNum].unk850 = 0x4fac5ace;
@@ -11488,17 +11488,17 @@ u16 menuControllerGetButtonAction(s32 mode, s32 buttonnum)
 	u32 textid = var80071354[mode][buttonnum];
 
 	if (textid == L_MPWEAPONS_194 // "AIM"
-			&& optionsGetAimControl(g_Menus[g_MpPlayerNum].data.main.mpindex) == AIMCONTROL_TOGGLE) {
+			&& optionsGetAimControl(g_Menus[g_MpPlayerNum].main.mpindex) == AIMCONTROL_TOGGLE) {
 		textid = L_MPWEAPONS_195; // "AIM TOGGLE"
 	}
 
 	if (textid == L_MPWEAPONS_196 // "LOOK UP"
-			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].data.main.mpindex) == false) {
+			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].main.mpindex) == false) {
 		textid = L_MPWEAPONS_198; // "LOOK DOWN"
 	}
 
 	if (textid == L_MPWEAPONS_197 // "LOOK DOWN"
-			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].data.main.mpindex) == false) {
+			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].main.mpindex) == false) {
 		textid = L_MPWEAPONS_199; // "LOOK UP"
 	}
 
@@ -11796,21 +11796,21 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	func0f153d24();
 
 	// If changing modes within the same group (eg. within 1.x)
-	if (data->curmode != (g_Menus[g_MpPlayerNum].data.main.controlmode & 0xff)) {
+	if (data->curmode != (g_Menus[g_MpPlayerNum].main.controlmode & 0xff)) {
 		data->prevmode = data->curmode;
-		data->curmode = g_Menus[g_MpPlayerNum].data.main.controlmode;
+		data->curmode = g_Menus[g_MpPlayerNum].main.controlmode;
 		data->textfadetimer = 0;
 	}
 
 	// If changing control group (eg. 1.4 -> 2.1)
 	if (data->controlgroup == 1) {
-		if (g_Menus[g_MpPlayerNum].data.main.controlmode < CONTROLMODE_21) {
+		if (g_Menus[g_MpPlayerNum].main.controlmode < CONTROLMODE_21) {
 			data->controlgroup = 2;
 			data->contfadetimer = 0;
 			data->prevmode = -1;
 		}
 	} else {
-		if (g_Menus[g_MpPlayerNum].data.main.controlmode >= CONTROLMODE_21) {
+		if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
 			data->controlgroup = 1;
 			data->contfadetimer = 0;
 			data->prevmode = -1;
@@ -11860,13 +11860,13 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 			g_MenuColourPalettes3[frame->type].unfocused,
 			g_MenuColourPalettes2[frame->type].unfocused);
 
-	if (g_Menus[g_MpPlayerNum].data.main.controlmode >= CONTROLMODE_21) {
+	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
 		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
-				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].data.main.controlmode]),
+				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
 				langGet(L_MPWEAPONS_215)); // "(Two-Handed)"
 	} else {
 		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
-				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].data.main.controlmode]),
+				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
 				langGet(L_MPWEAPONS_214)); // "(One-Handed)"
 	}
 
@@ -11879,16 +11879,16 @@ Gfx *menuRenderItemController(Gfx *gdl, struct menurendercontext *context)
 	textcolour = colourBlend(colour, colour & 0xffffff00, textalpha);
 	colour = colourBlend(colour, colour & 0xffffff00, contalpha);
 
-	if (g_Menus[g_MpPlayerNum].data.main.controlmode >= CONTROLMODE_21) {
+	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
 		gdl = menuRenderControllerInfo(gdl, context, 0, 12,
-				g_Menus[g_MpPlayerNum].data.main.controlmode,
+				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
 		gdl = menuRenderControllerInfo(gdl, context, 0, 80,
-				g_Menus[g_MpPlayerNum].data.main.controlmode + 4,
+				g_Menus[g_MpPlayerNum].main.controlmode + 4,
 				contalpha, textcolour, colour, data->prevmode);
 	} else {
 		gdl = menuRenderControllerInfo(gdl, context, 0, PAL ? 19 : 15,
-				g_Menus[g_MpPlayerNum].data.main.controlmode,
+				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
 
 		x = context->x;
