@@ -9264,7 +9264,7 @@ void pakWipe(s8 device, u32 start, u32 end)
 #if VERSION >= VERSION_PAL_FINAL
 		if (!func0f11c39c(result, device, 1, 3955))
 #elif VERSION >= VERSION_NTSC_1_0
-		if (!func0f11c39c(result, device, 1, 3948))
+		if (!func0f11c39c(result, device, 1, 3753))
 #else
 		if (!func0f11c39c(result, device, 1, 3573))
 #endif
@@ -9844,8 +9844,12 @@ s32 pakScrub(s8 device)
 	if (func0f11c39c(result, device, 1, 4147) == 0) {
 		return -1;
 	}
-#elif VERSION >= VERSION_NTSC_1_0
+#elif VERSION >= VERSION_NTSC_FINAL
 	if (func0f11c39c(result, device, 1, 4140) == 0) {
+		return -1;
+	}
+#elif VERSION >= VERSION_NTSC_1_0
+	if (func0f11c39c(result, device, 1, 3945) == 0) {
 		return -1;
 	}
 #else
