@@ -9263,6 +9263,8 @@ void pakWipe(s8 device, u32 start, u32 end)
 
 #if VERSION >= VERSION_PAL_FINAL
 		if (!func0f11c39c(result, device, 1, 3955))
+#elif VERSION >= VERSION_NTSC_FINAL
+		if (!func0f11c39c(result, device, 1, 3948))
 #elif VERSION >= VERSION_NTSC_1_0
 		if (!func0f11c39c(result, device, 1, 3753))
 #else
@@ -14654,104 +14656,39 @@ glabel func0f11d9c4
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f11dc04
-/*  f11dc04:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f11dc08:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f11dc0c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11dc10:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f11dc14:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11dc18:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f11dc1c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11dc20:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f11dc24:	3c0f800a */ 	lui	$t7,%hi(g_Paks)
-/*  f11dc28:	25ef2380 */ 	addiu	$t7,$t7,%lo(g_Paks)
-/*  f11dc2c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11dc30:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f11dc34:	8c580010 */ 	lw	$t8,0x10($v0)
-/*  f11dc38:	44856000 */ 	mtc1	$a1,$f12
-/*  f11dc3c:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f11dc40:	17010019 */ 	bne	$t8,$at,.L0f11dca8
-/*  f11dc44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11dc48:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f11dc4c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f11dc50:	17210015 */ 	bne	$t9,$at,.L0f11dca8
-/*  f11dc54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11dc58:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f11dc5c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f11dc60:	10610011 */ 	beq	$v1,$at,.L0f11dca8
-/*  f11dc64:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f11dc68:	1061000f */ 	beq	$v1,$at,.L0f11dca8
-/*  f11dc6c:	3c014270 */ 	lui	$at,0x4270
-/*  f11dc70:	44812000 */ 	mtc1	$at,$f4
-/*  f11dc74:	c44602b4 */ 	lwc1	$f6,0x2b4($v0)
-/*  f11dc78:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f11dc7c:	460c2002 */ 	mul.s	$f0,$f4,$f12
-/*  f11dc80:	00c74821 */ 	addu	$t1,$a2,$a3
-/*  f11dc84:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f11dc88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11dc8c:	45000006 */ 	bc1f	.L0f11dca8
-/*  f11dc90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11dc94:	ac480004 */ 	sw	$t0,0x4($v0)
-/*  f11dc98:	e44002b4 */ 	swc1	$f0,0x2b4($v0)
-/*  f11dc9c:	ac460284 */ 	sw	$a2,0x284($v0)
-/*  f11dca0:	ac490288 */ 	sw	$t1,0x288($v0)
-/*  f11dca4:	ac40028c */ 	sw	$zero,0x28c($v0)
-.L0f11dca8:
-/*  f11dca8:	03e00008 */ 	jr	$ra
-/*  f11dcac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f11dc04(s32 device, f32 arg1, s32 arg2, s32 arg3)
+{
+	if (g_Paks[device].unk010 == 11
+			&& g_Paks[device].unk000 == 1
+			&& g_Paks[device].unk004 != 6
+			&& g_Paks[device].unk004 != 7
+			&& g_Paks[device].unk2b4 < 60 * arg1) {
+		g_Paks[device].unk004 = 3;
+		g_Paks[device].unk2b4 = 60 * arg1;
+		g_Paks[device].unk284 = arg2;
+		g_Paks[device].unk288 = arg2 + arg3;
+		g_Paks[device].unk28c = 0;
+	}
+}
 #else
-GLOBAL_ASM(
-glabel func0f11dc04
-/*  f1178bc:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1178c0:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1178c4:	3c02800a */ 	lui	$v0,0x800a
-/*  f1178c8:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f1178cc:	9042eb9c */ 	lbu	$v0,-0x1464($v0)
-/*  f1178d0:	3c19800a */ 	lui	$t9,0x800a
-/*  f1178d4:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*  f1178d8:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f1178dc:	0302c023 */ 	subu	$t8,$t8,$v0
-/*  f1178e0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1178e4:	0302c023 */ 	subu	$t8,$t8,$v0
-/*  f1178e8:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1178ec:	0302c021 */ 	addu	$t8,$t8,$v0
-/*  f1178f0:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1178f4:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f1178f8:	8c680010 */ 	lw	$t0,0x10($v1)
-/*  f1178fc:	44856000 */ 	mtc1	$a1,$f12
-/*  f117900:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f117904:	15010019 */ 	bne	$t0,$at,.NB0f11796c
-/*  f117908:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11790c:	8c690000 */ 	lw	$t1,0x0($v1)
-/*  f117910:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f117914:	15210015 */ 	bne	$t1,$at,.NB0f11796c
-/*  f117918:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11791c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f117920:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f117924:	10410011 */ 	beq	$v0,$at,.NB0f11796c
-/*  f117928:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f11792c:	1041000f */ 	beq	$v0,$at,.NB0f11796c
-/*  f117930:	3c014270 */ 	lui	$at,0x4270
-/*  f117934:	44812000 */ 	mtc1	$at,$f4
-/*  f117938:	c46602b4 */ 	lwc1	$f6,0x2b4($v1)
-/*  f11793c:	240a0003 */ 	addiu	$t2,$zero,0x3
-/*  f117940:	460c2002 */ 	mul.s	$f0,$f4,$f12
-/*  f117944:	00c75821 */ 	addu	$t3,$a2,$a3
-/*  f117948:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f11794c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117950:	45000006 */ 	bc1f	.NB0f11796c
-/*  f117954:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117958:	ac6a0004 */ 	sw	$t2,0x4($v1)
-/*  f11795c:	e46002b4 */ 	swc1	$f0,0x2b4($v1)
-/*  f117960:	ac660284 */ 	sw	$a2,0x284($v1)
-/*  f117964:	ac6b0288 */ 	sw	$t3,0x288($v1)
-/*  f117968:	ac60028c */ 	sw	$zero,0x28c($v1)
-.NB0f11796c:
-/*  f11796c:	03e00008 */ 	jr	$ra
-/*  f117970:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f11dc04(s8 device, f32 arg1, s32 arg2, s32 arg3)
+{
+	// This might be a global variable rather than static
+	static u8 map[] = {0, 1, 0, 0, 0}; // 0x8009eb9c (ntsc-beta)
+	u8 index = map[device];
+
+	if (g_Paks[index].unk010 == 11
+			&& g_Paks[index].unk000 == 1
+			&& g_Paks[index].unk004 != 6
+			&& g_Paks[index].unk004 != 7
+			&& g_Paks[index].unk2b4 < 60 * arg1) {
+		g_Paks[index].unk004 = 3;
+		g_Paks[index].unk2b4 = 60 * arg1;
+		g_Paks[index].unk284 = arg2;
+		g_Paks[index].unk288 = arg2 + arg3;
+		g_Paks[index].unk28c = 0;
+	}
+}
 #endif
 
 void func0f11dcb0(s32 arg0)
