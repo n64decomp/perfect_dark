@@ -286,7 +286,7 @@ u32 func0f116914(s8 device)
 
 s32 pakGetDeviceSerial(s8 device)
 {
-	return func0f116c54(device);
+	return pakGetSerial(device);
 }
 
 void func0f116984(s8 arg0, u8 *arg1, u8 *arg2)
@@ -395,9 +395,9 @@ void func0f116c2c(s8 index)
 	joySetPfsTemporarilyPlugged(index);
 }
 
-u16 func0f116c54(s8 device)
+u16 pakGetSerial(s8 device)
 {
-	return g_Paks[device].unk260;
+	return g_Paks[device].serial;
 }
 
 u32 func0f116c94(s8 device)
@@ -7422,7 +7422,7 @@ glabel func0f11a434
 //	g_Paks[device].unk2c0 = NULL;
 //	g_Paks[device].unk2c4 = NULL;
 //	g_Paks[device].unk25c = 8;
-//	g_Paks[device].unk260 = 0;
+//	g_Paks[device].serial = 0;
 //	g_Paks[device].unk2c8 = 0;
 //	g_Paks[device].unk2b4 = -1;
 //}
@@ -9830,9 +9830,9 @@ s32 pakScrub(s8 device)
 
 	g_Paks[device].unk25c = 0x10;
 #if VERSION >= VERSION_NTSC_1_0
-	g_Paks[device].unk260 = pakGenerateSerial(device);
+	g_Paks[device].serial = pakGenerateSerial(device);
 #else
-	g_Paks[device].unk260 = 0x10 + random() % 0x1ff0;
+	g_Paks[device].serial = 0x10 + random() % 0x1ff0;
 #endif
 	g_Paks[device].unk2be = 0;
 
@@ -9852,7 +9852,7 @@ s32 pakScrub(s8 device)
 	func0f11c39c(result, device, 1, 3779);
 #endif
 
-	return g_Paks[device].unk260;
+	return g_Paks[device].serial;
 }
 
 GLOBAL_ASM(
@@ -15001,68 +15001,23 @@ glabel func0f11de20
 );
 #endif
 
+void func0f11deb8(void)
+{
+	s32 i;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f11deb8
-/*  f11deb8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f11debc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11dec0:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f11dec4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f11dec8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11decc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11ded0:	3c11800a */ 	lui	$s1,%hi(g_Paks)
-/*  f11ded4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f11ded8:	26312380 */ 	addiu	$s1,$s1,%lo(g_Paks)
-/*  f11dedc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11dee0:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f11dee4:	24130006 */ 	addiu	$s3,$zero,0x6
-/*  f11dee8:	24140004 */ 	addiu	$s4,$zero,0x4
-.L0f11deec:
-/*  f11deec:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f11def0:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f11def4:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f11def8:	164e0004 */ 	bne	$s2,$t6,.L0f11df0c
-/*  f11defc:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f11df00:	ae330004 */ 	sw	$s3,0x4($s1)
-/*  f11df04:	0c0054f1 */ 	jal	joy000153c4
-/*  f11df08:	02402825 */ 	or	$a1,$s2,$zero
-.L0f11df0c:
-/*  f11df0c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11df10:	1614fff6 */ 	bne	$s0,$s4,.L0f11deec
-/*  f11df14:	263102cc */ 	addiu	$s1,$s1,0x2cc
-/*  f11df18:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f11df1c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11df20:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11df24:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11df28:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f11df2c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f11df30:	03e00008 */ 	jr	$ra
-/*  f11df34:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+	for (i = 0; i < 4; i++) {
+		if (g_Paks[i].unk000 == 1) {
+			g_Paks[i].unk004 = 6;
+			joy000153c4(i, 1);
+		}
+	}
 #else
-GLOBAL_ASM(
-glabel func0f11deb8
-/*  f117ae8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f117aec:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f117af0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f117af4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f117af8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f117afc:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f117b00:	00102600 */ 	sll	$a0,$s0,0x18
-.NB0f117b04:
-/*  f117b04:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f117b08:	0fc45e87 */ 	jal	func0f11dd58
-/*  f117b0c:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f117b10:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f117b14:	5611fffb */ 	bnel	$s0,$s1,.NB0f117b04
-/*  f117b18:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f117b1c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f117b20:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f117b24:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f117b28:	03e00008 */ 	jr	$ra
-/*  f117b2c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+	for (i = 0; i < 4; i++) {
+		func0f11dd58(i);
+	}
 #endif
+}
 
 void func0f11df38(void)
 {
