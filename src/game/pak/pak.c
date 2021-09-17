@@ -9266,7 +9266,7 @@ void pakWipe(s8 device, u32 start, u32 end)
 #elif VERSION >= VERSION_NTSC_1_0
 		if (!func0f11c39c(result, device, 1, 3948))
 #else
-		if (!func0f11c39c(result, device, 1, 3753))
+		if (!func0f11c39c(result, device, 1, 3573))
 #endif
 		{
 			g_Paks[device].noteindex = -1;
@@ -13884,59 +13884,12 @@ s32 func0f11d5b0(s8 device)
 	return false;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f11d620
-/*  f11d620:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11d624:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11d628:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11d62c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d630:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d634:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d638:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d63c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11d640:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d644:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d648:	3c19800a */ 	lui	$t9,%hi(g_Paks)
-/*  f11d64c:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
-/*  f11d650:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d654:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f11d658:	8c480010 */ 	lw	$t0,0x10($v0)
-/*  f11d65c:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f11d660:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11d664:	15010002 */ 	bne	$t0,$at,.L0f11d670
-/*  f11d668:	2409000c */ 	addiu	$t1,$zero,0xc
-/*  f11d66c:	ac490010 */ 	sw	$t1,0x10($v0)
-.L0f11d670:
-/*  f11d670:	03e00008 */ 	jr	$ra
-/*  f11d674:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#else
-GLOBAL_ASM(
-glabel func0f11d620
-/*  f117278:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11727c:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f117280:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f117284:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117288:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11728c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117290:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f117294:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f117298:	3c19800a */ 	lui	$t9,0x800a
-/*  f11729c:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*  f1172a0:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1172a4:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f1172a8:	8c480010 */ 	lw	$t0,0x10($v0)
-/*  f1172ac:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f1172b0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1172b4:	15010002 */ 	bne	$t0,$at,.NB0f1172c0
-/*  f1172b8:	2409000c */ 	addiu	$t1,$zero,0xc
-/*  f1172bc:	ac490010 */ 	sw	$t1,0x10($v0)
-.NB0f1172c0:
-/*  f1172c0:	03e00008 */ 	jr	$ra
-/*  f1172c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+void func0f11d620(s8 device)
+{
+	if (g_Paks[device].unk010 == 11) {
+		g_Paks[device].unk010 = 12;
+	}
+}
 
 void func0f11d678(void)
 {
