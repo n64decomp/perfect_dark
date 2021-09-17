@@ -9855,38 +9855,14 @@ s32 pakScrub(s8 device)
 	return g_Paks[device].serial;
 }
 
-GLOBAL_ASM(
-glabel func0f11b6ec
-/*  f11b6ec:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11b6f0:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11b6f4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11b6f8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b6fc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b700:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b704:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b708:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11b70c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b710:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b714:	3c19800a */ 	lui	$t9,%hi(g_Paks)
-/*  f11b718:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
-/*  f11b71c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b720:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f11b724:	8c480010 */ 	lw	$t0,0x10($v0)
-/*  f11b728:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f11b72c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11b730:	55010008 */ 	bnel	$t0,$at,.L0f11b754
-/*  f11b734:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11b738:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f11b73c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f11b740:	55210004 */ 	bnel	$t1,$at,.L0f11b754
-/*  f11b744:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11b748:	03e00008 */ 	jr	$ra
-/*  f11b74c:	24020003 */ 	addiu	$v0,$zero,0x3
-/*  f11b750:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11b754:
-/*  f11b754:	03e00008 */ 	jr	$ra
-/*  f11b758:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f11b6ec(s8 device)
+{
+	if (g_Paks[device].unk010 == 0xb && g_Paks[device].unk000 == 2) {
+		return 3;
+	}
+
+	return 0;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
