@@ -5029,7 +5029,7 @@ struct pak {
 	/*0x014*/ u8 unk014;
 	/*0x018*/ struct pakdata pakdata;
 	/*0x25c*/ u32 unk25c;
-	/*0x260*/ u32 unk260;
+	/*0x260*/ s32 unk260;
 	/*0x264*/ u32 unk264;
 	/*0x268*/ u32 unk268;
 	/*0x26c*/ u32 unk26c;

@@ -6,7 +6,7 @@
 
 u32 func0f1165d0(s8 device);
 u32 func0f1165f8(s8 device, u32 arg1);
-u32 func0f116658(s8 arg0, u32 arg1);
+s32 func0f116658(s8 arg0, s32 arg1);
 u32 func0f116684(u32 arg0);
 u32 pakGenerateSerial(s8 device);
 bool pakIsConnected(s8 device);
@@ -33,7 +33,7 @@ s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, ch
 bool func0f116fa0(s8 device, s32 arg1);
 s32 func0f11702c(s8 device);
 u32 func0f11706c(s8 device);
-s32 func0f117094(s8 arg0, u32 arg1);
+s32 func0f117094(s8 device, u32 arg1);
 void func0f117150(s8 device, u8 *ptr);
 void func0f1171b4(s8 device, s32 arg1, s32 arg2);
 s32 func0f117210(s8 device);
@@ -94,11 +94,11 @@ u32 func0f11ac7c(void);
 void pakWipe(s8 device, u32 start, u32 end);
 u32 func0f11b178(void);
 u32 func0f11b488(void);
-void pakForceScrub(s32 arg0);
+s32 pakScrub(s8 device);
 u32 func0f11b75c(void);
 u32 func0f11b86c(void);
 u32 func0f11bbd8(void);
-u32 func0f11bc54(s8 device, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, u32 arg7, u32 arg8);
+s32 func0f11bc54(s8 device, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
 bool pakRepair(s32 arg0);
 u32 func0f11c39c(u32 arg0, s8 device, u32 ar2, u32 arg3);
 void func0f11c54c(void);
