@@ -14854,81 +14854,26 @@ glabel func0f11dd58
 );
 #endif
 
+void func0f11de20(s8 playernum)
+{
+	s32 i;
+	s32 tmp = playernum;
+	s32 contpads[2];
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f11de20
-/*  f11de20:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f11de24:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f11de28:	00807025 */ 	or	$t6,$a0,$zero
-/*  f11de2c:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f11de30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11de34:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f11de38:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f11de3c:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f11de40:	0c0054b4 */ 	jal	joyGetContpadNumsForPlayer
-/*  f11de44:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f11de48:	3c06800a */ 	lui	$a2,%hi(g_Paks)
-/*  f11de4c:	24c62380 */ 	addiu	$a2,$a2,%lo(g_Paks)
-/*  f11de50:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f11de54:	27aa0030 */ 	addiu	$t2,$sp,0x30
-/*  f11de58:	24090008 */ 	addiu	$t1,$zero,0x8
-/*  f11de5c:	24080007 */ 	addiu	$t0,$zero,0x7
-/*  f11de60:	240702cc */ 	addiu	$a3,$zero,0x2cc
-/*  f11de64:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f11de68:	8c830000 */ 	lw	$v1,0x0($a0)
-.L0f11de6c:
-/*  f11de6c:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f11de70:	0460000b */ 	bltz	$v1,.L0f11dea0
-/*  f11de74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11de78:	00670019 */ 	multu	$v1,$a3
-/*  f11de7c:	0000c012 */ 	mflo	$t8
-/*  f11de80:	00d81021 */ 	addu	$v0,$a2,$t8
-/*  f11de84:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f11de88:	14b90005 */ 	bne	$a1,$t9,.L0f11dea0
-/*  f11de8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11de90:	8c4b0004 */ 	lw	$t3,0x4($v0)
-/*  f11de94:	150b0002 */ 	bne	$t0,$t3,.L0f11dea0
-/*  f11de98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11de9c:	ac490004 */ 	sw	$t1,0x4($v0)
-.L0f11dea0:
-/*  f11dea0:	548afff2 */ 	bnel	$a0,$t2,.L0f11de6c
-/*  f11dea4:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f11dea8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11deac:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f11deb0:	03e00008 */ 	jr	$ra
-/*  f11deb4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	joyGetContpadNumsForPlayer(tmp, &contpads[0], &contpads[1]);
+
+	for (i = 0; i < 2; i++) {
+		if (contpads[i] >= 0 && g_Paks[contpads[i]].unk000 == 1 && g_Paks[contpads[i]].unk004 == 7) {
+			g_Paks[contpads[i]].unk004 = 8;
+		}
+	}
 #else
-GLOBAL_ASM(
-glabel func0f11de20
-/*  f117a84:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f117a88:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f117a8c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f117a90:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117a94:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117a98:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117a9c:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f117aa0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f117aa4:	3c19800a */ 	lui	$t9,0x800a
-/*  f117aa8:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*  f117aac:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f117ab0:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f117ab4:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f117ab8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f117abc:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f117ac0:	15010007 */ 	bne	$t0,$at,.NB0f117ae0
-/*  f117ac4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117ac8:	8c490004 */ 	lw	$t1,0x4($v0)
-/*  f117acc:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f117ad0:	240a0008 */ 	addiu	$t2,$zero,0x8
-/*  f117ad4:	15210002 */ 	bne	$t1,$at,.NB0f117ae0
-/*  f117ad8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117adc:	ac4a0004 */ 	sw	$t2,0x4($v0)
-.NB0f117ae0:
-/*  f117ae0:	03e00008 */ 	jr	$ra
-/*  f117ae4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	if (g_Paks[playernum].unk000 == 1 && g_Paks[playernum].unk004 == 7) {
+		g_Paks[playernum].unk004 = 8;
+	}
 #endif
+}
 
 void func0f11deb8(void)
 {
