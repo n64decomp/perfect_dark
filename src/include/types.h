@@ -5020,7 +5020,7 @@ struct pakdata {
 	/*0x242*/ u16 pagesfree;
 };
 
-struct var800a2380 {
+struct pak {
 	/*0x000*/ s32 unk000;
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
@@ -5044,7 +5044,7 @@ struct var800a2380 {
 	/*0x290*/ u32 unk290;
 	/*0x294*/ u32 unk294;
 	/*0x298*/ u32 unk298;
-	/*0x29c*/ s32 unk29c;
+	/*0x29c*/ s32 noteindex;
 	/*0x2a0*/ u32 unk2a0;
 	/*0x2a4*/ u32 unk2a4;
 	/*0x2a8*/ u32 unk2a8;

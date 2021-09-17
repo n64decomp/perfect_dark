@@ -1340,35 +1340,35 @@ void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void joy000153c4(s8 arg0, s32 arg1)
+void joy000153c4(s8 device, s32 arg1)
 {
 	u32 stack;
 
-	if (arg0 != 4) {
-		if (var800a2380[arg0].unk000 != 2 && var800a2380[arg0].unk000 != 3) {
+	if (device != SAVEDEVICE_GAMEPAK) {
+		if (g_Paks[device].unk000 != 2 && g_Paks[device].unk000 != 3) {
 			if (arg1) {
 				joy000150e8();
 			}
 
-			if (osMotorProbe(&var80099e78, PFS(arg0), arg0) == 0) {
-				osMotorStop(PFS(arg0));
-				osMotorStop(PFS(arg0));
-				osMotorStop(PFS(arg0));
+			if (osMotorProbe(&var80099e78, PFS(device), device) == 0) {
+				osMotorStop(PFS(device));
+				osMotorStop(PFS(device));
+				osMotorStop(PFS(device));
 			}
 
 			if (arg1) {
 				joy00015144();
 			}
 
-			if (var800a2380[arg0].unk004 != 6 && var800a2380[arg0].unk004 != 7) {
-				var800a2380[arg0].unk004 =  5;
+			if (g_Paks[device].unk004 != 6 && g_Paks[device].unk004 != 7) {
+				g_Paks[device].unk004 =  5;
 			}
 
-			var800a2380[arg0].unk2b4 = -1;
+			g_Paks[device].unk2b4 = -1;
 		}
 	}
 
-	if (arg0) {
+	if (device) {
 		// empty
 	}
 }
@@ -1518,14 +1518,14 @@ glabel joy000153c4
 );
 #endif
 
-s32 joy000155b4(s8 index)
+s32 joy000155b4(s8 device)
 {
-	return var800a2380[index].unk010;
+	return g_Paks[device].unk010;
 }
 
-s32 joy000155f4(s8 index)
+s32 joy000155f4(s8 device)
 {
-	return joy000155b4(index);
+	return joy000155b4(device);
 }
 
 void joy0001561c(void)
@@ -1533,44 +1533,44 @@ void joy0001561c(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (var800a2380[i].unk010 == 11 && var800a2380[i].unk000 == 1) {
-			switch (var800a2380[i].unk004) {
+		if (g_Paks[i].unk010 == 11 && g_Paks[i].unk000 == 1) {
+			switch (g_Paks[i].unk004) {
 			case 3:
-				var800a2380[i].unk004 = 4;
+				g_Paks[i].unk004 = 4;
 				osMotorStart(PFS(i));
 				break;
 			case 4:
-				if (var800a2380[i].unk284 != -1) {
-					if (var800a2380[i].unk28c == 0) {
+				if (g_Paks[i].unk284 != -1) {
+					if (g_Paks[i].unk28c == 0) {
 						osMotorStart(PFS(i));
-					} else if (var800a2380[i].unk284 == var800a2380[i].unk28c) {
+					} else if (g_Paks[i].unk284 == g_Paks[i].unk28c) {
 						osMotorStop(PFS(i));
 					}
 
-					var800a2380[i].unk28c++;
+					g_Paks[i].unk28c++;
 
-					if (var800a2380[i].unk288 == var800a2380[i].unk28c) {
-						var800a2380[i].unk28c = 0;
+					if (g_Paks[i].unk288 == g_Paks[i].unk28c) {
+						g_Paks[i].unk28c = 0;
 					}
 				}
 
-				var800a2380[i].unk2b4--;
+				g_Paks[i].unk2b4--;
 
-				if (var800a2380[i].unk2b4 < 0) {
-					var800a2380[i].unk004 = 5;
+				if (g_Paks[i].unk2b4 < 0) {
+					g_Paks[i].unk004 = 5;
 				}
 				break;
 			case 5:
-				var800a2380[i].unk004 = 2;
+				g_Paks[i].unk004 = 2;
 				osMotorStop(PFS(i));
 				break;
 			case 6:
 				osMotorStop(PFS(i));
-				var800a2380[i].unk004 = 7;
+				g_Paks[i].unk004 = 7;
 				break;
 			case 8:
-				var800a2380[i].unk004 = 2;
-				var800a2380[i].unk2b4 = -1;
+				g_Paks[i].unk004 = 2;
+				g_Paks[i].unk2b4 = -1;
 				break;
 			}
 		}

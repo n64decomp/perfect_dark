@@ -85,7 +85,7 @@ const char var7f1b3a90[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXY
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
 
-struct var800a2380 var800a2380[5];
+struct pak g_Paks[5];
 u32 var800a317c;
 OSPfs g_Pfses[4];
 u32 var800a3320;
@@ -126,7 +126,7 @@ char var80075cb4[] = "PerfDark";
 char var80075cc0[] = "PerfDark";
 
 u32 var80075ccc = 0x00000400;
-u32 g_PakHasEeprom = 0x00000000;
+u32 g_PakHasEeprom = false;
 u32 var80075cd4 = 0x00000000;
 u32 var80075cd8 = 0x00000000;
 u32 var80075cdc = 0x00000000;
@@ -203,7 +203,7 @@ u32 func0f116684(u32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-u32 func0f11668c(s8 device)
+u32 pakGenerateSerial(s8 device)
 {
 	s32 value;
 	s32 rand;
@@ -213,7 +213,7 @@ u32 func0f11668c(s8 device)
 		return 0xbaa;
 	}
 
-	value = var800a2380[device].unk2c8;
+	value = g_Paks[device].unk2c8;
 	rand = (random() % 496) + 16; // range 16-511
 	count = osGetCount();
 
@@ -223,8 +223,8 @@ u32 func0f11668c(s8 device)
 
 bool pakIsConnected(s8 device)
 {
-	if (var800a2380[device].unk000 == 2) {
-		switch (var800a2380[device].unk010) {
+	if (g_Paks[device].unk000 == 2) {
+		switch (g_Paks[device].unk010) {
 		case 0x0e:
 		case 0x0f:
 		case 0x13:
@@ -365,7 +365,7 @@ void func0f1169c8(s8 device, s32 arg1)
 
 bool func0f116aec(s8 device)
 {
-	if (var800a2380[device].unk010 == 11 && var800a2380[device].unk000 == 2) {
+	if (g_Paks[device].unk010 == 11 && g_Paks[device].unk000 == 2) {
 		return true;
 	}
 
@@ -374,10 +374,10 @@ bool func0f116aec(s8 device)
 
 bool func0f116b5c(s8 device)
 {
-	if ((var800a2380[device].unk010 == 11
-				|| var800a2380[device].unk010 == 16
-				|| var800a2380[device].unk010 == 21)
-			&& var800a2380[device].unk000 == 2) {
+	if ((g_Paks[device].unk010 == 11
+				|| g_Paks[device].unk010 == 16
+				|| g_Paks[device].unk010 == 21)
+			&& g_Paks[device].unk000 == 2) {
 		return true;
 	}
 
@@ -386,8 +386,8 @@ bool func0f116b5c(s8 device)
 
 void func0f116bdc(s8 device, u8 *arg1, u8 *arg2)
 {
-	*arg1 = var800a2380[device].unk2ba;
-	*arg2 = var800a2380[device].unk2bb;
+	*arg1 = g_Paks[device].unk2ba;
+	*arg2 = g_Paks[device].unk2bb;
 }
 
 void func0f116c2c(s8 index)
@@ -397,29 +397,29 @@ void func0f116c2c(s8 index)
 
 u16 func0f116c54(s8 device)
 {
-	return var800a2380[device].unk260;
+	return g_Paks[device].unk260;
 }
 
 u32 func0f116c94(s8 device)
 {
-	return var800a2380[device].unk000;
+	return g_Paks[device].unk000;
 }
 
 ubool func0f116cd4(s8 device)
 {
 	func0f11d620(device);
 
-	return var800a2380[device].unk2b8_05 && var800a2380[device].unk2b8_03;
+	return g_Paks[device].unk2b8_05 && g_Paks[device].unk2b8_03;
 }
 
 ubool func0f116d4c(s8 device)
 {
-	return var800a2380[device].unk2b8_05 && var800a2380[device].unk2b8_03 == 0;
+	return g_Paks[device].unk2b8_05 && g_Paks[device].unk2b8_03 == 0;
 }
 
 void func0f116db0(s8 device, s32 value)
 {
-	var800a2380[device].unk010 = value;
+	g_Paks[device].unk010 = value;
 }
 
 s32 func0f116df0(s8 device, struct pakdata **pakdata)
@@ -428,7 +428,7 @@ s32 func0f116df0(s8 device, struct pakdata **pakdata)
 
 	if (func0f116b5c(device)) {
 		if (func0f11a574(device)) {
-			*pakdata = &var800a2380[device].pakdata;
+			*pakdata = &g_Paks[device].pakdata;
 			return 0;
 		}
 
@@ -456,7 +456,7 @@ s32 func0f116e84(s8 device, u16 company_code, u32 game_code, char *game_name, ch
 #endif
 
 		if (func0f11c39c(result, device, 1, VERSION >= VERSION_NTSC_FINAL ? 825 : 822)) {
-			var800a2380[device].unk2b8_02 = 1;
+			g_Paks[device].unk2b8_02 = 1;
 			return 0;
 		}
 
@@ -573,7 +573,7 @@ glabel func0f116fa0
 
 s32 func0f11702c(s8 device)
 {
-	return var800a2380[device].unk264;
+	return g_Paks[device].unk264;
 }
 
 u32 func0f11706c(s8 device)
@@ -720,57 +720,57 @@ void func0f117150(s8 device, u8 *ptr)
 {
 	s32 i;
 
-	var800a2380[device].unk2c4 = ptr;
+	g_Paks[device].unk2c4 = ptr;
 
 	for (i = 0; i < 4096; i++) {
-		var800a2380[device].unk2c4[i] = 0;
+		g_Paks[device].unk2c4[i] = 0;
 	}
 }
 
 void func0f1171b4(s8 device, s32 arg1, s32 arg2)
 {
-	var800a2380[device].unk00c = arg1;
-	var800a2380[device].unk2b8_06 = arg2;
+	g_Paks[device].unk00c = arg1;
+	g_Paks[device].unk2b8_06 = arg2;
 }
 
 s32 func0f117210(s8 device)
 {
-	return var800a2380[device].unk008;
+	return g_Paks[device].unk008;
 }
 
 void func0f117250(s8 device, s32 value)
 {
-	var800a2380[device].unk008 = value;
+	g_Paks[device].unk008 = value;
 }
 
 s32 func0f117290(s8 device)
 {
-	return var800a2380[device].unk270;
+	return g_Paks[device].unk270;
 }
 
 s32 func0f1172d0(s8 device)
 {
-	return var800a2380[device].unk004;
+	return g_Paks[device].unk004;
 }
 
 void func0f117310(s8 device, s32 value)
 {
-	var800a2380[device].unk004 = value;
+	g_Paks[device].unk004 = value;
 }
 
 s32 func0f117350(s8 device)
 {
-	return var800a2380[device].unk2b8_01;
+	return g_Paks[device].unk2b8_01;
 }
 
 void func0f117398(s8 device)
 {
-	var800a2380[device].unk2b8_01 = 1;
+	g_Paks[device].unk2b8_01 = 1;
 }
 
 void func0f1173e4(s8 device)
 {
-	var800a2380[device].unk2b8_01 = 0;
+	g_Paks[device].unk2b8_01 = 0;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -784,8 +784,8 @@ glabel func0f117430
 /*  f117444:	0fc45974 */ 	jal	func0f1165d0
 /*  f117448:	83a4003b */ 	lb	$a0,0x3b($sp)
 /*  f11744c:	83ae003b */ 	lb	$t6,0x3b($sp)
-/*  f117450:	3c18800a */ 	lui	$t8,%hi(var800a2380)
-/*  f117454:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f117450:	3c18800a */ 	lui	$t8,%hi(g_Paks)
+/*  f117454:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f117458:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f11745c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f117460:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -927,7 +927,7 @@ glabel func0f117520
 /*  f117548:	83a4007b */ 	lb	$a0,0x7b($sp)
 /*  f11754c:	8faf007c */ 	lw	$t7,0x7c($sp)
 /*  f117550:	83a4007b */ 	lb	$a0,0x7b($sp)
-/*  f117554:	3c19800a */ 	lui	$t9,%hi(var800a2380)
+/*  f117554:	3c19800a */ 	lui	$t9,%hi(g_Paks)
 /*  f117558:	01e2001b */ 	divu	$zero,$t7,$v0
 /*  f11755c:	0004c080 */ 	sll	$t8,$a0,0x2
 /*  f117560:	0304c023 */ 	subu	$t8,$t8,$a0
@@ -938,7 +938,7 @@ glabel func0f117520
 /*  f117574:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f117578:	0304c023 */ 	subu	$t8,$t8,$a0
 /*  f11757c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117580:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f117580:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f117584:	03194021 */ 	addu	$t0,$t8,$t9
 /*  f117588:	8d0902a4 */ 	lw	$t1,0x2a4($t0)
 /*  f11758c:	00001812 */ 	mflo	$v1
@@ -1640,10 +1640,10 @@ s32 pakInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
 	}
 
 	if (!g_PakHasEeprom) {
-		return 0x80;
+		return PAKERROR_EEPROM_MISSING;
 	}
 
-	return 0;
+	return PAKERROR_OK;
 }
 
 s32 pakReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer)
@@ -1668,7 +1668,7 @@ s32 pakReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 
 	}
 
 	if (!g_PakHasEeprom) {
-		return 0x80;
+		return PAKERROR_EEPROM_MISSING;
 	}
 
 	if (flag == OS_WRITE) {
@@ -1679,7 +1679,7 @@ s32 pakReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 
 		return pakReadEeprom(newaddress, buffer, len);
 	}
 
-	return 0x83;
+	return PAKERROR_EEPROM_INVALIDOP;
 }
 
 s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
@@ -1703,13 +1703,13 @@ s32 func0f117c0c(s32 arg0, s32 *arg1, s32 *arg2)
 	}
 
 	if (!g_PakHasEeprom) {
-		return 0x80;
+		return PAKERROR_EEPROM_MISSING;
 	}
 
 	*arg1 = 1;
 	*arg2 = 1;
 
-	return 0;
+	return PAKERROR_OK;
 }
 
 s32 pakFreeBlocks(OSPfs *pfs, s32 *bytes_not_used)
@@ -1735,12 +1735,12 @@ s32 pakFreeBlocks(OSPfs *pfs, s32 *bytes_not_used)
 	}
 
 	if (!g_PakHasEeprom) {
-		return 0x80;
+		return PAKERROR_EEPROM_MISSING;
 	}
 
 	*bytes_not_used = 0;
 
-	return 0;
+	return PAKERROR_OK;
 }
 
 s32 pakFileState(OSPfs *pfs, s32 file_no, OSPfsState *note)
@@ -1766,11 +1766,11 @@ s32 pakFileState(OSPfs *pfs, s32 file_no, OSPfsState *note)
 	}
 
 	if (!g_PakHasEeprom) {
-		return 0x80;
+		return PAKERROR_EEPROM_MISSING;
 	}
 
 	if (file_no) {
-		return 0x84;
+		return PAKERROR_EEPROM_INVALIDARG;
 	}
 
 	note->file_size = 0x800;
@@ -1778,7 +1778,7 @@ s32 pakFileState(OSPfs *pfs, s32 file_no, OSPfsState *note)
 	strcpy(note->game_name, g_PakNoteGameName);
 	strcpy(note->ext_name, g_PakNoteExtName);
 
-	return 0;
+	return PAKERROR_OK;
 }
 
 const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
@@ -1789,13 +1789,13 @@ s32 pakAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name
 		return osPfsAllocateFile(pfs, company_code, game_code, game_name, ext_name, size, file_no);
 	}
 
-	if (g_PakHasEeprom == 0) {
-		return 0x80;
+	if (!g_PakHasEeprom) {
+		return PAKERROR_EEPROM_MISSING;
 	}
 
 	*file_no = 0;
 
-	return 0;
+	return PAKERROR_OK;
 }
 
 u32 pakDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name)
@@ -1804,11 +1804,11 @@ u32 pakDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, 
 		return osPfsDeleteFile(pfs, company_code, game_code, game_name, ext_name);
 	}
 
-	if (g_PakHasEeprom == 0) {
-		return 0x80;
+	if (!g_PakHasEeprom) {
+		return PAKERROR_EEPROM_MISSING;
 	}
 
-	return 0;
+	return PAKERROR_OK;
 }
 
 s32 pakFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 *file_no)
@@ -1838,14 +1838,14 @@ s32 pakFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, ch
 				return 0;
 			}
 
-			return 0x84;
+			return PAKERROR_EEPROM_INVALIDARG;
 		}
 
-		return 0x84;
+		return PAKERROR_EEPROM_INVALIDARG;
 #endif
 	}
 
-	return 0x80;
+	return PAKERROR_EEPROM_MISSING;
 }
 
 s32 func0f117ec0(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes)
@@ -1871,10 +1871,10 @@ s32 func0f117ec0(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 
 	}
 
 	if (!g_PakHasEeprom) {
-		return 0x80;
+		return PAKERROR_EEPROM_MISSING;
 	}
 
-	return 0;
+	return PAKERROR_OK;
 }
 
 const char var7f1b3c50[] = "Pak %d -> Pak_AddOneCameraFile\n";
@@ -1907,17 +1907,17 @@ const char var7f1adcf4nb[] = "Pak_Make -> Setting up default game file\n";
 
 s32 func0f117f30(s8 device)
 {
-	return var800a2380[device].unk2a4;
+	return g_Paks[device].unk2a4;
 }
 
 s32 func0f117f80(s8 device)
 {
-	return var800a2380[device].unk2a8;
+	return g_Paks[device].unk2a8;
 }
 
 s32 func0f117fc0(s8 device)
 {
-	return var800a2380[device].unk2a0;
+	return g_Paks[device].unk2a0;
 }
 
 s32 func0f118000(s8 device)
@@ -1950,8 +1950,8 @@ s32 func0f11807c(s8 device)
 			pagesneeded++;
 		}
 
-		if (var800a2380[device].pakdata.pagesused + pagesneeded < 128) {
-			return (var800a2380[device].pakdata.pagesfree >= pagesneeded);
+		if (g_Paks[device].pakdata.pagesused + pagesneeded < 128) {
+			return (g_Paks[device].pakdata.pagesfree >= pagesneeded);
 		}
 	}
 
@@ -1978,7 +1978,7 @@ s32 func0f118148(s8 device)
 		}
 
 		// 128 is the total number of pages on a controller pak
-		result += (128 - var800a2380[device].pakdata.pagesused) / pagesneeded;
+		result += (128 - g_Paks[device].pakdata.pagesused) / pagesneeded;
 
 		return result;
 	}
@@ -2023,7 +2023,7 @@ s32 func0f118334(s8 device, s32 numpages)
 {
 	s32 stack1[2];
 	s32 errno;
-	struct var800a2380 *devicedata;
+	struct pak *devicedata;
 	s32 stack2[2];
 	OSPfsState *note;
 	u32 numbytes;
@@ -2036,8 +2036,8 @@ s32 func0f118334(s8 device, s32 numpages)
 	func0f11c39c(errno, device, 1, VERSION >= VERSION_NTSC_FINAL ? 1802 : 1788);
 
 	if (errno == 0) {
-		devicedata = &var800a2380[device];
-		note = &devicedata->pakdata.notes[devicedata->unk29c];
+		devicedata = &g_Paks[device];
+		note = &devicedata->pakdata.notes[devicedata->noteindex];
 
 		devicedata->pakdata.pagesfree -= numpages - devicedata->unk2a8;
 		devicedata->pakdata.pagesused += numpages - devicedata->unk2a8;
@@ -2074,9 +2074,9 @@ glabel func0f1184d8
 /*  f118510:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f118514:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f118518:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11851c:	3c03800a */ 	lui	$v1,%hi(var800a2380)
+/*  f11851c:	3c03800a */ 	lui	$v1,%hi(g_Paks)
 /*  f118520:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f118524:	24632380 */ 	addiu	$v1,$v1,%lo(var800a2380)
+/*  f118524:	24632380 */ 	addiu	$v1,$v1,%lo(g_Paks)
 /*  f118528:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11852c:	00781021 */ 	addu	$v0,$v1,$t8
 /*  f118530:	8c590000 */ 	lw	$t9,0x0($v0)
@@ -2105,9 +2105,9 @@ glabel func0f1184d8
 /*  f118580:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f118584:	01445021 */ 	addu	$t2,$t2,$a0
 /*  f118588:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f11858c:	3c03800a */ 	lui	$v1,%hi(var800a2380)
+/*  f11858c:	3c03800a */ 	lui	$v1,%hi(g_Paks)
 /*  f118590:	01445023 */ 	subu	$t2,$t2,$a0
-/*  f118594:	24632380 */ 	addiu	$v1,$v1,%lo(var800a2380)
+/*  f118594:	24632380 */ 	addiu	$v1,$v1,%lo(g_Paks)
 /*  f118598:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f11859c:	006a1021 */ 	addu	$v0,$v1,$t2
 /*  f1185a0:	904b02bd */ 	lbu	$t3,0x2bd($v0)
@@ -2203,12 +2203,12 @@ glabel func0f1184d8
 void func0f1185e0(s8 device, s32 arg1, s32 arg2)
 {
 	if (arg2) {
-		var800a2380[device].unk2bd = 0x80;
+		g_Paks[device].unk2bd = 0x80;
 	} else {
-		var800a2380[device].unk2bd = 0;
+		g_Paks[device].unk2bd = 0;
 	}
 
-	var800a2380[device].unk2bd += arg1;
+	g_Paks[device].unk2bd += arg1;
 }
 
 #if VERSION >= VERSION_NTSC_FINAL
@@ -2260,8 +2260,8 @@ glabel func0f118674
 /*  f11871c:	01525021 */ 	addu	$t2,$t2,$s2
 /*  f118720:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f118724:	01525023 */ 	subu	$t2,$t2,$s2
-/*  f118728:	3c0b800a */ 	lui	$t3,%hi(var800a2380)
-/*  f11872c:	256b2380 */ 	addiu	$t3,$t3,%lo(var800a2380)
+/*  f118728:	3c0b800a */ 	lui	$t3,%hi(g_Paks)
+/*  f11872c:	256b2380 */ 	addiu	$t3,$t3,%lo(g_Paks)
 /*  f118730:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f118734:	014b8821 */ 	addu	$s1,$t2,$t3
 /*  f118738:	8e2c02a0 */ 	lw	$t4,0x2a0($s1)
@@ -2433,8 +2433,8 @@ glabel func0f118674
 /*  f118988:	01124021 */ 	addu	$t0,$t0,$s2
 /*  f11898c:	00084080 */ 	sll	$t0,$t0,0x2
 /*  f118990:	01124023 */ 	subu	$t0,$t0,$s2
-/*  f118994:	3c09800a */ 	lui	$t1,%hi(var800a2380)
-/*  f118998:	25292380 */ 	addiu	$t1,$t1,%lo(var800a2380)
+/*  f118994:	3c09800a */ 	lui	$t1,%hi(g_Paks)
+/*  f118998:	25292380 */ 	addiu	$t1,$t1,%lo(g_Paks)
 /*  f11899c:	00084080 */ 	sll	$t0,$t0,0x2
 /*  f1189a0:	01098821 */ 	addu	$s1,$t0,$t1
 /*  f1189a4:	240a0010 */ 	addiu	$t2,$zero,0x10
@@ -2500,8 +2500,8 @@ glabel func0f118674
 /*  f11871c:	01515021 */ 	addu	$t2,$t2,$s1
 /*  f118720:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f118724:	01515023 */ 	subu	$t2,$t2,$s1
-/*  f118728:	3c0b800a */ 	lui	$t3,%hi(var800a2380)
-/*  f11872c:	256b2380 */ 	addiu	$t3,$t3,%lo(var800a2380)
+/*  f118728:	3c0b800a */ 	lui	$t3,%hi(g_Paks)
+/*  f11872c:	256b2380 */ 	addiu	$t3,$t3,%lo(g_Paks)
 /*  f118730:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f118734:	014b9021 */ 	addu	$s2,$t2,$t3
 /*  f118738:	8e4c02a0 */ 	lw	$t4,0x2a0($s2)
@@ -2648,8 +2648,8 @@ glabel func0f118674
 /*  f118930:	01314821 */ 	addu	$t1,$t1,$s1
 /*  f118934:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f118938:	01314823 */ 	subu	$t1,$t1,$s1
-/*  f11893c:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
-/*  f118940:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
+/*  f11893c:	3c0a800a */ 	lui	$t2,%hi(g_Paks)
+/*  f118940:	254a2380 */ 	addiu	$t2,$t2,%lo(g_Paks)
 /*  f118944:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f118948:	012a9021 */ 	addu	$s2,$t1,$t2
 /*  f11894c:	240b0010 */ 	addiu	$t3,$zero,0x10
@@ -2867,10 +2867,10 @@ glabel func0f118674
 );
 #endif
 
-// Mismatch because goal calculates s1 (address of var800a2380[arg0]) twice.
+// Mismatch because goal calculates s1 (address of g_Paks[device]) twice.
 // Mine also does it twice using the u32 cast but stores the second one in v1.
 // Removing the cast causes mine to calculate s1 only once and reuse it.
-//u32 func0f118674(s8 arg0, u32 arg1, u32 arg2)
+//u32 func0f118674(s8 device, u32 arg1, u32 arg2)
 //{
 //	u32 sp112[4];
 //	u32 sp108;
@@ -2890,14 +2890,14 @@ glabel func0f118674
 //	}
 //
 //	// 73c
-//	while (s0 < var800a2380[arg0].unk2a0) {
-//		value = func0f117520(arg0, s0, sp112);
+//	while (s0 < g_Paks[device].unk2a0) {
+//		value = func0f117520(device, s0, sp112);
 //
 //		// 758
 //		if (value == 0) {
 //			// 76c
 //			if ((sp112[2] >> 0x17) & 4) {
-//				if (var800a2380[arg0].unk2a0 - 0x20 < s0 + sp100) {
+//				if (g_Paks[device].unk2a0 - 0x20 < s0 + sp100) {
 //					return 14;
 //				}
 //
@@ -2925,25 +2925,25 @@ glabel func0f118674
 //			return 1;
 //		} else {
 //			// 7ec
-//			s0 += func0f1165d0(arg0);
+//			s0 += func0f1165d0(device);
 //		}
 //	}
 //
 //	// 80c
 //	if (s0 == 0 ||
-//			(s0 && s0 < func0f117fc0(arg0) && (func0f1165d0(arg0) - 1 & s0) == 0)) {
+//			(s0 && s0 < func0f117fc0(device) && (func0f1165d0(device) - 1 & s0) == 0)) {
 //		// 854
 //		if (sp96 == -1) {
 //			return 14;
 //		}
 //
 //		// 86c
-//		if (func0f11bc54(arg0, sp96, arg1, 0, 0, arg2, 0, 0, 1) == 0) {
+//		if (func0f11bc54(device, sp96, arg1, 0, 0, arg2, 0, 0, 1) == 0) {
 //#if VERSION >= VERSION_NTSC_FINAL
 //			// 8a4
 //			if (sp84) {
 //				sp80 = sp96 + sp100;
-//				func0f1194e0(arg0, &sp80, 0);
+//				func0f1194e0(device, &sp80, 0);
 //				return 0;
 //			}
 //
@@ -2958,9 +2958,9 @@ glabel func0f118674
 //#endif
 //
 //			// 8f4
-//			sp96 += func0f116658(arg0, func0f117094(arg0, arg1));
+//			sp96 += func0f116658(device, func0f117094(device, arg1));
 //
-//			if (func0f11bc54(arg0, sp96, 4, 0, 0, 0, 0, 0, 1) == 0) {
+//			if (func0f11bc54(device, sp96, 4, 0, 0, 0, 0, 0, 1) == 0) {
 //				return 0;
 //			}
 //
@@ -2970,8 +2970,8 @@ glabel func0f118674
 //		return 4;
 //	}
 //
-//	var800a2380[(u32)arg0].unk010 = 16;
-//	var800a2380[(u32)arg0].unk000 = 2;
+//	g_Paks[(u32)device].unk010 = 16;
+//	g_Paks[(u32)device].unk000 = 2;
 //
 //	return 4;
 //}
@@ -3914,9 +3914,9 @@ glabel func0f118eb0
 /*  f118f84:	000a5080 */ 	sll	$t2,$t2,0x2
 /*  f118f88:	01535023 */ 	subu	$t2,$t2,$s3
 /*  f118f8c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f118f90:	3c0b800a */ 	lui	$t3,%hi(var800a2380+0x2a4)
+/*  f118f90:	3c0b800a */ 	lui	$t3,%hi(g_Paks+0x2a4)
 /*  f118f94:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f118f98:	8d6b2624 */ 	lw	$t3,%lo(var800a2380+0x2a4)($t3)
+/*  f118f98:	8d6b2624 */ 	lw	$t3,%lo(g_Paks+0x2a4)($t3)
 /*  f118f9c:	3c0142c8 */ 	lui	$at,0x42c8
 /*  f118fa0:	44812000 */ 	mtc1	$at,$f4
 /*  f118fa4:	448b3000 */ 	mtc1	$t3,$f6
@@ -4219,9 +4219,9 @@ glabel func0f1190bc
 /*  f1191f4:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f1191f8:	0333c823 */ 	subu	$t9,$t9,$s3
 /*  f1191fc:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f119200:	3c08800a */ 	lui	$t0,%hi(var800a2380+0x2a0)
+/*  f119200:	3c08800a */ 	lui	$t0,%hi(g_Paks+0x2a0)
 /*  f119204:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f119208:	8d082620 */ 	lw	$t0,%lo(var800a2380+0x2a0)($t0)
+/*  f119208:	8d082620 */ 	lw	$t0,%lo(g_Paks+0x2a0)($t0)
 /*  f11920c:	8fa90044 */ 	lw	$t1,0x44($sp)
 /*  f119210:	00132600 */ 	sll	$a0,$s3,0x18
 /*  f119214:	12200009 */ 	beqz	$s1,.L0f11923c
@@ -4395,13 +4395,13 @@ glabel func0f1190bc
 );
 #endif
 
-u32 func0f119298(s8 index)
+u32 func0f119298(s8 device)
 {
-	if (var800a2380[index].unk000 != 2) {
+	if (g_Paks[device].unk000 != 2) {
 		return 1;
 	}
 
-	switch (var800a2380[index].unk010) {
+	switch (g_Paks[device].unk010) {
 	case 11:
 		return 0;
 	case 17:
@@ -4643,8 +4643,8 @@ glabel func0f1194e0
 /*  f119570:	01314821 */ 	addu	$t1,$t1,$s1
 /*  f119574:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f119578:	01314823 */ 	subu	$t1,$t1,$s1
-/*  f11957c:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
-/*  f119580:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
+/*  f11957c:	3c0a800a */ 	lui	$t2,%hi(g_Paks)
+/*  f119580:	254a2380 */ 	addiu	$t2,$t2,%lo(g_Paks)
 /*  f119584:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f119588:	012aa821 */ 	addu	$s5,$t1,$t2
 /*  f11958c:	8eab02a0 */ 	lw	$t3,0x2a0($s5)
@@ -4794,8 +4794,8 @@ glabel func0f1194e0
 /*  f1194a8:	01314821 */ 	addu	$t1,$t1,$s1
 /*  f1194ac:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f1194b0:	01314823 */ 	subu	$t1,$t1,$s1
-/*  f1194b4:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
-/*  f1194b8:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
+/*  f1194b4:	3c0a800a */ 	lui	$t2,%hi(g_Paks)
+/*  f1194b8:	254a2380 */ 	addiu	$t2,$t2,%lo(g_Paks)
 /*  f1194bc:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f1194c0:	012aa021 */ 	addu	$s4,$t1,$t2
 /*  f1194c4:	8e8b02a0 */ 	lw	$t3,0x2a0($s4)
@@ -5386,7 +5386,7 @@ glabel func0f11970c
 /*  f11a774:	2c410010 */ 	sltiu	$at,$v0,0x10
 /*  f11a778:	10200004 */ 	beqz	$at,.PF0f11a78c
 /*  f11a77c:	aec20260 */ 	sw	$v0,0x260($s6)
-/*  f11a780:	0fc45c5b */ 	jal	func0f11668c
+/*  f11a780:	0fc45c5b */ 	jal	pakGenerateSerial
 /*  f11a784:	01e02025 */ 	move	$a0,$t7
 /*  f11a788:	aec20260 */ 	sw	$v0,0x260($s6)
 .PF0f11a78c:
@@ -5449,7 +5449,7 @@ glabel func0f11970c
 /*  f11a854:	00046e03 */ 	sra	$t5,$a0,0x18
 /*  f11a858:	55800007 */ 	bnezl	$t4,.PF0f11a878
 /*  f11a85c:	00001025 */ 	move	$v0,$zero
-/*  f11a860:	0fc45c5b */ 	jal	func0f11668c
+/*  f11a860:	0fc45c5b */ 	jal	pakGenerateSerial
 /*  f11a864:	01a02025 */ 	move	$a0,$t5
 /*  f11a868:	aec20260 */ 	sw	$v0,0x260($s6)
 /*  f11a86c:	10000002 */ 	b	.PF0f11a878
@@ -5484,9 +5484,9 @@ glabel func0f11970c
 /*  f119734:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f119738:	afa407b0 */ 	sw	$a0,0x7b0($sp)
 /*  f11973c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f119740:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f119740:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f119744:	afb60044 */ 	sw	$s6,0x44($sp)
-/*  f119748:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f119748:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11974c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f119750:	000e2600 */ 	sll	$a0,$t6,0x18
 /*  f119754:	afbf004c */ 	sw	$ra,0x4c($sp)
@@ -5917,7 +5917,7 @@ glabel func0f11970c
 /*  f119d58:	00046e03 */ 	sra	$t5,$a0,0x18
 /*  f119d5c:	55800007 */ 	bnezl	$t4,.L0f119d7c
 /*  f119d60:	00001025 */ 	or	$v0,$zero,$zero
-/*  f119d64:	0fc459a3 */ 	jal	func0f11668c
+/*  f119d64:	0fc459a3 */ 	jal	pakGenerateSerial
 /*  f119d68:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f119d6c:	aec20260 */ 	sw	$v0,0x260($s6)
 /*  f119d70:	10000002 */ 	beqz	$zero,.L0f119d7c
@@ -5952,9 +5952,9 @@ glabel func0f11970c
 /*  f11960c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f119610:	afa40488 */ 	sw	$a0,0x488($sp)
 /*  f119614:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f119618:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f119618:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f11961c:	afbe0050 */ 	sw	$s8,0x50($sp)
-/*  f119620:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f119620:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f119624:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f119628:	000e2600 */ 	sll	$a0,$t6,0x18
 /*  f11962c:	afbf0054 */ 	sw	$ra,0x54($sp)
@@ -6287,7 +6287,7 @@ glabel func0f11970c
 /*  f119ad4:	00046603 */ 	sra	$t4,$a0,0x18
 /*  f119ad8:	55600007 */ 	bnezl	$t3,.L0f119af8
 /*  f119adc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f119ae0:	0fc45983 */ 	jal	func0f11668c
+/*  f119ae0:	0fc45983 */ 	jal	pakGenerateSerial
 /*  f119ae4:	01802025 */ 	or	$a0,$t4,$zero
 /*  f119ae8:	afc20260 */ 	sw	$v0,0x260($s8)
 /*  f119aec:	10000002 */ 	beqz	$zero,.L0f119af8
@@ -7261,17 +7261,17 @@ void func0f11a2e4(void)
 
 s32 func0f11a2ec(s8 device)
 {
-	return var800a2380[device].unk014;
+	return g_Paks[device].unk014;
 }
 
 void func0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 {
-	if (var800a2380[device].unk014 == 0) {
-		var800a2380[device].unk014 = arg1;
+	if (g_Paks[device].unk014 == 0) {
+		g_Paks[device].unk014 = arg1;
 
-		if ((var800a2380[device].unk014 & 1) && var800a2380[device].unk2c0 == NULL) {
-			var800a2380[device].unk2be = 0;
-			var800a2380[device].unk2c0 = malloc(align32(0x708), MEMPOOL_PERMANENT);
+		if ((g_Paks[device].unk014 & 1) && g_Paks[device].unk2c0 == NULL) {
+			g_Paks[device].unk2be = 0;
+			g_Paks[device].unk2c0 = malloc(align32(0x708), MEMPOOL_PERMANENT);
 
 			// This would have been used in an osSyncPrintf call.
 			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?
@@ -7282,11 +7282,11 @@ void func0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 
 void func0f11a3dc(s8 device, u32 arg1, u32 arg2)
 {
-	if (var800a2380[device].unk014) {
-		var800a2380[device].unk014 = 0;
+	if (g_Paks[device].unk014) {
+		g_Paks[device].unk014 = 0;
 	}
 
-	if (var800a2380[device].unk014) {
+	if (g_Paks[device].unk014) {
 		// empty
 	}
 }
@@ -7304,8 +7304,8 @@ glabel func0f11a434
 /*  f11a450:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11a454:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11a458:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11a45c:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11a460:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11a45c:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11a460:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11a464:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11a468:	03191021 */ 	addu	$v0,$t8,$t9
 /*  f11a46c:	904902b8 */ 	lbu	$t1,0x2b8($v0)
@@ -7403,28 +7403,28 @@ glabel func0f11a434
 // Mismatch due to regalloc
 //void func0f11a434(s8 device)
 //{
-//	var800a2380[device].unk274 = 3;
-//	var800a2380[device].unk014 = 0;
-//	var800a2380[device].unk000 = 0;
-//	var800a2380[device].unk008 = 1;
-//	var800a2380[device].unk004 = 1;
-//	var800a2380[device].unk00c = 3;
-//	var800a2380[device].unk010 = 0;
-//	var800a2380[device].unk29c = -1;
-//	var800a2380[device].unk2bd = 128;
-//	var800a2380[device].unk264 = 0;
-//	var800a2380[device].unk2b8_01 = 0;
-//	var800a2380[device].unk2b8_05 = 0;
-//	var800a2380[device].unk2b8_03 = 0;
-//	var800a2380[device].unk2b8_02 = 0;
-//	var800a2380[device].unk2b8_06 = 0;
-//	var800a2380[device].unk2b8_07 = 0;
-//	var800a2380[device].unk2c0 = NULL;
-//	var800a2380[device].unk2c4 = NULL;
-//	var800a2380[device].unk25c = 8;
-//	var800a2380[device].unk260 = 0;
-//	var800a2380[device].unk2c8 = 0;
-//	var800a2380[device].unk2b4 = -1;
+//	g_Paks[device].unk274 = 3;
+//	g_Paks[device].unk014 = 0;
+//	g_Paks[device].unk000 = 0;
+//	g_Paks[device].unk008 = 1;
+//	g_Paks[device].unk004 = 1;
+//	g_Paks[device].unk00c = 3;
+//	g_Paks[device].unk010 = 0;
+//	g_Paks[device].noteindex = -1;
+//	g_Paks[device].unk2bd = 128;
+//	g_Paks[device].unk264 = 0;
+//	g_Paks[device].unk2b8_01 = 0;
+//	g_Paks[device].unk2b8_05 = 0;
+//	g_Paks[device].unk2b8_03 = 0;
+//	g_Paks[device].unk2b8_02 = 0;
+//	g_Paks[device].unk2b8_06 = 0;
+//	g_Paks[device].unk2b8_07 = 0;
+//	g_Paks[device].unk2c0 = NULL;
+//	g_Paks[device].unk2c4 = NULL;
+//	g_Paks[device].unk25c = 8;
+//	g_Paks[device].unk260 = 0;
+//	g_Paks[device].unk2c8 = 0;
+//	g_Paks[device].unk2b4 = -1;
 //}
 
 s32 func0f11a504(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer)
@@ -7464,9 +7464,9 @@ glabel func0f11a574
 /*  f11a598:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f11a59c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11a5a0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11a5a4:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f11a5a4:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f11a5a8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f11a5ac:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11a5ac:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11a5b0:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11a5b4:	01f8a021 */ 	addu	$s4,$t7,$t8
 /*  f11a5b8:	8e9902b8 */ 	lw	$t9,0x2b8($s4)
@@ -7829,8 +7829,8 @@ glabel func0f11a7dc
 /*  f11a844:	0331c821 */ 	addu	$t9,$t9,$s1
 /*  f11a848:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11a84c:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f11a850:	3c08800a */ 	lui	$t0,%hi(var800a2380)
-/*  f11a854:	25082380 */ 	addiu	$t0,$t0,%lo(var800a2380)
+/*  f11a850:	3c08800a */ 	lui	$t0,%hi(g_Paks)
+/*  f11a854:	25082380 */ 	addiu	$t0,$t0,%lo(g_Paks)
 /*  f11a858:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11a85c:	03288021 */ 	addu	$s0,$t9,$t0
 /*  f11a860:	8e05029c */ 	lw	$a1,0x29c($s0)
@@ -8050,9 +8050,9 @@ glabel func0f11a8f4
 /*  f11a918:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f11a91c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11a920:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11a924:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f11a924:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f11a928:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f11a92c:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11a92c:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11a930:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11a934:	01f88021 */ 	addu	$s0,$t7,$t8
 /*  f11a938:	920902b8 */ 	lbu	$t1,0x2b8($s0)
@@ -8300,9 +8300,9 @@ glabel func0f11a8f4
 /*  f11a698:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f11a69c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11a6a0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11a6a4:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f11a6a4:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f11a6a8:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f11a6ac:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11a6ac:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11a6b0:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11a6b4:	01f88021 */ 	addu	$s0,$t7,$t8
 /*  f11a6b8:	920902b8 */ 	lbu	$t1,0x2b8($s0)
@@ -8710,7 +8710,7 @@ glabel func0f11a8f4
 /*  f114b48:	0004ce03 */ 	sra	$t9,$a0,0x18
 /*  f114b4c:	03202025 */ 	or	$a0,$t9,$zero
 /*  f114b50:	00002825 */ 	or	$a1,$zero,$zero
-/*  f114b54:	0fc453e4 */ 	jal	pakWipeEeprom
+/*  f114b54:	0fc453e4 */ 	jal	pakWipe
 /*  f114b58:	8e0602a4 */ 	lw	$a2,0x2a4($s0)
 /*  f114b5c:	1000000d */ 	beqz	$zero,.NB0f114b94
 /*  f114b60:	00112600 */ 	sll	$a0,$s1,0x18
@@ -8817,10 +8817,10 @@ glabel func0f11ac7c
 /*  f11ad30:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f11ad34:	01304823 */ 	subu	$t1,$t1,$s0
 /*  f11ad38:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11ad3c:	3c01800a */ 	lui	$at,%hi(var800a2380+0x10)
+/*  f11ad3c:	3c01800a */ 	lui	$at,%hi(g_Paks+0x10)
 /*  f11ad40:	00290821 */ 	addu	$at,$at,$t1
 /*  f11ad44:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f11ad48:	ac282390 */ 	sw	$t0,%lo(var800a2380+0x10)($at)
+/*  f11ad48:	ac282390 */ 	sw	$t0,%lo(g_Paks+0x10)($at)
 /*  f11ad4c:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f11ad50:	56010008 */ 	bnel	$s0,$at,.L0f11ad74
 /*  f11ad54:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -8886,8 +8886,8 @@ glabel func0f11ac7c
 /*  f11ae2c:	01f07821 */ 	addu	$t7,$t7,$s0
 /*  f11ae30:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11ae34:	01f07823 */ 	subu	$t7,$t7,$s0
-/*  f11ae38:	3c18800a */ 	lui	$t8,%hi(var800a2380)
-/*  f11ae3c:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11ae38:	3c18800a */ 	lui	$t8,%hi(g_Paks)
+/*  f11ae3c:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11ae40:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11ae44:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f11ae48:	8c4a0264 */ 	lw	$t2,0x264($v0)
@@ -8950,8 +8950,8 @@ glabel func0f11ac7c
 /*  f11af1c:	914a0af0 */ 	lbu	$t2,%lo(g_Is4Mb)($t2)
 /*  f11af20:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11af24:	0330c823 */ 	subu	$t9,$t9,$s0
-/*  f11af28:	3c08800a */ 	lui	$t0,%hi(var800a2380)
-/*  f11af2c:	25082380 */ 	addiu	$t0,$t0,%lo(var800a2380)
+/*  f11af28:	3c08800a */ 	lui	$t0,%hi(g_Paks)
+/*  f11af2c:	25082380 */ 	addiu	$t0,$t0,%lo(g_Paks)
 /*  f11af30:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11af34:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f11af38:	24010001 */ 	addiu	$at,$zero,0x1
@@ -9247,255 +9247,33 @@ glabel func0f114dd4nb
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pakWipeEeprom
-/*  f11afb0:	27bdff18 */ 	addiu	$sp,$sp,-232
-/*  f11afb4:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f11afb8:	00049600 */ 	sll	$s2,$a0,0x18
-/*  f11afbc:	00127603 */ 	sra	$t6,$s2,0x18
-/*  f11afc0:	afa400e8 */ 	sw	$a0,0xe8($sp)
-/*  f11afc4:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f11afc8:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f11afcc:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f11afd0:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f11afd4:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f11afd8:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f11afdc:	01c09025 */ 	or	$s2,$t6,$zero
-/*  f11afe0:	afbe0048 */ 	sw	$s8,0x48($sp)
-/*  f11afe4:	afb70044 */ 	sw	$s7,0x44($sp)
-/*  f11afe8:	afb60040 */ 	sw	$s6,0x40($sp)
-/*  f11afec:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f11aff0:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f11aff4:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f11aff8:	afa600f0 */ 	sw	$a2,0xf0($sp)
-/*  f11affc:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f11b000:	0fc45974 */ 	jal	func0f1165d0
-/*  f11b004:	00008825 */ 	or	$s1,$zero,$zero
-/*  f11b008:	1040000d */ 	beqz	$v0,.L0f11b040
-/*  f11b00c:	27b80068 */ 	addiu	$t8,$sp,0x68
-/*  f11b010:	02388021 */ 	addu	$s0,$s1,$t8
-/*  f11b014:	24130021 */ 	addiu	$s3,$zero,0x21
-/*  f11b018:	00122600 */ 	sll	$a0,$s2,0x18
-.L0f11b01c:
-/*  f11b01c:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f11b020:	03202025 */ 	or	$a0,$t9,$zero
-/*  f11b024:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f11b028:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11b02c:	0fc45974 */ 	jal	func0f1165d0
-/*  f11b030:	a213ffff */ 	sb	$s3,-0x1($s0)
-/*  f11b034:	0222082b */ 	sltu	$at,$s1,$v0
-/*  f11b038:	5420fff8 */ 	bnezl	$at,.L0f11b01c
-/*  f11b03c:	00122600 */ 	sll	$a0,$s2,0x18
-.L0f11b040:
-/*  f11b040:	8fa800f0 */ 	lw	$t0,0xf0($sp)
-/*  f11b044:	00124880 */ 	sll	$t1,$s2,0x2
-/*  f11b048:	01324823 */ 	subu	$t1,$t1,$s2
-/*  f11b04c:	0288082b */ 	sltu	$at,$s4,$t0
-/*  f11b050:	1020003d */ 	beqz	$at,.L0f11b148
-/*  f11b054:	02808825 */ 	or	$s1,$s4,$zero
-/*  f11b058:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11b05c:	01324823 */ 	subu	$t1,$t1,$s2
-/*  f11b060:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11b064:	01324821 */ 	addu	$t1,$t1,$s2
-/*  f11b068:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11b06c:	01324823 */ 	subu	$t1,$t1,$s2
-/*  f11b070:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
-/*  f11b074:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
-/*  f11b078:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11b07c:	3c17800a */ 	lui	$s7,%hi(g_Pfses)
-/*  f11b080:	26f73180 */ 	addiu	$s7,$s7,%lo(g_Pfses)
-/*  f11b084:	012aa021 */ 	addu	$s4,$t1,$t2
-/*  f11b088:	241e0068 */ 	addiu	$s8,$zero,0x68
-/*  f11b08c:	27b60068 */ 	addiu	$s6,$sp,0x68
-/*  f11b090:	24150004 */ 	addiu	$s5,$zero,0x4
-.L0f11b094:
-/*  f11b094:	16550003 */ 	bne	$s2,$s5,.L0f11b0a4
-/*  f11b098:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f11b09c:	10000005 */ 	beqz	$zero,.L0f11b0b4
-/*  f11b0a0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f11b0a4:
-/*  f11b0a4:	025e0019 */ 	multu	$s2,$s8
-/*  f11b0a8:	00005812 */ 	mflo	$t3
-/*  f11b0ac:	02eb8021 */ 	addu	$s0,$s7,$t3
-/*  f11b0b0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f11b0b4:
-/*  f11b0b4:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f11b0b8:	0fc45974 */ 	jal	func0f1165d0
-/*  f11b0bc:	01802025 */ 	or	$a0,$t4,$zero
-/*  f11b0c0:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f11b0c4:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f11b0c8:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f11b0cc:	0fc45974 */ 	jal	func0f1165d0
-/*  f11b0d0:	00409825 */ 	or	$s3,$v0,$zero
-/*  f11b0d4:	02710019 */ 	multu	$s3,$s1
-/*  f11b0d8:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f11b0dc:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f11b0e0:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f11b0e4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f11b0e8:	8e86029c */ 	lw	$a2,0x29c($s4)
-/*  f11b0ec:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f11b0f0:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f11b0f4:	afb60018 */ 	sw	$s6,0x18($sp)
-/*  f11b0f8:	00007812 */ 	mflo	$t7
-/*  f11b0fc:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f11b100:	0fc46941 */ 	jal	func0f11a504
-/*  f11b104:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11b108:	00122e00 */ 	sll	$a1,$s2,0x18
-/*  f11b10c:	0005c603 */ 	sra	$t8,$a1,0x18
-/*  f11b110:	a28002be */ 	sb	$zero,0x2be($s4)
-/*  f11b114:	03002825 */ 	or	$a1,$t8,$zero
-/*  f11b118:	00402025 */ 	or	$a0,$v0,$zero
-/*  f11b11c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f11b120:	0fc470e7 */ 	jal	func0f11c39c
-/*  f11b124:	24070f6c */ 	addiu	$a3,$zero,_val7f11b124
-/*  f11b128:	14400004 */ 	bnez	$v0,.L0f11b13c
-/*  f11b12c:	8fa800f0 */ 	lw	$t0,0xf0($sp)
-/*  f11b130:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f11b134:	10000004 */ 	beqz	$zero,.L0f11b148
-/*  f11b138:	ae99029c */ 	sw	$t9,0x29c($s4)
-.L0f11b13c:
-/*  f11b13c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f11b140:	1628ffd4 */ 	bne	$s1,$t0,.L0f11b094
-/*  f11b144:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f11b148:
-/*  f11b148:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f11b14c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f11b150:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f11b154:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f11b158:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f11b15c:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f11b160:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*  f11b164:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*  f11b168:	8fb70044 */ 	lw	$s7,0x44($sp)
-/*  f11b16c:	8fbe0048 */ 	lw	$s8,0x48($sp)
-/*  f11b170:	03e00008 */ 	jr	$ra
-/*  f11b174:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
-);
+void pakWipe(s8 device, u32 start, u32 end)
+{
+	u8 buffer[128];
+	u32 i;
+
+	for (i = 0; i < func0f1165d0(device); i++) {
+		buffer[i] = '!';
+	}
+
+	for (i = start; i < end; i++) {
+		s32 result = func0f11a504(device, PFS(device), g_Paks[device].noteindex, PFS_WRITE, i * func0f1165d0(device), func0f1165d0(device), buffer);
+
+		g_Paks[device].unk2be = 0;
+
+#if VERSION >= VERSION_PAL_FINAL
+		if (!func0f11c39c(result, device, 1, 3955))
+#elif VERSION >= VERSION_NTSC_1_0
+		if (!func0f11c39c(result, device, 1, 3948))
 #else
-GLOBAL_ASM(
-glabel pakWipeEeprom
-/*  f114f90:	27bdff18 */ 	addiu	$sp,$sp,-232
-/*  f114f94:	afb20030 */ 	sw	$s2,0x30($sp)
-/*  f114f98:	00049600 */ 	sll	$s2,$a0,0x18
-/*  f114f9c:	00127603 */ 	sra	$t6,$s2,0x18
-/*  f114fa0:	afa400e8 */ 	sw	$a0,0xe8($sp)
-/*  f114fa4:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f114fa8:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f114fac:	afb40038 */ 	sw	$s4,0x38($sp)
-/*  f114fb0:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f114fb4:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f114fb8:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f114fbc:	01c09025 */ 	or	$s2,$t6,$zero
-/*  f114fc0:	afbe0048 */ 	sw	$s8,0x48($sp)
-/*  f114fc4:	afb70044 */ 	sw	$s7,0x44($sp)
-/*  f114fc8:	afb60040 */ 	sw	$s6,0x40($sp)
-/*  f114fcc:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f114fd0:	afb30034 */ 	sw	$s3,0x34($sp)
-/*  f114fd4:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f114fd8:	afa600f0 */ 	sw	$a2,0xf0($sp)
-/*  f114fdc:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f114fe0:	0fc4428c */ 	jal	func0f1165d0
-/*  f114fe4:	00008825 */ 	or	$s1,$zero,$zero
-/*  f114fe8:	1040000d */ 	beqz	$v0,.NB0f115020
-/*  f114fec:	27b80068 */ 	addiu	$t8,$sp,0x68
-/*  f114ff0:	02388021 */ 	addu	$s0,$s1,$t8
-/*  f114ff4:	24130021 */ 	addiu	$s3,$zero,0x21
-/*  f114ff8:	00122600 */ 	sll	$a0,$s2,0x18
-.NB0f114ffc:
-/*  f114ffc:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f115000:	03202025 */ 	or	$a0,$t9,$zero
-/*  f115004:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f115008:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11500c:	0fc4428c */ 	jal	func0f1165d0
-/*  f115010:	a213ffff */ 	sb	$s3,-0x1($s0)
-/*  f115014:	0222082b */ 	sltu	$at,$s1,$v0
-/*  f115018:	5420fff8 */ 	bnezl	$at,.NB0f114ffc
-/*  f11501c:	00122600 */ 	sll	$a0,$s2,0x18
-.NB0f115020:
-/*  f115020:	8fa800f0 */ 	lw	$t0,0xf0($sp)
-/*  f115024:	00124880 */ 	sll	$t1,$s2,0x2
-/*  f115028:	01324823 */ 	subu	$t1,$t1,$s2
-/*  f11502c:	0288082b */ 	sltu	$at,$s4,$t0
-/*  f115030:	1020003b */ 	beqz	$at,.NB0f115120
-/*  f115034:	02808825 */ 	or	$s1,$s4,$zero
-/*  f115038:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11503c:	01324823 */ 	subu	$t1,$t1,$s2
-/*  f115040:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f115044:	01324821 */ 	addu	$t1,$t1,$s2
-/*  f115048:	3c0a800a */ 	lui	$t2,0x800a
-/*  f11504c:	254a6870 */ 	addiu	$t2,$t2,0x6870
-/*  f115050:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f115054:	3c17800a */ 	lui	$s7,0x800a
-/*  f115058:	26f77658 */ 	addiu	$s7,$s7,0x7658
-/*  f11505c:	012aa021 */ 	addu	$s4,$t1,$t2
-/*  f115060:	241e0068 */ 	addiu	$s8,$zero,0x68
-/*  f115064:	27b60068 */ 	addiu	$s6,$sp,0x68
-/*  f115068:	24150004 */ 	addiu	$s5,$zero,0x4
-.NB0f11506c:
-/*  f11506c:	16550003 */ 	bne	$s2,$s5,.NB0f11507c
-/*  f115070:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f115074:	10000005 */ 	beqz	$zero,.NB0f11508c
-/*  f115078:	00008025 */ 	or	$s0,$zero,$zero
-.NB0f11507c:
-/*  f11507c:	025e0019 */ 	multu	$s2,$s8
-/*  f115080:	00005812 */ 	mflo	$t3
-/*  f115084:	02eb8021 */ 	addu	$s0,$s7,$t3
-/*  f115088:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f11508c:
-/*  f11508c:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f115090:	0fc4428c */ 	jal	func0f1165d0
-/*  f115094:	01802025 */ 	or	$a0,$t4,$zero
-/*  f115098:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f11509c:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f1150a0:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f1150a4:	0fc4428c */ 	jal	func0f1165d0
-/*  f1150a8:	00409825 */ 	or	$s3,$v0,$zero
-/*  f1150ac:	02710019 */ 	multu	$s3,$s1
-/*  f1150b0:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f1150b4:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f1150b8:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f1150bc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1150c0:	8e86029c */ 	lw	$a2,0x29c($s4)
-/*  f1150c4:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f1150c8:	afa20014 */ 	sw	$v0,0x14($sp)
-/*  f1150cc:	afb60018 */ 	sw	$s6,0x18($sp)
-/*  f1150d0:	00007812 */ 	mflo	$t7
-/*  f1150d4:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f1150d8:	0fc450ea */ 	jal	func0f11a504
-/*  f1150dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1150e0:	00122e00 */ 	sll	$a1,$s2,0x18
-/*  f1150e4:	0005c603 */ 	sra	$t8,$a1,0x18
-/*  f1150e8:	a28002be */ 	sb	$zero,0x2be($s4)
-/*  f1150ec:	03002825 */ 	or	$a1,$t8,$zero
-/*  f1150f0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1150f4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f1150f8:	0fc458cb */ 	jal	func0f11c39c
-/*  f1150fc:	24070df5 */ 	addiu	$a3,$zero,0xdf5
-/*  f115100:	14400004 */ 	bnez	$v0,.NB0f115114
-/*  f115104:	8fa800f0 */ 	lw	$t0,0xf0($sp)
-/*  f115108:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f11510c:	10000004 */ 	beqz	$zero,.NB0f115120
-/*  f115110:	ae99029c */ 	sw	$t9,0x29c($s4)
-.NB0f115114:
-/*  f115114:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f115118:	1628ffd4 */ 	bne	$s1,$t0,.NB0f11506c
-/*  f11511c:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f115120:
-/*  f115120:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f115124:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f115128:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f11512c:	8fb20030 */ 	lw	$s2,0x30($sp)
-/*  f115130:	8fb30034 */ 	lw	$s3,0x34($sp)
-/*  f115134:	8fb40038 */ 	lw	$s4,0x38($sp)
-/*  f115138:	8fb5003c */ 	lw	$s5,0x3c($sp)
-/*  f11513c:	8fb60040 */ 	lw	$s6,0x40($sp)
-/*  f115140:	8fb70044 */ 	lw	$s7,0x44($sp)
-/*  f115144:	8fbe0048 */ 	lw	$s8,0x48($sp)
-/*  f115148:	03e00008 */ 	jr	$ra
-/*  f11514c:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
-);
+		if (!func0f11c39c(result, device, 1, 3753))
 #endif
+		{
+			g_Paks[device].noteindex = -1;
+			break;
+		}
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -9513,9 +9291,9 @@ glabel func0f11b178
 /*  f11b1a0:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11b1a4:	afa41080 */ 	sw	$a0,0x1080($sp)
 /*  f11b1a8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11b1ac:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f11b1ac:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f11b1b0:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f11b1b4:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11b1b4:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11b1b8:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11b1bc:	000e2600 */ 	sll	$a0,$t6,0x18
 /*  f11b1c0:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -9938,8 +9716,8 @@ glabel func0f11b488
 /*  f11b4a4:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11b4a8:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11b4ac:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b4b0:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11b4b4:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11b4b0:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11b4b4:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11b4b8:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11b4bc:	03194821 */ 	addu	$t1,$t8,$t9
 /*  f11b4c0:	912302be */ 	lbu	$v1,0x2be($t1)
@@ -10075,8 +9853,8 @@ glabel pakForceScrub
 /*  f11b5c4:	01124021 */ 	addu	$t0,$t0,$s2
 /*  f11b5c8:	00084080 */ 	sll	$t0,$t0,0x2
 /*  f11b5cc:	01124023 */ 	subu	$t0,$t0,$s2
-/*  f11b5d0:	3c09800a */ 	lui	$t1,%hi(var800a2380)
-/*  f11b5d4:	25292380 */ 	addiu	$t1,$t1,%lo(var800a2380)
+/*  f11b5d0:	3c09800a */ 	lui	$t1,%hi(g_Paks)
+/*  f11b5d4:	25292380 */ 	addiu	$t1,$t1,%lo(g_Paks)
 /*  f11b5d8:	00084080 */ 	sll	$t0,$t0,0x2
 /*  f11b5dc:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f11b5e0:	01098021 */ 	addu	$s0,$t0,$t1
@@ -10084,7 +9862,7 @@ glabel pakForceScrub
 /*  f11b5e8:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f11b5ec:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f11b5f0:	ae0a025c */ 	sw	$t2,0x25c($s0)
-/*  f11b5f4:	0fc459a3 */ 	jal	func0f11668c
+/*  f11b5f4:	0fc459a3 */ 	jal	pakGenerateSerial
 /*  f11b5f8:	01602025 */ 	or	$a0,$t3,$zero
 /*  f11b5fc:	00122600 */ 	sll	$a0,$s2,0x18
 /*  f11b600:	00046603 */ 	sra	$t4,$a0,0x18
@@ -10160,8 +9938,8 @@ glabel pakForceScrub
 /*  f11b708:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11b70c:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11b710:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b714:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11b718:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11b714:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11b718:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11b71c:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11b720:	03191021 */ 	addu	$v0,$t8,$t9
 /*  f11b724:	8c480010 */ 	lw	$t0,0x10($v0)
@@ -10332,9 +10110,9 @@ glabel func0f11b75c
 /*  f11b780:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f11b784:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11b788:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11b78c:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f11b78c:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f11b790:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f11b794:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11b794:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11b798:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11b79c:	01f8a021 */ 	addu	$s4,$t7,$t8
 /*  f11b7a0:	8e9902a0 */ 	lw	$t9,0x2a0($s4)
@@ -10620,8 +10398,8 @@ glabel func0f11b86c
 /*  f11ba7c:	0331c821 */ 	addu	$t9,$t9,$s1
 /*  f11ba80:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11ba84:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f11ba88:	3c09800a */ 	lui	$t1,%hi(var800a2380)
-/*  f11ba8c:	25292380 */ 	addiu	$t1,$t1,%lo(var800a2380)
+/*  f11ba88:	3c09800a */ 	lui	$t1,%hi(g_Paks)
+/*  f11ba8c:	25292380 */ 	addiu	$t1,$t1,%lo(g_Paks)
 /*  f11ba90:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11ba94:	03299821 */ 	addu	$s3,$t9,$t1
 /*  f11ba98:	03002025 */ 	or	$a0,$t8,$zero
@@ -11064,8 +10842,8 @@ glabel func0f11bc54
 /*  f11bd30:	000b6640 */ 	sll	$t4,$t3,0x19
 /*  f11bd34:	000c6b42 */ 	srl	$t5,$t4,0xd
 /*  f11bd38:	01f77823 */ 	subu	$t7,$t7,$s7
-/*  f11bd3c:	3c18800a */ 	lui	$t8,%hi(var800a2380)
-/*  f11bd40:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11bd3c:	3c18800a */ 	lui	$t8,%hi(g_Paks)
+/*  f11bd40:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11bd44:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11bd48:	01a27026 */ 	xor	$t6,$t5,$v0
 /*  f11bd4c:	ae0e000c */ 	sw	$t6,0xc($s0)
@@ -11081,8 +10859,8 @@ glabel func0f11bc54
 /*  f11bd70:	01374821 */ 	addu	$t1,$t1,$s7
 /*  f11bd74:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f11bd78:	01374823 */ 	subu	$t1,$t1,$s7
-/*  f11bd7c:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
-/*  f11bd80:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
+/*  f11bd7c:	3c0a800a */ 	lui	$t2,%hi(g_Paks)
+/*  f11bd80:	254a2380 */ 	addiu	$t2,$t2,%lo(g_Paks)
 /*  f11bd84:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f11bd88:	012a1021 */ 	addu	$v0,$t1,$t2
 /*  f11bd8c:	8c4b025c */ 	lw	$t3,0x25c($v0)
@@ -11910,8 +11688,8 @@ glabel pakRepair
 /*  f11c2ac:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f11c2b0:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f11c2b4:	83ae002b */ 	lb	$t6,0x2b($sp)
-/*  f11c2b8:	3c18800a */ 	lui	$t8,%hi(var800a2380)
-/*  f11c2bc:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11c2b8:	3c18800a */ 	lui	$t8,%hi(g_Paks)
+/*  f11c2bc:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11c2c0:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f11c2c4:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f11c2c8:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -12136,8 +11914,8 @@ glabel var7f1b4f0c
 /*  f11c3f4:	0325c821 */ 	addu	$t9,$t9,$a1
 /*  f11c3f8:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11c3fc:	0325c823 */ 	subu	$t9,$t9,$a1
-/*  f11c400:	3c08800a */ 	lui	$t0,%hi(var800a2380)
-/*  f11c404:	25082380 */ 	addiu	$t0,$t0,%lo(var800a2380)
+/*  f11c400:	3c08800a */ 	lui	$t0,%hi(g_Paks)
+/*  f11c404:	25082380 */ 	addiu	$t0,$t0,%lo(g_Paks)
 /*  f11c408:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f11c40c:	03281021 */ 	addu	$v0,$t9,$t0
 /*  f11c410:	24090002 */ 	addiu	$t1,$zero,0x2
@@ -12153,8 +11931,8 @@ glabel var7f1b4f0c
 /*  f11c438:	01655821 */ 	addu	$t3,$t3,$a1
 /*  f11c43c:	000b5880 */ 	sll	$t3,$t3,0x2
 /*  f11c440:	01655823 */ 	subu	$t3,$t3,$a1
-/*  f11c444:	3c0c800a */ 	lui	$t4,%hi(var800a2380)
-/*  f11c448:	258c2380 */ 	addiu	$t4,$t4,%lo(var800a2380)
+/*  f11c444:	3c0c800a */ 	lui	$t4,%hi(g_Paks)
+/*  f11c448:	258c2380 */ 	addiu	$t4,$t4,%lo(g_Paks)
 /*  f11c44c:	000b5880 */ 	sll	$t3,$t3,0x2
 /*  f11c450:	016c1021 */ 	addu	$v0,$t3,$t4
 /*  f11c454:	240d0002 */ 	addiu	$t5,$zero,0x2
@@ -12170,8 +11948,8 @@ glabel var7f1b4f0c
 /*  f11c47c:	01e57821 */ 	addu	$t7,$t7,$a1
 /*  f11c480:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11c484:	01e57823 */ 	subu	$t7,$t7,$a1
-/*  f11c488:	3c18800a */ 	lui	$t8,%hi(var800a2380)
-/*  f11c48c:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11c488:	3c18800a */ 	lui	$t8,%hi(g_Paks)
+/*  f11c48c:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11c490:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11c494:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f11c498:	24190002 */ 	addiu	$t9,$zero,0x2
@@ -12187,8 +11965,8 @@ glabel var7f1b4f0c
 /*  f11c4c0:	01254821 */ 	addu	$t1,$t1,$a1
 /*  f11c4c4:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f11c4c8:	01254823 */ 	subu	$t1,$t1,$a1
-/*  f11c4cc:	3c0a800a */ 	lui	$t2,%hi(var800a2380)
-/*  f11c4d0:	254a2380 */ 	addiu	$t2,$t2,%lo(var800a2380)
+/*  f11c4cc:	3c0a800a */ 	lui	$t2,%hi(g_Paks)
+/*  f11c4d0:	254a2380 */ 	addiu	$t2,$t2,%lo(g_Paks)
 /*  f11c4d4:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f11c4d8:	012a1021 */ 	addu	$v0,$t1,$t2
 /*  f11c4dc:	240b0002 */ 	addiu	$t3,$zero,0x2
@@ -12491,13 +12269,13 @@ void func0f11c6d0(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		switch (var800a2380[i].unk010) {
+		switch (g_Paks[i].unk010) {
 		case 2:
 		case 3:
 		case 4:
 		case 5:
 		case 6:
-			var800a2380[i].unk010 = 1;
+			g_Paks[i].unk010 = 1;
 			var80075d10 &= ~(1 << i);
 			g_MpPlayerNum = i;
 			func0f0f0ca0(-1, true);
@@ -12540,7 +12318,7 @@ void pakExecuteDebugOperations(void)
 	}
 
 	if (g_PakDebugWipeEeprom) {
-		pakWipeEeprom(4, 0, 0x80);
+		pakWipe(SAVEDEVICE_GAMEPAK, 0, 0x80);
 		g_PakDebugWipeEeprom = false;
 	}
 
@@ -12554,20 +12332,20 @@ void pakExecuteDebugOperations(void)
 	}
 
 	if (g_PakDebugForceScrub) {
-		pakForceScrub(4);
+		pakForceScrub(SAVEDEVICE_GAMEPAK);
 		g_PakDebugForceScrub = false;
 	}
 
 	func0f11ca30();
 
 	for (i = 0; i < 5; i++) {
-		if (var800a2380[i].unk014) {
+		if (g_Paks[i].unk014) {
 			func0f11df94(i);
 		}
 	}
 
 	for (i = 0; i < 5; i++) {
-		switch (var800a2380[i].unk010) {
+		switch (g_Paks[i].unk010) {
 		case 2:
 		case 3:
 		case 4:
@@ -12670,7 +12448,7 @@ glabel pakExecuteDebugOperations
 /*  f1165b0:	2405004d */ 	addiu	$a1,$zero,0x4d
 /*  f1165b4:	13200005 */ 	beqz	$t9,.NB0f1165cc
 /*  f1165b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1165bc:	0fc453e4 */ 	jal	pakWipeEeprom
+/*  f1165bc:	0fc453e4 */ 	jal	pakWipe
 /*  f1165c0:	2406004e */ 	addiu	$a2,$zero,0x4e
 /*  f1165c4:	3c018008 */ 	lui	$at,0x8008
 /*  f1165c8:	ac2080a4 */ 	sw	$zero,-0x7f5c($at)
@@ -12976,8 +12754,8 @@ glabel func0f11ca30
 /*  f11cb00:	01d17021 */ 	addu	$t6,$t6,$s1
 /*  f11cb04:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f11cb08:	01d17023 */ 	subu	$t6,$t6,$s1
-/*  f11cb0c:	3c0f800a */ 	lui	$t7,%hi(var800a2380)
-/*  f11cb10:	25ef2380 */ 	addiu	$t7,$t7,%lo(var800a2380)
+/*  f11cb0c:	3c0f800a */ 	lui	$t7,%hi(g_Paks)
+/*  f11cb10:	25ef2380 */ 	addiu	$t7,$t7,%lo(g_Paks)
 /*  f11cb14:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f11cb18:	10400006 */ 	beqz	$v0,.L0f11cb34
 /*  f11cb1c:	01cf1821 */ 	addu	$v1,$t6,$t7
@@ -13500,8 +13278,8 @@ glabel func0f11cef8
 /*  f11cef8:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f11cefc:	afa400d0 */ 	sw	$a0,0xd0($sp)
 /*  f11cf00:	83ae00d3 */ 	lb	$t6,0xd3($sp)
-/*  f11cf04:	3c18800a */ 	lui	$t8,%hi(var800a2380)
-/*  f11cf08:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11cf04:	3c18800a */ 	lui	$t8,%hi(g_Paks)
+/*  f11cf08:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11cf0c:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f11cf10:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f11cf14:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -13881,7 +13659,7 @@ glabel func0f11d174
 /*  f11d184:	0fc52a9c */ 	jal	func0f14aa70
 /*  f11d188:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f11d18c:	83ae002b */ 	lb	$t6,0x2b($sp)
-/*  f11d190:	3c05800a */ 	lui	$a1,%hi(var800a2380+0x2b9)
+/*  f11d190:	3c05800a */ 	lui	$a1,%hi(g_Paks+0x2b9)
 /*  f11d194:	02002025 */ 	or	$a0,$s0,$zero
 /*  f11d198:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f11d19c:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -13893,7 +13671,7 @@ glabel func0f11d174
 /*  f11d1b4:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f11d1b8:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11d1bc:	00af2821 */ 	addu	$a1,$a1,$t7
-/*  f11d1c0:	90a52639 */ 	lbu	$a1,%lo(var800a2380+0x2b9)($a1)
+/*  f11d1c0:	90a52639 */ 	lbu	$a1,%lo(g_Paks+0x2b9)($a1)
 /*  f11d1c4:	0fc47446 */ 	jal	func0f11d118
 /*  f11d1c8:	00403025 */ 	or	$a2,$v0,$zero
 /*  f11d1cc:	0fc52b4e */ 	jal	func0f14ad38
@@ -14106,8 +13884,8 @@ glabel func0f11d3f8
 /*  f11d414:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11d418:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d41c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d420:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11d424:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11d420:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11d424:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11d428:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d42c:	03191021 */ 	addu	$v0,$t8,$t9
 /*  f11d430:	8c480000 */ 	lw	$t0,0x0($v0)
@@ -14182,8 +13960,8 @@ glabel func0f11d478
 /*  f11d494:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11d498:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d49c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d4a0:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11d4a4:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11d4a0:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11d4a4:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11d4a8:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d4ac:	03191821 */ 	addu	$v1,$t8,$t9
 /*  f11d4b0:	8c680008 */ 	lw	$t0,0x8($v1)
@@ -14242,8 +14020,8 @@ glabel func0f11d4dc
 /*  f11d4f8:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11d4fc:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d500:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d504:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11d508:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11d504:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11d508:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11d50c:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d510:	03191021 */ 	addu	$v0,$t8,$t9
 /*  f11d514:	8c430008 */ 	lw	$v1,0x8($v0)
@@ -14291,22 +14069,22 @@ glabel func0f11d4dc
 );
 #endif
 
-s32 func0f11d540(s8 index, s32 arg1)
+s32 func0f11d540(s8 device, s32 arg1)
 {
-	if (var800a2380[index].unk008 == 1 || var800a2380[index].unk008 == 0) {
-		var800a2380[index].unk008 = 4;
-		var800a2380[index].unk270 = arg1;
+	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
+		g_Paks[device].unk008 = 4;
+		g_Paks[device].unk270 = arg1;
 		return true;
 	}
 
 	return false;
 }
 
-s32 func0f11d5b0(s8 index)
+s32 func0f11d5b0(s8 device)
 {
-	if (var800a2380[index].unk008 == 1 || var800a2380[index].unk008 == 0) {
-		var800a2380[index].unk008 = 4;
-		var800a2380[index].unk270 = 1;
+	if (g_Paks[device].unk008 == 1 || g_Paks[device].unk008 == 0) {
+		g_Paks[device].unk008 = 4;
+		g_Paks[device].unk270 = 1;
 		return true;
 	}
 
@@ -14326,8 +14104,8 @@ glabel func0f11d620
 /*  f11d63c:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11d640:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d644:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d648:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11d64c:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11d648:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11d64c:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11d650:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d654:	03191021 */ 	addu	$v0,$t8,$t9
 /*  f11d658:	8c480010 */ 	lw	$t0,0x10($v0)
@@ -14426,8 +14204,8 @@ glabel func0f11d680
 /*  f11d6a4:	0304c021 */ 	addu	$t8,$t8,$a0
 /*  f11d6a8:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d6ac:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f11d6b0:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11d6b4:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11d6b0:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11d6b4:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11d6b8:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d6bc:	03194021 */ 	addu	$t0,$t8,$t9
 /*  f11d6c0:	8d02000c */ 	lw	$v0,0xc($t0)
@@ -14614,8 +14392,8 @@ glabel func0f11d7c4
 /*  f11d7e0:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11d7e4:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d7e8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d7ec:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11d7f0:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11d7ec:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11d7f0:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11d7f4:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d7f8:	03191821 */ 	addu	$v1,$t8,$t9
 /*  f11d7fc:	8c62000c */ 	lw	$v0,0xc($v1)
@@ -14832,8 +14610,8 @@ glabel func0f11d9c4
 /*  f11d9e0:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f11d9e4:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d9e8:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d9ec:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f11d9f0:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
+/*  f11d9ec:	3c19800a */ 	lui	$t9,%hi(g_Paks)
+/*  f11d9f0:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
 /*  f11d9f4:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f11d9f8:	03194021 */ 	addu	$t0,$t8,$t9
 /*  f11d9fc:	8d02000c */ 	lw	$v0,0xc($t0)
@@ -15160,8 +14938,8 @@ glabel func0f11dc04
 /*  f11dc18:	01c47021 */ 	addu	$t6,$t6,$a0
 /*  f11dc1c:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f11dc20:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f11dc24:	3c0f800a */ 	lui	$t7,%hi(var800a2380)
-/*  f11dc28:	25ef2380 */ 	addiu	$t7,$t7,%lo(var800a2380)
+/*  f11dc24:	3c0f800a */ 	lui	$t7,%hi(g_Paks)
+/*  f11dc28:	25ef2380 */ 	addiu	$t7,$t7,%lo(g_Paks)
 /*  f11dc2c:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f11dc30:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f11dc34:	8c580010 */ 	lw	$t8,0x10($v0)
@@ -15255,7 +15033,7 @@ void func0f11dcb0(s32 arg0)
 	s8 i;
 
 	for (i = 0; i < 5; i++) {
-		s32 value = var800a2380[i].unk000;
+		s32 value = g_Paks[i].unk000;
 
 		if (value);
 
@@ -15284,8 +15062,8 @@ glabel func0f11dd58
 /*  f11dd8c:	27a50040 */ 	addiu	$a1,$sp,0x40
 /*  f11dd90:	0c0054b4 */ 	jal	joyGetContpadNumsForPlayer
 /*  f11dd94:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f11dd98:	3c12800a */ 	lui	$s2,%hi(var800a2380)
-/*  f11dd9c:	26522380 */ 	addiu	$s2,$s2,%lo(var800a2380)
+/*  f11dd98:	3c12800a */ 	lui	$s2,%hi(g_Paks)
+/*  f11dd9c:	26522380 */ 	addiu	$s2,$s2,%lo(g_Paks)
 /*  f11dda0:	27b00040 */ 	addiu	$s0,$sp,0x40
 /*  f11dda4:	27b50048 */ 	addiu	$s5,$sp,0x48
 /*  f11dda8:	24140006 */ 	addiu	$s4,$zero,0x6
@@ -15367,8 +15145,8 @@ glabel func0f11de20
 /*  f11de3c:	27a50028 */ 	addiu	$a1,$sp,0x28
 /*  f11de40:	0c0054b4 */ 	jal	joyGetContpadNumsForPlayer
 /*  f11de44:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f11de48:	3c06800a */ 	lui	$a2,%hi(var800a2380)
-/*  f11de4c:	24c62380 */ 	addiu	$a2,$a2,%lo(var800a2380)
+/*  f11de48:	3c06800a */ 	lui	$a2,%hi(g_Paks)
+/*  f11de4c:	24c62380 */ 	addiu	$a2,$a2,%lo(g_Paks)
 /*  f11de50:	27a40028 */ 	addiu	$a0,$sp,0x28
 /*  f11de54:	27aa0030 */ 	addiu	$t2,$sp,0x30
 /*  f11de58:	24090008 */ 	addiu	$t1,$zero,0x8
@@ -15439,9 +15217,9 @@ glabel func0f11deb8
 /*  f11dec4:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f11dec8:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f11decc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11ded0:	3c11800a */ 	lui	$s1,%hi(var800a2380)
+/*  f11ded0:	3c11800a */ 	lui	$s1,%hi(g_Paks)
 /*  f11ded4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f11ded8:	26312380 */ 	addiu	$s1,$s1,%lo(var800a2380)
+/*  f11ded8:	26312380 */ 	addiu	$s1,$s1,%lo(g_Paks)
 /*  f11dedc:	00008025 */ 	or	$s0,$zero,$zero
 /*  f11dee0:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f11dee4:	24130006 */ 	addiu	$s3,$zero,0x6
@@ -15499,8 +15277,8 @@ void func0f11df38(void)
 
 #if VERSION >= VERSION_NTSC_FINAL
 	for (i = 0; i < 4; i++) {
-		if (var800a2380[i].unk000 == 1 && var800a2380[i].unk004 == 7) {
-			var800a2380[i].unk004 = 8;
+		if (g_Paks[i].unk000 == 1 && g_Paks[i].unk004 == 7) {
+			g_Paks[i].unk004 = 8;
 		}
 	}
 #else
@@ -15586,7 +15364,7 @@ glabel var7f1b4fd8
 /*  f11df94:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f11df98:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f11df9c:	83ae0023 */ 	lb	$t6,0x23($sp)
-/*  f11dfa0:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*  f11dfa0:	3c18800a */ 	lui	$t8,%hi(g_Paks)
 /*  f11dfa4:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f11dfa8:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f11dfac:	01ee7823 */ 	subu	$t7,$t7,$t6
@@ -15597,7 +15375,7 @@ glabel var7f1b4fd8
 /*  f11dfc0:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f11dfc4:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f11dfc8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11dfcc:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11dfcc:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11dfd0:	01f88021 */ 	addu	$s0,$t7,$t8
 /*  f11dfd4:	8e190010 */ 	lw	$t9,0x10($s0)
 /*  f11dfd8:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -15926,8 +15704,8 @@ glabel var7f1b4fd8
 /*  f11dd10:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f11dd14:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f11dd18:	83ae0023 */ 	lb	$t6,0x23($sp)
-/*  f11dd1c:	3c18800a */ 	lui	$t8,%hi(var800a2380)
-/*  f11dd20:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
+/*  f11dd1c:	3c18800a */ 	lui	$t8,%hi(g_Paks)
+/*  f11dd20:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
 /*  f11dd24:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f11dd28:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f11dd2c:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -16015,8 +15793,8 @@ glabel var7f1b4fd8
 /*  f11de64:	010b6024 */ 	and	$t4,$t0,$t3
 /*  f11de68:	1180000a */ 	beqz	$t4,.L0f11de94
 /*  f11de6c:	24180007 */ 	addiu	$t8,$zero,0x7
-/*  f11de70:	3c0d800a */ 	lui	$t5,%hi(var800a2380+0xb30)
-/*  f11de74:	25ad2eb0 */ 	addiu	$t5,$t5,%lo(var800a2380+0xb30)
+/*  f11de70:	3c0d800a */ 	lui	$t5,%hi(g_Paks+0xb30)
+/*  f11de74:	25ad2eb0 */ 	addiu	$t5,$t5,%lo(g_Paks+0xb30)
 /*  f11de78:	146d0004 */ 	bne	$v1,$t5,.L0f11de8c
 /*  f11de7c:	240f0004 */ 	addiu	$t7,$zero,0x4
 /*  f11de80:	240e0005 */ 	addiu	$t6,$zero,0x5
@@ -16737,7 +16515,7 @@ glabel func7f117f94nb
 
 void func0f11e3bc(s8 device)
 {
-	var800a2380[device].unk008 = 0;
+	g_Paks[device].unk008 = 0;
 }
 
 void pakProbeEeprom(void)
@@ -16787,7 +16565,7 @@ s32 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 	joy00015144(6236, "pak.c");
 #endif
 
-	return result == 0 ? 0 : 0x81;
+	return result == 0 ? PAKERROR_OK : PAKERROR_EEPROM_READFAILED;
 }
 
 s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
@@ -16808,7 +16586,7 @@ s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
 	joy00015144(6271, "pak.c");
 #endif
 
-	return result == 0 ? 0 : 0x82;
+	return result == 0 ? PAKERROR_OK : PAKERROR_EEPROM_WRITEFAILED;
 }
 
 GLOBAL_ASM(
@@ -16994,7 +16772,7 @@ s32 func0f11e844(s8 device)
 	s32 sp28 = 0;
 	s32 sp24 = 1;
 
-	if (var800a2380[device].unk000 != 3) {
+	if (g_Paks[device].unk000 != 3) {
 		return 0;
 	}
 
@@ -17031,8 +16809,8 @@ s32 func0f11e844(s8 device)
 
 	if (var80075cb0 == sp6c.unk10) {
 		if (func0f11e7f0(var80075cb4, sp6c.unk00) || func0f11e7f0(var80075cc0, sp6c.unk00)) {
-			var800a2380[device].unk2b8_03 = 0;
-			var800a2380[device].unk2b8_04 = 1;
+			g_Paks[device].unk2b8_03 = 0;
+			g_Paks[device].unk2b8_04 = 1;
 			sp2c = 2;
 		}
 	}
@@ -17053,7 +16831,7 @@ s32 func0f11e844(s8 device)
 		return sp2c;
 	}
 
-	var800a2380[device].unk010 = 26;
+	g_Paks[device].unk010 = 26;
 	return 0;
 }
 #else

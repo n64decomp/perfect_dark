@@ -209,7 +209,7 @@ extern s32 *g_CoverRooms;
 extern struct covercandidate *g_CoverCandidates;
 extern u16 g_NumSpecialCovers;
 extern u16 *g_SpecialCoverNums;
-extern struct var800a2380 var800a2380[5];
+extern struct pak g_Paks[5];
 extern OSPfs g_Pfses[4];
 extern u32 var800a33a0;
 extern u32 var800a33a4;
