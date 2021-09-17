@@ -2272,8 +2272,8 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 
 		// Prepare buffers for remaining text
 		if (g_EditingPak->notesinuse[data->list.unk04] == 1) {
-			func0f11e618(note->game_name, tmpname, 16);
-			func0f11e618(note->ext_name, tmpext, 4);
+			pakN64FontCodeToAscii(note->game_name, tmpname, 16);
+			pakN64FontCodeToAscii(note->ext_name, tmpext, 4);
 
 			tmpext[1] = '\0';
 

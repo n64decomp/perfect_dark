@@ -136,7 +136,7 @@ s32 pakWriteEeprom(u8 address, u8 *buffer, u32 len);
 void pakSetBitflag(s32 flagnum, u8 *bitstream, bool set);
 bool pakHasBitflag(u32 flagnum, u8 *stream);
 void pakClearAllBitflags(u8 *flags);
-void func0f11e618(char *src, char *dst, u32 len);
+void pakN64FontCodeToAscii(char *src, char *dst, s32 len);
 s8 pakFindBySerial(s32 deviceserial);
 s32 func0f11e750(s8 arg0);
 bool func0f11e78c(void);

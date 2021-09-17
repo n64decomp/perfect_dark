@@ -81,7 +81,7 @@
  * the feature was removed the controller pak allocation was not adjusted.
  */
 
-const char var7f1b3a90[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
+const char g_N64FontCodeMap[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
 
@@ -16206,51 +16206,54 @@ u32 func0f11e610(u32 arg0)
 	return arg0;
 }
 
-GLOBAL_ASM(
-glabel func0f11e618
-/*  f11e618:	27bdfed0 */ 	addiu	$sp,$sp,-304
-/*  f11e61c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11e620:	00808025 */ 	or	$s0,$a0,$zero
-/*  f11e624:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11e628:	afa50134 */ 	sw	$a1,0x134($sp)
-/*  f11e62c:	27a30030 */ 	addiu	$v1,$sp,0x30
-/*  f11e630:	18c00016 */ 	blez	$a2,.L0f11e68c
-/*  f11e634:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11e638:	3c087f1b */ 	lui	$t0,%hi(var7f1b3a90)
-/*  f11e63c:	25083a90 */ 	addiu	$t0,$t0,%lo(var7f1b3a90)
-/*  f11e640:	24090022 */ 	addiu	$t1,$zero,0x22
-/*  f11e644:	24050027 */ 	addiu	$a1,$zero,0x27
-.L0f11e648:
-/*  f11e648:	92040000 */ 	lbu	$a0,0x0($s0)
-/*  f11e64c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11e650:	24e70001 */ 	addiu	$a3,$a3,0x1
-/*  f11e654:	28810042 */ 	slti	$at,$a0,0x42
-/*  f11e658:	10200003 */ 	beqz	$at,.L0f11e668
-/*  f11e65c:	2402002a */ 	addiu	$v0,$zero,0x2a
-/*  f11e660:	01047021 */ 	addu	$t6,$t0,$a0
-/*  f11e664:	91c20000 */ 	lbu	$v0,0x0($t6)
-.L0f11e668:
-/*  f11e668:	54490006 */ 	bnel	$v0,$t1,.L0f11e684
-/*  f11e66c:	a0620000 */ 	sb	$v0,0x0($v1)
-/*  f11e670:	a0650000 */ 	sb	$a1,0x0($v1)
-/*  f11e674:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f11e678:	10000002 */ 	beqz	$zero,.L0f11e684
-/*  f11e67c:	a0650000 */ 	sb	$a1,0x0($v1)
-/*  f11e680:	a0620000 */ 	sb	$v0,0x0($v1)
-.L0f11e684:
-/*  f11e684:	14e6fff0 */ 	bne	$a3,$a2,.L0f11e648
-/*  f11e688:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f11e68c:
-/*  f11e68c:	a0600000 */ 	sb	$zero,0x0($v1)
-/*  f11e690:	8fa40134 */ 	lw	$a0,0x134($sp)
-/*  f11e694:	0c004c4c */ 	jal	strcpy
-/*  f11e698:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f11e69c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11e6a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11e6a4:	27bd0130 */ 	addiu	$sp,$sp,0x130
-/*  f11e6a8:	03e00008 */ 	jr	$ra
-/*  f11e6ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * The note name and note extension are stored on the pak using N64 font code.
+ * This is different to ASCII.
+ *
+ * This function expects src to be a pointer to an N64 font code string.
+ * It converts it to ASCII and writes it to dst. Characters are replaced with
+ * an asterisk if they are invalid font codes or if the character doesn't exist
+ * in PD's font.
+ */
+void pakN64FontCodeToAscii(char *src, char *dst, s32 len)
+{
+	char buffer[256];
+	s32 i;
+	char in;
+	char c;
+	char *ptr = buffer;
+
+	for (i = 0; i < len;) {
+		in = *src;
+		src++;
+		i++;
+		c = '*';
+
+		// @bug: The length check of the map is off by 1. The last char in the
+		// list is '@', so if an @ sign appears in a note name then PD will
+		// incorrectly replace it with '*' when displaying the name.
+		// The original source likely used a literal here instead of sizeof().
+		if (in < (s32)(sizeof(g_N64FontCodeMap) - 1)) {
+			c = g_N64FontCodeMap[in];
+		}
+
+		// PD has a double quote in its fonts, but I guess it doesn't render
+		// very well. So it gets replaced with two single quotes.
+		if ((u32)c == '"') {
+			*ptr = '\'';
+			ptr++;
+			*ptr = '\'';
+		} else {
+			*ptr = c;
+		}
+
+		ptr++;
+	}
+
+	*ptr = '\0';
+
+	strcpy(dst, buffer);
+}
 
 s8 pakFindBySerial(s32 findserial)
 {
