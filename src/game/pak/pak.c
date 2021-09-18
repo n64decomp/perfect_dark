@@ -12780,140 +12780,57 @@ s32 func0f11cc6c(s8 device, u16 arg1, char *arg2, u16 arg3)
 	return true;
 }
 
+/**
+ * Note: ntsc-beta needs the tmp variable to get the instruction ordering
+ * correct, but there is not enough room in the stack to do this. So for
+ * matching purposes, the buffer is being reduced to make room for tmp.
+ * buffer is actually 32 though.
+ */
+bool func0f11cd00(s8 device, u16 arg1, char *arg2, s32 arg3, s32 arg4)
+{
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0f11cd00
-/*  f11cd00:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f11cd04:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f11cd08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11cd0c:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f11cd10:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f11cd14:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f11cd18:	00004025 */ 	or	$t0,$zero,$zero
-/*  f11cd1c:	27a40048 */ 	addiu	$a0,$sp,0x48
-/*  f11cd20:	27a20028 */ 	addiu	$v0,$sp,0x28
-/*  f11cd24:	2403000a */ 	addiu	$v1,$zero,0xa
-.L0f11cd28:
-/*  f11cd28:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11cd2c:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f11cd30:	1420fffd */ 	bnez	$at,.L0f11cd28
-/*  f11cd34:	a043ffff */ 	sb	$v1,-0x1($v0)
-/*  f11cd38:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f11cd3c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f11cd40:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f11cd44:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11cd48:	0fc4731b */ 	jal	func0f11cc6c
-/*  f11cd4c:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f11cd50:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f11cd54:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f11cd58:	00001825 */ 	or	$v1,$zero,$zero
-/*  f11cd5c:	05c00018 */ 	bltz	$t6,.L0f11cdc0
-/*  f11cd60:	27a20028 */ 	addiu	$v0,$sp,0x28
-/*  f11cd64:	97a4004e */ 	lhu	$a0,0x4e($sp)
-/*  f11cd68:	3c01ffff */ 	lui	$at,0xffff
-/*  f11cd6c:	34216000 */ 	ori	$at,$at,0x6000
-/*  f11cd70:	00812021 */ 	addu	$a0,$a0,$at
-/*  f11cd74:	04810003 */ 	bgez	$a0,.L0f11cd84
-/*  f11cd78:	00047b43 */ 	sra	$t7,$a0,0xd
-/*  f11cd7c:	24811fff */ 	addiu	$at,$a0,0x1fff
-/*  f11cd80:	00017b43 */ 	sra	$t7,$at,0xd
-.L0f11cd84:
-/*  f11cd84:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f11cd88:	27a30048 */ 	addiu	$v1,$sp,0x48
-.L0f11cd8c:
-/*  f11cd8c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11cd90:	1443fffe */ 	bne	$v0,$v1,.L0f11cd8c
-/*  f11cd94:	a044ffff */ 	sb	$a0,-0x1($v0)
-/*  f11cd98:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f11cd9c:	24054000 */ 	addiu	$a1,$zero,0x4000
-/*  f11cda0:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f11cda4:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11cda8:	0fc4731b */ 	jal	func0f11cc6c
-/*  f11cdac:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f11cdb0:	10400004 */ 	beqz	$v0,.L0f11cdc4
-/*  f11cdb4:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f11cdb8:	10000002 */ 	beqz	$zero,.L0f11cdc4
-/*  f11cdbc:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f11cdc0:
-/*  f11cdc0:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f11cdc4:
-/*  f11cdc4:	11000009 */ 	beqz	$t0,.L0f11cdec
-/*  f11cdc8:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f11cdcc:	97a5004e */ 	lhu	$a1,0x4e($sp)
-/*  f11cdd0:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f11cdd4:	97a70056 */ 	lhu	$a3,0x56($sp)
-/*  f11cdd8:	0fc4731b */ 	jal	func0f11cc6c
-/*  f11cddc:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f11cde0:	10400002 */ 	beqz	$v0,.L0f11cdec
-/*  f11cde4:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f11cde8:	24080001 */ 	addiu	$t0,$zero,0x1
-.L0f11cdec:
-/*  f11cdec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11cdf0:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f11cdf4:	01001025 */ 	or	$v0,$t0,$zero
-/*  f11cdf8:	03e00008 */ 	jr	$ra
-/*  f11cdfc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	u8 buffer[32];
+	bool result = false;
+	s32 i;
+
+	for (i = 0; i < 32; i++) {
+		buffer[i] = '\n';
+	}
+
+	func0f11cc6c(device, 0, buffer, sizeof(buffer));
 #else
-GLOBAL_ASM(
-glabel func0f11cd00
-/*  f116980:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f116984:	8fae0058 */ 	lw	$t6,0x58($sp)
-/*  f116988:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11698c:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f116990:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f116994:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f116998:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f11699c:	05c0001a */ 	bltz	$t6,.NB0f116a08
-/*  f1169a0:	00004025 */ 	or	$t0,$zero,$zero
-/*  f1169a4:	97a4004e */ 	lhu	$a0,0x4e($sp)
-/*  f1169a8:	3c01ffff */ 	lui	$at,0xffff
-/*  f1169ac:	34216000 */ 	ori	$at,$at,0x6000
-/*  f1169b0:	00812021 */ 	addu	$a0,$a0,$at
-/*  f1169b4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1169b8:	04810003 */ 	bgez	$a0,.NB0f1169c8
-/*  f1169bc:	00047b43 */ 	sra	$t7,$a0,0xd
-/*  f1169c0:	24811fff */ 	addiu	$at,$a0,0x1fff
-/*  f1169c4:	00017b43 */ 	sra	$t7,$at,0xd
-.NB0f1169c8:
-/*  f1169c8:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f1169cc:	27a30040 */ 	addiu	$v1,$sp,0x40
-/*  f1169d0:	27a20020 */ 	addiu	$v0,$sp,0x20
-.NB0f1169d4:
-/*  f1169d4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1169d8:	1443fffe */ 	bne	$v0,$v1,.NB0f1169d4
-/*  f1169dc:	a044ffff */ 	sb	$a0,-0x1($v0)
-/*  f1169e0:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f1169e4:	24054000 */ 	addiu	$a1,$zero,0x4000
-/*  f1169e8:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f1169ec:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f1169f0:	0fc45a3b */ 	jal	func0f11cc6c
-/*  f1169f4:	afa80044 */ 	sw	$t0,0x44($sp)
-/*  f1169f8:	10400004 */ 	beqz	$v0,.NB0f116a0c
-/*  f1169fc:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*  f116a00:	10000002 */ 	beqz	$zero,.NB0f116a0c
-/*  f116a04:	24080001 */ 	addiu	$t0,$zero,0x1
-.NB0f116a08:
-/*  f116a08:	24080001 */ 	addiu	$t0,$zero,0x1
-.NB0f116a0c:
-/*  f116a0c:	11000009 */ 	beqz	$t0,.NB0f116a34
-/*  f116a10:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f116a14:	97a5004e */ 	lhu	$a1,0x4e($sp)
-/*  f116a18:	8fa60050 */ 	lw	$a2,0x50($sp)
-/*  f116a1c:	97a70056 */ 	lhu	$a3,0x56($sp)
-/*  f116a20:	0fc45a3b */ 	jal	func0f11cc6c
-/*  f116a24:	afa80044 */ 	sw	$t0,0x44($sp)
-/*  f116a28:	10400002 */ 	beqz	$v0,.NB0f116a34
-/*  f116a2c:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*  f116a30:	24080001 */ 	addiu	$t0,$zero,0x1
-.NB0f116a34:
-/*  f116a34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116a38:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f116a3c:	01001025 */ 	or	$v0,$t0,$zero
-/*  f116a40:	03e00008 */ 	jr	$ra
-/*  f116a44:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	bool result = false;
+	s32 i;
+	s32 tmp;
+	u8 buffer[28];
 #endif
+
+	if (arg4 >= 0) {
+#if VERSION >= VERSION_NTSC_1_0
+		for (i = 0; i < 32; i++) {
+			buffer[i] = (s32)(arg1 + 0xffff6000) / 0x2000;
+		}
+#else
+		tmp = (s32)(arg1 + 0xffff6000) / 0x2000;
+
+		for (i = 0; i < 32; i++) {
+			buffer[i] = tmp;
+		}
+#endif
+
+		if (func0f11cc6c(device, 0x4000, buffer, 32)) {
+			result = true;
+		}
+	} else {
+		result = true;
+	}
+
+	if (result && func0f11cc6c(device, arg1, arg2, arg3)) {
+		result = true;
+	}
+
+	return result;
+}
 
 bool func0f11ce00(s8 device, u16 arg1, char *arg2, s32 arg3, bool arg4)
 {
@@ -12947,10 +12864,8 @@ bool func0f11ce00(s8 device, u16 arg1, char *arg2, s32 arg3, bool arg4)
 		result = true;
 	}
 
-	if (result) {
-		if (func0f11cbd8(device, arg1, arg2, arg3)) {
-			result = true;
-		}
+	if (result && func0f11cbd8(device, arg1, arg2, arg3)) {
+		result = true;
 	}
 
 	return result;
