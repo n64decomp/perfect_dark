@@ -555,7 +555,7 @@ void joy00014238(void)
 
 		for (i = 0; i < 4; i++) {
 			if (joy000155f4(i) == 13) {
-				func0f116db0(i, 11);
+				pak0f116db0(i, 11);
 			}
 		}
 

@@ -908,7 +908,7 @@ s32 gamefileLoad(s32 device)
 
 	if (device >= 0) {
 		savebufferClear(&buffer);
-		tmp = func0f116800(device, g_GameFileGuid.filenum, buffer.bytes, 0);
+		tmp = pak0f116800(device, g_GameFileGuid.filenum, buffer.bytes, 0);
 		var800a21f8.filenum = tmp;
 
 		if (tmp == 0) {
@@ -1133,7 +1133,7 @@ s32 gamefileSave(s32 device, s32 filenum, u16 deviceserial)
 
 		func0f0d54c4(&buffer);
 
-		tmp = func0f116828(device, filenum, 0x80, buffer.bytes, &sp140, 0);
+		tmp = pak0f116828(device, filenum, 0x80, buffer.bytes, &sp140, 0);
 		var800a21f8.filenum = tmp;
 
 		if (tmp == 0) {

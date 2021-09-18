@@ -532,7 +532,7 @@ void lvInit(s32 stagenum)
 		mpCalculateTeamIsOnlyAi();
 	}
 
-	func0f11a2e4();
+	pak0f11a2e4();
 	snd0000eadc();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
@@ -1048,7 +1048,7 @@ glabel var7f1b1f44nc
 /*  f162d98:	0fc6089d */ 	jal	mpCalculateTeamIsOnlyAi
 /*  f162d9c:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f162da0:
-/*  f162da0:	0fc4506d */ 	jal	func0f11a2e4
+/*  f162da0:	0fc4506d */ 	jal	pak0f11a2e4
 /*  f162da4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162da8:	0c003ca1 */ 	jal	snd0000eadc
 /*  f162dac:	00000000 */ 	sll	$zero,$zero,0x0
@@ -6917,7 +6917,7 @@ glabel var7f1b8ed0pf
 /*  f16c744:	968e04e4 */ 	lhu	$t6,0x4e4($s4)
 /*  f16c748:	51c00004 */ 	beqzl	$t6,.PF0f16c75c
 /*  f16c74c:	8e8204d8 */ 	lw	$v0,0x4d8($s4)
-/*  f16c750:	0fc47412 */ 	jal	func0f11c54c
+/*  f16c750:	0fc47412 */ 	jal	pak0f11c54c
 /*  f16c754:	00000000 */ 	nop
 /*  f16c758:	8e8204d8 */ 	lw	$v0,0x4d8($s4)
 .PF0f16c75c:
@@ -6944,7 +6944,7 @@ glabel var7f1b8ed0pf
 /*  f16c7a4:	10000003 */ 	b	.PF0f16c7b4
 /*  f16c7a8:	a28004d1 */ 	sb	$zero,0x4d1($s4)
 .PF0f16c7ac:
-/*  f16c7ac:	0fc47a8d */ 	jal	func0f11df38
+/*  f16c7ac:	0fc47a8d */ 	jal	pak0f11df38
 /*  f16c7b0:	a29804d1 */ 	sb	$t8,0x4d1($s4)
 .PF0f16c7b4:
 /*  f16c7b4:	2415ffff */ 	li	$s5,-1
@@ -8203,7 +8203,7 @@ void lvTick(void)
 	lvCheckPauseStateChanged();
 
 	if (g_Vars.unk0004e4) {
-		func0f11c54c();
+		pak0f11c54c();
 	}
 
 	if (g_Vars.joydisableframestogo > 0) {
@@ -8218,7 +8218,7 @@ void lvTick(void)
 			g_Vars.paksconnected2 = 0;
 		} else {
 			g_Vars.paksconnected2 = 31;
-			func0f11df38();
+			pak0f11df38();
 		}
 
 		g_Vars.joydisableframestogo = -1;
@@ -8584,7 +8584,7 @@ glabel lvTick
 /*  f1667b0:	10000003 */ 	beqz	$zero,.NB0f1667c0
 /*  f1667b4:	a28004d1 */ 	sb	$zero,0x4d1($s4)
 .NB0f1667b8:
-/*  f1667b8:	0fc45ecc */ 	jal	func0f11df38
+/*  f1667b8:	0fc45ecc */ 	jal	pak0f11df38
 /*  f1667bc:	a28f04d1 */ 	sb	$t7,0x4d1($s4)
 .NB0f1667c0:
 /*  f1667c0:	2415ffff */ 	addiu	$s5,$zero,-1
@@ -9817,7 +9817,7 @@ void lvRecordDistanceMoved(void)
 
 void lvReset(void)
 {
-	func0f11dcb0(1);
+	pak0f11dcb0(1);
 
 	if (g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
 		audioStop(g_MiscAudioHandle);
@@ -9868,9 +9868,9 @@ void lvCheckPauseStateChanged(void)
 
 	if (paused != var80084010) {
 		if (paused) {
-			func0f11deb8();
+			pak0f11deb8();
 		} else {
-			func0f11df38();
+			pak0f11df38();
 		}
 	}
 
@@ -9880,11 +9880,11 @@ void lvCheckPauseStateChanged(void)
 void lvSetPaused(bool paused)
 {
 	if (paused) {
-		func0f11deb8();
+		pak0f11deb8();
 		snd0000fe20();
 	} else {
 		snd0000fe50();
-		func0f11df38();
+		pak0f11df38();
 	}
 
 	var80084014 = paused;

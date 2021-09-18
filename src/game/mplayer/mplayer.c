@@ -8772,7 +8772,7 @@ s32 mpplayerfileSave(s32 playernum, s32 device, s32 arg2, u16 deviceserial)
 
 		var80075bd0[2] = true;
 
-		tmp = func0f116828(device, arg2, 0x20, buffer.bytes, &filenum, 0);
+		tmp = pak0f116828(device, arg2, 0x20, buffer.bytes, &filenum, 0);
 
 		if (tmp == 0) {
 			g_MpPlayers[playernum].fileguid.filenum = filenum;
@@ -8795,7 +8795,7 @@ s32 mpplayerfileLoad(s32 playernum, s32 device, s32 filenum, u16 deviceserial)
 	if (device >= 0) {
 		savebufferClear(&buffer);
 
-		tmp = func0f116800(device, filenum, buffer.bytes, 0);
+		tmp = pak0f116800(device, filenum, buffer.bytes, 0);
 
 		if (tmp == 0) {
 			g_MpPlayers[playernum].fileguid.filenum = filenum;
@@ -9468,7 +9468,7 @@ s32 mpsetupfileSave(s32 device, s32 filenum, u16 deviceserial)
 		mpsetupfileSaveWad(&buffer);
 		func0f0d54c4(&buffer);
 
-		tmp = func0f116828(device, filenum, 0x40, buffer.bytes, &sp100, 0);
+		tmp = pak0f116828(device, filenum, 0x40, buffer.bytes, &sp100, 0);
 		var80075bd0[1] = true;
 
 		if (tmp == 0) {
@@ -9491,7 +9491,7 @@ s32 mpsetupfileLoad(s32 device, s32 filenum, u16 deviceserial)
 
 	if (device >= 0) {
 		savebufferClear(&buffer);
-		tmp = func0f116800(device, filenum, buffer.bytes, 0);
+		tmp = pak0f116800(device, filenum, buffer.bytes, 0);
 
 		if (tmp == 0) {
 			g_MpSetup.fileguid.filenum = filenum;

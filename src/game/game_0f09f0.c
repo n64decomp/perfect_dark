@@ -27745,7 +27745,7 @@ glabel menuhandlerRetrySavePak
 /*  f0f9678:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f0f967c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f0f9680:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f0f9684:	0fc44356 */ 	jal	func0f1169c8
+/*  f0f9684:	0fc44356 */ 	jal	pak0f1169c8
 /*  f0f9688:	80843578 */ 	lb	$a0,0x3578($a0)
 .NB0f0f968c:
 /*  f0f968c:	8fbf0014 */ 	lw	$ra,0x14($sp)

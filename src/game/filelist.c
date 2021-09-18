@@ -118,16 +118,16 @@ void filelistsTick(void)
 
 	for (; i < 5; i++) {
 #if VERSION >= VERSION_NTSC_1_0
-		if (func0f1167d8(i) && var800a2330[i] != func0f11702c(i)) {
+		if (pak0f1167d8(i) && var800a2330[i] != pak0f11702c(i)) {
 			updateall = true;
-			var800a2330[i] = func0f11702c(i);
+			var800a2330[i] = pak0f11702c(i);
 		}
 #else
-		s32 tmp = func0f11702c(i);
+		s32 tmp = pak0f11702c(i);
 
-		func0f11698c(i);
+		pak0f11698c(i);
 
-		if (func0f1167d8(i)) {
+		if (pak0f1167d8(i)) {
 			tmp = 0;
 		}
 
@@ -202,7 +202,7 @@ void filelistUpdate(struct filelist *list)
 		list->unk305[dis2dev[i]] = 0;
 		list->devicestartindexes[i] = -1;
 
-		maybepfserr = func0f1167b0(dis2dev[i], sp3a88[list->filetype], spa88);
+		maybepfserr = pak0f1167b0(dis2dev[i], sp3a88[list->filetype], spa88);
 
 		if (maybepfserr == 0) {
 			// No error
@@ -215,7 +215,7 @@ void filelistUpdate(struct filelist *list)
 			list->spacesfree[dis2dev[i]] = 0;
 
 			if (list->filetype == FILETYPE_3) {
-				list->spacesfree[dis2dev[i]] = func0f118148(dis2dev[i]);
+				list->spacesfree[dis2dev[i]] = pak0f118148(dis2dev[i]);
 			}
 
 			list->deviceguids[dis2dev[i]].filenum = 0;
@@ -237,7 +237,7 @@ void filelistUpdate(struct filelist *list)
 	// Iterating files
 	for (i = 0; i < len; i++) {
 		struct filelistfile *file = &list->files[list->numfiles];
-		s32 maybepfserr = func0f116800(filedevices[i], sp1288[i], file->name, sizeof(file->name));
+		s32 maybepfserr = pak0f116800(filedevices[i], sp1288[i], file->name, sizeof(file->name));
 
 		if (maybepfserr);
 

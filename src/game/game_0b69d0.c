@@ -559,7 +559,7 @@ glabel var7f1ad568
 /*  f0b7318:	adc80004 */ 	sw	$t0,0x4($t6)
 /*  f0b731c:	adc10008 */ 	sw	$at,0x8($t6)
 /*  f0b7320:	8e31d03c */ 	lw	$s1,%lo(g_StageSetup+0xc)($s1)
-/*  f0b7324:	0fc47788 */ 	jal	func0f11de20
+/*  f0b7324:	0fc47788 */ 	jal	pak0f11de20
 /*  f0b7328:	8244028f */ 	lb	$a0,0x28f($s2)
 /*  f0b732c:	8e490284 */ 	lw	$t1,0x284($s2)
 /*  f0b7330:	a12019b3 */ 	sb	$zero,0x19b3($t1)
@@ -896,7 +896,7 @@ glabel var7f1ad568
 //	u32 stack[4];
 //	s32 aiStack188[34]; // 5c
 //
-//	func0f11de20(g_Vars.currentplayernum);
+//	pak0f11de20(g_Vars.currentplayernum);
 //
 //	g_Vars.currentplayer->dostartnewlife = false;
 //
@@ -3473,7 +3473,7 @@ void func0f0ba010(void)
 	var8009de2c = -1;
 	g_InCutscene = 1;
 
-	func0f11dcb0(1);
+	pak0f11dcb0(1);
 	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneCurAnimFrame60 < animGetNumFrames(g_CutsceneAnimNum) - 1;
 	g_Vars.cutsceneskip60ths = 0;
 }
@@ -14136,7 +14136,7 @@ Gfx *currentPlayerRenderHud(Gfx *gdl)
 			bool pass = false;
 
 			if (g_Vars.currentplayer->isdead == 1) {
-				func0f11dd58(g_Vars.currentplayernum);
+				pak0f11dd58(g_Vars.currentplayernum);
 				g_Vars.currentplayer->isdead = 2;
 				pass = true;
 			}

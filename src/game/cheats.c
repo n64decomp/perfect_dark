@@ -467,7 +467,7 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handle
 	if (operation == MENUOP_OPEN) {
 		func0f14a52c();
 
-		if (func0f11e78c()) {
+		if (pak0f11e78c()) {
 			gamefileSetFlag(GAMEFILEFLAG_USED_TRANSFERPAK);
 		}
 
@@ -497,7 +497,7 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handle
 	}
 
 	if (operation == MENUOP_CLOSE) {
-		if (func0f11e78c()) {
+		if (pak0f11e78c()) {
 			gamefileSetFlag(GAMEFILEFLAG_USED_TRANSFERPAK);
 		}
 

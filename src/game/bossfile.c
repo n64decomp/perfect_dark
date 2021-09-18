@@ -65,9 +65,9 @@ u32 func0f110720(void)
 	u32 sp38 = 0;
 	s32 i;
 
-	if (func0f1167b0(SAVEDEVICE_GAMEPAK, 0x10, sp3c) == 0) {
+	if (pak0f1167b0(SAVEDEVICE_GAMEPAK, 0x10, sp3c) == 0) {
 		for (i = 0; sp3c[i] != 0; i++) {
-			func0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
+			pak0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
 
 			if (sp840.unk0c_22 == 0) {
 				sp38 = sp3c[i];
@@ -76,7 +76,7 @@ u32 func0f110720(void)
 		}
 
 		for (i = 0; sp3c[i] != 0; i++) {
-			func0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
+			pak0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
 
 			if (sp840.unk0c_22) {
 				sp38 = sp3c[i];
@@ -103,7 +103,7 @@ void bossfileLoad(void)
 	} else {
 		savebufferClear(&buffer);
 
-		if (func0f116800(SAVEDEVICE_GAMEPAK, tmp, buffer.bytes, 0)) {
+		if (pak0f116800(SAVEDEVICE_GAMEPAK, tmp, buffer.bytes, 0)) {
 			failed = true;
 		}
 	}
@@ -194,7 +194,7 @@ void bossfileSave(void)
 		faultAssert("fileGuid", "bossfile.c", PAL ? 377 : 375);
 	}
 
-	if (func0f116828(SAVEDEVICE_GAMEPAK, tmp, 0x10, buffer.bytes, NULL, 0)) {
+	if (pak0f116828(SAVEDEVICE_GAMEPAK, tmp, 0x10, buffer.bytes, NULL, 0)) {
 		sp12c = true;
 	}
 }

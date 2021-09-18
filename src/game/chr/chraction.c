@@ -4502,19 +4502,19 @@ void chrDamage(struct chrdata *chr, f32 damage, struct coord *vector, struct gse
 		joyGetContpadNumsForPlayer(g_Vars.currentplayernum, &contpad1, &contpad2);
 
 		if (contpad1 >= 0) {
-			func0f11dc04(contpad1, 0.25f, -1, -1);
+			pak0f11dc04(contpad1, 0.25f, -1, -1);
 		}
 
 		if (contpad2 >= 0) {
-			func0f11dc04(contpad2, 0.25f, -1, -1);
+			pak0f11dc04(contpad2, 0.25f, -1, -1);
 		}
 #else
 		setCurrentPlayerNum(propGetPlayerNum(vprop));
 
-		func0f11dc04((s8)g_Vars.currentplayernum, 0.25f, -1, -1);
+		pak0f11dc04((s8)g_Vars.currentplayernum, 0.25f, -1, -1);
 
 		if (optionsGetControlMode(g_Vars.currentplayerstats->mpindex) >= CONTROLMODE_21) {
-			func0f11dc04((s8)(PLAYERCOUNT() + g_Vars.currentplayernum), 0.25f, -1, -1);
+			pak0f11dc04((s8)(PLAYERCOUNT() + g_Vars.currentplayernum), 0.25f, -1, -1);
 		}
 #endif
 

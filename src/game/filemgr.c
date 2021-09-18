@@ -593,7 +593,7 @@ void filemgrEraseCorruptFile(void)
 	device = pakFindBySerial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 	if (device >= 0) {
-		filemgrDeleteFile(device, g_Menus[g_MpPlayerNum].fm.filenum);
+		pakDeleteFile(device, g_Menus[g_MpPlayerNum].fm.filenum);
 	}
 
 	for (i = 0; i < 4; i++) {
@@ -750,7 +750,7 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	case FILEOP_WRITE_MPPLAYER:
 		sp2c = 0;
 		func0f0d5690(g_Menus[g_MpPlayerNum].fm.unke44, g_Menus[g_MpPlayerNum].fm.filename);
-		errno = func0f116828(device,
+		errno = pak0f116828(device,
 				g_Menus[g_MpPlayerNum].fm.filenum,
 				sp30[g_Menus[g_MpPlayerNum].fm.fileop - 6],
 				g_Menus[g_MpPlayerNum].fm.unke44, &sp2c, 0);
@@ -774,7 +774,7 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		errno = func0f116800(device,
+		errno = pak0f116800(device,
 				g_Menus[g_MpPlayerNum].fm.filenum,
 				g_Menus[g_MpPlayerNum].fm.unke44, 0);
 		break;
@@ -927,7 +927,7 @@ glabel var7f1ad424nb
 /*  f104bd4:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f104bd8:	83a4004b */ 	lb	$a0,0x4b($sp)
 /*  f104bdc:	8c450da4 */ 	lw	$a1,0xda4($v0)
-/*  f104be0:	0fc442fb */ 	jal	func0f116828
+/*  f104be0:	0fc442fb */ 	jal	pak0f116828
 /*  f104be4:	8c470da0 */ 	lw	$a3,0xda0($v0)
 /*  f104be8:	3c188007 */ 	lui	$t8,0x8007
 /*  f104bec:	8f183af0 */ 	lw	$t8,0x3af0($t8)
@@ -971,7 +971,7 @@ glabel var7f1ad424nb
 /*  f104c84:	8ce7d088 */ 	lw	$a3,-0x2f78($a3)
 /*  f104c88:	83a4004b */ 	lb	$a0,0x4b($sp)
 /*  f104c8c:	8c450da4 */ 	lw	$a1,0xda4($v0)
-/*  f104c90:	0fc442f1 */ 	jal	func0f116800
+/*  f104c90:	0fc442f1 */ 	jal	pak0f116800
 /*  f104c94:	8c460da0 */ 	lw	$a2,0xda0($v0)
 /*  f104c98:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f104c9c:
@@ -1118,7 +1118,7 @@ void filemgrDeleteCurrentFile(void)
 	s32 i;
 
 	if (device >= 0) {
-		if (filemgrDeleteFile(device, g_FilemgrFileToDelete.filenum) != 0) {
+		if (pakDeleteFile(device, g_FilemgrFileToDelete.filenum) != 0) {
 			error = true;
 		}
 	} else {
@@ -2334,7 +2334,7 @@ s32 pakGameNotesMenuDialog(s32 operation, struct menudialog *dialog, union handl
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curframe
 				&& g_Menus[g_MpPlayerNum].curframe->dialog == dialog) {
-			s32 value = func0f1168c4(g_Menus[g_MpPlayerNum].fm.device, &g_EditingPak);
+			s32 value = pak0f1168c4(g_Menus[g_MpPlayerNum].fm.device, &g_EditingPak);
 
 			if (value) {
 				menuCloseDialog();
@@ -2541,7 +2541,7 @@ glabel pakChoosePakMenuDialog
 /*  f106bec:	00047e03 */ 	sra	$t7,$a0,0x18
 /*  f106bf0:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f106bf4:	03152826 */ 	xor	$a1,$t8,$s5
-/*  f106bf8:	0fc44356 */ 	jal	func0f1169c8
+/*  f106bf8:	0fc44356 */ 	jal	pak0f1169c8
 /*  f106bfc:	2ca50001 */ 	sltiu	$a1,$a1,0x1
 /*  f106c00:	26100001 */ 	addiu	$s0,$s0,0x1
 .NB0f106c04:
@@ -2549,7 +2549,7 @@ glabel pakChoosePakMenuDialog
 /*  f106c08:	8e480000 */ 	lw	$t0,0x0($s2)
 /*  f106c0c:	0c00529f */ 	jal	joy000139c8
 /*  f106c10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106c14:	0fc44b4a */ 	jal	func0f1189d0
+/*  f106c14:	0fc44b4a */ 	jal	pak0f1189d0
 /*  f106c18:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f106c1c:
 /*  f106c1c:	8fbf0034 */ 	lw	$ra,0x34($sp)
