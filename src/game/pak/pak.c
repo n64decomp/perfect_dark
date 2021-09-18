@@ -4387,83 +4387,40 @@ void pak0f119340(u32 arg0)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f119368
-/*  f119368:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f11936c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f119370:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f119374:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f119378:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f11937c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f119380:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f119384:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f119388:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f11938c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f119390:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f119394:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f119398:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f11939c:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f1193a0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1193a4:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f1193a8:	0fc46dd7 */ 	jal	pak0f11b75c
-/*  f1193ac:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f1193b0:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f1193b4:	27b30038 */ 	addiu	$s3,$sp,0x38
-/*  f1193b8:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f1193bc:	03002025 */ 	or	$a0,$t8,$zero
-/*  f1193c0:	02603025 */ 	or	$a2,$s3,$zero
-/*  f1193c4:	0fc45d48 */ 	jal	pak0f117520
-/*  f1193c8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1193cc:	1440001d */ 	bnez	$v0,.L0f119444
-/*  f1193d0:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*  f1193d4:	5320001c */ 	beqzl	$t9,.L0f119448
-/*  f1193d8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1193dc:	8fa80044 */ 	lw	$t0,0x44($sp)
-.L0f1193e0:
-/*  f1193e0:	8fab0040 */ 	lw	$t3,0x40($sp)
-/*  f1193e4:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f1193e8:	00084b40 */ 	sll	$t1,$t0,0xd
-/*  f1193ec:	00095642 */ 	srl	$t2,$t1,0x19
-/*  f1193f0:	164a0009 */ 	bne	$s2,$t2,.L0f119418
-/*  f1193f4:	316c0fff */ 	andi	$t4,$t3,0xfff
-/*  f1193f8:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*  f1193fc:	02602825 */ 	or	$a1,$s3,$zero
-/*  f119400:	10800003 */ 	beqz	$a0,.L0f119410
-/*  f119404:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119408:	0c012978 */ 	jal	memcpy
-/*  f11940c:	24060010 */ 	addiu	$a2,$zero,0x10
-.L0f119410:
-/*  f119410:	10000012 */ 	beqz	$zero,.L0f11945c
-/*  f119414:	02001025 */ 	or	$v0,$s0,$zero
-.L0f119418:
-/*  f119418:	020c8021 */ 	addu	$s0,$s0,$t4
-/*  f11941c:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f119420:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f119424:	02002825 */ 	or	$a1,$s0,$zero
-/*  f119428:	0fc45d48 */ 	jal	pak0f117520
-/*  f11942c:	02603025 */ 	or	$a2,$s3,$zero
-/*  f119430:	14400004 */ 	bnez	$v0,.L0f119444
-/*  f119434:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f119438:	020e082b */ 	sltu	$at,$s0,$t6
-/*  f11943c:	5420ffe8 */ 	bnezl	$at,.L0f1193e0
-/*  f119440:	8fa80044 */ 	lw	$t0,0x44($sp)
-.L0f119444:
-/*  f119444:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f119448:
-/*  f119448:	54410004 */ 	bnel	$v0,$at,.L0f11945c
-/*  f11944c:	3402ffff */ 	dli	$v0,0xffff
-/*  f119450:	10000002 */ 	beqz	$zero,.L0f11945c
-/*  f119454:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f119458:	3402ffff */ 	dli	$v0,0xffff
-.L0f11945c:
-/*  f11945c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f119460:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f119464:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f119468:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f11946c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f119470:	03e00008 */ 	jr	$ra
-/*  f119474:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+// Note: ntsc-beta doesn't match the below due to stack size
+s32 pak0f119368(s8 device, u32 arg1, struct pakthing16 *thingptr)
+{
+	struct pakthing16 thing;
+	s32 i = 0;
+	u32 sp30;
+	s32 value;
+
+	pak0f11b75c(device, &sp30);
+
+	value = pak0f117520(device, i, &thing);
+
+	while (value == 0 && i < sp30) {
+		if (arg1 == thing.unk0c_14) {
+			if (thingptr) {
+				memcpy(thingptr, &thing, sizeof(struct pakthing16));
+			}
+
+			return i;
+		}
+
+		i += thing.unk08_21;
+
+		value = pak0f117520(device, i, &thing);
+	}
+
+#if VERSION >= VERSION_NTSC_1_0
+	if (value == 1) {
+		return -1;
+	}
+#endif
+
+	return 0xffff;
+}
 #else
 GLOBAL_ASM(
 glabel pak0f119368

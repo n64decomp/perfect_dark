@@ -38,7 +38,7 @@ void pak0f117150(s8 device, u8 *ptr);
 void pak0f1171b4(s8 device, s32 arg1, s32 arg2);
 s32 pak0f117210(s8 device);
 u32 pak0f117430(void);
-u32 pak0f117520(s8 arg0, u32 arg1, u32 *arg2);
+u32 pak0f117520(s8 device, u32 arg1, struct pakthing16 *arg2);
 void pakDumpBuffer(u8 *buffer, u32 len, char *name);
 void pakDumpEeprom(void);
 s32 pak0f11789c(s8 device, s32 arg1, s32 arg2, void *arg3, s32 *arg4, s32 arg5);
@@ -73,7 +73,7 @@ s32 pak0f118d18(s8 device, u32 arg1, u32 *buffer1024);
 s32 pak0f1190bc(s8 device, s32 arg1, s32 *arg2);
 u32 pak0f119298(s8 device);
 void pak0f119340(u32 arg0);
-u32 pak0f119368(s32 device, u32 arg1, struct pakthing16 *pakthing16);
+s32 pak0f119368(s8 device, u32 arg1, struct pakthing16 *pakthing16);
 #if VERSION >= VERSION_NTSC_FINAL
 bool pak0f119478(u32 arg0, u32 arg1, u32 *arg2);
 #endif
@@ -95,7 +95,7 @@ void pakWipe(s8 device, u32 start, u32 end);
 u32 pak0f11b178(void);
 u32 pak0f11b488(void);
 s32 pakScrub(s8 device);
-u32 pak0f11b75c(void);
+void pak0f11b75c(s8 device, u32 *arg1);
 u32 pak0f11b86c(void);
 u32 pak0f11bbd8(void);
 s32 pak0f11bc54(s8 device, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);

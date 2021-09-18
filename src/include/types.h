@@ -6679,8 +6679,10 @@ struct pakthing16 {
 	u32 unk04;
 	u32 unk08_01 : 9;
 	u32 unk08_10 : 3;
-	u32 unk08_fill : 20;
-	u32 unk0c_01 : 20;
+	u32 unk08_13 : 8;
+	u32 unk08_21 : 12;
+	u32 unk0c_01 : 13;
+	u32 unk0c_14 : 7;
 	u32 unk0c_21 : 9;
 	u32 unk0c_22 : 1;
 };
