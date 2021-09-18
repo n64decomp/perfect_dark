@@ -446,7 +446,7 @@ struct waygroup *func0f114810(s32 *groupnums, s32 value, u32 mask)
 				} else {
 					u64 sp50 = ((u64)g_WaypointHashes[0] << 32) | g_WaypointHashes[1];
 
-					if (func00012e1c(&sp50) % 2 == 0) {
+					if (rngRotateSeed(&sp50) % 2 == 0) {
 						break;
 					}
 				}
@@ -567,7 +567,7 @@ struct waypoint *func0f114b7c(s32 *pointnums, s32 arg1, s32 groupnum, u32 mask)
 				} else {
 					u64 sp50 = ((u64)g_WaypointHashes[0] << 32) | g_WaypointHashes[1];
 
-					if (func00012e1c(&sp50) % 2 == 0) {
+					if (rngRotateSeed(&sp50) % 2 == 0) {
 						break;
 					}
 				}
@@ -727,7 +727,7 @@ void func0f11505c(struct waygroup *groupa, struct waygroup *groupb, struct waypo
 					} else {
 						u64 sp50 = ((u64)g_WaypointHashes[0] << 32) | g_WaypointHashes[1];
 
-						if ((func00012e1c(&sp50) % 2) == 0) {
+						if ((rngRotateSeed(&sp50) % 2) == 0) {
 							break;
 						}
 					}

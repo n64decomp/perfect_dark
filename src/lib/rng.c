@@ -49,7 +49,7 @@ glabel rngSetSeed
 );
 
 GLOBAL_ASM(
-glabel func00012e1c
+glabel rngRotateSeed
 /*    12e1c:	dc870000 */ 	ld	$a3,0x0($a0)
 /*    12e20:	000737fc */ 	dsll32	$a2,$a3,0x1f
 /*    12e24:	00072ff8 */ 	dsll	$a1,$a3,0x1f
