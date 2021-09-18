@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/camdraw.h"
 #include "game/game_0f09f0.h"
-#include "game/game_128f30.h"
+#include "game/crc.h"
 #include "game/gamefile.h"
 #include "game/pak/pak.h"
 #include "game/utils.h"

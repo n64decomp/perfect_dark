@@ -8,50 +8,6 @@
 u32 var8007e3c0 = 0xab8d9f77;
 u32 var8007e3c4 = 0x81280783;
 
-void crcCalculateU32Pair(u8 *start, u8 *end, u32 *checksum)
-{
-	u8 *ptr;
-	u32 salt = 0;
-	u64 seed = 0x8f809f473108b3c1;
-	u32 sum1 = 0;
-	u32 sum2 = 0;
-
-	for (ptr = start; ptr < end; ptr++, salt += 7) {
-		seed += *ptr << (salt & 0x0f);
-		sum1 ^= rngRotateSeed(&seed);
-	}
-
-	for (ptr = end - 1; ptr >= start; ptr--, salt += 3) {
-		seed += *ptr << (salt & 0x0f);
-		sum2 ^= rngRotateSeed(&seed);
-	}
-
-	checksum[0] = sum1;
-	checksum[1] = sum2;
-}
-
-void crcCalculateU16Pair(u8 *start, u8 *end, u16 *checksum)
-{
-	u8 *ptr;
-	u32 salt = 0;
-	u64 seed = 0x8f809f473108b3c1;
-	u32 sum1 = 0;
-	u32 sum2 = 0;
-
-	for (ptr = start; ptr < end; ptr++, salt += 7) {
-		seed += *ptr << (salt & 0x0f);
-		sum1 ^= rngRotateSeed(&seed);
-	}
-
-	for (ptr = end - 1; ptr >= start; ptr--, salt += 3) {
-		seed += *ptr << (salt & 0x0f);
-		sum2 ^= rngRotateSeed(&seed);
-	}
-
-	checksum[0] = sum1 & 0xffff;
-	checksum[1] = sum2 & 0xffff;
-}
-
 GLOBAL_ASM(
 glabel func0f1291b0
 /*  f1291b0:	3c048008 */ 	lui	$a0,%hi(var8007e3c0)

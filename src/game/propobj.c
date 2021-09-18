@@ -33,7 +33,7 @@
 #include "game/game_0f09f0.h"
 #include "game/inventory/inventory.h"
 #include "game/game_127910.h"
-#include "game/game_128f30.h"
+#include "game/game_1291b0.h"
 #include "game/game_129210.h"
 #include "game/explosions/explosions.h"
 #include "game/smoke/smoke.h"

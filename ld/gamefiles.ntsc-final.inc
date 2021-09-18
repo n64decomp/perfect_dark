@@ -142,7 +142,8 @@
 	build/ROMID/game/data/data_020df0.o (section); \
 	build/ROMID/game/game_11f000.o (section); \
 	build/ROMID/game/game_127910.o (section); \
-	build/ROMID/game/game_128f30.o (section); \
+	build/ROMID/game/crc.o (section); \
+	build/ROMID/game/game_1291b0.o (section); \
 	build/ROMID/game/game_129210.o (section); \
 	build/ROMID/game/explosions/explosions.o (section); \
 	build/ROMID/game/smoke/smoke.o (section); \
