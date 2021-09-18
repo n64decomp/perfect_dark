@@ -3262,7 +3262,7 @@ const char var7f1ae6f4nb[] = "dumpeeprom";
 
 void pakCalculateChecksum(u8 *start, u8 *end, u16 *checksum)
 {
-	func0f12906c(start, end, checksum);
+	crcCalculateU16Pair(start, end, checksum);
 }
 
 #if VERSION >= VERSION_NTSC_1_0
