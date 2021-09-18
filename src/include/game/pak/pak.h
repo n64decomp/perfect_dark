@@ -30,7 +30,7 @@ u32 pak0f116c94(s8 device);
 void pak0f116db0(s8 device, s32 value);
 s32 pak0f116df0(s8 device, struct pakdata **arg1);
 s32 pakDeleteGameNote2(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name);
-bool pakDeleteFile2(s8 device, s32 arg1);
+s32 pakDeleteFile2(s8 device, s32 filenum);
 s32 pak0f11702c(s8 device);
 u32 pak0f11706c(s8 device);
 s32 pak0f117094(s8 device, u32 arg1);

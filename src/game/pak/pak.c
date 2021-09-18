@@ -493,13 +493,13 @@ const char var7f1b3b90[] = "Pak %d -> Header Cache 2 - FATAL ERROR";
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-bool pakDeleteFile2(s8 device, s32 arg1)
+s32 pakDeleteFile2(s8 device, s32 filenum)
 {
 	struct pakthing16 sp38;
-	s32 result = pak0f119368(device, arg1, &sp38);
+	s32 result = pak0f119368(device, filenum, &sp38);
 
 	if (result == -1) {
-		return true;
+		return 1;
 	}
 
 	result = pak0f11bc54(device, result, sp38.unk08_01, 0, 0, 0, 0, 0, sp38.unk0c_21 + 1);
@@ -508,67 +508,27 @@ bool pakDeleteFile2(s8 device, s32 arg1)
 		return result;
 	}
 
-	return false;
+	return 0;
 }
 #else
-GLOBAL_ASM(
-glabel pakDeleteFile2
-/*  f1112bc:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f1112c0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f1112c4:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f1112c8:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f1112cc:	0fc44da7 */ 	jal	pak0f119368
-/*  f1112d0:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f1112d4:	10400013 */ 	beqz	$v0,.NB0f111324
-/*  f1112d8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1112dc:	1040000f */ 	beqz	$v0,.NB0f11131c
-/*  f1112e0:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f1112e4:	0fc448fb */ 	jal	pak0f117fc0
-/*  f1112e8:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f1112ec:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f1112f0:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f1112f4:	00a2082b */ 	sltu	$at,$a1,$v0
-/*  f1112f8:	10200008 */ 	beqz	$at,.NB0f11131c
-/*  f1112fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111300:	0fc4428c */ 	jal	pak0f1165d0
-/*  f111304:	afa50030 */ 	sw	$a1,0x30($sp)
-/*  f111308:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f11130c:	244effff */ 	addiu	$t6,$v0,-1
-/*  f111310:	01c57824 */ 	and	$t7,$t6,$a1
-/*  f111314:	51e00004 */ 	beqzl	$t7,.NB0f111328
-/*  f111318:	8fb90044 */ 	lw	$t9,0x44($sp)
-.NB0f11131c:
-/*  f11131c:	10000015 */ 	beqz	$zero,.NB0f111374
-/*  f111320:	24020003 */ 	addiu	$v0,$zero,0x3
-.NB0f111324:
-/*  f111324:	8fb90044 */ 	lw	$t9,0x44($sp)
-.NB0f111328:
-/*  f111328:	8fa60040 */ 	lw	$a2,0x40($sp)
-/*  f11132c:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f111330:	00194500 */ 	sll	$t0,$t9,0x14
-/*  f111334:	00084dc2 */ 	srl	$t1,$t0,0x17
-/*  f111338:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*  f11133c:	0006c5c2 */ 	srl	$t8,$a2,0x17
-/*  f111340:	03003025 */ 	or	$a2,$t8,$zero
-/*  f111344:	afaa0020 */ 	sw	$t2,0x20($sp)
-/*  f111348:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11134c:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f111350:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f111354:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f111358:	0fc456f6 */ 	jal	pak0f11bc54
-/*  f11135c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f111360:	50400004 */ 	beqzl	$v0,.NB0f111374
-/*  f111364:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111368:	10000003 */ 	beqz	$zero,.NB0f111378
-/*  f11136c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f111370:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f111374:
-/*  f111374:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.NB0f111378:
-/*  f111378:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f11137c:	03e00008 */ 	jr	$ra
-/*  f111380:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 pakDeleteFile2(s8 device, s32 filenum)
+{
+	struct pakthing16 sp38;
+	u32 result;
+	u32 tmp = pak0f119368(device, filenum, &sp38);
+
+	if (tmp && (!tmp || tmp >= pak0f117fc0(device) || (pak0f1165d0(device) - 1U & tmp))) {
+		return 3;
+	}
+
+	result = pak0f11bc54(device, tmp, sp38.unk08_01, 0, 0, 0, 0, 0, sp38.unk0c_21 + 1);
+
+	if (result) {
+		return result;
+	}
+
+	return 0;
+}
 #endif
 
 s32 pak0f11702c(s8 device)
