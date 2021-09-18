@@ -6675,9 +6675,10 @@ struct pakthing {
 };
 
 struct pakfileheader {
-	u32 unk00;
-	u16 sum1;
-	u16 sum2;
+	u16 headersum1;  // checksum from filetype to end of header
+	u16 headersum2;
+	u16 bodysum1;
+	u16 bodysum2;
 	u32 filetype : 9; // PAKFILETYPE constant
 	u32 bodylen : 11; // not aligned
 	u32 filelen : 12; // aligned to 0x10
@@ -6685,6 +6686,8 @@ struct pakfileheader {
 	u32 fileid : 7;
 	u32 unk0c_21 : 9;
 	u32 occupied : 1;
+	u32 unk0c_30 : 1; // always 1?
+	u32 version : 1;  // always 0?
 };
 
 struct var80067e6c {
