@@ -660,7 +660,7 @@ glabel mainInit
 /*     d7b0:	00000000 */ 	nop
 /*     d7b4:	0fc52bf6 */ 	jal	func0f14a328
 /*     d7b8:	00000000 */ 	nop
-/*     d7bc:	0fc4652e */ 	jal	pak0f1189d8
+/*     d7bc:	0fc4652e */ 	jal	pakInitAll
 /*     d7c0:	00000000 */ 	nop
 /*     d7c4:	0fc52c1b */ 	jal	func0f14a3bc
 /*     d7c8:	00000000 */ 	nop
@@ -1063,7 +1063,7 @@ glabel mainInit
 /*     da74:	00000000 */ 	nop
 /*     da78:	0fc528ca */ 	jal	func0f14a328
 /*     da7c:	00000000 */ 	nop
-/*     da80:	0fc46276 */ 	jal	pak0f1189d8
+/*     da80:	0fc46276 */ 	jal	pakInitAll
 /*     da84:	00000000 */ 	nop
 /*     da88:	0fc528ef */ 	jal	func0f14a3bc
 /*     da8c:	00000000 */ 	nop
@@ -1436,7 +1436,7 @@ glabel mainInit
 /*     df84:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df88:	0fc512be */ 	jal	func0f14a328
 /*     df8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df90:	0fc44b4c */ 	jal	pak0f1189d8
+/*     df90:	0fc44b4c */ 	jal	pakInitAll
 /*     df94:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df98:	0fc512e3 */ 	jal	func0f14a3bc
 /*     df9c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1665,7 +1665,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	stub0f000840();
 //	mpSetDefaultSetup();
 //	func0f14a328();
-//	pak0f1189d8();
+//	pakInitAll();
 //	func0f14a3bc();
 //	func000233c0();
 //	func0f000100();

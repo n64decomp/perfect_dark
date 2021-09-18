@@ -60,25 +60,25 @@ void func0f1106f4(u8 *dst)
 
 u32 func0f110720(void)
 {
-	struct pakthing16 sp840;
+	struct pakfileheader header;
 	u32 sp3c[513];
 	u32 sp38 = 0;
 	s32 i;
 
-	if (pak0f1167b0(SAVEDEVICE_GAMEPAK, 0x10, sp3c) == 0) {
+	if (pak0f1167b0(SAVEDEVICE_GAMEPAK, PAKFILETYPE_BOSS, sp3c) == 0) {
 		for (i = 0; sp3c[i] != 0; i++) {
-			pak0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
+			pakFindFile(SAVEDEVICE_GAMEPAK, sp3c[i], &header);
 
-			if (sp840.unk0c_22 == 0) {
+			if (!header.occupied) {
 				sp38 = sp3c[i];
 				break;
 			}
 		}
 
 		for (i = 0; sp3c[i] != 0; i++) {
-			pak0f119368(SAVEDEVICE_GAMEPAK, sp3c[i], &sp840);
+			pakFindFile(SAVEDEVICE_GAMEPAK, sp3c[i], &header);
 
-			if (sp840.unk0c_22) {
+			if (header.occupied) {
 				sp38 = sp3c[i];
 				break;
 			}
@@ -113,7 +113,7 @@ void bossfileLoad(void)
 
 		savebufferReadGuid(&buffer, &guid);
 
-		g_Vars.bossfilenum = guid.filenum;
+		g_Vars.bossfileid = guid.fileid;
 		g_Vars.bossdeviceserial = guid.deviceserial;
 
 		g_BossFile.unk89 = savebufferReadBits(&buffer, 1);
@@ -160,7 +160,7 @@ void bossfileSave(void)
 
 	savebufferClear(&buffer);
 
-	guid.filenum = g_Vars.bossfilenum;
+	guid.fileid = g_Vars.bossfileid;
 	guid.deviceserial = g_Vars.bossdeviceserial;
 
 	savebufferWriteGuid(&buffer, &guid);
@@ -194,7 +194,7 @@ void bossfileSave(void)
 		faultAssert("fileGuid", "bossfile.c", PAL ? 377 : 375);
 	}
 
-	if (pak0f116828(SAVEDEVICE_GAMEPAK, tmp, 0x10, buffer.bytes, NULL, 0)) {
+	if (pak0f116828(SAVEDEVICE_GAMEPAK, tmp, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0)) {
 		sp12c = true;
 	}
 }
@@ -215,7 +215,7 @@ void bossfileSetDefaults(void)
 	g_BossFile.usingmultipletunes = false;
 	g_BossFile.unk89 = 0;
 	g_BossFile.locktype = MPLOCKTYPE_NONE;
-	g_Vars.bossfilenum = 0;
+	g_Vars.bossfileid = 0;
 	g_Vars.bossdeviceserial = 0;
 	g_Vars.unk000482 = (PAL ? 7 : 0);
 	g_AltTitleUnlocked = 0;

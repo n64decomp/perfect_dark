@@ -919,13 +919,13 @@ glabel func0f0d5690
 
 void savebufferWriteGuid(struct savebuffer *buffer, struct fileguid *guid)
 {
-	savebufferOr(buffer, guid->filenum, 7);
+	savebufferOr(buffer, guid->fileid, 7);
 	savebufferOr(buffer, guid->deviceserial, 13);
 }
 
 void savebufferReadGuid(struct savebuffer *buffer, struct fileguid *guid)
 {
-	guid->filenum = savebufferReadBits(buffer, 7);
+	guid->fileid = savebufferReadBits(buffer, 7);
 	guid->deviceserial = savebufferReadBits(buffer, 13);
 }
 

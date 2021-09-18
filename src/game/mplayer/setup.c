@@ -4520,7 +4520,7 @@ s32 menuhandlerMpRestoreHandicapDefaults(s32 operation, struct menuitem *item, u
 s32 menudialogMpReady(s32 operation, struct menudialog *dialog, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		if (g_MpPlayers[g_MpPlayerNum].fileguid.filenum && g_MpPlayers[g_MpPlayerNum].fileguid.deviceserial) {
+		if (g_MpPlayers[g_MpPlayerNum].fileguid.fileid && g_MpPlayers[g_MpPlayerNum].fileguid.deviceserial) {
 			filemgrSaveOrLoad(&g_MpPlayers[g_MpPlayerNum].fileguid, FILEOP_SAVE_MPPLAYER, g_MpPlayerNum);
 		}
 	}
@@ -7407,7 +7407,7 @@ s32 menuhandlerMpLock(s32 operation, struct menuitem *item, union handlerdata *d
 s32 menuhandlerMpSavePlayer(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MpPlayers[g_MpPlayerNum].fileguid.filenum == 0) {
+		if (g_MpPlayers[g_MpPlayerNum].fileguid.fileid == 0) {
 			filemgrPushSelectLocationDialog(6, FILETYPE_MPPLAYER);
 		} else {
 			menuPushDialog(&g_MpSavePlayerMenuDialog);
@@ -7419,7 +7419,7 @@ s32 menuhandlerMpSavePlayer(s32 operation, struct menuitem *item, union handlerd
 
 char *mpMenuTextSavePlayerOrCopy(struct menuitem *item)
 {
-	if (g_MpPlayers[g_MpPlayerNum].fileguid.filenum == 0) {
+	if (g_MpPlayers[g_MpPlayerNum].fileguid.fileid == 0) {
 		return langGet(L_MPMENU_038); // "Save Player"
 	}
 
@@ -7446,7 +7446,7 @@ s32 menuhandler0017ef30(s32 operation, struct menuitem *item, union handlerdata 
 s32 menuhandlerMpSaveSettings(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MpSetup.fileguid.filenum == 0) {
+		if (g_MpSetup.fileguid.fileid == 0) {
 			menuPushDialog(&g_MpSaveSetupNameMenuDialog);
 		} else {
 #if VERSION >= VERSION_NTSC_1_0

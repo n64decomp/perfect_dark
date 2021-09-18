@@ -87,7 +87,7 @@ struct playerstats {
 };
 
 struct fileguid {
-	s32 filenum;
+	s32 fileid;
 	u16 deviceserial;
 };
 
@@ -202,7 +202,7 @@ struct g_vars {
 	/*000470*/ s32 perfectbuddynum;
 	/*000474*/ s32 numaibuddies;
 	/*000478*/ bool aibuddiesspawned;
-	/*00047c*/ s32 bossfilenum;
+	/*00047c*/ s32 bossfileid;
 	/*000480*/ u16 bossdeviceserial;
 	/*000482*/ u16 unk000482;
 	/*000484*/ s32 mphilltime;
@@ -3863,7 +3863,7 @@ struct menudata_filemgr {
 		void *unke44;
 		s32 mpplayernum;
 	};
-	/*0xe48*/ u32 filenum;
+	/*0xe48*/ u32 fileid;
 	/*0xe4c*/ u32 deviceserial;
 	/*0xe50*/ u16 isretryingsave;
 	/*0xe52*/ u8 device2;
@@ -4678,7 +4678,7 @@ struct mparena {
 };
 
 struct filelistfile {
-	s32 filenum;
+	s32 fileid;
 	u16 deviceserial;
 	char name[16];
 };
@@ -5045,7 +5045,7 @@ struct pak {
 	/*0x294*/ u32 unk294;
 	/*0x298*/ u32 unk298;
 	/*0x29c*/ s32 noteindex;
-	/*0x2a0*/ u32 unk2a0;
+	/*0x2a0*/ u32 notelen;
 	/*0x2a4*/ u32 unk2a4;
 	/*0x2a8*/ u32 unk2a8;
 	/*0x2ac*/ u32 unk2ac;
@@ -6674,17 +6674,17 @@ struct pakthing {
 	u16 unk10;
 };
 
-struct pakthing16 {
+struct pakfileheader {
 	u32 unk00;
-	u32 unk04;
-	u32 unk08_01 : 9;
-	u32 unk08_10 : 3;
-	u32 unk08_13 : 8;
-	u32 unk08_21 : 12;
-	u32 unk0c_01 : 13;
-	u32 unk0c_14 : 7;
+	u16 sum1;
+	u16 sum2;
+	u32 filetype : 9; // PAKFILETYPE constant
+	u32 bodylen : 11; // not aligned
+	u32 filelen : 12; // aligned to 0x10
+	u32 deviceserial : 13;
+	u32 fileid : 7;
 	u32 unk0c_21 : 9;
-	u32 unk0c_22 : 1;
+	u32 occupied : 1;
 };
 
 struct var80067e6c {

@@ -408,7 +408,7 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 
 	g_MpPlayers[playernum].base.mpheadnum = mpGetMpheadnumByMpbodynum(g_MpPlayers[playernum].base.mpbodynum);
 	g_MpPlayers[playernum].base.displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
-	g_MpPlayers[playernum].fileguid.filenum = 0;
+	g_MpPlayers[playernum].fileguid.fileid = 0;
 	g_MpPlayers[playernum].fileguid.deviceserial = 0;
 
 	if (autonames) {
@@ -484,7 +484,7 @@ void mpSetDefaultSetup(void)
 
 	func0f187fec();
 
-	g_MpSetup.fileguid.filenum = 0;
+	g_MpSetup.fileguid.fileid = 0;
 	g_MpSetup.fileguid.deviceserial = 0;
 
 	strcpy(g_MpSetup.name, "");
@@ -8570,10 +8570,10 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 		savebufferReadGuid(buffer, &guid);
 
 		if (g_MpPlayers[playernum].base.mpheadnum >= mpGetNumHeads2()) {
-			if (guid.filenum != 0 && guid.deviceserial != 0) {
+			if (guid.fileid != 0 && guid.deviceserial != 0) {
 				if (g_MenuData.unk668 < 11) {
 					g_MenuData.unk668++;
-					g_MenuData.unk5d8[g_MenuData.unk668].fileguid.filenum = guid.filenum;
+					g_MenuData.unk5d8[g_MenuData.unk668].fileguid.fileid = guid.fileid;
 					g_MenuData.unk5d8[g_MenuData.unk668].fileguid.deviceserial = guid.deviceserial;
 					g_MenuData.unk5d8[g_MenuData.unk668].unk08 = g_MpPlayerNum;
 					g_MenuData.unk5d8[g_MenuData.unk668].unk09 = g_MpPlayerNum;
@@ -8641,7 +8641,7 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 	} else {
 		struct fileguid guid;
 		guid.deviceserial = 0;
-		guid.filenum = 0;
+		guid.fileid = 0;
 		savebufferWriteGuid(buffer, &guid);
 	}
 
@@ -8762,7 +8762,7 @@ void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime)
 s32 mpplayerfileSave(s32 playernum, s32 device, s32 arg2, u16 deviceserial)
 {
 	s32 tmp;
-	s32 filenum;
+	s32 fileid;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
@@ -8772,22 +8772,22 @@ s32 mpplayerfileSave(s32 playernum, s32 device, s32 arg2, u16 deviceserial)
 
 		var80075bd0[2] = true;
 
-		tmp = pak0f116828(device, arg2, 0x20, buffer.bytes, &filenum, 0);
+		tmp = pak0f116828(device, arg2, PAKFILETYPE_MPPLAYER, buffer.bytes, &fileid, 0);
 
 		if (tmp == 0) {
-			g_MpPlayers[playernum].fileguid.filenum = filenum;
+			g_MpPlayers[playernum].fileguid.fileid = fileid;
 			g_MpPlayers[playernum].fileguid.deviceserial = deviceserial;
 			return 0;
 		}
 
-		var800a21f8.filenum = tmp;
+		var800a21f8.fileid = tmp;
 		return -1;
 	}
 
 	return -1;
 }
 
-s32 mpplayerfileLoad(s32 playernum, s32 device, s32 filenum, u16 deviceserial)
+s32 mpplayerfileLoad(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 {
 	s32 tmp;
 	struct savebuffer buffer;
@@ -8795,10 +8795,10 @@ s32 mpplayerfileLoad(s32 playernum, s32 device, s32 filenum, u16 deviceserial)
 	if (device >= 0) {
 		savebufferClear(&buffer);
 
-		tmp = pak0f116800(device, filenum, buffer.bytes, 0);
+		tmp = pak0f116800(device, fileid, buffer.bytes, 0);
 
 		if (tmp == 0) {
-			g_MpPlayers[playernum].fileguid.filenum = filenum;
+			g_MpPlayers[playernum].fileguid.fileid = fileid;
 			g_MpPlayers[playernum].fileguid.deviceserial = deviceserial;
 
 			mpplayerfileLoadWad(playernum, &buffer, 1);
@@ -8808,7 +8808,7 @@ s32 mpplayerfileLoad(s32 playernum, s32 device, s32 filenum, u16 deviceserial)
 			return 0;
 		}
 
-		var800a21f8.filenum = tmp;
+		var800a21f8.fileid = tmp;
 		return -1;
 	}
 
@@ -9457,7 +9457,7 @@ void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stage
 	*scenarionum = savebufferReadBits(&buffer, 3);
 }
 
-s32 mpsetupfileSave(s32 device, s32 filenum, u16 deviceserial)
+s32 mpsetupfileSave(s32 device, s32 fileid, u16 deviceserial)
 {
 	s32 tmp;
 	s32 sp100;
@@ -9468,33 +9468,33 @@ s32 mpsetupfileSave(s32 device, s32 filenum, u16 deviceserial)
 		mpsetupfileSaveWad(&buffer);
 		func0f0d54c4(&buffer);
 
-		tmp = pak0f116828(device, filenum, 0x40, buffer.bytes, &sp100, 0);
+		tmp = pak0f116828(device, fileid, PAKFILETYPE_MPSETUP, buffer.bytes, &sp100, 0);
 		var80075bd0[1] = true;
 
 		if (tmp == 0) {
-			g_MpSetup.fileguid.filenum = sp100;
+			g_MpSetup.fileguid.fileid = sp100;
 			g_MpSetup.fileguid.deviceserial = deviceserial;
 			return 0;
 		}
 
-		var800a21f8.filenum = tmp;
+		var800a21f8.fileid = tmp;
 		return -1;
 	}
 
 	return -1;
 }
 
-s32 mpsetupfileLoad(s32 device, s32 filenum, u16 deviceserial)
+s32 mpsetupfileLoad(s32 device, s32 fileid, u16 deviceserial)
 {
 	s32 tmp;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
 		savebufferClear(&buffer);
-		tmp = pak0f116800(device, filenum, buffer.bytes, 0);
+		tmp = pak0f116800(device, fileid, buffer.bytes, 0);
 
 		if (tmp == 0) {
-			g_MpSetup.fileguid.filenum = filenum;
+			g_MpSetup.fileguid.fileid = fileid;
 			g_MpSetup.fileguid.deviceserial = deviceserial;
 
 			mpsetupfileLoadWad(&buffer);
@@ -9503,7 +9503,7 @@ s32 mpsetupfileLoad(s32 device, s32 filenum, u16 deviceserial)
 			return 0;
 		}
 
-		var800a21f8.filenum = tmp;
+		var800a21f8.fileid = tmp;
 
 		return -1;
 	}

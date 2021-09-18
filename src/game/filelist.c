@@ -118,12 +118,12 @@ void filelistsTick(void)
 
 	for (; i < 5; i++) {
 #if VERSION >= VERSION_NTSC_1_0
-		if (pak0f1167d8(i) && var800a2330[i] != pak0f11702c(i)) {
+		if (pak0f1167d8(i) && var800a2330[i] != pakGetUnk264(i)) {
 			updateall = true;
-			var800a2330[i] = pak0f11702c(i);
+			var800a2330[i] = pakGetUnk264(i);
 		}
 #else
-		s32 tmp = pak0f11702c(i);
+		s32 tmp = pakGetUnk264(i);
 
 		pak0f11698c(i);
 
@@ -171,7 +171,13 @@ void filelistsTick(void)
 
 void filelistUpdate(struct filelist *list)
 {
-	const u32 sp3a88[] = {0x80, 0x40, 0x20, 0x08};
+	const u32 sp3a88[] = {
+		PAKFILETYPE_GAME,
+		PAKFILETYPE_MPSETUP,
+		PAKFILETYPE_MPPLAYER,
+		PAKFILETYPE_008,
+	};
+
 	s32 sp1288[2560];
 	u32 spa88[512];
 	s8 filedevices[2560];
@@ -218,7 +224,7 @@ void filelistUpdate(struct filelist *list)
 				list->spacesfree[dis2dev[i]] = pak0f118148(dis2dev[i]);
 			}
 
-			list->deviceguids[dis2dev[i]].filenum = 0;
+			list->deviceguids[dis2dev[i]].fileid = 0;
 			list->deviceguids[dis2dev[i]].deviceserial = pakGetDeviceSerial(dis2dev[i]);
 		} else {
 			// PFS error?
@@ -249,7 +255,7 @@ void filelistUpdate(struct filelist *list)
 			}
 
 			file->deviceserial = pakGetDeviceSerial(filedevices[i]);
-			file->filenum = sp1288[i];
+			file->fileid = sp1288[i];
 
 			list->numfiles++;
 		} else if (maybepfserr == 10) {
@@ -259,8 +265,8 @@ void filelistUpdate(struct filelist *list)
 			if (list->unk305[filedevices[i]] >= 2) {
 				list->spacesfree[filedevices[i]]++;
 
-				if (list->deviceguids[filedevices[i]].filenum == 0) {
-					list->deviceguids[filedevices[i]].filenum = sp1288[i];
+				if (list->deviceguids[filedevices[i]].fileid == 0) {
+					list->deviceguids[filedevices[i]].fileid = sp1288[i];
 					list->deviceguids[filedevices[i]].deviceserial = pakGetDeviceSerial(filedevices[i]);
 				}
 			}
@@ -400,7 +406,7 @@ const char var7f1b3a14[] = "gamefile.c";
 //	}
 //
 //	for (i = 0; i != ARRAYCOUNT(g_Menus[playernum].headtextures->fileguids); i++) {
-//		g_Menus[playernum].fm.headtextures->fileguids[i].filenum = 0;
+//		g_Menus[playernum].fm.headtextures->fileguids[i].fileid = 0;
 //		g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial = 0;
 //	}
 //
@@ -433,20 +439,20 @@ void pheadFreeTextures(s32 playernum)
 	}
 }
 
-struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, u16 deviceserial)
+struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, u16 deviceserial)
 {
 	s32 i;
 	s32 freeslot = -1;
 	s32 indextouse = -1;
 
 	for (i = 0; i < 16; i++) {
-		if (g_Menus[playernum].fm.headtextures->fileguids[i].filenum == filenum
+		if (g_Menus[playernum].fm.headtextures->fileguids[i].fileid == fileid
 				&& g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial == deviceserial) {
 			indextouse = i;
 			break;
 		}
 
-		if (g_Menus[playernum].fm.headtextures->fileguids[i].filenum == 0) {
+		if (g_Menus[playernum].fm.headtextures->fileguids[i].fileid == 0) {
 			if (g_Menus[playernum].fm.headtextures->fileguids[i].deviceserial == 0) {
 				freeslot = i;
 			}
@@ -470,9 +476,9 @@ struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, u16 deviceseri
 
 		g_Menus[playernum].fm.headtextures->lastupdated240 = g_Vars.thisframe240;
 
-		func0f15015c(device, filenum, g_Menus[playernum].fm.headtextures->unk000[freeslot]);
+		func0f15015c(device, fileid, g_Menus[playernum].fm.headtextures->unk000[freeslot]);
 
-		g_Menus[playernum].fm.headtextures->fileguids[freeslot].filenum = filenum;
+		g_Menus[playernum].fm.headtextures->fileguids[freeslot].fileid = fileid;
 		g_Menus[playernum].fm.headtextures->fileguids[freeslot].deviceserial = deviceserial;
 
 		indextouse = freeslot;

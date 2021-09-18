@@ -481,7 +481,7 @@ void filemgrHandleSuccess(void)
 				align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 		break;
 	case FILEOP_LOAD_GAME:
-		g_Vars.bossfilenum = g_Menus[g_MpPlayerNum].fm.filenum;
+		g_Vars.bossfileid = g_Menus[g_MpPlayerNum].fm.fileid;
 		g_Vars.bossdeviceserial = g_Menus[g_MpPlayerNum].fm.deviceserial;
 		bossfileSave();
 
@@ -593,7 +593,7 @@ void filemgrEraseCorruptFile(void)
 	device = pakFindBySerial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 	if (device >= 0) {
-		pakDeleteFile(device, g_Menus[g_MpPlayerNum].fm.filenum);
+		pakDeleteFile(device, g_Menus[g_MpPlayerNum].fm.fileid);
 	}
 
 	for (i = 0; i < 4; i++) {
@@ -730,18 +730,18 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	case FILEOP_SAVE_GAME_000:
 	case FILEOP_SAVE_GAME_001:
 		errno = gamefileSave(device,
-				g_Menus[g_MpPlayerNum].fm.filenum,
+				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_SAVE_MPPLAYER:
 		errno = mpplayerfileSave(
 				(s32) g_Menus[g_MpPlayerNum].fm.unke44, device,
-				g_Menus[g_MpPlayerNum].fm.filenum,
+				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_SAVE_MPSETUP:
 		errno = mpsetupfileSave(device,
-				g_Menus[g_MpPlayerNum].fm.filenum,
+				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		showfilesaved = true;
 		break;
@@ -751,7 +751,7 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 		sp2c = 0;
 		func0f0d5690(g_Menus[g_MpPlayerNum].fm.unke44, g_Menus[g_MpPlayerNum].fm.filename);
 		errno = pak0f116828(device,
-				g_Menus[g_MpPlayerNum].fm.filenum,
+				g_Menus[g_MpPlayerNum].fm.fileid,
 				sp30[g_Menus[g_MpPlayerNum].fm.fileop - 6],
 				g_Menus[g_MpPlayerNum].fm.unke44, &sp2c, 0);
 		var80075bd0[g_Menus[g_MpPlayerNum].fm.fileop - 6] = 1;
@@ -763,19 +763,19 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 		errno = mpplayerfileLoad(
 				(s32) g_Menus[g_MpPlayerNum].fm.unke44,
 				device,
-				g_Menus[g_MpPlayerNum].fm.filenum,
+				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_LOAD_MPSETUP:
 		errno = mpsetupfileLoad(device,
-				g_Menus[g_MpPlayerNum].fm.filenum,
+				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
 		errno = pak0f116800(device,
-				g_Menus[g_MpPlayerNum].fm.filenum,
+				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.unke44, 0);
 		break;
 	}
@@ -1068,10 +1068,10 @@ bool filemgrSaveOrLoad(struct fileguid *guid, s32 fileop, u32 playernum)
 		g_Menus[g_MpPlayerNum].fm.fileop = fileop;
 		g_Menus[g_MpPlayerNum].fm.mpplayernum = playernum;
 		g_Menus[g_MpPlayerNum].fm.isretryingsave = 0;
-		var800a21f8.filenum = 0;
+		var800a21f8.fileid = 0;
 	}
 
-	g_Menus[g_MpPlayerNum].fm.filenum = guid->filenum;
+	g_Menus[g_MpPlayerNum].fm.fileid = guid->fileid;
 	g_Menus[g_MpPlayerNum].fm.deviceserial = guid->deviceserial;
 
 	if (fileop != -1) {
@@ -1118,7 +1118,7 @@ void filemgrDeleteCurrentFile(void)
 	s32 i;
 
 	if (device >= 0) {
-		if (pakDeleteFile(device, g_FilemgrFileToDelete.filenum) != 0) {
+		if (pakDeleteFile(device, g_FilemgrFileToDelete.fileid) != 0) {
 			error = true;
 		}
 	} else {
@@ -1133,7 +1133,7 @@ void filemgrDeleteCurrentFile(void)
 	} else {
 		// If deleting a loaded MP player, reset them to default
 		for (i = 0; i < 4; i++) {
-			if (g_FilemgrFileToDelete.filenum == g_MpPlayers[i].fileguid.filenum
+			if (g_FilemgrFileToDelete.fileid == g_MpPlayers[i].fileguid.fileid
 					&& g_FilemgrFileToDelete.deviceserial == g_MpPlayers[i].fileguid.deviceserial) {
 				mpPlayerSetDefaults(i, true);
 			}
@@ -1233,7 +1233,7 @@ void func0f1097d0(s32 device)
 	void *thing;
 
 	if (g_FileLists[0]) {
-		var800a21e8.filenum = g_FileLists[0]->deviceguids[device].filenum;
+		var800a21e8.fileid = g_FileLists[0]->deviceguids[device].fileid;
 		var800a21e8.deviceserial = g_FileLists[0]->deviceguids[device].deviceserial;
 
 		thing = func00012ab0(align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
@@ -1258,7 +1258,7 @@ const char var7f1b3284[] = "Saving...\n";
 void filemgrSaveGameToDevice(s32 device)
 {
 	if (g_FileLists[0]) {
-		g_GameFileGuid.filenum = g_FileLists[0]->deviceguids[device].filenum;
+		g_GameFileGuid.fileid = g_FileLists[0]->deviceguids[device].fileid;
 		g_GameFileGuid.deviceserial = g_FileLists[0]->deviceguids[device].deviceserial;
 
 		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
@@ -1479,17 +1479,17 @@ void filemgrSaveToDevice(void)
 				// empty
 			} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 6) {
 				struct fileguid guid;
-				guid.filenum = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].filenum;
+				guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].fileid;
 				guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].deviceserial;
 				filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPPLAYER, (u32)g_MpPlayerNum);
 			} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 7) {
 				struct fileguid guid;
-				guid.filenum = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].filenum;
+				guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].fileid;
 				guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].deviceserial;
 				filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPSETUP, 0);
 			} else if (g_Menus[g_MpPlayerNum].fm.unke3e >= 9) {
 				struct fileguid guid;
-				guid.filenum = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].filenum;
+				guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].fileid;
 				guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].deviceserial;
 				filemgrSaveOrLoad(&guid, -1, 0);
 			} else {
@@ -1955,11 +1955,11 @@ char *filemgrMenuTextFileInUseDescription(struct menuitem *item)
  * but filemgrRenderPerfectHeadThumbnail will only match if
  * it's an s32 with a 0xffff mask.
  */
-struct textureconfig *pheadGetTexture(s32 playernum, s32 filenum, s32 deviceserial);
+struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, s32 deviceserial);
 
-Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, s32 filenum, s32 deviceserial)
+Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, s32 fileid, s32 deviceserial)
 {
-	struct textureconfig *texture = pheadGetTexture(g_MpPlayerNum, filenum, deviceserial & 0xffff);
+	struct textureconfig *texture = pheadGetTexture(g_MpPlayerNum, fileid, deviceserial & 0xffff);
 
 	if (texture) {
 		gSPDisplayList(gdl++, &var800613a0);
@@ -2009,7 +2009,7 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
-			&& file->filenum == g_FilemgrFileToCopy.filenum
+			&& file->fileid == g_FilemgrFileToCopy.fileid
 			&& file->deviceserial == g_FilemgrFileToCopy.deviceserial) {
 		return true;
 	}
@@ -2020,7 +2020,7 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 #else
 	if (g_MenuData.root == MENUROOT_FILEMGR
 			&& menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
-			&& file->filenum == g_FilemgrFileToCopy.filenum
+			&& file->fileid == g_FilemgrFileToCopy.fileid
 			&& file->deviceserial == g_FilemgrFileToCopy.deviceserial) {
 		return true;
 	}
@@ -2030,17 +2030,17 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 		return false;
 	}
 
-	if (file->filenum == g_GameFileGuid.filenum && file->deviceserial == g_GameFileGuid.deviceserial) {
+	if (file->fileid == g_GameFileGuid.fileid && file->deviceserial == g_GameFileGuid.deviceserial) {
 		return true;
 	}
 
-	if (file->filenum == g_MpSetup.fileguid.filenum && file->deviceserial == g_MpSetup.fileguid.deviceserial) {
+	if (file->fileid == g_MpSetup.fileguid.fileid && file->deviceserial == g_MpSetup.fileguid.deviceserial) {
 		return true;
 	}
 
 	for (i = 0; i < 4; i++) {
 		if ((g_MpSetup.chrslots & (1 << i))
-				&& g_MpPlayers[i].fileguid.filenum == file->filenum
+				&& g_MpPlayers[i].fileguid.fileid == file->fileid
 				&& g_MpPlayers[i].fileguid.deviceserial == file->deviceserial) {
 			return true;
 		}
@@ -2082,7 +2082,7 @@ s32 filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *ite
 			struct filelistfile *file = &list->files[data->list.unk04];
 
 			if (g_Menus[g_MpPlayerNum].fm.filetypeplusone == 4) {
-				gdl = filemgrRenderPerfectHeadThumbnail(gdl, renderdata, file->filenum, file->deviceserial);
+				gdl = filemgrRenderPerfectHeadThumbnail(gdl, renderdata, file->fileid, file->deviceserial);
 			} else {
 				u32 colour = renderdata->colour;
 				char text[32];
@@ -2140,7 +2140,7 @@ s32 filemgrFileToDeleteListMenuHandler(s32 operation, struct menuitem *item, uni
 				menuPushDialog(&g_FilemgrFileInUseMenuDialog);
 			} else {
 				filemgrSetFileToDelete(file, g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->filetype);
-				g_FilemgrFileToDelete.filenum = file->filenum;
+				g_FilemgrFileToDelete.fileid = file->fileid;
 				g_FilemgrFileToDelete.deviceserial = file->deviceserial;
 				menuPushDialog(&g_FilemgrConfirmDeleteMenuDialog);
 			}
@@ -2162,7 +2162,7 @@ s32 filemgrFileToCopyListMenuHandler(s32 operation, struct menuitem *item, union
 		struct filelistfile *file = &list->files[data->list.value];
 
 		if (file) {
-			g_FilemgrFileToCopy.filenum = file->filenum;
+			g_FilemgrFileToCopy.fileid = file->fileid;
 			g_FilemgrFileToCopy.deviceserial = file->deviceserial;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2657,7 +2657,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 		if (data->list.unk04 == 1) {
 			if (data->list.groupstartindex == 1 && g_Menus[g_MpPlayerNum].fm.unke2c == 1) {
 				for (i = 0; i < g_FileLists[0]->numfiles; i++) {
-					if (g_GameFileGuid.filenum == g_FileLists[0]->files[i].filenum
+					if (g_GameFileGuid.fileid == g_FileLists[0]->files[i].fileid
 							&& g_GameFileGuid.deviceserial == g_FileLists[0]->files[i].deviceserial) {
 						data->list.value = i;
 					}
@@ -2674,12 +2674,12 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 			g_Menus[g_MpPlayerNum].fm.unke2c = 0;
 		}
 
-		if (pass && g_Vars.bossfilenum) {
+		if (pass && g_Vars.bossfileid) {
 			for (j = 0; j < g_FileLists[0]->numfiles; j++) {
-				if (g_Vars.bossfilenum == g_FileLists[0]->files[j].filenum
+				if (g_Vars.bossfileid == g_FileLists[0]->files[j].fileid
 						&& g_Vars.bossdeviceserial == g_FileLists[0]->files[j].deviceserial) {
 					data->list.value = j;
-					g_Vars.bossfilenum = 0;
+					g_Vars.bossfileid = 0;
 				}
 			}
 		}
@@ -2818,7 +2818,7 @@ s32 filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, unio
 			struct filelistfile *file = &g_FileLists[0]->files[data->list.value];
 
 			if (file) {
-				g_GameFileGuid.filenum = file->filenum;
+				g_GameFileGuid.fileid = file->fileid;
 				g_GameFileGuid.deviceserial = file->deviceserial;
 				filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_LOAD_GAME, 0);
 			}
