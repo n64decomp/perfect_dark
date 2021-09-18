@@ -932,7 +932,7 @@ u32 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader *header)
 		}
 
 		if (g_PakDebugPakCache) {
-			pak0f11b178(device, alignmult, sp38);
+			pakSaveHeaderToCache(device, alignmult, (struct pakfileheader *) sp38);
 
 			if (!pakRetrieveHeaderFromCache(device, alignmult, headerptr)) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -8782,433 +8782,59 @@ void pakWipe(s8 device, u32 start, u32 end)
 	}
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11b178
-/*  f11b178:	27bdef80 */ 	addiu	$sp,$sp,-4224
-/*  f11b17c:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f11b180:	0004be00 */ 	sll	$s7,$a0,0x18
-/*  f11b184:	00177603 */ 	sra	$t6,$s7,0x18
-/*  f11b188:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f11b18c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11b190:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11b194:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11b198:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11b19c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f11b1a0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11b1a4:	afa41080 */ 	sw	$a0,0x1080($sp)
-/*  f11b1a8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11b1ac:	3c18800a */ 	lui	$t8,%hi(g_Paks)
-/*  f11b1b0:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f11b1b4:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
-/*  f11b1b8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11b1bc:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f11b1c0:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f11b1c4:	01f8b021 */ 	addu	$s6,$t7,$t8
-/*  f11b1c8:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f11b1cc:	01c0b825 */ 	or	$s7,$t6,$zero
-/*  f11b1d0:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f11b1d4:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f11b1d8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f11b1dc:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f11b1e0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11b1e4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11b1e8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11b1ec:	afa51084 */ 	sw	$a1,0x1084($sp)
-/*  f11b1f0:	afa61088 */ 	sw	$a2,0x1088($sp)
-/*  f11b1f4:	afb6107c */ 	sw	$s6,0x107c($sp)
-/*  f11b1f8:	0fc45974 */ 	jal	pakGetAlignment
-/*  f11b1fc:	03202025 */ 	or	$a0,$t9,$zero
-/*  f11b200:	8fa81088 */ 	lw	$t0,0x1088($sp)
-/*  f11b204:	8fa61084 */ 	lw	$a2,0x1084($sp)
-/*  f11b208:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f11b20c:	8d090008 */ 	lw	$t1,0x8($t0)
-/*  f11b210:	27a30078 */ 	addiu	$v1,$sp,0x78
-/*  f11b214:	241effff */ 	addiu	$s8,$zero,-1
-/*  f11b218:	312a0fff */ 	andi	$t2,$t1,0xfff
-/*  f11b21c:	0142001b */ 	divu	$zero,$t2,$v0
-/*  f11b220:	00005812 */ 	mflo	$t3
-/*  f11b224:	01662821 */ 	addu	$a1,$t3,$a2
-/*  f11b228:	14400002 */ 	bnez	$v0,.L0f11b234
-/*  f11b22c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11b230:	0007000d */ 	break	0x7
-.L0f11b234:
-/*  f11b234:	27a21078 */ 	addiu	$v0,$sp,0x1078
-.L0f11b238:
-/*  f11b238:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f11b23c:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f11b240:	1420fffd */ 	bnez	$at,.L0f11b238
-/*  f11b244:	ac7efffc */ 	sw	$s8,-0x4($v1)
-/*  f11b248:	92cc02be */ 	lbu	$t4,0x2be($s6)
-/*  f11b24c:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f11b250:	00009825 */ 	or	$s3,$zero,$zero
-/*  f11b254:	19800035 */ 	blez	$t4,.L0f11b32c
-/*  f11b258:	27b40078 */ 	addiu	$s4,$sp,0x78
-/*  f11b25c:	afa50060 */ 	sw	$a1,0x60($sp)
-/*  f11b260:	8ecd02c0 */ 	lw	$t5,0x2c0($s6)
-.L0f11b264:
-/*  f11b264:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f11b268:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f11b26c:	01b39021 */ 	addu	$s2,$t5,$s3
-/*  f11b270:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f11b274:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f11b278:	0fc45974 */ 	jal	pakGetAlignment
-/*  f11b27c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f11b280:	8e4f0008 */ 	lw	$t7,0x8($s2)
-/*  f11b284:	31f80fff */ 	andi	$t8,$t7,0xfff
-/*  f11b288:	0302001b */ 	divu	$zero,$t8,$v0
-/*  f11b28c:	0000c812 */ 	mflo	$t9
-/*  f11b290:	14400002 */ 	bnez	$v0,.L0f11b29c
-/*  f11b294:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11b298:	0007000d */ 	break	0x7
-.L0f11b29c:
-/*  f11b29c:	5320001a */ 	beqzl	$t9,.L0f11b308
-/*  f11b2a0:	8fa8107c */ 	lw	$t0,0x107c($sp)
-/*  f11b2a4:	00108880 */ 	sll	$s1,$s0,0x2
-/*  f11b2a8:	8ec802c0 */ 	lw	$t0,0x2c0($s6)
-.L0f11b2ac:
-/*  f11b2ac:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f11b2b0:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f11b2b4:	01134821 */ 	addu	$t1,$t0,$s3
-/*  f11b2b8:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*  f11b2bc:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f11b2c0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f11b2c4:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f11b2c8:	028b6021 */ 	addu	$t4,$s4,$t3
-/*  f11b2cc:	01916821 */ 	addu	$t5,$t4,$s1
-/*  f11b2d0:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f11b2d4:	0fc45974 */ 	jal	pakGetAlignment
-/*  f11b2d8:	adb50000 */ 	sw	$s5,0x0($t5)
-/*  f11b2dc:	8e4f0008 */ 	lw	$t7,0x8($s2)
-/*  f11b2e0:	31f80fff */ 	andi	$t8,$t7,0xfff
-/*  f11b2e4:	0302001b */ 	divu	$zero,$t8,$v0
-/*  f11b2e8:	0000c812 */ 	mflo	$t9
-/*  f11b2ec:	0219082b */ 	sltu	$at,$s0,$t9
-/*  f11b2f0:	14400002 */ 	bnez	$v0,.L0f11b2fc
-/*  f11b2f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11b2f8:	0007000d */ 	break	0x7
-.L0f11b2fc:
-/*  f11b2fc:	5420ffeb */ 	bnezl	$at,.L0f11b2ac
-/*  f11b300:	8ec802c0 */ 	lw	$t0,0x2c0($s6)
-/*  f11b304:	8fa8107c */ 	lw	$t0,0x107c($sp)
-.L0f11b308:
-/*  f11b308:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f11b30c:	26730024 */ 	addiu	$s3,$s3,0x24
-/*  f11b310:	910902be */ 	lbu	$t1,0x2be($t0)
-/*  f11b314:	02a9082a */ 	slt	$at,$s5,$t1
-/*  f11b318:	5420ffd2 */ 	bnezl	$at,.L0f11b264
-/*  f11b31c:	8ecd02c0 */ 	lw	$t5,0x2c0($s6)
-/*  f11b320:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f11b324:	8fa61084 */ 	lw	$a2,0x1084($sp)
-/*  f11b328:	8fa50060 */ 	lw	$a1,0x60($sp)
-.L0f11b32c:
-/*  f11b32c:	00c5082a */ 	slt	$at,$a2,$a1
-/*  f11b330:	10200010 */ 	beqz	$at,.L0f11b374
-/*  f11b334:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f11b338:	00025080 */ 	sll	$t2,$v0,0x2
-/*  f11b33c:	27ab0078 */ 	addiu	$t3,$sp,0x78
-/*  f11b340:	014b1821 */ 	addu	$v1,$t2,$t3
-/*  f11b344:	24140024 */ 	addiu	$s4,$zero,0x24
-.L0f11b348:
-/*  f11b348:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f11b34c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11b350:	13c40006 */ 	beq	$s8,$a0,.L0f11b36c
-/*  f11b354:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11b358:	00940019 */ 	multu	$a0,$s4
-/*  f11b35c:	8ecc02c0 */ 	lw	$t4,0x2c0($s6)
-/*  f11b360:	00006812 */ 	mflo	$t5
-/*  f11b364:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f11b368:	adde0000 */ 	sw	$s8,0x0($t6)
-.L0f11b36c:
-/*  f11b36c:	1445fff6 */ 	bne	$v0,$a1,.L0f11b348
-/*  f11b370:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f11b374:
-/*  f11b374:	92d802be */ 	lbu	$t8,0x2be($s6)
-/*  f11b378:	24100024 */ 	addiu	$s0,$zero,0x24
-/*  f11b37c:	8ecf02c0 */ 	lw	$t7,0x2c0($s6)
-/*  f11b380:	03100019 */ 	multu	$t8,$s0
-/*  f11b384:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f11b388:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f11b38c:	24140024 */ 	addiu	$s4,$zero,0x24
-/*  f11b390:	01202025 */ 	or	$a0,$t1,$zero
-/*  f11b394:	0000c812 */ 	mflo	$t9
-/*  f11b398:	01f94021 */ 	addu	$t0,$t7,$t9
-/*  f11b39c:	0fc45974 */ 	jal	pakGetAlignment
-/*  f11b3a0:	ad060000 */ 	sw	$a2,0x0($t0)
-/*  f11b3a4:	92cb02be */ 	lbu	$t3,0x2be($s6)
-/*  f11b3a8:	8eca02c0 */ 	lw	$t2,0x2c0($s6)
-/*  f11b3ac:	8fa51088 */ 	lw	$a1,0x1088($sp)
-/*  f11b3b0:	01700019 */ 	multu	$t3,$s0
-/*  f11b3b4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f11b3b8:	00006012 */ 	mflo	$t4
-/*  f11b3bc:	014c2021 */ 	addu	$a0,$t2,$t4
-/*  f11b3c0:	0c012978 */ 	jal	memcpy
-/*  f11b3c4:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f11b3c8:	92cd02be */ 	lbu	$t5,0x2be($s6)
-/*  f11b3cc:	00009025 */ 	or	$s2,$zero,$zero
-/*  f11b3d0:	00009825 */ 	or	$s3,$zero,$zero
-/*  f11b3d4:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f11b3d8:	31d800ff */ 	andi	$t8,$t6,0xff
-/*  f11b3dc:	1b00001d */ 	blez	$t8,.L0f11b454
-/*  f11b3e0:	a2ce02be */ 	sb	$t6,0x2be($s6)
-/*  f11b3e4:	8ed002c0 */ 	lw	$s0,0x2c0($s6)
-.L0f11b3e8:
-/*  f11b3e8:	02137821 */ 	addu	$t7,$s0,$s3
-/*  f11b3ec:	8de20000 */ 	lw	$v0,0x0($t7)
-/*  f11b3f0:	53c20012 */ 	beql	$s8,$v0,.L0f11b43c
-/*  f11b3f4:	8fa9107c */ 	lw	$t1,0x107c($sp)
-/*  f11b3f8:	02540019 */ 	multu	$s2,$s4
-/*  f11b3fc:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f11b400:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f11b404:	01002025 */ 	or	$a0,$t0,$zero
-/*  f11b408:	00008812 */ 	mflo	$s1
-/*  f11b40c:	0211c821 */ 	addu	$t9,$s0,$s1
-/*  f11b410:	0fc45974 */ 	jal	pakGetAlignment
-/*  f11b414:	af220000 */ 	sw	$v0,0x0($t9)
-/*  f11b418:	8ed002c0 */ 	lw	$s0,0x2c0($s6)
-/*  f11b41c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f11b420:	02112021 */ 	addu	$a0,$s0,$s1
-/*  f11b424:	02132821 */ 	addu	$a1,$s0,$s3
-/*  f11b428:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f11b42c:	0c012978 */ 	jal	memcpy
-/*  f11b430:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f11b434:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f11b438:	8fa9107c */ 	lw	$t1,0x107c($sp)
-.L0f11b43c:
-/*  f11b43c:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f11b440:	26730024 */ 	addiu	$s3,$s3,0x24
-/*  f11b444:	912b02be */ 	lbu	$t3,0x2be($t1)
-/*  f11b448:	02ab082a */ 	slt	$at,$s5,$t3
-/*  f11b44c:	5420ffe6 */ 	bnezl	$at,.L0f11b3e8
-/*  f11b450:	8ed002c0 */ 	lw	$s0,0x2c0($s6)
-.L0f11b454:
-/*  f11b454:	a2d202be */ 	sb	$s2,0x2be($s6)
-/*  f11b458:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f11b45c:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f11b460:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f11b464:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f11b468:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f11b46c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f11b470:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f11b474:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11b478:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11b47c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11b480:	03e00008 */ 	jr	$ra
-/*  f11b484:	27bd1080 */ 	addiu	$sp,$sp,0x1080
-);
-#else
-GLOBAL_ASM(
-glabel pak0f11b178
-/*  f115150:	27bdef80 */ 	addiu	$sp,$sp,-4224
-/*  f115154:	afb70034 */ 	sw	$s7,0x34($sp)
-/*  f115158:	0004be00 */ 	sll	$s7,$a0,0x18
-/*  f11515c:	00177603 */ 	sra	$t6,$s7,0x18
-/*  f115160:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f115164:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f115168:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11516c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f115170:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f115174:	afa41080 */ 	sw	$a0,0x1080($sp)
-/*  f115178:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f11517c:	3c18800a */ 	lui	$t8,0x800a
-/*  f115180:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f115184:	27186870 */ 	addiu	$t8,$t8,0x6870
-/*  f115188:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f11518c:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f115190:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f115194:	01f8b021 */ 	addu	$s6,$t7,$t8
-/*  f115198:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f11519c:	01c0b825 */ 	or	$s7,$t6,$zero
-/*  f1151a0:	afbe0038 */ 	sw	$s8,0x38($sp)
-/*  f1151a4:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f1151a8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f1151ac:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f1151b0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1151b4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1151b8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1151bc:	afa51084 */ 	sw	$a1,0x1084($sp)
-/*  f1151c0:	afa61088 */ 	sw	$a2,0x1088($sp)
-/*  f1151c4:	afb6107c */ 	sw	$s6,0x107c($sp)
-/*  f1151c8:	0fc4428c */ 	jal	pakGetAlignment
-/*  f1151cc:	03202025 */ 	or	$a0,$t9,$zero
-/*  f1151d0:	8fa81088 */ 	lw	$t0,0x1088($sp)
-/*  f1151d4:	8fa61084 */ 	lw	$a2,0x1084($sp)
-/*  f1151d8:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f1151dc:	8d090008 */ 	lw	$t1,0x8($t0)
-/*  f1151e0:	27a30078 */ 	addiu	$v1,$sp,0x78
-/*  f1151e4:	241effff */ 	addiu	$s8,$zero,-1
-/*  f1151e8:	312a0fff */ 	andi	$t2,$t1,0xfff
-/*  f1151ec:	0142001b */ 	divu	$zero,$t2,$v0
-/*  f1151f0:	00005812 */ 	mflo	$t3
-/*  f1151f4:	01662821 */ 	addu	$a1,$t3,$a2
-/*  f1151f8:	14400002 */ 	bnez	$v0,.NB0f115204
-/*  f1151fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f115200:	0007000d */ 	break	0x7
-.NB0f115204:
-/*  f115204:	27a21078 */ 	addiu	$v0,$sp,0x1078
-.NB0f115208:
-/*  f115208:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f11520c:	0062082b */ 	sltu	$at,$v1,$v0
-/*  f115210:	1420fffd */ 	bnez	$at,.NB0f115208
-/*  f115214:	ac7efffc */ 	sw	$s8,-0x4($v1)
-/*  f115218:	92cc02be */ 	lbu	$t4,0x2be($s6)
-/*  f11521c:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f115220:	00009825 */ 	or	$s3,$zero,$zero
-/*  f115224:	19800035 */ 	blez	$t4,.NB0f1152fc
-/*  f115228:	27b40078 */ 	addiu	$s4,$sp,0x78
-/*  f11522c:	afa50060 */ 	sw	$a1,0x60($sp)
-/*  f115230:	8ecd02c0 */ 	lw	$t5,0x2c0($s6)
-.NB0f115234:
-/*  f115234:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f115238:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f11523c:	01b39021 */ 	addu	$s2,$t5,$s3
-/*  f115240:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f115244:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f115248:	0fc4428c */ 	jal	pakGetAlignment
-/*  f11524c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f115250:	8e4f0008 */ 	lw	$t7,0x8($s2)
-/*  f115254:	31f80fff */ 	andi	$t8,$t7,0xfff
-/*  f115258:	0302001b */ 	divu	$zero,$t8,$v0
-/*  f11525c:	0000c812 */ 	mflo	$t9
-/*  f115260:	14400002 */ 	bnez	$v0,.NB0f11526c
-/*  f115264:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f115268:	0007000d */ 	break	0x7
-.NB0f11526c:
-/*  f11526c:	5320001a */ 	beqzl	$t9,.NB0f1152d8
-/*  f115270:	8fa8107c */ 	lw	$t0,0x107c($sp)
-/*  f115274:	00108880 */ 	sll	$s1,$s0,0x2
-/*  f115278:	8ec802c0 */ 	lw	$t0,0x2c0($s6)
-.NB0f11527c:
-/*  f11527c:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f115280:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f115284:	01134821 */ 	addu	$t1,$t0,$s3
-/*  f115288:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*  f11528c:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f115290:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f115294:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f115298:	028b6021 */ 	addu	$t4,$s4,$t3
-/*  f11529c:	01916821 */ 	addu	$t5,$t4,$s1
-/*  f1152a0:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f1152a4:	0fc4428c */ 	jal	pakGetAlignment
-/*  f1152a8:	adb50000 */ 	sw	$s5,0x0($t5)
-/*  f1152ac:	8e4f0008 */ 	lw	$t7,0x8($s2)
-/*  f1152b0:	31f80fff */ 	andi	$t8,$t7,0xfff
-/*  f1152b4:	0302001b */ 	divu	$zero,$t8,$v0
-/*  f1152b8:	0000c812 */ 	mflo	$t9
-/*  f1152bc:	0219082b */ 	sltu	$at,$s0,$t9
-/*  f1152c0:	14400002 */ 	bnez	$v0,.NB0f1152cc
-/*  f1152c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1152c8:	0007000d */ 	break	0x7
-.NB0f1152cc:
-/*  f1152cc:	5420ffeb */ 	bnezl	$at,.NB0f11527c
-/*  f1152d0:	8ec802c0 */ 	lw	$t0,0x2c0($s6)
-/*  f1152d4:	8fa8107c */ 	lw	$t0,0x107c($sp)
-.NB0f1152d8:
-/*  f1152d8:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f1152dc:	26730024 */ 	addiu	$s3,$s3,0x24
-/*  f1152e0:	910902be */ 	lbu	$t1,0x2be($t0)
-/*  f1152e4:	02a9082a */ 	slt	$at,$s5,$t1
-/*  f1152e8:	5420ffd2 */ 	bnezl	$at,.NB0f115234
-/*  f1152ec:	8ecd02c0 */ 	lw	$t5,0x2c0($s6)
-/*  f1152f0:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f1152f4:	8fa61084 */ 	lw	$a2,0x1084($sp)
-/*  f1152f8:	8fa50060 */ 	lw	$a1,0x60($sp)
-.NB0f1152fc:
-/*  f1152fc:	00c5082a */ 	slt	$at,$a2,$a1
-/*  f115300:	10200010 */ 	beqz	$at,.NB0f115344
-/*  f115304:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f115308:	00025080 */ 	sll	$t2,$v0,0x2
-/*  f11530c:	27ab0078 */ 	addiu	$t3,$sp,0x78
-/*  f115310:	014b1821 */ 	addu	$v1,$t2,$t3
-/*  f115314:	24140024 */ 	addiu	$s4,$zero,0x24
-.NB0f115318:
-/*  f115318:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f11531c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f115320:	13c40006 */ 	beq	$s8,$a0,.NB0f11533c
-/*  f115324:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f115328:	00940019 */ 	multu	$a0,$s4
-/*  f11532c:	8ecc02c0 */ 	lw	$t4,0x2c0($s6)
-/*  f115330:	00006812 */ 	mflo	$t5
-/*  f115334:	018d7021 */ 	addu	$t6,$t4,$t5
-/*  f115338:	adde0000 */ 	sw	$s8,0x0($t6)
-.NB0f11533c:
-/*  f11533c:	1445fff6 */ 	bne	$v0,$a1,.NB0f115318
-/*  f115340:	24630004 */ 	addiu	$v1,$v1,0x4
-.NB0f115344:
-/*  f115344:	92d802be */ 	lbu	$t8,0x2be($s6)
-/*  f115348:	24100024 */ 	addiu	$s0,$zero,0x24
-/*  f11534c:	8ecf02c0 */ 	lw	$t7,0x2c0($s6)
-/*  f115350:	03100019 */ 	multu	$t8,$s0
-/*  f115354:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f115358:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f11535c:	24140024 */ 	addiu	$s4,$zero,0x24
-/*  f115360:	01202025 */ 	or	$a0,$t1,$zero
-/*  f115364:	0000c812 */ 	mflo	$t9
-/*  f115368:	01f94021 */ 	addu	$t0,$t7,$t9
-/*  f11536c:	0fc4428c */ 	jal	pakGetAlignment
-/*  f115370:	ad060000 */ 	sw	$a2,0x0($t0)
-/*  f115374:	92cb02be */ 	lbu	$t3,0x2be($s6)
-/*  f115378:	8eca02c0 */ 	lw	$t2,0x2c0($s6)
-/*  f11537c:	8fa51088 */ 	lw	$a1,0x1088($sp)
-/*  f115380:	01700019 */ 	multu	$t3,$s0
-/*  f115384:	00403025 */ 	or	$a2,$v0,$zero
-/*  f115388:	00006012 */ 	mflo	$t4
-/*  f11538c:	014c2021 */ 	addu	$a0,$t2,$t4
-/*  f115390:	0c012e88 */ 	jal	memcpy
-/*  f115394:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f115398:	92cd02be */ 	lbu	$t5,0x2be($s6)
-/*  f11539c:	00009025 */ 	or	$s2,$zero,$zero
-/*  f1153a0:	00009825 */ 	or	$s3,$zero,$zero
-/*  f1153a4:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f1153a8:	31d800ff */ 	andi	$t8,$t6,0xff
-/*  f1153ac:	1b00001d */ 	blez	$t8,.NB0f115424
-/*  f1153b0:	a2ce02be */ 	sb	$t6,0x2be($s6)
-/*  f1153b4:	8ed002c0 */ 	lw	$s0,0x2c0($s6)
-.NB0f1153b8:
-/*  f1153b8:	02137821 */ 	addu	$t7,$s0,$s3
-/*  f1153bc:	8de20000 */ 	lw	$v0,0x0($t7)
-/*  f1153c0:	53c20012 */ 	beql	$s8,$v0,.NB0f11540c
-/*  f1153c4:	8fa9107c */ 	lw	$t1,0x107c($sp)
-/*  f1153c8:	02540019 */ 	multu	$s2,$s4
-/*  f1153cc:	00172600 */ 	sll	$a0,$s7,0x18
-/*  f1153d0:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f1153d4:	01002025 */ 	or	$a0,$t0,$zero
-/*  f1153d8:	00008812 */ 	mflo	$s1
-/*  f1153dc:	0211c821 */ 	addu	$t9,$s0,$s1
-/*  f1153e0:	0fc4428c */ 	jal	pakGetAlignment
-/*  f1153e4:	af220000 */ 	sw	$v0,0x0($t9)
-/*  f1153e8:	8ed002c0 */ 	lw	$s0,0x2c0($s6)
-/*  f1153ec:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1153f0:	02112021 */ 	addu	$a0,$s0,$s1
-/*  f1153f4:	02132821 */ 	addu	$a1,$s0,$s3
-/*  f1153f8:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f1153fc:	0c012e88 */ 	jal	memcpy
-/*  f115400:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f115404:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f115408:	8fa9107c */ 	lw	$t1,0x107c($sp)
-.NB0f11540c:
-/*  f11540c:	26b50001 */ 	addiu	$s5,$s5,0x1
-/*  f115410:	26730024 */ 	addiu	$s3,$s3,0x24
-/*  f115414:	912b02be */ 	lbu	$t3,0x2be($t1)
-/*  f115418:	02ab082a */ 	slt	$at,$s5,$t3
-/*  f11541c:	5420ffe6 */ 	bnezl	$at,.NB0f1153b8
-/*  f115420:	8ed002c0 */ 	lw	$s0,0x2c0($s6)
-.NB0f115424:
-/*  f115424:	a2d202be */ 	sb	$s2,0x2be($s6)
-/*  f115428:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f11542c:	8fbe0038 */ 	lw	$s8,0x38($sp)
-/*  f115430:	8fb70034 */ 	lw	$s7,0x34($sp)
-/*  f115434:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f115438:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f11543c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f115440:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f115444:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f115448:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11544c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f115450:	03e00008 */ 	jr	$ra
-/*  f115454:	27bd1080 */ 	addiu	$sp,$sp,0x1080
-);
-#endif
+void pakSaveHeaderToCache(s8 device, s32 alignmult, struct pakfileheader *header)
+{
+	struct pak *pak = &g_Paks[device];
+	s32 count;
+	s32 overview[1024];
+	u32 stack[2];
+	s32 j;
+	s32 k;
+	s32 i;
+	s32 endalignmult = header->filelen / pakGetAlignment(device) + alignmult;
+
+	for (i = 0; i < ARRAYCOUNT(overview); i++) {
+		overview[i] = -1;
+	}
+
+	// Iterate existing cache items and write their indexes into the overview array,
+	// where the index in the overview array is determined by the cache item's alignmult.
+	for (i = 0; i < pak->headercachecount; i++) {
+		struct pakfileheader *tmp = (struct pakfileheader *) pak->headercache[i].payload;
+
+		for (j = 0; j < tmp->filelen / pakGetAlignment(device); j++) {
+			overview[pak->headercache[i].alignmult + j] = i;
+		}
+	}
+
+	// Examine the overview range where the new cache entry is going to go.
+	// If any cache entries are there then they're likely an older version of
+	// the cache header that's being inserted, so invalidate them.
+	for (k = alignmult; k < endalignmult; k++) {
+		if (overview[k] != -1) {
+			pak->headercache[overview[k]].alignmult = -1;
+		}
+	}
+
+	// Save the header into the cache
+	pak->headercache[pak->headercachecount].alignmult = alignmult;
+	memcpy(pak->headercache[pak->headercachecount].payload, header, pakGetAlignment(device));
+
+	pak->headercachecount++;
+
+	// Close any gaps in the cache list and recount for good measure
+	count = 0;
+
+	for (i = 0; i < pak->headercachecount; i++) {
+		if (pak->headercache[i].alignmult != -1) {
+			pak->headercache[count].alignmult = pak->headercache[i].alignmult;
+			memcpy(&pak->headercache[count].payload, &pak->headercache[i].payload, pakGetAlignment(device));
+			count++;
+		}
+	}
+
+	pak->headercachecount = count;
+}
 
 bool pakRetrieveHeaderFromCache(s8 device, s32 alignmult, struct pakfileheader *dst)
 {
@@ -10279,7 +9905,7 @@ glabel pak0f11bc54
 /*  f11c268:	0007000d */ 	break	0x7
 .L0f11c26c:
 /*  f11c26c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f11c270:	0fc46c5e */ 	jal	pak0f11b178
+/*  f11c270:	0fc46c5e */ 	jal	pakSaveHeaderToCache
 /*  f11c274:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f11c278:	00001025 */ 	or	$v0,$zero,$zero
 .L0f11c27c:
@@ -10729,7 +10355,7 @@ glabel pak0f11bc54
 /*  f1161ec:	0007000d */ 	break	0x7
 .NB0f1161f0:
 /*  f1161f0:	02403025 */ 	or	$a2,$s2,$zero
-/*  f1161f4:	0fc45454 */ 	jal	pak0f11b178
+/*  f1161f4:	0fc45454 */ 	jal	pakSaveHeaderToCache
 /*  f1161f8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1161fc:	00001025 */ 	or	$v0,$zero,$zero
 .NB0f116200:

@@ -5021,7 +5021,7 @@ struct pakdata {
 };
 
 struct pakheadercache {
-	u32 alignmult;
+	s32 alignmult;
 	u8 payload[0x20];
 };
 
