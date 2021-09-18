@@ -99,7 +99,7 @@ u32 pak0f11b75c(void);
 u32 pak0f11b86c(void);
 u32 pak0f11bbd8(void);
 s32 pak0f11bc54(s8 device, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
-bool pakRepair(s32 arg0);
+bool pakRepair(s8 device);
 u32 pak0f11c39c(u32 arg0, s8 device, u32 ar2, u32 arg3);
 void pak0f11c54c(void);
 void pak0f11c6d0(void);

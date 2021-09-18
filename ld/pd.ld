@@ -113,7 +113,6 @@ SECTIONS
 	_val7f11aef4 = 0x0f38;
 	_val7f11bb48 = 0x1131;
 	_val7f11c1d0 = 0x128d;
-	_val7f11c378 = 0x12c8;
 #elif VERSION >= VERSION_NTSC_FINAL
 	_val7f116f34 = 0x0339;
 	_val7f117634 = 0x0422;
@@ -129,7 +128,6 @@ SECTIONS
 	_val7f11aef4 = 0x0f31;
 	_val7f11bb48 = 0x112a;
 	_val7f11c1d0 = 0x1286;
-	_val7f11c378 = 0x12c1;
 #else
 	_val7f116f34 = 0x0336;
 	_val7f117634 = 0x041f;
@@ -145,7 +143,6 @@ SECTIONS
 	_val7f11aef4 = 0x0e6e;
 	_val7f11bb48 = 0x1067;
 	_val7f11c1d0 = 0x11c3;
-	_val7f11c378 = 0x11fe;
 #endif
 
 #if VERSION >= VERSION_PAL_FINAL

@@ -11406,148 +11406,52 @@ glabel pak0f11bc54
 );
 #endif
 
+bool pakRepair(s8 device)
+{
+	s32 result;
+
+	switch (g_Paks[device].unk010) {
+	case 14:
+	case 19:
+		break;
+	default:
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pakRepair
-/*  f11c2ac:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f11c2b0:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f11c2b4:	83ae002b */ 	lb	$t6,0x2b($sp)
-/*  f11c2b8:	3c18800a */ 	lui	$t8,%hi(g_Paks)
-/*  f11c2bc:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
-/*  f11c2c0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f11c2c4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11c2c8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11c2cc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11c2d0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11c2d4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f11c2d8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11c2dc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11c2e0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11c2e4:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f11c2e8:	8c450010 */ 	lw	$a1,0x10($v0)
-/*  f11c2ec:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f11c2f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11c2f4:	10a10024 */ 	beq	$a1,$at,.L0f11c388
-/*  f11c2f8:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f11c2fc:	50a10023 */ 	beql	$a1,$at,.L0f11c38c
-/*  f11c300:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11c304:	0c00543a */ 	jal	joy000150e8
-/*  f11c308:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f11c30c:	83a2002b */ 	lb	$v0,0x2b($sp)
-/*  f11c310:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11c314:	3c08800a */ 	lui	$t0,%hi(g_Pfses)
-/*  f11c318:	14410003 */ 	bne	$v0,$at,.L0f11c328
-/*  f11c31c:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f11c320:	10000007 */ 	beqz	$zero,.L0f11c340
-/*  f11c324:	00002825 */ 	or	$a1,$zero,$zero
-.L0f11c328:
-/*  f11c328:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f11c32c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11c330:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  f11c334:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f11c338:	25083180 */ 	addiu	$t0,$t0,%lo(g_Pfses)
-/*  f11c33c:	03282821 */ 	addu	$a1,$t9,$t0
-.L0f11c340:
-/*  f11c340:	0c0135bc */ 	jal	osPfsChecker
-/*  f11c344:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f11c348:	0c005451 */ 	jal	joy00015144
-/*  f11c34c:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f11c350:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f11c354:	24090002 */ 	addiu	$t1,$zero,0x2
-/*  f11c358:	83a5002b */ 	lb	$a1,0x2b($sp)
-/*  f11c35c:	14800005 */ 	bnez	$a0,.L0f11c374
-/*  f11c360:	00003025 */ 	or	$a2,$zero,$zero
-/*  f11c364:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f11c368:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11c36c:	10000007 */ 	beqz	$zero,.L0f11c38c
-/*  f11c370:	ad490010 */ 	sw	$t1,0x10($t2)
-.L0f11c374:
-/*  f11c374:	0fc470e7 */ 	jal	pak0f11c39c
-/*  f11c378:	240712c1 */ 	addiu	$a3,$zero,_val7f11c378
-/*  f11c37c:	8fac001c */ 	lw	$t4,0x1c($sp)
-/*  f11c380:	240b0016 */ 	addiu	$t3,$zero,0x16
-/*  f11c384:	ad8b0010 */ 	sw	$t3,0x10($t4)
-.L0f11c388:
-/*  f11c388:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11c38c:
-/*  f11c38c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11c390:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f11c394:	03e00008 */ 	jr	$ra
-/*  f11c398:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		joy000150e8();
+		result = osPfsChecker(PFS(device));
+		joy00015144();
 #else
-GLOBAL_ASM(
-glabel pakRepair
-/*  f116230:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f116234:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f116238:	83ae002b */ 	lb	$t6,0x2b($sp)
-/*  f11623c:	3c18800a */ 	lui	$t8,0x800a
-/*  f116240:	27186870 */ 	addiu	$t8,$t8,0x6870
-/*  f116244:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f116248:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f11624c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f116250:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f116254:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f116258:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f11625c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f116260:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f116264:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116268:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f11626c:	8f250010 */ 	lw	$a1,0x10($t9)
-/*  f116270:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f116274:	10a10025 */ 	beq	$a1,$at,.NB0f11630c
-/*  f116278:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f11627c:	10a10023 */ 	beq	$a1,$at,.NB0f11630c
-/*  f116280:	24041149 */ 	addiu	$a0,$zero,0x1149
-/*  f116284:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f116288:	0c00581b */ 	jal	joy000150e8
-/*  f11628c:	24a5e624 */ 	addiu	$a1,$a1,-6620
-/*  f116290:	83a2002b */ 	lb	$v0,0x2b($sp)
-/*  f116294:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f116298:	3c09800a */ 	lui	$t1,0x800a
-/*  f11629c:	14410003 */ 	bne	$v0,$at,.NB0f1162ac
-/*  f1162a0:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f1162a4:	10000007 */ 	beqz	$zero,.NB0f1162c4
-/*  f1162a8:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f1162ac:
-/*  f1162ac:	01024023 */ 	subu	$t0,$t0,$v0
-/*  f1162b0:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1162b4:	01024021 */ 	addu	$t0,$t0,$v0
-/*  f1162b8:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f1162bc:	25297658 */ 	addiu	$t1,$t1,0x7658
-/*  f1162c0:	01092821 */ 	addu	$a1,$t0,$t1
-.NB0f1162c4:
-/*  f1162c4:	0c013a9c */ 	jal	osPfsChecker
-/*  f1162c8:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f1162cc:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f1162d0:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f1162d4:	24a5e62c */ 	addiu	$a1,$a1,-6612
-/*  f1162d8:	0c005834 */ 	jal	joy00015144
-/*  f1162dc:	2404114b */ 	addiu	$a0,$zero,0x114b
-/*  f1162e0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f1162e4:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f1162e8:	83a5002b */ 	lb	$a1,0x2b($sp)
-/*  f1162ec:	14800005 */ 	bnez	$a0,.NB0f116304
-/*  f1162f0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1162f4:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f1162f8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1162fc:	10000007 */ 	beqz	$zero,.NB0f11631c
-/*  f116300:	ad6a0010 */ 	sw	$t2,0x10($t3)
-.NB0f116304:
-/*  f116304:	0fc458cb */ 	jal	pak0f11c39c
-/*  f116308:	24071154 */ 	addiu	$a3,$zero,0x1154
-.NB0f11630c:
-/*  f11630c:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f116310:	240c0016 */ 	addiu	$t4,$zero,0x16
-/*  f116314:	00001025 */ 	or	$v0,$zero,$zero
-/*  f116318:	adac0010 */ 	sw	$t4,0x10($t5)
-.NB0f11631c:
-/*  f11631c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116320:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f116324:	03e00008 */ 	jr	$ra
-/*  f116328:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		joy000150e8(4425, "pak.c");
+		result = osPfsChecker(PFS(device));
+		joy00015144(4427, "pak.c");
 #endif
+
+		if (result == PAKERROR_OK) {
+			g_Paks[device].unk010 = 2;
+			return true;
+		}
+
+#if VERSION >= VERSION_PAL_FINAL
+		pak0f11c39c(result, device, 0, 4808);
+#elif VERSION >= VERSION_NTSC_FINAL
+		pak0f11c39c(result, device, 0, 4801);
+#elif VERSION >= VERSION_NTSC_1_0
+		pak0f11c39c(result, device, 0, 4606);
+#else
+		pak0f11c39c(result, device, 0, 4436);
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
+		g_Paks[device].unk010 = 22;
+#endif
+		break;
+	}
+
+#if VERSION < VERSION_NTSC_1_0
+	g_Paks[device].unk010 = 22;
+#endif
+
+	return false;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
