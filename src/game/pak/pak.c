@@ -965,7 +965,7 @@ glabel pak0f117520
 /*  f117668:	24060010 */ 	addiu	$a2,$zero,0x10
 /*  f11766c:	27a40040 */ 	addiu	$a0,$sp,0x40
 /*  f117670:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f117674:	0fc462b9 */ 	jal	pak0f118ae4
+/*  f117674:	0fc462b9 */ 	jal	pakCalculateChecksum
 /*  f117678:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f11767c:	8fa20064 */ 	lw	$v0,0x64($sp)
 /*  f117680:	97b90058 */ 	lhu	$t9,0x58($sp)
@@ -1131,7 +1131,7 @@ glabel pak0f117520
 /*  f1119bc:	24060010 */ 	addiu	$a2,$zero,0x10
 /*  f1119c0:	27a40040 */ 	addiu	$a0,$sp,0x40
 /*  f1119c4:	27a50048 */ 	addiu	$a1,$sp,0x48
-/*  f1119c8:	0fc44b9b */ 	jal	pak0f118ae4
+/*  f1119c8:	0fc44b9b */ 	jal	pakCalculateChecksum
 /*  f1119cc:	27a60058 */ 	addiu	$a2,$sp,0x58
 /*  f1119d0:	8fa20064 */ 	lw	$v0,0x64($sp)
 /*  f1119d4:	97b90058 */ 	lhu	$t9,0x58($sp)
@@ -1792,7 +1792,7 @@ s32 pakFindFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, ch
 		a = pak0f11a504(SAVEDEVICE_GAMEPAK, 0, 0, 0, 0, align16(0x10), (u8 *)sp56);
 
 		if (pak0f11c39c(a, SAVEDEVICE_GAMEPAK, 1, 0x60f)) {
-			pak0f118ae4(sp64, sp64 + sizeof(sp64), sp44);
+			pakCalculateChecksum(sp64, sp64 + sizeof(sp64), sp44);
 
 			if (sp56[0] == sp44[0] && sp56[1] == sp44[1]) {
 				return 0;
@@ -3260,17 +3260,14 @@ const char var7f1ae6ecnb[] = "pakinit";
 const char var7f1ae6f4nb[] = "dumpeeprom";
 #endif
 
+void pakCalculateChecksum(u8 *start, u8 *end, u16 *checksum)
+{
+	func0f12906c(start, end, checksum);
+}
+
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel pak0f118ae4
-/*  f118ae4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f118ae8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f118aec:	0fc4a41b */ 	jal	func0f12906c
-/*  f118af0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f118af4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f118af8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f118afc:	03e00008 */ 	jr	$ra
-/*  f118b00:	00000000 */ 	sll	$zero,$zero,0x0
+glabel pak0f118b04
 /*  f118b04:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f118b08:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f118b0c:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -3328,15 +3325,7 @@ glabel pak0f118ae4
 );
 #else
 GLOBAL_ASM(
-glabel pak0f118ae4
-/*  f112e6c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f112e70:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112e74:	0fc48f2b */ 	jal	func0f12906c
-/*  f112e78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112e7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f112e80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f112e84:	03e00008 */ 	jr	$ra
-/*  f112e88:	00000000 */ 	sll	$zero,$zero,0x0
+glabel pak0f112e8c
 /*  f112e8c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f112e90:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f112e94:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -3456,7 +3445,7 @@ glabel pak0f118bc8
 /*  f118cb0:	000d7240 */ 	sll	$t6,$t5,0x9
 /*  f118cb4:	000e7d42 */ 	srl	$t7,$t6,0x15
 /*  f118cb8:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f118cbc:	0fc462b9 */ 	jal	pak0f118ae4
+/*  f118cbc:	0fc462b9 */ 	jal	pakCalculateChecksum
 /*  f118cc0:	008f2821 */ 	addu	$a1,$a0,$t7
 /*  f118cc4:	97b80030 */ 	lhu	$t8,0x30($sp)
 /*  f118cc8:	97b90024 */ 	lhu	$t9,0x24($sp)
@@ -3549,7 +3538,7 @@ glabel pak0f118bc8
 /*  f113010:	000d7240 */ 	sll	$t6,$t5,0x9
 /*  f113014:	000e7d42 */ 	srl	$t7,$t6,0x15
 /*  f113018:	27a60024 */ 	addiu	$a2,$sp,0x24
-/*  f11301c:	0fc44b9b */ 	jal	pak0f118ae4
+/*  f11301c:	0fc44b9b */ 	jal	pakCalculateChecksum
 /*  f113020:	008f2821 */ 	addu	$a1,$a0,$t7
 /*  f113024:	97b80030 */ 	lhu	$t8,0x30($sp)
 /*  f113028:	97b90024 */ 	lhu	$t9,0x24($sp)
@@ -10699,7 +10688,7 @@ glabel pak0f11bc54
 /*  f11befc:	27a620b4 */ 	addiu	$a2,$sp,0x20b4
 /*  f11bf00:	000c7240 */ 	sll	$t6,$t4,0x9
 /*  f11bf04:	000e7d42 */ 	srl	$t7,$t6,0x15
-/*  f11bf08:	0fc462b9 */ 	jal	pak0f118ae4
+/*  f11bf08:	0fc462b9 */ 	jal	pakCalculateChecksum
 /*  f11bf0c:	01e72821 */ 	addu	$a1,$t7,$a3
 /*  f11bf10:	10000003 */ 	beqz	$zero,.L0f11bf20
 /*  f11bf14:	8fa720cc */ 	lw	$a3,0x20cc($sp)
@@ -10805,7 +10794,7 @@ glabel pak0f11bc54
 .L0f11c060:
 /*  f11c060:	27a410a4 */ 	addiu	$a0,$sp,0x10a4
 /*  f11c064:	27a510ac */ 	addiu	$a1,$sp,0x10ac
-/*  f11c068:	0fc462b9 */ 	jal	pak0f118ae4
+/*  f11c068:	0fc462b9 */ 	jal	pakCalculateChecksum
 /*  f11c06c:	02403025 */ 	or	$a2,$s2,$zero
 /*  f11c070:	8fa90098 */ 	lw	$t1,0x98($sp)
 /*  f11c074:	11200066 */ 	beqz	$t1,.L0f11c210
@@ -11145,7 +11134,7 @@ glabel pak0f11bc54
 /*  f115e6c:	27a620b4 */ 	addiu	$a2,$sp,0x20b4
 /*  f115e70:	000c7240 */ 	sll	$t6,$t4,0x9
 /*  f115e74:	000e7d42 */ 	srl	$t7,$t6,0x15
-/*  f115e78:	0fc44b9b */ 	jal	pak0f118ae4
+/*  f115e78:	0fc44b9b */ 	jal	pakCalculateChecksum
 /*  f115e7c:	01e72821 */ 	addu	$a1,$t7,$a3
 /*  f115e80:	10000003 */ 	beqz	$zero,.NB0f115e90
 /*  f115e84:	8fa720cc */ 	lw	$a3,0x20cc($sp)
@@ -11253,7 +11242,7 @@ glabel pak0f11bc54
 .NB0f115fd8:
 /*  f115fd8:	27a410a4 */ 	addiu	$a0,$sp,0x10a4
 /*  f115fdc:	27a510ac */ 	addiu	$a1,$sp,0x10ac
-/*  f115fe0:	0fc44b9b */ 	jal	pak0f118ae4
+/*  f115fe0:	0fc44b9b */ 	jal	pakCalculateChecksum
 /*  f115fe4:	02403025 */ 	or	$a2,$s2,$zero
 /*  f115fe8:	8fa90098 */ 	lw	$t1,0x98($sp)
 /*  f115fec:	11200067 */ 	beqz	$t1,.NB0f11618c
