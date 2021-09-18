@@ -95,7 +95,7 @@ void pakWipe(s8 device, u32 start, u32 end);
 u32 pak0f11b178(void);
 u32 pak0f11b488(void);
 s32 pakScrub(s8 device);
-void pak0f11b75c(s8 device, u32 *arg1);
+bool pak0f11b75c(s8 device, u32 *arg1);
 u32 pak0f11b86c(void);
 u32 pak0f11bbd8(void);
 s32 pak0f11bc54(s8 device, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
