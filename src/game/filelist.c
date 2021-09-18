@@ -92,9 +92,9 @@ s32 filelistFindOrCreate(u8 filetype)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0f110d90(s32 index)
+void func0f110d90(s32 device)
 {
-	var800a2330[index] = -1;
+	var800a2330[device] = -1;
 }
 #endif
 

@@ -5025,7 +5025,7 @@ struct pak {
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
-	/*0x010*/ u32 unk010;
+	/*0x010*/ u32 unk010; // 1 if disconnected, 2 if connected?
 	/*0x014*/ u8 unk014;
 	/*0x018*/ struct pakdata pakdata;
 	/*0x25c*/ u32 unk25c;

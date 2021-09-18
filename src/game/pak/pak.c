@@ -12519,71 +12519,70 @@ glabel pak0f11ca30
 /*  f11cb94:	03e00008 */ 	jr	$ra
 /*  f11cb98:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
+
+// Mismatch: regalloc
+//void pak0f11ca30(void)
+//{
+//	if (g_Vars.tickmode != TICKMODE_CUTSCENE || g_MenuData.count > 0) {
+//		u8 oldvalue = var80075d10;
+//		u8 newvalue = var80075d10;
+//		u8 thing = 0xff;
+//		s32 i;
+//
+//		if ((g_Vars.unk0004e4 & 0xf) == 0) {
+//			for (i = 0; i < 5; i++) {
+//				u32 thisbit = 1 << i;
+//
+//				if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & thisbit) {
+//					if (thing == 0xff) {
+//						thing = joyShiftPfsStates();
+//					}
+//
+//					if ((thing & thisbit) != (oldvalue & thisbit)) {
+//						if (thing & thisbit) {
+//							g_Paks[i].unk010 = 2;
+//							newvalue |= thisbit;
+//						} else {
+//							g_Paks[i].unk010 = 1;
+//							newvalue &= ~thisbit;
+//							func0f110d90(i);
+//						}
+//					}
+//				}
+//			}
+//
+//			var80075d10 = newvalue;
+//		}
+//	}
+//}
 #else
-GLOBAL_ASM(
-glabel pak0f11ca30
-/*  f11666c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f116670:	8dcee96c */ 	lw	$t6,-0x1694($t6)
-/*  f116674:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f116678:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f11667c:	11c10030 */ 	beq	$t6,$at,.NB0f116740
-/*  f116680:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116684:	0c0052a7 */ 	jal	joy00013980
-/*  f116688:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11668c:	3c0d8008 */ 	lui	$t5,0x8008
-/*  f116690:	25ad80d0 */ 	addiu	$t5,$t5,-32560
-/*  f116694:	3c0f800a */ 	lui	$t7,0x800a
-/*  f116698:	3c18800a */ 	lui	$t8,0x800a
-/*  f11669c:	91a80000 */ 	lbu	$t0,0x0($t5)
-/*  f1166a0:	9318eb90 */ 	lbu	$t8,-0x1470($t8)
-/*  f1166a4:	91efeb91 */ 	lbu	$t7,-0x146f($t7)
-/*  f1166a8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1166ac:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f1166b0:	240b0005 */ 	addiu	$t3,$zero,0x5
-/*  f1166b4:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f1166b8:	01003825 */ 	or	$a3,$t0,$zero
-/*  f1166bc:	01f84825 */ 	or	$t1,$t7,$t8
-/*  f1166c0:	24190001 */ 	addiu	$t9,$zero,0x1
-.NB0f1166c4:
-/*  f1166c4:	00991804 */ 	sllv	$v1,$t9,$a0
-/*  f1166c8:	01237024 */ 	and	$t6,$t1,$v1
-/*  f1166cc:	11c00018 */ 	beqz	$t6,.NB0f116730
-/*  f1166d0:	00433024 */ 	and	$a2,$v0,$v1
-/*  f1166d4:	01037824 */ 	and	$t7,$t0,$v1
-/*  f1166d8:	11e60015 */ 	beq	$t7,$a2,.NB0f116730
-/*  f1166dc:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f1166e0:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f1166e4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1166e8:	0304c023 */ 	subu	$t8,$t8,$a0
-/*  f1166ec:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1166f0:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f1166f4:	3c19800a */ 	lui	$t9,0x800a
-/*  f1166f8:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*  f1166fc:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f116700:	10c00006 */ 	beqz	$a2,.NB0f11671c
-/*  f116704:	03192821 */ 	addu	$a1,$t8,$t9
-/*  f116708:	00e33825 */ 	or	$a3,$a3,$v1
-/*  f11670c:	30ee00ff */ 	andi	$t6,$a3,0xff
-/*  f116710:	acaa0010 */ 	sw	$t2,0x10($a1)
-/*  f116714:	10000006 */ 	beqz	$zero,.NB0f116730
-/*  f116718:	01c03825 */ 	or	$a3,$t6,$zero
-.NB0f11671c:
-/*  f11671c:	00607827 */ 	nor	$t7,$v1,$zero
-/*  f116720:	00ef3824 */ 	and	$a3,$a3,$t7
-/*  f116724:	30f800ff */ 	andi	$t8,$a3,0xff
-/*  f116728:	acac0010 */ 	sw	$t4,0x10($a1)
-/*  f11672c:	03003825 */ 	or	$a3,$t8,$zero
-.NB0f116730:
-/*  f116730:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f116734:	548bffe3 */ 	bnel	$a0,$t3,.NB0f1166c4
-/*  f116738:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f11673c:	a1a70000 */ 	sb	$a3,0x0($t5)
-.NB0f116740:
-/*  f116740:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116744:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116748:	03e00008 */ 	jr	$ra
-/*  f11674c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void pak0f11ca30(void)
+{
+	if (g_Vars.tickmode != TICKMODE_CUTSCENE) {
+		u32 thing = joy00013980();
+		u8 oldvalue = var80075d10;
+		u8 newvalue = var80075d10;
+		s32 i;
+
+		for (i = 0; i < 5; i++) {
+			u32 thisbit = 1 << i;
+
+			if ((g_Vars.paksconnected2 | g_Vars.paksconnected) & thisbit) {
+				if ((thing & thisbit) != (oldvalue & thisbit)) {
+					if (thing & thisbit) {
+						g_Paks[i].unk010 = 2;
+						newvalue |= thisbit;
+					} else {
+						g_Paks[i].unk010 = 1;
+						newvalue &= ~thisbit;
+					}
+				}
+			}
+		}
+
+		var80075d10 = newvalue;
+	}
+}
 #endif
 
 void pak0f11cb9c(u32 arg0)
