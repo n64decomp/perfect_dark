@@ -93,7 +93,7 @@ u32 pak0f11a8f4(void);
 u32 pak0f11ac7c(void);
 void pakWipe(s8 device, u32 start, u32 end);
 void pak0f11b178(s8 device, u32 arg1, u8 *arg2);
-u32 pak0f11b488(s8 device, u32 arg1, struct pakfileheader *header);
+bool pakRetrieveHeaderFromCache(s8 device, s32 alignmult, struct pakfileheader *header);
 s32 pakScrub(s8 device);
 bool pak0f11b75c(s8 device, u32 *arg1);
 s32 pak0f11b86c(s32 device, u32 uVar2, u8 *data, struct pakfileheader *header, s32 arg3);

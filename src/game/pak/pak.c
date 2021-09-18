@@ -97,6 +97,8 @@
  * The combination of the device serial and file ID is the GUID.
  */
 
+#define MAX_HEADERCACHE_ENTRIES 50
+
 const char g_N64FontCodeMap[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
@@ -894,7 +896,7 @@ u32 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader *header)
 		return 4;
 	}
 
-	if (pak0f11b488(device, alignmult, headerptr) == 0) {
+	if (!pakRetrieveHeaderFromCache(device, alignmult, headerptr)) {
 		result = pak0f11a504(device, PFS(device), g_Paks[device].noteindex, 0, offset, sizeof(sp38), sp38);
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -932,7 +934,7 @@ u32 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader *header)
 		if (g_PakDebugPakCache) {
 			pak0f11b178(device, alignmult, sp38);
 
-			if (!pak0f11b488(device, alignmult, headerptr)) {
+			if (!pakRetrieveHeaderFromCache(device, alignmult, headerptr)) {
 #if VERSION >= VERSION_NTSC_1_0
 				osSyncPrintf("Pak %d -> Header Cache 2 - FATAL ERROR\n");
 #else
@@ -6772,13 +6774,13 @@ void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file)
 	if (g_Paks[device].unk014 == 0) {
 		g_Paks[device].unk014 = arg1;
 
-		if ((g_Paks[device].unk014 & 1) && g_Paks[device].unk2c0 == NULL) {
-			g_Paks[device].unk2be = 0;
-			g_Paks[device].unk2c0 = malloc(align32(0x708), MEMPOOL_PERMANENT);
+		if ((g_Paks[device].unk014 & 1) && g_Paks[device].headercache == NULL) {
+			g_Paks[device].headercachecount = 0;
+			g_Paks[device].headercache = malloc(align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES), MEMPOOL_PERMANENT);
 
 			// This would have been used in an osSyncPrintf call.
 			// Perhaps using the strings at var7f1b4318 through var7f1b43ac?
-			align32(0x708);
+			align32(sizeof(struct pakheadercache) * MAX_HEADERCACHE_ENTRIES);
 		}
 	}
 }
@@ -6922,7 +6924,7 @@ glabel pakInit
 //	g_Paks[device].unk2b8_02 = 0;
 //	g_Paks[device].unk2b8_06 = 0;
 //	g_Paks[device].unk2b8_07 = 0;
-//	g_Paks[device].unk2c0 = NULL;
+//	g_Paks[device].headercache = NULL;
 //	g_Paks[device].unk2c4 = NULL;
 //	g_Paks[device].unk25c = 8;
 //	g_Paks[device].serial = 0;
@@ -8762,7 +8764,7 @@ void pakWipe(s8 device, u32 start, u32 end)
 	for (i = start; i < end; i++) {
 		s32 result = pak0f11a504(device, PFS(device), g_Paks[device].noteindex, PFS_WRITE, i * pakGetAlignment(device), pakGetAlignment(device), buffer);
 
-		g_Paks[device].unk2be = 0;
+		g_Paks[device].headercachecount = 0;
 
 #if VERSION >= VERSION_PAL_FINAL
 		if (!pak0f11c39c(result, device, 1, 3955))
@@ -9208,117 +9210,22 @@ glabel pak0f11b178
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11b488
-/*  f11b488:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11b48c:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11b490:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11b494:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b498:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b49c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b4a0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b4a4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11b4a8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b4ac:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11b4b0:	3c19800a */ 	lui	$t9,%hi(g_Paks)
-/*  f11b4b4:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
-/*  f11b4b8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11b4bc:	03194821 */ 	addu	$t1,$t8,$t9
-/*  f11b4c0:	912302be */ 	lbu	$v1,0x2be($t1)
-/*  f11b4c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f11b4c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11b4cc:	28610032 */ 	slti	$at,$v1,0x32
-/*  f11b4d0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f11b4d4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f11b4d8:	10200016 */ 	beqz	$at,.L0f11b534
-/*  f11b4dc:	01204025 */ 	or	$t0,$t1,$zero
-/*  f11b4e0:	18600014 */ 	blez	$v1,.L0f11b534
-/*  f11b4e4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11b4e8:	8d2a02c0 */ 	lw	$t2,0x2c0($t1)
-/*  f11b4ec:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11b4f0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f11b4f4:	01401825 */ 	or	$v1,$t2,$zero
-.L0f11b4f8:
-/*  f11b4f8:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f11b4fc:	54ab0008 */ 	bnel	$a1,$t3,.L0f11b520
-/*  f11b500:	910c02be */ 	lbu	$t4,0x2be($t0)
-/*  f11b504:	01472821 */ 	addu	$a1,$t2,$a3
-/*  f11b508:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f11b50c:	0c012978 */ 	jal	memcpy
-/*  f11b510:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f11b514:	10000008 */ 	beqz	$zero,.L0f11b538
-/*  f11b518:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f11b51c:	910c02be */ 	lbu	$t4,0x2be($t0)
-.L0f11b520:
-/*  f11b520:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11b524:	24e70024 */ 	addiu	$a3,$a3,0x24
-/*  f11b528:	004c082a */ 	slt	$at,$v0,$t4
-/*  f11b52c:	1420fff2 */ 	bnez	$at,.L0f11b4f8
-/*  f11b530:	24630024 */ 	addiu	$v1,$v1,0x24
-.L0f11b534:
-/*  f11b534:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11b538:
-/*  f11b538:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11b53c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11b540:	03e00008 */ 	jr	$ra
-/*  f11b544:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#else
-GLOBAL_ASM(
-glabel pak0f11b488
-/*  f115458:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11545c:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f115460:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f115464:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f115468:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11546c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f115470:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f115474:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f115478:	3c19800a */ 	lui	$t9,0x800a
-/*  f11547c:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*  f115480:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f115484:	03194821 */ 	addu	$t1,$t8,$t9
-/*  f115488:	912302be */ 	lbu	$v1,0x2be($t1)
-/*  f11548c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f115490:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f115494:	28610032 */ 	slti	$at,$v1,0x32
-/*  f115498:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f11549c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1154a0:	10200016 */ 	beqz	$at,.NB0f1154fc
-/*  f1154a4:	01204025 */ 	or	$t0,$t1,$zero
-/*  f1154a8:	18600014 */ 	blez	$v1,.NB0f1154fc
-/*  f1154ac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1154b0:	8d2a02c0 */ 	lw	$t2,0x2c0($t1)
-/*  f1154b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1154b8:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f1154bc:	01401825 */ 	or	$v1,$t2,$zero
-.NB0f1154c0:
-/*  f1154c0:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f1154c4:	54ab0008 */ 	bnel	$a1,$t3,.NB0f1154e8
-/*  f1154c8:	910c02be */ 	lbu	$t4,0x2be($t0)
-/*  f1154cc:	01472821 */ 	addu	$a1,$t2,$a3
-/*  f1154d0:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f1154d4:	0c012e88 */ 	jal	memcpy
-/*  f1154d8:	24060010 */ 	addiu	$a2,$zero,0x10
-/*  f1154dc:	10000008 */ 	beqz	$zero,.NB0f115500
-/*  f1154e0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1154e4:	910c02be */ 	lbu	$t4,0x2be($t0)
-.NB0f1154e8:
-/*  f1154e8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1154ec:	24e70024 */ 	addiu	$a3,$a3,0x24
-/*  f1154f0:	004c082a */ 	slt	$at,$v0,$t4
-/*  f1154f4:	1420fff2 */ 	bnez	$at,.NB0f1154c0
-/*  f1154f8:	24630024 */ 	addiu	$v1,$v1,0x24
-.NB0f1154fc:
-/*  f1154fc:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f115500:
-/*  f115500:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f115504:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f115508:	03e00008 */ 	jr	$ra
-/*  f11550c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+bool pakRetrieveHeaderFromCache(s8 device, s32 alignmult, struct pakfileheader *dst)
+{
+	struct pak *pak = &g_Paks[device];
+	s32 i;
+
+	if (pak->headercachecount < MAX_HEADERCACHE_ENTRIES) {
+		for (i = 0; i < pak->headercachecount; i++) {
+			if (alignmult == pak->headercache[i].alignmult) {
+				memcpy(dst, &pak->headercache[i].payload, sizeof(struct pakfileheader));
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 s32 pakScrub(s8 device)
 {
@@ -9339,7 +9246,7 @@ s32 pakScrub(s8 device)
 #else
 	g_Paks[device].serial = 0x10 + random() % 0x1ff0;
 #endif
-	g_Paks[device].unk2be = 0;
+	g_Paks[device].headercachecount = 0;
 
 	pak0f11bc54(device, 0, PAKFILETYPE_004, 0, 0, 0, 0, 0, 1);
 
