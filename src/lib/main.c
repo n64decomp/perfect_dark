@@ -1755,7 +1755,7 @@ void mainLoop(void)
 	argGetLevel(&g_StageNum);
 
 	if (g_DoBootPakMenu) {
-		g_Vars.unk0004e4 = 253;
+		g_Vars.unk0004e4 = 0xfd;
 		g_StageNum = STAGE_BOOTPAKMENU;
 	}
 

@@ -240,7 +240,12 @@ struct g_vars {
 	/*0004e1*/ u8 remakewallhitvtx;
 	/*0004e2*/ u8 cutsceneskip60ths;
 	/*0004e3*/ u8 langfilteron;
+
+	// 000f = Counter: if 10-15 then ticks down 1 per 7 frames, if under 10 then 1 per frame.
+	// 00f0 = One bit per pak. Does something with the pak if counter expired.
+	// 0f00 = One bit per pak. Does something with the pak if counter expired (likely opposite of the above).
 	/*0004e4*/ u16 unk0004e4;
+
 	/*0004e8*/ u32 unk0004e8;
 	/*0004ec*/ u32 unk0004ec;
 	/*0004f0*/ u32 unk0004f0;
