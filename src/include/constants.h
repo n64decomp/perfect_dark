@@ -3073,7 +3073,7 @@
 #define PAKERROR_EEPROM_INVALIDARG  0x84
 
 #define PAKFILETYPE_001        0x001
-#define PAKFILETYPE_002        0x002
+#define PAKFILETYPE_BLANK      0x002
 #define PAKFILETYPE_TERMINATOR 0x004
 #define PAKFILETYPE_008        0x008 // suspected to be PerfectHead
 #define PAKFILETYPE_BOSS       0x010

@@ -7,7 +7,7 @@
 u32 pakGetAlignment(s8 device);
 u32 pakAlign(s8 device, u32 size);
 s32 pakGetAlignedFileLenByBodyLen(s8 device, s32 bodylen);
-u32 pak0f116684(u32 arg0);
+u32 pak0f116684(u32 filelen);
 u32 pakGenerateSerial(s8 device);
 bool pakIsConnected(s8 device);
 s32 pak0f1167b0(s8 device, u32 filetype, u32 *buffer1024);
@@ -77,7 +77,7 @@ s32 pakFindFile(s8 device, u32 fileid, struct pakfileheader *header);
 #if VERSION >= VERSION_NTSC_FINAL
 bool pak0f119478(u32 arg0, u32 arg1, u32 *arg2);
 #endif
-u32 pak0f1194e0(s8 arg0, u32 *arg1, u32 arg2);
+bool pakRepairAsBlank(s8 device, u32 *arg1, struct pakfileheader *header);
 u32 pak0f11970c(void);
 void pakCorrupt(void);
 u32 pak0f119e8c(void);
