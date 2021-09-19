@@ -11,7 +11,7 @@ u32 pak0f116684(u32 arg0);
 u32 pakGenerateSerial(s8 device);
 bool pakIsConnected(s8 device);
 s32 pak0f1167b0(s8 device, u32 filetype, u32 *buffer1024);
-u32 pak0f1167d8(s8 arg0);
+u32 pak0f1167d8(s8 device);
 s32 pak0f116800(s8 device, s32 fileid, u8 *body, s32 arg3);
 s32 pak0f116828(s8 device, s32 fileid, s32 filetype, u8 *body, s32 *outfileid, s32 arg5);
 bool pakDeleteFile(s8 device, s32 fileid);
