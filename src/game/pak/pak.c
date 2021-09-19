@@ -563,7 +563,7 @@ s32 pakGetBodyLenByType(s8 device, u32 filetype)
 	case PAKFILETYPE_001:
 	case PAKFILETYPE_002:
 		break;
-	case PAKFILETYPE_004:
+	case PAKFILETYPE_TERMINATOR:
 		len = pak0f11706c(device) - 0x10;
 		break;
 	case PAKFILETYPE_BOSS:
@@ -8864,7 +8864,7 @@ s32 pakScrub(s8 device)
 		data[i] = random() & 0xff;
 	}
 
-	address = pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, PAKFILETYPE_004));
+	address = pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, PAKFILETYPE_TERMINATOR));
 
 	g_Paks[device].unk25c = 0x10;
 #if VERSION >= VERSION_NTSC_1_0
@@ -8874,7 +8874,7 @@ s32 pakScrub(s8 device)
 #endif
 	g_Paks[device].headercachecount = 0;
 
-	pak0f11bc54(device, 0, PAKFILETYPE_004, 0, 0, 0, 0, 0, 1);
+	pak0f11bc54(device, 0, PAKFILETYPE_TERMINATOR, 0, 0, 0, 0, 0, 1);
 
 	result = pak0f11a504(device, PFS(device), g_Paks[device].noteindex, PFS_WRITE, address, pakGetAlignment(device), data);
 
@@ -8922,7 +8922,7 @@ bool pak0f11b75c(s8 device, u32 *arg1)
 		}
 #endif
 
-		if (PAKFILETYPE_004 == header.filetype) {
+		if (PAKFILETYPE_TERMINATOR == header.filetype) {
 			*arg1 = offset;
 			return false;
 		}

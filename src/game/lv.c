@@ -564,6 +564,10 @@ void lvInit(s32 stagenum)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
+			// This is writing a file to the start of the EEPROM data.
+			// The file is PAKFILETYPE_TERMINATOR, which is used internally to
+			// mark the end of the usable space. This effectively deletes all
+			// save data on the game pak and makes it permanently unusable.
 			u32 address = 0;
 			u32 buffer[4];
 			buffer[0] = 0xbb8b80bd;
