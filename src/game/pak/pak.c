@@ -6162,129 +6162,44 @@ glabel pak0f119e8c
 );
 #endif
 
+s32 pak0f11a0e8(s8 device)
+{
+	struct pakfileheader header;
+	u32 buffer[1025];
+	s32 result;
+	s32 max = 0;
+	s32 i;
+
+	result = pak0f1167b0(device, PAKFILETYPE_100, buffer);
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11a0e8
-/*  f11a0e8:	27bdefa0 */ 	addiu	$sp,$sp,-4192
-/*  f11a0ec:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f11a0f0:	0004a600 */ 	sll	$s4,$a0,0x18
-/*  f11a0f4:	00147603 */ 	sra	$t6,$s4,0x18
-/*  f11a0f8:	afa41060 */ 	sw	$a0,0x1060($sp)
-/*  f11a0fc:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f11a100:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f11a104:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f11a108:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f11a10c:	01c0a025 */ 	or	$s4,$t6,$zero
-/*  f11a110:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f11a114:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f11a118:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11a11c:	00008825 */ 	or	$s1,$zero,$zero
-/*  f11a120:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f11a124:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f11a128:	0fc459ec */ 	jal	pak0f1167b0
-/*  f11a12c:	24050100 */ 	addiu	$a1,$zero,0x100
-/*  f11a130:	1440001c */ 	bnez	$v0,.L0f11a1a4
-/*  f11a134:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*  f11a138:	1300001c */ 	beqz	$t8,.L0f11a1ac
-/*  f11a13c:	27b0004c */ 	addiu	$s0,$sp,0x4c
-/*  f11a140:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f11a144:	2413ffff */ 	addiu	$s3,$zero,-1
-/*  f11a148:	27b21050 */ 	addiu	$s2,$sp,0x1050
-/*  f11a14c:	00142600 */ 	sll	$a0,$s4,0x18
-.L0f11a150:
-/*  f11a150:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f11a154:	01002025 */ 	or	$a0,$t0,$zero
-/*  f11a158:	0fc464da */ 	jal	pakFindFile
-/*  f11a15c:	02403025 */ 	or	$a2,$s2,$zero
-/*  f11a160:	54530004 */ 	bnel	$v0,$s3,.L0f11a174
-/*  f11a164:	8fa2105c */ 	lw	$v0,0x105c($sp)
-/*  f11a168:	10000011 */ 	beqz	$zero,.L0f11a1b0
-/*  f11a16c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f11a170:	8fa2105c */ 	lw	$v0,0x105c($sp)
-.L0f11a174:
-/*  f11a174:	00024b40 */ 	sll	$t1,$v0,0xd
-/*  f11a178:	00095642 */ 	srl	$t2,$t1,0x19
-/*  f11a17c:	022a082b */ 	sltu	$at,$s1,$t2
-/*  f11a180:	50200003 */ 	beqzl	$at,.L0f11a190
-/*  f11a184:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f11a188:	01408825 */ 	or	$s1,$t2,$zero
-/*  f11a18c:	8e050004 */ 	lw	$a1,0x4($s0)
-.L0f11a190:
-/*  f11a190:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f11a194:	54a0ffee */ 	bnezl	$a1,.L0f11a150
-/*  f11a198:	00142600 */ 	sll	$a0,$s4,0x18
-/*  f11a19c:	10000004 */ 	beqz	$zero,.L0f11a1b0
-/*  f11a1a0:	02201025 */ 	or	$v0,$s1,$zero
-.L0f11a1a4:
-/*  f11a1a4:	10000002 */ 	beqz	$zero,.L0f11a1b0
-/*  f11a1a8:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f11a1ac:
-/*  f11a1ac:	02201025 */ 	or	$v0,$s1,$zero
-.L0f11a1b0:
-/*  f11a1b0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f11a1b4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11a1b8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f11a1bc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f11a1c0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f11a1c4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f11a1c8:	03e00008 */ 	jr	$ra
-/*  f11a1cc:	27bd1060 */ 	addiu	$sp,$sp,0x1060
-);
+	if (result == 0) {
+		for (i = 0; buffer[i] != 0; i++) {
+			s32 offset = pakFindFile(device, buffer[i], &header);
+
+			if (offset == -1) {
+				return -1;
+			}
+
+			if (header.fileid > max) {
+				max = header.fileid;
+			}
+		}
+	} else {
+		return -1;
+	}
 #else
-GLOBAL_ASM(
-glabel pak0f11a0e8
-/*  f113fe4:	27bdefa8 */ 	addiu	$sp,$sp,-4184
-/*  f113fe8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f113fec:	00049e00 */ 	sll	$s3,$a0,0x18
-/*  f113ff0:	00137603 */ 	sra	$t6,$s3,0x18
-/*  f113ff4:	afa41058 */ 	sw	$a0,0x1058($sp)
-/*  f113ff8:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f113ffc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f114000:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f114004:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f114008:	01c09825 */ 	or	$s3,$t6,$zero
-/*  f11400c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f114010:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f114014:	00008825 */ 	or	$s1,$zero,$zero
-/*  f114018:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f11401c:	27a60044 */ 	addiu	$a2,$sp,0x44
-/*  f114020:	0fc442dd */ 	jal	pak0f1167b0
-/*  f114024:	24050100 */ 	addiu	$a1,$zero,0x100
-/*  f114028:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f11402c:	27b00044 */ 	addiu	$s0,$sp,0x44
-/*  f114030:	27b21048 */ 	addiu	$s2,$sp,0x1048
-/*  f114034:	53000013 */ 	beqzl	$t8,.NB0f114084
-/*  f114038:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f11403c:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f114040:	00132600 */ 	sll	$a0,$s3,0x18
-.NB0f114044:
-/*  f114044:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f114048:	01002025 */ 	or	$a0,$t0,$zero
-/*  f11404c:	0fc44da7 */ 	jal	pakFindFile
-/*  f114050:	02403025 */ 	or	$a2,$s2,$zero
-/*  f114054:	8fa31054 */ 	lw	$v1,0x1054($sp)
-/*  f114058:	00034b40 */ 	sll	$t1,$v1,0xd
-/*  f11405c:	00095642 */ 	srl	$t2,$t1,0x19
-/*  f114060:	022a082b */ 	sltu	$at,$s1,$t2
-/*  f114064:	50200003 */ 	beqzl	$at,.NB0f114074
-/*  f114068:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f11406c:	01408825 */ 	or	$s1,$t2,$zero
-/*  f114070:	8e050004 */ 	lw	$a1,0x4($s0)
-.NB0f114074:
-/*  f114074:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f114078:	54a0fff2 */ 	bnezl	$a1,.NB0f114044
-/*  f11407c:	00132600 */ 	sll	$a0,$s3,0x18
-/*  f114080:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.NB0f114084:
-/*  f114084:	02201025 */ 	or	$v0,$s1,$zero
-/*  f114088:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f11408c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f114090:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f114094:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f114098:	03e00008 */ 	jr	$ra
-/*  f11409c:	27bd1058 */ 	addiu	$sp,$sp,0x1058
-);
+	for (i = 0; buffer[i] != 0; i++) {
+		s32 offset = pakFindFile(device, buffer[i], &header);
+
+		if (header.fileid > max) {
+			max = header.fileid;
+		}
+	}
 #endif
+
+	return max;
+}
 
 GLOBAL_ASM(
 glabel pak0f11a1d0

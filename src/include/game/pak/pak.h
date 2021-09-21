@@ -81,7 +81,7 @@ bool pakRepairAsBlank(s8 device, u32 *arg1, struct pakfileheader *header);
 u32 pak0f11970c(void);
 void pakCorrupt(void);
 u32 pak0f119e8c(void);
-u32 pak0f11a0e8(void);
+s32 pak0f11a0e8(s8 device);
 s32 pak0f11a1d0(s8 device);
 void pak0f11a2e4(void);
 void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file);
