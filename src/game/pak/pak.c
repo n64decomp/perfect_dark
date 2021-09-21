@@ -2845,117 +2845,33 @@ void pakCalculateChecksum(u8 *start, u8 *end, u16 *checksum)
 	crcCalculateU16Pair(start, end, checksum);
 }
 
+s32 pak0f118b04(s8 device, u32 fileid)
+{
+	s32 offset;
+	s32 result = pak0f1167d8(device);
+
+	if (result == 0) {
+		offset = pakFindFile(device, fileid, 0);
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f118b04
-/*  f118b04:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f118b08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f118b0c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f118b10:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f118b14:	0fc459f6 */ 	jal	pak0f1167d8
-/*  f118b18:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f118b1c:	14400023 */ 	bnez	$v0,.L0f118bac
-/*  f118b20:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f118b24:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f118b28:	0fc464da */ 	jal	pakFindFile
-/*  f118b2c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f118b30:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f118b34:	14410003 */ 	bne	$v0,$at,.L0f118b44
-/*  f118b38:	00402825 */ 	or	$a1,$v0,$zero
-/*  f118b3c:	1000001e */ 	beqz	$zero,.L0f118bb8
-/*  f118b40:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f118b44:
-/*  f118b44:	10400011 */ 	beqz	$v0,.L0f118b8c
-/*  f118b48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f118b4c:	10400015 */ 	beqz	$v0,.L0f118ba4
-/*  f118b50:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f118b54:	0fc45ff0 */ 	jal	pakGetNumBytes
-/*  f118b58:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f118b5c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f118b60:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f118b64:	00a2082b */ 	sltu	$at,$a1,$v0
-/*  f118b68:	1020000e */ 	beqz	$at,.L0f118ba4
-/*  f118b6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f118b70:	0fc45974 */ 	jal	pakGetBlockSize
-/*  f118b74:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f118b78:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f118b7c:	244effff */ 	addiu	$t6,$v0,-1
-/*  f118b80:	01c57824 */ 	and	$t7,$t6,$a1
-/*  f118b84:	15e00007 */ 	bnez	$t7,.L0f118ba4
-/*  f118b88:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f118b8c:
-/*  f118b8c:	0fc46ef6 */ 	jal	pakReplaceFileAtOffsetWithBlank
-/*  f118b90:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f118b94:	54400008 */ 	bnezl	$v0,.L0f118bb8
-/*  f118b98:	00001025 */ 	or	$v0,$zero,$zero
-/*  f118b9c:	10000006 */ 	beqz	$zero,.L0f118bb8
-/*  f118ba0:	24020004 */ 	addiu	$v0,$zero,0x4
-.L0f118ba4:
-/*  f118ba4:	10000004 */ 	beqz	$zero,.L0f118bb8
-/*  f118ba8:	24020003 */ 	addiu	$v0,$zero,0x3
-.L0f118bac:
-/*  f118bac:	10000002 */ 	beqz	$zero,.L0f118bb8
-/*  f118bb0:	24020006 */ 	addiu	$v0,$zero,0x6
-/*  f118bb4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f118bb8:
-/*  f118bb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f118bbc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f118bc0:	03e00008 */ 	jr	$ra
-/*  f118bc4:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#else
-GLOBAL_ASM(
-glabel pak0f112e8c
-/*  f112e8c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f112e90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112e94:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f112e98:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f112e9c:	0fc442e7 */ 	jal	pak0f1167d8
-/*  f112ea0:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f112ea4:	1440001e */ 	bnez	$v0,.NB0f112f20
-/*  f112ea8:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f112eac:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f112eb0:	0fc44da7 */ 	jal	pakFindFile
-/*  f112eb4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f112eb8:	10400011 */ 	beqz	$v0,.NB0f112f00
-/*  f112ebc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f112ec0:	10400015 */ 	beqz	$v0,.NB0f112f18
-/*  f112ec4:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f112ec8:	0fc448fb */ 	jal	pakGetNumBytes
-/*  f112ecc:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f112ed0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f112ed4:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f112ed8:	00a2082b */ 	sltu	$at,$a1,$v0
-/*  f112edc:	1020000e */ 	beqz	$at,.NB0f112f18
-/*  f112ee0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112ee4:	0fc4428c */ 	jal	pakGetBlockSize
-/*  f112ee8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f112eec:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f112ef0:	244effff */ 	addiu	$t6,$v0,-1
-/*  f112ef4:	01c57824 */ 	and	$t7,$t6,$a1
-/*  f112ef8:	15e00007 */ 	bnez	$t7,.NB0f112f18
-/*  f112efc:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f112f00:
-/*  f112f00:	0fc456d7 */ 	jal	pakReplaceFileAtOffsetWithBlank
-/*  f112f04:	83a40023 */ 	lb	$a0,0x23($sp)
-/*  f112f08:	54400008 */ 	bnezl	$v0,.NB0f112f2c
-/*  f112f0c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112f10:	10000006 */ 	beqz	$zero,.NB0f112f2c
-/*  f112f14:	24020004 */ 	addiu	$v0,$zero,0x4
-.NB0f112f18:
-/*  f112f18:	10000004 */ 	beqz	$zero,.NB0f112f2c
-/*  f112f1c:	24020003 */ 	addiu	$v0,$zero,0x3
-.NB0f112f20:
-/*  f112f20:	10000002 */ 	beqz	$zero,.NB0f112f2c
-/*  f112f24:	24020006 */ 	addiu	$v0,$zero,0x6
-/*  f112f28:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f112f2c:
-/*  f112f2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f112f30:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f112f34:	03e00008 */ 	jr	$ra
-/*  f112f38:	00000000 */ 	sll	$zero,$zero,0x0
-);
+		if (offset == -1) {
+			return 1;
+		}
 #endif
+
+		if (offset == 0 || (offset != 0 && offset < pakGetNumBytes(device) && (pakGetBlockSize(device) - 1 & offset) == 0)) {
+			if (!pakReplaceFileAtOffsetWithBlank(device, offset)) {
+				return 4;
+			}
+		} else {
+			return 3;
+		}
+	} else {
+		return 6;
+	}
+
+	return 0;
+}
 
 s32 pak0f118bc8(s8 device, s32 fileid, u8 *body, s32 arg3)
 {
