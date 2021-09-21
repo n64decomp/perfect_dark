@@ -5026,7 +5026,7 @@ struct pakdata {
 };
 
 struct pakheadercache {
-	s32 alignmult;
+	s32 blocknum;
 	u8 payload[0x20];
 };
 
@@ -5038,7 +5038,7 @@ struct pak {
 	/*0x010*/ u32 unk010;
 	/*0x014*/ u8 unk014;
 	/*0x018*/ struct pakdata pakdata;
-	/*0x25c*/ u32 unk25c;
+	/*0x25c*/ u32 nextfileid;
 	/*0x260*/ u32 serial;
 	/*0x264*/ u32 unk264;
 	/*0x268*/ u32 unk268;
@@ -5055,9 +5055,9 @@ struct pak {
 	/*0x294*/ u32 unk294;
 	/*0x298*/ u32 unk298;
 	/*0x29c*/ s32 noteindex;
-	/*0x2a0*/ u32 notelen;
-	/*0x2a4*/ u32 unk2a4;
-	/*0x2a8*/ u32 unk2a8;
+	/*0x2a0*/ u32 numbytes;
+	/*0x2a4*/ u32 numblocks;
+	/*0x2a8*/ u32 numpages;
 	/*0x2ac*/ u32 unk2ac;
 	/*0x2b0*/ u32 unk2b0;
 	/*0x2b4*/ f32 unk2b4;
@@ -6685,19 +6685,22 @@ struct pakthing {
 };
 
 struct pakfileheader {
-	u16 headersum1;  // checksum from filetype to end of header
-	u16 headersum2;
-	u16 bodysum1;
-	u16 bodysum2;
-	u32 filetype : 9; // PAKFILETYPE constant
-	u32 bodylen : 11; // not aligned
-	u32 filelen : 12; // aligned to 0x10
-	u32 deviceserial : 13;
-	u32 fileid : 7;
-	u32 unk0c_21 : 9;
-	u32 occupied : 1;
-	u32 unk0c_30 : 1; // always 1?
-	u32 version : 1;  // always 0?
+	union {
+		struct {
+			u16 headersum[2];  // checksum from filetype to end of header
+			u16 bodysum[2];
+			u32 filetype : 9; // PAKFILETYPE constant
+			u32 bodylen : 11; // not aligned
+			u32 filelen : 12; // aligned to 0x10
+			u32 deviceserial : 13;
+			u32 fileid : 7;
+			u32 unk0c_21 : 9;
+			u32 occupied : 1;
+			u32 writecompleted : 1; // 0 while writing data, then updated to 1 afterwards
+			u32 version : 1;        // 0, but can be set to 1 using -forceversion argument
+		};
+		u8 bytes[16];
+	};
 };
 
 struct var80067e6c {

@@ -2467,7 +2467,7 @@ glabel var7f1b8ea8
 //	if (sp3c) {
 //		dprint();
 //
-//		if ((obj->flags2 & OBJFLAG2_00001000) == 0
+//		if ((obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
 //				&& !func0002dcd0(&chrprop->pos, chrprop->rooms, &prop->pos, prop->rooms, 0x22)) {
 //			sp3c = false;
 //		}

@@ -655,7 +655,7 @@ glabel var7f1b1f44nc
 /*  f1627e4:	10400008 */ 	beqz	$v0,.NB0f162808
 /*  f1627e8:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f1627ec:	24a51e20 */ 	addiu	$a1,$a1,0x1e20
-/*  f1627f0:	0c00581b */ 	jal	joy000150e8
+/*  f1627f0:	0c00581b */ 	jal	joyGetLock
 /*  f1627f4:	240402f8 */ 	addiu	$a0,$zero,0x2f8
 /*  f1627f8:	3c11800a */ 	lui	$s1,0x800a
 /*  f1627fc:	2631e6c0 */ 	addiu	$s1,$s1,-6464
@@ -8571,7 +8571,7 @@ glabel lvTick
 /*  f166774:	14400004 */ 	bnez	$v0,.NB0f166788
 /*  f166778:	24040cce */ 	addiu	$a0,$zero,0xcce
 /*  f16677c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f166780:	0c005834 */ 	jal	joy00015144
+/*  f166780:	0c005834 */ 	jal	joyReleaseLock
 /*  f166784:	24a51e98 */ 	addiu	$a1,$a1,0x1e98
 .NB0f166788:
 /*  f166788:	8e8204b4 */ 	lw	$v0,0x4b4($s4)

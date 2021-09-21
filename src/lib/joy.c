@@ -98,7 +98,7 @@ u32 var8005eef0 = 1;
 void joy00013900(void)
 {
 	if (var8005eef0) {
-		joy000150e8();
+		joyGetLock();
 		var8005eef0 = false;
 	}
 }
@@ -106,7 +106,7 @@ void joy00013900(void)
 void joy00013938(void)
 {
 	if (!var8005eef0) {
-		joy00015144();
+		joyReleaseLock();
 		var8005eef0 = true;
 	}
 }
@@ -235,13 +235,13 @@ void joyCheckPfs(s32 arg0)
 			var8005eee8++;
 
 			if (arg0) {
-				joy000150e8();
+				joyGetLock();
 			}
 
 			osPfsIsPlug(&var80099e78, &bitpattern);
 
 			if (arg0) {
-				joy00015144();
+				joyReleaseLock();
 			}
 
 			bitpattern |= 0x10;
@@ -596,20 +596,20 @@ void joyDebugJoy(void)
 
 	if (joy000150c4() && var8005eec0 && joyGetNumSamples() <= 0) {
 #if VERSION >= VERSION_NTSC_FINAL
-		joy000150e8();
+		joyGetLock();
 		joy00014238();
-		joy00015144();
+		joyReleaseLock();
 		joyConsumeSamples(&g_JoyData[0]);
 #elif VERSION >= VERSION_NTSC_1_0
-		joy000150e8();
-		joy00015144();
+		joyGetLock();
+		joyReleaseLock();
 		joyConsumeSamples(&g_JoyData[0]);
 		joy00014238();
 #else
-		joy000150e8(500, "joy.c");
+		joyGetLock(500, "joy.c");
 		joy00014238();
 		func0001509cnb();
-		joy00015144(507, "joy.c");
+		joyReleaseLock(507, "joy.c");
 		joyConsumeSamples(&g_JoyData[0]);
 #endif
 	}
@@ -1238,7 +1238,7 @@ s32 joy000150c4(void)
 	return var8005eebc ? false : true;
 }
 
-void joy000150e8(
+void joyGetLock(
 #if VERSION >= VERSION_NTSC_1_0
 		void
 #else
@@ -1256,7 +1256,7 @@ void joy000150e8(
 	var8005eebc++;
 }
 
-void joy00015144(
+void joyReleaseLock(
 #if VERSION >= VERSION_NTSC_1_0
 		void
 #else
@@ -1347,7 +1347,7 @@ void joy000153c4(s8 device, s32 arg1)
 	if (device != SAVEDEVICE_GAMEPAK) {
 		if (g_Paks[device].unk000 != 2 && g_Paks[device].unk000 != 3) {
 			if (arg1) {
-				joy000150e8();
+				joyGetLock();
 			}
 
 			if (osMotorProbe(&var80099e78, PFS(device), device) == 0) {
@@ -1357,7 +1357,7 @@ void joy000153c4(s8 device, s32 arg1)
 			}
 
 			if (arg1) {
-				joy00015144();
+				joyReleaseLock();
 			}
 
 			if (g_Paks[device].unk004 != 6 && g_Paks[device].unk004 != 7) {
@@ -1407,7 +1407,7 @@ glabel joy000153c4
 /*    16324:	2404041e */ 	addiu	$a0,$zero,0x41e
 /*    16328:	3c057005 */ 	lui	$a1,0x7005
 /*    1632c:	24a55958 */ 	addiu	$a1,$a1,0x5958
-/*    16330:	0c00581b */ 	jal	joy000150e8
+/*    16330:	0c00581b */ 	jal	joyGetLock
 /*    16334:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    16338:	8fa60024 */ 	lw	$a2,0x24($sp)
 .NB0001633c:
@@ -1493,7 +1493,7 @@ glabel joy000153c4
 /*    16454:	3c057005 */ 	lui	$a1,0x7005
 /*    16458:	51000004 */ 	beqzl	$t0,.NB0001646c
 /*    1645c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    16460:	0c005834 */ 	jal	joy00015144
+/*    16460:	0c005834 */ 	jal	joyReleaseLock
 /*    16464:	24a55960 */ 	addiu	$a1,$a1,0x5960
 /*    16468:	8fa3001c */ 	lw	$v1,0x1c($sp)
 .NB0001646c:

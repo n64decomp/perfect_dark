@@ -3540,10 +3540,10 @@ u8 func1018_safe_switch[] = {
 	unset_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_INVISIBLE)
 	unset_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_COLLECTABLE)
-	set_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_00001000)
+	set_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_PICKUPWITHOUTLOS)
 
 	// 0x32 = a shield
-	set_object_flag2(0x34, OBJFLAG2_00001000)
+	set_object_flag2(0x34, OBJFLAG2_PICKUPWITHOUTLOS)
 	unset_object_flag(0x34, OBJFLAG_UNCOLLECTABLE)
 
 	// 0x32 = invalid object

@@ -1336,8 +1336,8 @@ u8 func1009_weaponscache[] = {
 	unset_object_flag2(OBJ_CMP150_1, OBJFLAG2_INVISIBLE)
 	unset_object_flag(OBJ_CMP150_2, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_CMP150_2, OBJFLAG2_INVISIBLE)
-	set_object_flag2(OBJ_CMP150_1, OBJFLAG2_00001000)
-	set_object_flag2(OBJ_CMP150_2, OBJFLAG2_00001000)
+	set_object_flag2(OBJ_CMP150_1, OBJFLAG2_PICKUPWITHOUTLOS)
+	set_object_flag2(OBJ_CMP150_2, OBJFLAG2_PICKUPWITHOUTLOS)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)

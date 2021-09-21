@@ -62653,7 +62653,7 @@ s32 objTestForPickup(struct prop *prop)
 		}
 
 		if (pickup
-				&& (obj->flags2 & OBJFLAG2_00001000) == 0
+				&& (obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
 				&& !usebigrange
 				&& hasLineOfSight(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, 0x22, 0x1c) == 0) {
 			pickup = false;

@@ -2843,7 +2843,7 @@
 #define OBJFLAG2_00000200          0x00000200 // Editor: "Mines"
 #define OBJFLAG2_LINKEDTOSAFE      0x00000400 // Applied to safe door and item
 #define OBJFLAG2_INTERACTCHECKLOS  0x00000800 // Check line of sight when attempting to interact with object
-#define OBJFLAG2_00001000          0x00001000 // Investigation CMP150s, Air Base safe item and shield
+#define OBJFLAG2_PICKUPWITHOUTLOS  0x00001000 // Object can be picked up without having line of sight
 #define OBJFLAG2_00002000          0x00002000 // Ruins commhub - used as a "shown message" flag
 #define OBJFLAG2_IMMUNETOGUNFIRE   0x00004000
 #define OBJFLAG2_SHOOTTHROUGH      0x00008000

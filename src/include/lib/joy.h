@@ -40,11 +40,11 @@ u16 joyGetButtonsPressedThisFrame(s8 contpadnum, u16 mask);
 s32 joy000150c4(void);
 
 #if VERSION >= VERSION_NTSC_1_0
-void joy000150e8(void);
-void joy00015144(void);
+void joyGetLock(void);
+void joyReleaseLock(void);
 #else
-void joy000150e8(s32 line, char *file);
-void joy00015144(s32 line, char *file);
+void joyGetLock(s32 line, char *file);
+void joyReleaseLock(s32 line, char *file);
 #endif
 
 void joyReset(void);
