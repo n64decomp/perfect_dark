@@ -2884,7 +2884,7 @@ glabel pak0f118b04
 /*  f118b84:	15e00007 */ 	bnez	$t7,.L0f118ba4
 /*  f118b88:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f118b8c:
-/*  f118b8c:	0fc46ef6 */ 	jal	pak0f11bbd8
+/*  f118b8c:	0fc46ef6 */ 	jal	pakReplaceFileAtOffsetWithBlank
 /*  f118b90:	83a40023 */ 	lb	$a0,0x23($sp)
 /*  f118b94:	54400008 */ 	bnezl	$v0,.L0f118bb8
 /*  f118b98:	00001025 */ 	or	$v0,$zero,$zero
@@ -2936,7 +2936,7 @@ glabel pak0f112e8c
 /*  f112ef8:	15e00007 */ 	bnez	$t7,.NB0f112f18
 /*  f112efc:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f112f00:
-/*  f112f00:	0fc456d7 */ 	jal	pak0f11bbd8
+/*  f112f00:	0fc456d7 */ 	jal	pakReplaceFileAtOffsetWithBlank
 /*  f112f04:	83a40023 */ 	lb	$a0,0x23($sp)
 /*  f112f08:	54400008 */ 	bnezl	$v0,.NB0f112f2c
 /*  f112f0c:	00001025 */ 	or	$v0,$zero,$zero
@@ -9123,42 +9123,23 @@ glabel pak0f11b86c
 );
 #endif
 
-GLOBAL_ASM(
-glabel pak0f11bbd8
-/*  f11bbd8:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f11bbdc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f11bbe0:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f11bbe4:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f11bbe8:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f11bbec:	0fc45d48 */ 	jal	pakReadHeaderAtOffset
-/*  f11bbf0:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f11bbf4:	14400012 */ 	bnez	$v0,.L0f11bc40
-/*  f11bbf8:	83a4004b */ 	lb	$a0,0x4b($sp)
-/*  f11bbfc:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f11bc00:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f11bc04:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f11bc08:	31cf0fff */ 	andi	$t7,$t6,0xfff
-/*  f11bc0c:	25f8fff0 */ 	addiu	$t8,$t7,-16
-/*  f11bc10:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f11bc14:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f11bc18:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f11bc1c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11bc20:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f11bc24:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f11bc28:	0fc46f15 */ 	jal	pakWriteFile
-/*  f11bc2c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f11bc30:	54400004 */ 	bnezl	$v0,.L0f11bc44
-/*  f11bc34:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11bc38:	10000002 */ 	beqz	$zero,.L0f11bc44
-/*  f11bc3c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11bc40:
-/*  f11bc40:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11bc44:
-/*  f11bc44:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f11bc48:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f11bc4c:	03e00008 */ 	jr	$ra
-/*  f11bc50:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset)
+{
+	struct pakfileheader header;
+	s32 result;
+
+	result = pakReadHeaderAtOffset(device, offset, &header);
+
+	if (result == 0) {
+		result = pakWriteFile(device, offset, PAKFILETYPE_BLANK, NULL, header.filelen - sizeof(struct pakfileheader), NULL, NULL, 0, 1);
+
+		if (result == 0) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

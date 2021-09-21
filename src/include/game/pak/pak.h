@@ -97,7 +97,7 @@ bool pakRetrieveHeaderFromCache(s8 device, s32 blocknum, struct pakfileheader *h
 s32 pakScrub(s8 device);
 bool pak0f11b75c(s8 device, u32 *arg1);
 s32 pak0f11b86c(s32 device, u32 uVar2, u8 *data, struct pakfileheader *header, s32 arg3);
-u32 pak0f11bbd8(void);
+bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset);
 s32 pakWriteFile(s8 device, u32 offset, s32 filetype, u8 *newdata, s32 bodylen, s32 *outfileid, u8 *olddata, u32 fileid, u32 arg8);
 bool pakRepair(s8 device);
 bool pakHandleResult(s32 result, s8 device, u32 arg2, u32 arg3);
