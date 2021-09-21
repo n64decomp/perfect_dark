@@ -269,7 +269,7 @@ s32 pak0f1167b0(s8 device, u32 filetype, u32 *buffer1024)
 	return pak0f118d18(device, filetype, buffer1024);
 }
 
-u32 pak0f1167d8(s8 device)
+s32 pak0f1167d8(s8 device)
 {
 	return pak0f119298(device);
 }
@@ -3315,27 +3315,18 @@ glabel pak0f118eb0
 );
 #endif
 
-GLOBAL_ASM(
-glabel pak0f11907c
-/*  f11907c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f119080:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f119084:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f119088:	0fc459f6 */ 	jal	pak0f1167d8
-/*  f11908c:	83a4001b */ 	lb	$a0,0x1b($sp)
-/*  f119090:	10400003 */ 	beqz	$v0,.L0f1190a0
-/*  f119094:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119098:	10000005 */ 	beqz	$zero,.L0f1190b0
-/*  f11909c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1190a0:
-/*  f1190a0:	0fc46874 */ 	jal	pak0f11a1d0
-/*  f1190a4:	83a4001b */ 	lb	$a0,0x1b($sp)
-/*  f1190a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1190ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1190b0:
-/*  f1190b0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1190b4:	03e00008 */ 	jr	$ra
-/*  f1190b8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 pak0f11907c(s8 device)
+{
+	s32 result = pak0f1167d8(device);
+
+	if (result != 0) {
+		return result;
+	}
+
+	pak0f11a1d0(device);
+
+	return 0;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
