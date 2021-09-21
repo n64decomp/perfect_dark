@@ -12078,65 +12078,15 @@ glabel pak0f11d3f8
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11d478
-/*  f11d478:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11d47c:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f11d480:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f11d484:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d488:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d48c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d490:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d494:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f11d498:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d49c:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f11d4a0:	3c19800a */ 	lui	$t9,%hi(g_Paks)
-/*  f11d4a4:	27392380 */ 	addiu	$t9,$t9,%lo(g_Paks)
-/*  f11d4a8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f11d4ac:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f11d4b0:	8c680008 */ 	lw	$t0,0x8($v1)
-/*  f11d4b4:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f11d4b8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11d4bc:	15010004 */ 	bne	$t0,$at,.L0f11d4d0
-/*  f11d4c0:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f11d4c4:	ac690008 */ 	sw	$t1,0x8($v1)
-/*  f11d4c8:	03e00008 */ 	jr	$ra
-/*  f11d4cc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11d4d0:
-/*  f11d4d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11d4d4:	03e00008 */ 	jr	$ra
-/*  f11d4d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#else
-GLOBAL_ASM(
-glabel pak0f11d478
-/*  f1170f0:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f1170f4:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1170f8:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1170fc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117100:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f117104:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f117108:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f11710c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f117110:	3c19800a */ 	lui	$t9,0x800a
-/*  f117114:	27396870 */ 	addiu	$t9,$t9,0x6870
-/*  f117118:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f11711c:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f117120:	8c680008 */ 	lw	$t0,0x8($v1)
-/*  f117124:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f117128:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11712c:	15010004 */ 	bne	$t0,$at,.NB0f117140
-/*  f117130:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f117134:	ac690008 */ 	sw	$t1,0x8($v1)
-/*  f117138:	03e00008 */ 	jr	$ra
-/*  f11713c:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f117140:
-/*  f117140:	00001025 */ 	or	$v0,$zero,$zero
-/*  f117144:	03e00008 */ 	jr	$ra
-/*  f117148:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+bool pak0f11d478(s8 device)
+{
+	if (g_Paks[device].unk008 == 11) {
+		g_Paks[device].unk008 = 1;
+		return true;
+	}
+
+	return false;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
