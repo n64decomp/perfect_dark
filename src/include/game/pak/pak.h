@@ -115,7 +115,7 @@ u32 pak0f11d174(void);
 u32 pak0f11d214(void);
 u32 pak0f11d3f8(void);
 bool pak0f11d478(s8 device);
-u32 pak0f11d4dc(void);
+bool pak0f11d4dc(s8 device);
 s32 pak0f11d540(s8 device, s32 arg1);
 s32 pak0f11d5b0(s8 device);
 void pak0f11d620(s8 device);
