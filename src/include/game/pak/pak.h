@@ -37,7 +37,7 @@ s32 pakGetBodyLenByType(s8 device, u32 filetype);
 void pak0f117150(s8 device, u8 *ptr);
 void pak0f1171b4(s8 device, s32 arg1, s32 arg2);
 s32 pakGetUnk008(s8 device);
-u32 pak0f117430(void);
+bool pakRetrieveBlockFromCache(s8 device, u32 offset, u8 *dst);
 u32 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader *header);
 void pakDumpBuffer(u8 *buffer, u32 len, char *name);
 void pakDumpEeprom(void);

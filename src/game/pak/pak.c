@@ -750,141 +750,23 @@ void pak0f1173e4(s8 device)
 	g_Paks[device].unk2b8_01 = 0;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f117430
-/*  f117430:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f117434:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f117438:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f11743c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f117440:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f117444:	0fc45974 */ 	jal	pakGetBlockSize
-/*  f117448:	83a4003b */ 	lb	$a0,0x3b($sp)
-/*  f11744c:	83ae003b */ 	lb	$t6,0x3b($sp)
-/*  f117450:	3c18800a */ 	lui	$t8,%hi(g_Paks)
-/*  f117454:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
-/*  f117458:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f11745c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f117460:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f117464:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f117468:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11746c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f117470:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f117474:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f117478:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11747c:	01f84021 */ 	addu	$t0,$t7,$t8
-/*  f117480:	910502be */ 	lbu	$a1,0x2be($t0)
-/*  f117484:	28a10032 */ 	slti	$at,$a1,0x32
-/*  f117488:	50200021 */ 	beqzl	$at,.L0f117510
-/*  f11748c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f117490:	18a0001e */ 	blez	$a1,.L0f11750c
-/*  f117494:	00001825 */ 	or	$v1,$zero,$zero
-/*  f117498:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*  f11749c:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1174a0:	8d0402c0 */ 	lw	$a0,0x2c0($t0)
-/*  f1174a4:	0322001b */ 	divu	$zero,$t9,$v0
-/*  f1174a8:	00003012 */ 	mflo	$a2
-/*  f1174ac:	14400002 */ 	bnez	$v0,.L0f1174b8
-/*  f1174b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1174b4:	0007000d */ 	break	0x7
-.L0f1174b8:
-/*  f1174b8:	8c890000 */ 	lw	$t1,0x0($a0)
-/*  f1174bc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f1174c0:	0065082a */ 	slt	$at,$v1,$a1
-/*  f1174c4:	14c9000f */ 	bne	$a2,$t1,.L0f117504
-/*  f1174c8:	24840024 */ 	addiu	$a0,$a0,0x24
-/*  f1174cc:	83a4003b */ 	lb	$a0,0x3b($sp)
-/*  f1174d0:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f1174d4:	0fc45974 */ 	jal	pakGetBlockSize
-/*  f1174d8:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f1174dc:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f1174e0:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f1174e4:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f1174e8:	8d0a02c0 */ 	lw	$t2,0x2c0($t0)
-/*  f1174ec:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1174f0:	01472821 */ 	addu	$a1,$t2,$a3
-/*  f1174f4:	0c012978 */ 	jal	memcpy
-/*  f1174f8:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f1174fc:	10000004 */ 	beqz	$zero,.L0f117510
-/*  f117500:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f117504:
-/*  f117504:	1420ffec */ 	bnez	$at,.L0f1174b8
-/*  f117508:	24e70024 */ 	addiu	$a3,$a3,0x24
-.L0f11750c:
-/*  f11750c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f117510:
-/*  f117510:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f117514:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f117518:	03e00008 */ 	jr	$ra
-/*  f11751c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#else
-GLOBAL_ASM(
-glabel pak0f117430
-/*  f111794:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f111798:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11179c:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f1117a0:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f1117a4:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f1117a8:	0fc4428c */ 	jal	pakGetBlockSize
-/*  f1117ac:	83a4003b */ 	lb	$a0,0x3b($sp)
-/*  f1117b0:	83ae003b */ 	lb	$t6,0x3b($sp)
-/*  f1117b4:	3c18800a */ 	lui	$t8,0x800a
-/*  f1117b8:	27186870 */ 	addiu	$t8,$t8,0x6870
-/*  f1117bc:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f1117c0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1117c4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1117c8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1117cc:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1117d0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1117d4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1117d8:	01f84021 */ 	addu	$t0,$t7,$t8
-/*  f1117dc:	910502be */ 	lbu	$a1,0x2be($t0)
-/*  f1117e0:	28a10032 */ 	slti	$at,$a1,0x32
-/*  f1117e4:	50200021 */ 	beqzl	$at,.NB0f11186c
-/*  f1117e8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1117ec:	18a0001e */ 	blez	$a1,.NB0f111868
-/*  f1117f0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1117f4:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*  f1117f8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1117fc:	8d0402c0 */ 	lw	$a0,0x2c0($t0)
-/*  f111800:	0322001b */ 	divu	$zero,$t9,$v0
-/*  f111804:	00003012 */ 	mflo	$a2
-/*  f111808:	14400002 */ 	bnez	$v0,.NB0f111814
-/*  f11180c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111810:	0007000d */ 	break	0x7
-.NB0f111814:
-/*  f111814:	8c890000 */ 	lw	$t1,0x0($a0)
-/*  f111818:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f11181c:	0065082a */ 	slt	$at,$v1,$a1
-/*  f111820:	14c9000f */ 	bne	$a2,$t1,.NB0f111860
-/*  f111824:	24840024 */ 	addiu	$a0,$a0,0x24
-/*  f111828:	83a4003b */ 	lb	$a0,0x3b($sp)
-/*  f11182c:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f111830:	0fc4428c */ 	jal	pakGetBlockSize
-/*  f111834:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f111838:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f11183c:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f111840:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f111844:	8d0a02c0 */ 	lw	$t2,0x2c0($t0)
-/*  f111848:	00403025 */ 	or	$a2,$v0,$zero
-/*  f11184c:	01472821 */ 	addu	$a1,$t2,$a3
-/*  f111850:	0c012e88 */ 	jal	memcpy
-/*  f111854:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f111858:	10000004 */ 	beqz	$zero,.NB0f11186c
-/*  f11185c:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f111860:
-/*  f111860:	1420ffec */ 	bnez	$at,.NB0f111814
-/*  f111864:	24e70024 */ 	addiu	$a3,$a3,0x24
-.NB0f111868:
-/*  f111868:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f11186c:
-/*  f11186c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111870:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f111874:	03e00008 */ 	jr	$ra
-/*  f111878:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
+bool pakRetrieveBlockFromCache(s8 device, u32 offset, u8 *dst)
+{
+	u32 blocksize = pakGetBlockSize(device);
+	u32 stack;
+	s32 i;
+
+	if (g_Paks[device].headercachecount < MAX_HEADERCACHE_ENTRIES) {
+		for (i = 0; i < g_Paks[device].headercachecount; i++) {
+			if (offset / blocksize == g_Paks[device].headercache[i].blocknum) {
+				memcpy(dst, g_Paks[device].headercache[i].payload, pakGetBlockSize(device));
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 u32 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader *header)
 {
@@ -8527,7 +8409,7 @@ glabel pak0f11b86c
 /*  f11b95c:	00047603 */ 	sra	$t6,$a0,0x18
 /*  f11b960:	01c02025 */ 	or	$a0,$t6,$zero
 /*  f11b964:	8fa50134 */ 	lw	$a1,0x134($sp)
-/*  f11b968:	0fc45d0c */ 	jal	pak0f117430
+/*  f11b968:	0fc45d0c */ 	jal	pakRetrieveBlockFromCache
 /*  f11b96c:	27a600e0 */ 	addiu	$a2,$sp,0xe0
 /*  f11b970:	5040000e */ 	beqzl	$v0,.L0f11b9ac
 /*  f11b974:	8e650008 */ 	lw	$a1,0x8($s3)
@@ -8772,7 +8654,7 @@ glabel pak0f11b86c
 /*  f1158d4:	00046e03 */ 	sra	$t5,$a0,0x18
 /*  f1158d8:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f1158dc:	8fa50134 */ 	lw	$a1,0x134($sp)
-/*  f1158e0:	0fc445e5 */ 	jal	pak0f117430
+/*  f1158e0:	0fc445e5 */ 	jal	pakRetrieveBlockFromCache
 /*  f1158e4:	27a600e4 */ 	addiu	$a2,$sp,0xe4
 /*  f1158e8:	5040000e */ 	beqzl	$v0,.NB0f115924
 /*  f1158ec:	8e650008 */ 	lw	$a1,0x8($s3)
