@@ -64,7 +64,7 @@ s32 pak0f11807c(s8 device);
 s32 pak0f118148(s8 device);
 s32 pak0f118230(s8 device, u8 *olddata);
 s32 pak0f118334(s8 device, s32 numpages);
-void pak0f1185e0(s8 device, s32 arg1, s32 param_3);
+void pak0f1185e0(s8 device, s32 arg1, s32 arg2);
 u32 pak0f118674(s8 device, u32 filetype, u8 *olddata);
 void pakInitAll(void);
 void pakCalculateChecksum(u8 *arg0, u8 *arg1, u16 *arg2);
