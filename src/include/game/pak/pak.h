@@ -88,7 +88,7 @@ void pak0f11a32c(s8 device, u8 arg1, u32 line, char *file);
 void pakInit(s8 arg0);
 s32 pakReadWriteBlock(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer);
 s32 pak0f11a574(s8 device);
-u32 pak0f11a7dc(void);
+void pakUpdateSize(s8 device);
 u32 pak0f11a8f4(void);
 u32 pak0f11ac7c(void);
 void pakWipe(s8 device, u32 start, u32 end);

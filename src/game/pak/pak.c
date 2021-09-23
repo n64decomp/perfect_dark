@@ -102,6 +102,8 @@
  * block  - is a sequence of 0x10 bytes (for game pak) or 0x20 bytes (for controller paks).
  */
 
+#define NUM_PAGES 28
+
 #define MAX_HEADERCACHE_ENTRIES 50
 
 const char g_N64FontCodeMap[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
@@ -1525,7 +1527,7 @@ s32 pak0f118000(s8 device)
 
 s32 pakGetNumPagesRequired(void)
 {
-	return 28;
+	return NUM_PAGES;
 }
 
 s32 pak0f11807c(s8 device)
@@ -6527,167 +6529,42 @@ glabel pak0f11a574
 );
 #endif
 
+void pakUpdateSize(s8 device)
+{
+	u32 stack;
+	OSPfsState note;
+	s32 result;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11a7dc
-/*  f11a7dc:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f11a7e0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f11a7e4:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f11a7e8:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f11a7ec:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11a7f0:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f11a7f4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f11a7f8:	0c00543a */ 	jal	joyDisableCyclicPolling
-/*  f11a7fc:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f11a800:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11a804:	16210003 */ 	bne	$s1,$at,.L0f11a814
-/*  f11a808:	0011c880 */ 	sll	$t9,$s1,0x2
-/*  f11a80c:	10000009 */ 	beqz	$zero,.L0f11a834
-/*  f11a810:	00002025 */ 	or	$a0,$zero,$zero
-.L0f11a814:
-/*  f11a814:	00117880 */ 	sll	$t7,$s1,0x2
-/*  f11a818:	01f17823 */ 	subu	$t7,$t7,$s1
-/*  f11a81c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11a820:	01f17821 */ 	addu	$t7,$t7,$s1
-/*  f11a824:	3c18800a */ 	lui	$t8,%hi(g_Pfses)
-/*  f11a828:	27183180 */ 	addiu	$t8,$t8,%lo(g_Pfses)
-/*  f11a82c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f11a830:	01f82021 */ 	addu	$a0,$t7,$t8
-.L0f11a834:
-/*  f11a834:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f11a838:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a83c:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f11a840:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a844:	0331c821 */ 	addu	$t9,$t9,$s1
-/*  f11a848:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a84c:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f11a850:	3c08800a */ 	lui	$t0,%hi(g_Paks)
-/*  f11a854:	25082380 */ 	addiu	$t0,$t0,%lo(g_Paks)
-/*  f11a858:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11a85c:	03288021 */ 	addu	$s0,$t9,$t0
-/*  f11a860:	8e05029c */ 	lw	$a1,0x29c($s0)
-/*  f11a864:	0fc45f39 */ 	jal	pakFileState
-/*  f11a868:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f11a86c:	0c005451 */ 	jal	joyEnableCyclicPolling
-/*  f11a870:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f11a874:	00112e00 */ 	sll	$a1,$s1,0x18
-/*  f11a878:	00054e03 */ 	sra	$t1,$a1,0x18
-/*  f11a87c:	01202825 */ 	or	$a1,$t1,$zero
-/*  f11a880:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f11a884:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f11a888:	0fc470e7 */ 	jal	pakHandleResult
-/*  f11a88c:	24070e0f */ 	addiu	$a3,$zero,_val7f11a88c
-/*  f11a890:	10400013 */ 	beqz	$v0,.L0f11a8e0
-/*  f11a894:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*  f11a898:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f11a89c:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f11a8a0:	ae0a02a0 */ 	sw	$t2,0x2a0($s0)
-/*  f11a8a4:	0fc45974 */ 	jal	pakGetBlockSize
-/*  f11a8a8:	01602025 */ 	or	$a0,$t3,$zero
-/*  f11a8ac:	8e0302a0 */ 	lw	$v1,0x2a0($s0)
-/*  f11a8b0:	24011c00 */ 	addiu	$at,$zero,0x1c00
-/*  f11a8b4:	0062001b */ 	divu	$zero,$v1,$v0
-/*  f11a8b8:	00006012 */ 	mflo	$t4
-/*  f11a8bc:	00036a02 */ 	srl	$t5,$v1,0x8
-/*  f11a8c0:	ae0c02a4 */ 	sw	$t4,0x2a4($s0)
-/*  f11a8c4:	0061001b */ 	divu	$zero,$v1,$at
-/*  f11a8c8:	00007012 */ 	mflo	$t6
-/*  f11a8cc:	ae0d02a8 */ 	sw	$t5,0x2a8($s0)
-/*  f11a8d0:	14400002 */ 	bnez	$v0,.L0f11a8dc
-/*  f11a8d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11a8d8:	0007000d */ 	break	0x7
-.L0f11a8dc:
-/*  f11a8dc:	a20e02bc */ 	sb	$t6,0x2bc($s0)
-.L0f11a8e0:
-/*  f11a8e0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11a8e4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f11a8e8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f11a8ec:	03e00008 */ 	jr	$ra
-/*  f11a8f0:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+	joyDisableCyclicPolling();
 #else
-GLOBAL_ASM(
-glabel pak0f11a7dc
-/*  f114690:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f114694:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f114698:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f11469c:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f1146a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1146a4:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f1146a8:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f1146ac:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f1146b0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1146b4:	24a5e304 */ 	addiu	$a1,$a1,-7420
-/*  f1146b8:	0c00581b */ 	jal	joyDisableCyclicPolling
-/*  f1146bc:	24040caa */ 	addiu	$a0,$zero,0xcaa
-/*  f1146c0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1146c4:	16210003 */ 	bne	$s1,$at,.NB0f1146d4
-/*  f1146c8:	0011c880 */ 	sll	$t9,$s1,0x2
-/*  f1146cc:	10000009 */ 	beqz	$zero,.NB0f1146f4
-/*  f1146d0:	00002025 */ 	or	$a0,$zero,$zero
-.NB0f1146d4:
-/*  f1146d4:	00117880 */ 	sll	$t7,$s1,0x2
-/*  f1146d8:	01f17823 */ 	subu	$t7,$t7,$s1
-/*  f1146dc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1146e0:	01f17821 */ 	addu	$t7,$t7,$s1
-/*  f1146e4:	3c18800a */ 	lui	$t8,0x800a
-/*  f1146e8:	27187658 */ 	addiu	$t8,$t8,0x7658
-/*  f1146ec:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1146f0:	01f82021 */ 	addu	$a0,$t7,$t8
-.NB0f1146f4:
-/*  f1146f4:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f1146f8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f1146fc:	0331c823 */ 	subu	$t9,$t9,$s1
-/*  f114700:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f114704:	0331c821 */ 	addu	$t9,$t9,$s1
-/*  f114708:	3c08800a */ 	lui	$t0,0x800a
-/*  f11470c:	25086870 */ 	addiu	$t0,$t0,0x6870
-/*  f114710:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f114714:	03288021 */ 	addu	$s0,$t9,$t0
-/*  f114718:	8e05029c */ 	lw	$a1,0x29c($s0)
-/*  f11471c:	0fc4481a */ 	jal	pakFileState
-/*  f114720:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f114724:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114728:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f11472c:	24a5e30c */ 	addiu	$a1,$a1,-7412
-/*  f114730:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114734:	24040cac */ 	addiu	$a0,$zero,0xcac
-/*  f114738:	00112e00 */ 	sll	$a1,$s1,0x18
-/*  f11473c:	00054e03 */ 	sra	$t1,$a1,0x18
-/*  f114740:	01202825 */ 	or	$a1,$t1,$zero
-/*  f114744:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f114748:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f11474c:	0fc458cb */ 	jal	pakHandleResult
-/*  f114750:	24070cae */ 	addiu	$a3,$zero,0xcae
-/*  f114754:	10400013 */ 	beqz	$v0,.NB0f1147a4
-/*  f114758:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*  f11475c:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f114760:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f114764:	ae0a02a0 */ 	sw	$t2,0x2a0($s0)
-/*  f114768:	0fc4428c */ 	jal	pakGetBlockSize
-/*  f11476c:	01602025 */ 	or	$a0,$t3,$zero
-/*  f114770:	8e0302a0 */ 	lw	$v1,0x2a0($s0)
-/*  f114774:	24011c00 */ 	addiu	$at,$zero,0x1c00
-/*  f114778:	0062001b */ 	divu	$zero,$v1,$v0
-/*  f11477c:	00006012 */ 	mflo	$t4
-/*  f114780:	00036a02 */ 	srl	$t5,$v1,0x8
-/*  f114784:	ae0c02a4 */ 	sw	$t4,0x2a4($s0)
-/*  f114788:	0061001b */ 	divu	$zero,$v1,$at
-/*  f11478c:	00007012 */ 	mflo	$t6
-/*  f114790:	ae0d02a8 */ 	sw	$t5,0x2a8($s0)
-/*  f114794:	14400002 */ 	bnez	$v0,.NB0f1147a0
-/*  f114798:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11479c:	0007000d */ 	break	0x7
-.NB0f1147a0:
-/*  f1147a0:	a20e02bc */ 	sb	$t6,0x2bc($s0)
-.NB0f1147a4:
-/*  f1147a4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1147a8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1147ac:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1147b0:	03e00008 */ 	jr	$ra
-/*  f1147b4:	27bd0050 */ 	addiu	$sp,$sp,0x50
-);
+	joyDisableCyclicPolling(3242, "pak.c");
 #endif
+
+	result = pakFileState(PFS(device), g_Paks[device].noteindex, &note);
+
+#if VERSION >= VERSION_NTSC_1_0
+	joyEnableCyclicPolling();
+#else
+	joyEnableCyclicPolling(3244, "pak.c");
+#endif
+
+#if VERSION >= VERSION_PAL_FINAL
+	if (pakHandleResult(result, device, 1, 3606))
+#elif VERSION >= VERSION_NTSC_FINAL
+	if (pakHandleResult(result, device, 1, 3599))
+#elif VERSION >= VERSION_NTSC_1_0
+	if (pakHandleResult(result, device, 1, 3403))
+#else
+	if (pakHandleResult(result, device, 1, 3246))
+#endif
+	{
+		g_Paks[device].numbytes = note.file_size;
+		g_Paks[device].numblocks = g_Paks[device].numbytes / pakGetBlockSize(device);
+		g_Paks[device].numpages = g_Paks[device].numbytes / 256;
+		g_Paks[device].numnotes = g_Paks[device].numbytes / (256 * NUM_PAGES);
+	}
+}
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -6915,7 +6792,7 @@ glabel pak0f11a8f4
 /*  f11ab0c:	01802025 */ 	or	$a0,$t4,$zero
 /*  f11ab10:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f11ab14:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f11ab18:	0fc469f7 */ 	jal	pak0f11a7dc
+/*  f11ab18:	0fc469f7 */ 	jal	pakUpdateSize
 /*  f11ab1c:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f11ab20:	920e02b8 */ 	lbu	$t6,0x2b8($s0)
 /*  f11ab24:	2418000b */ 	addiu	$t8,$zero,0xb
@@ -7165,7 +7042,7 @@ glabel pak0f11a8f4
 /*  f11a88c:	01802025 */ 	or	$a0,$t4,$zero
 /*  f11a890:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f11a894:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f11a898:	0fc46957 */ 	jal	pak0f11a7dc
+/*  f11a898:	0fc46957 */ 	jal	pakUpdateSize
 /*  f11a89c:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f11a8a0:	920e02b8 */ 	lbu	$t6,0x2b8($s0)
 /*  f11a8a4:	2418000b */ 	addiu	$t8,$zero,0xb
@@ -7416,7 +7293,7 @@ glabel pak0f11a8f4
 /*  f114ae4:	01602025 */ 	or	$a0,$t3,$zero
 /*  f114ae8:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f114aec:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f114af0:	0fc451a4 */ 	jal	pak0f11a7dc
+/*  f114af0:	0fc451a4 */ 	jal	pakUpdateSize
 /*  f114af4:	01802025 */ 	or	$a0,$t4,$zero
 /*  f114af8:	240d000b */ 	addiu	$t5,$zero,0xb
 /*  f114afc:	a20002be */ 	sb	$zero,0x2be($s0)

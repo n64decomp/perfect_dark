@@ -104,7 +104,6 @@ SECTIONS
 	_val7f118a44 = 0x0801;
 	_val7f11a650 = 0x0da5;
 	_val7f11a6c8 = 0x0dae;
-	_val7f11a88c = 0x0e16;
 	_val7f11aa14 = 0x0e4d;
 	_val7f11aae4 = 0x0e5b;
 	_val7f11ad0c = 0x0efc;
@@ -118,7 +117,6 @@ SECTIONS
 	_val7f118a44 = 0x0801;
 	_val7f11a650 = 0x0d9e;
 	_val7f11a6c8 = 0x0da7;
-	_val7f11a88c = 0x0e0f;
 	_val7f11aa14 = 0x0e46;
 	_val7f11aae4 = 0x0e54;
 	_val7f11ad0c = 0x0ef5;
@@ -132,7 +130,6 @@ SECTIONS
 	_val7f118a44 = 0x07e0;
 	_val7f11a650 = 0x0cda;
 	_val7f11a6c8 = 0x0ce3;
-	_val7f11a88c = 0x0d4b;
 	_val7f11aa14 = 0x0d83;
 	_val7f11aae4 = 0x0d91;
 	_val7f11ad0c = 0x0e32;
