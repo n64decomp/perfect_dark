@@ -14134,88 +14134,56 @@ bool pak0f11ea34(s8 arg0)
 	return true;
 }
 
+bool pak0f11eaec(s8 device)
+{
+	u8 sp78[32];
+	u8 sp58[32];
+	u8 sp38[32];
+	s32 i;
+	bool sp30 = false;
+	bool result = false;
+	u8 sp28[2];
+
+	for (i = 0; i < 32; i++) {
+		sp78[i] = 0;
+		sp58[i] = 0;
+	}
+
+	sp78[0] = 0;
+
+	pak0f11ea34(device);
+	pak0f11ea34(device);
+	pak0f11ea34(device);
+
+	if (!pak0f11ce00(device, 0xbfe0, sp38, 32, true)) {
+		sp30 = true;
+	}
+
+	for (i = 0; i < 32; i++) {
+		sp28[0] = sp38[i];
+		sp28[1] = 0;
+	}
+
 #if VERSION >= VERSION_NTSC_1_0
-const char var7f1b4d80[] = "PerfDark\n";
+	gbpakStrcmp("PerfDark\n", sp38);
 #else
-const char var7f1b4d80[] = "PerfDark";
+	gbpakStrcmp("PerfDark", sp38);
 #endif
 
-GLOBAL_ASM(
-glabel pak0f11eaec
-/*  f11eaec:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f11eaf0:	afa40098 */ 	sw	$a0,0x98($sp)
-/*  f11eaf4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11eaf8:	afa00030 */ 	sw	$zero,0x30($sp)
-/*  f11eafc:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f11eb00:	27a40078 */ 	addiu	$a0,$sp,0x78
-/*  f11eb04:	27a30078 */ 	addiu	$v1,$sp,0x78
-/*  f11eb08:	27a20058 */ 	addiu	$v0,$sp,0x58
-.L0f11eb0c:
-/*  f11eb0c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11eb10:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f11eb14:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f11eb18:	a060ffff */ 	sb	$zero,-0x1($v1)
-/*  f11eb1c:	1420fffb */ 	bnez	$at,.L0f11eb0c
-/*  f11eb20:	a040ffff */ 	sb	$zero,-0x1($v0)
-/*  f11eb24:	a3a00078 */ 	sb	$zero,0x78($sp)
-/*  f11eb28:	0fc47a8d */ 	jal	pak0f11ea34
-/*  f11eb2c:	83a4009b */ 	lb	$a0,0x9b($sp)
-/*  f11eb30:	0fc47a8d */ 	jal	pak0f11ea34
-/*  f11eb34:	83a4009b */ 	lb	$a0,0x9b($sp)
-/*  f11eb38:	0fc47a8d */ 	jal	pak0f11ea34
-/*  f11eb3c:	83a4009b */ 	lb	$a0,0x9b($sp)
-/*  f11eb40:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f11eb44:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f11eb48:	83a4009b */ 	lb	$a0,0x9b($sp)
-/*  f11eb4c:	3405bfe0 */ 	dli	$a1,0xbfe0
-/*  f11eb50:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f11eb54:	0fc47380 */ 	jal	pak0f11ce00
-/*  f11eb58:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11eb5c:	14400003 */ 	bnez	$v0,.L0f11eb6c
-/*  f11eb60:	27a30058 */ 	addiu	$v1,$sp,0x58
-/*  f11eb64:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f11eb68:	afaf0030 */ 	sw	$t7,0x30($sp)
-.L0f11eb6c:
-/*  f11eb6c:	27a20038 */ 	addiu	$v0,$sp,0x38
-/*  f11eb70:	a3a00029 */ 	sb	$zero,0x29($sp)
-.L0f11eb74:
-/*  f11eb74:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f11eb78:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11eb7c:	1443fffd */ 	bne	$v0,$v1,.L0f11eb74
-/*  f11eb80:	a3b80028 */ 	sb	$t8,0x28($sp)
-/*  f11eb84:	3c047f1b */ 	lui	$a0,%hi(var7f1b4d80)
-/*  f11eb88:	24844d80 */ 	addiu	$a0,$a0,%lo(var7f1b4d80)
-/*  f11eb8c:	0fc479fc */ 	jal	gbpakStrcmp
-/*  f11eb90:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f11eb94:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f11eb98:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f11eb9c:	83a4009b */ 	lb	$a0,0x9b($sp)
-/*  f11eba0:	3405a000 */ 	dli	$a1,0xa000
-/*  f11eba4:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f11eba8:	0fc47380 */ 	jal	pak0f11ce00
-/*  f11ebac:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f11ebb0:	14400002 */ 	bnez	$v0,.L0f11ebbc
-/*  f11ebb4:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f11ebb8:	afa80030 */ 	sw	$t0,0x30($sp)
-.L0f11ebbc:
-/*  f11ebbc:	93a90038 */ 	lbu	$t1,0x38($sp)
-/*  f11ebc0:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f11ebc4:	312a0001 */ 	andi	$t2,$t1,0x1
-/*  f11ebc8:	51400003 */ 	beqzl	$t2,.L0f11ebd8
-/*  f11ebcc:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*  f11ebd0:	afab002c */ 	sw	$t3,0x2c($sp)
-/*  f11ebd4:	8fac0030 */ 	lw	$t4,0x30($sp)
-.L0f11ebd8:
-/*  f11ebd8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11ebdc:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f11ebe0:	11800003 */ 	beqz	$t4,.L0f11ebf0
-/*  f11ebe4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ebe8:	10000001 */ 	beqz	$zero,.L0f11ebf0
-/*  f11ebec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11ebf0:
-/*  f11ebf0:	03e00008 */ 	jr	$ra
-/*  f11ebf4:	27bd0098 */ 	addiu	$sp,$sp,0x98
-);
+	if (!pak0f11ce00(device, 0xa000, sp38, 32, true)) {
+		sp30 = true;
+	}
+
+	if (sp38[0] & 1) {
+		result = true;
+	}
+
+	if (sp30) {
+		return false;
+	}
+
+	return result;
+}
 
 /**
  * This function isn't called.

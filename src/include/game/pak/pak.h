@@ -148,7 +148,7 @@ s32 pak0f11e750(s8 device);
 bool gbpakIsAnyPerfectDark(void);
 bool gbpakStrcmp(char *a, char *b);
 s32 gbpakIdentifyGame(s8 device);
-bool pak0f11ea34(s8 arg0);
+bool pak0f11ea34(s8 device);
 
 extern const char var7f1b423c[];
 extern const char var7f1b4244[];
