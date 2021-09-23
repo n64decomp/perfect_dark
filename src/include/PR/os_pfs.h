@@ -68,6 +68,23 @@ typedef struct {
   	char 	game_name[16];
 } OSPfsState;
 
+typedef struct {
+	u16 fixed1;             /* Fixed data (0x00, 0xc3) */
+	u16 start_address;      /* Program start address */
+	u8  nintendo_chr[0x30]; /* "Nintendo" character data */
+	u8  game_title[16];     /* Game title */
+	u16 company_code;       /* Company code */
+	u8  body_code;          /* Body code */
+	u8  cart_type;          /* Game pak type */
+	u8  rom_size;           /* ROM size */
+	u8  ram_size;           /* RAM size */
+	u8  country_code;       /* country code */
+	u8  fixed_data;         /* fixed data(0x33) */
+	u8  version;            /* Mask ROM version number */
+	u8  isum;               /* Complement check */
+	u16 sum;                /* Sum check */
+} OSGbpakId;
+
 /**************************************************************************
  *
  * Global definitions
@@ -87,10 +104,15 @@ typedef struct {
 #define PFS_ERR_EXIST        9  /* file exists */
 #define PFS_ERR_ID_FATAL     10 /* dead ram pack */
 #define PFS_ERR_DEVICE       11 /* wrong device type */
+#define PFS_ERR_NO_GBCART    12 /* no gb cartridge (64GB-PAK) */
+#define PFS_ERR_NEW_GBCART   13 /* gb cartridge may be changed */
 
 #define	OS_PFS_VERSION		0x0200
 #define	OS_PFS_VERSION_HI	(OS_PFS_VERSION >> 8)
 #define	OS_PFS_VERSION_LO	(OS_PFS_VERSION & 255)
+
+#define OS_GBPAK_POWER_OFF 0
+#define OS_GBPAK_POWER_ON  1
 
 #define PFS_FILE_NAME_LEN       16
 #define PFS_FILE_EXT_LEN        4
@@ -166,6 +188,12 @@ s32 osPfsFreeBlocks(OSPfs* pfs, s32 *bytes_not_used);
 s32 osMotorAccess(OSPfs *pfs, u32 vibrate);
 void osSetUpMempakWrite(s32 channel, OSPifRam* buf);
 s32 osMotorProbe(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
+
+s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status);
+s32 osGbpakGetStatus(OSPfs *pfs, u8 *status);
+s32 osGbpakPower(OSPfs *pfs, s32 flag);
+s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status);
+s32 osGbpakReadWrite(OSPfs *pfs, u16 flag, u16 address, u8 *buffer, u16 size);
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

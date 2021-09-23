@@ -225,7 +225,7 @@ void filelistUpdate(struct filelist *list)
 			}
 
 			list->deviceguids[dis2dev[i]].fileid = 0;
-			list->deviceguids[dis2dev[i]].deviceserial = pakGetDeviceSerial(dis2dev[i]);
+			list->deviceguids[dis2dev[i]].deviceserial = pakGetSerial(dis2dev[i]);
 		} else {
 			// PFS error?
 			list->spacesfree[dis2dev[i]] = -1;
@@ -254,7 +254,7 @@ void filelistUpdate(struct filelist *list)
 				list->devicestartindexes[dev2dis[filedevices[i]]] = list->numfiles;
 			}
 
-			file->deviceserial = pakGetDeviceSerial(filedevices[i]);
+			file->deviceserial = pakGetSerial(filedevices[i]);
 			file->fileid = sp1288[i];
 
 			list->numfiles++;
@@ -267,7 +267,7 @@ void filelistUpdate(struct filelist *list)
 
 				if (list->deviceguids[filedevices[i]].fileid == 0) {
 					list->deviceguids[filedevices[i]].fileid = sp1288[i];
-					list->deviceguids[filedevices[i]].deviceserial = pakGetDeviceSerial(filedevices[i]);
+					list->deviceguids[filedevices[i]].deviceserial = pakGetSerial(filedevices[i]);
 				}
 			}
 		}

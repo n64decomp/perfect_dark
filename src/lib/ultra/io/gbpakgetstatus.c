@@ -3,15 +3,13 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_06100.h"
-#include "lib/lib_06330.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4e090.h"
-#include "lib/lib_513b0.h"
 #include "data.h"
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00050be0
+glabel osGbpakGetStatus
 /*    50be0:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*    50be4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    50be8:	afb10018 */ 	sw	$s1,0x18($sp)

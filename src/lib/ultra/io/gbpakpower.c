@@ -6,7 +6,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00006330
+glabel osGbpakPower
 /*     6330:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*     6334:	afb10028 */ 	sw	$s1,0x28($sp)
 /*     6338:	afb00024 */ 	sw	$s0,0x24($sp)

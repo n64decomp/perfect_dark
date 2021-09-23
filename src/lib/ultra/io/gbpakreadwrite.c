@@ -4,13 +4,12 @@
 #include "bss.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4e090.h"
-#include "lib/lib_513b0.h"
 #include "lib/lib_52360.h"
 #include "data.h"
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func000513b0
+glabel osGbpakReadWrite
 /*    513b0:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    513b4:	afb10020 */ 	sw	$s1,0x20($sp)
 /*    513b8:	afbf0034 */ 	sw	$ra,0x34($sp)

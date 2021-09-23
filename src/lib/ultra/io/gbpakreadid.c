@@ -3,10 +3,8 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_06100.h"
-#include "lib/lib_06330.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4e090.h"
-#include "lib/lib_513b0.h"
 #include "data.h"
 #include "types.h"
 
@@ -30,19 +28,19 @@ u32 var8006122c = 0xffffff03;
 u32 var80061230 = 0x03030303;
 
 GLOBAL_ASM(
-glabel func00050d60
+glabel osGbpakReadId
 /*    50d60:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*    50d64:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    50d68:	afa50094 */ 	sw	$a1,0x94($sp)
 /*    50d6c:	afa40090 */ 	sw	$a0,0x90($sp)
 /*    50d70:	afa60098 */ 	sw	$a2,0x98($sp)
-/*    50d74:	0c0142f8 */ 	jal	func00050be0
+/*    50d74:	0c0142f8 */ 	jal	osGbpakGetStatus
 /*    50d78:	00c02825 */ 	or	$a1,$a2,$zero
 /*    50d7c:	2401000d */ 	addiu	$at,$zero,0xd
 /*    50d80:	14410005 */ 	bne	$v0,$at,.L00050d98
 /*    50d84:	00403825 */ 	or	$a3,$v0,$zero
 /*    50d88:	8fa40090 */ 	lw	$a0,0x90($sp)
-/*    50d8c:	0c0142f8 */ 	jal	func00050be0
+/*    50d8c:	0c0142f8 */ 	jal	osGbpakGetStatus
 /*    50d90:	8fa50098 */ 	lw	$a1,0x98($sp)
 /*    50d94:	00403825 */ 	or	$a3,$v0,$zero
 .L00050d98:
@@ -59,7 +57,7 @@ glabel func00050d60
 /*    50dbc:	31f80001 */ 	andi	$t8,$t7,0x1
 /*    50dc0:	57000008 */ 	bnezl	$t8,.L00050de4
 /*    50dc4:	24190060 */ 	addiu	$t9,$zero,0x60
-/*    50dc8:	0c0018cc */ 	jal	func00006330
+/*    50dc8:	0c0018cc */ 	jal	osGbpakPower
 /*    50dcc:	24050001 */ 	addiu	$a1,$zero,0x1
 /*    50dd0:	50400004 */ 	beqzl	$v0,.L00050de4
 /*    50dd4:	24190060 */ 	addiu	$t9,$zero,0x60
@@ -71,14 +69,14 @@ glabel func00050d60
 /*    50de8:	8fa40090 */ 	lw	$a0,0x90($sp)
 /*    50dec:	00002825 */ 	or	$a1,$zero,$zero
 /*    50df0:	24060100 */ 	addiu	$a2,$zero,0x100
-/*    50df4:	0c0144ec */ 	jal	func000513b0
+/*    50df4:	0c0144ec */ 	jal	osGbpakReadWrite
 /*    50df8:	27a70024 */ 	addiu	$a3,$sp,0x24
 /*    50dfc:	10400003 */ 	beqz	$v0,.L00050e0c
 /*    50e00:	8fa40090 */ 	lw	$a0,0x90($sp)
 /*    50e04:	10000041 */ 	b	.L00050f0c
 /*    50e08:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L00050e0c:
-/*    50e0c:	0c0142f8 */ 	jal	func00050be0
+/*    50e0c:	0c0142f8 */ 	jal	osGbpakGetStatus
 /*    50e10:	8fa50098 */ 	lw	$a1,0x98($sp)
 /*    50e14:	2401000d */ 	addiu	$at,$zero,0xd
 /*    50e18:	14410002 */ 	bne	$v0,$at,.L00050e24

@@ -2423,7 +2423,7 @@ char *pakMenuTextEditingPakName(struct menuitem *item)
 s32 pakSelectionMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (!pakIsConnected((s8)item->param)) {
+		if (!pakIsMemoryPak((s8)item->param)) {
 			return true;
 		}
 	}

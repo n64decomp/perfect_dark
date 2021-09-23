@@ -46,16 +46,16 @@ u32 var80099eb0;
 u32 var80099eb4;
 OSMesg var80099eb8;
 u32 var80099ebc;
-OSMesgQueue var80099ec0;
+OSMesgQueue g_JoyStopCyclicPollingMesgQueue;
 OSMesg var80099ed8;
 u32 var80099edc;
-OSMesgQueue var80099ee0;
+OSMesgQueue g_JoyStopCyclicPollingDoneMesgQueue;
 OSMesg var80099ef8;
 u32 var80099efc;
-OSMesgQueue var80099f00;
+OSMesgQueue g_JoyStartCyclicPollingMesgQueue;
 OSMesg var80099f18;
 u32 var80099f1c;
-OSMesgQueue var80099f20;
+OSMesgQueue g_JoyStartCyclicPollingDoneMesgQueue;
 OSContStatus var80099f38[4];
 u8 g_JoyPfsStates[100];
 u32 var80099fac;
@@ -79,7 +79,7 @@ u8 g_JoyConnectedControllers = 0;
 bool g_JoyQueuesCreated = false;
 bool g_JoyInitDone = false;
 bool g_JoyNeedsInit = true;
-u32 var8005eebc = 0;
+u32 g_JoyCyclicPollDisableCount = 0;
 u32 var8005eec0 = 1;
 s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
 void (*var8005eec8)(struct contsample *samples, s32 samplenum, s32 samplenum2) = NULL;
@@ -98,7 +98,7 @@ u32 var8005eef0 = 1;
 void joy00013900(void)
 {
 	if (var8005eef0) {
-		joyGetLock();
+		joyDisableCyclicPolling();
 		var8005eef0 = false;
 	}
 }
@@ -106,7 +106,7 @@ void joy00013900(void)
 void joy00013938(void)
 {
 	if (!var8005eef0) {
-		joyReleaseLock();
+		joyEnableCyclicPolling();
 		var8005eef0 = true;
 	}
 }
@@ -213,7 +213,7 @@ void joyCheckPfs(s32 arg0)
 	u32 value;
 
 	if (var8005eedc
-			&& (arg0 == 2 || (var8005eee0 && (arg0 || ((var8005eebc == 0 || var8005eef0 == 0) && var8005eeec))))
+			&& (arg0 == 2 || (var8005eee0 && (arg0 || ((g_JoyCyclicPollDisableCount == 0 || var8005eef0 == 0) && var8005eeec))))
 			&& !doingit) {
 		doingit = true;
 		prevcount = thiscount;
@@ -235,13 +235,13 @@ void joyCheckPfs(s32 arg0)
 			var8005eee8++;
 
 			if (arg0) {
-				joyGetLock();
+				joyDisableCyclicPolling();
 			}
 
 			osPfsIsPlug(&var80099e78, &bitpattern);
 
 			if (arg0) {
-				joyReleaseLock();
+				joyEnableCyclicPolling();
 			}
 
 			bitpattern |= 0x10;
@@ -299,10 +299,10 @@ void joySystemInit(void)
 	s32 i;
 	s32 j;
 
-	osCreateMesgQueue(&var80099ec0, &var80099eb8, 1);
-	osCreateMesgQueue(&var80099ee0, &var80099ed8, 1);
-	osCreateMesgQueue(&var80099f00, &var80099ef8, 1);
-	osCreateMesgQueue(&var80099f20, &var80099f18, 1);
+	osCreateMesgQueue(&g_JoyStopCyclicPollingMesgQueue, &var80099eb8, 1);
+	osCreateMesgQueue(&g_JoyStopCyclicPollingDoneMesgQueue, &var80099ed8, 1);
+	osCreateMesgQueue(&g_JoyStartCyclicPollingMesgQueue, &var80099ef8, 1);
+	osCreateMesgQueue(&g_JoyStartCyclicPollingDoneMesgQueue, &var80099f18, 1);
 	osCreateMesgQueue(&var80099e78, &var80099e90, 10);
 
 	osSetEventMesg(OS_EVENT_SI, &var80099e78, NULL);
@@ -354,13 +354,13 @@ void joy00013dfc(void)
 	OSMesg msg;
 
 	if (g_JoyQueuesCreated) {
-		osSendMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK);
-		osRecvMesg(&var80099ee0, &msg, OS_MESG_BLOCK);
+		osSendMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 
 		joy00013e84();
 
-		osSendMesg(&var80099f00, &msg, OS_MESG_NOBLOCK);
-		osRecvMesg(&var80099f20, &msg, OS_MESG_BLOCK);
+		osSendMesg(&g_JoyStartCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 
 		var8005eec0 = 1;
 	}
@@ -380,7 +380,7 @@ void joy00013e84(void)
 		g_JoyInitDone = true;
 
 		for (i = 0; i < 4; i++) {
-			joy000153c4(i, 0);
+			joyStopRumble(i, false);
 		}
 	} else {
 		u32 slots = 0xf;
@@ -560,7 +560,7 @@ void joy00014238(void)
 		}
 
 		if (var8005eec4 == NULL) {
-			joy0001561c();
+			joysTickRumble();
 		}
 
 		doingit = false;
@@ -594,22 +594,22 @@ void joyDebugJoy(void)
 		var8005eec8(g_JoyData[0].samples, g_JoyData[0].curstart, g_JoyData[0].curlast);
 	}
 
-	if (joy000150c4() && var8005eec0 && joyGetNumSamples() <= 0) {
+	if (joyIsCyclicPollingEnabled() && var8005eec0 && joyGetNumSamples() <= 0) {
 #if VERSION >= VERSION_NTSC_FINAL
-		joyGetLock();
+		joyDisableCyclicPolling();
 		joy00014238();
-		joyReleaseLock();
+		joyEnableCyclicPolling();
 		joyConsumeSamples(&g_JoyData[0]);
 #elif VERSION >= VERSION_NTSC_1_0
-		joyGetLock();
-		joyReleaseLock();
+		joyDisableCyclicPolling();
+		joyEnableCyclicPolling();
 		joyConsumeSamples(&g_JoyData[0]);
 		joy00014238();
 #else
-		joyGetLock(500, "joy.c");
+		joyDisableCyclicPolling(500, "joy.c");
 		joy00014238();
 		func0001509cnb();
-		joyReleaseLock(507, "joy.c");
+		joyEnableCyclicPolling(507, "joy.c");
 		joyConsumeSamples(&g_JoyData[0]);
 #endif
 	}
@@ -654,12 +654,12 @@ void joyReadData(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void joyPoll(void)
+void joysTick(void)
 {
 	OSMesg msg;
 	s8 i;
 
-	if (osRecvMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK) == 0) {
+	if (osRecvMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK) == 0) {
 		if (g_JoyBusy) {
 			osRecvMesg(&var80099e78, &msg, OS_MESG_BLOCK);
 
@@ -676,7 +676,7 @@ void joyPoll(void)
 			}
 		}
 
-		osSendMesg(&var80099ee0, &msg, OS_MESG_NOBLOCK);
+		osSendMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_NOBLOCK);
 
 		var8005ee68++;
 
@@ -684,7 +684,7 @@ void joyPoll(void)
 		return;
 	}
 
-	if (osRecvMesg(&var80099f00, &msg, OS_MESG_NOBLOCK) == 0) {
+	if (osRecvMesg(&g_JoyStartCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK) == 0) {
 		var8005ee68--;
 
 		if (var8005ee68 == 0) {
@@ -692,7 +692,7 @@ void joyPoll(void)
 			g_JoyBusy = true;
 		}
 
-		osSendMesg(&var80099f20, &msg, OS_MESG_NOBLOCK);
+		osSendMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_NOBLOCK);
 		return;
 	}
 
@@ -744,7 +744,7 @@ void joyPoll(void)
 }
 #else
 GLOBAL_ASM(
-glabel joyPoll
+glabel joysTick
 /*    1536c:	3c028006 */ 	lui	$v0,0x8006
 /*    15370:	244212c0 */ 	addiu	$v0,$v0,0x12c0
 /*    15374:	8c4e0000 */ 	lw	$t6,0x0($v0)
@@ -1233,12 +1233,19 @@ glabel func00015fa4nb
 );
 #endif
 
-s32 joy000150c4(void)
+bool joyIsCyclicPollingEnabled(void)
 {
-	return var8005eebc ? false : true;
+	return g_JoyCyclicPollDisableCount ? false : true;
 }
 
-void joyGetLock(
+/**
+ * If cyclic polling is enabled, send a message to the scheduler thread telling
+ * it to update the joy state (connected controllers, PFS etc). Then block while
+ * waiting for its done message to come back, and increment the disable count.
+ *
+ * If cyclic polling was already disabled, simply increase the disable count.
+ */
+void joyDisableCyclicPolling(
 #if VERSION >= VERSION_NTSC_1_0
 		void
 #else
@@ -1248,15 +1255,19 @@ void joyGetLock(
 {
 	OSMesg msg;
 
-	if (var8005eebc == 0) {
-		osSendMesg(&var80099ec0, &msg, OS_MESG_NOBLOCK);
-		osRecvMesg(&var80099ee0, &msg, OS_MESG_BLOCK);
+	if (g_JoyCyclicPollDisableCount == 0) {
+		osSendMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&g_JoyStopCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 	}
 
-	var8005eebc++;
+	g_JoyCyclicPollDisableCount++;
 }
 
-void joyReleaseLock(
+/**
+ * Indicate that the caller is done with cyclic polling being disabled,
+ * and enable cyclic polling if there are no callers left who want it disabled.
+ */
+void joyEnableCyclicPolling(
 #if VERSION >= VERSION_NTSC_1_0
 		void
 #else
@@ -1266,11 +1277,11 @@ void joyReleaseLock(
 {
 	OSMesg msg;
 
-	var8005eebc--;
+	g_JoyCyclicPollDisableCount--;
 
-	if (var8005eebc == 0) {
-		osSendMesg(&var80099f00, &msg, OS_MESG_NOBLOCK);
-		osRecvMesg(&var80099f20, &msg, OS_MESG_BLOCK);
+	if (g_JoyCyclicPollDisableCount == 0) {
+		osSendMesg(&g_JoyStartCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK);
+		osRecvMesg(&g_JoyStartCyclicPollingDoneMesgQueue, &msg, OS_MESG_BLOCK);
 	}
 }
 
@@ -1340,14 +1351,14 @@ void joyGetContpadNumsForPlayer(s8 playernum, s32 *pad1, s32 *pad2)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void joy000153c4(s8 device, s32 arg1)
+void joyStopRumble(s8 device, bool disablepolling)
 {
 	u32 stack;
 
 	if (device != SAVEDEVICE_GAMEPAK) {
-		if (g_Paks[device].unk000 != 2 && g_Paks[device].unk000 != 3) {
-			if (arg1) {
-				joyGetLock();
+		if (g_Paks[device].type != PAKTYPE_MEMORY && g_Paks[device].type != PAKTYPE_GAMEBOY) {
+			if (disablepolling) {
+				joyDisableCyclicPolling();
 			}
 
 			if (osMotorProbe(&var80099e78, PFS(device), device) == 0) {
@@ -1356,15 +1367,16 @@ void joy000153c4(s8 device, s32 arg1)
 				osMotorStop(PFS(device));
 			}
 
-			if (arg1) {
-				joyReleaseLock();
+			if (disablepolling) {
+				joyEnableCyclicPolling();
 			}
 
-			if (g_Paks[device].unk004 != 6 && g_Paks[device].unk004 != 7) {
-				g_Paks[device].unk004 =  5;
+			if (g_Paks[device].rumblestate != RUMBLESTATE_DISABLED_STOPPING
+					&& g_Paks[device].rumblestate != RUMBLESTATE_DISABLED_STOPPED) {
+				g_Paks[device].rumblestate = RUMBLESTATE_ENABLED_STOPPING;
 			}
 
-			g_Paks[device].unk2b4 = -1;
+			g_Paks[device].rumblettl = -1;
 		}
 	}
 
@@ -1374,7 +1386,7 @@ void joy000153c4(s8 device, s32 arg1)
 }
 #else
 GLOBAL_ASM(
-glabel joy000153c4
+glabel joyStopRumble
 /*    162b0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    162b4:	00047600 */ 	sll	$t6,$a0,0x18
 /*    162b8:	000e7e03 */ 	sra	$t7,$t6,0x18
@@ -1407,7 +1419,7 @@ glabel joy000153c4
 /*    16324:	2404041e */ 	addiu	$a0,$zero,0x41e
 /*    16328:	3c057005 */ 	lui	$a1,0x7005
 /*    1632c:	24a55958 */ 	addiu	$a1,$a1,0x5958
-/*    16330:	0c00581b */ 	jal	joyGetLock
+/*    16330:	0c00581b */ 	jal	joyDisableCyclicPolling
 /*    16334:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    16338:	8fa60024 */ 	lw	$a2,0x24($sp)
 .NB0001633c:
@@ -1493,7 +1505,7 @@ glabel joy000153c4
 /*    16454:	3c057005 */ 	lui	$a1,0x7005
 /*    16458:	51000004 */ 	beqzl	$t0,.NB0001646c
 /*    1645c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*    16460:	0c005834 */ 	jal	joyReleaseLock
+/*    16460:	0c005834 */ 	jal	joyEnableCyclicPolling
 /*    16464:	24a55960 */ 	addiu	$a1,$a1,0x5960
 /*    16468:	8fa3001c */ 	lw	$v1,0x1c($sp)
 .NB0001646c:
@@ -1528,49 +1540,49 @@ s32 joy000155f4(s8 device)
 	return joy000155b4(device);
 }
 
-void joy0001561c(void)
+void joysTickRumble(void)
 {
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (g_Paks[i].unk010 == 11 && g_Paks[i].unk000 == 1) {
-			switch (g_Paks[i].unk004) {
-			case 3:
-				g_Paks[i].unk004 = 4;
+		if (g_Paks[i].unk010 == 11 && g_Paks[i].type == PAKTYPE_RUMBLE) {
+			switch (g_Paks[i].rumblestate) {
+			case RUMBLESTATE_ENABLED_STARTING:
+				g_Paks[i].rumblestate = RUMBLESTATE_ENABLED_RUMBLING;
 				osMotorStart(PFS(i));
 				break;
-			case 4:
-				if (g_Paks[i].unk284 != -1) {
-					if (g_Paks[i].unk28c == 0) {
+			case RUMBLESTATE_ENABLED_RUMBLING:
+				if (g_Paks[i].rumblepulsestopat != -1) {
+					if (g_Paks[i].rumblepulsetimer == 0) {
 						osMotorStart(PFS(i));
-					} else if (g_Paks[i].unk284 == g_Paks[i].unk28c) {
+					} else if (g_Paks[i].rumblepulsestopat == g_Paks[i].rumblepulsetimer) {
 						osMotorStop(PFS(i));
 					}
 
-					g_Paks[i].unk28c++;
+					g_Paks[i].rumblepulsetimer++;
 
-					if (g_Paks[i].unk288 == g_Paks[i].unk28c) {
-						g_Paks[i].unk28c = 0;
+					if (g_Paks[i].rumblepulselen == g_Paks[i].rumblepulsetimer) {
+						g_Paks[i].rumblepulsetimer = 0;
 					}
 				}
 
-				g_Paks[i].unk2b4--;
+				g_Paks[i].rumblettl--;
 
-				if (g_Paks[i].unk2b4 < 0) {
-					g_Paks[i].unk004 = 5;
+				if (g_Paks[i].rumblettl < 0) {
+					g_Paks[i].rumblestate = RUMBLESTATE_ENABLED_STOPPING;
 				}
 				break;
-			case 5:
-				g_Paks[i].unk004 = 2;
+			case RUMBLESTATE_ENABLED_STOPPING:
+				g_Paks[i].rumblestate = RUMBLESTATE_ENABLED_STOPPED;
 				osMotorStop(PFS(i));
 				break;
-			case 6:
+			case RUMBLESTATE_DISABLED_STOPPING:
 				osMotorStop(PFS(i));
-				g_Paks[i].unk004 = 7;
+				g_Paks[i].rumblestate = RUMBLESTATE_DISABLED_STOPPED;
 				break;
-			case 8:
-				g_Paks[i].unk004 = 2;
-				g_Paks[i].unk2b4 = -1;
+			case RUMBLESTATE_ENABLING:
+				g_Paks[i].rumblestate = RUMBLESTATE_ENABLED_STOPPED;
+				g_Paks[i].rumblettl = -1;
 				break;
 			}
 		}

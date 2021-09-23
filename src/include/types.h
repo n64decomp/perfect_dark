@@ -5031,8 +5031,8 @@ struct pakheadercache {
 };
 
 struct pak {
-	/*0x000*/ s32 unk000;
-	/*0x004*/ u32 unk004;
+	/*0x000*/ s32 type;
+	/*0x004*/ u32 rumblestate;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
 	/*0x010*/ u32 unk010;
@@ -5048,9 +5048,9 @@ struct pak {
 	/*0x278*/ u32 unk278;
 	/*0x27c*/ u32 unk27c;
 	/*0x280*/ u32 unk280;
-	/*0x284*/ s32 unk284;
-	/*0x288*/ u32 unk288;
-	/*0x28c*/ u32 unk28c;
+	/*0x284*/ s32 rumblepulsestopat;
+	/*0x288*/ u32 rumblepulselen;
+	/*0x28c*/ u32 rumblepulsetimer;  // counts up to pulselen then loops
 	/*0x290*/ u32 unk290;
 	/*0x294*/ u32 unk294;
 	/*0x298*/ u32 unk298;
@@ -5060,7 +5060,7 @@ struct pak {
 	/*0x2a8*/ u32 numpages;
 	/*0x2ac*/ u32 unk2ac;
 	/*0x2b0*/ u32 unk2b0;
-	/*0x2b4*/ f32 unk2b4;
+	/*0x2b4*/ f32 rumblettl;
 	/*0x2b8*/ u8 unk2b8_01 : 1;
 	/*0x2b8*/ u8 unk2b8_02 : 1;
 	/*0x2b8*/ u8 unk2b8_03 : 1;

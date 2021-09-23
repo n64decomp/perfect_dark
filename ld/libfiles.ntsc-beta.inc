@@ -22,7 +22,7 @@
 	build/ROMID/lib/ultra/os/initialize.o (section); \
 	build/ROMID/lib/ultra/io/sptask.o (section); \
 	build/ROMID/lib/lib_06100.o (section); \
-	build/ROMID/lib/lib_06330.o (section); \
+	build/ROMID/lib/ultra/io/gbpakpower.o (section); \
 	build/ROMID/lib/ultra/io/conteeplongwrite.o (section); \
 	build/ROMID/lib/lib_06550.o (section); \
 	build/ROMID/lib/lib_070d0.o (section); \
@@ -203,10 +203,10 @@
 	build/ROMID/lib/ultra/io/pfsreadwritefile.o (section); \
 	build/ROMID/lib/ultra/io/pfsnumfiles.o (section); \
 	build/ROMID/lib/ultra/io/pfsfilestate.o (section); \
-	build/ROMID/lib/lib_50be0.o (section); \
-	build/ROMID/lib/lib_50d60.o (section); \
-	build/ROMID/lib/lib_50f20.o (section); \
-	build/ROMID/lib/lib_513b0.o (section); \
+	build/ROMID/lib/ultra/io/gbpakgetstatus.o (section); \
+	build/ROMID/lib/ultra/io/gbpakreadid.o (section); \
+	build/ROMID/lib/ultra/io/gbpakcheckconnector.o (section); \
+	build/ROMID/lib/ultra/io/gbpakreadwrite.o (section); \
 	build/ROMID/lib/ultra/os/setcompare.o (section); \
 	build/ROMID/lib/ultra/io/vimodepallan1.o (section); \
 	build/ROMID/lib/ultra/io/vimodempallan1.o (section); \

@@ -284,7 +284,7 @@ void func00002078(OSSched *sc)
 		func00009ed4();
 	}
 
-	joyPoll();
+	joysTick();
 	snd0000fe18();
 	func00001b98(sc->frameCount);
 }

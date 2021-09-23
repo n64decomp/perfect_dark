@@ -126,7 +126,7 @@ u32 var80070118 = 0x78000000;
 u32 var8007011c = 0x00000000;
 
 #if VERSION >= VERSION_NTSC_1_0
-void bgun0f097ba0(s32 handnum, s32 weaponnum)
+void bgunRumble(s32 handnum, s32 weaponnum)
 {
 	u32 stack;
 	s32 contpadtouse1;
@@ -134,24 +134,24 @@ void bgun0f097ba0(s32 handnum, s32 weaponnum)
 	bool singlewield = false;
 	s32 contpad1;
 	s32 contpad2;
-	s32 a;
-	s32 b;
+	s32 contpad1hasrumble;
+	s32 contpad2hasrumble;
 
 	joyGetContpadNumsForPlayer(g_Vars.currentplayernum, &contpad1, &contpad2);
 
 	if (optionsGetControlMode(g_Vars.currentplayerstats->mpindex) >= CONTROLMODE_21
 			&& contpad1 >= 0 && contpad2 >= 0) {
-		a = pak0f116914(contpad1) == 1;
-		b = pak0f116914(contpad2) == 1;
+		contpad1hasrumble = pakGetType(contpad1) == PAKTYPE_RUMBLE;
+		contpad2hasrumble = pakGetType(contpad2) == PAKTYPE_RUMBLE;
 
 		if (!weaponHasFlag(weaponnum, WEAPONFLAG_DUALWIELD)) {
 			singlewield = true;
 		}
 
-		if (a && b) {
+		if (contpad1hasrumble && contpad2hasrumble) {
 			if (singlewield) {
-				pak0f11dc04(contpad1, 0.2f, 2, 4);
-				pak0f11dc04(contpad2, 0.2f, 2, 4);
+				pakRumble(contpad1, 0.2f, 2, 4);
+				pakRumble(contpad2, 0.2f, 2, 4);
 			} else {
 				s32 contpadtouse1 = contpad1;
 
@@ -159,26 +159,26 @@ void bgun0f097ba0(s32 handnum, s32 weaponnum)
 					contpadtouse1 = contpad2;
 				}
 
-				pak0f11dc04(contpadtouse1, 0.2f, 2, 4);
+				pakRumble(contpadtouse1, 0.2f, 2, 4);
 			}
 		} else {
 			s32 contpadtouse2 = contpad1;
 
-			if (b) {
+			if (contpad2hasrumble) {
 				contpadtouse2 = contpad2;
 			}
 
-			pak0f11dc04(contpadtouse2, 0.2f, 2, 4);
+			pakRumble(contpadtouse2, 0.2f, 2, 4);
 		}
 	} else {
 		if (contpad1 >= 0) {
-			pak0f11dc04(contpad1, 0.2f, 2, 4);
+			pakRumble(contpad1, 0.2f, 2, 4);
 		}
 	}
 }
 #else
 GLOBAL_ASM(
-glabel bgun0f097ba0
+glabel bgunRumble
 /*  f095b30:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f095b34:	3c08800a */ 	lui	$t0,0x800a
 /*  f095b38:	2508e6c0 */ 	addiu	$t0,$t0,-6464
@@ -192,7 +192,7 @@ glabel bgun0f097ba0
 /*  f095b58:	28410004 */ 	slti	$at,$v0,0x4
 /*  f095b5c:	1420007c */ 	bnez	$at,.NB0f095d50
 /*  f095b60:	2508e6c0 */ 	addiu	$t0,$t0,-6464
-/*  f095b64:	0fc44336 */ 	jal	pak0f116914
+/*  f095b64:	0fc44336 */ 	jal	pakGetType
 /*  f095b68:	8104028f */ 	lb	$a0,0x28f($t0)
 /*  f095b6c:	3c08800a */ 	lui	$t0,0x800a
 /*  f095b70:	2508e6c0 */ 	addiu	$t0,$t0,-6464
@@ -233,7 +233,7 @@ glabel bgun0f097ba0
 /*  f095be8:	01f82021 */ 	addu	$a0,$t7,$t8
 /*  f095bec:	0004ce00 */ 	sll	$t9,$a0,0x18
 /*  f095bf0:	00192603 */ 	sra	$a0,$t9,0x18
-/*  f095bf4:	0fc44336 */ 	jal	pak0f116914
+/*  f095bf4:	0fc44336 */ 	jal	pakGetType
 /*  f095bf8:	afa6001c */ 	sw	$a2,0x1c($sp)
 /*  f095bfc:	8fa6001c */ 	lw	$a2,0x1c($sp)
 /*  f095c00:	3c08800a */ 	lui	$t0,0x800a
@@ -282,7 +282,7 @@ glabel bgun0f097ba0
 /*  f095c98:	34a5cccd */ 	ori	$a1,$a1,0xcccd
 /*  f095c9c:	03002025 */ 	or	$a0,$t8,$zero
 /*  f095ca0:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095ca4:	0fc45e2f */ 	jal	pak0f11dc04
+/*  f095ca4:	0fc45e2f */ 	jal	pakRumble
 /*  f095ca8:	24070004 */ 	addiu	$a3,$zero,0x4
 /*  f095cac:	1000002f */ 	beqz	$zero,.NB0f095d6c
 /*  f095cb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -327,7 +327,7 @@ glabel bgun0f097ba0
 /*  f095d34:	34a5cccd */ 	ori	$a1,$a1,0xcccd
 /*  f095d38:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f095d3c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095d40:	0fc45e2f */ 	jal	pak0f11dc04
+/*  f095d40:	0fc45e2f */ 	jal	pakRumble
 /*  f095d44:	24070004 */ 	addiu	$a3,$zero,0x4
 /*  f095d48:	10000008 */ 	beqz	$zero,.NB0f095d6c
 /*  f095d4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -336,7 +336,7 @@ glabel bgun0f097ba0
 /*  f095d54:	34a5cccd */ 	ori	$a1,$a1,0xcccd
 /*  f095d58:	8104028f */ 	lb	$a0,0x28f($t0)
 /*  f095d5c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095d60:	0fc45e2f */ 	jal	pak0f11dc04
+/*  f095d60:	0fc45e2f */ 	jal	pakRumble
 /*  f095d64:	24070004 */ 	addiu	$a3,$zero,0x4
 /*  f095d68:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .NB0f095d6c:
@@ -5903,7 +5903,7 @@ glabel var7f1ac320
 /*  f09a868:	8fad0058 */ 	lw	$t5,0x58($sp)
 /*  f09a86c:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*  f09a870:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f09a874:	0fc25ee8 */ 	jal	bgun0f097ba0
+/*  f09a874:	0fc25ee8 */ 	jal	bgunRumble
 /*  f09a878:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a87c:	8fae0054 */ 	lw	$t6,0x54($sp)
 /*  f09a880:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6233,7 +6233,7 @@ glabel var7f1ac320
 /*  f09a868:	8fad0058 */ 	lw	$t5,0x58($sp)
 /*  f09a86c:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*  f09a870:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f09a874:	0fc25ee8 */ 	jal	bgun0f097ba0
+/*  f09a874:	0fc25ee8 */ 	jal	bgunRumble
 /*  f09a878:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a87c:	8fae0054 */ 	lw	$t6,0x54($sp)
 /*  f09a880:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6563,7 +6563,7 @@ glabel var7f1ac320
 /*  f0988a4:	8fad0050 */ 	lw	$t5,0x50($sp)
 /*  f0988a8:	8fa40054 */ 	lw	$a0,0x54($sp)
 /*  f0988ac:	8da50000 */ 	lw	$a1,0x0($t5)
-/*  f0988b0:	0fc256cc */ 	jal	bgun0f097ba0
+/*  f0988b0:	0fc256cc */ 	jal	bgunRumble
 /*  f0988b4:	afa7005c */ 	sw	$a3,0x5c($sp)
 /*  f0988b8:	8fae004c */ 	lw	$t6,0x4c($sp)
 /*  f0988bc:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6835,7 +6835,7 @@ const char var7f1ab898[] = "rofftime";
 //		hand->stateflags |= HANDSTATEFLAG_00000020;
 //		hand->stateflags |= HANDSTATEFLAG_00000010;
 //
-//		bgun0f097ba0(handnum, info->weaponnum);
+//		bgunRumble(handnum, info->weaponnum);
 //
 //		if (usesammo && func->ammoindex >= 0) {
 //			hand->loadedammo[func->ammoindex] -= hand->shotstotake;

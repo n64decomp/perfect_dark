@@ -1,15 +1,13 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_06330.h"
 #include "lib/libc/ll.h"
 #include "lib/lib_4e090.h"
-#include "lib/lib_513b0.h"
 #include "data.h"
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func50f20
+glabel osGbpakCheckConnector
 /*    50f20:	27bdfdf0 */ 	addiu	$sp,$sp,-528
 /*    50f24:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*    50f28:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -26,13 +24,13 @@ glabel func50f20
 /*    50f54:	afa50214 */ 	sw	$a1,0x214($sp)
 /*    50f58:	afae0208 */ 	sw	$t6,0x208($sp)
 /*    50f5c:	afa00204 */ 	sw	$zero,0x204($sp)
-/*    50f60:	0c0142f8 */ 	jal	func00050be0
+/*    50f60:	0c0142f8 */ 	jal	osGbpakGetStatus
 /*    50f64:	a7a00200 */ 	sh	$zero,0x200($sp)
 /*    50f68:	2401000d */ 	addiu	$at,$zero,0xd
 /*    50f6c:	14410005 */ 	bne	$v0,$at,.L00050f84
 /*    50f70:	00401825 */ 	or	$v1,$v0,$zero
 /*    50f74:	8fa40210 */ 	lw	$a0,0x210($sp)
-/*    50f78:	0c0142f8 */ 	jal	func00050be0
+/*    50f78:	0c0142f8 */ 	jal	osGbpakGetStatus
 /*    50f7c:	8fa50214 */ 	lw	$a1,0x214($sp)
 /*    50f80:	00401825 */ 	or	$v1,$v0,$zero
 .L00050f84:
@@ -49,7 +47,7 @@ glabel func50f20
 /*    50fa8:	33190001 */ 	andi	$t9,$t8,0x1
 /*    50fac:	57200008 */ 	bnezl	$t9,.L00050fd0
 /*    50fb0:	27a40070 */ 	addiu	$a0,$sp,0x70
-/*    50fb4:	0c0018cc */ 	jal	func00006330
+/*    50fb4:	0c0018cc */ 	jal	osGbpakPower
 /*    50fb8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*    50fbc:	50400004 */ 	beqzl	$v0,.L00050fd0
 /*    50fc0:	27a40070 */ 	addiu	$a0,$sp,0x70
@@ -83,7 +81,7 @@ glabel func50f20
 /*    51024:	02a03825 */ 	or	$a3,$s5,$zero
 /*    51028:	8fa40210 */ 	lw	$a0,0x210($sp)
 /*    5102c:	00002825 */ 	or	$a1,$zero,$zero
-/*    51030:	0c0144ec */ 	jal	func000513b0
+/*    51030:	0c0144ec */ 	jal	osGbpakReadWrite
 /*    51034:	0240a025 */ 	or	$s4,$s2,$zero
 /*    51038:	10400003 */ 	beqz	$v0,.L00051048
 /*    5103c:	8fae0208 */ 	lw	$t6,0x208($sp)
@@ -113,7 +111,7 @@ glabel func50f20
 /*    51098:	30d8ffff */ 	andi	$t8,$a2,0xffff
 /*    5109c:	03003025 */ 	or	$a2,$t8,$zero
 /*    510a0:	00002825 */ 	or	$a1,$zero,$zero
-/*    510a4:	0c0144ec */ 	jal	func000513b0
+/*    510a4:	0c0144ec */ 	jal	osGbpakReadWrite
 /*    510a8:	02503821 */ 	addu	$a3,$s2,$s0
 /*    510ac:	50400004 */ 	beqzl	$v0,.L000510c0
 /*    510b0:	a2360000 */ 	sb	$s6,0x0($s1)
@@ -160,7 +158,7 @@ glabel func50f20
 /*    51140:	240f0020 */ 	addiu	$t7,$zero,0x20
 /*    51144:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*    51148:	03ce3821 */ 	addu	$a3,$s8,$t6
-/*    5114c:	0c0144ec */ 	jal	func000513b0
+/*    5114c:	0c0144ec */ 	jal	osGbpakReadWrite
 /*    51150:	01a03025 */ 	or	$a2,$t5,$zero
 /*    51154:	50400004 */ 	beqzl	$v0,.L00051168
 /*    51158:	a2160000 */ 	sb	$s6,0x0($s0)
@@ -179,7 +177,7 @@ glabel func50f20
 /*    51188:	240a0020 */ 	addiu	$t2,$zero,0x20
 /*    5118c:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*    51190:	02093821 */ 	addu	$a3,$s0,$t1
-/*    51194:	0c0144ec */ 	jal	func000513b0
+/*    51194:	0c0144ec */ 	jal	osGbpakReadWrite
 /*    51198:	3246ffff */ 	andi	$a2,$s2,0xffff
 /*    5119c:	50400004 */ 	beqzl	$v0,.L000511b0
 /*    511a0:	a2360000 */ 	sb	$s6,0x0($s1)
@@ -258,7 +256,7 @@ glabel func50f20
 /*    512a8:	02a03825 */ 	or	$a3,$s5,$zero
 /*    512ac:	8fa40210 */ 	lw	$a0,0x210($sp)
 /*    512b0:	00002825 */ 	or	$a1,$zero,$zero
-/*    512b4:	0c0144ec */ 	jal	func000513b0
+/*    512b4:	0c0144ec */ 	jal	osGbpakReadWrite
 /*    512b8:	0240a025 */ 	or	$s4,$s2,$zero
 /*    512bc:	10400003 */ 	beqz	$v0,.L000512cc
 /*    512c0:	8fa40210 */ 	lw	$a0,0x210($sp)
@@ -276,7 +274,7 @@ glabel func50f20
 /*    512ec:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*    512f0:	01603025 */ 	or	$a2,$t3,$zero
 /*    512f4:	02203825 */ 	or	$a3,$s1,$zero
-/*    512f8:	0c0144ec */ 	jal	func000513b0
+/*    512f8:	0c0144ec */ 	jal	osGbpakReadWrite
 /*    512fc:	00002825 */ 	or	$a1,$zero,$zero
 /*    51300:	10400003 */ 	beqz	$v0,.L00051310
 /*    51304:	02a02025 */ 	or	$a0,$s5,$zero
@@ -305,7 +303,7 @@ glabel func50f20
 /*    51354:	24020004 */ 	addiu	$v0,$zero,0x4
 /*    51358:	8fa40210 */ 	lw	$a0,0x210($sp)
 .L0005135c:
-/*    5135c:	0c0142f8 */ 	jal	func00050be0
+/*    5135c:	0c0142f8 */ 	jal	osGbpakGetStatus
 /*    51360:	8fa50214 */ 	lw	$a1,0x214($sp)
 /*    51364:	2401000d */ 	addiu	$at,$zero,0xd
 /*    51368:	14410002 */ 	bne	$v0,$at,.L00051374

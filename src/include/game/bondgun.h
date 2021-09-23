@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void bgun0f097ba0(s32 handnum, s32 weaponnum);
+void bgunRumble(s32 handnum, s32 weaponnum);
 s32 bgunGetUnequippedReloadIndex(s32 weaponnum);
 void bgunTickUnequippedReload(void);
 bool bgun0f097df0(struct inventory_typef *arg0, struct hand *hand);

@@ -650,12 +650,12 @@ glabel var7f1b1f44nc
 /*  f1627d0:	3c018008 */ 	lui	$at,0x8008
 /*  f1627d4:	ac206874 */ 	sw	$zero,0x6874($at)
 /*  f1627d8:	3c018008 */ 	lui	$at,0x8008
-/*  f1627dc:	0c005812 */ 	jal	joy000150c4
+/*  f1627dc:	0c005812 */ 	jal	joyIsCyclicPollingEnabled
 /*  f1627e0:	ac206870 */ 	sw	$zero,0x6870($at)
 /*  f1627e4:	10400008 */ 	beqz	$v0,.NB0f162808
 /*  f1627e8:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f1627ec:	24a51e20 */ 	addiu	$a1,$a1,0x1e20
-/*  f1627f0:	0c00581b */ 	jal	joyGetLock
+/*  f1627f0:	0c00581b */ 	jal	joyDisableCyclicPolling
 /*  f1627f4:	240402f8 */ 	addiu	$a0,$zero,0x2f8
 /*  f1627f8:	3c11800a */ 	lui	$s1,0x800a
 /*  f1627fc:	2631e6c0 */ 	addiu	$s1,$s1,-6464
@@ -6948,7 +6948,7 @@ glabel var7f1b8ed0pf
 /*  f16c7a4:	10000003 */ 	b	.PF0f16c7b4
 /*  f16c7a8:	a28004d1 */ 	sb	$zero,0x4d1($s4)
 .PF0f16c7ac:
-/*  f16c7ac:	0fc47a8d */ 	jal	pak0f11df38
+/*  f16c7ac:	0fc47a8d */ 	jal	pakEnableRumbleForAllPlayers
 /*  f16c7b0:	a29804d1 */ 	sb	$t8,0x4d1($s4)
 .PF0f16c7b4:
 /*  f16c7b4:	2415ffff */ 	li	$s5,-1
@@ -8222,7 +8222,7 @@ void lvTick(void)
 			g_Vars.paksconnected2 = 0;
 		} else {
 			g_Vars.paksconnected2 = 31;
-			pak0f11df38();
+			pakEnableRumbleForAllPlayers();
 		}
 
 		g_Vars.joydisableframestogo = -1;
@@ -8566,12 +8566,12 @@ glabel lvTick
 .NB0f166764:
 /*  f166764:	14400018 */ 	bnez	$v0,.NB0f1667c8
 /*  f166768:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16676c:	0c005812 */ 	jal	joy000150c4
+/*  f16676c:	0c005812 */ 	jal	joyIsCyclicPollingEnabled
 /*  f166770:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f166774:	14400004 */ 	bnez	$v0,.NB0f166788
 /*  f166778:	24040cce */ 	addiu	$a0,$zero,0xcce
 /*  f16677c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f166780:	0c005834 */ 	jal	joyReleaseLock
+/*  f166780:	0c005834 */ 	jal	joyEnableCyclicPolling
 /*  f166784:	24a51e98 */ 	addiu	$a1,$a1,0x1e98
 .NB0f166788:
 /*  f166788:	8e8204b4 */ 	lw	$v0,0x4b4($s4)
@@ -8588,7 +8588,7 @@ glabel lvTick
 /*  f1667b0:	10000003 */ 	beqz	$zero,.NB0f1667c0
 /*  f1667b4:	a28004d1 */ 	sb	$zero,0x4d1($s4)
 .NB0f1667b8:
-/*  f1667b8:	0fc45ecc */ 	jal	pak0f11df38
+/*  f1667b8:	0fc45ecc */ 	jal	pakEnableRumbleForAllPlayers
 /*  f1667bc:	a28f04d1 */ 	sb	$t7,0x4d1($s4)
 .NB0f1667c0:
 /*  f1667c0:	2415ffff */ 	addiu	$s5,$zero,-1
@@ -9821,7 +9821,7 @@ void lvRecordDistanceMoved(void)
 
 void lvReset(void)
 {
-	pak0f11dcb0(1);
+	pakStopRumbleForAllPaks(true);
 
 	if (g_MiscAudioHandle && audioIsPlaying(g_MiscAudioHandle)) {
 		audioStop(g_MiscAudioHandle);
@@ -9872,9 +9872,9 @@ void lvCheckPauseStateChanged(void)
 
 	if (paused != var80084010) {
 		if (paused) {
-			pak0f11deb8();
+			pakDisableRumbleForAllPlayers();
 		} else {
-			pak0f11df38();
+			pakEnableRumbleForAllPlayers();
 		}
 	}
 
@@ -9884,11 +9884,11 @@ void lvCheckPauseStateChanged(void)
 void lvSetPaused(bool paused)
 {
 	if (paused) {
-		pak0f11deb8();
+		pakDisableRumbleForAllPlayers();
 		snd0000fe20();
 	} else {
 		snd0000fe50();
-		pak0f11df38();
+		pakEnableRumbleForAllPlayers();
 	}
 
 	var80084014 = paused;
