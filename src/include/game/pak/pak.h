@@ -106,7 +106,7 @@ void pak0f11c6d0(void);
 void pakExecuteDebugOperations(void);
 void pak0f11ca30(void);
 void gbpakHandleError(u32 arg0);
-bool gbpakRead(s8 device, s32 address, u8 *buffer, u16 size);
+bool gbpakRead(s8 device, u16 address, u8 *buffer, u16 size);
 bool gbpakWrite(s8 device, u16 address, u8 *buffer, u16 size);
 bool pak0f11cd00(s8 device, u16 arg1, char *arg2, s32 arg3, s32 arg4);
 bool pak0f11ce00(s8 device, u16 arg1, char *arg2, s32 arg3, bool arg4);
