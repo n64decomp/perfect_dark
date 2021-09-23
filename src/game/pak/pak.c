@@ -11317,32 +11317,17 @@ glabel pak0f11d110
 );
 #endif
 
-GLOBAL_ASM(
-glabel pak0f11d118
-/*  f11d118:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f11d11c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11d120:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f11d124:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f11d128:	240f00e4 */ 	addiu	$t7,$zero,0xe4
-/*  f11d12c:	24180010 */ 	addiu	$t8,$zero,0x10
-/*  f11d130:	a08e0000 */ 	sb	$t6,0x0($a0)
-/*  f11d134:	a08f0001 */ 	sb	$t7,0x1($a0)
-/*  f11d138:	a0980002 */ 	sb	$t8,0x2($a0)
-/*  f11d13c:	a0800003 */ 	sb	$zero,0x3($a0)
-/*  f11d140:	93a2001f */ 	lbu	$v0,0x1f($sp)
-/*  f11d144:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f11d148:	24840006 */ 	addiu	$a0,$a0,0x6
-/*  f11d14c:	3048003f */ 	andi	$t0,$v0,0x3f
-/*  f11d150:	25090080 */ 	addiu	$t1,$t0,0x80
-/*  f11d154:	30590007 */ 	andi	$t9,$v0,0x7
-/*  f11d158:	a099fffe */ 	sb	$t9,-0x2($a0)
-/*  f11d15c:	0fc47485 */ 	jal	pak0f11d214
-/*  f11d160:	a089ffff */ 	sb	$t1,-0x1($a0)
-/*  f11d164:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11d168:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11d16c:	03e00008 */ 	jr	$ra
-/*  f11d170:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2)
+{
+	arg0[0] = 2;
+	arg0[1] = 0xe4;
+	arg0[2] = 0x10;
+	arg0[3] = 0;
+	arg0[4] = arg1 & 7;
+	arg0[5] = (arg1 & 0x3f) + 0x80;
+
+	pak0f11d214(&arg0[6], arg2);
+}
 
 void pak0f11d174(s8 device, u8 *arg1)
 {

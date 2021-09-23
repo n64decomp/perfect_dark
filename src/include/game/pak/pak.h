@@ -112,7 +112,7 @@ bool pak0f11cd00(s8 device, u16 arg1, char *arg2, s32 arg3, s32 arg4);
 bool pak0f11ce00(s8 device, u16 arg1, char *arg2, s32 arg3, bool arg4);
 void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2);
 void pak0f11d174(s8 device, u8 *arg1);
-u32 pak0f11d214(void);
+void pak0f11d214(u8 *arg0, u32 arg1);
 s32 pak0f11d3f8(s8 device);
 bool pak0f11d478(s8 device);
 bool pak0f11d4dc(s8 device);
