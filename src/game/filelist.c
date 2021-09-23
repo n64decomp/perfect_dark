@@ -208,7 +208,7 @@ void filelistUpdate(struct filelist *list)
 		list->unk305[dis2dev[i]] = 0;
 		list->devicestartindexes[i] = -1;
 
-		maybepfserr = pak0f1167b0(dis2dev[i], sp3a88[list->filetype], spa88);
+		maybepfserr = pakGetFileIdsByType(dis2dev[i], sp3a88[list->filetype], spa88);
 
 		if (maybepfserr == 0) {
 			// No error

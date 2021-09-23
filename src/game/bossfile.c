@@ -65,7 +65,7 @@ u32 func0f110720(void)
 	u32 sp38 = 0;
 	s32 i;
 
-	if (pak0f1167b0(SAVEDEVICE_GAMEPAK, PAKFILETYPE_BOSS, sp3c) == 0) {
+	if (pakGetFileIdsByType(SAVEDEVICE_GAMEPAK, PAKFILETYPE_BOSS, sp3c) == 0) {
 		for (i = 0; sp3c[i] != 0; i++) {
 			pakFindFile(SAVEDEVICE_GAMEPAK, sp3c[i], &header);
 

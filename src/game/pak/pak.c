@@ -264,9 +264,9 @@ bool pakIsMemoryPak(s8 device)
 	return false;
 }
 
-s32 pak0f1167b0(s8 device, u32 filetype, u32 *buffer1024)
+s32 pakGetFileIdsByType(s8 device, u32 filetype, u32 *fileids)
 {
-	return pak0f118d18(device, filetype, buffer1024);
+	return _pakGetFileIdsByType(device, filetype, fileids);
 }
 
 s32 pak0f1167d8(s8 device)
@@ -943,7 +943,7 @@ glabel pak0f11789c
 .L0f11795c:
 /*  f11795c:	00047603 */ 	sra	$t6,$a0,0x18
 /*  f117960:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f117964:	0fc459ec */ 	jal	pak0f1167b0
+/*  f117964:	0fc459ec */ 	jal	pakGetFileIdsByType
 /*  f117968:	27a60850 */ 	addiu	$a2,$sp,0x850
 /*  f11796c:	8faf0850 */ 	lw	$t7,0x850($sp)
 /*  f117970:	3c10eeee */ 	lui	$s0,0xeeee
@@ -1117,7 +1117,7 @@ glabel pak0f11789c
 .NB0f111cc4:
 /*  f111cc4:	00047603 */ 	sra	$t6,$a0,0x18
 /*  f111cc8:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f111ccc:	0fc442dd */ 	jal	pak0f1167b0
+/*  f111ccc:	0fc442dd */ 	jal	pakGetFileIdsByType
 /*  f111cd0:	27a60850 */ 	addiu	$a2,$sp,0x850
 /*  f111cd4:	8faf0850 */ 	lw	$t7,0x850($sp)
 /*  f111cd8:	2411ffff */ 	addiu	$s1,$zero,-1
@@ -2673,7 +2673,7 @@ s32 pak0f118bc8(s8 device, s32 fileid, u8 *body, s32 arg3)
 	return 0;
 }
 
-s32 pak0f118d18(s8 device, u32 filetype, u32 *buffer1024)
+s32 _pakGetFileIdsByType(s8 device, u32 filetype, u32 *fileids)
 {
 	struct pakfileheader header;
 	u32 offset = 0;
@@ -2700,8 +2700,8 @@ s32 pak0f118d18(s8 device, u32 filetype, u32 *buffer1024)
 	result = pakReadHeaderAtOffset(device, offset, &header);
 
 	while (result == 0) {
-		if ((filetype & PAKFILETYPE_100) || (filetype & header.filetype)) {
-			buffer1024[len] = header.fileid;
+		if ((filetype & PAKFILETYPE_ALL) || (filetype & header.filetype)) {
+			fileids[len] = header.fileid;
 			len++;
 		}
 
@@ -2714,7 +2714,7 @@ s32 pak0f118d18(s8 device, u32 filetype, u32 *buffer1024)
 		result = pakReadHeaderAtOffset(device, offset, &header);
 	}
 
-	buffer1024[len] = 0;
+	fileids[len] = 0;
 
 	if (result == 7) {
 		return 7;
@@ -5385,98 +5385,31 @@ glabel pak0f11970c
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pakCorrupt
-/*  f119da8:	27bdef90 */ 	addiu	$sp,$sp,-4208
-/*  f119dac:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f119db0:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f119db4:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f119db8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f119dbc:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f119dc0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f119dc4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f119dc8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f119dcc:	27a6005c */ 	addiu	$a2,$sp,0x5c
-/*  f119dd0:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f119dd4:	0fc459ec */ 	jal	pak0f1167b0
-/*  f119dd8:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f119ddc:	8fae005c */ 	lw	$t6,0x5c($sp)
-/*  f119de0:	27b2005c */ 	addiu	$s2,$sp,0x5c
-/*  f119de4:	00009825 */ 	or	$s3,$zero,$zero
-/*  f119de8:	11c0001e */ 	beqz	$t6,.L0f119e64
-/*  f119dec:	27b60048 */ 	addiu	$s6,$sp,0x48
-/*  f119df0:	3c15800a */ 	lui	$s5,%hi(var80099e78)
-/*  f119df4:	26b59e78 */ 	addiu	$s5,$s5,%lo(var80099e78)
-/*  f119df8:	27b41060 */ 	addiu	$s4,$sp,0x1060
-/*  f119dfc:	27b10050 */ 	addiu	$s1,$sp,0x50
-/*  f119e00:	27b00048 */ 	addiu	$s0,$sp,0x48
-.L0f119e04:
-/*  f119e04:	0c004b70 */ 	jal	random
-/*  f119e08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119e0c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f119e10:	1611fffc */ 	bne	$s0,$s1,.L0f119e04
-/*  f119e14:	a202ffff */ 	sb	$v0,-0x1($s0)
-/*  f119e18:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f119e1c:	8e450000 */ 	lw	$a1,0x0($s2)
-/*  f119e20:	0fc464da */ 	jal	pakFindFile
-/*  f119e24:	02803025 */ 	or	$a2,$s4,$zero
-/*  f119e28:	00538021 */ 	addu	$s0,$v0,$s3
-/*  f119e2c:	0c00543a */ 	jal	joyDisableCyclicPolling
-/*  f119e30:	26100030 */ 	addiu	$s0,$s0,0x30
-/*  f119e34:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f119e38:	320500ff */ 	andi	$a1,$s0,0xff
-/*  f119e3c:	02c03025 */ 	or	$a2,$s6,$zero
-/*  f119e40:	0c001910 */ 	jal	osEepromLongWrite
-/*  f119e44:	24070008 */ 	addiu	$a3,$zero,0x8
-/*  f119e48:	0c005451 */ 	jal	joyEnableCyclicPolling
-/*  f119e4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119e50:	8e580004 */ 	lw	$t8,0x4($s2)
-/*  f119e54:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f119e58:	26730008 */ 	addiu	$s3,$s3,0x8
-/*  f119e5c:	5700ffe9 */ 	bnezl	$t8,.L0f119e04
-/*  f119e60:	27b00048 */ 	addiu	$s0,$sp,0x48
-.L0f119e64:
-/*  f119e64:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f119e68:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f119e6c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f119e70:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f119e74:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f119e78:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f119e7c:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f119e80:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f119e84:	03e00008 */ 	jr	$ra
-/*  f119e88:	27bd1070 */ 	addiu	$sp,$sp,0x1070
-);
+void pakCorrupt(void)
+{
+	struct pakfileheader header;
+	u32 fileids[1025];
+	s32 address;
+	s32 i;
+	s32 j;
+	u8 payload[8];
 
-// Mismatch due to regalloc when calculating buffer1024[i] at end of the loop.
-// Suspect the return value of osEepromLongWrite is being stored into result
-// and printed in an indeffed block, but still can't get a match.
-//void pakCorrupt(void)
-//{
-//	u8 buffer16[16];
-//	s32 result;
-//	u32 buffer1024[1024];
-//	u32 address;
-//	s32 i;
-//	s32 j;
-//	u8 buffer8[8];
-//
-//	pak0f1167b0(SAVEDEVICE_GAMEPAK, PAKFILETYPE_GAME, buffer1024);
-//
-//	for (i = 0; buffer1024[i] != 0; i++) {
-//		for (j = 0; j < 8; j++) {
-//			buffer8[j] = random();
-//		}
-//
-//		address = pakFindFile(SAVEDEVICE_GAMEPAK, buffer1024[i], buffer16);
-//		address += i * 8;
-//		address += 0x30;
-//
-//		joyDisableCyclicPolling();
-//		osEepromLongWrite(&var80099e78, address, buffer8, 8);
-//		joyEnableCyclicPolling();
-//	}
-//}
+	pakGetFileIdsByType(SAVEDEVICE_GAMEPAK, PAKFILETYPE_GAME, fileids);
+
+	for (i = 0; fileids[i] != 0; i++) {
+		for (j = 0; j < 8; j++) {
+			payload[j] = random() & 0xff;
+		}
+
+		address = pakFindFile(SAVEDEVICE_GAMEPAK, fileids[i], &header);
+		address += i * 8;
+		address += 0x30;
+
+		joyDisableCyclicPolling();
+		osEepromLongWrite(&var80099e78, address, payload, sizeof(payload));
+		joyEnableCyclicPolling();
+	}
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -5539,7 +5472,7 @@ glabel pak0f119e8c
 /*  f119f64:	8d010010 */ 	lw	$at,0x10($t0)
 /*  f119f68:	24050100 */ 	addiu	$a1,$zero,0x100
 /*  f119f6c:	add8000c */ 	sw	$t8,0xc($t6)
-/*  f119f70:	0fc459ec */ 	jal	pak0f1167b0
+/*  f119f70:	0fc459ec */ 	jal	pakGetFileIdsByType
 /*  f119f74:	adc10010 */ 	sw	$at,0x10($t6)
 /*  f119f78:	10400003 */ 	beqz	$v0,.L0f119f88
 /*  f119f7c:	8fac0094 */ 	lw	$t4,0x94($sp)
@@ -5709,7 +5642,7 @@ glabel pak0f119e8c
 /*  f113e90:	8d010010 */ 	lw	$at,0x10($t0)
 /*  f113e94:	24050100 */ 	addiu	$a1,$zero,0x100
 /*  f113e98:	add8000c */ 	sw	$t8,0xc($t6)
-/*  f113e9c:	0fc442dd */ 	jal	pak0f1167b0
+/*  f113e9c:	0fc442dd */ 	jal	pakGetFileIdsByType
 /*  f113ea0:	adc10010 */ 	sw	$at,0x10($t6)
 /*  f113ea4:	14400044 */ 	bnez	$v0,.NB0f113fb8
 /*  f113ea8:	8fac0094 */ 	lw	$t4,0x94($sp)
@@ -5807,20 +5740,20 @@ glabel pak0f119e8c
 );
 #endif
 
-s32 pak0f11a0e8(s8 device)
+s32 pakFindMaxFileId(s8 device)
 {
 	struct pakfileheader header;
-	u32 buffer[1025];
+	u32 fileids[1025];
 	s32 result;
 	s32 max = 0;
 	s32 i;
 
-	result = pak0f1167b0(device, PAKFILETYPE_100, buffer);
+	result = pakGetFileIdsByType(device, PAKFILETYPE_ALL, fileids);
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (result == 0) {
-		for (i = 0; buffer[i] != 0; i++) {
-			s32 offset = pakFindFile(device, buffer[i], &header);
+		for (i = 0; fileids[i] != 0; i++) {
+			s32 offset = pakFindFile(device, fileids[i], &header);
 
 			if (offset == -1) {
 				return -1;
@@ -5834,8 +5767,8 @@ s32 pak0f11a0e8(s8 device)
 		return -1;
 	}
 #else
-	for (i = 0; buffer[i] != 0; i++) {
-		s32 offset = pakFindFile(device, buffer[i], &header);
+	for (i = 0; fileids[i] != 0; i++) {
+		s32 offset = pakFindFile(device, fileids[i], &header);
 
 		if (header.fileid > max) {
 			max = header.fileid;
@@ -6850,7 +6783,7 @@ glabel pak0f11a8f4
 /*  f11abd8:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f11abdc:	5720001e */ 	bnezl	$t9,.L0f11ac58
 /*  f11abe0:	240d0016 */ 	addiu	$t5,$zero,0x16
-/*  f11abe4:	0fc4683a */ 	jal	pak0f11a0e8
+/*  f11abe4:	0fc4683a */ 	jal	pakFindMaxFileId
 /*  f11abe8:	01002025 */ 	or	$a0,$t0,$zero
 /*  f11abec:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11abf0:	10410018 */ 	beq	$v0,$at,.L0f11ac54
@@ -6859,7 +6792,7 @@ glabel pak0f11a8f4
 /*  f11abfc:	ae02025c */ 	sw	$v0,0x25c($s0)
 /*  f11ac00:	01202025 */ 	or	$a0,$t1,$zero
 /*  f11ac04:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f11ac08:	0fc459ec */ 	jal	pak0f1167b0
+/*  f11ac08:	0fc459ec */ 	jal	pakGetFileIdsByType
 /*  f11ac0c:	27a60050 */ 	addiu	$a2,$sp,0x50
 /*  f11ac10:	14400010 */ 	bnez	$v0,.L0f11ac54
 /*  f11ac14:	00112600 */ 	sll	$a0,$s1,0x18
@@ -7100,7 +7033,7 @@ glabel pak0f11a8f4
 /*  f11a958:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f11a95c:	5720001e */ 	bnezl	$t9,.L0f11a9d8_2
 /*  f11a960:	240d0016 */ 	addiu	$t5,$zero,0x16
-/*  f11a964:	0fc4679a */ 	jal	pak0f11a0e8
+/*  f11a964:	0fc4679a */ 	jal	pakFindMaxFileId
 /*  f11a968:	01002025 */ 	or	$a0,$t0,$zero
 /*  f11a96c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11a970:	10410018 */ 	beq	$v0,$at,.L0f11a9d4_2
@@ -7109,7 +7042,7 @@ glabel pak0f11a8f4
 /*  f11a97c:	ae02025c */ 	sw	$v0,0x25c($s0)
 /*  f11a980:	01202025 */ 	or	$a0,$t1,$zero
 /*  f11a984:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f11a988:	0fc459cc */ 	jal	pak0f1167b0
+/*  f11a988:	0fc459cc */ 	jal	pakGetFileIdsByType
 /*  f11a98c:	27a60054 */ 	addiu	$a2,$sp,0x54
 /*  f11a990:	14400010 */ 	bnez	$v0,.L0f11a9d4_2
 /*  f11a994:	00112600 */ 	sll	$a0,$s1,0x18
@@ -7340,14 +7273,14 @@ glabel pak0f11a8f4
 /*  f114b90:	00112600 */ 	sll	$a0,$s1,0x18
 .NB0f114b94:
 /*  f114b94:	00045603 */ 	sra	$t2,$a0,0x18
-/*  f114b98:	0fc44ff9 */ 	jal	pak0f11a0e8
+/*  f114b98:	0fc44ff9 */ 	jal	pakFindMaxFileId
 /*  f114b9c:	01402025 */ 	or	$a0,$t2,$zero
 /*  f114ba0:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f114ba4:	00045e03 */ 	sra	$t3,$a0,0x18
 /*  f114ba8:	ae02025c */ 	sw	$v0,0x25c($s0)
 /*  f114bac:	01602025 */ 	or	$a0,$t3,$zero
 /*  f114bb0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f114bb4:	0fc442dd */ 	jal	pak0f1167b0
+/*  f114bb4:	0fc442dd */ 	jal	pakGetFileIdsByType
 /*  f114bb8:	27a60044 */ 	addiu	$a2,$sp,0x44
 /*  f114bbc:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f114bc0:	00046603 */ 	sra	$t4,$a0,0x18
