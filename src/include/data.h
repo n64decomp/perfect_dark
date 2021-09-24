@@ -46,7 +46,7 @@ extern s32 g_SoundMode;
 extern s32 var8005ddd4;
 extern struct audiorussmapping g_AudioRussMappings[];
 extern struct audioconfig g_AudioConfigs[];
-extern u32 var8005eedc;
+extern bool var8005eedc;
 extern f32 var8005ef10[2];
 extern u32 var8005ef20;
 extern s32 g_NumGlobalAilists;

@@ -87,7 +87,7 @@ s32 g_JoyNextPfsStateIndex = 0;
 u32 var8005eed0 = 0;
 u32 var8005eed4 = 0;
 u8 var8005eed8 = 0;
-u32 var8005eedc = 1;
+bool var8005eedc = true;
 s32 var8005eee0 = 0;
 s32 var8005eee4 = -1;
 u32 var8005eee8 = 0;
@@ -554,8 +554,8 @@ void joy00014238(void)
 		doingit = true;
 
 		for (i = 0; i < 4; i++) {
-			if (joy000155f4(i) == 13) {
-				pakSetUnk010(i, 11);
+			if (joy000155f4(i) == PAK010_13) {
+				pakSetUnk010(i, PAK010_11);
 			}
 		}
 
@@ -1545,7 +1545,7 @@ void joysTickRumble(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		if (g_Paks[i].unk010 == 11 && g_Paks[i].type == PAKTYPE_RUMBLE) {
+		if (g_Paks[i].unk010 == PAK010_11 && g_Paks[i].type == PAKTYPE_RUMBLE) {
 			switch (g_Paks[i].rumblestate) {
 			case RUMBLESTATE_ENABLED_STARTING:
 				g_Paks[i].rumblestate = RUMBLESTATE_ENABLED_RUMBLING;

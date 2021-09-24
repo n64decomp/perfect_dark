@@ -3068,6 +3068,34 @@
 #define PADFLAG_8000            0x8000
 #define PADFLAG_10000           0x10000
 
+#define PAK010_00 0
+#define PAK010_01 1
+#define PAK010_02 2
+#define PAK010_03 3
+#define PAK010_04 4
+#define PAK010_05 5
+#define PAK010_06 6
+#define PAK010_07 7
+#define PAK010_08 8
+#define PAK010_09 9
+#define PAK010_10 10
+#define PAK010_11 11
+#define PAK010_12 12
+#define PAK010_13 13
+#define PAK010_14 14
+#define PAK010_15 15
+#define PAK010_16 16
+#define PAK010_17 17
+#define PAK010_18 18
+#define PAK010_19 19
+#define PAK010_20 20
+#define PAK010_21 21
+#define PAK010_22 22
+#define PAK010_24 24
+#define PAK010_25 25
+#define PAK010_26 26
+#define PAK010_27 27
+
 #define PAKERROR_OK                 0
 #define PAKERROR_EEPROM_MISSING     0x80
 #define PAKERROR_EEPROM_READFAILED  0x81

@@ -259,7 +259,7 @@ bool func0f0f0c68(void)
 	return true;
 }
 
-void func0f0f0ca0(s32 value, ubool allplayers)
+void func0f0f0ca0(s32 value, bool allplayers)
 {
 	if (allplayers) {
 		g_MenuData.unk01b = value;
@@ -27788,7 +27788,7 @@ u32 func0f0fd118(u32 playernum)
 	return result;
 }
 
-bool func0f0fd1f4(u32 arg0, u32 arg1)
+bool func0f0fd1f4(s32 arg0, s32 arg1)
 {
 	s32 playernum = func0f0fd118(arg0);
 	bool result = true;
