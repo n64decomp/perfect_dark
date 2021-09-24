@@ -183,7 +183,7 @@ void filelistUpdate(struct filelist *list)
 	s8 filedevices[2560];
 	s32 i;
 	s32 j;
-	s32 maybepfserr;
+	s32 ret;
 	s32 len;
 
 	// Display order means game pak then controller paks
@@ -208,9 +208,9 @@ void filelistUpdate(struct filelist *list)
 		list->unk305[dis2dev[i]] = 0;
 		list->devicestartindexes[i] = -1;
 
-		maybepfserr = pakGetFileIdsByType(dis2dev[i], sp3a88[list->filetype], spa88);
+		ret = pakGetFileIdsByType(dis2dev[i], sp3a88[list->filetype], spa88);
 
-		if (maybepfserr == 0) {
+		if (ret == 0) {
 			// No error
 			for (j = 0; spa88[j] != 0; j++) {
 				sp1288[len] = spa88[j];
@@ -230,7 +230,7 @@ void filelistUpdate(struct filelist *list)
 			// PFS error?
 			list->spacesfree[dis2dev[i]] = -1;
 
-			if (maybepfserr == 13) {
+			if (ret == 13) {
 				list->timeuntilupdate = 5;
 			}
 		}
@@ -243,11 +243,11 @@ void filelistUpdate(struct filelist *list)
 	// Iterating files
 	for (i = 0; i < len; i++) {
 		struct filelistfile *file = &list->files[list->numfiles];
-		s32 maybepfserr = pak0f116800(filedevices[i], sp1288[i], file->name, sizeof(file->name));
+		s32 ret = pakReadBodyAtGuid(filedevices[i], sp1288[i], file->name, sizeof(file->name));
 
-		if (maybepfserr);
+		if (ret);
 
-		if (maybepfserr == 0) {
+		if (ret == 0) {
 			// No error
 			if (list->devicestartindexes[dev2dis[filedevices[i]]] == -1) {
 				list->numdevices++;
@@ -258,7 +258,7 @@ void filelistUpdate(struct filelist *list)
 			file->fileid = sp1288[i];
 
 			list->numfiles++;
-		} else if (maybepfserr == 10) {
+		} else if (ret == 10) {
 			// PFS_ERR_ID_FATAL?
 			list->unk305[filedevices[i]]++;
 

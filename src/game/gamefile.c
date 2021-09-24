@@ -900,7 +900,7 @@ s32 gamefileLoad(s32 device)
 	s32 i;
 	s32 j;
 	struct savebuffer buffer;
-	s32 tmp;
+	s32 ret;
 	u32 stack;
 
 	p1index = g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 ? 0 : 4;
@@ -908,10 +908,10 @@ s32 gamefileLoad(s32 device)
 
 	if (device >= 0) {
 		savebufferClear(&buffer);
-		tmp = pak0f116800(device, g_GameFileGuid.fileid, buffer.bytes, 0);
-		var800a21f8.fileid = tmp;
+		ret = pakReadBodyAtGuid(device, g_GameFileGuid.fileid, buffer.bytes, 0);
+		g_FilemgrLastPakError = ret;
 
-		if (tmp == 0) {
+		if (ret == 0) {
 			cheatsDisableAll();
 			savebufferReadString(&buffer, g_GameFile.name, 0);
 			g_GameFile.thumbnail = savebufferReadBits(&buffer, 5);
@@ -1001,8 +1001,8 @@ s32 gamefileLoad(s32 device)
 s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 {
 	u32 stack;
-	s32 sp140;
-	s32 tmp;
+	s32 newfileid;
+	s32 ret;
 	s32 i;
 	s32 j;
 	s32 p1index;
@@ -1133,11 +1133,11 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 
 		func0f0d54c4(&buffer);
 
-		tmp = pak0f116828(device, fileid, PAKFILETYPE_GAME, buffer.bytes, &sp140, 0);
-		var800a21f8.fileid = tmp;
+		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_GAME, buffer.bytes, &newfileid, 0);
+		g_FilemgrLastPakError = ret;
 
-		if (tmp == 0) {
-			g_GameFileGuid.fileid = sp140;
+		if (ret == 0) {
+			g_GameFileGuid.fileid = newfileid;
 			g_GameFileGuid.deviceserial = deviceserial;
 
 			return 0;

@@ -23,7 +23,7 @@
 struct fileguid g_FilemgrFileToCopy;
 struct fileguid var800a21e8;
 struct fileguid g_FilemgrFileToDelete;
-struct fileguid var800a21f8;
+s32 g_FilemgrLastPakError;
 struct gamefile g_GameFile;
 u32 var800a22bc;
 struct fileguid g_GameFileGuid;
@@ -720,8 +720,14 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	s32 errno = 0;
 	bool showfilesaved = (g_Menus[g_MpPlayerNum].fm.isretryingsave & 1) != 0;
 
-	const s32 sp30[] = {0x80, 0x40, 0x20, 0x08};
-	s32 sp2c;
+	const s32 filetypes[] = {
+		PAKFILETYPE_GAME,
+		PAKFILETYPE_MPSETUP,
+		PAKFILETYPE_MPPLAYER,
+		PAKFILETYPE_008,
+	};
+
+	s32 newfileid;
 
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_SAVE_GAME_002:
@@ -748,12 +754,12 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	case FILEOP_WRITE_GAME:
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_WRITE_MPPLAYER:
-		sp2c = 0;
+		newfileid = 0;
 		func0f0d5690(g_Menus[g_MpPlayerNum].fm.unke44, g_Menus[g_MpPlayerNum].fm.filename);
-		errno = pak0f116828(device,
+		errno = pakSaveAtGuid(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
-				sp30[g_Menus[g_MpPlayerNum].fm.fileop - 6],
-				g_Menus[g_MpPlayerNum].fm.unke44, &sp2c, 0);
+				filetypes[g_Menus[g_MpPlayerNum].fm.fileop - 6],
+				g_Menus[g_MpPlayerNum].fm.unke44, &newfileid, NULL);
 		var80075bd0[g_Menus[g_MpPlayerNum].fm.fileop - 6] = 1;
 		break;
 	case FILEOP_LOAD_GAME:
@@ -774,7 +780,7 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		errno = pak0f116800(device,
+		errno = pakReadBodyAtGuid(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.unke44, 0);
 		break;
@@ -927,7 +933,7 @@ glabel var7f1ad424nb
 /*  f104bd4:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f104bd8:	83a4004b */ 	lb	$a0,0x4b($sp)
 /*  f104bdc:	8c450da4 */ 	lw	$a1,0xda4($v0)
-/*  f104be0:	0fc442fb */ 	jal	pak0f116828
+/*  f104be0:	0fc442fb */ 	jal	pakSaveAtGuid
 /*  f104be4:	8c470da0 */ 	lw	$a3,0xda0($v0)
 /*  f104be8:	3c188007 */ 	lui	$t8,0x8007
 /*  f104bec:	8f183af0 */ 	lw	$t8,0x3af0($t8)
@@ -971,7 +977,7 @@ glabel var7f1ad424nb
 /*  f104c84:	8ce7d088 */ 	lw	$a3,-0x2f78($a3)
 /*  f104c88:	83a4004b */ 	lb	$a0,0x4b($sp)
 /*  f104c8c:	8c450da4 */ 	lw	$a1,0xda4($v0)
-/*  f104c90:	0fc442f1 */ 	jal	pak0f116800
+/*  f104c90:	0fc442f1 */ 	jal	pakReadBodyAtGuid
 /*  f104c94:	8c460da0 */ 	lw	$a2,0xda0($v0)
 /*  f104c98:	00403025 */ 	or	$a2,$v0,$zero
 .NB0f104c9c:
@@ -1068,7 +1074,7 @@ bool filemgrSaveOrLoad(struct fileguid *guid, s32 fileop, u32 playernum)
 		g_Menus[g_MpPlayerNum].fm.fileop = fileop;
 		g_Menus[g_MpPlayerNum].fm.mpplayernum = playernum;
 		g_Menus[g_MpPlayerNum].fm.isretryingsave = 0;
-		var800a21f8.fileid = 0;
+		g_FilemgrLastPakError = 0;
 	}
 
 	g_Menus[g_MpPlayerNum].fm.fileid = guid->fileid;

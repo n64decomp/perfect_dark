@@ -6687,14 +6687,14 @@ struct pakthing {
 struct pakfileheader {
 	union {
 		struct {
-			u16 headersum[2];  // checksum from filetype to end of header
+			u16 headersum[2];       // checksum from filetype to end of header
 			u16 bodysum[2];
-			u32 filetype : 9; // PAKFILETYPE constant
-			u32 bodylen : 11; // not aligned
-			u32 filelen : 12; // aligned to 0x10
+			u32 filetype : 9;       // PAKFILETYPE constant
+			u32 bodylen : 11;       // not aligned
+			u32 filelen : 12;       // aligned to 0x10
 			u32 deviceserial : 13;
 			u32 fileid : 7;
-			u32 unk0c_21 : 9;
+			u32 generation : 9;     // increments by 1 each time the same file is saved
 			u32 occupied : 1;
 			u32 writecompleted : 1; // 0 while writing data, then updated to 1 afterwards
 			u32 version : 1;        // 0, but can be set to 1 using -forceversion argument

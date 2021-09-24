@@ -102,7 +102,7 @@ void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum);
 void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2);
 void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer);
 void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime);
-s32 mpplayerfileSave(s32 playernum, s32 device, s32 arg2, u16 deviceserial);
+s32 mpplayerfileSave(s32 playernum, s32 device, s32 fileid, u16 deviceserial);
 s32 mpplayerfileLoad(s32 playernum, s32 device, s32 arg2, u16 deviceserial);
 s32 mpGetNumPresets(void);
 bool mpIsPresetUnlocked(s32 presetnum);

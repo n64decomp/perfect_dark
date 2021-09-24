@@ -5,7 +5,7 @@
 #include "types.h"
 
 bool bossfileLoadFull(void);
-u32 func0f110720(void);
+u32 bossfileFindFileId(void);
 void bossfileLoad(void);
 void bossfileSave(void);
 void bossfileSetDefaults(void);

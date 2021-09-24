@@ -58,34 +58,34 @@ void func0f1106f4(u8 *dst)
 	bcopy(var800a22d0, dst, sizeof(var800a22d0));
 }
 
-u32 func0f110720(void)
+u32 bossfileFindFileId(void)
 {
 	struct pakfileheader header;
-	u32 sp3c[513];
-	u32 sp38 = 0;
+	u32 fileids[513];
+	u32 candidate = 0;
 	s32 i;
 
-	if (pakGetFileIdsByType(SAVEDEVICE_GAMEPAK, PAKFILETYPE_BOSS, sp3c) == 0) {
-		for (i = 0; sp3c[i] != 0; i++) {
-			pakFindFile(SAVEDEVICE_GAMEPAK, sp3c[i], &header);
+	if (pakGetFileIdsByType(SAVEDEVICE_GAMEPAK, PAKFILETYPE_BOSS, fileids) == 0) {
+		for (i = 0; fileids[i] != 0; i++) {
+			pakFindFile(SAVEDEVICE_GAMEPAK, fileids[i], &header);
 
 			if (!header.occupied) {
-				sp38 = sp3c[i];
+				candidate = fileids[i];
 				break;
 			}
 		}
 
-		for (i = 0; sp3c[i] != 0; i++) {
-			pakFindFile(SAVEDEVICE_GAMEPAK, sp3c[i], &header);
+		for (i = 0; fileids[i] != 0; i++) {
+			pakFindFile(SAVEDEVICE_GAMEPAK, fileids[i], &header);
 
 			if (header.occupied) {
-				sp38 = sp3c[i];
+				candidate = fileids[i];
 				break;
 			}
 		}
 	}
 
-	return sp38;
+	return candidate;
 }
 
 void bossfileLoad(void)
@@ -93,17 +93,17 @@ void bossfileLoad(void)
 	bool failed = false;
 	struct savebuffer buffer;
 	s32 i;
-	s32 tmp;
+	s32 fileid;
 	struct fileguid guid;
 
-	tmp = func0f110720();
+	fileid = bossfileFindFileId();
 
-	if (tmp == 0) {
+	if (fileid == 0) {
 		failed = true;
 	} else {
 		savebufferClear(&buffer);
 
-		if (pak0f116800(SAVEDEVICE_GAMEPAK, tmp, buffer.bytes, 0)) {
+		if (pakReadBodyAtGuid(SAVEDEVICE_GAMEPAK, fileid, buffer.bytes, 0) != 0) {
 			failed = true;
 		}
 	}
@@ -156,7 +156,7 @@ void bossfileSave(void)
 	struct fileguid guid;
 	u32 stack;
 	s32 i;
-	s32 tmp;
+	s32 fileid;
 
 	savebufferClear(&buffer);
 
@@ -188,13 +188,13 @@ void bossfileSave(void)
 
 	func0f0d54c4(&buffer);
 
-	tmp = func0f110720();
+	fileid = bossfileFindFileId();
 
-	if (tmp == 0) {
+	if (fileid == 0) {
 		faultAssert("fileGuid", "bossfile.c", PAL ? 377 : 375);
 	}
 
-	if (pak0f116828(SAVEDEVICE_GAMEPAK, tmp, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0)) {
+	if (pakSaveAtGuid(SAVEDEVICE_GAMEPAK, fileid, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0) != 0) {
 		sp12c = true;
 	}
 }

@@ -274,14 +274,14 @@ s32 pak0f1167d8(s8 device)
 	return pak0f119298(device);
 }
 
-s32 pak0f116800(s8 device, s32 fileid, u8 *body, s32 arg3)
+s32 pakReadBodyAtGuid(s8 device, s32 fileid, u8 *body, s32 arg3)
 {
-	return pak0f118bc8(device, fileid, body, arg3);
+	return _pakReadBodyAtGuid(device, fileid, body, arg3);
 }
 
-s32 pak0f116828(s8 device, s32 fileid, s32 filetype, u8 *body, s32 *outfileid, s32 arg5)
+s32 pakSaveAtGuid(s8 device, s32 fileid, s32 filetype, u8 *body, s32 *outfileid, u8 *olddata)
 {
-	return pak0f11789c(device, fileid, filetype, body, outfileid, arg5);
+	return _pakSaveAtGuid(device, fileid, filetype, body, outfileid, olddata);
 }
 
 bool pakDeleteFile(s8 device, s32 fileid)
@@ -519,7 +519,7 @@ s32 _pakDeleteFile(s8 device, s32 fileid)
 		return 1;
 	}
 
-	result = pakWriteFile(device, result, header.filetype, NULL, 0, NULL, NULL, 0, header.unk0c_21 + 1);
+	result = pakWriteFileAtOffset(device, result, header.filetype, NULL, 0, NULL, NULL, 0, header.generation + 1);
 
 	if (result) {
 		return result;
@@ -538,7 +538,7 @@ s32 _pakDeleteFile(s8 device, s32 fileid)
 		return 3;
 	}
 
-	result = pakWriteFile(device, tmp, header.filetype, NULL, 0, NULL, NULL, 0, header.unk0c_21 + 1);
+	result = pakWriteFileAtOffset(device, tmp, header.filetype, NULL, 0, NULL, NULL, 0, header.generation + 1);
 
 	if (result) {
 		return result;
@@ -884,342 +884,130 @@ void pakDumpEeprom(void)
 	pakDumpBuffer(buffer, 2048, "EEPROM DUMP");
 }
 
-const char var7f1b3be8[] = "PakSaveAtGuid: new guid = %x\n";
+/**
+ * Overwrite the save file which has the specified fileid. This is typically an
+ * earlier version of the same logical save file. A new fileid will be generated
+ * and returned to *outfileid.
+ *
+ * The function doesn't literally overwrite the old file. On the pak, there is
+ * a swap file reserved for atomic writes. The new file is written into the
+ * swap file, then the old file is marked as swap.
+ */
+s32 _pakSaveAtGuid(s8 device, s32 fileid, s32 filetype, u8 *newdata, s32 *outfileid, u8 *olddataptr)
+{
+	struct pakfileheader header;
+	struct pakfileheader swapheader;
+	s32 result;
+	s32 oldoffset;
+	s32 i;
+	s32 swapoffset;
+	u32 fileids[1024];
+	s32 swapfileid = 0;
+	u8 olddata[0x800];
+
+	// Find the file to be "replaced"
+	oldoffset = pakFindFile(device, fileid, &header);
+
+	if (oldoffset && (!oldoffset || oldoffset >= pakGetNumBytes(device) || (pakGetBlockSize(device) - 1 & oldoffset))) {
+		return 3;
+	}
+
+	if (filetype != header.filetype) {
+		return 12;
+	}
+
+	// Find all files on the pak of the same filetype,
+	// then iterate them to find the swap file
+	pakGetFileIdsByType(device, header.filetype, fileids);
+
+	// NTSC Beta initialises swapoffset to -1 so it can detect if the loop below
+	// has been entered. But in NTSC 1.0 they realised that pakFindFile can
+	// return -1, so they initialised the variable to 0xeeeeeeee instead and
+	// added the check for -1 in the loop below.
+#if VERSION >= VERSION_NTSC_1_0
+	swapoffset = 0xeeeeeeee;
+#else
+	swapoffset = -1;
+#endif
+
+	for (i = 0; fileids[i] != 0; i++) {
+		swapoffset = pakFindFile(device, fileids[i], &swapheader);
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11789c
-/*  f11789c:	27bde780 */ 	addiu	$sp,$sp,-6272
-/*  f1178a0:	afb10034 */ 	sw	$s1,0x34($sp)
-/*  f1178a4:	00048e00 */ 	sll	$s1,$a0,0x18
-/*  f1178a8:	00117603 */ 	sra	$t6,$s1,0x18
-/*  f1178ac:	afa41880 */ 	sw	$a0,0x1880($sp)
-/*  f1178b0:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f1178b4:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f1178b8:	afb20038 */ 	sw	$s2,0x38($sp)
-/*  f1178bc:	afa61888 */ 	sw	$a2,0x1888($sp)
-/*  f1178c0:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f1178c4:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f1178c8:	01c08825 */ 	or	$s1,$t6,$zero
-/*  f1178cc:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f1178d0:	afa7188c */ 	sw	$a3,0x188c($sp)
-/*  f1178d4:	afa0084c */ 	sw	$zero,0x84c($sp)
-/*  f1178d8:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f1178dc:	0fc464da */ 	jal	pakFindFile
-/*  f1178e0:	27a61870 */ 	addiu	$a2,$sp,0x1870
-/*  f1178e4:	10400015 */ 	beqz	$v0,.L0f11793c
-/*  f1178e8:	afa21858 */ 	sw	$v0,0x1858($sp)
-/*  f1178ec:	10400011 */ 	beqz	$v0,.L0f117934
-/*  f1178f0:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f1178f4:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f1178f8:	0fc45ff0 */ 	jal	pakGetNumBytes
-/*  f1178fc:	03002025 */ 	or	$a0,$t8,$zero
-/*  f117900:	8fb91858 */ 	lw	$t9,0x1858($sp)
-/*  f117904:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f117908:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f11790c:	0322082b */ 	sltu	$at,$t9,$v0
-/*  f117910:	10200008 */ 	beqz	$at,.L0f117934
-/*  f117914:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117918:	0fc45974 */ 	jal	pakGetBlockSize
-/*  f11791c:	01002025 */ 	or	$a0,$t0,$zero
-/*  f117920:	8faa1858 */ 	lw	$t2,0x1858($sp)
-/*  f117924:	2449ffff */ 	addiu	$t1,$v0,-1
-/*  f117928:	012a5824 */ 	and	$t3,$t1,$t2
-/*  f11792c:	51600004 */ 	beqzl	$t3,.L0f117940
-/*  f117930:	8fa51878 */ 	lw	$a1,0x1878($sp)
-.L0f117934:
-/*  f117934:	1000006d */ 	beqz	$zero,.L0f117aec
-/*  f117938:	24020003 */ 	addiu	$v0,$zero,0x3
-.L0f11793c:
-/*  f11793c:	8fa51878 */ 	lw	$a1,0x1878($sp)
-.L0f117940:
-/*  f117940:	8fad1888 */ 	lw	$t5,0x1888($sp)
-/*  f117944:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f117948:	000565c2 */ 	srl	$t4,$a1,0x17
-/*  f11794c:	11ac0003 */ 	beq	$t5,$t4,.L0f11795c
-/*  f117950:	01802825 */ 	or	$a1,$t4,$zero
-/*  f117954:	10000065 */ 	beqz	$zero,.L0f117aec
-/*  f117958:	2402000c */ 	addiu	$v0,$zero,0xc
-.L0f11795c:
-/*  f11795c:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f117960:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f117964:	0fc459ec */ 	jal	pakGetFileIdsByType
-/*  f117968:	27a60850 */ 	addiu	$a2,$sp,0x850
-/*  f11796c:	8faf0850 */ 	lw	$t7,0x850($sp)
-/*  f117970:	3c10eeee */ 	lui	$s0,0xeeee
-/*  f117974:	3610eeee */ 	ori	$s0,$s0,0xeeee
-/*  f117978:	11e0001b */ 	beqz	$t7,.L0f1179e8
-/*  f11797c:	27a30850 */ 	addiu	$v1,$sp,0x850
-/*  f117980:	8c650000 */ 	lw	$a1,0x0($v1)
-/*  f117984:	00112600 */ 	sll	$a0,$s1,0x18
-.L0f117988:
-/*  f117988:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f11798c:	03202025 */ 	or	$a0,$t9,$zero
-/*  f117990:	27a61860 */ 	addiu	$a2,$sp,0x1860
-/*  f117994:	0fc464da */ 	jal	pakFindFile
-/*  f117998:	afa30048 */ 	sw	$v1,0x48($sp)
-/*  f11799c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f1179a0:	8fa30048 */ 	lw	$v1,0x48($sp)
-/*  f1179a4:	14410003 */ 	bne	$v0,$at,.L0f1179b4
-/*  f1179a8:	00408025 */ 	or	$s0,$v0,$zero
-/*  f1179ac:	1000004f */ 	beqz	$zero,.L0f117aec
-/*  f1179b0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1179b4:
-/*  f1179b4:	8fa4186c */ 	lw	$a0,0x186c($sp)
-/*  f1179b8:	00044f40 */ 	sll	$t1,$a0,0x1d
-/*  f1179bc:	05200006 */ 	bltz	$t1,.L0f1179d8
-/*  f1179c0:	00041340 */ 	sll	$v0,$a0,0xd
-/*  f1179c4:	00025642 */ 	srl	$t2,$v0,0x19
-/*  f1179c8:	524a0004 */ 	beql	$s2,$t2,.L0f1179dc
-/*  f1179cc:	8c650004 */ 	lw	$a1,0x4($v1)
-/*  f1179d0:	10000005 */ 	beqz	$zero,.L0f1179e8
-/*  f1179d4:	afaa084c */ 	sw	$t2,0x84c($sp)
-.L0f1179d8:
-/*  f1179d8:	8c650004 */ 	lw	$a1,0x4($v1)
-.L0f1179dc:
-/*  f1179dc:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f1179e0:	54a0ffe9 */ 	bnezl	$a1,.L0f117988
-/*  f1179e4:	00112600 */ 	sll	$a0,$s1,0x18
-.L0f1179e8:
-/*  f1179e8:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1179ec:	16210011 */ 	bne	$s1,$at,.L0f117a34
-/*  f1179f0:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f1179f4:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f1179f8:	01602025 */ 	or	$a0,$t3,$zero
-/*  f1179fc:	8fa5084c */ 	lw	$a1,0x84c($sp)
-/*  f117a00:	27a6004c */ 	addiu	$a2,$sp,0x4c
-/*  f117a04:	0fc45a00 */ 	jal	pak0f116800
-/*  f117a08:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f117a0c:	14400003 */ 	bnez	$v0,.L0f117a1c
-/*  f117a10:	27a3004c */ 	addiu	$v1,$sp,0x4c
-/*  f117a14:	10000007 */ 	beqz	$zero,.L0f117a34
-/*  f117a18:	afa31894 */ 	sw	$v1,0x1894($sp)
-.L0f117a1c:
-/*  f117a1c:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f117a20:	54410004 */ 	bnel	$v0,$at,.L0f117a34
-/*  f117a24:	afa01894 */ 	sw	$zero,0x1894($sp)
-/*  f117a28:	10000002 */ 	beqz	$zero,.L0f117a34
-/*  f117a2c:	afa31894 */ 	sw	$v1,0x1894($sp)
-/*  f117a30:	afa01894 */ 	sw	$zero,0x1894($sp)
-.L0f117a34:
-/*  f117a34:	8faf187c */ 	lw	$t7,0x187c($sp)
-/*  f117a38:	8fad1890 */ 	lw	$t5,0x1890($sp)
-/*  f117a3c:	8fae1894 */ 	lw	$t6,0x1894($sp)
-/*  f117a40:	000fc500 */ 	sll	$t8,$t7,0x14
-/*  f117a44:	0018cdc2 */ 	srl	$t9,$t8,0x17
-/*  f117a48:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f117a4c:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f117a50:	27280001 */ 	addiu	$t0,$t9,0x1
-/*  f117a54:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f117a58:	01802025 */ 	or	$a0,$t4,$zero
-/*  f117a5c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f117a60:	8fa61888 */ 	lw	$a2,0x1888($sp)
-/*  f117a64:	8fa7188c */ 	lw	$a3,0x188c($sp)
-/*  f117a68:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f117a6c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f117a70:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f117a74:	0fc46f15 */ 	jal	pakWriteFile
-/*  f117a78:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f117a7c:	10400003 */ 	beqz	$v0,.L0f117a8c
-/*  f117a80:	8fa51858 */ 	lw	$a1,0x1858($sp)
-/*  f117a84:	10000019 */ 	beqz	$zero,.L0f117aec
-/*  f117a88:	24020004 */ 	addiu	$v0,$zero,0x4
-.L0f117a8c:
-/*  f117a8c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f117a90:	54a10004 */ 	bnel	$a1,$at,.L0f117aa4
-/*  f117a94:	3c01eeee */ 	lui	$at,0xeeee
-/*  f117a98:	10000014 */ 	beqz	$zero,.L0f117aec
-/*  f117a9c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f117aa0:	3c01eeee */ 	lui	$at,0xeeee
-.L0f117aa4:
-/*  f117aa4:	3421eeee */ 	ori	$at,$at,0xeeee
-/*  f117aa8:	10a1000f */ 	beq	$a1,$at,.L0f117ae8
-/*  f117aac:	00112600 */ 	sll	$a0,$s1,0x18
-/*  f117ab0:	8fab187c */ 	lw	$t3,0x187c($sp)
-/*  f117ab4:	8faa084c */ 	lw	$t2,0x84c($sp)
-/*  f117ab8:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f117abc:	000b6500 */ 	sll	$t4,$t3,0x14
-/*  f117ac0:	000c6dc2 */ 	srl	$t5,$t4,0x17
-/*  f117ac4:	afad0020 */ 	sw	$t5,0x20($sp)
-/*  f117ac8:	01202025 */ 	or	$a0,$t1,$zero
-/*  f117acc:	8fa61888 */ 	lw	$a2,0x1888($sp)
-/*  f117ad0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f117ad4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f117ad8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f117adc:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f117ae0:	0fc46f15 */ 	jal	pakWriteFile
-/*  f117ae4:	afaa001c */ 	sw	$t2,0x1c($sp)
-.L0f117ae8:
-/*  f117ae8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f117aec:
-/*  f117aec:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f117af0:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f117af4:	8fb10034 */ 	lw	$s1,0x34($sp)
-/*  f117af8:	8fb20038 */ 	lw	$s2,0x38($sp)
-/*  f117afc:	03e00008 */ 	jr	$ra
-/*  f117b00:	27bd1880 */ 	addiu	$sp,$sp,0x1880
-);
-#else
-GLOBAL_ASM(
-glabel pak0f11789c
-/*  f111c00:	27bde780 */ 	addiu	$sp,$sp,-6272
-/*  f111c04:	afb20034 */ 	sw	$s2,0x34($sp)
-/*  f111c08:	00049600 */ 	sll	$s2,$a0,0x18
-/*  f111c0c:	00127603 */ 	sra	$t6,$s2,0x18
-/*  f111c10:	afa41880 */ 	sw	$a0,0x1880($sp)
-/*  f111c14:	000e2600 */ 	sll	$a0,$t6,0x18
-/*  f111c18:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f111c1c:	afb30038 */ 	sw	$s3,0x38($sp)
-/*  f111c20:	afa61888 */ 	sw	$a2,0x1888($sp)
-/*  f111c24:	00047e03 */ 	sra	$t7,$a0,0x18
-/*  f111c28:	00a09825 */ 	or	$s3,$a1,$zero
-/*  f111c2c:	01c09025 */ 	or	$s2,$t6,$zero
-/*  f111c30:	afb10030 */ 	sw	$s1,0x30($sp)
-/*  f111c34:	afb0002c */ 	sw	$s0,0x2c($sp)
-/*  f111c38:	afa7188c */ 	sw	$a3,0x188c($sp)
-/*  f111c3c:	afa0084c */ 	sw	$zero,0x84c($sp)
-/*  f111c40:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f111c44:	0fc44da7 */ 	jal	pakFindFile
-/*  f111c48:	27a61870 */ 	addiu	$a2,$sp,0x1870
-/*  f111c4c:	10400015 */ 	beqz	$v0,.NB0f111ca4
-/*  f111c50:	afa21858 */ 	sw	$v0,0x1858($sp)
-/*  f111c54:	10400011 */ 	beqz	$v0,.NB0f111c9c
-/*  f111c58:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f111c5c:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f111c60:	0fc448fb */ 	jal	pakGetNumBytes
-/*  f111c64:	03002025 */ 	or	$a0,$t8,$zero
-/*  f111c68:	8fb91858 */ 	lw	$t9,0x1858($sp)
-/*  f111c6c:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f111c70:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f111c74:	0322082b */ 	sltu	$at,$t9,$v0
-/*  f111c78:	10200008 */ 	beqz	$at,.NB0f111c9c
-/*  f111c7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111c80:	0fc4428c */ 	jal	pakGetBlockSize
-/*  f111c84:	01002025 */ 	or	$a0,$t0,$zero
-/*  f111c88:	8faa1858 */ 	lw	$t2,0x1858($sp)
-/*  f111c8c:	2449ffff */ 	addiu	$t1,$v0,-1
-/*  f111c90:	012a5824 */ 	and	$t3,$t1,$t2
-/*  f111c94:	51600004 */ 	beqzl	$t3,.NB0f111ca8
-/*  f111c98:	8fa51878 */ 	lw	$a1,0x1878($sp)
-.NB0f111c9c:
-/*  f111c9c:	1000005f */ 	beqz	$zero,.NB0f111e1c
-/*  f111ca0:	24020003 */ 	addiu	$v0,$zero,0x3
-.NB0f111ca4:
-/*  f111ca4:	8fa51878 */ 	lw	$a1,0x1878($sp)
-.NB0f111ca8:
-/*  f111ca8:	8fad1888 */ 	lw	$t5,0x1888($sp)
-/*  f111cac:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f111cb0:	000565c2 */ 	srl	$t4,$a1,0x17
-/*  f111cb4:	11ac0003 */ 	beq	$t5,$t4,.NB0f111cc4
-/*  f111cb8:	01802825 */ 	or	$a1,$t4,$zero
-/*  f111cbc:	10000057 */ 	beqz	$zero,.NB0f111e1c
-/*  f111cc0:	2402000c */ 	addiu	$v0,$zero,0xc
-.NB0f111cc4:
-/*  f111cc4:	00047603 */ 	sra	$t6,$a0,0x18
-/*  f111cc8:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f111ccc:	0fc442dd */ 	jal	pakGetFileIdsByType
-/*  f111cd0:	27a60850 */ 	addiu	$a2,$sp,0x850
-/*  f111cd4:	8faf0850 */ 	lw	$t7,0x850($sp)
-/*  f111cd8:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f111cdc:	27b00850 */ 	addiu	$s0,$sp,0x850
-/*  f111ce0:	51e00016 */ 	beqzl	$t7,.NB0f111d3c
-/*  f111ce4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f111ce8:	8e050000 */ 	lw	$a1,0x0($s0)
-/*  f111cec:	00122600 */ 	sll	$a0,$s2,0x18
-.NB0f111cf0:
-/*  f111cf0:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f111cf4:	03202025 */ 	or	$a0,$t9,$zero
-/*  f111cf8:	0fc44da7 */ 	jal	pakFindFile
-/*  f111cfc:	27a61860 */ 	addiu	$a2,$sp,0x1860
-/*  f111d00:	8fa3186c */ 	lw	$v1,0x186c($sp)
-/*  f111d04:	00408825 */ 	or	$s1,$v0,$zero
-/*  f111d08:	00034f40 */ 	sll	$t1,$v1,0x1d
-/*  f111d0c:	05200006 */ 	bltz	$t1,.NB0f111d28
-/*  f111d10:	00031340 */ 	sll	$v0,$v1,0xd
-/*  f111d14:	00025642 */ 	srl	$t2,$v0,0x19
-/*  f111d18:	526a0004 */ 	beql	$s3,$t2,.NB0f111d2c
-/*  f111d1c:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f111d20:	10000005 */ 	beqz	$zero,.NB0f111d38
-/*  f111d24:	afaa084c */ 	sw	$t2,0x84c($sp)
-.NB0f111d28:
-/*  f111d28:	8e050004 */ 	lw	$a1,0x4($s0)
-.NB0f111d2c:
-/*  f111d2c:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f111d30:	54a0ffef */ 	bnezl	$a1,.NB0f111cf0
-/*  f111d34:	00122600 */ 	sll	$a0,$s2,0x18
-.NB0f111d38:
-/*  f111d38:	24010004 */ 	addiu	$at,$zero,0x4
-.NB0f111d3c:
-/*  f111d3c:	1641000f */ 	bne	$s2,$at,.NB0f111d7c
-/*  f111d40:	27b0004c */ 	addiu	$s0,$sp,0x4c
-/*  f111d44:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f111d48:	00045e03 */ 	sra	$t3,$a0,0x18
-/*  f111d4c:	01602025 */ 	or	$a0,$t3,$zero
-/*  f111d50:	8fa5084c */ 	lw	$a1,0x84c($sp)
-/*  f111d54:	02003025 */ 	or	$a2,$s0,$zero
-/*  f111d58:	0fc442f1 */ 	jal	pak0f116800
-/*  f111d5c:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f111d60:	10400003 */ 	beqz	$v0,.NB0f111d70
-/*  f111d64:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f111d68:	54410004 */ 	bnel	$v0,$at,.NB0f111d7c
-/*  f111d6c:	afa01894 */ 	sw	$zero,0x1894($sp)
-.NB0f111d70:
-/*  f111d70:	10000002 */ 	beqz	$zero,.NB0f111d7c
-/*  f111d74:	afb01894 */ 	sw	$s0,0x1894($sp)
-/*  f111d78:	afa01894 */ 	sw	$zero,0x1894($sp)
-.NB0f111d7c:
-/*  f111d7c:	8fae187c */ 	lw	$t6,0x187c($sp)
-/*  f111d80:	8fb01890 */ 	lw	$s0,0x1890($sp)
-/*  f111d84:	8fad1894 */ 	lw	$t5,0x1894($sp)
-/*  f111d88:	000e7d00 */ 	sll	$t7,$t6,0x14
-/*  f111d8c:	000fc5c2 */ 	srl	$t8,$t7,0x17
-/*  f111d90:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f111d94:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f111d98:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f111d9c:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f111da0:	01802025 */ 	or	$a0,$t4,$zero
-/*  f111da4:	02202825 */ 	or	$a1,$s1,$zero
-/*  f111da8:	8fa61888 */ 	lw	$a2,0x1888($sp)
-/*  f111dac:	8fa7188c */ 	lw	$a3,0x188c($sp)
-/*  f111db0:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f111db4:	afb3001c */ 	sw	$s3,0x1c($sp)
-/*  f111db8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f111dbc:	0fc456f6 */ 	jal	pakWriteFile
-/*  f111dc0:	afad0018 */ 	sw	$t5,0x18($sp)
-/*  f111dc4:	10400003 */ 	beqz	$v0,.NB0f111dd4
-/*  f111dc8:	8fa51858 */ 	lw	$a1,0x1858($sp)
-/*  f111dcc:	10000013 */ 	beqz	$zero,.NB0f111e1c
-/*  f111dd0:	24020004 */ 	addiu	$v0,$zero,0x4
-.NB0f111dd4:
-/*  f111dd4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f111dd8:	10a1000f */ 	beq	$a1,$at,.NB0f111e18
-/*  f111ddc:	00122600 */ 	sll	$a0,$s2,0x18
-/*  f111de0:	8faa187c */ 	lw	$t2,0x187c($sp)
-/*  f111de4:	8fa9084c */ 	lw	$t1,0x84c($sp)
-/*  f111de8:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f111dec:	000a5d00 */ 	sll	$t3,$t2,0x14
-/*  f111df0:	000b65c2 */ 	srl	$t4,$t3,0x17
-/*  f111df4:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f111df8:	01002025 */ 	or	$a0,$t0,$zero
-/*  f111dfc:	8fa61888 */ 	lw	$a2,0x1888($sp)
-/*  f111e00:	00003825 */ 	or	$a3,$zero,$zero
-/*  f111e04:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f111e08:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f111e0c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f111e10:	0fc456f6 */ 	jal	pakWriteFile
-/*  f111e14:	afa9001c */ 	sw	$t1,0x1c($sp)
-.NB0f111e18:
-/*  f111e18:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f111e1c:
-/*  f111e1c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f111e20:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*  f111e24:	8fb10030 */ 	lw	$s1,0x30($sp)
-/*  f111e28:	8fb20034 */ 	lw	$s2,0x34($sp)
-/*  f111e2c:	8fb30038 */ 	lw	$s3,0x38($sp)
-/*  f111e30:	03e00008 */ 	jr	$ra
-/*  f111e34:	27bd1880 */ 	addiu	$sp,$sp,0x1880
-);
+		if (swapoffset == -1) {
+			return 1;
+		}
 #endif
+
+		if (!swapheader.occupied && swapheader.fileid != fileid) {
+			// Found the swap file
+			swapfileid = swapheader.fileid;
+			break;
+		}
+	}
+
+	// For the game pak, don't trust the olddataptr argument and instead
+	// populate it by loading the data at the swap file (olddataptr is used to
+	// skip writes if any old and new blocks are matching).
+	// @bug? Shouldn't this also apply to controller paks? How would the caller
+	// know which swap space was going to be used? Maybe controller paks don't
+	// use the olddataptr optimisation?
+	if (device == SAVEDEVICE_GAMEPAK) {
+		result = pakReadBodyAtGuid(device, swapfileid, olddata, -1);
+
+		// NTSC 1.0 just writes the same thing a different way
+#if VERSION >= VERSION_NTSC_1_0
+		if (result == 0) {
+			olddataptr = olddata;
+		} else if (result == 10) {
+			olddataptr = olddata;
+		} else {
+			olddataptr = NULL;
+		}
+#else
+		if (result == 0 || result == 10) {
+			olddataptr = olddata;
+		} else {
+			olddataptr = NULL;
+		}
+#endif
+	}
+
+	// Write the new file into the swap space
+	result = pakWriteFileAtOffset(device, swapoffset, filetype, newdata, 0, outfileid, olddataptr, fileid, header.generation + 1);
+
+	if (result != PAKERROR_OK) {
+		return 4;
+	}
+
+	if (outfileid) {
+		osSyncPrintf("PakSaveAtGuid: new guid = %x\n", outfileid);
+	}
+
+	// NTSC Beta skips marking the old file as vacant if the file wasn't found
+	// and returns an OK value. NTSC Final makes it return an error instead.
+	// @bug: The 0xeeeeeeee check should have been done earlier for swapoffset
+	// instead. As it turns out, if swap space wasn't found then
+	// pakWriteFileAtOffset would have returned an error above and this function
+	// would have returned before this check occurs. And oldoffset will never be
+	// 0xeeeeeeee (even with 4GB of storage) because 0xeeeeeeee is not aligned
+	// to a 16-byte boundary. So this bug is harmless.
+#if VERSION >= VERSION_NTSC_1_0
+	if (oldoffset == -1) {
+		return 1;
+	}
+
+	if (oldoffset != 0xeeeeeeee) {
+		pakWriteFileAtOffset(device, oldoffset, filetype, NULL, 0, NULL, NULL, swapfileid, header.generation);
+	}
+#else
+	if (oldoffset != -1) {
+		pakWriteFileAtOffset(device, oldoffset, filetype, NULL, 0, NULL, NULL, swapfileid, header.generation);
+	}
+#endif
+
+	return 0;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 s32 pakInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3)
@@ -1830,7 +1618,7 @@ glabel pak0f118674
 /*  f118888:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f11888c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f118890:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f118894:	0fc46f15 */ 	jal	pakWriteFile
+/*  f118894:	0fc46f15 */ 	jal	pakWriteFileAtOffset
 /*  f118898:	afad0014 */ 	sw	$t5,0x14($sp)
 /*  f11889c:	14400033 */ 	bnez	$v0,.L0f11896c
 /*  f1188a0:	8faf0054 */ 	lw	$t7,0x54($sp)
@@ -1879,7 +1667,7 @@ glabel pak0f118674
 /*  f118940:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f118944:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f118948:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f11894c:	0fc46f15 */ 	jal	pakWriteFile
+/*  f11894c:	0fc46f15 */ 	jal	pakWriteFileAtOffset
 /*  f118950:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f118954:	14400003 */ 	bnez	$v0,.L0f118964
 /*  f118958:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2063,7 +1851,7 @@ glabel pak0f118674
 /*  f118870:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f118874:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f118878:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f11887c:	0fc46e75 */ 	jal	pakWriteFile
+/*  f11887c:	0fc46e75 */ 	jal	pakWriteFileAtOffset
 /*  f118880:	afaa0014 */ 	sw	$t2,0x14($sp)
 /*  f118884:	14400023 */ 	bnez	$v0,.L0f118914
 /*  f118888:	8fac0050 */ 	lw	$t4,0x50($sp)
@@ -2094,7 +1882,7 @@ glabel pak0f118674
 /*  f1188e8:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f1188ec:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f1188f0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f1188f4:	0fc46e75 */ 	jal	pakWriteFile
+/*  f1188f4:	0fc46e75 */ 	jal	pakWriteFileAtOffset
 /*  f1188f8:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f1188fc:	14400003 */ 	bnez	$v0,.L0f11890c
 /*  f118900:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2263,7 +2051,7 @@ glabel pak0f118674
 /*  f112c24:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f112c28:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f112c2c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f112c30:	0fc456f6 */ 	jal	pakWriteFile
+/*  f112c30:	0fc456f6 */ 	jal	pakWriteFileAtOffset
 /*  f112c34:	afb90014 */ 	sw	$t9,0x14($sp)
 /*  f112c38:	14400023 */ 	bnez	$v0,.NB0f112cc8
 /*  f112c3c:	8fa90050 */ 	lw	$t1,0x50($sp)
@@ -2294,7 +2082,7 @@ glabel pak0f118674
 /*  f112c9c:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f112ca0:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f112ca4:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f112ca8:	0fc456f6 */ 	jal	pakWriteFile
+/*  f112ca8:	0fc456f6 */ 	jal	pakWriteFileAtOffset
 /*  f112cac:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f112cb0:	14400003 */ 	bnez	$v0,.NB0f112cc0
 /*  f112cb4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2406,7 +2194,7 @@ glabel pak0f118674
 //		}
 //
 //		// 86c
-//		if (pakWriteFile(device, sp96, filetype, NULL, 0, olddata, NULL, 0, 1) == 0) {
+//		if (pakWriteFileAtOffset(device, sp96, filetype, NULL, 0, olddata, NULL, 0, 1) == 0) {
 //#if VERSION >= VERSION_NTSC_FINAL
 //			// 8a4
 //			if (sp84) {
@@ -2428,7 +2216,7 @@ glabel pak0f118674
 //			// 8f4
 //			sp96 += pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, filetype));
 //
-//			if (pakWriteFile(device, sp96, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1) == 0) {
+//			if (pakWriteFileAtOffset(device, sp96, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1) == 0) {
 //				return 0;
 //			}
 //
@@ -2627,7 +2415,7 @@ s32 pak0f118b04(s8 device, u32 fileid)
 	return 0;
 }
 
-s32 pak0f118bc8(s8 device, s32 fileid, u8 *body, s32 arg3)
+s32 _pakReadBodyAtGuid(s8 device, s32 fileid, u8 *body, s32 arg3)
 {
 	s32 offset;
 	struct pakfileheader header;
@@ -3418,7 +3206,7 @@ glabel pakFindFile
 #if VERSION >= VERSION_NTSC_FINAL
 bool pakWriteBlankFile(u32 device, u32 offset, struct pakfileheader *header)
 {
-	if (pakWriteFile(device, offset, PAKFILETYPE_BLANK, NULL, pakGetBodyLenByFileLen(header->filelen), NULL, NULL, 0, 1) == 0) {
+	if (pakWriteFileAtOffset(device, offset, PAKFILETYPE_BLANK, NULL, pakGetBodyLenByFileLen(header->filelen), NULL, NULL, 0, 1) == 0) {
 		return true;
 	}
 
@@ -3533,7 +3321,7 @@ glabel pakRepairAsBlank
 /*  f119658:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f11965c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f119660:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f119664:	0fc46f15 */ 	jal	pakWriteFile
+/*  f119664:	0fc46f15 */ 	jal	pakWriteFileAtOffset
 /*  f119668:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f11966c:	1000001b */ 	beqz	$zero,.L0f1196dc
 /*  f119670:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -3555,7 +3343,7 @@ glabel pakRepairAsBlank
 /*  f1196a8:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f1196ac:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f1196b0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f1196b4:	0fc46f15 */ 	jal	pakWriteFile
+/*  f1196b4:	0fc46f15 */ 	jal	pakWriteFileAtOffset
 /*  f1196b8:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f1196bc:	10400005 */ 	beqz	$v0,.L0f1196d4
 /*  f1196c0:	8fae0094 */ 	lw	$t6,0x94($sp)
@@ -3658,7 +3446,7 @@ bool pakRepairAsBlank(s8 device, u32 *offsetptr, struct pakfileheader *header)
 
 		// If the end was reached, write a terminator at the starting offset
 		if (offset >= g_Paks[device].numbytes) {
-			pakWriteFile(device, start, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1);
+			pakWriteFileAtOffset(device, start, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1);
 			return true;
 		}
 #elif VERSION >= VERSION_NTSC_1_0
@@ -3712,7 +3500,7 @@ bool pakRepairAsBlank(s8 device, u32 *offsetptr, struct pakfileheader *header)
 	osSyncPrintf("Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n", device, start, offset, offset - start, bodylen);
 
 	// Write the blank file ranging from to the start to the current offset
-	result = pakWriteFile(device, start, PAKFILETYPE_BLANK, NULL, bodylen, NULL, NULL, 0, 1);
+	result = pakWriteFileAtOffset(device, start, PAKFILETYPE_BLANK, NULL, bodylen, NULL, NULL, 0, 1);
 
 	if (result != 0) {
 		osSyncPrintf("Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n", device, offset);
@@ -3830,7 +3618,7 @@ glabel pak0f11970c
 /*  f11a318:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f11a31c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f11a320:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f11a324:	0fc471d4 */ 	jal	pakWriteFile
+/*  f11a324:	0fc471d4 */ 	jal	pakWriteFileAtOffset
 /*  f11a328:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f11a32c:	50400082 */ 	beqzl	$v0,.PF0f11a538
 /*  f11a330:	8fae07a4 */ 	lw	$t6,0x7a4($sp)
@@ -4306,7 +4094,7 @@ glabel pak0f11970c
 /*  f119838:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f11983c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f119840:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f119844:	0fc46f15 */ 	jal	pakWriteFile
+/*  f119844:	0fc46f15 */ 	jal	pakWriteFileAtOffset
 /*  f119848:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f11984c:	50400082 */ 	beqzl	$v0,.L0f119a58
 /*  f119850:	8fae07a4 */ 	lw	$t6,0x7a4($sp)
@@ -4784,7 +4572,7 @@ glabel pak0f11970c
 /*  f119734:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f119738:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f11973c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f119740:	0fc46e75 */ 	jal	pakWriteFile
+/*  f119740:	0fc46e75 */ 	jal	pakWriteFileAtOffset
 /*  f119744:	afa0001c */ 	sw	$zero,0x1c($sp)
 /*  f119748:	50400080 */ 	beqzl	$v0,.L0f11994c
 /*  f11974c:	8fac047c */ 	lw	$t4,0x47c($sp)
@@ -5795,7 +5583,7 @@ void pakMergeBlanks(s8 device)
 			if (mergestartoffset != 0xffff) {
 				u32 filelen = offset - mergestartoffset + header.filelen - sizeof(struct pakfileheader);
 
-				if (pakWriteFile(device, mergestartoffset, PAKFILETYPE_BLANK, NULL, filelen, NULL, NULL, 0, 1) != PAKERROR_OK) {
+				if (pakWriteFileAtOffset(device, mergestartoffset, PAKFILETYPE_BLANK, NULL, filelen, NULL, NULL, 0, 1) != PAKERROR_OK) {
 					osSyncPrintf("> Pak_DefragPak_Level1 - Merge of two blanks failed");
 				}
 
@@ -7911,7 +7699,7 @@ s32 pakScrub(s8 device)
 #endif
 	g_Paks[device].headercachecount = 0;
 
-	pakWriteFile(device, 0, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1);
+	pakWriteFileAtOffset(device, 0, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1);
 
 	result = pakReadWriteBlock(device, PFS(device), g_Paks[device].noteindex, PFS_WRITE, address, pakGetBlockSize(device), data);
 
@@ -8479,7 +8267,7 @@ bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset)
 	result = pakReadHeaderAtOffset(device, offset, &header);
 
 	if (result == 0) {
-		result = pakWriteFile(device, offset, PAKFILETYPE_BLANK, NULL, header.filelen - sizeof(struct pakfileheader), NULL, NULL, 0, 1);
+		result = pakWriteFileAtOffset(device, offset, PAKFILETYPE_BLANK, NULL, header.filelen - sizeof(struct pakfileheader), NULL, NULL, 0, 1);
 
 		if (result == 0) {
 			return true;
@@ -8491,7 +8279,7 @@ bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel pakWriteFile
+glabel pakWriteFileAtOffset
 /*  f11bc54:	27bddf40 */ 	addiu	$sp,$sp,-8384
 /*  f11bc58:	afb70044 */ 	sw	$s7,0x44($sp)
 /*  f11bc5c:	0004be00 */ 	sll	$s7,$a0,0x18
@@ -8942,7 +8730,7 @@ glabel pakWriteFile
 );
 #else
 GLOBAL_ASM(
-glabel pakWriteFile
+glabel pakWriteFileAtOffset
 /*  f115bd8:	27bddf40 */ 	addiu	$sp,$sp,-8384
 /*  f115bdc:	afb70044 */ 	sw	$s7,0x44($sp)
 /*  f115be0:	0004be00 */ 	sll	$s7,$a0,0x18
@@ -9395,7 +9183,7 @@ glabel pakWriteFile
 const char var7f1b45e4[] = "-forceversion";
 
 // Mismatch: callee-save registers are handled differently
-//s32 pakWriteFile(s8 device, u32 offset, s32 filetype, u8 *newdata, s32 bodylenarg, s32 *outfileid, u8 *olddata, u32 fileid, u32 arg8)
+//s32 pakWriteFileAtOffset(s8 device, u32 offset, s32 filetype, u8 *newdata, s32 bodylenarg, s32 *outfileid, u8 *olddata, u32 fileid, u32 generation)
 //{
 //	u8 header[sizeof(struct pakfileheader)]; // 20b0
 //	struct pakfileheader *headerptr;
@@ -9417,7 +9205,7 @@ const char var7f1b45e4[] = "-forceversion";
 //
 //	blocksize = pakGetBlockSize(device);
 //
-//	arg8 &= 0x1ff;
+//	generation &= 0x1ff;
 //	bodylen = bodylenarg ? bodylenarg : pakGetBodyLenByType(device, filetype);
 //	filelen = pakGetAlignedFileLenByBodyLen(device, bodylen);
 //
@@ -9432,7 +9220,7 @@ const char var7f1b45e4[] = "-forceversion";
 //
 //	headerptr->version = version;
 //	headerptr->bodylen = bodylen;
-//	headerptr->unk0c_21 = arg8;
+//	headerptr->generation = generation;
 //	headerptr->filetype = filetype;
 //	headerptr->fileid &= 0x7f;
 //

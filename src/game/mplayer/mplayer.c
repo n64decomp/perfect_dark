@@ -8759,10 +8759,10 @@ void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime)
 	*playtime = savebufferReadBits(&buffer, 28);
 }
 
-s32 mpplayerfileSave(s32 playernum, s32 device, s32 arg2, u16 deviceserial)
+s32 mpplayerfileSave(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 {
-	s32 tmp;
-	s32 fileid;
+	s32 ret;
+	s32 newfileid;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
@@ -8772,15 +8772,15 @@ s32 mpplayerfileSave(s32 playernum, s32 device, s32 arg2, u16 deviceserial)
 
 		var80075bd0[2] = true;
 
-		tmp = pak0f116828(device, arg2, PAKFILETYPE_MPPLAYER, buffer.bytes, &fileid, 0);
+		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_MPPLAYER, buffer.bytes, &newfileid, 0);
 
-		if (tmp == 0) {
-			g_MpPlayers[playernum].fileguid.fileid = fileid;
+		if (ret == 0) {
+			g_MpPlayers[playernum].fileguid.fileid = newfileid;
 			g_MpPlayers[playernum].fileguid.deviceserial = deviceserial;
 			return 0;
 		}
 
-		var800a21f8.fileid = tmp;
+		g_FilemgrLastPakError = ret;
 		return -1;
 	}
 
@@ -8789,15 +8789,15 @@ s32 mpplayerfileSave(s32 playernum, s32 device, s32 arg2, u16 deviceserial)
 
 s32 mpplayerfileLoad(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 {
-	s32 tmp;
+	s32 ret;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
 		savebufferClear(&buffer);
 
-		tmp = pak0f116800(device, fileid, buffer.bytes, 0);
+		ret = pakReadBodyAtGuid(device, fileid, buffer.bytes, 0);
 
-		if (tmp == 0) {
+		if (ret == 0) {
 			g_MpPlayers[playernum].fileguid.fileid = fileid;
 			g_MpPlayers[playernum].fileguid.deviceserial = deviceserial;
 
@@ -8808,7 +8808,7 @@ s32 mpplayerfileLoad(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 			return 0;
 		}
 
-		var800a21f8.fileid = tmp;
+		g_FilemgrLastPakError = ret;
 		return -1;
 	}
 
@@ -9459,8 +9459,8 @@ void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stage
 
 s32 mpsetupfileSave(s32 device, s32 fileid, u16 deviceserial)
 {
-	s32 tmp;
-	s32 sp100;
+	s32 ret;
+	s32 newfileid;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
@@ -9468,16 +9468,16 @@ s32 mpsetupfileSave(s32 device, s32 fileid, u16 deviceserial)
 		mpsetupfileSaveWad(&buffer);
 		func0f0d54c4(&buffer);
 
-		tmp = pak0f116828(device, fileid, PAKFILETYPE_MPSETUP, buffer.bytes, &sp100, 0);
+		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_MPSETUP, buffer.bytes, &newfileid, 0);
 		var80075bd0[1] = true;
 
-		if (tmp == 0) {
-			g_MpSetup.fileguid.fileid = sp100;
+		if (ret == 0) {
+			g_MpSetup.fileguid.fileid = newfileid;
 			g_MpSetup.fileguid.deviceserial = deviceserial;
 			return 0;
 		}
 
-		var800a21f8.fileid = tmp;
+		g_FilemgrLastPakError = ret;
 		return -1;
 	}
 
@@ -9486,14 +9486,14 @@ s32 mpsetupfileSave(s32 device, s32 fileid, u16 deviceserial)
 
 s32 mpsetupfileLoad(s32 device, s32 fileid, u16 deviceserial)
 {
-	s32 tmp;
+	s32 ret;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
 		savebufferClear(&buffer);
-		tmp = pak0f116800(device, fileid, buffer.bytes, 0);
+		ret = pakReadBodyAtGuid(device, fileid, buffer.bytes, 0);
 
-		if (tmp == 0) {
+		if (ret == 0) {
 			g_MpSetup.fileguid.fileid = fileid;
 			g_MpSetup.fileguid.deviceserial = deviceserial;
 
@@ -9503,7 +9503,7 @@ s32 mpsetupfileLoad(s32 device, s32 fileid, u16 deviceserial)
 			return 0;
 		}
 
-		var800a21f8.fileid = tmp;
+		g_FilemgrLastPakError = ret;
 
 		return -1;
 	}
