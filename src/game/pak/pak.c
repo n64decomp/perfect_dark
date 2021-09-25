@@ -9657,47 +9657,29 @@ void pak0f11d110(void)
 {
 	// empty
 }
-#else
-GLOBAL_ASM(
-glabel pak0f11d110
-/*  f116d1c:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f116d20:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f116d24:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f116d28:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f116d2c:	27a20020 */ 	addiu	$v0,$sp,0x20
-/*  f116d30:	24030010 */ 	addiu	$v1,$zero,0x10
-.NB0f116d34:
-/*  f116d34:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f116d38:	1444fffe */ 	bne	$v0,$a0,.NB0f116d34
-/*  f116d3c:	a043ffff */ 	sb	$v1,-0x1($v0)
-/*  f116d40:	83a40083 */ 	lb	$a0,0x83($sp)
-/*  f116d44:	24054000 */ 	addiu	$a1,$zero,0x4000
-/*  f116d48:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f116d4c:	0fc45a3b */ 	jal	gbpakWrite
-/*  f116d50:	24070020 */ 	addiu	$a3,$zero,0x20
-/*  f116d54:	14400003 */ 	bnez	$v0,.NB0f116d64
-/*  f116d58:	83a40083 */ 	lb	$a0,0x83($sp)
-/*  f116d5c:	1000000c */ 	beqz	$zero,.NB0f116d90
-/*  f116d60:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f116d64:
-/*  f116d64:	3405a000 */ 	dli	$a1,0xa000
-/*  f116d68:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f116d6c:	0fc45a16 */ 	jal	gbpakRead
-/*  f116d70:	24070040 */ 	addiu	$a3,$zero,0x40
-/*  f116d74:	54400004 */ 	bnezl	$v0,.NB0f116d88
-/*  f116d78:	93a20040 */ 	lbu	$v0,0x40($sp)
-/*  f116d7c:	10000004 */ 	beqz	$zero,.NB0f116d90
-/*  f116d80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f116d84:	93a20040 */ 	lbu	$v0,0x40($sp)
-.NB0f116d88:
-/*  f116d88:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f116d8c:	01c01025 */ 	or	$v0,$t6,$zero
-.NB0f116d90:
-/*  f116d90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116d94:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f116d98:	03e00008 */ 	jr	$ra
-/*  f116d9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+u32 pak0f116d1cnb(s8 device)
+{
+	u8 readbuffer[0x40];
+	u8 writebuffer[0x20];
+	s32 i;
+
+	for (i = 0; i < sizeof(writebuffer); i++) {
+		writebuffer[i] = 0x10;
+	}
+
+	if (gbpakWrite(device, 0x4000, writebuffer, sizeof(writebuffer)) == 0) {
+		return 0;
+	}
+
+	if (gbpakRead(device, 0xa000, readbuffer, sizeof(readbuffer)) == 0) {
+		return 0;
+	}
+
+	return readbuffer[0] & 1;
+}
 #endif
 
 void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2)
@@ -11501,7 +11483,7 @@ glabel pak7f117f94nb
 .NB0f1180b0:
 /*  f1180b0:	54610008 */ 	bnel	$v1,$at,.NB0f1180d4
 /*  f1180b4:	8cc30008 */ 	lw	$v1,0x8($a2)
-/*  f1180b8:	0fc45b47 */ 	jal	pak0f11d110
+/*  f1180b8:	0fc45b47 */ 	jal	pak0f116d1cnb
 /*  f1180bc:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f1180c0:	14400003 */ 	bnez	$v0,.NB0f1180d0
 /*  f1180c4:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -11538,7 +11520,7 @@ glabel pak7f117f94nb
 .NB0f118130:
 /*  f118130:	54610008 */ 	bnel	$v1,$at,.NB0f118154
 /*  f118134:	8cc30008 */ 	lw	$v1,0x8($a2)
-/*  f118138:	0fc45b47 */ 	jal	pak0f11d110
+/*  f118138:	0fc45b47 */ 	jal	pak0f116d1cnb
 /*  f11813c:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f118140:	14400003 */ 	bnez	$v0,.NB0f118150
 /*  f118144:	8fa60018 */ 	lw	$a2,0x18($sp)
