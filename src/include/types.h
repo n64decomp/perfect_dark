@@ -9,6 +9,9 @@
 #define bool s32
 #define ubool u32
 
+typedef s32 PakErr1;
+typedef s32 PakErr2;
+
 // Float version of a graphics matrix, which has higher precision than an Mtx.
 // Matrices are stored as Mtxfs then converted to an Mtx when passed to the GPU.
 // Mtxs use a union and a long long int to force alignments. Mtxfs are not

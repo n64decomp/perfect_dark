@@ -3096,12 +3096,33 @@
 #define PAK010_26 26
 #define PAK010_27 27
 
-#define PAKERROR_OK                 0
-#define PAKERROR_EEPROM_MISSING     0x80
-#define PAKERROR_EEPROM_READFAILED  0x81
-#define PAKERROR_EEPROM_WRITEFAILED 0x82
-#define PAKERROR_EEPROM_INVALIDOP   0x83
-#define PAKERROR_EEPROM_INVALIDARG  0x84
+#define PAK_ERR1_OK                0
+#define PAK_ERR1_NOPAK             PFS_ERR_NOPACK        /* no memory card is plugged */
+#define PAK_ERR1_NEWPAK            PFS_ERR_NEW_PACK      /* ram pack has been changed to a different one */
+#define PAK_ERR1_INCONSISTENT      PFS_ERR_INCONSISTENT  /* need to run Pfschecker */
+#define PAK_ERR1_CONTRFAIL         PFS_ERR_CONTRFAIL
+#define PAK_ERR1_INVALID           PFS_ERR_INVALID       /* invalid parameter or file not exist */
+#define PAK_ERR1_BADDATA           PFS_ERR_BAD_DATA      /* the data read from pack are bad */
+#define PAK_ERR1_DATAFULL          PFS_DATA_FULL         /* no free pages on ram pack */
+#define PAK_ERR1_DIRFULL           PFS_DIR_FULL          /* no free directories on ram pack */
+#define PAK_ERR1_EXIST             PFS_ERR_EXIST         /* file exists */
+#define PAK_ERR1_IDFATAL           PFS_ERR_ID_FATAL      /* dead ram pack */
+#define PAK_ERR1_DEVICE            PFS_ERR_DEVICE        /* wrong device type */
+#define PAK_ERR1_NOGBCART          PFS_ERR_NO_GBCART     /* no gb cartridge (64GB-PAK) */
+#define PAK_ERR1_NEWGBCART         PFS_ERR_NEW_GBCART    /* gb cartridge may be changed */
+#define PAK_ERR1_EEPROMMISSING     0x80
+#define PAK_ERR1_EEPROMREADFAILED  0x81
+#define PAK_ERR1_EEPROMWRITEFAILED 0x82
+#define PAK_ERR1_EEPROMINVALIDOP   0x83
+#define PAK_ERR1_EEPROMINVALIDARG  0x84
+
+#define PAK_ERR2_OK         0  /* no error */
+#define PAK_ERR2_NOPAK      1  /* pak is not inserted */
+#define PAK_ERR2_BADOFFSET  4  /* offset given is out of range */
+#define PAK_ERR2_CHECKSUM   7  /* checksum mismatch */
+#define PAK_ERR2_VERSION    9  /* file is for a different version (0 or 1) */
+#define PAK_ERR2_CORRUPT    11 /* cache error or file is zero len */
+#define PAK_ERR2_INCOMPLETE 15 /* previous write did not complete */
 
 #define PAKFILETYPE_001        0x001
 #define PAKFILETYPE_BLANK      0x002
