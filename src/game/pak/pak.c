@@ -299,9 +299,9 @@ s32 pak0f1168c4(s8 device, struct pakdata **arg1)
 	return pak0f116df0(device, arg1);
 }
 
-s32 pak0f1168ec(s8 device, u8 *olddata)
+s32 pak0f1168ec(s8 device, s32 *outfileid)
 {
-	return pak0f118230(device, olddata);
+	return pak0f118230(device, outfileid);
 }
 
 u32 pakGetType(s8 device)
@@ -1352,7 +1352,7 @@ s32 pak0f118148(s8 device)
 	return 0;
 }
 
-s32 pak0f118230(s8 device, u8 *olddata)
+s32 pak0f118230(s8 device, s32 *outfileid)
 {
 	if (device != SAVEDEVICE_GAMEPAK && pak0f11807c(device)) {
 		s32 result;
@@ -1373,7 +1373,7 @@ s32 pak0f118230(s8 device, u8 *olddata)
 			}
 		}
 
-		result = pak0f118674(device, PAKFILETYPE_008, olddata);
+		result = pak0f118674(device, PAKFILETYPE_008, outfileid);
 
 		if (result) {
 			return result;
@@ -2105,100 +2105,94 @@ glabel pak0f118674
 );
 #endif
 
+/**
+ * Find a spot for the given filetype and write it.
+ *
+ * Replace a blank spot or extend the filesystem if needed and possible.
+ */
 // Mismatch because goal calculates s1 (address of g_Paks[device]) twice.
 // Mine also does it twice using the u32 cast but stores the second one in v1.
 // Removing the cast causes mine to calculate s1 only once and reuse it.
-//u32 pak0f118674(s8 device, u32 filetype, u8 *olddata)
+//u32 pak0f118674(s8 device, u32 filetype, s32 *outfileid)
 //{
-//	u32 sp112[4];
+//	struct pakfileheader header;
 //	u32 sp108;
-//	u32 value;
-//	u32 sp100 = pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, filetype));
-//	s32 sp96 = -1;
-//	u32 s0 = 0;
-//	u32 sp88 = 0;
+//	s32 ret;
+//	s32 filelen = pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, filetype));
+//	s32 bestoffset = -1;
+//	u32 offset = 0;
+//	bool foundperfectblank = false;
 //#if VERSION >= VERSION_NTSC_FINAL
-//	u32 sp84 = 0;
-//	u32 sp80;
+//	bool foundblank = false;
 //#endif
 //
-//	// 6e4
 //	if (pak0f1167d8(device)) {
 //		return pak0f1167d8(device);
 //	}
 //
-//	// 73c
-//	while (s0 < g_Paks[device].numbytes) {
-//		value = pakReadHeaderAtOffset(device, s0, sp112);
+//	while (offset < g_Paks[device].numbytes) {
+//		ret = pakReadHeaderAtOffset(device, offset, &header);
 //
-//		// 758
-//		if (value == 0) {
-//			// 76c
-//			if ((sp112[2] >> 0x17) & 4) {
-//				if (g_Paks[device].numbytes - 0x20 < s0 + sp100) {
+//		if (ret == PAK_ERR2_OK) {
+//			if (header.filetype & PAKFILETYPE_TERMINATOR) {
+//				if (offset + filelen > g_Paks[device].numbytes - 0x20) {
 //					return 14;
 //				}
 //
-//				sp96 = s0;
+//				bestoffset = offset;
 //				break;
 //			}
 //
-//			// 7a0
-//			if ((sp112[2] >> 0x17) & 2) {
-//				if (sp100 == (sp112[2] & 0xfff)) {
-//					sp88 = 1;
-//					sp96 = s0;
+//			if (header.filetype & PAKFILETYPE_BLANK) {
+//				if (header.filelen == filelen) {
+//					foundperfectblank = true;
+//					bestoffset = offset;
 //					break;
 //				}
 //
 //#if VERSION >= VERSION_NTSC_FINAL
-//				sp84 = 1;
-//				sp96 = s0;
+//				foundblank = true;
+//				bestoffset = offset;
 //				break;
 //#endif
 //			}
 //
-//			s0 += sp112[2] & 0xfff;
-//		} else /*7dc*/ if (value == 1) {
+//			offset += header.filelen;
+//		} else if (ret == PAK_ERR2_NOPAK) {
 //			return 1;
 //		} else {
-//			// 7ec
-//			s0 += pakGetBlockSize(device);
+//			offset += pakGetBlockSize(device);
 //		}
 //	}
 //
-//	// 80c
-//	if (s0 == 0 ||
-//			(s0 && s0 < pakGetNumBytes(device) && (pakGetBlockSize(device) - 1 & s0) == 0)) {
-//		// 854
-//		if (sp96 == -1) {
+//	if (offset == 0 ||
+//			(offset && offset < pakGetNumBytes(device) && (pakGetBlockSize(device) - 1 & offset) == 0)) {
+//		if (bestoffset == -1) {
 //			return 14;
 //		}
 //
-//		// 86c
-//		if (pakWriteFileAtOffset(device, sp96, filetype, NULL, 0, olddata, NULL, 0, 1) == 0) {
+//		// Write the file
+//		if (pakWriteFileAtOffset(device, bestoffset, filetype, NULL, 0, outfileid, NULL, 0, 1) == 0) {
 //#if VERSION >= VERSION_NTSC_FINAL
-//			// 8a4
-//			if (sp84) {
-//				sp80 = sp96 + sp100;
-//				pakRepairAsBlank(device, &sp80, 0);
+//			if (foundblank) {
+//				u32 endoffset = bestoffset + filelen;
+//				pakRepairAsBlank(device, &endoffset, NULL);
 //				return 0;
 //			}
 //
-//			// 8dc
-//			if (sp88 || sp84) {
+//			if (foundperfectblank || foundblank) {
 //				return 0;
 //			}
 //#else
-//			if (sp88) {
+//			if (foundperfectblank) {
 //				return 0;
 //			}
 //#endif
 //
-//			// 8f4
-//			sp96 += pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, filetype));
+//			// Write new terminator after file
+//			bestoffset += pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, filetype));
 //
-//			if (pakWriteFileAtOffset(device, sp96, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1) == 0) {
+//			if (pakWriteFileAtOffset(device, bestoffset, PAKFILETYPE_TERMINATOR, NULL, 0, NULL, NULL, 0, 1) == 0) {
 //				return 0;
 //			}
 //
@@ -5835,7 +5829,7 @@ glabel mempakPrepare
 //	joyEnableCyclicPolling();
 //
 //	// If it doesn't exist, allocate it
-//	if (sp48 != PFS_ERR1_OK) {
+//	if (sp48 != PAK_ERR1_OK) {
 //		pakHandleResult(sp48, device, false, 3654);
 //
 //		g_Paks[device].numnotes = (g_Paks[device].pakdata.pagesfree > 128) ? 2 : 1;
