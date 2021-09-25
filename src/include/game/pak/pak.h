@@ -75,10 +75,10 @@ u32 pak0f119298(s8 device);
 void pak0f119340(u32 arg0);
 s32 pakFindFile(s8 device, u32 fileid, struct pakfileheader *header);
 #if VERSION >= VERSION_NTSC_FINAL
-bool pakWriteBlankFile(u32 device, u32 offset, struct pakfileheader *header);
+bool pakWriteBlankFile(s8 device, u32 offset, struct pakfileheader *header);
 #endif
-bool pakRepairAsBlank(s8 device, u32 *arg1, struct pakfileheader *header);
-s32 pak0f11970c(s8 device);
+bool pakRepairAsBlank(s8 device, u32 *offset, struct pakfileheader *header);
+s32 pakRepairFilesystem(s8 device);
 void pakCorrupt(void);
 bool pak0f119e8c(s8 device);
 s32 pakFindMaxFileId(s8 device);
