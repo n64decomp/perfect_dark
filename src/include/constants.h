@@ -69,9 +69,9 @@
 #endif
 
 #if PAL
-#define ROM_GAMECODE    'NPDP' // "NPDE" in ASCII
+#define ROM_GAMECODE    'NPDP'
 #else
-#define ROM_GAMECODE    'NPDE' // "NPDE" in ASCII
+#define ROM_GAMECODE    'NPDE'
 #endif
 
 // These actions are assigned to chr->actiontype

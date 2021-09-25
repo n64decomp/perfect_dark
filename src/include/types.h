@@ -5038,7 +5038,7 @@ struct pak {
 	/*0x010*/ s32 unk010;
 	/*0x014*/ u8 unk014;
 	/*0x018*/ struct pakdata pakdata;
-	/*0x25c*/ u32 nextfileid;
+	/*0x25c*/ u32 maxfileid;
 	/*0x260*/ u32 serial;
 	/*0x264*/ u32 unk264;
 	/*0x268*/ u32 unk268;

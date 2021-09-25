@@ -480,7 +480,7 @@ s32 _pakDeleteGameNote(s8 device, u16 company_code, u32 game_code, char *game_na
 		joyEnableCyclicPolling(123, "pak.c");
 #endif
 
-		if (pakHandleResult(result, device, 1, VERSION >= VERSION_NTSC_FINAL ? 825 : 822)) {
+		if (pakHandleResult(result, device, true, VERSION >= VERSION_NTSC_FINAL ? 825 : 822)) {
 			g_Paks[device].unk2b8_02 = 1;
 			return 0;
 		}
@@ -789,13 +789,13 @@ u32 pakReadHeaderAtOffset(s8 device, u32 offset, struct pakfileheader *header)
 		result = pakReadWriteBlock(device, PFS(device), g_Paks[device].noteindex, 0, offset, sizeof(sp38), sp38);
 
 #if VERSION >= VERSION_PAL_FINAL
-		if (pakHandleResult(result, device, 1, 1058) == 0)
+		if (pakHandleResult(result, device, true, 1058) == 0)
 #elif VERSION >= VERSION_NTSC_FINAL
-		if (pakHandleResult(result, device, 1, 1058) == 0)
+		if (pakHandleResult(result, device, true, 1058) == 0)
 #elif VERSION >= VERSION_NTSC_1_0
-		if (pakHandleResult(result, device, 1, 1055) == 0)
+		if (pakHandleResult(result, device, true, 1055) == 0)
 #else
-		if (pakHandleResult(result, device, 1, 994) == 0)
+		if (pakHandleResult(result, device, true, 994) == 0)
 #endif
 		{
 			if (result == 1) {
@@ -1167,7 +1167,7 @@ s32 pakFileState(OSPfs *pfs, s32 file_no, OSPfsState *note)
 
 const char var7f1b3c08[] = "Call to osPfsReSizeFile -> pfs=%x, cc=%u, gc=%u, gn=%s, en=%s, l=%d\n";
 
-s32 pakAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no)
+s32 pakAllocateNote(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 size, s32 *file_no)
 {
 	if (pfs) {
 		return osPfsAllocateFile(pfs, company_code, game_code, game_name, ext_name, size, file_no);
@@ -1215,7 +1215,7 @@ s32 pakFindNote(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, ch
 		*file_no = 0;
 		a = pakReadWriteBlock(SAVEDEVICE_GAMEPAK, 0, 0, 0, 0, align16(0x10), (u8 *)sp56);
 
-		if (pakHandleResult(a, SAVEDEVICE_GAMEPAK, 1, 0x60f)) {
+		if (pakHandleResult(a, SAVEDEVICE_GAMEPAK, true, 1551)) {
 			pakCalculateChecksum(sp64, sp64 + sizeof(sp64), sp44);
 
 			if (sp56[0] == sp44[0] && sp56[1] == sp44[1]) {
@@ -1417,7 +1417,7 @@ s32 pak0f118334(s8 device, s32 numpages)
 
 	numbytes = numpages * 256;
 	errno = pak0f117ec0(PFS(device), ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, numbytes);
-	pakHandleResult(errno, device, 1, VERSION >= VERSION_NTSC_FINAL ? 1802 : 1788);
+	pakHandleResult(errno, device, true, VERSION >= VERSION_NTSC_FINAL ? 1802 : 1788);
 
 	if (errno == 0) {
 		devicedata = &g_Paks[device];
@@ -2465,7 +2465,7 @@ s32 _pakGetFileIdsByType(s8 device, u32 filetype, u32 *fileids)
 {
 	struct pakfileheader header;
 	u32 offset = 0;
-	u32 sp48;
+	u32 fslen;
 	s32 len = 0;
 	s32 result = pak0f119298(device);
 
@@ -2473,7 +2473,7 @@ s32 _pakGetFileIdsByType(s8 device, u32 filetype, u32 *fileids)
 		return result;
 	}
 
-	result = pak0f11b75c(device, &sp48);
+	result = pakGetFilesystemLength(device, &fslen);
 
 	if (result != 0) {
 		return result;
@@ -2495,7 +2495,7 @@ s32 _pakGetFileIdsByType(s8 device, u32 filetype, u32 *fileids)
 
 		offset += header.filelen;
 
-		if (offset >= sp48) {
+		if (offset >= fslen) {
 			break;
 		}
 
@@ -2817,7 +2817,7 @@ glabel pak0f1190bc
 /*  f119120:	0040a825 */ 	or	$s5,$v0,$zero
 /*  f119124:	0000b025 */ 	or	$s6,$zero,$zero
 /*  f119128:	03202025 */ 	or	$a0,$t9,$zero
-/*  f11912c:	0fc46dd7 */ 	jal	pak0f11b75c
+/*  f11912c:	0fc46dd7 */ 	jal	pakGetFilesystemLength
 /*  f119130:	27a50044 */ 	addiu	$a1,$sp,0x44
 /*  f119134:	12200002 */ 	beqz	$s1,.L0f119140
 /*  f119138:	27b40050 */ 	addiu	$s4,$sp,0x50
@@ -2950,7 +2950,7 @@ glabel pak0f1190bc
 /*  f113464:	0040a825 */ 	or	$s5,$v0,$zero
 /*  f113468:	0000b025 */ 	or	$s6,$zero,$zero
 /*  f11346c:	03202025 */ 	or	$a0,$t9,$zero
-/*  f113470:	0fc455c3 */ 	jal	pak0f11b75c
+/*  f113470:	0fc455c3 */ 	jal	pakGetFilesystemLength
 /*  f113474:	27a50044 */ 	addiu	$a1,$sp,0x44
 /*  f113478:	12200002 */ 	beqz	$s1,.NB0f113484
 /*  f11347c:	27b40050 */ 	addiu	$s4,$sp,0x50
@@ -3100,14 +3100,14 @@ s32 pakFindFile(s8 device, u32 fileid, struct pakfileheader *headerptr)
 {
 	struct pakfileheader header;
 	s32 offset = 0;
-	u32 sp30;
+	u32 fslen;
 	s32 value;
 
-	pak0f11b75c(device, &sp30);
+	pakGetFilesystemLength(device, &fslen);
 
 	value = pakReadHeaderAtOffset(device, offset, &header);
 
-	while (value == 0 && offset < sp30) {
+	while (value == 0 && offset < fslen) {
 		if (fileid == header.fileid) {
 			if (headerptr) {
 				memcpy(headerptr, &header, sizeof(struct pakfileheader));
@@ -3148,7 +3148,7 @@ glabel pakFindFile
 /*  f1136d0:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f1136d4:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1136d8:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f1136dc:	0fc455c3 */ 	jal	pak0f11b75c
+/*  f1136dc:	0fc455c3 */ 	jal	pakGetFilesystemLength
 /*  f1136e0:	27a5002c */ 	addiu	$a1,$sp,0x2c
 /*  f1136e4:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f1136e8:	27b30030 */ 	addiu	$s3,$sp,0x30
@@ -5173,6 +5173,10 @@ glabel pak0f11970c
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
+/**
+ * Find all game files on the game pak and write random data into them.
+ * This should cause a checksum mismatch the next time the file is read.
+ */
 void pakCorrupt(void)
 {
 	struct pakfileheader header;
@@ -5876,7 +5880,7 @@ glabel pakInit
 //	g_Paks[device].unk2b8_07 = 0;
 //	g_Paks[device].headercache = NULL;
 //	g_Paks[device].unk2c4 = NULL;
-//	g_Paks[device].nextfileid = 8;
+//	g_Paks[device].maxfileid = 8;
 //	g_Paks[device].serial = 0;
 //	g_Paks[device].unk2c8 = 0;
 //	g_Paks[device].rumblettl = -1;
@@ -6271,13 +6275,13 @@ void pakUpdateSize(s8 device)
 #endif
 
 #if VERSION >= VERSION_PAL_FINAL
-	if (pakHandleResult(result, device, 1, 3606))
+	if (pakHandleResult(result, device, true, 3606))
 #elif VERSION >= VERSION_NTSC_FINAL
-	if (pakHandleResult(result, device, 1, 3599))
+	if (pakHandleResult(result, device, true, 3599))
 #elif VERSION >= VERSION_NTSC_1_0
-	if (pakHandleResult(result, device, 1, 3403))
+	if (pakHandleResult(result, device, true, 3403))
 #else
-	if (pakHandleResult(result, device, 1, 3246))
+	if (pakHandleResult(result, device, true, 3246))
 #endif
 	{
 		g_Paks[device].numbytes = note.file_size;
@@ -6367,7 +6371,7 @@ glabel pak0f1147b8nb
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
-glabel pak0f11a8f4
+glabel mempakPrepare
 /*  f11a8f4:	27bdefa0 */ 	addiu	$sp,$sp,-4192
 /*  f11a8f8:	afb10028 */ 	sw	$s1,0x28($sp)
 /*  f11a8fc:	00048e00 */ 	sll	$s1,$a0,0x18
@@ -6485,7 +6489,7 @@ glabel pak0f11a8f4
 /*  f11aaa4:	34c64445 */ 	ori	$a2,$a2,_gamecode
 /*  f11aaa8:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f11aaac:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f11aab0:	0fc45f64 */ 	jal	pakAllocateFile
+/*  f11aab0:	0fc45f64 */ 	jal	pakAllocateNote
 /*  f11aab4:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f11aab8:	0c005451 */ 	jal	joyEnableCyclicPolling
 /*  f11aabc:	afa20048 */ 	sw	$v0,0x48($sp)
@@ -6526,7 +6530,7 @@ glabel pak0f11a8f4
 /*  f11ab40:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f11ab44:	5320000a */ 	beqzl	$t9,.L0f11ab70
 /*  f11ab48:	8faa1050 */ 	lw	$t2,0x1050($sp)
-/*  f11ab4c:	0fc46d52 */ 	jal	pakScrub
+/*  f11ab4c:	0fc46d52 */ 	jal	pakCreateFilesystem
 /*  f11ab50:	01002025 */ 	or	$a0,$t0,$zero
 /*  f11ab54:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11ab58:	10410003 */ 	beq	$v0,$at,.L0f11ab68
@@ -6548,7 +6552,7 @@ glabel pak0f11a8f4
 /*  f11ab8c:	14410010 */ 	bne	$v0,$at,.L0f11abd0
 /*  f11ab90:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f11ab94:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f11ab98:	0fc46d52 */ 	jal	pakScrub
+/*  f11ab98:	0fc46d52 */ 	jal	pakCreateFilesystem
 /*  f11ab9c:	01802025 */ 	or	$a0,$t4,$zero
 /*  f11aba0:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11aba4:	10410003 */ 	beq	$v0,$at,.L0f11abb4
@@ -6617,7 +6621,7 @@ glabel pak0f11a8f4
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel pak0f11a8f4
+glabel mempakPrepare
 /*  f11a674:	27bdef98 */ 	addiu	$sp,$sp,-4200
 /*  f11a678:	afb10028 */ 	sw	$s1,0x28($sp)
 /*  f11a67c:	00048e00 */ 	sll	$s1,$a0,0x18
@@ -6735,7 +6739,7 @@ glabel pak0f11a8f4
 /*  f11a824:	34c64445 */ 	ori	$a2,$a2,_gamecode
 /*  f11a828:	afae0010 */ 	sw	$t6,0x10($sp)
 /*  f11a82c:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f11a830:	0fc45f44 */ 	jal	pakAllocateFile
+/*  f11a830:	0fc45f44 */ 	jal	pakAllocateNote
 /*  f11a834:	afb80018 */ 	sw	$t8,0x18($sp)
 /*  f11a838:	0c005451 */ 	jal	joyEnableCyclicPolling
 /*  f11a83c:	afa2004c */ 	sw	$v0,0x4c($sp)
@@ -6776,7 +6780,7 @@ glabel pak0f11a8f4
 /*  f11a8c0:	00044603 */ 	sra	$t0,$a0,0x18
 /*  f11a8c4:	5320000a */ 	beqzl	$t9,.L0f11a8f0_2
 /*  f11a8c8:	8faa1058 */ 	lw	$t2,0x1058($sp)
-/*  f11a8cc:	0fc46cb2 */ 	jal	pakScrub
+/*  f11a8cc:	0fc46cb2 */ 	jal	pakCreateFilesystem
 /*  f11a8d0:	01002025 */ 	or	$a0,$t0,$zero
 /*  f11a8d4:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11a8d8:	10410003 */ 	beq	$v0,$at,.L0f11a8e8_2
@@ -6798,7 +6802,7 @@ glabel pak0f11a8f4
 /*  f11a90c:	14410010 */ 	bne	$v0,$at,.L0f11a950_2
 /*  f11a910:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f11a914:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f11a918:	0fc46cb2 */ 	jal	pakScrub
+/*  f11a918:	0fc46cb2 */ 	jal	pakCreateFilesystem
 /*  f11a91c:	01802025 */ 	or	$a0,$t4,$zero
 /*  f11a920:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f11a924:	10410003 */ 	beq	$v0,$at,.L0f11a934_2
@@ -6867,7 +6871,7 @@ glabel pak0f11a8f4
 );
 #else
 GLOBAL_ASM(
-glabel pak0f11a8f4
+glabel mempakPrepare
 /*  f1148c8:	27bdefb0 */ 	addiu	$sp,$sp,-4176
 /*  f1148cc:	afb10028 */ 	sw	$s1,0x28($sp)
 /*  f1148d0:	00048e00 */ 	sll	$s1,$a0,0x18
@@ -6983,7 +6987,7 @@ glabel pak0f11a8f4
 /*  f114a70:	34c64445 */ 	ori	$a2,$a2,0x4445
 /*  f114a74:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f114a78:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f114a7c:	0fc4484d */ 	jal	pakAllocateFile
+/*  f114a7c:	0fc4484d */ 	jal	pakAllocateNote
 /*  f114a80:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*  f114a84:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f114a88:	afa20040 */ 	sw	$v0,0x40($sp)
@@ -7054,7 +7058,7 @@ glabel pak0f11a8f4
 .NB0f114b7c:
 /*  f114b7c:	00112600 */ 	sll	$a0,$s1,0x18
 /*  f114b80:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f114b84:	0fc45544 */ 	jal	pakScrub
+/*  f114b84:	0fc45544 */ 	jal	pakCreateFilesystem
 /*  f114b88:	01202025 */ 	or	$a0,$t1,$zero
 /*  f114b8c:	ae020260 */ 	sw	$v0,0x260($s0)
 .NB0f114b90:
@@ -7093,6 +7097,120 @@ glabel pak0f11a8f4
 /*  f114c04:	27bd1050 */ 	addiu	$sp,$sp,0x1050
 );
 #endif
+
+/**
+ * Prepare a controller pak for use by making sure a note is allocated and that
+ * the filesystem is good, among other things.
+ */
+// Mismatch: Swapped instructions. Seems related to sp48. Splitting the two uses
+// of sp48 into separate variables helps, but both variables are saved to sp48.
+//bool mempakPrepare(s8 device)
+//{
+//	u32 stack[2];
+//	bool isnewnote = false; // 1054
+//	bool error = false; // 1050
+//	u32 fileids[1024]; // 50
+//	s32 serial;
+//	s32 sp48; // 48
+//	s32 notesize; // 44
+//	s32 maxfileid;
+//
+//	g_Paks[device].type = PAKTYPE_MEMORY;
+//	g_Paks[device].unk2b8_02 = true;
+//
+//	pak0f11a574(device);
+//
+//	if (g_Paks[device].unk010 == PAK010_01) {
+//		return false;
+//	}
+//
+//	// Find the PD note if it exists
+//	joyDisableCyclicPolling();
+//	sp48 = pakFindNote(PFS(device), ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, &g_Paks[device].noteindex);
+//	joyEnableCyclicPolling();
+//
+//	// If it doesn't exist, allocate it
+//	if (sp48 != 0) {
+//		pakHandleResult(sp48, device, false, 3654);
+//
+//		g_Paks[device].numnotes = (g_Paks[device].pakdata.pagesfree > 128) ? 2 : 1;
+//
+//		notesize = g_Paks[device].numnotes * (256 * NUM_PAGES);
+//
+//		joyDisableCyclicPolling();
+//		sp48 = pakAllocateNote(PFS(device), ROM_COMPANYCODE, ROM_GAMECODE, g_PakNoteGameName, g_PakNoteExtName, notesize, &g_Paks[device].noteindex);
+//		joyEnableCyclicPolling();
+//
+//		g_Paks[device].unk2b8_02 = true;
+//
+//		if (pakHandleResult(sp48, device, true, 3668)) {
+//			isnewnote = true;
+//		} else {
+//			return false;
+//		}
+//	}
+//
+//	pak0f11a574(device);
+//	pakUpdateSize(device);
+//
+//	g_Paks[device].unk2b8_07 = false;
+//	g_Paks[device].headercachecount = 0;
+//	g_Paks[device].unk010 = PAK010_11;
+//
+//	// If it's a new note, create the filesystem
+//	if (isnewnote) {
+//		serial = pakCreateFilesystem(device);
+//
+//		if (serial != -1) {
+//			g_Paks[device].serial = serial;
+//		} else {
+//			error = true;
+//		}
+//	}
+//
+//	// Maybe check the filesystem for correctness and recreate it if needed?
+//	if (!error) {
+//		if (pak0f11970c(device) == -1) {
+//			serial = pakCreateFilesystem(device);
+//
+//			if (serial != -1) {
+//				g_Paks[device].serial = serial;
+//			} else {
+//				error = true;
+//			}
+//
+//			if (device != SAVEDEVICE_GAMEPAK) {
+//				g_Paks[device].unk2b8_06 = true;
+//			}
+//		}
+//	}
+//
+//	if (!error) {
+//		maxfileid = pakFindMaxFileId(device);
+//
+//		if (maxfileid != -1) {
+//			g_Paks[device].maxfileid = maxfileid;
+//
+//			if (pakGetFileIdsByType(device, PAKFILETYPE_TERMINATOR, fileids) == 0 && pak0f119e8c(device)) {
+//				if (device == SAVEDEVICE_GAMEPAK) {
+//					g_Paks[device].unk010 = PAK010_11;
+//				} else {
+//					g_Paks[device].unk010 = PAK010_06;
+//				}
+//
+//				func0f110d90(device);
+//
+//				return true;
+//			}
+//		}
+//	}
+//
+//	g_Paks[device].unk010 = PAK010_22;
+//
+//	func0f110d90(device);
+//
+//	return false;
+//}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -7577,7 +7695,10 @@ glabel pak0f114dd4nb
 );
 #endif
 
-void pakWipe(s8 device, u32 start, u32 end)
+/**
+ * Replace data between the given blocks with '!'.
+ */
+void pakWipe(s8 device, u32 blocknumstart, u32 blocknumend)
 {
 	u8 buffer[128];
 	u32 i;
@@ -7586,19 +7707,19 @@ void pakWipe(s8 device, u32 start, u32 end)
 		buffer[i] = '!';
 	}
 
-	for (i = start; i < end; i++) {
+	for (i = blocknumstart; i < blocknumend; i++) {
 		s32 result = pakReadWriteBlock(device, PFS(device), g_Paks[device].noteindex, PFS_WRITE, i * pakGetBlockSize(device), pakGetBlockSize(device), buffer);
 
 		g_Paks[device].headercachecount = 0;
 
 #if VERSION >= VERSION_PAL_FINAL
-		if (!pakHandleResult(result, device, 1, 3955))
+		if (!pakHandleResult(result, device, true, 3955))
 #elif VERSION >= VERSION_NTSC_FINAL
-		if (!pakHandleResult(result, device, 1, 3948))
+		if (!pakHandleResult(result, device, true, 3948))
 #elif VERSION >= VERSION_NTSC_1_0
-		if (!pakHandleResult(result, device, 1, 3753))
+		if (!pakHandleResult(result, device, true, 3753))
 #else
-		if (!pakHandleResult(result, device, 1, 3573))
+		if (!pakHandleResult(result, device, true, 3573))
 #endif
 		{
 			g_Paks[device].noteindex = -1;
@@ -7678,7 +7799,16 @@ bool pakRetrieveHeaderFromCache(s8 device, s32 blocknum, struct pakfileheader *d
 	return false;
 }
 
-s32 pakScrub(s8 device)
+/**
+ * Initialise a game pak or controller pak note's filesystem from scratch.
+ *
+ * - A serial is generated for the pak.
+ * - A terminator file (containing the serial) is then written at the start of the pak.
+ * - Random bytes are then written into a block after the terminator.
+ *
+ * Return the pak's serial on success, or -1 on failure.
+ */
+s32 pakCreateFilesystem(s8 device)
 {
 	u8 data[32];
 	s32 address;
@@ -7691,7 +7821,7 @@ s32 pakScrub(s8 device)
 
 	address = pakGetAlignedFileLenByBodyLen(device, pakGetBodyLenByType(device, PAKFILETYPE_TERMINATOR));
 
-	g_Paks[device].nextfileid = 0x10;
+	g_Paks[device].maxfileid = 0x10;
 #if VERSION >= VERSION_NTSC_1_0
 	g_Paks[device].serial = pakGenerateSerial(device);
 #else
@@ -7704,19 +7834,19 @@ s32 pakScrub(s8 device)
 	result = pakReadWriteBlock(device, PFS(device), g_Paks[device].noteindex, PFS_WRITE, address, pakGetBlockSize(device), data);
 
 #if VERSION >= VERSION_PAL_FINAL
-	if (pakHandleResult(result, device, 1, 4147) == 0) {
+	if (pakHandleResult(result, device, true, 4147) == 0) {
 		return -1;
 	}
 #elif VERSION >= VERSION_NTSC_FINAL
-	if (pakHandleResult(result, device, 1, 4140) == 0) {
+	if (pakHandleResult(result, device, true, 4140) == 0) {
 		return -1;
 	}
 #elif VERSION >= VERSION_NTSC_1_0
-	if (pakHandleResult(result, device, 1, 3945) == 0) {
+	if (pakHandleResult(result, device, true, 3945) == 0) {
 		return -1;
 	}
 #else
-	pakHandleResult(result, device, 1, 3779);
+	pakHandleResult(result, device, true, 3779);
 #endif
 
 	return g_Paks[device].serial;
@@ -7731,13 +7861,13 @@ s32 pak0f11b6ec(s8 device)
 	return 0;
 }
 
-bool pak0f11b75c(s8 device, u32 *arg1)
+bool pakGetFilesystemLength(s8 device, u32 *outlen)
 {
 	struct pakfileheader header;
 	s32 offset = 0;
 	u32 stack[2];
 
-	for (offset = 0; offset < g_Paks[device].numbytes;) {
+	while (offset < g_Paks[device].numbytes) {
 		s32 value = pakReadHeaderAtOffset(device, offset, &header);
 		offset += header.filelen;
 
@@ -7748,7 +7878,7 @@ bool pak0f11b75c(s8 device, u32 *arg1)
 #endif
 
 		if (PAKFILETYPE_TERMINATOR == header.filetype) {
-			*arg1 = offset;
+			*outlen = offset;
 			return false;
 		}
 
@@ -9212,7 +9342,7 @@ const char var7f1b45e4[] = "-forceversion";
 //	// Build the header bytes on the stack
 //	headerptr = (struct pakfileheader *) &header;
 //
-//	headerptr->fileid = fileid ? fileid : ++g_Paks[device].nextfileid;
+//	headerptr->fileid = fileid ? fileid : ++g_Paks[device].maxfileid;
 //	headerptr->deviceserial = g_Paks[device].serial;
 //	headerptr->filelen = filelen;
 //
@@ -9332,7 +9462,7 @@ const char var7f1b45e4[] = "-forceversion";
 //			if (writethisblock) {
 //				result = pakReadWriteBlock(device, PFS(device), g_Paks[device].noteindex, OS_WRITE, offset + i * blocksize, pakGetBlockSize(device), &s2->bytes[offsetinfile]);
 //
-//				if (!pakHandleResult(result, device, 1, 0x1286)) {
+//				if (!pakHandleResult(result, device, true, 0x1286)) {
 //					joyEnableCyclicPolling();
 //
 //					if (result == 1) {
@@ -9412,13 +9542,13 @@ bool pakRepair(s8 device)
 		}
 
 #if VERSION >= VERSION_PAL_FINAL
-		pakHandleResult(result, device, 0, 4808);
+		pakHandleResult(result, device, false, 4808);
 #elif VERSION >= VERSION_NTSC_FINAL
-		pakHandleResult(result, device, 0, 4801);
+		pakHandleResult(result, device, false, 4801);
 #elif VERSION >= VERSION_NTSC_1_0
-		pakHandleResult(result, device, 0, 4606);
+		pakHandleResult(result, device, false, 4606);
 #else
-		pakHandleResult(result, device, 0, 4436);
+		pakHandleResult(result, device, false, 4436);
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -9435,7 +9565,7 @@ bool pakRepair(s8 device)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool pakHandleResult(s32 result, s8 device, u32 arg2, u32 line)
+bool pakHandleResult(s32 result, s8 device, bool arg2, u32 line)
 {
 	if (result == 0) {
 		return true;
@@ -9443,21 +9573,21 @@ bool pakHandleResult(s32 result, s8 device, u32 arg2, u32 line)
 
 	if (arg2) {
 		switch (result) {
-		case 1:
+		case PFS_ERR_NOPACK:
 			g_Paks[device].type = PAKTYPE_MEMORY;
 			g_Paks[device].unk010 = PAK010_01;
 			break;
-		case 11:
+		case PFS_ERR_DEVICE:
 			g_Paks[device].type = PAKTYPE_MEMORY;
 			g_Paks[device].unk010 = PAK010_14;
 			break;
-		case 3:
-		case 10:
+		case PFS_ERR_INCONSISTENT:
+		case PFS_ERR_ID_FATAL:
 			g_Paks[device].type = PAKTYPE_MEMORY;
 			g_Paks[device].unk010 = PAK010_15;
 			break;
-		case 7:
-		case 8:
+		case PFS_DATA_FULL:
+		case PFS_DIR_FULL:
 			g_Paks[device].type = PAKTYPE_MEMORY;
 			g_Paks[device].unk010 = PAK010_16;
 			break;
@@ -9465,24 +9595,24 @@ bool pakHandleResult(s32 result, s8 device, u32 arg2, u32 line)
 	}
 
 	switch (result) {
-	case 1:
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-	case 6:
-	case 7:
-	case 8:
-	case 9:
-	case 10:
-	case 11:
-	case 12:
-	case 13:
-	case 0x80:
-	case 0x81:
-	case 0x82:
-	case 0x83:
-	case 0x84:
+	case PFS_ERR_NOPACK:
+	case PFS_ERR_NEW_PACK:
+	case PFS_ERR_INCONSISTENT:
+	case PFS_ERR_CONTRFAIL:
+	case PFS_ERR_INVALID:
+	case PFS_ERR_BAD_DATA:
+	case PFS_DATA_FULL:
+	case PFS_DIR_FULL:
+	case PFS_ERR_EXIST:
+	case PFS_ERR_ID_FATAL:
+	case PFS_ERR_DEVICE:
+	case PFS_ERR_NO_GBCART:
+	case PFS_ERR_NEW_GBCART:
+	case PAKERROR_EEPROM_MISSING:
+	case PAKERROR_EEPROM_READFAILED:
+	case PAKERROR_EEPROM_WRITEFAILED:
+	case PAKERROR_EEPROM_INVALIDOP:
+	case PAKERROR_EEPROM_INVALIDARG:
 		break;
 	}
 
@@ -9749,15 +9879,16 @@ void pakExecuteDebugOperations(void)
 
 	if (g_PakDebugPakInit) {
 		s32 device = g_PakDebugPakInit - 1;
-		joyDisableCyclicPolling();
 
+		joyDisableCyclicPolling();
 		pakInitPak(&var80099e78, PFS(device), device, 0);
 		joyEnableCyclicPolling();
+
 		g_PakDebugPakInit = false;
 	}
 
 	if (g_PakDebugForceScrub) {
-		pakScrub(SAVEDEVICE_GAMEPAK);
+		pakCreateFilesystem(SAVEDEVICE_GAMEPAK);
 		g_PakDebugForceScrub = false;
 	}
 
@@ -9882,7 +10013,7 @@ glabel pakExecuteDebugOperations
 /*  f1165d0:	8d0880a8 */ 	lw	$t0,-0x7f58($t0)
 /*  f1165d4:	11000005 */ 	beqz	$t0,.NB0f1165ec
 /*  f1165d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1165dc:	0fc45544 */ 	jal	pakScrub
+/*  f1165dc:	0fc45544 */ 	jal	pakCreateFilesystem
 /*  f1165e0:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f1165e4:	3c018008 */ 	lui	$at,0x8008
 /*  f1165e8:	ac2080a8 */ 	sw	$zero,-0x7f58($at)
@@ -11804,7 +11935,7 @@ void pak0f11df94(s8 device)
 		break;
 	case PAK010_05:
 		joyDisableCyclicPolling();
-		pak0f11a8f4(device);
+		mempakPrepare(device);
 		joyEnableCyclicPolling();
 		break;
 	case PAK010_06:
@@ -12087,7 +12218,7 @@ glabel var7f1b4fd8
 /*  f11def8:	ac6f0010 */ 	sw	$t7,0x10($v1)
 /*  f11defc:	0c00543a */ 	jal	joyDisableCyclicPolling
 /*  f11df00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11df04:	0fc4699d */ 	jal	pak0f11a8f4
+/*  f11df04:	0fc4699d */ 	jal	mempakPrepare
 /*  f11df08:	83a40023 */ 	lb	$a0,0x23($sp)
 /*  f11df0c:	0c005451 */ 	jal	joyEnableCyclicPolling
 /*  f11df10:	00000000 */ 	sll	$zero,$zero,0x0
@@ -12405,7 +12536,7 @@ glabel var7f1af164nb
 /*  f117ce4:	ac680010 */ 	sw	$t0,0x10($v1)
 /*  f117ce8:	00062600 */ 	sll	$a0,$a2,0x18
 /*  f117cec:	00044e03 */ 	sra	$t1,$a0,0x18
-/*  f117cf0:	0fc45232 */ 	jal	pak0f11a8f4
+/*  f117cf0:	0fc45232 */ 	jal	mempakPrepare
 /*  f117cf4:	01202025 */ 	or	$a0,$t1,$zero
 /*  f117cf8:	100000a3 */ 	beqz	$zero,.NB0f117f88
 /*  f117cfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -12794,7 +12925,7 @@ void pakProbeEeprom(void)
 		g_PakHasEeprom = true;
 
 		if (argFindByPrefix(1, "-scrub")) {
-			pakScrub(SAVEDEVICE_GAMEPAK);
+			pakCreateFilesystem(SAVEDEVICE_GAMEPAK);
 		}
 	} else {
 		g_PakHasEeprom = false;
