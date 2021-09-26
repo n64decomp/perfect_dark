@@ -724,7 +724,7 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 		PAKFILETYPE_GAME,
 		PAKFILETYPE_MPSETUP,
 		PAKFILETYPE_MPPLAYER,
-		PAKFILETYPE_008,
+		PAKFILETYPE_CAMERA,
 	};
 
 	s32 newfileid;

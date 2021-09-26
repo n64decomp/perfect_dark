@@ -776,7 +776,7 @@
 #define FILETYPE_GAME     0
 #define FILETYPE_MPSETUP  1
 #define FILETYPE_MPPLAYER 2
-#define FILETYPE_3        3
+#define FILETYPE_CAMERA   3
 
 #define FLOORTYPE_DEFAULT 0
 #define FLOORTYPE_WOOD    1
@@ -3124,15 +3124,15 @@
 #define PAK_ERR2_CORRUPT    11 /* cache error or file is zero len */
 #define PAK_ERR2_INCOMPLETE 15 /* previous write did not complete */
 
-#define PAKFILETYPE_001        0x001
-#define PAKFILETYPE_BLANK      0x002
-#define PAKFILETYPE_TERMINATOR 0x004
-#define PAKFILETYPE_008        0x008 // suspected to be PerfectHead
-#define PAKFILETYPE_BOSS       0x010
-#define PAKFILETYPE_MPPLAYER   0x020
-#define PAKFILETYPE_MPSETUP    0x040
-#define PAKFILETYPE_GAME       0x080
-#define PAKFILETYPE_ALL        0x100
+#define PAKFILETYPE_001        0x001 // Unused
+#define PAKFILETYPE_BLANK      0x002 // Blank space (ie. deleted file)
+#define PAKFILETYPE_TERMINATOR 0x004 // Marks the end of the device's filesystem
+#define PAKFILETYPE_CAMERA     0x008 // PerfectHead File
+#define PAKFILETYPE_BOSS       0x010 // EEPROM only, one per cart (stores language, MP team names, selected MP soundtracks)
+#define PAKFILETYPE_MPPLAYER   0x020 // Combat Simulator Player File
+#define PAKFILETYPE_MPSETUP    0x040 // Combat Simulator Settings File
+#define PAKFILETYPE_GAME       0x080 // Single Player Agent File
+#define PAKFILETYPE_ALL        0x100 // Not really a file type
 
 #define PAKTYPE_NONE    0
 #define PAKTYPE_RUMBLE  1

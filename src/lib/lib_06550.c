@@ -9,7 +9,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00006550
+glabel osPfsReSizeFile
 /*     6550:	27bdfd30 */ 	addiu	$sp,$sp,-720
 /*     6554:	afb00024 */ 	sw	$s0,0x24($sp)
 /*     6558:	30b0ffff */ 	andi	$s0,$a1,0xffff

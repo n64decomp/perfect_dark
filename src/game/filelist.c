@@ -175,7 +175,7 @@ void filelistUpdate(struct filelist *list)
 		PAKFILETYPE_GAME,
 		PAKFILETYPE_MPSETUP,
 		PAKFILETYPE_MPPLAYER,
-		PAKFILETYPE_008,
+		PAKFILETYPE_CAMERA,
 	};
 
 	s32 sp1288[2560];
@@ -220,8 +220,8 @@ void filelistUpdate(struct filelist *list)
 
 			list->spacesfree[dis2dev[i]] = 0;
 
-			if (list->filetype == FILETYPE_3) {
-				list->spacesfree[dis2dev[i]] = pak0f118148(dis2dev[i]);
+			if (list->filetype == FILETYPE_CAMERA) {
+				list->spacesfree[dis2dev[i]] = pakGetNumFreeCameraSpacesInPak(dis2dev[i]);
 			}
 
 			list->deviceguids[dis2dev[i]].fileid = 0;
