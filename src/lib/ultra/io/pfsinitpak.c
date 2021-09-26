@@ -1,3 +1,4 @@
+#include "versions.h"
 #include <ultra64.h>
 #include "libultra_internal.h"
 #include "constants.h"
