@@ -8798,156 +8798,6 @@ const char var7f1ae9acnb[] = "Pak -> Connector Check Failed";
 const char var7f1ae9ccnb[] = "Pak -> osGbpakReadId - Failed";
 #endif
 
-const u32 var7f1b494c[] = {0x43000000};
-const u32 var7f1b4950[] = {0x43140000};
-const u32 var7f1b4954[] = {0x435c0000};
-const u32 var7f1b4958[] = {0x437f0000};
-const u32 var7f1b495c[] = {0x43020000};
-const u32 var7f1b4960[] = {0x43150000};
-const u32 var7f1b4964[] = {0x43520000};
-const u32 var7f1b4968[] = {0x437f0000};
-const u32 var7f1b496c[] = {0x43040000};
-const u32 var7f1b4970[] = {0x43160000};
-const u32 var7f1b4974[] = {0x434a0000};
-const u32 var7f1b4978[] = {0x437f0000};
-const u32 var7f1b497c[] = {0x43060000};
-const u32 var7f1b4980[] = {0x43160000};
-const u32 var7f1b4984[] = {0x43440000};
-const u32 var7f1b4988[] = {0x437f0000};
-const u32 var7f1b498c[] = {0x43080000};
-const u32 var7f1b4990[] = {0x43170000};
-const u32 var7f1b4994[] = {0x433e0000};
-const u32 var7f1b4998[] = {0x437f0000};
-const u32 var7f1b499c[] = {0x430a0000};
-const u32 var7f1b49a0[] = {0x43170000};
-const u32 var7f1b49a4[] = {0x43380000};
-const u32 var7f1b49a8[] = {0x437f0000};
-const u32 var7f1b49ac[] = {0x430b0000};
-const u32 var7f1b49b0[] = {0x43180000};
-const u32 var7f1b49b4[] = {0x43320000};
-const u32 var7f1b49b8[] = {0x43750000};
-const u32 var7f1b49bc[] = {0x430c0000};
-const u32 var7f1b49c0[] = {0x43180000};
-const u32 var7f1b49c4[] = {0x432c0000};
-const u32 var7f1b49c8[] = {0x436b0000};
-const u32 var7f1b49cc[] = {0x430d0000};
-const u32 var7f1b49d0[] = {0x43180000};
-const u32 var7f1b49d4[] = {0x432a0000};
-const u32 var7f1b49d8[] = {0x435d0000};
-const u32 var7f1b49dc[] = {0x430e0000};
-const u32 var7f1b49e0[] = {0x43180000};
-const u32 var7f1b49e4[] = {0x43280000};
-const u32 var7f1b49e8[] = {0x43500000};
-const u32 var7f1b49ec[] = {0x430f0000};
-const u32 var7f1b49f0[] = {0x43180000};
-const u32 var7f1b49f4[] = {0x43260000};
-const u32 var7f1b49f8[] = {0x43440000};
-const u32 var7f1b49fc[] = {0x43100000};
-const u32 var7f1b4a00[] = {0x43180000};
-const u32 var7f1b4a04[] = {0x43240000};
-const u32 var7f1b4a08[] = {0x433a0000};
-const u32 var7f1b4a0c[] = {0x43120000};
-const u32 var7f1b4a10[] = {0x43180000};
-const u32 var7f1b4a14[] = {0x43210000};
-const u32 var7f1b4a18[] = {0x43310000};
-const u32 var7f1b4a1c[] = {0x43140000};
-const u32 var7f1b4a20[] = {0x43180000};
-const u32 var7f1b4a24[] = {0x431d0000};
-const u32 var7f1b4a28[] = {0x43280000};
-const u32 var7f1b4a2c[] = {0x43160000};
-const u32 var7f1b4a30[] = {0x43180000};
-const u32 var7f1b4a34[] = {0x43190000};
-const u32 var7f1b4a38[] = {0x43200000};
-const u32 var7f1b4a3c[] = {0x43180000};
-const u32 var7f1b4a40[] = {0x43180000};
-const u32 var7f1b4a44[] = {0x43180000};
-const u32 var7f1b4a48[] = {0x43180000};
-const u32 var7f1b4a4c[] = {0x00000000};
-const u32 var7f1b4a50[] = {0x00000000};
-const u32 var7f1b4a54[] = {0x00000000};
-const u32 var7f1b4a58[] = {0x00000000};
-const u32 var7f1b4a5c[] = {0x00000000};
-const u32 var7f1b4a60[] = {0x41000000};
-const u32 var7f1b4a64[] = {0x40000000};
-const u32 var7f1b4a68[] = {0x41200000};
-const u32 var7f1b4a6c[] = {0x41400000};
-const u32 var7f1b4a70[] = {0x40800000};
-const u32 var7f1b4a74[] = {0x41600000};
-const u32 var7f1b4a78[] = {0x40c00000};
-const u32 var7f1b4a7c[] = {0x40400000};
-const u32 var7f1b4a80[] = {0x41300000};
-const u32 var7f1b4a84[] = {0x3f800000};
-const u32 var7f1b4a88[] = {0x41100000};
-const u32 var7f1b4a8c[] = {0x41700000};
-const u32 var7f1b4a90[] = {0x40e00000};
-const u32 var7f1b4a94[] = {0x41500000};
-const u32 var7f1b4a98[] = {0x40a00000};
-const u32 var7f1b4a9c[] = {0x00000000};
-const u32 var7f1b4aa0[] = {0x41600000};
-const u32 var7f1b4aa4[] = {0x40400000};
-const u32 var7f1b4aa8[] = {0x41500000};
-const u32 var7f1b4aac[] = {0x41300000};
-const u32 var7f1b4ab0[] = {0x40a00000};
-const u32 var7f1b4ab4[] = {0x41000000};
-const u32 var7f1b4ab8[] = {0x40c00000};
-const u32 var7f1b4abc[] = {0x41400000};
-const u32 var7f1b4ac0[] = {0x40000000};
-const u32 var7f1b4ac4[] = {0x41700000};
-const u32 var7f1b4ac8[] = {0x3f800000};
-const u32 var7f1b4acc[] = {0x40e00000};
-const u32 var7f1b4ad0[] = {0x41100000};
-const u32 var7f1b4ad4[] = {0x40800000};
-const u32 var7f1b4ad8[] = {0x41200000};
-
-const char var7f1b4adc[] = "Pak_StartCapture -> Failed - Code = %d\n";
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d\n";
-#else
-const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d";
-#endif
-
-const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
-const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
-const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
-
-#if VERSION == VERSION_NTSC_1_0
-const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1aec60nb[] = "Pak %d -> ekPakInitStatusInitMemoryPak1\n";
-const char var7f1aec8cnb[] = "Pak %d -> ekPakInitStatusInitMemoryPak2\n";
-const char var7f1aecb8nb[] = "Pak %d -> ekPakInitStatusInitMemoryPak3\n";
-const char var7f1aece4nb[] = "pak.c";
-const char var7f1aececnb[] = "pak.c";
-const char var7f1aecf4nb[] = "pak.c";
-const char var7f1aecfcnb[] = "pak.c";
-#endif
-
-const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
-#endif
-
-const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
-const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
-const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
-const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
-const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
-
-#if VERSION >= VERSION_NTSC_FINAL
-const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1aee04nb[] = "Pak_EEPROM_Init";
-#endif
-
-u32 var80075d58 = 0x00000000;
-u32 var80075d5c = 0x00000000;
-
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel pak0f11ca30
@@ -9709,139 +9559,105 @@ void pak0f11d174(s8 device, u8 *arg1)
 	arg1[3] = tmp2;
 }
 
-GLOBAL_ASM(
-glabel pak0f11d214
-/*  f11d214:	3c0f7f1b */ 	lui	$t7,%hi(var7f1b494c)
-/*  f11d218:	27bdfe48 */ 	addiu	$sp,$sp,-440
-/*  f11d21c:	25ef494c */ 	addiu	$t7,$t7,%lo(var7f1b494c)
-/*  f11d220:	00803025 */ 	or	$a2,$a0,$zero
-/*  f11d224:	25ed0108 */ 	addiu	$t5,$t7,0x108
-/*  f11d228:	27ae00a8 */ 	addiu	$t6,$sp,0xa8
-.L0f11d22c:
-/*  f11d22c:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f11d230:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f11d234:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f11d238:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f11d23c:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f11d240:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f11d244:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f11d248:	15edfff8 */ 	bne	$t7,$t5,.L0f11d22c
-/*  f11d24c:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f11d250:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f11d254:	8ded0004 */ 	lw	$t5,0x4($t7)
-/*  f11d258:	3c187f1b */ 	lui	$t8,%hi(var7f1b4a5c)
-/*  f11d25c:	27184a5c */ 	addiu	$t8,$t8,%lo(var7f1b4a5c)
-/*  f11d260:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f11d264:	adcd0004 */ 	sw	$t5,0x4($t6)
-/*  f11d268:	270e003c */ 	addiu	$t6,$t8,0x3c
-/*  f11d26c:	27b90068 */ 	addiu	$t9,$sp,0x68
-.L0f11d270:
-/*  f11d270:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f11d274:	2718000c */ 	addiu	$t8,$t8,0xc
-/*  f11d278:	2739000c */ 	addiu	$t9,$t9,0xc
-/*  f11d27c:	af21fff4 */ 	sw	$at,-0xc($t9)
-/*  f11d280:	8f01fff8 */ 	lw	$at,-0x8($t8)
-/*  f11d284:	af21fff8 */ 	sw	$at,-0x8($t9)
-/*  f11d288:	8f01fffc */ 	lw	$at,-0x4($t8)
-/*  f11d28c:	170efff8 */ 	bne	$t8,$t6,.L0f11d270
-/*  f11d290:	af21fffc */ 	sw	$at,-0x4($t9)
-/*  f11d294:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f11d298:	3c0d7f1b */ 	lui	$t5,%hi(var7f1b4a9c)
-/*  f11d29c:	25ad4a9c */ 	addiu	$t5,$t5,%lo(var7f1b4a9c)
-/*  f11d2a0:	af210000 */ 	sw	$at,0x0($t9)
-/*  f11d2a4:	25b9003c */ 	addiu	$t9,$t5,0x3c
-/*  f11d2a8:	27af0028 */ 	addiu	$t7,$sp,0x28
-.L0f11d2ac:
-/*  f11d2ac:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f11d2b0:	25ad000c */ 	addiu	$t5,$t5,0xc
-/*  f11d2b4:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f11d2b8:	ade1fff4 */ 	sw	$at,-0xc($t7)
-/*  f11d2bc:	8da1fff8 */ 	lw	$at,-0x8($t5)
-/*  f11d2c0:	ade1fff8 */ 	sw	$at,-0x8($t7)
-/*  f11d2c4:	8da1fffc */ 	lw	$at,-0x4($t5)
-/*  f11d2c8:	15b9fff8 */ 	bne	$t5,$t9,.L0f11d2ac
-/*  f11d2cc:	ade1fffc */ 	sw	$at,-0x4($t7)
-/*  f11d2d0:	8da10000 */ 	lw	$at,0x0($t5)
-/*  f11d2d4:	0005c100 */ 	sll	$t8,$a1,0x4
-/*  f11d2d8:	27ae00a8 */ 	addiu	$t6,$sp,0xa8
-/*  f11d2dc:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f11d2e0:	3c013f00 */ 	lui	$at,0x3f00
-/*  f11d2e4:	44816000 */ 	mtc1	$at,$f12
-/*  f11d2e8:	3c013d80 */ 	lui	$at,0x3d80
-/*  f11d2ec:	44811000 */ 	mtc1	$at,$f2
-/*  f11d2f0:	030e1821 */ 	addu	$v1,$t8,$t6
-/*  f11d2f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11d2f8:	240c0003 */ 	addiu	$t4,$zero,0x3
-/*  f11d2fc:	27ab0068 */ 	addiu	$t3,$sp,0x68
-/*  f11d300:	240a0004 */ 	addiu	$t2,$zero,0x4
-.L0f11d304:
-/*  f11d304:	c4640004 */ 	lwc1	$f4,0x4($v1)
-/*  f11d308:	c4660000 */ 	lwc1	$f6,0x0($v1)
-/*  f11d30c:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f11d310:	27a80028 */ 	addiu	$t0,$sp,0x28
-/*  f11d314:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f11d318:	46024002 */ 	mul.s	$f0,$f8,$f2
-/*  f11d31c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f11d320:
-/*  f11d320:	00002025 */ 	or	$a0,$zero,$zero
-/*  f11d324:	00a23821 */ 	addu	$a3,$a1,$v0
-/*  f11d328:	01004825 */ 	or	$t1,$t0,$zero
-.L0f11d32c:
-/*  f11d32c:	c52a0000 */ 	lwc1	$f10,0x0($t1)
-/*  f11d330:	c4720000 */ 	lwc1	$f18,0x0($v1)
-/*  f11d334:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f11d338:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f11d33c:	46126100 */ 	add.s	$f4,$f12,$f18
-/*  f11d340:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f11d344:	25290004 */ 	addiu	$t1,$t1,0x4
-/*  f11d348:	3c014f00 */ 	lui	$at,0x4f00
-/*  f11d34c:	46048180 */ 	add.s	$f6,$f16,$f4
-/*  f11d350:	4459f800 */ 	cfc1	$t9,$31
-/*  f11d354:	44cdf800 */ 	ctc1	$t5,$31
-/*  f11d358:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11d35c:	46003224 */ 	cvt.w.s	$f8,$f6
-/*  f11d360:	444df800 */ 	cfc1	$t5,$31
-/*  f11d364:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11d368:	31ad0078 */ 	andi	$t5,$t5,0x78
-/*  f11d36c:	51a00013 */ 	beqzl	$t5,.L0f11d3bc
-/*  f11d370:	440d4000 */ 	mfc1	$t5,$f8
-/*  f11d374:	44814000 */ 	mtc1	$at,$f8
-/*  f11d378:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f11d37c:	46083201 */ 	sub.s	$f8,$f6,$f8
-/*  f11d380:	44cdf800 */ 	ctc1	$t5,$31
-/*  f11d384:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11d388:	46004224 */ 	cvt.w.s	$f8,$f8
-/*  f11d38c:	444df800 */ 	cfc1	$t5,$31
-/*  f11d390:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11d394:	31ad0078 */ 	andi	$t5,$t5,0x78
-/*  f11d398:	15a00005 */ 	bnez	$t5,.L0f11d3b0
-/*  f11d39c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11d3a0:	440d4000 */ 	mfc1	$t5,$f8
-/*  f11d3a4:	3c018000 */ 	lui	$at,0x8000
-/*  f11d3a8:	10000007 */ 	beqz	$zero,.L0f11d3c8
-/*  f11d3ac:	01a16825 */ 	or	$t5,$t5,$at
-.L0f11d3b0:
-/*  f11d3b0:	10000005 */ 	beqz	$zero,.L0f11d3c8
-/*  f11d3b4:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f11d3b8:	440d4000 */ 	mfc1	$t5,$f8
-.L0f11d3bc:
-/*  f11d3bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11d3c0:	05a0fffb */ 	bltz	$t5,.L0f11d3b0
-/*  f11d3c4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f11d3c8:
-/*  f11d3c8:	44d9f800 */ 	ctc1	$t9,$31
-/*  f11d3cc:	24e70003 */ 	addiu	$a3,$a3,0x3
-/*  f11d3d0:	148affd6 */ 	bne	$a0,$t2,.L0f11d32c
-/*  f11d3d4:	a0edfffd */ 	sb	$t5,-0x3($a3)
-/*  f11d3d8:	25080010 */ 	addiu	$t0,$t0,0x10
-/*  f11d3dc:	150bffd0 */ 	bne	$t0,$t3,.L0f11d320
-/*  f11d3e0:	24a5000c */ 	addiu	$a1,$a1,0xc
-/*  f11d3e4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11d3e8:	144cffc6 */ 	bne	$v0,$t4,.L0f11d304
-/*  f11d3ec:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f11d3f0:	03e00008 */ 	jr	$ra
-/*  f11d3f4:	27bd01b8 */ 	addiu	$sp,$sp,0x1b8
-);
+void pak0f11d214(u8 *arg0, u32 arg1)
+{
+	const f32 spa8[][4] = {
+		{ 128, 148, 220, 255 },
+		{ 130, 149, 210, 255 },
+		{ 132, 150, 202, 255 },
+		{ 134, 150, 196, 255 },
+		{ 136, 151, 190, 255 },
+		{ 138, 151, 184, 255 },
+		{ 139, 152, 178, 245 },
+		{ 140, 152, 172, 235 },
+		{ 141, 152, 170, 221 },
+		{ 142, 152, 168, 208 },
+		{ 143, 152, 166, 196 },
+		{ 144, 152, 164, 186 },
+		{ 146, 152, 161, 177 },
+		{ 148, 152, 157, 168 },
+		{ 150, 152, 153, 160 },
+		{ 152, 152, 152, 152 },
+		{ 0,   0,   0,   0   },
+	};
+
+	const f32 sp68[][4] = {
+		{ 0,  8,  2,  10 },
+		{ 12, 4,  14, 6  },
+		{ 3,  11, 1,  9  },
+		{ 15, 7,  13, 5  },
+	};
+
+	const f32 sp28[][4] = {
+		{ 0,  14, 3,  13 },
+		{ 11, 5,  8,  6  },
+		{ 12, 2,  15, 1  },
+		{ 7,  9,  4,  10 },
+	};
+
+	s32 i;
+	s32 j;
+	s32 k;
+
+	for (i = 0; i < 3; i++) {
+		f32 mult = (spa8[arg1][i + 1] - spa8[arg1][i]) * (1.0f / 16.0f);
+
+		for (j = 0; j < 4; j++) {
+			for (k = 0; k < 4; k++) {
+				arg0[j * 12 + k * 3 + i] = 0.5f + spa8[arg1][i] + sp28[j][k] * mult;
+			}
+		}
+	}
+}
+
+const char var7f1b4adc[] = "Pak_StartCapture -> Failed - Code = %d\n";
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d\n";
+#else
+const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQualityHeader, BufferNum=%d";
+#endif
+
+const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
+const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
+const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
+
+#if VERSION == VERSION_NTSC_1_0
+const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1aec60nb[] = "Pak %d -> ekPakInitStatusInitMemoryPak1\n";
+const char var7f1aec8cnb[] = "Pak %d -> ekPakInitStatusInitMemoryPak2\n";
+const char var7f1aecb8nb[] = "Pak %d -> ekPakInitStatusInitMemoryPak3\n";
+const char var7f1aece4nb[] = "pak.c";
+const char var7f1aececnb[] = "pak.c";
+const char var7f1aecf4nb[] = "pak.c";
+const char var7f1aecfcnb[] = "pak.c";
+#endif
+
+const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
+#endif
+
+const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
+const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
+const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
+const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
+const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
+
+#if VERSION >= VERSION_NTSC_FINAL
+const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1aee04nb[] = "Pak_EEPROM_Init";
+#endif
+
+u32 var80075d58 = 0x00000000;
+u32 var80075d5c = 0x00000000;
 
 s32 pak0f11d3f8(s8 device)
 {
