@@ -80,7 +80,7 @@ bool pakWriteBlankFile(s8 device, u32 offset, struct pakfileheader *header);
 bool pakRepairAsBlank(s8 device, u32 *offset, struct pakfileheader *header);
 s32 pakRepairFilesystem(s8 device);
 void pakCorrupt(void);
-bool pak0f119e8c(s8 device);
+bool pakCreateInitialFiles(s8 device);
 s32 pakFindMaxFileId(s8 device);
 void pakMergeBlanks(s8 device);
 void pak0f11a2e4(void);
