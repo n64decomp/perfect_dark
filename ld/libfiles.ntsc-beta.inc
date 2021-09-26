@@ -24,7 +24,8 @@
 	build/ROMID/lib/lib_06100.o (section); \
 	build/ROMID/lib/ultra/io/gbpakpower.o (section); \
 	build/ROMID/lib/ultra/io/conteeplongwrite.o (section); \
-	build/ROMID/lib/lib_06550.o (section); \
+	build/ROMID/lib/ultra/io/pfsresizefile.o (section); \
+	build/ROMID/lib/ultra/io/pfsinitpak.o (section); \
 	build/ROMID/lib/lib_070d0.o (section); \
 	build/ROMID/lib/lib_074f0.o (section); \
 	build/ROMID/lib/audiomgr.o (section); \

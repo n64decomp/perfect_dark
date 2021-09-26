@@ -184,6 +184,13 @@ s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name
 s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state);
 s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, s32 size, u8* data);
 s32 osPfsFreeBlocks(OSPfs* pfs, s32 *bytes_not_used);
+s32 osPfsReSizeFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, u32 numbytes);
+
+#if VERSION >= VERSION_NTSC_1_0
+s32 osPfsInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel, s32 *arg3);
+#else
+s32 osPfsInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
+#endif
 
 s32 osMotorAccess(OSPfs *pfs, u32 vibrate);
 void osSetUpMempakWrite(s32 channel, OSPifRam* buf);

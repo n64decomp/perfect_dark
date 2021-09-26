@@ -11,7 +11,6 @@
 #include "lib/joy.h"
 #include "lib/lib_06100.h"
 #include "lib/lib_06440.h"
-#include "lib/lib_06550.h"
 #include "lib/main.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
