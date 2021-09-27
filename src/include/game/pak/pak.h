@@ -6,7 +6,7 @@
 
 u32 pakGetBlockSize(s8 device);
 u32 pakAlign(s8 device, u32 size);
-s32 pakGetAlignedFileLenByBodyLen(s8 device, s32 bodylen);
+s32 pakGetAlignedFileLenByBodyLen(s8 device, u32 bodylen);
 u32 pakGetBodyLenByFileLen(u32 filelen);
 u32 pakGenerateSerial(s8 device);
 bool pakIsMemoryPak(s8 device);
@@ -96,7 +96,7 @@ void pakSaveHeaderToCache(s8 device, s32 blocknum, struct pakfileheader *header)
 bool pakRetrieveHeaderFromCache(s8 device, s32 blocknum, struct pakfileheader *header);
 s32 pakCreateFilesystem(s8 device);
 bool pakGetFilesystemLength(s8 device, u32 *outlen);
-s32 pak0f11b86c(s32 device, u32 uVar2, u8 *data, struct pakfileheader *header, s32 arg3);
+s32 pak0f11b86c(s8 device, u32 offset, u8 *data, struct pakfileheader *header, s32 arg4);
 bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset);
 s32 pakWriteFileAtOffset(s8 device, u32 offset, u32 filetype, u8 *newdata, s32 bodylen, s32 *outfileid, u8 *olddata, u32 fileid, u32 generation);
 bool pakRepair(s8 device);
