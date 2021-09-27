@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_06100.h"
 #include "data.h"
 #include "types.h"
 
@@ -39,7 +38,7 @@ glabel func00052360
 /*    523cc:	00401825 */ 	or	$v1,$v0,$zero
 /*    523d0:	8e240004 */ 	lw	$a0,0x4($s1)
 /*    523d4:	02202825 */ 	or	$a1,$s1,$zero
-/*    523d8:	0c001840 */ 	jal	func00006100
+/*    523d8:	0c001840 */ 	jal	osGbpakInit
 /*    523dc:	8e260008 */ 	lw	$a2,0x8($s1)
 /*    523e0:	1440000b */ 	bnez	$v0,.L00052410
 /*    523e4:	00401825 */ 	or	$v1,$v0,$zero

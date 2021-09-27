@@ -90,7 +90,7 @@ PakErr1 pakReadWriteBlock(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 addre
 s32 pak0f11a574(s8 device);
 void pakUpdateSize(s8 device);
 bool mempakPrepare(s8 device);
-void pak0f11ac7c(s8 device);
+bool pakProbe(s8 device);
 void pakWipe(s8 device, u32 blocknumstart, u32 blocknumend);
 void pakSaveHeaderToCache(s8 device, s32 blocknum, struct pakfileheader *header);
 bool pakRetrieveHeaderFromCache(s8 device, s32 blocknum, struct pakfileheader *header);

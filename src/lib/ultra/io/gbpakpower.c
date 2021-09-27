@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_06100.h"
 #include "data.h"
 #include "types.h"
 
@@ -30,7 +29,7 @@ glabel osGbpakPower
 /*     637c:	00401825 */ 	or	$v1,$v0,$zero
 /*     6380:	8e240004 */ 	lw	$a0,0x4($s1)
 /*     6384:	02202825 */ 	or	$a1,$s1,$zero
-/*     6388:	0c001840 */ 	jal	func00006100
+/*     6388:	0c001840 */ 	jal	osGbpakInit
 /*     638c:	8e260008 */ 	lw	$a2,0x8($s1)
 /*     6390:	1440000b */ 	bnez	$v0,.L000063c0
 /*     6394:	00401825 */ 	or	$v1,$v0,$zero

@@ -2,7 +2,6 @@
 #include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_06100.h"
 #include "lib/lib_4b170.h"
 #include "lib/lib_4e090.h"
 #include "data.h"
@@ -31,7 +30,7 @@ glabel osGbpakGetStatus
 .L00050c28:
 /*    50c28:	8e240004 */ 	lw	$a0,0x4($s1)
 /*    50c2c:	02202825 */ 	or	$a1,$s1,$zero
-/*    50c30:	0c001840 */ 	jal	func00006100
+/*    50c30:	0c001840 */ 	jal	osGbpakInit
 /*    50c34:	8e260008 */ 	lw	$a2,0x8($s1)
 /*    50c38:	10400003 */ 	beqz	$v0,.L00050c48
 /*    50c3c:	27a70028 */ 	addiu	$a3,$sp,0x28

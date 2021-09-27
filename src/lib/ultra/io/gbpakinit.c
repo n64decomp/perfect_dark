@@ -22,7 +22,7 @@ u32 var80090ae8;
 u32 var80090aec;
 
 GLOBAL_ASM(
-glabel func00006100
+glabel osGbpakInit
 /*     6100:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*     6104:	afa40058 */ 	sw	$a0,0x58($sp)
 /*     6108:	afbf0024 */ 	sw	$ra,0x24($sp)

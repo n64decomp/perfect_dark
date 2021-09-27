@@ -198,6 +198,7 @@ s32 osMotorProbe(OSMesgQueue *mq, OSPfs *pfs, s32 channel);
 
 s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status);
 s32 osGbpakGetStatus(OSPfs *pfs, u8 *status);
+s32 osGbpakInit(OSMesgQueue *siMessegeQ, OSPfs *pfs, s32 channel);
 s32 osGbpakPower(OSPfs *pfs, s32 flag);
 s32 osGbpakReadId(OSPfs *pfs, OSGbpakId *id, u8 *status);
 s32 osGbpakReadWrite(OSPfs *pfs, u16 flag, u16 address, u8 *buffer, u16 size);

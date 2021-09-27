@@ -20,7 +20,7 @@
 	build/ROMID/lib/ultra/libc/llcvt.o (section); \
 	build/ROMID/lib/ultra/os/initialize.o (section); \
 	build/ROMID/lib/ultra/io/sptask.o (section); \
-	build/ROMID/lib/lib_06100.o (section); \
+	build/ROMID/lib/ultra/io/gbpakinit.o (section); \
 	build/ROMID/lib/ultra/io/gbpakpower.o (section); \
 	build/ROMID/lib/ultra/io/conteeplongwrite.o (section); \
 	build/ROMID/lib/ultra/io/pfsresizefile.o (section); \

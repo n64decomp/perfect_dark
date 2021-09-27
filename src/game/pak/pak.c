@@ -10,7 +10,6 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/joy.h"
-#include "lib/lib_06100.h"
 #include "lib/lib_06440.h"
 #include "lib/main.h"
 #include "lib/memory.h"
@@ -5210,363 +5209,139 @@ glabel mempakPrepare
 //	return false;
 //}
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f11ac7c
-/*  f11ac7c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f11ac80:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11ac84:	00048600 */ 	sll	$s0,$a0,0x18
-/*  f11ac88:	00107603 */ 	sra	$t6,$s0,0x18
-/*  f11ac8c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11ac90:	01c08025 */ 	or	$s0,$t6,$zero
-/*  f11ac94:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f11ac98:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f11ac9c:	0c00543a */ 	jal	joyDisableCyclicPolling
-/*  f11aca0:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f11aca4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11aca8:	16010003 */ 	bne	$s0,$at,.L0f11acb8
-/*  f11acac:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f11acb0:	10000009 */ 	beqz	$zero,.L0f11acd8
-/*  f11acb4:	00002825 */ 	or	$a1,$zero,$zero
-.L0f11acb8:
-/*  f11acb8:	00107880 */ 	sll	$t7,$s0,0x2
-/*  f11acbc:	01f07823 */ 	subu	$t7,$t7,$s0
-/*  f11acc0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11acc4:	01f07821 */ 	addu	$t7,$t7,$s0
-/*  f11acc8:	3c18800a */ 	lui	$t8,%hi(g_Pfses)
-/*  f11accc:	27183180 */ 	addiu	$t8,$t8,%lo(g_Pfses)
-/*  f11acd0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f11acd4:	01f82821 */ 	addu	$a1,$t7,$t8
-.L0f11acd8:
-/*  f11acd8:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11acdc:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f11ace0:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11ace4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f11ace8:	0fc45ec1 */ 	jal	pakInitPak
-/*  f11acec:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f11acf0:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f11acf4:	0005ce03 */ 	sra	$t9,$a1,0x18
-/*  f11acf8:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f11acfc:	03202825 */ 	or	$a1,$t9,$zero
-/*  f11ad00:	00402025 */ 	or	$a0,$v0,$zero
-/*  f11ad04:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f11ad08:	0fc470e7 */ 	jal	pakHandleResult
-/*  f11ad0c:	24070ef5 */ 	addiu	$a3,$zero,_val7f11ad0c
-/*  f11ad10:	1040001b */ 	beqz	$v0,.L0f11ad80
-/*  f11ad14:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f11ad18:	00104880 */ 	sll	$t1,$s0,0x2
-/*  f11ad1c:	01304823 */ 	subu	$t1,$t1,$s0
-/*  f11ad20:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11ad24:	01304823 */ 	subu	$t1,$t1,$s0
-/*  f11ad28:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11ad2c:	01304821 */ 	addu	$t1,$t1,$s0
-/*  f11ad30:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11ad34:	01304823 */ 	subu	$t1,$t1,$s0
-/*  f11ad38:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f11ad3c:	3c01800a */ 	lui	$at,%hi(g_Paks+0x10)
-/*  f11ad40:	00290821 */ 	addu	$at,$at,$t1
-/*  f11ad44:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f11ad48:	ac282390 */ 	sw	$t0,%lo(g_Paks+0x10)($at)
-/*  f11ad4c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11ad50:	56010008 */ 	bnel	$s0,$at,.L0f11ad74
-/*  f11ad54:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f11ad58:	0fc471e8 */ 	jal	pakExecuteDebugOperations
-/*  f11ad5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ad60:	0fc471e8 */ 	jal	pakExecuteDebugOperations
-/*  f11ad64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ad68:	0fc471e8 */ 	jal	pakExecuteDebugOperations
-/*  f11ad6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ad70:	240a0001 */ 	addiu	$t2,$zero,0x1
-.L0f11ad74:
-/*  f11ad74:	afaa002c */ 	sw	$t2,0x2c($sp)
-/*  f11ad78:	10000006 */ 	beqz	$zero,.L0f11ad94
-/*  f11ad7c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f11ad80:
-/*  f11ad80:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*  f11ad84:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f11ad88:	15610002 */ 	bne	$t3,$at,.L0f11ad94
-/*  f11ad8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ad90:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f11ad94:
-/*  f11ad94:	1460007f */ 	bnez	$v1,.L0f11af94
-/*  f11ad98:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11ad9c:	16010003 */ 	bne	$s0,$at,.L0f11adac
-/*  f11ada0:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11ada4:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f11ada8:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f11adac:
-/*  f11adac:	14600079 */ 	bnez	$v1,.L0f11af94
-/*  f11adb0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11adb4:	16010003 */ 	bne	$s0,$at,.L0f11adc4
-/*  f11adb8:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f11adbc:	10000009 */ 	beqz	$zero,.L0f11ade4
-/*  f11adc0:	00002825 */ 	or	$a1,$zero,$zero
-.L0f11adc4:
-/*  f11adc4:	00106080 */ 	sll	$t4,$s0,0x2
-/*  f11adc8:	01906023 */ 	subu	$t4,$t4,$s0
-/*  f11adcc:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f11add0:	01906021 */ 	addu	$t4,$t4,$s0
-/*  f11add4:	3c0d800a */ 	lui	$t5,%hi(g_Pfses)
-/*  f11add8:	25ad3180 */ 	addiu	$t5,$t5,%lo(g_Pfses)
-/*  f11addc:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f11ade0:	018d2821 */ 	addu	$a1,$t4,$t5
-.L0f11ade4:
-/*  f11ade4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11ade8:	0c013e15 */ 	jal	osMotorProbe
-/*  f11adec:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f11adf0:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f11adf4:	00057603 */ 	sra	$t6,$a1,0x18
-/*  f11adf8:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f11adfc:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f11ae00:	00402025 */ 	or	$a0,$v0,$zero
-/*  f11ae04:	00003025 */ 	or	$a2,$zero,$zero
-/*  f11ae08:	0fc470e7 */ 	jal	pakHandleResult
-/*  f11ae0c:	24070f19 */ 	addiu	$a3,$zero,_val7f11ae0c
-/*  f11ae10:	1040001a */ 	beqz	$v0,.L0f11ae7c
-/*  f11ae14:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f11ae18:	00107880 */ 	sll	$t7,$s0,0x2
-/*  f11ae1c:	01f07823 */ 	subu	$t7,$t7,$s0
-/*  f11ae20:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11ae24:	01f07823 */ 	subu	$t7,$t7,$s0
-/*  f11ae28:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11ae2c:	01f07821 */ 	addu	$t7,$t7,$s0
-/*  f11ae30:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11ae34:	01f07823 */ 	subu	$t7,$t7,$s0
-/*  f11ae38:	3c18800a */ 	lui	$t8,%hi(g_Paks)
-/*  f11ae3c:	27182380 */ 	addiu	$t8,$t8,%lo(g_Paks)
-/*  f11ae40:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f11ae44:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f11ae48:	8c4a0264 */ 	lw	$t2,0x264($v0)
-/*  f11ae4c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f11ae50:	2408000b */ 	addiu	$t0,$zero,0xb
-/*  f11ae54:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f11ae58:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f11ae5c:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f11ae60:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f11ae64:	ac480010 */ 	sw	$t0,0x10($v0)
-/*  f11ae68:	ac490004 */ 	sw	$t1,0x4($v0)
-/*  f11ae6c:	ac4b0264 */ 	sw	$t3,0x264($v0)
-/*  f11ae70:	afac002c */ 	sw	$t4,0x2c($sp)
-/*  f11ae74:	10000007 */ 	beqz	$zero,.L0f11ae94
-/*  f11ae78:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f11ae7c:
-/*  f11ae7c:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f11ae80:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f11ae84:	15a10003 */ 	bne	$t5,$at,.L0f11ae94
-/*  f11ae88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11ae8c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f11ae90:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f11ae94:
-/*  f11ae94:	1460003f */ 	bnez	$v1,.L0f11af94
-/*  f11ae98:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f11ae9c:	16010003 */ 	bne	$s0,$at,.L0f11aeac
-/*  f11aea0:	3c04800a */ 	lui	$a0,%hi(var80099e78)
-/*  f11aea4:	10000009 */ 	beqz	$zero,.L0f11aecc
-/*  f11aea8:	00002825 */ 	or	$a1,$zero,$zero
-.L0f11aeac:
-/*  f11aeac:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f11aeb0:	01d07023 */ 	subu	$t6,$t6,$s0
-/*  f11aeb4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11aeb8:	01d07021 */ 	addu	$t6,$t6,$s0
-/*  f11aebc:	3c0f800a */ 	lui	$t7,%hi(g_Pfses)
-/*  f11aec0:	25ef3180 */ 	addiu	$t7,$t7,%lo(g_Pfses)
-/*  f11aec4:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f11aec8:	01cf2821 */ 	addu	$a1,$t6,$t7
-.L0f11aecc:
-/*  f11aecc:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
-/*  f11aed0:	0c001840 */ 	jal	func00006100
-/*  f11aed4:	02003025 */ 	or	$a2,$s0,$zero
-/*  f11aed8:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f11aedc:	0005c603 */ 	sra	$t8,$a1,0x18
-/*  f11aee0:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f11aee4:	03002825 */ 	or	$a1,$t8,$zero
-/*  f11aee8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f11aeec:	00003025 */ 	or	$a2,$zero,$zero
-/*  f11aef0:	0fc470e7 */ 	jal	pakHandleResult
-/*  f11aef4:	24070f31 */ 	addiu	$a3,$zero,_val7f11aef4
-/*  f11aef8:	10400022 */ 	beqz	$v0,.L0f11af84
-/*  f11aefc:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*  f11af00:	0010c880 */ 	sll	$t9,$s0,0x2
-/*  f11af04:	0330c823 */ 	subu	$t9,$t9,$s0
-/*  f11af08:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11af0c:	0330c823 */ 	subu	$t9,$t9,$s0
-/*  f11af10:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11af14:	0330c821 */ 	addu	$t9,$t9,$s0
-/*  f11af18:	3c0a8009 */ 	lui	$t2,%hi(g_Is4Mb)
-/*  f11af1c:	914a0af0 */ 	lbu	$t2,%lo(g_Is4Mb)($t2)
-/*  f11af20:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11af24:	0330c823 */ 	subu	$t9,$t9,$s0
-/*  f11af28:	3c08800a */ 	lui	$t0,%hi(g_Paks)
-/*  f11af2c:	25082380 */ 	addiu	$t0,$t0,%lo(g_Paks)
-/*  f11af30:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f11af34:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f11af38:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f11af3c:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f11af40:	15410005 */ 	bne	$t2,$at,.L0f11af58
-/*  f11af44:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f11af48:	240b0016 */ 	addiu	$t3,$zero,0x16
-/*  f11af4c:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f11af50:	10000010 */ 	beqz	$zero,.L0f11af94
-/*  f11af54:	ac4b0010 */ 	sw	$t3,0x10($v0)
-.L0f11af58:
-/*  f11af58:	904e02b8 */ 	lbu	$t6,0x2b8($v0)
-/*  f11af5c:	8c580264 */ 	lw	$t8,0x264($v0)
-/*  f11af60:	240c0003 */ 	addiu	$t4,$zero,0x3
-/*  f11af64:	240d0008 */ 	addiu	$t5,$zero,0x8
-/*  f11af68:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f11af6c:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f11af70:	ac4c0000 */ 	sw	$t4,0x0($v0)
-/*  f11af74:	ac4d0010 */ 	sw	$t5,0x10($v0)
-/*  f11af78:	a04f02b8 */ 	sb	$t7,0x2b8($v0)
-/*  f11af7c:	10000005 */ 	beqz	$zero,.L0f11af94
-/*  f11af80:	ac590264 */ 	sw	$t9,0x264($v0)
-.L0f11af84:
-/*  f11af84:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f11af88:	15010002 */ 	bne	$t0,$at,.L0f11af94
-/*  f11af8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11af90:	afa0002c */ 	sw	$zero,0x2c($sp)
-.L0f11af94:
-/*  f11af94:	0c005451 */ 	jal	joyEnableCyclicPolling
-/*  f11af98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11af9c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f11afa0:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f11afa4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f11afa8:	03e00008 */ 	jr	$ra
-/*  f11afac:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
-#endif
+bool pakProbe(s8 device)
+{
+	bool plugged = false;
+	s32 ret;
+	bool done = false;
 
-#if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel pak0f114c08nb
-/*  f114c08:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f114c0c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f114c10:	00048600 */ 	sll	$s0,$a0,0x18
-/*  f114c14:	00107603 */ 	sra	$t6,$s0,0x18
-/*  f114c18:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114c1c:	01c08025 */ 	or	$s0,$t6,$zero
-/*  f114c20:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f114c24:	15c10003 */ 	bne	$t6,$at,.NB0f114c34
-/*  f114c28:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f114c2c:	10000064 */ 	beqz	$zero,.NB0f114dc0
-/*  f114c30:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f114c34:
-/*  f114c34:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114c38:	24a5e464 */ 	addiu	$a1,$a1,-7068
-/*  f114c3c:	0c00581b */ 	jal	joyDisableCyclicPolling
-/*  f114c40:	24040d6a */ 	addiu	$a0,$zero,0xd6a
-/*  f114c44:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114c48:	16010003 */ 	bne	$s0,$at,.NB0f114c58
-/*  f114c4c:	3c04800a */ 	lui	$a0,0x800a
-/*  f114c50:	10000009 */ 	beqz	$zero,.NB0f114c78
-/*  f114c54:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f114c58:
-/*  f114c58:	00107880 */ 	sll	$t7,$s0,0x2
-/*  f114c5c:	01f07823 */ 	subu	$t7,$t7,$s0
-/*  f114c60:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f114c64:	01f07821 */ 	addu	$t7,$t7,$s0
-/*  f114c68:	3c18800a */ 	lui	$t8,0x800a
-/*  f114c6c:	27187658 */ 	addiu	$t8,$t8,0x7658
-/*  f114c70:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f114c74:	01f82821 */ 	addu	$a1,$t7,$t8
-.NB0f114c78:
-/*  f114c78:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f114c7c:	0fc4478e */ 	jal	pakInitPak
-/*  f114c80:	02003025 */ 	or	$a2,$s0,$zero
-/*  f114c84:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f114c88:	0005ce03 */ 	sra	$t9,$a1,0x18
-/*  f114c8c:	03202825 */ 	or	$a1,$t9,$zero
-/*  f114c90:	00402025 */ 	or	$a0,$v0,$zero
-/*  f114c94:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f114c98:	0fc458cb */ 	jal	pakHandleResult
-/*  f114c9c:	24070d6d */ 	addiu	$a3,$zero,0xd6d
-/*  f114ca0:	10400007 */ 	beqz	$v0,.NB0f114cc0
-/*  f114ca4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114ca8:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114cac:	24a5e46c */ 	addiu	$a1,$a1,-7060
-/*  f114cb0:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114cb4:	24040d6f */ 	addiu	$a0,$zero,0xd6f
-/*  f114cb8:	10000041 */ 	beqz	$zero,.NB0f114dc0
-/*  f114cbc:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f114cc0:
-/*  f114cc0:	16010003 */ 	bne	$s0,$at,.NB0f114cd0
-/*  f114cc4:	3c04800a */ 	lui	$a0,0x800a
-/*  f114cc8:	10000009 */ 	beqz	$zero,.NB0f114cf0
-/*  f114ccc:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f114cd0:
-/*  f114cd0:	00104080 */ 	sll	$t0,$s0,0x2
-/*  f114cd4:	01104023 */ 	subu	$t0,$t0,$s0
-/*  f114cd8:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f114cdc:	01104021 */ 	addu	$t0,$t0,$s0
-/*  f114ce0:	3c09800a */ 	lui	$t1,0x800a
-/*  f114ce4:	25297658 */ 	addiu	$t1,$t1,0x7658
-/*  f114ce8:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f114cec:	01092821 */ 	addu	$a1,$t0,$t1
-.NB0f114cf0:
-/*  f114cf0:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f114cf4:	0c01440d */ 	jal	osMotorProbe
-/*  f114cf8:	02003025 */ 	or	$a2,$s0,$zero
-/*  f114cfc:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f114d00:	00055603 */ 	sra	$t2,$a1,0x18
-/*  f114d04:	01402825 */ 	or	$a1,$t2,$zero
-/*  f114d08:	00402025 */ 	or	$a0,$v0,$zero
-/*  f114d0c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f114d10:	0fc458cb */ 	jal	pakHandleResult
-/*  f114d14:	24070d76 */ 	addiu	$a3,$zero,0xd76
-/*  f114d18:	10400007 */ 	beqz	$v0,.NB0f114d38
-/*  f114d1c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f114d20:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114d24:	24a5e474 */ 	addiu	$a1,$a1,-7052
-/*  f114d28:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114d2c:	24040d78 */ 	addiu	$a0,$zero,0xd78
-/*  f114d30:	10000023 */ 	beqz	$zero,.NB0f114dc0
-/*  f114d34:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f114d38:
-/*  f114d38:	16010003 */ 	bne	$s0,$at,.NB0f114d48
-/*  f114d3c:	3c04800a */ 	lui	$a0,0x800a
-/*  f114d40:	10000009 */ 	beqz	$zero,.NB0f114d68
-/*  f114d44:	00002825 */ 	or	$a1,$zero,$zero
-.NB0f114d48:
-/*  f114d48:	00105880 */ 	sll	$t3,$s0,0x2
-/*  f114d4c:	01705823 */ 	subu	$t3,$t3,$s0
-/*  f114d50:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f114d54:	01705821 */ 	addu	$t3,$t3,$s0
-/*  f114d58:	3c0c800a */ 	lui	$t4,0x800a
-/*  f114d5c:	258c7658 */ 	addiu	$t4,$t4,0x7658
-/*  f114d60:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f114d64:	016c2821 */ 	addu	$a1,$t3,$t4
-.NB0f114d68:
-/*  f114d68:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f114d6c:	0c001890 */ 	jal	func00006100
-/*  f114d70:	02003025 */ 	or	$a2,$s0,$zero
-/*  f114d74:	00102e00 */ 	sll	$a1,$s0,0x18
-/*  f114d78:	00056e03 */ 	sra	$t5,$a1,0x18
-/*  f114d7c:	01a02825 */ 	or	$a1,$t5,$zero
-/*  f114d80:	00402025 */ 	or	$a0,$v0,$zero
-/*  f114d84:	00003025 */ 	or	$a2,$zero,$zero
-/*  f114d88:	0fc458cb */ 	jal	pakHandleResult
-/*  f114d8c:	24070d7f */ 	addiu	$a3,$zero,0xd7f
-/*  f114d90:	10400007 */ 	beqz	$v0,.NB0f114db0
-/*  f114d94:	24040d86 */ 	addiu	$a0,$zero,0xd86
-/*  f114d98:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114d9c:	24a5e47c */ 	addiu	$a1,$a1,-7044
-/*  f114da0:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114da4:	24040d81 */ 	addiu	$a0,$zero,0xd81
-/*  f114da8:	10000005 */ 	beqz	$zero,.NB0f114dc0
-/*  f114dac:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f114db0:
-/*  f114db0:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f114db4:	0c005834 */ 	jal	joyEnableCyclicPolling
-/*  f114db8:	24a5e484 */ 	addiu	$a1,$a1,-7036
-/*  f114dbc:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f114dc0:
-/*  f114dc0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f114dc4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f114dc8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f114dcc:	03e00008 */ 	jr	$ra
-/*  f114dd0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION >= VERSION_NTSC_1_0
+	joyDisableCyclicPolling();
+
+	// Try memory pak
+	ret = pakInitPak(&var80099e78, PFS(device), device, NULL);
+
+#if VERSION >= VERSION_PAL_FINAL
+	if (pakHandleResult(ret, device, true, 3836))
+#elif VERSION >= VERSION_NTSC_FINAL
+	if (pakHandleResult(ret, device, true, 3829))
+#else
+	if (pakHandleResult(ret, device, true, 3634))
 #endif
+	{
+		g_Paks[device].unk010 = PAK010_03;
+
+		if (device == SAVEDEVICE_GAMEPAK) {
+			pakExecuteDebugOperations();
+			pakExecuteDebugOperations();
+			pakExecuteDebugOperations();
+		}
+
+		plugged = true;
+		done = true;
+	} else if (ret == PAK_ERR1_NOPAK) {
+		done = true;
+	}
+
+	if (!done) {
+		if (device == SAVEDEVICE_GAMEPAK) {
+			plugged = false;
+			done = true;
+		}
+
+		if (!done) {
+			// Try rumble pak
+			ret = osMotorProbe(&var80099e78, PFS(device), device);
+
+#if VERSION >= VERSION_PAL_FINAL
+			if (pakHandleResult(ret, device, false, 3872))
+#elif VERSION >= VERSION_NTSC_FINAL
+			if (pakHandleResult(ret, device, false, 3865))
+#else
+			if (pakHandleResult(ret, device, false, 3670))
+#endif
+			{
+				g_Paks[device].type = PAKTYPE_RUMBLE;
+				g_Paks[device].unk010 = PAK010_11;
+				g_Paks[device].rumblestate = RUMBLESTATE_1;
+				g_Paks[device].unk264++;
+
+				plugged = true;
+				done = true;
+			} else if (ret == PAK_ERR1_NOPAK) {
+				plugged = false;
+				done = true;
+			}
+
+			if (!done) {
+				// Try game boy pak
+				ret = osGbpakInit(&var80099e78, PFS(device), device);
+
+#if VERSION >= VERSION_PAL_FINAL
+				if (pakHandleResult(ret, device, false, 3896))
+#elif VERSION >= VERSION_NTSC_FINAL
+				if (pakHandleResult(ret, device, false, 3889))
+#else
+				if (pakHandleResult(ret, device, false, 3694))
+#endif
+				{
+					if (IS4MB()) {
+						g_Paks[device].type = PAKTYPE_NONE;
+						g_Paks[device].unk010 = PAK010_22;
+					} else {
+						g_Paks[device].type = PAKTYPE_GAMEBOY;
+						g_Paks[device].unk010 = PAK010_08;
+						g_Paks[device].unk2b8_01 = false;
+						g_Paks[device].unk264++;
+					}
+
+					plugged = true;
+				} else if (ret == PAK_ERR1_NOPAK) {
+					plugged = false;
+				}
+			}
+		}
+	}
+
+	joyEnableCyclicPolling();
+
+	return plugged;
+#else
+	if (device == SAVEDEVICE_GAMEPAK) {
+		return true;
+	}
+
+	joyDisableCyclicPolling(3434, "pak.c");
+
+	// Try memory pak
+	ret = pakInitPak(&var80099e78, PFS(device), device);
+
+	if (pakHandleResult(ret, device, 1, 3437)) {
+		joyEnableCyclicPolling(3439, "pak.c");
+		return true;
+	}
+
+	// Try rumble pak
+	ret = osMotorProbe(&var80099e78, PFS(device), device);
+
+	if (pakHandleResult(ret, device, 0, 3446)) {
+		joyEnableCyclicPolling(3448, "pak.c");
+		return true;
+	}
+
+	// Try game boy pak
+	ret = osGbpakInit(&var80099e78, PFS(device), device);
+
+	if (pakHandleResult(ret, device, 0, 3455)) {
+		joyEnableCyclicPolling(3457, "pak.c");
+		return true;
+	}
+
+	joyEnableCyclicPolling(3462, "pak.c");
+
+	return false;
+#endif
+}
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -5602,7 +5377,7 @@ glabel pak0f114dd4nb
 /*  f114e44:	ae020008 */ 	sw	$v0,0x8($s0)
 /*  f114e48:	ae020004 */ 	sw	$v0,0x4($s0)
 /*  f114e4c:	ae0a000c */ 	sw	$t2,0xc($s0)
-/*  f114e50:	0fc45302 */ 	jal	pak0f114c08nb
+/*  f114e50:	0fc45302 */ 	jal	pakProbe
 /*  f114e54:	01602025 */ 	or	$a0,$t3,$zero
 /*  f114e58:	50400049 */ 	beqzl	$v0,.NB0f114f80
 /*  f114e5c:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -9108,7 +8883,7 @@ void pak0f11df94(s8 device)
 			func0f0f0ca0(-1, true);
 		}
 
-		pak0f11ac7c(device);
+		pakProbe(device);
 		func0f14aed0(device);
 		break;
 	case PAK010_03:
@@ -9367,7 +9142,7 @@ glabel var7f1b4fd8
 /*  f11de30:	0fc3c320 */ 	jal	func0f0f0ca0
 /*  f11de34:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f11de38:
-/*  f11de38:	0fc46a7f */ 	jal	pak0f11ac7c
+/*  f11de38:	0fc46a7f */ 	jal	pakProbe
 /*  f11de3c:	83a40023 */ 	lb	$a0,0x23($sp)
 /*  f11de40:	0fc52b28 */ 	jal	func0f14aed0
 /*  f11de44:	83a40023 */ 	lb	$a0,0x23($sp)
@@ -9783,7 +9558,7 @@ glabel var7f1af164nb
 /*  f117d90:	018d2821 */ 	addu	$a1,$t4,$t5
 .NB0f117d94:
 /*  f117d94:	2484e5d8 */ 	addiu	$a0,$a0,-6696
-/*  f117d98:	0c001890 */ 	jal	func00006100
+/*  f117d98:	0c001890 */ 	jal	osGbpakInit
 /*  f117d9c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f117da0:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f117da4:	24a5ecec */ 	addiu	$a1,$a1,-4884
