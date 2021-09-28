@@ -1144,19 +1144,14 @@ s32 func0f14ab60(void)
 	return thing->stylenum;
 }
 
+void func0f14ab84(s32 arg0)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+	thing->unk3b4 = arg0;
+}
+
 GLOBAL_ASM(
-glabel func0f14ab84
-/*  f14ab84:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14ab88:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ab8c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14ab90:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ab94:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ab98:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f14ab9c:	ac4e03b4 */ 	sw	$t6,0x3b4($v0)
-/*  f14aba0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14aba4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14aba8:	03e00008 */ 	jr	$ra
-/*  f14abac:	00000000 */ 	nop
+glabel func0f14abb0
 /*  f14abb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14abb4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14abb8:	0fc5281b */ 	jal	func0f14a06c
