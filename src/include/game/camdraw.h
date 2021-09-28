@@ -29,7 +29,7 @@ s32 func0f14a9f8(s32 index);
 void func0f14aa48(void);
 s32 func0f14aa70(void);
 void func0f14aac4(void);
-u32 func0f14ab3c(void);
+void func0f14ab3c(void);
 u16 func0f14ad14(s32 device);
 s32 func0f14ad38(s32 device);
 void func0f14ad58(s32 index);

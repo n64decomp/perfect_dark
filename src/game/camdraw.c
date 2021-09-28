@@ -1132,17 +1132,14 @@ const char var7f1b667c[] = "camdraw.c";
 const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
 const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
 
+void func0f14ab3c(void)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+	thing->stylenum = 0;
+}
+
 GLOBAL_ASM(
-glabel func0f14ab3c
-/*  f14ab3c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14ab40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ab44:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ab48:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ab4c:	ac4003a0 */ 	sw	$zero,0x3a0($v0)
-/*  f14ab50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14ab54:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14ab58:	03e00008 */ 	jr	$ra
-/*  f14ab5c:	00000000 */ 	nop
+glabel func0f14ab60
 /*  f14ab60:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14ab64:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14ab68:	0fc5281b */ 	jal	func0f14a06c
