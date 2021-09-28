@@ -11,7 +11,7 @@ u32 func0f14a00c(void);
 struct var8007f8e0 *func0f14a06c(s32 index);
 u32 func0f14a16c(void);
 char *phGetStyleName(s32 stylenum);
-u32 func0f14a1ec(void);
+char *phGetColourName(s32 colournum);
 u32 func0f14a20c(void);
 void func0f14a240(void);
 void func0f14a2fc(s32 arg0, u32 line, char *file);
