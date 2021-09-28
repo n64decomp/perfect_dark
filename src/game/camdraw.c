@@ -883,60 +883,35 @@ glabel func0f14a20c
 /*  f14a23c:	01cf1021 */ 	addu	$v0,$t6,$t7
 );
 
-GLOBAL_ASM(
-glabel func0f14a240
-/*  f14a240:	3c03800a */ 	lui	$v1,%hi(var800a45a0)
-/*  f14a244:	246345a0 */ 	addiu	$v1,$v1,%lo(var800a45a0)
-/*  f14a248:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f14a24c:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f14a250:	00001025 */ 	or	$v0,$zero,$zero
-/*  f14a254:	adc0048c */ 	sw	$zero,0x48c($t6)
-/*  f14a258:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f14a25c:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f14a260:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f14a264:	ade00484 */ 	sw	$zero,0x484($t7)
-/*  f14a268:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f14a26c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f14a270:	af000470 */ 	sw	$zero,0x470($t8)
-/*  f14a274:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f14a278:	af200474 */ 	sw	$zero,0x474($t9)
-/*  f14a27c:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f14a280:	ad000478 */ 	sw	$zero,0x478($t0)
-/*  f14a284:	8c690000 */ 	lw	$t1,0x0($v1)
-/*  f14a288:	ad20047c */ 	sw	$zero,0x47c($t1)
-/*  f14a28c:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*  f14a290:	ad400480 */ 	sw	$zero,0x480($t2)
-/*  f14a294:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f14a298:	ad60037c */ 	sw	$zero,0x37c($t3)
-/*  f14a29c:	8c6c0000 */ 	lw	$t4,0x0($v1)
-/*  f14a2a0:	ad800000 */ 	sw	$zero,0x0($t4)
-/*  f14a2a4:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f14a2a8:	adcd0004 */ 	sw	$t5,0x4($t6)
-/*  f14a2ac:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f14a2b0:	af0f0008 */ 	sw	$t7,0x8($t8)
-/*  f14a2b4:	00001825 */ 	or	$v1,$zero,$zero
-.L0f14a2b8:
-/*  f14a2b8:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f14a2bc:
-/*  f14a2bc:	5464ffff */ 	bnel	$v1,$a0,.L0f14a2bc
-/*  f14a2c0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f14a2c4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f14a2c8:	28410004 */ 	slti	$at,$v0,0x4
-/*  f14a2cc:	5420fffa */ 	bnezl	$at,.L0f14a2b8
-/*  f14a2d0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14a2d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f14a2d8:	00001825 */ 	or	$v1,$zero,$zero
-.L0f14a2dc:
-/*  f14a2dc:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f14a2e0:
-/*  f14a2e0:	5464ffff */ 	bnel	$v1,$a0,.L0f14a2e0
-/*  f14a2e4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f14a2e8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f14a2ec:	5445fffb */ 	bnel	$v0,$a1,.L0f14a2dc
-/*  f14a2f0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14a2f4:	03e00008 */ 	jr	$ra
-/*  f14a2f8:	00000000 */ 	nop
-);
+void func0f14a240(void)
+{
+	s32 i;
+	s32 j;
+
+	var800a45a0->unk48c = 0;
+	var800a45a0->unk484 = 0;
+	var800a45a0->unk470 = 0;
+	var800a45a0->unk474 = 0;
+	var800a45a0->unk478 = 0;
+	var800a45a0->unk47c = 0;
+	var800a45a0->unk480 = 0;
+	var800a45a0->unk37c = 0;
+	var800a45a0->unk000 = 0;
+	var800a45a0->unk004 = -1;
+	var800a45a0->unk008 = 1;
+
+	for (i = 0; i < 4; i++) {
+		for (j = 0; j < 8; j++) {
+			// empty
+		}
+	}
+
+	for (i = 0; i < 4; i++) {
+		for (j = 0; j < 8; j++) {
+			// empty
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f14a2fc
@@ -959,7 +934,7 @@ void phAllocate(void)
 
 	if (IS8MB()) {
 		u32 size1 = align16(sizeof(struct var8007f8dc) * 4);
-		u32 size2 = align16(0x490);
+		u32 size2 = align16(sizeof(struct var800a45a0));
 
 		var8007f8dc = malloc(size1, MEMPOOL_PERMANENT);
 		var800a45a0 = malloc(size2, MEMPOOL_PERMANENT);
