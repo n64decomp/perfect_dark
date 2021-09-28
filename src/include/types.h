@@ -7649,7 +7649,7 @@ struct var8007f8e0 { // perfect head?
 	/*0x390*/ u32 unk390;
 	/*0x394*/ u32 unk394;
 	/*0x398*/ u32 unk398;
-	/*0x39c*/ u32 unk39c;
+	/*0x39c*/ s32 colournum;
 	/*0x3a0*/ u32 unk3a0;
 	/*0x3a4*/ u32 unk3a4;
 	/*0x3a8*/ u32 unk3a8;

@@ -1092,21 +1092,15 @@ s32 func0f14aa70(void)
 	return thing->unk3b8;
 }
 
-GLOBAL_ASM(
-glabel func0f14aa94
-/*  f14aa94:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14aa98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14aa9c:	0fc5287b */ 	jal	phGetColourName
-/*  f14aaa0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14aaa4:	0fc5281b */ 	jal	func0f14a06c
-/*  f14aaa8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14aaac:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f14aab0:	ac4e039c */ 	sw	$t6,0x39c($v0)
-/*  f14aab4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14aab8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14aabc:	03e00008 */ 	jr	$ra
-/*  f14aac0:	00000000 */ 	nop
-);
+void func0f14aa94(s32 colournum)
+{
+	struct var8007f8e0 *thing;
+
+	phGetColourName(colournum);
+
+	thing = func0f14a06c(-1);
+	thing->colournum = colournum;
+}
 
 GLOBAL_ASM(
 glabel func0f14aac4
