@@ -6,7 +6,7 @@
 
 u32 func0f149c90(void);
 u32 func0f149d58(void);
-void func0f149e58(u32 arg0, u32 arg1);
+void func0f149e58(u8 *arg0, u32 arg1);
 void func0f14a00c(bool arg0);
 struct var8007f8e0 *func0f14a06c(s32 index);
 void func0f14a16c(s32 arg0);

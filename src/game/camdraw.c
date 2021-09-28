@@ -538,56 +538,22 @@ void func0f149f10(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f149f18
-/*  f149f18:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f149f1c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f149f20:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f149f24:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f149f28:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f149f2c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f149f30:	0fc5281b */ 	jal	func0f14a06c
-/*  f149f34:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f149f38:	0fc52ce5 */ 	jal	func0f14b394
-/*  f149f3c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f149f40:	0fc5281b */ 	jal	func0f14a06c
-/*  f149f44:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f149f48:	904e03f4 */ 	lbu	$t6,0x3f4($v0)
-/*  f149f4c:	3c11800a */ 	lui	$s1,%hi(var800a45a0)
-/*  f149f50:	263145a0 */ 	addiu	$s1,$s1,%lo(var800a45a0)
-/*  f149f54:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f149f58:	a04f03f4 */ 	sb	$t7,0x3f4($v0)
-/*  f149f5c:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f149f60:	00008025 */ 	or	$s0,$zero,$zero
-/*  f149f64:	24134000 */ 	addiu	$s3,$zero,0x4000
-/*  f149f68:	8f190470 */ 	lw	$t9,0x470($t8)
-/*  f149f6c:	241200ff */ 	addiu	$s2,$zero,0xff
-/*  f149f70:	5320000f */ 	beqzl	$t9,.L0f149fb0
-/*  f149f74:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f149f78:
-/*  f149f78:	0c004b70 */ 	jal	random
-/*  f149f7c:	00000000 */ 	nop
-/*  f149f80:	0052001b */ 	divu	$zero,$v0,$s2
-/*  f149f84:	8e290000 */ 	lw	$t1,0x0($s1)
-/*  f149f88:	00004010 */ 	mfhi	$t0
-/*  f149f8c:	8d2a0470 */ 	lw	$t2,0x470($t1)
-/*  f149f90:	16400002 */ 	bnez	$s2,.L0f149f9c
-/*  f149f94:	00000000 */ 	nop
-/*  f149f98:	0007000d */ 	break	0x7
-.L0f149f9c:
-/*  f149f9c:	01505821 */ 	addu	$t3,$t2,$s0
-/*  f149fa0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f149fa4:	1613fff4 */ 	bne	$s0,$s3,.L0f149f78
-/*  f149fa8:	a1680000 */ 	sb	$t0,0x0($t3)
-/*  f149fac:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f149fb0:
-/*  f149fb0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f149fb4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f149fb8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f149fbc:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f149fc0:	03e00008 */ 	jr	$ra
-/*  f149fc4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f149f18(void)
+{
+	struct var8007f8e0 *thing;
+	s32 i;
+
+	func0f14b394(func0f14a06c(-1));
+
+	thing = func0f14a06c(-1);
+	thing->unk3f4_00 = false;
+
+	if (var800a45a0->unk470) {
+		for (i = 0; i < 0x4000; i++) {
+			var800a45a0->unk470[i] = random() % 255;
+		}
+	}
+}
 
 void func0f149fc8(s32 index)
 {
@@ -748,7 +714,7 @@ void func0f14a3c4(void)
 
 void func0f14a404(void)
 {
-	func0f149e58(0, 0);
+	func0f149e58(NULL, 0);
 }
 
 void func0f14a428(void)
