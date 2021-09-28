@@ -7346,8 +7346,8 @@ struct var800a45a0 {
 	/*0x370*/ u32 unk370;
 	/*0x374*/ u32 unk374;
 	/*0x378*/ u32 unk378;
-	/*0x37c*/ u32 unk37c;
-	/*0x380*/ u32 unk380;
+	/*0x37c*/ s32 unk37c;
+	/*0x380*/ u8 *unk380[1];
 	/*0x384*/ u32 unk384;
 	/*0x388*/ u32 unk388;
 	/*0x38c*/ u32 unk38c;
@@ -7377,7 +7377,7 @@ struct var800a45a0 {
 	/*0x3ec*/ u32 unk3ec;
 	/*0x3f0*/ u32 unk3f0;
 	/*0x3f4*/ u32 unk3f4;
-	/*0x3f8*/ u32 unk3f8;
+	/*0x3f8*/ u32 unk3f8[1];
 	/*0x3fc*/ u32 unk3fc;
 	/*0x400*/ u32 unk400;
 	/*0x404*/ u32 unk404;
