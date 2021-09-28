@@ -769,55 +769,14 @@ void func0f14a678(void)
 	func0f14c50c(func0f14a06c(-2), func0f14a06c(-1), 1433, "camdraw.c");
 }
 
-const char var7f1b6560[] = "camdraw.c";
-const char var7f1b656c[] = "camdraw.c";
-const char var7f1b6578[] = "camdraw.c";
-const char var7f1b6584[] = "Cam_CopyEditorToUndo\n";
+void func0f14a6bc(void)
+{
+	func0f14c50c(func0f14a06c(-4), func0f14a06c(-1), 1441, "camdraw.c");
+	func0f14c50c(func0f14a06c(-1), func0f14a06c(-3), 1442, "camdraw.c");
+	func0f14c50c(func0f14a06c(-3), func0f14a06c(-4), 1443, "camdraw.c");
+}
 
-GLOBAL_ASM(
-glabel func0f14a6bc
-/*  f14a6bc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14a6c0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14a6c4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14a6c8:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a6cc:	2404fffc */ 	addiu	$a0,$zero,-4
-/*  f14a6d0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f14a6d4:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a6d8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a6dc:	3c077f1b */ 	lui	$a3,%hi(var7f1b6560)
-/*  f14a6e0:	24e76560 */ 	addiu	$a3,$a3,%lo(var7f1b6560)
-/*  f14a6e4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14a6e8:	00402825 */ 	or	$a1,$v0,$zero
-/*  f14a6ec:	0fc53143 */ 	jal	func0f14c50c
-/*  f14a6f0:	240605a1 */ 	addiu	$a2,$zero,0x5a1
-/*  f14a6f4:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a6f8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a6fc:	00408025 */ 	or	$s0,$v0,$zero
-/*  f14a700:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a704:	2404fffd */ 	addiu	$a0,$zero,-3
-/*  f14a708:	3c077f1b */ 	lui	$a3,%hi(var7f1b656c)
-/*  f14a70c:	24e7656c */ 	addiu	$a3,$a3,%lo(var7f1b656c)
-/*  f14a710:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14a714:	00402825 */ 	or	$a1,$v0,$zero
-/*  f14a718:	0fc53143 */ 	jal	func0f14c50c
-/*  f14a71c:	240605a2 */ 	addiu	$a2,$zero,0x5a2
-/*  f14a720:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a724:	2404fffd */ 	addiu	$a0,$zero,-3
-/*  f14a728:	00408025 */ 	or	$s0,$v0,$zero
-/*  f14a72c:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a730:	2404fffc */ 	addiu	$a0,$zero,-4
-/*  f14a734:	3c077f1b */ 	lui	$a3,%hi(var7f1b6578)
-/*  f14a738:	24e76578 */ 	addiu	$a3,$a3,%lo(var7f1b6578)
-/*  f14a73c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14a740:	00402825 */ 	or	$a1,$v0,$zero
-/*  f14a744:	0fc53143 */ 	jal	func0f14c50c
-/*  f14a748:	240605a3 */ 	addiu	$a2,$zero,0x5a3
-/*  f14a74c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14a750:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14a754:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14a758:	03e00008 */ 	jr	$ra
-/*  f14a75c:	00000000 */ 	nop
-);
+const char var7f1b6584[] = "Cam_CopyEditorToUndo\n";
 
 void func0f14a760(void)
 {
