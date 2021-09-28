@@ -688,31 +688,16 @@ glabel func0f14a16c
 /*  f14a1c8:	314200ff */ 	andi	$v0,$t2,0xff
 );
 
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel func0f14a1cc
-/*  f14a1cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a1d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a1d4:	0fc5b9f1 */ 	jal	langGet
-/*  f14a1d8:	248459ad */ 	addiu	$a0,$a0,0x58aa
-/*  f14a1dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a1e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a1e4:	03e00008 */ 	jr	$ra
-/*  f14a1e8:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel func0f14a1cc
-/*  f14a1cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a1d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a1d4:	0fc5b9f1 */ 	jal	langGet
-/*  f14a1d8:	248459ad */ 	addiu	$a0,$a0,0x59ad
-/*  f14a1dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a1e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a1e4:	03e00008 */ 	jr	$ra
-/*  f14a1e8:	00000000 */ 	nop
-);
-#endif
+/**
+ * 0 returns "Style 1"
+ * 1 returns "Style 2"
+ * 2 returns "Style 3"
+ * 3 returns "Style 4"
+ */
+char *phGetStyleName(s32 stylenum)
+{
+	return langGet(L_MISC_429 + stylenum);
+}
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -1334,7 +1319,7 @@ glabel func0f14aac4
 /*  f14ab08:	00000000 */ 	nop
 /*  f14ab0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14ab10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ab14:	0fc52873 */ 	jal	func0f14a1cc
+/*  f14ab14:	0fc52873 */ 	jal	phGetStyleName
 /*  f14ab18:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f14ab1c:	0fc5281b */ 	jal	func0f14a06c
 /*  f14ab20:	2404ffff */ 	addiu	$a0,$zero,-1

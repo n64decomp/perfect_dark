@@ -10,7 +10,7 @@ void func0f149e58(u32 arg0, u32 arg1);
 u32 func0f14a00c(void);
 struct var8007f8e0 *func0f14a06c(s32 index);
 u32 func0f14a16c(void);
-u32 func0f14a1cc(void);
+char *phGetStyleName(s32 stylenum);
 u32 func0f14a1ec(void);
 u32 func0f14a20c(void);
 void func0f14a240(void);
