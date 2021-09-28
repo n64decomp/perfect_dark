@@ -1036,19 +1036,12 @@ void func0f14a91c(s32 arg0)
 const char var7f1b65f0[] = "Cam -> Setting current hair colour to %s\n";
 const char var7f1b661c[] = "Cam -> Setting current face colour to %s\n";
 
-GLOBAL_ASM(
-glabel func0f14a95c
-/*  f14a95c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a960:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a964:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a968:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a96c:	240e0080 */ 	addiu	$t6,$zero,0x80
-/*  f14a970:	ac4e03bc */ 	sw	$t6,0x3bc($v0)
-/*  f14a974:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a978:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a97c:	03e00008 */ 	jr	$ra
-/*  f14a980:	00000000 */ 	nop
-);
+void func0f14a95c(void)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+
+	thing->unk3bc = 0x80;
+}
 
 GLOBAL_ASM(
 glabel func0f14a984
