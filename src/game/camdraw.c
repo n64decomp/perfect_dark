@@ -8233,7 +8233,7 @@ glabel func0f15015c
 /*  f1507b0:	27bd14f8 */ 	addiu	$sp,$sp,0x14f8
 );
 
-void func0f1507b4(s32 index, struct fileguid *guid)
+void phGetGuid(s32 index, struct fileguid *guid)
 {
 	u8 *ptr = func0f14a06c(index);
 
@@ -8241,18 +8241,10 @@ void func0f1507b4(s32 index, struct fileguid *guid)
 	guid->deviceserial = *(u16 *) &ptr[0x3fc];
 }
 
-GLOBAL_ASM(
-glabel func0f1507e8
-/*  f1507e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1507ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1507f0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1507f4:	0fc5281b */ 	jal	func0f14a06c
-/*  f1507f8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f1507fc:	a44003fc */ 	sh	$zero,0x3fc($v0)
-/*  f150800:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f150804:	ac4e03f8 */ 	sw	$t6,0x3f8($v0)
-/*  f150808:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15080c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f150810:	03e00008 */ 	jr	$ra
-/*  f150814:	00000000 */ 	nop
-);
+void phSetFileId(s32 fileid)
+{
+	u8 *ptr = func0f14a06c(-1);
+
+	*(u16 *) &ptr[0x3fc] = 0;
+	*(s32 *) &ptr[0x3f8] = fileid;
+}

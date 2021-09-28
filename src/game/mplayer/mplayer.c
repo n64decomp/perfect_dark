@@ -8636,7 +8636,7 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 
 	if (g_MpPlayers[playernum].base.mpheadnum >= mpGetNumHeads2()) {
 		struct fileguid guid;
-		func0f1507b4(g_MpPlayers[playernum].base.mpheadnum - mpGetNumHeads2(), &guid);
+		phGetGuid(g_MpPlayers[playernum].base.mpheadnum - mpGetNumHeads2(), &guid);
 		savebufferWriteGuid(buffer, &guid);
 	} else {
 		struct fileguid guid;
