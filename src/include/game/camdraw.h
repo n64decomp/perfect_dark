@@ -9,7 +9,7 @@ u32 func0f149d58(void);
 void func0f149e58(u32 arg0, u32 arg1);
 u32 func0f14a00c(void);
 struct var8007f8e0 *func0f14a06c(s32 index);
-u32 func0f14a16c(void);
+void func0f14a16c(s32 arg0);
 char *phGetStyleName(s32 stylenum);
 char *phGetColourName(s32 colournum);
 struct var8007f8dc *func0f14a20c(void);
