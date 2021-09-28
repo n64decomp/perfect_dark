@@ -688,22 +688,10 @@ char *phGetColourName(s32 colournum)
 	return langGet(L_MISC_433 + colournum);
 }
 
-GLOBAL_ASM(
-glabel func0f14a20c
-/*  f14a20c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a210:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a214:	0fc52969 */ 	jal	func0f14a5a4
-/*  f14a218:	00000000 */ 	nop
-/*  f14a21c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a220:	00027180 */ 	sll	$t6,$v0,0x6
-/*  f14a224:	3c0f8008 */ 	lui	$t7,%hi(var8007f8dc)
-/*  f14a228:	8deff8dc */ 	lw	$t7,%lo(var8007f8dc)($t7)
-/*  f14a22c:	01c27021 */ 	addu	$t6,$t6,$v0
-/*  f14a230:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f14a234:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a238:	03e00008 */ 	jr	$ra
-/*  f14a23c:	01cf1021 */ 	addu	$v0,$t6,$t7
-);
+struct var8007f8dc *func0f14a20c(void)
+{
+	return &var8007f8dc[func0f14a5a4()];
+}
 
 void func0f14a240(void)
 {
