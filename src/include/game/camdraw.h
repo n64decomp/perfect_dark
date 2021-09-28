@@ -14,7 +14,7 @@ char *phGetStyleName(s32 stylenum);
 char *phGetColourName(s32 colournum);
 struct var8007f8dc *func0f14a20c(void);
 void func0f14a240(void);
-void func0f14a2fc(s32 arg0, u32 line, char *file);
+bool func0f14a2fc(s32 index, u32 line, char *file);
 void phAllocate(void);
 void func0f14a3c4(void);
 void func0f14a52c(void);

@@ -723,20 +723,11 @@ void func0f14a240(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f14a2fc
-/*  f14a2fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a300:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a304:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f14a308:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a30c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f14a310:	8c4203f4 */ 	lw	$v0,0x3f4($v0)
-/*  f14a314:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a318:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a31c:	000277c2 */ 	srl	$t6,$v0,0x1f
-/*  f14a320:	03e00008 */ 	jr	$ra
-/*  f14a324:	01c01025 */ 	or	$v0,$t6,$zero
-);
+bool func0f14a2fc(s32 index, u32 line, char *file)
+{
+	struct var8007f8e0 *thing = func0f14a06c(index);
+	return thing->unk3f4_00;
+}
 
 void phAllocate(void)
 {
