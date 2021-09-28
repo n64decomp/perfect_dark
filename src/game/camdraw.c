@@ -478,14 +478,6 @@ glabel func0f149d58
 /*  f149e54:	00000000 */ 	nop
 );
 
-const char var7f1b63d4[] = "camdraw.c";
-const char var7f1b63e0[] = "Cam -> Dumping head vertex colour information\n";
-const char var7f1b6410[] = "Cam -> Face Col - Pal=%d, Entry=%d, Col=%08x\n";
-const char var7f1b6440[] = "Cam -> Hair Col - Pal=%d, Entry=%d, Col=%08x\n";
-const char var7f1b6470[] = "Cam_Tick (%d Total Slots)";
-const char var7f1b648c[] = "Current Camera Slot = %d\n";
-const char var7f1b64a8[] = "Slot %d -> Active = %d";
-
 GLOBAL_ASM(
 glabel func0f149e58
 /*  f149e58:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -588,24 +580,19 @@ glabel func0f149e58
 /*  f149fbc:	8fb30020 */ 	lw	$s3,0x20($sp)
 /*  f149fc0:	03e00008 */ 	jr	$ra
 /*  f149fc4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f149fc8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f149fcc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f149fd0:	0fc5281b */ 	jal	func0f14a06c
-/*  f149fd4:	00000000 */ 	nop
-/*  f149fd8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f149fdc:	0fc5281b */ 	jal	func0f14a06c
-/*  f149fe0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f149fe4:	3c077f1b */ 	lui	$a3,%hi(var7f1b63d4)
-/*  f149fe8:	24e763d4 */ 	addiu	$a3,$a3,%lo(var7f1b63d4)
-/*  f149fec:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f149ff0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f149ff4:	0fc53143 */ 	jal	func0f14c50c
-/*  f149ff8:	24060410 */ 	addiu	$a2,$zero,0x410
-/*  f149ffc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a000:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14a004:	03e00008 */ 	jr	$ra
-/*  f14a008:	00000000 */ 	nop
 );
+
+void func0f149fc8(s32 index)
+{
+	func0f14c50c(func0f14a06c(index), func0f14a06c(-1), 1040, "camdraw.c");
+}
+
+const char var7f1b63e0[] = "Cam -> Dumping head vertex colour information\n";
+const char var7f1b6410[] = "Cam -> Face Col - Pal=%d, Entry=%d, Col=%08x\n";
+const char var7f1b6440[] = "Cam -> Hair Col - Pal=%d, Entry=%d, Col=%08x\n";
+const char var7f1b6470[] = "Cam_Tick (%d Total Slots)";
+const char var7f1b648c[] = "Current Camera Slot = %d\n";
+const char var7f1b64a8[] = "Slot %d -> Active = %d";
 
 GLOBAL_ASM(
 glabel func0f14a00c
