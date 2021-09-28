@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f149c90(void);
+void func0f149c90(struct var800a45a0_484 *arg0);
 u32 func0f149d58(void);
 void func0f149e58(u8 *arg0, u32 size);
 void func0f14a00c(bool arg0);

@@ -697,52 +697,21 @@ void func0f14a480(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f14a488
-/*  f14a488:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f14a48c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f14a490:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f14a494:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f14a498:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f14a49c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f14a4a0:	0fc52bb4 */ 	jal	func0f14aed0
-/*  f14a4a4:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a4a8:	3c10800a */ 	lui	$s0,%hi(var800a45a0)
-/*  f14a4ac:	261045a0 */ 	addiu	$s0,$s0,%lo(var800a45a0)
-/*  f14a4b0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f14a4b4:	8e0e0000 */ 	lw	$t6,0x0($s0)
-.L0f14a4b8:
-/*  f14a4b8:	8dcf0484 */ 	lw	$t7,0x484($t6)
-/*  f14a4bc:	0fc52724 */ 	jal	func0f149c90
-/*  f14a4c0:	01f12021 */ 	addu	$a0,$t7,$s1
-/*  f14a4c4:	2631000c */ 	addiu	$s1,$s1,0xc
-/*  f14a4c8:	2a210180 */ 	slti	$at,$s1,0x180
-/*  f14a4cc:	5420fffa */ 	bnezl	$at,.L0f14a4b8
-/*  f14a4d0:	8e0e0000 */ 	lw	$t6,0x0($s0)
-/*  f14a4d4:	3c128008 */ 	lui	$s2,%hi(var8007f8dc)
-/*  f14a4d8:	2652f8dc */ 	addiu	$s2,$s2,%lo(var8007f8dc)
-/*  f14a4dc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f14a4e0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f14a4e4:	24130004 */ 	addiu	$s3,$zero,0x4
-.L0f14a4e8:
-/*  f14a4e8:	8e580000 */ 	lw	$t8,0x0($s2)
-/*  f14a4ec:	00102600 */ 	sll	$a0,$s0,0x18
-/*  f14a4f0:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f14a4f4:	0311c821 */ 	addu	$t9,$t8,$s1
-/*  f14a4f8:	af2000f4 */ 	sw	$zero,0xf4($t9)
-/*  f14a4fc:	0fc4751e */ 	jal	pak0f11d478
-/*  f14a500:	01002025 */ 	or	$a0,$t0,$zero
-/*  f14a504:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f14a508:	1613fff7 */ 	bne	$s0,$s3,.L0f14a4e8
-/*  f14a50c:	26310104 */ 	addiu	$s1,$s1,0x104
-/*  f14a510:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f14a514:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f14a518:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f14a51c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f14a520:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f14a524:	03e00008 */ 	jr	$ra
-/*  f14a528:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f14a488(void)
+{
+	s32 i;
+
+	func0f14aed0(-1);
+
+	for (i = 0; i < 32; i++) {
+		func0f149c90(&var800a45a0->unk484[i]);
+	}
+
+	for (i = 0; i < 4; i++) {
+		var8007f8dc[i].unk0f4 = 0;
+		pak0f11d478(i);
+	}
+}
 
 void func0f14a52c(void)
 {
