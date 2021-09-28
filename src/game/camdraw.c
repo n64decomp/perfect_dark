@@ -977,29 +977,17 @@ void func0f14a760(void)
 }
 
 const char var7f1b65a8[] = "Cam_CopyUndoToEditor\n";
-const char var7f1b65c0[] = "camdraw.c";
+
+void func0f14a7a4(void)
+{
+	func0f14c50c(func0f14a06c(-1), func0f14a06c(-3), 1461, "camdraw.c");
+}
+
 const char var7f1b65cc[] = "camdraw.c";
 const char var7f1b65d8[] = "camdraw.c";
 
 GLOBAL_ASM(
-glabel func0f14a7a4
-/*  f14a7a4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14a7a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a7ac:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a7b0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a7b4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f14a7b8:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a7bc:	2404fffd */ 	addiu	$a0,$zero,-3
-/*  f14a7c0:	3c077f1b */ 	lui	$a3,%hi(var7f1b65c0)
-/*  f14a7c4:	24e765c0 */ 	addiu	$a3,$a3,%lo(var7f1b65c0)
-/*  f14a7c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f14a7cc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f14a7d0:	0fc53143 */ 	jal	func0f14c50c
-/*  f14a7d4:	240605b5 */ 	addiu	$a2,$zero,0x5b5
-/*  f14a7d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a7dc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14a7e0:	03e00008 */ 	jr	$ra
-/*  f14a7e4:	00000000 */ 	nop
+glabel func0f14a7e8
 /*  f14a7e8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f14a7ec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14a7f0:	afa40020 */ 	sw	$a0,0x20($sp)
