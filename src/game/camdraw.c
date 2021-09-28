@@ -1064,17 +1064,15 @@ void func0f14a9d4(void)
 	thing->unk3a4 = 0;
 }
 
+s32 func0f14a9f8(s32 index)
+{
+	struct var8007f8e0 *thing = func0f14a06c(index);
+
+	return thing->unk3a4;
+}
+
 GLOBAL_ASM(
-glabel func0f14a9f8
-/*  f14a9f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a9fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14aa00:	0fc5281b */ 	jal	func0f14a06c
-/*  f14aa04:	00000000 */ 	nop
-/*  f14aa08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14aa0c:	8c4203a4 */ 	lw	$v0,0x3a4($v0)
-/*  f14aa10:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14aa14:	03e00008 */ 	jr	$ra
-/*  f14aa18:	00000000 */ 	nop
+glabel func0f14aa1c
 /*  f14aa1c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14aa20:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14aa24:	afa40018 */ 	sw	$a0,0x18($sp)
