@@ -531,8 +531,15 @@ glabel func0f149e58
 /*  f149f04:	8fb30020 */ 	lw	$s3,0x20($sp)
 /*  f149f08:	03e00008 */ 	jr	$ra
 /*  f149f0c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f149f10:	03e00008 */ 	jr	$ra
-/*  f149f14:	00000000 */ 	nop
+);
+
+void func0f149f10(void)
+{
+	// empty
+}
+
+GLOBAL_ASM(
+glabel func0f149f18
 /*  f149f18:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f149f1c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f149f20:	afb30020 */ 	sw	$s3,0x20($sp)
