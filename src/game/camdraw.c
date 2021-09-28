@@ -952,25 +952,19 @@ void func0f14a3bc(void)
 	// empty
 }
 
+void func0f14a3c4(void)
+{
+	s32 i;
+
+	var800a45a0->unk37c = 0;
+
+	for (i = 0; i < 4; i++) {
+		var8007f8dc[i].unk0d4_03 = false;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f14a3c4
-/*  f14a3c4:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
-/*  f14a3c8:	8dce45a0 */ 	lw	$t6,%lo(var800a45a0)($t6)
-/*  f14a3cc:	3c048008 */ 	lui	$a0,%hi(var8007f8dc)
-/*  f14a3d0:	2484f8dc */ 	addiu	$a0,$a0,%lo(var8007f8dc)
-/*  f14a3d4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14a3d8:	24050410 */ 	addiu	$a1,$zero,0x410
-/*  f14a3dc:	adc0037c */ 	sw	$zero,0x37c($t6)
-.L0f14a3e0:
-/*  f14a3e0:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*  f14a3e4:	01e31021 */ 	addu	$v0,$t7,$v1
-/*  f14a3e8:	905800d4 */ 	lbu	$t8,0xd4($v0)
-/*  f14a3ec:	24630104 */ 	addiu	$v1,$v1,0x104
-/*  f14a3f0:	3319ffef */ 	andi	$t9,$t8,0xffef
-/*  f14a3f4:	1465fffa */ 	bne	$v1,$a1,.L0f14a3e0
-/*  f14a3f8:	a05900d4 */ 	sb	$t9,0xd4($v0)
-/*  f14a3fc:	03e00008 */ 	jr	$ra
-/*  f14a400:	00000000 */ 	nop
+glabel func0f14a404
 /*  f14a404:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14a408:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14a40c:	00002025 */ 	or	$a0,$zero,$zero
