@@ -1071,20 +1071,12 @@ s32 func0f14a9f8(s32 index)
 	return thing->unk3a4;
 }
 
-GLOBAL_ASM(
-glabel func0f14aa1c
-/*  f14aa1c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14aa20:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14aa24:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14aa28:	0fc5281b */ 	jal	func0f14a06c
-/*  f14aa2c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14aa30:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f14aa34:	ac4e03b8 */ 	sw	$t6,0x3b8($v0)
-/*  f14aa38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14aa3c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14aa40:	03e00008 */ 	jr	$ra
-/*  f14aa44:	00000000 */ 	nop
-);
+void func0f14aa1c(s32 arg0)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+
+	thing->unk3b8 = arg0;
+}
 
 GLOBAL_ASM(
 glabel func0f14aa48
