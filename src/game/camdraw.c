@@ -1010,19 +1010,12 @@ u32 *func0f14a89c(s32 index)
 	return &thing->unk004;
 }
 
-GLOBAL_ASM(
-glabel func0f14a8c0
-/*  f14a8c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a8c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a8c8:	0fc52883 */ 	jal	func0f14a20c
-/*  f14a8cc:	00000000 */ 	nop
-/*  f14a8d0:	8c4200d4 */ 	lw	$v0,0xd4($v0)
-/*  f14a8d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a8d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a8dc:	000277c2 */ 	srl	$t6,$v0,0x1f
-/*  f14a8e0:	03e00008 */ 	jr	$ra
-/*  f14a8e4:	01c01025 */ 	or	$v0,$t6,$zero
-);
+bool func0f14a8c0(void)
+{
+	struct var8007f8dc *thing = func0f14a20c();
+
+	return thing->unk0d4_00;
+}
 
 const char var7f1b65e4[] = "camdraw.c";
 const char var7f1b65f0[] = "Cam -> Setting current hair colour to %s\n";
