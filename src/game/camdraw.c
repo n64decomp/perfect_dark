@@ -1021,22 +1021,15 @@ const char var7f1b65e4[] = "camdraw.c";
 const char var7f1b65f0[] = "Cam -> Setting current hair colour to %s\n";
 const char var7f1b661c[] = "Cam -> Setting current face colour to %s\n";
 
+bool func0f14a8e8(void)
+{
+	struct var8007f8dc *thing = func0f14a20c();
+
+	return thing->unk0f8 == 0 ? false : true;
+}
+
 GLOBAL_ASM(
-glabel func0f14a8e8
-/*  f14a8e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a8ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a8f0:	0fc52883 */ 	jal	func0f14a20c
-/*  f14a8f4:	00000000 */ 	nop
-/*  f14a8f8:	8c4e00f8 */ 	lw	$t6,0xf8($v0)
-/*  f14a8fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a900:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a904:	15c00003 */ 	bnez	$t6,.L0f14a914
-/*  f14a908:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f14a90c:	10000001 */ 	b	.L0f14a914
-/*  f14a910:	00001825 */ 	or	$v1,$zero,$zero
-.L0f14a914:
-/*  f14a914:	03e00008 */ 	jr	$ra
-/*  f14a918:	00601025 */ 	or	$v0,$v1,$zero
+glabel func0f14a91c
 /*  f14a91c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14a920:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14a924:	afa40018 */ 	sw	$a0,0x18($sp)
