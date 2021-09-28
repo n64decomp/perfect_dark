@@ -8233,21 +8233,16 @@ glabel func0f15015c
 /*  f1507b0:	27bd14f8 */ 	addiu	$sp,$sp,0x14f8
 );
 
+void func0f1507b4(s32 index, struct fileguid *guid)
+{
+	u8 *ptr = func0f14a06c(index);
+
+	guid->fileid = *(s32 *) &ptr[0x3f8];
+	guid->deviceserial = *(u16 *) &ptr[0x3fc];
+}
+
 GLOBAL_ASM(
-glabel func0f1507b4
-/*  f1507b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1507b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1507bc:	0fc5281b */ 	jal	func0f14a06c
-/*  f1507c0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1507c4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f1507c8:	8c4e03f8 */ 	lw	$t6,0x3f8($v0)
-/*  f1507cc:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f1507d0:	944f03fc */ 	lhu	$t7,0x3fc($v0)
-/*  f1507d4:	a46f0004 */ 	sh	$t7,0x4($v1)
-/*  f1507d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1507dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1507e0:	03e00008 */ 	jr	$ra
-/*  f1507e4:	00000000 */ 	nop
+glabel func0f1507e8
 /*  f1507e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1507ec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1507f0:	afa40018 */ 	sw	$a0,0x18($sp)

@@ -8,7 +8,7 @@ u32 func0f149c90(void);
 u32 func0f149d58(void);
 u32 func0f149e58(void);
 u32 func0f14a00c(void);
-u32 func0f14a06c(void);
+void *func0f14a06c(s32 index);
 u32 func0f14a16c(void);
 u32 func0f14a1cc(void);
 u32 func0f14a1ec(void);
@@ -86,7 +86,7 @@ u32 func0f14fdb0(void);
 u32 func0f14ff94(void);
 u32 func0f150068(void);
 s32 func0f15015c(s32 device, s32 filenum, u8 *arg2);
-void func0f1507b4(s32 arg0, struct fileguid *guid);
+void func0f1507b4(s32 index, struct fileguid *guid);
 
 extern const char var7f1b6050[];
 extern const char var7f1b6058[];
