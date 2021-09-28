@@ -1085,17 +1085,15 @@ void func0f14aa48(void)
 	thing->unk3b8 = 6;
 }
 
+s32 func0f14aa70(void)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+
+	return thing->unk3b8;
+}
+
 GLOBAL_ASM(
-glabel func0f14aa70
-/*  f14aa70:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14aa74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14aa78:	0fc5281b */ 	jal	func0f14a06c
-/*  f14aa7c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14aa80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14aa84:	8c4203b8 */ 	lw	$v0,0x3b8($v0)
-/*  f14aa88:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14aa8c:	03e00008 */ 	jr	$ra
-/*  f14aa90:	00000000 */ 	nop
+glabel func0f14aa94
 /*  f14aa94:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14aa98:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14aa9c:	0fc5287b */ 	jal	phGetColourName
