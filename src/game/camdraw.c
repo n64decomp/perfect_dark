@@ -874,20 +874,15 @@ s32 func0f14a5a4(void)
 	return var800a45a0->unk000;
 }
 
+void func0f14a5b4(s32 index)
+{
+	var800a45a0->unk004 = index;
+
+	func0f14b394(func0f14a06c(index));
+}
+
 GLOBAL_ASM(
-glabel func0f14a5b4
-/*  f14a5b4:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
-/*  f14a5b8:	8dce45a0 */ 	lw	$t6,%lo(var800a45a0)($t6)
-/*  f14a5bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a5c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a5c4:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a5c8:	adc40004 */ 	sw	$a0,0x4($t6)
-/*  f14a5cc:	0fc52ce5 */ 	jal	func0f14b394
-/*  f14a5d0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f14a5d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a5d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a5dc:	03e00008 */ 	jr	$ra
-/*  f14a5e0:	00000000 */ 	nop
+glabel func0f14a5e4
 /*  f14a5e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14a5e8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14a5ec:	3c067f1b */ 	lui	$a2,%hi(var7f1b6530)
