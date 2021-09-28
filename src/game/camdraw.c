@@ -1156,16 +1156,13 @@ s32 func0f14abb0(void)
 	return thing->unk3b4;
 }
 
+void func0f14abd4(s32 index, s32 arg1)
+{
+	var8007f8dc[index].unk06c = arg1;
+}
+
 GLOBAL_ASM(
-glabel func0f14abd4
-/*  f14abd4:	3c0e8008 */ 	lui	$t6,%hi(var8007f8dc)
-/*  f14abd8:	8dcef8dc */ 	lw	$t6,%lo(var8007f8dc)($t6)
-/*  f14abdc:	00047980 */ 	sll	$t7,$a0,0x6
-/*  f14abe0:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f14abe4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f14abe8:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f14abec:	03e00008 */ 	jr	$ra
-/*  f14abf0:	af05006c */ 	sw	$a1,0x6c($t8)
+glabel func0f14abf4
 /*  f14abf4:	3c0e8008 */ 	lui	$t6,%hi(var8007f8dc)
 /*  f14abf8:	8dcef8dc */ 	lw	$t6,%lo(var8007f8dc)($t6)
 /*  f14abfc:	00047980 */ 	sll	$t7,$a0,0x6
