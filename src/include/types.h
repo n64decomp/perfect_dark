@@ -5054,13 +5054,13 @@ struct pak {
 	/*0x284*/ s32 rumblepulsestopat;
 	/*0x288*/ u32 rumblepulselen;
 	/*0x28c*/ u32 rumblepulsetimer;  // counts up to pulselen then loops
-	/*0x290*/ u32 unk290;
-	/*0x294*/ u32 unk294;
+	/*0x290*/ s32 notestotal; // always 16
+	/*0x294*/ s32 notesused;
 	/*0x298*/ u32 unk298;
-	/*0x29c*/ s32 noteindex;
-	/*0x2a0*/ u32 numbytes;
-	/*0x2a4*/ u32 numblocks;
-	/*0x2a8*/ u32 numpages;
+	/*0x29c*/ s32 pdnoteindex;
+	/*0x2a0*/ u32 pdnumbytes;
+	/*0x2a4*/ u32 pdnumblocks;
+	/*0x2a8*/ u32 pdnumpages;
 	/*0x2ac*/ u32 unk2ac;
 	/*0x2b0*/ u32 unk2b0;
 	/*0x2b4*/ f32 rumblettl;
@@ -5074,7 +5074,7 @@ struct pak {
 	/*0x2b9*/ u8 unk2b9;
 	/*0x2ba*/ u8 unk2ba;
 	/*0x2bb*/ u8 unk2bb;
-	/*0x2bc*/ u8 numnotes;
+	/*0x2bc*/ u8 pdnumnotes;
 	/*0x2bd*/ u8 unk2bd;
 	/*0x2be*/ u8 headercachecount;
 	/*0x2c0*/ struct pakheadercache *headercache;
