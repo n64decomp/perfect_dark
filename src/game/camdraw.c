@@ -1116,21 +1116,15 @@ s32 func0f14aae8(void)
 	return thing->colournum;
 }
 
-GLOBAL_ASM(
-glabel func0f14ab0c
-/*  f14ab0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14ab10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ab14:	0fc52873 */ 	jal	phGetStyleName
-/*  f14ab18:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14ab1c:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ab20:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ab24:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f14ab28:	ac4e03a0 */ 	sw	$t6,0x3a0($v0)
-/*  f14ab2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14ab30:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14ab34:	03e00008 */ 	jr	$ra
-/*  f14ab38:	00000000 */ 	nop
-);
+void func0f14ab0c(s32 stylenum)
+{
+	struct var8007f8e0 *thing;
+
+	phGetStyleName(stylenum);
+
+	thing = func0f14a06c(-1);
+	thing->stylenum = stylenum;
+}
 
 const char var7f1b6648[] = "camdraw.c";
 const char var7f1b6654[] = "Cam_SetAutoDeArtefact -> State = %d\n";
