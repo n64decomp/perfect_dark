@@ -26,7 +26,7 @@ bool func0f14a8e8(void);
 void func0f14a95c(void);
 s32 func0f14a984(void);
 s32 func0f14a9f8(s32 index);
-u32 func0f14aa48(void);
+void func0f14aa48(void);
 u32 func0f14aa70(void);
 u32 func0f14aac4(void);
 u32 func0f14ab3c(void);
