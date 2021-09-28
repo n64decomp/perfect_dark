@@ -1665,18 +1665,10 @@ glabel func0f14ab3c
 /*  f14ad10:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f14ad14
-/*  f14ad14:	3c0e8008 */ 	lui	$t6,%hi(var8007f8dc)
-/*  f14ad18:	8dcef8dc */ 	lw	$t6,%lo(var8007f8dc)($t6)
-/*  f14ad1c:	00047980 */ 	sll	$t7,$a0,0x6
-/*  f14ad20:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f14ad24:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f14ad28:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f14ad2c:	8f19005c */ 	lw	$t9,0x5c($t8)
-/*  f14ad30:	03e00008 */ 	jr	$ra
-/*  f14ad34:	3322ffff */ 	andi	$v0,$t9,0xffff
-);
+u16 func0f14ad14(s32 device)
+{
+	return var8007f8dc[device].unk05c & 0xffff;
+}
 
 s32 func0f14ad38(s32 device)
 {
