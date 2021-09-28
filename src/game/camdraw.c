@@ -953,48 +953,24 @@ glabel func0f14a2fc
 /*  f14a324:	01c01025 */ 	or	$v0,$t6,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f14a328
-/*  f14a328:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
-/*  f14a32c:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
-/*  f14a330:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14a334:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f14a338:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14a33c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f14a340:	11c10019 */ 	beq	$t6,$at,.L0f14a3a8
-/*  f14a344:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f14a348:	0fc5db69 */ 	jal	align16
-/*  f14a34c:	24040410 */ 	addiu	$a0,$zero,0x410
-/*  f14a350:	00408025 */ 	or	$s0,$v0,$zero
-/*  f14a354:	0fc5db69 */ 	jal	align16
-/*  f14a358:	24040490 */ 	addiu	$a0,$zero,0x490
-/*  f14a35c:	00408825 */ 	or	$s1,$v0,$zero
-/*  f14a360:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14a364:	0c0048f2 */ 	jal	malloc
-/*  f14a368:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f14a36c:	3c018008 */ 	lui	$at,%hi(var8007f8dc)
-/*  f14a370:	ac22f8dc */ 	sw	$v0,%lo(var8007f8dc)($at)
-/*  f14a374:	02202025 */ 	or	$a0,$s1,$zero
-/*  f14a378:	0c0048f2 */ 	jal	malloc
-/*  f14a37c:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f14a380:	3c01800a */ 	lui	$at,%hi(var800a45a0)
-/*  f14a384:	0fc52890 */ 	jal	func0f14a240
-/*  f14a388:	ac2245a0 */ 	sw	$v0,%lo(var800a45a0)($at)
-/*  f14a38c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f14a390:	24110004 */ 	addiu	$s1,$zero,0x4
-.L0f14a394:
-/*  f14a394:	0fc52b56 */ 	jal	func0f14ad58
-/*  f14a398:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14a39c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f14a3a0:	1611fffc */ 	bne	$s0,$s1,.L0f14a394
-/*  f14a3a4:	00000000 */ 	nop
-.L0f14a3a8:
-/*  f14a3a8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14a3ac:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f14a3b0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f14a3b4:	03e00008 */ 	jr	$ra
-/*  f14a3b8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void phAllocate(void)
+{
+	s32 i;
+
+	if (IS8MB()) {
+		u32 size1 = align16(sizeof(struct var8007f8dc) * 4);
+		u32 size2 = align16(0x490);
+
+		var8007f8dc = malloc(size1, MEMPOOL_PERMANENT);
+		var800a45a0 = malloc(size2, MEMPOOL_PERMANENT);
+
+		func0f14a240();
+
+		for (i = 0; i < 4; i++) {
+			func0f14ad58(i);
+		}
+	}
+}
 
 void func0f14a3bc(void)
 {

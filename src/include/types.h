@@ -7218,6 +7218,7 @@ struct var800a45a0 {
 	/*0x170*/ u32 unk170;
 	/*0x174*/ u32 unk174;
 	/*0x178*/ u32 unk178;
+	// len 0x490?
 };
 
 struct var8007f8e0 { // perfect head?
