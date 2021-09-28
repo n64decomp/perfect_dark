@@ -988,40 +988,23 @@ void func0f14a7e8(s32 index)
 	func0f14c50c(func0f14a06c(-1), func0f14a06c(index), 1470, "camdraw.c");
 }
 
-const char var7f1b65d8[] = "camdraw.c";
+void func0f14a830(void)
+{
+	struct var8007f8dc *thing = func0f14a20c();
+
+	if (thing->unk0d4_00) {
+		thing->unk0d4_00 = false;
+	} else {
+		thing->unk0d4_00 = true;
+	}
+
+	if (thing->unk0d4_00) {
+		func0f14def0(-1, 1484, "camdraw.c");
+	}
+}
 
 GLOBAL_ASM(
-glabel func0f14a830
-/*  f14a830:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a834:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a838:	0fc52883 */ 	jal	func0f14a20c
-/*  f14a83c:	00000000 */ 	nop
-/*  f14a840:	8c4e00d4 */ 	lw	$t6,0xd4($v0)
-/*  f14a844:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a848:	240505cc */ 	addiu	$a1,$zero,0x5cc
-/*  f14a84c:	000e7fc2 */ 	srl	$t7,$t6,0x1f
-/*  f14a850:	11e00005 */ 	beqz	$t7,.L0f14a868
-/*  f14a854:	3c067f1b */ 	lui	$a2,%hi(var7f1b65d8)
-/*  f14a858:	905800d4 */ 	lbu	$t8,0xd4($v0)
-/*  f14a85c:	3319ff7f */ 	andi	$t9,$t8,0xff7f
-/*  f14a860:	10000004 */ 	b	.L0f14a874
-/*  f14a864:	a05900d4 */ 	sb	$t9,0xd4($v0)
-.L0f14a868:
-/*  f14a868:	904900d4 */ 	lbu	$t1,0xd4($v0)
-/*  f14a86c:	352a0080 */ 	ori	$t2,$t1,0x80
-/*  f14a870:	a04a00d4 */ 	sb	$t2,0xd4($v0)
-.L0f14a874:
-/*  f14a874:	8c4b00d4 */ 	lw	$t3,0xd4($v0)
-/*  f14a878:	000b67c2 */ 	srl	$t4,$t3,0x1f
-/*  f14a87c:	51800004 */ 	beqzl	$t4,.L0f14a890
-/*  f14a880:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a884:	0fc537bc */ 	jal	func0f14def0
-/*  f14a888:	24c665d8 */ 	addiu	$a2,$a2,%lo(var7f1b65d8)
-/*  f14a88c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f14a890:
-/*  f14a890:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a894:	03e00008 */ 	jr	$ra
-/*  f14a898:	00000000 */ 	nop
+glabel func0f14a89c
 /*  f14a89c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14a8a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14a8a4:	0fc5281b */ 	jal	func0f14a06c
