@@ -854,10 +854,13 @@ void func0f14a428(void)
 const char var7f1b64cc[] = "CAM : Cam_StartCamFileRead - Go\n";
 const char var7f1b64f0[] = "************ Cam_ActivateAndClearSlot ************ : Slot=%d\n";
 
+void func0f14a480(void)
+{
+	// empty
+}
+
 GLOBAL_ASM(
-glabel func0f14a480
-/*  f14a480:	03e00008 */ 	jr	$ra
-/*  f14a484:	00000000 */ 	nop
+glabel func0f14a488
 /*  f14a488:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f14a48c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f14a490:	afb30020 */ 	sw	$s3,0x20($sp)
