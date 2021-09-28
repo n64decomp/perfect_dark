@@ -909,11 +909,12 @@ glabel func0f14a610
 /*  f14a65c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f14a660:	03e00008 */ 	jr	$ra
 /*  f14a664:	00000000 */ 	nop
-/*  f14a668:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
-/*  f14a66c:	8dce45a0 */ 	lw	$t6,%lo(var800a45a0)($t6)
-/*  f14a670:	03e00008 */ 	jr	$ra
-/*  f14a674:	8dc20004 */ 	lw	$v0,0x4($t6)
 );
+
+s32 func0f14a668(void)
+{
+	return var800a45a0->unk004;
+}
 
 const char var7f1b6554[] = "camdraw.c";
 const char var7f1b6560[] = "camdraw.c";
