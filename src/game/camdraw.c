@@ -1017,10 +1017,6 @@ bool func0f14a8c0(void)
 	return thing->unk0d4_00;
 }
 
-const char var7f1b65e4[] = "camdraw.c";
-const char var7f1b65f0[] = "Cam -> Setting current hair colour to %s\n";
-const char var7f1b661c[] = "Cam -> Setting current face colour to %s\n";
-
 bool func0f14a8e8(void)
 {
 	struct var8007f8dc *thing = func0f14a20c();
@@ -1028,25 +1024,17 @@ bool func0f14a8e8(void)
 	return thing->unk0f8 == 0 ? false : true;
 }
 
-GLOBAL_ASM(
-glabel func0f14a91c
-/*  f14a91c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a920:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a924:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14a928:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a92c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a930:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f14a934:	3c067f1b */ 	lui	$a2,%hi(var7f1b65e4)
-/*  f14a938:	24c665e4 */ 	addiu	$a2,$a2,%lo(var7f1b65e4)
-/*  f14a93c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a940:	240505ee */ 	addiu	$a1,$zero,0x5ee
-/*  f14a944:	0fc537bc */ 	jal	func0f14def0
-/*  f14a948:	ac4e03bc */ 	sw	$t6,0x3bc($v0)
-/*  f14a94c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a950:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a954:	03e00008 */ 	jr	$ra
-/*  f14a958:	00000000 */ 	nop
-);
+void func0f14a91c(s32 arg0)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+
+	thing->unk3bc = arg0;
+
+	func0f14def0(-1, 1518, "camdraw.c");
+}
+
+const char var7f1b65f0[] = "Cam -> Setting current hair colour to %s\n";
+const char var7f1b661c[] = "Cam -> Setting current face colour to %s\n";
 
 GLOBAL_ASM(
 glabel func0f14a95c
