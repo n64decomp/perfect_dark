@@ -1109,17 +1109,15 @@ void func0f14aac4(void)
 	thing->colournum = 0;
 }
 
+s32 func0f14aae8(void)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+
+	return thing->colournum;
+}
+
 GLOBAL_ASM(
-glabel func0f14aae8
-/*  f14aae8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14aaec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14aaf0:	0fc5281b */ 	jal	func0f14a06c
-/*  f14aaf4:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14aaf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14aafc:	8c42039c */ 	lw	$v0,0x39c($v0)
-/*  f14ab00:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14ab04:	03e00008 */ 	jr	$ra
-/*  f14ab08:	00000000 */ 	nop
+glabel func0f14ab0c
 /*  f14ab0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14ab10:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14ab14:	0fc52873 */ 	jal	phGetStyleName
