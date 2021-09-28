@@ -1718,9 +1718,65 @@ glabel var7f1b72e8
 /*  f14ae9c:	e4500048 */ 	swc1	$f16,0x48($v0)
 );
 
+// Mismatch: need to fiddle with the order of these
+//void func0f14ad58(s32 index)
+//{
+//	struct var8007f8dc *thing = &var8007f8dc[index];
+//
+//	thing->unk000 = 0;
+//	thing->unk004 = 1.0f;
+//	thing->unk008 = 1.0f;
+//	thing->unk050 = 110.0f;
+//	thing->unk00c = 0.1f;
+//	thing->unk010 = 0.2f;
+//	thing->unk054 = 30;
+//	thing->unk058 = -1;
+//	thing->unk068 = -1;
+//	thing->unk06c = 0;
+//	thing->unk070 = 0;
+//	thing->unk074 = 0;
+//	thing->unk084 = 0;
+//	thing->unk024 = 1.0f;
+//	thing->unk028 = 1.0f;
+//	thing->unk03c = 1.0f;
+//	thing->unk014 = 0.0f;
+//	thing->unk018 = 0.0f;
+//	thing->unk01c = 0.0f;
+//	thing->unk020 = 0.0f;
+//	thing->unk02c = 0.0f;
+//	thing->unk030 = 0.0f;
+//	thing->unk034 = 0.0f;
+//	thing->unk038 = 0.0f;
+//	thing->unk040 = 0.0f;
+//	thing->unk044 = 30.0f;
+//	thing->unk060 = 6;
+//	thing->unk08c = 14;
+//	thing->unk088 = 1;
+//	thing->unk090 = 0;
+//	thing->unk064 = 0;
+//	thing->unk0f4 = 0;
+//	thing->unk094 = 0;
+//	thing->unk0f8 = 0;
+//	thing->unk0fc = 3;
+//	thing->unk100 = 3;
+//	thing->unk0e0 = 0;
+//	thing->unk0e4 = 0;
+//	thing->unk0e8 = 0;
+//	thing->unk0ec = 0;
+//	thing->unk0f0 = 0;
+//	thing->unk078 = 0;
+//	thing->unk07c = 0;
+//	thing->unk05c = var8007f940;
+//	thing->unk048 = 1.0f;
+//	thing->unk0d4_00 = false;
+//	thing->unk0d4_01 = false;
+//	thing->unk0d4_02 = false;
+//	thing->unk0d4_04 = true;
+//}
+
 bool func0f14aea0(s32 device)
 {
-	return (var8007f8dc[device].unk0d4 << 3) >> 0x1f;
+	return var8007f8dc[device].unk0d4_03;
 }
 
 void func0f14aec8(void)
