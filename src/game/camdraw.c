@@ -230,140 +230,6 @@ const u32 var7f1b6398[] = {0x00147eff};
 const u32 var7f1b639c[] = {0x0c1857ff};
 
 const char var7f1b63a0[] = "RWI : Cam Alloc : Guid=%d -> Total = %u (%d at %s)\n";
-const char var7f1b63d4[] = "camdraw.c";
-const char var7f1b63e0[] = "Cam -> Dumping head vertex colour information\n";
-const char var7f1b6410[] = "Cam -> Face Col - Pal=%d, Entry=%d, Col=%08x\n";
-const char var7f1b6440[] = "Cam -> Hair Col - Pal=%d, Entry=%d, Col=%08x\n";
-const char var7f1b6470[] = "Cam_Tick (%d Total Slots)";
-const char var7f1b648c[] = "Current Camera Slot = %d\n";
-const char var7f1b64a8[] = "Slot %d -> Active = %d";
-const char var7f1b64c0[] = "camdraw.c";
-const char var7f1b64cc[] = "CAM : Cam_StartCamFileRead - Go\n";
-const char var7f1b64f0[] = "************ Cam_ActivateAndClearSlot ************ : Slot=%d\n";
-const char var7f1b6530[] = "camdraw.c";
-const char var7f1b653c[] = "camdraw.c";
-const char var7f1b6548[] = "camdraw.c";
-const char var7f1b6554[] = "camdraw.c";
-const char var7f1b6560[] = "camdraw.c";
-const char var7f1b656c[] = "camdraw.c";
-const char var7f1b6578[] = "camdraw.c";
-const char var7f1b6584[] = "Cam_CopyEditorToUndo\n";
-const char var7f1b659c[] = "camdraw.c";
-const char var7f1b65a8[] = "Cam_CopyUndoToEditor\n";
-const char var7f1b65c0[] = "camdraw.c";
-const char var7f1b65cc[] = "camdraw.c";
-const char var7f1b65d8[] = "camdraw.c";
-const char var7f1b65e4[] = "camdraw.c";
-const char var7f1b65f0[] = "Cam -> Setting current hair colour to %s\n";
-const char var7f1b661c[] = "Cam -> Setting current face colour to %s\n";
-const char var7f1b6648[] = "camdraw.c";
-const char var7f1b6654[] = "Cam_SetAutoDeArtefact -> State = %d\n";
-const char var7f1b667c[] = "camdraw.c";
-const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
-const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
-const char var7f1b66ec[] = "camdraw.c";
-const char var7f1b66f8[] = "camdraw.c";
-const char var7f1b6704[] = "camdraw.c";
-const char var7f1b6710[] = "camdraw.c";
-const char var7f1b671c[] = "camdraw.c";
-const char var7f1b6728[] = "Camera -> Cam_Start for Camera %d\n";
-const char var7f1b674c[] = "Camera -> Cam_Stop\n";
-const char var7f1b6760[] = "Camera -> Cam_Finish - Done\n";
-const char var7f1b6780[] = "Camera ->Created a new slot - Id=%d\n";
-const char var7f1b67a8[] = "Camera -> CD_DeleteSlot - Dumping slot %d\n";
-const char var7f1b67d4[] = "kg";
-const char var7f1b67d8[] = "Kp";
-const char var7f1b67dc[] = "Ki";
-const char var7f1b67e0[] = "Kd";
-const char var7f1b67e4[] = "tInt";
-const char var7f1b67ec[] = "gocal";
-const char var7f1b67f4[] = "aim";
-const char var7f1b67f8[] = "CAM : Cam_MakeTextures\n";
-const char var7f1b6810[] = "camdraw.c";
-const char var7f1b681c[] = "pD->ReadMode = %s";
-const char var7f1b6830[] = "Camera -> Getting Header Info\n";
-const char var7f1b6850[] = "Camera -> Item=%d, pD->CamHeader[i]=%d\n";
-const char var7f1b6878[] = "Camera -> Found %d Valid images\n";
-const char var7f1b689c[] = "Camera -> Item=%d, Valid=%s, Bank=%d\n";
-const char var7f1b68c4[] = "YES";
-const char var7f1b68c8[] = "NO";
-const char var7f1b68cc[] = "CD_TransferCurrentCacheToEditorAndExit : Player=%d, pD->CamRdImg=%d\n";
-const char var7f1b6914[] = "Camera -> CD_CycleHandleRead - Need to load up the camera header\n";
-const char var7f1b6958[] = "Camera -> CD_CycleHandleRead - Image %d needs loading for editor coppying on menu exit\n";
-const char var7f1b69b0[] = "Camera -> CD_CycleHandleRead - Error ekCamReadModeExit2 in Null cycle\n";
-const char var7f1b69f8[] = "CAMERA : COPY SLOT (%d of %s): Slot %d(%s) -> Slot %d(%s)\n";
-const char var7f1b6a34[] = "ACTIVE";
-const char var7f1b6a3c[] = "NULL";
-const char var7f1b6a44[] = "ACTIVE";
-const char var7f1b6a4c[] = "NULL";
-const char var7f1b6a54[] = "RWI : Warning -> Not copying the thumbnail texture\n";
-const char var7f1b6a88[] = "CD_DrawTexture : pTex=%x\n";
-const char var7f1b6aa4[] = "Cam -> WARNING - Not done intensity table recalc :- No samples within threshold\n";
-const char var7f1b6af8[] = "Camera -> Call to reset auto calibrate\n";
-const char var7f1b6b20[] = "AC -> ekCamAutoCalStatusReset - pD->tTime = %d, pD->tTimeNxAdd = %d\n";
-const char var7f1b6b68[] = "Cam 0 -> Time = %d, Target = %d, tInt = %.2f\n";
-const char var7f1b6b98[] = "Cam 0 -> Too Low -> Adding Time\n";
-const char var7f1b6bbc[] = "Cam 0 -> Too High -> Subbing Time\n";
-const char var7f1b6be0[] = "Cam -> ekCamAutoCalStatusSettingTime - New time = %d\n";
-const char var7f1b6c18[] = "%s%sAC -> Gain = %d, Target = %.2f, tInt = %.2f\n";
-const char var7f1b6c4c[] = "";
-const char var7f1b6c50[] = "";
-const char var7f1b6c54[] = "Auto Calibrate is removing the menu message\n";
-const char var7f1b6c84[] = "Auto Calibrate is shutting down\n";
-const char var7f1b6ca8[] = "Cam -> Cam_BalanceSlot %d -> tZroShift = %d\n";
-const char var7f1b6cd8[] = "Cam_BuildFaceTexture (slot=%d): %d of %s\n";
-const char var7f1b6d04[] = "camdraw.c";
-const char var7f1b6d10[] = "camdraw.c";
-const char var7f1b6d1c[] = "Cam %d -> Balance : No Data Available\n";
-const char var7f1b6d44[] = "camdraw.c";
-const char var7f1b6d50[] = "Cam_SetSquashZ : %u, %u, %f\n";
-const char var7f1b6d70[] = "camdraw.c";
-const char var7f1b6d7c[] = "Cam : Alloc for copy of Vtx %d bytes\n";
-const char var7f1b6da4[] = "CAM : Cam_AllocAndCopyAllVtx -> Ptr all-ready allocted - No extra needed\n";
-const char var7f1b6df0[] = "camdraw.c";
-const char var7f1b6dfc[] = "Cam_RebuildHead : Slot=%d\n";
-const char var7f1b6e18[] = "Cam -> Cam_ColourHeadOnePart - Remapping %s\n";
-const char var7f1b6e48[] = "Cam_ColourHead : Face Col = %u, Hair Col = %u\n";
-const char var7f1b6e78[] = "FACE";
-const char var7f1b6e80[] = "SIDE";
-const char var7f1b6e88[] = "HAIR";
-const char var7f1b6e90[] = "Cam -> Cam_SquashOnePart - pExtents=%08x, pVcopy=%08x, \n";
-const char var7f1b6ecc[] = "Cam -> Cam_SquashOnePart - Head centre at (%d,%d,%d)\n";
-const char var7f1b6f04[] = "Cam -> Cam_SquashOnePart - Scale Param 1 = %s%s%.3f\n";
-const char var7f1b6f3c[] = "";
-const char var7f1b6f40[] = "";
-const char var7f1b6f44[] = "Cam -> Cam_SquashOnePart - Scale Param 2 = %s%s%.3f\n";
-const char var7f1b6f7c[] = "";
-const char var7f1b6f80[] = "";
-const char var7f1b6f84[] = "Cam -> Cam_SquashOnePart - Scale Param 3 = %s%s%.3f\n";
-const char var7f1b6fbc[] = "";
-const char var7f1b6fc0[] = "";
-const char var7f1b6fc4[] = "Cam -> Cam_SquashOnePart - Scale Param 4 = %s%s%.3f\n";
-const char var7f1b6ffc[] = "";
-const char var7f1b7000[] = "";
-const char var7f1b7004[] = "Cam -> Cam_SquashOnePart - Scale Param 5 = %s%s%.3f\n";
-const char var7f1b703c[] = "";
-const char var7f1b7040[] = "";
-const char var7f1b7044[] = "Cam -> Cam_SquashOnePart - Scale Param 6 = %s%s%.3f\n";
-const char var7f1b707c[] = "";
-const char var7f1b7080[] = "";
-const char var7f1b7084[] = "Cam -> Cam_SquashOnePart - Scale Param 7 = %s%s%.3f\n";
-const char var7f1b70bc[] = "";
-const char var7f1b70c0[] = "";
-const char var7f1b70c4[] = "Cam_DctInitialise_Read -> %x\n";
-const char var7f1b70e4[] = "Cam_DctUnCompressSlot -> %x\n";
-const char var7f1b7104[] = "Cam_LoadFromPakIntoSlot -> Pak=%d, fileGuid=%u, pakGuid=%u, Slot=%d, pS=%x, pE=%x\n";
-const char var7f1b7158[] = "camdraw.c";
-const char var7f1b7164[] = "camdraw.c";
-const char var7f1b7170[] = "Cam -> Compressing Editor Slot\n";
-const char var7f1b7190[] = "Cam -> Trying image compression at quality %u\n";
-const char var7f1b71c0[] = "Cam -> Failed - Too big - This=%u, Max=%d\n";
-const char var7f1b71ec[] = "Cam -> Trying lower quality setting\n";
-const char var7f1b7214[] = "Cam -> Save Failed - Cant get it small enough - oo-er\n";
-const char var7f1b724c[] = "Cam -> Sucess at quality %u - Size=%u, Max=%d\n";
-const char var7f1b727c[] = "\nCam_SaveEditSlotToParamPakItem -> Save failed\n";
-const char var7f1b72ac[] = "Camera Save Error Result: %d\n";
-const char var7f1b72cc[] = "Magic Guid set to %d\n";
 
 u32 var8007f8c0 = (u32)&var7f1b6050;
 u32 var8007f8c4 = (u32)&var7f1b6058;
@@ -611,6 +477,14 @@ glabel func0f149d58
 /*  f149e50:	03e00008 */ 	jr	$ra
 /*  f149e54:	00000000 */ 	nop
 );
+
+const char var7f1b63d4[] = "camdraw.c";
+const char var7f1b63e0[] = "Cam -> Dumping head vertex colour information\n";
+const char var7f1b6410[] = "Cam -> Face Col - Pal=%d, Entry=%d, Col=%08x\n";
+const char var7f1b6440[] = "Cam -> Hair Col - Pal=%d, Entry=%d, Col=%08x\n";
+const char var7f1b6470[] = "Cam_Tick (%d Total Slots)";
+const char var7f1b648c[] = "Current Camera Slot = %d\n";
+const char var7f1b64a8[] = "Slot %d -> Active = %d";
 
 GLOBAL_ASM(
 glabel func0f149e58
@@ -968,31 +842,20 @@ void func0f14a404(void)
 	func0f149e58(0, 0);
 }
 
+void func0f14a428(void)
+{
+	s32 i;
+
+	for (i = 0; i < 22; i++) {
+		func0f14a2fc(i, 1296, "camdraw.c");
+	}
+}
+
+const char var7f1b64cc[] = "CAM : Cam_StartCamFileRead - Go\n";
+const char var7f1b64f0[] = "************ Cam_ActivateAndClearSlot ************ : Slot=%d\n";
+
 GLOBAL_ASM(
-glabel func0f14a428
-/*  f14a428:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f14a42c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f14a430:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f14a434:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14a438:	3c117f1b */ 	lui	$s1,%hi(var7f1b64c0)
-/*  f14a43c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f14a440:	263164c0 */ 	addiu	$s1,$s1,%lo(var7f1b64c0)
-/*  f14a444:	00008025 */ 	or	$s0,$zero,$zero
-/*  f14a448:	24120016 */ 	addiu	$s2,$zero,0x16
-/*  f14a44c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f14a450:
-/*  f14a450:	24050510 */ 	addiu	$a1,$zero,0x510
-/*  f14a454:	0fc528bf */ 	jal	func0f14a2fc
-/*  f14a458:	02203025 */ 	or	$a2,$s1,$zero
-/*  f14a45c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f14a460:	5612fffb */ 	bnel	$s0,$s2,.L0f14a450
-/*  f14a464:	02002025 */ 	or	$a0,$s0,$zero
-/*  f14a468:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f14a46c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14a470:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f14a474:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f14a478:	03e00008 */ 	jr	$ra
-/*  f14a47c:	27bd0028 */ 	addiu	$sp,$sp,0x28
+glabel func0f14a480
 /*  f14a480:	03e00008 */ 	jr	$ra
 /*  f14a484:	00000000 */ 	nop
 /*  f14a488:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -1084,6 +947,10 @@ glabel func0f14a594
 /*  f14a5a0:	adc40000 */ 	sw	$a0,0x0($t6)
 );
 
+const char var7f1b6530[] = "camdraw.c";
+const char var7f1b653c[] = "camdraw.c";
+const char var7f1b6548[] = "camdraw.c";
+
 GLOBAL_ASM(
 glabel func0f14a5a4
 /*  f14a5a4:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
@@ -1140,6 +1007,17 @@ glabel func0f14a5a4
 /*  f14a670:	03e00008 */ 	jr	$ra
 /*  f14a674:	8dc20004 */ 	lw	$v0,0x4($t6)
 );
+
+const char var7f1b6554[] = "camdraw.c";
+const char var7f1b6560[] = "camdraw.c";
+const char var7f1b656c[] = "camdraw.c";
+const char var7f1b6578[] = "camdraw.c";
+const char var7f1b6584[] = "Cam_CopyEditorToUndo\n";
+const char var7f1b659c[] = "camdraw.c";
+const char var7f1b65a8[] = "Cam_CopyUndoToEditor\n";
+const char var7f1b65c0[] = "camdraw.c";
+const char var7f1b65cc[] = "camdraw.c";
+const char var7f1b65d8[] = "camdraw.c";
 
 GLOBAL_ASM(
 glabel func0f14a678
@@ -1303,6 +1181,10 @@ glabel func0f14a678
 /*  f14a8e0:	03e00008 */ 	jr	$ra
 /*  f14a8e4:	01c01025 */ 	or	$v0,$t6,$zero
 );
+
+const char var7f1b65e4[] = "camdraw.c";
+const char var7f1b65f0[] = "Cam -> Setting current hair colour to %s\n";
+const char var7f1b661c[] = "Cam -> Setting current face colour to %s\n";
 
 GLOBAL_ASM(
 glabel func0f14a8e8
@@ -1481,6 +1363,12 @@ glabel func0f14aac4
 /*  f14ab34:	03e00008 */ 	jr	$ra
 /*  f14ab38:	00000000 */ 	nop
 );
+
+const char var7f1b6648[] = "camdraw.c";
+const char var7f1b6654[] = "Cam_SetAutoDeArtefact -> State = %d\n";
+const char var7f1b667c[] = "camdraw.c";
+const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
+const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
 
 GLOBAL_ASM(
 glabel func0f14ab3c
@@ -1783,6 +1671,17 @@ void func0f14aed8(void)
 {
 	// empty
 }
+
+const char var7f1b66ec[] = "camdraw.c";
+const char var7f1b66f8[] = "camdraw.c";
+const char var7f1b6704[] = "camdraw.c";
+const char var7f1b6710[] = "camdraw.c";
+const char var7f1b671c[] = "camdraw.c";
+const char var7f1b6728[] = "Camera -> Cam_Start for Camera %d\n";
+const char var7f1b674c[] = "Camera -> Cam_Stop\n";
+const char var7f1b6760[] = "Camera -> Cam_Finish - Done\n";
+const char var7f1b6780[] = "Camera ->Created a new slot - Id=%d\n";
+const char var7f1b67a8[] = "Camera -> CD_DeleteSlot - Dumping slot %d\n";
 
 GLOBAL_ASM(
 glabel func0f14aee0
@@ -2176,6 +2075,15 @@ glabel func0f14b394
 /*  f14b47c:	03e00008 */ 	jr	$ra
 /*  f14b480:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
+
+const char var7f1b67d4[] = "kg";
+const char var7f1b67d8[] = "Kp";
+const char var7f1b67dc[] = "Ki";
+const char var7f1b67e0[] = "Kd";
+const char var7f1b67e4[] = "tInt";
+const char var7f1b67ec[] = "gocal";
+const char var7f1b67f4[] = "aim";
+const char var7f1b67f8[] = "CAM : Cam_MakeTextures\n";
 
 GLOBAL_ASM(
 glabel func0f14b484
@@ -2697,6 +2605,40 @@ glabel var7f1b72f0
 /*  f14bbfc:	03e00008 */ 	jr	$ra
 /*  f14bc00:	00000000 */ 	nop
 );
+
+const char var7f1b6810[] = "camdraw.c";
+const char var7f1b681c[] = "pD->ReadMode = %s";
+const char var7f1b6830[] = "Camera -> Getting Header Info\n";
+const char var7f1b6850[] = "Camera -> Item=%d, pD->CamHeader[i]=%d\n";
+const char var7f1b6878[] = "Camera -> Found %d Valid images\n";
+const char var7f1b689c[] = "Camera -> Item=%d, Valid=%s, Bank=%d\n";
+const char var7f1b68c4[] = "YES";
+const char var7f1b68c8[] = "NO";
+const char var7f1b68cc[] = "CD_TransferCurrentCacheToEditorAndExit : Player=%d, pD->CamRdImg=%d\n";
+const char var7f1b6914[] = "Camera -> CD_CycleHandleRead - Need to load up the camera header\n";
+const char var7f1b6958[] = "Camera -> CD_CycleHandleRead - Image %d needs loading for editor coppying on menu exit\n";
+const char var7f1b69b0[] = "Camera -> CD_CycleHandleRead - Error ekCamReadModeExit2 in Null cycle\n";
+const char var7f1b69f8[] = "CAMERA : COPY SLOT (%d of %s): Slot %d(%s) -> Slot %d(%s)\n";
+const char var7f1b6a34[] = "ACTIVE";
+const char var7f1b6a3c[] = "NULL";
+const char var7f1b6a44[] = "ACTIVE";
+const char var7f1b6a4c[] = "NULL";
+const char var7f1b6a54[] = "RWI : Warning -> Not copying the thumbnail texture\n";
+const char var7f1b6a88[] = "CD_DrawTexture : pTex=%x\n";
+const char var7f1b6aa4[] = "Cam -> WARNING - Not done intensity table recalc :- No samples within threshold\n";
+const char var7f1b6af8[] = "Camera -> Call to reset auto calibrate\n";
+const char var7f1b6b20[] = "AC -> ekCamAutoCalStatusReset - pD->tTime = %d, pD->tTimeNxAdd = %d\n";
+const char var7f1b6b68[] = "Cam 0 -> Time = %d, Target = %d, tInt = %.2f\n";
+const char var7f1b6b98[] = "Cam 0 -> Too Low -> Adding Time\n";
+const char var7f1b6bbc[] = "Cam 0 -> Too High -> Subbing Time\n";
+const char var7f1b6be0[] = "Cam -> ekCamAutoCalStatusSettingTime - New time = %d\n";
+const char var7f1b6c18[] = "%s%sAC -> Gain = %d, Target = %.2f, tInt = %.2f\n";
+const char var7f1b6c4c[] = "";
+const char var7f1b6c50[] = "";
+const char var7f1b6c54[] = "Auto Calibrate is removing the menu message\n";
+const char var7f1b6c84[] = "Auto Calibrate is shutting down\n";
+const char var7f1b6ca8[] = "Cam -> Cam_BalanceSlot %d -> tZroShift = %d\n";
+const char var7f1b6cd8[] = "Cam_BuildFaceTexture (slot=%d): %d of %s\n";
 
 GLOBAL_ASM(
 glabel func0f14bc04
@@ -5232,6 +5174,10 @@ glabel func0f14dc30
 /*  f14deec:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
 
+const char var7f1b6d04[] = "camdraw.c";
+const char var7f1b6d10[] = "camdraw.c";
+const char var7f1b6d1c[] = "Cam %d -> Balance : No Data Available\n";
+
 GLOBAL_ASM(
 glabel func0f14def0
 /*  f14def0:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -6179,6 +6125,9 @@ glabel func0f14e884
 /*  f14ec28:	00000000 */ 	nop
 );
 
+const char var7f1b6d44[] = "camdraw.c";
+const char var7f1b6d50[] = "Cam_SetSquashZ : %u, %u, %f\n";
+
 GLOBAL_ASM(
 glabel func0f14ec2c
 /*  f14ec2c:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -6366,6 +6315,10 @@ glabel var7f1b735c
 /*  f14eeac:	00000000 */ 	nop
 );
 
+const char var7f1b6d70[] = "camdraw.c";
+const char var7f1b6d7c[] = "Cam : Alloc for copy of Vtx %d bytes\n";
+const char var7f1b6da4[] = "CAM : Cam_AllocAndCopyAllVtx -> Ptr all-ready allocted - No extra needed\n";
+
 GLOBAL_ASM(
 glabel func0f14eeb0
 .late_rodata
@@ -6502,6 +6455,40 @@ glabel func0f14f008
 /*  f14f074:	03e00008 */ 	jr	$ra
 /*  f14f078:	8f020074 */ 	lw	$v0,0x74($t8)
 );
+
+const char var7f1b6df0[] = "camdraw.c";
+const char var7f1b6dfc[] = "Cam_RebuildHead : Slot=%d\n";
+const char var7f1b6e18[] = "Cam -> Cam_ColourHeadOnePart - Remapping %s\n";
+const char var7f1b6e48[] = "Cam_ColourHead : Face Col = %u, Hair Col = %u\n";
+const char var7f1b6e78[] = "FACE";
+const char var7f1b6e80[] = "SIDE";
+const char var7f1b6e88[] = "HAIR";
+const char var7f1b6e90[] = "Cam -> Cam_SquashOnePart - pExtents=%08x, pVcopy=%08x, \n";
+const char var7f1b6ecc[] = "Cam -> Cam_SquashOnePart - Head centre at (%d,%d,%d)\n";
+const char var7f1b6f04[] = "Cam -> Cam_SquashOnePart - Scale Param 1 = %s%s%.3f\n";
+const char var7f1b6f3c[] = "";
+const char var7f1b6f40[] = "";
+const char var7f1b6f44[] = "Cam -> Cam_SquashOnePart - Scale Param 2 = %s%s%.3f\n";
+const char var7f1b6f7c[] = "";
+const char var7f1b6f80[] = "";
+const char var7f1b6f84[] = "Cam -> Cam_SquashOnePart - Scale Param 3 = %s%s%.3f\n";
+const char var7f1b6fbc[] = "";
+const char var7f1b6fc0[] = "";
+const char var7f1b6fc4[] = "Cam -> Cam_SquashOnePart - Scale Param 4 = %s%s%.3f\n";
+const char var7f1b6ffc[] = "";
+const char var7f1b7000[] = "";
+const char var7f1b7004[] = "Cam -> Cam_SquashOnePart - Scale Param 5 = %s%s%.3f\n";
+const char var7f1b703c[] = "";
+const char var7f1b7040[] = "";
+const char var7f1b7044[] = "Cam -> Cam_SquashOnePart - Scale Param 6 = %s%s%.3f\n";
+const char var7f1b707c[] = "";
+const char var7f1b7080[] = "";
+const char var7f1b7084[] = "Cam -> Cam_SquashOnePart - Scale Param 7 = %s%s%.3f\n";
+const char var7f1b70bc[] = "";
+const char var7f1b70c0[] = "";
+const char var7f1b70c4[] = "Cam_DctInitialise_Read -> %x\n";
+const char var7f1b70e4[] = "Cam_DctUnCompressSlot -> %x\n";
+const char var7f1b7104[] = "Cam_LoadFromPakIntoSlot -> Pak=%d, fileGuid=%u, pakGuid=%u, Slot=%d, pS=%x, pE=%x\n";
 
 GLOBAL_ASM(
 glabel func0f14f07c
@@ -7724,6 +7711,18 @@ glabel func0f150068
 /*  f150154:	03e00008 */ 	jr	$ra
 /*  f150158:	27bd0170 */ 	addiu	$sp,$sp,0x170
 );
+
+const char var7f1b7158[] = "camdraw.c";
+const char var7f1b7164[] = "camdraw.c";
+const char var7f1b7170[] = "Cam -> Compressing Editor Slot\n";
+const char var7f1b7190[] = "Cam -> Trying image compression at quality %u\n";
+const char var7f1b71c0[] = "Cam -> Failed - Too big - This=%u, Max=%d\n";
+const char var7f1b71ec[] = "Cam -> Trying lower quality setting\n";
+const char var7f1b7214[] = "Cam -> Save Failed - Cant get it small enough - oo-er\n";
+const char var7f1b724c[] = "Cam -> Sucess at quality %u - Size=%u, Max=%d\n";
+const char var7f1b727c[] = "\nCam_SaveEditSlotToParamPakItem -> Save failed\n";
+const char var7f1b72ac[] = "Camera Save Error Result: %d\n";
+const char var7f1b72cc[] = "Magic Guid set to %d\n";
 
 GLOBAL_ASM(
 glabel func0f15015c
