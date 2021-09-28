@@ -59,7 +59,7 @@ u32 func0f14d84c(void);
 u32 func0f14d8d8(void);
 u32 func0f14dac0(void);
 u32 func0f14dc30(void);
-u32 func0f14def0(void);
+void func0f14def0(s32 arg0, u32 line, char *file);
 u32 func0f14dfc0(void);
 u32 func0f14e1c4(void);
 u32 func0f14e4ac(void);
