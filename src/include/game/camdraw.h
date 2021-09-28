@@ -8,7 +8,7 @@ u32 func0f149c90(void);
 u32 func0f149d58(void);
 u32 func0f149e58(void);
 u32 func0f14a00c(void);
-void *func0f14a06c(s32 index);
+struct var8007f8e0 *func0f14a06c(s32 index);
 u32 func0f14a16c(void);
 u32 func0f14a1cc(void);
 u32 func0f14a1ec(void);
