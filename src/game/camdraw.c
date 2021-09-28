@@ -881,12 +881,13 @@ const char var7f1b6530[] = "camdraw.c";
 const char var7f1b653c[] = "camdraw.c";
 const char var7f1b6548[] = "camdraw.c";
 
+s32 func0f14a5a4(void)
+{
+	return var800a45a0->unk000;
+}
+
 GLOBAL_ASM(
-glabel func0f14a5a4
-/*  f14a5a4:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
-/*  f14a5a8:	8dce45a0 */ 	lw	$t6,%lo(var800a45a0)($t6)
-/*  f14a5ac:	03e00008 */ 	jr	$ra
-/*  f14a5b0:	8dc20000 */ 	lw	$v0,0x0($t6)
+glabel func0f14a5b4
 /*  f14a5b4:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
 /*  f14a5b8:	8dce45a0 */ 	lw	$t6,%lo(var800a45a0)($t6)
 /*  f14a5bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
