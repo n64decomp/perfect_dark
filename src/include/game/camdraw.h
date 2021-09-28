@@ -36,7 +36,7 @@ void func0f14ad58(s32 index);
 bool func0f14aea0(s32 device);
 void func0f14aed0(s32 device);
 void func0f14b178(void);
-u32 func0f14b228(void);
+void func0f14b228(struct var8007f8e0 *arg0);
 void func0f14b394(struct var8007f8e0 *arg0);
 u32 func0f14b484(void);
 u32 func0f14bc04(void);
