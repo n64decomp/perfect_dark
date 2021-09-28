@@ -21,7 +21,7 @@ void func0f14a52c(void);
 void func0f14a560(void);
 void func0f14a594(s32 arg0);
 s32 func0f14a5a4(void);
-u32 func0f14a678(void);
+void func0f14a678(void);
 u32 func0f14a8e8(void);
 u32 func0f14a95c(void);
 u32 func0f14a984(void);
