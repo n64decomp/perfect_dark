@@ -594,33 +594,16 @@ const char var7f1b6470[] = "Cam_Tick (%d Total Slots)";
 const char var7f1b648c[] = "Current Camera Slot = %d\n";
 const char var7f1b64a8[] = "Slot %d -> Active = %d";
 
-GLOBAL_ASM(
-glabel func0f14a00c
-/*  f14a00c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14a010:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a014:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f14a018:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a01c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14a020:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f14a024:	905903f4 */ 	lbu	$t9,0x3f4($v0)
-/*  f14a028:	2404fffe */ 	addiu	$a0,$zero,-2
-/*  f14a02c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f14a030:	31f80008 */ 	andi	$t8,$t7,0x8
-/*  f14a034:	3328fff7 */ 	andi	$t0,$t9,0xfff7
-/*  f14a038:	03084825 */ 	or	$t1,$t8,$t0
-/*  f14a03c:	a04903f4 */ 	sb	$t1,0x3f4($v0)
-/*  f14a040:	0fc5281b */ 	jal	func0f14a06c
-/*  f14a044:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f14a048:	904a03f4 */ 	lbu	$t2,0x3f4($v0)
-/*  f14a04c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f14a050:	314bfff7 */ 	andi	$t3,$t2,0xfff7
-/*  f14a054:	006b6025 */ 	or	$t4,$v1,$t3
-/*  f14a058:	a04c03f4 */ 	sb	$t4,0x3f4($v0)
-/*  f14a05c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a060:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14a064:	03e00008 */ 	jr	$ra
-/*  f14a068:	00000000 */ 	nop
-);
+void func0f14a00c(bool arg0)
+{
+	struct var8007f8e0 *thing;
+
+	thing = func0f14a06c(-1);
+	thing->unk3f4_04 = arg0;
+
+	thing = func0f14a06c(-2);
+	thing->unk3f4_04 = arg0;
+}
 
 struct var8007f8e0 *func0f14a06c(s32 index)
 {
