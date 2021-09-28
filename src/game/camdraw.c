@@ -1357,17 +1357,14 @@ glabel func0f14aee0
 /*  f14b144:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*  f14b148:	03e00008 */ 	jr	$ra
 /*  f14b14c:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f14b150:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
-/*  f14b154:	8dce45a0 */ 	lw	$t6,%lo(var800a45a0)($t6)
-/*  f14b158:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14b15c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14b160:	0fc52c5e */ 	jal	func0f14b178
-/*  f14b164:	adc0048c */ 	sw	$zero,0x48c($t6)
-/*  f14b168:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14b16c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14b170:	03e00008 */ 	jr	$ra
-/*  f14b174:	00000000 */ 	nop
 );
+
+void func0f14b150(void)
+{
+	var800a45a0->unk48c = 0;
+
+	func0f14b178();
+}
 
 void func0f14b178(void)
 {
