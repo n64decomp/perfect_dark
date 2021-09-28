@@ -18,7 +18,7 @@ void func0f14a2fc(s32 arg0, u32 line, char *file);
 void phAllocate(void);
 void func0f14a3c4(void);
 u32 func0f14a52c(void);
-u32 func0f14a560(void);
+void func0f14a560(void);
 void func0f14a594(s32 arg0);
 u32 func0f14a5a4(void);
 u32 func0f14a678(void);

@@ -924,23 +924,14 @@ glabel func0f14a52c
 /*  f14a55c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f14a560
-/*  f14a560:	3c048008 */ 	lui	$a0,%hi(var8007f8dc)
-/*  f14a564:	2484f8dc */ 	addiu	$a0,$a0,%lo(var8007f8dc)
-/*  f14a568:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14a56c:	24050410 */ 	addiu	$a1,$zero,0x410
-.L0f14a570:
-/*  f14a570:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f14a574:	01c31021 */ 	addu	$v0,$t6,$v1
-/*  f14a578:	904f00d4 */ 	lbu	$t7,0xd4($v0)
-/*  f14a57c:	24630104 */ 	addiu	$v1,$v1,0x104
-/*  f14a580:	31f8ffef */ 	andi	$t8,$t7,0xffef
-/*  f14a584:	1465fffa */ 	bne	$v1,$a1,.L0f14a570
-/*  f14a588:	a05800d4 */ 	sb	$t8,0xd4($v0)
-/*  f14a58c:	03e00008 */ 	jr	$ra
-/*  f14a590:	00000000 */ 	nop
-);
+void func0f14a560(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		var8007f8dc[i].unk0d4_03 = false;
+	}
+}
 
 void func0f14a594(s32 arg0)
 {
