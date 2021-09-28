@@ -1126,12 +1126,6 @@ void func0f14ab0c(s32 stylenum)
 	thing->stylenum = stylenum;
 }
 
-const char var7f1b6648[] = "camdraw.c";
-const char var7f1b6654[] = "Cam_SetAutoDeArtefact -> State = %d\n";
-const char var7f1b667c[] = "camdraw.c";
-const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
-const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
-
 void func0f14ab3c(void)
 {
 	struct var8007f8e0 *thing = func0f14a06c(-1);
@@ -1172,29 +1166,21 @@ bool func0f14ac14(void)
 	return thing->unk3f4_02;
 }
 
+void func0f14ac3c(bool arg0)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+	thing->unk3f4_02 = arg0;
+
+	func0f14def0(-1, 1681, "camdraw.c");
+}
+
+const char var7f1b6654[] = "Cam_SetAutoDeArtefact -> State = %d\n";
+const char var7f1b667c[] = "camdraw.c";
+const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
+const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
+
 GLOBAL_ASM(
-glabel func0f14ac3c
-/*  f14ac3c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14ac40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ac44:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14ac48:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ac4c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ac50:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f14ac54:	904803f4 */ 	lbu	$t0,0x3f4($v0)
-/*  f14ac58:	3c067f1b */ 	lui	$a2,%hi(var7f1b6648)
-/*  f14ac5c:	000fc140 */ 	sll	$t8,$t7,0x5
-/*  f14ac60:	33190020 */ 	andi	$t9,$t8,0x20
-/*  f14ac64:	3109ffdf */ 	andi	$t1,$t0,0xffdf
-/*  f14ac68:	03295025 */ 	or	$t2,$t9,$t1
-/*  f14ac6c:	a04a03f4 */ 	sb	$t2,0x3f4($v0)
-/*  f14ac70:	24c66648 */ 	addiu	$a2,$a2,%lo(var7f1b6648)
-/*  f14ac74:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ac78:	0fc537bc */ 	jal	func0f14def0
-/*  f14ac7c:	24050691 */ 	addiu	$a1,$zero,0x691
-/*  f14ac80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14ac84:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14ac88:	03e00008 */ 	jr	$ra
-/*  f14ac8c:	00000000 */ 	nop
+glabel func0f14ac90
 /*  f14ac90:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14ac94:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14ac98:	0fc5281b */ 	jal	func0f14a06c
