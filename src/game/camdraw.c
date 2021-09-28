@@ -1786,10 +1786,13 @@ void func0f14aec8(void)
 	// empty
 }
 
+void func0f14aed0(s32 device)
+{
+	// empty
+}
+
 GLOBAL_ASM(
-glabel func0f14aed0
-/*  f14aed0:	03e00008 */ 	jr	$ra
-/*  f14aed4:	afa40000 */ 	sw	$a0,0x0($sp)
+glabel func0f14aed8
 /*  f14aed8:	03e00008 */ 	jr	$ra
 /*  f14aedc:	00000000 */ 	nop
 /*  f14aee0:	27bdff80 */ 	addiu	$sp,$sp,-128
