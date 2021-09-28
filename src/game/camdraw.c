@@ -942,13 +942,10 @@ glabel func0f14a560
 /*  f14a590:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f14a594
-/*  f14a594:	3c0e800a */ 	lui	$t6,%hi(var800a45a0)
-/*  f14a598:	8dce45a0 */ 	lw	$t6,%lo(var800a45a0)($t6)
-/*  f14a59c:	03e00008 */ 	jr	$ra
-/*  f14a5a0:	adc40000 */ 	sw	$a0,0x0($t6)
-);
+void func0f14a594(s32 arg0)
+{
+	var800a45a0->unk000 = arg0;
+}
 
 const char var7f1b6530[] = "camdraw.c";
 const char var7f1b653c[] = "camdraw.c";
