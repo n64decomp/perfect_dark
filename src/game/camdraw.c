@@ -963,17 +963,13 @@ void func0f14a3c4(void)
 	}
 }
 
+void func0f14a404(void)
+{
+	func0f149e58(0, 0);
+}
+
 GLOBAL_ASM(
-glabel func0f14a404
-/*  f14a404:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14a408:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14a40c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f14a410:	0fc52796 */ 	jal	func0f149e58
-/*  f14a414:	00002825 */ 	or	$a1,$zero,$zero
-/*  f14a418:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14a41c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14a420:	03e00008 */ 	jr	$ra
-/*  f14a424:	00000000 */ 	nop
+glabel func0f14a428
 /*  f14a428:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f14a42c:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f14a430:	afb20020 */ 	sw	$s2,0x20($sp)
