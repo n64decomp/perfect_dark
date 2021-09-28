@@ -1175,9 +1175,6 @@ void func0f14ac3c(bool arg0)
 }
 
 const char var7f1b6654[] = "Cam_SetAutoDeArtefact -> State = %d\n";
-const char var7f1b667c[] = "camdraw.c";
-const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
-const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
 
 bool func0f14ac90(void)
 {
@@ -1185,34 +1182,18 @@ bool func0f14ac90(void)
 	return thing->unk3f4_01;
 }
 
-GLOBAL_ASM(
-glabel func0f14acb8
-/*  f14acb8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14acbc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14acc0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14acc4:	0fc5281b */ 	jal	func0f14a06c
-/*  f14acc8:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14accc:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f14acd0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14acd4:	240506a3 */ 	addiu	$a1,$zero,0x6a3
-/*  f14acd8:	11c00005 */ 	beqz	$t6,.L0f14acf0
-/*  f14acdc:	3c067f1b */ 	lui	$a2,%hi(var7f1b667c)
-/*  f14ace0:	905803f4 */ 	lbu	$t8,0x3f4($v0)
-/*  f14ace4:	37190040 */ 	ori	$t9,$t8,0x40
-/*  f14ace8:	10000004 */ 	b	.L0f14acfc
-/*  f14acec:	a05903f4 */ 	sb	$t9,0x3f4($v0)
-.L0f14acf0:
-/*  f14acf0:	904803f4 */ 	lbu	$t0,0x3f4($v0)
-/*  f14acf4:	3109ffbf */ 	andi	$t1,$t0,0xffbf
-/*  f14acf8:	a04903f4 */ 	sb	$t1,0x3f4($v0)
-.L0f14acfc:
-/*  f14acfc:	0fc537bc */ 	jal	func0f14def0
-/*  f14ad00:	24c6667c */ 	addiu	$a2,$a2,%lo(var7f1b667c)
-/*  f14ad04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14ad08:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14ad0c:	03e00008 */ 	jr	$ra
-/*  f14ad10:	00000000 */ 	nop
-);
+void func0f14acb8(bool arg0)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+
+	if (arg0) {
+		thing->unk3f4_01 = true;
+	} else {
+		thing->unk3f4_01 = false;
+	}
+
+	func0f14def0(-1, 1699, "camdraw.c");
+}
 
 u16 func0f14ad14(s32 device)
 {
@@ -1223,6 +1204,9 @@ s32 func0f14ad38(s32 device)
 {
 	return var8007f8dc[device].unk060;
 }
+
+const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
+const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
 
 GLOBAL_ASM(
 glabel func0f14ad58
