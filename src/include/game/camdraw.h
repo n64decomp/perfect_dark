@@ -33,7 +33,7 @@ u32 func0f14ab3c(void);
 u16 func0f14ad14(s32 device);
 s32 func0f14ad38(s32 device);
 u32 func0f14ad58(void);
-bool func0f14aea0(s8 device);
+bool func0f14aea0(s32 device);
 void func0f14aed0(s32 device);
 u32 func0f14b178(void);
 u32 func0f14b228(void);

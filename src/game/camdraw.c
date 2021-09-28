@@ -1767,19 +1767,10 @@ glabel var7f1b72e8
 /*  f14ae9c:	e4500048 */ 	swc1	$f16,0x48($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f14aea0
-/*  f14aea0:	3c0e8008 */ 	lui	$t6,%hi(var8007f8dc)
-/*  f14aea4:	8dcef8dc */ 	lw	$t6,%lo(var8007f8dc)($t6)
-/*  f14aea8:	00047980 */ 	sll	$t7,$a0,0x6
-/*  f14aeac:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f14aeb0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f14aeb4:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f14aeb8:	8f0200d4 */ 	lw	$v0,0xd4($t8)
-/*  f14aebc:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*  f14aec0:	03e00008 */ 	jr	$ra
-/*  f14aec4:	001917c2 */ 	srl	$v0,$t9,0x1f
-);
+bool func0f14aea0(s32 device)
+{
+	return (var8007f8dc[device].unk0d4 << 3) >> 0x1f;
+}
 
 void func0f14aec8(void)
 {
