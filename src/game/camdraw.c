@@ -1102,17 +1102,15 @@ void func0f14aa94(s32 colournum)
 	thing->colournum = colournum;
 }
 
+void func0f14aac4(void)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-1);
+
+	thing->colournum = 0;
+}
+
 GLOBAL_ASM(
-glabel func0f14aac4
-/*  f14aac4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14aac8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14aacc:	0fc5281b */ 	jal	func0f14a06c
-/*  f14aad0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14aad4:	ac40039c */ 	sw	$zero,0x39c($v0)
-/*  f14aad8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14aadc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14aae0:	03e00008 */ 	jr	$ra
-/*  f14aae4:	00000000 */ 	nop
+glabel func0f14aae8
 /*  f14aae8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14aaec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14aaf0:	0fc5281b */ 	jal	func0f14a06c
