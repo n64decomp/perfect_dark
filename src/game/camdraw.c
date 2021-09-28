@@ -672,21 +672,12 @@ glabel func0f14a16c
 /*  f14a188:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f14a18c:	03e00008 */ 	jr	$ra
 /*  f14a190:	00000000 */ 	nop
-/*  f14a194:	3c0f800a */ 	lui	$t7,%hi(var800a45a0)
-/*  f14a198:	8def45a0 */ 	lw	$t7,%lo(var800a45a0)($t7)
-/*  f14a19c:	3c0e8008 */ 	lui	$t6,%hi(var8007f8dc)
-/*  f14a1a0:	8dcef8dc */ 	lw	$t6,%lo(var8007f8dc)($t6)
-/*  f14a1a4:	8df80000 */ 	lw	$t8,0x0($t7)
-/*  f14a1a8:	0018c980 */ 	sll	$t9,$t8,0x6
-/*  f14a1ac:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f14a1b0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f14a1b4:	01d94021 */ 	addu	$t0,$t6,$t9
-/*  f14a1b8:	8d0200d4 */ 	lw	$v0,0xd4($t0)
-/*  f14a1bc:	00024900 */ 	sll	$t1,$v0,0x4
-/*  f14a1c0:	000957c2 */ 	srl	$t2,$t1,0x1f
-/*  f14a1c4:	03e00008 */ 	jr	$ra
-/*  f14a1c8:	314200ff */ 	andi	$v0,$t2,0xff
 );
+
+bool func0f14a194(void)
+{
+	return var8007f8dc[var800a45a0->unk000].unk0d4_04 & 0xff;
+}
 
 /**
  * 0 returns "Style 1"
