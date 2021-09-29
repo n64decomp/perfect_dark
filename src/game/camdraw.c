@@ -1891,7 +1891,44 @@ void func0f14b8ac(s32 index)
 }
 
 const char var7f1b67f8[] = "CAM : Cam_MakeTextures\n";
-const char var7f1b6810[] = "camdraw.c";
+
+void func0f14bc04(void)
+{
+	struct var8007f8e0 *thing1 = func0f14a06c(-1);
+	struct var8007f8dc *thing2 = func0f14a20c();
+
+	thing1->unk3f4_02 = true;
+
+	switch (thing2->unk100) {
+	case 0:
+		break;
+	case 1:
+		thing1->unk3f4_02 = false;
+		func0f14d714(var800a45a0->unk470, thing1->unk01c);
+		break;
+	case 4:
+		func0f14d714(var800a45a0->unk470, thing1->unk01c);
+		break;
+	case 2:
+		func0f14d2c8(var800a45a0->unk470, thing1->unk01c);
+		break;
+	case 3:
+		func0f14d4f0(var800a45a0->unk470, thing1->unk01c);
+		break;
+	case 5:
+		func0f14ff94(thing1);
+		break;
+	}
+
+	func0f14def0(-1, 2433, "camdraw.c");
+
+	if (thing2->unk100 != 4) {
+		func0f14dac0(var800a45a0->unk470, &thing1->unk010);
+	}
+
+	thing1->unk3f4_03 = false;
+}
+
 const char var7f1b681c[] = "pD->ReadMode = %s";
 const char var7f1b6830[] = "Camera -> Getting Header Info\n";
 const char var7f1b6850[] = "Camera -> Item=%d, pD->CamHeader[i]=%d\n";
@@ -1924,102 +1961,6 @@ const char var7f1b6c54[] = "Auto Calibrate is removing the menu message\n";
 const char var7f1b6c84[] = "Auto Calibrate is shutting down\n";
 const char var7f1b6ca8[] = "Cam -> Cam_BalanceSlot %d -> tZroShift = %d\n";
 const char var7f1b6cd8[] = "Cam_BuildFaceTexture (slot=%d): %d of %s\n";
-
-GLOBAL_ASM(
-glabel func0f14bc04
-.late_rodata
-glabel var7f1b72f4
-.word func0f14bc04+0xd4 # f14bcd8
-glabel var7f1b72f8
-.word func0f14bc04+0x50 # f14bc54
-glabel var7f1b72fc
-.word func0f14bc04+0x94 # f14bc98
-glabel var7f1b7300
-.word func0f14bc04+0xb0 # f14bcb4
-glabel var7f1b7304
-.word func0f14bc04+0x78 # f14bc7c
-glabel var7f1b7308
-.word func0f14bc04+0xcc # f14bcd0
-.text
-/*  f14bc04:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f14bc08:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14bc0c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14bc10:	0fc5281b */ 	jal	func0f14a06c
-/*  f14bc14:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14bc18:	0fc52883 */ 	jal	func0f14a20c
-/*  f14bc1c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f14bc20:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f14bc24:	920f03f4 */ 	lbu	$t7,0x3f4($s0)
-/*  f14bc28:	35f80020 */ 	ori	$t8,$t7,0x20
-/*  f14bc2c:	a21803f4 */ 	sb	$t8,0x3f4($s0)
-/*  f14bc30:	8c590100 */ 	lw	$t9,0x100($v0)
-/*  f14bc34:	2f210006 */ 	sltiu	$at,$t9,0x6
-/*  f14bc38:	10200027 */ 	beqz	$at,.L0f14bcd8
-/*  f14bc3c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f14bc40:	3c017f1b */ 	lui	$at,%hi(var7f1b72f4)
-/*  f14bc44:	00390821 */ 	addu	$at,$at,$t9
-/*  f14bc48:	8c3972f4 */ 	lw	$t9,%lo(var7f1b72f4)($at)
-/*  f14bc4c:	03200008 */ 	jr	$t9
-/*  f14bc50:	00000000 */ 	nop
-/*  f14bc54:	920803f4 */ 	lbu	$t0,0x3f4($s0)
-/*  f14bc58:	3c0a800a */ 	lui	$t2,%hi(var800a45a0)
-/*  f14bc5c:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f14bc60:	3109ffdf */ 	andi	$t1,$t0,0xffdf
-/*  f14bc64:	a20903f4 */ 	sb	$t1,0x3f4($s0)
-/*  f14bc68:	8d4a45a0 */ 	lw	$t2,%lo(var800a45a0)($t2)
-/*  f14bc6c:	0fc535c5 */ 	jal	func0f14d714
-/*  f14bc70:	8d440470 */ 	lw	$a0,0x470($t2)
-/*  f14bc74:	10000018 */ 	b	.L0f14bcd8
-/*  f14bc78:	00000000 */ 	nop
-/*  f14bc7c:	3c0b800a */ 	lui	$t3,%hi(var800a45a0)
-/*  f14bc80:	8d6b45a0 */ 	lw	$t3,%lo(var800a45a0)($t3)
-/*  f14bc84:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f14bc88:	0fc535c5 */ 	jal	func0f14d714
-/*  f14bc8c:	8d640470 */ 	lw	$a0,0x470($t3)
-/*  f14bc90:	10000011 */ 	b	.L0f14bcd8
-/*  f14bc94:	00000000 */ 	nop
-/*  f14bc98:	3c0c800a */ 	lui	$t4,%hi(var800a45a0)
-/*  f14bc9c:	8d8c45a0 */ 	lw	$t4,%lo(var800a45a0)($t4)
-/*  f14bca0:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f14bca4:	0fc534b2 */ 	jal	func0f14d2c8
-/*  f14bca8:	8d840470 */ 	lw	$a0,0x470($t4)
-/*  f14bcac:	1000000a */ 	b	.L0f14bcd8
-/*  f14bcb0:	00000000 */ 	nop
-/*  f14bcb4:	3c0d800a */ 	lui	$t5,%hi(var800a45a0)
-/*  f14bcb8:	8dad45a0 */ 	lw	$t5,%lo(var800a45a0)($t5)
-/*  f14bcbc:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f14bcc0:	0fc5353c */ 	jal	func0f14d4f0
-/*  f14bcc4:	8da40470 */ 	lw	$a0,0x470($t5)
-/*  f14bcc8:	10000003 */ 	b	.L0f14bcd8
-/*  f14bccc:	00000000 */ 	nop
-/*  f14bcd0:	0fc53fe5 */ 	jal	func0f14ff94
-/*  f14bcd4:	02002025 */ 	or	$a0,$s0,$zero
-.L0f14bcd8:
-/*  f14bcd8:	3c067f1b */ 	lui	$a2,%hi(var7f1b6810)
-/*  f14bcdc:	24c66810 */ 	addiu	$a2,$a2,%lo(var7f1b6810)
-/*  f14bce0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14bce4:	0fc537bc */ 	jal	func0f14def0
-/*  f14bce8:	24050981 */ 	addiu	$a1,$zero,0x981
-/*  f14bcec:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f14bcf0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f14bcf4:	3c18800a */ 	lui	$t8,%hi(var800a45a0)
-/*  f14bcf8:	8dcf0100 */ 	lw	$t7,0x100($t6)
-/*  f14bcfc:	51e10006 */ 	beql	$t7,$at,.L0f14bd18
-/*  f14bd00:	921903f4 */ 	lbu	$t9,0x3f4($s0)
-/*  f14bd04:	8f1845a0 */ 	lw	$t8,%lo(var800a45a0)($t8)
-/*  f14bd08:	26050010 */ 	addiu	$a1,$s0,0x10
-/*  f14bd0c:	0fc536b0 */ 	jal	func0f14dac0
-/*  f14bd10:	8f040470 */ 	lw	$a0,0x470($t8)
-/*  f14bd14:	921903f4 */ 	lbu	$t9,0x3f4($s0)
-.L0f14bd18:
-/*  f14bd18:	3328ffef */ 	andi	$t0,$t9,0xffef
-/*  f14bd1c:	a20803f4 */ 	sb	$t0,0x3f4($s0)
-/*  f14bd20:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14bd24:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14bd28:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f14bd2c:	03e00008 */ 	jr	$ra
-/*  f14bd30:	00000000 */ 	nop
-);
 
 GLOBAL_ASM(
 glabel func0f14bd34
