@@ -43,7 +43,7 @@ void func0f14bc04(void);
 void func0f14bd34(s32 index);
 void func0f14bdbc(s32 index);
 void func0f14bec8(s32 index);
-u32 func0f14c1cc(void);
+void func0f14c1cc(s32 index);
 void func0f14c50c(struct var8007f8e0 *arg0, struct var8007f8e0 *arg1, u32 line, char *file);
 void func0f14c75c(struct var800a45a0_484 *arg0, u32 *arg1);
 u32 func0f14c7dc(void);
