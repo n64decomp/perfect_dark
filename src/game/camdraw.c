@@ -1962,44 +1962,15 @@ const char var7f1b6c84[] = "Auto Calibrate is shutting down\n";
 const char var7f1b6ca8[] = "Cam -> Cam_BalanceSlot %d -> tZroShift = %d\n";
 const char var7f1b6cd8[] = "Cam_BuildFaceTexture (slot=%d): %d of %s\n";
 
-GLOBAL_ASM(
-glabel func0f14bd34
-/*  f14bd34:	3c0f8008 */ 	lui	$t7,%hi(var8007f8dc)
-/*  f14bd38:	8deff8dc */ 	lw	$t7,%lo(var8007f8dc)($t7)
-/*  f14bd3c:	00047180 */ 	sll	$t6,$a0,0x6
-/*  f14bd40:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f14bd44:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14bd48:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f14bd4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14bd50:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f14bd54:	8c780080 */ 	lw	$t8,0x80($v1)
-/*  f14bd58:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f14bd5c:	53010014 */ 	beql	$t8,$at,.L0f14bdb0
-/*  f14bd60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14bd64:	0fc52969 */ 	jal	func0f14a5a4
-/*  f14bd68:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f14bd6c:	00022600 */ 	sll	$a0,$v0,0x18
-/*  f14bd70:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f14bd74:	03202025 */ 	or	$a0,$t9,$zero
-/*  f14bd78:	24050003 */ 	addiu	$a1,$zero,0x3
-/*  f14bd7c:	0fc45c6d */ 	jal	pak0f1171b4
-/*  f14bd80:	00003025 */ 	or	$a2,$zero,$zero
-/*  f14bd84:	0fc52969 */ 	jal	func0f14a5a4
-/*  f14bd88:	00000000 */ 	nop
-/*  f14bd8c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f14bd90:	00022600 */ 	sll	$a0,$v0,0x18
-/*  f14bd94:	00044603 */ 	sra	$t0,$a0,0x18
-/*  f14bd98:	8c690080 */ 	lw	$t1,0x80($v1)
-/*  f14bd9c:	01002025 */ 	or	$a0,$t0,$zero
-/*  f14bda0:	00695021 */ 	addu	$t2,$v1,$t1
-/*  f14bda4:	0fc47550 */ 	jal	pak0f11d540
-/*  f14bda8:	914500b6 */ 	lbu	$a1,0xb6($t2)
-/*  f14bdac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f14bdb0:
-/*  f14bdb0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14bdb4:	03e00008 */ 	jr	$ra
-/*  f14bdb8:	00000000 */ 	nop
-);
+void func0f14bd34(s32 index)
+{
+	struct var8007f8dc *thing = &var8007f8dc[index];
+
+	if (thing->unk080 != -1) {
+		pak0f1171b4(func0f14a5a4(), 3, 0);
+		pak0f11d540(func0f14a5a4(), thing->unk0b6[thing->unk080]);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f14bdbc
