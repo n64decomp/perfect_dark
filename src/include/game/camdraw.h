@@ -41,7 +41,7 @@ void func0f14b394(struct var8007f8e0 *arg0);
 void func0f14b484(u32 arg0);
 void func0f14bc04(void);
 void func0f14bd34(s32 index);
-u32 func0f14bdbc(void);
+void func0f14bdbc(s32 index);
 u32 func0f14bec8(void);
 u32 func0f14c1cc(void);
 void func0f14c50c(struct var8007f8e0 *arg0, struct var8007f8e0 *arg1, u32 line, char *file);
