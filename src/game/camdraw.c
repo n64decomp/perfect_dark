@@ -2306,26 +2306,15 @@ glabel var7f1b7338
 /*  f14c4b4:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f14c4b8:	03e00008 */ 	jr	$ra
 /*  f14c4bc:	00000000 */ 	nop
-/*  f14c4c0:	3c0f8008 */ 	lui	$t7,%hi(var8007f8dc)
-/*  f14c4c4:	8deff8dc */ 	lw	$t7,%lo(var8007f8dc)($t7)
-/*  f14c4c8:	0004c180 */ 	sll	$t8,$a0,0x6
-/*  f14c4cc:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f14c4d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14c4d4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f14c4d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14c4dc:	240e0004 */ 	addiu	$t6,$zero,0x4
-/*  f14c4e0:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f14c4e4:	af2e00f4 */ 	sw	$t6,0xf4($t9)
-/*  f14c4e8:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f14c4ec:	ac241448 */ 	sw	$a0,%lo(g_MpPlayerNum)($at)
-/*  f14c4f0:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f14c4f4:	0fc3c328 */ 	jal	func0f0f0ca0
-/*  f14c4f8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f14c4fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14c500:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14c504:	03e00008 */ 	jr	$ra
-/*  f14c508:	00000000 */ 	nop
 );
+
+void func0f14c4c0(s32 index)
+{
+	var8007f8dc[index].unk0f4 = 4;
+	g_MpPlayerNum = index;
+
+	func0f0f0ca0(2, false);
+}
 
 GLOBAL_ASM(
 glabel func0f14c50c
