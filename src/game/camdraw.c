@@ -4666,32 +4666,17 @@ glabel func0f14e4ac
 /*  f14e78c:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel func0f14e790
-/*  f14e790:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14e794:	00802825 */ 	or	$a1,$a0,$zero
-/*  f14e798:	24074000 */ 	addiu	$a3,$zero,0x4000
-/*  f14e79c:	24060080 */ 	addiu	$a2,$zero,0x80
-.L0f14e7a0:
-/*  f14e7a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f14e7a4:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f14e7a8:
-/*  f14e7a8:	04410003 */ 	bgez	$v0,.L0f14e7b8
-/*  f14e7ac:	00027103 */ 	sra	$t6,$v0,0x4
-/*  f14e7b0:	2441000f */ 	addiu	$at,$v0,0xf
-/*  f14e7b4:	00017103 */ 	sra	$t6,$at,0x4
-.L0f14e7b8:
-/*  f14e7b8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f14e7bc:	000e7940 */ 	sll	$t7,$t6,0x5
-/*  f14e7c0:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f14e7c4:	1446fff8 */ 	bne	$v0,$a2,.L0f14e7a8
-/*  f14e7c8:	a08fffff */ 	sb	$t7,-0x1($a0)
-/*  f14e7cc:	24630080 */ 	addiu	$v1,$v1,0x80
-/*  f14e7d0:	1467fff3 */ 	bne	$v1,$a3,.L0f14e7a0
-/*  f14e7d4:	24a50080 */ 	addiu	$a1,$a1,0x80
-/*  f14e7d8:	03e00008 */ 	jr	$ra
-/*  f14e7dc:	00000000 */ 	nop
-);
+void func0f14e790(u8 *arg0)
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 128; i++) {
+		for (j = 0; j < 128; j++) {
+			arg0[i * 128 + j] = j / 16 * 32;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f14e7e0
