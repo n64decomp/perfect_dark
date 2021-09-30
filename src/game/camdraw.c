@@ -5451,31 +5451,67 @@ glabel func0f14f07c
 /*  f14f44c:	afa60008 */ 	sw	$a2,0x8($sp)
 /*  f14f450:	03e00008 */ 	jr	$ra
 /*  f14f454:	afa7000c */ 	sw	$a3,0xc($sp)
-/*  f14f458:	03e00008 */ 	jr	$ra
-/*  f14f45c:	00000000 */ 	nop
-/*  f14f460:	03e00008 */ 	jr	$ra
-/*  f14f464:	00000000 */ 	nop
-/*  f14f468:	03e00008 */ 	jr	$ra
-/*  f14f46c:	00000000 */ 	nop
-/*  f14f470:	03e00008 */ 	jr	$ra
-/*  f14f474:	00000000 */ 	nop
-/*  f14f478:	03e00008 */ 	jr	$ra
-/*  f14f47c:	00000000 */ 	nop
-/*  f14f480:	03e00008 */ 	jr	$ra
-/*  f14f484:	00000000 */ 	nop
-/*  f14f488:	03e00008 */ 	jr	$ra
-/*  f14f48c:	00000000 */ 	nop
-/*  f14f490:	03e00008 */ 	jr	$ra
-/*  f14f494:	00000000 */ 	nop
-/*  f14f498:	03e00008 */ 	jr	$ra
-/*  f14f49c:	00000000 */ 	nop
-/*  f14f4a0:	03e00008 */ 	jr	$ra
-/*  f14f4a4:	00801025 */ 	or	$v0,$a0,$zero
-/*  f14f4a8:	03e00008 */ 	jr	$ra
-/*  f14f4ac:	00000000 */ 	nop
-/*  f14f4b0:	03e00008 */ 	jr	$ra
-/*  f14f4b4:	afa40000 */ 	sw	$a0,0x0($sp)
 );
+
+void func0f14f458(void)
+{
+	// empty
+}
+
+void func0f14f460(void)
+{
+	// empty
+}
+
+void func0f14f468(void)
+{
+	// empty
+}
+
+void func0f14f470(void)
+{
+	// empty
+}
+
+void func0f14f478(void)
+{
+	// empty
+}
+
+void func0f14f480(void)
+{
+	// empty
+}
+
+void func0f14f488(void)
+{
+	// empty
+}
+
+void func0f14f490(void)
+{
+	// empty
+}
+
+void func0f14f498(void)
+{
+	// empty
+}
+
+u32 func0f14f4a0(u32 arg0)
+{
+	return arg0;
+}
+
+void func0f14f4a8(void)
+{
+	// empty
+}
+
+void func0f14f4b0(u32 arg0)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f14f4b8
