@@ -5294,15 +5294,12 @@ glabel func0f14f008
 /*  f14f050:	01cfc021 */ 	addu	$t8,$t6,$t7
 /*  f14f054:	03e00008 */ 	jr	$ra
 /*  f14f058:	af050074 */ 	sw	$a1,0x74($t8)
-/*  f14f05c:	3c0e8008 */ 	lui	$t6,%hi(var8007f8dc)
-/*  f14f060:	8dcef8dc */ 	lw	$t6,%lo(var8007f8dc)($t6)
-/*  f14f064:	00047980 */ 	sll	$t7,$a0,0x6
-/*  f14f068:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f14f06c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f14f070:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f14f074:	03e00008 */ 	jr	$ra
-/*  f14f078:	8f020074 */ 	lw	$v0,0x74($t8)
 );
+
+s32 func0f14f05c(s32 index)
+{
+	return var8007f8dc[index].unk074;
+}
 
 const char var7f1b6df0[] = "camdraw.c";
 const char var7f1b6dfc[] = "Cam_RebuildHead : Slot=%d\n";
