@@ -7417,7 +7417,7 @@ struct var800a45a0 {
 	/*0x47c*/ u8 *unk47c;
 	/*0x480*/ u8 *unk480;
 	/*0x484*/ struct var800a45a0_484 *unk484;
-	/*0x488*/ u32 unk488;
+	/*0x488*/ struct var800a45a0_484 *unk488;
 	/*0x48c*/ u32 unk48c;
 };
 

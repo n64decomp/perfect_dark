@@ -48,7 +48,7 @@ void func0f14c50c(struct var8007f8e0 *arg0, struct var8007f8e0 *arg1, u32 line, 
 void func0f14c75c(struct var800a45a0_484 *arg0, u8 **arg1);
 u32 func0f14c7dc(void);
 u32 func0f14c814(u8 **arg0);
-u32 func0f14c870(void);
+Gfx *func0f14c870(Gfx *gdl, struct var800a45a0_484 *arg1, f32 *arg2, f32 arg3, f32 arg4);
 u32 func0f14cdb8(void);
 u32 func0f14cf6c(void);
 void func0f14d064(s32 index, u8 *arg1);
