@@ -4678,53 +4678,17 @@ void func0f14e790(u8 *arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f14e7e0
-/*  f14e7e0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f14e7e4:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f14e7e8:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f14e7ec:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f14e7f0:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f14e7f4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f14e7f8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f14e7fc:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f14e800:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14e804:	241200ff */ 	addiu	$s2,$zero,0xff
-/*  f14e808:	24130080 */ 	addiu	$s3,$zero,0x80
-/*  f14e80c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f14e810:	0080a825 */ 	or	$s5,$a0,$zero
-/*  f14e814:	24164000 */ 	addiu	$s6,$zero,0x4000
-.L0f14e818:
-/*  f14e818:	00008025 */ 	or	$s0,$zero,$zero
-/*  f14e81c:	02a08825 */ 	or	$s1,$s5,$zero
-.L0f14e820:
-/*  f14e820:	0c004b70 */ 	jal	random
-/*  f14e824:	00000000 */ 	nop
-/*  f14e828:	0052001b */ 	divu	$zero,$v0,$s2
-/*  f14e82c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f14e830:	00007010 */ 	mfhi	$t6
-/*  f14e834:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f14e838:	16400002 */ 	bnez	$s2,.L0f14e844
-/*  f14e83c:	00000000 */ 	nop
-/*  f14e840:	0007000d */ 	break	0x7
-.L0f14e844:
-/*  f14e844:	a22effff */ 	sb	$t6,-0x1($s1)
-/*  f14e848:	1613fff5 */ 	bne	$s0,$s3,.L0f14e820
-/*  f14e84c:	00000000 */ 	nop
-/*  f14e850:	26940080 */ 	addiu	$s4,$s4,0x80
-/*  f14e854:	1696fff0 */ 	bne	$s4,$s6,.L0f14e818
-/*  f14e858:	26b50080 */ 	addiu	$s5,$s5,0x80
-/*  f14e85c:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f14e860:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14e864:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f14e868:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f14e86c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f14e870:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f14e874:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f14e878:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f14e87c:	03e00008 */ 	jr	$ra
-/*  f14e880:	27bd0038 */ 	addiu	$sp,$sp,0x38
-);
+void func0f14e7e0(u8 *arg0)
+{
+	s32 i;
+	s32 j;
+
+	for (i = 0; i < 128; i++) {
+		for (j = 0; j < 128; j++) {
+			arg0[i * 128 + j] = random() % 255;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f14e884
