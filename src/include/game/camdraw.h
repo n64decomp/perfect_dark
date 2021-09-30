@@ -68,7 +68,7 @@ void func0f14e7e0(u8 *arg0);
 u32 func0f14e884(void);
 void func0f14ec2c(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
 u32 func0f14ecd8(void);
-u32 func0f14eeb0(void);
+void func0f14eeb0(f32 *arg0);
 void func0f14ef50(f32 *arg0);
 s32 func0f14f008(s32 index);
 Gfx *func0f14f07c(Gfx *gdl, s32 headorbodynum, s32 x1, s32 y1, s32 x2, s32 y2);

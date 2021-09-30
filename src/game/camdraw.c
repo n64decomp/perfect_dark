@@ -4862,16 +4862,6 @@ glabel func0f14ec2c
 
 GLOBAL_ASM(
 glabel func0f14ecd8
-.late_rodata
-glabel var7f1b7350
-.word 0x3ff33333
-glabel var7f1b7354
-.word 0x3c23d70a
-glabel var7f1b7358
-.word 0x3dcccccd
-glabel var7f1b735c
-.word 0x3dcccccd
-.text
 /*  f14ecd8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f14ecdc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14ece0:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -4912,50 +4902,26 @@ u32 func0f14ed64(void)
 	return (u32)(foo[6] * 100) - 25;
 }
 
-GLOBAL_ASM(
-glabel func0f14ee18
-/*  f14ee18:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f14ee1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ee20:	24850019 */ 	addiu	$a1,$a0,0x19
-/*  f14ee24:	afa50038 */ 	sw	$a1,0x38($sp)
-/*  f14ee28:	0fc53bd4 */ 	jal	func0f14ef50
-/*  f14ee2c:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f14ee30:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f14ee34:	3c017f1b */ 	lui	$at,%hi(var7f1b7350)
-/*  f14ee38:	c4227350 */ 	lwc1	$f2,%lo(var7f1b7350)($at)
-/*  f14ee3c:	44852000 */ 	mtc1	$a1,$f4
-/*  f14ee40:	3c014f80 */ 	lui	$at,0x4f80
-/*  f14ee44:	04a10004 */ 	bgez	$a1,.L0f14ee58
-/*  f14ee48:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f14ee4c:	44814000 */ 	mtc1	$at,$f8
-/*  f14ee50:	00000000 */ 	nop
-/*  f14ee54:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f14ee58:
-/*  f14ee58:	3c017f1b */ 	lui	$at,%hi(var7f1b7354)
-/*  f14ee5c:	c42a7354 */ 	lwc1	$f10,%lo(var7f1b7354)($at)
-/*  f14ee60:	3c017f1b */ 	lui	$at,%hi(var7f1b7358)
-/*  f14ee64:	460a3002 */ 	mul.s	$f0,$f6,$f10
-/*  f14ee68:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f14ee6c:	00000000 */ 	nop
-/*  f14ee70:	45000002 */ 	bc1f	.L0f14ee7c
-/*  f14ee74:	00000000 */ 	nop
-/*  f14ee78:	46001006 */ 	mov.s	$f0,$f2
-.L0f14ee7c:
-/*  f14ee7c:	c4227358 */ 	lwc1	$f2,%lo(var7f1b7358)($at)
-/*  f14ee80:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f14ee84:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f14ee88:	00000000 */ 	nop
-/*  f14ee8c:	45000002 */ 	bc1f	.L0f14ee98
-/*  f14ee90:	00000000 */ 	nop
-/*  f14ee94:	e7a20034 */ 	swc1	$f2,0x34($sp)
-.L0f14ee98:
-/*  f14ee98:	0fc53bac */ 	jal	func0f14eeb0
-/*  f14ee9c:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f14eea0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14eea4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f14eea8:	03e00008 */ 	jr	$ra
-/*  f14eeac:	00000000 */ 	nop
-);
+void func0f14ee18(u32 arg0)
+{
+	f32 foo[7];
+
+	arg0 += 25;
+
+	func0f14ef50(foo);
+
+	foo[6] = arg0 * 0.01f;
+
+	if (foo[6] > 1.9f) {
+		foo[6] = 1.9f;
+	}
+
+	if (foo[6] < 0.1f) {
+		foo[6] = 0.1f;
+	}
+
+	func0f14eeb0(foo);
+}
 
 const char var7f1b6d70[] = "camdraw.c";
 const char var7f1b6d7c[] = "Cam : Alloc for copy of Vtx %d bytes\n";
@@ -4964,6 +4930,8 @@ const char var7f1b6da4[] = "CAM : Cam_AllocAndCopyAllVtx -> Ptr all-ready alloct
 GLOBAL_ASM(
 glabel func0f14eeb0
 .late_rodata
+glabel var7f1b735c
+.word 0x3dcccccd
 glabel var7f1b7360
 .word 0x3ff33333
 .text
