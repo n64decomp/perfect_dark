@@ -2084,151 +2084,59 @@ void func0f14bec8(s32 index)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f14c1cc
-.late_rodata
-glabel var7f1b7324
-.word func0f14c1cc+0x6c # f14c238
-glabel var7f1b7328
-.word func0f14c1cc+0x1c8 # f14c394
-glabel var7f1b732c
-.word func0f14c1cc+0xb4 # f14c280
-glabel var7f1b7330
-.word func0f14c1cc+0x100 # f14c2cc
-glabel var7f1b7334
-.word func0f14c1cc+0xc0 # f14c28c
-glabel var7f1b7338
-.word func0f14c1cc+0x1c8 # f14c394
-.text
-/*  f14c1cc:	3c0f8008 */ 	lui	$t7,%hi(var8007f8dc)
-/*  f14c1d0:	8deff8dc */ 	lw	$t7,%lo(var8007f8dc)($t7)
-/*  f14c1d4:	00047180 */ 	sll	$t6,$a0,0x6
-/*  f14c1d8:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f14c1dc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14c1e0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f14c1e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14c1e8:	01cf5021 */ 	addu	$t2,$t6,$t7
-/*  f14c1ec:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f14c1f0:	0fc53c02 */ 	jal	func0f14f008
-/*  f14c1f4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f14c1f8:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f14c1fc:	04410003 */ 	bgez	$v0,.L0f14c20c
-/*  f14c200:	00021843 */ 	sra	$v1,$v0,0x1
-/*  f14c204:	24410001 */ 	addiu	$at,$v0,0x1
-/*  f14c208:	00011843 */ 	sra	$v1,$at,0x1
-.L0f14c20c:
-/*  f14c20c:	8d5800f4 */ 	lw	$t8,0xf4($t2)
-/*  f14c210:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f14c214:	00605825 */ 	or	$t3,$v1,$zero
-/*  f14c218:	2f010006 */ 	sltiu	$at,$t8,0x6
-/*  f14c21c:	1020005d */ 	beqz	$at,.L0f14c394
-/*  f14c220:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f14c224:	3c017f1b */ 	lui	$at,%hi(var7f1b7324)
-/*  f14c228:	00380821 */ 	addu	$at,$at,$t8
-/*  f14c22c:	8c387324 */ 	lw	$t8,%lo(var7f1b7324)($at)
-/*  f14c230:	03000008 */ 	jr	$t8
-/*  f14c234:	00000000 */ 	nop
-/*  f14c238:	0fc52969 */ 	jal	func0f14a5a4
-/*  f14c23c:	afaa001c */ 	sw	$t2,0x1c($sp)
-/*  f14c240:	00022600 */ 	sll	$a0,$v0,0x18
-/*  f14c244:	0004ce03 */ 	sra	$t9,$a0,0x18
-/*  f14c248:	03202025 */ 	or	$a0,$t9,$zero
-/*  f14c24c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f14c250:	0fc45c6d */ 	jal	pak0f1171b4
-/*  f14c254:	00003025 */ 	or	$a2,$zero,$zero
-/*  f14c258:	0fc52969 */ 	jal	func0f14a5a4
-/*  f14c25c:	00000000 */ 	nop
-/*  f14c260:	00022600 */ 	sll	$a0,$v0,0x18
-/*  f14c264:	00046603 */ 	sra	$t4,$a0,0x18
-/*  f14c268:	0fc4756c */ 	jal	pak0f11d5b0
-/*  f14c26c:	01802025 */ 	or	$a0,$t4,$zero
-/*  f14c270:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f14c274:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f14c278:	10000046 */ 	b	.L0f14c394
-/*  f14c27c:	ad4d00f4 */ 	sw	$t5,0xf4($t2)
-/*  f14c280:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*  f14c284:	10000043 */ 	b	.L0f14c394
-/*  f14c288:	ad4e00f4 */ 	sw	$t6,0xf4($t2)
-/*  f14c28c:	8d420074 */ 	lw	$v0,0x74($t2)
-/*  f14c290:	8d4f0080 */ 	lw	$t7,0x80($t2)
-/*  f14c294:	51e20040 */ 	beql	$t7,$v0,.L0f14c398
-/*  f14c298:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14c29c:	8d5800dc */ 	lw	$t8,0xdc($t2)
-/*  f14c2a0:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f14c2a4:	240e0005 */ 	addiu	$t6,$zero,0x5
-/*  f14c2a8:	03196021 */ 	addu	$t4,$t8,$t9
-/*  f14c2ac:	ad800000 */ 	sw	$zero,0x0($t4)
-/*  f14c2b0:	8d4d0074 */ 	lw	$t5,0x74($t2)
-/*  f14c2b4:	ad4e00f4 */ 	sw	$t6,0xf4($t2)
-/*  f14c2b8:	ad4d0080 */ 	sw	$t5,0x80($t2)
-/*  f14c2bc:	0fc52f4d */ 	jal	func0f14bd34
-/*  f14c2c0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f14c2c4:	10000034 */ 	b	.L0f14c398
-/*  f14c2c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14c2cc:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f14c2d0:	ad4f0080 */ 	sw	$t7,0x80($t2)
-/*  f14c2d4:	1860002d */ 	blez	$v1,.L0f14c38c
-/*  f14c2d8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f14c2dc:	8d460074 */ 	lw	$a2,0x74($t2)
-/*  f14c2e0:	8d4800dc */ 	lw	$t0,0xdc($t2)
-/*  f14c2e4:	240900ff */ 	addiu	$t1,$zero,0xff
-/*  f14c2e8:	00c03825 */ 	or	$a3,$a2,$zero
-.L0f14c2ec:
-/*  f14c2ec:	00c2001a */ 	div	$zero,$a2,$v0
-/*  f14c2f0:	00002010 */ 	mfhi	$a0
-/*  f14c2f4:	0004c080 */ 	sll	$t8,$a0,0x2
-/*  f14c2f8:	14400002 */ 	bnez	$v0,.L0f14c304
-/*  f14c2fc:	00000000 */ 	nop
-/*  f14c300:	0007000d */ 	break	0x7
-.L0f14c304:
-/*  f14c304:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f14c308:	14410004 */ 	bne	$v0,$at,.L0f14c31c
-/*  f14c30c:	3c018000 */ 	lui	$at,0x8000
-/*  f14c310:	14c10002 */ 	bne	$a2,$at,.L0f14c31c
-/*  f14c314:	00000000 */ 	nop
-/*  f14c318:	0006000d */ 	break	0x6
-.L0f14c31c:
-/*  f14c31c:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f14c320:	04e10002 */ 	bgez	$a3,.L0f14c32c
-/*  f14c324:	0118c821 */ 	addu	$t9,$t0,$t8
-/*  f14c328:	00621821 */ 	addu	$v1,$v1,$v0
-.L0f14c32c:
-/*  f14c32c:	8f2c0000 */ 	lw	$t4,0x0($t9)
-/*  f14c330:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f14c334:	010fc021 */ 	addu	$t8,$t0,$t7
-/*  f14c338:	55800008 */ 	bnezl	$t4,.L0f14c35c
-/*  f14c33c:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f14c340:	01446821 */ 	addu	$t5,$t2,$a0
-/*  f14c344:	91ae00b6 */ 	lbu	$t6,0xb6($t5)
-/*  f14c348:	512e0004 */ 	beql	$t1,$t6,.L0f14c35c
-/*  f14c34c:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f14c350:	1000000e */ 	b	.L0f14c38c
-/*  f14c354:	ad440080 */ 	sw	$a0,0x80($t2)
-/*  f14c358:	8f190000 */ 	lw	$t9,0x0($t8)
-.L0f14c35c:
-/*  f14c35c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f14c360:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f14c364:	17200007 */ 	bnez	$t9,.L0f14c384
-/*  f14c368:	00000000 */ 	nop
-/*  f14c36c:	01436021 */ 	addu	$t4,$t2,$v1
-/*  f14c370:	918d00b6 */ 	lbu	$t5,0xb6($t4)
-/*  f14c374:	112d0003 */ 	beq	$t1,$t5,.L0f14c384
-/*  f14c378:	00000000 */ 	nop
-/*  f14c37c:	10000003 */ 	b	.L0f14c38c
-/*  f14c380:	ad430080 */ 	sw	$v1,0x80($t2)
-.L0f14c384:
-/*  f14c384:	14abffd9 */ 	bne	$a1,$t3,.L0f14c2ec
-/*  f14c388:	24e7ffff */ 	addiu	$a3,$a3,-1
-.L0f14c38c:
-/*  f14c38c:	0fc52f4d */ 	jal	func0f14bd34
-/*  f14c390:	8fa40020 */ 	lw	$a0,0x20($sp)
-.L0f14c394:
-/*  f14c394:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f14c398:
-/*  f14c398:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14c39c:	03e00008 */ 	jr	$ra
-/*  f14c3a0:	00000000 */ 	nop
-);
+void func0f14c1cc(s32 index)
+{
+	struct var8007f8dc *thing = &var8007f8dc[index];
+	s32 count = func0f14f008(index);
+	s32 max = count / 2 + 1;
+	s32 i;
+
+	switch (thing->unk0f4) {
+	case 0:
+		pak0f1171b4(func0f14a5a4(), 0, 0);
+		pak0f11d5b0(func0f14a5a4());
+		thing->unk0f4 = 1;
+		break;
+	case 2:
+		thing->unk0f4 = 3;
+		break;
+	case 4:
+		if (thing->unk074 != thing->unk080) {
+			thing->unk0dc[thing->unk074] = 0;
+			thing->unk080 = thing->unk074;
+			thing->unk0f4 = 5;
+
+			func0f14bd34(index);
+		}
+		break;
+	case 3:
+		thing->unk080 = -1;
+
+		for (i = 0; i < max; i++) {
+			s32 a = (thing->unk074 + i) % count;
+			s32 b = thing->unk074 - i;
+
+			if (b < 0) {
+				b += count;
+			}
+
+			if (thing->unk0dc[a] == 0 && thing->unk0b6[a] != 0xff) {
+				thing->unk080 = a;
+				break;
+			}
+
+			if (thing->unk0dc[b] == 0 && thing->unk0b6[b] != 0xff) {
+				thing->unk080 = b;
+				break;
+			}
+		}
+		func0f14bd34(index);
+		break;
+	case 1:
+	case 5:
+		break;
+	}
+}
 
 void func0f14c3a4(s32 index)
 {
