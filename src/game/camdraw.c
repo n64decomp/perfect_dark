@@ -4037,67 +4037,28 @@ glabel func0f14dc30
 /*  f14deec:	27bd0088 */ 	addiu	$sp,$sp,0x88
 );
 
-const char var7f1b6d04[] = "camdraw.c";
-const char var7f1b6d10[] = "camdraw.c";
-const char var7f1b6d1c[] = "Cam %d -> Balance : No Data Available\n";
+void func0f14def0(s32 index, u32 line, char *file)
+{
+	struct var8007f8e0 *a = func0f14a06c(-1);
+	struct var8007f8e0 *b = (index != -1 ? func0f14a06c(index) : NULL);
+	struct var8007f8e0 *c = func0f14a06c(-4);
+	struct var8007f8e0 *d = func0f14a06c(-5);
 
-GLOBAL_ASM(
-glabel func0f14def0
-/*  f14def0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f14def4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14def8:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f14defc:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f14df00:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f14df04:	0fc5281b */ 	jal	func0f14a06c
-/*  f14df08:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14df0c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f14df10:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f14df14:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f14df18:	50810006 */ 	beql	$a0,$at,.L0f14df34
-/*  f14df1c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f14df20:	0fc5281b */ 	jal	func0f14a06c
-/*  f14df24:	00000000 */ 	nop
-/*  f14df28:	10000002 */ 	b	.L0f14df34
-/*  f14df2c:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f14df30:	afa00020 */ 	sw	$zero,0x20($sp)
-.L0f14df34:
-/*  f14df34:	0fc5281b */ 	jal	func0f14a06c
-/*  f14df38:	2404fffc */ 	addiu	$a0,$zero,-4
-/*  f14df3c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f14df40:	0fc5281b */ 	jal	func0f14a06c
-/*  f14df44:	2404fffb */ 	addiu	$a0,$zero,-5
-/*  f14df48:	3c077f1b */ 	lui	$a3,%hi(var7f1b6d04)
-/*  f14df4c:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f14df50:	24e76d04 */ 	addiu	$a3,$a3,%lo(var7f1b6d04)
-/*  f14df54:	00402025 */ 	or	$a0,$v0,$zero
-/*  f14df58:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f14df5c:	0fc53143 */ 	jal	func0f14c50c
-/*  f14df60:	24060db4 */ 	addiu	$a2,$zero,0xdb4
-/*  f14df64:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14df68:	0fc5370c */ 	jal	func0f14dc30
-/*  f14df6c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f14df70:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f14df74:	50800004 */ 	beqzl	$a0,.L0f14df88
-/*  f14df78:	2404fffb */ 	addiu	$a0,$zero,-5
-/*  f14df7c:	0fc53871 */ 	jal	func0f14e1c4
-/*  f14df80:	00000000 */ 	nop
-/*  f14df84:	2404fffb */ 	addiu	$a0,$zero,-5
-.L0f14df88:
-/*  f14df88:	0fc5370c */ 	jal	func0f14dc30
-/*  f14df8c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f14df90:	0fc53871 */ 	jal	func0f14e1c4
-/*  f14df94:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f14df98:	3c077f1b */ 	lui	$a3,%hi(var7f1b6d10)
-/*  f14df9c:	24e76d10 */ 	addiu	$a3,$a3,%lo(var7f1b6d10)
-/*  f14dfa0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f14dfa4:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f14dfa8:	0fc53143 */ 	jal	func0f14c50c
-/*  f14dfac:	24060dbf */ 	addiu	$a2,$zero,0xdbf
-/*  f14dfb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14dfb4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f14dfb8:	03e00008 */ 	jr	$ra
-/*  f14dfbc:	00000000 */ 	nop
-);
+	func0f14c50c(d, a, 3508, "camdraw.c");
+
+	func0f14dc30(-1, false);
+
+	if (b != NULL) {
+		func0f14e1c4(b);
+	}
+
+	func0f14dc30(-5, true);
+
+	func0f14e1c4(d);
+	func0f14c50c(c, d, 3519, "camdraw.c");
+}
+
+const char var7f1b6d1c[] = "Cam %d -> Balance : No Data Available\n";
 
 GLOBAL_ASM(
 glabel func0f14dfc0
