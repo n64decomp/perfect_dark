@@ -6395,6 +6395,42 @@ glabel func0f15015c
 /*  f150204:	8fb20020 */ 	lw	$s2,0x20($sp)
 /*  f150208:	03e00008 */ 	jr	$ra
 /*  f15020c:	27bd04e0 */ 	addiu	$sp,$sp,0x4e0
+);
+
+// Mismatch: Goal stores arg2 to the stack then loads it after the call to
+// pakReadBodyAtGuid. The below stores it in s2.
+//bool func0f15015c(s8 device, s32 filenum, u8 *arg2)
+//{
+//	u8 stack[0x420];
+//	u8 buffer[128];
+//	s32 ret;
+//	s32 i;
+//
+//	ret = pakReadBodyAtGuid(device, filenum, buffer, 128);
+//
+//	if (ret == 0) {
+//		for (i = 0; i < 128; i++) {
+//			arg2[i] = buffer[i];
+//		}
+//
+//		return true;
+//	}
+//
+//	if (ret == 10) {
+//		s32 i;
+//
+//		for (i = 0; i < 128; i++) {
+//			arg2[i] = random();
+//		}
+//
+//		return true;
+//	}
+//
+//	return false;
+//}
+
+GLOBAL_ASM(
+glabel func0f150210
 /*  f150210:	27bdfb20 */ 	addiu	$sp,$sp,-1248
 /*  f150214:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f150218:	afbf001c */ 	sw	$ra,0x1c($sp)
