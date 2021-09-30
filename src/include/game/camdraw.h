@@ -5,7 +5,7 @@
 #include "types.h"
 
 void func0f149c90(struct var800a45a0_484 *arg0);
-u32 func0f149d58(void);
+void *func0f149d58(u32 size, u32 line, char *file);
 void func0f149e58(u8 *arg0, u32 size);
 void func0f14a00c(bool arg0);
 struct var8007f8e0 *func0f14a06c(s32 index);

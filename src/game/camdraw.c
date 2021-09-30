@@ -12,6 +12,7 @@
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/memory.h"
+#include "lib/model.h"
 #include "lib/lib_126b0.h"
 #include "lib/rng.h"
 #include "lib/lib_16110.h"
@@ -5039,40 +5040,6 @@ s32 func0f14f05c(s32 index)
 	return var8007f8dc[index].unk074;
 }
 
-const char var7f1b6df0[] = "camdraw.c";
-const char var7f1b6dfc[] = "Cam_RebuildHead : Slot=%d\n";
-const char var7f1b6e18[] = "Cam -> Cam_ColourHeadOnePart - Remapping %s\n";
-const char var7f1b6e48[] = "Cam_ColourHead : Face Col = %u, Hair Col = %u\n";
-const char var7f1b6e78[] = "FACE";
-const char var7f1b6e80[] = "SIDE";
-const char var7f1b6e88[] = "HAIR";
-const char var7f1b6e90[] = "Cam -> Cam_SquashOnePart - pExtents=%08x, pVcopy=%08x, \n";
-const char var7f1b6ecc[] = "Cam -> Cam_SquashOnePart - Head centre at (%d,%d,%d)\n";
-const char var7f1b6f04[] = "Cam -> Cam_SquashOnePart - Scale Param 1 = %s%s%.3f\n";
-const char var7f1b6f3c[] = "";
-const char var7f1b6f40[] = "";
-const char var7f1b6f44[] = "Cam -> Cam_SquashOnePart - Scale Param 2 = %s%s%.3f\n";
-const char var7f1b6f7c[] = "";
-const char var7f1b6f80[] = "";
-const char var7f1b6f84[] = "Cam -> Cam_SquashOnePart - Scale Param 3 = %s%s%.3f\n";
-const char var7f1b6fbc[] = "";
-const char var7f1b6fc0[] = "";
-const char var7f1b6fc4[] = "Cam -> Cam_SquashOnePart - Scale Param 4 = %s%s%.3f\n";
-const char var7f1b6ffc[] = "";
-const char var7f1b7000[] = "";
-const char var7f1b7004[] = "Cam -> Cam_SquashOnePart - Scale Param 5 = %s%s%.3f\n";
-const char var7f1b703c[] = "";
-const char var7f1b7040[] = "";
-const char var7f1b7044[] = "Cam -> Cam_SquashOnePart - Scale Param 6 = %s%s%.3f\n";
-const char var7f1b707c[] = "";
-const char var7f1b7080[] = "";
-const char var7f1b7084[] = "Cam -> Cam_SquashOnePart - Scale Param 7 = %s%s%.3f\n";
-const char var7f1b70bc[] = "";
-const char var7f1b70c0[] = "";
-const char var7f1b70c4[] = "Cam_DctInitialise_Read -> %x\n";
-const char var7f1b70e4[] = "Cam_DctUnCompressSlot -> %x\n";
-const char var7f1b7104[] = "Cam_LoadFromPakIntoSlot -> Pak=%d, fileGuid=%u, pakGuid=%u, Slot=%d, pS=%x, pE=%x\n";
-
 Gfx *func0f14f07c(Gfx *gdl, s32 headorbodynum, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	struct var800a45a0_484 *thing = &var800a45a0->unk484[headorbodynum];
@@ -5134,112 +5101,81 @@ void func0f14f1d4(s16 *src, s32 len, s32 *dst)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f14f2b4
-/*  f14f2b4:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f14f2b8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14f2bc:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f14f2c0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14f2c4:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f14f2c8:	afa60060 */ 	sw	$a2,0x60($sp)
-/*  f14f2cc:	0c006a47 */ 	jal	modelGetPart
-/*  f14f2d0:	24050190 */ 	addiu	$a1,$zero,0x190
-/*  f14f2d4:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f14f2d8:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f14f2dc:	0c006a47 */ 	jal	modelGetPart
-/*  f14f2e0:	24050191 */ 	addiu	$a1,$zero,0x191
-/*  f14f2e4:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f14f2e8:	24050192 */ 	addiu	$a1,$zero,0x192
-/*  f14f2ec:	0c006a47 */ 	jal	modelGetPart
-/*  f14f2f0:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f14f2f4:	8fad0060 */ 	lw	$t5,0x60($sp)
-/*  f14f2f8:	8fa30050 */ 	lw	$v1,0x50($sp)
-/*  f14f2fc:	00405825 */ 	or	$t3,$v0,$zero
-/*  f14f300:	11a00002 */ 	beqz	$t5,.L0f14f30c
-/*  f14f304:	afa00048 */ 	sw	$zero,0x48($sp)
-/*  f14f308:	ada00000 */ 	sw	$zero,0x0($t5)
-.L0f14f30c:
-/*  f14f30c:	8fac0054 */ 	lw	$t4,0x54($sp)
-/*  f14f310:	51800048 */ 	beqzl	$t4,.L0f14f434
-/*  f14f314:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14f318:	50600046 */ 	beqzl	$v1,.L0f14f434
-/*  f14f31c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14f320:	50400044 */ 	beqzl	$v0,.L0f14f434
-/*  f14f324:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14f328:	8d850004 */ 	lw	$a1,0x4($t4)
-/*  f14f32c:	8c660004 */ 	lw	$a2,0x4($v1)
-/*  f14f330:	8d670004 */ 	lw	$a3,0x4($t3)
-/*  f14f334:	84a80010 */ 	lh	$t0,0x10($a1)
-/*  f14f338:	84c90010 */ 	lh	$t1,0x10($a2)
-/*  f14f33c:	84ea0010 */ 	lh	$t2,0x10($a3)
-/*  f14f340:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f14f344:	01097021 */ 	addu	$t6,$t0,$t1
-/*  f14f348:	01ca1021 */ 	addu	$v0,$t6,$t2
-/*  f14f34c:	00022080 */ 	sll	$a0,$v0,0x2
-/*  f14f350:	00822023 */ 	subu	$a0,$a0,$v0
-/*  f14f354:	afa20048 */ 	sw	$v0,0x48($sp)
-/*  f14f358:	00042080 */ 	sll	$a0,$a0,0x2
-/*  f14f35c:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f14f360:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f14f364:	afa80038 */ 	sw	$t0,0x38($sp)
-/*  f14f368:	afa90034 */ 	sw	$t1,0x34($sp)
-/*  f14f36c:	0fc5db69 */ 	jal	align16
-/*  f14f370:	afaa0030 */ 	sw	$t2,0x30($sp)
-/*  f14f374:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f14f378:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f14f37c:	3c067f1b */ 	lui	$a2,%hi(var7f1b6df0)
-/*  f14f380:	24c66df0 */ 	addiu	$a2,$a2,%lo(var7f1b6df0)
-/*  f14f384:	14800005 */ 	bnez	$a0,.L0f14f39c
-/*  f14f388:	2405114d */ 	addiu	$a1,$zero,0x114d
-/*  f14f38c:	0fc52756 */ 	jal	func0f149d58
-/*  f14f390:	00402025 */ 	or	$a0,$v0,$zero
-/*  f14f394:	ae020000 */ 	sw	$v0,0x0($s0)
-/*  f14f398:	00402025 */ 	or	$a0,$v0,$zero
-.L0f14f39c:
-/*  f14f39c:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f14f3a0:	8faf0044 */ 	lw	$t7,0x44($sp)
-/*  f14f3a4:	0006c080 */ 	sll	$t8,$a2,0x2
-/*  f14f3a8:	0306c023 */ 	subu	$t8,$t8,$a2
-/*  f14f3ac:	00183080 */ 	sll	$a2,$t8,0x2
-/*  f14f3b0:	8de5000c */ 	lw	$a1,0xc($t7)
-/*  f14f3b4:	0c012978 */ 	jal	memcpy
-/*  f14f3b8:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f14f3bc:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*  f14f3c0:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f14f3c4:	8e190000 */ 	lw	$t9,0x0($s0)
-/*  f14f3c8:	0007c080 */ 	sll	$t8,$a3,0x2
-/*  f14f3cc:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f14f3d0:	0307c023 */ 	subu	$t8,$t8,$a3
-/*  f14f3d4:	00183080 */ 	sll	$a2,$t8,0x2
-/*  f14f3d8:	8de5000c */ 	lw	$a1,0xc($t7)
-/*  f14f3dc:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f14f3e0:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f14f3e4:	0c012978 */ 	jal	memcpy
-/*  f14f3e8:	032e2021 */ 	addu	$a0,$t9,$t6
-/*  f14f3ec:	8e190000 */ 	lw	$t9,0x0($s0)
-/*  f14f3f0:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f14f3f4:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f14f3f8:	8fa70028 */ 	lw	$a3,0x28($sp)
-/*  f14f3fc:	032e7821 */ 	addu	$t7,$t9,$t6
-/*  f14f400:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*  f14f404:	0006c880 */ 	sll	$t9,$a2,0x2
-/*  f14f408:	0326c823 */ 	subu	$t9,$t9,$a2
-/*  f14f40c:	00193080 */ 	sll	$a2,$t9,0x2
-/*  f14f410:	01e72021 */ 	addu	$a0,$t7,$a3
-/*  f14f414:	0c012978 */ 	jal	memcpy
-/*  f14f418:	8f05000c */ 	lw	$a1,0xc($t8)
-/*  f14f41c:	8fae0060 */ 	lw	$t6,0x60($sp)
-/*  f14f420:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f14f424:	51c00003 */ 	beqzl	$t6,.L0f14f434
-/*  f14f428:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f14f42c:	adcf0000 */ 	sw	$t7,0x0($t6)
-/*  f14f430:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f14f434:
-/*  f14f434:	8fa20048 */ 	lw	$v0,0x48($sp)
-/*  f14f438:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14f43c:	03e00008 */ 	jr	$ra
-/*  f14f440:	27bd0058 */ 	addiu	$sp,$sp,0x58
-);
+s32 func0f14f2b4(struct modelfiledata *filedata, struct gfxvtx **dst, u32 *len)
+{
+	struct modelnode *node1 = modelGetPart(filedata, MODELPART_HEAD_0190);
+	struct modelnode *node2 = modelGetPart(filedata, MODELPART_HEAD_0191);
+	struct modelnode *node3 = modelGetPart(filedata, MODELPART_HEAD_0192);
+
+	s32 totalverts = 0;
+
+	if (len != NULL) {
+		*len = 0;
+	}
+
+	if (node1 && node2 && node3) {
+		struct modelrodata_dl *node1rodata = &node1->rodata->dl;
+		struct modelrodata_dl *node2rodata = &node2->rodata->dl;
+		struct modelrodata_dl *node3rodata = &node3->rodata->dl;
+
+		s32 node1numverts = node1rodata->numvertices;
+		s32 node2numverts = node2rodata->numvertices;
+		s32 node3numverts = node3rodata->numvertices;
+
+		s32 size;
+
+		totalverts = node1numverts + node2numverts + node3numverts;
+		size = align16(totalverts * sizeof(struct gfxvtx));
+
+		if (*dst == 0) {
+			*dst = func0f149d58(size, 4429, "camdraw.c");
+		}
+
+		memcpy(*dst, node1rodata->vertices, node1numverts * sizeof(struct gfxvtx));
+		memcpy(*dst + node1numverts, node2rodata->vertices, node2numverts * sizeof(struct gfxvtx));
+		memcpy(*dst + node1numverts + node2numverts, node3rodata->vertices, node3numverts * sizeof(struct gfxvtx));
+
+		if (len != NULL) {
+			*len = size;
+		}
+	}
+
+	return totalverts;
+}
+
+const char var7f1b6dfc[] = "Cam_RebuildHead : Slot=%d\n";
+const char var7f1b6e18[] = "Cam -> Cam_ColourHeadOnePart - Remapping %s\n";
+const char var7f1b6e48[] = "Cam_ColourHead : Face Col = %u, Hair Col = %u\n";
+const char var7f1b6e78[] = "FACE";
+const char var7f1b6e80[] = "SIDE";
+const char var7f1b6e88[] = "HAIR";
+const char var7f1b6e90[] = "Cam -> Cam_SquashOnePart - pExtents=%08x, pVcopy=%08x, \n";
+const char var7f1b6ecc[] = "Cam -> Cam_SquashOnePart - Head centre at (%d,%d,%d)\n";
+const char var7f1b6f04[] = "Cam -> Cam_SquashOnePart - Scale Param 1 = %s%s%.3f\n";
+const char var7f1b6f3c[] = "";
+const char var7f1b6f40[] = "";
+const char var7f1b6f44[] = "Cam -> Cam_SquashOnePart - Scale Param 2 = %s%s%.3f\n";
+const char var7f1b6f7c[] = "";
+const char var7f1b6f80[] = "";
+const char var7f1b6f84[] = "Cam -> Cam_SquashOnePart - Scale Param 3 = %s%s%.3f\n";
+const char var7f1b6fbc[] = "";
+const char var7f1b6fc0[] = "";
+const char var7f1b6fc4[] = "Cam -> Cam_SquashOnePart - Scale Param 4 = %s%s%.3f\n";
+const char var7f1b6ffc[] = "";
+const char var7f1b7000[] = "";
+const char var7f1b7004[] = "Cam -> Cam_SquashOnePart - Scale Param 5 = %s%s%.3f\n";
+const char var7f1b703c[] = "";
+const char var7f1b7040[] = "";
+const char var7f1b7044[] = "Cam -> Cam_SquashOnePart - Scale Param 6 = %s%s%.3f\n";
+const char var7f1b707c[] = "";
+const char var7f1b7080[] = "";
+const char var7f1b7084[] = "Cam -> Cam_SquashOnePart - Scale Param 7 = %s%s%.3f\n";
+const char var7f1b70bc[] = "";
+const char var7f1b70c0[] = "";
+const char var7f1b70c4[] = "Cam_DctInitialise_Read -> %x\n";
+const char var7f1b70e4[] = "Cam_DctUnCompressSlot -> %x\n";
+const char var7f1b7104[] = "Cam_LoadFromPakIntoSlot -> Pak=%d, fileGuid=%u, pakGuid=%u, Slot=%d, pS=%x, pE=%x\n";
+
 
 void func0f14f444(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {

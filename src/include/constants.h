@@ -2052,6 +2052,7 @@
 #define MODELPART_HEAD_HUDPIECE       0x0004 // toggle
 #define MODELPART_HEAD_0190           0x0190 // dl
 #define MODELPART_HEAD_0191           0x0191 // dl
+#define MODELPART_HEAD_0192           0x0192 // dl
 #define MODELPART_HOVERBIKE_0064      0x0064 // type19
 #define MODELPART_HUDPIECE_0000       0x0000 // gundl
 #define MODELPART_HUDPIECE_0001       0x0001 // position
