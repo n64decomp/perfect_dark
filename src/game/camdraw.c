@@ -5279,17 +5279,10 @@ s32 func0f14f008(s32 index)
 	return var8007f8dc[index].unk094;
 }
 
-GLOBAL_ASM(
-glabel func0f14f03c
-/*  f14f03c:	3c0e8008 */ 	lui	$t6,%hi(var8007f8dc)
-/*  f14f040:	8dcef8dc */ 	lw	$t6,%lo(var8007f8dc)($t6)
-/*  f14f044:	00047980 */ 	sll	$t7,$a0,0x6
-/*  f14f048:	01e47821 */ 	addu	$t7,$t7,$a0
-/*  f14f04c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f14f050:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f14f054:	03e00008 */ 	jr	$ra
-/*  f14f058:	af050074 */ 	sw	$a1,0x74($t8)
-);
+void func0f14f03c(s32 index, s32 value)
+{
+	var8007f8dc[index].unk074 = value;
+}
 
 s32 func0f14f05c(s32 index)
 {
