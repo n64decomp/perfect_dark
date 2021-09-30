@@ -2343,9 +2343,12 @@ glabel func0f14c7dc
 /*  f14c800:	a083000a */ 	sb	$v1,0xa($a0)
 /*  f14c804:	03e00008 */ 	jr	$ra
 /*  f14c808:	a083000b */ 	sb	$v1,0xb($a0)
-/*  f14c80c:	03e00008 */ 	jr	$ra
-/*  f14c810:	00000000 */ 	nop
 );
+
+void func0f14c80c(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f14c814
