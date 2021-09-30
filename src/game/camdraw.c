@@ -5097,74 +5097,45 @@ Gfx *func0f14f07c(Gfx *gdl, s32 headorbodynum, s32 x1, s32 y1, s32 x2, s32 y2)
 	return gdl;
 }
 
+/**
+ * Calculate the bounding box of the src coordinates and store it in dst.
+ *
+ * Note that each element in src is 12 bytes
+ * but only the first 6 are coordinates.
+ */
+void func0f14f1d4(s16 *src, s32 len, s32 *dst)
+{
+	s32 i;
+
+	if (len > 0) {
+		dst[0] = dst[3] = src[0];
+		dst[1] = dst[4] = src[1];
+		dst[2] = dst[5] = src[2];
+
+		for (i = 1; i < len; i++) {
+			if (src[i * 6] > dst[3]) {
+				dst[3] = src[i * 6];
+			} else if (src[i * 6] < dst[0]) {
+				dst[0] = src[i * 6];
+			}
+
+			if (src[i * 6 + 1] > dst[4]) {
+				dst[4] = src[i * 6 + 1];
+			} else if (src[i * 6 + 1] < dst[1]) {
+				dst[1] = src[i * 6 + 1];
+			}
+
+			if (src[i * 6 + 2] > dst[5]) {
+				dst[5] = src[i * 6 + 2];
+			} else if (src[i * 6 + 2] < dst[2]) {
+				dst[2] = src[i * 6 + 2];
+			}
+		}
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f14f1d4
-/*  f14f1d4:	18a00035 */ 	blez	$a1,.L0f14f2ac
-/*  f14f1d8:	00000000 */ 	nop
-/*  f14f1dc:	84820000 */ 	lh	$v0,0x0($a0)
-/*  f14f1e0:	28a10002 */ 	slti	$at,$a1,0x2
-/*  f14f1e4:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f14f1e8:	acc2000c */ 	sw	$v0,0xc($a2)
-/*  f14f1ec:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f14f1f0:	84820002 */ 	lh	$v0,0x2($a0)
-/*  f14f1f4:	acc20010 */ 	sw	$v0,0x10($a2)
-/*  f14f1f8:	acc20004 */ 	sw	$v0,0x4($a2)
-/*  f14f1fc:	84820004 */ 	lh	$v0,0x4($a0)
-/*  f14f200:	acc20014 */ 	sw	$v0,0x14($a2)
-/*  f14f204:	14200029 */ 	bnez	$at,.L0f14f2ac
-/*  f14f208:	acc20008 */ 	sw	$v0,0x8($a2)
-/*  f14f20c:	2482000c */ 	addiu	$v0,$a0,0xc
-.L0f14f210:
-/*  f14f210:	84440000 */ 	lh	$a0,0x0($v0)
-/*  f14f214:	8cce000c */ 	lw	$t6,0xc($a2)
-/*  f14f218:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f14f21c:	01c4082a */ 	slt	$at,$t6,$a0
-/*  f14f220:	50200004 */ 	beqzl	$at,.L0f14f234
-/*  f14f224:	8ccf0000 */ 	lw	$t7,0x0($a2)
-/*  f14f228:	10000006 */ 	b	.L0f14f244
-/*  f14f22c:	acc4000c */ 	sw	$a0,0xc($a2)
-/*  f14f230:	8ccf0000 */ 	lw	$t7,0x0($a2)
-.L0f14f234:
-/*  f14f234:	008f082a */ 	slt	$at,$a0,$t7
-/*  f14f238:	50200003 */ 	beqzl	$at,.L0f14f248
-/*  f14f23c:	84440002 */ 	lh	$a0,0x2($v0)
-/*  f14f240:	acc40000 */ 	sw	$a0,0x0($a2)
-.L0f14f244:
-/*  f14f244:	84440002 */ 	lh	$a0,0x2($v0)
-.L0f14f248:
-/*  f14f248:	8cd80010 */ 	lw	$t8,0x10($a2)
-/*  f14f24c:	0304082a */ 	slt	$at,$t8,$a0
-/*  f14f250:	50200004 */ 	beqzl	$at,.L0f14f264
-/*  f14f254:	8cd90004 */ 	lw	$t9,0x4($a2)
-/*  f14f258:	10000006 */ 	b	.L0f14f274
-/*  f14f25c:	acc40010 */ 	sw	$a0,0x10($a2)
-/*  f14f260:	8cd90004 */ 	lw	$t9,0x4($a2)
-.L0f14f264:
-/*  f14f264:	0099082a */ 	slt	$at,$a0,$t9
-/*  f14f268:	50200003 */ 	beqzl	$at,.L0f14f278
-/*  f14f26c:	84440004 */ 	lh	$a0,0x4($v0)
-/*  f14f270:	acc40004 */ 	sw	$a0,0x4($a2)
-.L0f14f274:
-/*  f14f274:	84440004 */ 	lh	$a0,0x4($v0)
-.L0f14f278:
-/*  f14f278:	8cc80014 */ 	lw	$t0,0x14($a2)
-/*  f14f27c:	0104082a */ 	slt	$at,$t0,$a0
-/*  f14f280:	50200004 */ 	beqzl	$at,.L0f14f294
-/*  f14f284:	8cc90008 */ 	lw	$t1,0x8($a2)
-/*  f14f288:	10000006 */ 	b	.L0f14f2a4
-/*  f14f28c:	acc40014 */ 	sw	$a0,0x14($a2)
-/*  f14f290:	8cc90008 */ 	lw	$t1,0x8($a2)
-.L0f14f294:
-/*  f14f294:	0089082a */ 	slt	$at,$a0,$t1
-/*  f14f298:	10200002 */ 	beqz	$at,.L0f14f2a4
-/*  f14f29c:	00000000 */ 	nop
-/*  f14f2a0:	acc40008 */ 	sw	$a0,0x8($a2)
-.L0f14f2a4:
-/*  f14f2a4:	1465ffda */ 	bne	$v1,$a1,.L0f14f210
-/*  f14f2a8:	2442000c */ 	addiu	$v0,$v0,0xc
-.L0f14f2ac:
-/*  f14f2ac:	03e00008 */ 	jr	$ra
-/*  f14f2b0:	00000000 */ 	nop
+glabel func0f14f2b4
 /*  f14f2b4:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f14f2b8:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f14f2bc:	00a08025 */ 	or	$s0,$a1,$zero
