@@ -5446,12 +5446,12 @@ glabel func0f14f07c
 /*  f14f438:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*  f14f43c:	03e00008 */ 	jr	$ra
 /*  f14f440:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f14f444:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f14f448:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f14f44c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f14f450:	03e00008 */ 	jr	$ra
-/*  f14f454:	afa7000c */ 	sw	$a3,0xc($sp)
 );
+
+void func0f14f444(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+{
+	// empty
+}
 
 void func0f14f458(void)
 {
