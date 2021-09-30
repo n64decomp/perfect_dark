@@ -67,7 +67,7 @@ void func0f14e790(u8 *arg0);
 void func0f14e7e0(u8 *arg0);
 u32 func0f14e884(void);
 void func0f14ec2c(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
-u32 func0f14ecd8(void);
+void func0f14ecd8(s32 *arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 void func0f14eeb0(f32 *arg0);
 void func0f14ef50(f32 *arg0);
 s32 func0f14f008(s32 index);

@@ -4837,33 +4837,15 @@ void func0f14ec2c(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 
 const char var7f1b6d50[] = "Cam_SetSquashZ : %u, %u, %f\n";
 
-GLOBAL_ASM(
-glabel func0f14ecd8
-/*  f14ecd8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f14ecdc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ece0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f14ece4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f14ece8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f14ecec:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f14ecf0:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ecf4:	2404fffe */ 	addiu	$a0,$zero,-2
-/*  f14ecf8:	8c4e03c0 */ 	lw	$t6,0x3c0($v0)
-/*  f14ecfc:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f14ed00:	adee0000 */ 	sw	$t6,0x0($t7)
-/*  f14ed04:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*  f14ed08:	8c5803c8 */ 	lw	$t8,0x3c8($v0)
-/*  f14ed0c:	af380000 */ 	sw	$t8,0x0($t9)
-/*  f14ed10:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*  f14ed14:	8c4803c4 */ 	lw	$t0,0x3c4($v0)
-/*  f14ed18:	ad280000 */ 	sw	$t0,0x0($t1)
-/*  f14ed1c:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*  f14ed20:	8c4a03cc */ 	lw	$t2,0x3cc($v0)
-/*  f14ed24:	ad6a0000 */ 	sw	$t2,0x0($t3)
-/*  f14ed28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14ed2c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f14ed30:	03e00008 */ 	jr	$ra
-/*  f14ed34:	00000000 */ 	nop
-);
+void func0f14ecd8(s32 *arg0, s32 *arg1, s32 *arg2, s32 *arg3)
+{
+	struct var8007f8e0 *thing = func0f14a06c(-2);
+
+	*arg0 = thing->unk3c0;
+	*arg1 = thing->unk3c8;
+	*arg2 = thing->unk3c4;
+	*arg3 = thing->unk3cc;
+}
 
 void func0f14ed38(void)
 {
