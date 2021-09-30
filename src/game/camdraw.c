@@ -5219,31 +5219,19 @@ glabel var7f1b7360
 /*  f14ef4c:	00000000 */ 	nop
 );
 
+void func0f14ef50(f32 *arg0)
+{
+	s32 i;
+
+	for (i = 0; i < 7; i++) {
+		struct var8007f8e0 *thing = func0f14a06c(-2);
+
+		arg0[i] = thing->unk3d0[i];
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f14ef50
-/*  f14ef50:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f14ef54:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f14ef58:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f14ef5c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f14ef60:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f14ef64:	00008025 */ 	or	$s0,$zero,$zero
-/*  f14ef68:	00808825 */ 	or	$s1,$a0,$zero
-/*  f14ef6c:	2412001c */ 	addiu	$s2,$zero,0x1c
-.L0f14ef70:
-/*  f14ef70:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ef74:	2404fffe */ 	addiu	$a0,$zero,-2
-/*  f14ef78:	00507021 */ 	addu	$t6,$v0,$s0
-/*  f14ef7c:	c5c403d0 */ 	lwc1	$f4,0x3d0($t6)
-/*  f14ef80:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f14ef84:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f14ef88:	1612fff9 */ 	bne	$s0,$s2,.L0f14ef70
-/*  f14ef8c:	e624fffc */ 	swc1	$f4,-0x4($s1)
-/*  f14ef90:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f14ef94:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f14ef98:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f14ef9c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f14efa0:	03e00008 */ 	jr	$ra
-/*  f14efa4:	27bd0028 */ 	addiu	$sp,$sp,0x28
+glabel func0f14efa8
 /*  f14efa8:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f14efac:	3c0e8008 */ 	lui	$t6,%hi(var8007fa60)
 /*  f14efb0:	afbf0014 */ 	sw	$ra,0x14($sp)
