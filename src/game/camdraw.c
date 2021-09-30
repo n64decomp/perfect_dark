@@ -4809,57 +4809,33 @@ glabel func0f14e884
 /*  f14ec28:	00000000 */ 	nop
 );
 
-const char var7f1b6d44[] = "camdraw.c";
-const char var7f1b6d50[] = "Cam_SetSquashZ : %u, %u, %f\n";
+void func0f14ec2c(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+{
+	struct var8007f8e0 *thing1 = func0f14a06c(-1);
+	struct var8007f8e0 *thing2 = func0f14a06c(-2);
 
-GLOBAL_ASM(
-glabel func0f14ec2c
-/*  f14ec2c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14ec30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ec34:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f14ec38:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f14ec3c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f14ec40:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f14ec44:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ec48:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ec4c:	2404fffe */ 	addiu	$a0,$zero,-2
-/*  f14ec50:	0fc5281b */ 	jal	func0f14a06c
-/*  f14ec54:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f14ec58:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f14ec5c:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ec60:	2405103f */ 	addiu	$a1,$zero,0x103f
-/*  f14ec64:	1060000b */ 	beqz	$v1,.L0f14ec94
-/*  f14ec68:	3c067f1b */ 	lui	$a2,%hi(var7f1b6d44)
-/*  f14ec6c:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f14ec70:	ac6e03c0 */ 	sw	$t6,0x3c0($v1)
-/*  f14ec74:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f14ec78:	ac6f03c8 */ 	sw	$t7,0x3c8($v1)
-/*  f14ec7c:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f14ec80:	ac7803c4 */ 	sw	$t8,0x3c4($v1)
-/*  f14ec84:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*  f14ec88:	ac6003ec */ 	sw	$zero,0x3ec($v1)
-/*  f14ec8c:	ac6003f0 */ 	sw	$zero,0x3f0($v1)
-/*  f14ec90:	ac7903cc */ 	sw	$t9,0x3cc($v1)
-.L0f14ec94:
-/*  f14ec94:	1040000a */ 	beqz	$v0,.L0f14ecc0
-/*  f14ec98:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f14ec9c:	ac4803c0 */ 	sw	$t0,0x3c0($v0)
-/*  f14eca0:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f14eca4:	ac4903c8 */ 	sw	$t1,0x3c8($v0)
-/*  f14eca8:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*  f14ecac:	ac4a03c4 */ 	sw	$t2,0x3c4($v0)
-/*  f14ecb0:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*  f14ecb4:	ac4003ec */ 	sw	$zero,0x3ec($v0)
-/*  f14ecb8:	ac4003f0 */ 	sw	$zero,0x3f0($v0)
-/*  f14ecbc:	ac4b03cc */ 	sw	$t3,0x3cc($v0)
-.L0f14ecc0:
-/*  f14ecc0:	0fc537bc */ 	jal	func0f14def0
-/*  f14ecc4:	24c66d44 */ 	addiu	$a2,$a2,%lo(var7f1b6d44)
-/*  f14ecc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14eccc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14ecd0:	03e00008 */ 	jr	$ra
-/*  f14ecd4:	00000000 */ 	nop
-);
+	if (thing1) {
+		thing1->unk3c0 = arg0;
+		thing1->unk3c8 = arg1;
+		thing1->unk3c4 = arg2;
+		thing1->unk3cc = arg3;
+		thing1->unk3ec = 0;
+		thing1->unk3f0 = 0;
+	}
+
+	if (thing2) {
+		thing2->unk3c0 = arg0;
+		thing2->unk3c8 = arg1;
+		thing2->unk3c4 = arg2;
+		thing2->unk3cc = arg3;
+		thing2->unk3ec = 0;
+		thing2->unk3f0 = 0;
+	}
+
+	func0f14def0(-1, 4159, "camdraw.c");
+}
+
+const char var7f1b6d50[] = "Cam_SetSquashZ : %u, %u, %f\n";
 
 GLOBAL_ASM(
 glabel func0f14ecd8
