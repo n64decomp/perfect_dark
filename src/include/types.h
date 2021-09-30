@@ -7423,10 +7423,10 @@ struct var800a45a0 {
 
 struct var8007f8e0 { // perfect head?
 	/*0x000*/ u32 unk000;
-	/*0x004*/ u32 unk004;
+	/*0x004*/ u8 *unk004;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
-	/*0x010*/ u32 unk010;
+	/*0x010*/ u8 *unk010;
 	/*0x014*/ u32 unk014;
 	/*0x018*/ u32 unk018;
 	/*0x01c*/ u32 unk01c;
