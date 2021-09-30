@@ -4882,63 +4882,35 @@ void func0f14ee18(u32 arg0)
 	func0f14eeb0(foo);
 }
 
-const char var7f1b6d70[] = "camdraw.c";
-const char var7f1b6d7c[] = "Cam : Alloc for copy of Vtx %d bytes\n";
-const char var7f1b6da4[] = "CAM : Cam_AllocAndCopyAllVtx -> Ptr all-ready allocted - No extra needed\n";
+// @bug? Nothing is done with tmp
+void func0f14eeb0(f32 *arg0)
+{
+	struct var8007f8e0 *thing1 = func0f14a06c(-1);
+	struct var8007f8e0 *thing2 = func0f14a06c(-2);
+	s32 i;
 
-GLOBAL_ASM(
-glabel func0f14eeb0
-.late_rodata
-glabel var7f1b735c
-.word 0x3dcccccd
-glabel var7f1b7360
-.word 0x3ff33333
-.text
-/*  f14eeb0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f14eeb4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14eeb8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f14eebc:	0fc5281b */ 	jal	func0f14a06c
-/*  f14eec0:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14eec4:	2404fffe */ 	addiu	$a0,$zero,-2
-/*  f14eec8:	0fc5281b */ 	jal	func0f14a06c
-/*  f14eecc:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f14eed0:	3c017f1b */ 	lui	$at,%hi(var7f1b7360)
-/*  f14eed4:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f14eed8:	c42c7360 */ 	lwc1	$f12,%lo(var7f1b7360)($at)
-/*  f14eedc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14eee0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f14eee4:	2406001c */ 	addiu	$a2,$zero,0x1c
-.L0f14eee8:
-/*  f14eee8:	c4820000 */ 	lwc1	$f2,0x0($a0)
-/*  f14eeec:	00a37021 */ 	addu	$t6,$a1,$v1
-/*  f14eef0:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f14eef4:	00000000 */ 	nop
-/*  f14eef8:	45000001 */ 	bc1f	.L0f14ef00
-/*  f14eefc:	00000000 */ 	nop
-.L0f14ef00:
-/*  f14ef00:	10a00002 */ 	beqz	$a1,.L0f14ef0c
-/*  f14ef04:	00000000 */ 	nop
-/*  f14ef08:	e5c203d0 */ 	swc1	$f2,0x3d0($t6)
-.L0f14ef0c:
-/*  f14ef0c:	50400005 */ 	beqzl	$v0,.L0f14ef24
-/*  f14ef10:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f14ef14:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f14ef18:	00437821 */ 	addu	$t7,$v0,$v1
-/*  f14ef1c:	e5e403d0 */ 	swc1	$f4,0x3d0($t7)
-/*  f14ef20:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f14ef24:
-/*  f14ef24:	1466fff0 */ 	bne	$v1,$a2,.L0f14eee8
-/*  f14ef28:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f14ef2c:	3c067f1b */ 	lui	$a2,%hi(var7f1b6d70)
-/*  f14ef30:	24c66d70 */ 	addiu	$a2,$a2,%lo(var7f1b6d70)
-/*  f14ef34:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f14ef38:	0fc537bc */ 	jal	func0f14def0
-/*  f14ef3c:	24051090 */ 	addiu	$a1,$zero,0x1090
-/*  f14ef40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14ef44:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f14ef48:	03e00008 */ 	jr	$ra
-/*  f14ef4c:	00000000 */ 	nop
-);
+	for (i = 0; i < 7; i++) {
+		f32 tmp = arg0[i];
+
+		if (tmp > 1.9f) {
+			tmp = 1.9f;
+		}
+
+		if (tmp < 0.1f) {
+			// empty
+		}
+
+		if (thing1) {
+			thing1->unk3d0[i] = arg0[i];
+		}
+
+		if (thing2) {
+			thing2->unk3d0[i] = arg0[i];
+		}
+	}
+
+	func0f14def0(-1, 4240, "camdraw.c");
+}
 
 void func0f14ef50(f32 *arg0)
 {
@@ -4950,6 +4922,9 @@ void func0f14ef50(f32 *arg0)
 		arg0[i] = thing->unk3d0[i];
 	}
 }
+
+const char var7f1b6d7c[] = "Cam : Alloc for copy of Vtx %d bytes\n";
+const char var7f1b6da4[] = "CAM : Cam_AllocAndCopyAllVtx -> Ptr all-ready allocted - No extra needed\n";
 
 GLOBAL_ASM(
 glabel func0f14efa8
