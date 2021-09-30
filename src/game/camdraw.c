@@ -4903,56 +4903,17 @@ void func0f14ed38(void)
 	func0f14ec2c(10, 3, 54, 61);
 }
 
+u32 func0f14ed64(void)
+{
+	f32 foo[7];
+
+	func0f14ef50(foo);
+
+	return (u32)(foo[6] * 100) - 25;
+}
+
 GLOBAL_ASM(
-glabel func0f14ed64
-/*  f14ed64:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f14ed68:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14ed6c:	0fc53bd4 */ 	jal	func0f14ef50
-/*  f14ed70:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f14ed74:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f14ed78:	44813000 */ 	mtc1	$at,$f6
-/*  f14ed7c:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f14ed80:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f14ed84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14ed88:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f14ed8c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f14ed90:	3c014f00 */ 	lui	$at,0x4f00
-/*  f14ed94:	444ef800 */ 	cfc1	$t6,$31
-/*  f14ed98:	44c2f800 */ 	ctc1	$v0,$31
-/*  f14ed9c:	00000000 */ 	nop
-/*  f14eda0:	460042a4 */ 	cvt.w.s	$f10,$f8
-/*  f14eda4:	4442f800 */ 	cfc1	$v0,$31
-/*  f14eda8:	00000000 */ 	nop
-/*  f14edac:	30420078 */ 	andi	$v0,$v0,0x78
-/*  f14edb0:	50400013 */ 	beqzl	$v0,.L0f14ee00
-/*  f14edb4:	44025000 */ 	mfc1	$v0,$f10
-/*  f14edb8:	44815000 */ 	mtc1	$at,$f10
-/*  f14edbc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f14edc0:	460a4281 */ 	sub.s	$f10,$f8,$f10
-/*  f14edc4:	44c2f800 */ 	ctc1	$v0,$31
-/*  f14edc8:	00000000 */ 	nop
-/*  f14edcc:	460052a4 */ 	cvt.w.s	$f10,$f10
-/*  f14edd0:	4442f800 */ 	cfc1	$v0,$31
-/*  f14edd4:	00000000 */ 	nop
-/*  f14edd8:	30420078 */ 	andi	$v0,$v0,0x78
-/*  f14eddc:	14400005 */ 	bnez	$v0,.L0f14edf4
-/*  f14ede0:	00000000 */ 	nop
-/*  f14ede4:	44025000 */ 	mfc1	$v0,$f10
-/*  f14ede8:	3c018000 */ 	lui	$at,0x8000
-/*  f14edec:	10000007 */ 	b	.L0f14ee0c
-/*  f14edf0:	00411025 */ 	or	$v0,$v0,$at
-.L0f14edf4:
-/*  f14edf4:	10000005 */ 	b	.L0f14ee0c
-/*  f14edf8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f14edfc:	44025000 */ 	mfc1	$v0,$f10
-.L0f14ee00:
-/*  f14ee00:	00000000 */ 	nop
-/*  f14ee04:	0440fffb */ 	bltz	$v0,.L0f14edf4
-/*  f14ee08:	00000000 */ 	nop
-.L0f14ee0c:
-/*  f14ee0c:	44cef800 */ 	ctc1	$t6,$31
-/*  f14ee10:	03e00008 */ 	jr	$ra
-/*  f14ee14:	2442ffe7 */ 	addiu	$v0,$v0,-25
+glabel func0f14ee18
 /*  f14ee18:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f14ee1c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f14ee20:	24850019 */ 	addiu	$a1,$a0,0x19
