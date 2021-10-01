@@ -812,9 +812,9 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		s32 j;
 
 		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-			func0f0b39c0(&gdl, NULL, 2, 1, 2, 1, 0);
+			func0f0b39c0(&gdl, NULL, 2, 1, 2, 1, NULL);
 		} else {
-			func0f0b39c0(&gdl, &var800ab590[1], 2, 1, 2, 1, 0);
+			func0f0b39c0(&gdl, &var800ab590[1], 2, 1, 2, 1, NULL);
 		}
 
 		gSPTexture(gdl++, 0x0d80, 0x0d80, 2, G_TX_RENDERTILE, G_ON);

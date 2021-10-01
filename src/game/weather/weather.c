@@ -69,7 +69,7 @@ Gfx *weatherRender(Gfx *gdl)
 	gSPDisplayList(gdl++, &var80061380);
 
 	if (weather->type == WEATHERTYPE_SNOW) {
-		func0f0b39c0(&gdl, &var800ab5a8[1], 2, 1, 2, 1, 0);
+		func0f0b39c0(&gdl, &var800ab5a8[1], 2, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetColorDither(gdl++, G_CD_NOISE);

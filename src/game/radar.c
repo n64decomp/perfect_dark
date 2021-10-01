@@ -80,7 +80,7 @@ Gfx *radarRenderBackground(Gfx *gdl, struct textureconfig *tconfig, s32 arg2, s3
 	spa8[0] = arg4 * g_ScaleX;
 	spa8[1] = arg4;
 
-	func0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, 0);
+	func0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, NULL);
 	func0f0b278c(&gdl, spb0, spa8, tconfig->width, tconfig->height,
 			0, 0, 1, 0, 0xff, 0, 40, tconfig->level > 0, 0);
 

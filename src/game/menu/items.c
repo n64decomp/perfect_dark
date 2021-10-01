@@ -11224,7 +11224,7 @@ Gfx *menuRenderControllerTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alp
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	func0f0b39c0(&gdl, &var800ab5a8[texturenum], 2, 0, 2, 1, 0);
+	func0f0b39c0(&gdl, &var800ab5a8[texturenum], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);

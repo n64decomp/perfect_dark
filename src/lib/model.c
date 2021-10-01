@@ -4981,7 +4981,7 @@ glabel modelRenderNodeType16
 
 void func000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
 {
-	func0f0b39c0(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, 0);
+	func0f0b39c0(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
 }
 
 GLOBAL_ASM(

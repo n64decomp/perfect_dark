@@ -48562,7 +48562,7 @@ glabel var7f1aa824
 //		// Render the image
 //		gSPSetGeometryMode(gdl++, G_CULL_BACK);
 //
-//		func0f0b39c0(&gdl, tconfig, arg5, arg4, 2, 1, 0);
+//		func0f0b39c0(&gdl, tconfig, arg5, arg4, 2, 1, NULL);
 //
 //		gSPMatrix(gdl++, osVirtualToPhysical(model->matrices), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 //

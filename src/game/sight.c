@@ -4265,7 +4265,7 @@ glabel sightRenderClassic
 //	spbc[0] = (tconfig->width >> 1) * (f32)g_ScaleX;
 //	spbc[1] = tconfig->height >> 1;
 //
-//	func0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, 0);
+//	func0f0b39c0(&gdl, tconfig, 2, 0, 0, 1, NULL);
 //
 //	func0f0b278c(&gdl, spc4, spbc, tconfig->width, tconfig->height,
 //			0, 0, 1, 0xff, 0xff, 0xff, 0x7f, tconfig->level > 0, 0);

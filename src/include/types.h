@@ -7125,10 +7125,6 @@ struct shotdata {
 	/*0x3c*/ struct hit hits[10];
 };
 
-struct var800a45a0_484 {
-	u8 unk00[12];
-};
-
 struct var800a45a0 {
 	/*0x000*/ u32 unk000;
 	/*0x004*/ u32 unk004;
@@ -7416,8 +7412,8 @@ struct var800a45a0 {
 	/*0x478*/ u8 *unk478;
 	/*0x47c*/ u8 *unk47c;
 	/*0x480*/ u8 *unk480;
-	/*0x484*/ struct var800a45a0_484 *unk484;
-	/*0x488*/ struct var800a45a0_484 *unk488;
+	/*0x484*/ struct textureconfig *unk484;
+	/*0x488*/ struct textureconfig *unk488;
 	/*0x48c*/ u32 unk48c;
 };
 

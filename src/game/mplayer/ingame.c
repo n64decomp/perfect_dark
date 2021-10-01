@@ -447,7 +447,7 @@ s32 mpAwardsMenuHandler(s32 operation, struct menuitem *item, union handlerdata 
 					gDPSetTextureConvert(gdl++, G_TC_FILT);
 					gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-					func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, 0);
+					func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, NULL);
 
 					gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 					gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

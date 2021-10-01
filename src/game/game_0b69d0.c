@@ -14005,7 +14005,7 @@ Gfx *currentPlayerRenderShield(Gfx *gdl)
 		}
 
 		f20 = 1 - g_Vars.currentplayer->shieldshowtime * (1.0f / 60.0f);
-		func0f0b39c0(&gdl, &var800ab58c[0], 4, 1, 2, 1, 0);
+		func0f0b39c0(&gdl, &var800ab58c[0], 4, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_2CYCLE);
 		gDPSetRenderMode(gdl++, G_RM_PASS, G_RM_CLD_SURF2);

@@ -1405,7 +1405,7 @@ s32 mpChallengesListHandler(s32 operation, struct menuitem *item, union handlerd
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, 0);
+		func0f0b39c0(&gdl, &var800ab5a8[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);

@@ -6884,7 +6884,7 @@ glabel amRender
 //		gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 //		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //
-//		func0f0b39c0(&gdl, NULL, 2, 0, 2, 1, 0);
+//		func0f0b39c0(&gdl, NULL, 2, 0, 2, 1, NULL);
 //
 //		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 //

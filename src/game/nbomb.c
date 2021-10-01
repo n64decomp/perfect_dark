@@ -2807,7 +2807,7 @@ Gfx *nbombCreateGdl(void)
 
 	gdl = gdlstart = gfxAllocate(gdlsizes[index]);
 
-	func0f0b39c0(&gdl, &var800ab5a8[0x0a], 2, 1, 2, 1, 0);
+	func0f0b39c0(&gdl, &var800ab5a8[0x0a], 2, 1, 2, 1, NULL);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -5260,7 +5260,7 @@ const u32 var7f1a7eac[] = {0x00000090};
 //
 //			gdl = func0f0d479c(gdl);
 //
-//			func0f0b39c0(&gdl, &var800ab5a8[6], 4, 1, 2, 1, 0);
+//			func0f0b39c0(&gdl, &var800ab5a8[6], 4, 1, 2, 1, NULL);
 //
 //			gDPPipeSync(gdl++);
 //			gDPSetCycleType(gdl++, G_CYC_1CYCLE);

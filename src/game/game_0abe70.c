@@ -4945,7 +4945,7 @@ glabel var7f1acd8c
 //						}
 //					}
 //
-//					func0f0b39c0(&gdl, &var800ab5a8[4], 4, 0, 2, 1, 0);
+//					func0f0b39c0(&gdl, &var800ab5a8[4], 4, 0, 2, 1, NULL);
 //
 //					// 724
 //					if (rot.f[0] == 0 && rot.f[2] == 0) {
@@ -5568,7 +5568,7 @@ glabel var7f1acd90
 //	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
 //	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 //
-//	func0f0b39c0(&gdl, &var800ab5a8[3], 4, 0, 2, 1, 0);
+//	func0f0b39c0(&gdl, &var800ab5a8[3], 4, 0, 2, 1, NULL);
 //	func000159b0(&sp14c);
 //
 //	func00015be0(currentPlayerGetMatrix1740(), &sp14c);

@@ -1107,7 +1107,7 @@ Gfx *func0f13d40c(Gfx *gdl)
 {
 	struct stagetableentry *stage = stageGetCurrent();
 
-	func0f0b39c0(&gdl, &var800ab5a0[stage->light_type], 4, 0, 2, 1, 0);
+	func0f0b39c0(&gdl, &var800ab5a0[stage->light_type], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
