@@ -281,67 +281,23 @@ u16 var8007f904[] = {
 
 u32 var8007f9d0 = 0x00000000;
 
-GLOBAL_ASM(
-glabel func0f149c90
-/*  f149c90:	90830005 */ 	lbu	$v1,0x5($a0)
-/*  f149c94:	00001025 */ 	or	$v0,$zero,$zero
-/*  f149c98:	1860002d */ 	blez	$v1,.L0f149d50
-/*  f149c9c:	00000000 */ 	nop
-/*  f149ca0:	90860004 */ 	lbu	$a2,0x4($a0)
-.L0f149ca4:
-/*  f149ca4:	18c00026 */ 	blez	$a2,.L0f149d40
-/*  f149ca8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f149cac:	00003825 */ 	or	$a3,$zero,$zero
-/*  f149cb0:	30480001 */ 	andi	$t0,$v0,0x1
-/*  f149cb4:	00025180 */ 	sll	$t2,$v0,0x6
-.L0f149cb8:
-/*  f149cb8:	00e6001a */ 	div	$zero,$a3,$a2
-/*  f149cbc:	00001812 */ 	mflo	$v1
-/*  f149cc0:	00037140 */ 	sll	$t6,$v1,0x5
-/*  f149cc4:	14c00002 */ 	bnez	$a2,.L0f149cd0
-/*  f149cc8:	00000000 */ 	nop
-/*  f149ccc:	0007000d */ 	break	0x7
-.L0f149cd0:
-/*  f149cd0:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f149cd4:	14c10004 */ 	bne	$a2,$at,.L0f149ce8
-/*  f149cd8:	3c018000 */ 	lui	$at,0x8000
-/*  f149cdc:	14e10002 */ 	bne	$a3,$at,.L0f149ce8
-/*  f149ce0:	00000000 */ 	nop
-/*  f149ce4:	0006000d */ 	break	0x6
-.L0f149ce8:
-/*  f149ce8:	01c01825 */ 	or	$v1,$t6,$zero
-/*  f149cec:	11000008 */ 	beqz	$t0,.L0f149d10
-/*  f149cf0:	00004825 */ 	or	$t1,$zero,$zero
-/*  f149cf4:	30af0004 */ 	andi	$t7,$a1,0x4
-/*  f149cf8:	11e00003 */ 	beqz	$t7,.L0f149d08
-/*  f149cfc:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f149d00:	10000003 */ 	b	.L0f149d10
-/*  f149d04:	2409fffc */ 	addiu	$t1,$zero,-4
-.L0f149d08:
-/*  f149d08:	10000001 */ 	b	.L0f149d10
-/*  f149d0c:	00c04825 */ 	or	$t1,$a2,$zero
-.L0f149d10:
-/*  f149d10:	8c980000 */ 	lw	$t8,0x0($a0)
-/*  f149d14:	24e70008 */ 	addiu	$a3,$a3,0x8
-/*  f149d18:	030ac821 */ 	addu	$t9,$t8,$t2
-/*  f149d1c:	03255821 */ 	addu	$t3,$t9,$a1
-/*  f149d20:	01696021 */ 	addu	$t4,$t3,$t1
-/*  f149d24:	a1830000 */ 	sb	$v1,0x0($t4)
-/*  f149d28:	90860004 */ 	lbu	$a2,0x4($a0)
-/*  f149d2c:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f149d30:	00a6082a */ 	slt	$at,$a1,$a2
-/*  f149d34:	1420ffe0 */ 	bnez	$at,.L0f149cb8
-/*  f149d38:	00000000 */ 	nop
-/*  f149d3c:	90830005 */ 	lbu	$v1,0x5($a0)
-.L0f149d40:
-/*  f149d40:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f149d44:	0043082a */ 	slt	$at,$v0,$v1
-/*  f149d48:	1420ffd6 */ 	bnez	$at,.L0f149ca4
-/*  f149d4c:	00000000 */ 	nop
-.L0f149d50:
-/*  f149d50:	03e00008 */ 	jr	$ra
-/*  f149d54:	00000000 */ 	nop
-);
+/**
+ * Fill the texture buffer with a linear gradient: black (left) to white (right).
+ */
+void func0f149c90(struct textureconfig *tconfig)
+{
+	s32 x;
+	s32 y;
+
+	for (y = 0; y < tconfig->height; y++) {
+		for (x = 0; x < tconfig->width; x++) {
+			s32 value = (x * 8 / tconfig->width) * 32;
+			s32 fudge = (y & 1) ? ((x & 4) ? -4 : 4) : 0;
+
+			tconfig->textureptr[y * 64 + x + fudge] = value;
+		}
+	}
+}
 
 void *func0f149d58(u32 size, u32 line, char *file)
 {
