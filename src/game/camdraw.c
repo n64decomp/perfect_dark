@@ -280,49 +280,6 @@ u16 var8007f904[] = {
 };
 
 u32 var8007f9d0 = 0x00000000;
-u32 var8007f9d4 = 0x00000000;
-u32 var8007f9d8 = 0x3f800000;
-u32 var8007f9dc = 0x3f800000;
-u32 var8007f9e0 = 0x3f800000;
-u32 var8007f9e4 = 0x3f800000;
-u32 var8007f9e8 = 0x3f800000;
-u32 var8007f9ec = 0x3f800000;
-u32 var8007f9f0 = 0x3f800000;
-u32 var8007f9f4 = 0x3f800000;
-u32 var8007f9f8 = 0x3f800000;
-u32 var8007f9fc = 0x3b42938e;
-u32 var8007fa00 = 0x3c5a0169;
-u32 var8007fa04 = 0x3cb3b752;
-u32 var8007fa08 = 0x3c5a0169;
-u32 var8007fa0c = 0x3b42938e;
-u32 var8007fa10 = 0x3c5a0169;
-u32 var8007fa14 = 0x3d7442c8;
-u32 var8007fa18 = 0x3dc95bff;
-u32 var8007fa1c = 0x3d7442c8;
-u32 var8007fa20 = 0x3c5a0169;
-u32 var8007fa24 = 0x3cb3b752;
-u32 var8007fa28 = 0x3dc95bff;
-u32 var8007fa2c = 0x3e25fe54;
-u32 var8007fa30 = 0x3dc95bff;
-u32 var8007fa34 = 0x3cb3b752;
-u32 var8007fa38 = 0x3c5a0169;
-u32 var8007fa3c = 0x3d7442c8;
-u32 var8007fa40 = 0x3dc95bff;
-u32 var8007fa44 = 0x3d7442c8;
-u32 var8007fa48 = 0x3c5a0169;
-u32 var8007fa4c = 0x3b42938e;
-u32 var8007fa50 = 0x3c5a0169;
-u32 var8007fa54 = 0x3cb3b752;
-u32 var8007fa58 = 0x3c5a0169;
-u32 var8007fa5c = 0x3b42938e;
-u32 var8007fa60 = 0x3f800000;
-u32 var8007fa64 = 0x3f800000;
-u32 var8007fa68 = 0x3f800000;
-u32 var8007fa6c = 0x3f800000;
-u32 var8007fa70 = 0x3f800000;
-u32 var8007fa74 = 0x3f800000;
-u32 var8007fa78 = 0x3f800000;
-u32 var8007fa7c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f149c90
@@ -386,77 +343,38 @@ glabel func0f149c90
 /*  f149d54:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0f149d58
-/*  f149d58:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f149d5c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f149d60:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f149d64:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f149d68:	0fc5db69 */ 	jal	align16
-/*  f149d6c:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f149d70:	00408025 */ 	or	$s0,$v0,$zero
-/*  f149d74:	00402025 */ 	or	$a0,$v0,$zero
-/*  f149d78:	0fc5796e */ 	jal	func0f15e5b8
-/*  f149d7c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f149d80:	3c028008 */ 	lui	$v0,%hi(var8007f9d0)
-/*  f149d84:	2442f9d0 */ 	addiu	$v0,$v0,%lo(var8007f9d0)
-/*  f149d88:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f149d8c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f149d90:	01d07821 */ 	addu	$t7,$t6,$s0
-/*  f149d94:	0c004aac */ 	jal	func00012ab0
-/*  f149d98:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*  f149d9c:	3c188008 */ 	lui	$t8,%hi(var8007f9d4)
-/*  f149da0:	8f18f9d4 */ 	lw	$t8,%lo(var8007f9d4)($t8)
-/*  f149da4:	3c07800a */ 	lui	$a3,%hi(var800a45a0)
-/*  f149da8:	3c018008 */ 	lui	$at,%hi(var8007f9d4)
-/*  f149dac:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f149db0:	24e745a0 */ 	addiu	$a3,$a3,%lo(var800a45a0)
-/*  f149db4:	ac39f9d4 */ 	sw	$t9,%lo(var8007f9d4)($at)
-/*  f149db8:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*  f149dbc:	00403025 */ 	or	$a2,$v0,$zero
-/*  f149dc0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f149dc4:	8c85037c */ 	lw	$a1,0x37c($a0)
-/*  f149dc8:	00801025 */ 	or	$v0,$a0,$zero
-/*  f149dcc:	18a00010 */ 	blez	$a1,.L0f149e10
-/*  f149dd0:	00054880 */ 	sll	$t1,$a1,0x2
-.L0f149dd4:
-/*  f149dd4:	8c480380 */ 	lw	$t0,0x380($v0)
-/*  f149dd8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f149ddc:	0065082a */ 	slt	$at,$v1,$a1
-/*  f149de0:	15000009 */ 	bnez	$t0,.L0f149e08
-/*  f149de4:	00895021 */ 	addu	$t2,$a0,$t1
-/*  f149de8:	ad460380 */ 	sw	$a2,0x380($t2)
-/*  f149dec:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*  f149df0:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f149df4:	8c8b037c */ 	lw	$t3,0x37c($a0)
-/*  f149df8:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f149dfc:	008c6821 */ 	addu	$t5,$a0,$t4
-/*  f149e00:	10000010 */ 	b	.L0f149e44
-/*  f149e04:	adb003f8 */ 	sw	$s0,0x3f8($t5)
-.L0f149e08:
-/*  f149e08:	1420fff2 */ 	bnez	$at,.L0f149dd4
-/*  f149e0c:	24420004 */ 	addiu	$v0,$v0,0x4
-.L0f149e10:
-/*  f149e10:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f149e14:	008e7821 */ 	addu	$t7,$a0,$t6
-/*  f149e18:	ade60380 */ 	sw	$a2,0x380($t7)
-/*  f149e1c:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*  f149e20:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f149e24:	8c98037c */ 	lw	$t8,0x37c($a0)
-/*  f149e28:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f149e2c:	00994021 */ 	addu	$t0,$a0,$t9
-/*  f149e30:	ad1003f8 */ 	sw	$s0,0x3f8($t0)
-/*  f149e34:	8ce40000 */ 	lw	$a0,0x0($a3)
-/*  f149e38:	8c89037c */ 	lw	$t1,0x37c($a0)
-/*  f149e3c:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*  f149e40:	ac8a037c */ 	sw	$t2,0x37c($a0)
-.L0f149e44:
-/*  f149e44:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f149e48:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f149e4c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f149e50:	03e00008 */ 	jr	$ra
-/*  f149e54:	00000000 */ 	nop
-);
+void *func0f149d58(u32 size, u32 line, char *file)
+{
+	s32 i;
+	void *allocation;
+
+	static u32 var8007f9d4 = 0;
+
+	size = align16(size);
+
+	func0f15e5b8(size, 1);
+
+	var8007f9d0 += size;
+	allocation = func00012ab0(size);
+	var8007f9d4++;
+
+	for (i = 0; i < var800a45a0->unk37c; i++) {
+		if (var800a45a0->unk380[i] == NULL) {
+			// @bug? Is this meant to be writing to [i]?
+			// Otherwise it's appending to the array without increasing unk37c.
+			var800a45a0->unk380[var800a45a0->unk37c] = allocation;
+			var800a45a0->unk3f8[var800a45a0->unk37c] = size;
+
+			return allocation;
+		}
+	}
+
+	var800a45a0->unk380[var800a45a0->unk37c] = allocation;
+	var800a45a0->unk3f8[var800a45a0->unk37c] = size;
+	var800a45a0->unk37c++;
+
+	return allocation;
+}
 
 void func0f149e58(u8 *arg0, u32 size)
 {
@@ -994,6 +912,49 @@ s32 func0f14ad38(s32 device)
 
 const char var7f1b6688[] = "Cam_ClearCameraLoadBuffer -> Camera=%d\n";
 const char var7f1b66b0[] = "Cam_StartTemp : Need %u bytes for temp cam images buffer\n";
+
+u32 var8007f9d8 = 0x3f800000;
+u32 var8007f9dc = 0x3f800000;
+u32 var8007f9e0 = 0x3f800000;
+u32 var8007f9e4 = 0x3f800000;
+u32 var8007f9e8 = 0x3f800000;
+u32 var8007f9ec = 0x3f800000;
+u32 var8007f9f0 = 0x3f800000;
+u32 var8007f9f4 = 0x3f800000;
+u32 var8007f9f8 = 0x3f800000;
+u32 var8007f9fc = 0x3b42938e;
+u32 var8007fa00 = 0x3c5a0169;
+u32 var8007fa04 = 0x3cb3b752;
+u32 var8007fa08 = 0x3c5a0169;
+u32 var8007fa0c = 0x3b42938e;
+u32 var8007fa10 = 0x3c5a0169;
+u32 var8007fa14 = 0x3d7442c8;
+u32 var8007fa18 = 0x3dc95bff;
+u32 var8007fa1c = 0x3d7442c8;
+u32 var8007fa20 = 0x3c5a0169;
+u32 var8007fa24 = 0x3cb3b752;
+u32 var8007fa28 = 0x3dc95bff;
+u32 var8007fa2c = 0x3e25fe54;
+u32 var8007fa30 = 0x3dc95bff;
+u32 var8007fa34 = 0x3cb3b752;
+u32 var8007fa38 = 0x3c5a0169;
+u32 var8007fa3c = 0x3d7442c8;
+u32 var8007fa40 = 0x3dc95bff;
+u32 var8007fa44 = 0x3d7442c8;
+u32 var8007fa48 = 0x3c5a0169;
+u32 var8007fa4c = 0x3b42938e;
+u32 var8007fa50 = 0x3c5a0169;
+u32 var8007fa54 = 0x3cb3b752;
+u32 var8007fa58 = 0x3c5a0169;
+u32 var8007fa5c = 0x3b42938e;
+u32 var8007fa60 = 0x3f800000;
+u32 var8007fa64 = 0x3f800000;
+u32 var8007fa68 = 0x3f800000;
+u32 var8007fa6c = 0x3f800000;
+u32 var8007fa70 = 0x3f800000;
+u32 var8007fa74 = 0x3f800000;
+u32 var8007fa78 = 0x3f800000;
+u32 var8007fa7c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f14ad58
