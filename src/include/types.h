@@ -7419,15 +7419,11 @@ struct var800a45a0 {
 
 struct var8007f8e0 { // perfect head?
 	/*0x000*/ u32 unk000;
-	/*0x004*/ u8 *unk004;
-	/*0x008*/ u32 unk008;
-	/*0x00c*/ u32 unk00c;
-	/*0x010*/ u8 *unk010;
-	/*0x014*/ u32 unk014;
-	/*0x018*/ u32 unk018;
-	/*0x01c*/ u32 unk01c;
-	/*0x020*/ u32 unk020;
-	/*0x024*/ u32 unk024;
+	/*0x004*/ struct textureconfig unk004;
+	/*0x010*/ struct textureconfig unk010;
+	/*0x01c*/ u8 *unk01c;
+	/*0x028*/ u8 *unk020;
+	/*0x028*/ u32 unk024;
 	/*0x028*/ u32 unk028;
 	/*0x02c*/ u32 unk02c;
 	/*0x030*/ f32 unk030;

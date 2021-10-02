@@ -790,7 +790,7 @@ void func0f14a830(void)
 	}
 }
 
-u8 **func0f14a89c(s32 index)
+struct textureconfig *func0f14a89c(s32 index)
 {
 	struct var8007f8e0 *thing = func0f14a06c(index);
 
@@ -1437,13 +1437,13 @@ void func0f14b394(struct var8007f8e0 *arg0)
 	size = align32(func0f14c814(&arg0->unk004));
 
 	for (i = 0; i < size; i++) {
-		arg0->unk004[i] = random() % 0xff;
+		arg0->unk004.textureptr[i] = random() % 0xff;
 	}
 
 	size = align32(func0f14c814(&arg0->unk010));
 
 	for (i = 0; i < size; i++) {
-		arg0->unk010[i] = random() % 0xff;
+		arg0->unk010.textureptr[i] = random() % 0xff;
 	}
 
 	func0f14b228(arg0);
@@ -2064,6 +2064,68 @@ glabel func0f14c50c
 /*  f14c754:	03e00008 */ 	jr	$ra
 /*  f14c758:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
+
+// Mismatch: Goal loads var8007f8e0 into a2 then does nothing with it.
+// The below optimises it out.
+//void func0f14c50c(struct var8007f8e0 *dst, struct var8007f8e0 *src, u32 line, char *file)
+//{
+//	struct var8007f8e0 *thing = var8007f8e0;
+//	s32 i;
+//	s32 j;
+//	s32 row = 0;
+//
+//	for (i = 0; i < 22; i++);
+//
+//	dst->unk3f4_00 = src->unk3f4_00;
+//	dst->unk3f4_01 = src->unk3f4_01;
+//	dst->unk3f4_02 = src->unk3f4_02;
+//	dst->unk3f4_03 = src->unk3f4_03;
+//	dst->colournum = src->colournum;
+//	dst->stylenum = src->stylenum;
+//	dst->unk3a4 = src->unk3a4;
+//	dst->unk3b4 = src->unk3b4;
+//	dst->unk3b8 = src->unk3b8;
+//	dst->unk3bc = src->unk3bc;
+//	dst->unk3c0 = src->unk3c0;
+//	dst->unk3c4 = src->unk3c4;
+//	dst->unk3c8 = src->unk3c8;
+//	dst->unk3cc = src->unk3cc;
+//	dst->unk3ec = src->unk3ec;
+//	dst->unk3f0 = src->unk3f0;
+//
+//	dst->fileguid.fileid = src->fileguid.fileid;
+//	dst->fileguid.deviceserial = src->fileguid.deviceserial;
+//
+//	for (i = 0; i != 7; i++) {
+//		dst->unk3d0[i] = src->unk3d0[i];
+//	}
+//
+//	if (dst->unk01c) {
+//		s32 i;
+//
+//		for (i = 63; i != -1; i--) {
+//			for (j = 0; j != 64; j++) {
+//				s32 fudge = (i & 1) ? ((j & 4) ? -4 : 4) : 0;
+//
+//				dst->unk01c[row * 64 + j] = src->unk004.textureptr[i * 64 + j + fudge];
+//			}
+//
+//			row++;
+//		}
+//	}
+//
+//	func0f14c75c(&dst->unk004, &src->unk004);
+//
+//	if (dst->unk010.textureptr && src->unk010.textureptr) {
+//		func0f14c75c(&dst->unk010, &src->unk010);
+//	}
+//
+//	if (src->unk3f4_04) {
+//		for (i = 0; i < 1024; i++) {
+//			dst->unk020[i] = src->unk020[i];
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f14c75c
