@@ -2168,64 +2168,30 @@ Gfx *func0f14c870(Gfx *gdl, struct textureconfig *tconfig, f32 *arg2, f32 arg3, 
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f14cdb8
-/*  f14cdb8:	3c098008 */ 	lui	$t1,%hi(var8007f8dc)
-/*  f14cdbc:	2529f8dc */ 	addiu	$t1,$t1,%lo(var8007f8dc)
-/*  f14cdc0:	8d2e0000 */ 	lw	$t6,0x0($t1)
-/*  f14cdc4:	00041180 */ 	sll	$v0,$a0,0x6
-/*  f14cdc8:	44800000 */ 	mtc1	$zero,$f0
-/*  f14cdcc:	00441021 */ 	addu	$v0,$v0,$a0
-/*  f14cdd0:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f14cdd4:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f14cdd8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f14cddc:	24071000 */ 	addiu	$a3,$zero,0x1000
-/*  f14cde0:	24a81000 */ 	addiu	$t0,$a1,0x1000
-/*  f14cde4:	240b3000 */ 	addiu	$t3,$zero,0x3000
-/*  f14cde8:	240a0060 */ 	addiu	$t2,$zero,0x60
-/*  f14cdec:	e5e0004c */ 	swc1	$f0,0x4c($t7)
-.L0f14cdf0:
-/*  f14cdf0:	24040020 */ 	addiu	$a0,$zero,0x20
-/*  f14cdf4:	25050020 */ 	addiu	$a1,$t0,0x20
-.L0f14cdf8:
-/*  f14cdf8:	90b90000 */ 	lbu	$t9,0x0($a1)
-/*  f14cdfc:	8d380000 */ 	lw	$t8,0x0($t1)
-/*  f14ce00:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f14ce04:	44993000 */ 	mtc1	$t9,$f6
-/*  f14ce08:	03021821 */ 	addu	$v1,$t8,$v0
-/*  f14ce0c:	c464004c */ 	lwc1	$f4,0x4c($v1)
-/*  f14ce10:	07210005 */ 	bgez	$t9,.L0f14ce28
-/*  f14ce14:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f14ce18:	3c014f80 */ 	lui	$at,0x4f80
-/*  f14ce1c:	44815000 */ 	mtc1	$at,$f10
-/*  f14ce20:	00000000 */ 	nop
-/*  f14ce24:	460a4200 */ 	add.s	$f8,$f8,$f10
-.L0f14ce28:
-/*  f14ce28:	46082400 */ 	add.s	$f16,$f4,$f8
-/*  f14ce2c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f14ce30:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f14ce34:	148afff0 */ 	bne	$a0,$t2,.L0f14cdf8
-/*  f14ce38:	e470004c */ 	swc1	$f16,0x4c($v1)
-/*  f14ce3c:	24e70080 */ 	addiu	$a3,$a3,0x80
-/*  f14ce40:	14ebffeb */ 	bne	$a3,$t3,.L0f14cdf0
-/*  f14ce44:	25080080 */ 	addiu	$t0,$t0,0x80
-/*  f14ce48:	58c0000a */ 	blezl	$a2,.L0f14ce74
-/*  f14ce4c:	8d2d0000 */ 	lw	$t5,0x0($t1)
-/*  f14ce50:	44863000 */ 	mtc1	$a2,$f6
-/*  f14ce54:	8d2c0000 */ 	lw	$t4,0x0($t1)
-/*  f14ce58:	468032a0 */ 	cvt.s.w	$f10,$f6
-/*  f14ce5c:	01821821 */ 	addu	$v1,$t4,$v0
-/*  f14ce60:	c472004c */ 	lwc1	$f18,0x4c($v1)
-/*  f14ce64:	460a9103 */ 	div.s	$f4,$f18,$f10
-/*  f14ce68:	03e00008 */ 	jr	$ra
-/*  f14ce6c:	e464004c */ 	swc1	$f4,0x4c($v1)
-/*  f14ce70:	8d2d0000 */ 	lw	$t5,0x0($t1)
-.L0f14ce74:
-/*  f14ce74:	01a27021 */ 	addu	$t6,$t5,$v0
-/*  f14ce78:	e5c0004c */ 	swc1	$f0,0x4c($t6)
-/*  f14ce7c:	03e00008 */ 	jr	$ra
-/*  f14ce80:	00000000 */ 	nop
-);
+void func0f14cdb8(s32 index, u8 *arg1)
+{
+	s32 count;
+	s32 i;
+	s32 j;
+
+	var8007f8dc[index].unk04c = 0;
+
+	count = 0;
+
+	for (i = 0x1000; i < 0x3000; i += 0x80) {
+		for (j = 0x20; j < 0x60; j++) {
+			count++;
+			var8007f8dc[index].unk04c += arg1[i + j];
+		}
+	}
+
+	if (count > 0) {
+		var8007f8dc[index].unk04c /= count;
+		return;
+	}
+
+	var8007f8dc[index].unk04c = 0;
+}
 
 void func0f14ce84(void)
 {
