@@ -56,7 +56,7 @@ void func0f14d2c8(u8 *arg0, u8 *arg1);
 void func0f14d4f0(u8 *arg0, u8 *arg1);
 void func0f14d714(u8 *arg0, u8 *arg1);
 u32 func0f14d84c(void);
-u32 func0f14d8d8(void);
+void func0f14d8d8(f32 *arg0, f32 *arg1, u32 arg2, f32 *arg3, u32 arg4);
 void func0f14dac0(u8 *arg0, struct textureconfig *arg1);
 void func0f14dc30(s32 index, bool arg1);
 void func0f14def0(s32 arg0, u32 line, char *file);

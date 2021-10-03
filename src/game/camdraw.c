@@ -878,39 +878,6 @@ u32 var8007f9ec = 0x3f800000;
 u32 var8007f9f0 = 0x3f800000;
 u32 var8007f9f4 = 0x3f800000;
 u32 var8007f9f8 = 0x3f800000;
-u32 var8007f9fc = 0x3b42938e;
-u32 var8007fa00 = 0x3c5a0169;
-u32 var8007fa04 = 0x3cb3b752;
-u32 var8007fa08 = 0x3c5a0169;
-u32 var8007fa0c = 0x3b42938e;
-u32 var8007fa10 = 0x3c5a0169;
-u32 var8007fa14 = 0x3d7442c8;
-u32 var8007fa18 = 0x3dc95bff;
-u32 var8007fa1c = 0x3d7442c8;
-u32 var8007fa20 = 0x3c5a0169;
-u32 var8007fa24 = 0x3cb3b752;
-u32 var8007fa28 = 0x3dc95bff;
-u32 var8007fa2c = 0x3e25fe54;
-u32 var8007fa30 = 0x3dc95bff;
-u32 var8007fa34 = 0x3cb3b752;
-u32 var8007fa38 = 0x3c5a0169;
-u32 var8007fa3c = 0x3d7442c8;
-u32 var8007fa40 = 0x3dc95bff;
-u32 var8007fa44 = 0x3d7442c8;
-u32 var8007fa48 = 0x3c5a0169;
-u32 var8007fa4c = 0x3b42938e;
-u32 var8007fa50 = 0x3c5a0169;
-u32 var8007fa54 = 0x3cb3b752;
-u32 var8007fa58 = 0x3c5a0169;
-u32 var8007fa5c = 0x3b42938e;
-u32 var8007fa60 = 0x3f800000;
-u32 var8007fa64 = 0x3f800000;
-u32 var8007fa68 = 0x3f800000;
-u32 var8007fa6c = 0x3f800000;
-u32 var8007fa70 = 0x3f800000;
-u32 var8007fa74 = 0x3f800000;
-u32 var8007fa78 = 0x3f800000;
-u32 var8007fa7c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f14ad58
@@ -2662,12 +2629,106 @@ glabel func0f14d4f0
 /*  f14d710:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
 
+u32 var8007f9fc = 0x3b42938e;
+u32 var8007fa00 = 0x3c5a0169;
+u32 var8007fa04 = 0x3cb3b752;
+u32 var8007fa08 = 0x3c5a0169;
+u32 var8007fa0c = 0x3b42938e;
+u32 var8007fa10 = 0x3c5a0169;
+u32 var8007fa14 = 0x3d7442c8;
+u32 var8007fa18 = 0x3dc95bff;
+u32 var8007fa1c = 0x3d7442c8;
+u32 var8007fa20 = 0x3c5a0169;
+u32 var8007fa24 = 0x3cb3b752;
+u32 var8007fa28 = 0x3dc95bff;
+u32 var8007fa2c = 0x3e25fe54;
+u32 var8007fa30 = 0x3dc95bff;
+u32 var8007fa34 = 0x3cb3b752;
+u32 var8007fa38 = 0x3c5a0169;
+u32 var8007fa3c = 0x3d7442c8;
+u32 var8007fa40 = 0x3dc95bff;
+u32 var8007fa44 = 0x3d7442c8;
+u32 var8007fa48 = 0x3c5a0169;
+u32 var8007fa4c = 0x3b42938e;
+u32 var8007fa50 = 0x3c5a0169;
+u32 var8007fa54 = 0x3cb3b752;
+u32 var8007fa58 = 0x3c5a0169;
+u32 var8007fa5c = 0x3b42938e;
+
+// Mismatch: Different codegen. The function is generating a 64x64 thumbnail
+// from a 128x128 source, and there's lots of different ways that variables can
+// be used to do this.
+//void func0f14d4f0(u8 *arg0, u8 *arg1)
+//{
+//	f32 *s1 = (f32 *) var800a45a0->unk474;
+//	f32 *s0 = (f32 *) var800a45a0->unk478;
+//	s32 i;
+//	s32 j;
+//	s32 x;
+//	s32 y;
+//
+//	f32 sp50[] = {
+//		0.0029690000228584f,
+//		0.013306000269949f,
+//		0.021937999874353f,
+//		0.013306000269949f,
+//		0.0029690000228584f,
+//		0.013306000269949f,
+//		0.059634000062943f,
+//		0.098319999873638f,
+//		0.059634000062943f,
+//		0.013306000269949f,
+//		0.021937999874353f,
+//		0.098319999873638f,
+//		0.16210299730301f,
+//		0.098319999873638f,
+//		0.021937999874353f,
+//		0.013306000269949f,
+//		0.059634000062943f,
+//		0.098319999873638f,
+//		0.059634000062943f,
+//		0.013306000269949f,
+//		0.0029690000228584f,
+//		0.013306000269949f,
+//		0.021937999874353f,
+//		0.013306000269949f,
+//		0.0029690000228584f,
+//	};
+//
+//	for (i = 0; i < 128; i++) {
+//		for (j = 0; j < 128; j++) {
+//			s1[i * 128 + j] = arg0[i * 128 + j];
+//		}
+//	}
+//
+//	func0f14d8d8(s1, s0, 128, sp50, 5);
+//
+//	for (y = 0; y < 63; y++) {
+//		for (x = 0; x < 63; x++) {
+//			f32 value = (
+//					s0[y * 2 * 128 + x * 2 + 0] +
+//					s0[y * 2 * 128 + x * 2 + 1] +
+//					s0[y * 2 * 128 + x * 2 + 128] +
+//					s0[y * 2 * 128 + x * 2 + 129]) * 0.25f;
+//
+//			if (value < 0.0f) {
+//				value = 0.0f;
+//			}
+//
+//			if (value > 255.0f) {
+//				value = 255.0f;
+//			}
+//
+//			arg1[y * 64 + x] = value;
+//		}
+//	}
+//}
+
 void func0f14d714(u8 *arg0, u8 *arg1)
 {
 	s32 x;
 	s32 y;
 
-	// @bug? Should these be < 64?
 	for (y = 0; y < 63; y++) {
 		for (x = 0; x < 63; x++) {
 			f32 value = (arg0[y * 256 + x * 2]
@@ -4009,6 +4070,15 @@ void func0f14ef50(f32 *arg0)
 
 const char var7f1b6d7c[] = "Cam : Alloc for copy of Vtx %d bytes\n";
 const char var7f1b6da4[] = "CAM : Cam_AllocAndCopyAllVtx -> Ptr all-ready allocted - No extra needed\n";
+
+u32 var8007fa60 = 0x3f800000;
+u32 var8007fa64 = 0x3f800000;
+u32 var8007fa68 = 0x3f800000;
+u32 var8007fa6c = 0x3f800000;
+u32 var8007fa70 = 0x3f800000;
+u32 var8007fa74 = 0x3f800000;
+u32 var8007fa78 = 0x3f800000;
+u32 var8007fa7c = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f14efa8
