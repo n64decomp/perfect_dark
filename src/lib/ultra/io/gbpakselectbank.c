@@ -5,7 +5,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00052360
+glabel __osGbpakSelectBank
 /*    52360:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*    52364:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*    52368:	30b000ff */ 	andi	$s0,$a1,0xff
