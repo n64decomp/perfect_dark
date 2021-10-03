@@ -4067,42 +4067,11 @@ void func0f14ef50(f32 *arg0)
 const char var7f1b6d7c[] = "Cam : Alloc for copy of Vtx %d bytes\n";
 const char var7f1b6da4[] = "CAM : Cam_AllocAndCopyAllVtx -> Ptr all-ready allocted - No extra needed\n";
 
-u32 var8007fa60 = 0x3f800000;
-u32 var8007fa64 = 0x3f800000;
-u32 var8007fa68 = 0x3f800000;
-u32 var8007fa6c = 0x3f800000;
-u32 var8007fa70 = 0x3f800000;
-u32 var8007fa74 = 0x3f800000;
-u32 var8007fa78 = 0x3f800000;
-u32 var8007fa7c = 0x00000000;
-
-GLOBAL_ASM(
-glabel func0f14efa8
-/*  f14efa8:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f14efac:	3c0e8008 */ 	lui	$t6,%hi(var8007fa60)
-/*  f14efb0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f14efb4:	25cefa60 */ 	addiu	$t6,$t6,%lo(var8007fa60)
-/*  f14efb8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f14efbc:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f14efc0:	ac810000 */ 	sw	$at,0x0($a0)
-/*  f14efc4:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f14efc8:	ac990004 */ 	sw	$t9,0x4($a0)
-/*  f14efcc:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f14efd0:	ac810008 */ 	sw	$at,0x8($a0)
-/*  f14efd4:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  f14efd8:	ac99000c */ 	sw	$t9,0xc($a0)
-/*  f14efdc:	8dc10010 */ 	lw	$at,0x10($t6)
-/*  f14efe0:	ac810010 */ 	sw	$at,0x10($a0)
-/*  f14efe4:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*  f14efe8:	ac990014 */ 	sw	$t9,0x14($a0)
-/*  f14efec:	8dc10018 */ 	lw	$at,0x18($t6)
-/*  f14eff0:	0fc53bac */ 	jal	func0f14eeb0
-/*  f14eff4:	ac810018 */ 	sw	$at,0x18($a0)
-/*  f14eff8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f14effc:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f14f000:	03e00008 */ 	jr	$ra
-/*  f14f004:	00000000 */ 	nop
-);
+void func0f14efa8(void)
+{
+	f32 array[] = {1, 1, 1, 1, 1, 1, 1};
+	func0f14eeb0(array);
+}
 
 s32 func0f14f008(s32 index)
 {
