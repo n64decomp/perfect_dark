@@ -4242,21 +4242,17 @@ void func0f14f4b0(u32 arg0)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f14f4b8
-/*  f14f4b8:	ac800028 */ 	sw	$zero,0x28($a0)
-/*  f14f4bc:	ac80002c */ 	sw	$zero,0x2c($a0)
-/*  f14f4c0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f14f4c4:	24031000 */ 	addiu	$v1,$zero,0x1000
-.L0f14f4c8:
-/*  f14f4c8:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f14f4cc:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f14f4d0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f14f4d4:	1443fffc */ 	bne	$v0,$v1,.L0f14f4c8
-/*  f14f4d8:	a1e00000 */ 	sb	$zero,0x0($t7)
-/*  f14f4dc:	03e00008 */ 	jr	$ra
-/*  f14f4e0:	00000000 */ 	nop
-);
+void func0f14f4b8(struct var8007f8e0 *arg0)
+{
+	s32 i;
+
+	arg0->unk028 = 0;
+	arg0->unk02c = 0;
+
+	for (i = 0; i < 64 * 64; i++) {
+		arg0->unk01c[i] = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f14f4e4
