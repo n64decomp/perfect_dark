@@ -74,7 +74,7 @@ s32 func0f14f008(s32 index);
 Gfx *func0f14f07c(Gfx *gdl, s32 headorbodynum, s32 x1, s32 y1, s32 x2, s32 y2);
 void func0f14f4b8(struct var8007f8e0 *arg0);
 void func0f14f4e4(struct var8007f8e0 *arg0);
-void func0f14f510(u32 arg0);
+void func0f14f510(s32 arg0);
 u32 func0f14f700(void);
 u32 func0f14f76c(struct var8007f8e0 *arg0, u32 arg1);
 u32 func0f14f7d4(void);

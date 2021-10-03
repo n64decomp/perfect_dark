@@ -4403,6 +4403,35 @@ glabel var7f1b7364
 /*  f14f6fc:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
+//void func0f14f510(s32 arg0)
+//{
+//	s32 i;
+//	s32 j;
+//
+//	for (i = 0; i < 8; i++) {
+//		s32 tmp = (i + 1) * arg0 + 1;
+//
+//		for (j = 0; j < 8; j++) {
+//			var800a45a0->unk06c[i * 8 + j] = tmp + j * arg0;
+//		}
+//	}
+//
+//	var800a45a0->unk010 = 0;
+//	var800a45a0->unk00c = 0;
+//
+//	for (i = 0; i < 8; i++) {
+//		var800a45a0->unk17c[i] = 1 / sqrtf(8);
+//		var800a45a0->unk27c[i * 8] = var800a45a0->unk17c[i];
+//	}
+//
+//	for (i = 1; i < 8; i++) {
+//		for (j = 0; j < 8; j++) {
+//			var800a45a0->unk17c[i * 8 + j] = sqrtf(0.25f) * cosf(((1 + j * 2) * M_PI * i) / 16.0f);
+//			var800a45a0->unk27c[j * 8 + i] = var800a45a0->unk17c[i * 8 + j];
+//		}
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f14f700
 /*  f14f700:	24ce001f */ 	addiu	$t6,$a2,0x1f
