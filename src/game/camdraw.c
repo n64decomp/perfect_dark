@@ -2011,43 +2011,17 @@ glabel func0f14c50c
 //	}
 //}
 
-GLOBAL_ASM(
-glabel func0f14c75c
-/*  f14c75c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f14c760:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f14c764:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f14c768:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f14c76c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f14c770:	0fc53205 */ 	jal	func0f14c814
-/*  f14c774:	00a08825 */ 	or	$s1,$a1,$zero
-/*  f14c778:	0fc5db70 */ 	jal	align32
-/*  f14c77c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f14c780:	02202025 */ 	or	$a0,$s1,$zero
-/*  f14c784:	0fc53205 */ 	jal	func0f14c814
-/*  f14c788:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f14c78c:	0fc5db70 */ 	jal	align32
-/*  f14c790:	00402025 */ 	or	$a0,$v0,$zero
-/*  f14c794:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f14c798:	00001825 */ 	or	$v1,$zero,$zero
-/*  f14c79c:	50a0000b */ 	beqzl	$a1,.L0f14c7cc
-/*  f14c7a0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f14c7a4:
-/*  f14c7a4:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f14c7a8:	8e190000 */ 	lw	$t9,0x0($s0)
-/*  f14c7ac:	01c37821 */ 	addu	$t7,$t6,$v1
-/*  f14c7b0:	03234021 */ 	addu	$t0,$t9,$v1
-/*  f14c7b4:	91f80000 */ 	lbu	$t8,0x0($t7)
-/*  f14c7b8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f14c7bc:	0065082b */ 	sltu	$at,$v1,$a1
-/*  f14c7c0:	1420fff8 */ 	bnez	$at,.L0f14c7a4
-/*  f14c7c4:	a1180000 */ 	sb	$t8,0x0($t0)
-/*  f14c7c8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f14c7cc:
-/*  f14c7cc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f14c7d0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f14c7d4:	03e00008 */ 	jr	$ra
-/*  f14c7d8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f14c75c(struct textureconfig *arg0, struct textureconfig *arg1)
+{
+	s32 i;
+	u32 size = align32(func0f14c814(arg0));
+
+	align32(func0f14c814(arg1));
+
+	for (i = 0; i < size; i++) {
+		arg0->textureptr[i] = arg1->textureptr[i];
+	}
+}
 
 void func0f14c7dc(struct textureconfig *tconfig)
 {
