@@ -111,6 +111,12 @@ typedef struct {
 #define	OS_PFS_VERSION_HI	(OS_PFS_VERSION >> 8)
 #define	OS_PFS_VERSION_LO	(OS_PFS_VERSION & 255)
 
+#define OS_GBPAK_POWER          0x01
+#define OS_GBPAK_RSTB_DETECTION 0x04
+#define OS_GBPAK_RSTB_STATUS    0x08
+#define OS_GBPAK_GBCART_PULL    0x40
+#define OS_GBPAK_GBCART_ON      0x80
+
 #define OS_GBPAK_POWER_OFF 0
 #define OS_GBPAK_POWER_ON  1
 
