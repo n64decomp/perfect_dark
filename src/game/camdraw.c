@@ -2049,21 +2049,17 @@ glabel func0f14c75c
 /*  f14c7d8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f14c7dc
-/*  f14c7dc:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f14c7e0:	24020040 */ 	addiu	$v0,$zero,0x40
-/*  f14c7e4:	240e0004 */ 	addiu	$t6,$zero,0x4
-/*  f14c7e8:	a0820004 */ 	sb	$v0,0x4($a0)
-/*  f14c7ec:	a0820005 */ 	sb	$v0,0x5($a0)
-/*  f14c7f0:	a0800006 */ 	sb	$zero,0x6($a0)
-/*  f14c7f4:	a08e0007 */ 	sb	$t6,0x7($a0)
-/*  f14c7f8:	a0830008 */ 	sb	$v1,0x8($a0)
-/*  f14c7fc:	a0800009 */ 	sb	$zero,0x9($a0)
-/*  f14c800:	a083000a */ 	sb	$v1,0xa($a0)
-/*  f14c804:	03e00008 */ 	jr	$ra
-/*  f14c808:	a083000b */ 	sb	$v1,0xb($a0)
-);
+void func0f14c7dc(struct textureconfig *tconfig)
+{
+	tconfig->width = 64;
+	tconfig->height = 64;
+	tconfig->level = 0;
+	tconfig->format = 4;
+	tconfig->depth = 1;
+	tconfig->s = 0;
+	tconfig->t = 1;
+	tconfig->unk0b = 1;
+}
 
 void func0f14c80c(void)
 {

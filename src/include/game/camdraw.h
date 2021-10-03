@@ -46,7 +46,7 @@ void func0f14bec8(s32 index);
 void func0f14c1cc(s32 index);
 void func0f14c50c(struct var8007f8e0 *arg0, struct var8007f8e0 *arg1, u32 line, char *file);
 void func0f14c75c(struct textureconfig *arg0, struct textureconfig *arg1);
-u32 func0f14c7dc(void);
+void func0f14c7dc(struct textureconfig *tconfig);
 u32 func0f14c814(struct textureconfig *arg0);
 Gfx *func0f14c870(Gfx *gdl, struct textureconfig *tconfig, f32 *arg2, f32 arg3, f32 arg4);
 void func0f14cdb8(s32 index, u8 *arg1);
