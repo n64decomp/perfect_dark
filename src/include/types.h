@@ -7422,8 +7422,8 @@ struct var8007f8e0 { // perfect head?
 	/*0x004*/ struct textureconfig unk004;
 	/*0x010*/ struct textureconfig unk010;
 	/*0x01c*/ u8 *unk01c;
-	/*0x028*/ u8 *unk020;
-	/*0x028*/ u32 unk024;
+	/*0x020*/ u8 *unk020;
+	/*0x024*/ u8 *unk024;
 	/*0x028*/ u32 unk028;
 	/*0x02c*/ u32 unk02c;
 	/*0x030*/ f32 unk030;
