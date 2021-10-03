@@ -2719,49 +2719,23 @@ void func0f14d714(u8 *arg0, u8 *arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f14d84c
-/*  f14d84c:	00a50019 */ 	multu	$a1,$a1
-/*  f14d850:	44800000 */ 	mtc1	$zero,$f0
-/*  f14d854:	00802825 */ 	or	$a1,$a0,$zero
-/*  f14d858:	00003025 */ 	or	$a2,$zero,$zero
-/*  f14d85c:	00001812 */ 	mflo	$v1
-/*  f14d860:	00601025 */ 	or	$v0,$v1,$zero
-/*  f14d864:	18600008 */ 	blez	$v1,.L0f14d888
-/*  f14d868:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f14d86c:	01c43021 */ 	addu	$a2,$t6,$a0
-.L0f14d870:
-/*  f14d870:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f14d874:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f14d878:	00a6082b */ 	sltu	$at,$a1,$a2
-/*  f14d87c:	1420fffc */ 	bnez	$at,.L0f14d870
-/*  f14d880:	46040000 */ 	add.s	$f0,$f0,$f4
-/*  f14d884:	00003025 */ 	or	$a2,$zero,$zero
-.L0f14d888:
-/*  f14d888:	3c013f80 */ 	lui	$at,0x3f80
-/*  f14d88c:	44813000 */ 	mtc1	$at,$f6
-/*  f14d890:	00802825 */ 	or	$a1,$a0,$zero
-/*  f14d894:	1860000e */ 	blez	$v1,.L0f14d8d0
-/*  f14d898:	46003083 */ 	div.s	$f2,$f6,$f0
-/*  f14d89c:	c4b00000 */ 	lwc1	$f16,0x0($a1)
-/*  f14d8a0:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f14d8a4:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f14d8a8:	50c20008 */ 	beql	$a2,$v0,.L0f14d8cc
-/*  f14d8ac:	24a50004 */ 	addiu	$a1,$a1,0x4
-.L0f14d8b0:
-/*  f14d8b0:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f14d8b4:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f14d8b8:	e4b20000 */ 	swc1	$f18,0x0($a1)
-/*  f14d8bc:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f14d8c0:	14c2fffb */ 	bne	$a2,$v0,.L0f14d8b0
-/*  f14d8c4:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f14d8c8:	24a50004 */ 	addiu	$a1,$a1,0x4
-.L0f14d8cc:
-/*  f14d8cc:	e4b2fffc */ 	swc1	$f18,-0x4($a1)
-.L0f14d8d0:
-/*  f14d8d0:	03e00008 */ 	jr	$ra
-/*  f14d8d4:	00000000 */ 	nop
-);
+void func0f14d84c(f32 *arg0, s32 arg1)
+{
+	f32 sum = 0;
+	s32 len = arg1 * arg1;
+	f32 mult;
+	s32 i;
+
+	for (i = 0; i < len; i++) {
+		sum += arg0[i];
+	}
+
+	mult = 1 / sum;
+
+	for (i = 0; i < len; i++) {
+		arg0[i] *= mult;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f14d8d8
