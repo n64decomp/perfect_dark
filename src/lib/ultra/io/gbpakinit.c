@@ -4,22 +4,9 @@
 #include "data.h"
 #include "types.h"
 
-u32 var80090ab0;
-u32 var80090ab4;
-u32 var80090ab8;
-u32 var80090abc;
-u32 var80090ac0;
-u32 var80090ac4;
-u32 var80090ac8;
-u32 var80090acc;
-u32 var80090ad0;
-u32 var80090ad4;
-u32 var80090ad8;
-u32 var80090adc;
-u32 var80090ae0;
-u32 var80090ae4;
-u32 var80090ae8;
-u32 var80090aec;
+OSTimer var80090ab0;
+OSMesgQueue var80090ad0;
+OSMesg var80090ae8;
 
 GLOBAL_ASM(
 glabel osGbpakInit
