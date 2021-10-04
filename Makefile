@@ -75,6 +75,7 @@ $(B_DIR)/lib/ultra/io/contpfs.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contramread.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/contramwrite.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/gbpakgetstatus.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/io/gbpakreadid.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/motor.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfschecker.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfsfreeblocks.o: LOOPUNROLL :=

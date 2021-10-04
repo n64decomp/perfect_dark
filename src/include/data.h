@@ -126,8 +126,6 @@ extern u32 var800609a0;
 extern u32 var800609c4;
 extern u32 var800609f0;
 extern u32 var800611ec;
-extern u32 var800611f0;
-extern u32 var80061220;
 extern OSViMode osViModePalLan1;
 extern OSViMode osViModeMpalLan1;
 extern OSViMode osViModeNtscLan1;
