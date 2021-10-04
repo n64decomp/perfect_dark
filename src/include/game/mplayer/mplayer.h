@@ -18,7 +18,7 @@ void mpSetDefaultNamesIfEmpty(void);
 s32 mpCalculateTeamScoreLimit(void);
 void mpApplyLimits(void);
 s32 mpGetPlayerRankings(struct mpteaminfo *info);
-u32 func0f188930(void);
+s32 func0f188930(s32 arg0, s32 *arg1);
 s32 mpGetTeamRankings(struct mpteaminfo *info);
 s32 func0f188bcc(void);
 s32 mpGetNumWeaponOptions(void);

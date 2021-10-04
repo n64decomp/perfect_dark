@@ -1250,97 +1250,48 @@ glabel func0f188930
 /*  f188a80:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel mpGetTeamRankings
-/*  f188a84:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f188a88:	afb60030 */ 	sw	$s6,0x30($sp)
-/*  f188a8c:	afb5002c */ 	sw	$s5,0x2c($sp)
-/*  f188a90:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f188a94:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f188a98:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f188a9c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f188aa0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f188aa4:	0080b025 */ 	or	$s6,$a0,$zero
-/*  f188aa8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f188aac:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f188ab0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f188ab4:	24110008 */ 	addiu	$s1,$zero,0x8
-/*  f188ab8:	27b20068 */ 	addiu	$s2,$sp,0x68
-/*  f188abc:	27b30048 */ 	addiu	$s3,$sp,0x48
-/*  f188ac0:	2414e0c0 */ 	addiu	$s4,$zero,-8000
-.L0f188ac4:
-/*  f188ac4:	ae540000 */ 	sw	$s4,0x0($s2)
-/*  f188ac8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f188acc:	0fc6224c */ 	jal	func0f188930
-/*  f188ad0:	02402825 */ 	or	$a1,$s2,$zero
-/*  f188ad4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f188ad8:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f188adc:	26730004 */ 	addiu	$s3,$s3,0x4
-/*  f188ae0:	1611fff8 */ 	bne	$s0,$s1,.L0f188ac4
-/*  f188ae4:	ae62fffc */ 	sw	$v0,-0x4($s3)
-/*  f188ae8:	27ab0068 */ 	addiu	$t3,$sp,0x68
-/*  f188aec:	240a0014 */ 	addiu	$t2,$zero,0x14
-/*  f188af0:	27a90048 */ 	addiu	$t1,$sp,0x48
-/*  f188af4:	24080007 */ 	addiu	$t0,$zero,0x7
-/*  f188af8:	27a70064 */ 	addiu	$a3,$sp,0x64
-/*  f188afc:	00002825 */ 	or	$a1,$zero,$zero
-.L0f188b00:
-/*  f188b00:	02803025 */ 	or	$a2,$s4,$zero
-/*  f188b04:	00008025 */ 	or	$s0,$zero,$zero
-/*  f188b08:	00001825 */ 	or	$v1,$zero,$zero
-/*  f188b0c:	27a40084 */ 	addiu	$a0,$sp,0x84
-.L0f188b10:
-/*  f188b10:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f188b14:	00037823 */ 	negu	$t7,$v1
-/*  f188b18:	2484fffc */ 	addiu	$a0,$a0,-4
-/*  f188b1c:	29c1e0c1 */ 	slti	$at,$t6,-7999
-/*  f188b20:	14200009 */ 	bnez	$at,.L0f188b48
-/*  f188b24:	00efc021 */ 	addu	$t8,$a3,$t7
-/*  f188b28:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f188b2c:	0325082b */ 	sltu	$at,$t9,$a1
-/*  f188b30:	54200006 */ 	bnezl	$at,.L0f188b4c
-/*  f188b34:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f188b38:	01103023 */ 	subu	$a2,$t0,$s0
-/*  f188b3c:	00066080 */ 	sll	$t4,$a2,0x2
-/*  f188b40:	012c6821 */ 	addu	$t5,$t1,$t4
-/*  f188b44:	8da50000 */ 	lw	$a1,0x0($t5)
-.L0f188b48:
-/*  f188b48:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f188b4c:
-/*  f188b4c:	1611fff0 */ 	bne	$s0,$s1,.L0f188b10
-/*  f188b50:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f188b54:	28c1e0c1 */ 	slti	$at,$a2,-7999
-/*  f188b58:	1420000f */ 	bnez	$at,.L0f188b98
-/*  f188b5c:	00000000 */ 	nop
-/*  f188b60:	02aa0019 */ 	multu	$s5,$t2
-/*  f188b64:	26a30001 */ 	addiu	$v1,$s5,0x1
-/*  f188b68:	00067880 */ 	sll	$t7,$a2,0x2
-/*  f188b6c:	016f2021 */ 	addu	$a0,$t3,$t7
-/*  f188b70:	0060a825 */ 	or	$s5,$v1,$zero
-/*  f188b74:	00007012 */ 	mflo	$t6
-/*  f188b78:	02ce1021 */ 	addu	$v0,$s6,$t6
-/*  f188b7c:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f188b80:	ac460004 */ 	sw	$a2,0x4($v0)
-/*  f188b84:	ac430008 */ 	sw	$v1,0x8($v0)
-/*  f188b88:	a040000c */ 	sb	$zero,0xc($v0)
-/*  f188b8c:	8c980000 */ 	lw	$t8,0x0($a0)
-/*  f188b90:	ac580010 */ 	sw	$t8,0x10($v0)
-/*  f188b94:	ac940000 */ 	sw	$s4,0x0($a0)
-.L0f188b98:
-/*  f188b98:	54d4ffd9 */ 	bnel	$a2,$s4,.L0f188b00
-/*  f188b9c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f188ba0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f188ba4:	02a01025 */ 	or	$v0,$s5,$zero
-/*  f188ba8:	8fb5002c */ 	lw	$s5,0x2c($sp)
-/*  f188bac:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f188bb0:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f188bb4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f188bb8:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f188bbc:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f188bc0:	8fb60030 */ 	lw	$s6,0x30($sp)
-/*  f188bc4:	03e00008 */ 	jr	$ra
-/*  f188bc8:	27bd0090 */ 	addiu	$sp,$sp,0x90
-);
+s32 mpGetTeamRankings(struct mpteaminfo *info)
+{
+	s32 i;
+	s32 count;
+	s32 apparentscores[8];
+	u32 rankablescores[8];
+	u32 bestrankablescore;
+	s32 thisteamnum;
+
+	count = 0;
+
+	for (i = 0; i < 8; i++) {
+		apparentscores[i] = -8000;
+		rankablescores[i] = func0f188930(i, &apparentscores[i]);
+	}
+
+	do {
+		bestrankablescore = 0;
+		thisteamnum = -8000;
+
+		for (i = 0; i < 8; i++) {
+			if (apparentscores[7 - i] > -8000 && rankablescores[7 - i] >= bestrankablescore) {
+				thisteamnum = 7 - i;
+				bestrankablescore = rankablescores[thisteamnum];
+			}
+		}
+
+		if (thisteamnum > -8000) {
+			info[count].mpchr = NULL;
+			info[count].teamnum = thisteamnum;
+			info[count].positionindex = count + 1;
+			info[count].unk0c = 0;
+			info[count].score = apparentscores[thisteamnum];
+
+			apparentscores[thisteamnum] = -8000;
+
+			count++;
+		}
+	} while (thisteamnum != -8000);
+
+	return count;
+}
 
 s32 func0f188bcc(void)
 {
