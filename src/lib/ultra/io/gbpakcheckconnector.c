@@ -153,7 +153,7 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status)
 					// Compare them and bail out if different
 					if (bcmp(blocks[thisslot][blocknum], blocks[0][blocknum], 32) != 0) {
 						stilllooking = false;
-						goto foo;
+						goto end;
 					}
 
 					stilllooking = blocknum < 3;
@@ -163,7 +163,7 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status)
 				stilllooking = blocknum;
 			}
 
-foo:
+end:
 			if (stilllooking) {
 				return PFS_ERR_CONTRFAIL;
 			}
