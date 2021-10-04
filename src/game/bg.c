@@ -99,7 +99,7 @@ struct var800a4ccc *var800a4ccc;
 u8 *var800a4cd0;
 struct portalcmd *g_BgPortalCommands;
 u8 *g_BgLightsFileData;
-void *g_BgTable5;
+f32 *g_BgTable5;
 s16 *g_RoomPortals;
 s16 var800a4ce4;
 s16 var800a4ce6;
@@ -4767,7 +4767,7 @@ void bgInit(s32 stagenum)
 		if (g_BgPrimaryData2[5] == 0) {
 			g_BgTable5 = NULL;
 		} else {
-			g_BgTable5 = (void *)(g_BgPrimaryData2[5] + g_BgPrimaryData + 0xf1000000);
+			g_BgTable5 = (f32 *)(g_BgPrimaryData2[5] + g_BgPrimaryData + 0xf1000000);
 		}
 	}
 }
@@ -8803,15 +8803,10 @@ Gfx *bgRender(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f15cb5c
-/*  f15cb5c:	3c0e800a */ 	lui	$t6,%hi(g_BgTable5)
-/*  f15cb60:	8dce4cdc */ 	lw	$t6,%lo(g_BgTable5)($t6)
-/*  f15cb64:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f15cb68:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f15cb6c:	03e00008 */ 	jr	$ra
-/*  f15cb70:	c7000004 */ 	lwc1	$f0,0x4($t8)
-);
+f32 func0f15cb5c(s32 arg0)
+{
+	return g_BgTable5[arg0 + 1];
+}
 
 Gfx *currentPlayerScissorToViewport(Gfx *gdl)
 {
