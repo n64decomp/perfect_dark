@@ -8,6 +8,7 @@
 	build/ROMID/lib/ultra/io/vimgr.o (section); \
 	build/ROMID/lib/ultra/io/pimgr.o (section); \
 	build/ROMID/lib/lib_034d0.o (section); \
+	build/ROMID/lib/ultra/os/exceptvars.o (section); \
 	build/ROMID/lib/ultra/os/exceptasm.o (section); \
 	build/ROMID/lib/ultra/os/createthread.o (section); \
 	build/ROMID/lib/ultra/gu/lookat.o (section); \
