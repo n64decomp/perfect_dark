@@ -1,7 +1,7 @@
-#include "asm_helper.h"
+#include "macros.inc"
 
-.text
-LEAF(sqrtf)
+.section .text
+
+glabel sqrtf
 	sqrt.s $f0, $f12
-	jr ra
-END(sqrtf)
+	jr $ra

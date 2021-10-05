@@ -1,41 +1,36 @@
-#include "asm_helper.h"
+#include "macros.inc"
 .set noat
 .set noreorder
 
-.text
-LEAF(segGetDataStart)
-	lui   v0, %hi(_dataSegmentStart)
-	jr    ra
-	addiu v0, v0, %lo(_dataSegmentStart)
-END(segGetDataStart)
+.section .text
 
-LEAF(segGetDatazipRomStart)
-	lui   v0, %hi(_datazipSegmentRomStart)
-	jr    ra
-	addiu v0, v0, %lo(_datazipSegmentRomStart)
-END(segGetDatazipRomStart)
+glabel segGetDataStart
+	lui   $v0, %hi(_dataSegmentStart)
+	jr    $ra
+	addiu $v0, $v0, %lo(_dataSegmentStart)
 
-LEAF(segGetInflateRomStart)
-	lui   v0, %hi(_inflateSegmentRomStart)
-	jr    ra
-	addiu v0, v0, %lo(_inflateSegmentRomStart)
-END(segGetInflateRomStart)
+glabel segGetDatazipRomStart
+	lui   $v0, %hi(_datazipSegmentRomStart)
+	jr    $ra
+	addiu $v0, $v0, %lo(_datazipSegmentRomStart)
 
-LEAF(segGetInflateRomStart2)
-	lui   v0, %hi(_inflateSegmentRomStart)
-	jr    ra
-	addiu v0, v0, %lo(_inflateSegmentRomStart)
-END(segGetInflateRomStart2)
+glabel segGetInflateRomStart
+	lui   $v0, %hi(_inflateSegmentRomStart)
+	jr    $ra
+	addiu $v0, $v0, %lo(_inflateSegmentRomStart)
 
-LEAF(segGetGamezipsRomStart)
-	lui   v0, %hi(_gamezipSegmentRomStart)
-	jr    ra
-	addiu v0, v0, %lo(_gamezipSegmentRomStart)
-END(segGetGamezipsRomStart)
+glabel segGetInflateRomStart2
+	lui   $v0, %hi(_inflateSegmentRomStart)
+	jr    $ra
+	addiu $v0, $v0, %lo(_inflateSegmentRomStart)
 
-LEAF(bootInflate)
-	lui   a3, %hi(inflate1173)
-	addiu a3, a3, %lo(inflate1173)
-	jr    a3
+glabel segGetGamezipsRomStart
+	lui   $v0, %hi(_gamezipSegmentRomStart)
+	jr    $ra
+	addiu $v0, $v0, %lo(_gamezipSegmentRomStart)
+
+glabel bootInflate
+	lui   $a3, %hi(inflate1173)
+	addiu $a3, $a3, %lo(inflate1173)
+	jr    $a3
 	nop
-END(bootInflate)

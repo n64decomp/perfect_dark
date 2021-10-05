@@ -1,10 +1,11 @@
 #include "asm_helper.h"
+#include "macros.inc"
 
 .set noreorder
-.text
-LEAF(__osSetSR)
-	mtc0 a0, C0_SR
+.section .text
+
+glabel __osSetSR
+	mtc0 $a0, C0_SR
 	nop
-	jr ra
+	jr   $ra
 	nop
-END(__osSetSR)

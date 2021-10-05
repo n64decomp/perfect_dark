@@ -1,7 +1,8 @@
 #include "asm_helper.h"
+#include "macros.inc"
 
-.text
-LEAF(__osGetCause)
-	STAY2(mfc0 v0, C0_CAUSE)
-	jr ra
-END(__osGetCause)
+.section .text
+
+glabel __osGetCause
+	STAY2(mfc0 $v0, C0_CAUSE)
+	jr $ra

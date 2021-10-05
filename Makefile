@@ -7,12 +7,10 @@ QEMU_IRIX ?= tools/irix/qemu-irix
 IRIX_ROOT ?= tools/irix/root
 
 IDOCC ?= $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc
-IDOAS ?= $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/as
 
 ################################################################################
 
 QEMUCC = $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc
-QEMUAS = $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/as
 
 export ROMID
 
@@ -46,6 +44,11 @@ ifeq ($(ROMID),jpn-final)
 	VERSION=5
 endif
 
+DEFINES := VERSION=$(VERSION) NTSC=$(NTSC) PAL=$(PAL) JPN=$(JPN) PIRACYCHECKS=$(PIRACYCHECKS)
+
+C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
+AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1
+
 A_DIR := src/assets/$(ROMID)
 B_DIR := build/$(ROMID)
 E_DIR := extracted/$(ROMID)
@@ -61,6 +64,8 @@ else ifeq ($(shell type mips64-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0
 else
     TOOLCHAIN := mips-elf
 endif
+
+AS := $(TOOLCHAIN)-as
 
 MIPSISET := -mips2 -32
 OPT_LVL := -O2
@@ -153,11 +158,7 @@ ifeq ($(ROMID), ntsc-beta)
 $(B_DIR)/lib/ultra/io/pfsisplug.o: OPT_LVL := -O1
 endif
 
-CFLAGS = -DVERSION=$(VERSION) \
-	-DNTSC=$(NTSC) \
-	-DPAL=$(PAL) \
-	-DJPN=$(JPN) \
-	-DPIRACYCHECKS=$(PIRACYCHECKS) \
+CFLAGS = $(C_DEFINES) \
 	$(LOOPUNROLL) \
 	-Wab,-r4300_mul \
 	-non_shared \
@@ -170,6 +171,8 @@ CFLAGS = -DVERSION=$(VERSION) \
 	-I src/generated/$(ROMID) \
 	$(OPT_LVL) \
 	$(MIPSISET)
+
+ASFLAGS = -march=vr4300 -mabi=32 -Isrc/include $(AS_DEFINES)
 
 C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game -name '*.s')
@@ -518,7 +521,7 @@ $(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES)
 
 $(B_DIR)/%.o: src/%.s
 	@mkdir -p $(dir $@)
-	$(IDOAS) $(CFLAGS) $< -o $@
+	cpp -P -Wno-trigraphs -I src/include $(C_DEFINES) -D_LANGUAGE_ASSEMBLY -D_MIPSEB $< | $(AS) $(ASFLAGS) -o $@
 
 $(B_DIR)/assets/%.o: $(A_DIR)/%.c
 	@mkdir -p $(dir $@)

@@ -1,7 +1,8 @@
 #include "asm_helper.h"
+#include "macros.inc"
 
-.text
-LEAF(__osGetFpcCsr)
-	STAY2(cfc1 v0, $31)
-	jr ra
-END(__osGetFpcCsr)
+.section .text
+
+glabel __osGetFpcCsr
+	STAY2(cfc1 $v0, $31)
+	jr $ra

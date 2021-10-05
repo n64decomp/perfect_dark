@@ -1,7 +1,8 @@
 #include "asm_helper.h"
+#include "macros.inc"
 
-.text
-LEAF(osGetCount)
-	STAY2(mfc0 v0, C0_COUNT)
-	jr ra
-END(osGetCount)
+.section .text
+
+glabel osGetCount
+	STAY2(mfc0 $v0, C0_COUNT)
+	jr $ra
