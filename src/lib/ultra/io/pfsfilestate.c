@@ -2,7 +2,6 @@
 #include "libultra_internal.h"
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_4e090.h"
 #include "data.h"
 #include "types.h"
 

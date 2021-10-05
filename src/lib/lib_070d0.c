@@ -5,7 +5,6 @@
 #include "lib/lib_074f0.h"
 #include "lib/dma.h"
 #include "lib/lib_48150.h"
-#include "lib/lib_4e090.h"
 #include "data.h"
 #include "types.h"
 

@@ -173,7 +173,7 @@
 	build/ROMID/lib/ultra/io/pfsallocatefile.o (section); \
 	build/ROMID/lib/ultra/io/pfsdeletefile.o (section); \
 	build/ROMID/lib/ultra/io/pfschecker.o (section); \
-	build/ROMID/lib/lib_4e090.o (section); \
+	build/ROMID/lib/ultra/libc/bcmp.o (section); \
 	build/ROMID/lib/ultra/os/maptlb.o (section); \
 	build/ROMID/lib/ultra/io/aisetfreq.o (section); \
 	build/ROMID/lib/ultra/libc/ll.o (section); \
