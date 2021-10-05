@@ -2016,7 +2016,7 @@ cb373c94109322d081a57b142fdd9999  build/ntsc-1.0/segments/firingrange.bin
 5181a0d11cf8f24370a3f2d3b29e522e  build/ntsc-1.0/segments/game.bin
 b21679a1b2dabd721bc4afee11bf5266  build/ntsc-1.0/segments/data.bin
 843285fdc0e80a77576eeb73940d2fd3  build/ntsc-1.0/segments/inflate.bin
-0ee07d5d8e890e264e775e4034e3b900  build/ntsc-1.0/segments/lib.bin
+fcc20ca686e49e64d9146a441fc43203  build/ntsc-1.0/segments/lib.bin
 fe4034c01c91bd10e488fe93389b4104  build/ntsc-1.0/segments/mpconfigs.bin
 529b54a03375af2ff74eb3367cbac294  build/ntsc-1.0/segments/mpstringsE.bin
 e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-1.0/segments/mpstringsF.bin
@@ -2025,4 +2025,5 @@ e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-1.0/segments/mpstringsI.bin
 302f7aa0464c781187551fcd3870aec2  build/ntsc-1.0/segments/mpstringsJ.bin
 e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-1.0/segments/mpstringsP.bin
 e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-1.0/segments/mpstringsS.bin
+4eb4b73612420d7133ece3c2e4d1bd2f  build/ntsc-1.0/segments/preamble.bin
 09fdd15fcbdcdecb096d3818c9f83026  build/ntsc-1.0/segments/textureconfig.bin

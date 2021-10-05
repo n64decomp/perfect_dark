@@ -40,62 +40,6 @@ u32 var8008d268;
 u32 var8008d26c;
 
 /**
- * This function is generated automatically by makerom. It clears the BSS
- * segment, sets the stack pointer to 0x80000f10 and then calls boot.
- */
-#if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel preamble
-/*     1000:	3c088009 */ 	lui	$t0,%hi(_bssSegmentStart)
-/*     1004:	3c090002 */ 	lui	$t1,0x2
-/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(_bssSegmentStart)
-/*     100c:	352923a0 */ 	ori	$t1,$t1,0x23f0
-.L00001010:
-/*     1010:	2129fff8 */ 	addi	$t1,$t1,-8
-/*     1014:	ad000000 */ 	sw	$zero,0x0($t0)
-/*     1018:	ad000004 */ 	sw	$zero,0x4($t0)
-/*     101c:	1520fffc */ 	bnez	$t1,.L00001010
-/*     1020:	21080008 */ 	addi	$t0,$t0,0x8
-/*     1024:	3c0a8000 */ 	lui	$t2,0x8000
-/*     1028:	3c1d8000 */ 	lui	$sp,0x8000
-/*     102c:	254a1050 */ 	addiu	$t2,$t2,0x1050
-/*     1030:	01400008 */ 	jr	$t2
-/*     1034:	27bd0f10 */ 	addiu	$sp,$sp,0xf10
-/*     1038:	00000000 */ 	nop
-/*     103c:	00000000 */ 	nop
-/*     1040:	00000000 */ 	nop
-/*     1044:	00000000 */ 	nop
-/*     1048:	00000000 */ 	nop
-/*     104c:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel preamble
-/*     1000:	3c088009 */ 	lui	$t0,%hi(_bssSegmentStart)
-/*     1004:	3c090002 */ 	lui	$t1,0x2
-/*     1008:	2508ae20 */ 	addiu	$t0,$t0,%lo(_bssSegmentStart)
-/*     100c:	352923a0 */ 	ori	$t1,$t1,0x23a0
-.L00001010:
-/*     1010:	2129fff8 */ 	addi	$t1,$t1,-8
-/*     1014:	ad000000 */ 	sw	$zero,0x0($t0)
-/*     1018:	ad000004 */ 	sw	$zero,0x4($t0)
-/*     101c:	1520fffc */ 	bnez	$t1,.L00001010
-/*     1020:	21080008 */ 	addi	$t0,$t0,0x8
-/*     1024:	3c0a8000 */ 	lui	$t2,0x8000
-/*     1028:	3c1d8000 */ 	lui	$sp,0x8000
-/*     102c:	254a1050 */ 	addiu	$t2,$t2,0x1050
-/*     1030:	01400008 */ 	jr	$t2
-/*     1034:	27bd0f10 */ 	addiu	$sp,$sp,0xf10
-/*     1038:	00000000 */ 	nop
-/*     103c:	00000000 */ 	nop
-/*     1040:	00000000 */ 	nop
-/*     1044:	00000000 */ 	nop
-/*     1048:	00000000 */ 	nop
-/*     104c:	00000000 */ 	nop
-);
-#endif
-
-/**
  * Sets up TLB index 0 (0x70000000), then calls init.
  */
 GLOBAL_ASM(

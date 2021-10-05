@@ -25,7 +25,8 @@
 	__rompos += SIZEOF(.name); \
 	__rampos = ADDR(.name) + SIZEOF(.name); \
 	_##name##SegmentEnd = ADDR(.name) + SIZEOF(.name); \
-	_##name##SegmentRomEnd = __rompos;
+	_##name##SegmentRomEnd = __rompos; \
+	_##name##SegmentLen = _##name##SegmentEnd - _##name##SegmentStart;
 
 #define MPSTRINGS(lang) \
 	BEGIN_SEG(mpstrings##lang) \
@@ -75,11 +76,11 @@
  */
 
 #if VERSION >= VERSION_PAL_FINAL
-#define ROMALLOCATION_LIB   0x038850
+#define ROMALLOCATION_LIB   0x038800
 #define ROMALLOCATION_DATA  0x015000
 #define ROMALLOCATION_GAME  0x13d180
 #else
-#define ROMALLOCATION_LIB   0x038850
+#define ROMALLOCATION_LIB   0x038800
 #define ROMALLOCATION_DATA  0x015000
 #define ROMALLOCATION_GAME  0x151980
 #endif
@@ -188,6 +189,29 @@ SECTIONS
 	END_SEG(bootloader)
 
 	/***************************************************************************
+	 * preamble
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00001000 - 0x00001050
+	 * RAM range: 0x70001000 - 0x70001050
+	 * -------------------------------------------------------------------------
+	 * This segment contains the entry function.
+	 */
+
+	BEGIN_SEG(preamble)
+	{
+		build/ROMID/preamble/preamble.o (.text);
+		. = ALIGN(0x30);
+	}
+	END_SEG(preamble)
+
+	/**
+	/* boot()'s address is 0x70001050, but preamble calls it by 0x80001050 due
+	 * to it not being TLB mapped yet. So we set up this variable to allow this
+	 * to happen.
+	 */
+	bootFromPreamble = boot + 0x10000000;
+
+	/***************************************************************************
 	 * lib
 	 * -------------------------------------------------------------------------
 	 * ROM range: 0x00001000 - 0x00039850 (compressed from 0x3050 onwards)
@@ -195,10 +219,12 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
+	__rompos = 0x00001050;
+
 	PLACEHOLDER_SEGMENT(libzip)
 
 	__rompos = 0x02000000;
-	__rampos = 0x70001000;
+	__rampos = 0x70001050;
 
 	BEGIN_SEG(lib) SUBALIGN(16)
 	{
@@ -206,8 +232,6 @@ SECTIONS
 		LIBFILES(.rodata)
 	}
 	END_SEG(lib)
-
-	_libSegmentStart = 0x70001050;
 
 	/***************************************************************************
 	 * data
@@ -224,7 +248,7 @@ SECTIONS
 	PLACEHOLDER_SEGMENT(datazip)
 
 	__rompos = __savedrompos;
-	__rampos = 0x80001000 + SIZEOF(.lib);
+	__rampos = 0x80001050 + SIZEOF(.lib);
 
 	BEGIN_SEG(data)
 	{

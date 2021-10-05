@@ -2018,7 +2018,7 @@ d41d8cd98f00b204e9800998ecf8427e  build/jpn-final/assets/files/ob/ob_mid.seg
 bd6e5fc360d5e0c35ea3605e2514f205  build/jpn-final/segments/game.bin
 22d5e92bffcc67b222cf3697e96106f6  build/jpn-final/segments/data.bin
 843285fdc0e80a77576eeb73940d2fd3  build/jpn-final/segments/inflate.bin
-dd3b5fe7696544bb41e97cfae67fd431  build/jpn-final/segments/lib.bin
+8666f5d44c34096e3de2b45cb3fec122  build/jpn-final/segments/lib.bin
 c47d9377956666bc0e77d6cba3dc68fb  build/jpn-final/segments/mpconfigs.bin
 529b54a03375af2ff74eb3367cbac294  build/jpn-final/segments/mpstringsE.bin
 4d1eb9e58e090aa91301917c518b5b5f  build/jpn-final/segments/mpstringsF.bin
@@ -2027,4 +2027,5 @@ c47d9377956666bc0e77d6cba3dc68fb  build/jpn-final/segments/mpconfigs.bin
 b60f7439adaf8b1e150ab54b590da411  build/jpn-final/segments/mpstringsJ.bin
 529b54a03375af2ff74eb3367cbac294  build/jpn-final/segments/mpstringsP.bin
 9e9ad9fdc9b6a3c249a370760fa23b26  build/jpn-final/segments/mpstringsS.bin
+bb5f33663dfff68959ec9606dd405f45  build/jpn-final/segments/preamble.bin
 09fdd15fcbdcdecb096d3818c9f83026  build/jpn-final/segments/textureconfig.bin

@@ -68,10 +68,10 @@ def get_segment(fd, locations, segname):
     fd.seek(start)
     return fd.read(end - start)
 
-# lib is compressed from offset 0x2050 onwards
+# lib is compressed from offset 0x2000 onwards
 def pack_lib(fd, locations):
     lib = get_segment(fd, locations, 'lib')
-    zipped = lib[0:0x2050] + zip(lib[0x2050:])
+    zipped = lib[0:0x2000] + zip(lib[0x2000:])
     attempt(fd, locations, 'lib', zipped, 'ROMALLOCATION_LIB')
 
 def pack_data(fd, locations):

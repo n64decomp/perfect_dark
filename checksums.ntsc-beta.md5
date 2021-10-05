@@ -2015,7 +2015,7 @@ a12b5437510403bb09b3cceb45dd2a10  build/ntsc-beta/segments/firingrange.bin
 daae19f7ce11d3f3e1f98d543ad856f5  build/ntsc-beta/segments/game.bin
 cab47b8c30b1be608c1c5c1db08342de  build/ntsc-beta/segments/data.bin
 843285fdc0e80a77576eeb73940d2fd3  build/ntsc-beta/segments/inflate.bin
-900199658b5cfb5a3c16844abc9da56e  build/ntsc-beta/segments/lib.bin
+2b787e7deb0f2df04dcdf02ac785d93e  build/ntsc-beta/segments/lib.bin
 8aaec8cc806ec62d2f70eaa08282e9c0  build/ntsc-beta/segments/mpconfigs.bin
 d52a0fc2e90e03b610879b50df4c0fd4  build/ntsc-beta/segments/mpstringsE.bin
 e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-beta/segments/mpstringsF.bin
@@ -2024,4 +2024,5 @@ e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-beta/segments/mpstringsI.bin
 302f7aa0464c781187551fcd3870aec2  build/ntsc-beta/segments/mpstringsJ.bin
 e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-beta/segments/mpstringsP.bin
 e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-beta/segments/mpstringsS.bin
+c24166092dd15d4fcc510cfb3d615bce  build/ntsc-beta/segments/preamble.bin
 09fdd15fcbdcdecb096d3818c9f83026  build/ntsc-beta/segments/textureconfig.bin

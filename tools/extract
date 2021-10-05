@@ -32,6 +32,7 @@ class Extractor:
         self.extract_lib()
         self.extract_mpconfigs()
         self.extract_mpstrings()
+        self.extract_preamble()
         self.extract_rsp()
         self.extract_textureconfig()
         self.extract_textures()
@@ -197,9 +198,9 @@ class Extractor:
         end = self.val('animations')
         self.write_extracted('garbage2.bin', self.rom[start:end])
 
-    # In all versions, lib starts at 0x1000 and is compressed from 0x3050 onwards
+    # In all versions, lib starts at 0x1050 and is compressed from 0x3050 onwards
     def extract_lib(self):
-        part1 = self.rom[0x1000:0x3050]
+        part1 = self.rom[0x1050:0x3050]
         part2 = self.decompress(self.rom[0x3050:])
         self.write_extracted('lib.bin', part1 + part2)
 
@@ -243,6 +244,9 @@ class Extractor:
 
     def extract_bootloader(self):
         self.write_extracted('bootloader.bin', self.rom[0x40:0x1000])
+
+    def extract_preamble(self):
+        self.write_extracted('preamble.bin', self.rom[0x1000:0x1050])
 
     def extract_rsp_segment(self, name, pos, length):
         if pos < 0:

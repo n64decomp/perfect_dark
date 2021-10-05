@@ -175,7 +175,7 @@ CFLAGS = $(C_DEFINES) \
 ASFLAGS = -march=vr4300 -mabi=32 -Isrc/include $(AS_DEFINES)
 
 C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
-S_FILES := $(shell find src/lib src/game -name '*.s')
+S_FILES := $(shell find src/lib src/game src/preamble -name '*.s')
 
 # Create names such as $(B_DIR)/assets/files/PfooZ.
 # These names (with .o added) will be dependenices for ld.

@@ -2016,7 +2016,7 @@ ad2de210a3455ba5ec541f0c78d91444  build/pal-beta/pd.z64
 ad5835b91b7e252ef8f4a421a44eb12b  build/pal-beta/segments/game.bin
 bca5001a5dd0ef9aab24ba085f27eb40  build/pal-beta/segments/data.bin
 843285fdc0e80a77576eeb73940d2fd3  build/pal-beta/segments/inflate.bin
-317967a2f69b8e33ce588b0223ea3859  build/pal-beta/segments/lib.bin
+7a689272c17a207c662720bedaf548f5  build/pal-beta/segments/lib.bin
 fe4034c01c91bd10e488fe93389b4104  build/pal-beta/segments/mpconfigs.bin
 529b54a03375af2ff74eb3367cbac294  build/pal-beta/segments/mpstringsE.bin
 bed567631daf314f79ec8a2aa994f3a0  build/pal-beta/segments/mpstringsF.bin
@@ -2025,4 +2025,5 @@ fed3dc54a3564f477fb7d548ac365514  build/pal-beta/segments/mpstringsI.bin
 302f7aa0464c781187551fcd3870aec2  build/pal-beta/segments/mpstringsJ.bin
 529b54a03375af2ff74eb3367cbac294  build/pal-beta/segments/mpstringsP.bin
 d9501d67ead982fdd5cb5ffaf3091201  build/pal-beta/segments/mpstringsS.bin
+2b87fded07e5181b7db8556dc6c541e7  build/pal-beta/segments/preamble.bin
 09fdd15fcbdcdecb096d3818c9f83026  build/pal-beta/segments/textureconfig.bin
