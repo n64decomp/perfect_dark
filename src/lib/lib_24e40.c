@@ -13,7 +13,6 @@
 #include "lib/lib_24e40.h"
 #include "lib/lib_2f490.h"
 #include "lib/libc/ll.h"
-#include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
 

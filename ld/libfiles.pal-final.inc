@@ -156,7 +156,7 @@
 	build/ROMID/lib/ultra/os/writebackdcache.o (section); \
 	build/ROMID/lib/ultra/libc/bzero.o (section); \
 	build/ROMID/lib/ultra/os/getcause.o (section); \
-	build/ROMID/lib/lib_4b170.o (section); \
+	build/ROMID/lib/ultra/libc/bcopy.o (section); \
 	build/ROMID/lib/ultra/os/virtualtophysical.o (section); \
 	build/ROMID/lib/ultra/io/spsetstat.o (section); \
 	build/ROMID/lib/ultra/io/spsetpc.o (section); \

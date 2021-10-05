@@ -10,7 +10,6 @@
 #include "lib/lib_233c0.h"
 #include "lib/lib_2f490.h"
 #include "lib/libc/ll.h"
-#include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
 

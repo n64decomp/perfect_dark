@@ -38,7 +38,6 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_2f490.h"
-#include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
 

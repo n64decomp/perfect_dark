@@ -6,7 +6,6 @@
 #include "lib/lib_43dd0.h"
 #include "lib/lib_461c0.h"
 #include "lib/libc/ll.h"
-#include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
 

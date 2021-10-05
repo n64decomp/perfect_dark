@@ -18,7 +18,6 @@
 #include "lib/lib_0bfb0.h"
 #include "lib/snd.h"
 #include "lib/lib_126b0.h"
-#include "lib/lib_4b170.h"
 #include "data.h"
 #include "types.h"
 
