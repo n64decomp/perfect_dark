@@ -8,7 +8,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ## List of Piracy Checks
 
-### init
+### bootPhase1
 
 **When Called:** On power-on before the legal screen appears.
 
@@ -20,7 +20,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** On every frame.
 
-**What It Checks:** Checksums `init` to make sure it hasn't been modified.
+**What It Checks:** Checksums `bootPhase1` to make sure it hasn't been modified.
 
 **Payload:** Writes 40 bytes of 0xff to 0x80095210. This appears to be related to sound effects but has no obvious effect.
 

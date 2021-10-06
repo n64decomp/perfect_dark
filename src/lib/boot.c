@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "lib/tlb.h"
-#include "lib/init.h"
+#include "lib/boot.h"
 #include "lib/reset.h"
 #include "lib/segments.h"
 #include "constants.h"
@@ -230,7 +230,7 @@ extern u16 *var800902e4;
 extern s16 var800902e8;
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 initGetMemSize(void)
+s32 bootGetMemSize(void)
 {
 	return g_OsMemSize;
 }
@@ -238,7 +238,7 @@ s32 initGetMemSize(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel init
+glabel bootPhase1
 /*     16cc:	3c0e8000 */ 	lui	$t6,0x8000
 /*     16d0:	8dce030c */ 	lw	$t6,0x30c($t6)
 /*     16d4:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -347,14 +347,14 @@ glabel init
 /*     1850:	0c012078 */ 	jal	__osSetFpcCsr
 /*     1854:	34440e80 */ 	ori	$a0,$v0,0xe80
 /*     1858:	24040003 */ 	addiu	$a0,$zero,0x3
-/*     185c:	0c00062b */ 	jal	allocateStack
+/*     185c:	0c00062b */ 	jal	bootAllocateStack
 /*     1860:	34059800 */ 	dli	$a1,0x9800
 /*     1864:	3c108009 */ 	lui	$s0,%hi(g_MainThread)
 /*     1868:	2610d6d0 */ 	addiu	$s0,$s0,%lo(g_MainThread)
-/*     186c:	3c067000 */ 	lui	$a2,%hi(mainproc)
+/*     186c:	3c067000 */ 	lui	$a2,%hi(bootPhase2)
 /*     1870:	2409000a */ 	addiu	$t1,$zero,0xa
 /*     1874:	afa90014 */ 	sw	$t1,0x14($sp)
-/*     1878:	24c61aa4 */ 	addiu	$a2,$a2,%lo(mainproc)
+/*     1878:	24c61aa4 */ 	addiu	$a2,$a2,%lo(bootPhase2)
 /*     187c:	02002025 */ 	or	$a0,$s0,$zero
 /*     1880:	24050003 */ 	addiu	$a1,$zero,0x3
 /*     1884:	00003825 */ 	or	$a3,$zero,$zero
@@ -370,7 +370,7 @@ glabel init
 );
 #else
 GLOBAL_ASM(
-glabel init
+glabel bootPhase1
 /*     1720:	3c040003 */ 	lui	$a0,0x3
 /*     1724:	3c0e0004 */ 	lui	$t6,0x4
 /*     1728:	3c0f0004 */ 	lui	$t7,0x4
@@ -460,7 +460,7 @@ glabel init
 /*     1868:	240b4040 */ 	li	$t3,0x4040
 /*     186c:	a46b0000 */ 	sh	$t3,0x0($v1)
 /*     1870:	24040003 */ 	li	$a0,0x3
-/*     1874:	0c000631 */ 	jal	allocateStack
+/*     1874:	0c000631 */ 	jal	bootAllocateStack
 /*     1878:	34059800 */ 	li	$a1,0x9800
 /*     187c:	3c108009 */ 	lui	$s0,0x8009
 /*     1880:	2610fd00 */ 	addiu	$s0,$s0,-768
@@ -494,7 +494,7 @@ glabel init
  */
 // Mismatch: Goal uses s0 for dst in some places.
 // Also uses way less stack somehow.
-//void init(void)
+//void bootPhase1(void)
 //{
 //	u32 datacomplen;
 //	u32 inflatelen;
@@ -572,13 +572,13 @@ glabel init
 //#endif
 //
 //	// Create and start the main thread
-//	osCreateThread(&g_MainThread, THREAD_MAIN, mainproc, NULL, allocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
+//	osCreateThread(&g_MainThread, THREAD_MAIN, bootPhase2, NULL, bootAllocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
 //	osStartThread(&g_MainThread);
 //}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel allocateStack
+glabel bootAllocateStack
 /*     18ac:	3c098006 */ 	lui	$t1,%hi(g_StackAllocatedPos)
 /*     18b0:	2529ce48 */ 	addiu	$t1,$t1,%lo(g_StackAllocatedPos)
 /*     18b4:	8d230000 */ 	lw	$v1,0x0($t1)
@@ -635,7 +635,7 @@ glabel allocateStack
 // Mismatch:
 // i is stored in a3 but should be t0
 // The value written to ptr[i] is stored in t0 but should be a2
-//void *allocateStack(s32 threadid, s32 size)
+//void *bootAllocateStack(s32 threadid, s32 size)
 //{
 //	u8 *ptr8;
 //	u32 *ptr32;
@@ -668,7 +668,7 @@ glabel allocateStack
 //}
 #else
 GLOBAL_ASM(
-glabel allocateStack
+glabel bootAllocateStack
 /*     18c4:	3c0a8006 */ 	lui	$t2,0x8006
 /*     18c8:	254ae5c8 */ 	addiu	$t2,$t2,-6712
 /*     18cc:	8d430000 */ 	lw	$v1,0x0($t2)
@@ -718,7 +718,7 @@ glabel allocateStack
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-s32 initGetMemSize(void)
+s32 bootGetMemSize(void)
 {
 	return g_OsMemSize;
 }
@@ -737,19 +737,19 @@ void idleproc(void *data)
 	while (true);
 }
 
-void idleCreateThread(void)
+void bootCreateIdleThread(void)
 {
-	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, allocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
+	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, bootAllocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
 	osStartThread(&g_IdleThread);
 }
 
-void rmonCreateThread(void)
+void bootCreateRmonThread(void)
 {
-	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, allocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
+	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, bootAllocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
 	osStartThread(&g_RmonThread);
 }
 
-void schedCreateThread(void)
+void bootCreateSchedThread(void)
 {
 	osCreateMesgQueue(&var8008db30, &var8008db48, 32);
 
@@ -763,20 +763,20 @@ void schedCreateThread(void)
 	g_SchedCmdQ = osScGetCmdQ(&g_SchedThread);
 }
 
-void mainproc(void *arg)
+void bootPhase2(void *arg)
 {
-	idleCreateThread();
+	bootCreateIdleThread();
 	func00013750();
 	func00013710();
-	rmonCreateThread();
+	bootCreateRmonThread();
 
 	if (argsParseDebugArgs()) {
 		osStopThread(NULL);
 	}
 
 	osSetThreadPri(0, THREADPRI_MAIN);
-	schedCreateThread();
-	mainEntry();
+	bootCreateSchedThread();
+	mainProc();
 }
 
 #if VERSION < VERSION_NTSC_1_0

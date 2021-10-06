@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_BOOT_H
-#define _IN_LIB_BOOT_H
+#ifndef _IN_LIB_TLB_H
+#define _IN_LIB_TLB_H
 #include <ultra64.h>
 
 void tlbInit(void);

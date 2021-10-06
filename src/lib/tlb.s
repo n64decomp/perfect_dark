@@ -47,7 +47,7 @@ glabel var8008d268
 .text
 
 /**
- * Sets up TLB index 0 (0x70000000), then calls init.
+ * Sets up TLB index 0 (0x70000000), then calls bootPhase1.
  */
 glabel tlbInit
 	lui    $t0, 0x7f
@@ -67,8 +67,8 @@ glabel tlbInit
  	nop
  	nop
  	nop
-	lui    $t0, %hi(init)
-	addiu  $t0, $t0, %lo(init)
+	lui    $t0, %hi(bootPhase1)
+	addiu  $t0, $t0, %lo(bootPhase1)
 	jr     $t0
  	nop
 

@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/init.h"
+#include "lib/boot.h"
 #include "lib/sched.h"
 #include "constants.h"
 #include "bss.h"
@@ -400,7 +400,7 @@ void amgrHandleDoneMsg(AudioInfo *info);
 
 void amgrAllocateStack(void)
 {
-	g_AudioSp = allocateStack(THREAD_AUDIO, STACKSIZE_AUDIO);
+	g_AudioSp = bootAllocateStack(THREAD_AUDIO, STACKSIZE_AUDIO);
 }
 
 #if VERSION >= VERSION_PAL_FINAL

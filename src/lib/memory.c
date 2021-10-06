@@ -85,13 +85,13 @@ void memInit(u32 heapstart, u32 heaplen)
 
 	// If 8MB, reserve the entire expansion pak for additional mempool 4
 #if VERSION >= VERSION_NTSC_1_0
-	extraend = 0x80000000 + initGetMemSize();
+	extraend = 0x80000000 + bootGetMemSize();
 #else
 	extraend = 0x80000000 + osGetMemSize();
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (initGetMemSize() > 4 * 1024 * 1024)
+	if (bootGetMemSize() > 4 * 1024 * 1024)
 #else
 	if (osGetMemSize() > 4 * 1024 * 1024)
 #endif

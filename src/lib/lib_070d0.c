@@ -38,7 +38,7 @@ glabel func000070d0
 /*     70fc:	afb10020 */ 	sw	$s1,0x20($sp)
 /*     7100:	0c00222c */ 	jal	rzipInflateFixed
 /*     7104:	a030ae28 */ 	sb	$s0,%lo(var8008ae28)($at)
-/*     7108:	0c0005b0 */ 	jal	initGetMemSize
+/*     7108:	0c0005b0 */ 	jal	bootGetMemSize
 /*     710c:	00000000 */ 	nop
 /*     7110:	3c010040 */ 	lui	$at,0x40
 /*     7114:	34210001 */ 	ori	$at,$at,0x1

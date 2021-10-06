@@ -185,7 +185,7 @@ class Tool:
 
         self.fd = open(sys.argv[1], 'rb+')
 
-        self.patch(algo01, '__scHandleRetrace', 'init')
+        self.patch(algo01, '__scHandleRetrace', 'bootPhase1')
         self.patch(algo02, 'cheatMenuHandleDialog', '__scHandleRetrace')
         self.patch(algo03, 'propobjHandlePickupByAibot', 'func0f08e2ac')
         self.patch(algo04, 'chrUncloak', 'propobjHandlePickupByAibot')

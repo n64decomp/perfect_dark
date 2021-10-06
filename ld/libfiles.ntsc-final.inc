@@ -1,7 +1,7 @@
 #define LIBFILES(section) \
 	build/ROMID/lib/tlb.o (section); \
 	build/ROMID/lib/segments.o (section); \
-	build/ROMID/lib/init.o (section); \
+	build/ROMID/lib/boot.o (section); \
 	build/ROMID/lib/sched.o (section); \
 	build/ROMID/lib/reset.o (section); \
 	build/ROMID/lib/ultra/os/maptlbrdb.o (section); \

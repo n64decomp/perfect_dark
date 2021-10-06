@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/init.h"
+#include "lib/boot.h"
 #include "lib/sched.h"
 #include "constants.h"
 #include "game/game_0e0770.h"
@@ -141,7 +141,7 @@ void osCreateScheduler(OSSched *sc, void *stack, u8 mode, u32 numFields)
 
 	osViSetEvent(&sc->interruptQ, (OSMesg)VIDEO_MSG, numFields);
 	osCreateLog();
-	osCreateThread(sc->thread, THREAD_SCHED, &__scMain, sc, allocateStack(THREAD_SCHED, STACKSIZE_SCHED), THREADPRI_SCHED);
+	osCreateThread(sc->thread, THREAD_SCHED, &__scMain, sc, bootAllocateStack(THREAD_SCHED, STACKSIZE_SCHED), THREADPRI_SCHED);
 	osStartThread(sc->thread);
 }
 
@@ -322,8 +322,8 @@ void __scHandleRetrace(OSSched *sc)
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *end = (s32 *)&allocateStack;
-		s32 *ptr = (s32 *)&init;
+		s32 *end = (s32 *)&bootAllocateStack;
+		s32 *ptr = (s32 *)&bootPhase1;
 		s32 i;
 
 		while (ptr < end) {

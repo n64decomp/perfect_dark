@@ -411,7 +411,7 @@ glabel mainInit
 /*     d40c:	8dd9001c */ 	lw	$t9,0x1c($t6)
 /*     d410:	8dc10018 */ 	lw	$at,0x18($t6)
 /*     d414:	adb9001c */ 	sw	$t9,0x1c($t5)
-/*     d418:	0c0005b0 */ 	jal	initGetMemSize
+/*     d418:	0c0005b0 */ 	jal	bootGetMemSize
 /*     d41c:	ada10018 */ 	sw	$at,0x18($t5)
 /*     d420:	3c010040 */ 	lui	$at,0x40
 /*     d424:	34210001 */ 	ori	$at,$at,0x1
@@ -816,7 +816,7 @@ glabel mainInit
 /*     d6d4:	8dd9001c */ 	lw	$t9,0x1c($t6)
 /*     d6d8:	8dc10018 */ 	lw	$at,0x18($t6)
 /*     d6dc:	adb9001c */ 	sw	$t9,0x1c($t5)
-/*     d6e0:	0c0005b0 */ 	jal	initGetMemSize
+/*     d6e0:	0c0005b0 */ 	jal	bootGetMemSize
 /*     d6e4:	ada10018 */ 	sw	$at,0x18($t5)
 /*     d6e8:	3c010040 */ 	lui	$at,0x40
 /*     d6ec:	34210001 */ 	ori	$at,$at,0x1
@@ -1537,7 +1537,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		u8 sp50[5120];
 //		u32 stack;
 //
-//		if (initGetMemSize() <= 4 * 1024 * 1024) {
+//		if (bootGetMemSize() <= 4 * 1024 * 1024) {
 //			iVar5 = 0x803f50b8 - var8005cf84 * 8;
 //			iVar5 -= 548864 * 2;
 //			iVar5 = iVar5 - (iVar5 & 0x1fff) - 0x1c80;
@@ -1719,7 +1719,7 @@ glabel func0000e010nb
 );
 #endif
 
-void mainEntry(void)
+void mainProc(void)
 {
 	mainInit();
 	rdpInit();
