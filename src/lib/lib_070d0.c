@@ -2,7 +2,7 @@
 #include "lib/boot.h"
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_074f0.h"
+#include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/lib_48150.h"
 #include "data.h"
@@ -36,7 +36,7 @@ glabel func000070d0
 /*     70f4:	afb30028 */ 	sw	$s3,0x28($sp)
 /*     70f8:	afb20024 */ 	sw	$s2,0x24($sp)
 /*     70fc:	afb10020 */ 	sw	$s1,0x20($sp)
-/*     7100:	0c00222c */ 	jal	func000088b0
+/*     7100:	0c00222c */ 	jal	rzipInflateFixed
 /*     7104:	a030ae28 */ 	sb	$s0,%lo(var8008ae28)($at)
 /*     7108:	0c0005b0 */ 	jal	initGetMemSize
 /*     710c:	00000000 */ 	nop
@@ -318,7 +318,7 @@ glabel func000070d0
 /*     71d4:	afb30060 */ 	sw	$s3,0x60($sp)
 /*     71d8:	afb2005c */ 	sw	$s2,0x5c($sp)
 /*     71dc:	afb10058 */ 	sw	$s1,0x58($sp)
-/*     71e0:	0c002294 */ 	jal	func000088b0
+/*     71e0:	0c002294 */ 	jal	rzipInflateFixed
 /*     71e4:	a030d458 */ 	sb	$s0,-0x2ba8($at)
 /*     71e8:	0c013d4c */ 	jal	osGetMemSize
 /*     71ec:	00000000 */ 	sll	$zero,$zero,0x0

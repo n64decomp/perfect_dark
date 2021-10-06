@@ -3,7 +3,7 @@
 #include "game/game_0b3350.h"
 #include "game/texdecompress.h"
 #include "bss.h"
-#include "lib/lib_074f0.h"
+#include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/memory.h"

@@ -4,7 +4,7 @@
 #include "game/game_0e0770.h"
 #include "bss.h"
 #include "lib/args.h"
-#include "lib/lib_074f0.h"
+#include "lib/rzip.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0c000.h"
 #include "lib/main.h"

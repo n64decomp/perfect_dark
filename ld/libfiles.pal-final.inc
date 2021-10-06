@@ -27,7 +27,7 @@
 	build/ROMID/lib/ultra/io/pfsresizefile.o (section); \
 	build/ROMID/lib/ultra/io/pfsinitpak.o (section); \
 	build/ROMID/lib/lib_070d0.o (section); \
-	build/ROMID/lib/lib_074f0.o (section); \
+	build/ROMID/lib/rzip.o (section); \
 	build/ROMID/lib/audiomgr.o (section); \
 	build/ROMID/lib/lib_09660.o (section); \
 	build/ROMID/lib/lib_09a80.o (section); \

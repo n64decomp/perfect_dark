@@ -4,7 +4,7 @@
 #include "game/lv.h"
 #include "game/music.h"
 #include "bss.h"
-#include "lib/lib_074f0.h"
+#include "lib/rzip.h"
 #include "lib/args.h"
 #include "lib/dma.h"
 #include "lib/snd.h"

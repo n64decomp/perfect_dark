@@ -42,7 +42,7 @@
 #include "bss.h"
 #include "lib/args.h"
 #include "lib/lib_070d0.h"
-#include "lib/lib_074f0.h"
+#include "lib/rzip.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_09a80.h"
 #include "lib/lib_0bfb0.h"

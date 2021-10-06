@@ -3,7 +3,7 @@
 #include "game/game_0b3350.h"
 #include "game/texdecompress.h"
 #include "bss.h"
-#include "lib/lib_074f0.h"
+#include "lib/rzip.h"
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/memory.h"
@@ -330,7 +330,7 @@ glabel func0f16e818
 /*  f16ea9c:	8fa71e8c */ 	lw	$a3,0x1e8c($sp)
 /*  f16eaa0:	0fc5bb6b */ 	jal	func0f16edac
 /*  f16eaa4:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f16eaa8:	0c002282 */ 	jal	func00008a08
+/*  f16eaa8:	0c002282 */ 	jal	rzipGetSomething
 /*  f16eaac:	00408825 */ 	or	$s1,$v0,$zero
 /*  f16eab0:	0fc5cd48 */ 	jal	func0f173520
 /*  f16eab4:	00402025 */ 	or	$a0,$v0,$zero
@@ -776,7 +776,7 @@ glabel func0f16e818
 /*  f169720:	8fa71f44 */ 	lw	$a3,0x1f44($sp)
 /*  f169724:	0fc5a691 */ 	jal	func0f16edac
 /*  f169728:	afb00010 */ 	sw	$s0,0x10($sp)
-/*  f16972c:	0c0022ea */ 	jal	func00008a08
+/*  f16972c:	0c0022ea */ 	jal	rzipGetSomething
 /*  f169730:	00408825 */ 	or	$s1,$v0,$zero
 /*  f169734:	0fc5b870 */ 	jal	func0f173520
 /*  f169738:	00402025 */ 	or	$a0,$v0,$zero
