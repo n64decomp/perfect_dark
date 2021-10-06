@@ -1,3 +1,4 @@
+#include "asm_helper.h"
 #include "macros.inc"
 .set noat
 .set noreorder
@@ -5,14 +6,14 @@
 .section .text
 
 glabel osUnmapTLBAll
-	mfc0  $t0, $10
-	li    $t1, 0x1e
+	mfc0  $t0, C0_ENTRYHI
+	li    $t1, 30
 	lui   $t2, 0x8000
-	mtc0  $t2, $10
-	mtc0  $zero, $2
-	mtc0  $zero, $3
+	mtc0  $t2, C0_ENTRYHI
+	mtc0  $zero, C0_ENTRYLO0
+	mtc0  $zero, C0_ENTRYLO1
 .PF00052098:
-	mtc0  $t1, $0
+	mtc0  $t1, C0_INX
  	nop
  	tlbwi
  	nop
@@ -20,6 +21,6 @@ glabel osUnmapTLBAll
 	addi  $t1, $t1, -1
 	bgez  $t1, .PF00052098
  	nop
-	mtc0  $t0, $10
+	mtc0  $t0, C0_ENTRYHI
 	jr    $ra
  	nop

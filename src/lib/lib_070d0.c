@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/boot.h"
+#include "lib/tlb.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/rzip.h"
@@ -148,7 +148,7 @@ glabel func000070d0
 /*     729c:	3c018009 */ 	lui	$at,%hi(var8008ae20)
 /*     72a0:	ac33ae20 */ 	sw	$s3,%lo(var8008ae20)($at)
 /*     72a4:	3c018009 */ 	lui	$at,%hi(var80090b00)
-/*     72a8:	0c000429 */ 	jal	boot000010a4
+/*     72a8:	0c000429 */ 	jal	tlb000010a4
 /*     72ac:	ac330b00 */ 	sw	$s3,%lo(var80090b00)($at)
 /*     72b0:	8ee30000 */ 	lw	$v1,0x0($s7)
 /*     72b4:	3c048009 */ 	lui	$a0,%hi(var8008ae24)
@@ -164,7 +164,7 @@ glabel func000070d0
 /*     72d8:	1623fffd */ 	bne	$s1,$v1,.L000072d0
 /*     72dc:	ac40fffc */ 	sw	$zero,-0x4($v0)
 .L000072e0:
-/*     72e0:	0c00044f */ 	jal	boot0000113c
+/*     72e0:	0c00044f */ 	jal	tlb0000113c
 /*     72e4:	00000000 */ 	nop
 /*     72e8:	1000006a */ 	b	.L00007494
 /*     72ec:	00000000 */ 	nop
@@ -430,7 +430,7 @@ glabel func000070d0
 /*     737c:	3c018009 */ 	lui	$at,0x8009
 /*     7380:	ac35d450 */ 	sw	$s5,-0x2bb0($at)
 /*     7384:	3c018009 */ 	lui	$at,0x8009
-/*     7388:	0c000429 */ 	jal	boot000010a4
+/*     7388:	0c000429 */ 	jal	tlb000010a4
 /*     738c:	ac3530f0 */ 	sw	$s5,0x30f0($at)
 /*     7390:	8ee30000 */ 	lw	$v1,0x0($s7)
 /*     7394:	3c048009 */ 	lui	$a0,0x8009
@@ -446,7 +446,7 @@ glabel func000070d0
 /*     73b8:	1623fffd */ 	bne	$s1,$v1,.NB000073b0
 /*     73bc:	ac40fffc */ 	sw	$zero,-0x4($v0)
 .NB000073c0:
-/*     73c0:	0c00044f */ 	jal	boot0000113c
+/*     73c0:	0c00044f */ 	jal	tlb0000113c
 /*     73c4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     73c8:	1000009b */ 	beqz	$zero,.NB00007638
 /*     73cc:	00000000 */ 	sll	$zero,$zero,0x0

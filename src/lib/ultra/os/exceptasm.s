@@ -1,3 +1,4 @@
+#include "asm_helper.h"
 #include "macros.inc"
 .set noat
 .set noreorder
@@ -76,16 +77,16 @@ glabel __osException
 	lui   $k0, %hi(__osThreadSave)
 	addiu $k0, $k0, %lo(__osThreadSave)
 	sd    $at, 0x20($k0)
-	mfc0  $k1, $12
+	mfc0  $k1, C0_SR
 	sw    $k1, 0x118($k0)
 	addiu $at, $zero, -4
 	and   $k1, $k1, $at
-	mtc0  $k1, $12
+	mtc0  $k1, C0_SR
 	sd    $t0, 0x58($k0)
 	sd    $t1, 0x60($k0)
 	sd    $t2, 0x68($k0)
 	sw    $zero, 0x18($k0)
-	mfc0  $t0, $13
+	mfc0  $t0, C0_CAUSE
 	move  $t0, $k0
 	lui   $k0, %hi(__osRunningThread)
 	lw    $k0, %lo(__osRunningThread)($k0)
@@ -164,7 +165,7 @@ glabel __osException
 	or    $t1, $t1, $t0
 	sw    $t1, 0x128($k0)
 .L00003664:
-	mfc0  $t0, $14
+	mfc0  $t0, C0_EPC
 	sw    $t0, 0x11c($k0)
 	lw    $t0, 0x18($k0)
 	beqz  $t0, .L00003704
@@ -205,7 +206,7 @@ glabel __osException
 	sdc1  $f30, 0x220($k0)
 	sdc1  $f31, 0x228($k0)
 .L00003704:
-	mfc0  $t0, $13
+	mfc0  $t0, C0_CAUSE
 	sw    $t0, 0x120($k0)
 	addiu $t1, $zero, 0x2
 	sh    $t1, 0x10($k0)
@@ -223,7 +224,7 @@ glabel __osException
 	beq   $t1, $t2, .L00003b6c
  	nop
 	addiu $t2, $zero, 0x0
-	bne   $t1, $t2, .L00003a88
+	bne   $t1, $t2, L00003a88
  	nop
 	and   $s0, $k1, $t0
 .L00003758:
@@ -252,8 +253,8 @@ glabel __osException
 	b     .L00003758
 	and   $s0, $s0, $at
 .L000037a8:
-	mfc0  $t1, $11
-	mtc0  $t1, $11
+	mfc0  $t1, C0_COMPARE
+	mtc0  $t1, C0_COMPARE
 	jal   send_mesg
 	addiu $a0, $zero, 0x18
 	lui   $at, 0xffff
@@ -395,7 +396,7 @@ glabel __osException
 .L000039a8:
 	addiu $at, $zero, -513
 	and   $t0, $t0, $at
-	mtc0  $t0, $13
+	mtc0  $t0, C0_CAUSE
 	jal   send_mesg
 	addiu $a0, $zero, 0x8
 	addiu $at, $zero, -513
@@ -404,19 +405,19 @@ glabel __osException
 .L000039c8:
 	addiu $at, $zero, -257
 	and   $t0, $t0, $at
-	mtc0  $t0, $13
+	mtc0  $t0, C0_CAUSE
 	jal   send_mesg
 	addiu $a0, $zero, 0x0
 	addiu $at, $zero, -257
 	b     .L00003758
 	and   $s0, $s0, $at
 .L000039e8:
-	jal   boot00001180
+	jal   tlbHandleMiss
  	nop
 	b     .L00003a3c
  	nop
 .L000039f8:
-	j     .L00003a88
+	j     L00003a88
  	nop
 	addiu $t1, $zero, 0x1
 .L00003a04:
@@ -426,9 +427,9 @@ glabel __osException
 	lw    $t1, 0x0($t1)
 	srl   $t1, $t1, 0x10
 	andi  $t1, $t1, 0xff
-	beq   $t1, $at, .L00003a88
+	beq   $t1, $at, L00003a88
 	addiu $at, $zero, 0x7
-	beq   $t1, $at, .L00003a88
+	beq   $t1, $at, L00003a88
  	nop
 	jal   send_mesg
 	addiu $a0, $zero, 0x50
@@ -455,14 +456,15 @@ glabel __osException
 	sw    $t2, 0x0($k0)
 	j     .L00003d10
 	sw    $k0, 0x0($t1)
-.L00003a88:
+
+glabel L00003a88
 	lui   $at, %hi(__osFaultedThread)
 	sw    $k0, %lo(__osFaultedThread)($at)
 	addiu $t1, $zero, 0x1
 	sh    $t1, 0x10($k0)
 	addiu $t1, $zero, 0x2
 	sh    $t1, 0x12($k0)
-	mfc0  $t2, $8
+	mfc0  $t2, C0_BADVADDR
 	sw    $t2, 0x124($k0)
 	jal   send_mesg
 	addiu $a0, $zero, 0x60
@@ -523,7 +525,7 @@ glabel send_mesg
 	and   $t1, $t0, $at
 	srl   $t1, $t1, 0x1c
 	addiu $t2, $zero, 0x1
-	bne   $t1, $t2, .L00003a88
+	bne   $t1, $t2, L00003a88
  	nop
 	lw    $k1, 0x118($k0)
 	lui   $at, 0x2000
@@ -536,7 +538,7 @@ glabel send_mesg
 glabel __osEnqueueAndYield
 	lui   $a1, %hi(__osRunningThread)
 	lw    $a1, %lo(__osRunningThread)($a1)
-	mfc0  $t0, $12
+	mfc0  $t0, C0_SR
 	lw    $k1, 0x18($a1)
 	ori   $t0, $t0, 0x2
 	sw    $t0, 0x118($a1)
@@ -658,7 +660,7 @@ glabel __osDispatchThread
 	and   $t1, $t1, $t0
 	and   $k1, $k1, $at
 	or    $k1, $k1, $t1
-	mtc0  $k1, $12
+	mtc0  $k1, C0_SR
 	ld    $k1, 0x108($k0)
 	ld    $at, 0x20($k0)
 	ld    $v0, 0x28($k0)
@@ -693,7 +695,7 @@ glabel __osDispatchThread
 	ld    $s8, 0xf8($k0)
 	ld    $ra, 0x100($k0)
 	lw    $k1, 0x11c($k0)
-	mtc0  $k1, $14
+	mtc0  $k1, C0_EPC
 	lw    $k1, 0x18($k0)
 	beqz  $k1, .L00003e80
  	nop

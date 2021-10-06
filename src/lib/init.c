@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/boot.h"
+#include "lib/tlb.h"
 #include "lib/init.h"
 #include "lib/reset.h"
 #include "lib/segments.h"
@@ -274,7 +274,7 @@ glabel init
 /*     1744:	010e1821 */ 	addu	$v1,$t0,$t6
 /*     1748:	2462ffff */ 	addiu	$v0,$v1,-1
 /*     174c:	0440000b */ 	bltz	$v0,.L0000177c
-/*     1750:	3c057000 */ 	lui	$a1,%hi(boot)
+/*     1750:	3c057000 */ 	lui	$a1,%hi(tlbInit)
 /*     1754:	3c017000 */ 	lui	$at,0x7000
 /*     1758:	3c0f7020 */ 	lui	$t7,0x7020
 /*     175c:	01e88023 */ 	subu	$s0,$t7,$t0
@@ -287,7 +287,7 @@ glabel init
 /*     1774:	0441fffb */ 	bgez	$v0,.L00001764
 /*     1778:	a1390000 */ 	sb	$t9,0x0($t1)
 .L0000177c:
-/*     177c:	24a51050 */ 	addiu	$a1,$a1,%lo(boot)
+/*     177c:	24a51050 */ 	addiu	$a1,$a1,%lo(tlbInit)
 /*     1780:	3c07702c */ 	lui	$a3,0x702c
 /*     1784:	3c0a7020 */ 	lui	$t2,0x7020
 /*     1788:	01488023 */ 	subu	$s0,$t2,$t0
@@ -304,12 +304,12 @@ glabel init
 /*     17b0:	1420fffa */ 	bnez	$at,.L0000179c
 /*     17b4:	ac6cfffc */ 	sw	$t4,-0x4($v1)
 /*     17b8:	3c047028 */ 	lui	$a0,0x7028
-/*     17bc:	0c0005ab */ 	jal	bootInflate
+/*     17bc:	0c0005ab */ 	jal	segInflate
 /*     17c0:	3c068030 */ 	lui	$a2,0x8030
 /*     17c4:	3c058006 */ 	lui	$a1,%hi(_dataSegmentStart)
 /*     17c8:	24a59fe0 */ 	addiu	$a1,$a1,%lo(_dataSegmentStart)
 /*     17cc:	02002025 */ 	or	$a0,$s0,$zero
-/*     17d0:	0c0005ab */ 	jal	bootInflate
+/*     17d0:	0c0005ab */ 	jal	segInflate
 /*     17d4:	3c068030 */ 	lui	$a2,0x8030
 /*     17d8:	3c0da000 */ 	lui	$t5,0xa000
 /*     17dc:	8dae02e8 */ 	lw	$t6,0x2e8($t5)
@@ -321,7 +321,7 @@ glabel init
 /*     17f0:	1000ffff */ 	b	.L000017f0
 /*     17f4:	00000000 */ 	nop
 .L000017f8:
-/*     17f8:	0c00058d */ 	jal	bootUnmapTLBRange
+/*     17f8:	0c00058d */ 	jal	tlbUnmapRange
 /*     17fc:	2405001f */ 	addiu	$a1,$zero,0x1f
 /*     1800:	3c048006 */ 	lui	$a0,%hi(g_StackStartAddrs)
 /*     1804:	3c038006 */ 	lui	$v1,%hi(g_StackEndAddrs)
@@ -417,15 +417,15 @@ glabel init
 /*     17c0:	1420fffa */ 	bnez	$at,.L000017ac
 /*     17c4:	ac6ffffc */ 	sw	$t7,-0x4($v1)
 /*     17c8:	3c047028 */ 	lui	$a0,0x7028
-/*     17cc:	0c0005c3 */ 	jal	bootInflate
+/*     17cc:	0c0005c3 */ 	jal	segInflate
 /*     17d0:	3c068030 */ 	lui	$a2,0x8030
 /*     17d4:	3c058006 */ 	lui	$a1,0x8006
 /*     17d8:	24a5b760 */ 	addiu	$a1,$a1,-18592
 /*     17dc:	02002025 */ 	move	$a0,$s0
-/*     17e0:	0c0005c3 */ 	jal	bootInflate
+/*     17e0:	0c0005c3 */ 	jal	segInflate
 /*     17e4:	3c068030 */ 	lui	$a2,0x8030
 /*     17e8:	24040001 */ 	li	$a0,0x1
-/*     17ec:	0c00059c */ 	jal	bootUnmapTLBRange
+/*     17ec:	0c00059c */ 	jal	tlbUnmapRange
 /*     17f0:	2405001f */ 	li	$a1,0x1f
 /*     17f4:	3c048006 */ 	lui	$a0,0x8006
 /*     17f8:	3c038006 */ 	lui	$v1,0x8006
@@ -539,10 +539,10 @@ glabel init
 //	}
 //
 //	// Inflate lib
-//	bootInflate(dst, src, 0x80300000);
+//	segInflate(dst, src, 0x80300000);
 //
 //	// Inflate .data
-//	bootInflate(0x70200000 - datacomplen, &_dataSegmentStart, 0x80300000);
+//	segInflate(0x70200000 - datacomplen, &_dataSegmentStart, 0x80300000);
 //
 //#if VERSION >= VERSION_NTSC_1_0
 //#if PIRACYCHECKS
@@ -552,7 +552,7 @@ glabel init
 //#endif
 //#endif
 //
-//	bootUnmapTLBRange(1, 31);
+//	tlbUnmapRange(1, 31);
 //
 //	// Clear the stack allocation pointers
 //	for (i = 0; i < ARRAYCOUNT(g_StackStartAddrs); i++) {

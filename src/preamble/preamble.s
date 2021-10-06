@@ -19,8 +19,8 @@ glabel preamble
  	sw     $zero, 4($t0)
  	bnez   $t1, .L00001010
  	addi   $t0, $t0, 8
- 	lui    $t2, %hi(bootFromPreamble)
+ 	lui    $t2, %hi(tlbInitFromPreamble)
  	lui    $sp, 0x8000
- 	addiu  $t2, $t2, %lo(bootFromPreamble)
+ 	addiu  $t2, $t2, %lo(tlbInitFromPreamble)
  	jr     $t2
  	addiu  $sp, $sp, 0xf10

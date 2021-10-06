@@ -1,3 +1,4 @@
+#include "asm_helper.h"
 #include "macros.inc"
 .set noat
 .set noreorder
@@ -5,7 +6,7 @@
 .section .text
 
 glabel osSetIntMask
-	mfc0  $t4, $12
+	mfc0  $t4, C0_SR
 	andi  $v0, $t4, 0xff01
 	lui   $t0, %hi(__osGlobalIntMask)
 	addiu $t0, $t0, %lo(__osGlobalIntMask)
@@ -41,7 +42,7 @@ glabel osSetIntMask
 	ori   $at, $at, 0xff
 	and   $t4, $t4, $at
 	or    $t4, $t4, $t0
-	mtc0  $t4, $12
+	mtc0  $t4, C0_SR
  	nop
  	nop
 	jr    $ra

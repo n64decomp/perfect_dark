@@ -29,7 +29,7 @@ glabel segGetGamezipsRomStart
 	jr    $ra
 	addiu $v0, $v0, %lo(_gamezipSegmentRomStart)
 
-glabel bootInflate
+glabel segInflate
 	lui   $a3, %hi(inflate1173)
 	addiu $a3, $a3, %lo(inflate1173)
 	jr    $a3

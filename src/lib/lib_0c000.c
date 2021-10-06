@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/boot.h"
+#include "lib/tlb.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0c000.h"
 #include "lib/lib_2fa00.h"
@@ -294,7 +294,7 @@ u32 crashGetParentStackFrame(u32 *origptr, u32 *minaddr, u32 origsp, u32 *regs)
 bool crashIsReturnAddress(u32 *instruction)
 {
 	if (((u32)instruction % 4) == 0
-			&& (u32)instruction >= (u32)boot
+			&& (u32)instruction >= (u32)tlbInit
 			&& (u32)instruction <= (u32)&_libSegmentEnd) {
 		// This condition can never pass because 9 is masked out
 		if ((instruction[-2] & 0xfc00003c) == 9) {
