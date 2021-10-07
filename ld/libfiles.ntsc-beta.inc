@@ -34,6 +34,7 @@
 	build/ROMID/lib/lib_09a80.o (section); \
 	build/ROMID/lib/lib_0bfb0.o (section); \
 	build/ROMID/lib/lib_0c000.o (section); \
+	build/ROMID/lib/getra.o (section); \
 	build/ROMID/lib/dma.o (section); \
 	build/ROMID/lib/main.o (section); \
 	build/ROMID/lib/snd.o (section); \

@@ -1546,31 +1546,3 @@ void func0000cf54(u16 *fb)
 		}
 	}
 }
-
-#if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func0000d678nb
-/*     d678:	00000000 */ 	sll	$zero,$zero,0x0
-/*     d67c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     d680:	03e02025 */ 	or	$a0,$ra,$zero
-/*     d684:	2402ffff */ 	addiu	$v0,$zero,-1
-/*     d688:	8c880000 */ 	lw	$t0,0x0($a0)
-/*     d68c:	240a27bd */ 	addiu	$t2,$zero,0x27bd
-/*     d690:	00084c02 */ 	srl	$t1,$t0,0x10
-/*     d694:	112a000a */ 	beq	$t1,$t2,.NB0000d6c0
-/*     d698:	00000000 */ 	sll	$zero,$zero,0x0
-/*     d69c:	340aafbf */ 	dli	$t2,0xafbf
-/*     d6a0:	512a0004 */ 	beql	$t1,$t2,.NB0000d6b4
-/*     d6a4:	00085400 */ 	sll	$t2,$t0,0x10
-/*     d6a8:	080035a2 */ 	j	0xd688
-/*     d6ac:	2484fffc */ 	addiu	$a0,$a0,-4
-/*     d6b0:	00085400 */ 	sll	$t2,$t0,0x10
-.NB0000d6b4:
-/*     d6b4:	000a5403 */ 	sra	$t2,$t2,0x10
-/*     d6b8:	015d5020 */ 	add	$t2,$t2,$sp
-/*     d6bc:	8d420000 */ 	lw	$v0,0x0($t2)
-.NB0000d6c0:
-/*     d6c0:	03e00008 */ 	jr	$ra
-/*     d6c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
