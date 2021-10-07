@@ -1,4 +1,4 @@
-#include "macros.h"
+#include "macros.inc"
 .set noat
 .set noreorder
 
