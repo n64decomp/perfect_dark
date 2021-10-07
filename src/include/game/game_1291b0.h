@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f1291b0(void);
-u32 func0f1291f8(void);
+u32 random2(void);
+u32 rng2SetSeed(void);
 
 #endif

@@ -13909,12 +13909,12 @@ glabel func0f0270f4
 /*  f0275a4:	00000000 */ 	nop
 .L0f0275a8:
 /*  f0275a8:	44c9f800 */ 	ctc1	$t1,$31
-/*  f0275ac:	0fc4a47e */ 	jal	func0f1291f8
+/*  f0275ac:	0fc4a47e */ 	jal	rng2SetSeed
 /*  f0275b0:	016c2021 */ 	addu	$a0,$t3,$t4
 /*  f0275b4:	86020000 */ 	lh	$v0,0x0($s0)
 /*  f0275b8:	1840000e */ 	blez	$v0,.L0f0275f4
 /*  f0275bc:	00000000 */ 	nop
-/*  f0275c0:	0fc4a46c */ 	jal	func0f1291b0
+/*  f0275c0:	0fc4a46c */ 	jal	random2
 /*  f0275c4:	00000000 */ 	nop
 /*  f0275c8:	0052001b */ 	divu	$zero,$v0,$s2
 /*  f0275cc:	860d0000 */ 	lh	$t5,0x0($s0)
@@ -13931,7 +13931,7 @@ glabel func0f0270f4
 .L0f0275f4:
 /*  f0275f4:	0443000e */ 	bgezl	$v0,.L0f027630
 /*  f0275f8:	86020002 */ 	lh	$v0,0x2($s0)
-/*  f0275fc:	0fc4a46c */ 	jal	func0f1291b0
+/*  f0275fc:	0fc4a46c */ 	jal	random2
 /*  f027600:	00000000 */ 	nop
 /*  f027604:	0052001b */ 	divu	$zero,$v0,$s2
 /*  f027608:	860a0000 */ 	lh	$t2,0x0($s0)
@@ -13948,7 +13948,7 @@ glabel func0f0270f4
 .L0f027630:
 /*  f027630:	1840000e */ 	blez	$v0,.L0f02766c
 /*  f027634:	00000000 */ 	nop
-/*  f027638:	0fc4a46c */ 	jal	func0f1291b0
+/*  f027638:	0fc4a46c */ 	jal	random2
 /*  f02763c:	00000000 */ 	nop
 /*  f027640:	0052001b */ 	divu	$zero,$v0,$s2
 /*  f027644:	860e0002 */ 	lh	$t6,0x2($s0)
@@ -13965,7 +13965,7 @@ glabel func0f0270f4
 .L0f02766c:
 /*  f02766c:	0443000e */ 	bgezl	$v0,.L0f0276a8
 /*  f027670:	86020004 */ 	lh	$v0,0x4($s0)
-/*  f027674:	0fc4a46c */ 	jal	func0f1291b0
+/*  f027674:	0fc4a46c */ 	jal	random2
 /*  f027678:	00000000 */ 	nop
 /*  f02767c:	0052001b */ 	divu	$zero,$v0,$s2
 /*  f027680:	860b0002 */ 	lh	$t3,0x2($s0)
@@ -13982,7 +13982,7 @@ glabel func0f0270f4
 .L0f0276a8:
 /*  f0276a8:	1840000e */ 	blez	$v0,.L0f0276e4
 /*  f0276ac:	00000000 */ 	nop
-/*  f0276b0:	0fc4a46c */ 	jal	func0f1291b0
+/*  f0276b0:	0fc4a46c */ 	jal	random2
 /*  f0276b4:	00000000 */ 	nop
 /*  f0276b8:	0052001b */ 	divu	$zero,$v0,$s2
 /*  f0276bc:	86190004 */ 	lh	$t9,0x4($s0)
@@ -13999,7 +13999,7 @@ glabel func0f0270f4
 .L0f0276e4:
 /*  f0276e4:	0443000e */ 	bgezl	$v0,.L0f027720
 /*  f0276e8:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0276ec:	0fc4a46c */ 	jal	func0f1291b0
+/*  f0276ec:	0fc4a46c */ 	jal	random2
 /*  f0276f0:	00000000 */ 	nop
 /*  f0276f4:	0052001b */ 	divu	$zero,$v0,$s2
 /*  f0276f8:	860c0002 */ 	lh	$t4,0x2($s0)
