@@ -1933,7 +1933,7 @@ void mainLoop(void)
 		func00013798();
 		func0f17608c(g_StageNum);
 		lvInit(g_StageNum);
-		func00009c3c(g_StageNum);
+		viAllocateFbs(g_StageNum);
 		frametimeCalculate();
 		func00009a90();
 
@@ -2469,7 +2469,7 @@ glabel mainLoop
 /*     e730:	0fc589ee */ 	jal	lvInit
 /*     e734:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e738:	3c048006 */ 	lui	$a0,0x8006
-/*     e73c:	0c002778 */ 	jal	func00009c3c
+/*     e73c:	0c002778 */ 	jal	viAllocateFbs
 /*     e740:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e744:	0fc59f11 */ 	jal	frametimeCalculate
 /*     e748:	00000000 */ 	sll	$zero,$zero,0x0

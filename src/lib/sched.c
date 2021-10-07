@@ -94,8 +94,8 @@ void func00001b98(u32 value)
 {
 	if ((value & 0xf) == 0 && ((var8005ce68 && var8005ce64) || var8005ce60)) {
 		if (osGetCount() - var8005ce70 > var8005ce6c) {
-			func0000cf54(var8009cac0);
-			func0000cf54(var8009cac4);
+			func0000cf54(var8009cac0[0]);
+			func0000cf54(var8009cac0[1]);
 		}
 	}
 }

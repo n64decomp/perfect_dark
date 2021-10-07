@@ -8,8 +8,7 @@ OSPifRam __osEepPifRam;
 u32 var8009d010pf[4];
 #endif
 
-void *var8009cac0;
-void *var8009cac4;
+u8 *var8009cac0[2];
 
 void __osPackEepReadData(u8 address);
 

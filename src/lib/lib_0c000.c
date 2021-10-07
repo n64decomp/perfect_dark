@@ -1526,7 +1526,7 @@ glabel crashReset
 );
 #endif
 
-void func0000cf54(u16 *fb)
+void func0000cf54(u8 *fb)
 {
 	s32 width;
 	s32 height;

@@ -101,6 +101,6 @@ void crashAppendChar(char c);
 void crashScroll(s32 numlines);
 void func0000cdc8(s32 x, s32 y, char c);
 void crashReset(void);
-void func0000cf54(u16 *fb);
+void func0000cf54(u8 *fb);
 
 #endif
