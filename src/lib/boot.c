@@ -217,14 +217,14 @@ u8 *g_StackAllocatedPos = (u8 *)0x80400000;
 u32 var8005ce4c = 0x00000002;
 u32 var8005ce50 = 0x10000000;
 
-extern u8 *_bootSegmentStart;
+extern u8 *_libSegmentStart;
 extern u8 *_datazipSegmentRomStart;
 extern u8 *_datazipSegmentRomEnd;
 extern u8 *_dataSegmentStart;
+extern u8 *_inflateSegmentStart;
 extern u8 *_inflateSegmentRomStart;
 extern u8 *_inflateSegmentRomEnd;
 extern u32 var803f50b8;
-extern u32 vara00002e8;
 extern u16 varbc000c02;
 extern u16 *var800902e4;
 extern s16 var800902e8;
@@ -239,8 +239,8 @@ s32 bootGetMemSize(void)
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel bootPhase1
-/*     16cc:	3c0e8000 */ 	lui	$t6,0x8000
-/*     16d0:	8dce030c */ 	lw	$t6,0x30c($t6)
+/*     16cc:	3c0e8000 */ 	lui	$t6,%hi(osResetType)
+/*     16d0:	8dce030c */ 	lw	$t6,%lo(osResetType)($t6)
 /*     16d4:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     16d8:	24010001 */ 	addiu	$at,$zero,0x1
 /*     16dc:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -253,8 +253,8 @@ glabel bootPhase1
 /*     16f8:	10000008 */ 	b	.L0000171c
 /*     16fc:	ac580000 */ 	sw	$t8,0x0($v0)
 .L00001700:
-/*     1700:	3c198000 */ 	lui	$t9,0x8000
-/*     1704:	8f390318 */ 	lw	$t9,0x318($t9)
+/*     1700:	3c198000 */ 	lui	$t9,%hi(osMemSize)
+/*     1704:	8f390318 */ 	lw	$t9,%lo(osMemSize)($t9)
 /*     1708:	3c028009 */ 	lui	$v0,%hi(g_OsMemSize)
 /*     170c:	2442dcb4 */ 	addiu	$v0,$v0,%lo(g_OsMemSize)
 /*     1710:	3c0a803f */ 	lui	$t2,0x803f
@@ -274,7 +274,7 @@ glabel bootPhase1
 /*     1744:	010e1821 */ 	addu	$v1,$t0,$t6
 /*     1748:	2462ffff */ 	addiu	$v0,$v1,-1
 /*     174c:	0440000b */ 	bltz	$v0,.L0000177c
-/*     1750:	3c057000 */ 	lui	$a1,%hi(tlbInit)
+/*     1750:	3c057000 */ 	lui	$a1,%hi(_libSegmentStart)
 /*     1754:	3c017000 */ 	lui	$at,0x7000
 /*     1758:	3c0f7020 */ 	lui	$t7,0x7020
 /*     175c:	01e88023 */ 	subu	$s0,$t7,$t0
@@ -287,7 +287,7 @@ glabel bootPhase1
 /*     1774:	0441fffb */ 	bgez	$v0,.L00001764
 /*     1778:	a1390000 */ 	sb	$t9,0x0($t1)
 .L0000177c:
-/*     177c:	24a51050 */ 	addiu	$a1,$a1,%lo(tlbInit)
+/*     177c:	24a51050 */ 	addiu	$a1,$a1,%lo(_libSegmentStart)
 /*     1780:	3c07702c */ 	lui	$a3,0x702c
 /*     1784:	3c0a7020 */ 	lui	$t2,0x7020
 /*     1788:	01488023 */ 	subu	$s0,$t2,$t0
@@ -325,8 +325,8 @@ glabel bootPhase1
 /*     17fc:	2405001f */ 	addiu	$a1,$zero,0x1f
 /*     1800:	3c048006 */ 	lui	$a0,%hi(g_StackStartAddrs)
 /*     1804:	3c038006 */ 	lui	$v1,%hi(g_StackEndAddrs)
-/*     1808:	3c028006 */ 	lui	$v0,%hi(g_StackAllocatedPos)
-/*     180c:	2442ce48 */ 	addiu	$v0,$v0,%lo(g_StackAllocatedPos)
+/*     1808:	3c028006 */ 	lui	$v0,%hi(g_StackEndAddrs+0x1c)
+/*     180c:	2442ce48 */ 	addiu	$v0,$v0,%lo(g_StackEndAddrs+0x1c)
 /*     1810:	2463ce2c */ 	addiu	$v1,$v1,%lo(g_StackEndAddrs)
 /*     1814:	2484ce10 */ 	addiu	$a0,$a0,%lo(g_StackStartAddrs)
 .L00001818:
@@ -483,6 +483,9 @@ glabel bootPhase1
 );
 #endif
 
+u32 __osGetFpcCsr(void);
+void __osSetFpcCsr(u32 arg0);
+
 /**
  * Prepares the inflate, .data and lib segments, then creates and starts the
  * main thread.
@@ -492,67 +495,65 @@ glabel bootPhase1
  * in RAM thanks to this but need to be relocated, and .data and lib need to be
  * unzipped too.
  */
-// Mismatch: Goal uses s0 for dst in some places.
-// Also uses way less stack somehow.
+// Mismatch: Reordered instructions.
+// Remove U from 75000U for another interesting codegen.
 //void bootPhase1(void)
 //{
-//	u32 datacomplen;
-//	u32 inflatelen;
-//	u32 src;
-//	u32 dst;
-//	u32 i;
-//	s32 j;
+//	s32 datacomplen;
+//	s32 inflatelen;
+//	u32 dataziprom;
+//	u32 datazipram;
+//	u32 libram;
+//	u32 libzipram;
+//	u32 dataram;
+//	u32 copylen;
+//	s32 i;
 //
 //#if VERSION >= VERSION_NTSC_1_0
 //	if (osResetType == RESET_TYPE_NMI) {
-//		g_OsMemSize = var803f50b8;
+//		g_OsMemSize = *(u32 *)0x803f50b8;
 //	} else {
-//		g_OsMemSize = osMemSize;
-//		var803f50b8 = g_OsMemSize;
+//		*(u32 *)0x803f50b8 = g_OsMemSize = osMemSize;
 //	}
 //#endif
 //
 //	// Copy compressed .data and inflate segments
-//	// .data is copied to 0x701eb000 - 0x70200000
-//	// inflate is copied to 0x70200000 - 0x702013f0
-//	src = (u32)&_datazipSegmentRomStart | 0x70000000;
-//	datacomplen = (u32)&_datazipSegmentRomEnd - (u32)&_datazipSegmentRomStart;
-//	inflatelen = (u32)&_inflateSegmentRomEnd - (u32)&_inflateSegmentRomStart;
-//	dst = 0x70200000 - datacomplen;
+//	// .data is copied from ROM to 0x701eb000 - 0x70200000
+//	// inflate is copied from ROM to 0x70200000 - 0x702013f0
+//	datacomplen = (s32)&_datazipSegmentRomEnd - (s32)&_datazipSegmentRomStart;
+//	inflatelen = (s32)&_inflateSegmentRomEnd - (s32)&_inflateSegmentRomStart;
+//	copylen = datacomplen + inflatelen;
+//	libram = (u32)&_libSegmentStart + 0x2000;
+//	libzipram = 0x70280000;
+//	dataziprom = (u32)&_datazipSegmentRomStart | 0x70000000;
+//	datazipram = 0x70200000 - datacomplen;
+//	dataram = (u32)&_dataSegmentStart;
 //
-//	for (j = datacomplen + inflatelen - 1; j >= 0; j--) {
-//		((u8 *)dst)[j] = ((u8 *)src)[j];
+//	for (i = copylen - 1; i >= 0; i--) {
+//		((u8 *)datazipram)[i] = ((u8 *)dataziprom)[i];
 //	}
 //
-//	// Copy compressed lib segment to 0x70280000.
-//	// It's assumed that lib is placed immediately after boot in the ROM and
-//	// that boot's length is 0x2000.
-//	// It's also assumed that lib's compressed length is less than 0x124f8
-//	// words. This is fine, as it's about half that.
-//	src = 0;
-//	src += (u32)&_bootSegmentStart;
-//	src += 0x2000;
-//	dst = 0x70280000;
-//
-//	for (i = 0; i < 0x124f8; i++) {
-//		((u32 *)dst)[i] = ((u32 *)src)[i];
+//	// Copy the compressed part of lib to 0x70280000.
+//	// lib is compressed from 2KB onwards.
+//	// It's assumed that lib's compressed length is less than 75000 words.
+//	// This is fine, as it's about half that.
+//	for (i = 0; i < 75000U; i++) {
+//		((u32 *)libzipram)[i] = ((u32 *)libram)[i];
 //	}
 //
-//	// Inflate lib
-//	segInflate(dst, src, 0x80300000);
+//	// Inflate compressed part of lib
+//	segInflate((void *) libzipram, (void *) libram, (void *) 0x80300000);
 //
 //	// Inflate .data
-//	segInflate(0x70200000 - datacomplen, &_dataSegmentStart, 0x80300000);
+//	segInflate((void *) datazipram, (void *) dataram, (void *) 0x80300000);
 //
-//#if VERSION >= VERSION_NTSC_1_0
 //#if PIRACYCHECKS
-//	if (vara00002e8 != 0xc86e2000) {
+//	if (IO_READ(0xa00002e8) != 0xc86e2000) {
 //		while (1);
 //	}
 //#endif
-//#endif
 //
-//	tlbUnmapRange(1, 31);
+//	tlbUnmapRange(1, NTLBENTRIES);
 //
 //	// Clear the stack allocation pointers
 //	for (i = 0; i < ARRAYCOUNT(g_StackStartAddrs); i++) {
@@ -561,9 +562,15 @@ glabel bootPhase1
 //	}
 //
 //	osInitialize();
+//
+//	// Write all data memory cache into physical memory
 //	osWritebackDCacheAll();
-//	osInvalICache((void *) 0x80000000, 0x4000);
-//	__osSetFpcCsr(__osGetFpcCsr() | 0xe80);
+//
+//	// Invalidate all instruction cache
+//	osInvalICache((void *) 0x80000000, ICACHE_SIZE);
+//
+//	// Enable inexact operation, overflow, division by zero and invalid operation
+//	__osSetFpcCsr(__osGetFpcCsr() | (FPCSR_EI | FPCSR_EO | FPCSR_EZ | FPCSR_EV));
 //
 //#if VERSION < VERSION_NTSC_1_0
 //	var800902e4 = &varbc000c02;

@@ -6,6 +6,6 @@ void tlbInit(void);
 s32 tlb000010a4(void);
 s32 tlb0000113c(void);
 s32 tlbHandleMiss(void);
-void tlbUnmapRange(s32 first, s32 last);
+void tlbUnmapRange(u32 first, u32 last);
 
 #endif

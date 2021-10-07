@@ -7,6 +7,6 @@ void *segGetDatazipRomStart(void);
 void *segGetInflateRomStart(void);
 void *segGetInflateRomStart2(void);
 void *segGetGamezipsRomStart(void);
-u32 segInflate();
+void segInflate(void *src, void *dst, void *scratch);
 
 #endif
