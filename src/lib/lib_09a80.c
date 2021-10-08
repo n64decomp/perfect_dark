@@ -1949,12 +1949,10 @@ void func0000ab00(void)
 	var8005d598 = true;
 }
 
-GLOBAL_ASM(
-glabel func0000ab10
-/*     ab10:	3c018006 */ 	lui	$at,%hi(var8005d598)
-/*     ab14:	03e00008 */ 	jr	$ra
-/*     ab18:	ac20d598 */ 	sw	$zero,%lo(var8005d598)($at)
-);
+void func0000ab10(void)
+{
+	var8005d598 = false;
+}
 
 void *viGetUnk28(void)
 {
