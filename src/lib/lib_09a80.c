@@ -3332,60 +3332,16 @@ void viGetZRange(struct zrange *zrange)
 	zrange->far = g_ViData->zfar;
 }
 
-GLOBAL_ASM(
-glabel viSetFillColour
-/*     bf04:	3c0e8006 */ 	lui	$t6,%hi(g_ViIs16Bit)
-/*     bf08:	8dced598 */ 	lw	$t6,%lo(g_ViIs16Bit)($t6)
-/*     bf0c:	00801025 */ 	or	$v0,$a0,$zero
-/*     bf10:	3c18f700 */ 	lui	$t8,0xf700
-/*     bf14:	11c00013 */ 	beqz	$t6,.L0000bf64
-/*     bf18:	00054600 */ 	sll	$t0,$a1,0x18
-/*     bf1c:	0005c200 */ 	sll	$t8,$a1,0x8
-/*     bf20:	000640c0 */ 	sll	$t0,$a2,0x3
-/*     bf24:	310907c0 */ 	andi	$t1,$t0,0x7c0
-/*     bf28:	3319f800 */ 	andi	$t9,$t8,0xf800
-/*     bf2c:	00075883 */ 	sra	$t3,$a3,0x2
-/*     bf30:	316c003e */ 	andi	$t4,$t3,0x3e
-/*     bf34:	03295025 */ 	or	$t2,$t9,$t1
-/*     bf38:	014c1825 */ 	or	$v1,$t2,$t4
-/*     bf3c:	346d0001 */ 	ori	$t5,$v1,0x1
-/*     bf40:	00801025 */ 	or	$v0,$a0,$zero
-/*     bf44:	3c0ff700 */ 	lui	$t7,0xf700
-/*     bf48:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*     bf4c:	000d7400 */ 	sll	$t6,$t5,0x10
-/*     bf50:	01cd7825 */ 	or	$t7,$t6,$t5
-/*     bf54:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*     bf58:	24840008 */ 	addiu	$a0,$a0,0x8
-/*     bf5c:	03e00008 */ 	jr	$ra
-/*     bf60:	00801025 */ 	or	$v0,$a0,$zero
-.L0000bf64:
-/*     bf64:	0006cc00 */ 	sll	$t9,$a2,0x10
-/*     bf68:	01194825 */ 	or	$t1,$t0,$t9
-/*     bf6c:	00075a00 */ 	sll	$t3,$a3,0x8
-/*     bf70:	012b5025 */ 	or	$t2,$t1,$t3
-/*     bf74:	354c00ff */ 	ori	$t4,$t2,0xff
-/*     bf78:	ac4c0004 */ 	sw	$t4,0x4($v0)
-/*     bf7c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*     bf80:	ac580000 */ 	sw	$t8,0x0($v0)
-/*     bf84:	03e00008 */ 	jr	$ra
-/*     bf88:	00801025 */ 	or	$v0,$a0,$zero
-);
+Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
+{
+	if (g_ViIs16Bit) {
+		gDPSetFillColor(gdl++, (GPACK_RGBA5551(r, g, b, 1) << 16) | GPACK_RGBA5551(r, g, b, 1));
+	} else {
+		gDPSetFillColor(gdl++, r << 24 | g << 16 | b << 8 | 0xff);
+	}
 
-// Mismatch: regalloc
-//Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
-//{
-//	u32 colour;
-//
-//	if (g_ViIs16Bit) {
-//		colour = (r << 8) & 0xf800 | (g << 3) & 0x7c0 | (b >> 2) & 0x3e | 1;
-//		gDPSetFillColor(gdl++, colour | colour << 16);
-//	} else {
-//		colour = r << 24 | g << 16 | b << 8 | 0xff;
-//		gDPSetFillColor(gdl++, colour);
-//	}
-//
-//	return gdl;
-//}
+	return gdl;
+}
 
 void vi0000bf8c(void)
 {
