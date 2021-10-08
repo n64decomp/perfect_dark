@@ -1878,35 +1878,19 @@ glabel vi0000a044
 );
 #endif
 
-GLOBAL_ASM(
-glabel vi0000aa50
-/*     aa50:	3c014160 */ 	lui	$at,0x4160
-/*     aa54:	44810000 */ 	mtc1	$at,$f0
-/*     aa58:	00000000 */ 	nop
-/*     aa5c:	460c003c */ 	c.lt.s	$f0,$f12
-/*     aa60:	00000000 */ 	nop
-/*     aa64:	45020003 */ 	bc1fl	.L0000aa74
-/*     aa68:	44800000 */ 	mtc1	$zero,$f0
-/*     aa6c:	46000306 */ 	mov.s	$f12,$f0
-/*     aa70:	44800000 */ 	mtc1	$zero,$f0
-.L0000aa74:
-/*     aa74:	00000000 */ 	nop
-/*     aa78:	4600603c */ 	c.lt.s	$f12,$f0
-/*     aa7c:	00000000 */ 	nop
-/*     aa80:	45020003 */ 	bc1fl	.L0000aa90
-/*     aa84:	4600610d */ 	trunc.w.s	$f4,$f12
-/*     aa88:	46000306 */ 	mov.s	$f12,$f0
-/*     aa8c:	4600610d */ 	trunc.w.s	$f4,$f12
-.L0000aa90:
-/*     aa90:	3c018006 */ 	lui	$at,%hi(var8005ce98)
-/*     aa94:	2418000a */ 	addiu	$t8,$zero,0xa
-/*     aa98:	440f2000 */ 	mfc1	$t7,$f4
-/*     aa9c:	00000000 */ 	nop
-/*     aaa0:	ac2fce98 */ 	sw	$t7,%lo(var8005ce98)($at)
-/*     aaa4:	3c018006 */ 	lui	$at,%hi(var8005ce9c)
-/*     aaa8:	03e00008 */ 	jr	$ra
-/*     aaac:	ac38ce9c */ 	sw	$t8,%lo(var8005ce9c)($at)
-);
+void vi0000aa50(f32 arg0)
+{
+	if (arg0 > 14) {
+		arg0 = 14;
+	}
+
+	if (arg0 < 0) {
+		arg0 = 0;
+	}
+
+	var8005ce98 = arg0;
+	var8005ce9c = 10;
+}
 
 void vi0000aab0(s32 mode)
 {
