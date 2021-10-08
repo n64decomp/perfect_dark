@@ -2224,55 +2224,18 @@ Gfx *vi0000b1a8(Gfx *gdl)
 	return vi0000ad5c(gdl, &g_Vars.currentplayer->viewport[0]);
 }
 
-GLOBAL_ASM(
-glabel vi0000b1d0
-/*     b1d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     b1d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     b1d8:	0c002c6a */ 	jal	vi0000b1a8
-/*     b1dc:	00000000 */ 	nop
-/*     b1e0:	3c0e8006 */ 	lui	$t6,%hi(var8005d598)
-/*     b1e4:	8dced598 */ 	lw	$t6,%lo(var8005d598)($t6)
-/*     b1e8:	3c058006 */ 	lui	$a1,%hi(g_ViData)
-/*     b1ec:	24a5d594 */ 	addiu	$a1,$a1,%lo(g_ViData)
-/*     b1f0:	51c00012 */ 	beqzl	$t6,.L0000b23c
-/*     b1f4:	8cad0000 */ 	lw	$t5,0x0($a1)
-/*     b1f8:	3c058006 */ 	lui	$a1,%hi(g_ViData)
-/*     b1fc:	24a5d594 */ 	addiu	$a1,$a1,%lo(g_ViData)
-/*     b200:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*     b204:	3c01ff10 */ 	lui	$at,0xff10
-/*     b208:	24440008 */ 	addiu	$a0,$v0,0x8
-/*     b20c:	85f80018 */ 	lh	$t8,0x18($t7)
-/*     b210:	2719ffff */ 	addiu	$t9,$t8,-1
-/*     b214:	33280fff */ 	andi	$t0,$t9,0xfff
-/*     b218:	01014825 */ 	or	$t1,$t0,$at
-/*     b21c:	ac490000 */ 	sw	$t1,0x0($v0)
-/*     b220:	8caa0000 */ 	lw	$t2,0x0($a1)
-/*     b224:	3c018000 */ 	lui	$at,0x8000
-/*     b228:	8d4b0028 */ 	lw	$t3,0x28($t2)
-/*     b22c:	01616021 */ 	addu	$t4,$t3,$at
-/*     b230:	1000000e */ 	b	.L0000b26c
-/*     b234:	ac4c0004 */ 	sw	$t4,0x4($v0)
-/*     b238:	8cad0000 */ 	lw	$t5,0x0($a1)
-.L0000b23c:
-/*     b23c:	3c01ff18 */ 	lui	$at,0xff18
-/*     b240:	3c08800a */ 	lui	$t0,%hi(var8009cac0)
-/*     b244:	85ae0018 */ 	lh	$t6,0x18($t5)
-/*     b248:	24440008 */ 	addiu	$a0,$v0,0x8
-/*     b24c:	25cfffff */ 	addiu	$t7,$t6,-1
-/*     b250:	31f80fff */ 	andi	$t8,$t7,0xfff
-/*     b254:	0301c825 */ 	or	$t9,$t8,$at
-/*     b258:	ac590000 */ 	sw	$t9,0x0($v0)
-/*     b25c:	8d08cac0 */ 	lw	$t0,%lo(var8009cac0)($t0)
-/*     b260:	3c018000 */ 	lui	$at,0x8000
-/*     b264:	01014821 */ 	addu	$t1,$t0,$at
-/*     b268:	ac490004 */ 	sw	$t1,0x4($v0)
-.L0000b26c:
-/*     b26c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     b270:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     b274:	00801025 */ 	or	$v0,$a0,$zero
-/*     b278:	03e00008 */ 	jr	$ra
-/*     b27c:	00000000 */ 	nop
-);
+Gfx *vi0000b1d0(Gfx *gdl)
+{
+	gdl = vi0000b1a8(gdl);
+
+	if (var8005d598) {
+		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViData->bufx, OS_K0_TO_PHYSICAL(g_ViData->fb));
+	} else {
+		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_32b, g_ViData->bufx, OS_K0_TO_PHYSICAL(var8009cac0[0]));
+	}
+
+	return gdl;
+}
 
 Gfx *vi0000b280(Gfx *gdl)
 {
