@@ -54,7 +54,7 @@ u32 var8005d588 = 0;
 u32 var8005d58c = 0;
 struct rend_vidat *var8005d590 = &var8005d530[0];
 struct rend_vidat *g_ViData = &var8005d530[0];
-bool var8005d598 = true;
+bool g_ViIs16Bit = true;
 s32 var8005d59c = 0;
 u32 var8005d5a0 = 0x00000000;
 
@@ -1090,8 +1090,8 @@ glabel vi0000a044
 /*     a128:	91230000 */ 	lbu	$v1,0x0($t1)
 /*     a12c:	17e30101 */ 	bne	$ra,$v1,.L0000a534
 /*     a130:	00000000 */ 	nop
-/*     a134:	3c0a8006 */ 	lui	$t2,%hi(var8005d598)
-/*     a138:	8d4ad598 */ 	lw	$t2,%lo(var8005d598)($t2)
+/*     a134:	3c0a8006 */ 	lui	$t2,%hi(g_ViIs16Bit)
+/*     a138:	8d4ad598 */ 	lw	$t2,%lo(g_ViIs16Bit)($t2)
 /*     a13c:	3c188000 */ 	lui	$t8,0x8000
 /*     a140:	11400033 */ 	beqz	$t2,.L0000a210
 /*     a144:	00000000 */ 	nop
@@ -1562,7 +1562,7 @@ glabel vi0000a044
 /*     a7ec:	00000000 */ 	nop
 /*     a7f0:	0006000d */ 	break	0x6
 .L0000a7f4:
-/*     a7f4:	3c0a8006 */ 	lui	$t2,%hi(var8005d598)
+/*     a7f4:	3c0a8006 */ 	lui	$t2,%hi(g_ViIs16Bit)
 /*     a7f8:	13000038 */ 	beqz	$t8,.L0000a8dc
 /*     a7fc:	24ae01af */ 	addiu	$t6,$a1,0x1af
 /*     a800:	01c6001a */ 	div	$zero,$t6,$a2
@@ -1633,12 +1633,12 @@ glabel vi0000a044
 /*     a8e4:	24180001 */ 	addiu	$t8,$zero,0x1
 /*     a8e8:	ac38ce88 */ 	sw	$t8,%lo(var8005ce88)($at)
 /*     a8ec:	10000006 */ 	b	.L0000a908
-/*     a8f0:	8d4ad598 */ 	lw	$t2,%lo(var8005d598)($t2)
+/*     a8f0:	8d4ad598 */ 	lw	$t2,%lo(g_ViIs16Bit)($t2)
 .L0000a8f4:
 /*     a8f4:	3c018006 */ 	lui	$at,%hi(var8005ce88)
 /*     a8f8:	002c0821 */ 	addu	$at,$at,$t4
-/*     a8fc:	3c0a8006 */ 	lui	$t2,%hi(var8005d598)
-/*     a900:	8d4ad598 */ 	lw	$t2,%lo(var8005d598)($t2)
+/*     a8fc:	3c0a8006 */ 	lui	$t2,%hi(g_ViIs16Bit)
+/*     a900:	8d4ad598 */ 	lw	$t2,%lo(g_ViIs16Bit)($t2)
 /*     a904:	ac20ce88 */ 	sw	$zero,%lo(var8005ce88)($at)
 .L0000a908:
 /*     a908:	256b0001 */ 	addiu	$t3,$t3,0x1
@@ -1754,14 +1754,14 @@ void vi0000aab0(s32 mode)
 	g_ViData->y = g_ViData->bufy = var700526d8[mode];
 }
 
-void vi0000ab00(void)
+void viSet16Bit(void)
 {
-	var8005d598 = true;
+	g_ViIs16Bit = true;
 }
 
-void vi0000ab10(void)
+void viSet32Bit(void)
 {
-	var8005d598 = false;
+	g_ViIs16Bit = false;
 }
 
 u8 *viGetUnk28(void)
@@ -2128,7 +2128,7 @@ Gfx *vi0000b1d0(Gfx *gdl)
 {
 	gdl = vi0000b1a8(gdl);
 
-	if (var8005d598) {
+	if (g_ViIs16Bit) {
 		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViData->bufx, OS_K0_TO_PHYSICAL(g_ViData->fb));
 	} else {
 		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_32b, g_ViData->bufx, OS_K0_TO_PHYSICAL(var8009cac0[0]));
@@ -3513,9 +3513,9 @@ void viGetZRange(struct zrange *zrange)
 }
 
 GLOBAL_ASM(
-glabel vi0000bf04
-/*     bf04:	3c0e8006 */ 	lui	$t6,%hi(var8005d598)
-/*     bf08:	8dced598 */ 	lw	$t6,%lo(var8005d598)($t6)
+glabel viSetFillColour
+/*     bf04:	3c0e8006 */ 	lui	$t6,%hi(g_ViIs16Bit)
+/*     bf08:	8dced598 */ 	lw	$t6,%lo(g_ViIs16Bit)($t6)
 /*     bf0c:	00801025 */ 	or	$v0,$a0,$zero
 /*     bf10:	3c18f700 */ 	lui	$t8,0xf700
 /*     bf14:	11c00013 */ 	beqz	$t6,.L0000bf64
@@ -3550,6 +3550,22 @@ glabel vi0000bf04
 /*     bf84:	03e00008 */ 	jr	$ra
 /*     bf88:	00801025 */ 	or	$v0,$a0,$zero
 );
+
+// Mismatch: regalloc
+//Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
+//{
+//	u32 colour;
+//
+//	if (g_ViIs16Bit) {
+//		colour = (r << 8) & 0xf800 | (g << 3) & 0x7c0 | (b >> 2) & 0x3e | 1;
+//		gDPSetFillColor(gdl++, colour | colour << 16);
+//	} else {
+//		colour = r << 24 | g << 16 | b << 8 | 0xff;
+//		gDPSetFillColor(gdl++, colour);
+//	}
+//
+//	return gdl;
+//}
 
 void vi0000bf8c(void)
 {

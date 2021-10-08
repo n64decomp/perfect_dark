@@ -3114,7 +3114,7 @@ glabel var7f1a8468
 .PF0f018490:
 /*  f018490:	8fa40330 */ 	lw	$a0,0x330($sp)
 .PF0f018494:
-/*  f018494:	0c002f12 */ 	jal	vi0000bf04
+/*  f018494:	0c002f12 */ 	jal	viSetFillColour
 /*  f018498:	00002825 */ 	move	$a1,$zero
 /*  f01849c:	0c002c02 */ 	jal	func0000b2c4
 /*  f0184a0:	00402025 */ 	move	$a0,$v0
@@ -4445,7 +4445,7 @@ glabel var7f1a8468
 .L0f0183ac:
 /*  f0183ac:	8fa40330 */ 	lw	$a0,0x330($sp)
 .L0f0183b0:
-/*  f0183b0:	0c002fc1 */ 	jal	vi0000bf04
+/*  f0183b0:	0c002fc1 */ 	jal	viSetFillColour
 /*  f0183b4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0183b8:	0c002cb1 */ 	jal	func0000b2c4
 /*  f0183bc:	00402025 */ 	or	$a0,$v0,$zero
