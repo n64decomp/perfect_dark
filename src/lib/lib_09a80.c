@@ -1972,17 +1972,10 @@ void viSetUnk28(void *arg0)
 	g_ViData->unk28 = arg0;
 }
 
-GLOBAL_ASM(
-glabel vi0000ab4c
-/*     ab4c:	3c0f8009 */ 	lui	$t7,%hi(var80092874+0x3)
-/*     ab50:	91ef2877 */ 	lbu	$t7,%lo(var80092874+0x3)($t7)
-/*     ab54:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*     ab58:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*     ab5c:	000fc100 */ 	sll	$t8,$t7,0x4
-/*     ab60:	01d81021 */ 	addu	$v0,$t6,$t8
-/*     ab64:	03e00008 */ 	jr	$ra
-/*     ab68:	24420610 */ 	addiu	$v0,$v0,0x610
-);
+Vp *viGetCurrentPlayerViewport(void)
+{
+	return &g_Vars.currentplayer->viewport[var80092877];
+}
 
 GLOBAL_ASM(
 glabel vi0000ab6c

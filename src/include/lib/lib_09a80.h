@@ -21,7 +21,7 @@ void vi0000aa50(f32 arg0);
 void vi0000aab0(s32 arg0);
 void *viGetUnk28(void);
 void *vi2GetUnk28(void);
-Vp *vi0000ab4c(void);
+Vp *viGetCurrentPlayerViewport(void);
 u32 vi0000ab6c(void);
 u32 vi0000ab78(void);
 u32 vi0000aca4(void);

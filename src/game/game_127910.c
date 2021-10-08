@@ -380,15 +380,15 @@ void playerAllocate(s32 index)
 	g_Vars.players[index]->floorflags = 0;
 
 	for (i = 0; i < 2; i++) {
-		g_Vars.players[index]->viewport[i].unk00 = 640;
-		g_Vars.players[index]->viewport[i].unk02 = (PAL ? 544 : 480);
-		g_Vars.players[index]->viewport[i].unk04 = 511;
-		g_Vars.players[index]->viewport[i].unk06 = 0;
+		g_Vars.players[index]->viewport[i].vp.vscale[0] = 640;
+		g_Vars.players[index]->viewport[i].vp.vscale[1] = (PAL ? 544 : 480);
+		g_Vars.players[index]->viewport[i].vp.vscale[2] = 511;
+		g_Vars.players[index]->viewport[i].vp.vscale[3] = 0;
 
-		g_Vars.players[index]->viewport[i].unk08 = 640;
-		g_Vars.players[index]->viewport[i].unk0a = (PAL ? 544 : 480);
-		g_Vars.players[index]->viewport[i].unk0c = 511;
-		g_Vars.players[index]->viewport[i].unk0e = 0;
+		g_Vars.players[index]->viewport[i].vp.vtrans[0] = 640;
+		g_Vars.players[index]->viewport[i].vp.vtrans[1] = (PAL ? 544 : 480);
+		g_Vars.players[index]->viewport[i].vp.vtrans[2] = 511;
+		g_Vars.players[index]->viewport[i].vp.vtrans[3] = 0;
 	}
 
 	g_Vars.players[index]->viewwidth = 100;

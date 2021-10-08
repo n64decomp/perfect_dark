@@ -2433,17 +2433,6 @@ struct hand {
 	/*0x0dd8*/ u32 unk0dd8;
 };
 
-struct player0610 {
-	/*0x00*/ u16 unk00;
-	/*0x02*/ u16 unk02;
-	/*0x04*/ u16 unk04;
-	/*0x06*/ u16 unk06;
-	/*0x08*/ u16 unk08;
-	/*0x0a*/ u16 unk0a;
-	/*0x0c*/ u16 unk0c;
-	/*0x0e*/ u16 unk0e;
-};
-
 struct gunctrl {
 	/*0x1580*/ s8 weaponnum;
 	/*0x1581*/ s8 prevweaponnum; // previously drawn weapon, switched to when throwing Dragon/Laptop or when ammo depleted
@@ -2686,7 +2675,7 @@ struct player {
 	/*0x0494*/ union modelrwdata *bondheadsave[30];
 	/*0x050c*/ u32 unk050c;
 	/*0x0510*/ Mtxf bondheadmatrices[4];
-	/*0x0610*/ struct player0610 viewport[2];
+	/*0x0610*/ Vp viewport[2];
 	/*0x0630*/ s16 viewwidth;  // 320 lo-res, 640 hi-res
 	/*0x0632*/ s16 viewheight; // 220 regardless of res
 	/*0x0634*/ s16 viewleft;   // 0
