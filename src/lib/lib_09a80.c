@@ -68,7 +68,7 @@ u32 var8005d588 = 0x00000000;
 u32 var8005d58c = 0x00000000;
 struct rend_vidat *var8005d590 = &var8005d530;
 struct rend_vidat *g_ViData = &var8005d530;
-u32 var8005d598 = 0x00000001;
+bool var8005d598 = true;
 s32 var8005d59c = 0;
 u32 var8005d5a0 = 0x00000000;
 u32 var8005d5a4 = 0x00000000;
@@ -1944,13 +1944,10 @@ void func0000aab0(s32 mode)
 	g_ViData->y = g_ViData->bufy = var700526d8[mode];
 }
 
-GLOBAL_ASM(
-glabel func0000ab00
-/*     ab00:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     ab04:	3c018006 */ 	lui	$at,%hi(var8005d598)
-/*     ab08:	03e00008 */ 	jr	$ra
-/*     ab0c:	ac2ed598 */ 	sw	$t6,%lo(var8005d598)($at)
-);
+void func0000ab00(void)
+{
+	var8005d598 = true;
+}
 
 GLOBAL_ASM(
 glabel func0000ab10
