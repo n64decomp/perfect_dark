@@ -64,8 +64,8 @@ struct rend_vidat var8005d530[] = {
 	},
 };
 
-u32 var8005d588 = 0x00000000;
-u32 var8005d58c = 0x00000000;
+u32 var8005d588 = 0;
+u32 var8005d58c = 0;
 struct rend_vidat *var8005d590 = &var8005d530[0];
 struct rend_vidat *g_ViData = &var8005d530[0];
 bool var8005d598 = true;
@@ -102,103 +102,45 @@ Gfx *viRenderDebug(Gfx *gdl)
 	return gdl;
 }
 
+void vi00009ab0(void)
+{
+	var80092876 = 0;
+	var80092877 = 1;
+
+	var8005d590 = var8005d530 + var80092876;
+	g_ViData = var8005d530 + var80092877;
+
 #if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel vi00009ab0
-/*     99a0:	2405002c */ 	li	$a1,0x2c
-/*     99a4:	300f00ff */ 	andi	$t7,$zero,0xff
-/*     99a8:	01e50019 */ 	multu	$t7,$a1
-/*     99ac:	3c028009 */ 	lui	$v0,0x8009
-/*     99b0:	3c038009 */ 	lui	$v1,0x8009
-/*     99b4:	3c048006 */ 	lui	$a0,0x8006
-/*     99b8:	2484d1d0 */ 	addiu	$a0,$a0,-11824
-/*     99bc:	24632dc7 */ 	addiu	$v1,$v1,0x2dc7
-/*     99c0:	24422dc6 */ 	addiu	$v0,$v0,0x2dc6
-/*     99c4:	240e0001 */ 	li	$t6,0x1
-/*     99c8:	a0400000 */ 	sb	$zero,0x0($v0)
-/*     99cc:	a06e0000 */ 	sb	$t6,0x0($v1)
-/*     99d0:	0000c012 */ 	mflo	$t8
-/*     99d4:	0098c821 */ 	addu	$t9,$a0,$t8
-/*     99d8:	3c018006 */ 	lui	$at,0x8006
-/*     99dc:	ac39d230 */ 	sw	$t9,-0x2dd0($at)
-/*     99e0:	90680000 */ 	lbu	$t0,0x0($v1)
-/*     99e4:	3c0b8009 */ 	lui	$t3,0x8009
-/*     99e8:	916b1040 */ 	lbu	$t3,0x1040($t3)
-/*     99ec:	01050019 */ 	multu	$t0,$a1
-/*     99f0:	3c018006 */ 	lui	$at,0x8006
-/*     99f4:	240200dc */ 	li	$v0,0xdc
-/*     99f8:	00004812 */ 	mflo	$t1
-/*     99fc:	00895021 */ 	addu	$t2,$a0,$t1
-/*     9a00:	ac2ad234 */ 	sw	$t2,-0x2dcc($at)
-/*     9a04:	24010001 */ 	li	$at,0x1
-/*     9a08:	1561000c */ 	bne	$t3,$at,.PF00009a3c
-/*     9a0c:	00000000 */ 	nop
-/*     9a10:	a4820006 */ 	sh	$v0,0x6($a0)
-/*     9a14:	a482001a */ 	sh	$v0,0x1a($a0)
-/*     9a18:	a482001e */ 	sh	$v0,0x1e($a0)
-/*     9a1c:	a4820032 */ 	sh	$v0,0x32($a0)
-/*     9a20:	a4820046 */ 	sh	$v0,0x46($a0)
-/*     9a24:	a482004a */ 	sh	$v0,0x4a($a0)
-/*     9a28:	3c018006 */ 	lui	$at,0x8006
-/*     9a2c:	ac20d228 */ 	sw	$zero,-0x2dd8($at)
-/*     9a30:	3c018006 */ 	lui	$at,0x8006
-/*     9a34:	03e00008 */ 	jr	$ra
-/*     9a38:	ac20d22c */ 	sw	$zero,-0x2dd4($at)
-.PF00009a3c:
-/*     9a3c:	3c018006 */ 	lui	$at,0x8006
-/*     9a40:	ac20d228 */ 	sw	$zero,-0x2dd8($at)
-/*     9a44:	3c018006 */ 	lui	$at,0x8006
-/*     9a48:	240c000c */ 	li	$t4,0xc
-/*     9a4c:	ac2cd22c */ 	sw	$t4,-0x2dd4($at)
-/*     9a50:	03e00008 */ 	jr	$ra
-/*     9a54:	00000000 */ 	nop
-);
+	if (IS4MB()) {
+		var8005d530[0].y = 220;
+		var8005d530[0].bufy = 220;
+		var8005d530[0].viewy = 220;
+
+		var8005d530[1].y = 220;
+		var8005d530[1].bufy = 220;
+		var8005d530[1].viewy = 220;
+
+		var8005d588 = 0;
+		var8005d58c = 0;
+	} else {
+		var8005d588 = 0;
+		var8005d58c = 12;
+	}
 #else
-GLOBAL_ASM(
-glabel vi00009ab0
-/*     9ab0:	2405002c */ 	addiu	$a1,$zero,0x2c
-/*     9ab4:	300f00ff */ 	andi	$t7,$zero,0xff
-/*     9ab8:	01e50019 */ 	multu	$t7,$a1
-/*     9abc:	3c028009 */ 	lui	$v0,%hi(var80092874+0x2)
-/*     9ac0:	3c038009 */ 	lui	$v1,%hi(var80092874+0x3)
-/*     9ac4:	3c048006 */ 	lui	$a0,%hi(var8005d530)
-/*     9ac8:	2484d530 */ 	addiu	$a0,$a0,%lo(var8005d530)
-/*     9acc:	24632877 */ 	addiu	$v1,$v1,%lo(var80092874+0x3)
-/*     9ad0:	24422876 */ 	addiu	$v0,$v0,%lo(var80092874+0x2)
-/*     9ad4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     9ad8:	a0400000 */ 	sb	$zero,0x0($v0)
-/*     9adc:	a06e0000 */ 	sb	$t6,0x0($v1)
-/*     9ae0:	0000c012 */ 	mflo	$t8
-/*     9ae4:	0098c821 */ 	addu	$t9,$a0,$t8
-/*     9ae8:	3c018006 */ 	lui	$at,%hi(var8005d590)
-/*     9aec:	ac39d590 */ 	sw	$t9,%lo(var8005d590)($at)
-/*     9af0:	90680000 */ 	lbu	$t0,0x0($v1)
-/*     9af4:	3c018006 */ 	lui	$at,%hi(g_ViData)
-/*     9af8:	3c0b8009 */ 	lui	$t3,%hi(g_Is4Mb)
-/*     9afc:	01050019 */ 	multu	$t0,$a1
-/*     9b00:	916b0af0 */ 	lbu	$t3,%lo(g_Is4Mb)($t3)
-/*     9b04:	240200dc */ 	addiu	$v0,$zero,0xdc
-/*     9b08:	00004812 */ 	mflo	$t1
-/*     9b0c:	00895021 */ 	addu	$t2,$a0,$t1
-/*     9b10:	ac2ad594 */ 	sw	$t2,%lo(g_ViData)($at)
-/*     9b14:	3c018006 */ 	lui	$at,%hi(var8005d588)
-/*     9b18:	ac20d588 */ 	sw	$zero,%lo(var8005d588)($at)
-/*     9b1c:	3c018006 */ 	lui	$at,%hi(var8005d58c)
-/*     9b20:	ac20d58c */ 	sw	$zero,%lo(var8005d58c)($at)
-/*     9b24:	24010001 */ 	addiu	$at,$zero,0x1
-/*     9b28:	15610007 */ 	bne	$t3,$at,.L00009b48
-/*     9b2c:	00000000 */ 	nop
-/*     9b30:	a4820006 */ 	sh	$v0,0x6($a0)
-/*     9b34:	a482001a */ 	sh	$v0,0x1a($a0)
-/*     9b38:	a482001e */ 	sh	$v0,0x1e($a0)
-/*     9b3c:	a4820032 */ 	sh	$v0,0x32($a0)
-/*     9b40:	a4820046 */ 	sh	$v0,0x46($a0)
-/*     9b44:	a482004a */ 	sh	$v0,0x4a($a0)
-.L00009b48:
-/*     9b48:	03e00008 */ 	jr	$ra
-/*     9b4c:	00000000 */ 	nop
-);
+	var8005d588 = 0;
+	var8005d58c = 0;
+
+	if (IS4MB()) {
+		var8005d530[0].y = 220;
+		var8005d530[0].bufy = 220;
+		var8005d530[0].viewy = 220;
+
+		var8005d530[1].y = 220;
+		var8005d530[1].bufy = 220;
+		var8005d530[1].viewy = 220;
+	}
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
