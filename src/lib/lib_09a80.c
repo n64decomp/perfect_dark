@@ -1977,12 +1977,10 @@ Vp *viGetCurrentPlayerViewport(void)
 	return &g_Vars.currentplayer->viewport[var80092877];
 }
 
-GLOBAL_ASM(
-glabel vi0000ab6c
-/*     ab6c:	3c028009 */ 	lui	$v0,%hi(var80092874)
-/*     ab70:	03e00008 */ 	jr	$ra
-/*     ab74:	94422874 */ 	lhu	$v0,%lo(var80092874)($v0)
-);
+u16 vi0000ab6c(void)
+{
+	return var80092874;
+}
 
 GLOBAL_ASM(
 glabel vi0000ab78
