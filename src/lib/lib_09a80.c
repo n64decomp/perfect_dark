@@ -5,6 +5,7 @@
 #include "game/game_0b69d0.h"
 #include "game/file.h"
 #include "game/game_176080.h"
+#include "game/gfxmemory.h"
 #include "game/options.h"
 #include "bss.h"
 #include "lib/lib_09660.h"
@@ -15,23 +16,8 @@
 #include "data.h"
 #include "types.h"
 
-u32 var80092830;
-u32 var80092834;
-u32 var80092838;
-u32 var8009283c;
-u32 var80092840;
-u32 var80092844;
-u32 var80092848;
-u32 var8009284c;
-u32 var80092850;
-u32 var80092854;
-u32 var80092858;
-u32 var8009285c;
-u32 var80092860;
-u32 var80092864;
-u32 var80092868;
-u32 var8009286c;
-u32 var80092870;
+Mtxf var80092830;
+Mtx *var80092870;
 u16 var80092874;
 u8 var80092876;
 u8 var80092877;
@@ -1932,114 +1918,28 @@ glabel vi0000aca4
 /*     ad58:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel vi0000ad5c
-/*     ad5c:	3c088006 */ 	lui	$t0,%hi(g_ViData)
-/*     ad60:	2508d594 */ 	addiu	$t0,$t0,%lo(g_ViData)
-/*     ad64:	8d0e0000 */ 	lw	$t6,0x0($t0)
-/*     ad68:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*     ad6c:	3c028009 */ 	lui	$v0,%hi(var80092874+0x3)
-/*     ad70:	24422877 */ 	addiu	$v0,$v0,%lo(var80092874+0x3)
-/*     ad74:	90590000 */ 	lbu	$t9,0x0($v0)
-/*     ad78:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     ad7c:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     ad80:	85cf001c */ 	lh	$t7,0x1c($t6)
-/*     ad84:	00194900 */ 	sll	$t1,$t9,0x4
-/*     ad88:	00a95021 */ 	addu	$t2,$a1,$t1
-/*     ad8c:	000fc040 */ 	sll	$t8,$t7,0x1
-/*     ad90:	a5580000 */ 	sh	$t8,0x0($t2)
-/*     ad94:	8d030000 */ 	lw	$v1,0x0($t0)
-/*     ad98:	90590000 */ 	lbu	$t9,0x0($v0)
-/*     ad9c:	3c018000 */ 	lui	$at,0x8000
-/*     ada0:	846b001c */ 	lh	$t3,0x1c($v1)
-/*     ada4:	846d0020 */ 	lh	$t5,0x20($v1)
-/*     ada8:	00194900 */ 	sll	$t1,$t9,0x4
-/*     adac:	000b6040 */ 	sll	$t4,$t3,0x1
-/*     adb0:	000d7080 */ 	sll	$t6,$t5,0x2
-/*     adb4:	018e7821 */ 	addu	$t7,$t4,$t6
-/*     adb8:	00a9c021 */ 	addu	$t8,$a1,$t1
-/*     adbc:	a70f0008 */ 	sh	$t7,0x8($t8)
-/*     adc0:	8d0a0000 */ 	lw	$t2,0x0($t0)
-/*     adc4:	904c0000 */ 	lbu	$t4,0x0($v0)
-/*     adc8:	24900008 */ 	addiu	$s0,$a0,0x8
-/*     adcc:	854b001e */ 	lh	$t3,0x1e($t2)
-/*     add0:	000c7100 */ 	sll	$t6,$t4,0x4
-/*     add4:	00aec821 */ 	addu	$t9,$a1,$t6
-/*     add8:	000b6840 */ 	sll	$t5,$t3,0x1
-/*     addc:	a72d0002 */ 	sh	$t5,0x2($t9)
-/*     ade0:	8d030000 */ 	lw	$v1,0x0($t0)
-/*     ade4:	904c0000 */ 	lbu	$t4,0x0($v0)
-/*     ade8:	3c190380 */ 	lui	$t9,0x380
-/*     adec:	8469001e */ 	lh	$t1,0x1e($v1)
-/*     adf0:	84780022 */ 	lh	$t8,0x22($v1)
-/*     adf4:	000c7100 */ 	sll	$t6,$t4,0x4
-/*     adf8:	00097840 */ 	sll	$t7,$t1,0x1
-/*     adfc:	00185080 */ 	sll	$t2,$t8,0x2
-/*     ae00:	01ea5821 */ 	addu	$t3,$t7,$t2
-/*     ae04:	00ae6821 */ 	addu	$t5,$a1,$t6
-/*     ae08:	a5ab000a */ 	sh	$t3,0xa($t5)
-/*     ae0c:	37390010 */ 	ori	$t9,$t9,0x10
-/*     ae10:	ac990000 */ 	sw	$t9,0x0($a0)
-/*     ae14:	90490000 */ 	lbu	$t1,0x0($v0)
-/*     ae18:	0009c100 */ 	sll	$t8,$t1,0x4
-/*     ae1c:	03057821 */ 	addu	$t7,$t8,$a1
-/*     ae20:	01e15021 */ 	addu	$t2,$t7,$at
-/*     ae24:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*     ae28:	ac8a0004 */ 	sw	$t2,0x4($a0)
-/*     ae2c:	3c088006 */ 	lui	$t0,%hi(g_ViData)
-/*     ae30:	3c018009 */ 	lui	$at,%hi(var80092870)
-/*     ae34:	ac222870 */ 	sw	$v0,%lo(var80092870)($at)
-/*     ae38:	2508d594 */ 	addiu	$t0,$t0,%lo(g_ViData)
-/*     ae3c:	8d030000 */ 	lw	$v1,0x0($t0)
-/*     ae40:	3c013f80 */ 	lui	$at,0x3f80
-/*     ae44:	44814000 */ 	mtc1	$at,$f8
-/*     ae48:	c4640010 */ 	lwc1	$f4,0x10($v1)
-/*     ae4c:	8c660008 */ 	lw	$a2,0x8($v1)
-/*     ae50:	8c67000c */ 	lw	$a3,0xc($v1)
-/*     ae54:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*     ae58:	c4660014 */ 	lwc1	$f6,0x14($v1)
-/*     ae5c:	3c048009 */ 	lui	$a0,%hi(var80092830)
-/*     ae60:	3c058009 */ 	lui	$a1,%hi(var80092874)
-/*     ae64:	24a52874 */ 	addiu	$a1,$a1,%lo(var80092874)
-/*     ae68:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
-/*     ae6c:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*     ae70:	0c001210 */ 	jal	guPerspectiveF
-/*     ae74:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     ae78:	3c048009 */ 	lui	$a0,%hi(var80092830)
-/*     ae7c:	3c058009 */ 	lui	$a1,%hi(var80092870)
-/*     ae80:	8ca52870 */ 	lw	$a1,%lo(var80092870)($a1)
-/*     ae84:	0c0128d8 */ 	jal	guMtxF2L
-/*     ae88:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
-/*     ae8c:	3c0c0103 */ 	lui	$t4,0x103
-/*     ae90:	3c058009 */ 	lui	$a1,%hi(var80092870)
-/*     ae94:	358c0040 */ 	ori	$t4,$t4,0x40
-/*     ae98:	02001025 */ 	or	$v0,$s0,$zero
-/*     ae9c:	24a52870 */ 	addiu	$a1,$a1,%lo(var80092870)
-/*     aea0:	ac4c0000 */ 	sw	$t4,0x0($v0)
-/*     aea4:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*     aea8:	3c018000 */ 	lui	$at,0x8000
-/*     aeac:	26100008 */ 	addiu	$s0,$s0,0x8
-/*     aeb0:	3c0dbc00 */ 	lui	$t5,0xbc00
-/*     aeb4:	01c15821 */ 	addu	$t3,$t6,$at
-/*     aeb8:	ac4b0004 */ 	sw	$t3,0x4($v0)
-/*     aebc:	35ad000e */ 	ori	$t5,$t5,0xe
-/*     aec0:	02001825 */ 	or	$v1,$s0,$zero
-/*     aec4:	ac6d0000 */ 	sw	$t5,0x0($v1)
-/*     aec8:	3c198009 */ 	lui	$t9,%hi(var80092874)
-/*     aecc:	97392874 */ 	lhu	$t9,%lo(var80092874)($t9)
-/*     aed0:	26100008 */ 	addiu	$s0,$s0,0x8
-/*     aed4:	ac790004 */ 	sw	$t9,0x4($v1)
-/*     aed8:	0fc2d3f6 */ 	jal	currentPlayerSetUnk1750
-/*     aedc:	8ca40000 */ 	lw	$a0,0x0($a1)
-/*     aee0:	3c048009 */ 	lui	$a0,%hi(var80092830)
-/*     aee4:	0fc2d5c2 */ 	jal	currentPlayerSetUnk1754
-/*     aee8:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
-/*     aeec:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     aef0:	02001025 */ 	or	$v0,$s0,$zero
-/*     aef4:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     aef8:	03e00008 */ 	jr	$ra
-/*     aefc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
+{
+	vp[var80092877].vp.vscale[0] = g_ViData->viewx * 2;
+	vp[var80092877].vp.vtrans[0] = g_ViData->viewx * 2 + g_ViData->viewleft * 4;
+
+	vp[var80092877].vp.vscale[1] = g_ViData->viewy * 2;
+	vp[var80092877].vp.vtrans[1] = g_ViData->viewy * 2 + g_ViData->viewtop * 4;
+
+	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&vp[var80092877]));
+
+	var80092870 = gfxAllocateMatrix();
+	guPerspectiveF(var80092830.m, &var80092874, g_ViData->fovy, g_ViData->aspect, g_ViData->znear, g_ViData->zfar, 1);
+	guMtxF2L(var80092830.m, var80092870);
+
+	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPPerspNormalize(gdl++, var80092874);
+
+	currentPlayerSetUnk1750(var80092870);
+	currentPlayerSetUnk1754(&var80092830);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel vi0000af00
