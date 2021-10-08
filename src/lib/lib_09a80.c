@@ -36,38 +36,38 @@ u16 var80092874;
 u8 var80092876;
 u8 var80092877;
 
-struct rend_vidat var8005d530 = {
-	0, 0, 0, 0,
-	320, 220,         // x and y
-	60,               // fovy
-	1.4545454978943f, // aspect
-	30,               // znear
-	10000,            // zfar
-	320, 220,         // bufx and bufy
-	320, 220,         // viewx and viewy
-	0, 0,             // viewleft and viewtop
-	true,             // usezbuf
-	0,
-};
-
-struct rend_vidat var8005d55c = {
-	0, 0, 0, 0,
-	320, 220,         // x and y
-	60,               // fovy
-	1.4545454978943f, // aspect
-	30,               // znear
-	10000,            // zfar
-	320, 220,         // bufx and bufy
-	320, 220,         // viewx and viewy
-	0, 0,             // viewleft and viewtop
-	true,             // usezbuf
-	0,
+struct rend_vidat var8005d530[] = {
+	{
+		0, 0, 0, 0,
+		320, 220,         // x and y
+		60,               // fovy
+		1.4545454978943f, // aspect
+		30,               // znear
+		10000,            // zfar
+		320, 220,         // bufx and bufy
+		320, 220,         // viewx and viewy
+		0, 0,             // viewleft and viewtop
+		true,             // usezbuf
+		0,
+	}, {
+		0, 0, 0, 0,
+		320, 220,         // x and y
+		60,               // fovy
+		1.4545454978943f, // aspect
+		30,               // znear
+		10000,            // zfar
+		320, 220,         // bufx and bufy
+		320, 220,         // viewx and viewy
+		0, 0,             // viewleft and viewtop
+		true,             // usezbuf
+		0,
+	},
 };
 
 u32 var8005d588 = 0x00000000;
 u32 var8005d58c = 0x00000000;
-struct rend_vidat *var8005d590 = &var8005d530;
-struct rend_vidat *g_ViData = &var8005d530;
+struct rend_vidat *var8005d590 = &var8005d530[0];
+struct rend_vidat *g_ViData = &var8005d530[0];
 bool var8005d598 = true;
 s32 var8005d59c = 0;
 u32 var8005d5a0 = 0x00000000;
@@ -297,57 +297,26 @@ glabel vi00009b50
 );
 #endif
 
+void vi00009bf8(void)
+{
+	s32 i;
+
+	for (i = 0; i < 2; i++) {
+		var8005d530[i].x = 320;
+		var8005d530[i].bufx = 320;
+		var8005d530[i].viewx = 320;
+
+		var8005d530[i].y = 220;
+		var8005d530[i].bufy = 220;
+		var8005d530[i].viewy = 220;
+	}
+
+	g_Vars.fourmeg2player = false;
+
 #if VERSION >= VERSION_PAL_FINAL
-GLOBAL_ASM(
-glabel vi00009bf8
-/*     9b00:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     9b04:	3c028006 */ 	lui	$v0,0x8006
-/*     9b08:	3c058006 */ 	lui	$a1,0x8006
-/*     9b0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     9b10:	24a5d228 */ 	addiu	$a1,$a1,-11736
-/*     9b14:	2442d1d0 */ 	addiu	$v0,$v0,-11824
-/*     9b18:	240400dc */ 	li	$a0,0xdc
-/*     9b1c:	24030140 */ 	li	$v1,0x140
-.PF00009b20:
-/*     9b20:	2442002c */ 	addiu	$v0,$v0,0x2c
-/*     9b24:	a443ffd8 */ 	sh	$v1,-0x28($v0)
-/*     9b28:	a443ffec */ 	sh	$v1,-0x14($v0)
-/*     9b2c:	a443fff0 */ 	sh	$v1,-0x10($v0)
-/*     9b30:	a444ffda */ 	sh	$a0,-0x26($v0)
-/*     9b34:	a444ffee */ 	sh	$a0,-0x12($v0)
-/*     9b38:	1445fff9 */ 	bne	$v0,$a1,.PF00009b20
-/*     9b3c:	a444fff2 */ 	sh	$a0,-0xe($v0)
-/*     9b40:	3c01800a */ 	lui	$at,0x800a
-/*     9b44:	0fc2f254 */ 	jal	viResetDefaultModeIf4Mb
-/*     9b48:	a020a9f0 */ 	sb	$zero,-0x5610($at)
-/*     9b4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     9b50:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     9b54:	03e00008 */ 	jr	$ra
-/*     9b58:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel vi00009bf8
-/*     9bf8:	3c038006 */ 	lui	$v1,%hi(var8005d530)
-/*     9bfc:	3c058006 */ 	lui	$a1,%hi(var8005d588)
-/*     9c00:	24a5d588 */ 	addiu	$a1,$a1,%lo(var8005d588)
-/*     9c04:	2463d530 */ 	addiu	$v1,$v1,%lo(var8005d530)
-/*     9c08:	240400dc */ 	addiu	$a0,$zero,0xdc
-/*     9c0c:	24020140 */ 	addiu	$v0,$zero,0x140
-.L00009c10:
-/*     9c10:	2463002c */ 	addiu	$v1,$v1,0x2c
-/*     9c14:	a462ffd8 */ 	sh	$v0,-0x28($v1)
-/*     9c18:	a462ffec */ 	sh	$v0,-0x14($v1)
-/*     9c1c:	a462fff0 */ 	sh	$v0,-0x10($v1)
-/*     9c20:	a464ffda */ 	sh	$a0,-0x26($v1)
-/*     9c24:	a464ffee */ 	sh	$a0,-0x12($v1)
-/*     9c28:	1465fff9 */ 	bne	$v1,$a1,.L00009c10
-/*     9c2c:	a464fff2 */ 	sh	$a0,-0xe($v1)
-/*     9c30:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4e0)
-/*     9c34:	03e00008 */ 	jr	$ra
-/*     9c38:	a020a4a0 */ 	sb	$zero,%lo(g_Vars+0x4e0)($at)
-);
+	viResetDefaultModeIf4Mb();
 #endif
+}
 
 const s16 var700526d0[] = {320, 320, 640};
 
