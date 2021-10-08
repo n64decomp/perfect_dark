@@ -2453,27 +2453,15 @@ glabel vi0000b1d0
 /*     b27c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel vi0000b280
-/*     b280:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
-/*     b284:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     b288:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     b28c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     b290:	8dcf0024 */ 	lw	$t7,0x24($t6)
-/*     b294:	51e00007 */ 	beqzl	$t7,.L0000b2b4
-/*     b298:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     b29c:	0fc5d8ab */ 	jal	func0f1762ac
-/*     b2a0:	00000000 */ 	nop
-/*     b2a4:	0fc5d8fd */ 	jal	func0f1763f4
-/*     b2a8:	00402025 */ 	or	$a0,$v0,$zero
-/*     b2ac:	00402025 */ 	or	$a0,$v0,$zero
-/*     b2b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0000b2b4:
-/*     b2b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     b2b8:	00801025 */ 	or	$v0,$a0,$zero
-/*     b2bc:	03e00008 */ 	jr	$ra
-/*     b2c0:	00000000 */ 	nop
-);
+Gfx *vi0000b280(Gfx *gdl)
+{
+	if (g_ViData->usezbuf) {
+		gdl = func0f1762ac(gdl);
+		gdl = func0f1763f4(gdl);
+	}
+
+	return gdl;
+}
 
 Gfx *func0000b2c4(Gfx *gdl)
 {
