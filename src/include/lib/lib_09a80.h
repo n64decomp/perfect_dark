@@ -15,7 +15,7 @@ void vi00009b50(u8 *fb);
 void vi00009bf8(void);
 void viAllocateFbs(s32 stagenum);
 void viBlack(bool black);
-u32 vi00009ed4(void);
+void vi00009ed4(void);
 void vi0000a044(void);
 void vi0000aa50(f32 arg0);
 void vi0000aab0(s32 arg0);

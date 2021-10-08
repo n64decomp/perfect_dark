@@ -448,6 +448,43 @@ glabel vi00009ed4
 );
 #endif
 
+// Mismatch: regalloc
+//void vi00009ed4(void)
+//{
+//	s32 prevmask;
+//	s32 value;
+//
+//	if (var8005ce9c != 0) {
+//		var8005ce9c--;
+//
+//		if (var8005ce9c == 0) {
+//			var8005ce98 = 0;
+//		}
+//	}
+//
+//	value = var8005ce94 * var8005ce98;
+//	var8005ce94 = -var8005ce94;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	prevmask = osSetIntMask(1);
+//#endif
+//
+//	var8008dd60[1 - var8005ce74]->fldRegs[0].vStart =
+//		((var8008de0c >> 16) + value) << 16 | var8008de0c + value & 0xffff;
+//	var8008dd60[1 - var8005ce74]->fldRegs[1].vStart =
+//		((var8008de10 >> 16) + value) << 16 | var8008de10 + value & 0xffff;
+//
+//#if VERSION >= VERSION_NTSC_1_0
+//	osSetIntMask(prevmask);
+//#endif
+//
+//	osViSetMode(var8008dd60[1 - var8005ce74]);
+//	osViBlack(g_ViUnblackTimer);
+//	osViSetXScale(var8005ce78[1 - var8005ce74]);
+//	osViSetYScale(var8005ce80[1 - var8005ce74]);
+//	osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON);
+//}
+
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
 glabel vi0000a044
