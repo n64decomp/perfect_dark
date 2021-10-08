@@ -26,7 +26,7 @@ u16 vi0000ab6c(void);
 Gfx *vi0000ab78(Gfx *gdl);
 Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar);
 Gfx *vi0000ad5c(Gfx *gdl, Vp *vp);
-u32 vi0000af00(void);
+Gfx *vi0000af00(Gfx *gdl, Vp *vp);
 Gfx *vi0000b0e8(Gfx *gdl, f32 fovy, f32 aspect);
 Gfx *vi0000b1a8(Gfx *gdl);
 Gfx *vi0000b1d0(Gfx *gdl);
