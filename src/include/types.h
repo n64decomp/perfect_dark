@@ -6059,7 +6059,7 @@ struct rend_vidat {
 	/*0x20*/ s16 viewleft;
 	/*0x22*/ s16 viewtop;
 	/*0x24*/ bool usezbuf;
-	/*0x28*/ void *unk28;
+	/*0x28*/ u8 *fb;
 };
 
 struct var80062a8c {

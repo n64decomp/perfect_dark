@@ -513,7 +513,7 @@ Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 {
-	void *unk28 = vi2GetUnk28();
+	u8 *fb = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	f32 fxxx;
@@ -553,7 +553,7 @@ Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 	gdl = bviewPrepareStaticRgba16(gdl, colour, newalpha);
 
 	for (i = viewtop; i < viewtop + viewheight; i++) {
-		gdl = bviewRenderLensRect(gdl, unk28, viewtop + (s32)somefloat, 5, i, fxxx, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb, viewtop + (s32)somefloat, 5, i, fxxx, viewleft, viewwidth);
 		somefloat += 1.0f / fyyy;
 	}
 
@@ -562,12 +562,12 @@ Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 {
-	void *unk28 = vi2GetUnk28();
+	u8 *fb = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
 	s32 viewleft = viGetViewLeft();
-	void *ptr = (void *)(random() & 0xfff00 | 0x80000000);
+	u8 *fb2 = (u8 *)(random() & 0xfff00 | 0x80000000);
 	s32 y;
 
 	gDPPipeSync(gdl++);
@@ -575,10 +575,10 @@ Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 	gdl = bviewPrepareStaticI8(gdl, arg1, arg2);
 
 	for (y = viewtop; y < viewtop + viewheight; y++) {
-		gdl = bviewRenderLensRect(gdl, ptr, random() % 240, 5, y, 1.0f, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb2, random() % 240, 5, y, 1.0f, viewleft, viewwidth);
 	}
 
-	if (ptr) {
+	if (fb2) {
 		// empty
 	}
 
@@ -587,7 +587,7 @@ Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 
 Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 {
-	void *sp7c = viGetUnk28();
+	u8 *fb = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -622,7 +622,7 @@ Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 			}
 		}
 
-		gdl = bviewRenderLensRect(gdl, sp7c, y, 5, y, 2.0f - sinf(angle), viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb, y, 5, y, 2.0f - sinf(angle), viewleft, viewwidth);
 
 		angle += increment;
 	}
@@ -632,7 +632,7 @@ Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
 {
-	void *unk28 = viGetUnk28();
+	u8 *fb = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 y;
@@ -669,7 +669,7 @@ Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
 			tmpy = random() % 200;
 		}
 
-		gdl = bviewRenderLensRect(gdl, unk28, tmpy, 5, y, 1, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb, tmpy, 5, y, 1, viewleft, viewwidth);
 	}
 
 	return gdl;
@@ -682,7 +682,7 @@ Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
  */
 Gfx *bviewRenderZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 {
-	void *unk28 = vi2GetUnk28();
+	u8 *fb = vi2GetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -705,7 +705,7 @@ Gfx *bviewRenderZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 	gdl = bviewPrepareStaticRgba16(gdl, colour, alpha);
 
 	for (i = viewtop; i < viewtop + viewheight; i++) {
-		gdl = bviewRenderLensRect(gdl, unk28, (s32)somefloat + viewtop, 5, i, arg3, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb, (s32)somefloat + viewtop, 5, i, arg3, viewleft, viewwidth);
 		somefloat += 1.0f / arg4;
 	}
 
@@ -14922,7 +14922,7 @@ glabel bviewRenderNvLens
 // and regalloc near random().
 //Gfx *bviewRenderNvLens(Gfx *gdl)
 //{
-//	void *unk28 = viGetUnk28();
+//	u8 *fb = viGetUnk28();
 //	s32 viewheight = viGetViewHeight();
 //	s32 viewwidth = viGetViewWidth();
 //	s32 viewtop = viGetViewTop();
@@ -14973,7 +14973,7 @@ glabel bviewRenderNvLens
 //
 //		gDPSetColor(gdl++, G_SETENVCOLOR, (green << 16) + 0xff);
 //
-//		gdl = bviewRenderLensRect(gdl, unk28, y, 5, y, 1, viewleft, viewwidth);
+//		gdl = bviewRenderLensRect(gdl, fb, y, 5, y, 1, viewleft, viewwidth);
 //	}
 //
 //	return gdl;
@@ -15998,7 +15998,7 @@ glabel bviewRenderIrLens
  */
 Gfx *bviewRenderRarePresents(Gfx *gdl)
 {
-	void *unk28 = viGetUnk28();
+	u8 *fb = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -16018,7 +16018,7 @@ Gfx *bviewRenderRarePresents(Gfx *gdl)
 	gdl = bviewPrepareStaticRgba16(gdl, 0x8f8f8f8f, 255);
 
 	for (y = viewtop; y < viewtop + viewheight; y += 2) {
-		gdl = bviewRenderLensRect(gdl, unk28, y, 5, y, 1.0f, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb, y, 5, y, 1.0f, viewleft, viewwidth);
 	}
 
 	return gdl;
@@ -16029,7 +16029,7 @@ u8 var8007f878 = 0;
 #if VERSION >= VERSION_NTSC_1_0
 Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 {
-	void *sp194 = viGetUnk28();
+	u8 *fb = viGetUnk28();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -16229,7 +16229,7 @@ Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 
 		gDPSetColor(gdl++, G_SETENVCOLOR, colour);
 
-		gdl = bviewRenderLensRect(gdl, sp194, liney, 5, liney, random() * (1.0f / U32_MAX) * range + 1, viewleft, viewwidth);
+		gdl = bviewRenderLensRect(gdl, fb, liney, 5, liney, random() * (1.0f / U32_MAX) * range + 1, viewleft, viewwidth);
 	}
 
 	return gdl;
