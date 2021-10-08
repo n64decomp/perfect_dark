@@ -1789,84 +1789,37 @@ u16 vi0000ab6c(void)
 	return var80092874;
 }
 
-GLOBAL_ASM(
-glabel vi0000ab78
-/*     ab78:	3c028006 */ 	lui	$v0,%hi(g_ViData)
-/*     ab7c:	8c42d594 */ 	lw	$v0,%lo(g_ViData)($v0)
-/*     ab80:	27bdfeb0 */ 	addiu	$sp,$sp,-336
-/*     ab84:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     ab88:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     ab8c:	c4440010 */ 	lwc1	$f4,0x10($v0)
-/*     ab90:	8c47000c */ 	lw	$a3,0xc($v0)
-/*     ab94:	8c460008 */ 	lw	$a2,0x8($v0)
-/*     ab98:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*     ab9c:	c4400014 */ 	lwc1	$f0,0x14($v0)
-/*     aba0:	3c013f80 */ 	lui	$at,0x3f80
-/*     aba4:	44814000 */ 	mtc1	$at,$f8
-/*     aba8:	46000180 */ 	add.s	$f6,$f0,$f0
-/*     abac:	00808025 */ 	or	$s0,$a0,$zero
-/*     abb0:	27a40110 */ 	addiu	$a0,$sp,0x110
-/*     abb4:	27a50046 */ 	addiu	$a1,$sp,0x46
-/*     abb8:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     abbc:	0c001210 */ 	jal	guPerspectiveF
-/*     abc0:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*     abc4:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
-/*     abc8:	00000000 */ 	nop
-/*     abcc:	00402025 */ 	or	$a0,$v0,$zero
-/*     abd0:	0c005746 */ 	jal	func00015d18
-/*     abd4:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*     abd8:	44800000 */ 	mtc1	$zero,$f0
-/*     abdc:	27a40110 */ 	addiu	$a0,$sp,0x110
-/*     abe0:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*     abe4:	27a600d0 */ 	addiu	$a2,$sp,0xd0
-/*     abe8:	e7a000c0 */ 	swc1	$f0,0xc0($sp)
-/*     abec:	e7a000c4 */ 	swc1	$f0,0xc4($sp)
-/*     abf0:	0c005680 */ 	jal	func00015a00
-/*     abf4:	e7a000c8 */ 	swc1	$f0,0xc8($sp)
-/*     abf8:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*     abfc:	00000000 */ 	nop
-/*     ac00:	afa2004c */ 	sw	$v0,0x4c($sp)
-/*     ac04:	27a400d0 */ 	addiu	$a0,$sp,0xd0
-/*     ac08:	0c0128d8 */ 	jal	guMtxF2L
-/*     ac0c:	00402825 */ 	or	$a1,$v0,$zero
-/*     ac10:	0c00566c */ 	jal	func000159b0
-/*     ac14:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*     ac18:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*     ac1c:	00000000 */ 	nop
-/*     ac20:	afa20048 */ 	sw	$v0,0x48($sp)
-/*     ac24:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*     ac28:	0c0128d8 */ 	jal	guMtxF2L
-/*     ac2c:	00402825 */ 	or	$a1,$v0,$zero
-/*     ac30:	3c0e0103 */ 	lui	$t6,0x103
-/*     ac34:	35ce0040 */ 	ori	$t6,$t6,0x40
-/*     ac38:	02001825 */ 	or	$v1,$s0,$zero
-/*     ac3c:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*     ac40:	8faf004c */ 	lw	$t7,0x4c($sp)
-/*     ac44:	3c068000 */ 	lui	$a2,0x8000
-/*     ac48:	26100008 */ 	addiu	$s0,$s0,0x8
-/*     ac4c:	3c190102 */ 	lui	$t9,0x102
-/*     ac50:	01e6c021 */ 	addu	$t8,$t7,$a2
-/*     ac54:	ac780004 */ 	sw	$t8,0x4($v1)
-/*     ac58:	37390040 */ 	ori	$t9,$t9,0x40
-/*     ac5c:	02002025 */ 	or	$a0,$s0,$zero
-/*     ac60:	ac990000 */ 	sw	$t9,0x0($a0)
-/*     ac64:	8fa80048 */ 	lw	$t0,0x48($sp)
-/*     ac68:	26100008 */ 	addiu	$s0,$s0,0x8
-/*     ac6c:	3c0abc00 */ 	lui	$t2,0xbc00
-/*     ac70:	01064821 */ 	addu	$t1,$t0,$a2
-/*     ac74:	ac890004 */ 	sw	$t1,0x4($a0)
-/*     ac78:	354a000e */ 	ori	$t2,$t2,0xe
-/*     ac7c:	02002825 */ 	or	$a1,$s0,$zero
-/*     ac80:	acaa0000 */ 	sw	$t2,0x0($a1)
-/*     ac84:	97ab0046 */ 	lhu	$t3,0x46($sp)
-/*     ac88:	26020008 */ 	addiu	$v0,$s0,0x8
-/*     ac8c:	acab0004 */ 	sw	$t3,0x4($a1)
-/*     ac90:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     ac94:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     ac98:	27bd0150 */ 	addiu	$sp,$sp,0x150
-/*     ac9c:	03e00008 */ 	jr	$ra
-/*     aca0:	00000000 */ 	nop
-);
+Gfx *vi0000ab78(Gfx *gdl)
+{
+	Mtxf sp110;
+	Mtxf spd0;
+	Mtxf sp90;
+	Mtxf sp50;
+	Mtx *sp4c;
+	Mtx *sp48;
+	u16 sp46;
+
+	guPerspectiveF(sp110.m, &sp46, g_ViData->fovy, g_ViData->aspect, g_ViData->znear, g_ViData->zfar + g_ViData->zfar, 1);
+	func00015d18(currentPlayerGetMatrix1740(), &sp90);
+
+	sp90.m[3][0] = 0;
+	sp90.m[3][1] = 0;
+	sp90.m[3][2] = 0;
+
+	func00015a00(&sp110, &sp90, &spd0);
+	sp4c = gfxAllocateMatrix();
+	guMtxF2L(spd0.m, sp4c);
+
+	func000159b0(&sp50);
+	sp48 = gfxAllocateMatrix();
+	guMtxF2L(sp50.m, sp48);
+
+	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(sp4c), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(sp48), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+	gSPPerspNormalize(gdl++, sp46);
+
+	return gdl;
+}
 
 Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar)
 {
