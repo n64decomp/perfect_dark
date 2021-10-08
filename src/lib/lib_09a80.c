@@ -2398,19 +2398,10 @@ glabel vi0000b0e8
 /*     b1a4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel vi0000b1a8
-/*     b1a8:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x284)
-/*     b1ac:	8ca5a244 */ 	lw	$a1,%lo(g_Vars+0x284)($a1)
-/*     b1b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     b1b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     b1b8:	0c002b57 */ 	jal	vi0000ad5c
-/*     b1bc:	24a50610 */ 	addiu	$a1,$a1,1552
-/*     b1c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     b1c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     b1c8:	03e00008 */ 	jr	$ra
-/*     b1cc:	00000000 */ 	nop
-);
+Gfx *vi0000b1a8(Gfx *gdl)
+{
+	return vi0000ad5c(gdl, &g_Vars.currentplayer->viewport[0]);
+}
 
 GLOBAL_ASM(
 glabel vi0000b1d0
