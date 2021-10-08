@@ -8,6 +8,7 @@
 #include "game/options.h"
 #include "bss.h"
 #include "lib/lib_09660.h"
+#include "lib/lib_09a80.h"
 #include "lib/memory.h"
 #include "lib/lib_159b0.h"
 #include "lib/lib_30ce0.h"
@@ -36,7 +37,7 @@ u8 var80092876;
 u8 var80092877;
 
 struct rend_vidat var8005d530 = {
-	NULL,
+	0, 0, 0, 0,
 	320, 220,         // x and y
 	60,               // fovy
 	1.4545454978943f, // aspect
@@ -50,7 +51,7 @@ struct rend_vidat var8005d530 = {
 };
 
 struct rend_vidat var8005d55c = {
-	NULL,
+	0, 0, 0, 0,
 	320, 220,         // x and y
 	60,               // fovy
 	1.4545454978943f, // aspect
@@ -1935,29 +1936,13 @@ glabel func0000aa50
 /*     aaac:	ac38ce9c */ 	sw	$t8,%lo(var8005ce9c)($at)
 );
 
-GLOBAL_ASM(
-glabel func0000aab0
-/*     aab0:	3c058006 */ 	lui	$a1,%hi(g_ViData)
-/*     aab4:	24a5d594 */ 	addiu	$a1,$a1,%lo(g_ViData)
-/*     aab8:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*     aabc:	00041840 */ 	sll	$v1,$a0,0x1
-/*     aac0:	3c027005 */ 	lui	$v0,%hi(var700526d0)
-/*     aac4:	a1c40000 */ 	sb	$a0,0x0($t6)
-/*     aac8:	00431021 */ 	addu	$v0,$v0,$v1
-/*     aacc:	844226d0 */ 	lh	$v0,%lo(var700526d0)($v0)
-/*     aad0:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*     aad4:	a5e20018 */ 	sh	$v0,0x18($t7)
-/*     aad8:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*     aadc:	a7020004 */ 	sh	$v0,0x4($t8)
-/*     aae0:	3c027005 */ 	lui	$v0,%hi(var700526d8)
-/*     aae4:	00431021 */ 	addu	$v0,$v0,$v1
-/*     aae8:	844226d8 */ 	lh	$v0,%lo(var700526d8)($v0)
-/*     aaec:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*     aaf0:	a722001a */ 	sh	$v0,0x1a($t9)
-/*     aaf4:	8ca80000 */ 	lw	$t0,0x0($a1)
-/*     aaf8:	03e00008 */ 	jr	$ra
-/*     aafc:	a5020006 */ 	sh	$v0,0x6($t0)
-);
+void func0000aab0(s32 mode)
+{
+	g_ViData->mode = mode;
+
+	g_ViData->x = g_ViData->bufx = var700526d0[mode];
+	g_ViData->y = g_ViData->bufy = var700526d8[mode];
+}
 
 GLOBAL_ASM(
 glabel func0000ab00

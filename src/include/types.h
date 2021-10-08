@@ -6053,7 +6053,10 @@ struct modelrenderdata {
 };
 
 struct rend_vidat {
-	/*0x00*/ void *unk00;
+	/*0x00*/ u8 mode;
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u8 unk02;
+	/*0x03*/ u8 unk03;
 	/*0x04*/ u16 x;
 	/*0x06*/ u16 y;
 	/*0x08*/ f32 fovy;
