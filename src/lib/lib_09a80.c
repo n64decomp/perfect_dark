@@ -1868,55 +1868,20 @@ glabel vi0000ab78
 /*     aca0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel vi0000aca4
-/*     aca4:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*     aca8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     acac:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     acb0:	00808025 */ 	or	$s0,$a0,$zero
-/*     acb4:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*     acb8:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*     acbc:	afa60090 */ 	sw	$a2,0x90($sp)
-/*     acc0:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     acc4:	8c63d594 */ 	lw	$v1,%lo(g_ViData)($v1)
-/*     acc8:	afa20040 */ 	sw	$v0,0x40($sp)
-/*     accc:	3c013f80 */ 	lui	$at,0x3f80
-/*     acd0:	44814000 */ 	mtc1	$at,$f8
-/*     acd4:	c7a4008c */ 	lwc1	$f4,0x8c($sp)
-/*     acd8:	c7a60090 */ 	lwc1	$f6,0x90($sp)
-/*     acdc:	8c67000c */ 	lw	$a3,0xc($v1)
-/*     ace0:	8c660008 */ 	lw	$a2,0x8($v1)
-/*     ace4:	27a40044 */ 	addiu	$a0,$sp,0x44
-/*     ace8:	27a50086 */ 	addiu	$a1,$sp,0x86
-/*     acec:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*     acf0:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*     acf4:	0c001210 */ 	jal	guPerspectiveF
-/*     acf8:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     acfc:	27a40044 */ 	addiu	$a0,$sp,0x44
-/*     ad00:	0c0128d8 */ 	jal	guMtxF2L
-/*     ad04:	8fa50040 */ 	lw	$a1,0x40($sp)
-/*     ad08:	3c0e0103 */ 	lui	$t6,0x103
-/*     ad0c:	35ce0040 */ 	ori	$t6,$t6,0x40
-/*     ad10:	02001825 */ 	or	$v1,$s0,$zero
-/*     ad14:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*     ad18:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*     ad1c:	3c018000 */ 	lui	$at,0x8000
-/*     ad20:	26100008 */ 	addiu	$s0,$s0,0x8
-/*     ad24:	3c19bc00 */ 	lui	$t9,0xbc00
-/*     ad28:	01e1c021 */ 	addu	$t8,$t7,$at
-/*     ad2c:	ac780004 */ 	sw	$t8,0x4($v1)
-/*     ad30:	3739000e */ 	ori	$t9,$t9,0xe
-/*     ad34:	02002025 */ 	or	$a0,$s0,$zero
-/*     ad38:	ac990000 */ 	sw	$t9,0x0($a0)
-/*     ad3c:	97a80086 */ 	lhu	$t0,0x86($sp)
-/*     ad40:	26020008 */ 	addiu	$v0,$s0,0x8
-/*     ad44:	ac880004 */ 	sw	$t0,0x4($a0)
-/*     ad48:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     ad4c:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     ad50:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*     ad54:	03e00008 */ 	jr	$ra
-/*     ad58:	00000000 */ 	nop
-);
+Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar)
+{
+	u16 scale;
+	Mtxf tmp;
+	Mtx *mtx = gfxAllocateMatrix();
+
+	guPerspectiveF(tmp.m, &scale, g_ViData->fovy, g_ViData->aspect, znear, zfar, 1);
+	guMtxF2L(tmp.m, mtx);
+
+	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPPerspNormalize(gdl++, scale);
+
+	return gdl;
+}
 
 Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 {

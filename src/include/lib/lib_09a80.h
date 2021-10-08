@@ -24,7 +24,7 @@ u8 *vi2GetUnk28(void);
 Vp *viGetCurrentPlayerViewport(void);
 u16 vi0000ab6c(void);
 u32 vi0000ab78(void);
-u32 vi0000aca4(void);
+Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar);
 Gfx *vi0000ad5c(Gfx *gdl, Vp *vp);
 u32 vi0000af00(void);
 u32 vi0000b0e8(void);
