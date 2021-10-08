@@ -45,7 +45,7 @@ s32 var8005ce74 = 0;
 f32 var8005ce78[2] = {1, 1};
 f32 var8005ce80[2] = {1, 1};
 u32 var8005ce88[2] = {0};
-s32 var8005ce90 = 3;
+s32 g_ViUnblackTimer = 3;
 u32 var8005ce94 = 0x00000001;
 u32 var8005ce98 = 0x00000000;
 u32 var8005ce9c = 0x00000000;
@@ -281,7 +281,7 @@ void func00002078(OSSched *sc)
 #endif
 
 	if (!g_Resetting) {
-		func00009ed4();
+		vi00009ed4();
 	}
 
 	joysTick();
@@ -297,7 +297,7 @@ void __scHandleRetrace(OSSched *sc)
 	OSScTask    *sp = 0;
 	OSScTask    *dp = 0;
 
-	func00009a88();
+	vi00009a88();
 
 	while (osRecvMesg(&sc->cmdQ, (OSMesg*)&rspTask, OS_MESG_NOBLOCK) != -1) {
 		__scAppendList(sc, rspTask);
@@ -351,7 +351,7 @@ void __scHandleRSP(OSSched *sc)
 		t = sc->curRSPTask;
 		sc->curRSPTask = 0;
 
-		func00009aa0(0x10001);
+		vi00009aa0(0x10001);
 
 		if ((t->state & OS_SC_YIELD) && osSpTaskYielded(&t->list)) {
 			t->state |= OS_SC_YIELDED;
@@ -477,7 +477,7 @@ void __scHandleRDP(OSSched *sc)
 			func00002d90();
 		}
 
-		func00009aa0(0x10002);
+		vi00009aa0(0x10002);
 		osDpGetCounters(&var8008de38);
 
 		t = sc->curRDPTask;
@@ -539,7 +539,7 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 					osSetIntMask(mask);
 
 					osViSetMode(var8008dd60[1 - var8005ce74]);
-					osViBlack(var8005ce90);
+					osViBlack(g_ViUnblackTimer);
 					osViSetXScale(var8005ce78[1 - var8005ce74]);
 					osViSetYScale(var8005ce80[1 - var8005ce74]);
 					osViSetSpecialFeatures(0x42);
@@ -548,8 +548,8 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 				var8005ce88[1 - var8005ce74] = 0;
 			}
 
-			if (var8005ce90 != 0 && var8005ce90 < 3) {
-				var8005ce90--;
+			if (g_ViUnblackTimer != 0 && g_ViUnblackTimer < 3) {
+				g_ViUnblackTimer--;
 			}
 
 			func00001b40(t->framebuffer);
@@ -603,10 +603,10 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp)
 		}
 
 		if (sp->list.t.type == M_AUDTASK) {
-			func00009aa0(0x30001);
+			vi00009aa0(0x30001);
 		} else {
-			func00009aa0(0x40001);
-			func00009aa0(0x20002);
+			vi00009aa0(0x40001);
+			vi00009aa0(0x20002);
 		}
 
 		sp->state &= ~(OS_SC_YIELD | OS_SC_YIELDED);

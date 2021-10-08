@@ -5006,7 +5006,7 @@ void func0f0bd3c4(void)
 	if (g_Vars.currentplayer->isdead == false) {
 		func0f12acec(&g_Vars.currentplayer->bond2.unk10, &g_Vars.currentplayer->bond2.unk1c, &coord);
 	} else {
-		func0000aa50(0);
+		vi0000aa50(0);
 	}
 }
 
@@ -5113,7 +5113,7 @@ void currentPlayerConfigureVi(void)
 	currentPlayerSetViewSize(currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
 	currentPlayerSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
 
-	func0000aab0(g_ViModes[g_ViMode].xscale);
+	vi0000aab0(g_ViModes[g_ViMode].xscale);
 
 	viSetFovAspectAndSize(60, ratio, currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
 
@@ -5316,7 +5316,7 @@ glabel var7f1ad6ac
 /*  f0be0a4:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f0be0a8:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f0be0ac:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f0be0b0:	0c0029fd */ 	jal	func0000aab0
+/*  f0be0b0:	0c0029fd */ 	jal	vi0000aab0
 /*  f0be0b4:	8c840960 */ 	lw	$a0,0x960($a0)
 /*  f0be0b8:	0fc2f2b4 */ 	jal	currentPlayerGetViewportWidth
 /*  f0be0bc:	00000000 */ 	nop
@@ -7717,7 +7717,7 @@ glabel var7f1ad6ac
 /*  f0bdb38:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0bdb3c:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f0bdb40:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f0bdb44:	0c002aac */ 	jal	func0000aab0
+/*  f0bdb44:	0c002aac */ 	jal	vi0000aab0
 /*  f0bdb48:	8c8405d0 */ 	lw	$a0,%lo(g_ViModes+0x10)($a0)
 /*  f0bdb4c:	0fc2f155 */ 	jal	currentPlayerGetViewportWidth
 /*  f0bdb50:	00000000 */ 	nop
@@ -10118,7 +10118,7 @@ glabel var7f1ad6ac
 /*  f0bb7a0:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0bb7a4:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f0bb7a8:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f0bb7ac:	0c002b0c */ 	jal	func0000aab0
+/*  f0bb7ac:	0c002b0c */ 	jal	vi0000aab0
 /*  f0bb7b0:	8c842c90 */ 	lw	$a0,0x2c90($a0)
 /*  f0bb7b4:	0fc2e865 */ 	jal	currentPlayerGetViewportWidth
 /*  f0bb7b8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -12348,7 +12348,7 @@ glabel var7f1ad6ac
 //	currentPlayerSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
 //
 //	// db44
-//	func0000aab0(g_ViModes[g_ViMode].xscale);
+//	vi0000aab0(g_ViModes[g_ViMode].xscale);
 //	viSetFovAspectAndSize(60, aspectratio, currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
 //	viSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
 //	viSetXY(viGetFbWidth(), viGetFbHeight());

@@ -447,15 +447,15 @@ void titleTickLegal(void)
 void titleInitCheckControllers(void)
 {
 	g_TitleTimer = 0;
-	func00009ec4(true);
+	viBlack(true);
 }
 
 void titleExitCheckControllers(void)
 {
 	var800624e8 = 0;
-	func00009ab0();
-	func0000aab0(2);
-	func00009ec4(false);
+	vi00009ab0();
+	vi0000aab0(2);
+	viBlack(false);
 }
 
 void titleTickCheckControllers(void)
@@ -1822,7 +1822,7 @@ void titleTickPdLogo(void)
 			g_Vars.antiplayernum = -1;
 
 			lvSetDifficulty(DIFF_A);
-			func00009ec4(true);
+			viBlack(true);
 		} else {
 			titleSetNextMode(TITLEMODE_SKIP);
 		}
@@ -3114,7 +3114,7 @@ glabel var7f1a8468
 .PF0f018490:
 /*  f018490:	8fa40330 */ 	lw	$a0,0x330($sp)
 .PF0f018494:
-/*  f018494:	0c002f12 */ 	jal	func0000bf04
+/*  f018494:	0c002f12 */ 	jal	vi0000bf04
 /*  f018498:	00002825 */ 	move	$a1,$zero
 /*  f01849c:	0c002c02 */ 	jal	func0000b2c4
 /*  f0184a0:	00402025 */ 	move	$a0,$v0
@@ -4445,7 +4445,7 @@ glabel var7f1a8468
 .L0f0183ac:
 /*  f0183ac:	8fa40330 */ 	lw	$a0,0x330($sp)
 .L0f0183b0:
-/*  f0183b0:	0c002fc1 */ 	jal	func0000bf04
+/*  f0183b0:	0c002fc1 */ 	jal	vi0000bf04
 /*  f0183b4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0183b8:	0c002cb1 */ 	jal	func0000b2c4
 /*  f0183bc:	00402025 */ 	or	$a0,$v0,$zero
@@ -7011,7 +7011,7 @@ void titleInitSkip(void)
 	g_Vars.antiplayernum = -1;
 
 	lvSetDifficulty(DIFF_A);
-	func00009ec4(true);
+	viBlack(true);
 }
 
 void titleInitNoController(void)
@@ -7338,7 +7338,7 @@ void titleTick(void)
 		}
 
 		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS) {
-			func00009ec4(true);
+			viBlack(true);
 		}
 
 		g_TitleNextMode = -1;
@@ -7389,7 +7389,7 @@ void titleTick(void)
 		}
 
 		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS && g_TitleMode != TITLEMODE_SKIP) {
-			func00009ec4(false);
+			viBlack(false);
 		}
 	}
 
@@ -7516,7 +7516,7 @@ bool func0f01ad5c(void)
 
 void func0f01adb8(void)
 {
-	func0000aab0(2);
+	vi0000aab0(2);
 	viSetXY(576, var800624a0);
 	viSetBuf(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);

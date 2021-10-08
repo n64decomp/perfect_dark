@@ -3009,7 +3009,7 @@ glabel func0f15a6f4
 .L0f15a950:
 /*  f15a950:	0fc599b2 */ 	jal	gfxConsiderDisableFog
 /*  f15a954:	02202025 */ 	or	$a0,$s1,$zero
-/*  f15a958:	0c002ade */ 	jal	func0000ab78
+/*  f15a958:	0c002ade */ 	jal	vi0000ab78
 /*  f15a95c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15a960:	861905e8 */ 	lh	$t9,0x5e8($s0)
 /*  f15a964:	00408825 */ 	or	$s1,$v0,$zero
@@ -3131,7 +3131,7 @@ glabel func0f15a6f4
 /*  f15aafc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15ab00:	0fc54de0 */ 	jal	func0f153780
 /*  f15ab04:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15ab08:	0c002ade */ 	jal	func0000ab78
+/*  f15ab08:	0c002ade */ 	jal	vi0000ab78
 /*  f15ab0c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f15ab10:	00408825 */ 	or	$s1,$v0,$zero
 .L0f15ab14:
@@ -3159,7 +3159,7 @@ glabel func0f15a6f4
 /*  f15ab5c:	35ad000e */ 	ori	$t5,$t5,0xe
 /*  f15ab60:	02208025 */ 	or	$s0,$s1,$zero
 /*  f15ab64:	ae0d0000 */ 	sw	$t5,0x0($s0)
-/*  f15ab68:	0c002adb */ 	jal	func0000ab6c
+/*  f15ab68:	0c002adb */ 	jal	vi0000ab6c
 /*  f15ab6c:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f15ab70:	ae020004 */ 	sw	$v0,0x4($s0)
 .L0f15ab74:
@@ -3719,7 +3719,7 @@ glabel func0f15a6f4
 .NB0f154fb0:
 /*  f154fb0:	0fc583b2 */ 	jal	gfxConsiderDisableFog
 /*  f154fb4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f154fb8:	0c002b3e */ 	jal	func0000ab78
+/*  f154fb8:	0c002b3e */ 	jal	vi0000ab78
 /*  f154fbc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f154fc0:	861905e8 */ 	lh	$t9,0x5e8($s0)
 /*  f154fc4:	00408825 */ 	or	$s1,$v0,$zero
@@ -3841,7 +3841,7 @@ glabel func0f15a6f4
 /*  f15515c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155160:	0fc537a0 */ 	jal	func0f153780
 /*  f155164:	00402025 */ 	or	$a0,$v0,$zero
-/*  f155168:	0c002b3e */ 	jal	func0000ab78
+/*  f155168:	0c002b3e */ 	jal	vi0000ab78
 /*  f15516c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f155170:	00408825 */ 	or	$s1,$v0,$zero
 .NB0f155174:
@@ -3869,7 +3869,7 @@ glabel func0f15a6f4
 /*  f1551bc:	35ad000e */ 	ori	$t5,$t5,0xe
 /*  f1551c0:	02208025 */ 	or	$s0,$s1,$zero
 /*  f1551c4:	ae0d0000 */ 	sw	$t5,0x0($s0)
-/*  f1551c8:	0c002b3b */ 	jal	func0000ab6c
+/*  f1551c8:	0c002b3b */ 	jal	vi0000ab6c
 /*  f1551cc:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f1551d0:	ae020004 */ 	sw	$v0,0x4($s0)
 .NB0f1551d4:

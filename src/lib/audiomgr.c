@@ -1354,12 +1354,12 @@ void amgrMain(void *arg)
 		switch (*msg) {
 		case 4:
 			var80091588 = osGetTime();
-			func00009aa0(0x30000);
+			vi00009aa0(0x30000);
 			amgrHandleFrameMsg(g_AudioManager.audioInfo[var80092828 % 3], info);
 			func00009a08();
 
 			count++;
-			func00009aa0(0x60000);
+			vi00009aa0(0x60000);
 
 			var80091590 = osGetTime();
 			var80091570 = var80091590 - var80091588;

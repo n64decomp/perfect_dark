@@ -354,7 +354,7 @@ glabel var7f1a863c
 /*  f01c3ac:	1461005b */ 	bne	$v1,$at,.PF0f01c51c
 /*  f01c3b0:	00000000 */ 	nop
 .PF0f01c3b4:
-/*  f01c3b4:	0c002779 */ 	jal	func00009ec4
+/*  f01c3b4:	0c002779 */ 	jal	viBlack
 /*  f01c3b8:	00002025 */ 	move	$a0,$zero
 /*  f01c3bc:	8e78049c */ 	lw	$t8,0x49c($s3)
 /*  f01c3c0:	3c148007 */ 	lui	$s4,0x8007
@@ -458,7 +458,7 @@ glabel var7f1a863c
 /*  f01c520:	10000005 */ 	b	.PF0f01c538
 /*  f01c524:	ac2077b0 */ 	sw	$zero,0x77b0($at)
 .PF0f01c528:
-/*  f01c528:	0c002779 */ 	jal	func00009ec4
+/*  f01c528:	0c002779 */ 	jal	viBlack
 /*  f01c52c:	02c02025 */ 	move	$a0,$s6
 /*  f01c530:	3c018007 */ 	lui	$at,0x8007
 /*  f01c534:	ac200a30 */ 	sw	$zero,0xa30($at)
@@ -2131,7 +2131,7 @@ glabel var7f1a863c
 /*  f01c2dc:	1461005b */ 	bne	$v1,$at,.L0f01c44c
 /*  f01c2e0:	00000000 */ 	nop
 .L0f01c2e4:
-/*  f01c2e4:	0c0027b1 */ 	jal	func00009ec4
+/*  f01c2e4:	0c0027b1 */ 	jal	viBlack
 /*  f01c2e8:	00002025 */ 	or	$a0,$zero,$zero
 /*  f01c2ec:	8e6d049c */ 	lw	$t5,0x49c($s3)
 /*  f01c2f0:	3c148007 */ 	lui	$s4,%hi(var800714d8)
@@ -2235,7 +2235,7 @@ glabel var7f1a863c
 /*  f01c450:	10000005 */ 	b	.L0f01c468
 /*  f01c454:	ac207260 */ 	sw	$zero,%lo(var80087260)($at)
 .L0f01c458:
-/*  f01c458:	0c0027b1 */ 	jal	func00009ec4
+/*  f01c458:	0c0027b1 */ 	jal	viBlack
 /*  f01c45c:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01c460:	3c018007 */ 	lui	$at,%hi(g_PlayersWithControl)
 /*  f01c464:	ac200750 */ 	sw	$zero,%lo(g_PlayersWithControl)($at)
@@ -3908,7 +3908,7 @@ glabel var7f1a863c
 /*  f01bfdc:	14610056 */ 	bne	$v1,$at,.NB0f01c138
 /*  f01bfe0:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f01bfe4:
-/*  f01bfe4:	0c00281a */ 	jal	func00009ec4
+/*  f01bfe4:	0c00281a */ 	jal	viBlack
 /*  f01bfe8:	00002025 */ 	or	$a0,$zero,$zero
 /*  f01bfec:	8e6d049c */ 	lw	$t5,0x49c($s3)
 /*  f01bff0:	3c148007 */ 	lui	$s4,0x8007
@@ -4007,7 +4007,7 @@ glabel var7f1a863c
 /*  f01c13c:	10000005 */ 	beqz	$zero,.NB0f01c154
 /*  f01c140:	ac2099e0 */ 	sw	$zero,-0x6620($at)
 .NB0f01c144:
-/*  f01c144:	0c00281a */ 	jal	func00009ec4
+/*  f01c144:	0c00281a */ 	jal	viBlack
 /*  f01c148:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01c14c:	3c018007 */ 	lui	$at,0x8007
 /*  f01c150:	ac202e10 */ 	sw	$zero,0x2e10($at)
@@ -5548,7 +5548,7 @@ glabel var7f1a863c
 //		if (g_Vars.lvframenum >= 4) {
 //			// c2cc
 //			if (g_Vars.stagenum == STAGE_CITRAINING || g_Vars.stagenum == STAGE_4MBMENU) {
-//				func00009ec4(false);
+//				viBlack(false);
 //				var800714d8 = 0;
 //
 //				// c2f8
@@ -5597,7 +5597,7 @@ glabel var7f1a863c
 //
 //			var80087260 = 0;
 //		} else {
-//			func00009ec4(true);
+//			viBlack(true);
 //			g_PlayersWithControl[0] = false;
 //		}
 //	}

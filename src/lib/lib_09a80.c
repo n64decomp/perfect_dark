@@ -71,44 +71,40 @@ struct rend_vidat *g_ViData = &var8005d530;
 bool var8005d598 = true;
 s32 var8005d59c = 0;
 u32 var8005d5a0 = 0x00000000;
-u32 var8005d5a4 = 0x00000000;
-u32 var8005d5a8 = 0x00000000;
-u32 var8005d5ac = 0x00000000;
 
-
-void func00009a80(void)
+void vi00009a80(void)
 {
 	// empty
 }
 
-void func00009a88(void)
+void vi00009a88(void)
 {
 	// empty
 }
 
-void func00009a90(void)
+void vi00009a90(void)
 {
 	// empty
 }
 
-void func00009a98(void)
+void vi00009a98(void)
 {
 	// empty
 }
 
-void func00009aa0(u32 value)
+void vi00009aa0(u32 value)
 {
 	// empty
 }
 
-Gfx *debugRenderSomething(Gfx *gdl)
+Gfx *viRenderDebug(Gfx *gdl)
 {
 	return gdl;
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func00009ab0
+glabel vi00009ab0
 /*     99a0:	2405002c */ 	li	$a1,0x2c
 /*     99a4:	300f00ff */ 	andi	$t7,$zero,0xff
 /*     99a8:	01e50019 */ 	multu	$t7,$a1
@@ -159,7 +155,7 @@ glabel func00009ab0
 );
 #else
 GLOBAL_ASM(
-glabel func00009ab0
+glabel vi00009ab0
 /*     9ab0:	2405002c */ 	addiu	$a1,$zero,0x2c
 /*     9ab4:	300f00ff */ 	andi	$t7,$zero,0xff
 /*     9ab8:	01e50019 */ 	multu	$t7,$a1
@@ -206,7 +202,7 @@ glabel func00009ab0
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00009b50
+glabel vi00009b50
 /*     9b50:	3c03800a */ 	lui	$v1,%hi(var8009cac0)
 /*     9b54:	3c058006 */ 	lui	$a1,%hi(var8005d530)
 /*     9b58:	3c078006 */ 	lui	$a3,%hi(var8005d588)
@@ -253,7 +249,7 @@ glabel func00009b50
 );
 #else
 GLOBAL_ASM(
-glabel func00009b50
+glabel vi00009b50
 /*     9cf0:	3c03800a */ 	lui	$v1,0x800a
 /*     9cf4:	3c058006 */ 	lui	$a1,0x8006
 /*     9cf8:	3c088006 */ 	lui	$t0,0x8006
@@ -303,7 +299,7 @@ glabel func00009b50
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func00009bf8
+glabel vi00009bf8
 /*     9b00:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     9b04:	3c028006 */ 	lui	$v0,0x8006
 /*     9b08:	3c058006 */ 	lui	$a1,0x8006
@@ -331,7 +327,7 @@ glabel func00009bf8
 );
 #else
 GLOBAL_ASM(
-glabel func00009bf8
+glabel vi00009bf8
 /*     9bf8:	3c038006 */ 	lui	$v1,%hi(var8005d530)
 /*     9bfc:	3c058006 */ 	lui	$a1,%hi(var8005d588)
 /*     9c00:	24a5d588 */ 	addiu	$a1,$a1,%lo(var8005d588)
@@ -383,14 +379,14 @@ void viAllocateFbs(s32 stagenum)
 
 	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
 		if (IS4MB()) {
-			func0000aab0(2);
+			vi0000aab0(2);
 			fbsize = 640 * 440 * 2;
 		} else {
-			func0000aab0(2);
+			vi0000aab0(2);
 			fbsize = var700526d0[2] * var700526d8[2] * 2;
 		}
 	} else {
-		func0000aab0(1);
+		vi0000aab0(1);
 
 		if (1);
 
@@ -429,15 +425,22 @@ void viAllocateFbs(s32 stagenum)
 	var8005d59c = 1;
 }
 
-void func00009ec4(s32 arg0)
+/**
+ * If black is true, set the video output to black indefinitely.
+ * g_ViUnblackTimer is set to 3 which causes the timer to be paused.
+ *
+ * If black is false, set the timer to 2. This causes it to tick down once per
+ * frame and unblack once it reaches 0.
+ */
+void viBlack(bool black)
 {
-	arg0 += 2;
-	var8005ce90 = arg0;
+	black += 2;
+	g_ViUnblackTimer = black;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00009ed4
+glabel vi00009ed4
 /*     9ed4:	3c038006 */ 	lui	$v1,%hi(var8005ce9c)
 /*     9ed8:	2463ce9c */ 	addiu	$v1,$v1,%lo(var8005ce9c)
 /*     9edc:	8c620000 */ 	lw	$v0,0x0($v1)
@@ -506,9 +509,9 @@ glabel func00009ed4
 /*     9fd4:	00992021 */ 	addu	$a0,$a0,$t9
 /*     9fd8:	0c012354 */ 	jal	osViSetMode
 /*     9fdc:	8c84dd64 */ 	lw	$a0,%lo(var8008dd60+0x4)($a0)
-/*     9fe0:	3c048006 */ 	lui	$a0,%hi(var8005ce90+0x3)
+/*     9fe0:	3c048006 */ 	lui	$a0,%hi(g_ViUnblackTimer+0x3)
 /*     9fe4:	0c012338 */ 	jal	osViBlack
-/*     9fe8:	9084ce93 */ 	lbu	$a0,%lo(var8005ce90+0x3)($a0)
+/*     9fe8:	9084ce93 */ 	lbu	$a0,%lo(g_ViUnblackTimer+0x3)($a0)
 /*     9fec:	3c0a8006 */ 	lui	$t2,%hi(var8005ce74)
 /*     9ff0:	8d4ace74 */ 	lw	$t2,%lo(var8005ce74)($t2)
 /*     9ff4:	3c018006 */ 	lui	$at,%hi(var8005ce78+0x4)
@@ -534,7 +537,7 @@ glabel func00009ed4
 );
 #else
 GLOBAL_ASM(
-glabel func00009ed4
+glabel vi00009ed4
 /*     a078:	3c038006 */ 	lui	$v1,0x8006
 /*     a07c:	2463e61c */ 	addiu	$v1,$v1,-6628
 /*     a080:	8c620000 */ 	lw	$v0,0x0($v1)
@@ -624,7 +627,7 @@ glabel func00009ed4
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0000a044
+glabel vi0000a044
 /*     9f64:	3c098006 */ 	lui	$t1,0x8006
 /*     9f68:	3c0e8006 */ 	lui	$t6,0x8006
 /*     9f6c:	8dced230 */ 	lw	$t6,-0x2dd0($t6)
@@ -1189,7 +1192,7 @@ glabel func0000a044
 /*     a770:	53000005 */ 	beqzl	$t8,.PF0000a788
 /*     a774:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     a778:	ac400000 */ 	sw	$zero,0x0($v0)
-/*     a77c:	0c002779 */ 	jal	func00009ec4
+/*     a77c:	0c002779 */ 	jal	viBlack
 /*     a780:	00002025 */ 	move	$a0,$zero
 /*     a784:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .PF0000a788:
@@ -1199,7 +1202,7 @@ glabel func0000a044
 );
 #else
 GLOBAL_ASM(
-glabel func0000a044
+glabel vi0000a044
 /*     a044:	3c098006 */ 	lui	$t1,%hi(g_ViData)
 /*     a048:	3c0e8006 */ 	lui	$t6,%hi(var8005d590)
 /*     a04c:	8dced590 */ 	lw	$t6,%lo(var8005d590)($t6)
@@ -1896,7 +1899,7 @@ glabel func0000a044
 /*     aa2c:	53200005 */ 	beqzl	$t9,.L0000aa44
 /*     aa30:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     aa34:	ac400000 */ 	sw	$zero,0x0($v0)
-/*     aa38:	0c0027b1 */ 	jal	func00009ec4
+/*     aa38:	0c0027b1 */ 	jal	viBlack
 /*     aa3c:	00002025 */ 	or	$a0,$zero,$zero
 /*     aa40:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0000aa44:
@@ -1907,7 +1910,7 @@ glabel func0000a044
 #endif
 
 GLOBAL_ASM(
-glabel func0000aa50
+glabel vi0000aa50
 /*     aa50:	3c014160 */ 	lui	$at,0x4160
 /*     aa54:	44810000 */ 	mtc1	$at,$f0
 /*     aa58:	00000000 */ 	nop
@@ -1936,7 +1939,7 @@ glabel func0000aa50
 /*     aaac:	ac38ce9c */ 	sw	$t8,%lo(var8005ce9c)($at)
 );
 
-void func0000aab0(s32 mode)
+void vi0000aab0(s32 mode)
 {
 	g_ViData->mode = mode;
 
@@ -1944,12 +1947,12 @@ void func0000aab0(s32 mode)
 	g_ViData->y = g_ViData->bufy = var700526d8[mode];
 }
 
-void func0000ab00(void)
+void vi0000ab00(void)
 {
 	var8005d598 = true;
 }
 
-void func0000ab10(void)
+void vi0000ab10(void)
 {
 	var8005d598 = false;
 }
@@ -1970,7 +1973,7 @@ void viSetUnk28(void *arg0)
 }
 
 GLOBAL_ASM(
-glabel func0000ab4c
+glabel vi0000ab4c
 /*     ab4c:	3c0f8009 */ 	lui	$t7,%hi(var80092874+0x3)
 /*     ab50:	91ef2877 */ 	lbu	$t7,%lo(var80092874+0x3)($t7)
 /*     ab54:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
@@ -1982,14 +1985,14 @@ glabel func0000ab4c
 );
 
 GLOBAL_ASM(
-glabel func0000ab6c
+glabel vi0000ab6c
 /*     ab6c:	3c028009 */ 	lui	$v0,%hi(var80092874)
 /*     ab70:	03e00008 */ 	jr	$ra
 /*     ab74:	94422874 */ 	lhu	$v0,%lo(var80092874)($v0)
 );
 
 GLOBAL_ASM(
-glabel func0000ab78
+glabel vi0000ab78
 /*     ab78:	3c028006 */ 	lui	$v0,%hi(g_ViData)
 /*     ab7c:	8c42d594 */ 	lw	$v0,%lo(g_ViData)($v0)
 /*     ab80:	27bdfeb0 */ 	addiu	$sp,$sp,-336
@@ -2068,7 +2071,7 @@ glabel func0000ab78
 );
 
 GLOBAL_ASM(
-glabel func0000aca4
+glabel vi0000aca4
 /*     aca4:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*     aca8:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*     acac:	afb00028 */ 	sw	$s0,0x28($sp)
@@ -2118,7 +2121,7 @@ glabel func0000aca4
 );
 
 GLOBAL_ASM(
-glabel func0000ad5c
+glabel vi0000ad5c
 /*     ad5c:	3c088006 */ 	lui	$t0,%hi(g_ViData)
 /*     ad60:	2508d594 */ 	addiu	$t0,$t0,%lo(g_ViData)
 /*     ad64:	8d0e0000 */ 	lw	$t6,0x0($t0)
@@ -2227,7 +2230,7 @@ glabel func0000ad5c
 );
 
 GLOBAL_ASM(
-glabel func0000af00
+glabel vi0000af00
 /*     af00:	3c088006 */ 	lui	$t0,%hi(g_ViData)
 /*     af04:	2508d594 */ 	addiu	$t0,$t0,%lo(g_ViData)
 /*     af08:	8d0e0000 */ 	lw	$t6,0x0($t0)
@@ -2353,7 +2356,7 @@ glabel func0000af00
 );
 
 GLOBAL_ASM(
-glabel func0000b0e8
+glabel vi0000b0e8
 /*     b0e8:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*     b0ec:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*     b0f0:	afb00028 */ 	sw	$s0,0x28($sp)
@@ -2405,12 +2408,12 @@ glabel func0000b0e8
 );
 
 GLOBAL_ASM(
-glabel func0000b1a8
+glabel vi0000b1a8
 /*     b1a8:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x284)
 /*     b1ac:	8ca5a244 */ 	lw	$a1,%lo(g_Vars+0x284)($a1)
 /*     b1b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     b1b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     b1b8:	0c002b57 */ 	jal	func0000ad5c
+/*     b1b8:	0c002b57 */ 	jal	vi0000ad5c
 /*     b1bc:	24a50610 */ 	addiu	$a1,$a1,1552
 /*     b1c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     b1c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -2419,10 +2422,10 @@ glabel func0000b1a8
 );
 
 GLOBAL_ASM(
-glabel func0000b1d0
+glabel vi0000b1d0
 /*     b1d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     b1d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     b1d8:	0c002c6a */ 	jal	func0000b1a8
+/*     b1d8:	0c002c6a */ 	jal	vi0000b1a8
 /*     b1dc:	00000000 */ 	nop
 /*     b1e0:	3c0e8006 */ 	lui	$t6,%hi(var8005d598)
 /*     b1e4:	8dced598 */ 	lw	$t6,%lo(var8005d598)($t6)
@@ -2469,7 +2472,7 @@ glabel func0000b1d0
 );
 
 GLOBAL_ASM(
-glabel func0000b280
+glabel vi0000b280
 /*     b280:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
 /*     b284:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
 /*     b288:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -2501,7 +2504,7 @@ Gfx *func0000b2c4(Gfx *gdl)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0000b330
+glabel vi0000b330
 /*     b330:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*     b334:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     b338:	3c0eba00 */ 	lui	$t6,0xba00
@@ -3094,7 +3097,7 @@ glabel func0000b330
 );
 #else
 GLOBAL_ASM(
-glabel func0000b330
+glabel vi0000b330
 /*     b4b0:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*     b4b4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     b4b8:	3c0eba00 */ 	lui	$t6,0xba00
@@ -3700,28 +3703,28 @@ glabel func0000b330
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0000bd44nb
+glabel vi0000bd44nb
 /*     bd44:	3c018006 */ 	lui	$at,0x8006
 /*     bd48:	03e00008 */ 	jr	$ra
 /*     bd4c:	ac24ed2c */ 	sw	$a0,-0x12d4($at)
 );
 
 GLOBAL_ASM(
-glabel func0000bd50nb
+glabel vi0000bd50nb
 /*     bd50:	3c028006 */ 	lui	$v0,0x8006
 /*     bd54:	03e00008 */ 	jr	$ra
 /*     bd58:	8c42ed2c */ 	lw	$v0,-0x12d4($v0)
 );
 
 GLOBAL_ASM(
-glabel func0000bd5cnb
+glabel vi0000bd5cnb
 /*     bd5c:	3c018006 */ 	lui	$at,0x8006
 /*     bd60:	03e00008 */ 	jr	$ra
 /*     bd64:	ac24ed28 */ 	sw	$a0,-0x12d8($at)
 );
 
 GLOBAL_ASM(
-glabel func0000bd68nb
+glabel vi0000bd68nb
 /*     bd68:	3c028006 */ 	lui	$v0,0x8006
 /*     bd6c:	03e00008 */ 	jr	$ra
 /*     bd70:	8c42ed28 */ 	lw	$v0,-0x12d8($v0)
@@ -3856,7 +3859,7 @@ void viGetZRange(struct zrange *zrange)
 }
 
 GLOBAL_ASM(
-glabel func0000bf04
+glabel vi0000bf04
 /*     bf04:	3c0e8006 */ 	lui	$t6,%hi(var8005d598)
 /*     bf08:	8dced598 */ 	lw	$t6,%lo(var8005d598)($t6)
 /*     bf0c:	00801025 */ 	or	$v0,$a0,$zero
@@ -3894,22 +3897,22 @@ glabel func0000bf04
 /*     bf88:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-void func0000bf8c(void)
+void vi0000bf8c(void)
 {
 	// empty
 }
 
-void func0000bf94(void)
+void vi0000bf94(void)
 {
 	// empty
 }
 
-void func0000bf9c(void)
+void vi0000bf9c(void)
 {
 	// empty
 }
 
-void func0000bfa4(void)
+void vi0000bfa4(void)
 {
 	// empty
 }

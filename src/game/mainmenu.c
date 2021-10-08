@@ -774,7 +774,7 @@ s32 menuhandlerAcceptMission(s32 operation, struct menuitem *item, union handler
 		mainSetStageNum(g_MissionConfig.stagenum);
 
 #if VERSION >= VERSION_NTSC_1_0
-		func00009ec4(1);
+		viBlack(true);
 #endif
 	}
 

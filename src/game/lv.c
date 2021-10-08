@@ -1837,9 +1837,9 @@ glabel var7f1b8e7cpf
 /*  f16a3c4:	ac4c0004 */ 	sw	$t4,0x4($v0)
 /*  f16a3c8:	26730008 */ 	addiu	$s3,$s3,0x8
 .PF0f16a3cc:
-/*  f16a3cc:	0c002bf1 */ 	jal	func0000b280
+/*  f16a3cc:	0c002bf1 */ 	jal	vi0000b280
 /*  f16a3d0:	02602025 */ 	move	$a0,$s3
-/*  f16a3d4:	0c002bc5 */ 	jal	func0000b1d0
+/*  f16a3d4:	0c002bc5 */ 	jal	vi0000b1d0
 /*  f16a3d8:	00402025 */ 	move	$a0,$v0
 /*  f16a3dc:	00408825 */ 	move	$s1,$v0
 /*  f16a3e0:	0c002e91 */ 	jal	viGetViewLeft
@@ -1963,9 +1963,9 @@ glabel var7f1b8e7cpf
 /*  f16a5b0:	44816000 */ 	mtc1	$at,$f12
 /*  f16a5b4:	0c005936 */ 	jal	func00016748
 /*  f16a5b8:	00000000 */ 	nop
-/*  f16a5bc:	0c002bc5 */ 	jal	func0000b1d0
+/*  f16a5bc:	0c002bc5 */ 	jal	vi0000b1d0
 /*  f16a5c0:	02602025 */ 	move	$a0,$s3
-/*  f16a5c4:	0c002c1d */ 	jal	func0000b330
+/*  f16a5c4:	0c002c1d */ 	jal	vi0000b330
 /*  f16a5c8:	00402025 */ 	move	$a0,$v0
 /*  f16a5cc:	0fc576bd */ 	jal	currentPlayerScissorToViewport
 /*  f16a5d0:	00402025 */ 	move	$a0,$v0
@@ -2017,7 +2017,7 @@ glabel var7f1b8e7cpf
 /*  f16a684:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f16a688:	0fc4a4ff */ 	jal	setCurrentPlayerNum
 /*  f16a68c:	00002025 */ 	move	$a0,$zero
-/*  f16a690:	0c0029fd */ 	jal	func0000aab0
+/*  f16a690:	0c0029fd */ 	jal	vi0000aab0
 /*  f16a694:	24040001 */ 	li	$a0,0x1
 /*  f16a698:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f16a69c:	86040634 */ 	lh	$a0,0x634($s0)
@@ -2060,7 +2060,7 @@ glabel var7f1b8e7cpf
 /*  f16a730:	44816000 */ 	mtc1	$at,$f12
 /*  f16a734:	0c005936 */ 	jal	func00016748
 /*  f16a738:	00000000 */ 	nop
-/*  f16a73c:	0c002bc5 */ 	jal	func0000b1d0
+/*  f16a73c:	0c002bc5 */ 	jal	vi0000b1d0
 /*  f16a740:	02602025 */ 	move	$a0,$s3
 /*  f16a744:	0fc576bd */ 	jal	currentPlayerScissorToViewport
 /*  f16a748:	00402025 */ 	move	$a0,$v0
@@ -2133,11 +2133,11 @@ glabel var7f1b8e7cpf
 /*  f16a850:	44816000 */ 	mtc1	$at,$f12
 /*  f16a854:	0c005936 */ 	jal	func00016748
 /*  f16a858:	00000000 */ 	nop
-/*  f16a85c:	0c002bbb */ 	jal	func0000b1a8
+/*  f16a85c:	0c002bbb */ 	jal	vi0000b1a8
 /*  f16a860:	02602025 */ 	move	$a0,$s3
-/*  f16a864:	0c002bc5 */ 	jal	func0000b1d0
+/*  f16a864:	0c002bc5 */ 	jal	vi0000b1d0
 /*  f16a868:	00402025 */ 	move	$a0,$v0
-/*  f16a86c:	0c002c1d */ 	jal	func0000b330
+/*  f16a86c:	0c002c1d */ 	jal	vi0000b330
 /*  f16a870:	00402025 */ 	move	$a0,$v0
 /*  f16a874:	0fc4eef2 */ 	jal	creditsRender
 /*  f16a878:	00402025 */ 	move	$a0,$v0
@@ -2347,9 +2347,9 @@ glabel var7f1b8e7cpf
 /*  f16ab64:	00000000 */ 	nop
 /*  f16ab68:	0fc5dcb2 */ 	jal	func0f176298
 /*  f16ab6c:	00000000 */ 	nop
-/*  f16ab70:	0c002bf1 */ 	jal	func0000b280
+/*  f16ab70:	0c002bf1 */ 	jal	vi0000b280
 /*  f16ab74:	02602025 */ 	move	$a0,$s3
-/*  f16ab78:	0c002bc5 */ 	jal	func0000b1d0
+/*  f16ab78:	0c002bc5 */ 	jal	vi0000b1d0
 /*  f16ab7c:	00402025 */ 	move	$a0,$v0
 /*  f16ab80:	0fc576bd */ 	jal	currentPlayerScissorToViewport
 /*  f16ab84:	00402025 */ 	move	$a0,$v0
@@ -2438,7 +2438,7 @@ glabel var7f1b8e7cpf
 /*  f16acb8:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f16acbc:	11e00012 */ 	beqz	$t7,.PF0f16ad08
 /*  f16acc0:	00000000 */ 	nop
-/*  f16acc4:	0c002c1d */ 	jal	func0000b330
+/*  f16acc4:	0c002c1d */ 	jal	vi0000b330
 /*  f16acc8:	02602025 */ 	move	$a0,$s3
 /*  f16accc:	0fc576bd */ 	jal	currentPlayerScissorToViewport
 /*  f16acd0:	00402025 */ 	move	$a0,$v0
@@ -2464,7 +2464,7 @@ glabel var7f1b8e7cpf
 /*  f16ad1c:	02602025 */ 	move	$a0,$s3
 /*  f16ad20:	00409825 */ 	move	$s3,$v0
 .PF0f16ad24:
-/*  f16ad24:	0c002c1d */ 	jal	func0000b330
+/*  f16ad24:	0c002c1d */ 	jal	vi0000b330
 /*  f16ad28:	02602025 */ 	move	$a0,$s3
 /*  f16ad2c:	0fc48121 */ 	jal	func0f11f984
 /*  f16ad30:	00402025 */ 	move	$a0,$v0
@@ -3713,8 +3713,8 @@ Gfx *lvRender(Gfx *gdl)
 			gSPDisplayList(gdl++, &var80061380);
 		}
 
-		gdl = func0000b280(gdl);
-		gdl = func0000b1d0(gdl);
+		gdl = vi0000b280(gdl);
+		gdl = vi0000b1d0(gdl);
 
 		gDPSetScissorFrac(gdl++, 0,
 				viGetViewLeft() * 4.0f, viGetViewTop() * 4.0f,
@@ -3734,8 +3734,8 @@ Gfx *lvRender(Gfx *gdl)
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		func00016748(1);
 
-		gdl = func0000b1d0(gdl);
-		gdl = func0000b330(gdl);
+		gdl = vi0000b1d0(gdl);
+		gdl = vi0000b330(gdl);
 		gdl = currentPlayerScissorToViewport(gdl);
 		gdl = func0f0fbc30(gdl);
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
@@ -3749,7 +3749,7 @@ Gfx *lvRender(Gfx *gdl)
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		func00016748(1);
 
-		gdl = func0000b1d0(gdl);
+		gdl = vi0000b1d0(gdl);
 		gdl = currentPlayerScissorToViewport(gdl);
 		gdl = func0f0fbc30(gdl);
 
@@ -3767,9 +3767,9 @@ Gfx *lvRender(Gfx *gdl)
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		func00016748(1);
 
-		gdl = func0000b1a8(gdl);
-		gdl = func0000b1d0(gdl);
-		gdl = func0000b330(gdl);
+		gdl = vi0000b1a8(gdl);
+		gdl = vi0000b1d0(gdl);
+		gdl = vi0000b330(gdl);
 		gdl = creditsRender(gdl);
 	} else {
 		// Normal stages
@@ -3844,8 +3844,8 @@ Gfx *lvRender(Gfx *gdl)
 			func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 			func0f1657f8();
 			func0f176298();
-			gdl = func0000b280(gdl);
-			gdl = func0000b1d0(gdl);
+			gdl = vi0000b280(gdl);
+			gdl = vi0000b1d0(gdl);
 			gdl = currentPlayerScissorToViewport(gdl);
 			func0f13c510();
 
@@ -3870,7 +3870,7 @@ Gfx *lvRender(Gfx *gdl)
 				gdl = bviewRenderMotionBlur(gdl, 0xffffffff, 255);
 				g_Vars.lockscreen--;
 			} else if (var8009dfc0) {
-				gdl = func0000b330(gdl);
+				gdl = vi0000b330(gdl);
 				gdl = currentPlayerScissorToViewport(gdl);
 				func00016748(1);
 
@@ -3882,7 +3882,7 @@ Gfx *lvRender(Gfx *gdl)
 					gdl = currentPlayerUpdateShootRot(gdl);
 				}
 
-				gdl = func0000b330(gdl);
+				gdl = vi0000b330(gdl);
 				gdl = func0f11f984(gdl);
 				roomsTick();
 				func0f004314();
@@ -4439,9 +4439,9 @@ glabel var7f1b1fd4nb
 /*  f164110:	ac4c0004 */ 	sw	$t4,0x4($v0)
 /*  f164114:	26730008 */ 	addiu	$s3,$s3,0x8
 .NB0f164118:
-/*  f164118:	0c002d00 */ 	jal	func0000b280
+/*  f164118:	0c002d00 */ 	jal	vi0000b280
 /*  f16411c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f164120:	0c002cd4 */ 	jal	func0000b1d0
+/*  f164120:	0c002cd4 */ 	jal	vi0000b1d0
 /*  f164124:	00402025 */ 	or	$a0,$v0,$zero
 /*  f164128:	0040a025 */ 	or	$s4,$v0,$zero
 /*  f16412c:	0c002fb5 */ 	jal	viGetViewLeft
@@ -4566,9 +4566,9 @@ glabel var7f1b1fd4nb
 /*  f164300:	44816000 */ 	mtc1	$at,$f12
 /*  f164304:	0c005db6 */ 	jal	func00016748
 /*  f164308:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16430c:	0c002cd4 */ 	jal	func0000b1d0
+/*  f16430c:	0c002cd4 */ 	jal	vi0000b1d0
 /*  f164310:	02602025 */ 	or	$a0,$s3,$zero
-/*  f164314:	0c002d2c */ 	jal	func0000b330
+/*  f164314:	0c002d2c */ 	jal	vi0000b330
 /*  f164318:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16431c:	0fc55c96 */ 	jal	currentPlayerScissorToViewport
 /*  f164320:	00402025 */ 	or	$a0,$v0,$zero
@@ -4634,7 +4634,7 @@ glabel var7f1b1fd4nb
 /*  f16440c:	44816000 */ 	mtc1	$at,$f12
 /*  f164410:	0c005db6 */ 	jal	func00016748
 /*  f164414:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164418:	0c002cd4 */ 	jal	func0000b1d0
+/*  f164418:	0c002cd4 */ 	jal	vi0000b1d0
 /*  f16441c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f164420:	0fc55c96 */ 	jal	currentPlayerScissorToViewport
 /*  f164424:	00402025 */ 	or	$a0,$v0,$zero
@@ -4707,11 +4707,11 @@ glabel var7f1b1fd4nb
 /*  f16452c:	44816000 */ 	mtc1	$at,$f12
 /*  f164530:	0c005db6 */ 	jal	func00016748
 /*  f164534:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164538:	0c002cca */ 	jal	func0000b1a8
+/*  f164538:	0c002cca */ 	jal	vi0000b1a8
 /*  f16453c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f164540:	0c002cd4 */ 	jal	func0000b1d0
+/*  f164540:	0c002cd4 */ 	jal	vi0000b1d0
 /*  f164544:	00402025 */ 	or	$a0,$v0,$zero
-/*  f164548:	0c002d2c */ 	jal	func0000b330
+/*  f164548:	0c002d2c */ 	jal	vi0000b330
 /*  f16454c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f164550:	0fc4d6d9 */ 	jal	creditsRender
 /*  f164554:	00402025 */ 	or	$a0,$v0,$zero
@@ -4932,9 +4932,9 @@ glabel var7f1b1fd4nb
 /*  f164868:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16486c:	0fc5c3ce */ 	jal	func0f176298
 /*  f164870:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164874:	0c002d00 */ 	jal	func0000b280
+/*  f164874:	0c002d00 */ 	jal	vi0000b280
 /*  f164878:	02602025 */ 	or	$a0,$s3,$zero
-/*  f16487c:	0c002cd4 */ 	jal	func0000b1d0
+/*  f16487c:	0c002cd4 */ 	jal	vi0000b1d0
 /*  f164880:	00402025 */ 	or	$a0,$v0,$zero
 /*  f164884:	0fc55c96 */ 	jal	currentPlayerScissorToViewport
 /*  f164888:	00402025 */ 	or	$a0,$v0,$zero
@@ -5024,7 +5024,7 @@ glabel var7f1b1fd4nb
 /*  f1649c0:	3c0b8008 */ 	lui	$t3,0x8008
 /*  f1649c4:	11e00012 */ 	beqz	$t7,.NB0f164a10
 /*  f1649c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1649cc:	0c002d2c */ 	jal	func0000b330
+/*  f1649cc:	0c002d2c */ 	jal	vi0000b330
 /*  f1649d0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f1649d4:	0fc55c96 */ 	jal	currentPlayerScissorToViewport
 /*  f1649d8:	00402025 */ 	or	$a0,$v0,$zero
@@ -5050,7 +5050,7 @@ glabel var7f1b1fd4nb
 /*  f164a24:	02602025 */ 	or	$a0,$s3,$zero
 /*  f164a28:	00409825 */ 	or	$s3,$v0,$zero
 .NB0f164a2c:
-/*  f164a2c:	0c002d2c */ 	jal	func0000b330
+/*  f164a2c:	0c002d2c */ 	jal	vi0000b330
 /*  f164a30:	02602025 */ 	or	$a0,$s3,$zero
 /*  f164a34:	0fc46971 */ 	jal	func0f11f984
 /*  f164a38:	00402025 */ 	or	$a0,$v0,$zero

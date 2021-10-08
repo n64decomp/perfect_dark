@@ -19,7 +19,7 @@ extern s32 var8005ce74;
 extern f32 var8005ce78[2];
 extern f32 var8005ce80[2];
 extern u32 var8005ce88[2];
-extern s32 var8005ce90;
+extern s32 g_ViUnblackTimer;
 extern u32 var8005ce94;
 extern u32 var8005ce98;
 extern u32 var8005ce9c;
