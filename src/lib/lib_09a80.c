@@ -2032,57 +2032,19 @@ glabel vi0000af00
 /*     b0e4:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel vi0000b0e8
-/*     b0e8:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*     b0ec:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*     b0f0:	afb00028 */ 	sw	$s0,0x28($sp)
-/*     b0f4:	00808025 */ 	or	$s0,$a0,$zero
-/*     b0f8:	afa50084 */ 	sw	$a1,0x84($sp)
-/*     b0fc:	0fc59e66 */ 	jal	gfxAllocateMatrix
-/*     b100:	afa60088 */ 	sw	$a2,0x88($sp)
-/*     b104:	3c038006 */ 	lui	$v1,%hi(g_ViData)
-/*     b108:	8c63d594 */ 	lw	$v1,%lo(g_ViData)($v1)
-/*     b10c:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*     b110:	3c013f80 */ 	lui	$at,0x3f80
-/*     b114:	c4640010 */ 	lwc1	$f4,0x10($v1)
-/*     b118:	44814000 */ 	mtc1	$at,$f8
-/*     b11c:	3c058009 */ 	lui	$a1,%hi(var80092874)
-/*     b120:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*     b124:	c4660014 */ 	lwc1	$f6,0x14($v1)
-/*     b128:	24a52874 */ 	addiu	$a1,$a1,%lo(var80092874)
-/*     b12c:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*     b130:	8fa60084 */ 	lw	$a2,0x84($sp)
-/*     b134:	8fa70088 */ 	lw	$a3,0x88($sp)
-/*     b138:	e7a80018 */ 	swc1	$f8,0x18($sp)
-/*     b13c:	0c001210 */ 	jal	guPerspectiveF
-/*     b140:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     b144:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*     b148:	0c0128d8 */ 	jal	guMtxF2L
-/*     b14c:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*     b150:	3c0e0103 */ 	lui	$t6,0x103
-/*     b154:	35ce0040 */ 	ori	$t6,$t6,0x40
-/*     b158:	02001825 */ 	or	$v1,$s0,$zero
-/*     b15c:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*     b160:	8faf003c */ 	lw	$t7,0x3c($sp)
-/*     b164:	3c018000 */ 	lui	$at,0x8000
-/*     b168:	26100008 */ 	addiu	$s0,$s0,0x8
-/*     b16c:	3c19bc00 */ 	lui	$t9,0xbc00
-/*     b170:	01e1c021 */ 	addu	$t8,$t7,$at
-/*     b174:	ac780004 */ 	sw	$t8,0x4($v1)
-/*     b178:	3739000e */ 	ori	$t9,$t9,0xe
-/*     b17c:	02002025 */ 	or	$a0,$s0,$zero
-/*     b180:	ac990000 */ 	sw	$t9,0x0($a0)
-/*     b184:	3c088009 */ 	lui	$t0,%hi(var80092874)
-/*     b188:	95082874 */ 	lhu	$t0,%lo(var80092874)($t0)
-/*     b18c:	26020008 */ 	addiu	$v0,$s0,0x8
-/*     b190:	ac880004 */ 	sw	$t0,0x4($a0)
-/*     b194:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*     b198:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*     b19c:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*     b1a0:	03e00008 */ 	jr	$ra
-/*     b1a4:	00000000 */ 	nop
-);
+Gfx *vi0000b0e8(Gfx *gdl, f32 fovy, f32 aspect)
+{
+	Mtxf tmp;
+	Mtx *mtx = gfxAllocateMatrix();
+
+	guPerspectiveF(tmp.m, &var80092874, fovy, aspect, g_ViData->znear, g_ViData->zfar, 1);
+	guMtxF2L(tmp.m, mtx);
+
+	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPPerspNormalize(gdl++, var80092874);
+
+	return gdl;
+}
 
 Gfx *vi0000b1a8(Gfx *gdl)
 {
