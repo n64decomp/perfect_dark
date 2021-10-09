@@ -32,7 +32,7 @@ Gfx *vi0000b1a8(Gfx *gdl);
 Gfx *vi0000b1d0(Gfx *gdl);
 Gfx *vi0000b280(Gfx *gdl);
 Gfx *func0000b2c4(Gfx *gdl);
-Gfx *vi0000b330(Gfx *gdl);
+Gfx *viRenderViewportEdges(Gfx *gdl);
 void viSetBuf(s16 x, s16 y);
 s16 viGetBufX(void);
 s16 viGetBufY(void);

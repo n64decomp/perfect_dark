@@ -44,7 +44,7 @@ void currentPlayerTickExplode(void);
 void viResetDefaultModeIf4Mb(void);
 s16 viGetFbWidth(void);
 s16 viGetFbHeight(void);
-bool func0f0bc4c0(void);
+bool is2PSharedViewport(void);
 s16 currentPlayerGetViewportWidth(void);
 s16 currentPlayerGetViewportLeft(void);
 s16 currentPlayerGetViewportHeight(void);

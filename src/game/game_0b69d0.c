@@ -4436,7 +4436,7 @@ s16 viGetFbHeight(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool func0f0bc4c0(void)
+bool is2PSharedViewport(void)
 {
 	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 			&& menuGetRoot() == MENUROOT_MPENDSCREEN
@@ -4453,7 +4453,7 @@ s16 currentPlayerGetViewportWidth(void)
 	s16 width;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (func0f0bc4c0() == 0)
+	if (!is2PSharedViewport())
 #else
 	if ((!g_InCutscene || g_MainIsEndscreen) && menuGetRoot() != MENUROOT_COOPCONTINUE)
 #endif
@@ -4492,7 +4492,7 @@ s16 currentPlayerGetViewportWidth(void)
 s16 currentPlayerGetViewportLeft(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	s32 something = !func0f0bc4c0();
+	s32 something = !is2PSharedViewport();
 #else
 	s32 something = !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
 #endif
@@ -4533,7 +4533,7 @@ s16 currentPlayerGetViewportHeight(void)
 
 	if (PLAYERCOUNT() >= 2
 #if VERSION >= VERSION_NTSC_1_0
-			&& !func0f0bc4c0()
+			&& !is2PSharedViewport()
 #else
 			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
@@ -4585,7 +4585,7 @@ s16 currentPlayerGetViewportTop(void)
 
 	if (PLAYERCOUNT() >= 2
 #if VERSION >= VERSION_NTSC_1_0
-			&& !func0f0bc4c0()
+			&& !is2PSharedViewport()
 #else
 			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
