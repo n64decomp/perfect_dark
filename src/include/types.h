@@ -7067,7 +7067,7 @@ struct var80095210 {
 
 struct rdptask {
 	OSScTask sctask;
-	u16 *framebuffer;
+	u8 *framebuffer;
 	u32 unk5c;
 };
 
