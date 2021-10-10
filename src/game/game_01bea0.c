@@ -1858,8 +1858,8 @@ glabel var7f1a863c
 .word menuTickAll+0x168c # f01d5b4
 .text
 /*  f01bf28:	27bdfe98 */ 	addiu	$sp,$sp,-360
-/*  f01bf2c:	3c0e8007 */ 	lui	$t6,%hi(g_ViMode)
-/*  f01bf30:	8dce06c8 */ 	lw	$t6,%lo(g_ViMode)($t6)
+/*  f01bf2c:	3c0e8007 */ 	lui	$t6,%hi(g_ViRes)
+/*  f01bf30:	8dce06c8 */ 	lw	$t6,%lo(g_ViRes)($t6)
 /*  f01bf34:	afb60040 */ 	sw	$s6,0x40($sp)
 /*  f01bf38:	24160001 */ 	addiu	$s6,$zero,0x1
 /*  f01bf3c:	afb00028 */ 	sw	$s0,0x28($sp)
@@ -5381,7 +5381,7 @@ glabel var7f1a863c
 //	s32 anyopen = false;
 //
 //	// bf5c
-//	g_ScaleX = g_ViMode == VIMODE_HIRES ? 2 : 1;
+//	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 //
 //	// bf7c
 //	func0f0069dc();

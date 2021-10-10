@@ -1197,7 +1197,7 @@ glabel var7f1b558c
 /*  f12ad2c:	15c00006 */ 	bnez	$t6,.L0f12ad48
 /*  f12ad30:	afa60070 */ 	sw	$a2,0x70($sp)
 /*  f12ad34:	44806000 */ 	mtc1	$zero,$f12
-/*  f12ad38:	0c002a94 */ 	jal	vi0000aa50
+/*  f12ad38:	0c002a94 */ 	jal	viShake
 /*  f12ad3c:	00000000 */ 	nop
 /*  f12ad40:	1000007a */ 	b	.L0f12af2c
 /*  f12ad44:	8fbf004c */ 	lw	$ra,0x4c($sp)
@@ -1327,7 +1327,7 @@ glabel var7f1b558c
 /*  f12af14:	00000000 */ 	nop
 /*  f12af18:	468084a0 */ 	cvt.s.w	$f18,$f16
 /*  f12af1c:	46149302 */ 	mul.s	$f12,$f18,$f20
-/*  f12af20:	0c002a94 */ 	jal	vi0000aa50
+/*  f12af20:	0c002a94 */ 	jal	viShake
 /*  f12af24:	00000000 */ 	nop
 /*  f12af28:	8fbf004c */ 	lw	$ra,0x4c($sp)
 .L0f12af2c:

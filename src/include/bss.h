@@ -73,7 +73,7 @@ extern OSMesgQueue __osEepromTimerQ;
 extern OSMesg __osEepromTimerMsg;
 extern OSPifRam __osEepPifRam;
 extern u32 var8009ca84;
-extern u8 *var8009cac0[2];
+extern u8 *g_FrameBuffers[2];
 extern u8 var8009caec[4];
 extern u8 var8009caf0;
 extern struct prop *g_DangerousProps[MAX_DANGEROUSPROPS];

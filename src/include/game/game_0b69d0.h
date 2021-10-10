@@ -41,7 +41,7 @@ void currentPlayerDisplayDamage(void);
 Gfx *hudRenderHealthBar(Gfx *gdl);
 void currentPlayerSurroundWithExplosions(s32 arg0);
 void currentPlayerTickExplode(void);
-void viResetDefaultModeIf4Mb(void);
+void viResetLoResIf4Mb(void);
 s16 viGetFbWidth(void);
 s16 viGetFbHeight(void);
 bool is2PSharedViewport(void);

@@ -8093,7 +8093,7 @@ Gfx *sightRender(Gfx *gdl, bool sighton, s32 sight)
 #if PAL
 	g_ScaleX = 1;
 #else
-	if (g_ViMode == VIMODE_HIRES) {
+	if (g_ViRes == VIRES_HI) {
 		g_ScaleX = 2;
 	} else {
 		g_ScaleX = 1;

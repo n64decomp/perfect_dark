@@ -142,7 +142,7 @@ struct vimode g_ViModes[] = {
 #endif
 };
 
-s32 g_ViMode = VIMODE_DEFAULT;
+s32 g_ViRes = VIRES_LO;
 bool g_HiResEnabled = false;
 u32 var800706d0 = 0x00000000;
 u32 var800706d4 = 0x00000000;
@@ -4389,27 +4389,27 @@ void currentPlayerTickExplode(void)
 	}
 }
 
-void viResetDefaultModeIf4Mb(void)
+void viResetLoResIf4Mb(void)
 {
 	if (IS4MB()) {
 #if PAL
-		g_ViModes[VIMODE_DEFAULT].fbwidth = 320;
-		g_ViModes[VIMODE_DEFAULT].fbheight = 220;
-		g_ViModes[VIMODE_DEFAULT].width = 320;
-		g_ViModes[VIMODE_DEFAULT].yscale = 1;
-		g_ViModes[VIMODE_DEFAULT].xscale = 1;
-		g_ViModes[VIMODE_DEFAULT].fullheight = 220;
-		g_ViModes[VIMODE_DEFAULT].fulltop = 0;
+		g_ViModes[VIRES_LO].fbwidth = 320;
+		g_ViModes[VIRES_LO].fbheight = 220;
+		g_ViModes[VIRES_LO].width = 320;
+		g_ViModes[VIRES_LO].yscale = 1;
+		g_ViModes[VIRES_LO].xscale = 1;
+		g_ViModes[VIRES_LO].fullheight = 220;
+		g_ViModes[VIRES_LO].fulltop = 0;
 #else
-		g_ViModes[VIMODE_DEFAULT].fbheight = 220;
-		g_ViModes[VIMODE_DEFAULT].fulltop = 0;
-		g_ViModes[VIMODE_DEFAULT].fullheight = 220;
+		g_ViModes[VIRES_LO].fbheight = 220;
+		g_ViModes[VIRES_LO].fulltop = 0;
+		g_ViModes[VIRES_LO].fullheight = 220;
 #endif
 
-		g_ViModes[VIMODE_DEFAULT].wideheight = 180;
-		g_ViModes[VIMODE_DEFAULT].widetop = 20;
-		g_ViModes[VIMODE_DEFAULT].cinemaheight = 136;
-		g_ViModes[VIMODE_DEFAULT].cinematop = 42;
+		g_ViModes[VIRES_LO].wideheight = 180;
+		g_ViModes[VIRES_LO].widetop = 20;
+		g_ViModes[VIRES_LO].cinemaheight = 136;
+		g_ViModes[VIRES_LO].cinematop = 42;
 	}
 }
 
@@ -4420,13 +4420,13 @@ void optionsSetHiRes(bool enable)
 
 s16 viGetFbWidth(void)
 {
-	s16 width = g_ViModes[g_ViMode].fbwidth;
+	s16 width = g_ViModes[g_ViRes].fbwidth;
 	return width;
 }
 
 s16 viGetFbHeight(void)
 {
-	s16 height = g_ViModes[g_ViMode].fbheight;
+	s16 height = g_ViModes[g_ViRes].fbheight;
 
 	if (g_Vars.fourmeg2player) {
 		height = height >> 1;
@@ -4460,7 +4460,7 @@ s16 currentPlayerGetViewportWidth(void)
 	{
 		if (PLAYERCOUNT() >= 3) {
 			// 3/4 players
-			width = g_ViModes[g_ViMode].width / 2;
+			width = g_ViModes[g_ViRes].width / 2;
 
 			if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
 				width--;
@@ -4468,22 +4468,22 @@ s16 currentPlayerGetViewportWidth(void)
 		} else if (PLAYERCOUNT() == 2) {
 			if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
 				// 2 players vsplit
-				width = g_ViModes[g_ViMode].width / 2;
+				width = g_ViModes[g_ViRes].width / 2;
 
 				if (g_Vars.currentplayernum == 0) {
 					width--;
 				}
 			} else {
 				// 2 players full width
-				width = g_ViModes[g_ViMode].width;
+				width = g_ViModes[g_ViRes].width;
 			}
 		} else {
 			// 1 player
-			width = g_ViModes[g_ViMode].width;
+			width = g_ViModes[g_ViRes].width;
 		}
 	} else {
 		// Probably cutscene
-		width = g_ViModes[g_ViMode].width;
+		width = g_ViModes[g_ViRes].width;
 	}
 
 	return width;
@@ -4501,27 +4501,27 @@ s16 currentPlayerGetViewportLeft(void)
 	if (PLAYERCOUNT() >= 3 && something != 0) {
 		if (g_Vars.currentplayernum == 1 || g_Vars.currentplayernum == 3) {
 			// 3/4 players - right side
-			left = g_ViModes[g_ViMode].width / 2 + g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
+			left = g_ViModes[g_ViRes].width / 2 + g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
 		} else {
 			// 3/4 players - left side
-			left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
+			left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
 		}
 	} else if (PLAYERCOUNT() == 2 && something != 0) {
 		if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player) {
 			if (g_Vars.currentplayernum == 1) {
 				// 2 players vsplit - right side
-				left = (g_ViModes[g_ViMode].width / 2) + g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
+				left = (g_ViModes[g_ViRes].width / 2) + g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
 			} else {
 				// 2 players vsplit - left side
-				left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
+				left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
 			}
 		} else {
 			// 2 players - full width
-			left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
+			left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
 		}
 	} else {
 		// Full screen
-		left = g_ViModes[g_ViMode].fbwidth - g_ViModes[g_ViMode].width;
+		left = g_ViModes[g_ViRes].fbwidth - g_ViModes[g_ViRes].width;
 	}
 
 	return left;
@@ -4538,7 +4538,7 @@ s16 currentPlayerGetViewportHeight(void)
 			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
 			) {
-		s16 tmp = g_ViModes[g_ViMode].fullheight;
+		s16 tmp = g_ViModes[g_ViRes].fullheight;
 
 		if (IS4MB() && !g_Vars.fourmeg2player) {
 			height = tmp;
@@ -4557,21 +4557,21 @@ s16 currentPlayerGetViewportHeight(void)
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
-			height = g_ViModes[g_ViMode].wideheight;
+			height = g_ViModes[g_ViRes].wideheight;
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-			height = g_ViModes[g_ViMode].cinemaheight;
+			height = g_ViModes[g_ViRes].cinemaheight;
 		} else if (g_InCutscene && !var8009dfc0) {
 			if (var8009de2c >= 1) {
-				f32 a = g_ViModes[g_ViMode].wideheight;
-				f32 b = g_ViModes[g_ViMode].fullheight;
+				f32 a = g_ViModes[g_ViRes].wideheight;
+				f32 b = g_ViModes[g_ViRes].fullheight;
 				a = a * (1.0f - g_CutsceneBarFrac);
 				b = b * g_CutsceneBarFrac;
 				height = a + b;
 			} else {
-				height = g_ViModes[g_ViMode].wideheight;
+				height = g_ViModes[g_ViRes].wideheight;
 			}
 		} else {
-			height = g_ViModes[g_ViMode].fullheight;
+			height = g_ViModes[g_ViRes].fullheight;
 		}
 	}
 
@@ -4590,7 +4590,7 @@ s16 currentPlayerGetViewportTop(void)
 			&& !((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
 #endif
 			) {
-		top = g_ViModes[g_ViMode].fulltop;
+		top = g_ViModes[g_ViRes].fulltop;
 
 		if (optionsGetScreenSplit() != SCREENSPLIT_VERTICAL || PLAYERCOUNT() != 2) {
 			if (PLAYERCOUNT() == 2
@@ -4598,43 +4598,43 @@ s16 currentPlayerGetViewportTop(void)
 					&& optionsGetScreenSplit() != SCREENSPLIT_VERTICAL
 					&& !g_Vars.fourmeg2player) {
 				// 2 players hsplit - bottom side
-				top = g_ViModes[g_ViMode].fulltop + g_ViModes[g_ViMode].fullheight / 2;
+				top = g_ViModes[g_ViRes].fulltop + g_ViModes[g_ViRes].fullheight / 2;
 			} else if (g_Vars.currentplayernum == 2 || g_Vars.currentplayernum == 3) {
 				// 3/4 players - bottom side
-				top = g_ViModes[g_ViMode].fulltop + g_ViModes[g_ViMode].fullheight / 2;
+				top = g_ViModes[g_ViRes].fulltop + g_ViModes[g_ViRes].fullheight / 2;
 			}
 		}
 	} else {
 		if (optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE) {
 			if (g_InCutscene && optionsGetCutsceneSubtitles() && g_Vars.stagenum != STAGE_CITRAINING) {
 				if (var8009de2c >= 1) {
-					f32 a = g_ViModes[g_ViMode].fulltop;
-					f32 b = g_ViModes[g_ViMode].widetop;
+					f32 a = g_ViModes[g_ViRes].fulltop;
+					f32 b = g_ViModes[g_ViRes].widetop;
 					a = a * (1.0f - g_CutsceneBarFrac);
 					b = b * g_CutsceneBarFrac;
 					top = a + b;
 				} else {
-					top = g_ViModes[g_ViMode].fulltop;
+					top = g_ViModes[g_ViRes].fulltop;
 				}
 			} else {
-				top = g_ViModes[g_ViMode].widetop;
+				top = g_ViModes[g_ViRes].widetop;
 			}
 		} else if (optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA) {
-			top = g_ViModes[g_ViMode].cinematop;
+			top = g_ViModes[g_ViRes].cinematop;
 		} else {
 			if (g_InCutscene && !var8009dfc0
 					&& (!optionsGetCutsceneSubtitles() || g_Vars.stagenum == STAGE_CITRAINING)) {
 				if (var8009de2c >= 1) {
-					f32 a = g_ViModes[g_ViMode].widetop;
-					f32 b = g_ViModes[g_ViMode].fulltop;
+					f32 a = g_ViModes[g_ViRes].widetop;
+					f32 b = g_ViModes[g_ViRes].fulltop;
 					a = a * (1.0f - g_CutsceneBarFrac);
 					b = b * g_CutsceneBarFrac;
 					top = a + b;
 				} else {
-					top = g_ViModes[g_ViMode].widetop;
+					top = g_ViModes[g_ViRes].widetop;
 				}
 			} else {
-				return g_ViModes[g_ViMode].fulltop;
+				return g_ViModes[g_ViRes].fulltop;
 			}
 		}
 	}
@@ -4994,7 +4994,7 @@ f32 func0f0bd358(void)
 	s16 width = currentPlayerGetViewportWidth();
 
 	result = (f32)width / (f32)height;
-	result = g_ViModes[g_ViMode].yscale * result;
+	result = g_ViModes[g_ViRes].yscale * result;
 
 	return result;
 }
@@ -5006,7 +5006,7 @@ void func0f0bd3c4(void)
 	if (g_Vars.currentplayer->isdead == false) {
 		func0f12acec(&g_Vars.currentplayer->bond2.unk10, &g_Vars.currentplayer->bond2.unk1c, &coord);
 	} else {
-		vi0000aa50(0);
+		viShake(0);
 	}
 }
 
@@ -5104,7 +5104,7 @@ void currentPlayerTickTeleport(f32 *aspectratio)
 void currentPlayerConfigureVi(void)
 {
 	f32 ratio = func0f0bd358();
-	g_ViMode = VIMODE_DEFAULT;
+	g_ViRes = VIRES_LO;
 
 	func0f1531dc(false);
 
@@ -5113,13 +5113,13 @@ void currentPlayerConfigureVi(void)
 	currentPlayerSetViewSize(currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
 	currentPlayerSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
 
-	vi0000aab0(g_ViModes[g_ViMode].xscale);
+	viSetMode(g_ViModes[g_ViRes].xscale);
 
 	viSetFovAspectAndSize(60, ratio, currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
 
 	viSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
-	viSetXY(viGetFbWidth(), viGetFbHeight());
-	viSetBuf(viGetFbWidth(), viGetFbHeight());
+	viSetSize(viGetFbWidth(), viGetFbHeight());
+	viSetBufSize(viGetFbWidth(), viGetFbHeight());
 }
 
 const char var7f1ad524[] = "tps";
@@ -5316,7 +5316,7 @@ glabel var7f1ad6ac
 /*  f0be0a4:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f0be0a8:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f0be0ac:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f0be0b0:	0c0029fd */ 	jal	vi0000aab0
+/*  f0be0b0:	0c0029fd */ 	jal	viSetMode
 /*  f0be0b4:	8c840960 */ 	lw	$a0,0x960($a0)
 /*  f0be0b8:	0fc2f2b4 */ 	jal	currentPlayerGetViewportWidth
 /*  f0be0bc:	00000000 */ 	nop
@@ -5358,7 +5358,7 @@ glabel var7f1ad6ac
 /*  f0be14c:	00057c03 */ 	sra	$t7,$a1,0x10
 /*  f0be150:	00047403 */ 	sra	$t6,$a0,0x10
 /*  f0be154:	01c02025 */ 	move	$a0,$t6
-/*  f0be158:	0c002e4a */ 	jal	viSetXY
+/*  f0be158:	0c002e4a */ 	jal	viSetSize
 /*  f0be15c:	01e02825 */ 	move	$a1,$t7
 /*  f0be160:	0fc2f272 */ 	jal	viGetFbWidth
 /*  f0be164:	00000000 */ 	nop
@@ -5371,7 +5371,7 @@ glabel var7f1ad6ac
 /*  f0be180:	00054c03 */ 	sra	$t1,$a1,0x10
 /*  f0be184:	0004cc03 */ 	sra	$t9,$a0,0x10
 /*  f0be188:	03202025 */ 	move	$a0,$t9
-/*  f0be18c:	0c002e39 */ 	jal	viSetBuf
+/*  f0be18c:	0c002e39 */ 	jal	viSetBufSize
 /*  f0be190:	01202825 */ 	move	$a1,$t1
 /*  f0be194:	0fc2ee63 */ 	jal	currentPlayerUpdateColourScreenProperties
 /*  f0be198:	00000000 */ 	nop
@@ -7568,8 +7568,8 @@ glabel var7f1ad6ac
 /*  f0bd918:	afb10038 */ 	sw	$s1,0x38($sp)
 /*  f0bd91c:	3c0e8007 */ 	lui	$t6,%hi(g_HiResEnabled)
 /*  f0bd920:	8dce06cc */ 	lw	$t6,%lo(g_HiResEnabled)($t6)
-/*  f0bd924:	3c118007 */ 	lui	$s1,%hi(g_ViMode)
-/*  f0bd928:	263106c8 */ 	addiu	$s1,$s1,%lo(g_ViMode)
+/*  f0bd924:	3c118007 */ 	lui	$s1,%hi(g_ViRes)
+/*  f0bd928:	263106c8 */ 	addiu	$s1,$s1,%lo(g_ViRes)
 /*  f0bd92c:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f0bd930:	afb50048 */ 	sw	$s5,0x48($sp)
 /*  f0bd934:	afb40044 */ 	sw	$s4,0x44($sp)
@@ -7717,7 +7717,7 @@ glabel var7f1ad6ac
 /*  f0bdb38:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0bdb3c:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f0bdb40:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f0bdb44:	0c002aac */ 	jal	vi0000aab0
+/*  f0bdb44:	0c002aac */ 	jal	viSetMode
 /*  f0bdb48:	8c8405d0 */ 	lw	$a0,%lo(g_ViModes+0x10)($a0)
 /*  f0bdb4c:	0fc2f155 */ 	jal	currentPlayerGetViewportWidth
 /*  f0bdb50:	00000000 */ 	nop
@@ -7759,7 +7759,7 @@ glabel var7f1ad6ac
 /*  f0bdbe0:	0005c403 */ 	sra	$t8,$a1,0x10
 /*  f0bdbe4:	00047c03 */ 	sra	$t7,$a0,0x10
 /*  f0bdbe8:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0bdbec:	0c002ef9 */ 	jal	viSetXY
+/*  f0bdbec:	0c002ef9 */ 	jal	viSetSize
 /*  f0bdbf0:	03002825 */ 	or	$a1,$t8,$zero
 /*  f0bdbf4:	0fc2f113 */ 	jal	viGetFbWidth
 /*  f0bdbf8:	00000000 */ 	nop
@@ -7772,7 +7772,7 @@ glabel var7f1ad6ac
 /*  f0bdc14:	00055403 */ 	sra	$t2,$a1,0x10
 /*  f0bdc18:	00044c03 */ 	sra	$t1,$a0,0x10
 /*  f0bdc1c:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0bdc20:	0c002ee8 */ 	jal	viSetBuf
+/*  f0bdc20:	0c002ee8 */ 	jal	viSetBufSize
 /*  f0bdc24:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0bdc28:	0fc2ed0b */ 	jal	currentPlayerUpdateColourScreenProperties
 /*  f0bdc2c:	00000000 */ 	nop
@@ -10118,7 +10118,7 @@ glabel var7f1ad6ac
 /*  f0bb7a0:	030fc023 */ 	subu	$t8,$t8,$t7
 /*  f0bb7a4:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f0bb7a8:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f0bb7ac:	0c002b0c */ 	jal	vi0000aab0
+/*  f0bb7ac:	0c002b0c */ 	jal	viSetMode
 /*  f0bb7b0:	8c842c90 */ 	lw	$a0,0x2c90($a0)
 /*  f0bb7b4:	0fc2e865 */ 	jal	currentPlayerGetViewportWidth
 /*  f0bb7b8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -10160,7 +10160,7 @@ glabel var7f1ad6ac
 /*  f0bb848:	0005c403 */ 	sra	$t8,$a1,0x10
 /*  f0bb84c:	00047c03 */ 	sra	$t7,$a0,0x10
 /*  f0bb850:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f0bb854:	0c002f6e */ 	jal	viSetXY
+/*  f0bb854:	0c002f6e */ 	jal	viSetSize
 /*  f0bb858:	03002825 */ 	or	$a1,$t8,$zero
 /*  f0bb85c:	0fc2e848 */ 	jal	viGetFbWidth
 /*  f0bb860:	00000000 */ 	sll	$zero,$zero,0x0
@@ -10173,7 +10173,7 @@ glabel var7f1ad6ac
 /*  f0bb87c:	00055403 */ 	sra	$t2,$a1,0x10
 /*  f0bb880:	00044c03 */ 	sra	$t1,$a0,0x10
 /*  f0bb884:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0bb888:	0c002f5d */ 	jal	viSetBuf
+/*  f0bb888:	0c002f5d */ 	jal	viSetBufSize
 /*  f0bb88c:	01402825 */ 	or	$a1,$t2,$zero
 /*  f0bb890:	0fc2e440 */ 	jal	currentPlayerUpdateColourScreenProperties
 /*  f0bb894:	00000000 */ 	sll	$zero,$zero,0x0
@@ -12301,14 +12301,14 @@ glabel var7f1ad6ac
 //{
 //	f32 aspectratio;
 //
-//	g_ViMode = g_HiResEnabled;
+//	g_ViRes = g_HiResEnabled;
 //
 //	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() > 1) {
-//		g_ViMode = VIMODE_DEFAULT;
+//		g_ViRes = VIRES_LO;
 //	}
 //
 //	// d9dc
-//	if (g_ViMode == VIMODE_HIRES) {
+//	if (g_ViRes == VIRES_HI) {
 //		func0f1531dc(true);
 //	} else {
 //		func0f1531dc(false);
@@ -12348,11 +12348,11 @@ glabel var7f1ad6ac
 //	currentPlayerSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
 //
 //	// db44
-//	vi0000aab0(g_ViModes[g_ViMode].xscale);
+//	viSetMode(g_ViModes[g_ViRes].xscale);
 //	viSetFovAspectAndSize(60, aspectratio, currentPlayerGetViewportWidth(), currentPlayerGetViewportHeight());
 //	viSetViewPosition(currentPlayerGetViewportLeft(), currentPlayerGetViewportTop());
-//	viSetXY(viGetFbWidth(), viGetFbHeight());
-//	viSetBuf(viGetFbWidth(), viGetFbHeight());
+//	viSetSize(viGetFbWidth(), viGetFbHeight());
+//	viSetBufSize(viGetFbWidth(), viGetFbHeight());
 //	currentPlayerUpdateColourScreenProperties();
 //	currentPlayerTickChrFade();
 //	bmoveSetAutoAimY(optionsGetAutoAim(g_Vars.currentplayerstats->mpindex));

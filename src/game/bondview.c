@@ -513,7 +513,7 @@ Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 {
-	u8 *fb = vi2GetUnk28();
+	u8 *fb = viGetFrontBuffer();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	f32 fxxx;
@@ -562,7 +562,7 @@ Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 {
-	u8 *fb = vi2GetUnk28();
+	u8 *fb = viGetFrontBuffer();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -587,7 +587,7 @@ Gfx *bviewRenderStatic(Gfx *gdl, u32 arg1, s32 arg2)
 
 Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 {
-	u8 *fb = viGetUnk28();
+	u8 *fb = viGetBackBuffer();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -632,7 +632,7 @@ Gfx *bviewRenderSlayerRocketLens(Gfx *gdl, u32 colour, u32 alpha)
 
 Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
 {
-	u8 *fb = viGetUnk28();
+	u8 *fb = viGetBackBuffer();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 y;
@@ -682,7 +682,7 @@ Gfx *bviewRenderFilmLens(Gfx *gdl, u32 colour, u32 alpha)
  */
 Gfx *bviewRenderZoomBlur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 {
-	u8 *fb = vi2GetUnk28();
+	u8 *fb = viGetFrontBuffer();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -762,7 +762,7 @@ glabel var7f1b5f48
 /*  f1439a8:	f7b80038 */ 	sdc1	$f24,0x38($sp)
 /*  f1439ac:	f7b60030 */ 	sdc1	$f22,0x30($sp)
 /*  f1439b0:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f1439b4:	0c002a18 */ 	jal	viGetUnk28
+/*  f1439b4:	0c002a18 */ 	jal	viGetBackBuffer
 /*  f1439b8:	afa70144 */ 	sw	$a3,0x144($sp)
 /*  f1439bc:	0c002e95 */ 	jal	viGetViewTop
 /*  f1439c0:	afa20134 */ 	sw	$v0,0x134($sp)
@@ -1444,7 +1444,7 @@ glabel var7f1b5f48
 /*  f142e44:	f7b80038 */ 	sdc1	$f24,0x38($sp)
 /*  f142e48:	f7b60030 */ 	sdc1	$f22,0x30($sp)
 /*  f142e4c:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f142e50:	0c002ac7 */ 	jal	viGetUnk28
+/*  f142e50:	0c002ac7 */ 	jal	viGetBackBuffer
 /*  f142e54:	afa7013c */ 	sw	$a3,0x13c($sp)
 /*  f142e58:	0c002f44 */ 	jal	viGetViewTop
 /*  f142e5c:	afa2012c */ 	sw	$v0,0x12c($sp)
@@ -14762,7 +14762,7 @@ glabel bviewRenderNvLens
 /*  f147320:	afb3003c */ 	sw	$s3,0x3c($sp)
 /*  f147324:	afb20038 */ 	sw	$s2,0x38($sp)
 /*  f147328:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f14732c:	0c002ac7 */ 	jal	viGetUnk28
+/*  f14732c:	0c002ac7 */ 	jal	viGetBackBuffer
 /*  f147330:	f7b40028 */ 	sdc1	$f20,0x28($sp)
 /*  f147334:	0c002f26 */ 	jal	viGetViewHeight
 /*  f147338:	afa2005c */ 	sw	$v0,0x5c($sp)
@@ -14922,7 +14922,7 @@ glabel bviewRenderNvLens
 // and regalloc near random().
 //Gfx *bviewRenderNvLens(Gfx *gdl)
 //{
-//	u8 *fb = viGetUnk28();
+//	u8 *fb = viGetBackBuffer();
 //	s32 viewheight = viGetViewHeight();
 //	s32 viewwidth = viGetViewWidth();
 //	s32 viewtop = viGetViewTop();
@@ -15009,7 +15009,7 @@ glabel bviewRenderIrLens
 /*  f1475a0:	afb1003c */ 	sw	$s1,0x3c($sp)
 /*  f1475a4:	afb00038 */ 	sw	$s0,0x38($sp)
 /*  f1475a8:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f1475ac:	0c002ac7 */ 	jal	viGetUnk28
+/*  f1475ac:	0c002ac7 */ 	jal	viGetBackBuffer
 /*  f1475b0:	f7b40028 */ 	sdc1	$f20,0x28($sp)
 /*  f1475b4:	0c002f26 */ 	jal	viGetViewHeight
 /*  f1475b8:	0040f025 */ 	or	$s8,$v0,$zero
@@ -15388,7 +15388,7 @@ glabel bviewRenderIrLens
 /*  f147b30:	f7b80038 */ 	sdc1	$f24,0x38($sp)
 /*  f147b34:	f7b60030 */ 	sdc1	$f22,0x30($sp)
 /*  f147b38:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f147b3c:	0c002ac7 */ 	jal	viGetUnk28
+/*  f147b3c:	0c002ac7 */ 	jal	viGetBackBuffer
 /*  f147b40:	afa5008c */ 	sw	$a1,0x8c($sp)
 /*  f147b44:	0c002f44 */ 	jal	viGetViewTop
 /*  f147b48:	0040b025 */ 	or	$s6,$v0,$zero
@@ -15523,7 +15523,7 @@ glabel bviewRenderIrLens
 /*  f141e34:	afb1003c */ 	sw	$s1,0x3c($sp)
 /*  f141e38:	afb00038 */ 	sw	$s0,0x38($sp)
 /*  f141e3c:	f7b60030 */ 	sdc1	$f22,0x30($sp)
-/*  f141e40:	0c002b27 */ 	jal	viGetUnk28
+/*  f141e40:	0c002b27 */ 	jal	viGetBackBuffer
 /*  f141e44:	f7b40028 */ 	sdc1	$f20,0x28($sp)
 /*  f141e48:	0c002f9b */ 	jal	viGetViewHeight
 /*  f141e4c:	0040f025 */ 	or	$s8,$v0,$zero
@@ -15872,7 +15872,7 @@ glabel bviewRenderIrLens
 /*  f14234c:	f7b80038 */ 	sdc1	$f24,0x38($sp)
 /*  f142350:	f7b60030 */ 	sdc1	$f22,0x30($sp)
 /*  f142354:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f142358:	0c002b27 */ 	jal	viGetUnk28
+/*  f142358:	0c002b27 */ 	jal	viGetBackBuffer
 /*  f14235c:	afa5008c */ 	sw	$a1,0x8c($sp)
 /*  f142360:	0c002fb9 */ 	jal	viGetViewTop
 /*  f142364:	0040b025 */ 	or	$s6,$v0,$zero
@@ -15998,7 +15998,7 @@ glabel bviewRenderIrLens
  */
 Gfx *bviewRenderRarePresents(Gfx *gdl)
 {
-	u8 *fb = viGetUnk28();
+	u8 *fb = viGetBackBuffer();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -16029,7 +16029,7 @@ u8 var8007f878 = 0;
 #if VERSION >= VERSION_NTSC_1_0
 Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 {
-	u8 *fb = viGetUnk28();
+	u8 *fb = viGetBackBuffer();
 	s32 viewtop = viGetViewTop();
 	s32 viewheight = viGetViewHeight();
 	s32 viewwidth = viGetViewWidth();
@@ -16075,7 +16075,7 @@ Gfx *bviewRenderHorizonScanner(Gfx *gdl)
 
 	strcpy(var800a41c0, "BinocularViewGfx");
 
-	if (!PAL && g_ViMode == VIMODE_HIRES) {
+	if (!PAL && g_ViRes == VIRES_HI) {
 		scale = 2;
 	}
 
@@ -16265,7 +16265,7 @@ glabel var7f1b04c8nb
 /*  f142654:	afb10048 */ 	sw	$s1,0x48($sp)
 /*  f142658:	afb00044 */ 	sw	$s0,0x44($sp)
 /*  f14265c:	f7b60038 */ 	sdc1	$f22,0x38($sp)
-/*  f142660:	0c002b27 */ 	jal	viGetUnk28
+/*  f142660:	0c002b27 */ 	jal	viGetBackBuffer
 /*  f142664:	f7b40030 */ 	sdc1	$f20,0x30($sp)
 /*  f142668:	0c002fb9 */ 	jal	viGetViewTop
 /*  f14266c:	afa2015c */ 	sw	$v0,0x15c($sp)

@@ -190,7 +190,7 @@ glabel func0f1766b4
 /*  f1766ec:	8dce44f0 */ 	lw	$t6,%lo(var800844f0)($t6)
 /*  f1766f0:	00409025 */ 	or	$s2,$v0,$zero
 /*  f1766f4:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f1766f8:	0c002ac7 */ 	jal	viGetUnk28
+/*  f1766f8:	0c002ac7 */ 	jal	viGetBackBuffer
 /*  f1766fc:	afae004c */ 	sw	$t6,0x4c($sp)
 /*  f176700:	3c138009 */ 	lui	$s3,%hi(g_BootBufferIndex0)
 /*  f176704:	2673fa6c */ 	addiu	$s3,$s3,%lo(g_BootBufferIndex0)
@@ -208,7 +208,7 @@ glabel func0f1766b4
 /*  f176734:	02008825 */ 	or	$s1,$s0,$zero
 /*  f176738:	ac600004 */ 	sw	$zero,0x4($v1)
 /*  f17673c:	ac760000 */ 	sw	$s6,0x0($v1)
-/*  f176740:	0c002ef1 */ 	jal	viGetBufX
+/*  f176740:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f176744:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f176748:	2459ffff */ 	addiu	$t9,$v0,-1
 /*  f17674c:	33280fff */ 	andi	$t0,$t9,0xfff
@@ -455,13 +455,13 @@ glabel func0f1766b4
 /*  f176b04:	02008825 */ 	or	$s1,$s0,$zero
 /*  f176b08:	ac8b0000 */ 	sw	$t3,0x0($a0)
 /*  f176b0c:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f176b10:	0c002ef1 */ 	jal	viGetBufX
+/*  f176b10:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f176b14:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f176b18:	244cffff */ 	addiu	$t4,$v0,-1
 /*  f176b1c:	318d0fff */ 	andi	$t5,$t4,0xfff
 /*  f176b20:	3c01ff10 */ 	lui	$at,0xff10
 /*  f176b24:	01a17025 */ 	or	$t6,$t5,$at
-/*  f176b28:	0c002ac7 */ 	jal	viGetUnk28
+/*  f176b28:	0c002ac7 */ 	jal	viGetBackBuffer
 /*  f176b2c:	ae2e0000 */ 	sw	$t6,0x0($s1)
 /*  f176b30:	3c018000 */ 	lui	$at,0x8000
 /*  f176b34:	00417821 */ 	addu	$t7,$v0,$at
@@ -543,12 +543,12 @@ glabel func0f1766b4
 //	u32 sp44;
 //	s32 i;
 //
-//	viGetUnk28();
+//	viGetBackBuffer();
 //	sp44 = (u32)func0f176668(g_BootBufferIndex0);
 //	g_BootBufferDirtyIndexes[g_BootBufferIndex0] = 1;
 //
 //	gDPPipeSync(gdl++);
-//	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufX(), OS_PHYSICAL_TO_K0(sp44));
+//	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(sp44));
 //	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, 320, 240);
 //	gDPSetCycleType(gdl++, G_CYC_COPY);
 //	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -596,7 +596,7 @@ glabel func0f1766b4
 //	gDPPipeSync(gdl++);
 //	gDPLoadSync(gdl++);
 //	gDPTileSync(gdl++);
-//	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufX(), OS_PHYSICAL_TO_K0(viGetUnk28()));
+//	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(viGetBackBuffer()));
 //	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth() * 4.0f, viGetHeight() * 4.0f);
 //	gSPSetGeometryMode(gdl++, G_ZBUFFER);
 //	gDPSetTextureFilter(gdl++, G_TF_BILERP);

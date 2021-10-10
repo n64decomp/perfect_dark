@@ -3830,8 +3830,12 @@
 #define VEHICLEMODE_ENGINESTART 1
 #define VEHICLEMODE_RUNNING     2
 
-#define VIMODE_DEFAULT 0
-#define VIMODE_HIRES   1
+#define VIMODE_NONE 0
+#define VIMODE_LO   1
+#define VIMODE_HI   2
+
+#define VIRES_LO 0
+#define VIRES_HI 1
 
 #define VISIONMODE_NORMAL       0
 #define VISIONMODE_XRAY         1

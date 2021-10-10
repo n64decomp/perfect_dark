@@ -9,7 +9,7 @@
 #define RESET_TYPE_NMI        1
 #define RESET_TYPE_BOOT_DISK  2
 
-extern u32 osTvType;
+extern s32 osTvType;
 extern u32 osRomBase;
 extern u32 osResetType;
 extern u32 osMemSize;

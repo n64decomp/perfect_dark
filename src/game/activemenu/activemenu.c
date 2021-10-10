@@ -3818,8 +3818,8 @@ glabel amRender
 GLOBAL_ASM(
 glabel amRender
 /*  f100ad0:	27bdfe28 */ 	addiu	$sp,$sp,-472
-/*  f100ad4:	3c0e8007 */ 	lui	$t6,%hi(g_ViMode)
-/*  f100ad8:	8dce06c8 */ 	lw	$t6,%lo(g_ViMode)($t6)
+/*  f100ad4:	3c0e8007 */ 	lui	$t6,%hi(g_ViRes)
+/*  f100ad8:	8dce06c8 */ 	lw	$t6,%lo(g_ViRes)($t6)
 /*  f100adc:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f100ae0:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f100ae4:	afbe0048 */ 	sw	$s8,0x48($sp)
@@ -6838,7 +6838,7 @@ glabel amRender
 //	s16 tmp2;
 //	s32 buddynum;
 //
-//	if (g_ViMode == VIMODE_HIRES) {
+//	if (g_ViRes == VIRES_HI) {
 //		g_ScaleX = 2;
 //	} else {
 //		g_ScaleX = 1;

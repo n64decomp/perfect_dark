@@ -4735,7 +4735,7 @@ s32 ciCharacterProfileMenuDialog(s32 operation, struct menudialog *dialog, union
 		g_Menus[g_MpPlayerNum].unkdc0 = 0;
 
 #if VERSION >= VERSION_PAL_FINAL
-		if (g_ViMode != VIMODE_HIRES) {
+		if (g_ViRes != VIRES_HI) {
 			x = -117;
 
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
@@ -5000,7 +5000,7 @@ s32 dtTrainingDetailsMenuDialog(s32 operation, struct menudialog *dialog, union 
 		func0f105948(weaponnum);
 
 #if VERSION >= VERSION_PAL_FINAL
-		if (g_ViMode == VIMODE_HIRES) {
+		if (g_ViRes == VIRES_HI) {
 			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
 				g_Menus[g_MpPlayerNum].unkd78 = 84;
 				g_Menus[g_MpPlayerNum].unkd50 = 84;

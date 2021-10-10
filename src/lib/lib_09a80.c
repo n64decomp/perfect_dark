@@ -19,18 +19,17 @@
 #define TO_U16_A(x) ((u16)(x))
 #define TO_U16_B(x) (x & 0xffff)
 #define TO_U16_C(x) ((u16)(x & 0xffff))
-#define TO_U16_M(x) ((x) % 0xffff)
 
-#define ADD_LOW_AND_HI_16_TRUNCATE(x32, add16) ((TO_U16_B(TO_U16_A((x32) >> 16) + (add16)) << 16) | TO_U16_B(TO_U16_A(x32) + (add16)))
-#define ADD_LOW_AND_HI_16_MOD(x32, add16)      ((TO_U16_M(TO_U16_B((x32) >> 16) + (add16)) << 16) | TO_U16_M(TO_U16_A(x32) + (add16)))
+#define ADD_LOW_AND_HI_16_TRUNCATE(reg, add) ((TO_U16_B(TO_U16_A((reg) >> 16) + (add)) << 16) | TO_U16_B(TO_U16_A(reg) + (add)))
+#define ADD_LOW_AND_HI_16_MOD(reg, add)      ((((((reg >> 16) & 0xffff) + add) % 0xffff) << 16) | (((((reg >> 0) & 0xffff) + add) % 0xffff) << 0))
 
 Mtxf var80092830;
 Mtx *var80092870;
-u16 var80092874;
-u8 var80092876;
-u8 var80092877;
+u16 g_ViPerspScale;
+u8 g_ViFrontIndex;
+u8 g_ViBackIndex;
 
-struct rend_vidat var8005d530[] = {
+struct rend_vidat g_ViDataArray[] = {
 	{
 		0, 0, 0, 0,
 		320, 220,         // x and y
@@ -58,13 +57,13 @@ struct rend_vidat var8005d530[] = {
 	},
 };
 
-u32 var8005d588 = 0;
-u32 var8005d58c = 0;
-struct rend_vidat *var8005d590 = &var8005d530[0];
-struct rend_vidat *g_ViData = &var8005d530[0];
+s32 var8005d588 = 0;
+s32 var8005d58c = 0;
+struct rend_vidat *g_ViFrontData = &g_ViDataArray[0];
+struct rend_vidat *g_ViBackData = &g_ViDataArray[0];
 bool g_ViIs16Bit = true;
-s32 var8005d59c = 0;
-u32 var8005d5a0 = 0x00000000;
+bool g_ViReconfigured = false;
+s32 g_ViSlot = 0;
 
 void vi00009a80(void)
 {
@@ -96,23 +95,23 @@ Gfx *viRenderDebug(Gfx *gdl)
 	return gdl;
 }
 
-void vi00009ab0(void)
+void viConfigureForLogos(void)
 {
-	var80092876 = 0;
-	var80092877 = 1;
+	g_ViFrontIndex = 0;
+	g_ViBackIndex = 1;
 
-	var8005d590 = var8005d530 + var80092876;
-	g_ViData = var8005d530 + var80092877;
+	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
+	g_ViBackData = g_ViDataArray + g_ViBackIndex;
 
 #if VERSION >= VERSION_PAL_FINAL
 	if (IS4MB()) {
-		var8005d530[0].y = 220;
-		var8005d530[0].bufy = 220;
-		var8005d530[0].viewy = 220;
+		g_ViDataArray[0].y = 220;
+		g_ViDataArray[0].bufy = 220;
+		g_ViDataArray[0].viewy = 220;
 
-		var8005d530[1].y = 220;
-		var8005d530[1].bufy = 220;
-		var8005d530[1].viewy = 220;
+		g_ViDataArray[1].y = 220;
+		g_ViDataArray[1].bufy = 220;
+		g_ViDataArray[1].viewy = 220;
 
 		var8005d588 = 0;
 		var8005d58c = 0;
@@ -125,67 +124,82 @@ void vi00009ab0(void)
 	var8005d58c = 0;
 
 	if (IS4MB()) {
-		var8005d530[0].y = 220;
-		var8005d530[0].bufy = 220;
-		var8005d530[0].viewy = 220;
+		g_ViDataArray[0].y = 220;
+		g_ViDataArray[0].bufy = 220;
+		g_ViDataArray[0].viewy = 220;
 
-		var8005d530[1].y = 220;
-		var8005d530[1].bufy = 220;
-		var8005d530[1].viewy = 220;
+		g_ViDataArray[1].y = 220;
+		g_ViDataArray[1].bufy = 220;
+		g_ViDataArray[1].viewy = 220;
 	}
 #endif
 }
 
-void vi00009b50(u8 *fb)
+/**
+ * Configure the VI to display a banner texture.
+ *
+ * The banner texture is the first thing displayed after power on.
+ * It is either the copyright notice, or the "Accessing Pak" message
+ * if holding start to enter the boot pak menu.
+ *
+ * Both textures are 576 x 48.
+ */
+void viConfigureForBanner(u8 *texturedata)
 {
 	s32 i;
 
 	for (i = 0; i < 2; i++) {
-		var8009cac0[i] = fb;
+		g_FrameBuffers[i] = texturedata;
 
-		var8005d530[i].x = 576;
-		var8005d530[i].bufx = 576;
-		var8005d530[i].viewx = (VERSION >= VERSION_NTSC_1_0 ? 576 : 480);
+		g_ViDataArray[i].x = 576;
+		g_ViDataArray[i].bufx = 576;
+		g_ViDataArray[i].viewx = (VERSION >= VERSION_NTSC_1_0 ? 576 : 480);
 
-		var8005d530[i].y = 48;
-		var8005d530[i].bufy = 48;
-		var8005d530[i].viewy = 48;
+		g_ViDataArray[i].y = 48;
+		g_ViDataArray[i].bufy = 48;
+		g_ViDataArray[i].viewy = 48;
 	}
 
-	var8005d590->fb = var8009cac0[var80092876];
-	g_ViData->fb = var8009cac0[var80092877];
+	g_ViFrontData->fb = g_FrameBuffers[g_ViFrontIndex];
+	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
 
-	var8005d59c = 1;
+	g_ViReconfigured = true;
 	g_Vars.fourmeg2player = false;
 }
 
-void vi00009bf8(void)
+/**
+ * Configure the VI to display the legal screen.
+ *
+ * It's also used for the "check controllers" message
+ * if controller 1 is not connected.
+ */
+void viConfigureForLegal(void)
 {
 	s32 i;
 
 	for (i = 0; i < 2; i++) {
-		var8005d530[i].x = 320;
-		var8005d530[i].bufx = 320;
-		var8005d530[i].viewx = 320;
+		g_ViDataArray[i].x = 320;
+		g_ViDataArray[i].bufx = 320;
+		g_ViDataArray[i].viewx = 320;
 
-		var8005d530[i].y = 220;
-		var8005d530[i].bufy = 220;
-		var8005d530[i].viewy = 220;
+		g_ViDataArray[i].y = 220;
+		g_ViDataArray[i].bufy = 220;
+		g_ViDataArray[i].viewy = 220;
 	}
 
 	g_Vars.fourmeg2player = false;
 
 #if VERSION >= VERSION_PAL_FINAL
-	viResetDefaultModeIf4Mb();
+	viResetLoResIf4Mb();
 #endif
 }
 
-const s16 var700526d0[] = {320, 320, 640};
+const s16 g_ViModeWidths[] = {320, 320, 640};
 
 #if PAL
-const s16 var700526d8[] = {220, 220, 504};
+const s16 g_ViModeHeights[] = {220, 220, 504};
 #else
-const s16 var700526d8[] = {220, 220, 440};
+const s16 g_ViModeHeights[] = {220, 220, 440};
 #endif
 
 /**
@@ -210,14 +224,14 @@ void viAllocateFbs(s32 stagenum)
 
 	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
 		if (IS4MB()) {
-			vi0000aab0(2);
+			viSetMode(VIMODE_HI);
 			fbsize = 640 * 440 * 2;
 		} else {
-			vi0000aab0(2);
-			fbsize = var700526d0[2] * var700526d8[2] * 2;
+			viSetMode(VIMODE_HI);
+			fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * 2;
 		}
 	} else {
-		vi0000aab0(1);
+		viSetMode(VIMODE_LO);
 
 		if (1);
 
@@ -239,21 +253,21 @@ void viAllocateFbs(s32 stagenum)
 
 	ptr = (u8 *)(((u32)ptr + 0x3f) & 0xffffffc0);
 
-	var8009cac0[0] = &ptr[0];
-	var8009cac0[1] = fbsize + ptr;
+	g_FrameBuffers[0] = &ptr[0];
+	g_FrameBuffers[1] = fbsize + ptr;
 
-	var8005d590->fb = var8009cac0[var80092876];
-	g_ViData->fb = var8009cac0[var80092877];
+	g_ViFrontData->fb = g_FrameBuffers[g_ViFrontIndex];
+	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
 
-	fb0 = var8009cac0[0];
-	fb1 = var8009cac0[1];
+	fb0 = g_FrameBuffers[0];
+	fb1 = g_FrameBuffers[1];
 
 	for (i = 0; i < fbsize; i++) {
 		fb0[i] = 0;
 		fb1[i] = 0;
 	}
 
-	var8005d59c = 1;
+	g_ViReconfigured = true;
 }
 
 /**
@@ -272,29 +286,29 @@ void viBlack(bool black)
 void vi00009ed4(void)
 {
 	s32 prevmask;
-	s32 value;
-	s32 tmp;
+	s32 offset;
+	s32 reg;
 
-	if (var8005ce9c != 0) {
-		var8005ce9c--;
+	if (g_ViShakeTimer != 0) {
+		g_ViShakeTimer--;
 
-		if (var8005ce9c == 0) {
-			var8005ce98 = 0;
+		if (g_ViShakeTimer == 0) {
+			g_ViShakeIntensity = 0;
 		}
 	}
 
-	value = var8005ce94 * var8005ce98;
-	var8005ce94 = -var8005ce94;
+	offset = g_ViShakeDirection * g_ViShakeIntensity;
+	g_ViShakeDirection = -g_ViShakeDirection;
 
 #if VERSION >= VERSION_NTSC_1_0
 	prevmask = osSetIntMask(1);
 #endif
 
-	tmp = var8008de0c;
-	var8008dd60[1 - var8005ce74]->fldRegs[0].vStart = ADD_LOW_AND_HI_16_TRUNCATE(tmp, value);
+	reg = var8008de0c;
+	var8008dd60[1 - var8005ce74]->fldRegs[0].vStart = ADD_LOW_AND_HI_16_TRUNCATE(reg, offset);
 
-	tmp = var8008de10;
-	var8008dd60[1 - var8005ce74]->fldRegs[1].vStart = ADD_LOW_AND_HI_16_TRUNCATE(tmp, value);
+	reg = var8008de10;
+	var8008dd60[1 - var8005ce74]->fldRegs[1].vStart = ADD_LOW_AND_HI_16_TRUNCATE(reg, offset);
 
 #if VERSION >= VERSION_NTSC_1_0
 	osSetIntMask(prevmask);
@@ -302,14 +316,14 @@ void vi00009ed4(void)
 
 	osViSetMode(var8008dd60[1 - var8005ce74]);
 	osViBlack(g_ViUnblackTimer);
-	osViSetXScale(var8005ce78[1 - var8005ce74]);
-	osViSetYScale(var8005ce80[1 - var8005ce74]);
+	osViSetXScale(g_ViXScalesBySlot[1 - var8005ce74]);
+	osViSetYScale(g_ViYScalesBySlot[1 - var8005ce74]);
 	osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON);
 }
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel vi0000a044
+glabel viUpdateMode
 /*     9f64:	3c098006 */ 	lui	$t1,0x8006
 /*     9f68:	3c0e8006 */ 	lui	$t6,0x8006
 /*     9f6c:	8dced230 */ 	lw	$t6,-0x2dd0($t6)
@@ -884,11 +898,11 @@ glabel vi0000a044
 );
 #else
 GLOBAL_ASM(
-glabel vi0000a044
-/*     a044:	3c098006 */ 	lui	$t1,%hi(g_ViData)
-/*     a048:	3c0e8006 */ 	lui	$t6,%hi(var8005d590)
-/*     a04c:	8dced590 */ 	lw	$t6,%lo(var8005d590)($t6)
-/*     a050:	8d29d594 */ 	lw	$t1,%lo(g_ViData)($t1)
+glabel viUpdateMode
+/*     a044:	3c098006 */ 	lui	$t1,%hi(g_ViBackData)
+/*     a048:	3c0e8006 */ 	lui	$t6,%hi(g_ViFrontData)
+/*     a04c:	8dced590 */ 	lw	$t6,%lo(g_ViFrontData)($t6)
+/*     a050:	8d29d594 */ 	lw	$t1,%lo(g_ViBackData)($t1)
 /*     a054:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     a058:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     a05c:	91cf0000 */ 	lbu	$t7,0x0($t6)
@@ -911,8 +925,8 @@ glabel vi0000a044
 /*     a09c:	00000000 */ 	nop
 /*     a0a0:	0c012338 */ 	jal	osViBlack
 /*     a0a4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     a0a8:	3c098006 */ 	lui	$t1,%hi(g_ViData)
-/*     a0ac:	8d29d594 */ 	lw	$t1,%lo(g_ViData)($t1)
+/*     a0a8:	3c098006 */ 	lui	$t1,%hi(g_ViBackData)
+/*     a0ac:	8d29d594 */ 	lw	$t1,%lo(g_ViBackData)($t1)
 /*     a0b0:	91230000 */ 	lbu	$v1,0x0($t1)
 .L0000a0b4:
 /*     a0b4:	85380004 */ 	lh	$t8,0x4($t1)
@@ -928,7 +942,7 @@ glabel vi0000a044
 /*     a0d8:	24040002 */ 	addiu	$a0,$zero,0x2
 /*     a0dc:	241f0001 */ 	addiu	$ra,$zero,0x1
 /*     a0e0:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*     a0e4:	3c0b8006 */ 	lui	$t3,%hi(var8005d5a0)
+/*     a0e4:	3c0b8006 */ 	lui	$t3,%hi(g_ViSlot)
 /*     a0e8:	3c013f80 */ 	lui	$at,0x3f80
 /*     a0ec:	468084a0 */ 	cvt.s.w	$f18,$f16
 /*     a0f0:	46802220 */ 	cvt.s.w	$f8,$f4
@@ -938,14 +952,14 @@ glabel vi0000a044
 /*     a100:	44810000 */ 	mtc1	$at,$f0
 /*     a104:	00000000 */ 	nop
 .L0000a108:
-/*     a108:	8d6bd5a0 */ 	lw	$t3,%lo(var8005d5a0)($t3)
-/*     a10c:	3c018006 */ 	lui	$at,%hi(var8005ce78)
+/*     a108:	8d6bd5a0 */ 	lw	$t3,%lo(g_ViSlot)($t3)
+/*     a10c:	3c018006 */ 	lui	$at,%hi(g_ViXScalesBySlot)
 /*     a110:	000b6080 */ 	sll	$t4,$t3,0x2
 /*     a114:	002c0821 */ 	addu	$at,$at,$t4
-/*     a118:	e422ce78 */ 	swc1	$f2,%lo(var8005ce78)($at)
-/*     a11c:	3c018006 */ 	lui	$at,%hi(var8005ce80)
+/*     a118:	e422ce78 */ 	swc1	$f2,%lo(g_ViXScalesBySlot)($at)
+/*     a11c:	3c018006 */ 	lui	$at,%hi(g_ViYScalesBySlot)
 /*     a120:	002c0821 */ 	addu	$at,$at,$t4
-/*     a124:	e420ce80 */ 	swc1	$f0,%lo(var8005ce80)($at)
+/*     a124:	e420ce80 */ 	swc1	$f0,%lo(g_ViYScalesBySlot)($at)
 /*     a128:	91230000 */ 	lbu	$v1,0x0($t1)
 /*     a12c:	17e30101 */ 	bne	$ra,$v1,.L0000a534
 /*     a130:	00000000 */ 	nop
@@ -1220,14 +1234,14 @@ glabel vi0000a044
 .L0000a50c:
 /*     a50c:	0000c010 */ 	mfhi	$t8
 /*     a510:	03381025 */ 	or	$v0,$t9,$t8
-/*     a514:	3c018006 */ 	lui	$at,%hi(var8005ce88)
+/*     a514:	3c018006 */ 	lui	$at,%hi(g_SchedViModesPending)
 /*     a518:	ac820030 */ 	sw	$v0,0x30($a0)
 /*     a51c:	ada20000 */ 	sw	$v0,0x0($t5)
 /*     a520:	ac820044 */ 	sw	$v0,0x44($a0)
 /*     a524:	afe20000 */ 	sw	$v0,0x0($ra)
 /*     a528:	002c0821 */ 	addu	$at,$at,$t4
 /*     a52c:	100000f6 */ 	b	.L0000a908
-/*     a530:	ac2fce88 */ 	sw	$t7,%lo(var8005ce88)($at)
+/*     a530:	ac2fce88 */ 	sw	$t7,%lo(g_SchedViModesPending)($at)
 .L0000a534:
 /*     a534:	148300ef */ 	bne	$a0,$v1,.L0000a8f4
 /*     a538:	3c0e8000 */ 	lui	$t6,0x8000
@@ -1487,18 +1501,18 @@ glabel vi0000a044
 /*     a8d4:	00000000 */ 	nop
 /*     a8d8:	0006000d */ 	break	0x6
 .L0000a8dc:
-/*     a8dc:	3c018006 */ 	lui	$at,%hi(var8005ce88)
+/*     a8dc:	3c018006 */ 	lui	$at,%hi(g_SchedViModesPending)
 /*     a8e0:	002c0821 */ 	addu	$at,$at,$t4
 /*     a8e4:	24180001 */ 	addiu	$t8,$zero,0x1
-/*     a8e8:	ac38ce88 */ 	sw	$t8,%lo(var8005ce88)($at)
+/*     a8e8:	ac38ce88 */ 	sw	$t8,%lo(g_SchedViModesPending)($at)
 /*     a8ec:	10000006 */ 	b	.L0000a908
 /*     a8f0:	8d4ad598 */ 	lw	$t2,%lo(g_ViIs16Bit)($t2)
 .L0000a8f4:
-/*     a8f4:	3c018006 */ 	lui	$at,%hi(var8005ce88)
+/*     a8f4:	3c018006 */ 	lui	$at,%hi(g_SchedViModesPending)
 /*     a8f8:	002c0821 */ 	addu	$at,$at,$t4
 /*     a8fc:	3c0a8006 */ 	lui	$t2,%hi(g_ViIs16Bit)
 /*     a900:	8d4ad598 */ 	lw	$t2,%lo(g_ViIs16Bit)($t2)
-/*     a904:	ac20ce88 */ 	sw	$zero,%lo(var8005ce88)($at)
+/*     a904:	ac20ce88 */ 	sw	$zero,%lo(g_SchedViModesPending)($at)
 .L0000a908:
 /*     a908:	256b0001 */ 	addiu	$t3,$t3,0x1
 /*     a90c:	05610004 */ 	bgez	$t3,.L0000a920
@@ -1507,33 +1521,33 @@ glabel vi0000a044
 /*     a918:	00000000 */ 	nop
 /*     a91c:	25cefffe */ 	addiu	$t6,$t6,-2
 .L0000a920:
-/*     a920:	3c018006 */ 	lui	$at,%hi(var8005d5a0)
+/*     a920:	3c018006 */ 	lui	$at,%hi(g_ViSlot)
 /*     a924:	11400006 */ 	beqz	$t2,.L0000a940
-/*     a928:	ac2ed5a0 */ 	sw	$t6,%lo(var8005d5a0)($at)
+/*     a928:	ac2ed5a0 */ 	sw	$t6,%lo(g_ViSlot)($at)
 /*     a92c:	3c0f8006 */ 	lui	$t7,%hi(g_RdpCurTask)
 /*     a930:	8deff108 */ 	lw	$t7,%lo(g_RdpCurTask)($t7)
 /*     a934:	8d390028 */ 	lw	$t9,0x28($t1)
 /*     a938:	10000006 */ 	b	.L0000a954
 /*     a93c:	adf90058 */ 	sw	$t9,0x58($t7)
 .L0000a940:
-/*     a940:	3c18800a */ 	lui	$t8,%hi(var8009cac0)
+/*     a940:	3c18800a */ 	lui	$t8,%hi(g_FrameBuffers)
 /*     a944:	3c0e8006 */ 	lui	$t6,%hi(g_RdpCurTask)
 /*     a948:	8dcef108 */ 	lw	$t6,%lo(g_RdpCurTask)($t6)
-/*     a94c:	8f18cac0 */ 	lw	$t8,%lo(var8009cac0)($t8)
+/*     a94c:	8f18cac0 */ 	lw	$t8,%lo(g_FrameBuffers)($t8)
 /*     a950:	add80058 */ 	sw	$t8,0x58($t6)
 .L0000a954:
-/*     a954:	3c028009 */ 	lui	$v0,%hi(var80092874+0x2)
-/*     a958:	24422876 */ 	addiu	$v0,$v0,%lo(var80092874+0x2)
+/*     a954:	3c028009 */ 	lui	$v0,%hi(g_ViPerspScale+0x2)
+/*     a958:	24422876 */ 	addiu	$v0,$v0,%lo(g_ViPerspScale+0x2)
 /*     a95c:	90590000 */ 	lbu	$t9,0x0($v0)
-/*     a960:	3c048006 */ 	lui	$a0,%hi(g_ViData)
-/*     a964:	8c84d594 */ 	lw	$a0,%lo(g_ViData)($a0)
+/*     a960:	3c048006 */ 	lui	$a0,%hi(g_ViBackData)
+/*     a964:	8c84d594 */ 	lw	$a0,%lo(g_ViBackData)($a0)
 /*     a968:	272f0001 */ 	addiu	$t7,$t9,0x1
-/*     a96c:	3c038009 */ 	lui	$v1,%hi(var80092874+0x3)
+/*     a96c:	3c038009 */ 	lui	$v1,%hi(g_ViPerspScale+0x3)
 /*     a970:	2408002c */ 	addiu	$t0,$zero,0x2c
-/*     a974:	24632877 */ 	addiu	$v1,$v1,%lo(var80092874+0x3)
+/*     a974:	24632877 */ 	addiu	$v1,$v1,%lo(g_ViPerspScale+0x3)
 /*     a978:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*     a97c:	3c078006 */ 	lui	$a3,%hi(var8005d530)
-/*     a980:	24e7d530 */ 	addiu	$a3,$a3,%lo(var8005d530)
+/*     a97c:	3c078006 */ 	lui	$a3,%hi(g_ViDataArray)
+/*     a980:	24e7d530 */ 	addiu	$a3,$a3,%lo(g_ViDataArray)
 /*     a984:	05e10004 */ 	bgez	$t7,.L0000a998
 /*     a988:	31f80001 */ 	andi	$t8,$t7,0x1
 /*     a98c:	13000002 */ 	beqz	$t8,.L0000a998
@@ -1551,31 +1565,31 @@ glabel vi0000a044
 .L0000a9b8:
 /*     a9b8:	03080019 */ 	multu	$t8,$t0
 /*     a9bc:	a06f0000 */ 	sb	$t7,0x0($v1)
-/*     a9c0:	3c018006 */ 	lui	$at,%hi(var8005d590)
-/*     a9c4:	3c058006 */ 	lui	$a1,%hi(g_ViData)
+/*     a9c0:	3c018006 */ 	lui	$at,%hi(g_ViFrontData)
+/*     a9c4:	3c058006 */ 	lui	$a1,%hi(g_ViBackData)
 /*     a9c8:	2406002c */ 	addiu	$a2,$zero,0x2c
 /*     a9cc:	00007012 */ 	mflo	$t6
 /*     a9d0:	00eec821 */ 	addu	$t9,$a3,$t6
-/*     a9d4:	ac39d590 */ 	sw	$t9,%lo(var8005d590)($at)
+/*     a9d4:	ac39d590 */ 	sw	$t9,%lo(g_ViFrontData)($at)
 /*     a9d8:	906f0000 */ 	lbu	$t7,0x0($v1)
-/*     a9dc:	3c018006 */ 	lui	$at,%hi(g_ViData)
+/*     a9dc:	3c018006 */ 	lui	$at,%hi(g_ViBackData)
 /*     a9e0:	01e80019 */ 	multu	$t7,$t0
 /*     a9e4:	0000c012 */ 	mflo	$t8
 /*     a9e8:	00f87021 */ 	addu	$t6,$a3,$t8
-/*     a9ec:	ac2ed594 */ 	sw	$t6,%lo(g_ViData)($at)
+/*     a9ec:	ac2ed594 */ 	sw	$t6,%lo(g_ViBackData)($at)
 /*     a9f0:	0c012c5c */ 	jal	bcopy
-/*     a9f4:	8ca5d594 */ 	lw	$a1,%lo(g_ViData)($a1)
-/*     a9f8:	3c038009 */ 	lui	$v1,%hi(var80092874+0x3)
-/*     a9fc:	24632877 */ 	addiu	$v1,$v1,%lo(var80092874+0x3)
+/*     a9f4:	8ca5d594 */ 	lw	$a1,%lo(g_ViBackData)($a1)
+/*     a9f8:	3c038009 */ 	lui	$v1,%hi(g_ViPerspScale+0x3)
+/*     a9fc:	24632877 */ 	addiu	$v1,$v1,%lo(g_ViPerspScale+0x3)
 /*     aa00:	90790000 */ 	lbu	$t9,0x0($v1)
-/*     aa04:	3c18800a */ 	lui	$t8,%hi(var8009cac0)
-/*     aa08:	3c0e8006 */ 	lui	$t6,%hi(g_ViData)
+/*     aa04:	3c18800a */ 	lui	$t8,%hi(g_FrameBuffers)
+/*     aa08:	3c0e8006 */ 	lui	$t6,%hi(g_ViBackData)
 /*     aa0c:	00197880 */ 	sll	$t7,$t9,0x2
 /*     aa10:	030fc021 */ 	addu	$t8,$t8,$t7
-/*     aa14:	8f18cac0 */ 	lw	$t8,%lo(var8009cac0)($t8)
-/*     aa18:	8dced594 */ 	lw	$t6,%lo(g_ViData)($t6)
-/*     aa1c:	3c028006 */ 	lui	$v0,%hi(var8005d59c)
-/*     aa20:	2442d59c */ 	addiu	$v0,$v0,%lo(var8005d59c)
+/*     aa14:	8f18cac0 */ 	lw	$t8,%lo(g_FrameBuffers)($t8)
+/*     aa18:	8dced594 */ 	lw	$t6,%lo(g_ViBackData)($t6)
+/*     aa1c:	3c028006 */ 	lui	$v0,%hi(g_ViReconfigured)
+/*     aa20:	2442d59c */ 	addiu	$v0,$v0,%lo(g_ViReconfigured)
 /*     aa24:	add80028 */ 	sw	$t8,0x28($t6)
 /*     aa28:	8c590000 */ 	lw	$t9,0x0($v0)
 /*     aa2c:	53200005 */ 	beqzl	$t9,.L0000aa44
@@ -1591,26 +1605,182 @@ glabel vi0000a044
 );
 #endif
 
-void vi0000aa50(f32 arg0)
+// Mismatch: Different codegen near reg usage
+//void viUpdateMode(void)
+//{
+//	struct rend_vidat *prevdata;
+//	f32 x;
+//	f32 y;
+//	s32 reg;
+//	s32 v1;
+//	s32 tmp;
+//
+//	if (g_ViBackData->mode != g_ViFrontData->mode) {
+//		switch (g_ViBackData->mode) {
+//		case 0:
+//			osViSetYScale(1);
+//			osViBlack(true);
+//			break;
+//		case 1:
+//			break;
+//		case 2:
+//			break;
+//		}
+//	}
+//
+//	x = (f32)g_ViBackData->x / (f32)g_ViBackData->bufx;
+//	y = (f32)g_ViBackData->y / (f32)g_ViBackData->bufy;
+//
+//	if (g_ViBackData->mode == VIMODE_NONE) {
+//		y = 1;
+//	}
+//
+//	g_ViXScalesBySlot[g_ViSlot] = x;
+//	g_ViYScalesBySlot[g_ViSlot] = y;
+//
+//	// 12c
+//	if (g_ViBackData->mode == VIMODE_LO) {
+//		if (g_ViIs16Bit) {
+//			if (osTvType == OS_TV_MPAL) {
+//				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_MPAL_LAN1];
+//			} else {
+//				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_NTSC_LAN1];
+//			}
+//		} else {
+//			if (osTvType == OS_TV_MPAL) {
+//				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_MPAL_LAN2];
+//			} else {
+//				var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_NTSC_LAN2];
+//			}
+//		}
+//
+//		var8008dcc0[g_ViSlot].comRegs.width = g_ViBackData->bufx;
+//		var8008dcc0[g_ViSlot].comRegs.xScale = g_ViBackData->bufx * 1024 / 640;
+//		var8008dcc0[g_ViSlot].fldRegs[0].origin = g_ViBackData->bufx * 2;
+//		var8008dcc0[g_ViSlot].fldRegs[1].origin = g_ViBackData->bufx * 2;
+//
+//		// 324
+//		if (IS4MB()) {
+//			var8008dcc0[g_ViSlot].fldRegs[0].yScale = 1024;
+//			var8008dcc0[g_ViSlot].fldRegs[1].yScale = 1024;
+//		} else {
+//			var8008dcc0[g_ViSlot].fldRegs[0].yScale = g_ViBackData->bufy * 2048 / 440;
+//			var8008dcc0[g_ViSlot].fldRegs[1].yScale = g_ViBackData->bufy * 2048 / 440;
+//		}
+//
+//		// 3ac
+//		reg = var8008dcc0[g_ViSlot].comRegs.hStart;
+//		reg = ADD_LOW_AND_HI_16_MOD(reg, var8005d588);
+//		var8008dcc0[g_ViSlot].comRegs.hStart = reg;
+//		var8008dcc0[g_ViSlot].fldRegs[0].vStart = reg;
+//		var8008dcc0[g_ViSlot].fldRegs[1].vStart = reg;
+//		var8008de08 = reg;
+//
+//		v1 = g_ViBackData->bufy * 1024 / var8008dcc0[g_ViSlot].fldRegs[0].yScale;
+//
+//		// 458
+//		if (v1 > 300) {
+//			v1 >>= 1;
+//		}
+//
+//		tmp = 277 - v1;
+//		reg = ((tmp + 2) << 16) | (tmp + ((v1 - 2) * 2) + 2);
+//		reg = ADD_LOW_AND_HI_16_MOD(reg, var8005d58c);
+//		var8008de0c = reg;
+//		var8008de10 = reg;
+//
+//		g_SchedViModesPending[g_ViSlot] = true;
+//	} else /*534*/ if (g_ViBackData->mode == VIMODE_HI) {
+//		if (osTvType == OS_TV_MPAL) {
+//			var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_MPAL_HAF1];
+//		} else {
+//			var8008dcc0[g_ViSlot] = osViModeTable[OS_VI_NTSC_HAF1];
+//		}
+//
+//		var8008dcc0[g_ViSlot].comRegs.width = g_ViBackData->bufx;
+//		var8008dcc0[g_ViSlot].comRegs.xScale = g_ViBackData->bufx * 1024 / 640;
+//		var8008dcc0[g_ViSlot].fldRegs[0].yScale = 2048;
+//		var8008dcc0[g_ViSlot].fldRegs[1].yScale = 2048;
+//		var8008dcc0[g_ViSlot].fldRegs[0].origin = g_ViBackData->bufx * 2;
+//		var8008dcc0[g_ViSlot].fldRegs[1].origin = g_ViBackData->bufx * 4;
+//
+//		reg = var8008dcc0[g_ViSlot].comRegs.hStart;
+//		reg = ADD_LOW_AND_HI_16_MOD(reg, var8005d588);
+//		var8008dcc0[g_ViSlot].comRegs.hStart = reg;
+//		var8008de08 = reg;
+//
+//		reg = var8008dcc0[g_ViSlot].fldRegs[0].vStart;
+//		reg = ADD_LOW_AND_HI_16_MOD(reg, var8005d58c);
+//		var8008dcc0[g_ViSlot].fldRegs[0].vStart = reg;
+//		var8008de0c = reg;
+//
+//		reg = var8008dcc0[g_ViSlot].fldRegs[1].vStart;
+//		reg = ADD_LOW_AND_HI_16_MOD(reg, var8005d58c);
+//		var8008dcc0[g_ViSlot].fldRegs[1].vStart = reg;
+//		var8008de10 = reg;
+//
+//		// 7f8
+//		if (var8005dd18) {
+//			reg = var8005d58c;
+//			reg = (reg + 431) % 0xffff << 16 | (reg + 123) % 0xffff;
+//			var8008dcc0[g_ViSlot].fldRegs[0].vStart = reg;
+//			var8008de0c = reg;
+//
+//			reg = var8005d58c;
+//			reg = (reg + 433) % 0xffff << 16 | (reg + 121) % 0xffff;
+//			var8008dcc0[g_ViSlot].fldRegs[1].vStart = reg;
+//			var8008de10 = reg;
+//		}
+//
+//		g_SchedViModesPending[g_ViSlot] = true;
+//	} else {
+//		// 8f4
+//		g_SchedViModesPending[g_ViSlot] = false;
+//	}
+//
+//	// 908
+//	g_ViSlot = (g_ViSlot + 1) % 2;
+//
+//	g_RdpCurTask->framebuffer = g_ViIs16Bit ? g_ViBackData->fb : g_FrameBuffers[0];
+//
+//	prevdata = g_ViBackData;
+//
+//	g_ViFrontIndex = (g_ViFrontIndex + 1) % 2;
+//	g_ViBackIndex = (g_ViBackIndex + 1) % 2;
+//
+//	g_ViFrontData = g_ViDataArray + g_ViFrontIndex;
+//	g_ViBackData = g_ViDataArray + g_ViBackIndex;
+//
+//	bcopy(prevdata, g_ViBackData, sizeof(g_ViBackData));
+//
+//	g_ViBackData->fb = g_FrameBuffers[g_ViBackIndex];
+//
+//	if (g_ViReconfigured) {
+//		g_ViReconfigured = false;
+//		viBlack(false);
+//	}
+//}
+
+void viShake(f32 intensity)
 {
-	if (arg0 > 14) {
-		arg0 = 14;
+	if (intensity > 14) {
+		intensity = 14;
 	}
 
-	if (arg0 < 0) {
-		arg0 = 0;
+	if (intensity < 0) {
+		intensity = 0;
 	}
 
-	var8005ce98 = arg0;
-	var8005ce9c = 10;
+	g_ViShakeIntensity = intensity;
+	g_ViShakeTimer = 10;
 }
 
-void vi0000aab0(s32 mode)
+void viSetMode(s32 mode)
 {
-	g_ViData->mode = mode;
+	g_ViBackData->mode = mode;
 
-	g_ViData->x = g_ViData->bufx = var700526d0[mode];
-	g_ViData->y = g_ViData->bufy = var700526d8[mode];
+	g_ViBackData->x = g_ViBackData->bufx = g_ViModeWidths[mode];
+	g_ViBackData->y = g_ViBackData->bufy = g_ViModeHeights[mode];
 }
 
 void viSet16Bit(void)
@@ -1623,29 +1793,29 @@ void viSet32Bit(void)
 	g_ViIs16Bit = false;
 }
 
-u8 *viGetUnk28(void)
+u8 *viGetBackBuffer(void)
 {
-	return g_ViData->fb;
+	return g_ViBackData->fb;
 }
 
-u8 *vi2GetUnk28(void)
+u8 *viGetFrontBuffer(void)
 {
-	return var8005d590->fb;
+	return g_ViFrontData->fb;
 }
 
-void viSetUnk28(u8 *fb)
+void viSetBackBuffer(u8 *fb)
 {
-	g_ViData->fb = fb;
+	g_ViBackData->fb = fb;
 }
 
 Vp *viGetCurrentPlayerViewport(void)
 {
-	return &g_Vars.currentplayer->viewport[var80092877];
+	return &g_Vars.currentplayer->viewport[g_ViBackIndex];
 }
 
-u16 vi0000ab6c(void)
+u16 viGetPerspScale(void)
 {
-	return var80092874;
+	return g_ViPerspScale;
 }
 
 Gfx *vi0000ab78(Gfx *gdl)
@@ -1658,7 +1828,7 @@ Gfx *vi0000ab78(Gfx *gdl)
 	Mtx *sp48;
 	u16 sp46;
 
-	guPerspectiveF(sp110.m, &sp46, g_ViData->fovy, g_ViData->aspect, g_ViData->znear, g_ViData->zfar + g_ViData->zfar, 1);
+	guPerspectiveF(sp110.m, &sp46, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar + g_ViBackData->zfar, 1);
 	func00015d18(currentPlayerGetMatrix1740(), &sp90);
 
 	sp90.m[3][0] = 0;
@@ -1686,7 +1856,7 @@ Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar)
 	Mtxf tmp;
 	Mtx *mtx = gfxAllocateMatrix();
 
-	guPerspectiveF(tmp.m, &scale, g_ViData->fovy, g_ViData->aspect, znear, zfar, 1);
+	guPerspectiveF(tmp.m, &scale, g_ViBackData->fovy, g_ViBackData->aspect, znear, zfar, 1);
 	guMtxF2L(tmp.m, mtx);
 
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -1697,20 +1867,20 @@ Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar)
 
 Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 {
-	vp[var80092877].vp.vscale[0] = g_ViData->viewx * 2;
-	vp[var80092877].vp.vtrans[0] = g_ViData->viewx * 2 + g_ViData->viewleft * 4;
+	vp[g_ViBackIndex].vp.vscale[0] = g_ViBackData->viewx * 2;
+	vp[g_ViBackIndex].vp.vtrans[0] = g_ViBackData->viewx * 2 + g_ViBackData->viewleft * 4;
 
-	vp[var80092877].vp.vscale[1] = g_ViData->viewy * 2;
-	vp[var80092877].vp.vtrans[1] = g_ViData->viewy * 2 + g_ViData->viewtop * 4;
+	vp[g_ViBackIndex].vp.vscale[1] = g_ViBackData->viewy * 2;
+	vp[g_ViBackIndex].vp.vtrans[1] = g_ViBackData->viewy * 2 + g_ViBackData->viewtop * 4;
 
-	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&vp[var80092877]));
+	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&vp[g_ViBackIndex]));
 
 	var80092870 = gfxAllocateMatrix();
-	guPerspectiveF(var80092830.m, &var80092874, g_ViData->fovy, g_ViData->aspect, g_ViData->znear, g_ViData->zfar, 1);
+	guPerspectiveF(var80092830.m, &g_ViPerspScale, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar, 1);
 	guMtxF2L(var80092830.m, var80092870);
 
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-	gSPPerspNormalize(gdl++, var80092874);
+	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
 	currentPlayerSetUnk1750(var80092870);
 	currentPlayerSetUnk1754(&var80092830);
@@ -1720,26 +1890,26 @@ Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 
 Gfx *vi0000af00(Gfx *gdl, Vp *vp)
 {
-	vp[var80092877].vp.vscale[0] = g_ViData->viewx * 2;
-	vp[var80092877].vp.vtrans[0] = g_ViData->viewx * 2 + g_ViData->viewleft * 4;
+	vp[g_ViBackIndex].vp.vscale[0] = g_ViBackData->viewx * 2;
+	vp[g_ViBackIndex].vp.vtrans[0] = g_ViBackData->viewx * 2 + g_ViBackData->viewleft * 4;
 
-	vp[var80092877].vp.vscale[1] = g_ViData->viewy * 2;
-	vp[var80092877].vp.vtrans[1] = g_ViData->viewy * 2 + g_ViData->viewtop * 4;
+	vp[g_ViBackIndex].vp.vscale[1] = g_ViBackData->viewy * 2;
+	vp[g_ViBackIndex].vp.vtrans[1] = g_ViBackData->viewy * 2 + g_ViBackData->viewtop * 4;
 
-	vp[var80092877].vp.vscale[2] = 511;
-	vp[var80092877].vp.vtrans[2] = 511;
+	vp[g_ViBackIndex].vp.vscale[2] = 511;
+	vp[g_ViBackIndex].vp.vtrans[2] = 511;
 
-	vp[var80092877].vp.vscale[3] = 0;
-	vp[var80092877].vp.vtrans[3] = 0;
+	vp[g_ViBackIndex].vp.vscale[3] = 0;
+	vp[g_ViBackIndex].vp.vtrans[3] = 0;
 
-	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&vp[var80092877]));
+	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&vp[g_ViBackIndex]));
 
 	var80092870 = gfxAllocateMatrix();
-	guPerspectiveF(var80092830.m, &var80092874, g_ViData->fovy, g_ViData->aspect, g_ViData->znear, g_ViData->zfar, 1);
+	guPerspectiveF(var80092830.m, &g_ViPerspScale, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar, 1);
 	guMtxF2L(var80092830.m, var80092870);
 
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-	gSPPerspNormalize(gdl++, var80092874);
+	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
 	currentPlayerSetUnk1750(var80092870);
 	currentPlayerSetUnk1754(&var80092830);
@@ -1752,11 +1922,11 @@ Gfx *vi0000b0e8(Gfx *gdl, f32 fovy, f32 aspect)
 	Mtxf tmp;
 	Mtx *mtx = gfxAllocateMatrix();
 
-	guPerspectiveF(tmp.m, &var80092874, fovy, aspect, g_ViData->znear, g_ViData->zfar, 1);
+	guPerspectiveF(tmp.m, &g_ViPerspScale, fovy, aspect, g_ViBackData->znear, g_ViBackData->zfar, 1);
 	guMtxF2L(tmp.m, mtx);
 
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-	gSPPerspNormalize(gdl++, var80092874);
+	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
 	return gdl;
 }
@@ -1771,9 +1941,9 @@ Gfx *vi0000b1d0(Gfx *gdl)
 	gdl = vi0000b1a8(gdl);
 
 	if (g_ViIs16Bit) {
-		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViData->bufx, OS_K0_TO_PHYSICAL(g_ViData->fb));
+		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, g_ViBackData->bufx, OS_K0_TO_PHYSICAL(g_ViBackData->fb));
 	} else {
-		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_32b, g_ViData->bufx, OS_K0_TO_PHYSICAL(var8009cac0[0]));
+		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_32b, g_ViBackData->bufx, OS_K0_TO_PHYSICAL(g_FrameBuffers[0]));
 	}
 
 	return gdl;
@@ -1781,7 +1951,7 @@ Gfx *vi0000b1d0(Gfx *gdl)
 
 Gfx *vi0000b280(Gfx *gdl)
 {
-	if (g_ViData->usezbuf) {
+	if (g_ViBackData->usezbuf) {
 		gdl = func0f1762ac(gdl);
 		gdl = func0f1763f4(gdl);
 	}
@@ -1789,10 +1959,10 @@ Gfx *vi0000b280(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *func0000b2c4(Gfx *gdl)
+Gfx *viFillBuffer(Gfx *gdl)
 {
 	gDPSetCycleType(gdl++, G_CYC_FILL);
-	gDPFillRectangle(gdl++, 0, 0, g_ViData->bufx - 1, g_ViData->bufy - 1);
+	gDPFillRectangle(gdl++, 0, 0, g_ViBackData->bufx - 1, g_ViBackData->bufy - 1);
 	gDPPipeSync(gdl++);
 
 	return gdl;
@@ -1920,131 +2090,131 @@ glabel vi0000bd68nb
 );
 #endif
 
-void viSetBuf(s16 x, s16 y)
+void viSetBufSize(s16 width, s16 height)
 {
-	g_ViData->bufx = x;
-	g_ViData->bufy = y;
+	g_ViBackData->bufx = width;
+	g_ViBackData->bufy = height;
 }
 
-s16 viGetBufX(void)
+s16 viGetBufWidth(void)
 {
-	return g_ViData->bufx;
+	return g_ViBackData->bufx;
 }
 
-s16 viGetBufY(void)
+s16 viGetBufHeight(void)
 {
-	return g_ViData->bufy;
+	return g_ViBackData->bufy;
 }
 
-void viSetXY(s16 x, s16 y)
+void viSetSize(s16 width, s16 height)
 {
-	g_ViData->x = x;
-	g_ViData->y = y;
+	g_ViBackData->x = width;
+	g_ViBackData->y = height;
 }
 
 s16 viGetWidth(void)
 {
-	return g_ViData->x;
+	return g_ViBackData->x;
 }
 
 s16 viGetHeight(void)
 {
-	return g_ViData->y;
+	return g_ViBackData->y;
 }
 
-void viSetViewSize(s16 x, s16 y)
+void viSetViewSize(s16 width, s16 height)
 {
-	g_ViData->viewx = x;
-	g_ViData->viewy = y;
+	g_ViBackData->viewx = width;
+	g_ViBackData->viewy = height;
 
-	currentPlayerSetScreenSize(g_ViData->viewx, g_ViData->viewy);
+	currentPlayerSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
 	currentPlayerSetCameraScale();
 }
 
 s16 viGetViewWidth(void)
 {
-	return g_ViData->viewx;
+	return g_ViBackData->viewx;
 }
 
 s16 viGetViewHeight(void)
 {
-	return g_ViData->viewy;
+	return g_ViBackData->viewy;
 }
 
 void viSetViewPosition(s16 left, s16 top)
 {
-	g_ViData->viewleft = left;
-	g_ViData->viewtop = top;
+	g_ViBackData->viewleft = left;
+	g_ViBackData->viewtop = top;
 
-	currentPlayerSetScreenPosition(g_ViData->viewleft, g_ViData->viewtop);
+	currentPlayerSetScreenPosition(g_ViBackData->viewleft, g_ViBackData->viewtop);
 }
 
 s16 viGetViewLeft(void)
 {
-	return g_ViData->viewleft;
+	return g_ViBackData->viewleft;
 }
 
 s16 viGetViewTop(void)
 {
-	return g_ViData->viewtop;
+	return g_ViBackData->viewtop;
 }
 
 void viSetUseZBuf(bool use)
 {
-	g_ViData->usezbuf = use;
+	g_ViBackData->usezbuf = use;
 }
 
 void viSetFovY(f32 fovy)
 {
-	g_ViData->fovy = fovy;
+	g_ViBackData->fovy = fovy;
 
-	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
 	currentPlayerSetCameraScale();
 }
 
 void viSetAspect(f32 aspect)
 {
-	g_ViData->aspect = aspect;
+	g_ViBackData->aspect = aspect;
 
-	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
 	currentPlayerSetCameraScale();
 }
 
 f32 viGetAspect(void)
 {
-	return g_ViData->aspect;
+	return g_ViBackData->aspect;
 }
 
 void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height)
 {
-	g_ViData->fovy = fovy;
-	g_ViData->aspect = aspect;
-	g_ViData->viewx = width;
-	g_ViData->viewy = height;
+	g_ViBackData->fovy = fovy;
+	g_ViBackData->aspect = aspect;
+	g_ViBackData->viewx = width;
+	g_ViBackData->viewy = height;
 
-	currentPlayerSetScreenSize(g_ViData->viewx, g_ViData->viewy);
-	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
+	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
 	currentPlayerSetCameraScale();
 }
 
 f32 viGetFovY(void)
 {
-	return g_ViData->fovy;
+	return g_ViBackData->fovy;
 }
 
 void viSetZRange(f32 near, f32 far)
 {
-	g_ViData->znear = near;
-	g_ViData->zfar = far;
+	g_ViBackData->znear = near;
+	g_ViBackData->zfar = far;
 
-	currentPlayerSetPerspective(g_ViData->znear, g_ViData->fovy, g_ViData->aspect);
+	currentPlayerSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
 	currentPlayerSetCameraScale();
 }
 
 void viGetZRange(struct zrange *zrange)
 {
-	zrange->near = g_ViData->znear;
-	zrange->far = g_ViData->zfar;
+	zrange->near = g_ViBackData->znear;
+	zrange->far = g_ViBackData->zfar;
 }
 
 Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)

@@ -1277,7 +1277,7 @@ s32 func0f0ddb1c(s32 *arg0, s32 arg1)
 	if (PLAYERCOUNT() == 1 || (PLAYERCOUNT() == 2 && g_InCutscene && !g_MainIsEndscreen)) {
 		result -= 16;
 
-		if (g_ViMode == VIMODE_HIRES) {
+		if (g_ViRes == VIRES_HI) {
 			result -= 16;
 		}
 	}
@@ -2892,8 +2892,8 @@ glabel hudmsgCreateFromArgs
 .L0f0defbc:
 /*  f0defbc:	04c100e3 */ 	bgez	$a2,.L0f0df34c
 .L0f0defc0:
-/*  f0defc0:	3c0a8007 */ 	lui	$t2,%hi(g_ViMode)
-/*  f0defc4:	8d4a06c8 */ 	lw	$t2,%lo(g_ViMode)($t2)
+/*  f0defc0:	3c0a8007 */ 	lui	$t2,%hi(g_ViRes)
+/*  f0defc4:	8d4a06c8 */ 	lw	$t2,%lo(g_ViRes)($t2)
 /*  f0defc8:	24030001 */ 	addiu	$v1,$zero,0x1
 /*  f0defcc:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
 /*  f0defd0:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
@@ -3196,7 +3196,7 @@ glabel hudmsgCreateFromArgs
 //			}
 //		}
 //
-//		g_ScaleX = g_ViMode == VIMODE_HIRES ? 2 : 1;
+//		g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 //
 //		// Find an unused index for the new message
 //		for (index = 0; index < g_NumHudMessages; index++) {
@@ -3312,7 +3312,7 @@ void hudmsgsTick(void)
 #if PAL
 	g_ScaleX = 1;
 #else
-	g_ScaleX = (g_ViMode == VIMODE_HIRES) ? 2 : 1;
+	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -4213,7 +4213,7 @@ glabel var7f1af1e0
 /*  f0e0458:	330f0fff */ 	andi	$t7,$t8,0xfff
 /*  f0e045c:	000fcb00 */ 	sll	$t9,$t7,0xc
 /*  f0e0460:	03214025 */ 	or	$t0,$t9,$at
-/*  f0e0464:	0c002e46 */ 	jal	viGetBufY
+/*  f0e0464:	0c002e46 */ 	jal	viGetBufHeight
 /*  f0e0468:	ae280000 */ 	sw	$t0,0x0($s1)
 /*  f0e046c:	8fa900e8 */ 	lw	$t1,0xe8($sp)
 /*  f0e0470:	960b001c */ 	lhu	$t3,0x1c($s0)
@@ -4840,8 +4840,8 @@ glabel var7f1adef4
 .word hudmsgsRender+0x7c8 # f0e0298
 .text
 /*  f0dfad0:	27bdff00 */ 	addiu	$sp,$sp,-256
-/*  f0dfad4:	3c0f8007 */ 	lui	$t7,%hi(g_ViMode)
-/*  f0dfad8:	8def06c8 */ 	lw	$t7,%lo(g_ViMode)($t7)
+/*  f0dfad4:	3c0f8007 */ 	lui	$t7,%hi(g_ViRes)
+/*  f0dfad8:	8def06c8 */ 	lw	$t7,%lo(g_ViRes)($t7)
 /*  f0dfadc:	afb20060 */ 	sw	$s2,0x60($sp)
 /*  f0dfae0:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f0dfae4:	240e00ff */ 	addiu	$t6,$zero,0xff
@@ -5071,7 +5071,7 @@ glabel var7f1adef4
 /*  f0dfe1c:	330f0fff */ 	andi	$t7,$t8,0xfff
 /*  f0dfe20:	000fcb00 */ 	sll	$t9,$t7,0xc
 /*  f0dfe24:	03214025 */ 	or	$t0,$t9,$at
-/*  f0dfe28:	0c002ef5 */ 	jal	viGetBufY
+/*  f0dfe28:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0dfe2c:	ae280000 */ 	sw	$t0,0x0($s1)
 /*  f0dfe30:	8fa900e8 */ 	lw	$t1,0xe8($sp)
 /*  f0dfe34:	960b001c */ 	lhu	$t3,0x1c($s0)
@@ -6562,7 +6562,7 @@ glabel var7f1adef4
 //	s32 spdc = true; // dc
 //
 //	// b24
-//	if (g_ViMode == VIMODE_HIRES) {
+//	if (g_ViRes == VIRES_HI) {
 //		g_ScaleX = 2;
 //	} else {
 //		g_ScaleX = 1;
@@ -6637,7 +6637,7 @@ glabel var7f1adef4
 //		if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
 //			gDPSetScissor(gdl++, 0,
 //					(x - 4) * g_ScaleX, 0,
-//					(x + msg->width + 3) * g_ScaleX, viGetBufY());
+//					(x + msg->width + 3) * g_ScaleX, viGetBufHeight());
 //		}
 //
 //		// e9c

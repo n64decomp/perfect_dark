@@ -42,13 +42,13 @@ u32 var8005ce68 = 0x00000000;
 u32 var8005ce6c = 0x02aea540;
 u32 var8005ce70 = 0x00000000;
 s32 var8005ce74 = 0;
-f32 var8005ce78[2] = {1, 1};
-f32 var8005ce80[2] = {1, 1};
-u32 var8005ce88[2] = {0};
+f32 g_ViXScalesBySlot[2] = {1, 1};
+f32 g_ViYScalesBySlot[2] = {1, 1};
+u32 g_SchedViModesPending[2] = {false, false};
 s32 g_ViUnblackTimer = 3;
-s32 var8005ce94 = 1;
-s32 var8005ce98 = 0;
-u32 var8005ce9c = 0x00000000;
+s32 g_ViShakeDirection = 1;
+s32 g_ViShakeIntensity = 0;
+s32 g_ViShakeTimer = 0;
 u32 var8005cea0 = 0x00000000;
 u32 var8005cea4 = 0x00000000;
 OSMesg var8005cea8 = (OSMesg)0x00040000;
@@ -94,8 +94,8 @@ void func00001b98(u32 value)
 {
 	if ((value & 0xf) == 0 && ((var8005ce68 && var8005ce64) || var8005ce60)) {
 		if (osGetCount() - var8005ce70 > var8005ce6c) {
-			func0000cf54(var8009cac0[0]);
-			func0000cf54(var8009cac0[1]);
+			func0000cf54(g_FrameBuffers[0]);
+			func0000cf54(g_FrameBuffers[1]);
 		}
 	}
 }
@@ -519,13 +519,13 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 				&& (t->flags & OS_SC_SWAPBUFFER)
 				&& (t->flags & OS_SC_LAST_TASK)) {
 			if (var8005cec8) {
-				osViBlack(0);
+				osViBlack(false);
 				var8005cec8 = 0;
 			}
 
 			var8005ce74 = (var8005ce74 + 1) % 2;
 
-			if (var8005ce88[1 - var8005ce74] != 0) {
+			if (g_SchedViModesPending[1 - var8005ce74]) {
 				if (var8008dd60[1 - var8005ce74]->comRegs.width != var8008dcc0[1 - var8005ce74].comRegs.width
 						|| var8008dd60[1 - var8005ce74]->comRegs.xScale != var8008dcc0[1 - var8005ce74].comRegs.xScale
 						|| var8008dd60[1 - var8005ce74]->fldRegs[0].yScale != var8008dcc0[1 - var8005ce74].fldRegs[0].yScale
@@ -540,12 +540,12 @@ s32 __scTaskComplete(OSSched *sc, OSScTask *t)
 
 					osViSetMode(var8008dd60[1 - var8005ce74]);
 					osViBlack(g_ViUnblackTimer);
-					osViSetXScale(var8005ce78[1 - var8005ce74]);
-					osViSetYScale(var8005ce80[1 - var8005ce74]);
-					osViSetSpecialFeatures(0x42);
+					osViSetXScale(g_ViXScalesBySlot[1 - var8005ce74]);
+					osViSetYScale(g_ViYScalesBySlot[1 - var8005ce74]);
+					osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON);
 				}
 
-				var8005ce88[1 - var8005ce74] = 0;
+				g_SchedViModesPending[1 - var8005ce74] = false;
 			}
 
 			if (g_ViUnblackTimer != 0 && g_ViUnblackTimer < 3) {

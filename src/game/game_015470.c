@@ -98,7 +98,7 @@ glabel func0f0155f0
 /*  f01567c:	31f80fff */ 	andi	$t8,$t7,0xfff
 /*  f015680:	3c01ff10 */ 	lui	$at,0xff10
 /*  f015684:	0301c825 */ 	or	$t9,$t8,$at
-/*  f015688:	0c002ac7 */ 	jal	viGetUnk28
+/*  f015688:	0c002ac7 */ 	jal	viGetBackBuffer
 /*  f01568c:	add90000 */ 	sw	$t9,0x0($t6)
 /*  f015690:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f015694:	00402025 */ 	or	$a0,$v0,$zero
@@ -612,7 +612,7 @@ Gfx *func0f0155f0(Gfx *gdl, s32 arg1, u32 arg2);
 //		var80062494 = 0;
 //	} else {
 //		gDPSetCycleType(gdl++, G_CYC_FILL);
-//		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), osVirtualToPhysical(viGetUnk28()));
+//		gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), osVirtualToPhysical(viGetBackBuffer()));
 //		gDPSetFillColor(gdl++, 0x00010001);
 //		gDPFillRectangle(gdl++, 200, 100, 439, 379);
 //	}

@@ -11,7 +11,7 @@ void explosionsReset(void)
 	s32 i;
 
 	var8007e4a0 = 0;
-	vi0000aa50(0);
+	viShake(0);
 
 	if (g_Explosions) {
 		for (i = 0; i < 6; i++) {

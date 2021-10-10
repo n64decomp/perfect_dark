@@ -68801,7 +68801,7 @@ Gfx *countdownTimerRender(Gfx *gdl)
 		}
 
 #if !PAL
-		if (g_ViMode == VIMODE_HIRES) {
+		if (g_ViRes == VIRES_HI) {
 			viewright = viewright / 2;
 		}
 #endif

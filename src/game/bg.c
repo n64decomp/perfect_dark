@@ -3159,7 +3159,7 @@ glabel func0f15a6f4
 /*  f15ab5c:	35ad000e */ 	ori	$t5,$t5,0xe
 /*  f15ab60:	02208025 */ 	or	$s0,$s1,$zero
 /*  f15ab64:	ae0d0000 */ 	sw	$t5,0x0($s0)
-/*  f15ab68:	0c002adb */ 	jal	vi0000ab6c
+/*  f15ab68:	0c002adb */ 	jal	viGetPerspScale
 /*  f15ab6c:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f15ab70:	ae020004 */ 	sw	$v0,0x4($s0)
 .L0f15ab74:
@@ -3869,7 +3869,7 @@ glabel func0f15a6f4
 /*  f1551bc:	35ad000e */ 	ori	$t5,$t5,0xe
 /*  f1551c0:	02208025 */ 	or	$s0,$s1,$zero
 /*  f1551c4:	ae0d0000 */ 	sw	$t5,0x0($s0)
-/*  f1551c8:	0c002b3b */ 	jal	vi0000ab6c
+/*  f1551c8:	0c002b3b */ 	jal	viGetPerspScale
 /*  f1551cc:	26310008 */ 	addiu	$s1,$s1,0x8
 /*  f1551d0:	ae020004 */ 	sw	$v0,0x4($s0)
 .NB0f1551d4:

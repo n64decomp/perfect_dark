@@ -2017,7 +2017,7 @@ glabel var7f1b8e7cpf
 /*  f16a684:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f16a688:	0fc4a4ff */ 	jal	setCurrentPlayerNum
 /*  f16a68c:	00002025 */ 	move	$a0,$zero
-/*  f16a690:	0c0029fd */ 	jal	vi0000aab0
+/*  f16a690:	0c0029fd */ 	jal	viSetMode
 /*  f16a694:	24040001 */ 	li	$a0,0x1
 /*  f16a698:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f16a69c:	86040634 */ 	lh	$a0,0x634($s0)
@@ -2030,7 +2030,7 @@ glabel var7f1b8e7cpf
 /*  f16a6b8:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f16a6bc:	00055403 */ 	sra	$t2,$a1,0x10
 /*  f16a6c0:	01402825 */ 	move	$a1,$t2
-/*  f16a6c4:	0c002e4a */ 	jal	viSetXY
+/*  f16a6c4:	0c002e4a */ 	jal	viSetSize
 /*  f16a6c8:	87a40090 */ 	lh	$a0,0x90($sp)
 /*  f16a6cc:	0fc2f272 */ 	jal	viGetFbWidth
 /*  f16a6d0:	00000000 */ 	nop
@@ -2039,7 +2039,7 @@ glabel var7f1b8e7cpf
 /*  f16a6dc:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f16a6e0:	00055c03 */ 	sra	$t3,$a1,0x10
 /*  f16a6e4:	01602825 */ 	move	$a1,$t3
-/*  f16a6e8:	0c002e39 */ 	jal	viSetBuf
+/*  f16a6e8:	0c002e39 */ 	jal	viSetBufSize
 /*  f16a6ec:	87a40090 */ 	lh	$a0,0x90($sp)
 /*  f16a6f0:	0fc2f272 */ 	jal	viGetFbWidth
 /*  f16a6f4:	00000000 */ 	nop

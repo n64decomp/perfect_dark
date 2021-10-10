@@ -67,7 +67,7 @@ u32 var8005d9b8 = 0x0004b000;
 s32 var8005d9bc = 0;
 s32 var8005d9c0 = 0;
 s32 var8005d9c4 = 0;
-s32 var8005d9c8 = 1;
+bool g_MainGameLogicEnabled = true;
 u32 var8005d9cc = 0;
 bool g_MainIsEndscreen = false;
 s32 g_DoBootPakMenu = 0;
@@ -311,7 +311,7 @@ glabel mainInit
 /*     d294:	00000000 */ 	nop
 /*     d298:	0c004d3a */ 	jal	func00013758
 /*     d29c:	00000000 */ 	nop
-/*     d2a0:	0c002668 */ 	jal	vi00009ab0
+/*     d2a0:	0c002668 */ 	jal	viConfigureForLogos
 /*     d2a4:	00000000 */ 	nop
 /*     d2a8:	0c00bcc2 */ 	jal	rmonIsDisabled
 /*     d2ac:	00000000 */ 	nop
@@ -517,9 +517,9 @@ glabel mainInit
 /*     d594:	14c9fff3 */ 	bne	$a2,$t1,.PF0000d564
 /*     d598:	24e70240 */ 	addiu	$a3,$a3,0x240
 .PF0000d59c:
-/*     d59c:	0c0029fd */ 	jal	vi0000aab0
+/*     d59c:	0c0029fd */ 	jal	viSetMode
 /*     d5a0:	24040002 */ 	li	$a0,0x2
-/*     d5a4:	0c002696 */ 	jal	vi00009b50
+/*     d5a4:	0c002696 */ 	jal	viConfigureForBanner
 /*     d5a8:	02002025 */ 	move	$a0,$s0
 /*     d5ac:	8faa0048 */ 	lw	$t2,0x48($sp)
 /*     d5b0:	3c018006 */ 	lui	$at,0x8006
@@ -557,7 +557,7 @@ glabel mainInit
 /*     d624:	27b01458 */ 	addiu	$s0,$sp,0x1458
 /*     d628:	5561000d */ 	bnel	$t3,$at,.PF0000d660
 /*     d62c:	28610006 */ 	slti	$at,$v1,0x6
-/*     d630:	0c0027d9 */ 	jal	vi0000a044
+/*     d630:	0c0027d9 */ 	jal	viUpdateMode
 /*     d634:	afa31490 */ 	sw	$v1,0x1490($sp)
 /*     d638:	3c048006 */ 	lui	$a0,0x8006
 /*     d63c:	3c058006 */ 	lui	$a1,0x8006
@@ -676,7 +676,7 @@ glabel mainInit
 /*     d7f0:	00000000 */ 	nop
 /*     d7f4:	0fc00024 */ 	jal	func0f000090
 /*     d7f8:	00000000 */ 	nop
-/*     d7fc:	0c0026c0 */ 	jal	vi00009bf8
+/*     d7fc:	0c0026c0 */ 	jal	viConfigureForLegal
 /*     d800:	00000000 */ 	nop
 /*     d804:	0c002779 */ 	jal	viBlack
 /*     d808:	24040001 */ 	li	$a0,0x1
@@ -714,7 +714,7 @@ glabel mainInit
 /*     d554:	00000000 */ 	nop
 /*     d558:	0c004dd6 */ 	jal	func00013758
 /*     d55c:	00000000 */ 	nop
-/*     d560:	0c0026ac */ 	jal	vi00009ab0
+/*     d560:	0c0026ac */ 	jal	viConfigureForLogos
 /*     d564:	00000000 */ 	nop
 /*     d568:	0c00be82 */ 	jal	rmonIsDisabled
 /*     d56c:	00000000 */ 	nop
@@ -920,9 +920,9 @@ glabel mainInit
 /*     d858:	14c9fff3 */ 	bne	$a2,$t1,.L0000d828
 /*     d85c:	24e70240 */ 	addiu	$a3,$a3,0x240
 .L0000d860:
-/*     d860:	0c002aac */ 	jal	vi0000aab0
+/*     d860:	0c002aac */ 	jal	viSetMode
 /*     d864:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     d868:	0c0026d4 */ 	jal	vi00009b50
+/*     d868:	0c0026d4 */ 	jal	viConfigureForBanner
 /*     d86c:	02002025 */ 	or	$a0,$s0,$zero
 /*     d870:	8faa0048 */ 	lw	$t2,0x48($sp)
 /*     d874:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferStart)
@@ -960,7 +960,7 @@ glabel mainInit
 /*     d8e8:	27b01450 */ 	addiu	$s0,$sp,0x1450
 /*     d8ec:	5561000d */ 	bnel	$t3,$at,.L0000d924
 /*     d8f0:	28610006 */ 	slti	$at,$v1,0x6
-/*     d8f4:	0c002811 */ 	jal	vi0000a044
+/*     d8f4:	0c002811 */ 	jal	viUpdateMode
 /*     d8f8:	afa31488 */ 	sw	$v1,0x1488($sp)
 /*     d8fc:	3c048006 */ 	lui	$a0,%hi(var8005dcc8)
 /*     d900:	3c058006 */ 	lui	$a1,%hi(var8005dcf0)
@@ -1079,7 +1079,7 @@ glabel mainInit
 /*     dab4:	00000000 */ 	nop
 /*     dab8:	0fc00024 */ 	jal	func0f000090
 /*     dabc:	00000000 */ 	nop
-/*     dac0:	0c0026fe */ 	jal	vi00009bf8
+/*     dac0:	0c0026fe */ 	jal	viConfigureForLegal
 /*     dac4:	00000000 */ 	nop
 /*     dac8:	0c0027b1 */ 	jal	viBlack
 /*     dacc:	24040001 */ 	addiu	$a0,$zero,0x1
@@ -1111,7 +1111,7 @@ glabel mainInit
 /*     dabc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dac0:	0c004fea */ 	jal	func00013758
 /*     dac4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dac8:	0c002714 */ 	jal	vi00009ab0
+/*     dac8:	0c002714 */ 	jal	viConfigureForLogos
 /*     dacc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dad0:	0c00c456 */ 	jal	rmonIsDisabled
 /*     dad4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1298,9 +1298,9 @@ glabel mainInit
 /*     dd78:	28c15f10 */ 	slti	$at,$a2,0x5f10
 /*     dd7c:	1420fff2 */ 	bnez	$at,.NB0000dd48
 /*     dd80:	24e70240 */ 	addiu	$a3,$a3,0x240
-/*     dd84:	0c002b0c */ 	jal	vi0000aab0
+/*     dd84:	0c002b0c */ 	jal	viSetMode
 /*     dd88:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     dd8c:	0c00273c */ 	jal	vi00009b50
+/*     dd8c:	0c00273c */ 	jal	viConfigureForBanner
 /*     dd90:	02202025 */ 	or	$a0,$s1,$zero
 /*     dd94:	3c018006 */ 	lui	$at,0x8006
 /*     dd98:	3c118009 */ 	lui	$s1,0x8009
@@ -1336,7 +1336,7 @@ glabel mainInit
 /*     de04:	854b0000 */ 	lh	$t3,0x0($t2)
 /*     de08:	5561000b */ 	bnel	$t3,$at,.NB0000de38
 /*     de0c:	2a010006 */ 	slti	$at,$s0,0x6
-/*     de10:	0c002871 */ 	jal	vi0000a044
+/*     de10:	0c002871 */ 	jal	viUpdateMode
 /*     de14:	afae0054 */ 	sw	$t6,0x54($sp)
 /*     de18:	3c058006 */ 	lui	$a1,0x8006
 /*     de1c:	24a5f610 */ 	addiu	$a1,$a1,-2544
@@ -1452,7 +1452,7 @@ glabel mainInit
 /*     dfc4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dfc8:	0fc00024 */ 	jal	func0f000090
 /*     dfcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfd0:	0c002767 */ 	jal	vi00009bf8
+/*     dfd0:	0c002767 */ 	jal	viConfigureForLegal
 /*     dfd4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dfd8:	0c00281a */ 	jal	viBlack
 /*     dfdc:	24040001 */ 	addiu	$a0,$zero,0x1
@@ -1501,7 +1501,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func000121e0();
 //	func00012a0c();
 //	func00013758();
-//	vi00009ab0();
+//	viConfigureForLogos();
 //	var8005d9b0 = rmonIsDisabled();
 //	joySystemInit();
 //	osCreateMesgQueue(&queue, &msg, 1);
@@ -1588,8 +1588,8 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //			}
 //		}
 //
-//		vi0000aab0(2);
-//		vi00009b50(fb);
+//		viSetMode(VIMODE_HI);
+//		viConfigureForBanner(fb);
 //
 //		g_RdpOutBufferStart = texture;
 //		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
@@ -1606,7 +1606,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //			osRecvMesg(&var8008db30, &sp1470, OS_MESG_BLOCK);
 //
 //			if (*(s16 *)sp1470 == 1) {
-//				vi0000a044();
+//				viUpdateMode();
 //				rdpCreateTask(var8005dcc8, var8005dcf0, 0, sp1450);
 //				j++;
 //			}
@@ -1673,7 +1673,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	stub0f000850();
 //	stub0f000860();
 //	func0f000090();
-//	vi00009bf8();
+//	viConfigureForLegal();
 //	viBlack(true);
 //
 //	var8005dd18 = 0;
@@ -1780,7 +1780,7 @@ void mainLoop(void)
 	// Outer loop - this is infinite because ending is never changed
 	while (!ending) {
 		var8005d9cc = 0;
-		var8005d9c8 = 1;
+		g_MainGameLogicEnabled = true;
 		msg = NULL;
 		g_MainIsEndscreen = false;
 
@@ -2607,7 +2607,7 @@ void mainTick(void)
 		joyDebugJoy();
 		func00001b28(0);
 
-		if (var8005d9c8) {
+		if (g_MainGameLogicEnabled) {
 			gdl = gdlstart = gfxGetMasterDisplayList();
 
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2642,9 +2642,9 @@ void mainTick(void)
 			gSPEndDisplayList(gdl++);
 		}
 
-		if (var8005d9c8) {
+		if (g_MainGameLogicEnabled) {
 			gfxSwapBuffers();
-			vi0000a044();
+			viUpdateMode();
 		}
 
 		rdpCreateTask(gdlstart, gdl, 0, array);
@@ -3014,7 +3014,7 @@ glabel mainTick
 /*     ee24:	8fa40090 */ 	lw	$a0,0x90($sp)
 /*     ee28:	0fc588d6 */ 	jal	gfxSwapBuffers
 /*     ee2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     ee30:	0c002871 */ 	jal	vi0000a044
+/*     ee30:	0c002871 */ 	jal	viUpdateMode
 /*     ee34:	00000000 */ 	sll	$zero,$zero,0x0
 /*     ee38:	8fa40090 */ 	lw	$a0,0x90($sp)
 .NB0000ee3c:

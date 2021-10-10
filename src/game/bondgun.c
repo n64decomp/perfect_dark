@@ -25363,7 +25363,7 @@ glabel var7f1aca90
 /*  f0a7be0:	272f0008 */ 	addiu	$t7,$t9,0x8
 /*  f0a7be4:	afaf014c */ 	sw	$t7,0x14c($sp)
 /*  f0a7be8:	af290000 */ 	sw	$t1,0x0($t9)
-/*  f0a7bec:	0c002adb */ 	jal	vi0000ab6c
+/*  f0a7bec:	0c002adb */ 	jal	viGetPerspScale
 /*  f0a7bf0:	afb90074 */ 	sw	$t9,0x74($sp)
 /*  f0a7bf4:	8fa30074 */ 	lw	$v1,0x74($sp)
 /*  f0a7bf8:	ac620004 */ 	sw	$v0,0x4($v1)
@@ -26204,7 +26204,7 @@ glabel var7f1aca90
 /*  f0a7be0:	272f0008 */ 	addiu	$t7,$t9,0x8
 /*  f0a7be4:	afaf014c */ 	sw	$t7,0x14c($sp)
 /*  f0a7be8:	af290000 */ 	sw	$t1,0x0($t9)
-/*  f0a7bec:	0c002adb */ 	jal	vi0000ab6c
+/*  f0a7bec:	0c002adb */ 	jal	viGetPerspScale
 /*  f0a7bf0:	afb90074 */ 	sw	$t9,0x74($sp)
 /*  f0a7bf4:	8fa30074 */ 	lw	$v1,0x74($sp)
 /*  f0a7bf8:	ac620004 */ 	sw	$v0,0x4($v1)
@@ -27036,7 +27036,7 @@ glabel var7f1aca90
 /*  f0a590c:	25b80008 */ 	addiu	$t8,$t5,0x8
 /*  f0a5910:	afb80144 */ 	sw	$t8,0x144($sp)
 /*  f0a5914:	adb90000 */ 	sw	$t9,0x0($t5)
-/*  f0a5918:	0c002b3b */ 	jal	vi0000ab6c
+/*  f0a5918:	0c002b3b */ 	jal	viGetPerspScale
 /*  f0a591c:	afad0070 */ 	sw	$t5,0x70($sp)
 /*  f0a5920:	8fa30070 */ 	lw	$v1,0x70($sp)
 /*  f0a5924:	ac620004 */ 	sw	$v0,0x4($v1)
@@ -32032,14 +32032,14 @@ glabel bgunRenderHud
 /*  f0aa980:	8fa20130 */ 	lw	$v0,0x130($sp)
 /*  f0aa984:	8c6e000c */ 	lw	$t6,0xc($v1)
 .L0f0aa988:
-/*  f0aa988:	3c0f8007 */ 	lui	$t7,%hi(g_ViMode)
+/*  f0aa988:	3c0f8007 */ 	lui	$t7,%hi(g_ViRes)
 /*  f0aa98c:	29c10005 */ 	slti	$at,$t6,0x5
 /*  f0aa990:	10200003 */ 	beqz	$at,.L0f0aa9a0
 /*  f0aa994:	00000000 */ 	nop
 /*  f0aa998:	10000449 */ 	b	.L0f0abac0
 /*  f0aa99c:	8fa20130 */ 	lw	$v0,0x130($sp)
 .L0f0aa9a0:
-/*  f0aa9a0:	8def06c8 */ 	lw	$t7,%lo(g_ViMode)($t7)
+/*  f0aa9a0:	8def06c8 */ 	lw	$t7,%lo(g_ViRes)($t7)
 /*  f0aa9a4:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f0aa9a8:	144f0004 */ 	bne	$v0,$t7,.L0f0aa9bc
 /*  f0aa9ac:	24180002 */ 	addiu	$t8,$zero,0x2
@@ -34548,7 +34548,7 @@ const char var7f1ac19c[] = "%02d:%02d\n";
 //#if PAL
 //	g_ScaleX = 1;
 //#else
-//	if (g_ViMode == VIMODE_HIRES) {
+//	if (g_ViRes == VIRES_HI) {
 //		g_ScaleX = 2;
 //	} else {
 //		g_ScaleX = 1;

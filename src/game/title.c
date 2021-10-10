@@ -453,8 +453,8 @@ void titleInitCheckControllers(void)
 void titleExitCheckControllers(void)
 {
 	var800624e8 = 0;
-	vi00009ab0();
-	vi0000aab0(2);
+	viConfigureForLogos();
+	viSetMode(VIMODE_HI);
 	viBlack(false);
 }
 
@@ -3116,7 +3116,7 @@ glabel var7f1a8468
 .PF0f018494:
 /*  f018494:	0c002f12 */ 	jal	viSetFillColour
 /*  f018498:	00002825 */ 	move	$a1,$zero
-/*  f01849c:	0c002c02 */ 	jal	func0000b2c4
+/*  f01849c:	0c002c02 */ 	jal	viFillBuffer
 /*  f0184a0:	00402025 */ 	move	$a0,$v0
 /*  f0184a4:	3c188006 */ 	lui	$t8,0x8006
 /*  f0184a8:	8f18249c */ 	lw	$t8,0x249c($t8)
@@ -4447,7 +4447,7 @@ glabel var7f1a8468
 .L0f0183b0:
 /*  f0183b0:	0c002fc1 */ 	jal	viSetFillColour
 /*  f0183b4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0183b8:	0c002cb1 */ 	jal	func0000b2c4
+/*  f0183b8:	0c002cb1 */ 	jal	viFillBuffer
 /*  f0183bc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0183c0:	3c0e8006 */ 	lui	$t6,%hi(var800627cc)
 /*  f0183c4:	8dce27cc */ 	lw	$t6,%lo(var800627cc)($t6)
@@ -6998,8 +6998,8 @@ void titleInitSkip(void)
 	if (IS4MB()) {
 		g_TitleNextStage = STAGE_4MBMENU;
 		viSetAspect(PAL ? 1.7316017150879f : 1.4545454978943f);
-		viSetXY(320, 220);
-		viSetBuf(320, 220);
+		viSetSize(320, 220);
+		viSetBufSize(320, 220);
 		currentPlayerSetViewSize(320, 220);
 		viSetViewSize(320, 220);
 	}
@@ -7303,8 +7303,8 @@ void titleTick(void)
 #else
 	viSetAspect(576.0f / var800624a0);
 #endif
-	viSetXY(576, var800624a0);
-	viSetBuf(576, var800624a0);
+	viSetSize(576, var800624a0);
+	viSetBufSize(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);
 	viSetViewSize(576, var800624a0);
 	currentPlayerSetViewPosition(0, 0);
@@ -7516,9 +7516,9 @@ bool func0f01ad5c(void)
 
 void func0f01adb8(void)
 {
-	vi0000aab0(2);
-	viSetXY(576, var800624a0);
-	viSetBuf(576, var800624a0);
+	viSetMode(VIMODE_HI);
+	viSetSize(576, var800624a0);
+	viSetBufSize(576, var800624a0);
 	currentPlayerSetViewSize(576, var800624a0);
 	viSetViewSize(576, var800624a0);
 	currentPlayerSetViewPosition(0, 0);

@@ -711,47 +711,47 @@ glabel menuRenderItemList
 /*  f0e6490:	00000000 */ 	nop
 /*  f0e6494:	afc00000 */ 	sw	$zero,0x0($s8)
 .L0f0e6498:
-/*  f0e6498:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e6498:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e649c:	a7a500ee */ 	sh	$a1,0xee($sp)
 /*  f0e64a0:	3c0a8007 */ 	lui	$t2,%hi(g_ScissorX1)
 /*  f0e64a4:	8d4a1190 */ 	lw	$t2,%lo(g_ScissorX1)($t2)
 /*  f0e64a8:	004a082a */ 	slt	$at,$v0,$t2
 /*  f0e64ac:	10200005 */ 	beqz	$at,.L0f0e64c4
 /*  f0e64b0:	00000000 */ 	nop
-/*  f0e64b4:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e64b4:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e64b8:	00000000 */ 	nop
 /*  f0e64bc:	3c018007 */ 	lui	$at,%hi(g_ScissorX1)
 /*  f0e64c0:	ac221190 */ 	sw	$v0,%lo(g_ScissorX1)($at)
 .L0f0e64c4:
-/*  f0e64c4:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e64c4:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e64c8:	00000000 */ 	nop
 /*  f0e64cc:	8eeb0000 */ 	lw	$t3,0x0($s7)
 /*  f0e64d0:	004b082a */ 	slt	$at,$v0,$t3
 /*  f0e64d4:	10200004 */ 	beqz	$at,.L0f0e64e8
 /*  f0e64d8:	00000000 */ 	nop
-/*  f0e64dc:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e64dc:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e64e0:	00000000 */ 	nop
 /*  f0e64e4:	aee20000 */ 	sw	$v0,0x0($s7)
 .L0f0e64e8:
-/*  f0e64e8:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e64e8:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e64ec:	00000000 */ 	nop
 /*  f0e64f0:	3c0c8007 */ 	lui	$t4,%hi(g_ScissorY1)
 /*  f0e64f4:	8d8c1198 */ 	lw	$t4,%lo(g_ScissorY1)($t4)
 /*  f0e64f8:	004c082a */ 	slt	$at,$v0,$t4
 /*  f0e64fc:	10200005 */ 	beqz	$at,.L0f0e6514
 /*  f0e6500:	00000000 */ 	nop
-/*  f0e6504:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e6504:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e6508:	00000000 */ 	nop
 /*  f0e650c:	3c018007 */ 	lui	$at,%hi(g_ScissorY1)
 /*  f0e6510:	ac221198 */ 	sw	$v0,%lo(g_ScissorY1)($at)
 .L0f0e6514:
-/*  f0e6514:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e6514:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e6518:	00000000 */ 	nop
 /*  f0e651c:	8fc30000 */ 	lw	$v1,0x0($s8)
 /*  f0e6520:	0043082a */ 	slt	$at,$v0,$v1
 /*  f0e6524:	10200005 */ 	beqz	$at,.L0f0e653c
 /*  f0e6528:	00000000 */ 	nop
-/*  f0e652c:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e652c:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e6530:	00000000 */ 	nop
 /*  f0e6534:	afc20000 */ 	sw	$v0,0x0($s8)
 /*  f0e6538:	00401825 */ 	or	$v1,$v0,$zero
@@ -1542,47 +1542,47 @@ glabel menuRenderItemList
 /*  f0e70a4:	00000000 */ 	nop
 /*  f0e70a8:	afc00000 */ 	sw	$zero,0x0($s8)
 .L0f0e70ac:
-/*  f0e70ac:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e70ac:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e70b0:	00000000 */ 	nop
 /*  f0e70b4:	3c0e8007 */ 	lui	$t6,%hi(g_ScissorX1)
 /*  f0e70b8:	8dce1190 */ 	lw	$t6,%lo(g_ScissorX1)($t6)
 /*  f0e70bc:	004e082a */ 	slt	$at,$v0,$t6
 /*  f0e70c0:	10200005 */ 	beqz	$at,.L0f0e70d8
 /*  f0e70c4:	00000000 */ 	nop
-/*  f0e70c8:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e70c8:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e70cc:	00000000 */ 	nop
 /*  f0e70d0:	3c018007 */ 	lui	$at,%hi(g_ScissorX1)
 /*  f0e70d4:	ac221190 */ 	sw	$v0,%lo(g_ScissorX1)($at)
 .L0f0e70d8:
-/*  f0e70d8:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e70d8:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e70dc:	00000000 */ 	nop
 /*  f0e70e0:	8eef0000 */ 	lw	$t7,0x0($s7)
 /*  f0e70e4:	004f082a */ 	slt	$at,$v0,$t7
 /*  f0e70e8:	10200004 */ 	beqz	$at,.L0f0e70fc
 /*  f0e70ec:	00000000 */ 	nop
-/*  f0e70f0:	0c002ef1 */ 	jal	viGetBufX
+/*  f0e70f0:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0e70f4:	00000000 */ 	nop
 /*  f0e70f8:	aee20000 */ 	sw	$v0,0x0($s7)
 .L0f0e70fc:
-/*  f0e70fc:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e70fc:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e7100:	00000000 */ 	nop
 /*  f0e7104:	3c188007 */ 	lui	$t8,%hi(g_ScissorY1)
 /*  f0e7108:	8f181198 */ 	lw	$t8,%lo(g_ScissorY1)($t8)
 /*  f0e710c:	0058082a */ 	slt	$at,$v0,$t8
 /*  f0e7110:	10200005 */ 	beqz	$at,.L0f0e7128
 /*  f0e7114:	00000000 */ 	nop
-/*  f0e7118:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e7118:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e711c:	00000000 */ 	nop
 /*  f0e7120:	3c018007 */ 	lui	$at,%hi(g_ScissorY1)
 /*  f0e7124:	ac221198 */ 	sw	$v0,%lo(g_ScissorY1)($at)
 .L0f0e7128:
-/*  f0e7128:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e7128:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e712c:	00000000 */ 	nop
 /*  f0e7130:	8fc30000 */ 	lw	$v1,0x0($s8)
 /*  f0e7134:	0043082a */ 	slt	$at,$v0,$v1
 /*  f0e7138:	10200005 */ 	beqz	$at,.L0f0e7150
 /*  f0e713c:	00000000 */ 	nop
-/*  f0e7140:	0c002ef5 */ 	jal	viGetBufY
+/*  f0e7140:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0e7144:	00000000 */ 	nop
 /*  f0e7148:	afc20000 */ 	sw	$v0,0x0($s8)
 /*  f0e714c:	00401825 */ 	or	$v1,$v0,$zero
@@ -8641,43 +8641,43 @@ glabel menuRenderItemMarquee
 /*  f0ed7b4:	00000000 */ 	nop
 /*  f0ed7b8:	aca00000 */ 	sw	$zero,0x0($a1)
 .L0f0ed7bc:
-/*  f0ed7bc:	0c002ef1 */ 	jal	viGetBufX
+/*  f0ed7bc:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0ed7c0:	00000000 */ 	nop
 /*  f0ed7c4:	3c198007 */ 	lui	$t9,%hi(g_ScissorX1)
 /*  f0ed7c8:	8f391190 */ 	lw	$t9,%lo(g_ScissorX1)($t9)
 /*  f0ed7cc:	0059082a */ 	slt	$at,$v0,$t9
 /*  f0ed7d0:	10200005 */ 	beqz	$at,.L0f0ed7e8
 /*  f0ed7d4:	00000000 */ 	nop
-/*  f0ed7d8:	0c002ef1 */ 	jal	viGetBufX
+/*  f0ed7d8:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0ed7dc:	00000000 */ 	nop
 /*  f0ed7e0:	3c018007 */ 	lui	$at,%hi(g_ScissorX1)
 /*  f0ed7e4:	ac221190 */ 	sw	$v0,%lo(g_ScissorX1)($at)
 .L0f0ed7e8:
-/*  f0ed7e8:	0c002ef1 */ 	jal	viGetBufX
+/*  f0ed7e8:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0ed7ec:	00000000 */ 	nop
 /*  f0ed7f0:	3c088007 */ 	lui	$t0,%hi(g_ScissorX2)
 /*  f0ed7f4:	8d081194 */ 	lw	$t0,%lo(g_ScissorX2)($t0)
 /*  f0ed7f8:	0048082a */ 	slt	$at,$v0,$t0
 /*  f0ed7fc:	10200005 */ 	beqz	$at,.L0f0ed814
 /*  f0ed800:	00000000 */ 	nop
-/*  f0ed804:	0c002ef1 */ 	jal	viGetBufX
+/*  f0ed804:	0c002ef1 */ 	jal	viGetBufWidth
 /*  f0ed808:	00000000 */ 	nop
 /*  f0ed80c:	3c018007 */ 	lui	$at,%hi(g_ScissorX2)
 /*  f0ed810:	ac221194 */ 	sw	$v0,%lo(g_ScissorX2)($at)
 .L0f0ed814:
-/*  f0ed814:	0c002ef5 */ 	jal	viGetBufY
+/*  f0ed814:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0ed818:	00000000 */ 	nop
 /*  f0ed81c:	3c098007 */ 	lui	$t1,%hi(g_ScissorY1)
 /*  f0ed820:	8d291198 */ 	lw	$t1,%lo(g_ScissorY1)($t1)
 /*  f0ed824:	0049082a */ 	slt	$at,$v0,$t1
 /*  f0ed828:	10200005 */ 	beqz	$at,.L0f0ed840
 /*  f0ed82c:	00000000 */ 	nop
-/*  f0ed830:	0c002ef5 */ 	jal	viGetBufY
+/*  f0ed830:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0ed834:	00000000 */ 	nop
 /*  f0ed838:	3c018007 */ 	lui	$at,%hi(g_ScissorY1)
 /*  f0ed83c:	ac221198 */ 	sw	$v0,%lo(g_ScissorY1)($at)
 .L0f0ed840:
-/*  f0ed840:	0c002ef5 */ 	jal	viGetBufY
+/*  f0ed840:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0ed844:	00000000 */ 	nop
 /*  f0ed848:	3c068007 */ 	lui	$a2,%hi(g_ScissorY2)
 /*  f0ed84c:	24c6119c */ 	addiu	$a2,$a2,%lo(g_ScissorY2)
@@ -8685,7 +8685,7 @@ glabel menuRenderItemMarquee
 /*  f0ed854:	0045082a */ 	slt	$at,$v0,$a1
 /*  f0ed858:	10200009 */ 	beqz	$at,.L0f0ed880
 /*  f0ed85c:	00000000 */ 	nop
-/*  f0ed860:	0c002ef5 */ 	jal	viGetBufY
+/*  f0ed860:	0c002ef5 */ 	jal	viGetBufHeight
 /*  f0ed864:	00000000 */ 	nop
 /*  f0ed868:	3c018007 */ 	lui	$at,%hi(g_ScissorY2)
 /*  f0ed86c:	ac22119c */ 	sw	$v0,%lo(g_ScissorY2)($at)
@@ -9159,20 +9159,20 @@ u32 var800711ec = 0x20000000;
 //		g_ScissorY2 = 0;
 //	}
 //
-//	if (g_ScissorX1 > viGetBufX()) {
-//		g_ScissorX1 = viGetBufX();
+//	if (g_ScissorX1 > viGetBufWidth()) {
+//		g_ScissorX1 = viGetBufWidth();
 //	}
 //
-//	if (g_ScissorX2 > viGetBufX()) {
-//		g_ScissorX2 = viGetBufX();
+//	if (g_ScissorX2 > viGetBufWidth()) {
+//		g_ScissorX2 = viGetBufWidth();
 //	}
 //
-//	if (g_ScissorY1 > viGetBufY()) {
-//		g_ScissorY1 = viGetBufY();
+//	if (g_ScissorY1 > viGetBufHeight()) {
+//		g_ScissorY1 = viGetBufHeight();
 //	}
 //
-//	if (g_ScissorY2 > viGetBufY()) {
-//		g_ScissorY2 = viGetBufY();
+//	if (g_ScissorY2 > viGetBufHeight()) {
+//		g_ScissorY2 = viGetBufHeight();
 //	}
 //
 //	if (g_ScissorX2 < g_ScissorX1) {
@@ -9489,20 +9489,20 @@ Gfx *menuRenderItemRanking(Gfx *gdl, struct menurendercontext *context)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufX()) {
-		g_ScissorX1 = viGetBufX();
+	if (g_ScissorX1 > viGetBufWidth()) {
+		g_ScissorX1 = viGetBufWidth();
 	}
 
-	if (g_ScissorX2 > viGetBufX()) {
-		g_ScissorX2 = viGetBufX();
+	if (g_ScissorX2 > viGetBufWidth()) {
+		g_ScissorX2 = viGetBufWidth();
 	}
 
-	if (g_ScissorY1 > viGetBufY()) {
-		g_ScissorY1 = viGetBufY();
+	if (g_ScissorY1 > viGetBufHeight()) {
+		g_ScissorY1 = viGetBufHeight();
 	}
 
-	if (g_ScissorY2 > viGetBufY()) {
-		g_ScissorY2 = viGetBufY();
+	if (g_ScissorY2 > viGetBufHeight()) {
+		g_ScissorY2 = viGetBufHeight();
 	}
 
 	if (g_ScissorX2 < g_ScissorX1) {
@@ -10349,20 +10349,20 @@ Gfx *menuRenderItemPlayerStats(Gfx *gdl, struct menurendercontext *context)
 			g_ScissorY2 = 0;
 		}
 
-		if (g_ScissorX1 > viGetBufX()) {
-			g_ScissorX1 = viGetBufX();
+		if (g_ScissorX1 > viGetBufWidth()) {
+			g_ScissorX1 = viGetBufWidth();
 		}
 
-		if (g_ScissorX2 > viGetBufX()) {
-			g_ScissorX2 = viGetBufX();
+		if (g_ScissorX2 > viGetBufWidth()) {
+			g_ScissorX2 = viGetBufWidth();
 		}
 
-		if (g_ScissorY1 > viGetBufY()) {
-			g_ScissorY1 = viGetBufY();
+		if (g_ScissorY1 > viGetBufHeight()) {
+			g_ScissorY1 = viGetBufHeight();
 		}
 
-		if (g_ScissorY2 > viGetBufY()) {
-			g_ScissorY2 = viGetBufY();
+		if (g_ScissorY2 > viGetBufHeight()) {
+			g_ScissorY2 = viGetBufHeight();
 		}
 
 		if (g_ScissorX2 < g_ScissorX1) {

@@ -513,7 +513,7 @@ glabel var7f1a827c
 /*  f011950:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f011954:	8e10d59c */ 	lw	$s0,-0x2a64($s0)
 /*  f011958:	a3a0007b */ 	sb	$zero,0x7b($sp)
-/*  f01195c:	0fc2f254 */ 	jal	viResetDefaultModeIf4Mb
+/*  f01195c:	0fc2f254 */ 	jal	viResetLoResIf4Mb
 /*  f011960:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011964:	0fc63d8b */ 	jal	func0f18e558
 /*  f011968:	00000000 */ 	nop
@@ -1335,7 +1335,7 @@ glabel var7f1a827c
 /*  f011930:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f011934:	8e10d03c */ 	lw	$s0,%lo(g_StageSetup+0xc)($s0)
 /*  f011938:	a3a0007b */ 	sb	$zero,0x7b($sp)
-/*  f01193c:	0fc2f0fc */ 	jal	viResetDefaultModeIf4Mb
+/*  f01193c:	0fc2f0fc */ 	jal	viResetLoResIf4Mb
 /*  f011940:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011944:	0fc63956 */ 	jal	func0f18e558
 /*  f011948:	00000000 */ 	nop
@@ -2156,7 +2156,7 @@ glabel var7f1a827c
 /*  f011670:	afa00080 */ 	sw	$zero,0x80($sp)
 /*  f011674:	8e10176c */ 	lw	$s0,0x176c($s0)
 /*  f011678:	a3a0007b */ 	sb	$zero,0x7b($sp)
-/*  f01167c:	0fc2e831 */ 	jal	viResetDefaultModeIf4Mb
+/*  f01167c:	0fc2e831 */ 	jal	viResetLoResIf4Mb
 /*  f011680:	e7a40088 */ 	swc1	$f4,0x88($sp)
 /*  f011684:	0fc621c6 */ 	jal	func0f18e558
 /*  f011688:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2934,7 +2934,7 @@ glabel var7f1a827c
 //	s32 bodynum;
 //	s32 headnum;
 //
-//	viResetDefaultModeIf4Mb();
+//	viResetLoResIf4Mb();
 //	func0f18e558();
 //
 //	g_InCutscene = false;
