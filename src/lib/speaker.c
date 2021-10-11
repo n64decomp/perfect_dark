@@ -22,68 +22,30 @@ struct var8009c340 var8009c340;
 u32 var8009c344;
 u32 var8009c348;
 
-GLOBAL_ASM(
-glabel speaker00034030
-/*    34030:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    34034:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    34038:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    3403c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    34040:	3c01800a */ 	lui	$at,%hi(var8009c340)
-/*    34044:	a020c340 */ 	sb	$zero,%lo(var8009c340)($at)
-/*    34048:	3c01800a */ 	lui	$at,%hi(var8009c340+0x1)
-/*    3404c:	a020c341 */ 	sb	$zero,%lo(var8009c340+0x1)($at)
-/*    34050:	3c01800a */ 	lui	$at,%hi(var8009c340+0x2)
-/*    34054:	a020c342 */ 	sb	$zero,%lo(var8009c340+0x2)($at)
-/*    34058:	93b0002b */ 	lbu	$s0,0x2b($sp)
-/*    3405c:	24010001 */ 	addiu	$at,$zero,0x1
-/*    34060:	12010009 */ 	beq	$s0,$at,.L00034088
-/*    34064:	00000000 */ 	nop
-/*    34068:	24010003 */ 	addiu	$at,$zero,0x3
-/*    3406c:	1201000b */ 	beq	$s0,$at,.L0003409c
-/*    34070:	00000000 */ 	nop
-/*    34074:	24010004 */ 	addiu	$at,$zero,0x4
-/*    34078:	1201000d */ 	beq	$s0,$at,.L000340b0
-/*    3407c:	00000000 */ 	nop
-/*    34080:	10000010 */ 	b	.L000340c4
-/*    34084:	00000000 */ 	nop
-.L00034088:
-/*    34088:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    3408c:	3c01800a */ 	lui	$at,%hi(var8009c340+0x1)
-/*    34090:	a02ec341 */ 	sb	$t6,%lo(var8009c340+0x1)($at)
-/*    34094:	1000000b */ 	b	.L000340c4
-/*    34098:	00000000 */ 	nop
-.L0003409c:
-/*    3409c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    340a0:	3c01800a */ 	lui	$at,%hi(var8009c340+0x2)
-/*    340a4:	a02fc342 */ 	sb	$t7,%lo(var8009c340+0x2)($at)
-/*    340a8:	10000006 */ 	b	.L000340c4
-/*    340ac:	00000000 */ 	nop
-.L000340b0:
-/*    340b0:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    340b4:	3c01800a */ 	lui	$at,%hi(var8009c340)
-/*    340b8:	a038c340 */ 	sb	$t8,%lo(var8009c340)($at)
-/*    340bc:	10000001 */ 	b	.L000340c4
-/*    340c0:	00000000 */ 	nop
-.L000340c4:
-/*    340c4:	afa00024 */ 	sw	$zero,0x24($sp)
-.L000340c8:
-/*    340c8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    340cc:	0c00d041 */ 	jal	speaker00034104
-/*    340d0:	00002825 */ 	or	$a1,$zero,$zero
-/*    340d4:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    340d8:	27280001 */ 	addiu	$t0,$t9,0x1
-/*    340dc:	29010002 */ 	slti	$at,$t0,0x2
-/*    340e0:	1420fff9 */ 	bnez	$at,.L000340c8
-/*    340e4:	afa80024 */ 	sw	$t0,0x24($sp)
-/*    340e8:	10000001 */ 	b	.L000340f0
-/*    340ec:	00000000 */ 	nop
-.L000340f0:
-/*    340f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    340f4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    340f8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    340fc:	03e00008 */ 	jr	$ra
-/*    34100:	00000000 */ 	nop
-);
+void speakersSetMode(u8 mode)
+{
+	s32 i;
+
+	var8009c340.surround = 0;
+	var8009c340.mono = 0;
+	var8009c340.headphone = 0;
+
+	switch (mode) {
+	case SPEAKERMODE_MONO:
+		var8009c340.mono = 1;
+		break;
+	case SPEAKERMODE_HEADPHONE:
+		var8009c340.headphone = 1;
+		break;
+	case SPEAKERMODE_SURROUND:
+		var8009c340.surround = 1;
+		break;
+	}
+
+	for (i = 0; i < 2; i++) {
+		speaker00034104(i, 0);
+	}
+}
 
 GLOBAL_ASM(
 glabel speaker00034104

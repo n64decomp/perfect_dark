@@ -97,6 +97,7 @@ $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32
 $(B_DIR)/lib/lib_2fba0.o: OPT_LVL := -g
 $(B_DIR)/lib/lib_30ce0.o: OPT_LVL := -g
 $(B_DIR)/lib/mp3.o: OPT_LVL := -g
+$(B_DIR)/lib/speaker.o: OPT_LVL := -g
 $(B_DIR)/lib/lib_3a100.o: OPT_LVL := -g
 $(B_DIR)/lib/lib_3d280.o: OPT_LVL := -g
 $(B_DIR)/lib/lib_3e730.o: OPT_LVL := -g

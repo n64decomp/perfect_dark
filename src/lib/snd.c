@@ -1695,16 +1695,16 @@ void sndSetSoundMode(s32 mode)
 
 	switch (mode) {
 	case SOUNDMODE_MONO:
-		speaker00034030(1);
+		speakersSetMode(SPEAKERMODE_MONO);
 		break;
 	case SOUNDMODE_STEREO:
-		speaker00034030(2);
+		speakersSetMode(SPEAKERMODE_STEREO);
 		break;
 	case SOUNDMODE_HEADPHONE:
-		speaker00034030(3);
+		speakersSetMode(SPEAKERMODE_HEADPHONE);
 		break;
 	case SOUNDMODE_SURROUND:
-		speaker00034030(4);
+		speakersSetMode(SPEAKERMODE_SURROUND);
 		break;
 	}
 

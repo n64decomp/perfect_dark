@@ -7053,10 +7053,9 @@ struct mp3vars {
 };
 
 struct var8009c340 {
-	u8 unk00;
-	u8 unk01;
-	u8 unk02;
-	u8 unk03;
+	u8 surround;
+	u8 mono;
+	u8 headphone;
 };
 
 struct var80095210 {

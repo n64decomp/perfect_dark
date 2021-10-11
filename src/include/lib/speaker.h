@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void speaker00034030(s32 arg0);
+void speakersSetMode(u8 mode);
 void speaker00034104(s32 index, s32 arg1);
 
 #endif

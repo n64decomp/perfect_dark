@@ -791,10 +791,10 @@ void func00038924(struct mp3vars *vars)
 		vars->var8009c39e = vars->var8009c3e4;
 
 		if (vars->var8009c39c != vars->var8009c3ec) {
-			if (var8009c340.unk02) {
+			if (var8009c340.headphone) {
 				vars->var8009c39c = ((s16)(vars->var8009c3ec & 0x7f) >> 1) + 32;
 			} else {
-				if (var8009c340.unk01) {
+				if (var8009c340.mono) {
 					vars->var8009c39c = 64;
 				} else {
 					vars->var8009c39c = vars->var8009c3ec;
