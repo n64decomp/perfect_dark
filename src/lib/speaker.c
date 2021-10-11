@@ -23,7 +23,7 @@ u32 var8009c344;
 u32 var8009c348;
 
 GLOBAL_ASM(
-glabel func00034030
+glabel speaker00034030
 /*    34030:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    34034:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    34038:	afa40028 */ 	sw	$a0,0x28($sp)
@@ -68,7 +68,7 @@ glabel func00034030
 /*    340c4:	afa00024 */ 	sw	$zero,0x24($sp)
 .L000340c8:
 /*    340c8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    340cc:	0c00d041 */ 	jal	func00034104
+/*    340cc:	0c00d041 */ 	jal	speaker00034104
 /*    340d0:	00002825 */ 	or	$a1,$zero,$zero
 /*    340d4:	8fb90024 */ 	lw	$t9,0x24($sp)
 /*    340d8:	27280001 */ 	addiu	$t0,$t9,0x1
@@ -86,7 +86,7 @@ glabel func00034030
 );
 
 GLOBAL_ASM(
-glabel func00034104
+glabel speaker00034104
 /*    34104:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    34108:	14a00004 */ 	bnez	$a1,.L0003411c
 /*    3410c:	00000000 */ 	nop

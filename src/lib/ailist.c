@@ -1,10 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/atan2f.h"
-#include "game/padhalllv.h"
 #include "bss.h"
-#include "lib/mtx.h"
-#include "lib/lib_184d0.h"
+#include "lib/ailist.h"
 #include "data.h"
 #include "types.h"
 
@@ -58,25 +55,4 @@ u8 *ailistFindById(s32 ailistid)
 	}
 
 	return NULL;
-}
-
-void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked)
-{
-	if (blocker->hidden & OBJHFLAG_02000000) {
-		struct blockedpathobj *bp = g_BlockedPaths;
-
-		while (bp) {
-			if (bp->blocker == blocker) {
-				if (unblocked) {
-					waypointEnableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
-					break;
-				} else {
-					waypointDisableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
-					break;
-				}
-			}
-
-			bp = bp->next;
-		}
-	}
 }

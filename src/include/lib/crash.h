@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_0C000_H
-#define _IN_LIB_LIB_0C000_H
+#ifndef _IN_LIB_CRASH_H
+#define _IN_LIB_CRASH_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"
@@ -87,20 +87,20 @@ extern const char var700529a4[];
 extern const char var700529a8[];
 extern const char var700529ac[];
 
-void faultCreateThread2(void);
+void crashCreateThread(void);
 u32 crashGetParentStackFrame(u32 *ptr, u32 *start, u32 sp, u32 *regs);
 bool crashIsReturnAddress(u32 *instruction);
 u32 crashGetStackEnd(u32 sp, s32 tid);
 u32 crashGetStackStart(u32 arg0, s32 tid);
 bool crashIsDouble(f32 value);
-void rmonPrintFloat(s32 index, f32 arg1);
-void rmonPrint2Floats(s32 index, f32 value1, f32 value2);
-void rmonPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3);
+void crashPrintFloat(s32 index, f32 arg1);
+void crashPrint2Floats(s32 index, f32 value1, f32 value2);
+void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3);
 void crashPutChar(s32 x, s32 y, char c);
 void crashAppendChar(char c);
 void crashScroll(s32 numlines);
-void func0000cdc8(s32 x, s32 y, char c);
+void crash0000cdc8(s32 x, s32 y, char c);
 void crashReset(void);
-void func0000cf54(u8 *fb);
+void crash0000cf54(u8 *fb);
 
 #endif

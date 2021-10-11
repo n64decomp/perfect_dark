@@ -6,7 +6,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/memory.h"
 #include "data.h"
 #include "types.h"

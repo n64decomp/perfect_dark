@@ -32,9 +32,9 @@
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_184d0.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/ailist.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 
@@ -3269,7 +3269,7 @@ void setupParseObjects(s32 stagenum)
 						car->nextstep = 0;
 
 						if (obj->flags & OBJFLAG_CHOPPER_INACTIVE) {
-							prop->pos.y = func0002a36c(&prop->pos, prop->rooms, NULL, 0) + 30;
+							prop->pos.y = cd0002a36c(&prop->pos, prop->rooms, NULL, 0) + 30;
 						}
 
 						prop->forcetick = true;

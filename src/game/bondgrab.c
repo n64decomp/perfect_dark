@@ -13,8 +13,8 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 
@@ -108,11 +108,11 @@ void bgrabInit(void)
 		obj->hidden |= OBJHFLAG_GRABBED;
 
 		if (obj->flags3 & OBJFLAG3_GEOTYPE3) {
-			withforce = func000276c8(obj->geo3,
+			withforce = cd000276c8(obj->geo3,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z, 45, 0, 0);
 		} else {
-			withforce = func000274e0(obj->geo2,
+			withforce = cd000274e0(obj->geo2,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z, 45, 0, 0);
 		}
@@ -221,7 +221,7 @@ glabel var7f1ad990
 /*  f0ccc74:	27a400b0 */ 	addiu	$a0,$sp,0xb0
 /*  f0ccc78:	c5460010 */ 	lwc1	$f6,0x10($t2)
 /*  f0ccc7c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0ccc80:	0c009393 */ 	jal	func00024e4c
+/*  f0ccc80:	0c009393 */ 	jal	cd00024e4c
 /*  f0ccc84:	e7a800a0 */ 	swc1	$f8,0xa0($sp)
 /*  f0ccc88:	c7aa00ac */ 	lwc1	$f10,0xac($sp)
 /*  f0ccc8c:	c7a400b8 */ 	lwc1	$f4,0xb8($sp)
@@ -294,10 +294,10 @@ glabel var7f1ad990
 /*  f0ccd88:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*  f0ccd8c:	240600e4 */ 	addiu	$a2,$zero,0xe4
 /*  f0ccd90:	adc90004 */ 	sw	$t1,0x4($t6)
-/*  f0ccd94:	0c009393 */ 	jal	func00024e4c
+/*  f0ccd94:	0c009393 */ 	jal	cd00024e4c
 /*  f0ccd98:	adc10008 */ 	sw	$at,0x8($t6)
 /*  f0ccd9c:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0ccda0:	0c0094d9 */ 	jal	func00025364
+/*  f0ccda0:	0c0094d9 */ 	jal	cd00025364
 /*  f0ccda4:	27a50044 */ 	addiu	$a1,$sp,0x44
 /*  f0ccda8:	1040000e */ 	beqz	$v0,.L0f0ccde4
 /*  f0ccdac:	27a40068 */ 	addiu	$a0,$sp,0x68
@@ -643,7 +643,7 @@ glabel var7f1ad9c4
 /*  f0cd314:	46005101 */ 	sub.s	$f4,$f10,$f0
 /*  f0cd318:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f0cd31c:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0cd320:	0c00b62e */ 	jal	func0002d8b8
+/*  f0cd320:	0c00b62e */ 	jal	cd0002d8b8
 /*  f0cd324:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f0cd328:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0cd32c:	14410014 */ 	bne	$v0,$at,.L0f0cd380
@@ -664,7 +664,7 @@ glabel var7f1ad9c4
 /*  f0cd368:	46005101 */ 	sub.s	$f4,$f10,$f0
 /*  f0cd36c:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f0cd370:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0cd374:	0c00a9bf */ 	jal	func0002a6fc
+/*  f0cd374:	0c00a9bf */ 	jal	cd0002a6fc
 /*  f0cd378:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f0cd37c:	afa200ec */ 	sw	$v0,0xec($sp)
 .L0f0cd380:
@@ -1201,7 +1201,7 @@ glabel var7f1ad9c4
 /*  f0cd314:	46005101 */ 	sub.s	$f4,$f10,$f0
 /*  f0cd318:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f0cd31c:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0cd320:	0c00b62e */ 	jal	func0002d8b8
+/*  f0cd320:	0c00b62e */ 	jal	cd0002d8b8
 /*  f0cd324:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f0cd328:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0cd32c:	14410014 */ 	bne	$v0,$at,.L0f0cd380
@@ -1222,7 +1222,7 @@ glabel var7f1ad9c4
 /*  f0cd368:	46005101 */ 	sub.s	$f4,$f10,$f0
 /*  f0cd36c:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f0cd370:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0cd374:	0c00a9bf */ 	jal	func0002a6fc
+/*  f0cd374:	0c00a9bf */ 	jal	cd0002a6fc
 /*  f0cd378:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f0cd37c:	afa200ec */ 	sw	$v0,0xec($sp)
 .L0f0cd380:
@@ -1778,7 +1778,7 @@ glabel var7f1ad9c4
 /*  f0cab84:	46005101 */ 	sub.s	$f4,$f10,$f0
 /*  f0cab88:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f0cab8c:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0cab90:	0c00bb30 */ 	jal	func0002d8b8
+/*  f0cab90:	0c00bb30 */ 	jal	cd0002d8b8
 /*  f0cab94:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f0cab98:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0cab9c:	14410014 */ 	bne	$v0,$at,.NB0f0cabf0
@@ -1799,7 +1799,7 @@ glabel var7f1ad9c4
 /*  f0cabd8:	46005101 */ 	sub.s	$f4,$f10,$f0
 /*  f0cabdc:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*  f0cabe0:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0cabe4:	0c00aec1 */ 	jal	func0002a6fc
+/*  f0cabe4:	0c00aec1 */ 	jal	cd0002a6fc
 /*  f0cabe8:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f0cabec:	afa200e4 */ 	sw	$v0,0xe4($sp)
 .NB0f0cabf0:
@@ -2304,7 +2304,7 @@ glabel var7f1ad9c8
 /*  f0cdb90:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f0cdb94:	27a50098 */ 	addiu	$a1,$sp,0x98
 /*  f0cdb98:	240602a6 */ 	addiu	$a2,$zero,0x2a6
-/*  f0cdb9c:	0c009393 */ 	jal	func00024e4c
+/*  f0cdb9c:	0c009393 */ 	jal	cd00024e4c
 /*  f0cdba0:	e7ae0060 */ 	swc1	$f14,0x60($sp)
 /*  f0cdba4:	c7ac00a4 */ 	lwc1	$f12,0xa4($sp)
 /*  f0cdba8:	c7a40098 */ 	lwc1	$f4,0x98($sp)
@@ -2407,7 +2407,7 @@ glabel var7f1ad9c8
 /*  f0cdd18:	10000049 */ 	b	.L0f0cde40
 /*  f0cdd1c:	c7ac00b0 */ 	lwc1	$f12,0xb0($sp)
 .L0f0cdd20:
-/*  f0cdd20:	0c0094d9 */ 	jal	func00025364
+/*  f0cdd20:	0c0094d9 */ 	jal	cd00025364
 /*  f0cdd24:	e7ae0060 */ 	swc1	$f14,0x60($sp)
 /*  f0cdd28:	1040001c */ 	beqz	$v0,.L0f0cdd9c
 /*  f0cdd2c:	c7ae0060 */ 	lwc1	$f14,0x60($sp)
@@ -2549,7 +2549,7 @@ bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 	bool result = bgrabCalculateNewPositiontWithPush(delta, 0, true);
 
 	if (!result) {
-		func00024e4c(arg1, arg2, 0x32f, "bondgrab.c");
+		cd00024e4c(arg1, arg2, 0x32f, "bondgrab.c");
 	}
 
 	return result;
@@ -3671,7 +3671,7 @@ void bgrabTick(void)
 		if (g_Vars.currentplayer->vv_ground <= -30000
 				|| ydiff < -100 || ydiff > 100
 				|| g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 50
-				|| !hasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+				|| !cdHasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 					&g_Vars.currentplayer->grabbedprop->pos, g_Vars.currentplayer->grabbedprop->rooms, CDTYPE_ALL, 12)) {
 			bmoveSetMode(MOVEMODE_WALK);
 		}

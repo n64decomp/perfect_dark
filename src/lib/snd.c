@@ -13,7 +13,7 @@
 #include "lib/lib_2fc60.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_37650.h"
-#include "lib/lib_37b00.h"
+#include "lib/mp3.h"
 #include "lib/lib_38d10.h"
 #include "lib/lib_39be0.h"
 #include "lib/lib_39c80.h"
@@ -1695,27 +1695,27 @@ void sndSetSoundMode(s32 mode)
 
 	switch (mode) {
 	case SOUNDMODE_MONO:
-		func00034030(1);
+		speaker00034030(1);
 		break;
 	case SOUNDMODE_STEREO:
-		func00034030(2);
+		speaker00034030(2);
 		break;
 	case SOUNDMODE_HEADPHONE:
-		func00034030(3);
+		speaker00034030(3);
 		break;
 	case SOUNDMODE_SURROUND:
-		func00034030(4);
+		speaker00034030(4);
 		break;
 	}
 
-	func00034104(0, 4);
+	speaker00034104(0, 4);
 
 	for (i = 1; i < var80094ea8; i++) {
 		switch (mode) {
 		case SOUNDMODE_STEREO:
 		case SOUNDMODE_HEADPHONE:
 		case SOUNDMODE_SURROUND:
-			func00034104(i, 4);
+			speaker00034104(i, 4);
 			break;
 		}
 	}

@@ -6,7 +6,7 @@
 #include "game/padhalllv.h"
 #include "bss.h"
 #include "lib/rng.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
@@ -228,7 +228,7 @@ glabel waypointFindClosestToPos
 /*  f114538:	8fa503a4 */ 	lw	$a1,0x3a4($sp)
 /*  f11453c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f114540:	02a03825 */ 	or	$a3,$s5,$zero
-/*  f114544:	0c00b70f */ 	jal	hasLineOfSight
+/*  f114544:	0c00b70f */ 	jal	cdHasLineOfSight
 /*  f114548:	a7af010c */ 	sh	$t7,0x10c($sp)
 /*  f11454c:	10400023 */ 	beqz	$v0,.L0f1145dc
 /*  f114550:	02537021 */ 	addu	$t6,$s2,$s3
@@ -240,7 +240,7 @@ glabel waypointFindClosestToPos
 /*  f114568:	02a03825 */ 	or	$a3,$s5,$zero
 /*  f11456c:	afbe0014 */ 	sw	$s8,0x14($sp)
 /*  f114570:	e7b40018 */ 	swc1	$f20,0x18($sp)
-/*  f114574:	0c00b62e */ 	jal	func0002d8b8
+/*  f114574:	0c00b62e */ 	jal	cd0002d8b8
 /*  f114578:	e7b4001c */ 	swc1	$f20,0x1c($sp)
 /*  f11457c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f114580:	14410003 */ 	bne	$v0,$at,.L0f114590
@@ -260,7 +260,7 @@ glabel waypointFindClosestToPos
 /*  f1145b4:	24e73a80 */ 	addiu	$a3,$a3,%lo(var7f1b3a80)
 /*  f1145b8:	004d2821 */ 	addu	$a1,$v0,$t5
 /*  f1145bc:	004c2021 */ 	addu	$a0,$v0,$t4
-/*  f1145c0:	0c009393 */ 	jal	func00024e4c
+/*  f1145c0:	0c009393 */ 	jal	cd00024e4c
 /*  f1145c4:	240601b9 */ 	addiu	$a2,$zero,0x1b9
 /*  f1145c8:	10000006 */ 	b	.L0f1145e4
 /*  f1145cc:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -359,7 +359,7 @@ glabel waypointFindClosestToPos
 /*  f114724:	46065100 */ 	add.s	$f4,$f10,$f6
 /*  f114728:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f11472c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f114730:	0c00b610 */ 	jal	func0002d840
+/*  f114730:	0c00b610 */ 	jal	cd0002d840
 /*  f114734:	e7a40094 */ 	swc1	$f4,0x94($sp)
 /*  f114738:	10400004 */ 	beqz	$v0,.L0f11474c
 /*  f11473c:	c7b00098 */ 	lwc1	$f16,0x98($sp)
@@ -385,7 +385,7 @@ glabel waypointFindClosestToPos
 /*  f114788:	46043201 */ 	sub.s	$f8,$f6,$f4
 /*  f11478c:	afa90014 */ 	sw	$t1,0x14($sp)
 /*  f114790:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f114794:	0c00b610 */ 	jal	func0002d840
+/*  f114794:	0c00b610 */ 	jal	cd0002d840
 /*  f114798:	e7a80094 */ 	swc1	$f8,0x94($sp)
 /*  f11479c:	50400005 */ 	beqzl	$v0,.L0f1147b4
 /*  f1147a0:	26940001 */ 	addiu	$s4,$s4,0x1

@@ -94,14 +94,13 @@
 #include "lib/args.h"
 #include "lib/joy.h"
 #include "lib/lib_06440.h"
-#include "lib/lib_09a80.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/lib_11420.h"
+#include "lib/music.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -450,7 +449,7 @@ void lvInit(s32 stagenum)
 	}
 
 	mpSetDefaultNamesIfEmpty();
-	func0002373c();
+	anim0002373c();
 	objectivesReset();
 	func0f013ba0();
 	func0f011110();
@@ -828,7 +827,7 @@ glabel var7f1b1f44nc
 .NB0f162a68:
 /*  f162a68:	0fc609dc */ 	jal	mpSetDefaultNamesIfEmpty
 /*  f162a6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162a70:	0c0092c7 */ 	jal	func0002373c
+/*  f162a70:	0c0092c7 */ 	jal	anim0002373c
 /*  f162a74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162a78:	0fc041c4 */ 	jal	objectivesReset
 /*  f162a7c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8027,7 +8026,7 @@ glabel var7f1b8ed0pf
 /*  f16d6cc:	2401005a */ 	li	$at,0x5a
 /*  f16d6d0:	0fc06bc9 */ 	jal	titleTickOld
 /*  f16d6d4:	00000000 */ 	nop
-/*  f16d6d8:	0c0046c5 */ 	jal	func00011d84
+/*  f16d6d8:	0c0046c5 */ 	jal	music00011d84
 /*  f16d6dc:	00000000 */ 	nop
 /*  f16d6e0:	8e8204b4 */ 	lw	$v0,0x4b4($s4)
 /*  f16d6e4:	2401005a */ 	li	$at,0x5a
@@ -8038,7 +8037,7 @@ glabel var7f1b8ed0pf
 /*  f16d6f4:	00000000 */ 	nop
 /*  f16d6f8:	0fc0764c */ 	jal	func0f01d860
 /*  f16d6fc:	00000000 */ 	nop
-/*  f16d700:	0c0046c5 */ 	jal	func00011d84
+/*  f16d700:	0c0046c5 */ 	jal	music00011d84
 /*  f16d704:	00000000 */ 	nop
 /*  f16d708:	10000089 */ 	b	.PF0f16d930
 /*  f16d70c:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -8052,7 +8051,7 @@ glabel var7f1b8ed0pf
 /*  f16d728:	00000000 */ 	nop
 /*  f16d72c:	0fc07006 */ 	jal	menuTickAll
 /*  f16d730:	00000000 */ 	nop
-/*  f16d734:	0c0046c5 */ 	jal	func00011d84
+/*  f16d734:	0c0046c5 */ 	jal	music00011d84
 /*  f16d738:	00000000 */ 	nop
 /*  f16d73c:	0fc0764c */ 	jal	func0f01d860
 /*  f16d740:	00000000 */ 	nop
@@ -8066,7 +8065,7 @@ glabel var7f1b8ed0pf
 /*  f16d75c:	2401005c */ 	li	$at,0x5c
 /*  f16d760:	0fc07006 */ 	jal	menuTickAll
 /*  f16d764:	00000000 */ 	nop
-/*  f16d768:	0c0046c5 */ 	jal	func00011d84
+/*  f16d768:	0c0046c5 */ 	jal	music00011d84
 /*  f16d76c:	00000000 */ 	nop
 /*  f16d770:	0fc0764c */ 	jal	func0f01d860
 /*  f16d774:	00000000 */ 	nop
@@ -8078,7 +8077,7 @@ glabel var7f1b8ed0pf
 .PF0f16d78c:
 /*  f16d78c:	14410007 */ 	bne	$v0,$at,.PF0f16d7ac
 /*  f16d790:	00000000 */ 	nop
-/*  f16d794:	0c0046c5 */ 	jal	func00011d84
+/*  f16d794:	0c0046c5 */ 	jal	music00011d84
 /*  f16d798:	00000000 */ 	nop
 /*  f16d79c:	0fc0764c */ 	jal	func0f01d860
 /*  f16d7a0:	00000000 */ 	nop
@@ -8144,7 +8143,7 @@ glabel var7f1b8ed0pf
 /*  f16d884:	0fc078dc */ 	jal	propsTick2
 /*  f16d888:	00000000 */ 	nop
 .PF0f16d88c:
-/*  f16d88c:	0c0046c5 */ 	jal	func00011d84
+/*  f16d88c:	0c0046c5 */ 	jal	music00011d84
 /*  f16d890:	00000000 */ 	nop
 /*  f16d894:	0fc0764c */ 	jal	func0f01d860
 /*  f16d898:	00000000 */ 	nop
@@ -8467,26 +8466,26 @@ void lvTick(void)
 
 	if (g_Vars.stagenum == STAGE_TEST_OLD) {
 		titleTickOld();
-		func00011d84();
+		music00011d84();
 	}
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		titleTick();
 		func0f01d860();
-		func00011d84();
+		music00011d84();
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
 		menuTickAll();
-		func00011d84();
+		music00011d84();
 		func0f01d860();
 		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		menuTickAll();
-		func00011d84();
+		music00011d84();
 		func0f01d860();
 		pakExecuteDebugOperations();
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		func00011d84();
+		music00011d84();
 		func0f01d860();
 	} else {
 		lvUpdateCutsceneTime();
@@ -8522,7 +8521,7 @@ void lvTick(void)
 			propsTick2();
 		}
 
-		func00011d84();
+		music00011d84();
 		func0f01d860();
 		propsTickPadEffects();
 
@@ -9629,7 +9628,7 @@ glabel lvTick
 /*  f167640:	2401005a */ 	addiu	$at,$zero,0x5a
 /*  f167644:	0fc06ad8 */ 	jal	titleTickOld
 /*  f167648:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16764c:	0c004848 */ 	jal	func00011d84
+/*  f16764c:	0c004848 */ 	jal	music00011d84
 /*  f167650:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167654:	8e8204b4 */ 	lw	$v0,0x4b4($s4)
 /*  f167658:	2401005a */ 	addiu	$at,$zero,0x5a
@@ -9640,7 +9639,7 @@ glabel lvTick
 /*  f167668:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16766c:	0fc07550 */ 	jal	func0f01d860
 /*  f167670:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167674:	0c004848 */ 	jal	func00011d84
+/*  f167674:	0c004848 */ 	jal	music00011d84
 /*  f167678:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16767c:	10000087 */ 	beqz	$zero,.NB0f16789c
 /*  f167680:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -9652,7 +9651,7 @@ glabel lvTick
 /*  f167694:	00002025 */ 	or	$a0,$zero,$zero
 /*  f167698:	0fc06f0a */ 	jal	menuTickAll
 /*  f16769c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1676a0:	0c004848 */ 	jal	func00011d84
+/*  f1676a0:	0c004848 */ 	jal	music00011d84
 /*  f1676a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1676a8:	0fc07550 */ 	jal	func0f01d860
 /*  f1676ac:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9666,7 +9665,7 @@ glabel lvTick
 /*  f1676c8:	2401005c */ 	addiu	$at,$zero,0x5c
 /*  f1676cc:	0fc06f0a */ 	jal	menuTickAll
 /*  f1676d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1676d4:	0c004848 */ 	jal	func00011d84
+/*  f1676d4:	0c004848 */ 	jal	music00011d84
 /*  f1676d8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1676dc:	0fc07550 */ 	jal	func0f01d860
 /*  f1676e0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9678,7 +9677,7 @@ glabel lvTick
 .NB0f1676f8:
 /*  f1676f8:	14410007 */ 	bne	$v0,$at,.NB0f167718
 /*  f1676fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167700:	0c004848 */ 	jal	func00011d84
+/*  f167700:	0c004848 */ 	jal	music00011d84
 /*  f167704:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167708:	0fc07550 */ 	jal	func0f01d860
 /*  f16770c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9744,7 +9743,7 @@ glabel lvTick
 /*  f1677f0:	0fc077cc */ 	jal	propsTick2
 /*  f1677f4:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f1677f8:
-/*  f1677f8:	0c004848 */ 	jal	func00011d84
+/*  f1677f8:	0c004848 */ 	jal	music00011d84
 /*  f1677fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167800:	0fc07550 */ 	jal	func0f01d860
 /*  f167804:	00000000 */ 	sll	$zero,$zero,0x0

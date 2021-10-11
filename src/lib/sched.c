@@ -8,12 +8,12 @@
 #include "lib/audiomgr.h"
 #include "lib/rzip.h"
 #include "lib/lib_09660.h"
-#include "lib/lib_0c000.h"
+#include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/lib_13710.h"
+#include "lib/pimgr.h"
 #include "lib/lib_13750.h"
-#include "lib/lib_2fa00.h"
+#include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "data.h"
 #include "types.h"
@@ -85,7 +85,7 @@ void func00001b34(u32 value)
 void func00001b40(void *framebuffer)
 {
 	if ((var8005ce68 && var8005ce64) || var8005ce60) {
-		func0000cf54(framebuffer);
+		crash0000cf54(framebuffer);
 		var8005ce70 = osGetCount();
 	}
 }
@@ -94,8 +94,8 @@ void func00001b98(u32 value)
 {
 	if ((value & 0xf) == 0 && ((var8005ce68 && var8005ce64) || var8005ce60)) {
 		if (osGetCount() - var8005ce70 > var8005ce6c) {
-			func0000cf54(g_FrameBuffers[0]);
-			func0000cf54(g_FrameBuffers[1]);
+			crash0000cf54(g_FrameBuffers[0]);
+			crash0000cf54(g_FrameBuffers[1]);
 		}
 	}
 }

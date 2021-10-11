@@ -28,7 +28,7 @@
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "data.h"
 #include "types.h"
 
@@ -1867,7 +1867,7 @@ glabel var7f1b8ea8
 /*  f19113c:	24190022 */ 	addiu	$t9,$zero,0x22
 /*  f191140:	afb90010 */ 	sw	$t9,0x10($sp)
 /*  f191144:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f191148:	0c00b734 */ 	jal	func0002dcd0
+/*  f191148:	0c00b734 */ 	jal	cd0002dcd0
 /*  f19114c:	afa3003c */ 	sw	$v1,0x3c($sp)
 /*  f191150:	14400002 */ 	bnez	$v0,.L0f19115c
 /*  f191154:	8fa3003c */ 	lw	$v1,0x3c($sp)
@@ -2268,7 +2268,7 @@ glabel var7f1b8ea8
 /*  f18b228:	24180022 */ 	addiu	$t8,$zero,0x22
 /*  f18b22c:	afb80010 */ 	sw	$t8,0x10($sp)
 /*  f18b230:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f18b234:	0c00bc36 */ 	jal	func0002dcd0
+/*  f18b234:	0c00bc36 */ 	jal	cd0002dcd0
 /*  f18b238:	afa3003c */ 	sw	$v1,0x3c($sp)
 /*  f18b23c:	14400002 */ 	bnez	$v0,.NB0f18b248
 /*  f18b240:	8fa3003c */ 	lw	$v1,0x3c($sp)
@@ -2468,7 +2468,7 @@ glabel var7f1b8ea8
 //		dprint();
 //
 //		if ((obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
-//				&& !func0002dcd0(&chrprop->pos, chrprop->rooms, &prop->pos, prop->rooms, 0x22)) {
+//				&& !cd0002dcd0(&chrprop->pos, chrprop->rooms, &prop->pos, prop->rooms, 0x22)) {
 //			sp3c = false;
 //		}
 //	}

@@ -5,7 +5,7 @@
 #include "game/pad.h"
 #include "bss.h"
 #include "lib/memory.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "data.h"
 #include "types.h"
 
@@ -105,7 +105,7 @@ void coverPrepare(void)
 				g_CoverRooms[i] = -1;
 
 				if (roomsptr != NULL) {
-					s32 room = func0002a400(cover.pos, roomsptr);
+					s32 room = cd0002a400(cover.pos, roomsptr);
 
 					if (room > 0) {
 						g_CoverRooms[i] = (s16)room;
@@ -131,7 +131,7 @@ void coverPrepare(void)
 					}
 
 					if (roomsptr) {
-						s32 aimroom = func0002a400(&aimpos, roomsptr);
+						s32 aimroom = cd0002a400(&aimpos, roomsptr);
 
 						if (aimroom > 0) {
 							g_CoverFlags[i] |= (g_CoverRooms[i] == (s16)aimroom) ? COVERFLAG_AIMSAMEROOM : COVERFLAG_AIMDIFFROOM;

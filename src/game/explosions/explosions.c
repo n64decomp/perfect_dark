@@ -19,11 +19,11 @@
 #include "game/utils.h"
 #include "game/wallhit.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "data.h"
 #include "types.h"
 
@@ -104,12 +104,12 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, s16 *rooms, s1
 	}
 
 	if (prop) {
-		ret = func0002a564(&prop->pos, prop->rooms, &y, 0, &sp88, &sp68);
+		ret = cd0002a564(&prop->pos, prop->rooms, &y, 0, &sp88, &sp68);
 		sp100.x = prop->pos.x;
 		sp100.y = y;
 		sp100.z = prop->pos.z;
 	} else {
-		ret = func0002a564(pos, rooms, &y, 0, &sp88, &sp68);
+		ret = cd0002a564(pos, rooms, &y, 0, &sp88, &sp68);
 		sp100.x = pos->x;
 		sp100.y = y;
 		sp100.z = pos->z;

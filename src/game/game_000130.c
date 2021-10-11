@@ -3,7 +3,7 @@
 #include "game/game_000130.h"
 #include "game/floor.h"
 #include "bss.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "data.h"
 #include "types.h"
 
@@ -46,7 +46,7 @@ u16 func0f0002a0(s16 animnum, s32 frame, s32 endframe)
 	u16 count = 0;
 
 	while (frame < endframe) {
-		count += func0002485c(0, 0, &g_ModelTypeChr, animnum, frame, sp48, 0);
+		count += anim0002485c(0, 0, &g_ModelTypeChr, animnum, frame, sp48, 0);
 		frame++;
 	}
 
@@ -59,7 +59,7 @@ s32 func0f000358(s16 animnum, s32 frame, s32 endframe)
 	s16 sp44[4];
 
 	while (frame < endframe) {
-		func0002485c(0, 0, &g_ModelTypeChr, animnum, frame, sp44, 0);
+		anim0002485c(0, 0, &g_ModelTypeChr, animnum, frame, sp44, 0);
 		count += sp44[2];
 		frame++;
 	}

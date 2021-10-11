@@ -23,7 +23,7 @@ u32 var8005cf88 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func000070d0
+glabel vmInit
 /*     70d0:	27bdeb58 */ 	addiu	$sp,$sp,-5288
 /*     70d4:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*     70d8:	24100001 */ 	addiu	$s0,$zero,0x1
@@ -305,7 +305,7 @@ glabel func000070d0
 const char var70053af0nb[] = "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x";
 const char var70053b48nb[] = "vm_m.c";
 GLOBAL_ASM(
-glabel func000070d0
+glabel vmInit
 /*     71b0:	27bdea98 */ 	addiu	$sp,$sp,-5480
 /*     71b4:	afb00054 */ 	sw	$s0,0x54($sp)
 /*     71b8:	24100001 */ 	addiu	$s0,$zero,0x1

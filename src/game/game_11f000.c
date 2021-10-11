@@ -8,7 +8,7 @@
 #include "game/game_165670.h"
 #include "game/pad.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"

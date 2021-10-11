@@ -21,7 +21,7 @@
 #include "game/pak/pak.h"
 #include "bss.h"
 #include "lib/args.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/rng.h"
 #include "lib/lib_317f0.h"

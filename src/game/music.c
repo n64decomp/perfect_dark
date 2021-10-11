@@ -7,7 +7,7 @@
 #include "game/game_176080.h"
 #include "bss.h"
 #include "lib/snd.h"
-#include "lib/lib_11420.h"
+#include "lib/music.h"
 #include "data.h"
 #include "types.h"
 
@@ -244,7 +244,7 @@ void func0f16d3d0(void)
 
 	var800840c4 = 1;
 
-	func0001190c();
+	music0001190c();
 }
 
 #if VERSION >= VERSION_NTSC_1_0

@@ -24,7 +24,7 @@
 #include "game/mplayer/mplayer.h"
 #include "game/options.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "data.h"

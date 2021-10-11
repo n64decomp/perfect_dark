@@ -26,13 +26,13 @@
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
-#include "lib/lib_24e40.h"
+#include "lib/vi.h"
+#include "lib/collision.h"
 #include "lib/joy.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "data.h"
 #include "types.h"
 
@@ -457,9 +457,9 @@ f32 bmoveCalculateLookahead(void)
 
 			if (
 #if VERSION >= VERSION_NTSC_1_0
-					func0002a440(&spbc, sp80, &sp78, NULL, NULL) > 0
+					cd0002a440(&spbc, sp80, &sp78, NULL, NULL) > 0
 #else
-					func0002a440(&spbc, sp80, &sp78, NULL) > 0
+					cd0002a440(&spbc, sp80, &sp78, NULL) > 0
 #endif
 					&& sp78 - ground < 200
 					&& sp78 - ground > -200) {

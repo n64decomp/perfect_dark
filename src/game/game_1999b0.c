@@ -14,8 +14,8 @@
 #include "bss.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 
@@ -480,7 +480,7 @@ void func0f19a7d0(u16 padnum, struct coord *pos)
 	rooms[1] = -1;
 
 	pos->x = pad.pos.x;
-	pos->y = func0002a36c(&pad.pos, rooms, 0, 0) + 150;
+	pos->y = cd0002a36c(&pad.pos, rooms, 0, 0) + 150;
 	pos->z = pad.pos.z;
 }
 

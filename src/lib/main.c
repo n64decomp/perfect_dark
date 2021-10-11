@@ -41,12 +41,12 @@
 #include "game/utils.h"
 #include "bss.h"
 #include "lib/args.h"
-#include "lib/lib_070d0.h"
+#include "lib/vm.h"
 #include "lib/rzip.h"
 #include "lib/lib_09660.h"
-#include "lib/lib_09a80.h"
-#include "lib/lib_0bfb0.h"
-#include "lib/lib_0c000.h"
+#include "lib/vi.h"
+#include "lib/fault.h"
+#include "lib/crash.h"
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/snd.h"
@@ -54,10 +54,10 @@
 #include "lib/lib_126b0.h"
 #include "lib/lib_13750.h"
 #include "lib/lib_13790.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/rdp.h"
 #include "lib/lib_2f490.h"
-#include "lib/lib_2fa00.h"
+#include "lib/rmon.h"
 #include "data.h"
 #include "types.h"
 
@@ -580,7 +580,7 @@ glabel mainInit
 /*     d678:	1000ffff */ 	b	.PF0000d678
 /*     d67c:	00000000 */ 	nop
 .PF0000d680:
-/*     d680:	0c001c04 */ 	jal	func000070d0
+/*     d680:	0c001c04 */ 	jal	vmInit
 /*     d684:	00000000 */ 	nop
 /*     d688:	0fc6a2ac */ 	jal	func0f1a78b0
 /*     d68c:	00000000 */ 	nop
@@ -664,7 +664,7 @@ glabel mainInit
 /*     d7c0:	00000000 */ 	nop
 /*     d7c4:	0fc52c1b */ 	jal	func0f14a3bc
 /*     d7c8:	00000000 */ 	nop
-/*     d7cc:	0c008b30 */ 	jal	func000233c0
+/*     d7cc:	0c008b30 */ 	jal	anim000233c0
 /*     d7d0:	00000000 */ 	nop
 /*     d7d4:	0fc00040 */ 	jal	func0f000100
 /*     d7d8:	00000000 */ 	nop
@@ -983,7 +983,7 @@ glabel mainInit
 /*     d93c:	1000ffff */ 	b	.L0000d93c
 /*     d940:	00000000 */ 	nop
 .L0000d944:
-/*     d944:	0c001c34 */ 	jal	func000070d0
+/*     d944:	0c001c34 */ 	jal	vmInit
 /*     d948:	00000000 */ 	nop
 /*     d94c:	0fc69e2c */ 	jal	func0f1a78b0
 /*     d950:	00000000 */ 	nop
@@ -1067,7 +1067,7 @@ glabel mainInit
 /*     da84:	00000000 */ 	nop
 /*     da88:	0fc528ef */ 	jal	func0f14a3bc
 /*     da8c:	00000000 */ 	nop
-/*     da90:	0c008cf0 */ 	jal	func000233c0
+/*     da90:	0c008cf0 */ 	jal	anim000233c0
 /*     da94:	00000000 */ 	nop
 /*     da98:	0fc00040 */ 	jal	func0f000100
 /*     da9c:	00000000 */ 	nop
@@ -1356,7 +1356,7 @@ glabel mainInit
 /*     de4c:	3c018006 */ 	lui	$at,0x8006
 /*     de50:	ac2ff2f4 */ 	sw	$t7,-0xd0c($at)
 .NB0000de54:
-/*     de54:	0c001c6c */ 	jal	func000070d0
+/*     de54:	0c001c6c */ 	jal	vmInit
 /*     de58:	00000000 */ 	sll	$zero,$zero,0x0
 /*     de5c:	0fc68554 */ 	jal	func0f1a78b0
 /*     de60:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1440,7 +1440,7 @@ glabel mainInit
 /*     df94:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df98:	0fc512e3 */ 	jal	func0f14a3bc
 /*     df9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dfa0:	0c0091e8 */ 	jal	func000233c0
+/*     dfa0:	0c0091e8 */ 	jal	anim000233c0
 /*     dfa4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dfa8:	0fc00040 */ 	jal	func0f000100
 /*     dfac:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1624,7 +1624,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		while (1);
 //	}
 //
-//	func000070d0();
+//	vmInit();
 //	func0f1a78b0();
 //	func0f166f74();
 //	stub0f175f50();
@@ -1667,7 +1667,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	phAllocate();
 //	pakInitAll();
 //	func0f14a3bc();
-//	func000233c0();
+//	anim000233c0();
 //	func0f000100();
 //	func0f000130();
 //	stub0f000850();

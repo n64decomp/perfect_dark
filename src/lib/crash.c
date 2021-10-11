@@ -3,8 +3,8 @@
 #include "bss.h"
 #include "lib/tlb.h"
 #include "lib/lib_09660.h"
-#include "lib/lib_0c000.h"
-#include "lib/lib_2fa00.h"
+#include "lib/crash.h"
+#include "lib/rmon.h"
 #include "data.h"
 #include "types.h"
 
@@ -143,7 +143,7 @@ glabel func0000c1d0nb
 );
 #endif
 
-void faultCreateThread2(void)
+void crashCreateThread(void)
 {
 	osCreateMesgQueue(&g_FaultMesgQueue, &g_FaultMesg, 1);
 	osCreateThread(&g_FaultThread, THREAD_FAULT, faultproc, NULL, &g_FaultStack[1024], THREADPRI_FAULT);
@@ -476,12 +476,12 @@ glabel func0000c694nb
 /*     c6e0:	3c047005 */ 	lui	$a0,0x7005
 /*     c6e4:	3c047005 */ 	lui	$a0,0x7005
 /*     c6e8:	24843fd0 */ 	addiu	$a0,$a0,0x3fd0
-/*     c6ec:	0c00c47d */ 	jal	crashPrint
+/*     c6ec:	0c00c47d */ 	jal	rmonPrint
 /*     c6f0:	00e02825 */ 	or	$a1,$a3,$zero
 /*     c6f4:	10000004 */ 	beqz	$zero,.NB0000c708
 /*     c6f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .NB0000c6fc:
-/*     c6fc:	0c00c47d */ 	jal	crashPrint
+/*     c6fc:	0c00c47d */ 	jal	rmonPrint
 /*     c700:	24843fd8 */ 	addiu	$a0,$a0,0x3fd8
 /*     c704:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .NB0000c708:
@@ -521,12 +521,12 @@ glabel func0000c714nb
 /*     c760:	3c047005 */ 	lui	$a0,0x7005
 /*     c764:	3c047005 */ 	lui	$a0,0x7005
 /*     c768:	24843fdc */ 	addiu	$a0,$a0,0x3fdc
-/*     c76c:	0c00c47d */ 	jal	crashPrint
+/*     c76c:	0c00c47d */ 	jal	rmonPrint
 /*     c770:	00e02825 */ 	or	$a1,$a3,$zero
 /*     c774:	10000004 */ 	beqz	$zero,.NB0000c788
 /*     c778:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .NB0000c77c:
-/*     c77c:	0c00c47d */ 	jal	crashPrint
+/*     c77c:	0c00c47d */ 	jal	rmonPrint
 /*     c780:	24843fe4 */ 	addiu	$a0,$a0,0x3fe4
 /*     c784:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .NB0000c788:
@@ -546,7 +546,7 @@ glabel func0000c794nb
 /*     c79c:	3c047005 */ 	lui	$a0,0x7005
 /*     c7a0:	3c058009 */ 	lui	$a1,0x8009
 /*     c7a4:	8ca5710c */ 	lw	$a1,0x710c($a1)
-/*     c7a8:	0c00c47d */ 	jal	crashPrint
+/*     c7a8:	0c00c47d */ 	jal	rmonPrint
 /*     c7ac:	24843fe8 */ 	addiu	$a0,$a0,0x3fe8
 /*     c7b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     c7b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -570,7 +570,7 @@ u32 crashGetStackEnd(u32 sp, s32 tid)
 	u32 end;
 
 	if (tid <= 0 || tid > 6U) {
-		crashPrint("Bad tid\n");
+		rmonPrint("Bad tid\n");
 		return 0;
 	}
 
@@ -589,7 +589,7 @@ u32 crashGetStackStart(u32 sp, s32 tid)
 	u32 start;
 
 	if (tid <= 0 || tid > 6U) {
-		crashPrint("Bad tid\n");
+		rmonPrint("Bad tid\n");
 		return 0;
 	}
 
@@ -614,32 +614,32 @@ bool crashIsDouble(f32 value)
 void crashPrintFloat(s32 index, f32 value)
 {
 	if (crashIsDouble(value)) {
-		crashPrint("%s%s%02d: % .7e ", "", "", index, (f64)value);
+		rmonPrint("%s%s%02d: % .7e ", "", "", index, (f64)value);
 	} else {
 		u32 bits = *(u32 *)&value;
-		crashPrint("%02d: I%d.%03d.%07d ", index, (bits & 0x80000000) >> 31, (bits & 0x7f800000) >> 23, bits & 0x7fffff);
+		rmonPrint("%02d: I%d.%03d.%07d ", index, (bits & 0x80000000) >> 31, (bits & 0x7f800000) >> 23, bits & 0x7fffff);
 	}
 }
 
 void crashPrint2Floats(s32 index, f32 value1, f32 value2)
 {
 	crashPrintFloat(index, value1);
-	crashPrint(" ");
+	rmonPrint(" ");
 
 	crashPrintFloat(index + 1, value2);
-	crashPrint("\n");
+	rmonPrint("\n");
 }
 
 void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3)
 {
 	crashPrintFloat(index, value1);
-	crashPrint(" ");
+	rmonPrint(" ");
 
 	crashPrintFloat(index + 1, value2);
-	crashPrint(" ");
+	rmonPrint(" ");
 
 	crashPrintFloat(index + 2, value3);
-	crashPrint("\n");
+	rmonPrint("\n");
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -654,7 +654,7 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 	__OSThreadContext *ctx = &thread->context;
 	bool done;
 
-	crashPrint("\n\nFAULT-\n");
+	rmonPrint("\n\nFAULT-\n");
 
 	if (!g_Vars.fourmeg2player) {
 		// Print a stack trace in a dodgy way.
@@ -662,21 +662,21 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 		// values which could potentially be a return address, and prints them.
 		u32 *stackend = (u32 *) crashGetStackEnd(ctx->sp, thread->id);
 		u32 *sp;
-		crashPrint("DodgyStackTrace: %08llx ", ctx->ra & 0xffffffff);
+		rmonPrint("DodgyStackTrace: %08llx ", ctx->ra & 0xffffffff);
 		sp = (u32 *) ctx->sp;
 
 		while (sp < stackend) {
 			if (crashIsReturnAddress((u32 *)*sp)) {
-				crashPrint("%08x ", *sp);
+				rmonPrint("%08x ", *sp);
 			}
 
 			sp++;
 		}
 
-		crashPrint(".\n");
+		rmonPrint(".\n");
 	}
 
-	crashPrint("%H#@! Another Perfect Crash (tm)\n");
+	rmonPrint("%H#@! Another Perfect Crash (tm)\n");
 
 	if (!g_Vars.fourmeg2player) {
 		// Print floating point registers
@@ -694,32 +694,32 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 	}
 
 	// Print integer registers
-	crashPrint("at 0x%016llx v0 0x%016llx v1 0x%016llx\n", ctx->at, ctx->v0, ctx->v1);
-	crashPrint("a0 0x%016llx a1 0x%016llx a2 0x%016llx\n", ctx->a0, ctx->a1, ctx->a2);
-	crashPrint("a3 0x%016llx t0 0x%016llx t1 0x%016llx\n", ctx->a3, ctx->t0, ctx->t1);
-	crashPrint("t2 0x%016llx t3 0x%016llx t4 0x%016llx\n", ctx->t2, ctx->t3, ctx->t4);
-	crashPrint("t5 0x%016llx t6 0x%016llx t7 0x%016llx\n", ctx->t5, ctx->t6, ctx->t7);
-	crashPrint("s0 0x%016llx s1 0x%016llx s2 0x%016llx\n", ctx->s0, ctx->s1, ctx->s2);
-	crashPrint("s3 0x%016llx s4 0x%016llx s5 0x%016llx\n", ctx->s3, ctx->s4, ctx->s5);
-	crashPrint("s6 0x%016llx s7 0x%016llx t8 0x%016llx\n", ctx->s6, ctx->s7, ctx->t8);
-	crashPrint("t9 0x%016llx gp 0x%016llx sp 0x%016llx\n", ctx->t9, ctx->gp, ctx->sp);
-	crashPrint("s8 0x%016llx ra 0x%016llx\n", ctx->s8, ctx->ra);
+	rmonPrint("at 0x%016llx v0 0x%016llx v1 0x%016llx\n", ctx->at, ctx->v0, ctx->v1);
+	rmonPrint("a0 0x%016llx a1 0x%016llx a2 0x%016llx\n", ctx->a0, ctx->a1, ctx->a2);
+	rmonPrint("a3 0x%016llx t0 0x%016llx t1 0x%016llx\n", ctx->a3, ctx->t0, ctx->t1);
+	rmonPrint("t2 0x%016llx t3 0x%016llx t4 0x%016llx\n", ctx->t2, ctx->t3, ctx->t4);
+	rmonPrint("t5 0x%016llx t6 0x%016llx t7 0x%016llx\n", ctx->t5, ctx->t6, ctx->t7);
+	rmonPrint("s0 0x%016llx s1 0x%016llx s2 0x%016llx\n", ctx->s0, ctx->s1, ctx->s2);
+	rmonPrint("s3 0x%016llx s4 0x%016llx s5 0x%016llx\n", ctx->s3, ctx->s4, ctx->s5);
+	rmonPrint("s6 0x%016llx s7 0x%016llx t8 0x%016llx\n", ctx->s6, ctx->s7, ctx->t8);
+	rmonPrint("t9 0x%016llx gp 0x%016llx sp 0x%016llx\n", ctx->t9, ctx->gp, ctx->sp);
+	rmonPrint("s8 0x%016llx ra 0x%016llx\n", ctx->s8, ctx->ra);
 
-	crashPrint("TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n",
+	rmonPrint("TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n",
 			thread->id, ctx->pc, ctx->cause, ctx->fpcsr, ctx->badvaddr, ctx->sr);
 
 	// Print the address of the faulted instruction, along with the instruction
 	// itself and the next three - presumably to help the developer locate it.
-	crashPrint("dshex -a %08x %08x %08x %08x %08x\n", ctx->pc,
+	rmonPrint("dshex -a %08x %08x %08x %08x %08x\n", ctx->pc,
 			((u32 *)ctx->pc)[0],
 			((u32 *)ctx->pc)[1],
 			((u32 *)ctx->pc)[2],
 			((u32 *)ctx->pc)[3]);
 
 	crashPrintDescription(ctx->cause, "cause", g_CrashCauseDescriptions);
-	crashPrint(" : ");
+	rmonPrint(" : ");
 	crashPrintDescription(ctx->fpcsr, "fpcsr", g_CrashFpcsrDescriptions);
-	crashPrint("\n");
+	rmonPrint("\n");
 
 	// Print a proper stack trace
 	i = 0;
@@ -729,17 +729,17 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 	stackstart = (u32 *) crashGetStackStart((u32)sp, thread->id);
 	ptr = ctx->pc;
 	*tracelen = 0;
-	crashPrint("nearl: ");
+	rmonPrint("nearl: ");
 
 	while (!done) {
 		sp = (u32 *) crashGetParentStackFrame((u32 *) ptr, &_libSegmentStart, (u32)sp, regs);
-		crashPrint(" %08x ", ptr);
+		rmonPrint(" %08x ", ptr);
 
 		callstack[*tracelen] = ptr;
 		*tracelen = *tracelen + 1;
 
 		if (i == 4) {
-			crashPrint("\n       ");
+			rmonPrint("\n       ");
 		}
 
 		if (sp == NULL) {
@@ -760,8 +760,8 @@ u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
 		i++;
 	}
 
-	crashPrint("\n");
-	crashPrint("\n");
+	rmonPrint("\n");
+	rmonPrint("\n");
 
 	return 0;
 }
@@ -806,7 +806,7 @@ glabel crashRender
 /*     ca7c:	afb1002c */ 	sw	$s1,0x2c($sp)
 /*     ca80:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     ca84:	afa500fc */ 	sw	$a1,0xfc($sp)
-/*     ca88:	0c00c47d */ 	jal	crashPrint
+/*     ca88:	0c00c47d */ 	jal	rmonPrint
 /*     ca8c:	24844050 */ 	addiu	$a0,$a0,0x4050
 /*     ca90:	8fa200f8 */ 	lw	$v0,0xf8($sp)
 /*     ca94:	24530020 */ 	addiu	$s3,$v0,0x20
@@ -820,7 +820,7 @@ glabel crashRender
 /*     cab4:	00409025 */ 	or	$s2,$v0,$zero
 /*     cab8:	03203825 */ 	or	$a3,$t9,$zero
 /*     cabc:	2484405c */ 	addiu	$a0,$a0,0x405c
-/*     cac0:	0c00c47d */ 	jal	crashPrint
+/*     cac0:	0c00c47d */ 	jal	rmonPrint
 /*     cac4:	00003025 */ 	or	$a2,$zero,$zero
 /*     cac8:	8e7000d4 */ 	lw	$s0,0xd4($s3)
 /*     cacc:	0212082b */ 	sltu	$at,$s0,$s2
@@ -832,7 +832,7 @@ glabel crashRender
 /*     cae0:	8e040000 */ 	lw	$a0,0x0($s0)
 /*     cae4:	10400003 */ 	beqz	$v0,.NB0000caf4
 /*     cae8:	02202025 */ 	or	$a0,$s1,$zero
-/*     caec:	0c00c47d */ 	jal	crashPrint
+/*     caec:	0c00c47d */ 	jal	rmonPrint
 /*     caf0:	8e050000 */ 	lw	$a1,0x0($s0)
 .NB0000caf4:
 /*     caf4:	26100004 */ 	addiu	$s0,$s0,0x4
@@ -841,10 +841,10 @@ glabel crashRender
 /*     cb00:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0000cb04:
 /*     cb04:	3c047005 */ 	lui	$a0,0x7005
-/*     cb08:	0c00c47d */ 	jal	crashPrint
+/*     cb08:	0c00c47d */ 	jal	rmonPrint
 /*     cb0c:	24844080 */ 	addiu	$a0,$a0,0x4080
 /*     cb10:	3c047005 */ 	lui	$a0,0x7005
-/*     cb14:	0c00c47d */ 	jal	crashPrint
+/*     cb14:	0c00c47d */ 	jal	rmonPrint
 /*     cb18:	24844084 */ 	addiu	$a0,$a0,0x4084
 /*     cb1c:	00002025 */ 	or	$a0,$zero,$zero
 /*     cb20:	8e650114 */ 	lw	$a1,0x114($s3)
@@ -911,7 +911,7 @@ glabel crashRender
 /*     cc14:	3c047005 */ 	lui	$a0,0x7005
 /*     cc18:	2484409c */ 	addiu	$a0,$a0,0x409c
 /*     cc1c:	afad001c */ 	sw	$t5,0x1c($sp)
-/*     cc20:	0c00c47d */ 	jal	crashPrint
+/*     cc20:	0c00c47d */ 	jal	rmonPrint
 /*     cc24:	afac0018 */ 	sw	$t4,0x18($sp)
 /*     cc28:	8e6e0020 */ 	lw	$t6,0x20($s3)
 /*     cc2c:	8e6f0024 */ 	lw	$t7,0x24($s3)
@@ -924,7 +924,7 @@ glabel crashRender
 /*     cc48:	3c047005 */ 	lui	$a0,0x7005
 /*     cc4c:	248440c4 */ 	addiu	$a0,$a0,0x40c4
 /*     cc50:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*     cc54:	0c00c47d */ 	jal	crashPrint
+/*     cc54:	0c00c47d */ 	jal	rmonPrint
 /*     cc58:	afb80018 */ 	sw	$t8,0x18($sp)
 /*     cc5c:	8e680038 */ 	lw	$t0,0x38($s3)
 /*     cc60:	8e69003c */ 	lw	$t1,0x3c($s3)
@@ -937,7 +937,7 @@ glabel crashRender
 /*     cc7c:	3c047005 */ 	lui	$a0,0x7005
 /*     cc80:	248440ec */ 	addiu	$a0,$a0,0x40ec
 /*     cc84:	afab001c */ 	sw	$t3,0x1c($sp)
-/*     cc88:	0c00c47d */ 	jal	crashPrint
+/*     cc88:	0c00c47d */ 	jal	rmonPrint
 /*     cc8c:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*     cc90:	8e6c0050 */ 	lw	$t4,0x50($s3)
 /*     cc94:	8e6d0054 */ 	lw	$t5,0x54($s3)
@@ -950,7 +950,7 @@ glabel crashRender
 /*     ccb0:	3c047005 */ 	lui	$a0,0x7005
 /*     ccb4:	24844114 */ 	addiu	$a0,$a0,0x4114
 /*     ccb8:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*     ccbc:	0c00c47d */ 	jal	crashPrint
+/*     ccbc:	0c00c47d */ 	jal	rmonPrint
 /*     ccc0:	afae0018 */ 	sw	$t6,0x18($sp)
 /*     ccc4:	8e780068 */ 	lw	$t8,0x68($s3)
 /*     ccc8:	8e79006c */ 	lw	$t9,0x6c($s3)
@@ -963,7 +963,7 @@ glabel crashRender
 /*     cce4:	3c047005 */ 	lui	$a0,0x7005
 /*     cce8:	2484413c */ 	addiu	$a0,$a0,0x413c
 /*     ccec:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*     ccf0:	0c00c47d */ 	jal	crashPrint
+/*     ccf0:	0c00c47d */ 	jal	rmonPrint
 /*     ccf4:	afa80018 */ 	sw	$t0,0x18($sp)
 /*     ccf8:	8e6a0080 */ 	lw	$t2,0x80($s3)
 /*     ccfc:	8e6b0084 */ 	lw	$t3,0x84($s3)
@@ -976,7 +976,7 @@ glabel crashRender
 /*     cd18:	3c047005 */ 	lui	$a0,0x7005
 /*     cd1c:	24844164 */ 	addiu	$a0,$a0,0x4164
 /*     cd20:	afad001c */ 	sw	$t5,0x1c($sp)
-/*     cd24:	0c00c47d */ 	jal	crashPrint
+/*     cd24:	0c00c47d */ 	jal	rmonPrint
 /*     cd28:	afac0018 */ 	sw	$t4,0x18($sp)
 /*     cd2c:	8e6e0098 */ 	lw	$t6,0x98($s3)
 /*     cd30:	8e6f009c */ 	lw	$t7,0x9c($s3)
@@ -989,7 +989,7 @@ glabel crashRender
 /*     cd4c:	3c047005 */ 	lui	$a0,0x7005
 /*     cd50:	2484418c */ 	addiu	$a0,$a0,0x418c
 /*     cd54:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*     cd58:	0c00c47d */ 	jal	crashPrint
+/*     cd58:	0c00c47d */ 	jal	rmonPrint
 /*     cd5c:	afb80018 */ 	sw	$t8,0x18($sp)
 /*     cd60:	8e6800b0 */ 	lw	$t0,0xb0($s3)
 /*     cd64:	8e6900b4 */ 	lw	$t1,0xb4($s3)
@@ -1002,7 +1002,7 @@ glabel crashRender
 /*     cd80:	3c047005 */ 	lui	$a0,0x7005
 /*     cd84:	248441b4 */ 	addiu	$a0,$a0,0x41b4
 /*     cd88:	afab001c */ 	sw	$t3,0x1c($sp)
-/*     cd8c:	0c00c47d */ 	jal	crashPrint
+/*     cd8c:	0c00c47d */ 	jal	rmonPrint
 /*     cd90:	afaa0018 */ 	sw	$t2,0x18($sp)
 /*     cd94:	8e6c00c8 */ 	lw	$t4,0xc8($s3)
 /*     cd98:	8e6d00cc */ 	lw	$t5,0xcc($s3)
@@ -1015,7 +1015,7 @@ glabel crashRender
 /*     cdb4:	3c047005 */ 	lui	$a0,0x7005
 /*     cdb8:	248441dc */ 	addiu	$a0,$a0,0x41dc
 /*     cdbc:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*     cdc0:	0c00c47d */ 	jal	crashPrint
+/*     cdc0:	0c00c47d */ 	jal	rmonPrint
 /*     cdc4:	afae0018 */ 	sw	$t6,0x18($sp)
 /*     cdc8:	8e7800e0 */ 	lw	$t8,0xe0($s3)
 /*     cdcc:	8e7900e4 */ 	lw	$t9,0xe4($s3)
@@ -1024,7 +1024,7 @@ glabel crashRender
 /*     cdd8:	8e6700dc */ 	lw	$a3,0xdc($s3)
 /*     cddc:	24844204 */ 	addiu	$a0,$a0,0x4204
 /*     cde0:	afb80010 */ 	sw	$t8,0x10($sp)
-/*     cde4:	0c00c47d */ 	jal	crashPrint
+/*     cde4:	0c00c47d */ 	jal	rmonPrint
 /*     cde8:	afb90014 */ 	sw	$t9,0x14($sp)
 /*     cdec:	8fa800f8 */ 	lw	$t0,0xf8($sp)
 /*     cdf0:	8e69010c */ 	lw	$t1,0x10c($s3)
@@ -1037,7 +1037,7 @@ glabel crashRender
 /*     ce0c:	24844220 */ 	addiu	$a0,$a0,0x4220
 /*     ce10:	afaa0014 */ 	sw	$t2,0x14($sp)
 /*     ce14:	8e6b00f8 */ 	lw	$t3,0xf8($s3)
-/*     ce18:	0c00c47d */ 	jal	crashPrint
+/*     ce18:	0c00c47d */ 	jal	rmonPrint
 /*     ce1c:	afab0018 */ 	sw	$t3,0x18($sp)
 /*     ce20:	8e6500fc */ 	lw	$a1,0xfc($s3)
 /*     ce24:	3c047005 */ 	lui	$a0,0x7005
@@ -1048,7 +1048,7 @@ glabel crashRender
 /*     ce38:	afac0010 */ 	sw	$t4,0x10($sp)
 /*     ce3c:	8cad000c */ 	lw	$t5,0xc($a1)
 /*     ce40:	00a01025 */ 	or	$v0,$a1,$zero
-/*     ce44:	0c00c47d */ 	jal	crashPrint
+/*     ce44:	0c00c47d */ 	jal	rmonPrint
 /*     ce48:	afad0014 */ 	sw	$t5,0x14($sp)
 /*     ce4c:	3c057005 */ 	lui	$a1,0x7005
 /*     ce50:	3c068006 */ 	lui	$a2,0x8006
@@ -1057,7 +1057,7 @@ glabel crashRender
 /*     ce5c:	0c00342d */ 	jal	crashPrintDescription
 /*     ce60:	8e640100 */ 	lw	$a0,0x100($s3)
 /*     ce64:	3c047005 */ 	lui	$a0,0x7005
-/*     ce68:	0c00c47d */ 	jal	crashPrint
+/*     ce68:	0c00c47d */ 	jal	rmonPrint
 /*     ce6c:	24844284 */ 	addiu	$a0,$a0,0x4284
 /*     ce70:	3c057005 */ 	lui	$a1,0x7005
 /*     ce74:	3c068006 */ 	lui	$a2,0x8006
@@ -1066,7 +1066,7 @@ glabel crashRender
 /*     ce80:	0c00342d */ 	jal	crashPrintDescription
 /*     ce84:	8e64010c */ 	lw	$a0,0x10c($s3)
 /*     ce88:	3c047005 */ 	lui	$a0,0x7005
-/*     ce8c:	0c00c47d */ 	jal	crashPrint
+/*     ce8c:	0c00c47d */ 	jal	rmonPrint
 /*     ce90:	24844290 */ 	addiu	$a0,$a0,0x4290
 /*     ce94:	8e6400d4 */ 	lw	$a0,0xd4($s3)
 /*     ce98:	8fb800f8 */ 	lw	$t8,0xf8($sp)
@@ -1083,7 +1083,7 @@ glabel crashRender
 /*     cec4:	8e7000fc */ 	lw	$s0,0xfc($s3)
 /*     cec8:	3c047005 */ 	lui	$a0,0x7005
 /*     cecc:	ae800000 */ 	sw	$zero,0x0($s4)
-/*     ced0:	0c00c47d */ 	jal	crashPrint
+/*     ced0:	0c00c47d */ 	jal	rmonPrint
 /*     ced4:	24844294 */ 	addiu	$a0,$a0,0x4294
 .NB0000ced8:
 /*     ced8:	3c057000 */ 	lui	$a1,0x7000
@@ -1095,7 +1095,7 @@ glabel crashRender
 /*     cef0:	3c047005 */ 	lui	$a0,0x7005
 /*     cef4:	00408825 */ 	or	$s1,$v0,$zero
 /*     cef8:	2484429c */ 	addiu	$a0,$a0,0x429c
-/*     cefc:	0c00c47d */ 	jal	crashPrint
+/*     cefc:	0c00c47d */ 	jal	rmonPrint
 /*     cf00:	02002825 */ 	or	$a1,$s0,$zero
 /*     cf04:	8e890000 */ 	lw	$t1,0x0($s4)
 /*     cf08:	8fa800fc */ 	lw	$t0,0xfc($sp)
@@ -1108,7 +1108,7 @@ glabel crashRender
 /*     cf24:	258d0001 */ 	addiu	$t5,$t4,0x1
 /*     cf28:	16410003 */ 	bne	$s2,$at,.NB0000cf38
 /*     cf2c:	ae8d0000 */ 	sw	$t5,0x0($s4)
-/*     cf30:	0c00c47d */ 	jal	crashPrint
+/*     cf30:	0c00c47d */ 	jal	rmonPrint
 /*     cf34:	248442a4 */ 	addiu	$a0,$a0,0x42a4
 .NB0000cf38:
 /*     cf38:	16200002 */ 	bnez	$s1,.NB0000cf44
@@ -1202,10 +1202,10 @@ glabel crashRender
 /*     d074:	24040044 */ 	addiu	$a0,$zero,0x44
 .NB0000d078:
 /*     d078:	3c047005 */ 	lui	$a0,0x7005
-/*     d07c:	0c00c47d */ 	jal	crashPrint
+/*     d07c:	0c00c47d */ 	jal	rmonPrint
 /*     d080:	248442b0 */ 	addiu	$a0,$a0,0x42b0
 /*     d084:	3c047005 */ 	lui	$a0,0x7005
-/*     d088:	0c00c47d */ 	jal	crashPrint
+/*     d088:	0c00c47d */ 	jal	rmonPrint
 /*     d08c:	248442b4 */ 	addiu	$a0,$a0,0x42b4
 /*     d090:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*     d094:	8fb00028 */ 	lw	$s0,0x28($sp)
@@ -1224,23 +1224,23 @@ void crashPrintDescription(u32 mask, char *label, struct crashdescription *descr
 	bool first = true;
 	s32 i;
 
-	crashPrint("%s <", label);
+	rmonPrint("%s <", label);
 
 	while (description->mask != 0) {
 		if ((description->mask & mask) == description->value) {
 			if (first) {
 				first = false;
 			} else {
-				crashPrint(",");
+				rmonPrint(",");
 			}
 
-			crashPrint("%s", description->text);
+			rmonPrint("%s", description->text);
 		}
 
 		description++;
 	}
 
-	crashPrint(">");
+	rmonPrint(">");
 }
 
 void crashPutChar(s32 x, s32 y, char c)
@@ -1313,7 +1313,7 @@ void crashScroll(s32 numlines)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void func0000cdc8(s32 x, s32 y, char c)
+void crash0000cdc8(s32 x, s32 y, char c)
 {
 	s32 i;
 	s32 j;
@@ -1382,7 +1382,7 @@ void func0000cdc8(s32 x, s32 y, char c)
 }
 #else
 GLOBAL_ASM(
-glabel func0000cdc8
+glabel crash0000cdc8
 /*     d398:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     d39c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     d3a0:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -1526,7 +1526,7 @@ glabel crashReset
 );
 #endif
 
-void func0000cf54(u8 *fb)
+void crash0000cf54(u8 *fb)
 {
 	s32 width;
 	s32 height;
@@ -1541,7 +1541,7 @@ void func0000cf54(u8 *fb)
 	if (g_CrashCharBuffer != NULL) {
 		for (y = 0; y < height && y < 29; y++) {
 			for (x = 0; x < width - 5 && x < 71; x++) {
-				func0000cdc8(20 + x * 4, 7 + y * 7, g_CrashCharBuffer[y][x]);
+				crash0000cdc8(20 + x * 4, 7 + y * 7, g_CrashCharBuffer[y][x]);
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_0c000.h"
+#include "lib/crash.h"
 #include "lib/libc/xprintf.h"
 #include "data.h"
 #include "types.h"
@@ -16,42 +16,42 @@ bool rmonIsDisabled(void)
 	return true;
 }
 
-s32 func0002fa10(void)
+s32 rmon0002fa10(void)
 {
 	return -1;
 }
 
-void func0002fa18(void)
+void rmon0002fa18(void)
 {
 	// empty
 }
 
-void func0002fa20(void)
+void rmon0002fa20(void)
 {
 	// empty
 }
 
-void func0002fa28(void)
+void rmon0002fa28(void)
 {
 	// empty
 }
 
-void func0002fa30(void)
+void rmon0002fa30(void)
 {
 	// empty
 }
 
-void func0002fa38(void)
+void rmon0002fa38(void)
 {
 	// empty
 }
 
-void func0002fa40(void)
+void rmon0002fa40(void)
 {
 	// empty
 }
 
-char *crashProut(char *dst, const char *src, size_t count)
+char *rmonProut(char *dst, const char *src, size_t count)
 {
 	s32 i = 0;
 
@@ -62,10 +62,10 @@ char *crashProut(char *dst, const char *src, size_t count)
 	return (char *) 1;
 }
 
-void crashPrint(const char *format, ...)
+void rmonPrint(const char *format, ...)
 {
 	va_list ap;
 	va_start(ap, format);
 
-	_Printf(crashProut, NULL, format, ap);
+	_Printf(rmonProut, NULL, format, ap);
 }

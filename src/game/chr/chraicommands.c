@@ -43,11 +43,11 @@
 #include "lib/main.h"
 #include "lib/model.h"
 #include "lib/snd.h"
-#include "lib/lib_11420.h"
+#include "lib/music.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_184d0.h"
-#include "lib/lib_233c0.h"
+#include "lib/ailist.h"
+#include "lib/anim.h"
 #include "lib/lib_317f0.h"
 #include "lib/libc/ll.h"
 #include "data.h"
@@ -12502,7 +12502,7 @@ bool aiConfigureEnvironment(void)
 		sndPlayNosedive(value);
 		break;
 	case AIENVCMD_0B:
-		func0001190c();
+		music0001190c();
 		break;
 	case AIENVCMD_ROOM_SETFAULTYLIGHTS:
 		roomSetLightsFaulty(room_id, value);

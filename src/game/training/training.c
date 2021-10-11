@@ -25,7 +25,7 @@
 #include "game/propobj.h"
 #include "game/wallhit.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/dma.h"
 #include "lib/main.h"
 #include "lib/snd.h"

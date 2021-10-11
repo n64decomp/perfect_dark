@@ -6,7 +6,7 @@
 #include "bss.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/model.h"
 #include "data.h"
 #include "types.h"

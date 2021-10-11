@@ -26,24 +26,24 @@
 	build/ROMID/lib/ultra/io/conteeplongwrite.o (section); \
 	build/ROMID/lib/ultra/io/pfsresizefile.o (section); \
 	build/ROMID/lib/ultra/io/pfsinitpak.o (section); \
-	build/ROMID/lib/lib_070d0.o (section); \
+	build/ROMID/lib/vm.o (section); \
 	build/ROMID/lib/rzip.o (section); \
 	build/ROMID/lib/audiomgr.o (section); \
 	build/ROMID/lib/lib_09660.o (section); \
-	build/ROMID/lib/lib_09a80.o (section); \
-	build/ROMID/lib/lib_0bfb0.o (section); \
-	build/ROMID/lib/lib_0c000.o (section); \
+	build/ROMID/lib/vi.o (section); \
+	build/ROMID/lib/fault.o (section); \
+	build/ROMID/lib/crash.o (section); \
 	build/ROMID/lib/dma.o (section); \
 	build/ROMID/lib/main.o (section); \
 	build/ROMID/lib/snd.o (section); \
-	build/ROMID/lib/lib_11420.o (section); \
+	build/ROMID/lib/music.o (section); \
 	build/ROMID/lib/memory.o (section); \
 	build/ROMID/lib/lib_126b0.o (section); \
 	build/ROMID/lib/rng.o (section); \
 	build/ROMID/lib/args.o (section); \
 	build/ROMID/lib/str.o (section); \
 	build/ROMID/lib/ultra/libc/sprintf.o (section); \
-	build/ROMID/lib/lib_13710.o (section); \
+	build/ROMID/lib/pimgr.o (section); \
 	build/ROMID/lib/lib_13750.o (section); \
 	build/ROMID/lib/lib_13790.o (section); \
 	build/ROMID/lib/lib_13820.o (section); \
@@ -53,24 +53,25 @@
 	build/ROMID/lib/mtxasm.o (section); \
 	build/ROMID/lib/mtx.o (section); \
 	build/ROMID/lib/lib_17ce0.o (section); \
-	build/ROMID/lib/lib_184d0.o (section); \
+	build/ROMID/lib/ailist.o (section); \
+	build/ROMID/lib/path.o (section); \
 	build/ROMID/lib/modelasm.o (section); \
 	build/ROMID/lib/model.o (section); \
-	build/ROMID/lib/lib_233c0.o (section); \
-	build/ROMID/lib/lib_24e40.o (section); \
+	build/ROMID/lib/anim.o (section); \
+	build/ROMID/lib/collision.o (section); \
 	build/ROMID/lib/lib_2f490.o (section); \
 	build/ROMID/lib/rdp.o (section); \
-	build/ROMID/lib/lib_2fa00.o (section); \
+	build/ROMID/lib/rmon.o (section); \
 	build/ROMID/lib/ultra/audio/heap.o (section); \
 	build/ROMID/lib/lib_2fba0.o (section); \
 	build/ROMID/lib/lib_2fc60.o (section); \
 	build/ROMID/lib/lib_30ce0.o (section); \
 	build/ROMID/lib/lib_317f0.o (section); \
-	build/ROMID/lib/lib_34030.o (section); \
+	build/ROMID/lib/speaker.o (section); \
 	build/ROMID/lib/ultra/audio/csplayer.o (section); \
 	build/ROMID/lib/lib_37650.o (section); \
 	build/ROMID/lib/ultra/audio/bnkf.o (section); \
-	build/ROMID/lib/lib_37b00.o (section); \
+	build/ROMID/lib/mp3.o (section); \
 	build/ROMID/lib/lib_38d10.o (section); \
 	build/ROMID/lib/ultra/audio/cseq.o (section); \
 	build/ROMID/lib/lib_39be0.o (section); \

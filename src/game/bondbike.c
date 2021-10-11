@@ -18,8 +18,8 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 
@@ -993,7 +993,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	struct coord sp60;
 	struct coord sp54;
 
-	func00024e4c(&sp78, &sp6c, 333, "bondbike.c");
+	cd00024e4c(&sp78, &sp6c, 333, "bondbike.c");
 
 	sp60.x = bike->prop->pos.x;
 	sp60.y = bike->prop->pos.y;
@@ -1296,7 +1296,7 @@ s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	s32 result = bbikeCalculateNewPositionWithPush(arg0, 0);
 
 	if (!result) {
-		func00024e4c(arg1, arg2, 659, "bondbike.c");
+		cd00024e4c(arg1, arg2, 659, "bondbike.c");
 	}
 
 	return result;
@@ -1304,9 +1304,9 @@ s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 
 s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
-	if (func00024ea4()) {
+	if (cd00024ea4()) {
 		struct coord sp24;
-		f32 somefloat = func00024e98();
+		f32 somefloat = cd00024e98();
 		s32 someint;
 
 		sp24.x = arg0->x * somefloat * 0.25f;
@@ -1320,7 +1320,7 @@ s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, st
 		}
 
 		if (someint == 0) {
-			func00024e4c(arg3, arg4, 685, "bondbike.c");
+			cd00024e4c(arg3, arg4, 685, "bondbike.c");
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]

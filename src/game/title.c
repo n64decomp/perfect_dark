@@ -19,7 +19,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/joy.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/model.h"
 #include "lib/snd.h"

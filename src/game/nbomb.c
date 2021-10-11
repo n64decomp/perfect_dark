@@ -16,7 +16,7 @@
 #include "game/file.h"
 #include "game/gfxmemory.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"

@@ -54,14 +54,14 @@
 #include "game/mpstats.h"
 #include "bss.h"
 #include "lib/joy.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/model.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -3514,10 +3514,10 @@ void func0f0ba190(u32 arg0)
 
 	var8009de2c = arg0;
 	lastframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
-	func00023d38(g_CutsceneAnimNum);
-	sp7f = func00023ab0(g_CutsceneAnimNum, lastframe);
-	func00023d0c();
-	func00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
+	anim00023d38(g_CutsceneAnimNum);
+	sp7f = anim00023ab0(g_CutsceneAnimNum, lastframe);
+	anim00023d0c();
+	anim00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
 	mtx0001648c(&sp94, &sp38);
 
 	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
@@ -3561,7 +3561,7 @@ void func0f0ba29c(bool arg0)
 		buttons = 0;
 	}
 
-	func00023d38(g_CutsceneAnimNum);
+	anim00023d38(g_CutsceneAnimNum);
 
 	endframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
 
@@ -3578,7 +3578,7 @@ void func0f0ba29c(bool arg0)
 #endif
 
 			if (g_Anims[g_CutsceneAnimNum].flags & ANIMFLAG_08) {
-				while (g_CutsceneCurAnimFrame60 < endframe && func000239e0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60)) {
+				while (g_CutsceneCurAnimFrame60 < endframe && anim000239e0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60)) {
 #if VERSION >= VERSION_PAL_FINAL
 					g_CutsceneCurAnimFrame240 += 1.2f;
 					g_CutsceneCurAnimFrame60 = floorf(g_CutsceneCurAnimFrame240 + 0.01f);
@@ -3606,9 +3606,9 @@ void func0f0ba29c(bool arg0)
 	}
 
 	g_Vars.in_cutscene = (g_Vars.tickmode == TICKMODE_CUTSCENE && g_CutsceneCurAnimFrame60 < endframe);
-	sp15f = func00023ab0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60);
-	func00023d0c();
-	func00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp15f, &sp178, &sp16c, &sp160);
+	sp15f = anim00023ab0(g_CutsceneAnimNum, g_CutsceneCurAnimFrame60);
+	anim00023d0c();
+	anim00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp15f, &sp178, &sp16c, &sp160);
 
 	pos.x = sp16c.x * sp118;
 	pos.y = sp16c.y * sp118;
@@ -3624,8 +3624,8 @@ void func0f0ba29c(bool arg0)
 	look.y = -sp11c.m[2][1];
 	look.z = -sp11c.m[2][2];
 
-	fovy = func00024c14(1, g_CutsceneAnimNum, sp15f);
-	g_CutsceneBlurFrac = func00024c14(2, g_CutsceneAnimNum, sp15f);
+	fovy = anim00024c14(1, g_CutsceneAnimNum, sp15f);
+	g_CutsceneBlurFrac = anim00024c14(2, g_CutsceneAnimNum, sp15f);
 	g_CutsceneBarFrac = 0;
 
 	if (var8009de2c > 0 && var8009de2c >= endframe - g_CutsceneCurAnimFrame60) {
@@ -14592,7 +14592,7 @@ void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struc
 		func0f162194(pos, sp90, sp64, 20, &sp52);
 
 		if (sp90[0] != -1) {
-			tmp = room = func0002a400(pos, sp90);
+			tmp = room = cd0002a400(pos, sp90);
 
 			if (room > 0) {
 				currentPlayerSetCamPropertiesWithRoom(pos, up, look, tmp);
@@ -14600,7 +14600,7 @@ void func0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struc
 				currentPlayerSetCamPropertiesWithRoom(pos, up, look, sp90[0]);
 			}
 		} else if (sp64[0] != -1) {
-			tmp = room = func0002a400(pos, sp64);
+			tmp = room = cd0002a400(pos, sp64);
 
 			if (room > 0) {
 				currentPlayerSetCamPropertiesWithoutRoom(pos, up, look, tmp);

@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/prop.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "data.h"
 #include "types.h"
 

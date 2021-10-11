@@ -263,9 +263,9 @@ glabel debug0f11941cnb
 /*  f119420:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f119424:	3c048008 */ 	lui	$a0,0x8008
 /*  f119428:	248487f4 */ 	addiu	$a0,$a0,-30732
-/*  f11942c:	0c00c460 */ 	jal	func0002fa30
+/*  f11942c:	0c00c460 */ 	jal	rmon0002fa30
 /*  f119430:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f119434:	0c00c462 */ 	jal	func0002fa38
+/*  f119434:	0c00c462 */ 	jal	rmon0002fa38
 /*  f119438:	240400fa */ 	addiu	$a0,$zero,0xfa
 /*  f11943c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f119440:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -277,7 +277,7 @@ GLOBAL_ASM(
 glabel debug0f11944cnb
 /*  f11944c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f119450:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f119454:	0c00c464 */ 	jal	func0002fa40
+/*  f119454:	0c00c464 */ 	jal	rmon0002fa40
 /*  f119458:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f11945c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f119460:	27bd0018 */ 	addiu	$sp,$sp,0x18

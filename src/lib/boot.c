@@ -9,12 +9,12 @@
 #include "lib/args.h"
 #include "lib/rzip.h"
 #include "lib/lib_09660.h"
-#include "lib/lib_0c000.h"
+#include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/lib_13710.h"
+#include "lib/pimgr.h"
 #include "lib/lib_13750.h"
-#include "lib/lib_2fa00.h"
+#include "lib/rmon.h"
 #include "lib/lib_48150.h"
 #include "data.h"
 #include "types.h"
@@ -774,7 +774,7 @@ void bootPhase2(void *arg)
 {
 	bootCreateIdleThread();
 	func00013750();
-	func00013710();
+	pimgrCreate();
 	bootCreateRmonThread();
 
 	if (argsParseDebugArgs()) {

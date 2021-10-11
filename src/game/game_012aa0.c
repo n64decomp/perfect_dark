@@ -7,7 +7,7 @@
 #include "game/pad.h"
 #include "bss.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/model.h"
 #include "data.h"
 #include "types.h"
@@ -61,7 +61,7 @@ void padsPrepare(void)
 			}
 
 			if (roomsptr != NULL) {
-				roomnum = func0002a400(&pad.pos, roomsptr);
+				roomnum = cd0002a400(&pad.pos, roomsptr);
 
 				if (roomnum > 0) {
 					packedpad->room = roomnum;

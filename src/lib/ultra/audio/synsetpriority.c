@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_37b00.h"
+#include "lib/mp3.h"
 #include "lib/lib_3a100.h"
 #include "data.h"
 #include "types.h"

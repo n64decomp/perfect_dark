@@ -18,9 +18,9 @@
 #include "lib/lib_126b0.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_184d0.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/ailist.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 

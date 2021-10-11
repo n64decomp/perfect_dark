@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_37B00_H
-#define _IN_LIB_LIB_37B00_H
+#ifndef _IN_LIB_MP3_H
+#define _IN_LIB_MP3_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

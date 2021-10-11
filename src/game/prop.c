@@ -32,7 +32,7 @@
 #include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -1174,7 +1174,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 						someval = 0;
 					}
 
-					if (func0002dc18(&playerprop->pos, playerprop->rooms, &prop->pos, someval)) {
+					if (cd0002dc18(&playerprop->pos, playerprop->rooms, &prop->pos, someval)) {
 						if (isbreakableobj) {
 							struct model *model = obj->model;
 							struct coord spd8;
@@ -5349,9 +5349,9 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 			currentPlayerSetPerimEnabled(playerprop, false);
 
 			if (arg5) {
-				lVar3 = func0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x32, 16);
+				lVar3 = cd0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x32, 16);
 			} else {
-				lVar3 = func0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x33, 16);
+				lVar3 = cd0002db98(&playerprop->pos, playerprop->rooms, &prop->pos, 0x33, 16);
 			}
 
 			if (lVar3) {
@@ -6019,7 +6019,7 @@ void func0f065e98(struct coord *pos, s16 *rooms, struct coord *pos2, s16 *rooms2
 	}
 
 	if (ptr) {
-		s32 room = func0002a400(pos2, ptr);
+		s32 room = cd0002a400(pos2, ptr);
 
 		if (room > 0) {
 			rooms2[0] = room;

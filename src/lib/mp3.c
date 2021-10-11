@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_37b00.h"
+#include "lib/mp3.h"
 #include "types.h"
 
 struct mp3vars g_Mp3Vars;
@@ -14,7 +14,7 @@ void mp3Init(ALHeap *heap)
 	bzero(&g_Mp3Vars, sizeof(struct mp3vars));
 
 #if VERSION < VERSION_NTSC_1_0
-	crashPrint("MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n", 0x8480);
+	rmonPrint("MPEG : RWI -> Allocating %d bytes for ASISTREAM from audio heap\n", 0x8480);
 #endif
 
 	var8009c3f4 = alHeapAlloc(heap, 0x8480, 1);

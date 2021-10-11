@@ -20,8 +20,8 @@
 #include "lib/main.h"
 #include "lib/snd.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 
@@ -235,7 +235,7 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 					struct coord sp2c;
 					struct coord sp20;
 
-					func00024e4c(&sp2c, &sp20, 286, "bondeyespy.c");
+					cd00024e4c(&sp2c, &sp20, 286, "bondeyespy.c");
 
 					// Nothing is actually done with these coordinates...
 					// This code was likely copied from bondwalk then the bounce
@@ -271,10 +271,10 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 
 s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
-	if (func00024ea4()) {
+	if (cd00024ea4()) {
 		struct coord sp24;
 		s32 someint;
-		f32 somefloat = func00024e98();
+		f32 somefloat = cd00024e98();
 		sp24.x = arg0->x * somefloat * 0.25f;
 		sp24.y = arg0->y * somefloat * 0.25f;
 		sp24.z = arg0->z * somefloat * 0.25f;
@@ -286,7 +286,7 @@ s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, s
 		}
 
 		if (someint == 0) {
-			func00024e4c(arg3, arg4, 350, "bondeyespy.c");
+			cd00024e4c(arg3, arg4, 350, "bondeyespy.c");
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]
@@ -405,7 +405,7 @@ s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 	bool result = eyespyCalculateNewPositionWithPush(vel);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		func00024e4c(arg1, arg2, 473, "bondeyespy.c");
+		cd00024e4c(arg1, arg2, 473, "bondeyespy.c");
 	}
 
 	return result;
@@ -2220,7 +2220,7 @@ glabel var7f1adb00
 /*  f0d2460:	25040008 */ 	addiu	$a0,$t0,0x8
 /*  f0d2464:	25050028 */ 	addiu	$a1,$t0,0x28
 /*  f0d2468:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f0d246c:	0c00b54f */ 	jal	hasLineOfSight
+/*  f0d246c:	0c00b54f */ 	jal	cdHasLineOfSight
 /*  f0d2470:	24470028 */ 	addiu	$a3,$v0,0x28
 /*  f0d2474:	3c09800a */ 	lui	$t1,0x800a
 /*  f0d2478:	14400003 */ 	bnez	$v0,.PF0f0d2488
@@ -3832,7 +3832,7 @@ glabel var7f1adb00
 /*  f0d1ebc:	25040008 */ 	addiu	$a0,$t0,0x8
 /*  f0d1ec0:	25050028 */ 	addiu	$a1,$t0,0x28
 /*  f0d1ec4:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f0d1ec8:	0c00b70f */ 	jal	hasLineOfSight
+/*  f0d1ec8:	0c00b70f */ 	jal	cdHasLineOfSight
 /*  f0d1ecc:	24470028 */ 	addiu	$a3,$v0,0x28
 /*  f0d1ed0:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d1ed4:	14400003 */ 	bnez	$v0,.L0f0d1ee4
@@ -5463,7 +5463,7 @@ glabel var7f1adb00
 /*  f0cf688:	25040008 */ 	addiu	$a0,$t0,0x8
 /*  f0cf68c:	25050028 */ 	addiu	$a1,$t0,0x28
 /*  f0cf690:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f0cf694:	0c00bc11 */ 	jal	hasLineOfSight
+/*  f0cf694:	0c00bc11 */ 	jal	cdHasLineOfSight
 /*  f0cf698:	24470028 */ 	addiu	$a3,$v0,0x28
 /*  f0cf69c:	3c09800a */ 	lui	$t1,0x800a
 /*  f0cf6a0:	14400003 */ 	bnez	$v0,.NB0f0cf6b0
@@ -6049,7 +6049,7 @@ glabel var7f1adb00
 //			g_EyespyPickup = false;
 //		}
 //
-//		cdresult = hasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+//		cdresult = cdHasLineOfSight(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 //				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms, 0x22, 0x1c);
 //
 //		if (cdresult == CDRESULT_COLLISION) {

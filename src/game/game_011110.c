@@ -19,7 +19,7 @@
 #include "bss.h"
 #include "lib/memory.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "data.h"
 #include "types.h"
 

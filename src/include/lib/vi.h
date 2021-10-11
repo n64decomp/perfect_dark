@@ -1,5 +1,5 @@
-#ifndef _IN_LIB_LIB_09A80_H
-#define _IN_LIB_LIB_09A80_H
+#ifndef _IN_LIB_VI_H
+#define _IN_LIB_VI_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

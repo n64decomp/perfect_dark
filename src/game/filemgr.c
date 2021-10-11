@@ -13,7 +13,7 @@
 #include "game/pak/pak.h"
 #include "game/utils.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/lib_126b0.h"
 #include "lib/str.h"
 #include "data.h"

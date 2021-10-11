@@ -11,7 +11,7 @@
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/mtx.h"
 #include "data.h"
 #include "types.h"

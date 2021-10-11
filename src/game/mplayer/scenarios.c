@@ -25,13 +25,13 @@
 #include "game/pad.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 
@@ -2622,7 +2622,7 @@ void scenarioKohReset(void)
 	g_ScenarioData.koh.hillpos.x = pad.pos.x;
 	g_ScenarioData.koh.hillpos.y = pad.pos.y;
 	g_ScenarioData.koh.hillpos.z = pad.pos.z;
-	g_ScenarioData.koh.hillpos.y = func0002a36c(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
+	g_ScenarioData.koh.hillpos.y = cd0002a36c(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
 	g_ScenarioData.koh.unk08 = 0;
 	roomSetLighting(g_ScenarioData.koh.hillrooms[0], LIGHTOP_5, 0, 0, 0);
 }
@@ -2732,7 +2732,7 @@ glabel var7f1b8950
 /*  f182e3c:	a66c000e */ 	sh	$t4,0xe($s3)
 /*  f182e40:	e6680024 */ 	swc1	$f8,0x24($s3)
 /*  f182e44:	e66a0028 */ 	swc1	$f10,0x28($s3)
-/*  f182e48:	0c00a71b */ 	jal	func0002a36c
+/*  f182e48:	0c00a71b */ 	jal	cd0002a36c
 /*  f182e4c:	e672002c */ 	swc1	$f18,0x2c($s3)
 /*  f182e50:	e6600028 */ 	swc1	$f0,0x28($s3)
 /*  f182e54:	8664000e */ 	lh	$a0,0xe($s3)
@@ -3424,7 +3424,7 @@ glabel var7f1b8950
 /*  f181e38:	a66c000e */ 	sh	$t4,0xe($s3)
 /*  f181e3c:	e6680024 */ 	swc1	$f8,0x24($s3)
 /*  f181e40:	e66a0028 */ 	swc1	$f10,0x28($s3)
-/*  f181e44:	0c00a8db */ 	jal	func0002a36c
+/*  f181e44:	0c00a8db */ 	jal	cd0002a36c
 /*  f181e48:	e672002c */ 	swc1	$f18,0x2c($s3)
 /*  f181e4c:	e6600028 */ 	swc1	$f0,0x28($s3)
 /*  f181e50:	8664000e */ 	lh	$a0,0xe($s3)

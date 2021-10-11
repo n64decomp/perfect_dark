@@ -20,8 +20,8 @@
 #include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
-#include "lib/lib_24e40.h"
+#include "lib/anim.h"
+#include "lib/collision.h"
 #include "data.h"
 #include "types.h"
 
@@ -344,7 +344,7 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	abstarget.y = g_Vars.currentplayer->prop->pos.y;
 	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
 
-	func00024e4c(&globalthinga, &globalthingb, 223, "bondwalk.c");
+	cd00024e4c(&globalthinga, &globalthingb, 223, "bondwalk.c");
 
 	vector.x = globalthingb.z - globalthinga.z;
 	vector.y = 0;
@@ -891,7 +891,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c42dc:	3c077f1b */ 	lui	$a3,%hi(var7f1ad75c)
 /*  f0c42e0:	5540011c */ 	bnezl	$t2,.L0f0c4754
 /*  f0c42e4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0c42e8:	0c009393 */ 	jal	func00024e4c
+/*  f0c42e8:	0c009393 */ 	jal	cd00024e4c
 /*  f0c42ec:	24e7d75c */ 	addiu	$a3,$a3,%lo(var7f1ad75c)
 /*  f0c42f0:	c7a40080 */ 	lwc1	$f4,0x80($sp)
 /*  f0c42f4:	c7a6008c */ 	lwc1	$f6,0x8c($sp)
@@ -1234,7 +1234,7 @@ glabel bwalkCalculateNewPositionWithPush
 /*  f0c42dc:	3c077f1b */ 	lui	$a3,%hi(var7f1ad75c)
 /*  f0c42e0:	5540011c */ 	bnezl	$t2,.L0f0c4754
 /*  f0c42e4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0c42e8:	0c009393 */ 	jal	func00024e4c
+/*  f0c42e8:	0c009393 */ 	jal	cd00024e4c
 /*  f0c42ec:	24e7d75c */ 	addiu	$a3,$a3,%lo(var7f1ad75c)
 /*  f0c42f0:	c7a40080 */ 	lwc1	$f4,0x80($sp)
 /*  f0c42f4:	c7a6008c */ 	lwc1	$f6,0x8c($sp)
@@ -1555,7 +1555,7 @@ glabel bwalkCalculateNewPositionWithPush
 //
 //				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
 //					if (!g_Vars.currentplayer->isdead) {
-//						func00024e4c(&sp84, &sp78, 465, "bondwalk.c");
+//						cd00024e4c(&sp84, &sp78, 465, "bondwalk.c");
 //
 //						sp90.x = sp78.f[2] - sp84.f[2];
 //						sp90.y = 0;
@@ -1686,7 +1686,7 @@ s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s
 	s32 result = bwalkCalculateNewPositionWithPush(delta, 0, true, 0, types);
 
 	if (result == CDRESULT_COLLISION) {
-		func00024e4c(arg1, arg2, 0x25f, "bondwalk.c");
+		cd00024e4c(arg1, arg2, 0x25f, "bondwalk.c");
 	}
 
 	return result;
@@ -1698,8 +1698,8 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	struct coord quarter;
 	bool result;
 
-	if (func00024ea4()) {
-		f32 mult = func00024e98();
+	if (cd00024ea4()) {
+		f32 mult = cd00024e98();
 		quarter.x = a->x * mult * 0.25f;
 		quarter.y = a->y * mult * 0.25f;
 		quarter.z = a->z * mult * 0.25f;
@@ -1710,7 +1710,7 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 		}
 
 		if (result == CDRESULT_COLLISION) {
-			func00024e4c(d, e, 0x27b, "bondwalk.c");
+			cd00024e4c(d, e, 0x27b, "bondwalk.c");
 
 			if (b->x != d->x
 					|| b->y != d->y
@@ -1922,7 +1922,7 @@ void bwalkUpdateVertical(void)
 	// If this comes up false, a second check is done... maybe checking if the
 	// player is touching a ladder from a room which shares the same coordinate
 	// space?
-	onladder = func00029ffc(&g_Vars.currentplayer->prop->pos,
+	onladder = cd00029ffc(&g_Vars.currentplayer->prop->pos,
 			width * 1.2f, ymax - g_Vars.currentplayer->prop->pos.y,
 			g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y + 1,
 			g_Vars.currentplayer->prop->rooms, 0x8040, &g_Vars.currentplayer->laddernormal);
@@ -1933,7 +1933,7 @@ void bwalkUpdateVertical(void)
 		testpos.z = g_Vars.currentplayer->prop->pos.z;
 		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
 		bmove0f0cb79c(g_Vars.currentplayer, &testpos, rooms);
-		onladder2 = func00029ffc(&g_Vars.currentplayer->prop->pos,
+		onladder2 = cd00029ffc(&g_Vars.currentplayer->prop->pos,
 				width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 				g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y - 10,
 				rooms, 0x8040, &g_Vars.currentplayer->laddernormal);
@@ -2369,7 +2369,7 @@ glabel var7f1a7b20nb
 /*  f0c2c60:	afb80014 */ 	sw	$t8,0x14($sp)
 /*  f0c2c64:	24640008 */ 	addiu	$a0,$v1,0x8
 /*  f0c2c68:	44072000 */ 	mfc1	$a3,$f4
-/*  f0c2c6c:	0c00ad11 */ 	jal	func00029ffc
+/*  f0c2c6c:	0c00ad11 */ 	jal	cd00029ffc
 /*  f0c2c70:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c2c74:	14400031 */ 	bnez	$v0,.NB0f0c2d3c
 /*  f0c2c78:	afa200d4 */ 	sw	$v0,0xd4($sp)
@@ -2418,7 +2418,7 @@ glabel var7f1a7b20nb
 /*  f0c2d24:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f0c2d28:	24640008 */ 	addiu	$a0,$v1,0x8
 /*  f0c2d2c:	44074000 */ 	mfc1	$a3,$f8
-/*  f0c2d30:	0c00ad11 */ 	jal	func00029ffc
+/*  f0c2d30:	0c00ad11 */ 	jal	cd00029ffc
 /*  f0c2d34:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c2d38:	afa200d0 */ 	sw	$v0,0xd0($sp)
 .NB0f0c2d3c:
@@ -4124,7 +4124,7 @@ glabel var7f1ad854
 /*  f0c780c:	460a3200 */ 	add.s	$f8,$f6,$f10
 /*  f0c7810:	24440008 */ 	addiu	$a0,$v0,0x8
 /*  f0c7814:	44074000 */ 	mfc1	$a3,$f8
-/*  f0c7818:	0c00a68f */ 	jal	func0002a13c
+/*  f0c7818:	0c00a68f */ 	jal	cd0002a13c
 /*  f0c781c:	00000000 */ 	nop
 /*  f0c7820:	3c08800a */ 	lui	$t0,0x800a
 /*  f0c7824:	2508a510 */ 	addiu	$t0,$t0,-23280
@@ -5175,7 +5175,7 @@ glabel var7f1ad854
 /*  f0c7274:	46062280 */ 	add.s	$f10,$f4,$f6
 /*  f0c7278:	24440008 */ 	addiu	$a0,$v0,0x8
 /*  f0c727c:	44075000 */ 	mfc1	$a3,$f10
-/*  f0c7280:	0c00a84f */ 	jal	func0002a13c
+/*  f0c7280:	0c00a84f */ 	jal	cd0002a13c
 /*  f0c7284:	00000000 */ 	nop
 /*  f0c7288:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c728c:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -6178,7 +6178,7 @@ glabel var7f1ad854
 /*  f0c4b40:	46064100 */ 	add.s	$f4,$f8,$f6
 /*  f0c4b44:	24440008 */ 	addiu	$a0,$v0,0x8
 /*  f0c4b48:	44072000 */ 	mfc1	$a3,$f4
-/*  f0c4b4c:	0c00ad61 */ 	jal	func0002a13c
+/*  f0c4b4c:	0c00ad61 */ 	jal	cd0002a13c
 /*  f0c4b50:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c4b54:	3c08800a */ 	lui	$t0,0x800a
 /*  f0c4b58:	2508e6c0 */ 	addiu	$t0,$t0,-6464
@@ -6826,7 +6826,7 @@ u32 var80070e70 = 0x00000000;
 //				} else {
 //					propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
 //
-//					lVar2 = func0002a13c(&g_Vars.currentplayer->prop->pos,
+//					lVar2 = cd0002a13c(&g_Vars.currentplayer->prop->pos,
 //							width * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 //							(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
 //							g_Vars.currentplayer->prop->rooms, 0x8040);

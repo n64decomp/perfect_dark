@@ -5,7 +5,7 @@
 #include "game/bg.h"
 #include "game/game_165670.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "data.h"
 #include "types.h"
 

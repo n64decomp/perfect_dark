@@ -39,14 +39,14 @@
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/joy.h"
 #include "lib/main.h"
 #include "lib/model.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -10971,7 +10971,7 @@ glabel var7f1ac72c
 /*  f09f280:	afa50038 */ 	sw	$a1,0x38($sp)
 /*  f09f284:	27a6017c */ 	addiu	$a2,$sp,0x17c
 /*  f09f288:	27a70160 */ 	addiu	$a3,$sp,0x160
-/*  f09f28c:	0c00b7ab */ 	jal	func0002deac
+/*  f09f28c:	0c00b7ab */ 	jal	cd0002deac
 /*  f09f290:	24440008 */ 	addiu	$a0,$v0,0x8
 /*  f09f294:	10400008 */ 	beqz	$v0,.L0f09f2b8
 /*  f09f298:	8fab01d8 */ 	lw	$t3,0x1d8($sp)
@@ -11487,7 +11487,7 @@ glabel var7f1ac72c
 /*  f09f280:	afa50038 */ 	sw	$a1,0x38($sp)
 /*  f09f284:	27a6017c */ 	addiu	$a2,$sp,0x17c
 /*  f09f288:	27a70160 */ 	addiu	$a3,$sp,0x160
-/*  f09f28c:	0c00b7ab */ 	jal	func0002deac
+/*  f09f28c:	0c00b7ab */ 	jal	cd0002deac
 /*  f09f290:	24440008 */ 	addiu	$a0,$v0,0x8
 /*  f09f294:	10400008 */ 	beqz	$v0,.L0f09f2b8
 /*  f09f298:	8fab01d8 */ 	lw	$t3,0x1d8($sp)

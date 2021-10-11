@@ -13,7 +13,7 @@
 #include "bss.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_233c0.h"
+#include "lib/anim.h"
 #include "lib/model.h"
 #include "data.h"
 #include "types.h"
@@ -701,7 +701,7 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 		sp24c = arg0->matrix;
 	}
 
-	func00024050(sp240, anim->flip, type, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
+	anim00024050(sp240, anim->flip, type, anim->animnum, anim->unk04, &sp230, &sp224, &sp218);
 
 	if (g_Vars.in_cutscene && anim->speed > 0) {
 #if VERSION >= VERSION_PAL_FINAL
@@ -714,15 +714,15 @@ void model0001b400(struct objticksp476 *arg0, struct model *model, struct modeln
 	}
 
 	if (sp154 != 0.0f) {
-		func00024050(sp240, anim->flip, type, anim->animnum, anim->unk05, &sp148, &sp13c, &sp130);
+		anim00024050(sp240, anim->flip, type, anim->animnum, anim->unk05, &sp148, &sp13c, &sp130);
 		model0001b07c(&sp230, &sp148, sp154);
 	}
 
 	if (anim->fracmerge != 0.0f) {
-		func00024050(sp240, anim->flip2, type, anim->animnum2, anim->unk06, &sp124, &sp118, &sp10c);
+		anim00024050(sp240, anim->flip2, type, anim->animnum2, anim->unk06, &sp124, &sp118, &sp10c);
 
 		if (anim->frac2 != 0.0f) {
-			func00024050(sp240, anim->flip2, type, anim->animnum2, anim->unk07, &spd0, &spc4, &spb8);
+			anim00024050(sp240, anim->flip2, type, anim->animnum2, anim->unk07, &spd0, &spc4, &spb8);
 			model0001b07c(&sp124, &spd0, anim->frac2);
 		}
 
@@ -1384,7 +1384,7 @@ glabel var70053fc0pf
 /*    1bdf8:	afb80014 */ 	sw	$t8,0x14($sp)
 /*    1bdfc:	8fa40154 */ 	lw	$a0,0x154($sp)
 /*    1be00:	8fa60150 */ 	lw	$a2,0x150($sp)
-/*    1be04:	0c008e54 */ 	jal	func00024050
+/*    1be04:	0c008e54 */ 	jal	anim00024050
 /*    1be08:	afb90010 */ 	sw	$t9,0x10($sp)
 /*    1be0c:	3c0a800a */ 	lui	$t2,0x800a
 /*    1be10:	8d4aa9dc */ 	lw	$t2,-0x5624($t2)
@@ -1425,7 +1425,7 @@ glabel var70053fc0pf
 /*    1be94:	e7a200e0 */ 	swc1	$f2,0xe0($sp)
 /*    1be98:	afad0018 */ 	sw	$t5,0x18($sp)
 /*    1be9c:	afac0014 */ 	sw	$t4,0x14($sp)
-/*    1bea0:	0c008e54 */ 	jal	func00024050
+/*    1bea0:	0c008e54 */ 	jal	anim00024050
 /*    1bea4:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    1bea8:	c7a200e0 */ 	lwc1	$f2,0xe0($sp)
 /*    1beac:	27a40144 */ 	addiu	$a0,$sp,0x144
@@ -1481,7 +1481,7 @@ glabel var70053fc0pf
 /*    1bf60:	afaa001c */ 	sw	$t2,0x1c($sp)
 /*    1bf64:	afa90018 */ 	sw	$t1,0x18($sp)
 /*    1bf68:	afa80014 */ 	sw	$t0,0x14($sp)
-/*    1bf6c:	0c008e54 */ 	jal	func00024050
+/*    1bf6c:	0c008e54 */ 	jal	anim00024050
 /*    1bf70:	afb80010 */ 	sw	$t8,0x10($sp)
 /*    1bf74:	44802000 */ 	mtc1	$zero,$f4
 /*    1bf78:	c6060034 */ 	lwc1	$f6,0x34($s0)
@@ -1499,7 +1499,7 @@ glabel var70053fc0pf
 /*    1bfa8:	afae001c */ 	sw	$t6,0x1c($sp)
 /*    1bfac:	afad0018 */ 	sw	$t5,0x18($sp)
 /*    1bfb0:	afac0014 */ 	sw	$t4,0x14($sp)
-/*    1bfb4:	0c008e54 */ 	jal	func00024050
+/*    1bfb4:	0c008e54 */ 	jal	anim00024050
 /*    1bfb8:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    1bfbc:	27a400b0 */ 	addiu	$a0,$sp,0xb0
 /*    1bfc0:	27a5005c */ 	addiu	$a1,$sp,0x5c
@@ -1806,7 +1806,7 @@ glabel model0001bfa8
 /*    1c054:	afb80014 */ 	sw	$t8,0x14($sp)
 /*    1c058:	8fa40154 */ 	lw	$a0,0x154($sp)
 /*    1c05c:	8fa60150 */ 	lw	$a2,0x150($sp)
-/*    1c060:	0c009014 */ 	jal	func00024050
+/*    1c060:	0c009014 */ 	jal	anim00024050
 /*    1c064:	afb90010 */ 	sw	$t9,0x10($sp)
 /*    1c068:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x4cc)
 /*    1c06c:	8d4aa48c */ 	lw	$t2,%lo(g_Vars+0x4cc)($t2)
@@ -1844,7 +1844,7 @@ glabel model0001bfa8
 /*    1c0e4:	e7a200e0 */ 	swc1	$f2,0xe0($sp)
 /*    1c0e8:	afad0018 */ 	sw	$t5,0x18($sp)
 /*    1c0ec:	afac0014 */ 	sw	$t4,0x14($sp)
-/*    1c0f0:	0c009014 */ 	jal	func00024050
+/*    1c0f0:	0c009014 */ 	jal	anim00024050
 /*    1c0f4:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    1c0f8:	c7a200e0 */ 	lwc1	$f2,0xe0($sp)
 /*    1c0fc:	27a40144 */ 	addiu	$a0,$sp,0x144
@@ -1896,7 +1896,7 @@ glabel model0001bfa8
 /*    1c1a4:	afa9001c */ 	sw	$t1,0x1c($sp)
 /*    1c1a8:	afa80018 */ 	sw	$t0,0x18($sp)
 /*    1c1ac:	afb80014 */ 	sw	$t8,0x14($sp)
-/*    1c1b0:	0c009014 */ 	jal	func00024050
+/*    1c1b0:	0c009014 */ 	jal	anim00024050
 /*    1c1b4:	afb90010 */ 	sw	$t9,0x10($sp)
 /*    1c1b8:	44808000 */ 	mtc1	$zero,$f16
 /*    1c1bc:	c6120034 */ 	lwc1	$f18,0x34($s0)
@@ -1914,7 +1914,7 @@ glabel model0001bfa8
 /*    1c1ec:	afad001c */ 	sw	$t5,0x1c($sp)
 /*    1c1f0:	afac0018 */ 	sw	$t4,0x18($sp)
 /*    1c1f4:	afab0014 */ 	sw	$t3,0x14($sp)
-/*    1c1f8:	0c009014 */ 	jal	func00024050
+/*    1c1f8:	0c009014 */ 	jal	anim00024050
 /*    1c1fc:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*    1c200:	27a400b0 */ 	addiu	$a0,$sp,0xb0
 /*    1c204:	27a5005c */ 	addiu	$a1,$sp,0x5c
@@ -2561,23 +2561,23 @@ void model0001cebc(struct objticksp476 *arg0, struct model *model)
 			}
 		}
 
-		func00023d38(anim->animnum);
-		anim->unk04 = func00023ab0(anim->animnum, anim->framea);
+		anim00023d38(anim->animnum);
+		anim->unk04 = anim00023ab0(anim->animnum, anim->framea);
 
 		if (anim->frac != 0) {
-			anim->unk05 = func00023ab0(anim->animnum, anim->frameb);
+			anim->unk05 = anim00023ab0(anim->animnum, anim->frameb);
 		}
 
 		if (anim->animnum2) {
-			func00023d38(anim->animnum2);
-			anim->unk06 = func00023ab0(anim->animnum2, anim->frame2a);
+			anim00023d38(anim->animnum2);
+			anim->unk06 = anim00023ab0(anim->animnum2, anim->frame2a);
 
 			if (anim->frac2 != 0) {
-				anim->unk07 = func00023ab0(anim->animnum2, anim->frame2b);
+				anim->unk07 = anim00023ab0(anim->animnum2, anim->frame2b);
 			}
 		}
 
-		func00023d0c();
+		anim00023d0c();
 	}
 
 	model0001ce64(arg0, model);
@@ -2800,10 +2800,10 @@ void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, 
 
 			if (g_Anims[anim->animnum].flags & ANIMFLAG_02) {
 				sp64 = func0f15c888();
-				func00023d38(anim->animnum);
-				sp83 = func00023ab0(anim->animnum, anim->framea);
-				func00023d0c();
-				func00024050(spa4, anim->flip, type, anim->animnum, sp83, &sp74, &sp88, &sp68);
+				anim00023d38(anim->animnum);
+				sp83 = anim00023ab0(anim->animnum, anim->framea);
+				anim00023d0c();
+				anim00024050(spa4, anim->flip, type, anim->animnum, sp83, &sp74, &sp88, &sp68);
 
 				rwdata->unk34.x = sp88.x * sp64;
 				rwdata->unk34.y = sp88.y * sp64;
@@ -2813,10 +2813,10 @@ void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, 
 				if (anim->frac == 0) {
 					rwdata->unk01 = 0;
 				} else {
-					func00023d38(anim->animnum);
-					sp83 = func00023ab0(anim->animnum, anim->frameb);
-					func00023d0c();
-					func00024050(spa4, anim->flip, type, anim->animnum, sp83, &sp74, &sp88, &sp68);
+					anim00023d38(anim->animnum);
+					sp83 = anim00023ab0(anim->animnum, anim->frameb);
+					anim00023d0c();
+					anim00024050(spa4, anim->flip, type, anim->animnum, sp83, &sp74, &sp88, &sp68);
 
 					rwdata->unk24.x = sp88.x * sp64;
 					rwdata->unk24.y = sp88.y * sp64;
@@ -2826,7 +2826,7 @@ void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, 
 					rwdata->unk01 = 1;
 				}
 			} else {
-				sp84 = func00024b64(spa4, anim->flip, type, anim->animnum, anim->frameb, &sp88, anim->average);
+				sp84 = anim00024b64(spa4, anim->flip, type, anim->animnum, anim->frameb, &sp88, anim->average);
 				scale = model->scale * anim->animscale;
 
 				if (scale != 1) {
@@ -3291,12 +3291,12 @@ glabel var70054450
 /*    1e4ec:	1000001f */ 	b	.L0001e56c
 /*    1e4f0:	e7a600e8 */ 	swc1	$f6,0xe8($sp)
 .L0001e4f4:
-/*    1e4f4:	0c008f4e */ 	jal	func00023d38
+/*    1e4f4:	0c008f4e */ 	jal	anim00023d38
 /*    1e4f8:	86240000 */ 	lh	$a0,0x0($s1)
 /*    1e4fc:	86240000 */ 	lh	$a0,0x0($s1)
-/*    1e500:	0c008eac */ 	jal	func00023ab0
+/*    1e500:	0c008eac */ 	jal	anim00023ab0
 /*    1e504:	02002825 */ 	or	$a1,$s0,$zero
-/*    1e508:	0c008f43 */ 	jal	func00023d0c
+/*    1e508:	0c008f43 */ 	jal	anim00023d0c
 /*    1e50c:	305000ff */ 	andi	$s0,$v0,0xff
 /*    1e510:	82250008 */ 	lb	$a1,0x8($s1)
 /*    1e514:	86270000 */ 	lh	$a3,0x0($s1)
@@ -3308,7 +3308,7 @@ glabel var70054450
 /*    1e52c:	afb80014 */ 	sw	$t8,0x14($sp)
 /*    1e530:	afb00010 */ 	sw	$s0,0x10($sp)
 /*    1e534:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*    1e538:	0c009014 */ 	jal	func00024050
+/*    1e538:	0c009014 */ 	jal	anim00024050
 /*    1e53c:	8fa60114 */ 	lw	$a2,0x114($sp)
 /*    1e540:	c7a200fc */ 	lwc1	$f2,0xfc($sp)
 /*    1e544:	c7aa0100 */ 	lwc1	$f10,0x100($sp)
@@ -3336,12 +3336,12 @@ glabel var70054450
 /*    1e590:	8e260018 */ 	lw	$a2,0x18($s1)
 /*    1e594:	00408025 */ 	or	$s0,$v0,$zero
 /*    1e598:	a6220016 */ 	sh	$v0,0x16($s1)
-/*    1e59c:	0c008f4e */ 	jal	func00023d38
+/*    1e59c:	0c008f4e */ 	jal	anim00023d38
 /*    1e5a0:	86240000 */ 	lh	$a0,0x0($s1)
 /*    1e5a4:	86240000 */ 	lh	$a0,0x0($s1)
-/*    1e5a8:	0c008eac */ 	jal	func00023ab0
+/*    1e5a8:	0c008eac */ 	jal	anim00023ab0
 /*    1e5ac:	02002825 */ 	or	$a1,$s0,$zero
-/*    1e5b0:	0c008f43 */ 	jal	func00023d0c
+/*    1e5b0:	0c008f43 */ 	jal	anim00023d0c
 /*    1e5b4:	305000ff */ 	andi	$s0,$v0,0xff
 /*    1e5b8:	82250008 */ 	lb	$a1,0x8($s1)
 /*    1e5bc:	86270000 */ 	lh	$a3,0x0($s1)
@@ -3353,7 +3353,7 @@ glabel var70054450
 /*    1e5d4:	afad0014 */ 	sw	$t5,0x14($sp)
 /*    1e5d8:	afb00010 */ 	sw	$s0,0x10($sp)
 /*    1e5dc:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*    1e5e0:	0c009014 */ 	jal	func00024050
+/*    1e5e0:	0c009014 */ 	jal	anim00024050
 /*    1e5e4:	8fa60114 */ 	lw	$a2,0x114($sp)
 /*    1e5e8:	c7a200fc */ 	lwc1	$f2,0xfc($sp)
 /*    1e5ec:	c7a60100 */ 	lwc1	$f6,0x100($sp)
@@ -3415,7 +3415,7 @@ glabel var70054450
 /*    1e6b4:	afb00010 */ 	sw	$s0,0x10($sp)
 /*    1e6b8:	8239000b */ 	lb	$t9,0xb($s1)
 /*    1e6bc:	8fa60114 */ 	lw	$a2,0x114($sp)
-/*    1e6c0:	0c0092d9 */ 	jal	func00024b64
+/*    1e6c0:	0c0092d9 */ 	jal	anim00024b64
 /*    1e6c4:	afb90018 */ 	sw	$t9,0x18($sp)
 /*    1e6c8:	3c013f80 */ 	lui	$at,0x3f80
 /*    1e6cc:	44815000 */ 	mtc1	$at,$f10
@@ -3513,7 +3513,7 @@ glabel var70054450
 /*    1e828:	822c000b */ 	lb	$t4,0xb($s1)
 /*    1e82c:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*    1e830:	afab00c8 */ 	sw	$t3,0xc8($sp)
-/*    1e834:	0c0092d9 */ 	jal	func00024b64
+/*    1e834:	0c0092d9 */ 	jal	anim00024b64
 /*    1e838:	afac0018 */ 	sw	$t4,0x18($sp)
 /*    1e83c:	3c013f80 */ 	lui	$at,0x3f80
 /*    1e840:	44819000 */ 	mtc1	$at,$f18
@@ -3834,7 +3834,7 @@ glabel var70054450
 /*    1ecd0:	8239000b */ 	lb	$t9,0xb($s1)
 /*    1ecd4:	8fa60114 */ 	lw	$a2,0x114($sp)
 /*    1ecd8:	8fa40118 */ 	lw	$a0,0x118($sp)
-/*    1ecdc:	0c0092d9 */ 	jal	func00024b64
+/*    1ecdc:	0c0092d9 */ 	jal	anim00024b64
 /*    1ece0:	afb90018 */ 	sw	$t9,0x18($sp)
 /*    1ece4:	3c013f80 */ 	lui	$at,0x3f80
 /*    1ece8:	44816000 */ 	mtc1	$at,$f12

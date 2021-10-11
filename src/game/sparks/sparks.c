@@ -6,7 +6,7 @@
 #include "game/sparks/sparks.h"
 #include "game/file.h"
 #include "bss.h"
-#include "lib/lib_09a80.h"
+#include "lib/vi.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
 #include "data.h"

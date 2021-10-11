@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/lib_0bfb0.h"
+#include "lib/fault.h"
 
 char *strcpy(char *dst, char *src)
 {

@@ -4,7 +4,7 @@
 #include "game/game_176080.h"
 #include "bss.h"
 #include "lib/snd.h"
-#include "lib/lib_11420.h"
+#include "lib/music.h"
 #include "lib/lib_38d10.h"
 #include "lib/lib_39c80.h"
 #include "lib/lib_39f70.h"
@@ -44,20 +44,20 @@ u32 var8005edf8 = 0x00000000;
 u32 var8005edfc = 0x00000000;
 
 GLOBAL_ASM(
-glabel func00011420
+glabel music00011420
 .late_rodata
 glabel var70053fc4
-.word func00011420+0x50
+.word music00011420+0x50
 glabel var70053fc8
-.word func00011420+0x50
+.word music00011420+0x50
 glabel var70053fcc
-.word func00011420+0x50
+.word music00011420+0x50
 glabel var70053fd0
-.word func00011420+0x50
+.word music00011420+0x50
 glabel var70053fd4
-.word func00011420+0x50
+.word music00011420+0x50
 glabel var70053fd8
-.word func00011420+0x50
+.word music00011420+0x50
 .text
 /*    11420:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    11424:	afbf0034 */ 	sw	$ra,0x34($sp)
@@ -266,7 +266,7 @@ glabel var70053fd8
 );
 
 GLOBAL_ASM(
-glabel func00011700
+glabel music00011700
 /*    11700:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    11704:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    11708:	afa5002c */ 	sw	$a1,0x2c($sp)
@@ -305,7 +305,7 @@ glabel func00011700
 );
 
 GLOBAL_ASM(
-glabel func00011780
+glabel music00011780
 /*    11780:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    11784:	afb50028 */ 	sw	$s5,0x28($sp)
 /*    11788:	afb30020 */ 	sw	$s3,0x20($sp)
@@ -378,7 +378,7 @@ glabel func00011780
 );
 
 GLOBAL_ASM(
-glabel func00011884
+glabel music00011884
 /*    11884:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    11888:	afb20020 */ 	sw	$s2,0x20($sp)
 /*    1188c:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -412,7 +412,7 @@ glabel func00011884
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func000118f4
+glabel music000118f4
 /*    118f4:	afa50004 */ 	sw	$a1,0x4($sp)
 /*    118f8:	8c8e0004 */ 	lw	$t6,0x4($a0)
 /*    118fc:	3c018008 */ 	lui	$at,%hi(var800840e0)
@@ -424,18 +424,18 @@ glabel func000118f4
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func0001190c
+glabel music0001190c
 .late_rodata
 glabel var70053fdc
-.word func0001190c+0x324
+.word music0001190c+0x324
 glabel var70053fe0
-.word func0001190c+0x338
+.word music0001190c+0x338
 glabel var70053fe4
-.word func0001190c+0x34c
+.word music0001190c+0x34c
 glabel var70053fe8
-.word func0001190c+0x360
+.word music0001190c+0x360
 glabel var70053fec
-.word func0001190c+0x370
+.word music0001190c+0x370
 .text
 /*    1190c:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    11910:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
@@ -661,26 +661,26 @@ glabel var70053fec
 /*    11c28:	03000008 */ 	jr	$t8
 /*    11c2c:	00000000 */ 	nop
 /*    11c30:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c34:	0c004508 */ 	jal	func00011420
+/*    11c34:	0c004508 */ 	jal	music00011420
 /*    11c38:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c3c:	10000013 */ 	b	.L00011c8c
 /*    11c40:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c44:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c48:	0c0045c0 */ 	jal	func00011700
+/*    11c48:	0c0045c0 */ 	jal	music00011700
 /*    11c4c:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c50:	1000000e */ 	b	.L00011c8c
 /*    11c54:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c58:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c5c:	0c0045e0 */ 	jal	func00011780
+/*    11c5c:	0c0045e0 */ 	jal	music00011780
 /*    11c60:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c64:	10000009 */ 	b	.L00011c8c
 /*    11c68:	00402025 */ 	or	$a0,$v0,$zero
-/*    11c6c:	0c004621 */ 	jal	func00011884
+/*    11c6c:	0c004621 */ 	jal	music00011884
 /*    11c70:	00002025 */ 	or	$a0,$zero,$zero
 /*    11c74:	10000005 */ 	b	.L00011c8c
 /*    11c78:	00402025 */ 	or	$a0,$v0,$zero
 /*    11c7c:	02402025 */ 	or	$a0,$s2,$zero
-/*    11c80:	0c00463d */ 	jal	func000118f4
+/*    11c80:	0c00463d */ 	jal	music000118f4
 /*    11c84:	00002825 */ 	or	$a1,$zero,$zero
 /*    11c88:	00402025 */ 	or	$a0,$v0,$zero
 .L00011c8c:
@@ -756,7 +756,7 @@ glabel var70053fec
 );
 #else
 GLOBAL_ASM(
-glabel func0001190c
+glabel music0001190c
 /*    11cb4:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*    11cb8:	3c0e8006 */ 	lui	$t6,0x8006
 /*    11cbc:	8dcef6c0 */ 	lw	$t6,-0x940($t6)
@@ -982,22 +982,22 @@ glabel func0001190c
 /*    11fd8:	10000010 */ 	beqz	$zero,.NB0001201c
 /*    11fdc:	00000000 */ 	sll	$zero,$zero,0x0
 .NB00011fe0:
-/*    11fe0:	0c0045f8 */ 	jal	func00011420
+/*    11fe0:	0c0045f8 */ 	jal	music00011420
 /*    11fe4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    11fe8:	1000000c */ 	beqz	$zero,.NB0001201c
 /*    11fec:	00402025 */ 	or	$a0,$v0,$zero
 .NB00011ff0:
-/*    11ff0:	0c0046b0 */ 	jal	func00011700
+/*    11ff0:	0c0046b0 */ 	jal	music00011700
 /*    11ff4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    11ff8:	10000008 */ 	beqz	$zero,.NB0001201c
 /*    11ffc:	00402025 */ 	or	$a0,$v0,$zero
 .NB00012000:
-/*    12000:	0c0046d0 */ 	jal	func00011780
+/*    12000:	0c0046d0 */ 	jal	music00011780
 /*    12004:	02a02025 */ 	or	$a0,$s5,$zero
 /*    12008:	10000004 */ 	beqz	$zero,.NB0001201c
 /*    1200c:	00402025 */ 	or	$a0,$v0,$zero
 .NB00012010:
-/*    12010:	0c004711 */ 	jal	func00011884
+/*    12010:	0c004711 */ 	jal	music00011884
 /*    12014:	00002025 */ 	or	$a0,$zero,$zero
 /*    12018:	00402025 */ 	or	$a0,$v0,$zero
 .NB0001201c:
@@ -1078,7 +1078,7 @@ glabel func0001190c
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func00011d84
+glabel music00011d84
 /*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
 /*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*    11d8c:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -1325,7 +1325,7 @@ glabel func00011d84
 .L0001210c:
 /*    1210c:	ac790000 */ 	sw	$t9,0x0($v1)
 .L00012110:
-/*    12110:	0c004643 */ 	jal	func0001190c
+/*    12110:	0c004643 */ 	jal	music0001190c
 /*    12114:	00000000 */ 	nop
 .L00012118:
 /*    12118:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1335,7 +1335,7 @@ glabel func00011d84
 );
 #elif VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00011d84
+glabel music00011d84
 /*    11d84:	3c0e8006 */ 	lui	$t6,%hi(g_SndDisabled)
 /*    11d88:	8dcedda0 */ 	lw	$t6,%lo(g_SndDisabled)($t6)
 /*    11d8c:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -1582,7 +1582,7 @@ glabel func00011d84
 .L0001210c:
 /*    1210c:	ac790000 */ 	sw	$t9,0x0($v1)
 .L00012110:
-/*    12110:	0c004643 */ 	jal	func0001190c
+/*    12110:	0c004643 */ 	jal	music0001190c
 /*    12114:	00000000 */ 	nop
 .L00012118:
 /*    12118:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1592,7 +1592,7 @@ glabel func00011d84
 );
 #else
 GLOBAL_ASM(
-glabel func00011d84
+glabel music00011d84
 /*    12120:	3c0e8006 */ 	lui	$t6,0x8006
 /*    12124:	8dcef6c0 */ 	lw	$t6,-0x940($t6)
 /*    12128:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -1839,7 +1839,7 @@ glabel func00011d84
 .NB000124a8:
 /*    124a8:	ac780000 */ 	sw	$t8,0x0($v1)
 .NB000124ac:
-/*    124ac:	0c00472d */ 	jal	func0001190c
+/*    124ac:	0c00472d */ 	jal	music0001190c
 /*    124b0:	00000000 */ 	sll	$zero,$zero,0x0
 .NB000124b4:
 /*    124b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
