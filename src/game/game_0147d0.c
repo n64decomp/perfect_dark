@@ -220,10 +220,10 @@ void aibotAllocate(s32 chrnum, s32 aibotnum)
 					aibot->unk0e4[1] = 0.0f;
 					aibot->unk0e4[0] = 0.0f;
 
-					aibot->unk0a4 = func0001ae44(chr->model);
+					aibot->unk0a4 = model0001ae44(chr->model);
 					aibot->angleoffset = 0.0f;
 					aibot->speedtheta = 0.0f;
-					aibot->unk0b0 = func0001ae44(chr->model);
+					aibot->unk0b0 = model0001ae44(chr->model);
 
 					aibot->unk0b4 = 0.0f;
 					aibot->unk0b8 = 0.0f;

@@ -1405,7 +1405,7 @@ void currentPlayerSpawn(void)
 
 					if (g_Vars.lvframenum > 0
 							&& (g_ChrSlots[i].hidden & CHRHFLAG_00800000)
-							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, func0001af80(g_ChrSlots[i].model))
+							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, model0001af80(g_ChrSlots[i].model))
 							&& (random() % 8)) {
 						sqdist += 1000000;
 					}

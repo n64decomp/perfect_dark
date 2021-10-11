@@ -67,10 +67,10 @@ void func0f129210(union modelrwdata *find, union modelrwdata *replacement)
 					}
 					break;
 				case MODELNODETYPE_DISTANCE:
-					func0001c784(obj->model, node);
+					model0001c784(obj->model, node);
 					break;
 				case MODELNODETYPE_TOGGLE:
-					func0001c7d0(obj->model, node);
+					model0001c7d0(obj->model, node);
 					break;
 				case MODELNODETYPE_HEADSPOT:
 					modelAttachHead(obj->model, node);

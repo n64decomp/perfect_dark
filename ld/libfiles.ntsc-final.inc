@@ -54,7 +54,7 @@
 	build/ROMID/lib/mtx.o (section); \
 	build/ROMID/lib/lib_17ce0.o (section); \
 	build/ROMID/lib/lib_184d0.o (section); \
-	build/ROMID/lib/lib_18680.o (section); \
+	build/ROMID/lib/modelasm.o (section); \
 	build/ROMID/lib/model.o (section); \
 	build/ROMID/lib/lib_233c0.o (section); \
 	build/ROMID/lib/lib_24e40.o (section); \

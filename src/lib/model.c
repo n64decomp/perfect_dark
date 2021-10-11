@@ -52,7 +52,7 @@ void modelSetVtxAllocatorFunc(struct gfxvtx *(*fn)(s32 numvertices))
 	g_ModelVtxAllocatorFunc = fn;
 }
 
-s32 func0001a524(struct modelnode *node, s32 arg1)
+s32 model0001a524(struct modelnode *node, s32 arg1)
 {
 	s32 index;
 	union modelrodata *rodata1;
@@ -78,9 +78,9 @@ s32 func0001a524(struct modelnode *node, s32 arg1)
 	return -1;
 }
 
-Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2)
+Mtxf *model0001a5cc(struct model *model, struct modelnode *node, s32 arg2)
 {
-	s32 index = func0001a524(node, arg2);
+	s32 index = model0001a524(node, arg2);
 
 	if (index >= 0) {
 		return &model->matrices[index];
@@ -89,12 +89,12 @@ Mtxf *func0001a5cc(struct model *model, struct modelnode *node, s32 arg2)
 	return NULL;
 }
 
-Mtxf *func0001a60c(struct model *model)
+Mtxf *model0001a60c(struct model *model)
 {
-	return func0001a5cc(model, model->filedata->rootnode, 0);
+	return model0001a5cc(model, model->filedata->rootnode, 0);
 }
 
-struct modelnode *func0001a634(struct model *model, s32 mtxindex)
+struct modelnode *model0001a634(struct model *model, s32 mtxindex)
 {
 	struct modelnode *node = model->filedata->rootnode;
 	union modelrodata *rodata1;
@@ -142,7 +142,7 @@ struct modelnode *func0001a634(struct model *model, s32 mtxindex)
 	return NULL;
 }
 
-struct modelnode *func0001a740(struct modelnode *node)
+struct modelnode *model0001a740(struct modelnode *node)
 {
 	while (node) {
 		u32 type = node->type & 0xff;
@@ -159,7 +159,7 @@ struct modelnode *func0001a740(struct modelnode *node)
 	return node;
 }
 
-struct modelnode *func0001a784(struct modelnode *node)
+struct modelnode *model0001a784(struct modelnode *node)
 {
 	while ((node = node->parent)) {
 		u32 type = node->type & 0xff;
@@ -174,7 +174,7 @@ struct modelnode *func0001a784(struct modelnode *node)
 	return node;
 }
 
-struct modelnode *func0001a7cc(struct modelnode *basenode)
+struct modelnode *model0001a7cc(struct modelnode *basenode)
 {
 	struct modelnode *node = basenode->child;
 
@@ -209,7 +209,7 @@ struct modelnode *func0001a7cc(struct modelnode *basenode)
 	return node;
 }
 
-struct modelnode *func0001a85c(struct modelnode *basenode)
+struct modelnode *model0001a85c(struct modelnode *basenode)
 {
 	struct modelnode *node = basenode;
 	struct modelnode *next;
@@ -299,9 +299,9 @@ union modelrodata *modelGetPartRodata(struct modelfiledata *modelfiledata, s32 p
 	return NULL;
 }
 
-f32 func0001a9e8(struct model *model)
+f32 model0001a9e8(struct model *model)
 {
-	Mtxf *mtx = func0001a60c(model);
+	Mtxf *mtx = model0001a60c(model);
 
 	if (mtx) {
 		return -mtx->m[3][2];
@@ -466,7 +466,7 @@ void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *no
 	}
 }
 
-f32 func0001ae44(struct model *model)
+f32 model0001ae44(struct model *model)
 {
 	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
 		union modelrwdata *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
@@ -476,7 +476,7 @@ f32 func0001ae44(struct model *model)
 	return 0;
 }
 
-void func0001ae90(struct model *model, f32 angle)
+void model0001ae90(struct model *model, f32 angle)
 {
 	if ((model->filedata->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
 		struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, model->filedata->rootnode);
@@ -514,19 +514,19 @@ void modelSetAnimScale(struct model *model, f32 scale)
 	}
 }
 
-f32 func0001af80(struct model *model)
+f32 model0001af80(struct model *model)
 {
 	return model->filedata->unk10 * model->scale;
 }
 
-void func0001af98(struct coord *arg0, struct coord *arg1, f32 frac)
+void model0001af98(struct coord *arg0, struct coord *arg1, f32 frac)
 {
 	arg0->x += (arg1->x - arg0->x) * frac;
 	arg0->y += (arg1->y - arg0->y) * frac;
 	arg0->z += (arg1->z - arg0->z) * frac;
 }
 
-f32 func0001afe8(f32 arg0, f32 angle, f32 mult)
+f32 model0001afe8(f32 arg0, f32 angle, f32 mult)
 {
 	f32 value = angle - arg0;
 
@@ -551,14 +551,14 @@ f32 func0001afe8(f32 arg0, f32 angle, f32 mult)
 	return arg0;
 }
 
-void func0001b07c(struct coord *arg0, struct coord *arg1, f32 mult)
+void model0001b07c(struct coord *arg0, struct coord *arg1, f32 mult)
 {
-	arg0->x = func0001afe8(arg0->x, arg1->x, mult);
-	arg0->y = func0001afe8(arg0->y, arg1->y, mult);
-	arg0->z = func0001afe8(arg0->z, arg1->z, mult);
+	arg0->x = model0001afe8(arg0->x, arg1->x, mult);
+	arg0->y = model0001afe8(arg0->y, arg1->y, mult);
+	arg0->z = model0001afe8(arg0->z, arg1->z, mult);
 }
 
-void func0001b0e8(struct model *model, struct modelnode *node)
+void model0001b0e8(struct model *model, struct modelnode *node)
 {
 	union modelrwdata *rwdata;
 	struct anim *anim = model->anim;
@@ -593,9 +593,9 @@ void func0001b0e8(struct model *model, struct modelnode *node)
 	}
 
 	if (frac != 0.0f && rwdata->chrinfo.unk01) {
-		func0001af98(&sp34, &rwdata->chrinfo.unk24, frac);
+		model0001af98(&sp34, &rwdata->chrinfo.unk24, frac);
 
-		rwdata->chrinfo.unk14 = func0001afe8(rwdata->chrinfo.unk30, rwdata->chrinfo.unk20, frac);
+		rwdata->chrinfo.unk14 = model0001afe8(rwdata->chrinfo.unk30, rwdata->chrinfo.unk20, frac);
 	}
 
 	if (anim->animnum2 || anim->fracmerge) {
@@ -646,16 +646,16 @@ void func0001b0e8(struct model *model, struct modelnode *node)
 	}
 }
 
-void func0001b3bc(struct model *model)
+void model0001b3bc(struct model *model)
 {
 	struct modelnode *node = model->filedata->rootnode;
 
 	if (node && (node->type & 0xff) == MODELNODETYPE_CHRINFO) {
-		func0001b0e8(model, node);
+		model0001b0e8(model, node);
 	}
 }
 
-void func0001b400(struct objticksp476 *arg0, struct model *model, struct modelnode *node)
+void model0001b400(struct objticksp476 *arg0, struct model *model, struct modelnode *node)
 {
 	struct anim *anim = model->anim;
 	union modelrodata *rodata = node->rodata;
@@ -696,7 +696,7 @@ void func0001b400(struct objticksp476 *arg0, struct model *model, struct modelno
 	if (rodata->chrinfo.mtxindex);
 
 	if (node->parent) {
-		sp24c = func0001a5cc(model, node->parent, 0);
+		sp24c = model0001a5cc(model, node->parent, 0);
 	} else {
 		sp24c = arg0->matrix;
 	}
@@ -715,7 +715,7 @@ void func0001b400(struct objticksp476 *arg0, struct model *model, struct modelno
 
 	if (sp154 != 0.0f) {
 		func00024050(sp240, anim->flip, type, anim->animnum, anim->unk05, &sp148, &sp13c, &sp130);
-		func0001b07c(&sp230, &sp148, sp154);
+		model0001b07c(&sp230, &sp148, sp154);
 	}
 
 	if (anim->fracmerge != 0.0f) {
@@ -723,7 +723,7 @@ void func0001b400(struct objticksp476 *arg0, struct model *model, struct modelno
 
 		if (anim->frac2 != 0.0f) {
 			func00024050(sp240, anim->flip2, type, anim->animnum2, anim->unk07, &spd0, &spc4, &spb8);
-			func0001b07c(&sp124, &spd0, anim->frac2);
+			model0001b07c(&sp124, &spd0, anim->frac2);
 		}
 
 		if ((g_Anims[anim->animnum].flags & ANIMFLAG_02) && (g_Anims[anim->animnum2].flags & ANIMFLAG_02) == 0) {
@@ -747,7 +747,7 @@ void func0001b400(struct objticksp476 *arg0, struct model *model, struct modelno
 		mtx000166dc(sp254, &sp198);
 	} else {
 		if (rwdata->chrinfo.unk18 != 0.0f) {
-			sp250 = func0001afe8(sp250, rwdata->chrinfo.unk1c, rwdata->chrinfo.unk18);
+			sp250 = model0001afe8(sp250, rwdata->chrinfo.unk1c, rwdata->chrinfo.unk18);
 		}
 
 		mtx00016248(sp254, sp250, &sp198);
@@ -767,7 +767,7 @@ void func0001b400(struct objticksp476 *arg0, struct model *model, struct modelno
 }
 
 GLOBAL_ASM(
-glabel func0001b80c
+glabel model0001b80c
 .late_rodata
 glabel var700542f4
 .word 0x40490fdb
@@ -802,7 +802,7 @@ glabel var70054308
 /*    1b850:	11400006 */ 	beqz	$t2,.L0001b86c
 /*    1b854:	afaa001c */ 	sw	$t2,0x1c($sp)
 /*    1b858:	00a02025 */ 	or	$a0,$a1,$zero
-/*    1b85c:	0c006973 */ 	jal	func0001a5cc
+/*    1b85c:	0c006973 */ 	jal	model0001a5cc
 /*    1b860:	01402825 */ 	or	$a1,$t2,$zero
 /*    1b864:	10000003 */ 	b	.L0001b874
 /*    1b868:	afa200ac */ 	sw	$v0,0xac($sp)
@@ -1065,7 +1065,7 @@ glabel var70054308
 );
 
 GLOBAL_ASM(
-glabel func0001bc14
+glabel model0001bc14
 .late_rodata
 glabel var7005430c
 .word 0x40490fdb
@@ -1100,7 +1100,7 @@ glabel var70054320
 /*    1bc58:	11400006 */ 	beqz	$t2,.L0001bc74
 /*    1bc5c:	afaa001c */ 	sw	$t2,0x1c($sp)
 /*    1bc60:	00a02025 */ 	or	$a0,$a1,$zero
-/*    1bc64:	0c006973 */ 	jal	func0001a5cc
+/*    1bc64:	0c006973 */ 	jal	model0001a5cc
 /*    1bc68:	01402825 */ 	or	$a1,$t2,$zero
 /*    1bc6c:	10000003 */ 	b	.L0001bc7c
 /*    1bc70:	afa2009c */ 	sw	$v0,0x9c($sp)
@@ -1333,7 +1333,7 @@ glabel var70054320
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0001bfa8
+glabel model0001bfa8
 .late_rodata
 glabel var70053fc0pf
 .word 0x3c23d70a
@@ -1431,7 +1431,7 @@ glabel var70053fc0pf
 /*    1beac:	27a40144 */ 	addiu	$a0,$sp,0x144
 /*    1beb0:	27a500d4 */ 	addiu	$a1,$sp,0xd4
 /*    1beb4:	44061000 */ 	mfc1	$a2,$f2
-/*    1beb8:	0c006b83 */ 	jal	func0001b07c
+/*    1beb8:	0c006b83 */ 	jal	model0001b07c
 /*    1bebc:	00000000 */ 	nop
 /*    1bec0:	8faf003c */ 	lw	$t7,0x3c($sp)
 /*    1bec4:	c7a200e0 */ 	lwc1	$f2,0xe0($sp)
@@ -1443,7 +1443,7 @@ glabel var70053fc0pf
 /*    1bedc:	44807000 */ 	mtc1	$zero,$f14
 .PF0001bee0:
 /*    1bee0:	44061000 */ 	mfc1	$a2,$f2
-/*    1bee4:	0c006b4a */ 	jal	func0001af98
+/*    1bee4:	0c006b4a */ 	jal	model0001af98
 /*    1bee8:	27a500c8 */ 	addiu	$a1,$sp,0xc8
 .PF0001beec:
 /*    1beec:	44807000 */ 	mtc1	$zero,$f14
@@ -1503,7 +1503,7 @@ glabel var70053fc0pf
 /*    1bfb8:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    1bfbc:	27a400b0 */ 	addiu	$a0,$sp,0xb0
 /*    1bfc0:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*    1bfc4:	0c006b83 */ 	jal	func0001b07c
+/*    1bfc4:	0c006b83 */ 	jal	model0001b07c
 /*    1bfc8:	8e060034 */ 	lw	$a2,0x34($s0)
 /*    1bfcc:	27a40144 */ 	addiu	$a0,$sp,0x144
 .PF0001bfd0:
@@ -1573,7 +1573,7 @@ glabel var70053fc0pf
 /*    1c0c8:	8fa40160 */ 	lw	$a0,0x160($sp)
 .PF0001c0cc:
 /*    1c0cc:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    1c0d0:	0c006e6f */ 	jal	func0001bc14
+/*    1c0d0:	0c006e6f */ 	jal	model0001bc14
 /*    1c0d4:	afa80014 */ 	sw	$t0,0x14($sp)
 /*    1c0d8:	100000a2 */ 	b	.PF0001c364
 /*    1c0dc:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -1591,13 +1591,13 @@ glabel var70053fc0pf
 /*    1c108:	afad0014 */ 	sw	$t5,0x14($sp)
 /*    1c10c:	8fa40160 */ 	lw	$a0,0x160($sp)
 /*    1c110:	01202825 */ 	move	$a1,$t1
-/*    1c114:	0c006e6f */ 	jal	func0001bc14
+/*    1c114:	0c006e6f */ 	jal	model0001bc14
 /*    1c118:	afac0010 */ 	sw	$t4,0x10($sp)
 /*    1c11c:	10000091 */ 	b	.PF0001c364
 /*    1c120:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .PF0001c124:
 /*    1c124:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    1c128:	0c006e6f */ 	jal	func0001bc14
+/*    1c128:	0c006e6f */ 	jal	model0001bc14
 /*    1c12c:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*    1c130:	1000008c */ 	b	.PF0001c364
 /*    1c134:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -1624,7 +1624,7 @@ glabel var70053fc0pf
 /*    1c184:	8fa50164 */ 	lw	$a1,0x164($sp)
 /*    1c188:	e7a80140 */ 	swc1	$f8,0x140($sp)
 /*    1c18c:	8fa60168 */ 	lw	$a2,0x168($sp)
-/*    1c190:	0c006d6d */ 	jal	func0001b80c
+/*    1c190:	0c006d6d */ 	jal	model0001b80c
 /*    1c194:	27a70144 */ 	addiu	$a3,$sp,0x144
 /*    1c198:	10000072 */ 	b	.PF0001c364
 /*    1c19c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -1679,7 +1679,7 @@ glabel var70053fc0pf
 /*    1c250:	8fa60168 */ 	lw	$a2,0x168($sp)
 /*    1c254:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*    1c258:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    1c25c:	0c006d6d */ 	jal	func0001b80c
+/*    1c25c:	0c006d6d */ 	jal	model0001b80c
 /*    1c260:	afb90018 */ 	sw	$t9,0x18($sp)
 /*    1c264:	1000003f */ 	b	.PF0001c364
 /*    1c268:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -1700,7 +1700,7 @@ glabel var70053fc0pf
 /*    1c2a0:	03003025 */ 	move	$a2,$t8
 /*    1c2a4:	27a70144 */ 	addiu	$a3,$sp,0x144
 /*    1c2a8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    1c2ac:	0c006d6d */ 	jal	func0001b80c
+/*    1c2ac:	0c006d6d */ 	jal	model0001b80c
 /*    1c2b0:	afac0010 */ 	sw	$t4,0x10($sp)
 /*    1c2b4:	1000002b */ 	b	.PF0001c364
 /*    1c2b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -1709,7 +1709,7 @@ glabel var70053fc0pf
 /*    1c2c0:	27ae012c */ 	addiu	$t6,$sp,0x12c
 /*    1c2c4:	afae0018 */ 	sw	$t6,0x18($sp)
 /*    1c2c8:	afad0010 */ 	sw	$t5,0x10($sp)
-/*    1c2cc:	0c006d6d */ 	jal	func0001b80c
+/*    1c2cc:	0c006d6d */ 	jal	model0001b80c
 /*    1c2d0:	afa00014 */ 	sw	$zero,0x14($sp)
 /*    1c2d4:	10000023 */ 	b	.PF0001c364
 /*    1c2d8:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -1720,7 +1720,7 @@ glabel var70053fc0pf
 /*    1c2e8:	8de50008 */ 	lw	$a1,0x8($t7)
 /*    1c2ec:	50a00006 */ 	beqzl	$a1,.PF0001c308
 /*    1c2f0:	8f300000 */ 	lw	$s0,0x0($t9)
-/*    1c2f4:	0c0068d7 */ 	jal	func0001a5cc
+/*    1c2f4:	0c0068d7 */ 	jal	model0001a5cc
 /*    1c2f8:	00003025 */ 	move	$a2,$zero
 /*    1c2fc:	10000002 */ 	b	.PF0001c308
 /*    1c300:	00408025 */ 	move	$s0,$v0
@@ -1758,7 +1758,7 @@ glabel var70053fc0pf
 );
 #else
 GLOBAL_ASM(
-glabel func0001bfa8
+glabel model0001bfa8
 /*    1bfa8:	27bdfea0 */ 	addiu	$sp,$sp,-352
 /*    1bfac:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    1bfb0:	afb00028 */ 	sw	$s0,0x28($sp)
@@ -1850,7 +1850,7 @@ glabel func0001bfa8
 /*    1c0fc:	27a40144 */ 	addiu	$a0,$sp,0x144
 /*    1c100:	27a500d4 */ 	addiu	$a1,$sp,0xd4
 /*    1c104:	44061000 */ 	mfc1	$a2,$f2
-/*    1c108:	0c006c1f */ 	jal	func0001b07c
+/*    1c108:	0c006c1f */ 	jal	model0001b07c
 /*    1c10c:	00000000 */ 	nop
 /*    1c110:	8faf003c */ 	lw	$t7,0x3c($sp)
 /*    1c114:	c7a200e0 */ 	lwc1	$f2,0xe0($sp)
@@ -1858,7 +1858,7 @@ glabel func0001bfa8
 /*    1c11c:	51e00005 */ 	beqzl	$t7,.L0001c134
 /*    1c120:	44807000 */ 	mtc1	$zero,$f14
 /*    1c124:	44061000 */ 	mfc1	$a2,$f2
-/*    1c128:	0c006be6 */ 	jal	func0001af98
+/*    1c128:	0c006be6 */ 	jal	model0001af98
 /*    1c12c:	27a500c8 */ 	addiu	$a1,$sp,0xc8
 .L0001c130:
 /*    1c130:	44807000 */ 	mtc1	$zero,$f14
@@ -1918,7 +1918,7 @@ glabel func0001bfa8
 /*    1c1fc:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*    1c200:	27a400b0 */ 	addiu	$a0,$sp,0xb0
 /*    1c204:	27a5005c */ 	addiu	$a1,$sp,0x5c
-/*    1c208:	0c006c1f */ 	jal	func0001b07c
+/*    1c208:	0c006c1f */ 	jal	model0001b07c
 /*    1c20c:	8e060034 */ 	lw	$a2,0x34($s0)
 /*    1c210:	27a40144 */ 	addiu	$a0,$sp,0x144
 .L0001c214:
@@ -1988,7 +1988,7 @@ glabel func0001bfa8
 /*    1c30c:	8fa40160 */ 	lw	$a0,0x160($sp)
 .L0001c310:
 /*    1c310:	afb90010 */ 	sw	$t9,0x10($sp)
-/*    1c314:	0c006f05 */ 	jal	func0001bc14
+/*    1c314:	0c006f05 */ 	jal	model0001bc14
 /*    1c318:	afb80014 */ 	sw	$t8,0x14($sp)
 /*    1c31c:	100000a1 */ 	b	.L0001c5a4
 /*    1c320:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -2006,13 +2006,13 @@ glabel func0001bfa8
 /*    1c34c:	afac0014 */ 	sw	$t4,0x14($sp)
 /*    1c350:	8fa40160 */ 	lw	$a0,0x160($sp)
 /*    1c354:	01002825 */ 	or	$a1,$t0,$zero
-/*    1c358:	0c006f05 */ 	jal	func0001bc14
+/*    1c358:	0c006f05 */ 	jal	model0001bc14
 /*    1c35c:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    1c360:	10000090 */ 	b	.L0001c5a4
 /*    1c364:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0001c368:
 /*    1c368:	afad0010 */ 	sw	$t5,0x10($sp)
-/*    1c36c:	0c006f05 */ 	jal	func0001bc14
+/*    1c36c:	0c006f05 */ 	jal	model0001bc14
 /*    1c370:	afae0014 */ 	sw	$t6,0x14($sp)
 /*    1c374:	1000008b */ 	b	.L0001c5a4
 /*    1c378:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -2039,7 +2039,7 @@ glabel func0001bfa8
 /*    1c3c8:	8fa50164 */ 	lw	$a1,0x164($sp)
 /*    1c3cc:	e7a40140 */ 	swc1	$f4,0x140($sp)
 /*    1c3d0:	8fa60168 */ 	lw	$a2,0x168($sp)
-/*    1c3d4:	0c006e03 */ 	jal	func0001b80c
+/*    1c3d4:	0c006e03 */ 	jal	model0001b80c
 /*    1c3d8:	27a70144 */ 	addiu	$a3,$sp,0x144
 /*    1c3dc:	10000071 */ 	b	.L0001c5a4
 /*    1c3e0:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -2094,7 +2094,7 @@ glabel func0001bfa8
 /*    1c494:	8fa60168 */ 	lw	$a2,0x168($sp)
 /*    1c498:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    1c49c:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    1c4a0:	0c006e03 */ 	jal	func0001b80c
+/*    1c4a0:	0c006e03 */ 	jal	model0001b80c
 /*    1c4a4:	afaf0018 */ 	sw	$t7,0x18($sp)
 /*    1c4a8:	1000003e */ 	b	.L0001c5a4
 /*    1c4ac:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -2115,7 +2115,7 @@ glabel func0001bfa8
 /*    1c4e4:	03203025 */ 	or	$a2,$t9,$zero
 /*    1c4e8:	27a70144 */ 	addiu	$a3,$sp,0x144
 /*    1c4ec:	afa00014 */ 	sw	$zero,0x14($sp)
-/*    1c4f0:	0c006e03 */ 	jal	func0001b80c
+/*    1c4f0:	0c006e03 */ 	jal	model0001b80c
 /*    1c4f4:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    1c4f8:	1000002a */ 	b	.L0001c5a4
 /*    1c4fc:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -2124,7 +2124,7 @@ glabel func0001bfa8
 /*    1c504:	27ad012c */ 	addiu	$t5,$sp,0x12c
 /*    1c508:	afad0018 */ 	sw	$t5,0x18($sp)
 /*    1c50c:	afac0010 */ 	sw	$t4,0x10($sp)
-/*    1c510:	0c006e03 */ 	jal	func0001b80c
+/*    1c510:	0c006e03 */ 	jal	model0001b80c
 /*    1c514:	afa00014 */ 	sw	$zero,0x14($sp)
 /*    1c518:	10000022 */ 	b	.L0001c5a4
 /*    1c51c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -2134,7 +2134,7 @@ glabel func0001bfa8
 /*    1c528:	8faf0160 */ 	lw	$t7,0x160($sp)
 /*    1c52c:	50a00006 */ 	beqzl	$a1,.L0001c548
 /*    1c530:	8df00000 */ 	lw	$s0,0x0($t7)
-/*    1c534:	0c006973 */ 	jal	func0001a5cc
+/*    1c534:	0c006973 */ 	jal	model0001a5cc
 /*    1c538:	00003025 */ 	or	$a2,$zero,$zero
 /*    1c53c:	10000002 */ 	b	.L0001c548
 /*    1c540:	00408025 */ 	or	$s0,$v0,$zero
@@ -2172,7 +2172,7 @@ glabel func0001bfa8
 );
 #endif
 
-void func0001c5b4(struct objticksp476 *arg0, struct model *model, struct modelnode *node)
+void model0001c5b4(struct objticksp476 *arg0, struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	Mtxf *sp68;
@@ -2181,7 +2181,7 @@ void func0001c5b4(struct objticksp476 *arg0, struct model *model, struct modelno
 	Mtxf *matrices = model->matrices;
 
 	if (node->parent) {
-		sp68 = func0001a5cc(model, node->parent, 0);
+		sp68 = model0001a5cc(model, node->parent, 0);
 	} else {
 		sp68 = arg0->matrix;
 	}
@@ -2197,11 +2197,11 @@ void func0001c5b4(struct objticksp476 *arg0, struct model *model, struct modelno
 /**
  * For a distance node, set its target to visible based on distance.
  */
-void func0001c664(struct model *model, struct modelnode *node)
+void model0001c664(struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
-	Mtxf *mtx = func0001a5cc(model, node, 0);
+	Mtxf *mtx = model0001a5cc(model, node, 0);
 	f32 distance;
 
 	if (g_ModelDistanceDisabled || !mtx) {
@@ -2226,7 +2226,7 @@ void func0001c664(struct model *model, struct modelnode *node)
 	node->child = NULL;
 }
 
-void func0001c784(struct model *model, struct modelnode *node)
+void model0001c784(struct model *model, struct modelnode *node)
 {
 	struct modelrodata_distance *rodata = &node->rodata->distance;
 	struct modelrwdata_distance *rwdata = modelGetNodeRwData(model, node);
@@ -2238,7 +2238,7 @@ void func0001c784(struct model *model, struct modelnode *node)
 	}
 }
 
-void func0001c7d0(struct model *model, struct modelnode *node)
+void model0001c7d0(struct model *model, struct modelnode *node)
 {
 	struct modelrodata_toggle *rodata = &node->rodata->toggle;
 	struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);
@@ -2271,7 +2271,7 @@ void modelAttachHead(struct model *model, struct modelnode *bodynode)
 	}
 }
 
-void func0001c868(struct modelnode *basenode, bool visible)
+void model0001c868(struct modelnode *basenode, bool visible)
 {
 	union modelrodata *rodata = basenode->rodata;
 	struct modelnode *node1;
@@ -2329,14 +2329,14 @@ void modelRenderNodeReorder(struct model *model, struct modelnode *node)
 {
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
 
-	func0001c868(node, rwdata->reorder.visible);
+	model0001c868(node, rwdata->reorder.visible);
 }
 
-void func0001c950(struct model *model, struct modelnode *node)
+void model0001c950(struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
-	Mtxf *mtx = func0001a5cc(model, node, 0);
+	Mtxf *mtx = model0001a5cc(model, node, 0);
 	struct coord sp38;
 	struct coord sp2c;
 	f32 tmp;
@@ -2377,7 +2377,7 @@ void func0001c950(struct model *model, struct modelnode *node)
 	modelRenderNodeReorder(model, node);
 }
 
-void func0001cb0c(struct model *model, struct modelnode *parent)
+void model0001cb0c(struct model *model, struct modelnode *parent)
 {
 	struct modelnode *node = parent->child;
 
@@ -2399,10 +2399,10 @@ void func0001cb0c(struct model *model, struct modelnode *parent)
 			dochildren = false;
 			break;
 		case MODELNODETYPE_DISTANCE:
-			func0001c664(model, node);
+			model0001c664(model, node);
 			break;
 		case MODELNODETYPE_REORDER:
-			func0001c950(model, node);
+			model0001c950(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
 			modelAttachHead(model, node);
@@ -2431,7 +2431,7 @@ void func0001cb0c(struct model *model, struct modelnode *parent)
 	}
 }
 
-void func0001cc20(struct model *model)
+void model0001cc20(struct model *model)
 {
 	struct modelnode *node = model->filedata->rootnode;
 
@@ -2440,13 +2440,13 @@ void func0001cc20(struct model *model)
 
 		switch (type) {
 		case MODELNODETYPE_DISTANCE:
-			func0001c664(model, node);
+			model0001c664(model, node);
 			break;
 		case MODELNODETYPE_REORDER:
-			func0001c950(model, node);
+			model0001c950(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			func0001c7d0(model, node);
+			model0001c7d0(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
 			modelAttachHead(model, node);
@@ -2472,7 +2472,7 @@ void func0001cc20(struct model *model)
 	}
 }
 
-void func0001cd18(struct objticksp476 *arg0, struct model *model)
+void model0001cd18(struct objticksp476 *arg0, struct model *model)
 {
 	struct modelnode *node = model->filedata->rootnode;
 
@@ -2481,22 +2481,22 @@ void func0001cd18(struct objticksp476 *arg0, struct model *model)
 
 		switch (type) {
 		case MODELNODETYPE_CHRINFO:
-			func0001b400(arg0, model, node);
+			model0001b400(arg0, model, node);
 			break;
 		case MODELNODETYPE_POSITION:
-			func0001bfa8(arg0, model, node);
+			model0001bfa8(arg0, model, node);
 			break;
 		case MODELNODETYPE_POSITIONHELD:
-			func0001c5b4(arg0, model, node);
+			model0001c5b4(arg0, model, node);
 			break;
 		case MODELNODETYPE_DISTANCE:
-			func0001c664(model, node);
+			model0001c664(model, node);
 			break;
 		case MODELNODETYPE_REORDER:
-			func0001c950(model, node);
+			model0001c950(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			func0001c7d0(model, node);
+			model0001c7d0(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
 			modelAttachHead(model, node);
@@ -2521,24 +2521,24 @@ void func0001cd18(struct objticksp476 *arg0, struct model *model)
 	}
 }
 
-void func0001ce64(struct objticksp476 *arg0, struct model *model)
+void model0001ce64(struct objticksp476 *arg0, struct model *model)
 {
 	model->matrices = arg0->unk10;
 
 	arg0->unk10 += model->filedata->nummatrices;
 
 #if VERSION >= VERSION_PAL_FINAL
-	if (var8005efb0_2 || !func00018680()) {
-		func0001cd18(arg0, model);
+	if (var8005efb0_2 || !model00018680()) {
+		model0001cd18(arg0, model);
 	}
 #else
-	if (!func00018680()) {
-		func0001cd18(arg0, model);
+	if (!model00018680()) {
+		model0001cd18(arg0, model);
 	}
 #endif
 }
 
-void func0001cebc(struct objticksp476 *arg0, struct model *model)
+void model0001cebc(struct objticksp476 *arg0, struct model *model)
 {
 	struct anim *anim = model->anim;
 	f32 speed;
@@ -2580,7 +2580,7 @@ void func0001cebc(struct objticksp476 *arg0, struct model *model)
 		func00023d0c();
 	}
 
-	func0001ce64(arg0, model);
+	model0001ce64(arg0, model);
 
 	if (PLAYERCOUNT() >= 2 && anim && anim->animnum) {
 		anim->frac = frac;
@@ -2747,7 +2747,7 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 	}
 }
 
-void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 merge)
+void model0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 merge)
 {
 	struct anim *anim = model->anim;
 
@@ -2770,7 +2770,7 @@ void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f
 		anim->speed = speed;
 		anim->timespeed = 0;
 
-		func0001e018(model, fstartframe);
+		model0001e018(model, fstartframe);
 
 		anim->looping = false;
 
@@ -2889,7 +2889,7 @@ void func0001d62c(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f
 						angle += M_BADTAU;
 					}
 
-					rwdata->unk30 = func0001afe8(rwdata->unk14, angle, anim->frac);
+					rwdata->unk30 = model0001afe8(rwdata->unk14, angle, anim->frac);
 
 					if (rwdata->unk18 == 0) {
 						rwdata->unk20 = rwdata->unk30 + sp84;
@@ -2933,7 +2933,7 @@ void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 
 			modelCopyAnimForMerge(model, timemerge);
 		}
 
-		func0001d62c(model, animnum, flip, startframe, speed, timemerge);
+		model0001d62c(model, animnum, flip, startframe, speed, timemerge);
 	}
 }
 
@@ -2947,7 +2947,7 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 		}
 
 		modelCopyAnimForMerge(model, merge);
-		func0001d62c(model, animnum, flip, startframe, speed, merge);
+		model0001d62c(model, animnum, flip, startframe, speed, merge);
 	}
 }
 
@@ -3056,7 +3056,7 @@ void modelSetAnim70(struct model *model, void *callback)
 	}
 }
 
-void func0001e018(struct model *model, f32 arg1)
+void model0001e018(struct model *model, f32 arg1)
 {
 	s32 sp28;
 	s32 sp24;
@@ -3085,12 +3085,12 @@ void func0001e018(struct model *model, f32 arg1)
 	}
 }
 
-void func0001e14c(struct model *model, f32 arg1, f32 arg2)
+void model0001e14c(struct model *model, f32 arg1, f32 arg2)
 {
 	struct anim *anim = model->anim;
 
 	if (anim) {
-		func0001e018(model, arg1);
+		model0001e018(model, arg1);
 
 		if (anim->animnum2) {
 			s32 sp28 = floor(arg2);
@@ -3125,18 +3125,18 @@ u32 var8005eff0 = 0x00000000;
 u32 var8005eff4 = 0x00000000;
 u32 var8005eff8 = 0xffffffff;
 
-void func0001e29c(bool value)
+void model0001e29c(bool value)
 {
 	var8005efdc = value;
 }
 
-bool func0001e2a8(void)
+bool model0001e2a8(void)
 {
 	return var8005efdc;
 }
 
 GLOBAL_ASM(
-glabel func0001e2b4
+glabel model0001e2b4
 .late_rodata
 glabel var70054450
 .word 0x40c907a9
@@ -3896,7 +3896,7 @@ glabel var70054450
 /*    1edac:	02002025 */ 	or	$a0,$s0,$zero
 /*    1edb0:	8fa50138 */ 	lw	$a1,0x138($sp)
 /*    1edb4:	4406a000 */ 	mfc1	$a2,$f20
-/*    1edb8:	0c007853 */ 	jal	func0001e14c
+/*    1edb8:	0c007853 */ 	jal	model0001e14c
 /*    1edbc:	00000000 */ 	nop
 /*    1edc0:	10000008 */ 	b	.L0001ede4
 /*    1edc4:	8fbf006c */ 	lw	$ra,0x6c($sp)
@@ -3905,7 +3905,7 @@ glabel var70054450
 /*    1edcc:	02002025 */ 	or	$a0,$s0,$zero
 /*    1edd0:	8fa50138 */ 	lw	$a1,0x138($sp)
 /*    1edd4:	4406a000 */ 	mfc1	$a2,$f20
-/*    1edd8:	0c007853 */ 	jal	func0001e14c
+/*    1edd8:	0c007853 */ 	jal	model0001e14c
 /*    1eddc:	00000000 */ 	nop
 .L0001ede0:
 /*    1ede0:	8fbf006c */ 	lw	$ra,0x6c($sp)
@@ -3925,7 +3925,7 @@ glabel var70054450
 /*    1ee14:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
 
-void func0001ee18(struct model *model, s32 lvupdate240, bool arg2)
+void model0001ee18(struct model *model, s32 lvupdate240, bool arg2)
 {
 	f32 frame;
 	f32 frame2;
@@ -4024,9 +4024,9 @@ void func0001ee18(struct model *model, s32 lvupdate240, bool arg2)
 					f32 prevelapsespeed = anim->elapsespeed;
 
 					if (arg2) {
-						func0001e2b4(model, anim->frame, endframe, 0, 0);
+						model0001e2b4(model, anim->frame, endframe, 0, 0);
 					} else {
-						func0001e14c(model, endframe, 0);
+						model0001e14c(model, endframe, 0);
 					}
 
 					modelSetAnimation(model, anim->animnum, anim->flip, startframe, anim->speed, anim->loopmerge);
@@ -4051,15 +4051,15 @@ void func0001ee18(struct model *model, s32 lvupdate240, bool arg2)
 
 		if (arg2) {
 			if (anim->animnum2) {
-				func0001e2b4(model, anim->frame, frame, anim->frame2, frame2);
+				model0001e2b4(model, anim->frame, frame, anim->frame2, frame2);
 			} else {
-				func0001e2b4(model, anim->frame, frame, 0, 0);
+				model0001e2b4(model, anim->frame, frame, 0, 0);
 			}
 		} else {
 			if (anim->animnum2) {
-				func0001e14c(model, frame, frame2);
+				model0001e14c(model, frame, frame2);
 			} else {
-				func0001e14c(model, frame, 0);
+				model0001e14c(model, frame, 0);
 			}
 		}
 	}
@@ -4069,7 +4069,7 @@ void func0001ee18(struct model *model, s32 lvupdate240, bool arg2)
 /**
  * This is identical to the above function but removes the 0.25f multipliers.
  */
-void func0001f314(struct model *model, s32 lvupdate240, bool arg2)
+void model0001f314(struct model *model, s32 lvupdate240, bool arg2)
 {
 	f32 frame;
 	f32 frame2;
@@ -4168,9 +4168,9 @@ void func0001f314(struct model *model, s32 lvupdate240, bool arg2)
 					f32 prevelapsespeed = anim->elapsespeed;
 
 					if (arg2) {
-						func0001e2b4(model, anim->frame, endframe, 0, 0);
+						model0001e2b4(model, anim->frame, endframe, 0, 0);
 					} else {
-						func0001e14c(model, endframe, 0);
+						model0001e14c(model, endframe, 0);
 					}
 
 					modelSetAnimation(model, anim->animnum, anim->flip, startframe, anim->speed, anim->loopmerge);
@@ -4195,22 +4195,22 @@ void func0001f314(struct model *model, s32 lvupdate240, bool arg2)
 
 		if (arg2) {
 			if (anim->animnum2) {
-				func0001e2b4(model, anim->frame, frame, anim->frame2, frame2);
+				model0001e2b4(model, anim->frame, frame, anim->frame2, frame2);
 			} else {
-				func0001e2b4(model, anim->frame, frame, 0, 0);
+				model0001e2b4(model, anim->frame, frame, 0, 0);
 			}
 		} else {
 			if (anim->animnum2) {
-				func0001e14c(model, frame, frame2);
+				model0001e14c(model, frame, frame2);
 			} else {
-				func0001e14c(model, frame, 0);
+				model0001e14c(model, frame, 0);
 			}
 		}
 	}
 }
 #endif
 
-void func0001f7e0(struct modelrenderdata *renderdata)
+void model0001f7e0(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_1CYCLE);
@@ -4224,7 +4224,7 @@ void func0001f7e0(struct modelrenderdata *renderdata)
 	gDPSetCombineMode(renderdata->gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 }
 
-void func0001f890(struct modelrenderdata *renderdata, bool arg1)
+void model0001f890(struct modelrenderdata *renderdata, bool arg1)
 {
 	if (renderdata->unk30 == 7) {
 		if (arg1) {
@@ -4382,7 +4382,7 @@ void func0001f890(struct modelrenderdata *renderdata, bool arg1)
 	}
 }
 
-void func00020248(struct modelrenderdata *renderdata, bool arg1)
+void model00020248(struct modelrenderdata *renderdata, bool arg1)
 {
 	if (renderdata->unk30 == 7) {
 		gDPPipeSync(renderdata->gdl++);
@@ -4537,7 +4537,7 @@ void func00020248(struct modelrenderdata *renderdata, bool arg1)
 	}
 }
 
-void func00020bdc(struct modelrenderdata *renderdata)
+void model00020bdc(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
@@ -4579,23 +4579,23 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 
 		switch (rodata->unk12) {
 		case 1:
-			func0001f7e0(renderdata);
+			model0001f7e0(renderdata);
 			break;
 		case 3:
-			func0001f890(renderdata, true);
+			model0001f890(renderdata, true);
 			break;
 		case 4:
-			func00020248(renderdata, true);
+			model00020248(renderdata, true);
 			break;
 		case 2:
-			func00020bdc(renderdata);
+			model00020bdc(renderdata);
 			break;
 		}
 
 		gSPDisplayList(renderdata->gdl++, rodata->primary);
 
 		if (rodata->unk12 == 3 && rodata->secondary) {
-			func0001f890(renderdata, false);
+			model0001f890(renderdata, false);
 
 			gSPDisplayList(renderdata->gdl++, rodata->secondary);
 		}
@@ -4608,7 +4608,7 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 			modelApplyCullMode(renderdata);
 		}
 
-		func00020248(renderdata, false);
+		model00020248(renderdata, false);
 
 		gSPDisplayList(renderdata->gdl++, rodata->secondary);
 	}
@@ -4634,16 +4634,16 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 
 			switch (rodata->dl.mcount) {
 			case 1:
-				func0001f7e0(renderdata);
+				model0001f7e0(renderdata);
 				break;
 			case 3:
-				func0001f890(renderdata, true);
+				model0001f890(renderdata, true);
 				break;
 			case 4:
-				func00020248(renderdata, true);
+				model00020248(renderdata, true);
 				break;
 			case 2:
-				func00020bdc(renderdata);
+				model00020bdc(renderdata);
 				break;
 			}
 
@@ -4653,7 +4653,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
 
 			if (rodata->dl.mcount == 3 && rodata->dl.secondary) {
-				func0001f890(renderdata, false);
+				model0001f890(renderdata, false);
 
 				gSPDisplayList(renderdata->gdl++, rodata->dl.secondary);
 			}
@@ -4673,7 +4673,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 			gSPSegment(renderdata->gdl++, 0x04, osVirtualToPhysical(rwdata->dl.vertices));
 			gSPSegment(renderdata->gdl++, 0x06, osVirtualToPhysical(rwdata->dl.unk08));
 
-			func00020248(renderdata, false);
+			model00020248(renderdata, false);
 
 			gSPDisplayList(renderdata->gdl++, rodata->dl.secondary);
 		}
@@ -4978,7 +4978,7 @@ glabel modelRenderNodeType16
 /*    216c8:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void func000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
+void model000216cc(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
 {
 	func0f0b39c0(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
 }
@@ -5022,7 +5022,7 @@ glabel var70054454
 /*    21784:	02002025 */ 	or	$a0,$s0,$zero
 /*    21788:	51c001d4 */ 	beqzl	$t6,.L00021edc
 /*    2178c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    21790:	0c006949 */ 	jal	func0001a524
+/*    21790:	0c006949 */ 	jal	model0001a524
 /*    21794:	00002825 */ 	or	$a1,$zero,$zero
 /*    21798:	8fab0114 */ 	lw	$t3,0x114($sp)
 /*    2179c:	0002c180 */ 	sll	$t8,$v0,0x6
@@ -5444,12 +5444,12 @@ glabel var70054454
 /*    21e0c:	a6070014 */ 	sh	$a3,0x14($s0)
 /*    21e10:	a6070022 */ 	sh	$a3,0x22($s0)
 /*    21e14:	a609002c */ 	sh	$t1,0x2c($s0)
-/*    21e18:	0c0085b3 */ 	jal	func000216cc
+/*    21e18:	0c0085b3 */ 	jal	model000216cc
 /*    21e1c:	02202825 */ 	or	$a1,$s1,$zero
 /*    21e20:	10000004 */ 	b	.L00021e34
 /*    21e24:	8e63000c */ 	lw	$v1,0xc($s3)
 .L00021e28:
-/*    21e28:	0c0085b3 */ 	jal	func000216cc
+/*    21e28:	0c0085b3 */ 	jal	model000216cc
 /*    21e2c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    21e30:	8e63000c */ 	lw	$v1,0xc($s3)
 .L00021e34:
@@ -5544,7 +5544,7 @@ glabel var70054454
 //
 //	// 778
 //	if ((renderdata->flags & 2) && rwdata->gunfire.visible) {
-//		mtx = &model->matrices[func0001a524(node, 0)];
+//		mtx = &model->matrices[model0001a524(node, 0)];
 //
 //		spe0.x = -(rodata->pos.f[0] * mtx->m[0][0] + rodata->pos.f[1] * mtx->m[1][0] + rodata->pos.f[2] * mtx->m[2][0] + mtx->m[3][0]);
 //		spe0.y = -(rodata->pos.f[0] * mtx->m[0][1] + rodata->pos.f[1] * mtx->m[1][1] + rodata->pos.f[2] * mtx->m[2][1] + mtx->m[3][1]);
@@ -5644,9 +5644,9 @@ glabel var70054454
 //			vertices[3].unk08 = centre - sp58;
 //			vertices[3].unk0a = centre + sp5c;
 //
-//			func000216cc(renderdata, tconfig, 4);
+//			model000216cc(renderdata, tconfig, 4);
 //		} else {
-//			func000216cc(renderdata, NULL, 1);
+//			model000216cc(renderdata, NULL, 1);
 //		}
 //
 //		gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
@@ -5733,7 +5733,7 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 }
 
 GLOBAL_ASM(
-glabel func000220fc
+glabel model000220fc
 /*    220fc:	3c018006 */ 	lui	$at,%hi(var8005efc0)
 /*    22100:	c424efc0 */ 	lwc1	$f4,%lo(var8005efc0)($at)
 /*    22104:	44803000 */ 	mtc1	$zero,$f6
@@ -6065,7 +6065,7 @@ glabel func000220fc
 /*    225d0:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 );
 
-s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode)
+s32 model000225d4(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode)
 {
 	struct modelnode *node;
 	bool dochildren = true;
@@ -6107,9 +6107,9 @@ s32 func000225d4(struct model *model, struct coord *arg1, struct coord *arg2, st
 		switch (type) {
 		case MODELNODETYPE_BBOX:
 			rodata = node->rodata;
-			mtx = func0001a5cc(model, node, 0);
+			mtx = model0001a5cc(model, node, 0);
 
-			if (func000220fc(rodata, mtx, arg1, arg2)) {
+			if (model000220fc(rodata, mtx, arg1, arg2)) {
 				*startnode = node;
 				return rodata->bbox.hitpart;
 			}
@@ -6329,7 +6329,7 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 			rodata = node->rodata;
 			rodata->reorder.rwdataindex = len;
 			len += sizeof(struct modelrwdata_reorder) / 4;
-			func0001c868(node, false);
+			model0001c868(node, false);
 			break;
 		case MODELNODETYPE_0B:
 			rodata = node->rodata;
@@ -6556,7 +6556,7 @@ void animInit(struct anim *anim)
 }
 
 GLOBAL_ASM(
-glabel func00023108
+glabel model00023108
 /*    23108:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    2310c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    23110:	afa5001c */ 	sw	$a1,0x1c($sp)
@@ -6658,7 +6658,7 @@ void modelIterateDisplayLists(struct modelfiledata *filedata, struct modelnode *
 			node->child = rodata->toggle.target;
 			break;
 		case MODELNODETYPE_REORDER:
-			func0001c868(node, true);
+			model0001c868(node, true);
 			break;
 		}
 

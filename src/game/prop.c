@@ -1183,7 +1183,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 
 							bgunCalculateShotSpread(&spd8, &spcc, handnum, true);
 
-							if (func000225d4(model, &spd8, &spcc, &node) > 0) {
+							if (model000225d4(model, &spd8, &spcc, &node) > 0) {
 								f32 damage = gsetGetDamage(gset) * 2.5f;
 								skipthething = true;
 								bgun0f0a8404(&playerprop->pos, playerprop->rooms, -1);
@@ -5501,7 +5501,7 @@ void autoaimTick(void)
 
 					if (bestprop->flags & PROPFLAG_ONSCREEN) {
 						struct defaultobj *obj = bestprop->obj;
-						Mtxf *mtx = func0001a60c(obj->model);
+						Mtxf *mtx = model0001a60c(obj->model);
 						struct coord spac;
 						spac.z = mtx->m[3][2];
 

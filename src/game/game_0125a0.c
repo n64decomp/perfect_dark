@@ -101,11 +101,11 @@ void currentPlayerInitAnimation(void)
 
 		modelSetAnimation(&g_Vars.currentplayer->model, 1, 0, 0, 0.5f, 0);
 
-		func0001b3bc(&g_Vars.currentplayer->model);
+		model0001b3bc(&g_Vars.currentplayer->model);
 		mtx000159b0(&sp48);
 		sp88.matrix = &sp48;
 		sp88.unk10 = g_Vars.currentplayer->bondheadmatrices;
-		func0001cebc(&sp88, &g_Vars.currentplayer->model);
+		model0001cebc(&sp88, &g_Vars.currentplayer->model);
 
 		g_Vars.currentplayer->standheight = g_Vars.currentplayer->bondheadmatrices[0].m[3][1];
 

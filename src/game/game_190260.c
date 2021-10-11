@@ -930,10 +930,10 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 		thing = scenarioChooseSpawnLocation(chr->chrwidth, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
-		chr->aibot->unk0a4 = func0001ae44(chr->model);
+		chr->aibot->unk0a4 = model0001ae44(chr->model);
 		chr->aibot->angleoffset = 0;
 		chr->aibot->speedtheta = 0;
-		chr->aibot->unk0b0 = func0001ae44(chr->model);
+		chr->aibot->unk0b0 = model0001ae44(chr->model);
 		chr->aibot->unk0b4 = 0;
 		chr->aibot->unk0b8 = 0;
 		func0f02e9a0(chr, 0);
@@ -2614,7 +2614,7 @@ bool func0f191448(struct chrdata *chr)
 		angle2 -= M_BADTAU;
 	}
 
-	func0001ae90(chr->model, angle2);
+	model0001ae90(chr->model, angle2);
 
 	return true;
 }

@@ -15,23 +15,23 @@ glabel var8005ef40
 .word 0x00000000
 
 glabel var8005ef5c
-.word func00018680+0xef4
-.word func00018680+0xa3c
-.word func00018680+0x3a8
-.word func00018680+0x990
-.word func00018680+0xecc
-.word func00018680+0xed4
-.word func00018680+0xe60
-.word func00018680+0xe24
+.word model00018680+0xef4
+.word model00018680+0xa3c
+.word model00018680+0x3a8
+.word model00018680+0x990
+.word model00018680+0xecc
+.word model00018680+0xed4
+.word model00018680+0xe60
+.word model00018680+0xe24
 
 glabel var8005ef7c
 .word 0x00000000
 
 glabel var8005ef80
-.word func00019be0+0x84
-.word func00019be0+0x90
-.word func00019be0+0xa8
-.word func00019be0+0xcc
+.word model00019be0+0x84
+.word model00019be0+0x90
+.word model00019be0+0xa8
+.word model00019be0+0xcc
 
 glabel var8005ef90
 .word 0xff08ffff
@@ -121,7 +121,7 @@ glabel var70054270
 
 .text
 
-glabel func00018680
+glabel model00018680
 	addiu  $sp, $sp, -2048
 	sw     $s0, 0x780($sp)
 	sw     $s1, 0x784($sp)
@@ -194,7 +194,7 @@ glabel func00018680
 	sll    $t6, $t6, 0x2
 	add    $t6, $t5, $t6
 	lw     $t6, 0x0($t6)
-	jal    func00019634
+	jal    model00019634
 	addi   $gp, $zero, 0x0
 	mtc1   $zero, $f1
 	lwc1   $f0, 0x10($a2)
@@ -247,7 +247,7 @@ glabel func00018680
 	sll    $t6, $t6, 0x2
 	add    $t6, $t5, $t6
 	lw     $t6, 0x0($t6)
-	jal    func000198dc
+	jal    model000198dc
 	addi   $gp, $zero, 0x0
 .L00018874:
 	mtc1   $zero, $f1
@@ -289,7 +289,7 @@ glabel func00018680
 	sll    $t6, $t6, 0x2
 	add    $t6, $t5, $t6
 	lw     $t6, 0x0($t6)
-	jal    func00019634
+	jal    model00019634
 	addi   $gp, $zero, 0x0
 	mtc1   $zero, $f1
 	lwc1   $f0, 0x34($a2)
@@ -334,7 +334,7 @@ glabel func00018680
 	sll    $t6, $t6, 0x2
 	add    $t6, $t5, $t6
 	lw     $t6, 0x0($t6)
-	jal    func000198dc
+	jal    model000198dc
 	addi   $gp, $zero, 0x0
 .L000189cc:
 	lw     $a3, 0x8($a1)
@@ -438,9 +438,9 @@ glabel func00018680
 	lhu    $s3, 0x3c4($t0)
 	lhu    $s4, 0x3c6($t0)
 .L00018b3c:
-	jal    func0001a024
+	jal    model0001a024
 	sw     $t0, 0x7e8($sp)
-	jal    func00019f2c
+	jal    model00019f2c
  	nop
 	mov.s  $f16, $f0
 	mov.s  $f17, $f1
@@ -448,11 +448,11 @@ glabel func00018680
 	mov.s  $f19, $f3
 	or     $t2, $s2, $zero
 	or     $t3, $s3, $zero
-	jal    func0001a024
+	jal    model0001a024
 	or     $t4, $s4, $zero
-	jal    func00019f2c
+	jal    model00019f2c
  	nop
-	jal    func00019ddc
+	jal    model00019ddc
 	lwc1   $f30, 0x7e0($sp)
 	addiu  $t0, $zero, 0x1
 	sw     $t0, 0x7e4($sp)
@@ -461,7 +461,7 @@ glabel func00018680
 	swc1   $f1, 0x7ec($sp)
 	swc1   $f2, 0x7f0($sp)
 	swc1   $f3, 0x7f4($sp)
-	jal    func0001a110
+	jal    model0001a110
  	nop
 	j      .L00018c6c
  	nop
@@ -516,9 +516,9 @@ glabel func00018680
 	add    $s0, $zero, $t2
 	add    $s1, $zero, $t3
 	add    $s2, $zero, $t4
-	jal    func00019f98
+	jal    model00019f98
 	add    $s3, $zero, $t0
-	jal    func0001a0ac
+	jal    model0001a0ac
 	add    $t0, $zero, $s3
 .L00018c6c:
 	andi   $t2, $s8, 0x2
@@ -576,7 +576,7 @@ glabel func00018680
 	lw     $t0, 0x8($gp)
 	beqz   $t0, .L00018d48
  	nop
-	jal    func0001a25c
+	jal    model0001a25c
  	nop
 	b      .L00018d4c
  	nop
@@ -587,7 +587,7 @@ glabel func00018680
 	lhu    $t2, 0xe($t1)
 	sll    $t2, $t2, 0x6
 	lw     $t1, 0xc($a1)
-	jal    func0001a1c0
+	jal    model0001a1c0
 	add    $t1, $t1, $t2
 	lui    $t3, %hi(var8005efcc)
 	addiu  $t3, $t3, %lo(var8005efcc)
@@ -677,9 +677,9 @@ glabel func00018680
 	add    $t2, $zero, $s0
 	add    $t3, $zero, $s1
 	add    $t4, $zero, $s2
-	jal    func0001a024
+	jal    model0001a024
 	add    $s0, $zero, $t0
-	jal    func00019f2c
+	jal    model00019f2c
 	add    $t0, $zero, $s0
 .L00018ecc:
 	lui    $at, 0x3f00
@@ -714,7 +714,7 @@ glabel func00018680
 	c.le.s $f6, $f7
 	bc1f   .L00018f8c
  	nop
-	jal    func0001a2dc
+	jal    model0001a2dc
  	nop
 	mov.s  $f17, $f0
 	mul.s  $f12, $f6, $f8
@@ -744,12 +744,12 @@ glabel func00018680
 	mul.s  $f3, $f3, $f8
 	add.s  $f0, $f0, $f4
 .L00018fb4:
-	jal    func0001a110
+	jal    model0001a110
 	lw     $t1, 0x4($gp)
 	lhu    $t2, 0x10($t1)
 	sll    $t2, $t2, 0x6
 	lw     $t1, 0xc($a1)
-	jal    func0001a1c0
+	jal    model0001a1c0
 	add    $t1, $t1, $t2
 	j      .L00019574
  	nop
@@ -769,11 +769,11 @@ glabel func00018680
 	lhu    $s8, 0x0($t0)
 .L0001900c:
  	syscall
-	jal    func0001a25c
+	jal    model0001a25c
 	add    $t0, $zero, $gp
 	lui    $t2, %hi(g_ModelDistanceDisabled)
 	addiu  $t2, $t2, %lo(g_ModelDistanceDisabled)
-	jal    func00019d1c
+	jal    model00019d1c
 	lw     $t1, 0x4($gp)
 	lw     $t2, 0x0($t2)
 	bnez   $t2, .L00019068
@@ -891,9 +891,9 @@ glabel func00018680
 	lhu    $s3, 0x3c4($t0)
 	lhu    $s4, 0x3c6($t0)
 .L000191cc:
-	jal    func0001a024
+	jal    model0001a024
 	sw     $t0, 0x7e8($sp)
-	jal    func00019f2c
+	jal    model00019f2c
  	nop
 	mov.s  $f16, $f0
 	mov.s  $f17, $f1
@@ -901,14 +901,14 @@ glabel func00018680
 	mov.s  $f19, $f3
 	or     $t2, $s2, $zero
 	or     $t3, $s3, $zero
-	jal    func0001a024
+	jal    model0001a024
 	or     $t4, $s4, $zero
-	jal    func00019f2c
+	jal    model00019f2c
  	nop
-	jal    func00019ddc
+	jal    model00019ddc
 	lwc1   $f30, 0x7e0($sp)
 	lw     $t0, 0x7e8($sp)
-	jal    func0001a110
+	jal    model0001a110
  	nop
 	j      .L000192a8
  	nop
@@ -936,7 +936,7 @@ glabel func00018680
 .L0001926c:
 	andi   $t3, $t3, 0xffff
 	andi   $t4, $t4, 0xffff
-	jal    func00019f98
+	jal    model00019f98
 	lhu    $t2, 0x2($t0)
 	b      .L000192a0
  	nop
@@ -946,13 +946,13 @@ glabel func00018680
 	lhu    $s8, 0x0($t0)
 	lhu    $t4, 0x6($t0)
 	lhu    $t3, 0x4($t0)
-	jal    func00019f98
+	jal    model00019f98
 	lhu    $t2, 0x2($t0)
 .L000192a0:
-	jal    func0001a0ac
+	jal    model0001a0ac
  	nop
 .L000192a8:
-	jal    func00019d1c
+	jal    model00019d1c
 	mtc1   $zero, $f0
 	mov.s  $f27, $f12
 	mov.s  $f28, $f13
@@ -1066,7 +1066,7 @@ glabel func00018680
 	lhu    $t2, 0x2($t1)
 	sll    $t2, $t2, 0x6
 	lw     $t1, 0xc($a1)
-	jal    func0001a1c0
+	jal    model0001a1c0
 	add    $t1, $t1, $t2
 	j      .L00019574
  	nop
@@ -1086,7 +1086,7 @@ glabel func00018680
 	lhu    $s8, 0x0($t0)
 .L000194a0:
  	syscall
-	jal    func00019d1c
+	jal    model00019d1c
  	nop
 	lw     $t1, 0x0($v0)
 	beqz   $t1, .L00019574
@@ -1108,7 +1108,7 @@ glabel func00018680
 	j      .L000194fc
 	lw     $t0, 0x0($a0)
 .L000194f4:
-	jal    func0001a25c
+	jal    model0001a25c
  	nop
 .L000194fc:
 	lw     $t1, 0x4($gp)
@@ -1127,13 +1127,13 @@ glabel func00018680
 	lhu    $t2, 0xc($t1)
 	sll    $t2, $t2, 0x6
 	lw     $t1, 0xc($a1)
-	jal    func0001a1c0
+	jal    model0001a1c0
 	add    $t1, $t1, $t2
 	j      .L00019574
  	nop
 	j      .L00019574
  	nop
-	jal    func00019d1c
+	jal    model00019d1c
 	lw     $t0, 0x4($gp)
 	lw     $t1, 0x0($v0)
 	beqz   $t1, .L00019570
@@ -1196,7 +1196,7 @@ glabel func00018680
 	addiu  $sp, $sp, 0x800
  	syscall
 
-glabel func00019634
+glabel model00019634
 	sw     $ra, 0x7ac($sp)
 .L00019638:
 	lbu    $t7, 0x0($t2)
@@ -1238,7 +1238,7 @@ glabel func00019634
 	j      .L00019808
 	addi   $t2, $t2, 0xc
 .L000196cc:
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x2($t2)
 	add    $s0, $zero, $v0
 	lbu    $v1, 0x2($t2)
@@ -1264,7 +1264,7 @@ glabel func00019634
 	addu   $s3, $s3, $s4
 	addu   $s0, $s0, $s3
 	andi   $s0, $s0, 0xffff
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x5($t2)
 	add    $s1, $zero, $v0
 	lbu    $v1, 0x5($t2)
@@ -1290,7 +1290,7 @@ glabel func00019634
 	addu   $s3, $s3, $s4
 	addu   $s1, $s1, $s3
 	andi   $s1, $s1, 0xffff
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x8($t2)
 	add    $s2, $zero, $v0
 	lbu    $v1, 0x8($t2)
@@ -1328,7 +1328,7 @@ glabel func00019634
 	j      .L000198b4
 	addi   $s2, $zero, 0x0
 .L00019820:
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x2($t2)
 	add    $s0, $zero, $v0
 	lbu    $v1, 0x0($t2)
@@ -1340,7 +1340,7 @@ glabel func00019634
 	sub    $v0, $v0, $t4
 	sllv   $s0, $s0, $v0
 	andi   $s0, $s0, 0xffff
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x5($t2)
 	add    $s1, $zero, $v0
 	lbu    $v1, 0x3($t2)
@@ -1352,7 +1352,7 @@ glabel func00019634
 	sub    $v0, $v0, $t4
 	sllv   $s1, $s1, $v0
 	andi   $s1, $s1, 0xffff
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x8($t2)
 	add    $s2, $zero, $v0
 	lbu    $v1, 0x6($t2)
@@ -1377,7 +1377,7 @@ glabel func00019634
 	jr     $ra
  	nop
 
-glabel func000198dc
+glabel model000198dc
 	sw     $ra, 0x7ac($sp)
 .L000198e0:
 	lbu    $t7, 0x0($t2)
@@ -1445,7 +1445,7 @@ glabel func000198dc
 	j      .L00019a64
 	addi   $s2, $zero, 0x0
 .L000199d0:
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x2($t2)
 	add    $s0, $zero, $v0
 	lbu    $v1, 0x0($t2)
@@ -1457,7 +1457,7 @@ glabel func000198dc
 	sub    $v0, $v0, $t4
 	sllv   $s0, $s0, $v0
 	andi   $s0, $s0, 0xffff
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x5($t2)
 	add    $s1, $zero, $v0
 	lbu    $v1, 0x3($t2)
@@ -1469,7 +1469,7 @@ glabel func000198dc
 	sub    $v0, $v0, $t4
 	sllv   $s1, $s1, $v0
 	andi   $s1, $s1, 0xffff
-	jal    func00019be0
+	jal    model00019be0
 	lbu    $v1, 0x8($t2)
 	add    $s2, $zero, $v0
 	lbu    $v1, 0x6($t2)
@@ -1588,7 +1588,7 @@ glabel func000198dc
 	jr     $ra
  	nop
 
-glabel func00019be0
+glabel model00019be0
 	beqz   $v1, .L00019d14
 	addi   $v0, $zero, 0x0
 .L00019be8:
@@ -1675,7 +1675,7 @@ glabel func00019be0
 	jr     $ra
  	nop
 
-glabel func00019d1c
+glabel model00019d1c
 	addiu  $sp, $sp, -32
 	sw     $gp, 0x0($sp)
 	sw     $t0, 0x4($sp)
@@ -1712,7 +1712,7 @@ glabel func00019d1c
 	addiu  $at, $zero, 0x17
 	bne    $t1, $at, .L00019d84
  	nop
-	jal    func00019d1c
+	jal    model00019d1c
  	nop
 	lw     $t3, 0x4($v0)
 .L00019db0:
@@ -1781,7 +1781,7 @@ glabel modelGetNodeRwData
 	addiu  $sp, $sp, 0x10
 #endif
 
-glabel func00019ddc
+glabel model00019ddc
 	sw     $ra, 0x7ac($sp)
 .L00019de0:
 	mul.s  $f5, $f16, $f0
@@ -1831,7 +1831,7 @@ glabel func00019ddc
 	c.le.s $f6, $f7
 	bc1f   .L00019f20
  	nop
-	jal    func0001a2dc
+	jal    model0001a2dc
  	nop
 	mov.s  $f20, $f0
 	jal    sinf
@@ -1872,7 +1872,7 @@ glabel func00019ddc
 	j      .L00019ed8
 	sub.s  $f5, $f5, $f30
 
-glabel func00019f2c
+glabel model00019f2c
 	mul.s  $f6, $f0, $f2
  	nop
 	mul.s  $f7, $f0, $f3
@@ -1901,7 +1901,7 @@ glabel func00019f2c
 	jr     $ra
 	sub.s  $f3, $f26, $f10
 
-glabel func00019f98
+glabel model00019f98
 	add    $t5, $zero, $ra
 	lui    $at, %hi(var7005422c)
 	lwc1   $f29, %lo(var7005422c)($at)
@@ -1938,7 +1938,7 @@ glabel func00019f98
 	jr     $ra
  	nop
 
-glabel func0001a024
+glabel model0001a024
 	add    $t5, $zero, $ra
 	lui    $at, %hi(var70054234)
 	lwc1   $f29, %lo(var70054234)($at)
@@ -1974,7 +1974,7 @@ glabel func0001a024
 	jr     $ra
  	nop
 
-glabel func0001a0ac
+glabel model0001a0ac
 	mul.s  $f6, $f1, $f5
  	nop
 	mul.s  $f7, $f0, $f5
@@ -2001,7 +2001,7 @@ glabel func0001a0ac
 	jr     $ra
 	sub.s  $f19, $f19, $f8
 
-glabel func0001a110
+glabel model0001a110
 	mul.s  $f4, $f0, $f0
  	nop
 	mul.s  $f5, $f1, $f1
@@ -2047,7 +2047,7 @@ glabel func0001a110
 	jr     $ra
 	sub.s  $f20, $f20, $f26
 
-glabel func0001a1c0
+glabel model0001a1c0
 	addiu  $t2, $zero, 0x3
 .L0001a1c4:
 	lwc1   $f0, 0x0($t0)
@@ -2089,7 +2089,7 @@ glabel func0001a1c0
 	jr     $ra
 	swc1   $f31, 0x30($t1)
 
-glabel func0001a25c
+glabel model0001a25c
 .L0001a25c:
 	lh     $t1, 0x0($t0)
 	andi   $t1, $t1, 0xff
@@ -2127,7 +2127,7 @@ glabel func0001a25c
 	jr     $ra
 	add    $t0, $zero, $zero
 
-glabel func0001a2dc
+glabel model0001a2dc
 	lui    $at, %hi(var7005423c)
 	lwc1   $f7, %lo(var7005423c)($at)
 	mul.s  $f7, $f6, $f7

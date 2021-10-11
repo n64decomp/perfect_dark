@@ -146,19 +146,19 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			struct objticksp476 sp80 = {NULL, 1, 3};
 			Mtxf sp40;
 			struct coord modelpos = {0, 0, 0};
-			bool somebool = func0001e2a8();
+			bool somebool = model0001e2a8();
 
 			g_Vars.currentplayer->resetheadtick = false;
 
-			func0001e29c(false);
-			func0001ee18(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
-			func0001e29c(somebool);
-			func0001b3bc(&g_Vars.currentplayer->model);
+			model0001e29c(false);
+			model0001ee18(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
+			model0001e29c(somebool);
+			model0001b3bc(&g_Vars.currentplayer->model);
 			mtx000159b0(&sp40);
 
 			sp80.matrix = &sp40;
 			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;
-			func0001cebc(&sp80, &g_Vars.currentplayer->model);
+			model0001cebc(&sp80, &g_Vars.currentplayer->model);
 
 			g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
 			g_Vars.currentplayer->headbodyoffset.y = g_Vars.currentplayer->standbodyoffset.y;
