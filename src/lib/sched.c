@@ -744,7 +744,7 @@ void func00002d90(void)
 {
 	if (g_MenuData.unk016 == 1) {
 		if (IS8MB()) {
-			func0f0e0770();
+			menuCreateBlur();
 		}
 
 		g_MenuData.unk016 = 0;

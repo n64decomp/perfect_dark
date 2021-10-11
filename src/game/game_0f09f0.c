@@ -49,7 +49,7 @@ char g_CheatMarqueeString[252];
 u8 fill3[0x2c];
 #endif
 
-u32 var8009dfbc;
+u8 *g_BlurBuffer;
 s32 var8009dfc0;
 u32 var8009dfc4;
 struct briefing g_Briefing;
@@ -17367,8 +17367,8 @@ glabel var7f1b2a0c
 /*  f0f8cc8:	24044b00 */ 	addiu	$a0,$zero,0x4b00
 /*  f0f8ccc:	0c0048f2 */ 	jal	malloc
 /*  f0f8cd0:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0f8cd4:	3c01800a */ 	lui	$at,%hi(var8009dfbc)
-/*  f0f8cd8:	ac22dfbc */ 	sw	$v0,%lo(var8009dfbc)($at)
+/*  f0f8cd4:	3c01800a */ 	lui	$at,%hi(g_BlurBuffer)
+/*  f0f8cd8:	ac22dfbc */ 	sw	$v0,%lo(g_BlurBuffer)($at)
 .L0f0f8cdc:
 /*  f0f8cdc:	3c11800a */ 	lui	$s1,%hi(g_MenuData)
 /*  f0f8ce0:	263119c0 */ 	addiu	$s1,$s1,%lo(g_MenuData)

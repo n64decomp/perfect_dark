@@ -17,51 +17,9 @@
 #include "data.h"
 #include "types.h"
 
-const u32 var7f1adf00[] = {0x63636363};
-const u32 var7f1adf04[] = {0x00000000};
-
-const u32 var7f1adf08[] = {0x40c907a9};
-const u32 var7f1adf0c[] = {0x3e4ccccd};
-const u32 var7f1adf10[] = {0x3f666666};
-const u32 var7f1adf14[] = {0x3dcccccd};
-const u32 var7f1adf18[] = {0x3dcccccd};
-const u32 var7f1adf1c[] = {0x40c90fdb};
-const u32 var7f1adf20[] = {0x40490fdb};
-const u32 var7f1adf24[] = {0x3f060a92};
-const u32 var7f1adf28[] = {0x3f060a92};
-const u32 var7f1adf2c[] = {0x3e32b8c3};
-const u32 var7f1adf30[] = {0x3dcc40de};
-const u32 var7f1adf34[] = {0x40490fdb};
-const u32 var7f1adf38[] = {0x3e32b8c3};
-const u32 var7f1adf3c[] = {0x3dcc40de};
-const u32 var7f1adf40[] = {0x40c90fdb};
-const u32 var7f1adf44[] = {0x3f490fdb};
-const u32 var7f1adf48[] = {0x40490fdb};
-const u32 var7f1adf4c[] = {0x40c90fdb};
-const u32 var7f1adf50[] = {0x40c90fdb};
-const u32 var7f1adf54[] = {0x40490fdb};
-const u32 var7f1adf58[] = {0x3f060a92};
-const u32 var7f1adf5c[] = {0x3f060a92};
-const u32 var7f1adf60[] = {0x3e32b8c3};
-const u32 var7f1adf64[] = {0x3dcc40de};
-const u32 var7f1adf68[] = {0x40490fdb};
-const u32 var7f1adf6c[] = {0x3e32b8c3};
-const u32 var7f1adf70[] = {0x3dcc40de};
-const u32 var7f1adf74[] = {0x459c4000};
-const u32 var7f1adf78[] = {0x461c4000};
-const u32 var7f1adf7c[] = {0x461c4000};
-const u32 var7f1adf80[] = {0x459c4000};
-const u32 var7f1adf84[] = {0x40c907a9};
-const u32 var7f1adf88[] = {0xc5ce4000};
-const u32 var7f1adf8c[] = {0x40c907a9};
-const u32 var7f1adf90[] = {0x45ce4000};
-const u32 var7f1adf94[] = {0x00000000};
-const u32 var7f1adf98[] = {0x00000000};
-const u32 var7f1adf9c[] = {0x00000000};
-
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func0f0e0770
+glabel menuCreateBlur
 /*  f0e0db0:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0e0db4:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0e0db8:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -232,7 +190,7 @@ glabel func0f0e0770
 );
 #else
 GLOBAL_ASM(
-glabel func0f0e0770
+glabel menuCreateBlur
 /*  f0e0770:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0e0774:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0e0778:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -278,8 +236,8 @@ glabel func0f0e0770
 /*  f0e080c:	0c0036cc */ 	jal	func0000db30
 /*  f0e0810:	2484df00 */ 	addiu	$a0,$a0,%lo(var7f1adf00)
 /*  f0e0814:	8fbf0070 */ 	lw	$ra,0x70($sp)
-/*  f0e0818:	3c17800a */ 	lui	$s7,%hi(var8009dfbc)
-/*  f0e081c:	26f7dfbc */ 	addiu	$s7,$s7,%lo(var8009dfbc)
+/*  f0e0818:	3c17800a */ 	lui	$s7,%hi(g_BlurBuffer)
+/*  f0e081c:	26f7dfbc */ 	addiu	$s7,$s7,%lo(g_BlurBuffer)
 /*  f0e0820:	001fc8c0 */ 	sll	$t9,$ra,0x3
 /*  f0e0824:	afb90048 */ 	sw	$t9,0x48($sp)
 /*  f0e0828:	afa00074 */ 	sw	$zero,0x74($sp)
@@ -380,6 +338,181 @@ glabel func0f0e0770
 /*  f0e0994:	27bd0080 */ 	addiu	$sp,$sp,0x80
 );
 #endif
+
+const u32 var7f1adf00[] = {0x63636363};
+const u32 var7f1adf04[] = {0x00000000};
+u32 var80071180 = 1;
+
+#define BLURIMG_WIDTH  40
+#define BLURIMG_HEIGHT 30
+#define SAMPLE_WIDTH  8
+#define SAMPLE_HEIGHT 8
+#define PXTOBYTES(val) ((val) * 2)
+
+/**
+ * Blur the gameplay background for the pause menu.
+ *
+ * The blurred image is 30x40 pixels at 16 bits per pixel. At standard
+ * resolution this is 1/8th the size of the framebuffer.
+ *
+ * This function reads the framebuffer in blocks of 8x8 pixels. Each block's
+ * R/G/B components are averaged and used to set a pixel in the blurred buffer.
+ *
+ * If hi-res is being used, every second horizontal pixel on the framebuffer is
+ * read instead. The blurred image is the same size regardless of hi-res.
+ *
+ * The transition effect when pausing and unpausing is implemented elsewhere.
+ * It's a simple fade between the source framebuffer and the blurred image.
+ * Only one blurred image is made.
+ */
+//void menuCreateBlur(void)
+//{
+//#if VERSION >= VERSION_PAL_FINAL
+//	// Mismatch: Different codegen
+//	u8 *fb = viGetFrontBuffer();
+//	s32 fbwidthinbytes = viGetWidth() * 2;
+//	f32 scale = viGetWidth() / 320.0f;
+//	s32 dsty;
+//	s32 dstx;
+//	s32 srcx;
+//	s32 srcy;
+//
+//	static u32 var80071180 = 1;
+//
+//	g_ScaleX = 1;
+//
+//	if (var80071180 == 1) {
+//		fb = viGetFrontBuffer();
+//	}
+//
+//	func0000db30("cccc", &var80071180);
+//
+//	for (dsty = 0; dsty < 30; dsty++) {
+//		for (dstx = 0; dstx < 40; dstx++) {
+//			s32 dstindex = dsty * 80 + dstx * 2;
+//			u32 r = 0;
+//			u32 g = 0;
+//			u32 b = 0;
+//
+//			for (srcx = 0; srcx < 8; srcx++) {
+//				for (srcy = 0; srcy < 8; srcy++) {
+//					s32 e = (f32)dstx * 2 * 4 * 2 * scale;
+//					s32 c = (dsty * fbwidthinbytes * 8);
+//					s32 block = (e + c) & ~1;
+//					s32 a = (f32)srcx * 2 * scale;
+//					s32 d = (srcy * fbwidthinbytes);
+//					s32 index = (a + block + d) & ~1;
+//
+//					u32 colour = fb[index] << 8 | fb[index + 1];
+//
+//					r += colour >> 11 & 0x1f;
+//					g += colour >> 6 & 0x1f;
+//					b += colour >> 1 & 0x1f;
+//				}
+//			}
+//
+//			r /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+//			g /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+//			b /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+//
+//			g_BlurBuffer[dstindex + 0] = (r << 3) | (g >> 2);
+//			g_BlurBuffer[dstindex + 1] = (g << 6) | ((b & 0x1f) << 1);
+//		}
+//	}
+//
+//	g_ScaleX = 1;
+//#else
+//	// Mismatch: The below stores 0x280 (end value for dstx loop) in s8,
+//	// and doesn't store samplestartindex in s2.
+//	u8 *fb = viGetFrontBuffer();
+//	s32 fbwidthinbytes = PXTOBYTES(viGetWidth());
+//	s32 dsty;
+//	s32 dstx;
+//	s32 srcx;
+//	s32 srcy;
+//
+//	static u32 var80071180 = 1;
+//
+//	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
+//
+//	if (var80071180 == 1) {
+//		fb = viGetFrontBuffer();
+//	}
+//
+//	func0000db30("cccc", &var80071180);
+//
+//	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
+//		for (dstx = 0; dstx < BLURIMG_WIDTH; dstx++) {
+//			s32 dstindex = PXTOBYTES(dsty * BLURIMG_WIDTH) + PXTOBYTES(dstx);
+//			u32 r = 0;
+//			u32 g = 0;
+//			u32 b = 0;
+//			s32 samplestartindex = PXTOBYTES(dstx * SAMPLE_WIDTH) * g_ScaleX + dsty * fbwidthinbytes * SAMPLE_HEIGHT;
+//
+//			for (srcx = 0; srcx < SAMPLE_WIDTH; srcx++) {
+//				for (srcy = 0; srcy < SAMPLE_HEIGHT; srcy++) {
+//					s32 offset = PXTOBYTES(srcx) * g_ScaleX + srcy * fbwidthinbytes;
+//					s32 colour = fb[samplestartindex + offset] << 8 | fb[samplestartindex + offset + 1];
+//
+//					r += colour >> 11 & 0x1f;
+//					g += colour >> 6 & 0x1f;
+//					b += colour >> 1 & 0x1f;
+//				}
+//			}
+//
+//			r /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+//			g /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+//			b /= SAMPLE_WIDTH * SAMPLE_HEIGHT;
+//
+//			g_BlurBuffer[dstindex + 0] = (r << 3) | (g >> 2);
+//			g_BlurBuffer[dstindex + 1] = (g << 6) | ((b & 0x1f) << 1);
+//		}
+//	}
+//
+//	g_ScaleX = 1;
+//#endif
+//}
+
+u32 var80071184 = 0;
+
+const u32 var7f1adf08[] = {0x40c907a9};
+const u32 var7f1adf0c[] = {0x3e4ccccd};
+const u32 var7f1adf10[] = {0x3f666666};
+const u32 var7f1adf14[] = {0x3dcccccd};
+const u32 var7f1adf18[] = {0x3dcccccd};
+const u32 var7f1adf1c[] = {0x40c90fdb};
+const u32 var7f1adf20[] = {0x40490fdb};
+const u32 var7f1adf24[] = {0x3f060a92};
+const u32 var7f1adf28[] = {0x3f060a92};
+const u32 var7f1adf2c[] = {0x3e32b8c3};
+const u32 var7f1adf30[] = {0x3dcc40de};
+const u32 var7f1adf34[] = {0x40490fdb};
+const u32 var7f1adf38[] = {0x3e32b8c3};
+const u32 var7f1adf3c[] = {0x3dcc40de};
+const u32 var7f1adf40[] = {0x40c90fdb};
+const u32 var7f1adf44[] = {0x3f490fdb};
+const u32 var7f1adf48[] = {0x40490fdb};
+const u32 var7f1adf4c[] = {0x40c90fdb};
+const u32 var7f1adf50[] = {0x40c90fdb};
+const u32 var7f1adf54[] = {0x40490fdb};
+const u32 var7f1adf58[] = {0x3f060a92};
+const u32 var7f1adf5c[] = {0x3f060a92};
+const u32 var7f1adf60[] = {0x3e32b8c3};
+const u32 var7f1adf64[] = {0x3dcc40de};
+const u32 var7f1adf68[] = {0x40490fdb};
+const u32 var7f1adf6c[] = {0x3e32b8c3};
+const u32 var7f1adf70[] = {0x3dcc40de};
+const u32 var7f1adf74[] = {0x459c4000};
+const u32 var7f1adf78[] = {0x461c4000};
+const u32 var7f1adf7c[] = {0x461c4000};
+const u32 var7f1adf80[] = {0x459c4000};
+const u32 var7f1adf84[] = {0x40c907a9};
+const u32 var7f1adf88[] = {0xc5ce4000};
+const u32 var7f1adf8c[] = {0x40c907a9};
+const u32 var7f1adf90[] = {0x45ce4000};
+const u32 var7f1adf94[] = {0x00000000};
+const u32 var7f1adf98[] = {0x00000000};
+const u32 var7f1adf9c[] = {0x00000000};
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
@@ -657,8 +790,8 @@ glabel func0f0e0998
 /*  f0e0a54:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0e0a58:	3c0cfd10 */ 	lui	$t4,0xfd10
 /*  f0e0a5c:	acac0000 */ 	sw	$t4,0x0($a1)
-/*  f0e0a60:	3c0d800a */ 	lui	$t5,%hi(var8009dfbc)
-/*  f0e0a64:	8daddfbc */ 	lw	$t5,%lo(var8009dfbc)($t5)
+/*  f0e0a60:	3c0d800a */ 	lui	$t5,%hi(g_BlurBuffer)
+/*  f0e0a64:	8daddfbc */ 	lw	$t5,%lo(g_BlurBuffer)($t5)
 /*  f0e0a68:	26100008 */ 	addiu	$s0,$s0,0x8
 /*  f0e0a6c:	02003025 */ 	or	$a2,$s0,$zero
 /*  f0e0a70:	3c0f0708 */ 	lui	$t7,0x708

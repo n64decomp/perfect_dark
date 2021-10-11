@@ -184,7 +184,7 @@ extern u32 var8009de98;
 extern u32 var8009de9c;
 extern u8 g_MpSelectedPlayersForStats[4];
 extern char g_CheatMarqueeString[252];
-extern u32 var8009dfbc;
+extern u8 *g_BlurBuffer;
 extern s32 var8009dfc0;
 extern struct briefing g_Briefing;
 extern struct missionconfig g_MissionConfig;

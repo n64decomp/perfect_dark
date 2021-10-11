@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0f0e0770(void);
+void menuCreateBlur(void);
 u32 func0f0e0998(void);
 u32 func0f0e0dac(void);
 u32 func0f0e1668(void);

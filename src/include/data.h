@@ -297,8 +297,6 @@ extern bool g_PlayerInvincible;
 extern s32 g_InCutscene;
 extern s16 g_DeathAnimations[];
 extern u32 g_NumDeathAnimations;
-extern u32 var80071180;
-extern u32 var80071184;
 extern s32 g_ScissorX1;
 extern s32 g_ScissorX2;
 extern s32 g_ScissorY1;
