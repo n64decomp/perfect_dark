@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 

@@ -12,7 +12,7 @@
 #include "game/options.h"
 #include "bss.h"
 #include "lib/lib_09a80.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 

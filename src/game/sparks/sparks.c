@@ -8,7 +8,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -1631,25 +1631,25 @@ glabel sparksRender
 /*  f130a24:	27a400d4 */ 	addiu	$a0,$sp,0xd4
 /*  f130a28:	46040283 */ 	div.s	$f10,$f0,$f4
 /*  f130a2c:	460ab582 */ 	mul.s	$f22,$f22,$f10
-/*  f130a30:	0c00566c */ 	jal	func000159b0
+/*  f130a30:	0c00566c */ 	jal	mtx000159b0
 /*  f130a34:	00000000 */ 	nop
 /*  f130a38:	e7bc00d4 */ 	swc1	$f28,0xd4($sp)
 /*  f130a3c:	e7bc00e8 */ 	swc1	$f28,0xe8($sp)
 /*  f130a40:	e7bc00fc */ 	swc1	$f28,0xfc($sp)
 /*  f130a44:	e7bc0110 */ 	swc1	$f28,0x110($sp)
 /*  f130a48:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f130a4c:	0c005775 */ 	jal	func00015dd4
+/*  f130a4c:	0c005775 */ 	jal	mtx00015dd4
 /*  f130a50:	27a500d4 */ 	addiu	$a1,$sp,0xd4
 /*  f130a54:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f130a58:	00000000 */ 	nop
 /*  f130a5c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f130a60:	0c0056f8 */ 	jal	func00015be0
+/*  f130a60:	0c0056f8 */ 	jal	mtx00015be0
 /*  f130a64:	27a500d4 */ 	addiu	$a1,$sp,0xd4
 /*  f130a68:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f130a6c:	00000000 */ 	nop
 /*  f130a70:	00408825 */ 	or	$s1,$v0,$zero
 /*  f130a74:	27a400d4 */ 	addiu	$a0,$sp,0xd4
-/*  f130a78:	0c005815 */ 	jal	func00016054
+/*  f130a78:	0c005815 */ 	jal	mtx00016054
 /*  f130a7c:	00402825 */ 	or	$a1,$v0,$zero
 /*  f130a80:	8fb00170 */ 	lw	$s0,0x170($sp)
 /*  f130a84:	3c0d0102 */ 	lui	$t5,0x102

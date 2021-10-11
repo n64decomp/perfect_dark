@@ -7,7 +7,7 @@
 #include "game/texdecompress.h"
 #include "game/game_173a00.h"
 #include "bss.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 

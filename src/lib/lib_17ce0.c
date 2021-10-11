@@ -3,8 +3,7 @@
 #include "game/atan2f.h"
 #include "game/padhalllv.h"
 #include "bss.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 

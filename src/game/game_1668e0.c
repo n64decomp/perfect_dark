@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_1668e0.h"
 #include "bss.h"
-#include "lib/lib_159b0.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -59,7 +59,7 @@ void func0f166a6c(Mtxf *mtx, s32 roomnum)
 {
 	s32 stagenum = g_Vars.stagenum;
 
-	func000159b0(mtx);
+	mtx000159b0(mtx);
 
 	mtx->m[0][0] = 1;
 	mtx->m[1][1] = 1;
@@ -113,7 +113,7 @@ s32 func0f166c20(s32 roomnum)
 	var800a666c[index] = var8005ef10[0];
 
 	func0f166a6c(&mtx, roomnum);
-	func00016054(&mtx, &var800a6670[index]);
+	mtx00016054(&mtx, &var800a6670[index]);
 
 	return index;
 }

@@ -19,7 +19,7 @@
 #include "lib/joy.h"
 #include "lib/main.h"
 #include "lib/snd.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
 #include "data.h"

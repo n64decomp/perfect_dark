@@ -45,8 +45,7 @@
 #include "lib/snd.h"
 #include "lib/lib_11420.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_184d0.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
@@ -2410,13 +2409,13 @@ bool aiObjectMoveToPad(void)
 
 	if (obj && obj->prop) {
 		padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
-		func00016d58(&matrix,
+		mtx00016d58(&matrix,
 				0, 0, 0,
 				-pad.look.x, -pad.look.y, -pad.look.z,
 				pad.up.x, pad.up.y, pad.up.z);
 
 		if (obj->model) {
-			func00015f04(obj->model->scale, &matrix);
+			mtx00015f04(obj->model->scale, &matrix);
 		}
 
 		rooms[0] = pad.room;

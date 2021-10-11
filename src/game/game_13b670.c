@@ -5,7 +5,7 @@
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/memory.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 

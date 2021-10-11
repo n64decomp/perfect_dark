@@ -118,7 +118,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When loading a normal stage (eg. CI Training).
 
-**What It Checks:** Calls `func00015fd0` to get the value of `osRomBase` then compares it with a known value.
+**What It Checks:** Calls `mtxGetObfuscatedRomBase` to get the value of `osRomBase` then compares it with a known value.
 
 **Payload:** Copies 4KB from a random location in ROM to a random location in RAM.
 

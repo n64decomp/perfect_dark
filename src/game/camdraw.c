@@ -15,7 +15,7 @@
 #include "lib/model.h"
 #include "lib/lib_126b0.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"

@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 
 void guRotateF(float mf[4][4], float a, float x, float y, float z)
 {

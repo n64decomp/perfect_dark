@@ -13,8 +13,7 @@
 #include "bss.h"
 #include "lib/main.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -2179,10 +2178,10 @@ glabel var7f1b5d6c
 /*  f13fdb0:	e7b20080 */ 	swc1	$f18,0x80($sp)
 /*  f13fdb4:	e7a00084 */ 	swc1	$f0,0x84($sp)
 /*  f13fdb8:	e7a20088 */ 	swc1	$f2,0x88($sp)
-/*  f13fdbc:	0c0056c4 */ 	jal	func00015b10
+/*  f13fdbc:	0c0056c4 */ 	jal	mtx00015b10
 /*  f13fdc0:	e7a6008c */ 	swc1	$f6,0x8c($sp)
 /*  f13fdc4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f13fdc8:	0c0056c4 */ 	jal	func00015b10
+/*  f13fdc8:	0c0056c4 */ 	jal	mtx00015b10
 /*  f13fdcc:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f13fdd0:	c7a00084 */ 	lwc1	$f0,0x84($sp)
 /*  f13fdd4:	c7a20088 */ 	lwc1	$f2,0x88($sp)
@@ -3478,10 +3477,10 @@ glabel var7f1b5d6c
 /*  f13fdb0:	e7b20080 */ 	swc1	$f18,0x80($sp)
 /*  f13fdb4:	e7a00084 */ 	swc1	$f0,0x84($sp)
 /*  f13fdb8:	e7a20088 */ 	swc1	$f2,0x88($sp)
-/*  f13fdbc:	0c0056c4 */ 	jal	func00015b10
+/*  f13fdbc:	0c0056c4 */ 	jal	mtx00015b10
 /*  f13fdc0:	e7a6008c */ 	swc1	$f6,0x8c($sp)
 /*  f13fdc4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f13fdc8:	0c0056c4 */ 	jal	func00015b10
+/*  f13fdc8:	0c0056c4 */ 	jal	mtx00015b10
 /*  f13fdcc:	27a50078 */ 	addiu	$a1,$sp,0x78
 /*  f13fdd0:	c7a00084 */ 	lwc1	$f0,0x84($sp)
 /*  f13fdd4:	c7a20088 */ 	lwc1	$f2,0x88($sp)
@@ -4775,10 +4774,10 @@ glabel var7f1b02acnb
 /*  f13a8ac:	e7b20084 */ 	swc1	$f18,0x84($sp)
 /*  f13a8b0:	e7a00088 */ 	swc1	$f0,0x88($sp)
 /*  f13a8b4:	e7a2008c */ 	swc1	$f2,0x8c($sp)
-/*  f13a8b8:	0c005a80 */ 	jal	func00015b10
+/*  f13a8b8:	0c005a80 */ 	jal	mtx00015b10
 /*  f13a8bc:	e7a60090 */ 	swc1	$f6,0x90($sp)
 /*  f13a8c0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f13a8c4:	0c005a80 */ 	jal	func00015b10
+/*  f13a8c4:	0c005a80 */ 	jal	mtx00015b10
 /*  f13a8c8:	27a5007c */ 	addiu	$a1,$sp,0x7c
 /*  f13a8cc:	c7a00088 */ 	lwc1	$f0,0x88($sp)
 /*  f13a8d0:	c7a2008c */ 	lwc1	$f2,0x8c($sp)

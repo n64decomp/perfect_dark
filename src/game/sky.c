@@ -8,8 +8,7 @@
 #include "lib/lib_09a80.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -1024,12 +1023,12 @@ glabel var7f1b57bc
 /*  f136c88:	00000000 */ 	nop
 /*  f136c8c:	27b1016c */ 	addiu	$s1,$sp,0x16c
 /*  f136c90:	02202025 */ 	or	$a0,$s1,$zero
-/*  f136c94:	0c00566c */ 	jal	func000159b0
+/*  f136c94:	0c00566c */ 	jal	mtx000159b0
 /*  f136c98:	e7a00154 */ 	swc1	$f0,0x154($sp)
 /*  f136c9c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f136ca0:	00000000 */ 	nop
 /*  f136ca4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f136ca8:	0c0056f8 */ 	jal	func00015be0
+/*  f136ca8:	0c0056f8 */ 	jal	mtx00015be0
 /*  f136cac:	02202825 */ 	or	$a1,$s1,$zero
 /*  f136cb0:	44800000 */ 	mtc1	$zero,$f0
 /*  f136cb4:	3c017f1b */ 	lui	$at,%hi(var7f1b57bc)
@@ -1037,7 +1036,7 @@ glabel var7f1b57bc
 /*  f136cbc:	02202825 */ 	or	$a1,$s1,$zero
 /*  f136cc0:	e7a0019c */ 	swc1	$f0,0x19c($sp)
 /*  f136cc4:	e7a001a0 */ 	swc1	$f0,0x1a0($sp)
-/*  f136cc8:	0c0057e2 */ 	jal	func00015f88
+/*  f136cc8:	0c0057e2 */ 	jal	mtx00015f88
 /*  f136ccc:	e7a001a4 */ 	swc1	$f0,0x1a4($sp)
 /*  f136cd0:	8e630284 */ 	lw	$v1,0x284($s3)
 /*  f136cd4:	c7b20170 */ 	lwc1	$f18,0x170($sp)

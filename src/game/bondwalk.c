@@ -19,7 +19,7 @@
 #include "bss.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
 #include "data.h"
@@ -88,7 +88,7 @@ void bwalkInit(void)
 
 	if (g_Vars.currentplayer->walkinitmove) {
 		struct coord delta;
-		func00016b58(&g_Vars.currentplayer->walkinitmtx,
+		mtx00016b58(&g_Vars.currentplayer->walkinitmtx,
 				0, 0, 0,
 				-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
 				g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);
@@ -250,7 +250,7 @@ glabel var7f1a7ad0
 /*  f0c1590:	c44a0398 */ 	lwc1	$f10,0x398($v0)
 /*  f0c1594:	e7aa0020 */ 	swc1	$f10,0x20($sp)
 /*  f0c1598:	c450039c */ 	lwc1	$f16,0x39c($v0)
-/*  f0c159c:	0c005eba */ 	jal	func00016b58
+/*  f0c159c:	0c005eba */ 	jal	mtx00016b58
 /*  f0c15a0:	e7b00024 */ 	swc1	$f16,0x24($sp)
 /*  f0c15a4:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0c15a8:	00002825 */ 	or	$a1,$zero,$zero

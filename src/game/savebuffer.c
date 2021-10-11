@@ -9,8 +9,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -39,7 +38,7 @@ void func0f0d4690(Mtxf *mtx)
 {
 	struct coord pos;
 
-	func000159b0(mtx);
+	mtx000159b0(mtx);
 
 	pos.x = -159.75f;
 	pos.y = PAL ? 136.25f : 120.25f;
@@ -49,19 +48,19 @@ void func0f0d4690(Mtxf *mtx)
 	pos.y = (.5f + viGetHeight()) * 0.5f;
 	pos.z = 0;
 
-	func00015dd4(&pos, mtx);
-	func00015e4c(-1, mtx);
+	mtx00015dd4(&pos, mtx);
+	mtx00015e4c(-1, mtx);
 
 	if (g_ScaleX == 2) {
-		func00015df0(2, mtx);
+		mtx00015df0(2, mtx);
 	}
 }
 
 void func0f0d475c(Mtxf *mtx)
 {
 	func0f0d4690(mtx);
-	func00015df0(0.1f, mtx);
-	func00015e4c(0.1f, mtx);
+	mtx00015df0(0.1f, mtx);
+	mtx00015e4c(0.1f, mtx);
 }
 
 Gfx *func0f0d479c(Gfx *gdl)
@@ -73,18 +72,18 @@ Gfx *func0f0d479c(Gfx *gdl)
 	mtx1 = gfxAllocateMatrix();
 	mtx2 = gfxAllocateMatrix();
 
-	func00016760();
+	mtx00016760();
 	func0f0d475c(&mtx);
-	func00016054(&mtx, mtx2);
-	func000159b0(&mtx);
+	mtx00016054(&mtx, mtx2);
+	mtx000159b0(&mtx);
 
 	guFrustumF(mtx.m,
 			-(f32) viGetWidth() * 0.5f, viGetWidth() * 0.5f,
 			-(f32) viGetHeight() * 0.5f, viGetHeight() * 0.5f,
 			10, 10000, 1);
 
-	func00016054(&mtx, mtx1);
-	func00016784();
+	mtx00016054(&mtx, mtx1);
+	mtx00016784();
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx2), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx1), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -171,7 +170,7 @@ Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 
 	func0f0d4690(&mtx);
-	func00016054(&mtx, mtxptr);
+	mtx00016054(&mtx, mtxptr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtxptr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -184,9 +183,9 @@ Gfx *func0f0d4c80(Gfx *gdl)
 	Mtxf *mtxptr = gfxAllocateMatrix();
 
 	func0f0d4690(&mtx);
-	func00015df0(0.1f, &mtx);
-	func00015e4c(0.1f, &mtx);
-	func00016054(&mtx, mtxptr);
+	mtx00015df0(0.1f, &mtx);
+	mtx00015e4c(0.1f, &mtx);
+	mtx00016054(&mtx, mtxptr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtxptr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

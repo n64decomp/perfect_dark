@@ -60,8 +60,7 @@
 #include "lib/memory.h"
 #include "lib/model.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
@@ -1375,8 +1374,8 @@ void currentPlayerSpawn(void)
 				s32 prevplayernum = g_Vars.currentplayernum;
 				setCurrentPlayerNum(g_Vars.bondplayernum);
 				bgun0f0a0c08(&sp84, &sp9c);
-				func00015b14(currentPlayerGetUnk174c(), &sp9c, &sp90);
-				func00015b68(currentPlayerGetUnk174c(), &sp84, &sp78);
+				mtx00015b14(currentPlayerGetUnk174c(), &sp9c, &sp90);
+				mtx00015b68(currentPlayerGetUnk174c(), &sp84, &sp78);
 				setCurrentPlayerNum(prevplayernum);
 			}
 
@@ -3519,7 +3518,7 @@ void func0f0ba190(u32 arg0)
 	sp7f = func00023ab0(g_CutsceneAnimNum, lastframe);
 	func00023d0c();
 	func00024050(0, 0, &g_ModelType20, g_CutsceneAnimNum, sp7f, &sp94, &sp88, &sp7c);
-	func0001648c(&sp94, &sp38);
+	mtx0001648c(&sp94, &sp38);
 
 	theta = atan2f(-sp38.m[2][0], -sp38.m[2][2]);
 	theta = (M_BADTAU - theta) * 57.304901123047f;
@@ -3615,7 +3614,7 @@ void func0f0ba29c(bool arg0)
 	pos.y = sp16c.y * sp118;
 	pos.z = sp16c.z * sp118;
 
-	func0001648c(&sp178, &sp11c);
+	mtx0001648c(&sp178, &sp11c);
 
 	up.x = sp11c.m[1][0];
 	up.y = sp11c.m[1][1];
@@ -3641,8 +3640,8 @@ void func0f0ba29c(bool arg0)
 		pos.y += sp104 * (g_Vars.bond->bond2.unk10.y - pos.y);
 		pos.z += sp104 * (g_Vars.bond->bond2.unk10.z - pos.z);
 
-		func00016d58(&spc4, 0, 0, 0, -look.x, -look.y, -look.z, up.x, up.y, up.z);
-		func00016d58(&sp84, 0, 0, 0,
+		mtx00016d58(&spc4, 0, 0, 0, -look.x, -look.y, -look.z, up.x, up.y, up.z);
+		mtx00016d58(&sp84, 0, 0, 0,
 				-g_Vars.bond->bond2.unk1c.x, -g_Vars.bond->bond2.unk1c.y, -g_Vars.bond->bond2.unk1c.z,
 				g_Vars.bond->bond2.unk28.x, g_Vars.bond->bond2.unk28.y, g_Vars.bond->bond2.unk28.z);
 		func0f097044(&spc4, &sp74);
@@ -4336,8 +4335,8 @@ Gfx *hudRenderHealthBar(Gfx *gdl)
 	Mtxf matrix;
 	Mtxf *addr = gfxAllocateMatrix();
 
-	func00016ae4(&matrix, 0, 370, 0, 0, 0, 0, 0, 0, -1);
-	func00016054(&matrix, addr);
+	mtx00016ae4(&matrix, 0, 370, 0, 0, 0, 0, 0, 0, -1);
+	mtx00016054(&matrix, addr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical((void *)addr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gDPPipeSync(gdl++);
@@ -5930,10 +5929,10 @@ glabel var7f1ad6ac
 /*  f0be9b0:	00000000 */ 	nop
 /*  f0be9b4:	ae0000c8 */ 	sw	$zero,0xc8($s0)
 .PF0f0be9b8:
-/*  f0be9b8:	0c0057e6 */ 	jal	func00016208
+/*  f0be9b8:	0c0057e6 */ 	jal	mtx00016208
 /*  f0be9bc:	27a502f0 */ 	addiu	$a1,$sp,0x2f0
 /*  f0be9c0:	27a402b8 */ 	addiu	$a0,$sp,0x2b8
-/*  f0be9c4:	0c0057e6 */ 	jal	func00016208
+/*  f0be9c4:	0c0057e6 */ 	jal	mtx00016208
 /*  f0be9c8:	27a502e4 */ 	addiu	$a1,$sp,0x2e4
 /*  f0be9cc:	8e2f0040 */ 	lw	$t7,0x40($s1)
 /*  f0be9d0:	31ee0080 */ 	andi	$t6,$t7,0x80
@@ -6240,7 +6239,7 @@ glabel var7f1ad6ac
 /*  f0bee2c:	0fc25b7d */ 	jal	func0f096ed4
 /*  f0bee30:	02a02025 */ 	move	$a0,$s5
 /*  f0bee34:	02002025 */ 	move	$a0,$s0
-/*  f0bee38:	0c005628 */ 	jal	func00015b10
+/*  f0bee38:	0c005628 */ 	jal	mtx00015b10
 /*  f0bee3c:	26850004 */ 	addiu	$a1,$s4,0x4
 /*  f0bee40:	8e8b0000 */ 	lw	$t3,0x0($s4)
 /*  f0bee44:	44808000 */ 	mtc1	$zero,$f16
@@ -6328,7 +6327,7 @@ glabel var7f1ad6ac
 /*  f0bef70:	46023482 */ 	mul.s	$f18,$f6,$f2
 /*  f0bef74:	460e9203 */ 	div.s	$f8,$f18,$f14
 /*  f0bef78:	e6840008 */ 	swc1	$f4,0x8($s4)
-/*  f0bef7c:	0c0056b9 */ 	jal	func00015d54
+/*  f0bef7c:	0c0056b9 */ 	jal	mtx00015d54
 /*  f0bef80:	e688000c */ 	swc1	$f8,0xc($s4)
 /*  f0bef84:	27b2012c */ 	addiu	$s2,$sp,0x12c
 /*  f0bef88:	02402825 */ 	move	$a1,$s2
@@ -6344,7 +6343,7 @@ glabel var7f1ad6ac
 /*  f0befb0:	0fc25b7d */ 	jal	func0f096ed4
 /*  f0befb4:	02002025 */ 	move	$a0,$s0
 /*  f0befb8:	02402025 */ 	move	$a0,$s2
-/*  f0befbc:	0c0056cc */ 	jal	func00015da0
+/*  f0befbc:	0c0056cc */ 	jal	mtx00015da0
 /*  f0befc0:	27a502b8 */ 	addiu	$a1,$sp,0x2b8
 /*  f0befc4:	c7a002a8 */ 	lwc1	$f0,0x2a8($sp)
 /*  f0befc8:	c7aa02b8 */ 	lwc1	$f10,0x2b8($sp)
@@ -8331,10 +8330,10 @@ glabel var7f1ad6ac
 /*  f0be444:	00000000 */ 	nop
 /*  f0be448:	ae0000c8 */ 	sw	$zero,0xc8($s0)
 .L0f0be44c:
-/*  f0be44c:	0c005882 */ 	jal	func00016208
+/*  f0be44c:	0c005882 */ 	jal	mtx00016208
 /*  f0be450:	27a502f0 */ 	addiu	$a1,$sp,0x2f0
 /*  f0be454:	27a402b8 */ 	addiu	$a0,$sp,0x2b8
-/*  f0be458:	0c005882 */ 	jal	func00016208
+/*  f0be458:	0c005882 */ 	jal	mtx00016208
 /*  f0be45c:	27a502e4 */ 	addiu	$a1,$sp,0x2e4
 /*  f0be460:	8e380040 */ 	lw	$t8,0x40($s1)
 /*  f0be464:	330f0080 */ 	andi	$t7,$t8,0x80
@@ -8641,7 +8640,7 @@ glabel var7f1ad6ac
 /*  f0be8c0:	0fc25bb5 */ 	jal	func0f096ed4
 /*  f0be8c4:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f0be8c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0be8cc:	0c0056c4 */ 	jal	func00015b10
+/*  f0be8cc:	0c0056c4 */ 	jal	mtx00015b10
 /*  f0be8d0:	26850004 */ 	addiu	$a1,$s4,0x4
 /*  f0be8d4:	8e8c0000 */ 	lw	$t4,0x0($s4)
 /*  f0be8d8:	44808000 */ 	mtc1	$zero,$f16
@@ -8729,7 +8728,7 @@ glabel var7f1ad6ac
 /*  f0bea04:	46023482 */ 	mul.s	$f18,$f6,$f2
 /*  f0bea08:	460e9203 */ 	div.s	$f8,$f18,$f14
 /*  f0bea0c:	e6840008 */ 	swc1	$f4,0x8($s4)
-/*  f0bea10:	0c005755 */ 	jal	func00015d54
+/*  f0bea10:	0c005755 */ 	jal	mtx00015d54
 /*  f0bea14:	e688000c */ 	swc1	$f8,0xc($s4)
 /*  f0bea18:	27b2012c */ 	addiu	$s2,$sp,0x12c
 /*  f0bea1c:	02402825 */ 	or	$a1,$s2,$zero
@@ -8745,7 +8744,7 @@ glabel var7f1ad6ac
 /*  f0bea44:	0fc25bb5 */ 	jal	func0f096ed4
 /*  f0bea48:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bea4c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0bea50:	0c005768 */ 	jal	func00015da0
+/*  f0bea50:	0c005768 */ 	jal	mtx00015da0
 /*  f0bea54:	27a502b8 */ 	addiu	$a1,$sp,0x2b8
 /*  f0bea58:	c7a002a8 */ 	lwc1	$f0,0x2a8($sp)
 /*  f0bea5c:	c7aa02b8 */ 	lwc1	$f10,0x2b8($sp)
@@ -10690,10 +10689,10 @@ glabel var7f1ad6ac
 /*  f0bc018:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bc01c:	ad0000c8 */ 	sw	$zero,0xc8($t0)
 .NB0f0bc020:
-/*  f0bc020:	0c005c3e */ 	jal	func00016208
+/*  f0bc020:	0c005c3e */ 	jal	mtx00016208
 /*  f0bc024:	27a502f4 */ 	addiu	$a1,$sp,0x2f4
 /*  f0bc028:	27a402bc */ 	addiu	$a0,$sp,0x2bc
-/*  f0bc02c:	0c005c3e */ 	jal	func00016208
+/*  f0bc02c:	0c005c3e */ 	jal	mtx00016208
 /*  f0bc030:	27a502e8 */ 	addiu	$a1,$sp,0x2e8
 /*  f0bc034:	8e2e0040 */ 	lw	$t6,0x40($s1)
 /*  f0bc038:	31d80080 */ 	andi	$t8,$t6,0x80
@@ -11000,7 +10999,7 @@ glabel var7f1ad6ac
 /*  f0bc494:	0fc25399 */ 	jal	func0f096ed4
 /*  f0bc498:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f0bc49c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0bc4a0:	0c005a80 */ 	jal	func00015b10
+/*  f0bc4a0:	0c005a80 */ 	jal	mtx00015b10
 /*  f0bc4a4:	26850004 */ 	addiu	$a1,$s4,0x4
 /*  f0bc4a8:	8e8f0000 */ 	lw	$t7,0x0($s4)
 /*  f0bc4ac:	44808000 */ 	mtc1	$zero,$f16
@@ -11088,7 +11087,7 @@ glabel var7f1ad6ac
 /*  f0bc5d8:	46023482 */ 	mul.s	$f18,$f6,$f2
 /*  f0bc5dc:	460e9203 */ 	div.s	$f8,$f18,$f14
 /*  f0bc5e0:	e6840008 */ 	swc1	$f4,0x8($s4)
-/*  f0bc5e4:	0c005b11 */ 	jal	func00015d54
+/*  f0bc5e4:	0c005b11 */ 	jal	mtx00015d54
 /*  f0bc5e8:	e688000c */ 	swc1	$f8,0xc($s4)
 /*  f0bc5ec:	27b20130 */ 	addiu	$s2,$sp,0x130
 /*  f0bc5f0:	02402825 */ 	or	$a1,$s2,$zero
@@ -11104,7 +11103,7 @@ glabel var7f1ad6ac
 /*  f0bc618:	0fc25399 */ 	jal	func0f096ed4
 /*  f0bc61c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bc620:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0bc624:	0c005b24 */ 	jal	func00015da0
+/*  f0bc624:	0c005b24 */ 	jal	mtx00015da0
 /*  f0bc628:	27a502bc */ 	addiu	$a1,$sp,0x2bc
 /*  f0bc62c:	c7a002ac */ 	lwc1	$f0,0x2ac($sp)
 /*  f0bc630:	c7aa02bc */ 	lwc1	$f10,0x2bc($sp)
@@ -12570,8 +12569,8 @@ glabel var7f1ad6ac
 //						}
 //
 //						// e44c
-//						func00016208(sp696, &sp752);
-//						func00016208(sp696, &sp740);
+//						mtx00016208(sp696, &sp752);
+//						mtx00016208(sp696, &sp740);
 //
 //						if (rocket->base.hidden & OBJHFLAG_AIRBORNE) {
 //							// e470
@@ -12711,7 +12710,7 @@ glabel var7f1ad6ac
 //							// e8b0
 //							func0f097738(sp348, sp332, sp316);
 //							func0f096ed4(sp316, sp508);
-//							func00015b10(sp508, &projectile->unk04);
+//							mtx00015b10(sp508, &projectile->unk04);
 //
 //							projectile->unkb2 = 0xffff;
 //							projectile->flags |= PROJECTILEFLAG_00004000;
@@ -12759,11 +12758,11 @@ glabel var7f1ad6ac
 //							projectile->unk04.z = (projectile->unk04.z * newspeed) / prevspeed;
 //
 //							// ea10
-//							func00015d54(sp696, sp444);
+//							mtx00015d54(sp696, sp444);
 //							func0f097044(sp444, sp300);
 //							func0f097738(sp316, sp300, sp284);
 //							func0f096ed4(sp284, sp380);
-//							func00015da0(sp380, sp696);
+//							mtx00015da0(sp380, sp696);
 //
 //							rocket->base.realrot[0] = sp696[0] * sp680;
 //							rocket->base.realrot[1] = sp696[1] * sp680;
@@ -13569,7 +13568,7 @@ void currentPlayerSetGlobalDrawCameraOffset(void)
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	func00015b10(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
+	mtx00015b10(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
 GLOBAL_ASM(
@@ -13647,7 +13646,7 @@ glabel func0f0bfc7c
 /*  f0bfd94:	c6260004 */ 	lwc1	$f6,0x4($s1)
 /*  f0bfd98:	e7a60020 */ 	swc1	$f6,0x20($sp)
 /*  f0bfd9c:	c6240008 */ 	lwc1	$f4,0x8($s1)
-/*  f0bfda0:	0c005a1d */ 	jal	func00016874
+/*  f0bfda0:	0c005a1d */ 	jal	mtx00016874
 /*  f0bfda4:	e7a40024 */ 	swc1	$f4,0x24($sp)
 /*  f0bfda8:	c7a8007c */ 	lwc1	$f8,0x7c($sp)
 /*  f0bfdac:	c7b00080 */ 	lwc1	$f16,0x80($sp)
@@ -13685,7 +13684,7 @@ glabel func0f0bfc7c
 /*  f0bfe2c:	c6240004 */ 	lwc1	$f4,0x4($s1)
 /*  f0bfe30:	e7a40020 */ 	swc1	$f4,0x20($sp)
 /*  f0bfe34:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f0bfe38:	0c005a1d */ 	jal	func00016874
+/*  f0bfe38:	0c005a1d */ 	jal	mtx00016874
 /*  f0bfe3c:	e7a80024 */ 	swc1	$f8,0x24($sp)
 /*  f0bfe40:	8fac0110 */ 	lw	$t4,0x110($sp)
 /*  f0bfe44:	8e4b0284 */ 	lw	$t3,0x284($s2)
@@ -13704,7 +13703,7 @@ glabel func0f0bfc7c
 /*  f0bfe78:	c6240004 */ 	lwc1	$f4,0x4($s1)
 /*  f0bfe7c:	e7a40020 */ 	swc1	$f4,0x20($sp)
 /*  f0bfe80:	c6280008 */ 	lwc1	$f8,0x8($s1)
-/*  f0bfe84:	0c005ad6 */ 	jal	func00016b58
+/*  f0bfe84:	0c005ad6 */ 	jal	mtx00016b58
 /*  f0bfe88:	e7a80024 */ 	swc1	$f8,0x24($sp)
 /*  f0bfe8c:	0fc59e66 */ 	jal	gfxAllocateMatrix
 /*  f0bfe90:	00000000 */ 	nop
@@ -13714,7 +13713,7 @@ glabel func0f0bfc7c
 /*  f0bfea0:	00408025 */ 	or	$s0,$v0,$zero
 /*  f0bfea4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0bfea8:	27a5008c */ 	addiu	$a1,$sp,0x8c
-/*  f0bfeac:	0c005680 */ 	jal	func00015a00
+/*  f0bfeac:	0c005680 */ 	jal	mtx00015a00
 /*  f0bfeb0:	02003025 */ 	or	$a2,$s0,$zero
 /*  f0bfeb4:	3c01c6fa */ 	lui	$at,0xc6fa
 /*  f0bfeb8:	44816000 */ 	mtc1	$at,$f12
@@ -13756,7 +13755,7 @@ glabel func0f0bfc7c
 /*  f0bff38:	0fc2d3fe */ 	jal	currentPlayerSetUnk1758
 /*  f0bff3c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0bff40:	c7ac0070 */ 	lwc1	$f12,0x70($sp)
-/*  f0bff44:	0c0057c1 */ 	jal	func00015f04
+/*  f0bff44:	0c0057c1 */ 	jal	mtx00015f04
 /*  f0bff48:	27a5008c */ 	addiu	$a1,$sp,0x8c
 /*  f0bff4c:	8e4d0284 */ 	lw	$t5,0x284($s2)
 /*  f0bff50:	27a4008c */ 	addiu	$a0,$sp,0x8c
@@ -13764,7 +13763,7 @@ glabel func0f0bfc7c
 /*  f0bff58:	8da5005c */ 	lw	$a1,0x5c($t5)
 /*  f0bff5c:	8e430284 */ 	lw	$v1,0x284($s2)
 /*  f0bff60:	8c64005c */ 	lw	$a0,0x5c($v1)
-/*  f0bff64:	0c005a08 */ 	jal	func00016820
+/*  f0bff64:	0c005a08 */ 	jal	mtx00016820
 /*  f0bff68:	8c650060 */ 	lw	$a1,0x60($v1)
 /*  f0bff6c:	8e4e0284 */ 	lw	$t6,0x284($s2)
 /*  f0bff70:	0fc2d3e6 */ 	jal	currentPlayerSetUnk173c
@@ -13792,7 +13791,7 @@ glabel func0f0bfc7c
 /*  f0bffc8:	27bd0110 */ 	addiu	$sp,$sp,0x110
 );
 
-// Mismatch near first call to func00016874:
+// Mismatch near first call to mtx00016874:
 // - Goal seems to have less float registers available which causes it to
 // reload cam_look properties for the function call
 // - Because it has to reload, it then stores cam_look in a callee-save register
@@ -13827,7 +13826,7 @@ glabel func0f0bfc7c
 //	sp80.y = (cam_pos->y - g_Vars.currentplayer->globaldrawworldoffset.y) * scale + cam_look->y;
 //	sp80.z = (cam_pos->z - g_Vars.currentplayer->globaldrawworldoffset.z) * scale + cam_look->z;
 //
-//	func00016874(&sp8c,
+//	mtx00016874(&sp8c,
 //			sp74.x, sp74.y, sp74.z,
 //			cam_look->x, cam_look->y, cam_look->z,
 //			cam_up->x, cam_up->y, cam_up->z);
@@ -13837,19 +13836,19 @@ glabel func0f0bfc7c
 //			sp80.x, sp80.y, sp80.z,
 //			cam_up->x, cam_up->y, cam_up->z);
 //
-//	func00016874(g_Vars.currentplayer->matrix64,
+//	mtx00016874(g_Vars.currentplayer->matrix64,
 //			cam_pos->x, cam_pos->y, cam_pos->z,
 //			cam_look->x, cam_look->y, cam_look->z,
 //			cam_up->x, cam_up->y, cam_up->z);
 //
-//	func00016b58(g_Vars.currentplayer->matrix68,
+//	mtx00016b58(g_Vars.currentplayer->matrix68,
 //			cam_pos->x, cam_pos->y, cam_pos->z,
 //			cam_look->x, cam_look->y, cam_look->z,
 //			cam_up->x, cam_up->y, cam_up->z);
 //
 //	s1 = gfxAllocateMatrix();
 //	s0 = gfxAllocateMatrix();
-//	func00015a00(currentPlayerGetUnk1754(), &sp8c, s0);
+//	mtx00015a00(currentPlayerGetUnk1754(), &sp8c, s0);
 //
 //	for (i = 0; i < 4; i++) {
 //		for (j = 0; j < 4; j++) {
@@ -13864,9 +13863,9 @@ glabel func0f0bfc7c
 //	currentPlayerSetUnk006c(s0);
 //	guMtxF2L(s0, s1);
 //	currentPlayerSetUnk1758(s1);
-//	func00015f04(scale, &sp8c);
+//	mtx00015f04(scale, &sp8c);
 //	guMtxF2L(&sp8c, g_Vars.currentplayer->matrix5c);
-//	func00016820(g_Vars.currentplayer->matrix5c, g_Vars.currentplayer->matrix60);
+//	mtx00016820(g_Vars.currentplayer->matrix5c, g_Vars.currentplayer->matrix60);
 //	currentPlayerSetUnk173c(g_Vars.currentplayer->matrix5c);
 //	currentPlayerSetUnk1738(g_Vars.currentplayer->matrix60);
 //	currentPlayerSetMatrix1740(g_Vars.currentplayer->matrix64);
@@ -14891,7 +14890,7 @@ s32 playerTick(struct prop *prop)
 					spe8 = player->model00d4->matrices;
 				}
 
-				func00015be4(currentPlayerGetUnk174c(), spe8, &spa8);
+				mtx00015be4(currentPlayerGetUnk174c(), spe8, &spa8);
 
 				sp9c.x = spa8.m[3][0] + spa8.m[1][0] * 7;
 				sp9c.y = spa8.m[3][1] + spa8.m[1][1] * 7;
@@ -15690,7 +15689,7 @@ glabel func0f0c3320
 /*  f0c3364:	00000000 */ 	nop
 /*  f0c3368:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0c336c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f0c3370:	0c0056f9 */ 	jal	func00015be4
+/*  f0c3370:	0c0056f9 */ 	jal	mtx00015be4
 /*  f0c3374:	02403025 */ 	or	$a2,$s2,$zero
 /*  f0c3378:	8e620284 */ 	lw	$v0,0x284($s3)
 /*  f0c337c:	c7a40070 */ 	lwc1	$f4,0x70($sp)
@@ -15707,7 +15706,7 @@ glabel func0f0c3320
 /*  f0c33a8:	e7b20074 */ 	swc1	$f18,0x74($sp)
 /*  f0c33ac:	c4460040 */ 	lwc1	$f6,0x40($v0)
 /*  f0c33b0:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0c33b4:	0c005815 */ 	jal	func00016054
+/*  f0c33b4:	0c005815 */ 	jal	mtx00016054
 /*  f0c33b8:	e7a80078 */ 	swc1	$f8,0x78($sp)
 /*  f0c33bc:	26310001 */ 	addiu	$s1,$s1,0x1
 /*  f0c33c0:	1634ffe7 */ 	bne	$s1,$s4,.L0f0c3360
@@ -15734,12 +15733,12 @@ glabel func0f0c3320
 //	s32 i;
 //
 //	for (i = 0; i < count; i++) {
-//		func00015be4(currentPlayerGetUnk174c(), &matrices[i], &sp40);
+//		mtx00015be4(currentPlayerGetUnk174c(), &matrices[i], &sp40);
 //
 //		sp40.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 //		sp40.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
 //		sp40.m[3][2] -= g_Vars.currentplayer->globaldrawworldoffset.z;
 //
-//		func00016054(&sp40, &matrices[i]);
+//		mtx00016054(&sp40, &matrices[i]);
 //	}
 //}

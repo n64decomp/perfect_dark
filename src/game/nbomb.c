@@ -19,8 +19,7 @@
 #include "lib/lib_09a80.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -607,18 +606,18 @@ glabel var7f1a7ee8
 /*  f00742c:	e7a000f8 */ 	swc1	$f0,0xf8($sp)
 /*  f007430:	e7a000fc */ 	swc1	$f0,0xfc($sp)
 /*  f007434:	02002025 */ 	or	$a0,$s0,$zero
-/*  f007438:	0c00566c */ 	jal	func000159b0
+/*  f007438:	0c00566c */ 	jal	mtx000159b0
 /*  f00743c:	e7a40100 */ 	swc1	$f4,0x100($sp)
 /*  f007440:	8fa40154 */ 	lw	$a0,0x154($sp)
-/*  f007444:	0c0059b7 */ 	jal	func000166dc
+/*  f007444:	0c0059b7 */ 	jal	mtx000166dc
 /*  f007448:	02002825 */ 	or	$a1,$s0,$zero
 /*  f00744c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f007450:	00000000 */ 	nop
 /*  f007454:	00402025 */ 	or	$a0,$v0,$zero
-/*  f007458:	0c0056f8 */ 	jal	func00015be0
+/*  f007458:	0c0056f8 */ 	jal	mtx00015be0
 /*  f00745c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f007460:	02002025 */ 	or	$a0,$s0,$zero
-/*  f007464:	0c005815 */ 	jal	func00016054
+/*  f007464:	0c005815 */ 	jal	mtx00016054
 /*  f007468:	02202825 */ 	or	$a1,$s1,$zero
 /*  f00746c:	8fb00150 */ 	lw	$s0,0x150($sp)
 /*  f007470:	3c0f0102 */ 	lui	$t7,0x102
@@ -2869,19 +2868,19 @@ Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	sp3c.y = 0;
 	sp3c.z = -100;
 
-	func000159b0(&sp48);
-	func000166dc(&nbomb->pos, &sp48);
+	mtx000159b0(&sp48);
+	mtx000166dc(&nbomb->pos, &sp48);
 
 	sp3c.x = 0;
 	sp3c.y = nbomb->unk14 / divider * M_TAU;
 	sp3c.z = 0;
 
-	func0001648c(&sp3c, &sp88);
-	func00015f04(nbomb->radius / 2000.0f, &sp88);
-	func00015a00(&sp48, &sp88, &spc8);
+	mtx0001648c(&sp3c, &sp88);
+	mtx00015f04(nbomb->radius / 2000.0f, &sp88);
+	mtx00015a00(&sp48, &sp88, &spc8);
 
-	func00015be0(currentPlayerGetMatrix1740(), &spc8);
-	func00016054(&spc8, mtx);
+	mtx00015be0(currentPlayerGetMatrix1740(), &spc8);
+	mtx00016054(&spc8, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 

@@ -9,8 +9,7 @@
 #include "game/game_0b4950.h"
 #include "game/gfxmemory.h"
 #include "bss.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/rng.h"
 #include "types.h"
 
@@ -259,13 +258,13 @@ Gfx *shardsRenderWood(Gfx *gdl)
 					/**
 					 * The following function call is really just this:
 					 *
-					 * func000166a4(&g_Shards[i].pos, &g_Shards[i].rot, &shardmtx);
+					 * mtx000166a4(&g_Shards[i].pos, &g_Shards[i].rot, &shardmtx);
 					 *
 					 * ... but that causes a mismatch, so I'm using a hacky but
 					 * matching alternative. This hack is @dangerous because it
 					 * assumes the offsets of pos and rot in the shard struct.
 					 */
-					func000166a4(
+					mtx000166a4(
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x08),
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x14),
 							&shardmtx);
@@ -277,7 +276,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 					if (shardmtx.m[3][0] < 10000 && shardmtx.m[3][0] > -10000
 							&& shardmtx.m[3][1] < 10000 && shardmtx.m[3][1] > -10000
 							&& shardmtx.m[3][2] < 10000 && shardmtx.m[3][2] > -10000) {
-						func00016054(&shardmtx, mtx);
+						mtx00016054(&shardmtx, mtx);
 
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -489,7 +488,7 @@ glabel shardsRenderWood
 /*  f14c198:	27a600e0 */ 	addiu	$a2,$sp,0xe0
 /*  f14c19c:	01f41021 */ 	addu	$v0,$t7,$s4
 /*  f14c1a0:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f14c1a4:	0c005d8d */ 	jal	func000166a4
+/*  f14c1a4:	0c005d8d */ 	jal	mtx000166a4
 /*  f14c1a8:	24450014 */ 	addiu	$a1,$v0,0x14
 /*  f14c1ac:	8ee30284 */ 	lw	$v1,0x284($s7)
 /*  f14c1b0:	c7a40110 */ 	lwc1	$f4,0x110($sp)
@@ -505,7 +504,7 @@ glabel shardsRenderWood
 /*  f14c1d8:	e7b20114 */ 	swc1	$f18,0x114($sp)
 /*  f14c1dc:	c4660040 */ 	lwc1	$f6,0x40($v1)
 /*  f14c1e0:	46062281 */ 	sub.s	$f10,$f4,$f6
-/*  f14c1e4:	0c005bd1 */ 	jal	func00016054
+/*  f14c1e4:	0c005bd1 */ 	jal	mtx00016054
 /*  f14c1e8:	e7aa0118 */ 	swc1	$f10,0x118($sp)
 /*  f14c1ec:	3c180102 */ 	lui	$t8,0x102
 /*  f14c1f0:	37180040 */ 	ori	$t8,$t8,0x40
@@ -859,7 +858,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 					/**
 					 * @dangerous: See comment for similar code in shardsRenderWood.
 					 */
-					func000166a4(
+					mtx000166a4(
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x08),
 							(struct coord *)((u8 *)g_Shards + i * sizeof(struct shard) + 0x14),
 							&shardmtx);
@@ -871,7 +870,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 					if (shardmtx.m[3][0] < 10000 && shardmtx.m[3][0] > -10000
 							&& shardmtx.m[3][1] < 10000 && shardmtx.m[3][1] > -10000
 							&& shardmtx.m[3][2] < 10000 && shardmtx.m[3][2] > -10000) {
-						func00016054(&shardmtx, mtx);
+						mtx00016054(&shardmtx, mtx);
 
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -1127,7 +1126,7 @@ glabel shardsRenderGlass
 /*  f14c918:	03c03025 */ 	or	$a2,$s8,$zero
 /*  f14c91c:	03331021 */ 	addu	$v0,$t9,$s3
 /*  f14c920:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f14c924:	0c005d8d */ 	jal	func000166a4
+/*  f14c924:	0c005d8d */ 	jal	mtx000166a4
 /*  f14c928:	24450014 */ 	addiu	$a1,$v0,0x14
 /*  f14c92c:	8ec30284 */ 	lw	$v1,0x284($s6)
 /*  f14c930:	c7a40120 */ 	lwc1	$f4,0x120($sp)
@@ -1143,7 +1142,7 @@ glabel shardsRenderGlass
 /*  f14c958:	e7b20124 */ 	swc1	$f18,0x124($sp)
 /*  f14c95c:	c4660040 */ 	lwc1	$f6,0x40($v1)
 /*  f14c960:	46062281 */ 	sub.s	$f10,$f4,$f6
-/*  f14c964:	0c005bd1 */ 	jal	func00016054
+/*  f14c964:	0c005bd1 */ 	jal	mtx00016054
 /*  f14c968:	e7aa0128 */ 	swc1	$f10,0x128($sp)
 /*  f14c96c:	8fb00138 */ 	lw	$s0,0x138($sp)
 /*  f14c970:	3c0a0102 */ 	lui	$t2,0x102

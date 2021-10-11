@@ -45,8 +45,7 @@
 #include "lib/model.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_184d0.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
@@ -10917,10 +10916,10 @@ glabel var7f1a8fc8
 /*  f03f340:	10400037 */ 	beqz	$v0,.L0f03f420
 /*  f03f344:	8fa40108 */ 	lw	$a0,0x108($sp)
 /*  f03f348:	27a500c8 */ 	addiu	$a1,$sp,0xc8
-/*  f03f34c:	0c0059e6 */ 	jal	func00016798
+/*  f03f34c:	0c0059e6 */ 	jal	mtx00016798
 /*  f03f350:	afa200b4 */ 	sw	$v0,0xb4($sp)
 /*  f03f354:	8fa400b4 */ 	lw	$a0,0xb4($sp)
-/*  f03f358:	0c0056f8 */ 	jal	func00015be0
+/*  f03f358:	0c0056f8 */ 	jal	mtx00015be0
 /*  f03f35c:	27a500c8 */ 	addiu	$a1,$sp,0xc8
 /*  f03f360:	8fa200c4 */ 	lw	$v0,0xc4($sp)
 /*  f03f364:	27a400c8 */ 	addiu	$a0,$sp,0xc8
@@ -10930,7 +10929,7 @@ glabel var7f1a8fc8
 /*  f03f374:	c4520004 */ 	lwc1	$f18,0x4($v0)
 /*  f03f378:	e7b200bc */ 	swc1	$f18,0xbc($sp)
 /*  f03f37c:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f03f380:	0c0056d9 */ 	jal	func00015b64
+/*  f03f380:	0c0056d9 */ 	jal	mtx00015b64
 /*  f03f384:	e7a800c0 */ 	swc1	$f8,0xc0($sp)
 /*  f03f388:	c7a600b8 */ 	lwc1	$f6,0xb8($sp)
 /*  f03f38c:	c7a400bc */ 	lwc1	$f4,0xbc($sp)
@@ -10958,10 +10957,10 @@ glabel var7f1a8fc8
 /*  f03f3e0:	1040000f */ 	beqz	$v0,.L0f03f420
 /*  f03f3e4:	8fa400b0 */ 	lw	$a0,0xb0($sp)
 /*  f03f3e8:	27a50070 */ 	addiu	$a1,$sp,0x70
-/*  f03f3ec:	0c0059e6 */ 	jal	func00016798
+/*  f03f3ec:	0c0059e6 */ 	jal	mtx00016798
 /*  f03f3f0:	afa2006c */ 	sw	$v0,0x6c($sp)
 /*  f03f3f4:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f03f3f8:	0c0056f8 */ 	jal	func00015be0
+/*  f03f3f8:	0c0056f8 */ 	jal	mtx00015be0
 /*  f03f3fc:	27a50070 */ 	addiu	$a1,$sp,0x70
 /*  f03f400:	c7b200a0 */ 	lwc1	$f18,0xa0($sp)
 /*  f03f404:	c7a800a4 */ 	lwc1	$f8,0xa4($sp)
@@ -11516,13 +11515,13 @@ bool func0f03fde4(struct chrdata *chr, s32 handnum, struct coord *arg2)
 				arg2->y = rodata->pos.y;
 				arg2->z = rodata->pos.z;
 
-				func00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
-				func00015b64(&sp6c, arg2);
+				mtx00015be4(currentPlayerGetUnk174c(), spac, &sp6c);
+				mtx00015b64(&sp6c, arg2);
 				result = true;
 			} else if ((part1 = modelGetPart(model->filedata, MODELPART_0001))) {
 				sp64 = func0001a5cc(model, part1, 0);
 
-				func00015be4(currentPlayerGetUnk174c(), sp64, &sp24);
+				mtx00015be4(currentPlayerGetUnk174c(), sp64, &sp24);
 
 				arg2->x = sp24.m[3][0];
 				arg2->y = sp24.m[3][1];
@@ -11581,8 +11580,8 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 			lVar4 = func0f0b5050(chr->model->matrices);
 
 			if (lVar4) {
-				func00015b68(lVar4, pos, &sp124);
-				func00015b14(lVar4, vector, &sp118);
+				mtx00015b68(lVar4, pos, &sp124);
+				mtx00015b14(lVar4, vector, &sp118);
 
 				isdifferentmtx = (currentPlayerGetMatrix1740() != lVar4);
 				node = chr->model->filedata->rootnode;
@@ -11592,7 +11591,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 						mtxptr1 = func0001a5cc(chr->model, node, 0);
 
 						if (isdifferentmtx) {
-							func00016798(mtxptr1, &spc8);
+							mtx00016798(mtxptr1, &spc8);
 							mtxptr1 = &spc8;
 						}
 
@@ -11640,7 +11639,7 @@ void chrCalculateShieldHit(struct chrdata *chr, struct coord *pos, struct coord 
 					mtxptr2 = func0001a5cc(chr->model, bestnode, 0);
 
 					if (isdifferentmtx) {
-						func00016798(mtxptr2, &sp48);
+						mtx00016798(mtxptr2, &sp48);
 						mtxptr2 = &sp48;
 					}
 
@@ -12690,16 +12689,16 @@ glabel var7f1a9184
 /*  f041154:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f041158:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 .PF0f04115c:
-/*  f04115c:	0c0055d0 */ 	jal	func000159b0
+/*  f04115c:	0c0055d0 */ 	jal	mtx000159b0
 /*  f041160:	27a40178 */ 	addiu	$a0,$sp,0x178
 /*  f041164:	c7ac0200 */ 	lwc1	$f12,0x200($sp)
-/*  f041168:	0c00581e */ 	jal	func000162e8
+/*  f041168:	0c00581e */ 	jal	mtx000162e8
 /*  f04116c:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f041170:	c7ac0204 */ 	lwc1	$f12,0x204($sp)
-/*  f041174:	0c005841 */ 	jal	func00016374
+/*  f041174:	0c005841 */ 	jal	mtx00016374
 /*  f041178:	27a500dc */ 	addiu	$a1,$sp,0xdc
 /*  f04117c:	27a400dc */ 	addiu	$a0,$sp,0xdc
-/*  f041180:	0c00565c */ 	jal	func00015be0
+/*  f041180:	0c00565c */ 	jal	mtx00015be0
 /*  f041184:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f041188:	c7ac0168 */ 	lwc1	$f12,0x168($sp)
 /*  f04118c:	c7a401e0 */ 	lwc1	$f4,0x1e0($sp)
@@ -14288,16 +14287,16 @@ glabel var7f1a9184
 /*  f040fd0:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f040fd4:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 .L0f040fd8:
-/*  f040fd8:	0c00566c */ 	jal	func000159b0
+/*  f040fd8:	0c00566c */ 	jal	mtx000159b0
 /*  f040fdc:	27a40178 */ 	addiu	$a0,$sp,0x178
 /*  f040fe0:	c7ac0200 */ 	lwc1	$f12,0x200($sp)
-/*  f040fe4:	0c0058ba */ 	jal	func000162e8
+/*  f040fe4:	0c0058ba */ 	jal	mtx000162e8
 /*  f040fe8:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f040fec:	c7ac0204 */ 	lwc1	$f12,0x204($sp)
-/*  f040ff0:	0c0058dd */ 	jal	func00016374
+/*  f040ff0:	0c0058dd */ 	jal	mtx00016374
 /*  f040ff4:	27a500dc */ 	addiu	$a1,$sp,0xdc
 /*  f040ff8:	27a400dc */ 	addiu	$a0,$sp,0xdc
-/*  f040ffc:	0c0056f8 */ 	jal	func00015be0
+/*  f040ffc:	0c0056f8 */ 	jal	mtx00015be0
 /*  f041000:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f041004:	c7ac0168 */ 	lwc1	$f12,0x168($sp)
 /*  f041008:	c7a401e0 */ 	lwc1	$f4,0x1e0($sp)
@@ -15878,16 +15877,16 @@ glabel var7f1a9184
 /*  f0407b0:	46085481 */ 	sub.s	$f18,$f10,$f8
 /*  f0407b4:	e7b201e8 */ 	swc1	$f18,0x1e8($sp)
 .NB0f0407b8:
-/*  f0407b8:	0c005a28 */ 	jal	func000159b0
+/*  f0407b8:	0c005a28 */ 	jal	mtx000159b0
 /*  f0407bc:	27a40178 */ 	addiu	$a0,$sp,0x178
 /*  f0407c0:	c7ac0200 */ 	lwc1	$f12,0x200($sp)
-/*  f0407c4:	0c005c9e */ 	jal	func000162e8
+/*  f0407c4:	0c005c9e */ 	jal	mtx000162e8
 /*  f0407c8:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f0407cc:	c7ac0204 */ 	lwc1	$f12,0x204($sp)
-/*  f0407d0:	0c005cc1 */ 	jal	func00016374
+/*  f0407d0:	0c005cc1 */ 	jal	mtx00016374
 /*  f0407d4:	27a500dc */ 	addiu	$a1,$sp,0xdc
 /*  f0407d8:	27a400dc */ 	addiu	$a0,$sp,0xdc
-/*  f0407dc:	0c005ab4 */ 	jal	func00015be0
+/*  f0407dc:	0c005ab4 */ 	jal	mtx00015be0
 /*  f0407e0:	27a5011c */ 	addiu	$a1,$sp,0x11c
 /*  f0407e4:	c7ac0168 */ 	lwc1	$f12,0x168($sp)
 /*  f0407e8:	c7a401e0 */ 	lwc1	$f4,0x1e0($sp)
@@ -17418,11 +17417,11 @@ glabel var7f1a91dc
 /*  f042cc4:	e6060004 */ 	swc1	$f6,0x4($s0)
 /*  f042cc8:	c4480008 */ 	lwc1	$f8,0x8($v0)
 /*  f042ccc:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*  f042cd0:	0c0058dd */ 	jal	func00016374
+/*  f042cd0:	0c0058dd */ 	jal	mtx00016374
 /*  f042cd4:	c7ac00fc */ 	lwc1	$f12,0xfc($sp)
 /*  f042cd8:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f042cdc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f042ce0:	0c0056c5 */ 	jal	func00015b14
+/*  f042ce0:	0c0056c5 */ 	jal	mtx00015b14
 /*  f042ce4:	27a600e4 */ 	addiu	$a2,$sp,0xe4
 /*  f042ce8:	8e4c0020 */ 	lw	$t4,0x20($s2)
 /*  f042cec:	c7aa00e4 */ 	lwc1	$f10,0xe4($sp)
@@ -17695,8 +17694,8 @@ glabel var7f1a91dc
 //			act->pos[i].y = rodata->position.pos.y - 300;
 //			act->pos[i].z = rodata->position.pos.z;
 //
-//			func00016374(invtheta, &spa4);
-//			func00015b14(&spa4, &act->pos[i], &spe4);
+//			mtx00016374(invtheta, &spa4);
+//			mtx00015b14(&spa4, &act->pos[i], &spe4);
 //
 //			spe4.x *= chr->model->scale;
 //			spe4.y *= chr->model->scale;
@@ -24552,7 +24551,7 @@ bool chrCanSeeTargetWithExtraCheck(struct chrdata *chr)
 
 				bgun0f0a0c08(&sp68, &sp56);
 				modelGetRootPosition(model, &sp44);
-				func00015b64(currentPlayerGetMatrix1740(), &sp44);
+				mtx00015b64(currentPlayerGetMatrix1740(), &sp44);
 
 				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
 					return true;
@@ -27301,7 +27300,7 @@ glabel func0f04c1e8nb
 /*  f04c2c8:	8e19001c */ 	lw	$t9,0x1c($s0)
 /*  f04c2cc:	c7240010 */ 	lwc1	$f4,0x10($t9)
 /*  f04c2d0:	e7a40214 */ 	swc1	$f4,0x214($sp)
-/*  f04c2d4:	0c005a95 */ 	jal	func00015b64
+/*  f04c2d4:	0c005a95 */ 	jal	mtx00015b64
 /*  f04c2d8:	8d241740 */ 	lw	$a0,0x1740($t1)
 /*  f04c2dc:	3c01c2c8 */ 	lui	$at,0xc2c8
 /*  f04c2e0:	c7a00214 */ 	lwc1	$f0,0x214($sp)

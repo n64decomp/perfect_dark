@@ -7,8 +7,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -20,7 +19,7 @@ void func0f096360(Mtxf *mtx)
 	coord.y = random() * (1.0f / U32_MAX) * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
 	coord.z = random() * (1.0f / U32_MAX) * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
 
-	func0001648c(&coord, mtx);
+	mtx0001648c(&coord, mtx);
 }
 
 void func0f0964b4(f32 *arg0, Mtxf *mtx)
@@ -52,6 +51,6 @@ void func0f096698(Mtxf *arg0, Mtxf *arg1, s32 count)
 	s32 i;
 
 	for (i = 0; i < count; i++) {
-		func00015be0(arg1, arg0);
+		mtx00015be0(arg1, arg0);
 	}
 }

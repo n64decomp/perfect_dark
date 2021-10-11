@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 
 GLOBAL_ASM(
 glabel func00004f60nb

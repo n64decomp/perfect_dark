@@ -100,7 +100,7 @@
 #include "lib/snd.h"
 #include "lib/lib_11420.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
@@ -1961,7 +1961,7 @@ glabel var7f1b8e7cpf
 /*  f16a5a8:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f16a5ac:	3c013f80 */ 	lui	$at,0x3f80
 /*  f16a5b0:	44816000 */ 	mtc1	$at,$f12
-/*  f16a5b4:	0c005936 */ 	jal	func00016748
+/*  f16a5b4:	0c005936 */ 	jal	mtx00016748
 /*  f16a5b8:	00000000 */ 	nop
 /*  f16a5bc:	0c002bc5 */ 	jal	vi0000b1d0
 /*  f16a5c0:	02602025 */ 	move	$a0,$s3
@@ -2058,7 +2058,7 @@ glabel var7f1b8e7cpf
 /*  f16a728:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f16a72c:	3c013f80 */ 	lui	$at,0x3f80
 /*  f16a730:	44816000 */ 	mtc1	$at,$f12
-/*  f16a734:	0c005936 */ 	jal	func00016748
+/*  f16a734:	0c005936 */ 	jal	mtx00016748
 /*  f16a738:	00000000 */ 	nop
 /*  f16a73c:	0c002bc5 */ 	jal	vi0000b1d0
 /*  f16a740:	02602025 */ 	move	$a0,$s3
@@ -2131,7 +2131,7 @@ glabel var7f1b8e7cpf
 /*  f16a848:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f16a84c:	3c013f80 */ 	lui	$at,0x3f80
 /*  f16a850:	44816000 */ 	mtc1	$at,$f12
-/*  f16a854:	0c005936 */ 	jal	func00016748
+/*  f16a854:	0c005936 */ 	jal	mtx00016748
 /*  f16a858:	00000000 */ 	nop
 /*  f16a85c:	0c002bbb */ 	jal	vi0000b1a8
 /*  f16a860:	02602025 */ 	move	$a0,$s3
@@ -2341,7 +2341,7 @@ glabel var7f1b8e7cpf
 /*  f16ab4c:	0c002ec7 */ 	jal	viSetFovAspectAndSize
 /*  f16ab50:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f16ab54:	8e4a0288 */ 	lw	$t2,0x288($s2)
-/*  f16ab58:	0c005936 */ 	jal	func00016748
+/*  f16ab58:	0c005936 */ 	jal	mtx00016748
 /*  f16ab5c:	c54c0074 */ 	lwc1	$f12,0x74($t2)
 /*  f16ab60:	0fc599de */ 	jal	func0f1657f8
 /*  f16ab64:	00000000 */ 	nop
@@ -2444,7 +2444,7 @@ glabel var7f1b8e7cpf
 /*  f16acd0:	00402025 */ 	move	$a0,$v0
 /*  f16acd4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f16acd8:	44816000 */ 	mtc1	$at,$f12
-/*  f16acdc:	0c005936 */ 	jal	func00016748
+/*  f16acdc:	0c005936 */ 	jal	mtx00016748
 /*  f16ace0:	00409825 */ 	move	$s3,$v0
 /*  f16ace4:	8e4a0284 */ 	lw	$t2,0x284($s2)
 /*  f16ace8:	8d581c50 */ 	lw	$t8,0x1c50($t2)
@@ -3477,7 +3477,7 @@ glabel var7f1b8e7cpf
 /*  f16bbb0:	00402025 */ 	move	$a0,$v0
 /*  f16bbb4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f16bbb8:	44816000 */ 	mtc1	$at,$f12
-/*  f16bbbc:	0c005936 */ 	jal	func00016748
+/*  f16bbbc:	0c005936 */ 	jal	mtx00016748
 /*  f16bbc0:	00409825 */ 	move	$s3,$v0
 /*  f16bbc4:	8e4a0284 */ 	lw	$t2,0x284($s2)
 /*  f16bbc8:	8d581c50 */ 	lw	$t8,0x1c50($t2)
@@ -3489,7 +3489,7 @@ glabel var7f1b8e7cpf
 /*  f16bbe0:	00409825 */ 	move	$s3,$v0
 /*  f16bbe4:	8e4b0288 */ 	lw	$t3,0x288($s2)
 .PF0f16bbe8:
-/*  f16bbe8:	0c005936 */ 	jal	func00016748
+/*  f16bbe8:	0c005936 */ 	jal	mtx00016748
 /*  f16bbec:	c56c0074 */ 	lwc1	$f12,0x74($t3)
 /*  f16bbf0:	8e4c0314 */ 	lw	$t4,0x314($s2)
 /*  f16bbf4:	51800005 */ 	beqzl	$t4,.PF0f16bc0c
@@ -3732,7 +3732,7 @@ Gfx *lvRender(Gfx *gdl)
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-		func00016748(1);
+		mtx00016748(1);
 
 		gdl = vi0000b1d0(gdl);
 		gdl = viRenderViewportEdges(gdl);
@@ -3747,7 +3747,7 @@ Gfx *lvRender(Gfx *gdl)
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-		func00016748(1);
+		mtx00016748(1);
 
 		gdl = vi0000b1d0(gdl);
 		gdl = currentPlayerScissorToViewport(gdl);
@@ -3765,7 +3765,7 @@ Gfx *lvRender(Gfx *gdl)
 		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-		func00016748(1);
+		mtx00016748(1);
 
 		gdl = vi0000b1a8(gdl);
 		gdl = vi0000b1d0(gdl);
@@ -3841,7 +3841,7 @@ Gfx *lvRender(Gfx *gdl)
 			viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 			viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
-			func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
+			mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 			func0f1657f8();
 			func0f176298();
 			gdl = vi0000b280(gdl);
@@ -3872,7 +3872,7 @@ Gfx *lvRender(Gfx *gdl)
 			} else if (var8009dfc0) {
 				gdl = viRenderViewportEdges(gdl);
 				gdl = currentPlayerScissorToViewport(gdl);
-				func00016748(1);
+				mtx00016748(1);
 
 				if (g_Vars.currentplayer->unk1c50_01) {
 					gdl = func0f0fbc30(gdl);
@@ -4289,13 +4289,13 @@ Gfx *lvRender(Gfx *gdl)
 
 				gdl = func0f1274d8(gdl);
 				gdl = amRender(gdl);
-				func00016748(1);
+				mtx00016748(1);
 
 				if (g_Vars.currentplayer->unk1c50_01) {
 					gdl = func0f0fbc30(gdl);
 				}
 
-				func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
+				mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 
 				if (g_Vars.mplayerisrunning) {
 					gdl = mpRenderModalText(gdl);
@@ -4564,7 +4564,7 @@ glabel var7f1b1fd4nb
 /*  f1642f8:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f1642fc:	3c013f80 */ 	lui	$at,0x3f80
 /*  f164300:	44816000 */ 	mtc1	$at,$f12
-/*  f164304:	0c005db6 */ 	jal	func00016748
+/*  f164304:	0c005db6 */ 	jal	mtx00016748
 /*  f164308:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16430c:	0c002cd4 */ 	jal	vi0000b1d0
 /*  f164310:	02602025 */ 	or	$a0,$s3,$zero
@@ -4632,7 +4632,7 @@ glabel var7f1b1fd4nb
 /*  f164404:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f164408:	3c013f80 */ 	lui	$at,0x3f80
 /*  f16440c:	44816000 */ 	mtc1	$at,$f12
-/*  f164410:	0c005db6 */ 	jal	func00016748
+/*  f164410:	0c005db6 */ 	jal	mtx00016748
 /*  f164414:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f164418:	0c002cd4 */ 	jal	vi0000b1d0
 /*  f16441c:	02602025 */ 	or	$a0,$s3,$zero
@@ -4705,7 +4705,7 @@ glabel var7f1b1fd4nb
 /*  f164524:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f164528:	3c013f80 */ 	lui	$at,0x3f80
 /*  f16452c:	44816000 */ 	mtc1	$at,$f12
-/*  f164530:	0c005db6 */ 	jal	func00016748
+/*  f164530:	0c005db6 */ 	jal	mtx00016748
 /*  f164534:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f164538:	0c002cca */ 	jal	vi0000b1a8
 /*  f16453c:	02602025 */ 	or	$a0,$s3,$zero
@@ -4926,7 +4926,7 @@ glabel var7f1b1fd4nb
 /*  f164850:	0c002feb */ 	jal	viSetFovAspectAndSize
 /*  f164854:	86070632 */ 	lh	$a3,0x632($s0)
 /*  f164858:	8e580288 */ 	lw	$t8,0x288($s2)
-/*  f16485c:	0c005db6 */ 	jal	func00016748
+/*  f16485c:	0c005db6 */ 	jal	mtx00016748
 /*  f164860:	c70c0074 */ 	lwc1	$f12,0x74($t8)
 /*  f164864:	0fc57ffe */ 	jal	func0f1657f8
 /*  f164868:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5030,7 +5030,7 @@ glabel var7f1b1fd4nb
 /*  f1649d8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1649dc:	3c013f80 */ 	lui	$at,0x3f80
 /*  f1649e0:	44816000 */ 	mtc1	$at,$f12
-/*  f1649e4:	0c005db6 */ 	jal	func00016748
+/*  f1649e4:	0c005db6 */ 	jal	mtx00016748
 /*  f1649e8:	00409825 */ 	or	$s3,$v0,$zero
 /*  f1649ec:	8e4a0284 */ 	lw	$t2,0x284($s2)
 /*  f1649f0:	8d581c50 */ 	lw	$t8,0x1c50($t2)
@@ -6264,7 +6264,7 @@ glabel var7f1b1fd4nb
 /*  f165bac:	00402025 */ 	or	$a0,$v0,$zero
 /*  f165bb0:	3c013f80 */ 	lui	$at,0x3f80
 /*  f165bb4:	44816000 */ 	mtc1	$at,$f12
-/*  f165bb8:	0c005db6 */ 	jal	func00016748
+/*  f165bb8:	0c005db6 */ 	jal	mtx00016748
 /*  f165bbc:	00409825 */ 	or	$s3,$v0,$zero
 /*  f165bc0:	8e4d0284 */ 	lw	$t5,0x284($s2)
 /*  f165bc4:	8dac1c50 */ 	lw	$t4,0x1c50($t5)
@@ -6276,7 +6276,7 @@ glabel var7f1b1fd4nb
 /*  f165bdc:	00409825 */ 	or	$s3,$v0,$zero
 /*  f165be0:	8e580288 */ 	lw	$t8,0x288($s2)
 .NB0f165be4:
-/*  f165be4:	0c005db6 */ 	jal	func00016748
+/*  f165be4:	0c005db6 */ 	jal	mtx00016748
 /*  f165be8:	c70c0074 */ 	lwc1	$f12,0x74($t8)
 /*  f165bec:	8e4a0314 */ 	lw	$t2,0x314($s2)
 /*  f165bf0:	51400005 */ 	beqzl	$t2,.NB0f165c08

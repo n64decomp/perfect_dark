@@ -19,8 +19,7 @@
 #include "lib/main.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -5211,10 +5210,10 @@ glabel var7f1b5948
 /*  f13be4c:	ade20004 */ 	sw	$v0,0x4($t7)
 /*  f13be50:	00408025 */ 	move	$s0,$v0
 .PF0f13be54:
-/*  f13be54:	0c0055d0 */ 	jal	func000159b0
+/*  f13be54:	0c0055d0 */ 	jal	mtx000159b0
 /*  f13be58:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*  f13be5c:	27a40068 */ 	addiu	$a0,$sp,0x68
-/*  f13be60:	0c005779 */ 	jal	func00016054
+/*  f13be60:	0c005779 */ 	jal	mtx00016054
 /*  f13be64:	8fa50064 */ 	lw	$a1,0x64($sp)
 /*  f13be68:	0fc2d54e */ 	jal	currentPlayerSetMatrix1740
 /*  f13be6c:	27a40068 */ 	addiu	$a0,$sp,0x68
@@ -5520,10 +5519,10 @@ glabel var7f1b5948
 /*  f13b2e8:	ade20004 */ 	sw	$v0,0x4($t7)
 /*  f13b2ec:	00408025 */ 	or	$s0,$v0,$zero
 .L0f13b2f0:
-/*  f13b2f0:	0c00566c */ 	jal	func000159b0
+/*  f13b2f0:	0c00566c */ 	jal	mtx000159b0
 /*  f13b2f4:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*  f13b2f8:	27a40068 */ 	addiu	$a0,$sp,0x68
-/*  f13b2fc:	0c005815 */ 	jal	func00016054
+/*  f13b2fc:	0c005815 */ 	jal	mtx00016054
 /*  f13b300:	8fa50064 */ 	lw	$a1,0x64($sp)
 /*  f13b304:	0fc2d406 */ 	jal	currentPlayerSetMatrix1740
 /*  f13b308:	27a40068 */ 	addiu	$a0,$sp,0x68
@@ -5829,10 +5828,10 @@ glabel var7f1b5948
 /*     7f135de8:	ade20004 */ 	sw	$v0,0x4($t7)
 /*     7f135dec:	00408025 */ 	or	$s0,$v0,$zero
 .NB7f135df0:
-/*     7f135df0:	0c005a28 */ 	jal	func000159b0
+/*     7f135df0:	0c005a28 */ 	jal	mtx000159b0
 /*     7f135df4:	27a40068 */ 	addiu	$a0,$sp,0x68
 /*     7f135df8:	27a40068 */ 	addiu	$a0,$sp,0x68
-/*     7f135dfc:	0c005bd1 */ 	jal	func00016054
+/*     7f135dfc:	0c005bd1 */ 	jal	mtx00016054
 /*     7f135e00:	8fa50064 */ 	lw	$a1,0x64($sp)
 /*     7f135e04:	0fc2cb5e */ 	jal	currentPlayerSetMatrix1740
 /*     7f135e08:	27a40068 */ 	addiu	$a0,$sp,0x68
@@ -6012,8 +6011,8 @@ glabel var7f1b5948
 //			gdl = creditsClearFramebuffer(gdl, 0x000000d8);
 //		}
 //
-//		func000159b0(&sp68);
-//		func00016054(&sp68, matrix);
+//		mtx000159b0(&sp68);
+//		mtx00016054(&sp68, matrix);
 //		currentPlayerSetMatrix1740(&sp68);
 //
 //		gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

@@ -18,7 +18,7 @@
 #include "lib/dma.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -109,7 +109,7 @@ void tagsAllocatePtrs(void)
 		u32 a = xorBaffbeff(0xb0000a5c ^ 0xbaffbeff);
 		u32 b = xorBabeffff(0x1740fff9 ^ 0xbabeffff);
 
-		if (func00015fd0() != b) {
+		if (mtxGetObfuscatedRomBase() != b) {
 			// Read 4KB from a random ROM location within 128KB from the start of
 			// the ROM, and write it to a random memory location between 0x80010000
 			// and 0x80030ff8. This will corrupt instructions in the lib segment.

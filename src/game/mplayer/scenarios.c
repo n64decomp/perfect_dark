@@ -29,8 +29,7 @@
 #include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
 #include "data.h"
@@ -12355,13 +12354,13 @@ glabel func0f187288
 /*  f187378:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f18737c:	e7a60020 */ 	swc1	$f6,0x20($sp)
 /*  f187380:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f187384:	0c005b56 */ 	jal	func00016d58
+/*  f187384:	0c005b56 */ 	jal	mtx00016d58
 /*  f187388:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f18738c:	8e420018 */ 	lw	$v0,0x18($s2)
 /*  f187390:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f187394:	50400004 */ 	beqzl	$v0,.L0f1873a8
 /*  f187398:	8fab00f8 */ 	lw	$t3,0xf8($sp)
-/*  f18739c:	0c0057c1 */ 	jal	func00015f04
+/*  f18739c:	0c0057c1 */ 	jal	mtx00015f04
 /*  f1873a0:	c44c0014 */ 	lwc1	$f12,0x14($v0)
 /*  f1873a4:	8fab00f8 */ 	lw	$t3,0xf8($sp)
 .L0f1873a8:

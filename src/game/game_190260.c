@@ -27,7 +27,7 @@
 #include "bss.h"
 #include "lib/model.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "data.h"
 #include "types.h"

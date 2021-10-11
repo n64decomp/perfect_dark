@@ -52,8 +52,8 @@
 	build/ROMID/lib/joy.o (section); \
 	build/ROMID/lib/lib_15850.o (section); \
 	build/ROMID/lib/gvars.o (section); \
-	build/ROMID/lib/lib_159b0.o (section); \
-	build/ROMID/lib/lib_16110.o (section); \
+	build/ROMID/lib/mtxasm.o (section); \
+	build/ROMID/lib/mtx.o (section); \
 	build/ROMID/lib/lib_17ce0.o (section); \
 	build/ROMID/lib/lib_184d0.o (section); \
 	build/ROMID/lib/lib_18680.o (section); \

@@ -8,7 +8,7 @@
 #include "bss.h"
 #include "lib/lib_09660.h"
 #include "lib/memory.h"
-#include "lib/lib_159b0.h"
+#include "lib/mtx.h"
 #include "lib/lib_30ce0.h"
 #include "data.h"
 #include "types.h"

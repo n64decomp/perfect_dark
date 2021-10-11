@@ -31,8 +31,7 @@
 #include "lib/memory.h"
 #include "lib/model.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_184d0.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
@@ -563,7 +562,7 @@ glabel var7f1a7f80
 /*  f00d158:	e7aa0018 */ 	swc1	$f10,0x18($sp)
 /*  f00d15c:	e7a80020 */ 	swc1	$f8,0x20($sp)
 /*  f00d160:	e7a60024 */ 	swc1	$f6,0x24($sp)
-/*  f00d164:	0c005b56 */ 	jal	func00016d58
+/*  f00d164:	0c005b56 */ 	jal	mtx00016d58
 /*  f00d168:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f00d16c:	c7aa00ec */ 	lwc1	$f10,0xec($sp)
 /*  f00d170:	c7a400f0 */ 	lwc1	$f4,0xf0($sp)
@@ -841,13 +840,13 @@ glabel var7f1a7f80
 /*  f00d554:	e7ae0054 */ 	swc1	$f14,0x54($sp)
 .L0f00d558:
 /*  f00d558:	e7b00060 */ 	swc1	$f16,0x60($sp)
-/*  f00d55c:	0c005789 */ 	jal	func00015e24
+/*  f00d55c:	0c005789 */ 	jal	mtx00015e24
 /*  f00d560:	e7b2005c */ 	swc1	$f18,0x5c($sp)
 /*  f00d564:	c7ac0060 */ 	lwc1	$f12,0x60($sp)
-/*  f00d568:	0c0057a0 */ 	jal	func00015e80
+/*  f00d568:	0c0057a0 */ 	jal	mtx00015e80
 /*  f00d56c:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00d570:	c7ac005c */ 	lwc1	$f12,0x5c($sp)
-/*  f00d574:	0c0057b7 */ 	jal	func00015edc
+/*  f00d574:	0c0057b7 */ 	jal	mtx00015edc
 /*  f00d578:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00d57c:	8e040018 */ 	lw	$a0,0x18($s0)
 /*  f00d580:	c7ae0054 */ 	lwc1	$f14,0x54($sp)
@@ -867,7 +866,7 @@ glabel var7f1a7f80
 /*  f00d5b0:	00000000 */ 	nop
 /*  f00d5b4:	8e0e0018 */ 	lw	$t6,0x18($s0)
 /*  f00d5b8:	27a500ac */ 	addiu	$a1,$sp,0xac
-/*  f00d5bc:	0c0057c1 */ 	jal	func00015f04
+/*  f00d5bc:	0c0057c1 */ 	jal	mtx00015f04
 /*  f00d5c0:	c5cc0014 */ 	lwc1	$f12,0x14($t6)
 /*  f00d5c4:	8e0f000c */ 	lw	$t7,0xc($s0)
 /*  f00d5c8:	8fb9007c */ 	lw	$t9,0x7c($sp)
@@ -1121,7 +1120,7 @@ void setupCctv(struct cctvobj *cctv, s32 cmdindex)
 		lenspos.y = lens->position.pos.y;
 		lenspos.z = lens->position.pos.z;
 
-		func00016208(obj->realrot, &lenspos);
+		mtx00016208(obj->realrot, &lenspos);
 
 		lenspos.x += obj->prop->pos.x;
 		lenspos.y += obj->prop->pos.y;
@@ -1135,8 +1134,8 @@ void setupCctv(struct cctvobj *cctv, s32 cmdindex)
 			// empty
 		}
 
-		func00016d58(&cctv->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
-		func00015f04(obj->model->scale, &cctv->camrotm);
+		mtx00016d58(&cctv->camrotm, 0.0f, 0.0f, 0.0f, xdiff, ydiff, zdiff, 0.0f, 1.0f, 0.0f);
+		mtx00015f04(obj->model->scale, &cctv->camrotm);
 
 		cctv->toleft = 0;
 		cctv->yleft = *(s32 *)&cctv->yleft * M_BADTAU / 65536.0f;
@@ -1376,16 +1375,16 @@ void setupSingleMonitor(struct singlemonitorobj *monitor, s32 cmdindex)
 			}
 
 			propReparent(prop, owner->prop);
-			func000162e8(0.3664608001709f, &sp64);
-			func00015f04(monitor->base.model->scale / owner->model->scale, &sp64);
+			mtx000162e8(0.3664608001709f, &sp64);
+			mtx00015f04(monitor->base.model->scale / owner->model->scale, &sp64);
 			modelGetRootPosition(monitor->base.model, &spa4);
 
 			spa4.x = -spa4.x;
 			spa4.y = -spa4.y;
 			spa4.z = -spa4.z;
 
-			func000166dc(&spa4, &sp24);
-			func00015be4(&sp64, &sp24, &monitor->base.monitorthing->matrix);
+			mtx000166dc(&spa4, &sp24);
+			mtx00015be4(&sp64, &sp24, &monitor->base.monitorthing->matrix);
 		}
 	} else {
 		setupGenericObject(&monitor->base, cmdindex);
@@ -1632,21 +1631,21 @@ glabel var7f1a926cpf
 /*  f00e5ac:	27a40110 */ 	addiu	$a0,$sp,0x110
 /*  f00e5b0:	e7a40020 */ 	swc1	$f4,0x20($sp)
 /*  f00e5b4:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f00e5b8:	0c005aba */ 	jal	func00016d58
+/*  f00e5b8:	0c005aba */ 	jal	mtx00016d58
 /*  f00e5bc:	e7b2001c */ 	swc1	$f18,0x1c($sp)
 /*  f00e5c0:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f00e5c4:	c42c9260 */ 	lwc1	$f12,-0x6da0($at)
-/*  f00e5c8:	0c00581e */ 	jal	func000162e8
+/*  f00e5c8:	0c00581e */ 	jal	mtx000162e8
 /*  f00e5cc:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5d0:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f00e5d4:	c42c9264 */ 	lwc1	$f12,-0x6d9c($at)
-/*  f00e5d8:	0c005864 */ 	jal	func00016400
+/*  f00e5d8:	0c005864 */ 	jal	mtx00016400
 /*  f00e5dc:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f00e5e0:	27a40060 */ 	addiu	$a0,$sp,0x60
-/*  f00e5e4:	0c0055e3 */ 	jal	func000159fc
+/*  f00e5e4:	0c0055e3 */ 	jal	mtx000159fc
 /*  f00e5e8:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5ec:	27a40110 */ 	addiu	$a0,$sp,0x110
-/*  f00e5f0:	0c0055e3 */ 	jal	func000159fc
+/*  f00e5f0:	0c0055e3 */ 	jal	mtx000159fc
 /*  f00e5f4:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5f8:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00e5fc:	0fc45a85 */ 	jal	padGetCentre
@@ -1695,13 +1694,13 @@ glabel var7f1a926cpf
 .PF0f00e6a0:
 /*  f00e6a0:	e7a2004c */ 	swc1	$f2,0x4c($sp)
 /*  f00e6a4:	e7ac0050 */ 	swc1	$f12,0x50($sp)
-/*  f00e6a8:	0c0056ed */ 	jal	func00015e24
+/*  f00e6a8:	0c0056ed */ 	jal	mtx00015e24
 /*  f00e6ac:	e7ae0048 */ 	swc1	$f14,0x48($sp)
 /*  f00e6b0:	c7ac004c */ 	lwc1	$f12,0x4c($sp)
-/*  f00e6b4:	0c005704 */ 	jal	func00015e80
+/*  f00e6b4:	0c005704 */ 	jal	mtx00015e80
 /*  f00e6b8:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e6bc:	c7ac0048 */ 	lwc1	$f12,0x48($sp)
-/*  f00e6c0:	0c00571b */ 	jal	func00015edc
+/*  f00e6c0:	0c00571b */ 	jal	mtx00015edc
 /*  f00e6c4:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e6c8:	c7a80168 */ 	lwc1	$f8,0x168($sp)
 /*  f00e6cc:	c7b0016c */ 	lwc1	$f16,0x16c($sp)
@@ -2027,21 +2026,21 @@ glabel var7f1a8064
 /*  f00e5c4:	27a40110 */ 	addiu	$a0,$sp,0x110
 /*  f00e5c8:	e7a40020 */ 	swc1	$f4,0x20($sp)
 /*  f00e5cc:	e7aa0024 */ 	swc1	$f10,0x24($sp)
-/*  f00e5d0:	0c005b56 */ 	jal	func00016d58
+/*  f00e5d0:	0c005b56 */ 	jal	mtx00016d58
 /*  f00e5d4:	e7b2001c */ 	swc1	$f18,0x1c($sp)
 /*  f00e5d8:	3c017f1b */ 	lui	$at,%hi(var7f1a805c)
 /*  f00e5dc:	c42c805c */ 	lwc1	$f12,%lo(var7f1a805c)($at)
-/*  f00e5e0:	0c0058ba */ 	jal	func000162e8
+/*  f00e5e0:	0c0058ba */ 	jal	mtx000162e8
 /*  f00e5e4:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e5e8:	3c017f1b */ 	lui	$at,%hi(var7f1a8060)
 /*  f00e5ec:	c42c8060 */ 	lwc1	$f12,%lo(var7f1a8060)($at)
-/*  f00e5f0:	0c005900 */ 	jal	func00016400
+/*  f00e5f0:	0c005900 */ 	jal	mtx00016400
 /*  f00e5f4:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*  f00e5f8:	27a40060 */ 	addiu	$a0,$sp,0x60
-/*  f00e5fc:	0c00567f */ 	jal	func000159fc
+/*  f00e5fc:	0c00567f */ 	jal	mtx000159fc
 /*  f00e600:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e604:	27a40110 */ 	addiu	$a0,$sp,0x110
-/*  f00e608:	0c00567f */ 	jal	func000159fc
+/*  f00e608:	0c00567f */ 	jal	mtx000159fc
 /*  f00e60c:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e610:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00e614:	0fc457cd */ 	jal	padGetCentre
@@ -2090,13 +2089,13 @@ glabel var7f1a8064
 .L0f00e6b8:
 /*  f00e6b8:	e7a2004c */ 	swc1	$f2,0x4c($sp)
 /*  f00e6bc:	e7ac0050 */ 	swc1	$f12,0x50($sp)
-/*  f00e6c0:	0c005789 */ 	jal	func00015e24
+/*  f00e6c0:	0c005789 */ 	jal	mtx00015e24
 /*  f00e6c4:	e7ae0048 */ 	swc1	$f14,0x48($sp)
 /*  f00e6c8:	c7ac004c */ 	lwc1	$f12,0x4c($sp)
-/*  f00e6cc:	0c0057a0 */ 	jal	func00015e80
+/*  f00e6cc:	0c0057a0 */ 	jal	mtx00015e80
 /*  f00e6d0:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e6d4:	c7ac0048 */ 	lwc1	$f12,0x48($sp)
-/*  f00e6d8:	0c0057b7 */ 	jal	func00015edc
+/*  f00e6d8:	0c0057b7 */ 	jal	mtx00015edc
 /*  f00e6dc:	27a500ac */ 	addiu	$a1,$sp,0xac
 /*  f00e6e0:	c7a80168 */ 	lwc1	$f8,0x168($sp)
 /*  f00e6e4:	c7b0016c */ 	lwc1	$f16,0x16c($sp)
@@ -2322,13 +2321,13 @@ glabel var7f1a8064
 //
 //		floats = modelFileDataFindBboxRodata(g_ModelStates[modelnum].filedata);
 //
-//		func00016d58(sp110, 0, 0, 0,
+//		mtx00016d58(sp110, 0, 0, 0,
 //				-pad.look.x, -pad.look.y, -pad.look.z,
 //				pad.up.x, pad.up.y, pad.up.z);
-//		func000162e8(1.5705462694168f, spac);
-//		func00016400(1.5705462694168f, sp60);
-//		func000159fc(sp60, spac);
-//		func000159fc(sp110, spac);
+//		mtx000162e8(1.5705462694168f, spac);
+//		mtx00016400(1.5705462694168f, sp60);
+//		mtx000159fc(sp60, spac);
+//		mtx000159fc(sp110, spac);
 //
 //		padGetCentre(door->base.pad, &spa0);
 //
@@ -2342,9 +2341,9 @@ glabel var7f1a8064
 //			sp48 = 1;
 //		}
 //
-//		func00015e24(sp50, spac);
-//		func00015e80(sp4c, spac);
-//		func00015edc(sp48, spac);
+//		mtx00015e24(sp50, spac);
+//		mtx00015e80(sp4c, spac);
+//		mtx00015edc(sp48, spac);
 //
 //		pos.x = pad.pos.x;
 //		pos.y = pad.pos.y;
@@ -3166,15 +3165,15 @@ void setupParseObjects(s32 stagenum)
 						if (obj->flags & OBJFLAG_DEACTIVATED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							func00016374(4.7116389274597f, (Mtxf *)sp1a8);
-							func00015da0((Mtxf *)sp1a8, sp184);
-							func00016110(sp184, obj->realrot);
+							mtx00016374(4.7116389274597f, (Mtxf *)sp1a8);
+							mtx00015da0((Mtxf *)sp1a8, sp184);
+							mtx00016110(sp184, obj->realrot);
 						} else {
 							step->frame = escstepx;
 							escstepx += 40;
-							func00016374(M_BADPI, (Mtxf *)sp1a8);
-							func00015da0((Mtxf *)sp1a8, sp184);
-							func00016110(sp184, obj->realrot);
+							mtx00016374(M_BADPI, (Mtxf *)sp1a8);
+							mtx00015da0((Mtxf *)sp1a8, sp184);
+							mtx00016110(sp184, obj->realrot);
 						}
 					}
 					break;

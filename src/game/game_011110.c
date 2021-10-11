@@ -18,7 +18,7 @@
 #include "game/pad.h"
 #include "bss.h"
 #include "lib/memory.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "data.h"
 #include "types.h"

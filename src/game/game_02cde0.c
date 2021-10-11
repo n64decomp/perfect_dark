@@ -17,7 +17,7 @@
 #include "lib/model.h"
 #include "lib/lib_126b0.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_184d0.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"

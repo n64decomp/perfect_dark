@@ -6,8 +6,7 @@
 #include "game/bg.h"
 #include "bss.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -54,8 +53,8 @@ void func0f0069dc(void)
 
 #if PIRACYCHECKS
 	{
-		u32 *ptr = (u32 *)&func00015fd0;
-		u32 *end = (u32 *)&func00016054;
+		u32 *ptr = (u32 *)&mtxGetObfuscatedRomBase;
+		u32 *end = (u32 *)&mtx00016054;
 		u32 checksum = 0;
 
 		while (ptr < end) {

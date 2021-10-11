@@ -6,7 +6,7 @@
 #include "game/bg.h"
 #include "game/pad.h"
 #include "bss.h"
-#include "lib/lib_159b0.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/model.h"
 #include "data.h"
@@ -102,7 +102,7 @@ void currentPlayerInitAnimation(void)
 		modelSetAnimation(&g_Vars.currentplayer->model, 1, 0, 0, 0.5f, 0);
 
 		func0001b3bc(&g_Vars.currentplayer->model);
-		func000159b0(&sp48);
+		mtx000159b0(&sp48);
 		sp88.matrix = &sp48;
 		sp88.unk10 = g_Vars.currentplayer->bondheadmatrices;
 		func0001cebc(&sp88, &g_Vars.currentplayer->model);

@@ -31,8 +31,7 @@
 #include "lib/model.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
@@ -696,7 +695,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	}
 
 	if (hitbg && shotdata.gset.weaponnum != WEAPON_FARSIGHT) {
-		func00015b68(currentPlayerGetMatrix1740(), &sp694.unk00, &sp658);
+		mtx00015b68(currentPlayerGetMatrix1740(), &sp694.unk00, &sp658);
 
 		if (shotdata.unk34 > -sp658.z) {
 			shotdata.unk34 = -sp658.z;
@@ -966,8 +965,8 @@ struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
 		sp58.y -= 15 * (random() * (1.0f / U32_MAX));
 	}
 
-	func00015b68(currentPlayerGetUnk174c(), &sp58, &sp40);
-	func00015b14(currentPlayerGetUnk174c(), &sp64, &sp4c);
+	mtx00015b68(currentPlayerGetUnk174c(), &sp58, &sp40);
+	mtx00015b14(currentPlayerGetUnk174c(), &sp64, &sp4c);
 
 	shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
@@ -982,8 +981,8 @@ void handCreateBulletRaycast(s32 handnum, bool arg1, bool dorandom, s32 arg3, bo
 	bgunCalculateShotSpread(&sp38, &sp44, handnum, dorandom);
 
 	if (arg3 > 0) {
-		func00015b68(currentPlayerGetUnk174c(), &sp38, &shootpos);
-		func00015b14(currentPlayerGetUnk174c(), &sp44, &shootdir);
+		mtx00015b68(currentPlayerGetUnk174c(), &sp38, &shootpos);
+		mtx00015b14(currentPlayerGetUnk174c(), &sp44, &shootdir);
 
 		shotCalculateHits(handnum, arg1, &sp38, &sp44, &shootpos, &shootdir, 0, 4294836224, arg4);
 
@@ -1204,7 +1203,7 @@ void handInflictCloseRangeDamage(s32 handnum, struct gset *gset, bool arg2)
 							if (!chrIsAvoiding(chr)) {
 								bgunCalculateShotSpread(&spb8, &vector, handnum, true);
 								skipthething = true;
-								func00015b10(currentPlayerGetUnk174c(), &vector);
+								mtx00015b10(currentPlayerGetUnk174c(), &vector);
 								bgunPlayPropHitSound(gset, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {

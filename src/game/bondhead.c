@@ -5,7 +5,7 @@
 #include "game/bondhead.h"
 #include "bss.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/model.h"
 #include "data.h"
@@ -154,7 +154,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			func0001ee18(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
 			func0001e29c(somebool);
 			func0001b3bc(&g_Vars.currentplayer->model);
-			func000159b0(&sp40);
+			mtx000159b0(&sp40);
 
 			sp80.matrix = &sp40;
 			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;

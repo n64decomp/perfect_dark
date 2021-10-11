@@ -17,7 +17,7 @@
 #include "lib/lib_09a80.h"
 #include "lib/snd.h"
 #include "lib/memory.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 

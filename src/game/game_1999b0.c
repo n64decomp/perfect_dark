@@ -13,8 +13,7 @@
 #include "game/propobj.h"
 #include "bss.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
 #include "data.h"
@@ -390,18 +389,18 @@ void func0f19a37c(struct chrdata *chr)
 	sp228.y = sp152[1] * mult;
 	sp228.z = sp152[2] * mult;
 
-	func000159b0(&sp164);
+	mtx000159b0(&sp164);
 
 	if (chr->aibot->weaponnum == WEAPON_COMBATKNIFE) {
-		func00016400(M_BADPI * 1.5f, &sp164);
-		func000162e8(M_BADPI, &sp84);
-		func000159fc(&sp84, &sp164);
+		mtx00016400(M_BADPI * 1.5f, &sp164);
+		mtx000162e8(M_BADPI, &sp84);
+		mtx000159fc(&sp84, &sp164);
 	}
 
-	func000162e8(0.34901028871536f, &sp84);
-	func00015be0(&sp84, &sp164);
-	func00016374(sp80, &sp84);
-	func00015be0(&sp84, &sp164);
+	mtx000162e8(0.34901028871536f, &sp84);
+	mtx00015be0(&sp84, &sp164);
+	mtx00016374(sp80, &sp84);
+	mtx00015be0(&sp84, &sp164);
 
 	bgun0f09ee18(chr, &gset, &prop->pos, prop->rooms, &sp164, &sp228);
 
@@ -505,10 +504,10 @@ void aibotCreateSlayerRocket(struct chrdata *chr)
 		sp100[1] = sinf(b);
 		sp100[2] = cosf(b) * cosf(a);
 
-		func000162e8(b, &sp196);
-		func00016374(a, &sp132);
-		func00015be0(&sp132, &sp196);
-		func000159b0(&sp260);
+		mtx000162e8(b, &sp196);
+		mtx00016374(a, &sp132);
+		mtx00015be0(&sp132, &sp196);
+		mtx000159b0(&sp260);
 
 		bgun0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, sp100, &sp260, chr->prop, &chr->prop->pos);
 

@@ -6,7 +6,7 @@
 #include "game/bg.h"
 #include "game/pad.h"
 #include "bss.h"
-#include "lib/lib_159b0.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/model.h"
 #include "data.h"

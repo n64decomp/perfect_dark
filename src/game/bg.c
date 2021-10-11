@@ -35,8 +35,7 @@
 #include "lib/memory.h"
 #include "lib/lib_126b0.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_2f490.h"
 #include "data.h"
 #include "types.h"
@@ -5161,7 +5160,7 @@ glabel var7f1b75d0
 /*  f15bb40:	e4400068 */ 	swc1	$f0,0x68($v0)
 /*  f15bb44:	3c013f80 */ 	lui	$at,0x3f80
 /*  f15bb48:	44816000 */ 	mtc1	$at,$f12
-/*  f15bb4c:	0c0059d2 */ 	jal	func00016748
+/*  f15bb4c:	0c0059d2 */ 	jal	mtx00016748
 /*  f15bb50:	00000000 */ 	nop
 /*  f15bb54:	3c0e800a */ 	lui	$t6,%hi(var800a4920)
 /*  f15bb58:	8dce4920 */ 	lw	$t6,%lo(var800a4920)($t6)
@@ -6225,7 +6224,7 @@ glabel var7f1b75d0
 /*  f15b904:	e4400068 */ 	swc1	$f0,0x68($v0)
 /*  f15b908:	3c013f80 */ 	lui	$at,0x3f80
 /*  f15b90c:	44816000 */ 	mtc1	$at,$f12
-/*  f15b910:	0c0059d2 */ 	jal	func00016748
+/*  f15b910:	0c0059d2 */ 	jal	mtx00016748
 /*  f15b914:	00000000 */ 	nop
 /*  f15b918:	3c0e800a */ 	lui	$t6,%hi(var800a4920)
 /*  f15b91c:	8dce4920 */ 	lw	$t6,%lo(var800a4920)($t6)
@@ -7287,7 +7286,7 @@ glabel var7f1b75d0
 /*  f156298:	e4400068 */ 	swc1	$f0,0x68($v0)
 /*  f15629c:	3c013f80 */ 	lui	$at,0x3f80
 /*  f1562a0:	44816000 */ 	mtc1	$at,$f12
-/*  f1562a4:	0c005db6 */ 	jal	func00016748
+/*  f1562a4:	0c005db6 */ 	jal	mtx00016748
 /*  f1562a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1562ac:	3c0e800b */ 	lui	$t6,0x800b
 /*  f1562b0:	8dce90a0 */ 	lw	$t6,-0x6f60($t6)
@@ -8255,7 +8254,7 @@ glabel var7f1b75d0
 //		g_Vars.playerstats[s4].scale_bg2gfx = g_Stages[g_StageIndex].unk18;
 //	}
 //
-//	func00016748(1);
+//	mtx00016748(1);
 //
 //	// b64
 //	if (var800a4920 == 0) {
@@ -8611,7 +8610,7 @@ glabel var7f1b75d0
 void func0f15c850(void)
 {
 	func0f15e538();
-	func00016748(1);
+	mtx00016748(1);
 }
 
 void func0f15c880(f32 arg0)
@@ -8632,7 +8631,7 @@ f32 currentPlayerGetScaleBg2Gfx(void)
 void currentPlayerSetScaleBg2Gfx(f32 scale)
 {
 	g_Vars.currentplayerstats->scale_bg2gfx = g_Stages[g_StageIndex].unk18 * scale;
-	func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
+	mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 }
 
 void func0f15c920(void)
@@ -8949,7 +8948,7 @@ bool func0f15d08c(struct coord *a, struct coord *b)
 	b->y = a->y;
 	b->z = a->z;
 
-	func00015b64(matrix, b);
+	mtx00015b64(matrix, b);
 	func0f0b4d68(b, b);
 
 	if (b->z > 0) {
@@ -12696,7 +12695,7 @@ glabel func0f15ffdc
 /*  f160180:	468084a0 */ 	cvt.s.w	$f18,$f16
 /*  f160184:	e6120008 */ 	swc1	$f18,0x8($s0)
 /*  f160188:	a7a800ee */ 	sh	$t0,0xee($sp)
-/*  f16018c:	0c0056d9 */ 	jal	func00015b64
+/*  f16018c:	0c0056d9 */ 	jal	mtx00015b64
 /*  f160190:	8fa400a8 */ 	lw	$a0,0xa8($sp)
 /*  f160194:	2631ffff */ 	addiu	$s1,$s1,-1
 /*  f160198:	87a800ee */ 	lh	$t0,0xee($sp)
@@ -16000,7 +15999,7 @@ glabel func0f162d9c
 /*  f162eb0:	0fc2d5de */ 	jal	currentPlayerGetUnk174c
 /*  f162eb4:	e7b2009c */ 	swc1	$f18,0x9c($sp)
 /*  f162eb8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f162ebc:	0c0056d9 */ 	jal	func00015b64
+/*  f162ebc:	0c0056d9 */ 	jal	mtx00015b64
 /*  f162ec0:	27a50094 */ 	addiu	$a1,$sp,0x94
 /*  f162ec4:	c7a40094 */ 	lwc1	$f4,0x94($sp)
 /*  f162ec8:	3c047f1b */ 	lui	$a0,%hi(var7f1b75ac)

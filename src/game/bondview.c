@@ -14,7 +14,7 @@
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 #include "gbiex.h"

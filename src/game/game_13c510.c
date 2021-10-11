@@ -12,8 +12,7 @@
 #include "game/game_1668e0.h"
 #include "bss.h"
 #include "lib/lib_09a80.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -322,13 +321,13 @@ glabel func0f13c780
 /*  f13c868:	0fc5722e */ 	jal	currentPlayerGetScaleBg2Gfx
 /*  f13c86c:	00000000 */ 	nop
 /*  f13c870:	46000306 */ 	mov.s	$f12,$f0
-/*  f13c874:	0c0057e2 */ 	jal	func00015f88
+/*  f13c874:	0c0057e2 */ 	jal	mtx00015f88
 /*  f13c878:	02002825 */ 	or	$a1,$s0,$zero
 /*  f13c87c:	0fc2d3f2 */ 	jal	currentPlayerGetUnk006c
 /*  f13c880:	00000000 */ 	nop
 /*  f13c884:	00402025 */ 	or	$a0,$v0,$zero
 /*  f13c888:	02002825 */ 	or	$a1,$s0,$zero
-/*  f13c88c:	0c005680 */ 	jal	func00015a00
+/*  f13c88c:	0c005680 */ 	jal	mtx00015a00
 /*  f13c890:	27a600f8 */ 	addiu	$a2,$sp,0xf8
 /*  f13c894:	0c002f22 */ 	jal	viGetViewWidth
 /*  f13c898:	00000000 */ 	nop
@@ -1515,7 +1514,7 @@ glabel func0f13d568
 /*  f13daf0:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f13daf4:	00000000 */ 	nop
 /*  f13daf8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f13dafc:	0c0056c4 */ 	jal	func00015b10
+/*  f13dafc:	0c0056c4 */ 	jal	mtx00015b10
 /*  f13db00:	27a500e4 */ 	addiu	$a1,$sp,0xe4
 /*  f13db04:	27a400e4 */ 	addiu	$a0,$sp,0xe4
 /*  f13db08:	0fc2d341 */ 	jal	func0f0b4d04

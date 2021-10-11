@@ -12,8 +12,7 @@
 #include "game/bondhead.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"
 #include "data.h"
@@ -70,8 +69,8 @@ void bgrabInit(void)
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
-	func00016374((g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f, &matrix);
-	func00015b10(&matrix, &g_Vars.currentplayer->grabbedposoffset);
+	mtx00016374((g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f, &matrix);
+	mtx00015b10(&matrix, &g_Vars.currentplayer->grabbedposoffset);
 
 	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
 

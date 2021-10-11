@@ -7,7 +7,7 @@
 #include "bss.h"
 #include "lib/dma.h"
 #include "lib/memory.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_17ce0.h"
 #include "lib/lib_233c0.h"
 #include "lib/lib_24e40.h"

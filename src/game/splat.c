@@ -9,8 +9,7 @@
 #include "bss.h"
 #include "lib/model.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "data.h"
 #include "types.h"
 
@@ -165,9 +164,9 @@ s32 func0f148f18(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 			spe4[j] = (rand * var8007f8a8 + rand * var8007f8a8 - var8007f8a8) * 0.017453292384744f;
 		}
 
-		func0001648c((struct coord *)spe4, &spa4);
-		func00015b14(&spa4, (struct coord *)spfc, &splat->unk028);
-		func00015b14(&spa4, (struct coord *)spf0, &splat->unk00c);
+		mtx0001648c((struct coord *)spe4, &spa4);
+		mtx00015b14(&spa4, (struct coord *)spfc, &splat->unk028);
+		mtx00015b14(&spa4, (struct coord *)spf0, &splat->unk00c);
 		func0f177164(&splat->unk028, &splat->unk028, 403, "splat.c");
 		func0f177164(&splat->unk00c, &splat->unk00c, 404, "splat.c");
 

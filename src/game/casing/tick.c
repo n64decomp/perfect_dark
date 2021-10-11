@@ -4,7 +4,7 @@
 #include "bss.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -199,7 +199,7 @@ glabel casingTick
 /*  f01dca0:	27b2008c */ 	addiu	$s2,$sp,0x8c
 /*  f01dca4:	02402025 */ 	or	$a0,$s2,$zero
 .L0f01dca8:
-/*  f01dca8:	0c005844 */ 	jal	func00016110
+/*  f01dca8:	0c005844 */ 	jal	mtx00016110
 /*  f01dcac:	02602825 */ 	or	$a1,$s3,$zero
 /*  f01dcb0:	8e8c0034 */ 	lw	$t4,0x34($s4)
 /*  f01dcb4:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -441,7 +441,7 @@ glabel casingTick
 /*  f01dca0:	27b2008c */ 	addiu	$s2,$sp,0x8c
 /*  f01dca4:	02402025 */ 	or	$a0,$s2,$zero
 .L0f01dca8:
-/*  f01dca8:	0c005844 */ 	jal	func00016110
+/*  f01dca8:	0c005844 */ 	jal	mtx00016110
 /*  f01dcac:	02602825 */ 	or	$a1,$s3,$zero
 /*  f01dcb0:	8e8c0034 */ 	lw	$t4,0x34($s4)
 /*  f01dcb4:	26310001 */ 	addiu	$s1,$s1,0x1

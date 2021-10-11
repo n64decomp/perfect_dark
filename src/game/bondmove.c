@@ -31,8 +31,7 @@
 #include "lib/joy.h"
 #include "lib/snd.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_233c0.h"
 #include "data.h"
 #include "types.h"
@@ -1501,7 +1500,7 @@ void bmoveProcessInput(bool allowc1x, bool allowc1y, bool allowc1buttons, bool i
 
 			g_Vars.currentplayer->gunzoomfovs[1] = eraserfov;
 
-			func00015b68(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
+			mtx00015b68(currentPlayerGetMatrix1740(), &g_Vars.currentplayer->autoerasertarget->pos, &spa0);
 
 			func0f0b4eb8(&spa0, crosspos, eraserfov, g_Vars.currentplayer->c_perspaspect);
 
@@ -2095,18 +2094,18 @@ void bmoveUpdateHead(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	}
 
 	bheadUpdate(sp244, arg2);
-	func000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
+	mtx000162e8(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
 
 	if (optionsGetHeadRoll(g_Vars.currentplayerstats->mpindex)) {
-		func00016d58(&sp116,
+		mtx00016d58(&sp116,
 				0, 0, 0,
 				-g_Vars.currentplayer->headlook.x, -g_Vars.currentplayer->headlook.y, -g_Vars.currentplayer->headlook.z,
 				g_Vars.currentplayer->headup.x, g_Vars.currentplayer->headup.y, g_Vars.currentplayer->headup.z);
-		func000159fc(&sp116, &sp180);
+		mtx000159fc(&sp116, &sp180);
 	}
 
-	func00016374(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), &sp116);
-	func000159fc(&sp116, &sp180);
+	mtx00016374(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), &sp116);
+	mtx000159fc(&sp116, &sp180);
 
 	if (arg3) {
 		func0f097044(&sp180, &sp100);

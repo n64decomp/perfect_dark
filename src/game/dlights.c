@@ -19,7 +19,7 @@
 #include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_317f0.h"
 #include "data.h"

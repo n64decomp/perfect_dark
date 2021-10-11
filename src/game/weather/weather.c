@@ -12,8 +12,7 @@
 #include "lib/snd.h"
 #include "lib/memory.h"
 #include "lib/rng.h"
-#include "lib/lib_159b0.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "types.h"
@@ -987,12 +986,12 @@ glabel var7f1b5780
 /*  f133068:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f13306c:	8f370024 */ 	lw	$s7,0x24($t9)
 /*  f133070:	afa00194 */ 	sw	$zero,0x194($sp)
-/*  f133074:	0c00566c */ 	jal	func000159b0
+/*  f133074:	0c00566c */ 	jal	mtx000159b0
 /*  f133078:	02002025 */ 	or	$a0,$s0,$zero
 /*  f13307c:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f133080:	00000000 */ 	nop
 /*  f133084:	00402025 */ 	or	$a0,$v0,$zero
-/*  f133088:	0c0056f8 */ 	jal	func00015be0
+/*  f133088:	0c0056f8 */ 	jal	mtx00015be0
 /*  f13308c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f133090:	4480a000 */ 	mtc1	$zero,$f20
 /*  f133094:	00000000 */ 	nop
@@ -1002,7 +1001,7 @@ glabel var7f1b5780
 /*  f1330a4:	e7b40200 */ 	swc1	$f20,0x200($sp)
 /*  f1330a8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1330ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1330b0:	0c005815 */ 	jal	func00016054
+/*  f1330b0:	0c005815 */ 	jal	mtx00016054
 /*  f1330b4:	00402825 */ 	or	$a1,$v0,$zero
 /*  f1330b8:	8fb00de8 */ 	lw	$s0,0xde8($sp)
 /*  f1330bc:	3c0d0102 */ 	lui	$t5,0x102
@@ -2631,12 +2630,12 @@ glabel var7f1b5790
 /*  f134870:	27b001cc */ 	addiu	$s0,$sp,0x1cc
 /*  f134874:	8dd20024 */ 	lw	$s2,0x24($t6)
 /*  f134878:	afa00198 */ 	sw	$zero,0x198($sp)
-/*  f13487c:	0c00566c */ 	jal	func000159b0
+/*  f13487c:	0c00566c */ 	jal	mtx000159b0
 /*  f134880:	02002025 */ 	or	$a0,$s0,$zero
 /*  f134884:	0fc2d5be */ 	jal	currentPlayerGetMatrix1740
 /*  f134888:	00000000 */ 	nop
 /*  f13488c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f134890:	0c0056f8 */ 	jal	func00015be0
+/*  f134890:	0c0056f8 */ 	jal	mtx00015be0
 /*  f134894:	02002825 */ 	or	$a1,$s0,$zero
 /*  f134898:	4480a000 */ 	mtc1	$zero,$f20
 /*  f13489c:	00000000 */ 	nop
@@ -2646,7 +2645,7 @@ glabel var7f1b5790
 /*  f1348ac:	e7b40204 */ 	swc1	$f20,0x204($sp)
 /*  f1348b0:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1348b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1348b8:	0c005815 */ 	jal	func00016054
+/*  f1348b8:	0c005815 */ 	jal	mtx00016054
 /*  f1348bc:	00402825 */ 	or	$a1,$v0,$zero
 /*  f1348c0:	8fb01398 */ 	lw	$s0,0x1398($sp)
 /*  f1348c4:	3c190102 */ 	lui	$t9,0x102

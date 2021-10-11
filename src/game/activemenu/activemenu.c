@@ -20,7 +20,7 @@
 #include "bss.h"
 #include "lib/lib_09a80.h"
 #include "lib/main.h"
-#include "lib/lib_16110.h"
+#include "lib/mtx.h"
 #include "lib/lib_184d0.h"
 #include "data.h"
 #include "types.h"
