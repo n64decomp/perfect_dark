@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00051778(void);
+s32 func00051778(OSPfs *pfs);
 
 #endif

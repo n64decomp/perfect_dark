@@ -135,9 +135,11 @@ typedef struct {
 #define PFS_WRITE               1
 #define PFS_CREATE              2
 
-#define PFS_INITIALIZED       0x1
-#define PFS_CORRUPTED         0x2
-#define PFS_MOTOR_INITIALIZED 0x8
+#define PFS_INITIALIZED       0x01
+#define PFS_CORRUPTED         0x02
+#define PFS_ID_BROKEN         0x04
+#define PFS_MOTOR_INITIALIZED 0x08
+#define PFS_GBPAK_INITIALIZED 0x10
 
 /**************************************************************************
  *
