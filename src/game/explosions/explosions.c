@@ -5192,7 +5192,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool withalpha)
 			*colour = red << 24 | green << 16 | alpha | 0x80800000;
 		} else {
 			static u32 var8007e93c = 0xffffffff;
-			func0000db30("ecol", &var8007e93c);
+			mainOverrideVariable("ecol", &var8007e93c);
 			*colour = 0xffffffff;
 			*colour = var8007e93c;
 		}

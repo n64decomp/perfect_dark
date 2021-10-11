@@ -1429,13 +1429,13 @@ void func0f14b8ac(s32 index)
 {
 	struct var8007f8dc *thing = &var8007f8dc[index];
 
-	func0000db30("kg", &var8007f8e8);
-	func0000db30("Kp", &var8007f8ec);
-	func0000db30("Ki", &var8007f8f0);
-	func0000db30("Kd", &var8007f8f4);
-	func0000db30("tInt", &var8007f8f8);
-	func0000db30("gocal", &var8007f8fc);
-	func0000db30("aim", &var8007f900);
+	mainOverrideVariable("kg", &var8007f8e8);
+	mainOverrideVariable("Kp", &var8007f8ec);
+	mainOverrideVariable("Ki", &var8007f8f0);
+	mainOverrideVariable("Kd", &var8007f8f4);
+	mainOverrideVariable("tInt", &var8007f8f8);
+	mainOverrideVariable("gocal", &var8007f8fc);
+	mainOverrideVariable("aim", &var8007f900);
 
 	if (thing->unk0d4_00) {
 		func0f14cf6c();

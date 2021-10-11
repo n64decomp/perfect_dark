@@ -1730,7 +1730,16 @@ void mainProc(void)
 	}
 }
 
-void func0000db30(char *string, void *ptr)
+/**
+ * It's suspected that this function would have allowed developers to override
+ * the value of variables while the game is running in order to view their
+ * effects immediately rather than having to recompile the game each time.
+ *
+ * The developers would have used rmon to create a table of name/value pairs,
+ * then this function would have looked up the given variable name in the table
+ * and written the new value to the variable's address.
+ */
+void mainOverrideVariable(char *name, void *value)
 {
 	// empty
 }

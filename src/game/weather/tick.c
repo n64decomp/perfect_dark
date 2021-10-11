@@ -14,8 +14,8 @@ void weatherTick(void)
 		return;
 	}
 
-	func0000db30("wettick", (u32 *)&g_WeatherTickEnabled);
-	func0000db30("windspeed", &var80062950);
+	mainOverrideVariable("wettick", (u32 *)&g_WeatherTickEnabled);
+	mainOverrideVariable("windspeed", &var80062950);
 
 	if (g_WeatherTickEnabled) {
 		switch (g_WeatherData->type) {

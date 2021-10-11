@@ -3047,7 +3047,7 @@ glabel func0f068c04
 /*  f068c60:	0000a825 */ 	or	$s5,$zero,$zero
 /*  f068c64:	24a59974 */ 	addiu	$a1,$a1,%lo(var80069974)
 /*  f068c68:	24849f60 */ 	addiu	$a0,$a0,%lo(var7f1a9f60)
-/*  f068c6c:	0c0036cc */ 	jal	func0000db30
+/*  f068c6c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f068c70:	afaf012c */ 	sw	$t7,0x12c($sp)
 /*  f068c74:	8fa3012c */ 	lw	$v1,0x12c($sp)
 /*  f068c78:	10600092 */ 	beqz	$v1,.L0f068ec4
@@ -3416,12 +3416,12 @@ glabel var7f1aa1d8
 /*  f06915c:	3c058007 */ 	lui	$a1,%hi(var80069978)
 /*  f069160:	afa60078 */ 	sw	$a2,0x78($sp)
 /*  f069164:	24a59978 */ 	addiu	$a1,$a1,%lo(var80069978)
-/*  f069168:	0c0036cc */ 	jal	func0000db30
+/*  f069168:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f06916c:	24849f6c */ 	addiu	$a0,$a0,%lo(var7f1a9f6c)
 /*  f069170:	3c047f1b */ 	lui	$a0,%hi(var7f1a9f74)
 /*  f069174:	3c058007 */ 	lui	$a1,%hi(var8006997c)
 /*  f069178:	24a5997c */ 	addiu	$a1,$a1,%lo(var8006997c)
-/*  f06917c:	0c0036cc */ 	jal	func0000db30
+/*  f06917c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f069180:	24849f74 */ 	addiu	$a0,$a0,%lo(var7f1a9f74)
 /*  f069184:	8fae0070 */ 	lw	$t6,0x70($sp)
 /*  f069188:	24010001 */ 	addiu	$at,$zero,0x1
@@ -3765,12 +3765,12 @@ glabel var7f1aa1d8
 /*  f0683dc:	3c058007 */ 	lui	$a1,0x8007
 /*  f0683e0:	afa60078 */ 	sw	$a2,0x78($sp)
 /*  f0683e4:	24a5c078 */ 	addiu	$a1,$a1,-16264
-/*  f0683e8:	0c00381c */ 	jal	func0000db30
+/*  f0683e8:	0c00381c */ 	jal	mainOverrideVariable
 /*  f0683ec:	2484428c */ 	addiu	$a0,$a0,0x428c
 /*  f0683f0:	3c047f1a */ 	lui	$a0,0x7f1a
 /*  f0683f4:	3c058007 */ 	lui	$a1,0x8007
 /*  f0683f8:	24a5c07c */ 	addiu	$a1,$a1,-16260
-/*  f0683fc:	0c00381c */ 	jal	func0000db30
+/*  f0683fc:	0c00381c */ 	jal	mainOverrideVariable
 /*  f068400:	24844294 */ 	addiu	$a0,$a0,0x4294
 /*  f068404:	8fae0070 */ 	lw	$t6,0x70($sp)
 /*  f068408:	24010001 */ 	addiu	$at,$zero,0x1
@@ -22445,17 +22445,17 @@ glabel var7f1ab6dcpf
 /*  f075254:	4500009c */ 	bc1f	.PF0f0754c8
 .PF0f075258:
 /*  f075258:	24a598a4 */ 	addiu	$a1,$a1,-26460
-/*  f07525c:	0c003624 */ 	jal	func0000db30
+/*  f07525c:	0c003624 */ 	jal	mainOverrideVariable
 /*  f075260:	e7ae029c */ 	swc1	$f14,0x29c($sp)
 /*  f075264:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f075268:	3c058007 */ 	lui	$a1,0x8007
 /*  f07526c:	24a598a8 */ 	addiu	$a1,$a1,-26456
-/*  f075270:	0c003624 */ 	jal	func0000db30
+/*  f075270:	0c003624 */ 	jal	mainOverrideVariable
 /*  f075274:	2484b264 */ 	addiu	$a0,$a0,-19868
 /*  f075278:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f07527c:	3c058007 */ 	lui	$a1,0x8007
 /*  f075280:	24a598ac */ 	addiu	$a1,$a1,-26452
-/*  f075284:	0c003624 */ 	jal	func0000db30
+/*  f075284:	0c003624 */ 	jal	mainOverrideVariable
 /*  f075288:	2484b268 */ 	addiu	$a0,$a0,-19864
 /*  f07528c:	3c188007 */ 	lui	$t8,0x8007
 /*  f075290:	8f1898a8 */ 	lw	$t8,-0x6758($t8)
@@ -25983,17 +25983,17 @@ glabel var7f1aa438
 /*  f074fd0:	4500009c */ 	bc1f	.L0f075244
 .L0f074fd4:
 /*  f074fd4:	24a59bc8 */ 	addiu	$a1,$a1,%lo(var80069bc8)
-/*  f074fd8:	0c0036cc */ 	jal	func0000db30
+/*  f074fd8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f074fdc:	e7a2029c */ 	swc1	$f2,0x29c($sp)
 /*  f074fe0:	3c047f1b */ 	lui	$a0,%hi(var7f1a9fd4)
 /*  f074fe4:	3c058007 */ 	lui	$a1,%hi(var80069bcc)
 /*  f074fe8:	24a59bcc */ 	addiu	$a1,$a1,%lo(var80069bcc)
-/*  f074fec:	0c0036cc */ 	jal	func0000db30
+/*  f074fec:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f074ff0:	24849fd4 */ 	addiu	$a0,$a0,%lo(var7f1a9fd4)
 /*  f074ff4:	3c047f1b */ 	lui	$a0,%hi(var7f1a9fd8)
 /*  f074ff8:	3c058007 */ 	lui	$a1,%hi(var80069bd0)
 /*  f074ffc:	24a59bd0 */ 	addiu	$a1,$a1,%lo(var80069bd0)
-/*  f075000:	0c0036cc */ 	jal	func0000db30
+/*  f075000:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f075004:	24849fd8 */ 	addiu	$a0,$a0,%lo(var7f1a9fd8)
 /*  f075008:	3c188007 */ 	lui	$t8,%hi(var80069bcc)
 /*  f07500c:	8f189bcc */ 	lw	$t8,%lo(var80069bcc)($t8)
@@ -29508,17 +29508,17 @@ glabel var7f1aa438
 /*  f073d4c:	4500009c */ 	bc1f	.NB0f073fc0
 .NB0f073d50:
 /*  f073d50:	24a5c2c8 */ 	addiu	$a1,$a1,-15672
-/*  f073d54:	0c00381c */ 	jal	func0000db30
+/*  f073d54:	0c00381c */ 	jal	mainOverrideVariable
 /*  f073d58:	e7a2029c */ 	swc1	$f2,0x29c($sp)
 /*  f073d5c:	3c047f1a */ 	lui	$a0,0x7f1a
 /*  f073d60:	3c058007 */ 	lui	$a1,0x8007
 /*  f073d64:	24a5c2cc */ 	addiu	$a1,$a1,-15668
-/*  f073d68:	0c00381c */ 	jal	func0000db30
+/*  f073d68:	0c00381c */ 	jal	mainOverrideVariable
 /*  f073d6c:	248442f4 */ 	addiu	$a0,$a0,0x42f4
 /*  f073d70:	3c047f1a */ 	lui	$a0,0x7f1a
 /*  f073d74:	3c058007 */ 	lui	$a1,0x8007
 /*  f073d78:	24a5c2d0 */ 	addiu	$a1,$a1,-15664
-/*  f073d7c:	0c00381c */ 	jal	func0000db30
+/*  f073d7c:	0c00381c */ 	jal	mainOverrideVariable
 /*  f073d80:	248442f8 */ 	addiu	$a0,$a0,0x42f8
 /*  f073d84:	3c0f8007 */ 	lui	$t7,0x8007
 /*  f073d88:	8defc2cc */ 	lw	$t7,-0x3d34($t7)
@@ -31579,7 +31579,7 @@ void doorTick(struct prop *doorprop)
 #if VERSION < VERSION_PAL_FINAL
 	static u32 debugdoor = 0;
 
-	func0000db30("debugdoor", &debugdoor);
+	mainOverrideVariable("debugdoor", &debugdoor);
 
 	// If debugdoor is set to 1 or to the address of this door,
 	// print the distance to the door to console

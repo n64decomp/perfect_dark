@@ -8,7 +8,7 @@ extern s32 var8005dd18;
 
 void mainInit(void);
 void mainProc(void);
-void func0000db30(char *string, void *ptr);
+void mainOverrideVariable(char *name, void *value);
 void mainLoop(void);
 void mainTick(void);
 void mainEndStage(void);

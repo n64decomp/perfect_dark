@@ -62,7 +62,7 @@ glabel menuCreateBlur
 /*  f0e0e48:	24a51460 */ 	addiu	$a1,$a1,0x1460
 /*  f0e0e4c:	2484f1f0 */ 	addiu	$a0,$a0,-3600
 /*  f0e0e50:	afad0070 */ 	sw	$t5,0x70($sp)
-/*  f0e0e54:	0c003624 */ 	jal	func0000db30
+/*  f0e0e54:	0c003624 */ 	jal	mainOverrideVariable
 /*  f0e0e58:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 /*  f0e0e5c:	8fad0070 */ 	lw	$t5,0x70($sp)
 /*  f0e0e60:	3c15800a */ 	lui	$s5,0x800a
@@ -233,7 +233,7 @@ glabel menuCreateBlur
 /*  f0e0800:	3c058007 */ 	lui	$a1,%hi(var80071180)
 /*  f0e0804:	afbf0070 */ 	sw	$ra,0x70($sp)
 /*  f0e0808:	24a51180 */ 	addiu	$a1,$a1,%lo(var80071180)
-/*  f0e080c:	0c0036cc */ 	jal	func0000db30
+/*  f0e080c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0e0810:	2484df00 */ 	addiu	$a0,$a0,%lo(var7f1adf00)
 /*  f0e0814:	8fbf0070 */ 	lw	$ra,0x70($sp)
 /*  f0e0818:	3c17800a */ 	lui	$s7,%hi(g_BlurBuffer)
@@ -385,7 +385,7 @@ u32 var80071180 = 1;
 //		fb = viGetFrontBuffer();
 //	}
 //
-//	func0000db30("cccc", &var80071180);
+//	mainOverrideVariable("cccc", &var80071180);
 //
 //	for (dsty = 0; dsty < 30; dsty++) {
 //		for (dstx = 0; dstx < 40; dstx++) {
@@ -439,7 +439,7 @@ u32 var80071180 = 1;
 //		fb = viGetFrontBuffer();
 //	}
 //
-//	func0000db30("cccc", &var80071180);
+//	mainOverrideVariable("cccc", &var80071180);
 //
 //	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
 //		for (dstx = 0; dstx < BLURIMG_WIDTH; dstx++) {

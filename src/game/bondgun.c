@@ -5815,12 +5815,12 @@ glabel var7f1ac320
 /*  f09a71c:	afae0054 */ 	sw	$t6,0x54($sp)
 /*  f09a720:	2484b890 */ 	addiu	$a0,$a0,%lo(var7f1ab890)
 /*  f09a724:	24a50120 */ 	addiu	$a1,$a1,%lo(var80070120)
-/*  f09a728:	0c0036cc */ 	jal	func0000db30
+/*  f09a728:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f09a72c:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a730:	3c047f1b */ 	lui	$a0,%hi(var7f1ab898)
 /*  f09a734:	3c058007 */ 	lui	$a1,%hi(var80070124)
 /*  f09a738:	24a50124 */ 	addiu	$a1,$a1,%lo(var80070124)
-/*  f09a73c:	0c0036cc */ 	jal	func0000db30
+/*  f09a73c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f09a740:	2484b898 */ 	addiu	$a0,$a0,%lo(var7f1ab898)
 /*  f09a744:	8fa70064 */ 	lw	$a3,0x64($sp)
 /*  f09a748:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6145,12 +6145,12 @@ glabel var7f1ac320
 /*  f09a71c:	afae0054 */ 	sw	$t6,0x54($sp)
 /*  f09a720:	2484b890 */ 	addiu	$a0,$a0,%lo(var7f1ab890)
 /*  f09a724:	24a50120 */ 	addiu	$a1,$a1,%lo(var80070120)
-/*  f09a728:	0c0036cc */ 	jal	func0000db30
+/*  f09a728:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f09a72c:	afa70064 */ 	sw	$a3,0x64($sp)
 /*  f09a730:	3c047f1b */ 	lui	$a0,%hi(var7f1ab898)
 /*  f09a734:	3c058007 */ 	lui	$a1,%hi(var80070124)
 /*  f09a738:	24a50124 */ 	addiu	$a1,$a1,%lo(var80070124)
-/*  f09a73c:	0c0036cc */ 	jal	func0000db30
+/*  f09a73c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f09a740:	2484b898 */ 	addiu	$a0,$a0,%lo(var7f1ab898)
 /*  f09a744:	8fa70064 */ 	lw	$a3,0x64($sp)
 /*  f09a748:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6475,12 +6475,12 @@ glabel var7f1ac320
 /*  f098758:	afae004c */ 	sw	$t6,0x4c($sp)
 /*  f09875c:	24845be0 */ 	addiu	$a0,$a0,0x5be0
 /*  f098760:	24a527e0 */ 	addiu	$a1,$a1,0x27e0
-/*  f098764:	0c00381c */ 	jal	func0000db30
+/*  f098764:	0c00381c */ 	jal	mainOverrideVariable
 /*  f098768:	afa7005c */ 	sw	$a3,0x5c($sp)
 /*  f09876c:	3c047f1a */ 	lui	$a0,0x7f1a
 /*  f098770:	3c058007 */ 	lui	$a1,0x8007
 /*  f098774:	24a527e4 */ 	addiu	$a1,$a1,0x27e4
-/*  f098778:	0c00381c */ 	jal	func0000db30
+/*  f098778:	0c00381c */ 	jal	mainOverrideVariable
 /*  f09877c:	24845be8 */ 	addiu	$a0,$a0,0x5be8
 /*  f098780:	8fa7005c */ 	lw	$a3,0x5c($sp)
 /*  f098784:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -6787,8 +6787,8 @@ const char var7f1ab898[] = "rofftime";
 //	static u32 rontime = 2;
 //	static u32 rofftime = 4;
 //
-//	func0000db30("rontime", &rontime);
-//	func0000db30("rofftime", &rofftime);
+//	mainOverrideVariable("rontime", &rontime);
+//	mainOverrideVariable("rofftime", &rofftime);
 //
 //	hand->firing = true;
 //
@@ -7091,7 +7091,7 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 	if (hand->stateminor == 0) {
 		sp64 = 1;
 
-		func0000db30("gkef", &var80070128);
+		mainOverrideVariable("gkef", &var80070128);
 
 		if (hand->statecycles == 0) {
 			hand->gs_float1 = 0;

@@ -455,8 +455,8 @@ void eyespyUpdateVertical(void)
 	}
 
 	// Handle gravity
-	func0000db30("g", &g_EyespyFallAccel);
-	func0000db30("l", &g_EyespyMaxFallSpeed);
+	mainOverrideVariable("g", &g_EyespyFallAccel);
+	mainOverrideVariable("l", &g_EyespyMaxFallSpeed);
 
 	accel = g_EyespyFallAccel * 0.01; // always 1
 	maxfallspeed = g_EyespyMaxFallSpeed * 0.01f; // always 30

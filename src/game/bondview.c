@@ -41,12 +41,12 @@ glabel func7f13c2d0nb
 /*  f13c2d8:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f13c2dc:	3c058008 */ 	lui	$a1,0x8008
 /*  f13c2e0:	24a520ac */ 	addiu	$a1,$a1,0x20ac
-/*  f13c2e4:	0c00381c */ 	jal	func0000db30
+/*  f13c2e4:	0c00381c */ 	jal	mainOverrideVariable
 /*  f13c2e8:	248402b0 */ 	addiu	$a0,$a0,0x2b0
 /*  f13c2ec:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f13c2f0:	3c058008 */ 	lui	$a1,0x8008
 /*  f13c2f4:	24a520b0 */ 	addiu	$a1,$a1,0x20b0
-/*  f13c2f8:	0c00381c */ 	jal	func0000db30
+/*  f13c2f8:	0c00381c */ 	jal	mainOverrideVariable
 /*  f13c2fc:	248402b8 */ 	addiu	$a0,$a0,0x2b8
 /*  f13c300:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f13c304:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -448,8 +448,8 @@ Gfx *bviewPrepareStaticRgba16(Gfx *gdl, u32 colour, u32 alpha)
 	static u32 envcol = 0xffffffff;
 	static u32 primcol = 0x7f7f7fff;
 
-	func0000db30("envcol", &envcol);
-	func0000db30("primcol", &primcol);
+	mainOverrideVariable("envcol", &envcol);
+	mainOverrideVariable("primcol", &primcol);
 
 	gDPPipeSync(gdl++);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0,
@@ -482,8 +482,8 @@ Gfx *bviewPrepareStaticI8(Gfx *gdl, u32 colour, u32 alpha)
 	static u32 envcol = 0xffffffff;
 	static u32 primcol = 0x7f7f7fff;
 
-	func0000db30("envcol", &envcol);
-	func0000db30("primcol", &primcol);
+	mainOverrideVariable("envcol", &envcol);
+	mainOverrideVariable("primcol", &primcol);
 
 	gDPPipeSync(gdl++);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_8b, 0, 0x0000, 5, 0,
@@ -542,9 +542,9 @@ Gfx *bviewRenderMotionBlur(Gfx *gdl, u32 colour, u32 alpha)
 
 	var8007f844 = 0;
 
-	func0000db30("sfxxx", &sfxxx);
+	mainOverrideVariable("sfxxx", &sfxxx);
 	fxxx = sfxxx / 1000.0f;
-	func0000db30("sfyyy", &sfyyy);
+	mainOverrideVariable("sfyyy", &sfyyy);
 	fyyy = sfyyy / 1000.0f;
 
 	gDPPipeSync(gdl++);

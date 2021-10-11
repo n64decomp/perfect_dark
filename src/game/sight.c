@@ -2992,7 +2992,7 @@ glabel var7f1ade50
 /*  f0d90bc:	3c058007 */ 	lui	$a1,%hi(var80070f94)
 /*  f0d90c0:	24a50f94 */ 	addiu	$a1,$a1,%lo(var80070f94)
 /*  f0d90c4:	2484dda0 */ 	addiu	$a0,$a0,%lo(var7f1adda0)
-/*  f0d90c8:	0c0036cc */ 	jal	func0000db30
+/*  f0d90c8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0d90cc:	afa30090 */ 	sw	$v1,0x90($sp)
 /*  f0d90d0:	3c028007 */ 	lui	$v0,%hi(var80070f94)
 /*  f0d90d4:	8c420f94 */ 	lw	$v0,%lo(var80070f94)($v0)
@@ -3454,7 +3454,7 @@ glabel var7f1ade50
 /*  f0d90bc:	3c058007 */ 	lui	$a1,%hi(var80070f94)
 /*  f0d90c0:	24a50f94 */ 	addiu	$a1,$a1,%lo(var80070f94)
 /*  f0d90c4:	2484dda0 */ 	addiu	$a0,$a0,%lo(var7f1adda0)
-/*  f0d90c8:	0c0036cc */ 	jal	func0000db30
+/*  f0d90c8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0d90cc:	afa30090 */ 	sw	$v1,0x90($sp)
 /*  f0d90d0:	3c028007 */ 	lui	$v0,%hi(var80070f94)
 /*  f0d90d4:	8c420f94 */ 	lw	$v0,%lo(var80070f94)($v0)
@@ -3804,7 +3804,7 @@ glabel var7f1ade50
 //			}
 //
 //			// 0b8
-//			func0000db30("sight", &var80070f94);
+//			mainOverrideVariable("sight", &var80070f94);
 //
 //			switch (var80070f94) {
 //			case 0:
@@ -8050,8 +8050,8 @@ Gfx *sightRenderTarget(Gfx *gdl)
 	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
 	s32 y = g_Vars.currentplayer->crosspos[1];
 
-	func0000db30("sout", &var80070f9c);
-	func0000db30("sin", &var80070fa0);
+	mainOverrideVariable("sout", &var80070f9c);
+	mainOverrideVariable("sin", &var80070fa0);
 
 	gdl = gfxSetPrimColour(gdl, 0x00ff0028);
 

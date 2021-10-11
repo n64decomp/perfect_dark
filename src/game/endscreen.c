@@ -1025,7 +1025,7 @@ s32 menuhandlerEndscreenCheats(s32 operation, struct menuitem *item, union handl
 		// Timed cheat just got unlocked, and this item is the timed cheat name
 		u32 weight = func0f006b08(40) * 255;
 
-		func0000db30("ctcol", &g_CheatColour);
+		mainOverrideVariable("ctcol", &g_CheatColour);
 
 		if (item->param == 0
 				&& cheatGetTime(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff) == 0) {

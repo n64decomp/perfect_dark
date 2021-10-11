@@ -15179,7 +15179,7 @@ void func0f02855c(s32 arg0)
 {
 	var80062978 = arg0;
 
-	func0000db30("selectanimnum", &g_SelectedAnimNum);
+	mainOverrideVariable("selectanimnum", &g_SelectedAnimNum);
 }
 
 void chrsCheckForNoise(f32 noiseradius)

@@ -572,9 +572,9 @@ u32 var8005ef08 = 0;
 void joyDebugJoy(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	func0000db30("debugjoy", &var8005ef08);
+	mainOverrideVariable("debugjoy", &var8005ef08);
 #else
-	func0000db30("joyforce", &var8005ef08);
+	mainOverrideVariable("joyforce", &var8005ef08);
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0

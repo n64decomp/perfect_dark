@@ -16011,7 +16011,7 @@ glabel func0f162d9c
 /*  f162edc:	248475ac */ 	addiu	$a0,$a0,%lo(var7f1b75ac)
 /*  f162ee0:	e6c6001c */ 	swc1	$f6,0x1c($s6)
 /*  f162ee4:	c7a8009c */ 	lwc1	$f8,0x9c($sp)
-/*  f162ee8:	0c0036cc */ 	jal	func0000db30
+/*  f162ee8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f162eec:	e6c80020 */ 	swc1	$f8,0x20($s6)
 /*  f162ef0:	0fc59570 */ 	jal	stageGetCurrent
 /*  f162ef4:	00000000 */ 	nop

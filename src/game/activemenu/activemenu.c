@@ -2128,12 +2128,12 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 		return gdl;
 	}
 
-	func0000db30("obcol", &obcol);
-	func0000db30("ibcol", &ibcol);
-	func0000db30("defcol", &defcol);
-	func0000db30("favcol", &favcol);
-	func0000db30("pickcol", &pickcol);
-	func0000db30("pickcol2", &pickcol2);
+	mainOverrideVariable("obcol", &obcol);
+	mainOverrideVariable("ibcol", &ibcol);
+	mainOverrideVariable("defcol", &defcol);
+	mainOverrideVariable("favcol", &favcol);
+	mainOverrideVariable("pickcol", &pickcol);
+	mainOverrideVariable("pickcol2", &pickcol2);
 
 	// Render background colour
 	colour = (u32)(g_AmMenus[g_AmIndex].alphafrac * (ibcol & 0xff)) | (ibcol & 0xffffff00);

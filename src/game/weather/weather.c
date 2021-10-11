@@ -290,7 +290,7 @@ void weatherTickRain(struct weatherdata *weather)
 	f32 rand;
 	s32 lvupdate;
 
-	func0000db30("rainspeedxtra", &g_RainSpeedExtra);
+	mainOverrideVariable("rainspeedxtra", &g_RainSpeedExtra);
 
 	if (weather->unk90 > 0) {
 		weather->unk88 += (weather->unk8c - weather->unk88) / weather->unk90;
@@ -450,8 +450,8 @@ void weatherTickSnow(struct weatherdata *weather)
 	s32 i;
 	struct weatherparticledata *data;
 
-	func0000db30("snowspeed", &g_SnowSpeed);
-	func0000db30("snowspeedxtra", &g_SnowSpeedExtra);
+	mainOverrideVariable("snowspeed", &g_SnowSpeed);
+	mainOverrideVariable("snowspeedxtra", &g_SnowSpeedExtra);
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
 		weather->windanglerad = 1.5707963705063f;
@@ -862,42 +862,42 @@ glabel var7f1b5780
 /*  f132e7c:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f132e80:	afa00708 */ 	sw	$zero,0x708($sp)
 /*  f132e84:	2484564c */ 	addiu	$a0,$a0,%lo(var7f1b564c)
-/*  f132e88:	0c0036cc */ 	jal	func0000db30
+/*  f132e88:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132e8c:	24a5f0e4 */ 	addiu	$a1,$a1,%lo(var8007f0e4)
 /*  f132e90:	3c047f1b */ 	lui	$a0,%hi(var7f1b5658)
 /*  f132e94:	3c058008 */ 	lui	$a1,%hi(var8007f0e8)
 /*  f132e98:	24a5f0e8 */ 	addiu	$a1,$a1,%lo(var8007f0e8)
-/*  f132e9c:	0c0036cc */ 	jal	func0000db30
+/*  f132e9c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132ea0:	24845658 */ 	addiu	$a0,$a0,%lo(var7f1b5658)
 /*  f132ea4:	3c047f1b */ 	lui	$a0,%hi(var7f1b5664)
 /*  f132ea8:	3c058008 */ 	lui	$a1,%hi(var8007f0e0)
 /*  f132eac:	24a5f0e0 */ 	addiu	$a1,$a1,%lo(var8007f0e0)
-/*  f132eb0:	0c0036cc */ 	jal	func0000db30
+/*  f132eb0:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132eb4:	24845664 */ 	addiu	$a0,$a0,%lo(var7f1b5664)
 /*  f132eb8:	3c047f1b */ 	lui	$a0,%hi(var7f1b5670)
 /*  f132ebc:	3c058008 */ 	lui	$a1,%hi(var8007f0ec)
 /*  f132ec0:	24a5f0ec */ 	addiu	$a1,$a1,%lo(var8007f0ec)
-/*  f132ec4:	0c0036cc */ 	jal	func0000db30
+/*  f132ec4:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132ec8:	24845670 */ 	addiu	$a0,$a0,%lo(var7f1b5670)
 /*  f132ecc:	3c047f1b */ 	lui	$a0,%hi(var7f1b5678)
 /*  f132ed0:	3c058008 */ 	lui	$a1,%hi(var8007f0f0)
 /*  f132ed4:	24a5f0f0 */ 	addiu	$a1,$a1,%lo(var8007f0f0)
-/*  f132ed8:	0c0036cc */ 	jal	func0000db30
+/*  f132ed8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132edc:	24845678 */ 	addiu	$a0,$a0,%lo(var7f1b5678)
 /*  f132ee0:	3c047f1b */ 	lui	$a0,%hi(var7f1b5680)
 /*  f132ee4:	3c058008 */ 	lui	$a1,%hi(var8007f0f4)
 /*  f132ee8:	24a5f0f4 */ 	addiu	$a1,$a1,%lo(var8007f0f4)
-/*  f132eec:	0c0036cc */ 	jal	func0000db30
+/*  f132eec:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132ef0:	24845680 */ 	addiu	$a0,$a0,%lo(var7f1b5680)
 /*  f132ef4:	3c047f1b */ 	lui	$a0,%hi(var7f1b5688)
 /*  f132ef8:	3c058008 */ 	lui	$a1,%hi(var8007f0f8)
 /*  f132efc:	24a5f0f8 */ 	addiu	$a1,$a1,%lo(var8007f0f8)
-/*  f132f00:	0c0036cc */ 	jal	func0000db30
+/*  f132f00:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132f04:	24845688 */ 	addiu	$a0,$a0,%lo(var7f1b5688)
 /*  f132f08:	3c047f1b */ 	lui	$a0,%hi(var7f1b5690)
 /*  f132f0c:	3c058008 */ 	lui	$a1,%hi(var8007f0fc)
 /*  f132f10:	24a5f0fc */ 	addiu	$a1,$a1,%lo(var8007f0fc)
-/*  f132f14:	0c0036cc */ 	jal	func0000db30
+/*  f132f14:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f132f18:	24845690 */ 	addiu	$a0,$a0,%lo(var7f1b5690)
 /*  f132f1c:	3c13800a */ 	lui	$s3,%hi(g_Vars)
 /*  f132f20:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
@@ -2609,22 +2609,22 @@ glabel var7f1b5790
 /*  f134818:	af380004 */ 	sw	$t8,0x4($t9)
 /*  f13481c:	24a5f104 */ 	addiu	$a1,$a1,%lo(var8007f104)
 /*  f134820:	2484569c */ 	addiu	$a0,$a0,%lo(var7f1b569c)
-/*  f134824:	0c0036cc */ 	jal	func0000db30
+/*  f134824:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f134828:	afa81268 */ 	sw	$t0,0x1268($sp)
 /*  f13482c:	3c047f1b */ 	lui	$a0,%hi(var7f1b56a8)
 /*  f134830:	3c058008 */ 	lui	$a1,%hi(var8007f108)
 /*  f134834:	24a5f108 */ 	addiu	$a1,$a1,%lo(var8007f108)
-/*  f134838:	0c0036cc */ 	jal	func0000db30
+/*  f134838:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f13483c:	248456a8 */ 	addiu	$a0,$a0,%lo(var7f1b56a8)
 /*  f134840:	3c047f1b */ 	lui	$a0,%hi(var7f1b56b4)
 /*  f134844:	3c058008 */ 	lui	$a1,%hi(var8007f10c)
 /*  f134848:	24a5f10c */ 	addiu	$a1,$a1,%lo(var8007f10c)
-/*  f13484c:	0c0036cc */ 	jal	func0000db30
+/*  f13484c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f134850:	248456b4 */ 	addiu	$a0,$a0,%lo(var7f1b56b4)
 /*  f134854:	3c047f1b */ 	lui	$a0,%hi(var7f1b56c0)
 /*  f134858:	3c058008 */ 	lui	$a1,%hi(var8007f110)
 /*  f13485c:	24a5f110 */ 	addiu	$a1,$a1,%lo(var8007f110)
-/*  f134860:	0c0036cc */ 	jal	func0000db30
+/*  f134860:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f134864:	248456c0 */ 	addiu	$a0,$a0,%lo(var7f1b56c0)
 /*  f134868:	0013c880 */ 	sll	$t9,$s3,0x2
 /*  f13486c:	02397021 */ 	addu	$t6,$s1,$t9

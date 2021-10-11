@@ -6983,13 +6983,13 @@ void pakExecuteDebugOperations(void)
 	s32 pass = false;
 	s8 i;
 
-	func0000db30("forcescrub", &g_PakDebugForceScrub);
-	func0000db30("pakdump", &g_PakDebugPakDump);
-	func0000db30("pakcache", &g_PakDebugPakCache);
-	func0000db30("pakinit", &g_PakDebugPakInit);
-	func0000db30("corruptme", &g_PakDebugCorruptMe);
-	func0000db30("wipeeeprom", &g_PakDebugWipeEeprom);
-	func0000db30("dumpeeprom", &g_PakDebugDumpEeprom);
+	mainOverrideVariable("forcescrub", &g_PakDebugForceScrub);
+	mainOverrideVariable("pakdump", &g_PakDebugPakDump);
+	mainOverrideVariable("pakcache", &g_PakDebugPakCache);
+	mainOverrideVariable("pakinit", &g_PakDebugPakInit);
+	mainOverrideVariable("corruptme", &g_PakDebugCorruptMe);
+	mainOverrideVariable("wipeeeprom", &g_PakDebugWipeEeprom);
+	mainOverrideVariable("dumpeeprom", &g_PakDebugDumpEeprom);
 
 	if (g_PakDebugCorruptMe) {
 		g_PakDebugCorruptMe = false;
@@ -7064,32 +7064,32 @@ glabel pakExecuteDebugOperations
 /*  f116498:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f11649c:	3c058008 */ 	lui	$a1,0x8008
 /*  f1164a0:	24a580a4 */ 	addiu	$a1,$a1,-32604
-/*  f1164a4:	0c00381c */ 	jal	func0000db30
+/*  f1164a4:	0c00381c */ 	jal	mainOverrideVariable
 /*  f1164a8:	2484e6c0 */ 	addiu	$a0,$a0,-6464
 /*  f1164ac:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f1164b0:	3c058008 */ 	lui	$a1,0x8008
 /*  f1164b4:	24a580a8 */ 	addiu	$a1,$a1,-32600
-/*  f1164b8:	0c00381c */ 	jal	func0000db30
+/*  f1164b8:	0c00381c */ 	jal	mainOverrideVariable
 /*  f1164bc:	2484e6cc */ 	addiu	$a0,$a0,-6452
 /*  f1164c0:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f1164c4:	3c058008 */ 	lui	$a1,0x8008
 /*  f1164c8:	24a580ac */ 	addiu	$a1,$a1,-32596
-/*  f1164cc:	0c00381c */ 	jal	func0000db30
+/*  f1164cc:	0c00381c */ 	jal	mainOverrideVariable
 /*  f1164d0:	2484e6d8 */ 	addiu	$a0,$a0,-6440
 /*  f1164d4:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f1164d8:	3c058008 */ 	lui	$a1,0x8008
 /*  f1164dc:	24a580b0 */ 	addiu	$a1,$a1,-32592
-/*  f1164e0:	0c00381c */ 	jal	func0000db30
+/*  f1164e0:	0c00381c */ 	jal	mainOverrideVariable
 /*  f1164e4:	2484e6e0 */ 	addiu	$a0,$a0,-6432
 /*  f1164e8:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f1164ec:	3c058008 */ 	lui	$a1,0x8008
 /*  f1164f0:	24a580b4 */ 	addiu	$a1,$a1,-32588
-/*  f1164f4:	0c00381c */ 	jal	func0000db30
+/*  f1164f4:	0c00381c */ 	jal	mainOverrideVariable
 /*  f1164f8:	2484e6ec */ 	addiu	$a0,$a0,-6420
 /*  f1164fc:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f116500:	3c058008 */ 	lui	$a1,0x8008
 /*  f116504:	24a58110 */ 	addiu	$a1,$a1,-32496
-/*  f116508:	0c00381c */ 	jal	func0000db30
+/*  f116508:	0c00381c */ 	jal	mainOverrideVariable
 /*  f11650c:	2484e6f4 */ 	addiu	$a0,$a0,-6412
 /*  f116510:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f116514:	8dce8110 */ 	lw	$t6,-0x7ef0($t6)

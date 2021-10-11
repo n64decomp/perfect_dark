@@ -6219,12 +6219,12 @@ glabel var7f1b3c40pf
 /*  f0f4efc:	248438e0 */ 	addiu	$a0,$a0,0x38e0
 /*  f0f4f00:	46805120 */ 	cvt.s.w	$f4,$f10
 /*  f0f4f04:	46122403 */ 	div.s	$f16,$f4,$f18
-/*  f0f4f08:	0c003624 */ 	jal	func0000db30
+/*  f0f4f08:	0c003624 */ 	jal	mainOverrideVariable
 /*  f0f4f0c:	e7b0017c */ 	swc1	$f16,0x17c($sp)
 /*  f0f4f10:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f0f4f14:	3c058007 */ 	lui	$a1,0x8007
 /*  f0f4f18:	24a517a4 */ 	addiu	$a1,$a1,0x17a4
-/*  f0f4f1c:	0c003624 */ 	jal	func0000db30
+/*  f0f4f1c:	0c003624 */ 	jal	mainOverrideVariable
 /*  f0f4f20:	248438e4 */ 	addiu	$a0,$a0,0x38e4
 /*  f0f4f24:	0fc353da */ 	jal	func0f0d49c8
 /*  f0f4f28:	8fa40440 */ 	lw	$a0,0x440($sp)
@@ -7832,12 +7832,12 @@ glabel var7f1b2948
 /*  f0f47cc:	248425f0 */ 	addiu	$a0,$a0,%lo(var7f1b25f0)
 /*  f0f47d0:	468041a0 */ 	cvt.s.w	$f6,$f8
 /*  f0f47d4:	460a3203 */ 	div.s	$f8,$f6,$f10
-/*  f0f47d8:	0c0036cc */ 	jal	func0000db30
+/*  f0f47d8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0f47dc:	e7a8017c */ 	swc1	$f8,0x17c($sp)
 /*  f0f47e0:	3c047f1b */ 	lui	$a0,%hi(var7f1b25f4)
 /*  f0f47e4:	3c058007 */ 	lui	$a1,%hi(var800714c4)
 /*  f0f47e8:	24a514c4 */ 	addiu	$a1,$a1,%lo(var800714c4)
-/*  f0f47ec:	0c0036cc */ 	jal	func0000db30
+/*  f0f47ec:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0f47f0:	248425f4 */ 	addiu	$a0,$a0,%lo(var7f1b25f4)
 /*  f0f47f4:	0fc35272 */ 	jal	func0f0d49c8
 /*  f0f47f8:	8fa40440 */ 	lw	$a0,0x440($sp)
@@ -9466,12 +9466,12 @@ glabel var7f1b2948
 /*  f0f1370:	2484c91c */ 	addiu	$a0,$a0,-14052
 /*  f0f1374:	468041a0 */ 	cvt.s.w	$f6,$f8
 /*  f0f1378:	460a3203 */ 	div.s	$f8,$f6,$f10
-/*  f0f137c:	0c00381c */ 	jal	func0000db30
+/*  f0f137c:	0c00381c */ 	jal	mainOverrideVariable
 /*  f0f1380:	e7a80180 */ 	swc1	$f8,0x180($sp)
 /*  f0f1384:	3c047f1b */ 	lui	$a0,0x7f1b
 /*  f0f1388:	3c058007 */ 	lui	$a1,0x8007
 /*  f0f138c:	24a53b78 */ 	addiu	$a1,$a1,0x3b78
-/*  f0f1390:	0c00381c */ 	jal	func0000db30
+/*  f0f1390:	0c00381c */ 	jal	mainOverrideVariable
 /*  f0f1394:	2484c920 */ 	addiu	$a0,$a0,-14048
 /*  f0f1398:	0fc34852 */ 	jal	func0f0d49c8
 /*  f0f139c:	8fa40468 */ 	lw	$a0,0x468($sp)
@@ -16622,7 +16622,7 @@ glabel func0f0f8634
 /*  f0f864c:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0f8650:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f0f8654:	248426f8 */ 	addiu	$a0,$a0,%lo(var7f1b26f8)
-/*  f0f8658:	0c0036cc */ 	jal	func0000db30
+/*  f0f8658:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0f865c:	24a514dc */ 	addiu	$a1,$a1,%lo(var800714dc)
 /*  f0f8660:	8fa2001c */ 	lw	$v0,0x1c($sp)
 /*  f0f8664:	3c068007 */ 	lui	$a2,%hi(var800714dc)
@@ -24211,7 +24211,7 @@ glabel var7f1b2aec
 /*  f0fb97c:	3c058007 */ 	lui	$a1,%hi(var800714ec)
 /*  f0fb980:	24a514ec */ 	addiu	$a1,$a1,%lo(var800714ec)
 /*  f0fb984:	24842778 */ 	addiu	$a0,$a0,%lo(var7f1b2778)
-/*  f0fb988:	0c0036cc */ 	jal	func0000db30
+/*  f0fb988:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0fb98c:	e7ac0088 */ 	swc1	$f12,0x88($sp)
 /*  f0fb990:	3c0e800a */ 	lui	$t6,%hi(g_MenuData+0x16)
 /*  f0fb994:	91ce19d6 */ 	lbu	$t6,%lo(g_MenuData+0x16)($t6)
@@ -24360,7 +24360,7 @@ u32 var800714f0 = 1;
 Gfx *func0f0fbba0(Gfx *gdl, u8 param_2, s32 arg2)
 {
 	if (param_2 == 4 || param_2 == 9) {
-		func0000db30("cone", &var800714f0);
+		mainOverrideVariable("cone", &var800714f0);
 
 		if (var800714f0 && (g_MenuData.unk015 == 4 || g_MenuData.unk015 == 0 || g_MenuData.unk015 == 255)) {
 			gdl = func0f0e4190(gdl);
@@ -24628,7 +24628,7 @@ glabel var7f1b2afc
 /*  f0fc72c:	aee0059c */ 	sw	$zero,0x59c($s7)
 /*  f0fc730:	a2e005d4 */ 	sb	$zero,0x5d4($s7)
 .PF0f0fc734:
-/*  f0fc734:	0c003624 */ 	jal	func0000db30
+/*  f0fc734:	0c003624 */ 	jal	mainOverrideVariable
 /*  f0fc738:	24a517d4 */ 	addiu	$a1,$a1,0x17d4
 /*  f0fc73c:	3c0f8007 */ 	lui	$t7,0x8007
 /*  f0fc740:	8def17d4 */ 	lw	$t7,0x17d4($t7)
@@ -25617,7 +25617,7 @@ glabel var7f1b2afc
 /*  f0fbfc0:	aee0059c */ 	sw	$zero,0x59c($s7)
 /*  f0fbfc4:	a2e005d4 */ 	sb	$zero,0x5d4($s7)
 .L0f0fbfc8:
-/*  f0fbfc8:	0c0036cc */ 	jal	func0000db30
+/*  f0fbfc8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0fbfcc:	24a514f4 */ 	addiu	$a1,$a1,%lo(var800714f4)
 /*  f0fbfd0:	3c188007 */ 	lui	$t8,%hi(var800714f4)
 /*  f0fbfd4:	8f1814f4 */ 	lw	$t8,%lo(var800714f4)($t8)
@@ -26603,7 +26603,7 @@ glabel var7f1b2afc
 /*  f0f8710:	aee0059c */ 	sw	$zero,0x59c($s7)
 /*  f0f8714:	a2e005d4 */ 	sb	$zero,0x5d4($s7)
 .NB0f0f8718:
-/*  f0f8718:	0c00381c */ 	jal	func0000db30
+/*  f0f8718:	0c00381c */ 	jal	mainOverrideVariable
 /*  f0f871c:	24a53ba0 */ 	addiu	$a1,$a1,0x3ba0
 /*  f0f8720:	3c0c8007 */ 	lui	$t4,0x8007
 /*  f0f8724:	8d8c3ba0 */ 	lw	$t4,0x3ba0($t4)

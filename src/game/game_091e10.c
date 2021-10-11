@@ -18,7 +18,7 @@ u32 setupGetCommandLength(u32 *cmd)
 #if VERSION < VERSION_NTSC_1_0
 	static u32 crash1;
 
-	func0000db30("crash1", &crash1);
+	mainOverrideVariable("crash1", &crash1);
 #endif
 
 	switch ((u8)cmd[0]) {

@@ -4232,27 +4232,27 @@ glabel var7f1acd8c
 /*  f0af190:	f7b40028 */ 	sdc1	$f20,0x28($sp)
 /*  f0af194:	8e10a244 */ 	lw	$s0,%lo(g_Vars+0x284)($s0)
 /*  f0af198:	24a50574 */ 	addiu	$a1,$a1,%lo(var80070574)
-/*  f0af19c:	0c0036cc */ 	jal	func0000db30
+/*  f0af19c:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0af1a0:	2484cc10 */ 	addiu	$a0,$a0,%lo(var7f1acc10)
 /*  f0af1a4:	3c047f1b */ 	lui	$a0,%hi(var7f1acc14)
 /*  f0af1a8:	3c058007 */ 	lui	$a1,%hi(var80070578)
 /*  f0af1ac:	24a50578 */ 	addiu	$a1,$a1,%lo(var80070578)
-/*  f0af1b0:	0c0036cc */ 	jal	func0000db30
+/*  f0af1b0:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0af1b4:	2484cc14 */ 	addiu	$a0,$a0,%lo(var7f1acc14)
 /*  f0af1b8:	3c047f1b */ 	lui	$a0,%hi(var7f1acc18)
 /*  f0af1bc:	3c058007 */ 	lui	$a1,%hi(var8007057c)
 /*  f0af1c0:	24a5057c */ 	addiu	$a1,$a1,%lo(var8007057c)
-/*  f0af1c4:	0c0036cc */ 	jal	func0000db30
+/*  f0af1c4:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0af1c8:	2484cc18 */ 	addiu	$a0,$a0,%lo(var7f1acc18)
 /*  f0af1cc:	3c047f1b */ 	lui	$a0,%hi(var7f1acc1c)
 /*  f0af1d0:	3c058007 */ 	lui	$a1,%hi(var80070580)
 /*  f0af1d4:	24a50580 */ 	addiu	$a1,$a1,%lo(var80070580)
-/*  f0af1d8:	0c0036cc */ 	jal	func0000db30
+/*  f0af1d8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0af1dc:	2484cc1c */ 	addiu	$a0,$a0,%lo(var7f1acc1c)
 /*  f0af1e0:	3c047f1b */ 	lui	$a0,%hi(var7f1acc20)
 /*  f0af1e4:	3c058007 */ 	lui	$a1,%hi(var80070584)
 /*  f0af1e8:	24a50584 */ 	addiu	$a1,$a1,%lo(var80070584)
-/*  f0af1ec:	0c0036cc */ 	jal	func0000db30
+/*  f0af1ec:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f0af1f0:	2484cc20 */ 	addiu	$a0,$a0,%lo(var7f1acc20)
 /*  f0af1f4:	8fae0200 */ 	lw	$t6,0x200($sp)
 /*  f0af1f8:	3c18ba00 */ 	lui	$t8,0xba00
@@ -4827,11 +4827,11 @@ glabel var7f1acd8c
 //	static u32 spb = 24;
 //	static u32 spi = 6;
 //
-//	func0000db30("sp1", &sp1);
-//	func0000db30("sp2", &sp2);
-//	func0000db30("sp3", &sp3);
-//	func0000db30("spb", &spb);
-//	func0000db30("spi", &spi);
+//	mainOverrideVariable("sp1", &sp1);
+//	mainOverrideVariable("sp2", &sp2);
+//	mainOverrideVariable("sp3", &sp3);
+//	mainOverrideVariable("spb", &spb);
+//	mainOverrideVariable("spi", &spi);
 //
 //	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 //	gDPSetTextureFilter(gdl++, G_TF_BILERP);

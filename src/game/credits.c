@@ -2186,12 +2186,12 @@ glabel var7f1b5850
 /*  f1392d8:	f7b60030 */ 	sdc1	$f22,0x30($sp)
 /*  f1392dc:	f7b40028 */ 	sdc1	$f20,0x28($sp)
 /*  f1392e0:	24a5f468 */ 	addiu	$a1,$a1,%lo(var8007f468)
-/*  f1392e4:	0c0036cc */ 	jal	func0000db30
+/*  f1392e4:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f1392e8:	248457c0 */ 	addiu	$a0,$a0,%lo(var7f1b57c0)
 /*  f1392ec:	3c047f1b */ 	lui	$a0,%hi(var7f1b57c8)
 /*  f1392f0:	3c058008 */ 	lui	$a1,%hi(var8007f46c)
 /*  f1392f4:	24a5f46c */ 	addiu	$a1,$a1,%lo(var8007f46c)
-/*  f1392f8:	0c0036cc */ 	jal	func0000db30
+/*  f1392f8:	0c0036cc */ 	jal	mainOverrideVariable
 /*  f1392fc:	248457c8 */ 	addiu	$a0,$a0,%lo(var7f1b57c8)
 /*  f139300:	0fc59e73 */ 	jal	gfxAllocateColours
 /*  f139304:	2404003c */ 	addiu	$a0,$zero,0x3c
@@ -4808,7 +4808,7 @@ void creditsTick(void)
 		creditsCreatePendingBgLayers(0xffffffff);
 	}
 
-	func0000db30("for", &var8007f6d8);
+	mainOverrideVariable("for", &var8007f6d8);
 
 	if (var8007f6d8 < 0xffff) {
 		for (i = 0; i < 4; i++) {
@@ -4816,7 +4816,7 @@ void creditsTick(void)
 		}
 	}
 
-	func0000db30("flick", &var8007f6d4);
+	mainOverrideVariable("flick", &var8007f6d4);
 
 	if (var8007f6d4 != 0) {
 		creditsCreatePendingBgLayers(0xffffffff);
@@ -4866,7 +4866,7 @@ glabel var7f1afe70nb
 /*  f135920:	3c058008 */ 	lui	$a1,0x8008
 /*  f135924:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f135928:	24a51f2c */ 	addiu	$a1,$a1,0x1f2c
-/*  f13592c:	0c00381c */ 	jal	func0000db30
+/*  f13592c:	0c00381c */ 	jal	mainOverrideVariable
 /*  f135930:	2484fd10 */ 	addiu	$a0,$a0,-752
 /*  f135934:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f135938:	8dce1f2c */ 	lw	$t6,0x1f2c($t6)
@@ -4891,7 +4891,7 @@ glabel var7f1afe70nb
 /*  f13597c:	3c10800b */ 	lui	$s0,0x800b
 /*  f135980:	3c058008 */ 	lui	$a1,0x8008
 /*  f135984:	26108730 */ 	addiu	$s0,$s0,-30928
-/*  f135988:	0c00381c */ 	jal	func0000db30
+/*  f135988:	0c00381c */ 	jal	mainOverrideVariable
 /*  f13598c:	24a51f28 */ 	addiu	$a1,$a1,0x1f28
 /*  f135990:	3c088008 */ 	lui	$t0,0x8008
 /*  f135994:	8d081f28 */ 	lw	$t0,0x1f28($t0)
