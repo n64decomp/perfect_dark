@@ -85,6 +85,7 @@ $(B_DIR)/lib/ultra/io/motor.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfschecker.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfsfreeblocks.o: LOOPUNROLL :=
 $(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
+$(B_DIR)/lib/ultra/io/pfsinitpak2.o: LOOPUNROLL :=
 
 $(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
 $(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32

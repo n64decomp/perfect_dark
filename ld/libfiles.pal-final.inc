@@ -207,7 +207,7 @@
 	build/ROMID/lib/ultra/io/gbpakreadid.o (section); \
 	build/ROMID/lib/ultra/io/gbpakcheckconnector.o (section); \
 	build/ROMID/lib/ultra/io/gbpakreadwrite.o (section); \
-	build/ROMID/lib/lib_51570.o (section); \
+	build/ROMID/lib/ultra/io/pfsinitpak2.o (section); \
 	build/ROMID/lib/ultra/io/vimodepallan1.o (section); \
 	build/ROMID/lib/ultra/io/vimodempallan1.o (section); \
 	build/ROMID/lib/ultra/io/vimodentsclan1.o (section); \
