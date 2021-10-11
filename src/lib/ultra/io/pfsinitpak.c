@@ -154,9 +154,8 @@ s32 func00007084(OSPfs *pfs)
 	return buffer[1];
 }
 #else
-GLOBAL_ASM(
-glabel func00007084
-/*     71a0:	03e00008 */ 	jr	$ra
-/*     71a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func000071a0nb(void)
+{
+	// empty
+}
 #endif
