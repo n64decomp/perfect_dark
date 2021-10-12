@@ -46,7 +46,7 @@
 	build/ROMID/lib/pimgr.o (section); \
 	build/ROMID/lib/lib_13750.o (section); \
 	build/ROMID/lib/lib_13790.o (section); \
-	build/ROMID/lib/lib_13820.o (section); \
+	build/ROMID/lib/base.o (section); \
 	build/ROMID/lib/joy.o (section); \
 	build/ROMID/lib/lib_15850.o (section); \
 	build/ROMID/lib/gvars.o (section); \
