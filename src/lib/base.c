@@ -21,11 +21,7 @@ char *baseEncode(u64 value, char *buffer, u32 base, bool uppercase)
 	return ptr;
 }
 
-GLOBAL_ASM(
-glabel base000138e0
-/*    138e0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    138e4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    138e8:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    138ec:	03e00008 */ 	jr	$ra
-/*    138f0:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 base000138e0(u32 arg0, u32 arg1, u32 arg2)
+{
+	return 0;
+}
