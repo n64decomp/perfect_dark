@@ -67,98 +67,107 @@ endif
 
 AS := $(TOOLCHAIN)-as
 
-MIPSISET := -mips2 -32
-OPT_LVL := -O2
-LOOPUNROLL := -Wo,-loopunroll,0
+LOOPUNROLL_C_FILES := \
+	src/lib/ultra/gu/frustum.c \
+	src/lib/ultra/gu/mtxutil.c \
+	src/lib/ultra/gu/ortho.c \
+	src/lib/ultra/io/conteepread.c \
+	src/lib/ultra/io/conteepwrite.c \
+	src/lib/ultra/io/contpfs.c \
+	src/lib/ultra/io/contramread.c \
+	src/lib/ultra/io/contramwrite.c \
+	src/lib/ultra/io/gbpakgetstatus.c \
+	src/lib/ultra/io/gbpakreadid.c \
+	src/lib/ultra/io/motor.c \
+	src/lib/ultra/io/pfschecker.c \
+	src/lib/ultra/io/pfsfreeblocks.c \
+	src/lib/ultra/io/pfsgetstatus.c \
+	src/lib/ultra/io/pfsinitpak2.c
 
-$(B_DIR)/lib/ultra/gu/frustum.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/gu/mtxutil.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/gu/ortho.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/conteepread.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/conteepwrite.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/contpfs.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/contramread.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/contramwrite.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/gbpakgetstatus.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/gbpakreadid.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/motor.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/pfschecker.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/pfsfreeblocks.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/pfsgetstatus.o: LOOPUNROLL :=
-$(B_DIR)/lib/ultra/io/pfsinitpak2.o: LOOPUNROLL :=
+MIPS3_C_FILES := \
+	src/lib/ultra/libc/ll.c \
+	src/lib/ultra/libc/llcvt.c
 
-$(B_DIR)/lib/ultra/libc/ll.o: MIPSISET := -mips3 -o32
-$(B_DIR)/lib/ultra/libc/llcvt.o: MIPSISET := -mips3 -32
+G_C_FILES := \
+	$(shell find src/lib/ultra/audio -name '*.c') \
+	src/lib/lib_2fba0.c \
+	src/lib/lib_30ce0.c \
+	src/lib/lib_3a100.c \
+	src/lib/lib_3d280.c \
+	src/lib/lib_3e730.c \
+	src/lib/lib_3e8c0.c \
+	src/lib/mp3.c \
+	src/lib/speaker.c
 
-# Note: Files that use -O3 must be compiled without the ASM processor, otherwise
-# it introduces a race condition when using make -j because they create a
-# temporary include-stdin.u file during compilation.
-# For these files, see their explicit targets towards the end of this file.
-$(B_DIR)/lib/lib_2fba0.o: OPT_LVL := -g
-$(B_DIR)/lib/lib_30ce0.o: OPT_LVL := -g
-$(B_DIR)/lib/mp3.o: OPT_LVL := -g
-$(B_DIR)/lib/speaker.o: OPT_LVL := -g
-$(B_DIR)/lib/lib_3a100.o: OPT_LVL := -g
-$(B_DIR)/lib/lib_3d280.o: OPT_LVL := -g
-$(B_DIR)/lib/lib_3e730.o: OPT_LVL := -g
-$(B_DIR)/lib/lib_3e8c0.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/audio/bnkf.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/audio/cseq.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/audio/csplayer.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/audio/event.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/audio/heap.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/audio/syndelete.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/audio/synsetpriority.o: OPT_LVL := -g
-$(B_DIR)/lib/ultra/gu/align.o: OPT_LVL := -O3
-$(B_DIR)/lib/ultra/gu/frustum.o: OPT_LVL := -O3
-$(B_DIR)/lib/ultra/gu/ortho.o: OPT_LVL := -O3
-$(B_DIR)/lib/ultra/gu/scale.o: OPT_LVL := -O3
-$(B_DIR)/lib/ultra/io/ai.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/aisetnextbuf.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/conteeplongread.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/contquery.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/controller.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/dpctr.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/pigetcmdq.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/pidma.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/si.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/sp.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/spsetpc.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/sptaskyielded.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/vi.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/viblack.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/vigetcurrframebuf.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/vigetnextframebuf.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/visetevent.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/visetmode.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/visetxscale.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/visetyscale.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/io/viswapbuf.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/libc/ll.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/libc/llcvt.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/atomic.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/createmesgqueue.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/destroythread.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/gettime.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/jammesg.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/recvmesg.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/resetglobalintmask.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/sendmesg.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/seteventmesg.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/setglobalintmask.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/setthreadpri.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/settimer.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/startthread.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/stopthread.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/stoptimer.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/thread.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/timerintr.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/virtualtophysical.o: OPT_LVL := -O1
-$(B_DIR)/lib/ultra/os/yieldthread.o: OPT_LVL := -O1
+O1_C_FILES := \
+	src/lib/ultra/io/ai.c \
+	src/lib/ultra/io/aisetnextbuf.c \
+	src/lib/ultra/io/conteeplongread.c \
+	src/lib/ultra/io/contquery.c \
+	src/lib/ultra/io/controller.c \
+	src/lib/ultra/io/dpctr.c \
+	src/lib/ultra/io/pigetcmdq.c \
+	src/lib/ultra/io/pidma.c \
+	src/lib/ultra/io/si.c \
+	src/lib/ultra/io/sp.c \
+	src/lib/ultra/io/spsetpc.c \
+	src/lib/ultra/io/sptaskyielded.c \
+	src/lib/ultra/io/vi.c \
+	src/lib/ultra/io/viblack.c \
+	src/lib/ultra/io/vigetcurrframebuf.c \
+	src/lib/ultra/io/vigetnextframebuf.c \
+	src/lib/ultra/io/visetevent.c \
+	src/lib/ultra/io/visetmode.c \
+	src/lib/ultra/io/visetxscale.c \
+	src/lib/ultra/io/visetyscale.c \
+	src/lib/ultra/io/viswapbuf.c \
+	src/lib/ultra/libc/ll.c \
+	src/lib/ultra/libc/llcvt.c \
+	src/lib/ultra/os/atomic.c \
+	src/lib/ultra/os/createmesgqueue.c \
+	src/lib/ultra/os/destroythread.c \
+	src/lib/ultra/os/gettime.c \
+	src/lib/ultra/os/jammesg.c \
+	src/lib/ultra/os/recvmesg.c \
+	src/lib/ultra/os/resetglobalintmask.c \
+	src/lib/ultra/os/sendmesg.c \
+	src/lib/ultra/os/seteventmesg.c \
+	src/lib/ultra/os/setglobalintmask.c \
+	src/lib/ultra/os/setthreadpri.c \
+	src/lib/ultra/os/settimer.c \
+	src/lib/ultra/os/startthread.c \
+	src/lib/ultra/os/stopthread.c \
+	src/lib/ultra/os/stoptimer.c \
+	src/lib/ultra/os/thread.c \
+	src/lib/ultra/os/timerintr.c \
+	src/lib/ultra/os/virtualtophysical.c \
+	src/lib/ultra/os/yieldthread.c
 
 ifeq ($(ROMID), ntsc-beta)
-$(B_DIR)/lib/ultra/io/pfsisplug.o: OPT_LVL := -O1
+	O1_C_FILES := $(O1_C_FILES) src/lib/ultra/io/pfsisplug.c
 endif
+
+O3_C_FILES := \
+	src/lib/ultra/gu/align.c \
+	src/lib/ultra/gu/frustum.c \
+	src/lib/ultra/gu/ortho.c \
+	src/lib/ultra/gu/scale.c
+
+LOOPUNROLL_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(LOOPUNROLL_C_FILES))
+MIPS3_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(MIPS3_C_FILES))
+G_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(G_C_FILES))
+O1_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(O1_C_FILES))
+O3_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(O3_C_FILES))
+
+LOOPUNROLL := -Wo,-loopunroll,0
+MIPSISET := -mips2 -32
+OPT_LVL := -O2
+
+$(LOOPUNROLL_O_FILES): LOOPUNROLL :=
+$(MIPS3_O_FILES): MIPSISET := -mips3 -32
+$(G_O_FILES): OPT_LVL := -g
+$(O1_O_FILES): OPT_LVL := -O1
+$(O3_O_FILES): OPT_LVL := -O3
 
 CFLAGS = $(C_DEFINES) \
 	$(LOOPUNROLL) \
@@ -178,6 +187,18 @@ ASFLAGS = -march=vr4300 -mabi=32 -Isrc/include $(AS_DEFINES)
 
 C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game src/preamble -name '*.s')
+
+# Files containing MAXFLOAT must be built with qemu, not recomp
+MAXFLOAT_C_FILES != grep -rl 'MAXFLOAT' $(C_FILES)
+MAXFLOAT_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(MAXFLOAT_C_FILES))
+
+$(MAXFLOAT_O_FILES): IDOCC := $(QEMUCC)
+
+# Files containing GLOBAL_ASM must be built with the asm_processor
+GLOBALASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
+GLOBALASM_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(GLOBALASM_C_FILES))
+
+$(GLOBALASM_O_FILES): IDOCC := /usr/bin/env python3 tools/asm_processor/build.py $(IDOCC) -- $(TOOLCHAIN)-as $(ASFLAGS) --
 
 # Create names such as $(B_DIR)/assets/files/PfooZ.
 # These names (with .o added) will be dependenices for ld.
@@ -424,7 +445,7 @@ $(B_DIR)/assets/files/P%Z: $(A_DIR)/files/props/%.bin
 # Or create $(A_DIR)/files/setup/foo.bin to skip the earlier steps
 $(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
+	$(IDOCC) -c $(CFLAGS) -o $@ $<
 
 $(B_DIR)/assets/files/setup/%.elf: $(B_DIR)/assets/files/setup/%.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
@@ -471,8 +492,7 @@ $(B_DIR)/rsp/%.o: $(E_DIR)/rsp/%.bin
 
 $(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+	$(IDOCC) -c $(CFLAGS) -o $@ $<
 	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c $(ASSETMGR_O_FILES)
@@ -480,46 +500,9 @@ $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c $(ASSETMGR_O_FILES)
 	$(IDOCC) -c $(CFLAGS) $< -o $@
 	tools/patchmips3 $@ || rm $@
 
-$(B_DIR)/lib/ultra/gu/align.o: src/lib/ultra/gu/align.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
-
-$(B_DIR)/lib/ultra/gu/frustum.o: src/lib/ultra/gu/frustum.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
-
-$(B_DIR)/lib/ultra/gu/ortho.o: src/lib/ultra/gu/ortho.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
-
-$(B_DIR)/lib/ultra/gu/scale.o: src/lib/ultra/gu/scale.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
-
-$(B_DIR)/lib/%.o: src/lib/%.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-$(B_DIR)/game/%.o: src/game/%.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(IDOCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-# Files requiring qemu-irix to build rather than recomp due to using MAXFLOAT
-$(B_DIR)/game/chr/chraction.o: src/game/chr/chraction.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-$(B_DIR)/game/game_1657c0.o: src/game/game_1657c0.c $(ASSETMGR_O_FILES)
-	@mkdir -p $(dir $@)
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< | $(QEMUCC) -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@
-	/usr/bin/env python3 tools/asmpreproc/asm-processor.py $(OPT_LVL) $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
 $(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
+	$(IDOCC) -c $(CFLAGS) -o $@ $<
 
 $(B_DIR)/%.o: src/%.s
 	@mkdir -p $(dir $@)
@@ -527,7 +510,7 @@ $(B_DIR)/%.o: src/%.s
 
 $(B_DIR)/assets/%.o: $(A_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
+	$(IDOCC) -c $(CFLAGS) -o $@ $<
 
 extract:
 	ROMID=$(ROMID) tools/extract
