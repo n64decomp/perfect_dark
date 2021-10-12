@@ -4,11 +4,10 @@
 #include "data.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func00038d10
-/*    38d10:	03e00008 */ 	jr	$ra
-/*    38d14:	8c82002c */ 	lw	$v0,0x2c($a0)
-);
+u32 func00038d10(u32 *arg0)
+{
+	return arg0[11];
+}
 
 void func00038d18(void)
 {

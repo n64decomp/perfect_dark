@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00038d10(void);
+u32 func00038d10(u32 *arg0);
 
 #endif
