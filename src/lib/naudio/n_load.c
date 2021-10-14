@@ -693,120 +693,31 @@ s32 n_alLoadParam(N_PVoice *filter, s32 paramID, void *param)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel _decodeChunk
-/*    458f8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    458fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    45900:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    45904:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    45908:	afa60038 */ 	sw	$a2,0x38($sp)
-/*    4590c:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*    45910:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*    45914:	19c00028 */ 	blez	$t6,.L000459b8
-/*    45918:	00000000 */ 	nop
-/*    4591c:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    45920:	8fa5003c */ 	lw	$a1,0x3c($sp)
-/*    45924:	8df90028 */ 	lw	$t9,0x28($t7)
-/*    45928:	8de4003c */ 	lw	$a0,0x3c($t7)
-/*    4592c:	8de6002c */ 	lw	$a2,0x2c($t7)
-/*    45930:	0320f809 */ 	jalr	$t9
-/*    45934:	00000000 */ 	nop
-/*    45938:	afa20028 */ 	sw	$v0,0x28($sp)
-/*    4593c:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    45940:	33080007 */ 	andi	$t0,$t8,0x7
-/*    45944:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*    45948:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*    4594c:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    45950:	012a5821 */ 	addu	$t3,$t1,$t2
-/*    45954:	afab003c */ 	sw	$t3,0x3c($sp)
-/*    45958:	8fac0030 */ 	lw	$t4,0x30($sp)
-/*    4595c:	258d0008 */ 	addiu	$t5,$t4,0x8
-/*    45960:	afad0030 */ 	sw	$t5,0x30($sp)
-/*    45964:	afac0024 */ 	sw	$t4,0x24($sp)
-/*    45968:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*    4596c:	87ab0046 */ 	lh	$t3,0x46($sp)
-/*    45970:	3c010400 */ 	lui	$at,0x400
-/*    45974:	31cf0007 */ 	andi	$t7,$t6,0x7
-/*    45978:	01cfc823 */ 	subu	$t9,$t6,$t7
-/*    4597c:	27380008 */ 	addiu	$t8,$t9,0x8
-/*    45980:	33080fff */ 	andi	$t0,$t8,0xfff
-/*    45984:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    45988:	00084b00 */ 	sll	$t1,$t0,0xc
-/*    4598c:	01215025 */ 	or	$t2,$t1,$at
-/*    45990:	316c0fff */ 	andi	$t4,$t3,0xfff
-/*    45994:	014c6825 */ 	or	$t5,$t2,$t4
-/*    45998:	adcd0000 */ 	sw	$t5,0x0($t6)
-/*    4599c:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    459a0:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    459a4:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    459a8:	01f9c023 */ 	subu	$t8,$t7,$t9
-/*    459ac:	ad180004 */ 	sw	$t8,0x4($t0)
-/*    459b0:	10000002 */ 	b	.L000459bc
-/*    459b4:	00000000 */ 	nop
-.L000459b8:
-/*    459b8:	afa0002c */ 	sw	$zero,0x2c($sp)
-.L000459bc:
-/*    459bc:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*    459c0:	312b0002 */ 	andi	$t3,$t1,0x2
-/*    459c4:	1160000f */ 	beqz	$t3,.L00045a04
-/*    459c8:	00000000 */ 	nop
-/*    459cc:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*    459d0:	254c0008 */ 	addiu	$t4,$t2,0x8
-/*    459d4:	afac0030 */ 	sw	$t4,0x30($sp)
-/*    459d8:	afaa0020 */ 	sw	$t2,0x20($sp)
-/*    459dc:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    459e0:	3c0d0f00 */ 	lui	$t5,0xf00
-/*    459e4:	adcd0000 */ 	sw	$t5,0x0($t6)
-/*    459e8:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    459ec:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*    459f0:	3c011fff */ 	lui	$at,0x1fff
-/*    459f4:	8df90010 */ 	lw	$t9,0x10($t7)
-/*    459f8:	3421ffff */ 	ori	$at,$at,0xffff
-/*    459fc:	0321c024 */ 	and	$t8,$t9,$at
-/*    45a00:	ad180004 */ 	sw	$t8,0x4($t0)
-.L00045a04:
-/*    45a04:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*    45a08:	252b0008 */ 	addiu	$t3,$t1,0x8
-/*    45a0c:	afab0030 */ 	sw	$t3,0x30($sp)
-/*    45a10:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*    45a14:	8faa0034 */ 	lw	$t2,0x34($sp)
-/*    45a18:	3c011fff */ 	lui	$at,0x1fff
-/*    45a1c:	3421ffff */ 	ori	$at,$at,0xffff
-/*    45a20:	8d4c000c */ 	lw	$t4,0xc($t2)
-/*    45a24:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    45a28:	01816824 */ 	and	$t5,$t4,$at
-/*    45a2c:	3c0100ff */ 	lui	$at,0xff
-/*    45a30:	3421ffff */ 	ori	$at,$at,0xffff
-/*    45a34:	01a17024 */ 	and	$t6,$t5,$at
-/*    45a38:	3c010100 */ 	lui	$at,0x100
-/*    45a3c:	01c17825 */ 	or	$t7,$t6,$at
-/*    45a40:	af2f0000 */ 	sw	$t7,0x0($t9)
-/*    45a44:	8fab0038 */ 	lw	$t3,0x38($sp)
-/*    45a48:	8fb80048 */ 	lw	$t8,0x48($sp)
-/*    45a4c:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    45a50:	000b5040 */ 	sll	$t2,$t3,0x1
-/*    45a54:	314c0fff */ 	andi	$t4,$t2,0xfff
-/*    45a58:	3308000f */ 	andi	$t0,$t8,0xf
-/*    45a5c:	87ab0042 */ 	lh	$t3,0x42($sp)
-/*    45a60:	00084f00 */ 	sll	$t1,$t0,0x1c
-/*    45a64:	000c6c00 */ 	sll	$t5,$t4,0x10
-/*    45a68:	012d7025 */ 	or	$t6,$t1,$t5
-/*    45a6c:	31f9000f */ 	andi	$t9,$t7,0xf
-/*    45a70:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*    45a74:	0019c300 */ 	sll	$t8,$t9,0xc
-/*    45a78:	01d84025 */ 	or	$t0,$t6,$t8
-/*    45a7c:	316a0fff */ 	andi	$t2,$t3,0xfff
-/*    45a80:	010a6025 */ 	or	$t4,$t0,$t2
-/*    45a84:	ad2c0004 */ 	sw	$t4,0x4($t1)
-/*    45a88:	8fad0034 */ 	lw	$t5,0x34($sp)
-/*    45a8c:	ada00038 */ 	sw	$zero,0x38($t5)
-/*    45a90:	10000003 */ 	b	.L00045aa0
-/*    45a94:	8fa20030 */ 	lw	$v0,0x30($sp)
-/*    45a98:	10000001 */ 	b	.L00045aa0
-/*    45a9c:	00000000 */ 	nop
-.L00045aa0:
-/*    45aa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    45aa4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    45aa8:	03e00008 */ 	jr	$ra
-/*    45aac:	00000000 */ 	nop
-);
+Acmd *_decodeChunk(Acmd *ptr, N_PVoice *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags)
+{
+	s32 dramAlign, dramLoc;
+
+	if (nbytes > 0) {
+		dramLoc = (f->dc_dma)(f->dc_memin, nbytes, f->dc_dmaState);
+		/*
+		 * Make sure enough is loaded into DMEM to take care
+		 * of 8 byte alignment
+		 */
+		dramAlign = dramLoc & 0x7;
+		nbytes += dramAlign;
+
+		n_aLoadBuffer(ptr++, nbytes + 8 - (nbytes & 0x7), inp, dramLoc - dramAlign);
+	} else {
+		dramAlign = 0;
+	}
+
+	if (flags & A_LOOP) {
+		aSetLoop(ptr++, K0_TO_PHYS(f->dc_lstate));
+	}
+
+	n_aADPCMdec(ptr++, K0_TO_PHYS(f->dc_state), flags, tsam << 1, dramAlign, outp);
+
+	f->dc_first = 0;
+
+	return ptr;
+}
