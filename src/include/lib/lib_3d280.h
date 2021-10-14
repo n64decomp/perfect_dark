@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 func0003d280(void);
-u32 func0003d5d8(void);
+u32 __n_mapVoice(void);
 u32 __n_lookupSoundQuick(void);
 u32 func0003d9cc(void);
 

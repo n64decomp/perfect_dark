@@ -155,63 +155,36 @@ char __n_voiceNeedsNoteKill(N_ALSeqPlayer *seqp, N_ALVoice *voice, ALMicroTime k
 	return needsNoteKill;
 }
 
-GLOBAL_ASM(
-glabel func0003d5d8
-/*    3d5d8:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3d5dc:	30a500ff */ 	andi	$a1,$a1,0xff
-/*    3d5e0:	30c600ff */ 	andi	$a2,$a2,0xff
-/*    3d5e4:	30e700ff */ 	andi	$a3,$a3,0xff
-/*    3d5e8:	8c8e006c */ 	lw	$t6,0x6c($a0)
-/*    3d5ec:	afae0004 */ 	sw	$t6,0x4($sp)
-/*    3d5f0:	908f0089 */ 	lbu	$t7,0x89($a0)
-/*    3d5f4:	90980088 */ 	lbu	$t8,0x88($a0)
-/*    3d5f8:	030f082a */ 	slt	$at,$t8,$t7
-/*    3d5fc:	10200003 */ 	beqz	$at,.L0003d60c
-/*    3d600:	00000000 */ 	nop
-/*    3d604:	10000023 */ 	b	.L0003d694
-/*    3d608:	00001025 */ 	or	$v0,$zero,$zero
-.L0003d60c:
-/*    3d60c:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    3d610:	1320001c */ 	beqz	$t9,.L0003d684
-/*    3d614:	00000000 */ 	nop
-/*    3d618:	8fa80004 */ 	lw	$t0,0x4($sp)
-/*    3d61c:	8d090000 */ 	lw	$t1,0x0($t0)
-/*    3d620:	ac89006c */ 	sw	$t1,0x6c($a0)
-/*    3d624:	8faa0004 */ 	lw	$t2,0x4($sp)
-/*    3d628:	ad400000 */ 	sw	$zero,0x0($t2)
-/*    3d62c:	8c8b0064 */ 	lw	$t3,0x64($a0)
-/*    3d630:	15600004 */ 	bnez	$t3,.L0003d644
-/*    3d634:	00000000 */ 	nop
-/*    3d638:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    3d63c:	10000004 */ 	b	.L0003d650
-/*    3d640:	ac8c0064 */ 	sw	$t4,0x64($a0)
-.L0003d644:
-/*    3d644:	8fad0004 */ 	lw	$t5,0x4($sp)
-/*    3d648:	8c8e0068 */ 	lw	$t6,0x68($a0)
-/*    3d64c:	adcd0000 */ 	sw	$t5,0x0($t6)
-.L0003d650:
-/*    3d650:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    3d654:	ac8f0068 */ 	sw	$t7,0x68($a0)
-/*    3d658:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3d65c:	a3070031 */ 	sb	$a3,0x31($t8)
-/*    3d660:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    3d664:	a3250032 */ 	sb	$a1,0x32($t9)
-/*    3d668:	8fa80004 */ 	lw	$t0,0x4($sp)
-/*    3d66c:	a1060033 */ 	sb	$a2,0x33($t0)
-/*    3d670:	8fa90004 */ 	lw	$t1,0x4($sp)
-/*    3d674:	ad290014 */ 	sw	$t1,0x14($t1)
-/*    3d678:	908a0089 */ 	lbu	$t2,0x89($a0)
-/*    3d67c:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*    3d680:	a08b0089 */ 	sb	$t3,0x89($a0)
-.L0003d684:
-/*    3d684:	10000003 */ 	b	.L0003d694
-/*    3d688:	8fa20004 */ 	lw	$v0,0x4($sp)
-/*    3d68c:	10000001 */ 	b	.L0003d694
-/*    3d690:	00000000 */ 	nop
-.L0003d694:
-/*    3d694:	03e00008 */ 	jr	$ra
-/*    3d698:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+N_ALVoiceState *__n_mapVoice(N_ALSeqPlayer *seqp, u8 key, u8 vel, u8 channel)
+{
+	N_ALVoiceState *vs = seqp->vFreeList;
+
+	if (seqp->unk89 > seqp->unk88) {
+		return 0;
+	}
+
+	if (vs) {
+		seqp->vFreeList = vs->next;
+		vs->next = 0;
+
+		if (!seqp->vAllocHead) {
+			seqp->vAllocHead = vs;
+		} else {
+			seqp->vAllocTail->next = vs;
+		}
+
+		seqp->vAllocTail = vs;
+
+		vs->channel = channel;
+		vs->key = key;
+		vs->velocity = vel;
+		vs->voice.clientPrivate = vs;
+
+		seqp->unk89++;
+	}
+
+	return vs;
+}
 
 N_ALVoiceState *__n_lookupVoice(N_ALSeqPlayer *seqp, u8 key, u8 channel)
 {

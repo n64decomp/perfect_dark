@@ -206,6 +206,8 @@ typedef struct {
     ALSeqMarker        *loopStart;
     ALSeqMarker        *loopEnd;
     s32                 loopCount;      /* -1 = loop forever, 0 = no loop   */
+    u8 unk88;
+    u8 unk89;
 } N_ALSeqPlayer;
 
 typedef struct {
