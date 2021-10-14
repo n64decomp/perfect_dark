@@ -338,7 +338,7 @@ glabel func0003d72c
 );
 
 GLOBAL_ASM(
-glabel func0003d8a4
+glabel __n_vsVol
 /*    3d8a4:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    3d8a8:	908e0036 */ 	lbu	$t6,0x36($a0)
 /*    3d8ac:	908f0033 */ 	lbu	$t7,0x33($a0)
