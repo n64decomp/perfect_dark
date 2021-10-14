@@ -219,7 +219,7 @@ glabel func00045ab0
 );
 
 GLOBAL_ASM(
-glabel n_alLoadParam
+glabel func00045da8
 /*    45da8:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    45dac:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    45db0:	afa40028 */ 	sw	$a0,0x28($sp)
@@ -248,7 +248,7 @@ glabel n_alLoadParam
 /*    45e08:	a5e00092 */ 	sh	$zero,0x92($t7)
 /*    45e0c:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    45e10:	24050004 */ 	addiu	$a1,$zero,0x4
-/*    45e14:	0c011582 */ 	jal	func00045608
+/*    45e14:	0c011582 */ 	jal	n_alLoadParam
 /*    45e18:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*    45e1c:	10000022 */ 	b	.L00045ea8
 /*    45e20:	00000000 */ 	nop
@@ -285,7 +285,7 @@ glabel n_alLoadParam
 .L00045e90:
 /*    45e90:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    45e94:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    45e98:	0c011582 */ 	jal	func00045608
+/*    45e98:	0c011582 */ 	jal	n_alLoadParam
 /*    45e9c:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*    45ea0:	10000001 */ 	b	.L00045ea8
 /*    45ea4:	00000000 */ 	nop

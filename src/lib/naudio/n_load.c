@@ -625,213 +625,73 @@ Acmd *_decodeChunk(Acmd *ptr, N_PVoice *f, s32 tsam, s32 nbytes, s16 outp, s16 i
 //	return ptr;
 //}
 
-GLOBAL_ASM(
-glabel func00045608
-/*    45608:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    4560c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    45610:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    45614:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    45618:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    4561c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    45620:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    45624:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    45628:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*    4562c:	24010004 */ 	addiu	$at,$zero,0x4
-/*    45630:	12010074 */ 	beq	$s0,$at,.L00045804
-/*    45634:	00000000 */ 	nop
-/*    45638:	24010005 */ 	addiu	$at,$zero,0x5
-/*    4563c:	12010003 */ 	beq	$s0,$at,.L0004564c
-/*    45640:	00000000 */ 	nop
-/*    45644:	100000a1 */ 	b	.L000458cc
-/*    45648:	00000000 */ 	nop
-.L0004564c:
-/*    4564c:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*    45650:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    45654:	af0f0020 */ 	sw	$t7,0x20($t8)
-/*    45658:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    4565c:	8f280020 */ 	lw	$t0,0x20($t9)
-/*    45660:	8d090000 */ 	lw	$t1,0x0($t0)
-/*    45664:	af29003c */ 	sw	$t1,0x3c($t9)
-/*    45668:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    4566c:	ad400030 */ 	sw	$zero,0x30($t2)
-/*    45670:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    45674:	8d6c0020 */ 	lw	$t4,0x20($t3)
-/*    45678:	91900008 */ 	lbu	$s0,0x8($t4)
-/*    4567c:	12000006 */ 	beqz	$s0,.L00045698
-/*    45680:	00000000 */ 	nop
-/*    45684:	24010001 */ 	addiu	$at,$zero,0x1
-/*    45688:	1201003c */ 	beq	$s0,$at,.L0004577c
-/*    4568c:	00000000 */ 	nop
-/*    45690:	10000058 */ 	b	.L000457f4
-/*    45694:	00000000 */ 	nop
-.L00045698:
-/*    45698:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    4569c:	24010009 */ 	addiu	$at,$zero,0x9
-/*    456a0:	8dae0020 */ 	lw	$t6,0x20($t5)
-/*    456a4:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*    456a8:	01e1001a */ 	div	$zero,$t7,$at
-/*    456ac:	0000c012 */ 	mflo	$t8
-/*    456b0:	001840c0 */ 	sll	$t0,$t8,0x3
-/*    456b4:	01184021 */ 	addu	$t0,$t0,$t8
-/*    456b8:	adc80004 */ 	sw	$t0,0x4($t6)
-/*    456bc:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    456c0:	8d390020 */ 	lw	$t9,0x20($t1)
-/*    456c4:	8f2a0010 */ 	lw	$t2,0x10($t9)
-/*    456c8:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*    456cc:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*    456d0:	000b6040 */ 	sll	$t4,$t3,0x1
-/*    456d4:	018d0019 */ 	multu	$t4,$t5
-/*    456d8:	00007812 */ 	mflo	$t7
-/*    456dc:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*    456e0:	ad380024 */ 	sw	$t8,0x24($t1)
-/*    456e4:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    456e8:	8d0e0020 */ 	lw	$t6,0x20($t0)
-/*    456ec:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*    456f0:	13200019 */ 	beqz	$t9,.L00045758
-/*    456f4:	00000000 */ 	nop
-/*    456f8:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    456fc:	8d6a0020 */ 	lw	$t2,0x20($t3)
-/*    45700:	8d4c000c */ 	lw	$t4,0xc($t2)
-/*    45704:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*    45708:	ad6d0014 */ 	sw	$t5,0x14($t3)
-/*    4570c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    45710:	8df80020 */ 	lw	$t8,0x20($t7)
-/*    45714:	8f09000c */ 	lw	$t1,0xc($t8)
-/*    45718:	8d280004 */ 	lw	$t0,0x4($t1)
-/*    4571c:	ade80018 */ 	sw	$t0,0x18($t7)
-/*    45720:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    45724:	8dd90020 */ 	lw	$t9,0x20($t6)
-/*    45728:	8f2a000c */ 	lw	$t2,0xc($t9)
-/*    4572c:	8d4c0008 */ 	lw	$t4,0x8($t2)
-/*    45730:	adcc001c */ 	sw	$t4,0x1c($t6)
-/*    45734:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    45738:	24060020 */ 	addiu	$a2,$zero,0x20
-/*    4573c:	8dab0020 */ 	lw	$t3,0x20($t5)
-/*    45740:	8da50010 */ 	lw	$a1,0x10($t5)
-/*    45744:	8d64000c */ 	lw	$a0,0xc($t3)
-/*    45748:	0c012c5c */ 	jal	bcopy
-/*    4574c:	2484000c */ 	addiu	$a0,$a0,0xc
-/*    45750:	10000008 */ 	b	.L00045774
-/*    45754:	00000000 */ 	nop
-.L00045758:
-/*    45758:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    4575c:	af00001c */ 	sw	$zero,0x1c($t8)
-/*    45760:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    45764:	8d30001c */ 	lw	$s0,0x1c($t1)
-/*    45768:	ad300018 */ 	sw	$s0,0x18($t1)
-/*    4576c:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    45770:	ad100014 */ 	sw	$s0,0x14($t0)
-.L00045774:
-/*    45774:	10000021 */ 	b	.L000457fc
-/*    45778:	00000000 */ 	nop
-.L0004577c:
-/*    4577c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    45780:	8df90020 */ 	lw	$t9,0x20($t7)
-/*    45784:	8f2a000c */ 	lw	$t2,0xc($t9)
-/*    45788:	11400011 */ 	beqz	$t2,.L000457d0
-/*    4578c:	00000000 */ 	nop
-/*    45790:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    45794:	8d8e0020 */ 	lw	$t6,0x20($t4)
-/*    45798:	8dcb000c */ 	lw	$t3,0xc($t6)
-/*    4579c:	8d6d0000 */ 	lw	$t5,0x0($t3)
-/*    457a0:	ad8d0014 */ 	sw	$t5,0x14($t4)
-/*    457a4:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    457a8:	8f090020 */ 	lw	$t1,0x20($t8)
-/*    457ac:	8d28000c */ 	lw	$t0,0xc($t1)
-/*    457b0:	8d0f0004 */ 	lw	$t7,0x4($t0)
-/*    457b4:	af0f0018 */ 	sw	$t7,0x18($t8)
-/*    457b8:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    457bc:	8f2a0020 */ 	lw	$t2,0x20($t9)
-/*    457c0:	8d4e000c */ 	lw	$t6,0xc($t2)
-/*    457c4:	8dcb0008 */ 	lw	$t3,0x8($t6)
-/*    457c8:	10000008 */ 	b	.L000457ec
-/*    457cc:	af2b001c */ 	sw	$t3,0x1c($t9)
-.L000457d0:
-/*    457d0:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    457d4:	ada0001c */ 	sw	$zero,0x1c($t5)
-/*    457d8:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    457dc:	8d90001c */ 	lw	$s0,0x1c($t4)
-/*    457e0:	ad900018 */ 	sw	$s0,0x18($t4)
-/*    457e4:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    457e8:	ad300014 */ 	sw	$s0,0x14($t1)
-.L000457ec:
-/*    457ec:	10000003 */ 	b	.L000457fc
-/*    457f0:	00000000 */ 	nop
-.L000457f4:
-/*    457f4:	10000001 */ 	b	.L000457fc
-/*    457f8:	00000000 */ 	nop
-.L000457fc:
-/*    457fc:	10000035 */ 	b	.L000458d4
-/*    45800:	00000000 */ 	nop
-.L00045804:
-/*    45804:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*    45808:	ad000034 */ 	sw	$zero,0x34($t0)
-/*    4580c:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    45810:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    45814:	af0f0038 */ 	sw	$t7,0x38($t8)
-/*    45818:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    4581c:	ad400030 */ 	sw	$zero,0x30($t2)
-/*    45820:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    45824:	8dcb0020 */ 	lw	$t3,0x20($t6)
-/*    45828:	11600026 */ 	beqz	$t3,.L000458c4
-/*    4582c:	00000000 */ 	nop
-/*    45830:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    45834:	8f2d0020 */ 	lw	$t5,0x20($t9)
-/*    45838:	8dac0000 */ 	lw	$t4,0x0($t5)
-/*    4583c:	af2c003c */ 	sw	$t4,0x3c($t9)
-/*    45840:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    45844:	8d280020 */ 	lw	$t0,0x20($t1)
-/*    45848:	910f0008 */ 	lbu	$t7,0x8($t0)
-/*    4584c:	15e0000d */ 	bnez	$t7,.L00045884
-/*    45850:	00000000 */ 	nop
-/*    45854:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    45858:	8f0a0020 */ 	lw	$t2,0x20($t8)
-/*    4585c:	8d4e000c */ 	lw	$t6,0xc($t2)
-/*    45860:	11c00006 */ 	beqz	$t6,.L0004587c
-/*    45864:	00000000 */ 	nop
-/*    45868:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    4586c:	8d6d0020 */ 	lw	$t5,0x20($t3)
-/*    45870:	8dac000c */ 	lw	$t4,0xc($t5)
-/*    45874:	8d990008 */ 	lw	$t9,0x8($t4)
-/*    45878:	ad79001c */ 	sw	$t9,0x1c($t3)
-.L0004587c:
-/*    4587c:	10000011 */ 	b	.L000458c4
-/*    45880:	00000000 */ 	nop
-.L00045884:
-/*    45884:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    45888:	24010001 */ 	addiu	$at,$zero,0x1
-/*    4588c:	8d280020 */ 	lw	$t0,0x20($t1)
-/*    45890:	910f0008 */ 	lbu	$t7,0x8($t0)
-/*    45894:	15e1000b */ 	bne	$t7,$at,.L000458c4
-/*    45898:	00000000 */ 	nop
-/*    4589c:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    458a0:	8f0a0020 */ 	lw	$t2,0x20($t8)
-/*    458a4:	8d4e000c */ 	lw	$t6,0xc($t2)
-/*    458a8:	11c00006 */ 	beqz	$t6,.L000458c4
-/*    458ac:	00000000 */ 	nop
-/*    458b0:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    458b4:	8dac0020 */ 	lw	$t4,0x20($t5)
-/*    458b8:	8d99000c */ 	lw	$t9,0xc($t4)
-/*    458bc:	8f2b0008 */ 	lw	$t3,0x8($t9)
-/*    458c0:	adab001c */ 	sw	$t3,0x1c($t5)
-.L000458c4:
-/*    458c4:	10000003 */ 	b	.L000458d4
-/*    458c8:	00000000 */ 	nop
-.L000458cc:
-/*    458cc:	10000001 */ 	b	.L000458d4
-/*    458d0:	00000000 */ 	nop
-.L000458d4:
-/*    458d4:	10000003 */ 	b	.L000458e4
-/*    458d8:	00001025 */ 	or	$v0,$zero,$zero
-/*    458dc:	10000001 */ 	b	.L000458e4
-/*    458e0:	00000000 */ 	nop
-.L000458e4:
-/*    458e4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    458e8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    458ec:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    458f0:	03e00008 */ 	jr	$ra
-/*    458f4:	00000000 */ 	nop
-);
+s32 n_alLoadParam(N_PVoice *filter, s32 paramID, void *param)
+{
+	N_PVoice *a = filter;
+
+	switch (paramID) {
+	case (AL_FILTER_SET_WAVETABLE):
+		a->dc_table = (ALWaveTable *) param;
+		a->dc_memin = (s32) a->dc_table->base;
+		a->dc_sample = 0;
+
+		switch (a->dc_table->type) {
+		case (AL_ADPCM_WAVE):
+			a->dc_table->len = ADPCMFBYTES * ((s32) (a->dc_table->len/ADPCMFBYTES));
+
+			a->dc_bookSize = 2*a->dc_table->waveInfo.adpcmWave.book->order*
+				a->dc_table->waveInfo.adpcmWave.book->npredictors*ADPCMVSIZE;
+
+			if (a->dc_table->waveInfo.adpcmWave.loop) {
+				a->dc_loop.start = a->dc_table->waveInfo.adpcmWave.loop->start;
+				a->dc_loop.end = a->dc_table->waveInfo.adpcmWave.loop->end;
+				a->dc_loop.count = a->dc_table->waveInfo.adpcmWave.loop->count;
+
+				bcopy(a->dc_table->waveInfo.adpcmWave.loop->state, a->dc_lstate, sizeof(ADPCM_STATE));
+			} else {
+				a->dc_loop.start = a->dc_loop.end = a->dc_loop.count = 0;
+			}
+			break;
+		case (AL_RAW16_WAVE):
+			if (a->dc_table->waveInfo.rawWave.loop) {
+				a->dc_loop.start = a->dc_table->waveInfo.rawWave.loop->start;
+				a->dc_loop.end = a->dc_table->waveInfo.rawWave.loop->end;
+				a->dc_loop.count = a->dc_table->waveInfo.rawWave.loop->count;
+			} else {
+				a->dc_loop.start = a->dc_loop.end = a->dc_loop.count = 0;
+			}
+			break;
+		default:
+			break;
+		}
+		break;
+	case (AL_FILTER_RESET):
+		a->dc_lastsam = 0;
+		a->dc_first   = 1;
+		a->dc_sample = 0;
+
+		/* sct 2/14/96 - Check table since it is initialized to null and */
+		/* Get loop info according to table type. */
+		if (a->dc_table) {
+			a->dc_memin  = (s32) a->dc_table->base;
+
+			if (a->dc_table->type == AL_ADPCM_WAVE) {
+				if (a->dc_table->waveInfo.adpcmWave.loop) {
+					a->dc_loop.count = a->dc_table->waveInfo.adpcmWave.loop->count;
+				}
+			} else if (a->dc_table->type == AL_RAW16_WAVE) {
+				if (a->dc_table->waveInfo.rawWave.loop) {
+					a->dc_loop.count = a->dc_table->waveInfo.rawWave.loop->count;
+				}
+			}
+		}
+		break;
+	default:
+		break;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel _decodeChunk

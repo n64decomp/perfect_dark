@@ -120,7 +120,7 @@ glabel var70054b30
 /*    3e9e0:	8fad002c */ 	lw	$t5,0x2c($sp)
 /*    3e9e4:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*    3e9e8:	24050005 */ 	addiu	$a1,$zero,0x5
-/*    3e9ec:	0c011582 */ 	jal	func00045608
+/*    3e9ec:	0c011582 */ 	jal	n_alLoadParam
 /*    3e9f0:	8da60020 */ 	lw	$a2,0x20($t5)
 /*    3e9f4:	8faf0050 */ 	lw	$t7,0x50($sp)
 /*    3e9f8:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -505,7 +505,7 @@ glabel var70054b30
 /*    3ef98:	8faf0024 */ 	lw	$t7,0x24($sp)
 /*    3ef9c:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*    3efa0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*    3efa4:	0c011582 */ 	jal	func00045608
+/*    3efa4:	0c011582 */ 	jal	n_alLoadParam
 /*    3efa8:	8de6000c */ 	lw	$a2,0xc($t7)
 /*    3efac:	8fa90050 */ 	lw	$t1,0x50($sp)
 /*    3efb0:	240d0001 */ 	addiu	$t5,$zero,0x1
@@ -576,7 +576,7 @@ glabel var70054b30
 /*    3f0b4:	24050005 */ 	addiu	$a1,$zero,0x5
 /*    3f0b8:	8d0c007c */ 	lw	$t4,0x7c($t0)
 /*    3f0bc:	01002025 */ 	or	$a0,$t0,$zero
-/*    3f0c0:	0c011582 */ 	jal	func00045608
+/*    3f0c0:	0c011582 */ 	jal	n_alLoadParam
 /*    3f0c4:	8d86000c */ 	lw	$a2,0xc($t4)
 /*    3f0c8:	10000011 */ 	b	.L0003f110
 /*    3f0cc:	00000000 */ 	nop
@@ -680,13 +680,13 @@ s32 n_alEnvmixerParam(N_PVoice *filter, s32 paramID, void *param)
 		e->rs_first = 1;
 		e->rs_upitch = 0;
 
-		n_alLoadParam(e, AL_FILTER_RESET, param);
+		func00045da8(e, AL_FILTER_RESET, param);
 		break;
 	case AL_FILTER_START:
 		e->em_motion = AL_PLAYING;
 		break;
 	default:
-		n_alLoadParam(e, paramID, param);
+		func00045da8(e, paramID, param);
 		break;
 	}
 
