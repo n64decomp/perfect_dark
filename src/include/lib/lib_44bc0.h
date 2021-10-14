@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func00044bc0(void);
+u32 n_alMainBusPull(void);
 
 #endif

@@ -454,10 +454,10 @@ Acmd *n_alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen)
 	 * Now build the command list in small chunks
 	 */
 	while (outLen > 0) {
-		nOut = MIN(n_syn->outputRate, outLen);
+		nOut = MIN(n_syn->maxOutSamples, outLen);
 
 		cmdPtr = cmdlEnd;
-		n_syn->maxOutSamples = (s32)lOutBuf;
+		n_syn->sv_dramout = (s32)lOutBuf;
 
 		cmdlEnd = n_alSavePull(n_syn->curSamples, cmdPtr);
 
@@ -513,8 +513,7 @@ void _n_freePVoice(N_PVoice *pvoice)
 
 s32 _n_timeToSamplesNoRound(s32 micros)
 {
-	// Should be outputRate but struct is not sized correctly
-	f32 tmp = ((f32)micros) * n_syn->maxAuxBusses / 1000000.0f + 0.5f;
+	f32 tmp = ((f32)micros) * n_syn->outputRate / 1000000.0f + 0.5f;
 
 	return (s32)tmp;
 }

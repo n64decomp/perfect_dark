@@ -7,7 +7,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00044bc0
+glabel n_alMainBusPull
 /*    44bc0:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    44bc4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    44bc8:	afa40048 */ 	sw	$a0,0x48($sp)

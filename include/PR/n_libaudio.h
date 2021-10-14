@@ -56,11 +56,11 @@ typedef struct {
     struct ALParam_s    *paramList;
     struct N_ALMainBus_s  *mainBus;
     struct N_ALAuxBus_s   *auxBus;
-    struct N_ALFilter_s *outputFilter;
     s32                 numPVoices;
     s32                 maxAuxBusses;
     s32                 outputRate;
     s32                 maxOutSamples;
+    s32                 sv_dramout;
 } N_ALSynth;
 
 
