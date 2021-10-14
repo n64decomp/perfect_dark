@@ -86,6 +86,7 @@
 	build/ROMID/lib/lib_3a100.o (section); \
 	build/ROMID/lib/naudio/n_save.o (section); \
 	build/ROMID/lib/naudio/n_event.o (section); \
+	build/ROMID/lib/naudio/n_synaddplayer.o (section); \
 	build/ROMID/lib/lib_3c890.o (section); \
 	build/ROMID/lib/lib_3ccf0.o (section); \
 	build/ROMID/lib/lib_3cdc0.o (section); \
