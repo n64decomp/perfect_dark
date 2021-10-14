@@ -231,111 +231,31 @@ N_ALVoiceState *__n_lookupVoice(N_ALSeqPlayer *seqp, u8 key, u8 channel)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0003d72c
-/*    3d72c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    3d730:	30a500ff */ 	andi	$a1,$a1,0xff
-/*    3d734:	30c600ff */ 	andi	$a2,$a2,0xff
-/*    3d738:	30e700ff */ 	andi	$a3,$a3,0xff
-/*    3d73c:	00077880 */ 	sll	$t7,$a3,0x2
-/*    3d740:	01e77823 */ 	subu	$t7,$t7,$a3
-/*    3d744:	8c8e0060 */ 	lw	$t6,0x60($a0)
-/*    3d748:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3d74c:	01e77821 */ 	addu	$t7,$t7,$a3
-/*    3d750:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3d754:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    3d758:	8f190000 */ 	lw	$t9,0x0($t8)
-/*    3d75c:	afb90014 */ 	sw	$t9,0x14($sp)
-/*    3d760:	24080001 */ 	addiu	$t0,$zero,0x1
-/*    3d764:	afa80010 */ 	sw	$t0,0x10($sp)
-/*    3d768:	8fa90014 */ 	lw	$t1,0x14($sp)
-/*    3d76c:	852a000e */ 	lh	$t2,0xe($t1)
-/*    3d770:	afaa000c */ 	sw	$t2,0xc($sp)
-/*    3d774:	8fab000c */ 	lw	$t3,0xc($sp)
-/*    3d778:	8fac0010 */ 	lw	$t4,0x10($sp)
-/*    3d77c:	016c082a */ 	slt	$at,$t3,$t4
-/*    3d780:	14200042 */ 	bnez	$at,.L0003d88c
-/*    3d784:	00000000 */ 	nop
-.L0003d788:
-/*    3d788:	8fad0010 */ 	lw	$t5,0x10($sp)
-/*    3d78c:	8fae000c */ 	lw	$t6,0xc($sp)
-/*    3d790:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*    3d794:	05e10003 */ 	bgez	$t7,.L0003d7a4
-/*    3d798:	000fc043 */ 	sra	$t8,$t7,0x1
-/*    3d79c:	25e10001 */ 	addiu	$at,$t7,0x1
-/*    3d7a0:	0001c043 */ 	sra	$t8,$at,0x1
-.L0003d7a4:
-/*    3d7a4:	afb80008 */ 	sw	$t8,0x8($sp)
-/*    3d7a8:	8fa80008 */ 	lw	$t0,0x8($sp)
-/*    3d7ac:	8fb90014 */ 	lw	$t9,0x14($sp)
-/*    3d7b0:	00084880 */ 	sll	$t1,$t0,0x2
-/*    3d7b4:	03295021 */ 	addu	$t2,$t9,$t1
-/*    3d7b8:	8d4b000c */ 	lw	$t3,0xc($t2)
-/*    3d7bc:	8d6c0004 */ 	lw	$t4,0x4($t3)
-/*    3d7c0:	afac0004 */ 	sw	$t4,0x4($sp)
-/*    3d7c4:	8fad0004 */ 	lw	$t5,0x4($sp)
-/*    3d7c8:	91ae0002 */ 	lbu	$t6,0x2($t5)
-/*    3d7cc:	00ae082a */ 	slt	$at,$a1,$t6
-/*    3d7d0:	14200015 */ 	bnez	$at,.L0003d828
-/*    3d7d4:	00000000 */ 	nop
-/*    3d7d8:	91af0003 */ 	lbu	$t7,0x3($t5)
-/*    3d7dc:	01e5082a */ 	slt	$at,$t7,$a1
-/*    3d7e0:	14200011 */ 	bnez	$at,.L0003d828
-/*    3d7e4:	00000000 */ 	nop
-/*    3d7e8:	91b80000 */ 	lbu	$t8,0x0($t5)
-/*    3d7ec:	00d8082a */ 	slt	$at,$a2,$t8
-/*    3d7f0:	1420000d */ 	bnez	$at,.L0003d828
-/*    3d7f4:	00000000 */ 	nop
-/*    3d7f8:	91a80001 */ 	lbu	$t0,0x1($t5)
-/*    3d7fc:	0106082a */ 	slt	$at,$t0,$a2
-/*    3d800:	14200009 */ 	bnez	$at,.L0003d828
-/*    3d804:	00000000 */ 	nop
-/*    3d808:	8fa90008 */ 	lw	$t1,0x8($sp)
-/*    3d80c:	8fb90014 */ 	lw	$t9,0x14($sp)
-/*    3d810:	00095080 */ 	sll	$t2,$t1,0x2
-/*    3d814:	032a5821 */ 	addu	$t3,$t9,$t2
-/*    3d818:	10000020 */ 	b	.L0003d89c
-/*    3d81c:	8d62000c */ 	lw	$v0,0xc($t3)
-/*    3d820:	10000015 */ 	b	.L0003d878
-/*    3d824:	00000000 */ 	nop
-.L0003d828:
-/*    3d828:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    3d82c:	918e0002 */ 	lbu	$t6,0x2($t4)
-/*    3d830:	00ae082a */ 	slt	$at,$a1,$t6
-/*    3d834:	14200009 */ 	bnez	$at,.L0003d85c
-/*    3d838:	00000000 */ 	nop
-/*    3d83c:	918f0000 */ 	lbu	$t7,0x0($t4)
-/*    3d840:	00cf082a */ 	slt	$at,$a2,$t7
-/*    3d844:	10200009 */ 	beqz	$at,.L0003d86c
-/*    3d848:	00000000 */ 	nop
-/*    3d84c:	91980003 */ 	lbu	$t8,0x3($t4)
-/*    3d850:	0305082a */ 	slt	$at,$t8,$a1
-/*    3d854:	14200005 */ 	bnez	$at,.L0003d86c
-/*    3d858:	00000000 */ 	nop
-.L0003d85c:
-/*    3d85c:	8fad0008 */ 	lw	$t5,0x8($sp)
-/*    3d860:	25a8ffff */ 	addiu	$t0,$t5,-1
-/*    3d864:	10000004 */ 	b	.L0003d878
-/*    3d868:	afa8000c */ 	sw	$t0,0xc($sp)
-.L0003d86c:
-/*    3d86c:	8fa90008 */ 	lw	$t1,0x8($sp)
-/*    3d870:	25390001 */ 	addiu	$t9,$t1,0x1
-/*    3d874:	afb90010 */ 	sw	$t9,0x10($sp)
-.L0003d878:
-/*    3d878:	8faa000c */ 	lw	$t2,0xc($sp)
-/*    3d87c:	8fab0010 */ 	lw	$t3,0x10($sp)
-/*    3d880:	014b082a */ 	slt	$at,$t2,$t3
-/*    3d884:	1020ffc0 */ 	beqz	$at,.L0003d788
-/*    3d888:	00000000 */ 	nop
-.L0003d88c:
-/*    3d88c:	10000003 */ 	b	.L0003d89c
-/*    3d890:	00001025 */ 	or	$v0,$zero,$zero
-/*    3d894:	10000001 */ 	b	.L0003d89c
-/*    3d898:	00000000 */ 	nop
-.L0003d89c:
-/*    3d89c:	03e00008 */ 	jr	$ra
-/*    3d8a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+ALSound *__n_lookupSoundQuick(N_ALSeqPlayer *seqp, u8 key, u8 vel, u8 chan)
+{
+	ALInstrument *inst = seqp->chanState[chan].instrument;
+	s32 l = 1;
+	s32 r = inst->soundCount;
+	s32 i;
+	ALKeyMap *keymap;
+
+	while (r >= l) {
+		i = (l + r) / 2;
+
+		keymap = inst->soundArray[i - 1]->keyMap;
+
+		if (key >= keymap->keyMin && key <= keymap->keyMax
+				&& vel >= keymap->velocityMin && vel <= keymap->velocityMax) {
+			return inst->soundArray[i - 1];
+		} else if (key < keymap->keyMin || (vel < keymap->velocityMin && key <= keymap->keyMax)) {
+			r = i - 1;
+		} else {
+			l = i + 1;
+		}
+	}
+
+	return 0;
+}
 
 /**
  * __n_vsVol calculates the target volume for the voice based on the
