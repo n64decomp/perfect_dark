@@ -337,85 +337,24 @@ glabel func0003d72c
 /*    3d8a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel __n_vsVol
-/*    3d8a4:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3d8a8:	908e0036 */ 	lbu	$t6,0x36($a0)
-/*    3d8ac:	908f0033 */ 	lbu	$t7,0x33($a0)
-/*    3d8b0:	90990030 */ 	lbu	$t9,0x30($a0)
-/*    3d8b4:	01cf0019 */ 	multu	$t6,$t7
-/*    3d8b8:	0000c012 */ 	mflo	$t8
-/*    3d8bc:	00000000 */ 	nop
-/*    3d8c0:	00000000 */ 	nop
-/*    3d8c4:	03190019 */ 	multu	$t8,$t9
-/*    3d8c8:	00004012 */ 	mflo	$t0
-/*    3d8cc:	00084983 */ 	sra	$t1,$t0,0x6
-/*    3d8d0:	afa90004 */ 	sw	$t1,0x4($sp)
-/*    3d8d4:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*    3d8d8:	84b90032 */ 	lh	$t9,0x32($a1)
-/*    3d8dc:	908b0031 */ 	lbu	$t3,0x31($a0)
-/*    3d8e0:	91f8000d */ 	lbu	$t8,0xd($t7)
-/*    3d8e4:	8caa0060 */ 	lw	$t2,0x60($a1)
-/*    3d8e8:	000b6080 */ 	sll	$t4,$t3,0x2
-/*    3d8ec:	03190019 */ 	multu	$t8,$t9
-/*    3d8f0:	018b6023 */ 	subu	$t4,$t4,$t3
-/*    3d8f4:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3d8f8:	018b6021 */ 	addu	$t4,$t4,$t3
-/*    3d8fc:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3d900:	014c6821 */ 	addu	$t5,$t2,$t4
-/*    3d904:	91ae0009 */ 	lbu	$t6,0x9($t5)
-/*    3d908:	00004012 */ 	mflo	$t0
-/*    3d90c:	00000000 */ 	nop
-/*    3d910:	00000000 */ 	nop
-/*    3d914:	01c80019 */ 	multu	$t6,$t0
-/*    3d918:	00004812 */ 	mflo	$t1
-/*    3d91c:	00095b83 */ 	sra	$t3,$t1,0xe
-/*    3d920:	afab0000 */ 	sw	$t3,0x0($sp)
-/*    3d924:	908c0031 */ 	lbu	$t4,0x31($a0)
-/*    3d928:	8caa0060 */ 	lw	$t2,0x60($a1)
-/*    3d92c:	240100ff */ 	addiu	$at,$zero,0xff
-/*    3d930:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    3d934:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*    3d938:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3d93c:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*    3d940:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3d944:	014d7821 */ 	addu	$t7,$t2,$t5
-/*    3d948:	91f8000d */ 	lbu	$t8,0xd($t7)
-/*    3d94c:	13010010 */ 	beq	$t8,$at,.L0003d990
-/*    3d950:	00000000 */ 	nop
-/*    3d954:	908e0031 */ 	lbu	$t6,0x31($a0)
-/*    3d958:	8cb90060 */ 	lw	$t9,0x60($a1)
-/*    3d95c:	8fac0000 */ 	lw	$t4,0x0($sp)
-/*    3d960:	000e4080 */ 	sll	$t0,$t6,0x2
-/*    3d964:	010e4023 */ 	subu	$t0,$t0,$t6
-/*    3d968:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3d96c:	010e4021 */ 	addu	$t0,$t0,$t6
-/*    3d970:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3d974:	03284821 */ 	addu	$t1,$t9,$t0
-/*    3d978:	912b000d */ 	lbu	$t3,0xd($t1)
-/*    3d97c:	016c0019 */ 	multu	$t3,$t4
-/*    3d980:	00005012 */ 	mflo	$t2
-/*    3d984:	254d0001 */ 	addiu	$t5,$t2,0x1
-/*    3d988:	000d7a02 */ 	srl	$t7,$t5,0x8
-/*    3d98c:	afaf0000 */ 	sw	$t7,0x0($sp)
-.L0003d990:
-/*    3d990:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3d994:	8fae0000 */ 	lw	$t6,0x0($sp)
-/*    3d998:	030e0019 */ 	multu	$t8,$t6
-/*    3d99c:	0000c812 */ 	mflo	$t9
-/*    3d9a0:	afb90004 */ 	sw	$t9,0x4($sp)
-/*    3d9a4:	00000000 */ 	nop
-/*    3d9a8:	8fa80004 */ 	lw	$t0,0x4($sp)
-/*    3d9ac:	00084bc2 */ 	srl	$t1,$t0,0xf
-/*    3d9b0:	afa90004 */ 	sw	$t1,0x4($sp)
-/*    3d9b4:	10000003 */ 	b	.L0003d9c4
-/*    3d9b8:	87a20006 */ 	lh	$v0,0x6($sp)
-/*    3d9bc:	10000001 */ 	b	.L0003d9c4
-/*    3d9c0:	00000000 */ 	nop
-.L0003d9c4:
-/*    3d9c4:	03e00008 */ 	jr	$ra
-/*    3d9c8:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+/**
+ * __n_vsVol calculates the target volume for the voice based on the
+ * note on velocity, envelope, sampleVolume and controller.
+ */
+s16 __n_vsVol(N_ALVoiceState *vs, N_ALSeqPlayer *seqp)
+{
+	u32 t1 = (vs->tremelo * vs->velocity * vs->envGain) >> 6;
+	u32 t2 = (vs->sound->sampleVolume * seqp->vol * seqp->chanState[vs->channel].vol) >> 14;
+
+	if (seqp->chanState[vs->channel].unk0d != 0xff) {
+		t2 = (seqp->chanState[vs->channel].unk0d * t2 + 1) >> 8;
+	}
+
+	t1 *= t2;
+	t1 >>= 15;
+
+	return t1;
+}
 
 GLOBAL_ASM(
 glabel func0003d9cc
