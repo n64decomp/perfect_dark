@@ -6,7 +6,7 @@
 
 u32 func0003d280(void);
 u32 func0003d5d8(void);
-u32 func0003d69c(void);
+u32 __n_lookupVoice(void);
 u32 func0003d72c(void);
 u32 func0003d8a4(void);
 u32 func0003d9cc(void);

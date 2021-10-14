@@ -213,49 +213,23 @@ glabel func0003d5d8
 /*    3d698:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel func0003d69c
-/*    3d69c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3d6a0:	30a500ff */ 	andi	$a1,$a1,0xff
-/*    3d6a4:	30c600ff */ 	andi	$a2,$a2,0xff
-/*    3d6a8:	8c8e0064 */ 	lw	$t6,0x64($a0)
-/*    3d6ac:	afae0004 */ 	sw	$t6,0x4($sp)
-/*    3d6b0:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    3d6b4:	11e00017 */ 	beqz	$t7,.L0003d714
-/*    3d6b8:	00000000 */ 	nop
-.L0003d6bc:
-/*    3d6bc:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3d6c0:	93190032 */ 	lbu	$t9,0x32($t8)
-/*    3d6c4:	1725000d */ 	bne	$t9,$a1,.L0003d6fc
-/*    3d6c8:	00000000 */ 	nop
-/*    3d6cc:	93080031 */ 	lbu	$t0,0x31($t8)
-/*    3d6d0:	1506000a */ 	bne	$t0,$a2,.L0003d6fc
-/*    3d6d4:	00000000 */ 	nop
-/*    3d6d8:	93090035 */ 	lbu	$t1,0x35($t8)
-/*    3d6dc:	24010003 */ 	addiu	$at,$zero,0x3
-/*    3d6e0:	11210006 */ 	beq	$t1,$at,.L0003d6fc
-/*    3d6e4:	00000000 */ 	nop
-/*    3d6e8:	24010004 */ 	addiu	$at,$zero,0x4
-/*    3d6ec:	11210003 */ 	beq	$t1,$at,.L0003d6fc
-/*    3d6f0:	00000000 */ 	nop
-/*    3d6f4:	1000000b */ 	b	.L0003d724
-/*    3d6f8:	8fa20004 */ 	lw	$v0,0x4($sp)
-.L0003d6fc:
-/*    3d6fc:	8faa0004 */ 	lw	$t2,0x4($sp)
-/*    3d700:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*    3d704:	afab0004 */ 	sw	$t3,0x4($sp)
-/*    3d708:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    3d70c:	1580ffeb */ 	bnez	$t4,.L0003d6bc
-/*    3d710:	00000000 */ 	nop
-.L0003d714:
-/*    3d714:	10000003 */ 	b	.L0003d724
-/*    3d718:	00001025 */ 	or	$v0,$zero,$zero
-/*    3d71c:	10000001 */ 	b	.L0003d724
-/*    3d720:	00000000 */ 	nop
-.L0003d724:
-/*    3d724:	03e00008 */ 	jr	$ra
-/*    3d728:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+N_ALVoiceState *__n_lookupVoice(N_ALSeqPlayer *seqp, u8 key, u8 channel)
+{
+	N_ALVoiceState *vs = seqp->vAllocHead;
+
+	while (vs != 0) {
+		if (vs->key == key
+				&& vs->channel == channel
+				&& vs->phase != AL_PHASE_RELEASE
+				&& vs->phase != AL_PHASE_SUSTREL) {
+			return vs;
+		}
+
+		vs = vs->next;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0003d72c
