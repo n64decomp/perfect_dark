@@ -1,6 +1,7 @@
 #ifndef _IN_BOOT_SCHED_H
 #define _IN_BOOT_SCHED_H
 #include <ultra64.h>
+#include <sched.h>
 
 void func00001b28(u32 arg0);
 void __scHandleRetraceViaPri(OSSched *sc, OSScTask *t);

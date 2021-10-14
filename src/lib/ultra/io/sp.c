@@ -1,5 +1,7 @@
-#include "libultra_internal.h"
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include <sptask.h>
+#include "../os/osint.h"
 
 int __osSpDeviceBusy()
 {

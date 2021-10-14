@@ -1,4 +1,5 @@
-#include <ultra64.h>
+#include <os_internal.h>
+#include "controller.h"
 
 s32 __osPfsSelectBank(OSPfs *pfs, u8 bank)
 {

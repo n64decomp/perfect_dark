@@ -1,10 +1,5 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "lib/libc/ll.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
 
 s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name)
 {
@@ -77,7 +72,7 @@ s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 initial_page, u8 bank, 
 	do {
 		prev = next;
 		next = inode->inode_page[next.inode_t.page];
-		inode->inode_page[prev.inode_t.page].ipage = PFS_PAGE_NOT_USED;
+		inode->inode_page[prev.inode_t.page].ipage = 3;
 	} while (next.ipage >= pfs->inode_start_page && next.inode_t.bank == bank);
 
 	*final_page = next;

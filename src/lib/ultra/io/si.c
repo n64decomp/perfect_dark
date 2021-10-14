@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "siint.h"
 
 int __osSiDeviceBusy()
 {

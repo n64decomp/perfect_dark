@@ -1,9 +1,11 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 void __osPfsRequestOneChannel(int channel, u8 cmd);
 void __osPfsGetOneChannelData(int channel, OSContStatus *data);
+
+extern u8 g_PfsPrevBank;
 
 s32 __osPfsGetStatus(OSMesgQueue *queue, int channel)
 {

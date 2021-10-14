@@ -1,6 +1,5 @@
-#include <libultra_internal.h>
-#include "bss.h"
-#include "data.h"
+#include <os_internal.h>
+#include "piint.h"
 
 OSPiHandle CartRomHandle;
 OSPiHandle LeoDiskHandle;
@@ -8,6 +7,9 @@ OSThread piThread;
 char piThreadStack[512];
 OSMesgQueue piEventQueue;
 OSMesg piEventBuf[4];
+
+s32 osPiRawStartDma(s32 direction, u32 devAddr, void *dramAddr, u32 size);
+s32 osEPiRawStartDma(OSPiHandle *handle, s32 direction, u32 devAddr, void *dramAddr, u32 size);
 
 OSDevMgr __osPiDevMgr = {0};
 OSPiHandle *__osPiTable = NULL;

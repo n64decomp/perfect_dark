@@ -1,9 +1,4 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/mtx.h"
-#include "data.h"
-#include "types.h"
+#include "guint.h"
 
 s16 sintable[] = {
 	0x0000, 0x0032, 0x0064, 0x0096, 0x00c9, 0x00fb, 0x012d, 0x0160, 0x0192, 0x01c4,

@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "osint.h"
 
 s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flags)
 {

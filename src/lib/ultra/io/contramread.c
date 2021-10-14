@@ -1,10 +1,11 @@
-#include <libultra_internal.h>
-#include "bss.h"
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "controller.h"
+#include "siint.h"
 
 s32 __osPfsLastChannel = -1;
 
-s32 __osContRamRead(OSMesgQueue* ctrlrqueue, s32 channel, u16 addr, u8* data)
+s32 __osContRamRead(OSMesgQueue* ctrlrqueue, int channel, u16 addr, u8* data)
 {
 	s32 ret;
 	s32 i;

@@ -122,22 +122,6 @@ SECTIONS
 	_val7f11c1d0 = 0x11c3;
 #endif
 
-#if VERSION >= VERSION_PAL_FINAL
-	rspbootTextStart = 0x80059fe0;
-	rspbootTextEnd = 0x8005a0b0;
-	aspMainTextStart = 0x8005b180;
-	aspMainTextEnd = 0x8005c180;
-	aspMainDataStart = 0x8008a2d0;
-	aspMainDataEnd = 0x8008aad0;
-#else
-	rspbootTextStart = 0x80059fe0;
-	rspbootTextEnd = 0x8005a0b0;
-	aspMainTextStart = 0x8005b4d0;
-	aspMainTextEnd = 0x8005c4d0;
-	aspMainDataStart = 0x8008a2d0;
-	aspMainDataEnd = 0x8008aad0;
-#endif
-
 	osTvType = 0x80000300;
 	osRomType = 0x80000304;
 	osRomBase = 0x80000308;
@@ -271,8 +255,8 @@ SECTIONS
 
 	gspDataStart = _dataSegmentEnd - 0x800 - 0xb50;
 	gspDataEnd = gspDataStart + 0x800;
-	aspMainDataStart = gspDataEnd;
-	aspMainDataEnd = aspMainDataStart + 0xb50;
+	aspDataStart = gspDataEnd;
+	aspDataEnd = aspDataStart + 0xb50;
 
 	/***************************************************************************
 	 * bss

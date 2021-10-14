@@ -1,5 +1,6 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include <rdb.h>
+#include <R4300.h>
 
 GLOBAL_ASM(
 glabel __osSyncPutChars

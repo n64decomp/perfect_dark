@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "osint.h"
 
 int osStopTimer(OSTimer *t)
 {
@@ -15,7 +15,7 @@ int osStopTimer(OSTimer *t)
 	timep = t->next;
 
 	if (timep != __osTimerList) {
-		timep->remaining += t->remaining;
+		timep->value += t->value;
 	}
 
 	t->prev->next = t->next;

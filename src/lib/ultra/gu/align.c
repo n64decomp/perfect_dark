@@ -1,9 +1,4 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/mtx.h"
-#include "data.h"
-#include "types.h"
+#include "guint.h"
 
 void guAlignF(float mf[4][4], float a, float x, float y, float z)
 {

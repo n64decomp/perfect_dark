@@ -1,4 +1,4 @@
-#include <ultra64.h>
+#include <os_internal.h>
 
 extern OSThread *__osRunningThread;
 

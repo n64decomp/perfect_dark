@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "osint.h"
 
 void osStartThread(OSThread *t)
 {

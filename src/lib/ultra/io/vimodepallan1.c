@@ -1,4 +1,6 @@
-#include <ultra64.h>
+#include <os.h>
+#include <rcp.h>
+#include "viint.h"
 
 OSViMode osViModePalLan1 = {
 	OS_VI_PAL_LAN1,  // type

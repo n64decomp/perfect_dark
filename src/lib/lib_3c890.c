@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_30ce0.h"
 #include "lib/lib_3c4d0.h"
 #include "lib/lib_3e730.h"
 #include "data.h"
@@ -74,7 +73,7 @@ glabel func0003c900
 );
 
 GLOBAL_ASM(
-glabel func0003c970
+glabel n_alSynAddSeqPlayer
 /*    3c970:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3c974:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3c978:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -154,7 +153,7 @@ glabel func0003c9e0
 /*    3ca8c:	8faf0024 */ 	lw	$t7,0x24($sp)
 /*    3ca90:	8fb80028 */ 	lw	$t8,0x28($sp)
 /*    3ca94:	af0f0008 */ 	sw	$t7,0x8($t8)
-/*    3ca98:	0c00c541 */ 	jal	__allocParam
+/*    3ca98:	0c00c541 */ 	jal	__n_allocParam
 /*    3ca9c:	00000000 */ 	nop
 /*    3caa0:	afa20020 */ 	sw	$v0,0x20($sp)
 /*    3caa4:	8fb90020 */ 	lw	$t9,0x20($sp)
@@ -181,7 +180,7 @@ glabel func0003c9e0
 /*    3caf8:	10000001 */ 	b	.L0003cb00
 /*    3cafc:	00000000 */ 	nop
 .L0003cb00:
-/*    3cb00:	0c00c541 */ 	jal	__allocParam
+/*    3cb00:	0c00c541 */ 	jal	__n_allocParam
 /*    3cb04:	00000000 */ 	nop
 /*    3cb08:	afa20020 */ 	sw	$v0,0x20($sp)
 /*    3cb0c:	8fb90020 */ 	lw	$t9,0x20($sp)

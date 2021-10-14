@@ -1,6 +1,6 @@
-#include <libultra_internal.h>
-#include "bss.h"
-#include "data.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 OSPifRam __osPfsPifRam;
 

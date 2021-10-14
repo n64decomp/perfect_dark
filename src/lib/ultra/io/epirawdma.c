@@ -1,5 +1,6 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "piint.h"
 
 s32 osEPiRawStartDma(OSPiHandle *handle, s32 direction, u32 devAddr, void *dramAddr, u32 size)
 {

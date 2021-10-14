@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "siint.h"
 
 s32 __osSiRawStartDma(s32 direction, void *dramAddr)
 {

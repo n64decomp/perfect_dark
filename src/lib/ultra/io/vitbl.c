@@ -1,4 +1,6 @@
-#include <ultra64.h>
+#include <os.h>
+#include <rcp.h>
+#include "viint.h"
 
 OSViMode osViModeTable[] = {
 	{OS_VI_NTSC_LPN1, //type

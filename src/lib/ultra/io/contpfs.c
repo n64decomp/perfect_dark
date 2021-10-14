@@ -1,9 +1,5 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
 
 s32 g_PfsPrevChannel = -1;
 u8 g_PfsPrevBank = 250;
@@ -188,7 +184,7 @@ s32 __osGetId(OSPfs *pfs)
 	__OSPackId *id;
 
 	if (pfs->activebank != 0) {
-		ERRCK(__osPfsSelectBank(pfs, 0))
+		ERRCK(__osPfsSelectBank(pfs, 0));
 	}
 
 	ERRCK(__osContRamRead(pfs->queue, pfs->channel, 1, (u8*)temp));

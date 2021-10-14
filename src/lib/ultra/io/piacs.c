@@ -1,6 +1,4 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os_internal.h>
 
 OSMesg piAccessBuf;
 u32 var8009c7a4;

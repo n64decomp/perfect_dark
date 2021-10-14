@@ -1,9 +1,5 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
 
 #define CHECK_IPAGE(p, pfs)                                                                                   \
 	(((p).ipage >= (pfs).inode_start_page) && ((p).inode_t.bank < (pfs).banks) && ((p).inode_t.page >= 0x01) && \
@@ -34,7 +30,7 @@ s32 __osPfsGetNextPage(OSPfs *pfs, u8 *bank, __OSInode *inode, __OSInodeUnit *pa
 	return 0;
 }
 
-s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, s32 size, u8* data)
+s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, int offset, int size, u8* data)
 {
 	s32 ret;
 	__OSDir dir;
@@ -86,7 +82,7 @@ s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, s32 size, u8
 		return PFS_ERR_INCONSISTENT;
 	}
 
-	if (flag == PFS_READ && ((dir.status & PFS_WRITTEN) == 0)) {
+	if (flag == PFS_READ && ((dir.status & DIR_STATUS_OCCUPIED) == 0)) {
 		return PFS_ERR_BAD_DATA;
 	}
 
@@ -135,8 +131,8 @@ s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, s32 size, u8
 		blockSize--;
 	}
 
-	if (flag == PFS_WRITE && !(dir.status & PFS_WRITTEN)) {
-		dir.status |= PFS_WRITTEN;
+	if (flag == PFS_WRITE && !(dir.status & DIR_STATUS_OCCUPIED)) {
+		dir.status |= DIR_STATUS_OCCUPIED;
 
 		if (pfs->activebank != 0 && (ret = __osPfsSelectBank(pfs, 0)) != 0) {
 			return ret;

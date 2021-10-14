@@ -1,9 +1,7 @@
 #include <ultra64.h>
-#include "PR/synthInternals.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/mtx.h"
-#include "lib/lib_30ce0.h"
 #include "lib/lib_3e8c0.h"
 #include "lib/lib_43dd0.h"
 #include "lib/lib_44f60.h"

@@ -1,9 +1,10 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
+
+extern OSTimer var80090ab0;
+extern OSMesgQueue var80090ad0;
+extern OSMesg var80090ae8;
 
 s32 osGbpakPower(OSPfs *pfs, s32 flag)
 {

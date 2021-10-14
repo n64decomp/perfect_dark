@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "n_libaudio.h"
 #include "constants.h"
 #include "game/file.h"
 #include "game/lv.h"
@@ -2014,9 +2015,9 @@ void snd0000f67c(struct var80094ed8 *arg0)
 	}
 
 	arg0->unk0fc = alHeapAlloc(&g_SndHeap, 1, var8009520c);
-	arg0->seqp = alHeapAlloc(&g_SndHeap, 1, sizeof(ALCSPlayer));
+	arg0->seqp = alHeapAlloc(&g_SndHeap, 1, sizeof(N_ALCSPlayer));
 
-	alCSPNew(arg0->seqp, &config);
+	n_alCSPNew(arg0->seqp, &config);
 
 	func00037650(arg0->seqp, var80095204);
 }
@@ -2327,7 +2328,7 @@ glabel snd0000fc48
 /*     fd20:	0c001d3c */ 	jal	rzipInflate
 /*     fd24:	27a60034 */ 	addiu	$a2,$sp,0x34
 /*     fd28:	02002025 */ 	or	$a0,$s0,$zero
-/*     fd2c:	0c00e34c */ 	jal	alCSeqNew
+/*     fd2c:	0c00e34c */ 	jal	n_alCSeqNew
 /*     fd30:	8e0500fc */ 	lw	$a1,0xfc($s0)
 /*     fd34:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*     fd38:	0c00e6f8 */ 	jal	func00039be0
@@ -2458,7 +2459,7 @@ glabel snd0000fc48
 /*    10274:	a00c0000 */ 	sb	$t4,0x0($zero)
 .NB00010278:
 /*    10278:	02002025 */ 	or	$a0,$s0,$zero
-/*    1027c:	0c00e840 */ 	jal	alCSeqNew
+/*    1027c:	0c00e840 */ 	jal	n_alCSeqNew
 /*    10280:	8e0500fc */ 	lw	$a1,0xfc($s0)
 /*    10284:	8e0400f8 */ 	lw	$a0,0xf8($s0)
 /*    10288:	0c00ebec */ 	jal	func00039be0

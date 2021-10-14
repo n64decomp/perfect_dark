@@ -1,9 +1,7 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include "versions.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 s32 __osPfsCheckRamArea2(OSPfs* pfs);
 

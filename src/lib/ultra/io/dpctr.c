@@ -1,5 +1,5 @@
-#include "libultra_internal.h"
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
 
 void osDpGetCounters(u32 *array)
 {

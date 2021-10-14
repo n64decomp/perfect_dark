@@ -1,9 +1,6 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 u32 g_OsGbNintendoData[] = {
 	0xceed6666, 0xcc0d000b, 0x03730083, 0x000c000d,

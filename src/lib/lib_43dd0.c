@@ -640,7 +640,7 @@ glabel func00044650
 /*    4469c:	27a50020 */ 	addiu	$a1,$sp,0x20
 /*    446a0:	8fa6001c */ 	lw	$a2,0x1c($sp)
 /*    446a4:	00003825 */ 	or	$a3,$zero,$zero
-/*    446a8:	0c00f184 */ 	jal	alEvtqPostEvent
+/*    446a8:	0c00f184 */ 	jal	n_alEvtqPostEvent
 /*    446ac:	24840048 */ 	addiu	$a0,$a0,0x48
 /*    446b0:	10000001 */ 	b	.L000446b8
 /*    446b4:	00000000 */ 	nop

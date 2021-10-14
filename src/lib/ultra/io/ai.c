@@ -1,4 +1,5 @@
-#include <ultra64.h>
+#include <os_internal.h>
+#include <rcp.h>
 
 s32 __osAiDeviceBusy(void)
 {

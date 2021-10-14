@@ -1,5 +1,4 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
 
 int __osAtomicDec(unsigned int *p)
 {

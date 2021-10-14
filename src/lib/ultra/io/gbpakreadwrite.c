@@ -1,9 +1,5 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
 
 s32 osGbpakReadWrite(OSPfs *pfs, u16 flag, u16 address, u8 *buffer, u16 size)
 {

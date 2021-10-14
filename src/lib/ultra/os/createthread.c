@@ -1,5 +1,6 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include <R4300.h>
+#include "osint.h"
 
 void __osCleanupThread(void);
 

@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "os_internal.h"
 #include "constants.h"
 #include "bss.h"
 #include "lib/tlb.h"

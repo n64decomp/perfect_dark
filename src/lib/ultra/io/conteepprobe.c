@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include "controller.h"
+#include "siint.h"
 
 s32 osEepromProbe(OSMesgQueue *mq)
 {

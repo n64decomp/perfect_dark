@@ -1,10 +1,6 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/lib_37650.h"
-#include "lib/lib_3c4d0.h"
-#include "data.h"
-#include "types.h"
+#include <libaudio.h>
+#include <os_internal.h>
+#include <ultraerror.h>
 
 void _bnkfPatchBank(ALBank *bank, s32 offset, s32 table);
 void _bnkfPatchInst(ALInstrument *inst, s32 offset, s32 table);

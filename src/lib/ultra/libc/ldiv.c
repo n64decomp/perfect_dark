@@ -1,4 +1,4 @@
-#include "lib/libc/ldiv.h"
+#include <stdlib.h>
 
 lldiv_t lldiv(long long num, long long denom)
 {

@@ -1,5 +1,6 @@
-#include "libultra_internal.h"
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include <sptask.h>
 
 OSYieldResult osSpTaskYielded(OSTask *tp)
 {

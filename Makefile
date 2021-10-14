@@ -44,7 +44,7 @@ ifeq ($(ROMID),jpn-final)
 	VERSION=5
 endif
 
-DEFINES := VERSION=$(VERSION) NTSC=$(NTSC) PAL=$(PAL) JPN=$(JPN) PIRACYCHECKS=$(PIRACYCHECKS)
+DEFINES := VERSION=$(VERSION) NTSC=$(NTSC) PAL=$(PAL) JPN=$(JPN) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
 
 C_DEFINES := $(foreach d,$(DEFINES),-D$(d))
 AS_DEFINES := $(foreach d,$(DEFINES),--defsym $(d)) --defsym _LANGUAGE_ASSEMBLY=1
@@ -90,12 +90,10 @@ MIPS3_C_FILES := \
 
 G_C_FILES := \
 	$(shell find src/lib/ultra/audio -name '*.c') \
+	$(shell find src/lib/naudio -name '*.c') \
 	src/lib/lib_2fba0.c \
-	src/lib/lib_30ce0.c \
 	src/lib/lib_3a100.c \
-	src/lib/lib_3d280.c \
 	src/lib/lib_3e730.c \
-	src/lib/lib_3e8c0.c \
 	src/lib/mp3.c \
 	src/lib/speaker.c
 
@@ -178,12 +176,15 @@ CFLAGS = $(C_DEFINES) \
 	-Xcpluscomm \
 	-woff 581,649,819,820,821,838,852 \
 	-w2 \
+	-I include \
+	-I include/PR \
 	-I src/include \
 	-I src/generated/$(ROMID) \
+	-I src/lib/ultra/audio \
 	$(OPT_LVL) \
 	$(MIPSISET)
 
-ASFLAGS = -march=vr4300 -mabi=32 -Isrc/include $(AS_DEFINES)
+ASFLAGS = -march=vr4300 -mabi=32 -Iinclude -Iinclude/PR -Isrc/include -Isrc/lib/ultra/audio $(AS_DEFINES)
 
 C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game src/preamble -name '*.s')
@@ -506,7 +507,7 @@ $(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES)
 
 $(B_DIR)/%.o: src/%.s
 	@mkdir -p $(dir $@)
-	cpp -P -Wno-trigraphs -I src/include $(C_DEFINES) -D_LANGUAGE_ASSEMBLY -D_MIPSEB $< | $(AS) $(ASFLAGS) -o $@
+	cpp -P -Wno-trigraphs -I include -I include/PR -I src/include $(C_DEFINES) -D_LANGUAGE_ASSEMBLY -D_MIPSEB $< | $(AS) $(ASFLAGS) -o $@
 
 $(B_DIR)/assets/%.o: $(A_DIR)/%.c
 	@mkdir -p $(dir $@)

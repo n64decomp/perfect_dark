@@ -1,8 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "osint.h"
 
-u32 __osThreadTail = 0x00000000;
-u32 var80060934 = 0xffffffff;
+struct __osThreadTail __osThreadTail = {0, -1};
 OSThread *__osRunQueue = (OSThread *)&__osThreadTail;
 OSThread *__osActiveQueue = (OSThread *)&__osThreadTail;
 OSThread *__osRunningThread = NULL;

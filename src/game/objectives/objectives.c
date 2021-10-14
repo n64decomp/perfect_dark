@@ -67,7 +67,7 @@ void func0f095350(u32 arg0, u32 *arg1)
 		value = *ptr;
 	}
 
-	*arg1 = *(u32 *)(osRomBase | arg0 | 0xa0000000);
+	*arg1 = *(u32 *)((u32)osRomBase | arg0 | 0xa0000000);
 
 	__osPiRelAccess();
 }

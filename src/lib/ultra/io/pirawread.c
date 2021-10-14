@@ -1,5 +1,6 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "piint.h"
 
 s32 osPiRawReadIo(u32 devAddr, u32 *data)
 {

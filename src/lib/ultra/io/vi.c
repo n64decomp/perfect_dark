@@ -1,5 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include <R4300.h>
+#include <rcp.h>
+#include "viint.h"
 
 __OSViContext var800608b0[2] = {0};
 __OSViContext *__osViCurr = &var800608b0[0];

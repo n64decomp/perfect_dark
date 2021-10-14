@@ -1,5 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "controller.h"
+#include "siint.h"
 
 OSPifRam __osContPifRam;
 u8 __osContLastCmd;

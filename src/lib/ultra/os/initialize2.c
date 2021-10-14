@@ -1,6 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os.h>
+#include <os_internal.h>
+#include <R4300.h>
+#include <rcp.h>
 
 /**
  * Note: This file is included in PAL only.
@@ -14,7 +15,7 @@ typedef struct {
 } __osExceptionVector;
 
 extern __osExceptionVector __osExceptionPreamble;
-extern u32 osAppNMIBuffer;
+extern s32 osAppNMIBuffer[];
 
 u32 var80060fe0pf = 0;
 u32 var80060fe4pf = 62500000;

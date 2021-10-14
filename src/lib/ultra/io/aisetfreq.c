@@ -1,5 +1,5 @@
-#include <ultra64.h>
-#include "data.h"
+#include <rcp.h>
+#include "../os/osint.h"
 
 s32 osAiSetFrequency(u32 frequency)
 {

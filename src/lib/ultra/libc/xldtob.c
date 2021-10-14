@@ -1,6 +1,7 @@
-#include <ultra64.h>
+#include <stdlib.h>
+#include <string.h>
+#include "xstdio.h"
 
-u32 _Ldtob(void);
 short _Ldunscale(short *pex, printf_struct *px);
 void _Genld(printf_struct *px, char code, char *p, short nsig, short xexp);
 
@@ -24,6 +25,34 @@ const u32 var70052510[] = {0x75154fdd};
 const u32 var70052514[] = {0x7f73bf3c};
 const u32 var70052518[] = {0x4e614e00};
 const u32 var7005251c[] = {0x496e6600};
+
+/* float properties */
+#define _D0    0
+#define _DBIAS 0x3ff
+#define _DLONG 1
+#define _DOFF  4
+#define _FBIAS 0x7e
+#define _FOFF  7
+#define _FRND  1
+#define _LBIAS 0x3ffe
+#define _LOFF  15
+
+/* integer properties */
+#define _C2    1
+#define _CSIGN 1
+#define _ILONG 0
+#define _MBMAX 8
+#define NAN    2
+#define INF    1
+#define FINITE -1
+#define _DFRAC ((1 << _DOFF) - 1)
+#define _DMASK (0x7fff & ~_DFRAC)
+#define _DMAX  ((1 << (15 - _DOFF)) - 1)
+#define _DNAN  (0x8000 | _DMAX << _DOFF | 1 << (_DOFF - 1))
+#define _DSIGN 0x8000
+#define _D1    1 /* big-endian order */
+#define _D2    2
+#define _D3    3
 
 GLOBAL_ASM(
 glabel _Ldtob

@@ -1,6 +1,7 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "data.h"
+#include <os_internal.h>
+#include <sptask.h>
+#include <rcp.h>
+#include "../os/osint.h"
 
 OSTask tmp_task;
 

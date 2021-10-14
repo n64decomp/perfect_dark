@@ -4,8 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-u32 alCSPNew(void);
-u32 func00034df8(void);
+u32 __n_CSPHandleNextSeqEvent(void);
 u32 func00034f0c(void);
 u32 func00034fb8(void);
 u32 func00035110(void);

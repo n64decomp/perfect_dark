@@ -1,13 +1,10 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/mtx.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 OSPifRam osPifBuffers[MAXCONTROLLERS];
 
-s32 osMotorAccess(OSPfs *pfs, u32 vibrate)
+s32 __osMotorAccess(OSPfs *pfs, s32 vibrate)
 {
 	s32 i;
 	s32 ret;

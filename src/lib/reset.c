@@ -5,16 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-OSMesg g_ResetMesg;
-u32 var8008fa84;
-u32 var8008fa88;
-u32 var8008fa8c;
-u32 var8008fa90;
-u32 var8008fa94;
-u32 var8008fa98;
-u32 var8008fa9c;
-u32 var8008faa0;
-u32 var8008faa4;
+OSMesg g_ResetMesgs[10];
 OSMesgQueue g_ResetMesgQueue;
 OSThread g_ResetThread;
 u8 g_ResetStack[STACKSIZE_RESET];
@@ -50,7 +41,7 @@ void resetproc(void *data)
 #if PAL
 	mode = &osViModeTable[OS_VI_PAL_LAN1];
 #else
-	if (osTvType == OS_TV_TYPE_MPAL) {
+	if (osTvType == OS_TV_MPAL) {
 		mode = &osViModeTable[OS_VI_MPAL_LAN1];
 	} else {
 		mode = &osViModeTable[OS_VI_NTSC_LAN1];
@@ -81,7 +72,7 @@ void resetproc(void *data)
 
 void resetThreadCreate(void)
 {
-	osCreateMesgQueue(&g_ResetMesgQueue, &g_ResetMesg, 10);
+	osCreateMesgQueue(&g_ResetMesgQueue, g_ResetMesgs, ARRAYCOUNT(g_ResetMesgs));
 	osSetEventMesg(OS_EVENT_PRENMI, &g_ResetMesgQueue, (OSMesg) 669);
 	osCreateThread(&g_ResetThread, THREAD_RESET, resetproc, 0, &g_ResetStack[STACKSIZE_RESET], THREADPRI_RESET);
 	osStartThread(&g_ResetThread);

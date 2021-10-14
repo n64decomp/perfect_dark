@@ -1,17 +1,13 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
 
-s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, s32 fileSizeInPages, s32 *startPage, u8 bank, s32 *decleared, s32 *finalPage);
+s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, int fileSizeInPages, int *startPage, u8 bank, int *decleared, int *finalPage);
 
-s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, s32 num_bytes, s32 *file_no)
+s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name, int num_bytes, s32 *file_no)
 {
-	s32 startPage;
-	s32 decleared;
-	s32 prevPage;
+	int startPage;
+	int decleared;
+	int prevPage;
 	s32 oldPrevPage = 0;
 	s32 ret = 0;
 	s32 fileSizeInPages;
@@ -28,7 +24,7 @@ s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_na
 		return PFS_ERR_INVALID;
 	}
 
-	fileSizeInPages = (num_bytes + PFS_PAGE_SIZE - 1) / PFS_PAGE_SIZE;
+	fileSizeInPages = (num_bytes + 255) / (BLOCKSIZE * PFS_ONE_PAGE);
 
 	if ((ret = osPfsFindFile(pfs, company_code, game_code, game_name, ext_name, file_no)) != 0
 			&& ret != PFS_ERR_INVALID) {
@@ -114,20 +110,20 @@ s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, char *game_na
 	return __osContRamWrite(pfs->queue, pfs->channel, pfs->dir_table + *file_no, (u8*)&dir, 0);
 }
 
-s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, s32 fileSizeInPages, s32 *startPage, u8 bank, s32 *decleared, s32 *finalPage)
+s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, int fileSizeInPages, int *startPage, u8 bank, int *decleared, int *finalPage)
 {
 	s32 j;
 	s32 spage, prevPage;
 	s32 ret = 0;
 	s32 offset = (bank > 0) ? 1 : pfs->inode_start_page;
 
-	for (j = offset; j < PFS_INODE_SIZE_PER_PAGE; j++) {
-		if (inode->inode_page[j].ipage == PFS_PAGE_NOT_USED) {
+	for (j = offset; j < ARRLEN(inode->inode_page); j++) {
+		if (inode->inode_page[j].ipage == 3) {
 			break;
 		}
 	}
 
-	if (j == PFS_INODE_SIZE_PER_PAGE) {
+	if (j == ARRLEN(inode->inode_page)) {
 		*startPage = -1;
 		return ret;
 	}
@@ -137,8 +133,8 @@ s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, s32 fileSizeInPages, s32 *s
 	prevPage = j;
 	j++;
 
-	while (fileSizeInPages > *decleared && j < PFS_INODE_SIZE_PER_PAGE) {
-		if (inode->inode_page[j].ipage == PFS_PAGE_NOT_USED) {
+	while (fileSizeInPages > *decleared && j < ARRLEN(inode->inode_page)) {
+		if (inode->inode_page[j].ipage == 3) {
 			inode->inode_page[prevPage].inode_t.bank = (u8)bank;
 			inode->inode_page[prevPage].inode_t.page = (u8)j;
 			prevPage = j;
@@ -150,7 +146,7 @@ s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, s32 fileSizeInPages, s32 *s
 
 	*startPage = spage;
 
-	if (j == PFS_INODE_SIZE_PER_PAGE && fileSizeInPages > *decleared) {
+	if (j == ARRLEN(inode->inode_page) && fileSizeInPages > *decleared) {
 		*finalPage = prevPage;
 	} else {
 		inode->inode_page[prevPage].ipage = 1;

@@ -4,7 +4,6 @@
 #include "lib/snd.h"
 #include "lib/speaker.h"
 #include "lib/lib_2fc60.h"
-#include "lib/lib_30ce0.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_39c80.h"
 #include "lib/lib_39fe0.h"

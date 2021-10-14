@@ -1,9 +1,5 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
 
 s32 osPfsFileState(OSPfs *pfs, s32 fileNo, OSPfsState *state)
 {
@@ -42,7 +38,7 @@ s32 osPfsFileState(OSPfs *pfs, s32 fileNo, OSPfsState *state)
 	pages = 0;
 	bank = 0xff;
 
-	while (true) {
+	while (TRUE) {
 		if (page.ipage < pfs->inode_start_page) {
 			break;
 		}

@@ -18,6 +18,46 @@
 #include "data.h"
 #include "types.h"
 
+/*
+ * private typedefs and defines
+ */
+#define VIDEO_MSG       666
+#define RSP_DONE_MSG    667
+#define RDP_DONE_MSG    668
+#define PRE_NMI_MSG     669
+
+/*
+ * OSScTask state
+ */
+#define OS_SC_DP                0x0001  /* set if still needs dp        */
+#define OS_SC_SP                0x0002  /* set if still needs sp        */
+#define OS_SC_YIELD             0x0010  /* set if yield requested       */
+#define OS_SC_YIELDED           0x0020  /* set if yield completed       */
+
+/*
+ * OSScTask->flags type identifier
+ */
+#define OS_SC_XBUS      (OS_SC_SP | OS_SC_DP)
+#define OS_SC_DRAM      (OS_SC_SP | OS_SC_DP | OS_SC_DRAM_DLIST)
+#define OS_SC_DP_XBUS   (OS_SC_SP)
+#define OS_SC_DP_DRAM   (OS_SC_SP | OS_SC_DRAM_DLIST)
+#define OS_SC_SP_XBUS   (OS_SC_DP)
+#define OS_SC_SP_DRAM   (OS_SC_DP | OS_SC_DRAM_DLIST)
+
+/*
+ * private functions
+ */
+void __scMain(void *arg);
+void __scHandleRetrace(OSSched *s);
+void __scHandleRSP(OSSched *s);
+void __scHandleRDP(OSSched *s);
+void __scAppendList(OSSched *s, OSScTask *t);
+OSScTask *__scTaskReady(OSScTask *t);
+s32 __scTaskComplete(OSSched *s,OSScTask *t);
+void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
+void	__scYield(OSSched *s);
+s32  __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
+
 OSViMode var8008dcc0[2];
 OSViMode *var8008dd60[2];
 OSViMode var8008dd68[2];
@@ -100,12 +140,12 @@ void func00001b98(u32 value)
 	}
 }
 
-void osCreateLog(void)
+void osCreateLog2(void)
 {
 	var8005ce70 = osGetCount();
 }
 
-void osCreateScheduler(OSSched *sc, void *stack, u8 mode, u32 numFields)
+void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 {
 	sc->curRSPTask = 0;
 	sc->curRDPTask = 0;
@@ -116,8 +156,8 @@ void osCreateScheduler(OSSched *sc, void *stack, u8 mode, u32 numFields)
 	sc->audioListTail = 0;
 	sc->gfxListTail = 0;
 	sc->retraceMsg.type = OS_SC_RETRACE_MSG;
-	sc->prenmiMsg.type = 5; // OS_SC_PRE_NMI_MSG
-	sc->thread = stack;
+	sc->prenmiMsg.type = 5; //OS_SC_PRE_NMI_MSG;
+	sc->thread = thread;
 
 	resetThreadCreate();
 
@@ -140,19 +180,19 @@ void osCreateScheduler(OSSched *sc, void *stack, u8 mode, u32 numFields)
 	osSetEventMesg(OS_EVENT_DP, &sc->interruptQ, (OSMesg)RDP_DONE_MSG);
 
 	osViSetEvent(&sc->interruptQ, (OSMesg)VIDEO_MSG, numFields);
-	osCreateLog();
+	osCreateLog2();
 	osCreateThread(sc->thread, THREAD_SCHED, &__scMain, sc, bootAllocateStack(THREAD_SCHED, STACKSIZE_SCHED), THREADPRI_SCHED);
 	osStartThread(sc->thread);
 }
 
-void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, OSScClient *next)
+void osScAddClient(OSSched *sc, OSScClient *c, OSMesgQueue *msgQ, int is8mb)
 {
 	OSIntMask mask;
 
 	mask = osSetIntMask(1);
 
 	c->msgQ = msgQ;
-	c[1].next = next;
+	c->is8mb = is8mb;
 	c->next = sc->clientList;
 	sc->clientList = c;
 

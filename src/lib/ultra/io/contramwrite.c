@@ -1,8 +1,11 @@
-#include <libultra_internal.h>
-#include "bss.h"
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "controller.h"
+#include "siint.h"
 
-s32 __osContRamWrite(OSMesgQueue* mq, s32 channel, u16 address, u8* buffer, s32 force)
+extern s32 __osPfsLastChannel;
+
+s32 __osContRamWrite(OSMesgQueue* mq, int channel, u16 address, u8* buffer, int force)
 {
 	s32 ret = 0;
 	s32 i;
@@ -10,7 +13,7 @@ s32 __osContRamWrite(OSMesgQueue* mq, s32 channel, u16 address, u8* buffer, s32 
 	s32 retry = 2;
 	u8 crc;
 
-	if (force != 1 && address < PFS_LABEL_AREA && address != 0) {
+	if (force != 1 && address < 7 && address != 0) {
 		return 0;
 	}
 

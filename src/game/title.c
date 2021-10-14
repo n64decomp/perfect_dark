@@ -36,8 +36,8 @@ u32 var8009ccb8;
 
 s16 var800624a0 = 480;
 s32 var800624a4 = false;
-u32 var800624a8 = 0x00000000;
-u32 var800624ac = 0x00000000;
+s32 var800624a8 = 0;
+s32 var800624ac = 0;
 u32 var800624b0 = 0x00000000;
 s32 g_TitleMode = -1;
 s32 g_TitleNextMode = -1;
@@ -5396,7 +5396,7 @@ void titleTickNintendoLogo(void)
 	}
 
 	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
-		if (osResetType == RESET_TYPE_NMI) {
+		if (osResetType == 1 /*warm*/) {
 			var800624a8 = 1;
 			titleSetNextMode(TITLEMODE_PDLOGO);
 		} else if (var800624a8 == 0) {
@@ -6095,7 +6095,7 @@ void titleTickRareLogo(void)
 		g_TitleTimer += g_Vars.lvupdate240_60;
 
 		if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
-			if (osResetType == RESET_TYPE_NMI) {
+			if (osResetType == 1 /*warm*/) {
 				var800624a8 = 1;
 				titleSetNextMode(TITLEMODE_PDLOGO);
 			} else if (var800624a8 == 0) {

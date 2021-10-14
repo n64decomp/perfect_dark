@@ -1460,7 +1460,7 @@ glabel joyStopRumble
 /*    163b8:	018d3821 */ 	addu	$a3,$t4,$t5
 .NB000163bc:
 /*    163bc:	00e02025 */ 	or	$a0,$a3,$zero
-/*    163c0:	0c014370 */ 	jal	osMotorAccess
+/*    163c0:	0c014370 */ 	jal	__osMotorAccess
 /*    163c4:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    163c8:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*    163cc:	24010004 */ 	addiu	$at,$zero,0x4
@@ -1479,7 +1479,7 @@ glabel joyStopRumble
 /*    163fc:	01cf3821 */ 	addu	$a3,$t6,$t7
 .NB00016400:
 /*    16400:	00e02025 */ 	or	$a0,$a3,$zero
-/*    16404:	0c014370 */ 	jal	osMotorAccess
+/*    16404:	0c014370 */ 	jal	__osMotorAccess
 /*    16408:	afa60024 */ 	sw	$a2,0x24($sp)
 /*    1640c:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*    16410:	24010004 */ 	addiu	$at,$zero,0x4
@@ -1497,7 +1497,7 @@ glabel joyStopRumble
 /*    1643c:	0018c0c0 */ 	sll	$t8,$t8,0x3
 /*    16440:	03193821 */ 	addu	$a3,$t8,$t9
 .NB00016444:
-/*    16444:	0c014370 */ 	jal	osMotorAccess
+/*    16444:	0c014370 */ 	jal	__osMotorAccess
 /*    16448:	00e02025 */ 	or	$a0,$a3,$zero
 .NB0001644c:
 /*    1644c:	8fa8002c */ 	lw	$t0,0x2c($sp)

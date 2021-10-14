@@ -1,8 +1,4 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include "guint.h"
 
 void guTranslateF(float mf[4][4], float x, float y, float z)
 {

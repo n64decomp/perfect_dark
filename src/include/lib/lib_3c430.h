@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-Acmd *func0003c430(s32 arg0, void *arg1);
+Acmd *n_alSavePull(s32 arg0, void *arg1);
 
 #endif

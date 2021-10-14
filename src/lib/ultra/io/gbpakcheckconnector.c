@@ -1,8 +1,6 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 /**
  * The internal operations performed by the osGbpakCheckConnector function are
@@ -49,7 +47,7 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status)
 	u16 blocknum;
 	u8 blocks[3][4][0x20];
 	u8 blocksloaded[3][4];
-	bool stilllooking;
+	s32 stilllooking;
 
 	ret = osGbpakGetStatus(pfs, status);
 
@@ -152,7 +150,7 @@ s32 osGbpakCheckConnector(OSPfs *pfs, u8 *status)
 
 					// Compare them and bail out if different
 					if (bcmp(blocks[thisslot][blocknum], blocks[0][blocknum], 32) != 0) {
-						stilllooking = false;
+						stilllooking = 0;
 						goto end;
 					}
 

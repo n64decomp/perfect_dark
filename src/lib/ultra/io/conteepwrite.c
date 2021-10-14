@@ -1,6 +1,7 @@
-#include <libultra_internal.h>
-#include "bss.h"
-#include "data.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
+#include <rcp.h>
 
 void __osPackEepWriteData(u8 address, u8 *buffer);
 

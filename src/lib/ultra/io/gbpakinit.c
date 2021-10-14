@@ -1,15 +1,12 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 OSTimer var80090ab0;
 OSMesgQueue var80090ad0;
 OSMesg var80090ae8;
 
-s32 osGbpakInit(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
+s32 osGbpakInit(OSMesgQueue *queue, OSPfs *pfs, int channel)
 {
 	s32 ret;
 	s32 i;

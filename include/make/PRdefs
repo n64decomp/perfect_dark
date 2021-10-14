@@ -1,0 +1,85 @@
+#
+# Commondefs for Project Reality source tree
+#
+# Makefiles which include this should first define PRDEPTH to be the relative
+# path from their parent directory.
+
+include $(ROOT)/usr/include/make/commondefs
+
+#
+# Use $(MAKE) $(MAKEARGS) instead of $(MAKEF) so that make -n works
+# This gets around the fact that $(MAKE) works and $(MAKEF) does not.
+# MAKEARGS is based directly on $(MAKEF) in commondefs.
+#
+MAKEARGS = VCFLAGS="$(VCFLAGS)" VFFLAGS="$(VFFLAGS)" \
+	VPFLAGS="$(VPFLAGS)" VMKDEPFLAGS="$(VMKDEPFLAGS)"
+
+# make sure 'default' does not hit these rules
+defaultrule: default
+
+#
+#  Compile tree for RCP 1.0 or RCP 2.0
+#
+#GCDEFS = $(HW_FLAGS)
+#GCDEFS = $(HW_FLAGS) -B -Wab,-r4300_mul
+#ifdef __GCC__
+GCDEFS =
+#else
+GCDEFS = $(HW_FLAGS) -Wab,-r4300_mul
+#endif
+
+#
+# VCS compiler options
+#
+VCSOPTS = $(GVCSOPTS) $(LVCSOPTS) $(VVCSOPTS)
+GVCSOPTS = +acc -V -M -Mupdate -Mmakep=pmake				   \
+	   -CC "-mips2 -Wab,-big_got -Wab,-dwalign" -lgl -limage	   \
+	   -P $(PRDEPTH)/rdpsim/pli/pli.tab $(ROOT)/usr/lib/PR/libpli.a
+
+SHELL	= /bin/sh
+
+FLT2C       = $(ROOT)/usr/sbin/flt2c
+IC          = $(ROOT)/usr/sbin/ic
+#ifdef __GCC__
+MAKEROM	    = $(GCCDIR)/mipse/bin/mild
+#else
+MAKEROM     = $(ROOT)/usr/sbin/makerom
+#endif
+MIDIPARSE   = $(ROOT)/usr/sbin/midiparse
+MIDICVT     = $(ROOT)/usr/sbin/midicvt
+MIDICOMP    = $(ROOT)/usr/sbin/midicomp
+SBC         = $(ROOT)/usr/sbin/sbc
+NLD         = $(ROOT)/usr/sbin/nld
+RGB2C       = $(ROOT)/usr/sbin/rgb2c
+MKSPRITE    = $(ROOT)/usr/sbin/mksprite
+MKISPRITE   = $(ROOT)/usr/sbin/mkisprite
+TABLEDESIGN = $(ROOT)/usr/sbin/tabledesign
+VADPCM_ENC  = $(ROOT)/usr/sbin/vadpcm_enc
+RSPASM      = $(ROOT)/usr/sbin/rspasm
+BUILDTASK   = $(ROOT)/usr/sbin/buildtask
+RSP2ELF     = $(ROOT)/usr/sbin/rsp2elf
+
+DATA2RDRAM = $(PRDEPTH)/tools/data/data2rdram
+RDRAM2DATA = $(PRDEPTH)/tools/data/rdram2data
+TMEMFMT    = $(PRDEPTH)/tools/tmemfmt/tmemfmt
+
+ECS2VL  = $(PRDEPTH)/rdpsim/tools/ecs2vl
+ECSGEN  = $(PRDEPTH)/rdpsim/tools/ecs_gen
+MERRG   = $(PRDEPTH)/rdpsim/tools/merrg
+RMVCOM  = $(PRDEPTH)/rdpsim/tools/remove_comments
+TAB2VMEM= $(PRDEPTH)/rdpsim/tools/tab2vmem
+TAB2WVS = $(PRDEPTH)/rdpsim/tools/tab2wvs
+VSIG    = $(PRDEPTH)/rdpsim/tools/vsig
+XNET    = $(PRDEPTH)/rdpsim/tools/xnet
+
+ASYIN   = /ecad/ecs/ecs_2.4/bin/asyin
+MAKEINI = /ecad/ecs/ecs_2.4/bin/makeini
+
+VCSDIR  = /ecad/vcs/vcs_2.2/sgi
+VCS     = $(VCSDIR)/bin/vcs
+
+LOG_RESULT = 								\
+		@echo -n "!!! $(*:T) of" `basename \`pwd\``": ";	\
+		grep "number of errors" $*.out
+
+LOG_ERROR = $(LOG_RESULT)

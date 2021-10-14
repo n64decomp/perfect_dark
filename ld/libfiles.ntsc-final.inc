@@ -65,36 +65,37 @@
 	build/ROMID/lib/ultra/audio/heap.o (section); \
 	build/ROMID/lib/lib_2fba0.o (section); \
 	build/ROMID/lib/lib_2fc60.o (section); \
-	build/ROMID/lib/lib_30ce0.o (section); \
+	build/ROMID/lib/naudio/n_synthesizer.o (section); \
+	build/ROMID/lib/ultra/audio/sl.o (section); \
 	build/ROMID/lib/lib_317f0.o (section); \
 	build/ROMID/lib/speaker.o (section); \
-	build/ROMID/lib/ultra/audio/csplayer.o (section); \
+	build/ROMID/lib/naudio/n_csplayer.o (section); \
 	build/ROMID/lib/lib_37650.o (section); \
 	build/ROMID/lib/ultra/audio/bnkf.o (section); \
 	build/ROMID/lib/mp3.o (section); \
 	build/ROMID/lib/lib_38d10.o (section); \
-	build/ROMID/lib/ultra/audio/cseq.o (section); \
+	build/ROMID/lib/naudio/n_csq.o (section); \
 	build/ROMID/lib/lib_39be0.o (section); \
 	build/ROMID/lib/lib_39c80.o (section); \
 	build/ROMID/lib/lib_39f70.o (section); \
-	build/ROMID/lib/ultra/audio/syndelete.o (section); \
+	build/ROMID/lib/naudio/n_syndelete.o (section); \
 	build/ROMID/lib/lib_39fe0.o (section); \
 	build/ROMID/lib/lib_3a100.o (section); \
 	build/ROMID/lib/lib_3c430.o (section); \
-	build/ROMID/lib/ultra/audio/event.o (section); \
+	build/ROMID/lib/naudio/n_event.o (section); \
 	build/ROMID/lib/lib_3c890.o (section); \
 	build/ROMID/lib/lib_3ccf0.o (section); \
 	build/ROMID/lib/lib_3cdc0.o (section); \
 	build/ROMID/lib/lib_3cef0.o (section); \
-	build/ROMID/lib/lib_3d280.o (section); \
+	build/ROMID/lib/naudio/n_seqplayer.o (section); \
 	build/ROMID/lib/lib_3e3e0.o (section); \
 	build/ROMID/lib/lib_3e730.o (section); \
-	build/ROMID/lib/lib_3e8c0.o (section); \
+	build/ROMID/lib/naudio/n_env.o (section); \
 	build/ROMID/lib/lib_3f8a0.o (section); \
 	build/ROMID/lib/lib_43dd0.o (section); \
 	build/ROMID/lib/lib_446d0.o (section); \
 	build/ROMID/lib/lib_44bc0.o (section); \
-	build/ROMID/lib/ultra/audio/synsetpriority.o (section); \
+	build/ROMID/lib/naudio/n_synsetpriority.o (section); \
 	build/ROMID/lib/lib_44f60.o (section); \
 	build/ROMID/lib/lib_45ed0.o (section); \
 	build/ROMID/lib/lib_461c0.o (section); \

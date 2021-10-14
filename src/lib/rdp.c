@@ -60,8 +60,6 @@ struct rdptask g_RdpTaskB = {
 
 struct rdptask *g_RdpCurTask = &g_RdpTaskA;
 
-extern u8 rspbootTextStart;
-extern u8 rspbootTextEnd;
 extern u8 gspTextStart;
 extern u8 gspDataStart;
 
@@ -85,8 +83,8 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	sctask = &g_RdpCurTask->sctask;
 	task = &sctask->list;
 
-	task->t.ucode_boot = (u64 *) &rspbootTextStart;
-	task->t.ucode_boot_size = (u32) (&rspbootTextEnd - &rspbootTextStart);
+	task->t.ucode_boot = (u64 *) rspbootTextStart;
+	task->t.ucode_boot_size = (u32) ((u32)rspbootTextEnd - (u32)rspbootTextStart);
 
 	if (rspbootTextStart);
 
@@ -106,7 +104,7 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 	sctask->framebuffer = g_RdpCurTask->framebuffer;
 
 	osWritebackDCacheAll();
-	__scHandleRetraceViaPri(&g_SchedThread, sctask);
+	__scHandleRetraceViaPri(&g_Sched, sctask);
 
 	// Swap g_RdpCurTask
 	g_RdpCurTask = (struct rdptask *)((u32)g_RdpCurTask ^ (u32) &g_RdpTaskA ^ (u32) &g_RdpTaskB);

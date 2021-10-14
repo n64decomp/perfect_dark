@@ -1,6 +1,6 @@
-#include <libultra_internal.h>
-#include "bss.h"
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "piint.h"
 
 void __osDevMgrMain(void *args)
 {

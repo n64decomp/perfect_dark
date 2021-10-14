@@ -1,4 +1,5 @@
-#include <ultra64.h>
+#include <os_internal.h>
+#include <rcp.h>
 
 u32 osDpGetStatus()
 {

@@ -1,5 +1,7 @@
-#include <libultra_internal.h>
-#include "bss.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "viint.h"
+#include "../os/osint.h"
 
 OSDevMgr __osViDevMgr = {0};
 u32 var8005cefc = 0;
@@ -84,7 +86,7 @@ void viMgrMain(void *args)
 
 	dm = (OSDevMgr *)args;
 
-	while (true) {
+	while (TRUE) {
 		osRecvMesg(dm->evtQueue, (OSMesg) &mb, OS_MESG_BLOCK);
 
 		switch (mb->hdr.type) {

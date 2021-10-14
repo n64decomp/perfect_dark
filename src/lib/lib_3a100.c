@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "PR/synthInternals.h"
+#include "synthInternals.h"
 #include "constants.h"
 #include "game/atan2f.h"
 #include "bss.h"

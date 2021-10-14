@@ -6,7 +6,6 @@
 #include "lib/lib_09660.h"
 #include "lib/lib_2fba0.h"
 #include "lib/lib_2fc60.h"
-#include "lib/lib_30ce0.h"
 #include "lib/libc/ll.h"
 #include "data.h"
 #include "types.h"
@@ -33,7 +32,6 @@ u32 var800915c0;
 u32 var800915c4;
 AMAudioMgr g_AudioManager;
 OSScClient var800918d0;
-u32 var800918d8;
 u32 var800918dc;
 u32 var800918e0;
 u32 var800918e4;
@@ -1343,9 +1341,9 @@ void amgrMain(void *arg)
 	static u32 var8005d514 = 1;
 
 #if VERSION >= VERSION_PAL_FINAL
-	osScAddClient(&g_SchedThread, &var800918d0, &g_AudioManager.audioFrameMsgQ, (void *)true);
+	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, true);
 #else
-	osScAddClient(&g_SchedThread, &var800918d0, &g_AudioManager.audioFrameMsgQ, (void *)!IS4MB());
+	osScAddClient(&g_Sched, &var800918d0, &g_AudioManager.audioFrameMsgQ, !IS4MB());
 #endif
 
 	while (!done) {
@@ -1404,10 +1402,10 @@ glabel amgrHandleFrameMsg
 /*     945c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     9460:	10c00007 */ 	beqz	$a2,.L00009480
 /*     9464:	afa50034 */ 	sw	$a1,0x34($sp)
-/*     9468:	3c048009 */ 	lui	$a0,%hi(g_SchedThread)
+/*     9468:	3c048009 */ 	lui	$a0,%hi(g_Sched)
 /*     946c:	3c018009 */ 	lui	$at,%hi(g_AmgrCurrentCmdList)
 /*     9470:	ac2618f4 */ 	sw	$a2,%lo(g_AmgrCurrentCmdList)($at)
-/*     9474:	2484dbd0 */ 	addiu	$a0,$a0,%lo(g_SchedThread)
+/*     9474:	2484dbd0 */ 	addiu	$a0,$a0,%lo(g_Sched)
 /*     9478:	0c0007ea */ 	jal	__scHandleRetraceViaPri
 /*     947c:	00c02825 */ 	or	$a1,$a2,$zero
 .L00009480:
@@ -1466,7 +1464,7 @@ glabel amgrHandleFrameMsg
 /*     9548:	a0780000 */ 	sb	$t8,0x0($v1)
 .L0000954c:
 /*     954c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*     9550:	0c00c4b9 */ 	jal	alAudioFrame
+/*     9550:	0c00c4b9 */ 	jal	n_alAudioFrame
 /*     9554:	86070004 */ 	lh	$a3,0x4($s0)
 /*     9558:	26060008 */ 	addiu	$a2,$s0,0x8
 /*     955c:	3c038006 */ 	lui	$v1,%hi(rspbootTextStart)
@@ -1475,12 +1473,12 @@ glabel amgrHandleFrameMsg
 /*     9568:	24040002 */ 	addiu	$a0,$zero,0x2
 /*     956c:	3c198009 */ 	lui	$t9,%hi(g_AudioManager+0x280)
 /*     9570:	2508a0b0 */ 	addiu	$t0,$t0,%lo(rspbootTextEnd)
-/*     9574:	3c0a8006 */ 	lui	$t2,%hi(aspMainTextStart)
-/*     9578:	3c0b8009 */ 	lui	$t3,%hi(aspMainDataStart)
+/*     9574:	3c0a8006 */ 	lui	$t2,%hi(aspTextStart)
+/*     9578:	3c0b8009 */ 	lui	$t3,%hi(aspDataStart)
 /*     957c:	27391848 */ 	addiu	$t9,$t9,%lo(g_AudioManager+0x280)
 /*     9580:	01034823 */ 	subu	$t1,$t0,$v1
-/*     9584:	254ab4d0 */ 	addiu	$t2,$t2,%lo(aspMainTextStart)
-/*     9588:	256ba2d0 */ 	addiu	$t3,$t3,%lo(aspMainDataStart)
+/*     9584:	254ab4d0 */ 	addiu	$t2,$t2,%lo(aspTextStart)
+/*     9588:	256ba2d0 */ 	addiu	$t3,$t3,%lo(aspDataStart)
 /*     958c:	240c1000 */ 	addiu	$t4,$zero,0x1000
 /*     9590:	240d0800 */ 	addiu	$t5,$zero,0x800
 /*     9594:	acc00000 */ 	sw	$zero,0x0($a2)
@@ -1532,12 +1530,12 @@ glabel amgrHandleFrameMsg
 //	extern u32 vara4500004;
 //	extern u8 rspbootTextStart;
 //	extern u8 rspbootTextEnd;
-//	extern u8 aspMainTextStart;
-//	extern u8 aspMainDataStart;
+//	extern u8 aspTextStart;
+//	extern u8 aspDataStart;
 //
 //	if (g_AmgrCurrentCmdList) {
 //		g_AmgrCurrentCmdList = g_AmgrCurrentCmdList;
-//		__scHandleRetraceViaPri(&g_SchedThread, g_AmgrCurrentCmdList);
+//		__scHandleRetraceViaPri(&g_Sched, g_AmgrCurrentCmdList);
 //	}
 //
 //	amgrClearDmaBuffers();
@@ -1561,7 +1559,7 @@ glabel amgrHandleFrameMsg
 //		}
 //	}
 //
-//	cmd = alAudioFrame(datastart, &var800918e8, outbuffer, info->framesamples);
+//	cmd = n_alAudioFrame(datastart, &var800918e8, outbuffer, info->framesamples);
 //
 //	task = &info->task;
 //
@@ -1573,8 +1571,8 @@ glabel amgrHandleFrameMsg
 //	task->list.t.flags = 0;
 //	task->list.t.ucode_boot = (u64 *) &rspbootTextStart;
 //	task->list.t.ucode_boot_size = (u32) &rspbootTextEnd - (u32) &rspbootTextStart;
-//	task->list.t.ucode = (u64 *) &aspMainTextStart;
-//	task->list.t.ucode_data = (u64 *) &aspMainDataStart;
+//	task->list.t.ucode = (u64 *) &aspTextStart;
+//	task->list.t.ucode_data = (u64 *) &asaspart;
 //	task->list.t.ucode_size = SP_UCODE_SIZE;
 //	task->list.t.ucode_data_size = SP_UCODE_DATA_SIZE;
 //	task->list.t.data_ptr = (u64 *) datastart;

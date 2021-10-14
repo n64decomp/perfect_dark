@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "osint.h"
 
 int osSetTimer(OSTimer *t, OSTime value, OSTime interval, OSMesgQueue *mq, OSMesg msg)
 {
@@ -10,9 +10,9 @@ int osSetTimer(OSTimer *t, OSTime value, OSTime interval, OSMesgQueue *mq, OSMes
 	t->interval = interval;
 
 	if (value != 0) {
-		t->remaining = value;
+		t->value = value;
 	} else {
-		t->remaining = interval;
+		t->value = interval;
 	}
 
 	t->mq = mq;

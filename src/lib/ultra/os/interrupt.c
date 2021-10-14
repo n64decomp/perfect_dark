@@ -1,6 +1,3 @@
-#include <libultra_internal.h>
-#include "data.h"
-
 GLOBAL_ASM(
 glabel __osDisableInt
 /*    495b0:	3c0a8006 */ 	lui	$t2,%hi(__osGlobalIntMask)

@@ -1,5 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "osint.h"
+
+extern struct __osThreadTail __osThreadTail;
 
 void osCreateMesgQueue(OSMesgQueue *mq, OSMesg *msg, s32 msgCount)
 {

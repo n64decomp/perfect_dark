@@ -1,6 +1,6 @@
-#include <ultra64.h>
-#include "lib/libc/xprintf.h"
-#include "constants.h"
+#include <string.h>
+#include <stdarg.h>
+#include "xstdio.h"
 
 char spaces[] = "                                ";
 char zeroes[] = "00000000000000000000000000000000";

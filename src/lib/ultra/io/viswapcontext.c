@@ -1,5 +1,8 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "viint.h"
+
+extern u32 var8005cefc;
 
 void __osViSwapContext()
 {

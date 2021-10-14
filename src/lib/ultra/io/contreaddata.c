@@ -1,6 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "siint.h"
+#include "controller.h"
 
 void __osPackReadData(void);
 

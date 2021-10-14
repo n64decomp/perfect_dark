@@ -1,4 +1,4 @@
-#include <ultra64.h>
+#include <rcp.h>
 
 u32 osAiGetLength(void)
 {

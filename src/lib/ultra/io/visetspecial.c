@@ -1,5 +1,6 @@
-#include <ultra64.h>
-#include "data.h"
+#include <os_internal.h>
+#include <rcp.h>
+#include "viint.h"
 
 void osViSetSpecialFeatures(u32 func)
 {

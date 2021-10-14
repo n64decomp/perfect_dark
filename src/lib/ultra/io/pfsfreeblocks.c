@@ -1,9 +1,5 @@
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
 
 s32 osPfsFreeBlocks(OSPfs *pfs, s32 *remaining)
 {
@@ -29,8 +25,8 @@ s32 osPfsFreeBlocks(OSPfs *pfs, s32 *remaining)
 
 		offset = ((bank > 0) ? 1 : pfs->inode_start_page);
 
-		for (j = offset; j < PFS_INODE_SIZE_PER_PAGE; j++) {
-			if (inode.inode_page[j].ipage == PFS_PAGE_NOT_USED) {
+		for (j = offset; j < ARRLEN(inode.inode_page); j++) {
+			if (inode.inode_page[j].ipage == 3) {
 				pages++;
 			}
 		}

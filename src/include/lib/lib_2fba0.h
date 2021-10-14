@@ -4,6 +4,4 @@
 #include "data.h"
 #include "types.h"
 
-void n_alInit(ALGlobals *g, ALSynConfig *c);
-
 #endif

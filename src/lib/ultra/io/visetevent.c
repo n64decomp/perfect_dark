@@ -1,5 +1,5 @@
-#include "libultra_internal.h"
-#include "data.h"
+#include <os_internal.h>
+#include "viint.h"
 
 void osViSetEvent(OSMesgQueue *mq, OSMesg m, u32 retraceCount)
 {

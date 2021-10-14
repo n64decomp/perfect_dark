@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <sched.h>
 #include "lib/sched.h"
 #include "constants.h"
 #include "game/camdraw.h"
@@ -1576,7 +1577,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		}
 //
 //		// Copy the texture to the framebuffer
-//		if (osTvType != OS_TV_TYPE_PAL) {
+//		if (osTvType != OS_TV_PAL) {
 //			s32 fby = 0;
 //
 //			for (y = 0; y < 48 * 507; y += 507) {
@@ -1620,7 +1621,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	//     Design the program to either go into an infinite loop or display a
 //	//     message indicating a system error.
 //	//
-//	if (osTvType == OS_TV_TYPE_PAL) {
+//	if (osTvType == OS_TV_PAL) {
 //		while (1);
 //	}
 //

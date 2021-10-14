@@ -1,6 +1,6 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 s32 osContStartQuery(OSMesgQueue *mq)
 {

@@ -1,13 +1,12 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_30ce0.h"
 #include "lib/lib_3e730.h"
 #include "data.h"
 #include "types.h"
 
 GLOBAL_ASM(
-glabel alSynSetVol
+glabel n_alSynSetVol
 /*    3ccf0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3ccf4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3ccf8:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -17,7 +16,7 @@ glabel alSynSetVol
 /*    3cd08:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3cd0c:	11e00023 */ 	beqz	$t7,.L0003cd9c
 /*    3cd10:	00000000 */ 	nop
-/*    3cd14:	0c00c541 */ 	jal	__allocParam
+/*    3cd14:	0c00c541 */ 	jal	__n_allocParam
 /*    3cd18:	00000000 */ 	nop
 /*    3cd1c:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3cd20:	8fb8001c */ 	lw	$t8,0x1c($sp)
@@ -41,7 +40,7 @@ glabel alSynSetVol
 /*    3cd64:	87b80026 */ 	lh	$t8,0x26($sp)
 /*    3cd68:	8fb9001c */ 	lw	$t9,0x1c($sp)
 /*    3cd6c:	af38000c */ 	sw	$t8,0xc($t9)
-/*    3cd70:	0c00c5a6 */ 	jal	_timeToSamples
+/*    3cd70:	0c00c5a6 */ 	jal	_n_timeToSamples
 /*    3cd74:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    3cd78:	8fa9001c */ 	lw	$t1,0x1c($sp)
 /*    3cd7c:	ad220010 */ 	sw	$v0,0x10($t1)

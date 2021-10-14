@@ -12,7 +12,6 @@
 #include "lib/vi.h"
 #include "lib/memory.h"
 #include "lib/mtx.h"
-#include "lib/lib_30ce0.h"
 #include "data.h"
 #include "types.h"
 

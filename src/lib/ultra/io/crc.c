@@ -1,8 +1,4 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
 
 u8 __osContAddressCrc(u16 inaddr)
 {

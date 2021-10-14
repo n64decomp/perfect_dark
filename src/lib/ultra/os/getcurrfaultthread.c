@@ -1,5 +1,5 @@
-#include <ultra64.h>
-#include "data.h"
+#include <os_internal.h>
+#include "osint.h"
 
 OSThread *__osGetCurrFaultedThread()
 {

@@ -1,6 +1,8 @@
 #ifndef _IN_TYPES_H
 #define _IN_TYPES_H
 #include <ultra64.h>
+#include <sched.h>
+#include "n_libaudio.h"
 #include "constants.h"
 #include "gbiex.h"
 #include "lang.h"
@@ -6238,7 +6240,7 @@ struct var80094ed8 {
 	/*0x0ec*/ u32 unk0ec;
 	/*0x0f0*/ u32 unk0f0;
 	/*0x0f4*/ u32 unk0f4;
-	/*0x0f8*/ ALCSPlayer *seqp;
+	/*0x0f8*/ N_ALCSPlayer *seqp;
 	/*0x0fc*/ void *unk0fc;
 	/*0x100*/ u16 unk100;
 	/*0x104*/ u32 unk104;
@@ -6948,7 +6950,7 @@ typedef struct {
 	OSMesg        audioFrameMsgBuf[8];
 	OSMesgQueue   audioReplyMsgQ;
 	OSMesg        audioReplyMsgBuf[8];
-	ALGlobals     g;
+	N_ALGlobals   g;
 } AMAudioMgr;
 
 typedef struct {

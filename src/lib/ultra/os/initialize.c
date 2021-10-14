@@ -1,6 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os.h>
+#include <os_internal.h>
+#include <R4300.h>
+#include <rcp.h>
 
 typedef struct {
 	unsigned int inst1;
@@ -10,7 +11,7 @@ typedef struct {
 } __osExceptionVector;
 
 extern __osExceptionVector __osExceptionPreamble;
-extern u32 osAppNMIBuffer;
+extern s32 osAppNMIBuffer[];
 
 u32 __osFinalRom;
 
@@ -55,7 +56,7 @@ void osInitialize(void)
 	osClockRate = osClockRate * 3 / 4;
 #endif
 
-	if (osResetType == RESET_TYPE_COLD_RESET) {
+	if (osResetType == 0 /*cold reset*/) {
 		bzero(&osAppNMIBuffer, 0x40);
 	}
 

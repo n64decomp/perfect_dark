@@ -1,5 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include "controller.h"
 
 s32 osEepromLongRead(OSMesgQueue *mq, u8 address, u8 *buffer, int length)
 {

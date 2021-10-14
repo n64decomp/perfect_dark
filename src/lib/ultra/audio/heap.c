@@ -1,8 +1,7 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include "synthInternals.h"
+#include <libaudio.h>
+#include <os_internal.h>
+#include <ultraerror.h>
 
 void alHeapInit(ALHeap *hp, u8 *base, s32 len)
 {

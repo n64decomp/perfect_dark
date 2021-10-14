@@ -18,7 +18,7 @@ glabel func00039be0
 /*    39c04:	27a50018 */ 	addiu	$a1,$sp,0x18
 /*    39c08:	00003025 */ 	or	$a2,$zero,$zero
 /*    39c0c:	00003825 */ 	or	$a3,$zero,$zero
-/*    39c10:	0c00f184 */ 	jal	alEvtqPostEvent
+/*    39c10:	0c00f184 */ 	jal	n_alEvtqPostEvent
 /*    39c14:	24840048 */ 	addiu	$a0,$a0,0x48
 /*    39c18:	10000001 */ 	b	.L00039c20
 /*    39c1c:	00000000 */ 	nop
@@ -40,7 +40,7 @@ glabel func00039c30
 /*    39c48:	27a50018 */ 	addiu	$a1,$sp,0x18
 /*    39c4c:	00003025 */ 	or	$a2,$zero,$zero
 /*    39c50:	00003825 */ 	or	$a3,$zero,$zero
-/*    39c54:	0c00f184 */ 	jal	alEvtqPostEvent
+/*    39c54:	0c00f184 */ 	jal	n_alEvtqPostEvent
 /*    39c58:	24840048 */ 	addiu	$a0,$a0,0x48
 /*    39c5c:	10000001 */ 	b	.L00039c64
 /*    39c60:	00000000 */ 	nop

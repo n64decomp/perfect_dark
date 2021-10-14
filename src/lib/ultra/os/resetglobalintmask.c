@@ -1,5 +1,7 @@
-#include <libultra_internal.h>
-#include "data.h"
+#include <os_internal.h>
+#include <R4300.h>
+
+extern u32 __osGlobalIntMask;
 
 void __osResetGlobalIntMask(OSHWIntr interrupt)
 {

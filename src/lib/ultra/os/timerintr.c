@@ -1,6 +1,5 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os_internal.h>
+#include "osint.h"
 
 OSTimer var8009c760;
 OSTime __osCurrentTime;
@@ -18,8 +17,8 @@ void __osTimerServicesInit(void)
 
 	__osTimerList->prev = __osTimerList;
 	__osTimerList->next = __osTimerList->prev;
-	__osTimerList->remaining = 0;
-	__osTimerList->interval = __osTimerList->remaining;
+	__osTimerList->value = 0;
+	__osTimerList->interval = __osTimerList->value;
 	__osTimerList->mq = NULL;
 	__osTimerList->msg = 0;
 }
@@ -47,9 +46,9 @@ void __osTimerInterrupt(void)
 		elapsed_cycles = count - __osTimerCounter;
 		__osTimerCounter = count;
 
-		if (elapsed_cycles < t->remaining) {
-			t->remaining -= elapsed_cycles;
-			__osSetTimerIntr(t->remaining);
+		if (elapsed_cycles < t->value) {
+			t->value -= elapsed_cycles;
+			__osSetTimerIntr(t->value);
 			return;
 		} else {
 			t->prev->next = t->next;
@@ -62,7 +61,7 @@ void __osTimerInterrupt(void)
 			}
 
 			if (t->interval != 0) {
-				t->remaining = t->interval;
+				t->value = t->interval;
 				__osInsertTimer(t);
 			}
 		}
@@ -91,16 +90,16 @@ OSTime __osInsertTimer(OSTimer *t)
 
 	savedMask = __osDisableInt();
 
-	for (timep = __osTimerList->next, tim = t->remaining;
-			timep != __osTimerList && tim > timep->remaining;
-			tim -= timep->remaining, timep = timep->next) {
+	for (timep = __osTimerList->next, tim = t->value;
+			timep != __osTimerList && tim > timep->value;
+			tim -= timep->value, timep = timep->next) {
 		;
 	}
 
-	t->remaining = tim;
+	t->value = tim;
 
 	if (timep != __osTimerList) {
-		timep->remaining -= tim;
+		timep->value -= tim;
 	}
 
 	t->next = timep;

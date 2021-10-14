@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <stdarg.h>
 #include "constants.h"
 #include "bss.h"
 #include "lib/crash.h"

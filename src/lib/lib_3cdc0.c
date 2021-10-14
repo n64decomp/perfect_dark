@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_30ce0.h"
 #include "lib/lib_3e730.h"
 #include "data.h"
 #include "types.h"
@@ -18,7 +17,7 @@ glabel func0003cdc0
 /*    3cddc:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3cde0:	11e0003c */ 	beqz	$t7,.L0003ced4
 /*    3cde4:	00000000 */ 	nop
-/*    3cde8:	0c00c541 */ 	jal	__allocParam
+/*    3cde8:	0c00c541 */ 	jal	__n_allocParam
 /*    3cdec:	00000000 */ 	nop
 /*    3cdf0:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3cdf4:	8fb8001c */ 	lw	$t8,0x1c($sp)
@@ -66,7 +65,7 @@ glabel func0003cdc0
 /*    3ce98:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
 /*    3ce9c:	8fab001c */ 	lw	$t3,0x1c($sp)
 /*    3cea0:	e5660018 */ 	swc1	$f6,0x18($t3)
-/*    3cea4:	0c00c5a6 */ 	jal	_timeToSamples
+/*    3cea4:	0c00c5a6 */ 	jal	_n_timeToSamples
 /*    3cea8:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*    3ceac:	8fac001c */ 	lw	$t4,0x1c($sp)
 /*    3ceb0:	ad82001c */ 	sw	$v0,0x1c($t4)

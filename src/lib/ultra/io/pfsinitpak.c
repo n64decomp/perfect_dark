@@ -1,10 +1,7 @@
 #include "versions.h"
-#include <ultra64.h>
-#include "libultra_internal.h"
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include "controller.h"
+#include "siint.h"
 
 s32 __osPfsCheckRamArea(OSPfs* pfs);
 s32 func00007084(OSPfs *pfs);
@@ -47,7 +44,7 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 		ret = __osCheckPackId(pfs, id);
 
 		if (ret != 0) {
-			pfs->status |= 4;
+			pfs->status |= PFS_ID_BROKEN;
 			return ret;
 		}
 	}
@@ -56,8 +53,8 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, s32 channel)
 		ret = __osRepairPackId(pfs, id, &newid);
 
 		if (ret != 0) {
-			if (ret == 10) {
-				pfs->status |= 4;
+			if (ret == PFS_ERR_ID_FATAL) {
+				pfs->status |= PFS_ID_BROKEN;
 			}
 
 			return ret;

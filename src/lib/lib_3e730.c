@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/mtx.h"
-#include "lib/lib_30ce0.h"
 #include "lib/lib_3e730.h"
 #include "lib/lib_43dd0.h"
 #include "lib/lib_44f60.h"
@@ -24,7 +23,7 @@ glabel func0003e730
 /*    3e744:	8dcf0008 */ 	lw	$t7,0x8($t6)
 /*    3e748:	11e0001f */ 	beqz	$t7,.L0003e7c8
 /*    3e74c:	00000000 */ 	nop
-/*    3e750:	0c00c541 */ 	jal	__allocParam
+/*    3e750:	0c00c541 */ 	jal	__n_allocParam
 /*    3e754:	00000000 */ 	nop
 /*    3e758:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3e75c:	8fb8001c */ 	lw	$t8,0x1c($sp)

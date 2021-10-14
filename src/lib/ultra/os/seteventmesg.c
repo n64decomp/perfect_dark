@@ -1,10 +1,11 @@
-#include <libultra_internal.h>
-#include "data.h"
-#include "bss.h"
+#include <os_internal.h>
+#include "osint.h"
 
-__OSEventState __osEventStateTab[15];
+__OSEventState __osEventStateTab[OS_NUM_EVENTS];
 
 u32 var80060890 = 0;
+
+extern u32 _osShutdown;
 
 void osSetEventMesg(OSEvent event, OSMesgQueue *mq, OSMesg msg)
 {
