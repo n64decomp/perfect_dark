@@ -6386,12 +6386,7 @@ void __n_CSPPostNextSeqEvent(N_ALCSPlayer *seqp)
 	n_alEvtqPostEvent(&seqp->evtq, &evt, deltaTicks * seqp->uspt, 0);
 }
 
-GLOBAL_ASM(
-glabel func00037634
-/*    37634:	30a500ff */ 	andi	$a1,$a1,0xff
-/*    37638:	a0850088 */ 	sb	$a1,0x88($a0)
-/*    3763c:	03e00008 */ 	jr	$ra
-/*    37640:	00000000 */ 	nop
-/*    37644:	03e00008 */ 	jr	$ra
-/*    37648:	00000000 */ 	nop
-);
+void func00037634(N_ALCSPlayer *seqp, u8 value)
+{
+	seqp->unk88 = value;
+}
