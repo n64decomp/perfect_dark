@@ -580,218 +580,41 @@ void __n_resetPerfChanState(N_ALSeqPlayer *seqp, s32 chan)
 	seqp->chanState[chan].unk32 = 0;
 }
 
-GLOBAL_ASM(
-glabel __n_setInstChanState
-/*    3df64:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3df68:	00067880 */ 	sll	$t7,$a2,0x2
-/*    3df6c:	01e67823 */ 	subu	$t7,$t7,$a2
-/*    3df70:	8c8e0060 */ 	lw	$t6,0x60($a0)
-/*    3df74:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3df78:	01e67821 */ 	addu	$t7,$t7,$a2
-/*    3df7c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3df80:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    3df84:	af050000 */ 	sw	$a1,0x0($t8)
-/*    3df88:	00064880 */ 	sll	$t1,$a2,0x2
-/*    3df8c:	01264823 */ 	subu	$t1,$t1,$a2
-/*    3df90:	8c880060 */ 	lw	$t0,0x60($a0)
-/*    3df94:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3df98:	90b90001 */ 	lbu	$t9,0x1($a1)
-/*    3df9c:	01264821 */ 	addu	$t1,$t1,$a2
-/*    3dfa0:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3dfa4:	01095021 */ 	addu	$t2,$t0,$t1
-/*    3dfa8:	a1590007 */ 	sb	$t9,0x7($t2)
-/*    3dfac:	00066880 */ 	sll	$t5,$a2,0x2
-/*    3dfb0:	01a66823 */ 	subu	$t5,$t5,$a2
-/*    3dfb4:	8c8c0060 */ 	lw	$t4,0x60($a0)
-/*    3dfb8:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3dfbc:	90ab0000 */ 	lbu	$t3,0x0($a1)
-/*    3dfc0:	01a66821 */ 	addu	$t5,$t5,$a2
-/*    3dfc4:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3dfc8:	018d7021 */ 	addu	$t6,$t4,$t5
-/*    3dfcc:	a1cb0009 */ 	sb	$t3,0x9($t6)
-/*    3dfd0:	00064080 */ 	sll	$t0,$a2,0x2
-/*    3dfd4:	01064023 */ 	subu	$t0,$t0,$a2
-/*    3dfd8:	8c980060 */ 	lw	$t8,0x60($a0)
-/*    3dfdc:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3dfe0:	90af0002 */ 	lbu	$t7,0x2($a1)
-/*    3dfe4:	01064021 */ 	addu	$t0,$t0,$a2
-/*    3dfe8:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3dfec:	03084821 */ 	addu	$t1,$t8,$t0
-/*    3dff0:	a12f0008 */ 	sb	$t7,0x8($t1)
-/*    3dff4:	00066080 */ 	sll	$t4,$a2,0x2
-/*    3dff8:	01866023 */ 	subu	$t4,$t4,$a2
-/*    3dffc:	8c8a0060 */ 	lw	$t2,0x60($a0)
-/*    3e000:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3e004:	84b9000c */ 	lh	$t9,0xc($a1)
-/*    3e008:	01866021 */ 	addu	$t4,$t4,$a2
-/*    3e00c:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3e010:	014c6821 */ 	addu	$t5,$t2,$t4
-/*    3e014:	a5b90004 */ 	sh	$t9,0x4($t5)
-/*    3e018:	84ab000e */ 	lh	$t3,0xe($a1)
-/*    3e01c:	15600003 */ 	bnez	$t3,.L0003e02c
-/*    3e020:	00000000 */ 	nop
-/*    3e024:	1000009c */ 	b	.L0003e298
-/*    3e028:	00000000 */ 	nop
-.L0003e02c:
-/*    3e02c:	8cae0010 */ 	lw	$t6,0x10($a1)
-/*    3e030:	afae0004 */ 	sw	$t6,0x4($sp)
-/*    3e034:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3e038:	00065080 */ 	sll	$t2,$a2,0x2
-/*    3e03c:	01465023 */ 	subu	$t2,$t2,$a2
-/*    3e040:	8f080000 */ 	lw	$t0,0x0($t8)
-/*    3e044:	8c890060 */ 	lw	$t1,0x60($a0)
-/*    3e048:	000a5080 */ 	sll	$t2,$t2,0x2
-/*    3e04c:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*    3e050:	01465021 */ 	addu	$t2,$t2,$a2
-/*    3e054:	000a5080 */ 	sll	$t2,$t2,0x2
-/*    3e058:	012a6021 */ 	addu	$t4,$t1,$t2
-/*    3e05c:	ad8f0018 */ 	sw	$t7,0x18($t4)
-/*    3e060:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    3e064:	0006c080 */ 	sll	$t8,$a2,0x2
-/*    3e068:	0306c023 */ 	subu	$t8,$t8,$a2
-/*    3e06c:	8f2d0000 */ 	lw	$t5,0x0($t9)
-/*    3e070:	8c8e0060 */ 	lw	$t6,0x60($a0)
-/*    3e074:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3e078:	8dab0004 */ 	lw	$t3,0x4($t5)
-/*    3e07c:	0306c021 */ 	addu	$t8,$t8,$a2
-/*    3e080:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3e084:	01d84021 */ 	addu	$t0,$t6,$t8
-/*    3e088:	ad0b001c */ 	sw	$t3,0x1c($t0)
-/*    3e08c:	8fa90004 */ 	lw	$t1,0x4($sp)
-/*    3e090:	0006c880 */ 	sll	$t9,$a2,0x2
-/*    3e094:	0326c823 */ 	subu	$t9,$t9,$a2
-/*    3e098:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*    3e09c:	8c8c0060 */ 	lw	$t4,0x60($a0)
-/*    3e0a0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3e0a4:	8d4f0008 */ 	lw	$t7,0x8($t2)
-/*    3e0a8:	0326c821 */ 	addu	$t9,$t9,$a2
-/*    3e0ac:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3e0b0:	01996821 */ 	addu	$t5,$t4,$t9
-/*    3e0b4:	adaf0020 */ 	sw	$t7,0x20($t5)
-/*    3e0b8:	8fae0004 */ 	lw	$t6,0x4($sp)
-/*    3e0bc:	00064880 */ 	sll	$t1,$a2,0x2
-/*    3e0c0:	01264823 */ 	subu	$t1,$t1,$a2
-/*    3e0c4:	8dd80000 */ 	lw	$t8,0x0($t6)
-/*    3e0c8:	8c880060 */ 	lw	$t0,0x60($a0)
-/*    3e0cc:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3e0d0:	930b000c */ 	lbu	$t3,0xc($t8)
-/*    3e0d4:	01264821 */ 	addu	$t1,$t1,$a2
-/*    3e0d8:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3e0dc:	01095021 */ 	addu	$t2,$t0,$t1
-/*    3e0e0:	a14b0025 */ 	sb	$t3,0x25($t2)
-/*    3e0e4:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    3e0e8:	00067080 */ 	sll	$t6,$a2,0x2
-/*    3e0ec:	01c67023 */ 	subu	$t6,$t6,$a2
-/*    3e0f0:	8d990000 */ 	lw	$t9,0x0($t4)
-/*    3e0f4:	8c8d0060 */ 	lw	$t5,0x60($a0)
-/*    3e0f8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    3e0fc:	932f000d */ 	lbu	$t7,0xd($t9)
-/*    3e100:	01c67021 */ 	addu	$t6,$t6,$a2
-/*    3e104:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    3e108:	01aec021 */ 	addu	$t8,$t5,$t6
-/*    3e10c:	a30f0026 */ 	sb	$t7,0x26($t8)
-/*    3e110:	00064880 */ 	sll	$t1,$a2,0x2
-/*    3e114:	01264823 */ 	subu	$t1,$t1,$a2
-/*    3e118:	8c880060 */ 	lw	$t0,0x60($a0)
-/*    3e11c:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3e120:	01264821 */ 	addu	$t1,$t1,$a2
-/*    3e124:	00094880 */ 	sll	$t1,$t1,0x2
-/*    3e128:	01095821 */ 	addu	$t3,$t0,$t1
-/*    3e12c:	a1600027 */ 	sb	$zero,0x27($t3)
-/*    3e130:	0006c880 */ 	sll	$t9,$a2,0x2
-/*    3e134:	0326c823 */ 	subu	$t9,$t9,$a2
-/*    3e138:	8c8c0060 */ 	lw	$t4,0x60($a0)
-/*    3e13c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3e140:	90aa0004 */ 	lbu	$t2,0x4($a1)
-/*    3e144:	0326c821 */ 	addu	$t9,$t9,$a2
-/*    3e148:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3e14c:	01996821 */ 	addu	$t5,$t4,$t9
-/*    3e150:	a1aa0028 */ 	sb	$t2,0x28($t5)
-/*    3e154:	0006c080 */ 	sll	$t8,$a2,0x2
-/*    3e158:	0306c023 */ 	subu	$t8,$t8,$a2
-/*    3e15c:	8c8f0060 */ 	lw	$t7,0x60($a0)
-/*    3e160:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3e164:	90ae0005 */ 	lbu	$t6,0x5($a1)
-/*    3e168:	0306c021 */ 	addu	$t8,$t8,$a2
-/*    3e16c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3e170:	01f84021 */ 	addu	$t0,$t7,$t8
-/*    3e174:	a10e0029 */ 	sb	$t6,0x29($t0)
-/*    3e178:	00066080 */ 	sll	$t4,$a2,0x2
-/*    3e17c:	01866023 */ 	subu	$t4,$t4,$a2
-/*    3e180:	8c8b0060 */ 	lw	$t3,0x60($a0)
-/*    3e184:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3e188:	90a90006 */ 	lbu	$t1,0x6($a1)
-/*    3e18c:	01866021 */ 	addu	$t4,$t4,$a2
-/*    3e190:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3e194:	016cc821 */ 	addu	$t9,$t3,$t4
-/*    3e198:	a329002a */ 	sb	$t1,0x2a($t9)
-/*    3e19c:	00067880 */ 	sll	$t7,$a2,0x2
-/*    3e1a0:	01e67823 */ 	subu	$t7,$t7,$a2
-/*    3e1a4:	8c8d0060 */ 	lw	$t5,0x60($a0)
-/*    3e1a8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3e1ac:	90aa0007 */ 	lbu	$t2,0x7($a1)
-/*    3e1b0:	01e67821 */ 	addu	$t7,$t7,$a2
-/*    3e1b4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3e1b8:	01afc021 */ 	addu	$t8,$t5,$t7
-/*    3e1bc:	a30a002b */ 	sb	$t2,0x2b($t8)
-/*    3e1c0:	00065880 */ 	sll	$t3,$a2,0x2
-/*    3e1c4:	01665823 */ 	subu	$t3,$t3,$a2
-/*    3e1c8:	8c880060 */ 	lw	$t0,0x60($a0)
-/*    3e1cc:	000b5880 */ 	sll	$t3,$t3,0x2
-/*    3e1d0:	90ae0008 */ 	lbu	$t6,0x8($a1)
-/*    3e1d4:	01665821 */ 	addu	$t3,$t3,$a2
-/*    3e1d8:	000b5880 */ 	sll	$t3,$t3,0x2
-/*    3e1dc:	010b6021 */ 	addu	$t4,$t0,$t3
-/*    3e1e0:	a18e002c */ 	sb	$t6,0x2c($t4)
-/*    3e1e4:	00066880 */ 	sll	$t5,$a2,0x2
-/*    3e1e8:	01a66823 */ 	subu	$t5,$t5,$a2
-/*    3e1ec:	8c990060 */ 	lw	$t9,0x60($a0)
-/*    3e1f0:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3e1f4:	90a90009 */ 	lbu	$t1,0x9($a1)
-/*    3e1f8:	01a66821 */ 	addu	$t5,$t5,$a2
-/*    3e1fc:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3e200:	032d7821 */ 	addu	$t7,$t9,$t5
-/*    3e204:	a1e9002d */ 	sb	$t1,0x2d($t7)
-/*    3e208:	00064080 */ 	sll	$t0,$a2,0x2
-/*    3e20c:	01064023 */ 	subu	$t0,$t0,$a2
-/*    3e210:	8c980060 */ 	lw	$t8,0x60($a0)
-/*    3e214:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3e218:	90aa000a */ 	lbu	$t2,0xa($a1)
-/*    3e21c:	01064021 */ 	addu	$t0,$t0,$a2
-/*    3e220:	00084080 */ 	sll	$t0,$t0,0x2
-/*    3e224:	03085821 */ 	addu	$t3,$t8,$t0
-/*    3e228:	a16a002e */ 	sb	$t2,0x2e($t3)
-/*    3e22c:	0006c880 */ 	sll	$t9,$a2,0x2
-/*    3e230:	0326c823 */ 	subu	$t9,$t9,$a2
-/*    3e234:	8c8c0060 */ 	lw	$t4,0x60($a0)
-/*    3e238:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3e23c:	90ae000b */ 	lbu	$t6,0xb($a1)
-/*    3e240:	0326c821 */ 	addu	$t9,$t9,$a2
-/*    3e244:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    3e248:	01996821 */ 	addu	$t5,$t4,$t9
-/*    3e24c:	a1ae002f */ 	sb	$t6,0x2f($t5)
-/*    3e250:	00067880 */ 	sll	$t7,$a2,0x2
-/*    3e254:	01e67823 */ 	subu	$t7,$t7,$a2
-/*    3e258:	8c890060 */ 	lw	$t1,0x60($a0)
-/*    3e25c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3e260:	01e67821 */ 	addu	$t7,$t7,$a2
-/*    3e264:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    3e268:	012fc021 */ 	addu	$t8,$t1,$t7
-/*    3e26c:	a3000024 */ 	sb	$zero,0x24($t8)
-/*    3e270:	00065080 */ 	sll	$t2,$a2,0x2
-/*    3e274:	01465023 */ 	subu	$t2,$t2,$a2
-/*    3e278:	8c880060 */ 	lw	$t0,0x60($a0)
-/*    3e27c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*    3e280:	01465021 */ 	addu	$t2,$t2,$a2
-/*    3e284:	000a5080 */ 	sll	$t2,$t2,0x2
-/*    3e288:	010a5821 */ 	addu	$t3,$t0,$t2
-/*    3e28c:	a1600031 */ 	sb	$zero,0x31($t3)
-/*    3e290:	10000001 */ 	b	.L0003e298
-/*    3e294:	00000000 */ 	nop
-.L0003e298:
-/*    3e298:	03e00008 */ 	jr	$ra
-/*    3e29c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+void __n_setInstChanState(N_ALSeqPlayer *seqp, ALInstrument *inst, s32 chan)
+{
+	ALSound *sound;
+
+	seqp->chanState[chan].instrument = inst;
+	seqp->chanState[chan].pan = inst->pan;
+	seqp->chanState[chan].vol = inst->volume;
+	seqp->chanState[chan].priority = inst->priority;
+	seqp->chanState[chan].bendRange = inst->bendRange;
+
+	if (inst->soundCount == 0) {
+		return;
+	}
+
+	sound = inst->soundArray[0];
+
+	seqp->chanState[chan].attackTime = sound->envelope->attackTime;
+	seqp->chanState[chan].decayTime = sound->envelope->decayTime;
+	seqp->chanState[chan].releaseTime = sound->envelope->releaseTime;
+	seqp->chanState[chan].attackVolume = sound->envelope->attackVolume;
+	seqp->chanState[chan].decayVolume = sound->envelope->decayVolume;
+
+	seqp->chanState[chan].unk27 = 0;
+	seqp->chanState[chan].tremType = inst->tremType;
+	seqp->chanState[chan].tremRate = inst->tremRate;
+	seqp->chanState[chan].tremDepth = inst->tremDepth;
+	seqp->chanState[chan].tremDelay = inst->tremDelay;
+	seqp->chanState[chan].vibType = inst->vibType;
+	seqp->chanState[chan].ribRate = inst->vibRate;
+	seqp->chanState[chan].vibDepth = inst->vibDepth;
+	seqp->chanState[chan].vibDelay = inst->vibDelay;
+
+	seqp->chanState[chan].unk24 = 0;
+	seqp->chanState[chan].unk31 = 0;
+}
 
 void __n_seqpStopOsc(N_ALSeqPlayer *seqp, N_ALVoiceState *vs)
 {

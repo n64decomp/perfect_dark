@@ -669,12 +669,21 @@ typedef struct {
     u8 unk12;
     u8 unk13;
     f32 pitchBend;      /* current pitch bend val in cents  */
-    u32 unk18;
-    u32 unk1c;
-    u32 unk20;
-    u32 unk24;
-    u32 unk28;
-    u32 unk2c;
+    ALMicroTime attackTime;
+    ALMicroTime decayTime;
+    ALMicroTime releaseTime;
+    u8 unk24;
+    u8 attackVolume;
+    u8 decayVolume;
+    u8 unk27;
+    u8 tremType;
+    u8 tremRate;
+    u8 tremDepth;
+    u8 tremDelay;
+    u8 vibType;
+    u8 ribRate;
+    u8 vibDepth;
+    u8 vibDelay;
     u8 unk30;
     u8 unk31;
     u8 unk32;
