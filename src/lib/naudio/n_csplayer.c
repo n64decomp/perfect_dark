@@ -8,8 +8,9 @@
 #include "cseq.h"
 #include "n_cseqp.h"
 
-void __n_CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
-void __n_setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);
+void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item);
+void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo);
+void __n_CSPHandleMetaMsg(N_ALCSPlayer *seqp, N_ALEvent *event);
 
 u32 var8009c350[16];
 
@@ -701,13 +702,13 @@ glabel var700547e4
 /*    3490c:	00000000 */ 	nop
 /*    34910:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*    34914:	01a02025 */ 	or	$a0,$t5,$zero
-/*    34918:	0c00d444 */ 	jal	func00035110
+/*    34918:	0c00d444 */ 	jal	__n_CSPHandleMIDIMsg
 /*    3491c:	25a50038 */ 	addiu	$a1,$t5,0x38
 /*    34920:	1000011a */ 	b	.L00034d8c
 /*    34924:	00000000 */ 	nop
 /*    34928:	8fab0074 */ 	lw	$t3,0x74($sp)
 /*    3492c:	01602025 */ 	or	$a0,$t3,$zero
-/*    34930:	0c00dc88 */ 	jal	__CSPHandleMetaMsg
+/*    34930:	0c00dc88 */ 	jal	__n_CSPHandleMetaMsg
 /*    34934:	25650038 */ 	addiu	$a1,$t3,0x38
 /*    34938:	10000114 */ 	b	.L00034d8c
 /*    3493c:	00000000 */ 	nop
@@ -815,7 +816,7 @@ glabel var700547e4
 /*    34ab8:	8fae0074 */ 	lw	$t6,0x74($sp)
 /*    34abc:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*    34ac0:	adcd002c */ 	sw	$t5,0x2c($t6)
-/*    34ac4:	0c00dd67 */ 	jal	func0003759c
+/*    34ac4:	0c00dd67 */ 	jal	__n_CSPPostNextSeqEvent
 /*    34ac8:	8fa40074 */ 	lw	$a0,0x74($sp)
 .L00034acc:
 /*    34acc:	100000af */ 	b	.L00034d8c
@@ -1037,125 +1038,56 @@ glabel var700547e4
 /*    34df4:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel __n_CSPHandleNextSeqEvent
-.late_rodata
-glabel var700547e8
-.word __n_CSPHandleNextSeqEvent+0x64
-glabel var700547ec
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var700547f0
-.word __n_CSPHandleNextSeqEvent+0x80
-glabel var700547f4
-.word __n_CSPHandleNextSeqEvent+0x9c
-glabel var700547f8
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var700547fc
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054800
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054804
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054808
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var7005480c
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054810
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054814
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054818
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var7005481c
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054820
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054824
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var70054828
-.word __n_CSPHandleNextSeqEvent+0xf4
-glabel var7005482c
-.word __n_CSPHandleNextSeqEvent+0xe4
-glabel var70054830
-.word __n_CSPHandleNextSeqEvent+0xe4
-glabel var70054834
-.word __n_CSPHandleNextSeqEvent+0xe4
-.text
-/*    34df8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    34dfc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    34e00:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    34e04:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    34e08:	8dcf0018 */ 	lw	$t7,0x18($t6)
-/*    34e0c:	15e00003 */ 	bnez	$t7,.L00034e1c
-/*    34e10:	00000000 */ 	nop
-/*    34e14:	10000039 */ 	b	.L00034efc
-/*    34e18:	00000000 */ 	nop
-.L00034e1c:
-/*    34e1c:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    34e20:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    34e24:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    34e28:	0c00e3ac */ 	jal	n_alCSeqNextEvent
-/*    34e2c:	8f040018 */ 	lw	$a0,0x18($t8)
-/*    34e30:	87b90018 */ 	lh	$t9,0x18($sp)
-/*    34e34:	2728ffff */ 	addiu	$t0,$t9,-1
-/*    34e38:	2d010014 */ 	sltiu	$at,$t0,0x14
-/*    34e3c:	1020002b */ 	beqz	$at,.L00034eec
-/*    34e40:	00000000 */ 	nop
-/*    34e44:	00084080 */ 	sll	$t0,$t0,0x2
-/*    34e48:	3c017005 */ 	lui	$at,%hi(var700547e8)
-/*    34e4c:	00280821 */ 	addu	$at,$at,$t0
-/*    34e50:	8c2847e8 */ 	lw	$t0,%lo(var700547e8)($at)
-/*    34e54:	01000008 */ 	jr	$t0
-/*    34e58:	00000000 */ 	nop
-/*    34e5c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    34e60:	0c00d444 */ 	jal	func00035110
-/*    34e64:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    34e68:	0c00dd67 */ 	jal	func0003759c
-/*    34e6c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    34e70:	10000020 */ 	b	.L00034ef4
-/*    34e74:	00000000 */ 	nop
-/*    34e78:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    34e7c:	0c00dc88 */ 	jal	__CSPHandleMetaMsg
-/*    34e80:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    34e84:	0c00dd67 */ 	jal	func0003759c
-/*    34e88:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    34e8c:	10000019 */ 	b	.L00034ef4
-/*    34e90:	00000000 */ 	nop
-/*    34e94:	3c098006 */ 	lui	$t1,%hi(var8005f4dc)
-/*    34e98:	8d29f4dc */ 	lw	$t1,%lo(var8005f4dc)($t1)
-/*    34e9c:	1520000d */ 	bnez	$t1,.L00034ed4
-/*    34ea0:	00000000 */ 	nop
-/*    34ea4:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*    34ea8:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*    34eac:	ad6a002c */ 	sw	$t2,0x2c($t3)
-/*    34eb0:	240c0010 */ 	addiu	$t4,$zero,0x10
-/*    34eb4:	a7ac0018 */ 	sh	$t4,0x18($sp)
-/*    34eb8:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    34ebc:	3c067fff */ 	lui	$a2,0x7fff
-/*    34ec0:	34c6ffff */ 	ori	$a2,$a2,0xffff
-/*    34ec4:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    34ec8:	00003825 */ 	or	$a3,$zero,$zero
-/*    34ecc:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    34ed0:	24840048 */ 	addiu	$a0,$a0,0x48
-.L00034ed4:
-/*    34ed4:	10000007 */ 	b	.L00034ef4
-/*    34ed8:	00000000 */ 	nop
-/*    34edc:	0c00dd67 */ 	jal	func0003759c
-/*    34ee0:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    34ee4:	10000003 */ 	b	.L00034ef4
-/*    34ee8:	00000000 */ 	nop
-.L00034eec:
-/*    34eec:	10000001 */ 	b	.L00034ef4
-/*    34ef0:	00000000 */ 	nop
-.L00034ef4:
-/*    34ef4:	10000001 */ 	b	.L00034efc
-/*    34ef8:	00000000 */ 	nop
-.L00034efc:
-/*    34efc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    34f00:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    34f04:	03e00008 */ 	jr	$ra
-/*    34f08:	00000000 */ 	nop
-);
+/**
+ * Calculates the delta time in ticks until the next sequence
+ * event and posts a sequence reference event with the time in usecs.
+ * Loops are handled automatically by the compact sequence.
+ *
+ * Does nothing if the sequence player is not playing or if there
+ * is no target sequence.
+ *
+ * sct 11/7/95
+ */
+void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp)
+{
+	N_ALEvent evt;
+
+	/* sct 1/5/96 - Do nothing if we don't have a target sequence. */
+	if (seqp->target == NULL) {
+		return;
+	}
+
+	n_alCSeqNextEvent(seqp->target, &evt, 1);
+
+	switch (evt.type) {
+	case AL_SEQ_MIDI_EVT:
+		__n_CSPHandleMIDIMsg(seqp, &evt);
+		__n_CSPPostNextSeqEvent(seqp);
+		break;
+
+	case AL_TEMPO_EVT:
+		__n_CSPHandleMetaMsg(seqp, &evt);
+		__n_CSPPostNextSeqEvent(seqp);
+		break;
+
+	case AL_SEQ_END_EVT:
+		if (!var8005f4dc) {
+			seqp->state = AL_STOPPING;
+			evt.type    = AL_SEQP_STOP_EVT;
+			n_alEvtqPostEvent(&seqp->evtq, &evt, AL_EVTQ_END, 0);
+		}
+		break;
+
+	case AL_TRACK_END:
+	case AL_CSP_LOOPSTART:
+	case AL_CSP_LOOPEND:
+		__n_CSPPostNextSeqEvent(seqp);
+		break;
+
+	default:
+		break;
+	}
+}
 
 GLOBAL_ASM(
 glabel func00034f0c
@@ -1304,297 +1236,297 @@ glabel func00034fb8
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func00035110
+glabel __n_CSPHandleMIDIMsg
 .late_rodata
 glabel var70054838
-.word func00035110+0x0934
+.word __n_CSPHandleMIDIMsg+0x0934
 glabel var7005483c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054840
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054844
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054848
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005484c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054850
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054854
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054858
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005485c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054860
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054864
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054868
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005486c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054870
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054874
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054878
-.word func00035110+0x0094
+.word __n_CSPHandleMIDIMsg+0x0094
 glabel var7005487c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054880
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054884
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054888
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005488c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054890
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054894
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054898
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005489c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548a0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548a4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548a8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548ac
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548b0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548b4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548b8
-.word func00035110+0x0a58
+.word __n_CSPHandleMIDIMsg+0x0a58
 glabel var700548bc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548c0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548c4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548c8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548cc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548d0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548d4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548d8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548dc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548e0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548e4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548e8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548ec
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548f0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548f4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548f8
-.word func00035110+0x0b54
+.word __n_CSPHandleMIDIMsg+0x0b54
 glabel var700548fc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054900
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054904
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054908
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005490c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054910
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054914
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054918
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005491c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054920
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054924
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054928
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005492c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054930
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054934
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054938
-.word func00035110+0x1ea4
+.word __n_CSPHandleMIDIMsg+0x1ea4
 glabel var7005493c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054940
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054944
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054948
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005494c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054950
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054954
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054958
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005495c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054960
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054964
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054968
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005496c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054970
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054974
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054978
-.word func00035110+0x0ad0
+.word __n_CSPHandleMIDIMsg+0x0ad0
 glabel var7005497c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054980
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054984
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054988
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005498c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054990
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054994
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054998
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005499c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549a0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549a4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549a8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549ac
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549b0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549b4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549b8
-.word func00035110+0x1f34
+.word __n_CSPHandleMIDIMsg+0x1f34
 
 glabel var700549bc
-.word func00035110+0x1d3c
+.word __n_CSPHandleMIDIMsg+0x1d3c
 glabel var700549c0
-.word func00035110+0x1878
+.word __n_CSPHandleMIDIMsg+0x1878
 glabel var700549c4
-.word func00035110+0x18dc
+.word __n_CSPHandleMIDIMsg+0x18dc
 glabel var700549c8
-.word func00035110+0x1994
+.word __n_CSPHandleMIDIMsg+0x1994
 glabel var700549cc
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549d0
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549d4
-.word func00035110+0x1218
+.word __n_CSPHandleMIDIMsg+0x1218
 glabel var700549d8
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549dc
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549e0
-.word func00035110+0x0c30
+.word __n_CSPHandleMIDIMsg+0x0c30
 glabel var700549e4
-.word func00035110+0x1a20
+.word __n_CSPHandleMIDIMsg+0x1a20
 glabel var700549e8
-.word func00035110+0x1a98
+.word __n_CSPHandleMIDIMsg+0x1a98
 glabel var700549ec
-.word func00035110+0x1af8
+.word __n_CSPHandleMIDIMsg+0x1af8
 glabel var700549f0
-.word func00035110+0x1b5c
+.word __n_CSPHandleMIDIMsg+0x1b5c
 glabel var700549f4
-.word func00035110+0x1bbc
+.word __n_CSPHandleMIDIMsg+0x1bbc
 glabel var700549f8
-.word func00035110+0x12c8
+.word __n_CSPHandleMIDIMsg+0x12c8
 glabel var700549fc
-.word func00035110+0x1c1c
+.word __n_CSPHandleMIDIMsg+0x1c1c
 glabel var70054a00
-.word func00035110+0x1c7c
+.word __n_CSPHandleMIDIMsg+0x1c7c
 glabel var70054a04
-.word func00035110+0x1cdc
+.word __n_CSPHandleMIDIMsg+0x1cdc
 glabel var70054a08
-.word func00035110+0x1668
+.word __n_CSPHandleMIDIMsg+0x1668
 glabel var70054a0c
-.word func00035110+0x16d8
+.word __n_CSPHandleMIDIMsg+0x16d8
 glabel var70054a10
-.word func00035110+0x1738
+.word __n_CSPHandleMIDIMsg+0x1738
 glabel var70054a14
-.word func00035110+0x17a8
+.word __n_CSPHandleMIDIMsg+0x17a8
 glabel var70054a18
-.word func00035110+0x1808
+.word __n_CSPHandleMIDIMsg+0x1808
 glabel var70054a1c
-.word func00035110+0x1e60
+.word __n_CSPHandleMIDIMsg+0x1e60
 glabel var70054a20
-.word func00035110+0x1624
+.word __n_CSPHandleMIDIMsg+0x1624
 glabel var70054a24
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a28
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a2c
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a30
-.word func00035110+0x11d0
+.word __n_CSPHandleMIDIMsg+0x11d0
 glabel var70054a34
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a38
-.word func00035110+0x1634
+.word __n_CSPHandleMIDIMsg+0x1634
 glabel var70054a3c
-.word func00035110+0x10d8
+.word __n_CSPHandleMIDIMsg+0x10d8
 glabel var70054a40
-.word func00035110+0x1118
+.word __n_CSPHandleMIDIMsg+0x1118
 glabel var70054a44
-.word func00035110+0x1158
+.word __n_CSPHandleMIDIMsg+0x1158
 glabel var70054a48
-.word func00035110+0x1dbc
+.word __n_CSPHandleMIDIMsg+0x1dbc
 glabel var70054a4c
-.word func00035110+0x1dd0
+.word __n_CSPHandleMIDIMsg+0x1dd0
 glabel var70054a50
-.word func00035110+0x1dd0
+.word __n_CSPHandleMIDIMsg+0x1dd0
 glabel var70054a54
-.word func00035110+0x1dd0
+.word __n_CSPHandleMIDIMsg+0x1dd0
 glabel var70054a58
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a5c
-.word func00035110+0x1de8
+.word __n_CSPHandleMIDIMsg+0x1de8
 glabel var70054a60
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a64
-.word func00035110+0x1de8
+.word __n_CSPHandleMIDIMsg+0x1de8
 glabel var70054a68
-.word func00035110+0x1e0c
+.word __n_CSPHandleMIDIMsg+0x1e0c
 glabel var70054a6c
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a70
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a74
-.word func00035110+0x1de8
+.word __n_CSPHandleMIDIMsg+0x1de8
 .text
 /*    35110:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*    35114:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -3822,297 +3754,297 @@ glabel var70054a74
 );
 #else
 GLOBAL_ASM(
-glabel func00035110
+glabel __n_CSPHandleMIDIMsg
 .late_rodata
 glabel var70054838
-.word func00035110+0x0934
+.word __n_CSPHandleMIDIMsg+0x0934
 glabel var7005483c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054840
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054844
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054848
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005484c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054850
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054854
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054858
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005485c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054860
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054864
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054868
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005486c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054870
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054874
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054878
-.word func00035110+0x0094
+.word __n_CSPHandleMIDIMsg+0x0094
 glabel var7005487c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054880
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054884
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054888
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005488c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054890
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054894
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054898
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005489c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548a0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548a4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548a8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548ac
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548b0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548b4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548b8
-.word func00035110+0x0a58
+.word __n_CSPHandleMIDIMsg+0x0a58
 glabel var700548bc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548c0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548c4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548c8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548cc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548d0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548d4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548d8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548dc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548e0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548e4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548e8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548ec
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548f0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548f4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700548f8
-.word func00035110+0x0b54
+.word __n_CSPHandleMIDIMsg+0x0b54
 glabel var700548fc
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054900
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054904
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054908
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005490c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054910
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054914
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054918
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005491c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054920
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054924
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054928
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005492c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054930
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054934
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054938
-.word func00035110+0x1ea4
+.word __n_CSPHandleMIDIMsg+0x1ea4
 glabel var7005493c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054940
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054944
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054948
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005494c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054950
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054954
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054958
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005495c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054960
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054964
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054968
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005496c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054970
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054974
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054978
-.word func00035110+0x0ad0
+.word __n_CSPHandleMIDIMsg+0x0ad0
 glabel var7005497c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054980
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054984
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054988
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005498c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054990
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054994
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var70054998
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var7005499c
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549a0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549a4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549a8
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549ac
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549b0
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549b4
-.word func00035110+0x20e8
+.word __n_CSPHandleMIDIMsg+0x20e8
 glabel var700549b8
-.word func00035110+0x1f34
+.word __n_CSPHandleMIDIMsg+0x1f34
 
 glabel var700549bc
-.word func00035110+0x1d3c
+.word __n_CSPHandleMIDIMsg+0x1d3c
 glabel var700549c0
-.word func00035110+0x1878
+.word __n_CSPHandleMIDIMsg+0x1878
 glabel var700549c4
-.word func00035110+0x18dc
+.word __n_CSPHandleMIDIMsg+0x18dc
 glabel var700549c8
-.word func00035110+0x1994
+.word __n_CSPHandleMIDIMsg+0x1994
 glabel var700549cc
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549d0
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549d4
-.word func00035110+0x1218
+.word __n_CSPHandleMIDIMsg+0x1218
 glabel var700549d8
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549dc
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var700549e0
-.word func00035110+0x0c30
+.word __n_CSPHandleMIDIMsg+0x0c30
 glabel var700549e4
-.word func00035110+0x1a20
+.word __n_CSPHandleMIDIMsg+0x1a20
 glabel var700549e8
-.word func00035110+0x1a98
+.word __n_CSPHandleMIDIMsg+0x1a98
 glabel var700549ec
-.word func00035110+0x1af8
+.word __n_CSPHandleMIDIMsg+0x1af8
 glabel var700549f0
-.word func00035110+0x1b5c
+.word __n_CSPHandleMIDIMsg+0x1b5c
 glabel var700549f4
-.word func00035110+0x1bbc
+.word __n_CSPHandleMIDIMsg+0x1bbc
 glabel var700549f8
-.word func00035110+0x12c8
+.word __n_CSPHandleMIDIMsg+0x12c8
 glabel var700549fc
-.word func00035110+0x1c1c
+.word __n_CSPHandleMIDIMsg+0x1c1c
 glabel var70054a00
-.word func00035110+0x1c7c
+.word __n_CSPHandleMIDIMsg+0x1c7c
 glabel var70054a04
-.word func00035110+0x1cdc
+.word __n_CSPHandleMIDIMsg+0x1cdc
 glabel var70054a08
-.word func00035110+0x1668
+.word __n_CSPHandleMIDIMsg+0x1668
 glabel var70054a0c
-.word func00035110+0x16d8
+.word __n_CSPHandleMIDIMsg+0x16d8
 glabel var70054a10
-.word func00035110+0x1738
+.word __n_CSPHandleMIDIMsg+0x1738
 glabel var70054a14
-.word func00035110+0x17a8
+.word __n_CSPHandleMIDIMsg+0x17a8
 glabel var70054a18
-.word func00035110+0x1808
+.word __n_CSPHandleMIDIMsg+0x1808
 glabel var70054a1c
-.word func00035110+0x1e60
+.word __n_CSPHandleMIDIMsg+0x1e60
 glabel var70054a20
-.word func00035110+0x1624
+.word __n_CSPHandleMIDIMsg+0x1624
 glabel var70054a24
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a28
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a2c
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a30
-.word func00035110+0x11d0
+.word __n_CSPHandleMIDIMsg+0x11d0
 glabel var70054a34
-.word func00035110+0x1e94
+.word __n_CSPHandleMIDIMsg+0x1e94
 glabel var70054a38
-.word func00035110+0x1634
+.word __n_CSPHandleMIDIMsg+0x1634
 glabel var70054a3c
-.word func00035110+0x10d8
+.word __n_CSPHandleMIDIMsg+0x10d8
 glabel var70054a40
-.word func00035110+0x1118
+.word __n_CSPHandleMIDIMsg+0x1118
 glabel var70054a44
-.word func00035110+0x1158
+.word __n_CSPHandleMIDIMsg+0x1158
 glabel var70054a48
-.word func00035110+0x1dbc
+.word __n_CSPHandleMIDIMsg+0x1dbc
 glabel var70054a4c
-.word func00035110+0x1dd0
+.word __n_CSPHandleMIDIMsg+0x1dd0
 glabel var70054a50
-.word func00035110+0x1dd0
+.word __n_CSPHandleMIDIMsg+0x1dd0
 glabel var70054a54
-.word func00035110+0x1dd0
+.word __n_CSPHandleMIDIMsg+0x1dd0
 glabel var70054a58
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a5c
-.word func00035110+0x1de8
+.word __n_CSPHandleMIDIMsg+0x1de8
 glabel var70054a60
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a64
-.word func00035110+0x1de8
+.word __n_CSPHandleMIDIMsg+0x1de8
 glabel var70054a68
-.word func00035110+0x1e0c
+.word __n_CSPHandleMIDIMsg+0x1e0c
 glabel var70054a6c
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a70
-.word func00035110+0x1e30
+.word __n_CSPHandleMIDIMsg+0x1e30
 glabel var70054a74
-.word func00035110+0x1de8
+.word __n_CSPHandleMIDIMsg+0x1de8
 .text
 /*    35110:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*    35114:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -6340,26 +6272,26 @@ glabel var70054a74
 );
 #endif
 
-void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
+void __n_CSPHandleMetaMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 {
 	ALTempoEvent *tevt = &event->msg.tempo;
 	s32 tempo;
 	s32 oldUspt;
 	u32 ticks;
 	ALMicroTime tempDelta, curDelta = 0;
-	ALEventListItem *thisNode, *nextNode, *firstTemp = 0;
+	N_ALEventListItem *thisNode, *nextNode, *firstTemp = 0;
 
 	if (event->msg.tempo.status == AL_MIDI_Meta) {
 		if (event->msg.tempo.type == AL_MIDI_META_TEMPO) {
 			oldUspt = seqp->uspt;
 			tempo = (tevt->byte1 << 16) | (tevt->byte2 <<  8) | (tevt->byte3 <<  0);
-			__n_setUsptFromTempo (seqp, (f32)tempo);
+			__n_setUsptFromTempo(seqp, (f32)tempo);
 
-			thisNode = (ALEventListItem*)seqp->evtq.allocList.next;
+			thisNode = (N_ALEventListItem*)seqp->evtq.allocList.next;
 
 			while (thisNode) {
 				curDelta += thisNode->delta;
-				nextNode = (ALEventListItem*)thisNode->node.next;
+				nextNode = (N_ALEventListItem*)thisNode->node.next;
 
 				if (thisNode->evt.type == AL_CSP_NOTEOFF_EVT) {
 					alUnlink((ALLink*)thisNode);
@@ -6388,7 +6320,7 @@ void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
 			thisNode = firstTemp;
 
 			while (thisNode) {
-				nextNode = (ALEventListItem*)thisNode->node.next;
+				nextNode = (N_ALEventListItem*)thisNode->node.next;
 				ticks = thisNode->delta/oldUspt;
 				thisNode->delta = ticks * seqp->uspt;
 				__n_CSPRepostEvent(&seqp->evtq,thisNode);
@@ -6398,11 +6330,11 @@ void __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event)
 	}
 }
 
-void __n_CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
+void __n_CSPRepostEvent(ALEventQueue *evtq, N_ALEventListItem *item)
 {
 	OSIntMask mask;
 	ALLink *node;
-	ALEventListItem *nextItem;
+	N_ALEventListItem *nextItem;
 
 	mask = osSetIntMask(OS_IM_NONE);
 
@@ -6411,7 +6343,7 @@ void __n_CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
 			alLink((ALLink *)item, node);
 			break;
 		} else {
-			nextItem = (ALEventListItem *)node->next;
+			nextItem = (N_ALEventListItem *)node->next;
 
 			if (item->delta < nextItem->delta) {
 				nextItem->delta -= item->delta;
@@ -6426,7 +6358,7 @@ void __n_CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item)
 	osSetIntMask(mask);
 }
 
-void __n_setUsptFromTempo(ALCSPlayer *seqp, f32 tempo)
+void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo)
 {
 	if (seqp->target) {
 		seqp->uspt = (s32)((f32)tempo * seqp->target->qnpt);
@@ -6436,7 +6368,7 @@ void __n_setUsptFromTempo(ALCSPlayer *seqp, f32 tempo)
 }
 
 GLOBAL_ASM(
-glabel func0003759c
+glabel __n_CSPPostNextSeqEvent
 /*    3759c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    375a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    375a4:	afa40030 */ 	sw	$a0,0x30($sp)
