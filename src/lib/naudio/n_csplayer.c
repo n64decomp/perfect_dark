@@ -6367,50 +6367,27 @@ void __n_setUsptFromTempo(N_ALCSPlayer *seqp, f32 tempo)
 	}
 }
 
+void __n_CSPPostNextSeqEvent(N_ALCSPlayer *seqp)
+{
+	N_ALEvent evt;
+	s32 deltaTicks;
+
+	if (seqp->state != AL_PLAYING || seqp->target == NULL) {
+		return;
+	}
+
+	/* Get the next event time in ticks. */
+	/* If false is returned, then there is no next delta (ie. end of sequence reached). */
+	if (!__alCSeqNextDelta(seqp->target, &deltaTicks)) {
+		return;
+	}
+
+	evt.type = AL_SEQ_REF_EVT;
+	n_alEvtqPostEvent(&seqp->evtq, &evt, deltaTicks * seqp->uspt, 0);
+}
+
 GLOBAL_ASM(
-glabel __n_CSPPostNextSeqEvent
-/*    3759c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    375a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    375a4:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    375a8:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    375ac:	24010001 */ 	addiu	$at,$zero,0x1
-/*    375b0:	8dcf002c */ 	lw	$t7,0x2c($t6)
-/*    375b4:	15e10004 */ 	bne	$t7,$at,.L000375c8
-/*    375b8:	00000000 */ 	nop
-/*    375bc:	8dd80018 */ 	lw	$t8,0x18($t6)
-/*    375c0:	17000003 */ 	bnez	$t8,.L000375d0
-/*    375c4:	00000000 */ 	nop
-.L000375c8:
-/*    375c8:	10000016 */ 	b	.L00037624
-/*    375cc:	00000000 */ 	nop
-.L000375d0:
-/*    375d0:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*    375d4:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    375d8:	0c00f9f8 */ 	jal	__alCSeqNextDelta
-/*    375dc:	8f240018 */ 	lw	$a0,0x18($t9)
-/*    375e0:	14400003 */ 	bnez	$v0,.L000375f0
-/*    375e4:	00000000 */ 	nop
-/*    375e8:	1000000e */ 	b	.L00037624
-/*    375ec:	00000000 */ 	nop
-.L000375f0:
-/*    375f0:	a7a00020 */ 	sh	$zero,0x20($sp)
-/*    375f4:	8fa80030 */ 	lw	$t0,0x30($sp)
-/*    375f8:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    375fc:	27a50020 */ 	addiu	$a1,$sp,0x20
-/*    37600:	8d090024 */ 	lw	$t1,0x24($t0)
-/*    37604:	00003825 */ 	or	$a3,$zero,$zero
-/*    37608:	25040048 */ 	addiu	$a0,$t0,0x48
-/*    3760c:	012a0019 */ 	multu	$t1,$t2
-/*    37610:	00003012 */ 	mflo	$a2
-/*    37614:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    37618:	00000000 */ 	nop
-/*    3761c:	10000001 */ 	b	.L00037624
-/*    37620:	00000000 */ 	nop
-.L00037624:
-/*    37624:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    37628:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    3762c:	03e00008 */ 	jr	$ra
-/*    37630:	00000000 */ 	nop
+glabel func00037634
 /*    37634:	30a500ff */ 	andi	$a1,$a1,0xff
 /*    37638:	a0850088 */ 	sb	$a1,0x88($a0)
 /*    3763c:	03e00008 */ 	jr	$ra
