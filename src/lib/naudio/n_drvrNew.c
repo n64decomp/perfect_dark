@@ -1,6 +1,33 @@
 #include "n_synthInternals.h"
 #include <os.h>
 
+/*
+ * WARNING: THE FOLLOWING CONSTANT MUST BE KEPT IN SYNC
+ * WITH SCALING IN MICROCODE!!!
+ */
+#define	SCALE 16384.0f
+
+/*
+ * the following arrays contain default parameters for
+ * a few hopefully useful effects.
+ */
+#define ms *(((s32)((f32)44.1))&~0x7)
+
+s32 SMALLROOM_PARAMS_N[26] = {
+	/* sections	 length */
+	3,           55 ms,
+	/*                                        chorus  chorus  filter
+	input    output   fbcoef  ffcoef  gain    rate    depth   coef  */
+	0    ms, 29.6 ms, 9830,   -9830,  0,      0,      0,      0,
+	10.4 ms, 20.8 ms, 3276,   -3276,  0x3fff, 0,      0,      0,
+	0    ms, 33   ms, 5000,   0,      0,      0,      0,      0x5000,
+};
+
+s32 BIGROOM_PARAMS_N[10] = {
+	0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+};
+
 GLOBAL_ASM(
 glabel func0003b710
 .late_rodata
@@ -106,97 +133,32 @@ glabel var70054ac4
 /*    3b880:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel _init_lpfilter
-/*    3b884:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    3b888:	848e0000 */ 	lh	$t6,0x0($a0)
-/*    3b88c:	3c014680 */ 	lui	$at,0x4680
-/*    3b890:	44814000 */ 	mtc1	$at,$f8
-/*    3b894:	448e2000 */ 	mtc1	$t6,$f4
-/*    3b898:	00000000 */ 	nop
-/*    3b89c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    3b8a0:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*    3b8a4:	4600540d */ 	trunc.w.s	$f16,$f10
-/*    3b8a8:	44188000 */ 	mfc1	$t8,$f16
-/*    3b8ac:	00000000 */ 	nop
-/*    3b8b0:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    3b8b4:	8fb90010 */ 	lw	$t9,0x10($sp)
-/*    3b8b8:	001943c3 */ 	sra	$t0,$t9,0xf
-/*    3b8bc:	a7a8000e */ 	sh	$t0,0xe($sp)
-/*    3b8c0:	87a9000e */ 	lh	$t1,0xe($sp)
-/*    3b8c4:	3c014680 */ 	lui	$at,0x4680
-/*    3b8c8:	44819000 */ 	mtc1	$at,$f18
-/*    3b8cc:	44892000 */ 	mtc1	$t1,$f4
-/*    3b8d0:	00000000 */ 	nop
-/*    3b8d4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    3b8d8:	46069201 */ 	sub.s	$f8,$f18,$f6
-/*    3b8dc:	4600428d */ 	trunc.w.s	$f10,$f8
-/*    3b8e0:	440b5000 */ 	mfc1	$t3,$f10
-/*    3b8e4:	00000000 */ 	nop
-/*    3b8e8:	a48b0002 */ 	sh	$t3,0x2($a0)
-/*    3b8ec:	ac800028 */ 	sw	$zero,0x28($a0)
-/*    3b8f0:	afa00014 */ 	sw	$zero,0x14($sp)
-.L0003b8f4:
-/*    3b8f4:	8fac0014 */ 	lw	$t4,0x14($sp)
-/*    3b8f8:	000c6840 */ 	sll	$t5,$t4,0x1
-/*    3b8fc:	008d7021 */ 	addu	$t6,$a0,$t5
-/*    3b900:	a5c00008 */ 	sh	$zero,0x8($t6)
-/*    3b904:	8faf0014 */ 	lw	$t7,0x14($sp)
-/*    3b908:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*    3b90c:	2b010008 */ 	slti	$at,$t8,0x8
-/*    3b910:	1420fff8 */ 	bnez	$at,.L0003b8f4
-/*    3b914:	afb80014 */ 	sw	$t8,0x14($sp)
-/*    3b918:	8fa80014 */ 	lw	$t0,0x14($sp)
-/*    3b91c:	87b9000e */ 	lh	$t9,0xe($sp)
-/*    3b920:	00084840 */ 	sll	$t1,$t0,0x1
-/*    3b924:	00895021 */ 	addu	$t2,$a0,$t1
-/*    3b928:	a5590008 */ 	sh	$t9,0x8($t2)
-/*    3b92c:	8fab0014 */ 	lw	$t3,0x14($sp)
-/*    3b930:	256c0001 */ 	addiu	$t4,$t3,0x1
-/*    3b934:	afac0014 */ 	sw	$t4,0x14($sp)
-/*    3b938:	3c014680 */ 	lui	$at,0x4680
-/*    3b93c:	44818000 */ 	mtc1	$at,$f16
-/*    3b940:	00000000 */ 	nop
-/*    3b944:	e7b00000 */ 	swc1	$f16,0x0($sp)
-/*    3b948:	87ad000e */ 	lh	$t5,0xe($sp)
-/*    3b94c:	c7a60000 */ 	lwc1	$f6,0x0($sp)
-/*    3b950:	448d2000 */ 	mtc1	$t5,$f4
-/*    3b954:	00000000 */ 	nop
-/*    3b958:	468024a0 */ 	cvt.s.w	$f18,$f4
-/*    3b95c:	46069203 */ 	div.s	$f8,$f18,$f6
-/*    3b960:	e7a80008 */ 	swc1	$f8,0x8($sp)
-/*    3b964:	e7a80004 */ 	swc1	$f8,0x4($sp)
-/*    3b968:	8fae0014 */ 	lw	$t6,0x14($sp)
-/*    3b96c:	29c10010 */ 	slti	$at,$t6,0x10
-/*    3b970:	10200014 */ 	beqz	$at,.L0003b9c4
-/*    3b974:	00000000 */ 	nop
-.L0003b978:
-/*    3b978:	c7aa0004 */ 	lwc1	$f10,0x4($sp)
-/*    3b97c:	c7b00008 */ 	lwc1	$f16,0x8($sp)
-/*    3b980:	46105102 */ 	mul.s	$f4,$f10,$f16
-/*    3b984:	e7a40004 */ 	swc1	$f4,0x4($sp)
-/*    3b988:	c7b20004 */ 	lwc1	$f18,0x4($sp)
-/*    3b98c:	c7a60000 */ 	lwc1	$f6,0x0($sp)
-/*    3b990:	8fa80014 */ 	lw	$t0,0x14($sp)
-/*    3b994:	46069202 */ 	mul.s	$f8,$f18,$f6
-/*    3b998:	00084840 */ 	sll	$t1,$t0,0x1
-/*    3b99c:	0089c821 */ 	addu	$t9,$a0,$t1
-/*    3b9a0:	4600428d */ 	trunc.w.s	$f10,$f8
-/*    3b9a4:	44185000 */ 	mfc1	$t8,$f10
-/*    3b9a8:	00000000 */ 	nop
-/*    3b9ac:	a7380008 */ 	sh	$t8,0x8($t9)
-/*    3b9b0:	8faa0014 */ 	lw	$t2,0x14($sp)
-/*    3b9b4:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*    3b9b8:	29610010 */ 	slti	$at,$t3,0x10
-/*    3b9bc:	1420ffee */ 	bnez	$at,.L0003b978
-/*    3b9c0:	afab0014 */ 	sw	$t3,0x14($sp)
-.L0003b9c4:
-/*    3b9c4:	10000001 */ 	b	.L0003b9cc
-/*    3b9c8:	00000000 */ 	nop
-.L0003b9cc:
-/*    3b9cc:	03e00008 */ 	jr	$ra
-/*    3b9d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void _init_lpfilter(ALLowPass *lp)
+{
+	s32 i, temp;
+	s16 fc;
+	f32 ffc, fcoef;
+	f32 scale;
+
+	temp = lp->fc * SCALE;
+	fc = temp >> 15;
+	lp->fgain = SCALE - fc;
+
+	lp->first = 0;
+
+	for (i = 0; i < 8; i++) {
+		lp->fcvec.fccoef[i] = 0;
+	}
+
+	lp->fcvec.fccoef[i++] = fc;
+	scale = SCALE;
+	fcoef = ffc = fc / scale;
+
+	for (; i < 16; i++) {
+		fcoef *= ffc;
+		lp->fcvec.fccoef[i] = (s16)(fcoef * scale);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0003b9d4
@@ -387,33 +349,6 @@ glabel var70054ad4
 /*    3bc48:	03e00008 */ 	jr	$ra
 /*    3bc4c:	00000000 */ 	nop
 );
-
-/*
- * WARNING: THE FOLLOWING CONSTANT MUST BE KEPT IN SYNC
- * WITH SCALING IN MICROCODE!!!
- */
-#define	SCALE 16384
-
-/*
- * the following arrays contain default parameters for
- * a few hopefully useful effects.
- */
-#define ms *(((s32)((f32)44.1))&~0x7)
-
-s32 SMALLROOM_PARAMS_N[26] = {
-	/* sections	 length */
-	3,           55 ms,
-	/*                                        chorus  chorus  filter
-	input    output   fbcoef  ffcoef  gain    rate    depth   coef  */
-	0    ms, 29.6 ms, 9830,   -9830,  0,      0,      0,      0,
-	10.4 ms, 20.8 ms, 3276,   -3276,  0x3fff, 0,      0,      0,
-	0    ms, 33   ms, 5000,   0,      0,      0,      0,      0x5000,
-};
-
-s32 BIGROOM_PARAMS_N[10] = {
-	0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-};
 
 void n_alFxNew(ALFx **fx_ar, ALSynConfig *c, s16 bus, ALHeap *hp)
 {
