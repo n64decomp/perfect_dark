@@ -1035,63 +1035,24 @@ glabel var70054b34
 /*    3f818:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel _getVol
-/*    3f81c:	00042400 */ 	sll	$a0,$a0,0x10
-/*    3f820:	00063400 */ 	sll	$a2,$a2,0x10
-/*    3f824:	00063403 */ 	sra	$a2,$a2,0x10
-/*    3f828:	00042403 */ 	sra	$a0,$a0,0x10
-/*    3f82c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3f830:	30e7ffff */ 	andi	$a3,$a3,0xffff
-/*    3f834:	000528c3 */ 	sra	$a1,$a1,0x3
-/*    3f838:	14a00003 */ 	bnez	$a1,.L0003f848
-/*    3f83c:	00000000 */ 	nop
-/*    3f840:	10000015 */ 	b	.L0003f898
-/*    3f844:	00801025 */ 	or	$v0,$a0,$zero
-.L0003f848:
-/*    3f848:	00e50019 */ 	multu	$a3,$a1
-/*    3f84c:	00007012 */ 	mflo	$t6
-/*    3f850:	afae0004 */ 	sw	$t6,0x4($sp)
-/*    3f854:	00000000 */ 	nop
-/*    3f858:	8faf0004 */ 	lw	$t7,0x4($sp)
-/*    3f85c:	000fc403 */ 	sra	$t8,$t7,0x10
-/*    3f860:	afb80004 */ 	sw	$t8,0x4($sp)
-/*    3f864:	00c50019 */ 	multu	$a2,$a1
-/*    3f868:	8fb90004 */ 	lw	$t9,0x4($sp)
-/*    3f86c:	00004012 */ 	mflo	$t0
-/*    3f870:	03284821 */ 	addu	$t1,$t9,$t0
-/*    3f874:	afa90004 */ 	sw	$t1,0x4($sp)
-/*    3f878:	8faa0004 */ 	lw	$t2,0x4($sp)
-/*    3f87c:	008a2021 */ 	addu	$a0,$a0,$t2
-/*    3f880:	00042400 */ 	sll	$a0,$a0,0x10
-/*    3f884:	00042403 */ 	sra	$a0,$a0,0x10
-/*    3f888:	10000003 */ 	b	.L0003f898
-/*    3f88c:	00801025 */ 	or	$v0,$a0,$zero
-/*    3f890:	10000001 */ 	b	.L0003f898
-/*    3f894:	00000000 */ 	nop
-.L0003f898:
-/*    3f898:	03e00008 */ 	jr	$ra
-/*    3f89c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+s16 _getVol(s16 ivol, s32 samples, s16 ratem, u16 ratel)
+{
+	s32 sp4;
 
-//s16 _getVol(s16 ivol, s32 samples, s16 ratem, u16 ratel)
-//{
-//	s32 sp4;
-//
-//	/*
-//	 * Rate values are actually rate^8
-//	 */
-//	samples >>= 3;
-//
-//	if (samples == 0) {
-//		return ivol;
-//	}
-//
-//	sp4 = ratel * samples;
-//	sp4 >>= 16;
-//	sp4 += ratem * samples;
-//
-//	ivol += sp4;
-//
-//	return ivol;
-//}
+	/*
+	 * Rate values are actually rate^8
+	 */
+	samples >>= 3;
+
+	if (samples == 0) {
+		return ivol;
+	}
+
+	sp4 = ratel * samples;
+	sp4 >>= 16;
+	sp4 += ratem * samples;
+
+	ivol += sp4;
+
+	return ivol;
+}
