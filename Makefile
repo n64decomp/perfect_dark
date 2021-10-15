@@ -3,14 +3,25 @@
 ROMID ?= ntsc-final
 PIRACYCHECKS ?= 1
 
-QEMU_IRIX ?= tools/irix/qemu-irix
-IRIX_ROOT ?= tools/irix/root
+# In PD, some code is compiled with IDO 5.3 and some is IDO 7.1.
+# The project provides both versions of the IDO compiler so that the project can
+# be compiled out of the box by running these compilers using qemu-irix.
+# Recomp can be used for almost all files, but some must be compiled with qemu.
 
-IDOCC ?= $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc
+# These are the qemu-irix versions. These variables are constant.
+CCQEMU53 = tools/irix/qemu-irix -silent -L tools/irix/root53 tools/irix/root53/usr/bin/cc
+CCQEMU71 = tools/irix/qemu-irix -silent -L tools/irix/root71 tools/irix/root71/usr/bin/cc
+
+# The user can use recomp by setting $CC53 and $CC71 in their environment.
+# If not set, fall back to using the qemu-irix compilers.
+CC53 ?= $(CCQEMU53)
+CC71 ?= $(CCQEMU71)
+
+# By default we'll compile everything using 5.3,
+# as this is what most of the project uses.
+CC := $(CC53)
 
 ################################################################################
-
-QEMUCC = $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc
 
 export ROMID
 
@@ -151,11 +162,15 @@ O3_C_FILES := \
 	src/lib/ultra/gu/ortho.c \
 	src/lib/ultra/gu/scale.c
 
+IDO71_C_FILES := \
+	$(shell find src/lib/naudio -name '*.c')
+
 LOOPUNROLL_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(LOOPUNROLL_C_FILES))
 MIPS3_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(MIPS3_C_FILES))
 G_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(G_C_FILES))
 O1_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(O1_C_FILES))
 O3_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(O3_C_FILES))
+IDO71_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(IDO71_C_FILES))
 
 LOOPUNROLL := -Wo,-loopunroll,0
 MIPSISET := -mips2 -32
@@ -166,6 +181,7 @@ $(MIPS3_O_FILES): MIPSISET := -mips3 -32
 $(G_O_FILES): OPT_LVL := -g
 $(O1_O_FILES): OPT_LVL := -O1
 $(O3_O_FILES): OPT_LVL := -O3
+$(IDO71_O_FILES): CC := $(CC71)
 
 CFLAGS = $(C_DEFINES) \
 	$(LOOPUNROLL) \
@@ -190,16 +206,17 @@ C_FILES := $(shell find src/lib src/game src/inflate -name '*.c')
 S_FILES := $(shell find src/lib src/game src/preamble -name '*.s')
 
 # Files containing MAXFLOAT must be built with qemu, not recomp
+# And luckily this only occurs in 5.3 code, so we can force CCQEMU53 here
 MAXFLOAT_C_FILES != grep -rl 'MAXFLOAT' $(C_FILES)
 MAXFLOAT_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(MAXFLOAT_C_FILES))
 
-$(MAXFLOAT_O_FILES): IDOCC := $(QEMUCC)
+$(MAXFLOAT_O_FILES): CC := $(CCQEMU53)
 
 # Files containing GLOBAL_ASM must be built with the asm_processor
 GLOBALASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
 GLOBALASM_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(GLOBALASM_C_FILES))
 
-$(GLOBALASM_O_FILES): IDOCC := /usr/bin/env python3 tools/asm_processor/build.py $(IDOCC) -- $(TOOLCHAIN)-as $(ASFLAGS) --
+$(GLOBALASM_O_FILES): CC := /usr/bin/env python3 tools/asm_processor/build.py $(CC) -- $(TOOLCHAIN)-as $(ASFLAGS) --
 
 # Create names such as $(B_DIR)/assets/files/PfooZ.
 # These names (with .o added) will be dependenices for ld.
@@ -446,7 +463,7 @@ $(B_DIR)/assets/files/P%Z: $(A_DIR)/files/props/%.bin
 # Or create $(A_DIR)/files/setup/foo.bin to skip the earlier steps
 $(B_DIR)/assets/files/setup/%.o: src/files/setup/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 $(B_DIR)/assets/files/setup/%.elf: $(B_DIR)/assets/files/setup/%.o
 	TOOLCHAIN=$(TOOLCHAIN) tools/mksimpleelf $< $@
@@ -493,17 +510,17 @@ $(B_DIR)/rsp/%.o: $(E_DIR)/rsp/%.bin
 
 $(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $< -o $@
 	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/%.o: src/%.c $(ASSETMGR_O_FILES)
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 $(B_DIR)/%.o: src/%.s
 	@mkdir -p $(dir $@)
@@ -511,7 +528,7 @@ $(B_DIR)/%.o: src/%.s
 
 $(B_DIR)/assets/%.o: $(A_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(IDOCC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 extract:
 	ROMID=$(ROMID) tools/extract

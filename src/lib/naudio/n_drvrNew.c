@@ -160,57 +160,31 @@ void _init_lpfilter(ALLowPass *lp)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0003b9d4
-.late_rodata
-glabel var70054ac8
-.word 0x3f879c7d
-glabel var70054acc
-.word 0x3f71a1bf
-.text
-/*    3b9d4:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3b9d8:	3c013f80 */ 	lui	$at,0x3f80
-/*    3b9dc:	44812000 */ 	mtc1	$at,$f4
-/*    3b9e0:	00000000 */ 	nop
-/*    3b9e4:	e7a40000 */ 	swc1	$f4,0x0($sp)
-/*    3b9e8:	04800005 */ 	bltz	$a0,.L0003ba00
-/*    3b9ec:	00000000 */ 	nop
-/*    3b9f0:	3c017005 */ 	lui	$at,%hi(var70054ac8)
-/*    3b9f4:	c4264ac8 */ 	lwc1	$f6,%lo(var70054ac8)($at)
-/*    3b9f8:	10000005 */ 	b	.L0003ba10
-/*    3b9fc:	e7a60004 */ 	swc1	$f6,0x4($sp)
-.L0003ba00:
-/*    3ba00:	3c017005 */ 	lui	$at,%hi(var70054acc)
-/*    3ba04:	c4284acc */ 	lwc1	$f8,%lo(var70054acc)($at)
-/*    3ba08:	e7a80004 */ 	swc1	$f8,0x4($sp)
-/*    3ba0c:	00042023 */ 	negu	$a0,$a0
-.L0003ba10:
-/*    3ba10:	1080000e */ 	beqz	$a0,.L0003ba4c
-/*    3ba14:	00000000 */ 	nop
-.L0003ba18:
-/*    3ba18:	308e0001 */ 	andi	$t6,$a0,0x1
-/*    3ba1c:	11c00005 */ 	beqz	$t6,.L0003ba34
-/*    3ba20:	00000000 */ 	nop
-/*    3ba24:	c7aa0000 */ 	lwc1	$f10,0x0($sp)
-/*    3ba28:	c7b00004 */ 	lwc1	$f16,0x4($sp)
-/*    3ba2c:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*    3ba30:	e7b20000 */ 	swc1	$f18,0x0($sp)
-.L0003ba34:
-/*    3ba34:	c7a40004 */ 	lwc1	$f4,0x4($sp)
-/*    3ba38:	46042182 */ 	mul.s	$f6,$f4,$f4
-/*    3ba3c:	e7a60004 */ 	swc1	$f6,0x4($sp)
-/*    3ba40:	00042043 */ 	sra	$a0,$a0,0x1
-/*    3ba44:	1480fff4 */ 	bnez	$a0,.L0003ba18
-/*    3ba48:	00000000 */ 	nop
-.L0003ba4c:
-/*    3ba4c:	10000003 */ 	b	.L0003ba5c
-/*    3ba50:	c7a00000 */ 	lwc1	$f0,0x0($sp)
-/*    3ba54:	10000001 */ 	b	.L0003ba5c
-/*    3ba58:	00000000 */ 	nop
-.L0003ba5c:
-/*    3ba5c:	03e00008 */ 	jr	$ra
-/*    3ba60:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+f32 func0003b9d4(s32 arg0)
+{
+	f32 mult;
+	f32 value;
+
+	value = 1.0f;
+
+	if (arg0 >= 0) {
+		mult = 1.0594631433487f;
+	} else {
+		mult = 0.94387429952621f;
+		arg0 = -arg0;
+	}
+
+	while (arg0) {
+		if (arg0 & 1) {
+			value *= mult;
+		}
+
+		mult *= mult;
+		arg0 >>= 1;
+	}
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0003ba64

@@ -9,7 +9,7 @@ u32 func0003b178(void);
 u32 func0003b370(void);
 u32 func0003b54c(void);
 u32 func0003b710(void);
-u32 func0003b9d4(void);
+f32 func0003b9d4(s32 arg0);
 u32 func0003ba64(void);
 
 #endif
