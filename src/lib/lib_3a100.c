@@ -11,7 +11,7 @@
 #define RANGE 2.0f
 
 GLOBAL_ASM(
-glabel func0003a100
+glabel n_alAuxBusPull
 .late_rodata
 glabel var70054a90
 .word 0x3fb50481
@@ -2285,7 +2285,7 @@ glabel var70054ad8
 );
 
 GLOBAL_ASM(
-glabel func0003c214
+glabel alN_PVoiceNew
 /*    3c214:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3c218:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    3c21c:	afa40020 */ 	sw	$a0,0x20($sp)

@@ -57,7 +57,7 @@ glabel func00039fe0
 );
 
 GLOBAL_ASM(
-glabel func0003a070
+glabel n_alSynAllocFX
 /*    3a070:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    3a074:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3a078:	afa40018 */ 	sw	$a0,0x18($sp)

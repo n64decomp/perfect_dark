@@ -102,6 +102,8 @@ typedef struct ALParam_s {
 		f32             f;
 		s32             i;
 	} yetstillmoredata;
+	s32 unk1c;
+	s32 unk20;
 } ALParam;
 
 typedef struct {

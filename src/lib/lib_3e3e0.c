@@ -118,8 +118,8 @@ glabel func0003e540
 /*    3e554:	8dcf0030 */ 	lw	$t7,0x30($t6)
 /*    3e558:	afaf0004 */ 	sw	$t7,0x4($sp)
 /*    3e55c:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3e560:	3c087004 */ 	lui	$t0,%hi(func0003a100)
-/*    3e564:	2508a100 */ 	addiu	$t0,$t0,%lo(func0003a100)
+/*    3e560:	3c087004 */ 	lui	$t0,%hi(n_alAuxBusPull)
+/*    3e564:	2508a100 */ 	addiu	$t0,$t0,%lo(n_alAuxBusPull)
 /*    3e568:	8f190004 */ 	lw	$t9,0x4($t8)
 /*    3e56c:	1728000c */ 	bne	$t9,$t0,.L0003e5a0
 /*    3e570:	00000000 */ 	nop
@@ -155,8 +155,8 @@ glabel func0003e5b8
 /*    3e5cc:	8dcf0030 */ 	lw	$t7,0x30($t6)
 /*    3e5d0:	afaf0004 */ 	sw	$t7,0x4($sp)
 /*    3e5d4:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3e5d8:	3c087004 */ 	lui	$t0,%hi(func0003a100)
-/*    3e5dc:	2508a100 */ 	addiu	$t0,$t0,%lo(func0003a100)
+/*    3e5d8:	3c087004 */ 	lui	$t0,%hi(n_alAuxBusPull)
+/*    3e5dc:	2508a100 */ 	addiu	$t0,$t0,%lo(n_alAuxBusPull)
 /*    3e5e0:	8f190004 */ 	lw	$t9,0x4($t8)
 /*    3e5e4:	1728000c */ 	bne	$t9,$t0,.L0003e618
 /*    3e5e8:	00000000 */ 	nop

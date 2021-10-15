@@ -95,6 +95,19 @@ typedef struct N_PVoice_s {
 	ALParam		*em_ctrlTail;
 	s32                 em_motion;
 	s32                 offset;
+	s32 unk8c;
+	s32 unk90;
+	s32 unk94;
+	s32 unk98;
+	s32 unk9c;
+	s32 unka0;
+	s32 unka4;
+	s32 unka8;
+	s32 unkac;
+	s32 unkb0;
+	s32 unkb4;
+	s32 unkb8;
+	s32 unkbc;
 } N_PVoice;
 
 
@@ -113,7 +126,23 @@ typedef struct N_ALMainBus_s {
 	N_ALFilter           filter;
 } N_ALMainBus;
 
-
+struct auxbus44 {
+	u16 unk00;
+	u16 unk02;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+	void *unk2c; // size 8
+	void *unk30; // size 8
+	u32 unk34;
+};
 
 typedef struct N_ALAuxBus_s {
 	ALFilter            filter;
@@ -122,6 +151,7 @@ typedef struct N_ALAuxBus_s {
 	N_PVoice           **sources;
 	ALFx                *fx;
 	ALFx		*fx_array[AL_MAX_AUX_BUS_SOURCES];
+	struct auxbus44 *unk44;
 } N_ALAuxBus;
 
 void alN_PVoiceNew(N_PVoice *mv, ALDMANew dmaNew, ALHeap *hp);
