@@ -300,7 +300,10 @@ typedef struct {
     ALHeap              *heap;
     s32                 outputRate;     /* output sample rate */
     ALFxId              fxTypes[4];
-    s32                 *params;
+
+	// This should be [4], but this causes too much stack usage in sndInit.
+	// May have to figure out what sndInit's sp7c is before this can be fixed.
+    s32                 *params[1];
 } ALSynConfig;
 
 typedef struct ALPlayer_s {

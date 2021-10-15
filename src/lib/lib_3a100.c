@@ -768,7 +768,7 @@ glabel var70054abc
 /*    3abe4:	01ea7821 */ 	addu	$t7,$t7,$t2
 /*    3abe8:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*    3abec:	018f4821 */ 	addu	$t1,$t4,$t7
-/*    3abf0:	0c00ee21 */ 	jal	func0003b884
+/*    3abf0:	0c00ee21 */ 	jal	_init_lpfilter
 /*    3abf4:	8d240020 */ 	lw	$a0,0x20($t1)
 .L0003abf8:
 /*    3abf8:	10000001 */ 	b	.L0003ac00

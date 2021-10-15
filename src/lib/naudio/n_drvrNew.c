@@ -107,7 +107,7 @@ glabel var70054ac4
 );
 
 GLOBAL_ASM(
-glabel func0003b884
+glabel _init_lpfilter
 /*    3b884:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    3b888:	848e0000 */ 	lh	$t6,0x0($a0)
 /*    3b88c:	3c014680 */ 	lui	$at,0x4680
@@ -388,395 +388,119 @@ glabel var70054ad4
 /*    3bc4c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel n_alFxNew
-.late_rodata
-glabel var70054ad8
-.word 0x482910da
-.text
-/*    3bc50:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*    3bc54:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    3bc58:	afa40038 */ 	sw	$a0,0x38($sp)
-/*    3bc5c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    3bc60:	afa60040 */ 	sw	$a2,0x40($sp)
-/*    3bc64:	afa70044 */ 	sw	$a3,0x44($sp)
-/*    3bc68:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*    3bc6c:	240e0030 */ 	addiu	$t6,$zero,0x30
-/*    3bc70:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    3bc74:	00002025 */ 	or	$a0,$zero,$zero
-/*    3bc78:	00002825 */ 	or	$a1,$zero,$zero
-/*    3bc7c:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3bc80:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3bc84:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    3bc88:	afa20024 */ 	sw	$v0,0x24($sp)
-/*    3bc8c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3bc90:	8fb80038 */ 	lw	$t8,0x38($sp)
-/*    3bc94:	af0f0000 */ 	sw	$t7,0x0($t8)
-/*    3bc98:	8fb9003c */ 	lw	$t9,0x3c($sp)
-/*    3bc9c:	87a80042 */ 	lh	$t0,0x42($sp)
-/*    3bca0:	24010006 */ 	addiu	$at,$zero,0x6
-/*    3bca4:	03284821 */ 	addu	$t1,$t9,$t0
-/*    3bca8:	912a001c */ 	lbu	$t2,0x1c($t1)
-/*    3bcac:	1541000b */ 	bne	$t2,$at,.L0003bcdc
-/*    3bcb0:	00000000 */ 	nop
-/*    3bcb4:	10000001 */ 	b	.L0003bcbc
-/*    3bcb8:	00000000 */ 	nop
-.L0003bcbc:
-/*    3bcbc:	87ac0042 */ 	lh	$t4,0x42($sp)
-/*    3bcc0:	8fab003c */ 	lw	$t3,0x3c($sp)
-/*    3bcc4:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    3bcc8:	016d7021 */ 	addu	$t6,$t3,$t5
-/*    3bccc:	8dcf0020 */ 	lw	$t7,0x20($t6)
-/*    3bcd0:	afaf002c */ 	sw	$t7,0x2c($sp)
-/*    3bcd4:	10000006 */ 	b	.L0003bcf0
-/*    3bcd8:	00000000 */ 	nop
-.L0003bcdc:
-/*    3bcdc:	3c188006 */ 	lui	$t8,%hi(var8005f548)
-/*    3bce0:	2718f548 */ 	addiu	$t8,$t8,%lo(var8005f548)
-/*    3bce4:	afb8002c */ 	sw	$t8,0x2c($sp)
-/*    3bce8:	10000001 */ 	b	.L0003bcf0
-/*    3bcec:	00000000 */ 	nop
-.L0003bcf0:
-/*    3bcf0:	a7a00034 */ 	sh	$zero,0x34($sp)
-/*    3bcf4:	97a80034 */ 	lhu	$t0,0x34($sp)
-/*    3bcf8:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3bcfc:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    3bd00:	00084880 */ 	sll	$t1,$t0,0x2
-/*    3bd04:	03295021 */ 	addu	$t2,$t9,$t1
-/*    3bd08:	8d4c0000 */ 	lw	$t4,0x0($t2)
-/*    3bd0c:	a16c0008 */ 	sb	$t4,0x8($t3)
-/*    3bd10:	97ad0034 */ 	lhu	$t5,0x34($sp)
-/*    3bd14:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*    3bd18:	a7ae0034 */ 	sh	$t6,0x34($sp)
-/*    3bd1c:	97b80034 */ 	lhu	$t8,0x34($sp)
-/*    3bd20:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    3bd24:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    3bd28:	00184080 */ 	sll	$t0,$t8,0x2
-/*    3bd2c:	01e8c821 */ 	addu	$t9,$t7,$t0
-/*    3bd30:	8f290000 */ 	lw	$t1,0x0($t9)
-/*    3bd34:	ad490000 */ 	sw	$t1,0x0($t2)
-/*    3bd38:	97ac0034 */ 	lhu	$t4,0x34($sp)
-/*    3bd3c:	258b0001 */ 	addiu	$t3,$t4,0x1
-/*    3bd40:	a7ab0034 */ 	sh	$t3,0x34($sp)
-/*    3bd44:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    3bd48:	240e0028 */ 	addiu	$t6,$zero,0x28
-/*    3bd4c:	00002025 */ 	or	$a0,$zero,$zero
-/*    3bd50:	91a70008 */ 	lbu	$a3,0x8($t5)
-/*    3bd54:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    3bd58:	00002825 */ 	or	$a1,$zero,$zero
-/*    3bd5c:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3bd60:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3bd64:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3bd68:	af020004 */ 	sw	$v0,0x4($t8)
-/*    3bd6c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3bd70:	24080002 */ 	addiu	$t0,$zero,0x2
-/*    3bd74:	00002025 */ 	or	$a0,$zero,$zero
-/*    3bd78:	8de70000 */ 	lw	$a3,0x0($t7)
-/*    3bd7c:	afa80010 */ 	sw	$t0,0x10($sp)
-/*    3bd80:	00002825 */ 	or	$a1,$zero,$zero
-/*    3bd84:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3bd88:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3bd8c:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3bd90:	af220020 */ 	sw	$v0,0x20($t9)
-/*    3bd94:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3bd98:	8d2a0020 */ 	lw	$t2,0x20($t1)
-/*    3bd9c:	ad2a0028 */ 	sw	$t2,0x28($t1)
-/*    3bda0:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    3bda4:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*    3bda8:	00002025 */ 	or	$a0,$zero,$zero
-/*    3bdac:	8d870000 */ 	lw	$a3,0x0($t4)
-/*    3bdb0:	afab0010 */ 	sw	$t3,0x10($sp)
-/*    3bdb4:	00002825 */ 	or	$a1,$zero,$zero
-/*    3bdb8:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3bdbc:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3bdc0:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    3bdc4:	ada20024 */ 	sw	$v0,0x24($t5)
-/*    3bdc8:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    3bdcc:	8dd80024 */ 	lw	$t8,0x24($t6)
-/*    3bdd0:	add8002c */ 	sw	$t8,0x2c($t6)
-/*    3bdd4:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3bdd8:	a7a00032 */ 	sh	$zero,0x32($sp)
-/*    3bddc:	8de80000 */ 	lw	$t0,0x0($t7)
-/*    3bde0:	11000019 */ 	beqz	$t0,.L0003be48
-/*    3bde4:	00000000 */ 	nop
-.L0003bde8:
-/*    3bde8:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3bdec:	97a90032 */ 	lhu	$t1,0x32($sp)
-/*    3bdf0:	8f2a0024 */ 	lw	$t2,0x24($t9)
-/*    3bdf4:	00096040 */ 	sll	$t4,$t1,0x1
-/*    3bdf8:	014c5821 */ 	addu	$t3,$t2,$t4
-/*    3bdfc:	a5600000 */ 	sh	$zero,0x0($t3)
-/*    3be00:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    3be04:	97ae0032 */ 	lhu	$t6,0x32($sp)
-/*    3be08:	8db80024 */ 	lw	$t8,0x24($t5)
-/*    3be0c:	000e7840 */ 	sll	$t7,$t6,0x1
-/*    3be10:	8da90020 */ 	lw	$t1,0x20($t5)
-/*    3be14:	030f4021 */ 	addu	$t0,$t8,$t7
-/*    3be18:	85190000 */ 	lh	$t9,0x0($t0)
-/*    3be1c:	012f5021 */ 	addu	$t2,$t1,$t7
-/*    3be20:	a5590000 */ 	sh	$t9,0x0($t2)
-/*    3be24:	97ac0032 */ 	lhu	$t4,0x32($sp)
-/*    3be28:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3be2c:	258b0001 */ 	addiu	$t3,$t4,0x1
-/*    3be30:	a7ab0032 */ 	sh	$t3,0x32($sp)
-/*    3be34:	8f080000 */ 	lw	$t0,0x0($t8)
-/*    3be38:	316effff */ 	andi	$t6,$t3,0xffff
-/*    3be3c:	01c8082b */ 	sltu	$at,$t6,$t0
-/*    3be40:	1420ffe9 */ 	bnez	$at,.L0003bde8
-/*    3be44:	00000000 */ 	nop
-.L0003be48:
-/*    3be48:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*    3be4c:	a7a00036 */ 	sh	$zero,0x36($sp)
-/*    3be50:	91a90008 */ 	lbu	$t1,0x8($t5)
-/*    3be54:	192000e9 */ 	blez	$t1,.L0003c1fc
-/*    3be58:	00000000 */ 	nop
-.L0003be5c:
-/*    3be5c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    3be60:	97aa0036 */ 	lhu	$t2,0x36($sp)
-/*    3be64:	8df90004 */ 	lw	$t9,0x4($t7)
-/*    3be68:	000a6080 */ 	sll	$t4,$t2,0x2
-/*    3be6c:	018a6021 */ 	addu	$t4,$t4,$t2
-/*    3be70:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*    3be74:	032c5821 */ 	addu	$t3,$t9,$t4
-/*    3be78:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    3be7c:	97ae0034 */ 	lhu	$t6,0x34($sp)
-/*    3be80:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    3be84:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3be88:	000e4080 */ 	sll	$t0,$t6,0x2
-/*    3be8c:	03086821 */ 	addu	$t5,$t8,$t0
-/*    3be90:	8da90000 */ 	lw	$t1,0x0($t5)
-/*    3be94:	ade90000 */ 	sw	$t1,0x0($t7)
-/*    3be98:	97aa0034 */ 	lhu	$t2,0x34($sp)
-/*    3be9c:	25590001 */ 	addiu	$t9,$t2,0x1
-/*    3bea0:	a7b90034 */ 	sh	$t9,0x34($sp)
-/*    3bea4:	97ab0034 */ 	lhu	$t3,0x34($sp)
-/*    3bea8:	8fac002c */ 	lw	$t4,0x2c($sp)
-/*    3beac:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3beb0:	000b7080 */ 	sll	$t6,$t3,0x2
-/*    3beb4:	018ec021 */ 	addu	$t8,$t4,$t6
-/*    3beb8:	8f080000 */ 	lw	$t0,0x0($t8)
-/*    3bebc:	ada80004 */ 	sw	$t0,0x4($t5)
-/*    3bec0:	97a90034 */ 	lhu	$t1,0x34($sp)
-/*    3bec4:	252f0001 */ 	addiu	$t7,$t1,0x1
-/*    3bec8:	a7af0034 */ 	sh	$t7,0x34($sp)
-/*    3becc:	97b90034 */ 	lhu	$t9,0x34($sp)
-/*    3bed0:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    3bed4:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    3bed8:	00195880 */ 	sll	$t3,$t9,0x2
-/*    3bedc:	014b6021 */ 	addu	$t4,$t2,$t3
-/*    3bee0:	8d8e0000 */ 	lw	$t6,0x0($t4)
-/*    3bee4:	a70e000a */ 	sh	$t6,0xa($t8)
-/*    3bee8:	97a80034 */ 	lhu	$t0,0x34($sp)
-/*    3beec:	250d0001 */ 	addiu	$t5,$t0,0x1
-/*    3bef0:	a7ad0034 */ 	sh	$t5,0x34($sp)
-/*    3bef4:	97af0034 */ 	lhu	$t7,0x34($sp)
-/*    3bef8:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    3befc:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*    3bf00:	000fc880 */ 	sll	$t9,$t7,0x2
-/*    3bf04:	01395021 */ 	addu	$t2,$t1,$t9
-/*    3bf08:	8d4b0000 */ 	lw	$t3,0x0($t2)
-/*    3bf0c:	a58b0008 */ 	sh	$t3,0x8($t4)
-/*    3bf10:	97ae0034 */ 	lhu	$t6,0x34($sp)
-/*    3bf14:	25d80001 */ 	addiu	$t8,$t6,0x1
-/*    3bf18:	a7b80034 */ 	sh	$t8,0x34($sp)
-/*    3bf1c:	97ad0034 */ 	lhu	$t5,0x34($sp)
-/*    3bf20:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    3bf24:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*    3bf28:	000d7880 */ 	sll	$t7,$t5,0x2
-/*    3bf2c:	010f4821 */ 	addu	$t1,$t0,$t7
-/*    3bf30:	8d390000 */ 	lw	$t9,0x0($t1)
-/*    3bf34:	a559000c */ 	sh	$t9,0xc($t2)
-/*    3bf38:	97ab0034 */ 	lhu	$t3,0x34($sp)
-/*    3bf3c:	256c0001 */ 	addiu	$t4,$t3,0x1
-/*    3bf40:	a7ac0034 */ 	sh	$t4,0x34($sp)
-/*    3bf44:	97b80034 */ 	lhu	$t8,0x34($sp)
-/*    3bf48:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*    3bf4c:	00186880 */ 	sll	$t5,$t8,0x2
-/*    3bf50:	01cd4021 */ 	addu	$t0,$t6,$t5
-/*    3bf54:	8d0f0000 */ 	lw	$t7,0x0($t0)
-/*    3bf58:	11e0005e */ 	beqz	$t7,.L0003c0d4
-/*    3bf5c:	00000000 */ 	nop
-/*    3bf60:	97b90034 */ 	lhu	$t9,0x34($sp)
-/*    3bf64:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    3bf68:	3c01447a */ 	lui	$at,0x447a
-/*    3bf6c:	00195080 */ 	sll	$t2,$t9,0x2
-/*    3bf70:	012a5821 */ 	addu	$t3,$t1,$t2
-/*    3bf74:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*    3bf78:	44814000 */ 	mtc1	$at,$f8
-/*    3bf7c:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    3bf80:	448c2000 */ 	mtc1	$t4,$f4
-/*    3bf84:	3c014000 */ 	lui	$at,0x4000
-/*    3bf88:	8f0e0018 */ 	lw	$t6,0x18($t8)
-/*    3bf8c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    3bf90:	44818000 */ 	mtc1	$at,$f16
-/*    3bf94:	448e2000 */ 	mtc1	$t6,$f4
-/*    3bf98:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3bf9c:	46083283 */ 	div.s	$f10,$f6,$f8
-/*    3bfa0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    3bfa4:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*    3bfa8:	46069203 */ 	div.s	$f8,$f18,$f6
-/*    3bfac:	e5a80010 */ 	swc1	$f8,0x10($t5)
-/*    3bfb0:	97a80034 */ 	lhu	$t0,0x34($sp)
-/*    3bfb4:	250f0001 */ 	addiu	$t7,$t0,0x1
-/*    3bfb8:	a7af0034 */ 	sh	$t7,0x34($sp)
-/*    3bfbc:	97a90034 */ 	lhu	$t1,0x34($sp)
-/*    3bfc0:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3bfc4:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    3bfc8:	00095080 */ 	sll	$t2,$t1,0x2
-/*    3bfcc:	032a5821 */ 	addu	$t3,$t9,$t2
-/*    3bfd0:	8d6c0000 */ 	lw	$t4,0x0($t3)
-/*    3bfd4:	8f0e0004 */ 	lw	$t6,0x4($t8)
-/*    3bfd8:	8f0d0000 */ 	lw	$t5,0x0($t8)
-/*    3bfdc:	448c5000 */ 	mtc1	$t4,$f10
-/*    3bfe0:	3c017005 */ 	lui	$at,%hi(var70054ad8)
-/*    3bfe4:	01cd4023 */ 	subu	$t0,$t6,$t5
-/*    3bfe8:	46805420 */ 	cvt.s.w	$f16,$f10
-/*    3bfec:	44883000 */ 	mtc1	$t0,$f6
-/*    3bff0:	c4244ad8 */ 	lwc1	$f4,%lo(var70054ad8)($at)
-/*    3bff4:	46803220 */ 	cvt.s.w	$f8,$f6
-/*    3bff8:	05010005 */ 	bgez	$t0,.L0003c010
-/*    3bffc:	46048483 */ 	div.s	$f18,$f16,$f4
-/*    3c000:	3c014f80 */ 	lui	$at,0x4f80
-/*    3c004:	44815000 */ 	mtc1	$at,$f10
-/*    3c008:	00000000 */ 	nop
-/*    3c00c:	460a4200 */ 	add.s	$f8,$f8,$f10
-.L0003c010:
-/*    3c010:	46089402 */ 	mul.s	$f16,$f18,$f8
-/*    3c014:	e710001c */ 	swc1	$f16,0x1c($t8)
-/*    3c018:	97af0034 */ 	lhu	$t7,0x34($sp)
-/*    3c01c:	25e90001 */ 	addiu	$t1,$t7,0x1
-/*    3c020:	a7a90034 */ 	sh	$t1,0x34($sp)
-/*    3c024:	3c013f80 */ 	lui	$at,0x3f80
-/*    3c028:	44812000 */ 	mtc1	$at,$f4
-/*    3c02c:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    3c030:	e7240014 */ 	swc1	$f4,0x14($t9)
-/*    3c034:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*    3c038:	ad400018 */ 	sw	$zero,0x18($t2)
-/*    3c03c:	240b0038 */ 	addiu	$t3,$zero,0x38
-/*    3c040:	afab0010 */ 	sw	$t3,0x10($sp)
-/*    3c044:	00002025 */ 	or	$a0,$zero,$zero
-/*    3c048:	00002825 */ 	or	$a1,$zero,$zero
-/*    3c04c:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3c050:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3c054:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    3c058:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*    3c05c:	ad820024 */ 	sw	$v0,0x24($t4)
-/*    3c060:	240e0020 */ 	addiu	$t6,$zero,0x20
-/*    3c064:	afae0010 */ 	sw	$t6,0x10($sp)
-/*    3c068:	00002025 */ 	or	$a0,$zero,$zero
-/*    3c06c:	00002825 */ 	or	$a1,$zero,$zero
-/*    3c070:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3c074:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3c078:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    3c07c:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3c080:	8da80024 */ 	lw	$t0,0x24($t5)
-/*    3c084:	ad020014 */ 	sw	$v0,0x14($t0)
-/*    3c088:	24180020 */ 	addiu	$t8,$zero,0x20
-/*    3c08c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    3c090:	00002025 */ 	or	$a0,$zero,$zero
-/*    3c094:	00002825 */ 	or	$a1,$zero,$zero
-/*    3c098:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3c09c:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3c0a0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    3c0a4:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3c0a8:	8de90024 */ 	lw	$t1,0x24($t7)
-/*    3c0ac:	ad220018 */ 	sw	$v0,0x18($t1)
-/*    3c0b0:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    3c0b4:	44803000 */ 	mtc1	$zero,$f6
-/*    3c0b8:	8f2a0024 */ 	lw	$t2,0x24($t9)
-/*    3c0bc:	e5460024 */ 	swc1	$f6,0x24($t2)
-/*    3c0c0:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*    3c0c4:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    3c0c8:	8d8e0024 */ 	lw	$t6,0x24($t4)
-/*    3c0cc:	10000009 */ 	b	.L0003c0f4
-/*    3c0d0:	adcb0028 */ 	sw	$t3,0x28($t6)
-.L0003c0d4:
-/*    3c0d4:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*    3c0d8:	ada00024 */ 	sw	$zero,0x24($t5)
-/*    3c0dc:	97a80034 */ 	lhu	$t0,0x34($sp)
-/*    3c0e0:	25180001 */ 	addiu	$t8,$t0,0x1
-/*    3c0e4:	a7b80034 */ 	sh	$t8,0x34($sp)
-/*    3c0e8:	97af0034 */ 	lhu	$t7,0x34($sp)
-/*    3c0ec:	25e90001 */ 	addiu	$t1,$t7,0x1
-/*    3c0f0:	a7a90034 */ 	sh	$t1,0x34($sp)
-.L0003c0f4:
-/*    3c0f4:	97aa0034 */ 	lhu	$t2,0x34($sp)
-/*    3c0f8:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    3c0fc:	000a6080 */ 	sll	$t4,$t2,0x2
-/*    3c100:	032c5821 */ 	addu	$t3,$t9,$t4
-/*    3c104:	8d6e0000 */ 	lw	$t6,0x0($t3)
-/*    3c108:	11c0002e */ 	beqz	$t6,.L0003c1c4
-/*    3c10c:	00000000 */ 	nop
-/*    3c110:	240d0038 */ 	addiu	$t5,$zero,0x38
-/*    3c114:	afad0010 */ 	sw	$t5,0x10($sp)
-/*    3c118:	00002025 */ 	or	$a0,$zero,$zero
-/*    3c11c:	00002825 */ 	or	$a1,$zero,$zero
-/*    3c120:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3c124:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3c128:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    3c12c:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    3c130:	ad020020 */ 	sw	$v0,0x20($t0)
-/*    3c134:	24180008 */ 	addiu	$t8,$zero,0x8
-/*    3c138:	afb80010 */ 	sw	$t8,0x10($sp)
-/*    3c13c:	00002025 */ 	or	$a0,$zero,$zero
-/*    3c140:	00002825 */ 	or	$a1,$zero,$zero
-/*    3c144:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3c148:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3c14c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    3c150:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3c154:	8de90020 */ 	lw	$t1,0x20($t7)
-/*    3c158:	ad22002c */ 	sw	$v0,0x2c($t1)
-/*    3c15c:	240a0008 */ 	addiu	$t2,$zero,0x8
-/*    3c160:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*    3c164:	00002025 */ 	or	$a0,$zero,$zero
-/*    3c168:	00002825 */ 	or	$a1,$zero,$zero
-/*    3c16c:	8fa60044 */ 	lw	$a2,0x44($sp)
-/*    3c170:	0c00bec5 */ 	jal	alHeapDBAlloc
-/*    3c174:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    3c178:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    3c17c:	8f2c0020 */ 	lw	$t4,0x20($t9)
-/*    3c180:	ad820030 */ 	sw	$v0,0x30($t4)
-/*    3c184:	97ae0034 */ 	lhu	$t6,0x34($sp)
-/*    3c188:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*    3c18c:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    3c190:	000e6880 */ 	sll	$t5,$t6,0x2
-/*    3c194:	016d4021 */ 	addu	$t0,$t3,$t5
-/*    3c198:	8d180000 */ 	lw	$t8,0x0($t0)
-/*    3c19c:	8de90020 */ 	lw	$t1,0x20($t7)
-/*    3c1a0:	a5380000 */ 	sh	$t8,0x0($t1)
-/*    3c1a4:	97aa0034 */ 	lhu	$t2,0x34($sp)
-/*    3c1a8:	25590001 */ 	addiu	$t9,$t2,0x1
-/*    3c1ac:	a7b90034 */ 	sh	$t9,0x34($sp)
-/*    3c1b0:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*    3c1b4:	0c00ee21 */ 	jal	func0003b884
-/*    3c1b8:	8d840020 */ 	lw	$a0,0x20($t4)
-/*    3c1bc:	10000006 */ 	b	.L0003c1d8
-/*    3c1c0:	00000000 */ 	nop
-.L0003c1c4:
-/*    3c1c4:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    3c1c8:	adc00020 */ 	sw	$zero,0x20($t6)
-/*    3c1cc:	97ab0034 */ 	lhu	$t3,0x34($sp)
-/*    3c1d0:	256d0001 */ 	addiu	$t5,$t3,0x1
-/*    3c1d4:	a7ad0034 */ 	sh	$t5,0x34($sp)
-.L0003c1d8:
-/*    3c1d8:	97a80036 */ 	lhu	$t0,0x36($sp)
-/*    3c1dc:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*    3c1e0:	250f0001 */ 	addiu	$t7,$t0,0x1
-/*    3c1e4:	a7af0036 */ 	sh	$t7,0x36($sp)
-/*    3c1e8:	912a0008 */ 	lbu	$t2,0x8($t1)
-/*    3c1ec:	31f8ffff */ 	andi	$t8,$t7,0xffff
-/*    3c1f0:	030a082a */ 	slt	$at,$t8,$t2
-/*    3c1f4:	1420ff19 */ 	bnez	$at,.L0003be5c
-/*    3c1f8:	00000000 */ 	nop
-.L0003c1fc:
-/*    3c1fc:	10000001 */ 	b	.L0003c204
-/*    3c200:	00000000 */ 	nop
-.L0003c204:
-/*    3c204:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    3c208:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*    3c20c:	03e00008 */ 	jr	$ra
-/*    3c210:	00000000 */ 	nop
-);
+/*
+ * WARNING: THE FOLLOWING CONSTANT MUST BE KEPT IN SYNC
+ * WITH SCALING IN MICROCODE!!!
+ */
+#define	SCALE 16384
+
+/*
+ * the following arrays contain default parameters for
+ * a few hopefully useful effects.
+ */
+#define ms *(((s32)((f32)44.1))&~0x7)
+
+s32 SMALLROOM_PARAMS_N[26] = {
+	/* sections	 length */
+	3,           55 ms,
+	/*                                        chorus  chorus  filter
+	input    output   fbcoef  ffcoef  gain    rate    depth   coef  */
+	0    ms, 29.6 ms, 9830,   -9830,  0,      0,      0,      0,
+	10.4 ms, 20.8 ms, 3276,   -3276,  0x3fff, 0,      0,      0,
+	0    ms, 33   ms, 5000,   0,      0,      0,      0,      0x5000,
+};
+
+s32 BIGROOM_PARAMS_N[10] = {
+	0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+};
+
+void n_alFxNew(ALFx **fx_ar, ALSynConfig *c, s16 bus, ALHeap *hp)
+{
+	u16 i, j, k;
+	s32 *param = 0;
+	ALDelay	*d;
+	ALFx *r;
+
+	*fx_ar = r = (ALFx *)alHeapAlloc(hp, 1, sizeof(ALFx));
+
+	switch (c->fxTypes[bus]) {
+	case 6:
+		param = c->params[bus];
+		break;
+	default:
+		param = BIGROOM_PARAMS_N;
+		break;
+	}
+
+	j = 0;
+
+	r->section_count = param[j++];
+	r->length = param[j++];
+
+	r->delay = alHeapAlloc(hp, r->section_count, sizeof(ALDelay));
+	r->base = alHeapAlloc(hp, r->length, sizeof(s16));
+	r->input = r->base;
+	r->unk24 = alHeapAlloc(hp, r->length, sizeof(s16));
+	r->unk2c = r->unk24;
+
+	for (k=0; k < r->length; k++) {
+		r->base[k] = r->unk24[k] = 0;
+	}
+
+	for ( i=0; i<r->section_count; i++ ){
+		d = &r->delay[i];
+		d->input  = param[j++];
+		d->output = param[j++];
+		d->fbcoef = param[j++];
+		d->ffcoef = param[j++];
+		d->gain   = param[j++];
+
+		if (param[j]) {
+#define RANGE 2.0f
+			/*	    d->rsinc     = ((f32) param[j++])/0xffffff; */
+			d->rsinc = ((((f32)param[j++])/1000) * RANGE)/c->outputRate;
+
+			/*
+			 * the following constant is derived from:
+			 *
+			 *		ratio = 2^(cents/1200)
+			 *
+			 * and therefore for hundredths of a cent
+			 *			           x
+			 *		ln(ratio) = ---------------
+			 *			    (120,000)/ln(2)
+			 * where
+			 *		120,000/ln(2) = 173123.40...
+			 */
+#define CONVERT 173123.404906676f
+#define LENGTH	(d->output - d->input)
+			d->rsgain 	 = (((f32) param[j++])/CONVERT) * LENGTH;
+			d->rsval	 = 1.0f;
+			d->rsdelta	 = 0.0f;
+			d->rs 	 = alHeapAlloc(hp, 1, sizeof(ALResampler));
+			d->rs->state = alHeapAlloc(hp, 1, sizeof(RESAMPLE_STATE));
+			d->rs->unk18 = alHeapAlloc(hp, 1, 0x20);
+			d->rs->delta = 0.0f;
+			d->rs->first = 1;
+		} else {
+			d->rs = 0;
+			j++;
+			j++;
+		}
+
+		if (param[j]) {
+			d->lp = alHeapAlloc(hp, 1, sizeof(ALLowPass));
+			d->lp->fstate = alHeapAlloc(hp, 1, sizeof(POLEF_STATE));
+			d->lp->unk30 = alHeapAlloc(hp, 1, 8);
+			d->lp->fc = param[j++];
+			_init_lpfilter(d->lp);
+		} else {
+			d->lp = 0;
+			j++;
+		}
+	}
+}
 
 void alN_PVoiceNew(N_PVoice *mv, ALDMANew dmaNew, ALHeap *hp)
 {
