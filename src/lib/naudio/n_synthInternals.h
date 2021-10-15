@@ -95,8 +95,10 @@ typedef struct N_PVoice_s {
 	ALParam		*em_ctrlTail;
 	s32                 em_motion;
 	s32                 offset;
-	s32 unk8c;
-	s32 unk90;
+	u8 unk8c;
+	u16 unk8e;
+	u16 unk90;
+	u16 unk92;
 	s32 unk94;
 	s32 unk98;
 	s32 unk9c;
@@ -107,7 +109,7 @@ typedef struct N_PVoice_s {
 	s32 unkb0;
 	s32 unkb4;
 	s32 unkb8;
-	s32 unkbc;
+	void *unkbc; // size 8
 } N_PVoice;
 
 
