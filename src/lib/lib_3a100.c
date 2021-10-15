@@ -1895,7 +1895,7 @@ glabel var70054ad4
 );
 
 GLOBAL_ASM(
-glabel func0003bc50
+glabel n_alFxNew
 .late_rodata
 glabel var70054ad8
 .word 0x482910da

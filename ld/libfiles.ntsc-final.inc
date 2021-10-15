@@ -80,6 +80,7 @@
 	build/ROMID/lib/lib_39f70.o (section); \
 	build/ROMID/lib/naudio/n_syndelete.o (section); \
 	build/ROMID/lib/lib_39fe0.o (section); \
+	build/ROMID/lib/naudio/n_synallocfx.o (section); \
 	build/ROMID/lib/lib_3a100.o (section); \
 	build/ROMID/lib/naudio/n_save.o (section); \
 	build/ROMID/lib/naudio/n_event.o (section); \
