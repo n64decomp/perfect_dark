@@ -204,24 +204,10 @@ s32 _n_timeToSamplesNoRound(s32 micros)
 	return (s32)tmp;
 }
 
-GLOBAL_ASM(
-glabel _n_timeToSamples
-/*    31698:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    3169c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    316a0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    316a4:	0c00c58d */ 	jal	_n_timeToSamplesNoRound
-/*    316a8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    316ac:	2401fff0 */ 	addiu	$at,$zero,-16
-/*    316b0:	10000003 */ 	b	.L000316c0
-/*    316b4:	00411024 */ 	and	$v0,$v0,$at
-/*    316b8:	10000001 */ 	b	.L000316c0
-/*    316bc:	00000000 */ 	nop
-.L000316c0:
-/*    316c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    316c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    316c8:	03e00008 */ 	jr	$ra
-/*    316cc:	00000000 */ 	nop
-);
+s32 _n_timeToSamples(s32 micros)
+{
+	return _n_timeToSamplesNoRound(micros) & ~0xf;
+}
 
 s32 __n_nextSampleTime(ALPlayer **client)
 {
