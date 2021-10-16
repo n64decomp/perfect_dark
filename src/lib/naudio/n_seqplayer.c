@@ -5,64 +5,37 @@
 #include "n_seqp.h"
 #include "seq.h"
 
-GLOBAL_ASM(
-glabel __n_unmapVoice
-/*    3d280:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    3d284:	afa00004 */ 	sw	$zero,0x4($sp)
-/*    3d288:	8c8e0064 */ 	lw	$t6,0x64($a0)
-/*    3d28c:	afae0000 */ 	sw	$t6,0x0($sp)
-/*    3d290:	8faf0000 */ 	lw	$t7,0x0($sp)
-/*    3d294:	11e00026 */ 	beqz	$t7,.L0003d330
-/*    3d298:	00000000 */ 	nop
-.L0003d29c:
-/*    3d29c:	8fb80000 */ 	lw	$t8,0x0($sp)
-/*    3d2a0:	27190004 */ 	addiu	$t9,$t8,0x4
-/*    3d2a4:	1725001c */ 	bne	$t9,$a1,.L0003d318
-/*    3d2a8:	00000000 */ 	nop
-/*    3d2ac:	8fa80004 */ 	lw	$t0,0x4($sp)
-/*    3d2b0:	11000006 */ 	beqz	$t0,.L0003d2cc
-/*    3d2b4:	00000000 */ 	nop
-/*    3d2b8:	8fa90000 */ 	lw	$t1,0x0($sp)
-/*    3d2bc:	8fab0004 */ 	lw	$t3,0x4($sp)
-/*    3d2c0:	8d2a0000 */ 	lw	$t2,0x0($t1)
-/*    3d2c4:	10000004 */ 	b	.L0003d2d8
-/*    3d2c8:	ad6a0000 */ 	sw	$t2,0x0($t3)
-.L0003d2cc:
-/*    3d2cc:	8fac0000 */ 	lw	$t4,0x0($sp)
-/*    3d2d0:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/*    3d2d4:	ac8d0064 */ 	sw	$t5,0x64($a0)
-.L0003d2d8:
-/*    3d2d8:	8c8e0068 */ 	lw	$t6,0x68($a0)
-/*    3d2dc:	8faf0000 */ 	lw	$t7,0x0($sp)
-/*    3d2e0:	15cf0003 */ 	bne	$t6,$t7,.L0003d2f0
-/*    3d2e4:	00000000 */ 	nop
-/*    3d2e8:	8fb80004 */ 	lw	$t8,0x4($sp)
-/*    3d2ec:	ac980068 */ 	sw	$t8,0x68($a0)
-.L0003d2f0:
-/*    3d2f0:	8c99006c */ 	lw	$t9,0x6c($a0)
-/*    3d2f4:	8fa80000 */ 	lw	$t0,0x0($sp)
-/*    3d2f8:	ad190000 */ 	sw	$t9,0x0($t0)
-/*    3d2fc:	8fa90000 */ 	lw	$t1,0x0($sp)
-/*    3d300:	ac89006c */ 	sw	$t1,0x6c($a0)
-/*    3d304:	908a0089 */ 	lbu	$t2,0x89($a0)
-/*    3d308:	254bffff */ 	addiu	$t3,$t2,-1
-/*    3d30c:	a08b0089 */ 	sb	$t3,0x89($a0)
-/*    3d310:	10000009 */ 	b	.L0003d338
-/*    3d314:	00000000 */ 	nop
-.L0003d318:
-/*    3d318:	8fac0000 */ 	lw	$t4,0x0($sp)
-/*    3d31c:	afac0004 */ 	sw	$t4,0x4($sp)
-/*    3d320:	8fad0000 */ 	lw	$t5,0x0($sp)
-/*    3d324:	8dae0000 */ 	lw	$t6,0x0($t5)
-/*    3d328:	15c0ffdc */ 	bnez	$t6,.L0003d29c
-/*    3d32c:	afae0000 */ 	sw	$t6,0x0($sp)
-.L0003d330:
-/*    3d330:	10000001 */ 	b	.L0003d338
-/*    3d334:	00000000 */ 	nop
-.L0003d338:
-/*    3d338:	03e00008 */ 	jr	$ra
-/*    3d33c:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+void __n_unmapVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice)
+{
+	N_ALVoiceState *prev = 0;
+	N_ALVoiceState *vs;
+
+	/*
+	 * we could use doubly linked lists here and save some code and
+	 * execution time, but time spent here in negligible, so it won't
+	 * make much difference.
+	 */
+	for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
+		if (&vs->voice == voice) {
+			if (prev) {
+				prev->next = vs->next;
+			} else {
+				seqp->vAllocHead = vs->next;
+			}
+
+			if (vs == seqp->vAllocTail) {
+				seqp->vAllocTail = prev;
+			}
+
+			vs->next = seqp->vFreeList;
+			seqp->vFreeList = vs;
+			seqp->unk89--;
+			return;
+		}
+
+		prev = vs;
+	}
+}
 
 void __n_seqpReleaseVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice, ALMicroTime deltaTime)
 {
