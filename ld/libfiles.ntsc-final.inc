@@ -86,7 +86,7 @@
 	build/ROMID/lib/naudio/n_save.o (section); \
 	build/ROMID/lib/naudio/n_event.o (section); \
 	build/ROMID/lib/naudio/n_synaddplayer.o (section); \
-	build/ROMID/lib/lib_3c890.o (section); \
+	build/ROMID/lib/naudio/n_synallocvoice.o (section); \
 	build/ROMID/lib/naudio/n_synsetvol.o (section); \
 	build/ROMID/lib/naudio/n_synstartvoiceparam.o (section); \
 	build/ROMID/lib/naudio/n_synsetpan.o (section); \

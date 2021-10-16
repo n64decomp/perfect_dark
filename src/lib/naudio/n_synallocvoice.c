@@ -1,10 +1,6 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/lib_3c4d0.h"
-#include "lib/lib_3e730.h"
-#include "data.h"
-#include "types.h"
+#include <os_internal.h>
+#include <ultraerror.h>
+#include "n_synthInternals.h"
 
 GLOBAL_ASM(
 glabel n_alSynAllocVoice
@@ -33,7 +29,7 @@ glabel n_alSynAllocVoice
 /*    3ca38:	ade00008 */ 	sw	$zero,0x8($t7)
 /*    3ca3c:	8fb8002c */ 	lw	$t8,0x2c($sp)
 /*    3ca40:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*    3ca44:	0c00f2ed */ 	jal	func0003cbb4
+/*    3ca44:	0c00f2ed */ 	jal	_allocatePVoice
 /*    3ca48:	87050000 */ 	lh	$a1,0x0($t8)
 /*    3ca4c:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    3ca50:	8fb90024 */ 	lw	$t9,0x24($sp)
@@ -132,89 +128,35 @@ glabel n_alSynAllocVoice
 /*    3cbb0:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func0003cbb4
-/*    3cbb4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    3cbb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3cbbc:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    3cbc0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    3cbc4:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*    3cbc8:	3c0e8006 */ 	lui	$t6,%hi(n_syn)
-/*    3cbcc:	8dcef114 */ 	lw	$t6,%lo(n_syn)($t6)
-/*    3cbd0:	8dcf0014 */ 	lw	$t7,0x14($t6)
-/*    3cbd4:	11e0000d */ 	beqz	$t7,.L0003cc0c
-/*    3cbd8:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*    3cbdc:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*    3cbe0:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    3cbe4:	af380000 */ 	sw	$t8,0x0($t9)
-/*    3cbe8:	0c00c5e9 */ 	jal	alUnlink
-/*    3cbec:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3cbf0:	3c058006 */ 	lui	$a1,%hi(n_syn)
-/*    3cbf4:	8ca5f114 */ 	lw	$a1,%lo(n_syn)($a1)
-/*    3cbf8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3cbfc:	0c00c5dc */ 	jal	alLink
-/*    3cc00:	24a5000c */ 	addiu	$a1,$a1,12
-/*    3cc04:	10000030 */ 	b	.L0003ccc8
-/*    3cc08:	00000000 */ 	nop
-.L0003cc0c:
-/*    3cc0c:	3c088006 */ 	lui	$t0,%hi(n_syn)
-/*    3cc10:	8d08f114 */ 	lw	$t0,%lo(n_syn)($t0)
-/*    3cc14:	8d090004 */ 	lw	$t1,0x4($t0)
-/*    3cc18:	1120000d */ 	beqz	$t1,.L0003cc50
-/*    3cc1c:	afa90024 */ 	sw	$t1,0x24($sp)
-/*    3cc20:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*    3cc24:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*    3cc28:	ad6a0000 */ 	sw	$t2,0x0($t3)
-/*    3cc2c:	0c00c5e9 */ 	jal	alUnlink
-/*    3cc30:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3cc34:	3c058006 */ 	lui	$a1,%hi(n_syn)
-/*    3cc38:	8ca5f114 */ 	lw	$a1,%lo(n_syn)($a1)
-/*    3cc3c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3cc40:	0c00c5dc */ 	jal	alLink
-/*    3cc44:	24a5000c */ 	addiu	$a1,$a1,12
-/*    3cc48:	1000001f */ 	b	.L0003ccc8
-/*    3cc4c:	00000000 */ 	nop
-.L0003cc50:
-/*    3cc50:	3c0c8006 */ 	lui	$t4,%hi(n_syn)
-/*    3cc54:	8d8cf114 */ 	lw	$t4,%lo(n_syn)($t4)
-/*    3cc58:	8d8d000c */ 	lw	$t5,0xc($t4)
-/*    3cc5c:	11a0001a */ 	beqz	$t5,.L0003ccc8
-/*    3cc60:	afad0024 */ 	sw	$t5,0x24($sp)
-.L0003cc64:
-/*    3cc64:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*    3cc68:	afae0020 */ 	sw	$t6,0x20($sp)
-/*    3cc6c:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*    3cc70:	87a8002e */ 	lh	$t0,0x2e($sp)
-/*    3cc74:	8df80008 */ 	lw	$t8,0x8($t7)
-/*    3cc78:	87190016 */ 	lh	$t9,0x16($t8)
-/*    3cc7c:	0119082a */ 	slt	$at,$t0,$t9
-/*    3cc80:	1420000d */ 	bnez	$at,.L0003ccb8
-/*    3cc84:	00000000 */ 	nop
-/*    3cc88:	8de90088 */ 	lw	$t1,0x88($t7)
-/*    3cc8c:	1520000a */ 	bnez	$t1,.L0003ccb8
-/*    3cc90:	00000000 */ 	nop
-/*    3cc94:	8faa0020 */ 	lw	$t2,0x20($sp)
-/*    3cc98:	8fab0028 */ 	lw	$t3,0x28($sp)
-/*    3cc9c:	ad6a0000 */ 	sw	$t2,0x0($t3)
-/*    3cca0:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*    3cca4:	8d8d0008 */ 	lw	$t5,0x8($t4)
-/*    3cca8:	85ae0016 */ 	lh	$t6,0x16($t5)
-/*    3ccac:	a7ae002e */ 	sh	$t6,0x2e($sp)
-/*    3ccb0:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    3ccb4:	afb8001c */ 	sw	$t8,0x1c($sp)
-.L0003ccb8:
-/*    3ccb8:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    3ccbc:	8f280000 */ 	lw	$t0,0x0($t9)
-/*    3ccc0:	1500ffe8 */ 	bnez	$t0,.L0003cc64
-/*    3ccc4:	afa80024 */ 	sw	$t0,0x24($sp)
-.L0003ccc8:
-/*    3ccc8:	10000003 */ 	b	.L0003ccd8
-/*    3cccc:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    3ccd0:	10000001 */ 	b	.L0003ccd8
-/*    3ccd4:	00000000 */ 	nop
-.L0003ccd8:
-/*    3ccd8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3ccdc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    3cce0:	03e00008 */ 	jr	$ra
-/*    3cce4:	00000000 */ 	nop
-);
+s32 _allocatePVoice(N_PVoice **pvoice, s16 priority)
+{
+	ALLink *dl;
+	N_PVoice *pv;
+	s32 stolen = 0;
+
+	if ((dl = n_syn->pLameList.next) != 0) { /* check the lame list first */
+		*pvoice = (N_PVoice *)dl;
+		alUnlink(dl);
+		alLink(dl, &n_syn->pAllocList);
+	} else if ((dl = n_syn->pFreeList.next) != 0) { /* from the free list */
+		*pvoice = (N_PVoice *) dl;
+		alUnlink(dl);
+		alLink(dl, &n_syn->pAllocList);
+	} else { /* steal one */
+		for (dl = n_syn->pAllocList.next; dl != 0; dl = dl->next) {
+			pv = (N_PVoice *)dl;
+
+			/*
+			 * if it is lower priority and not already stolen, keep it
+			 * as a candidate for stealing
+			 */
+			if ((pv->vvoice->priority <= priority) && (pv->offset == 0)) {
+				*pvoice = pv;
+				priority = pv->vvoice->priority;
+				stolen = 1;
+			}
+		}
+	}
+
+	return stolen;
+}
