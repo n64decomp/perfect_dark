@@ -9,7 +9,6 @@
 #include "lib/lib_3a100.h"
 #include "lib/lib_3c4d0.h"
 #include "lib/lib_3cdc0.h"
-#include "lib/lib_3cef0.h"
 #include "lib/lib_3d280.h"
 #include "lib/lib_3e3e0.h"
 #include "lib/lib_3e730.h"
@@ -1491,7 +1490,7 @@ glabel var7005477c
 .L000327bc:
 /*    327bc:	8fa40060 */ 	lw	$a0,0x60($sp)
 /*    327c0:	93a500a7 */ 	lbu	$a1,0xa7($sp)
-/*    327c4:	0c00f3bc */ 	jal	func0003cef0
+/*    327c4:	0c00f3bc */ 	jal	n_alSynSetPan
 /*    327c8:	2484000c */ 	addiu	$a0,$a0,0xc
 .L000327cc:
 /*    327cc:	10000212 */ 	b	.L00033018
@@ -2907,7 +2906,7 @@ glabel var7005477c
 .NB00033d9c:
 /*    33d9c:	8fa40060 */ 	lw	$a0,0x60($sp)
 /*    33da0:	93a500a7 */ 	lbu	$a1,0xa7($sp)
-/*    33da4:	0c00f8b0 */ 	jal	func0003cef0
+/*    33da4:	0c00f8b0 */ 	jal	n_alSynSetPan
 /*    33da8:	2484000c */ 	addiu	$a0,$a0,0xc
 .NB00033dac:
 /*    33dac:	100001fe */ 	beqz	$zero,.NB000345a8
