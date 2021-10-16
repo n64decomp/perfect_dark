@@ -222,81 +222,13 @@ s16 __n_vsVol(N_ALVoiceState *vs, N_ALSeqPlayer *seqp)
 	return t1;
 }
 
-GLOBAL_ASM(
-glabel func0003d9cc
-/*    3d9cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    3d9d0:	908f0031 */ 	lbu	$t7,0x31($a0)
-/*    3d9d4:	8cae0060 */ 	lw	$t6,0x60($a1)
-/*    3d9d8:	000fc080 */ 	sll	$t8,$t7,0x2
-/*    3d9dc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*    3d9e0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3d9e4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    3d9e8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    3d9ec:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*    3d9f0:	9329000a */ 	lbu	$t1,0xa($t9)
-/*    3d9f4:	312a0080 */ 	andi	$t2,$t1,0x80
-/*    3d9f8:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*    3d9fc:	3c0142fe */ 	lui	$at,0x42fe
-/*    3da00:	44813000 */ 	mtc1	$at,$f6
-/*    3da04:	c4a4007c */ 	lwc1	$f4,0x7c($a1)
-/*    3da08:	908c0031 */ 	lbu	$t4,0x31($a0)
-/*    3da0c:	8cab0060 */ 	lw	$t3,0x60($a1)
-/*    3da10:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*    3da14:	000c6880 */ 	sll	$t5,$t4,0x2
-/*    3da18:	01ac6823 */ 	subu	$t5,$t5,$t4
-/*    3da1c:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3da20:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*    3da24:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    3da28:	016d7821 */ 	addu	$t7,$t3,$t5
-/*    3da2c:	4600428d */ 	trunc.w.s	$f10,$f8
-/*    3da30:	91ee000a */ 	lbu	$t6,0xa($t7)
-/*    3da34:	c4a40080 */ 	lwc1	$f4,0x80($a1)
-/*    3da38:	44095000 */ 	mfc1	$t1,$f10
-/*    3da3c:	31d8007f */ 	andi	$t8,$t6,0x7f
-/*    3da40:	03095021 */ 	addu	$t2,$t8,$t1
-/*    3da44:	448a8000 */ 	mtc1	$t2,$f16
-/*    3da48:	00000000 */ 	nop
-/*    3da4c:	468084a0 */ 	cvt.s.w	$f18,$f16
-/*    3da50:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*    3da54:	4600320d */ 	trunc.w.s	$f8,$f6
-/*    3da58:	440b4000 */ 	mfc1	$t3,$f8
-/*    3da5c:	00000000 */ 	nop
-/*    3da60:	afab0010 */ 	sw	$t3,0x10($sp)
-/*    3da64:	8fad0010 */ 	lw	$t5,0x10($sp)
-/*    3da68:	29a10080 */ 	slti	$at,$t5,0x80
-/*    3da6c:	14200003 */ 	bnez	$at,.L0003da7c
-/*    3da70:	00000000 */ 	nop
-/*    3da74:	10000002 */ 	b	.L0003da80
-/*    3da78:	2407007f */ 	addiu	$a3,$zero,0x7f
-.L0003da7c:
-/*    3da7c:	8fa70010 */ 	lw	$a3,0x10($sp)
-.L0003da80:
-/*    3da80:	04e10003 */ 	bgez	$a3,.L0003da90
-/*    3da84:	00000000 */ 	nop
-/*    3da88:	10000009 */ 	b	.L0003dab0
-/*    3da8c:	00003025 */ 	or	$a2,$zero,$zero
-.L0003da90:
-/*    3da90:	8faf0010 */ 	lw	$t7,0x10($sp)
-/*    3da94:	29e10080 */ 	slti	$at,$t7,0x80
-/*    3da98:	14200003 */ 	bnez	$at,.L0003daa8
-/*    3da9c:	00000000 */ 	nop
-/*    3daa0:	10000002 */ 	b	.L0003daac
-/*    3daa4:	2408007f */ 	addiu	$t0,$zero,0x7f
-.L0003daa8:
-/*    3daa8:	8fa80010 */ 	lw	$t0,0x10($sp)
-.L0003daac:
-/*    3daac:	01003025 */ 	or	$a2,$t0,$zero
-.L0003dab0:
-/*    3dab0:	8fae0014 */ 	lw	$t6,0x14($sp)
-/*    3dab4:	00ce1025 */ 	or	$v0,$a2,$t6
-/*    3dab8:	10000003 */ 	b	.L0003dac8
-/*    3dabc:	304200ff */ 	andi	$v0,$v0,0xff
-/*    3dac0:	10000001 */ 	b	.L0003dac8
-/*    3dac4:	00000000 */ 	nop
-.L0003dac8:
-/*    3dac8:	03e00008 */ 	jr	$ra
-/*    3dacc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp)
+{
+	s32 sp14 = seqp->chanState[vs->channel].fxmix & 0x80;
+	s32 sp10 = ((seqp->chanState[vs->channel].fxmix & 0x7f) + (s32)(seqp->unk7c * 127)) * seqp->unk80;
+
+	return ((sp10 > 127 ? 127 : sp10) < 0 ? 0 : (sp10 > 127 ? 127 : sp10)) | sp14;
+}
 
 ALMicroTime __n_vsDelta(N_ALVoiceState *vs, ALMicroTime t)
 {
