@@ -57,7 +57,7 @@ glabel func0003cef0
 );
 
 GLOBAL_ASM(
-glabel func0003cfa0
+glabel n_alSynSetPitch
 /*    3cfa0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3cfa4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3cfa8:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -159,7 +159,7 @@ glabel func0003d050
 );
 
 GLOBAL_ASM(
-glabel func0003d100
+glabel n_alSynStopVoice
 /*    3d100:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3d104:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3d108:	afa40020 */ 	sw	$a0,0x20($sp)
@@ -206,7 +206,7 @@ glabel func0003d100
 );
 
 GLOBAL_ASM(
-glabel func0003d1a0
+glabel n_alSynFreeVoice
 /*    3d1a0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3d1a4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3d1a8:	afa40020 */ 	sw	$a0,0x20($sp)

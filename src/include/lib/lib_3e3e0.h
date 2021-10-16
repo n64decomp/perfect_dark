@@ -4,10 +4,10 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0003e3e0(void);
+void func0003e3e0(N_ALVoice *v, f32 arg1);
 u32 func0003e490(void);
-u32 func0003e540(void);
-u32 func0003e5b8(void);
-u32 func0003e674(void);
+ALFxRef func0003e540(u8 arg0);
+ALFxRef func0003e5b8(u8 arg0);
+void func0003e674(ALFxRef fx, u8 arg1, void *param);
 
 #endif

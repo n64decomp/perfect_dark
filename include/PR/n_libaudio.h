@@ -130,21 +130,35 @@ typedef struct {
     u8                         chan;
 } N_ALOscEvent;
 
+typedef struct {
+    f32 unk00;
+    f32 unk04;
+} N_AL18Event;
+
+typedef struct {
+    u8 unk00;
+    u8 unk01;
+    u8 unk02;
+    u8 unk03;
+    u8 param;
+} N_AL19Event;
 
 typedef struct {
     s16                 	type;
     union {
-        ALMIDIEvent     	midi;
-        ALTempoEvent    	tempo;
-        ALEndEvent      	end;
-        N_ALNoteEvent     	note;
-        N_ALVolumeEvent   	vol;
-        ALSeqpLoopEvent 	loop;
-        ALSeqpVolEvent  	spvol;
-	ALSeqpPriorityEvent	sppriority;
-	ALSeqpSeqEvent		spseq;
-	ALSeqpBankEvent		spbank;
-        N_ALOscEvent      	osc;
+		ALMIDIEvent     	midi;
+		ALTempoEvent    	tempo;
+		ALEndEvent      	end;
+		N_ALNoteEvent     	note;
+		N_ALVolumeEvent   	vol;
+		ALSeqpLoopEvent 	loop;
+		ALSeqpVolEvent  	spvol;
+		ALSeqpPriorityEvent	sppriority;
+		ALSeqpSeqEvent		spseq;
+		ALSeqpBankEvent		spbank;
+		N_ALOscEvent      	osc;
+		N_AL18Event      	evt18;
+		N_AL19Event      	evt19;
     } msg;
 } N_ALEvent;
 

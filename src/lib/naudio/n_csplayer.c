@@ -244,7 +244,7 @@ u32 var8005f4d4 = 0x41a60000;
 u32 var8005f4d8 = 0x41a80000;
 u32 var8005f4dc = 0x00000000;
 
-ALMicroTime __CSPVoiceHandler(void *node);
+ALMicroTime __n_CSPVoiceHandler(void *node);
 
 void n_alCSPNew(N_ALCSPlayer *seqp, ALSeqpConfig *c)
 {
@@ -316,692 +316,270 @@ void n_alCSPNew(N_ALCSPlayer *seqp, ALSeqpConfig *c)
 	 * add ourselves to the driver
 	 */
 	seqp->node.next       = NULL;
-	seqp->node.handler    = __CSPVoiceHandler;
+	seqp->node.handler    = __n_CSPVoiceHandler;
 	seqp->node.clientData = seqp;
 
 	n_alSynAddSeqPlayer(&seqp->node);
 }
 
-GLOBAL_ASM(
-glabel __CSPVoiceHandler
-.late_rodata
-glabel var70054780
-.word __CSPVoiceHandler+0x050
-glabel var70054784
-.word __CSPVoiceHandler+0x8d4
-glabel var70054788
-.word __CSPVoiceHandler+0x460
-glabel var7005478c
-.word __CSPVoiceHandler+0x8d4
-glabel var70054790
-.word __CSPVoiceHandler+0x8d4
-glabel var70054794
-.word __CSPVoiceHandler+0x088
-glabel var70054798
-.word __CSPVoiceHandler+0x0e0
-glabel var7005479c
-.word __CSPVoiceHandler+0x478
-glabel var700547a0
-.word __CSPVoiceHandler+0x8dc
-glabel var700547a4
-.word __CSPVoiceHandler+0x060
-glabel var700547a8
-.word __CSPVoiceHandler+0x490
-glabel var700547ac
-.word __CSPVoiceHandler+0x8dc
-glabel var700547b0
-.word __CSPVoiceHandler+0x830
-glabel var700547b4
-.word __CSPVoiceHandler+0x870
-glabel var700547b8
-.word __CSPVoiceHandler+0x8b0
-glabel var700547bc
-.word __CSPVoiceHandler+0x5f4
-glabel var700547c0
-.word __CSPVoiceHandler+0x624
-glabel var700547c4
-.word __CSPVoiceHandler+0x6ac
-glabel var700547c8
-.word __CSPVoiceHandler+0x8dc
-glabel var700547cc
-.word __CSPVoiceHandler+0x8dc
-glabel var700547d0
-.word __CSPVoiceHandler+0x8dc
-glabel var700547d4
-.word __CSPVoiceHandler+0x460
-glabel var700547d8
-.word __CSPVoiceHandler+0x174
-glabel var700547dc
-.word __CSPVoiceHandler+0x2b4
-glabel var700547e0
-.word __CSPVoiceHandler+0x500
-glabel var700547e4
-.word __CSPVoiceHandler+0x560
-.text
-/*    344b0:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*    344b4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    344b8:	afa40078 */ 	sw	$a0,0x78($sp)
-/*    344bc:	afb20028 */ 	sw	$s2,0x28($sp)
-/*    344c0:	afb10024 */ 	sw	$s1,0x24($sp)
-/*    344c4:	afb00020 */ 	sw	$s0,0x20($sp)
-/*    344c8:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*    344cc:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*    344d0:	afae0074 */ 	sw	$t6,0x74($sp)
-.L000344d4:
-/*    344d4:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    344d8:	95f80038 */ 	lhu	$t8,0x38($t7)
-/*    344dc:	2f01001a */ 	sltiu	$at,$t8,0x1a
-/*    344e0:	1020022a */ 	beqz	$at,.L00034d8c
-/*    344e4:	00000000 */ 	nop
-/*    344e8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    344ec:	3c017005 */ 	lui	$at,%hi(var70054780)
-/*    344f0:	00380821 */ 	addu	$at,$at,$t8
-/*    344f4:	8c384780 */ 	lw	$t8,%lo(var70054780)($at)
-/*    344f8:	03000008 */ 	jr	$t8
-/*    344fc:	00000000 */ 	nop
-/*    34500:	0c00d37e */ 	jal	__n_CSPHandleNextSeqEvent
-/*    34504:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34508:	10000220 */ 	b	.L00034d8c
-/*    3450c:	00000000 */ 	nop
-/*    34510:	24190009 */ 	addiu	$t9,$zero,0x9
-/*    34514:	a7b90064 */ 	sh	$t9,0x64($sp)
-/*    34518:	8fa80074 */ 	lw	$t0,0x74($sp)
-/*    3451c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*    34520:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    34524:	25040048 */ 	addiu	$a0,$t0,0x48
-/*    34528:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    3452c:	8d06005c */ 	lw	$a2,0x5c($t0)
-/*    34530:	10000216 */ 	b	.L00034d8c
-/*    34534:	00000000 */ 	nop
-/*    34538:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*    3453c:	8d2a003c */ 	lw	$t2,0x3c($t1)
-/*    34540:	afaa0060 */ 	sw	$t2,0x60($sp)
-/*    34544:	0c00f440 */ 	jal	func0003d100
-/*    34548:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    3454c:	0c00f468 */ 	jal	func0003d1a0
-/*    34550:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    34554:	8fab0060 */ 	lw	$t3,0x60($sp)
-/*    34558:	8d6c0010 */ 	lw	$t4,0x10($t3)
-/*    3455c:	afac0058 */ 	sw	$t4,0x58($sp)
-/*    34560:	8fad0058 */ 	lw	$t5,0x58($sp)
-/*    34564:	91ae0037 */ 	lbu	$t6,0x37($t5)
-/*    34568:	11c00004 */ 	beqz	$t6,.L0003457c
-/*    3456c:	00000000 */ 	nop
-/*    34570:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34574:	0c00f8a8 */ 	jal	__n_seqpStopOsc
-/*    34578:	8fa50058 */ 	lw	$a1,0x58($sp)
-.L0003457c:
-/*    3457c:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34580:	0c00f4a0 */ 	jal	func0003d280
-/*    34584:	8fa50060 */ 	lw	$a1,0x60($sp)
-/*    34588:	10000200 */ 	b	.L00034d8c
-/*    3458c:	00000000 */ 	nop
-/*    34590:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34594:	8df8003c */ 	lw	$t8,0x3c($t7)
-/*    34598:	afb80060 */ 	sw	$t8,0x60($sp)
-/*    3459c:	8fb90060 */ 	lw	$t9,0x60($sp)
-/*    345a0:	8f280010 */ 	lw	$t0,0x10($t9)
-/*    345a4:	afa80058 */ 	sw	$t0,0x58($sp)
-/*    345a8:	8fa90058 */ 	lw	$t1,0x58($sp)
-/*    345ac:	912a0034 */ 	lbu	$t2,0x34($t1)
-/*    345b0:	15400004 */ 	bnez	$t2,.L000345c4
-/*    345b4:	00000000 */ 	nop
-/*    345b8:	8fac0058 */ 	lw	$t4,0x58($sp)
-/*    345bc:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    345c0:	a18b0034 */ 	sb	$t3,0x34($t4)
-.L000345c4:
-/*    345c4:	8fad0074 */ 	lw	$t5,0x74($sp)
-/*    345c8:	8dae0040 */ 	lw	$t6,0x40($t5)
-/*    345cc:	afae005c */ 	sw	$t6,0x5c($sp)
-/*    345d0:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    345d4:	8fb9005c */ 	lw	$t9,0x5c($sp)
-/*    345d8:	8fa90058 */ 	lw	$t1,0x58($sp)
-/*    345dc:	8df8001c */ 	lw	$t8,0x1c($t7)
-/*    345e0:	03194021 */ 	addu	$t0,$t8,$t9
-/*    345e4:	ad280024 */ 	sw	$t0,0x24($t1)
-/*    345e8:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    345ec:	8fac0058 */ 	lw	$t4,0x58($sp)
-/*    345f0:	914b0044 */ 	lbu	$t3,0x44($t2)
-/*    345f4:	a18b0030 */ 	sb	$t3,0x30($t4)
-/*    345f8:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    345fc:	0c00f629 */ 	jal	__n_vsVol
-/*    34600:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*    34604:	00028400 */ 	sll	$s0,$v0,0x10
-/*    34608:	00108403 */ 	sra	$s0,$s0,0x10
-/*    3460c:	02002825 */ 	or	$a1,$s0,$zero
-/*    34610:	8fa40060 */ 	lw	$a0,0x60($sp)
-/*    34614:	0c00f33c */ 	jal	n_alSynSetVol
-/*    34618:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*    3461c:	100001db */ 	b	.L00034d8c
-/*    34620:	00000000 */ 	nop
-/*    34624:	8fad0074 */ 	lw	$t5,0x74($sp)
-/*    34628:	8dae003c */ 	lw	$t6,0x3c($t5)
-/*    3462c:	afae0058 */ 	sw	$t6,0x58($sp)
-/*    34630:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34634:	8df80040 */ 	lw	$t8,0x40($t7)
-/*    34638:	afb80054 */ 	sw	$t8,0x54($sp)
-/*    3463c:	8fb90074 */ 	lw	$t9,0x74($sp)
-/*    34640:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*    34644:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*    34648:	8f390074 */ 	lw	$t9,0x74($t9)
-/*    3464c:	0320f809 */ 	jalr	$t9
-/*    34650:	00000000 */ 	nop
-/*    34654:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*    34658:	4448f800 */ 	cfc1	$t0,$31
-/*    3465c:	24090001 */ 	addiu	$t1,$zero,0x1
-/*    34660:	44c9f800 */ 	ctc1	$t1,$31
-/*    34664:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*    34668:	460021a4 */ 	cvt.w.s	$f6,$f4
-/*    3466c:	4449f800 */ 	cfc1	$t1,$31
-/*    34670:	00000000 */ 	nop
-/*    34674:	31210004 */ 	andi	$at,$t1,0x4
-/*    34678:	31290078 */ 	andi	$t1,$t1,0x78
-/*    3467c:	11200014 */ 	beqz	$t1,.L000346d0
-/*    34680:	00000000 */ 	nop
-/*    34684:	3c014f00 */ 	lui	$at,0x4f00
-/*    34688:	44813000 */ 	mtc1	$at,$f6
-/*    3468c:	24090001 */ 	addiu	$t1,$zero,0x1
-/*    34690:	46062181 */ 	sub.s	$f6,$f4,$f6
-/*    34694:	44c9f800 */ 	ctc1	$t1,$31
-/*    34698:	00000000 */ 	nop
-/*    3469c:	460031a4 */ 	cvt.w.s	$f6,$f6
-/*    346a0:	4449f800 */ 	cfc1	$t1,$31
-/*    346a4:	00000000 */ 	nop
-/*    346a8:	31210004 */ 	andi	$at,$t1,0x4
-/*    346ac:	31290078 */ 	andi	$t1,$t1,0x78
-/*    346b0:	15200005 */ 	bnez	$t1,.L000346c8
-/*    346b4:	00000000 */ 	nop
-/*    346b8:	44093000 */ 	mfc1	$t1,$f6
-/*    346bc:	3c018000 */ 	lui	$at,0x8000
-/*    346c0:	10000007 */ 	b	.L000346e0
-/*    346c4:	01214825 */ 	or	$t1,$t1,$at
-.L000346c8:
-/*    346c8:	10000005 */ 	b	.L000346e0
-/*    346cc:	2409ffff */ 	addiu	$t1,$zero,-1
-.L000346d0:
-/*    346d0:	44093000 */ 	mfc1	$t1,$f6
-/*    346d4:	00000000 */ 	nop
-/*    346d8:	0520fffb */ 	bltz	$t1,.L000346c8
-/*    346dc:	00000000 */ 	nop
-.L000346e0:
-/*    346e0:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*    346e4:	44c8f800 */ 	ctc1	$t0,$31
-/*    346e8:	a1490036 */ 	sb	$t1,0x36($t2)
-/*    346ec:	00000000 */ 	nop
-/*    346f0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    346f4:	0c00f629 */ 	jal	__n_vsVol
-/*    346f8:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*    346fc:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*    34700:	00028400 */ 	sll	$s0,$v0,0x10
-/*    34704:	00108403 */ 	sra	$s0,$s0,0x10
-/*    34708:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    3470c:	0c00f6b4 */ 	jal	__n_vsDelta
-/*    34710:	8d65001c */ 	lw	$a1,0x1c($t3)
-/*    34714:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    34718:	00408825 */ 	or	$s1,$v0,$zero
-/*    3471c:	02203025 */ 	or	$a2,$s1,$zero
-/*    34720:	02002825 */ 	or	$a1,$s0,$zero
-/*    34724:	0c00f33c */ 	jal	n_alSynSetVol
-/*    34728:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    3472c:	240c0016 */ 	addiu	$t4,$zero,0x16
-/*    34730:	a7ac0064 */ 	sh	$t4,0x64($sp)
-/*    34734:	8fad0058 */ 	lw	$t5,0x58($sp)
-/*    34738:	afad0068 */ 	sw	$t5,0x68($sp)
-/*    3473c:	8fae0054 */ 	lw	$t6,0x54($sp)
-/*    34740:	afae006c */ 	sw	$t6,0x6c($sp)
-/*    34744:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34748:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*    3474c:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*    34750:	00003825 */ 	or	$a3,$zero,$zero
-/*    34754:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    34758:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    3475c:	1000018b */ 	b	.L00034d8c
-/*    34760:	00000000 */ 	nop
-/*    34764:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34768:	8df8003c */ 	lw	$t8,0x3c($t7)
-/*    3476c:	afb80058 */ 	sw	$t8,0x58($sp)
-/*    34770:	8fb90074 */ 	lw	$t9,0x74($sp)
-/*    34774:	8f280040 */ 	lw	$t0,0x40($t9)
-/*    34778:	afa80054 */ 	sw	$t0,0x54($sp)
-/*    3477c:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*    34780:	912a0044 */ 	lbu	$t2,0x44($t1)
-/*    34784:	a3aa004f */ 	sb	$t2,0x4f($sp)
-/*    34788:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*    3478c:	8fa40054 */ 	lw	$a0,0x54($sp)
-/*    34790:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*    34794:	8d790074 */ 	lw	$t9,0x74($t3)
-/*    34798:	0320f809 */ 	jalr	$t9
-/*    3479c:	00000000 */ 	nop
-/*    347a0:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*    347a4:	c7a80050 */ 	lwc1	$f8,0x50($sp)
-/*    347a8:	8fac0058 */ 	lw	$t4,0x58($sp)
-/*    347ac:	e588002c */ 	swc1	$f8,0x2c($t4)
-/*    347b0:	8fad0058 */ 	lw	$t5,0x58($sp)
-/*    347b4:	93b8004f */ 	lbu	$t8,0x4f($sp)
-/*    347b8:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*    347bc:	c5b00028 */ 	lwc1	$f16,0x28($t5)
-/*    347c0:	c5b2002c */ 	lwc1	$f18,0x2c($t5)
-/*    347c4:	00184080 */ 	sll	$t0,$t8,0x2
-/*    347c8:	01184023 */ 	subu	$t0,$t0,$t8
-/*    347cc:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*    347d0:	8dcf0060 */ 	lw	$t7,0x60($t6)
-/*    347d4:	00084080 */ 	sll	$t0,$t0,0x2
-/*    347d8:	01184021 */ 	addu	$t0,$t0,$t8
-/*    347dc:	00084080 */ 	sll	$t0,$t0,0x2
-/*    347e0:	01e84821 */ 	addu	$t1,$t7,$t0
-/*    347e4:	c52a0014 */ 	lwc1	$f10,0x14($t1)
-/*    347e8:	25a40004 */ 	addiu	$a0,$t5,0x4
-/*    347ec:	46045182 */ 	mul.s	$f6,$f10,$f4
-/*    347f0:	44053000 */ 	mfc1	$a1,$f6
-/*    347f4:	0c00f3e8 */ 	jal	func0003cfa0
-/*    347f8:	00000000 */ 	nop
-/*    347fc:	93b9004f */ 	lbu	$t9,0x4f($sp)
-/*    34800:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    34804:	00196080 */ 	sll	$t4,$t9,0x2
-/*    34808:	01996023 */ 	subu	$t4,$t4,$t9
-/*    3480c:	8d4b0060 */ 	lw	$t3,0x60($t2)
-/*    34810:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    34814:	01996021 */ 	addu	$t4,$t4,$t9
-/*    34818:	000c6080 */ 	sll	$t4,$t4,0x2
-/*    3481c:	016c7021 */ 	addu	$t6,$t3,$t4
-/*    34820:	91d80011 */ 	lbu	$t8,0x11($t6)
-/*    34824:	1300002a */ 	beqz	$t8,.L000348d0
-/*    34828:	00000000 */ 	nop
-/*    3482c:	8fab0058 */ 	lw	$t3,0x58($sp)
-/*    34830:	93a9004f */ 	lbu	$t1,0x4f($sp)
-/*    34834:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34838:	8d6e0020 */ 	lw	$t6,0x20($t3)
-/*    3483c:	00096880 */ 	sll	$t5,$t1,0x2
-/*    34840:	01a96823 */ 	subu	$t5,$t5,$t1
-/*    34844:	8de80060 */ 	lw	$t0,0x60($t7)
-/*    34848:	8dd80004 */ 	lw	$t8,0x4($t6)
-/*    3484c:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    34850:	01a96821 */ 	addu	$t5,$t5,$t1
-/*    34854:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    34858:	916c0032 */ 	lbu	$t4,0x32($t3)
-/*    3485c:	930f0004 */ 	lbu	$t7,0x4($t8)
-/*    34860:	010d5021 */ 	addu	$t2,$t0,$t5
-/*    34864:	91590012 */ 	lbu	$t9,0x12($t2)
-/*    34868:	018f4823 */ 	subu	$t1,$t4,$t7
-/*    3486c:	03292021 */ 	addu	$a0,$t9,$t1
-/*    34870:	0c00ee75 */ 	jal	func0003b9d4
-/*    34874:	2484ffc0 */ 	addiu	$a0,$a0,-64
-/*    34878:	93ab004f */ 	lbu	$t3,0x4f($sp)
-/*    3487c:	3c0143dc */ 	lui	$at,0x43dc
-/*    34880:	44818000 */ 	mtc1	$at,$f16
-/*    34884:	8fad0074 */ 	lw	$t5,0x74($sp)
-/*    34888:	000b7080 */ 	sll	$t6,$t3,0x2
-/*    3488c:	46000506 */ 	mov.s	$f20,$f0
-/*    34890:	01cb7023 */ 	subu	$t6,$t6,$t3
-/*    34894:	46148482 */ 	mul.s	$f18,$f16,$f20
-/*    34898:	8daa0060 */ 	lw	$t2,0x60($t5)
-/*    3489c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    348a0:	01cb7021 */ 	addu	$t6,$t6,$t3
-/*    348a4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    348a8:	014ec021 */ 	addu	$t8,$t2,$t6
-/*    348ac:	c7080014 */ 	lwc1	$f8,0x14($t8)
-/*    348b0:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*    348b4:	46124282 */ 	mul.s	$f10,$f8,$f18
-/*    348b8:	c504002c */ 	lwc1	$f4,0x2c($t0)
-/*    348bc:	25040004 */ 	addiu	$a0,$t0,0x4
-/*    348c0:	46045182 */ 	mul.s	$f6,$f10,$f4
-/*    348c4:	44053000 */ 	mfc1	$a1,$f6
-/*    348c8:	0c00f8f8 */ 	jal	func0003e3e0
-/*    348cc:	00000000 */ 	nop
-.L000348d0:
-/*    348d0:	240c0017 */ 	addiu	$t4,$zero,0x17
-/*    348d4:	a7ac0064 */ 	sh	$t4,0x64($sp)
-/*    348d8:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*    348dc:	afaf0068 */ 	sw	$t7,0x68($sp)
-/*    348e0:	8fb90054 */ 	lw	$t9,0x54($sp)
-/*    348e4:	afb9006c */ 	sw	$t9,0x6c($sp)
-/*    348e8:	93a9004f */ 	lbu	$t1,0x4f($sp)
-/*    348ec:	a3a90070 */ 	sb	$t1,0x70($sp)
-/*    348f0:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    348f4:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*    348f8:	8fa6005c */ 	lw	$a2,0x5c($sp)
-/*    348fc:	00003825 */ 	or	$a3,$zero,$zero
-/*    34900:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    34904:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    34908:	10000120 */ 	b	.L00034d8c
-/*    3490c:	00000000 */ 	nop
-/*    34910:	8fad0074 */ 	lw	$t5,0x74($sp)
-/*    34914:	01a02025 */ 	or	$a0,$t5,$zero
-/*    34918:	0c00d444 */ 	jal	__n_CSPHandleMIDIMsg
-/*    3491c:	25a50038 */ 	addiu	$a1,$t5,0x38
-/*    34920:	1000011a */ 	b	.L00034d8c
-/*    34924:	00000000 */ 	nop
-/*    34928:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*    3492c:	01602025 */ 	or	$a0,$t3,$zero
-/*    34930:	0c00dc88 */ 	jal	__n_CSPHandleMetaMsg
-/*    34934:	25650038 */ 	addiu	$a1,$t3,0x38
-/*    34938:	10000114 */ 	b	.L00034d8c
-/*    3493c:	00000000 */ 	nop
-/*    34940:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    34944:	854e003c */ 	lh	$t6,0x3c($t2)
-/*    34948:	a54e0032 */ 	sh	$t6,0x32($t2)
-/*    3494c:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*    34950:	8f080064 */ 	lw	$t0,0x64($t8)
-/*    34954:	11000014 */ 	beqz	$t0,.L000349a8
-/*    34958:	afa80058 */ 	sw	$t0,0x58($sp)
-.L0003495c:
-/*    3495c:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    34960:	0c00f629 */ 	jal	__n_vsVol
-/*    34964:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*    34968:	8fac0074 */ 	lw	$t4,0x74($sp)
-/*    3496c:	00028400 */ 	sll	$s0,$v0,0x10
-/*    34970:	00108403 */ 	sra	$s0,$s0,0x10
-/*    34974:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    34978:	0c00f6b4 */ 	jal	__n_vsDelta
-/*    3497c:	8d85001c */ 	lw	$a1,0x1c($t4)
-/*    34980:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    34984:	00408825 */ 	or	$s1,$v0,$zero
-/*    34988:	02203025 */ 	or	$a2,$s1,$zero
-/*    3498c:	02002825 */ 	or	$a1,$s0,$zero
-/*    34990:	0c00f33c */ 	jal	n_alSynSetVol
-/*    34994:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    34998:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*    3499c:	8df90000 */ 	lw	$t9,0x0($t7)
-/*    349a0:	1720ffee */ 	bnez	$t9,.L0003495c
-/*    349a4:	afb90058 */ 	sw	$t9,0x58($sp)
-.L000349a8:
-/*    349a8:	100000f8 */ 	b	.L00034d8c
-/*    349ac:	00000000 */ 	nop
-/*    349b0:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*    349b4:	c530003c */ 	lwc1	$f16,0x3c($t1)
-/*    349b8:	e530007c */ 	swc1	$f16,0x7c($t1)
-/*    349bc:	8fad0074 */ 	lw	$t5,0x74($sp)
-/*    349c0:	c5a80040 */ 	lwc1	$f8,0x40($t5)
-/*    349c4:	e5a80080 */ 	swc1	$f8,0x80($t5)
-/*    349c8:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*    349cc:	8d6e0064 */ 	lw	$t6,0x64($t3)
-/*    349d0:	11c0000d */ 	beqz	$t6,.L00034a08
-/*    349d4:	afae0058 */ 	sw	$t6,0x58($sp)
-.L000349d8:
-/*    349d8:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    349dc:	0c00f673 */ 	jal	func0003d9cc
-/*    349e0:	8fa50074 */ 	lw	$a1,0x74($sp)
-/*    349e4:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    349e8:	305200ff */ 	andi	$s2,$v0,0xff
-/*    349ec:	02402825 */ 	or	$a1,$s2,$zero
-/*    349f0:	0c00f414 */ 	jal	func0003d050
-/*    349f4:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    349f8:	8faa0058 */ 	lw	$t2,0x58($sp)
-/*    349fc:	8d580000 */ 	lw	$t8,0x0($t2)
-/*    34a00:	1700fff5 */ 	bnez	$t8,.L000349d8
-/*    34a04:	afb80058 */ 	sw	$t8,0x58($sp)
-.L00034a08:
-/*    34a08:	100000e0 */ 	b	.L00034d8c
-/*    34a0c:	00000000 */ 	nop
-/*    34a10:	8fa80074 */ 	lw	$t0,0x74($sp)
-/*    34a14:	910c003d */ 	lbu	$t4,0x3d($t0)
-/*    34a18:	29810008 */ 	slti	$at,$t4,0x8
-/*    34a1c:	10200013 */ 	beqz	$at,.L00034a6c
-/*    34a20:	00000000 */ 	nop
-/*    34a24:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34a28:	0c00f950 */ 	jal	func0003e540
-/*    34a2c:	91e4003c */ 	lbu	$a0,0x3c($t7)
-/*    34a30:	afa20048 */ 	sw	$v0,0x48($sp)
-/*    34a34:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*    34a38:	1320000a */ 	beqz	$t9,.L00034a64
-/*    34a3c:	00000000 */ 	nop
-/*    34a40:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*    34a44:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*    34a48:	912d003e */ 	lbu	$t5,0x3e($t1)
-/*    34a4c:	912e003d */ 	lbu	$t6,0x3d($t1)
-/*    34a50:	25260040 */ 	addiu	$a2,$t1,0x40
-/*    34a54:	000d58c0 */ 	sll	$t3,$t5,0x3
-/*    34a58:	31ca0007 */ 	andi	$t2,$t6,0x7
-/*    34a5c:	0c00f98c */ 	jal	n_alSynSetFXParam
-/*    34a60:	016a2825 */ 	or	$a1,$t3,$t2
-.L00034a64:
-/*    34a64:	1000000d */ 	b	.L00034a9c
-/*    34a68:	00000000 */ 	nop
-.L00034a6c:
-/*    34a6c:	8fb80074 */ 	lw	$t8,0x74($sp)
-/*    34a70:	0c00f96e */ 	jal	func0003e5b8
-/*    34a74:	9304003c */ 	lbu	$a0,0x3c($t8)
-/*    34a78:	afa20044 */ 	sw	$v0,0x44($sp)
-/*    34a7c:	8fa80044 */ 	lw	$t0,0x44($sp)
-/*    34a80:	11000006 */ 	beqz	$t0,.L00034a9c
-/*    34a84:	00000000 */ 	nop
-/*    34a88:	8fac0074 */ 	lw	$t4,0x74($sp)
-/*    34a8c:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*    34a90:	9185003d */ 	lbu	$a1,0x3d($t4)
-/*    34a94:	0c00f99d */ 	jal	func0003e674
-/*    34a98:	25860040 */ 	addiu	$a2,$t4,0x40
-.L00034a9c:
-/*    34a9c:	100000bb */ 	b	.L00034d8c
-/*    34aa0:	00000000 */ 	nop
-/*    34aa4:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34aa8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    34aac:	8df9002c */ 	lw	$t9,0x2c($t7)
-/*    34ab0:	13210006 */ 	beq	$t9,$at,.L00034acc
-/*    34ab4:	00000000 */ 	nop
-/*    34ab8:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*    34abc:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*    34ac0:	adcd002c */ 	sw	$t5,0x2c($t6)
-/*    34ac4:	0c00dd67 */ 	jal	__n_CSPPostNextSeqEvent
-/*    34ac8:	8fa40074 */ 	lw	$a0,0x74($sp)
-.L00034acc:
-/*    34acc:	100000af */ 	b	.L00034d8c
-/*    34ad0:	00000000 */ 	nop
-/*    34ad4:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*    34ad8:	24010002 */ 	addiu	$at,$zero,0x2
-/*    34adc:	8d6a002c */ 	lw	$t2,0x2c($t3)
-/*    34ae0:	1541001c */ 	bne	$t2,$at,.L00034b54
-/*    34ae4:	00000000 */ 	nop
-/*    34ae8:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*    34aec:	8d380064 */ 	lw	$t8,0x64($t1)
-/*    34af0:	13000016 */ 	beqz	$t8,.L00034b4c
-/*    34af4:	afb80058 */ 	sw	$t8,0x58($sp)
-.L00034af8:
-/*    34af8:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    34afc:	0c00f440 */ 	jal	func0003d100
-/*    34b00:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    34b04:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*    34b08:	0c00f468 */ 	jal	func0003d1a0
-/*    34b0c:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    34b10:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*    34b14:	910c0037 */ 	lbu	$t4,0x37($t0)
-/*    34b18:	11800004 */ 	beqz	$t4,.L00034b2c
-/*    34b1c:	00000000 */ 	nop
-/*    34b20:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34b24:	0c00f8a8 */ 	jal	__n_seqpStopOsc
-/*    34b28:	8fa50058 */ 	lw	$a1,0x58($sp)
-.L00034b2c:
-/*    34b2c:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    34b30:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34b34:	0c00f4a0 */ 	jal	func0003d280
-/*    34b38:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*    34b3c:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34b40:	8df90064 */ 	lw	$t9,0x64($t7)
-/*    34b44:	1720ffec */ 	bnez	$t9,.L00034af8
-/*    34b48:	afb90058 */ 	sw	$t9,0x58($sp)
-.L00034b4c:
-/*    34b4c:	8fad0074 */ 	lw	$t5,0x74($sp)
-/*    34b50:	ada0002c */ 	sw	$zero,0x2c($t5)
-.L00034b54:
-/*    34b54:	1000008d */ 	b	.L00034d8c
-/*    34b58:	00000000 */ 	nop
-/*    34b5c:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*    34b60:	24010001 */ 	addiu	$at,$zero,0x1
-/*    34b64:	8dcb002c */ 	lw	$t3,0x2c($t6)
-/*    34b68:	1561005b */ 	bne	$t3,$at,.L00034cd8
-/*    34b6c:	00000000 */ 	nop
-/*    34b70:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34b74:	00002825 */ 	or	$a1,$zero,$zero
-/*    34b78:	0c00f1f0 */ 	jal	n_alEvtqFlushType
-/*    34b7c:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    34b80:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34b84:	24050015 */ 	addiu	$a1,$zero,0x15
-/*    34b88:	0c00f1f0 */ 	jal	n_alEvtqFlushType
-/*    34b8c:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    34b90:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34b94:	24050002 */ 	addiu	$a1,$zero,0x2
-/*    34b98:	0c00f1f0 */ 	jal	n_alEvtqFlushType
-/*    34b9c:	24840048 */ 	addiu	$a0,$a0,0x48
-/*    34ba0:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    34ba4:	8d490064 */ 	lw	$t1,0x64($t2)
-/*    34ba8:	11200011 */ 	beqz	$t1,.L00034bf0
-/*    34bac:	afa90058 */ 	sw	$t1,0x58($sp)
-.L00034bb0:
-/*    34bb0:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    34bb4:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34bb8:	3406c350 */ 	dli	$a2,0xc350
-/*    34bbc:	0c00f52e */ 	jal	__n_voiceNeedsNoteKill
-/*    34bc0:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*    34bc4:	10400006 */ 	beqz	$v0,.L00034be0
-/*    34bc8:	00000000 */ 	nop
-/*    34bcc:	8fa50058 */ 	lw	$a1,0x58($sp)
-/*    34bd0:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34bd4:	3406c350 */ 	dli	$a2,0xc350
-/*    34bd8:	0c00f4d0 */ 	jal	__seqpReleaseVoice
-/*    34bdc:	24a50004 */ 	addiu	$a1,$a1,0x4
-.L00034be0:
-/*    34be0:	8fb80058 */ 	lw	$t8,0x58($sp)
-/*    34be4:	8f080000 */ 	lw	$t0,0x0($t8)
-/*    34be8:	1500fff1 */ 	bnez	$t0,.L00034bb0
-/*    34bec:	afa80058 */ 	sw	$t0,0x58($sp)
-.L00034bf0:
-/*    34bf0:	a3a0004f */ 	sb	$zero,0x4f($sp)
-.L00034bf4:
-/*    34bf4:	93b9004f */ 	lbu	$t9,0x4f($sp)
-/*    34bf8:	8fac0074 */ 	lw	$t4,0x74($sp)
-/*    34bfc:	00196880 */ 	sll	$t5,$t9,0x2
-/*    34c00:	01b96823 */ 	subu	$t5,$t5,$t9
-/*    34c04:	8d8f0060 */ 	lw	$t7,0x60($t4)
-/*    34c08:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    34c0c:	01b96821 */ 	addu	$t5,$t5,$t9
-/*    34c10:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    34c14:	01ed7021 */ 	addu	$t6,$t7,$t5
-/*    34c18:	91cb000e */ 	lbu	$t3,0xe($t6)
-/*    34c1c:	a1cb000d */ 	sb	$t3,0xd($t6)
-/*    34c20:	93b8004f */ 	lbu	$t8,0x4f($sp)
-/*    34c24:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    34c28:	00184080 */ 	sll	$t0,$t8,0x2
-/*    34c2c:	01184023 */ 	subu	$t0,$t0,$t8
-/*    34c30:	8d490060 */ 	lw	$t1,0x60($t2)
-/*    34c34:	00084080 */ 	sll	$t0,$t0,0x2
-/*    34c38:	01184021 */ 	addu	$t0,$t0,$t8
-/*    34c3c:	00084080 */ 	sll	$t0,$t0,0x2
-/*    34c40:	01286021 */ 	addu	$t4,$t1,$t0
-/*    34c44:	9199000d */ 	lbu	$t9,0xd($t4)
-/*    34c48:	1720000a */ 	bnez	$t9,.L00034c74
-/*    34c4c:	00000000 */ 	nop
-/*    34c50:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34c54:	93ab004f */ 	lbu	$t3,0x4f($sp)
-/*    34c58:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    34c5c:	95ed0030 */ 	lhu	$t5,0x30($t7)
-/*    34c60:	016e5004 */ 	sllv	$t2,$t6,$t3
-/*    34c64:	3958ffff */ 	xori	$t8,$t2,0xffff
-/*    34c68:	01b84824 */ 	and	$t1,$t5,$t8
-/*    34c6c:	10000008 */ 	b	.L00034c90
-/*    34c70:	a5e90030 */ 	sh	$t1,0x30($t7)
-.L00034c74:
-/*    34c74:	8fa80074 */ 	lw	$t0,0x74($sp)
-/*    34c78:	93b9004f */ 	lbu	$t9,0x4f($sp)
-/*    34c7c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    34c80:	950c0030 */ 	lhu	$t4,0x30($t0)
-/*    34c84:	032e5804 */ 	sllv	$t3,$t6,$t9
-/*    34c88:	018b5025 */ 	or	$t2,$t4,$t3
-/*    34c8c:	a50a0030 */ 	sh	$t2,0x30($t0)
-.L00034c90:
-/*    34c90:	93ad004f */ 	lbu	$t5,0x4f($sp)
-/*    34c94:	25b80001 */ 	addiu	$t8,$t5,0x1
-/*    34c98:	330900ff */ 	andi	$t1,$t8,0xff
-/*    34c9c:	29210010 */ 	slti	$at,$t1,0x10
-/*    34ca0:	1420ffd4 */ 	bnez	$at,.L00034bf4
-/*    34ca4:	a3b8004f */ 	sb	$t8,0x4f($sp)
-/*    34ca8:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*    34cac:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*    34cb0:	adcf002c */ 	sw	$t7,0x2c($t6)
-/*    34cb4:	24190010 */ 	addiu	$t9,$zero,0x10
-/*    34cb8:	a7b90064 */ 	sh	$t9,0x64($sp)
-/*    34cbc:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*    34cc0:	3c067fff */ 	lui	$a2,0x7fff
-/*    34cc4:	34c6ffff */ 	ori	$a2,$a2,0xffff
-/*    34cc8:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*    34ccc:	00003825 */ 	or	$a3,$zero,$zero
-/*    34cd0:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    34cd4:	24840048 */ 	addiu	$a0,$a0,0x48
-.L00034cd8:
-/*    34cd8:	1000002c */ 	b	.L00034d8c
-/*    34cdc:	00000000 */ 	nop
-/*    34ce0:	8fac0074 */ 	lw	$t4,0x74($sp)
-/*    34ce4:	918b003c */ 	lbu	$t3,0x3c($t4)
-/*    34ce8:	a3ab004f */ 	sb	$t3,0x4f($sp)
-/*    34cec:	93b8004f */ 	lbu	$t8,0x4f($sp)
-/*    34cf0:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    34cf4:	00184880 */ 	sll	$t1,$t8,0x2
-/*    34cf8:	01384823 */ 	subu	$t1,$t1,$t8
-/*    34cfc:	8d4d0060 */ 	lw	$t5,0x60($t2)
-/*    34d00:	00094880 */ 	sll	$t1,$t1,0x2
-/*    34d04:	9148003d */ 	lbu	$t0,0x3d($t2)
-/*    34d08:	01384821 */ 	addu	$t1,$t1,$t8
-/*    34d0c:	00094880 */ 	sll	$t1,$t1,0x2
-/*    34d10:	01a97821 */ 	addu	$t7,$t5,$t1
-/*    34d14:	a1e80008 */ 	sb	$t0,0x8($t7)
-/*    34d18:	1000001c */ 	b	.L00034d8c
-/*    34d1c:	00000000 */ 	nop
-/*    34d20:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*    34d24:	8dd9003c */ 	lw	$t9,0x3c($t6)
-/*    34d28:	add90018 */ 	sw	$t9,0x18($t6)
-/*    34d2c:	8fab0074 */ 	lw	$t3,0x74($sp)
-/*    34d30:	340cffff */ 	dli	$t4,0xffff
-/*    34d34:	a56c0030 */ 	sh	$t4,0x30($t3)
-/*    34d38:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    34d3c:	8d580020 */ 	lw	$t8,0x20($t2)
-/*    34d40:	13000005 */ 	beqz	$t8,.L00034d58
-/*    34d44:	00000000 */ 	nop
-/*    34d48:	8fad0074 */ 	lw	$t5,0x74($sp)
-/*    34d4c:	01a02025 */ 	or	$a0,$t5,$zero
-/*    34d50:	0c00f6e8 */ 	jal	__n_initFromBank
-/*    34d54:	8da50020 */ 	lw	$a1,0x20($t5)
-.L00034d58:
-/*    34d58:	1000000c */ 	b	.L00034d8c
-/*    34d5c:	00000000 */ 	nop
-/*    34d60:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*    34d64:	8d28003c */ 	lw	$t0,0x3c($t1)
-/*    34d68:	ad280020 */ 	sw	$t0,0x20($t1)
-/*    34d6c:	8faf0074 */ 	lw	$t7,0x74($sp)
-/*    34d70:	01e02025 */ 	or	$a0,$t7,$zero
-/*    34d74:	0c00f6e8 */ 	jal	__n_initFromBank
-/*    34d78:	8de50020 */ 	lw	$a1,0x20($t7)
-/*    34d7c:	10000003 */ 	b	.L00034d8c
-/*    34d80:	00000000 */ 	nop
-/*    34d84:	10000001 */ 	b	.L00034d8c
-/*    34d88:	00000000 */ 	nop
-.L00034d8c:
-/*    34d8c:	8fb90074 */ 	lw	$t9,0x74($sp)
-/*    34d90:	27240048 */ 	addiu	$a0,$t9,0x48
-/*    34d94:	0c00f15b */ 	jal	n_alEvtqNextEvent
-/*    34d98:	27250038 */ 	addiu	$a1,$t9,0x38
-/*    34d9c:	8fae0074 */ 	lw	$t6,0x74($sp)
-/*    34da0:	adc20028 */ 	sw	$v0,0x28($t6)
-/*    34da4:	8fac0074 */ 	lw	$t4,0x74($sp)
-/*    34da8:	8d8b0028 */ 	lw	$t3,0x28($t4)
-/*    34dac:	1160fdc9 */ 	beqz	$t3,.L000344d4
-/*    34db0:	00000000 */ 	nop
-/*    34db4:	8faa0074 */ 	lw	$t2,0x74($sp)
-/*    34db8:	8d58001c */ 	lw	$t8,0x1c($t2)
-/*    34dbc:	8d4d0028 */ 	lw	$t5,0x28($t2)
-/*    34dc0:	030d4021 */ 	addu	$t0,$t8,$t5
-/*    34dc4:	ad48001c */ 	sw	$t0,0x1c($t2)
-/*    34dc8:	8fa90074 */ 	lw	$t1,0x74($sp)
-/*    34dcc:	10000003 */ 	b	.L00034ddc
-/*    34dd0:	8d220028 */ 	lw	$v0,0x28($t1)
-/*    34dd4:	10000001 */ 	b	.L00034ddc
-/*    34dd8:	00000000 */ 	nop
-.L00034ddc:
-/*    34ddc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*    34de0:	d7b40018 */ 	ldc1	$f20,0x18($sp)
-/*    34de4:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*    34de8:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*    34dec:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*    34df0:	03e00008 */ 	jr	$ra
-/*    34df4:	27bd0078 */ 	addiu	$sp,$sp,0x78
-);
+void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp);
+
+void func0003e3e0(N_ALVoice *v, f32 arg1);
+u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp);
+void func0003d050(N_ALVoice *v, u8 arg1);
+ALFxRef func0003e540(u8 arg0);
+ALFxRef func0003e5b8(u8 arg0);
+void func0003e674(ALFxRef fx, u8 arg1, void *param);
+f32 func0003b9d4(s32 arg0);
+
+ALMicroTime __n_CSPVoiceHandler(void *node)
+{
+	N_ALCSPlayer    *seqp = (N_ALCSPlayer *) node;
+	N_ALEvent        evt;
+	N_ALVoice       *voice;
+	ALMicroTime      delta;
+	N_ALVoiceState  *vs;
+	void            *oscState;
+	f32              oscValue;
+	u8               chan;
+
+	do {
+		switch (seqp->nextEvent.type) {
+		case (AL_SEQ_REF_EVT):
+			__n_CSPHandleNextSeqEvent(seqp);
+			break;
+
+		case (AL_SEQP_API_EVT):
+			evt.type = AL_SEQP_API_EVT;
+			n_alEvtqPostEvent(&seqp->evtq, (N_ALEvent *)&evt, seqp->frameTime, 1);
+			break;
+
+		case (AL_NOTE_END_EVT):
+			voice = seqp->nextEvent.msg.note.voice;
+
+			n_alSynStopVoice(voice);
+			n_alSynFreeVoice(voice);
+			vs = (N_ALVoiceState *)voice->clientPrivate;
+
+			if (vs->flags) {
+				__n_seqpStopOsc((N_ALSeqPlayer*)seqp,vs);
+			}
+
+			__n_unmapVoice((N_ALSeqPlayer*)seqp, voice);
+			break;
+
+		case (AL_SEQP_ENV_EVT):
+			voice = seqp->nextEvent.msg.vol.voice;
+			vs = (N_ALVoiceState *)voice->clientPrivate;
+
+			if (vs->envPhase == AL_PHASE_ATTACK) {
+				vs->envPhase = AL_PHASE_DECAY;
+			}
+
+			delta = seqp->nextEvent.msg.vol.delta;
+			vs->envEndTime = seqp->curTime + delta;
+			vs->envGain = seqp->nextEvent.msg.vol.vol;
+			n_alSynSetVol(voice, __n_vsVol(vs, (N_ALSeqPlayer*)seqp), delta);
+			break;
+
+		case (AL_TREM_OSC_EVT):
+			vs = seqp->nextEvent.msg.osc.vs;
+			oscState = seqp->nextEvent.msg.osc.oscState;
+			delta = (*seqp->updateOsc)(oscState,&oscValue);
+			vs->tremelo = (u8)oscValue;
+			n_alSynSetVol(&vs->voice, __n_vsVol(vs,(N_ALSeqPlayer*)seqp), __n_vsDelta(vs,seqp->curTime));
+			evt.type = AL_TREM_OSC_EVT;
+			evt.msg.osc.vs = vs;
+			evt.msg.osc.oscState = oscState;
+			n_alEvtqPostEvent(&seqp->evtq, &evt, delta, 0);
+			break;
+
+		case (AL_VIB_OSC_EVT):
+			vs = seqp->nextEvent.msg.osc.vs;
+			oscState = seqp->nextEvent.msg.osc.oscState;
+			chan = seqp->nextEvent.msg.osc.chan;
+			delta = (*seqp->updateOsc)(oscState,&oscValue);
+			vs->vibrato = oscValue;
+			n_alSynSetPitch( &vs->voice, vs->pitch * vs->vibrato * seqp->chanState[chan].pitchBend);
+
+			if (seqp->chanState[chan].unk11) {
+				func0003e3e0(&vs->voice,
+						440
+						* func0003b9d4(seqp->chanState[chan].unk12 + (vs->key - vs->sound->keyMap->keyBase) - 64)
+						* seqp->chanState[chan].pitchBend
+						* vs->vibrato);
+			}
+
+			evt.type = AL_VIB_OSC_EVT;
+			evt.msg.osc.vs = vs;
+			evt.msg.osc.oscState = oscState;
+			evt.msg.osc.chan = chan;
+			n_alEvtqPostEvent(&seqp->evtq, &evt, delta, 0);
+			break;
+
+		case (AL_SEQP_MIDI_EVT):
+		case (AL_CSP_NOTEOFF_EVT):	/* nextEvent is a note off midi message */
+			__n_CSPHandleMIDIMsg(seqp, &seqp->nextEvent);
+			break;
+
+		case (AL_SEQP_META_EVT):
+			__n_CSPHandleMetaMsg(seqp, &seqp->nextEvent);
+			break;
+
+		case (AL_SEQP_VOL_EVT):
+			seqp->vol =  seqp->nextEvent.msg.spvol.vol;
+
+			for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
+				n_alSynSetVol(&vs->voice,
+						__n_vsVol(vs, (N_ALSeqPlayer*)seqp),
+						__n_vsDelta(vs, seqp->curTime));
+			}
+			break;
+
+		case (AL_18_EVT):
+			seqp->unk7c = seqp->nextEvent.msg.evt18.unk00;
+			seqp->unk80 = seqp->nextEvent.msg.evt18.unk04;
+
+			for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
+				func0003d050(&vs->voice, func0003d9cc(vs, seqp));
+			}
+			break;
+
+		case (AL_19_EVT):
+			if (seqp->nextEvent.msg.evt19.unk01 < 8) {
+				ALFxRef fx = func0003e540(seqp->nextEvent.msg.evt19.unk00);
+
+				if (fx) {
+					n_alSynSetFXParam(fx, seqp->nextEvent.msg.evt19.unk02 << 3 |
+							seqp->nextEvent.msg.evt19.unk01 & 7, &seqp->nextEvent.msg.evt19.param);
+				}
+			} else {
+				ALFxRef fx = func0003e5b8(seqp->nextEvent.msg.evt19.unk00);
+
+				if (fx) {
+					func0003e674(fx, seqp->nextEvent.msg.evt19.unk01, &seqp->nextEvent.msg.evt19.param);
+				}
+			}
+			break;
+
+		case (AL_SEQP_PLAY_EVT):
+			if (seqp->state != AL_PLAYING) {
+				seqp->state = AL_PLAYING;
+				__n_CSPPostNextSeqEvent(seqp);
+				/* seqp must be AL_PLAYING before we call this routine. */
+			}
+			break;
+
+		case (AL_SEQP_STOP_EVT):
+			if (seqp->state == AL_STOPPING ) {
+				for (vs = seqp->vAllocHead; vs != 0; vs = seqp->vAllocHead) {
+					n_alSynStopVoice(&vs->voice);
+					n_alSynFreeVoice(&vs->voice);
+
+					if (vs->flags) {
+						__n_seqpStopOsc((N_ALSeqPlayer*)seqp,vs);
+					}
+
+					__n_unmapVoice((N_ALSeqPlayer*)seqp, &vs->voice);
+				}
+
+				seqp->state = AL_STOPPED;
+
+				/* alEvtqFlush(&seqp->evtq); - Don't flush event queue
+				   anymore. */
+				/* sct 1/3/96 - Don't overwrite nextEvent with
+				   AL_SEQP_API_EVT or set nextDelta to
+				   AL_USEC_PER_FRAME since we're not stopping event
+				   processing. */
+				/* sct 1/3/96 - Don't return here since we keep
+				   processing events as usual. */
+			}
+			break;
+
+		case (AL_SEQP_STOPPING_EVT):
+			if (seqp->state == AL_PLAYING) {
+				/* sct 12/29/95 - Remove events associated with the
+				 * stopping sequence.  For compact sequence player,
+				 * also remove all queued note off events since they
+				 * are not contained in a compact sequence but are
+				 * generated in response to note ons.  Note that
+				 * flushing AL_SEQP_MIDI_EVTs may flush events that
+				 * were posted after the call to alSeqpStop, so the
+				 * application must queue these events either when
+				 * the player is fully stopped, or when it is
+				 * playing. */
+				n_alEvtqFlushType(&seqp->evtq, AL_SEQ_REF_EVT);
+				n_alEvtqFlushType(&seqp->evtq, AL_CSP_NOTEOFF_EVT);
+				n_alEvtqFlushType(&seqp->evtq, AL_SEQP_MIDI_EVT);
+
+				/* sct 1/3/96 - Check to see which voices need to be
+				   killed and release them. */
+				/* Unkilled voices should have note end events
+				   occurring prior to KILL_TIME. */
+				for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
+					if (__n_voiceNeedsNoteKill ((N_ALSeqPlayer*)seqp, &vs->voice, KILL_TIME)) {
+						__n_seqpReleaseVoice((N_ALSeqPlayer*)seqp, &vs->voice, KILL_TIME);
+					}
+				}
+
+				for (chan = 0; chan < 16; chan++) {
+					seqp->chanState[chan].unk0d = seqp->chanState[chan].unk0e;
+
+					if (seqp->chanState[chan].unk0d == 0) {
+						seqp->chanMask &= (1 << chan) ^ 0xffff;
+					} else {
+						seqp->chanMask |= 1 << chan;
+					}
+				}
+
+				seqp->state = AL_STOPPING;
+				evt.type = AL_SEQP_STOP_EVT;
+				n_alEvtqPostEvent(&seqp->evtq, &evt, AL_EVTQ_END, 0);
+			}
+			break;
+
+		case (AL_SEQP_PRIORITY_EVT):
+			chan = seqp->nextEvent.msg.sppriority.chan;
+			seqp->chanState[chan].priority = seqp->nextEvent.msg.sppriority.priority;
+			break;
+
+		case (AL_SEQP_SEQ_EVT):
+			/* Must be done playing to change sequences. */
+
+			seqp->target = seqp->nextEvent.msg.spseq.seq;
+			seqp->chanMask = 0xffff;
+
+			if (seqp->bank) {
+				__n_initFromBank((N_ALSeqPlayer *)seqp, seqp->bank);
+			}
+			break;
+
+		case (AL_SEQP_BANK_EVT):
+			/* Must be fully stopped to change banks. */
+
+			seqp->bank = seqp->nextEvent.msg.spbank.bank;
+			__n_initFromBank((N_ALSeqPlayer *)seqp, seqp->bank);
+			break;
+
+			/* sct 11/6/95 - these events should
+			   now be handled by __n_CSPHandleNextSeqEvent */
+
+		case (AL_SEQ_END_EVT):
+		case (AL_TEMPO_EVT):
+		case (AL_SEQ_MIDI_EVT):
+			break;
+		}
+
+		seqp->nextDelta = n_alEvtqNextEvent(&seqp->evtq, &seqp->nextEvent);
+	} while (seqp->nextDelta == 0);
+
+	/*
+	 * assume that next callback won't be more than half an
+	 * hour away
+	 */
+	seqp->curTime += seqp->nextDelta;		/* sct 11/7/95 */
+	return seqp->nextDelta;
+}
 
 /**
  * Calculates the delta time in ticks until the next sequence
@@ -2118,7 +1696,7 @@ glabel var70054a74
 /*    35ad8:	8fab0094 */ 	lw	$t3,0x94($sp)
 /*    35adc:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    35ae0:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*    35ae4:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    35ae4:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    35ae8:	8d660020 */ 	lw	$a2,0x20($t3)
 /*    35aec:	10000008 */ 	b	.L00035b10
 /*    35af0:	00000000 */ 	nop
@@ -2128,7 +1706,7 @@ glabel var70054a74
 /*    35afc:	8db80020 */ 	lw	$t8,0x20($t5)
 /*    35b00:	25a50004 */ 	addiu	$a1,$t5,0x4
 /*    35b04:	8f080000 */ 	lw	$t0,0x0($t8)
-/*    35b08:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    35b08:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    35b0c:	8d060008 */ 	lw	$a2,0x8($t0)
 .L00035b10:
 /*    35b10:	8fac0094 */ 	lw	$t4,0x94($sp)
@@ -2835,7 +2413,7 @@ glabel var70054a74
 /*    36554:	8fa500c8 */ 	lw	$a1,0xc8($sp)
 /*    36558:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    3655c:	02003025 */ 	or	$a2,$s0,$zero
-/*    36560:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    36560:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    36564:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*    36568:	10000013 */ 	b	.L000365b8
 /*    3656c:	00000000 */ 	nop
@@ -2858,7 +2436,7 @@ glabel var70054a74
 /*    365a4:	8fa500c8 */ 	lw	$a1,0xc8($sp)
 /*    365a8:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    365ac:	02003025 */ 	or	$a2,$s0,$zero
-/*    365b0:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    365b0:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    365b4:	24a50004 */ 	addiu	$a1,$a1,0x4
 .L000365b8:
 /*    365b8:	8fab00c8 */ 	lw	$t3,0xc8($sp)
@@ -3610,7 +3188,7 @@ glabel var70054a74
 /*    37118:	00000000 */ 	nop
 /*    3711c:	46062202 */ 	mul.s	$f8,$f4,$f6
 /*    37120:	44054000 */ 	mfc1	$a1,$f8
-/*    37124:	0c00f3e8 */ 	jal	func0003cfa0
+/*    37124:	0c00f3e8 */ 	jal	n_alSynSetPitch
 /*    37128:	00000000 */ 	nop
 /*    3712c:	93ab00c3 */ 	lbu	$t3,0xc3($sp)
 /*    37130:	8fad00d0 */ 	lw	$t5,0xd0($sp)
@@ -4636,7 +4214,7 @@ glabel var70054a74
 /*    35ad8:	8fab0094 */ 	lw	$t3,0x94($sp)
 /*    35adc:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    35ae0:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*    35ae4:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    35ae4:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    35ae8:	8d660020 */ 	lw	$a2,0x20($t3)
 /*    35aec:	10000008 */ 	b	.L00035b10
 /*    35af0:	00000000 */ 	nop
@@ -4646,7 +4224,7 @@ glabel var70054a74
 /*    35afc:	8db80020 */ 	lw	$t8,0x20($t5)
 /*    35b00:	25a50004 */ 	addiu	$a1,$t5,0x4
 /*    35b04:	8f080000 */ 	lw	$t0,0x0($t8)
-/*    35b08:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    35b08:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    35b0c:	8d060008 */ 	lw	$a2,0x8($t0)
 .L00035b10:
 /*    35b10:	8fac0094 */ 	lw	$t4,0x94($sp)
@@ -5353,7 +4931,7 @@ glabel var70054a74
 /*    36554:	8fa500c8 */ 	lw	$a1,0xc8($sp)
 /*    36558:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    3655c:	02003025 */ 	or	$a2,$s0,$zero
-/*    36560:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    36560:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    36564:	24a50004 */ 	addiu	$a1,$a1,0x4
 /*    36568:	10000013 */ 	b	.L000365b8
 /*    3656c:	00000000 */ 	nop
@@ -5376,7 +4954,7 @@ glabel var70054a74
 /*    365a4:	8fa500c8 */ 	lw	$a1,0xc8($sp)
 /*    365a8:	8fa400d0 */ 	lw	$a0,0xd0($sp)
 /*    365ac:	02003025 */ 	or	$a2,$s0,$zero
-/*    365b0:	0c00f4d0 */ 	jal	__seqpReleaseVoice
+/*    365b0:	0c00f4d0 */ 	jal	__n_seqpReleaseVoice
 /*    365b4:	24a50004 */ 	addiu	$a1,$a1,0x4
 .L000365b8:
 /*    365b8:	8fab00c8 */ 	lw	$t3,0xc8($sp)
@@ -6128,7 +5706,7 @@ glabel var70054a74
 /*    37118:	00000000 */ 	nop
 /*    3711c:	46062202 */ 	mul.s	$f8,$f4,$f6
 /*    37120:	44054000 */ 	mfc1	$a1,$f8
-/*    37124:	0c00f3e8 */ 	jal	func0003cfa0
+/*    37124:	0c00f3e8 */ 	jal	n_alSynSetPitch
 /*    37128:	00000000 */ 	nop
 /*    3712c:	93ab00c3 */ 	lbu	$t3,0xc3($sp)
 /*    37130:	8fad00d0 */ 	lw	$t5,0xd0($sp)

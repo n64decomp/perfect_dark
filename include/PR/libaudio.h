@@ -437,7 +437,9 @@ enum ALMsg {
     AL_CSP_LOOPEND,
     AL_CSP_NOTEOFF_EVT,
     AL_TREM_OSC_EVT,
-    AL_VIB_OSC_EVT
+    AL_VIB_OSC_EVT,
+    AL_18_EVT,
+    AL_19_EVT
 };
 
 /*

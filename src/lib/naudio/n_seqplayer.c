@@ -6,7 +6,7 @@
 #include "seq.h"
 
 GLOBAL_ASM(
-glabel func0003d280
+glabel __n_unmapVoice
 /*    3d280:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    3d284:	afa00004 */ 	sw	$zero,0x4($sp)
 /*    3d288:	8c8e0064 */ 	lw	$t6,0x64($a0)
@@ -64,7 +64,7 @@ glabel func0003d280
 /*    3d33c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-void __seqpReleaseVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice, ALMicroTime deltaTime)
+void __n_seqpReleaseVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice, ALMicroTime deltaTime)
 {
 	N_ALEvent evt;
 	N_ALVoiceState *vs = (N_ALVoiceState *)voice->clientPrivate;

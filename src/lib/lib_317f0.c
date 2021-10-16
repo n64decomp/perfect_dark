@@ -1511,7 +1511,7 @@ glabel var7005477c
 /*    32804:	2544000c */ 	addiu	$a0,$t2,0xc
 /*    32808:	46128102 */ 	mul.s	$f4,$f16,$f18
 /*    3280c:	44052000 */ 	mfc1	$a1,$f4
-/*    32810:	0c00f3e8 */ 	jal	func0003cfa0
+/*    32810:	0c00f3e8 */ 	jal	n_alSynSetPitch
 /*    32814:	00000000 */ 	nop
 /*    32818:	8fa80060 */ 	lw	$t0,0x60($sp)
 /*    3281c:	910f0044 */ 	lbu	$t7,0x44($t0)
@@ -2927,7 +2927,7 @@ glabel var7005477c
 /*    33de4:	25e4000c */ 	addiu	$a0,$t7,0xc
 /*    33de8:	46105482 */ 	mul.s	$f18,$f10,$f16
 /*    33dec:	44059000 */ 	mfc1	$a1,$f18
-/*    33df0:	0c00f8dc */ 	jal	func0003cfa0
+/*    33df0:	0c00f8dc */ 	jal	n_alSynSetPitch
 /*    33df4:	00000000 */ 	sll	$zero,$zero,0x0
 /*    33df8:	8fa80060 */ 	lw	$t0,0x60($sp)
 /*    33dfc:	910d0044 */ 	lbu	$t5,0x44($t0)
@@ -3506,10 +3506,10 @@ glabel func00033090
 /*    330a8:	13000007 */ 	beqz	$t8,.L000330c8
 /*    330ac:	00000000 */ 	nop
 /*    330b0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    330b4:	0c00f440 */ 	jal	func0003d100
+/*    330b4:	0c00f440 */ 	jal	n_alSynStopVoice
 /*    330b8:	2484000c */ 	addiu	$a0,$a0,0xc
 /*    330bc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    330c0:	0c00f468 */ 	jal	func0003d1a0
+/*    330c0:	0c00f468 */ 	jal	n_alSynFreeVoice
 /*    330c4:	2484000c */ 	addiu	$a0,$a0,0xc
 .L000330c8:
 /*    330c8:	0c00cd93 */ 	jal	func0003364c
