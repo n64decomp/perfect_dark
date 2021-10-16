@@ -553,99 +553,25 @@ void func00034f0c(N_ALCSPlayer *seqp, u8 channel)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00034fb8
-/*    34fb8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    34fbc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    34fc0:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    34fc4:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    34fc8:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*    34fcc:	93b80037 */ 	lbu	$t8,0x37($sp)
-/*    34fd0:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    34fd4:	0018c880 */ 	sll	$t9,$t8,0x2
-/*    34fd8:	0338c823 */ 	subu	$t9,$t9,$t8
-/*    34fdc:	8dcf0060 */ 	lw	$t7,0x60($t6)
-/*    34fe0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    34fe4:	0338c821 */ 	addu	$t9,$t9,$t8
-/*    34fe8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    34fec:	01f94021 */ 	addu	$t0,$t7,$t9
-/*    34ff0:	81090012 */ 	lb	$t1,0x12($t0)
-/*    34ff4:	252affc0 */ 	addiu	$t2,$t1,-64
-/*    34ff8:	a3aa0029 */ 	sb	$t2,0x29($sp)
-/*    34ffc:	93ad0037 */ 	lbu	$t5,0x37($sp)
-/*    35000:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*    35004:	000d7080 */ 	sll	$t6,$t5,0x2
-/*    35008:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*    3500c:	8d6c0060 */ 	lw	$t4,0x60($t3)
-/*    35010:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    35014:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*    35018:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    3501c:	018ec021 */ 	addu	$t8,$t4,$t6
-/*    35020:	c7040014 */ 	lwc1	$f4,0x14($t8)
-/*    35024:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*    35028:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*    3502c:	8df90064 */ 	lw	$t9,0x64($t7)
-/*    35030:	13200030 */ 	beqz	$t9,.L000350f4
-/*    35034:	afb9002c */ 	sw	$t9,0x2c($sp)
-.L00035038:
-/*    35038:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    3503c:	93aa0037 */ 	lbu	$t2,0x37($sp)
-/*    35040:	91090031 */ 	lbu	$t1,0x31($t0)
-/*    35044:	152a0027 */ 	bne	$t1,$t2,.L000350e4
-/*    35048:	00000000 */ 	nop
-/*    3504c:	93ac0037 */ 	lbu	$t4,0x37($sp)
-/*    35050:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*    35054:	000c7080 */ 	sll	$t6,$t4,0x2
-/*    35058:	01cc7023 */ 	subu	$t6,$t6,$t4
-/*    3505c:	8d6d0060 */ 	lw	$t5,0x60($t3)
-/*    35060:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    35064:	01cc7021 */ 	addu	$t6,$t6,$t4
-/*    35068:	000e7080 */ 	sll	$t6,$t6,0x2
-/*    3506c:	01aec021 */ 	addu	$t8,$t5,$t6
-/*    35070:	930f0011 */ 	lbu	$t7,0x11($t8)
-/*    35074:	a7af002a */ 	sh	$t7,0x2a($sp)
-/*    35078:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    3507c:	87a5002a */ 	lh	$a1,0x2a($sp)
-/*    35080:	0c00f924 */ 	jal	func0003e490
-/*    35084:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    35088:	87b9002a */ 	lh	$t9,0x2a($sp)
-/*    3508c:	13200015 */ 	beqz	$t9,.L000350e4
-/*    35090:	00000000 */ 	nop
-/*    35094:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    35098:	83ae0029 */ 	lb	$t6,0x29($sp)
-/*    3509c:	8d0a0020 */ 	lw	$t2,0x20($t0)
-/*    350a0:	91090032 */ 	lbu	$t1,0x32($t0)
-/*    350a4:	8d4b0004 */ 	lw	$t3,0x4($t2)
-/*    350a8:	916c0004 */ 	lbu	$t4,0x4($t3)
-/*    350ac:	012c6823 */ 	subu	$t5,$t1,$t4
-/*    350b0:	0c00ee75 */ 	jal	func0003b9d4
-/*    350b4:	01ae2021 */ 	addu	$a0,$t5,$t6
-/*    350b8:	3c0143dc */ 	lui	$at,0x43dc
-/*    350bc:	44813000 */ 	mtc1	$at,$f6
-/*    350c0:	46000506 */ 	mov.s	$f20,$f0
-/*    350c4:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*    350c8:	4606a202 */ 	mul.s	$f8,$f20,$f6
-/*    350cc:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    350d0:	24840004 */ 	addiu	$a0,$a0,0x4
-/*    350d4:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*    350d8:	44058000 */ 	mfc1	$a1,$f16
-/*    350dc:	0c00f8f8 */ 	jal	func0003e3e0
-/*    350e0:	00000000 */ 	nop
-.L000350e4:
-/*    350e4:	8fb8002c */ 	lw	$t8,0x2c($sp)
-/*    350e8:	8f0f0000 */ 	lw	$t7,0x0($t8)
-/*    350ec:	15e0ffd2 */ 	bnez	$t7,.L00035038
-/*    350f0:	afaf002c */ 	sw	$t7,0x2c($sp)
-.L000350f4:
-/*    350f4:	10000001 */ 	b	.L000350fc
-/*    350f8:	00000000 */ 	nop
-.L000350fc:
-/*    350fc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    35100:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*    35104:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    35108:	03e00008 */ 	jr	$ra
-/*    3510c:	00000000 */ 	nop
-);
+void func00034fb8(N_ALCSPlayer *seqp, u8 channel)
+{
+	N_ALVoiceState *vs;
+	s16 sp2a;
+	s8 sp29 = (s8)seqp->chanState[channel].unk12 - 64;
+	f32 sp24 = seqp->chanState[channel].pitchBend;
+
+	for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
+		if (vs->channel == channel) {
+			sp2a = seqp->chanState[channel].unk11;
+
+			func0003e490(&vs->voice, sp2a);
+
+			if (sp2a) {
+				func0003e3e0(&vs->voice, func0003b9d4((vs->key - vs->sound->keyMap->keyBase) + sp29) * 440 * sp24);
+			}
+		}
+	}
+}
 
 void snd0001036c(u8 arg0);
 f32 func0002fc60(u8 arg0);
