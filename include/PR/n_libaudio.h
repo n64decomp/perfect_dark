@@ -86,7 +86,7 @@ void    n_alSynSetPriority( N_ALVoice *voice, s16 priority);
 void    n_alSynSetVol( N_ALVoice *v, s16 volume, ALMicroTime t);
 void    n_alSynStartVoice(N_ALVoice *v, ALWaveTable *table);
 void    n_alSynStartVoiceParams(N_ALVoice *v, ALWaveTable *w,f32 pitch, s16 vol,
-				ALPan pan, u8 fxmix, ALMicroTime t);
+				ALPan pan, u8 fxmix, ALMicroTime t, f32 arg7, s32 arg8, s32 arg9);
 void    n_alSynStopVoice( N_ALVoice *v);
 
 void    n_alSynNew(ALSynConfig *c);
@@ -174,6 +174,13 @@ ALMicroTime     n_alEvtqNextEvent(ALEventQueue *evtq, N_ALEvent *evt);
 void            n_alEvtqPostEvent(ALEventQueue *evtq, N_ALEvent *evt, ALMicroTime delta, s32 arg3);
 void        	n_alEvtqFlushType(ALEventQueue *evtq, s16 type);
 
+struct oscstate {
+	u32 unk00;
+	u8 unk04;
+	u32 unk08;
+	f32 unk0c;
+	f32 unk10;
+};
 
 typedef struct N_ALVoiceState_s {
     struct N_ALVoiceState_s *next;/* MUST be first                */
@@ -191,8 +198,8 @@ typedef struct N_ALVoiceState_s {
     u8          tremelo;        /* current value of the tremelo */
     u8          flags;          /* bit 0 tremelo flag
                                    bit 1 vibrato flag           */
-	u32 unk38;
-	u32 unk3c;
+	void *oscState;
+	struct oscstate *oscState2;
 } N_ALVoiceState;
 
 typedef struct {
@@ -250,7 +257,7 @@ typedef struct {
     ALOscStop           stopOsc;
     f32 unk7c;
     f32 unk80;
-    s32 unk84;
+    void *queue;
     u8 unk88;
     u8 unk89;
 } N_ALCSPlayer;

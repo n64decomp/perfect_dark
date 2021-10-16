@@ -6,7 +6,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0003cdc0
+glabel n_alSynStartVoiceParams
 /*    3cdc0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3cdc4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3cdc8:	afa40020 */ 	sw	$a0,0x20($sp)

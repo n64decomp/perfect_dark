@@ -49,15 +49,15 @@ glabel n_alMainBusPull
 /*    44c50:	00000000 */ 	nop
 /*    44c54:	afa20044 */ 	sw	$v0,0x44($sp)
 /*    44c58:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*    44c5c:	3c18800a */ 	lui	$t8,%hi(var8009c344)
+/*    44c5c:	3c18800a */ 	lui	$t8,%hi(var8009c340+0x4)
 /*    44c60:	030fc021 */ 	addu	$t8,$t8,$t7
-/*    44c64:	9318c344 */ 	lbu	$t8,%lo(var8009c344)($t8)
+/*    44c64:	9318c344 */ 	lbu	$t8,%lo(var8009c340+0x4)($t8)
 /*    44c68:	13000023 */ 	beqz	$t8,.L00044cf8
 /*    44c6c:	00000000 */ 	nop
 /*    44c70:	8fa80040 */ 	lw	$t0,0x40($sp)
-/*    44c74:	3c09800a */ 	lui	$t1,%hi(var8009c344+0x2)
+/*    44c74:	3c09800a */ 	lui	$t1,%hi(var8009c340+0x6)
 /*    44c78:	01284821 */ 	addu	$t1,$t1,$t0
-/*    44c7c:	9129c346 */ 	lbu	$t1,%lo(var8009c344+0x2)($t1)
+/*    44c7c:	9129c346 */ 	lbu	$t1,%lo(var8009c340+0x6)($t1)
 /*    44c80:	1120000f */ 	beqz	$t1,.L00044cc0
 /*    44c84:	00000000 */ 	nop
 /*    44c88:	8faa0044 */ 	lw	$t2,0x44($sp)
@@ -92,9 +92,9 @@ glabel n_alMainBusPull
 /*    44cf4:	00000000 */ 	nop
 .L00044cf8:
 /*    44cf8:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*    44cfc:	3c0d800a */ 	lui	$t5,%hi(var8009c344+0x2)
+/*    44cfc:	3c0d800a */ 	lui	$t5,%hi(var8009c340+0x6)
 /*    44d00:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*    44d04:	91adc346 */ 	lbu	$t5,%lo(var8009c344+0x2)($t5)
+/*    44d04:	91adc346 */ 	lbu	$t5,%lo(var8009c340+0x6)($t5)
 /*    44d08:	11a0000f */ 	beqz	$t5,.L00044d48
 /*    44d0c:	00000000 */ 	nop
 /*    44d10:	8fae0044 */ 	lw	$t6,0x44($sp)

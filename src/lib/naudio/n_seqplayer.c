@@ -316,7 +316,7 @@ ALMicroTime __n_vsDelta(N_ALVoiceState *vs, ALMicroTime t)
 	}
 }
 
-ALPan __vsPan(N_ALVoiceState *vs, N_ALSeqPlayer *seqp)
+ALPan __n_vsPan(N_ALVoiceState *vs, N_ALSeqPlayer *seqp)
 {
 	s32 tmp;
 
@@ -413,7 +413,7 @@ void __n_setInstChanState(N_ALSeqPlayer *seqp, ALInstrument *inst, s32 chan)
 	seqp->chanState[chan].tremDepth = inst->tremDepth;
 	seqp->chanState[chan].tremDelay = inst->tremDelay;
 	seqp->chanState[chan].vibType = inst->vibType;
-	seqp->chanState[chan].ribRate = inst->vibRate;
+	seqp->chanState[chan].vibRate = inst->vibRate;
 	seqp->chanState[chan].vibDepth = inst->vibDepth;
 	seqp->chanState[chan].vibDelay = inst->vibDelay;
 

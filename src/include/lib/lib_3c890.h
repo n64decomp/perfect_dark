@@ -5,7 +5,7 @@
 #include "types.h"
 
 u32 n_alSynAddSndPlayer(void);
-u32 func0003c9e0(void);
+u32 n_alSynAllocVoice(void);
 u32 func0003cbb4(void);
 
 #endif

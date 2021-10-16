@@ -7,7 +7,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0003c9e0
+glabel n_alSynAllocVoice
 /*    3c9e0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    3c9e4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    3c9e8:	afa40028 */ 	sw	$a0,0x28($sp)

@@ -680,13 +680,13 @@ typedef struct {
     u8 unk24;
     u8 attackVolume;
     u8 decayVolume;
-    u8 unk27;
+    s8 unk27;
     u8 tremType;
     u8 tremRate;
     u8 tremDepth;
     u8 tremDelay;
     u8 vibType;
-    u8 ribRate;
+    u8 vibRate;
     u8 vibDepth;
     u8 vibDelay;
     u8 unk30;
@@ -753,7 +753,7 @@ typedef struct {
 } ALSeqpConfig;
 
 typedef ALMicroTime   (*ALOscInit)(void **oscState,f32 *initVal, u8 oscType,
-                                   u8 oscRate, u8 oscDepth, u8 oscDelay);
+                                   u8 oscRate, u8 oscDepth, u8 oscDelay, u8 unk07);
 typedef ALMicroTime   (*ALOscUpdate)(void *oscState, f32 *updateVal);
 typedef void          (*ALOscStop)(void *oscState);
 

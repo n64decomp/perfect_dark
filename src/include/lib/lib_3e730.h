@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u32 func0003e730(void);
+void func0003e730(N_ALVoice *v, u8 channel);
 
 #endif

@@ -9,7 +9,7 @@ const u32 var70054a80[] = {0x3f8012ef};
 const u32 var70054a84[] = {0x3f7fda28};
 
 GLOBAL_ASM(
-glabel func00039fe0
+glabel alCents2Ratio
 /*    39fe0:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    39fe4:	3c013f80 */ 	lui	$at,0x3f80
 /*    39fe8:	44812000 */ 	mtc1	$at,$f4
