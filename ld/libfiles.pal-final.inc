@@ -90,6 +90,7 @@
 	build/ROMID/lib/naudio/n_synsetvol.o (section); \
 	build/ROMID/lib/lib_3cdc0.o (section); \
 	build/ROMID/lib/lib_3cef0.o (section); \
+	build/ROMID/lib/naudio/n_synsetfxmix.o (section); \
 	build/ROMID/lib/naudio/n_synstopvoice.o (section); \
 	build/ROMID/lib/naudio/n_synfreevoice.o (section); \
 	build/ROMID/lib/naudio/n_seqplayer.o (section); \

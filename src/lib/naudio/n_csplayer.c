@@ -326,7 +326,6 @@ void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp);
 
 void func0003e3e0(N_ALVoice *v, f32 arg1);
 u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp);
-void func0003d050(N_ALVoice *v, u8 arg1);
 ALFxRef func0003e540(u8 arg0);
 ALFxRef func0003e5b8(u8 arg0);
 void func0003e674(ALFxRef fx, u8 arg1, void *param);
@@ -441,7 +440,7 @@ ALMicroTime __n_CSPVoiceHandler(void *node)
 			seqp->unk80 = seqp->nextEvent.msg.evt18.unk04;
 
 			for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
-				func0003d050(&vs->voice, func0003d9cc(vs, seqp));
+				n_alSynSetFXMix(&vs->voice, func0003d9cc(vs, seqp));
 			}
 			break;
 
@@ -2510,7 +2509,7 @@ glabel var70054a74
 /*    366b8:	000e7080 */ 	sll	$t6,$t6,0x2
 /*    366bc:	030e7821 */ 	addu	$t7,$t8,$t6
 /*    366c0:	91e5000a */ 	lbu	$a1,0xa($t7)
-/*    366c4:	0c00f414 */ 	jal	func0003d050
+/*    366c4:	0c00f414 */ 	jal	n_alSynSetFXMix
 /*    366c8:	24840004 */ 	addiu	$a0,$a0,0x4
 .L000366cc:
 /*    366cc:	8fa800c8 */ 	lw	$t0,0xc8($sp)
@@ -5028,7 +5027,7 @@ glabel var70054a74
 /*    366b8:	000e7080 */ 	sll	$t6,$t6,0x2
 /*    366bc:	030e7821 */ 	addu	$t7,$t8,$t6
 /*    366c0:	91e5000a */ 	lbu	$a1,0xa($t7)
-/*    366c4:	0c00f414 */ 	jal	func0003d050
+/*    366c4:	0c00f414 */ 	jal	n_alSynSetFXMix
 /*    366c8:	24840004 */ 	addiu	$a0,$a0,0x4
 .L000366cc:
 /*    366cc:	8fa800c8 */ 	lw	$t0,0xc8($sp)
