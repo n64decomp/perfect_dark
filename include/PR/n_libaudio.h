@@ -29,6 +29,17 @@ extern "C" {
 #include <PR/ultratypes.h>
 #include <PR/mbi.h>
 
+struct var8009c340 {
+	u8 surround;
+	u8 mono;
+	u8 headphone;
+	u8 unk03;
+	u8 unk04[2];
+	u8 unk06[2];
+	u8 unk08[4];
+};
+
+extern struct var8009c340 var8009c340;
 
 /*
  * Synthesis driver stuff

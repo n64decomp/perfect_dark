@@ -38,7 +38,7 @@ extern const u32 var70056ec0[];
 extern const u32 var700576c8[];
 extern const u32 var70057750[];
 
-u32 func0003e8c0(void);
+u32 n_alEnvmixerPull(void);
 u32 func0003f8a0(void);
 u32 func00040164(void);
 u32 func00040dac(void);

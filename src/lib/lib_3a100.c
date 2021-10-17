@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <n_libaudio.h>
 #include "synthInternals.h"
 #include "constants.h"
 #include "game/atan2f.h"

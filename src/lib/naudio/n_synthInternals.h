@@ -30,7 +30,7 @@
 #define FINAL_ROUND
 
 #define SAMPLES               184
-#define SAMPLE184(delta)      (((delta) + (SAMPLES / 2)) / SAMPLES) * SAMPLES
+#define SAMPLE184(delta)      (((delta) + SAMPLES - 1) / SAMPLES) * SAMPLES
 #define FIXED_SAMPLE          SAMPLES
 
 #define N_AL_DECODER_IN	        0
@@ -97,7 +97,7 @@ typedef struct N_PVoice_s {
 	s32                 offset;
 	u8 unk8c;
 	u16 unk8e;
-	u16 unk90;
+	s16 unk90;
 	u16 unk92;
 	s32 unk94;
 	s32 unk98;

@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <n_libaudio.h>
 #include "constants.h"
 #include "bss.h"
 #include "lib/snd.h"
