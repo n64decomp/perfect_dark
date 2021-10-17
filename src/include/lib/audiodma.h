@@ -9,6 +9,6 @@ struct admastate;
 void admaInit(void);
 void *admaNew(struct admastate **state);
 void admaClear(void);
-u32 adma00009a08(void);
+void admaReceiveAll(void);
 
 #endif

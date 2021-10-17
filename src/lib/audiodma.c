@@ -26,7 +26,7 @@ struct admastate {
 	u32 unk0c;
 };
 
-u32 var8005d520 = 0;
+s32 g_AdmaNumItems = 0;
 
 struct admastate g_AdmaState;
 struct admaitem g_AdmaItems[80];
@@ -131,8 +131,8 @@ glabel admaExec
 /*     97c4:	00e12025 */ 	or	$a0,$a3,$at
 /*     97c8:	0c013920 */ 	jal	osInvalDCache
 /*     97cc:	24050400 */ 	addiu	$a1,$zero,0x400
-/*     97d0:	3c038006 */ 	lui	$v1,%hi(var8005d520)
-/*     97d4:	2463d520 */ 	addiu	$v1,$v1,%lo(var8005d520)
+/*     97d0:	3c038006 */ 	lui	$v1,%hi(g_AdmaNumItems)
+/*     97d4:	2463d520 */ 	addiu	$v1,$v1,%lo(g_AdmaNumItems)
 /*     97d8:	8c620000 */ 	lw	$v0,0x0($v1)
 /*     97dc:	3c0c8009 */ 	lui	$t4,%hi(var80091f50)
 /*     97e0:	3c0e8009 */ 	lui	$t6,%hi(var800926d0)
@@ -215,40 +215,20 @@ void admaClear(void)
 	}
 
 	var80092828++;
-	var8005d520 = 0;
+	g_AdmaNumItems = 0;
 }
 
-GLOBAL_ASM(
-glabel adma00009a08
-/*     9a08:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     9a0c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     9a10:	3c138006 */ 	lui	$s3,%hi(var8005d520)
-/*     9a14:	2673d520 */ 	addiu	$s3,$s3,%lo(var8005d520)
-/*     9a18:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*     9a1c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     9a20:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     9a24:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     9a28:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     9a2c:	19c0000c */ 	blez	$t6,.L00009a60
-/*     9a30:	00008025 */ 	or	$s0,$zero,$zero
-/*     9a34:	3c118009 */ 	lui	$s1,%hi(var800926d0)
-/*     9a38:	263126d0 */ 	addiu	$s1,$s1,%lo(var800926d0)
-/*     9a3c:	02202025 */ 	or	$a0,$s1,$zero
-.L00009a40:
-/*     9a40:	00002825 */ 	or	$a1,$zero,$zero
-/*     9a44:	0c0121bc */ 	jal	osRecvMesg
-/*     9a48:	00003025 */ 	or	$a2,$zero,$zero
-/*     9a4c:	8e6f0000 */ 	lw	$t7,0x0($s3)
-/*     9a50:	26100001 */ 	addiu	$s0,$s0,0x1
-/*     9a54:	020f082a */ 	slt	$at,$s0,$t7
-/*     9a58:	5420fff9 */ 	bnezl	$at,.L00009a40
-/*     9a5c:	02202025 */ 	or	$a0,$s1,$zero
-.L00009a60:
-/*     9a60:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     9a64:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     9a68:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     9a6c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*     9a70:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*     9a74:	03e00008 */ 	jr	$ra
-/*     9a78:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void admaReceiveAll(void)
+{
+	s32 i;
+
+	/**
+	 * Don't block here. If dma's aren't complete, you've had an audio
+	 * overrun. Bad news, but go for it anyway, and try and recover.
+	 */
+	for (i = 0; i < g_AdmaNumItems; i++) {
+		if (osRecvMesg(&var800926d0, 0, OS_MESG_NOBLOCK) == -1) {
+			// empty
+		}
+	}
+}

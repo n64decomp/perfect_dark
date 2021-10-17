@@ -187,7 +187,7 @@ void amgrMain(void *arg)
 			var80091588 = osGetTime();
 			vi00009aa0(0x30000);
 			amgrHandleFrameMsg(g_AudioManager.audioInfo[var80092828 % 3], info);
-			adma00009a08();
+			admaReceiveAll();
 
 			count++;
 			vi00009aa0(0x60000);
