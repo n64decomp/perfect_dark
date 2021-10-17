@@ -564,7 +564,7 @@ void func00034fb8(N_ALCSPlayer *seqp, u8 channel)
 		if (vs->channel == channel) {
 			sp2a = seqp->chanState[channel].unk11;
 
-			func0003e490(&vs->voice, sp2a);
+			n_alSynFilter12(&vs->voice, sp2a);
 
 			if (sp2a) {
 				n_alSynFilter13(&vs->voice, func0003b9d4((vs->key - vs->sound->keyMap->keyBase) + sp29) * 440 * sp24);

@@ -96,6 +96,7 @@
 	build/ROMID/lib/naudio/n_synfreevoice.o (section); \
 	build/ROMID/lib/naudio/n_seqplayer.o (section); \
 	build/ROMID/lib/naudio/n_synfilter13.o (section); \
+	build/ROMID/lib/naudio/n_synfilter12.o (section); \
 	build/ROMID/lib/lib_3e3e0.o (section); \
 	build/ROMID/lib/naudio/n_synsetfxparam.o (section); \
 	build/ROMID/lib/naudio/n_synfilter11.o (section); \
