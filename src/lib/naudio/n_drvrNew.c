@@ -28,110 +28,29 @@ s32 BIGROOM_PARAMS_N[10] = {
 	0, 0, 0, 0, 0, 0, 0, 0,
 };
 
-GLOBAL_ASM(
-glabel func0003b710
-.late_rodata
-glabel var70054ac0
-.word 0x40490fdb
-glabel var70054ac4
-.word 0x3fb504f4
-.text
-/*    3b710:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    3b714:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3b718:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    3b71c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*    3b720:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*    3b724:	e7ae002c */ 	swc1	$f14,0x2c($sp)
-/*    3b728:	3c014348 */ 	lui	$at,0x4348
-/*    3b72c:	44814000 */ 	mtc1	$at,$f8
-/*    3b730:	c7a60028 */ 	lwc1	$f6,0x28($sp)
-/*    3b734:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*    3b738:	46083281 */ 	sub.s	$f10,$f6,$f8
-/*    3b73c:	4604503e */ 	c.le.s	$f10,$f4
-/*    3b740:	00000000 */ 	nop
-/*    3b744:	45000006 */ 	bc1f	.L0003b760
-/*    3b748:	00000000 */ 	nop
-/*    3b74c:	3c014348 */ 	lui	$at,0x4348
-/*    3b750:	44819000 */ 	mtc1	$at,$f18
-/*    3b754:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*    3b758:	46128181 */ 	sub.s	$f6,$f16,$f18
-/*    3b75c:	e7a6002c */ 	swc1	$f6,0x2c($sp)
-.L0003b760:
-/*    3b760:	3c017005 */ 	lui	$at,%hi(var70054ac0)
-/*    3b764:	c4244ac0 */ 	lwc1	$f4,%lo(var70054ac0)($at)
-/*    3b768:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
-/*    3b76c:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*    3b770:	46044282 */ 	mul.s	$f10,$f8,$f4
-/*    3b774:	460083a1 */ 	cvt.d.s	$f14,$f16
-/*    3b778:	0fc259d4 */ 	jal	atan2f
-/*    3b77c:	46005321 */ 	cvt.d.s	$f12,$f10
-/*    3b780:	44829000 */ 	mtc1	$v0,$f18
-/*    3b784:	00000000 */ 	nop
-/*    3b788:	468091a0 */ 	cvt.s.w	$f6,$f18
-/*    3b78c:	e7a60024 */ 	swc1	$f6,0x24($sp)
-/*    3b790:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*    3b794:	46084102 */ 	mul.s	$f4,$f8,$f8
-/*    3b798:	e7a40020 */ 	swc1	$f4,0x20($sp)
-/*    3b79c:	3c017005 */ 	lui	$at,%hi(var70054ac4)
-/*    3b7a0:	c4304ac4 */ 	lwc1	$f16,%lo(var70054ac4)($at)
-/*    3b7a4:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*    3b7a8:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*    3b7ac:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*    3b7b0:	46069203 */ 	div.s	$f8,$f18,$f6
-/*    3b7b4:	e7a8001c */ 	swc1	$f8,0x1c($sp)
-/*    3b7b8:	3c013f80 */ 	lui	$at,0x3f80
-/*    3b7bc:	44812000 */ 	mtc1	$at,$f4
-/*    3b7c0:	c7aa0020 */ 	lwc1	$f10,0x20($sp)
-/*    3b7c4:	c7b2001c */ 	lwc1	$f18,0x1c($sp)
-/*    3b7c8:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*    3b7cc:	460a2400 */ 	add.s	$f16,$f4,$f10
-/*    3b7d0:	46128180 */ 	add.s	$f6,$f16,$f18
-/*    3b7d4:	46065203 */ 	div.s	$f8,$f10,$f6
-/*    3b7d8:	e5c80000 */ 	swc1	$f8,0x0($t6)
-/*    3b7dc:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*    3b7e0:	3c014000 */ 	lui	$at,0x4000
-/*    3b7e4:	44818000 */ 	mtc1	$at,$f16
-/*    3b7e8:	c5e40000 */ 	lwc1	$f4,0x0($t7)
-/*    3b7ec:	46102482 */ 	mul.s	$f18,$f4,$f16
-/*    3b7f0:	e5f20004 */ 	swc1	$f18,0x4($t7)
-/*    3b7f4:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*    3b7f8:	c70a0000 */ 	lwc1	$f10,0x0($t8)
-/*    3b7fc:	e70a0008 */ 	swc1	$f10,0x8($t8)
-/*    3b800:	3c013f80 */ 	lui	$at,0x3f80
-/*    3b804:	44814000 */ 	mtc1	$at,$f8
-/*    3b808:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*    3b80c:	3c014000 */ 	lui	$at,0x4000
-/*    3b810:	44818000 */ 	mtc1	$at,$f16
-/*    3b814:	46083101 */ 	sub.s	$f4,$f6,$f8
-/*    3b818:	3c013f80 */ 	lui	$at,0x3f80
-/*    3b81c:	44815000 */ 	mtc1	$at,$f10
-/*    3b820:	8fb90038 */ 	lw	$t9,0x38($sp)
-/*    3b824:	46102482 */ 	mul.s	$f18,$f4,$f16
-/*    3b828:	46065200 */ 	add.s	$f8,$f10,$f6
-/*    3b82c:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*    3b830:	46044400 */ 	add.s	$f16,$f8,$f4
-/*    3b834:	46109283 */ 	div.s	$f10,$f18,$f16
-/*    3b838:	e72a0004 */ 	swc1	$f10,0x4($t9)
-/*    3b83c:	3c013f80 */ 	lui	$at,0x3f80
-/*    3b840:	44813000 */ 	mtc1	$at,$f6
-/*    3b844:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*    3b848:	44815000 */ 	mtc1	$at,$f10
-/*    3b84c:	c7b2001c */ 	lwc1	$f18,0x1c($sp)
-/*    3b850:	46083100 */ 	add.s	$f4,$f6,$f8
-/*    3b854:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*    3b858:	46085180 */ 	add.s	$f6,$f10,$f8
-/*    3b85c:	46122401 */ 	sub.s	$f16,$f4,$f18
-/*    3b860:	46123100 */ 	add.s	$f4,$f6,$f18
-/*    3b864:	46048283 */ 	div.s	$f10,$f16,$f4
-/*    3b868:	e50a0008 */ 	swc1	$f10,0x8($t0)
-/*    3b86c:	10000001 */ 	b	.L0003b874
-/*    3b870:	00000000 */ 	nop
-.L0003b874:
-/*    3b874:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3b878:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    3b87c:	03e00008 */ 	jr	$ra
-/*    3b880:	00000000 */ 	nop
-);
+#define M_PI    3.141592741f
+
+void func0003b710(f32 outputrate, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4)
+{
+	f32 sp24;
+	f32 sp20;
+	f32 sp1c;
+
+	if (arg1 >= outputrate - 200) {
+		arg1 = outputrate - 200;
+	}
+
+	sp24 = atan2f(arg1 * M_PI, outputrate);
+	sp20 = sp24 * sp24;
+	sp1c = (sp24 * 1.4142136573792f) / arg2;
+
+	arg3[0] = sp20 / (1 + sp20 + sp1c);
+	arg3[1] = arg3[0] * 2;
+	arg3[2] = arg3[0];
+
+	arg4[1] = ((sp20 - 1) * 2) / (1 + sp20 + sp1c);
+	arg4[2] = ((1 + sp20) - sp1c) / (1 + sp20 + sp1c);
+}
 
 void _init_lpfilter(ALLowPass *lp)
 {
