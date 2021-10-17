@@ -3,7 +3,6 @@
 #include "bss.h"
 #include "lib/mtx.h"
 #include "lib/lib_2fc60.h"
-#include "lib/lib_39fe0.h"
 #include "data.h"
 #include "types.h"
 

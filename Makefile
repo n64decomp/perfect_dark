@@ -164,6 +164,7 @@ O3_C_FILES := \
 	src/lib/ultra/gu/scale.c
 
 IDO71_C_FILES := \
+	$(shell find src/lib/ultra/audio -name '*.c') \
 	$(shell find src/lib/naudio -name '*.c') \
 	src/lib/lib_3a100.c
 
