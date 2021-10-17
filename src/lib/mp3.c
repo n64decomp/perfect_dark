@@ -37,8 +37,8 @@ void mp3Init(ALHeap *heap)
 	g_Mp3Vars.var8009c39e = 0x7fff;
 	g_Mp3Vars.var8009c39c = 0x40;
 
-	g_Mp3Vars.ivol1 = (var8005f570[g_Mp3Vars.var8009c39c & 0x7f] * g_Mp3Vars.var8009c39e) >> 15;
-	g_Mp3Vars.ivol2 = (var8005f570[127 - (g_Mp3Vars.var8009c39c & 0x7f)] * g_Mp3Vars.var8009c39e) >> 15;
+	g_Mp3Vars.ivol1 = (n_eqpower[g_Mp3Vars.var8009c39c & 0x7f] * g_Mp3Vars.var8009c39e) >> 15;
+	g_Mp3Vars.ivol2 = (n_eqpower[127 - (g_Mp3Vars.var8009c39c & 0x7f)] * g_Mp3Vars.var8009c39e) >> 15;
 
 	g_Mp3Vars.var8009c3b4 = 1;
 	g_Mp3Vars.var8009c3a4 = 0x7ffc;
@@ -568,12 +568,12 @@ glabel func00037fc0
 /*    38620:	a420c3b4 */ 	sh	$zero,%lo(g_Mp3Vars+0x24)($at)
 /*    38624:	3c0d800a */ 	lui	$t5,%hi(g_Mp3Vars+0x0c)
 /*    38628:	85adc39c */ 	lh	$t5,%lo(g_Mp3Vars+0x0c)($t5)
-/*    3862c:	3c0c8006 */ 	lui	$t4,%hi(var8005f570)
+/*    3862c:	3c0c8006 */ 	lui	$t4,%hi(n_eqpower)
 /*    38630:	3c0f800a */ 	lui	$t7,%hi(g_Mp3Vars+0x0c+0x2)
 /*    38634:	31ae007f */ 	andi	$t6,$t5,0x7f
 /*    38638:	000ec040 */ 	sll	$t8,$t6,0x1
 /*    3863c:	01986021 */ 	addu	$t4,$t4,$t8
-/*    38640:	858cf570 */ 	lh	$t4,%lo(var8005f570)($t4)
+/*    38640:	858cf570 */ 	lh	$t4,%lo(n_eqpower)($t4)
 /*    38644:	85efc39e */ 	lh	$t7,%lo(g_Mp3Vars+0x0c+0x2)($t7)
 /*    38648:	3c01800a */ 	lui	$at,%hi(g_Mp3Vars+0x1c)
 /*    3864c:	018f0019 */ 	multu	$t4,$t7
@@ -598,13 +598,13 @@ glabel func00037fc0
 /*    38698:	a422c3aa */ 	sh	$v0,%lo(g_Mp3Vars+0x18+0x2)($at)
 /*    3869c:	3c0b800a */ 	lui	$t3,%hi(g_Mp3Vars+0x0c)
 /*    386a0:	856bc39c */ 	lh	$t3,%lo(g_Mp3Vars+0x0c)($t3)
-/*    386a4:	3c0c8006 */ 	lui	$t4,%hi(var8005f570+0xfe)
+/*    386a4:	3c0c8006 */ 	lui	$t4,%hi(n_eqpower+0xfe)
 /*    386a8:	3c0f800a */ 	lui	$t7,%hi(g_Mp3Vars+0x0c+0x2)
 /*    386ac:	316d007f */ 	andi	$t5,$t3,0x7f
 /*    386b0:	000d7023 */ 	negu	$t6,$t5
 /*    386b4:	000ec040 */ 	sll	$t8,$t6,0x1
 /*    386b8:	01986021 */ 	addu	$t4,$t4,$t8
-/*    386bc:	858cf66e */ 	lh	$t4,%lo(var8005f570+0xfe)($t4)
+/*    386bc:	858cf66e */ 	lh	$t4,%lo(n_eqpower+0xfe)($t4)
 /*    386c0:	85efc39e */ 	lh	$t7,%lo(g_Mp3Vars+0x0c+0x2)($t7)
 /*    386c4:	3c01800a */ 	lui	$at,%hi(g_Mp3Vars+0x20+0x2)
 /*    386c8:	018f0019 */ 	multu	$t4,$t7
@@ -770,8 +770,8 @@ void func00038924(struct mp3vars *vars)
 {
 	if (vars->var8009c39e != vars->var8009c3e4 || vars->var8009c39c != vars->var8009c3ec) {
 		if (vars->samples >= vars->var8009c3bc) {
-			vars->var8009c3ac = (var8005f570[vars->var8009c39c & 0x7f] * vars->var8009c39e >> 15);
-			vars->var8009c3b2 = (var8005f570[127 - (vars->var8009c39c & 0x7f)] * vars->var8009c39e >> 15);
+			vars->var8009c3ac = (n_eqpower[vars->var8009c39c & 0x7f] * vars->var8009c39e >> 15);
+			vars->var8009c3b2 = (n_eqpower[127 - (vars->var8009c39c & 0x7f)] * vars->var8009c39e >> 15);
 			vars->samples = vars->var8009c3bc;
 			vars->ivol1 = vars->var8009c3ac;
 			vars->ivol2 = vars->var8009c3b2;

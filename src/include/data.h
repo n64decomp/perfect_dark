@@ -95,7 +95,7 @@ extern u32 var8005f150;
 extern u32 var8005f34c;
 extern u32 var8005f4dc;
 extern u32 var8005f548;
-extern s16 var8005f570[];
+extern s16 n_eqpower[];
 extern u32 var8005f66c;
 extern u32 var8005f670;
 extern u8 *var8005f6f8;

@@ -12,7 +12,7 @@ const u32 var70059c84[] = {0x45f15800};
 const u32 var70059c88[] = {0x45f15800};
 
 GLOBAL_ASM(
-glabel func00045ab0
+glabel n_alResamplePull
 /*    45ab0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    45ab4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    45ab8:	afa40030 */ 	sw	$a0,0x30($sp)
