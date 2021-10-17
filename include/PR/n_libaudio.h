@@ -323,6 +323,7 @@ void    n_alSeqpSetTempo(N_ALSeqPlayer *seqp, s32 tempo);
 void    n_alSeqpSetVol(N_ALSeqPlayer *seqp, s16 vol);
 void    n_alSeqpStop(N_ALSeqPlayer *seqp);
 void    n_alSeqpLoop(N_ALSeqPlayer *seqp, ALSeqMarker *start, ALSeqMarker *end, s32 count);
+void    n_alSeqpSetFilter11(N_ALSeqPlayer *seqp);
 
 
 /*
