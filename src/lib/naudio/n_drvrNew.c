@@ -186,143 +186,38 @@ f32 func0003b9d4(s32 arg0)
 	return value;
 }
 
-GLOBAL_ASM(
-glabel func0003ba64
-.late_rodata
-glabel var70054ad0
-.word 0x46d12000
-glabel var70054ad4
-.word 0x46d12000
-.text
-/*    3ba64:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*    3ba68:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    3ba6c:	afa40040 */ 	sw	$a0,0x40($sp)
-/*    3ba70:	afa50044 */ 	sw	$a1,0x44($sp)
-/*    3ba74:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*    3ba78:	85cf0002 */ 	lh	$t7,0x2($t6)
-/*    3ba7c:	15e00003 */ 	bnez	$t7,.L0003ba8c
-/*    3ba80:	00000000 */ 	nop
-/*    3ba84:	1000006e */ 	b	.L0003bc40
-/*    3ba88:	00000000 */ 	nop
-.L0003ba8c:
-/*    3ba8c:	8fb80040 */ 	lw	$t8,0x40($sp)
-/*    3ba90:	87190002 */ 	lh	$t9,0x2($t8)
-/*    3ba94:	2b21000a */ 	slti	$at,$t9,0xa
-/*    3ba98:	10200004 */ 	beqz	$at,.L0003baac
-/*    3ba9c:	00000000 */ 	nop
-/*    3baa0:	8fa90040 */ 	lw	$t1,0x40($sp)
-/*    3baa4:	2408000a */ 	addiu	$t0,$zero,0xa
-/*    3baa8:	a5280002 */ 	sh	$t0,0x2($t1)
-.L0003baac:
-/*    3baac:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*    3bab0:	3c014120 */ 	lui	$at,0x4120
-/*    3bab4:	44819000 */ 	mtc1	$at,$f18
-/*    3bab8:	854c0002 */ 	lh	$t4,0x2($t2)
-/*    3babc:	854b0000 */ 	lh	$t3,0x0($t2)
-/*    3bac0:	44814000 */ 	mtc1	$at,$f8
-/*    3bac4:	448c5000 */ 	mtc1	$t4,$f10
-/*    3bac8:	448b2000 */ 	mtc1	$t3,$f4
-/*    3bacc:	27ad0024 */ 	addiu	$t5,$sp,0x24
-/*    3bad0:	46805420 */ 	cvt.s.w	$f16,$f10
-/*    3bad4:	afad0010 */ 	sw	$t5,0x10($sp)
-/*    3bad8:	c7ac0044 */ 	lwc1	$f12,0x44($sp)
-/*    3badc:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*    3bae0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    3bae4:	46128103 */ 	div.s	$f4,$f16,$f18
-/*    3bae8:	46083380 */ 	add.s	$f14,$f6,$f8
-/*    3baec:	44062000 */ 	mfc1	$a2,$f4
-/*    3baf0:	0c00edc4 */ 	jal	func0003b710
-/*    3baf4:	00000000 */ 	nop
-/*    3baf8:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*    3bafc:	afae003c */ 	sw	$t6,0x3c($sp)
-.L0003bb00:
-/*    3bb00:	8fb8003c */ 	lw	$t8,0x3c($sp)
-/*    3bb04:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*    3bb08:	0018c840 */ 	sll	$t9,$t8,0x1
-/*    3bb0c:	01f94021 */ 	addu	$t0,$t7,$t9
-/*    3bb10:	a5000008 */ 	sh	$zero,0x8($t0)
-/*    3bb14:	8fa9003c */ 	lw	$t1,0x3c($sp)
-/*    3bb18:	252b0001 */ 	addiu	$t3,$t1,0x1
-/*    3bb1c:	29610008 */ 	slti	$at,$t3,0x8
-/*    3bb20:	1420fff7 */ 	bnez	$at,.L0003bb00
-/*    3bb24:	afab003c */ 	sw	$t3,0x3c($sp)
-/*    3bb28:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*    3bb2c:	3c014300 */ 	lui	$at,0x4300
-/*    3bb30:	44815000 */ 	mtc1	$at,$f10
-/*    3bb34:	854c0002 */ 	lh	$t4,0x2($t2)
-/*    3bb38:	3c017005 */ 	lui	$at,%hi(var70054ad0)
-/*    3bb3c:	c4324ad0 */ 	lwc1	$f18,%lo(var70054ad0)($at)
-/*    3bb40:	448c3000 */ 	mtc1	$t4,$f6
-/*    3bb44:	27ad0030 */ 	addiu	$t5,$sp,0x30
-/*    3bb48:	46803220 */ 	cvt.s.w	$f8,$f6
-/*    3bb4c:	c5a60000 */ 	lwc1	$f6,0x0($t5)
-/*    3bb50:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*    3bb54:	46109101 */ 	sub.s	$f4,$f18,$f16
-/*    3bb58:	46043202 */ 	mul.s	$f8,$f6,$f4
-/*    3bb5c:	4600428d */ 	trunc.w.s	$f10,$f8
-/*    3bb60:	44185000 */ 	mfc1	$t8,$f10
-/*    3bb64:	00000000 */ 	nop
-/*    3bb68:	a5580008 */ 	sh	$t8,0x8($t2)
-/*    3bb6c:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*    3bb70:	3c014300 */ 	lui	$at,0x4300
-/*    3bb74:	44813000 */ 	mtc1	$at,$f6
-/*    3bb78:	85f90002 */ 	lh	$t9,0x2($t7)
-/*    3bb7c:	3c017005 */ 	lui	$at,%hi(var70054ad4)
-/*    3bb80:	c4284ad4 */ 	lwc1	$f8,%lo(var70054ad4)($at)
-/*    3bb84:	44999000 */ 	mtc1	$t9,$f18
-/*    3bb88:	27a80030 */ 	addiu	$t0,$sp,0x30
-/*    3bb8c:	46809420 */ 	cvt.s.w	$f16,$f18
-/*    3bb90:	c5120004 */ 	lwc1	$f18,0x4($t0)
-/*    3bb94:	46068102 */ 	mul.s	$f4,$f16,$f6
-/*    3bb98:	46044281 */ 	sub.s	$f10,$f8,$f4
-/*    3bb9c:	460a9402 */ 	mul.s	$f16,$f18,$f10
-/*    3bba0:	4600818d */ 	trunc.w.s	$f6,$f16
-/*    3bba4:	440b3000 */ 	mfc1	$t3,$f6
-/*    3bba8:	00000000 */ 	nop
-/*    3bbac:	a5eb000a */ 	sh	$t3,0xa($t7)
-/*    3bbb0:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*    3bbb4:	a580000c */ 	sh	$zero,0xc($t4)
-/*    3bbb8:	27ad0024 */ 	addiu	$t5,$sp,0x24
-/*    3bbbc:	3c01c680 */ 	lui	$at,0xc680
-/*    3bbc0:	44812000 */ 	mtc1	$at,$f4
-/*    3bbc4:	c5a80004 */ 	lwc1	$f8,0x4($t5)
-/*    3bbc8:	8faa0040 */ 	lw	$t2,0x40($sp)
-/*    3bbcc:	46044482 */ 	mul.s	$f18,$f8,$f4
-/*    3bbd0:	4600928d */ 	trunc.w.s	$f10,$f18
-/*    3bbd4:	44185000 */ 	mfc1	$t8,$f10
-/*    3bbd8:	00000000 */ 	nop
-/*    3bbdc:	a5580018 */ 	sh	$t8,0x18($t2)
-/*    3bbe0:	27b90024 */ 	addiu	$t9,$sp,0x24
-/*    3bbe4:	3c01c680 */ 	lui	$at,0xc680
-/*    3bbe8:	44813000 */ 	mtc1	$at,$f6
-/*    3bbec:	c7300008 */ 	lwc1	$f16,0x8($t9)
-/*    3bbf0:	8fab0040 */ 	lw	$t3,0x40($sp)
-/*    3bbf4:	46068202 */ 	mul.s	$f8,$f16,$f6
-/*    3bbf8:	4600410d */ 	trunc.w.s	$f4,$f8
-/*    3bbfc:	44092000 */ 	mfc1	$t1,$f4
-/*    3bc00:	00000000 */ 	nop
-/*    3bc04:	a569001a */ 	sh	$t1,0x1a($t3)
-/*    3bc08:	240f000a */ 	addiu	$t7,$zero,0xa
-/*    3bc0c:	afaf003c */ 	sw	$t7,0x3c($sp)
-.L0003bc10:
-/*    3bc10:	8fad003c */ 	lw	$t5,0x3c($sp)
-/*    3bc14:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*    3bc18:	000d7040 */ 	sll	$t6,$t5,0x1
-/*    3bc1c:	018ec021 */ 	addu	$t8,$t4,$t6
-/*    3bc20:	a7000008 */ 	sh	$zero,0x8($t8)
-/*    3bc24:	8faa003c */ 	lw	$t2,0x3c($sp)
-/*    3bc28:	25590001 */ 	addiu	$t9,$t2,0x1
-/*    3bc2c:	2b210010 */ 	slti	$at,$t9,0x10
-/*    3bc30:	1420fff7 */ 	bnez	$at,.L0003bc10
-/*    3bc34:	afb9003c */ 	sw	$t9,0x3c($sp)
-/*    3bc38:	10000001 */ 	b	.L0003bc40
-/*    3bc3c:	00000000 */ 	nop
-.L0003bc40:
-/*    3bc40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    3bc44:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*    3bc48:	03e00008 */ 	jr	$ra
-/*    3bc4c:	00000000 */ 	nop
-);
+void func0003b710(f32 outputrate, f32 arg1, f32 arg4, f32 *arg5, f32 *arg6);
+
+void func0003ba64(struct fx *fx, f32 outputrate)
+{
+	s32 i;
+	f32 sp30[3];
+	f32 sp24[3];
+
+	if (fx->unk02 == 0) {
+		return;
+	}
+
+	if (fx->unk02 < 10) {
+		fx->unk02 = 10;
+	}
+
+	func0003b710(outputrate, fx->unk00 + 10.0f, fx->unk02 / 10.0f, sp30, sp24);
+
+	for (i = 3; i < 8; i++) {
+		fx->unk08[i] = 0;
+	}
+
+	fx->unk08[0] = sp30[0] * (26768 - fx->unk02 * 128.0f);
+	fx->unk08[1] = sp30[1] * (26768 - fx->unk02 * 128.0f);
+	fx->unk08[2] = 0;
+	fx->unk08[8] = sp24[1] * -16384;
+	fx->unk08[9] = sp24[2] * -16384;
+
+	for (i = 10; i < 16; i++) {
+		fx->unk08[i] = 0;
+	}
+}
 
 void n_alFxNew(ALFx **fx_ar, ALSynConfig *c, s16 bus, ALHeap *hp)
 {

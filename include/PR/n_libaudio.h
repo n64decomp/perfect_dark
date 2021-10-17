@@ -182,6 +182,13 @@ struct oscstate {
 	f32 unk10;
 };
 
+struct fx {
+	s16 unk00;
+	s16 unk02;
+	s32 unk04;
+	s16 unk08[8];
+};
+
 typedef struct N_ALVoiceState_s {
     struct N_ALVoiceState_s *next;/* MUST be first                */
     N_ALVoice   voice;

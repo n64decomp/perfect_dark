@@ -237,7 +237,7 @@ void func0003e3e0(N_ALVoice *v, f32 arg1);
 u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp);
 ALFxRef func0003e540(u8 arg0);
 ALFxRef func0003e5b8(u8 arg0);
-void func0003e674(ALFxRef fx, u8 arg1, void *param);
+void func0003e674(struct fx *fx, u8 arg1, void *param);
 f32 func0003b9d4(s32 arg0);
 
 ALMicroTime __n_CSPVoiceHandler(void *node)
@@ -365,7 +365,7 @@ ALMicroTime __n_CSPVoiceHandler(void *node)
 				ALFxRef fx = func0003e5b8(seqp->nextEvent.msg.evt19.unk00);
 
 				if (fx) {
-					func0003e674(fx, seqp->nextEvent.msg.evt19.unk01, &seqp->nextEvent.msg.evt19.param);
+					func0003e674((struct fx *) fx, seqp->nextEvent.msg.evt19.unk01, &seqp->nextEvent.msg.evt19.param);
 				}
 			}
 			break;
