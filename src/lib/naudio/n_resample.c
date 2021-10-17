@@ -1,8 +1,5 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "data.h"
-#include "types.h"
+#include "n_synthInternals.h"
+#include <os.h>
 
 const u32 var70059e00[] = {0x3fffffd6};
 const u32 var70059e04[] = {0x0e94ee39};
@@ -159,22 +156,10 @@ glabel func00047a90
 /*    47cc8:	27bd0038 */ 	addiu	$sp,$sp,0x38
 /*    47ccc:	03e00008 */ 	jr	$ra
 /*    47cd0:	00000000 */ 	nop
-/*    47cd4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    47cd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    47cdc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    47ce0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    47ce4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    47ce8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    47cec:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    47cf0:	0c011582 */ 	jal	n_alLoadParam
-/*    47cf4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*    47cf8:	10000003 */ 	b	.L00047d08
-/*    47cfc:	00001025 */ 	or	$v0,$zero,$zero
-/*    47d00:	10000001 */ 	b	.L00047d08
-/*    47d04:	00000000 */ 	nop
-.L00047d08:
-/*    47d08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    47d0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    47d10:	03e00008 */ 	jr	$ra
-/*    47d14:	00000000 */ 	nop
 );
+
+s32 n_alResampleParam(N_PVoice *filter, s32 paramID, void *param)
+{
+	n_alLoadParam(filter,  paramID, param);
+	return 0;
+}

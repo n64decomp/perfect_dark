@@ -110,7 +110,7 @@
 	build/ROMID/lib/lib_461c0.o (section); \
 	build/ROMID/lib/lib_46650.o (section); \
 	build/ROMID/lib/lib_47550.o (section); \
-	build/ROMID/lib/lib_47a90.o (section); \
+	build/ROMID/lib/naudio/n_resample.o (section); \
 	build/ROMID/lib/lib_47d20.o (section); \
 	build/ROMID/lib/ultra/io/vitbl.o (section); \
 	build/ROMID/lib/ultra/os/writebackdcacheall.o (section); \
