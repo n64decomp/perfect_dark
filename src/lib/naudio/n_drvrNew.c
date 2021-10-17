@@ -260,8 +260,8 @@ void alN_PVoiceNew(N_PVoice *mv, ALDMANew dmaNew, ALHeap *hp)
 	mv->em_ctrlList = 0;
 	mv->em_ctrlTail = 0;
 	mv->unk8c = 0;
-	mv->unk92 = 0;
-	mv->unk90 = 0;
+	mv->fx.unk02 = 0;
+	mv->fx.unk00 = 0;
 	mv->unkbc = alHeapAlloc(hp, 1, 8);
 	mv->unkb8 = 0;
 }

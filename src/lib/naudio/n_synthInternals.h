@@ -97,13 +97,7 @@ typedef struct N_PVoice_s {
 	s32                 offset;
 	u8 unk8c;
 	u16 unk8e;
-	s16 unk90;
-	u16 unk92;
-	s32 unk94;
-	s32 unk98;
-	s32 unk9c;
-	s32 unka0;
-	s32 unka4;
+	struct fx fx;
 	s32 unka8;
 	s32 unkac;
 	s32 unkb0;

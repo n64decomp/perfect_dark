@@ -31,6 +31,18 @@
  * Macros to assemble the audio command list
  */
 
+/**
+ * n_aNoop is a command that Rare added to the library.
+ * The opcode is 0, which is a no-op according to the ABI.
+ * It obviously does something but I have no idea what.
+ */
+#define n_aNoop(pkt, outp, b, c)                                      \
+{                                                                     \
+	Acmd *_a = (Acmd *)pkt;                                           \
+	_a->words.w0 = (_SHIFTL(A_SPNOOP, 24, 8) | _SHIFTL(outp, 0, 16)); \
+	_a->words.w1 = (_SHIFTL(b, 16, 16) | _SHIFTL(c, 0, 16));          \
+}
+
 #define	n_aADPCMdec(pkt, s, f, c, a, d)					\
 {									\
 	Acmd *_a = (Acmd *)pkt;						\

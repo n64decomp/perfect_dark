@@ -108,8 +108,8 @@ Acmd *n_alEnvmixerPull(N_PVoice *filter, s32 sampleOffset, Acmd *p)
 				}
 
 				e->rs_ratio = param->pitch;
-				e->unk92 = param->unk15;
-				e->unk90 = param->unk18;
+				e->fx.unk02 = param->unk15;
+				e->fx.unk00 = param->unk18;
 				e->unkb8 = 1;
 				e->unk8c = param->unk14;
 			}

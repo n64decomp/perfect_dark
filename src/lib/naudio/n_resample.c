@@ -16,7 +16,7 @@ Acmd *n_alResamplePull(N_PVoice *e, s16 *outp, Acmd *p)
 	 */
 	if (e->rs_upitch) {
 		ptr = n_alAdpcmPull(e, &inp, FIXED_SAMPLE, p);
-		aDMEMMove(ptr++, inp, *outp , FIXED_SAMPLE<<1);
+		aDMEMMove(ptr++, inp, *outp , FIXED_SAMPLE << 1);
 	} else {
 		/*
 		 * clip to maximum allowable pitch
