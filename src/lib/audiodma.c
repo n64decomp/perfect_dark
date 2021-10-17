@@ -188,65 +188,35 @@ void *admaNew(struct admastate **state)
 	return &admaExec;
 }
 
-GLOBAL_ASM(
-glabel admaClear
-/*     993c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*     9940:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     9944:	3c128009 */ 	lui	$s2,%hi(g_AdmaState)
-/*     9948:	26521900 */ 	addiu	$s2,$s2,%lo(g_AdmaState)
-/*     994c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     9950:	8e500004 */ 	lw	$s0,0x4($s2)
-/*     9954:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*     9958:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     995c:	1200001c */ 	beqz	$s0,.L000099d0
-/*     9960:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     9964:	3c138009 */ 	lui	$s3,%hi(var80092828)
-/*     9968:	26732828 */ 	addiu	$s3,$s3,%lo(var80092828)
-.L0000996c:
-/*     996c:	8e0f000c */ 	lw	$t7,0xc($s0)
-/*     9970:	8e6e0000 */ 	lw	$t6,0x0($s3)
-/*     9974:	8e020000 */ 	lw	$v0,0x0($s0)
-/*     9978:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*     997c:	030e082b */ 	sltu	$at,$t8,$t6
-/*     9980:	10200011 */ 	beqz	$at,.L000099c8
-/*     9984:	00408825 */ 	or	$s1,$v0,$zero
-/*     9988:	8e590004 */ 	lw	$t9,0x4($s2)
-/*     998c:	16190002 */ 	bne	$s0,$t9,.L00009998
-/*     9990:	00000000 */ 	nop
-/*     9994:	ae420004 */ 	sw	$v0,0x4($s2)
-.L00009998:
-/*     9998:	0c00c5e9 */ 	jal	alUnlink
-/*     999c:	02002025 */ 	or	$a0,$s0,$zero
-/*     99a0:	8e450008 */ 	lw	$a1,0x8($s2)
-/*     99a4:	50a00006 */ 	beqzl	$a1,.L000099c0
-/*     99a8:	ae500008 */ 	sw	$s0,0x8($s2)
-/*     99ac:	0c00c5dc */ 	jal	alLink
-/*     99b0:	02002025 */ 	or	$a0,$s0,$zero
-/*     99b4:	10000004 */ 	b	.L000099c8
-/*     99b8:	00000000 */ 	nop
-/*     99bc:	ae500008 */ 	sw	$s0,0x8($s2)
-.L000099c0:
-/*     99c0:	ae000000 */ 	sw	$zero,0x0($s0)
-/*     99c4:	ae000004 */ 	sw	$zero,0x4($s0)
-.L000099c8:
-/*     99c8:	1620ffe8 */ 	bnez	$s1,.L0000996c
-/*     99cc:	02208025 */ 	or	$s0,$s1,$zero
-.L000099d0:
-/*     99d0:	3c138009 */ 	lui	$s3,%hi(var80092828)
-/*     99d4:	26732828 */ 	addiu	$s3,$s3,%lo(var80092828)
-/*     99d8:	8e680000 */ 	lw	$t0,0x0($s3)
-/*     99dc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     99e0:	3c018006 */ 	lui	$at,%hi(var8005d520)
-/*     99e4:	25090001 */ 	addiu	$t1,$t0,0x1
-/*     99e8:	ae690000 */ 	sw	$t1,0x0($s3)
-/*     99ec:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*     99f0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*     99f4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*     99f8:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*     99fc:	ac20d520 */ 	sw	$zero,%lo(var8005d520)($at)
-/*     9a00:	03e00008 */ 	jr	$ra
-/*     9a04:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void admaClear(void)
+{
+	struct admaitem *item = g_AdmaState.firstused;
+
+	while (item) {
+		struct admaitem *next = (struct admaitem *) item->node.next;
+
+		if (item->lastframe + 1 < var80092828) {
+			if (g_AdmaState.firstused == item) {
+				g_AdmaState.firstused = (struct admaitem *) item->node.next;
+			}
+
+			alUnlink(&item->node);
+
+			if (g_AdmaState.firstfree) {
+				alLink(&item->node, &g_AdmaState.firstfree->node);
+			} else {
+				g_AdmaState.firstfree = item;
+				item->node.next = NULL;
+				item->node.prev = NULL;
+			}
+		}
+
+		item = next;
+	}
+
+	var80092828++;
+	var8005d520 = 0;
+}
 
 GLOBAL_ASM(
 glabel adma00009a08
