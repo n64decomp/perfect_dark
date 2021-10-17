@@ -61,7 +61,7 @@ void amgrCreate(ALSynConfig *config)
 	s32 i;
 
 	config->outputRate = osAiSetFrequency(22020);
-	config->dmaproc = admaExec;
+	config->dmaproc = admaNew;
 
 #if VERSION >= VERSION_PAL_FINAL
 	freqpertick = settings[1] * (f32)config->outputRate / 25.0f;

@@ -4,8 +4,10 @@
 #include "data.h"
 #include "types.h"
 
+struct admastate;
+
 void admaInit(void);
-void admaExec(void);
+void *admaNew(struct admastate **state);
 void admaClear(void);
 u32 adma00009a08(void);
 
