@@ -6,57 +6,6 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0003e3e0
-/*    3e3e0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    3e3e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    3e3e8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    3e3ec:	afa50024 */ 	sw	$a1,0x24($sp)
-/*    3e3f0:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*    3e3f4:	8dcf0008 */ 	lw	$t7,0x8($t6)
-/*    3e3f8:	11e0001f */ 	beqz	$t7,.L0003e478
-/*    3e3fc:	00000000 */ 	nop
-/*    3e400:	0c00c541 */ 	jal	__n_allocParam
-/*    3e404:	00000000 */ 	nop
-/*    3e408:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    3e40c:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    3e410:	17000003 */ 	bnez	$t8,.L0003e420
-/*    3e414:	00000000 */ 	nop
-/*    3e418:	10000019 */ 	b	.L0003e480
-/*    3e41c:	00000000 */ 	nop
-.L0003e420:
-/*    3e420:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3e424:	3c198006 */ 	lui	$t9,%hi(n_syn)
-/*    3e428:	8f39f114 */ 	lw	$t9,%lo(n_syn)($t9)
-/*    3e42c:	8d2a0008 */ 	lw	$t2,0x8($t1)
-/*    3e430:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*    3e434:	8f28001c */ 	lw	$t0,0x1c($t9)
-/*    3e438:	8d4b0088 */ 	lw	$t3,0x88($t2)
-/*    3e43c:	010b6021 */ 	addu	$t4,$t0,$t3
-/*    3e440:	adac0004 */ 	sw	$t4,0x4($t5)
-/*    3e444:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*    3e448:	240e0013 */ 	addiu	$t6,$zero,0x13
-/*    3e44c:	a5ee0008 */ 	sh	$t6,0x8($t7)
-/*    3e450:	c7a40024 */ 	lwc1	$f4,0x24($sp)
-/*    3e454:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*    3e458:	e704000c */ 	swc1	$f4,0xc($t8)
-/*    3e45c:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    3e460:	af200000 */ 	sw	$zero,0x0($t9)
-/*    3e464:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3e468:	24050003 */ 	addiu	$a1,$zero,0x3
-/*    3e46c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*    3e470:	0c00fc79 */ 	jal	n_alEnvmixerParam
-/*    3e474:	8d240008 */ 	lw	$a0,0x8($t1)
-.L0003e478:
-/*    3e478:	10000001 */ 	b	.L0003e480
-/*    3e47c:	00000000 */ 	nop
-.L0003e480:
-/*    3e480:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    3e484:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*    3e488:	03e00008 */ 	jr	$ra
-/*    3e48c:	00000000 */ 	nop
-);
-
-GLOBAL_ASM(
 glabel func0003e490
 /*    3e490:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    3e494:	afbf0014 */ 	sw	$ra,0x14($sp)

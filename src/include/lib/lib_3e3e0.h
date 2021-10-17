@@ -4,7 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void func0003e3e0(N_ALVoice *v, f32 arg1);
 u32 func0003e490(void);
 ALFxRef func0003e540(u8 arg0);
 ALFxRef func0003e5b8(u8 arg0);

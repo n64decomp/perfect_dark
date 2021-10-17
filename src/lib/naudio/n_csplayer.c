@@ -233,7 +233,7 @@ void n_alCSPNew(N_ALCSPlayer *seqp, ALSeqpConfig *c)
 void __n_CSPHandleNextSeqEvent(N_ALCSPlayer *seqp);
 void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event);
 
-void func0003e3e0(N_ALVoice *v, f32 arg1);
+void n_alSynFilter13(N_ALVoice *v, f32 arg1);
 u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp);
 ALFxRef func0003e540(u8 arg0);
 ALFxRef func0003e5b8(u8 arg0);
@@ -311,7 +311,7 @@ ALMicroTime __n_CSPVoiceHandler(void *node)
 			n_alSynSetPitch( &vs->voice, vs->pitch * vs->vibrato * seqp->chanState[chan].pitchBend);
 
 			if (seqp->chanState[chan].unk11) {
-				func0003e3e0(&vs->voice,
+				n_alSynFilter13(&vs->voice,
 						440
 						* func0003b9d4(seqp->chanState[chan].unk12 + (vs->key - vs->sound->keyMap->keyBase) - 64)
 						* seqp->chanState[chan].pitchBend
@@ -567,7 +567,7 @@ void func00034fb8(N_ALCSPlayer *seqp, u8 channel)
 			func0003e490(&vs->voice, sp2a);
 
 			if (sp2a) {
-				func0003e3e0(&vs->voice, func0003b9d4((vs->key - vs->sound->keyMap->keyBase) + sp29) * 440 * sp24);
+				n_alSynFilter13(&vs->voice, func0003b9d4((vs->key - vs->sound->keyMap->keyBase) + sp29) * 440 * sp24);
 			}
 		}
 	}
@@ -1199,7 +1199,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 					n_alSynSetPitch( &vs->voice, vs->pitch * bendRatio * vs->vibrato);
 
 					if (seqp->chanState[chan].unk11) {
-						func0003e3e0(&vs->voice, 440 * func0003b9d4(seqp->chanState[chan].unk12 + (vs->key - vs->sound->keyMap->keyBase) - 64) * bendRatio * vs->vibrato);
+						n_alSynFilter13(&vs->voice, 440 * func0003b9d4(seqp->chanState[chan].unk12 + (vs->key - vs->sound->keyMap->keyBase) - 64) * bendRatio * vs->vibrato);
 					}
 				}
 			}
