@@ -169,8 +169,10 @@ ALMicroTime     _n_samplesToTime(s32 samples);
 Acmd    *n_alAdpcmPull(N_PVoice *f,s16 *outp, s32 byteCount, Acmd *p);
 s32     n_alLoadParam(N_PVoice *filter, s32 paramID, void *param);
 
-Acmd    *n_alResamplePull(N_PVoice *f, s16 *outp, s32 outCount, Acmd *p);
+Acmd    *n_alResamplePull(N_PVoice *f, s16 *outp, Acmd *p);
+Acmd    *n_alResamplePull2(N_PVoice *f, s16 *outp, s32 outCount, Acmd *p);
 s32     n_alResampleParam(N_PVoice *f, s32 paramID, void *param);
+s32     n_alResampleParam2(N_PVoice *f, s32 paramID, void *param);
 
 Acmd    *n_alEnvmixerPull(N_PVoice *f, s32 sampleOffset, Acmd *p);
 s32     n_alEnvmixerParam(N_PVoice *p, s32 paramID, void *param);

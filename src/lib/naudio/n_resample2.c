@@ -1,18 +1,12 @@
-#include <ultra64.h>
-#include "constants.h"
-#include "bss.h"
-#include "lib/lib_3a100.h"
-#include "lib/lib_44f60.h"
-#include "lib/lib_47a90.h"
-#include "data.h"
-#include "types.h"
+#include "n_synthInternals.h"
+#include <os.h>
 
 const u32 var70059c80[] = {0x46d10600};
 const u32 var70059c84[] = {0x45f15800};
 const u32 var70059c88[] = {0x45f15800};
 
 GLOBAL_ASM(
-glabel n_alResamplePull
+glabel n_alResamplePull2
 /*    45ab0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    45ab4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    45ab8:	afa40030 */ 	sw	$a0,0x30($sp)
@@ -218,86 +212,30 @@ glabel n_alResamplePull
 /*    45da4:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00045da8
-/*    45da8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    45dac:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    45db0:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    45db4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    45db8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    45dbc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    45dc0:	27ae0030 */ 	addiu	$t6,$sp,0x30
-/*    45dc4:	afae0024 */ 	sw	$t6,0x24($sp)
-/*    45dc8:	8fb0002c */ 	lw	$s0,0x2c($sp)
-/*    45dcc:	24010004 */ 	addiu	$at,$zero,0x4
-/*    45dd0:	1201000c */ 	beq	$s0,$at,.L00045e04
-/*    45dd4:	00000000 */ 	nop
-/*    45dd8:	24010011 */ 	addiu	$at,$zero,0x11
-/*    45ddc:	12010027 */ 	beq	$s0,$at,.L00045e7c
-/*    45de0:	00000000 */ 	nop
-/*    45de4:	24010012 */ 	addiu	$at,$zero,0x12
-/*    45de8:	1201000e */ 	beq	$s0,$at,.L00045e24
-/*    45dec:	00000000 */ 	nop
-/*    45df0:	24010013 */ 	addiu	$at,$zero,0x13
-/*    45df4:	12010014 */ 	beq	$s0,$at,.L00045e48
-/*    45df8:	00000000 */ 	nop
-/*    45dfc:	10000024 */ 	b	.L00045e90
-/*    45e00:	00000000 */ 	nop
-.L00045e04:
-/*    45e04:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    45e08:	a5e00092 */ 	sh	$zero,0x92($t7)
-/*    45e0c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    45e10:	24050004 */ 	addiu	$a1,$zero,0x4
-/*    45e14:	0c011582 */ 	jal	n_alLoadParam
-/*    45e18:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*    45e1c:	10000022 */ 	b	.L00045ea8
-/*    45e20:	00000000 */ 	nop
-.L00045e24:
-/*    45e24:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    45e28:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    45e2c:	a7380092 */ 	sh	$t8,0x92($t9)
-/*    45e30:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    45e34:	8d0900b8 */ 	lw	$t1,0xb8($t0)
-/*    45e38:	352a0002 */ 	ori	$t2,$t1,0x2
-/*    45e3c:	ad0a00b8 */ 	sw	$t2,0xb8($t0)
-/*    45e40:	10000019 */ 	b	.L00045ea8
-/*    45e44:	00000000 */ 	nop
-.L00045e48:
-/*    45e48:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*    45e4c:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    45e50:	c5640000 */ 	lwc1	$f4,0x0($t3)
-/*    45e54:	4600218d */ 	trunc.w.s	$f6,$f4
-/*    45e58:	440d3000 */ 	mfc1	$t5,$f6
-/*    45e5c:	00000000 */ 	nop
-/*    45e60:	a5cd0090 */ 	sh	$t5,0x90($t6)
-/*    45e64:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    45e68:	8df800b8 */ 	lw	$t8,0xb8($t7)
-/*    45e6c:	37190002 */ 	ori	$t9,$t8,0x2
-/*    45e70:	adf900b8 */ 	sw	$t9,0xb8($t7)
-/*    45e74:	1000000c */ 	b	.L00045ea8
-/*    45e78:	00000000 */ 	nop
-.L00045e7c:
-/*    45e7c:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*    45e80:	8faa0028 */ 	lw	$t2,0x28($sp)
-/*    45e84:	a149008c */ 	sb	$t1,0x8c($t2)
-/*    45e88:	10000007 */ 	b	.L00045ea8
-/*    45e8c:	00000000 */ 	nop
-.L00045e90:
-/*    45e90:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    45e94:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*    45e98:	0c011582 */ 	jal	n_alLoadParam
-/*    45e9c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*    45ea0:	10000001 */ 	b	.L00045ea8
-/*    45ea4:	00000000 */ 	nop
-.L00045ea8:
-/*    45ea8:	10000003 */ 	b	.L00045eb8
-/*    45eac:	00001025 */ 	or	$v0,$zero,$zero
-/*    45eb0:	10000001 */ 	b	.L00045eb8
-/*    45eb4:	00000000 */ 	nop
-.L00045eb8:
-/*    45eb8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    45ebc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    45ec0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    45ec4:	03e00008 */ 	jr	$ra
-/*    45ec8:	00000000 */ 	nop
-);
+s32 n_alResampleParam2(N_PVoice *filter, s32 paramID, void *param)
+{
+	f32 *f = (f32 *) &param;
+
+	switch (paramID) {
+	case (AL_FILTER_RESET):
+		filter->unk92 = 0;
+		n_alLoadParam(filter, AL_FILTER_RESET, param);
+		break;
+	case (AL_FILTER_12):
+		filter->unk92 = (s32) param;
+		filter->unkb8 |= 2;
+		break;
+	case (AL_FILTER_13):
+		filter->unk90 = *f;
+		filter->unkb8 |= 2;
+		break;
+	case (AL_FILTER_11):
+		filter->unk8c = (u8)param;
+		break;
+	default:
+		n_alLoadParam(filter, paramID, param);
+		break;
+	}
+
+	return 0;
+}
