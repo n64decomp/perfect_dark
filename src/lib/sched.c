@@ -7,7 +7,6 @@
 #include "lib/args.h"
 #include "lib/audiomgr.h"
 #include "lib/rzip.h"
-#include "lib/lib_09660.h"
 #include "lib/crash.h"
 #include "lib/main.h"
 #include "lib/snd.h"

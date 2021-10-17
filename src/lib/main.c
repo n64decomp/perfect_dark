@@ -44,7 +44,6 @@
 #include "lib/args.h"
 #include "lib/vm.h"
 #include "lib/rzip.h"
-#include "lib/lib_09660.h"
 #include "lib/vi.h"
 #include "lib/fault.h"
 #include "lib/crash.h"

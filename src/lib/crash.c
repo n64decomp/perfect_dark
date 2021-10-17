@@ -3,7 +3,6 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/tlb.h"
-#include "lib/lib_09660.h"
 #include "lib/crash.h"
 #include "lib/rmon.h"
 #include "data.h"

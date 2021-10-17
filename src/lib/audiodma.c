@@ -6,7 +6,7 @@
 #include "game/game_176080.h"
 #include "game/options.h"
 #include "bss.h"
-#include "lib/lib_09660.h"
+#include "lib/audiodma.h"
 #include "lib/memory.h"
 #include "lib/mtx.h"
 #include "data.h"
@@ -18,27 +18,16 @@ u32 var80091900[4];
 u32 var80091910[400];
 u32 var80091f50[480];
 OSMesgQueue var800926d0;
-u32 var800926e8[80];
+OSMesg var800926e8[80];
 u32 var80092828;
 
-GLOBAL_ASM(
-glabel func00009660
-/*     9660:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     9664:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     9668:	3c048009 */ 	lui	$a0,%hi(var800926d0)
-/*     966c:	3c058009 */ 	lui	$a1,%hi(var800926e8)
-/*     9670:	24a526e8 */ 	addiu	$a1,$a1,%lo(var800926e8)
-/*     9674:	248426d0 */ 	addiu	$a0,$a0,%lo(var800926d0)
-/*     9678:	0c0120d0 */ 	jal	osCreateMesgQueue
-/*     967c:	24060050 */ 	addiu	$a2,$zero,0x50
-/*     9680:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     9684:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     9688:	03e00008 */ 	jr	$ra
-/*     968c:	00000000 */ 	nop
-);
+void admaInit(void)
+{
+	osCreateMesgQueue(&var800926d0, var800926e8, 80);
+}
 
 GLOBAL_ASM(
-glabel func00009690
+glabel adma00009690
 /*     9690:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*     9694:	3c088009 */ 	lui	$t0,%hi(var80091900)
 /*     9698:	25081900 */ 	addiu	$t0,$t0,%lo(var80091900)
@@ -160,7 +149,7 @@ glabel func00009690
 
 #if VERSION >= VERSION_PAL_FINAL
 GLOBAL_ASM(
-glabel func00009844
+glabel admaExec
 /*     9754:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*     9758:	3c038009 */ 	lui	$v1,0x8009
 /*     975c:	24631e50 */ 	addiu	$v1,$v1,0x1e50
@@ -221,7 +210,7 @@ glabel func00009844
 );
 #else
 GLOBAL_ASM(
-glabel func00009844
+glabel admaExec
 /*     9844:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*     9848:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
 /*     984c:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
@@ -278,8 +267,8 @@ glabel func00009844
 /*     9908:	a0680000 */ 	sb	$t0,0x0($v1)
 .L0000990c:
 /*     990c:	8fa90038 */ 	lw	$t1,0x38($sp)
-/*     9910:	3c027001 */ 	lui	$v0,%hi(func00009690)
-/*     9914:	24429690 */ 	addiu	$v0,$v0,%lo(func00009690)
+/*     9910:	3c027001 */ 	lui	$v0,%hi(adma00009690)
+/*     9914:	24429690 */ 	addiu	$v0,$v0,%lo(adma00009690)
 /*     9918:	ad230000 */ 	sw	$v1,0x0($t1)
 /*     991c:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*     9920:	8fb40030 */ 	lw	$s4,0x30($sp)
@@ -293,7 +282,7 @@ glabel func00009844
 #endif
 
 GLOBAL_ASM(
-glabel amgrClearDmaBuffers
+glabel admaClear
 /*     993c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     9940:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*     9944:	3c128009 */ 	lui	$s2,%hi(var80091900)
@@ -353,7 +342,7 @@ glabel amgrClearDmaBuffers
 );
 
 GLOBAL_ASM(
-glabel func00009a08
+glabel adma00009a08
 /*     9a08:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     9a0c:	afb30020 */ 	sw	$s3,0x20($sp)
 /*     9a10:	3c138006 */ 	lui	$s3,%hi(var8005d520)

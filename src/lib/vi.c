@@ -8,7 +8,6 @@
 #include "game/gfxmemory.h"
 #include "game/options.h"
 #include "bss.h"
-#include "lib/lib_09660.h"
 #include "lib/vi.h"
 #include "lib/memory.h"
 #include "lib/mtx.h"

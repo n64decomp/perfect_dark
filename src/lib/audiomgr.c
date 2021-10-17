@@ -3,7 +3,7 @@
 #include "lib/sched.h"
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_09660.h"
+#include "lib/audiodma.h"
 #include "lib/lib_2fba0.h"
 #include "lib/lib_2fc60.h"
 #include "lib/libc/ll.h"
@@ -61,7 +61,7 @@ void amgrCreate(ALSynConfig *config)
 	s32 i;
 
 	config->outputRate = osAiSetFrequency(22020);
-	config->dmaproc = func00009844;
+	config->dmaproc = admaExec;
 
 #if VERSION >= VERSION_PAL_FINAL
 	freqpertick = settings[1] * (f32)config->outputRate / 25.0f;
@@ -84,7 +84,7 @@ void amgrCreate(ALSynConfig *config)
 	var800918e4 = g_AmgrFreqPerTick + 80;
 	var8005cf94 = 0;
 
-	func00009660();
+	admaInit();
 
 	osCreateMesgQueue(&g_AudioManager.audioReplyMsgQ, g_AudioManager.audioReplyMsgBuf, ARRAYCOUNT(g_AudioManager.audioFrameMsgBuf));
 	osCreateMesgQueue(&g_AudioManager.audioFrameMsgQ, g_AudioManager.audioFrameMsgBuf, ARRAYCOUNT(g_AudioManager.audioFrameMsgBuf));
@@ -187,7 +187,7 @@ void amgrMain(void *arg)
 			var80091588 = osGetTime();
 			vi00009aa0(0x30000);
 			amgrHandleFrameMsg(g_AudioManager.audioInfo[var80092828 % 3], info);
-			func00009a08();
+			adma00009a08();
 
 			count++;
 			vi00009aa0(0x60000);
@@ -241,7 +241,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 		__scHandleRetraceViaPri(&g_Sched, g_AmgrCurrentCmdList);
 	}
 
-	amgrClearDmaBuffers();
+	admaClear();
 
 	somevalue = IO_READ(OS_PHYSICAL_TO_K1(AI_LEN_REG)) / 4;
 	datastart = g_AudioManager.ACMDList[var8005cf90];
