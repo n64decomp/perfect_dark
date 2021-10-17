@@ -2,7 +2,6 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_3a100.h"
-#include "lib/lib_3e730.h"
 #include "data.h"
 #include "types.h"
 

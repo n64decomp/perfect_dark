@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "bss.h"
-#include "lib/lib_3e730.h"
 #include "lib/lib_43dd0.h"
 #include "lib/lib_461c0.h"
 #include "lib/libc/ll.h"

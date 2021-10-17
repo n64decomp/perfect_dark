@@ -976,7 +976,7 @@ void __n_CSPHandleMIDIMsg(N_ALCSPlayer *seqp, N_ALEvent *event)
 
 			for (vs = seqp->vAllocHead; vs != 0; vs = vs->next) {
 				if (vs->channel == chan) {
-					func0003e730(&vs->voice, byte2);
+					n_alSynFilter11(&vs->voice, byte2);
 				}
 			}
 			break;

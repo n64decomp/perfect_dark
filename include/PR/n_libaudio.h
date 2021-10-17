@@ -100,6 +100,8 @@ void    n_alSynStartVoiceParams(N_ALVoice *v, ALWaveTable *w,f32 pitch, s16 vol,
 				ALPan pan, u8 fxmix, u8 arg6, f32 arg7, u8 arg8, ALMicroTime t);
 void    n_alSynStopVoice( N_ALVoice *v);
 
+void    n_alSynFilter11(N_ALVoice *v, u8 channel);
+
 void    n_alSynNew(ALSynConfig *c);
 void    n_alSynDelete(void);
 

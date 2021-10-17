@@ -8,7 +8,6 @@
 #include "lib/lib_3a100.h"
 #include "lib/lib_3d280.h"
 #include "lib/lib_3e3e0.h"
-#include "lib/lib_3e730.h"
 #include "data.h"
 #include "types.h"
 

@@ -100,7 +100,8 @@
 	build/ROMID/lib/naudio/n_seqplayer.o (section); \
 	build/ROMID/lib/lib_3e3e0.o (section); \
 	build/ROMID/lib/naudio/n_synsetfxparam.o (section); \
-	build/ROMID/lib/lib_3e730.o (section); \
+	build/ROMID/lib/naudio/n_synfilter11.o (section); \
+	build/ROMID/lib/ultra/audio/cseq.o (section); \
 	build/ROMID/lib/naudio/n_env.o (section); \
 	build/ROMID/lib/lib_3f8a0.o (section); \
 	build/ROMID/lib/lib_43dd0.o (section); \
