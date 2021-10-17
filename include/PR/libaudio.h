@@ -414,32 +414,32 @@ Acmd    *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen);
  * Audio Library event type definitions
  */
 enum ALMsg {
-    AL_SEQ_REF_EVT,	/* Reference to a pending event in the sequence. */
-    AL_SEQ_MIDI_EVT,
-    AL_SEQP_MIDI_EVT,
-    AL_TEMPO_EVT,
-    AL_SEQ_END_EVT,
-    AL_NOTE_END_EVT,
-    AL_SEQP_ENV_EVT,
-    AL_SEQP_META_EVT,
-    AL_SEQP_PROG_EVT,
-    AL_SEQP_API_EVT,
-    AL_SEQP_VOL_EVT,
-    AL_SEQP_LOOP_EVT,
-    AL_SEQP_PRIORITY_EVT,
-    AL_SEQP_SEQ_EVT,
-    AL_SEQP_BANK_EVT,
-    AL_SEQP_PLAY_EVT,
-    AL_SEQP_STOP_EVT,
-    AL_SEQP_STOPPING_EVT,
-    AL_TRACK_END,
-    AL_CSP_LOOPSTART,
-    AL_CSP_LOOPEND,
-    AL_CSP_NOTEOFF_EVT,
-    AL_TREM_OSC_EVT,
-    AL_VIB_OSC_EVT,
-    AL_18_EVT,
-    AL_19_EVT
+    /*0x00*/ AL_SEQ_REF_EVT,	/* Reference to a pending event in the sequence. */
+    /*0x01*/ AL_SEQ_MIDI_EVT,
+    /*0x02*/ AL_SEQP_MIDI_EVT,
+    /*0x03*/ AL_TEMPO_EVT,
+    /*0x04*/ AL_SEQ_END_EVT,
+    /*0x05*/ AL_NOTE_END_EVT,
+    /*0x06*/ AL_SEQP_ENV_EVT,
+    /*0x07*/ AL_SEQP_META_EVT,
+    /*0x08*/ AL_SEQP_PROG_EVT,
+    /*0x09*/ AL_SEQP_API_EVT,
+    /*0x0a*/ AL_SEQP_VOL_EVT,
+    /*0x0b*/ AL_SEQP_LOOP_EVT,
+    /*0x0c*/ AL_SEQP_PRIORITY_EVT,
+    /*0x0d*/ AL_SEQP_SEQ_EVT,
+    /*0x0e*/ AL_SEQP_BANK_EVT,
+    /*0x0f*/ AL_SEQP_PLAY_EVT,
+    /*0x10*/ AL_SEQP_STOP_EVT,
+    /*0x11*/ AL_SEQP_STOPPING_EVT,
+    /*0x12*/ AL_TRACK_END,
+    /*0x13*/ AL_CSP_LOOPSTART,
+    /*0x14*/ AL_CSP_LOOPEND,
+    /*0x15*/ AL_CSP_NOTEOFF_EVT,
+    /*0x16*/ AL_TREM_OSC_EVT,
+    /*0x17*/ AL_VIB_OSC_EVT,
+    /*0x18*/ AL_18_EVT,
+    /*0x19*/ AL_19_EVT
 };
 
 /*
