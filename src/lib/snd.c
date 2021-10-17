@@ -36,7 +36,7 @@ struct var80094eb0 {
 
 s32 g_NumSounds;
 u32 *g_ALSoundRomOffsets;
-s32 var80094ea8;
+s32 g_SndMaxFxBusses;
 u32 var80094eac;
 struct var80094eb0 var80094eb0;
 u32 var80094ecc;
@@ -1711,7 +1711,7 @@ void sndSetSoundMode(s32 mode)
 
 	speaker00034104(0, 4);
 
-	for (i = 1; i < var80094ea8; i++) {
+	for (i = 1; i < g_SndMaxFxBusses; i++) {
 		switch (mode) {
 		case SOUNDMODE_STEREO:
 		case SOUNDMODE_HEADPHONE:
@@ -2087,7 +2087,7 @@ void sndInit(void)
 	g_Vars.langfilteron = false;
 
 	if (IS4MB()) {
-		var80094ea8 = 1;
+		g_SndMaxFxBusses = 1;
 
 #if VERSION >= VERSION_PAL_FINAL
 		heaplen -= 1024 * 6;
@@ -2101,7 +2101,7 @@ void sndInit(void)
 		g_SndMp3Enabled = false;
 	} else {
 		g_SndMp3Enabled = true;
-		var80094ea8 = 2;
+		g_SndMaxFxBusses = 2;
 
 		if (argFindByPrefix(1, "-nomp3")) {
 			g_SndMp3Enabled = false;
@@ -2113,7 +2113,7 @@ void sndInit(void)
 		// clear it and give it to the audio library
 		ALSynConfig synconfig;
 #if VERSION >= VERSION_PAL_FINAL
-		u32 sp58[3];
+		u32 settings[3];
 #endif
 		u8 *ptr = malloc(heaplen, MEMPOOL_PERMANENT);
 		u32 len = &_seqctlSegmentRomEnd - &_seqctlSegmentRomStart;
@@ -2168,9 +2168,9 @@ void sndInit(void)
 		synconfig.dmaproc = NULL;
 		synconfig.outputRate = 0;
 		synconfig.heap = &g_SndHeap;
-		synconfig.maxFXbusses = var80094ea8;
+		synconfig.maxFXbusses = g_SndMaxFxBusses;
 
-		for (i = 0; i < var80094ea8; i++) {
+		for (i = 0; i < g_SndMaxFxBusses; i++) {
 			synconfig.fxTypes[i] = 6;
 		}
 
@@ -2181,11 +2181,11 @@ void sndInit(void)
 		sp7c[3] = (u32) &g_SndHeap;
 
 #if VERSION >= VERSION_PAL_FINAL
-		sp58[0] = 22020;
-		sp58[1] = 1;
-		sp58[2] = 2000;
+		settings[0] = 22020;
+		settings[1] = 1;
+		settings[2] = 2000;
 
-		amgrCreate(&synconfig, &sp58);
+		amgrCreate(&synconfig, settings);
 #else
 		amgrCreate(&synconfig);
 #endif

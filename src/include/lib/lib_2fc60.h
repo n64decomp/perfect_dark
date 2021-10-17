@@ -9,7 +9,7 @@ u32 func000301a4(void);
 u32 func000301e4(void);
 u32 func00030690(void);
 u32 func00030bd8(void);
-u32 func00030bfc(void);
+void func00030bfc(s32 arg0, s32 arg1);
 void func00030c98(ALSeqpConfig *config);
 
 #endif

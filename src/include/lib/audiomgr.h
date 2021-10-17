@@ -7,7 +7,7 @@
 void amgrAllocateStack(void);
 
 #if VERSION >= VERSION_PAL_FINAL
-void amgrCreate(ALSynConfig *config, u32 *arg1);
+void amgrCreate(ALSynConfig *config, u32 *settings);
 #else
 void amgrCreate(ALSynConfig *config);
 #endif
