@@ -103,6 +103,7 @@ G_C_FILES := \
 	$(shell find src/lib/ultra/audio -name '*.c') \
 	$(shell find src/lib/naudio -name '*.c') \
 	src/lib/lib_2fba0.c \
+	src/lib/lib_317f0.c \
 	src/lib/lib_3a100.c \
 	src/lib/lib_3e730.c \
 	src/lib/mp3.c \

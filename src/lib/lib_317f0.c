@@ -4031,23 +4031,14 @@ glabel func0003364c
 /*    337ec:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel audioIsPlaying
-/*    337f0:	10800005 */ 	beqz	$a0,.L00033808
-/*    337f4:	00000000 */ 	nop
-/*    337f8:	03e00008 */ 	jr	$ra
-/*    337fc:	90820045 */ 	lbu	$v0,0x45($a0)
-/*    33800:	10000003 */ 	b	.L00033810
-/*    33804:	00000000 */ 	nop
-.L00033808:
-/*    33808:	03e00008 */ 	jr	$ra
-/*    3380c:	00001025 */ 	or	$v0,$zero,$zero
-.L00033810:
-/*    33810:	03e00008 */ 	jr	$ra
-/*    33814:	00000000 */ 	nop
-/*    33818:	03e00008 */ 	jr	$ra
-/*    3381c:	00000000 */ 	nop
-);
+bool audioIsPlaying(struct audiohandle *handle)
+{
+	if (handle) {
+		return handle->playing;
+	} else {
+		return false;
+	}
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
