@@ -4072,20 +4072,10 @@ glabel func00033cf0
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00033db0
-/*    33db0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    33db4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33db8:	0c00cf3c */ 	jal	func00033cf0
-/*    33dbc:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    33dc0:	10000001 */ 	b	.L00033dc8
-/*    33dc4:	00000000 */ 	nop
-.L00033dc8:
-/*    33dc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33dcc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    33dd0:	03e00008 */ 	jr	$ra
-/*    33dd4:	00000000 */ 	nop
-);
+void func00033db0(void)
+{
+	func00033cf0(1);
+}
 #endif
 
 GLOBAL_ASM(
