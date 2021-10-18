@@ -22,7 +22,7 @@ u32 var8005f130 = 0;
 u32 var8005f134 = 0;
 u32 var8005f138 = 0;
 u32 var8005f13c = 0;
-u32 var8005f140 = 0;
+void *var8005f140 = NULL; // function callback
 
 void func00033090(struct audiohandle *handle)
 {
@@ -411,15 +411,10 @@ glabel func00033390
 /*    33630:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00033634
-/*    33634:	3c018006 */ 	lui	$at,%hi(var8005f140)
-/*    33638:	ac24f140 */ 	sw	$a0,%lo(var8005f140)($at)
-/*    3363c:	03e00008 */ 	jr	$ra
-/*    33640:	00000000 */ 	nop
-/*    33644:	03e00008 */ 	jr	$ra
-/*    33648:	00000000 */ 	nop
-);
+void func00033634(void *fn)
+{
+	var8005f140 = fn;
+}
 
 GLOBAL_ASM(
 glabel func0003364c
