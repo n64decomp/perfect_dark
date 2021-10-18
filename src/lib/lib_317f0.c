@@ -1214,29 +1214,10 @@ void audioPostEvent(struct audiohandle *handle, s16 type, s32 data)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00033ec4
-/*    33ec4:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*    33ec8:	308400ff */ 	andi	$a0,$a0,0xff
-/*    33ecc:	3c0e800a */ 	lui	$t6,%hi(var8009c334)
-/*    33ed0:	8dcec334 */ 	lw	$t6,%lo(var8009c334)($t6)
-/*    33ed4:	11c00005 */ 	beqz	$t6,.L00033eec
-/*    33ed8:	00000000 */ 	nop
-/*    33edc:	00047840 */ 	sll	$t7,$a0,0x1
-/*    33ee0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    33ee4:	10000002 */ 	b	.L00033ef0
-/*    33ee8:	87050000 */ 	lh	$a1,0x0($t8)
-.L00033eec:
-/*    33eec:	00002825 */ 	or	$a1,$zero,$zero
-.L00033ef0:
-/*    33ef0:	10000003 */ 	b	.L00033f00
-/*    33ef4:	30a2ffff */ 	andi	$v0,$a1,0xffff
-/*    33ef8:	10000001 */ 	b	.L00033f00
-/*    33efc:	00000000 */ 	nop
-.L00033f00:
-/*    33f00:	03e00008 */ 	jr	$ra
-/*    33f04:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+u16 func00033ec4(u8 index)
+{
+	return var8009c334 ? var8009c334[index] : 0;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
