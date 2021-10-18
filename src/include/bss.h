@@ -47,7 +47,7 @@ extern s32 g_TileNumRooms;
 extern u32 *g_TileRooms;
 extern u32 var8009a918;
 extern u8 g_RdpDramStack[SP_DRAM_STACK_SIZE8];
-extern u32 var8009c2d0;
+extern N_ALSndPlayer var8009c2d0;
 extern struct var8009c340 var8009c340;
 extern u8 var8009c344[2];
 extern u32 var8009c3e0;

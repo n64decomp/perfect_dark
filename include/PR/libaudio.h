@@ -440,6 +440,7 @@ enum ALMsg {
     /*0x17*/ AL_VIB_OSC_EVT,
     /*0x18*/ AL_18_EVT,
     /*0x19*/ AL_19_EVT,
+    /*0x20*/ AL_20_EVT = 0x20, // AL_SNDP_API_EVENT? But is already used and is internal
     /*0x400*/ AL_400_EVT = 0x400
 };
 
@@ -925,9 +926,11 @@ void    alCSPSendMidi(ALCSPlayer *seqp, s32 ticks, u8 status,
  ***********************************************************************/
 
 typedef struct {
-    s32         maxSounds;
+    s32         maxStates;
     s32         maxEvents;
+	s32         maxSounds;
     ALHeap      *heap;
+    u16         unk10;
 } ALSndpConfig;
 
 typedef struct {

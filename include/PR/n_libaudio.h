@@ -383,7 +383,7 @@ typedef struct {
     ALMicroTime         curTime;
 } N_ALSndPlayer;
 
-void     n_alSndpNew(N_ALSndPlayer *sndp, ALSndpConfig *c);
+void     n_alSndpNew(ALSndpConfig *c);
 void     n_alSndpDelete(void);
 ALSndId  n_alSndpAllocate(ALSound *sound);
 void     n_alSndpDeallocate(ALSndId id);

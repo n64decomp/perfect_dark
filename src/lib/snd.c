@@ -2076,7 +2076,7 @@ glabel snd0000f7b8
 
 void sndInit(void)
 {
-	u32 sp7c[5];
+	ALSndpConfig sndpconfig;
 
 #if VERSION >= VERSION_PAL_FINAL
 	u32 heaplen = 1024 * 446;
@@ -2174,11 +2174,11 @@ void sndInit(void)
 			synconfig.fxTypes[i] = 6;
 		}
 
-		sp7c[1] = 64;
-		sp7c[0] = 64;
-		sp7c[2] = 20;
-		*(u16 *)&sp7c[4] = 9;
-		sp7c[3] = (u32) &g_SndHeap;
+		sndpconfig.maxEvents = 64;
+		sndpconfig.maxStates = 64;
+		sndpconfig.maxSounds = 20;
+		sndpconfig.unk10 = 9;
+		sndpconfig.heap = &g_SndHeap;
 
 #if VERSION >= VERSION_PAL_FINAL
 		settings[0] = 22020;
@@ -2206,7 +2206,7 @@ void sndInit(void)
 
 		osSyncPrintf("gsSndpNew\n");
 
-		func000317f0(&sp7c);
+		n_alSndpNew(&sndpconfig);
 
 		osSyncPrintf("Set the sample callbacks\n");
 

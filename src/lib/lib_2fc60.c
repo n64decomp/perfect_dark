@@ -9,30 +9,7 @@
 u32 var8009b870;
 u32 var8009b874;
 u32 var8009b878[662];
-u32 var8009c2d0;
-u32 var8009c2d4;
-u32 var8009c2d8;
-u32 var8009c2dc;
-u32 var8009c2e0;
-u32 var8009c2e4;
-u32 var8009c2e8;
-u32 var8009c2ec;
-u32 var8009c2f0;
-u32 var8009c2f4;
-u32 var8009c2f8;
-u32 var8009c2fc;
-u32 var8009c300;
-u32 var8009c304;
-u32 var8009c308;
-u32 var8009c30c;
-u32 var8009c310;
-u32 var8009c314;
-u32 var8009c318;
-u32 var8009c31c;
-u32 var8009c320;
-u32 var8009c324;
-u32 var8009c328;
-u32 var8009c32c;
+N_ALSndPlayer var8009c2d0;
 
 GLOBAL_ASM(
 glabel func0002fc60

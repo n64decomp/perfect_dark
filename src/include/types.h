@@ -7389,13 +7389,27 @@ struct var8007f8dc {
 	/*0x100*/ u32 unk100;
 };
 
-struct var8005f12c {
-	u32 unk00;
-	u32 unk04;
+struct sndstate {
+	ALLink node;
 	u32 unk08;
 	u32 unk0c;
 	u32 unk10;
-	ALEventQueue evtq;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+	u32 unk2c;
+	u32 unk30;
+	u32 unk34;
+	u32 unk38;
+	u32 unk3c;
+	u32 unk40;
+	u32 unk44;
+#if VERSION >= VERSION_NTSC_1_0
+	u32 unk48;
+#endif
 };
 
 #endif
