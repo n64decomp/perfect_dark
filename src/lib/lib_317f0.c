@@ -996,39 +996,19 @@ void audioStop(struct audiohandle *handle)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00033bc0
-/*    33bc0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    33bc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33bc8:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    33bcc:	240e0080 */ 	addiu	$t6,$zero,0x80
-/*    33bd0:	a7ae0018 */ 	sh	$t6,0x18($sp)
-/*    33bd4:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    33bd8:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*    33bdc:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    33be0:	1300000d */ 	beqz	$t8,.L00033c18
-/*    33be4:	00000000 */ 	nop
-/*    33be8:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    33bec:	2401ffef */ 	addiu	$at,$zero,-17
-/*    33bf0:	93280044 */ 	lbu	$t0,0x44($t9)
-/*    33bf4:	01014824 */ 	and	$t1,$t0,$at
-/*    33bf8:	a3290044 */ 	sb	$t1,0x44($t9)
-/*    33bfc:	3c048006 */ 	lui	$a0,%hi(g_SndPlayer)
-/*    33c00:	8c84f12c */ 	lw	$a0,%lo(g_SndPlayer)($a0)
-/*    33c04:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    33c08:	00003025 */ 	or	$a2,$zero,$zero
-/*    33c0c:	00003825 */ 	or	$a3,$zero,$zero
-/*    33c10:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33c14:	24840014 */ 	addiu	$a0,$a0,20
-.L00033c18:
-/*    33c18:	10000001 */ 	b	.L00033c20
-/*    33c1c:	00000000 */ 	nop
-.L00033c20:
-/*    33c20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33c24:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    33c28:	03e00008 */ 	jr	$ra
-/*    33c2c:	00000000 */ 	nop
-);
+void func00033bc0(struct audiohandle *handle)
+{
+	N_ALEvent evt;
+
+	evt.type = 0x80;
+	evt.msg.generic.handle = handle;
+
+	if (handle) {
+		evt.msg.generic.handle->unk44 &= ~0x10;
+
+		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
+	}
+}
 #endif
 
 GLOBAL_ASM(
