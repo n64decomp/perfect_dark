@@ -17,7 +17,7 @@ u32 func0003364c(void);
 bool audioIsPlaying(struct audiohandle *handle);
 struct audiohandle *func00033820(s32 arg0, s16 soundnum, s32 arg2, s32 arg3, f32 arg4, s32 arg5, s32 arg6, struct audiohandle **handle);
 void audioStop(struct audiohandle *handle);
-u32 func00033bc0(void);
+void func00033bc0(struct audiohandle *handle);
 u32 func00033c30(void);
 u32 func00033cf0(void);
 u32 func00033db0(void);

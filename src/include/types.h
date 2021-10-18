@@ -7389,4 +7389,13 @@ struct var8007f8dc {
 	/*0x100*/ u32 unk100;
 };
 
+struct var8005f12c {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	ALEventQueue evtq;
+};
+
 #endif

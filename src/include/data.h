@@ -78,7 +78,7 @@ extern struct rdptask *g_RdpCurTask;
 extern u32 var8005f120;
 extern u32 var8005f124;
 extern u32 var8005f128;
-extern u32 var8005f12c;
+extern struct var8005f12c *var8005f12c;
 extern u32 var8005f130;
 extern u32 var8005f134;
 extern u32 var8005f138;

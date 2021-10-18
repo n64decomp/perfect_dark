@@ -17,7 +17,7 @@ u32 var8009c334;
 u32 var8005f120 = 0;
 u32 var8005f124 = 0;
 u32 var8005f128 = 0;
-u32 var8005f12c = (u32) &var8009c2d0;
+struct var8005f12c *var8005f12c = (struct var8005f12c *) &var8009c2d0;
 u32 var8005f130 = 0;
 u32 var8005f134 = 0;
 u32 var8005f138 = 0;
@@ -4451,131 +4451,48 @@ glabel func00033820
 );
 #endif
 
+void audioStop(struct audiohandle *handle)
+{
+	N_ALEvent evt;
+
 #if VERSION >= VERSION_NTSC_FINAL
-GLOBAL_ASM(
-glabel audioStop
-/*    33b24:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    33b28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33b2c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    33b30:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    33b34:	11c00009 */ 	beqz	$t6,.L00033b5c
-/*    33b38:	00000000 */ 	nop
-/*    33b3c:	91cf0044 */ 	lbu	$t7,0x44($t6)
-/*    33b40:	31f80002 */ 	andi	$t8,$t7,0x2
-/*    33b44:	13000005 */ 	beqz	$t8,.L00033b5c
-/*    33b48:	00000000 */ 	nop
-/*    33b4c:	0c00cef0 */ 	jal	func00033bc0
-/*    33b50:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    33b54:	10000014 */ 	b	.L00033ba8
-/*    33b58:	00000000 */ 	nop
-.L00033b5c:
-/*    33b5c:	24190400 */ 	addiu	$t9,$zero,0x400
-/*    33b60:	a7b90018 */ 	sh	$t9,0x18($sp)
-/*    33b64:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    33b68:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*    33b6c:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*    33b70:	1120000d */ 	beqz	$t1,.L00033ba8
-/*    33b74:	00000000 */ 	nop
-/*    33b78:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    33b7c:	2401ffef */ 	addiu	$at,$zero,-17
-/*    33b80:	914b0044 */ 	lbu	$t3,0x44($t2)
-/*    33b84:	01616024 */ 	and	$t4,$t3,$at
-/*    33b88:	a14c0044 */ 	sb	$t4,0x44($t2)
-/*    33b8c:	3c048006 */ 	lui	$a0,%hi(var8005f12c)
-/*    33b90:	8c84f12c */ 	lw	$a0,%lo(var8005f12c)($a0)
-/*    33b94:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    33b98:	00003025 */ 	or	$a2,$zero,$zero
-/*    33b9c:	00003825 */ 	or	$a3,$zero,$zero
-/*    33ba0:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33ba4:	24840014 */ 	addiu	$a0,$a0,20
-.L00033ba8:
-/*    33ba8:	10000001 */ 	b	.L00033bb0
-/*    33bac:	00000000 */ 	nop
-.L00033bb0:
-/*    33bb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33bb4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    33bb8:	03e00008 */ 	jr	$ra
-/*    33bbc:	00000000 */ 	nop
-);
+	if (handle && (handle->unk44 & 2)) {
+		func00033bc0(handle);
+	} else {
+		evt.type = AL_400_EVT;
+		evt.msg.evt400.handle = handle;
+
+		if (handle != NULL) {
+			evt.msg.evt400.handle->unk44 &= ~0x10;
+
+			n_alEvtqPostEvent(&var8005f12c->evtq, &evt, 0, 0);
+		}
+	}
 #elif VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel audioStop
-/*    33b24:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    33b28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33b2c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    33b30:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    33b34:	91cf0044 */ 	lbu	$t7,0x44($t6)
-/*    33b38:	31f80002 */ 	andi	$t8,$t7,0x2
-/*    33b3c:	13000005 */ 	beqz	$t8,.L00033b54
-/*    33b40:	00000000 */ 	nop
-/*    33b44:	0c00ceee */ 	jal	func00033bc0
-/*    33b48:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*    33b4c:	10000014 */ 	b	.L00033ba0
-/*    33b50:	00000000 */ 	nop
-.L00033b54:
-/*    33b54:	24190400 */ 	addiu	$t9,$zero,0x400
-/*    33b58:	a7b90018 */ 	sh	$t9,0x18($sp)
-/*    33b5c:	8fa80028 */ 	lw	$t0,0x28($sp)
-/*    33b60:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*    33b64:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*    33b68:	1120000d */ 	beqz	$t1,.L00033ba0
-/*    33b6c:	00000000 */ 	nop
-/*    33b70:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*    33b74:	2401ffef */ 	addiu	$at,$zero,-17
-/*    33b78:	914b0044 */ 	lbu	$t3,0x44($t2)
-/*    33b7c:	01616024 */ 	and	$t4,$t3,$at
-/*    33b80:	a14c0044 */ 	sb	$t4,0x44($t2)
-/*    33b84:	3c048006 */ 	lui	$a0,%hi(var8005f12c)
-/*    33b88:	8c84f12c */ 	lw	$a0,%lo(var8005f12c)($a0)
-/*    33b8c:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    33b90:	00003025 */ 	or	$a2,$zero,$zero
-/*    33b94:	00003825 */ 	or	$a3,$zero,$zero
-/*    33b98:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33b9c:	24840014 */ 	addiu	$a0,$a0,0x14
-.L00033ba0:
-/*    33ba0:	10000001 */ 	b	.L00033ba8
-/*    33ba4:	00000000 */ 	nop
-.L00033ba8:
-/*    33ba8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33bac:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    33bb0:	03e00008 */ 	jr	$ra
-/*    33bb4:	00000000 */ 	nop
-);
+	// NTSC 1.0 lacks the null handle check
+	if (handle->unk44 & 2) {
+		func00033bc0(handle);
+	} else {
+		evt.type = AL_400_EVT;
+		evt.msg.evt400.handle = handle;
+
+		if (handle != NULL) {
+			evt.msg.evt400.handle->unk44 &= ~0x10;
+
+			n_alEvtqPostEvent(&var8005f12c->evtq, &evt, 0, 0);
+		}
+	}
 #else
-GLOBAL_ASM(
-glabel audioStop
-/*    350a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    350a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    350a8:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    350ac:	240e0400 */ 	addiu	$t6,$zero,0x400
-/*    350b0:	a7ae0018 */ 	sh	$t6,0x18($sp)
-/*    350b4:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    350b8:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*    350bc:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*    350c0:	1300000d */ 	beqz	$t8,.NB000350f8
-/*    350c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    350c8:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*    350cc:	2401ffef */ 	addiu	$at,$zero,-17
-/*    350d0:	93280044 */ 	lbu	$t0,0x44($t9)
-/*    350d4:	01014824 */ 	and	$t1,$t0,$at
-/*    350d8:	a3290044 */ 	sb	$t1,0x44($t9)
-/*    350dc:	3c048006 */ 	lui	$a0,0x8006
-/*    350e0:	8c84163c */ 	lw	$a0,0x163c($a0)
-/*    350e4:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    350e8:	00003025 */ 	or	$a2,$zero,$zero
-/*    350ec:	00003825 */ 	or	$a3,$zero,$zero
-/*    350f0:	0c00f678 */ 	jal	n_alEvtqPostEvent
-/*    350f4:	24840014 */ 	addiu	$a0,$a0,0x14
-.NB000350f8:
-/*    350f8:	10000001 */ 	beqz	$zero,.NB00035100
-/*    350fc:	00000000 */ 	sll	$zero,$zero,0x0
-.NB00035100:
-/*    35100:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    35104:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    35108:	03e00008 */ 	jr	$ra
-/*    3510c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	evt.type = AL_400_EVT;
+	evt.msg.evt400.handle = handle;
+
+	if (handle != NULL) {
+		evt.msg.evt400.handle->unk44 &= ~0x10;
+
+		n_alEvtqPostEvent(&var8005f12c->evtq, &evt, 0, 0);
+	}
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(

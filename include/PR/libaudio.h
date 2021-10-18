@@ -439,7 +439,8 @@ enum ALMsg {
     /*0x16*/ AL_TREM_OSC_EVT,
     /*0x17*/ AL_VIB_OSC_EVT,
     /*0x18*/ AL_18_EVT,
-    /*0x19*/ AL_19_EVT
+    /*0x19*/ AL_19_EVT,
+    /*0x400*/ AL_400_EVT = 0x400
 };
 
 /*
