@@ -4091,18 +4091,12 @@ glabel func00033dd8
 /*    33df4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    33df8:	03e00008 */ 	jr	$ra
 /*    33dfc:	00000000 */ 	nop
-/*    33e00:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    33e04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33e08:	0c00cf0c */ 	jal	func00033c30
-/*    33e0c:	24040011 */ 	addiu	$a0,$zero,0x11
-/*    33e10:	10000001 */ 	b	.L00033e18
-/*    33e14:	00000000 */ 	nop
-.L00033e18:
-/*    33e18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33e1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    33e20:	03e00008 */ 	jr	$ra
-/*    33e24:	00000000 */ 	nop
 );
+
+void func00033e00(void)
+{
+	func00033c30(0x11);
+}
 
 void func00033e28(void)
 {
