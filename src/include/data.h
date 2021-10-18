@@ -82,7 +82,6 @@ extern N_ALSndPlayer *g_SndPlayer;
 extern u32 var8005f130;
 extern u32 var8005f134;
 extern u32 var8005f138;
-extern u32 var8005f13c;
 extern u32 var8005f150;
 extern u32 var8005f34c;
 extern u32 var8005f4dc;

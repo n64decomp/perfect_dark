@@ -21,7 +21,7 @@ N_ALSndPlayer *g_SndPlayer = &var8009c2d0;
 u32 var8005f130 = 0;
 u32 var8005f134 = 0;
 u32 var8005f138 = 0;
-u32 var8005f13c = 0;
+void *var8005f13c = NULL; // function callback
 void *var8005f140 = NULL; // function callback
 
 void func00033090(struct audiohandle *handle)
@@ -218,15 +218,10 @@ glabel func00033274
 /*    33374:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00033378
-/*    33378:	3c018006 */ 	lui	$at,%hi(var8005f13c)
-/*    3337c:	ac24f13c */ 	sw	$a0,%lo(var8005f13c)($at)
-/*    33380:	03e00008 */ 	jr	$ra
-/*    33384:	00000000 */ 	nop
-/*    33388:	03e00008 */ 	jr	$ra
-/*    3338c:	00000000 */ 	nop
-);
+void func00033378(void *fn)
+{
+	var8005f13c = fn;
+}
 
 GLOBAL_ASM(
 glabel func00033390
