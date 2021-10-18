@@ -12,7 +12,7 @@ void mainOverrideVariable(char *name, void *value);
 void mainLoop(void);
 void mainTick(void);
 void mainEndStage(void);
-void mainSetStageNum(s32 stagenum);
+void mainChangeToStage(s32 stagenum);
 void func0000e990(void);
 void func0000e9c0(void);
 s32 mainGetStageNum(void);

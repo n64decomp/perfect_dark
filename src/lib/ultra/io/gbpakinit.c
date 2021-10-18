@@ -3,7 +3,7 @@
 #include "siint.h"
 
 OSTimer var80090ab0;
-OSMesgQueue var80090ad0;
+OSMesgQueue g_GbpakMesgQueue;
 OSMesg var80090ae8;
 
 s32 osGbpakInit(OSMesgQueue *queue, OSPfs *pfs, int channel)
@@ -76,9 +76,9 @@ s32 osGbpakInit(OSMesgQueue *queue, OSPfs *pfs, int channel)
 		return ret;
 	}
 
-	osCreateMesgQueue(&var80090ad0, &var80090ae8, 1);
-	osSetTimer(&var80090ab0, 937500, 0, &var80090ad0, &var80090ae8);
-	osRecvMesg(&var80090ad0, 0, OS_MESG_BLOCK);
+	osCreateMesgQueue(&g_GbpakMesgQueue, &var80090ae8, 1);
+	osSetTimer(&var80090ab0, 937500, 0, &g_GbpakMesgQueue, &var80090ae8);
+	osRecvMesg(&g_GbpakMesgQueue, 0, OS_MESG_BLOCK);
 
 	pfs->queue = queue;
 	pfs->status = 0x10;

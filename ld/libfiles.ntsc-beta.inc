@@ -31,6 +31,7 @@
 	build/ROMID/lib/rzip.o (section); \
 	build/ROMID/lib/audiomgr.o (section); \
 	build/ROMID/lib/audiodma.o (section); \
+	build/ROMID/lib/profile.o (section); \
 	build/ROMID/lib/vi.o (section); \
 	build/ROMID/lib/fault.o (section); \
 	build/ROMID/lib/crash.o (section); \

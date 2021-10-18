@@ -382,7 +382,7 @@ glabel func0f10d730
 /*  f1087a8:	03002025 */ 	or	$a0,$t8,$zero
 /*  f1087ac:	0fc06945 */ 	jal	titleSetNextMode
 /*  f1087b0:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f1087b4:	0c003c56 */ 	jal	mainSetStageNum
+/*  f1087b4:	0c003c56 */ 	jal	mainChangeToStage
 /*  f1087b8:	92040001 */ 	lbu	$a0,0x1($s0)
 /*  f1087bc:	1000000e */ 	beqz	$zero,.NB0f1087f8
 /*  f1087c0:	00001025 */ 	or	$v0,$zero,$zero
@@ -567,7 +567,7 @@ void endscreenHandleContinue(s32 context)
 
 						lvSetDifficulty(g_MissionConfig.difficulty);
 						titleSetNextMode(TITLEMODE_SKIP);
-						mainSetStageNum(g_MissionConfig.stagenum);
+						mainChangeToStage(g_MissionConfig.stagenum);
 						viBlack(true);
 					}
 				} else if (g_Vars.stagenum == STAGE_SKEDARRUINS) {
@@ -576,7 +576,7 @@ void endscreenHandleContinue(s32 context)
 					titleSetNextStage(g_MissionConfig.stagenum);
 					lvSetDifficulty(g_MissionConfig.difficulty);
 					titleSetNextMode(TITLEMODE_SKIP);
-					mainSetStageNum(g_MissionConfig.stagenum);
+					mainChangeToStage(g_MissionConfig.stagenum);
 					viBlack(true);
 				}
 			} else {
@@ -804,7 +804,7 @@ glabel menudialogSolo2PEndscreenCompleted
 /*  f108b28:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f108b2c:	3c03800a */ 	lui	$v1,0x800a
 /*  f108b30:	246327a8 */ 	addiu	$v1,$v1,0x27a8
-/*  f108b34:	0c003c56 */ 	jal	mainSetStageNum
+/*  f108b34:	0c003c56 */ 	jal	mainChangeToStage
 /*  f108b38:	90640001 */ 	lbu	$a0,0x1($v1)
 /*  f108b3c:	1000004e */ 	beqz	$zero,.NB0f108c78
 /*  f108b40:	8fb8001c */ 	lw	$t8,0x1c($sp)

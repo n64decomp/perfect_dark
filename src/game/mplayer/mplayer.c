@@ -162,7 +162,7 @@ void mpStartMatch(void)
 	}
 
 	titleSetNextStage(stagenum);
-	mainSetStageNum(stagenum);
+	mainChangeToStage(stagenum);
 	setNumPlayers(numplayers);
 	titleSetNextMode(TITLEMODE_SKIP);
 

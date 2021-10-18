@@ -3,12 +3,12 @@
 #include <ultra64.h>
 #include <sched.h>
 
-void func00001b28(u32 arg0);
-void __scHandleRetraceViaPri(OSSched *sc, OSScTask *t);
-void func00002078(OSSched *sc);
+void schedSetCrashEnable2(s32 enable);
+void schedAppendTasks(OSSched *sc, OSScTask *t);
+void __scHandleRetrace(OSSched *sc);
 void __scHandleRSP(OSSched *sc);
 void __scHandleRDP(OSSched *sc);
-void __scHandleRetrace(OSSched *sc);
+void __scHandleTasks(OSSched *sc);
 void __scAppendList(OSSched *sc, OSScTask *t);
 void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 void __scMain(void *arg);

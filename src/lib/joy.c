@@ -8,13 +8,13 @@
 #include "types.h"
 
 /**
- * PD uses use a separate thread (than the main game) for controller polling.
- * This thread polls the controllers as frequently as possible and stores its
- * results inside g_JoyData->samples. This allows the main thread to access a
- * history of controller states since the last rendered frame. For example,
- * under laggy conditions the player might press and release a button between
- * two frames and the main thread can tell that this has happened even if the
- * button was unpressed during both the previous and current frame.
+ * PD polls the controllers from the scheduler's thread. The scheduler polls the
+ * controllers on each retrace and stores teh results inside g_JoyData->samples.
+ * This allows the main thread to access a history of controller states since
+ * the last rendered frame. For example, under laggy conditions the player might
+ * press and release a button between two frames and the main thread can tell
+ * that this has happened even if the button was unpressed during both the
+ * previous and current frame.
  *
  * The samples array contains 20 elements and is written to in a cyclic manner.
  * These samples are split into two partitions: cur and next. cur refers to
@@ -22,18 +22,18 @@
  * samples in next are samples which have been added since the start of the
  * current frame and will be made visible on the next frame.
  *
- * At the start of a frame, the main thread informs the cont system that it's
- * ready to consume more samples. The cont system then moves the partition
+ * At the start of a frame, the main thread informs the joy system that it's
+ * ready to consume more samples. The joy system then moves the partition
  * boundaries so that the old next partition becomes the new cur, and everything
  * else becomes available for next.
  *
- * If all 20 samples are in use, the cont system will overwrite the most recent
+ * If all 20 samples are in use, the joy system will overwrite the most recent
  * sample in the next partition.
  */
 
 struct joydata g_JoyData[2];
 s32 g_JoyDisableCooldown[4];
-OSMesgQueue var80099e78;
+OSMesgQueue g_PiMesgQueue;
 OSMesg var80099e90;
 u32 var80099e94;
 u32 var80099e98;
@@ -238,7 +238,7 @@ void joyCheckPfs(s32 arg0)
 				joyDisableCyclicPolling();
 			}
 
-			osPfsIsPlug(&var80099e78, &bitpattern);
+			osPfsIsPlug(&g_PiMesgQueue, &bitpattern);
 
 			if (arg0) {
 				joyEnableCyclicPolling();
@@ -303,9 +303,9 @@ void joySystemInit(void)
 	osCreateMesgQueue(&g_JoyStopCyclicPollingDoneMesgQueue, &var80099ed8, 1);
 	osCreateMesgQueue(&g_JoyStartCyclicPollingMesgQueue, &var80099ef8, 1);
 	osCreateMesgQueue(&g_JoyStartCyclicPollingDoneMesgQueue, &var80099f18, 1);
-	osCreateMesgQueue(&var80099e78, &var80099e90, 10);
+	osCreateMesgQueue(&g_PiMesgQueue, &var80099e90, 10);
 
-	osSetEventMesg(OS_EVENT_SI, &var80099e78, NULL);
+	osSetEventMesg(OS_EVENT_SI, &g_PiMesgQueue, NULL);
 
 	g_JoyQueuesCreated = true;
 
@@ -376,7 +376,7 @@ void joy00013e84(void)
 	if (g_JoyNeedsInit) {
 		s32 i;
 		g_JoyNeedsInit = false;
-		osContInit(&var80099e78, &g_JoyConnectedControllers, var80099f38);
+		osContInit(&g_PiMesgQueue, &g_JoyConnectedControllers, var80099f38);
 		g_JoyInitDone = true;
 
 		for (i = 0; i < 4; i++) {
@@ -386,8 +386,8 @@ void joy00013e84(void)
 		u32 slots = 0xf;
 		s32 i;
 
-		osContStartQuery(&var80099e78);
-		osRecvMesg(&var80099e78, NULL, OS_MESG_BLOCK);
+		osContStartQuery(&g_PiMesgQueue);
+		osRecvMesg(&g_PiMesgQueue, NULL, OS_MESG_BLOCK);
 		osContGetQuery(var80099f38);
 
 		for (i = 0; i < 4; i++) {
@@ -661,7 +661,7 @@ void joysTick(void)
 
 	if (osRecvMesg(&g_JoyStopCyclicPollingMesgQueue, &msg, OS_MESG_NOBLOCK) == 0) {
 		if (g_JoyBusy) {
-			osRecvMesg(&var80099e78, &msg, OS_MESG_BLOCK);
+			osRecvMesg(&g_PiMesgQueue, &msg, OS_MESG_BLOCK);
 
 			g_JoyBusy = false;
 			joyReadData();
@@ -688,7 +688,7 @@ void joysTick(void)
 		var8005ee68--;
 
 		if (var8005ee68 == 0) {
-			joyStartReadData(&var80099e78);
+			joyStartReadData(&g_PiMesgQueue);
 			g_JoyBusy = true;
 		}
 
@@ -702,7 +702,7 @@ void joysTick(void)
 			return;
 		}
 
-		if (osRecvMesg(&var80099e78, &msg, OS_MESG_NOBLOCK) == 0) {
+		if (osRecvMesg(&g_PiMesgQueue, &msg, OS_MESG_NOBLOCK) == 0) {
 			static s32 count = 0;
 
 			g_JoyBusy = false;
@@ -720,7 +720,7 @@ void joysTick(void)
 			joy00014238();
 			joyCheckPfs(0);
 
-			joyStartReadData(&var80099e78);
+			joyStartReadData(&g_PiMesgQueue);
 			g_JoyBusy = true;
 
 			count++;
@@ -1318,11 +1318,11 @@ void joyReset(void)
 {
 	s32 i;
 
-	osCreateMesgQueue(&var80099e78, &var80099e90, 10);
-	osSetEventMesg(OS_EVENT_SI, &var80099e78, 0);
+	osCreateMesgQueue(&g_PiMesgQueue, &var80099e90, 10);
+	osSetEventMesg(OS_EVENT_SI, &g_PiMesgQueue, 0);
 
 	for (i = 0; i < 4; i++) {
-		if (osMotorProbe(&var80099e78, PFS(i), i) == 0) {
+		if (osMotorProbe(&g_PiMesgQueue, PFS(i), i) == 0) {
 			osMotorStop(PFS(i));
 			osMotorStop(PFS(i));
 			osMotorStop(PFS(i));
@@ -1361,7 +1361,7 @@ void joyStopRumble(s8 device, bool disablepolling)
 				joyDisableCyclicPolling();
 			}
 
-			if (osMotorProbe(&var80099e78, PFS(device), device) == 0) {
+			if (osMotorProbe(&g_PiMesgQueue, PFS(device), device) == 0) {
 				osMotorStop(PFS(device));
 				osMotorStop(PFS(device));
 				osMotorStop(PFS(device));

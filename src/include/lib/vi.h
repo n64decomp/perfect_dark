@@ -4,12 +4,12 @@
 #include "data.h"
 #include "types.h"
 
-void vi00009a80(void);
-void vi00009a88(void);
-void vi00009a90(void);
-void vi00009a98(void);
-void vi00009aa0(u32 arg0);
-Gfx *viRenderDebug(Gfx *gdl);
+void profileInit(void);
+void profileTick(void);
+void profile00009a90(void);
+void profile00009a98(void);
+void profileSetMarker(u32 arg0);
+Gfx *profileRender(Gfx *gdl);
 void viConfigureForLogos(void);
 void viConfigureForBanner(u8 *fb);
 void viConfigureForLegal(void);

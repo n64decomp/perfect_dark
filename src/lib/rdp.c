@@ -99,12 +99,12 @@ void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, void *msg)
 
 	sctask->next = NULL;
 	sctask->flags = OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP | OS_SC_LAST_TASK | OS_SC_SWAPBUFFER;
-	sctask->msgQ = &var8008db30;
+	sctask->msgQ = &g_SchedMesgQueue;
 	sctask->msg = msg;
 	sctask->framebuffer = g_RdpCurTask->framebuffer;
 
 	osWritebackDCacheAll();
-	__scHandleRetraceViaPri(&g_Sched, sctask);
+	schedAppendTasks(&g_Sched, sctask);
 
 	// Swap g_RdpCurTask
 	g_RdpCurTask = (struct rdptask *)((u32)g_RdpCurTask ^ (u32) &g_RdpTaskA ^ (u32) &g_RdpTaskB);

@@ -185,11 +185,11 @@ class Tool:
 
         self.fd = open(sys.argv[1], 'rb+')
 
-        self.patch(algo01, '__scHandleRetrace', 'bootPhase1')
-        self.patch(algo02, 'cheatMenuHandleDialog', '__scHandleRetrace')
+        self.patch(algo01, '__scHandleTasks', 'bootPhase1')
+        self.patch(algo02, 'cheatMenuHandleDialog', '__scHandleTasks')
         self.patch(algo03, 'propobjHandlePickupByAibot', 'func0f08e2ac')
         self.patch(algo04, 'chrUncloak', 'propobjHandlePickupByAibot')
-        self.patch(algo05, 'chrsCheckForNoise', 'func00002078')
+        self.patch(algo05, 'chrsCheckForNoise', '__scHandleRetrace')
         self.patch(algo06, 'lvInit', 'lvGetSlowMotionType')
         self.patch(algo07, 'propAllocateEyespy', 'lvInit')
         self.patch(algo08, 'chrConsiderGrenadeThrow', 'bgInit')

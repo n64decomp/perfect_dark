@@ -851,11 +851,11 @@ void pakDumpEeprom(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 	joyDisableCyclicPolling();
-	osEepromLongRead(&var80099e78, 0, buffer, 2048);
+	osEepromLongRead(&g_PiMesgQueue, 0, buffer, 2048);
 	joyEnableCyclicPolling();
 #else
 	joyDisableCyclicPolling(1098, "pak.c");
-	osEepromLongRead(&var80099e78, 0, buffer, 2048);
+	osEepromLongRead(&g_PiMesgQueue, 0, buffer, 2048);
 	joyEnableCyclicPolling(1100, "pak.c");
 #endif
 
@@ -3433,7 +3433,7 @@ void pakCorrupt(void)
 		address += 0x30;
 
 		joyDisableCyclicPolling();
-		osEepromLongWrite(&var80099e78, address, payload, sizeof(payload));
+		osEepromLongWrite(&g_PiMesgQueue, address, payload, sizeof(payload));
 		joyEnableCyclicPolling();
 	}
 }
@@ -4938,7 +4938,7 @@ bool pakProbe(s8 device)
 	joyDisableCyclicPolling();
 
 	// Try memory pak
-	ret = pakInitPak(&var80099e78, PFS(device), device, NULL);
+	ret = pakInitPak(&g_PiMesgQueue, PFS(device), device, NULL);
 
 #if VERSION >= VERSION_PAL_FINAL
 	if (pakHandleResult(ret, device, true, 3836))
@@ -4970,7 +4970,7 @@ bool pakProbe(s8 device)
 
 		if (!done) {
 			// Try rumble pak
-			ret = osMotorProbe(&var80099e78, PFS(device), device);
+			ret = osMotorProbe(&g_PiMesgQueue, PFS(device), device);
 
 #if VERSION >= VERSION_PAL_FINAL
 			if (pakHandleResult(ret, device, false, 3872))
@@ -4994,7 +4994,7 @@ bool pakProbe(s8 device)
 
 			if (!done) {
 				// Try game boy pak
-				ret = osGbpakInit(&var80099e78, PFS(device), device);
+				ret = osGbpakInit(&g_PiMesgQueue, PFS(device), device);
 
 #if VERSION >= VERSION_PAL_FINAL
 				if (pakHandleResult(ret, device, false, 3896))
@@ -5033,7 +5033,7 @@ bool pakProbe(s8 device)
 	joyDisableCyclicPolling(3434, "pak.c");
 
 	// Try memory pak
-	ret = pakInitPak(&var80099e78, PFS(device), device);
+	ret = pakInitPak(&g_PiMesgQueue, PFS(device), device);
 
 	if (pakHandleResult(ret, device, 1, 3437)) {
 		joyEnableCyclicPolling(3439, "pak.c");
@@ -5041,7 +5041,7 @@ bool pakProbe(s8 device)
 	}
 
 	// Try rumble pak
-	ret = osMotorProbe(&var80099e78, PFS(device), device);
+	ret = osMotorProbe(&g_PiMesgQueue, PFS(device), device);
 
 	if (pakHandleResult(ret, device, 0, 3446)) {
 		joyEnableCyclicPolling(3448, "pak.c");
@@ -5049,7 +5049,7 @@ bool pakProbe(s8 device)
 	}
 
 	// Try game boy pak
-	ret = osGbpakInit(&var80099e78, PFS(device), device);
+	ret = osGbpakInit(&g_PiMesgQueue, PFS(device), device);
 
 	if (pakHandleResult(ret, device, 0, 3455)) {
 		joyEnableCyclicPolling(3457, "pak.c");
@@ -7015,7 +7015,7 @@ void pakExecuteDebugOperations(void)
 		s32 device = g_PakDebugPakInit - 1;
 
 		joyDisableCyclicPolling();
-		pakInitPak(&var80099e78, PFS(device), device, 0);
+		pakInitPak(&g_PiMesgQueue, PFS(device), device, 0);
 		joyEnableCyclicPolling();
 
 		g_PakDebugPakInit = false;
@@ -9606,11 +9606,11 @@ void pakProbeEeprom(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 	joyDisableCyclicPolling();
-	type = osEepromProbe(&var80099e78);
+	type = osEepromProbe(&g_PiMesgQueue);
 	joyEnableCyclicPolling();
 #else
 	joyDisableCyclicPolling(6199, "pak.c");
-	type = osEepromProbe(&var80099e78);
+	type = osEepromProbe(&g_PiMesgQueue);
 	joyEnableCyclicPolling(6201, "pak.c");
 #endif
 
@@ -9631,11 +9631,11 @@ PakErr1 pakReadEeprom(u8 address, u8 *buffer, u32 len)
 
 #if VERSION >= VERSION_NTSC_1_0
 	joyDisableCyclicPolling();
-	result = osEepromLongRead(&var80099e78, address, buffer, len);
+	result = osEepromLongRead(&g_PiMesgQueue, address, buffer, len);
 	joyEnableCyclicPolling();
 #else
 	joyDisableCyclicPolling(6234, "pak.c");
-	result = osEepromLongRead(&var80099e78, address, buffer, len);
+	result = osEepromLongRead(&g_PiMesgQueue, address, buffer, len);
 	joyEnableCyclicPolling(6236, "pak.c");
 #endif
 
@@ -9648,11 +9648,11 @@ PakErr1 pakWriteEeprom(u8 address, u8 *buffer, u32 len)
 
 #if VERSION >= VERSION_NTSC_1_0
 	joyDisableCyclicPolling();
-	result = osEepromLongWrite(&var80099e78, address, buffer, len);
+	result = osEepromLongWrite(&g_PiMesgQueue, address, buffer, len);
 	joyEnableCyclicPolling();
 #else
 	joyDisableCyclicPolling(6269, "pak.c");
-	result = osEepromLongWrite(&var80099e78, address, buffer, len);
+	result = osEepromLongWrite(&g_PiMesgQueue, address, buffer, len);
 	joyEnableCyclicPolling(6271, "pak.c");
 #endif
 

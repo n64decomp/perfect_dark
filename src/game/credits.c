@@ -5313,7 +5313,7 @@ glabel var7f1b5948
 /*  f13bfd4:	0fc0690e */ 	jal	setNumPlayers
 /*  f13bfd8:	24040001 */ 	li	$a0,0x1
 /*  f13bfdc:	3c048006 */ 	lui	$a0,0x8006
-/*  f13bfe0:	0c0039af */ 	jal	mainSetStageNum
+/*  f13bfe0:	0c0039af */ 	jal	mainChangeToStage
 /*  f13bfe4:	8c8421b4 */ 	lw	$a0,0x21b4($a0)
 /*  f13bfe8:	3c01800a */ 	lui	$at,0x800a
 /*  f13bfec:	ac20a7a4 */ 	sw	$zero,-0x585c($at)
@@ -5622,7 +5622,7 @@ glabel var7f1b5948
 /*  f13b470:	0fc068d5 */ 	jal	setNumPlayers
 /*  f13b474:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f13b478:	3c048006 */ 	lui	$a0,%hi(g_TitleNextStage)
-/*  f13b47c:	0c003a57 */ 	jal	mainSetStageNum
+/*  f13b47c:	0c003a57 */ 	jal	mainChangeToStage
 /*  f13b480:	8c8424e4 */ 	lw	$a0,%lo(g_TitleNextStage)($a0)
 /*  f13b484:	3c01800a */ 	lui	$at,%hi(g_Vars+0x294)
 /*  f13b488:	ac20a254 */ 	sw	$zero,%lo(g_Vars+0x294)($at)
@@ -5931,7 +5931,7 @@ glabel var7f1b5948
 /*     7f135f70:	0fc06821 */ 	jal	setNumPlayers
 /*     7f135f74:	24040001 */ 	addiu	$a0,$zero,0x1
 /*     7f135f78:	3c048006 */ 	lui	$a0,0x8006
-/*     7f135f7c:	0c003c56 */ 	jal	mainSetStageNum
+/*     7f135f7c:	0c003c56 */ 	jal	mainChangeToStage
 /*     7f135f80:	8c8449f4 */ 	lw	$a0,0x49f4($a0)
 /*     7f135f84:	3c01800a */ 	lui	$at,0x800a
 /*     7f135f88:	ac20e954 */ 	sw	$zero,-0x16ac($at)
@@ -6056,7 +6056,7 @@ glabel var7f1b5948
 //		g_TitleNextStage = STAGE_CITRAINING;
 //
 //		setNumPlayers(1);
-//		mainSetStageNum(g_TitleNextStage);
+//		mainChangeToStage(g_TitleNextStage);
 //
 //		g_Vars.bondplayernum = 0;
 //		g_Vars.coopplayernum = -1;

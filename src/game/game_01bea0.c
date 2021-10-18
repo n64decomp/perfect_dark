@@ -1139,7 +1139,7 @@ glabel var7f1a863c
 /*  f01ce9c:	01e02025 */ 	move	$a0,$t7
 /*  f01cea0:	0fc06a32 */ 	jal	titleSetNextMode
 /*  f01cea4:	24040005 */ 	li	$a0,0x5
-/*  f01cea8:	0c0039af */ 	jal	mainSetStageNum
+/*  f01cea8:	0c0039af */ 	jal	mainChangeToStage
 /*  f01ceac:	92440001 */ 	lbu	$a0,0x1($s2)
 /*  f01ceb0:	1000002b */ 	b	.PF0f01cf60
 /*  f01ceb4:	8fae0120 */ 	lw	$t6,0x120($sp)
@@ -1221,7 +1221,7 @@ glabel var7f1a863c
 /*  f01cfcc:	10000001 */ 	b	.PF0f01cfd4
 /*  f01cfd0:	2404005d */ 	li	$a0,0x5d
 .PF0f01cfd4:
-/*  f01cfd4:	0c0039af */ 	jal	mainSetStageNum
+/*  f01cfd4:	0c0039af */ 	jal	mainChangeToStage
 /*  f01cfd8:	00000000 */ 	nop
 /*  f01cfdc:	0fc5b88c */ 	jal	func0f16d3d0
 /*  f01cfe0:	00000000 */ 	nop
@@ -1323,12 +1323,12 @@ glabel var7f1a863c
 /*  f01d130:	00000000 */ 	nop
 /*  f01d134:	0c0039b9 */ 	jal	mainGetStageNum
 /*  f01d138:	00000000 */ 	nop
-/*  f01d13c:	0c0039af */ 	jal	mainSetStageNum
+/*  f01d13c:	0c0039af */ 	jal	mainChangeToStage
 /*  f01d140:	00402025 */ 	move	$a0,$v0
 /*  f01d144:	100000c8 */ 	b	.PF0f01d468
 /*  f01d148:	00000000 */ 	nop
 .PF0f01d14c:
-/*  f01d14c:	0c0039af */ 	jal	mainSetStageNum
+/*  f01d14c:	0c0039af */ 	jal	mainChangeToStage
 /*  f01d150:	2404005a */ 	li	$a0,0x5a
 /*  f01d154:	100000c4 */ 	b	.PF0f01d468
 /*  f01d158:	00000000 */ 	nop
@@ -1480,7 +1480,7 @@ glabel var7f1a863c
 /*  f01d36c:	00000000 */ 	nop
 /*  f01d370:	0c0039b9 */ 	jal	mainGetStageNum
 /*  f01d374:	00000000 */ 	nop
-/*  f01d378:	0c0039af */ 	jal	mainSetStageNum
+/*  f01d378:	0c0039af */ 	jal	mainChangeToStage
 /*  f01d37c:	00402025 */ 	move	$a0,$v0
 /*  f01d380:	10000039 */ 	b	.PF0f01d468
 /*  f01d384:	00000000 */ 	nop
@@ -1507,7 +1507,7 @@ glabel var7f1a863c
 /*  f01d3d0:	02c02025 */ 	move	$a0,$s6
 /*  f01d3d4:	0fc06a32 */ 	jal	titleSetNextMode
 /*  f01d3d8:	24040005 */ 	li	$a0,0x5
-/*  f01d3dc:	0c0039af */ 	jal	mainSetStageNum
+/*  f01d3dc:	0c0039af */ 	jal	mainChangeToStage
 /*  f01d3e0:	24040026 */ 	li	$a0,0x26
 /*  f01d3e4:	10000020 */ 	b	.PF0f01d468
 /*  f01d3e8:	00000000 */ 	nop
@@ -1518,7 +1518,7 @@ glabel var7f1a863c
 /*  f01d3f8:	02c02025 */ 	move	$a0,$s6
 /*  f01d3fc:	0fc06a32 */ 	jal	titleSetNextMode
 /*  f01d400:	24040005 */ 	li	$a0,0x5
-/*  f01d404:	0c0039af */ 	jal	mainSetStageNum
+/*  f01d404:	0c0039af */ 	jal	mainChangeToStage
 /*  f01d408:	2404005d */ 	li	$a0,0x5d
 /*  f01d40c:	10000016 */ 	b	.PF0f01d468
 /*  f01d410:	00000000 */ 	nop
@@ -1537,7 +1537,7 @@ glabel var7f1a863c
 /*  f01d440:	02c02025 */ 	move	$a0,$s6
 /*  f01d444:	0fc06a32 */ 	jal	titleSetNextMode
 /*  f01d448:	24040005 */ 	li	$a0,0x5
-/*  f01d44c:	0c0039af */ 	jal	mainSetStageNum
+/*  f01d44c:	0c0039af */ 	jal	mainChangeToStage
 /*  f01d450:	24040026 */ 	li	$a0,0x26
 /*  f01d454:	3c12800a */ 	lui	$s2,0x800a
 /*  f01d458:	2652e588 */ 	addiu	$s2,$s2,-6776
@@ -2916,7 +2916,7 @@ glabel var7f1a863c
 /*  f01cdcc:	03202025 */ 	or	$a0,$t9,$zero
 /*  f01cdd0:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01cdd4:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01cdd8:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01cdd8:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01cddc:	92440001 */ 	lbu	$a0,0x1($s2)
 /*  f01cde0:	1000002b */ 	b	.L0f01ce90
 /*  f01cde4:	8fb80120 */ 	lw	$t8,0x120($sp)
@@ -2998,7 +2998,7 @@ glabel var7f1a863c
 /*  f01cefc:	10000001 */ 	b	.L0f01cf04
 /*  f01cf00:	2404005d */ 	addiu	$a0,$zero,0x5d
 .L0f01cf04:
-/*  f01cf04:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01cf04:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01cf08:	00000000 */ 	nop
 /*  f01cf0c:	0fc5b4f4 */ 	jal	func0f16d3d0
 /*  f01cf10:	00000000 */ 	nop
@@ -3100,12 +3100,12 @@ glabel var7f1a863c
 /*  f01d060:	00000000 */ 	nop
 /*  f01d064:	0c003a61 */ 	jal	mainGetStageNum
 /*  f01d068:	00000000 */ 	nop
-/*  f01d06c:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01d06c:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01d070:	00402025 */ 	or	$a0,$v0,$zero
 /*  f01d074:	100000c8 */ 	b	.L0f01d398
 /*  f01d078:	00000000 */ 	nop
 .L0f01d07c:
-/*  f01d07c:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01d07c:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01d080:	2404005a */ 	addiu	$a0,$zero,0x5a
 /*  f01d084:	100000c4 */ 	b	.L0f01d398
 /*  f01d088:	00000000 */ 	nop
@@ -3257,7 +3257,7 @@ glabel var7f1a863c
 /*  f01d29c:	00000000 */ 	nop
 /*  f01d2a0:	0c003a61 */ 	jal	mainGetStageNum
 /*  f01d2a4:	00000000 */ 	nop
-/*  f01d2a8:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01d2a8:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01d2ac:	00402025 */ 	or	$a0,$v0,$zero
 /*  f01d2b0:	10000039 */ 	b	.L0f01d398
 /*  f01d2b4:	00000000 */ 	nop
@@ -3284,7 +3284,7 @@ glabel var7f1a863c
 /*  f01d300:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d304:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01d308:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d30c:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01d30c:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01d310:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f01d314:	10000020 */ 	b	.L0f01d398
 /*  f01d318:	00000000 */ 	nop
@@ -3295,7 +3295,7 @@ glabel var7f1a863c
 /*  f01d328:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d32c:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01d330:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d334:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01d334:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01d338:	2404005d */ 	addiu	$a0,$zero,0x5d
 /*  f01d33c:	10000016 */ 	b	.L0f01d398
 /*  f01d340:	00000000 */ 	nop
@@ -3314,7 +3314,7 @@ glabel var7f1a863c
 /*  f01d370:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d374:	0fc069f9 */ 	jal	titleSetNextMode
 /*  f01d378:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d37c:	0c003a57 */ 	jal	mainSetStageNum
+/*  f01d37c:	0c003a57 */ 	jal	mainChangeToStage
 /*  f01d380:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f01d384:	3c12800a */ 	lui	$s2,%hi(g_MissionConfig)
 /*  f01d388:	2652dfe8 */ 	addiu	$s2,$s2,%lo(g_MissionConfig)
@@ -4684,7 +4684,7 @@ glabel var7f1a863c
 /*  f01caac:	03202025 */ 	or	$a0,$t9,$zero
 /*  f01cab0:	0fc06945 */ 	jal	titleSetNextMode
 /*  f01cab4:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01cab8:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01cab8:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01cabc:	92440001 */ 	lbu	$a0,0x1($s2)
 /*  f01cac0:	1000002b */ 	beqz	$zero,.NB0f01cb70
 /*  f01cac4:	8fb80120 */ 	lw	$t8,0x120($sp)
@@ -4766,7 +4766,7 @@ glabel var7f1a863c
 /*  f01cbdc:	10000001 */ 	beqz	$zero,.NB0f01cbe4
 /*  f01cbe0:	2404005d */ 	addiu	$a0,$zero,0x5d
 .NB0f01cbe4:
-/*  f01cbe4:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01cbe4:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01cbe8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01cbec:	0fc5a04d */ 	jal	func0f16d3d0
 /*  f01cbf0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4868,12 +4868,12 @@ glabel var7f1a863c
 /*  f01cd40:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01cd44:	0c003c59 */ 	jal	mainGetStageNum
 /*  f01cd48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01cd4c:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01cd4c:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01cd50:	00402025 */ 	or	$a0,$v0,$zero
 /*  f01cd54:	100000c8 */ 	beqz	$zero,.NB0f01d078
 /*  f01cd58:	00000000 */ 	sll	$zero,$zero,0x0
 .NB0f01cd5c:
-/*  f01cd5c:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01cd5c:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01cd60:	2404005a */ 	addiu	$a0,$zero,0x5a
 /*  f01cd64:	100000c4 */ 	beqz	$zero,.NB0f01d078
 /*  f01cd68:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5025,7 +5025,7 @@ glabel var7f1a863c
 /*  f01cf7c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01cf80:	0c003c59 */ 	jal	mainGetStageNum
 /*  f01cf84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01cf88:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01cf88:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01cf8c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f01cf90:	10000039 */ 	beqz	$zero,.NB0f01d078
 /*  f01cf94:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5052,7 +5052,7 @@ glabel var7f1a863c
 /*  f01cfe0:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01cfe4:	0fc06945 */ 	jal	titleSetNextMode
 /*  f01cfe8:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01cfec:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01cfec:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01cff0:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f01cff4:	10000020 */ 	beqz	$zero,.NB0f01d078
 /*  f01cff8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5063,7 +5063,7 @@ glabel var7f1a863c
 /*  f01d008:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d00c:	0fc06945 */ 	jal	titleSetNextMode
 /*  f01d010:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d014:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01d014:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01d018:	2404005d */ 	addiu	$a0,$zero,0x5d
 /*  f01d01c:	10000016 */ 	beqz	$zero,.NB0f01d078
 /*  f01d020:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5082,7 +5082,7 @@ glabel var7f1a863c
 /*  f01d050:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f01d054:	0fc06945 */ 	jal	titleSetNextMode
 /*  f01d058:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f01d05c:	0c003c56 */ 	jal	mainSetStageNum
+/*  f01d05c:	0c003c56 */ 	jal	mainChangeToStage
 /*  f01d060:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f01d064:	3c12800a */ 	lui	$s2,0x800a
 /*  f01d068:	265227a8 */ 	addiu	$s2,$s2,0x27a8
@@ -5882,7 +5882,7 @@ glabel var7f1a863c
 //								titleSetNextStage(g_MissionConfig.stagenum);
 //								lvSetDifficulty(g_MissionConfig.difficulty);
 //								titleSetNextMode(TITLEMODE_SKIP);
-//								mainSetStageNum(g_MissionConfig.stagenum);
+//								mainChangeToStage(g_MissionConfig.stagenum);
 //							} else {
 //								// cde8
 //								s32 prevplayernum = g_Vars.currentplayernum;
@@ -5915,7 +5915,7 @@ glabel var7f1a863c
 //				g_FileState = FILESTATE_CHANGINGAGENT;
 //				gamefileLoadDefaults(&g_GameFile);
 //				gamefileApplyOptions(&g_GameFile);
-//				mainSetStageNum(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);
+//				mainChangeToStage(IS4MB() ? STAGE_4MBMENU : STAGE_CITRAINING);
 //				func0f16d3d0();
 //			} else {
 //				// cf1c
@@ -5956,9 +5956,9 @@ glabel var7f1a863c
 //			switch (g_MenuData.root) {
 //			case MENUROOT_ENDSCREEN: // d058
 //				if (g_Vars.restartlevel) {
-//					mainSetStageNum(mainGetStageNum());
+//					mainChangeToStage(mainGetStageNum());
 //				} else {
-//					mainSetStageNum(STAGE_TITLE);
+//					mainChangeToStage(STAGE_TITLE);
 //				}
 //				break;
 //			case MENUROOT_MPPAUSE: // d398
@@ -5987,7 +5987,7 @@ glabel var7f1a863c
 //						&& ((!g_CheatsActiveBank0 && !g_CheatsActiveBank1) || isStageDifficultyUnlocked(g_MissionConfig.stageindex + 1, g_MissionConfig.difficulty))) {
 //					soloPushSoloModeEndscreen();
 //				} else if (g_Vars.restartlevel) {
-//					mainSetStageNum(mainGetStageNum());
+//					mainChangeToStage(mainGetStageNum());
 //				} else {
 //					mpSetPaused(MPPAUSEMODE_UNPAUSED);
 //					g_Vars.mplayerisrunning = false;
@@ -6003,12 +6003,12 @@ glabel var7f1a863c
 //						titleSetNextStage(STAGE_CITRAINING);
 //						setNumPlayers(1);
 //						titleSetNextMode(TITLEMODE_SKIP);
-//						mainSetStageNum(STAGE_CITRAINING);
+//						mainChangeToStage(STAGE_CITRAINING);
 //					} else {
 //						titleSetNextStage(STAGE_4MBMENU);
 //						setNumPlayers(1);
 //						titleSetNextMode(TITLEMODE_SKIP);
-//						mainSetStageNum(STAGE_4MBMENU);
+//						mainChangeToStage(STAGE_4MBMENU);
 //					}
 //				}
 //				break;
@@ -6021,7 +6021,7 @@ glabel var7f1a863c
 //					titleSetNextStage(STAGE_CITRAINING);
 //					setNumPlayers(1);
 //					titleSetNextMode(TITLEMODE_SKIP);
-//					mainSetStageNum(STAGE_CITRAINING);
+//					mainChangeToStage(STAGE_CITRAINING);
 //					g_MissionConfig.iscoop = false;
 //				}
 //				break;

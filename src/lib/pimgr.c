@@ -6,9 +6,9 @@
 #include "types.h"
 
 OSMesg var80099900[64];
-OSMesgQueue var80099a00;
+OSMesgQueue g_PimgrMesgQueue;
 
 void pimgrCreate(void)
 {
-	osCreatePiManager(150, &var80099a00, var80099900, 64);
+	osCreatePiManager(150, &g_PimgrMesgQueue, var80099900, 64);
 }

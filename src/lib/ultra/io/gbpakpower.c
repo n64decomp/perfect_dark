@@ -3,7 +3,7 @@
 #include "siint.h"
 
 extern OSTimer var80090ab0;
-extern OSMesgQueue var80090ad0;
+extern OSMesgQueue g_GbpakMesgQueue;
 extern OSMesg var80090ae8;
 
 s32 osGbpakPower(OSPfs *pfs, s32 flag)
@@ -31,8 +31,8 @@ s32 osGbpakPower(OSPfs *pfs, s32 flag)
 	}
 
 	if (flag != OS_GBPAK_POWER_OFF) {
-		osSetTimer(&var80090ab0, 937500, 0, &var80090ad0, &var80090ae8);
-		osRecvMesg(&var80090ad0, NULL, OS_MESG_BLOCK);
+		osSetTimer(&var80090ab0, 937500, 0, &g_GbpakMesgQueue, &var80090ae8);
+		osRecvMesg(&g_GbpakMesgQueue, NULL, OS_MESG_BLOCK);
 	}
 
 	return ret;

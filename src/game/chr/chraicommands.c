@@ -5251,7 +5251,7 @@ bool aiEndLevel(void)
 {
 	if (debugAllowEndLevel()) {
 		if (var800624a4) {
-			mainSetStageNum(STAGE_TITLE);
+			mainChangeToStage(STAGE_TITLE);
 		} else if (g_Vars.autocutplaying) {
 			g_Vars.autocutfinished = true;
 		} else {

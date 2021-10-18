@@ -473,7 +473,7 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handle
 
 #if PIRACYCHECKS
 		{
-			u32 *ptr = (u32 *)&__scHandleRetrace;
+			u32 *ptr = (u32 *)&__scHandleTasks;
 			u32 *end = (u32 *)&__scHandleRSP;
 			u32 checksum = 0;
 
@@ -483,7 +483,7 @@ s32 cheatMenuHandleDialog(s32 operation, struct menudialog *dialog, union handle
 			}
 
 			if (checksum != CHECKSUM_PLACEHOLDER) {
-				ptr = (u32 *)&__scHandleRetrace + 20;
+				ptr = (u32 *)&__scHandleTasks + 20;
 				if (1);
 				end = &ptr[4];
 

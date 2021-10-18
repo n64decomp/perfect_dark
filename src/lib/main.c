@@ -68,7 +68,7 @@ s32 var8005d9bc = 0;
 s32 var8005d9c0 = 0;
 s32 var8005d9c4 = 0;
 bool g_MainGameLogicEnabled = true;
-u32 var8005d9cc = 0;
+u32 g_MainNumGfxTasks = 0;
 bool g_MainIsEndscreen = false;
 s32 g_DoBootPakMenu = 0;
 
@@ -638,7 +638,7 @@ glabel mainInit
 /*     d758:	00000000 */ 	nop
 /*     d75c:	0fc02c84 */ 	jal	stub0f00b200
 /*     d760:	00000000 */ 	nop
-/*     d764:	0c00265c */ 	jal	vi00009a80
+/*     d764:	0c00265c */ 	jal	profileInit
 /*     d768:	00000000 */ 	nop
 /*     d76c:	0fc0021c */ 	jal	stub0f000870
 /*     d770:	00000000 */ 	nop
@@ -926,19 +926,19 @@ glabel mainInit
 /*     d86c:	02002025 */ 	or	$a0,$s0,$zero
 /*     d870:	8faa0048 */ 	lw	$t2,0x48($sp)
 /*     d874:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferStart)
-/*     d878:	3c048009 */ 	lui	$a0,%hi(var8008db30)
+/*     d878:	3c048009 */ 	lui	$a0,%hi(g_SchedMesgQueue)
 /*     d87c:	ac2af044 */ 	sw	$t2,%lo(g_RdpOutBufferStart)($at)
 /*     d880:	3c018006 */ 	lui	$at,%hi(g_RdpOutBufferEnd)
 /*     d884:	254e0800 */ 	addiu	$t6,$t2,0x800
 /*     d888:	ac2ef040 */ 	sw	$t6,%lo(g_RdpOutBufferEnd)($at)
-/*     d88c:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
+/*     d88c:	2484db30 */ 	addiu	$a0,$a0,%lo(g_SchedMesgQueue)
 /*     d890:	27a51470 */ 	addiu	$a1,$sp,0x1470
 /*     d894:	0c0121bc */ 	jal	osRecvMesg
 /*     d898:	00003025 */ 	or	$a2,$zero,$zero
 /*     d89c:	14400007 */ 	bnez	$v0,.L0000d8bc
 .L0000d8a0:
-/*     d8a0:	3c048009 */ 	lui	$a0,%hi(var8008db30)
-/*     d8a4:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
+/*     d8a0:	3c048009 */ 	lui	$a0,%hi(g_SchedMesgQueue)
+/*     d8a4:	2484db30 */ 	addiu	$a0,$a0,%lo(g_SchedMesgQueue)
 /*     d8a8:	27a51470 */ 	addiu	$a1,$sp,0x1470
 /*     d8ac:	0c0121bc */ 	jal	osRecvMesg
 /*     d8b0:	00003025 */ 	or	$a2,$zero,$zero
@@ -947,8 +947,8 @@ glabel mainInit
 .L0000d8bc:
 /*     d8bc:	00001825 */ 	or	$v1,$zero,$zero
 .L0000d8c0:
-/*     d8c0:	3c048009 */ 	lui	$a0,%hi(var8008db30)
-/*     d8c4:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
+/*     d8c0:	3c048009 */ 	lui	$a0,%hi(g_SchedMesgQueue)
+/*     d8c4:	2484db30 */ 	addiu	$a0,$a0,%lo(g_SchedMesgQueue)
 /*     d8c8:	27a51470 */ 	addiu	$a1,$sp,0x1470
 /*     d8cc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*     d8d0:	0c0121bc */ 	jal	osRecvMesg
@@ -1041,7 +1041,7 @@ glabel mainInit
 /*     da1c:	00000000 */ 	nop
 /*     da20:	0fc02c80 */ 	jal	stub0f00b200
 /*     da24:	00000000 */ 	nop
-/*     da28:	0c0026a0 */ 	jal	vi00009a80
+/*     da28:	0c0026a0 */ 	jal	profileInit
 /*     da2c:	00000000 */ 	nop
 /*     da30:	0fc0021c */ 	jal	stub0f000870
 /*     da34:	00000000 */ 	nop
@@ -1414,7 +1414,7 @@ glabel mainInit
 /*     df2c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df30:	0fc02bac */ 	jal	stub0f00b200
 /*     df34:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df38:	0c002708 */ 	jal	vi00009a80
+/*     df38:	0c002708 */ 	jal	profileInit
 /*     df3c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df40:	0fc0021c */ 	jal	stub0f000870
 /*     df44:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1594,7 +1594,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		g_RdpOutBufferStart = texture;
 //		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
 //
-//		while (osRecvMesg(&var8008db30, &sp1470, OS_MESG_NOBLOCK) == 0) {
+//		while (osRecvMesg(&g_SchedMesgQueue, &sp1470, OS_MESG_NOBLOCK) == 0) {
 //			// empty
 //		}
 //
@@ -1603,7 +1603,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //		j = 0;
 //
 //		while (j < 6) {
-//			osRecvMesg(&var8008db30, &sp1470, OS_MESG_BLOCK);
+//			osRecvMesg(&g_SchedMesgQueue, &sp1470, OS_MESG_BLOCK);
 //
 //			if (*(s16 *)sp1470 == 1) {
 //				viUpdateMode();
@@ -1654,7 +1654,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	func0f127910();
 //	frametimeInit();
 //	stub0f00b200();
-//	vi00009a80();
+//	profileInit();
 //	stub0f000870();
 //	func0f000880();
 //	stub0f0008e0();
@@ -1694,7 +1694,7 @@ u32 var8005dd44 = 0x00000000;
 u32 var8005dd48 = 0x00000000;
 u32 var8005dd4c = 0x00000000;
 u32 var8005dd50 = 0x00000000;
-s32 g_MainStageNum = -1;
+s32 g_MainChangeToStageNum = -1;
 u32 var8005dd58 = 0x00000000;
 
 #if VERSION < VERSION_NTSC_1_0
@@ -1753,7 +1753,7 @@ void mainOverrideVariable(char *name, void *value)
 void mainLoop(void)
 {
 	s32 ending = false;
-	u32 array[] = {0x20000, 0, 0, 0, 0, 0, 0, 0};
+	OSScMsg msg2 = {OS_SC_DONE_MSG};
 	OSMesg msg;
 	s32 index;
 	s32 numplayers;
@@ -1788,7 +1788,7 @@ void mainLoop(void)
 
 	// Outer loop - this is infinite because ending is never changed
 	while (!ending) {
-		var8005d9cc = 0;
+		g_MainNumGfxTasks = 0;
 		g_MainGameLogicEnabled = true;
 		msg = NULL;
 		g_MainIsEndscreen = false;
@@ -1944,18 +1944,18 @@ void mainLoop(void)
 		lvInit(g_StageNum);
 		viAllocateFbs(g_StageNum);
 		frametimeCalculate();
-		vi00009a90();
+		profile00009a90();
 
-		while (osRecvMesg(&var8008db30, &msg, OS_MESG_NOBLOCK) != -1) {
+		while (osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
 			// empty
 		}
 
-		while (g_MainStageNum < 0 || var8005d9cc != 0) {
+		while (g_MainChangeToStageNum < 0 || g_MainNumGfxTasks != 0) {
 			s32 tmp;
-			osRecvMesg(&var8008db30, &msg, OS_MESG_BLOCK);
+			osRecvMesg(&g_SchedMesgQueue, &msg, OS_MESG_BLOCK);
 
 			switch (*(s16 *)msg) {
-			case 1:
+			case OS_SC_RETRACE_MSG:
 				tmp = osGetCount() - g_Vars.thisframetime;
 #if PAL
 				if (tmp >= g_Vars.mininc60 * 937500 - 937500 / 2) {
@@ -1967,11 +1967,13 @@ void mainLoop(void)
 				}
 #endif
 				break;
-			case 2:
-				var8005d9cc--;
+			case OS_SC_DONE_MSG:
+				g_MainNumGfxTasks--;
 				break;
-			case 5:
-				var8005d9cc = 4;
+			case OS_SC_PRE_NMI_MSG:
+				// This seems to be a hack to get this loop to keep ticking...
+				// maybe graphics tasks stop being created after pre NMI?
+				g_MainNumGfxTasks = 4;
 				break;
 			}
 		}
@@ -1983,8 +1985,8 @@ void mainLoop(void)
 		viBlack(true);
 		pak0f116994();
 
-		g_StageNum = g_MainStageNum;
-		g_MainStageNum = -1;
+		g_StageNum = g_MainChangeToStageNum;
+		g_MainChangeToStageNum = -1;
 	}
 
 	// Unreachable
@@ -2482,7 +2484,7 @@ glabel mainLoop
 /*     e740:	8c84f2d4 */ 	lw	$a0,-0xd2c($a0)
 /*     e744:	0fc59f11 */ 	jal	frametimeCalculate
 /*     e748:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e74c:	0c00270c */ 	jal	vi00009a90
+/*     e74c:	0c00270c */ 	jal	profile00009a90
 /*     e750:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e754:	02602025 */ 	or	$a0,$s3,$zero
 /*     e758:	02802825 */ 	or	$a1,$s4,$zero
@@ -2604,17 +2606,17 @@ void mainTick(void)
 {
 	Gfx *gdl;
 	Gfx *gdlstart;
-	u32 array[] = {0x20000, 0, 0, 0, 0, 0, 0, 0};
+	OSScMsg msg = {OS_SC_DONE_MSG};
 	s32 i;
 
-	if (g_MainStageNum < 0 && var8005d9cc < 2) {
+	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
 		frametimeCalculate();
-		vi00009a98();
-		vi00009a90();
-		vi00009aa0(0x20000);
+		profile00009a98();
+		profile00009a90();
+		profileSetMarker(PROFILE_MAINTICK_START);
 		func000034d8();
 		joyDebugJoy();
-		func00001b28(0);
+		schedSetCrashEnable2(false);
 
 		if (g_MainGameLogicEnabled) {
 			gdl = gdlstart = gfxGetMasterDisplayList();
@@ -2644,7 +2646,7 @@ void mainTick(void)
 			func000034e0(&gdl);
 
 			if (debug0f11ed70() >= 2) {
-				gdl = viRenderDebug(gdl);
+				gdl = profileRender(gdl);
 			}
 
 			gDPFullSync(gdl++);
@@ -2656,11 +2658,11 @@ void mainTick(void)
 			viUpdateMode();
 		}
 
-		rdpCreateTask(gdlstart, gdl, 0, array);
-		var8005d9cc++;
+		rdpCreateTask(gdlstart, gdl, 0, &msg);
+		g_MainNumGfxTasks++;
 		func00012a8c();
 		func0f16cf94();
-		vi00009aa0(0x10000);
+		profileSetMarker(PROFILE_MAINTICK_END);
 	}
 }
 #else
@@ -2700,17 +2702,17 @@ glabel mainTick
 /*     e968:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*     e96c:	0fc59f11 */ 	jal	frametimeCalculate
 /*     e970:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e974:	0c00270e */ 	jal	vi00009a98
+/*     e974:	0c00270e */ 	jal	profile00009a98
 /*     e978:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e97c:	0c00270c */ 	jal	vi00009a90
+/*     e97c:	0c00270c */ 	jal	profile00009a90
 /*     e980:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e984:	0c002710 */ 	jal	vi00009aa0
+/*     e984:	0c002710 */ 	jal	profileSetMarker
 /*     e988:	3c040002 */ 	lui	$a0,0x2
 /*     e98c:	0c000dbe */ 	jal	func000034d8
 /*     e990:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e994:	0c005477 */ 	jal	joyDebugJoy
 /*     e998:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e99c:	0c00073e */ 	jal	func00001b28
+/*     e99c:	0c00073e */ 	jal	schedSetCrashEnable2
 /*     e9a0:	00002025 */ 	or	$a0,$zero,$zero
 /*     e9a4:	3c048006 */ 	lui	$a0,0x8006
 /*     e9a8:	8c84f2e8 */ 	lw	$a0,-0xd18($a0)
@@ -2990,7 +2992,7 @@ glabel mainTick
 /*     edac:	28410002 */ 	slti	$at,$v0,0x2
 /*     edb0:	14200004 */ 	bnez	$at,.NB0000edc4
 /*     edb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     edb8:	0c002712 */ 	jal	viRenderDebug
+/*     edb8:	0c002712 */ 	jal	profileRender
 /*     edbc:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*     edc0:	afa20094 */ 	sw	$v0,0x94($sp)
 .NB0000edc4:
@@ -3039,7 +3041,7 @@ glabel mainTick
 /*     ee60:	ac490000 */ 	sw	$t1,0x0($v0)
 /*     ee64:	0fc59f51 */ 	jal	func0f16cf94
 /*     ee68:	00000000 */ 	sll	$zero,$zero,0x0
-/*     ee6c:	0c002710 */ 	jal	vi00009aa0
+/*     ee6c:	0c002710 */ 	jal	profileSetMarker
 /*     ee70:	3c040001 */ 	lui	$a0,0x1
 /*     ee74:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .NB0000ee78:
@@ -3093,13 +3095,16 @@ void mainEndStage(void)
 	g_MainIsEndscreen = true;
 }
 
-void mainSetStageNum(s32 stagenum)
+/**
+ * Change to the given stage at the end of the current frame.
+ */
+void mainChangeToStage(s32 stagenum)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	pak0f11c6d0();
 #endif
 
-	g_MainStageNum = stagenum;
+	g_MainChangeToStageNum = stagenum;
 }
 
 s32 mainGetStageNum(void)

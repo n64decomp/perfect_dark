@@ -63,36 +63,6 @@ bool g_ViIs16Bit = true;
 bool g_ViReconfigured = false;
 s32 g_ViSlot = 0;
 
-void vi00009a80(void)
-{
-	// empty
-}
-
-void vi00009a88(void)
-{
-	// empty
-}
-
-void vi00009a90(void)
-{
-	// empty
-}
-
-void vi00009a98(void)
-{
-	// empty
-}
-
-void vi00009aa0(u32 value)
-{
-	// empty
-}
-
-Gfx *viRenderDebug(Gfx *gdl)
-{
-	return gdl;
-}
-
 void viConfigureForLogos(void)
 {
 	g_ViFrontIndex = 0;

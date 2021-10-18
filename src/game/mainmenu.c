@@ -771,7 +771,7 @@ s32 menuhandlerAcceptMission(s32 operation, struct menuitem *item, union handler
 
 		lvSetDifficulty(g_MissionConfig.difficulty);
 		titleSetNextMode(TITLEMODE_SKIP);
-		mainSetStageNum(g_MissionConfig.stagenum);
+		mainChangeToStage(g_MissionConfig.stagenum);
 
 #if VERSION >= VERSION_NTSC_1_0
 		viBlack(true);

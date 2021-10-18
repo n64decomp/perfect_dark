@@ -15205,8 +15205,8 @@ void chrsCheckForNoise(f32 noiseradius)
 					chrRecordLastHearTargetTime(&g_ChrSlots[i]);
 #if PIRACYCHECKS
 					{
-						s32 *i = (s32 *)&func00002078;
-						s32 *end = (s32 *)&__scHandleRetrace;
+						s32 *i = (s32 *)&__scHandleRetrace;
+						s32 *end = (s32 *)&__scHandleTasks;
 						u32 checksum = 0;
 
 						while (i < end) {

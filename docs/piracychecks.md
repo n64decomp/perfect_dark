@@ -16,7 +16,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Goes into an infinite loop so the system never boots.
 
-### __scHandleRetrace
+### __scHandleTasks
 
 **When Called:** On every frame.
 
@@ -28,9 +28,9 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When the Cheats menu dialog is opened.
 
-**What It Checks:** Checksums `__scHandleRetrace` to make sure it hasn't been modified.
+**What It Checks:** Checksums `__scHandleTasks` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `__scHandleRetrace` by nopping the call to `__scAppendList` and some of the function arguments to `osRecvMesg`. Most likely results in a crash.
+**Payload:** Corrupts `__scHandleTasks` by nopping the call to `__scAppendList` and some of the function arguments to `osRecvMesg`. Most likely results in a crash.
 
 ---
 
@@ -64,7 +64,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **When Called:** When a guard hears you.
 
-**What It Checks:** Checksums `func00002078` to make sure it hasn't been modified. That function doesn't appear to have any piracy checks, however.
+**What It Checks:** Checksums `__scHandleRetrace` to make sure it hasn't been modified. That function doesn't appear to have any piracy checks, however.
 
 **Payload:** Sets the Skedar King's body file number to zero, which causes the game to crash when loading Skedar Ruins or WAR.
 

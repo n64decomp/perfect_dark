@@ -573,7 +573,7 @@ void lvInit(s32 stagenum)
 			buffer[1] = 0xffffffff;
 			buffer[2] = 0x020f0100;
 			buffer[3] = 0xcd31100b;
-			osEepromLongWrite(&var80099e78, address, (u8 *)&buffer, 0x10);
+			osEepromLongWrite(&g_PiMesgQueue, address, (u8 *)&buffer, 0x10);
 			g_Paks[SAVEDEVICE_GAMEPAK].headercachecount = 0;
 		}
 	}
@@ -3550,7 +3550,7 @@ glabel var7f1b8e7cpf
 /*  f16bcb8:	824f04d5 */ 	lb	$t7,0x4d5($s2)
 /*  f16bcbc:	5de00004 */ 	bgtzl	$t7,.PF0f16bcd0
 /*  f16bcc0:	824a04d3 */ 	lb	$t2,0x4d3($s2)
-/*  f16bcc4:	0c0039af */ 	jal	mainSetStageNum
+/*  f16bcc4:	0c0039af */ 	jal	mainChangeToStage
 /*  f16bcc8:	2404005a */ 	li	$a0,0x5a
 .PF0f16bccc:
 /*  f16bccc:	824a04d3 */ 	lb	$t2,0x4d3($s2)
@@ -3610,7 +3610,7 @@ glabel var7f1b8e7cpf
 /*  f16bda0:	030ac023 */ 	subu	$t8,$t8,$t2
 /*  f16bda4:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f16bda8:	02386821 */ 	addu	$t5,$s1,$t8
-/*  f16bdac:	0c0039af */ 	jal	mainSetStageNum
+/*  f16bdac:	0c0039af */ 	jal	mainChangeToStage
 /*  f16bdb0:	85a40000 */ 	lh	$a0,0x0($t5)
 /*  f16bdb4:	824b04d5 */ 	lb	$t3,0x4d5($s2)
 /*  f16bdb8:	256cffff */ 	addiu	$t4,$t3,-1
@@ -4326,7 +4326,7 @@ Gfx *lvRender(Gfx *gdl)
 			}
 
 			if (g_Vars.autocutgroupcur < 0 && g_Vars.autocutgroupleft <= 0) {
-				mainSetStageNum(STAGE_TITLE);
+				mainChangeToStage(STAGE_TITLE);
 			}
 		}
 	}
@@ -4349,7 +4349,7 @@ Gfx *lvRender(Gfx *gdl)
 		g_MissionConfig.stageindex = g_Cutscenes[g_Vars.autocutgroupcur].mission;
 		g_MissionConfig.stagenum = g_Cutscenes[g_Vars.autocutgroupcur].stage;
 		titleSetNextStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
-		mainSetStageNum(g_Cutscenes[g_Vars.autocutgroupcur].stage);
+		mainChangeToStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
 
 		g_Vars.autocutgroupleft--;
 
@@ -6348,7 +6348,7 @@ glabel var7f1b1fd4nb
 /*  f165cd8:	824c04d5 */ 	lb	$t4,0x4d5($s2)
 /*  f165cdc:	5d800004 */ 	bgtzl	$t4,.NB0f165cf0
 /*  f165ce0:	824b04d3 */ 	lb	$t3,0x4d3($s2)
-/*  f165ce4:	0c003c56 */ 	jal	mainSetStageNum
+/*  f165ce4:	0c003c56 */ 	jal	mainChangeToStage
 /*  f165ce8:	2404005a */ 	addiu	$a0,$zero,0x5a
 .NB0f165cec:
 /*  f165cec:	824b04d3 */ 	lb	$t3,0x4d3($s2)
@@ -6414,7 +6414,7 @@ glabel var7f1b1fd4nb
 /*  f165dd8:	01d50019 */ 	multu	$t6,$s5
 /*  f165ddc:	00007812 */ 	mflo	$t7
 /*  f165de0:	022f6821 */ 	addu	$t5,$s1,$t7
-/*  f165de4:	0c003c56 */ 	jal	mainSetStageNum
+/*  f165de4:	0c003c56 */ 	jal	mainChangeToStage
 /*  f165de8:	85a40000 */ 	lh	$a0,0x0($t5)
 /*  f165dec:	824c04d5 */ 	lb	$t4,0x4d5($s2)
 .NB0f165df0:
@@ -7521,7 +7521,7 @@ glabel var7f1b8ed0pf
 /*  f16cf94:	ae000000 */ 	sw	$zero,0x0($s0)
 /*  f16cf98:	0fc06a32 */ 	jal	titleSetNextMode
 /*  f16cf9c:	24040005 */ 	li	$a0,0x5
-/*  f16cfa0:	0c0039af */ 	jal	mainSetStageNum
+/*  f16cfa0:	0c0039af */ 	jal	mainChangeToStage
 /*  f16cfa4:	2404005a */ 	li	$a0,0x5a
 /*  f16cfa8:	ae000000 */ 	sw	$zero,0x0($s0)
 .PF0f16cfac:
@@ -8344,7 +8344,7 @@ void lvTick(void)
 				|| joyGetStickY(3) < -10) && var800624a4) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
 			titleSetNextMode(TITLEMODE_SKIP);
-			mainSetStageNum(STAGE_TITLE);
+			mainChangeToStage(STAGE_TITLE);
 		}
 
 		var800624a4 = 0;
@@ -9158,7 +9158,7 @@ glabel lvTick
 /*  f166f94:	ae000000 */ 	sw	$zero,0x0($s0)
 /*  f166f98:	0fc06945 */ 	jal	titleSetNextMode
 /*  f166f9c:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f166fa0:	0c003c56 */ 	jal	mainSetStageNum
+/*  f166fa0:	0c003c56 */ 	jal	mainChangeToStage
 /*  f166fa4:	2404005a */ 	addiu	$a0,$zero,0x5a
 /*  f166fa8:	ae000000 */ 	sw	$zero,0x0($s0)
 .NB0f166fac:

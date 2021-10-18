@@ -185,14 +185,14 @@ void amgrMain(void *arg)
 		osRecvMesg(&g_AudioManager.audioFrameMsgQ, (OSMesg *) &msg, OS_MESG_BLOCK);
 
 		switch (*msg) {
-		case 4:
+		case OS_SC_RSP_MSG:
 			var80091588 = osGetTime();
-			vi00009aa0(0x30000);
+			profileSetMarker(PROFILE_AUDIOFRAME_START);
 			amgrHandleFrameMsg(g_AudioManager.audioInfo[g_AdmaCurFrame % 3], info);
 			admaReceiveAll();
 
 			count++;
-			vi00009aa0(0x60000);
+			profileSetMarker(PROFILE_AUDIOFRAME_END);
 
 			var80091590 = osGetTime();
 			var80091570 = var80091590 - var80091588;
@@ -215,10 +215,10 @@ void amgrMain(void *arg)
 			var8005d514 = 0;
 			amgrHandleDoneMsg(info);
 			break;
-		case 5:
+		case OS_SC_PRE_NMI_MSG:
 			done = true;
 			break;
-		case 10:
+		case OS_SC_QUIT_MSG:
 			done = true;
 			break;
 		}
@@ -240,7 +240,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	extern u8 aspDataStart;
 
 	if (g_AmgrCurrentCmdList) {
-		__scHandleRetraceViaPri(&g_Sched, g_AmgrCurrentCmdList);
+		schedAppendTasks(&g_Sched, g_AmgrCurrentCmdList);
 	}
 
 	admaBeginFrame();

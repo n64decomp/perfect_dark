@@ -99,8 +99,8 @@ void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3);
 void crashPutChar(s32 x, s32 y, char c);
 void crashAppendChar(char c);
 void crashScroll(s32 numlines);
-void crash0000cdc8(s32 x, s32 y, char c);
+void crashRenderChar(s32 x, s32 y, char c);
 void crashReset(void);
-void crash0000cf54(u8 *fb);
+void crashRenderFrame(u8 *fb);
 
 #endif

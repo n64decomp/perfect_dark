@@ -22,7 +22,7 @@ OSThread g_RmonThread;
 OSThread g_IdleThread;
 OSThread g_MainThread;
 OSThread g_SchedThread;
-OSMesgQueue var8008db30;
+OSMesgQueue g_SchedMesgQueue;
 OSMesg var8008db48[32];
 OSMesgQueue *g_SchedCmdQ;
 u32 var8008dbcc;
@@ -586,7 +586,7 @@ void bootCreateRmonThread(void)
 
 void bootCreateSchedThread(void)
 {
-	osCreateMesgQueue(&var8008db30, var8008db48, ARRAYCOUNT(var8008db48));
+	osCreateMesgQueue(&g_SchedMesgQueue, var8008db48, ARRAYCOUNT(var8008db48));
 
 	if (osTvType == OS_TV_MPAL) {
 		osCreateScheduler(&g_Sched, &g_SchedThread, OS_VI_MPAL_LAN1, 1);
@@ -594,7 +594,7 @@ void bootCreateSchedThread(void)
 		osCreateScheduler(&g_Sched, &g_SchedThread, OS_VI_NTSC_LAN1, 1);
 	}
 
-	osScAddClient(&g_Sched, &var8008dca8, &var8008db30, 0);
+	osScAddClient(&g_Sched, &var8008dca8, &g_SchedMesgQueue, 0);
 	g_SchedCmdQ = osScGetCmdQ(&g_Sched);
 }
 

@@ -3084,7 +3084,7 @@ void func0f0b9a20(void)
 void currentPlayerEndCutscene(void)
 {
 	if (var800624a4) {
-		mainSetStageNum(STAGE_TITLE);
+		mainChangeToStage(STAGE_TITLE);
 	} else if (g_Vars.autocutplaying) {
 		g_Vars.autocutfinished = true;
 	} else {

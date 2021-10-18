@@ -121,7 +121,7 @@ extern u32 _libSegmentStart;
 extern u32 _libSegmentEnd;
 
 void faultproc(void *arg0);
-u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen);
+u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen);
 void crashPrintDescription(u32 mask, char *label, struct crashdescription *descriptions);
 
 #if VERSION < VERSION_NTSC_1_0
@@ -172,8 +172,8 @@ void faultproc(void *arg0)
 		osSetIntMask(mask);
 
 #if VERSION < VERSION_NTSC_1_0
-		crashRender(thread, callstack, &tracelen);
-		func00001b1c(true);
+		crashGenerate(thread, callstack, &tracelen);
+		schedSetCrashedUnexpectedly(true);
 #endif
 	}
 }
@@ -643,7 +643,7 @@ void crashPrint3Floats(s32 index, f32 value1, f32 value2, f32 value3)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-u32 crashRender(OSThread *thread, u32 *callstack, s32 *tracelen)
+u32 crashGenerate(OSThread *thread, u32 *callstack, s32 *tracelen)
 {
 	s32 i;
 	u32 ptr;
@@ -794,7 +794,7 @@ const char crashrodata24[] = "\n";
 const char crashrodata25[] = "\n";
 
 GLOBAL_ASM(
-glabel crashRender
+glabel crashGenerate
 /*     ca5c:	27bdff08 */ 	addiu	$sp,$sp,-248
 /*     ca60:	afa400f8 */ 	sw	$a0,0xf8($sp)
 /*     ca64:	afbf003c */ 	sw	$ra,0x3c($sp)
@@ -1313,7 +1313,13 @@ void crashScroll(s32 numlines)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void crash0000cdc8(s32 x, s32 y, char c)
+/**
+ * Render a character to the crash buffer.
+ *
+ * It looks like the character rendering code has been removed however,
+ * so it's just borders that remain.
+ */
+void crashRenderChar(s32 x, s32 y, char c)
 {
 	s32 i;
 	s32 j;
@@ -1345,20 +1351,20 @@ void crash0000cdc8(s32 x, s32 y, char c)
 
 	for (i = 0; i < 7; i++) {
 		for (j = 0; j < 4; j++) {
-			// "special" occurs every 32nd pixel
-			u32 special = a2 & 0x80000000;
+			// gray occurs every 32nd pixel
+			u32 gray = a2 & 0x80000000;
 
-			if (special) {
-				fbpos[0] = 0x7bdf;
+			if (gray) {
+				fbpos[0] = GPACK_RGBA5551(120, 120, 120, 1);
 			} else {
-				fbpos[0] = 1;
+				fbpos[0] = GPACK_RGBA5551(0, 0, 0, 1);
 			}
 
 			if (hires) {
-				if (special) {
-					fbpos[1] = 0x7bdf;
+				if (gray) {
+					fbpos[1] = GPACK_RGBA5551(120, 120, 120, 1);
 				} else {
-					fbpos[1] = 1;
+					fbpos[1] = GPACK_RGBA5551(0, 0, 0, 1);
 				}
 			}
 
@@ -1382,7 +1388,7 @@ void crash0000cdc8(s32 x, s32 y, char c)
 }
 #else
 GLOBAL_ASM(
-glabel crash0000cdc8
+glabel crashRenderChar
 /*     d398:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     d39c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     d3a0:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -1526,7 +1532,7 @@ glabel crashReset
 );
 #endif
 
-void crash0000cf54(u8 *fb)
+void crashRenderFrame(u8 *fb)
 {
 	s32 width;
 	s32 height;
@@ -1541,7 +1547,7 @@ void crash0000cf54(u8 *fb)
 	if (g_CrashCharBuffer != NULL) {
 		for (y = 0; y < height && y < 29; y++) {
 			for (x = 0; x < width - 5 && x < 71; x++) {
-				crash0000cdc8(20 + x * 4, 7 + y * 7, g_CrashCharBuffer[y][x]);
+				crashRenderChar(20 + x * 4, 7 + y * 7, g_CrashCharBuffer[y][x]);
 			}
 		}
 	}
