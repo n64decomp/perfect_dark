@@ -122,7 +122,7 @@ glabel casingTick
 /*  f01db80:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f01db84:	10800003 */ 	beqz	$a0,.L0f01db94
 /*  f01db88:	00000000 */ 	nop
-/*  f01db8c:	0c00cf94 */ 	jal	func00033e50
+/*  f01db8c:	0c00cf94 */ 	jal	audioPostEvent
 /*  f01db90:	8fa60058 */ 	lw	$a2,0x58($sp)
 .L0f01db94:
 /*  f01db94:	1000006c */ 	b	.L0f01dd48
@@ -364,7 +364,7 @@ glabel casingTick
 /*  f01db80:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f01db84:	10800003 */ 	beqz	$a0,.L0f01db94
 /*  f01db88:	00000000 */ 	nop
-/*  f01db8c:	0c00cf94 */ 	jal	func00033e50
+/*  f01db8c:	0c00cf94 */ 	jal	audioPostEvent
 /*  f01db90:	8fa60058 */ 	lw	$a2,0x58($sp)
 .L0f01db94:
 /*  f01db94:	1000006c */ 	b	.L0f01dd48

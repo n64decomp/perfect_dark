@@ -202,11 +202,11 @@ void menuPlaySound(s32 menusound)
 		handle = sndStart(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 
 		if (handle && flag1) {
-			func00033e50(handle, 16, *(s32 *)&speed);
+			audioPostEvent(handle, 16, *(s32 *)&speed);
 		}
 
 		if (handle && flag2) {
-			func00033e50(handle, 8, 0x4000);
+			audioPostEvent(handle, 8, 0x4000);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0

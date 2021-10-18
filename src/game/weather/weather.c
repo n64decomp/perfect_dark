@@ -1548,7 +1548,7 @@ glabel var7f1b5780
 /*  f133880:	8fb90dec */ 	lw	$t9,0xdec($sp)
 /*  f133884:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f133888:	8fa60174 */ 	lw	$a2,0x174($sp)
-/*  f13388c:	0c00cf94 */ 	jal	func00033e50
+/*  f13388c:	0c00cf94 */ 	jal	audioPostEvent
 /*  f133890:	8f240040 */ 	lw	$a0,0x40($t9)
 .L0f133894:
 /*  f133894:	8fa70dec */ 	lw	$a3,0xdec($sp)

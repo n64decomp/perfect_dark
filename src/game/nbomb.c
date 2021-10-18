@@ -3764,8 +3764,8 @@ void nbombsTick(void)
 					somevalue = 0;
 				}
 
-				func00033e50(g_NbombAudioHandle, 8, somevalue);
-				func00033e50(g_NbombAudioHandle, 16, *(s32 *)&speed);
+				audioPostEvent(g_NbombAudioHandle, 8, somevalue);
+				audioPostEvent(g_NbombAudioHandle, 16, *(s32 *)&speed);
 			}
 		} else {
 			if (g_NbombAudioHandle && audioIsPlaying(g_NbombAudioHandle)) {
@@ -3860,7 +3860,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 		if (g_Nbombs[index].audiohandle20) {
 			union audioparam param;
 			param.f32 = 0.4f;
-			func00033e50(g_Nbombs[index].audiohandle20, 16, param.s32);
+			audioPostEvent(g_Nbombs[index].audiohandle20, 16, param.s32);
 		}
 	}
 
@@ -3870,7 +3870,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 		if (g_Nbombs[index].audiohandle24) {
 			union audioparam param;
 			param.f32 = 0.4f;
-			func00033e50(g_Nbombs[index].audiohandle24, 16, param.s32);
+			audioPostEvent(g_Nbombs[index].audiohandle24, 16, param.s32);
 		}
 	}
 #else
@@ -3882,7 +3882,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	if (g_Nbombs[index].audiohandle20) {
 		union audioparam param;
 		param.f32 = 0.4f;
-		func00033e50(g_Nbombs[index].audiohandle20, 16, param.s32);
+		audioPostEvent(g_Nbombs[index].audiohandle20, 16, param.s32);
 	}
 
 	sndStart(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
@@ -3890,7 +3890,7 @@ void nbombCreate(struct coord *pos, struct prop *prop)
 	if (g_Nbombs[index].audiohandle24) {
 		union audioparam param;
 		param.f32 = 0.4f;
-		func00033e50(g_Nbombs[index].audiohandle24, 16, param.s32);
+		audioPostEvent(g_Nbombs[index].audiohandle24, 16, param.s32);
 	}
 #endif
 }

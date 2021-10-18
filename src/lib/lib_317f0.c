@@ -4698,40 +4698,20 @@ glabel func00033dd8
 /*    33e4c:	00000000 */ 	nop
 );
 
-GLOBAL_ASM(
-glabel func00033e50
-/*    33e50:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    33e54:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33e58:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    33e5c:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    33e60:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    33e64:	87ae002e */ 	lh	$t6,0x2e($sp)
-/*    33e68:	a7ae0018 */ 	sh	$t6,0x18($sp)
-/*    33e6c:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*    33e70:	afaf001c */ 	sw	$t7,0x1c($sp)
-/*    33e74:	8fb80030 */ 	lw	$t8,0x30($sp)
-/*    33e78:	afb80020 */ 	sw	$t8,0x20($sp)
-/*    33e7c:	8fb90028 */ 	lw	$t9,0x28($sp)
-/*    33e80:	1320000a */ 	beqz	$t9,.L00033eac
-/*    33e84:	00000000 */ 	nop
-/*    33e88:	3c048006 */ 	lui	$a0,%hi(var8005f12c)
-/*    33e8c:	8c84f12c */ 	lw	$a0,%lo(var8005f12c)($a0)
-/*    33e90:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*    33e94:	00003025 */ 	or	$a2,$zero,$zero
-/*    33e98:	00003825 */ 	or	$a3,$zero,$zero
-/*    33e9c:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    33ea0:	24840014 */ 	addiu	$a0,$a0,20
-/*    33ea4:	10000001 */ 	b	.L00033eac
-/*    33ea8:	00000000 */ 	nop
-.L00033eac:
-/*    33eac:	10000001 */ 	b	.L00033eb4
-/*    33eb0:	00000000 */ 	nop
-.L00033eb4:
-/*    33eb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33eb8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    33ebc:	03e00008 */ 	jr	$ra
-/*    33ec0:	00000000 */ 	nop
-);
+void audioPostEvent(struct audiohandle *handle, s16 type, s32 data)
+{
+	N_ALEvent evt;
+
+	evt.type = type;
+	evt.msg.generic.handle = handle;
+	evt.msg.generic.data = data;
+
+	if (handle) {
+		n_alEvtqPostEvent(&var8005f12c->evtq, &evt, 0, 0);
+	} else {
+		// empty
+	}
+}
 
 GLOBAL_ASM(
 glabel func00033ec4

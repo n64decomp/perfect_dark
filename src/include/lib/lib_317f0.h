@@ -22,7 +22,7 @@ u32 func00033c30(void);
 u32 func00033cf0(void);
 u32 func00033db0(void);
 u32 func00033dd8(void);
-void func00033e50(struct audiohandle *handle, s32 arg1, s32 arg2);
+void audioPostEvent(struct audiohandle *handle, s16 type, s32 data);
 u16 func00033ec4(s32 arg0);
 u32 func00033f08(void);
 u32 func00033f24(void);

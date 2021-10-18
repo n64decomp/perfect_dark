@@ -452,7 +452,7 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, NULL, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				func00033e50(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, 0x10, *(s32 *)&speed);
 			}
 
 			osSetThreadPri(0, prevpri);
@@ -460,7 +460,7 @@ void weaponPlayWhooshSound(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, NULL, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				func00033e50(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, 0x10, *(s32 *)&speed);
 			}
 #endif
 		} else {
@@ -515,7 +515,7 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, 0, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				func00033e50(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, 0x10, *(s32 *)&speed);
 			}
 
 			osSetThreadPri(0, prevpri);
@@ -523,7 +523,7 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
 			handle = sndStart(var80095200, soundnum, 0, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				func00033e50(handle, 0x10, *(s32 *)&speed);
+				audioPostEvent(handle, 0x10, *(s32 *)&speed);
 			}
 #endif
 		} else {

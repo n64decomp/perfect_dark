@@ -158,6 +158,11 @@ typedef struct {
     u8 param;
 } N_AL19Event;
 
+typedef struct {
+    struct audiohandle *handle;
+    u32 data;
+} N_ALGenericEvent;
+
 struct audiohandle;
 
 typedef struct {
@@ -181,6 +186,7 @@ typedef struct {
 		N_AL18Event      	evt18;
 		N_AL19Event      	evt19;
 		N_AL400Event      	evt400;
+		N_ALGenericEvent    generic;
     } msg;
 } N_ALEvent;
 

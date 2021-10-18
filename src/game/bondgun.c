@@ -1985,7 +1985,7 @@ glabel var7f1ac1b0
 /*  f096830:	24050010 */ 	addiu	$a1,$zero,0x10
 /*  f096834:	00008825 */ 	or	$s1,$zero,$zero
 /*  f096838:	8fa60060 */ 	lw	$a2,0x60($sp)
-/*  f09683c:	0c00d492 */ 	jal	func00033e50
+/*  f09683c:	0c00d492 */ 	jal	audioPostEvent
 /*  f096840:	afa80068 */ 	sw	$t0,0x68($sp)
 /*  f096844:	10000014 */ 	beqz	$zero,.NB0f096898
 /*  f096848:	8fa80068 */ 	lw	$t0,0x68($sp)
@@ -6110,7 +6110,7 @@ glabel var7f1ac320
 /*  f09ab70:	460a1482 */ 	mul.s	$f18,$f2,$f10
 /*  f09ab74:	46126401 */ 	sub.s	$f16,$f12,$f18
 /*  f09ab78:	e7b00034 */ 	swc1	$f16,0x34($sp)
-/*  f09ab7c:	0c00cf94 */ 	jal	func00033e50
+/*  f09ab7c:	0c00cf94 */ 	jal	audioPostEvent
 /*  f09ab80:	8fa60034 */ 	lw	$a2,0x34($sp)
 .L0f09ab84:
 /*  f09ab84:	00002025 */ 	or	$a0,$zero,$zero
@@ -6440,7 +6440,7 @@ glabel var7f1ac320
 /*  f09ab70:	460a1482 */ 	mul.s	$f18,$f2,$f10
 /*  f09ab74:	46126401 */ 	sub.s	$f16,$f12,$f18
 /*  f09ab78:	e7b00034 */ 	swc1	$f16,0x34($sp)
-/*  f09ab7c:	0c00cf94 */ 	jal	func00033e50
+/*  f09ab7c:	0c00cf94 */ 	jal	audioPostEvent
 /*  f09ab80:	8fa60034 */ 	lw	$a2,0x34($sp)
 .L0f09ab84:
 /*  f09ab84:	00002025 */ 	or	$a0,$zero,$zero
@@ -6761,7 +6761,7 @@ glabel var7f1ac320
 /*  f098b88:	460a1482 */ 	mul.s	$f18,$f2,$f10
 /*  f098b8c:	46126401 */ 	sub.s	$f16,$f12,$f18
 /*  f098b90:	e7b00030 */ 	swc1	$f16,0x30($sp)
-/*  f098b94:	0c00d492 */ 	jal	func00033e50
+/*  f098b94:	0c00d492 */ 	jal	audioPostEvent
 /*  f098b98:	8fa60030 */ 	lw	$a2,0x30($sp)
 .NB0f098b9c:
 /*  f098b9c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -6915,7 +6915,7 @@ const char var7f1ab898[] = "rofftime";
 //
 //				tmp = 1.0f - frac * 0.4f;
 //
-//				func00033e50(handle, 16, *(s32 *)&tmp);
+//				audioPostEvent(handle, 16, *(s32 *)&tmp);
 //			}
 //
 //#if VERSION >= VERSION_NTSC_1_0
@@ -7722,7 +7722,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				handle = sndStart(var80095200, SFX_HIT_WATER, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
-					func00033e50(handle, 16, *(s32 *)&speed);
+					audioPostEvent(handle, 16, *(s32 *)&speed);
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -7748,7 +7748,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 				handle = sndStart(var80095200, SFX_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
-					func00033e50(handle, 16, *(s32 *)&speed);
+					audioPostEvent(handle, 16, *(s32 *)&speed);
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -8129,7 +8129,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					handle1 = sndStart(var80095200, SFX_EQUIP_HORIZONSCANNER, 0, -1, -1, -1, -1, -1);
 
 					if (handle1) {
-						func00033e50(handle1, 16, *(s32 *)&speed1);
+						audioPostEvent(handle1, 16, *(s32 *)&speed1);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -8172,7 +8172,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					handle2 = sndStart(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle2) {
-						func00033e50(handle2, 16, *(s32 *)&speed2);
+						audioPostEvent(handle2, 16, *(s32 *)&speed2);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -8190,7 +8190,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 					handle3 = sndStart(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle3) {
-						func00033e50(handle3, 16, *(s32 *)&speed3);
+						audioPostEvent(handle3, 16, *(s32 *)&speed3);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -18480,11 +18480,11 @@ glabel var7f1ac8b8
 /*  f0a3dcc:	44064000 */ 	mfc1	$a2,$f8
 /*  f0a3dd0:	00000000 */ 	nop
 .L0f0a3dd4:
-/*  f0a3dd4:	0c00cf94 */ 	jal	func00033e50
+/*  f0a3dd4:	0c00cf94 */ 	jal	audioPostEvent
 /*  f0a3dd8:	8e04074c */ 	lw	$a0,0x74c($s0)
 /*  f0a3ddc:	8e04074c */ 	lw	$a0,0x74c($s0)
 /*  f0a3de0:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f0a3de4:	0c00cf94 */ 	jal	func00033e50
+/*  f0a3de4:	0c00cf94 */ 	jal	audioPostEvent
 /*  f0a3de8:	8fa60034 */ 	lw	$a2,0x34($sp)
 .L0f0a3dec:
 /*  f0a3dec:	8faa0044 */ 	lw	$t2,0x44($sp)
@@ -18793,11 +18793,11 @@ glabel var7f1ac8b8
 /*  f0a3dcc:	44064000 */ 	mfc1	$a2,$f8
 /*  f0a3dd0:	00000000 */ 	nop
 .L0f0a3dd4:
-/*  f0a3dd4:	0c00cf94 */ 	jal	func00033e50
+/*  f0a3dd4:	0c00cf94 */ 	jal	audioPostEvent
 /*  f0a3dd8:	8e04074c */ 	lw	$a0,0x74c($s0)
 /*  f0a3ddc:	8e04074c */ 	lw	$a0,0x74c($s0)
 /*  f0a3de0:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f0a3de4:	0c00cf94 */ 	jal	func00033e50
+/*  f0a3de4:	0c00cf94 */ 	jal	audioPostEvent
 /*  f0a3de8:	8fa60034 */ 	lw	$a2,0x34($sp)
 .L0f0a3dec:
 /*  f0a3dec:	8faa0044 */ 	lw	$t2,0x44($sp)
@@ -24365,7 +24365,7 @@ void bgunTickMaulerCharge(void)
 			 * its speed is adjusted, the game raises the priority of the main
 			 * thread (this thread) to above the audio thread's priority so that
 			 * the audio thread cannot execute and start playing the audio
-			 * between the calls to sndStart and func00033e50. But this pattern
+			 * between the calls to sndStart and audioPostEvent. But this pattern
 			 * is not done here.
 			 *
 			 * There is a known issue where the Mauler charge sound is played
@@ -24389,7 +24389,7 @@ void bgunTickMaulerCharge(void)
 				if (hand->matmot1 < 0.1f || !charging) {
 					audioStop(hand->audiohandle);
 				} else {
-					func00033e50(hand->audiohandle, 16, *(s32 *)&speed);
+					audioPostEvent(hand->audiohandle, 16, *(s32 *)&speed);
 				}
 			}
 		}

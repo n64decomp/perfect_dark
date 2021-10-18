@@ -12030,7 +12030,7 @@ bool aiChrBeginOrEndTeleport(void)
 		handle = sndStart(var80095200, SFX_RELOAD_FARSIGHT, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
-			func00033e50(handle, 16, *(u32 *)&fvalue);
+			audioPostEvent(handle, 16, *(u32 *)&fvalue);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -12081,7 +12081,7 @@ bool aiIfChrTeleportFullWhite(void)
 		handle = sndStart(var80095200, SFX_FIRE_SHOTGUN, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
-			func00033e50(handle, 16, *(u32 *)&fvalue);
+			audioPostEvent(handle, 16, *(u32 *)&fvalue);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
