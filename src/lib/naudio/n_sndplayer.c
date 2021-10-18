@@ -4078,20 +4078,10 @@ void func00033db0(void)
 }
 #endif
 
-GLOBAL_ASM(
-glabel func00033dd8
-/*    33dd8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    33ddc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33de0:	0c00cf0c */ 	jal	func00033c30
-/*    33de4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    33de8:	10000001 */ 	b	.L00033df0
-/*    33dec:	00000000 */ 	nop
-.L00033df0:
-/*    33df0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33df4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    33df8:	03e00008 */ 	jr	$ra
-/*    33dfc:	00000000 */ 	nop
-);
+void func00033dd8(void)
+{
+	func00033c30(1);
+}
 
 void func00033e00(void)
 {

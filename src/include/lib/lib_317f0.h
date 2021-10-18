@@ -18,7 +18,7 @@ void func00033bc0(struct audiohandle *handle);
 u32 func00033c30(void);
 u32 func00033cf0(void);
 void func00033db0(void);
-u32 func00033dd8(void);
+void func00033dd8(void);
 void audioPostEvent(struct audiohandle *handle, s16 type, s32 data);
 u16 func00033ec4(u8 index);
 u32 func00033f08(void);
