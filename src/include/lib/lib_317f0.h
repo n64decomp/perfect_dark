@@ -6,7 +6,6 @@
 
 void func00033090(struct audiohandle *handle);
 u32 func00033100(void);
-void func00033180(ALEventQueue *evtq, struct audiohandle *handle, s32 arg2);
 u32 func00033274(void);
 void func00033378(void *fn);
 u32 func00033390(void);

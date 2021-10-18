@@ -2122,6 +2122,7 @@ struct eyespy {
 	/*0x7c*/ f32 pitch;
 };
 
+// Might be N_ALSoundState
 struct audiohandle {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
