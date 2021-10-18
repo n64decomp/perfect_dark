@@ -2552,7 +2552,7 @@ glabel sndTick
 /*     feb0:	00002025 */ 	or	$a0,$zero,$zero
 /*     feb4:	0c01210c */ 	jal	osSetThreadPri
 /*     feb8:	24450001 */ 	addiu	$a1,$v0,0x1
-/*     febc:	0c00cfc9 */ 	jal	func00033f24
+/*     febc:	0c00cfc9 */ 	jal	sndpGetCurTime
 /*     fec0:	00000000 */ 	nop
 /*     fec4:	0c00cfc2 */ 	jal	func00033f08
 /*     fec8:	afa20060 */ 	sw	$v0,0x60($sp)
@@ -2900,7 +2900,7 @@ glabel sndTick
 /*     feb0:	00002025 */ 	or	$a0,$zero,$zero
 /*     feb4:	0c01210c */ 	jal	osSetThreadPri
 /*     feb8:	24450001 */ 	addiu	$a1,$v0,0x1
-/*     febc:	0c00cfc9 */ 	jal	func00033f24
+/*     febc:	0c00cfc9 */ 	jal	sndpGetCurTime
 /*     fec0:	00000000 */ 	nop
 /*     fec4:	0c00cfc2 */ 	jal	func00033f08
 /*     fec8:	afa20060 */ 	sw	$v0,0x60($sp)

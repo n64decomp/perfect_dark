@@ -1213,17 +1213,10 @@ glabel func00033f08
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00033f24
-/*    33f24:	3c0e8006 */ 	lui	$t6,%hi(g_SndPlayer)
-/*    33f28:	8dcef12c */ 	lw	$t6,%lo(g_SndPlayer)($t6)
-/*    33f2c:	03e00008 */ 	jr	$ra
-/*    33f30:	8dc20050 */ 	lw	$v0,0x50($t6)
-/*    33f34:	03e00008 */ 	jr	$ra
-/*    33f38:	00000000 */ 	nop
-/*    33f3c:	03e00008 */ 	jr	$ra
-/*    33f40:	00000000 */ 	nop
-);
+ALMicroTime sndpGetCurTime(void)
+{
+	return g_SndPlayer->curTime;
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
