@@ -24,39 +24,16 @@ u32 var8005f138 = 0;
 u32 var8005f13c = 0;
 u32 var8005f140 = 0;
 
-GLOBAL_ASM(
-glabel func00033090
-/*    33090:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    33094:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33098:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    3309c:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*    330a0:	91cf0044 */ 	lbu	$t7,0x44($t6)
-/*    330a4:	31f80004 */ 	andi	$t8,$t7,0x4
-/*    330a8:	13000007 */ 	beqz	$t8,.L000330c8
-/*    330ac:	00000000 */ 	nop
-/*    330b0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    330b4:	0c00f440 */ 	jal	n_alSynStopVoice
-/*    330b8:	2484000c */ 	addiu	$a0,$a0,0xc
-/*    330bc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    330c0:	0c00f468 */ 	jal	n_alSynFreeVoice
-/*    330c4:	2484000c */ 	addiu	$a0,$a0,0xc
-.L000330c8:
-/*    330c8:	0c00cd93 */ 	jal	func0003364c
-/*    330cc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    330d0:	3c048006 */ 	lui	$a0,%hi(g_SndPlayer)
-/*    330d4:	8c84f12c */ 	lw	$a0,%lo(g_SndPlayer)($a0)
-/*    330d8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    330dc:	3406ffff */ 	dli	$a2,0xffff
-/*    330e0:	0c00cc60 */ 	jal	func00033180
-/*    330e4:	24840014 */ 	addiu	$a0,$a0,20
-/*    330e8:	10000001 */ 	b	.L000330f0
-/*    330ec:	00000000 */ 	nop
-.L000330f0:
-/*    330f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    330f4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    330f8:	03e00008 */ 	jr	$ra
-/*    330fc:	00000000 */ 	nop
-);
+void func00033090(struct audiohandle *handle)
+{
+	if (handle->unk44 & 4) {
+		n_alSynStopVoice(&handle->voice);
+		n_alSynFreeVoice(&handle->voice);
+	}
+
+	func0003364c(handle);
+	func00033180(&g_SndPlayer->evtq, handle, 0xffff);
+}
 
 GLOBAL_ASM(
 glabel func00033100
