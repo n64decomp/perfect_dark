@@ -8,8 +8,6 @@
 
 extern s16 *var8009c334;
 
-void func00031a68(void);
-
 void n_alSndpNew(ALSndpConfig *config)
 {
 	u32 i;
@@ -46,7 +44,7 @@ void n_alSndpNew(ALSndpConfig *config)
 
 	// Add ourselves to the driver
 	g_SndPlayer->node.next = NULL;
-	g_SndPlayer->node.handler = (ALVoiceHandler) func00031a68;
+	g_SndPlayer->node.handler = (ALVoiceHandler) _n_sndpVoiceHandler;
 	g_SndPlayer->node.clientData = g_SndPlayer;
 
 	n_alSynAddSndPlayer(&g_SndPlayer->node);
@@ -59,102 +57,67 @@ void n_alSndpNew(ALSndpConfig *config)
 	g_SndPlayer->nextDelta = n_alEvtqNextEvent(&g_SndPlayer->evtq, &g_SndPlayer->nextEvent);
 }
 
-GLOBAL_ASM(
-glabel func00031a68
-/*    31a68:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    31a6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    31a70:	afa40030 */ 	sw	$a0,0x30($sp)
-/*    31a74:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*    31a78:	afae002c */ 	sw	$t6,0x2c($sp)
-.L00031a7c:
-/*    31a7c:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*    31a80:	24010020 */ 	addiu	$at,$zero,0x20
-/*    31a84:	85f80028 */ 	lh	$t8,0x28($t7)
-/*    31a88:	1701000d */ 	bne	$t8,$at,.L00031ac0
-/*    31a8c:	00000000 */ 	nop
-/*    31a90:	10000001 */ 	b	.L00031a98
-/*    31a94:	00000000 */ 	nop
-.L00031a98:
-/*    31a98:	24190020 */ 	addiu	$t9,$zero,0x20
-/*    31a9c:	a7b9001c */ 	sh	$t9,0x1c($sp)
-/*    31aa0:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    31aa4:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    31aa8:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    31aac:	25040014 */ 	addiu	$a0,$t0,0x14
-/*    31ab0:	0c00f184 */ 	jal	n_alEvtqPostEvent
-/*    31ab4:	8d060048 */ 	lw	$a2,0x48($t0)
-/*    31ab8:	10000006 */ 	b	.L00031ad4
-/*    31abc:	00000000 */ 	nop
-.L00031ac0:
-/*    31ac0:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*    31ac4:	0c00c6cd */ 	jal	func00031b34
-/*    31ac8:	24840028 */ 	addiu	$a0,$a0,40
-/*    31acc:	10000001 */ 	b	.L00031ad4
-/*    31ad0:	00000000 */ 	nop
-.L00031ad4:
-/*    31ad4:	8fa9002c */ 	lw	$t1,0x2c($sp)
-/*    31ad8:	25240014 */ 	addiu	$a0,$t1,0x14
-/*    31adc:	0c00f15b */ 	jal	n_alEvtqNextEvent
-/*    31ae0:	25250028 */ 	addiu	$a1,$t1,0x28
-/*    31ae4:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*    31ae8:	ad42004c */ 	sw	$v0,0x4c($t2)
-/*    31aec:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*    31af0:	8d6c004c */ 	lw	$t4,0x4c($t3)
-/*    31af4:	1180ffe1 */ 	beqz	$t4,.L00031a7c
-/*    31af8:	00000000 */ 	nop
-/*    31afc:	8fad002c */ 	lw	$t5,0x2c($sp)
-/*    31b00:	8dae0050 */ 	lw	$t6,0x50($t5)
-/*    31b04:	8daf004c */ 	lw	$t7,0x4c($t5)
-/*    31b08:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    31b0c:	adb80050 */ 	sw	$t8,0x50($t5)
-/*    31b10:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*    31b14:	10000003 */ 	b	.L00031b24
-/*    31b18:	8f22004c */ 	lw	$v0,0x4c($t9)
-/*    31b1c:	10000001 */ 	b	.L00031b24
-/*    31b20:	00000000 */ 	nop
-.L00031b24:
-/*    31b24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    31b28:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*    31b2c:	03e00008 */ 	jr	$ra
-/*    31b30:	00000000 */ 	nop
-);
+ALMicroTime _n_sndpVoiceHandler(void *node)
+{
+	N_ALSndPlayer *sndp = (N_ALSndPlayer *) node;
+	N_ALSndpEvent evt;
+
+	do {
+		switch (sndp->nextEvent.type) {
+		case (AL_20_EVT):
+			evt.common.type = AL_20_EVT;
+			n_alEvtqPostEvent(&sndp->evtq, (N_ALEvent *)&evt, sndp->frameTime, 1);
+			break;
+
+		default:
+			_n_handleEvent((N_ALSndpEvent *)&sndp->nextEvent);
+			break;
+		}
+
+		sndp->nextDelta = n_alEvtqNextEvent(&sndp->evtq, &sndp->nextEvent);
+	} while (sndp->nextDelta == 0);
+
+	sndp->curTime += sndp->nextDelta;
+
+	return sndp->nextDelta;
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00031b34
+glabel _n_handleEvent
 .late_rodata
 glabel var70054740
-.word func00031b34+0x01ac
+.word _n_handleEvent+0x01ac
 glabel var70054744
-.word func00031b34+0x0a78
+.word _n_handleEvent+0x0a78
 glabel var70054748
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var7005474c
-.word func00031b34+0x0bfc
+.word _n_handleEvent+0x0bfc
 glabel var70054750
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var70054754
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var70054758
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var7005475c
-.word func00031b34+0x0f08
+.word _n_handleEvent+0x0f08
 glabel var70054760
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var70054764
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var70054768
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var7005476c
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var70054770
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var70054774
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var70054778
-.word func00031b34+0x14dc
+.word _n_handleEvent+0x14dc
 glabel var7005477c
-.word func00031b34+0x0ca0
+.word _n_handleEvent+0x0ca0
 .text
 /*    31b34:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*    31b38:	afbf0034 */ 	sw	$ra,0x34($sp)
@@ -1632,40 +1595,40 @@ glabel var7005477c
 );
 #else
 GLOBAL_ASM(
-glabel func00031b34
+glabel _n_handleEvent
 .late_rodata
 glabel var70054740
-.word func00031b34+0x1ac
+.word _n_handleEvent+0x1ac
 glabel var70054744
-.word func00031b34+0x940
+.word _n_handleEvent+0x940
 glabel var70054748
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var7005474c
-.word func00031b34+0xa9c
+.word _n_handleEvent+0xa9c
 glabel var70054750
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var70054754
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var70054758
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var7005475c
-.word func00031b34+0xda8
+.word _n_handleEvent+0xda8
 glabel var70054760
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var70054764
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var70054768
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var7005476c
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var70054770
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var70054774
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var70054778
-.word func00031b34+0x132c
+.word _n_handleEvent+0x132c
 glabel var7005477c
-.word func00031b34+0xb40
+.word _n_handleEvent+0xb40
 .text
 /*    33274:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*    33278:	afbf0034 */ 	sw	$ra,0x34($sp)
