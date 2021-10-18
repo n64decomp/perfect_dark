@@ -164,6 +164,8 @@ void amgrStopThread(void)
 	}
 }
 
+extern u32 g_AdmaCurFrame;
+
 void amgrMain(void *arg)
 {
 	s32 count = 0;
@@ -186,7 +188,7 @@ void amgrMain(void *arg)
 		case 4:
 			var80091588 = osGetTime();
 			vi00009aa0(0x30000);
-			amgrHandleFrameMsg(g_AudioManager.audioInfo[var80092828 % 3], info);
+			amgrHandleFrameMsg(g_AudioManager.audioInfo[g_AdmaCurFrame % 3], info);
 			admaReceiveAll();
 
 			count++;
@@ -241,7 +243,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 		__scHandleRetraceViaPri(&g_Sched, g_AmgrCurrentCmdList);
 	}
 
-	admaClear();
+	admaBeginFrame();
 
 	somevalue = IO_READ(OS_PHYSICAL_TO_K1(AI_LEN_REG)) / 4;
 	datastart = g_AudioManager.ACMDList[var8005cf90];
