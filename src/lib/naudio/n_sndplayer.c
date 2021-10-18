@@ -4102,18 +4102,12 @@ glabel func00033dd8
 /*    33e1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    33e20:	03e00008 */ 	jr	$ra
 /*    33e24:	00000000 */ 	nop
-/*    33e28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    33e2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    33e30:	0c00cf0c */ 	jal	func00033c30
-/*    33e34:	24040003 */ 	addiu	$a0,$zero,0x3
-/*    33e38:	10000001 */ 	b	.L00033e40
-/*    33e3c:	00000000 */ 	nop
-.L00033e40:
-/*    33e40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    33e44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    33e48:	03e00008 */ 	jr	$ra
-/*    33e4c:	00000000 */ 	nop
 );
+
+void func00033e28(void)
+{
+	func00033c30(3);
+}
 
 void audioPostEvent(struct audiohandle *handle, s16 type, s32 data)
 {
