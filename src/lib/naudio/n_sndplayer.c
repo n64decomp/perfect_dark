@@ -4146,16 +4146,10 @@ u16 func00033ec4(u8 index)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00033f08
-/*    33f08:	3c028006 */ 	lui	$v0,%hi(var8005f120)
-/*    33f0c:	03e00008 */ 	jr	$ra
-/*    33f10:	8c42f120 */ 	lw	$v0,%lo(var8005f120)($v0)
-/*    33f14:	03e00008 */ 	jr	$ra
-/*    33f18:	00000000 */ 	nop
-/*    33f1c:	03e00008 */ 	jr	$ra
-/*    33f20:	00000000 */ 	nop
-);
+u32 func00033f08(void)
+{
+	return var8005f120;
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
