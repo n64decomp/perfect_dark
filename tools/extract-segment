@@ -1,12 +1,82 @@
-#!/bin/bash
+#!/usr/bin/env python3
 
-# Extracts a segment from the binary that was produced by ld.
+# Extracts a segment from the binary that was produced by ld
+# and unzips it if necessary. Used for `make test`.
 
-segment=$1
+import os
+import re
+import sys
+import zlib
 
-pos=$(grep "^\.$segment " $B_DIR/pd.map | awk '{print $6}')
-len=$(grep "^\.$segment " $B_DIR/pd.map | awk '{print $3}')
+def bdir():
+    return 'build/%s' % os.environ['ROMID']
 
-mkdir -p $B_DIR/segments
-dd if=$B_DIR/stage2.bin of=$B_DIR/segments/$segment.bin skip=$(($pos)) iflag=skip_bytes bs=$(($len)) count=1 status=none
+def find_segment(segname):
+    fd = open(bdir() + '/pd.map', 'r')
+    ldmap = fd.read()
+    fd.close()
 
+    start = re.findall(r'0x([0-9a-f]+)\s+_' + segname + 'SegmentRomStart = ', ldmap)[0]
+    end = re.findall(r'0x([0-9a-f]+)\s+_' + segname + 'SegmentRomEnd = ', ldmap)[0]
+
+    start = int(start, 16)
+    end = int(end, 16)
+
+    return (start, end)
+
+def inflate(buffer):
+    header = int.from_bytes(buffer[0:2], 'big')
+    assert(header == 0x1173)
+    return zlib.decompress(buffer[5:], wbits=-15)
+
+def inflate_game(buffer):
+    binary = bytes()
+    i = 0
+
+    while True:
+        offset = int.from_bytes(buffer[i:i+4], 'big') + 2
+        peek = int.from_bytes(buffer[offset:offset+2], 'big')
+        if peek == 0:
+            break
+        part = inflate(buffer[offset:offset+0x1000])
+        binary += part
+        if len(part) != 0x1000:
+            break
+        i += 4
+
+    return binary
+
+def inflate_lib(buffer):
+    return buffer[0:0x2000] + inflate(buffer[0x2000:])
+
+def inflate_data(buffer):
+    return inflate(buffer)
+
+def main():
+    segname = sys.argv[1]
+    loadname = sys.argv[1]
+
+    if segname in ['lib', 'game', 'data']:
+        loadname += 'zip'
+
+    (start, end) = find_segment(loadname)
+
+    fd = open(bdir() + '/pd.z64', 'rb')
+    fd.seek(start)
+    buffer = fd.read(end - start)
+    fd.close()
+
+    if segname == 'lib':
+        buffer = inflate_lib(buffer)
+    elif segname == 'game':
+        buffer = inflate_game(buffer)
+    elif segname == 'data':
+        buffer = inflate_data(buffer)
+
+    os.makedirs(bdir() + '/segments', exist_ok=True)
+
+    fd = open(bdir() + '/segments/' + segname + '.bin', 'wb')
+    fd.write(buffer)
+    fd.close()
+
+main()

@@ -26,8 +26,7 @@ class Extractor:
         self.extract_firingrange()
         self.extract_fonts()
         self.extract_game()
-        self.extract_garbage1()
-        self.extract_garbage2()
+        self.extract_garbage()
         self.extract_getitle()
         self.extract_lib()
         self.extract_mpconfigs()
@@ -188,15 +187,10 @@ class Extractor:
     def extract_inflate(self):
         self.write_extracted('inflate.bin', self.rom[0x4e850:0x4fc40])
 
-    def extract_garbage1(self):
-        start = self.val('garbage1')
-        end = self.val('data')
-        self.write_extracted('garbage1.bin', self.rom[start:end])
-
-    def extract_garbage2(self):
-        start = self.val('garbage2')
+    def extract_garbage(self):
+        start = self.val('garbage')
         end = self.val('animations')
-        self.write_extracted('garbage2.bin', self.rom[start:end])
+        self.write_extracted('garbage.bin', self.rom[start:end])
 
     # In all versions, lib starts at 0x1050 and is compressed from 0x3050 onwards
     def extract_lib(self):
@@ -461,11 +455,10 @@ class Extractor:
 
     vals = {
         #                 ntsc-beta  ntsc-1.0   ntsc-final pal-beta   pal-final  jpn-final
-        'game':          [0x43c40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   ],
-        'garbage1':      [0x0,       0x2ea22,   0x2ea6c,   0x0,       0x2eb21,   0x0,       ],
         'files':         [0x29160,   0x28080,   0x28080,   0x29b90,   0x28910,   0x28800,   ],
         'data':          [0x30850,   0x39850,   0x39850,   0x39850,   0x39850,   0x39850,   ],
-        'garbage2':      [0x0,       0x1574a0,  0x157800,  0x0,       0x158038,  0x0,       ],
+        'game':          [0x43c40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   0x4fc40,   ],
+        'garbage':       [0x155cc0,  0x194b20,  0x194b20,  0x0,       0x180330,  0x0,       ],
         'animations':    [0x155dc0,  0x1a15c0,  0x1a15c0,  0x18cdc0,  0x18cdc0,  0x190c50,  ],
         'mpconfigs':     [0x785130,  0x7d0a40,  0x7d0a40,  0x7bc240,  0x7bc240,  0x7c00d0,  ],
         'firingrange':   [0x79e410,  0x7e9d20,  0x7e9d20,  0x7d5520,  0x7d5520,  0x7d93b0,  ],

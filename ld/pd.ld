@@ -50,15 +50,13 @@
 	END_SEG(font##name)
 
 /**
- * Placeholder segments are used to mark the locations where zipped content will
- * go. It's really just here so it appears in the linker map which allows
- * packrom to find it. We only care about the start address for this segment,
- * so the romheader object is used as it's nice and short.
+ * Placeholder segments are used to mark the
+ * locations where zipped content will go.
  */
-#define PLACEHOLDER_SEGMENT(name) \
+#define PLACEHOLDER_SEGMENT(name, len) \
 	BEGIN_SEG(name) \
 	{ \
-		build/ROMID/romheader.o (.data); \
+		. = . + len; \
 	} \
 	END_SEG(name)
 
@@ -67,7 +65,7 @@
  * ----------------------------------------------------------------------------
  * The lib, data and game segments are compressed in the final ROM. To do this,
  * we build them uncompressed here but place them past the end of the ROM, then
- * a later script compresses them and writes them into the ROM.
+ * mkrom compresses them and writes them into the ROM.
  *
  * These constants are defining how much space is reserved for the compressed
  * segments. If these segments are edited and grow to a point that their
@@ -78,11 +76,15 @@
 #if VERSION >= VERSION_PAL_FINAL
 #define ROMALLOCATION_LIB   0x038800
 #define ROMALLOCATION_DATA  0x015000
-#define ROMALLOCATION_GAME  0x13d180
-#else
+#define ROMALLOCATION_GAME  0x1306f0
+#elif VERSION >= VERSION_NTSC_1_0
 #define ROMALLOCATION_LIB   0x038800
 #define ROMALLOCATION_DATA  0x015000
-#define ROMALLOCATION_GAME  0x151980
+#define ROMALLOCATION_GAME  0x144ee0
+#else
+#define ROMALLOCATION_LIB   0x02f800
+#define ROMALLOCATION_DATA  0x012000
+#define ROMALLOCATION_GAME  0x112080
 #endif
 
 OUTPUT_ARCH (mips)
@@ -203,7 +205,7 @@ SECTIONS
 
 	__rompos = 0x00001050;
 
-	PLACEHOLDER_SEGMENT(libzip)
+	PLACEHOLDER_SEGMENT(libzip, ROMALLOCATION_LIB)
 
 	__rompos = 0x02000000;
 	__rampos = 0x70001050;
@@ -227,7 +229,7 @@ SECTIONS
 
 	__savedrompos = __rompos;
 	__rompos = _libzipSegmentRomStart + ROMALLOCATION_LIB;
-	PLACEHOLDER_SEGMENT(datazip)
+	PLACEHOLDER_SEGMENT(datazip, ROMALLOCATION_DATA)
 
 	__rompos = __savedrompos;
 	__rampos = 0x80001050 + SIZEOF(.lib);
@@ -243,8 +245,6 @@ SECTIONS
 		build/ROMID/rsp/asp.data.o (.data);
 	}
 	END_SEG(data)
-
-	_datazipSegmentRomEnd = _datazipSegmentRomStart + ROMALLOCATION_DATA;
 
 	rspbootTextStart = _dataSegmentStart;
 	rspbootTextEnd = rspbootTextStart + 0xd0;
@@ -300,7 +300,8 @@ SECTIONS
 	 * -------------------------------------------------------------------------
 	 */
 
-	PLACEHOLDER_SEGMENT(gamezip)
+	PLACEHOLDER_SEGMENT(gamezip, ROMALLOCATION_GAME)
+
 	__rompos = __savedrompos;
 	__rampos = 0x7f000000;
 
@@ -311,6 +312,23 @@ SECTIONS
 	}
 	END_SEG(game)
 
+	__rompos = _inflateSegmentRomEnd + ROMALLOCATION_GAME;
+
+	/***************************************************************************
+	 * garbage
+	 * -------------------------------------------------------------------------
+	 * ROM range: 0x00194b30 - 0x001a15c0
+	 * RAM range: N/A
+	 * -------------------------------------------------------------------------
+	 * On NTSC, this contains unused JPN fonts. On PAL, not sure what this is.
+	 */
+
+	BEGIN_SEG(garbage)
+	{
+		build/ROMID/garbage.o (.data);
+	}
+	END_SEG(garbage)
+
 	/***************************************************************************
 	 * animations
 	 * -------------------------------------------------------------------------
@@ -318,8 +336,6 @@ SECTIONS
 	 * RAM range: N/A
 	 * -------------------------------------------------------------------------
 	 */
-
-	__rompos = _inflateSegmentRomEnd + ROMALLOCATION_GAME;
 
 	BEGIN_SEG(animations)
 	{

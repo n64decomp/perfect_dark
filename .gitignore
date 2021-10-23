@@ -18,3 +18,4 @@ src/assets/*/fonts/*.bin
 src/assets/*/sequences/*.seq
 src/assets/*/textures/*.bin
 src/generated
+tools/mkrom/mkrom

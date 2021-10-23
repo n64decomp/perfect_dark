@@ -28,6 +28,7 @@ export ROMID
 NTSC=0
 PAL=0
 JPN=0
+ZIPMAGIC=0x0000
 
 ifeq ($(ROMID),ntsc-beta)
 	NTSC=1
@@ -37,22 +38,27 @@ endif
 ifeq ($(ROMID),ntsc-1.0)
 	NTSC=1
 	VERSION=1
+	ZIPMAGIC=0xffff
 endif
 ifeq ($(ROMID),ntsc-final)
 	NTSC=1
 	VERSION=2
+	ZIPMAGIC=0xffff
 endif
 ifeq ($(ROMID),pal-beta)
 	PAL=1
 	VERSION=3
+	ZIPMAGIC=0x0c00
 endif
 ifeq ($(ROMID),pal-final)
 	PAL=1
 	VERSION=4
+	ZIPMAGIC=0xaf00
 endif
 ifeq ($(ROMID),jpn-final)
 	JPN=1
 	VERSION=5
+	ZIPMAGIC=0x0002
 endif
 
 DEFINES := VERSION=$(VERSION) NTSC=$(NTSC) PAL=$(PAL) JPN=$(JPN) PIRACYCHECKS=$(PIRACYCHECKS) _FINALROM=1
@@ -233,7 +239,7 @@ ASSET_FILES := \
 	$(patsubst $(A_DIR)/files/guns/%.bin,         $(B_DIR)/assets/files/G%Z,               $(shell find $(A_DIR)/files/guns -name '*.bin')) \
 	$(patsubst $(A_DIR)/files/props/%.bin,        $(B_DIR)/assets/files/P%Z,               $(shell find $(A_DIR)/files/props -name '*.bin')) \
 	$(patsubst src/files/setup/%.c,               $(B_DIR)/assets/files/U%Z,               $(shell find src/files/setup -name '*.c')) \
-	$(patsubst $(A_DIR)/files/setup/%.bin,        $(B_DIR)/assets/files/U%Z,               $(shell find $(A_DIR)/files/setup -name '*.bin')) \
+	$(patsubst $(A_DIR)/files/setup/%.bin,        $(B_DIR)/assets/files/U%Z,               $(shell find $(A_DIR)/files -path '*/setup/*.bin')) \
 	$(patsubst $(A_DIR)/files/bgdata/%.seg,       $(B_DIR)/assets/files/bgdata/%.seg,      $(shell find $(A_DIR)/files/bgdata -name '*.seg')) \
 	$(patsubst src/files/bgdata/%_tiles.s,        $(B_DIR)/assets/files/bgdata/%_tilesZ,   $(shell find src/files/bgdata -name 'bg_*_tiles.s')) \
 	$(patsubst $(A_DIR)/files/bgdata/%_tiles.bin, $(B_DIR)/assets/files/bgdata/%_tilesZ,   $(shell find $(A_DIR)/files/bgdata -name 'bg_*_tiles.bin')) \
@@ -266,6 +272,7 @@ O_FILES := \
 	$(B_DIR)/assets/fonts/ocramd.o \
 	$(B_DIR)/assets/fonts/tahoma.o \
 	$(B_DIR)/assets/fonts/zurich.o \
+	$(B_DIR)/garbage.o \
 	$(B_DIR)/getitle.o \
 	$(B_DIR)/mpconfigs.o \
 	$(B_DIR)/assets/mpstrings/mpstringsE.o \
@@ -308,24 +315,14 @@ $(B_DIR)/stage1.elf: $(O_FILES) ld/pd.ld
 $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
-# Stage2 takes stage1 and patches the piracy checksums.
-$(B_DIR)/stage2.bin: $(B_DIR)/stage1.bin
-	@cp $< $@.tmp
-	ROMID=$(ROMID) PIRACYCHECKS=$(PIRACYCHECKS) tools/patchpiracysums $@.tmp $(B_DIR)/pd.map && mv $@.tmp $@
+# Build the final ROM from stage1.bin using mkrom
+# mkrom handles calculating the piracy checksums, zipping segments and
+# calculating the ROM checksum.
+$(B_DIR)/pd.z64: $(B_DIR)/stage1.bin tools/mkrom/mkrom
+	tools/mkrom/mkrom $(B_DIR)/stage1.bin $(B_DIR)/pd.map $(PIRACYCHECKS) $(ZIPMAGIC) $@
 
-# Stage3 takes stage2, compresses the game/lib/data segments,
-# inserts them and truncates the ROM to 32MB.
-$(B_DIR)/stage3.bin: $(B_DIR)/stage2.bin $(B_DIR)/segments/gamezips.bin
-	@cp $< $@.tmp
-	tools/packrom $@.tmp && mv $@.tmp $@
-
-$(B_DIR)/segments/gamezips.bin: $(B_DIR)/segments/game.bin
-	ROMID=$(ROMID) tools/mkgamezips
-
-# The final ROM image takes stage3 and calculates the ROM CRC.
-$(B_DIR)/pd.z64: $(B_DIR)/stage3.bin
-	@cp $< $@.tmp
-	tools/patchromcrc $@.tmp --write && mv $@.tmp $@
+tools/mkrom/mkrom:
+	$(MAKE) -C tools/mkrom
 
 ################################################################################
 # Testing Related
@@ -338,7 +335,7 @@ CHECK_FILES := $(shell awk '{print $$2}' checksums.$(ROMID).md5)
 test: $(CHECK_FILES)
 	@md5sum --quiet -c checksums.$(ROMID).md5
 
-$(B_DIR)/segments/%.bin: $(B_DIR)/stage2.bin
+$(B_DIR)/segments/%.bin: $(B_DIR)/pd.z64
 	@B_DIR=$(B_DIR) tools/extract-segment $*
 
 ################################################################################
@@ -346,6 +343,9 @@ $(B_DIR)/segments/%.bin: $(B_DIR)/stage2.bin
 
 $(B_DIR)/assets/fonts/%.o: $(A_DIR)/fonts/%.bin
 	mkdir -p $(B_DIR)/assets/fonts
+	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
+
+$(B_DIR)/garbage.o: $(E_DIR)/garbage.bin
 	TOOLCHAIN=$(TOOLCHAIN) ROMID=$(ROMID) tools/mkrawobject $< $@
 
 $(B_DIR)/getitle.o: $(E_DIR)/getitle.bin
