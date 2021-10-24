@@ -3695,83 +3695,6 @@ const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished\n";
 const char var7f1b43f8[] = "Pak -> Pak_MakeOne - Id=%d is finished";
 #endif
 
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1ae2d0nb[] = "pak.c";
-const char var7f1ae2d8nb[] = "pak.c";
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo\n";
-#else
-const char var7f1b4420[] = "Pak %d -> Pak_Memory_UpdateNoteInfo";
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1ae304nb[] = "pak.c";
-const char var7f1ae30cnb[] = "pak.c";
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size\n";
-const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk\n";
-#else
-const char var7f1b4448[] = "Pak %d -> Couldn't assertain the game note size";
-const char var7f1b447c[] = "Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk";
-const char var7f1ae380nb[] = "Pak %d -> Pak_Memory_Init1";
-const char var7f1ae39cnb[] = "pak.c";
-const char var7f1ae3a4nb[] = "pak.c";
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
-#else
-const char var7f1b44bc[] = "Pak %d -> Searching for the game file";
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1ae3d4nb[] = "pak.c";
-const char var7f1ae3dcnb[] = "pak.c";
-const char var7f1ae3e4nb[] = "pak.c";
-const char var7f1ae3ecnb[] = "pak.c";
-const char var7f1ae3f4nb[] = "-forcewipe";
-const char var7f1ae400nb[] = "-forcescrub";
-const char var7f1ae40cnb[] = "Pak %d -> Initialisation - No swap file";
-const char var7f1ae434nb[] = "Pak %d -> Initialisation - Found a swap file";
-const char var7f1ae464nb[] = "pak.c";
-const char var7f1ae46cnb[] = "pak.c";
-const char var7f1ae474nb[] = "pak.c";
-const char var7f1ae47cnb[] = "pak.c";
-const char var7f1ae484nb[] = "pak.c";
-const char var7f1ae48cnb[] = "pak.c";
-const char var7f1ae494nb[] = "pak.c";
-const char var7f1ae49cnb[] = "Pak %d -> About to wipe blocks %d to %d of the game file with the wipe byte %d";
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b44e4[] = "Pak %d -> Game file wipe failed\n";
-#else
-const char var7f1b44e4[] = "Pak %d -> Game file wipe failed";
-#endif
-
-const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
-
-#if VERSION < VERSION_NTSC_1_0
-const char var7f1ae544nb[] = "pak.c";
-const char var7f1ae54cnb[] = "pak.c";
-const char var7f1ae554nb[] = "pak.c";
-#endif
-
-const char var7f1b4540[] = "Pak %d -> Pak_DeleteFile_Offset - DataSize = %u\n";
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed\n";
-const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed\n";
-#else
-const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed";
-const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed";
-#endif
-
-
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel pakInit
@@ -3934,6 +3857,12 @@ bool pakQueryTotalUsage(s8 device)
 	s32 ret;
 	s32 i;
 
+#if VERSION >= VERSION_NTSC_1_0
+	osSyncPrintf("Pak %d -> Pak_Memory_UpdateNoteInfo\n", device);
+#else
+	osSyncPrintf("Pak %d -> Pak_Memory_UpdateNoteInfo", device);
+#endif
+
 	if (!pak->unk2b8_02) {
 		return true;
 	}
@@ -4023,6 +3952,16 @@ void pakQueryPdSize(s8 device)
 		g_Paks[device].pdnumpages = g_Paks[device].pdnumbytes / 256;
 		g_Paks[device].pdnumnotes = g_Paks[device].pdnumbytes / (256 * NUM_PAGES);
 	}
+
+	// These strings belong in this function, but the function needs to be
+	// reworked to put them in their correct places
+#if VERSION >= VERSION_NTSC_1_0
+	osSyncPrintf("Pak %d -> Couldn't assertain the game note size\n");
+	osSyncPrintf("Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk\n");
+#else
+	osSyncPrintf("Pak %d -> Couldn't assertain the game note size");
+	osSyncPrintf("Pak %d -> Pak_AnalyseCurrentGameNote - Game note size = %uk");
+#endif
 }
 
 #if VERSION < VERSION_NTSC_1_0
@@ -4946,6 +4885,29 @@ glabel mempakPrepare
 //	return false;
 //}
 
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae380nb[] = "Pak %d -> Pak_Memory_Init1";
+const char var7f1ae39cnb[] = "pak.c";
+const char var7f1ae3a4nb[] = "pak.c";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b44bc[] = "Pak %d -> Searching for the game file\n";
+#else
+const char var7f1b44bc[] = "Pak %d -> Searching for the game file";
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae3d4nb[] = "pak.c";
+const char var7f1ae3dcnb[] = "pak.c";
+const char var7f1ae3e4nb[] = "pak.c";
+const char var7f1ae3ecnb[] = "pak.c";
+const char var7f1ae3f4nb[] = "-forcewipe";
+const char var7f1ae400nb[] = "-forcescrub";
+const char var7f1ae40cnb[] = "Pak %d -> Initialisation - No swap file";
+const char var7f1ae434nb[] = "Pak %d -> Initialisation - Found a swap file";
+#endif
+
 bool pakProbe(s8 device)
 {
 	bool plugged = false;
@@ -5079,6 +5041,12 @@ bool pakProbe(s8 device)
 	return false;
 #endif
 }
+
+#if VERSION < VERSION_NTSC_1_0
+const char var7f1ae48cnb[] = "pak.c";
+const char var7f1ae494nb[] = "pak.c";
+const char var7f1ae49cnb[] = "Pak %d -> About to wipe blocks %d to %d of the game file with the wipe byte %d";
+#endif
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -5232,6 +5200,11 @@ void pakWipe(s8 device, u32 blocknumstart, u32 blocknumend)
 		if (!pakHandleResult(result, device, true, 3573))
 #endif
 		{
+#if VERSION >= VERSION_NTSC_1_0
+			osSyncPrintf("Pak %d -> Game file wipe failed\n", device);
+#else
+			osSyncPrintf("Pak %d -> Game file wipe failed", device);
+#endif
 			g_Paks[device].pdnoteindex = -1;
 			break;
 		}
@@ -5400,6 +5373,8 @@ bool pakGetFilesystemLength(s8 device, u32 *outlen)
 	return false;
 }
 
+const char var7f1b4508[] = "RWI : Warning : tOffset > gPakObj[PakNum].GameFileSize\n";
+
 /**
  * Read a file from cache or from the pak and write it to *data.
  */
@@ -5540,6 +5515,16 @@ s32 pak0f11b86c(s8 device, u32 offset, u8 *data, struct pakfileheader *header, s
 
 	return 0;
 }
+
+const char var7f1b4540[] = "Pak %d -> Pak_DeleteFile_Offset - DataSize = %u\n";
+
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed\n";
+const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed\n";
+#else
+const char var7f1b4574[] = "Pak %d -> Delete file offset (file id %d) failed";
+const char var7f1b45a8[] = "Pak %d -> Delete file offset failed - Bad Offset passed";
+#endif
 
 bool pakReplaceFileAtOffsetWithBlank(s8 device, u32 offset)
 {

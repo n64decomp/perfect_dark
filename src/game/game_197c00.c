@@ -100,10 +100,10 @@ struct aibotweaponpreference g_AibotWeaponPreferences[] = {
 	/*0x4b*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4B
 	/*0x4c*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_KEYCARD4C
 	/*0x4d*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SUITCASE
-#if VERSION >= VERSION_NTSC_1_0
 	/*0x4e*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_BRIEFCASE
+#if VERSION >= VERSION_NTSC_1_0
+	/*0x4f*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SHIELDTECHITEM
 #endif
-	/*0x4f*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SHIELD
 	/*0x50*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_NECKLACE
 	/*0x51*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_HAMMER
 	/*0x52*/ { 0,   0,   0,   0,   0, 0, 2, 2, 0,    0,   0,  0,  1, 0 }, // WEAPON_SCREWDRIVER

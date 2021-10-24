@@ -5876,7 +5876,7 @@ struct weapon invitem_necklace = {
 };
 
 #if VERSION >= VERSION_NTSC_1_0
-struct weapon invitem_shield = {
+struct weapon invitem_shieldtechitem = {
 	FILE_PCHRSHIELD, // hi model
 	FILE_PCHRSHIELD, // lo model
 	NULL, // equip animation
@@ -6134,7 +6134,7 @@ struct weapon *g_Weapons[] = {
 	&invitem_suitcase,
 	&invitem_briefcase,
 #if VERSION >= VERSION_NTSC_1_0
-	&invitem_shield,
+	&invitem_shieldtechitem,
 #endif
 	&invitem_necklace,
 	&invitem_hammer,

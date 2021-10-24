@@ -8221,9 +8221,7 @@ s32 bgunTickIncChangeGun(struct handweaponinfo *info, s32 handnum, struct hand *
 				case WEAPON_KEYCARD4B:
 				case WEAPON_KEYCARD4C:
 				case WEAPON_SUITCASE:
-#if VERSION >= VERSION_NTSC_1_0
 				case WEAPON_BRIEFCASE:
-#endif
 				case WEAPON_NECKLACE:
 				case WEAPON_BRIEFCASE2:
 					// No equip sound
@@ -28192,10 +28190,6 @@ glabel var7f1acb14
 GLOBAL_ASM(
 glabel bgunConsiderToggleGunFunction
 .late_rodata
-glabel var7f1a6fccnb
-.word 0x453b8000
-glabel var7f1a6fd0nb
-.word 0x453b8000
 glabel var7f1acaa4
 .word bgunConsiderToggleGunFunction+0x104
 glabel var7f1a6fd8nb
@@ -28254,9 +28248,6 @@ glabel var7f1a7040nb
 .word bgunConsiderToggleGunFunction+0x1f4
 glabel var7f1a7044nb
 .word bgunConsiderToggleGunFunction+0x0b0
-
-
-
 .text
 /*  f0a895c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a8960:	afbf0014 */ 	sw	$ra,0x14($sp)
