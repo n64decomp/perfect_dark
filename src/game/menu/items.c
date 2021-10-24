@@ -27,10 +27,13 @@ const char var7f1adfa0[] = "brcol";
 const char var7f1adfa8[] = "%d: ";
 const char var7f1adfb0[] = "%s";
 
-s32 g_ScissorX1 = 0x00000000;
-s32 g_ScissorX2 = 0x00000000;
-s32 g_ScissorY1 = 0x00000000;
-s32 g_ScissorY2 = 0x00000000;
+#if VERSION >= VERSION_NTSC_1_0
+s32 g_ScissorX1 = 0;
+s32 g_ScissorX2 = 0;
+s32 g_ScissorY1 = 0;
+s32 g_ScissorY2 = 0;
+#endif
+
 s32 var800711a0 = 0;
 s32 var800711a4 = 0;
 u32 g_LineHeight = 11;
@@ -11591,6 +11594,18 @@ Gfx *menuRenderControllerText(Gfx *gdl, s32 curmode, struct menurendercontext *c
 	return func0f153780(gdl);
 }
 #else
+u16 labels[] = {
+	/*0*/ L_MPWEAPONS_185, // "L/R BUTTONS:"
+	/*1*/ L_MPWEAPONS_186, // "UP C BUTTON:"
+	/*2*/ L_MPWEAPONS_187, // "LEFT/RIGHT C BUTTONS:"
+	/*3*/ L_MPWEAPONS_188, // "DOWN C BUTTON:"
+	/*4*/ L_MPWEAPONS_189, // "A BUTTON:"
+	/*5*/ L_MPWEAPONS_190, // "B BUTTON:"
+	/*6*/ L_MPWEAPONS_191, // "CONTROL STICK:"
+	/*7*/ L_MPWEAPONS_192, // "Z BUTTON:"
+	/*8*/ L_MPWEAPONS_193, // "+ CONTROL PAD:"
+};
+
 GLOBAL_ASM(
 glabel menuRenderControllerText
 /*  f0ec8f0:	27bdff68 */ 	addiu	$sp,$sp,-152

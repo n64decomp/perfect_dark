@@ -1858,6 +1858,7 @@ enum sfx {
 	SFX_M1_COVER_MY_ASS,
 	SFX_M1_SCREAM,
 #if VERSION >= VERSION_NTSC_1_0
+	// Might be SFX_M1_SCREAM that's actually being added here
 	SFX_F_DAMN_SHES_GOOD,
 #endif
 	SFX_F_MY_GOD,

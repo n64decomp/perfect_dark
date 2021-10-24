@@ -23,14 +23,22 @@ s32 g_MenuTrack = -1;
 u32 var800840c4 = 0x00000000;
 s32 g_TemporaryPrimaryTrack = -1;
 s32 g_TemporaryAmbientTrack = -1;
+
+#if VERSION >= VERSION_NTSC_1_0
 s32 var800840d0 = -1;
+#endif
+
 u32 var800840d4 = 0x00000000;
 u32 var800840d8 = 0x00000000;
 s32 var800840dc = 0;
 u32 var800840e0 = 0x0000000f;
 u32 var800840e4 = 0x00000000;
 s32 var800840e8 = 0;
+
+#if VERSION >= VERSION_NTSC_1_0
 u16 var800840ec = 0x5000;
+#endif
+
 u32 var800840f0 = 0x00000000;
 u32 var800840f4 = 0x00000000;
 u32 var800840f8 = PAL ? 100 : 120;

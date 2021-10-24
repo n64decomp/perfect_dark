@@ -1184,6 +1184,9 @@ struct menuitem g_FilemgrFileLostMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextDeviceName, 0x00000000, filemgrDeviceNameMenuHandler },
 #if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS_251, 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
+#else
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_352, 0x00000000, NULL }, // "An error occurred while trying to load."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_353, 0x00000000, filemgr0f108d14 }, // "Try Again"
 #endif
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_354, 0x00000000, filemgrAcknowledgeFileLostMenuHandler }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -1217,6 +1220,8 @@ struct menudialog g_FilemgrSaveElsewhereMenuDialog = {
 struct menuitem g_PakNotOriginalMenuItems[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextInsertOriginalPak, 0x00000000, NULL },
+#else
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_OPTIONS_363, 0x00000000, NULL },
 #endif
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_365, 0x00000000, filemgrReinsertedOkMenuHandler }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_OPTIONS_366, 0x00000000, filemgrReinsertedCancelMenuHandler }, // "Cancel"
@@ -1617,10 +1622,8 @@ char *filemgrMenuTextLocationName2(struct menuitem *item)
 		L_OPTIONS_113, // "Controller Pak 2"
 		L_OPTIONS_114, // "Controller Pak 3"
 		L_OPTIONS_115, // "Controller Pak 4"
-#if VERSION >= VERSION_NTSC_1_0
 		L_OPTIONS_111, // "Game Pak"
-		L_OPTIONS_004,   // ""
-#endif
+		L_OPTIONS_004, // ""
 	};
 
 	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum] == NULL) {
@@ -1634,6 +1637,15 @@ char *filemgrMenuTextLocationName2(struct menuitem *item)
 	return langGet(names[item->param]);
 }
 #else
+u16 names[] = {
+	L_OPTIONS_112, // "Controller Pak 1"
+	L_OPTIONS_113, // "Controller Pak 2"
+	L_OPTIONS_114, // "Controller Pak 3"
+	L_OPTIONS_115, // "Controller Pak 4"
+	L_OPTIONS_111, // "Game Pak"
+	L_OPTIONS_004, // ""
+};
+
 GLOBAL_ASM(
 glabel filemgrMenuTextLocationName2
 /*  f105228:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -1713,9 +1725,44 @@ char *filemgrMenuTextSaveLocationSpaces(struct menuitem *item)
 	return g_StringPointer;
 }
 
-#if VERSION < VERSION_NTSC_1_0
+#if VERSION >= VERSION_NTSC_1_0
+const char var7f1b33fc[] = "GOT OKed!, item->data = %d\n";
+const char var7f1b3418[] = "GOT CANCELLED!\n";
+const char var7f1b3428[] = "Picking Location, type %d wadtype %d wad %d\n";
+const char var7f1b3458[] = "Torching file %d\n";
+const char var7f1b346c[] = "Copying file %d\n";
+const char var7f1b3480[] = "item: %x\n";
+const char var7f1b348c[] = "Switched Wads Back\n";
+const char var7f1b34a0[] = "MenuClosed\n";
+const char var7f1b34ac[] = "Deleting files, wad %d\n";
+#endif
+
+#if VERSION >= VERSION_NTSC_1_0
+/**
+ * item->param is a SAVEDEVICE constant.
+ */
+s32 filemgrSelectLocationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+{
+	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum] == NULL) {
+		return 0;
+	}
+
+	if (operation == MENUOP_CHECKDISABLED) {
+		if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->spacesfree[item->param] < 1) {
+			return true;
+		}
+	}
+
+	if (operation == MENUOP_SET) {
+		g_Menus[g_MpPlayerNum].fm.device2 = item->param;
+		filemgrSaveToDevice();
+	}
+
+	return 0;
+}
+#else
 GLOBAL_ASM(
-glabel func0f1053a0nb
+glabel filemgrSelectLocationMenuHandler
 /*  f1053a0:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f1053a4:	8dce3af0 */ 	lw	$t6,0x3af0($t6)
 /*  f1053a8:	3c18800a */ 	lui	$t8,0x800a
@@ -1863,43 +1910,6 @@ glabel func0f1053a0nb
 /*  f1055c0:	03e00008 */ 	jr	$ra
 /*  f1055c4:	00000000 */ 	sll	$zero,$zero,0x0
 );
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-const char var7f1b33fc[] = "GOT OKed!, item->data = %d\n";
-const char var7f1b3418[] = "GOT CANCELLED!\n";
-const char var7f1b3428[] = "Picking Location, type %d wadtype %d wad %d\n";
-const char var7f1b3458[] = "Torching file %d\n";
-const char var7f1b346c[] = "Copying file %d\n";
-const char var7f1b3480[] = "item: %x\n";
-const char var7f1b348c[] = "Switched Wads Back\n";
-const char var7f1b34a0[] = "MenuClosed\n";
-const char var7f1b34ac[] = "Deleting files, wad %d\n";
-#endif
-
-#if VERSION >= VERSION_NTSC_1_0
-/**
- * item->param is a SAVEDEVICE constant.
- */
-s32 filemgrSelectLocationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
-{
-	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum] == NULL) {
-		return 0;
-	}
-
-	if (operation == MENUOP_CHECKDISABLED) {
-		if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->spacesfree[item->param] < 1) {
-			return true;
-		}
-	}
-
-	if (operation == MENUOP_SET) {
-		g_Menus[g_MpPlayerNum].fm.device2 = item->param;
-		filemgrSaveToDevice();
-	}
-
-	return 0;
-}
 #endif
 
 s32 filemgrCancelSaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -2945,7 +2955,6 @@ void pakPushPakMenuDialog(void)
 	g_MpPlayerNum = prevplayernum;
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_FilemgrSelectLocationMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0,                         0x00000010, L_OPTIONS_368, L_OPTIONS_369, NULL }, // "Where", "Spaces"
 	{ MENUITEMTYPE_SEPARATOR,   0,                         0x00000000, 0x00000000, 0x00000000, NULL },
@@ -2968,7 +2977,6 @@ struct menudialog g_FilemgrSelectLocationMenuDialog = {
 	0x00000080,
 	NULL,
 };
-#endif
 
 struct menuitem g_FilemgrConfirmDeleteMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&filemgrMenuTextDeleteFileName, 0x00000000, filemgrFileNameMenuHandler },
@@ -2988,11 +2996,14 @@ struct menudialog g_FilemgrConfirmDeleteMenuDialog = {
 	NULL,
 };
 
-#if VERSION >= VERSION_NTSC_1_0
 struct menuitem g_FilemgrFileInUseMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&filemgrMenuTextDeleteFileName, 0x00000000, filemgrFileNameMenuHandler },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&filemgrMenuTextDeviceName, 0x00000000, filemgrDeviceNameMenuHandler },
+#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&filemgrMenuTextFileInUseDescription, 0x00000000, NULL },
+#else
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x54a0, 0x00000000, NULL },
+#endif
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_161, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3005,7 +3016,6 @@ struct menudialog g_FilemgrFileInUseMenuDialog = {
 	0x00000080,
 	NULL,
 };
-#endif
 
 struct menuitem g_FilemgrDeleteMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS_377, 0x00000000, NULL }, // "Select a file to delete:"

@@ -1260,6 +1260,18 @@ bool lvCheckCmpFollowThreat(struct threat *threat, s32 index)
 }
 
 #if VERSION < VERSION_NTSC_1_0
+char var800868c8nb[][3] = {
+	{'n', '\0', '\0'},
+	{'n', 'e',  '\0'},
+	{'e', '\0', '\0'},
+	{'s', 'e',  '\0'},
+	{'s', '\0', '\0'},
+	{'s', 'w',  '\0'},
+	{'w', '\0', '\0'},
+	{'n', 'w',  '\0'},
+	{'n', '\0', '\0'},
+};
+
 GLOBAL_ASM(
 glabel func7f163414nb
 .late_rodata
@@ -4365,6 +4377,11 @@ Gfx *lvRender(Gfx *gdl)
 	return gdl;
 }
 #else
+u32 var80086910nb[] = {
+	0x00000000, 0x00000000, 0x00000000, 0x1e000000,
+	0x00000000, 0x00000064, 0x00000000, 0x00000000,
+};
+
 GLOBAL_ASM(
 glabel lvRender
 .late_rodata

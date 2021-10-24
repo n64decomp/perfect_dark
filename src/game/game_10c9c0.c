@@ -222,8 +222,13 @@ struct menudialog g_FilemgrFileSelect4MbMenuDialog = {
 };
 
 struct menuitem g_AudioVideo4MbMenuItems[] = {
+#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_308, L_MPMENU_000, menuhandlerSfxVolume }, // "Sound"
 	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_309, L_MPMENU_000, menuhandlerMusicVolume }, // "Music"
+#else
+	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_308, 0x7fff, menuhandlerSfxVolume }, // "Sound"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_309, 0x7fff, menuhandlerMusicVolume }, // "Music"
+#endif
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS_310, 0x00000000, menuhandlerSoundMode }, // "Sound Mode"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS_311, 0x00000000, menuhandlerScreenRatio }, // "Ratio"
@@ -268,7 +273,9 @@ struct menudialog g_MpDropOut4MbMenuDialog;
 
 struct menuitem g_MpQuickGo4MbMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MISC_456, 0x00000000, (void *)&g_MpReadyMenuDialog }, // "Start Game"
+#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU_029, 0x00000000, (void *)&g_MpLoadPlayerMenuDialog }, // "Load Player"
+#endif
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MISC_458, 0x00000000, (void *)&g_MpPlayerSetup4MbMenuDialog }, // "Player Settings"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MISC_457, 0x00000000, (void *)&g_MpDropOut4MbMenuDialog }, // "Drop Out"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

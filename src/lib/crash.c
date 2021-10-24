@@ -8,10 +8,16 @@
 #include "data.h"
 #include "types.h"
 
+#define MSG_FAULT 0x10
+
 OSThread g_FaultThread;
 u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
+
+#if VERSION < VERSION_NTSC_1_0
+u32 padding[2];
+#endif
 
 u32 var8005d5b0 = 0;
 s16 g_CrashCurX = 0;
@@ -117,6 +123,35 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 char (*g_CrashCharBuffer)[71] = NULL;
 u16 *g_CrashFrameBuffer = NULL;
 
+#if VERSION < VERSION_NTSC_1_0
+u32 somethingnb[] = {
+	0x22220200, 0x55000000, 0x05f5f500, 0x27427200,
+	0x05124500, 0x34255300, 0x22000000, 0x24444420,
+	0x42222240, 0x06f6f600, 0x00272000, 0x00000240,
+	0x00070000, 0x00000200, 0x11224480, 0x25555200,
+	0x26222700, 0x25125700, 0x61211600, 0x33557300,
+	0x64611600, 0x24655200, 0x71112200, 0x25755200,
+	0x25531600, 0x00200200, 0x00200640, 0x01242100,
+	0x00707000, 0x04212400, 0x07120200, 0x25ff5700,
+	0x02557d00, 0x06575e00, 0x07445300, 0x07555600,
+	0x07565700, 0x07564400, 0x07c95700, 0x05575500,
+	0x07222700, 0x03111600, 0x05665500, 0x04445f00,
+	0x0dff9d00, 0x0f777d00, 0x07dd5700, 0x07564600,
+	0x07995770, 0x07565500, 0x07461e00, 0x07222200,
+	0x0d999600, 0x0d552200, 0x0df77500, 0x0d625500,
+	0x05622600, 0x07125700, 0x32222230, 0x44222110,
+	0x62222260, 0x25000000, 0x00000700, 0x42200000,
+	0x0067d700, 0x44755700, 0x00788600, 0x117dd700,
+	0x006fc700, 0x32722700, 0x007dd730, 0x44755500,
+	0x02622700, 0x02711130, 0x44766500, 0x62222700,
+	0x00ffff00, 0x00755d00, 0x006dd600, 0x00755740,
+	0x00799710, 0x00744600, 0x00775700, 0x02722300,
+	0x00555700, 0x00552200, 0x00577500, 0x00562500,
+	0x00552220, 0x00703700, 0x12242210, 0x02222220,
+	0x42212240, 0x005a0000,
+};
+#endif
+
 extern u32 _libSegmentStart;
 extern u32 _libSegmentEnd;
 
@@ -150,33 +185,97 @@ void crashCreateThread(void)
 	osStartThread(&g_FaultThread);
 }
 
+#if VERSION >= VERSION_NTSC_1_0
 void faultproc(void *arg0)
 {
 	OSMesg msg = 0;
 	OSIntMask mask;
 	u32 callstack[10];
 	s32 tracelen;
-	static OSThread *thread;
-	static u32 var80094ad0;
+	static OSThread *curr;
+	static OSThread *last;
 
-	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) 16);
-	var80094ad0 = 0;
+	osSetEventMesg(OS_EVENT_FAULT, &g_FaultMesgQueue, (OSMesg) MSG_FAULT);
+	last = NULL;
 
 	while (true) {
 		do {
-			osRecvMesg(&g_FaultMesgQueue, &msg, 1);
+			osRecvMesg(&g_FaultMesgQueue, &msg, OS_MESG_BLOCK);
 			mask = osSetIntMask(1);
-			thread = __osGetCurrFaultedThread();
-		} while (!thread);
+			curr = __osGetCurrFaultedThread();
+		} while (!curr);
 
 		osSetIntMask(mask);
 
 #if VERSION < VERSION_NTSC_1_0
-		crashGenerate(thread, callstack, &tracelen);
+		crashGenerate(curr, callstack, &tracelen);
 		schedSetCrashedUnexpectedly(true);
 #endif
 	}
 }
+#else
+GLOBAL_ASM(
+glabel faultproc
+/*     c270:	27bdff98 */ 	addiu	$sp,$sp,-104
+/*     c274:	afb40028 */ 	sw	$s4,0x28($sp)
+/*     c278:	3c148009 */ 	lui	$s4,0x8009
+/*     c27c:	269470e8 */ 	addiu	$s4,$s4,0x70e8
+/*     c280:	afbf002c */ 	sw	$ra,0x2c($sp)
+/*     c284:	afa40068 */ 	sw	$a0,0x68($sp)
+/*     c288:	afb30024 */ 	sw	$s3,0x24($sp)
+/*     c28c:	afb20020 */ 	sw	$s2,0x20($sp)
+/*     c290:	afb1001c */ 	sw	$s1,0x1c($sp)
+/*     c294:	afb00018 */ 	sw	$s0,0x18($sp)
+/*     c298:	afa00064 */ 	sw	$zero,0x64($sp)
+/*     c29c:	2404000c */ 	addiu	$a0,$zero,0xc
+/*     c2a0:	02802825 */ 	or	$a1,$s4,$zero
+/*     c2a4:	0c01263c */ 	jal	0x498f0
+/*     c2a8:	24060010 */ 	addiu	$a2,$zero,0x10
+/*     c2ac:	3c018009 */ 	lui	$at,0x8009
+/*     c2b0:	ac207108 */ 	sw	$zero,0x7108($at)
+/*     c2b4:	27b30034 */ 	addiu	$s3,$sp,0x34
+/*     c2b8:	27b20038 */ 	addiu	$s2,$sp,0x38
+/*     c2bc:	27b10064 */ 	addiu	$s1,$sp,0x64
+.NB0000c2c0:
+/*     c2c0:	02802025 */ 	or	$a0,$s4,$zero
+.NB0000c2c4:
+/*     c2c4:	02202825 */ 	or	$a1,$s1,$zero
+/*     c2c8:	0c0126b0 */ 	jal	0x49ac0
+/*     c2cc:	24060001 */ 	addiu	$a2,$zero,0x1
+/*     c2d0:	0c012688 */ 	jal	0x49a20
+/*     c2d4:	24040001 */ 	addiu	$a0,$zero,0x1
+/*     c2d8:	0c013eb8 */ 	jal	0x4fae0
+/*     c2dc:	00408025 */ 	or	$s0,$v0,$zero
+/*     c2e0:	3c018009 */ 	lui	$at,0x8009
+/*     c2e4:	1040fff6 */ 	beqz	$v0,.NB0000c2c0
+/*     c2e8:	ac227104 */ 	sw	$v0,0x7104($at)
+/*     c2ec:	0c012688 */ 	jal	0x49a20
+/*     c2f0:	02002025 */ 	or	$a0,$s0,$zero
+/*     c2f4:	3c048009 */ 	lui	$a0,0x8009
+/*     c2f8:	8c847104 */ 	lw	$a0,0x7104($a0)
+/*     c2fc:	02402825 */ 	or	$a1,$s2,$zero
+/*     c300:	0c003297 */ 	jal	0xca5c
+/*     c304:	02603025 */ 	or	$a2,$s3,$zero
+/*     c308:	0c00073b */ 	jal	0x1cec
+/*     c30c:	24040001 */ 	addiu	$a0,$zero,0x1
+/*     c310:	1000ffec */ 	beqz	$zero,.NB0000c2c4
+/*     c314:	02802025 */ 	or	$a0,$s4,$zero
+/*     c318:	00000000 */ 	sll	$zero,$zero,0x0
+/*     c31c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     c320:	00000000 */ 	sll	$zero,$zero,0x0
+/*     c324:	00000000 */ 	sll	$zero,$zero,0x0
+/*     c328:	00000000 */ 	sll	$zero,$zero,0x0
+/*     c32c:	00000000 */ 	sll	$zero,$zero,0x0
+/*     c330:	8fbf002c */ 	lw	$ra,0x2c($sp)
+/*     c334:	8fb00018 */ 	lw	$s0,0x18($sp)
+/*     c338:	8fb1001c */ 	lw	$s1,0x1c($sp)
+/*     c33c:	8fb20020 */ 	lw	$s2,0x20($sp)
+/*     c340:	8fb30024 */ 	lw	$s3,0x24($sp)
+/*     c344:	8fb40028 */ 	lw	$s4,0x28($sp)
+/*     c348:	03e00008 */ 	jr	$ra
+/*     c34c:	27bd0068 */ 	addiu	$sp,$sp,0x68
+);
+#endif
 
 /**
  * Given a pointer to an instruction and a stack frame pointer, attempt to find
@@ -1253,9 +1352,15 @@ void crashPutChar(s32 x, s32 y, char c)
 		c = '?';
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	if (x >= 0 && x < 72 && y >= 0 && y < 30 && g_CrashCharBuffer != NULL) {
 		g_CrashCharBuffer[y][x] = c;
 	}
+#else
+	if (x >= 0 && x < 72 && y >= 0 && y < 32 && g_CrashCharBuffer != NULL) {
+		g_CrashCharBuffer[y][x] = c;
+	}
+#endif
 }
 
 void crashAppendChar(char c)
@@ -1277,10 +1382,17 @@ void crashAppendChar(char c)
 		g_CrashCurX = 0;
 	}
 
+#if VERSION >= VERSION_NTSC_1_0
 	if (g_CrashCurY > 28) {
 		crashScroll(g_CrashCurY - 28);
 		g_CrashCurY = 28;
 	}
+#else
+	if (g_CrashCurY > 30) {
+		crashScroll(g_CrashCurY - 30);
+		g_CrashCurY = 30;
+	}
+#endif
 
 	if (c != '\n') {
 		crashPutChar(g_CrashCurX, g_CrashCurY, c);

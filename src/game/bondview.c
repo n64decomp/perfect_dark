@@ -16247,6 +16247,21 @@ const char var7f1b046cnb[] = "";
 const char var7f1b0470nb[] = "";
 const char var7f1b0474nb[] = " JMBC WIDE BAND SCANNER\n";
 
+s32 var8008095cnb = 0;
+s32 var80080960nb = -1;
+
+char directions[][3] = {
+	{'n', '\0', '\0'},
+	{'n', 'e',  '\0'},
+	{'e', '\0', '\0'},
+	{'s', 'e',  '\0'},
+	{'s', '\0', '\0'},
+	{'s', 'w',  '\0'},
+	{'w', '\0', '\0'},
+	{'n', 'w',  '\0'},
+	{'n', '\0', '\0'},
+};
+
 GLOBAL_ASM(
 glabel bviewRenderHorizonScanner
 .late_rodata

@@ -549,7 +549,13 @@ u32 var80086a3c = 0x000003e8;
 u32 var80086a40 = 0xffffff00;
 u32 var80086a44 = 0xffffff00;
 u32 var80086a48 = 0x0fff0000;
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 var80086a4c = 0x57000000;
+#else
+u32 var80086a4c = 0x56000000;
+#endif
+
 u32 var80086a50 = 0x00ffffff;
 u32 var80086a54 = 0x00000000;
 
@@ -1499,7 +1505,13 @@ u32 var80086bac = 0x000003e8;
 u32 var80086bb0 = 0xffffff00;
 u32 var80086bb4 = 0xffffff00;
 u32 var80086bb8 = 0x0fff0000;
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 var80086bbc = 0x57000000;
+#else
+u32 var80086bbc = 0x56000000;
+#endif
+
 u32 var80086bc0 = 0x00ffffff;
 u32 var80086bc4 = 0x00000000;
 

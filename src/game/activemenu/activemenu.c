@@ -2109,7 +2109,7 @@ u8 var800719a0[][3] = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
 Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 {
 	static u32 obcol = 0xff00004f; // outer border
-	static u32 ibcol = 0x3f00008f; // inner background
+	static u32 ibcol = VERSION >= VERSION_NTSC_1_0 ? 0x3f00008f : 0x3f00006f; // inner background
 	static u32 defcol = 0xff4f00ff; // text
 	static u32 favcol = 0xffff7fff; // unused
 	static u32 pickcol = 0xff4f00ff; // unused

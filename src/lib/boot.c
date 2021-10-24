@@ -30,11 +30,6 @@ OSSched g_Sched;
 OSScClient var8008dca8;
 u32 g_OsMemSize;
 
-#if VERSION < VERSION_NTSC_1_0
-u32 var8005e5ccnb = 1;
-u32 var8005e5d0nb = 0x10000000;
-#endif
-
 u32 var8005ce00 = 0;
 u32 var8005ce04 = 0;
 u32 var8005ce08 = 0;
@@ -562,8 +557,8 @@ s32 bootGetMemSize(void)
 #if VERSION < VERSION_NTSC_1_0
 void func00001978(void)
 {
-	var8005e5ccnb = 1;
-	var8005e5d0nb = 0x10000000;
+	var8005ce4c = 1;
+	var8005ce50 = 0x10000000;
 }
 #endif
 

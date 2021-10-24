@@ -52,6 +52,10 @@ s32 g_HudPaddingX = 24;
 s32 g_NumHudMessages = 0;
 struct hudmessage *g_HudMessages = NULL;
 
+#if VERSION < VERSION_NTSC_1_0
+u32 var800736b0nb = 0;
+#endif
+
 struct hudmsgtype g_HudmsgTypes[] = {
 	/* 0*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 80  },
 	/* 1*/ { 0, 1, 0, (void *) &g_CharsHandelGothicMd, (void *) &g_FontHandelGothicMd, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_YMIDDLE,       0, 0, 120 },
@@ -64,13 +68,15 @@ struct hudmsgtype g_HudmsgTypes[] = {
 	/* 8*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ffc000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BOTTOM,        0, 0, 500 },
 	/* 9*/ { 1, 1, 0, (void *) &g_CharsHandelGothicXs, (void *) &g_FontHandelGothicXs, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 120 },
 	/*10*/ { 1, 1, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_LEFT,    HUDMSGALIGN_BOTTOM,        0, 0, 240 },
+#if VERSION >= VERSION_NTSC_1_0
 	/*11*/ { 0, 0, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
+#else
+	/*11*/ { 1, 0, 0, (void *) &g_CharsHandelGothicSm, (void *) &g_FontHandelGothicSm, 0x00ff0000, 0x000000a0, HUDMSGALIGN_XMIDDLE, HUDMSGALIGN_BELOWVIEWPORT, 0, 0, 120 },
+#endif
 };
 
 u32 var80071170 = 0x2e3b213f;
 u32 var80071174 = 0x2c000000;
-u32 var80071178 = 0x00000000;
-u32 var8007117c = 0x00000000;
 
 u8 hudmsgsAreActive(void)
 {

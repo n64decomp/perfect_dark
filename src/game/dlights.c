@@ -91,8 +91,12 @@ u32 var80061448 = 0x00000000;
 u32 var8006144c = 0x00000000;
 u32 var80061450 = 0x00000000;
 u32 var80061454 = 0xffffffff;
+
+#if VERSION >= VERSION_NTSC_1_0
 s32 var80061458 = 0x00000000;
 u32 var8006145c = 0x00000000;
+#endif
+
 u32 var80061460 = 0x96969600;
 u32 var80061464 = 0x96969600;
 u32 var80061468 = 0xffffff00;
@@ -100,7 +104,6 @@ u32 var8006146c = 0xffffff00;
 u32 var80061470 = 0x4d4d2e00;
 u32 var80061474 = 0x00000000;
 u32 var80061478 = 0x00000000;
-u32 var8006147c = 0x00000000;
 
 /**
  * These numbers are suspected to be portal indexes, based on the size of the

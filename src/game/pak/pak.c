@@ -143,21 +143,34 @@ u32 var800a3394;
 u32 var800a3398;
 u32 var800a339c;
 
+#if VERSION >= VERSION_NTSC_1_0
 u16 var80075cb0 = ROM_COMPANYCODE;
 char var80075cb4[] = "PerfDark";
 char var80075cc0[] = "PerfDark";
+#else
+u16 var80075cb0 = ROM_COMPANYCODE;
+u16 var80078054nb = ROM_COMPANYCODE;
+char var80078058nb[] = "POCKETCAMERA";
+char var80078068nb[] = "GAMEBOYCAMERA";
+char var80078078nb[] = "PerfDark";
+char var80078084nb[] = "GAMEBOYCAMERA";
+#endif
 
 u32 var80075ccc = 0x00000400;
 u32 g_PakHasEeprom = false;
 u32 var80075cd4 = 0x00000000;
 u32 var80075cd8 = 0x00000000;
 u32 var80075cdc = 0x00000000;
-u32 g_PakDebugForceScrub = 0x00000000;
-u32 g_PakDebugPakDump = 0x00000000;
-u32 g_PakDebugPakCache = 0x00000001;
-u32 g_PakDebugPakInit = 0x00000000;
-u32 g_PakDebugWipeEeprom = 0x00000000;
-u32 g_PakDebugCorruptMe = 0x00000000;
+
+u32 g_PakDebugForceScrub = 0;
+u32 g_PakDebugPakDump = 0;
+u32 g_PakDebugPakCache = 1;
+u32 g_PakDebugPakInit = 0;
+
+#if VERSION >= VERSION_NTSC_1_0
+u32 g_PakDebugWipeEeprom = 0;
+u32 g_PakDebugCorruptMe = 0;
+#endif
 
 char g_PakNoteGameName[] = {
 	N64CHAR('P'),
@@ -182,7 +195,10 @@ char g_PakNoteExtName[] = {0, 0, 0, 0};
 
 u32 var80075d0c = 0x00000000;
 u8 var80075d10 = 0;
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 var80075d14 = 0x00000001;
+#endif
 
 u32 pakGetBlockSize(s8 device)
 {
@@ -2387,9 +2403,11 @@ s32 _pakReadBodyAtGuid(s8 device, s32 fileid, u8 *body, s32 arg3)
 	if (!pak0f1167d8(device)) {
 		offset = pakFindFile(device, fileid, NULL);
 
+#if VERSION >= VERSION_NTSC_1_0
 		if (offset == -1) {
 			return 1;
 		}
+#endif
 
 		if (offset == 0 || (offset && offset < pakGetPdNumBytes(device) && ((pakGetBlockSize(device) - 1) & offset) == 0)) {
 			result = pak0f11b86c(device, offset, body, &header, arg3);
@@ -8450,11 +8468,11 @@ void pakRumble(s32 device, f32 numsecs, s32 onduration, s32 offduration)
 	}
 }
 #else
+u8 var80009eb9cnb[5];
+
 void pakRumble(s8 device, f32 numsecs, s32 onduration, s32 offduration)
 {
-	// This might be a global variable rather than static
-	static u8 map[] = {0, 1, 0, 0, 0}; // 0x8009eb9c (ntsc-beta)
-	u8 index = map[device];
+	u8 index = var80009eb9cnb[device];
 
 	if (g_Paks[index].unk010 == PAK010_11
 			&& g_Paks[index].type == PAKTYPE_RUMBLE

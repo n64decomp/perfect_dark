@@ -18,6 +18,10 @@ s32 g_ScreenSize = SCREENSIZE_FULL;
 s32 g_ScreenRatio = SCREENRATIO_NORMAL;
 u8 g_ScreenSplit = SCREENSPLIT_HORIZONTAL;
 
+#if VERSION < VERSION_NTSC_1_0
+u16 var8008231cnb = 0x7fff;
+#endif
+
 s32 optionsGetControlMode(s32 mpchrnum)
 {
 	return g_MpPlayers[mpchrnum].base.controlmode;

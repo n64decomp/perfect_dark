@@ -2292,6 +2292,12 @@ void bwalkUpdateVertical(void)
 	}
 }
 #else
+s32 sounds[] = {
+	SFX_JO_LANDING_046F,
+	SFX_JO_LANDING_05B6,
+	SFX_JO_LANDING_05B7
+};
+
 GLOBAL_ASM(
 glabel bwalkUpdateVertical
 .late_rodata

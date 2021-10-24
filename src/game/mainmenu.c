@@ -4323,8 +4323,13 @@ struct menudialog g_CiControlStylePlayer2MenuDialog = {
 };
 
 struct menuitem g_AudioOptionsMenuItems[] = {
+#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_228, L_MPMENU_000, menuhandlerSfxVolume }, // "Sound"
 	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_229, L_MPMENU_000, menuhandlerMusicVolume }, // "Music"
+#else
+	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_228, 0x7fff, menuhandlerSfxVolume }, // "Sound"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS_229, 0x7fff, menuhandlerMusicVolume }, // "Music"
+#endif
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS_230, 0x00000000, menuhandlerSoundMode }, // "Sound Mode"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_218, 0x00000000, menuhandlerLangFilter }, // "Language Filter"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, PAL ? 0xc8 : 0, 0x00000000, NULL },
@@ -4342,8 +4347,13 @@ struct menudialog g_AudioOptionsMenuDialog = {
 };
 
 struct menuitem g_2PMissionAudioOptionsVMenuItems[] = {
+#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_SLIDER,      0, 0x00102800, L_OPTIONS_228, L_MPMENU_000, menuhandlerSfxVolume }, // "Sound"
 	{ MENUITEMTYPE_SLIDER,      0, 0x00102800, L_OPTIONS_229, L_MPMENU_000, menuhandlerMusicVolume }, // "Music"
+#else
+	{ MENUITEMTYPE_SLIDER,      0, 0x00102800, L_OPTIONS_228, 0x7fff, menuhandlerSfxVolume }, // "Sound"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00102800, L_OPTIONS_229, 0x7fff, menuhandlerMusicVolume }, // "Music"
+#endif
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MPWEAPONS_153, 0x00000000, menuhandlerSoundMode }, // "Mode"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS_218, 0x00000000, menuhandlerLangFilter }, // "Language Filter"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -4810,10 +4820,10 @@ void func0f105948(s32 weaponnum)
 		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
 		{ 281.89999389648f,   0.89999997615814f,  8.3999996185303f,   5.0027899742126f, 0.18402999639511f },
 		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
-		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.6747899055481f, 0.29199999570847f },
 #if VERSION >= VERSION_NTSC_1_0
-		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.8997898101807f, 2.0506100654602f  },
+		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.6747899055481f, 0.29199999570847f },
 #endif
+		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.8997898101807f, 2.0506100654602f  },
 	};
 
 	s32 useindex;
@@ -5543,6 +5553,9 @@ struct cutscene g_Cutscenes[] = {
 	{ /* 4*/ STAGE_EXTRACTION,     2, 0, L_OPTIONS_454 },
 	{ /* 5*/ STAGE_EXTRACTION,     2, 1, L_OPTIONS_455 },
 	{ /* 6*/ STAGE_VILLA,          3, 0, L_OPTIONS_456 },
+#if VERSION < VERSION_NTSC_1_0
+	{ /* 7*/ STAGE_VILLA,          3, 1, L_OPTIONS_457 },
+#endif
 	{ /* 7*/ STAGE_VILLA,          3, 2, L_OPTIONS_458 },
 	{ /* 8*/ STAGE_CHICAGO,        4, 0, L_OPTIONS_459 },
 	{ /* 9*/ STAGE_CHICAGO,        4, 1, L_OPTIONS_460 },
@@ -5581,6 +5594,9 @@ u32 g_CutsceneCountsByMission[] = {
 	/* 1*/ 3,  // 1 mission completed => 3 cutscenes available (Def intro, outro, Invest intro)
 	/* 2*/ 5,
 	/* 3*/ 7,
+#if VERSION >= VERSION_NTSC_1_0
+	// NTSC beta has an extra Villa cutscene
+	// so the numbers are bumped forward in that version
 	/* 4*/ 9,
 	/* 5*/ 11,
 	/* 6*/ 14,
@@ -5595,6 +5611,22 @@ u32 g_CutsceneCountsByMission[] = {
 	/*15*/ 35,
 	/*16*/ 37,
 	/*17*/ 38,
+#else
+	/* 4*/ 10,
+	/* 5*/ 12,
+	/* 6*/ 15,
+	/* 7*/ 17,
+	/* 8*/ 19,
+	/* 9*/ 22,
+	/*10*/ 24,
+	/*11*/ 27,
+	/*12*/ 29,
+	/*13*/ 31,
+	/*14*/ 34,
+	/*15*/ 36,
+	/*16*/ 38,
+	/*17*/ 39,
+#endif
 };
 
 s32 getNumCompletedMissions(void)
@@ -5633,6 +5665,7 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 		{ /* 0*/  0, L_OPTIONS_436 }, // "Special"
 		{ /* 1*/  1, L_OPTIONS_438 }, // "Mission 1 - dataDyne Central"
 		{ /* 2*/  7, L_OPTIONS_439 },
+#if VERSION >= VERSION_NTSC_1_0
 		{ /* 3*/  9, L_OPTIONS_440 },
 		{ /* 4*/ 14, L_OPTIONS_441 },
 		{ /* 5*/ 21, L_OPTIONS_442 },
@@ -5641,6 +5674,16 @@ s32 menuhandlerCinema(s32 operation, struct menuitem *item, union handlerdata *d
 		{ /* 8*/ 35, L_OPTIONS_445 },
 		{ /* 9*/ 37, L_OPTIONS_446 }, // "Mission 9 - Skedar Ruins"
 		{ /*10*/ 39, L_OPTIONS_447 }, // "Finale"
+#else
+		{ /* 3*/ 10, L_OPTIONS_440 },
+		{ /* 4*/ 15, L_OPTIONS_441 },
+		{ /* 5*/ 22, L_OPTIONS_442 },
+		{ /* 6*/ 29, L_OPTIONS_443 },
+		{ /* 7*/ 34, L_OPTIONS_444 },
+		{ /* 8*/ 36, L_OPTIONS_445 },
+		{ /* 9*/ 38, L_OPTIONS_446 }, // "Mission 9 - Skedar Ruins"
+		{ /*10*/ 40, L_OPTIONS_447 }, // "Finale"
+#endif
 	};
 
 	switch (operation) {

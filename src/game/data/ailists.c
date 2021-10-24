@@ -934,13 +934,17 @@ u8 func0007_alerted[] = {
 		say_quip(CHR_BOND, QUIP_INJURED2, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x16)
+#if VERSION >= VERSION_NTSC_1_0
 		if_timer_gt(180, /*goto*/ 0x13)
+#endif
 		if_chr_stopped(/*goto*/ 0x13)
 	endloop(0x1d)
 
 	label(0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	stop_chr
 	dprint 'I','N','J',' ','O','V','E','R','\n',0,
+#endif
 	if_self_flag_bankx_eq(CHRFLAG1_CAN_DRAW_PISTOL, TRUE, BANK_1, /*goto*/ LABEL_DRAW_PISTOL)
 	dprint 'B','4',' ','G','U','N','\n',0,
 	if_has_gun(CHR_SELF, /*goto*/ 0x1b)
@@ -1207,6 +1211,7 @@ u8 func0007_alerted[] = {
 	label(0xa1)
 	kneel
 
+#if VERSION >= VERSION_NTSC_1_0
 	beginloop(0xa2)
 		dprint 'W','A','I','T',' ','F','O','R',' ','A','M','B','\n',0,
 		if_can_see_attack_target(/*goto*/ 0xa3)
@@ -1222,6 +1227,26 @@ u8 func0007_alerted[] = {
 	if_target_is_player(/*goto*/ 0x13)
 	set_returnlist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
+#else
+	beginloop(0xa2)
+		dprint 'W','A','I','T',' ','F','O','R',' ','A','M','B','\n',0,
+		if_can_see_attack_target(/*goto*/ 0xa3)
+		if_distance_from_target_to_pad_lt(200, PAD_PRESET, /*goto*/ 0x13)
+		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
+		goto_next(0xef)
+
+		label(0xee)
+		chr_toggle_p1p2(CHR_SELF)
+		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
+		set_target_chr(CHR_P1P2)
+		if_can_see_attack_target(0xa3)
+		if_distance_from_target_to_pad_lt(200, PAD_PRESET, /*goto*/ 0x13)
+		label(0xee)
+		chr_toggle_p1p2(CHR_SELF)
+		set_target_chr(CHR_P1P2)
+		label(0xef)
+	endloop(0xa2)
+#endif
 
 	label(0x13)
 	dprint 'A','M','B','U','S','H',' ','P','L','A','Y','E','R','\n',0,
@@ -1231,7 +1256,9 @@ u8 func0007_alerted[] = {
 	goto_first(0x1b)
 
 	label(0xa3)
+#if VERSION >= VERSION_NTSC_1_0
 	dprint 'S','E','E','N','T','A','R','G','\n',0, // seen target
+#endif
 	unset_self_flag_bankx(CHRFLAG0_01000000, BANK_0)
 	goto_first(0x1b)
 
@@ -1688,7 +1715,11 @@ u8 func0007_alerted[] = {
 	beginloop(0xe8)
 		if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
 		if_timer_lt(120, /*goto*/ 0x16)
+#if VERSION >= VERSION_NTSC_1_0
 		assign_sound(SFX_80F6, CHANNEL_7)
+#else
+		assign_sound(SFX_01D9, CHANNEL_7)
+#endif
 		play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 		label(0x16)
@@ -2051,7 +2082,11 @@ u8 func0007_alerted[] = {
 	yield
 	if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
 	if_timer_lt(120, /*goto*/ 0x16)
+#if VERSION >= VERSION_NTSC_1_0
 	assign_sound(SFX_80F6, CHANNEL_6)
+#else
+	assign_sound(SFX_01D9, CHANNEL_6)
+#endif
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	unset_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	label(0x16)
@@ -2197,7 +2232,9 @@ u8 func0007_alerted[] = {
 		goto_next(0x13)
 
 		label(0x16)
+#if VERSION >= VERSION_NTSC_1_0
 		if_target_is_player(/*goto*/ 0x13)
+#endif
 		set_returnlist(CHR_SELF, GAILIST_UNALERTED)
 		set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 
@@ -2396,7 +2433,11 @@ u8 func0007_alerted[] = {
 	yield
 	if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
 	if_timer_lt(120, /*goto*/ 0x16)
+#if VERSION >= VERSION_NTSC_1_0
 	assign_sound(SFX_80F6, CHANNEL_6)
+#else
+	assign_sound(SFX_01D9, CHANNEL_6)
+#endif
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	unset_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	label(0x16)
@@ -2838,44 +2879,60 @@ u8 func000d_init_combat[] = {
 u8 func000c_combat_with_target_chr[] = {
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	dprint 'S','E','E',' ','E','N','E','M','Y','\n',0,
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x16)
 	label(0x13)
+#endif
 	if_target_is_player(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEEPSEA, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEFENSE, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ESCAPE, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ATTACKSHIP, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_CRASHSITE, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	// Solo mode, or co-op/counter-op on any other stage
@@ -2922,8 +2979,10 @@ u8 func000c_combat_with_target_chr[] = {
 	dprint 'D','E','T','E','C','T','1','\n',0,
 	if_num_times_shot_lt(1, /*goto*/ 0xb2)
 	if_just_injured(CHR_SELF, /*goto*/ 0x16)
+#if VERSION >= VERSION_NTSC_1_0
 	if_has_gun(CHR_SELF, /*goto*/ 0xb2)
 	set_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
+#endif
 	goto_next(0xb2)
 
 	dprint 'D','E','T','E','C','T','2','\n',0,
@@ -2941,7 +3000,9 @@ u8 func000c_combat_with_target_chr[] = {
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x16)
 		if_chr_stopped(/*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 		if_timer_gt(180, /*goto*/ 0x13)
+#endif
 	endloop(0x1d)
 
 	label(0x13)
@@ -2972,43 +3033,59 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xb3)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
+#if VERSION >= VERSION_NTSC_1_0
 	label(0x13)
+#endif
 	if_target_is_player(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEEPSEA, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_DEFENSE, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_WAR, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ESCAPE, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_ATTACKSHIP, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
 	if_stage_is_not(STAGE_CRASHSITE, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_num_human_players_lt(2, /*goto*/ 0x13)
+#endif
 	goto_next(0x16)
 
 	label(0x13)
@@ -3105,9 +3182,13 @@ u8 func000c_combat_with_target_chr[] = {
 		goto_next(0xc0)
 
 		label(0x13)
+#if VERSION >= VERSION_NTSC_1_0
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
+#endif
 		if_can_see_attack_target(/*goto*/ 0xbf)
+#if VERSION >= VERSION_NTSC_1_0
 		label(0x13)
+#endif
 		if_timer_gt(120, /*goto*/ 0xc0)
 	endloop(0xbc)
 
@@ -3218,6 +3299,7 @@ u8 func000c_combat_with_target_chr[] = {
 	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	say_quip(CHR_BOND, QUIP_ATTACK4, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
+#if VERSION >= VERSION_NTSC_1_0
 	beginloop(0xe2)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0xc1)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
@@ -3228,6 +3310,17 @@ u8 func000c_combat_with_target_chr[] = {
 		label(0x16)
 		if_chr_stopped(/*goto*/ 0xc1)
 	endloop(0xe2)
+#else
+	if_chr_dead(CHR_TARGET, /*goto*/ 0xc1)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
+	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc1)
+	if_chrpresets_target_is_different(/*goto*/ 0xe2)
+	goto_next(0xc1)
+
+	beginloop(0xe2)
+		if_chr_stopped(/*goto*/ 0xc1)
+	endloop(0xe2)
+#endif
 
 	label(0x13)
 	restart_timer
@@ -3312,34 +3405,54 @@ u8 func000c_combat_with_target_chr[] = {
 	try_attack_kneel(ATTACKFLAG_AIMATTARGET | ATTACKFLAG_AIMONLY, 0, /*goto*/ 0xc9)
 
 	beginloop(0xc9)
+#if VERSION >= VERSION_NTSC_1_0
 		if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
 		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xc5)
+#else
+		if_chr_dead(CHR_TARGET, /*goto*/ 0xa3)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xa3)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xa3)
+#endif
 		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
 		label(0x13)
+#if VERSION >= VERSION_NTSC_1_0
 		if_enemy_distance_lt_and_los(400, /*goto*/ 0x15)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
+#else
+		if_enemy_distance_lt_and_los(400, /*goto*/ 0x13)
+#endif
 		if_can_see_attack_target(/*goto*/ 0xca)
+#if VERSION >= VERSION_NTSC_1_0
 		label(0x13)
+#endif
 		if_timer_gt(200, /*goto*/ 0x16)
 	endloop(0xc9)
 
 	label(0x16)
+#if VERSION >= VERSION_NTSC_1_0
 	dprint 'T','I','M','O','U','T','\n',0,
+#endif
 	goto_first(0xb3)
 
+#if VERSION >= VERSION_NTSC_1_0
 	label(0x15)
 	dprint 'O','P','F','I','R','E','\n',0,
+#else
+	label(0x13)
+#endif
 	goto_first(0xb5)
 
 	label(0xa3)
 	goto_first(0xc1)
 
 	label(0xca)
+#if VERSION >= VERSION_NTSC_1_0
 	restart_timer
 	dprint 'T','A','R','S','H','O','\n',0,
+#endif
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	goto_next(0x17)
 
@@ -3347,12 +3460,15 @@ u8 func000c_combat_with_target_chr[] = {
 	say_quip(CHR_BOND, QUIP_ATTACK2, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x17)
 	try_modify_attack(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0xcb)
+#if VERSION >= VERSION_NTSC_1_0
 	goto_next(0x16)
+#endif
 
 	label(0xcb)
 	say_quip(CHR_BOND, QUIP_ATTACK3, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	say_quip(CHR_BOND, QUIP_ATTACK4, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
+#if VERSION >= VERSION_NTSC_1_0
 	beginloop(0xcc)
 		if_chr_dead(CHR_TARGET, /*goto*/ 0xc5)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
@@ -3364,6 +3480,17 @@ u8 func000c_combat_with_target_chr[] = {
 		if_timer_gt(300, /*goto*/ 0x16)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0xcc)
+#else
+	if_chr_dead(CHR_TARGET, /*goto*/ 0xa3)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xa3)
+	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xa3)
+	if_chrpresets_target_is_different(/*goto*/ 0xcc)
+	goto_next(0xc5)
+
+	beginloop(0xcc)
+		if_chr_stopped(/*goto*/ 0x16)
+	endloop(0xcc)
+#endif
 
 	label(0x54)
 	dprint 'N','O','C','O','V','E','R','\n',0,
@@ -3388,6 +3515,9 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x13)
+#if VERSION < VERSION_NTSC_1_0
+	set_target_to_enemy_on_same_floor(/*goto*/ 0x16)
+#endif
 	label(0x13)
 	goto_next(0xcf)
 
@@ -3438,10 +3568,12 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xcf)
 	if_self_flag_bankx_eq(CHRFLAG0_10000000, FALSE, BANK_0, /*goto*/ 0x13)
+#if VERSION >= VERSION_NTSC_1_0
 	if_target_is_player(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
+#endif
 	return
 
 	label(0x13)
@@ -3764,6 +3896,7 @@ u8 func000f_hand_combat[] = {
 #define LABEL_FACE_TARGET 0x16
 #define LABEL_PUNCH       0x16
 
+#if VERSION >= VERSION_NTSC_1_0
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
 	if_chr_dead(CHR_SELF, /*goto*/ 0x13)
 	if_chr_knockedout(CHR_SELF, /*goto*/ 0x13)
@@ -3775,40 +3908,43 @@ u8 func000f_hand_combat[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x16)
+#endif
+
 	set_action(MA_UNARMEDATTACK, FALSE)
 	restart_timer
 
 	// If current chr doesn't have this flag and isn't idle, stop them
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x0c)
+#if VERSION >= VERSION_NTSC_1_0
 	if_chr_idle(/*goto*/ 0x0c)
+#endif
 	stop_chr
 
 	// Begin loop
-	label(0x0c)
-	yield
-	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
-	if_chr_dead(CHR_TARGET, /*goto*/ 0xfa)
-	if_chr_knockedout(CHR_TARGET, /*goto*/ 0xfa)
+	beginloop(0x0c)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_dead(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_knockedout(CHR_TARGET, /*goto*/ 0xfa)
 
-	// This if-statement is effectively a no op
-	dprint 'L','1','\n',0,
-	if_chrpresets_target_is_different(/*goto*/ 0x13)
+		// This if-statement is effectively a no op
+		dprint 'L','1','\n',0,
+		if_chrpresets_target_is_different(/*goto*/ 0x13)
 
-	dprint 'L','2','\n',0,
-	label(0x13)
-	dprint 'L','O','O','K',' ','F','O','R',' ','T','A','R','G','E','T','\n',0,
-	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
-	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
-	if_distance_to_target_gt(120, /*goto*/ 0x13)
-	goto_next(0x10)
+		dprint 'L','2','\n',0,
+		label(0x13)
+		dprint 'L','O','O','K',' ','F','O','R',' ','T','A','R','G','E','T','\n',0,
+		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
+		if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
+		if_distance_to_target_gt(120, /*goto*/ 0x13)
+		goto_next(0x10)
 
-	label(0x0f)
-	if_distance_to_target_gt(150, /*goto*/ 0x13)
+		label(0x0f)
+		if_distance_to_target_gt(150, /*goto*/ 0x13)
 
-	label(0x10)
-	if_can_see_attack_target(/*goto*/ 0x13)
-	if_timer_gt(120, /*goto*/ 0x0b)
-	goto_first(0x0c)
+		label(0x10)
+		if_can_see_attack_target(/*goto*/ 0x13)
+		if_timer_gt(120, /*goto*/ 0x0b)
+	endloop(0x0c)
 
 	label(0x13)
 	if_target_is_player(/*goto*/ 0x0a)
@@ -4596,6 +4732,8 @@ u8 func0012_init_coop_100[] = {
 	label(0x16)
 	rebuild_teams
 	rebuild_squadrons
+
+#if VERSION >= VERSION_NTSC_1_0
 	set_target_chr(-1)
 
 	// Set stage flag 00000080 for Air Force One and Skedar Ruins
@@ -4606,6 +4744,7 @@ u8 func0012_init_coop_100[] = {
 	if_stage_is_not(STAGE_SKEDARRUINS, /*goto*/ 0x15)
 	set_stage_flag(0x00000080)
 	label(0x15)
+#endif
 
 	// Uncloak
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
@@ -4973,6 +5112,7 @@ u8 func0023_dodge[] = {
 	endlist
 };
 
+#if VERSION >= VERSION_NTSC_1_0
 /**
  * In co-op mode with an AI buddy, this ailist is applied to the buddy when you
  * give them the Stealth command.
@@ -5054,6 +5194,7 @@ u8 func0015_aibuddy_stealth[] = {
 	set_ailist(CHR_SELF, GAILIST_COOP_BUDDY)
 	endlist
 };
+#endif
 
 /**
  * Not used.
@@ -5453,51 +5594,53 @@ u8 func002a_ai_bot_alive[] = {
 
 // 20c78
 struct ailist g_GlobalAilists[] = {
-	{ func0000_idle,                      0x0000 },
-	{ func0001_unalerted_0001,            0x0001 },
-	{ func0004_unalerted_0004,            0x0004 },
-	{ func0003_stop_unalerted,            0x0003 },
-	{ func0002_unalerted_0002,            0x0002 },
-	{ func0005_end_cinema,                0x0005 },
-	{ func0006_unalerted,                 0x0006 },
-	{ func0007_alerted,                   0x0007 },
-	{ func0008_wakeup,                    0x0008 },
-	{ func000a_do_idle_animation,         0x000a },
-	{ func000b_choose_target_chr,         0x000b },
-	{ func000c_combat_with_target_chr,    0x000c },
-	{ func000d_init_combat,               0x000d },
-	{ func000e_see_then_attack,           0x000e },
-	{ func0016_show_objective_failed_msg, 0x0016 },
-	{ func0017_rebuild_groups,            0x0017 },
-	{ func0018_do_bored_animation,        0x0018 },
-	{ func0019_do_sitting_animation,      0x0019 },
-	{ func0000_idle_0009,                 0x0009 },
-	{ func001a_maybe_unset_disspee,       0x001a },
-	{ func000f_hand_combat,               0x000f },
-	{ func0010_civilian_say_comment,      0x0010 },
-	{ func0011_flee_from_grenade,         0x0011 },
-	{ func001b_observe_camspy,            0x001b },
-	{ func0020_place_coop_buddy,          0x0020 },
-	{ func0012_init_coop_100,             0x0012 },
-	{ func0013_init_coop_200,             0x0013 },
-	{ func0014_coop_buddy,                0x0014 },
-	{ func001d_search_for_player,         0x001d },
-	{ func001e_look_around,               0x001e },
-	{ func001f_related_to_spawning,       0x001f },
-	{ func001c_surprised,                 0x001c },
-	{ func0022_comment_on_player_dead,    0x0022 },
-	{ func0023_dodge,                     0x0023 },
-	{ func002c_init_search_unused,        0x002c },
-	{ func0024_follow_bond,               0x0024 },
-	{ func0025_pointless,                 0x0025 },
-	{ func0026_init_psychosis,            0x0026 },
-	{ func0027_psychosised,               0x0027 },
-	{ func002d_invincible_and_idle,       0x002d },
-	{ func0021_stop_and_idle,             0x0021 },
-	{ func0015_aibuddy_stealth,           0x0015 },
-	{ func0028_ai_bot_dead,               0x0028 },
-	{ func0029_ai_bot_init,               0x0029 },
-	{ func002a_ai_bot_alive,              0x002a },
-	{ func002b_do_something_and_wait,     0x002b },
+	{ func0000_idle,                      GAILIST_IDLE                   },
+	{ func0001_unalerted_0001,            GAILIST_UNALERTED_0001         },
+	{ func0004_unalerted_0004,            GAILIST_UNALERTED_0004         },
+	{ func0003_stop_unalerted,            GAILIST_STOP_UNALERTED         },
+	{ func0002_unalerted_0002,            GAILIST_UNALERTED_0002         },
+	{ func0005_end_cinema,                GAILIST_END_CINEMA             },
+	{ func0006_unalerted,                 GAILIST_UNALERTED              },
+	{ func0007_alerted,                   GAILIST_ALERTED                },
+	{ func0008_wakeup,                    GAILIST_WAKEUP                 },
+	{ func000a_do_idle_animation,         GAILIST_BUSY                   },
+	{ func000b_choose_target_chr,         GAILIST_CHOOSE_TARGET          },
+	{ func000c_combat_with_target_chr,    GAILIST_COMBAT_WITH_TARGET     },
+	{ func000d_init_combat,               GAILIST_INIT_COMBAT            },
+	{ func000e_see_then_attack,           GAILIST_SEE_THEN_ATTACK        },
+	{ func0016_show_objective_failed_msg, GAILIST_SHOW_OBJ_FAILED_MSG    },
+	{ func0017_rebuild_groups,            GAILIST_REBUILD_GROUPS         },
+	{ func0018_do_bored_animation,        GAILIST_DO_BORED_ANIMATION     },
+	{ func0019_do_sitting_animation,      GAILIST_DO_SITTING_ANIMATION   },
+	{ func0000_idle_0009,                 GAILIST_IDLE_0009              },
+	{ func001a_maybe_unset_disspee,       GAILIST_DISGUISE_DETECTION     },
+	{ func000f_hand_combat,               GAILIST_HAND_COMBAT            },
+	{ func0010_civilian_say_comment,      GAILIST_CIVILIAN_SAY_COMMENT   },
+	{ func0011_flee_from_grenade,         GAILIST_FLEE_FROM_GRENADE      },
+	{ func001b_observe_camspy,            GAILIST_OBSERVE_CAMSPY         },
+	{ func0020_place_coop_buddy,          GAILIST_PLACE_COOP_BUDDY       },
+	{ func0012_init_coop_100,             GAILIST_INIT_COOP_100          },
+	{ func0013_init_coop_200,             GAILIST_INIT_COOP_200          },
+	{ func0014_coop_buddy,                GAILIST_COOP_BUDDY             },
+	{ func001d_search_for_player,         GAILIST_SEARCH_FOR_PLAYER      },
+	{ func001e_look_around,               GAILIST_LOOK_AROUND            },
+	{ func001f_related_to_spawning,       GAILIST_RELATED_TO_SPAWNING    },
+	{ func001c_surprised,                 GAILIST_SURPRISED              },
+	{ func0022_comment_on_player_dead,    GAILIST_COMMENT_ON_PLAYER_DEAD },
+	{ func0023_dodge,                     GAILIST_DODGE                  },
+	{ func002c_init_search_unused,        GAILIST_INIT_SEARCH            },
+	{ func0024_follow_bond,               GAILIST_FOLLOW_BOND            },
+	{ func0025_pointless,                 GAILIST_POINTLESS              },
+	{ func0026_init_psychosis,            GAILIST_INIT_PSYCHOSIS         },
+	{ func0027_psychosised,               GAILIST_PSYCHOSISED            },
+	{ func002d_invincible_and_idle,       GAILIST_INVINCIBLE_AND_IDLE    },
+	{ func0021_stop_and_idle,             GAILIST_STOP_AND_IDLE          },
+#if VERSION >= VERSION_NTSC_1_0
+	{ func0015_aibuddy_stealth,           GAILIST_AIBUDDY_STEALTH        },
+#endif
+	{ func0028_ai_bot_dead,               GAILIST_AI_BOT_DEAD            },
+	{ func0029_ai_bot_init,               GAILIST_AI_BOT_INIT            },
+	{ func002a_ai_bot_alive,              GAILIST_AI_BOT_ALIVE           },
+	{ func002b_do_something_and_wait,     GAILIST_DO_SOMETHING_AND_WAIT  },
 	{ NULL, 0 },
 };

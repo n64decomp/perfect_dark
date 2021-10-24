@@ -5168,6 +5168,10 @@ u32 var800714b4 = 0x00000000;
 u32 var800714b8 = 0x00000000;
 u32 var800714bc = 0x00000000;
 
+#if VERSION < VERSION_NTSC_1_0
+u32 var80073b6cnb[3] = {0};
+#endif
+
 u32 var800714c0 = 0x0000000a;
 
 u32 var800714c4 = 0x0000012c;
@@ -16644,8 +16648,11 @@ glabel func0f0f8634
 );
 
 u32 var800714e0 = 0x00000000;
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 var800714e4 = 0x00000000;
 u32 var800714e8 = 0x00000000;
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -27625,6 +27632,8 @@ struct menuitem g_PakRemovedMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 #if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_073, 0x00000000, menuhandler000fcc34 }, // "OK"
+#else
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL }, // "OK"
 #endif
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -27643,6 +27652,8 @@ struct menuitem g_PakRepairSuccessMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 #if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS_073, 0x00000000, menuhandler000fcc34 },
+#else
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS_073, 0x00000000, NULL },
 #endif
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -28135,7 +28146,11 @@ struct menudialog g_PakDamagedMenuDialog = {
 	L_MPWEAPONS_064, // "Damaged Controller Pak"
 	g_PakDamagedMenuItems,
 	menudialog000fcd48,
+#if VERSION >= VERSION_NTSC_1_0
 	0x00000020,
+#else
+	0x00000000,
+#endif
 	NULL,
 };
 
@@ -28154,7 +28169,11 @@ struct menudialog g_PakFullMenuDialog = {
 	L_MPWEAPONS_070, // "Full Controller Pak"
 	g_PakFullMenuItems,
 	menudialog000fcd48,
+#if VERSION >= VERSION_NTSC_1_0
 	0x00000020,
+#else
+	0x00000000,
+#endif
 	NULL,
 };
 

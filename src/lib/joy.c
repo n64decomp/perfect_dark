@@ -83,16 +83,26 @@ u32 g_JoyCyclicPollDisableCount = 0;
 u32 var8005eec0 = 1;
 s32 (*var8005eec4)(struct contsample *samples, s32 samplenum) = NULL;
 void (*var8005eec8)(struct contsample *samples, s32 samplenum, s32 samplenum2) = NULL;
-s32 g_JoyNextPfsStateIndex = 0;
+s32 g_JoyNextPfsStateIndex = (VERSION >= VERSION_NTSC_1_0 ? 0 : 30);
 u32 var8005eed0 = 0;
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 var8005eed4 = 0;
+#endif
+
 u8 var8005eed8 = 0;
+
+#if VERSION >= VERSION_NTSC_1_0
 bool var8005eedc = true;
 s32 var8005eee0 = 0;
 s32 var8005eee4 = -1;
 u32 var8005eee8 = 0;
 u32 var8005eeec = 0;
 u32 var8005eef0 = 1;
+#else
+u32 var8005eee8nb = 3;
+u8 var8005eeecnb = 0;
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 void joy00013900(void)
@@ -154,7 +164,7 @@ u32 joy00013980(void)
 #if VERSION >= VERSION_NTSC_1_0
 	return var8005eeec;
 #else
-	return *(u8 *)&var8005eeec;
+	return var8005eeecnb;
 #endif
 }
 #endif

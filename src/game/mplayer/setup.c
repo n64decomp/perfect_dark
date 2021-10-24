@@ -2355,10 +2355,10 @@ struct menuitem g_MpSaveSetupExistsMenuItems[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPWEAPONS_230, (u32)&mpMenuTextSetupName, NULL }, // "Name:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&filemgrMenuTextDeviceName, 0x00000000, NULL },
+#endif
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPMENU_184, 0x00000000, NULL }, // "Do you want to save over your original game file?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU_185, 0x00000000, menuhandlerMpSaveSetupOverwrite }, // "Save Over Original"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU_186, 0x00000000, menuhandlerMpSaveSetupCopy }, // "Save Copy"
-#endif
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU_187, 0x00000000, NULL }, // "Do Not Save"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -2563,6 +2563,11 @@ struct menuitem g_MpPlayerStatsMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000220, (u32)&mpMenuTextUsernamePassword, 0x00000000, menuhandlerMpUsernamePassword },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_MPWEAPONS_220, 0x00000000, menuhandlerMpUsernamePassword }, // "PASSWORD:"
 	{ MENUITEMTYPE_LABEL,       1, 0x00000220, (u32)&mpMenuTextUsernamePassword, 0x00000000, menuhandlerMpUsernamePassword },
+#else
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_MPWEAPONS_219, 0x00000000, menuhandlerMpUsernamePassword }, // "USERNAME:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000220, 0x51f0, 0x00000000, menuhandlerMpUsernamePassword },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, L_MPWEAPONS_220, 0x00000000, menuhandlerMpUsernamePassword }, // "PASSWORD:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000220, 0x51f1, 0x00000000, menuhandlerMpUsernamePassword },
 #endif
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU_164, 0x00000000, NULL }, // "Back"
@@ -5576,6 +5581,8 @@ s32 menuhandlerMpNTeams(s32 operation, struct menuitem *item, union handlerdata 
 	return 0;
 }
 #else
+u32 var800881f0nb[4] = {0};
+
 GLOBAL_ASM(
 glabel menuhandlerMpNTeams
 /*  f177bd0:	27bdff88 */ 	addiu	$sp,$sp,-120
@@ -7308,6 +7315,9 @@ struct menudialog g_MpConfirmChallengeViaListOrDetailsMenuDialog = {
 
 struct menuitem g_MpChallengesListOrDetailsMenuItems[] = {
 	{ MENUITEMTYPE_LIST,       0,                       0x00200000, 0x00000078,       0x0000004d, menuhandler0017e4d4         },
+#if VERSION < VERSION_NTSC_1_0
+	{ MENUITEMTYPE_LABEL, 2, 0x110, 0x7f179198, 0, (void *)0x7f1790a8 },
+#endif
 	{ MENUITEMTYPE_SCROLLABLE, DESCRIPTION_MPCHALLENGE, 0x00000000, 0x0000007c,       PAL ? 0x41 : 0x37, menuhandler0017e9d8         },
 	{ MENUITEMTYPE_SEPARATOR,  0,                       0x00000000, 0x00000000,       0x00000000, menuhandler0017e9d8         },
 	{ MENUITEMTYPE_SELECTABLE, 0,                       0x00000000, L_MPWEAPONS_171, 0x00000000, menuhandlerMpStartChallenge }, // "Start Challenge"
@@ -7317,10 +7327,18 @@ struct menuitem g_MpChallengesListOrDetailsMenuItems[] = {
 
 struct menudialog g_MpChallengeListOrDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
+#if VERSION >= VERSION_NTSC_1_0
 	(u32)&mpMenuTextChallengeName,
+#else
+	0x5032,
+#endif
 	g_MpChallengesListOrDetailsMenuItems,
 	mpCombatChallengesMenuDialog,
+#if VERSION >= VERSION_NTSC_1_0
 	0x00000808,
+#else
+	0x00000800,
+#endif
 	NULL,
 };
 
@@ -7328,11 +7346,20 @@ struct menudialog g_MpAdvancedSetupViaAdvChallengeMenuDialog;
 
 struct menudialog g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
+#if VERSION >= VERSION_NTSC_1_0
 	(u32)&mpMenuTextChallengeName,
+#else
+	0x5032,
+#endif
 	g_MpChallengesListOrDetailsMenuItems,
 	mpCombatChallengesMenuDialog,
+#if VERSION >= VERSION_NTSC_1_0
 	0x00000808,
 	&g_MpAdvancedSetupViaAdvChallengeMenuDialog,
+#else
+	0x00000800,
+	&g_MpAdvancedSetupMenuDialog,
+#endif
 };
 
 struct menuitem g_MpConfirmChallengeMenuItems[] = {
@@ -8117,7 +8144,9 @@ struct menudialog g_MpAdvancedSetupViaAdvChallengeMenuDialog = {
 
 struct menuitem g_MpQuickGoMenuItems[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MISC_456, 0x00000000, (void *)&g_MpReadyMenuDialog }, // "Start Game"
+#if VERSION >= VERSION_NTSC_1_0
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU_029, 0x00000000, (void *)&g_MpLoadPlayerMenuDialog }, // "Load Player"
+#endif
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MISC_458, 0x00000000, (void *)&g_MpPlayerSetupViaQuickGoMenuDialog }, // "Player Settings"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MISC_457, 0x00000000, (void *)&g_MpDropOutMenuDialog }, // "Drop Out"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

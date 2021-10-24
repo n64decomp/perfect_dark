@@ -13,6 +13,10 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION < VERSION_NTSC_1_0
+u32 var80082100nb = 0;
+#endif
+
 u32 var8007f8a0 = 0x3e19999a;
 u32 var8007f8a4 = 0x40400000;
 f32 var8007f8a8 = 12;

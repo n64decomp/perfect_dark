@@ -4579,6 +4579,9 @@ struct menudialog g_FrTrainingInfoPreGameMenuDialog = {
 
 struct menuitem g_FrCompletedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU_449, 0x00000000, NULL }, // "Completed!"
+#if VERSION < VERSION_NTSC_1_0
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+#endif
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_450, (u32)&frMenuTextScoreValue, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_451, (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -4600,12 +4603,20 @@ struct menudialog g_FrCompletedMenuDialog = {
 	L_MPMENU_448, // "Training Stats"
 	g_FrCompletedMenuItems,
 	frTrainingStatsMenuDialog,
+#if VERSION >= VERSION_NTSC_1_0
 	0x00000004,
 	NULL,
+#else
+	0,
+	&g_FrWeaponListMenuDialog,
+#endif
 };
 
 struct menuitem g_FrFailedMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&frMenuTextFailReason, 0x00000000, NULL },
+#if VERSION < VERSION_NTSC_1_0
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+#endif
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_450, (u32)&frMenuTextScoreValue, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU_451, (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -4627,8 +4638,13 @@ struct menudialog g_FrFailedMenuDialog = {
 	L_MPMENU_448, // "Training Stats"
 	g_FrFailedMenuItems,
 	frTrainingStatsMenuDialog,
+#if VERSION >= VERSION_NTSC_1_0
 	0x00000004,
 	NULL,
+#else
+	0x00000000,
+	&g_FrWeaponListMenuDialog,
+#endif
 };
 
 s32 ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)

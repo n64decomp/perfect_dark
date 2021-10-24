@@ -52,6 +52,27 @@
 #include "data.h"
 #include "types.h"
 
+s32 g_RecentQuipsPlayed[5];
+u32 var8009cd84;
+u32 var8009cd88;
+u32 var8009cd8c;
+u32 var8009cd90;
+u32 var8009cd94;
+u8 g_RecentQuipsIndex;
+
+f32 g_EnemyAccuracyScale = 1;
+f32 g_DamageReceivedScale = 1;
+f32 g_DamageDealtScale = 1;
+f32 var80062cac = 1;
+
+#if VERSION >= VERSION_NTSC_1_0
+u32 var80062cb0 = 0x00000000;
+u32 var80062cb4 = 0x00000000;
+u32 var80062cb8 = 0x00000000;
+#endif
+
+s32 var80062cbc = 0;
+
 #if VERSION < VERSION_NTSC_1_0
 const char *g_ChrActionNames[] = {
 	"ACT_INIT",
@@ -199,22 +220,6 @@ const char *g_ChrLiftActionNames[] = {
 };
 #endif
 
-s32 g_RecentQuipsPlayed[5];
-u32 var8009cd84;
-u32 var8009cd88;
-u32 var8009cd8c;
-u32 var8009cd90;
-u32 var8009cd94;
-u8 g_RecentQuipsIndex;
-
-f32 g_EnemyAccuracyScale = 1;
-f32 g_DamageReceivedScale = 1;
-f32 g_DamageDealtScale = 1;
-f32 var80062cac = 1;
-u32 var80062cb0 = 0x00000000;
-u32 var80062cb4 = 0x00000000;
-u32 var80062cb8 = 0x00000000;
-s32 var80062cbc = 0;
 
 struct animtablerow g_DeathAnimsHumanLfoot[] = {
 	{ ANIM_DEATH_0020, 0, -1, 0.5, 0, 26, -1 },
@@ -9342,11 +9347,19 @@ void chrTickDie(struct chrdata *chr)
 	};
 
 	u16 specialdiesounds[] = {
+#if VERSION >= VERSION_NTSC_1_0
 		SFX_M1_NOOO, // "Noooo!"
 		SFX_M1_SCREAM, // Death scream
 		SFX_M2_NOOO, // "Noooo!"
 		SFX_M2_NOOO, // "Noooo!"
 		SFX_M1_SCREAM, // Death scream
+#else
+		SFX_0313,
+		SFX_034C,
+		SFX_0411,
+		SFX_0411,
+		SFX_034C,
+#endif
 		SFX_THUD_8092,
 		SFX_THUD_8093,
 		SFX_THUD_8094,
@@ -22258,7 +22271,11 @@ void func0f0482cc(u32 ailistid)
 	g_BgChrs[g_NumBgChrs - 1].aireturnlist = -1;
 }
 
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 var80068454 = 0;
+#endif
+
 s32 var80068458 = 0;
 u32 var8006845c = 0x01020408;
 

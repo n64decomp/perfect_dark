@@ -2837,7 +2837,7 @@
 /**
  * Set the current chr's action. If bool is false, also sets orders to zero.
  *
- * Action is expected to be an ACT constant.
+ * Action is expected to be a MA constant.
  */
 #define set_action(action, bool) \
 	mkshort(0x0132), \

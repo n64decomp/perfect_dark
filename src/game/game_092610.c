@@ -71,6 +71,11 @@ u32 var8006ae30 = 0x00000000;
 u32 var8006ae34 = 0x00000000;
 u32 var8006ae38 = 0x00000000;
 bool g_PropsndPrintChannels = false;
+
+#if VERSION < VERSION_NTSC_1_0
+u32 nbdata[3] = {0};
+#endif
+
 u32 var8006ae40 = 0x00000000;
 u32 var8006ae44 = 0x00000000;
 u32 var8006ae48 = 0x00000001;

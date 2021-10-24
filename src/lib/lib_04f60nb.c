@@ -1,6 +1,9 @@
 #include <ultra64.h>
 #include "lib/mtx.h"
 
+u32 var8005e6e0nb = 0;
+u32 var8005e6e4nb = 1;
+
 GLOBAL_ASM(
 glabel func00004f60nb
 /*     4f60:	27bdfff8 */ 	addiu	$sp,$sp,-8

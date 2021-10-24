@@ -1,5 +1,6 @@
 #include "asm_helper.h"
 #include "macros.inc"
+#include "versions.h"
 .set noat
 .set noreorder
 
@@ -81,7 +82,11 @@ glabel tlb000010a4
 	addiu  $t1, $zero, 0x1ff
 	lui    $at, %hi(var8008d264+0x2)
 	sh     $t1, %lo(var8008d264+0x2)($at)
-	addiu  $a0, $zero, 0x10c
+#if VERSION >= VERSION_NTSC_1_0
+	addiu  $a0, $zero, 268
+#else
+	addiu  $a0, $zero, 266
+#endif
 	lui    $at, %hi(var8008ae28+0x2)
 	sh     $a0, %lo(var8008ae28+0x2)($at)
 	lui    $at, %hi(var8008d258+0x2)
@@ -121,11 +126,15 @@ glabel tlb0000113c
 .L00001150:
 	sb     $t0, 0x0($v0)
 	bne    $v0, $v1, .L00001150
-	addiu  $v0, $v0, 0x1
-	addiu  $a0, $zero, 0x4
+	addiu  $v0, $v0, 1
+#if VERSION >= VERSION_NTSC_1_0
+	addiu  $a0, $zero, 4
+#else
+	addiu  $a0, $zero, 2
+#endif
 	beqz   $a0, .L00001178
 	addiu  $a0, $a0, -1
-	addiu  $t0, $zero, 0x2
+	addiu  $t0, $zero, 2
 	sllv   $t0, $t0, $a0
 	addiu  $t0, $t0, -1
 	sb     $t0, 0x0($v1)
@@ -152,6 +161,13 @@ glabel tlbHandleMiss
 	slt    $at, $s5, $t1
 	beqz   $at, .L0000162c
  	nop
+#if VERSION < VERSION_NTSC_1_0
+	lui    $t2, 0x8009
+	addiu  $t2, $t2, 0x30e4
+	lw     $t6, 0($t2)
+	addiu  $t6, $t6, 1
+	sw     $t6, 0($t2)
+#endif
 	mfc0   $t9, C0_BADVADDR
 	srl    $t9, $t9, 0xc
 	andi   $t9, $t9, 0x1
@@ -198,6 +214,13 @@ glabel tlbHandleMiss
 	sll    $t0, $t0, 0xc
 	addu   $s1, $s1, $t0
 .L00001268:
+#if VERSION < VERSION_NTSC_1_0
+	lui    $t2, 0x8009
+	addiu  $t2, $t2, 0x30e8
+	lw     $t0, 0($t2)
+	addiu  $t0, $t0, 1
+	sw     $t0, 0($t2)
+#endif
 	mfc0   $t2, C0_BADVADDR
 	lui    $t0, 0xff
 	ori    $t0, $t0, 0xf000
@@ -408,6 +431,14 @@ glabel tlbHandleMiss
 	jr     $ra
  	nop
 .L00001570:
+#if VERSION < VERSION_NTSC_1_0
+	lui    $t0, 0x8009
+	addiu  $t0, $t0, 0x30ec
+	lw     $t1, 0($t0)
+	addiu  $t1, $t1, 1
+	sw     $t1, 0($t0)
+#endif
+.L00001570_2:
 	lui    $s4, %hi(var8008ae24)
 	lw     $s4, %lo(var8008ae24)($s4)
 	lui    $gp, %hi(var80090b08)
@@ -453,7 +484,7 @@ glabel tlbHandleMiss
 	mfc0   $t0, C0_ENTRYHI
 	bltz   $t2, .L00001620
  	nop
-	j      .L00001570
+	j      .L00001570_2
  	nop
 .L00001620:
 	sw     $zero, 0x0($t1)
