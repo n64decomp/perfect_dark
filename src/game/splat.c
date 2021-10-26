@@ -171,8 +171,14 @@ s32 func0f148f18(s32 qty, f32 arg1, struct prop *prop, struct splat *arg3, struc
 		mtx0001648c((struct coord *)spe4, &spa4);
 		mtx00015b14(&spa4, (struct coord *)spfc, &splat->unk028);
 		mtx00015b14(&spa4, (struct coord *)spf0, &splat->unk00c);
+
+#if VERSION >= VERSION_NTSC_1_0
 		func0f177164(&splat->unk028, &splat->unk028, 403, "splat.c");
 		func0f177164(&splat->unk00c, &splat->unk00c, 404, "splat.c");
+#else
+		func0f177164(&splat->unk028, &splat->unk028, 405, "splat.c");
+		func0f177164(&splat->unk00c, &splat->unk00c, 406, "splat.c");
+#endif
 
 		if (func0f149274(arg1, prop, splat, dist, arg6, arg7, arg8, arg9, arg10)) {
 			numdropped++;

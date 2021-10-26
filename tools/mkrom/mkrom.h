@@ -54,6 +54,12 @@ struct state {
 	 * Size of the above gametable allocation in bytes.
 	 */
 	size_t gametablelen;
+
+	/**
+	 * NTSC beta doesn't duplicate zip data unneccessarily so it must be
+	 * identified and handled differently.
+	 */
+	bool is_ntscbeta;
 };
 
 void game_zip(void);

@@ -6,6 +6,7 @@
 u32 var800a6470;
 u32 var800a6474;
 u32 var800a6478;
+
 u32 var800a647c;
 u32 var800a6480;
 u32 var800a6484;
@@ -53,6 +54,11 @@ u32 var800a6528;
 u32 var800a652c;
 u32 var800a6530;
 u32 var800a6534;
+
+#if VERSION < VERSION_NTSC_1_0
+u8 var800aacb8nb[0x140];
+#endif
+
 u32 var800a6538;
 u32 var800a653c;
 u32 var800a6540;

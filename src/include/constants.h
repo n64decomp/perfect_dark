@@ -2760,7 +2760,6 @@
 #define MPWEAPON_SHIELD           0x25
 #define MPWEAPON_DISABLED         0x26
 
-#define NUM_AICOMMANDS        481
 #define NUM_BODIES            151
 #define NUM_CHALLENGES        30
 #define NUM_CHEATS            42
@@ -2780,7 +2779,6 @@
 #define NUM_SOLOSTAGES        21
 #define NUM_STAGES            90
 #define NUM_TEXTURES          3504
-#define NUM_WEAPONS           94
 
 #define OBJECTIVE_INCOMPLETE 0
 #define OBJECTIVE_COMPLETE   1

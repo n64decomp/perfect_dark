@@ -290,8 +290,8 @@ extern u32 var800711f0;
 extern char *g_StringPointer;
 extern char *g_StringPointer2;
 #else
-extern char g_StringPointer[125];
-extern char g_StringPointer2[125];
+extern char g_StringPointer[];
+extern char g_StringPointer2[];
 #endif
 extern s32 g_MpPlayerNum;
 extern u32 var800714d8;

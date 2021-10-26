@@ -10,14 +10,20 @@
 
 #define MSG_FAULT 0x10
 
+#if VERSION >= VERSION_NTSC_1_0
+#define MAX_LINES 29
+#else
+#define MAX_LINES 31
+#endif
+
+#if VERSION < VERSION_NTSC_1_0
+u32 padding[18];
+#endif
+
 OSThread g_FaultThread;
 u8 g_FaultStack[STACKSIZE_FAULT];
 OSMesgQueue g_FaultMesgQueue;
 OSMesg g_FaultMesg;
-
-#if VERSION < VERSION_NTSC_1_0
-u32 padding[2];
-#endif
 
 u32 var8005d5b0 = 0;
 s16 g_CrashCurX = 0;
@@ -121,10 +127,11 @@ struct crashdescription g_CrashFpcsrDescriptions[] = {
 };
 
 char (*g_CrashCharBuffer)[71] = NULL;
-u16 *g_CrashFrameBuffer = NULL;
 
 #if VERSION < VERSION_NTSC_1_0
-u32 somethingnb[] = {
+u32 var8005f138nb = 0;
+
+u32 var8005f13cnb[] = {
 	0x22220200, 0x55000000, 0x05f5f500, 0x27427200,
 	0x05124500, 0x34255300, 0x22000000, 0x24444420,
 	0x42222240, 0x06f6f600, 0x00272000, 0x00000240,
@@ -151,6 +158,8 @@ u32 somethingnb[] = {
 	0x42212240, 0x005a0000,
 };
 #endif
+
+u16 *g_CrashFrameBuffer = NULL;
 
 extern u32 _libSegmentStart;
 extern u32 _libSegmentEnd;
@@ -229,7 +238,7 @@ glabel faultproc
 /*     c298:	afa00064 */ 	sw	$zero,0x64($sp)
 /*     c29c:	2404000c */ 	addiu	$a0,$zero,0xc
 /*     c2a0:	02802825 */ 	or	$a1,$s4,$zero
-/*     c2a4:	0c01263c */ 	jal	0x498f0
+/*     c2a4:	0c01263c */ 	jal	osSetEventMesg
 /*     c2a8:	24060010 */ 	addiu	$a2,$zero,0x10
 /*     c2ac:	3c018009 */ 	lui	$at,0x8009
 /*     c2b0:	ac207108 */ 	sw	$zero,0x7108($at)
@@ -240,23 +249,23 @@ glabel faultproc
 /*     c2c0:	02802025 */ 	or	$a0,$s4,$zero
 .NB0000c2c4:
 /*     c2c4:	02202825 */ 	or	$a1,$s1,$zero
-/*     c2c8:	0c0126b0 */ 	jal	0x49ac0
+/*     c2c8:	0c0126b0 */ 	jal	osRecvMesg
 /*     c2cc:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     c2d0:	0c012688 */ 	jal	0x49a20
+/*     c2d0:	0c012688 */ 	jal	osSetIntMask
 /*     c2d4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*     c2d8:	0c013eb8 */ 	jal	0x4fae0
+/*     c2d8:	0c013eb8 */ 	jal	__osGetCurrFaultedThread
 /*     c2dc:	00408025 */ 	or	$s0,$v0,$zero
 /*     c2e0:	3c018009 */ 	lui	$at,0x8009
 /*     c2e4:	1040fff6 */ 	beqz	$v0,.NB0000c2c0
 /*     c2e8:	ac227104 */ 	sw	$v0,0x7104($at)
-/*     c2ec:	0c012688 */ 	jal	0x49a20
+/*     c2ec:	0c012688 */ 	jal	osSetIntMask
 /*     c2f0:	02002025 */ 	or	$a0,$s0,$zero
 /*     c2f4:	3c048009 */ 	lui	$a0,0x8009
 /*     c2f8:	8c847104 */ 	lw	$a0,0x7104($a0)
 /*     c2fc:	02402825 */ 	or	$a1,$s2,$zero
-/*     c300:	0c003297 */ 	jal	0xca5c
+/*     c300:	0c003297 */ 	jal	crashGenerate
 /*     c304:	02603025 */ 	or	$a2,$s3,$zero
-/*     c308:	0c00073b */ 	jal	0x1cec
+/*     c308:	0c00073b */ 	jal	schedSetCrashedUnexpectedly
 /*     c30c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*     c310:	1000ffec */ 	beqz	$zero,.NB0000c2c4
 /*     c314:	02802025 */ 	or	$a0,$s4,$zero
@@ -1352,15 +1361,9 @@ void crashPutChar(s32 x, s32 y, char c)
 		c = '?';
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (x >= 0 && x < 72 && y >= 0 && y < 30 && g_CrashCharBuffer != NULL) {
+	if (x >= 0 && x < 72 && y >= 0 && y <= MAX_LINES && g_CrashCharBuffer != NULL) {
 		g_CrashCharBuffer[y][x] = c;
 	}
-#else
-	if (x >= 0 && x < 72 && y >= 0 && y < 32 && g_CrashCharBuffer != NULL) {
-		g_CrashCharBuffer[y][x] = c;
-	}
-#endif
 }
 
 void crashAppendChar(char c)
@@ -1382,17 +1385,10 @@ void crashAppendChar(char c)
 		g_CrashCurX = 0;
 	}
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (g_CrashCurY > 28) {
-		crashScroll(g_CrashCurY - 28);
-		g_CrashCurY = 28;
+	if (g_CrashCurY >= MAX_LINES) {
+		crashScroll(g_CrashCurY - MAX_LINES + 1);
+		g_CrashCurY = MAX_LINES - 1;
 	}
-#else
-	if (g_CrashCurY > 30) {
-		crashScroll(g_CrashCurY - 30);
-		g_CrashCurY = 30;
-	}
-#endif
 
 	if (c != '\n') {
 		crashPutChar(g_CrashCurX, g_CrashCurY, c);
@@ -1416,7 +1412,7 @@ void crashScroll(s32 numlines)
 	}
 
 	while (numlines-- > 0) {
-		for (y = 0; y < 29; y++) {
+		for (y = 0; y < MAX_LINES; y++) {
 			for (x = 0; x < 71; x++) {
 				g_CrashCharBuffer[y][x] = g_CrashCharBuffer[y + 1][x];
 			}
@@ -1657,7 +1653,7 @@ void crashRenderFrame(u8 *fb)
 	height = (viGetHeight() - 10) / 7 - 1;
 
 	if (g_CrashCharBuffer != NULL) {
-		for (y = 0; y < height && y < 29; y++) {
+		for (y = 0; y < height && y < MAX_LINES; y++) {
 			for (x = 0; x < width - 5 && x < 71; x++) {
 				crashRenderChar(20 + x * 4, 7 + y * 7, g_CrashCharBuffer[y][x]);
 			}

@@ -21,14 +21,6 @@
 #include "data.h"
 #include "types.h"
 
-const char var7f1ade80[] = "%s%s%4.2fX";
-const char var7f1ade8c[] = "";
-const char var7f1ade90[] = "";
-const char var7f1ade94[] = "/";
-const char var7f1ade98[] = "%s%s%4.2fX";
-const char var7f1adea4[] = "";
-const char var7f1adea8[] = "";
-
 u32 g_NextHudMessageId;
 
 u8 g_HudmsgsActive = 0;
@@ -438,6 +430,14 @@ glabel hudmsgRenderMissionTimer
 //
 //	return textRender(gdl, &sp8c, &sp88, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, viGetWidth(), viGetHeight(), 0, 0);
 //}
+
+const char var7f1ade80[] = "%s%s%4.2fX";
+const char var7f1ade8c[] = "";
+const char var7f1ade90[] = "";
+const char var7f1ade94[] = "/";
+const char var7f1ade98[] = "%s%s%4.2fX";
+const char var7f1adea4[] = "";
+const char var7f1adea8[] = "";
 
 #if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
@@ -1007,12 +1007,12 @@ glabel hudmsgRenderZoomRange
 /*  f0dd508:	46062300 */ 	add.s	$f12,$f4,$f6
 /*  f0dd50c:	46006221 */ 	cvt.d.s	$f8,$f12
 .L0f0dd510_2:
-/*  f0dd510:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f0dd514:	3c067f1b */ 	lui	$a2,0x7f1b
-/*  f0dd518:	3c077f1b */ 	lui	$a3,0x7f1b
-/*  f0dd51c:	24e7dc50 */ 	addiu	$a3,$a3,-9136
-/*  f0dd520:	24c6dc4c */ 	addiu	$a2,$a2,-9140
-/*  f0dd524:	24a5dc40 */ 	addiu	$a1,$a1,-9152
+/*  f0dd510:	3c057f1b */ 	lui	$a1,%hi(var7f1ade80)
+/*  f0dd514:	3c067f1b */ 	lui	$a2,%hi(var7f1ade8c)
+/*  f0dd518:	3c077f1b */ 	lui	$a3,%hi(var7f1ade90)
+/*  f0dd51c:	24e7dc50 */ 	addiu	$a3,$a3,%lo(var7f1ade90)
+/*  f0dd520:	24c6dc4c */ 	addiu	$a2,$a2,%lo(var7f1ade8c)
+/*  f0dd524:	24a5dc40 */ 	addiu	$a1,$a1,%lo(var7f1ade80)
 /*  f0dd528:	f7a80010 */ 	sdc1	$f8,0x10($sp)
 /*  f0dd52c:	0c004dad */ 	jal	sprintf
 /*  f0dd530:	27a40084 */ 	addiu	$a0,$sp,0x84
@@ -1080,9 +1080,9 @@ glabel hudmsgRenderZoomRange
 /*  f0dd628:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0dd62c:	0fc55b06 */ 	jal	textRender
 /*  f0dd630:	afaa0020 */ 	sw	$t2,0x20($sp)
-/*  f0dd634:	3c057f1b */ 	lui	$a1,0x7f1b
+/*  f0dd634:	3c057f1b */ 	lui	$a1,%hi(var7f1ade94)
 /*  f0dd638:	afa200c0 */ 	sw	$v0,0xc0($sp)
-/*  f0dd63c:	24a5dc54 */ 	addiu	$a1,$a1,-9132
+/*  f0dd63c:	24a5dc54 */ 	addiu	$a1,$a1,%lo(var7f1ade94)
 /*  f0dd640:	0c004dad */ 	jal	sprintf
 /*  f0dd644:	27a40084 */ 	addiu	$a0,$sp,0x84
 /*  f0dd648:	3c0b8008 */ 	lui	$t3,%hi(g_FontNumeric)
@@ -1138,15 +1138,15 @@ glabel hudmsgRenderZoomRange
 /*  f0dd710:	0fc55b06 */ 	jal	textRender
 /*  f0dd714:	afad0020 */ 	sw	$t5,0x20($sp)
 /*  f0dd718:	c7aa009c */ 	lwc1	$f10,0x9c($sp)
-/*  f0dd71c:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f0dd720:	3c067f1b */ 	lui	$a2,0x7f1b
+/*  f0dd71c:	3c057f1b */ 	lui	$a1,%hi(var7f1ade98)
+/*  f0dd720:	3c067f1b */ 	lui	$a2,%hi(var7f1adea4)
 /*  f0dd724:	460054a1 */ 	cvt.d.s	$f18,$f10
-/*  f0dd728:	3c077f1b */ 	lui	$a3,0x7f1b
+/*  f0dd728:	3c077f1b */ 	lui	$a3,%hi(var7f1adea8)
 /*  f0dd72c:	afa200c0 */ 	sw	$v0,0xc0($sp)
-/*  f0dd730:	24e7dc68 */ 	addiu	$a3,$a3,-9112
+/*  f0dd730:	24e7dc68 */ 	addiu	$a3,$a3,%lo(var7f1adea8)
 /*  f0dd734:	f7b20010 */ 	sdc1	$f18,0x10($sp)
-/*  f0dd738:	24c6dc64 */ 	addiu	$a2,$a2,-9116
-/*  f0dd73c:	24a5dc58 */ 	addiu	$a1,$a1,-9128
+/*  f0dd738:	24c6dc64 */ 	addiu	$a2,$a2,%lo(var7f1adea4)
+/*  f0dd73c:	24a5dc58 */ 	addiu	$a1,$a1,%lo(var7f1ade98)
 /*  f0dd740:	0c004dad */ 	jal	sprintf
 /*  f0dd744:	27a40084 */ 	addiu	$a0,$sp,0x84
 /*  f0dd748:	3c0e8008 */ 	lui	$t6,%hi(g_FontNumeric)

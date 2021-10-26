@@ -4377,11 +4377,6 @@ Gfx *lvRender(Gfx *gdl)
 	return gdl;
 }
 #else
-u32 var80086910nb[] = {
-	0x00000000, 0x00000000, 0x00000000, 0x1e000000,
-	0x00000000, 0x00000064, 0x00000000, 0x00000000,
-};
-
 GLOBAL_ASM(
 glabel lvRender
 .late_rodata
@@ -6516,8 +6511,21 @@ u32 var800840a4 = 0;
 u32 var800840a8 = 100;
 u32 var800840ac = 0;
 u32 g_CutsceneTime240_60 = 0;
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 u32 g_CutsceneTime240_60 = 0;
+u32 var800840a8 = 0;
+u32 var800840ac = 0;
+u32 var800840b0 = 0;
+#else
+u32 var80086910nb = 0;
+u32 var80086914nb = 0;
+u32 var80086918nb = 0;
+u32 var8008691cnb = 0x1e000000;
+u32 var80086920nb = 0;
+u32 var80086924nb = 100;
+u32 var80086928nb = 0;
+u32 g_CutsceneTime240_60 = 0;
+u32 var80086930nb = 0;
 u32 var800840a8 = 0;
 u32 var800840ac = 0;
 u32 var800840b0 = 0;

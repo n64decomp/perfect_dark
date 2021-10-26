@@ -2266,8 +2266,10 @@ void sndInit(void)
 
 #if VERSION >= VERSION_PAL_FINAL
 	u32 heaplen = 1024 * 446;
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 	u32 heaplen = 1024 * 441;
+#else
+	u32 heaplen = 1024 * 438;
 #endif
 
 	g_Vars.langfilteron = false;
@@ -2318,7 +2320,7 @@ void sndInit(void)
 
 		// Allocate some space at the start of the heap for a string identifier.
 		// This might be used to determine if the heap has overflowed.
-		g_SndGuardStringPtr = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 32);
+		g_SndGuardStringPtr = alHeapAlloc(&g_SndHeap, 1, 32);
 		strcpy(g_SndGuardStringPtr, g_SndGuardString);
 
 		// Load sfx.ctl
@@ -2326,7 +2328,7 @@ void sndInit(void)
 
 		// Load seq.ctl
 		var80095200 = 0xffffffff;
-		bankfile = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
+		bankfile = alHeapAlloc(&g_SndHeap, 1, len);
 		dmaExec(bankfile, (u32) &_seqctlSegmentRomStart, len);
 
 		// Load seq.tbl

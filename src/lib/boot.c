@@ -548,9 +548,9 @@ glabel bootAllocateStack
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-s32 bootGetMemSize(void)
+u8 *bootGetStackPos(void)
 {
-	return g_OsMemSize;
+	return g_StackAllocatedPos;
 }
 #endif
 

@@ -1,3 +1,4 @@
+#include "versions.h"
 #include <os.h>
 #include <os_internal.h>
 #include <R4300.h>
@@ -60,11 +61,21 @@ void osInitialize(void)
 		bzero(&osAppNMIBuffer, 0x40);
 	}
 
-#if !PAL
+#if VERSION >= VERSION_PAL_FINAL
+	// empty
+#elif VERSION >= VERSION_NTSC_1_0
 	if (osTvType == OS_TV_PAL) {
 		osViClock = VI_PAL_CLOCK;
 	} else if (osTvType == OS_TV_MPAL) {
 		osViClock = VI_NTSC_CLOCK;
+	} else {
+		osViClock = VI_NTSC_CLOCK;
+	}
+#else
+	if (osTvType == OS_TV_PAL) {
+		osViClock = VI_PAL_CLOCK;
+	} else if (osTvType == OS_TV_MPAL) {
+		osViClock = VI_MPAL_CLOCK;
 	} else {
 		osViClock = VI_NTSC_CLOCK;
 	}

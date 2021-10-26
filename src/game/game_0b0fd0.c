@@ -22,7 +22,7 @@ struct weapon *weaponFindById(s32 itemid)
 		return NULL;
 	}
 
-	if (itemid >= NUM_WEAPONS) {
+	if (itemid >= ARRAYCOUNT(g_Weapons)) {
 		return NULL;
 	}
 

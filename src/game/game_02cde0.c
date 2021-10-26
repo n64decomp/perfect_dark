@@ -880,13 +880,13 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	s32 inlift;
 	struct prop *lift;
 	f32 ground;
-	u32 stack[2];
 
 	rooms[0] = room;
 	rooms[1] = -1;
 
 #if PIRACYCHECKS
 	{
+		u32 stack[2];
 		u32 checksum = 0;
 		s32 *ptr = (s32 *)&lvInit;
 		s32 *end = (s32 *)&lvConfigureFade;

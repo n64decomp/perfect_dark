@@ -72,19 +72,21 @@ void pack_game(void)
 
 	memcpy(&state.rom[gamezipstart], state.gametable, state.gametablelen);
 
-	// Paste the second segment, truncating it to fit the allocation
-	truncatedlen = gamezipend - gamezipstart - state.gamezipslen;
+	if (!state.is_ntscbeta) {
+		// Paste the second segment, truncating it to fit the allocation
+		truncatedlen = gamezipend - gamezipstart - state.gamezipslen;
 
-	if (truncatedlen > state.gamezipslen) {
-		truncatedlen = state.gamezipslen;
+		if (truncatedlen > state.gamezipslen) {
+			truncatedlen = state.gamezipslen;
+		}
+
+		memcpy(&state.rom[gamezipstart + state.gamezipslen], state.gamezips, truncatedlen);
+
+		// The final two bytes from the real segment are duplicated into
+		// the first two bytes of the second segment's offset table
+		state.rom[gamezipstart + state.gamezipslen + 0] = state.rom[gamezipstart + state.gamezipslen - 2];
+		state.rom[gamezipstart + state.gamezipslen + 1] = state.rom[gamezipstart + state.gamezipslen - 1];
 	}
-
-	memcpy(&state.rom[gamezipstart + state.gamezipslen], state.gamezips, truncatedlen);
-
-	// The final two bytes from the real segment are duplicated into
-	// the first two bytes of the second segment's offset table
-	state.rom[gamezipstart + state.gamezipslen + 0] = state.rom[gamezipstart + state.gamezipslen - 2];
-	state.rom[gamezipstart + state.gamezipslen + 1] = state.rom[gamezipstart + state.gamezipslen - 1];
 }
 
 /**
@@ -117,16 +119,18 @@ void pack_lib(void)
 	// Copy the buffer to its real spot in the ROM
 	copy("lib", buffer, seglen, "ROMALLOCATION_LIB");
 
-	// Copy it truncated to its fake spot
-	map_get_segment_rompos("libzip", &libzipstart, &libzipend);
+	if (!state.is_ntscbeta) {
+		// Copy it truncated to its fake spot
+		map_get_segment_rompos("libzip", &libzipstart, &libzipend);
 
-	truncatedlen = libzipend - libzipstart - seglen;
+		truncatedlen = libzipend - libzipstart - seglen;
 
-	if (truncatedlen > seglen) {
-		truncatedlen = seglen;
+		if (truncatedlen > seglen) {
+			truncatedlen = seglen;
+		}
+
+		memcpy(state.rom + libzipstart + seglen, buffer, truncatedlen);
 	}
-
-	memcpy(state.rom + libzipstart + seglen, buffer, truncatedlen);
 
 	free(buffer);
 }

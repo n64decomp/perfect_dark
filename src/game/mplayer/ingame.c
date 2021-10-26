@@ -22,8 +22,11 @@
 
 struct menudialog g_MpEndscreenChallengeCompletedMenuDialog;
 struct menudialog g_MpEndscreenIndGameOverMenuDialog;
-struct menudialog g_MpEndscreenSavePlayerMenuDialog;
 struct menudialog g_MpEndscreenTeamGameOverMenuDialog;
+
+#if VERSION >= VERSION_NTSC_1_0
+struct menudialog g_MpEndscreenSavePlayerMenuDialog;
+#endif
 
 s32 mpStatsForPlayerDropdownHandler(s32 operation, struct menuitem *item, union handlerdata *data)
 {

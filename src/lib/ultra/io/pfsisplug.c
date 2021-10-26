@@ -1,3 +1,4 @@
+#include "versions.h"
 #include <os_internal.h>
 #include "controller.h"
 #include "siint.h"
@@ -18,7 +19,7 @@ s32 osPfsIsPlug(OSMesgQueue *queue, u8 *pattern)
 	int crc_error_cnt;
 	ret = 0;
 	bits = 0;
-	crc_error_cnt = 1;
+	crc_error_cnt = VERSION >= VERSION_NTSC_1_0 ? 1 : 3;
 
 	__osSiGetAccess();
 

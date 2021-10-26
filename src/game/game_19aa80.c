@@ -109,6 +109,8 @@ void func0f19ab40(void)
 #else
 const char var7f1b3750nb[] = "VM: Page Misses %d (%d Replaces)";
 const char var7f1b3774nb[] = "VM: TLB Misses %d";
+const char var7f1b3788nb[] = "";
+const char var7f1b378cnb[] = "";
 
 GLOBAL_ASM(
 glabel func0f19ab40

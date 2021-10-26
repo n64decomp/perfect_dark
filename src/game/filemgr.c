@@ -32,14 +32,12 @@ struct fileguid g_GameFileGuid;
 struct menudialog g_FilemgrCopyMenuDialog;
 struct menudialog g_FilemgrConfirmDeleteMenuDialog;
 struct menudialog g_FilemgrDeleteMenuDialog;
-struct menudialog g_FilemgrDuplicateNameMenuDialog;
 struct menudialog g_FilemgrEnterNameMenuDialog;
 struct menudialog g_FilemgrErrorMenuDialog;
 struct menudialog g_FilemgrFileInUseMenuDialog;
 struct menudialog g_FilemgrFileLostMenuDialog;
 struct menudialog g_FilemgrFileSavedMenuDialog;
 struct menudialog g_FilemgrFileSelectMenuDialog;
-struct menudialog g_FilemgrRenameMenuDialog;
 struct menudialog g_FilemgrSaveElsewhereMenuDialog;
 struct menudialog g_FilemgrSaveErrorMenuDialog;
 struct menudialog g_FilemgrSelectLocationMenuDialog;
@@ -47,6 +45,11 @@ struct menudialog g_PakDeleteNoteMenuDialog;
 struct menudialog g_PakGameNotesMenuDialog;
 struct menudialog g_PakNotOriginalMenuDialog;
 struct pakdata *g_EditingPak;
+
+#if VERSION >= VERSION_NTSC_1_0
+struct menudialog g_FilemgrDuplicateNameMenuDialog;
+struct menudialog g_FilemgrRenameMenuDialog;
+#endif
 
 #if VERSION >= VERSION_PAL_FINAL
 s32 func0f1088d0pf(s32 operation, struct menuitem *item, union handlerdata *data);
@@ -213,7 +216,11 @@ void filemgrSetDevice1BySerial(s32 deviceserial)
 	if (device >= 0) {
 		g_Menus[g_MpPlayerNum].fm.device1 = device;
 	} else {
+#if VERSION >= VERSION_NTSC_1_0
 		g_Menus[g_MpPlayerNum].fm.device1 = SAVEDEVICE_INVALID;
+#else
+		g_Menus[g_MpPlayerNum].fm.device1 = 0x7f;
+#endif
 	}
 }
 
@@ -706,8 +713,7 @@ void filemgrRetrySave(s32 context)
 #if VERSION >= VERSION_NTSC_1_0
 				filemgrEraseCorruptFile();
 #else
-				// Argument is wrong/mismatching
-				func0f0f3704(&g_FilemgrSaveErrorMenuDialog);
+				func0f0f3704(&g_FilemgrFileLostMenuDialog);
 #endif
 			}
 		}
@@ -1101,13 +1107,11 @@ bool filemgrSaveOrLoad(struct fileguid *guid, s32 fileop, u32 playernum)
 		if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop)) {
 			menuPushDialog(&g_FilemgrSaveErrorMenuDialog);
 		} else {
+			// File couldn't be loaded
 #if VERSION >= VERSION_NTSC_1_0
-			// File couldn't be loaded - delete it
 			filemgrEraseCorruptFile();
 #else
-			// ntsc-beta shows an error instead
-			// Note: This argument is wrong/mismatching
-			menuPushDialog(&g_FilemgrSaveErrorMenuDialog);
+			menuPushDialog(&g_FilemgrFileLostMenuDialog);
 #endif
 		}
 
@@ -2255,11 +2259,19 @@ s32 pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handl
 	Gfx *gdl;
 	struct menuitemrenderdata *renderdata;
 	OSPfsState *note;
+#if VERSION >= VERSION_NTSC_1_0
 	char tmpname[40];
 	char tmpext[12];
 	char generalbuffer[60];
 	char extbuffer[60];
 	char pagesbuffer[60];
+#else
+	char tmpname[20];
+	char tmpext[8];
+	char generalbuffer[28];
+	char extbuffer[28];
+	char pagesbuffer[28];
+#endif
 	s32 textwidth;
 	s32 textheight;
 

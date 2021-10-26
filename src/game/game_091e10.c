@@ -16,7 +16,7 @@ u8 *g_GeCreditsData;
 u32 setupGetCommandLength(u32 *cmd)
 {
 #if VERSION < VERSION_NTSC_1_0
-	static u32 crash1;
+	static u32 crash1 = 0;
 
 	mainOverrideVariable("crash1", &crash1);
 #endif

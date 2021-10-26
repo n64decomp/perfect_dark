@@ -206,7 +206,11 @@ void viAllocateFbs(s32 stagenum)
 		fbsize = IS4MB() ? 320 * 220 * 2 : 320 * 220 * 4;
 
 		if (IS4MB() && PLAYERCOUNT() == 2) {
+#if VERSION >= VERSION_NTSC_1_0
 			fbsize = 320 * 220;
+#else
+			fbsize = 320 * 240;
+#endif
 			g_Vars.fourmeg2player = true;
 		} else if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
 #if PAL

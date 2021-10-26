@@ -4,6 +4,7 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel casingsReset
 /*  f010b20:	3c04800a */ 	lui	$a0,%hi(var8009d0d0)
@@ -46,6 +47,50 @@ glabel casingsReset
 /*  f010ba8:	03e00008 */ 	jr	$ra
 /*  f010bac:	ac4002b4 */ 	sw	$zero,0x2b4($v0)
 );
+#else
+GLOBAL_ASM(
+glabel casingsReset
+/*  f010860:	3c04800a */ 	lui	$a0,0x800a
+/*  f010864:	24841868 */ 	addiu	$a0,$a0,0x1868
+/*  f010868:	ac800000 */ 	sw	$zero,0x0($a0)
+/*  f01086c:	ac800004 */ 	sw	$zero,0x4($a0)
+/*  f010870:	3c01800a */ 	lui	$at,0x800a
+/*  f010874:	3c03800a */ 	lui	$v1,0x800a
+/*  f010878:	3c02800a */ 	lui	$v0,0x800a
+/*  f01087c:	ac201870 */ 	sw	$zero,0x1870($at)
+/*  f010880:	24421888 */ 	addiu	$v0,$v0,0x1888
+/*  f010884:	24631878 */ 	addiu	$v1,$v1,0x1878
+.NB0f010888:
+/*  f010888:	24630004 */ 	addiu	$v1,$v1,0x4
+/*  f01088c:	1462fffe */ 	bne	$v1,$v0,.NB0f010888
+/*  f010890:	ac60fffc */ 	sw	$zero,-0x4($v1)
+/*  f010894:	3c02800a */ 	lui	$v0,0x800a
+/*  f010898:	3c03800a */ 	lui	$v1,0x800a
+/*  f01089c:	24422240 */ 	addiu	$v0,$v0,0x2240
+/*  f0108a0:	24631cf0 */ 	addiu	$v1,$v1,0x1cf0
+.NB0f0108a4:
+/*  f0108a4:	24630044 */ 	addiu	$v1,$v1,0x44
+/*  f0108a8:	0062082b */ 	sltu	$at,$v1,$v0
+/*  f0108ac:	1420fffd */ 	bnez	$at,.NB0f0108a4
+/*  f0108b0:	ac60fffc */ 	sw	$zero,-0x4($v1)
+/*  f0108b4:	3c018007 */ 	lui	$at,0x8007
+/*  f0108b8:	3c03800a */ 	lui	$v1,0x800a
+/*  f0108bc:	3c04800a */ 	lui	$a0,0x800a
+/*  f0108c0:	ac202be4 */ 	sw	$zero,0x2be4($at)
+/*  f0108c4:	24841ce8 */ 	addiu	$a0,$a0,0x1ce8
+/*  f0108c8:	24631888 */ 	addiu	$v1,$v1,0x1888
+/*  f0108cc:	2402ffff */ 	addiu	$v0,$zero,-1
+.NB0f0108d0:
+/*  f0108d0:	24630038 */ 	addiu	$v1,$v1,0x38
+/*  f0108d4:	1464fffe */ 	bne	$v1,$a0,.NB0f0108d0
+/*  f0108d8:	ac62ffc8 */ 	sw	$v0,-0x38($v1)
+/*  f0108dc:	3c02800a */ 	lui	$v0,0x800a
+/*  f0108e0:	2442e6c0 */ 	addiu	$v0,$v0,-6464
+/*  f0108e4:	ac4002b0 */ 	sw	$zero,0x2b0($v0)
+/*  f0108e8:	03e00008 */ 	jr	$ra
+/*  f0108ec:	ac4002b4 */ 	sw	$zero,0x2b4($v0)
+);
+#endif
 
 // Mismatch: Two instructions are swapped
 //void casingsReset(void)

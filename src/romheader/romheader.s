@@ -13,10 +13,21 @@
 .word 0x00001449 # Release address
 .word 0x00000000 # CRC 1
 .word 0x00000000 # CRC 2
-.word 0x00000000
-.word 0x00000000
 
+.if VERSION == VERSION_NTSC_BETA
+.word 0x54e4d838
+.word 0x2fbd9536
+.else
+.word 0x00000000
+.word 0x00000000
+.endif
+
+.if VERSION == VERSION_NTSC_BETA
+.ascii "Perfect Dark DBGNTSC"
+.else
 .ascii "Perfect Dark        "
+.endif
+
 .word 0x00000000
 .byte 0x00
 .byte 0x00

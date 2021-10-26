@@ -41,10 +41,13 @@ s16 *g_RoomPropListChunkIndexes;
 struct roomproplistchunk *g_RoomPropListChunks;
 struct prop *g_InteractProp;
 u32 var8009cdac;
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 var8009cdb0;
 u32 var8009cdb4;
 u32 var8009cdb8;
 u32 var8009cdbc;
+#endif
 
 f32 var80069880 = 1;
 

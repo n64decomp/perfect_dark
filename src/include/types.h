@@ -3852,34 +3852,38 @@ struct menudata_mpend {
 };
 
 struct menudata_filemgr {
-	/*0xe1c*/ u32 filetypeplusone;
-	/*0xe20*/ u32 device;
-	/*0xe24*/ u32 unke24;
+	/*0xe1c*/ u32 filetypeplusone; // used
+	/*0xe20*/ u32 device; // used
+	/*0xe24*/ u32 unke24; // used
 	union {
-		u32 isdeletingforsave;
+		u32 isdeletingforsave; // used
 		u32 noteindex;
 	};
-	/*0xe2c*/ u32 unke2c;
+	/*0xe2c*/ u32 unke2c; // used
 	/*0xe30*/ u32 unke30;
-	/*0xe34*/ u16 errno;
-	/*0xe38*/ struct filelistfile *filetodelete;
-	/*0xe3c*/ u8 device1;
-	/*0xe3d*/ u8 filetypetodelete;
-	/*0xe3e*/ u8 unke3e;
-	/*0xe3f*/ u8 listnum;
+	/*0xe34*/ u16 errno; // used
+	/*0xe38*/ struct filelistfile *filetodelete; // used
+	/*0xe3c*/ u8 device1; // used
+	/*0xe3d*/ u8 filetypetodelete; // used
+	/*0xe3e*/ u8 unke3e; // used
+	/*0xe3f*/ u8 listnum; // used
 	/*0xe40*/ u16 unke40_00 : 1;
 	/*0xe40*/ u16 unke40_01 : 1;
 	/*0xe40*/ u16 unke40_02 : 14;
 	/*0xe42*/ u8 fileop;
 	union {
-		void *unke44;
+		void *unke44; // used
 		s32 mpplayernum;
 	};
-	/*0xe48*/ u32 fileid;
-	/*0xe4c*/ u32 deviceserial;
-	/*0xe50*/ u16 isretryingsave;
+	/*0xe48*/ u32 fileid; // used
+	/*0xe4c*/ u32 deviceserial; // used
+	/*0xe50*/ u16 isretryingsave; // used
 	/*0xe52*/ u8 device2;
+#if VERSION >= VERSION_NTSC_1_0
 	/*0xe53*/ char filename[20];
+#else
+	/*0xe53*/ char filename[4];
+#endif
 	/*0xe68*/ struct perfectheadtexturelist *headtextures;
 	/*0xe6c*/ s8 device3;
 };
@@ -3918,7 +3922,11 @@ struct perfectheadtexturelist {
 };
 
 struct menu {
+#if VERSION >= VERSION_NTSC_1_0
 	struct menuframe frames[10];
+#else
+	struct menuframe frames[9];
+#endif
 	/*0x460*/ s16 numframes;
 	/*0x464*/ struct menulayer layers[6];
 	/*0x4f4*/ s16 depth; // index into layers. 1-indexed?
@@ -4003,6 +4011,7 @@ struct menu {
 	/*0x630*/ u32 unk630;
 	/*0x634*/ u32 unk634;
 	/*0x638*/ u32 unk638;
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x63c*/ u32 unk63c;
 	/*0x640*/ u32 unk640;
 	/*0x644*/ u32 unk644;
@@ -4011,6 +4020,7 @@ struct menu {
 	/*0x650*/ u32 unk650;
 	/*0x654*/ u32 unk654;
 	/*0x658*/ u32 unk658;
+#endif
 	/*0x65c*/ s32 unk65c;
 	/*0x660*/ u16 unk660[1][5]; // length unknown
 	/*0x66c*/ u32 unk66c;
@@ -4035,11 +4045,13 @@ struct menu {
 	/*0x6b8*/ u32 unk6b8;
 	/*0x6bc*/ u32 unk6bc;
 	/*0x6c0*/ u32 unk6c0;
+#if VERSION >= VERSION_NTSC_1_0
 	/*0x6c4*/ u32 unk6c4;
 	/*0x6c8*/ u32 unk6c8;
 	/*0x6cc*/ u32 unk6cc;
 	/*0x6d0*/ u32 unk6d0;
 	/*0x6d4*/ u32 unk6d4;
+#endif
 	/*0x6d8*/ s32 unk6d8;
 	/*0x6dc*/ u32 unk6dc;
 	/*0x6e0*/ u32 unk6e0;

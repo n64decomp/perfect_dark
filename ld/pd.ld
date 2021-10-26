@@ -84,7 +84,7 @@
 #else
 #define ROMALLOCATION_LIB   0x02f800
 #define ROMALLOCATION_DATA  0x012000
-#define ROMALLOCATION_GAME  0x112080
+#define ROMALLOCATION_GAME  0x105000
 #endif
 
 OUTPUT_ARCH (mips)
@@ -95,10 +95,14 @@ SECTIONS
 	_gamecode = 0x4450;
 	_jpndata1 = 0x17fc40;
 	_jpndata2 = 0x18b340;
-#else
+#elif VERSION >= VERSION_NTSC_1_0
 	_gamecode = 0x4445;
 	_jpndata1 = 0x194440;
 	_jpndata2 = 0x19fb40;
+#else
+	_gamecode = 0x4445;
+	_jpndata1 = 0x148c40;
+	_jpndata2 = 0x154340;
 #endif
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -184,7 +188,7 @@ SECTIONS
 	BEGIN_SEG(preamble)
 	{
 		build/ROMID/preamble/preamble.o (.text);
-		. = ALIGN(0x30);
+		. = 0x50;
 	}
 	END_SEG(preamble)
 
@@ -446,10 +450,7 @@ SECTIONS
 	FONT(handelgothicmd)
 	FONT(handelgothiclg)
 	FONT(ocramd)
-
-#if VERSION >= VERSION_NTSC_1_0
 	FONT(ocralg)
-#endif
 
 	/***************************************************************************
 	 * sfxctl

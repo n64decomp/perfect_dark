@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mkrom.h"
 
 extern struct state state;
@@ -29,6 +30,8 @@ void rom_load(char *filename)
 	fseek(fp, 0, SEEK_SET);
 	fread(state.rom, state.romlen, 1, fp);
 	fclose(fp);
+
+	state.is_ntscbeta = strncmp(&state.rom[0x20], "Perfect Dark DBGNTSC", 20) == 0;
 }
 
 /**

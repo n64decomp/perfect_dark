@@ -921,7 +921,7 @@ s32 menudialogSolo2PEndscreenFailed(s32 operation, struct menudialog *dialog, un
 				struct menuinputs *inputs = data->dialog2.inputs;
 
 				if (inputs->select || inputs->back || inputs->start) {
-					g_Menus[g_MpPlayerNum].endscreen.unke1c = 6;
+					g_Menus[g_MpPlayerNum].endscreen.unke1c = VERSION >= VERSION_NTSC_1_0 ? 6 : 3;
 				}
 
 				if (g_Menus[g_MpPlayerNum].endscreen.unke1c) {

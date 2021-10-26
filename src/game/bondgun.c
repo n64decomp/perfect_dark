@@ -51,6 +51,7 @@
 #include "data.h"
 #include "types.h"
 
+#if VERSION >= VERSION_NTSC_1_0
 u32 var8009d0d0[2];
 s32 var8009d0d8;
 u32 var8009d0dc;
@@ -86,6 +87,40 @@ s32 var8009d148;
 u32 var8009d14c;
 
 struct fireslot g_Fireslots[NUM_FIRESLOTS];
+#else
+u32 var8009d0dc;
+u32 var800a1800nb;
+u32 var8009d0f0;
+u32 var8009d0f4;
+u32 var8009d0f8;
+u32 var8009d0fc;
+u32 var8009d100;
+u32 var8009d104;
+u32 var8009d108;
+u32 var8009d10c;
+u32 var8009d110;
+u32 var8009d114;
+u32 var8009d118;
+u32 var8009d11c;
+u32 var8009d120;
+u32 var8009d124;
+u32 var8009d128;
+u32 var8009d12c;
+u32 var8009d130;
+u32 var8009d134;
+u32 var8009d138;
+u32 var8009d13c;
+u32 var8009d140;
+u32 var8009d144;
+s32 var8009d148;
+u32 var8009d14c;
+
+u32 var8009d0d0[2];
+s32 var8009d0d8;
+struct audiohandle *g_BgunAudioHandles[4];
+struct fireslot g_Fireslots[NUM_FIRESLOTS];
+u32 fill2[1];
+#endif
 
 u32 var80070090 = 0x96969600;
 u32 var80070094 = 0x96969600;
@@ -5308,7 +5343,7 @@ glabel var7f1ac31c
 /*  f09a150:	5720001a */ 	bnezl	$t9,.L0f09a1bc
 /*  f09a154:	8e0e001c */ 	lw	$t6,0x1c($s0)
 /*  f09a158:	8da90000 */ 	lw	$t1,0x0($t5)
-/*  f09a15c:	2d210058 */ 	sltiu	$at,$t1,0x58
+/*  f09a15c:	2d210058 */ 	sltiu	$at,$t1,0x57
 /*  f09a160:	10200006 */ 	beqz	$at,.L0f09a17c
 /*  f09a164:	00094880 */ 	sll	$t1,$t1,0x2
 /*  f09a168:	3c017f1b */ 	lui	$at,%hi(var7f1ac1bc)

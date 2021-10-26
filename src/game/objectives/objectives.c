@@ -409,13 +409,13 @@ void objectivesCheckAll(void)
 #else
 					if (status == OBJECTIVE_COMPLETE) {
 						strcat(buffer, langGet(L_MISC_045)); // "Completed"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
+						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
 					} else if (status == OBJECTIVE_INCOMPLETE) {
 						strcat(buffer, langGet(L_MISC_046)); // "Incomplete"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
+						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
 					} else if (status == OBJECTIVE_FAILED) {
 						strcat(buffer, langGet(L_MISC_047)); // "Failed"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVEFAILED, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
+						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVEFAILED, HUDMSGFLAG_ALLOWDUPES);
 					}
 #endif
 				}

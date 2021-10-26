@@ -21,7 +21,11 @@ void resetproc(void *data)
 {
 	OSMesg msg = 0;
 	OSViMode *mode;
+#if VERSION >= VERSION_NTSC_1_0
 	u32 stack[4];
+#else
+	u32 stack[2];
+#endif
 
 	static u64 prenmitime;
 

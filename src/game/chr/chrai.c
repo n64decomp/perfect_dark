@@ -778,7 +778,7 @@ void chraiExecute(void *entity, s32 proptype)
 			u8 *cmd = g_Vars.aioffset + g_Vars.ailist;
 			s32 type = (cmd[0] << 8) + cmd[1];
 
-			if (type >= 0 && type <= 0x1e0) {
+			if (type >= 0 && type < ARRAYCOUNT(g_CommandPointers)) {
 				if (g_CommandPointers[type]()) {
 					break;
 				}
@@ -807,7 +807,7 @@ u32 chraiGetCommandLength(u8 *ailist, u32 aioffset)
 		return (prop - aioffset) + 1;
 	}
 
-	if (type >= 0 && type < NUM_AICOMMANDS) {
+	if (type >= 0 && type < ARRAYCOUNT(g_CommandLengths)) {
 		return g_CommandLengths[type];
 	}
 

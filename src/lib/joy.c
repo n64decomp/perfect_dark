@@ -34,32 +34,21 @@
 struct joydata g_JoyData[2];
 s32 g_JoyDisableCooldown[4];
 OSMesgQueue g_PiMesgQueue;
-OSMesg var80099e90;
-u32 var80099e94;
-u32 var80099e98;
-u32 var80099e9c;
-u32 var80099ea0;
-u32 var80099ea4;
-u32 var80099ea8;
-u32 var80099eac;
-u32 var80099eb0;
-u32 var80099eb4;
-OSMesg var80099eb8;
-u32 var80099ebc;
+OSMesg var80099e90[10];
+OSMesg var80099eb8[2];
 OSMesgQueue g_JoyStopCyclicPollingMesgQueue;
-OSMesg var80099ed8;
-u32 var80099edc;
+OSMesg var80099ed8[2];
 OSMesgQueue g_JoyStopCyclicPollingDoneMesgQueue;
-OSMesg var80099ef8;
-u32 var80099efc;
+OSMesg var80099ef8[2];
 OSMesgQueue g_JoyStartCyclicPollingMesgQueue;
-OSMesg var80099f18;
-u32 var80099f1c;
+OSMesg var80099f18[2];
 OSMesgQueue g_JoyStartCyclicPollingDoneMesgQueue;
 OSContStatus var80099f38[4];
+#if VERSION >= VERSION_NTSC_1_0
 u8 g_JoyPfsStates[100];
 u32 var80099fac;
 u32 var80099fb0;
+#endif
 
 const char var70054080[] = "joyReset\n";
 const char var7005408c[] = "joyReset: doing nothing\n";
@@ -100,8 +89,8 @@ u32 var8005eee8 = 0;
 u32 var8005eeec = 0;
 u32 var8005eef0 = 1;
 #else
-u32 var8005eee8nb = 3;
-u8 var8005eeecnb = 0;
+u32 var800612c8nb = 3;
+u8 var800612ccnb = 0;
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -164,7 +153,7 @@ u32 joy00013980(void)
 #if VERSION >= VERSION_NTSC_1_0
 	return var8005eeec;
 #else
-	return var8005eeecnb;
+	return var8005eed8;
 #endif
 }
 #endif
@@ -309,11 +298,11 @@ void joySystemInit(void)
 	s32 i;
 	s32 j;
 
-	osCreateMesgQueue(&g_JoyStopCyclicPollingMesgQueue, &var80099eb8, 1);
-	osCreateMesgQueue(&g_JoyStopCyclicPollingDoneMesgQueue, &var80099ed8, 1);
-	osCreateMesgQueue(&g_JoyStartCyclicPollingMesgQueue, &var80099ef8, 1);
-	osCreateMesgQueue(&g_JoyStartCyclicPollingDoneMesgQueue, &var80099f18, 1);
-	osCreateMesgQueue(&g_PiMesgQueue, &var80099e90, 10);
+	osCreateMesgQueue(&g_JoyStopCyclicPollingMesgQueue, var80099eb8, 1);
+	osCreateMesgQueue(&g_JoyStopCyclicPollingDoneMesgQueue, var80099ed8, 1);
+	osCreateMesgQueue(&g_JoyStartCyclicPollingMesgQueue, var80099ef8, 1);
+	osCreateMesgQueue(&g_JoyStartCyclicPollingDoneMesgQueue, var80099f18, 1);
+	osCreateMesgQueue(&g_PiMesgQueue, var80099e90, ARRAYCOUNT(var80099e90));
 
 	osSetEventMesg(OS_EVENT_SI, &g_PiMesgQueue, NULL);
 
@@ -551,6 +540,10 @@ glabel func0001509cnb
 );
 #endif
 
+#if VERSION < VERSION_NTSC_1_0
+u32 var800612d4nb = 0;
+#endif
+
 /**
  * The use of the static variable suggests that the function is able to be
  * called recursively, but its behaviour should not be run when recursing.
@@ -584,7 +577,7 @@ void joyDebugJoy(void)
 #if VERSION >= VERSION_NTSC_1_0
 	mainOverrideVariable("debugjoy", &var8005ef08);
 #else
-	mainOverrideVariable("joyforce", &var8005ef08);
+	mainOverrideVariable("joyforce", &var800612c8nb);
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1328,7 +1321,7 @@ void joyReset(void)
 {
 	s32 i;
 
-	osCreateMesgQueue(&g_PiMesgQueue, &var80099e90, 10);
+	osCreateMesgQueue(&g_PiMesgQueue, var80099e90, ARRAYCOUNT(var80099e90));
 	osSetEventMesg(OS_EVENT_SI, &g_PiMesgQueue, 0);
 
 	for (i = 0; i < 4; i++) {

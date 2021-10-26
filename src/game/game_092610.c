@@ -60,7 +60,11 @@ const char var7f1ab680[] = "AISOUND: Channel %d -> Setting params : Vol=%d, Pad=
 const char var7f1ab6e8[] = "AISOUND : This channel has a marker -> Shall start and use ID = %d(%x)\n";
 
 struct audiochannel *g_AudioChannels = NULL;
+
+#if VERSION >= VERSION_NTSC_1_0
 u32 g_AudioPrevUuid = 0x00000000;
+#endif
+
 s8 var8006ae18 = 0;
 s8 var8006ae1c = 0;
 s8 var8006ae20 = 0;
@@ -71,10 +75,6 @@ u32 var8006ae30 = 0x00000000;
 u32 var8006ae34 = 0x00000000;
 u32 var8006ae38 = 0x00000000;
 bool g_PropsndPrintChannels = false;
-
-#if VERSION < VERSION_NTSC_1_0
-u32 nbdata[3] = {0};
-#endif
 
 u32 var8006ae40 = 0x00000000;
 u32 var8006ae44 = 0x00000000;

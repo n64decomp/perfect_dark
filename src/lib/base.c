@@ -7,6 +7,8 @@
 #if VERSION < VERSION_NTSC_1_0
 // This data doesn't belong here, but I don't know what the data is or where
 // exactly it should go yet.
+u8 var8009c9e0nb[0x17e0];
+
 u32 var800606e0nb[] = {
 	0xb8000000, 0x00000000, 0x00000000, 0x00227a00,
 	0x007a348b, 0x00223434, 0x00115811, 0x00696900,

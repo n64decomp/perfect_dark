@@ -2015,5 +2015,4 @@ char *filenames[] = {
 	/*0x7da*/ "Ap29_15_joM",
 	/*0x7db*/ "Ap16_03_joM",
 	/*0x7dc*/ "Acarrbye02M",
-	/*0x7dd*/ "Asaucerexp1M",
 };

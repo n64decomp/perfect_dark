@@ -19,16 +19,16 @@ const char var7f1adbb4[] = "rsub";
 const char var7f1adbbc[] = ":%02d";
 const char var7f1adbc4[] = "%d";
 
-u32 var8009de90;
-u32 var8009de94;
-u32 var8009de98;
-u32 var8009de9c;
-
 #if VERSION >= VERSION_NTSC_1_0
 Vp *var80070f10 = NULL;
 #else
 Vp var80070f10;
 #endif
+
+u32 var8009de90;
+u32 var8009de94;
+u32 var8009de98;
+u32 var8009de9c;
 
 u32 var80070f14 = 0x000003e8;
 u32 var80070f18 = 0x00000014;

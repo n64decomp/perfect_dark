@@ -742,13 +742,17 @@ bool weatherIsRoomWeatherProof(s32 room)
 
 	if (g_StageIndex == STAGEINDEX_CRASHSITE) {
 		// Rooms listed do not have weather
+		// Note that ntsc-beta is likely the same actual rooms as the newer
+		// versions; they just have shifted numbers.
 		if (room == 0x1f
 				|| room == 0x20
 				|| room == 0x21
 				|| room == 0x22
 				|| room == 0x23
 				|| room == 0x24
+#if VERSION >= VERSION_NTSC_1_0
 				|| room == 0x51
+#endif
 				|| room == 0x52
 				|| room == 0x53
 				|| room == 0x54
@@ -768,8 +772,13 @@ bool weatherIsRoomWeatherProof(s32 room)
 				|| room == 0x62
 				|| room == 0x63
 				|| room == 0x64
+#if VERSION < VERSION_NTSC_1_0
+				|| room == 0x65
+#endif
 				|| room == 0x2d
+#if VERSION >= VERSION_NTSC_1_0
 				|| room == 0x40
+#endif
 				|| room == 0x41
 				|| room == 0x42
 				|| room == 0x43
@@ -785,7 +794,11 @@ bool weatherIsRoomWeatherProof(s32 room)
 				|| room == 0x4d
 				|| room == 0x4e
 				|| room == 0x4f
-				|| room == 0x50) {
+				|| room == 0x50
+#if VERSION < VERSION_NTSC_1_0
+				|| room == 0x51
+#endif
+				) {
 			return true;
 		}
 
