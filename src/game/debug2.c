@@ -1030,444 +1030,322 @@ glabel var7f1af4ecnb
 /*  f1198e4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel debug0f11ed70
-/*  f1198e8:	3c028008 */ 	lui	$v0,0x8008
-/*  f1198ec:	03e00008 */ 	jr	$ra
-/*  f1198f0:	8c4286f8 */ 	lw	$v0,-0x7908($v0)
-);
+bool debug0f11ed70(void)
+{
+	return var800786f8nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f1198f4nb
-/*  f1198f4:	3c028008 */ 	lui	$v0,0x8008
-/*  f1198f8:	03e00008 */ 	jr	$ra
-/*  f1198fc:	8c4286fc */ 	lw	$v0,-0x7904($v0)
-);
+bool debug0f1198f4nb(void)
+{
+	return var800786fcnb;
+}
 
-GLOBAL_ASM(
-glabel debugEnablePropRendering
-/*  f119900:	3c028008 */ 	lui	$v0,0x8008
-/*  f119904:	03e00008 */ 	jr	$ra
-/*  f119908:	8c428700 */ 	lw	$v0,-0x7900($v0)
-);
+bool debugEnablePropRendering(void)
+{
+	return var80078700nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11990cnb
-/*  f11990c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119910:	03e00008 */ 	jr	$ra
-/*  f119914:	8c428708 */ 	lw	$v0,-0x78f8($v0)
-);
+bool debug0f11990cnb(void)
+{
+	return var80078708nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119918nb
-/*  f119918:	3c028008 */ 	lui	$v0,0x8008
-/*  f11991c:	03e00008 */ 	jr	$ra
-/*  f119920:	8c428730 */ 	lw	$v0,-0x78d0($v0)
-);
+bool debug0f119918nb(void)
+{
+	return var80078730nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119924nb
-/*  f119924:	3c018008 */ 	lui	$at,0x8008
-/*  f119928:	03e00008 */ 	jr	$ra
-/*  f11992c:	ac248730 */ 	sw	$a0,-0x78d0($at)
-);
+void debug0f119924nb(bool enabled)
+{
+	var80078730nb = enabled;
+}
 
-GLOBAL_ASM(
-glabel debug0f119930nb
-/*  f119930:	3c028008 */ 	lui	$v0,0x8008
-/*  f119934:	03e00008 */ 	jr	$ra
-/*  f119938:	8c428710 */ 	lw	$v0,-0x78f0($v0)
-);
+bool debug0f119930nb(void)
+{
+	return var80078710nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11993cnb
-/*  f11993c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119940:	03e00008 */ 	jr	$ra
-/*  f119944:	8c428714 */ 	lw	$v0,-0x78ec($v0)
-);
+bool debug0f11993cnb(void)
+{
+	return var80078714nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119948nb
-/*  f119948:	3c028008 */ 	lui	$v0,0x8008
-/*  f11994c:	03e00008 */ 	jr	$ra
-/*  f119950:	8c428718 */ 	lw	$v0,-0x78e8($v0)
-);
+bool debug0f119948nb(void)
+{
+	return var80078718nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119954nb
-/*  f119954:	3c028008 */ 	lui	$v0,0x8008
-/*  f119958:	03e00008 */ 	jr	$ra
-/*  f11995c:	8c42871c */ 	lw	$v0,-0x78e4($v0)
-);
+bool debug0f119954nb(void)
+{
+	return var8007871cnb;
+}
 
-GLOBAL_ASM(
-glabel debugIsRoomStateDebugEnabled
-/*  f119960:	3c028008 */ 	lui	$v0,0x8008
-/*  f119964:	03e00008 */ 	jr	$ra
-/*  f119968:	8c42870c */ 	lw	$v0,-0x78f4($v0)
-);
+bool debugIsRoomStateDebugEnabled(void)
+{
+	return var8007870cnb;
+}
 
 bool debugIsLineModeEnabled(void)
 {
 	return g_DebugLineMode;
 }
 
-GLOBAL_ASM(
-glabel debug0f119978nb
-/*  f119978:	3c018008 */ 	lui	$at,0x8008
-/*  f11997c:	03e00008 */ 	jr	$ra
-/*  f119980:	ac248720 */ 	sw	$a0,-0x78e0($at)
-);
+void debugSetLineModeEnabled(bool enabled)
+{
+	g_DebugLineMode = enabled;
+}
 
-GLOBAL_ASM(
-glabel debug0f119984nb
-/*  f119984:	3c028008 */ 	lui	$v0,0x8008
-/*  f119988:	03e00008 */ 	jr	$ra
-/*  f11998c:	8c428734 */ 	lw	$v0,-0x78cc($v0)
-);
+bool debug0f119984nb(void)
+{
+	return var80078734nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119990nb
-/*  f119990:	3c018008 */ 	lui	$at,0x8008
-/*  f119994:	03e00008 */ 	jr	$ra
-/*  f119998:	ac248734 */ 	sw	$a0,-0x78cc($at)
-);
+void debug0f119990nb(bool enabled)
+{
+	var80078734nb = enabled;
+}
 
-GLOBAL_ASM(
-glabel debugForceAllObjectivesComplete
-/*  f11999c:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199a0:	03e00008 */ 	jr	$ra
-/*  f1199a4:	8c428738 */ 	lw	$v0,-0x78c8($v0)
-);
+bool debugForceAllObjectivesComplete(void)
+{
+	return var80078738nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ee28
-/*  f1199a8:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199ac:	03e00008 */ 	jr	$ra
-/*  f1199b0:	8c42873c */ 	lw	$v0,-0x78c4($v0)
-);
+bool debug0f11ee28(void)
+{
+	return var8007873cnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ee30
-/*  f1199b4:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199b8:	03e00008 */ 	jr	$ra
-/*  f1199bc:	8c428744 */ 	lw	$v0,-0x78bc($v0)
-);
+bool debug0f11ee30(void)
+{
+	return var80078744nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ee38
-/*  f1199c0:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199c4:	03e00008 */ 	jr	$ra
-/*  f1199c8:	8c428750 */ 	lw	$v0,-0x78b0($v0)
-);
+bool debug0f11ee38(void)
+{
+	return var80078750nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ee40
-/*  f1199cc:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199d0:	03e00008 */ 	jr	$ra
-/*  f1199d4:	8c428754 */ 	lw	$v0,-0x78ac($v0)
-);
+bool debug0f11ee40(void)
+{
+	return var80078754nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f1199d8nb
-/*  f1199d8:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199dc:	03e00008 */ 	jr	$ra
-/*  f1199e0:	8c428758 */ 	lw	$v0,-0x78a8($v0)
-);
+bool debug0f1199d8nb(void)
+{
+	return var80078758nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f1199e4nb
-/*  f1199e4:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199e8:	03e00008 */ 	jr	$ra
-/*  f1199ec:	8c428740 */ 	lw	$v0,-0x78c0($v0)
-);
+bool debug0f1199e4nb(void)
+{
+	return var80078740nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f1199f0nb
-/*  f1199f0:	3c028008 */ 	lui	$v0,0x8008
-/*  f1199f4:	03e00008 */ 	jr	$ra
-/*  f1199f8:	8c428724 */ 	lw	$v0,-0x78dc($v0)
-);
+bool debug0f1199f0nb(void)
+{
+	return var80078724nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f1199fcnb
-/*  f1199fc:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a00:	03e00008 */ 	jr	$ra
-/*  f119a04:	8c428728 */ 	lw	$v0,-0x78d8($v0)
-);
+bool debug0f1199fcnb(void)
+{
+	return var80078728nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a08nb
-/*  f119a08:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a0c:	03e00008 */ 	jr	$ra
-/*  f119a10:	8c42872c */ 	lw	$v0,-0x78d4($v0)
-);
+bool debug0f119a08nb(void)
+{
+	return var8007872cnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a14nb
-/*  f119a14:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a18:	03e00008 */ 	jr	$ra
-/*  f119a1c:	8c428748 */ 	lw	$v0,-0x78b8($v0)
-);
+bool debug0f119a14nb(void)
+{
+	return var80078748nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a20nb
-/*  f119a20:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a24:	03e00008 */ 	jr	$ra
-/*  f119a28:	8c42874c */ 	lw	$v0,-0x78b4($v0)
-);
+bool debug0f119a20nb(void)
+{
+	return var8007874cnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a2cnb
-/*  f119a2c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a30:	03e00008 */ 	jr	$ra
-/*  f119a34:	8c42875c */ 	lw	$v0,-0x78a4($v0)
-);
+bool debug0f119a2cnb(void)
+{
+	return var8007875cnb;
+}
 
-GLOBAL_ASM(
-glabel debugGetSlowMotion
-/*  f119a38:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a3c:	03e00008 */ 	jr	$ra
-/*  f119a40:	8c428764 */ 	lw	$v0,-0x789c($v0)
-);
+u32 debugGetSlowMotion(void)
+{
+	return var80078764nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a44nb
-/*  f119a44:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a48:	03e00008 */ 	jr	$ra
-/*  f119a4c:	8c428768 */ 	lw	$v0,-0x7898($v0)
-);
+bool debug0f119a44nb(void)
+{
+	return var80078768nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a50nb
-/*  f119a50:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a54:	03e00008 */ 	jr	$ra
-/*  f119a58:	8c428760 */ 	lw	$v0,-0x78a0($v0)
-);
+bool debug0f119a50nb(void)
+{
+	return var80078760nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ee88
-/*  f119a5c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a60:	03e00008 */ 	jr	$ra
-/*  f119a64:	8c42876c */ 	lw	$v0,-0x7894($v0)
-);
+bool debug0f11ee88(void)
+{
+	return var8007876cnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ee90
-/*  f119a68:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a6c:	03e00008 */ 	jr	$ra
-/*  f119a70:	8c428770 */ 	lw	$v0,-0x7890($v0)
-);
+bool debug0f11ee90(void)
+{
+	return var80078770nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a74nb
-/*  f119a74:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a78:	03e00008 */ 	jr	$ra
-/*  f119a7c:	8c428774 */ 	lw	$v0,-0x788c($v0)
-);
+bool debug0f119a74nb(void)
+{
+	return var80078774nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a80nb
-/*  f119a80:	3c018008 */ 	lui	$at,0x8008
-/*  f119a84:	03e00008 */ 	jr	$ra
-/*  f119a88:	ac208774 */ 	sw	$zero,-0x788c($at)
-);
+void debug0f119a80nb(void)
+{
+	var80078774nb = 0;
+}
 
-GLOBAL_ASM(
-glabel debug0f119a8cnb
-/*  f119a8c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a90:	03e00008 */ 	jr	$ra
-/*  f119a94:	8c428778 */ 	lw	$v0,-0x7888($v0)
-);
+bool debug0f119a8cnb(void)
+{
+	return var80078778nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11eea8
-/*  f119a98:	3c028008 */ 	lui	$v0,0x8008
-/*  f119a9c:	03e00008 */ 	jr	$ra
-/*  f119aa0:	8c428780 */ 	lw	$v0,-0x7880($v0)
-);
+bool debug0f11eea8(void)
+{
+	return var80078780nb;
+}
 
 bool debug0f119aa4nb(void)
 {
 	return false;
 }
 
-GLOBAL_ASM(
-glabel debugDangerousProps
-/*  f119aac:	3c028008 */ 	lui	$v0,0x8008
-/*  f119ab0:	03e00008 */ 	jr	$ra
-/*  f119ab4:	8c4287ec */ 	lw	$v0,-0x7814($v0)
-);
+bool debugDangerousProps(void)
+{
+	return var800787ecnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119ab8nb
-/*  f119ab8:	3c028008 */ 	lui	$v0,0x8008
-/*  f119abc:	03e00008 */ 	jr	$ra
-/*  f119ac0:	8c4287d8 */ 	lw	$v0,-0x7828($v0)
-);
+bool debug0f119ab8nb(void)
+{
+	return var800787d8nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119ac4nb
-/*  f119ac4:	3c028008 */ 	lui	$v0,0x8008
-/*  f119ac8:	03e00008 */ 	jr	$ra
-/*  f119acc:	8c4287dc */ 	lw	$v0,-0x7824($v0)
-);
+bool debug0f119ac4nb(void)
+{
+	return var800787dcnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119ad0nb
-/*  f119ad0:	3c028008 */ 	lui	$v0,0x8008
-/*  f119ad4:	03e00008 */ 	jr	$ra
-/*  f119ad8:	8c42877c */ 	lw	$v0,-0x7884($v0)
-);
+bool debug0f119ad0nb(void)
+{
+	return var8007877cnb;
+}
 
-GLOBAL_ASM(
-glabel debugGetMotionBlur
-/*  f119adc:	3c028008 */ 	lui	$v0,0x8008
-/*  f119ae0:	03e00008 */ 	jr	$ra
-/*  f119ae4:	8c428784 */ 	lw	$v0,-0x787c($v0)
-);
+bool debugGetMotionBlur(void)
+{
+	return var80078784nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119ae8nb
-/*  f119ae8:	3c028008 */ 	lui	$v0,0x8008
-/*  f119aec:	03e00008 */ 	jr	$ra
-/*  f119af0:	8c428790 */ 	lw	$v0,-0x7870($v0)
-);
+bool debug0f119ae8nb(void)
+{
+	return var80078790nb;
+}
 
-GLOBAL_ASM(
-glabel dprint
-/*  f119af4:	3c028008 */ 	lui	$v0,0x8008
-/*  f119af8:	03e00008 */ 	jr	$ra
-/*  f119afc:	8c4287b8 */ 	lw	$v0,-0x7848($v0)
-);
+u32 dprint()
+{
+	return var800787b8nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b00nb
-/*  f119b00:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b04:	03e00008 */ 	jr	$ra
-/*  f119b08:	8c4287c0 */ 	lw	$v0,-0x7840($v0)
-);
+bool debug0f119b00nb(void)
+{
+	return var800787c0nb;
+}
 
-GLOBAL_ASM(
-glabel debugAllowEndLevel
-/*  f119b0c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b10:	03e00008 */ 	jr	$ra
-/*  f119b14:	8c4287c4 */ 	lw	$v0,-0x783c($v0)
-);
+bool debugAllowEndLevel(void)
+{
+	return var800787c4nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b18nb
-/*  f119b18:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b1c:	03e00008 */ 	jr	$ra
-/*  f119b20:	8c4287c8 */ 	lw	$v0,-0x7838($v0)
-);
+bool debug0f119b18nb(void)
+{
+	return var800787c8nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b24nb
-/*  f119b24:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b28:	03e00008 */ 	jr	$ra
-/*  f119b2c:	8c4287cc */ 	lw	$v0,-0x7834($v0)
-);
+bool debug0f119b24nb(void)
+{
+	return var800787ccnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b30nb
-/*  f119b30:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b34:	03e00008 */ 	jr	$ra
-/*  f119b38:	8c4287d0 */ 	lw	$v0,-0x7830($v0)
-);
+bool debug0f119b30nb(void)
+{
+	return var800787d0nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b3cnb
-/*  f119b3c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b40:	03e00008 */ 	jr	$ra
-/*  f119b44:	8c4287d4 */ 	lw	$v0,-0x782c($v0)
-);
+bool debug0f119b3cnb(void)
+{
+	return var800787d4nb;
+}
 
-GLOBAL_ASM(
-glabel debugEnableFootsteps
-/*  f119b48:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b4c:	03e00008 */ 	jr	$ra
-/*  f119b50:	8c428794 */ 	lw	$v0,-0x786c($v0)
-);
+bool debugEnableFootsteps(void)
+{
+	return var80078794nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b54nb
-/*  f119b54:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b58:	03e00008 */ 	jr	$ra
-/*  f119b5c:	8c428798 */ 	lw	$v0,-0x7868($v0)
-);
+bool debug0f119b54nb(void)
+{
+	return var80078798nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b60nb
-/*  f119b60:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b64:	03e00008 */ 	jr	$ra
-/*  f119b68:	8c42879c */ 	lw	$v0,-0x7864($v0)
-);
+bool debug0f119b60nb(void)
+{
+	return var8007879cnb;
+}
 
-GLOBAL_ASM(
-glabel debugAllFrWeapons
-/*  f119b6c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b70:	03e00008 */ 	jr	$ra
-/*  f119b74:	8c4287a0 */ 	lw	$v0,-0x7860($v0)
-);
+bool debugAllFrWeapons(void)
+{
+	return var800787a0nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b78nb
-/*  f119b78:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b7c:	03e00008 */ 	jr	$ra
-/*  f119b80:	8c4287a4 */ 	lw	$v0,-0x785c($v0)
-);
+bool debug0f119b78nb(void)
+{
+	return var800787a4nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119b84nb
-/*  f119b84:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b88:	03e00008 */ 	jr	$ra
-/*  f119b8c:	8c4287a8 */ 	lw	$v0,-0x7858($v0)
-);
+bool debug0f119b84nb(void)
+{
+	return var800787a8nb;
+}
 
 bool debugIsMemInfoEnabled(void)
 {
 	return g_DebugMemInfo;
 }
 
-GLOBAL_ASM(
-glabel debug0f119b9cnb
-/*  f119b9c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119ba0:	03e00008 */ 	jr	$ra
-/*  f119ba4:	8c4287b0 */ 	lw	$v0,-0x7850($v0)
-);
+bool debug0f119b9cnb(void)
+{
+	return var800787b0nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119ba8nb
-/*  f119ba8:	3c028008 */ 	lui	$v0,0x8008
-/*  f119bac:	03e00008 */ 	jr	$ra
-/*  f119bb0:	8c4287bc */ 	lw	$v0,-0x7844($v0)
-);
+bool debug0f119ba8nb(void)
+{
+	return var800787bcnb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ef78
-/*  f119bb4:	3c028008 */ 	lui	$v0,0x8008
-/*  f119bb8:	03e00008 */ 	jr	$ra
-/*  f119bbc:	8c4287e4 */ 	lw	$v0,-0x781c($v0)
-);
+bool debug0f11ef78(void)
+{
+	return var800787e4nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f11ef80
-/*  f119bc0:	3c028008 */ 	lui	$v0,0x8008
-/*  f119bc4:	03e00008 */ 	jr	$ra
-/*  f119bc8:	8c4287e8 */ 	lw	$v0,-0x7818($v0)
-);
+bool debug0f11ef80(void)
+{
+	return var800787e8nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119bccnb
-/*  f119bcc:	3c028008 */ 	lui	$v0,0x8008
-/*  f119bd0:	03e00008 */ 	jr	$ra
-/*  f119bd4:	8c4287e0 */ 	lw	$v0,-0x7820($v0)
-);
+bool debug0f119bccnb(void)
+{
+	return var800787e0nb;
+}
 
-GLOBAL_ASM(
-glabel debug0f119bd8nb
-/*  f119bd8:	3c028008 */ 	lui	$v0,0x8008
-/*  f119bdc:	03e00008 */ 	jr	$ra
-/*  f119be0:	8c4287f0 */ 	lw	$v0,-0x7810($v0)
-);
+bool debug0f119bd8nb(void)
+{
+	return var800787f0nb;
+}
