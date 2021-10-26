@@ -323,7 +323,7 @@ u32 var8007879cnb = 0x00000000;
 u32 var800787a0nb = 0x00000000;
 u32 var800787a4nb = 0x00000000;
 u32 var800787a8nb = 0x00000000;
-u32 g_DebugMemInfo = false;
+bool g_DebugMemInfo = false;
 u32 var800787b0nb = 0x00000000;
 u32 var800787b4nb = 0x00000000;
 u32 var800787b8nb = 0x00000000;
@@ -1425,12 +1425,10 @@ glabel debug0f119b84nb
 /*  f119b8c:	8c4287a8 */ 	lw	$v0,-0x7858($v0)
 );
 
-GLOBAL_ASM(
-glabel debugIsMemInfoEnabled
-/*  f119b90:	3c028008 */ 	lui	$v0,0x8008
-/*  f119b94:	03e00008 */ 	jr	$ra
-/*  f119b98:	8c4287ac */ 	lw	$v0,-0x7854($v0)
-);
+bool debugIsMemInfoEnabled(void)
+{
+	return g_DebugMemInfo;
+}
 
 GLOBAL_ASM(
 glabel debug0f119b9cnb
