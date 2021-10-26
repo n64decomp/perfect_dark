@@ -1107,12 +1107,10 @@ glabel debugIsRoomStateDebugEnabled
 /*  f119968:	8c42870c */ 	lw	$v0,-0x78f4($v0)
 );
 
-GLOBAL_ASM(
-glabel debugIsLineModeEnabled
-/*  f11996c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119970:	03e00008 */ 	jr	$ra
-/*  f119974:	8c428720 */ 	lw	$v0,-0x78e0($v0)
-);
+bool debugIsLineModeEnabled(void)
+{
+	return g_DebugLineMode;
+}
 
 GLOBAL_ASM(
 glabel debug0f119978nb
