@@ -288,7 +288,7 @@ u32 var80078710nb = 0x00000000;
 u32 var80078714nb = 0x00000000;
 u32 var80078718nb = 0x00000000;
 u32 var8007871cnb = 0x00000000;
-u32 var80078720nb = 0x00000000;
+bool g_DebugLineMode = false;
 u32 var80078724nb = 0x00000000;
 u32 var80078728nb = 0x00000000;
 u32 var8007872cnb = 0x00000000;
@@ -323,7 +323,7 @@ u32 var8007879cnb = 0x00000000;
 u32 var800787a0nb = 0x00000000;
 u32 var800787a4nb = 0x00000000;
 u32 var800787a8nb = 0x00000000;
-u32 var800787acnb = 0x00000000;
+u32 g_DebugMemInfo = false;
 u32 var800787b0nb = 0x00000000;
 u32 var800787b4nb = 0x00000000;
 u32 var800787b8nb = 0x00000000;
@@ -381,7 +381,7 @@ const char var7f1af378nb[] = "main";
 const char var7f1af380nb[] = "scene %d";
 
 GLOBAL_ASM(
-glabel debug0f119270nb
+glabel debugTick
 /*  f119270:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f119274:	3c028008 */ 	lui	$v0,0x8008
 /*  f119278:	8c4286dc */ 	lw	$v0,-0x7924($v0)
@@ -725,7 +725,7 @@ glabel var7f1af4ecnb
 /*  f119474:	afa40030 */ 	sw	$a0,0x30($sp)
 /*  f119478:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f11947c:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f119480:	0fc4649c */ 	jal	debug0f119270nb
+/*  f119480:	0fc4649c */ 	jal	debugTick
 /*  f119484:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f119488:	3c048008 */ 	lui	$a0,0x8008
 /*  f11948c:	24848814 */ 	addiu	$a0,$a0,-30700
@@ -847,7 +847,7 @@ glabel var7f1af4ecnb
 /*  f119638:	3c018008 */ 	lui	$at,0x8008
 /*  f11963c:	0c0050b5 */ 	jal	func000142d4nb
 /*  f119640:	ac2086dc */ 	sw	$zero,-0x7924($at)
-/*  f119644:	0fc4649c */ 	jal	debug0f119270nb
+/*  f119644:	0fc4649c */ 	jal	debugTick
 /*  f119648:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f11964c:	10000092 */ 	beqz	$zero,.NB0f119898
 /*  f119650:	8faf001c */ 	lw	$t7,0x1c($sp)
@@ -1031,7 +1031,7 @@ glabel var7f1af4ecnb
 );
 
 GLOBAL_ASM(
-glabel debug0f1198e8nb
+glabel debug0f11ed70
 /*  f1198e8:	3c028008 */ 	lui	$v0,0x8008
 /*  f1198ec:	03e00008 */ 	jr	$ra
 /*  f1198f0:	8c4286f8 */ 	lw	$v0,-0x7908($v0)
@@ -1108,7 +1108,7 @@ glabel debugIsRoomStateDebugEnabled
 );
 
 GLOBAL_ASM(
-glabel debug0f11996cnb
+glabel debugIsLineModeEnabled
 /*  f11996c:	3c028008 */ 	lui	$v0,0x8008
 /*  f119970:	03e00008 */ 	jr	$ra
 /*  f119974:	8c428720 */ 	lw	$v0,-0x78e0($v0)
@@ -1428,7 +1428,7 @@ glabel debug0f119b84nb
 );
 
 GLOBAL_ASM(
-glabel debug0f119b90nb
+glabel debugIsMemInfoEnabled
 /*  f119b90:	3c028008 */ 	lui	$v0,0x8008
 /*  f119b94:	03e00008 */ 	jr	$ra
 /*  f119b98:	8c4287ac */ 	lw	$v0,-0x7854($v0)

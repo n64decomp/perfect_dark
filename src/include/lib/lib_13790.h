@@ -6,5 +6,7 @@
 
 void func00013790(void);
 void func00013798(void);
+void func000142d4nb(void);
+Gfx *func00013814(Gfx *gdl);
 
 #endif

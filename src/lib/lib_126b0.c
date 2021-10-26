@@ -356,7 +356,7 @@ glabel func00012a14
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00012a8c
+glabel memPrintInfoIfEnabled
 /*    12a8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    12a90:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12a94:	3c04800a */ 	lui	$a0,%hi(var80099478)
@@ -369,14 +369,14 @@ glabel func00012a8c
 );
 #else
 GLOBAL_ASM(
-glabel func00012a8c
+glabel memPrintInfoIfEnabled
 /*    13028:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*    1302c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    13030:	3c04800a */ 	lui	$a0,0x800a
 /*    13034:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    13038:	0c004b24 */ 	jal	func000126f0
 /*    1303c:	2484c3f8 */ 	addiu	$a0,$a0,-15368
-/*    13040:	0fc466e4 */ 	jal	debug0f119b90nb
+/*    13040:	0fc466e4 */ 	jal	debugIsMemInfoEnabled
 /*    13044:	00000000 */ 	sll	$zero,$zero,0x0
 /*    13048:	104000b1 */ 	beqz	$v0,.NB00013310
 /*    1304c:	240400ff */ 	addiu	$a0,$zero,0xff

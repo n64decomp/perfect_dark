@@ -26,4 +26,11 @@ bool debugAllowEndLevel(void);
 bool debug0f11ef78(void);
 bool debug0f11ef80(void);
 
+Gfx *debugRender(Gfx *gdl);
+void debugTick(void);
+s32 debug0f11946cnb(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe);
+bool debugIsLineModeEnabled(void);
+
+extern u32 var800786f4nb;
+
 #endif

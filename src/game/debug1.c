@@ -62,7 +62,7 @@ glabel debug0f118c94nb
 );
 
 GLOBAL_ASM(
-glabel debug0f118cf4nb
+glabel debugRender
 /*  f118cf4:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f118cf8:	3c038008 */ 	lui	$v1,0x8008
 /*  f118cfc:	8c638138 */ 	lw	$v1,-0x7ec8($v1)

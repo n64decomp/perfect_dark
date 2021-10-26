@@ -1698,15 +1698,6 @@ s32 g_MainChangeToStageNum = -1;
 u32 var8005dd58 = 0x00000000;
 
 #if VERSION < VERSION_NTSC_1_0
-u32 var8005f670nb[] = {
-	0x00020000, 0x00000000, 0x00000000, 0x00000000,
-	0x00000000, 0x00000000, 0x00000000, 0x00000000,
-	0x00020000, 0x00000000, 0x00000000, 0x00000000,
-	0x00000000, 0x00000000, 0x00000000, 0x00000000,
-};
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
 glabel func0000e000nb
 /*     e000:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -2013,6 +2004,11 @@ const char mainrodata07[] = "-anti";
 const char mainrodata08[] = "-mpbots";
 const char mainrodata09[] = "-play";
 const char mainrodata10[] = "boss.c default: %08x type %d\n";
+
+u32 var8005f670nb[] = {
+	0x00020000, 0x00000000, 0x00000000, 0x00000000,
+	0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
 
 GLOBAL_ASM(
 glabel mainLoop
@@ -2669,7 +2665,7 @@ void mainTick(void)
 
 		rdpCreateTask(gdlstart, gdl, 0, &msg);
 		g_MainNumGfxTasks++;
-		func00012a8c();
+		memPrintInfoIfEnabled();
 		func0f16cf94();
 		profileSetMarker(PROFILE_MAINTICK_END);
 	}
@@ -2926,7 +2922,7 @@ glabel mainTick
 /*     ec84:	afa20094 */ 	sw	$v0,0x94($sp)
 /*     ec88:	0c000dc0 */ 	jal	func000034e0
 /*     ec8c:	27a40094 */ 	addiu	$a0,$sp,0x94
-/*     ec90:	0fc4665b */ 	jal	debug0f11996cnb
+/*     ec90:	0fc4665b */ 	jal	debugIsLineModeEnabled
 /*     ec94:	00000000 */ 	sll	$zero,$zero,0x0
 /*     ec98:	1040003e */ 	beqz	$v0,.NB0000ed94
 /*     ec9c:	2407ffff */ 	addiu	$a3,$zero,-1
@@ -2996,7 +2992,7 @@ glabel mainTick
 /*     ed98:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*     ed9c:	0c0050b5 */ 	jal	func000142d4nb
 /*     eda0:	afa20094 */ 	sw	$v0,0x94($sp)
-/*     eda4:	0fc4663a */ 	jal	debug0f1198e8nb
+/*     eda4:	0fc4663a */ 	jal	debug0f11ed70
 /*     eda8:	00000000 */ 	sll	$zero,$zero,0x0
 /*     edac:	28410002 */ 	slti	$at,$v0,0x2
 /*     edb0:	14200004 */ 	bnez	$at,.NB0000edc4
@@ -3009,9 +3005,9 @@ glabel mainTick
 /*     edc8:	8d6bf678 */ 	lw	$t3,-0x988($t3)
 /*     edcc:	51600007 */ 	beqzl	$t3,.NB0000edec
 /*     edd0:	8fac0094 */ 	lw	$t4,0x94($sp)
-/*     edd4:	0fc4649c */ 	jal	debug0f119270nb
+/*     edd4:	0fc4649c */ 	jal	debugTick
 /*     edd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     eddc:	0fc4633d */ 	jal	debug0f118cf4nb
+/*     eddc:	0fc4633d */ 	jal	debugRender
 /*     ede0:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*     ede4:	afa20094 */ 	sw	$v0,0x94($sp)
 /*     ede8:	8fac0094 */ 	lw	$t4,0x94($sp)
@@ -3046,7 +3042,7 @@ glabel mainTick
 /*     ee50:	2442f2ec */ 	addiu	$v0,$v0,-3348
 /*     ee54:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*     ee58:	25c90001 */ 	addiu	$t1,$t6,0x1
-/*     ee5c:	0c004c0a */ 	jal	func00012a8c
+/*     ee5c:	0c004c0a */ 	jal	memPrintInfoIfEnabled
 /*     ee60:	ac490000 */ 	sw	$t1,0x0($v0)
 /*     ee64:	0fc59f51 */ 	jal	func0f16cf94
 /*     ee68:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3059,6 +3055,118 @@ glabel mainTick
 /*     ee80:	03e00008 */ 	jr	$ra
 /*     ee84:	27bd0098 */ 	addiu	$sp,$sp,0x98
 );
+
+u32 var8005f690nb[] = {
+	0x00020000, 0x00000000, 0x00000000, 0x00000000,
+	0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
+
+// Mismatch: sticky needs to be stored much lower in the stack.
+// Stack is used by line mode GBI macros
+//void mainTick(void)
+//{
+//	Gfx *gdl;
+//	Gfx *gdlstart;
+//	OSScMsg msg = {OS_SC_DONE_MSG};
+//	s32 i;
+//	s8 stickx;
+//	s8 sticky;
+//	u16 buttons;
+//	u16 buttonsthisframe;
+//
+//	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < 2) {
+//		frametimeCalculate();
+//		profile00009a98();
+//		profile00009a90();
+//		profileSetMarker(PROFILE_MAINTICK_START);
+//		func000034d8();
+//		joyDebugJoy();
+//		schedSetCrashEnable2(false);
+//
+//		if (g_MainGameLogicEnabled) {
+//			gdl = gdlstart = gfxGetMasterDisplayList();
+//
+//			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+//			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+//
+//			// If menu is open (?) or player has pressed C down + C up
+//			if (var8005dd58 || joyGetButtons(0, U_CBUTTONS | D_CBUTTONS) == (U_CBUTTONS | D_CBUTTONS)) {
+//				stickx = joyGetStickX(0);
+//				sticky = joyGetStickY(0);
+//				buttons = joyGetButtons(0, 0xffff);
+//				buttonsthisframe = joyGetButtonsPressedThisFrame(0, 0xffff);
+//
+//				var8005dd58 = debug0f11946cnb(stickx, sticky, buttons, buttonsthisframe);
+//			} else if (joyGetButtons(0, START_BUTTON) == 0) {
+//				var80075d68 = var800786f4nb;
+//			} else {
+//				stickx = joyGetStickX(0);
+//				sticky = joyGetStickY(0);
+//				buttons = joyGetButtons(0, 0xffff);
+//				buttonsthisframe = joyGetButtonsPressedThisFrame(0, 0xffff);
+//
+//				var8005dd58 = debug0f11946cnb(stickx, sticky, buttons, buttonsthisframe);
+//			}
+//
+//			lvTick();
+//			randomisePlayerOrder();
+//
+//			if (g_StageNum < STAGE_TITLE) {
+//				for (i = 0; i < PLAYERCOUNT(); i++) {
+//					setCurrentPlayerNum(getPlayerByOrderNum(i));
+//
+//					if (g_StageNum != STAGE_TEST_OLD || !titleIsKeepingMode()) {
+//						viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+//						viSetFovAspectAndSize(
+//								g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
+//								g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
+//					}
+//
+//					lvRecordDistanceMoved();
+//				}
+//			}
+//
+//			gdl = lvRender(gdl);
+//			func000034e0(&gdl);
+//
+//			if (debugIsLineModeEnabled()) {
+//				gDPPipeSync(gdl++);
+//				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
+//				gDPSetBlendColor(gdl++, 0xff, 0xff, 0xff, 0xff);
+//				gDPSetPrimDepth(gdl++, 0xffff, 0xffff);
+//				gDPSetDepthSource(gdl++, G_ZS_PRIM);
+//				gDPSetRenderMode(gdl++, G_RM_VISCVG, G_RM_VISCVG2);
+//				gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, viGetHeight() - 1);
+//			}
+//
+//			gdl = func00013814(gdl);
+//			func000142d4nb();
+//
+//			if (debug0f11ed70() >= 2) {
+//				gdl = profileRender(gdl);
+//			}
+//
+//			if (var8005dd58) {
+//				debugTick();
+//				gdl = debugRender(gdl);
+//			}
+//
+//			gDPFullSync(gdl++);
+//			gSPEndDisplayList(gdl++);
+//		}
+//
+//		if (g_MainGameLogicEnabled) {
+//			gfxSwapBuffers();
+//			viUpdateMode();
+//		}
+//
+//		rdpCreateTask(gdlstart, gdl, 0, &msg);
+//		g_MainNumGfxTasks++;
+//		memPrintInfoIfEnabled();
+//		func0f16cf94();
+//		profileSetMarker(PROFILE_MAINTICK_END);
+//	}
+//}
 #endif
 
 void mainEndStage(void)
