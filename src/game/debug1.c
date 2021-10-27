@@ -78,12 +78,10 @@ s32 dmenuGetSelectedOption(void)
 	return g_DMenuSelectedOption;
 }
 
-GLOBAL_ASM(
-glabel dmenuSetSelectedOption
-/*  f118f7c:	3c018008 */ 	lui	$at,0x8008
-/*  f118f80:	03e00008 */ 	jr	$ra
-/*  f118f84:	ac248120 */ 	sw	$a0,-0x7ee0($at)
-);
+void dmenuSetSelectedOption(s32 option)
+{
+	g_DMenuSelectedOption = option;
+}
 
 GLOBAL_ASM(
 glabel dmenuNavigateUp
