@@ -12,21 +12,19 @@ char **g_DMenuCurLabels = NULL;
 s32 (*g_DMenuCurPositions)[2] = NULL;
 s32 g_DmenuNumGroups = 0;
 s32 *g_DMenuCurOffsets = NULL;
-u32 var80078138nb = 2;
-u8 var8007813cnb[] = { 4, 4, 4 };
-u8 var80078140nb[] = { 7, 7, 7 };
+u32 g_DMenuScaleIndex = 2;
+u8 g_DMenuXScales[] = { 4, 4, 4 };
+u8 g_DMenuYScales[] = { 7, 7, 7 };
 
 void dmenu0f118c80nb(void)
 {
 	// empty
 }
 
-GLOBAL_ASM(
-glabel dmenuSetScaleIndex
-/*  f118c88:	3c018008 */ 	lui	$at,0x8008
-/*  f118c8c:	03e00008 */ 	jr	$ra
-/*  f118c90:	ac248138 */ 	sw	$a0,-0x7ec8($at)
-);
+void dmenuSetScaleIndex(s32 index)
+{
+	g_DMenuScaleIndex = index;
+}
 
 void dmenuSetMenu(char **labels, s32 (*positions)[2], s32 *offsets)
 {
@@ -44,8 +42,8 @@ void dmenuSetMenu(char **labels, s32 (*positions)[2], s32 *offsets)
 
 Gfx *dmenuRender(Gfx *gdl)
 {
-	s32 xscale = var8007813cnb[var80078138nb];
-	s32 yscale = var80078140nb[var80078138nb];
+	s32 xscale = g_DMenuXScales[g_DMenuScaleIndex];
+	s32 yscale = g_DMenuYScales[g_DMenuScaleIndex];
 	s32 i;
 
 	gDPSetTextureLUT(gdl++, G_TT_NONE);
