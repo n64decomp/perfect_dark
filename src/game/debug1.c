@@ -10,9 +10,8 @@ s32 g_DMenuSelectedOption = 0;
 s32 g_DMenuNumOptions = 0;
 char **g_DMenuCurLabels = NULL;
 s32 (*g_DMenuCurPositions)[2] = NULL;
-
-u32 var80078130nb = 0;
-u32 var80078134nb = 0;
+s32 g_DmenuNumGroups = 0;
+s32 *g_DMenuCurOffsets = NULL;
 u32 var80078138nb = 2;
 u8 var8007813cnb[] = { 4, 4, 4 };
 u8 var80078140nb[] = { 7, 7, 7 };
@@ -29,35 +28,19 @@ glabel dmenuSetScaleIndex
 /*  f118c90:	ac248138 */ 	sw	$a0,-0x7ec8($at)
 );
 
-GLOBAL_ASM(
-glabel dmenuSetMenu
-/*  f118c94:	3c018008 */ 	lui	$at,0x8008
-/*  f118c98:	ac248128 */ 	sw	$a0,-0x7ed8($at)
-/*  f118c9c:	3c018008 */ 	lui	$at,0x8008
-/*  f118ca0:	ac25812c */ 	sw	$a1,-0x7ed4($at)
-/*  f118ca4:	3c018008 */ 	lui	$at,0x8008
-/*  f118ca8:	ac268134 */ 	sw	$a2,-0x7ecc($at)
-/*  f118cac:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f118cb0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f118cb4:	00c01825 */ 	or	$v1,$a2,$zero
-/*  f118cb8:	05c20007 */ 	bltzl	$t6,.NB0f118cd8
-/*  f118cbc:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f118cc0:	8c6f0004 */ 	lw	$t7,0x4($v1)
-.NB0f118cc4:
-/*  f118cc4:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f118cc8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f118ccc:	05e3fffd */ 	bgezl	$t7,.NB0f118cc4
-/*  f118cd0:	8c6f0004 */ 	lw	$t7,0x4($v1)
-/*  f118cd4:	0002c080 */ 	sll	$t8,$v0,0x2
-.NB0f118cd8:
-/*  f118cd8:	00d8c821 */ 	addu	$t9,$a2,$t8
-/*  f118cdc:	8f28fffc */ 	lw	$t0,-0x4($t9)
-/*  f118ce0:	3c018008 */ 	lui	$at,0x8008
-/*  f118ce4:	ac288124 */ 	sw	$t0,-0x7edc($at)
-/*  f118ce8:	3c018008 */ 	lui	$at,0x8008
-/*  f118cec:	03e00008 */ 	jr	$ra
-/*  f118cf0:	ac228130 */ 	sw	$v0,-0x7ed0($at)
-);
+void dmenuSetMenu(char **labels, s32 (*positions)[2], s32 *offsets)
+{
+	s32 numgroups;
+
+	g_DMenuCurLabels = labels;
+	g_DMenuCurPositions = positions;
+	g_DMenuCurOffsets = offsets;
+
+	for (numgroups = 0; offsets[numgroups] >= 0; numgroups++);
+
+	g_DMenuNumOptions = offsets[numgroups - 1];
+	g_DmenuNumGroups = numgroups;
+}
 
 Gfx *dmenuRender(Gfx *gdl)
 {
