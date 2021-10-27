@@ -10,7 +10,7 @@ s32 g_DMenuSelectedOption = 0;
 s32 g_DMenuNumOptions = 0;
 char **g_DMenuCurLabels = NULL;
 s32 (*g_DMenuCurPositions)[2] = NULL;
-s32 g_DmenuNumGroups = 0;
+s32 g_DMenuNumGroups = 0;
 s32 *g_DMenuCurOffsets = NULL;
 u32 g_DMenuScaleIndex = 2;
 u8 g_DMenuXScales[] = { 4, 4, 4 };
@@ -37,7 +37,7 @@ void dmenuSetMenu(char **labels, s32 (*positions)[2], s32 *offsets)
 	for (numgroups = 0; offsets[numgroups] >= 0; numgroups++);
 
 	g_DMenuNumOptions = offsets[numgroups - 1];
-	g_DmenuNumGroups = numgroups;
+	g_DMenuNumGroups = numgroups;
 }
 
 Gfx *dmenuRender(Gfx *gdl)
@@ -83,45 +83,28 @@ void dmenuSetSelectedOption(s32 option)
 	g_DMenuSelectedOption = option;
 }
 
-GLOBAL_ASM(
-glabel dmenuNavigateUp
-/*  f118f88:	3c068008 */ 	lui	$a2,0x8008
-/*  f118f8c:	24c68120 */ 	addiu	$a2,$a2,-32480
-/*  f118f90:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f118f94:	3c188008 */ 	lui	$t8,0x8008
-/*  f118f98:	3c048008 */ 	lui	$a0,0x8008
-/*  f118f9c:	25c2ffff */ 	addiu	$v0,$t6,-1
-/*  f118fa0:	04410006 */ 	bgez	$v0,.NB0f118fbc
-/*  f118fa4:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f118fa8:	8f188134 */ 	lw	$t8,-0x7ecc($t8)
-/*  f118fac:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f118fb0:	2728ffff */ 	addiu	$t0,$t9,-1
-/*  f118fb4:	03e00008 */ 	jr	$ra
-/*  f118fb8:	acc80000 */ 	sw	$t0,0x0($a2)
-.NB0f118fbc:
-/*  f118fbc:	8c848130 */ 	lw	$a0,-0x7ed0($a0)
-/*  f118fc0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f118fc4:	3c058008 */ 	lui	$a1,0x8008
-/*  f118fc8:	1880000d */ 	blez	$a0,.NB0f119000
-/*  f118fcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f118fd0:	8ca58134 */ 	lw	$a1,-0x7ecc($a1)
-.NB0f118fd4:
-/*  f118fd4:	8caa0000 */ 	lw	$t2,0x0($a1)
-/*  f118fd8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f118fdc:	24490001 */ 	addiu	$t1,$v0,0x1
-/*  f118fe0:	152a0005 */ 	bne	$t1,$t2,.NB0f118ff8
-/*  f118fe4:	0064082a */ 	slt	$at,$v1,$a0
-/*  f118fe8:	8cab0004 */ 	lw	$t3,0x4($a1)
-/*  f118fec:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f118ff0:	03e00008 */ 	jr	$ra
-/*  f118ff4:	accc0000 */ 	sw	$t4,0x0($a2)
-.NB0f118ff8:
-/*  f118ff8:	1420fff6 */ 	bnez	$at,.NB0f118fd4
-/*  f118ffc:	24a50004 */ 	addiu	$a1,$a1,0x4
-.NB0f119000:
-/*  f119000:	03e00008 */ 	jr	$ra
-/*  f119004:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dmenuNavigateUp(void)
+{
+	s32 i;
+
+	g_DMenuSelectedOption--;
+
+	// If at the top of the first group, wrap to the bottom of the group.
+	// This must be treated differently to the other groups because the first
+	// group's offset is omitted from the offsets array.
+	if (g_DMenuSelectedOption < 0) {
+		g_DMenuSelectedOption = g_DMenuCurOffsets[0] - 1;
+		return;
+	}
+
+	// If at the top of any other group, wrap to the bottom of that group.
+	for (i = 0; i < g_DMenuNumGroups; i++) {
+		if (g_DMenuSelectedOption == g_DMenuCurOffsets[i] - 1) {
+			g_DMenuSelectedOption = g_DMenuCurOffsets[i + 1] - 1;
+			return;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel dmenuNavigateDown
