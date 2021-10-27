@@ -106,43 +106,28 @@ void dmenuNavigateUp(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel dmenuNavigateDown
-/*  f119008:	3c078008 */ 	lui	$a3,0x8008
-/*  f11900c:	24e78120 */ 	addiu	$a3,$a3,-32480
-/*  f119010:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f119014:	3c038008 */ 	lui	$v1,0x8008
-/*  f119018:	3c058008 */ 	lui	$a1,0x8008
-/*  f11901c:	25c20001 */ 	addiu	$v0,$t6,0x1
-/*  f119020:	ace20000 */ 	sw	$v0,0x0($a3)
-/*  f119024:	8c638134 */ 	lw	$v1,-0x7ecc($v1)
-/*  f119028:	8c780000 */ 	lw	$t8,0x0($v1)
-/*  f11902c:	14580003 */ 	bne	$v0,$t8,.NB0f11903c
-/*  f119030:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119034:	03e00008 */ 	jr	$ra
-/*  f119038:	ace00000 */ 	sw	$zero,0x0($a3)
-.NB0f11903c:
-/*  f11903c:	8ca58130 */ 	lw	$a1,-0x7ed0($a1)
-/*  f119040:	00002025 */ 	or	$a0,$zero,$zero
-/*  f119044:	00603025 */ 	or	$a2,$v1,$zero
-/*  f119048:	18a0000b */ 	blez	$a1,.NB0f119078
-/*  f11904c:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f119050:
-/*  f119050:	8cd90000 */ 	lw	$t9,0x0($a2)
-/*  f119054:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f119058:	0085082a */ 	slt	$at,$a0,$a1
-/*  f11905c:	14590004 */ 	bne	$v0,$t9,.NB0f119070
-/*  f119060:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119064:	8cc8fffc */ 	lw	$t0,-0x4($a2)
-/*  f119068:	03e00008 */ 	jr	$ra
-/*  f11906c:	ace80000 */ 	sw	$t0,0x0($a3)
-.NB0f119070:
-/*  f119070:	1420fff7 */ 	bnez	$at,.NB0f119050
-/*  f119074:	24c60004 */ 	addiu	$a2,$a2,0x4
-.NB0f119078:
-/*  f119078:	03e00008 */ 	jr	$ra
-/*  f11907c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dmenuNavigateDown(void)
+{
+	s32 i;
+
+	g_DMenuSelectedOption++;
+
+	// If at the bottom of the first group, wrap to the top of the group.
+	// This must be treated differently to the other groups because the first
+	// group's offset is omitted from the offsets array.
+	if (g_DMenuSelectedOption == g_DMenuCurOffsets[0]) {
+		g_DMenuSelectedOption = 0;
+		return;
+	}
+
+	// If at the bottom of any other group, wrap to the top of that group.
+	for (i = 0; i < g_DMenuNumGroups; i++) {
+		if (g_DMenuSelectedOption == g_DMenuCurOffsets[i]) {
+			g_DMenuSelectedOption = g_DMenuCurOffsets[i - 1];
+			return;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel dmenuNavigateRight
