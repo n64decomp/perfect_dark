@@ -457,17 +457,10 @@ void debug0f11941cnb(void)
 	rmon0002fa38(250);
 }
 
-GLOBAL_ASM(
-glabel debug0f11944cnb
-/*  f11944c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f119450:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f119454:	0c00c464 */ 	jal	rmon0002fa40
-/*  f119458:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11945c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f119460:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f119464:	03e00008 */ 	jr	$ra
-/*  f119468:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void debug0f11944cnb(void)
+{
+	rmon0002fa40();
+}
 
 bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 {
