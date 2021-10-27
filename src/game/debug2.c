@@ -430,22 +430,10 @@ void debugUpdateMenu(void)
 	dmenuSetSelectedOption(g_DebugSelectedOptionsByMenu[g_DebugCurMenu]);
 }
 
-GLOBAL_ASM(
-glabel debug0f1193b0nb
-/*  f1193b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1193b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1193b8:	0fc463dc */ 	jal	dmenuGetSelectedOption
-/*  f1193bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1193c0:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f1193c4:	8dce86dc */ 	lw	$t6,-0x7924($t6)
-/*  f1193c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1193cc:	3c018008 */ 	lui	$at,0x8008
-/*  f1193d0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f1193d4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f1193d8:	ac2286e0 */ 	sw	$v0,-0x7920($at)
-/*  f1193dc:	03e00008 */ 	jr	$ra
-/*  f1193e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void debugSaveSelectedOption(void)
+{
+	g_DebugSelectedOptionsByMenu[g_DebugCurMenu] = dmenuGetSelectedOption();
+}
 
 void debug0f1193e4nb(void)
 {
@@ -644,7 +632,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 		g_DebugIsMenuOpen = false;
 	}
 
-	debug0f1193b0nb();
+	debugSaveSelectedOption();
 
 	return g_DebugIsMenuOpen;
 }
