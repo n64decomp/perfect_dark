@@ -24,7 +24,7 @@
 #define DEBUGOPT_ALLBUDDIES    94
 #define DEBUGOPT_MANPOS        101
 
-s32 var80078150nb[] = {
+s32 g_DebugMenuOffsets[] = {
 	15,
 	30,
 	45,
@@ -273,26 +273,29 @@ char *g_DebugMenuLabels[] = {
 	"-",
 };
 
-s32 var80078684nb[] = {
+s32 g_DebugCutsceneOffsets[] = {
 	0, -1,
 };
 
-u32 var8007868cnb[] = {
-	8, 2,
-	8, 3,
-	8, 4,
-	8, 5,
-	8, 6,
-	8, 7,
-	8, 8,
-	8, 9,
-	8, 10,
-	8, 11,
+s32 g_DebugCutscenePositions[][2] = {
+	{ 8, 2  },
+	{ 8, 3  },
+	{ 8, 4  },
+	{ 8, 5  },
+	{ 8, 6  },
+	{ 8, 7  },
+	{ 8, 8  },
+	{ 8, 9  },
+	{ 8, 10 },
+	{ 8, 11 },
 };
 
+char *g_DebugCutsceneLabelPtrs[10];
+char g_DebugCutsceneLabelBuffers[10][20];
+u32 var800a7950nb;
+
 s32 g_DebugCurMenu = DEBUGMENU_MAIN;
-s32 var800786e0nb = 0;
-s32 var800786e4nb = 0;
+s32 g_DebugSelectedOptionsByMenu[2] = {0, 0};
 s32 var80075d60 = 2;
 s32 var80075d64 = 2;
 s32 var80075d68 = 2;
@@ -396,97 +399,36 @@ u32 var80078870nb = 0;
 u32 var80078874nb = 0;
 u32 var80078878nb = 0x3f800000;
 
-const char var7f1af378nb[] = "main";
-const char var7f1af380nb[] = "scene %d";
+void debugUpdateMenu(void)
+{
+	s32 i;
 
-GLOBAL_ASM(
-glabel debugUpdateMenu
-/*  f119270:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f119274:	3c028008 */ 	lui	$v0,0x8008
-/*  f119278:	8c4286dc */ 	lw	$v0,-0x7924($v0)
-/*  f11927c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f119280:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f119284:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f119288:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f11928c:	1440000b */ 	bnez	$v0,.NB0f1192bc
-/*  f119290:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f119294:	3c048008 */ 	lui	$a0,0x8008
-/*  f119298:	3c058008 */ 	lui	$a1,0x8008
-/*  f11929c:	3c068008 */ 	lui	$a2,0x8008
-/*  f1192a0:	24c68150 */ 	addiu	$a2,$a2,-32432
-/*  f1192a4:	24a58174 */ 	addiu	$a1,$a1,-32396
-/*  f1192a8:	0fc46325 */ 	jal	dmenuSetMenu
-/*  f1192ac:	248484d4 */ 	addiu	$a0,$a0,-31532
-/*  f1192b0:	3c028008 */ 	lui	$v0,0x8008
-/*  f1192b4:	10000032 */ 	beqz	$zero,.NB0f119380
-/*  f1192b8:	8c4286dc */ 	lw	$v0,-0x7924($v0)
-.NB0f1192bc:
-/*  f1192bc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1192c0:	1441002f */ 	bne	$v0,$at,.NB0f119380
-/*  f1192c4:	3c03800a */ 	lui	$v1,0x800a
-/*  f1192c8:	3c02800a */ 	lui	$v0,0x800a
-/*  f1192cc:	3c04800a */ 	lui	$a0,0x800a
-/*  f1192d0:	24847950 */ 	addiu	$a0,$a0,0x7950
-/*  f1192d4:	24427888 */ 	addiu	$v0,$v0,0x7888
-/*  f1192d8:	24637860 */ 	addiu	$v1,$v1,0x7860
-.NB0f1192dc:
-/*  f1192dc:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f1192e0:	24420014 */ 	addiu	$v0,$v0,0x14
-/*  f1192e4:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f1192e8:	1420fffc */ 	bnez	$at,.NB0f1192dc
-/*  f1192ec:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f1192f0:	3c118008 */ 	lui	$s1,0x8008
-/*  f1192f4:	3c13800a */ 	lui	$s3,0x800a
-/*  f1192f8:	26737860 */ 	addiu	$s3,$s3,0x7860
-/*  f1192fc:	26318684 */ 	addiu	$s1,$s1,-31100
-/*  f119300:	3c057f1b */ 	lui	$a1,0x7f1b
-/*  f119304:	ae200000 */ 	sw	$zero,0x0($s1)
-/*  f119308:	24a5f378 */ 	addiu	$a1,$a1,-3208
-/*  f11930c:	0c004e60 */ 	jal	strcpy
-/*  f119310:	8e640000 */ 	lw	$a0,0x0($s3)
-/*  f119314:	8e2e0000 */ 	lw	$t6,0x0($s1)
-/*  f119318:	3c127f1b */ 	lui	$s2,0x7f1b
-/*  f11931c:	2652f380 */ 	addiu	$s2,$s2,-3200
-/*  f119320:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f119324:	ae2f0000 */ 	sw	$t7,0x0($s1)
-/*  f119328:	00008025 */ 	or	$s0,$zero,$zero
-.NB0f11932c:
-/*  f11932c:	0c006568 */ 	jal	ailistFindById
-/*  f119330:	26040c00 */ 	addiu	$a0,$s0,0xc00
-/*  f119334:	1040000b */ 	beqz	$v0,.NB0f119364
-/*  f119338:	0010c080 */ 	sll	$t8,$s0,0x2
-/*  f11933c:	0278c821 */ 	addu	$t9,$s3,$t8
-/*  f119340:	8f240004 */ 	lw	$a0,0x4($t9)
-/*  f119344:	02402825 */ 	or	$a1,$s2,$zero
-/*  f119348:	0c004fc1 */ 	jal	sprintf
-/*  f11934c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f119350:	8e280000 */ 	lw	$t0,0x0($s1)
-/*  f119354:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f119358:	25090001 */ 	addiu	$t1,$t0,0x1
-/*  f11935c:	1000fff3 */ 	beqz	$zero,.NB0f11932c
-/*  f119360:	ae290000 */ 	sw	$t1,0x0($s1)
-.NB0f119364:
-/*  f119364:	3c058008 */ 	lui	$a1,0x8008
-/*  f119368:	24a5868c */ 	addiu	$a1,$a1,-31092
-/*  f11936c:	02602025 */ 	or	$a0,$s3,$zero
-/*  f119370:	0fc46325 */ 	jal	dmenuSetMenu
-/*  f119374:	02203025 */ 	or	$a2,$s1,$zero
-/*  f119378:	3c028008 */ 	lui	$v0,0x8008
-/*  f11937c:	8c4286dc */ 	lw	$v0,-0x7924($v0)
-.NB0f119380:
-/*  f119380:	00025080 */ 	sll	$t2,$v0,0x2
-/*  f119384:	3c048008 */ 	lui	$a0,0x8008
-/*  f119388:	008a2021 */ 	addu	$a0,$a0,$t2
-/*  f11938c:	0fc463df */ 	jal	dmenuSetSelectedOption
-/*  f119390:	8c8486e0 */ 	lw	$a0,-0x7920($a0)
-/*  f119394:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f119398:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f11939c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1193a0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1193a4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1193a8:	03e00008 */ 	jr	$ra
-/*  f1193ac:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+	if (g_DebugCurMenu == DEBUGMENU_MAIN) {
+		dmenuSetMenu(g_DebugMenuLabels, g_DebugMenuPositions, g_DebugMenuOffsets);
+	} else if (g_DebugCurMenu == DEBUGMENU_CUTSCENE) {
+		for (i = 0; i < 10; i++) {
+			g_DebugCutsceneLabelPtrs[i] = g_DebugCutsceneLabelBuffers[i];
+		}
+
+		g_DebugCutsceneOffsets[0] = 0;
+
+		strcpy(g_DebugCutsceneLabelPtrs[0], "main");
+		g_DebugCutsceneOffsets[0]++;
+
+		for (i = 0; ; i++) {
+			if (ailistFindById(0xc00 + i) == NULL) {
+				break;
+			}
+
+			sprintf(g_DebugCutsceneLabelPtrs[i + 1], "scene %d", i);
+			g_DebugCutsceneOffsets[0]++;
+		}
+
+		dmenuSetMenu(g_DebugCutsceneLabelPtrs, g_DebugCutscenePositions, g_DebugCutsceneOffsets);
+	}
+
+	dmenuSetSelectedOption(g_DebugSelectedOptionsByMenu[g_DebugCurMenu]);
+}
 
 GLOBAL_ASM(
 glabel debug0f1193b0nb

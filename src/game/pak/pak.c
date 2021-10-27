@@ -214,12 +214,17 @@ u32 var800a3378;
 u32 var800a337c;
 u32 var800a3380;
 u32 var800a3384;
+
+#if VERSION >= VERSION_NTSC_1_0
+// This is likely g_DebugCutsceneLabelPtrs and/or g_DebugCutsceneLabelBuffers
+// but with reduced lengths
 u32 var800a3388;
 u32 var800a338c;
 u32 var800a3390;
 u32 var800a3394;
 u32 var800a3398;
 u32 var800a339c;
+#endif
 
 #if VERSION >= VERSION_NTSC_1_0
 u16 var80075cb0 = ROM_COMPANYCODE;
@@ -276,10 +281,6 @@ u8 var80075d10 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
 u32 var80075d14 = 0x00000001;
-#endif
-
-#if VERSION < VERSION_NTSC_1_0
-u8 var800a7880nb[0xe0];
 #endif
 
 u32 pakGetBlockSize(s8 device)
