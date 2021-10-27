@@ -1,9 +1,28 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/chr/chraction.h"
 #include "game/debug.h"
+#include "lib/vi.h"
+#include "lib/vm.h"
 #include "bss.h"
 #include "data.h"
 #include "types.h"
+
+#define DEBUGMENU_MAIN     0
+#define DEBUGMENU_CUTSCENE 1
+
+#define DEBUGOPT_PROPS         32
+#define DEBUGOPT_PADS          40
+#define DEBUGOPT_44            44
+#define DEBUGOPT_ALLTRAINING   29
+#define DEBUGOPT_TILES         39
+#define DEBUGOPT_ALLLEVELS     13
+#define DEBUGOPT_CHRSTATS      65
+#define DEBUGOPT_ALLCHALLENGES 67
+#define DEBUGOPT_VMSTATS       69
+#define DEBUGOPT_MEMINFO       70
+#define DEBUGOPT_ALLBUDDIES    94
+#define DEBUGOPT_MANPOS        101
 
 s32 var80078150nb[] = {
 	15,
@@ -271,76 +290,76 @@ u32 var8007868cnb[] = {
 	8, 11,
 };
 
-u32 var800786dcnb = 0x00000000;
-u32 var800786e0nb = 0x00000000;
-u32 var800786e4nb = 0x00000000;
+s32 g_DebugCurMenu = DEBUGMENU_MAIN;
+s32 var800786e0nb = 0;
+s32 var800786e4nb = 0;
 s32 var80075d60 = 2;
-u32 var80075d64 = 2;
-u32 var80075d68 = 2;
-u32 var800786f4nb = 0x00000002;
-u32 var800786f8nb = 0x00000000;
-u32 var800786fcnb = 0x00000001;
-u32 var80078700nb = 0x00000001;
-u32 var80078704nb = 0x00000001;
-u32 var80078708nb = 0x00000000;
-u32 var8007870cnb = 0x00000000;
-u32 var80078710nb = 0x00000000;
-u32 var80078714nb = 0x00000000;
-u32 var80078718nb = 0x00000000;
-u32 var8007871cnb = 0x00000000;
+s32 var80075d64 = 2;
+s32 var80075d68 = 2;
+s32 var800786f4nb = 2;
+s32 var800786f8nb = 0;
+bool g_DebugRenderBg = true;
+bool g_DebugRenderProps = true;
+s32 var80078704nb = 1;
+s32 var80078708nb = 0;
+bool g_DebugRoomState = false;
+s32 var80078710nb = 0;
+s32 var80078714nb = 0;
+s32 var80078718nb = 0;
+s32 var8007871cnb = 0;
 bool g_DebugLineMode = false;
-u32 var80078724nb = 0x00000000;
-u32 var80078728nb = 0x00000000;
-u32 var8007872cnb = 0x00000000;
-u32 var80078730nb = 0x00000000;
-u32 var80078734nb = 0x00000000;
-u32 var80078738nb = 0x00000000;
-u32 var8007873cnb = 0x00000000;
-u32 var80078740nb = 0x00000000;
-u32 var80078744nb = 0x00000000;
-u32 var80078748nb = 0x00000000;
-u32 var8007874cnb = 0x00000000;
-u32 var80078750nb = 0x00000000;
-u32 var80078754nb = 0x00000000;
-u32 var80078758nb = 0x00000000;
-u32 var8007875cnb = 0x00000000;
-u32 var80078760nb = 0x00000000;
-u32 var80078764nb = 0x00000000;
-u32 var80078768nb = 0x00000000;
-u32 var8007876cnb = 0x00000000;
-u32 var80078770nb = 0x00000000;
-u32 var80078774nb = 0x00000000;
-u32 var80078778nb = 0x00000000;
-u32 var8007877cnb = 0x00000000;
-u32 var80078780nb = 0x00000000;
-u32 var80078784nb = 0x00000000;
-u32 var80078788nb = 0x00000000;
-u32 var8007878cnb = 0x00000000;
-u32 var80078790nb = 0x00000000;
-u32 var80078794nb = 0x00000001;
-u32 var80078798nb = 0x00000000;
-u32 var8007879cnb = 0x00000000;
-u32 var800787a0nb = 0x00000000;
-u32 var800787a4nb = 0x00000000;
-u32 var800787a8nb = 0x00000000;
+s32 var80078724nb = 0;
+s32 var80078728nb = 0;
+s32 var8007872cnb = 0;
+bool g_DebugManPos = false;
+bool g_DebugTurboMode = false;
+bool g_DebugObjectives = false;
+bool g_DebugZBufferDisabled = false;
+s32 var80078740nb = 0;
+s32 var80078744nb = 0;
+s32 var80078748nb = 0;
+s32 var8007874cnb = 0;
+s32 var80078750nb = 0;
+s32 var80078754nb = 0;
+s32 var80078758nb = 0;
+s32 var8007875cnb = 0;
+s32 var80078760nb = 0;
+s32 g_DebugSlowMotion = SLOWMOTION_OFF;
+s32 var80078768nb = 0;
+s32 g_DebugTiles = 0;
+s32 g_DebugPads = 0;
+s32 var80078774nb = 0;
+s32 var80078778nb = 0;
+s32 var8007877cnb = 0;
+s32 var80078780nb = 0;
+s32 var80078784nb = 0;
+s32 var80078788nb = 0;
+s32 var8007878cnb = 0;
+s32 var80078790nb = 0;
+bool g_DebugFootsteps = true;
+bool g_DebugAllChallenges = false;
+bool g_DebugAllBuddies = false;
+bool g_DebugAllTraining = false;
+s32 var800787a4nb = 0;
+s32 var800787a8nb = 0;
 bool g_DebugMemInfo = false;
-u32 var800787b0nb = 0x00000000;
-u32 var800787b4nb = 0x00000000;
-u32 var800787b8nb = 0x00000000;
-u32 var800787bcnb = 0x00000000;
-u32 var800787c0nb = 0x00000000;
-u32 var800787c4nb = 0x00000001;
-u32 var800787c8nb = 0x00000000;
-u32 var800787ccnb = 0x00000000;
-u32 var800787d0nb = 0x00000000;
-u32 var800787d4nb = 0x00000000;
-u32 var800787d8nb = 0x00000000;
-u32 var800787dcnb = 0x00000000;
-u32 var800787e0nb = 0x00000000;
-u32 var800787e4nb = 0x00000000;
-u32 var800787e8nb = 0x00000000;
-u32 var800787ecnb = 0x00000000;
-u32 var800787f0nb = 0x00000000;
+s32 var800787b0nb = 0;
+s32 var800787b4nb = 0;
+s32 var800787b8nb = 0;
+s32 var800787bcnb = 0;
+s32 var800787c0nb = 0;
+s32 var800787c4nb = 1;
+s32 var800787c8nb = 0;
+s32 var800787ccnb = 0;
+s32 var800787d0nb = 0;
+s32 var800787d4nb = 0;
+s32 var800787d8nb = 0;
+s32 var800787dcnb = 0;
+s32 var800787e0nb = 0;
+bool g_DebugChrStats = false;
+s32 var800787e8nb = 0;
+s32 var800787ecnb = 0;
+s32 var800787f0nb = 0;
 u32 var800787f4nb = 0x80500000;
 u32 var800787f8nb = 0x00040000;
 u32 var800787fcnb = 0x7f000000;
@@ -349,39 +368,39 @@ u32 var80078804nb = 0x80600000;
 u32 var80078808nb = 0x00040000;
 u32 var8007880cnb = 0x70000000;
 u32 var80078810nb = 0x70100000;
-u32 var80078814nb = 0x00000000;
-u32 var80078818nb = 0x00000000;
-u32 var8007881cnb = 0x00000000;
-u32 var80078820nb = 0x00000000;
-u32 var80078824nb = 0x00000000;
-u32 var80078828nb = 0x00000000;
-u32 var8007882cnb = 0x00000000;
-u32 var80078830nb = 0x00000000;
+s32 g_DebugScreenshotRgb = 0;
+s32 g_DebugScreenshotJpg = 0;
+bool g_DebugIsMenuOpen = false;
+
+u32 var80078820nb = 0;
+u32 var80078824nb = 0;
+u32 var80078828nb = 0;
+u32 var8007882cnb = 0;
+u32 var80078830nb = 0;
 u32 var80078834nb = 0xbf800000;
-u32 var80078838nb = 0x00000000;
+u32 var80078838nb = 0;
 u32 var8007883cnb = 0x3f800000;
-u32 var80078840nb = 0x00000000;
-u32 var80078844nb = 0x00000000;
+u32 var80078840nb = 0;
+u32 var80078844nb = 0;
 u32 var80078848nb = 0x3f800000;
-u32 var8007884cnb = 0x00000000;
-u32 var80078850nb = 0x00000000;
+u32 var8007884cnb = 0;
+u32 var80078850nb = 0;
 u32 var80078854nb = 0x3f800000;
-u32 var80078858nb = 0x00000000;
-u32 var8007885cnb = 0x00000000;
-u32 var80078860nb = 0x00000000;
-u32 var80078864nb = 0x00000000;
-u32 var80078868nb = 0x00000000;
-u32 var8007886cnb = 0x00000000;
-u32 var80078870nb = 0x00000000;
-u32 var80078874nb = 0x00000000;
+u32 var80078858nb = 0;
+u32 var8007885cnb = 0;
+u32 var80078860nb = 0;
+u32 var80078864nb = 0;
+u32 var80078868nb = 0;
+u32 var8007886cnb = 0;
+u32 var80078870nb = 0;
+u32 var80078874nb = 0;
 u32 var80078878nb = 0x3f800000;
-u32 var8007887cnb = 0x00000000;
 
 const char var7f1af378nb[] = "main";
 const char var7f1af380nb[] = "scene %d";
 
 GLOBAL_ASM(
-glabel debugTick
+glabel debugUpdateMenu
 /*  f119270:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f119274:	3c028008 */ 	lui	$v0,0x8008
 /*  f119278:	8c4286dc */ 	lw	$v0,-0x7924($v0)
@@ -538,511 +557,169 @@ glabel debug0f11944cnb
 /*  f119468:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel debug0f11946cnb
-.late_rodata
-glabel var7f1af38cnb
-.word debug0f11946cnb+0x2a8
-glabel var7f1af390nb
-.word debug0f11946cnb+0x428
-glabel var7f1af394nb
-.word debug0f11946cnb+0x428
-glabel var7f1af398nb
-.word debug0f11946cnb+0x428
-glabel var7f1af39cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af3a0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3a4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3a8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3acnb
-.word debug0f11946cnb+0x428
-glabel var7f1af3b0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3b4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3b8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3bcnb
-.word debug0f11946cnb+0x428
-glabel var7f1af3c0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3c4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3c8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3ccnb
-.word debug0f11946cnb+0x328
-glabel var7f1af3d0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3d4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3d8nb
-.word debug0f11946cnb+0x3e4
-glabel var7f1af3dcnb
-.word debug0f11946cnb+0x428
-glabel var7f1af3e0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3e4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3e8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3ecnb
-.word debug0f11946cnb+0x428
-glabel var7f1af3f0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af3f4nb
-.word debug0f11946cnb+0x27c
-glabel var7f1af3f8nb
-.word debug0f11946cnb+0x250
-glabel var7f1af3fcnb
-.word debug0f11946cnb+0x428
-glabel var7f1af400nb
-.word debug0f11946cnb+0x428
-glabel var7f1af404nb
-.word debug0f11946cnb+0x428
-glabel var7f1af408nb
-.word debug0f11946cnb+0x3b4
-glabel var7f1af40cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af410nb
-.word debug0f11946cnb+0x428
-glabel var7f1af414nb
-.word debug0f11946cnb+0x428
-glabel var7f1af418nb
-.word debug0f11946cnb+0x428
-glabel var7f1af41cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af420nb
-.word debug0f11946cnb+0x428
-glabel var7f1af424nb
-.word debug0f11946cnb+0x428
-glabel var7f1af428nb
-.word debug0f11946cnb+0x428
-glabel var7f1af42cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af430nb
-.word debug0f11946cnb+0x428
-glabel var7f1af434nb
-.word debug0f11946cnb+0x428
-glabel var7f1af438nb
-.word debug0f11946cnb+0x428
-glabel var7f1af43cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af440nb
-.word debug0f11946cnb+0x428
-glabel var7f1af444nb
-.word debug0f11946cnb+0x428
-glabel var7f1af448nb
-.word debug0f11946cnb+0x428
-glabel var7f1af44cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af450nb
-.word debug0f11946cnb+0x428
-glabel var7f1af454nb
-.word debug0f11946cnb+0x428
-glabel var7f1af458nb
-.word debug0f11946cnb+0x428
-glabel var7f1af45cnb
-.word debug0f11946cnb+0x3cc
-glabel var7f1af460nb
-.word debug0f11946cnb+0x428
-glabel var7f1af464nb
-.word debug0f11946cnb+0x2f0
-glabel var7f1af468nb
-.word debug0f11946cnb+0x428
-glabel var7f1af46cnb
-.word debug0f11946cnb+0x3fc
-glabel var7f1af470nb
-.word debug0f11946cnb+0x414
-glabel var7f1af474nb
-.word debug0f11946cnb+0x428
-glabel var7f1af478nb
-.word debug0f11946cnb+0x428
-glabel var7f1af47cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af480nb
-.word debug0f11946cnb+0x428
-glabel var7f1af484nb
-.word debug0f11946cnb+0x428
-glabel var7f1af488nb
-.word debug0f11946cnb+0x428
-glabel var7f1af48cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af490nb
-.word debug0f11946cnb+0x428
-glabel var7f1af494nb
-.word debug0f11946cnb+0x428
-glabel var7f1af498nb
-.word debug0f11946cnb+0x428
-glabel var7f1af49cnb
-.word debug0f11946cnb+0x428
-glabel var7f1af4a0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4a4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4a8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4acnb
-.word debug0f11946cnb+0x428
-glabel var7f1af4b0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4b4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4b8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4bcnb
-.word debug0f11946cnb+0x428
-glabel var7f1af4c0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4c4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4c8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4ccnb
-.word debug0f11946cnb+0x428
-glabel var7f1af4d0nb
-.word debug0f11946cnb+0x310
-glabel var7f1af4d4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4d8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4dcnb
-.word debug0f11946cnb+0x428
-glabel var7f1af4e0nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4e4nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4e8nb
-.word debug0f11946cnb+0x428
-glabel var7f1af4ecnb
-.word debug0f11946cnb+0x238
-.text
-/*  f11946c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f119470:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f119474:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f119478:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f11947c:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f119480:	0fc4649c */ 	jal	debugTick
-/*  f119484:	afa7003c */ 	sw	$a3,0x3c($sp)
-/*  f119488:	3c048008 */ 	lui	$a0,0x8008
-/*  f11948c:	24848814 */ 	addiu	$a0,$a0,-30700
-/*  f119490:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f119494:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f119498:	1040000b */ 	beqz	$v0,.NB0f1194c8
-/*  f11949c:	244e0001 */ 	addiu	$t6,$v0,0x1
-/*  f1194a0:	14c20009 */ 	bne	$a2,$v0,.NB0f1194c8
-/*  f1194a4:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f1194a8:	0c00305e */ 	jal	vi0000bfa4
-/*  f1194ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1194b0:	3c048008 */ 	lui	$a0,0x8008
-/*  f1194b4:	24848814 */ 	addiu	$a0,$a0,-30700
-/*  f1194b8:	0c002b20 */ 	jal	viSet16Bit
-/*  f1194bc:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f1194c0:	0c01282c */ 	jal	osViBlack
-/*  f1194c4:	00002025 */ 	or	$a0,$zero,$zero
-.NB0f1194c8:
-/*  f1194c8:	3c048008 */ 	lui	$a0,0x8008
-/*  f1194cc:	24848818 */ 	addiu	$a0,$a0,-30696
-/*  f1194d0:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f1194d4:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f1194d8:	1040000b */ 	beqz	$v0,.NB0f119508
-/*  f1194dc:	244f0001 */ 	addiu	$t7,$v0,0x1
-/*  f1194e0:	14c20009 */ 	bne	$a2,$v0,.NB0f119508
-/*  f1194e4:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*  f1194e8:	0c00305a */ 	jal	vi0000bf94
-/*  f1194ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1194f0:	3c048008 */ 	lui	$a0,0x8008
-/*  f1194f4:	24848818 */ 	addiu	$a0,$a0,-30696
-/*  f1194f8:	0c002b20 */ 	jal	viSet16Bit
-/*  f1194fc:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f119500:	0c01282c */ 	jal	osViBlack
-/*  f119504:	00002025 */ 	or	$a0,$zero,$zero
-.NB0f119508:
-/*  f119508:	3c188008 */ 	lui	$t8,0x8008
-/*  f11950c:	8f18881c */ 	lw	$t8,-0x77e4($t8)
-/*  f119510:	3c048008 */ 	lui	$a0,0x8008
-/*  f119514:	3c018008 */ 	lui	$at,0x8008
-/*  f119518:	1700000c */ 	bnez	$t8,.NB0f11954c
-/*  f11951c:	248486f0 */ 	addiu	$a0,$a0,-30992
-/*  f119520:	97a4003a */ 	lhu	$a0,0x3a($sp)
-/*  f119524:	30820008 */ 	andi	$v0,$a0,0x8
-/*  f119528:	0002182b */ 	sltu	$v1,$zero,$v0
-/*  f11952c:	10600004 */ 	beqz	$v1,.NB0f119540
-/*  f119530:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119534:	30830004 */ 	andi	$v1,$a0,0x4
-/*  f119538:	0003402b */ 	sltu	$t0,$zero,$v1
-/*  f11953c:	01001825 */ 	or	$v1,$t0,$zero
-.NB0f119540:
-/*  f119540:	ac23881c */ 	sw	$v1,-0x77e4($at)
-/*  f119544:	100000e4 */ 	beqz	$zero,.NB0f1198d8
-/*  f119548:	00601025 */ 	or	$v0,$v1,$zero
-.NB0f11954c:
-/*  f11954c:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f119550:	2403fffe */ 	addiu	$v1,$zero,-2
-/*  f119554:	3c018008 */ 	lui	$at,0x8008
-/*  f119558:	50620004 */ 	beql	$v1,$v0,.NB0f11956c
-/*  f11955c:	97a9003e */ 	lhu	$t1,0x3e($sp)
-/*  f119560:	ac2286f4 */ 	sw	$v0,-0x790c($at)
-/*  f119564:	ac830000 */ 	sw	$v1,0x0($a0)
-/*  f119568:	97a9003e */ 	lhu	$t1,0x3e($sp)
-.NB0f11956c:
-/*  f11956c:	312a0200 */ 	andi	$t2,$t1,0x200
-/*  f119570:	11400007 */ 	beqz	$t2,.NB0f119590
-/*  f119574:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f119578:	0fc4645d */ 	jal	dmenuNavigateRight
-/*  f11957c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119580:	3c048008 */ 	lui	$a0,0x8008
-/*  f119584:	248486f0 */ 	addiu	$a0,$a0,-30992
-/*  f119588:	2403fffe */ 	addiu	$v1,$zero,-2
-/*  f11958c:	ac830000 */ 	sw	$v1,0x0($a0)
-.NB0f119590:
-/*  f119590:	8fab001c */ 	lw	$t3,0x1c($sp)
-/*  f119594:	316c0100 */ 	andi	$t4,$t3,0x100
-/*  f119598:	51800008 */ 	beqzl	$t4,.NB0f1195bc
-/*  f11959c:	8fad001c */ 	lw	$t5,0x1c($sp)
-/*  f1195a0:	0fc46420 */ 	jal	dmenuNavigateLeft
-/*  f1195a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1195a8:	3c048008 */ 	lui	$a0,0x8008
-/*  f1195ac:	248486f0 */ 	addiu	$a0,$a0,-30992
-/*  f1195b0:	2403fffe */ 	addiu	$v1,$zero,-2
-/*  f1195b4:	ac830000 */ 	sw	$v1,0x0($a0)
-/*  f1195b8:	8fad001c */ 	lw	$t5,0x1c($sp)
-.NB0f1195bc:
-/*  f1195bc:	31ae0800 */ 	andi	$t6,$t5,0x800
-/*  f1195c0:	51c00008 */ 	beqzl	$t6,.NB0f1195e4
-/*  f1195c4:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f1195c8:	0fc463e2 */ 	jal	dmenuNavigateUp
-/*  f1195cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1195d0:	3c048008 */ 	lui	$a0,0x8008
-/*  f1195d4:	248486f0 */ 	addiu	$a0,$a0,-30992
-/*  f1195d8:	2403fffe */ 	addiu	$v1,$zero,-2
-/*  f1195dc:	ac830000 */ 	sw	$v1,0x0($a0)
-/*  f1195e0:	8faf001c */ 	lw	$t7,0x1c($sp)
-.NB0f1195e4:
-/*  f1195e4:	31f80400 */ 	andi	$t8,$t7,0x400
-/*  f1195e8:	53000008 */ 	beqzl	$t8,.NB0f11960c
-/*  f1195ec:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*  f1195f0:	0fc46402 */ 	jal	dmenuNavigateDown
-/*  f1195f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1195f8:	3c048008 */ 	lui	$a0,0x8008
-/*  f1195fc:	248486f0 */ 	addiu	$a0,$a0,-30992
-/*  f119600:	2403fffe */ 	addiu	$v1,$zero,-2
-/*  f119604:	ac830000 */ 	sw	$v1,0x0($a0)
-/*  f119608:	8fb9001c */ 	lw	$t9,0x1c($sp)
-.NB0f11960c:
-/*  f11960c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119610:	33289000 */ 	andi	$t0,$t9,0x9000
-/*  f119614:	510000a0 */ 	beqzl	$t0,.NB0f119898
-/*  f119618:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f11961c:	8c4286dc */ 	lw	$v0,-0x7924($v0)
-/*  f119620:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f119624:	14410011 */ 	bne	$v0,$at,.NB0f11966c
-/*  f119628:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11962c:	0fc463dc */ 	jal	dmenuGetSelectedOption
-/*  f119630:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119634:	14400007 */ 	bnez	$v0,.NB0f119654
-/*  f119638:	3c018008 */ 	lui	$at,0x8008
-/*  f11963c:	0c0050b5 */ 	jal	func000142d4nb
-/*  f119640:	ac2086dc */ 	sw	$zero,-0x7924($at)
-/*  f119644:	0fc4649c */ 	jal	debugTick
-/*  f119648:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11964c:	10000092 */ 	beqz	$zero,.NB0f119898
-/*  f119650:	8faf001c */ 	lw	$t7,0x1c($sp)
-.NB0f119654:
-/*  f119654:	0fc463dc */ 	jal	dmenuGetSelectedOption
-/*  f119658:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11965c:	0fc11e7c */ 	jal	func0f0482cc
-/*  f119660:	24440bff */ 	addiu	$a0,$v0,0xbff
-/*  f119664:	1000008c */ 	beqz	$zero,.NB0f119898
-/*  f119668:	8faf001c */ 	lw	$t7,0x1c($sp)
-.NB0f11966c:
-/*  f11966c:	5440008a */ 	bnezl	$v0,.NB0f119898
-/*  f119670:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f119674:	0fc463dc */ 	jal	dmenuGetSelectedOption
-/*  f119678:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11967c:	2449fff3 */ 	addiu	$t1,$v0,-13
-/*  f119680:	2d210059 */ 	sltiu	$at,$t1,0x59
-/*  f119684:	10200083 */ 	beqz	$at,.NB0f119894
-/*  f119688:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f11968c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f119690:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f119694:	00290821 */ 	addu	$at,$at,$t1
-/*  f119698:	8c29f38c */ 	lw	$t1,-0xc74($at)
-/*  f11969c:	01200008 */ 	jr	$t1
-/*  f1196a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1196a4:	3c028008 */ 	lui	$v0,0x8008
-/*  f1196a8:	24428730 */ 	addiu	$v0,$v0,-30928
-/*  f1196ac:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f1196b0:	394b0001 */ 	xori	$t3,$t2,0x1
-/*  f1196b4:	10000077 */ 	beqz	$zero,.NB0f119894
-/*  f1196b8:	ac4b0000 */ 	sw	$t3,0x0($v0)
-/*  f1196bc:	3c028008 */ 	lui	$v0,0x8008
-/*  f1196c0:	24428770 */ 	addiu	$v0,$v0,-30864
-/*  f1196c4:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f1196c8:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f1196cc:	05a10004 */ 	bgez	$t5,.NB0f1196e0
-/*  f1196d0:	31ae0003 */ 	andi	$t6,$t5,0x3
-/*  f1196d4:	11c00002 */ 	beqz	$t6,.NB0f1196e0
-/*  f1196d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1196dc:	25cefffc */ 	addiu	$t6,$t6,-4
-.NB0f1196e0:
-/*  f1196e0:	1000006c */ 	beqz	$zero,.NB0f119894
-/*  f1196e4:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f1196e8:	3c028008 */ 	lui	$v0,0x8008
-/*  f1196ec:	2442876c */ 	addiu	$v0,$v0,-30868
-/*  f1196f0:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f1196f4:	25f80001 */ 	addiu	$t8,$t7,0x1
-/*  f1196f8:	07010004 */ 	bgez	$t8,.NB0f11970c
-/*  f1196fc:	33190003 */ 	andi	$t9,$t8,0x3
-/*  f119700:	13200002 */ 	beqz	$t9,.NB0f11970c
-/*  f119704:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119708:	2739fffc */ 	addiu	$t9,$t9,-4
-.NB0f11970c:
-/*  f11970c:	10000061 */ 	beqz	$zero,.NB0f119894
-/*  f119710:	ac590000 */ 	sw	$t9,0x0($v0)
-/*  f119714:	3c05800a */ 	lui	$a1,0x800a
-/*  f119718:	3c07800a */ 	lui	$a3,0x800a
-/*  f11971c:	24e7676e */ 	addiu	$a3,$a3,0x676e
-/*  f119720:	24a566f0 */ 	addiu	$a1,$a1,0x66f0
-/*  f119724:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f119728:	00001025 */ 	or	$v0,$zero,$zero
-.NB0f11972c:
-/*  f11972c:	00a01825 */ 	or	$v1,$a1,$zero
-.NB0f119730:
-/*  f119730:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f119734:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f119738:	1446fffd */ 	bne	$v0,$a2,.NB0f119730
-/*  f11973c:	a464001e */ 	sh	$a0,0x1e($v1)
-/*  f119740:	24a50006 */ 	addiu	$a1,$a1,0x6
-/*  f119744:	54a7fff9 */ 	bnel	$a1,$a3,.NB0f11972c
-/*  f119748:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11974c:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f119750:	3c01800a */ 	lui	$at,0x800a
-/*  f119754:	1000004f */ 	beqz	$zero,.NB0f119894
-/*  f119758:	a028681b */ 	sb	$t0,0x681b($at)
-/*  f11975c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119760:	24428798 */ 	addiu	$v0,$v0,-30824
-/*  f119764:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f119768:	392a0001 */ 	xori	$t2,$t1,0x1
-/*  f11976c:	0fc65417 */ 	jal	mpDetermineUnlockedFeatures
-/*  f119770:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f119774:	10000048 */ 	beqz	$zero,.NB0f119898
-/*  f119778:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f11977c:	3c028008 */ 	lui	$v0,0x8008
-/*  f119780:	2442879c */ 	addiu	$v0,$v0,-30820
-/*  f119784:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*  f119788:	396c0001 */ 	xori	$t4,$t3,0x1
-/*  f11978c:	10000041 */ 	beqz	$zero,.NB0f119894
-/*  f119790:	ac4c0000 */ 	sw	$t4,0x0($v0)
-/*  f119794:	3c048008 */ 	lui	$a0,0x8008
-/*  f119798:	248487a0 */ 	addiu	$a0,$a0,-30816
-/*  f11979c:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/*  f1197a0:	3c02800a */ 	lui	$v0,0x800a
-/*  f1197a4:	244266f0 */ 	addiu	$v0,$v0,0x66f0
-/*  f1197a8:	39ae0001 */ 	xori	$t6,$t5,0x1
-/*  f1197ac:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f1197b0:	3c04800a */ 	lui	$a0,0x800a
-/*  f1197b4:	248466f9 */ 	addiu	$a0,$a0,0x66f9
-/*  f1197b8:	240300ff */ 	addiu	$v1,$zero,0xff
-.NB0f1197bc:
-/*  f1197bc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1197c0:	1444fffe */ 	bne	$v0,$a0,.NB0f1197bc
-/*  f1197c4:	a04300ab */ 	sb	$v1,0xab($v0)
-/*  f1197c8:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f1197cc:	24040030 */ 	addiu	$a0,$zero,0x30
-/*  f1197d0:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f1197d4:	24040031 */ 	addiu	$a0,$zero,0x31
-/*  f1197d8:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f1197dc:	24040032 */ 	addiu	$a0,$zero,0x32
-/*  f1197e0:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f1197e4:	24040033 */ 	addiu	$a0,$zero,0x33
-/*  f1197e8:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f1197ec:	24040034 */ 	addiu	$a0,$zero,0x34
-/*  f1197f0:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f1197f4:	24040035 */ 	addiu	$a0,$zero,0x35
-/*  f1197f8:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f1197fc:	24040036 */ 	addiu	$a0,$zero,0x36
-/*  f119800:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f119804:	24040037 */ 	addiu	$a0,$zero,0x37
-/*  f119808:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f11980c:	24040038 */ 	addiu	$a0,$zero,0x38
-/*  f119810:	0fc425a7 */ 	jal	gamefileSetFlag
-/*  f119814:	24040039 */ 	addiu	$a0,$zero,0x39
-/*  f119818:	1000001f */ 	beqz	$zero,.NB0f119898
-/*  f11981c:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f119820:	3c028008 */ 	lui	$v0,0x8008
-/*  f119824:	244287a4 */ 	addiu	$v0,$v0,-30812
-/*  f119828:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f11982c:	39f80001 */ 	xori	$t8,$t7,0x1
-/*  f119830:	10000018 */ 	beqz	$zero,.NB0f119894
-/*  f119834:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f119838:	3c028008 */ 	lui	$v0,0x8008
-/*  f11983c:	244287e4 */ 	addiu	$v0,$v0,-30748
-/*  f119840:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f119844:	3b280001 */ 	xori	$t0,$t9,0x1
-/*  f119848:	10000012 */ 	beqz	$zero,.NB0f119894
-/*  f11984c:	ac480000 */ 	sw	$t0,0x0($v0)
-/*  f119850:	3c028008 */ 	lui	$v0,0x8008
-/*  f119854:	24428700 */ 	addiu	$v0,$v0,-30976
-/*  f119858:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f11985c:	392a0001 */ 	xori	$t2,$t1,0x1
-/*  f119860:	1000000c */ 	beqz	$zero,.NB0f119894
-/*  f119864:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f119868:	3c028006 */ 	lui	$v0,0x8006
-/*  f11986c:	2442e710 */ 	addiu	$v0,$v0,-6384
-/*  f119870:	904b0000 */ 	lbu	$t3,0x0($v0)
-/*  f119874:	396c0001 */ 	xori	$t4,$t3,0x1
-/*  f119878:	10000006 */ 	beqz	$zero,.NB0f119894
-/*  f11987c:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*  f119880:	3c028008 */ 	lui	$v0,0x8008
-/*  f119884:	244287ac */ 	addiu	$v0,$v0,-30804
-/*  f119888:	8c4d0000 */ 	lw	$t5,0x0($v0)
-/*  f11988c:	39ae0001 */ 	xori	$t6,$t5,0x1
-/*  f119890:	ac4e0000 */ 	sw	$t6,0x0($v0)
-.NB0f119894:
-/*  f119894:	8faf001c */ 	lw	$t7,0x1c($sp)
-.NB0f119898:
-/*  f119898:	3c198008 */ 	lui	$t9,0x8008
-/*  f11989c:	31f81000 */ 	andi	$t8,$t7,0x1000
-/*  f1198a0:	13000009 */ 	beqz	$t8,.NB0f1198c8
-/*  f1198a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1198a8:	8f39881c */ 	lw	$t9,-0x77e4($t9)
-/*  f1198ac:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1198b0:	17210003 */ 	bne	$t9,$at,.NB0f1198c0
-/*  f1198b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1198b8:	0c0050b5 */ 	jal	func000142d4nb
-/*  f1198bc:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f1198c0:
-/*  f1198c0:	3c018008 */ 	lui	$at,0x8008
-/*  f1198c4:	ac20881c */ 	sw	$zero,-0x77e4($at)
-.NB0f1198c8:
-/*  f1198c8:	0fc464ec */ 	jal	debug0f1193b0nb
-/*  f1198cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1198d0:	3c028008 */ 	lui	$v0,0x8008
-/*  f1198d4:	8c42881c */ 	lw	$v0,-0x77e4($v0)
-.NB0f1198d8:
-/*  f1198d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1198dc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1198e0:	03e00008 */ 	jr	$ra
-/*  f1198e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
+{
+	s32 i;
+	s32 prev;
+	s32 tmp = 3;
+
+	debugUpdateMenu();
+
+	if (g_DebugScreenshotRgb) {
+		prev = g_DebugScreenshotRgb++;
+
+		if (tmp == prev) {
+			viGrabRgb32();
+			g_DebugScreenshotRgb = 0;
+			viSet16Bit();
+			osViBlack(false);
+		}
+	}
+
+	if (g_DebugScreenshotJpg) {
+		prev = g_DebugScreenshotJpg++;
+
+		if (tmp == prev) {
+			viGrabJpg32();
+			g_DebugScreenshotJpg = 0;
+			viSet16Bit();
+			osViBlack(false);
+		}
+	}
+
+	if (!g_DebugIsMenuOpen) {
+		tmp = (buttons & U_CBUTTONS) && (buttons & D_CBUTTONS);
+		g_DebugIsMenuOpen = tmp;
+		return tmp;
+	}
+
+	if (var80075d68 != -2) {
+		var800786f4nb = var80075d68;
+		var80075d68 = -2;
+	}
+
+	if (buttonsthisframe & L_JPAD) {
+		dmenuNavigateLeft();
+		var80075d68 = -2;
+	}
+
+	if (buttonsthisframe & R_JPAD) {
+		dmenuNavigateRight();
+		var80075d68 = -2;
+	}
+
+	if (buttonsthisframe & U_JPAD) {
+		dmenuNavigateUp();
+		var80075d68 = -2;
+	}
+
+	if (buttonsthisframe & D_JPAD) {
+		dmenuNavigateDown();
+		var80075d68 = -2;
+	}
+
+	if (buttonsthisframe & (A_BUTTON | START_BUTTON)) {
+		if (g_DebugCurMenu == DEBUGMENU_CUTSCENE) {
+			if (dmenuGetSelectedOption() == 0) {
+				// Selected "main" from cutscene menu
+				g_DebugCurMenu = DEBUGMENU_MAIN;
+				func000142d4nb();
+				debugUpdateMenu();
+			} else {
+				cutsceneStart(0xc00 + dmenuGetSelectedOption() - 1);
+			}
+		} else if (g_DebugCurMenu == DEBUGMENU_MAIN) {
+			switch (dmenuGetSelectedOption()) {
+			case DEBUGOPT_MANPOS:
+				g_DebugManPos ^= 1;
+				break;
+			case DEBUGOPT_PADS:
+				g_DebugPads = (g_DebugPads + 1) % 4;
+				break;
+			case DEBUGOPT_TILES:
+				g_DebugTiles = (g_DebugTiles + 1) % 4;
+				break;
+			case DEBUGOPT_ALLLEVELS:
+				for (i = 0; i < 21; i++) {
+					for (tmp = 0; tmp < 3; tmp++) {
+						g_GameFile.besttimes[i][tmp] = 7;
+					}
+				}
+
+				g_AltTitleUnlocked = true;
+				break;
+			case DEBUGOPT_ALLCHALLENGES:
+				g_DebugAllChallenges ^= 1;
+				mpDetermineUnlockedFeatures();
+				break;
+			case DEBUGOPT_ALLBUDDIES:
+				g_DebugAllBuddies ^= 1;
+				break;
+			case DEBUGOPT_ALLTRAINING:
+				g_DebugAllTraining ^= 1;
+
+				for (i = 0; i < ARRAYCOUNT(g_GameFile.firingrangescores); i++) {
+					g_GameFile.firingrangescores[i] = 0xff;
+				}
+
+				gamefileSetFlag(GAMEFILEFLAG_CI_CLOAK_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_DISGUISE_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_XRAY_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_IR_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_RTRACKER_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_DOORDECODER_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_NIGHTVISION_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_CAMSPY_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_ECMMINE_DONE);
+				gamefileSetFlag(GAMEFILEFLAG_CI_UPLINK_DONE);
+				break;
+			case DEBUGOPT_44:
+				// This is one of the "-" labels. The value is returned in a
+				// getter function but the getter function is never called.
+				var800787a4nb ^= 1;
+				break;
+			case DEBUGOPT_CHRSTATS:
+				g_DebugChrStats ^= 1;
+				break;
+			case DEBUGOPT_PROPS:
+				g_DebugRenderProps ^= 1;
+				break;
+			case DEBUGOPT_VMSTATS:
+				g_VmShowStats ^= 1;
+				break;
+			case DEBUGOPT_MEMINFO:
+				g_DebugMemInfo ^= 1;
+				break;
+			}
+		}
+	}
+
+	if (buttonsthisframe & START_BUTTON) {
+		if (g_DebugIsMenuOpen == true) {
+			func000142d4nb();
+		}
+
+		g_DebugIsMenuOpen = false;
+	}
+
+	debug0f1193b0nb();
+
+	return g_DebugIsMenuOpen;
+}
 
 bool debug0f11ed70(void)
 {
 	return var800786f8nb;
 }
 
-bool debug0f1198f4nb(void)
+bool debugIsBgRenderingEnabled(void)
 {
-	return var800786fcnb;
+	return g_DebugRenderBg;
 }
 
-bool debugEnablePropRendering(void)
+bool debugIsPropRenderingEnabled(void)
 {
-	return var80078700nb;
+	return g_DebugRenderProps;
 }
 
 bool debug0f11990cnb(void)
@@ -1050,14 +727,14 @@ bool debug0f11990cnb(void)
 	return var80078708nb;
 }
 
-bool debug0f119918nb(void)
+bool debugIsManPosEnabled(void)
 {
-	return var80078730nb;
+	return g_DebugManPos;
 }
 
-void debug0f119924nb(bool enabled)
+void debugSetManPos(bool enabled)
 {
-	var80078730nb = enabled;
+	g_DebugManPos = enabled;
 }
 
 bool debug0f119930nb(void)
@@ -1082,7 +759,7 @@ bool debug0f119954nb(void)
 
 bool debugIsRoomStateDebugEnabled(void)
 {
-	return var8007870cnb;
+	return g_DebugRoomState;
 }
 
 bool debugIsLineModeEnabled(void)
@@ -1095,24 +772,24 @@ void debugSetLineModeEnabled(bool enabled)
 	g_DebugLineMode = enabled;
 }
 
-bool debug0f119984nb(void)
+bool debugIsTurboModeEnabled(void)
 {
-	return var80078734nb;
+	return g_DebugTurboMode;
 }
 
-void debug0f119990nb(bool enabled)
+void debugSetTurboMode(bool enabled)
 {
-	var80078734nb = enabled;
+	g_DebugTurboMode = enabled;
 }
 
 bool debugForceAllObjectivesComplete(void)
 {
-	return var80078738nb;
+	return g_DebugObjectives;
 }
 
-bool debug0f11ee28(void)
+bool debugIsZBufferDisabled(void)
 {
-	return var8007873cnb;
+	return g_DebugZBufferDisabled;
 }
 
 bool debug0f11ee30(void)
@@ -1170,9 +847,9 @@ bool debug0f119a2cnb(void)
 	return var8007875cnb;
 }
 
-u32 debugGetSlowMotion(void)
+s32 debugGetSlowMotion(void)
 {
-	return var80078764nb;
+	return g_DebugSlowMotion;
 }
 
 bool debug0f119a44nb(void)
@@ -1185,14 +862,14 @@ bool debug0f119a50nb(void)
 	return var80078760nb;
 }
 
-bool debug0f11ee88(void)
+s32 debugGetTilesDebugMode(void)
 {
-	return var8007876cnb;
+	return g_DebugTiles;
 }
 
-bool debug0f11ee90(void)
+s32 debugGetPadsDebugMode(void)
 {
-	return var80078770nb;
+	return g_DebugPads;
 }
 
 bool debug0f119a74nb(void)
@@ -1285,24 +962,24 @@ bool debug0f119b3cnb(void)
 	return var800787d4nb;
 }
 
-bool debugEnableFootsteps(void)
+bool debugIsFootstepsEnabled(void)
 {
-	return var80078794nb;
+	return g_DebugFootsteps;
 }
 
-bool debug0f119b54nb(void)
+bool debugIsAllChallengesEnabled(void)
 {
-	return var80078798nb;
+	return g_DebugAllChallenges;
 }
 
-bool debug0f119b60nb(void)
+bool debugIsAllBuddiesEnabled(void)
 {
-	return var8007879cnb;
+	return g_DebugAllBuddies;
 }
 
-bool debugAllFrWeapons(void)
+bool debugIsAllTrainingEnabled(void)
 {
-	return var800787a0nb;
+	return g_DebugAllTraining;
 }
 
 bool debug0f119b78nb(void)
@@ -1330,9 +1007,9 @@ bool debug0f119ba8nb(void)
 	return var800787bcnb;
 }
 
-bool debug0f11ef78(void)
+bool debugIsChrStatsEnabled(void)
 {
-	return var800787e4nb;
+	return g_DebugChrStats;
 }
 
 bool debug0f11ef80(void)

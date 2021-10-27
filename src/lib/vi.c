@@ -2200,22 +2200,22 @@ Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
 	return gdl;
 }
 
-void vi0000bf8c(void)
+void viGrabJpg16(void)
 {
 	// empty
 }
 
-void vi0000bf94(void)
+void viGrabJpg32(void)
 {
 	// empty
 }
 
-void vi0000bf9c(void)
+void viGrabRgb16(void)
 {
 	// empty
 }
 
-void vi0000bfa4(void)
+void viGrabRgb32(void)
 {
 	// empty
 }

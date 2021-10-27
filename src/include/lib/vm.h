@@ -4,6 +4,8 @@
 #include "data.h"
 #include "types.h"
 
+extern u8 g_VmShowStats;
+
 u32 vmInit(void);
 
 #endif

@@ -23029,7 +23029,7 @@ void chrTick(struct chrdata *chr)
 	}
 }
 
-void func0f0482cc(u32 ailistid)
+void cutsceneStart(u32 ailistid)
 {
 	struct prop *prop;
 
@@ -23217,7 +23217,7 @@ glabel func0f048398
 /*  f0485b0:	8042a492 */ 	lb	$v0,%lo(g_Vars+0x4d2)($v0)
 /*  f0485b4:	04400009 */ 	bltz	$v0,.L0f0485dc
 /*  f0485b8:	00000000 */ 	nop
-/*  f0485bc:	0fc120b3 */ 	jal	func0f0482cc
+/*  f0485bc:	0fc120b3 */ 	jal	cutsceneStart
 /*  f0485c0:	24440c00 */ 	addiu	$a0,$v0,0xc00
 /*  f0485c4:	240bffff */ 	addiu	$t3,$zero,-1
 /*  f0485c8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4d2)
@@ -23677,7 +23677,7 @@ glabel func0f048398
 /*  f0485b0:	8042a492 */ 	lb	$v0,%lo(g_Vars+0x4d2)($v0)
 /*  f0485b4:	04400009 */ 	bltz	$v0,.L0f0485dc
 /*  f0485b8:	00000000 */ 	nop
-/*  f0485bc:	0fc120b3 */ 	jal	func0f0482cc
+/*  f0485bc:	0fc120b3 */ 	jal	cutsceneStart
 /*  f0485c0:	24440c00 */ 	addiu	$a0,$v0,0xc00
 /*  f0485c4:	240bffff */ 	addiu	$t3,$zero,-1
 /*  f0485c8:	3c01800a */ 	lui	$at,%hi(g_Vars+0x4d2)
@@ -24014,7 +24014,7 @@ glabel func0f048398
 /*  f047b18:	8042eb92 */ 	lb	$v0,-0x146e($v0)
 /*  f047b1c:	04400009 */ 	bltz	$v0,.NB0f047b44
 /*  f047b20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f047b24:	0fc11e7c */ 	jal	func0f0482cc
+/*  f047b24:	0fc11e7c */ 	jal	cutsceneStart
 /*  f047b28:	24440c00 */ 	addiu	$a0,$v0,0xc00
 /*  f047b2c:	3c02800a */ 	lui	$v0,0x800a
 /*  f047b30:	2442e6c0 */ 	addiu	$v0,$v0,-6464
@@ -24368,7 +24368,7 @@ glabel func0f048398
 //	}
 //
 //	if (g_Vars.autocutnum >= 0) {
-//		func0f0482cc(g_Vars.autocutnum + 0xc00);
+//		cutsceneStart(g_Vars.autocutnum + 0xc00);
 //		g_Vars.autocutnum = -1;
 //		g_Vars.autocutplaying = true;
 //	}

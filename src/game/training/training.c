@@ -206,7 +206,7 @@ bool frIsWeaponAvailable(s32 weapon)
 	}
 
 #if VERSION < VERSION_NTSC_1_0
-	if (debugAllFrWeapons() && weapon <= WEAPON_XRAYSCANNER) {
+	if (debugIsAllTrainingEnabled() && weapon <= WEAPON_XRAYSCANNER) {
 		return true;
 	}
 #endif

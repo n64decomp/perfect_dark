@@ -153,7 +153,7 @@ glabel chrCheckFootstep
 /*  f0061e0:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f0061e4:	afb10048 */ 	sw	$s1,0x48($sp)
 /*  f0061e8:	00808825 */ 	move	$s1,$a0
-/*  f0061ec:	0fc47e7e */ 	jal	debugEnableFootsteps
+/*  f0061ec:	0fc47e7e */ 	jal	debugIsFootstepsEnabled
 /*  f0061f0:	afb00044 */ 	sw	$s0,0x44($sp)
 /*  f0061f4:	104000c2 */ 	beqz	$v0,.PF0f006500
 /*  f0061f8:	24010001 */ 	li	$at,0x1
@@ -386,7 +386,7 @@ glabel chrCheckFootstep
 /*  f0061e0:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f0061e4:	afb10048 */ 	sw	$s1,0x48($sp)
 /*  f0061e8:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0061ec:	0fc47bbe */ 	jal	debugEnableFootsteps
+/*  f0061ec:	0fc47bbe */ 	jal	debugIsFootstepsEnabled
 /*  f0061f0:	afb00044 */ 	sw	$s0,0x44($sp)
 /*  f0061f4:	104000c5 */ 	beqz	$v0,.L0f00650c
 /*  f0061f8:	24010001 */ 	addiu	$at,$zero,0x1
@@ -622,7 +622,7 @@ glabel chrCheckFootstep
 /*  f005f30:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f005f34:	afb10048 */ 	sw	$s1,0x48($sp)
 /*  f005f38:	00808825 */ 	or	$s1,$a0,$zero
-/*  f005f3c:	0fc466d2 */ 	jal	debugEnableFootsteps
+/*  f005f3c:	0fc466d2 */ 	jal	debugIsFootstepsEnabled
 /*  f005f40:	afb00044 */ 	sw	$s0,0x44($sp)
 /*  f005f44:	104000c3 */ 	beqz	$v0,.NB0f006254
 /*  f005f48:	24010001 */ 	addiu	$at,$zero,0x1
@@ -859,7 +859,7 @@ glabel chrCheckFootstep
 // Mismatch: load of 10.0f into $at is swapped with load of prevframe from stack
 //void chrCheckFootstep(struct chrdata *chr)
 //{
-//	if (debugEnableFootsteps() && PLAYERCOUNT() == 1 && chr) {
+//	if (debugIsFootstepsEnabled() && PLAYERCOUNT() == 1 && chr) {
 //		chr->footstep = 0;
 //		chr->magicanim = -1;
 //		chr->magicframe = 0;
@@ -927,7 +927,7 @@ void chrCheckFootstepMagic(struct chrdata *chr)
 	f32 zdiff;
 	s32 soundnum;
 
-	if (debugEnableFootsteps() && PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
+	if (debugIsFootstepsEnabled() && PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
 #if VERSION >= VERSION_PAL_FINAL
 		chr->magicframe += g_Vars.lvupdate240freal * chr->magicspeed;
 #else

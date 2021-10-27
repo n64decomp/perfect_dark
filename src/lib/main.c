@@ -1695,7 +1695,7 @@ u32 var8005dd48 = 0x00000000;
 u32 var8005dd4c = 0x00000000;
 u32 var8005dd50 = 0x00000000;
 s32 g_MainChangeToStageNum = -1;
-u32 var8005dd58 = 0x00000000;
+bool g_MainIsDebugMenuOpen = false;
 
 #if VERSION < VERSION_NTSC_1_0
 GLOBAL_ASM(
@@ -2770,7 +2770,7 @@ glabel mainTick
 /*     ea60:	01402025 */ 	or	$a0,$t2,$zero
 /*     ea64:	83a5003b */ 	lb	$a1,0x3b($sp)
 /*     ea68:	3206ffff */ 	andi	$a2,$s0,0xffff
-/*     ea6c:	0fc4651b */ 	jal	debug0f11946cnb
+/*     ea6c:	0fc4651b */ 	jal	debugProcessInput
 /*     ea70:	3047ffff */ 	andi	$a3,$v0,0xffff
 /*     ea74:	3c018006 */ 	lui	$at,0x8006
 /*     ea78:	10000021 */ 	beqz	$zero,.NB0000eb00
@@ -2805,7 +2805,7 @@ glabel mainTick
 /*     eae4:	01a02025 */ 	or	$a0,$t5,$zero
 /*     eae8:	83a5003b */ 	lb	$a1,0x3b($sp)
 /*     eaec:	3206ffff */ 	andi	$a2,$s0,0xffff
-/*     eaf0:	0fc4651b */ 	jal	debug0f11946cnb
+/*     eaf0:	0fc4651b */ 	jal	debugProcessInput
 /*     eaf4:	3047ffff */ 	andi	$a3,$v0,0xffff
 /*     eaf8:	3c018006 */ 	lui	$at,0x8006
 /*     eafc:	ac22f678 */ 	sw	$v0,-0x988($at)
@@ -3005,7 +3005,7 @@ glabel mainTick
 /*     edc8:	8d6bf678 */ 	lw	$t3,-0x988($t3)
 /*     edcc:	51600007 */ 	beqzl	$t3,.NB0000edec
 /*     edd0:	8fac0094 */ 	lw	$t4,0x94($sp)
-/*     edd4:	0fc4649c */ 	jal	debugTick
+/*     edd4:	0fc4649c */ 	jal	debugUpdateMenu
 /*     edd8:	00000000 */ 	sll	$zero,$zero,0x0
 /*     eddc:	0fc4633d */ 	jal	dmenuRender
 /*     ede0:	8fa40094 */ 	lw	$a0,0x94($sp)
@@ -3090,13 +3090,13 @@ u32 var8005f690nb[] = {
 //			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 //
 //			// If menu is open (?) or player has pressed C down + C up
-//			if (var8005dd58 || joyGetButtons(0, U_CBUTTONS | D_CBUTTONS) == (U_CBUTTONS | D_CBUTTONS)) {
+//			if (g_MainIsDebugMenuOpen || joyGetButtons(0, U_CBUTTONS | D_CBUTTONS) == (U_CBUTTONS | D_CBUTTONS)) {
 //				stickx = joyGetStickX(0);
 //				sticky = joyGetStickY(0);
 //				buttons = joyGetButtons(0, 0xffff);
 //				buttonsthisframe = joyGetButtonsPressedThisFrame(0, 0xffff);
 //
-//				var8005dd58 = debug0f11946cnb(stickx, sticky, buttons, buttonsthisframe);
+//				g_MainIsDebugMenuOpen = debugProcessInput(stickx, sticky, buttons, buttonsthisframe);
 //			} else if (joyGetButtons(0, START_BUTTON) == 0) {
 //				var80075d68 = var800786f4nb;
 //			} else {
@@ -3105,7 +3105,7 @@ u32 var8005f690nb[] = {
 //				buttons = joyGetButtons(0, 0xffff);
 //				buttonsthisframe = joyGetButtonsPressedThisFrame(0, 0xffff);
 //
-//				var8005dd58 = debug0f11946cnb(stickx, sticky, buttons, buttonsthisframe);
+//				g_MainIsDebugMenuOpen = debugProcessInput(stickx, sticky, buttons, buttonsthisframe);
 //			}
 //
 //			lvTick();
@@ -3146,8 +3146,8 @@ u32 var8005f690nb[] = {
 //				gdl = profileRender(gdl);
 //			}
 //
-//			if (var8005dd58) {
-//				debugTick();
+//			if (g_MainIsDebugMenuOpen) {
+//				debugUpdateMenu();
 //				gdl = dmenuRender(gdl);
 //			}
 //

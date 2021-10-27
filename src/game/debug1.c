@@ -185,7 +185,7 @@ glabel dmenuNavigateDown
 );
 
 GLOBAL_ASM(
-glabel dmenuNavigateLeft
+glabel dmenuNavigateRight
 /*  f119080:	3c038008 */ 	lui	$v1,0x8008
 /*  f119084:	8c638134 */ 	lw	$v1,-0x7ecc($v1)
 /*  f119088:	3c088008 */ 	lui	$t0,0x8008
@@ -255,7 +255,7 @@ glabel dmenuNavigateLeft
 );
 
 GLOBAL_ASM(
-glabel dmenuNavigateRight
+glabel dmenuNavigateLeft
 /*  f119174:	3c038008 */ 	lui	$v1,0x8008
 /*  f119178:	8c638134 */ 	lw	$v1,-0x7ecc($v1)
 /*  f11917c:	3c078008 */ 	lui	$a3,0x8008

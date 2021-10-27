@@ -178,7 +178,7 @@ void chrTickPatrol(struct chrdata *chr);
 bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);
 void chrTickSkJump(struct chrdata *chr);
 void chrTick(struct chrdata *chr);
-void func0f0482cc(u32 ailistid);
+void cutsceneStart(u32 ailistid);
 void func0f048398(void);
 f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos);
 void chrGetAttackEntityPos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, s16 *rooms);

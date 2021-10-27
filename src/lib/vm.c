@@ -18,7 +18,8 @@ u32 var80090b08;
 u32 var80090b0c;
 
 #if VERSION < VERSION_NTSC_1_0
-u8 fillnb[0x0c] = {0};
+u8 g_VmShowStats = false;
+u32 fillnb[2] = {0};
 #endif
 
 u32 var8005cf80 = 0;

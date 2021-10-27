@@ -1870,7 +1870,7 @@ glabel menuhandlerCoopBuddy
 /*  f10010c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f100110:	24080001 */ 	addiu	$t0,$zero,0x1
 .NB0f100114:
-/*  f100114:	0fc466d8 */ 	jal	debug0f119b60nb
+/*  f100114:	0fc466d8 */ 	jal	debugIsAllBuddiesEnabled
 /*  f100118:	afa80030 */ 	sw	$t0,0x30($sp)
 /*  f10011c:	10400002 */ 	beqz	$v0,.NB0f100128
 /*  f100120:	8fa80030 */ 	lw	$t0,0x30($sp)

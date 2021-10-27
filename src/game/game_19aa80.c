@@ -679,7 +679,7 @@ glabel mpDetermineUnlockedFeatures
 /*  f195164:	10000006 */ 	beqz	$zero,.NB0f195180
 /*  f195168:	26940001 */ 	addiu	$s4,$s4,0x1
 .NB0f19516c:
-/*  f19516c:	0fc466d5 */ 	jal	debug0f119b54nb
+/*  f19516c:	0fc466d5 */ 	jal	debugIsAllChallengesEnabled
 /*  f195170:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f195174:	50400003 */ 	beqzl	$v0,.NB0f195184
 /*  f195178:	922e0004 */ 	lbu	$t6,0x4($s1)

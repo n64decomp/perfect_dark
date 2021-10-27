@@ -16,9 +16,9 @@
  * which functions are the same between beta and 1.0.
  */
 
-s32 var80075d60 = 0x00000002;
-u32 var80075d64 = 0x00000002;
-u32 var80075d68 = 0x00000002;
+s32 var80075d60 = 2;
+s32 var80075d64 = 2;
+s32 var80075d68 = 2;
 u32 var80075d6c = 0x00000002;
 u32 var80075d70 = 0x00000000;
 bool g_DebugTurboMode = false;
@@ -122,7 +122,7 @@ bool debugEnableBgRendering(void)
 	return true;
 }
 
-bool debugEnablePropRendering(void)
+bool debugIsPropRenderingEnabled(void)
 {
 	return true;
 }
@@ -217,7 +217,7 @@ bool debugForceAllObjectivesComplete(void)
 	return false;
 }
 
-bool debug0f11ee28(void)
+bool debugIsZBufferDisabled(void)
 {
 	return false;
 }
@@ -262,7 +262,7 @@ bool debug0f11ee68(void) // not called
 	return false;
 }
 
-u32 debugGetSlowMotion(void)
+s32 debugGetSlowMotion(void)
 {
 	return SLOWMOTION_OFF;
 }
@@ -277,12 +277,12 @@ bool debug0f11ee80(void) // not called
 	return false;
 }
 
-bool debug0f11ee88(void)
+bool debugGetTilesDebugMode(void)
 {
 	return false;
 }
 
-bool debug0f11ee90(void)
+bool debugGetPadsDebugMode(void)
 {
 	return false;
 }
@@ -347,7 +347,7 @@ bool debug0f11eef0(void) // not called
 	return false;
 }
 
-bool debugEnableFootsteps(void)
+bool debugIsFootstepsEnabled(void)
 {
 	return true;
 }
@@ -427,7 +427,7 @@ bool debug0f11ef70(void) // not called
 	return false;
 }
 
-bool debug0f11ef78(void)
+bool debugIsChrStatsEnabled(void)
 {
 	return false;
 }

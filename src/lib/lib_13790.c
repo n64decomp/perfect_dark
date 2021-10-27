@@ -537,7 +537,7 @@ glabel func000137ec
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void func000137fc(s32 arg0)
+void func000137fc(char *text)
 {
 	// empty
 }

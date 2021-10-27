@@ -1282,7 +1282,7 @@ glabel var7f1b1f68
 /*  f163418:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f16341c:	afb10038 */ 	sw	$s1,0x38($sp)
 /*  f163420:	00808825 */ 	or	$s1,$a0,$zero
-/*  f163424:	0fc46646 */ 	jal	debug0f119918nb
+/*  f163424:	0fc46646 */ 	jal	debugIsManPosEnabled
 /*  f163428:	afb00034 */ 	sw	$s0,0x34($sp)
 /*  f16342c:	104000f6 */ 	beqz	$v0,.NB0f163808
 /*  f163430:	3c10800a */ 	lui	$s0,0x800a
@@ -1828,7 +1828,7 @@ glabel var7f1b8e7cpf
 /*  f16a378:	3c0f0600 */ 	lui	$t7,0x600
 /*  f16a37c:	ac4f0000 */ 	sw	$t7,0x0($v0)
 /*  f16a380:	ac580004 */ 	sw	$t8,0x4($v0)
-/*  f16a384:	0fc47e4a */ 	jal	debug0f11ee28
+/*  f16a384:	0fc47e4a */ 	jal	debugIsZBufferDisabled
 /*  f16a388:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f16a38c:	10400008 */ 	beqz	$v0,.PF0f16a3b0
 /*  f16a390:	02601025 */ 	move	$v0,$s3
@@ -2321,7 +2321,7 @@ glabel var7f1b8e7cpf
 /*  f16aad8:	ac4e0000 */ 	sw	$t6,0x0($v0)
 /*  f16aadc:	8fac006c */ 	lw	$t4,0x6c($sp)
 /*  f16aae0:	26730008 */ 	addiu	$s3,$s3,0x8
-/*  f16aae4:	0fc47e4a */ 	jal	debug0f11ee28
+/*  f16aae4:	0fc47e4a */ 	jal	debugIsZBufferDisabled
 /*  f16aae8:	ac4c0004 */ 	sw	$t4,0x4($v0)
 /*  f16aaec:	10400009 */ 	beqz	$v0,.PF0f16ab14
 /*  f16aaf0:	3c0f0600 */ 	lui	$t7,0x600
@@ -3459,11 +3459,11 @@ glabel var7f1b8e7cpf
 /*  f16bb44:	00402025 */ 	move	$a0,$v0
 /*  f16bb48:	00409825 */ 	move	$s3,$v0
 .PF0f16bb4c:
-/*  f16bb4c:	0fc47e62 */ 	jal	debug0f11ee88
+/*  f16bb4c:	0fc47e62 */ 	jal	debugGetTilesDebugMode
 /*  f16bb50:	00000000 */ 	nop
 /*  f16bb54:	14400013 */ 	bnez	$v0,.PF0f16bba4
 /*  f16bb58:	00000000 */ 	nop
-/*  f16bb5c:	0fc47e64 */ 	jal	debug0f11ee90
+/*  f16bb5c:	0fc47e64 */ 	jal	debugGetPadsDebugMode
 /*  f16bb60:	00000000 */ 	nop
 /*  f16bb64:	1440000f */ 	bnez	$v0,.PF0f16bba4
 /*  f16bb68:	00000000 */ 	nop
@@ -3475,7 +3475,7 @@ glabel var7f1b8e7cpf
 /*  f16bb80:	00000000 */ 	nop
 /*  f16bb84:	14400007 */ 	bnez	$v0,.PF0f16bba4
 /*  f16bb88:	00000000 */ 	nop
-/*  f16bb8c:	0fc47e9e */ 	jal	debug0f11ef78
+/*  f16bb8c:	0fc47e9e */ 	jal	debugIsChrStatsEnabled
 /*  f16bb90:	00000000 */ 	nop
 /*  f16bb94:	14400003 */ 	bnez	$v0,.PF0f16bba4
 /*  f16bb98:	00000000 */ 	nop
@@ -3718,7 +3718,7 @@ Gfx *lvRender(Gfx *gdl)
 			|| (g_Vars.stagenum == STAGE_TEST_OLD && titleIsKeepingMode())) {
 		gSPDisplayList(gdl++, &var800613a0);
 
-		if (debug0f11ee28()) {
+		if (debugIsZBufferDisabled()) {
 			gSPDisplayList(gdl++, &var80061360);
 		} else {
 			gSPDisplayList(gdl++, &var80061380);
@@ -3843,7 +3843,7 @@ Gfx *lvRender(Gfx *gdl)
 
 			gSPDisplayList(gdl++, &var800613a0);
 
-			if (debug0f11ee28()) {
+			if (debugIsZBufferDisabled()) {
 				gSPDisplayList(gdl++, &var80061360);
 			} else {
 				gSPDisplayList(gdl++, &var80061380);
@@ -4290,11 +4290,11 @@ Gfx *lvRender(Gfx *gdl)
 					gdl = frRenderHud(gdl);
 				}
 
-				if (debug0f11ee88() == 0
-						&& debug0f11ee90() == 0
+				if (debugGetTilesDebugMode() == 0
+						&& debugGetPadsDebugMode() == 0
 						&& debug0f11eea8() == 0
 						&& debug0f11ef80() == 0
-						&& debug0f11ef78() == 0) {
+						&& !debugIsChrStatsEnabled()) {
 					debug0f11ee40();
 				}
 
@@ -4430,7 +4430,7 @@ glabel var7f1b1fd4nb
 /*  f1640c4:	3c0f0600 */ 	lui	$t7,0x600
 /*  f1640c8:	ac4f0000 */ 	sw	$t7,0x0($v0)
 /*  f1640cc:	ac580004 */ 	sw	$t8,0x4($v0)
-/*  f1640d0:	0fc4666a */ 	jal	debug0f11ee28
+/*  f1640d0:	0fc4666a */ 	jal	debugIsZBufferDisabled
 /*  f1640d4:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f1640d8:	10400008 */ 	beqz	$v0,.NB0f1640fc
 /*  f1640dc:	02601025 */ 	or	$v0,$s3,$zero
@@ -4906,7 +4906,7 @@ glabel var7f1b1fd4nb
 /*  f1647dc:	ac590000 */ 	sw	$t9,0x0($v0)
 /*  f1647e0:	8fab006c */ 	lw	$t3,0x6c($sp)
 /*  f1647e4:	26730008 */ 	addiu	$s3,$s3,0x8
-/*  f1647e8:	0fc4666a */ 	jal	debug0f11ee28
+/*  f1647e8:	0fc4666a */ 	jal	debugIsZBufferDisabled
 /*  f1647ec:	ac4b0004 */ 	sw	$t3,0x4($v0)
 /*  f1647f0:	10400009 */ 	beqz	$v0,.NB0f164818
 /*  f1647f4:	3c0e0600 */ 	lui	$t6,0x600
@@ -6196,11 +6196,11 @@ glabel var7f1b1fd4nb
 /*  f165a8c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f165a90:	00409825 */ 	or	$s3,$v0,$zero
 .NB0f165a94:
-/*  f165a94:	0fc46697 */ 	jal	debug0f11ee88
+/*  f165a94:	0fc46697 */ 	jal	debugGetTilesDebugMode
 /*  f165a98:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165a9c:	54400016 */ 	bnezl	$v0,.NB0f165af8
 /*  f165aa0:	8e4d0284 */ 	lw	$t5,0x284($s2)
-/*  f165aa4:	0fc4669a */ 	jal	debug0f11ee90
+/*  f165aa4:	0fc4669a */ 	jal	debugGetPadsDebugMode
 /*  f165aa8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165aac:	54400012 */ 	bnezl	$v0,.NB0f165af8
 /*  f165ab0:	8e4d0284 */ 	lw	$t5,0x284($s2)
@@ -6212,7 +6212,7 @@ glabel var7f1b1fd4nb
 /*  f165ac8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165acc:	5440000a */ 	bnezl	$v0,.NB0f165af8
 /*  f165ad0:	8e4d0284 */ 	lw	$t5,0x284($s2)
-/*  f165ad4:	0fc466ed */ 	jal	debug0f11ef78
+/*  f165ad4:	0fc466ed */ 	jal	debugIsChrStatsEnabled
 /*  f165ad8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165adc:	54400006 */ 	bnezl	$v0,.NB0f165af8
 /*  f165ae0:	8e4d0284 */ 	lw	$t5,0x284($s2)
@@ -6261,7 +6261,7 @@ glabel var7f1b1fd4nb
 /*  f165b7c:	5684fff7 */ 	bnel	$s4,$a0,.NB0f165b5c
 /*  f165b80:	02a02825 */ 	or	$a1,$s5,$zero
 .NB0f165b84:
-/*  f165b84:	0fc466ed */ 	jal	debug0f11ef78
+/*  f165b84:	0fc466ed */ 	jal	debugIsChrStatsEnabled
 /*  f165b88:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165b8c:	10400004 */ 	beqz	$v0,.NB0f165ba0
 /*  f165b90:	02602025 */ 	or	$a0,$s3,$zero
