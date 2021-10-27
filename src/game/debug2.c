@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "game/chr/chraction.h"
 #include "game/debug.h"
+#include "lib/rmon.h"
 #include "lib/vi.h"
 #include "lib/vm.h"
 #include "bss.h"
@@ -450,21 +451,11 @@ void debug0f1193f4nb(void)
 	var80075d60 = var80075d64 = var800786f4nb = 2;
 }
 
-GLOBAL_ASM(
-glabel debug0f11941cnb
-/*  f11941c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f119420:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f119424:	3c048008 */ 	lui	$a0,0x8008
-/*  f119428:	248487f4 */ 	addiu	$a0,$a0,-30732
-/*  f11942c:	0c00c460 */ 	jal	rmon0002fa30
-/*  f119430:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f119434:	0c00c462 */ 	jal	rmon0002fa38
-/*  f119438:	240400fa */ 	addiu	$a0,$zero,0xfa
-/*  f11943c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f119440:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f119444:	03e00008 */ 	jr	$ra
-/*  f119448:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void debug0f11941cnb(void)
+{
+	rmon0002fa30(&var800787f4nb, 2);
+	rmon0002fa38(250);
+}
 
 GLOBAL_ASM(
 glabel debug0f11944cnb

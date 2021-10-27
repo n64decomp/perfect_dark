@@ -37,14 +37,15 @@ void rmon0002fa28(void)
 	// empty
 }
 
-void rmon0002fa30(void)
+void rmon0002fa30(s32 *arg0, s32 arg1)
 {
-	// empty
+	if (arg0);
+	if (arg1);
 }
 
-void rmon0002fa38(void)
+void rmon0002fa38(u32 arg0)
 {
-	// empty
+	if (arg0);
 }
 
 void rmon0002fa40(void)
