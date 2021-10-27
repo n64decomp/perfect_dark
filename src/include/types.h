@@ -3852,32 +3852,32 @@ struct menudata_mpend {
 };
 
 struct menudata_filemgr {
-	/*0xe1c*/ u32 filetypeplusone; // used
-	/*0xe20*/ u32 device; // used
-	/*0xe24*/ u32 unke24; // used
+	/*0xe1c*/ u32 filetypeplusone;
+	/*0xe20*/ u32 device;
+	/*0xe24*/ u32 unke24;
 	union {
-		u32 isdeletingforsave; // used
+		u32 isdeletingforsave;
 		u32 noteindex;
 	};
-	/*0xe2c*/ u32 unke2c; // used
+	/*0xe2c*/ u32 unke2c;
 	/*0xe30*/ u32 unke30;
-	/*0xe34*/ u16 errno; // used
-	/*0xe38*/ struct filelistfile *filetodelete; // used
-	/*0xe3c*/ u8 device1; // used
-	/*0xe3d*/ u8 filetypetodelete; // used
-	/*0xe3e*/ u8 unke3e; // used
-	/*0xe3f*/ u8 listnum; // used
+	/*0xe34*/ u16 errno;
+	/*0xe38*/ struct filelistfile *filetodelete;
+	/*0xe3c*/ u8 device1;
+	/*0xe3d*/ u8 filetypetodelete;
+	/*0xe3e*/ u8 unke3e;
+	/*0xe3f*/ u8 listnum;
 	/*0xe40*/ u16 unke40_00 : 1;
 	/*0xe40*/ u16 unke40_01 : 1;
 	/*0xe40*/ u16 unke40_02 : 14;
 	/*0xe42*/ u8 fileop;
 	union {
-		void *unke44; // used
+		void *unke44;
 		s32 mpplayernum;
 	};
-	/*0xe48*/ u32 fileid; // used
-	/*0xe4c*/ u32 deviceserial; // used
-	/*0xe50*/ u16 isretryingsave; // used
+	/*0xe48*/ u32 fileid;
+	/*0xe4c*/ u32 deviceserial;
+	/*0xe50*/ u16 isretryingsave;
 	/*0xe52*/ u8 device2;
 #if VERSION >= VERSION_NTSC_1_0
 	/*0xe53*/ char filename[20];

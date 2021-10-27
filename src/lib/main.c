@@ -3007,7 +3007,7 @@ glabel mainTick
 /*     edd0:	8fac0094 */ 	lw	$t4,0x94($sp)
 /*     edd4:	0fc4649c */ 	jal	debugTick
 /*     edd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     eddc:	0fc4633d */ 	jal	debugRender
+/*     eddc:	0fc4633d */ 	jal	dmenuRender
 /*     ede0:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*     ede4:	afa20094 */ 	sw	$v0,0x94($sp)
 /*     ede8:	8fac0094 */ 	lw	$t4,0x94($sp)
@@ -3148,7 +3148,7 @@ u32 var8005f690nb[] = {
 //
 //			if (var8005dd58) {
 //				debugTick();
-//				gdl = debugRender(gdl);
+//				gdl = dmenuRender(gdl);
 //			}
 //
 //			gDPFullSync(gdl++);
