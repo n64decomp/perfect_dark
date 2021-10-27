@@ -73,12 +73,10 @@ Gfx *dmenuRender(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel dmenuGetSelectedOption
-/*  f118f70:	3c028008 */ 	lui	$v0,0x8008
-/*  f118f74:	03e00008 */ 	jr	$ra
-/*  f118f78:	8c428120 */ 	lw	$v0,-0x7ee0($v0)
-);
+s32 dmenuGetSelectedOption(void)
+{
+	return g_DMenuSelectedOption;
+}
 
 GLOBAL_ASM(
 glabel dmenuSetSelectedOption
