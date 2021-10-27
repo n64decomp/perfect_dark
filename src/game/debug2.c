@@ -445,19 +445,10 @@ void debug0f1193ecnb(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel debug0f1193f4nb
-/*  f1193f4:	3c028008 */ 	lui	$v0,0x8008
-/*  f1193f8:	3c038008 */ 	lui	$v1,0x8008
-/*  f1193fc:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f119400:	246386ec */ 	addiu	$v1,$v1,-30996
-/*  f119404:	244286f4 */ 	addiu	$v0,$v0,-30988
-/*  f119408:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f11940c:	ac6e0000 */ 	sw	$t6,0x0($v1)
-/*  f119410:	3c018008 */ 	lui	$at,0x8008
-/*  f119414:	03e00008 */ 	jr	$ra
-/*  f119418:	ac2e86e8 */ 	sw	$t6,-0x7918($at)
-);
+void debug0f1193f4nb(void)
+{
+	var80075d60 = var80075d64 = var800786f4nb = 2;
+}
 
 GLOBAL_ASM(
 glabel debug0f11941cnb
