@@ -129,75 +129,40 @@ void dmenuNavigateDown(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel dmenuNavigateRight
-/*  f119080:	3c038008 */ 	lui	$v1,0x8008
-/*  f119084:	8c638134 */ 	lw	$v1,-0x7ecc($v1)
-/*  f119088:	3c088008 */ 	lui	$t0,0x8008
-/*  f11908c:	25088120 */ 	addiu	$t0,$t0,-32480
-/*  f119090:	8d020000 */ 	lw	$v0,0x0($t0)
-/*  f119094:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f119098:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f11909c:	0044082a */ 	slt	$at,$v0,$a0
-/*  f1190a0:	1020000d */ 	beqz	$at,.NB0f1190d8
-/*  f1190a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1190a8:	8dce8130 */ 	lw	$t6,-0x7ed0($t6)
-/*  f1190ac:	00447821 */ 	addu	$t7,$v0,$a0
-/*  f1190b0:	29c10002 */ 	slti	$at,$t6,0x2
-/*  f1190b4:	1420002d */ 	bnez	$at,.NB0f11916c
-/*  f1190b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1190bc:	ad0f0000 */ 	sw	$t7,0x0($t0)
-/*  f1190c0:	8c650004 */ 	lw	$a1,0x4($v1)
-/*  f1190c4:	01e5082a */ 	slt	$at,$t7,$a1
-/*  f1190c8:	14200028 */ 	bnez	$at,.NB0f11916c
-/*  f1190cc:	24b9ffff */ 	addiu	$t9,$a1,-1
-/*  f1190d0:	03e00008 */ 	jr	$ra
-/*  f1190d4:	ad190000 */ 	sw	$t9,0x0($t0)
-.NB0f1190d8:
-/*  f1190d8:	3c048008 */ 	lui	$a0,0x8008
-/*  f1190dc:	8c848130 */ 	lw	$a0,-0x7ed0($a0)
-/*  f1190e0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1190e4:	00603025 */ 	or	$a2,$v1,$zero
-/*  f1190e8:	18800020 */ 	blez	$a0,.NB0f11916c
-/*  f1190ec:	00000000 */ 	sll	$zero,$zero,0x0
-.NB0f1190f0:
-/*  f1190f0:	8cc70000 */ 	lw	$a3,0x0($a2)
-/*  f1190f4:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f1190f8:	0047082a */ 	slt	$at,$v0,$a3
-/*  f1190fc:	50200019 */ 	beqzl	$at,.NB0f119164
-/*  f119100:	00a4082a */ 	slt	$at,$a1,$a0
-/*  f119104:	8ccafffc */ 	lw	$t2,-0x4($a2)
-/*  f119108:	00474821 */ 	addu	$t1,$v0,$a3
-/*  f11910c:	012a5823 */ 	subu	$t3,$t1,$t2
-/*  f119110:	ad0b0000 */ 	sw	$t3,0x0($t0)
-/*  f119114:	8cc40004 */ 	lw	$a0,0x4($a2)
-/*  f119118:	0483000b */ 	bgezl	$a0,.NB0f119148
-/*  f11911c:	8d190000 */ 	lw	$t9,0x0($t0)
-/*  f119120:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f119124:	016d7023 */ 	subu	$t6,$t3,$t5
-/*  f119128:	ad0e0000 */ 	sw	$t6,0x0($t0)
-/*  f11912c:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f119130:	01c4082a */ 	slt	$at,$t6,$a0
-/*  f119134:	1420000d */ 	bnez	$at,.NB0f11916c
-/*  f119138:	2498ffff */ 	addiu	$t8,$a0,-1
-/*  f11913c:	03e00008 */ 	jr	$ra
-/*  f119140:	ad180000 */ 	sw	$t8,0x0($t0)
-/*  f119144:	8d190000 */ 	lw	$t9,0x0($t0)
-.NB0f119148:
-/*  f119148:	2489ffff */ 	addiu	$t1,$a0,-1
-/*  f11914c:	0324082a */ 	slt	$at,$t9,$a0
-/*  f119150:	14200006 */ 	bnez	$at,.NB0f11916c
-/*  f119154:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119158:	03e00008 */ 	jr	$ra
-/*  f11915c:	ad090000 */ 	sw	$t1,0x0($t0)
-/*  f119160:	00a4082a */ 	slt	$at,$a1,$a0
-.NB0f119164:
-/*  f119164:	1420ffe2 */ 	bnez	$at,.NB0f1190f0
-/*  f119168:	24c60004 */ 	addiu	$a2,$a2,0x4
-.NB0f11916c:
-/*  f11916c:	03e00008 */ 	jr	$ra
-/*  f119170:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dmenuNavigateRight(void)
+{
+	s32 i;
+
+	if (g_DMenuSelectedOption < g_DMenuCurOffsets[0]) {
+		if (g_DMenuNumGroups >= 2) {
+			g_DMenuSelectedOption += g_DMenuCurOffsets[0];
+
+			if (g_DMenuSelectedOption >= g_DMenuCurOffsets[1]) {
+				g_DMenuSelectedOption = g_DMenuCurOffsets[1] - 1;
+			}
+		}
+		return;
+	}
+
+	for (i = 0; i < g_DMenuNumGroups; i++) {
+		if (g_DMenuSelectedOption < g_DMenuCurOffsets[i]) {
+			g_DMenuSelectedOption = g_DMenuSelectedOption + g_DMenuCurOffsets[i] - g_DMenuCurOffsets[i - 1];
+
+			if (g_DMenuCurOffsets[i + 1] < 0) {
+				g_DMenuSelectedOption -= g_DMenuCurOffsets[i];
+
+				if (g_DMenuSelectedOption >= g_DMenuCurOffsets[0]) {
+					g_DMenuSelectedOption = g_DMenuCurOffsets[0] - 1;
+				}
+			} else {
+				if (g_DMenuSelectedOption >= g_DMenuCurOffsets[i + 1]) {
+					g_DMenuSelectedOption = g_DMenuCurOffsets[i + 1] - 1;
+				}
+			}
+			return;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel dmenuNavigateLeft
