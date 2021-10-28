@@ -2,6 +2,8 @@
 #include "constants.h"
 #include "bss.h"
 #include "lib/lib_126b0.h"
+#include "lib/lib_13790.h"
+#include "lib/memory.h"
 #include "data.h"
 #include "types.h"
 
@@ -354,218 +356,121 @@ glabel func00012a14
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel memPrintInfoIfEnabled
-/*    12a8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    12a90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12a94:	3c04800a */ 	lui	$a0,%hi(var80099478)
-/*    12a98:	0c0049bc */ 	jal	func000126f0
-/*    12a9c:	24849478 */ 	addiu	$a0,$a0,%lo(var80099478)
-/*    12aa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    12aa4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    12aa8:	03e00008 */ 	jr	$ra
-/*    12aac:	00000000 */ 	nop
-);
-#else
-GLOBAL_ASM(
-glabel memPrintInfoIfEnabled
-/*    13028:	27bdff48 */ 	addiu	$sp,$sp,-184
-/*    1302c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    13030:	3c04800a */ 	lui	$a0,0x800a
-/*    13034:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    13038:	0c004b24 */ 	jal	func000126f0
-/*    1303c:	2484c3f8 */ 	addiu	$a0,$a0,-15368
-/*    13040:	0fc466e4 */ 	jal	debugIsMemInfoEnabled
-/*    13044:	00000000 */ 	sll	$zero,$zero,0x0
-/*    13048:	104000b1 */ 	beqz	$v0,.NB00013310
-/*    1304c:	240400ff */ 	addiu	$a0,$zero,0xff
-/*    13050:	240500ff */ 	addiu	$a1,$zero,0xff
-/*    13054:	240600ff */ 	addiu	$a2,$zero,0xff
-/*    13058:	0c005106 */ 	jal	func000137bc
-/*    1305c:	240700ff */ 	addiu	$a3,$zero,0xff
-/*    13060:	00002025 */ 	or	$a0,$zero,$zero
-/*    13064:	00002825 */ 	or	$a1,$zero,$zero
-/*    13068:	00003025 */ 	or	$a2,$zero,$zero
-/*    1306c:	0c005115 */ 	jal	func000137d0
-/*    13070:	240700ff */ 	addiu	$a3,$zero,0xff
-/*    13074:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*    13078:	0c0050df */ 	jal	func000137b0
-/*    1307c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    13080:	3c047005 */ 	lui	$a0,0x7005
-/*    13084:	0c005175 */ 	jal	func000137fc
-/*    13088:	24845730 */ 	addiu	$a0,$a0,0x5730
-/*    1308c:	24100002 */ 	addiu	$s0,$zero,0x2
-/*    13090:	02002825 */ 	or	$a1,$s0,$zero
-/*    13094:	0c0050df */ 	jal	func000137b0
-/*    13098:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*    1309c:	3c047005 */ 	lui	$a0,0x7005
-/*    130a0:	0c005175 */ 	jal	func000137fc
-/*    130a4:	2484573c */ 	addiu	$a0,$a0,0x573c
-/*    130a8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    130ac:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    130b0:	0c004a7c */ 	jal	memGetFree
-/*    130b4:	00002825 */ 	or	$a1,$zero,$zero
-/*    130b8:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*    130bc:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    130c0:	0c004a7c */ 	jal	memGetFree
-/*    130c4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    130c8:	3c057005 */ 	lui	$a1,0x7005
-/*    130cc:	24a5574c */ 	addiu	$a1,$a1,0x574c
-/*    130d0:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    130d4:	8fa600b4 */ 	lw	$a2,0xb4($sp)
-/*    130d8:	0c004fc1 */ 	jal	sprintf
-/*    130dc:	00403825 */ 	or	$a3,$v0,$zero
-/*    130e0:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*    130e4:	0c0050df */ 	jal	func000137b0
-/*    130e8:	02002825 */ 	or	$a1,$s0,$zero
-/*    130ec:	0c005175 */ 	jal	func000137fc
-/*    130f0:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    130f4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    130f8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    130fc:	0c004a91 */ 	jal	func00012a44nb
-/*    13100:	00002825 */ 	or	$a1,$zero,$zero
-/*    13104:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*    13108:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    1310c:	0c004a91 */ 	jal	func00012a44nb
-/*    13110:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    13114:	3c057005 */ 	lui	$a1,0x7005
-/*    13118:	24a55758 */ 	addiu	$a1,$a1,0x5758
-/*    1311c:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    13120:	8fa600b4 */ 	lw	$a2,0xb4($sp)
-/*    13124:	0c004fc1 */ 	jal	sprintf
-/*    13128:	00403825 */ 	or	$a3,$v0,$zero
-/*    1312c:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*    13130:	0c0050df */ 	jal	func000137b0
-/*    13134:	02002825 */ 	or	$a1,$s0,$zero
-/*    13138:	0c005175 */ 	jal	func000137fc
-/*    1313c:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    13140:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    13144:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    13148:	0c004a7c */ 	jal	memGetFree
-/*    1314c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    13150:	afa20024 */ 	sw	$v0,0x24($sp)
-/*    13154:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    13158:	0c004a91 */ 	jal	func00012a44nb
-/*    1315c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    13160:	afa20028 */ 	sw	$v0,0x28($sp)
-/*    13164:	24040004 */ 	addiu	$a0,$zero,0x4
-/*    13168:	0c004a7c */ 	jal	memGetFree
-/*    1316c:	00002825 */ 	or	$a1,$zero,$zero
-/*    13170:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    13174:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*    13178:	01cfc023 */ 	subu	$t8,$t6,$t7
-/*    1317c:	03021823 */ 	subu	$v1,$t8,$v0
-/*    13180:	04600008 */ 	bltz	$v1,.NB000131a4
-/*    13184:	00603825 */ 	or	$a3,$v1,$zero
-/*    13188:	3c057005 */ 	lui	$a1,0x7005
-/*    1318c:	24a55764 */ 	addiu	$a1,$a1,0x5764
-/*    13190:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    13194:	0c004fc1 */ 	jal	sprintf
-/*    13198:	00603025 */ 	or	$a2,$v1,$zero
-/*    1319c:	10000007 */ 	beqz	$zero,.NB000131bc
-/*    131a0:	2404001f */ 	addiu	$a0,$zero,0x1f
-.NB000131a4:
-/*    131a4:	3c057005 */ 	lui	$a1,0x7005
-/*    131a8:	24a55770 */ 	addiu	$a1,$a1,0x5770
-/*    131ac:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    131b0:	0c004fc1 */ 	jal	sprintf
-/*    131b4:	00073023 */ 	negu	$a2,$a3
-/*    131b8:	2404001f */ 	addiu	$a0,$zero,0x1f
-.NB000131bc:
-/*    131bc:	0c0050df */ 	jal	func000137b0
-/*    131c0:	02002825 */ 	or	$a1,$s0,$zero
-/*    131c4:	0c005175 */ 	jal	func000137fc
-/*    131c8:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    131cc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    131d0:	02002825 */ 	or	$a1,$s0,$zero
-/*    131d4:	0c0050df */ 	jal	func000137b0
-/*    131d8:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*    131dc:	3c047005 */ 	lui	$a0,0x7005
-/*    131e0:	0c005175 */ 	jal	func000137fc
-/*    131e4:	2484577c */ 	addiu	$a0,$a0,0x577c
-/*    131e8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    131ec:	24040006 */ 	addiu	$a0,$zero,0x6
-/*    131f0:	0c004a7c */ 	jal	memGetFree
-/*    131f4:	00002825 */ 	or	$a1,$zero,$zero
-/*    131f8:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*    131fc:	24040006 */ 	addiu	$a0,$zero,0x6
-/*    13200:	0c004a7c */ 	jal	memGetFree
-/*    13204:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    13208:	3c057005 */ 	lui	$a1,0x7005
-/*    1320c:	24a55790 */ 	addiu	$a1,$a1,0x5790
-/*    13210:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    13214:	8fa600b4 */ 	lw	$a2,0xb4($sp)
-/*    13218:	0c004fc1 */ 	jal	sprintf
-/*    1321c:	00403825 */ 	or	$a3,$v0,$zero
-/*    13220:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*    13224:	0c0050df */ 	jal	func000137b0
-/*    13228:	02002825 */ 	or	$a1,$s0,$zero
-/*    1322c:	0c005175 */ 	jal	func000137fc
-/*    13230:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    13234:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    13238:	24040006 */ 	addiu	$a0,$zero,0x6
-/*    1323c:	0c004a91 */ 	jal	func00012a44nb
-/*    13240:	00002825 */ 	or	$a1,$zero,$zero
-/*    13244:	afa200b4 */ 	sw	$v0,0xb4($sp)
-/*    13248:	24040006 */ 	addiu	$a0,$zero,0x6
-/*    1324c:	0c004a91 */ 	jal	func00012a44nb
-/*    13250:	24050001 */ 	addiu	$a1,$zero,0x1
-/*    13254:	3c057005 */ 	lui	$a1,0x7005
-/*    13258:	24a5579c */ 	addiu	$a1,$a1,0x579c
-/*    1325c:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    13260:	8fa600b4 */ 	lw	$a2,0xb4($sp)
-/*    13264:	0c004fc1 */ 	jal	sprintf
-/*    13268:	00403825 */ 	or	$a3,$v0,$zero
-/*    1326c:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*    13270:	0c0050df */ 	jal	func000137b0
-/*    13274:	02002825 */ 	or	$a1,$s0,$zero
-/*    13278:	0c005175 */ 	jal	func000137fc
-/*    1327c:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    13280:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    13284:	02002825 */ 	or	$a1,$s0,$zero
-/*    13288:	0c0050df */ 	jal	func000137b0
-/*    1328c:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*    13290:	3c047005 */ 	lui	$a0,0x7005
-/*    13294:	0c005175 */ 	jal	func000137fc
-/*    13298:	248457a8 */ 	addiu	$a0,$a0,0x57a8
-/*    1329c:	0c004d4e */ 	jal	func00012cdc
-/*    132a0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    132a4:	3c057005 */ 	lui	$a1,0x7005
-/*    132a8:	24a557b0 */ 	addiu	$a1,$a1,0x57b0
-/*    132ac:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    132b0:	0c004fc1 */ 	jal	sprintf
-/*    132b4:	00403025 */ 	or	$a2,$v0,$zero
-/*    132b8:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*    132bc:	0c0050df */ 	jal	func000137b0
-/*    132c0:	02002825 */ 	or	$a1,$s0,$zero
-/*    132c4:	0c005175 */ 	jal	func000137fc
-/*    132c8:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    132cc:	3c02800a */ 	lui	$v0,0x800a
-/*    132d0:	24428170 */ 	addiu	$v0,$v0,-32400
-/*    132d4:	8c590008 */ 	lw	$t9,0x8($v0)
-/*    132d8:	8c480004 */ 	lw	$t0,0x4($v0)
-/*    132dc:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*    132e0:	3c057005 */ 	lui	$a1,0x7005
-/*    132e4:	03284823 */ 	subu	$t1,$t9,$t0
-/*    132e8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    132ec:	24a557b8 */ 	addiu	$a1,$a1,0x57b8
-/*    132f0:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*    132f4:	0c004fc1 */ 	jal	sprintf
-/*    132f8:	012a3021 */ 	addu	$a2,$t1,$t2
-/*    132fc:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*    13300:	0c0050df */ 	jal	func000137b0
-/*    13304:	02002825 */ 	or	$a1,$s0,$zero
-/*    13308:	0c005175 */ 	jal	func000137fc
-/*    1330c:	27a4002c */ 	addiu	$a0,$sp,0x2c
-.NB00013310:
-/*    13310:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    13314:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*    13318:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
-/*    1331c:	03e00008 */ 	jr	$ra
-/*    13320:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Example printout of figures:
+ *
+ *     Mem Info
+ *     memp: MP_LF_LEV
+ *      F: 0 722352
+ *      S: 972080 3668704
+ *      Over: 2946352
+ *     memp: MP_LF_ETER
+ *      F: 0 0
+ *      S: 601728 0
+ *     mema:
+ *      LF: 391728
+ *     Audio Free: 13184
+ *
+ * Where two figures are shown in one line, the left refers to onboard memory
+ * and the right refers to expansion pak memory.
+ *
+ * F means free.
+ * S means size?
+ *
+ * "Over" shows how much it's over 4MB, if they were to try to fit the game into
+ * onboard memory only. This shows "Free" if under 4MB.
+ *
+ * The ETER (permanent) pool has 0 free space because it's shrunk to fit once
+ * the permanent allocations are done during startup. This pool fits entirely
+ * in onboard memory, so the expansion size is 0.
+ *
+ * mema means audio memory. Unsure what LF is.
+ */
+void memPrintInfoIfEnabled(void)
+{
+	s32 onboard;
+	s32 expansion;
+	s32 line = 1;
+	s32 over;
+	char buffer[124];
+
+	func000126f0(&var80099478);
+
+#if VERSION < VERSION_NTSC_1_0
+	if (debugIsMemInfoEnabled()) {
+		func000137bc(0xff, 0xff, 0xff, 0xff);
+		func000137d0(0, 0, 0, 0xff);
+
+		func000137b0(30, line);
+		func000137fc("Mem Info");
+		line++;
+
+		func000137b0(30, line);
+		func000137fc("memp: MP_LF_LEV");
+		line++;
+
+		onboard = memGetFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
+		expansion = memGetFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
+		sprintf(buffer, "F: %d %d", onboard, expansion);
+		func000137b0(31, line);
+		func000137fc(buffer);
+		line++;
+
+		onboard = func00012a44nb(MEMPOOL_STAGE, MEMBANK_ONBOARD);
+		expansion = func00012a44nb(MEMPOOL_STAGE, MEMBANK_EXPANSION);
+		sprintf(buffer, "S: %d %d", onboard, expansion);
+		func000137b0(31, line);
+		func000137fc(buffer);
+		line++;
+
+		over = func00012a44nb(MEMPOOL_STAGE, MEMBANK_EXPANSION)
+			- memGetFree(MEMPOOL_STAGE, MEMBANK_EXPANSION)
+			- memGetFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
+
+		if (over >= 0) {
+			sprintf(buffer, "Over: %d", over);
+		} else {
+			sprintf(buffer, "Free: %d", -over);
+		}
+
+		func000137b0(31, line);
+		func000137fc(buffer);
+		line++;
+
+		func000137b0(30, line);
+		func000137fc("memp: MP_LF_ETER");
+		line++;
+
+		onboard = memGetFree(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
+		expansion = memGetFree(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
+		sprintf(buffer, "F: %d %d", onboard, expansion);
+		func000137b0(31, line);
+		func000137fc(buffer);
+		line++;
+
+		onboard = func00012a44nb(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
+		expansion = func00012a44nb(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
+		sprintf(buffer, "S: %d %d", onboard, expansion);
+		func000137b0(31, line);
+		func000137fc(buffer);
+		line++;
+
+		func000137b0(30, line);
+		func000137fc("mema:");
+		line++;
+
+		sprintf(buffer, "LF: %d", func00012cdc());
+		func000137b0(31, line);
+		func000137fc(buffer);
+		line++;
+
+		sprintf(buffer, "Audio Free: %d", g_SndHeap.base + (g_SndHeap.len - (u32)g_SndHeap.cur));
+		func000137b0(30, line);
+		func000137fc(buffer);
+		line++;
+	}
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
