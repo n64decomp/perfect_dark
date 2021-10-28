@@ -324,11 +324,11 @@ glabel dhudInit
 );
 #endif
 
-void dhudTryClear(void)
+void dhudTryReset(void)
 {
 #if VERSION < VERSION_NTSC_1_0
 	if (g_DHudInitialised) {
-		dhudClear();
+		dhudReset();
 	}
 #endif
 }
@@ -439,28 +439,17 @@ glabel dhud00014154nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel dhud0001429cnb
-/*    1429c:	3c0e8006 */ 	lui	$t6,0x8006
-/*    142a0:	8dce117c */ 	lw	$t6,0x117c($t6)
-/*    142a4:	3c0f8006 */ 	lui	$t7,0x8006
-/*    142a8:	3c018006 */ 	lui	$at,0x8006
-/*    142ac:	11c00007 */ 	beqz	$t6,.NB000142cc
-/*    142b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    142b4:	8def1168 */ 	lw	$t7,0x1168($t7)
-/*    142b8:	3c188006 */ 	lui	$t8,0x8006
-/*    142bc:	8f18116c */ 	lw	$t8,0x116c($t8)
-/*    142c0:	ac2f1170 */ 	sw	$t7,0x1170($at)
-/*    142c4:	3c018006 */ 	lui	$at,0x8006
-/*    142c8:	ac381174 */ 	sw	$t8,0x1174($at)
-.NB000142cc:
-/*    142cc:	03e00008 */ 	jr	$ra
-/*    142d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dhudResetPos(void)
+{
+	if (g_DHudInitialised) {
+		g_DHudPosX = g_DHudBaseX;
+		g_DHudPosY = g_DHudBaseY;
+	}
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-void dhudClear(void)
+void dhudReset(void)
 {
 	s32 x;
 	s32 y;
@@ -473,7 +462,7 @@ void dhudClear(void)
 		}
 
 		var80061178nb = 1;
-		dhud0001429cnb();
+		dhudResetPos();
 		dhud00014000nb();
 		var80061214nb = 0;
 	}

@@ -1939,7 +1939,7 @@ void mainLoop(void)
 
 		gfxInitMemory();
 		joy00013dfc();
-		dhudTryClear();
+		dhudTryReset();
 		func0f17608c(g_StageNum);
 		lvInit(g_StageNum);
 		viAllocateFbs(g_StageNum);
@@ -2476,7 +2476,7 @@ glabel mainLoop
 /*     e70c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e710:	0c005310 */ 	jal	joy00013dfc
 /*     e714:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e718:	0c005049 */ 	jal	dhudTryClear
+/*     e718:	0c005049 */ 	jal	dhudTryReset
 /*     e71c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e720:	3c048006 */ 	lui	$a0,0x8006
 /*     e724:	0fc5c34b */ 	jal	func0f17608c
@@ -2990,7 +2990,7 @@ glabel mainTick
 .NB0000ed94:
 /*     ed94:	0c0051a1 */ 	jal	dhudRender
 /*     ed98:	8fa40094 */ 	lw	$a0,0x94($sp)
-/*     ed9c:	0c0050b5 */ 	jal	dhudClear
+/*     ed9c:	0c0050b5 */ 	jal	dhudReset
 /*     eda0:	afa20094 */ 	sw	$v0,0x94($sp)
 /*     eda4:	0fc4663a */ 	jal	debug0f11ed70
 /*     eda8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3140,7 +3140,7 @@ u32 var8005f690nb[] = {
 //			}
 //
 //			gdl = dhudRender(gdl);
-//			dhudClear();
+//			dhudReset();
 //
 //			if (debug0f11ed70() >= 2) {
 //				gdl = profileRender(gdl);
