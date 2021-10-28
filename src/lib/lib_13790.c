@@ -713,39 +713,16 @@ void dhudPrintCharAt(s32 x, s32 y, char c)
 #endif
 }
 
-#if VERSION >= VERSION_NTSC_1_0
-void dhudPrintString(char *text)
+void dhudPrintString(char *str)
 {
-	// empty
-}
-#else
-GLOBAL_ASM(
-glabel dhudPrintString
-/*    145d4:	3c0e8006 */ 	lui	$t6,0x8006
-/*    145d8:	8dce117c */ 	lw	$t6,0x117c($t6)
-/*    145dc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    145e0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    145e4:	00808825 */ 	or	$s1,$a0,$zero
-/*    145e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*    145ec:	11c00009 */ 	beqz	$t6,.NB00014614
-/*    145f0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    145f4:	90900000 */ 	lbu	$s0,0x0($a0)
-/*    145f8:	12000006 */ 	beqz	$s0,.NB00014614
-/*    145fc:	320400ff */ 	andi	$a0,$s0,0xff
-.NB00014600:
-/*    14600:	0c005124 */ 	jal	dhudPrintChar
-/*    14604:	26310001 */ 	addiu	$s1,$s1,0x1
-/*    14608:	92300000 */ 	lbu	$s0,0x0($s1)
-/*    1460c:	5600fffc */ 	bnezl	$s0,.NB00014600
-/*    14610:	320400ff */ 	andi	$a0,$s0,0xff
-.NB00014614:
-/*    14614:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*    14618:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    1461c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    14620:	03e00008 */ 	jr	$ra
-/*    14624:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+#if VERSION < VERSION_NTSC_1_0
+	if (g_DHudInitialised) {
+		while (*str != '\0') {
+			dhudPrintChar(*str++);
+		}
+	}
 #endif
+}
 
 void dhudPrintStringAt(s32 x, s32 y, char *str)
 {
