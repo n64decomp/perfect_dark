@@ -230,13 +230,10 @@ glabel dhud00013fe0nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel dhud00013ff0nb
-/*    13ff0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    13ff4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    13ff8:	03e00008 */ 	jr	$ra
-/*    13ffc:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 dhud00013ff0nb(s32 arg0, s32 arg1)
+{
+	return 0;
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
