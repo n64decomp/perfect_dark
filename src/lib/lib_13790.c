@@ -198,9 +198,15 @@ u32 var80061180nb[] = {
 	0xe7000000, 0x00000000, 0xf5682000, 0x00000000,
 	0xf2000000, 0x001fc050, 0xe6000000, 0x00000000,
 	0xb8000000, 0x00000000, 0x00000000, 0x00000000,
-	0x00000000, 0x00000000, 0xb8000000, 0x00000000,
-	0xc0000000, 0x00000000, 0xfa000000,
+	0x00000000,
 };
+
+u32 var80061214nb = 0x00000000;
+u32 var80061218nb = 0xb8000000;
+u32 var8006121cnb = 0x00000000;
+u32 var80061220nb = 0xc0000000;
+u32 var80061224nb = 0x00000000;
+u32 var80061228nb = 0xfa000000;
 
 u32 g_DHudFgColour = 0xffffff00;
 u32 var80061230nb = 0xfb000000;
@@ -461,54 +467,24 @@ glabel dhud0001429cnb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel dhudClear
-/*    142d4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    142d8:	3c0e8006 */ 	lui	$t6,0x8006
-/*    142dc:	8dce117c */ 	lw	$t6,0x117c($t6)
-/*    142e0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*    142e4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    142e8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*    142ec:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    142f0:	11c0001b */ 	beqz	$t6,.NB00014360
-/*    142f4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    142f8:	3c0f8006 */ 	lui	$t7,0x8006
-/*    142fc:	8def1178 */ 	lw	$t7,0x1178($t7)
-/*    14300:	24010001 */ 	addiu	$at,$zero,0x1
-/*    14304:	00009025 */ 	or	$s2,$zero,$zero
-/*    14308:	11e10015 */ 	beq	$t7,$at,.NB00014360
-/*    1430c:	24130023 */ 	addiu	$s3,$zero,0x23
-/*    14310:	24110050 */ 	addiu	$s1,$zero,0x50
-/*    14314:	00008025 */ 	or	$s0,$zero,$zero
-.NB00014318:
-/*    14318:	02002025 */ 	or	$a0,$s0,$zero
-.NB0001431c:
-/*    1431c:	02402825 */ 	or	$a1,$s2,$zero
-/*    14320:	0c005055 */ 	jal	dhud00014154nb
-/*    14324:	00003025 */ 	or	$a2,$zero,$zero
-/*    14328:	26100001 */ 	addiu	$s0,$s0,0x1
-/*    1432c:	5611fffb */ 	bnel	$s0,$s1,.NB0001431c
-/*    14330:	02002025 */ 	or	$a0,$s0,$zero
-/*    14334:	26520001 */ 	addiu	$s2,$s2,0x1
-/*    14338:	5653fff7 */ 	bnel	$s2,$s3,.NB00014318
-/*    1433c:	00008025 */ 	or	$s0,$zero,$zero
-/*    14340:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    14344:	3c018006 */ 	lui	$at,0x8006
-/*    14348:	0c0050a7 */ 	jal	dhud0001429cnb
-/*    1434c:	ac381178 */ 	sw	$t8,0x1178($at)
-/*    14350:	0c005000 */ 	jal	dhud00014000nb
-/*    14354:	00000000 */ 	sll	$zero,$zero,0x0
-/*    14358:	3c018006 */ 	lui	$at,0x8006
-/*    1435c:	ac201214 */ 	sw	$zero,0x1214($at)
-.NB00014360:
-/*    14360:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*    14364:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*    14368:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*    1436c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*    14370:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*    14374:	03e00008 */ 	jr	$ra
-/*    14378:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void dhudClear(void)
+{
+	s32 x;
+	s32 y;
+
+	if (g_DHudInitialised && var80061178nb != 1) {
+		for (y = 0; y < 35; y++) {
+			for (x = 0; x < 80; x++) {
+				dhud00014154nb(x, y, '\0');
+			}
+		}
+
+		var80061178nb = 1;
+		dhud0001429cnb();
+		dhud00014000nb();
+		var80061214nb = 0;
+	}
+}
 #endif
 
 void dhudSetPos(s32 x, s32 y)
