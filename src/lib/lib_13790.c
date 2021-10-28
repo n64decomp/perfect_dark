@@ -703,31 +703,15 @@ glabel dhudPrintChar
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-void dhudPrintCharAt(s32 arg0, s32 arg1, s32 arg2)
+void dhudPrintCharAt(s32 x, s32 y, char c)
 {
-	// empty
-}
-#else
-GLOBAL_ASM(
-glabel dhudPrintCharAt
-/*    1459c:	3c0e8006 */ 	lui	$t6,0x8006
-/*    145a0:	8dce117c */ 	lw	$t6,0x117c($t6)
-/*    145a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    145a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    145ac:	11c00005 */ 	beqz	$t6,.NB000145c4
-/*    145b0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*    145b4:	0c0050df */ 	jal	dhudSetPos
-/*    145b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    145bc:	0c005124 */ 	jal	dhudPrintChar
-/*    145c0:	93a40023 */ 	lbu	$a0,0x23($sp)
-.NB000145c4:
-/*    145c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    145c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    145cc:	03e00008 */ 	jr	$ra
-/*    145d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION < VERSION_NTSC_1_0
+	if (g_DHudInitialised) {
+		dhudSetPos(x, y);
+		dhudPrintChar(c);
+	}
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void dhudPrintString(char *text)
