@@ -240,11 +240,10 @@ glabel dhud00013ff0nb
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel dhud00014000nb
-/*    14000:	03e00008 */ 	jr	$ra
-/*    14004:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dhud00014000nb(void)
+{
+	// empty
+}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
