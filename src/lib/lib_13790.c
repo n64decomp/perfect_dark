@@ -5,8 +5,18 @@
 #include "data.h"
 #include "types.h"
 
+struct dhudthing {
+	s32 unk00;
+	s32 unk04;
+};
+
+#define NUM_COLS 80
+#define NUM_ROWS 35
+
 #if VERSION < VERSION_NTSC_1_0
-u8 var8009c9e0nb[0x17e0];
+u8 var8009c9e0nb[NUM_COLS][NUM_ROWS][2];
+struct dhudthing var8009dfc0nb[32];
+struct dhudthing var8009e0c0nb[32];
 
 u32 var800606e0nb[] = {
 	0xb8000000, 0x00000000, 0x00000000, 0x00227a00,
@@ -197,10 +207,12 @@ u32 var80061180nb[] = {
 	0xe6000000, 0x00000000, 0xf3000000, 0x0753f080,
 	0xe7000000, 0x00000000, 0xf5682000, 0x00000000,
 	0xf2000000, 0x001fc050, 0xe6000000, 0x00000000,
-	0xb8000000, 0x00000000, 0x00000000, 0x00000000,
-	0x00000000,
+	0xb8000000, 0x00000000,
 };
 
+u8 (*var80061208nb)[NUM_ROWS][2] = NULL;
+struct dhudthing *var8006120cnb = NULL;
+struct dhudthing *var80061210nb = NULL;
 u32 var80061214nb = 0x00000000;
 u32 var80061218nb = 0xb8000000;
 u32 var8006121cnb = 0x00000000;
@@ -211,12 +223,6 @@ u32 var80061228nb = 0xfa000000;
 u32 g_DHudFgColour = 0xffffff00;
 u32 var80061230nb = 0xfb000000;
 u32 g_DHudBgColour = 0x00000000;
-u32 var80061238nb = 0x00000000;
-u32 var8006123cnb = 0x00000000;
-u32 var80061240nb = 0x000000ff;
-u32 var80061244nb = 0x00000000;
-u32 var80061248nb = 0x00000000;
-u32 var8006124cnb = 0x00000000;
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
@@ -240,89 +246,33 @@ void dhud00014000nb(void)
 }
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
 void dhudInit(void)
 {
-	// empty
+	s32 i;
+	s32 x;
+	s32 y;
+	u32 stack;
+
+	struct dhudthing sp04 = {0, 0};
+
+	var80061208nb = var8009c9e0nb;
+	var8006120cnb = var8009dfc0nb;
+	var80061210nb = var8009e0c0nb;
+
+	g_DHudInitialised = true;
+
+	for (x = 0; x < NUM_COLS; x++) {
+		for (y = 0; y < NUM_ROWS; y++) {
+			var80061208nb[x][y][0] = 0;
+			var80061208nb[x][y][1] = 0;
+		}
+	}
+
+	for (i = 0; i < 32; i++) {
+		var8006120cnb[i] = sp04;
+		var80061210nb[i] = sp04;
+	}
 }
-#else
-GLOBAL_ASM(
-glabel dhudInit
-/*    14008:	3c0e8006 */ 	lui	$t6,0x8006
-/*    1400c:	25ce1238 */ 	addiu	$t6,$t6,0x1238
-/*    14010:	8dc10000 */ 	lw	$at,0x0($t6)
-/*    14014:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    14018:	27a50008 */ 	addiu	$a1,$sp,0x8
-/*    1401c:	aca10000 */ 	sw	$at,0x0($a1)
-/*    14020:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*    14024:	3c068006 */ 	lui	$a2,0x8006
-/*    14028:	3c078006 */ 	lui	$a3,0x8006
-/*    1402c:	3c088006 */ 	lui	$t0,0x8006
-/*    14030:	3c0a800a */ 	lui	$t2,0x800a
-/*    14034:	3c0b800a */ 	lui	$t3,0x800a
-/*    14038:	3c0c800a */ 	lui	$t4,0x800a
-/*    1403c:	25081210 */ 	addiu	$t0,$t0,0x1210
-/*    14040:	24e7120c */ 	addiu	$a3,$a3,0x120c
-/*    14044:	24c61208 */ 	addiu	$a2,$a2,0x1208
-/*    14048:	254ac9e0 */ 	addiu	$t2,$t2,-13856
-/*    1404c:	256bdfc0 */ 	addiu	$t3,$t3,-8256
-/*    14050:	258ce0c0 */ 	addiu	$t4,$t4,-8000
-/*    14054:	acca0000 */ 	sw	$t2,0x0($a2)
-/*    14058:	aceb0000 */ 	sw	$t3,0x0($a3)
-/*    1405c:	ad0c0000 */ 	sw	$t4,0x0($t0)
-/*    14060:	3c018006 */ 	lui	$at,0x8006
-/*    14064:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*    14068:	acb90004 */ 	sw	$t9,0x4($a1)
-/*    1406c:	ac2d117c */ 	sw	$t5,0x117c($at)
-/*    14070:	00001025 */ 	or	$v0,$zero,$zero
-/*    14074:	24090046 */ 	addiu	$t1,$zero,0x46
-/*    14078:	00002025 */ 	or	$a0,$zero,$zero
-.NB0001407c:
-/*    1407c:	000278c0 */ 	sll	$t7,$v0,0x3
-/*    14080:	01e27821 */ 	addu	$t7,$t7,$v0
-/*    14084:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*    14088:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    1408c:	01e27823 */ 	subu	$t7,$t7,$v0
-/*    14090:	000f7840 */ 	sll	$t7,$t7,0x1
-/*    14094:	030f7021 */ 	addu	$t6,$t8,$t7
-/*    14098:	01c4c821 */ 	addu	$t9,$t6,$a0
-/*    1409c:	000258c0 */ 	sll	$t3,$v0,0x3
-/*    140a0:	a3200000 */ 	sb	$zero,0x0($t9)
-/*    140a4:	01625821 */ 	addu	$t3,$t3,$v0
-/*    140a8:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*    140ac:	000b5880 */ 	sll	$t3,$t3,0x2
-/*    140b0:	01625823 */ 	subu	$t3,$t3,$v0
-/*    140b4:	000b5840 */ 	sll	$t3,$t3,0x1
-/*    140b8:	014b6021 */ 	addu	$t4,$t2,$t3
-/*    140bc:	01846821 */ 	addu	$t5,$t4,$a0
-/*    140c0:	24840002 */ 	addiu	$a0,$a0,0x2
-/*    140c4:	1489ffed */ 	bne	$a0,$t1,.NB0001407c
-/*    140c8:	a1a00001 */ 	sb	$zero,0x1($t5)
-/*    140cc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    140d0:	28410050 */ 	slti	$at,$v0,0x50
-/*    140d4:	5420ffe9 */ 	bnezl	$at,.NB0001407c
-/*    140d8:	00002025 */ 	or	$a0,$zero,$zero
-/*    140dc:	00001825 */ 	or	$v1,$zero,$zero
-/*    140e0:	24020100 */ 	addiu	$v0,$zero,0x100
-.NB000140e4:
-/*    140e4:	8cf80000 */ 	lw	$t8,0x0($a3)
-/*    140e8:	8ca10000 */ 	lw	$at,0x0($a1)
-/*    140ec:	03037821 */ 	addu	$t7,$t8,$v1
-/*    140f0:	ade10000 */ 	sw	$at,0x0($t7)
-/*    140f4:	8cb90004 */ 	lw	$t9,0x4($a1)
-/*    140f8:	adf90004 */ 	sw	$t9,0x4($t7)
-/*    140fc:	8d0a0000 */ 	lw	$t2,0x0($t0)
-/*    14100:	8ca10000 */ 	lw	$at,0x0($a1)
-/*    14104:	01435821 */ 	addu	$t3,$t2,$v1
-/*    14108:	ad610000 */ 	sw	$at,0x0($t3)
-/*    1410c:	8cad0004 */ 	lw	$t5,0x4($a1)
-/*    14110:	24630008 */ 	addiu	$v1,$v1,0x8
-/*    14114:	1462fff3 */ 	bne	$v1,$v0,.NB000140e4
-/*    14118:	ad6d0004 */ 	sw	$t5,0x4($t3)
-/*    1411c:	03e00008 */ 	jr	$ra
-/*    14120:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
-#endif
 
 void dhudTryReset(void)
 {
@@ -455,8 +405,8 @@ void dhudReset(void)
 	s32 y;
 
 	if (g_DHudInitialised && var80061178nb != 1) {
-		for (y = 0; y < 35; y++) {
-			for (x = 0; x < 80; x++) {
+		for (y = 0; y < NUM_ROWS; y++) {
+			for (x = 0; x < NUM_COLS; x++) {
 				dhud00014154nb(x, y, '\0');
 			}
 		}
@@ -569,6 +519,8 @@ Gfx *dhudRender(Gfx *gdl)
 	return gdl;
 }
 #else
+u32 var80061240nb = 0x000000ff;
+
 GLOBAL_ASM(
 glabel dhudRender
 /*    14684:	27bdff78 */ 	addiu	$sp,$sp,-136
