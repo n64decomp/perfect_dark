@@ -5,18 +5,18 @@
 #include "data.h"
 #include "types.h"
 
-struct dhudthing {
-	s32 unk00;
-	s32 unk04;
-};
-
 #define NUM_COLS 80
 #define NUM_ROWS 35
 
+struct dhudchar {
+	char c;
+	u8 paletteindex;
+};
+
 #if VERSION < VERSION_NTSC_1_0
-u8 var8009c9e0nb[NUM_COLS][NUM_ROWS][2];
-struct dhudthing var8009dfc0nb[32];
-struct dhudthing var8009e0c0nb[32];
+struct dhudchar g_DHudCharBuffer[NUM_COLS][NUM_ROWS];
+Gfx g_DHudFgGbi[32];
+Gfx g_DHudBgGbi[32];
 
 u32 var800606e0nb[] = {
 	0xb8000000, 0x00000000, 0x00000000, 0x00227a00,
@@ -194,8 +194,7 @@ s32 g_DHudBaseX = 5;
 s32 g_DHudBaseY = 1;
 s32 g_DHudPosX = 24;
 s32 g_DHudPosY = 16;
-u32 var80061178nb = 1;
-
+bool g_DHudIsEmpty = true;
 bool g_DHudInitialised = false;
 
 u32 var80061180nb[] = {
@@ -210,19 +209,16 @@ u32 var80061180nb[] = {
 	0xb8000000, 0x00000000,
 };
 
-u8 (*var80061208nb)[NUM_ROWS][2] = NULL;
-struct dhudthing *var8006120cnb = NULL;
-struct dhudthing *var80061210nb = NULL;
-u32 var80061214nb = 0x00000000;
+struct dhudchar (*g_DHudCharBufferPtr)[NUM_ROWS] = NULL;
+Gfx *g_DHudFgGbiPtrs = NULL;
+Gfx *g_DHudBgGbiPtrs = NULL;
+s32 g_DHudNextPaletteIndex = 0;
 u32 var80061218nb = 0xb8000000;
 u32 var8006121cnb = 0x00000000;
 u32 var80061220nb = 0xc0000000;
 u32 var80061224nb = 0x00000000;
-u32 var80061228nb = 0xfa000000;
-
-u32 g_DHudFgColour = 0xffffff00;
-u32 var80061230nb = 0xfb000000;
-u32 g_DHudBgColour = 0x00000000;
+Gfx g_DHudFgColour = gsDPSetPrimColor(0, 0, 0xff, 0xff, 0xff, 0);
+Gfx g_DHudBgColour = gsDPSetEnvColor(0, 0, 0, 0);
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
@@ -248,30 +244,32 @@ void dhud00014000nb(void)
 
 void dhudInit(void)
 {
+#if VERSION < VERSION_NTSC_1_0
 	s32 i;
 	s32 x;
 	s32 y;
 	u32 stack;
 
-	struct dhudthing sp04 = {0, 0};
+	Gfx cmd = {0, 0};
 
-	var80061208nb = var8009c9e0nb;
-	var8006120cnb = var8009dfc0nb;
-	var80061210nb = var8009e0c0nb;
+	g_DHudCharBufferPtr = g_DHudCharBuffer;
+	g_DHudFgGbiPtrs = g_DHudFgGbi;
+	g_DHudBgGbiPtrs = g_DHudBgGbi;
 
 	g_DHudInitialised = true;
 
 	for (x = 0; x < NUM_COLS; x++) {
 		for (y = 0; y < NUM_ROWS; y++) {
-			var80061208nb[x][y][0] = 0;
-			var80061208nb[x][y][1] = 0;
+			g_DHudCharBufferPtr[x][y].c = '\0';
+			g_DHudCharBufferPtr[x][y].paletteindex = 0;
 		}
 	}
 
 	for (i = 0; i < 32; i++) {
-		var8006120cnb[i] = sp04;
-		var80061210nb[i] = sp04;
+		g_DHudFgGbiPtrs[i] = cmd;
+		g_DHudBgGbiPtrs[i] = cmd;
 	}
+#endif
 }
 
 void dhudTryReset(void)
@@ -296,96 +294,32 @@ void func000137a8(void)
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel dhud00014154nb
-/*    14154:	3c078006 */ 	lui	$a3,0x8006
-/*    14158:	8ce7120c */ 	lw	$a3,0x120c($a3)
-/*    1415c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    14160:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*    14164:	3c038006 */ 	lui	$v1,0x8006
-/*    14168:	3c0b8006 */ 	lui	$t3,0x8006
-/*    1416c:	3c0a8006 */ 	lui	$t2,0x8006
-/*    14170:	01c03025 */ 	or	$a2,$t6,$zero
-/*    14174:	254a1230 */ 	addiu	$t2,$t2,0x1230
-/*    14178:	256b1210 */ 	addiu	$t3,$t3,0x1210
-/*    1417c:	8c63122c */ 	lw	$v1,0x122c($v1)
-/*    14180:	00001025 */ 	or	$v0,$zero,$zero
-/*    14184:	00004025 */ 	or	$t0,$zero,$zero
-/*    14188:	00e04825 */ 	or	$t1,$a3,$zero
-.NB0001418c:
-/*    1418c:	8d2f0004 */ 	lw	$t7,0x4($t1)
-/*    14190:	25290008 */ 	addiu	$t1,$t1,0x8
-/*    14194:	546f0008 */ 	bnel	$v1,$t7,.NB000141b8
-/*    14198:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    1419c:	8d790000 */ 	lw	$t9,0x0($t3)
-/*    141a0:	8d580004 */ 	lw	$t8,0x4($t2)
-/*    141a4:	03286021 */ 	addu	$t4,$t9,$t0
-/*    141a8:	8d8d0004 */ 	lw	$t5,0x4($t4)
-/*    141ac:	130d0021 */ 	beq	$t8,$t5,.NB00014234
-/*    141b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    141b4:	24420001 */ 	addiu	$v0,$v0,0x1
-.NB000141b8:
-/*    141b8:	28410020 */ 	slti	$at,$v0,0x20
-/*    141bc:	1420fff3 */ 	bnez	$at,.NB0001418c
-/*    141c0:	25080008 */ 	addiu	$t0,$t0,0x8
-/*    141c4:	3c038006 */ 	lui	$v1,0x8006
-/*    141c8:	24631214 */ 	addiu	$v1,$v1,0x1214
-/*    141cc:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*    141d0:	3c0c8006 */ 	lui	$t4,0x8006
-/*    141d4:	258c1228 */ 	addiu	$t4,$t4,0x1228
-/*    141d8:	8d810000 */ 	lw	$at,0x0($t4)
-/*    141dc:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*    141e0:	00efc821 */ 	addu	$t9,$a3,$t7
-/*    141e4:	af210000 */ 	sw	$at,0x0($t9)
-/*    141e8:	8d8d0004 */ 	lw	$t5,0x4($t4)
-/*    141ec:	af2d0004 */ 	sw	$t5,0x4($t9)
-/*    141f0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    141f4:	8d6e0000 */ 	lw	$t6,0x0($t3)
-/*    141f8:	8d410000 */ 	lw	$at,0x0($t2)
-/*    141fc:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*    14200:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*    14204:	af210000 */ 	sw	$at,0x0($t9)
-/*    14208:	8d4d0004 */ 	lw	$t5,0x4($t2)
-/*    1420c:	af2d0004 */ 	sw	$t5,0x4($t9)
-/*    14210:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    14214:	25ee0001 */ 	addiu	$t6,$t7,0x1
-/*    14218:	05c10004 */ 	bgez	$t6,.NB0001422c
-/*    1421c:	31d8001f */ 	andi	$t8,$t6,0x1f
-/*    14220:	13000002 */ 	beqz	$t8,.NB0001422c
-/*    14224:	00000000 */ 	sll	$zero,$zero,0x0
-/*    14228:	2718ffe0 */ 	addiu	$t8,$t8,-32
-.NB0001422c:
-/*    1422c:	ac780000 */ 	sw	$t8,0x0($v1)
-/*    14230:	03001025 */ 	or	$v0,$t8,$zero
-.NB00014234:
-/*    14234:	3c078006 */ 	lui	$a3,0x8006
-/*    14238:	0004c8c0 */ 	sll	$t9,$a0,0x3
-/*    1423c:	24e71208 */ 	addiu	$a3,$a3,0x1208
-/*    14240:	0324c821 */ 	addu	$t9,$t9,$a0
-/*    14244:	8cec0000 */ 	lw	$t4,0x0($a3)
-/*    14248:	0019c880 */ 	sll	$t9,$t9,0x2
-/*    1424c:	0324c823 */ 	subu	$t9,$t9,$a0
-/*    14250:	0019c840 */ 	sll	$t9,$t9,0x1
-/*    14254:	00051840 */ 	sll	$v1,$a1,0x1
-/*    14258:	01996821 */ 	addu	$t5,$t4,$t9
-/*    1425c:	01a37821 */ 	addu	$t7,$t5,$v1
-/*    14260:	0004c0c0 */ 	sll	$t8,$a0,0x3
-/*    14264:	a1e60000 */ 	sb	$a2,0x0($t7)
-/*    14268:	0304c021 */ 	addu	$t8,$t8,$a0
-/*    1426c:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*    14270:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    14274:	0304c023 */ 	subu	$t8,$t8,$a0
-/*    14278:	0018c040 */ 	sll	$t8,$t8,0x1
-/*    1427c:	01d86021 */ 	addu	$t4,$t6,$t8
-/*    14280:	0183c821 */ 	addu	$t9,$t4,$v1
-/*    14284:	10c00003 */ 	beqz	$a2,.NB00014294
-/*    14288:	a3220001 */ 	sb	$v0,0x1($t9)
-/*    1428c:	3c018006 */ 	lui	$at,0x8006
-/*    14290:	ac201178 */ 	sw	$zero,0x1178($at)
-.NB00014294:
-/*    14294:	03e00008 */ 	jr	$ra
-/*    14298:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dhudPutCharAt(s32 x, s32 y, char c)
+{
+	s32 i;
+
+	// Check if the current colour pair exists in the palette
+	for (i = 0; i < 32; i++) {
+		if (g_DHudFgColour.words.w1 == g_DHudFgGbiPtrs[i].words.w1
+				&& g_DHudBgColour.words.w1 == g_DHudBgGbiPtrs[i].words.w1) {
+			goto havepalette;
+		}
+	}
+
+	// Add colours to pallete
+	g_DHudFgGbiPtrs[g_DHudNextPaletteIndex] = g_DHudFgColour;
+	g_DHudBgGbiPtrs[g_DHudNextPaletteIndex] = g_DHudBgColour;
+
+	i = g_DHudNextPaletteIndex = (g_DHudNextPaletteIndex + 1) % 32;
+
+havepalette:
+	g_DHudCharBufferPtr[x][y].c = c;
+	g_DHudCharBufferPtr[x][y].paletteindex = i;
+
+	if (c != '\0') {
+		g_DHudIsEmpty = false;
+	}
+}
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
@@ -404,17 +338,19 @@ void dhudReset(void)
 	s32 x;
 	s32 y;
 
-	if (g_DHudInitialised && var80061178nb != 1) {
+	if (g_DHudInitialised && g_DHudIsEmpty != true) {
 		for (y = 0; y < NUM_ROWS; y++) {
 			for (x = 0; x < NUM_COLS; x++) {
-				dhud00014154nb(x, y, '\0');
+				dhudPutCharAt(x, y, '\0');
 			}
 		}
 
-		var80061178nb = 1;
+		g_DHudIsEmpty = true;
+
 		dhudResetPos();
 		dhud00014000nb();
-		var80061214nb = 0;
+
+		g_DHudNextPaletteIndex = 0;
 	}
 }
 #endif
@@ -440,7 +376,7 @@ void dhudSetFgColour(s32 r, s32 g, s32 b, s32 a)
 {
 #if VERSION < VERSION_NTSC_1_0
 	if (g_DHudInitialised) {
-		g_DHudFgColour = r << 24 | g << 16 | b << 8 | (255 - a);
+		g_DHudFgColour.words.w1 = r << 24 | g << 16 | b << 8 | (255 - a);
 	}
 #endif
 }
@@ -449,7 +385,7 @@ void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
 {
 #if VERSION < VERSION_NTSC_1_0
 	if (g_DHudInitialised) {
-		g_DHudBgColour = r << 24 | g << 16 | b << 8 | (255 - a);
+		g_DHudBgColour.words.w1 = r << 24 | g << 16 | b << 8 | (255 - a);
 	}
 #endif
 }
@@ -462,7 +398,7 @@ void dhudPrintChar(u8 c)
 
 	if (g_DHudInitialised) {
 		if (c == '\0' || (c >= ' ' && c <= '~')) {
-			dhud00014154nb(g_DHudPosX, g_DHudPosY, c);
+			dhudPutCharAt(g_DHudPosX, g_DHudPosY, c);
 		}
 
 		g_DHudPosX++;

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void dhud00014154nb(s32 x, s32 y, char c);
+void dhudPutCharAt(s32 x, s32 y, char c);
 void dhudInit(void);
 void dhudTryReset(void);
 void dhudReset(void);
