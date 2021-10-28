@@ -195,9 +195,16 @@ u32 var80061180nb[] = {
 	0xb8000000, 0x00000000, 0x00000000, 0x00000000,
 	0x00000000, 0x00000000, 0xb8000000, 0x00000000,
 	0xc0000000, 0x00000000, 0xfa000000, 0xffffff00,
-	0xfb000000, 0x00000000, 0x00000000, 0x00000000,
-	0x000000ff, 0x00000000, 0x00000000, 0x00000000,
+	0xfb000000,
 };
+
+u32 g_DHudBgColour = 0x00000000;
+u32 var80061238nb = 0x00000000;
+u32 var8006123cnb = 0x00000000;
+u32 var80061240nb = 0x000000ff;
+u32 var80061244nb = 0x00000000;
+u32 var80061248nb = 0x00000000;
+u32 var8006124cnb = 0x00000000;
 #endif
 
 #if VERSION < VERSION_NTSC_1_0
@@ -592,32 +599,14 @@ glabel dhudSetFgColour
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-void dhudSetBgColour(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
 {
-	// empty
-}
-#else
-GLOBAL_ASM(
-glabel dhudSetBgColour
-/*    14454:	3c0e8006 */ 	lui	$t6,0x8006
-/*    14458:	8dce117c */ 	lw	$t6,0x117c($t6)
-/*    1445c:	00047e00 */ 	sll	$t7,$a0,0x18
-/*    14460:	0005c400 */ 	sll	$t8,$a1,0x10
-/*    14464:	11c00008 */ 	beqz	$t6,.NB00014488
-/*    14468:	01f8c825 */ 	or	$t9,$t7,$t8
-/*    1446c:	00064200 */ 	sll	$t0,$a2,0x8
-/*    14470:	240a00ff */ 	addiu	$t2,$zero,0xff
-/*    14474:	01475823 */ 	subu	$t3,$t2,$a3
-/*    14478:	03284825 */ 	or	$t1,$t9,$t0
-/*    1447c:	012b6025 */ 	or	$t4,$t1,$t3
-/*    14480:	3c018006 */ 	lui	$at,0x8006
-/*    14484:	ac2c1234 */ 	sw	$t4,0x1234($at)
-.NB00014488:
-/*    14488:	03e00008 */ 	jr	$ra
-/*    1448c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION < VERSION_NTSC_1_0
+	if (g_DHudInitialised) {
+		g_DHudBgColour = r << 24 | g << 16 | b << 8 | (255 - a);
+	}
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void dhudPrintChar(u8 c)
