@@ -528,7 +528,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 			if (dmenuGetSelectedOption() == 0) {
 				// Selected "main" from cutscene menu
 				g_DebugCurMenu = DEBUGMENU_MAIN;
-				func000142d4nb();
+				dhudClear();
 				debugUpdateMenu();
 			} else {
 				cutsceneStart(0xc00 + dmenuGetSelectedOption() - 1);
@@ -601,7 +601,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 
 	if (buttonsthisframe & START_BUTTON) {
 		if (g_DebugIsMenuOpen == true) {
-			func000142d4nb();
+			dhudClear();
 		}
 
 		g_DebugIsMenuOpen = false;

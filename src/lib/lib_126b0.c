@@ -398,29 +398,29 @@ void memPrintInfoIfEnabled(void)
 
 #if VERSION < VERSION_NTSC_1_0
 	if (debugIsMemInfoEnabled()) {
-		func000137bc(0xff, 0xff, 0xff, 0xff);
-		func000137d0(0, 0, 0, 0xff);
+		dhudSetFgColour(0xff, 0xff, 0xff, 0xff);
+		dhudSetBgColour(0, 0, 0, 0xff);
 
-		func000137b0(30, line);
-		func000137fc("Mem Info");
+		dhudSetPos(30, line);
+		dhudPrintString("Mem Info");
 		line++;
 
-		func000137b0(30, line);
-		func000137fc("memp: MP_LF_LEV");
+		dhudSetPos(30, line);
+		dhudPrintString("memp: MP_LF_LEV");
 		line++;
 
 		onboard = memGetFree(MEMPOOL_STAGE, MEMBANK_ONBOARD);
 		expansion = memGetFree(MEMPOOL_STAGE, MEMBANK_EXPANSION);
 		sprintf(buffer, "F: %d %d", onboard, expansion);
-		func000137b0(31, line);
-		func000137fc(buffer);
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
 		line++;
 
 		onboard = func00012a44nb(MEMPOOL_STAGE, MEMBANK_ONBOARD);
 		expansion = func00012a44nb(MEMPOOL_STAGE, MEMBANK_EXPANSION);
 		sprintf(buffer, "S: %d %d", onboard, expansion);
-		func000137b0(31, line);
-		func000137fc(buffer);
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
 		line++;
 
 		over = func00012a44nb(MEMPOOL_STAGE, MEMBANK_EXPANSION)
@@ -433,40 +433,40 @@ void memPrintInfoIfEnabled(void)
 			sprintf(buffer, "Free: %d", -over);
 		}
 
-		func000137b0(31, line);
-		func000137fc(buffer);
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
 		line++;
 
-		func000137b0(30, line);
-		func000137fc("memp: MP_LF_ETER");
+		dhudSetPos(30, line);
+		dhudPrintString("memp: MP_LF_ETER");
 		line++;
 
 		onboard = memGetFree(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
 		expansion = memGetFree(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
 		sprintf(buffer, "F: %d %d", onboard, expansion);
-		func000137b0(31, line);
-		func000137fc(buffer);
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
 		line++;
 
 		onboard = func00012a44nb(MEMPOOL_PERMANENT, MEMBANK_ONBOARD);
 		expansion = func00012a44nb(MEMPOOL_PERMANENT, MEMBANK_EXPANSION);
 		sprintf(buffer, "S: %d %d", onboard, expansion);
-		func000137b0(31, line);
-		func000137fc(buffer);
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
 		line++;
 
-		func000137b0(30, line);
-		func000137fc("mema:");
+		dhudSetPos(30, line);
+		dhudPrintString("mema:");
 		line++;
 
 		sprintf(buffer, "LF: %d", func00012cdc());
-		func000137b0(31, line);
-		func000137fc(buffer);
+		dhudSetPos(31, line);
+		dhudPrintString(buffer);
 		line++;
 
 		sprintf(buffer, "Audio Free: %d", g_SndHeap.base + (g_SndHeap.len - (u32)g_SndHeap.cur));
-		func000137b0(30, line);
-		func000137fc(buffer);
+		dhudSetPos(30, line);
+		dhudPrintString(buffer);
 		line++;
 	}
 #endif

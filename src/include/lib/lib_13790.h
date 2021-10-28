@@ -4,11 +4,12 @@
 #include "data.h"
 #include "types.h"
 
-void func00013790(void);
-void func00013798(void);
-void func000142d4nb(void);
-void func000137b0(s32 x, s32 y);
-void func000137fc(char *text);
-Gfx *func00013814(Gfx *gdl);
+void dhudInit(void);
+void dhudTryClear(void);
+void dhudClear(void);
+void dhudSetPos(s32 x, s32 y);
+void dhudPrintChar(u8 c);
+void dhudPrintString(char *text);
+Gfx *dhudRender(Gfx *gdl);
 
 #endif

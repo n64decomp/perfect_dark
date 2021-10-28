@@ -53,9 +53,9 @@ Gfx *dmenuRender(Gfx *gdl)
 		dmenu0f118c80nb();
 
 		if (i != g_DMenuSelectedOption) {
-			func000137bc(0xc0, 0xc0, 0xc0, 0xc0);
-			func000137b0((g_DMenuCurPositions[i][0] * xscale - 20) / 4, (g_DMenuCurPositions[i][1] * yscale - 8) / 7);
-			func000137fc(g_DMenuCurLabels[i]);
+			dhudSetFgColour(0xc0, 0xc0, 0xc0, 0xc0);
+			dhudSetPos((g_DMenuCurPositions[i][0] * xscale - 20) / 4, (g_DMenuCurPositions[i][1] * yscale - 8) / 7);
+			dhudPrintString(g_DMenuCurLabels[i]);
 		}
 	}
 
@@ -64,9 +64,9 @@ Gfx *dmenuRender(Gfx *gdl)
 		dmenu0f118c80nb();
 
 		if (i == g_DMenuSelectedOption) {
-			func000137bc(0xc0, 0, 0, 0xc0);
-			func000137b0((g_DMenuCurPositions[i][0] * xscale - 20) / 4, (g_DMenuCurPositions[i][1] * yscale - 8) / 7);
-			func000137fc(g_DMenuCurLabels[i]);
+			dhudSetFgColour(0xc0, 0, 0, 0xc0);
+			dhudSetPos((g_DMenuCurPositions[i][0] * xscale - 20) / 4, (g_DMenuCurPositions[i][1] * yscale - 8) / 7);
+			dhudPrintString(g_DMenuCurLabels[i]);
 		}
 	}
 

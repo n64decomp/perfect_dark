@@ -630,7 +630,7 @@ glabel mainInit
 /*     d738:	00000000 */ 	nop
 /*     d73c:	0fc54f94 */ 	jal	func0f1531a0
 /*     d740:	00000000 */ 	nop
-/*     d744:	0c004d48 */ 	jal	func00013790
+/*     d744:	0c004d48 */ 	jal	dhudInit
 /*     d748:	00000000 */ 	nop
 /*     d74c:	0fc4a0f8 */ 	jal	func0f127910
 /*     d750:	00000000 */ 	nop
@@ -1033,7 +1033,7 @@ glabel mainInit
 /*     d9fc:	00000000 */ 	nop
 /*     da00:	0fc54c68 */ 	jal	func0f1531a0
 /*     da04:	00000000 */ 	nop
-/*     da08:	0c004de4 */ 	jal	func00013790
+/*     da08:	0c004de4 */ 	jal	dhudInit
 /*     da0c:	00000000 */ 	nop
 /*     da10:	0fc49e44 */ 	jal	func0f127910
 /*     da14:	00000000 */ 	nop
@@ -1406,7 +1406,7 @@ glabel mainInit
 /*     df0c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df10:	0fc53628 */ 	jal	func0f1531a0
 /*     df14:	00000000 */ 	sll	$zero,$zero,0x0
-/*     df18:	0c005002 */ 	jal	func00014008nb
+/*     df18:	0c005002 */ 	jal	dhudInit
 /*     df1c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     df20:	0fc48954 */ 	jal	func0f127910
 /*     df24:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1650,7 +1650,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	cheatsDisableAll();
 //	func0000e9c0();
 //	func0f1531a0();
-//	func00013790();
+//	dhudInit();
 //	func0f127910();
 //	frametimeInit();
 //	stub0f00b200();
@@ -1939,7 +1939,7 @@ void mainLoop(void)
 
 		gfxInitMemory();
 		joy00013dfc();
-		func00013798();
+		dhudTryClear();
 		func0f17608c(g_StageNum);
 		lvInit(g_StageNum);
 		viAllocateFbs(g_StageNum);
@@ -2476,7 +2476,7 @@ glabel mainLoop
 /*     e70c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e710:	0c005310 */ 	jal	joy00013dfc
 /*     e714:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e718:	0c005049 */ 	jal	func00014124nb
+/*     e718:	0c005049 */ 	jal	dhudTryClear
 /*     e71c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e720:	3c048006 */ 	lui	$a0,0x8006
 /*     e724:	0fc5c34b */ 	jal	func0f17608c
@@ -2988,9 +2988,9 @@ glabel mainTick
 /*     ed8c:	ae0a0000 */ 	sw	$t2,0x0($s0)
 /*     ed90:	ae000004 */ 	sw	$zero,0x4($s0)
 .NB0000ed94:
-/*     ed94:	0c0051a1 */ 	jal	func00013814
+/*     ed94:	0c0051a1 */ 	jal	dhudRender
 /*     ed98:	8fa40094 */ 	lw	$a0,0x94($sp)
-/*     ed9c:	0c0050b5 */ 	jal	func000142d4nb
+/*     ed9c:	0c0050b5 */ 	jal	dhudClear
 /*     eda0:	afa20094 */ 	sw	$v0,0x94($sp)
 /*     eda4:	0fc4663a */ 	jal	debug0f11ed70
 /*     eda8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3139,8 +3139,8 @@ u32 var8005f690nb[] = {
 //				gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, viGetHeight() - 1);
 //			}
 //
-//			gdl = func00013814(gdl);
-//			func000142d4nb();
+//			gdl = dhudRender(gdl);
+//			dhudClear();
 //
 //			if (debug0f11ed70() >= 2) {
 //				gdl = profileRender(gdl);
