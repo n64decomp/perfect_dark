@@ -325,29 +325,14 @@ glabel dhudInit
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
 void dhudTryClear(void)
 {
-	// empty
-}
-#else
-GLOBAL_ASM(
-glabel dhudTryClear
-/*    14124:	3c0e8006 */ 	lui	$t6,0x8006
-/*    14128:	8dce117c */ 	lw	$t6,0x117c($t6)
-/*    1412c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    14130:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    14134:	51c00004 */ 	beqzl	$t6,.NB00014148
-/*    14138:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1413c:	0c0050b5 */ 	jal	dhudClear
-/*    14140:	00000000 */ 	sll	$zero,$zero,0x0
-/*    14144:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB00014148:
-/*    14148:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    1414c:	03e00008 */ 	jr	$ra
-/*    14150:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION < VERSION_NTSC_1_0
+	if (g_DHudInitialised) {
+		dhudClear();
+	}
 #endif
+}
 
 #if VERSION >= VERSION_NTSC_1_0
 void func000137a0(void)
