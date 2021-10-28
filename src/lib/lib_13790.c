@@ -180,10 +180,10 @@ u32 var800606e0nb[] = {
 	0x00000000, 0x00000000,
 };
 
-u32 g_DHudBaseX = 5;
-u32 g_DHudBaseY = 1;
-u32 g_DHudPosX = 24;
-u32 g_DHudPosY = 16;
+s32 g_DHudBaseX = 5;
+s32 g_DHudBaseY = 1;
+s32 g_DHudPosX = 24;
+s32 g_DHudPosY = 16;
 u32 var80061178nb = 1;
 
 bool g_DHudInitialised = false;
@@ -515,89 +515,30 @@ void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
 #endif
 }
 
-#if VERSION >= VERSION_NTSC_1_0
 void dhudPrintChar(u8 c)
 {
-	// empty
-}
-#else
-GLOBAL_ASM(
-glabel dhudPrintChar
-/*    14490:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*    14494:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    14498:	0c002f77 */ 	jal	viGetWidth
-/*    1449c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    144a0:	244efff3 */ 	addiu	$t6,$v0,-13
-/*    144a4:	05c10003 */ 	bgez	$t6,.NB000144b4
-/*    144a8:	000e7883 */ 	sra	$t7,$t6,0x2
-/*    144ac:	25c10003 */ 	addiu	$at,$t6,0x3
-/*    144b0:	00017883 */ 	sra	$t7,$at,0x2
-.NB000144b4:
-/*    144b4:	0c002f7b */ 	jal	viGetHeight
-/*    144b8:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*    144bc:	2448fff6 */ 	addiu	$t0,$v0,-10
-/*    144c0:	24010007 */ 	addiu	$at,$zero,0x7
-/*    144c4:	0101001a */ 	div	$zero,$t0,$at
-/*    144c8:	3c198006 */ 	lui	$t9,0x8006
-/*    144cc:	8f39117c */ 	lw	$t9,0x117c($t9)
-/*    144d0:	00004012 */ 	mflo	$t0
-/*    144d4:	93a6002b */ 	lbu	$a2,0x2b($sp)
-/*    144d8:	5320002d */ 	beqzl	$t9,.NB00014590
-/*    144dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    144e0:	10c00005 */ 	beqz	$a2,.NB000144f8
-/*    144e4:	00c01025 */ 	or	$v0,$a2,$zero
-/*    144e8:	28410020 */ 	slti	$at,$v0,0x20
-/*    144ec:	1420000d */ 	bnez	$at,.NB00014524
-/*    144f0:	2841007f */ 	slti	$at,$v0,0x7f
-/*    144f4:	1020000b */ 	beqz	$at,.NB00014524
-.NB000144f8:
-/*    144f8:	3c038006 */ 	lui	$v1,0x8006
-/*    144fc:	3c078006 */ 	lui	$a3,0x8006
-/*    14500:	24e71174 */ 	addiu	$a3,$a3,0x1174
-/*    14504:	24631170 */ 	addiu	$v1,$v1,0x1170
-/*    14508:	8c640000 */ 	lw	$a0,0x0($v1)
-/*    1450c:	8ce50000 */ 	lw	$a1,0x0($a3)
-/*    14510:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    14514:	0c005055 */ 	jal	dhud00014154nb
-/*    14518:	afa80020 */ 	sw	$t0,0x20($sp)
-/*    1451c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*    14520:	8fa80020 */ 	lw	$t0,0x20($sp)
-.NB00014524:
-/*    14524:	3c038006 */ 	lui	$v1,0x8006
-/*    14528:	24631170 */ 	addiu	$v1,$v1,0x1170
-/*    1452c:	8c690000 */ 	lw	$t1,0x0($v1)
-/*    14530:	3c078006 */ 	lui	$a3,0x8006
-/*    14534:	2401000d */ 	addiu	$at,$zero,0xd
-/*    14538:	252a0001 */ 	addiu	$t2,$t1,0x1
-/*    1453c:	24e71174 */ 	addiu	$a3,$a3,0x1174
-/*    14540:	10410007 */ 	beq	$v0,$at,.NB00014560
-/*    14544:	ac6a0000 */ 	sw	$t2,0x0($v1)
-/*    14548:	2401000a */ 	addiu	$at,$zero,0xa
-/*    1454c:	10410004 */ 	beq	$v0,$at,.NB00014560
-/*    14550:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*    14554:	014c082a */ 	slt	$at,$t2,$t4
-/*    14558:	5420000d */ 	bnezl	$at,.NB00014590
-/*    1455c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB00014560:
-/*    14560:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*    14564:	3c0d8006 */ 	lui	$t5,0x8006
-/*    14568:	8dad1168 */ 	lw	$t5,0x1168($t5)
-/*    1456c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*    14570:	01e8082a */ 	slt	$at,$t7,$t0
-/*    14574:	acef0000 */ 	sw	$t7,0x0($a3)
-/*    14578:	14200004 */ 	bnez	$at,.NB0001458c
-/*    1457c:	ac6d0000 */ 	sw	$t5,0x0($v1)
-/*    14580:	3c198006 */ 	lui	$t9,0x8006
-/*    14584:	8f39116c */ 	lw	$t9,0x116c($t9)
-/*    14588:	acf90000 */ 	sw	$t9,0x0($a3)
-.NB0001458c:
-/*    1458c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB00014590:
-/*    14590:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*    14594:	03e00008 */ 	jr	$ra
-/*    14598:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION < VERSION_NTSC_1_0
+	s32 maxwidth = (viGetWidth() - 13) / 4;
+	s32 maxheight = (viGetHeight() - 10) / 7;
+
+	if (g_DHudInitialised) {
+		if (c == '\0' || (c >= ' ' && c <= '~')) {
+			dhud00014154nb(g_DHudPosX, g_DHudPosY, c);
+		}
+
+		g_DHudPosX++;
+
+		if (c == '\r' || c == '\n' || g_DHudPosX >= maxwidth) {
+			g_DHudPosX = g_DHudBaseX;
+			g_DHudPosY++;
+
+			if (g_DHudPosY >= maxheight) {
+				g_DHudPosY = g_DHudBaseY;
+			}
+		}
+	}
 #endif
+}
 
 void dhudPrintCharAt(s32 x, s32 y, char c)
 {
