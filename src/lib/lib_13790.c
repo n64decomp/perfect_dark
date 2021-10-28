@@ -177,9 +177,14 @@ u32 var800606e0nb[] = {
 	0x00000000, 0x00000000, 0x00000000, 0x00000000,
 	0x00000000, 0x00000000, 0x00000000, 0x00226900,
 	0x00000000, 0x00008b46, 0x00008b00, 0x00467a00,
-	0x00000000, 0x00000000, 0x00000005, 0x00000001,
-	0x00000018, 0x00000010, 0x00000001,
+	0x00000000, 0x00000000,
 };
+
+u32 g_DHudBaseX = 5;
+u32 g_DHudBaseY = 1;
+u32 g_DHudPosX = 24;
+u32 g_DHudPosY = 16;
+u32 var80061178nb = 1;
 
 bool g_DHudInitialised = false;
 
@@ -521,57 +526,22 @@ glabel dhudClear
 );
 #endif
 
-#if VERSION >= VERSION_NTSC_1_0
-void dhudSetPos(s32 arg0, s32 arg1)
+void dhudSetPos(s32 x, s32 y)
 {
-	// empty
-}
-#else
-GLOBAL_ASM(
-glabel dhudSetPos
-/*    1437c:	3c0e8006 */ 	lui	$t6,0x8006
-/*    14380:	8dce117c */ 	lw	$t6,0x117c($t6)
-/*    14384:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    14388:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1438c:	11c0001e */ 	beqz	$t6,.NB00014408
-/*    14390:	3c0f8006 */ 	lui	$t7,0x8006
-/*    14394:	3c188006 */ 	lui	$t8,0x8006
-/*    14398:	8def1168 */ 	lw	$t7,0x1168($t7)
-/*    1439c:	8f18116c */ 	lw	$t8,0x116c($t8)
-/*    143a0:	008f2021 */ 	addu	$a0,$a0,$t7
-/*    143a4:	00b82821 */ 	addu	$a1,$a1,$t8
-/*    143a8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    143ac:	0c002f7b */ 	jal	viGetHeight
-/*    143b0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    143b4:	2459fff6 */ 	addiu	$t9,$v0,-10
-/*    143b8:	24010007 */ 	addiu	$at,$zero,0x7
-/*    143bc:	0321001a */ 	div	$zero,$t9,$at
-/*    143c0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*    143c4:	00004012 */ 	mflo	$t0
-/*    143c8:	00a8082a */ 	slt	$at,$a1,$t0
-/*    143cc:	5420000a */ 	bnezl	$at,.NB000143f8
-/*    143d0:	8faa0018 */ 	lw	$t2,0x18($sp)
-/*    143d4:	0c002f7b */ 	jal	viGetHeight
-/*    143d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    143dc:	2445fff6 */ 	addiu	$a1,$v0,-10
-/*    143e0:	24010007 */ 	addiu	$at,$zero,0x7
-/*    143e4:	00a1001a */ 	div	$zero,$a1,$at
-/*    143e8:	00004812 */ 	mflo	$t1
-/*    143ec:	2525ffff */ 	addiu	$a1,$t1,-1
-/*    143f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    143f4:	8faa0018 */ 	lw	$t2,0x18($sp)
-.NB000143f8:
-/*    143f8:	3c018006 */ 	lui	$at,0x8006
-/*    143fc:	ac2a1170 */ 	sw	$t2,0x1170($at)
-/*    14400:	3c018006 */ 	lui	$at,0x8006
-/*    14404:	ac251174 */ 	sw	$a1,0x1174($at)
-.NB00014408:
-/*    14408:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    1440c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    14410:	03e00008 */ 	jr	$ra
-/*    14414:	00000000 */ 	sll	$zero,$zero,0x0
-);
+#if VERSION < VERSION_NTSC_1_0
+	if (g_DHudInitialised) {
+		x += g_DHudBaseX;
+		y += g_DHudBaseY;
+
+		if (y >= (viGetHeight() - 10) / 7) {
+			y = (viGetHeight() - 10) / 7 - 1;
+		}
+
+		g_DHudPosX = x;
+		g_DHudPosY = y;
+	}
 #endif
+}
 
 void dhudSetFgColour(s32 r, s32 g, s32 b, s32 a)
 {
