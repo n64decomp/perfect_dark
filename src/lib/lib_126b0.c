@@ -32,16 +32,12 @@ void memaSwap(struct allocation *a, struct allocation *b)
 	b->size = tempsize;
 }
 
-GLOBAL_ASM(
-glabel func000126d4
-/*    126d4:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*    126d8:	8caf0004 */ 	lw	$t7,0x4($a1)
-/*    126dc:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*    126e0:	ac980004 */ 	sw	$t8,0x4($a0)
-/*    126e4:	aca00000 */ 	sw	$zero,0x0($a1)
-/*    126e8:	03e00008 */ 	jr	$ra
-/*    126ec:	aca00004 */ 	sw	$zero,0x4($a1)
-);
+void memaMerge(struct allocation *a, struct allocation *b)
+{
+	a->size += b->size;
+	b->addr = 0;
+	b->size = 0;
+}
 
 GLOBAL_ASM(
 glabel func000126f0
@@ -78,7 +74,7 @@ glabel func000126f0
 /*    12760:	01f2c021 */ 	addu	$t8,$t7,$s2
 /*    12764:	54580006 */ 	bnel	$v0,$t8,.L00012780
 /*    12768:	02008825 */ 	or	$s1,$s0,$zero
-/*    1276c:	0c0049b5 */ 	jal	func000126d4
+/*    1276c:	0c0049b5 */ 	jal	memaMerge
 /*    12770:	24130001 */ 	addiu	$s3,$zero,0x1
 /*    12774:	02208025 */ 	or	$s0,$s1,$zero
 /*    12778:	8e220000 */ 	lw	$v0,0x0($s1)
