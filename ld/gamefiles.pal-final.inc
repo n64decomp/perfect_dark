@@ -192,6 +192,8 @@
 	build/ROMID/game/game_197600.o (section); \
 	build/ROMID/game/game_197c00.o (section); \
 	build/ROMID/game/game_1999b0.o (section); \
+	build/ROMID/game/mplayer/mpaicommands.o (section); \
+	build/ROMID/game/vmstats.o (section); \
 	build/ROMID/game/game_19aa80.o (section); \
 	build/ROMID/game/training/training.o (section); \
 	build/ROMID/game/training/menus.o (section); \

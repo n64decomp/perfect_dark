@@ -24,7 +24,7 @@ char *mpGetCurrentChallengeDescription(void);
 char *mpconfigGetDescription(struct mpconfigfull *mpconfig);
 bool mpIsChallengeCompleteForEndscreen(void);
 bool aiMpInitSimulants(void);
-void func0f19ab40(void);
+void vmPrintStatsIfEnabled(void);
 bool mpIsChallengeAvailableToPlayer(s32 chrnum, s32 challengeindex);
 bool mpIsChallengeAvailableToAnyPlayer(s32 challengeindex);
 s32 mpGetNumAvailableChallenges(void);

@@ -6984,7 +6984,7 @@ glabel var7f1b8ed0pf
 /*  f16c7c8:	2415ffff */ 	li	$s5,-1
 /*  f16c7cc:	56190004 */ 	bnel	$s0,$t9,.PF0f16c7e0
 /*  f16c7d0:	8e8c006c */ 	lw	$t4,0x6c($s4)
-/*  f16c7d4:	0fc66f10 */ 	jal	func0f19ab40
+/*  f16c7d4:	0fc66f10 */ 	jal	vmPrintStatsIfEnabled
 /*  f16c7d8:	00000000 */ 	nop
 /*  f16c7dc:	8e8c006c */ 	lw	$t4,0x6c($s4)
 .PF0f16c7e0:
@@ -8253,7 +8253,7 @@ void lvTick(void)
 	}
 
 	if (IS4MB()) {
-		func0f19ab40();
+		vmPrintStatsIfEnabled();
 	}
 
 	for (j = 0; j < PLAYERCOUNT(); j++) {
@@ -8624,7 +8624,7 @@ glabel lvTick
 /*  f1667d4:	2415ffff */ 	addiu	$s5,$zero,-1
 /*  f1667d8:	56180004 */ 	bnel	$s0,$t8,.NB0f1667ec
 /*  f1667dc:	8e99006c */ 	lw	$t9,0x6c($s4)
-/*  f1667e0:	0fc652c8 */ 	jal	func0f19ab40
+/*  f1667e0:	0fc652c8 */ 	jal	vmPrintStatsIfEnabled
 /*  f1667e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1667e8:	8e99006c */ 	lw	$t9,0x6c($s4)
 .NB0f1667ec:

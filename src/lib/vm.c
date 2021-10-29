@@ -9,9 +9,9 @@
 #include "types.h"
 
 u8 g_Is4Mb;
-u32 var80090af4;
-u32 var80090af8;
-u32 var80090afc;
+u32 g_VmNumTlbMisses;
+u32 g_VmNumPageMisses;
+u32 g_VmNumPageReplaces;
 u32 var80090b00;
 u32 var80090b04;
 u32 var80090b08;
@@ -285,12 +285,12 @@ glabel vmInit
 /*     748c:	1020ffef */ 	beqz	$at,.L0000744c
 /*     7490:	26100001 */ 	addiu	$s0,$s0,0x1
 .L00007494:
-/*     7494:	3c018009 */ 	lui	$at,%hi(var80090af4)
-/*     7498:	ac200af4 */ 	sw	$zero,%lo(var80090af4)($at)
-/*     749c:	3c018009 */ 	lui	$at,%hi(var80090af8)
-/*     74a0:	ac200af8 */ 	sw	$zero,%lo(var80090af8)($at)
-/*     74a4:	3c018009 */ 	lui	$at,%hi(var80090afc)
-/*     74a8:	ac200afc */ 	sw	$zero,%lo(var80090afc)($at)
+/*     7494:	3c018009 */ 	lui	$at,%hi(g_VmNumTlbMisses)
+/*     7498:	ac200af4 */ 	sw	$zero,%lo(g_VmNumTlbMisses)($at)
+/*     749c:	3c018009 */ 	lui	$at,%hi(g_VmNumPageMisses)
+/*     74a0:	ac200af8 */ 	sw	$zero,%lo(g_VmNumPageMisses)($at)
+/*     74a4:	3c018009 */ 	lui	$at,%hi(g_VmNumPageReplaces)
+/*     74a8:	ac200afc */ 	sw	$zero,%lo(g_VmNumPageReplaces)($at)
 /*     74ac:	00002025 */ 	or	$a0,$zero,$zero
 /*     74b0:	0c012054 */ 	jal	osInvalICache
 /*     74b4:	24054000 */ 	addiu	$a1,$zero,0x4000
