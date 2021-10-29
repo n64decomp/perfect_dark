@@ -1251,7 +1251,7 @@ void func0f1097d0(s32 device)
 		var800a21e8.fileid = g_FileLists[0]->deviceguids[device].fileid;
 		var800a21e8.deviceserial = g_FileLists[0]->deviceguids[device].deviceserial;
 
-		thing = func00012ab0(align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
+		thing = memaAlloc(align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 
 		if (thing) {
 			filemgrSaveOrLoad(&g_FilemgrFileToCopy, g_Menus[g_MpPlayerNum].fm.filetypeplusone + 103, (s32) thing);

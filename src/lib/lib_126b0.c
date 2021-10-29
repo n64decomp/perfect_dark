@@ -8,7 +8,7 @@
 #include "types.h"
 
 struct memaspace {
-	u32 addr;
+	s32 addr;
 	u32 size;
 };
 
@@ -16,11 +16,7 @@ struct memaheap {
 	u32 unk000;
 	u32 unk004;
 	u32 unk008;
-	struct memaspace spaces[124];
-	u32 unk3ec;
-	u32 unk3f0;
-	u32 unk3f4;
-	s32 unk3f8;
+	struct memaspace spaces[126];
 };
 
 u32 var80099470;
@@ -45,7 +41,7 @@ void memaMerge(struct memaspace *a, struct memaspace *b)
 }
 
 GLOBAL_ASM(
-glabel func000126f0
+glabel memaDefragPass
 /*    126f0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    126f4:	afb40028 */ 	sw	$s4,0x28($sp)
 /*    126f8:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -105,7 +101,7 @@ glabel func000126f0
 
 void func000127b8(void)
 {
-	while (func000126f0(&g_MemaHeap));
+	while (memaDefragPass(&g_MemaHeap));
 }
 
 GLOBAL_ASM(
@@ -277,15 +273,14 @@ void memaHeapInit(void *heapaddr, u32 heapsize)
 	heapsize += 0x8e0; // ?!
 #endif
 
-	g_MemaHeap.unk3ec = 0xffffffff;
-	g_MemaHeap.unk3f4 = 0xffffffff;
-
 	g_MemaHeap.unk000 = 0;
 	g_MemaHeap.unk004 = 0;
 	g_MemaHeap.unk008 = 0;
 
-	g_MemaHeap.unk3f0 = 0;
-	g_MemaHeap.unk3f8 = -1;
+	g_MemaHeap.spaces[124].addr = 0xffffffff;
+	g_MemaHeap.spaces[124].size = 0;
+	g_MemaHeap.spaces[125].addr = 0xffffffff;
+	g_MemaHeap.spaces[125].size = 0xffffffff;
 
 	for (space = &g_MemaHeap.spaces[0]; space <= &g_MemaHeap.spaces[123]; space++) {
 		space->addr = 0;
@@ -334,7 +329,7 @@ void memPrintInfoIfEnabled(void)
 	s32 over;
 	char buffer[124];
 
-	func000126f0(&g_MemaHeap);
+	memaDefragPass(&g_MemaHeap);
 
 #if VERSION < VERSION_NTSC_1_0
 	if (debugIsMemInfoEnabled()) {
@@ -414,7 +409,7 @@ void memPrintInfoIfEnabled(void)
 
 #if VERSION >= VERSION_NTSC_1_0
 GLOBAL_ASM(
-glabel func00012ab0
+glabel memaAlloc
 /*    12ab0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    12ab4:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*    12ab8:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -482,7 +477,7 @@ glabel func00012ab0
 /*    12b9c:	3c11800a */ 	lui	$s1,%hi(g_MemaHeap+0xc)
 /*    12ba0:	26319484 */ 	addiu	$s1,$s1,%lo(g_MemaHeap+0xc)
 .L00012ba4:
-/*    12ba4:	0c0049bc */ 	jal	func000126f0
+/*    12ba4:	0c0049bc */ 	jal	memaDefragPass
 /*    12ba8:	02602025 */ 	or	$a0,$s3,$zero
 /*    12bac:	26100001 */ 	addiu	$s0,$s0,0x1
 /*    12bb0:	1614fffc */ 	bne	$s0,$s4,.L00012ba4
@@ -529,7 +524,7 @@ glabel func00012ab0
 );
 #else
 GLOBAL_ASM(
-glabel func00012ab0
+glabel memaAlloc
 /*    13324:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    13328:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*    1332c:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -591,7 +586,7 @@ glabel func00012ab0
 /*    133f8:	3c11800a */ 	lui	$s1,0x800a
 /*    133fc:	2631c404 */ 	addiu	$s1,$s1,-15356
 .NB00013400:
-/*    13400:	0c004b24 */ 	jal	func000126f0
+/*    13400:	0c004b24 */ 	jal	memaDefragPass
 /*    13404:	02602025 */ 	or	$a0,$s3,$zero
 /*    13408:	26100001 */ 	addiu	$s0,$s0,0x1
 /*    1340c:	1614fffc */ 	bne	$s0,$s4,.NB00013400
@@ -637,6 +632,86 @@ glabel func00012ab0
 /*    13494:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 #endif
+
+//void *memaAlloc(u32 size)
+//{
+//	u32 addr;
+//	u32 diff;
+//	s32 i;
+//
+//	struct memaspace *curr = &g_MemaHeap.spaces[0];
+//	u32 bestdiff = 0xffffffff;
+//	struct memaspace *best = NULL;
+//
+//	// Iterate up to the first 16 spaces, looking for the
+//	// smallest space that will accommodate the requested size.
+//	for (i = 0; i < 16; i++) {
+//		if (curr->size >= size) {
+//			if (curr->addr == 0xffffffff) {
+//				// Reached the end
+//				break;
+//			}
+//
+//			diff = curr->size - size;
+//
+//			if (diff < bestdiff) {
+//				bestdiff = diff;
+//				best = curr;
+//
+//				// Stop looking if the space is small enough
+//#if VERSION >= VERSION_NTSC_1_0
+//				if (diff < 64 || (IS8MB() && diff < size / 4))
+//#else
+//				if (diff < 64 || diff < size / 4)
+//#endif
+//				{
+//					break;
+//				}
+//			}
+//		}
+//
+//		curr++;
+//	}
+//
+//	if (best == NULL) {
+//		// Keep iterating until we find a space that is big enough to fit.
+//		// The last space is marked as size 0xffffffff which prevents this loop
+//		// from iterating past the end of the spaces array.
+//		while (curr->size < size) {
+//			curr++;
+//		}
+//
+//		if (curr->addr == 0xffffffff) {
+//			// There was no space, so attempt to free up some space
+//			// by doing several defrag passes
+//			for (i = 0; i < 8; i++) {
+//				memaDefragPass(&g_MemaHeap);
+//			}
+//
+//			curr = &g_MemaHeap.spaces[0];
+//
+//			while (curr->size < size) {
+//				curr++;
+//			}
+//
+//			if (curr->addr == 0xffffffff) {
+//				return NULL;
+//			}
+//		}
+//
+//		best = curr;
+//	}
+//
+//	addr = best->addr;
+//	best->addr += size;
+//	best->size -= size;
+//
+//	if (best->size == 0) {
+//		best->addr = 0;
+//	}
+//
+//	return (void *)addr;
+//}
 
 GLOBAL_ASM(
 glabel func00012c3c

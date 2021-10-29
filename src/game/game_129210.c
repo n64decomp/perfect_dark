@@ -142,7 +142,7 @@ void *func0f12955c(s32 count, s32 index, s32 arg2, s32 arg3)
 	if (count <= var8007e3d0[index].val2) {
 		for (i = 0; i < var8007e3d0[index].numallocated; i++) {
 			if (var8007e3d0[index].unk24[i].unk0e == 0) {
-				var8007e3d0[index].unk24[i].unk00 = func00012ab0(ALIGN16(count * 0xc));
+				var8007e3d0[index].unk24[i].unk00 = memaAlloc(ALIGN16(count * 0xc));
 
 				if (var8007e3d0[index].unk24[i].unk00) {
 					var8007e3d0[index].unk24[i].unk0c = count;
@@ -247,7 +247,7 @@ glabel func0f12955c
 /*  f124234:	2652000f */ 	addiu	$s2,$s2,0xf
 /*  f124238:	3648000f */ 	ori	$t0,$s2,0xf
 /*  f12423c:	3904000f */ 	xori	$a0,$t0,0xf
-/*  f124240:	0c004cc9 */ 	jal	func00012ab0
+/*  f124240:	0c004cc9 */ 	jal	memaAlloc
 /*  f124244:	00809025 */ 	or	$s2,$a0,$zero
 /*  f124248:	8e2a0024 */ 	lw	$t2,0x24($s1)
 /*  f12424c:	00002825 */ 	or	$a1,$zero,$zero
@@ -260,7 +260,7 @@ glabel func0f12955c
 /*  f124268:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f12426c:	0fc5636f */ 	jal	func0f15e5b8
 /*  f124270:	02402025 */ 	or	$a0,$s2,$zero
-/*  f124274:	0c004cc9 */ 	jal	func00012ab0
+/*  f124274:	0c004cc9 */ 	jal	memaAlloc
 /*  f124278:	02402025 */ 	or	$a0,$s2,$zero
 /*  f12427c:	8e2d0024 */ 	lw	$t5,0x24($s1)
 /*  f124280:	01b07021 */ 	addu	$t6,$t5,$s0

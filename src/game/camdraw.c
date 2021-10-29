@@ -311,7 +311,7 @@ void *func0f149d58(u32 size, u32 line, char *file)
 	func0f15e5b8(size, 1);
 
 	var8007f9d0 += size;
-	allocation = func00012ab0(size);
+	allocation = memaAlloc(size);
 	var8007f9d4++;
 
 	for (i = 0; i < var800a45a0->unk37c; i++) {

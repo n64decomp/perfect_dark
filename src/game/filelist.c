@@ -52,7 +52,7 @@ void filelistCreate(s32 listnum, u8 filetype)
 {
 	if (g_FileLists[listnum] == NULL) {
 		func0f15e5b8(align16(sizeof(struct filelist)), 1);
-		g_FileLists[listnum] = func00012ab0(align16(sizeof(struct filelist)));
+		g_FileLists[listnum] = memaAlloc(align16(sizeof(struct filelist)));
 	}
 
 	g_FileLists[listnum]->timeuntilupdate = 1;
@@ -303,7 +303,7 @@ glabel pheadAllocateTextures
 /*  f1112c4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f1112c8:	0fc5db69 */ 	jal	align16
 /*  f1112cc:	24040890 */ 	addiu	$a0,$zero,0x890
-/*  f1112d0:	0c004aac */ 	jal	func00012ab0
+/*  f1112d0:	0c004aac */ 	jal	memaAlloc
 /*  f1112d4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1112d8:	ae020e68 */ 	sw	$v0,0xe68($s0)
 /*  f1112dc:	10000006 */ 	b	.L0f1112f8
@@ -408,7 +408,7 @@ glabel pheadAllocateTextures
 /*  f10b720:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10b724:	0fc5c691 */ 	jal	align16
 /*  f10b728:	24040890 */ 	addiu	$a0,$zero,0x890
-/*  f10b72c:	0c004cc9 */ 	jal	func00012ab0
+/*  f10b72c:	0c004cc9 */ 	jal	memaAlloc
 /*  f10b730:	00402025 */ 	or	$a0,$v0,$zero
 /*  f10b734:	ae020db4 */ 	sw	$v0,0xdb4($s0)
 /*  f10b738:	10000006 */ 	beqz	$zero,.NB0f10b754
@@ -499,7 +499,7 @@ const char var7f1b3a14[] = "gamefile.c";
 //		if (textures == NULL) {
 //			g_Menus[playernum].fm.unke40_01 = true;
 //			func0f15e5b8(align16(sizeof(struct perfectheadtexturelist)), 1);
-//			g_Menus[playernum].fm.headtextures = func00012ab0(align16(sizeof(struct perfectheadtexturelist)));
+//			g_Menus[playernum].fm.headtextures = memaAlloc(align16(sizeof(struct perfectheadtexturelist)));
 //		} else {
 //			g_Menus[playernum].fm.headtextures = textures;
 //			g_Menus[playernum].fm.unke40_01 = false;
