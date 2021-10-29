@@ -4679,7 +4679,7 @@ void bgInit(s32 stagenum)
 	bgInflate((u8 *)scratch, g_BgPrimaryData, primcompsize);
 
 	// Shrink the allocation (ie. free the scratch space)
-	memReallocate((u32)g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
+	memReallocate(g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
 
 	// Load the section 2 header
 	section2start = section1compsize + 0xc;
@@ -4720,7 +4720,7 @@ void bgInit(s32 stagenum)
 	if (i);
 
 	// Free section 2
-	memReallocate((u32)section2, 0, MEMPOOL_STAGE);
+	memReallocate(section2, 0, MEMPOOL_STAGE);
 
 	g_BgSection3 = section2start + section2compsize + 4;
 
@@ -8554,7 +8554,7 @@ glabel var7f1b75d0
 //			section3ptr++;
 //		}
 //
-//		memReallocate((u32)section3, 0, MEMPOOL_STAGE);
+//		memReallocate(section3, 0, MEMPOOL_STAGE);
 //
 //		// 64c
 //		for (s4 = 1; s4 < g_Vars.roomcount; s4++) {

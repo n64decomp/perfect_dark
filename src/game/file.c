@@ -4650,7 +4650,7 @@ void func0f1672a8(s32 filenum, void *ptr, u32 size, bool resizing)
 	g_FileInfo[filenum].unk04 = size;
 
 	if (resizing) {
-		memReallocate((u32) ptr, g_FileInfo[filenum].size, MEMPOOL_STAGE);
+		memReallocate(ptr, g_FileInfo[filenum].size, MEMPOOL_STAGE);
 	}
 }
 

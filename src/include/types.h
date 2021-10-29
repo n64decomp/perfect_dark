@@ -5110,11 +5110,11 @@ struct gecreditsdata {
 };
 
 struct memorypool {
-	/*0x00*/ u32 start;
-	/*0x04*/ u32 leftpos;
-	/*0x08*/ u32 rightpos;
-	/*0x0c*/ u32 end;
-	/*0x10*/ u32 prevallocation;
+	/*0x00*/ u8 *start;
+	/*0x04*/ u8 *leftpos;
+	/*0x08*/ u8 *rightpos;
+	/*0x0c*/ u8 *end;
+	/*0x10*/ u8 *prevallocation;
 };
 
 struct invitem_weap {

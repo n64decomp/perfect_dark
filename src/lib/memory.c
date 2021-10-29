@@ -42,10 +42,10 @@ void func000121e0(void)
  * Resizing an allocation is also supported, but only from the left side and
  * only if it's the most recent allocation.
  */
-void memInit(u32 heapstart, u32 heaplen)
+void memInit(u8 *heapstart, u32 heaplen)
 {
 	s32 i;
-	u32 extraend;
+	u8 *extraend;
 
 	for (i = 0; i < 9; i++) {
 		g_OnboardMemoryPools[i].start = 0;
@@ -68,9 +68,9 @@ void memInit(u32 heapstart, u32 heaplen)
 
 	// If 8MB, reserve the entire expansion pak for additional mempool 4
 #if VERSION >= VERSION_NTSC_1_0
-	extraend = 0x80000000 + bootGetMemSize();
+	extraend = (u8 *)(0x80000000 + bootGetMemSize());
 #else
-	extraend = 0x80000000 + osGetMemSize();
+	extraend = (u8 *)(0x80000000 + osGetMemSize());
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -79,7 +79,7 @@ void memInit(u32 heapstart, u32 heaplen)
 	if (osGetMemSize() > 4 * 1024 * 1024)
 #endif
 	{
-		g_ExpansionMemoryPools[MEMPOOL_STAGE].start = 0x80400000;
+		g_ExpansionMemoryPools[MEMPOOL_STAGE].start = (u8 *)0x80400000;
 		g_ExpansionMemoryPools[MEMPOOL_STAGE].rightpos = extraend;
 	}
 
@@ -102,9 +102,9 @@ u32 memGetPool4Available(void)
 	return free;
 }
 
-u32 memGetNextPool4Allocation(void)
+void *memGetNextPool4Allocation(void)
 {
-	u32 next;
+	void *next;
 
 	if (IS4MB()) {
 		next = g_OnboardMemoryPools[MEMPOOL_STAGE].leftpos;
@@ -115,80 +115,43 @@ u32 memGetNextPool4Allocation(void)
 	return next;
 }
 
-GLOBAL_ASM(
-glabel memAllocFromBank
-/*    12354:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*    12358:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    1235c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    12360:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    12364:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    12368:	008f2021 */ 	addu	$a0,$a0,$t7
-/*    1236c:	8c820004 */ 	lw	$v0,0x4($a0)
-/*    12370:	00a03825 */ 	or	$a3,$a1,$zero
-/*    12374:	14400003 */ 	bnez	$v0,.L00012384
-/*    12378:	00401825 */ 	or	$v1,$v0,$zero
-/*    1237c:	03e00008 */ 	jr	$ra
-/*    12380:	00601025 */ 	or	$v0,$v1,$zero
-.L00012384:
-/*    12384:	8c850008 */ 	lw	$a1,0x8($a0)
-/*    12388:	0047c021 */ 	addu	$t8,$v0,$a3
-/*    1238c:	00a2082b */ 	sltu	$at,$a1,$v0
-/*    12390:	50200004 */ 	beqzl	$at,.L000123a4
-/*    12394:	00b8082b */ 	sltu	$at,$a1,$t8
-/*    12398:	03e00008 */ 	jr	$ra
-/*    1239c:	00001025 */ 	or	$v0,$zero,$zero
-/*    123a0:	00b8082b */ 	sltu	$at,$a1,$t8
-.L000123a4:
-/*    123a4:	10200003 */ 	beqz	$at,.L000123b4
-/*    123a8:	0047c821 */ 	addu	$t9,$v0,$a3
-/*    123ac:	03e00008 */ 	jr	$ra
-/*    123b0:	00001025 */ 	or	$v0,$zero,$zero
-.L000123b4:
-/*    123b4:	ac990004 */ 	sw	$t9,0x4($a0)
-/*    123b8:	ac830010 */ 	sw	$v1,0x10($a0)
-/*    123bc:	00601025 */ 	or	$v0,$v1,$zero
-/*    123c0:	03e00008 */ 	jr	$ra
-/*    123c4:	00000000 */ 	nop
-);
+void *memAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum)
+{
+	u8 *allocation;
 
-//u32 memAllocFromBank(struct memorypool *pool, u32 size, u8 poolnum)
-//{
-//	u32 allocation;
-//
-//	pool += poolnum;
-//
-//	allocation = pool->leftpos;
-//
-//	if (pool->leftpos == 0) {
-//		return allocation;
-//	}
-//
-//	if (pool->leftpos > pool->rightpos) {
-//		return 0;
-//	}
-//
-//	if (pool->leftpos + size > pool->rightpos) {
-//		return 0;
-//	}
-//
-//	// Mismatch because allocation in the following statement should be
-//	// pool->leftpos, but when this is changed it reuses the computed
-//	// expression from above which results in different codegen.
-//	pool->leftpos = allocation + size;
-//	pool->prevallocation = allocation;
-//
-//	return allocation;
-//}
+	pool += poolnum;
+
+	allocation = pool->leftpos;
+
+	if (pool->leftpos == 0) {
+		return allocation;
+	}
+
+	if (pool->leftpos > pool->rightpos) {
+		return 0;
+	}
+
+	if (pool->leftpos + size > pool->rightpos) {
+		return 0;
+	}
+
+	pool->leftpos += size;
+	pool->prevallocation = allocation;
+
+	if (1);
+
+	return (void *)allocation;
+}
 
 void *malloc(u32 len, u8 pool)
 {
-	void *allocation = (void *)memAllocFromBank(g_OnboardMemoryPools, len, pool);
+	void *allocation = memAllocFromBank(g_OnboardMemoryPools, len, pool);
 
 	if (allocation) {
 		return allocation;
 	}
 
-	allocation = (void *)memAllocFromBank(g_ExpansionMemoryPools, len, pool);
+	allocation = memAllocFromBank(g_ExpansionMemoryPools, len, pool);
 
 	if (allocation) {
 		return allocation;
@@ -228,7 +191,7 @@ void *malloc(u32 len, u8 pool)
  * @dangerous: This function does not check the limits of the memory pool.
  * If it allocates past the rightpos of the pool it could lead to memory corruption.
  */
-s32 memReallocate(u32 allocation, s32 newsize, u8 poolnum)
+s32 memReallocate(void *allocation, s32 newsize, u8 poolnum)
 {
 	struct memorypool *pool = &g_OnboardMemoryPools[poolnum];
 	s32 origsize;
@@ -247,7 +210,7 @@ s32 memReallocate(u32 allocation, s32 newsize, u8 poolnum)
 
 	if (growsize <= 0) {
 		pool->leftpos += growsize;
-		pool->leftpos = ALIGN16(pool->leftpos);
+		pool->leftpos = (u8 *)ALIGN16((u32)pool->leftpos);
 		return 1;
 	}
 
