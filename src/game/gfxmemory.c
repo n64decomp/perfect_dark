@@ -179,9 +179,9 @@ void gfxSwapBuffers(void)
 	}
 }
 
-u32 gfxGetFreeGfx(long long *ptr)
+s32 gfxGetFreeGfx(Gfx *gdl)
 {
-	return (long long *)g_GfxBuffers[g_GfxActiveBufferIndex + 1] - ptr;
+	return (Gfx *)g_GfxBuffers[g_GfxActiveBufferIndex + 1] - gdl;
 }
 
 u32 gfxGetFreeVtx(void)

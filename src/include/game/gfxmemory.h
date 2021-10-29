@@ -12,5 +12,6 @@ void *gfxAllocate4Words(s32 count);
 void *gfxAllocateColours(s32 count);
 void *gfxAllocate(u32 size);
 void gfxSwapBuffers(void);
+s32 gfxGetFreeGfx(Gfx *gdl);
 
 #endif
