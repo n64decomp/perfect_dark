@@ -307,7 +307,7 @@ glabel mainInit
 /*     d284:	00000000 */ 	nop
 /*     d288:	0c0047dc */ 	jal	func000121e0
 /*     d28c:	00000000 */ 	nop
-/*     d290:	0c0049e7 */ 	jal	func00012a0c
+/*     d290:	0c0049e7 */ 	jal	memaInit
 /*     d294:	00000000 */ 	nop
 /*     d298:	0c004d3a */ 	jal	func00013758
 /*     d29c:	00000000 */ 	nop
@@ -710,7 +710,7 @@ glabel mainInit
 /*     d544:	00000000 */ 	nop
 /*     d548:	0c004878 */ 	jal	func000121e0
 /*     d54c:	00000000 */ 	nop
-/*     d550:	0c004a83 */ 	jal	func00012a0c
+/*     d550:	0c004a83 */ 	jal	memaInit
 /*     d554:	00000000 */ 	nop
 /*     d558:	0c004dd6 */ 	jal	func00013758
 /*     d55c:	00000000 */ 	nop
@@ -1107,7 +1107,7 @@ glabel mainInit
 /*     daac:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dab0:	0c004994 */ 	jal	func000121e0
 /*     dab4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     dab8:	0c004beb */ 	jal	func00012a0c
+/*     dab8:	0c004beb */ 	jal	memaInit
 /*     dabc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dac0:	0c004fea */ 	jal	func00013758
 /*     dac4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1499,7 +1499,7 @@ const char var70053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
 //	amgrAllocateStack();
 //	gvarsInit();
 //	func000121e0();
-//	func00012a0c();
+//	memaInit();
 //	func00013758();
 //	viConfigureForLogos();
 //	var8005d9b0 = rmonIsDisabled();
@@ -1874,7 +1874,7 @@ void mainLoop(void)
 			var8005d9b8 = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
 		}
 
-		func00012a14(malloc(var8005d9b8, MEMPOOL_STAGE), var8005d9b8);
+		memaHeapInit(malloc(var8005d9b8, MEMPOOL_STAGE), var8005d9b8);
 		stageLoadCommonLang(g_StageNum);
 		playersUnrefAll();
 
@@ -2324,7 +2324,7 @@ glabel mainLoop
 /*     e4ec:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     e4f0:	3c058006 */ 	lui	$a1,0x8006
 /*     e4f4:	8ca5f2d8 */ 	lw	$a1,-0xd28($a1)
-/*     e4f8:	0c004bed */ 	jal	func00012a14
+/*     e4f8:	0c004bed */ 	jal	memaHeapInit
 /*     e4fc:	00402025 */ 	or	$a0,$v0,$zero
 /*     e500:	3c048006 */ 	lui	$a0,0x8006
 /*     e504:	0fc02bf4 */ 	jal	stageLoadCommonLang

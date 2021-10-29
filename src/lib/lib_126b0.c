@@ -7,22 +7,27 @@
 #include "data.h"
 #include "types.h"
 
-struct allocation {
+struct memaspace {
 	u32 addr;
 	u32 size;
 };
 
+struct memaheap {
+	u32 unk000;
+	u32 unk004;
+	u32 unk008;
+	struct memaspace spaces[124];
+	u32 unk3ec;
+	u32 unk3f0;
+	u32 unk3f4;
+	s32 unk3f8;
+};
+
 u32 var80099470;
 u32 var80099474;
-u32 var80099478[249];
-u32 var8009985c;
-u32 var80099860;
-u32 var80099864;
-u32 var80099868;
-u32 var8009986c;
-u32 var80099870;
+struct memaheap g_MemaHeap;
 
-void memaSwap(struct allocation *a, struct allocation *b)
+void memaSwap(struct memaspace *a, struct memaspace *b)
 {
 	u32 tempaddr = a->addr;
 	u32 tempsize = a->size;
@@ -32,7 +37,7 @@ void memaSwap(struct allocation *a, struct allocation *b)
 	b->size = tempsize;
 }
 
-void memaMerge(struct allocation *a, struct allocation *b)
+void memaMerge(struct memaspace *a, struct memaspace *b)
 {
 	a->size += b->size;
 	b->addr = 0;
@@ -100,7 +105,7 @@ glabel func000126f0
 
 void func000127b8(void)
 {
-	while (func000126f0(var80099478));
+	while (func000126f0(&g_MemaHeap));
 }
 
 GLOBAL_ASM(
@@ -198,8 +203,8 @@ glabel func00012914
 /*    12930:	0019c880 */ 	sll	$t9,$t9,0x2
 /*    12934:	0329001a */ 	div	$zero,$t9,$t1
 /*    12938:	00003012 */ 	mflo	$a2
-/*    1293c:	3c0b800a */ 	lui	$t3,%hi(var80099478)
-/*    12940:	256b9478 */ 	addiu	$t3,$t3,%lo(var80099478)
+/*    1293c:	3c0b800a */ 	lui	$t3,%hi(g_MemaHeap)
+/*    12940:	256b9478 */ 	addiu	$t3,$t3,%lo(g_MemaHeap)
 /*    12944:	000650c0 */ 	sll	$t2,$a2,0x3
 /*    12948:	014b1021 */ 	addu	$v0,$t2,$t3
 /*    1294c:	8c480010 */ 	lw	$t0,0x10($v0)
@@ -242,11 +247,11 @@ glabel func00012914
 /*    129cc:	8c6efffc */ 	lw	$t6,-0x4($v1)
 .L000129d0:
 /*    129d0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    129d4:	3c04800a */ 	lui	$a0,%hi(var80099478)
+/*    129d4:	3c04800a */ 	lui	$a0,%hi(g_MemaHeap)
 /*    129d8:	55e00005 */ 	bnezl	$t7,.L000129f0
 /*    129dc:	8fb80018 */ 	lw	$t8,0x18($sp)
 /*    129e0:	0c004a00 */ 	jal	func00012800
-/*    129e4:	24849478 */ 	addiu	$a0,$a0,%lo(var80099478)
+/*    129e4:	24849478 */ 	addiu	$a0,$a0,%lo(g_MemaHeap)
 /*    129e8:	00401825 */ 	or	$v1,$v0,$zero
 /*    129ec:	8fb80018 */ 	lw	$t8,0x18($sp)
 .L000129f0:
@@ -259,81 +264,37 @@ glabel func00012914
 /*    12a08:	00000000 */ 	nop
 );
 
-void func00012a0c(void)
+void memaInit(void)
 {
 	// empty
 }
 
+void memaHeapInit(void *heapaddr, u32 heapsize)
+{
+	struct memaspace *space;
+
 #if VERSION >= VERSION_NTSC_1_0
-GLOBAL_ASM(
-glabel func00012a14
-/*    12a14:	3c03800a */ 	lui	$v1,%hi(var80099478)
-/*    12a18:	24639478 */ 	addiu	$v1,$v1,%lo(var80099478)
-/*    12a1c:	2406ffff */ 	addiu	$a2,$zero,-1
-/*    12a20:	ac6603ec */ 	sw	$a2,0x3ec($v1)
-/*    12a24:	ac6603f4 */ 	sw	$a2,0x3f4($v1)
-/*    12a28:	240effff */ 	addiu	$t6,$zero,-1
-/*    12a2c:	3c06800a */ 	lui	$a2,%hi(var8009985c)
-/*    12a30:	3c02800a */ 	lui	$v0,%hi(var80099478+0xc)
-/*    12a34:	24a508e0 */ 	addiu	$a1,$a1,0x8e0
-/*    12a38:	ac600000 */ 	sw	$zero,0x0($v1)
-/*    12a3c:	ac600004 */ 	sw	$zero,0x4($v1)
-/*    12a40:	ac600008 */ 	sw	$zero,0x8($v1)
-/*    12a44:	ac6003f0 */ 	sw	$zero,0x3f0($v1)
-/*    12a48:	ac6e03f8 */ 	sw	$t6,0x3f8($v1)
-/*    12a4c:	24429484 */ 	addiu	$v0,$v0,%lo(var80099478+0xc)
-/*    12a50:	24c6985c */ 	addiu	$a2,$a2,%lo(var8009985c)
-.L00012a54:
-/*    12a54:	24420008 */ 	addiu	$v0,$v0,0x8
-/*    12a58:	00c2082b */ 	sltu	$at,$a2,$v0
-/*    12a5c:	ac40fff8 */ 	sw	$zero,-0x8($v0)
-/*    12a60:	1020fffc */ 	beqz	$at,.L00012a54
-/*    12a64:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    12a68:	3c02800a */ 	lui	$v0,%hi(var80099470)
-/*    12a6c:	3c06800a */ 	lui	$a2,%hi(var80099474)
-/*    12a70:	24c69474 */ 	addiu	$a2,$a2,%lo(var80099474)
-/*    12a74:	24429470 */ 	addiu	$v0,$v0,%lo(var80099470)
-/*    12a78:	ac440000 */ 	sw	$a0,0x0($v0)
-/*    12a7c:	ac64000c */ 	sw	$a0,0xc($v1)
-/*    12a80:	acc50000 */ 	sw	$a1,0x0($a2)
-/*    12a84:	03e00008 */ 	jr	$ra
-/*    12a88:	ac650010 */ 	sw	$a1,0x10($v1)
-);
-#else
-GLOBAL_ASM(
-glabel func00012a14
-/*    12fb4:	3c03800a */ 	lui	$v1,0x800a
-/*    12fb8:	2463c3f8 */ 	addiu	$v1,$v1,-15368
-/*    12fbc:	2406ffff */ 	addiu	$a2,$zero,-1
-/*    12fc0:	ac6603ec */ 	sw	$a2,0x3ec($v1)
-/*    12fc4:	ac6603f4 */ 	sw	$a2,0x3f4($v1)
-/*    12fc8:	240effff */ 	addiu	$t6,$zero,-1
-/*    12fcc:	3c06800a */ 	lui	$a2,0x800a
-/*    12fd0:	3c02800a */ 	lui	$v0,0x800a
-/*    12fd4:	ac600000 */ 	sw	$zero,0x0($v1)
-/*    12fd8:	ac600004 */ 	sw	$zero,0x4($v1)
-/*    12fdc:	ac600008 */ 	sw	$zero,0x8($v1)
-/*    12fe0:	ac6003f0 */ 	sw	$zero,0x3f0($v1)
-/*    12fe4:	ac6e03f8 */ 	sw	$t6,0x3f8($v1)
-/*    12fe8:	2442c404 */ 	addiu	$v0,$v0,-15356
-/*    12fec:	24c6c7dc */ 	addiu	$a2,$a2,-14372
-.NB00012ff0:
-/*    12ff0:	24420008 */ 	addiu	$v0,$v0,0x8
-/*    12ff4:	00c2082b */ 	sltu	$at,$a2,$v0
-/*    12ff8:	ac40fff8 */ 	sw	$zero,-0x8($v0)
-/*    12ffc:	1020fffc */ 	beqz	$at,.NB00012ff0
-/*    13000:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    13004:	3c02800a */ 	lui	$v0,0x800a
-/*    13008:	3c06800a */ 	lui	$a2,0x800a
-/*    1300c:	24c6c3f4 */ 	addiu	$a2,$a2,-15372
-/*    13010:	2442c3f0 */ 	addiu	$v0,$v0,-15376
-/*    13014:	ac440000 */ 	sw	$a0,0x0($v0)
-/*    13018:	ac64000c */ 	sw	$a0,0xc($v1)
-/*    1301c:	acc50000 */ 	sw	$a1,0x0($a2)
-/*    13020:	03e00008 */ 	jr	$ra
-/*    13024:	ac650010 */ 	sw	$a1,0x10($v1)
-);
+	heapsize += 0x8e0; // ?!
 #endif
+
+	g_MemaHeap.unk3ec = 0xffffffff;
+	g_MemaHeap.unk3f4 = 0xffffffff;
+
+	g_MemaHeap.unk000 = 0;
+	g_MemaHeap.unk004 = 0;
+	g_MemaHeap.unk008 = 0;
+
+	g_MemaHeap.unk3f0 = 0;
+	g_MemaHeap.unk3f8 = -1;
+
+	for (space = &g_MemaHeap.spaces[0]; space <= &g_MemaHeap.spaces[123]; space++) {
+		space->addr = 0;
+		space->size = 0;
+	}
+
+	g_MemaHeap.spaces[0].addr = var80099470 = (u32)heapaddr;
+	g_MemaHeap.spaces[0].size = var80099474 = heapsize;
+}
 
 /**
  * Example printout of figures:
@@ -373,7 +334,7 @@ void memPrintInfoIfEnabled(void)
 	s32 over;
 	char buffer[124];
 
-	func000126f0(&var80099478);
+	func000126f0(&g_MemaHeap);
 
 #if VERSION < VERSION_NTSC_1_0
 	if (debugIsMemInfoEnabled()) {
@@ -460,12 +421,12 @@ glabel func00012ab0
 /*    12abc:	00809025 */ 	or	$s2,$a0,$zero
 /*    12ac0:	afb50028 */ 	sw	$s5,0x28($sp)
 /*    12ac4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    12ac8:	3c11800a */ 	lui	$s1,%hi(var80099478+0xc)
+/*    12ac8:	3c11800a */ 	lui	$s1,%hi(g_MemaHeap+0xc)
 /*    12acc:	3c078009 */ 	lui	$a3,%hi(g_Is4Mb)
 /*    12ad0:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    12ad4:	afb40024 */ 	sw	$s4,0x24($sp)
 /*    12ad8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    12adc:	26319484 */ 	addiu	$s1,$s1,%lo(var80099478+0xc)
+/*    12adc:	26319484 */ 	addiu	$s1,$s1,%lo(g_MemaHeap+0xc)
 /*    12ae0:	2404ffff */ 	addiu	$a0,$zero,-1
 /*    12ae4:	00004025 */ 	or	$t0,$zero,$zero
 /*    12ae8:	24e70af0 */ 	addiu	$a3,$a3,%lo(g_Is4Mb)
@@ -506,7 +467,7 @@ glabel func00012ab0
 /*    12b68:	24140008 */ 	addiu	$s4,$zero,0x8
 /*    12b6c:	0332082b */ 	sltu	$at,$t9,$s2
 /*    12b70:	10200006 */ 	beqz	$at,.L00012b8c
-/*    12b74:	3c13800a */ 	lui	$s3,%hi(var80099478)
+/*    12b74:	3c13800a */ 	lui	$s3,%hi(g_MemaHeap)
 /*    12b78:	8e29000c */ 	lw	$t1,0xc($s1)
 .L00012b7c:
 /*    12b7c:	26310008 */ 	addiu	$s1,$s1,0x8
@@ -515,11 +476,11 @@ glabel func00012ab0
 /*    12b88:	8e29000c */ 	lw	$t1,0xc($s1)
 .L00012b8c:
 /*    12b8c:	8e2a0000 */ 	lw	$t2,0x0($s1)
-/*    12b90:	26739478 */ 	addiu	$s3,$s3,%lo(var80099478)
+/*    12b90:	26739478 */ 	addiu	$s3,$s3,%lo(g_MemaHeap)
 /*    12b94:	56aa0017 */ 	bnel	$s5,$t2,.L00012bf4
 /*    12b98:	02204025 */ 	or	$t0,$s1,$zero
-/*    12b9c:	3c11800a */ 	lui	$s1,%hi(var80099478+0xc)
-/*    12ba0:	26319484 */ 	addiu	$s1,$s1,%lo(var80099478+0xc)
+/*    12b9c:	3c11800a */ 	lui	$s1,%hi(g_MemaHeap+0xc)
+/*    12ba0:	26319484 */ 	addiu	$s1,$s1,%lo(g_MemaHeap+0xc)
 .L00012ba4:
 /*    12ba4:	0c0049bc */ 	jal	func000126f0
 /*    12ba8:	02602025 */ 	or	$a0,$s3,$zero
@@ -679,11 +640,11 @@ glabel func00012ab0
 
 GLOBAL_ASM(
 glabel func00012c3c
-/*    12c3c:	3c0f800a */ 	lui	$t7,%hi(var80099478+0xc)
-/*    12c40:	8def9484 */ 	lw	$t7,%lo(var80099478+0xc)($t7)
-/*    12c44:	3c0e800a */ 	lui	$t6,%hi(var80099478+0xc)
+/*    12c3c:	3c0f800a */ 	lui	$t7,%hi(g_MemaHeap+0xc)
+/*    12c40:	8def9484 */ 	lw	$t7,%lo(g_MemaHeap+0xc)($t7)
+/*    12c44:	3c0e800a */ 	lui	$t6,%hi(g_MemaHeap+0xc)
 /*    12c48:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,%lo(var80099478+0xc)
+/*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,%lo(g_MemaHeap+0xc)
 /*    12c50:	00a03025 */ 	or	$a2,$a1,$zero
 /*    12c54:	10ef000c */ 	beq	$a3,$t7,.L00012c88
 /*    12c58:	01c01025 */ 	or	$v0,$t6,$zero
@@ -736,13 +697,13 @@ glabel func00012cdc
 /*    12ce0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12ce4:	0c0049ee */ 	jal	func000127b8
 /*    12ce8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    12cec:	3c0e800a */ 	lui	$t6,%hi(var80099478+0xc)
-/*    12cf0:	8dce9484 */ 	lw	$t6,%lo(var80099478+0xc)($t6)
+/*    12cec:	3c0e800a */ 	lui	$t6,%hi(g_MemaHeap+0xc)
+/*    12cf0:	8dce9484 */ 	lw	$t6,%lo(g_MemaHeap+0xc)($t6)
 /*    12cf4:	2405ffff */ 	addiu	$a1,$zero,-1
-/*    12cf8:	3c02800a */ 	lui	$v0,%hi(var80099478+0xc)
+/*    12cf8:	3c02800a */ 	lui	$v0,%hi(g_MemaHeap+0xc)
 /*    12cfc:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    12d00:	10ae000a */ 	beq	$a1,$t6,.L00012d2c
-/*    12d04:	24429484 */ 	addiu	$v0,$v0,%lo(var80099478+0xc)
+/*    12d04:	24429484 */ 	addiu	$v0,$v0,%lo(g_MemaHeap+0xc)
 /*    12d08:	8c430004 */ 	lw	$v1,0x4($v0)
 .L00012d0c:
 /*    12d0c:	0083082b */ 	sltu	$at,$a0,$v1
