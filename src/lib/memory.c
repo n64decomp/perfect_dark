@@ -297,38 +297,30 @@ void memDisablePool(u8 pool)
 	g_ExpansionMemoryPools[pool].rightpos = g_ExpansionMemoryPools[pool].end;
 }
 
-GLOBAL_ASM(
-glabel memAllocFromBankRight
-/*    125dc:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*    125e0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*    125e4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    125e8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*    125ec:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    125f0:	008f2021 */ 	addu	$a0,$a0,$t7
-/*    125f4:	8c820008 */ 	lw	$v0,0x8($a0)
-/*    125f8:	14400003 */ 	bnez	$v0,.L00012608
-/*    125fc:	00401825 */ 	or	$v1,$v0,$zero
-/*    12600:	03e00008 */ 	jr	$ra
-/*    12604:	00601025 */ 	or	$v0,$v1,$zero
-.L00012608:
-/*    12608:	8c830004 */ 	lw	$v1,0x4($a0)
-/*    1260c:	00453023 */ 	subu	$a2,$v0,$a1
-/*    12610:	0043082b */ 	sltu	$at,$v0,$v1
-/*    12614:	50200004 */ 	beqzl	$at,.L00012628
-/*    12618:	00c3082b */ 	sltu	$at,$a2,$v1
-/*    1261c:	03e00008 */ 	jr	$ra
-/*    12620:	00001025 */ 	or	$v0,$zero,$zero
-/*    12624:	00c3082b */ 	sltu	$at,$a2,$v1
-.L00012628:
-/*    12628:	10200003 */ 	beqz	$at,.L00012638
-/*    1262c:	00c01025 */ 	or	$v0,$a2,$zero
-/*    12630:	03e00008 */ 	jr	$ra
-/*    12634:	00001025 */ 	or	$v0,$zero,$zero
-.L00012638:
-/*    12638:	ac860008 */ 	sw	$a2,0x8($a0)
-/*    1263c:	03e00008 */ 	jr	$ra
-/*    12640:	00000000 */ 	nop
-);
+void *memAllocFromBankRight(struct memorypool *pool, u32 size, u8 poolnum)
+{
+	u8 *allocation;
+
+	pool += poolnum;
+
+	allocation = pool->rightpos;
+
+	if (allocation == 0) {
+		return allocation;
+	}
+
+	if (pool->rightpos < pool->leftpos) {
+		return 0;
+	}
+
+	if (pool->rightpos - size < pool->leftpos) {
+		return 0;
+	}
+
+	pool->rightpos -= size;
+
+	return (void *)pool->rightpos;
+}
 
 void *mallocFromRight(u32 len, u8 pool)
 {
