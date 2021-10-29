@@ -6265,7 +6265,7 @@ glabel var7f1b1fd4nb
 /*  f165b88:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165b8c:	10400004 */ 	beqz	$v0,.NB0f165ba0
 /*  f165b90:	02602025 */ 	or	$a0,$s3,$zero
-/*  f165b94:	0fc1307a */ 	jal	func0f04c1e8nb
+/*  f165b94:	0fc1307a */ 	jal	chrsRenderChrStats
 /*  f165b98:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f165b9c:	00409825 */ 	or	$s3,$v0,$zero
 .NB0f165ba0:
